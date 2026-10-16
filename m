@@ -1,78 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AEAE4C653E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:25:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3305C4C151C;
+	Fri, 16 Oct 2026 13:25:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157138; cv=none; b=BjJpJxSHR2rDq1hrPht1pBX3nWA9rrqcJpxpd86/5tOdEbN2RTrkMe00H1y17zjYBuNAIS4YztnsfIcyA6/Zf7yZYUI/9dvBjfPCYgtRAmxPKn0KO3flXpv5LOhClGYUk82BadUh7HILF7PCsvQA96RwqvR9Rr0cK3kUH+7wwDM=
+	t=1792157153; cv=none; b=sUoEfErgQnlDKwnZV18gNI7nEhiLij3YEMegSLoZrldfc3PoCTrAP6+oOYj7eprv0G9U1J2dXD+hsH0dP75wEfQ+Buj7L9LSL6VCOBiuQByCVOxyDMoTdmyGhVk6DacXf28V5vVpCSGNobqPxOLdxdd6KdL6fhmzhjEo6XkSLsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157138; c=relaxed/simple;
-	bh=OOfsqjjwGT2XW0d3NzFMALYw3bv/RKB74gN25shi37c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=i5XKRz6Op3AUsVHxQFdEh6iagnWbl+S1AsXvFjwVRkhhYzlL/c3CBk0q8GqwAWHu3Oj2nQST7BXzizbJ4YEMc3XepE5qB6PI10ypHFWKmBwRbpSJrsxG1F0wQzjMCqSf+8E3Zpxv0FubjWC9/qJKs9vgvTnUxtMURiWomVFN1Co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ETVryMf1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792157153; c=relaxed/simple;
+	bh=o/Ckp1rrM6kHYZ25eu+4PLt+sP/3DzaXCIN1wStsUS4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QIyZb50IBa+eGTQyFgcQRcCH7LGUFyt7+nLQNNkxbdlPeg7s9oKnYkdwlYH3cVZh93KF292kjMLAsLbaiiyQ00kRlB40n7BeJvbnTt2xAgS6SN5M8C1oxJSQ6rD9/7gxcMIAoBKW1dWWlj2ekqCRdGIVhtK7baunGD8T29Ejub8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cgW8WHP0; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ETVryMf1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43CF11F000C5
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:25:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792157137;
-	bh=OOfsqjjwGT2XW0d3NzFMALYw3bv/RKB74gN25shi37c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ETVryMf1B1rptGIiypQnb1K1s8dv4pBWjZrmcJ3XVLvy2TtLDyQUcgUOk0GzO+d7x
-	 3EdVentREYxaZZJp1p6ThdKr5SnDLk0fNJ3Nq3XrVcunsNj377zn1+AsieagH16SQj
-	 kN33zt1a+i0ocaRf01vCo3DlCcf8lfS084uBugofX84AXIiW6yP0OoqcLm7TIZOs/d
-	 K7lUwAtK3pK6CuxaKHpvQuaoWTXkRfooIoUA3WXmyk2WdG9apAFxcLcQxVZ8oot+xp
-	 /NUKm7EcbWaZdKTMoi3YRhJPD8uMNbxGH6qmGbn2vR6nrS3X1S3bxWKqpRwbf9tIUO
-	 Mht5QiZpZDnVw==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bce4e278baso1301669e87.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:25:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByVvanyBZy6Qp3le6F8kl4i/hrheCj32W5z9DQgzuS3X3o3ZkVa6qtvsF10E2KNwtx6cLOMpV5xvWaPd0g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKfi7jx64ze8EAHmdwD0bXG5qsMNGn/qqszxQtniJsMzIfhjg0v
-	iSmWkfc8mBsd8wOsbJwUVHNsT20KbI99DUKwjEMzSYrmZZOlhCzG+jN5xUnLvjvdMT9j/KCHtby
-	N7FnmFJcM+mpebhjbDa0I2AWr6J52+1o=
-X-Received: by 2002:a05:6512:3093:b0:5bc:f296:a12b with SMTP id
- 2adb3069b0e04-5be476e75b6mr1121631e87.26.1792157136001; Fri, 16 Oct 2026
- 06:25:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cgW8WHP0"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAEDEE3424962;
+	Fri, 16 Oct 2026 13:25:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=A1oGMJ
+	NudXu36XPK/yxV+yodSQqNeuzr6WgFF4E8wpw=; b=cgW8WHP0tcEwPbkwgMC0h+
+	MhSyL+6DoggdkX+LOnamLDX/LFTDPxdyEXLhsX6VZMNxf7BZbH+UT9R4peVbnWc8
+	vc8zWbd5AU9lREb+oY+gk0zAcSfm6mQO5l+iw8GOI9/r4cvNNkHpO4Nk4v4vUTKI
+	v+m738i/hqD3H+npVjse7ohz3vHu7fzoLfwXwvDSxFC/a/S2rNHo5Sva5rvKIqXM
+	YPTNx0xXQKioSmLTn/ce2Bg/v6Gu8N7QzB1NvMidwwIDqHEJApvUZjP+HPwLDGjm
+	WQ/zRAMv5USdK8mF74sl8K6vNQ9i4JDZ/RN0dYGHVg/S0gTQUG+c3v53l9HUYG7A
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwjevn4-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 16 Oct 2026 13:25:33 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAK3ro3580924;
+	Fri, 16 Oct 2026 13:25:32 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hawqww07j-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 16 Oct 2026 13:25:32 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69GDPS6e43647362
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 16 Oct 2026 13:25:28 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5FC7920043;
+	Fri, 16 Oct 2026 13:25:28 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 53C0220040;
+	Fri, 16 Oct 2026 13:25:25 +0000 (GMT)
+Received: from fedora (unknown [9.5.7.39])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri, 16 Oct 2026 13:25:25 +0000 (GMT)
+Date: Fri, 16 Oct 2026 19:03:44 +0530
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
+        Steven Rostedt <rostedt@goodmis.org>,
+        Masami Hiramatsu <mhiramat@kernel.org>,
+        linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+        Michal =?utf-8?B?U3VjaMOhbmVr?= <msuchanek@suse.de>,
+        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+        kvm-ppc@vger.kernel.org, Mark-PK Tsai <mark-pk.tsai@mediatek.com>,
+        stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] ring-buffer: Do not check si_mem_available() during
+ SYSTEM_BOOTING
+Message-ID: <20261016190235.cef361be-9e-amachhiw@linux.ibm.com>
+Mail-Followup-To: Vincent Donnefort <vdonnefort@google.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	Michal =?utf-8?B?U3VjaMOhbmVr?= <msuchanek@suse.de>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	Harsh Prateek Bora <harshpb@linux.ibm.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	kvm-ppc@vger.kernel.org, Mark-PK Tsai <mark-pk.tsai@mediatek.com>, stable@vger.kernel.org
+References: <20261009163557.88467-1-amachhiw@linux.ibm.com>
+ <20261009163557.88467-3-amachhiw@linux.ibm.com>
+ <as0NDyaXsfQnWPQ4@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015-cv75-gpio-v10-0-3fe3eb315a55@ambarella.com> <20261015-cv75-gpio-v10-2-3fe3eb315a55@ambarella.com>
-In-Reply-To: <20261015-cv75-gpio-v10-2-3fe3eb315a55@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 16 Oct 2026 15:25:23 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=6trsV8SxotPEHihmjLjP8M6GFjRYaLfdvBTSQBs2ASQ@mail.gmail.com>
-X-Gm-Features: AclHuK9w8mCxwQzii05uCSde21DPZaJUUbhYZYIq1rBPFEiwYVVS1D3meBR1CkA
-Message-ID: <CAD++jL=6trsV8SxotPEHihmjLjP8M6GFjRYaLfdvBTSQBs2ASQ@mail.gmail.com>
-Subject: Re: [PATCH v10 2/8] gpiolib: regmap: add GPIO_REGMAP_QUIRK_SET_AFTER_DIR
-To: longzhao@ambarella.com
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, 
-	Michael Walle <mwalle@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Conor Dooley <conor+dt@kernel.org>, 
-	devicetree@vger.kernel.org, Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <as0NDyaXsfQnWPQ4@google.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA1MiBTYWx0ZWRfX1B7DwnvE2ZEB
+ ZRiQKFd017ZkLJ6lx/GN0Yv/cIpG1mfbEPXwKjRV6HaJ6J5OfuVVXY2YF6Qcbl0+jCpe1AAGd+2
+ x2BcSvvOjBXzKhv5Wv8cqRDY+PUUtt8YMQrHC/Wk8tdqZ9FPabRSReZGVWxkeHlp1n3IGsExqKA
+ lMXlhyBqOCyWW6GlJbnEXDVWD5Rmc1DCwCKyEdoeaUQWpk+EC7950uKr1uqRr/8Y1HZhrIaFPXj
+ WNCX9XmloMkDNe3NJWx5pZI7Z3ICStyCShvrrQOMLwy1OuTJzToc9+VUmBJnjEGeVFXuWlzaLj3
+ 2aNsA3FjUovGHJRmjb/jzipIQbwCWxS+QUWpPKZeItGavknOe0a4f3LwkgKgn8yIC5hXMLT89vZ
+ 0CUp+yain6Hl+VX3kUh/iKs0sg66qTJkmsVaIZKNWOFAYF9QP22qD4uJCwOK4v4CD/QJ4IMxdjP
+ YJvJnPPtW4Z7TgPssDA==
+X-Proofpoint-GUID: BI2cxKGAEKJYjpJtdhn7B-QEcpA1kyCp
+X-Proofpoint-ORIG-GUID: qYdT_-xCKwD220TGgWg54Kp8opywLsvm
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA1MiBTYWx0ZWRfX8QDgacc7g/xQ
+ R45WROGLPAbi8OaA0R2kULYl5urC62K2wuewINkM1+Rm44n0HIYLOVTtchd4A32Evje1KsgqdRU
+ +wHkkM8pKRO1Ddbq93xCai2bVyWQeXQ=
+X-Authority-Analysis: v=2.4 cv=btHZl0ai c=1 sm=1 tr=0 ts=6ad225cd cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=dlV8YpW79Mn5UFwVz3cA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 phishscore=0 impostorscore=0 adultscore=0
+ lowpriorityscore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610160052
 
-On Thu, Oct 15, 2026 at 12:54=E2=80=AFPM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
+Hi Vincent,
 
-> From: Long Zhao <longzhao@ambarella.com>
->
-> Some controllers ignore output writes while a line is still an input.
-> Add a behaviour flag so the output value is written after the direction
-> change. This is a legacy quirk. New hardware must not use it.
->
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Reviewed-by: Michael Walle <mwalle@kernel.org>
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+Thanks for reviewing this patch.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+On 2026/10/12 05:38 PM, Vincent Donnefort wrote:
+> On Fri, Oct 09, 2026 at 10:05:57PM +0530, Amit Machhiwal wrote:
+> > During early boot (early_trace_init() called from start_kernel()),
+> > tracing allocates initial ring buffers (temp_buffer, array_buffer, and
+> > snapshot_buffer) for CPU 0.
+> > 
+> > Before attempting page allocation, __rb_allocate_pages() performs a
+> > heuristic check using si_mem_available() to return early with -ENOMEM if
+> > memory appears insufficient.
+> > 
+> > However, on kernels built with CONFIG_DEFERRED_STRUCT_PAGE_INIT=y,
+> > defer_init() leaves only a single section per node (e.g.  16 MiB with 64
+> > KB pages) initialized up-front.  On kernels with large static binary
+> > footprints (such as debug configurations enabling PAGE_OWNER,
+> > DEBUG_PAGEALLOC, KFENCE, or SLUB_DEBUG), the static kernel image and
+> > early core initialisations (SLUB caches, vmalloc, static ftrace records)
+> > consume virtually all managed pages in this initial pool.
+> > 
+> > At T=0.000000, watermarks have not yet been established
+> > (totalreserve_pages = 0), so si_mem_available() returns the raw free
+> > page count (often 0-1 pages).  When the snapshot buffer or global trace
+> > buffer attempts to allocate 2 sub-pages, si_mem_available() returns <
+> > nr_pages and prematurely aborts with -ENOMEM.
+> > 
+> > This failure is false: if the page allocation were actually attempted
+> > via alloc_pages_node(), the page allocator would trigger
+> > deferred_grow_zone() on demand to initialise additional deferred memory
+> > sections.  Checking si_mem_available() before attempting the allocation
+> > short-circuits this on-demand growth.
+> > 
+> > Skip the si_mem_available() check when system_state == SYSTEM_BOOTING.
+> > Once the system transitions past early boot and page_alloc_init_late()
+> > initialises all deferred memory, si_mem_available() accurately reflects
+> > system-wide free memory and the check operates as intended for runtime
+> > allocations.
+> > 
+> > Fixes: 2a872fa4e9c8 ("ring-buffer: Check if memory is available before allocation")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Michal Suchánek <msuchanek@suse.de>
+> > Closes: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
+> > Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+> > ---
+> >  kernel/trace/ring_buffer.c | 8 +++++++-
+> >  1 file changed, 7 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> > index 04bb94c29f58..a9f82e2f8fad 100644
+> > --- a/kernel/trace/ring_buffer.c
+> > +++ b/kernel/trace/ring_buffer.c
+> > @@ -2452,9 +2452,15 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
+> >  	 * memory. It may not be accurate. But we don't care, we just want
+> >  	 * to prevent doing any allocation when it is obvious that it is
+> >  	 * not going to succeed.
+> > +	 *
+> > +	 * Skip this check during early boot: with CONFIG_DEFERRED_STRUCT_PAGE_INIT,
+> > +	 * NR_FREE_PAGES only reflects the initial non-deferred pool at this
+> > +	 * stage. si_mem_available() returns a false negative while actual
+> > +	 * allocations succeed by growing the zone on demand via
+> > +	 * deferred_grow_zone().
+> 
+> As Sashiko pointed-out, if si_mem_available() is only ready after
+> page_alloc_init_late() when CONFIG_DEFERRED_STRUCT_PAGE_INIT, then checking for
+> system_state >= SYSTEM_FREEING_INITMEM might be more correct.
+> 
+> Also I wonder if we don't want to guard with CONFIG_DEFERRED_STRUCT_PAGE_INIT,
+> to keep the verification when CONFIG_DEFERRED_STRUCT_PAGE_INIT is unset.
 
-Yours,
-Linus Walleij
+Both suggestions adopted in v2 — using system_state >= SYSTEM_FREEING_INITMEM
+and wrapping in #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT.
+
+Thanks,
+Amit
