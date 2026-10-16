@@ -1,127 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www62.your-server.de (www62.your-server.de [213.133.104.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCA045D92B;
-	Fri, 16 Oct 2026 10:25:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA7B73E40E3;
+	Fri, 16 Oct 2026 10:25:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146330; cv=none; b=QmbPAKwt375sV302y6V2bw03A+FDK7aJPRPSysMT7kHN6AspePOI081teuTktnXxGq99eCszjJyGzFxVlgh97URCX9Otydw4+lnXYUOEWReMJQy2lxjXEAF+BDXd+o5v/x67hkPPPxMDZczirK5u7+7sGlKrqTkuSCmg0IGga7g=
+	t=1792146331; cv=none; b=cYYao7CSAJLBaHOUnjTzvWkNlG4ReiS+gldvyzJd1Y3LUCP4YXsxyvH/EAQZdJrWishmbxA3AhuesuEdDhVw8dxYmKt7OwT8Am4LuiN923SbPONbEs3/5ABB+2ezVkFFnT8M77TYhLpI8eU7pm+AndusYZGdanpU/jVg0I5YhA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146330; c=relaxed/simple;
-	bh=6AtTqDiPcer0wygrYchWhtMqGPa107TlaBg/sAjEKnU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rsufzljmM5blDW6x1djqh9DROH2fR7YKqC9aprwdsN1vdOVzYggUuohYFMkllDqv3ijy44Cg5DXtGVcX2SOtAURZ33yJV/3GGYK04aytqmeEZiJlK328zfV7/AUL7XW1krKf95KPBgt4oHyJvQg8/Lsoxiz73SxEGA97GNN5TuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DxTyAYfo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792146331; c=relaxed/simple;
+	bh=fjOAV6aOjxvcvXLXicN3XlwbhPGhh9bSPP0818d/eXY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IWH31F6aSU/R7akiwRO5MTae5qCKRbLUkZDUjHnXWrjV3FbSCWigB3eyrXvUhZGjNEHR9Lfs2FMvLTHa6ajGdkC4TmEtuOAvUrD7x3etxY0+wC/6FNfNDByAbg/24ndo5GxtYGvHL8Q0RiPwsN/CMXMSwl/fP9cclPd6JmY0W8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net; spf=pass smtp.mailfrom=iogearbox.net; dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b=a8oIbztX; arc=none smtp.client-ip=213.133.104.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iogearbox.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DxTyAYfo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36D311F000C5;
-	Fri, 16 Oct 2026 10:25:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792146328;
-	bh=L7CixjZvJoslx09K5vWKcAMed+dFpyeUYrXgbZox0Ag=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DxTyAYfoKsaQFxfYNNDxoSSLEHtAKtUv3s4QCjj6jokS57qZpMtw5XDL17Le34cu3
-	 CPxQjDA3oF2dUPIfv27zhhoAjn69wcxlvymzYzONGB+Iy0EfeuuyOOpNthIUD6FwQa
-	 zupM8nvZL2VHXTpwbc0BH1nmFF28LEBQ6UELTEdIYflZnFbcWq130lZ20x+yFHlMAn
-	 NDaO3g6oIvLGqHbyWbiZ+23i8vYfttUQRkHnSbFton+zBqGC0tw0jSf2XQQXvroRvl
-	 9P3TxAN0nBu4otczDEUdKlHQoKSc5Gkn9wvW4yfWBd1wlS8SJtih9fTlwnYsw6wHMV
-	 LqCbK79DcODPQ==
-From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL 15/19 for v7.4] vfs mount
-Date: Fri, 16 Oct 2026 12:24:28 +0200
-Message-ID: <20261016-vfs-7.4-rc1.mount-2dea99e7bb3b@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016-vfs-v74-41eaf6c4712c@brauner>
-References: <20261016-vfs-v74-41eaf6c4712c@brauner>
+	dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b="a8oIbztX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=iogearbox.net; s=default2302; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=dAFssueGI2YeIn7DG4ltEAeRdn0r+4XXsyyQqEkAn/g=; b=a8oIbztXMQRxtNoFzBq3M8hLTR
+	Rx+4oeCIgL71DQRpYzHXS8WYUSb28Kxr+TDnwlCgdpTJuB4GhJFG5cY/pU8I1Mujc8FOi3fQwY3aD
+	gG2g9TtzQcihrW+HMKPPAR0//76FM8PS6kmCqXALP8nTmndQkNAI5sJcqIaG7yvZqg3bIPIX9gqGr
+	ncovpKGnQFIIQbmCKlEqvn2ie1JQ5rSrSJwC/Y2Nrvpy0dWsJQXfXe4gx4BKnlhqPG9JhpuuU5L7P
+	+JVOVK5PdDdZDoyvskwfC8YX0/30ySH8E4NDNKQsf1ywcqhOcdeQ8/3DATnaVGjnVkNNKk+S89r4V
+	I+eOjbOQ==;
+Received: from sslproxy07.your-server.de ([78.47.199.104])
+	by www62.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1xHf7t-000Bjb-16;
+	Fri, 16 Oct 2026 12:25:25 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1xHf7s-0000JL-1G;
+	Fri, 16 Oct 2026 12:25:24 +0200
+Message-ID: <bc6ba1a7-8a96-4f0c-86a9-51a6e397f4ee@iogearbox.net>
+Date: Fri, 16 Oct 2026 12:25:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2978; i=brauner@kernel.org; h=from:subject:message-id; bh=6AtTqDiPcer0wygrYchWhtMqGPa107TlaBg/sAjEKnU=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRd/N3dE3T4sPv5nL5HRxWEC21ON81Lcbjl7VTmJit+X lLwgVZpRykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwETsLRj+By+/Nq/zy8oWy49B 5huvzW55PMfb6qj69H9MN2ZZSV5Un8/IsMYjbpbLOzGf5W/L4/jeM1gY3L6zjT3t8eFtXS+/hHz 2YQIA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v2] selftests/bpf: Record only the test ICMP echo
+ in tc8 of tc_netkit_scrub
+To: Qiliang Yuan <odys.yuan@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai
+ <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>,
+ Nikolay Aleksandrov <razor@blackwall.org>
+Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261016-selftests-bpf-tc-netkit-scrub-v2-1-b484a7ce2a63@gmail.com>
+Content-Language: en-US
+From: Daniel Borkmann <daniel@iogearbox.net>
+In-Reply-To: <20261016-selftests-bpf-tc-netkit-scrub-v2-1-b484a7ce2a63@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28155/Fri Oct 16 08:24:17 2026)
 
-Hey Linus,
-
-/* Summary */
-
-This adds OPEN_TREE_DROP_MNTNS_MOUNTS.
-
-crun started using OPEN_TREE_NAMESPACE to set up the container's mount
-namespace and open_tree(OPEN_TREE_CLONE) for the sources of its bind
-mounts. That fails on any host with a mount namespace pinned below such
-a source. The recursive clone picks the pinned namespace up and
-move_mount() refuses to attach the tree with ELOOP. Only a younger
-mount namespace may ever be bound into an older one or mount namespace
-references could form a loop. A namespace created with
-OPEN_TREE_NAMESPACE is younger than everything else on the system so
-from inside it every pinned namespace is older.
-By the time this fails setns() has run and the host tree is out of
-reach, so the runtime has to predict the situation beforehand and lose
-the optimization. snapd pins mount namespaces under /run/snapd/ns so on
-Ubuntu that is any container bind mounting the host root.
-
-Every other path crossing a mount namespace boundary already leaves
-these mounts behind, copy_mnt_ns() and create_new_namespace() both do.
-Only get_detached_copy() asks for them. The new flag lets a caller get
-a clone without them. It stays opt-in because open_tree(OPEN_TREE_CLONE)
-plus move_mount() is mount --rbind through a file descriptor and
-dropping them by default would silently lose /run/snapd/ns/*.mnt on a
-live system. It requires AT_RECURSIVE, is a no-op with
-OPEN_TREE_NAMESPACE and skips locked nsfs mounts the way copy_mnt_ns()
-does, so nothing new is exposed. Selftests are included.
-
-/* Testing */
-
-No build failures or warnings were observed.
-
-/* Conflicts */
-
-Merge conflicts with mainline
-=============================
-
-No known conflicts.
-
-Merge conflicts with other trees
-================================
-
-No known conflicts.
-
-The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907:
-
-  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
-
-are available in the Git repository at:
-
-  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.4-rc1.mount
-
-for you to fetch changes up to 062b32e4b55082f11b63dce22c78cd00fc6c7ed5:
-
-  Merge patch series "mount: add OPEN_TREE_DROP_MNTNS_MOUNTS" (2026-10-12 11:33:23 +0200)
-
-----------------------------------------------------------------
-vfs-7.4-rc1.mount
-
-Please consider pulling these changes from the signed vfs-7.4-rc1.mount tag.
-
-Thanks!
-Christian
-
-----------------------------------------------------------------
-Christian Brauner (1):
-      Merge patch series "mount: add OPEN_TREE_DROP_MNTNS_MOUNTS"
-
-Kir Kolyshkin (2):
-      mount: add OPEN_TREE_DROP_MNTNS_MOUNTS
-      selftests/filesystems: test OPEN_TREE_DROP_MNTNS_MOUNTS
-
- fs/namespace.c                                     |  16 +-
- include/uapi/linux/mount.h                         |   1 +
- .../filesystems/open_tree_ns/open_tree_ns_test.c   | 193 +++++++++++++++++++++
- 3 files changed, 208 insertions(+), 2 deletions(-)
+On 10/16/26 5:25 AM, Qiliang Yuan wrote:
+> tc_netkit_scrub attaches tc8 to the primary netkit device, sends an ICMP
+> echo with a mark and a priority through it, and checks the mark and the
+> priority that tc8 saw against what the scrub mode lets through.
+> 
+> tc8 records the mark and priority of every packet it sees, and the
+> device also carries what the system sends on its own once the device
+> is up, like IPv6 neighbor discovery or the mDNS of avahi-daemon. When
+> such a packet goes out after the echo, it overwrites what tc8 recorded,
+> and the test finds a mark and a priority of 0.
+> 
+> Record only IPv4 ICMP packets in tc8.
+> 
+> tc_netkit_scrub run 100 times on a bpf-next kernel with KASAN enabled,
+> x86_64 VM with 32 vCPUs and avahi-daemon running, before and after this
+> patch:
+> 
+>              before                                after
+>    outcome   2 of 100 failed (mark and priority 0)   0 of 100 failed
+> 
+> Fixes: 716fa7dadf11 ("selftests/bpf: Extend netkit tests to validate skb meta data")
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+> ---
+> V1 -> V2:
+> - Check the packet in tc8 the way tc1 and tc7 do, with
+>    __bpf_constant_htons() and a goto out for each check (Daniel)
+> - Add before/after data
+Looks good, took this into bpf-next, thanks!
