@@ -1,85 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642BC33F5AA;
-	Fri, 16 Oct 2026 01:10:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93122D0629;
+	Fri, 16 Oct 2026 01:11:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792113015; cv=none; b=dam5IDKGRBuCz52rXA+ayDCsoYWjrlci+vVIZit0LTDys+1lm1s9fM0DKp4EFmQdROO6oGq1TwS49V2Lv6zFZTarKMmTFGyzo/2QSRD2g2GdUr8DXoC+tWdlo0JekggRzSru39AHRiSmFaXPxArAGLFqp1ADWXP631vCjm1x/3c=
+	t=1792113062; cv=none; b=SoFCp9TO9DnUiJ2Le2YBBJj2KVAkwVJ7FrSNGiExzYjXXxeOzom2bRQTOVEl9nVZ3ZcHsZNbnF7/3BAHIPBamHdTPvqPF5V3CKPW8jka4t4+LnZd9zAodsnI/zYrOvImmCUw8yLMS+zqHVlGO4n2mnhULbAt5D7aW1pzgTV/gNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792113015; c=relaxed/simple;
-	bh=uKWmPriZqqzypHB6jm0jeSACUly6+POxaUEWZHb1XOE=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=PcYmszhcWOiF8CvTzCP2mO5elugRZLJHMCHC/tW5XK/NU6LebXlmfDfLNvlboZzkJPDqWgNsgMjiXRLIdZ0ZDbpB1PfNIKxNgSc/z8pj3LYnvtECUpWjc46btM+ATfQT6ihScAlEmN0J+dVAqvEq9NUDE0etSQqNu7gJ5elVyw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mlY1pQn7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792113062; c=relaxed/simple;
+	bh=hKukQIKuuZY1eN3Z0DFOHPngxOLprM3ztpY2NAAE5hY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e2nSmTLofHrKco/yM6/YWrkKtJPK+GUyn37oLv8RvoLnUzzhrJen1ztuAgxN8oixwlWzmGMakoyIIDXh/FJ3QHpyDNk4ETUJMAXoJ+Q5CK9WFp4mxjkoEK8D8xY8L7i/GbQ3EMHOec/6Tfu0+sSVgwdr1zmz5fMRmuyp3Uz3w9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZBpoF1p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mlY1pQn7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05F4E1F000C4;
-	Fri, 16 Oct 2026 01:10:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZBpoF1p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98F0F1F000C4;
+	Fri, 16 Oct 2026 01:10:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792113014;
-	bh=ZsmDfOR4MqlTvsluJlYS5l8ry4+iNBk487udyPZhM7M=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=mlY1pQn7BRTtQkxMAWtgS1RAm7/UI/IZsOz+9qfnGQy2C2x5ueEsvCySQM0pLMMPe
-	 YpKgeh1VrGmLcRLUjkdn8onAuMc7TsLfuz7/j9/T7pEpcbWLPdgojxeilQCklO1GJn
-	 qEIMys5hXC23JM88GLyifnCBS8weM+NCuYNcNMhQG0xpIYsliPq5Cz07md9NP7viLP
-	 StRhq+82LHMWn/SuXjcrqUtzIJsPLN2mAUtl//mIru85w3bABpYRIe5Izhcrh6diTn
-	 Q/eNv7iRCdXBdSsvzEuf8zrUIbpUrIK3Np1K7aDaQDyL+j2nDfWSvpPfPmGNjWEowp
-	 5zkJqXGQ5RcKg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F14D33808209;
-	Fri, 16 Oct 2026 01:10:13 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1792113060;
+	bh=Gy0GTYtWlDpyR0m+b26wiIWJBULFGvl96ytiTQvAVsA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mZBpoF1pt67ictOlEPIqLEsAFb82ekFTzY2Ya2jldZa0o0qRxvBcap3PkhhIRQJ9D
+	 xJ4LkFs72lc9e0GoqMN5+kmNKiGPOEW6914YIsXA2KRJXvbgto1QA0ZppXLxM23WP/
+	 zUVbpn4j4Zaj0+YYFgNicG/x8S68RZYiN/yfBCsv9rJn0UgaBcMECi4AHOcsWQh/rB
+	 gSoRwpCu3MJGzwbFnv/m72ycqmB+a7+b9QjTipHgalJPTNb0c2Ansx6QdlXkKQinlI
+	 Sssa6a/C199arCRD3xezyyRRkJPAVKj8lnc97DsdsgnOIOm/awSXfptasBRgcyClTh
+	 kPqmtIU8g5Dug==
+Date: Thu, 15 Oct 2026 18:10:56 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>
+Cc: Nicolas Schier <nsc@kernel.org>, linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Nam Cao <namcao@linutronix.de>,
+	kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH RFC] kbuild: enable pipefail for commands where possible
+Message-ID: <20261016011056.GB3329673@ax162>
+References: <20261014-kbuild-error-propagation-v1-1-573adaa0a076@linutronix.de>
+ <20261014214043.GA3380464@ax162>
+ <20261015121210-dbee14b9-538f-4069-8934-153456b3ccd3@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next] net/mlx5e: Rename state_destroy to
- rx_mode_active in
- flow steering
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179211301252.4187796.3489924200999581576.git-patchwork-notify@kernel.org>
-Date: Fri, 16 Oct 2026 01:10:12 +0000
-References: <20261011093100.769149-1-tariqt@nvidia.com>
-In-Reply-To: <20261011093100.769149-1-tariqt@nvidia.com>
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
- aleksandr.loktionov@intel.com, alazar@nvidia.com, cratiu@nvidia.com,
- dtatulea@nvidia.com, gal@nvidia.com, leon@kernel.org,
- linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, mbloch@nvidia.com,
- saeedm@nvidia.com, shshitrit@nvidia.com, sdf@fomichev.me,
- sdf.kernel@gmail.com
+In-Reply-To: <20261015121210-dbee14b9-538f-4069-8934-153456b3ccd3@linutronix.de>
 
-Hello:
+On Thu, Oct 15, 2026 at 12:15:18PM +0200, Thomas Weißschuh wrote:
+> It actually breaks modversions quite badly. And it is not obvious to debug
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Welp, good to know I wasn't very far off with that review comment :)
 
-On Sun, 11 Oct 2026 12:31:00 +0300 you wrote:
-> From: Alexei Lazar <alazar@nvidia.com>
+> as that uses the pipe in an `if` statement which swallows the 141 silently.
+
+Ah yeah, great point.
+
+> Not sure what to do here.
 > 
-> This flag controls the enablement of RX mode handling (promisc,
-> allmulti, broadcast, netdev addr sync). It acts as a safeguard
-> that prevents new FS (flow steering) operations during device
-> teardown. When the device is in destroying state it is set to
-> false to indicate RX mode operations are not allowed.
-> Its name is misleading, as it suggests a destroy-state flag
-> rather than RX mode activity. Rename it for clarity.
-> 
-> [...]
+> Maybe we just provide `try-pipefail` so users can opt-in where it makes sense.
 
-Here is the summary with links:
-  - [net-next] net/mlx5e: Rename state_destroy to rx_mode_active in flow steering
-    https://git.kernel.org/netdev/net-next/c/cdcb648a97eb
+Yeah, that seems like a much more reasonable starting point, as
+something like this should likely be considered on a case-by-case basis
+anyways.
 
-You are awesome, thank you!
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Cheers,
+Nathan
