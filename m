@@ -1,151 +1,320 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A8036195A
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:14:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB49939936E
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:16:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792163679; cv=none; b=nXWe//HlH2lbsUJvV6ZYwIgt8OcWcEnMw38uEpNNH0LlImSbTW4ZKlB35+ziB/x9NDRhdDKa8hQXuoXe2hzb23dVizWV7AfYu6iw8Dpgyv7D76+xTqKrZSL1jfiqXaRUaO3CEcGfceenrvCg5ZuDQsX58+5Cj6HzK225yIC5CgI=
+	t=1792163789; cv=none; b=eXGKdwtLt+JXbL2PVgAaFll3wRmztCyvr++8NI4qW4ZV6YGe2PTthOqu4ELg0kxSGl66X/8C9lN70L/zJb9SuYHs6ZfLPL49LsYoyJKRU+1PV049WbyzAF0SmPXDfsjRzgkKEvEwWS4Mi1xhmnQqOeIIq7Epx79e0CZyPLtTQ/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792163679; c=relaxed/simple;
-	bh=92uiVq59fzFjGpCucqYXpQiP1PRGnn4Y2IaAxSLoQFY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=td4u5CVbFjJuL2MiYS+J3ALWppEZ0+6wxda2DNZ4yj0VNm3i7VumMbjoYJwwheh+LggFPAOHiN4fC8IIU/TBv2927YepbN7zS41Lq8HJJ57v8vXMD8AVDtBuq02tiBCFRa6bDRT86vqJy645MUT1BHVHOUW15pLOpyO388KElds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LE03XN4r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792163789; c=relaxed/simple;
+	bh=0T8nPoNMgOqdF7z5uPbMmSFDyOYIKAAk2QROrE337UI=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=tFzKP3P7looun5RmHOpz9dWfXK54xtSrNN0YLM8eXx4OUukRhQx4mqHn23X3JJI7MPcrx/VEIc2tJcDPPiN3jSs5EaMorQhEmdqs1Bm9oR2PK8i23yGVWSTFu6JrKbdc43XSZ5UzIw40trcpYHhMd6Q4+tGT+9+xqBtIhuoLd0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IK2mD0Ko; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LE03XN4r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 895321F000C4;
-	Fri, 16 Oct 2026 15:14:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792163678;
-	bh=5v3J6WKP+bHQTvLWIIelf/Yrhn+GxWTc6CC2vGMgLRc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LE03XN4rEVcp7wnxG0PrnjlUqFydFo3JZdPbDyihq74fSLSK3hhifkR7kEAr/RDRy
-	 +dYgIf3llk1dFjn3QPsishW8AlpPi1OmuYsFxR4G2oP5tRPEwbUWCMDtJEFiNXPklb
-	 r+eSQf4ZGIFgRo3CJ5L84/TkoOvxH6/9da83AFC6+KPulonX9kkPgH2s+lR/o6HpQH
-	 AznufVTctKJgt0XqtEut1qTg3/Y+v6VkeLJg5anI/8bnmgqAHUWHUdV4iZzWvQgqgq
-	 XYEgJq1PQ+2OZxVeJDQJ7u6T/7Td2y3tNKMhml/K7NQUYyzHBw1Z152IzHe3fKOOhi
-	 2OUZps1SUKd2w==
-Message-ID: <e91e6388-633b-4ddd-b498-d03c7aa0fdb7@kernel.org>
-Date: Fri, 16 Oct 2026 17:14:32 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IK2mD0Ko"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ac0ae43900so115872a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:16:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792163787; x=1792768587; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kkz9qwzhE2sRNisNmhNGoIxw2/sntbeBAljOSEpieUM=;
+        b=IK2mD0Kox/al9yh6kZC2rET+OcmdK6Eb4FJqNnZ3Y1EVtPIMIgE7orGo4mjY2JnieG
+         A+aYFtl7nu627qIw4kwA3+YX6D6cq3Z9yC6YGueMRGLYG6RECL82+Hy3Gy2e6V2dakrU
+         8/E3vo1GHiqtnqdibVMR5ZfTAHRKqlV1b2wrCGg54/AFih0fERsirG6zQe0f0LKAGE7c
+         tVJtapFrxJeImB8vKvz3duKrDKLgtHPh4athoGTKLlCd6vRdtilDB+vIX6d4lQiLwjOS
+         OPR/W6sxK7O7Dk0ZMPmlT5lEedSr0MrYgNFxls+SWvx+/yAnzMuDih/naw4t9UXUqrCy
+         nbsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792163787; x=1792768587;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kkz9qwzhE2sRNisNmhNGoIxw2/sntbeBAljOSEpieUM=;
+        b=ha4q9onYlRhfZyrSBo175o7F5nGNFYqXemcI8tD/SE4d5z9hDrawmysEeQLmabdFmb
+         SG2eX97a7HPg6R7g04gmI/2SC7gTsBY8HwFsCllOa7bZxbLZy94wCfbpFiwHUDsLOqZp
+         aXFMp9EbbtDggM5uEJXmGznTaIkN/l+ZOF8PzXORBy4ovqMsbRhPQgz0CJyTl4r6vScS
+         AIH8mE3CzlYliP+4UA2yDQBg6j60K5qQPkCJ5hHm/YYd5gweOyQLE2reMncHCZ12V4f3
+         AcKgvIZwI9w0pgP79rb4yEn/peqHpVTY5+Ur+NZntAkIYFRG4WtCZ7Erv7ybkXoZwwG1
+         95fA==
+X-Forwarded-Encrypted: i=1; AKwUvBxOzCNxq2t/5mAW4K7u3EHTstNW0dVVz3R0c3EfHOR/vrUjdww70NxxibNqdHDdmaKXWaTif61HvmNCOSk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKnzVCc59oqCc7vr9T2fSOUlSVMZoyFChoU4htBTtDc85zYwj29
+	1Tg6m8rhYYa3kSc+h5VOpv/KHZwrgM0bOe+b2uaX9ctwo/UV62C/gVofW0WrlIdEMcEzDton9P6
+	7ZzQAsw==
+X-Received: from pjyp8.prod.google.com ([2002:a17:90a:e708:b0:3a8:8e16:d986])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4b90:b0:3a7:9045:fe29
+ with SMTP id 98e67ed59e1d1-3acee2796e7mr161252a91.4.1792163786755; Fri, 16
+ Oct 2026 08:16:26 -0700 (PDT)
+Date: Fri, 16 Oct 2026 08:16:26 -0700
+In-Reply-To: <20261016054954.GEatG7AgMNFRkiTo1H@fat_crate.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Improve page refcount scalability
-To: Kiryl Shutsemau <kirill@shutemov.name>,
- Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Ilya Gladyshev <ilya.gladyshev@linux.dev>,
- Matthew Wilcox <willy@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Luis Chamberlain <mcgrof@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux-MM <linux-mm@kvack.org>, "Paul E. McKenney" <paulmck@kernel.org>
-References: <CAHk-=wjLjgfwgSZ1RDk4YdNFcV0ntosMO5AmBoHD76Zb3HFY7Q@mail.gmail.com>
- <atI0edrmeiRuRtNQ@thinkstation>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <atI0edrmeiRuRtNQ@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <asP5xK4axiUk7jun@pcnci.linuxbox.cz> <aseMsMGpGPT/G548@pcnci.linuxbox.cz>
+ <20261008182356.GBasffvDuTemTu1VUY@fat_crate.local> <20261009090042.39ba9c06@pumpkin>
+ <aszH4vpXFAOQP1WG@pcnci.linuxbox.cz> <20261014235736.GCatAW8GD0GlYumL4l@fat_crate.local>
+ <20261015172820.7961d2c0def74d41cc6c4b0c@linux-foundation.org>
+ <20261016031242.GDatGWKo98YSOhEOOn@fat_crate.local> <20261015211832.45d87fab15bb3e0bbc2f47cb@linux-foundation.org>
+ <20261016054954.GEatG7AgMNFRkiTo1H@fat_crate.local>
+Message-ID: <atI_yuCc4BiweBQP@google.com>
+Subject: Re: hunting memory corruption bug in 6.18.x
+From: Sean Christopherson <seanjc@google.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Nikola Ciprich <nikola.ciprich@linuxbox.cz>, 
+	David Laight <david.laight.linux@gmail.com>, Rik van Riel <riel@surriel.com>, ljs@kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, david@kernel.org, 
+	Mike Rapoport <rppt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>, luizcap@redhat.com, 
+	pbonzini@redhat.com, Tal Zussman <tz2294@columbia.edu>, 
+	Matt Fleming <matt@readmodwrite.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On 10/16/26 16:40, Kiryl Shutsemau wrote:
-> On Tue, Oct 13, 2026 at 11:43:14AM -0700, Linus Torvalds wrote:
->> Comments?
+On Thu, Oct 15, 2026, Borislav Petkov wrote:
+> On Thu, Oct 15, 2026 at 09:18:32PM -0700, Andrew Morton wrote:
+> > The corruption patterns strongly resemble AMD VMCB state, particularly
+> > FS/GS segment data appearing at the expected VMCB offsets in unrelated
+> > host memory.
 > 
-> There's a regression: the lockless read loses on large reads from large
-> folios.
+> Aha, ok.
 > 
-> In a 64-vCPU guest on a Threadripper 7975WX, 1 MiB reads of a cached
-> ext4 file are 9% slower from one thread with rcu-free-v3 than without
-> it, 64K reads 4% slower.
+> > This suggests that a VMSAVE operation may have written to
+> > an incorrect physical address.  Ordinary KVM performs VMLOAD/VMSAVE
+> > without nested virtualization, so Boris's objection doesn't eliminate
+> > this possibility.  However, the relevant assembly is essentially
+> > unchanged between 6.18.55 and 7.3-rc6, and I haven't identified a newer
+> > commit that convincingly explains why the corruption apparently stopped
+> > reproducing.  The earlier candidate 55780d8a1dcc remains poorly
+> > motivated without evidence of nested virtualization.
+> > 
+> > Two investigations look worthwhile.  First, test 6.18.55 with both the
+> > KVM TLB-flush fix (26505e1b5b54)
 > 
-> The reference path looks a large folio up once and copies it in one go.
-> The lockless one walks i_pages from the root and calls
-> copy_page_to_iter() for every 4K page.
+> Pff, we've been looking at that one recently too, trying to figure out whether
+> it was really necessary.
 > 
-> I've added a cutoff to the lockless path: if the folio is large and the
-> read covers more than four of its pages, leave it to the slow path,
-> where one reference covers all of them.
+> > and tlbi=ipi;
 > 
-> 		if (folio != prev) {
-> 			if (!filemap_read_rcu_can_copy(folio, index, *last_index))
-> 				break;
-> 			/* Many pages of a large folio: one reference is cheaper */
-> 			if (folio_test_large(folio) &&
-> 			    min_t(unsigned long, folio_next_index(folio) - index,
-> 				  DIV_ROUND_UP(offset + iov_iter_count(iter),
-> 					       PAGE_SIZE)) > 4)
-> 				break;
-> 			prev = folio;
-> 		}
+> Yeah, we checked that, it ain't that.
 > 
-> With it, ext4 1 MiB reads match base and 64K reads are within 2%. Small
-> reads do not change. The cut is on the folio, not on the read size, so
-> files in 4K folios keep the gain on large reads: 1 MiB tmpfs reads from
-> one thread are ~30% faster than base.
+> > the existing results don't conclusively establish whether that combination
+> > was tested.  Second, examine the vmcore to determine whether the corrupted
+> > host pages contain complete FS/GS state matching a legitimate VMCB, rather
+> > than merely a few matching values.  If they do, inspect the VMCB's
+> > VMLOAD/VMSAVE interception and virtualization-enable bits.  That could
+> > establish whether a hardware VMSAVE was allowed to write to an unintended
+> > physical page.  The successful 7.3-rc6/rc7 testing is encouraging, but it
+> > doesn't yet prove that all the reported corruption symptoms share one cause
+> > or have been fixed.
 > 
-> Sounds reasonable?
-> 
-> I've pushed my tree here:
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/kas/linux.git rcu-free/rfc-v1
-> 
-> I'm thinking of posting it as an RFC to make it easier to review.
-> Objections?
+> Hmm. I guess looking at and around VMSAVE handling wouldn't hurt...
 
-Yes please. I spent 6 hours today fixing all sorts of bugs after wanting to get
-something rather trivial fixed.
+@Nikola, as very long long-shot, can you try running with the below?  I don't
+expect it to help or flag anything, but this is eerily similar to a known bug[*]
+where KVM writes to user memory in the wrong address space (wrong process) when
+tearing down a VM after migrating the VM.  But that bug (well, bugs) only affects
+Intel, and I don't see any similar patterns on the AMD side.
 
-I need the patch in my inbox to not get distracted by all the other stuff :)
+[*] https://lore.kernel.org/all/20261001202234.3794060-1-seanjc@google.com
 
--- 
-Cheers,
+diff --git a/arch/x86/kvm/vmx/sgx.c b/arch/x86/kvm/vmx/sgx.c
+index df1d0cf769475..fc0ae4727793b 100644
+--- a/arch/x86/kvm/vmx/sgx.c
++++ b/arch/x86/kvm/vmx/sgx.c
+@@ -63,7 +63,7 @@ static void sgx_handle_emulation_failure(struct kvm_vcpu *vcpu, u64 addr,
+ static int sgx_read_hva(struct kvm_vcpu *vcpu, unsigned long hva, void *data,
+ 			unsigned int size)
+ {
+-	if (__copy_from_user(data, (void __user *)hva, size)) {
++	if (kvm_copy_from_user(vcpu->kvm, data, (void __user *)hva, size)) {
+ 		sgx_handle_emulation_failure(vcpu, hva, size);
+ 		return -EFAULT;
+ 	}
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index f65081330c8a4..2dec1463b596c 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -3902,16 +3902,16 @@ static int init_rmode_tss(struct kvm *kvm, void __user *ua)
+ 	int i;
+ 
+ 	for (i = 0; i < 3; i++) {
+-		if (__copy_to_user(ua + PAGE_SIZE * i, zero_page, PAGE_SIZE))
++		if (kvm_copy_to_user(kvm, ua + PAGE_SIZE * i, zero_page, PAGE_SIZE))
+ 			return -EFAULT;
+ 	}
+ 
+ 	data = TSS_BASE_SIZE + TSS_REDIRECTION_SIZE;
+-	if (__copy_to_user(ua + TSS_IOPB_BASE_OFFSET, &data, sizeof(u16)))
++	if (kvm_copy_to_user(kvm, ua + TSS_IOPB_BASE_OFFSET, &data, sizeof(u16)))
+ 		return -EFAULT;
+ 
+ 	data = ~0;
+-	if (__copy_to_user(ua + RMODE_TSS_SIZE - 1, &data, sizeof(u8)))
++	if (kvm_copy_to_user(kvm, ua + RMODE_TSS_SIZE - 1, &data, sizeof(u8)))
+ 		return -EFAULT;
+ 
+ 	return 0;
+@@ -3946,7 +3946,7 @@ static int init_rmode_identity_map(struct kvm *kvm)
+ 	for (i = 0; i < (PAGE_SIZE / sizeof(tmp)); i++) {
+ 		tmp = (i << 22) + (_PAGE_PRESENT | _PAGE_RW | _PAGE_USER |
+ 			_PAGE_ACCESSED | _PAGE_DIRTY | _PAGE_PSE);
+-		if (__copy_to_user(uaddr + i * sizeof(tmp), &tmp, sizeof(tmp))) {
++		if (kvm_copy_to_user(kvm, uaddr + i * sizeof(tmp), &tmp, sizeof(tmp))) {
+ 			r = -EFAULT;
+ 			goto out;
+ 		}
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index 3c4e2401de072..13f44961e6e7d 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -1341,13 +1341,35 @@ int kvm_write_guest_offset_cached(struct kvm *kvm, struct gfn_to_hva_cache *ghc,
+ int kvm_gfn_to_hva_cache_init(struct kvm *kvm, struct gfn_to_hva_cache *ghc,
+ 			      gpa_t gpa, unsigned long len);
+ 
++static __always_inline __must_check bool kvm_can_do_uaccess(struct kvm *kvm)
++{
++	return !WARN_ON_ONCE(current->mm != kvm->mm ||
++			     !refcount_read(&kvm->users_count));
++}
++
++#define BUILD_KVM_COPY_USER_WRAPPER(fn, to_user, from_user)				\
++static __always_inline __must_check unsigned long kvm_##fn(struct kvm *kvm,		\
++							   void to_user *to,		\
++							   const void from_user *from,	\
++							   unsigned long n)		\
++{											\
++	if (!kvm_can_do_uaccess(kvm))							\
++		return n;								\
++											\
++	return __##fn(to, from, n);							\
++}
++BUILD_KVM_COPY_USER_WRAPPER(copy_from_user, , __user)
++BUILD_KVM_COPY_USER_WRAPPER(copy_from_user_inatomic, , __user)
++BUILD_KVM_COPY_USER_WRAPPER(copy_to_user, __user, )
++BUILD_KVM_COPY_USER_WRAPPER(copy_to_user_inatomic, __user, )
++
+ #define __kvm_get_guest(kvm, gfn, offset, v)				\
+ ({									\
+ 	unsigned long __addr = gfn_to_hva(kvm, gfn);			\
+ 	typeof(v) __user *__uaddr = (typeof(__uaddr))(__addr + offset);	\
+ 	int __ret = -EFAULT;						\
+ 									\
+-	if (!kvm_is_error_hva(__addr))					\
++	if (!kvm_is_error_hva(__addr) && kvm_can_do_uaccess(kvm))	\
+ 		__ret = get_user(v, __uaddr);				\
+ 	__ret;								\
+ })
+@@ -1367,7 +1389,7 @@ int kvm_gfn_to_hva_cache_init(struct kvm *kvm, struct gfn_to_hva_cache *ghc,
+ 	typeof(v) __user *__uaddr = (typeof(__uaddr))(__addr + offset);	\
+ 	int __ret = -EFAULT;						\
+ 									\
+-	if (!kvm_is_error_hva(__addr))					\
++	if (!kvm_is_error_hva(__addr) && kvm_can_do_uaccess(kvm))	\
+ 		__ret = put_user(v, __uaddr);				\
+ 	if (!__ret)							\
+ 		mark_page_dirty(kvm, gfn);				\
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index ba09b1dabc4b7..aa1564d41e7ff 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -3207,8 +3207,8 @@ static int next_segment(unsigned long len, int offset)
+ }
+ 
+ /* Copy @len bytes from guest memory at '(@gfn * PAGE_SIZE) + @offset' to @data */
+-static int __kvm_read_guest_page(struct kvm_memory_slot *slot, gfn_t gfn,
+-				 void *data, int offset, int len)
++static int __kvm_read_guest_page(struct kvm *kvm, struct kvm_memory_slot *slot,
++				 gfn_t gfn, void *data, int offset, int len)
+ {
+ 	int r;
+ 	unsigned long addr;
+@@ -3219,7 +3219,7 @@ static int __kvm_read_guest_page(struct kvm_memory_slot *slot, gfn_t gfn,
+ 	addr = gfn_to_hva_memslot_prot(slot, gfn, NULL);
+ 	if (kvm_is_error_hva(addr))
+ 		return -EFAULT;
+-	r = __copy_from_user(data, (void __user *)addr + offset, len);
++	r = kvm_copy_from_user(kvm, data, (void __user *)addr + offset, len);
+ 	if (r)
+ 		return -EFAULT;
+ 	return 0;
+@@ -3230,7 +3230,7 @@ int kvm_read_guest_page(struct kvm *kvm, gfn_t gfn, void *data, int offset,
+ {
+ 	struct kvm_memory_slot *slot = gfn_to_memslot(kvm, gfn);
+ 
+-	return __kvm_read_guest_page(slot, gfn, data, offset, len);
++	return __kvm_read_guest_page(kvm, slot, gfn, data, offset, len);
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_read_guest_page);
+ 
+@@ -3239,7 +3239,7 @@ int kvm_vcpu_read_guest_page(struct kvm_vcpu *vcpu, gfn_t gfn, void *data,
+ {
+ 	struct kvm_memory_slot *slot = kvm_vcpu_gfn_to_memslot(vcpu, gfn);
+ 
+-	return __kvm_read_guest_page(slot, gfn, data, offset, len);
++	return __kvm_read_guest_page(vcpu->kvm, slot, gfn, data, offset, len);
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_vcpu_read_guest_page);
+ 
+@@ -3283,8 +3283,8 @@ int kvm_vcpu_read_guest(struct kvm_vcpu *vcpu, gpa_t gpa, void *data, unsigned l
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_vcpu_read_guest);
+ 
+-static int __kvm_read_guest_atomic(struct kvm_memory_slot *slot, gfn_t gfn,
+-			           void *data, int offset, unsigned long len)
++static int __kvm_read_guest_atomic(struct kvm *kvm, struct kvm_memory_slot *slot,
++				   gfn_t gfn, void *data, int offset, unsigned long len)
+ {
+ 	int r;
+ 	unsigned long addr;
+@@ -3296,7 +3296,7 @@ static int __kvm_read_guest_atomic(struct kvm_memory_slot *slot, gfn_t gfn,
+ 	if (kvm_is_error_hva(addr))
+ 		return -EFAULT;
+ 	pagefault_disable();
+-	r = __copy_from_user_inatomic(data, (void __user *)addr + offset, len);
++	r = kvm_copy_from_user_inatomic(kvm, data, (void __user *)addr + offset, len);
+ 	pagefault_enable();
+ 	if (r)
+ 		return -EFAULT;
+@@ -3310,7 +3310,7 @@ int kvm_vcpu_read_guest_atomic(struct kvm_vcpu *vcpu, gpa_t gpa,
+ 	struct kvm_memory_slot *slot = kvm_vcpu_gfn_to_memslot(vcpu, gfn);
+ 	int offset = offset_in_page(gpa);
+ 
+-	return __kvm_read_guest_atomic(slot, gfn, data, offset, len);
++	return __kvm_read_guest_atomic(vcpu->kvm, slot, gfn, data, offset, len);
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_vcpu_read_guest_atomic);
+ 
+@@ -3328,7 +3328,7 @@ static int __kvm_write_guest_page(struct kvm *kvm,
+ 	addr = gfn_to_hva_memslot(memslot, gfn);
+ 	if (kvm_is_error_hva(addr))
+ 		return -EFAULT;
+-	r = __copy_to_user((void __user *)addr + offset, data, len);
++	r = kvm_copy_to_user(kvm, (void __user *)addr + offset, data, len);
+ 	if (r)
+ 		return -EFAULT;
+ 	mark_page_dirty_in_slot(kvm, memslot, gfn);
+@@ -3466,7 +3466,7 @@ int kvm_write_guest_offset_cached(struct kvm *kvm, struct gfn_to_hva_cache *ghc,
+ 	if (unlikely(!ghc->memslot))
+ 		return kvm_write_guest(kvm, gpa, data, len);
+ 
+-	r = __copy_to_user((void __user *)ghc->hva + offset, data, len);
++	r = kvm_copy_to_user(kvm, (void __user *)ghc->hva + offset, data, len);
+ 	if (r)
+ 		return -EFAULT;
+ 	mark_page_dirty_in_slot(kvm, ghc->memslot, gpa >> PAGE_SHIFT);
+@@ -3504,7 +3504,7 @@ int kvm_read_guest_offset_cached(struct kvm *kvm, struct gfn_to_hva_cache *ghc,
+ 	if (unlikely(!ghc->memslot))
+ 		return kvm_read_guest(kvm, gpa, data, len);
+ 
+-	r = __copy_from_user(data, (void __user *)ghc->hva + offset, len);
++	r = kvm_copy_from_user(kvm, data, (void __user *)ghc->hva + offset, len);
+ 	if (r)
+ 		return -EFAULT;
 
-David
