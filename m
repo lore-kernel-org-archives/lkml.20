@@ -1,85 +1,77 @@
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899EF4D0A19
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:48:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FE52D7817
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792165742; cv=none; b=Hq56Wo7MnjYnhgDUlcXa9CXXwTr44WEBJJ8v07lwvJ/waVOloVmDAA4hIffQrm5KCJ+LB0/bJfFSEN+VZunKCPwjTapPC/6eQ7kzWxJSH40b1hZidkD2J/nxVqILXqrRB8x5HEsuh3NuGoi4vw1mh2FT0tM4bCaM0z3y+GHXpRc=
+	t=1792165750; cv=none; b=PtGT3/YRnszfzSWloaeiUhYXqiTQV0UDEO/Xg0og+ZxrpdmERC57XMvQt3El+WUoPlO9Rky3OT5ND0d7mTeG86snr+9zgvY2XoqrJ92WlFXLmwP8SXH6qUkfmxCaHkXN5rQHjHsQjpFE0OMS02OFOwUatWePyWw9AqTZfJTpdaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792165742; c=relaxed/simple;
-	bh=ZOpuVxu/kULGJ+VOcTuckG//XM6UeL0Np1mFx6ntkGg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OfJFXBklJcvuft9jchTt2KNoar19s6lptQx5FqYMmUcBM6Gc2ZohnLC73uWcU8QOa+J229rkax3bcaJB0e62Dzh+/tiYgmbUFByxMs7EaeccQT27BPVHwuvaJ8kXaxYUM79fb+150ln4ih7LEFc5fylGX1kuZmQGsTKbN50dnLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EuJJH64B; arc=none smtp.client-ip=209.85.128.175
+	s=arc-20240116; t=1792165750; c=relaxed/simple;
+	bh=Mg0oCODIBACyyTpAxf8sGl7IMM7k1v/BkIjkqVQOlSk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tMtuBeVJgp6keX/b+1NUDxtCl7YTwF/f11s9vvvECjzHttTEwQ1FIcpyidgd4/5fAaQvue0LymRsXjzFIA37ySoqgN4eXdi1phooW3Yw11PTZc1SaR4z9vgFAJbFnczkw3o+I0ej+rUYQBY90qXj4ayNMhNK3vrvI+eFlymhSdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pg19tLgl; arc=none smtp.client-ip=209.85.161.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EuJJH64B"
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8726acc5eadso676827b3.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:48:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pg19tLgl"
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6dcf573c429so53875eaf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:49:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792165731; x=1792770531; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yXO8Pfx1V/MvWfozdYJmpTkdBIQMuHsAurvABJvdB4c=;
-        b=EuJJH64BceXP6y609JH8ti5wepSr6Gd9YlUOCFbn3ZDBJM0cqNReWAbyshtpaCMx1W
-         Bk4fcLEDuTZ+8RsnUMnG38fJx8fo5E7Zaj5c8aeL+t2LbytDZp8+vf5cqKCut1nvQ+Kn
-         eXzOD8EooSUnucW+eaDCFhbWuDcKpURo1glsyf1o7W7Cj7uxFk7FYHY+2/zUefstpRB/
-         bn5PIgHoHpeP408fX7g9RpnBaa0X9vt7m1w7cYUGLijSGd4n8OFW3wyXuoOBUBZuj2gp
-         GC2mj5sY4TQUqF6dcw/iCqY5GRuZwqQIFIQQMd8hMlujS3sHebCS2yw+if/IuVCRoIqo
-         Ejig==
+        d=gmail.com; s=20251104; t=1792165747; x=1792770547; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2DGvHsg3p95DZsVwADiFfgXPnEb5RStlDyPXgePKJCs=;
+        b=pg19tLglWmJo87uQ3qpHUz2sv55nmwfIrf0PBDuHSHD/qMYPMB7G1xJBYRrDkeFWO3
+         zTas81owjMA7t0QXVvCORYXt4rxj39YqoH7KIGoXIztOYHeeMiw5mAVCaVQPdb77C460
+         0EPTqRbrtJ4PkJIiF0yvQ7DnvsuZeWsGkhcTCT5eHOwcDIcoAi6h63tLlYPXnZ8sG01L
+         9hXOURw2Kxga4WbtANwcozZ6DYoQ5y2q2h8oPV57yHLvqHpCPGCGS7HazWimqwAF5FA6
+         PJmEVltxE38iH0gZP3TuTALsrvpWBwFR9+SX8pHN3CMAeJVV4svdlDronexK3i172FWb
+         hP2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792165731; x=1792770531;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yXO8Pfx1V/MvWfozdYJmpTkdBIQMuHsAurvABJvdB4c=;
-        b=JuGu+pjaZmiqR51QY44umnruD9w6FfwZFqbEsLK1X5HeNqrWbpZ/VH/Gzlx+8nNhXq
-         +q7DWOoH4DHw98RnbBKwAaxsDTtQlrAfbFG3FkrSMmEKO4JKCxp5FHvwSEFd7BV0yqkL
-         2BW9UfHBDttvIRYUGO4tgx9t/bDbrsp4YlS9NjJshb+6ioQHwWhBA+LKGRFJ/M6FHyV3
-         i6A89bPImffeA6WhA4+Wmn55hy1pu75fC7z4DBPhGPvcixM0lApwJ4TfgCIGifPvKTSz
-         XxlKEY+hEyrDAoUIy/+z7Ate+LjtAJYOPV0G4nQaLqWLarnbw7XqxupsByhc43domZ8b
-         k+4A==
-X-Forwarded-Encrypted: i=1; AKwUvByPXfBTe5jWPPfMk8ZyosTNJrODxeP1rebJUvhn6kw+SuMpY/Ta179OOdKCCqb3T5dEOB9yCJuJbd9e6fs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKppaeJPhWdCzQZugm+wIxwOTzIJDrc6BhXURTCHCMT6LVmFFjZ
-	0rd2h4423zyf7l3tDOyc5ykIJ1pP/62SU4WPS8XvLsTLxa9o2zvtn+6J
-X-Gm-Gg: AYBFou1LcXu/CI8anV/N+azK+S40maMkWU6/NcC2r2Tx3D1/9KAFMhbkL2No635kjYg
-	DvvI+RlBvJ5mWz1UKuoK3a7A7rtgsB/Eq+ODkOo7301z2OEJzKPupi4q6qkwJ7QOWrfCR2ODsda
-	JFM1llzCLeOk5bYfdarWC/G4SV5rMmdd3pkdLCrJ4rKpzJahAqKJhbn8OM9UnRVN8SjA9UTcPdR
-	2wb7kXr8JNUIQosMu7hTGJrjYpR0qTI3kdJuYXZWVzmhBt5K+3Orl33fFyd0hnHKMX4HrCK1uZP
-	vZlKF+SXded5TyDsq66l0sndREItfYPHs6yoGF54WLxf+D4BF5ODFle17W3JLfUqvnAYy467grI
-	SlgI2/WmLJK+Ug2sWmnywo8wR5Bbkb/rUqVtwQQXn8q3PTe4i8WJHXK4zIgD00Ho2BUmXrEv+JM
-	fqtXFl2sXe41Floh4FbH5VL89nIkzRI+aY8Z+JMDCJXrT6iULfenfykwSmGkWUkothj2Peh7pmC
-	ThznRlHfpnNXTtvLp3c6gsKusV6FzM60smRfL4=
-X-Received: by 2002:a05:690c:89:b0:8b0:d75a:9cf8 with SMTP id 00721157ae682-8b0f21e08admr1721857b3.41.1792165731215;
-        Fri, 16 Oct 2026 08:48:51 -0700 (PDT)
-Received: from localhost.localdomain ([180.243.241.21])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e593c65bsm10882167b3.38.2026.10.16.08.48.46
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 16 Oct 2026 08:48:50 -0700 (PDT)
-From: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Igor Korotin <igor.korotin@linux.dev>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: Alice Ryhl <aliceryhl@google.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Mark Brown <broonie@kernel.org>,
-	Brandon StJohn <branstj@gmail.com>,
-	linux-iio@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v6 4/4] iio: position: add Rust driver for ams AS5600
-Date: Fri, 16 Oct 2026 22:48:19 +0700
-Message-ID: <20261016154819.17936-5-muchamadcoirulanwar@gmail.com>
-X-Mailer: git-send-email 2.50.0
-In-Reply-To: <20261016154819.17936-1-muchamadcoirulanwar@gmail.com>
-References: <20261016154819.17936-1-muchamadcoirulanwar@gmail.com>
+        d=1e100.net; s=20260707; t=1792165747; x=1792770547;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2DGvHsg3p95DZsVwADiFfgXPnEb5RStlDyPXgePKJCs=;
+        b=wAfVfl/5gPzNGaOzGakmjLosV44knp5+TQarrWTW1/S3PL1Ozb7M5ZHdV3SYcMYgff
+         hGk96YyxG6YP7d5Zw9fcBCDKbRbCKgL1buZgNebVfX/baZlp9WULtNJyEgWUGqHxYTTn
+         0qSUzsmW8PwnxvZYY/c2UIW11aLtYccghqLGAwuwNxAz5/hJ42Du+Ez4v9jQR41TQosq
+         dACxTr41DmsNm1lwrTiKmIhBjLGox0TKvkmCZUiD8luaptc0w8k876GPHC0SNWMg4Fjk
+         9diLvrj0iAIa3GU6EcLQgBAtIpUGFIYNqAyAIho6L8C3j6CxYKJCi61xsltcBiRlwyaR
+         TNEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzP/UxikNJ1jcjB1UJqryaYPHhKAC8LOdOy73XYLPweikJYJmjqRh1QXvjkmL5ioFezOihWcnxsXUZs4c0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJYzlVXzag4B/bflq4OgCEeZT9ZZP3z1rmKEIEhnJFNQ9bYiQjD
+	ey8tKo7sD2NFwVSGqmVEa5GqdGxEcS3yvnz91hsypsqBVE4Za4h4Pj9IIvdkAF6Xd8Y=
+X-Gm-Gg: AYBFou0T0GJbK+Us+hkqSb41ucyfYLuABbIirYQ3rSfIYY/yu+7AewBjHwVvsPL7m0P
+	INQp1RQCK4is011n5XBNvwKcokMKQNhnrtjzgCxXz81T/CoPVH+rroMsSWY1if/KGxTYQzSHa2y
+	/WLbHhctjWwf4Lt63ajgy3W3Z+aos4LbCgagdKEUXqjd32UhSxrMnrofaA0uh1Wy//kOnsixrtC
+	30zJomiCvVS1pqc5AAoL/x088qhmUsl94BJI+QWtmtJ2iX83X9c1HiesGmWoefhsy7Y4pjEjGWO
+	gnQY3Gts3nYpJfWUHVtiw9uLtHY52H6DVxEPjl9oCcANotCXf+9ZquTK6DppOQQYI2BVRyNzWI0
+	AdN2aR/fVF8IQmitcpfQLPCYBb7GJ5pe8mUQ7p13pfgleo3XH6wXV+efY/O/MUW6RK9c/+JoR6c
+	oe0NbqIIMXjaO6GusTXD5Ut+j0J4qJTftiHO5mZgu+yVkHrI4Gl1FeRpwinNIfU9A/1ngTDeQWB
+	E/ZlqX7CsuFWE3HIHV9m4Q5V7HpdjGWY1DfUPdlp4fw9oC8wSg=
+X-Received: by 2002:a4a:e904:0:b0:6cd:3ffc:acf7 with SMTP id 006d021491bc7-6ef1049f172mr15635413eaf.71.1792165747551;
+        Fri, 16 Oct 2026 08:49:07 -0700 (PDT)
+Received: from casta ([2401:d800:20b:1196:6a2:5930:14e3:f74b])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a55ce9c6sm2084083a34.15.2026.10.16.08.49.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 08:49:06 -0700 (PDT)
+From: Nguyen Duy Nhat Anh <neganhat@gmail.com>
+To: justin.tee@broadcom.com
+Cc: nareshgottumukkala83@gmail.com,
+	paul.ely@broadcom.com,
+	hch@lst.de,
+	sagi@grimberg.me,
+	kch@nvidia.com,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Nguyen Duy Nhat Anh <neganhat@gmail.com>,
+	syzbot+be62d4b375542ecebd17@syzkaller.appspotmail.com
+Subject: [PATCH] nvmet-fc: skip port entry rebinding if already bound to a target port
+Date: Fri, 16 Oct 2026 22:48:06 +0700
+Message-ID: <20261016154807.9544-1-neganhat@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,287 +80,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a Rust driver for the ams AS5600 12-bit magnetic rotary position
-sensor.
+In nvmet_fc_portentry_rebind_tgt(), nvmet_fc_tgtlock serializes access to
+nvmet_fc_portentry_list, but does not prevent multiple concurrent or
+duplicate target port registrations from attempting to rebind to an
+already-assigned port entry.
 
-Expose the raw angle and scale through the IIO sysfs interface in direct
-mode. Read the status register before each angle sample and return
-ENODATA when the magnet-detected bit is clear. Serialize the status and
-angle transaction sequence with a mutex and propagate I2C transport
-errors directly to userspace.
+When pe->tgtport is non-NULL, WARN_ON() is triggered and pe->tgtport is
+overwritten, leading to kernel warnings and leaking the reference count
+acquired by nvmet_fc_tgtport_get().
 
-The AS5600 stores the raw angle with the high byte at register 0x0c.
-Use the byte-swapped SMBus word helper and mask the result to 12 bits.
+Fix this by checking if pe->tgtport is already set before acquiring a
+reference count and rebinding. If it is bound, skip the entry to prevent
+clobbering existing bindings.
 
-Signed-off-by: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
+Reported-by: syzbot+be62d4b375542ecebd17@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=be62d4b375542ecebd17
+Signed-off-by: Nguyen Duy Nhat Anh <neganhat@gmail.com>
 ---
- drivers/iio/position/Kconfig   |  11 ++
- drivers/iio/position/Makefile  |   1 +
- drivers/iio/position/as5600.rs | 177 +++++++++++++++++++++++++++++++++
- rust/kernel/bits.rs            |  29 ++++++
- 4 files changed, 218 insertions(+)
- create mode 100644 drivers/iio/position/as5600.rs
+ drivers/nvme/target/fc.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/position/Kconfig b/drivers/iio/position/Kconfig
-index 1576a6380b53..14ed4bef82e1 100644
---- a/drivers/iio/position/Kconfig
-+++ b/drivers/iio/position/Kconfig
-@@ -6,6 +6,17 @@
+diff --git a/drivers/nvme/target/fc.c b/drivers/nvme/target/fc.c
+index 1b557775e033..9b7fd8f5bd47 100644
+--- a/drivers/nvme/target/fc.c
++++ b/drivers/nvme/target/fc.c
+@@ -1324,7 +1324,9 @@ nvmet_fc_portentry_rebind_tgt(struct nvmet_fc_tgtport *tgtport)
+ 			if (!nvmet_fc_tgtport_get(tgtport))
+ 				continue;
  
- menu "Linear and angular position sensors"
- 
-+config AS5600
-+	tristate "ams AS5600 magnetic rotary position sensor"
-+	depends on I2C=y && RUST
-+	help
-+	  Support for the ams OSRAM AS5600 12-bit magnetic rotary
-+	  position sensor. Provides in_angl_raw (0-4095) and
-+	  in_angl_scale (radians per LSB) via sysfs.
+-			WARN_ON(pe->tgtport);
++			if (pe->tgtport)
++				continue;
 +
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called as5600.
-+
- config IQS624_POS
- 	tristate "Azoteq IQS624/625 angular position sensors"
- 	depends on MFD_IQS62X || COMPILE_TEST
-diff --git a/drivers/iio/position/Makefile b/drivers/iio/position/Makefile
-index d70902f2979d..2d26f6d6ace3 100644
---- a/drivers/iio/position/Makefile
-+++ b/drivers/iio/position/Makefile
-@@ -4,5 +4,6 @@
- 
- # When adding new entries keep the list in alphabetical order
- 
-+obj-$(CONFIG_AS5600) += as5600.o
- obj-$(CONFIG_HID_SENSOR_CUSTOM_INTEL_HINGE) += hid-sensor-custom-intel-hinge.o
- obj-$(CONFIG_IQS624_POS)	+= iqs624-pos.o
-diff --git a/drivers/iio/position/as5600.rs b/drivers/iio/position/as5600.rs
-new file mode 100644
-index 000000000000..b72775241e81
---- /dev/null
-+++ b/drivers/iio/position/as5600.rs
-@@ -0,0 +1,177 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Copyright (C) 2026 Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
-+//! Driver for ams AS5600 12-bit magnetic rotary position sensor.
-+//!
-+//! Exposes `in_angl_raw` and `in_angl_scale` through the IIO sysfs interface
-+//! in `INDIO_DIRECT_MODE`.
-+//!
-+//! Datasheet: AS5600, document DS000365.
-+
-+use kernel::{
-+    bindings::{
-+        iio_chan_info_enum_IIO_CHAN_INFO_RAW,
-+        iio_chan_info_enum_IIO_CHAN_INFO_SCALE,
-+        iio_chan_spec,
-+        iio_chan_type_IIO_ANGL,
-+        INDIO_DIRECT_MODE, //
-+    },
-+    bits::{
-+        bit_u8,
-+        bit_usize,
-+        genmask_u16, //
-+    },
-+    device::{
-+        Bound,
-+        Core, //
-+    },
-+    error::code::ENODATA,
-+    i2c::{
-+        DeviceId,
-+        Driver,
-+        I2cClient,
-+        IdTable, //
-+    },
-+    i2c_device_table,
-+    iio::{
-+        Device,
-+        IioChanInfo,
-+        IioDriver,
-+        IioVal, //
-+    },
-+    io::Io,
-+    module_i2c_driver,
-+    of,
-+    of_device_table,
-+    prelude::*,
-+    sync::{
-+        new_mutex,
-+        Mutex, //
-+    }, //
-+};
-+
-+const AS5600_REG_STATUS: u8 = 0x0B;
-+const AS5600_REG_RAW_ANGLE_H: u8 = 0x0C;
-+
-+const AS5600_STATUS_MD: u8 = bit_u8(5);
-+const AS5600_RAW_ANGLE_MASK: u16 = genmask_u16(0..=11);
-+
-+module_i2c_driver! {
-+    type: As5600,
-+    name: "as5600",
-+    authors: ["Muchamad Coirul Anwar"],
-+    description: "I2C Driver for ams OSRAM AS5600 Magnetic Rotary Position Sensor",
-+    license: "GPL",
-+}
-+
-+i2c_device_table!(
-+    I2C_TABLE,
-+    MODULE_I2C_TABLE,
-+    <As5600 as Driver>::IdInfo,
-+    [(DeviceId::new(c"as5600"), ())]
-+);
-+
-+of_device_table!(
-+    OF_TABLE,
-+    MODULE_OF_TABLE,
-+    <As5600 as Driver>::IdInfo,
-+    [(of::DeviceId::new(c"ams,as5600"), ())]
-+);
-+
-+struct As5600Channels([iio_chan_spec; 1]);
-+
-+// SAFETY: `iio_chan_spec` is a plain C struct with no interior mutability.
-+// All pointer fields (`event_spec`, `ext_info`, `extend_name`, etc.) are
-+// NULL - set via `zeroed()` and never reassigned - so no shared mutable
-+// state exists behind them. The static is a compile-time constant with no
-+// `&mut` access path, making concurrent shared access safe.
-+unsafe impl Sync for As5600Channels {}
-+
-+static AS5600_CHANNELS: As5600Channels = As5600Channels({
-+    // SAFETY: `iio_chan_spec` is a repr(C) struct where all-zeroes is valid
-+    // (integers default to 0, pointers to NULL).
-+    let mut chan: iio_chan_spec = unsafe { core::mem::zeroed() };
-+    chan.type_ = iio_chan_type_IIO_ANGL;
-+    chan.info_mask_separate = bit_usize(iio_chan_info_enum_IIO_CHAN_INFO_RAW)
-+        | bit_usize(iio_chan_info_enum_IIO_CHAN_INFO_SCALE);
-+    [chan]
-+});
-+
-+#[pin_data]
-+struct As5600Priv {
-+    #[pin]
-+    io_lock: Mutex<()>,
-+}
-+
-+// SAFETY: AS5600_CHANNELS contains one valid, immutable IIO_ANGL channel
-+// exposing only RAW and SCALE. It has no event or extension callbacks,
-+// and all optional pointer fields are null.
-+unsafe impl IioDriver for As5600Priv {
-+    fn read_raw(
-+        &self,
-+        parent: &kernel::device::Device<Bound>,
-+        _chan: *const iio_chan_spec,
-+        info: IioChanInfo,
-+    ) -> Result<IioVal> {
-+        match info {
-+            IioChanInfo::Raw => {
-+                let _guard = self.io_lock.lock();
-+                let client: &I2cClient<Bound> = parent.try_into()?;
-+
-+                let io = client.smbus_io();
-+                // Read status register to verify magnet presence before
-+                // reading the angle.
-+                let status = io.try_read8(AS5600_REG_STATUS as usize)?;
-+
-+                if (status & AS5600_STATUS_MD) == 0 {
-+                    return Err(ENODATA);
-+                }
-+
-+                // Word read at register 0x0C returns big-endian data.
-+                // smbus_read_word_swapped() handles the byte swap.
-+                let raw = client.smbus_read_word_swapped(AS5600_REG_RAW_ANGLE_H)?;
-+                let angle = raw & AS5600_RAW_ANGLE_MASK;
-+                Ok(IioVal::Int(angle as i32))
-+            }
-+            // Scale factor: radians per LSB = 2*pi / 4096 ~= 0.001533981
-+            IioChanInfo::Scale => Ok(IioVal::IntPlusNano(0, 1533981)),
-+        }
-+    }
-+
-+    fn channels(&self) -> &'static [iio_chan_spec] {
-+        &AS5600_CHANNELS.0
-+    }
-+}
-+
-+#[pin_data]
-+struct As5600 {
-+    _registration: (),
-+}
-+
-+impl Driver for As5600 {
-+    type IdInfo = ();
-+    type Data<'bound> = As5600;
-+
-+    const I2C_ID_TABLE: Option<IdTable<Self::IdInfo>> = Some(&I2C_TABLE);
-+    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
-+
-+    // `try_pin_init!` returns a concrete anonymous type that may expose more
-+    // bounds than the trait signature declares (e.g. auto-traits like `Send`).
-+    // This refinement of the RPITIT return type is intentional.
-+    #[allow(refining_impl_trait)]
-+    fn probe<'bound>(
-+        dev: &'bound I2cClient<Core<'_>>,
-+        _id_info: Option<&'bound Self::IdInfo>,
-+    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-+        try_pin_init!(As5600 {
-+            _registration: {
-+                let priv_init = pin_init!(As5600Priv {
-+                    io_lock <- new_mutex!(()),
-+                });
-+
-+                Device::build_device(dev.as_ref(), c"as5600", INDIO_DIRECT_MODE, priv_init)?
-+                    .register(&crate::THIS_MODULE)?;
-+                dev_dbg!(dev.as_ref(), "AS5600 magnetic position sensor ready\n");
-+            }
-+        })
-+    }
-+}
-diff --git a/rust/kernel/bits.rs b/rust/kernel/bits.rs
-index 2daead125626..a6537a668dd6 100644
---- a/rust/kernel/bits.rs
-+++ b/rust/kernel/bits.rs
-@@ -41,6 +41,7 @@ pub const fn [<bit_ $ty>](n: u32) -> $ty {
- impl_bit_fn!(u32);
- impl_bit_fn!(u16);
- impl_bit_fn!(u8);
-+impl_bit_fn!(usize);
- 
- macro_rules! impl_genmask_fn {
-     (
-@@ -203,3 +204,31 @@ pub const fn [<genmask_ $ty>](range: RangeInclusive<u32>) -> $ty {
-     /// assert_eq!(genmask_u8(0..=7), u8::MAX);
-     /// ```
- );
-+
-+impl_genmask_fn!(
-+    usize,
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// # #![expect(clippy::reversed_empty_ranges)]
-+    /// # use kernel::bits::genmask_checked_usize;
-+    /// assert_eq!(genmask_checked_usize(0..=0), Some(0b1));
-+    /// assert_eq!(genmask_checked_usize(0..=3), Some(0b1111));
-+    /// assert_eq!(genmask_checked_usize(1..=3), Some(0b1110));
-+    ///
-+    /// // `200` is out of the supported bit range on all platforms.
-+    /// assert_eq!(genmask_checked_usize(0..=200), None);
-+    ///
-+    /// // Invalid range where the start is bigger than the end.
-+    /// assert_eq!(genmask_checked_usize(5..=2), None);
-+    /// ```
-+    ,
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// # use kernel::bits::genmask_usize;
-+    /// assert_eq!(genmask_usize(0..=0), 0b1);
-+    /// assert_eq!(genmask_usize(0..=3), 0b1111);
-+    /// assert_eq!(genmask_usize(1..=3), 0b1110);
-+    /// ```
-+);
+ 			tgtport->pe = pe;
+ 			pe->tgtport = tgtport;
+ 			break;
 -- 
-2.50.0
+2.55.0
 
