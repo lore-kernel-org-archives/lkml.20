@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1178E39A04C
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66209283FCE
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135929; cv=none; b=nV5WvJXPY/eT1U47OQU53hhgfe27Ru/nejU7MmsLteUx2OzlG8XYmt1Bk1sCLnup0Z+10Ee5/C5WSoh/VmIQWMAUFGNuJxuCzzwJ6vnGBY8dCrSZWkCSHHjMVQ/M1dR4VOfEfSFdH6bVNa3JXwQHvSSMnymyyeuzocgmQgVT3zI=
+	t=1792135932; cv=none; b=tUbuyZOulAmU1NzaoLvF6bp7cyJEoG9i7H+vmLW1GTN6h0n/CT+DWM+4Lku8CgnqK18LNcyTmf9jBS7QZ7CW+PQL+mtsYOUz3hEUJXlBA264Sb0RHe51nccT3ASPcKxujLLDWhzLdDe3UkyIo5KwsilATdpa+6GYUkvYvpUxNrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135929; c=relaxed/simple;
-	bh=Eosq4HSwlZnbxs+Sj3CugmJo42pZqa8ZJ7QvTYvOScs=;
+	s=arc-20240116; t=1792135932; c=relaxed/simple;
+	bh=YCIetT5kjTkg2BMQMM7gF/Va5QfOxZ1GTYzmpwY1jug=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FEzLpN4g4PRUnZuHXPeMcAU0Yz78qBJt+tCiMJfmWe1IcUlXoVnpe2qHx9Vkl0UxE6CWhRMuDbh1EjhvkoWgfIZP3kDLc49fJxFKl8F6aDTLasgphdTFZ1nro7oIgfISjeUVOfzrZAzI/9FBUoX9F8hLAsyho/WlNXUYhS8yM0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQ5yzkFf; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=DejhFpK9wJXfUdvAEsCJo8pZ3vxP7arzqFaA1DS2MiZa8R0Ndt5UnwsBuTye2PxVoBm2jNjlzkk1+ZqizcA8BhKuTcjdvf7iwSpzIso8UqS2uK6HIYMqWDwjezGokRS3vrbQ0SaGo1mpBuosIAgkIPCPjCsN1za9xtogHjd8QPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UR9fry87; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQ5yzkFf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D7411F000C4;
-	Fri, 16 Oct 2026 07:32:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UR9fry87"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C73321F000C5;
+	Fri, 16 Oct 2026 07:32:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792135927;
-	bh=+5JlYCPOjs2Z7BXDEhIgV/W5EOCC9AIQbjCj+aN5IlI=;
+	s=k20260515; t=1792135931;
+	bh=G0WrUCjAIsPm3SYP1oy0wCtDhqnDyFdKOZoLiesKNL4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=KQ5yzkFfqvb4fF6iLOu+ZeRW2yPqMHXqDHKGpAC8pfesHoohIFxC9gALXAvvHocbW
-	 yAcfI2r+pKYipStt91NbzkllCdhkrQuzTCQN2ize3Tht6T6sXO5ONQKmi9pMjTlTz6
-	 U8R6Z3uPADGN/DsFFaw/XiWRb0HgaGLycP8cnsq7lYxz41Ziy13zxVU2BmDHD6XHLW
-	 FNrseHmeUWT6HcSpwJ87fxuS7/a+ozuCHSsyvKakrMGUL4HjtNFLL8YN2/fJSr9Iaj
-	 NxSLnz7IMRFj8qd234npOBSt00HdJxQxsA5tssaWOf7kjg+CxUPULx5VIOZrBnCTCG
-	 dVbg3eDLCz37Q==
+	b=UR9fry87HAZAt0axM43Pwd+LqgKXDl/ojVz5J2dUMJO0OsLGB72dl78lmo/MMaij4
+	 88fZNlTS9F73jYEdldVGK6ZruM96hfwAUdHY4ABxVj2aG3bIiKa+BS3WHv4L1/W/0A
+	 5T7dglTynH13/SlJ5UW6Pdoj/OXc8h9gKPjsRf8ZsAgU4B0EVVBfm0ay+vlGwTBAbh
+	 6geeIEomwamyOD9cwIjwVjqJ88wvlZPlo+Jyc+lO8zV2YqGktF+pdcBvpDbKAGaUX2
+	 ei+I+4QnqKJs+J8kPlkAdXUcUla01iPA18F0hNAQ77y9Aq2g8B4wWKcrNJKOCxAVSD
+	 ipoJdSdQOi63A==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 16 Oct 2026 09:31:35 +0200
-Subject: [PATCH v5 03/14] drm/atomic: Use __GFP_ZERO instead of explicit
- memset in drm_atomic_get_connector_state()
+Date: Fri, 16 Oct 2026 09:31:36 +0200
+Subject: [PATCH v5 04/14] drm/atomic: Create function to insert CRTC state
+ into a commit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-drm-reset-state-flag-v5-3-dad2d64b693b@kernel.org>
+Message-Id: <20261016-drm-reset-state-flag-v5-4-dad2d64b693b@kernel.org>
 References: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
 In-Reply-To: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -57,56 +57,94 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1611; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Eosq4HSwlZnbxs+Sj3CugmJo42pZqa8ZJ7QvTYvOScs=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkXLz1y9j/BF1ScfvBT5drCu6m3C30TXnpcYd1gxbty9
- 1OtK2KhHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiOScZ6xMrOK3dptvbyvAV
- HJ3Z+cfat7FbYuG7o/unRUx32aK3qzXdTUSz08Ejln3+otnTBUScGeu0LHS8qrY3/v3NP+flgrr
- 761Xepfx8vmDvEwVdB/duuaB9134ovO21NYhM/vO7KXV2khYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2711; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=YCIetT5kjTkg2BMQMM7gF/Va5QfOxZ1GTYzmpwY1jug=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkXLz1i2XPfQrAr291+3eQwvhs5Qbe3cYYL/Jqd3Fn6h
+ fHVUrXNHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiC0UZ6yOZe3IPLWVdGS33
+ /sKyY+ylt+5apN6cpr+upOuXQa7+/T7LQlGPAG/djz5nHRctmKy+i7HO8m/+T3tD9Q3RqnKx57P
+ PRro+L4o+tGNZTKB3/CSRfwt+Vnv/+bDTgCHc6zXr1nNCJ38AAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-The drm_atomic_get_connector_state() function grows the connectors array
-with krealloc_array() when the requested connector index exceeds the
-current allocation, then zeroes the new entries with a separate memset()
-call.
+drm_atomic_get_crtc_state() allocates a new CRTC state by duplicating
+the current one and inserts it into the atomic commit as a single
+operation.
 
-Since krealloc_array() supports the __GFP_ZERO flag to zero newly
-allocated memory, the explicit memset() is unnecessary.
+However, a later change will need to insert a CRTC state into a
+commit without going through the full allocation and duplication path
+in drm_atomic_get_crtc_state().
 
-Pass __GFP_ZERO to krealloc_array() and drop the manual memset().
+Extract the state insertion logic into a new static
+drm_atomic_commit_set_crtc_state() helper, and convert
+drm_atomic_get_crtc_state() to use it.
 
-Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 43b58e9b25e4..80436adcfb7f 100644
+index 80436adcfb7f..178eca95d0e3 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1388,18 +1388,15 @@ drm_atomic_get_connector_state(struct drm_atomic_commit *state,
- 	if (index >= state->num_connector) {
- 		struct __drm_connnectors_state *c;
- 		int alloc = max(index + 1, config->num_connector);
+@@ -431,10 +431,25 @@ void __drm_atomic_commit_free(struct kref *ref)
  
- 		c = krealloc_array(state->connectors, alloc,
--				   sizeof(*state->connectors), GFP_KERNEL);
-+				   sizeof(*state->connectors), GFP_KERNEL | __GFP_ZERO);
- 		if (!c)
- 			return ERR_PTR(-ENOMEM);
+ 	drm_dev_put(dev);
+ }
+ EXPORT_SYMBOL(__drm_atomic_commit_free);
  
- 		state->connectors = c;
--		memset(&state->connectors[state->num_connector], 0,
--		       sizeof(*state->connectors) * (alloc - state->num_connector));
--
- 		state->num_connector = alloc;
- 	}
++static void drm_atomic_commit_set_crtc_state(struct drm_atomic_commit *commit,
++					     struct drm_crtc *crtc,
++					     struct drm_crtc_state *crtc_state)
++{
++	int index = drm_crtc_index(crtc);
++
++	drm_modeset_lock_assert_held(&crtc->mutex);
++
++	commit->crtcs[index].state_to_destroy = crtc_state;
++	commit->crtcs[index].old_state = crtc->state;
++	commit->crtcs[index].new_state = crtc_state;
++	commit->crtcs[index].ptr = crtc;
++	crtc_state->state = commit;
++}
++
+ /**
+  * drm_atomic_get_crtc_state - get CRTC state
+  * @state: global atomic state object
+  * @crtc: CRTC to get state object for
+  *
+@@ -453,11 +468,11 @@ EXPORT_SYMBOL(__drm_atomic_commit_free);
+  */
+ struct drm_crtc_state *
+ drm_atomic_get_crtc_state(struct drm_atomic_commit *state,
+ 			  struct drm_crtc *crtc)
+ {
+-	int ret, index = drm_crtc_index(crtc);
++	int ret;
+ 	struct drm_crtc_state *crtc_state;
  
- 	connector_state = drm_atomic_get_new_connector_state(state, connector);
- 	if (connector_state)
+ 	WARN_ON(!state->acquire_ctx);
+ 	drm_WARN_ON(state->dev, state->checked);
+ 
+@@ -471,15 +486,11 @@ drm_atomic_get_crtc_state(struct drm_atomic_commit *state,
+ 
+ 	crtc_state = crtc->funcs->atomic_duplicate_state(crtc);
+ 	if (!crtc_state)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	state->crtcs[index].state_to_destroy = crtc_state;
+-	state->crtcs[index].old_state = crtc->state;
+-	state->crtcs[index].new_state = crtc_state;
+-	state->crtcs[index].ptr = crtc;
+-	crtc_state->state = state;
++	drm_atomic_commit_set_crtc_state(state, crtc, crtc_state);
+ 
+ 	drm_dbg_atomic(state->dev, "Added [CRTC:%d:%s] %p state to %p\n",
+ 		       crtc->base.id, crtc->name, crtc_state, state);
+ 
+ 	return crtc_state;
 
 -- 
 2.55.0
