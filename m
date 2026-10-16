@@ -1,132 +1,102 @@
-Received: from out28-221.mail.aliyun.com (out28-221.mail.aliyun.com [115.124.28.221])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528B512B94;
-	Fri, 16 Oct 2026 07:09:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137E840BCDF
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:09:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792134559; cv=none; b=n7dlE0Bv7QoNeUFbJwYZ/eqJygPqqDTBGMm7BnJ8X6nEGbxpljNVH7Q44qDVIdNRDvaU2Mma/vm1S2TInDW/wxu+HpYVzmNMDX8q2oJxQBc7skgTk7AvZz6URhaCo/tpvDMUDF/C+d/vRjfNC1a7Ni+R4mp5gR0sNa1cfjSQyYo=
+	t=1792134561; cv=none; b=Vdjf/lFFKV66M3IC9o+eFtS09ROdhNrwOKFH8BQyuiGfKo3EOWootxoySRtKKIspBcNjnsg1EZJvfhPECBaGn+W6Z7EkBd6nVzKhXdH/d/X4tAHkuQgCrz+O9mltuxNrpmC7yz//BsbFFDlZ2tAHPVA5ZIyKdRjnOeGqg/kyMwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792134559; c=relaxed/simple;
-	bh=JGhbFoMjIp2HJITS9fWWLGbxGA1uhdBDi0HItF4IXs0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n/lOgrxZoKUdz+x79FXVtDnGm4i0xNsJMMmL90gMKpeVrz9Ydggr12EYd0AUdgiqp7yZF7FoPuF/Wgrj1d8H7sS35IKOdMsxaL7oZalaYOXGHTrdfwsVNIOyp/uNEL5TPj6JDHJl3YSiT1dCAo7aZQJ8MeeuuPHb7ZNqGY9O25A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=b02fXNNw; arc=none smtp.client-ip=115.124.28.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1792134561; c=relaxed/simple;
+	bh=7u5uXFr/kllFPjm0yKvFh4Nh9jNlNzOhyrdlf9hUvZA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ItdCmTOn3DnFroze14rQ/OIPAp6w73JLoz5OrWdL3DpiqYcWumGL26xE8Ec5JfAlCP3dyz7x0AJ44DuLuzTNWvho+SJffn9n7xOG4Y7/QhO2P7p9g7aB4haDIwBa0lyWvdq0FO34lAhT/9vJUNC0zoEDzzNc9kzdzLUHAxqpNVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i+GL2vJp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="b02fXNNw"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1792134546; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=mMUKFStFuGDOgA3Mp4/58wDT/3w5ShHljK9O89VxF6c=;
-	b=b02fXNNwIc2Jcw+skDeIHpSeJGNC6Tr2Rr1yhCygLjCUF8u7Q2DTAyKW3w3QGV2b2BqbZKDxa+WOMV83ECZMCh7DhkpQ2m+Yi8JR5sc5fHKHAewDL5MFNJmWQYiSmrV268zHA1/G3VovDov9S9aDW5ZUQD2Or3zrSnh/GnO2n7o=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07471094|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.226883-0.00234884-0.770768;FP=10254528247144974291|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083013073;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=11;RT=11;SR=0;TI=SMTPD_---.jg64wPY_1792134544;
-Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jg64wPY_1792134544 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 16 Oct 2026 15:09:05 +0800
-From: Weibin Liu <liuwb@xiaopeng.com>
-To: suganath-prabu.subramani@broadcom.com,
-	sreekanth.reddy@broadcom.com,
-	sathya.prakash@broadcom.com,
-	ranjan.kumar@broadcom.com,
-	linux-scsi@vger.kernel.org
-Cc: MPT-FusionLinux.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	James.Bottomley@HansenPartnership.com,
-	mkp@kernel.org,
-	stable@vger.kernel.org,
-	Guanglei Zhu <zhugl3@xiaopeng.com>
-Subject: [PATCH v2] scsi: mpt3sas: fix OOB SGE write at the request frame boundary
-Date: Fri, 16 Oct 2026 15:09:03 +0800
-Message-ID: <20261016070904.3566806-1-liuwb@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <sashiko-outbox-172135@kernel.org>
-References: <sashiko-outbox-172135@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i+GL2vJp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7AD21F000C4;
+	Fri, 16 Oct 2026 07:09:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792134559;
+	bh=e1AqkV8YwWc9VSlf9Xpn+R39QPSGxhBbbDZwM6dVNZ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=i+GL2vJpDOhdsnwP6Sg12Tcwxe5flkkHR+oQC4ah61eOp1XjpcmsIQxpxNChzuDVh
+	 g6jELw18psnkiCU5K5Zohg0j+PJHORQmuFq4A5u3dWp7+MHPHAaphks7xlE6O6yyIT
+	 842ObtM0ZYV+LtCoWbBr0w2F9I1WjwvSbMirb6jb0IHo4IDrvUiP3XeU42dpAWKtqL
+	 9cSvANMVrHXyGWKkJr/K0fiNGJJB2rNy0sj3bjanhT5r/de47t7y9tFwwtucadJNDt
+	 trIA9zjhimBxEqZJrqEkW7amizyEebBwM78s73yleLtXvbh8MHce2mY20rCqVsaPCQ
+	 PKsHUptJKmB7Q==
+Date: Fri, 16 Oct 2026 09:09:14 +0200
+From: Gao Xiang <xiang@kernel.org>
+To: Liu Chao <liuc63@xiaopeng.com>
+Cc: Chao Yu <chao@kernel.org>, Chunhai Guo <guochunhai@vivo.com>,
+	Gao Xiang <xiang@kernel.org>, Hongbo Li <lihongbo22@huawei.com>,
+	Jeffle Xu <jefflexu@linux.alibaba.com>,
+	Sandeep Dhavale <dhavale@google.com>, Yue Hu <zbestahu@gmail.com>,
+	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] erofs: fix unsigned underflow in LZ4 in-place
+ decompression
+Message-ID: <atHNmmoGa3d3iAea@MacBookPro>
+Mail-Followup-To: Liu Chao <liuc63@xiaopeng.com>, Chao Yu <chao@kernel.org>,
+	Chunhai Guo <guochunhai@vivo.com>, Gao Xiang <xiang@kernel.org>,
+	Hongbo Li <lihongbo22@huawei.com>,
+	Jeffle Xu <jefflexu@linux.alibaba.com>,
+	Sandeep Dhavale <dhavale@google.com>, Yue Hu <zbestahu@gmail.com>,
+	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org
+References: <20261016041143.2293155-1-liuc63@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261016041143.2293155-1-liuc63@xiaopeng.com>
 
-The MPT3COMMAND ioctl validates the user-supplied data_sge_offset
-with
 
-	if (karg.data_sge_offset * 4 > ioc->request_sz ||
-	    karg.data_sge_offset > (UINT_MAX / 4))
+Hi,
 
-which only keeps the start of the SGE array,
+On Fri, Oct 16, 2026 at 12:11:43PM +0800, Liu Chao wrote:
+> z_erofs_lz4_handle_overlap() computes the overlap offset between the
+> input and output page arrays as rq->outpages - rq->inpages.  Both
+> values are derived from on-disk pcluster metadata (pcl->length and
+> pcl->pclustersize) which an attacker can set independently, so
+> outpages may legitimately be smaller than inpages.  The unsigned
+> subtraction then underflows, causing rq->out[] to be indexed far out
+> of bounds and the returned LZ4 source pointer to point past the
+> output buffer, resulting in out-of-bounds reads and writes.
+> 
+> The in-place path is only valid when the output buffer is at least as
+> large as the input buffer, so guard the branch with
+> rq->outpages >= rq->inpages.  When the condition does not hold, fall
+> through to docopy, which copies the compressed data to the per-CPU
+> buffer and decompresses safely.
+> 
+> Reviewed-by: Fang Xieyan <fangxy@xiaopeng.com>
+> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+> ---
+>  fs/erofs/decompressor.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/fs/erofs/decompressor.c b/fs/erofs/decompressor.c
+> index 354762c97..50a5f9ddf 100644
+> --- a/fs/erofs/decompressor.c
+> +++ b/fs/erofs/decompressor.c
+> @@ -117,6 +117,7 @@ static void *z_erofs_lz4_handle_overlap(struct z_erofs_decompress_req *rq,
+>  		oend = rq->pageofs_out + rq->outputsize;
+>  		omargin = PAGE_ALIGN(oend) - oend;
+>  		if (rq->partial_decoding || !may_inplace ||
+> +		    rq->outpages < rq->inpages ||
 
-	psge = (void *)request + (karg.data_sge_offset * 4),
+This is not against to the latest upstream, and
+do you notice the following commits?
 
-inside the request frame.  The SGE builders, however, write complete
-SGEs at psge: _base_build_sg() and _base_build_sg_ieee() emit up to
-two SGEs for dual-direction requests, and the MCTP passthrough path
-always builds both an H2D and a D2H SGE.  When data_sge_offset * 4
-is within 2 * sge_size bytes of the end of the request frame, those
-writes cross the frame boundary and corrupt the adjacent frame in
-the contiguous request DMA pool.
+ commit 21e161de2dc660b1bb70ef5b156ab8e6e1cca3ab
 
-Require room for two SGEs of the largest format in use past
-data_sge_offset, mirroring the max_sge_elements computation in
-_base_get_ioc_facts(), so that the SGE builders can never write
-outside the request frame:
+ commit a5242d37c83abe86df95c6941e2ace9f9055ffcb
 
-	sge_room = 2 * max_t(u16, ioc->sge_size, ioc->sge_size_ieee);
-	if (sge_room > ioc->request_sz ||
-	    karg.data_sge_offset * 4 > ioc->request_sz - sge_room ||
-	    karg.data_sge_offset > (UINT_MAX / 4))
+also do you have a reproducer?
 
-Fixes: f92363d12359 ("[SCSI] mpt3sas: add new driver supporting 12GB SAS")
-Cc: stable@vger.kernel.org
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
----
-Changes in v2:
-- v1 only rejected offsets that place psge at or past the end of the
-  request frame.  As the Sashiko AI review of v1 pointed out, offsets
-  that merely leave less room than the SGE builders need (up to two
-  SGEs, 16 bytes each with 64-bit DMA) still allowed the SGE writes
-  to cross the frame boundary.  Require room for two SGEs of the
-  largest format in use so that no builder can write outside the
-  request frame.
-
- drivers/scsi/mpt3sas/mpt3sas_ctl.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/scsi/mpt3sas/mpt3sas_ctl.c b/drivers/scsi/mpt3sas/mpt3sas_ctl.c
-index 8bb947004885..2fef6aa83d34 100644
---- a/drivers/scsi/mpt3sas/mpt3sas_ctl.c
-+++ b/drivers/scsi/mpt3sas/mpt3sas_ctl.c
-@@ -716,6 +716,7 @@ _ctl_do_mpt_command(struct MPT3SAS_ADAPTER *ioc, struct mpt3_ioctl_command karg,
- 	size_t data_in_sz = 0;
- 	long ret;
- 	u16 device_handle = MPT3SAS_INVALID_DEVICE_HANDLE;
-+	u16 sge_room;
- 	int tm_ret;
- 
- 	issue_reset = 0;
-@@ -738,8 +739,16 @@ _ctl_do_mpt_command(struct MPT3SAS_ADAPTER *ioc, struct mpt3_ioctl_command karg,
- 		goto out;
- 	}
- 
--	/* Check for overflow and wraparound */
--	if (karg.data_sge_offset * 4 > ioc->request_sz ||
-+	/*
-+	 * Check for overflow and wraparound.  The SGE builders write up
-+	 * to two SGEs at psge (dual-direction requests get a WRITE and a
-+	 * READ SGE, and the MCTP passthrough path always builds an H2D
-+	 * and a D2H SGE), so the request frame must have room for two of
-+	 * the largest SGE format in use past data_sge_offset.
-+	 */
-+	sge_room = 2 * max_t(u16, ioc->sge_size, ioc->sge_size_ieee);
-+	if (sge_room > ioc->request_sz ||
-+	    karg.data_sge_offset * 4 > ioc->request_sz - sge_room ||
- 	    karg.data_sge_offset > (UINT_MAX / 4)) {
- 		ret = -EINVAL;
- 		goto out;
--- 
-2.50.1
-
+Thanks,
+Gao Xiang
