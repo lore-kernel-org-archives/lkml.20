@@ -1,105 +1,143 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E4F45A28E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:05:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FC13B8111
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:05:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141528; cv=none; b=fvpo3jaPjiapZKQiGcDNnS1i8+Z8iFWNmv7Ps/08GuF31UkVCmX3S0s1uChr6ouu4uzP+A+jDQcwxJWhA9vpMmWKZdtxdK2Ztg3Rc016QgC25lVtzalWv014gn3SqR+CCvuxwLxrs5yxKoZoYZOSugsmDsXA4ZhBxvU8axu7qRQ=
+	t=1792141558; cv=none; b=Nhvs2Zf9fUxPcHahzj01VgRAWm8hk68wYX4V+QaVJBFsAztI2KnZLa79WRGg0O2xtSnFoPjY6LyWHcb+yylXsAqR0fLl99q7NCede5sfRB1Nh8wbQYN0OWW6VTNaWQK/U/5KE9LhubjAcK//yJw14f3ExpLgjofpXh0eqrUsMVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141528; c=relaxed/simple;
-	bh=Eo9WwXqvDCM49chcBfGJpbXusjDoU1ewi49ePAmjZdM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=desoJyhhEcKa7aI9jr5MtHYVC2o6MO8fpGclaBqOVjs4VBBCD2ODHMQhCFETzwHugZuGaJ+aqmq4/uRjQFXEkXSyQKbhW8uvAS6n6CT3mg8mpt/2nEMi3DRiLwYyzzQOyMedftvE9CIRLbLIKzSv7tmtzXlOqco23T46S6wB/Do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=JvNL4I1G; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792141558; c=relaxed/simple;
+	bh=vBIXkU5a0czakfaG5UvhQYLDQmtPpOHhwRqC+37to5w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bn0iZ4kbjyBlthjXpetyEQ8omqkXlL6NXn4JeNxY+eoekl4xZuOQcXwlJGsbgI4j58c4leZsGw0MHxI+xQesGt83Mb8SCVBS9n44KfPSU9jBz0bmQyyXrl0WP/EPJY9rZtqzJW5yMWhYiuYLUVPiXXSPa/llf7tBqgd8J9K1Kd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R/ma36wG; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="JvNL4I1G"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 7517FC6220F;
-	Fri, 16 Oct 2026 09:06:15 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 991A16075D;
-	Fri, 16 Oct 2026 09:05:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 351DD103281F4;
-	Fri, 16 Oct 2026 11:05:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792141516; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=jCdlTsgAIWlVV/nbciw4oCCYrsIamAoo02qs3IUr8ls=;
-	b=JvNL4I1GFqj1N6rLJYaDTiAX1o1PQkUdS4oGWRv5kj7C/UAGbv3VABGAMLSyIstQUFrO2A
-	QOS/iSZ8T6R2tQkG8HcSN74yew58DcQiq2XsBCxIVz0Xxi2KvI3KQ5GbhmmcpfaILw+idO
-	lsiUoMmfEg9Kv7FwRdYLYXRJbj02o17TxE/boDZtk2qf+QNTLjMCd8aKczzDp3ZNHZJSWi
-	yYNxb+q1dabTu60SX84PI9KjUY8KTXK11qt4Rk9OI4y0cxt7eWDhf2J4mKKTy0/okZR2km
-	rCEK2VU+wvSkA7kQyXgLZ+UwNZqtXNrEH3G+qNb8qO8eEUGSWfSTkniXrPdcSw==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andy Yan <andy.yan@rock-chips.com>, Liu Ying <victor.liu@nxp.com>, 
- Phong LE <ple@baylibre.com>, Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20261001-bridge-advert-hdmi-caps-v1-0-f8806570e243@collabora.com>
-References: <20261001-bridge-advert-hdmi-caps-v1-0-f8806570e243@collabora.com>
-Subject: Re: [PATCH 0/8] drm: Advertise supported HDMI version in HDMI
- drivers
-Message-Id: <179214150460.3306936.7520883316826804246.b4-ty@b4>
-Date: Fri, 16 Oct 2026 11:05:04 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R/ma36wG"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-39569e136f9so1845547a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:05:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792141557; x=1792746357; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yIua1GyF5CyLs9zVRRQ2YP0+xQy31M4iXC7gh2QlT8o=;
+        b=R/ma36wG/IHRU2eoU0KCWSBoMR66p9M6DTdmOOjFlc/4eMkm5OzKOY0h56NXsULWRY
+         IgsALiiGVxAVMLQL7HCOIv+AbktrciTx4F3MkyaXiPIi637hKWySRrD+hEdtTuDPpzcT
+         PUbRvbJw6xC7unByrBbLZoCGZry+bWJ5MeodvfScKLm8GObt1ltBDiBNGDO8OoEAzuDG
+         S2VwVqWIrI8ptNhYehpvTZE/CfJeP1bBSZe+yQgtlQDOdAcTUW2g9wk+BDZhuTmtASqC
+         Qyqop8R0nbuEjwJfiJiPmjuLZQeOT0z+ljTYOrc8er4X2LhLtpK1s4QNct00ji8/iJEN
+         iAXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792141557; x=1792746357;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yIua1GyF5CyLs9zVRRQ2YP0+xQy31M4iXC7gh2QlT8o=;
+        b=PX0kLeH7d70ud8eC3ZBKqXCdQodv+DXGyg3aDNPrVoCjF1oQwBfKkWKW1vGwqIC0M/
+         T8Y//eJm0Swe9+RDPURYejfba+v9rPSL8gBGquLOiPgVaFgbiREGAKoCReJc9L1Xrh1L
+         lRU2+QwA5dw36qqMV9oxf8rfATfdLKumA26DTSw8b4EXug6nAIswkIa+d8p1NhfzHgEf
+         okCMvHWg2nnpz/L+WPMgSXGlgWgMDy5bMb9FCy/mFlVSl4wyODoYXdYGOyvNzemlUYBs
+         bjMxs+sapLoEexxbAhkYti+M/yeBXFhn7k7I47tF6BCAP3WkRyfZIhR+nzLwf6jo95y0
+         9bxw==
+X-Forwarded-Encrypted: i=1; AKwUvBx1KBsnm4eDLJoWa+HpMbF8WQiWZBa0D1J3KZT8B6JQRpJkouIbFH6amC9e7fVlqiFg/S0EZBWmPBvayqE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuXVk6qegq6DhDNTNHW9cXoi1xdyjhBINwnJR8zOsFxGYWAZbe
+	ZACppEu/N3QjpXLiUbFds2OXsHWBenIQK/H0ko3oHmi6iGBHAYv40It2
+X-Gm-Gg: AYBFou1KaGBrQA4Xwm7PtHfFFQr4EyK/j15IW03mjs4kPlBme7DghJx/J8bcIc6N/so
+	LAV1ruoSjHrfq6+XHjmbyP1YE5vr2Y2Uc26c0xtWgLpAIPmLRCgVoNGC/7pJMWJfNfiDA6sgyzr
+	z2ZYwrfXbXATWFAN5G1gDSmMGH4AmeTF+f9JInwmkMfPOFGPqoj+EVC0Ai7Oa9bDkAmrmQ3teLJ
+	NQlL6LShmvUy701CNhFyP7b3Yjj9vQ+DC8R9MdeOxE0ggh9PfY5flquM03anFCVgl1NYINcfpPq
+	3srOFEVaGSPv0QbVm4jpRKY0Y5ZZEVl+FVisKxKigm6y3eKZGfI4u9D0neXRBvHB5Anuc/sU7Ib
+	I5gNn/hygQlQJEo6ZaYtDKDG5ZGddBKQoYFR2Iy/tMqrt4V2eB3C/QZOjnkeypf/+CXgPe5FtgD
+	5k2vXaxYfCIr0aCN1fJSxKkXXq38w1GPf/HwqMSGkxHAUlW2bWUCPNJprHDUZMfnCca7IA8EqC6
+	lB6Dq+8TUf26vcQt8Q=
+X-Received: by 2002:a17:90b:2d0b:b0:3ab:36c4:b4ff with SMTP id 98e67ed59e1d1-3ab3a747069mr19095398a91.24.1792141556494;
+        Fri, 16 Oct 2026 02:05:56 -0700 (PDT)
+Received: from LAPTOP-QJLDGQ2L.localdomain ([112.224.225.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd0aa3c24sm1310370a91.4.2026.10.16.02.05.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 02:05:55 -0700 (PDT)
+From: Boyan Liu <yymhvert@gmail.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	co+98d7de09cd94fec5@bugs.sh
+Subject: Re: [PATCH net] udp: Fix out-of-bounds read with unset mac header in unexpected GSO path
+Date: Fri, 16 Oct 2026 17:05:25 +0800
+Message-ID: <20261016090526.2497-1-yymhvert@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <willemdebruijn.kernel.2a345d6bd54c5@gmail.com>
+References: <willemdebruijn.kernel.2a345d6bd54c5@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Hi Willem,
 
-On Thu, 01 Oct 2026 04:14:31 +0300, Cristian Ciocaltea wrote:
-> This series consists of patches 50-57 from "[PATCH v11 00/74] Add HDMI
-> 2.0 support to DW HDMI QP TX" [1], to set the supported HDMI version for
-> the HDMI connector/bridge drivers that currently leave it unset - except
-> the MediaTek HDMI driver (for now), as it requires non-trivial changes:
-> there is a core library shared between two variants, one being HDMI 2.0
-> compliant.
-> 
-> [...]
+On Thu, Oct 15, 2026 at 10:49 AM, Willem de Bruijn wrote:
+> I wonder if the right fix here is to not call skb_unset_mac_header in
+> the first place.
+>
+> There are plenty of L3 device type with no L2 header. They still have
+> a valid skb_mac_header.
+>
+> This fix may be papering over a tunnel doing something non-standard.
 
-Applied, thanks!
+You're right, and after digging into it I agree the seg6local side is
+the real offender.
 
-[1/8] drm/bridge: adv7511: Advertise HDMI 1.2 capabilities
-      commit: 1f132660fb27da37327fed3d4fdc617f95c1431e
-[2/8] drm/bridge: inno-hdmi: Advertise HDMI 1.2 capabilities
-      commit: c132910e9d13a0c4c3476f55ad7562070d96c19a
-[3/8] drm/bridge: ite-it6263: Drop redundant .mode_valid hook
-      commit: 31112c84ca79576b8c62316b40272106ac39511f
-[4/8] drm/bridge: ite-it6263: Advertise HDMI 1.3 capabilities
-      commit: bd66cb40383b43cd4ed4b3ea1a39779161fface5
-[5/8] drm/bridge: ite-it66121: Advertise HDMI 1.2 capabilities
-      commit: 3af64ea1229dab57233531feda8908486cf9dcc6
-[6/8] drm/bridge: lontium-lt9611: Advertise HDMI 1.4 capabilities
-      commit: 3c5e687fdb8cff644c700b145289a36400d1b04d
-[7/8] drm/rockchip: rk3066_hdmi: Advertise HDMI 1.4 capabilities
-      commit: 9283faedfc5fab0a47ca41ee6ac7b2a556da7081
-[8/8] drm/sun4i: hdmi: Convert to drmm_connector_hdmi_init()
-      commit: 101bd6d1d0aa2770129b47d03791a7120ba0cad8
+I checked every skb_unset_mac_header() call site in the tree. There
+are exactly two: net/ipv6/seg6_local.c (end_dt_vrf_rcv) and
+net/core/filter.c (BPF egress, unrelated to the rx path). Every other
+receive path delivers packets with a valid mac header: NIC drivers set
+it in eth_type_trans(), and L3 tunnels without an L2 header (ipip,
+sit, gre, tun, loopback) reset it to the network header after
+decapsulation. seg6local is the only producer that lets a packet
+continue up the stack with mac_header unset, which is also the state
+skb_mac_header() warns about with DEBUG_NET_WARN_ON_ONCE().
 
-Best regards,
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+One complication: the unset in end_dt_vrf_rcv() is not gratuitous.
+vrf_l3_rcv() -> vrf_add_mac_header_if_unset() relies on it to
+synthesize a fake Ethernet header when a sniffer (e.g. tcpdump) is
+attached to the VRF device. Dropping the unset entirely would change
+what sniffers see on VRF devices.
 
+So instead of removing it, I restore a valid mac header once the VRF
+rx handler returns:
 
+        if (!skb_mac_header_was_set(skb))
+                skb_reset_mac_header(skb);
+
+The sniffer rebuild happens inside the handler while the header is
+still unset, so tap behavior is unchanged; when no rebuild happened,
+the packet now carries the same mac header state as any packet
+received on an L3 device.
+
+Tested under QEMU with the original reproducer:
+- unpatched kernel: KASAN slab-out-of-bounds in inet_gso_segment,
+  same stack as the original report;
+- patched kernel: no crash, the re-segmented datagrams are delivered
+  intact, and the unexpected GSO path is confirmed taken;
+- with a sniffer attached to the VRF device, the fake Ethernet header
+  presented to the tap is identical before and after the patch.
+
+I'll send this as v2 with the fix moved to seg6_local.c. If you'd
+rather drop the skb_unset_mac_header() altogether and accept the
+sniffer behavior change, I'm happy to do that instead.
+
+Thanks,
+Boyan
