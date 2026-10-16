@@ -1,798 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A291B3B42D9;
-	Fri, 16 Oct 2026 19:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792178671; cv=none; b=gv0EDtzDwBL/qpvWvobTIdiMjyJ7BrfJu+K3rf15qnpl7RgBamSSjj7CrdQF6eaN/SsOOIEYrxLMx6/pDKjwvjkmBtuesL557V2bSYDa/SZyuzahW6hSh8v7+fei8811MwcfrNE3XsWTsCYf7km54If1qiURy0cv1ICAKwms0+0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792178671; c=relaxed/simple;
-	bh=qOXkZ881lq8TiXsiMDWx6/0Ve8bQYdtyWgwqSY7DVew=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=h4ThRotBdMVJmCyo46KTsw8RyjiMgQLapjCxXR9JQCpZiPmskUcmgDBbpoNBtRpJfaIbIKGkJkrtP5vxIFvii1hQainPHEMMjYjcKj45sMUTX/geK7DXSh0XHT8TovrQGZjLEPIvs71YOTJxFGPIx14sGCeEPha3tM1kcUu0AXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MXfi90m4; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD3A3BB67F
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:24:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792178674; cv=pass; b=OnycWeHmki+jpJHCH8vEWU22g9kyquBnwMisxScEJRYRn/cvUJ9Lpk3ZtO04MIEytvpSd1Ean6PHV6AIBnfHmTp5ziPst4bxTaLmILMfhgGAivGi8OEiDvSr/yynlV8LdIty9w45Ax6VZKz3ptzymcn2WvTFMjaOfv9XE/A0C+o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792178674; c=relaxed/simple;
+	bh=d5o2v0NGUWbRJN1f/BoF/CoGKfRWIDyZQTL0ydZSSo4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=C2E5Y7uycLyjOkB84C3ajn8+/uwVSUuPRSxO+ZwosFgMwm3v8HPWLPEF+6LDGWCcEF0+9t7ios1Rf/tlPCMzCf65vQYoQgIbc0COEbkMTdoMW+q6ZLCu8rxKCMGGsQwWR582C1/txR2S/kO2iuaGDQWxfjiRNSb91RV90KKAChg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GxnpEy+w; arc=pass smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MXfi90m4"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 53109C2BCFB;
-	Fri, 16 Oct 2026 19:24:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792178671;
-	bh=qOXkZ881lq8TiXsiMDWx6/0Ve8bQYdtyWgwqSY7DVew=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=MXfi90m4nGZhg0YgiLQbHddBB3dcT59JFruKcPQSLAT3UHyVj7DpPH2dvifEFzJOb
-	 OfRTZxG0EhkQkud8zss0lOJEvSVwnWEcfyte8sEq+QZ5xxVRDhHoYKFIhgNYiFan78
-	 q0vkdjoUpJmEzIWZytWnFV4HK4Z9MV/1iPY/l2kqVEteqjXWO1bp/kuSCmiqXUWjaQ
-	 /12IH7leMasL6EUB+x4UeXH8OuBvJ0Mf1c+NR5vVqgtJKd5QrONGASHLERScns5eTS
-	 FDUGO+WSQ9et9f2I3n2kFGUxXbCwV3klS/IbzsnBdLRx73owyW779pF19yMwSkWIcj
-	 /nlqWMvceHyQA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33095CCF2C4;
-	Fri, 16 Oct 2026 19:24:31 +0000 (UTC)
-From: Bruce Tsao via B4 Relay <devnull+bruce.tsao.analog.com@kernel.org>
-Date: Sat, 17 Oct 2026 03:23:54 +0800
-Subject: [PATCH 2/2] iio: dac: add AD5413 driver
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GxnpEy+w"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso2351a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:24:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792178672; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bCsMgnmUTMwZNWyG5aaNIFZkkbIC+wxS+qLtT9IIaV8TFpQh7eINhBkd/Mlyt2/vg4
+         Mi4kaJK33218kJsr9ISqIGOkEUgYf7OlQajYtH15NiGUlHZeCCUXNFeU1bBfeLrPgT84
+         MRyXfGWEDhDxCTvH4nbRL6YhER8JR8lbh73J0VlE+9gBtJeKUxv9wYjajv+oxZZkveMA
+         Dusr1QKv8VhRYRCle4JQ6BQZ3ktS8c892Lx1FuB5yRXAekI+y4tdjPS+LoWDe6EuSfyr
+         D1AfFKdexS2Ml8FeOcfA2ZXZaqPJjcQYxjiU/WzhuD54GxEpVHR/2bcGl1VNUZms7cXh
+         UhkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0AUHybqnK5COco/Ujbmue1fB/qGf6BnUtW0x4jmlSGs=;
+        fh=vLqYRl5ZoYbGuDhTStFcRyXdVjNi9vAVs21K4AJnOTQ=;
+        b=VH/yt6FjRrPefY7+PZcbFBoJerDX6HsEAFdCuuZd/Ov+5UcvVU3FGKzK/kTxC3H3fW
+         0jJU5Jefuc69xE9ka/DclCo1eNKuO7jqmZiPLHfVUzU8C+Y5sfbx9TQ21D6D3PUX5itq
+         jAdq88OUkqUG0ZbW7fjqY7fD7FYz1Sz83K7UXsaymd83f/XwlGlU0z6Rtr+z4EQ3p9om
+         7510iJ9O2tAOE5bd9xfJcZRh5kaBEafB8julj7w8CcYBhsHRMSI3UkIeFy0egQac0aFi
+         9sa7uExM9CovjzSULiSg0NwBdwPJTojQI3rgF0Qc2Rk6WqLZj4ILlvY4AE3Nh6D2AgDl
+         /JgA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792178672; x=1792783472; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0AUHybqnK5COco/Ujbmue1fB/qGf6BnUtW0x4jmlSGs=;
+        b=GxnpEy+wqXUWZlSBTaXQg7FehcHHrB7eto7QrfunRv/PqUEbQZIHsBGJrPkBhv1a9p
+         4+6Pqk6YQAuwzXlwVoPXwtqE/1jy2naUr/PEmcjQOfC8Q80LtIDm4bkpyA4P265r2zzb
+         skvXAVStWFgEPjkwz8A51Ynpt+0lpIiz+W7Xtb5p8PC/8w4+q25fgZzkQ5TEJMBxN3lF
+         cJGYwp2d6DgSL80UGMUHpIsatfSlx3yW+TP3bALW7Iw+o3Imc//cO4B8A0aVuKsufmKo
+         MCCVcQ58/5GbDAeoAJaFBgCUXCm2Zofx4vLLMNxq3l7g1AMiCXvtNImaWM6CW5EnEzCQ
+         FqdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792178672; x=1792783472;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0AUHybqnK5COco/Ujbmue1fB/qGf6BnUtW0x4jmlSGs=;
+        b=QjrCJxRqzDYrUu/DB3Q0B8nzRs0mMCIdh4crN+UtHbJysf/8QD7+Y5xPrsC3ClQLZS
+         5mZggpr6GehSYrXrCLsV5wU9EIuV199jmSggbPzQrB05DIHniqAdqGTbwhB5nXNeFZNt
+         Xz93y/0umrfhF00viTNQCySxEzV4FZmmDBpUWSwXrca7K4b8/VHdRfKMwemQFcFkL5UX
+         oXrPy0oQX6Snt4zHa7LSrMxWLsOXZ7IvX0O7jR601uxfVRDtUJCxAqZ/+shzVMtElTrz
+         BRHRdq9EWwb+98tvj5BbUTBAHpEm0U5hlNfIZUnibAgXmSDTE8nKEeDn4FCkQm1ZS7yf
+         tOVA==
+X-Forwarded-Encrypted: i=1; AKwUvBycR2IBIuUbZvdwm5zxdRSUJNLxkmkZPOe+r2C88J4fRVhl7aAuI/rWmuU2h9hegnZRxPfumYg+5hg/8/s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJY3MNxxcMFw3+CBCOXMPHtLBSRZ0K3vTFblFszSgWg2R+RtSdQ
+	r7qILVCMH+kOx/r7la3BOPndjhyIlxgr+YQZl3Wc8+bhwH0PrijTuEgh/hRu27Phh+PlvxkkKif
+	Aye0wGy0QO1ujhqn1Fp8B9gsaQusVODLmdDe13Z2h
+X-Gm-Gg: AYBFou0KBwKikfuvUUHOqKISa25prLfnfFOLJBkmWa+da9LW09nFyk0EBBbF22v20m8
+	PxSfyfj8Z/EOLBQstB8/gueiA2PLIulYNuam8dHGt6swnRD9K2UB0fjGs7F7ackYLpoUBL2dw9q
+	6/eYswawmUFEmbN0mp7SnfaX3v6jJ1aBVX9l5+HPpN4/DBk3Du1gMLXe/kP2SY5t3iNbfgeFi7V
+	zgfKcI12ACOyjwLVPt93s/KqtFQ8aTEpP+Yhyy7oTCabB9Sbkj3EwADumrcc6UxipBd2zu3dFt+
+	WegR291BYoDuPMtlKyau3blETEgMdJa12oearjsGkcWmXbcmkOU08MbDhlaPwgYWMPTJmSXApBW
+	QiJX3BrG0OWuKrncOXwb/7hF0T2v7YayqULU7
+X-Received: by 2002:a05:6402:5177:b0:6b1:bce6:1220 with SMTP id
+ 4fb4d7f45d1cf-6b3a8c0a97dmr6753a12.12.1792178671324; Fri, 16 Oct 2026
+ 12:24:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261017-ad5413-upstream-v1-2-61f40c8fef25@analog.com>
-References: <20261017-ad5413-upstream-v1-0-61f40c8fef25@analog.com>
-In-Reply-To: <20261017-ad5413-upstream-v1-0-61f40c8fef25@analog.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bruce Tsao <bruce.tsao@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792178669; l=20982;
- i=bruce.tsao@analog.com; s=20261017; h=from:subject:message-id;
- bh=DRIHuqzWKTftARzoxaMxHCXgZl2g8rCsMeUeBUZJ9ak=;
- b=5STujDbeZGVUIW9WaqOMjBK664YhHd8vJvt6f6eehJlQc+jzifNFUJay5ksfkWLQveeDdotN0
- 54L8K8wxKrUCfOvUk4/YjNa+Wbn/pme0LYwlNBtfcUb9elVlmTsxXF3
-X-Developer-Key: i=bruce.tsao@analog.com; a=ed25519;
- pk=dT7qI1i91oYvnYmY2ljmdZ0ZQoCZIzrQ8hnsyjuBedg=
-X-Endpoint-Received: by B4 Relay for bruce.tsao@analog.com/20261017 with
- auth_id=1215
-X-Original-From: Bruce Tsao <bruce.tsao@analog.com>
-Reply-To: bruce.tsao@analog.com
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-23-yosry@kernel.org>
+ <CALMp9eSv9a23si8rtWd_XGRJxVWE96aWdSzE_Ram5Bu6G_pb+w@mail.gmail.com>
+ <CAO9r8zMkRADNhRCBoxKCPNM90H0uqB5Jyt7oB4RDmbhgY_UM-g@mail.gmail.com>
+ <CALMp9eTM23iFdrbZE8qw9kuJ2va+Mahv5wZDmgs1TZrAREh=gw@mail.gmail.com> <CAO9r8zNFYNR904b0NahKj=vwoc1tRZdr2wwUYpTVwUdwvYAtpg@mail.gmail.com>
+In-Reply-To: <CAO9r8zNFYNR904b0NahKj=vwoc1tRZdr2wwUYpTVwUdwvYAtpg@mail.gmail.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Fri, 16 Oct 2026 12:24:19 -0700
+X-Gm-Features: AclHuK_uq-6OVpi-FVRpkc7oAce-IC9tDELOgFS6cf7jgJLt2-ErHr0_9UIrtVM
+Message-ID: <CALMp9eSTHi+Y+opUpu5ihH92ULKqFA2D5hucrgNgSd25NZUktA@mail.gmail.com>
+Subject: Re: [PATCH v3 22/27] KVM: nSVM: Flush the TLB if L1 changes L2's ASID
+ in vmcb12
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Bruce Tsao <bruce.tsao@analog.com>
+On Thu, Oct 15, 2026 at 4:56=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> > > > > @@ -691,23 +689,35 @@ static void nested_save_pending_event_to_vm=
+cb12(struct vcpu_svm *svm,
+> > > > >  static void nested_svm_entry_tlb_flush(struct kvm_vcpu *vcpu)
+> > > > >  {
+> > > > >         struct vcpu_svm *svm =3D to_svm(vcpu);
+> > > > > +       bool new_asid =3D false;
+> > > > >
+> > > > >         /* Handle pending Hyper-V TLB flush requests */
+> > > > >         kvm_hv_nested_transtion_tlb_flush(vcpu, npt_enabled);
+> > > > >
+> > > > > +       if (svm->nested.ctl.asid !=3D svm->nested.last_asid) {
+> > > > > +               svm->nested.last_asid =3D svm->nested.ctl.asid;
+> > > > > +               new_asid =3D true;
+> > > > > +       }
+> > > >
+> > > > To make sure we don't miss a flush after restore, do we need to cle=
+ar
+> > > > last_asid in svm_set_nested_state()?
+> > >
+> > > In [1], we set svm->nested.vmcb02.cpu =3D -1 in svm_allocate_nested()=
+,
+> > > which should be called when EFER.SVME is set on restore, and should
+> > > force a TLB flush on the first vCPU run. That being said, if EFER.SVM=
+E
+> > > was already set (not a fresh vCPU), we won't necessarily flush the
+> > > TLB. KVM_SET_SREGS will _probably_ flush the TLB, but I don't think
+> > > it's guaranteed.
+> >
+> > I'm pretty sure that restoring nested state on an existing vCPU with
+> > the same asid12 and no TLB_CONTROL skips the flush.
+>
+> I can clear last_asid in svm_set_nested_state() to make sure we don't
+> break this.
+>
+> >
+> > > But wouldn't this also affect non-nested? Are we guaranteed to flush
+> > > L1's ASID after restore?
+> >
+> > That may be a bug too.
+>
+> It's tricky. KVM_SET_SREGS will only flush (with 64-bit vCPUs) if
+> CR0/CR3/CR4/EFER are changed apparently. But it's not just the TLB
+> flush, the entire MMU context wouldn't be reset?
+>
+> I am not sure if there is a practical use case for restoring on an
+> existing vCPU tho.
 
-The AD5413 is a single-channel, 14-bit, voltage and current output
-digital-to-analog converter (DAC) with programmable output ranges,
-slew rate control and on-chip diagnostics.
-
-Add an IIO driver supporting the +-10.5 V voltage range and the
-0-24 mA current range, output enable, slew rate control and device
-reset over the SPI interface.
-
-The device powers up with the SPI CRC enabled, so every frame carries
-a CRC-8 byte and the interface is configured for SPI mode 1. This lets
-the driver bring the device up directly from a cold boot without any
-pre-conditioning.
-
-Signed-off-by: Bruce Tsao <bruce.tsao@analog.com>
----
- drivers/iio/dac/Kconfig  |  11 +
- drivers/iio/dac/Makefile |   1 +
- drivers/iio/dac/ad5413.c | 666 +++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 678 insertions(+)
-
-diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-index e373885e7c7a..402370c67e87 100644
---- a/drivers/iio/dac/Kconfig
-+++ b/drivers/iio/dac/Kconfig
-@@ -91,6 +91,17 @@ config AD5380
- 	  To compile this driver as module choose M here: the module will be called
- 	  ad5380.
- 
-+config AD5413
-+	tristate "Analog Devices AD5413 DAC driver"
-+	depends on SPI_MASTER
-+	select CRC8
-+	help
-+	  Say yes here to build support for Analog Devices AD5413 single channel
-+	  Digital to Analog Converter.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called ad5413.
-+
- config AD5421
- 	tristate "Analog Devices AD5421 DAC driver"
- 	depends on SPI
-diff --git a/drivers/iio/dac/Makefile b/drivers/iio/dac/Makefile
-index 2cd0fe23db9e..0157face1f67 100644
---- a/drivers/iio/dac/Makefile
-+++ b/drivers/iio/dac/Makefile
-@@ -10,6 +10,7 @@ obj-$(CONFIG_AD3552R_LIB) += ad3552r-common.o
- obj-$(CONFIG_AD3552R) += ad3552r.o
- obj-$(CONFIG_AD5360) += ad5360.o
- obj-$(CONFIG_AD5380) += ad5380.o
-+obj-$(CONFIG_AD5413) += ad5413.o
- obj-$(CONFIG_AD5421) += ad5421.o
- obj-$(CONFIG_AD5624R_SPI) += ad5624r_spi.o
- obj-$(CONFIG_AD5064) += ad5064.o
-diff --git a/drivers/iio/dac/ad5413.c b/drivers/iio/dac/ad5413.c
-new file mode 100644
-index 000000000000..96cce32fc640
---- /dev/null
-+++ b/drivers/iio/dac/ad5413.c
-@@ -0,0 +1,666 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * AD5413 Digital to analog converters driver
-+ *
-+ * Copyright 2026 Analog Devices Inc.
-+ */
-+#include <linux/bitfield.h>
-+#include <linux/crc8.h>
-+#include <linux/delay.h>
-+#include <linux/iio/iio.h>
-+#include <linux/iopoll.h>
-+#include <linux/math64.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/reset.h>
-+#include <linux/spi/spi.h>
-+#include <linux/units.h>
-+#include <linux/util_macros.h>
-+
-+/* AD5413 registers definition */
-+#define AD5413_REG_NOP 0x00
-+#define AD5413_REG_DAC_INPUT 0x01
-+#define AD5413_REG_DAC_OUTPUT 0x02
-+#define AD5413_REG_CLEAR_CODE 0x03
-+#define AD5413_REG_USER_GAIN 0x04
-+#define AD5413_REG_USER_OFFSET 0x05
-+#define AD5413_REG_DAC_CONFIG 0x06
-+#define AD5413_REG_DAC_CONFIG_SR_STEP_MSK GENMASK(15, 13)
-+#define AD5413_REG_DAC_CONFIG_SR_CLOCK_MSK GENMASK(12, 9)
-+#define AD5413_REG_DAC_CONFIG_SR_EN_MSK BIT(8)
-+#define AD5413_REG_DAC_CONFIG_RSET_EXT_EN_MSK BIT(7)
-+#define AD5413_REG_DAC_CONFIG_OUT_EN_MSK BIT(6)
-+#define AD5413_REG_DAC_CONFIG_INT_EN_MSK BIT(5)
-+#define AD5413_REG_DAC_CONFIG_OVRNG_EN_MSK BIT(4)
-+#define AD5413_REG_DAC_CONFIG_RANGE_MSK GENMASK(3, 0)
-+#define AD5413_REG_SW_LDAC 0x07
-+#define AD5413_REG_KEY 0x08
-+#define AD5413_REG_KEY_REG_ADDR_MASK GENMASK(20, 16)
-+#define AD5413_REG_KEY_CODE_MASK GENMASK(15, 0)
-+#define AD5413_REG_GP_CONFIG1 0x09
-+#define AD5413_REG_GP_CONFIG2 0x0A
-+#define AD5413_REG_DIGITAL_DIAG_CONFIG 0x10
-+#define AD5413_REG_FAULT_PIN_CONFIG 0x12
-+#define AD5413_REG_TWO_STAGE_READBACK_SELECT 0x13
-+#define AD5413_REG_DIGITAL_DIAG_RESULTS 0x14
-+#define AD5413_REG_DIGITAL_DIAG_CAL_MEM_UNREFRESHED_MSK BIT(15)
-+#define AD5413_REG_DIGITAL_DIAG_SLEW_BUSY_MSK BIT(14)
-+#define AD5413_REG_ANALOG_DIAG_RESULTS 0x15
-+#define AD5413_REG_STATUS 0x16
-+#define AD5413_REG_CHIP_ID 0x17
-+#define AD5413_REG_FREQ_MONITOR 0x18
-+#define AD5413_REG_DEVICE_ID_3 0x1C
-+
-+/* Special Key Codes (bits[15:0]) */
-+#define AD5413_REG_KEY_CODE_RESET_1 0x15FA
-+#define AD5413_REG_KEY_CODE_RESET_2 0xAF51
-+#define AD5413_REG_KEY_CODE_CALIB_MEM_REFRESH 0xFCBA
-+
-+/* DIGITAL_DIAG_RESULTS Register (Addr = 0x14) Busy Flags */
-+
-+#define AD5413_WR_FLAG_MSK(x) (0x80u | ((x) & 0x1F))
-+
-+/* CRC-8 polynomial x^8 + x^2 + x + 1, enabled by default on the device */
-+#define AD5413_CRC8_POLY 0x07
-+
-+#define AD5413_FULL_SCALE_MICRO (16383ULL * MICRO)
-+
-+struct ad5413_range {
-+	int reg;
-+	int min;
-+	int max;
-+};
-+
-+struct ad5413_state {
-+	struct spi_device *spi;
-+	struct regulator_bulk_data supplies[3];
-+	struct mutex lock; /* Protects all register access via SPI */
-+	const struct ad5413_range *out_range;
-+	unsigned int slew_time;
-+	bool pwr_down;
-+	u8 crc8_tbl[CRC8_TABLE_SIZE];
-+	__be32 d32[3] __aligned(IIO_DMA_MINALIGN);
-+};
-+
-+/*
-+ * Output ranges corresponding to DAC_CONFIG[3:0] bits.
-+ * Defined by the following symbolic identifiers:
-+ *   AD5413_RANGE_PLUSMINUS_10_5V - ±10.5 V voltage range
-+ *   AD5413_RANGE_0MA_24MA        - 0 mA to 24 mA current range
-+ */
-+enum ad5413_output_range {
-+	AD5413_RANGE_PLUSMINUS_10_5V = 0x3,
-+	AD5413_RANGE_0MA_24MA = 0x9,
-+};
-+
-+static const struct ad5413_range ad5413_voltage_range[] = { {
-+	.reg = AD5413_RANGE_PLUSMINUS_10_5V,
-+	.min = -10500000,
-+	.max = 10500000,
-+} };
-+
-+static const struct ad5413_range ad5413_current_range[] = { {
-+	.reg = AD5413_RANGE_0MA_24MA,
-+	.min = 0,
-+	.max = 24000,
-+} };
-+
-+static const int ad5413_sr_clk[16] = {
-+	240000, 200000, 150000, 128000, 64000, 32000, 16000, 8000,
-+	4000,	2000,	1000,	512,	256,   128,   64,    16,
-+};
-+
-+static const int ad5413_sr_step[8] = {
-+	4, 12, 64, 120, 256, 500, 1820, 2048,
-+};
-+
-+static int ad5413_spi_reg_read(struct ad5413_state *st, unsigned int addr,
-+			       u16 *val)
-+{
-+	struct spi_transfer t[] = {
-+		{
-+			.tx_buf = &st->d32[0],
-+			.len = 4,
-+			.cs_change = 1,
-+		},
-+		{
-+			.tx_buf = &st->d32[1],
-+			.rx_buf = &st->d32[2],
-+			.len = 4,
-+		},
-+	};
-+	u8 sel[3], nop[3];
-+	int ret;
-+
-+	/* Two-stage readback: select the register to read back. */
-+	sel[0] = AD5413_WR_FLAG_MSK(AD5413_REG_TWO_STAGE_READBACK_SELECT);
-+	sel[1] = 0;
-+	sel[2] = addr;
-+	st->d32[0] = cpu_to_be32((sel[0] << 24) | (sel[1] << 16) |
-+				 (sel[2] << 8) |
-+				 crc8(st->crc8_tbl, sel, sizeof(sel), 0));
-+
-+	/* NOP frame clocks the selected register contents out on SDO. */
-+	nop[0] = AD5413_WR_FLAG_MSK(AD5413_REG_NOP);
-+	nop[1] = 0;
-+	nop[2] = 0;
-+	st->d32[1] = cpu_to_be32((nop[0] << 24) | (nop[1] << 16) |
-+				 (nop[2] << 8) |
-+				 crc8(st->crc8_tbl, nop, sizeof(nop), 0));
-+
-+	ret = spi_sync_transfer(st->spi, t, ARRAY_SIZE(t));
-+	if (ret < 0)
-+		return ret;
-+
-+	/*
-+	 * The readback CRC covers the live FAULT pin status bit, which can
-+	 * toggle between capture and clock-out, so it is not validated here.
-+	 */
-+	*val = be32_to_cpu(st->d32[2]) >> 8;
-+
-+	return 0;
-+}
-+
-+static int ad5413_spi_reg_write(struct ad5413_state *st, unsigned int addr,
-+				unsigned int val)
-+{
-+	u8 buf[3] = { };
-+
-+	buf[0] = AD5413_WR_FLAG_MSK(addr);
-+	buf[1] = val >> 8;
-+	buf[2] = val;
-+
-+	st->d32[0] = cpu_to_be32((buf[0] << 24) | (buf[1] << 16) |
-+				 (buf[2] << 8) |
-+				 crc8(st->crc8_tbl, buf, sizeof(buf), 0));
-+
-+	return spi_write(st->spi, &st->d32[0], sizeof(st->d32[0]));
-+}
-+
-+static int ad5413_spi_write_mask(struct ad5413_state *st, unsigned int addr,
-+				 unsigned long mask, unsigned int val)
-+{
-+	u16 regval;
-+	int ret;
-+
-+	ret = ad5413_spi_reg_read(st, addr, &regval);
-+	if (ret)
-+		return ret;
-+
-+	return ad5413_spi_reg_write(st, addr, (regval & ~mask) | val);
-+}
-+
-+static int ad5413_wait_for_task_complete(struct ad5413_state *st,
-+					 unsigned int reg, unsigned int mask)
-+{
-+	u16 val;
-+	int ret, err;
-+
-+	err = read_poll_timeout(ad5413_spi_reg_read, ret,
-+				ret || !(val & mask),
-+				100, 1000, false, st, reg, &val);
-+	if (ret)
-+		return ret;
-+
-+	if (err) {
-+		dev_err(&st->spi->dev,
-+			"Timeout waiting for bit 0x%x to clear in reg 0x%x\n",
-+			mask, reg);
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+
-+static int ad5413_calib_mem_refresh(struct ad5413_state *st)
-+{
-+	int ret;
-+
-+	ret = ad5413_spi_reg_write(st, AD5413_REG_KEY,
-+				   AD5413_REG_KEY_CODE_CALIB_MEM_REFRESH);
-+	if (ret < 0)
-+		return dev_err_probe(&st->spi->dev, ret,
-+				     "Failed to initiate a calibration memory refresh\n");
-+
-+	/* Wait to allow time for the internal calibrations to complete */
-+	return ad5413_wait_for_task_complete(st,
-+					     AD5413_REG_DIGITAL_DIAG_RESULTS,
-+					     AD5413_REG_DIGITAL_DIAG_CAL_MEM_UNREFRESHED_MSK);
-+}
-+
-+static int ad5413_slew_rate_set(struct ad5413_state *st,
-+				unsigned int sr_clk_idx,
-+				unsigned int sr_step_idx)
-+{
-+	unsigned int mode;
-+	unsigned long mask;
-+	int ret;
-+
-+	mask = AD5413_REG_DAC_CONFIG_SR_EN_MSK |
-+	       AD5413_REG_DAC_CONFIG_SR_CLOCK_MSK |
-+	       AD5413_REG_DAC_CONFIG_SR_STEP_MSK;
-+	mode = FIELD_PREP(AD5413_REG_DAC_CONFIG_SR_EN_MSK, 1) |
-+	       FIELD_PREP(AD5413_REG_DAC_CONFIG_SR_STEP_MSK, sr_step_idx) |
-+	       FIELD_PREP(AD5413_REG_DAC_CONFIG_SR_CLOCK_MSK, sr_clk_idx);
-+
-+	ret = ad5413_spi_write_mask(st, AD5413_REG_DAC_CONFIG, mask, mode);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Wait to allow time for the internal calibrations to complete */
-+	return ad5413_wait_for_task_complete(st,
-+					     AD5413_REG_DIGITAL_DIAG_RESULTS,
-+					     AD5413_REG_DIGITAL_DIAG_SLEW_BUSY_MSK);
-+}
-+
-+static int ad5413_slew_rate_config(struct ad5413_state *st)
-+{
-+	unsigned int sr_clk_idx = 0, sr_step_idx = 0;
-+	int i, res;
-+	s64 diff_new, diff_old = S64_MAX;
-+	u64 sr_step, calc_slew_time;
-+
-+	/*
-+	 * The slew time can be determined by using the formula:
-+	 * Slew Time = (Full Scale Out / (Step Size x Update Clk Freq))
-+	 * where Slew time is expressed in microseconds
-+	 * Given the desired slew time, the following algorithm determines the
-+	 * best match for the step size and the update clock frequency.
-+	 */
-+	for (i = 0; i < ARRAY_SIZE(ad5413_sr_clk); i++) {
-+		/*
-+		 * Go through each valid update clock freq and determine a raw
-+		 * value for the step size by using the formula:
-+		 * Step Size = Full Scale Out / (Update Clk Freq * Slew Time)
-+		 */
-+		sr_step = div64_u64(AD5413_FULL_SCALE_MICRO,
-+				    (u64)ad5413_sr_clk[i] * st->slew_time);
-+		/*
-+		 * After a raw value for step size was determined, find the
-+		 * closest valid match
-+		 */
-+		res = find_closest(sr_step, ad5413_sr_step, ARRAY_SIZE(ad5413_sr_step));
-+
-+		/* Calculate the slew time */
-+		calc_slew_time = div_u64(AD5413_FULL_SCALE_MICRO,
-+					 ad5413_sr_step[res] * ad5413_sr_clk[i]);
-+		/*
-+		 * Determine with how many microseconds the calculated slew time
-+		 * is different from the desired slew time and store the diff
-+		 * for the next iteration
-+		 */
-+		diff_new = abs(st->slew_time - calc_slew_time);
-+		if (diff_new < diff_old) {
-+			diff_old = diff_new;
-+			sr_clk_idx = i;
-+			sr_step_idx = res;
-+		}
-+	}
-+
-+	return ad5413_slew_rate_set(st, sr_clk_idx, sr_step_idx);
-+}
-+
-+static int ad5413_set_out_range(struct ad5413_state *st, int range)
-+{
-+	int ret;
-+
-+	ret = ad5413_spi_write_mask(st,
-+				    AD5413_REG_DAC_CONFIG,
-+				    AD5413_REG_DAC_CONFIG_RANGE_MSK,
-+				    FIELD_PREP(AD5413_REG_DAC_CONFIG_RANGE_MSK,
-+					       range));
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Wait to allow time for the internal calibrations to complete */
-+	return ad5413_wait_for_task_complete(st,
-+					     AD5413_REG_DIGITAL_DIAG_RESULTS,
-+					     AD5413_REG_DIGITAL_DIAG_CAL_MEM_UNREFRESHED_MSK);
-+}
-+
-+static int ad5413_internal_buffers_en(struct ad5413_state *st, bool enable)
-+{
-+	int ret;
-+
-+	ret = ad5413_spi_write_mask(st,
-+				    AD5413_REG_DAC_CONFIG,
-+				    AD5413_REG_DAC_CONFIG_INT_EN_MSK,
-+				    FIELD_PREP(AD5413_REG_DAC_CONFIG_INT_EN_MSK,
-+					       enable));
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Wait to allow time for the internal calibrations to complete */
-+	return ad5413_wait_for_task_complete(st,
-+					     AD5413_REG_DIGITAL_DIAG_RESULTS,
-+					     AD5413_REG_DIGITAL_DIAG_CAL_MEM_UNREFRESHED_MSK);
-+}
-+
-+static int ad5413_reg_access(struct iio_dev *indio_dev, unsigned int reg,
-+			     unsigned int writeval, unsigned int *readval)
-+{
-+	struct ad5413_state *st = iio_priv(indio_dev);
-+	u16 regval;
-+	int ret;
-+
-+	guard(mutex)(&st->lock);
-+	if (readval) {
-+		ret = ad5413_spi_reg_read(st, reg, &regval);
-+		if (ret)
-+			return ret;
-+
-+		*readval = regval;
-+		return 0;
-+	}
-+
-+	return ad5413_spi_reg_write(st, reg, writeval);
-+}
-+
-+static int ad5413_read_raw(struct iio_dev *indio_dev,
-+			   struct iio_chan_spec const *chan, int *val,
-+			   int *val2, long info)
-+{
-+	struct ad5413_state *st = iio_priv(indio_dev);
-+	int max, min, ret;
-+	u16 regval;
-+
-+	switch (info) {
-+	case IIO_CHAN_INFO_RAW: {
-+		guard(mutex)(&st->lock);
-+		ret = ad5413_spi_reg_read(st, AD5413_REG_DAC_INPUT, &regval);
-+		if (ret)
-+			return ret;
-+
-+		/* 14-bit DAC data is in bits [15:2] of the register. */
-+		*val = regval >> 2;
-+		return IIO_VAL_INT;
-+	}
-+	case IIO_CHAN_INFO_SCALE:
-+		min = st->out_range->min;
-+		max = st->out_range->max;
-+		*val = (max - min) / 1000;
-+		*val2 = 14;
-+		return IIO_VAL_FRACTIONAL_LOG2;
-+	case IIO_CHAN_INFO_OFFSET:
-+		min = st->out_range->min;
-+		max = st->out_range->max;
-+		*val = div_s64((s64)min * BIT(14), max - min);
-+		return IIO_VAL_INT;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ad5413_write_raw(struct iio_dev *indio_dev,
-+			    struct iio_chan_spec const *chan, int val, int val2,
-+			    long info)
-+{
-+	struct ad5413_state *st = iio_priv(indio_dev);
-+	int ret;
-+
-+	switch (info) {
-+	case IIO_CHAN_INFO_RAW: {
-+		guard(mutex)(&st->lock);
-+		/* 14-bit DAC data is in bits [15:2] of the register. */
-+		ret = ad5413_spi_reg_write(st, AD5413_REG_DAC_INPUT, val << 2);
-+		return ret;
-+	}
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static ssize_t ad5413_read_powerdown(struct iio_dev *indio_dev, uintptr_t priv,
-+				     const struct iio_chan_spec *chan,
-+				     char *buf)
-+{
-+	struct ad5413_state *st = iio_priv(indio_dev);
-+
-+	return sysfs_emit(buf, "%d\n", st->pwr_down);
-+}
-+
-+static ssize_t ad5413_write_powerdown(struct iio_dev *indio_dev, uintptr_t priv,
-+				      struct iio_chan_spec const *chan,
-+				      const char *buf, size_t len)
-+{
-+	struct ad5413_state *st = iio_priv(indio_dev);
-+	bool pwr_down;
-+	unsigned int dac_config_mode, val;
-+	unsigned long dac_config_msk;
-+	int ret;
-+
-+	ret = kstrtobool(buf, &pwr_down);
-+	if (ret)
-+		return ret;
-+
-+	val = pwr_down ? 0 : 1;
-+
-+	dac_config_mode = FIELD_PREP(AD5413_REG_DAC_CONFIG_OUT_EN_MSK, (val)) |
-+			  FIELD_PREP(AD5413_REG_DAC_CONFIG_INT_EN_MSK, (val));
-+	dac_config_msk = AD5413_REG_DAC_CONFIG_OUT_EN_MSK |
-+			 AD5413_REG_DAC_CONFIG_INT_EN_MSK;
-+
-+	guard(mutex)(&st->lock);
-+	ret = ad5413_spi_write_mask(st, AD5413_REG_DAC_CONFIG, dac_config_msk,
-+				    dac_config_mode);
-+	if (ret < 0)
-+		return ret;
-+
-+	st->pwr_down = pwr_down;
-+
-+	return len;
-+}
-+
-+static const struct iio_info ad5413_info = {
-+	.read_raw = ad5413_read_raw,
-+	.write_raw = ad5413_write_raw,
-+	.debugfs_reg_access = &ad5413_reg_access,
-+};
-+
-+static const struct iio_chan_spec_ext_info ad5413_ext_info[] = {
-+	{
-+		.name = "powerdown",
-+		.read = ad5413_read_powerdown,
-+		.write = ad5413_write_powerdown,
-+		.shared = IIO_SHARED_BY_TYPE,
-+	},
-+	{ }
-+};
-+
-+#define AD5413_DAC_CHAN(_chan_type)                                    \
-+	{                                                              \
-+		.type = (_chan_type),                                  \
-+		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) | \
-+					    BIT(IIO_CHAN_INFO_OFFSET), \
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),          \
-+		.indexed = 1,                                          \
-+		.output = 1,                                           \
-+		.ext_info = ad5413_ext_info,                           \
-+	}
-+
-+static const struct iio_chan_spec ad5413_voltage_ch[] = {
-+	AD5413_DAC_CHAN(IIO_VOLTAGE),
-+};
-+
-+static const struct iio_chan_spec ad5413_current_ch[] = {
-+	AD5413_DAC_CHAN(IIO_CURRENT),
-+};
-+
-+static int ad5413_parse_fw(struct ad5413_state *st)
-+{
-+	struct device *dev = &st->spi->dev;
-+	int ret;
-+
-+	if (device_property_read_bool(dev, "adi,chan-current-mode"))
-+		st->out_range = &ad5413_current_range[0];
-+	else
-+		st->out_range = &ad5413_voltage_range[0];
-+
-+	st->slew_time = 0;
-+	if (device_property_present(dev, "adi,slew-time-us")) {
-+		ret = device_property_read_u32(dev,
-+					       "adi,slew-time-us",
-+					       &st->slew_time);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "Failed to read adi,slew-time-us\n");
-+
-+		if (st->slew_time > 1 * MICRO)
-+			return dev_err_probe(dev, -EINVAL, "adi,slew-time-us out of range\n");
-+	}
-+
-+	return 0;
-+}
-+
-+static int ad5413_init(struct ad5413_state *st)
-+{
-+	struct reset_control *reset;
-+	u16 regval;
-+	int ret;
-+
-+	reset = devm_reset_control_get_optional_exclusive(&st->spi->dev, NULL);
-+	if (IS_ERR(reset))
-+		return PTR_ERR(reset);
-+
-+	if (reset) {
-+		/* Hard reset via the reset controller */
-+		ret = reset_control_assert(reset);
-+		if (ret)
-+			return ret;
-+
-+		fsleep(100);
-+
-+		ret = reset_control_deassert(reset);
-+		if (ret)
-+			return ret;
-+
-+		fsleep(100);
-+	} else {
-+		/*
-+		 * CRC is enabled by default after power-on/reset. The SPI
-+		 * helpers always append the CRC byte, so the device accepts
-+		 * these soft-reset key frames without any bootstrap step.
-+		 */
-+		ret = ad5413_spi_reg_write(st, AD5413_REG_KEY,
-+					   AD5413_REG_KEY_CODE_RESET_1);
-+		if (ret)
-+			return ret;
-+
-+		ret = ad5413_spi_reg_write(st, AD5413_REG_KEY,
-+					   AD5413_REG_KEY_CODE_RESET_2);
-+		if (ret)
-+			return ret;
-+
-+		fsleep(100);
-+	}
-+
-+	ret = ad5413_calib_mem_refresh(st);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = ad5413_spi_reg_read(st, AD5413_REG_DIGITAL_DIAG_RESULTS, &regval);
-+	if (ret)
-+		return ret;
-+
-+	ret = ad5413_spi_reg_write(st, AD5413_REG_DIGITAL_DIAG_RESULTS, regval);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = ad5413_set_out_range(st, st->out_range->reg);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (st->slew_time) {
-+		ret = ad5413_slew_rate_config(st);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	ret = ad5413_internal_buffers_en(st, 1);
-+	if (ret < 0)
-+		return ret;
-+
-+	return ad5413_spi_write_mask(st,
-+				    AD5413_REG_DAC_CONFIG,
-+				    AD5413_REG_DAC_CONFIG_OUT_EN_MSK,
-+				    FIELD_PREP(AD5413_REG_DAC_CONFIG_OUT_EN_MSK, 1));
-+}
-+
-+static const char * const ad5413_supply_names[] = {
-+	"avdd",
-+	"dvdd",
-+	"avss",
-+};
-+
-+static int ad5413_probe(struct spi_device *spi)
-+{
-+	struct ad5413_state *st;
-+	struct iio_dev *indio_dev;
-+	int ret;
-+
-+	indio_dev = devm_iio_device_alloc(&spi->dev, sizeof(*st));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	st = iio_priv(indio_dev);
-+
-+	st->spi = spi;
-+
-+	ret = devm_mutex_init(&spi->dev, &st->lock);
-+	if (ret)
-+		return ret;
-+
-+	crc8_populate_msb(st->crc8_tbl, AD5413_CRC8_POLY);
-+
-+	indio_dev->name = "ad5413";
-+	indio_dev->info = &ad5413_info;
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+	indio_dev->num_channels = 1;
-+
-+	ret = ad5413_parse_fw(st);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (st->out_range->reg == AD5413_RANGE_PLUSMINUS_10_5V)
-+		indio_dev->channels = ad5413_voltage_ch;
-+	else
-+		indio_dev->channels = ad5413_current_ch;
-+
-+	ret = devm_regulator_bulk_get_enable(&spi->dev,
-+					     ARRAY_SIZE(ad5413_supply_names),
-+					     ad5413_supply_names);
-+	if (ret)
-+		return dev_err_probe(&spi->dev, ret, "failed to enable supplies\n");
-+
-+	ret = ad5413_init(st);
-+	if (ret < 0)
-+		return dev_err_probe(&spi->dev, ret, "AD5413 init failed\n");
-+
-+	return devm_iio_device_register(&spi->dev, indio_dev);
-+}
-+
-+static const struct spi_device_id ad5413_id[] = {
-+	{ .name = "ad5413" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(spi, ad5413_id);
-+
-+static const struct of_device_id ad5413_of_match[] = {
-+	{ .compatible = "adi,ad5413" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ad5413_of_match);
-+
-+static struct spi_driver ad5413_driver = {
-+	.driver = {
-+		.name = KBUILD_MODNAME,
-+		.of_match_table = ad5413_of_match,
-+	},
-+	.probe = ad5413_probe,
-+	.id_table = ad5413_id,
-+};
-+module_spi_driver(ad5413_driver);
-+
-+MODULE_AUTHOR("Bruce Tsao <bruce.tsao@analog.com>");
-+MODULE_DESCRIPTION("Analog Devices AD5413 DAC");
-+MODULE_LICENSE("GPL");
-
--- 
-2.53.0
-
-
+KVM APIs make me want to kill myself.
