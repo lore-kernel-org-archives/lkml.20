@@ -1,69 +1,100 @@
-Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FD1A2F6188;
-	Fri, 16 Oct 2026 02:45:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B622931C4
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:46:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792118765; cv=none; b=oZFaIrc6gO4+cFebndkQmKiggDF10Mnt8kQLdFMpyViV0NPSRK/+tDjX3ViJXlsM5vdyUwNpjSL6MvtFjowrtCEXEV5u6AI5vEJ+OLdS/uAi3OH5U5FWPAjFfdW7FPkrdVHy2j96jn/iW9Mg0hdCD8gduhlHhTyp6AhWOR4S8Pk=
+	t=1792118765; cv=none; b=EFZFlTULszthN64XGrUowJapjan11YIMtDcMBX3/sDizh3NeZFiuK3E/wdVywcGUL4FQuicl1F6YoECvdPIvYqfGUvHfXj4SPrYxnNjN/fmgC3yrtqkyy7Nlca2kpKBcWDJzA15n8jFKmHPy2u1eigw0AA0XNG0J5ftOkWxWWM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792118765; c=relaxed/simple;
-	bh=16vuf1jsfk2TqsWcEzF1DgVBVeepkLR1eDP+Kk1TAxA=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jEwoh4hy/qY6IJiyVaVEqqtEWXWZu143scT2QxVYfdB6Uy1Do52Rs34Hf4NAA8CSY67A75KMbHOSLwEnyEfLmYjfYM/0qiNMQMZiXkTBNoGyOSMgpAU+8gteicFXzewK+J6AH39A9ntgJ+xtd7KNTq8/19q4PaeYg6RyiwePEos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4j5Tp22pWNzT1qP;
-	Fri, 16 Oct 2026 10:45:46 +0800 (CST)
-Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4j5Tp224CtzT1qP;
-	Fri, 16 Oct 2026 10:45:46 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp1.hygon.cn (Postfix) with ESMTPS id 2F2A51549;
-	Fri, 16 Oct 2026 10:45:46 +0800 (CST)
-Received: from hsj-2U-Workstation (172.19.24.226) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Fri, 16 Oct
- 2026 10:45:44 +0800
-Date: Fri, 16 Oct 2026 10:45:42 +0800
-From: Huang Shijie <huangsj@hygon.cn>
-To: Stephen Smalley <stephen.smalley.work@gmail.com>
-CC: <axboe@kernel.dk>, <viro@zeniv.linux.org.uk>, <brauner@kernel.org>,
-	<zhongyuan@hygon.cn>, <fangbaoshun@hygon.cn>, <yingzhiwei@hygon.cn>,
-	<jack@suse.cz>, <agruenba@redhat.com>, <mic@digikod.net>,
-	<gnoack@google.com>, <paul@paul-moore.com>, <jmorris@namei.org>,
-	<serge@hallyn.com>, <aleksa@amutable.com>, <legion@kernel.org>,
-	<david@kernel.org>, <sandeen@redhat.com>, <ebiggers@kernel.org>,
-	<linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-fsdevel@vger.kernel.org>, <gfs2@lists.linux.dev>,
-	<linux-security-module@vger.kernel.org>, <sunjunchao@bytedance.com>
-Subject: Re: [PATCH 1/3] vfs: add inode iteration method super_iter_inodes
-Message-ID: <atGP1kj1upOFi0xL@hsj-2U-Workstation>
-References: <20261015093854.2082600-1-huangsj@hygon.cn>
- <20261015093854.2082600-2-huangsj@hygon.cn>
- <CAEjxPJ7xgpYOQVRSoBMK-_w4kmrPu_v37iS+q3Oj5TvtKUvJqA@mail.gmail.com>
+	bh=pk62lL0eHeta5EpnmZZ+VcUHyNyaxooZtjYjsf5Tp58=;
+	h=Cc:Subject:Mime-Version:Content-Type:From:Date:To:Message-Id; b=HKTy6iUnIXB+Iun1t6si21xMWB4AU7QmdPBN3rgvKdQPb9WYsPKUMDgqCFuZXpZ3N5dnGIwdR1aAwZK9/fbsthEgNFuJhHhZh9ARmznQaq1xqeedR1bkAKWb5irOn+wi0hUk4QNFiBXXOkUh+aMfdmlotkwXr1AeA08znftU44k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=LuJFmvRX; arc=none smtp.client-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="LuJFmvRX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792118757; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=EHWYhLDF9KZVqmcXGvPXYbi3zpzyWgW4t7XAlVQffwA=;
+ b=LuJFmvRXI/5dxGOd6zoj6GWvpG6Ih8qTQ1170a/zLRP+9BodrI+6jcfc5+H4d/656l5xnN
+ iFw8fRHcMzXMnoDiYOUmnqH+DFgkVgkMVCFtKntUTsB6Sq0Upx9a9EQpVEFDQyZ+i9fGM2
+ uPPfKF11MthlSVbqc1cqn/7rxA/KbERp6HE9M00QN5BeUdS8B+n+QSaqKSqFBOSbuQj49r
+ OCfOHwfnAF3faC1cNxWXOWRDq0TL/VkaEfUMrhEyroIoMkgIwmErT6KyTXk6hZaOMPS9kh
+ YjWMzI0VJzJmq9SezCOv0SGNHm4xfk44k6evTP9aaUwCITMXQ1bgF05yBUlPVw==
+Cc: <mark.rutland@arm.com>, <oleg@redhat.com>, <ruanjinjie@huawei.com>, 
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
+	"Zhao Gongyi" <zhaogongyi@bytedance.com>, <stable@vger.kernel.org>
+Subject: [PATCH] arm64: ptrace: don't warn on missing siginfo in a group-stop
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEjxPJ7xgpYOQVRSoBMK-_w4kmrPu_v37iS+q3Oj5TvtKUvJqA@mail.gmail.com>
-X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
- (172.23.18.114)
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26ad18fe3+2186ad+vger.kernel.org+zhaogongyi@bytedance.com>
+Content-Transfer-Encoding: 7bit
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Content-Type: text/plain; charset=UTF-8
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+Date: Fri, 16 Oct 2026 10:45:36 +0800
+To: <catalin.marinas@arm.com>, <will@kernel.org>
+Message-Id: <20261016024536.18938-1-zhaogongyi@bytedance.com>
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
 
-在 Thu, Oct 15, 2026 at 11:23:07AM -0400，Stephen Smalley 写道：
-> 
-> Perhaps SELinux could also use this to replace its own inode walking
-> logic at the tail of security/selinux/hooks.c:sb_finish_set_opts()?
-The super_iter_inodes() can not be used by sb_finish_set_opts() now.
+PTRACE_ATTACH to a group-stopped child can enter do_jobctl_trap(),
+which calls ptrace_stop() without siginfo. PTRACE_GETSIGINFO then
+returns -EINVAL, as expected. If the tracer writes NT_ARM_SYSTEM_CALL,
+system_call_set() stores the new syscallno before calling
+update_syscall_orig_x0_after_ptrace(). Its NO_SYSCALL guard no longer
+applies, so WARN_ON_ONCE(!info) fires. A tracer can trigger this on its
+own child.
 
-super_iter_inodes is only used to iterate the inodes in sb->s_inodes list
-which is proteced by sb->s_inode_list_lock.
+do_jobctl_trap() omits siginfo only for non-seized group-stops. Seized,
+syscall-entry and seccomp stops supply it. Skip orig_x0 synchronization
+for the non-seized group-stop: el0_svc_common() sets orig_x0 on the next
+system call. Keep the warning if a seized stop unexpectedly lacks
+siginfo.
 
-Thanks
-Huang Shijie
+Fixes: 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0 on syscall entry")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+---
+Tested on arm64 KVM at af32da41b032. The unpatched kernel reproduced
+the WARN. An initial fix that returned on every missing siginfo ran
+without warnings.
 
+The final fix was built on the same test baseline. At a group-stop,
+PTRACE_GETSIGINFO returned -EINVAL and an NT_ARM_SYSTEM_CALL write
+succeeded without a warning. An ordinary PTRACE_SYSCALL entry/exit
+round trip completed normally. Changing x0 at syscall-entry and seccomp
+stops produced the expected exit status. No kernel warnings occurred.
+
+ arch/arm64/kernel/ptrace.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
+index f743cbec1..e12b04b8f 100644
+--- a/arch/arm64/kernel/ptrace.c
++++ b/arch/arm64/kernel/ptrace.c
+@@ -573,9 +573,11 @@ static void update_syscall_orig_x0_after_ptrace(struct task_struct *target)
+ 	if (regs->syscallno == NO_SYSCALL)
+ 		return;
+ 
+-	/* We should only be called when target is in a ptrace stop */
+-	if (WARN_ON_ONCE(!info))
++	/* Only non-seized group-stops lack siginfo (see do_jobctl_trap()). */
++	if (!info) {
++		WARN_ON_ONCE(target->ptrace & PT_SEIZED);
+ 		return;
++	}
+ 
+ 	/*
+ 	 * For compat tasks, orig_r0 is provided directly through GPR index
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.39.5 (Apple Git-154)
