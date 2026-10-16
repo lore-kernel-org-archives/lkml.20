@@ -1,79 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7945E1D432D;
-	Fri, 16 Oct 2026 22:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886141FCFFC
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:42:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792190486; cv=none; b=P8ZDqn7tmgBT31idzEp57oDG72PfLv6sKjKGQsXy6L8t6L2n0zrH9uuUzDv2v9+4oXDNt/IcBVwyqwg9lhKCxg4C6T2JuwFrxoGeoVFjaFhXJE0UL/dmEfzVQ3JYrLOgNJ1HjW7bYd4k7KsU6dag88Z9Pt1T2O83Dab1qiqUsoU=
+	t=1792190524; cv=none; b=ZuIbqUhJyFoaHHcwdpWDD6wISHno9DSgd61iLb0o5l5u55vuu6yIszhIoVsW0gPyIpLbzBA59yuncDqTwOkw5DdLS06yRZz6Zbt6lfEDxb3o9JoOJyHO9N2PVjlCA9JYSxVAiIkwh2fjryjQIQRdOAetepUjFkslth8PD7Nhq+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792190486; c=relaxed/simple;
-	bh=nOmlBcRzNKtRPQ4eEUsj+/2m3286iFfddMj78Z+R054=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=imalEvjoguz2Vja9R8/pvSxmNsi+av8GOw2IZ1iRCsbSK2ZgulJnb4j7apjNci6MS9igvuIVwY439k6yDRF0gGjbwd8T3EsNPEZYa16Iy3utmoBQQ9fh5T0p/jmrpvw1SrCf1EQuW4NICD1+NiWJ+3I42IfO0/A3y7+QDL/the4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hH71egwH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792190524; c=relaxed/simple;
+	bh=26nYS9F98fpOF3WKkmoBuNLTRswB/xYDkQKsGGXLWZ4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=HZtWDRH+yfOE2mH7QbPpF2H/9W5FbVOMKIndt0gdErMulHuR13+cWzfWZZwcGSPb02/iZDzF6QOQSHeN4x/klItuwLg74hVRNFEQ7BkG2BCYStfNiCLWftbpK27g48XwvrWckIVSxw+jXdLORJ2JFPp9ugfRRUOatvSxX6rW6BY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UTbCKXKr; arc=none smtp.client-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hH71egwH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50B801F000C4;
-	Fri, 16 Oct 2026 22:41:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792190485;
-	bh=wlqZJKJYIhaeE0t+tvS/zxiZ9grWXt674kx1cECAGCM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hH71egwHYq9vWkbUXDiJA2QB7ySa4Da0tZ3L8qH+Zx70I9dvyd3tvxyOhOOy2zUPw
-	 nIYzx/JCugdltAn/0Xza23DF4+AfZ3MW+gM6Q79ynl5/3JZ4LUTi7tnfmi2mRBeP2a
-	 F50Uuzio+26S2WjZGFYXoQm7N6wX35FGf81LayX5errbMnOSIBJOqBrokBw53cUlYs
-	 3T+23U+vKIxm4ZRyCn1r/Lbb1S1ZJSSDHp5MMo0PfXR6fYWiXElfKHy0Ejdv/rFVji
-	 fXl1yfrlLWwxa8SXSEU6bzmDNgoNQgcSNSTOSfbhWceLNi2h5QSUDHbOxfkBu3zFaR
-	 eZ39RiLw2w32g==
-Date: Fri, 16 Oct 2026 23:41:18 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Dave Jiang <dave.jiang@intel.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Alison Schofield <alison.schofield@intel.com>, Vishal Verma
- <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, Bjorn Helgaas
- <bhelgaas@google.com>, Ira Weiny <iweiny@kernel.org>, Li Ming
- <ming.li@zohomail.com>, Richard Cheng <icheng@nvidia.com>, Terry Bowman
- <terry.bowman@amd.com>, Alejandro Lucero <alucerop@amd.com>,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org
-Subject: Re: [PATCH 2/3] cxl: Account for link width in latency calculation
-Message-ID: <20261016234118.20f6a7e1@jic23-hlaptop>
-In-Reply-To: <20261009045452.1107921-3-den@valinux.co.jp>
-References: <20261009045452.1107921-1-den@valinux.co.jp>
-	<20261009045452.1107921-3-den@valinux.co.jp>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UTbCKXKr"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35c76e9614aso448755eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:42:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792190522; x=1792795322; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=eHvg8UIlEplOtldiPLGiOMZ7Z9btapBeKpPyh1admsw=;
+        b=UTbCKXKrU2Ge/iQ7ppxqcpgxRayMmgIYwSc7KTT3+ykQ883oBg0NAaLg6WTNvjo8lP
+         4SX+SdUwVkJm5Y92gxXbj+tfdVg2YHm7nwnyB6bRN18QgvMwG+omDl7k2j8+X+zyNX5d
+         S/OtdGCsfwnq6lMqIRpdJkSuxyIepa5mtePxRywNDomGWd7c14pEIbx/231g0mjebzHs
+         S/8Wt1b7GclokeQKZpdVGVq9LIWB6LCXozAaxODRBZ/26YTVPtSbDPsZrRuA/L3UR7SP
+         zg0dg+J+W+m1WDeA/TJUzQwI5KEpxZWT+mbUi0+8rQzJlUfTT2X1W4fzXEDl4nCAkv3B
+         mf5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792190522; x=1792795322;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eHvg8UIlEplOtldiPLGiOMZ7Z9btapBeKpPyh1admsw=;
+        b=tKzVphZqiDk5SajvOAL5WWIvPaarKp/bsV6+oP26N4H3t5pmgZpAoo3qH+BYTHWGZw
+         LphffTIBGa80B6OQHz0RGGo5MsI+sAdJp7tfuppYHfJaTIu158Je1CZVNPttR09OsUTn
+         aIE4HDe6hXud4/BkIycA4D56hu04bvPbavMlHi21xelNfomYYnFr2/iVI3xTmoxG2OH8
+         LuHxlUz90WAZDKYjnMxDQ1ivbA9oO/ZKxvlZ7W4oRrcTWNKfRfFytTVJgH7Sc5C42dLn
+         bWwIrGTl2MsP1pC+rQxuWdqFZ+wqIlFOuuH7k3z8d1cyp3tYGvOKadHAsXHtR+8KYF5S
+         wwvw==
+X-Forwarded-Encrypted: i=1; AKwUvBzOxcyquQcTbiiLkXqCADQ2th7V0JvMrYGsSmQ9899E4kD3a7mV2XZl5HwtaRCeIuiPMDeZq/Qn61v4a7M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7ZRcu+NJDM2azT2X234fcwFh6zuVXd5R+cThlPcaI20Bvsrid
+	DlqIUXWIi21XAsu4bjiIaiz6hYkLcs2i1jip4Omxiq7rP1cRem9snTyI
+X-Gm-Gg: AYBFou1CX1AE+DoUmCwLenA5frY+qbzTiz6VyK9SfIxo9b4rTYZMKnA/uOzd18qChuK
+	WmIKoHFyJ8gFryYMZB0IRFXaPImxYdo3feaqyWKd/aFKOzUQXbH/oLKQC5hpWPCxU/O8OpWERtQ
+	NrFRZnrfghThFdS8nz4wrYwcifcmDG/RCMzdCuH5hnlCGHZuje2o2/5xRSbkhVF34zU6x6aev8S
+	kosVw/+QcfStyGn7slFglR6Zx0oB0wXQuXHBIsCl1b/tWyFL5K0TSXQbPdJD8nLWkaJbYEKoIhl
+	9CAfhi/E45siOyB90QUKpSy1VorQ1/ExdFxMmvgrqAgcy+Z7GRnfPtSXob9eKwRKGoFsGgBcZg7
+	F6rBegl5S6hKyslwkd67N4u8hdi7U0lbDdgiuUHTDu4Xvujk8nuLY6mpYGeUdgzBrNZr4xcYXGE
+	76Z1EQmzEEesGqEweF+LdLKSfw1opFiFgiqkM0qJ6tlyK0RptanQeoXK2nN16VIWnKsY2pB6Qdj
+	0GqdOXhwW+DrDJbbPCXaDiJpxSTy+nLU/6tlobC/qRQM108ZuKPcgHEZSACguU=
+X-Received: by 2002:a05:701b:290e:b0:14e:8d1:1012 with SMTP id a92af1059eb24-18512b3e51emr1424452c88.19.1792190521476;
+        Fri, 16 Oct 2026 15:42:01 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:34f0:f27d:9a5d:56e0])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831c4d4675sm8252348c88.21.2026.10.16.15.41.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 15:42:00 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Subject: [PATCH v2 0/5] HID: hidraw: Encapsulate struct hidraw and make
+ hidraw.h private
+Date: Fri, 16 Oct 2026 15:41:47 -0700
+Message-Id: <20261016-test-hidraw-base-v2-0-153f67a20cad@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACuo0moC/z2NQQ6CMBQFr0K6toSWUoGV9zAsSvnQr0JNW1FCu
+ LsFE5eTzJu3Eg8OwZM6WYmDGT3aKQI/JUQbNQ1AsYtMeMYly5igAXygBjun3rRVHmhfyaIXspC
+ 6UiTOng56/BzJa/Nj/2pvoMPe2Q2DPli3HJ8z271/PitYzmWan0shqpIy2o0Y3JJG396NnS/Dq
+ PCRajuSZtu2L5Uc/7y/AAAA
+X-Change-ID: 20261014-test-hidraw-base-f965f4656c9a
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: Marcel Holtmann <marcel@holtmann.org>, 
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+ Michael Zaidman <michael.zaidman@gmail.com>, Rishi Gupta <gupt21@gmail.com>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, Andrej Shadura <andrew@shadura.me>, 
+ Johannes Roith <johannes@gnu-linux.rocks>, linux-input@vger.kernel.org, 
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.17-dev-e56a4
 
-On Fri,  9 Oct 2026 13:54:51 +0900
-Koichiro Den <den@valinux.co.jp> wrote:
+This series cleans up internal HID core and hidraw header boundaries.
 
-> cxl_pci_get_latency() derives bandwidth from the per-lane speed returned
-> by pcie_link_speed_mbps(), ignoring the negotiated link width. This
-> overestimates the FlitLatency contribution for multi-lane links.
-> Sections 2.11.3 and 2.11.4 of the Intel CXL Memory Device Software Guide
-> describe the link bandwidth as the product of the negotiated speed and
-> width.
-> 
-> Replace pcie_link_speed_mbps() with pcie_link_bandwidth_mbps() and
-> migrate both CXL callers (the only users of the API). The new helper
-> obtains speed and width from a single Link Status read. The CXL
-> bandwidth calculation no longer needs a separate width read and
-> multiplication.
-> 
-> While at it, make error handling more robust by converting PCI config
-> read errors to negative errno values and checking for zero bandwidth
-> before calculating latency.
-> 
-> Fixes: 4d07a05397c8 ("cxl: Calculate and store PCI link latency for the downstream ports")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+First, internal HID core declarations and unused symbol exports are
+moved out of include/linux/hid.h into a private drivers/hid/hid-core.h
+header. Next, a hidraw_instance() accessor is introduced in
+include/linux/hidraw.h so HID drivers that only need the hidraw minor
+number for naming or debug logging no longer dereference struct hidraw
+directly. After converting the drivers and dropping unused
+linux/hidraw.h includes, hidraw.h is moved to drivers/hid/hidraw.h and
+struct hidraw along with its internal buffer and list structures are
+made private to drivers/hid/hidraw.c.
+
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+Changes in v2:
+- Rebased onto latest linux-next (next-20261016) / hid.git for-next
+- Updated hidinput_connect() declaration in drivers/hid/hid-core.h in
+  patch 1/5 to use unsigned int connect_mask instead of unsigned int
+  force to match upstream changes
+- Link to v1: https://patch.msgid.link/20261014051326.3784498-1-dmitry.torokhov@gmail.com
+
+---
+Dmitry Torokhov (5):
+      HID: core: Move internal declarations and drop unused exports
+      HID: hidraw: Introduce hidraw_instance() helper
+      HID: Use hidraw_instance() in drivers
+      HID: Drop unused linux/hidraw.h includes
+      HID: hidraw: Make hidraw.h private to HID subsystem
+
+ drivers/hid/Kconfig                     |  3 +++
+ drivers/hid/hid-core.c                  |  7 +++--
+ drivers/hid/hid-core.h                  | 20 ++++++++++++++
+ drivers/hid/hid-cp2112.c                | 15 ++++++-----
+ drivers/hid/hid-ft260.c                 |  2 +-
+ drivers/hid/hid-input.c                 |  4 +--
+ drivers/hid/hid-led.c                   | 10 ++++---
+ drivers/hid/hid-mcp2200.c               |  1 -
+ drivers/hid/hid-mcp2221.c               |  1 -
+ drivers/hid/hid-quirks.c                |  1 +
+ drivers/hid/hid-u2fzero.c               | 10 ++++---
+ drivers/hid/hid-winwing.c               |  1 -
+ drivers/hid/hidraw.c                    | 48 ++++++++++++++++++++++++++++++---
+ {include/linux => drivers/hid}/hidraw.h | 32 +++-------------------
+ drivers/hid/usbhid/hid-core.c           |  1 -
+ include/linux/hid.h                     |  8 ------
+ net/bluetooth/hidp/core.c               |  1 -
+ 17 files changed, 100 insertions(+), 65 deletions(-)
+---
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+change-id: 20261014-test-hidraw-base-f965f4656c9a
+
+Thanks.
+
+-- 
+Dmitry
 
