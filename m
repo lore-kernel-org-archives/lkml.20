@@ -1,120 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818CC3B14BC;
-	Fri, 16 Oct 2026 10:13:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA393B14BC;
+	Fri, 16 Oct 2026 10:14:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145609; cv=none; b=i1UrB1z/cjhOovh06S2CjjczER0dhAi+umdcm/ocjiKHr4G9TFE7ROUC73P4sIqmezQVJqSGK0S6AkTpf7PAjS0B99SbEf1zGxdxXjpC+C6cc7NGbLucnTHJMQECjSh1g2KamFfJW4ilIoJA4Q1egPjQaai1s5O9+YNvXv3qahw=
+	t=1792145643; cv=none; b=Vj8WXV8/eyYJZusWH/H/T+2+um9SvxhTN/cqGZg9RH9ko/FsaeejFt0HDSlMrb6s5WfywZxhLzpxcHsucDQNS1yx5TlbpJVdfeRUVYL+GTepYW/Q8d7Ngr4kc86B5SRLYk4jBUstX2QmN5/xHiHEJh6HpD7Lx1H6wfRT1f82qzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145609; c=relaxed/simple;
-	bh=WQgfGoL4GDK3dJgHpQLbCjihbdF9lp2UKZlbahoF450=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hlDIVoLZs5x3hbkOG8n1HZcxqHj1Q5JOEhRnIWsA2UNOf8Fwd1MasusVdycuw7N/DUXykR/cBt5YiIzUXNyYWpv5b2MDp81XAbzsJT3eYPLVBeq/lcWMCkF4The3/6djUDWcrwfpRhr9U1JxltWVZlXbXNzbQLE6oZ8vLotDaJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MHfbgzlU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792145643; c=relaxed/simple;
+	bh=HcFHvmgxmWGzg24WeGboYzy5XPVHK8biuJzL/4ePzm0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=awAvQI/D2T6rhHqnoT03HEloSW2JQKoSPWkrkXtpJEeAuo2q3/8R9R2rnTORe1frs/yzoCh9KLbmVelVozk9rnC3P6Ia/zObP/rIXWsuVcoRMuiNEGv0CKxF0tTI/WCODvVCHqGCMO/4waBsVjR1z6YzAk9S0XZ1W7Vfz6pb0+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=FPIhoC9f; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=QK4XbgSf; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MHfbgzlU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CE061F000C4;
-	Fri, 16 Oct 2026 10:13:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792145607;
-	bh=WyVgdQOJ2lLJ0wl//yOKImwK8hAJpf48U17WojJT4FU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MHfbgzlUIZRJdPWIE0no3IgTioOtANvbTrN96zf1hnfZNjewVLMpiT2SGNze7NNxb
-	 p4MphMQmmT1pBOQKJrhfmwDL5MpVE0/fmHeUTfXXp1VvrwyWoDKXBF5/uw02dBnDUo
-	 8/CF4tYHbvQ367xcSrBdSgnEgRMv+lMfBbhDAk976/x5JCVLhkeV9Tt7LXQ9l2tYsY
-	 5+4OuMqsQ5QbEDOhW+O6tYGQiBrBWkmJggXEulgYHSz+ui0XQNVW0/jJtmrs01CUjO
-	 WFhuMvak/6KMPYsH6waYO23tMb5Vtx74F56BzklZBf2n9AGQUsu8c4FwmRrgwQ/nEc
-	 qXIbidDQLhUgQ==
-Date: Fri, 16 Oct 2026 11:13:22 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Philip Radford <philip.radford@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Sudeep Holla <sudeep.holla@kernel.org>, arm-scmi@vger.kernel.org,
-	linux-pm@vger.kernel.org, james.quinlan@broadcom.com,
-	f.fainelli@gmail.com, vincent.guittot@linaro.org,
-	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
-	quic_sibis@quicinc.com, dan.carpenter@linaro.org, d-gole@ti.com,
-	souvik.chakravarty@arm.com,
-	Cristian Marussi <cristian.marussi@arm.com>
-Subject: Re: [PATCH v9 05/13] firmware: arm_scmi: Add SCMIv4.0 Powercap FCs
- support
-Message-ID: <20261016-admirable-modern-bandicoot-d7cc15@sudeepholla>
-References: <20260909220437.1254412-1-philip.radford@arm.com>
- <20260909220437.1254412-6-philip.radford@arm.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="FPIhoC9f";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="QK4XbgSf"
+From: Nam Cao <namcao@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792145640;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KvR7oQutL7jrEfWP/R+GUbT2UYY00800fNri/81jLPU=;
+	b=FPIhoC9f0f1LKG/er39KVSu3yahFfZdPBlbmS9+1ehXmWapObPU416wKuzRi+iHzH3arg9
+	HNz5Ys/TusyBKAGCllDKSei2QkhaddF8FAmswoZDUJrsPx+X/OvScRAJ1Im3xvY3lPKRW7
+	dhRfxdUx7NSx8T7MOts3jNBQO8zSGAhxqPm5J7e6KUUH+QJ/bRgPs+YAoP1hgBNh57sXoH
+	6d/ihnaA5j+nWfdaHNO3sOE6iXkBo+qgztWC1rG/PXh3Bato/GNVw03Nw+kjtGpCORj3D1
+	N9x1l9Y1G+nvlKWTpGPiFfnHxUCaoBUR4wBqQKwBMaE+O8vq9GGEhmJXSqmRBw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792145640;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KvR7oQutL7jrEfWP/R+GUbT2UYY00800fNri/81jLPU=;
+	b=QK4XbgSfnoSubrvKF6JfO+oY1KD696knkPtcae5qxtQ3E47EwqyE0unPnbWiI4FDCDh/oM
+	Nmr71tfyPbGQSDDA==
+To: Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>, Paul Walmsley
+ <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>, Naveen N Rao <naveen@kernel.org>,
+ "David S . Miller" <davem@davemloft.net>, Masami Hiramatsu
+ <mhiramat@kernel.org>, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, Xiaofeng
+ Yuan <yuanxiaofeng@eswincomputing.com>
+Subject: Re: [PATCH v6 1/2] riscv: kprobes: reject probes inside LR/SC
+ sequences
+In-Reply-To: <20261016081706.1085-2-yuanxiaofeng@eswincomputing.com>
+References: <20261016081706.1085-1-yuanxiaofeng@eswincomputing.com>
+ <20261016081706.1085-2-yuanxiaofeng@eswincomputing.com>
+Date: Fri, 16 Oct 2026 12:13:58 +0200
+Message-ID: <87se263qc9.fsf@yellow.woof>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909220437.1254412-6-philip.radford@arm.com>
+Content-Type: text/plain
 
-On Wed, Sep 09, 2026 at 10:04:29PM +0000, Philip Radford wrote:
-> From: Cristian Marussi <cristian.marussi@arm.com>
-> 
-> Add support for new SCMIv4.0 Powercap Fastchannels.
-> 
-> Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
-> [Philip: removed reference to old versioning logic]
-> Signed-off-by: Philip Radford <philip.radford@arm.com>
-> ---
->  drivers/firmware/arm_scmi/powercap.c | 331 ++++++++++++++++++---------
->  1 file changed, 229 insertions(+), 102 deletions(-)
-> 
-
-[...]
-
-> +static int
-> +scmi_powercap_xfer_avg_interval_get_v3(const struct scmi_protocol_handle *ph,
-> +				       u32 domain_id, u32 cpl_id, u32 *ivl)
+Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com> writes:
+> +static __always_inline bool riscv_insn_is_lr(u32 code)
 > +{
-> +	int ret;
-> +	struct scmi_xfer *t;
-> +	struct scmi_msg_powercap_cap_or_cai_get_v3 *msg;
+> +	u32 funct5 = (code >> 27) & 0x1f;
+> +	u32 funct3 = (code >> 12) & 0x7;
 > +
-> +	ret = ph->xops->xfer_get_init(ph, POWERCAP_CAI_GET, sizeof(*msg),
-> +				      sizeof(u32), &t);
-> +	if (ret)
-> +		return ret;
+> +	return (code & RV_INSN_OPCODE_MASK) == RVG_OPCODE_AMO &&
+> +	       funct5 == RVG_AMO_FUNCT5_LR &&
+> +	       (funct3 == RVG_FUNCT3_AMO_W || funct3 == RVG_FUNCT3_AMO_D) &&
+> +	       !(code & GENMASK(24, 20));
+> +}
 > +
-> +	msg = t->tx.buf;
-> +	msg->domain_id = cpu_to_le32(domain_id);
-> +	msg->cpli = cpu_to_le32(cpl_id);
+> +static __always_inline bool riscv_insn_is_sc(u32 code)
+> +{
+> +	u32 funct5 = (code >> 27) & 0x1f;
+> +	u32 funct3 = (code >> 12) & 0x7;
+> +
+> +	return (code & RV_INSN_OPCODE_MASK) == RVG_OPCODE_AMO &&
+> +	       funct5 == RVG_AMO_FUNCT5_SC &&
+> +	       (funct3 == RVG_FUNCT3_AMO_W || funct3 == RVG_FUNCT3_AMO_D);
+> +}
 
-Is this inconsistent with scmi_powercap_xfer_cap_{g,s}et_v3() which IMO
-correctly uses pc->cpli[cpl_id].id instead of cpl_id or am I just confusing
-the flow ? The spec is clear that it must be concurrent power limit identifier.
+There are already RV_EXTRACT_FUNCT3() and RV_EXTRACT_RS2_REG(), we
+should use them to avoid code duplications.
 
+And I think we should also have RV_EXTRACT_FUNCT5() to stay consistent.
 
-[...]
-
-> +static int
-> +scmi_powercap_xfer_avg_interval_set_v3(const struct scmi_protocol_handle *ph,
-> +				       u32 domain_id, u32 cpl_id, u32 ivl)
+> +static int __kprobes arch_check_kprobe(unsigned long addr)
 >  {
->  	int ret;
->  	struct scmi_xfer *t;
-> -	struct scmi_msg_powercap_set_cap_or_pai *msg;
-> +	struct scmi_msg_powercap_cai_set *msg;
+> -	unsigned long tmp, offset;
+> +	unsigned long pc, offset;
+> +	int outstanding_lr = -1;
 >  
-> -	ret = ph->xops->xfer_get_init(ph, POWERCAP_PAI_SET,
-> -				      sizeof(*msg), 0, &t);
-> +	ret = ph->xops->xfer_get_init(ph, POWERCAP_CAI_SET, sizeof(*msg), 0, &t);
->  	if (ret)
->  		return ret;
+> -	/* start iterating at the closest preceding symbol */
+>  	if (!kallsyms_lookup_size_offset(addr, NULL, &offset))
+> -		return false;
+> +		return -EILSEQ;
 >  
->  	msg = t->tx.buf;
->  	msg->domain_id = cpu_to_le32(domain_id);
->  	msg->flags = cpu_to_le32(0);
-> -	msg->value = cpu_to_le32(pai);
-> +	msg->cai = cpu_to_le32(ivl);
-> +	msg->cpli = cpu_to_le32(cpl_id);
+> -	tmp = addr - offset;
+> +	/* pc starts at the closest preceding symbol, a known instruction boundary */
+> +	pc = addr - offset;
+>  
+> -	while (tmp <= addr) {
+> -		if (tmp == addr)
+> -			return true;
+> +	while (pc < addr) {
+> +		u32 insn = get_unaligned((u32 *)pc);
+> +		unsigned int len = GET_INSN_LENGTH(insn);
+>  
+> -		tmp += GET_INSN_LENGTH(*(u16 *)tmp);
+> +		if (riscv_insn_is_lr(insn))
+> +			outstanding_lr = 0;
+> +		else if (riscv_insn_is_sc(insn))
+> +			outstanding_lr = -1;
+> +		else if (outstanding_lr >= 0 && ++outstanding_lr > MAX_LRSC_GAP)
+> +			outstanding_lr = -1;
+> +
+> +		pc += len;
+>  	}
 
-Ditto here.
+The spec says "The loop comprises only an LR/SC sequence and code to
+retry the sequence in the case of failure, and must comprise at most 16
+instructions placed sequentially in memory". The 16 instructions limit
+includes LR. So I think this implementation is off by one:
 
--- 
-Regards,
-Sudeep
+    lr     (outstanding_lr=0)
+    inst1  (outstanding_lr=1)
+    inst2  (outstanding_lr=2)
+    ...
+    inst16 (outstanding_lr=16)
+    inst17 (outstanding_lr=-1)
+
+As it is considering instruction from LR to inst16 to be a loop, so it
+allows 17 instructions.
+
+Nam
