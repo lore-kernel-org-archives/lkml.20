@@ -1,75 +1,141 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E50A70808
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:44:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C03381EA9
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:44:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792125858; cv=none; b=C/U86o7AmWH5KRzlfHS6x75XmhAweVkJ1YVQ58KG5OJpxocfxPQTtsg4FQ4gR2pyktQDCTs1deJVgznBMq81mlQP4/f23xi+2iCYwooMVHqiaGYK8paSLhlEKIy9oFMXDt08OlCSAdrLUIkBubgkLuwflqH7F4qnsSSRZMkx3KM=
+	t=1792125860; cv=none; b=PccRicCd6KFsCsw/cStZ/GVy8QXmtxgbfpXeoQ6Rw4S/+dRyj2fziwRx3suJQTnNClS2SMJbWhIy+1Wn/Bsp53UQLsue+Cgda7N24Otn2b45jOTzmLN0IQysuuDqEZtSNueLZAEMMaAG/HSLq7mL1QcdwEJ508YdEQJQI4GSVDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792125858; c=relaxed/simple;
-	bh=qijEVR3ZfwMQmmtpsAvdV+g1DfB4sbwoHiaGcv+TK9w=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=dUAkf4Iog2Aee/V8fVywIKvuEx2WebiGBFfKNG5/eugYy0Wo7CdRHk03XwvG9WNjB6sCS/aKN2NU2SNjDUiYp2Yvdz9T2mIEWtP1YYlXhwOdz60Ix/nOoax+uP9yyp+pquT1fCfdgVWztC5wkbHJ+KmWCuvAFsXdiAe4kGxdcUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DddqOVVg; arc=none smtp.client-ip=209.85.214.197
+	s=arc-20240116; t=1792125860; c=relaxed/simple;
+	bh=iBxhG0lDSXU9hccFsW+kLsVMxETbKXUFyCPAbKw24bg=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=st62HT6E4kc4EChvqs2hlEM7OQ2H2f88Q4/kfgD3J3FerYGhHKfrS0sYbzqiBgEi95JCRmEIPQYf/xqHxee+QU1LRPvT7zap0CiQ81UZ+Ec7god/WmzOeg/dEwkmJGMNyQQLI+FDL2ey5YICh6S+mTdEsPH5q2bSWxrI6eQ2kpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rJsRHJde; arc=none smtp.client-ip=209.85.215.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DddqOVVg"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfa4e4684bso40743615ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:44:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rJsRHJde"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd65285537aso267141a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:44:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792125857; x=1792730657; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tmAk3Oh+oKVK8d5pqejtpcee3315xk02eIJBQpRYvbg=;
-        b=DddqOVVgIez38+yBkuwS5Nw5kVK9UUbJB6IsdY+0j0oi+C78EkWVrpMvLDKF0jiref
-         QJNPcUVUqM2/lzxtCEHJt+IRVpd8LCjcYWS23iCPML2NCJJOhrZjuurGQJVMu5+/rOIn
-         +eDLWIBNdvIkZLJ1rNT3VJHWIxhwRqumX+jxHxMBmaC2XJS/BCCSvkYV4kHesqTxaOto
-         yNvTncCb+pU4sJO/ByKWaY8zktx70c7UzcvU8HSof6GttU48oRNl5H+vs9nPYbPpxAS0
-         /KcuQLryBn2rS7A1NMqeoP8yU5SMHZy4H0KS7NCWCyyhWh1H6Udr1vhMNSVo2WH7m762
-         FgjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792125857; x=1792730657;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=google.com; s=20251104; t=1792125858; x=1792730658; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=tmAk3Oh+oKVK8d5pqejtpcee3315xk02eIJBQpRYvbg=;
-        b=oaFV8/QFOdP4/bl+L9vy147q+BOEw+aiqufRQvjq2u+sMxAW6uLDFXzTD5hE27wSFf
-         6117jTmyOc4dt5J1ogdgOVS5dTNT/z2XMylh+Rmpyssotw1n1Cva1QJHJplYRVVitUiQ
-         A9ATYl8fxrwedpkb4DYnhOjs1wqnWCZkhKl91jB+2OKXgvJzpRycmSdPQnEx2gEWQvW/
-         3IgyLv2IVe6XokGcYzbxo0mp7kcyy3CuSoPv3L7WIZ7Im7RNYSkjs2LhQdF08pn+50UJ
-         rTMfyt5Ph8QbJW2t3Uso7ECDKcf9sBWqIVmSQ1rYi/9jvpWwrfKP8Yf/Rr1avpDsDGWK
-         hQ4w==
-X-Forwarded-Encrypted: i=1; AKwUvBwVK2iivnqGYho/g8B3FHGJgZF32bRdPbn9ble51muOnnqtSKEzI+lrABVa9ZShSykDTTz62S2ELP7Drqs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJGmfAOCG5OfYFBluvGlNdvR3jF+ZuqhOvkpuS4gRDk8SmcGeWx
-	tJKPPaTCb3g8FayO1qRuVjlF7J6EzC6pyVNJKi2SLBVXDwCAw8aq2LknqqFtazRQbN+sUprzJ3r
-	PxBifZA==
-X-Received: from plu15.prod.google.com ([2002:a17:903:368f:b0:2e5:d262:2f9a])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2f92:b0:2e5:98d7:8202
- with SMTP id d9443c01a7336-2e842cd44b8mr191901645ad.13.1792125856508; Thu, 15
- Oct 2026 21:44:16 -0700 (PDT)
+        bh=stWvJXyBUg4KLELHwAAG+Vn93f0auxo1LLZDP1lXIio=;
+        b=rJsRHJdeO12phGND+PhhDGk1cCcJyRFb0yAn/va1+H8kk1K/uWODl1bXSadrVTD1HS
+         3UWcC0wMzGnk376YjrkyBGaIYd2gCqcntYSwyzjPJxVfwgBDX0Rv11CB/NcS+So+5Xnf
+         9Wz29wX9/eaFtMq4h0icmmVq+X4b6ea00EKaQQAF/poRtot0OUQk699/CwoW/h64e97z
+         bx422oNwQSrwsRgUauPkPXs3AunmzNu3ST52b6Lvkf3w3nl6qfOjDzS7JdOpoCjTxRcl
+         wwYRcWsvTI+s9NBXH0KAB20hnfoJD/c1PuHgpZOLEdt+evG4TZxT/S7cnhi5GIgT3fUP
+         KHEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792125858; x=1792730658;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=stWvJXyBUg4KLELHwAAG+Vn93f0auxo1LLZDP1lXIio=;
+        b=wkOZ7atwfLV+o84JgT+cBYz9/Nfd46rwPHhJLKdPNelVENNHUozbueYY2X315yqSJX
+         nFZcs6s3LEN21GNBBn1VSP0nJQSPADguCaNsfulO7c5AG7fycCmzbS6sQo4KOVgre/HK
+         bqB/+ZStrBkCPO8OaDsf9z1+xz1gt2Yz/3U27aVWnQFnU9TrqIPo5xRKtv/k08yvlTNI
+         7Y2wxO1KxqNZzjkjnodfloDOS7vmsct3Ir1YJOfSxd3RcPkmDBpshmHRdIY0XIB63wy8
+         HYX5JtepZqpDe5PGecNQJ8TYncJo9ag3I67kVidW907iGShzwYngpfKYt9AH+IVvTrD5
+         1OYA==
+X-Forwarded-Encrypted: i=1; AKwUvBwElhtWRSGUiHZjmr0rv3BXMuO9fFyLHoiV5WLZ0FvA2le1MuFT8O4trdk9rN5ruuQPkZhtcLhDCP1Ik9Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/OoEA3yvjkOcuUWBt1G6xv4+q0AxsFHLwFZBmzXbN+o7AdE69
+	sC+oTYKS2DvQ/Y9WJXLhiKH5cxM1ezhoI0J0IPbfSOxSKT2TvLtSp+I65EOkCINtVIeMPIKL7a6
+	+PWu2xA==
+X-Received: from pgbq26.prod.google.com ([2002:a63:5c1a:0:b0:cc7:e0b2:a5a2])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:1015:b0:3e1:6acc:59ea
+ with SMTP id adf61e73a8af0-3e16c093f8cmr17703333637.62.1792125857644; Thu, 15
+ Oct 2026 21:44:17 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Thu, 15 Oct 2026 21:44:05 -0700
+Date: Thu, 15 Oct 2026 21:44:06 -0700
+In-Reply-To: <20261016044415.958618-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20261016044415.958618-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-Message-ID: <20261016044415.958618-1-seanjc@google.com>
-Subject: [GIT PULL] KVM: x86: Pull requests for 7.4
+Message-ID: <20261016044415.958618-2-seanjc@google.com>
+Subject: [GIT PULL] KVM: x86: Timekeeping fixes+cleanups for 7.4
 From: Sean Christopherson <seanjc@google.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Sean Christopherson <seanjc@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-This cycle is "fun", only the "mmu" and "svm" requests escaped without a conflict
-or some other notable mess.  That said, I don't think there's anything particularly
-thorny to deal with, just a lot of minor stuff.  Details in the individual pull
-requests.
+Part 1 of 2 (or maybe 3) of David's war on kvmclock.  Ugh, and when looking at
+the shortlog, I realized I botched the author on these:
 
-My apologies for not getting the guest_memfd in-place conversion changes sent
-along sooner.  I really wanted to get you a pull request around 7.3-rc4, but we
-simply could get the code ready in time.
+  KVM: x86: Use kernel timekeeping snapshot for monotonic clock
+  KVM: x86: Use kernel timekeeping snapshot to get walltime+TSC
+
+Holler if you would prefer a fixup to get the author right; these have been in
+-next for over a month, so I opted to send them as-is instead of doing a super
+last minute rewrite.
+
+The following changes since commit d4b7fb647204f0c81dfeae2d1a708e4d858e0c94:
+
+  Merge branch 'kvm-xen-longmode' into HEAD (2026-09-04 17:35:03 +0200)
+
+are available in the Git repository at:
+
+  https://github.com/kvm-x86/linux.git tags/kvm-x86-clocks-7.4
+
+for you to fetch changes up to d7841275e1fb4ad1e1877e56725ebda5b6e3143d:
+
+  KVM: x86: Use kernel timekeeping snapshot to get walltime+TSC (2026-09-11 11:46:19 -0700)
+
+----------------------------------------------------------------
+KVM x86 timekeeping fixes and cleanups for 7.4
+
+Fix a variety of warts in KVM's handling of guest TSC, kvmclock, and
+timekeeping in general, as a (big) first step towards addressing several
+longstanding problems with the kvmclock implementation.
+
+Most notably, fix a precision issue where get_kvmclock_ns() computed the
+clock from the *host* TSC without applying guest TSC scaling, causing
+systemic drift from the values the guest computes from its own TSC.
+
+As a bonus cleanup, rip out the whole pvclock_gtod_data hack, which was
+shadowing the kernel's timekeeping, and use ktime snapshots.
+
+----------------------------------------------------------------
+David Woodhouse (14):
+      KVM: x86: Improve accuracy of KVM clock when TSC scaling is in force
+      KVM: x86: Explicitly disable TSC scaling without CONSTANT_TSC
+      KVM: x86: Activate master clock immediately on vCPU creation
+      KVM: x86: Compute kvmclock base without pvclock_gtod_data
+      KVM: x86: Avoid NTP frequency skew for KVM clock on 32-bit host
+      KVM: x86: Wrap all of __get_kvmclock_master_clock() with CONFIG_X86_64=y
+      KVM: x86: Fall back to non-master-clock if clockread fails in get_kvmclock()
+      KVM: x86: Fix KVM clock precision in get_kvmclock() with TSC scaling
+      KVM: x86: Use get_kvmclock() in kvm_get_wall_clock_epoch()
+      KVM: x86: Fix compute_guest_tsc() to handle negative time deltas
+      KVM: x86: Upscale TSC to "now", not master clock when updating PV clocks
+      KVM: x86: Simplify and comment kvm_get_time_scale()
+      KVM: x86: Remove implicit rdtsc() from kvm_compute_l1_tsc_offset()
+      KVM: x86: Use kernel timekeeping snapshots for getting kvmclock time since boot
+
+Sean Christopherson (7):
+      KVM: x86: Update "last guest TSC" snapshot prior to enabling IRQs/preemption
+      KVM: x86: Drop unnecessary CPU pinning when computing/getting kvmclock
+      KVM: x86: Move "no master clock" fallback from __get_kvmclock() to get_kvmclock()
+      KVM: x86: Disable preemption, not IRQs, when getting TSC+freq pair
+      KVM: x86: Make master clock logic in guest PV clock updates 64-bit only
+      KVM: x86: Use kernel timekeeping snapshot for monotonic clock
+      KVM: x86: Use kernel timekeeping snapshot to get walltime+TSC
+
+ arch/x86/include/asm/kvm_host.h |   6 +-
+ arch/x86/kvm/cpuid.c            |   1 +
+ arch/x86/kvm/msrs.c             |   3 +-
+ arch/x86/kvm/svm/svm.c          |   3 +-
+ arch/x86/kvm/vmx/vmx.c          |  10 +
+ arch/x86/kvm/x86.c              | 480 ++++++++++++++++++----------------------
+ arch/x86/kvm/x86.h              |   3 +-
+ 7 files changed, 240 insertions(+), 266 deletions(-)
