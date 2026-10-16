@@ -1,70 +1,69 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255E14756CD
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:46:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155E24756D8
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:46:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792147609; cv=none; b=mUMTpJxuox+Ck4V51C5h1cyYtqfY3jZDecPq3ze1Z6ZMxxdI7v63ZcUlX0NbMyl+LenebREFRypcjQMkMhqhGYoPtqUbgryKA+E9BpL6/RMenME03PwP9mPTZzRxV0udYl86VYeQ/HEBmuQAR9F2Wx0aF0uCy2zbM8/nkd+ev40=
+	t=1792147616; cv=none; b=UL1ExG94Bap739SNqj+AorF297HDOqz5irGNcyq8g6HN7HsgLQ+3cR94orwxfMIu2KGdYLr4OD2i/b8pYB7SXtWc4cQpcBnale+CzLttynjy72iAZx8zogAHkMuV09WMvJO1XU7TIoQe4uzeeSR15nTRcHVD3Vz1xmlGgXqN/d4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792147609; c=relaxed/simple;
-	bh=wKhzhYX6hS4Wi56TQ3y3x5J4ndL0TrTsKaDlVVdqu1U=;
+	s=arc-20240116; t=1792147616; c=relaxed/simple;
+	bh=zeJeL5XDwFKnxaDtN3xepC0DLuh0/U4ur1krG6QGZt4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hLiwh3GxoBHFkb5K+ATWHlcWduFytGc51YLyRgRGQqiPruSwyWtPZE4mUmuxIRVmKSbTLjwGmDuAzVEQ8apF9tZyFcW+GMBpmh5xgEZehaDmQHkdkoKKQMOxkkyPB9oiLvegVAgIZl566sNXEf3PQbmgP0dB35XzpvB64aoPDHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=cQ45KpPk; arc=none smtp.client-ip=209.85.128.46
+	 In-Reply-To:To:Cc; b=BcQ/DyhAKfk7VEGv86WleM7tVS5O7FMmD59E2sLjE//3pzJM3rnaNAK9sQqzGTDvZCC0hYBAqqqOx0Py7gDwm4HVvKlP1GJ8Ku19gS0WSaaPV6UvzjCpvp2B+POQZpkJH6SqVjPT0T1CKZ8GTe7vDeDut519v9pc7yhzenWiisA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=tBhD7TkR; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="cQ45KpPk"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso28716485e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:46:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="tBhD7TkR"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so56970025e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:46:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792147605; x=1792752405; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1792147612; x=1792752412; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wTf2dyjD3kUgeu76x/83E5vQe2hucK0qQ9DL5CxdIj0=;
-        b=cQ45KpPkaGq9CpTJCBKS9VbmU0sAwP6BzuNqJ2069s4DAgdfPS54dDWu7s3gWWno+P
-         hxeAUln1RPpBr5XzM/yVpsGACT91a7M6lTX0EhDI5+KEWhDG2RNficbZmTYfQnj80hMO
-         xkqa6qSu9LvXsNBzNJRhSBGp7h0X362NhbUd2Mi6/u3Hac2nb5NcjpyiSnv1MB+425Bn
-         wKuWmGOo0eJdlLCSkbU5/0lGG4G1ZmFN4iHqTG1r+ur9SlF1BCrm7Ecxdo3LT5RDIZWg
-         6DSGrIEm0gbQE+vIC6MHQriT/XZxjmpyDLRF9xbbYDvzqaGZ7fkHWfvQQGfzBuB7qrYE
-         pqFQ==
+        bh=zbXD4ITQsH/XxraaXqLBFVLwXTKmDzFktFWBm9+M5nM=;
+        b=tBhD7TkROPE5Xo/xP7n25LBlm6xiqGTTuxBjzZ15UfEEkkzwETLiSNxmaxX+Q8PR42
+         SipNF4iTCCpfVRIKTS6YWhxllyfrr2K+R6kkI+slugH4Y62HrX0iCnPmn3PP+mw4glwI
+         CBvzCSnAPcbKKyyV3ujgsTImcGjiiZrM93vDgZo9m/Yjo32BoOy8drNFuVXoUjbnUenr
+         OA6O1cAw0hTjAWeTZHaAwHw6db66TVHKhKfVAAj9tSvclDYpIhKh2cOl+gmV6LHR5GG/
+         Cm5ci+L3ULBcScDbsu9Yq0WLHV7MEiGOhs8oyrREYIV17BNvs/BUg5POC0HY9UyvRCSC
+         3pZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792147605; x=1792752405;
+        d=1e100.net; s=20260707; t=1792147612; x=1792752412;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wTf2dyjD3kUgeu76x/83E5vQe2hucK0qQ9DL5CxdIj0=;
-        b=Fcpnqjm6aXvNxFsZjMaEK7imFc7/WlygA4alPMP5cDbEKvq1Cag6U2v5lK5I+tH2ZK
-         DOG+ZPlI6XNQZiQfT4a60eF+qUALgnPivUfa/yfETiV+bO34JBHIlscM6vgSgEjm13vb
-         IjXz0aNnh6Oi/JXrBQAOpeDJPRTTrHeAePp/sKQXKeOuo8Q1N/gbciVP89UPJrMSHK5s
-         a4eWsLCqDFv+5984nwRjjIvpE6WpfdQEu7pB8S9/jbK6ZcH4CSNaFfu1Ay4I77y2yviW
-         GB9Ul9KR6C5XUF6qfaMBTgUmZhGvKjSGpcoP3uztjB11F+hFDRhN/61KjYnLBd0/X+vf
-         ZUOg==
-X-Forwarded-Encrypted: i=1; AKwUvBy5u5pgPfgRMNJEJtzr83Wi6HPoClEFAy8kFnruL6CdZj/Uno6FrJ10RSRI72g5jSsWjm8VOUCX5pnUgqw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlTCVatBFPWxnSlQ2/EiX5Op+odNJi5fh3iAewsSeyfCPR01Fy
-	lcDRUsM4gTXbpRV8A/y3WZxPvYuOQZNjTHZJa5x/3k4pTeqrRjQ8Henqex/AZFpbJqnmj/dpQwg
-	u3wIq784=
-X-Gm-Gg: AYBFou0zUp706FBgm5+j4ZlVQMs9SzRrmeo6oPbAFiQK/3pKDC49zMXT4MtsbmW6/a/
-	zO+8GqUZpXiZy3nwmoXFYwOkdmSgTSBCHiqsiMaSbSE3svAopZgxNQCbsQatHWBTAQF+OKLotsh
-	TibeIhP59PHtDcT5CSdCyd4v/RdTx7ftIdqnDLEGdXwaELOsn6U+N8c6DERIy+NAUrNOQawbtZ9
-	lOf2Ho+GHNoaMgq66Hxfqqld2+dxb6s4MWJ70U4eO4vYWCPO/egF0nssr58gzjtm/sdPIgrtpR0
-	x2bnxNDH/0hEZd92DOhiM7UFxoTlXVyo5j582akw9Fadafv6FI/ilX8dYAvLGtAVZfxxtU74PiN
-	ETi0iia7as02oXbS9zCJPPoc/O3SfrVCs33J8DN92uQ6rYtEtx3B+j88WWjq0BQ1jMHCD1L1Zj2
-	L2zGil8pV7t8XL/NH1jPtItlIc3KhGjH3yytDaAZY9GgstH0OUmrYnmMGqCzfjba0zwYoamOazZ
-	A==
-X-Received: by 2002:a05:600c:a016:b0:4a1:a44d:1d5 with SMTP id 5b1f17b1804b1-4a1a44d0221mr286210265e9.9.1792147605311;
-        Fri, 16 Oct 2026 03:46:45 -0700 (PDT)
+        bh=zbXD4ITQsH/XxraaXqLBFVLwXTKmDzFktFWBm9+M5nM=;
+        b=LUpzYj0LgD2nM7S65Wa6fOezNN1p+4M4P5enY/e6XLkV3eIxb3hJWO5i5T98+nuFUg
+         UZUQtvHut6hvjtDHozuCO+enwp+9mCXIifSL92o81iDdNzjPOfZHuulbt1aNuNf0c36F
+         iWlm/KNTiW/qlSHSsbXBXncLlUPKkvtaOlHuOI8ITI6G5Zr/27mhIuRdcbZoHf9rZX71
+         WvvriCPGHePqoF0GunHlxLP7v24u8i4Op9v8vJ0DU5PcNjYeI27FjYg1GSRvnI8fYrZr
+         hEmJ9iNxnhfNY4HnYbcRVx1vgn56dMBMKspCLaTPIoAWcDOcLkVJUUuk+rF8qYHl3v5g
+         M7/A==
+X-Forwarded-Encrypted: i=1; AKwUvBwSluhpxapqbZo5g++jIhl/nttyeEtlayo/3BD4EwxiegjTa3JNGkHsefSZUFjQtOCh/cXbqbY1Lh5mkNo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJoh6pXmZcOPuvaGI40t22CpHYH2cfj1sXIjqc/9m+8wwMzbgD/
+	fRtpAASmiYE9A1S/8WUYsToYf3XjA97nZ4nAs+ItNByXJxmE6dOGUeHfIxd3d9hwHhk=
+X-Gm-Gg: AYBFou2dhqSFKm/lb1rzAFfX+h1JGSNgyXiVzd7NqIMgwXOCK3wI01qeI+cV/6+3R2B
+	pkA6QKsWkxd0xr+2ZANeJK2dCAE8X7Nd5Bikr2SZmqmfrJm3NLrQB2+EwKdYH+4cRNTJ39S1iHy
+	Ec4hPshIDz79vW89cYpR78eBuHoydB50WlDkQblrwUcDXhdWjiAcLWFLsXMRwZCVzzHaZ8VfkH/
+	aI0OgxBINmfdPSLFOqippEqELVyzVvKujIfZ1R9J+1jfbcWPeHXX6dEgMpzwdFLeK5pmosOtGT9
+	gbOEb1iMpxIPX2tZLXYEzClORkdAxtLYhNbfEIYieKrb+PR+tZSCL8tg4Z1C0h4orRpD2BS4Iwo
+	WLmi8LdZdEqdyoNU46ReqsU7q+Y2WLr65ZWYYOHYr/JvnSM8A9NLRHqn1Y/qQGPrKS7MdhqC3jT
+	ztAlniOstUpJjGJ+yOOgTG0vYD/c6UTGRkIhNlV82BHB+8j/lE+D4xSOtENDM5ijhle/gDX4s3o
+	w==
+X-Received: by 2002:a05:600c:8105:b0:4a1:775b:5eb2 with SMTP id 5b1f17b1804b1-4a18e48362emr469338195e9.13.1792147612021;
+        Fri, 16 Oct 2026 03:46:52 -0700 (PDT)
 Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4e7ff1sm4556570f8f.25.2026.10.16.03.46.44
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4e7ff1sm4556570f8f.25.2026.10.16.03.46.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 03:46:44 -0700 (PDT)
+        Fri, 16 Oct 2026 03:46:51 -0700 (PDT)
 From: James Clark <james.clark@linaro.org>
-Date: Fri, 16 Oct 2026 11:46:14 +0100
-Subject: [PATCH v4 04/10] coresight: etm-perf: Reject event if building
- path fails
+Date: Fri, 16 Oct 2026 11:46:18 +0100
+Subject: [PATCH v4 08/10] coresight: tmc-etf: Remove sharing guards from
+ ETF
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-james-cs-multiple-per-threads-v4-4-dedf961aca0e@linaro.org>
+Message-Id: <20261016-james-cs-multiple-per-threads-v4-8-dedf961aca0e@linaro.org>
 References: <20261016-james-cs-multiple-per-threads-v4-0-dedf961aca0e@linaro.org>
 In-Reply-To: <20261016-james-cs-multiple-per-threads-v4-0-dedf961aca0e@linaro.org>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
@@ -86,207 +85,121 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Jonathan Cameron <jic23@kernel.org>
 X-Mailer: b4 0.15.2
 
-etm_event_build_path() silently skips error cases to support opening
-cpu=-1 events on all CPUs when a system might not have reachable sinks
-or ETMs for every CPU. In the next commit we want to reject the event
-if invalid sharing on any sink is detected, so propagate errors.
+Potential sink sharing is now identified during AUX setup. Trust the
+core sharing rules when enabling an event and use the sink reference
+count to avoid reconfiguring hardware that is already active.
 
-This means that things like failed memory allocations when building the
-path and invalid aux pause options now reject the event which is
-probably an improvement.
-
-Keep the silent skips for things that make sense like missing ETMs and
-sinks.
-
-Previously, _coresight_build_path() used -ENODEV both when no route to
-the sink existed and when coresight_grab_device() could not acquire a
-device or helper on a found route. Return -ENOENT exclusively for the
-unreachable case, and retain -ENODEV for device acquisition failures,
-such as a missing driver or failure to take a module reference.
+Remove the redundant PID tracking from ETF and the TMC driver state.
 
 Signed-off-by: James Clark <james.clark@linaro.org>
 ---
- drivers/hwtracing/coresight/coresight-core.c     | 22 ++++++---
- drivers/hwtracing/coresight/coresight-etm-perf.c | 61 +++++++++++++-----------
- 2 files changed, 47 insertions(+), 36 deletions(-)
+ drivers/hwtracing/coresight/coresight-tmc-core.c |  2 --
+ drivers/hwtracing/coresight/coresight-tmc-etf.c  | 22 ++--------------------
+ drivers/hwtracing/coresight/coresight-tmc.h      |  4 ----
+ 3 files changed, 2 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
-index c05d657cde73..a635c51c25ac 100644
---- a/drivers/hwtracing/coresight/coresight-core.c
-+++ b/drivers/hwtracing/coresight/coresight-core.c
-@@ -980,6 +980,9 @@ int coresight_path_assign_trace_id(struct coresight_path *path,
-  * From there the sink is added to the list along with all the devices that led
-  * to that point - the end result is a list from source to sink. In that list
-  * the source is the first device and the sink the last one.
-+ *
-+ * Return: 0 on success, -ENOENT if the sink is unreachable, or another error
-+ * if path construction fails.
-  */
- static int _coresight_build_path(struct coresight_device *csdev,
- 				 struct coresight_device *source,
-@@ -996,10 +999,10 @@ static int _coresight_build_path(struct coresight_device *csdev,
+diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
+index 864da1eea52c..e3c94dca1152 100644
+--- a/drivers/hwtracing/coresight/coresight-tmc-core.c
++++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
+@@ -800,8 +800,6 @@ static int __tmc_probe(struct device *dev, struct resource *res)
+ 	devid = readl_relaxed(drvdata->base + CORESIGHT_DEVID);
+ 	drvdata->config_type = BMVAL(devid, 6, 7);
+ 	drvdata->memwidth = tmc_get_memwidth(devid);
+-	/* This device is not associated with a session */
+-	drvdata->pid = -1;
+ 	drvdata->etr_mode = ETR_MODE_AUTO;
  
- 	if (coresight_is_percpu_source(csdev) && coresight_is_percpu_sink(sink) &&
- 	    sink == per_cpu(csdev_sink, csdev->cpu)) {
--		if (_coresight_build_path(sink, source, sink, path) == 0) {
--			found = true;
--			goto out;
--		}
-+		ret = _coresight_build_path(sink, source, sink, path);
-+		if (ret)
-+			return ret;
-+		goto out;
- 	}
+ 	if (drvdata->config_type == TMC_CONFIG_TYPE_ETR) {
+diff --git a/drivers/hwtracing/coresight/coresight-tmc-etf.c b/drivers/hwtracing/coresight/coresight-tmc-etf.c
+index 8882b1c4cdc0..e2204a47c1f6 100644
+--- a/drivers/hwtracing/coresight/coresight-tmc-etf.c
++++ b/drivers/hwtracing/coresight/coresight-tmc-etf.c
+@@ -250,11 +250,9 @@ static int tmc_enable_etf_sink_perf(struct coresight_device *csdev,
+ 				    struct coresight_path *path)
+ {
+ 	int ret = 0;
+-	pid_t pid;
+ 	unsigned long flags;
+ 	struct tmc_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
+ 	struct perf_output_handle *handle = path->handle;
+-	struct cs_buffers *buf = etm_perf_sink_config(handle);
  
- 	/* Not a sink - recursively explore each port found on this element */
-@@ -1011,15 +1014,20 @@ static int _coresight_build_path(struct coresight_device *csdev,
- 		if (coresight_blocks_source(source, csdev->pdata->out_conns[i]))
- 			continue;
- 
--		if (child_dev &&
--		    _coresight_build_path(child_dev, source, sink, path) == 0) {
-+		if (!child_dev)
-+			continue;
-+
-+		ret = _coresight_build_path(child_dev, source, sink, path);
-+		if (!ret) {
- 			found = true;
+ 	raw_spin_lock_irqsave(&drvdata->spinlock, flags);
+ 	do {
+@@ -270,31 +268,18 @@ static int tmc_enable_etf_sink_perf(struct coresight_device *csdev,
  			break;
  		}
-+		if (ret != -ENOENT)
-+			return ret;
- 	}
  
- 	if (!found)
--		return -ENODEV;
-+		return -ENOENT;
+-		/* Get a handle on the pid of the process to monitor */
+-		pid = buf->pid;
+-
+-		if (drvdata->pid != -1 && drvdata->pid != pid) {
+-			ret = -EBUSY;
+-			break;
+-		}
+-
+ 		ret = tmc_set_etf_buffer(csdev, handle);
+ 		if (ret)
+ 			break;
  
- out:
- 	/*
-diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
-index faec4c7bb83d..a9adf1cca7a8 100644
---- a/drivers/hwtracing/coresight/coresight-etm-perf.c
-+++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
-@@ -334,32 +334,30 @@ static struct coresight_path *etm_event_get_ctxt_path(struct etm_ctxt *ctxt)
- 	return path;
- }
+-		/*
+-		 * No HW configuration is needed if the sink is already in
+-		 * use for this session.
+-		 */
+-		if (drvdata->pid == pid) {
++		/*  No HW configuration is needed if the sink is already in use. */
++		if (csdev->refcnt) {
+ 			csdev->refcnt++;
+ 			break;
+ 		}
  
--static struct coresight_path *
--etm_event_build_path(struct perf_event *event, int cpu,
--		     struct coresight_device *user_sink,
--		     struct coresight_device *match_sink)
-+static int etm_event_build_path(struct perf_event *event, int cpu,
-+				struct coresight_device *user_sink,
-+				struct coresight_device *match_sink,
-+				struct coresight_path **path)
- {
--	struct coresight_path *path = NULL;
- 	struct coresight_device *source, *sink;
--	int ret;
-+	int ret = 0;
+ 		ret  = tmc_etb_enable_hw(drvdata);
+ 		if (!ret) {
+-			/* Associate with monitored process. */
+-			drvdata->pid = pid;
+ 			coresight_set_mode(csdev, CS_MODE_PERF);
+ 			csdev->refcnt++;
+ 		}
+@@ -351,8 +336,6 @@ static int tmc_disable_etf_sink(struct coresight_device *csdev)
+ 	/* Complain if we (somehow) got out of sync */
+ 	WARN_ON_ONCE(coresight_get_mode(csdev) == CS_MODE_DISABLED);
+ 	tmc_etb_disable_hw(drvdata);
+-	/* Dissociate from monitored process. */
+-	drvdata->pid = -1;
+ 	coresight_set_mode(csdev, CS_MODE_DISABLED);
  
-+	*path = NULL;
- 	source = coresight_get_percpu_source_ref(cpu);
+ 	raw_spin_unlock_irqrestore(&drvdata->spinlock, flags);
+@@ -432,7 +415,6 @@ static void *tmc_alloc_etf_buffer(struct coresight_device *csdev,
+ 	if (!buf)
+ 		return NULL;
  
--	/*
--	 * If there is no ETM associated with this CPU or ever we try to trace
--	 * on this CPU, we handle it accordingly.
--	 */
-+	/* Silently skip CPUs without a loaded ETM. */
- 	if (!source)
--		return NULL;
-+		return 0;
- 
- 	/*
- 	 * If AUX pause feature is enabled but the ETM driver does not
--	 * support the operations, skip for this source.
-+	 * support the operations, reject the whole event.
- 	 */
- 	if (event->attr.aux_start_paused &&
- 	    (!source_ops(source)->pause_perf ||
- 	     !source_ops(source)->resume_perf)) {
- 		dev_err_once(&source->dev, "AUX pause is not supported.\n");
-+		ret = -EINVAL;
- 		goto out;
- 	}
- 
-@@ -380,30 +378,34 @@ etm_event_build_path(struct perf_event *event, int cpu,
- 		 * trace on a CPU if the sink is not compatible.
- 		 */
- 
--		/* Find the default sink for this ETM */
-+		/* Silently skip ETMs with no reachable sink loaded */
- 		sink = coresight_find_default_sink(source);
- 		if (!sink)
- 			goto out;
- 
--		/* Check if this sink compatible with the last sink */
-+		/* Silently skip sinks incompatible with the last sink. */
- 		if (match_sink && !sinks_compatible(match_sink, sink))
- 			goto out;
- 	}
- 
- 	/*
--	 * Building a path doesn't enable it, it simply builds a
--	 * list of devices from source to sink that can be
--	 * referenced later when the path is actually needed.
-+	 * Build path, but don't enable. Skip CPUs that cannot reach the sink.
-+	 * Reject the whole event on other path construction errors.
- 	 */
--	path = coresight_build_path(source, sink);
--	if (IS_ERR(path))
-+	*path = coresight_build_path(source, sink);
-+	if (IS_ERR(*path)) {
-+		ret = PTR_ERR(*path);
-+		if (ret == -ENOENT)
-+			ret = 0;
-+		*path = NULL;
- 		goto out;
-+	}
- 
--	/* ensure we can allocate a trace ID for this CPU */
--	ret = coresight_path_assign_trace_id(path, CS_MODE_PERF);
-+	/* Reject whole event if we can't allocate a trace ID for this CPU */
-+	ret = coresight_path_assign_trace_id(*path, CS_MODE_PERF);
- 	if (ret) {
--		coresight_release_path_locked(path);
--		path = NULL;
-+		coresight_release_path_locked(*path);
-+		*path = NULL;
- 		goto out;
- 	}
- 
-@@ -411,7 +413,7 @@ etm_event_build_path(struct perf_event *event, int cpu,
- 
- out:
- 	coresight_put_percpu_source_ref(source);
--	return IS_ERR_OR_NULL(path) ? NULL : path;
-+	return ret;
- }
- 
- static void *etm_setup_aux(struct perf_event *event, void **pages,
-@@ -448,15 +450,16 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
- 
- 	/*
- 	 * Setup the path for each CPU in a trace session. We try to build
--	 * trace path for each CPU in the mask. If we don't find an ETM
--	 * for the CPU or fail to build a path, we clear the CPU from the
--	 * mask and continue with the rest. If ever we try to trace on those
--	 * CPUs, we can handle it and fail the session.
-+	 * trace path for each CPU in the mask. Skip CPUs without an ETM, without
-+	 * a compatible default sink, or unable to reach the selected sink by
-+	 * clearing them from the mask. Other errors reject the whole event.
- 	 */
- 	for_each_cpu(cpu, mask) {
- 		struct coresight_path *path;
- 
--		path = etm_event_build_path(event, cpu, user_sink, sink);
-+		if (etm_event_build_path(event, cpu, user_sink, sink, &path))
-+			goto err;
-+
- 		if (!path) {
- 			/*
- 			 * Failed to create a path for the CPU, clear it from
+-	buf->pid = task_pid_nr(event->owner);
+ 	buf->snapshot = overwrite;
+ 	buf->nr_pages = nr_pages;
+ 	buf->data_pages = pages;
+diff --git a/drivers/hwtracing/coresight/coresight-tmc.h b/drivers/hwtracing/coresight/coresight-tmc.h
+index d63fa60ecce8..36b54ebf30ba 100644
+--- a/drivers/hwtracing/coresight/coresight-tmc.h
++++ b/drivers/hwtracing/coresight/coresight-tmc.h
+@@ -217,9 +217,6 @@ struct tmc_resrv_buf {
+  * @crashdev:	specifics to handle "/dev/crash_tmc_xyz" entry for reading
+  *		crash tracedata.
+  * @spinlock:	only one at a time pls.
+- * @pid:	Process ID of the process that owns the session that is using
+- *		this component. For example this would be the pid of the Perf
+- *		process.
+  * @reading:	buffer's in the reading through "/dev/xyz.tmc" entry
+  * @stop_on_flush: Stop on flush trigger user configuration.
+  * @buf:	Snapshot of the trace data for ETF/ETB.
+@@ -252,7 +249,6 @@ struct tmc_drvdata {
+ 	struct miscdevice	miscdev;
+ 	struct miscdevice	crashdev;
+ 	raw_spinlock_t		spinlock;
+-	pid_t			pid;
+ 	bool			reading;
+ 	bool			stop_on_flush;
+ 	union {
 
 -- 
 2.43.0
