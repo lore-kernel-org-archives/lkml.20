@@ -1,309 +1,119 @@
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E2612B94;
-	Thu, 15 Oct 2026 23:57:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A9E4EC667
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:00:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792108637; cv=none; b=ZunhtdhkDtsgS+ZU25XpxDQg0PDNxHP0mzJjqYobSOP26hiLSuyn2XUKzebvdyj+fn2YsaXP05F1nctNEDrN9tkDxmfja5G6RvYNreKt75FY8bZUOFFtISziUq9wXlK514RVxENiR70PMH0dyFPa/2rYfWqdpMRFoHjAqK73w0Q=
+	t=1792108811; cv=none; b=ktcOP+NHGu7Wap//C4o3bJOFm1HMOS3RflNg9rC2Jy8bEW927WJ+xodq6+Z2C4AjF0kZs7gSHN5YkKNIhupK9YNwBtp0QY+YSaWJ6Dx0PFpsqpMM+sclBB6HbDgxu2Z50WeMyiy5D/Rgx8pfw9cWn5v91vxSMp4WFjwWESb9iC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792108637; c=relaxed/simple;
-	bh=nwTvCpXRL6oY96X3vt7gbZ/aCURYMMM4rrkINQ5/d/Q=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mI53B9OyJIeMfOYR0jZeNhTbUEd70vQ7yWF5wVNzHPJ32AZVleJZcoDQd5lGpmTIJ4zbfdjnE9g8G8k7OlKs92czzxagjzpbax7EakVkj3vW0ZpT3a4UoK1h6atR48Ku70gbwhWpkIJFATPZc0xQXn+7mNOCFozEsPQh4pBvxBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=sozMejSb; arc=none smtp.client-ip=34.218.115.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1792108811; c=relaxed/simple;
+	bh=QqEHOCux09a0Q8vXL7DmpuXdHbLuTIeeYNtJksyQERU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZJEXO09cm4m8+wQsxrjreg0mb+kn/6MM5PVRJkB1E2R+9Vtst3Xxae0cu5jaJsKowSaL9PuEOWQxyb3tsftTPPaNZBBaYcMN5jiiNLj3DeZ/E29J0DzMW9DJO3KdhJuuSGMwS1PBVbcZV0UMiMMF69+28trqtz2o6TIX/KNOW5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=oeES/4ls; arc=none smtp.client-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="sozMejSb"
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="oeES/4ls"
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-917a707f37eso72684056d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:00:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1792108636; x=1823644636;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=JuQIR6xxu+Ccn4fJ1Tmer0zdvoE1nrvZZJsOWghcExQ=;
-  b=sozMejSbeIHQKi2flyHWdrVH/Jz5D6HWHr8hN02qmpNhhuOMNUZGuF3V
-   JryLW1iQWh81jv/uqrpWxFRC1bvKdcRMqiEsMdSGowLsYoFNmvPn5uLbc
-   Q2U3KXuxhW1MSCk/ckFyK1IRcWnM8AkmUz7XG/SCpv80Z8oTikjvRO48G
-   KcsYlBX7X453IX/VVG2urO7cMkSkTMNQtIOeywSc2NF4BRpqnpgRpi9dE
-   LnvOpCWwMN+O3XGQSjeLGXB0OyjBue/zbFfNwu7IYv80hrqeKO9a/Uw27
-   GqPaXbL8purDrlXms3kXwZDXymHraarDh5v+yfUHUxOjWbDH018mWh9LD
-   w==;
-X-CSE-ConnectionGUID: SbYd7BkIQOmQzcH8/nylcQ==
-X-CSE-MsgGUID: PkGGQ2HjTAW5hp2NTQlmiw==
-X-IronPort-AV: E=Sophos;i="6.27,160,1787011200"; 
-   d="scan'208";a="31167227"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 23:57:13 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:18153]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.12.154:2525] with esmtp (Farcaster)
- id da528a75-418a-498b-8c90-9899358c60f4; Thu, 15 Oct 2026 23:57:13 +0000 (UTC)
-X-Farcaster-Flow-ID: da528a75-418a-498b-8c90-9899358c60f4
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.217) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 15 Oct 2026 23:57:13 +0000
-Received: from dev-dsk-dkeogh-ai2-36d3b9a7.us-west-2.amazon.com
- (172.19.55.127) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Thu, 15 Oct 2026
- 23:57:12 +0000
-From: David Keogh <dkeogh@amazon.com>
-To: <netdev@vger.kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Eric Dumazet <edumazet@kernel.org>
-CC: Dragos Tatulea <dtatulea@nvidia.com>, Nimrod Oren <noren@nvidia.com>,
-	<nh-open-source@amazon.com>, <linux-kernel@vger.kernel.org>
-Subject: [RFC net-next 6/6] selftests/net: add tx_extra_headroom data-plane test
-Date: Thu, 15 Oct 2026 23:53:35 +0000
-Message-ID: <20261015235335.4162993-7-dkeogh@amazon.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261015235335.4162993-1-dkeogh@amazon.com>
-References: <20261015235335.4162993-1-dkeogh@amazon.com>
+        d=ziepe.ca; s=google; t=1792108809; x=1792713609; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QqEHOCux09a0Q8vXL7DmpuXdHbLuTIeeYNtJksyQERU=;
+        b=oeES/4lsLOyq6iDysQyL1B5xi59UWJQzeHHnLneDcRPAWcIVAeM6vJwv8xnwV4Y6kP
+         F3yvNOgN8dKsbw6t3xX2J7hcHZJ3sDKz0+cYxpGrog5avZV1zKm64X4+ubIuuvzelovr
+         4QAT7mPUDntexW6b63ykRbtEoYBSjQPAcE85i7diDm8xG1rcUgXyDwKf3AUYoA7WGyKK
+         5CGcyacBMCik2W4awvlskERMgndl3J+qFtCSKO9PSuVV0c7M0dTGYFuzJCSH0Ts28yiY
+         qqeQW0UbHn426QXsfzBX9viYYFRPjTuCTBxyLXFhSJQLRjYurxzDQ/chGlrLbjJytHTA
+         9DmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792108809; x=1792713609;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QqEHOCux09a0Q8vXL7DmpuXdHbLuTIeeYNtJksyQERU=;
+        b=BSRcTAgIhBd+27BUkRTjKkq6syB+5w7z+anpjDVXJMgeFtRAnVdWWEb4Kw5KI8KylE
+         uAntoD/Cy0n5h5zPRxJNqRWxaIl2i/5rZ/Q7HV9Y5CAMDbhrBGViERZwdziBrVOS6MOU
+         PFGfkw6XtjYyJdG3a7H87YTLUDJgCjvZ/uGCkKeJbcRIpEcmZmOOs5oiuY79N1VU38w8
+         QV/fdh0mPPTrywmDRZ6je/Z1nOoByNFjVuKMgp/bvqT/FkKYgx4tUc6XWBYW0IA+cQ1+
+         tV1e80iA6OaK+hqETHYhiD/7cBRrWD+LnzGEZ7WvGKlqgnwpvkoyMRx3m05LPviExtiT
+         fhWA==
+X-Forwarded-Encrypted: i=1; AKwUvBzdJwchxR1hDwNUEtDy4eBsSlUayc7/NmZinYOCNRu9+SaiRMIB9phEKdVODt94pR66UN8LJLSW76aLGRY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKN86pKQzsTaONy/maZ67o7Qazqxxt2LPkUFI+up1Ras+Qf/2Eb
+	cxvn9G8rhDiQxtm1yhxAgfslkjH8lXTNRFXzAXpeMfn2mpmjCbspcn+/oMJXXzFOLRU=
+X-Gm-Gg: AYBFou1tWu1sPTYG4ynzZKB3o7Ozo2nw/6xOS5ttBORLwwRqictepzSxJ3neXZ7snLB
+	6DVzkWFHHTjdcsCTCOnWN3qmaYAGHco1Xufqqn3jyBhU7FZaTrEJU7+Fml2hW3r5G6s3EfCpsRc
+	qo/kbDcqpNQ9ZqSQXiJmZwYLaN+Z/+8ONYV4V7Ok5Vkda1BF/enoaV4loS8IovU4MloxK+9dCVx
+	/O9uAzBsq6MMSrp5X2EZh7I2YtBrzaYDJoxj0+8bIoP7wbdjKVDf0xWnGolCtuUxaQILJD6holR
+	TTBDNzUR14LOwX3gQEH54URazbm+WqYjrCPRF/XXy9aHOvrHu8W89SD4Y6QvOUdwe4d3sOkiPZQ
+	OJRe3Hn468qVmEv5cRMkQgdh333VPCrVIVPIrmjkB/PLATLOPVl+3OwnYLB/IWNh1V7CMXK/SlN
+	3EMAl0eVLpw0/ki3HXf7V59+t5/yN8qj3rPSuVpO5cue60RwUpI70jBWUagXC4Y/Qdc5vzeYPk9
+	5hTqY+kJi5fZLlekFR3YdZUPEROffG39+gyO0NbSA==
+X-Received: by 2002:ad4:5deb:0:b0:917:bbf1:5323 with SMTP id 6a1803df08f44-91b55793527mr367860846d6.38.1792108808237;
+        Thu, 15 Oct 2026 17:00:08 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bce8918bdsm4228956d6.48.2026.10.15.17.00.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 17:00:05 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xHVMi-00000000H7g-17qS;
+	Thu, 15 Oct 2026 21:00:04 -0300
+Date: Thu, 15 Oct 2026 21:00:04 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Gong Shuai <gong.shuai@sanechips.com.cn>
+Cc: kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Tomasz Jeznach <tomasz.jeznach@linux.dev>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Andrew Jones <andrew.jones@oss.qualcomm.com>,
+	Fangyu Yu <fangyu.yu@linux.alibaba.com>,
+	Wu Fei <wu.fei9@sanechips.com.cn>,
+	Zhao Qingye <zhao.qingye@sanechips.com.cn>,
+	Gong Shuai <gsh517025@gmail.com>
+Subject: Re: [RFC PATCH 0/12] iommu/riscv: Add nested translation (vIOMMU)
+ support
+Message-ID: <20261016000004.GB14213@ziepe.ca>
+References: <20261015065232.604503-1-gong.shuai@sanechips.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015065232.604503-1-gong.shuai@sanechips.com.cn>
 
-The existing tx_extra_headroom test checks the IFLA_TX_EXTRA_HEADROOM
-attribute itself. Add a test for its effect: with the knob at zero an
-egress header-push reallocates the skb head on every packet, and with
-the knob raised the realloc is eliminated. A second case checks that the
-cliff sits at exactly the headroom the push needs.
+On Thu, Oct 15, 2026 at 02:52:20PM +0800, Gong Shuai wrote:
+> Add nested translation support to the RISC-V IOMMU driver, so a KVM guest
+> with its own vIOMMU can own the first stage of a device context while the
+> host keeps the second stage, and add the interrupt support. This is an RFC
+> and comments on the design are welcome.
 
-The test loads the two BPF programs from the previous patch, attaching
-count_realloc by SEC name with "bpftool prog loadall ... autoattach" and
-reading realloc_cnt via bpf_map_dump(). The veth peer is kept in its own
-netns so the datagram egresses the device under test, and a permanent
-neighbor is primed so UDP is not dropped before egress.
+The iommufd parts looked reasonable to me
 
-Signed-off-by: David Keogh <dkeogh@amazon.com>
----
- tools/testing/selftests/net/Makefile          |   1 +
- .../net/tx_extra_headroom_dataplane.py        | 197 ++++++++++++++++++
- 2 files changed, 198 insertions(+)
- create mode 100755 tools/testing/selftests/net/tx_extra_headroom_dataplane.py
+I feel some mild skepticism about all the MSI parts, it would be good
+to get more of the interrupt stuff actually landed before posting this
+again.
 
-diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftests/net/Makefile
-index 0eb9a69e9..28b0444ba 100644
---- a/tools/testing/selftests/net/Makefile
-+++ b/tools/testing/selftests/net/Makefile
-@@ -121,6 +121,7 @@ TEST_PROGS := \
- 	tfo_passive.sh \
- 	traceroute.sh \
- 	tx_extra_headroom.py \
-+	tx_extra_headroom_dataplane.py \
- 	txtimestamp.sh \
- 	udpgro.sh \
- 	udpgro_bench.sh \
-diff --git a/tools/testing/selftests/net/tx_extra_headroom_dataplane.py b/tools/testing/selftests/net/tx_extra_headroom_dataplane.py
-new file mode 100755
-index 000000000..d32bb1ed6
---- /dev/null
-+++ b/tools/testing/selftests/net/tx_extra_headroom_dataplane.py
-@@ -0,0 +1,197 @@
-+#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
-+
-+"""
-+Data-plane tests for IFLA_TX_EXTRA_HEADROOM: setting the knob eliminates the
-+per-packet head reallocation that an egress header-push otherwise forces.
-+
-+Mechanism (fully in-tree, no bpftrace, no raw kprobe, no user-space loader):
-+
-+  * tx_extra_headroom_tc.bpf.o    - a tc-egress program that pushes a 20-byte
-+    outer header on UDP via bpf_skb_adjust_room(..., BPF_ADJ_ROOM_MAC, ...). On
-+    an skb allocated with only LL_RESERVED_SPACE() of headroom that push
-+    reallocates (pskb_expand_head) on every packet; with tx_extra_headroom
-+    reserving enough room at allocation time it does not.
-+
-+  * tx_extra_headroom_probe.bpf.o - an fentry/pskb_expand_head program that
-+    counts the reallocs for the device under test (filtered by cfg_ifindex) into
-+    realloc_cnt. It is attached by its SEC name via
-+    "bpftool prog loadall ... autoattach" and read via bpf_map_dump().
-+
-+Topology is two netns (peer in a separate netns) so the datagram genuinely
-+egresses the device and hits the tc-egress hook; co-resident veth ends would be
-+locally delivered via loopback and never reach egress. A static ARP neighbor is
-+primed so UDP egresses instead of dropping at an unresolved neighbor.
-+"""
-+
-+import socket
-+import time
-+
-+from lib.py import ksft_run, ksft_exit, ksft_ge, ksft_lt
-+from lib.py import ip, tc, bpftool, cmd
-+from lib.py import bpf_map_dump, bpf_prog_map_ids
-+from lib.py import NetNS, NetNSEnter
-+from lib.py import RtnlFamily
-+
-+ATTR = "tx-extra-headroom"
-+OUTER_LEN = 20
-+# veth LL_RESERVED_SPACE = ((14 + 0) & ~15) + 16 = 16; the 14-byte L2 header
-+# leaves 2 free, so a 20-byte push needs 20 - 2 = 18 more from the knob.
-+THRESHOLD = 18
-+NPKTS = 20000
-+
-+TC_OBJ = "tx_extra_headroom_tc.bpf.o"
-+PROBE_OBJ = "tx_extra_headroom_probe.bpf.o"
-+PINDIR = "/sys/fs/bpf/tx_extra_headroom"
-+
-+
-+def ifindex(name):
-+    return ip(f"link show dev {name}", json=True)[0]["ifindex"]
-+
-+
-+def _hex_le(value, nbytes):
-+    """bpftool 'key/value hex' wants space-separated little-endian bytes."""
-+    return " ".join(f"{b:02x}" for b in int(value).to_bytes(nbytes, "little"))
-+
-+
-+def _map_set_u32(map_id, key, value):
-+    bpftool(f"map update id {map_id} key hex {_hex_le(key, 4)} "
-+            f"value hex {_hex_le(value, 4)}")
-+
-+
-+def _map_set_u64(map_id, key, value):
-+    bpftool(f"map update id {map_id} key hex {_hex_le(key, 4)} "
-+            f"value hex {_hex_le(value, 8)}")
-+
-+
-+def set_hr(rtnl, idx, val):
-+    rtnl.setlink({"ifi-index": idx, ATTR: val})
-+
-+
-+class Observer:
-+    """Loads the fentry realloc counter (autoattach) and the tc pusher, exposes
-+    a reallocs(send_fn) call, and tears both down cleanly on close()."""
-+
-+    def __init__(self, dev, dev_ifindex, send_ns):
-+        self.dev = dev
-+        self.send_ns = send_ns
-+        # Fresh pin dir; a leftover one would make loadall fail to pin.
-+        cmd(f"rm -f {PINDIR}/*", shell=True, fail=False)
-+        cmd(f"rmdir {PINDIR}", shell=True, fail=False)
-+        # Single fentry program -> autoattach attaches it by SEC name and pins
-+        # its maps under PINDIR. No bpftrace, no kprobe name.
-+        bpftool(f"prog loadall {PROBE_OBJ} {PINDIR} autoattach")
-+        # tc pusher: self-loading via object-file, attached inside the send ns.
-+        tc(f"qdisc add dev {self.dev} clsact", ns=send_ns)
-+        tc(f"filter add dev {self.dev} egress bpf da object-file {TC_OBJ} sec tc",
-+           ns=send_ns)
-+        # Resolve the two maps by name from the fentry program.
-+        prog_id = self._probe_prog_id()
-+        maps = bpf_prog_map_ids(prog_id)
-+        self.cfg_id = maps["cfg_ifindex"]
-+        self.cnt_id = maps["realloc_cnt"]
-+        # Scope the counter to the device under test (by id: a stale pinned copy
-+        # of the same-named map would make a by-name update ambiguous).
-+        _map_set_u32(self.cfg_id, 0, dev_ifindex)
-+
-+    @staticmethod
-+    def _probe_prog_id():
-+        progs = bpftool("prog show", json=True)
-+        for p in progs:
-+            if p.get("name") == "count_realloc":
-+                return p["id"]
-+        raise RuntimeError("count_realloc fentry program not loaded")
-+
-+    def reallocs(self, send_fn):
-+        """Reset the counter, run send_fn (traffic), return the realloc count."""
-+        _map_set_u64(self.cnt_id, 0, 0)
-+        send_fn()
-+        time.sleep(0.2)  # let the last in-flight reallocs land
-+        return bpf_map_dump(self.cnt_id)[0]
-+
-+    def close(self):
-+        # Detach the fentry link so it does not leak to later tests.
-+        links = bpftool("link show", json=True)
-+        for l in links:
-+            if l.get("attach_type") == "trace_fentry":
-+                cmd(f"bpftool link detach id {l['id']}", fail=False)
-+        cmd(f"rm -f {PINDIR}/*", shell=True, fail=False)
-+        cmd(f"rmdir {PINDIR}", shell=True, fail=False)
-+
-+
-+def _blast_udp(dst, port, n):
-+    """Send n small UDP datagrams; the receiver drops them, but the TX-side
-+    realloc already happened, which is what we measure."""
-+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-+    s.connect((dst, port))
-+    buf = b"x" * 1024
-+    for _ in range(n):
-+        try:
-+            s.send(buf)
-+        except OSError:
-+            pass
-+    s.close()
-+
-+
-+def _setup_veth(peer_ns):
-+    """hrt0 in the current netns (send side, tc push attached); hrt1 in peer_ns.
-+    Prime a static ARP neighbor so UDP egresses instead of dropping at an
-+    unresolved neighbor (which would read 0 reallocs regardless of the knob)."""
-+    ip("link add hrt0 type veth peer name hrt1")
-+    ip(f"link set hrt1 netns {peer_ns}")
-+    ip("addr add 10.0.0.1/24 dev hrt0")
-+    ip("link set hrt0 up")
-+    ip("link set lo up")
-+    with NetNSEnter(str(peer_ns)):
-+        ip("addr add 10.0.0.2/24 dev hrt1")
-+        ip("link set hrt1 up")
-+        ip("link set lo up")
-+        peer_mac = ip("link show dev hrt1", json=True)[0]["address"]
-+    ip(f"neigh replace 10.0.0.2 lladdr {peer_mac} dev hrt0 nud permanent")
-+
-+
-+def test_realloc_eliminated() -> None:
-+    """Knob off -> push reallocates per packet; knob set -> realloc eliminated."""
-+    with NetNS() as send_ns, NetNS() as peer_ns, NetNSEnter(str(send_ns)):
-+        _setup_veth(peer_ns)
-+        rtnl = RtnlFamily()
-+        idx = ifindex("hrt0")
-+        obs = Observer("hrt0", idx, str(send_ns))
-+        try:
-+            off = obs.reallocs(lambda: _blast_udp("10.0.0.2", 9999, NPKTS))
-+            set_hr(rtnl, idx, 128)
-+            on = obs.reallocs(lambda: _blast_udp("10.0.0.2", 9999, NPKTS))
-+        finally:
-+            obs.close()
-+
-+        ksft_ge(off, NPKTS // 2, "knob off: push should realloc most packets")
-+        ksft_lt(on, NPKTS // 100, "knob on: realloc should be eliminated")
-+
-+
-+def test_realloc_threshold() -> None:
-+    """The realloc cliff sits at exactly the headroom the push needs."""
-+    with NetNS() as send_ns, NetNS() as peer_ns, NetNSEnter(str(send_ns)):
-+        _setup_veth(peer_ns)
-+        rtnl = RtnlFamily()
-+        idx = ifindex("hrt0")
-+        obs = Observer("hrt0", idx, str(send_ns))
-+        try:
-+            set_hr(rtnl, idx, THRESHOLD - 1)
-+            below = obs.reallocs(lambda: _blast_udp("10.0.0.2", 9999, NPKTS))
-+            set_hr(rtnl, idx, THRESHOLD)
-+            at = obs.reallocs(lambda: _blast_udp("10.0.0.2", 9999, NPKTS))
-+        finally:
-+            obs.close()
-+
-+        ksft_ge(below, NPKTS // 2, f"knob={THRESHOLD-1}: still reallocates")
-+        ksft_lt(at, NPKTS // 100, f"knob={THRESHOLD}: realloc eliminated at cliff")
-+
-+
-+def main() -> None:
-+    ksft_run([test_realloc_eliminated,
-+              test_realloc_threshold])
-+    ksft_exit()
-+
-+
-+if __name__ == "__main__":
-+    main()
--- 
-2.50.1
+Please try harder on the commit messages, do not use AI to write them
+like this. They need to explain why this patch exists and what problem
+it is solving not some inscrutible description of what it contains.
 
+You'll need other riscv people to help you with reviewing it.
+
+Jason
