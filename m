@@ -1,170 +1,111 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71AA03C061F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:48:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56A71AA1F4;
+	Fri, 16 Oct 2026 20:49:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792183706; cv=none; b=m2QqjyBLPFp/F4HEvLZg8kIsiI7z6/I2tDNPTEORxaT1Xg9az+YMxaM2PiVo5pwkXFaR3CMN2TGAd8zFh2PHbzVnXdq2fE4y7khyVZ2vpPTdOdkgRI7BF5ATkXOWKzrEnohoU5csyF8iCAozt9WA9rFIKuvErOP2DhQBOvubQuw=
+	t=1792183762; cv=none; b=C5s+B519YcME6mXfqC2quffKJ4BiFLgeCMKmYHpAbomt5MPq27B58xh+t5pw1pJF9TpaRLAYcRNOCh5Crlg/tjeDIrriS6HOumhxP9O9f0bXs0Dbl9MvsJHWE41o95wdqO8vNGDN9UYliEhF7gYCIzMTNS/BV//w0M/oACRk3lU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792183706; c=relaxed/simple;
-	bh=cYFTm9Nc2gqNdgyZ35xsSY7JeCdgIJzgWJf7GvvMLZw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=n0AGAZCmCXbYTr2AGLSpBmqpNP9mY6mQMKhvQ5sh+nM/e4f9pi1iAhdXgtTIA5YsoDutbckU6Bs7mWwlu1Tr++Qg7YGUKgBaNOkOSFwQbdH/dfH4XMB2O50DJkC+s091O2Ambj7dCzlJh2tC6Bh1ssw0mJw97lq31YIy+C/dTN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=aGSh1a7V; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=3VfKh040; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792183762; c=relaxed/simple;
+	bh=F1YwocGuB5wBG/+T9FgM/ZWNUxNhaSBy6/kicqGxaYs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VZYCNYGwGHnFCe9PvFglu3PumRq1eulfTLu268qRmaZB9W7BJj+il/WyGL57eF+OzuNyxsyR0ozoSfVLVsmyMt3AldtwgYqlMuvcqg+7d8ajh9kf2lCHT8FB6bJRxu8wmgb7Mg6bFhv1VoLOdRHkRHOWgQJQoMI4kURo9ezEISk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ovh0gvhL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="aGSh1a7V";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="3VfKh040"
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792183701;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MeyVsOyXsONjJlnThzWKAJr9Mu7+kuLWZkfW4XvRl34=;
-	b=aGSh1a7V/J33HNsKFlE2OOG7jAPTDbOmO0xPQbU+ajEZhhJtMZqoTkQHxkWk+n3L239u8q
-	zk6nPUNzutF+aKlmxp05adgFFMNVPjvzZ7abaUM7bukyMz/MrTa0vFj1HGGVLhQONP4Jhn
-	FQDakVIHy103NRXKZICxP3Cwrzt/4ZVuoxYTuhecywZb9I1orFjegw+iGnxo09OyLc+ClX
-	qhbp6yKrOEYkDkXycF0JPekHmxee1DOXmD4Bkklq7tmZ/LORfexRAU0rRNhXR6r09WsAe2
-	Y3RVzBcVfbab1HhD0XvdEKL9xwxKnywLpnt3x3kFdQIt9+0NFjAGyjpzhwFKsw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792183701;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MeyVsOyXsONjJlnThzWKAJr9Mu7+kuLWZkfW4XvRl34=;
-	b=3VfKh040XyM3Txm14TaKN+SNdW/p/vhtfQQdKk8Kw9kdApVU6lAs0kBotBn8Ie8QG+kHI/
-	ONzRdZ2D6orazQCg==
-To: "Hahn, Matthias" <matthias.hahn@intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "x86@kernel.org" <x86@kernel.org>
-Cc: "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "peterz@infradead.org" <peterz@infradead.org>, "Hahn, Matthias"
- <matthias.hahn@intel.com>
-Subject: Re: [RFC/DISCUSSION] x86/tsc: Handling legacy PIT fallback
- calibration on modern platforms
-In-Reply-To: <CH3PR11MB08137159D0CC079C8BFA13F6E7F1952@CH3PR11MB081371.namprd11.prod.outlook.com>
-References: <CH3PR11MB08137159D0CC079C8BFA13F6E7F1952@CH3PR11MB081371.namprd11.prod.outlook.com>
-Date: Fri, 16 Oct 2026 22:48:20 +0200
-Message-ID: <878q3xcqy3.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ovh0gvhL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735151F000C4;
+	Fri, 16 Oct 2026 20:49:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792183761;
+	bh=r4J0Jzg7N3u7C0+ED/NwcN1PIj5f66Ln1oWcN4Vza+k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ovh0gvhL3qxeKhuyycOjLHcdQQz7A0m2LCRpdUEl+4chPm3CNyHavohKSzvjia8WO
+	 LhFK+Xen9mblMKuPQp/RBa2hQMor5nUa3JSK3sCbExlnaOeAkiaegEzBnaWJm+utrO
+	 S6Z636g60fBl588UUPK7zM6avTRmXh0xtGRUe/jgaDZ1ZW6XG6hor/J+68VzYH2czA
+	 OGC008TxHc96R016RhL89A8qSNiJpdzzGsTVByOOJBX/CkAFPSJqlXMvLu/0O0dhyV
+	 NCOzM1I278C9+tlxqep2O8Su+6g+ub6kmN7FileiwOjXPJcxnn2q3r54ZvP7LddIdh
+	 TuULDFx9CI4Hg==
+Message-ID: <4359bff8-edb2-486a-8d41-38bd315a4430@kernel.org>
+Date: Fri, 16 Oct 2026 21:49:16 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: Add OmniVision OV13858
+To: geocausa@gmail.com, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>,
+ German Pablo Lindo <germanpapulindez@gmail.com>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
+ <Tb0AcYbDPldfaB1S1ypqTPp6iFwxJVF_1Dh_7FJdavARv0U5KErpuPTQn6FNDYBoK206hZlqZHDsasGYmQx4zg==@protonmail.internalid>
+ <20261015-ov13858-x1e-v1-1-acdd918f4fb6@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261015-ov13858-x1e-v1-1-acdd918f4fb6@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Matthias!
+On 15/10/2026 22:48, George Neacsu via B4 Relay wrote:
+> +  - clocks
+> +  - avdd-supply
+> +  - dovdd-supply
+> +  - dvdd-supply
 
-On Tue, Oct 06 2026 at 12:53, Hahn, Matthias wrote:
-> We have recently observed an issue regarding TSC calibration fallback on
-> modern client/server platforms (specifically Raptor Lake and newer) when
-> running inside restricted virtualized environments.
->
-> Problem Background:
-> -------------------
-> In arch/x86/kernel/tsc.c, quick_pit_calibrate() assumes that legacy port
-> I/O accesses (ports 0x61, 0x43, 0x42) take roughly ~1 us per read.
->
-> On modern platforms, however, legacy port I/O cycle latency has increased
-> substantially. In benchmark comparisons between older platforms (e.g.
-> Broadwell-DE) and modern silicon (Raptor Lake), 1024 PIT reads took ~2.7M
-> cycles on BDX compared to ~21.3M cycles on RPL (~8x-10x slower, yielding
-> ~10-20 us per read).
+The clocks, supplies and resets should all be optional as nothing says 
+Linux must control any of those on every system.
 
-That's a known problem and the proper solution is that the firmware
-provides the TSC frequency in CPUID. Those CPUID fields have been there
-for over a decade (starting with Skylake IIRC), but are still not
-populated consistently.
+i.e. you might have a co-processor or CPLD which owns the reset, 
+power-rails and the clock might not come from the SoC.
 
-> As a consequence:
-> 1. When running as a guest under hypervisors that restrict or mask modern
-> =C2=A0=C2=A0 enumeration methods (CPUID 0x15H / 0x16H, MSR_PLATFORM_INFO,=
- paravirt
-> =C2=A0=C2=A0 clocks, or HPET), the guest falls back to quick_pit_calibrat=
-e().
-
-Trivial solution: Fix the hypervisor.
-
-> 2. The inflated I/O latency breaks the internal loop budget:
-> =C2=A0=C2=A0 `d1 + d2 >=3D (delta * MAX_QUICK_PIT_ITERATIONS) >> 11`
-> =C2=A0=C2=A0 triggers prematurely, causing quick calibration to fail fast=
- ("Fast TSC
-> =C2=A0=C2=A0 calibration failed") and leading either to refined calibrati=
-on timeouts
-> =C2=A0=C2=A0 or inaccurate tsc_khz determination.
-
-Nothing the kernel can do about.
-
-> Questions / Points for Discussion:
-> ----------------------------------
-> While hypervisors clearly *should* expose reliable timing interfaces
-> (CPUID 0x15H, pvclock, etc.), fallback robustness in the kernel remains
-> desirable.
->
-> 1. Deprecation / Removal:
-> =C2=A0=C2=A0 Is there an appetite to deprecate or completely drop legacy =
-8254 PIT
-> =C2=A0=C2=A0 calibration from modern x86 kernels, or is strict backward c=
-ompatibility
-> =C2=A0=C2=A0 for legacy systems still requiring it?
-
-Disable it and half of the machines out there will fail to initialize
-the TSC early. That's not about legacy systems. AMD does not provide
-CPUID0x15/16 at all and I just logged into two recent Intel machines
-which _have_ them, but the content is all zeros.
-
-> 2. Guarding by Processor Generation:
-> =C2=A0=C2=A0 Should PIT calibration be automatically bypassed / refused o=
-n modern
-> =C2=A0=C2=A0 CPU families (e.g. based on family/model or modern feature p=
-resence)
-> =C2=A0=C2=A0 where 8254 hardware timing assumptions are no longer valid?
-
-And if CPUID 0x15/0x16 is not populated then the kernel uses a crystal
-ball to determine the TSC frequency, right?
-
-> 3. Heuristic Adjustments:
-> =C2=A0=C2=A0 Alternatively, should the loop timing heuristics in quick_pi=
-t_calibrate()
-> =C2=A0=C2=A0 be adapted to account for multi-microsecond port I/O latenci=
-es on modern
-> =C2=A0=C2=A0 chipsets?
-
-Good luck with that.
-
-> I would appreciate thoughts and guidance from the x86 and timer maintaine=
-rs
-> on how the community prefers to handle this architectural gap.
-
-We prefer that the hardware/hypervisor people finally understand that
-not providing the nominal frequency in CPUID or some other
-architecturally defined way is a patently bad idea and subsequently get
-their act together and fix the underlying problem instead of expecting
-magical software workarounds in the kernel to paper over them.
-
-One potential workaround would be to utilize the _CPC ACPI tables, which
-contain the nominal P0 frequency on both Intel and AMD, but those are
-not accessible during early boot and in restricted guest environments
-probably not available at all.
-
-The kernel community has told both vendors for way more than a decade
-that a architecturally guaranteed way to determine the TSC frequency is
-required to solve all the underlying problems. The virtualization folks
-worked around that by implementing their own paravirt clocks as a
-wrapper around TSC, but that's a horrible and fragile hack as well.
-
-Looking at the TSC evolution: It only took two decades of complaining to
-get a frequency invariant TSC, so maybe in ten years from now we have a
-architecturally guaranteed way to determine the frequency.
-
-Thanks,
-
-        tglx
+---
+bod
