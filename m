@@ -1,142 +1,230 @@
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9DD296BAF
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:39:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA16B399890
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:40:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792118357; cv=none; b=rR1I5IAzymnr3c7f+0HdYNij/UT2q3R2gdDglAhjmcTEvpTdv1tsIN3KOmWPCNBm5U2S8AQEpLBtRkFxVDMnN9S7bvWv6hkAUFIvTapivPDGUqH6nNu0tX3lm4h8OaeSJ2Rt1ThfjOWpM6xHIWJmGjISWSJmRzA1ICRxdeL5aBY=
+	t=1792118448; cv=none; b=XIwFm6vhuAIAvT3ZOyyDdHLUi0XaSlqYgiHcoqKidafHerhevluBdrflaeEvMuKvASxW2C3ovhCnxwX1sZEb//pKcFi92H6aImlytywOGbj6V58+L6ThhaRfmVHn2hSJg2l//juubkLXAEKQbn9rOY8kcp0qPf6/pHQhoGo0x1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792118357; c=relaxed/simple;
-	bh=ukvRG+eGml9IVW95j6YyXQHLAFiPnlfIx2qs8F/RGic=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=H7yQyfe+yRN711DgXMAfE8ibdq0vdCmB17LfOAoBvd6EHvYUq7/sT8g/yPLNb7QWnMg9eTZyQIF/gDEtxf1weuFA6PGfPsJBW0ag+28Bxm5wsw1sVzsLPRrSEMIazfh/hTE4cTWVYWHObLbOQAwPvPijCARa680cMRut8As7Y78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hMQszls/; arc=none smtp.client-ip=209.85.160.175
+	s=arc-20240116; t=1792118448; c=relaxed/simple;
+	bh=gRW0CdjdsemactFwR3AGo+8wfuwlCISA/LqSdtKqkJM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z2PVSyShNDPrm5hIg7E3XAS71YiCiNPpZ0e4bxIwqhHjZjU3XvCvunlRzvyGACuvdDKl1ursgbdZXe616/cEE5aJfm+GVJ9NtL3z3uOQS6kRwc+b8EXzFEVP8yMYkA2y434I6uowg4eUlUbadFCGNlqknG1JPojYkLTppvu9KAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IzVy0qPX; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hMQszls/"
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-5350c1b9e0dso24843351cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:39:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IzVy0qPX"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso26570795ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:40:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792118355; x=1792723155; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792118446; x=1792723246; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bSW72b6TbEDeHWj4s+TQe2ybMIewbEC1kCXuvHMAJq4=;
-        b=hMQszls/BpON0PvW98EQHQZjchs0Becn5V3ufv/HesZ+1GMb719fI9zPDTOaTaMqAF
-         yJG7L7QsAsbO0CdMi3kt7qt/vumfuKeP/3/QipYWBw4ajhRc9Q9T31RlilqfP5vjIZqE
-         xjPFL89IKzhs+DoircawqEfCaV9J2JHRFv54y9ZEKRQQq9Mz5wrkzGjlNFYaA7evqY1g
-         i3hYZoZChpJ0an4cwkvbD1qAWG1jl6Grm4bjEotvTBgW+4UDyIeUVhGrKmERRx6kwt1e
-         lZJf+3LrWF5QbW6BaZqwUINR97TwxzR1/epZBIiXqrm2r+naymlInEbR5jvQcuCv4N9L
-         X3ew==
+        bh=KXXcWB8W/TzI98uT3k5P5pneThN/kTNcoObGZm/mG3c=;
+        b=IzVy0qPX8DVeU9Eb8hGI0aR5d1UJxcwftCz6FPsBTLyKn9eu36BiKne9qYss3jJnHc
+         jTQTaabqmbDpLXCmq6HIrfUCENVFb35qpwHQUTcwaxdS/T0ylMD8q8CcFJGyoaNqWV6l
+         HU50KwQnw5SGyd8QgRym2HYR3IHsTqIZSv26aXDPVSP/rq55w8yHjOCDvFk6YcFTEUFR
+         uo2quhW7UbFsl6T9ooHpPMBKw0QJ0lvqK0aGbgt5t19IdUzL69hmGy74jKfNPXzulgIn
+         DRZf8/oLmnlG7EtbbLB1iK8hRsEkgDhzq1B4jFYMBz/SpcF8ElBZ5AhU5UkiyBheKvf1
+         kFZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792118355; x=1792723155;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bSW72b6TbEDeHWj4s+TQe2ybMIewbEC1kCXuvHMAJq4=;
-        b=AV4j+j7u2zgh5zoQq7PjGQhYZiany5oVolHznBZlHyvvWXKHlaJrGHx7aw0zMiVvpk
-         JBRgbQUZjjC9f7xpSrWeyJ4HIkmAqgiVuRjYab5SCOF+/E6i9A5b8mW/3g9iJejabjZD
-         mTgxrwbfe34kz2P/qjz4gDJ5f7doAXv2lAqhSW9qEz/ecF77W+yZl47Y/jWRi0ddwRcl
-         Rv6PwSd4Qtohr3nKW+1X9HbN6n2xrNQ1cnfUgMuDPt0ZBkKBDoTks+M/4O78i9c2McoL
-         sNHYAahvr8mrljWKsLlSWQcsDmXUp1u3HjnR2OiARXQRAxJs6OMQNEGbDShQ9Zo3+5fM
-         4rSw==
-X-Forwarded-Encrypted: i=1; AKwUvBwGT3n7WLF6g4iykrSZ7T3qKBe2lF+1WtRnDJem8vuSqvdEj0xmpoI90jAFMnfW0zy98qKbs8SOwDMq3So=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWw1tL4Gh40HVEhF+epEHOlO2qcT7AVbGax1gdD6VPsFXljfFk
-	YAuDs0ajP6h0GoclC+4AXFSFmvHmxeOKsJ5nHbiDdw0eRsxEgkljcAw=
-X-Gm-Gg: AYBFou0c3BontxrxqtGP6laqtHLTmEg2dSAMGHpUZiMcHZaWHvZ4ZholI6I0n2wpAUZ
-	Lq6AnbuWYSAxtsn7zp/0PRsfJF0OHfnzVPenNg70VIev10SjLtoGKnJQR6XS4mYAlHhSZK6UALy
-	xE2ly29NfKtaIAiWSkl4jsT+9QGJqaVpb+8gMBcu7H1itysrp47oQQ0rQ7jhKNqi6kyzjfgmGcp
-	PLDyoxq/QYcwdUwfxRvB+uMUBEAV98eeNcdeO3NfRvFQqVGuyk1QkqARgyzRbxbuXuReBxyksGn
-	HQjG1I5w2F3fL0Q7QQR8RFAx0q0twAKXY20Bjzhvso9/pVVSpvDfYeG6ZIUmSrKh/tVX18bn+z3
-	gMiLeyFlm6aQ2k4WKC4YyrEYu+K/HMAJI4RO6Q7ixCEPJdv2Ot3d+D0OU7htzKoEreW9NXXqk2+
-	8K0c3jtTzLSd8c37CjCSLmDI6Eihx6AGDU1FUW6MZRz8Sqz+/I8QjPLRrBl68qKvUvi0BaBg1Kx
-	0rJPPecSW/uwzJ25aJSRLxQAGycgar4izivDjArwq9+8il3hW1i7yPkRvbT5Flx+9kUCqyqEdIz
-	pM96q/pPkp5jVZDWarHSUPGtgscw
-X-Received: by 2002:ac8:5f8e:0:b0:51c:fc4:a144 with SMTP id d75a77b69052e-5359f46d56bmr352039851cf.4.1792118355392;
-        Thu, 15 Oct 2026 19:39:15 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362a8e782fsm10160841cf.8.2026.10.15.19.39.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 19:39:14 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] ASoC: fsl_esai: Disable reset work before suspending on remove
-Date: Thu, 15 Oct 2026 22:39:12 -0400
-Message-ID: <20261016023912.3658714-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
-Content-Type: text/plain; charset="utf-8"
+        d=1e100.net; s=20260707; t=1792118446; x=1792723246;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KXXcWB8W/TzI98uT3k5P5pneThN/kTNcoObGZm/mG3c=;
+        b=NwdRrm3DDli7ajgkFDBKKw0CfVB/fveydCnHyaeejseTTI4mApJtbfJgKA6NxDc1o5
+         9cRWubhhiG7hvkBQdR2oF2zGX3kAAfblcEY1wCaGF3JZhswYuCDtni+G2K3ZETzqBGZX
+         Jr5/zZgeDsLnY8vg8FLcPesc7FFrkvfTsT2MahIlgVhq0meHcaw/xOjzYduYUQFSluKF
+         pf/pLi8eQXTEToYHtOlE0ey+osPl1B4xIAY/q+YdA7KR/OPja+G49sPrnNrrwfc2Xgtj
+         nlxP3EhM+JoXXNucR9zMwYIKtDEQrdYiMiMABaWme51t/KPDdX9I2lUovz3thCeDF5nG
+         cOkA==
+X-Forwarded-Encrypted: i=1; AKwUvBwddkylRcywcy5I7KkevNPIGY8a2+0JO0qg/DLtXA9hy4GUh3zuCIf5VZc+ibvxUiISOrf12sG1xW3mEng=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLRsjDh8BuYESakYqK6XDcAzScwq/e+2aYPTyJvlq5+TickuzT1
+	zPjA+QfbRKcDaNm1ST8G7RZJpYLIts7OotsKg4UVqsdq/1q2rqC7Oqzb
+X-Gm-Gg: AYBFou2FrY092ScCHG1YxS8ytXczDUVhQZQprDfV6XhDN0E6OxTas/PhRfaZZ/NjeYi
+	xaqlcYsWF/feLaApoMEN5EcMnRqDfvSkMDusY0TSorGoSDt481/BmySfSxFcdyvZpDsXclS/K5k
+	/QPxUKIgLTG8jdmnx5QfoNgoTwynAUIJr6EUWPKvcw55KcHv6PVFfXqPuuLKRfPEZrLuP7AAkRh
+	brUMTLW60YMWePQNFadXQdRSw/UwRe9AkJD2PJcMF+A0GPckzFul2qy61XD57uLRykHqrs2Q2LV
+	os5m5+xlFKAU7/SYvsyeNpzTXrN/qLlrU1pwrAwYoJLh+ms+C9hcAniaRDfNkoB40REAInKSP1p
+	acKiXI6GHrZP1nKz3jYiNMob16or3PR5mR55Z8XfG1JihRlFCl5XlVUXwtC0UDi5G8bVEyQeAaV
+	ns/ZQqa38n0nwIJHNxV4fqKzvEjTjMt3FKLqNQV16LMwAUSdW0Crgz7T/fYXKv89zYCyzpCtP/D
+	fgVj6MDOF+TEJs4uovr0hFePn/R6uI/fN+/bZO8CFL3jQ==
+X-Received: by 2002:a17:902:fd8c:b0:2d6:f6ba:263d with SMTP id d9443c01a7336-2e948deee77mr57925175ad.7.1792118445794;
+        Thu, 15 Oct 2026 19:40:45 -0700 (PDT)
+Received: from [172.19.1.48] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e804d2dsm3246715ad.17.2026.10.15.19.40.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 19:40:43 -0700 (PDT)
+Message-ID: <17bf5ca0-c071-4ba8-b168-3ffbdae629ad@gmail.com>
+Date: Fri, 16 Oct 2026 10:40:39 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 0/3] i2c: ma35d1: Add support for MA35D1 I2C
+ controller
+To: Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>
+References: <20261016010448.324856-1-zychennvt@gmail.com>
+Content-Language: en-US
+From: zychen <zychennvt@gmail.com>
+In-Reply-To: <20261016010448.324856-1-zychennvt@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-XRUN recovery was introduced as deferred reset and later converted to a
-work item. The reset reads ESAI registers and can restart the transmit
-and receive paths. fsl_esai_remove() currently suspends the device before
-cancelling the work, so a running reset can overlap regcache and clock
-shutdown. The managed IRQ can also queue another reset after cancellation.
+Hi all,
 
-Disable and drain the work before runtime PM teardown. This lets an
-already running reset finish while the device is active and rejects later
-queue attempts until the managed IRQ is released. The IRQ handler's own
-register accesses during teardown are a separate issue.
+Sorry, the cover letter subject contains a typo: it should be [PATCH v12 0/3], not [PATCH v11 0/3].
 
-This issue was identified as part of our ongoing research while
-reviewing kernel code.
+The cover letter content and all three patches are from v12.
 
-Fixes: 7ccafa2b3879 ("ASoC: fsl_esai: recover the channel swap after xrun")
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Compile-tested with GCC, W=1 (arm64). No runtime testing.
+Sorry for the confusion.
 
-Backports before the tasklet-to-work conversion need adaptation; check
-disable_work_sync() availability.
+Best regards,
+Zi-Yu
 
- sound/soc/fsl/fsl_esai.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Zi-Yu Chen 於 2026/10/16 上午 09:04 寫道:
+> This series adds support for the I2C controller found in the Nuvoton
+> MA35D1 SoC. The driver supports controller and optional target mode
+> and runtime power management.
+> 
+> The implementation has been tested on the Nuvoton MA35D1 SOM board.
+> 
+> Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
+> ---
+> Changes in v12:
+> 	- Synchronize IRQs while initializing transfer state and issuing START.
+> 	- Clear wake-up control if enabling IRQ wake fails.
+> 	v11: https://lore.kernel.org/all/20261001075101.489660-1-zychennvt@gmail.com/
+> 
+> Changes in v11:
+> 	According to Andi's comments:
+> 	- Prefix the remaining timeout macros with `MA35_`.
+> 	- Handle errors returned by `i2c_slave_event()` by sending NACK when the
+> 		target driver rejects a request.
+> 	- Use `dev_err_probe()` consistently in probe error paths.
+> 	v10: https://lore.kernel.org/r/20260921083753.1109826-1-zychennvt@gmail.com/
+> 
+> Changes in v10:
+> 	- Handle enable_irq_wake() return value in suspend.
+> 	- Correct clock divider mask and maximum limit to 10-bit.
+> 	v9: https://lore.kernel.org/r/20260807060400.2047517-1-zychennvt@gmail.com/
+> 
+> Changes in v9:
+> 	- Centralize SI handling in the interrupt handler.
+> 	- Fix target mode comments.
+> 	- Initialize the target transmit byte.
+> 	- Add reset_control_deassert() during probe.
+> 	v8: https://lore.kernel.org/r/20260804084806.1846570-1-zychennvt@gmail.com/
+> 
+> Changes in v8:
+> 	- Remove rpm_put avoid duplicate processing.
+> 	- Add synchronize_irq wait for interrupt to finish before i2c->target = NULL.
+> 	- Add ma35d1_i2c_restore_idle() to handle bus errors or spurious interrupts.
+> 	- Change return types of TRX helper functions to irqreturn_t, returning
+> 		IRQ_NONE for unhandled status codes.
+> 	v7: https://lore.kernel.org/r/20260727081859.1737223-1-zychennvt@gmail.com/
+> 
+> Changes in v7:
+> 	- Disable IRQ before clearing i2c->msg.
+> 	- Support	CONFIG_PM=n, and simplify runtime PM setup accordingly.
+> 	- Remove redundant register access in runtime suspend/resume callbacks.
+> 	- Defer clearing i2c->target until after pm_runtime_put_sync() in ma35d1_unreg_target().
+> 	- Enable interrupts alongside I2C enable in ma35d1_i2c_reset().
+>   v6: https://lore.kernel.org/r/20260720030616.1067660-1-zychennvt@gmail.com/
+> 
+> Changes in v6:
+>   - Patch 2 (driver):
+> 		- Removed dynamic IRQ toggling helpers for simpler interrupt management.
+> 		Based on Sashiko AI Feedback:
+> 		- Added zero-length read quirk.
+> 		- Set i2c->msg to NULL on timeout to avoid use-after-free.
+> 		- Cleared hardware registers on target unregistration to release the bus.
+> 		- Protected suspend-path register writes with a spinlock.
+> 		- Validated clock-frequency to prevent division-by-zero.
+> 		- Removed incorrect I2C_M_IGNORE_NAK handling.
+> 		- Corrected a comment typo in the receive data path.		
+>   - Patch 3 (dts):
+>     - use a generic functional name audio-codec@1a
+>   v5: https://lore.kernel.org/r/20260630012106.3616821-1-zychennvt@gmail.com/
+> 
+> Changes in v5:
+>   - Patch 2 (driver):
+>     - Add spinlock protection for MA35_CTL0 register access.
+>     - Add NULL pointer check for i2c->msg in the ISR.
+>     - Use devres-managed cleanup (devm_add_action_or_reset) for runtime PM.
+>     - Use pm_runtime_force_suspend/resume() for Controller mode 
+>       system sleep.
+>     - Control I2CEN bit enabling/disabling via runtime PM.
+>     - Refactor arbitration lost handling in state machines.
+>     - Remove unsupported I2C_FUNC_PROTOCOL_MANGLING flag.
+>     - Clean up readl_poll_timeout() parameters, retry loop, and
+>       unused macros.
+>   v4: https://lore.kernel.org/r/20260610030208.2020275-1-zychennvt@gmail.com/
+> 
+> Changes in v4:
+>   - Patch 1 (dt-bindings):
+>     - Update example interrupt number.
+>   - Patch 2 (driver):
+>     - Remove redundant spinlocks and fix 'irq' type to signed.
+>     - Fix target address recovery in ma35d1_i2c_reset().
+>     - Refactor IRQ handler for multi-msg reads and NACK/IGNORE_NAK.
+>     - Fix timeout UAF via explicit IRQ disabling during recovery.
+>     - Drop IRQF_SHARED and fix PM paths in probe/unregistration.
+>     - Limit suspend/resume wakeup logic to target mode only.
+>   - Patch 3 (dts):
+>     - Add missing i2c0 node to dtsi.
+>     - Switch SoM configuration from i2c1 to i2c2 with updated pinctrl.
+>     - Add nau8822 audio codec node under i2c2 on the SoM board.
+>     - Drop redundant i2c0 alias and clean up dtsi property ordering.
+>   v3: https://lore.kernel.org/r/20260512073953.564323-1-zychennvt@gmail.com/
+> 
+> Changes in v3:
+>   - Fix minor DTS formatting issues (whitespace, missing newline)  
+>   v2: https://lore.kernel.org/r/20260316063726.41048-1-zychennvt@gmail.com
+> 
+> Changes in v2:
+>   - Overall:
+>     - Rebase on linux-i2c/i2c-next
+>     - Switched terminology from "master/slave" to "controller/target".  
+>   - Patch 1 (dt-bindings):
+>     - Simplified description and fixed 'reg' size in example.
+>   - Patch 2 (driver):
+>     - Modernized using devm_*, generic device properties, and FIELD_PREP/GENMASK.
+>     - Optimized power management by moving clock control to runtime PM.
+>     - Simplified code by removing redundant .remove(), .owner, and inlines.
+>     - Added dev_err_probe() and default bus frequency handling.
+>   - Patch 3 (dts):
+>     - Moved i2c aliases to board dts and reordered nodes alphabetically.
+>   v1: https://lore.kernel.org/r/20260302020822.13936-1-zychennvt@gmail.com
+> 
+> Zi-Yu Chen (3):
+>   dt-bindings: i2c: nuvoton,ma35d1-i2c: Add MA35D1 I2C controller
+>   i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
+>   arm64: dts: nuvoton: Add I2C nodes for MA35D1 SoC
+> 
+>  .../bindings/i2c/nuvoton,ma35d1-i2c.yaml      |  63 ++
+>  .../boot/dts/nuvoton/ma35d1-som-256m.dts      |  20 +
+>  arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       |  72 ++
+>  drivers/i2c/busses/Kconfig                    |  13 +
+>  drivers/i2c/busses/Makefile                   |   1 +
+>  drivers/i2c/busses/i2c-ma35d1.c               | 800 ++++++++++++++++++
+>  6 files changed, 969 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/i2c/nuvoton,ma35d1-i2c.yaml
+>  create mode 100644 drivers/i2c/busses/i2c-ma35d1.c
+> 
 
-diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
-index 4a530a6..83a9963 100644
---- a/sound/soc/fsl/fsl_esai.c
-+++ b/sound/soc/fsl/fsl_esai.c
-@@ -10,6 +10,7 @@
- #include <linux/of_irq.h>
- #include <linux/of_platform.h>
- #include <linux/pm_runtime.h>
-+#include <linux/workqueue.h>
- #include <sound/dmaengine_pcm.h>
- #include <sound/pcm_params.h>
- 
-@@ -1099,11 +1100,11 @@ static void fsl_esai_remove(struct platform_device *pdev)
- {
- 	struct fsl_esai *esai_priv = platform_get_drvdata(pdev);
- 
-+	disable_work_sync(&esai_priv->work);
-+
- 	pm_runtime_disable(&pdev->dev);
- 	if (!pm_runtime_status_suspended(&pdev->dev))
- 		fsl_esai_runtime_suspend(&pdev->dev);
--
--	cancel_work_sync(&esai_priv->work);
- }
- 
- static const struct of_device_id fsl_esai_dt_ids[] = {
