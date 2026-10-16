@@ -1,212 +1,166 @@
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011067.outbound.protection.outlook.com [52.101.52.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CEA94AD4AC
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:11:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.71
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792159877; cv=none; b=quCw56+4gay0onjEGlS+/fSBAKIW/nAwhrZ0XM1y+SuQPKX8kguYsOLxHOGl+md4fEJAGMuawGMVK5lGXaAzcyzJV5imAZDFnMmXqt3FnfjyszIW79Gp7m5jLZWlTGgYrmsmiEuzKKqXEESR8Y4fiUoBv0qCJmP0qniPyEJPDhI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792159877; c=relaxed/simple;
-	bh=t2qv/JvBYfp9aO9VsSG2FWkpMhPMjgq1wcl4f+gAVD0=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=dC333nXJPljrVTvKadnqnCYf3DhTh9zWmSFI+mOAAaNTzuEXcLOmK3WkOh8qQ0HXeBOG7UKHoI+Ium3QWvlOGKWHQkmK9xao4jQVDcX6WVMZzyo5+Bz6BuEscctDzAWVoe+SrvOjwa2CCfNZDyPykX0jruXJDhRBsBfzA+lS8fA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=n95Om4K2; arc=none smtp.client-ip=209.85.128.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0FA37E5D9
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:11:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792159893; cv=fail; b=BvDPmfzTCowhSdFO9xApGg/HHhyJnFatSONuadsHJlp88sGlgxvc1kM+Qp2V+zw5ynjGiUJfUbMSHQKwY2aWUdaYZCnu/Qpj06GrbA/I8/EhnL0wJElhgAWO6D7HhN7Qq+jTXZGBpoyh12i2csyA+AVfm4i1zXr83M0i17AojQw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792159893; c=relaxed/simple;
+	bh=HSMAUIzgqXWQ+7khb2Sgg8DuFVxTg+6zf/9xfecOqgQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=GMimg9v+azqWLlnhGDVm1kEixQQdxkXXhzg+knS3+USKWHucY0ngFplXGyDvRAmaTc+8Norhg2izqHrnik7tExWBaf7cpA8SDUcW0XDTsIaGrp/hIhSczjhtxKvMGoiWdz4FJwi+7OpIAku+HDCxpFD1LqYXdSCE0eIzXTRYZGA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=426GB16N; arc=fail smtp.client-ip=52.101.52.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="n95Om4K2"
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a1612c4b80so26135e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:11:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792159871; x=1792764671; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4ZOVjgcegE9pR3H45A2U8XvzlrYrOHwTIqT89Z+cyhI=;
-        b=n95Om4K2qA5VbuP3p4udii/oMFgitSHv4fB7sDhfHCKdzO91Kbwqx+US+zAtdv57Fa
-         PAsTJmAw2OgJCAuCQlrSFojQAoWR+tO6HtB3EqoOEO8Ls1Sm4nSAKr8m7WiZMmKJCliN
-         6BIgiBTcUAzdX9ym+WIpCMTG7YB4Z1HK+hxLfjki0V1yPXRYosXYJHUskI0u2ziOxAHS
-         TdG9hIjGqQTyJyvumvX+7tb8ixvTa0+X+z7cpm0QFREBmN8u1hzV9vBuF1vfoAZJxoX7
-         PSmdPJjZ+82sE6SjoOThqd342nZO9lRDIUho1TKDcgRVcndieEiP83ucZ4vPqtTvfuIZ
-         xLeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792159871; x=1792764671;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4ZOVjgcegE9pR3H45A2U8XvzlrYrOHwTIqT89Z+cyhI=;
-        b=yeflNBqItqevSbfcOoFVKLt3ApUJtgc9xO/0KelizqaVLLi/VV62GwCsOnO5hXSb7P
-         JAWvSYYbT1GSnK0CrpIwB5Oq+puBlljiXrYGGfPzQZeAVyRZh65Rp0YTLoRM1i58m1J5
-         kOi3+x7HBeaC6Py3KrmOXJ7pUQGST/xCOpEd7If0bSyc0dGHSwlwsqYUqyzGoi7X2dFA
-         cOfhNX3+dVxdf5QHFGXJIiLEdNHYhV+tsvUjnQowk3+2WjZWzTIRNUQJ2klY/BKElHfS
-         aIhulVXArh3Kjf4LwOuWotKgdBQieVrXLuEOyUSWLfiLPHDBCm62nowS7yFp1l+/LCLV
-         gorQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxcLRL3N4WaBIJuG9pV+FPjSsm9450QPMznW7EfTIehmJ4CILfE32FSMRAD8IOCqtE2pn2JxxafS2XLNFQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZyS4zUeGyhXRKI7u67tGjKEum1tguk/pl1g5wAy38APc0nwYe
-	fQN0YzXYzse0g2FcaVL20Nj/Rruf9kJlQfzzhWZ+isMBobVOcuA/4lyGc7LkbJxvsaYd6DfGFwZ
-	xAQNjOvvVhA+npWjZlw==
-X-Received: from wrph11.prod.google.com ([2002:adf:f4cb:0:b0:48d:ffe9:c5e3])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600d:6445:10b0:4a1:d05d:2af7 with SMTP id 5b1f17b1804b1-4a1d05d2de7mr26351165e9.10.1792159871212;
- Fri, 16 Oct 2026 07:11:11 -0700 (PDT)
-Date: Fri, 16 Oct 2026 14:11:04 +0000
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="426GB16N"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IpyvMqegISmm+XsnQkzy/TmZ/X+AtMkVJ6y1PMUIM7Tz4Jc3BalJ6iOW7QlRer7KK298p5AI+hQlNuXJ5BeQttY5AJLEbukyTRr8PgZ2ODLKzDKeIrI9nWBwjr9VKenUnAa+LYxO12RSCDsV3stAzwRFuGWTvcia9NXkXtLVQKOGK/tJJQyKksD2Ckzq6McdZxmBBKt3RcYA/ff2XA2LBo9Czgp4imxacoe7t5dM1DEdx4APTFbi9L2PyVe/fUK30pOsYNTEz1iDoBBKdpJ8yOwGMXzhOIT2bUHcn75cHk6iSpVT25Ls06fO52jrCO8bjMTJjmcJeYwGxJNb18MRwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Kjqx7bonlTr8ko0esHpDVni1Bm8fzych6RIJ1G7YzX8=;
+ b=qtSVKxA9VDv6Rgk2d0S6i4pm0qfwdAR9MZafnLqDDHmkoi6AzRv4j+ohoc+m6qRjdAPP+4qzzXZeEm6AFitWD1YshoobUcB4aOP7nSFVLgBq05YY6ED8EAUCMTm2mmj71qL5LFsZTa7s1AlpF1s1izGSBpeML2xcbA4ggqqVxLRZO0/sVkl49DRyHHxHpAYTCWS2jtGTlgxR2iHmW2ENHUhHGWGhtC0fjYUX6HAbmvvOMlZJ3xsxurDf1hzquUAmEUQioLI8UophLGWMH9JTrRKnDlryqbdq6exltmPEx7hTBvLcSQLvnUfEv6BB+lkmT4pcw9PY+4uz0GzDS980Ag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Kjqx7bonlTr8ko0esHpDVni1Bm8fzych6RIJ1G7YzX8=;
+ b=426GB16Nr1+LKNJN+GhDdye2r5kNTWxfV2xldVwtqqaAbIt0KUHuFbjxQysb13iW0BnObebyQkObRfReaT3qp4Ro+QrzQEF7AiPvQi+94Bt71uRnCBhdMvlY0Dbw+J1k8kZKC4EYxlPY8lxR5FhOQ4qgdzamAqHc4HT7/9awIqo=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
+ by CYYPR12MB8890.namprd12.prod.outlook.com (2603:10b6:930:c7::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Fri, 16 Oct
+ 2026 14:11:23 +0000
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0522.011; Fri, 16 Oct 2026
+ 14:11:23 +0000
+Message-ID: <29b82596-b8a8-44b3-b1db-f438c5d18114@amd.com>
+Date: Fri, 16 Oct 2026 19:41:11 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] MAINTAINER: Make Vasant Hegde AMD IOMMU maintainer
+To: =?UTF-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>, iommu@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org, Joerg Roedel <joerg.roedel@amd.com>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Will Deacon <will@kernel.org>
+References: <20261015160119.1005966-1-joro@8bytes.org>
+Content-Language: en-US
+From: Vasant Hegde <vasant.hegde@amd.com>
+In-Reply-To: <20261015160119.1005966-1-joro@8bytes.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0004.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:174::6) To BL4PR12MB9505.namprd12.prod.outlook.com
+ (2603:10b6:208:591::16)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAHcw0moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDA0NT3aTMvJTUIt2C/Jwc3eLUnDTd8vyibN0kc3MzA2NTCxMjc0sloN6 CotS0zAqwudGxtbUAVCatIWcAAAA=
-X-Change-Id: 20261015-binder-poll-self-work-b77603584279
-X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5769; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=t2qv/JvBYfp9aO9VsSG2FWkpMhPMjgq1wcl4f+gAVD0=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq0jB58ksl2JspQUh9CslM675ivM2LFDyhTLB9L
- MDaezNA+HaJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCatIweQAKCRAEWL7uWMY5
- RmRfEAC6Zlcb2rbLl1vMyR3+he1eo3dGdF5z4ywTLgoZbjGwEu505G/IUN9slRHRRvoJOLnW2bm
- uMoUpiB2wrCxcHNYFVCRT0VuIOZo+zqbgNPmFwMALJl+GOsnmERP97lhLwtAlCqWPQcqLfnRl/p
- LS50sH/mpRDKsqtoCsNH99Hppzlpt4l1EXQ37YP8pnM+CJ5GC+kJW1NmcIcYVl0H058JJCa29OV
- h7tDW/LsMHgs39mCGVNewtGWfcee6kOCSwTtb75aQtwyGmceNwmA595FHdpJ3uFhYHQyrODXdZu
- MBA/gCLwXzeVPjhiKy3JBeNjSb3gZq+VvYiF7p9hVbpWPy/CZFMU1foJqYeQddvhJZbj5EDYkkp
- 9BMJNWwOadggYtPu/DHgcrsHzzesVb6yXnyIsgBz381ByWYMl7FRVU3jeKUCFgGttskb2Fj9pZI
- 09iYTA+nsPSWX3J7/Qh9Bt2BhZ4qmxbMLdiDJc6qC7pdP5NpVom/qUuRe2YiABYMcmW1CCh4iE3
- gE0MgtR28DVbYVNFAAtSVOxmn0wBUODavgd1VOQ4WvLIqEk+OfLlSeGlhIkHWrpzR3y/xg9RZX9
- NWLf1GxxVuGUL75emes6J8zGsjMotSnsFp8Mprvyha/mIcZS1WZm33yFYZ9nomv2JBI+JMJ3GS/ CSIBbfptHDPEWIA==
-X-Mailer: b4 0.14.3
-Message-ID: <20261016-binder-poll-self-work-v1-1-c29c87d99abb@google.com>
-Subject: [PATCH] rust_binder: wake epoll on self-work queued to poll thread
-From: Alice Ryhl <aliceryhl@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@kernel.org, 
-	Poil Zero <poilandgginchi@gmail.com>, Alice Ryhl <aliceryhl@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|CYYPR12MB8890:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71aba2af-ff6e-4e0f-eabe-08df2b8f5c26
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|56012099006|11063799006|261009223027099003|22082099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	MG/puSP0ddCofQqfi6VTrDMWDKSJz5bmogLuWTbMcA0uIZe3i2TWRCbb1FFz2Oo2OJihgzBoP9U9UQ4ElUEPJzjYn9S+H7AOwLH9FL3i9uC31g97DDxi3QLyLpyUUkQlTKRMDoYoTwH8GddB4rDV/4QQluvVL8DzdAF/an93QqpJPsFYb4YU2lGklw75kvF5skyH9ubUFODSqvV5xo7ALbSj/tbP6VwHpjOe+jQ8Q7O3F2m4ix+ZSVw6SPbi3MygLf/LkijgQauFnCyrznwWKQXavnVQwzSC6olEizs2YotZ0DdC6j9xRzSr4TqTiRixhJTA2ZnW9xqjKypqrWTqs8Q5zDuP72au8NemjQCXl5NFkCONOB88kVC4yTaUYk8GC0xP7wojzk1LMI6pG7+uegYm5HXDFsBPBXyoHYeVTAXuqvBF2j16qgmL6zfskoCQS99zbzq12ZDrCk4Xs5RfsiX89TyvQDOrWZ4GsPUxS0oWMzqtTcfzvmhCwqzU++UXCya7gZn9acdzRQ8mfxfYujjAJD6xj2B8jepxJVb3SPPHW8yXm6k5vL6dDj7AIZzl4s8w2Xk+3AFeB62yA2PbQkZ86l83y1VDF6eYoGmLQLftUfg2llNIXFuxbsbQ3g3tCnagmtqNnUg+REiM6tej8v0nyryJWxzDOfP3S0ULcYg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(56012099006)(11063799006)(261009223027099003)(22082099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RjM2c3J3SEhNK3ZVRDl2VnVoVzZDSFMvMlhDdzlTT1dETjBYMVBlVXQvNk4r?=
+ =?utf-8?B?c3FkR0RwY25ZMW1EWEJyNmlYejFtRy8xTE5HYStCWHVZVGxRVGVXREpHQTVq?=
+ =?utf-8?B?ZGNneWFSMUcwU2VaUnVlL3F3RkowTEhyV2ppOE5EWWs4ZEMxWUgwZ29RYkNl?=
+ =?utf-8?B?KzE5b3BMY2pDMTRFbXRtdG82R1JxcG9pSGVHSUVMUlFmeWd6dmFVR2N5SVJr?=
+ =?utf-8?B?QUJYb1dJM0p1R0FXbDN1TzhzMXZwM0xVcmlyVGFSUVZUcEM0bWp0b2NYT2Z3?=
+ =?utf-8?B?ZUlHbGNmQmVuQUFIa2VJZ1NkOUt2Y2J1K3poZGtrM0xDMHpDL3g1clRremlq?=
+ =?utf-8?B?bWRDYTR3L3FOZk91ci9xN1hjckRKaWJPUEdweUNUU09PSGZiYllVTlFua3A5?=
+ =?utf-8?B?YXdZQ1gxQk1RbDJ6UCtzRzVoNThOL1JZRjA3aXJDeWV6WFRxcXovVXJ5NVNj?=
+ =?utf-8?B?WUJWUVB5RGFNWXhyT3FIa0wzMC9lb3VOZkhNNEMySXU5ZEdDeUhhaUJsS1JL?=
+ =?utf-8?B?Z1BHRXJjZGpHTWxUbGJXelhteWdiaWR2bm9lZjhtb1RwYjFFQnpENnlXMlB0?=
+ =?utf-8?B?Q3JCOUtXK0JPZ1JCeDlSRGp3bXBzNmlUQnNHS3FJMTU0UFE2MDJiajdibEtz?=
+ =?utf-8?B?U3hYYkZWMGtmVVhDazl5bDB1RnVvRFVzSFJmbDdwZ2hhTXRlckFtK0R0N0NB?=
+ =?utf-8?B?VnVZQ2paYXQ1NVBRc3o4U3hWaVZ2bHhGaEsvQno5eTdPQmowOC82RUlHeU5y?=
+ =?utf-8?B?cEJmdGtOcWZZb2tUUE44bk0yY1luUWpMTGpBTUp1NmcrMlRUdmE2ZkZRUnVM?=
+ =?utf-8?B?Rng5a2VJSnJBektCck01QWU4MWdNeGZuT1pCMXNhejIzcUJySzJ6MUZSMElk?=
+ =?utf-8?B?S3BseVltNlY0S1lORmdyNjdnaGhqaHpubEw1NHVFZkVCZ1NtT2JZVk1PVkJX?=
+ =?utf-8?B?ZG9oL3IzMmR0dkxSallITFVvTnEycjRmUTdtd1AxaDF4RVJaRFc3V0dwWTBG?=
+ =?utf-8?B?N2hQWVhqSlJkMGF1Z1NRdTY1Z1J3SHhnWU9pbVpWMjNwNlI4ZDhGTjA3NE9k?=
+ =?utf-8?B?RHlWbStzb0dBdnMrN2VVN2EvVGlLbXFEZGNRK2RJQjZOS3UvRG5ZS3dBTXh0?=
+ =?utf-8?B?U0x6UDBLNGNaWm9IOUpaMU9aRW9ZN3RHMnhJUmV1MWV1eDlLYldkUDRtOXg2?=
+ =?utf-8?B?VTRvek50ci9zbUFVYVFjREo0RGZZYWZHSnFqOXhRQjBIazlDVEFmRXFGeGZ1?=
+ =?utf-8?B?d2V3TnArd0lqakdvRnN1azhTWDhoTXl2dWl5dzlnRU5McXpqeUowUm01bytQ?=
+ =?utf-8?B?c0d3UVpoRjBNdmNQMnRIL1I5NVNBSGhrcHNQeFJzNkFFcXN5T0k3eFlCYWxJ?=
+ =?utf-8?B?S1JST3pXTy9zeHJBZzBYMUxzUURxaTZxbTI0Yzh4clFyeXQ2cUh0ekh2S2Fj?=
+ =?utf-8?B?K1phSm1mbmdYdEJ1Nkdub2czK2IzZkVldlZVWlg3dkswQ3ZsbllLMnBrNFc3?=
+ =?utf-8?B?OEd2dGVXc21XODkwenJZYUVQcENyREpQaUdsVlBXUTdSOEl6Y0E4aUFUcC9z?=
+ =?utf-8?B?bWRMcmQ4UU5CQW1nWGl1MG5zL05GWWRWTitTTDRqU284OGJNNk1ZaUVWRHRh?=
+ =?utf-8?B?NGVZV25CVlZEVTFsNUxTdldLNjAxVGxWUUIrVzdFeU9ZamladzJMSUtaUWk0?=
+ =?utf-8?B?NHdQbW1ZMUViWXViOXNMZ1E0VDVqZTVoUnQrVEczWFRKTlJvb3psendyUEt4?=
+ =?utf-8?B?Um96RmZmbDNZMTJ4QUZlN1JkcDR1SkpsRWNNZTdCYW1TcThkU1cybmdvS0Nz?=
+ =?utf-8?B?R3ZqOVhyR0w3RGF2am8rdGJybWNDWmI3M2pXVnBFdVZPVEZHSzd0VTh3V2hN?=
+ =?utf-8?B?QlYrYjBTVmhUbEQ2K0NxQVFPUzJ5cEg3UnM5b1lpVU1zOXpBMGdKbm5ZelZG?=
+ =?utf-8?B?N2M5TEpUYm5GaDJ5cDNwSzV3MndGdFcyVktiYXJPMEwrNTZKOTY0WUxTRHN4?=
+ =?utf-8?B?N2tOLzNoQXU1Ris3NStXemRSL2taOHhyU2NrTVJ4QzFja3NVenQrR05SNHRz?=
+ =?utf-8?B?eC9hWSs3bEN3RVcrTlpQeXFacXlHVTMvbVgvUnQyM01LN3Y0MlRQRG1Qb1lS?=
+ =?utf-8?B?U2VVY29NQ1Btc05tT3ZJN2J5SHFRM1d0LzFDRkhveHZ5NUdONnpVMmFMMWNy?=
+ =?utf-8?B?RVZad3Uzd0ZjS2tLS3pXNFFtZmlmQXZQV1Z1dVNTdWRVWHdtb0xrMlBuL294?=
+ =?utf-8?B?SVR3TGdYMmdBblA4dUJPZkxiTmlJNENTMHJpNzF5SDVubHBDQ1BPM1NtN2My?=
+ =?utf-8?Q?RBkChiLlSjbzvSO96w?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71aba2af-ff6e-4e0f-eabe-08df2b8f5c26
+X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 14:11:23.7972
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ru6TmnkXpKVZWTKoZ7Kjy1qDZYsWe8diGL9q9/kJKO9uZ/ghB2gSeCFDYpPsa0Hythldx9OfHp4uN+jVP2tcEQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8890
 
-When a thread pushes work to its own todo list, InnerThread::push_work()
-returns PushWorkRes::OkNotifyPoll if the thread uses epoll, but four
-call sites in thread.rs discard this return value. As a result, a
-non-blocking BC_* write that enqueues work onto the calling thread's
-todo list without also reading will not wake epoll. Check the return
-value and call self.process.notify_poll(false) when
-PushWorkRes::OkNotifyPoll is returned.
 
-This is similar to commit 97830f3c3088 ("binder: signal epoll threads of
-self-work"), but in C Binder pending thread work also prevented
-subsequent process work from waking epoll, causing a permanent hang,
-which is not the case in Rust Binder. This means that in practice, it
-merely delays notifications rather than completely failing to send them.
 
-Cc: stable@kernel.org
-Fixes: dbb17c9ea756 ("rust_binder: move (e)poll wait queue to Process")
-Reported-by: Poil Zero <poilandgginchi@gmail.com>
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
----
- drivers/android/binder/thread.rs | 48 ++++++++++++++++++++++++++--------------
- 1 file changed, 31 insertions(+), 17 deletions(-)
+On 10/15/2026 9:31 PM, Jörg Rödel wrote:
+> From: Joerg Roedel <joerg.roedel@amd.com>
+> 
+> Vasant reviews and tests most of the AMD IOMMU patches and is critical
+> for maintaining the driver. Make him an official maintainer.
+> 
+> Cc: Vasant Hegde <vasant.hegde@amd.com>
+> Cc: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+> Cc: Will Deacon <will@kernel.org>
+> Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
 
-diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
-index bcb2038b7550..177e90a1e5a3 100644
---- a/drivers/android/binder/thread.rs
-+++ b/drivers/android/binder/thread.rs
-@@ -345,13 +345,13 @@ fn push_reply_work(&mut self, code: u32) -> PushWorkRes {
-         }
-     }
- 
--    fn push_return_work(&mut self, reply: u32) {
-+    fn push_return_work(&mut self, reply: u32) -> PushWorkRes {
-         if let Ok(work) = ListArc::try_from_arc(self.return_work.clone()) {
-             work.set_error_code(reply);
--            // Not notifying: Reply to current thread.
--            let _ = self.push_work(work);
-+            self.push_work(work)
-         } else {
-             pr_warn!("Thread return work is already in use.");
-+            PushWorkRes::Ok
-         }
-     }
- 
-@@ -694,8 +694,12 @@ pub(crate) fn push_work_inner(
-     pub(crate) fn push_work_if_looper(&self, work: DLArc<dyn DeliverToRead>) -> BinderResult {
-         let mut inner = self.inner.lock();
-         if inner.is_looper() && !inner.is_dead {
--            // Not notifying: Reply to current thread.
--            let _ = inner.push_work(work);
-+            // Not notifying work_condvar: Reply to current thread.
-+            let res = inner.push_work(work);
-+            drop(inner);
-+            if matches!(res, PushWorkRes::OkNotifyPoll) {
-+                self.process.notify_poll(false);
-+            }
-             Ok(())
-         } else {
-             drop(inner);
-@@ -708,7 +712,11 @@ pub(crate) fn push_work_deferred(&self, work: DLArc<dyn DeliverToRead>) {
-     }
- 
-     pub(crate) fn push_return_work(&self, reply: u32) {
--        self.inner.lock().push_return_work(reply);
-+        // Not notifying work_condvar: Reply to current thread.
-+        let res = self.inner.lock().push_return_work(reply);
-+        if matches!(res, PushWorkRes::OkNotifyPoll) {
-+            self.process.notify_poll(false);
-+        }
-     }
- 
-     pub(crate) fn pop_work_even_if_deferred(&self) -> Option<DLArc<dyn DeliverToRead>> {
-@@ -1444,14 +1452,15 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
-             let process = orig.from.process.clone();
-             let allow_fds = orig.flags.contains(TransactionFlag::AcceptFds);
-             let reply = Transaction::new_reply(self, process, info, allow_fds)?;
--            {
--                let mut inner = self.inner.lock();
--                if info.flags.contains(TransactionFlag::DeferComplete) {
--                    // The flag is set. Perform a deferred push so that `read` can wait for the
--                    // next incoming transaction without a userspace roundtrip.
--                    inner.push_work_deferred(completion);
--                } else {
--                    let _ = inner.push_work(completion);
-+            if info.flags.contains(TransactionFlag::DeferComplete) {
-+                // The flag is set. Perform a deferred push so that `read` can wait for the
-+                // next incoming transaction without a userspace roundtrip.
-+                self.inner.lock().push_work_deferred(completion);
-+            } else {
-+                // Not notifying work_condvar: Reply to current thread.
-+                let res = self.inner.lock().push_work(completion);
-+                if matches!(res, PushWorkRes::OkNotifyPoll) {
-+                    self.process.notify_poll(false);
-                 }
-             }
-             orig.from.deliver_reply(Ok(reply), &orig, None);
-@@ -1489,10 +1498,15 @@ fn oneway_transaction_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> Bin
-         let list_completion =
-             DTRWrap::arc_try_new(DeliverCode::new(code, self.process.task.pid()))?;
-         let completion = list_completion.clone_arc();
--        // Not notifying: Reply to current thread.
--        let _ = self.inner.lock().push_work(list_completion);
-+        // Not notifying work_condvar: Reply to current thread.
-+        let res = self.inner.lock().push_work(list_completion);
-         match transaction.submit(info) {
--            Ok(()) => Ok(()),
-+            Ok(()) => {
-+                if matches!(res, PushWorkRes::OkNotifyPoll) {
-+                    self.process.notify_poll(false);
-+                }
-+                Ok(())
-+            }
-             Err(err) => {
-                 completion.skip();
-                 Err(err)
+Acked-by: Vasant Hegde <vasant.hegde@amd.com>
 
----
-base-commit: 3de5aa458dede472a253266d02902bd95af8e849
-change-id: 20261015-binder-poll-self-work-b77603584279
+-Vasant
 
-Best regards,
--- 
-Alice Ryhl <aliceryhl@google.com>
+> ---
+>  MAINTAINERS | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index cc3cae2e378b..64052e51c3cc 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -1181,8 +1181,8 @@ F:	drivers/platform/x86/amd/hfi/
+>  
+>  AMD IOMMU (AMD-VI)
+>  M:	Joerg Roedel (AMD) <joro@8bytes.org>
+> +M:	Vasant Hegde <vasant.hegde@amd.com>
+>  R:	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+> -R:	Vasant Hegde <vasant.hegde@amd.com>
+>  L:	iommu@lists.linux.dev
+>  S:	Maintained
+>  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/iommu/linux.git
 
