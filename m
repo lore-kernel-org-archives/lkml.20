@@ -1,152 +1,248 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC534EA37F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:44:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5532F260F;
+	Fri, 16 Oct 2026 15:44:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792165448; cv=none; b=XzLG+RHwURQWznAIpDJicPn2t8/trVh22FUlim14Ezi2Jj16wBiL0IbxemG6vYe5Flh+leEacHmq/bJ7H5Ed8SOZO/3Ka6VrqhYoGNxuGHktrp9EFt0hYqcgh95y9KeLqzgU643hYl0og0zQ859gUBZFBe6ct1pokvDl5V6e8Qo=
+	t=1792165501; cv=none; b=GK08FY8rKukWpfVmDUPXe36rFlsRKg60eeqw1WJI9AH22McnhHMZNNqfhNWo3TW5CVXE/ni0C8e0RSWWCzZNa9XYG/L2e528xmxvwd8XdJ/rJ+Ao5Gv8W0Uxo+8xf2maUeYwiL/VX9UlEtooi1KWjgSsw28cCDkyRX/XdlYnvmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792165448; c=relaxed/simple;
-	bh=Zz8i0lUTzRkuZgBP2+V7pWig14l8N8fd7W2Q0Mi/UCw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dmbShe2isrTmWCvntzGp7Gc8+yZFFE1fLc5Rz5UShd+dLpZw1GUMXKdhIaf/IknK21C4mMs28Dsob8QipTqZnJOfrkzacLkiwvScDTuCKZYV/YugqeqVw+6pgdFJZslpwYw4F51pcNxrwqpgO7VcmsqQYNLXQvB4HanZCavgj8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NWl7COJF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792165501; c=relaxed/simple;
+	bh=9bXbLDYSonTKhdmt5hDhi+Ax8Sq8b8bafY5sQF5NToY=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=smOXLi2Y9R6NseVCo1kK55k3hLHsyTHY3KxL7mu/b8/XH9BmVCKzCCAtV4fJVLqoWTGNKKYsFKiSM4nfdcU7bL8gmN8phA2ZHkwgX44OruOxmFlHdsyGPVQ+NJAcOeaycT6U0vXPwJPXq/FtbRNtZ0Cm/VLxyWHb2SsEWunJ96k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fqfukrxb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NWl7COJF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF1451F000CA
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:44:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fqfukrxb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57AB61F000C5;
+	Fri, 16 Oct 2026 15:44:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792165446;
-	bh=x4BlVnBkdABSzxNkd7xtQc1KrHevTV+nHJUmN1WOF50=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NWl7COJFN7Hf2rYjR08s5lUnWdyU60zFI9qWzWql2nZLxLwFDrOUuWaPtlZlEJCXf
-	 k8HQ2guCGgRB450IeMTOxyhWfFQhO05ODS6uVNvGrehUbFykMXgPbVAwTDeiX6Xvf1
-	 +sXx/gEJeltqf0VDI3BwB08CXxKGzx2LHRPe4qPXP+NoRKR0j0Cgj4YpApDJ9AdrLc
-	 o+p29XbXvdplq512JPyDc7qGFzWLTorWk3hXmOdCW1MKV2cElO27KeSH5l39+z++5n
-	 Zv50sIRji7pMPoHHTsw6CJkqOZ1/FXpBL26ojt3RPb0YMo9zvKdTqcTLzwfS4AXcgf
-	 l7JQpzxGgEt1g==
-Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-53c156ba662so85681b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:44:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByVFnjrWwXyxtW5Ykcfsy7kakgPSJKcn5IWLLmFcmME+LxLUnnlG16Un+QBuJC2EHXKNaeadLJG9gQr3yQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL53pEfgfo4Mv9GGamXva+Uq63vOCJ9QpYnRYDLrAvxXeZG0Sag
-	mZTjMXR1J40nw6fawP326jzNftB2rtwMTEqPUNVGX+dFaWUKlU5wVeYYpSiF4MSmB/w1xAXYza9
-	cXOYLlHQ/GMNBDTWKyXpXNKR1b0vUSVE=
-X-Received: by 2002:a05:6808:6f8f:b0:4ea:686e:fe86 with SMTP id
- 5614622812f47-50c5b464a7emr20203589b6e.63.1792165446007; Fri, 16 Oct 2026
- 08:44:06 -0700 (PDT)
+	s=k20260515; t=1792165499;
+	bh=Z81ZX3c8VwRbo1qhQKnMhcFi9A73xlefHXLKdBssqvE=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=FqfukrxbmKr0vrx3QTj6h7JVFSmaUwVvc0uw+IM9V79h4ssnZE7WtF+E3zZq/inOT
+	 SAhSwAaIudAmFZ3JnFKjgVo/69gh87SEQ0c7Y7rYW5jyc1HyI+rJifnSjz/J9bho9q
+	 HX5AE7OQLd3jO+7dwL5B5G/ZUmQXHKL4v6QsSVfHwgEvfoLx54q+ztIdysXXLRywsf
+	 9gPp3gz8Pu++QW1mPJqckJrsnpD0vCniJnSYlfhScX9/nA5Hc/MjqnREjRGsWzYxuB
+	 mhIQj1zVLKhiKY9YB/FTavIxi7hUDkicIcy/qCFYx1eWySjc8dk1JrMcJudnsf8HsW
+	 HKbXJHxLQMcMw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261016-bug-veth-init-queues-before-register-v1-1-f48eb2bb25a0@gmail.com>
-In-Reply-To: <20261016-bug-veth-init-queues-before-register-v1-1-f48eb2bb25a0@gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Fri, 16 Oct 2026 17:43:54 +0200
-X-Gmail-Original-Message-ID: <CAL4WiipGJT316aRQSMtyHo9s0qGoWGeZLxqnksyQTO9mioidQA@mail.gmail.com>
-X-Gm-Features: AclHuK-vfqoap1s0w_q-N6yPL7qX4SBSAmBMtMa8Gsw7Q-KmBm3I-033Cj2xIhU
-Message-ID: <CAL4WiipGJT316aRQSMtyHo9s0qGoWGeZLxqnksyQTO9mioidQA@mail.gmail.com>
-Subject: Re: [PATCH net-next] veth: set the real number of queues before
- registering the devices
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 2/2] phy: qcom-snps-femto-v2: Add support for
+ SA8255P
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Mattijs Korpershoek <mkorpershoek@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Sriram Dash <quic_sriramd@quicinc.com>
+In-Reply-To: <20261002-phy-qcom-snps-femto-v2-8255-v3-2-342542bd9bc6@kernel.org>
+References: <20261002-phy-qcom-snps-femto-v2-8255-v3-0-342542bd9bc6@kernel.org>
+ <20261002-phy-qcom-snps-femto-v2-8255-v3-2-342542bd9bc6@kernel.org>
+Date: Fri, 16 Oct 2026 21:14:49 +0530
+Message-Id: <179216548965.106618.12539639688235621089.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5975; i=mani@kernel.org;
+ h=from:subject:message-id; bh=9bXbLDYSonTKhdmt5hDhi+Ax8Sq8b8bafY5sQF5NToY=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq0kZ1AeIG0PTbo2Axh48qwE8Lo5iQEODWtAb+3
+ Cb80s22w8CJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCatJGdQAKCRBVnxHm/pHO
+ 9aIkB/4wSjPewk5Yrc11RaVVVMpqif2lk5SbR/kfEBN4O77rblXnIBnNXEjunoMzfHZzHuNsKlo
+ n7QAPKS+T7dc5YYAaGWMBLBs8aQJcTrvZcBTyR1cr55smbYu/xZoDHA20igTvNhk/F2mxuYzUp6
+ dqQALzjZG/wSrPcXCh529umbEnZiGmaeqeEjTbvUfzh5n/vNbeM8Uj2Nj6kxNmyoL67a6bQO464
+ 7C5zH+yZJxLPhKUf9HMrUmpQLxWh70MOYvHaTtnxCarCqBgXk5Ax0z7Zjf6CY6ejtMV6vA0lj+S
+ SRphWo1OOEeC8WzKkhKbJD1fvZRDyX0T3BqCKh2LSui57z/W
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-Le ven. 16 oct. 2026 =C3=A0 08:51, Qiliang Yuan <odys.yuan@gmail.com> a =C3=
-=A9crit :
->
-> Since commit 9d3684c24a52 ("veth: create by default nr_possible_cpus
-> queues"), each veth device is allocated with one rx and one tx queue
-> per possible CPU, and veth_newlink() reduces the real number of queues
-> to one unless the user asked for a number.
->
-> Both devices are already registered at that point, so
-> netif_set_real_num_tx_queues() and netif_set_real_num_rx_queues()
-> remove the sysfs objects of every extra queue that register_netdevice()
-> has just created, each one emitting an add and a remove uevent, and the
-> tx side also waits for an expedited RCU grace period. This happens with
-> RTNL held, twice per pair, and grows with the number of possible CPUs:
-> with 240 of them a veth pair emits about 1900 uevents, and udev
-> processing them slows down later sysfs work such as deleting devices.
->
-> Set the number of queues before registering each device. For a device
-> that is not registered yet this only updates the counters, so the extra
-> queues never appear in sysfs, and the error paths that undid a
-> registration are no longer needed.
->
-> Creating and then deleting 500 veth pairs, one ip -batch each, in a 16
-> vCPU guest, median of 3 runs, per pair:
->
->                                    before      after
->   16 possible CPUs    create      1644 us     520 us
->                       delete     11822 us    9750 us
->   240 possible CPUs   create     17253 us    1339 us
->                       delete     17082 us    9941 us
->                       uevents        1918          6
->
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+On 2026-10-02 11:41 +0200, Mattijs Korpershoek wrote:
+> From: Sriram Dash <quic_sriramd@quicinc.com>
+> 
+> The Qualcomm automotive SA8255p SoC relies on firmware to configure
+> platform resources, including clocks, interconnects and TLMM.
+> The driver requests resources operations over SCMI using power protocols.
+> 
+> The SCMI power protocol enables or disables resources like clocks,
+> interconnect paths, and TLMM (GPIOs) using runtime PM framework APIs,
+> such as resume/suspend, to control power on/off.
+> 
+> Power domain "core" controls the GDSC, resets, and TLMM (GPIOs)
+> whereas power domain "transfer" controls clocks and interconnects.
+> 
+> In this variant, two disjoint sets of resources are modeled against
+> the power domain suppliers which can be turned on/off to achieve modeled
+> device states. Two modeled low power states d1 and d3 are supported.
+> 
+> transition: d0 <--> d3  :: both core and transfer suppliers
+> transition: d0 <--> d1  :: only transfer supplier
+> 
+> Signed-off-by: Sriram Dash <quic_sriramd@quicinc.com>
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
 > ---
->  drivers/net/veth.c | 20 ++++++++------------
->  1 file changed, 8 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-> index 38f263d4f06b4..92ad064567327 100644
-> --- a/drivers/net/veth.c
-> +++ b/drivers/net/veth.c
-> @@ -1875,6 +1875,10 @@ static int veth_newlink(struct net_device *dev,
->
->         netif_inherit_tso_max(peer, dev);
->
-> +       err =3D veth_init_queues(peer, tb);
-> +       if (err)
-> +               goto err_register_peer;
+>  drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c | 127 ++++++++++++++++++++++++--
+>  1 file changed, 118 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+> index 980ad1fb1e2e..9fdf7ae681b6 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/of.h>
+>  #include <linux/phy/phy.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/pm_domain.h>
+>  #include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/reset.h>
+> @@ -95,6 +96,7 @@ struct override_param_map {
+>  	u8 table_size;
+>  	u8 reg_offset;
+>  	u8 param_mask;
+> +	bool fw_managed;
+>  };
+>  
+>  struct phy_override_seq {
+> @@ -121,6 +123,7 @@ struct phy_override_seq {
+>   * @phy_initialized: if PHY has been initialized correctly
+>   * @mode: contains the current mode the PHY is in
+>   * @update_seq_cfg: tuning parameters for phy init
+> + * @pd_list: list of power domains associated with the device
+>   */
+>  struct qcom_snps_hsphy {
+>  	struct device *dev;
+> @@ -136,8 +139,81 @@ struct qcom_snps_hsphy {
+>  	bool phy_initialized;
+>  	enum phy_mode mode;
+>  	struct phy_override_seq update_seq_cfg[NUM_HSPHY_TUNING_PARAMS];
 > +
->         err =3D register_netdevice(peer);
->         if (err < 0)
->                 goto err_register_peer;
-> @@ -1904,6 +1908,10 @@ static int veth_newlink(struct net_device *dev,
->         else
->                 snprintf(dev->name, IFNAMSIZ, DRV_NAME "%%d");
->
-> +       err =3D veth_init_queues(dev, tb);
-> +       if (err)
-> +               goto err_register_dev;
+> +	struct dev_pm_domain_list *pd_list;
+>  };
+>  
+> +static void qcom_snps_domain_detach(void *data)
+> +{
+> +	struct qcom_snps_hsphy *hsphy = data;
 > +
->         err =3D register_netdevice(dev);
->         if (err < 0)
->                 goto err_register_dev;
-> @@ -1917,16 +1925,10 @@ static int veth_newlink(struct net_device *dev,
->         priv =3D netdev_priv(dev);
->         rcu_assign_pointer(priv->peer, peer);
->         netdev_hold(peer, &priv->peer_tracker, GFP_KERNEL);
-> -       err =3D veth_init_queues(dev, tb);
-> -       if (err)
-> -               goto err_queues;
->
->         priv =3D netdev_priv(peer);
->         rcu_assign_pointer(priv->peer, dev);
->         netdev_hold(dev, &priv->peer_tracker, GFP_KERNEL);
-> -       err =3D veth_init_queues(peer, tb);
+> +	dev_pm_domain_detach_list(hsphy->pd_list);
+> +}
+> +
+> +static int qcom_snps_domain_attach(struct qcom_snps_hsphy *hsphy)
+> +{
+> +	struct dev_pm_domain_attach_data pd_data = {
+> +		.pd_flags       = PD_FLAG_NO_DEV_LINK,
+> +		.pd_names       = (const char*[]) { "core", "transfer" },
+> +		.num_pd_names   = 2,
+> +	};
+> +	struct device *dev = hsphy->dev;
+> +	int ret;
+> +
+> +	ret = dev_pm_domain_attach_list(dev, &pd_data, &hsphy->pd_list);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "domain attach failed\n");
+> +
+> +	return 0;
+> +}
+> +
+> +/* d3_to_d0 transition by turning on all the suppliers */
+> +static int qcom_snps_d3_to_d0(struct qcom_snps_hsphy *hsphy)
+> +{
+> +	int ret;
+> +
+> +	if (!hsphy->pd_list)
+> +		return 0;
+> +
+> +	ret = pm_runtime_resume_and_get(hsphy->pd_list->pd_devs[0]);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = pm_runtime_resume_and_get(hsphy->pd_list->pd_devs[1]);
+> +	if (ret)
+> +		pm_runtime_put_sync(hsphy->pd_list->pd_devs[0]);
+> +
+> +	return ret;
+> +}
+> +
+> +/* d0_to_d3 transition by turning off all the suppliers */
+> +static void qcom_snps_d0_to_d3(struct qcom_snps_hsphy *hsphy)
+> +{
+> +	if (!hsphy->pd_list)
+> +		return;
+> +
+> +	pm_runtime_put_sync(hsphy->pd_list->pd_devs[1]);
+> +	pm_runtime_put_sync(hsphy->pd_list->pd_devs[0]);
+> +}
+> +
+> +/* d1_to_d0 transition by turning on the 'transfer' supplier */
+> +static int qcom_snps_d1_to_d0(struct qcom_snps_hsphy *hsphy)
+> +{
+> +	if (!hsphy->pd_list)
+> +		return 0;
+> +
+> +	return pm_runtime_resume_and_get(hsphy->pd_list->pd_devs[1]);
+> +}
+> +
+> +/* d0_to_d1 transition by turning off the 'transfer' supplier */
+> +static void qcom_snps_d0_to_d1(struct qcom_snps_hsphy *hsphy)
+> +{
+> +	if (!hsphy->pd_list)
+> +		return;
+> +
+> +	pm_runtime_put_sync(hsphy->pd_list->pd_devs[1]);
+> +}
+> +
+>  static int qcom_snps_hsphy_clk_init(struct qcom_snps_hsphy *hsphy)
+>  {
+>  	struct device *dev = hsphy->dev;
+> @@ -196,6 +272,8 @@ static int qcom_snps_hsphy_suspend(struct qcom_snps_hsphy *hsphy)
+>  					   0, USB2_AUTO_RESUME);
+>  	}
+>  
+> +	qcom_snps_d0_to_d1(hsphy);
+> +
+>  	return 0;
+>  }
+>  
+> @@ -203,7 +281,7 @@ static int qcom_snps_hsphy_resume(struct qcom_snps_hsphy *hsphy)
+>  {
+>  	dev_dbg(&hsphy->phy->dev, "Resume QCOM SNPS PHY, mode\n");
+>  
+> -	return 0;
+> +	return qcom_snps_d1_to_d0(hsphy);
+>  }
+>  
+>  static int __maybe_unused qcom_snps_hsphy_runtime_suspend(struct device *dev)
+> @@ -316,6 +394,10 @@ static const struct override_param ls_fs_output_impedance_sc7280[] = {
+>  	{ 1310, 0 },
+>  };
+>  
+> +static const struct override_param_map sa8255p_snps_hs_phy = {
+> +	.fw_managed = true,
+> +};
+> +
+>  static const struct override_param_map sc7280_snps_7nm_phy[] = {
+>  	{
+>  		"qcom,hs-disconnect-bp",
+> @@ -390,9 +472,15 @@ static int qcom_snps_hsphy_init(struct phy *phy)
+>  
+>  	dev_vdbg(&phy->dev, "%s(): Initializing SNPS HS phy\n", __func__);
+>  
+> +	ret = qcom_snps_d3_to_d0(hsphy);
+> +	if (ret < 0) {
+> +		dev_err(hsphy->dev, "Failed to transition to d0 state\n");
+> +		return ret;
+> +	}
+> +
+>  	ret = regulator_bulk_enable(ARRAY_SIZE(hsphy->vregs), hsphy->vregs);
 
-Orthogonal to your patch, but here we should have used @tbp instead of @tb.
+Why do you still control regulator natively in the SCMI path?
 
-# ip link add va type veth peer vb numtxqueues 4
+- Mani
 
--> vb has 4 tx queues, but only 1 real tx queue, which is quite unexpected.
-
-# ip -d link sh vb
-13: vb@va: <BROADCAST,MULTICAST,M-DOWN> mtu 1500 qdisc noop state DOWN
-mode DEFAULT group default qlen 1000
-    link/ether e2:53:93:f3:f4:f8 brd ff:ff:ff:ff:ff:ff promiscuity 0
-allmulti 0 minmtu 68 maxmtu 65535
-    veth addrgenmode eui64 numtxqueues 4 numrxqueues 8 gso_max_size
-65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535
-gro_max_size 65536 gso_ipv4_max_size 65536 gro_ipv4_max_size 65536
-
-# ls /sys/class/net/vb/queues/
-rx-0  tx-0
