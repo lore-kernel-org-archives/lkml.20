@@ -1,38 +1,38 @@
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44D9470EA9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47BF485CF9;
 	Fri, 16 Oct 2026 14:56:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162612; cv=none; b=NUkOwDFgDQ4qK/cpmxFwstsUG7Ws31Hy6ig/x8CsKDAS+5dnDxealjcH27KBA0VXMmMtCnoTkKtlk3a+kJrWdrITRAaVJrz6jrNVGQJGmkcwhTnN7YnUJMcp26fYOuB6WB78cpAcLVa/OHHlotUIHm9mNNjf32s+lhWFQ1Gl0Gw=
+	t=1792162613; cv=none; b=pPe9TsQHdqfOpHTsz0q77Bn9tpJEnBY8MwXyTnbYCIUgV63Fr7PdSNICuG+VTwEKYm1hIFYVC/+eH2uKOrBsXr6qSXyQORUB2YCkwtWpdS97AOsAne54GZl8XNKcYqbcKucR79MHhJpcN9poHLqDWTL6rN8DCftYqz643i3+lug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162612; c=relaxed/simple;
-	bh=jWEUlnvBG6BR3Fn5XvPTfHgt/B+EEBNZ7YcT5wUtMx4=;
+	s=arc-20240116; t=1792162613; c=relaxed/simple;
+	bh=51lN2+sP0NCduoUbZkvkLXpM2cIIsh/He5h9EK/+jDg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TDiA/o9I6wFnchU6RMR/KiFXXLFPlNJnh2EA6j70dsQMvA55OK9z9pWUvWGM/bOcr7zjsoSC5YEPiIFQ8dSePpXGbcVoBlJuuSsoaYMPltlgcmOLjXKn9Zd04mryVqRm29STSsDGy3nBbcmrcAOZKw1FKIwDH8UcB9waOtF/H1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=WQZWHVa9; arc=none smtp.client-ip=90.155.50.34
+	 MIME-Version:Content-Type; b=j7BzQ410tHguiSdecDvqwcnTvnGYQ2tvF9tT1d2ajQ1p0YiIXg2jMa7qZq98OTnrbRfutBSXoEGD+j0w45RutlkZt3bc/ZYvpGmOHVbhyunft/lwMFfPShHeJtvrps/f3Z8jZ18S28ouzy9wicNKiNch37f9cWTu7acpfEdrHGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=rJcHBGQY; arc=none smtp.client-ip=90.155.50.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="WQZWHVa9"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="rJcHBGQY"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
 	To:From:Reply-To:Content-ID:Content-Description;
-	bh=cFcjSX1F1kgoXLz+gVxRBvZE16O8bRWdEkwbe+t5w/8=; b=WQZWHVa9QFVpcxMpdZ+XxKwpMc
-	QXU1CuBRIlhqXL9UnvMKmrxP1HChgE17+GsV7u/HdE7kQhhaBbfNXhcP3iiuA1hxqGxA3uaxftH5b
-	gDbOnaTl1ZRbYfFk2iQy++E5/YEVei/E1ZbZfWHnGKQ8qHqtcd2tEXU6UYCumjMF0o4qfSvMvVjgr
-	Rb0I3/52fkuCbvFGhH/++f59wsr5NVhEztE2yRAw1oniIjdcv5KwJ5fu++71nmqp1KknF/Mw4ZuCE
-	nRPyHNDcuVCHJGEHCppcKggNZ8fWpJwJF8At3bK4P6KK5mA/idk7MnCFOwchYVi+/mk2s6nzZNp29
-	cKdqFQOA==;
+	bh=hOs19fObtan0szeKOzKz6BssF3NYcCFtUFQyxZ/f684=; b=rJcHBGQYNmkOzrpgbrcUneK38D
+	Hg5L7uqPrnFmZm9i9mN3yrf0jRWYIAZepKjtJ2vYguabYWEy+Q4VUC+pKKfscTKEkH0LJCNN/17Ok
+	oMz2hcpQttCJgZVXPQBUvQRiDkhg2d4aaOzbREOWZDrIdePsKgDl/Its4WpK8rbmU80AFArh806pp
+	BIM8ZdbDblnf85RPu+t6Ec1PmWYYi2QRCCyF53oMxj34teyHxNTzP7RJAhITjjztNyWCtegrqUDG+
+	aVSjtC3+n2p+PReD3emkP6r7uG0JN0nJiPJVZ711Hpkf5nEdN5Hjw3AxSDXx4wpnsvdHq7b+OoVv/
+	PPZpydhA==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xHjMV-00000004QIs-0VB4;
+	id 1xHjMV-00000004QIu-0xGB;
 	Fri, 16 Oct 2026 14:56:47 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xHjMU-00000002QjM-3uUk;
-	Fri, 16 Oct 2026 15:56:46 +0100
+	id 1xHjMU-00000002QjV-4BNI;
+	Fri, 16 Oct 2026 15:56:47 +0100
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -43,9 +43,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Vitaly Kuznetsov <vkuznets@redhat.com>,
 	Fred Griffoul <fgriffo@amazon.co.uk>,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v3 09/11] KVM: x86: Request the guest TLB flush from record_steal_time()
-Date: Fri, 16 Oct 2026 15:56:43 +0100
-Message-ID: <20261016145646.579369-10-dwmw2@infradead.org>
+Subject: [PATCH v3 11/11] KVM: selftests: Fix unreachable timer recovery in xen_shinfo_test
+Date: Fri, 16 Oct 2026 15:56:45 +0100
+Message-ID: <20261016145646.579369-12-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261016145646.579369-1-dwmw2@infradead.org>
 References: <20261016145646.579369-1-dwmw2@infradead.org>
@@ -62,89 +62,52 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-record_steal_time() performs a TLB flush on the guest's behalf when the
-guest sets KVM_VCPU_FLUSH_TLB. With shadow paging,
-kvm_vcpu_flush_tlb_guest() ends up in mmu_sync_children(), which can
-reschedule via cond_resched_rwlock_write(). That is why the flush
-currently sits between a user_access_end() and a fresh
-user_access_begin(): it cannot be done while the guest page is mapped
-for access.
+The final phase of xen_shinfo_test waits for a timer event while a
+worker thread repeatedly deactivates and reactivates the shared_info
+cache. The guest polls up to 100 times before asking the VMM to re-arm
+the timer, documenting the recovery protocol for kernels which drop a
+timer event that cannot be delivered.
 
-Raise KVM_REQ_TLB_FLUSH_GUEST instead of flushing inline, and move the
-processing of KVM_REQ_STEAL_UPDATE ahead of where the TLB flush requests
-are serviced in vcpu_enter_guest() so that the flush still happens before
-the vCPU enters the guest. There is no requirement for it to complete any
-earlier than that.
+But the poll has no timeout. If the timer fires while the guest is
+already blocked in SCHEDOP_poll and the event is dropped — which is
+precisely the case the recovery exists for — nothing ever wakes the
+vCPU, the 100-poll loop never advances, and the test hangs with the
+SIGALRM watchdog disabled for this phase. The recovery protocol is
+only reachable when the drop happens to occur while the guest is
+awake.
 
-kvm_make_request() on the vCPU which is running is nothing more than a
-barrier and a set_bit(), so unlike the flush itself it can be done from
-any context — which lets the surrounding access be simplified later.
+Give the poll a 10ms timeout, as the TEST_POLL_TIMEOUT phase already
+does, so a dropped event leads to the documented re-arm protocol
+instead of sleeping forever. The window for the drop is vanishingly
+small upstream, but widens dramatically once cache deactivation incurs
+a grace-period wait, hanging roughly a third of all runs.
 
-Note that the xchg() must stay where it is: it atomically consumes any
-KVM_VCPU_FLUSH_TLB which the guest has set, as required by commit
-b043138246a4 ("x86/KVM: Make sure KVM_VCPU_FLUSH_TLB flag is not missed").
-
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260530061932.7849D1F00893@smtp.kernel.org
-Suggested-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 Assisted-by: LLM
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- arch/x86/kvm/x86.c | 26 +++++++++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
+ tools/testing/selftests/kvm/x86/xen_shinfo_test.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index eadcaeee651a..20119d07b477 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -2106,8 +2106,22 @@ static void record_steal_time(struct kvm_vcpu *vcpu)
- 
- 		trace_kvm_pv_tlb_flush(vcpu->vcpu_id,
- 				       st_preempted & KVM_VCPU_FLUSH_TLB);
+diff --git a/tools/testing/selftests/kvm/x86/xen_shinfo_test.c b/tools/testing/selftests/kvm/x86/xen_shinfo_test.c
+index 3b11d0ee253f..729c0ba9ab4e 100644
+--- a/tools/testing/selftests/kvm/x86/xen_shinfo_test.c
++++ b/tools/testing/selftests/kvm/x86/xen_shinfo_test.c
+@@ -350,7 +350,14 @@ static void guest_code(void)
+ 	p = (struct sched_poll) {
+ 		.ports = ports,
+ 		.nr_ports = 1,
+-		.timeout = 0
 +		/*
-+		 * Request the flush instead of performing it inline. With
-+		 * shadow paging kvm_vcpu_flush_tlb_guest() can reschedule (via
-+		 * mmu_sync_children()), which is why the user access above has
-+		 * to be closed before it. Requesting the flush is just a bit
-+		 * set on the running vCPU, and the request is serviced before
-+		 * the vCPU enters the guest; nothing requires the flush to
-+		 * have completed any earlier than that.
-+		 *
-+		 * Note the xchg above must remain as-is: it atomically
-+		 * consumes any KVM_VCPU_FLUSH_TLB the guest set, as required
-+		 * by commit b043138246a4 ("x86/KVM: Make sure
-+		 * KVM_VCPU_FLUSH_TLB flag is not missed").
++		 * The poll must have a timeout: if the timer event is dropped
++		 * while we are already blocked in the poll, nothing else will
++		 * ever wake us, and the recovery protocol below could never
++		 * run. (As with TEST_POLL_TIMEOUT above, KVM treats the
++		 * timeout as relative.)
 +		 */
- 		if (st_preempted & KVM_VCPU_FLUSH_TLB)
--			kvm_vcpu_flush_tlb_guest(vcpu);
-+			kvm_make_request(KVM_REQ_TLB_FLUSH_GUEST, vcpu);
++		.timeout = 10000000,
+ 	};
  
- 		if (!user_access_begin(st, sizeof(*st)))
- 			goto dirty;
-@@ -8089,6 +8103,14 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 			if (unlikely(r))
- 				goto out;
- 		}
-+		/*
-+		 * Process the steal time update before the TLB flush requests
-+		 * are serviced below; record_steal_time() requests
-+		 * KVM_REQ_TLB_FLUSH_GUEST on the guest's behalf rather than
-+		 * performing the flush itself.
-+		 */
-+		if (kvm_check_request(KVM_REQ_STEAL_UPDATE, vcpu))
-+			record_steal_time(vcpu);
- 		if (kvm_check_request(KVM_REQ_MMU_SYNC, vcpu))
- 			kvm_mmu_sync_roots(vcpu);
- 		if (kvm_check_request(KVM_REQ_LOAD_MMU_PGD, vcpu))
-@@ -8138,8 +8160,6 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 			r = 1;
- 			goto out;
- 		}
--		if (kvm_check_request(KVM_REQ_STEAL_UPDATE, vcpu))
--			record_steal_time(vcpu);
- 		if (kvm_check_request(KVM_REQ_PMU, vcpu))
- 			kvm_pmu_handle_event(vcpu);
- 		if (kvm_check_request(KVM_REQ_PMI, vcpu))
+ wait_for_timer:
 -- 
 2.43.0
 
