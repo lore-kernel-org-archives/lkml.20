@@ -1,75 +1,76 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6B54B3C94
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:47:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C7744725F
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:48:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792176480; cv=none; b=b1c+cLvDACzLzAt6uoHwUuwgUkzCGkauF2Vt4hbitzla6H5DYIMzsSRwK1Y+pRAJdK/4m1z2i75VnEpxf7cWabg4mQRBGGDlR25aq1gdHy9DFKkhRpk6ypBYmZKDor67/eT1MPpWvfjDzUJj2NkpycbSZqjg66DR6082SSPi7tg=
+	t=1792176482; cv=none; b=B90BdKz+N5Hx6dxQGI+dIL+zWEw0GEMlLIFZYzGB2o32qF4oSP5FgSWYqNd6IMhXDzSF+WH9f+4eQrq3S5TzWki2X0tqolrVAY+y8kcSsLQZag2MizA9kul7DALU9YZFYbSrByzX8zJYnUmHMPBgTxLa1wELKsw9lH0fahO7PPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792176480; c=relaxed/simple;
-	bh=9HaWzOKfnpaXCLuhegUHtmuWqks+3jlaF1gMhEmsKRs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fM9fmHjZeC+fBYAqLXLSQNNOFFt6ZgI2op6JcGqKIEzcKlXis0uKgMqIRgToxTP1cLIC0eLq5mDSL41TThTxaqztSs/BVD4+Ujw5fMrOgylR1DM+6kC2Oxbv3BfXXXSysisvQfbJ4OqP7KmU+QPDFSGkuiCDcR5WqoI7cdP174g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=cWiGq7hH; arc=none smtp.client-ip=74.125.82.170
+	s=arc-20240116; t=1792176482; c=relaxed/simple;
+	bh=UOBQMDboe3FurNL1fwsoCR+UO+c0f/CLUXkhSYblSsQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SO4nGXYP8yA8KYJ89XsPgTpI8Al6cox0f87uNpvncr2zsc+guJKqOY8b/PLwg/Cs602BKiCE9OA7csyLvLvLKANkQEmHAyy0hPFT4o/GHNdCRQENtR8WAk/aW1qlJuW1Cqm+1d0VcwlgYh+/srTQAGp2BHH0Akfdik3ccXR72OM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=NjMB13Mb; arc=none smtp.client-ip=74.125.82.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="cWiGq7hH"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3550c917fd3so236568eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:47:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="NjMB13Mb"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-354ba08cfd1so279348eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:48:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792176478; x=1792781278; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ic61/wqBGtfRXKsiAxz/tXXdVrm+pW2y1wsldll1w/I=;
-        b=cWiGq7hHOnIm3ZX+xWXvn1LLHgSwL29Xd8Ej38K7tW+XFEWvPMBt8bSedxyBPDhbGn
-         tisAQVd2r/5sXBgmzgVnMEhRB3GqCcLrJxQQejVt8gVehlKNcB5IFHqREwBli4DFX3J/
-         a3X8NPtVFz6YTbaXOKu9RHCcZIo4ajWIjZM1rTZb8lwGi7cUjeci3SYwdYYBR/f/Cf0T
-         eeOk6ap+0Ldgc4OTRg6m9zfoDAd7521NrH/3tNwT96ZvzOl+/piScRqRFNpe631wfG+8
-         kbDjRHsRLSKjSYlfaVafg1xM1y32bflyCrD9VMZEpNzABGZ4rjllp8TgqSCQ7VN2czXZ
-         PQaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792176478; x=1792781278;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=trailofbits.com; s=google; t=1792176480; x=1792781280; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ic61/wqBGtfRXKsiAxz/tXXdVrm+pW2y1wsldll1w/I=;
-        b=DfyI7Ony8T4+kCZSyRQ/09ovaL14bFmRbCXHUWXmM6yluZLmFJruZyQfnNc8U6xomu
-         gXY4M690MVqxkcU77slsSeKtrEJHoDt6oVEjQswxZ17B9Pa0ypxfHv396ZRe0dh47FiE
-         vfhZNqdCflCEy6Hat34ZTgFti1mCcWv3OFBHAT2ZzCzNloTJIgVDdX6WckYdD8Ef6uXi
-         SH1cg6xgqIeunuAlNCL79CwCgFmn9Pojo2Ghh9z5IYrJ5oI/TGoS1GNvKWLrgVGeMIYM
-         AWLVk4f/wmLUzBtVw2FgzYam0SgEGglBAjfr3PeC57fiWAv2wVvM5VVUrXJB+tc2Ldun
-         4oxA==
-X-Forwarded-Encrypted: i=1; AKwUvBwCApEeDTsmekrgUsGqYzFhHUVtE0mk0WuIUMsno93n6OUITjXrpF3+vmENn8XBoS7lt4rB+cfa1DkFZR0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLF0eByk8oTcyXN+WjCkYAJhsffD92Y/1RStHmo0+QKMycnVeMj
-	EgByOjITvBd9bq7SqlHrzMLTzzkrNRwx/syXSEuKvjovTDpd87KIGLvOmLFiaizxjOQLiqc0XeD
-	RIpoJY532hA==
-X-Gm-Gg: AYBFou2ZU6a00fXd3t7q8j8aEmdn3iy0itScnYSIuQKR4Szz/GFpoYcaxlbhV9asmdi
-	EZChmFZI8M/upeEbFDgcLFBwqYlQAOmCZLZK4gE/36VcDLul6DLfesDx7MmfqRwtQlchJATqh+B
-	cMJ3Z96odwoTvy0RHVmXbnEEdz1V5QhNUH5QioIbCfJ7+7qLWMntWYQI/WGzT028J8U7PeJX13r
-	X9Lxs/6exo5yP8MQOeHMJgaZld5a3XrDCkrFOUUpFJQr+hpq6nUItOATO468D4FJVOI5QKvt86m
-	hcSvVhK8tE7D6I0UveQYzALz9VxXTnVoNPVuPrMdMfl0LYiPwpyUzB4Bw6JNY5aXNvADbdOhp8a
-	1/2bDBjZrIY0qUo2YuDG+aAvOCn1jLW+jOmJHX4bgDXDf2U0YYe97zsroUjNms3bFu7+fQNxqIo
-	8fN+H8g0HLR5F+3xfutZN6So5G3YawPiyEe5qDNU1fknGUiRuBO7wBgf6SxPaNQYlk9qQXpku+K
-	tTgITlYbnftgQ3woDgDLGJMcBgo6U0qRobdAsTHNzM91R0cpc+YczEIUGvcXC4/ODUfoFq7Mazj
-	yqetZA==
-X-Received: by 2002:a05:693c:62d4:b0:35f:2349:a570 with SMTP id 5a478bee46e88-361a2a3832amr578015eec.35.1792176477713;
-        Fri, 16 Oct 2026 11:47:57 -0700 (PDT)
+        bh=AOUEWUnwnVxWxJH7C5xN/7NfB+Ebm1z7A2AX4Ywo4+s=;
+        b=NjMB13MbBU5AXZkvZyw8S+By4qULTieuND5CzWSxcZ2wS7XIv55AmIPGEQo9wg5sSz
+         ytJBXvtB40c7OQc2vT+ieC+LCr+SaAUHBMLLyRXbbr9E3vIb4Bz4TmK9KUSy4mJI3nG0
+         FsMaOsUmU/8mazNlmyUtvH/qD1dFeWP2Ui2mSvHTraYs66FUNeblJCMPeKGbWiFcUgE8
+         DQeqI4n2HrAr79UIjcnAse5pIRufx7WoZlhfoTY/RbAwmBwbKDAaR8LdHhdf9hvci7/D
+         OY+BgMH3SOnnBRac7kvdrFdxfrOpO5mrl9tGS3Ig8pHjzT54UBNsLZKe2nvNgiwu4y+e
+         Kx+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792176480; x=1792781280;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AOUEWUnwnVxWxJH7C5xN/7NfB+Ebm1z7A2AX4Ywo4+s=;
+        b=NrMw3rd6QmDYdtAxKVmt3Ny2IXwmPIgSXFmIfcFshKe/o21zSz1RQuhB3Ogp7ptQyz
+         rDrPLXJvzfJM0R354jEc/5VnpTMvxSn9z/66pr2XfyaPeNSzJr8P3rx5nbevGz94Y7dE
+         ppyCb1Qb2oOEpSrz22dYzc5CvOGjt6GWuDMU5hsuV3Ue5SvEtKYuCl14gBY3tiLY0Hbv
+         XnCyS8zRmTd+yzreEcgsBBh85p0leiurY6owYz0s3JrewNJm1KXazazG8YqMz79Hyq1N
+         QleqLeo8gg+yBIBCHRifzOUcBjBSPUK3fUVf9B+voD937FiGNcn8XMMGSZTw6jO70DT2
+         hGiA==
+X-Forwarded-Encrypted: i=1; AKwUvBztAO5/AN3ILqyUA9E+omi6zgWgBUliGYvlSblswzLqHnhSF7/JTm9RcHVXQ/IhRi/9pyUKby5rKufzlaE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEa/YhGweLGE3aJdWwTawC91sT02K/5m92VWQ7B8v5462cXRSz
+	iQtvi2S0cGvr7n5B0xl7Q94+gM8/FurQleUflitqzBnyE7eYTfjM+KGd4KwWign1ITs=
+X-Gm-Gg: AYBFou3v0gjDMUmdNrQDWpWhG+Al7TwDw3KXmBEvKA9Sf7VUsc4x5tbOWQshFdKWQMk
+	LVasVFU+3eS9pKWs5CstmehoEGBt8cVBjV0L/704OatDtAOYxBGh94pPBI7tPfzNn3np/yqWRnS
+	5/eUh/u1A7CQADTdwNUN5J4yPAlQSZyR1C5SsSRvPeXJgGIBgHmS2R0aZvAT0x2kXbdySOmK+GS
+	l5TAYCX0kZqv4HeFr3uvw4xyI1d4JyyZpM2d5BOMTCchWuWRn8DxfmHncCu5w/Mv+WbnAtrgvVW
+	e55zlS2Ri/fViWWvSAKShA1XulWCv21Y1PS7K7v9hG2ZtM7YukSSYeYHpNnr191OT8SeR3tjrzr
+	CFN/P717uZpE4eFOJXBBbNNmG7zuKocNPdf1RffBswb2izv/E/zTqu9X+z+rg6szH3CtfHHgWdl
+	uJsdugCCIRoWu/gnuyYWrSdE2nVablV3CiLYLLF2nEpk0RfpDtaqqwqkhwG7XF7Sdal0534aeqr
+	EBpK2Q22K7g7BHmTvZ95/TaSwxHbGMt+q6+3pL3i+VJ/3UaCT5Xx+skujF/YFkS6PpjyPY=
+X-Received: by 2002:a05:7301:1f04:b0:351:2a18:c172 with SMTP id 5a478bee46e88-361a1660788mr1010366eec.15.1792176479682;
+        Fri, 16 Oct 2026 11:47:59 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:85ee:eb9a:5637:424d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082784ec8sm8004502eec.22.2026.10.16.11.47.56
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082784ec8sm8004502eec.22.2026.10.16.11.47.57
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 16 Oct 2026 11:47:57 -0700 (PDT)
+        Fri, 16 Oct 2026 11:47:59 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: axboe@kernel.dk,
 	kbusch@kernel.org,
-	kch@nvidia.com,
 	linux-block@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.6.y 0/2] CVE-2026-64017: backport fix series
-Date: Fri, 16 Oct 2026 14:47:51 -0400
-Message-ID: <20261016184753.27189-1-artem@trailofbits.com>
+Subject: [PATCH 6.6.y 1/2] blk-mq: pop cached request if it is usable
+Date: Fri, 16 Oct 2026 14:47:52 -0400
+Message-ID: <20261016184753.27189-2-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261016184753.27189-1-artem@trailofbits.com>
+References: <20261016184753.27189-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,39 +79,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+From: Keith Busch <kbusch@kernel.org>
+
+[ Upstream commit dc278e9bf2b9513a763353e6b9cc21e0f532954e ]
+
+When submitting a bio to blk-mq, if the task should sleep after peeking
+a cached request, but before it pops it, the plug flushes and calls
+blk_mq_free_plug_rqs, freeing the cached_rqs. This creates a
+use-after-free bug. Fix this by popping the cached request before any
+possible blocking calls if it is suitable for use.
+
+Popping this request first holds a queue reference, so avoid any
+serialization races with queue freezes and can safely proceed with
+dispatching that request to the driver. This potentially increases a
+timing window from when a driver wants to freeze its queue to when
+requests stop being dispatched. That scenario is off the fast path
+though, and drivers need to appropriately handle requests during a
+freeze request anyway.
+
+The downside is the popped element needs to be individually freed when
+we performed a bio plug merge. The cached request would have had to be
+freed later anyway, but this patch does it inline with building the plug
+list instead of after flushing it.
+
+Fixes: b0077e269f6c1 ("blk-mq: make sure active queue usage is held for bio_integrity_prep()")
+Fixes: 7b4f36cd22a65 ("block: ensure we hold a queue reference when using queue limits")
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+Link: https://patch.msgid.link/20260521190253.242065-1-kbusch@meta.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Assisted-by: LLM
+[ Backport to 6.6.y: Pop a suitable request from the older cached_rq list
+  before fallible preparation, then initialize it after preparation. The
+  target has three preparation or merge exits; the following correction
+  restores the request on each exit. ]
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
 Hi,
 
-Please consider this backport series for CVE-2026-64017 to 6.6.y.
+Please consider this backport of the fix for CVE-2026-64017 to 6.6.y.
 
-Apply the patches in this order:
-1. blk-mq: pop cached request if it is usable (fix)
-2. blk-mq: reinsert cached request to the list (correction)
-
-Patch 1 removes a compatible request from the older cached_rq list before
-preparation and QoS throttling, then initializes it after preparation. A
-plug flush can therefore no longer reuse the request while submission is
-in progress.
-
-Patch 2 returns that request to the single cached_rq list with
-rq_list_add() on each of the target's three preparation or merge exits,
-replacing upstream's shared-exit handling.
+The backport separates suitability and popping from initialization in the
+older cached_rq implementation. See the bracketed backport note above.
 
 The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
 
 Build-tested as part of a cumulative 6.6.y series on x86_64
 (allmodconfig, CONFIG_WERROR=y).
 
-This backport is considerably more involved than usual. 
-We performed runtime testing to check validity and stability,
-but would still greatly apprciate another set of eyes on it.
-
-It was runtime-tested on v6.6.158 in a QEMU/KVM guest (KASAN, lockdep,
-hung-task detection) against an unpatched baseline: blktests block
-group and fio on null_blk (none, mq-deadline, bfq), virtio-blk and
-ext4. No new blktests failures and no kernel warnings on the patched
-kernel; no small sequential write throughput drop over 5%.
-
-An LLM assisted with preparing these backports.
-
 Thanks,
 Artem Dinaburg
+
+ block/blk-mq.c |   32 ++++++++++++++++----------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
+
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index 4c1c5a261d0cf002d9f87f0f1330182eb4158cfc..1ad77737b27d3233489b4d9f690c9e6ab77d2130 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -2984,17 +2984,7 @@ static bool blk_mq_can_use_cached_rq(struct request *rq, struct blk_plug *plug,
+ 	if (op_is_flush(rq->cmd_flags) != op_is_flush(bio->bi_opf))
+ 		return false;
+ 
+-	/*
+-	 * If any qos ->throttle() end up blocking, we will have flushed the
+-	 * plug and hence killed the cached_rq list as well. Pop this entry
+-	 * before we throttle.
+-	 */
+ 	plug->cached_rq = rq_list_next(rq);
+-	rq_qos_throttle(rq->q, bio);
+-
+-	blk_mq_rq_time_init(rq, 0);
+-	rq->cmd_flags = bio->bi_opf;
+-	INIT_LIST_HEAD(&rq->queuelist);
+ 	return true;
+ }
+ 
+@@ -3027,20 +3017,30 @@ void blk_mq_submit_bio(struct bio *bio)
+ 		rq = rq_list_peek(&plug->cached_rq);
+ 		if (rq && rq->q != q)
+ 			rq = NULL;
++		if (rq && !blk_mq_can_use_cached_rq(rq, plug, bio))
++			rq = NULL;
+ 	}
+ 	if (rq) {
+ 		if (unlikely(bio_may_exceed_limits(bio, &q->limits))) {
+ 			bio = __bio_split_to_limits(bio, &q->limits, &nr_segs);
+-			if (!bio)
++			if (!bio) {
++				blk_mq_free_request(rq);
+ 				return;
++			}
+ 		}
+-		if (!bio_integrity_prep(bio))
++		if (!bio_integrity_prep(bio)) {
++			blk_mq_free_request(rq);
+ 			return;
+-		if (blk_mq_attempt_bio_merge(q, bio, nr_segs))
++		}
++		if (blk_mq_attempt_bio_merge(q, bio, nr_segs)) {
++			blk_mq_free_request(rq);
+ 			return;
+-		if (blk_mq_can_use_cached_rq(rq, plug, bio))
+-			goto done;
+-		percpu_ref_get(&q->q_usage_counter);
++		}
++		rq_qos_throttle(rq->q, bio);
++		blk_mq_rq_time_init(rq, 0);
++		rq->cmd_flags = bio->bi_opf;
++		INIT_LIST_HEAD(&rq->queuelist);
++		goto done;
+ 	} else {
+ 		if (unlikely(bio_queue_enter(bio)))
+ 			return;
