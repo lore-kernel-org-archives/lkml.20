@@ -1,95 +1,150 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from 15.mo581.mail-out.ovh.net (15.mo581.mail-out.ovh.net [87.98.180.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A056148125C;
-	Fri, 16 Oct 2026 12:42:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212CF47DFAF
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:42:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=87.98.180.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792154579; cv=none; b=QlX6uipTTBJ0ZljTqz7H91ji8X45af00Zl+0yGYV6RiqPLDYOA5lmn3Eu7CoFWEH7wym8EQht2Q0y0jlMsgYwvcspvG9S1ub6v1cCDmNwkfGCKhKNEDSpLwWUopBRkqxoRbrP2AQLY0CfK6bbHBU6w2VkdInbTHSjxtK4VG7gfQ=
+	t=1792154572; cv=none; b=H2fjCLAndmW8aqr9IolzW7oTQ45Hd3Qjv4C128h0POkI7RLkShtAcBhNOuuE00ewwHN5H0vry46ECfhpjIU+8GWedqYMYVYmnameNuGFr4BWwv2zb6yvDgUbItu80CIJdMhAqQvnZ+8Drc06/Te9QR7m7rE00vo75Z+32A2CZa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792154579; c=relaxed/simple;
-	bh=dN4poJwAxvndcIKDOFh8WU9B90Vp9srEjyUPaDxtJmQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=KS3MVQ+dU8Z7uskk/xYDRcrFoRuEee7ggpHvVGvSHUYMtjNaNkH1595uRRE+g1m/AsnI+2k1+RN/DLzOWoHrlIK0vNH5vkErlivcS8fH3BNv3XD88wIPVD6sz9YRwhv1mjX5fD5h1nD5Qrot3Ee+CRFax8kvd/X01qG9Gt6Z9s0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=go6XMcck; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
+	s=arc-20240116; t=1792154572; c=relaxed/simple;
+	bh=2itXlY4WWJcPLw4e4JalWJkACvlyR6sDXGe9P8c+phs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KZTO04PxE23AVzXdSD5p++N+QpBpp8dszhEsUzZI04lndtkwbCPldMnDEGoVXs57NI6p+I05Awsz+ooIY/MzlrC95P91RJZ/I4stzmI+4qC+BscJ78XcVII4LHcKsjuWC5cIdbZa6qSzEGySG4KWbcTSXIuO/yKkCZcQ4PBASH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com; spf=pass smtp.mailfrom=cynove.com; dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b=RXn2gXGg; arc=none smtp.client-ip=87.98.180.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cynove.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="go6XMcck"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69GCfcsyF3514165, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
-	s=dkim; t=1792154498;
-	bh=dN4poJwAxvndcIKDOFh8WU9B90Vp9srEjyUPaDxtJmQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=go6XMcckxmD36kMU6sNsGPKV/+CAcKUpxXY21xXr6d9uB6dpcBPZq8IZL/NvWKI6n
-	 Iz6ZmcexfoW97AIfn0o6n7l64gvZ6sQNR3KL0seSRPBY2tRjNDKjcXDLm2zoI0dYBM
-	 yWLwX3Bb7/DFKPlzH4c7MKvlz9tbuwXZH3+glXil4oTzXkm0A6YlX9CXugQYctDjvb
-	 mVfyQkvGylvXyLV80/4mS+ZMpLqyyMBgryGmYFLTuhqSz5I9YbJx6Sp7a/V9HR7X89
-	 L2wslEb9wkhzKczxghArI+9N2D7tndrEi6JYNcYIUFwNsM7dqnXQ7u1zSPlmEYbV1c
-	 m1hh1peHlr6sg==
-Received: from RS-EX-MBS3.realsil.com.cn ([172.29.17.103])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69GCfcsyF3514165
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 16 Oct 2026 20:41:38 +0800
-Received: from RS-EX-MBS2.realsil.com.cn (172.29.17.102) by
- RS-EX-MBS3.realsil.com.cn (172.29.17.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 16 Oct 2026 20:41:38 +0800
-Received: from RS-EX-MBS2.realsil.com.cn ([fe80::d17c:2fd0:cf8e:635]) by
- RS-EX-MBS2.realsil.com.cn ([fe80::d17c:2fd0:cf8e:635%9]) with mapi id
- 15.02.2562.049; Fri, 16 Oct 2026 20:41:38 +0800
-From: =?gb2312?B?1tzS+g==?= <zain_zhou@realsil.com.cn>
-To: Lee Jones <lee@kernel.org>
-CC: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
-	<Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Liam Girdwood
-	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Vikash Bansal
-	<vikash.bansal@nxp.com>, Aman Kumar Pandey <aman.kumarpandey@nxp.com>,
-	Lakshay Piplani <lakshay.piplani@nxp.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-i3c@lists.infradead.org"
-	<linux-i3c@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "mfd@lists.linux.dev" <mfd@lists.linux.dev>,
-	=?gb2312?B?zfXsvw==?= <wei_wang@realsil.com.cn>
-Subject: =?utf-8?B?5Zue5aSNOiBbUkZDIFBBVENIIDIvNF0gbWZkOiBBZGQgZHJpdmVyIGZvciBSZWFsdGVrIFJUUzQ5MHggSTNDIGh1Yg==?=
-Thread-Topic: [RFC PATCH 2/4] mfd: Add driver for Realtek RTS490x I3C hub
-Thread-Index: AQHdSOfJqQvAuTVpV0yzClLpyE4DErb8wqSAgAN+5ZA=
-Date: Fri, 16 Oct 2026 12:41:38 +0000
-Message-ID: <561f9d3886c94700bfad8ca8fc66b049@realsil.com.cn>
-References: <20260920100501.4091351-1-zain_zhou@realsil.com.cn>
- <20260920100501.4091351-3-zain_zhou@realsil.com.cn>
- <179198542200.839288.16069032392567490984@kernel.org>
-In-Reply-To: <179198542200.839288.16069032392567490984@kernel.org>
-Accept-Language: en-US, zh-CN
-Content-Language: zh-CN
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b="RXn2gXGg"
+Received: from director3.ghost.mail-out.ovh.net (unknown [10.110.0.7])
+	by mo581.mail-out.ovh.net (Postfix) with ESMTP id 4j5fBJ4dwyz5vmQ
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:03:52 +0000 (UTC)
+Received: from ghost-submission-7ccd8bbbb6-4kjr4 (unknown [10.111.174.188])
+	by director3.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 05CA7C03E0;
+	Fri, 16 Oct 2026 09:03:51 +0000 (UTC)
+Received: from cynove.com ([37.59.142.97])
+	by ghost-submission-7ccd8bbbb6-4kjr4 with ESMTPSA
+	id fClPE3Xo0WpZ/AEAmtFogg:T3
+	(envelope-from <stephane.debusne@cynove.com>); Fri, 16 Oct 2026 09:03:51 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-97G002e07fcbaa-f78b-4434-88ca-256de4d93e96,
+                    49BC7871EA8B080B249AF49F55FA702C3B4DE52D) smtp.auth=Stephane.Debusne@cynove.com
+X-OVh-ClientIp:176.150.47.247
+From: Stephane Debusne <stephane.debusne@cynove.com>
+To: herbert@gondor.apana.org.au,
+	lukas@wunner.de
+Cc: ignat@cloudflare.com,
+	davem@davemloft.net,
+	horia.geanta@nxp.com,
+	pankaj.gupta@nxp.com,
+	gaurav.jain@nxp.com,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stephane Debusne <stephane.debusne@cynove.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/2] crypto: rsassa-pkcs1 - use a separate buffer for the RSA output
+Date: Fri, 16 Oct 2026 11:03:33 +0200
+Message-ID: <20261016090333.2247764-3-stephane.debusne@cynove.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261016090333.2247764-1-stephane.debusne@cynove.com>
+References: <20261016090333.2247764-1-stephane.debusne@cynove.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 16751138816091151131
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: dmFkZTGD4nW62LQB9KssNcZQuK5kWrFQh+w6Vz+V+RAD8MnUAde72M/FLWE8ieu2/logkQIvP3h+HxkwhNQElJPI8dksBAWHsBdG4nOBhE97wdBgSrq7i9Dr7HTzEIPNJ9r0nStZP+4SxoAOI00vFHP+uMc2VAR7sYwcGJsPfO6GsKeTbDbZqUoT/dClNmsHiZliUHARqZfNmZpbXqR+OyK7tCsyhTiGvjmRA5ZoJHO4AiXlGsWEh0ULl2YyjVayzCXrjJyQQpi+DCuYI7TAzwqHsddO0+B9C81cyWecg6aiOCtYZJ4PPYAinicFtLLV81oPd4bQfiHnVg0dZa0FsvCqAOufJahprfNjGgkJc97+G0wo0TZJxnlBTnvJ0x+92kDYzjTdlDQi6iZ5oOZxEgvvaykfoy9aSHiR+aWlncEbOb1WdAqqdbVftIMQeP6e1tntz88pmztpu56aOCjk2D9ks7+Pv2V1stdcsOnXsco6YeLRE1+MHVUYojr0mhFrtEWmMRMD5ZAhIqN0uATgYHxmKY3lvYYB74LpIhKzENNkzfp2kz9uBmsaXEEMBvlGDNNKVj3lXNqwq22WwB4ixQR294dgnnfZabSoZgeiZl7jszuoNa0CWNY4m1zkeoRk8giw6hMdTdWp6DHExnGB8b4STdJ11Oj9zhN2UyD35LhqPaP3kQ
+DKIM-Signature: a=rsa-sha256; bh=/nyx8E1BJm42jAE/tXOKFc+YlYeMaXu9CSxvpmY+cXU=;
+ c=relaxed/relaxed; d=cynove.com; h=From; s=ovhmo4616632-selector1;
+ t=1792141432; v=1;
+ b=RXn2gXGg/TY5dpuxR6xz/xqezEYUB3lhXJ6eQdK3UTI+PPfHQGZzff+JAy7lMe0qCtqnaRNJ
+ yen8cnJ007XQn9eKRTGmlcigU8EpRdPT9XymuCscm0k0gm0mDxBxFQ6ooWC7y5YB61NycCWvMLV
+ AkZIwMvEtqKtZWXVyQL2lgl8A3uVzeY1T8A9X0ET5f6pmD0EhoJoWCSSYAQVGC3xoxqbs0z6fet
+ hKiYVrMbefk7M15aMeFFEi21ImuU8I9zzyEPUAJ2wLAYiNkXExPKzegoXoVvNtmCvfLiBQm3lqH
+ 0Pp3L3F+6ESinGOWY/deOez8Q2ehkPzQk3QWb2B+FbUlQ==
 
-T24gV2VkLCAxNCBPY3QgMjAyNiwgTGVlIEpvbmVzIHdyb3RlOg0KDQo+ID4gKwlpbnQgcmV0Ow0K
-PiA+ICsJaW50IGk7DQo+DQo+IFBsZWFzZSBkZWNsYXJlIGxvb3AgY291bnRlcnMgaW5zaWRlIHRo
-ZSAnZm9yJyBzdGF0ZW1lbnQuDQoNCldpbGwgZG8sIGFuZCBJJ2xsIGFwcGx5IHRoZSBzYW1lIHRv
-IHRoZSByZXN0IG9mIHRoZSBzZXJpZXMuDQoNCj4gPiArCWkzY19kZXZpY2VfZ2V0X2luZm8oaTNj
-ZGV2LCAmaW5mbyk7DQo+ID4gKwlpZiAoSTNDX1BJRF9NQU5VRl9JRChpbmZvLnBpZCkgIT0gUlRT
-NDkwWF9NQU5VRkFDVFVSRVJfSUQpDQo+ID4gKwkJcmV0dXJuIC1FTk9ERVY7DQo+DQo+IERvZXNu
-J3QgJ3J0czQ5MHhfaTNjX2lkcycgYWxyZWFkeSBtYXRjaCBvbiAnSTNDX01BVENIX01BTlVGJyB3
-aXRoDQo+ICdSVFM0OTBYX01BTlVGQUNUVVJFUl9JRCc/IFdoZW4gd291bGQgdGhpcyBjaGVjayBl
-dmVyIHRyaWdnZXI/DQoNCllvdSBhcmUgcmlnaHQsIGl0IG5ldmVyIHRyaWdnZXJzLiBJJ2xsIGRy
-b3AgaXQuDQoNCj4gPiArCWRldl9pbmZvKGRldiwgIiVzIEkzQyBodWIgd2l0aCAldSB0YXJnZXQg
-cG9ydHNcbiIsDQo+ID4gKwkJIHJ0czQ5MHgtPm1vZGVsLCBydHM0OTB4LT5udW1fdGFyZ2V0X3Bv
-cnRzKTsNCj4NCj4gS2VlcCB0aGUga2VybmVsIGxvZyBjbGVhbiB3aGVuZXZlciBwb3NzaWJsZSBw
-bGVhc2UuDQoNCldpbGwgZHJvcCBpdC4gV2l0aCB0aGF0IGdvbmUsIG5vdGhpbmcgcmVhZHMgdGhl
-IG1vZGVsIG5hbWUgb3IgdGhlIHBhcnQgSUQNCmFueSBtb3JlLCBzbyBpbiB0aGUgbmV4dCByZXZp
-c2lvbiBJIHBsYW4gdG8gZHJvcCB0aGUgcGFydC1JRCB0YWJsZSBhcw0Kd2VsbCBhbmQgcmVhZCB0
-aGUgcG9ydCBjb3VudCBmcm9tIHRoZSBUQVJHRVRfUE9SVF9DT1VOVCBmaWVsZCBvZiB0aGUNCmNh
-cGFiaWxpdHkgcmVnaXN0ZXIgKFJFRyMxMCksIGFzIGRlZmluZWQgYnkgdGhlIEkzQyBIdWIgQ29t
-bW9uDQpBcmNoaXRlY3R1cmUgU3BlY2lmaWNhdGlvbi4NCg0KPiA+ICtNT0RVTEVfREVTQ1JJUFRJ
-T04oIlJlYWx0ZWsgUlRTNDkweCBJM0MgaHViIE1GRCBkcml2ZXIiKTsNCj4NCj4gUGxlYXNlIGRy
-b3AgIk1GRCIgZnJvbSB0aGUgZGVzY3JpcHRpb24uDQoNCldpbGwgY2hhbmdlIGl0IHRvICJSZWFs
-dGVrIFJUUzQ5MHggSTNDIGh1YiBjb3JlIGRyaXZlciIuDQoNCkJlc3QgcmVnYXJkcywNClphaW4N
-Cg==
+rsassa_pkcs1_verify() places the buffer it hands to the akcipher driver
+right after the driver's request context, in the same allocation, and
+since commit 8552cb04e083 ("crypto: rsassa-pkcs1 - Copy source data for
+SG list") uses it in place (src == dst).
+
+On non-coherent DMA, the start of this buffer may share a cache line
+with the end of the request context. The CAAM driver (caampkc) writes
+req_ctx->edesc and req_ctx->akcipher_op_done after dma_map_sg() of the
+destination, which dirties that line. On arm64,
+dma_unmap_sg(DMA_FROM_DEVICE) cleans and invalidates partial lines
+(dc civac), so the stale CPU copy is written back over the result
+written by the device.
+
+On i.MX8M Mini (CAAM era 9, rsa-caam, 6.18), the buffer starts 168 bytes
+into the allocation, at offset 40 of the 64-byte line that also holds
+edesc and akcipher_op_done: the first 24 bytes of the RSA output are
+replaced by the signature bytes, and rsassa_pkcs1_verify() returns
+-EINVAL in 398 of 400 calls over two runs (the rare successes are
+consistent with the dirty line being evicted before the device writes).
+Visible effects: cfg80211 rejects regulatory.db ("loaded regulatory.db
+is malformed or signature is missing/invalid"), and adding a valid
+self-signed X.509 certificate to a keyring fails with EINVAL. The
+akcipher self-tests pass, as they use separate buffers.
+
+A test module comparing rsa-caam with rsa-generic shows that only the
+position of the destination matters: separate or in-place buffers from
+their own kmalloc() give correct results, while a destination right
+after the request context is corrupted, in place or not (200 of 200
+calls, the 24 first bytes always holding the previous content of the
+buffer).
+
+Allocate the output buffer separately, so that it is DMA-safe like any
+kmalloc() buffer.
+
+Fixes: 1e562deacecc ("crypto: rsassa-pkcs1 - Migrate to sig_alg backend")
+Cc: stable@vger.kernel.org
+Signed-off-by: Stephane Debusne <stephane.debusne@cynove.com>
+---
+ crypto/rsassa-pkcs1.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/crypto/rsassa-pkcs1.c b/crypto/rsassa-pkcs1.c
+index 94fa5e960..205493037 100644
+--- a/crypto/rsassa-pkcs1.c
++++ b/crypto/rsassa-pkcs1.c
+@@ -223,6 +223,7 @@ static int rsassa_pkcs1_verify(struct crypto_sig *tfm,
+ 	struct rsassa_pkcs1_ctx *ctx = crypto_sig_ctx(tfm);
+ 	unsigned int child_reqsize = crypto_akcipher_reqsize(ctx->child);
+ 	struct akcipher_request *child_req __free(kfree_sensitive) = NULL;
++	u8 *out_alloc __free(kfree_sensitive) = NULL;
+ 	struct crypto_wait cwait;
+ 	struct scatterlist sg;
+ 	unsigned int dst_len;
+@@ -237,12 +238,21 @@ static int rsassa_pkcs1_verify(struct crypto_sig *tfm,
+ 		return -EINVAL;
+ 
+ 	/* RFC 8017 sec 8.2.2 step 2 - RSA verification */
+-	child_req = kmalloc(sizeof(*child_req) + child_reqsize + ctx->key_size,
+-			    GFP_KERNEL);
++	child_req = kmalloc(sizeof(*child_req) + child_reqsize, GFP_KERNEL);
+ 	if (!child_req)
+ 		return -ENOMEM;
+ 
+-	out_buf = (u8 *)(child_req + 1) + child_reqsize;
++	/*
++	 * The output buffer is mapped for DMA by hardware RSA drivers. Keep
++	 * it in its own allocation: placed right after the request context,
++	 * it may share a cache line with fields the driver writes while the
++	 * buffer is mapped, which corrupts the output on non-coherent DMA.
++	 */
++	out_alloc = kmalloc(ctx->key_size, GFP_KERNEL);
++	if (!out_alloc)
++		return -ENOMEM;
++
++	out_buf = out_alloc;
+ 	memcpy(out_buf, src, slen);
+ 
+ 	crypto_init_wait(&cwait);
+-- 
+2.43.0
+
