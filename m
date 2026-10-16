@@ -1,103 +1,84 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C89F74611C7
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:25:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from rudorff.com (rudorff.com [193.31.26.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827E847ECF1;
+	Fri, 16 Oct 2026 12:26:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.31.26.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792153543; cv=none; b=vBXFtXEjQo5aLKQOIl9a9wmvi+wa4Sjq5CdXr/WlsU4bhqEhYP6jMXm24LwA9CPBVl8p6NXG5XL1DlL7nil0bZ1enw+wrg8Yjyvj88unYuGC479m+KpJWL0jXz+vMKL/4EhVOFRIiJp072bSmv0wQonCdZqVvxPv0uNyd7nGgV8=
+	t=1792153593; cv=none; b=YS04xZ3t9E3nkmSO94gwqaImLPpkJ6kDMEyWnHK+nVCZnMyMJLQ8aWY57R26Ufo79Rbz8VObfoMa7DyAJqS1QwhQqErSmIPdQK1Fp7fW0ZkwtkFv9cTW+YoHrOq2tgzVOf3rJOuW9p7lsubIZaA+lnWD+jYyMWuwtU6YLzItAxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792153543; c=relaxed/simple;
-	bh=krxKzyNI1ZYpileNc2uCsCIeFjKDXJ2c5kSdMOWJL38=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=exIxncS6D9ON3hph2sqnjY9xlwvwaOpcD8EjZUnjPKssMh+UwOheJDlUi+n6eiT6cukPWRSwdy5ZrsrAQluUFVJV2ie4yoJAyzoa86FrjTQsKGV1Cp6dSttjisYh4FNKfZlgk+iZfPM9/IGFtLpIa9Tk2DSHMg5g3LsnJb1HNfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=NE0wR8zX; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NE0wR8zX"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DC35C1516
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:25:37 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E5A363F871
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:25:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792153541; bh=krxKzyNI1ZYpileNc2uCsCIeFjKDXJ2c5kSdMOWJL38=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NE0wR8zXsNDPwDPv29Rja8LPc2hgsmSlu8DIv04j1+3cgaWyIBoTidLphtTaA+00s
-	 iPY28dIJY5XnrcGPEx+PgCXrJXkQtlpQeWTB5fJSlB6Jo48Sr4vqEA2e8lG/ZiUYxj
-	 2ii8k8n9KM15OebDQHgzpXNvF68glxRnsnKu1NdI=
-Date: Fri, 16 Oct 2026 13:25:29 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Akash Goel <akash.goel@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] drm/panthor: Misc MMU fixes/robustness improvements
-Message-ID: <atIXudY6VCIdO2Tc@e142607>
-References: <20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com>
+	s=arc-20240116; t=1792153593; c=relaxed/simple;
+	bh=QnDhVNHVmdaHIhwFcMsjkpmDrAHwnVUcW6FvfLkpixE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Krnforka2H4XN5iJMUyZssC7Z/9DJxmYfiOKNho3FUQgxEfTt8S1Asm6/qw22ZA0UJ42mJvedzzoJcJ1UDnlIxUo+LDJCu49LgPe1wJzC3kQojjbHRly2Iw5dzy7mLIHLoBPSs6aF1G1lOtZQvmqL3Xr6+h8HTwvso/DdqlEg6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rudorff.com; spf=pass smtp.mailfrom=rudorff.com; arc=none smtp.client-ip=193.31.26.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rudorff.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rudorff.com
+Received: from [127.0.0.1] (dynamic-2a02-3102-b60c-0d00-92f6-52ff-0000-04cc.310.pool.telefonica.de [IPv6:2a02:3102:b60c:d00:92f6:52ff:0:4cc])
+	by rudorff.com (Postfix) with ESMTPSA id EFA7B40049;
+	Fri, 16 Oct 2026 14:21:02 +0200 (CEST)
+From: Christoph Rudorff <chris@rudorff.com>
+Date: Fri, 16 Oct 2026 14:20:20 +0200
+Subject: [PATCH] mac80211: fix ieee80211_set_antenna() return value
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-fix-set-antenna-v1-1-e071d66f7f89@rudorff.com>
+X-B4-Tracking: v=1; b=H4sIAIMW0moC/yXMQQqDMBCF4avIrDuQBAziVaSLmIztuBglkxYhe
+ HfTuvzgvb+CUmZSGLsKmb6svEmDfXQQ30FehJyawRnnrbEeFz5QqWCQQiIBe+NMn+Lg4+yhvfZ
+ MbfIvTs/b+plXiuWXgfO8AEudFEFzAAAA
+X-Change-ID: 20261016-fix-set-antenna-50205dc86cb6
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Christoph Rudorff <chris@rudorff.com>
+X-Mailer: b4 0.16.0
 
-On Thu, Sep 24, 2026 at 02:30:42PM +0200, Boris Brezillon wrote:
-> The first commit is fixing a bug we've seen on v13 HW. Even though
-> we don't quite understand what happens (race in the flush-elimination
-> logic when flush requests are sent concurrently from the CPU and the
-> MCU), it seems that the downstream driver has always been doing a
-> flush+invalidate of RW caches from the start, and that we were doing
-> so up until the atomic page table update changes, so let's go back to
-> that state and leave the RO L1 caches untouched.
-> 
-> The second patch a fix for a race that could very well happen if we
-> ever end up with a failure between the as_disable() and as_enable()
-> calls. We've not experienced this so far, but it seems worth plugging
-> the hole regardless. The last patch is a much more theoretical bug,
-> which would involve a buggy FW telling us that a CSG is suspended,
-> when it's actually. I've deliberately not added a Fixes tag on the
-> last one for this very reason, but I think it's worth staying on
-> the safe side by addressing this theoretical issue, still.
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> ---
-> Boris Brezillon (3):
->       drm/panthor: Don't invalidate OTHER caches
->       drm/panthor: Fully disable the AS even if it's going to be re-assigned
->       drm/panthor: Move cache-flush after UPDATE(UNMAPPED)
-> 
->  drivers/gpu/drm/panthor/panthor_mmu.c | 43 ++++++++++++++++-------------------
->  1 file changed, 20 insertions(+), 23 deletions(-)
-> ---
-> base-commit: 45585c3aa285854face65293acc95eff73063d6d
-> change-id: 20260924-panthor-mmu-fixes-a1832dc60908
-> 
-> Best regards,
-> --  
-> Boris Brezillon <boris.brezillon@collabora.com>
-> 
+To set up antenna the device must be disabled, "not started".
+So return -EBUSY instead of -EOPNOTSUPP
 
-Pushed the whole series into drm-misc-next-fixes after updating the comment
-on 1/3 as suggested by sashiko.
+$ iw phy0 set antenna 0x3
+command failed: Operation not supported (-95)
+
+expected output:
+command failed: Device or resource busy (-16)
+
+Signed-off-by: Christoph Rudorff <chris@rudorff.com>
+---
+I was confused that none of my wifi devices can set_antenna.
+
+Code review, turns out, the device must be disabled "not started".
+
+So correct the return value and later drv_set_antenna()
+handles the "not supported" case.
+
+This is a good candidate for backport.
+---
+ net/mac80211/cfg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
+index a1753335eb9d..87a9ead7c638 100644
+--- a/net/mac80211/cfg.c
++++ b/net/mac80211/cfg.c
+@@ -4920,7 +4920,7 @@ static int ieee80211_set_antenna(struct wiphy *wiphy, int radio_idx,
+ 	int ret;
+ 
+ 	if (local->started)
+-		return -EOPNOTSUPP;
++		return -EBUSY;
+ 
+ 	ret = drv_set_antenna(local, tx_ant, rx_ant);
+ 	if (ret)
+
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20261016-fix-set-antenna-50205dc86cb6
 
 Best regards,
-Liviu
+--  
+Christoph Rudorff <chris@rudorff.com>
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
