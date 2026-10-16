@@ -1,262 +1,148 @@
-Received: from sirius.syn-flut.de (sirius.syn-flut.de [94.125.25.230])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8287D4D6C2C
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:16:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.125.25.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8424D9F69;
+	Fri, 16 Oct 2026 14:16:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792160174; cv=none; b=SuavwjAmYFPHiDCqEYXcuypSYh6AlEDdibqqXmQltk43wXdVvNdrHzNcnc8pgipan60Lk4AKajUPGAnW/gAr+M+/xG+3xYFlbfHOs7+AAjq9G2HUmPmLZRXorBjvmwN+KU46CqMB10JtPajioK33tV3owWUlnUurG9hRTj1Ao14=
+	t=1792160184; cv=none; b=AnykgFogK6sZ60UzGmpFHx2KAbFYD70Ti1vrGc4e8a7I7bo2cDr8DQ6y2+hKXXxPMnSH7N0+c8/s7rn1Lb15cF6rqSsqNQrUlUwttVrnoYiD2sc4k3oCMf87dLzI3p3A/xDbP+LAewrgBLQTccCSTsfp4Aw58y1k9gBmHHDLV48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792160174; c=relaxed/simple;
-	bh=H9nvUE1/e2vp1S7MtKM7I/rM4Mt6AIQhBHD/NjebkSc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a9zisMAYVqYBod4G6XCrOKBZ9ggi4OWmDwshpBddHoh/6GltEpE15j64pPBbtr8T7PXAxP3VsHKOFL8vV7K8WIZVYLU5q3o1k6vB5sxwoUcDbEK0wZ7w4NSLUeKMAteoPgtuv/SUXsxtdpcym0SCpK8e4cvKebVTNSmQ3ThnYH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kait2en.org; spf=pass smtp.mailfrom=kait2en.org; dkim=pass (2048-bit key) header.d=kait2en.org header.i=@kait2en.org header.b=ffw1STN1; arc=none smtp.client-ip=94.125.25.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kait2en.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kait2en.org
+	s=arc-20240116; t=1792160184; c=relaxed/simple;
+	bh=OyxBcEjtPs6DLKLa2OuIVYahLlFdqMCkKR8/VwBA7gw=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Jg1VO3IuHqa2tP17d0TPcqN9l8jcZKyS40kXp/JfH++pdKO0LCCGBKOjG/yaujjSvYjPtfietn4jLBPqrInwlnLVQfW37i39dU8jH9XLIvxA3YKIRRKZUdNJpC4SE54IYSR31tktWlboE8NljqpOSEkW5SDidYXH0K8kPO71YrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Asb2qjWs; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=eCk9u4Bw; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Asb2qjWs; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=eCk9u4Bw; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kait2en.org header.i=@kait2en.org header.b="ffw1STN1"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 39CED14156F;
-	Fri, 16 Oct 2026 16:07:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kait2en.org; s=dkim;
-	t=1792159632; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=h30Mgam/4jyLWJ5zVdT98NATHhJBxCWW+Pn6K6IZ+s0=;
-	b=ffw1STN1isj/qT5sclaDatjVpllMYO9ibWpWLEKmlGpowZKD8FVSUCACMlLHqF50InaHrH
-	7Womja67fr9DkqaxYjHtYbkfceEZleHRDnr8a44RqrVh1keGLCX7OoJFW+tRoyjEHq66kY
-	O1Iadtv8WOP+UM2FOaYjn1Dg/cql7NZrn2oYfx/t0/RXksFA62rae9H3jJdtX75B+SWQDO
-	GdKggzPJ7/vWgrbPr0qiP8UYwiN3PG2gKqw1DMYg3MIQY/XRplJZkKPxaMKJ/XLd5FaZIO
-	rQqMVc/QAZstwUaxl3vlkZIqWCCucl9gdR8QsERkfoHYh3gKfATuaFsCFg5+NQ==
-From: Alexander Fischer <alexander.fischer@kait2en.org>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Asb2qjWs";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eCk9u4Bw";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Asb2qjWs";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eCk9u4Bw"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 3EEAC1F385;
+	Fri, 16 Oct 2026 14:16:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792160177; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LWxpqNzZIEQ0WFtCKfWjRTGsr/OLdS9s3M9UqgLWM4w=;
+	b=Asb2qjWsldM5rTdB/T3nGEU36tWOsPn31TNLDu1qpUR9xa2ooaLN+OWU2cThAIvjEd8eEz
+	bgWBeY3wufK/tDf/W3LZQSlRyFA3Jr9yVL+5PTGC+vw4drZn/l8kYPiwjkKqtzV5GZQV4Y
+	FLM00kfjd573cJKPbCOX84P+qoaZV2o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792160177;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LWxpqNzZIEQ0WFtCKfWjRTGsr/OLdS9s3M9UqgLWM4w=;
+	b=eCk9u4Bw6NJejDmKBqX17Jdkht731gYI8SqYqugVBC/0q2NB8Z6JEB7hI/8sEbKYIHQd+x
+	iZjLx1+GDFkcrYCA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792160177; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LWxpqNzZIEQ0WFtCKfWjRTGsr/OLdS9s3M9UqgLWM4w=;
+	b=Asb2qjWsldM5rTdB/T3nGEU36tWOsPn31TNLDu1qpUR9xa2ooaLN+OWU2cThAIvjEd8eEz
+	bgWBeY3wufK/tDf/W3LZQSlRyFA3Jr9yVL+5PTGC+vw4drZn/l8kYPiwjkKqtzV5GZQV4Y
+	FLM00kfjd573cJKPbCOX84P+qoaZV2o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792160177;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LWxpqNzZIEQ0WFtCKfWjRTGsr/OLdS9s3M9UqgLWM4w=;
+	b=eCk9u4Bw6NJejDmKBqX17Jdkht731gYI8SqYqugVBC/0q2NB8Z6JEB7hI/8sEbKYIHQd+x
+	iZjLx1+GDFkcrYCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D6B1F1339F;
+	Fri, 16 Oct 2026 14:16:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id LXT5KrAx0mq9EQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 16 Oct 2026 14:16:16 +0000
+Date: Fri, 16 Oct 2026 16:16:16 +0200
+Message-ID: <87a4od3f4f.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jon Harrison <jonerickharrison@gmail.com>
+Cc: skbotnl@disroot.org,
+	david.rhodes@cirrus.com,
 	linux-kernel@vger.kernel.org,
-	Lukas Wunner <lukas@wunner.de>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	=?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>,
-	=?UTF-8?q?Andr=C3=A9=20Eikmeyer?= <andre.eikmeyer@kait2en.org>,
-	Yossef Osman <yossef.osman@proton.me>,
-	Alexander Fischer <alexander.fischer@kait2en.org>
-Subject: [PATCH v4] drm/i915/psr: enable PSR on Apple T2 eDP panels
-Date: Fri, 16 Oct 2026 16:07:07 +0200
-Message-ID: <20261016140707.1900947-1-alexander.fischer@kait2en.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260916072558.147343-1-alexander.fischer@kait2en.org>
-References: <20260916072558.147343-1-alexander.fischer@kait2en.org>
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	perex@perex.cz,
+	rf@opensource.cirrus.com,
+	tiwai@suse.com
+Subject: Re: [PATCH v2] ALSA: hda: cs35l41: Support HP OmniBook 7 Laptop 16-bh0xxx
+In-Reply-To: <CAEG=48+jRv7wHgd-yPTHEf9YFO++XusKQgT+WJz60hgCE8pGww@mail.gmail.com>
+References: <CAEG=48+jRv7wHgd-yPTHEf9YFO++XusKQgT+WJz60hgCE8pGww@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
 
-Commit 1035f4a65f58 ("drm/i915: Disable PSR in Apple panels")
-disabled PSR on all Apple sinks until i915 gained the required panel
-handling.
+On Fri, 16 Oct 2026 00:15:24 +0200,
+Jon Harrison wrote:
+> 
+> On Mon, 24 Aug 2026, Stefan Binding wrote:
+> > We are currently awaiting confirmation of the correct settings before we do
+> > so.
+> 
+> I have another HP OmniBook 7 Laptop 16-bh0xxx, SKU D2KR6UA#ABA,
+> BIOS F.12, subsystem 103c:8e60, running Linux 7.2.5. Both CS35L41
+> amplifiers still fail to probe:
+> 
+>   cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: Failed property
+> cirrus,dev-index: -22
+>   cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: error -EINVAL: Platform
+> not supported
+> 
+> The speakers only play through the Realtek fallback and are very quiet.
+> Has that settings confirmation arrived, and is there an expected time
+> for the quirk?
 
-An AUX trace on a MacBookPro16,2 running macOS 15.7.7 shows the
-following writes when the panel is powered on:
+OK, we've waited enough long, so I take the patch to for-next branch
+now (for 7.4-rc1).
 
-  DPCD 0x321 = 0x3c
-  DPCD 0x4d2 = 0x01
-  DPCD 0x4d1 = 0x03
-  DPCD 0x170 = 0x01 (DP_PSR_ENABLE without CRC verification)
+If this is really breaking something, let me know.  We'll fix up again
+before 7.4 release.
 
-Five seconds later, a write of 0x01 to DPCD 0x4d4 occurs between the
-BanksiaTcon FIFOEnter() and SRDEnter() events. This register is the
-vendor trigger for entering self refresh.
 
-With the three setup writes, CRC verification disabled, and the 0x4d4
-trigger added to i915's existing PSR enable sequence, the tested panels
-enter PSR1.
+thanks,
 
-Implement this handling as an i915 DPCD quirk. Match the Apple PCI
-subsystem vendor in the quirk table, and limit the quirk to Apple-OUI
-eDP sinks on systems containing an Apple T2. All other Apple sinks
-retain the existing NO_PSR quirk. Override the VBT PSR flag for
-matching panels because Apple leaves it clear.
-
-The same sink-side protocol may also be present on T1 and Apple silicon
-systems, but leave those systems unchanged until it has been tested
-with their display drivers.
-
-Tested on MacBookPro15,1, MacBookPro15,2, MacBookPro16,1,
-MacBookPro16,2 and MacBookAir9,1, covering four panel device IDs. All
-five enter PSR1 after boot and across suspend/resume, report
-DP_PSR_SINK_ACTIVE_SINK_SYNCED, and show no sink errors.
-
-Tested-by: André Eikmeyer <andre.eikmeyer@kait2en.org>
-Tested-by: Yossef Osman <yossef.osman@proton.me>
-Signed-off-by: Alexander Fischer <alexander.fischer@kait2en.org>
----
-v3 did not receive any review yet, so this rebases it onto current
-drm-tip. No functional changes.
-
-Changes in v4:
-- Rebase onto drm-tip; use drm_dp_dpcd_write_byte() for the new
-  writes to match the conversion of intel_psr.c
-
-Changes in v3:
-- Match the Apple PCI subsystem vendor in the DPCD quirk table
-  (Lukas Wunner)
-
-Changes in v2:
-- Use pci_dev_present() instead of pci_get_device()/pci_dev_put(),
-  which also drops the local PCI_DEVICE_ID define (Lukas Wunner)
----
- drivers/gpu/drm/i915/display/intel_psr.c    | 28 +++++++++++++++++++--
- drivers/gpu/drm/i915/display/intel_quirks.c | 28 +++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
- 3 files changed, 55 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 00d0146b2..c3bde5b64 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -228,6 +228,9 @@ static bool psr_global_enabled(struct intel_dp *intel_dp)
- 
- 	switch (intel_dp->psr.debug & I915_PSR_DEBUG_MODE_MASK) {
- 	case I915_PSR_DEBUG_DEFAULT:
-+		if (intel_has_dpcd_quirk(intel_dp, QUIRK_APPLE_PSR_HANDSHAKE))
-+			return true;
-+
- 		return intel_dp_is_edp(intel_dp) ?
- 			connector->panel.vbt.psr.enable : true;
- 	case I915_PSR_DEBUG_DISABLE:
-@@ -667,7 +670,8 @@ static void _psr_init_dpcd(struct intel_dp *intel_dp, struct intel_connector *co
- 	drm_dbg_kms(display->drm, "eDP panel supports PSR version %x\n",
- 		    connector->dp.psr_caps.dpcd[0]);
- 
--	if (drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_NO_PSR)) {
-+	if (drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_NO_PSR) &&
-+	    !intel_has_dpcd_quirk(intel_dp, QUIRK_APPLE_PSR_HANDSHAKE)) {
- 		drm_dbg_kms(display->drm,
- 			    "PSR support not currently available for this panel\n");
- 		return;
-@@ -807,19 +811,36 @@ static void _panel_replay_enable_sink(struct intel_dp *intel_dp,
- 	drm_dp_dpcd_write_byte(&intel_dp->aux, PANEL_REPLAY_CONFIG3, panel_replay_config_3);
- }
- 
-+/* Undocumented Apple eDP sink registers */
-+#define APPLE_PSR_SETUP_1	0x321
-+#define APPLE_PSR_SETUP_2	0x4d2
-+#define APPLE_PSR_SETUP_3	0x4d1
-+#define APPLE_PSR_TRIGGER	0x4d4
-+
-+static void psr_apple_prepare_sink(struct intel_dp *intel_dp)
-+{
-+	drm_dp_dpcd_write_byte(&intel_dp->aux, APPLE_PSR_SETUP_1, 0x3c);
-+	drm_dp_dpcd_write_byte(&intel_dp->aux, APPLE_PSR_SETUP_2, 0x01);
-+	drm_dp_dpcd_write_byte(&intel_dp->aux, APPLE_PSR_SETUP_3, 0x03);
-+}
-+
- static void _psr_enable_sink(struct intel_dp *intel_dp,
- 			     const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(intel_dp);
-+	bool apple_psr = intel_has_dpcd_quirk(intel_dp, QUIRK_APPLE_PSR_HANDSHAKE);
- 	u8 val = 0;
- 
-+	if (apple_psr)
-+		psr_apple_prepare_sink(intel_dp);
-+
- 	if (crtc_state->has_sel_update) {
- 		val |= DP_PSR_ENABLE_PSR2 | DP_PSR_IRQ_HPD_WITH_CRC_ERRORS;
- 	} else {
- 		if (intel_dp->psr.link_standby)
- 			val |= DP_PSR_MAIN_LINK_ACTIVE;
- 
--		if (DISPLAY_VER(display) >= 8)
-+		if (DISPLAY_VER(display) >= 8 && !apple_psr)
- 			val |= DP_PSR_CRC_VERIFICATION;
- 	}
- 
-@@ -835,6 +856,9 @@ static void _psr_enable_sink(struct intel_dp *intel_dp,
- 
- 	val |= DP_PSR_ENABLE;
- 	drm_dp_dpcd_write_byte(&intel_dp->aux, DP_PSR_EN_CFG, val);
-+
-+	if (apple_psr)
-+		drm_dp_dpcd_write_byte(&intel_dp->aux, APPLE_PSR_TRIGGER, 0x01);
- }
- 
- static void intel_psr_enable_sink(struct intel_dp *intel_dp,
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 7d7db774d..8e9c851c2 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -9,6 +9,7 @@
- 
- #include "intel_display_core.h"
- #include "intel_display_types.h"
-+#include "intel_dp.h"
- #include "intel_quirks.h"
- 
- static void intel_set_quirk(struct intel_display *display, enum intel_quirk_id quirk)
-@@ -100,6 +101,25 @@ static void quirk_disable_psr2(struct intel_display *display)
- 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
- }
- 
-+static void quirk_apple_psr_handshake(struct intel_dp *intel_dp)
-+{
-+	static const struct pci_device_id t2_ids[] = {
-+		/* Apple T2 */
-+		{PCI_DEVICE(PCI_VENDOR_ID_APPLE, 0x1801)},
-+		{}
-+	};
-+	struct intel_display *display = to_intel_display(intel_dp);
-+
-+	if (!intel_dp_is_edp(intel_dp))
-+		return;
-+
-+	if (!pci_dev_present(t2_ids))
-+		return;
-+
-+	intel_set_dpcd_quirk(intel_dp, QUIRK_APPLE_PSR_HANDSHAKE);
-+	drm_info(display->drm, "Applying Apple PSR handshake quirk\n");
-+}
-+
- struct intel_quirk {
- 	int device;
- 	int subsystem_vendor;
-@@ -289,6 +309,14 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
- 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
- 		.hook = quirk_disable_edp_panel_replay,
- 	},
-+	/* Apple T2 eDP panels */
-+	{
-+		.device = DEVICE_ID_ANY,
-+		.subsystem_vendor = PCI_VENDOR_ID_APPLE,
-+		.subsystem_device = PCI_ANY_ID,
-+		.sink_oui = SINK_OUI(0x00, 0x10, 0xfa),
-+		.hook = quirk_apple_psr_handshake,
-+	},
- };
- 
- void intel_init_quirks(struct intel_display *display)
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 970a4fe52..7b863d408 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -23,6 +23,7 @@ enum intel_quirk_id {
- 	QUIRK_EDP_LIMIT_RATE_HBR2,
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
- 	QUIRK_DISABLE_PSR2,
-+	QUIRK_APPLE_PSR_HANDSHAKE,
- };
- 
- void intel_init_quirks(struct intel_display *display);
-
-base-commit: 5fe1ae49f9cd4c3e98bbf07d4b44adf672eb7e8b
--- 
-2.55.0
-
+Takashi
