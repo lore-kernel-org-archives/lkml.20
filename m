@@ -1,359 +1,85 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-42aa.mail.infomaniak.ch (smtp-42aa.mail.infomaniak.ch [84.16.66.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4642C4D9553
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:40:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D09174A8A18
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158020; cv=none; b=qy87Y3UMlP6zo9GfJyC9jxTj1k6RYxBXSkbfGrdFlYEeoKAEFDbg4GVSOi9qM9M+y9QAEPiZs1BwLrf9mxgxw0t/KLTbVO1H9t3UAOCcuHftzDFzvT0AzUYmW1Z7iXdQI64PXY6vFi3wbkmcahz4Efwc7iLChxSX9WUPOb+Q84c=
+	t=1792158044; cv=none; b=en+nSL/Tq83brNFpO0MgZu7+AoN958nvzlITObPilSCjQKUx4S+eDSpA7ym7qT8ezUVQ9p/qeApXfwcCC66mBYaFp/jskOYW5G5UW7KMc5+Rq0VmM/tpZVbQoqWR6TdFZn0M90/J+xs7YwPPz/N5igLx95OQxflikdmqwdvxcWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158020; c=relaxed/simple;
-	bh=8peD1OsoGMuXunVLES2cLCaTYTNG/Kc9MRmIC24PAL8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PnL4X1dKblV8pp2l6Rj/WknyyXs0w0tgFW0g72FhYUvAaRR8D+m+wqOLShboGBlvJDrKRL5QmzpoqP40tMwRezbAmZqgmT0v+nYCbeQSKFKYd/F2qyKpNo0lzqLV4j+XIdUh1YPiadFi1yhqBf006uLsmyLdWoyl/gk37Nfqsh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b7a6Aq+l; arc=none smtp.client-ip=209.85.215.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792158044; c=relaxed/simple;
+	bh=gafRFMuIJpoPEiHvc0UAapnzim9T20c8zLvDX7pDAeA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=KdGm5rbf9u1MDpjz+la1W2kp7PkCxH9E7+28ns73ZoLy5epHv1XwxNWjzmZ2jZHAwdBeIYPfJkIO7ML2HTux9T7VL1bJy+o4XT/2vGRzTyNphbdB4QVNlPndsdCXFAVlu6C6HvG9DPJNALraDxhsBRmqVZV8FshDYQHhVa2nfdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net; spf=pass smtp.mailfrom=0leil.net; dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b=PJ2jYvhC; arc=none smtp.client-ip=84.16.66.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b7a6Aq+l"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso3026060a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:40:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792158018; x=1792762818; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qW/8J21hrdlnc223vSj62Ky8ptl28R09HnYDC7Cieog=;
-        b=b7a6Aq+laoLsPpBgktOVIRO33L+sNpMtTjKjJvLTodKOOTMi1b1198vyTK+BcPAcVG
-         K5shFmzIOBaszn1gccz/kZbLLVaEgncBPMFbtOX+RxYvQM5ltK+x/Znha2n8XIedN/37
-         NIsmJ7kksayfWIEw4OaOatNtBE9stoBP2Ex5Y6vd1Zw+aSAUhqs/OlEF3yoUZpZen/ET
-         UYPOGzISzJNhlqdLmisv4lwRcv3k4ejGYJpkoxl6buRHkbYIeL5wyF783pYCj61O27HZ
-         bsVXsHG1wEYev8bxLd6A5pGASAWOnRhZxEjs4Xdrrl6LNcCpU2IFLWSe9cq4pqWswzcW
-         HR2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792158018; x=1792762818;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qW/8J21hrdlnc223vSj62Ky8ptl28R09HnYDC7Cieog=;
-        b=ouw5LISJ5f+/bwLm2SHzqX+kQNO5Jg+kB59xuBD2ydzsui9G2gfW8lCznC4I2K4aAM
-         Yp21KJpf+5P4vkRkeJHRyUsjXfoyQIsujHSAbUvPrINaWh+ZoUalU9ZdMZSfwd2eR0iw
-         3FYx6+29IJavR8gJ2REo6ZCM+yaHELQ64o/CmX1Y+nqWTdqSrY7f1xCkTHx8vPYItA4N
-         LThc0fI4xNGMWRWBi9HMI3jRBa5PRhHMcIWJ2sxCKoJDmIFu0ZMEPsqjuKh2yzvTeriL
-         pRx+uh1/uRccCn2E0Bd3oxdFP4vPsaHq6zX4IT54Nbpa9BS60yiOIGIc0j8nafsMDh80
-         1QBA==
-X-Forwarded-Encrypted: i=1; AKwUvBzkkHm1GSBWI6f/HP/Ef/DzNEGZrB+BM+EDB89fHhEiopWcjMEx4oBsVsmkGRiX6yei9b4v6z4EeJCbPqA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImPxQINp+IFvuztSrhPg+sgjyG5xLn1TxwTEwbp3CerSEpAkpM
-	MNG99hfIIhu4bI5gr7Z/wSlO4mx7jl8KIVHAPtx2Kgm2xAwKN/fWluGZ
-X-Gm-Gg: AYBFou0XyMj7irXp76WaEGz1eUKjJxvo/n8OOWJ/KSi2v6k4U1Q1PYR1Cu/ztiIhmEy
-	luIgWGROh2ciJCu+jdBvvzND1yo83ZF72lfv2vcp0rhwB2nG18Vwnq3I0HJ4NfLtM49scMO+DGL
-	UXVrAOabV9vdh/A+tPgfFev3h/NvkLohG8IDG5IMIdrIVaxuQfXBuhREN1oG0XFYVJuEJI2IgCD
-	7tiLWd80S6OoT/QspDmtfEQls4FFD/f3CM90yzbBhjGmhlFedMiOYxUqrPcQDtqAGPgNQwN0sR7
-	YYDgiUO5TV6gkdUWD0EeNPa70Hywzkl9gXaif6BVYeJiuHYYF0p561P1rDCd4TJbQFTEO3xoyV1
-	GLvnJ3Hilb0jePXu9YbJjYLvM0Pm3U2cQFZZl+eoMToFk03I3lDL5xh9ZMdId22b55mZYbzUZ8F
-	kZL10+iAMlbwsYwCc3IhVqmQwBmc01c6mwxty2PIgqfu0RSzdXXtrD+mAb7oXfOiLhvHjJ+zSG7
-	rlTjyX/PGPgOh6QGhGJIOs7m9Un
-X-Received: by 2002:a17:902:e80c:b0:2e9:4e83:1969 with SMTP id d9443c01a7336-2e94e836693mr59757755ad.34.1792158017475;
-        Fri, 16 Oct 2026 06:40:17 -0700 (PDT)
-Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e83500bsm10514865ad.37.2026.10.16.06.40.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 06:40:16 -0700 (PDT)
-Date: Fri, 16 Oct 2026 21:40:03 +0800
-From: Kent Gibson <warthog618@gmail.com>
-To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Jia Jia <physicalmtea@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 6/6] gpiolib: let the character device free its IRQs
- first on chip removal
-Message-ID: <20261016134003.GA155960@rigel>
-References: <20261016-gpiolib-chip-removal-v2-0-aambrozewicz@nvidia.com>
- <20261016-gpiolib-chip-removal-v2-6-aambrozewicz@nvidia.com>
+	dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b="PJ2jYvhC"
+Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j5mKZ1rZTzbDV;
+	Fri, 16 Oct 2026 15:40:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
+	s=20231125; t=1792158034;
+	bh=rby9aMUP3wS4QVj+L75VJHl3m44mIgdEySaWpDHMJtU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=PJ2jYvhCE2ltzTYfbPhrdNhg7OORW9X6b7wwaaMvOTLdJ52mTAP7qj7z/BcNMrf9c
+	 Z1KpIBAZwlzbFIkECW+Zj8TBQhulMcAQV4483QXizeVdzjnfWZ088VB7PpfF1NPnM0
+	 /Mp76YRHtzQzWER6TJhTZ1TjCs1u5Q9oa6a5FqMq89LeE5A10hfBORceq1dpJVMY9d
+	 XCbbX9JyfX8/60eR2xhz91bDBZLN/625WG1stsw1At1UGFxpPF7LnZD8y6AW3ze1pk
+	 0jzXAeL7l2a82V0p3recGqJbxUU80chlwcZnQKhXT2D7DA3CldNONQtubQPtirIDjn
+	 OsIznf/31S4QA==
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4j5mKY1fMjzFrp;
+	Fri, 16 Oct 2026 15:40:33 +0200 (CEST)
+From: Quentin Schulz <foss+kernel@0leil.net>
+Date: Fri, 16 Oct 2026 15:39:57 +0200
+Subject: [PATCH 1/3] media: v4l2-common: add V4L2_PIX_FMT_Y10 to
+ v4l2_format_info
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016-gpiolib-chip-removal-v2-6-aambrozewicz@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-v4l-y8-y10-csi-vicap-v1-1-27bb87aa745d@cherry.de>
+References: <20261016-v4l-y8-y10-csi-vicap-v1-0-27bb87aa745d@cherry.de>
+In-Reply-To: <20261016-v4l-y8-y10-csi-vicap-v1-0-27bb87aa745d@cherry.de>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Mehdi Djait <mehdi.djait@linux.intel.com>, 
+ Michael Riesch <michael.riesch@collabora.com>, 
+ Heiko Stuebner <heiko@sntech.de>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ Quentin Schulz <quentin.schulz@cherry.de>
+X-Mailer: b4 0.17-dev
+X-Infomaniak-Routing: alpha
 
-On Fri, Oct 16, 2026 at 12:23:38PM +0300, Adrian Ambrozewicz wrote:
-> gpiochip_remove() force-frees every IRQ still requested on the chip's
-> lines with gpiochip_free_remaining_irqs() before anything else, then
-> clears the chip pointer, removes the irqchip, disposing of the IRQ
-> mappings, and only at the very end, from gpiolib_cdev_unregister(),
-> calls the device notifier on which line requests and v1 line events
-> stop edge detection and free their own IRQs. That leaves two windows in
-> which the character device frees an IRQ it no longer owns:
-> 
-> - The notifier runs after the mappings are gone. If an IRQ number freed
->   by gpiochip_irqchip_remove() is allocated to another device in the
->   meantime, irq_has_action() finds that device's action and free_irq()
->   warns "Trying to free already-free IRQ". IRQs requested through the
->   character device after gpiochip_free_remaining_irqs() but before the
->   chip pointer is cleared are still installed when their mappings are
->   disposed of.
-> 
-> - Releasing a request concurrently with gpiochip_remove() races
->   gpiod_free_irqs(), which can free the action between the release
->   path's irq_has_action() check and its free_irq(), and then
->   gpiochip_irqchip_remove(), which can dispose of the descriptor that
->   free_irq() is still using.
-> 
-> Call the device notifier from gpiochip_remove() right after the chip
-> pointer is cleared and the SRCU grace period has elapsed, when no ioctl
-> can request new IRQs any more, and only free the remaining IRQs after
-> it. Have the release paths free their IRQs before unregistering from the
-> notifier, under the lock that the notifier callback also takes, so that
-> the notifier does not return while a release is still freeing an IRQ.
-> For v1 line events that needs a new mutex; line requests use their
-> config_mutex, which now has to be initialized before the first error
-> path. As the chip pointer is NULL by the time gpiod_free_irqs() runs,
-> have it call gc->to_irq() directly rather than gpiod_to_irq().
-> 
-> Every IRQ requested through the character device is thus freed exactly
-> once, by the notifier or by the release path, and before
-> gpiod_free_irqs() and the removal of the irqchip.
-> 
-> Moving the character device's part of the removal earlier was proposed
-> by Herve Codina before gpiochip_free_remaining_irqs() existed; with that
-> in place, only the order of the two is left to fix.
-> 
-> Reproduced with a test-only GPIO chip that uses the gpiolib hierarchical
-> irqchip, unbound from its driver with lines requested through the
-> character device. For the first window, the chip hands the IRQ number of
-> line 0 to a dummy handler while gpiochip_irqchip_remove() disposes of
-> the mappings, and the requests are closed after the unbind. For the
-> second, it sleeps in its irq_bus_lock() callback once removal has
-> started, and the request is closed while gpiochip_remove() is in
-> free_irq(). Each of 30 cycles warns "Trying to free already-free IRQ" in
-> both cases, for v2 line requests and v1 line events alike; with this
-> change none does.
-> 
-> Link: https://lore.kernel.org/all/20240227113426.253232-1-herve.codina@bootlin.com/
-> Fixes: ec8b6f55b981 ("gpio: free irqs that are still requested when the chip is being removed")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-> ---
-> Changes in v2:
-> - mutex_destroy() for config_mutex and irq_lock (Andy).
-> - The missing ->to_irq() case folded into the irq <= 0 check (Andy).
-> - Assisted-by tag.
-> 
->  drivers/gpio/gpiolib-cdev.c | 36 ++++++++++++++++++++++++++++--------
->  drivers/gpio/gpiolib.c      | 29 ++++++++++++++++++++++++-----
->  2 files changed, 52 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
-> index 788a36475e5d..b4b3c9ac54c2 100644
-> --- a/drivers/gpio/gpiolib-cdev.c
-> +++ b/drivers/gpio/gpiolib-cdev.c
-> @@ -1588,19 +1588,29 @@ static void linereq_free(struct linereq *lr)
->  {
->  	unsigned int i;
->  
-> +	/*
-> +	 * Stop edge detection while still registered for the notification, so
-> +	 * that gpiochip_remove() does not get past it until the IRQs are freed.
-> +	 */
-> +	scoped_guard(mutex, &lr->config_mutex) {
-> +		for (i = 0; i < lr->num_lines; i++) {
-> +			if (lr->lines[i].desc)
-> +				edge_detector_stop(&lr->lines[i]);
-> +		}
-> +	}
-> +
->  	if (lr->device_unregistered_nb.notifier_call)
->  		blocking_notifier_chain_unregister(&lr->gdev->device_notifier,
->  						   &lr->device_unregistered_nb);
->  
->  	for (i = 0; i < lr->num_lines; i++) {
-> -		if (lr->lines[i].desc) {
-> -			edge_detector_stop(&lr->lines[i]);
-> +		if (lr->lines[i].desc)
->  			gpiod_free(lr->lines[i].desc);
-> -		}
->  	}
->  	kfifo_free(&lr->events);
->  	kfree(lr->label);
->  	gpio_device_put(lr->gdev);
-> +	mutex_destroy(&lr->config_mutex);
->  	kvfree(lr);
->  }
->  
-> @@ -1671,6 +1681,7 @@ static int linereq_create(struct gpio_device *gdev, void __user *ip)
->  	if (!lr)
->  		return -ENOMEM;
->  	lr->num_lines = ulr.num_lines;
-> +	mutex_init(&lr->config_mutex);
->  
->  	lr->gdev = gpio_device_get(gdev);
->  
-> @@ -1688,7 +1699,6 @@ static int linereq_create(struct gpio_device *gdev, void __user *ip)
->  			return -ENOMEM;
->  	}
->  
-> -	mutex_init(&lr->config_mutex);
->  	init_waitqueue_head(&lr->wait);
->  	INIT_KFIFO(lr->events);
->  	lr->event_buffer_size = ulr.event_buffer_size;
-> @@ -1788,6 +1798,7 @@ static int linereq_create(struct gpio_device *gdev, void __user *ip)
->   * @eflags: the event flags this line was requested with
->   * @irq: the interrupt that trigger in response to events on this GPIO
->   * @irq_label: the name @irq was requested with
-> + * @irq_lock: serializes freeing @irq on release and on chip removal
->   * @wait: wait queue that handles blocking reads of events
->   * @device_unregistered_nb: notifier block for receiving gdev unregister events
->   * @events: KFIFO for the GPIO events
-> @@ -1802,6 +1813,8 @@ struct lineevent_state {
->  	u32 eflags;
->  	int irq;
->  	char *irq_label;
-> +	/* release vs. chip removal notifier */
-> +	struct mutex irq_lock;
->  	wait_queue_head_t wait;
->  	struct notifier_block device_unregistered_nb;
->  	DECLARE_KFIFO(events, struct gpioevent_data, 16);
-> @@ -1837,8 +1850,10 @@ static int lineevent_unregistered_notify(struct notifier_block *nb,
->  	struct lineevent_state *le = container_of(nb, struct lineevent_state,
->  						  device_unregistered_nb);
->  
-> -	free_line_irq(le->irq, le, &le->irq_label);
-> -	le->irq = 0;
-> +	scoped_guard(mutex, &le->irq_lock) {
-> +		free_line_irq(le->irq, le, &le->irq_label);
-> +		le->irq = 0;
-> +	}
->  
->  	wake_up_poll(&le->wait, EPOLLIN | EPOLLERR);
->  
-> @@ -1918,14 +1933,19 @@ static ssize_t lineevent_read(struct file *file, char __user *buf,
->  
->  static void lineevent_free(struct lineevent_state *le)
->  {
-> +	/* As in linereq_free(), free the IRQ before unregistering. */
+From: Quentin Schulz <quentin.schulz@cherry.de>
 
-First part of the comment can rapidly become stale, and the last part
-doesn't add anything the code doesn't already say.
+Add Y10 format to the v4l2_format_info table.
 
-> +	scoped_guard(mutex, &le->irq_lock) {
-> +		free_line_irq(le->irq, le, &le->irq_label);
-> +		le->irq = 0;
-> +	}
->  	if (le->device_unregistered_nb.notifier_call)
->  		blocking_notifier_chain_unregister(&le->gdev->device_notifier,
->  						   &le->device_unregistered_nb);
-> -	free_line_irq(le->irq, le, &le->irq_label);
->  	if (le->desc)
->  		gpiod_free(le->desc);
->  	kfree(le->label);
->  	gpio_device_put(le->gdev);
-> +	mutex_destroy(&le->irq_lock);
->  	kfree(le);
->  }
->  
-> @@ -2097,6 +2117,7 @@ static int lineevent_create(struct gpio_device *gdev, void __user *ip)
->  	le = kzalloc_obj(*le);
->  	if (!le)
->  		return -ENOMEM;
-> +	mutex_init(&le->irq_lock);
->  	le->gdev = gpio_device_get(gdev);
->  
->  	if (eventreq.consumer_label[0] != '\0') {
-> @@ -2832,5 +2853,4 @@ void gpiolib_cdev_unregister(struct gpio_device *gdev)
->  {
->  	destroy_workqueue(gdev->line_state_wq);
->  	cdev_device_del(&gdev->chrdev, &gdev->dev);
-> -	blocking_notifier_call_chain(&gdev->device_notifier, 0, NULL);
->  }
-> diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
-> index 31ccdd373765..7dd730228b05 100644
-> --- a/drivers/gpio/gpiolib.c
-> +++ b/drivers/gpio/gpiolib.c
-> @@ -851,11 +851,23 @@ bool gpiochip_line_is_valid(const struct gpio_chip *gc,
->  }
->  EXPORT_SYMBOL_GPL(gpiochip_line_is_valid);
->  
-> -static void gpiod_free_irqs(struct gpio_desc *desc)
-> +static void gpiod_free_irqs(struct gpio_chip *gc, struct gpio_desc *desc)
->  {
-> -	int irq = gpiod_to_irq(desc);
-> -	struct irq_desc *irqd = irq_to_desc(irq);
-> +	struct irq_desc *irqd;
->  	void *cookie;
-> +	int irq;
-> +
-> +	/* Called with gdev->chip already NULL, so gpiod_to_irq() can't be used. */
-> +	if (gc->to_irq)
-> +		irq = gc->to_irq(gc, gpiod_hwgpio(desc));
-> +	else
-> +		irq = 0;
-> +	if (irq <= 0)
-> +		return;
+Co-developed-by: Michael Riesch <michael.riesch@collabora.com>
+Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
+Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+---
+ drivers/media/v4l2-core/v4l2-common.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Perhaps I'm channelling Andy here, but how about:
+diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
+index 65db7340ad384..2c36ae15610e1 100644
+--- a/drivers/media/v4l2-core/v4l2-common.c
++++ b/drivers/media/v4l2-core/v4l2-common.c
+@@ -333,6 +333,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 format)
+ 		{ .format = V4L2_PIX_FMT_YVU420,  .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 3, .bpp = { 1, 1, 1, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 2 },
+ 		{ .format = V4L2_PIX_FMT_YUV422P, .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 3, .bpp = { 1, 1, 1, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 1 },
+ 		{ .format = V4L2_PIX_FMT_GREY,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 1, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_Y10,     .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
+ 
+ 		/* Tiled YUV formats */
+ 		{ .format = V4L2_PIX_FMT_NV12_4L4, .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 1, 2, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 2 },
 
-	if (!gc->to_irq)
-        return;
-	irq = gc->to_irq(gc, gpiod_hwgpio(desc));
-	if (irq <= 0)
-		return;
+-- 
+2.56.0
 
-> +
-> +	irqd = irq_to_desc(irq);
-> +	if (!irqd)
-> +		return;
->  
->  	for (;;) {
->  		/*
-> @@ -887,7 +899,7 @@ static void gpiochip_free_remaining_irqs(struct gpio_chip *gc)
->  	struct gpio_desc *desc;
->  
->  	for_each_gpio_desc_with_flag(gc, desc, GPIOD_FLAG_USED_AS_IRQ)
-> -		gpiod_free_irqs(desc);
-> +		gpiod_free_irqs(gc, desc);
->  }
->  
->  static void gpiodev_release(struct device *dev)
-> @@ -1422,7 +1434,6 @@ void gpiochip_remove(struct gpio_chip *gc)
->  	/* FIXME: should the legacy sysfs handling be moved to gpio_device? */
->  	gpiochip_sysfs_unregister(gc);
->  	gpiochip_free_hogs(gc);
-> -	gpiochip_free_remaining_irqs(gc);
->  
->  	scoped_guard(mutex, &gpio_devices_lock)
->  		list_del_rcu(&gdev->list);
-> @@ -1431,6 +1442,14 @@ void gpiochip_remove(struct gpio_chip *gc)
->  	/* Numb the device, cancelling all outstanding operations */
->  	rcu_assign_pointer(gdev->chip, NULL);
->  	synchronize_srcu(&gdev->srcu);
-> +
-> +	/*
-> +	 * No new interrupts can be requested through the character device now.
-> +	 * Have it free the ones it holds before forcibly freeing the rest, and
-> +	 * both before the irqchip and its mappings go away.
-> +	 */
-> +	blocking_notifier_call_chain(&gdev->device_notifier, 0, NULL);
-> +	gpiochip_free_remaining_irqs(gc);
->  	gpio_device_teardown_shared(gdev);
->  	gpiochip_irqchip_remove(gc);
->  	acpi_gpiochip_remove(gc);
-> -- 
-> 2.43.0
-> 
-
-That's all I've got from a first pass of the whole series - looks great.
-
-Cheers,
-Kent.
