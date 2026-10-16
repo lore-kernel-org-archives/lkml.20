@@ -1,78 +1,162 @@
-Received: from mail-24425.protonmail.ch (mail-24425.protonmail.ch [109.224.244.25])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC53A481241;
-	Fri, 16 Oct 2026 13:11:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24D84772BE;
+	Fri, 16 Oct 2026 13:11:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792156297; cv=none; b=Y1nSxi9+FfEk7oMq+gC3Tki3PZb2KkBjBntSjNsmOxTQ2e60iWi1YgNssQMRBE/lV74ohgMU6JQSTEoWprhmyvw8CgN6xHO0YKN/7Fpq2ORSVR4F1srt1dlloqge9uM4QF95G9JpIymQG/ykVgkXN1mCrk6mXGhpja7ZZActwXM=
+	t=1792156318; cv=none; b=lgRtnkjzUyvXpv/WqcilEpVow5jGmBZ7Ivs10Jo7yVTV9pom7UW3dHTbYALOZKDbDGLtloFtcMYDjD+GlGdVs6r7m2thlJUQpoLMO8jg9BOXjqxVcj2e718rJykcWP5CMDAEhqcXQIjjpTXeZ8iKDlYKNTQWCw54elJLJ12z0ps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792156297; c=relaxed/simple;
-	bh=sBZwMWlKkUtdIlno7jdnd9iB33P/c0dvjqdN8hZW4Eo=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=rekH5U91bkPxJtLRnTrJUMDPflcwKt/+eJSK+nTZU/D4EFoc0X43hE6bMpEauAjONsEDwy7IHbqWOrG9dPw+uRvlGHn+DxVR1dtDW6DOK+U7NIDLBRhaIdPa08rFhhyRuR6qPebY0tICto6An41Mi8D2lV6X2rV/WrLX9kokbhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=Z3nDmtAs; arc=none smtp.client-ip=109.224.244.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1792156318; c=relaxed/simple;
+	bh=CjQhMxVRHWQtfmYFu2e+NDY5eXc6HoiuGCnsVXmLjoA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lXiWoZHAhckoJSQMt9EoO1eRzeLYAmfSeRuKG78xq0sAdcQzCjS+qnwltOFBEiq5O7YeO/bVQ9Ay0tqRUsoiaD8e6QGOX2T3enzEAvnVabaRedl0gZVF4eIolvOz2wcc5nQoTKQNyVCVyHaVE8UDs2cKDKWoAciRHlcwpGchO80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=SXshxiZd; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="Z3nDmtAs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1792156286; x=1792415486;
-	bh=sBZwMWlKkUtdIlno7jdnd9iB33P/c0dvjqdN8hZW4Eo=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Z3nDmtAsJ7dSV3Wkg/BAG8wuitNihzQfAJ+c3c9M4JAdwxq1aDPSocAJBJOdxzZBn
-	 a+CwA3S5XWsHh5etD7D2NX7AwPlysdbxOQTW7ieYJF1e4EFwW3GFr63qFbbVIpqGYl
-	 912rEEJNdxeNOmORYE7e0szUdfqj2XKX2jPxfVlHyIHniEu4Yq+jOkRvIDh9r9VvV9
-	 UznXPapvlT796rdrCh0K3ojd4r9HYYuikE0zwFtcaU1Xt3wPK5dR7qrPwvhgkNUDrI
-	 dspHs6msLKhdldQ/VyUeTfhDBbG0IlFVRIU7ljY7tZyhD1hjMLOA9boAPIGEvpZdGm
-	 N7HrJuv7YKlZQ==
-Date: Fri, 16 Oct 2026 13:11:23 +0000
-To: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-From: MrDataScience <MrDataScience@protonmail.com>
-Cc: "mchehab@kernel.org" <mchehab@kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH] docs: media: fix get_maintainer.pl reference
-Message-ID: <y_LDAophorZqsEBlBhREgpJ7nu1R0RxA9KqHCnRjQKYT-NErmPWf-AzFRnszwOdFwT-weyu-6Z9CfUCBszt16lIdLGAqNOteChtcNVcteZM=@protonmail.com>
-Feedback-ID: 220342908:user:proton
-X-Pm-Message-ID: 3711ff9ec3e1f6574dfe3b694260e190d1ac1e0b
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="SXshxiZd"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 3E3C0534020A;
+	Fri, 16 Oct 2026 15:11:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1792156312;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=40OzVSQCoDqeanO72RAAhN6RdEUZvRzWbHpffXcwgmI=;
+	b=SXshxiZd0sKdRO8s3BdvQDm5+DKc/JItErtxNZ7bv0irRNXs25lidcbIPuuIGqPHSzREFO
+	mHSUBUbn/A4TTt833wniWhOd4E+cd7TC5GHqXHg+KfKA4ZOp6W/POP2GS4jY73KWz5HCg8
+	wjJt63U/tGJ+iKgWvaHtw6jcn09hwr8=
+Message-ID: <57d28e27-459d-4d58-b6ea-78739936d152@ixit.cz>
+Date: Fri, 16 Oct 2026 15:11:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: dongwoon,dw9719: Document
+ DW9714VA
+To: wyibo6109@gmail.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-media@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261016090930.947830-1-wyibo6109@gmail.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20261016090930.947830-1-wyibo6109@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The media workflow refers to scripts/get_maintainers.pl, which doesn=
-=E2=80=99t exist. Point contributors to scripts/get_maintainer.pl so they c=
-an identify=C2=A0recipients for their patches.
-Fixes: cc353539ec33 ("docs: media: update maintainer-entry-profile for mult=
-i-committers")
+On 16/10/2026 11:09, wyibo6109@gmail.com wrote:
+> From: Yibo Wang <wyibo6109@gmail.com>
+> 
+> The dongwoon,dw9714va compatible names the DW9714V silicon revision
+> found on the OnePlus Pad 4 (iceland) camera modules.  DW9714VA is not
+> an official part number: it is coined to distinguish this revision,
+> which shares its IC INFO id (0xFE) with the other DW9714V revisions.
+> 
+> In its register-mapped ("advanced") mode it exposes the DW9719
+> register interface, with the SAC mode field in MODE shifted by 6 like
+> on the DW9800K.  This differs from the advanced-mode layout of the
+> currently available DW9714V datasheet (Rev. 0.03G), which puts
+> SAC_MODE in [3:0] of SAC_CFG and splits the prescaler and SACT into
+> separate registers.
+> 
+> The datasheet-conformant DW9714V and DW9714A, used in their normal
+> (direct DAC) mode, are covered by the dongwoon,dw9714 binding
+> instead; see the in-flight series by David Heidelberg documenting
+> them:
+> 
+> https://lore.kernel.org/linux-media/20260729-dw9714v-v1-0-3c479b3cf8c0@ixit.cz/
+> 
+> The module-specific SAC tuning is carried by the already-documented
+> dongwoon,sac-mode and dongwoon,vcm-prescale properties.
+> 
+> Cc: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Yibo Wang <wyibo6109@gmail.com>
+> ---
+>   .../devicetree/bindings/media/i2c/dongwoon,dw9719.yaml     | 7 +++++++
+>   1 file changed, 7 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+> index 8e8d62436..f415f2369 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+> @@ -14,10 +14,17 @@ description:
+>     with 100 mA output current sink capability, designed for linear control of
+>     voice coil motors (VCM) in camera lenses. This chip provides a Smart Actuator
+>     Control (SAC) mode intended for driving voice coil lenses in camera modules.
+> +  The DW9714V revision found on the OnePlus Pad 4 (iceland) camera
+> +  modules exposes this register interface in its register-mapped
+> +  ("advanced") mode, with a register layout following the DW9719
+> +  rather than the DW9714V datasheet.  dongwoon,dw9714va is not an
+> +  official part number: it is coined to name this revision, which
+> +  shares its IC INFO id with the other DW9714V revisions.
 
-Assisted-by: LLM
-Signed-off-by: George Maxwell Aird <MrDataScience@protonmail.com>
----
-Documentation/driver-api/media/maintainer-entry-profile.rst | 2 +-
-1 file changed, 1 insertion(+), 1 deletion(-)
+Hello Yibo,
 
-diff --git a/Documentation/driver-api/media/maintainer-entry-profile.rst b/=
-Documentation/driver-api/media/maintainer-entry-profile.rst
-index 7806d83..2fbdfe2 100644
---- a/Documentation/driver-api/media/maintainer-entry-profile.rst
-+++ b/Documentation/driver-api/media/maintainer-entry-profile.rst
-@@ -232,7 +232,7 @@ you can find details about how to subscribe to it and t=
-o see its archives at:
-Emails with HTML will be automatically rejected by the mail server.
+few things to improve.
 
-It could be wise to also copy the relevant Media Maintainer(s). You should =
-use
--``scripts/get_maintainers.pl`` to identify whom else needs to be copied.
-+``scripts/get_maintainer.pl`` to identify whom else needs to be copied.
-Please always copy driver's authors and maintainers.
+1. you should disclose usage of LLM (e.g. Assisted-by: tag) - I assume you used it
+2. No need to describe which device contains this piece of HW.
+The binding doesn't care where it's used, only describes the actual HW.
 
-To minimize the chance of merge conflicts for your patch series, and make i=
-t
+You may mention the device using it in the series description, but doesn't make 
+sense to do it in the binding/driver.
 
-base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
---
-2.51.1
+David
+
+[...]
