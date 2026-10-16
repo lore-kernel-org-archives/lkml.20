@@ -1,164 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C835B329E5A;
-	Fri, 16 Oct 2026 10:19:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFE744AB68;
+	Fri, 16 Oct 2026 10:19:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145947; cv=none; b=p0WEYSS8C6wJK6CrT1/JtmUFuG9dfURvkbX/gwqOE1YzEct7C80Xkc8KSc4Y7RJQ2DZeWgElMW5AgzwotCemXdoK/DJ00oGbvjGWTxMUUMGR8qHLB+aeJtcUwOdKkUVDArYzKBnVjFleoGEQ7jpdcWEl0IMwChzoM9U5l6zASfw=
+	t=1792145992; cv=none; b=H3WYVtX4D8+d3SHxg46uD7NwAQ7Mcc5L9GbRUHyMDF+Vz61Ui22GzD+UZOnVtKgzN7ndQsdTsizw5rxve4KeAyAxZmLTnX8tqcyxxFbUeS1fOfwLPak9Now1VQGl4ph4i0SYWsqrwQxWLoaMYnJJTvIj94A8WRn7j0O1l9HjCC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145947; c=relaxed/simple;
-	bh=e0dOSOnxeOXOfd2/l7kHXL6TVBEKuXRUS7i3/87Z8S0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Tvd4bmM4i+ht3ADzTK6yAYpUpK9BQjLuZLttlbABZ9EY5kjwrMW2qgW64o0gtj1AYueQdyjJC5nkEqayztzhsdd3uewokHK5RLEzVcE1S3ygcxGJylTThFaJ/03nsb8RPTu/tnadtoI0GXVjYuf8wX48VfTGOKkfx844ObbOt44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eGG45cPd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792145992; c=relaxed/simple;
+	bh=mV7apZJqXyrvkEGiIS0ISDfMrDM5bR6Fa2lY+w1Z2RU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bCmWKcKI/9HhnyCKmZBEd/tN/3DjT0sNwjfSPm8mm692Oxw7ZtYWk7rfiUyNb2swPCVQFtDFVnTHisZGAjgcMcgHezrZ9CksE/q262rzruThCK2SkPzFjcY9LIsKnQGKQMBhjbPlYkjR7oSIUsV28uRahDaZvUoIki4wMtEY8B0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ry7CRrD9; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eGG45cPd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20F6D1F000C4;
-	Fri, 16 Oct 2026 10:19:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792145946;
-	bh=2V6okvCUtN5rt6q4iwvHYcjDTyJ1f2JdZMB0YT/CC0Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eGG45cPdOFYdd4IGkJPX7+5IGVlAUjZv12fk3I4/6LB24K3wpTVWZfd26RgV8SNM+
-	 ZKIIQiR3aecQQB/+JqY0GZquuEmTV+iDCGDOfiuwyf3g/IcZ7Aq7oWjLXtMz3tpy7X
-	 uYif9cqekJnIvLr6h51Cjxf1YzLart2eqdp82wwfL3W6SnsIJ6yQ/mBIY72CLc9tmu
-	 YkZ58/t2rZ0STMiI4/g8n2P09qK3X0jNURSli/9x+mWmnC8UjkSB3VcjsYwWH19aPn
-	 prMVpHPsCqv+v6MV4lP7EvgpwDPdtOn3530oTTN/YNU3N/sMgjuRMIDBJBWJOVMGg7
-	 GVO99ND1hBbLg==
-From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL 09/19 for v7.4] vfs file
-Date: Fri, 16 Oct 2026 12:18:45 +0200
-Message-ID: <20261016-vfs-7.4-rc1.file-c45175e298c8@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016-vfs-v74-41eaf6c4712c@brauner>
-References: <20261016-vfs-v74-41eaf6c4712c@brauner>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ry7CRrD9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792145991; x=1823681991;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mV7apZJqXyrvkEGiIS0ISDfMrDM5bR6Fa2lY+w1Z2RU=;
+  b=Ry7CRrD9TpQ+m7XYL6cGXe1Nos35A+mdQZesw8bnAnE9eHjkX/1U0k6L
+   fOPBJgG1mqRHQfaDL6RajyLjNH0W9C2YXCew2cDu88Dxy2mh3VH604FwG
+   au0VqKExa/G95TyvA3y9SMkR3+ba+/2ixhjgdTwgadRBFjK4HoKcaN2MB
+   ZLM5QQs0JksYL5qb/5hcbbjDzvitBrv0UZ5x8g2gz25fDus7OhxGTcJPk
+   Ku3dNPsMsvhzr0aAHFcp1yqWrcfgYVFsbk4ZbvNxSHvv2YFkzshV78ZvC
+   SeFMUy6EKHs0gqxwfh0sH6r23W//I0SpXn/9ta4xq1tseKI3TBz2sfUoR
+   A==;
+X-CSE-ConnectionGUID: /Jc/6u0WRF2b2buHB45Unw==
+X-CSE-MsgGUID: HmztS/E+QHmZ3YEquonuwQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="818260"
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="818260"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:19:51 -0700
+X-CSE-ConnectionGUID: VwgXEHenSZanZL/0PWwHRg==
+X-CSE-MsgGUID: qfMmHcJEQR6A6fktOcfTRQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="1795965"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.35])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:19:48 -0700
+Date: Fri, 16 Oct 2026 13:19:45 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: jean-baptiste.maneyrol@tdk.com
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] iio: imu: inv_icm42600: fix parsing of all FIFO frames
+ for odr change
+Message-ID: <atH6QdvvmEPzkGE2@ashevche-desk.local>
+References: <20261016-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v1-1-b2bb168a0551@tdk.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4484; i=brauner@kernel.org; h=from:subject:message-id; bh=e0dOSOnxeOXOfd2/l7kHXL6TVBEKuXRUS7i3/87Z8S0=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRd/MX3n82l8sUZq1uRRfOl38SeXryvQpt/yVG3LYc+T 54bkCnn0VHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjARR2tGhpt7z+w4nvGg6HC8 SQpL7y+Pmc462nM+CMhu2i6S+23tIWaG/4UPCtddU0h/wKd6RJjz93xz04iV+/6KZb275MwZFMl gwgEA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v1-1-b2bb168a0551@tdk.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hey Linus,
+On Fri, Oct 16, 2026 at 11:28:10AM +0200, Jean-Baptiste Maneyrol via B4 Relay wrote:
 
-/* Summary */
+> For getting all odr change events, we need to parse all FIFO frames
+> in each iio device. Fix this correctly by sending effectively all
+> frames to all iio devices.
+> 
+> Previously only batches of frames containing a matching sensor event
+> were sent to the corresponding iio device.
 
-This annotates struct fdtable's fd array with __counted_by_ptr so KASAN
-and the fortified functions can bounds check it against max_fds and
-adds a KUnit suite for fdtable. A follow-up uses __struct_size() in the
-test since sparse doesn't know __builtin_dynamic_object_size().
+...
 
-FD_PREPARE() is simplified. It was built as an ACQUIRE-style guard on
-infrastructure that was never needed. The ACQUIRE machinery and
-CLASS_INIT() go away, the variable is declared with __cleanup()
-directly, struct fd_prepare loses its err field since the fd either
-holds the descriptor or the error, and callers get a const pointer to
-the guard behind a UNIQUE_ID() name so they can't shadow it. Code
-generation is identical.
+> -		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
+> -		if (ret)
+> -			return ret;
+>  	}
 
-/* Testing */
++ Blank line.
 
-No build failures or warnings were observed.
+> +	ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
+> +	if (ret)
+> +		return ret;
+>  
+>  	/* handle accelerometer timestamp and FIFO data parsing */
+>  	if (st->fifo.nb.accel > 0) {
+>  		ts = &accel_st->ts;
+>  		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_accel,
+>  						st->timestamp.accel);
+> -		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
+> -		if (ret)
+> -			return ret;
+>  	}
 
-/* Conflicts */
++ blank line.
 
-Merge conflicts with mainline
-=============================
+> +	ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
+> +	if (ret)
+> +		return ret;
+>  
+>  	return 0;
+>  }
 
-This conflicts with mainline in fs/namespace.c between commit
-7253a6ff640df ("namespace: drop the file's reference first in
-dissolve_on_fput()") in mainline and commit 64cbb36448ff2 ("file: make
-struct fd_prepare const and kill its err field") from this tree:
+	return inv_icm42600_accel_parse_fifo(st->indio_accel);
 
-diff --cc fs/namespace.c
-index 59fb227df39f,0f5c00816775..000000000000
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@@ -4701,9 -4544,9 +4701,9 @@@ SYSCALL_DEFINE3(fsmount, int, fs_fd, un
-  
-  	FD_PREPARE(fdf, (flags & FSMOUNT_CLOEXEC) ? O_CLOEXEC : 0,
-  		   dentry_open(&new_path, O_PATH, fc->cred));
-- 	if (fdf.err) {
-+ 	if (fdf->fd < 0) {
- -		dissolve_on_fput(new_path.mnt);
- +		dissolve_on_fput(no_free_ptr(new_path.mnt));
-- 		return fdf.err;
-+ 		return fdf->fd;
-  	}
-  
-  	/*
+?
 
-Merge conflicts with other trees
-================================
+...
 
-No known conflicts.
+Similar comments to the inv_icm42600_buffer_hwfifo_flush() changes.
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-are available in the Git repository at:
-
-  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.4-rc1.file
-
-for you to fetch changes up to fae37d5e3c4e94aef334825ab89f66efcfe489b2:
-
-  Merge patch series "file: simplify and harden cleanup handling" (2026-09-23 09:28:02 +0200)
-
-----------------------------------------------------------------
-vfs-7.4-rc1.file
-
-Please consider pulling these changes from the signed vfs-7.4-rc1.file tag.
-
-Thanks!
-Christian
-
-----------------------------------------------------------------
-Bill Wendling (2):
-      vfs: Annotate struct fdtable's fd field with __counted_by_ptr
-      vfs: Add KUnit tests for fdtable
-
-Christian Brauner (7):
-      Merge patch series "vfs: Annotate struct fdtable's fd field with __counted_by_ptr"
-      vfs: use __struct_size() in the fdtable KUnit test
-      file: simplify FD_PREPARE()
-      file: declare the FD_PREPARE() variable with __cleanup() directly
-      cleanup: remove CLASS_INIT()
-      file: make struct fd_prepare const and kill its err field
-      Merge patch series "file: simplify and harden cleanup handling"
-
- arch/powerpc/platforms/cell/spufs/inode.c |  12 +--
- drivers/gpio/gpiolib-cdev.c               |  18 ++---
- drivers/gpu/drm/msm/msm_perfcntr.c        |   4 +-
- drivers/media/mc/mc-request.c             |   8 +-
- drivers/misc/ntsync.c                     |   6 +-
- fs/Kconfig                                |   8 ++
- fs/eventfd.c                              |   4 +-
- fs/eventpoll.c                            |   6 +-
- fs/file.c                                 |  12 ++-
- fs/namespace.c                            |  12 +--
- fs/nsfs.c                                 |   4 +-
- fs/tests/.kunitconfig                     |   2 +
- fs/tests/fdtable_kunit.c                  |  72 +++++++++++++++++
- fs/xfs/xfs_handle.c                       |   6 +-
- include/linux/cleanup.h                   |   7 --
- include/linux/fdtable.h                   |   2 +-
- include/linux/file.h                      | 130 +++++++++++-------------------
- io_uring/mock_file.c                      |   8 +-
- kernel/bpf/bpf_iter.c                     |   6 +-
- kernel/bpf/token.c                        |   6 +-
- mm/userfaultfd.c                          |   6 +-
- net/core/scm.c                            |   8 +-
- net/handshake/netlink.c                   |   8 +-
- net/kcm/kcmsock.c                         |   6 +-
- 24 files changed, 204 insertions(+), 157 deletions(-)
- create mode 100644 fs/tests/.kunitconfig
- create mode 100644 fs/tests/fdtable_kunit.c
