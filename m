@@ -1,101 +1,276 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D20C48DB24
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 534CD501F49;
+	Fri, 16 Oct 2026 18:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792175238; cv=none; b=c8oDu/eEfvEcsk29YvO0pxFru+ZtlXZ3zuEEu2w8ks1mJr+Iyz3/QxHKuNxpVfnlSpss83+Gltk7IZcbajuzAY56M4MIxD+ttT4LNMs5I5NgG2Lfkf3fo9jTfDLie8ObmAh34kbrrRS0QeG2ap4N9hnsEOXD1qSYkLB++hCiYbg=
+	t=1792175245; cv=none; b=O9kfbK2L3YFNf2wzds29UWuwKlFosTcDlFkWLQYvXOgjhInzyEbAbd3zwXNNOuRuHH6WXrzqghycYQHuv2USfs6V/FPlBkz9wbIH9k3lXrZse/SdeU3r4A/HzcCi/wI8HKdtVl6K5fwUvqoIBtKi8dDxSfKs4ulRvCWfW6bQQTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792175238; c=relaxed/simple;
-	bh=VBRTXcwLrUGeAqqGUzuYSNaXljshwUPb5DPEUQUp/Uo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pg8HFbaTjmooQrfYox74ZiAozIHmd0ovYtLUr1PNTPqiLDv7hEwvrt1LpWDrjD0QFxDgaToQ05SJfK5EiGYXTLmMjQDXAsOq/kmuNNAgKdIObBg2kiVU5NBsIkWTUCbdM94JluIm4egZXNaZaWmeMex1xDMCXJ4nfx4ns4fUh7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rwWC6Y4B; arc=none smtp.client-ip=74.125.82.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792175245; c=relaxed/simple;
+	bh=NALqzJpWWgc9wyCZgTKGgjifFJ6L+Jn6MpaGxt92zqA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=S+oIoRFQkJeMU1trZR0JFn8+4qenhrj2Rb0oDGkyopOr89dOLcVCjbNpmN7/5WMnWjCtYeZChLqZI8ldBhUlbuHJCpW4qyR7pubUSa2uurSb1dGqQZZYa7zgIT4Yw+02zjt2CwI6X/bvWy8WoKpR7h4HvYSSXLNmUTbsVSviLqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=u8OLkoM6; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rwWC6Y4B"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so426392eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:27:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792175236; x=1792780036; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TNlQS2xn23EOx0Q7AzOrXy24hZ0s1Lyk3n6Wb6L7jSY=;
-        b=rwWC6Y4B/9PWtrSHtB2Z0NelkjCd55vBJnNfs7yg2s8FWuedT4mR5Af7ruOn0ma4Ho
-         Ks9oWtUUmZmrVtjyjuoauG5l9nQvn0svES7w8M5VNzLb0YocaY0id60rFRQKRU7JnJOY
-         qN7eG/vO77ohnH2CCE4bZOzxg82T+kAEsUHhdE7L1pXGW4i7Wv61WX4z62fHbIyhNByG
-         AmjBsxV6iNV+++yesLBkq4QMApMjbkmv/owVTH994wc5W/vXlPgdcUuU94r3TvRE4qTa
-         M/dcMWIsunQsWP/G2H5qZFXDjwf0TCKuT1vfDBk09i37C5/ZaphWzSgy9XoZgeAeZIqa
-         IT8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792175236; x=1792780036;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TNlQS2xn23EOx0Q7AzOrXy24hZ0s1Lyk3n6Wb6L7jSY=;
-        b=pNDcsf3HO3PZi1BX2CIf04mCRXzZj0m+FblY3b32o3lp+L9uZVaaJpVDw8Cybroqsd
-         GjQAyX5yen1k+1WWTMvusjGFUNfwYKA89CG3Sagwe5Lai6uV8ARCxgKJIRVkmr5E710I
-         4iE6JRVu8G7YA3haUK83EqdZifFqEMHHmTPuf95DVC3NtQNFtB4AUJYUNytBJ/NlQJRx
-         N0KJ5GwuPJwjuVup66UTHGmlBfR/f0dvfHD27XlHeFFay2iErD+yRJpQ02wLqc98hJxb
-         Jmmeg0Jf8gngacysDPsjjRS5HEFVmR/UdQYgcJA4a5yJLlYiZuJvP3YS8dgIlKXoNALa
-         eudQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxOxvoBYT7/AElyM6wD7bfGI0p6onFFR7OKWKt1dCjQCQbSNr18UOxkE4f0DJpmOrH2PuGjJTpVkdnTzQc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1F63DZQMqW9IjDSM9p+JviiXgHmn9B7XxSksPRApFv80j2Vgn
-	PoP6HANeiDW9c0bW64QXZ8cp/PNyCUm/cCEf/Cdq6xQLsKjEDtBnZloq
-X-Gm-Gg: AYBFou0TvQXGwdXZNZGoRlts73obzpD51cxqrwd7rWEMB2BYnfiB98re2WVkBXPgnXE
-	TU5xhNh1uUJGGKFc/Kmf7NB1eqq7+Ncys9in3/lKEABMFE33aHjE+WlxDNA89SNTvEQW3Ft+ctF
-	JgyWCYIKoJPJtcCtZLxoyyf8PUZFvH9GmGKDhy+INTgGbOrlIC7HiyoSsFVVutB+8IemoZR3cur
-	DNBG3cb0nvCj+RTOTy9kiPtd3PT5Xn9vqbYyVyu0ySZudwDprDb0aXcdDZh9v7O9CRLJ1j2eDuk
-	0fqIluc/WXGk2ftP/HyjfPqvFpaeILGLCkUHfWAolUkcCs3KGs9jX5HIms1uJuM5DYNQT7O2wfH
-	a9q2qAq3O1sdP6UwP7c0YXMdtsuHDKX4xC9V4YyEVuWtdefwZTdiiPNlTfsDS/u/UOHzjxtM6Nv
-	kq2CaC6/nLA+PaVJzKBD37Oj5xyehkPIMTeGKOM8IoahJkecJXXc6hEC0bRjLj3cuUmpxhiSnZB
-	MXW0xxxBY6/nFA/LbRVmZvSklCQuifHtEHF/1xI
-X-Received: by 2002:a05:701b:2608:b0:182:9071:3249 with SMTP id a92af1059eb24-185131076f4mr716375c88.30.1792175235936;
-        Fri, 16 Oct 2026 11:27:15 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:e6ab:aea2:fd2a:caf4])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831c2e7bf4sm6670161c88.20.2026.10.16.11.27.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 11:27:15 -0700 (PDT)
-Date: Fri, 16 Oct 2026 11:27:12 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: jikos@kernel.org, bentiss@kernel.org, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v8 2/2] HID: multitouch: fix use-after-free of haptic
- data on delayed input release
-Message-ID: <atJrRjjgXZz5A-Lq@google.com>
-References: <20261016163349.3293666-1-qwe.aldo@gmail.com>
- <20261016173056.3397211-1-qwe.aldo@gmail.com>
- <20261016173056.3397211-3-qwe.aldo@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="u8OLkoM6"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 70A8D14BF;
+	Fri, 16 Oct 2026 11:27:19 -0700 (PDT)
+Received: from e142021.manchester.arm.com (e142021.arm.com [10.33.8.90])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EBC323F7B4;
+	Fri, 16 Oct 2026 11:27:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792175242; bh=NALqzJpWWgc9wyCZgTKGgjifFJ6L+Jn6MpaGxt92zqA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=u8OLkoM6Zh6Ok2habtCKhG1sKxMd28cXPKSIixKcw3BJnVO/bPzf6HS/LF0GIe0BR
+	 TKYs3msXsje8t41/LF9phY3SPSiS7ctwZ6wRFeQj2JmOg9GChgPp0v2bYxkAm3ctYJ
+	 lCYvHJ+zQw5nkmYXL4FsrILxuab4ZyYMKRJGkiSE=
+From: Andre Przywara <andre.przywara@arm.com>
+To: Mark Rutland <mark.rutland@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Salman Nabi <salman.nabi@arm.com>,
+	Vedashree Vidwans <vvidwans@nvidia.com>,
+	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+	Nirmoy Das <nirmoyd@nvidia.com>,
+	vsethi@nvidia.com,
+	Varun Wadekar <vwadekar@nvidia.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: [PATCH v5 0/8] Arm Live Firmware Activation (LFA) support
+Date: Fri, 16 Oct 2026 19:27:04 +0100
+Message-ID: <20261016182714.1835813-1-andre.przywara@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016173056.3397211-3-qwe.aldo@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 02:30:56PM -0300, Aldo Ariel Panzardo wrote:
-> mt_probe() allocates td->haptic with devm_kzalloc() and hid_haptic_init()
-> stores it in ff->private.  When the HID device is removed while an evdev
-> fd is still held, devres frees td->haptic at unbind but
-> hid_haptic_destroy() runs later from input_dev_release() and dereferences
-> the freed pointer.  input_ff_destroy() then double-frees it via
-> kfree(ff->private).
+Hi all,
 
-Right, so that is the root of the problem. We should not be allocating
-memory assigned to ff->private with devm as its lifetime is not directly
-tied to the time when device is bound to a driver.
+an decent overhaul of the series for the "Live Firmware Activation"
+kernel support, based on feedback from Mark and Sudeep. Two patches have
+been squashed into the main feature patch, the name attribute has been
+removed, and documentation (hopefully) improved. Other than that quite
+some smaller changes, renames and reworks, hopefully for the better.
 
-Your initial approach was correct one. 
+I added the two SMCCC bus prerequisite patches to this series, just to
+trigger a Sashiko review, which was missing so far. I am sure it will be
+a feast for Sashiko to tear this apart ;-) Those two patches have already
+been queued in arm64/for-next, for the v7.4 merge window, but I will need
+to send at least another revision after the merge window anyway, so I just
+added them here meanwhile, for this one version. Please ignore them for
+review purposes.
 
-Thanks.
+For a high level overview of LFA see the rest of this commit message and
+the commit message of the main features patch (4/8). Some simplified over
+of the spec is in the top comment in patch 4/8. Also the sysfs ABI
+documentation in the last patch contains some more information.
 
+Based on v7.3-rc1, plus those first two patches from Aneesh's SMCCC bus[1]
+series. Changelog below.
+==============================
+
+This series implements the kernel side support of the Arm Live
+Firmware Activation (LFA) specification [2]. LFA enables the activation
+of updated firmware components without requiring a system reboot,
+reducing downtime and allowing quicker deployment of critical bug fixes
+in environments such as data centers and hyperscale systems.
+It requires explicit firmware support, both via an agent running in EL3
+(for instance in TF-A, already merged), but also in the firmware
+component to be activated. TF-RMM recently merged support for this.
+
+Unlike the usual firmware update process (which may use tools like
+fwupd), LFA focuses solely on the activation of an already updated
+firmware component, called "pending activation" in LFA lingo. This works
+by signalling the LFA agent (part of the EL3 runtime firmware) via an
+SMC call, which then does the heavy lifting of the live update, in
+cooperation with the to-be-updated firmware component.
+
+Key features of the driver:
+* Detects LFA support in system firmware (EL3).
+* Lists all firmware components that support live activation, identified
+  by their UUID.
+* Exposes component attributes (e.g., activation capability, and
+  activation pending) via sysfs under /sys/firmware/lfa/<UUID>/.
+* Provides interfaces to:
+  - Trigger activation of an updated firmware component.
+  - Cancel an ongoing activation if required.
+A more detailed list of features can be found in patch 4/8.
+Based on v7.3-rc1.
+
+This work is conceptually similar to Intel’s Platform Firmware Runtime
+Update and telemetry (PFRUT) [3] and TDX module updates [4], but
+targets Arm platforms. The driver has been used to successfully activate
+a Realm Management Monitor (RMM) firmware image in a controlled test
+environment. RMM is analogous to Intel’s TDX module.
+
+There is effort on similar work from the OCP [5]. Future work may
+include integration with utilities like fwupd to automatically select
+the appropriate driver, based on platform architecture, for Live/Runtime
+firmware updates.
+
+Please have a look, test and comment!
+
+Best regards,
+Salman and Andre
+
+Changes in v5:
+- merge the timeout and the lock patch into original feature patch
+- drop "name" attribute altogether
+- rename firmware "image" to "component" everywhere
+- add explanation of LFA concepts in top comment
+- use switch/case for error strings and error mapping
+- define error codes with negative numbers
+- rename SMCCC register variable to from "reg" to "regs"
+- don't open code bit masking
+- use only one SMCCC register set where possible
+- rewrite retry:/goto into do/while() loop
+- make example IRQ to be edge triggered
+- update activation_pending in pending_version_show()
+- check SMCCC version to be v1.2 or higher
+- check all SMCCC functions are implemented
+- remove blank lines before return statements
+- use UUID instead of GUID everywhere
+- improve comments
+- filter for ACPI notification 0x80 only
+- update ABI doc to use component, not image
+- add activation_pending attribute
+- fix IRQ/ACPI registration error handling
+- add comments documenting lock requirements
+- print LFA error number when printing error strings
+- explicitly free IRQ in remove() routine
+- reorder functions to avoid early empty prototype
+- adjust SMCCC function ID names to match spec
+- copy list of activatable images to avoid infinite loop
+- update pending status when showing pending_version
+- cast error returns to s64
+- replace "N/A" error return with empty string
+
+Changes in v4:
+- streamline threaded IRQ handler (drop empty hard IRQ part)
+- add lfa_to_linux_error() conversion function
+- use Linux errno codes in more functions
+- drop bogus LFA error numbers for -EAGAIN and -EBUSY
+- clarify interrupt purpose and edge trigger requirement in binding
+- honour signal related return from msleep_interruptible()
+- call clean_fw_images_tree() first in driver teardown
+- streamline ACPI and DT registration
+- cache rendezvous status to avoid race during activation
+- only trigger activation when writing 1/Y/true to sysfs file
+- adapt to new version of Aneesh's SMCCC bus patches ([1])
+
+Changes in v3:
+- change node name in DT binding example
+- move SMCCC function identifiers into generic SMCCC header
+- rework to use the new SMCCC bus instead of a using a faux device
+- add missing workqueue cleanup in probe() routine
+- squash former patch v2 3/8 into base patch
+- use get_image_name() more consistently
+- also consider -LFA_BUSY return in activate call
+
+Changes in v2:
+- restrict build to arm64 (the LFA spec only supports AArch64)
+- rename and extend central data structure to fw_image
+- use separate GPR register sets for some SMC calls
+- provide wrapper for error messages to prevent out-of-bound access
+- return GUID in the "name" sysfs file when image is unknown
+- fix wrong attribute in pending version number show function
+- add missing include files and order them properly
+- fix memory leaks in error cleanup paths
+- handle lifetime using embedded kobjects and a kset
+- drop global lfa_lock, use kset list lock and kobject refcount instead
+- add DT binding documentation
+- add timeout and watchdog re-arming (contributed by Veda)
+- relax timeout period and do not block while waiting
+- register ACPI notification (contributed by Veda) and DT interrupt 
+- refactor ACPI notification code to allow sharing with DT code
+- use faux device instead of platform driver
+- add auto_activate file to control automatic activation
+- introduce rwsem mutex to prevent using stale sequence ID
+- use labels and goto instead of infinite loop when retrying activation
+- initialise workqueue only once (thanks to Nirmoy)
+- various cleanups on reported messages and code formatting
+- rebase on top of v7.0-rc1
+
+Changes in v1:
+- Updated SMCCC version 1.1 to 1.2 per the LFA specification requirement.
+- Changed "image_props" array to a linked list to support the dynamic
+  removal and addition of firmware images.
+- Added code to refresh firmware images following a successful activation.
+- Added a work_queue to handle the removal of firmware image attribute
+  from it's respective kobject "_store" handle.
+- Refactored prime and activate into separate functions.
+- Kernel config for LFA now defaults to "y" i.e. included by default.
+- Added individual kernel attribute files removal when removing the
+  respective kobjects using kobject_put().
+- mutex_lock added to activate_fw_image() and prime_fw_image() calls.
+- Renamed create_fw_inventory to update_fw_image_node.
+- Renamed create_fw_images_tree to update_fw_images_tree.
+- Added two more attributes due to specs update from bet0 to bet1:
+  current_version: For retrieval of the current firmware's version info.
+  pending_version: For retrieval of the pending firmware's version info.
+- Minor changes such as, improved firmware image names, and code comments.
+- do...while loops refactored to for(;;) loops.
+
+[1] https://lore.kernel.org/linux-arm-kernel/20260914060511.277948-1-aneesh.kumar@kernel.org/
+[2] https://developer.arm.com/documentation/den0147/latest/
+[3] https://lore.kernel.org/all/cover.1631025237.git.yu.c.chen@intel.com/
+[4] https://lore.kernel.org/all/20250523095322.88774-1-chao.gao@intel.com/
+[5] https://www.opencompute.org/documents/hyperscale-cpu-impactless-firmware-updates-requirements-specification-v0-7-9-29-2025-pdf
+
+
+Andre Przywara (4):
+  dt-bindings: arm: Add Live Firmware Activation
+  firmware: smccc: lfa: Add auto_activate sysfs file
+  firmware: smccc: lfa: Register DT interrupt
+  firmware: smccc: lfa: add sysfs ABI documentation
+
+Aneesh Kumar K.V (Arm) (2):
+  firmware: smccc: Add an Arm SMCCC bus
+  firmware: hwrng: arm_smccc_trng: Register as an SMCCC device
+
+Salman Nabi (1):
+  firmware: smccc: Add support for Live Firmware Activation (LFA)
+
+Vedashree Vidwans (1):
+  firmware: smccc: lfa: Register ACPI notification
+
+ Documentation/ABI/testing/sysfs-firmware-lfa  |  106 ++
+ .../devicetree/bindings/arm/arm,lfa.yaml      |   50 +
+ MAINTAINERS                                   |    2 +
+ arch/arm/include/asm/archrandom.h             |    2 +-
+ arch/arm64/include/asm/archrandom.h           |    2 +-
+ drivers/char/hw_random/arm_smccc_trng.c       |   32 +-
+ drivers/firmware/smccc/Kconfig                |   10 +
+ drivers/firmware/smccc/Makefile               |    3 +-
+ drivers/firmware/smccc/bus.c                  |  158 +++
+ drivers/firmware/smccc/lfa_fw.c               | 1057 +++++++++++++++++
+ drivers/firmware/smccc/smccc.c                |   67 +-
+ include/linux/arm-smccc-bus.h                 |   48 +
+ include/linux/arm-smccc.h                     |   15 +
+ include/linux/device-id/arm_smccc.h           |   19 +
+ include/linux/mod_devicetable.h               |    1 +
+ scripts/mod/devicetable-offsets.c             |    3 +
+ scripts/mod/file2alias.c                      |    8 +
+ 17 files changed, 1560 insertions(+), 23 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-firmware-lfa
+ create mode 100644 Documentation/devicetree/bindings/arm/arm,lfa.yaml
+ create mode 100644 drivers/firmware/smccc/bus.c
+ create mode 100644 drivers/firmware/smccc/lfa_fw.c
+ create mode 100644 include/linux/arm-smccc-bus.h
+ create mode 100644 include/linux/device-id/arm_smccc.h
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
-Dmitry
+2.43.0
+
