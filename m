@@ -1,208 +1,275 @@
-Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3733BADAA
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D7F3BED42
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792122355; cv=none; b=KDcF2ktl51M8i9cYbqoXO9zJEEZH29TOdclhSYgx6G0t5KqP2oiIHnbOHZ1R9W0gSM9CNp0qNne5MC8MyKibguRZXldX9Vk/8rv1cTF7xulOzazEksozjXIw3aT5XkJ3qR+hjUXLuE8ApitMgRBKVup9q4lW49L4OiUnrpH6KOY=
+	t=1792122357; cv=none; b=F+UKlsW3YbE+xbG82SU5R5KwUqAkjL8FZphFlX5g6QPxcc6J7fJvGD6n7Dsnys5KUjwkmH13q4Tpz7oLR8Nq6jV9KnIbQ71vuRhD8G7gPKPlCF6HzOwBC/bqMKvQu09ckBqZOfLqmvggOboyjT02RiW8+skc9wm7lZiMq0Snpvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792122355; c=relaxed/simple;
-	bh=XEYpBK4JT8bu1SDqkA6FLNfAXmiC58NHQz5kNRkO1cY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pYVJfQA3rjMYc4GUwkygHDn5f0xdwQZXg7Dca4nJzkM0OUnOluAgzVD1+jI0UKzTyGUJ6seox3CcgcIt+D8w+BMMjMzIZgS7hGQCD4Q8Py19KrOQKwJPgVboe7+TgSUhaXkDpLolLGTDzYSyuAMkSVWLHySC7SHDRcZVOfQdDr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DW4Aypwh; arc=none smtp.client-ip=74.125.229.6
+	s=arc-20240116; t=1792122357; c=relaxed/simple;
+	bh=3PLYNRG+R1vcn+zst5EafJtg8zZpSNmVtMEe2/zmAwI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=E8j4Hrn97+ihIiQWCUYzDQVwM1s7gZTXWxgkp9WY7j2Gbc3Xf6gUmHiAHf30FIEZswn2Naf1ZEA0dM9KFZGV+oKj5C1SIzpSVMxl3/CPS2lB/q3FtYkW8MIe5r5QewJH6DXUTX++WcWPjfVs8UmxOBY2EnYDYC578ksidguLAKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R9sNw1bD; arc=none smtp.client-ip=209.85.210.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DW4Aypwh"
-Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-3537dfdcabaso7799414eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:45:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R9sNw1bD"
+Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-81b54d0cb17so4421605a34.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:45:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792122352; x=1792727152; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792122354; x=1792727154; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=daqdSqsQywkW4QFvPS0cowFZqZyMXgakPffXgvi9+4c=;
-        b=DW4AypwhqRams30ksruRESqzIHmavGLeWnlb3VjkCIlJVEmoMoN/uVErhrW7J/FsqS
-         iKOAiRdJN+l05VksBux4M0YDufwbXHXqRPdYdo3fdbTLAwJHYPjLQp/h8FKQA+sdIHYm
-         EHycTQ70Ak6syqJlx5YgKGmvwd+eVqHvwsZ6tQqGLHeJv2a+QFiP7PJjR4TdouDlzldr
-         DCBxK3draTzmR99LU7IY2NROKjMdC79x3HctfqI0N4wwKKQdriMJEUvbWxhcWQvcAwIt
-         jWmfiyi+25c6y1WCjbaRGdg+bG0eH6Yq0hzUcfldEW6O+BntI1D6U/jKgLUNBSvWUNQr
-         E2eA==
+        bh=zAN0y/NlYSkso/Y1xGAc/UgZ/A9idw6Kq1nSbL1jYtY=;
+        b=R9sNw1bDRo5tBSkYx+NxI9b+n/QnKt/gCJ8CGGiIjMoIf6GKrYjgEJApm3F6ockinC
+         oMp/lr+lPlLH7VTtbWjERKNtJzRr38iDZAj3vbcDGOeTfIgDURI89IHDqk0GEZss2WVL
+         jvmbS/H+jUFJRWH9ycPi7gUvKGUQULs0rLYtA62invgKAfbUblCvtH43DG+Az0wp6Rbg
+         /3JSyb3ot2uANJI2VgmWE4fsS1HpFt3C1sAFul8p1Yj+q8WrQLB2Tu9U9RoEnUYUdCKr
+         C/LTqwddNA1+CBcLQRfPeZvOte1ghHFbsAp0Gkb/Pek92fuqhJFQaD/ZV65SU+7T4/gL
+         9TKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792122352; x=1792727152;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=daqdSqsQywkW4QFvPS0cowFZqZyMXgakPffXgvi9+4c=;
-        b=mrG4v0fiSRNvyf0aMd2lsq1JkwcJ/Bamm39vg/XrYFt9N9Qt2Oy600fJmggYAtQfQF
-         FhKvB+MObxwqrxrgQ6MFQHdmO1PTdoGPsH8YAHavidnEJbQIUGNdlS7nFLGKDisNYnVx
-         IsjNugJnUVnppWVbDgR+cHiVaMLZW+LmK4m1OG+RWc5CxzQpn1Hoa7YLS8iHqSnosbhh
-         oLkRJqvZP39PXMcKF8rIXvq1syuLamy+IgRmW0gQHEeHTAKP+t1SXkNG+NfKhnFOIy21
-         DQbBYVUci2W/L22FbB2YISFgiD5vPSShia3YLE/8SnsXH4t0ShxvG8zlYt96jwYF8VqJ
-         ukdA==
-X-Forwarded-Encrypted: i=1; AKwUvBxo3jWhqyB5oi6NbKnoqormu9WNa+WJqGIseEDqGVfqssIy4DbaajJjOIu5x1U0RgWDL/Aa/eQJtNs2AC8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKqmS3ChACZn3I963OsDOGOyK+FNvhcGdH5ZBFDXUZ283aK+9pa
-	pZfu4/Thu2O8Y0FM3uQkZoBXPr8tfcNSpiyC/X6njSyMN56CArGuWxdD
-X-Gm-Gg: AYBFou35SDYdSJW+QSvzQ5al9lD+fgGFCUvKsRFe9bEhRtZhDHFkKq7/i+Jc/V66R0Y
-	Bzuyou0Wcjoc09YQHba0B+MyMbVdJ/AVGGxH+SgYtGX/reidzxV6hvrQ717nTcnY2gyJYXUqJKm
-	sE2aJRGJIpM2OsoPu0wjcMuwOnv6LUGrD1MfnsbInvVnyJUwIerw0yoby4mpewiLbs2RKQsn2iX
-	1Qlk6573dXw6x5/VSx24SR7596CFXR5D8de9zjCtxQeggLjW3ZjXPnfLLXN1hfXUqpmJvQy8+k8
-	dUPSr3LIKn6zXU4Sv/afJ7QIoNKtQW4iQTVlS1e3hxweFOBx/GYDkquTMi3E1JxxwHKz59bWOG+
-	8VwLKKq7ZGceyMIgEbBmqOxD5Nb7T86teNvTLoJEpHN+z+P5mOF1GQFTOX6KWRN2Ew5ub7Ona/3
-	pwM9gDOgTC+gasftVsoZZjbdz0teK/wRYUsz2SI4AWj7Kb+9i78c14qQhr+wLpieM2VOkZD8O6q
-	kxHxjJt+8D87J3USo1v2F691gt0eFRNSslmPfpfaqTj0Etgag==
-X-Received: by 2002:a05:693c:80c1:b0:35e:51d6:9f6f with SMTP id 5a478bee46e88-35e51e5fd78mr8412093eec.27.1792122352334;
-        Thu, 15 Oct 2026 20:45:52 -0700 (PDT)
-Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com. [104.194.64.109])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608297f4f7sm2434229eec.23.2026.10.15.20.45.49
+        d=1e100.net; s=20260707; t=1792122354; x=1792727154;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zAN0y/NlYSkso/Y1xGAc/UgZ/A9idw6Kq1nSbL1jYtY=;
+        b=cLyLkArpR+k7IuQFJk0XwtPqDdAjkEnXn7NXTmvkDhdxdByuWySt0w3lYHK9uabcVJ
+         Pc7hNKbKr6UuKUblaU/AquNEMQscsHm3SJ83uRso4IG3T6Im6cztitcMbQyqJi58Siit
+         3yiKd006FZhARhNPGKJKPTi3gjKviIJlJZ9D0unjqGZh6CAYwrFOmA6Fo5WGx/VoZfEE
+         F2j7Jgp/qHIGHfuEWjVzm7WL6vUbt7kzo44zKbmcLIgdQumAaRENN1/F3s1q14Ir7e8K
+         q3aMJyOZMij4Gg3sl5iOAye9oxc0unE2QOoVSgAaxSg6Y0xeNAu7BVGlbLkl4p+7E68h
+         gPug==
+X-Forwarded-Encrypted: i=1; AKwUvBwRNVuIb5reCjHBPGpMv7e/LAI0+ScxMmh+7MlHbEYlkaPqX2AQ1489IBybmx6HgrTLeUpLWOfSjBF/PAA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKsRL0vGVjh0XNXqOPGcUBH9pHn7MgT78ntz6RTEjXuzXxStLx+
+	vCVCtkfasySL0i9Ga+mrohf4ecnRml/TjnigDQfEpXl2o47WyMa7l+OT
+X-Gm-Gg: AYBFou1Ka5SssIEOmtWEm4FJk8jnwpd7FjI5a41SLdzLGvtOxAMqubw8jhW90E3ndR2
+	Ifjy82P69DM2ey4ChvCjUIopMeaANeTeBqcaXIaJfTNM5r2IbuxdarsimRudB6MAUrNpcMF9nxZ
+	gXOQTSbBmb9lkaoojdTdPZjqapWWoAvJHjbpwA+dv2+UScQ3ucami5d3hYq2RbevLdIFJ7942M1
+	u40++TMtC3PIJ39gE6GDAGxn11hOyHq9jttJf0ihLPrxoeQOhhDhdtlv2Yum7VmRu4q5wtRWVKX
+	792TITc9C5MqNpYIQSfzzweBdZ7pC30Nyoi/CkGOago4+c5zNp2s2R8zQ06NQXsguh39Mf3lw18
+	rf0hkU+mtoATIqAsqa43Kief0jN47sjNY77c9mBEVQCAtk0PIaq7YtIgyWYW4vVwsPZcPypXVHq
+	ew+IMbIReSMfgW9hnsvXvLiUyFMNIkTyOMAwowIpegQrVJkYufmGgoOC6obNuYWEHM0xv3kMh2P
+	U0HbekTEFN7nB0dp0TVnjYCajjgMQiDdRYbgMA9lqZN0SIi7bl63CUJ4XK0OWzLHpol3qSk3Di2
+	GIJWU1VGtokaQtZjML8zMHaDmydhge0IVs/GhPatxODOgvHxgFJbsDJoxflmJkKQO4TfSYMRM02
+	fr5wkig8dLa7QtrKpBLqj8ypddAt8MrcV
+X-Received: by 2002:a05:6830:4c0a:b0:80a:b8da:2792 with SMTP id 46e09a7af769-83094e783camr22214084a34.6.1792122354047;
+        Thu, 15 Oct 2026 20:45:54 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8429b57870fsm834402a34.0.2026.10.15.20.45.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 20:45:51 -0700 (PDT)
-From: Yao Yiqi <yyaqia@gmail.com>
-X-Google-Original-From: Yao Yiqi <yaoyiqi3@huawei.com>
-To: deller@gmx.de,
-	tzimmermann@suse.de,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	yaoyiqi3@huawei.com,
-	Yao Yiqi <yyaqia@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/3] fbcon: Rebuild rotated font buffer on font change
-Date: Fri, 16 Oct 2026 11:45:32 +0800
-Message-ID: <20261016034533.445862-3-yaoyiqi3@huawei.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261016034533.445862-1-yaoyiqi3@huawei.com>
-References: <20261016034533.445862-1-yaoyiqi3@huawei.com>
+        Thu, 15 Oct 2026 20:45:53 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Thu, 15 Oct 2026 21:45:30 -0600
+Subject: [PATCH v8 15/17] mtd: rawnand: sunxi: reduce user-data length
+ register accesses
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-15-8ba4881fbee8@gmail.com>
+References: <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-0-8ba4881fbee8@gmail.com>
+In-Reply-To: <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-0-8ba4881fbee8@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
+ Richard Genoud <richard.genoud@bootlin.com>, 
+ Boris Brezillon <bbrezillon@kernel.org>, 
+ Masahiro Yamada <yamada.masahiro@socionext.com>, 
+ Brian Norris <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+ devicetree@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-From: Yao Yiqi <yyaqia@gmail.com>
+H6/H616 pack eight ECC steps' user-data length codes into each 32-bit
+register. DMA currently clears all these registers, then
+read-modify-writes one field per step, repeatedly accessing the same
+words. Code zero means no user data; the other codes select lengths from
+the controller's table.
 
-From: Yao Yiqi <yaoyiqi3@huawei.com>
+Build each packed value in memory and write it once per DMA batch,
+including zeros for unused slots. Take each length from the batch's
+logical step but encode it in the corresponding batch-local hardware
+slot. Rewrite every register on each batch rather than caching values
+across resets or changes of chip.
 
-fbcon_rotate_font() caches a rotated copy of the console font in
-par->rotated.buf. The buffer is sized from the font's width, height
-and charcount, and is rebuilt in fbcon_init(), fbcon_switch() and
-fbcon_modechanged(), but not in fbcon_do_set_font().
+Share the encoding with a PIO setter. PIO always uses hardware slot
+zero, and its page callbacks clear all length registers before the chunk
+loop. It can therefore write the slot-zero code directly, without a
+read-modify-write. Keep the page-level clearing so unused slots are also
+cleared after a DMA-to-PIO fallback. Older controllers without length
+registers remain unaffected, and the chosen lengths and on-flash layout
+do not change.
 
-When the console font is changed through KDFONTOP/KD_FONT_OP_SET, the
-new font data and geometry are installed and vc_resize() is called.
-The redraw that follows reaches the rotated bitops while the buffer
-still holds the old font: the rotated putcs/cursor ops index
-par->rotated.buf with the new cell size and character codes, so a
-stale, too-small buffer is read out of bounds.
-
-KASAN reports, for example:
-
-  BUG: KASAN: slab-out-of-bounds in soft_cursor
-  Read of size 64 at addr ...
-   memcpy
-   soft_cursor
-   cw_cursor
-   fbcon_cursor
-   hide_cursor
-   redraw_screen
-   vc_do_resize
-   fbcon_do_set_font
-   fbcon_set_font
-   con_font_op
-   vt_ioctl
-
-Rebuild the buffer for the visible console right after the new font
-geometry has been installed and before any redraw. Select the
-console's blitting state with set_blitting_type() first, as
-fbcon_init(), fbcon_switch() and fbcon_modechanged() do before their
-rotate_font() calls: fbcon_rotate_font() reads the source font
-through par->p, which may otherwise still refer to another console of
-this framebuffer. Background consoles keep their rebuild at
-fbcon_switch() time, as the buffer is shared per framebuffer and must
-not be rebuilt for a console that is not being displayed.
-
-If vc_resize() fails, err_out restores the previous font. The rotated
-buffer that was rebuilt for the new font earlier in the function
-cannot be restored with it: font_data_rotate() has already reused or
-freed the buffer that belonged to the old font. Rebuild the buffer
-again after the restore. Otherwise the console keeps rendering with
-the old geometry against a buffer that was laid out for the rejected
-font, and par->rotated.fontdata keeps referencing the font data whose
-last reference the error path drops. A failing rebuild leaves
-par->rotated.buf NULL, so the rotated ops skip drawing instead of
-reading a mismatched buffer; the next patch retries the allocation on
-the following call.
-
-Unlike the other callers, this one does not fall back to unrotated
-rendering on failure. The "par->rotate = FB_ROTATE_UR;
-set_blitting_type(vc, info);" fallback they use does not actually
-switch to unrotated rendering: set_blitting_type() calls
-fbcon_set_rotation(), which immediately re-derives par->rotate from
-par->p->con_rotate. Replicating that pattern here would not change
-the outcome; repairing the fallback is left to separate work.
-
-Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
-Changes in v2:
+ drivers/mtd/nand/raw/sunxi_nand.c | 79 +++++++++++++++++++++++++--------------
+ 1 file changed, 50 insertions(+), 29 deletions(-)
 
-- Rebuild the buffer again in the error path of fbcon_do_set_font().
-  Without this, a failed vc_resize() left the rotated cache describing
-  the rejected font while the console rendered with the restored one,
-  and par->rotated.fontdata referenced freed font data (found by the
-  Sashiko review).
-- Select the console's blitting state with set_blitting_type() before
-  rebuilding, like the other rotate_font() callers, instead of writing
-  par->p directly.
-- Reworded the note about the unrotated-rendering fallback, which is
-  now left to separate work.
----
- drivers/video/fbdev/core/fbcon.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
-
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 01715873ea49..1a2fe9fc1dc2 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -2432,6 +2432,17 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	else if (!vc->vc_hi_font_mask && charcount == 512)
- 		set_vc_hi_font(vc, true);
+diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
+index 2a9fe89b1ba5..56594bb41193 100644
+--- a/drivers/mtd/nand/raw/sunxi_nand.c
++++ b/drivers/mtd/nand/raw/sunxi_nand.c
+@@ -57,7 +57,7 @@
+ #define NFC_H6_USER_DATA_REGS	32
+ #define NFC_REG_USER_DATA(nfc, x)	(nfc->caps->reg_user_data + ((x) * 4))
+ #define NFC_REG_H6_USER_DATA_LEN 0x0070
+-/* A USER_DATA_LEN register can hold the length of 8 USER_DATA registers */
++/* Each USER_DATA_LEN register holds eight 4-bit ECC-step user-data length codes. */
+ #define NFC_REG_USER_DATA_LEN_CAPACITY 8
+ #define NFC_REG_USER_DATA_LEN(nfc, step) \
+ 	 (nfc->caps->reg_user_data_len + \
+@@ -1025,35 +1025,60 @@ static void sunxi_nfc_reset_user_data_len(struct sunxi_nfc *nfc)
+ 		writel(0, nfc->regs + NFC_REG_USER_DATA_LEN(nfc, i));
+ }
  
-+	/*
-+	 * Select the console's blitting state and update par->rotated to
-+	 * match the new font, so that the rendering below does not use a
-+	 * cache that was built for the old font.
-+	 */
-+	if (con_is_visible(vc)) {
-+		set_blitting_type(vc, info);
-+		if (par->bitops->rotate_font)
-+			par->bitops->rotate_font(info, vc);
+-static void sunxi_nfc_set_user_data_len(struct sunxi_nfc *nfc,
+-					int len, int step)
++static int sunxi_nfc_user_data_len_code(struct sunxi_nfc *nfc, int len)
+ {
+-	bool found = false;
+-	u32 val;
+ 	int i;
+ 
++	for (i = 0; i < nfc->caps->nuser_data_tab; i++) {
++		if (len == nfc->caps->user_data_len_tab[i])
++			return i;
 +	}
 +
- 	if (resize) {
- 		int cols, rows;
- 
-@@ -2466,6 +2477,14 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
- 		set_vc_hi_font(vc, false);
- 
-+	/*
-+	 * The rotated font buffer was rebuilt for the new font before
-+	 * vc_resize() was attempted. Call rotate_font() again to
-+	 * overwrite par->rotated with the restored font's state.
-+	 */
-+	if (con_is_visible(vc) && par->bitops->rotate_font)
-+		par->bitops->rotate_font(info, vc);
++	dev_warn(nfc->dev, "Unsupported length for user data reg: %d\n", len);
++	return -EINVAL;
++}
 +
- 	font_data_put(data);
++static void sunxi_nfc_set_user_data_len_pio(struct sunxi_nfc *nfc, int len)
++{
++	int code;
++
+ 	/* not all SoCs have this register */
+ 	if (!nfc->caps->reg_user_data_len)
+ 		return;
  
- 	return ret;
+-	for (i = 0; i < nfc->caps->nuser_data_tab; i++) {
+-		if (len == nfc->caps->user_data_len_tab[i]) {
+-			found = true;
+-			break;
+-		}
+-	}
+-
+-	if (!found) {
+-		dev_warn(nfc->dev,
+-			 "Unsupported length for user data reg: %d\n", len);
++	code = sunxi_nfc_user_data_len_code(nfc, len);
++	if (code < 0)
+ 		return;
+-	}
+ 
+-	val = readl(nfc->regs + NFC_REG_USER_DATA_LEN(nfc, step));
++	/* PIO uses slot zero; the page callback clears all other slots. */
++	writel(FIELD_PREP(NFC_USER_DATA_LEN_MSK(0), code),
++	       nfc->regs + NFC_REG_USER_DATA_LEN(nfc, 0));
++}
++
++static void sunxi_nfc_set_user_data_len_dma(struct nand_chip *nand,
++					    int first_step, int nchunks)
++{
++	struct sunxi_nand_chip *sunxi_nand = to_sunxi_nand(nand);
++	struct sunxi_nfc *nfc = to_sunxi_nfc(nand->controller);
++	int first, step, len, code;
++	u32 val;
++
++	if (!nfc->caps->reg_user_data_len)
++		return;
+ 
+-	val &= ~NFC_USER_DATA_LEN_MSK(step);
+-	val |= field_prep(NFC_USER_DATA_LEN_MSK(step), i);
+-	writel(val, nfc->regs + NFC_REG_USER_DATA_LEN(nfc, step));
++	/* Write each packed register once, including zeroes for unused slots. */
++	for (first = 0; first < nfc->caps->max_ecc_steps;
++	     first += NFC_REG_USER_DATA_LEN_CAPACITY) {
++		val = 0;
++		for (step = first; step < nchunks &&
++		     step < first + NFC_REG_USER_DATA_LEN_CAPACITY; step++) {
++			len = sunxi_nfc_user_data_sz(sunxi_nand, first_step + step);
++			code = sunxi_nfc_user_data_len_code(nfc, len);
++			if (code >= 0)
++				val |= field_prep(NFC_USER_DATA_LEN_MSK(step), code);
++		}
++		writel(val, nfc->regs + NFC_REG_USER_DATA_LEN(nfc, first));
++	}
+ }
+ 
+ static void sunxi_nfc_hw_ecc_set_prot_oob_bytes(struct nand_chip *nand,
+@@ -1425,7 +1450,7 @@ static int sunxi_nfc_hw_ecc_read_chunk(struct nand_chip *nand,
+ 	if (ret)
+ 		return ret;
+ 
+-	sunxi_nfc_set_user_data_len(nfc, user_data_sz, 0);
++	sunxi_nfc_set_user_data_len_pio(nfc, user_data_sz);
+ 	sunxi_nfc_randomizer_config(nand, page, false);
+ 	sunxi_nfc_randomizer_enable(nand);
+ 	writel(NFC_DATA_TRANS | NFC_DATA_SWAP_METHOD | NFC_ECC_OP,
+@@ -1454,7 +1479,7 @@ static int sunxi_nfc_hw_ecc_read_batch_dma(struct nand_chip *nand,
+ 	struct sunxi_nfc_ecc_snapshot snapshot;
+ 	struct scatterlist sg;
+ 	int page = read->page;
+-	int ret, i;
++	int ret;
+ 	u32 wait;
+ 
+ 	if (first_step) {
+@@ -1475,10 +1500,7 @@ static int sunxi_nfc_hw_ecc_read_batch_dma(struct nand_chip *nand,
+ 		return ret;
+ 
+ 	sunxi_nfc_hw_ecc_enable(nand);
+-	sunxi_nfc_reset_user_data_len(nfc);
+-	for (i = 0; i < nchunks; i++)
+-		sunxi_nfc_set_user_data_len(nfc,
+-					    sunxi_nfc_user_data_sz(sunxi_nand, first_step + i), i);
++	sunxi_nfc_set_user_data_len_dma(nand, first_step, nchunks);
+ 	/* exec_op() restores the page's spare base during column changes. */
+ 	if (first_step)
+ 		writel(mtd->writesize + sunxi_get_oob_offset(sunxi_nand, ecc, first_step),
+@@ -1588,7 +1610,7 @@ static int sunxi_nfc_hw_ecc_write_chunk(struct nand_chip *nand,
+ 
+ 	sunxi_nfc_randomizer_config(nand, page, false);
+ 	sunxi_nfc_randomizer_enable(nand);
+-	sunxi_nfc_set_user_data_len(nfc, user_data_sz, nfc_step);
++	sunxi_nfc_set_user_data_len_pio(nfc, user_data_sz);
+ 	sunxi_nfc_hw_ecc_set_prot_oob_bytes(nand, oob, nfc_step, bbm, page,
+ 					    user_data_sz);
+ 
+@@ -1855,7 +1877,7 @@ static int sunxi_nfc_hw_ecc_write_page_dma(struct nand_chip *nand,
+ 			goto pio_fallback;
+ 		}
+ 
+-		sunxi_nfc_reset_user_data_len(nfc);
++		sunxi_nfc_set_user_data_len_dma(nand, first_step, batch_steps);
+ 		for (i = first_step; i < first_step + batch_steps; i++) {
+ 			unsigned int user_data_sz = sunxi_nfc_user_data_sz(sunxi_nand, i);
+ 			int oob_off = sunxi_get_oob_offset(sunxi_nand, ecc, i);
+@@ -1863,7 +1885,6 @@ static int sunxi_nfc_hw_ecc_write_page_dma(struct nand_chip *nand,
+ 
+ 			sunxi_nfc_hw_ecc_set_prot_oob_bytes(nand, oob, reg_index, !i,
+ 							    page, user_data_sz);
+-			sunxi_nfc_set_user_data_len(nfc, user_data_sz, i - first_step);
+ 			reg_index += user_data_sz / 4;
+ 		}
+ 
+
 -- 
-2.56.0
+2.53.0
 
