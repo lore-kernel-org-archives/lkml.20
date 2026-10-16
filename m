@@ -1,103 +1,140 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8E045198E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D3F44BC92;
+	Fri, 16 Oct 2026 08:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792140889; cv=none; b=qXFwpXgL1GvRrLoA/avYm5qp7eElwzlZW8qrRh5hdpmh6C31WqZRmRSgC+G/ht3stkW++k6vmxFt9QVDQ76NS/nMIkoC7/QRHJVW0VbgZCsge7ZdiMLSV922cw4HMRbiuvavZul8PJIP96c0TupaGbmRnuavfgzCpCA1bZjEGRM=
+	t=1792140890; cv=none; b=XJ6zg5M8sAlQL1wxMRJYaGPOUygbm6/5UTrBKAKikci+H0lkVz0m0IfMu2Ws8HCULRf/s4DPGktC1F6pf0j9RaBOHc3UUSIud72lxKHfPPIU/u+rqtb46qjOrFdF3TEH6i3efIAalTQE94gZNREevPUDE7gcvNsOhT6UcoJLXp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792140889; c=relaxed/simple;
-	bh=+ddBgdQMjneebT1Xm9H6GXtz+L0Qfa2PWgsMcHVNZ0c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UdQdcChg7hU5GNzXG+Rcd84xD8CIH0Q1go2IBS5yMyP1tf5rI0fzo8NlYW102BYa/+h/k6ja96Tfv5wD7Pkn6/8JbrOiqUNED1agGDqTJnXQAaOQXYfg0KgtNr7tPlsEGF5ZAtsz+c7qeb8cZxlS+kCP+WEkM9Mi52J1ikZLzSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Sj6xzOMl; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=EjYBLol2; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Sj6xzOMl";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="EjYBLol2"
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792140882;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=sAZxgkUm/1QOIpkLX+41+B+U7ZsypmU64rIn82sXQto=;
-	b=Sj6xzOMl/nzfrNU+ybM4TdwwGaatjUcaEf0TDXuNxJK8k/rjp6i41jzoFCW7jDodZ4KDF7
-	tZA5i5ds7qrRfrl3h0i9SwRZFmGWhsflWCxvqsB27FCcbyzB/sDeTHUgzQ3WPqqyoxhDHX
-	PHy528zi8fefrL1v4mJ2G/adzTotV4jKkf5BjJw8XxRPAUPlrI/kmMq3QC+RUBzQxJKFm4
-	EzVGTPaFOAeWQNYzgYfkXjr8qcYNz318XkizkpHM63hVT8yMUxKw0464RWVqTWEDQTpfL7
-	qPVi9GTssRYvXyEdqgp5/XFvuLytbkwYiKQjQLjaLIfJNZW6xCFVqoCD+bpJrQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792140882;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=sAZxgkUm/1QOIpkLX+41+B+U7ZsypmU64rIn82sXQto=;
-	b=EjYBLol2lYXIe3NdaDsk1LL+Puiu5suh9pE2XO4WDp4npg3K3bqb9Js8avRnd64QlP/xJ8
-	8WdYzofEyOkd3sBw==
-To: Petr Mladek <pmladek@suse.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Derek Barbosa <debarbos@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	Thomas Gleixner <tglx@kernel.org>
-Subject: [PATCH printk v2] printk: Postpone kthread startup
-Date: Fri, 16 Oct 2026 11:00:34 +0206
-Message-ID: <20261016085441.857695-1-john.ogness@linutronix.de>
+	s=arc-20240116; t=1792140890; c=relaxed/simple;
+	bh=P0RTLIbVU2S4X/eL+eds+/vYVZud713p6vOZsXOqWLg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=QanEnBIVVsl6aJjoUradMz7dcOBoXM76YOCMDYzhzK8LA63IVD6waQX2elCZ8l9C2XCSJzbRLuPtRbhk8cpzIC1A8lHxxYON4WAlRfzrR3WgrUX5sdHpOoHfQVP0rB4Et5v4bbrViy0hg5nE9u9hkDreevJPygymisCwiBa08uU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Fri, 16 Oct
+ 2026 16:54:36 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Fri, 16 Oct 2026 16:54:36 +0800
+From: Joe Wang <joe_wang@aspeedtech.com>
+Date: Fri, 16 Oct 2026 16:53:07 +0800
+Subject: [PATCH] usb: ehci: Quiesce ASPEED EHCI before halting it on
+ shutdown
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261016-upstream_ehci_aspeed_shutdown-v1-1-8440c13b5652@aspeedtech.com>
+X-B4-Tracking: v=1; b=H4sIAPLl0WoC/x3MQQrDIBAF0KuEWVeILgLpVUoRO37rLGrESZpCy
+ N0rWb7NO0jRBEr34aCGr6gspcPeBuIcyhtGYje50U12tJPZqq4N4eORWXzQCkSveVvjshczM6e
+ E+HLBMvWjNiT5Xf/jeZ5/j16YK28AAAA=
+X-Change-ID: 20261016-upstream_ehci_aspeed_shutdown-9ccffedb2a1c
+To: Alan Stern <stern@rowland.harvard.edu>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>
+CC: <linux-aspeed@lists.ozlabs.org>, <linux-usb@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Joe Wang <joe_wang@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792140876; l=3618;
+ i=joe_wang@aspeedtech.com; s=20261016; h=from:subject:message-id;
+ bh=P0RTLIbVU2S4X/eL+eds+/vYVZud713p6vOZsXOqWLg=;
+ b=ytseTYJOGcUaMaTjhvzjh/sLZZoaaDqml/aubWyh5Rn6i7kNjgDFKTB5J2VAR0+j+8/4D9rS/
+ BYj8P930+UGApMDhwcN1aIoRLqUeK3056b608/8tW2bhIiN++B0YNJ2
+X-Developer-Key: i=joe_wang@aspeedtech.com; a=ed25519;
+ pk=veYVypCO3h8GrodKXAGdE/+hudGfq/xO12Y1lhyRIV0=
 
-There have been various bug reports related to SMP systems hanging
-on boot. The reports vary but seem to have some overlap with regard
-to missed IPI's during SMP setup. The reports also show that
-reverting NBCON console usage allows the bugs to disappear.
+On ASPEED EHCI controllers, clearing USBCMD.RS while both the periodic
+and asynchronous schedules are enabled may leave the controller unable
+to halt. If an asynchronous transaction is in progress when RS is
+cleared, it may run past the end of the micro-frame. The controller then
+clears its internal schedule buffer at the start of the next micro-frame
+while it is already walking the periodic schedule, issues a DMA read
+from address 0x0 and never sets USBSTS.HCHalted.
 
-The NBCON kthreads for console printing are started very early
-during boot using early_initcall(). Since these kthreads are
-asynchronously enabling/disabling interrupts during early boot, they
-may be interfering with early SMP setup on some hardware platforms.
+ehci_shutdown() calls ehci_silence_controller(), which halts the
+controller without first turning off the schedules. For ASPEED
+controllers, call ehci_quiesce() first to clear CMD_ASE/CMD_PSE and
+wait for STS_ASS/STS_PSS to clear, as ehci_stop() and
+ehci_bus_suspend() already do before halting. This is also the stop
+sequence recommended by ASPEED.
 
-Starting the console printing kthreads later has shown to avoid the
-hanging on systems that could previously reproduce the issue.
+Quiesce the controller after setting rh_state to EHCI_RH_STOPPING.
+The asynchronous and periodic schedule-enable paths require
+EHCI_RH_RUNNING, so this ordering prevents them from restarting the
+schedules while the controller is being shut down.
 
-Postpone kthread starting until after all arch initcalls have
-completed.
+Allow ehci_quiesce() to operate in EHCI_RH_STOPPING as well as
+EHCI_RH_RUNNING. As documented for enum ehci_rh_state, both states
+indicate that the controller may still be performing DMA, while
+lower states indicate that it is not.
 
-Reported-by: Derek Barbosa <debarbos@redhat.com>
-Closes: https://lore.kernel.org/linux-rt-users/arPmYPbFLf2EldIl@debarbos-thinkpadt14gen5.rmtusma.csb
-Fixes: 76f258bf3f2a ("printk: nbcon: Introduce printer kthreads")
-Signed-off-by: John Ogness <john.ogness@linutronix.de>
+The controller-death path in ehci_irq() also sets EHCI_RH_STOPPING
+and clears CMD_RUN, CMD_ASE and CMD_PSE. A quiesce call in that
+state writes the command register with these bits still cleared
+and polls the schedule status bits using the existing timeout
+limits, without re-enabling the controller or its schedules.
+
+Signed-off-by: Joe Wang <joe_wang@aspeedtech.com>
 ---
- v1: https://lore.kernel.org/lkml/87ecdrqfhw.fsf@jogness.linutronix.de
+This issue was observed on a customer host platform using the AST2700
+PCIe EHCI (ehci-pci), and the root cause was confirmed by the ASPEED
+hardware team in RTL simulation. The stop sequence used here (clear
+PSE/ASE, wait for PSS/ASS to clear, then clear RS) is their
+recommended workaround and was confirmed to resolve the issue on that
+platform. All ASPEED EHCI controllers share the same design, so the
+workaround applies to every controller with is_aspeed set.
 
- changes since v1:
- - Reword commit message.
- - Rebase from 6.6-rt to 7.3-rc.
+The quiesce is limited to ASPEED controllers to keep the change
+minimal for other platforms.
 
- kernel/printk/printk.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Tested on AST2700 (ehci-platform): ehci_shutdown() and unbind/bind
+(ehci_stop()) with a hub and USB mass storage under load, no
+regressions.
+---
+ drivers/usb/host/ehci-hcd.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 0ed86b5e8b160..9a205f94bfac7 100644
---- a/kernel/printk/printk.c
-+++ b/kernel/printk/printk.c
-@@ -3864,7 +3864,7 @@ static int __init printk_set_kthreads_ready(void)
+diff --git a/drivers/usb/host/ehci-hcd.c b/drivers/usb/host/ehci-hcd.c
+index 3c46bb18c7f3..d984987c8691 100644
+--- a/drivers/usb/host/ehci-hcd.c
++++ b/drivers/usb/host/ehci-hcd.c
+@@ -274,7 +274,7 @@ static void ehci_quiesce (struct ehci_hcd *ehci)
+ {
+ 	u32	temp;
  
- 	return 0;
- }
--early_initcall(printk_set_kthreads_ready);
-+subsys_initcall(printk_set_kthreads_ready);
- #endif /* CONFIG_PRINTK */
+-	if (ehci->rh_state != EHCI_RH_RUNNING)
++	if (ehci->rh_state < EHCI_RH_RUNNING)
+ 		return;
  
- static int __read_mostly keep_bootcon;
+ 	/* wait for any schedule enables/disables to take effect */
+@@ -372,6 +372,14 @@ static void ehci_shutdown(struct usb_hcd *hcd)
+ 	ehci->enabled_hrtimer_events = 0;
+ 	spin_unlock_irq(&ehci->lock);
+ 
++	/*
++	 * ASPEED EHCI may never halt if RS is cleared while both schedules
++	 * are enabled, so turn them off first. rh_state is STOPPING at this
++	 * point, which keeps them from being re-enabled.
++	 */
++	if (ehci->is_aspeed)
++		ehci_quiesce(ehci);
++
+ 	ehci_silence_controller(ehci);
+ 
+ 	hrtimer_cancel(&ehci->hrtimer);
 
-base-commit: 38dfd607b58b63b5488d5756786ee4ee499eebb8
+---
+base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
+change-id: 20261016-upstream_ehci_aspeed_shutdown-9ccffedb2a1c
+
+Best regards,
 -- 
-2.47.3
+Joe Wang <joe_wang@aspeedtech.com>
 
