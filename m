@@ -1,35 +1,34 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA10A53CA7F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:55:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5374353D0C5
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:55:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169734; cv=none; b=RlbOwpVuDfEngbmLdqoWOKbli9Y0heaqMLCg4GGx27PHCei9vY6OcOIsCwIkQoJZJ/Bd1H0ln4hs3HNuP35LW0Qu6oAPeyDN+28Ld+z9DsGxUvQ2KnDisz7X4hTPpKsOihVMRNeVrjr4+j0hjB6M0iZ8j2B4HW30bZg8M4LogKE=
+	t=1792169735; cv=none; b=ikJFQk3VV2b5QL7B1aJv5vHNImW9W2U8cST7UOUBdjfI6D/T1NZEBC8R+3mNkr5udHFNvkEZ+emXsAHbefO7m/MdhxQC0MR7muYbSfe8ipaPuSVQjYey/GbjMuU6QazqtHc5fwGinzvCPmLh3u8iAAI3JqcyZgdlX8OPe0IqQb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169734; c=relaxed/simple;
-	bh=Ci4jQGVodjiB+/z/lfOy/LyT2edA351Qgh0wmsig4rY=;
+	s=arc-20240116; t=1792169735; c=relaxed/simple;
+	bh=0s3gRd+7Z6m8dnxBaVin2agHkJaeme2Yso2ncpuajKk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LdC8PArPcJMYzMyvaUg2u3AEWqTn2hTNhTgC4Y1Ntns2s4nQPqUU5f/3Ua4Q0E+lE8l9lnKipgY5oImFcGiqtkdoY9DInwVUhOcQ3Ba4C24qgbO42aPmwhMy7WQNk6ME0FjxDbGb0mVHocVL4vcJXv2QlAwxgUgf4zBaKXLEiQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KVLOmbDV; arc=none smtp.client-ip=217.140.110.172
+	 In-Reply-To:To:Cc; b=YVW3/zYHY/xrafC3UDITySWTi2jGMtcr708IP0SvBaBlVYYiaeqop7yZ+x+ZMRDIjvXeg8RRiUnPotlMwaiI5KfpGXPMQNiZhJ08sRpVnwA7esj/YdA2/8G51EY2KGC0TWIKkx9rV/fzALnIK1YEQLyEuQ5Tuyp+bMIuhc+IVfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=eu8EiVTC; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KVLOmbDV"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="eu8EiVTC"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E74131691;
-	Fri, 16 Oct 2026 09:55:28 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9FE513F7B4;
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C1F51175A;
 	Fri, 16 Oct 2026 09:55:30 -0700 (PDT)
+Received: from e132581.arm.com (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 77F2E3F7B4;
+	Fri, 16 Oct 2026 09:55:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792169732; bh=Ci4jQGVodjiB+/z/lfOy/LyT2edA351Qgh0wmsig4rY=;
+	t=1792169734; bh=0s3gRd+7Z6m8dnxBaVin2agHkJaeme2Yso2ncpuajKk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=KVLOmbDVKubejrK78neacC+V0Rhbz32I/P1WLQo5Sm2j3hTtKwIEHrvWSi/hhmbfI
-	 7KoXZhLTw2EJhGaWXbo78cGyLmGkLUlN1Hp/x8V+N4AP2yx5NIuBdqp16BR7TBvgoV
-	 LB7rWLiwzW/mANW71CMsyPbIEfzes8k6lR5QaXEU=
+	b=eu8EiVTCpodE4s5gJdsP/6dquUbNKeRen11WdOhxXoxiPM44fw+hw86/zUalcGRuB
+	 i3CpcsBtQkV5a4viDxY/WTY8WededTxehW3LLnWCjVz523lv3xAog7hsqg3cOGMHqV
+	 LeTfklwAks9IDlToY3zcsMRhisqlTxH7gHqX91dU=
 From: Leo Yan <leo.yan@arm.com>
-Date: Fri, 16 Oct 2026 17:55:09 +0100
-Subject: [PATCH v2 11/23] coresight: trbe: Assign the perf handle in enable
- and disable
+Date: Fri, 16 Oct 2026 17:55:10 +0100
+Subject: [PATCH v2 12/23] coresight: trbe: Decode TRBSR status codes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-trbe_enable_disable_irq_handle_refactor-v2-11-3f57cf3199b1@arm.com>
+Message-Id: <20261016-trbe_enable_disable_irq_handle_refactor-v2-12-3f57cf3199b1@arm.com>
 References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
 In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
@@ -50,101 +49,166 @@ To: Suzuki K Poulose <suzuki.poulose@arm.com>,
 Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  coresight@lists.linaro.org, Leo Yan <leo.yan@arm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792169710; l=3418;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792169710; l=5756;
  i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=Ci4jQGVodjiB+/z/lfOy/LyT2edA351Qgh0wmsig4rY=;
- b=7cpRKItxfN8/08ZsQgsas0Sp4YJg0iK/kZoIm4+dwIdfR1CjzvzPJQnQE/dSZfI2f95+JNrvi
- DO4P7w50Qm6Acd0Sco+V4JidJzI2sfQU6kwEMVjO5ckHF+188ABUIZ/
+ bh=0s3gRd+7Z6m8dnxBaVin2agHkJaeme2Yso2ncpuajKk=;
+ b=7RfNH5jk9/wl6i7XePQMS8nB+eLPRlnmRbnF9h9wGUj9rckLgY/cTYhmvgFny83aq7VyM63C6
+ 36FzYmhbZPxBdbCLsL6n98WIT/CO57i2B6ULBGjsH3kfRJAvZhutoJ1
 X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
  pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-etm-perf owns the perf output handle embedded in its per-CPU etm_ctxt and
-passes it to TRBE through arm_trbe_enable(). TRBE binds that handle after
-successful sink enable and unbinds it in arm_trbe_disable(). The handle
-object remains valid throughout this interval, even if the current AUX
-transaction ends or a new transaction begins.
+trbe_get_fault_act() currently handles only a small set of TRBE stop
+reasons: external aborts, trigger events and stage 1 and 2 aborts. Other
+TRBSR_EL1 EC/BSC values are reported as spurious events, which hides
+useful failure information and makes the status handling hard to extend.
 
-The inner enable helper currently publishes the handle, while truncation
-and failed rollover clear it. Sink disable leaves the handle installed
-after dropping the buffer association. These assignments track the AUX
-transaction rather than the enabled sink session.
+Decode the EC and BSC fields explicitly. Keep the normal fill-mode
+handling unchanged, but treat unsupported or unexpected status values as
+fatal and report them with a ratelimited diagnostic containing TRBSR_EL1,
+TRBPTR_EL1 and TRBLIMITR_EL1. Use %p for the buffer pointers so the
+printk diagnostic hashes their address values by default.
 
-Publish the handle only in arm_trbe_enable() after successful setup and
-clear it in arm_trbe_disable() before dropping the buffer association.
-Remove the assignments from the inner enable, overflow and truncation
-paths so the handle association follows the enabled sink session.
+Stop using is_trbe_trg(), instead, use TRBSR_EL1_BSC_TRIGGER_EVENT as
+the unsupported trigger case. This keeps the stop-reason handling in the
+EC/BSC decode path, the driver can validate the status fields safely.
 
-A valid handle object may have no active AUX transaction, so the IRQ
-handler continues to check perf_get_aux() before accessing the
-transaction's configuration.
+Move the TRBSR_EL1 BSC definitions to the arm64 sysreg header, and use
+the common TRBSR_EL1 EC/BSC names in the TRBE driver.
 
 Signed-off-by: Leo Yan <leo.yan@arm.com>
 ---
- drivers/hwtracing/coresight/coresight-trbe.c | 20 +++++++-------------
- 1 file changed, 7 insertions(+), 13 deletions(-)
+ arch/arm64/include/asm/sysreg.h              |  6 +++
+ drivers/hwtracing/coresight/coresight-trbe.c | 57 +++++++++++++++++++++++++---
+ drivers/hwtracing/coresight/coresight-trbe.h |  8 ----
+ 3 files changed, 58 insertions(+), 13 deletions(-)
 
+diff --git a/arch/arm64/include/asm/sysreg.h b/arch/arm64/include/asm/sysreg.h
+index 7aa08d59d49448cfa3bb61f5cb42e0a6f1aa8a89..0e602f07625b3c4fe6cd3fd71a658ebae768d8fd 100644
+--- a/arch/arm64/include/asm/sysreg.h
++++ b/arch/arm64/include/asm/sysreg.h
+@@ -357,6 +357,12 @@
+ #define TRBSR_EL1_BSC_MASK		GENMASK(5, 0)
+ #define TRBSR_EL1_BSC_SHIFT		0
+ 
++#define TRBSR_EL1_BSC_NOT_STOPPED	UL(0)
++#define TRBSR_EL1_BSC_FILLED		UL(1)
++#define TRBSR_EL1_BSC_TRIGGER_EVENT	UL(2)
++#define TRBSR_EL1_BSC_MANUAL_STOP	UL(3)
++#define TRBSR_EL1_BSC_BUF_SIZE		UL(4)
++
+ #define SYS_PMINTENSET_EL1		sys_reg(3, 0, 9, 14, 1)
+ #define SYS_PMINTENCLR_EL1		sys_reg(3, 0, 9, 14, 2)
+ 
 diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
-index 4a041bbc6e970d72a7d735e15f7221037cb091d6..1f51c33de83638479436683fd96e31d69c3b860f 100644
+index 1f51c33de83638479436683fd96e31d69c3b860f..a851f09d806a6b6a6386d6f7547b01a17f61b88e 100644
 --- a/drivers/hwtracing/coresight/coresight-trbe.c
 +++ b/drivers/hwtracing/coresight/coresight-trbe.c
-@@ -303,11 +303,8 @@ static void trbe_report_wrap_event(struct perf_output_handle *handle)
- 
- static void trbe_truncate_event(struct perf_output_handle *handle)
+@@ -658,29 +658,76 @@ static void trbe_enable_hw(struct trbe_buf *buf)
+ static enum trbe_fault_action trbe_get_fault_act(struct perf_output_handle *handle,
+ 						 u64 trbsr)
  {
--	struct trbe_buf *buf = etm_perf_sink_config(handle);
++	const char *err_str;
+ 	int ec = get_trbe_ec(trbsr);
+ 	int bsc = get_trbe_bsc(trbsr);
+ 	struct trbe_buf *buf = etm_perf_sink_config(handle);
+ 	struct trbe_cpudata *cpudata = buf->cpudata;
+ 
+ 	WARN_ON(is_trbe_running(trbsr));
+-	if (is_trbe_trg(trbsr) || is_trbe_abort(trbsr))
+-		return TRBE_FAULT_ACT_FATAL;
+ 
+-	if ((ec == TRBE_EC_STAGE1_ABORT) || (ec == TRBE_EC_STAGE2_ABORT))
+-		return TRBE_FAULT_ACT_FATAL;
++	if (is_trbe_abort(trbsr)) {
++		err_str = "External abort";
++		goto out_fatal;
++	}
++
++	switch (ec) {
++	case TRBSR_EL1_EC_OTHER:
++		break;
++	case TRBSR_EL1_EC_IMP_DEF:
++		err_str = "Unexpected IMPDEF buffer management event";
++		goto out_fatal;
++	case TRBSR_EL1_EC_FAULT_GPC:
++		err_str = "Granule Protection Check fault";
++		goto out_fatal;
++	case TRBSR_EL1_EC_FAULT_WRITE_S1:
++		err_str = "Stage 1 data abort";
++		goto out_fatal;
++	case TRBSR_EL1_EC_FAULT_WRITE_S2:
++		err_str = "Stage 2 data abort";
++		goto out_fatal;
++	default:
++		err_str = "Unknown error code";
++		goto out_fatal;
++	}
++
++	switch (bsc) {
++	case TRBSR_EL1_BSC_NOT_STOPPED:
++		break;
++	case TRBSR_EL1_BSC_FILLED:
++		break;
++	case TRBSR_EL1_BSC_TRIGGER_EVENT:
++		err_str = "Unsupported trigger event";
++		goto out_fatal;
++	case TRBSR_EL1_BSC_MANUAL_STOP:
++		err_str = "Unsupported manual stop";
++		goto out_fatal;
++	case TRBSR_EL1_BSC_BUF_SIZE:
++		err_str = "Buffer size was too large";
++		goto out_fatal;
++	default:
++		err_str = "Unexpected buffer status code";
++		goto out_fatal;
++	}
+ 
+ 	/*
+ 	 * If the trbe is affected by TRBE_WORKAROUND_OVERWRITE_FILL_MODE,
+ 	 * it might write data after a WRAP event in the fill mode.
+ 	 * Thus the check TRBPTR == TRBBASER will not be honored.
+ 	 */
+-	if ((is_trbe_wrap(trbsr) && (ec == TRBE_EC_OTHERS) && (bsc == TRBE_BSC_FILLED)) &&
++	if ((is_trbe_wrap(trbsr) && (ec == TRBSR_EL1_EC_OTHER) && (bsc == TRBSR_EL1_BSC_FILLED)) &&
+ 	    (trbe_may_overwrite_in_fill_mode(cpudata) ||
+ 	     get_trbe_write_pointer() == get_trbe_base_pointer()))
+ 		return TRBE_FAULT_ACT_WRAP;
+ 
+ 	return TRBE_FAULT_ACT_SPURIOUS;
++
++out_fatal:
++	pr_err_ratelimited("%s on CPU %d [TRBSR=0x%016llx, TRBPTR=%p, TRBLIMITR=%p]\n",
++			   err_str, smp_processor_id(), trbsr,
++			   (void *)read_sysreg_s(SYS_TRBPTR_EL1),
++			   (void *)read_sysreg_s(SYS_TRBLIMITR_EL1));
++	return TRBE_FAULT_ACT_FATAL;
+ }
+ 
+ static unsigned long trbe_get_trace_size(struct perf_output_handle *handle,
+diff --git a/drivers/hwtracing/coresight/coresight-trbe.h b/drivers/hwtracing/coresight/coresight-trbe.h
+index 45202c48accec7c86ba56130e2737bc2d1830fae..8ba9ef4056e4dc3968816c6a7cbf2859f2bbed36 100644
+--- a/drivers/hwtracing/coresight/coresight-trbe.h
++++ b/drivers/hwtracing/coresight/coresight-trbe.h
+@@ -35,19 +35,11 @@ static inline bool is_trbe_enabled(void)
+ 	return trblimitr & TRBLIMITR_EL1_E;
+ }
+ 
+-#define TRBE_EC_OTHERS		0
+-#define TRBE_EC_STAGE1_ABORT	36
+-#define TRBE_EC_STAGE2_ABORT	37
 -
- 	perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
- 	perf_aux_output_end(handle, 0);
--	*this_cpu_ptr(buf->cpudata->drvdata->handle) = NULL;
+ static inline int get_trbe_ec(u64 trbsr)
+ {
+ 	return (trbsr & TRBSR_EL1_EC_MASK) >> TRBSR_EL1_EC_SHIFT;
  }
  
- /*
-@@ -1012,7 +1009,6 @@ static int __arm_trbe_enable(struct trbe_buf *buf,
- 	if (ret)
- 		goto err;
- 
--	*this_cpu_ptr(buf->cpudata->drvdata->handle) = handle;
- 	trbe_enable_hw(buf);
- 	return 0;
- err:
-@@ -1042,6 +1038,7 @@ static int arm_trbe_enable(struct coresight_device *csdev, enum cs_mode mode,
- 		return ret;
- 	}
- 
-+	*this_cpu_ptr(drvdata->handle) = handle;
- 	cpudata->buf = buf;
- 	cpudata->mode = mode;
- 	return 0;
-@@ -1062,6 +1059,7 @@ static int arm_trbe_disable(struct coresight_device *csdev)
- 	trbe_drain_and_disable_local(cpudata);
- 	clr_trbe_status();
- 
-+	*this_cpu_ptr(drvdata->handle) = NULL;
- 	buf->cpudata = NULL;
- 	cpudata->buf = NULL;
- 	cpudata->mode = CS_MODE_DISABLED;
-@@ -1102,16 +1100,12 @@ static int trbe_handle_overflow(struct perf_output_handle *handle)
- 	trbe_report_wrap_event(handle);
- 	perf_aux_output_end(handle, size);
- 	event_data = perf_aux_output_begin(handle, event);
--	if (!event_data) {
--		/*
--		 * We are unable to restart the trace collection,
--		 * thus leave the TRBE disabled. The etm-perf driver
--		 * is able to detect this with a disconnected handle
--		 * (handle->event = NULL).
--		 */
--		*this_cpu_ptr(buf->cpudata->drvdata->handle) = NULL;
-+	/*
-+	 * If trace collection cannot be restarted, leave TRBE disabled.
-+	 * The etm-perf driver detects this through handle->event == NULL.
-+	 */
-+	if (!event_data)
- 		return -EINVAL;
--	}
- 
- 	return __arm_trbe_enable(buf, handle);
- }
+-#define TRBE_BSC_NOT_STOPPED 0
+-#define TRBE_BSC_FILLED      1
+-#define TRBE_BSC_TRIGGERED   2
+-
+ static inline int get_trbe_bsc(u64 trbsr)
+ {
+ 	return (trbsr & TRBSR_EL1_BSC_MASK) >> TRBSR_EL1_BSC_SHIFT;
 
 -- 
 2.34.1
