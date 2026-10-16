@@ -1,172 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-97.mta0.migadu.com [91.218.175.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 816C943C7BC
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB3243CE56
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135953; cv=none; b=ZC39loEypzRB6MX+Iinr4uQEI6+D43JtXCcQ7DL/CGID3wM6bpi8OjOZCX1Kp5s5vYEz1t1rNtVLb4yBHHKG4cKLaXaE5WcyHfqpcqSMEu1O1lEwfowA1qVF4Vol4KUu1SlZYeSTPMJ3VCxFK/7RrLSirbYQBgQZ0qUKQdYEfww=
+	t=1792135955; cv=none; b=bAXnvB9qqPXiVU0c8rBnfN3rk8T2kimu95Kzx+xi5i1uG6mkPOA2vvzOt/zghDnx9a3LuLWN8Fk19jAz7RDJBeVrh17XhNevdRDO30KIiLGLi4ZiqLpovjf+SWYXCQPVS4aOMHQwKIlE0fQjx1P7wVKsdNS/aby8M6eFEvm1d00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135953; c=relaxed/simple;
-	bh=/07gNicTK2lgKQTWtWxaOFgOZdFvu/uP7c9E5nD3b9c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=muLKxC0/IZ1/M1BFP0Z/ApR9+zGC3IgqooOssSPqjyKUTlM2ZDIZqgkeOyrT6+mDFEuz1q2SK/47Ik6xlXepKoDlA78A+l7By7XffcfnEeu9i8iPuvH/Yv13Dpakkm+bhmoWAelwFkH+o4HUQnUBWhxelf+uimeLmFowGqmfSdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GJ6oC91T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792135955; c=relaxed/simple;
+	bh=ax8mYEcyGBEatxsgbOEhQQNyrXq7UJvv30A7+qt8/ds=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DuMzdbaA7DugHTDQ8SaoH0pAXr7p7Tf4YngFDE3/m99VUGh9dRKgGxQuwwI/EHUeHzpwL+jjqU+4YqeFyDNlldIg0wuNsIRdOBzFgwxISvYuRwaHMMkdr5vcS+b9gdua0eKlq8WZRnePA7pYoTESXnXoE+t0BaLT9Qj8JaNrpIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=doVN9Upk; arc=none smtp.client-ip=91.218.175.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GJ6oC91T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAEAF1F000C4;
-	Fri, 16 Oct 2026 07:32:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792135952;
-	bh=kDbIcMvLHjcq2nNU9jCRqVR9NE5rMqWKY2kqh9rCQ3k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=GJ6oC91T4JLiDrG2QoNNJPaihT9xwjFaaKdUrQ/Ig/G0d0ggRXzI7OWXbuhVooVBk
-	 ReenKjX8piN7gTD0CLdbsyAtWJ3fFpyjUvZ9i0wL7pUDCGJL/LAhGkgSTbtwNqGw3M
-	 tcv7jPgtZOBnlsj4WARZmM6d0MCmozPwbfPMXW19/+LS3lle1XsiV17bEDJut7d43c
-	 8bHkwPMjGVVW0ylgKoKngs6fftL5mnFX3e0ghQ+tlAVkbBOr48aWwxEIfGKQroooh/
-	 Mt2pjLMwVnapZEWmoRK4ttSKxTRAwGmgpOaCUyXqxLoDQKsA+wpu2k1p3HPM8TAShe
-	 XtJScXR7EVoBA==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 16 Oct 2026 09:31:41 +0200
-Subject: [PATCH v5 09/14] drm/atomic: Add
- drm_atomic_implements_create_state() helper
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="doVN9Upk"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ax8mYEcyGBEatxsgbOEhQQNyrXq7UJvv30A7+qt8/ds=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792135952; v=1; x=1792740752;
+ b=doVN9Upk+sLwAfcx7OGC6e4zZ4Mylj8Hjrpdhq5CDBj+yOoD3dz2oRI/3D+B7NaaJPWE+/Qm
+ NsbmbIJVqtU6+243wrSKTfvu0gG1+9KKP2QskmGKblwSEkrnL8jZ39M5SywWwYD15m6EyJnypoA
+ 4Qf9VhfklkZe1B7qvLo+Oz2DxgpzPj2Bh+i2uAlU7jcIMdWV/x6OzxYf8F5HPmZEGxudOvxVAw1
+ KdIlfcNfYkmLAk3m5A2LZYejKl6vsNsD3yp3tBYOfJPGQefRh2kHwy+7/uenGT2fl3vIFtyJfWj
+ pQeO8zCqVVtOqELeDTY/qKJeBg3KMhELgSDORhMc90J3A==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id eab751fbddc727e5;
+	Fri, 16 Oct 2026 07:32:31 +0000
+X-Mizu-Trace-ID: eab751fbddc727e5
+X-Migadu-Flow: FLOW_OUT
+From: Val Packett <val@packett.cool>
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Val Packett <val@packett.cool>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org
+Subject: [PATCH 3/5] ASoC: dt-bindings: qcom,sm8250: Add Motorola Edge 30 sound card
+Date: Fri, 16 Oct 2026 04:31:51 -0300
+Message-ID: <20261016073157.611956-4-val@packett.cool>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261016073157.611956-1-val@packett.cool>
+References: <20261016073157.611956-1-val@packett.cool>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-drm-reset-state-flag-v5-9-dad2d64b693b@kernel.org>
-References: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
-In-Reply-To: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3638; i=mripard@kernel.org;
- h=from:subject:message-id; bh=/07gNicTK2lgKQTWtWxaOFgOZdFvu/uP7c9E5nD3b9c=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkXLz2xK0n/E7vh3SQ/p/jtgTMvfQjwPGt4MPr1PtbnM
- dsOZ/w53DGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmcn06Y61Y6B2/1pzKhw4t
- lgbHJj49brxDaErsg0DTY8rhWuLC/IUVOQWsK7p0XmjMCLt68+1NZcaGbWmmp51Mbk+2Pzqr+vE
- Ry5TJ9rFz2Ry/xfqLSnRNu7UmXHDqj+znpZUL9RL/GF/itVwHAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Transfer-Encoding: 8bit
 
-The atomic reset path will need to create pristine default states from
-scratch for every plane, CRTC, and connector. This requires all of them
-to implement the atomic_create_state hook.
+Document the bindings for the sound card on motorola-dubai which uses the
+Elite DSP architecture.
 
-Introduce a drm_atomic_implements_create_state() helper that iterates
-over all planes, CRTCs, and connectors and returns whether they all
-provide the hook. Color operations are excluded since they always use
-drm_atomic_helper_colorop_create_state() directly.
-
-This will be used both as a precondition before filling a commit with
-default states, and to report the device capability to userspace.
-
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Val Packett <val@packett.cool>
 ---
- drivers/gpu/drm/drm_atomic.c | 49 ++++++++++++++++++++++++++++++++++++++++++++
- include/drm/drm_atomic.h     |  2 ++
- 2 files changed, 51 insertions(+)
+ Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 81591173265d..7a77051096c9 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1598,10 +1598,59 @@ drm_atomic_get_new_bridge_state(const struct drm_atomic_commit *state,
- 
- 	return drm_priv_to_bridge_state(obj_state);
- }
- EXPORT_SYMBOL(drm_atomic_get_new_bridge_state);
- 
-+/**
-+ * drm_atomic_implements_create_state - check if a device supports creating pristine states
-+ * @dev: DRM device
-+ *
-+ * Check whether every plane, CRTC, and connector in @dev implements the
-+ * &drm_plane_funcs.atomic_create_state, &drm_crtc_funcs.atomic_create_state,
-+ * and &drm_connector_funcs.atomic_create_state hooks respectively. These hooks
-+ * are required to create default states from scratch rather than duplicating
-+ * the current state.
-+ *
-+ * Color operations are not checked because they always use
-+ * drm_atomic_helper_colorop_create_state() and do not have a per-driver hook.
-+ *
-+ * Returns:
-+ * True if all objects implement atomic_create_state, false otherwise.
-+ */
-+bool drm_atomic_implements_create_state(struct drm_device *dev)
-+{
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_connector *connector;
-+	struct drm_plane *plane;
-+	struct drm_crtc *crtc;
-+
-+	/*
-+	 * colorops don't have an atomic_create_state hook but
-+	 * drm_atomic_helper_colorop_create_state()
-+	 */
-+
-+	drm_for_each_plane(plane, dev)
-+		if (!plane->funcs->atomic_create_state)
-+			return false;
-+
-+	drm_for_each_crtc(crtc, dev)
-+		if (!crtc->funcs->atomic_create_state)
-+			return false;
-+
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		if (!connector->funcs->atomic_create_state) {
-+			drm_connector_list_iter_end(&conn_iter);
-+			return false;
-+		}
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	return true;
-+}
-+EXPORT_SYMBOL(drm_atomic_implements_create_state);
-+
- /**
-  * drm_atomic_add_encoder_bridges - add bridges attached to an encoder
-  * @state: atomic state
-  * @encoder: DRM encoder
-  *
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 3ae35b09c0cf..72c3d420f40c 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -700,10 +700,12 @@ int drm_crtc_commit_wait(struct drm_crtc_commit *commit);
- 
- struct drm_atomic_commit * __must_check
- drm_atomic_commit_alloc(struct drm_device *dev);
- void drm_atomic_commit_clear(struct drm_atomic_commit *state);
- 
-+bool drm_atomic_implements_create_state(struct drm_device *dev);
-+
- /**
-  * drm_atomic_commit_get - acquire a reference to the atomic state
-  * @state: The atomic state
-  *
-  * Returns a new reference to the @state
-
+diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+index fc7bccdace0f..c76c9c670bc1 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+@@ -36,6 +36,7 @@ properties:
+           - ayaneo,pocket-s2-sndcard
+           - fairphone,fp4-sndcard
+           - fairphone,fp5-sndcard
++          - motorola,dubai-sndcard
+           - qcom,apq8096-sndcard
+           - qcom,glymur-sndcard
+           - qcom,qcm6490-idp-sndcard
 -- 
 2.55.0
 
