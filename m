@@ -1,149 +1,240 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C214A482A;
-	Fri, 16 Oct 2026 13:34:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157659; cv=none; b=a7lJdBgmNj67opHAm5khsfN7daWtGac/z+Uzug9Oiw9fvgzbym297zpD3qbqbDyt72hMNUubvVqBDIITeP6018HuguZhSSurReePjXz9bVaDLYKsO504Dp1+NX1Sz1Wh0svicL/NpyaxlgxlZW0j+3n9TjT6KYSDOmhZfIWHMXs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157659; c=relaxed/simple;
-	bh=v0S7OMtfIQMRk7b2oIxSR2ytHrZYdcAZ++SvR3brDG8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aOrsQWjZO3zq2QoJtZ2giJmtofV1Eu8IssJkTpZewWzmxIP6q0dNgsu7TwIyaTSKQO6PACYRtFF2tmi6DluMTCj9nLa5Mduw1ZRe8T8IT4eGQ+FbO4W/I4EgmbnUsSkyBKiZY9xEwpXPOUUftKig3ZLD/0urigXbx8uAzktDynE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=HaRVlNAc; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61BD84CB8D7;
+	Fri, 16 Oct 2026 13:34:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792157667; cv=pass; b=NNylHP7DTYz596za3QEgaufgUxL52QRHIWPvA2T8CNZ/Jtb8hhKhxWHWy53l8rz8CsowVVQoAhpg9WSXqk+JQwuPowPL2HO2a/uruLzCzLbWnoP/kQZ3souPvueWTKpJxzUc/oZb3XfuboCiCzsqs1CqNv1M01IYhCz7/bby0No=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792157667; c=relaxed/simple;
+	bh=vccj/ifJc7BK2XQhk38NP+nrVX4c4SiXTzDhAs0eU9I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XyMCRBhTmR5v7mlKdXGDyZHn5Ea/eh53xRtt9hU2+xZp51+Mf6GuScJr5kJop9ItYh1TM5H4e3H3vmXJeyJvODy7ls46sRD4cWRtDTTVUACoqKCiCjtT+hA4/3JxnwuXZekPzAvAr1lcBtKBESahkt8tO9mBRIqajhSRssVcqi0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=VQ4LSMIm; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="HaRVlNAc"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 7611F53409C5;
-	Fri, 16 Oct 2026 15:34:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1792157655;
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="VQ4LSMIm"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 50E5A2027F4;
+	Fri, 16 Oct 2026 15:34:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792157662;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=qz0uIt0JoDi/U/kIDMlrnV9+4lj5sArbrddXLpcGclM=;
-	b=HaRVlNAcbOPiCVn0q6SO9KEdqt6DKRZzafkIeiQs6u3wkCqYjGdIn0P53JhMDAPZtq2amR
-	I9P+BJYvfEDNmv8DTdA4slFPkBiSTktkS5kLWLRcebsHS9Lp1hN7kfHGQd8jtaA6y18pUN
-	IZ45rAhjHcCe+gsPosBLlYn7emykwRU=
-Message-ID: <da8b6a26-334d-461d-b0a6-8c38161e5e12@ixit.cz>
-Date: Fri, 16 Oct 2026 15:34:15 +0200
+	 in-reply-to:in-reply-to:references:references;
+	bh=3nLMiQqnLjn6aVre0f/RZP2YyGl1quEq2a7eoQjxaGY=;
+	b=VQ4LSMImcv/161xpQDs9ZVPDfT8fHJo/N/IY8+Ku8osLUz1bb8+5sLdwVKJd4Lwa/b1/N5
+	gKo1UBGdafjmyy0RoZZ2tSvFVEic0kOV6mN8bF5IKlXgWCV0MU9DX4tt2Qa96keQHkp27/
+	ICIApdgKHAz+KKenLFqPeJoSKP29qgQwz6q464ZtmlxsUr99YRAzCqdxcAFApHhjxptTFk
+	zqziyYzXqaDASJc6owOtOwClrtbjOQXGCzaANm5Szs38jjqJCpa38iTI3tq8CU6tUACyZx
+	Yu61lvwpyeqr1JFITEbDsWiAGz7S9GUV5sgp1kjJY6rFZ+ORLosgNzA/hbWChA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792157662; a=rsa-sha256;
+	cv=none;
+	b=MOGWQ2pyh9Mts1lppt+K/8bdG0dNIGJjN5lpy7hygtApxbAM+GwgDz28lJsLj2nQZOKn6t
+	NvI8r01cEwb+3cyNL4+ZI6qg+UpQZQlamKK19vCdl3gx3M0jtmoHk500cX3ND1afAikjfm
+	4oGTN/sCYvFgpMV3Ms3wPehVuFztfcgWfiGM4IXeGmwGnlJ1Bw1MZnGHjMHWia2CWzltnV
+	vsYSou3csltxXlcE2WaCNf2rz/nsdVGWUCk5vSU7KCjcLFgchqu4PlzCc4t9JkqT7vrHr9
+	kQPgIKiz4NwW8tKZOe0KRLeiohaWYAru7XOKNgWo2+jTRSJLiPxtxjDF3yU6yA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792157662;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3nLMiQqnLjn6aVre0f/RZP2YyGl1quEq2a7eoQjxaGY=;
+	b=QzerExYjwIYLepg2PZUXx9ywvJL2YKpH/DaR9XLGuYLh9bYXqnpbh4FpLhCQXE+nuOOiRs
+	9Fe48Jhd07dH9KRQPx//wK3Cp0Y1tP1ueYo6T3CwCr/HLvsi9voxsbeeQN/jndNI5qU1ps
+	vhAmRlQvDR6w9BBvwH2qTftw8687joe+BDsPDG5nFVMUAKw4ONgptvljE1ZFWyHtesPNIJ
+	lakGP+fhQTA5DcdnJr73hefMjCKaMztMY0hpMO/JG0tQthSGhXEG3TsFAY241lAACC3Mkq
+	/4W8Rkev/h96p0pVdsfnKWgyofYgMCxzROdZEXz2A75f+bl9tHK/7LFpaSFpvg==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xHi4k-006BzY-0j;
+	Fri, 16 Oct 2026 15:34:22 +0200
+Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id D884F5C6255;
+	Fri, 16 Oct 2026 13:34:21 +0000 (UTC)
+Date: Fri, 16 Oct 2026 15:34:21 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+Cc: mailhol@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com, 
+	biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com, claudiu.beznea@tuxon.dev, 
+	linux-can@vger.kernel.org, devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: Re: [PATCH v4 1/7] dt-bindings: can: renesas,rcar-canfd: Document
+ RZ/G3S SoC
+Message-ID: <20261016-elite-feathered-rook-5dcf2b-mkl@pengutronix.de>
+References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260902141544.565763-2-claudiu.beznea+renesas@tuxon.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] media: venus: vdec: signal EOS with a real buffer
-To: bod@kernel.org
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260928-venus-vdec-eos-v1-0-6e9eb3ce9849@ixit.cz>
- <20260928-venus-vdec-eos-v1-1-6e9eb3ce9849@ixit.cz>
- <179153733762.2596899.11570084120645960007.b4-reply@b4>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <179153733762.2596899.11570084120645960007.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tyz6trijudgkdey6"
+Content-Disposition: inline
+In-Reply-To: <20260902141544.565763-2-claudiu.beznea+renesas@tuxon.dev>
 
-On 09/10/2026 11:15, bod@kernel.org wrote:
-> On 2026-09-28 23:40 +0200, David Heidelberg wrote:
->> The decoder tells the firmware about the end of the stream with an empty
->> buffer command whose address is a dummy (0xdeadb000), because the host
->> has no input buffer to name. The SDM845 (Venus v4) firmware validates
->> that address and rejects it:
->>
->>    IsBufferProtected(1087): VenusCoreCtrl: CP_UNKNOWN, buffer straddles
->>    CP & non-CP regions
->>    vDec_EmptyBuffer(1932): Invalidate buffer in ETB
->>
->> and raises HFI_ERR_SESSION_FATAL, reported by the driver as
->>
->>    qcom-venus aa00000.video-codec: session error: event id:1001 (deadb000)
->>
->> Both queues are then put into an error state, so the drain never
->> completes and every V4L2_DEC_CMD_STOP ends the stream with an error:
->> GStreamer's poll() fails at end of file, ffmpeg aborts.
->>
->> Allocate a small buffer the first time a decoder instance is drained and
->> use its device address for the EOS command, so the firmware gets an
->> address that is mapped and outside the protected regions. The firmware
->> then drains normally: all frames are returned and the last capture
->> buffer carries V4L2_BUF_FLAG_LAST. The NULL address used by old IRIS2
->> firmware is left alone.
->>
->> Assisted-by: LLM
->> Fixes: beac82904a87 ("media: venus: make decoder compliant with stateful codec API")
->> Signed-off-by: David Heidelberg <david@ixit.cz>
-> 
-> The logic stacks up as I read it but, I want to see this a) work on sdm845
-> and b) not break on sm8250 before applying.
 
-On sdm845 it works great (tested multiple sdm845 phones with `livi --demo-h264` 
-and loop enabled. I don't have sm8250, thus that's up to someone with the device :)
+--tyz6trijudgkdey6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 1/7] dt-bindings: can: renesas,rcar-canfd: Document
+ RZ/G3S SoC
+MIME-Version: 1.0
 
-David
+On 02.09.2026 17:15:38, Claudiu Beznea wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>
+> The CAN FD controller found on the Renesas RZ/G3S SoC is largely compatib=
+le
+> with the variant present on the RZ/G3E SoC. The main differences are:
+> - the RZ/G3S provides only two CAN FD channels
+> - the RZ/G3S supports only CAN FD operation; the Channel n CAN FD
+>   Configuration Register does not implement the bits used to select
+>   classical CAN-only mode (bit 30) or CAN FD-only mode (bit 28);
+>   consequently, bit 31 (CAN FD Frame Distinction Enable) of the same
+>   register is also not implemented
+> - some bits in several registers (mainly reserved or status bits) are
+>   read-write on the RZ/G3S but read-only on the RZ/G3E; their behavior is
+>   otherwise identical: the bits read back as 0 on both SoCs and software
+>   is allowed to write only 0 to them on the RZ/G3S
+> - the RZ/G3S provides 256 acceptance filters, compared to 768 on the
+>   RZ/G3E
+> - the RZ/G3S can use PCLK clock as the CAN FD clock source through an
+>   internal clock divider, while also supporting an external CAN FD clock
+>   source
+>
+> Since:
+> - the SoC clock generator provides to the CAN IP only the peripheral and
+>   the RAM clocks
+> - when sourced from the peripheral clock, the CAN-FD clock is obtained
+>   inside the IP itself by dividing the peripheral clock
+> - the assigned-clocks and assigned-clock-rates properties are specific to
+>   the CAN-FD clock
+> the assigned-clocks and assigned-clock-rates properties were dropped from
+> the required properties list of the Renesas RZ/G3S SoC.
+>
+> Add documentation for the Renesas RZ/G3S SoC.
+>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-> 
-> 
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
-> bod
-> 
+the netdev review bot has found a nitpick, it's about the comment in
+"rcar_canfd.c". Can you fix it, if you re-spin the series.
 
+regards,
+Marc
+
+pw-bot: cr
+
+--- Patch [11]: [PATCH net-next 11/37] dt-bindings: can: renesas,rcar-canfd=
+: Document RZ/G3S SoC ---
+commit 69b4e37d18e5229e1c800b45a5df061af8a98eb9
+Author: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+
+dt-bindings: can: renesas,rcar-canfd: Document RZ/G3S SoC
+
+This adds the renesas,r9a08g045-canfd compatible for the RZ/G3S CAN FD
+controller. It adds the compatible to the existing conditional blocks. It
+also forbids renesas,no-can-fd and renesas,fd-only on RZ/G3S, and makes
+assigned-clocks and assigned-clock-rates required only for the other SoCs.
+
+Link: https://patch.msgid.link/20260902141544.565763-2-claudiu.beznea+renes=
+as@tuxon.dev
+
+> diff --git a/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd=
+=2Eyaml b/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yaml
+> index b9d9dd7a7967..bbaaef8f4282 100644
+> --- a/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yaml
+> +++ b/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yaml
+
+[ ... ]
+
+> @@ -350,6 +352,20 @@ allOf:
+>        properties:
+>          reset-names: false
+>
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: renesas,r9a08g045-canfd
+> +    then:
+> +      properties:
+> +        renesas,no-can-fd: false
+
+Discovered by: opus-5-5 =C2=B7 Missed by: fable-5-1, gpt-6-astra, sashiko-g=
+emini =C2=B7 Confirmed by: fable-5-1
+This isn't a bug, but should the renesas,no-can-fd description be updated
+to match this new constraint?
+
+The property description in the same binding still says that every
+controller can run in Classical CAN mode:
+
+  renesas,no-can-fd:
+    $ref: /schemas/types.yaml#/definitions/flag
+    description:
+      The controller can operate in either CAN-FD mode (default) or FD-Only
+      mode (RZ/{G2L,G3E} and R-Car Gen4) or Classical CAN mode. Specify this
+      property to put the controller in Classical CAN mode.
+
+With this patch the property is forbidden for renesas,r9a08g045-canfd,
+because RZ/G3S does not have the mode select bits.
+
+The header comment in drivers/net/can/rcar/rcar_canfd.c says the same
+thing:
+
+ * To switch the controller to Classical CAN (CAN 2.0) only mode, add
+ * "renesas,no-can-fd" optional property to the device tree node. A h/w res=
+et is
+ * also required to switch modes.
+
+Neither text is changed later in the series. Both now contradict the schema
+for RZ/G3S, and for RZ/G3L once it is added the same way.
+
+Could the description exclude the SoCs that only support CAN FD mode?
+
+> +        renesas,fd-only: false
+> +    else:
+> +      required:
+> +        - assigned-clocks
+> +        - assigned-clock-rates
+> +
+>  unevaluatedProperties: false
+>
+>  examples:
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--tyz6trijudgkdey6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCatIn2wAKCRDMOmT6rpmt
+0tQbAP9Ug/X3eNIoM36oizDYKKb/napIJJRBsaKLAK0rUnv0+QEAgDyu9tkc4gs1
+3oMi7A5Lbxqc30SHapAOToYedxza7QE=
+=DPtZ
+-----END PGP SIGNATURE-----
+
+--tyz6trijudgkdey6--
