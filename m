@@ -1,246 +1,340 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013046.outbound.protection.outlook.com [52.101.72.46])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013004.outbound.protection.outlook.com [40.107.201.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D883431326A;
-	Fri, 16 Oct 2026 07:18:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B99C3AA1B2;
+	Fri, 16 Oct 2026 07:19:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.4
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135135; cv=fail; b=Yu0BU7t72klye7crFAVDAhotljMum8LbpVFYZ/BcEJWsoEI6lTbX5wD8ALznjUh+Nca3Vm/C3Qf7Q6aM+Tj/cLKMz3eCx+6kfyq9c3E71VNernfmldN6zJVA86rtJbSfmrJppXfR51/qI18zElA7ILDFAY0n7O+ds71k39tTXn4=
+	t=1792135179; cv=fail; b=jCtUZVblwchSqbG66Sj54SSHJYwlAh+0+BuANxUKYAbVuQVweyMY/ZRyevF2Q/ZNLKv50pSGOtxVPQI6XSCtKxZgr1JrDrHwPBKpUOiyQlbVJsFbUtQG6wEgkAkPIxgPQXHGPOmUFcuouXXpkQDXUboCV5aLOO4xW7BxAFCDWc0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135135; c=relaxed/simple;
-	bh=DjsQCFKFB8BKsJAaZ5sXbt3pZuXTPfGDbud6+n8GKic=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=qmo6SC+5fQHC2S3YvZHJDjTf8FTRIg/wIeiPpBhG8B0CATf0AJGZ3nPllRpHhb+JxHYkQlpfXdZDUtlmWn9ggW4n3J4f7a3uzwey7Cmu6veO3iyJ+haifg97t0fD3JOIPwGpSic7mpQX3yiFIeSNUATW/1l3ct52WdEVH5FGJZk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=c5Gn5uOp; arc=fail smtp.client-ip=52.101.72.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	s=arc-20240116; t=1792135179; c=relaxed/simple;
+	bh=dHQBaKWavhrTM4ic1+JcZn3lqdGZP8qKv4/EecAT+yo=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=YpT9ukS8WE+/RGHvith+0cs4YqnPTlCGbggpCcrFMljDQOOZz3FHvSPWEJSoORcsFKD1WFrmnVMTc9KPOf2Ez7dF7wCazTbOqNmtEMBTErsHjYZgPmbHVbpk9LdwV3XeR6doCOQDqFFflIqutqX4tB3vBPYzLIJ3g6DUePkd5WY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=EKetygMg; arc=fail smtp.client-ip=40.107.201.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="c5Gn5uOp"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="EKetygMg"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eDSPuunkRwRJtYzb0jhrcHETsdNLQcD0jbH+QfkXFyx3wUvC76UddgpaYgsnQkEmGy3VmzSBin2z6mjskHySVjmKc0VcOHYmZge6hkh/EAVn1eIHIKkjFqvIFWkz3lVuj2W7yf9WV8gNZ5pGBcBtFmxTwHrVKZ6oEQ+gqNNwgr+3VKmBckwspaRhLaLVQuCHoTQJ9QWUZBOAAcXQFM5sNbMZSbvXoNecl7vqIC6UrJv1aMwu+XBf6ixNO4zu89WwEZ2U9rcSS5zmDsNdscXOMj6XdweN078hTHWnzOCrxKLojuHS6Ab+S7Y2IAP8Xw3VunpfxjvTH5jGFjOIk7zu/Q==
+ b=wThhogF4XWbN7BOLKmByxPpf6BXT/Uogw2EkRYxXztcMHJnL+7g83X8Ip4HUZyrmQIFOuQBJgHdZ0TtRK4UUMo/TXSSxMrgwaUxnOpUejj4CTj9ktF3g7Ok5d4STAUmYOAehKnwKwJAY6qCFea9SIbXO6x89q5Fn4HywQdgRtuS2its+lAQM4PLJH3hETn9lLPr1lZZL6w0V2/tXweBiZmf2jZWGJn+P16DlWJachqZTwF6lPQU8t4QmHyDyAY8xr6uMA1o4qyfp00Uy58WuHc3f2EPASLlrMhYTQ9swmaWc8UJIurVCq/eyPjq6zaDOW/YRXBtWdOifV/IRJJE4dA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DjsQCFKFB8BKsJAaZ5sXbt3pZuXTPfGDbud6+n8GKic=;
- b=OzezsI3wh9thxnYwsT+sxvj22CMy4KdL856SAS/c6O3ZzxNin83Ta34s/Pi6GMXYDUrBLKWkogj1KFH5npv55KcB7nooKX8jZjp5D0dUuYp58u+ObzrEoD3ACvEYjLQNGIJ7WLFv96srncixphxqGpZvhQelI8V7XVauvvZ1e1P5oo6U7ryglZmb/Ww3bXsw7XueABgGof4w+Nu4UZ27noAT+Eecdxemp9LLfSQ5E5tVi+xLnNNJ2q4KWMuSFOIL8KQNjXHkFD6cGj86cVGeO+gy3IgeYtiHJsLrITnhLJ/hJ/sYjM9HqL28ABeaVQQBS2RmFoS//rI4TLQsbb9sPA==
+ bh=530M9rA4hJvKVKNkpEpIHgWJrvYAtV4007Qly4a238E=;
+ b=iSvi/Bv1ZrqGuN9UJyOzfRJS1l4jQtmIOCB4RfgK+qM/A6oKuAuvCZsWYbohrLP6w54giH/gzNU7ye8qy85h8yAdcp/hDQWKHkcrzw6BF7LYLjgz31RcQgIvo424LyfDn0DPLmp6/Aytj7NCmpXPJyoDb2MYbADhWYjpJLoKJwu5eTYpOzGUsANqDBegndMSv/hLM8cHzIcuqEUzM0GEzm9M1d6/iRMabmV+kbDYTKaPik9dObKs8PfYj3fVrQrvQyqwihaPwHECioUXqIUaW/tRpOEievx2lRY8pS//3G3mDrBA6MrkWuo/8z0bR0Kq2KOxBwiOa25SLjWMYPtEhQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
- dkim=pass header.d=axis.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DjsQCFKFB8BKsJAaZ5sXbt3pZuXTPfGDbud6+n8GKic=;
- b=c5Gn5uOpxA3nGhuZCP4rSjSNcDlZOxTATAxBNw05noqf49RSDOP4AKXlIQsfO94Vw04F22KwfEc/XrX54ERE4YKb0faFwplzdd+B0XR4hsX2aWfio794+VVlKWRTFVl1I1MYSglPLdkqxfAgXdT/9qPEr3WKD1S0iDuRob5EXF4=
-Received: from AM0PR02MB5281.eurprd02.prod.outlook.com (2603:10a6:208:101::12)
- by AS8PR02MB6935.eurprd02.prod.outlook.com (2603:10a6:20b:2eb::16) with
+ bh=530M9rA4hJvKVKNkpEpIHgWJrvYAtV4007Qly4a238E=;
+ b=EKetygMgDz8KGqnsx9NBiCxUcSNA0mLxrJFt0biTk//mHVQRvuujRhnVOZgr6mFtMlm6p9pjAapQM0iEiIthAu6DIG1QuoIFqpfIKnLrxAe4gPiBnPVH7mA9uLPEXH8VWH+aMjFwsZ0QfbFZCWa53HpjNeRHRfBrwqrQebv/+iU=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5721.namprd12.prod.outlook.com (2603:10b6:8:5c::10) by
+ MN2PR12MB4223.namprd12.prod.outlook.com (2603:10b6:208:1d3::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.15; Fri, 16 Oct
- 2026 07:18:49 +0000
-Received: from AM0PR02MB5281.eurprd02.prod.outlook.com
- ([fe80::bdd1:15c4:7979:b16f]) by AM0PR02MB5281.eurprd02.prod.outlook.com
- ([fe80::bdd1:15c4:7979:b16f%6]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 07:18:49 +0000
-From: Kanak Shilledar <Kanak.Shilledar@axis.com>
-To: "marcelo.schmitt1@gmail.com" <marcelo.schmitt1@gmail.com>,
-	"Jean-Baptiste.Maneyrol@tdk.com" <Jean-Baptiste.Maneyrol@tdk.com>,
-	"krzk@kernel.org" <krzk@kernel.org>
-CC: "joshua.crofts1@gmail.com" <joshua.crofts1@gmail.com>,
-	"dlechner@baylibre.com" <dlechner@baylibre.com>, "linux-iio@vger.kernel.org"
-	<linux-iio@vger.kernel.org>, "nuno.sa@analog.com" <nuno.sa@analog.com>,
-	Henrik Grimler <Henrik.Grimler@axis.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "robh@kernel.org" <robh@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"andy@kernel.org" <andy@kernel.org>, Kernel <Kernel@axis.com>,
-	"macromorgan@hotmail.com" <macromorgan@hotmail.com>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "jic23@kernel.org" <jic23@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>
-Subject: Re: [PATCH v6 1/6] dt-bindings: iio: imu: icm42600: Add ICM-42670-P
-Thread-Topic: [PATCH v6 1/6] dt-bindings: iio: imu: icm42600: Add ICM-42670-P
-Thread-Index:
- AQHdV/g5mhUaUBhwpEy4+0UjMNacsbb5n9OAgAAdGoCAAAEQgIAAvSYAgAChxoCABLBMgA==
-Date: Fri, 16 Oct 2026 07:18:49 +0000
-Message-ID: <1804b94e69b11377a912ab82dd00303cf0f60e8b.camel@axis.com>
-References: <20261009-b4-inv_icm42370p-v6-0-e53884f185ff@axis.com>
-	 <20261009-b4-inv_icm42370p-v6-1-e53884f185ff@axis.com>
-	 <20261012-adventurous-corgi-of-fury-01219b@quoll>
-	 <fd4181c7e2f48e3c64530340ae1a02adde1f342e.camel@axis.com>
-	 <da8b6047-419b-4c3d-8416-e5c871ea4dec@kernel.org>
-	 <as1ZPOocclBgYkko@debian-BULLSEYE-live-builder-AMD64>
-	 <BE1P281MB142642474354814F0785CB97CE9E2@BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM>
-In-Reply-To:
- <BE1P281MB142642474354814F0785CB97CE9E2@BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM>
-Accept-Language: en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Fri, 16 Oct
+ 2026 07:19:34 +0000
+Received: from DM4PR12MB5721.namprd12.prod.outlook.com
+ ([fe80::8fe3:c3d1:a057:fd24]) by DM4PR12MB5721.namprd12.prod.outlook.com
+ ([fe80::8fe3:c3d1:a057:fd24%4]) with mapi id 15.21.0496.021; Fri, 16 Oct 2026
+ 07:19:33 +0000
+Message-ID: <6e67dec1-f31f-4a98-ac15-8df0770dbe1c@amd.com>
+Date: Fri, 16 Oct 2026 12:49:19 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] perf/x86/intel/lbr: Limit branch snapshots to
+ valid entries
+To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>, bot+bpf-ci@kernel.org,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org
+Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org,
+ namhyung@kernel.org, mark.rutland@arm.com,
+ alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com,
+ adrian.hunter@intel.com, james.clark@linaro.org, tglx@kernel.org,
+ bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+ andrii@kernel.org, song@kernel.org, ravi.bangoria@amd.com,
+ ananth.narayan@amd.com, ast@kernel.org, daniel@iogearbox.net,
+ martin.lau@kernel.org, eddyz87@gmail.com, yonghong.song@linux.dev,
+ mason@kernel.org, ihor.solodrai@linux.dev
+References: <7f611dcd599d6d65325d8c40566a1fc35b447ea2.1792064123.git.sandipan.das@amd.com>
+ <9ef8c1f496a9dca33792c7c3978e24208fe67d87688d5356b5e54e77eb009747@mail.kernel.org>
+ <4ef25c08-ac66-4734-abd1-2d50bebcd94f@linux.intel.com>
 Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axis.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM0PR02MB5281:EE_|AS8PR02MB6935:EE_
-x-ms-office365-filtering-correlation-id: 3b8a572b-a185-4c5d-cfbf-08df2b55b985
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|6049299003|23010399003|7416014|1800799024|18002099003|22082099003|10067099003|4053099003|3023799007|4143699003|11063799006|56012099006|38070700021;
-x-microsoft-antispam-message-info:
- PJc8dk5wXZhGR18cJ1oVFD/ZD6yRcgjOvUAdO6BhUAwiSFAyVlpCYTC/rsn640YTPsiKeXRmy04p67eiUfXfEXX36SbX32ZEAgMg6wSaG3xySG7+45UgsC3+EIVh5qLxyEe5gAAKkR9KYR+mkbAJwtkDtGukrCCPAeNZ6iwdDhGt3mi6u7u5pUHdsirm/OqoYksaFOQeE/kW5hpAAxDcHfBnrmAw24RBXCYAT3mL8ixnHUg7Qdv/0BKw648PAyGzosJU7o3ev2ALQwQdaiwRtT7HEzldZaivYEVui2H45HQgrbJM0fALZEsjO8Ar84+e2J08UsX0j/xdtmssygI3+d0lMgF6i7qyUMtCQYqJ5s9Gt2J2CaQma4/YNbMXB0pr4mX32zJ5dfVcE2iol1H3hf40Uy04z+LucYTWb6OT3GI1PvF3SGOhzZJuD8p8+J6ebo6hj/UsjrmQA/1nJZow78C8tQmlJTRk4tkbyhDDDLbzC5M0vb4QgYzx0dkl5yEK5jBbKgyqQThoNW/GX8rJ8tcvOS/mxfUBvfi4d5vGPu99ktS5YL3Hv3Vpypvy9zmGpIw6uUo7p+qZNjDheEar5pPF0MevioNRxcuYOrejkFJd9eHJZ2u3NTl9eDuYAF+JIfbDvjwRV6kMBordff3iRBfojCeoyJZMutPEcp6lP4bBO2nWBiPi+wo25D3kv1g/lEQ0iTyCqzi58gWKuCNhLCu4v/MZrktj7UMa0io9+oI=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR02MB5281.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(6049299003)(23010399003)(7416014)(1800799024)(18002099003)(22082099003)(10067099003)(4053099003)(3023799007)(4143699003)(11063799006)(56012099006)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?cFlLd0RRemVVRFpSNndFVFdmMTVKeVRpSTRoMTZHcStDcmxsbU9BZXpVN1Rz?=
- =?utf-8?B?bDFSK2hZNy85UGFqbUlUY0M2aU5TSVBRd3NGTStoOVo4bE05eG5sTjRRNkk4?=
- =?utf-8?B?ckhMcjhHYm1YS1k1RFpkeU95NzlkT1VMSWlkN3pYS2RCc2lUSGJnU1RNNEdK?=
- =?utf-8?B?dy9Dck9tQ1lwZjNUSGFwaHBBK08yUGtoNkdSMFJBcllNTWtCeWdkQWIvbGxV?=
- =?utf-8?B?S1BZeGJpUytpclBYUVk1dUJIcVJ2WHZycW5IMzFYdjh6TzJYNDQyaWZLSHIr?=
- =?utf-8?B?MWJoNEJxUmtnNkcwaEtBY21oWTRhRmx5N0FXVEhGZEtHNzRVbW5EUkJjYTA4?=
- =?utf-8?B?SlVKaEVKcHU4UHEwWFd1RDBVUUhTM3JBc2cwS3FpMVg4UGk3QlR2NHdvdzVX?=
- =?utf-8?B?dDRZbDRDd21JN1g5SGlKNlI1clJHMEhCTmVDM3d1YUpPVlp2Sy8xS2xORWx6?=
- =?utf-8?B?bnhwOFdXOVdEZHJGZm55ZHl5Y3dmWDVZQzhPaTdTbDVSanEvVzA0VlM2MjUx?=
- =?utf-8?B?VldoVW9pSVNKZy9neVJvdFdIZ1ZDblZEbUpGeU02TzdHMndveWR3b05XVjRk?=
- =?utf-8?B?Tyt2THFyT1FSVEhpeWNsS0pITThnM1lHSDVLM2tzNklPOU9qRDlheDhvYllH?=
- =?utf-8?B?dE84UVo1WHcxNWZUTWdsRXhqbGlJV01QMEQ0MFFQblpvY0FmcmptUkk0Qk1l?=
- =?utf-8?B?dnYwZ1c5bnBubiszMEFXczdFUzhaOTVEUTduN3J1alRBZTVGQlpwVHdiSFlr?=
- =?utf-8?B?QVlwN0cvcXZUZ3M4MktFTGtNQWlWL3U5RVBPNFBHempTKzJmN2EzT2dQL1JK?=
- =?utf-8?B?QTlRckVLZ1kzN1Y3NU4wczlPakkrdXNRdlgzbDdFSmVHNS9sTDNEUC9jQzFQ?=
- =?utf-8?B?RjkvSWtiWkZYQzJNaSs2UE9lWVR3bmlOMDhHZTF4NE1FNWw4ZjRjenF1MlRv?=
- =?utf-8?B?WWtEZzdpbzI3UmpSWEdoM1NPdkswZmhqSzBmN1UrLyszL3Y4N0c2YkUrejV4?=
- =?utf-8?B?TCs4ZjVWc2JPK1FnV2J0N2VuWnZEYm1CRm1WclVYWnhadXdrRWROVllNRlJM?=
- =?utf-8?B?Um55YjJKem1FL3QxcDdJSFJ5RXpHT1JzUzRydlYzSkN1NWRMai9odFgyZUlk?=
- =?utf-8?B?ZmVPRmtseU51dlN0ZTljVHBGdTJPWlg5NDMveExzVHZLbmFwWkJ5QklDUU56?=
- =?utf-8?B?bUxTdWIxS0VpV1FsanR3V01SU2U0V01LcDZLSkxGQzVJdTJDQnV5c2w3ajIv?=
- =?utf-8?B?MFdNSVJLZGNlWWc4SlBTdjgwOXdDeEZOOHFwcWx4aWpuZWpwb2RoZUZMK1RU?=
- =?utf-8?B?VmN0VURDTC9MUXlydFdoUUJER1ZtcnJPYjFhVjVUUndDbnFkQ2IrS21OeHZv?=
- =?utf-8?B?SUZwampOa2FDc1AxUTZXeWd4TjNmRUdsTzF4L3FMRmpwaXNCRHlpa0w5cUxH?=
- =?utf-8?B?cFdXcHpjMldENHRIelZHWUc3aUREUkRDNzFGV0gvbUdnWFZSeWpqYzJ2K1ov?=
- =?utf-8?B?UEVqQ0toNVhvcTZtbzdjYktNeGdlNmV2NC9sSVFHQllOTDUvcXJnNzlBc3Rh?=
- =?utf-8?B?RnhIazcxbm9nTVIzREdQSHBNb0JkR0ZSUU5Ub21kSTZyNVFsVVh5blFFaHVW?=
- =?utf-8?B?dTk2Sk9vbDVaemU2bENTMmhsbk8xU1p5T3Y1b3JaSG1WY0V3WkhNYk5aclBl?=
- =?utf-8?B?L0RMTzZ2RyswTXphY0g0OG5jVGFCaDdKSmd5NG1NVmZrMEpxOWhpVGRLQmFj?=
- =?utf-8?B?TFErSlRMM1g5UFpldlorQTdpdklQWHB6RGIvazhWYlo4dElteWVOQ25jdWYz?=
- =?utf-8?B?WmJDZEU3Z3FuUmhwMThQdk1QclBBd3J2bkVRMGFXcHlFbHh0Z1JzazF4aWpw?=
- =?utf-8?B?YS93M0Eza3paYnZjeTdXbWpyZ1MwejNQbS9tQTJYcy9QZUdRNkt5cU1nMVNE?=
- =?utf-8?B?SWpISlVITjl4dW9qZGx5V0w5Rmp6Y1RuRHltOVBMVnB1bXlzSGNPZkZ0SDdr?=
- =?utf-8?B?bnFhVnNvandSVU0rbnJneXc3SkhBZGg3R3QzUmFTYzROMGppQXJrRmd3aVMz?=
- =?utf-8?B?V3VZTDg3aTN4a2hNTkplL1F4Wk5QZDVqK3R4MVAreDJOdlZKSSttYlViRERn?=
- =?utf-8?B?bGw5R3NPMmJ4UGk2SGhJMlJZc0hBRVkwVG1JWENIQVVZZDU1UWlkR2N4RThm?=
- =?utf-8?B?UE9IbjBBTUYxR1c5NHZJQ1I4M3JpRm5LK1NZajRnR1p0M21lSm0vS2ppbkNw?=
- =?utf-8?B?RXBBWklqVWo5aExTbzhBYjJvdS8yQ2RyRDNKSy9IbUJpT2wxWWxLMTBPN0NI?=
- =?utf-8?B?NE4vcnJwTk1CeXRxdE9OVlBCcXQwOTU4TUdzQ2VKZEV2VXhWNzdJdz09?=
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="=-dPRVQ9eg+96EFLtuvHSj"
+From: Sandipan Das <sandipan.das@amd.com>
+In-Reply-To: <4ef25c08-ac66-4734-abd1-2d50bebcd94f@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN5PR01CA0013.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:25e::8) To DM4PR12MB5721.namprd12.prod.outlook.com
+ (2603:10b6:8:5c::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: axis.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5721:EE_|MN2PR12MB4223:EE_
+X-MS-Office365-Filtering-Correlation-Id: 44c57036-63e2-45d3-a166-08df2b55d3b6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|7416014|1800799024|6133799003|18002099003|22082099003|10067099003|3023799007|4143699003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	DX7Wc57glfY1QbjwSOL7qspOrpUvpRMajNrNuNZtZdRp8U/CdzHT8jq4UKCRoiNvKmFITFspopV65Uegm8eJCKacnRl4b773zEqmxyP2mz5QGRHfyNM8ehW6QqcGHTaDcEzqOIntP+3EXNS/H5Ds4+/Tib+iGSXLUR7iGxE3sMpUYEMb078eaESg2mNBmvI0+L21hD9L/aOGrH+9dsfBebEN7H3iTBR6CkxKsipCAN0CT6msH3585NEWRTRqXhKAeZ9U/lDSfexGQ9qc5A4pL74kRBobsUQXtxWrg2ssi7B2g8tTzgiOkKCLd90uwP3fkog+9pfs8+ob08jPbBEx2XI3RLnGxpYGSIQWpPWaiQvKt4FOobHVXTaL8SkoymefFs3IGM5Dw3U1m8f4Pf0hAb0d/VAza5axIMLeOsh1qTVE1guvl8NJlDd0jqFPuWwwdSDK3pWJyJA8sib2NffBUCkQs3OkoGkbuO8MhSyvyeRfHpFryuWu7i7fWkz/veY1DKbZ+c4RQ2HKpexQV925QqfUONUgj4aHMr5VtW31ApjW3BYGrMrQDnFBe+nLv5E5aRXzO0bbbp8hPB4twLfVqHvlV+wRJjnMIjw5BzpWotLvHCCCuU7V6G8Dr/yzwpZDc789QQJ+zuiZ4N7Hjbj1FWV3WfPXGqtzahgabZ6Uydg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5721.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(7416014)(1800799024)(6133799003)(18002099003)(22082099003)(10067099003)(3023799007)(4143699003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cSs5bkRjVkFJRHVEdEUwOXU0T1RES0lGbEJLQ1hrWmxpaWRpbWdRWkJZWEt5?=
+ =?utf-8?B?ajFFOXpVd0JVakVGb3YvcnNHbTk1Ykh5SnVFb1J0T3Y1a0daeE5QQUU5SnZl?=
+ =?utf-8?B?bGY3M2V6MDltWVFNeCtPNjBxSFJldXdIRFFRZ3MxR0lXSDVZSjJMTmZ1TUNy?=
+ =?utf-8?B?a1VrTHJrdHRwajh5Yi8zblg3WmVuNzA3bDkya255Z0RMWjUzZVZCeFZ1ZlpN?=
+ =?utf-8?B?UnFUUElXRXFKTlBrQU9vTlFXNmNzRWZNQmFST2QyMmYzQTRCUkZjSkdxQit3?=
+ =?utf-8?B?WGV4Q1Rzem5OTlY5QjQ0TFBYSUdNcUpxekdIbWdidWh4VXlidW4vWm5DM0Rs?=
+ =?utf-8?B?Vnlianc0TUI0cHlNemQ5SEJxTmZMWEVyUzVRa3d4aHREaTlKOG9qcFQ2TEFG?=
+ =?utf-8?B?M0I0M0hWUFZDbkhXUEJWTW5CVjZCTEVuMzVQNXJ5anZJZkNBQzR5T3E0UkVr?=
+ =?utf-8?B?N0QzTHZiZnlIb2daQ3hpY1FxbHQ0MVMxTzVTZC81djQyUCtwbCt6R3hmdXd6?=
+ =?utf-8?B?dDczeEx3QlZTdlhEZzJLaURHWlBob3VRb3RIcGUxQW9uZkloMTdWMjJZVDJj?=
+ =?utf-8?B?S0dTTDJwWFZ4c2dhbFp0MTlOdFZMajl1djE5VG96VnNZZ2JnUWUvQk1BVkNr?=
+ =?utf-8?B?c29YUEpDNnRhR09vRGF4dFAvRjhzTXpidGNCWUN1YlRacTVmQUh6SDd2Z093?=
+ =?utf-8?B?MmNvNEFjR0llMjdlK3JRQUdCVVdKTm9NajlIU21DZDF2TXF5YU9pam52NG9u?=
+ =?utf-8?B?QTkzMFFUcVN5YUowYlRCTllwRmUzQmVWam1PbC92TEhxTk1nSEhWeW12MGpr?=
+ =?utf-8?B?dW1Ia1dvNFN4SnFxNnN1R1c3bjlPSjJoWUNZMnpvYWI1TEVhSWwxNVo3NE9x?=
+ =?utf-8?B?Witxd1h5V1RkZERPNFgwUlA4WFVIUlB2cHVDNEw1eXh5VnJpemlKbGY3RWtB?=
+ =?utf-8?B?a2gxQ1ZTRlhQNFVqeXdwODhLMm5zVnZlbjNaUStoeTFUaUtGbnpJcnlzeWdi?=
+ =?utf-8?B?UE9kazJOWEZ3VTJDWjcvdkR2MHIxT0FPSlhHbjBZMHlFYUNXRmYxUUx5Z1g3?=
+ =?utf-8?B?ajE1YjN3UW9EL2ZDemxQanRDaERPalY4eGZnMHNSMktNNkNRd3lTUStzMStj?=
+ =?utf-8?B?ZmE0WnFWRlUzWHVmV3c3RXVSbCs4NzIybEFiSWRDd280RGhuOGVoQWgxNXNP?=
+ =?utf-8?B?VkJYRVFUZXlpSDJFL3R3UVpWWXBkQzJMaGIrYVI3T3hKYlhvZDZMc1J3akVj?=
+ =?utf-8?B?aFZTVHlPQzZGZTFXZXJkL2JVd2dyQ0I4dDRXTnVValZuQ2RHTUd3RHVlbUI0?=
+ =?utf-8?B?dFl5NUk4OEk3K1hHMW5Tc1N4QWVEYXdMaWtreGZBanlKOTQyTnVRK0YrYmlT?=
+ =?utf-8?B?ODc1MnE1MEpHWjFYa0xmbFEzV21GcFFqKzg3dFNTU3F4RHYxYXJFN2lJQlFF?=
+ =?utf-8?B?MHRVR0llTVRjUGN0TVMyU2Y3Q0x4V0xsTExnK3RudkFQd3lYY3VFN3ZqTW5w?=
+ =?utf-8?B?TjR2YnRqWkNrUHZwMldUODRLdXAram1EVm9GUzZ6VXI3TFNZZjdweEVKNkVG?=
+ =?utf-8?B?MHJkN1RTdVkrbWphQlAvSVlRTU9BbXVUQnhSRVhXSDJkM0RMb0N5am1OaUp4?=
+ =?utf-8?B?VFlpNkxkem1HaURPZ0lKTTBEMndsYXZKVjEyZFNrM2JjUnlnZ1dsSUMxb3l2?=
+ =?utf-8?B?cVBWakV3M1p6THZlSkE0R2Z1QW5BUCtNV3BtTFFLNnpXSHUxWjB5WVNvdVNJ?=
+ =?utf-8?B?WDJRK0NCYlJIUDhSM2tLeW1tYnVSOG1Lb0tvOEtHZlV1c0tNL1dlOVZKcnpV?=
+ =?utf-8?B?NUY4MENWUnlVUWlqRCttUTQzOUkyZkE2bmJjRFg2ZEZKaTBwNGtZcU1Edngx?=
+ =?utf-8?B?QzhlMEFOTlIwaCsyTjUxNUNneXNKbUZQL3Ric1ZubG5EbG5XUjNlcUVJMEdK?=
+ =?utf-8?B?ditmTzN5ZUtoalF5TDdUSnRJbjdkTTBSNUo1MVQwV016WEcxdlNydmpXemFF?=
+ =?utf-8?B?dWdKZ3pYSFV4dEpoWWRDZ00yUm9IdFFScURyUUg2YWFYR3hqalFMWnordEFs?=
+ =?utf-8?B?NmRRUjhmUWdMMlZkTGFYOEFMdjNETExQSkYwTlpjZXpRbGt3RVM3MitYT0lr?=
+ =?utf-8?B?UUVFZkFkZ1JPR2treWpNUHVIVXNzcXhSSnpVSlhLZzRNbTd4Z1Y5L0s4b25Y?=
+ =?utf-8?B?ZEc0R3RubXR3d2NxakxpOW54N1ozeWFGRnA0RXJGYU5vNDBnOFFjMm5ZQ2p6?=
+ =?utf-8?B?QzdrQzNPbjIyN1NXbnIwQXdqZUEvVWFmN2t0bkFEL0lSVFhtM0lvNVVqaTZH?=
+ =?utf-8?Q?HpsETrj6L4+1MY1Elr?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44c57036-63e2-45d3-a166-08df2b55d3b6
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5721.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR02MB5281.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b8a572b-a185-4c5d-cfbf-08df2b55b985
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2026 07:18:49.4125
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 07:19:33.5789
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: oY4nRlmyrTs0CNkrlprHY3gaFoiswuR40y/6tIooEqs5qayGVlpljnsEWRjWwHhi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR02MB6935
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QOXIHkbtfMvT50oxMPPaEbK5DaXWQ3TuH1pk8EfvA+kXinVISVy/xJy/QwNhsuhhZRfzuTdD7KU22boLs3qZEA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4223
 
---=-dPRVQ9eg+96EFLtuvHSj
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 16-10-2026 08:41, Mi, Dapeng wrote:
+> 
+> On 10/16/2026 8:21 AM, bot+bpf-ci@kernel.org wrote:
+>>> perf/x86/intel/lbr: Limit branch snapshots to valid entries
+>> TL;DR: Resetting cpuc->lbr_stack.nr in intel_pmu_lbr_read() may clobber an
+>> in-flight adaptive PEBS sample if a BPF program calls
+>> bpf_get_branch_snapshot(), possibly yielding a PERF_RECORD_SAMPLE without
+>> branch records and with leftover bytes.
+>>
+>>> diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
+>>> index 22e2a06d5786..2fe858d99979 100644
+>>> --- a/arch/x86/events/intel/lbr.c
+>>> +++ b/arch/x86/events/intel/lbr.c
+>> [ ... ]
+>>
+>>> @@ -1026,8 +1026,10 @@ void intel_pmu_lbr_read(void)
+>>>  	 * but this simple approach seems to work for now.
+>>>  	 */
+>>>  	if (!cpuc->lbr_users || vlbr_exclude_host() ||
+>>> -	    cpuc->lbr_users == cpuc->lbr_pebs_users)
+>>> +	    cpuc->lbr_users == cpuc->lbr_pebs_users) {
+>>> +		cpuc->lbr_stack.nr = 0;
+>>                  ^^^^
+>> Can this clobber the branch stack of a PEBS sample that is still being
+>> built?
+>>
+>> Before this patch the early return had no side effects.  Now it writes to
+>> cpuc->lbr_stack, which is shared with the adaptive PEBS path.
+>>
+>> If every LBR user on the CPU is an adaptive PEBS event, then
+>> cpuc->lbr_users == cpuc->lbr_pebs_users, and the PEBS drain points the
+>> sample at the per-CPU stack:
+>>
+>> setup_pebs_adaptive_sample_data()
+>>     intel_pmu_store_pebs_lbrs(lbr);         /* cpuc->lbr_stack.nr = N */
+>>     intel_pmu_lbr_save_brstack(data, cpuc, event);
+>>         perf_sample_save_brstack(data, event, &cpuc->lbr_stack, ...);
+>>             data->br_stack = brs;           /* points at cpuc->lbr_stack */
+>>             data->dyn_size += ... + brs->nr * sizeof(struct perf_branch_entry);
+>>
+>> __intel_pmu_pebs_last_event() then calls perf_event_overflow(), and
+>> __perf_event_overflow() runs bpf_overflow_handler() before the sample is
+>> written.  A perf event BPF program attached to that event can call
+>> bpf_get_branch_snapshot(), which is in bpf_base_func_proto:
+> 
+> Yeah, it's a possible risk. After thinking twice about this issue, the
+> issue seems much more complex than I ever thought.
+> 
+> intel_pmu_lbr_read() could be called in two paths, one is from the perf PMI
+> handler, the other is from the bpf_get_branch_snapshot() bpf helper. Which
+> makes the thing more complicated is that bpf_get_branch_snapshot() helper
+> could be called in the PMI handler as well, where is just before the
+> default event overflow handler. In this case, intel_pmu_lbr_read() could be
+> called twice in PMI handler.
+> 
+> So there could be 3 scenarios for the intel_pmu_lbr_read() calling.
+> 
+> 1. bpf_get_branch_snapshot() is not attached to any event, then
+> bpf_get_branch_snapshot() won't be called in anywhere, current LBR stack
+> update in PMI handler is good for both PEBS and non-PEBS events.
+> 
+> 2. bpf_get_branch_snapshot() is attached to a software tracepoint, then
+> bpf_get_branch_snapshot() is called out of PMI handler,
+> the intel_pmu_lbr_read() is called to get the current LBR stack data in
+> bpf_get_branch_snapshot(), it's fine as well.
+> 
+> 3. bpf_get_branch_snapshot() is attached to a perf hardware event, then
+> bpf_get_branch_snapshot() is called in the PMI handler, it leads to LBR
+> stack could be updated twice in the PMI handler. In this scenario, since
+> perf has already read the latest LBR stack data before calling
+> bpf_get_branch_snapshot() helper, bpf_get_branch_snapshot() is unnecessary
+> to read the LBR stack again, and worse it could overwrite the cache PEBS
+> LBR stack data if PMI is triggered by PEBS event.
+> 
+> Roughly we could need below changes to thoroughly fix this issue.
+> 
+> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+> index 442be0639414..d2cbb5ade003 100644
+> --- a/arch/x86/events/intel/core.c
+> +++ b/arch/x86/events/intel/core.c
+> @@ -2869,8 +2869,8 @@ __intel_pmu_snapshot_branch_stack(struct
+> perf_branch_entry *entries,
+>  {
+>         struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
+> 
+> -       intel_pmu_lbr_read();
+> -       cnt = min_t(unsigned int, cnt, x86_pmu.lbr_nr);
+> +       intel_pmu_lbr_read(true);
+> +       cnt = min_t(unsigned int, cnt, cpuc->lbr_stack.nr);
+> 
+>         memcpy(entries, cpuc->lbr_entries, sizeof(struct perf_branch_entry)
+> * cnt);
+>         intel_pmu_enable_all(0);
+> @@ -4090,7 +4090,7 @@ static int intel_pmu_handle_irq(struct pt_regs *regs)
+> 
+>         loops = 0;
+>  again:
+> -       intel_pmu_lbr_read();
+> +       intel_pmu_lbr_read(false);
+>         intel_pmu_ack_status(status);
+>         if (++loops > 100) {
+>                 static bool warned;
+> diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
+> index 2218469be644..c651b94a893f 100644
+> --- a/arch/x86/events/intel/lbr.c
+> +++ b/arch/x86/events/intel/lbr.c
+> @@ -1008,18 +1008,31 @@ static void intel_pmu_arch_lbr_read_xsave(struct
+> cpu_hw_events *cpuc)
+>         intel_pmu_store_lbr(cpuc, xsave->state.lbr.entries);
+>  }
+> 
+> -void intel_pmu_lbr_read(void)
+> +void intel_pmu_lbr_read(bool from_bpf)
+>  {
+>         struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
+> 
+> +       if (!cpuc->lbr_users || vlbr_exclude_host()) {
+> +               /* Reset lbr_stack.nr to prevent stale data leakage. */
+> +               cpuc->lbr_stack.nr = 0;
+> +               return;
+> +       }
+> +
+>         /*
+>          * Don't read when all LBRs users are using adaptive PEBS.
+>          *
+>          * This could be smarter and actually check the event,
+>          * but this simple approach seems to work for now.
+>          */
+> -       if (!cpuc->lbr_users || vlbr_exclude_host() ||
+> -           cpuc->lbr_users == cpuc->lbr_pebs_users)
+> +       if (cpuc->lbr_users == cpuc->lbr_pebs_users)
+> +               return;
+> +
+> +       /*
+> +        * Don't read LBRs from BPF context if we're in an PMI handler
+> +        * since the LBR stack has been updated previously and new LBR
+> +        * stack update could overwrite the cached PEBS LBR stack.
+> +        */
+> +       if (from_bpf && in_nmi())
+>                 return;
+> 
+>         x86_pmu.lbr_read(cpuc);
+> diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
+> index 60038d329518..4738b40288a4 100644
+> --- a/arch/x86/events/perf_event.h
+> +++ b/arch/x86/events/perf_event.h
+> @@ -2006,7 +2006,7 @@ void intel_pmu_lbr_enable_all(bool pmi);
+> 
+>  void intel_pmu_lbr_disable_all(void);
+> 
+> -void intel_pmu_lbr_read(void);
+> +void intel_pmu_lbr_read(bool from_bpf);
+> 
+>  void intel_pmu_lbr_read_32(struct cpu_hw_events *cpuc);
+> 
+> Sandipan, would you mind I take this series? I need to do fully validation
+> for the Intel side changes. Once the validation passes, I would send a new
+> patch series to fix the issue for both AMD and Intel side. Thanks.
+> 
 
-Hi,
-> > >=20
-[...]
-> > > That's misleading or confusing. Either the device works or does
-> > > not
-> > > without interrupt hooked up. Consult hardware datasheet if in
-> > > doubts.
-> > >=20
-> > > Driver support is different thing here and you cannot make it
-> > > required
-> > > later, because that would be unjustified ABI break.
-> >=20
-> > I looked into icm42605 data sheet and saw no clear statement about
-> > the interrupts
-> > being required. The timing diagrams only show protocol specific
-> > lines and it
-> > looks like the interrupt sources can even be disabled (not routed
-> > out to any
-> > interrupt pin). Maybe I'm missing something and the interrupts are
-> > required for
-> > some sort of reset function or so? Otherwise, I don't see how the
-> > interrupts are
-> > required.
-> >=20
-> > Kanak, do you have access to any of those other chips to test
-> > whether they work
-> > without interrupts? If possible, can you also check the data sheets
-> > for the other
-> > parts besides icm42370p and icm42605?
-> >=20
-> > Maybe
-> > =C2=A0- if:
-> > =C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - invensense,icm42600
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - invensense,icm42602
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - invensense,icm42605
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - invensense,icm42622
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - invensense,icm42631
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - invensense,icm42686
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - invensense,icm42688
-> > =C2=A0=C2=A0 then:
-> > =C2=A0=C2=A0=C2=A0=C2=A0 required:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - interrupts
-> > was a documentation mistake?
-> >=20
-> > With best regards,
-> > Marcelo
-> >=20
-> >=20
->=20
-> Hello,
->=20
-> I can confirm that all icm426xx chips can work without interrupt by
-> just polling
-> the data.
->=20
-> Interrupts were declared as required at the time only because the
-> driver doesn't
-> work without interrupt (probe will fails).
->=20
-> Hardware speaking only, this is indeed a documentation mistake.
+Sure, please go ahead.
 
-Thank you for confirming the requirement for interrupts. I will cleanup
-the documentation in a separate commit not part of this series and the
-driver should be updated to not fail if the interrupt property is
-absent in the devicetree.
+> 
+>>
+>> intel_pmu_snapshot_branch_stack()
+>>     __intel_pmu_snapshot_branch_stack()
+>>         intel_pmu_lbr_read()
+>>             /* lbr_users == lbr_pebs_users, early return taken */
+>>             cpuc->lbr_stack.nr = 0;
+>>
+>> When the program returns, data->br_stack still points at cpuc->lbr_stack,
+>> but nr is now 0.  A later bpf_read_branch_records() in the same program
+>> reads ctx->data->br_stack->nr and returns 0 bytes.
+>>
+>> perf_output_sample() then writes nr = 0 and no entries, while header.size was
+>> already computed by perf_prepare_header() from data->dyn_size, which counted
+>> N entries.  Doesn't that leave the PERF_RECORD_SAMPLE without its branch
+>> records and followed by N * sizeof(struct perf_branch_entry) bytes of
+>> leftover ring buffer content?
+>>
+>> Before the patch, the early return left cpuc->lbr_stack untouched and this
+>> sample came out intact.
+>>
+>> Would it be better to leave cpuc->lbr_stack alone in the snapshot path, for
+>> example by checking the skip condition in __intel_pmu_snapshot_branch_stack()
+>> and returning 0 there, instead of resetting the shared nr inside
+>> intel_pmu_lbr_read() for every caller?
+>>
+>>>  		return;
+>>> +	}
+>>>
+>>>  	x86_pmu.lbr_read(cpuc);
+>>
+>> ---
+>> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+>> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+>>
+>> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/38827450009
 
-Best Regards,
-Kanak Shilledar
-
-
---=-dPRVQ9eg+96EFLtuvHSj
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTOMrdbv2P+LZwbQtLEY9j7t8KaZwUCatHP0wAKCRDEY9j7t8Ka
-Zw1wAP9o03mWu/s84P7U4x3CpdWGKCPRyiLO7Hv4dqCZDmAUfgEAhdIvFRjARRKt
-alQD7ljBwPSH1gEaWNwJwjblAGH9OQ0=
-=Vbr6
------END PGP SIGNATURE-----
-
---=-dPRVQ9eg+96EFLtuvHSj--
