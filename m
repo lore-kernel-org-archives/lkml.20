@@ -1,116 +1,212 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEAD547209A;
-	Fri, 16 Oct 2026 10:21:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 126893B27E8;
+	Fri, 16 Oct 2026 10:21:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146099; cv=none; b=FdepwxlJKFyymTUZIwA0sdFFS5iY4qkiJaRltIJyyttT6x0Yf5bORitCC77FR5tAn31xgyYU+cP46GQnEkYSkPTxQHZs8CkGue6zMgPLvuA5bP+5COr6g3lsAvuCRfVeRCO61wehpRFKYgYYBqOPLQqrZMn11jEO/FkN5hGMmE4=
+	t=1792146109; cv=none; b=hx2bqLJc9nkei5Wpy9A96W1BWHbK3kTR4sO8xG/TvcJWqGVf0G75p3I12R/wHQpACne3pbNKnq73HRYAv0aJtO0PtnRfZ5vWkW8E3iZx70LCno5Wt+XaBdAL5tKrnbmzFEbhenmyXZQwwk2HstnKjMpI2an5pS5lHtK3lDWpTc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146099; c=relaxed/simple;
-	bh=hJglFGaadsV/wbyEcUX3Z4qyfuj7vAwodrNb8C56c8w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hRx24mPT0erCahXv6yKSdt5ull/NMtxMLA09Sk8PlBWMq0FPTJC2WyO0WS5jJcrHUza89ASRlOqT4TBsiWnjWggY46uRNYuk28yjU9ZjnbrjRw9jUUtlzWCLOZUDfTrsKA6do827RIr38HN1uLlbBgPRRdg/5rFKCFwAGzZ2bKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SA5y25c5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792146109; c=relaxed/simple;
+	bh=C8QGU4HA3aUofV7H5R8Vzj1TWla1A53rsd47BX4swJU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gi52hZRWMgLY8+NSrpnl6UAOY0l9q2TT9mSW9exgU3LEpz75x7+RuOlk4FdwKeIxOb8c65daPgpRpFttLB5X9GKcZ6DynidjJxtHgq3i4nIEyILOnvrpaFx2wxaBLW8ekncyZbuHMbv2770eWDZxhrz0EvXL09sZb8QSPlsU8nY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lko/KOQb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SA5y25c5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0F671F000C4;
-	Fri, 16 Oct 2026 10:21:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lko/KOQb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47F841F000C5;
+	Fri, 16 Oct 2026 10:21:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792146098;
-	bh=ZLLh+H6AvF3pOzsah8RxxbzU39nSJ9TcPLlAcIWH0Mg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SA5y25c5Ax9XiL89LHF60r7LTjc/isW/mANFnBpopAF7cnYAH68fLLHwbl1/OVtkd
-	 nurZ8/hyMKyst8EuUgHLk1ctDT2FNTC1X1UwhqJee9Yz7/+6gLU3Ase+3LoxnKUtbU
-	 D2+c9LWzP3DuNy8b4SQsWU12QwdVokU7l7zIifnGyYQZEguEO5b6WLau/Vee49QXmf
-	 PKdqLRCbvFFrR7FCt9HPFQdkxEdm9gPG9sc5H2zD5z9TOHutnFDhAHCKHV8raPJMmS
-	 GavfobPpuZyGynW0TZKRfAUSXMjrSgQoUM4wcU1xv3vSQs5E4MmFvIxvUP+TuyFKKq
-	 hHnVrmV03MAzw==
-Date: Fri, 16 Oct 2026 11:21:34 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Philip Radford <philip.radford@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org, linux-pm@vger.kernel.org,
-	Sudeep Holla <sudeep.holla@kernel.org>, james.quinlan@broadcom.com,
-	f.fainelli@gmail.com, vincent.guittot@linaro.org,
-	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
-	quic_sibis@quicinc.com, dan.carpenter@linaro.org, d-gole@ti.com,
-	souvik.chakravarty@arm.com
-Subject: Re: [PATCH v9 12/13] powercap: arm_scmi: Add get_power_uw to
- synthetic node
-Message-ID: <20261016-nostalgic-adaptable-crab-4eea62@sudeepholla>
-References: <20260909220437.1254412-1-philip.radford@arm.com>
- <20260909220437.1254412-13-philip.radford@arm.com>
+	s=k20260515; t=1792146107;
+	bh=eCepIudj7vov6ZGXiPy9w4RZwye94YHk4gS2To7BfWw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Lko/KOQbacRGMbvVSxjkV7/T1BDxt50UtOC7VnyQ2RPPAjLn1XmqNPJNo+plkkCrJ
+	 YsDdIWIDOm9/4vzLQCWDrASV+qBnrQTNuS9xCLq+fBEIjJUpTtVFBKlOsnxID5EvvC
+	 dTd9IQfIluzRtwluG3zFDzUsBXUJT0+kAzf4EnFUhcU+ceYqpDjmsTf47leRYoybeD
+	 KoCSqTu+VagCWnIGjWdA1pEjTr7KdZJFvwyUlS+ZUk6Ye2kf30J4U+hAW00Izgu19D
+	 Ur26sAHRTUmQDKqqbKo/NViV7Dk5kbPUKruMI7KDS80z02IGZHg3j09e9UPP5up7iM
+	 ECtqWKi/Y8zAw==
+From: Christian Brauner <brauner@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL 11/19 for v7.4] vfs iomap
+Date: Fri, 16 Oct 2026 12:21:33 +0200
+Message-ID: <20261016-vfs-7.4-rc1.iomap-a7ba039d4f24@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016-vfs-v74-41eaf6c4712c@brauner>
+References: <20261016-vfs-v74-41eaf6c4712c@brauner>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909220437.1254412-13-philip.radford@arm.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7181; i=brauner@kernel.org; h=from:subject:message-id; bh=C8QGU4HA3aUofV7H5R8Vzj1TWla1A53rsd47BX4swJU=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRd/LX+V/GEHduuVZ3b9V1a5VMxz3X3l0cEOKx+Hi6ws o81usEl1lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRWVcZGdYZOUooTGV+YHuB Zd27Z/FGFUte+tu1S5Re2vdU8KD5xTqGfwaa3Zmr5xz0audXaEju+SK8t6tQ/6DbkZ03VfkOhce qsgAA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 10:04:36PM +0000, Philip Radford wrote:
-> Exposes the current power usage from the immediate children of the
-> synthetic (root) powercap node. Iterates over pr->spzones and sums per-zone
-> power.
-> 
-> Signed-off-by: Philip Radford <philip.radford@arm.com>
-> ---
-> V8->V9
-> - Removed redundant if (!pr) check from instance_root_get_power_uw()
-> - Stopped returning a partial sum if one child read fails
-> ---
->  drivers/powercap/arm_scmi_powercap.c | 34 ++++++++++++++++++++++++++--
->  1 file changed, 32 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/powercap/arm_scmi_powercap.c b/drivers/powercap/arm_scmi_powercap.c
-> index b5397d7675e6..aac0b00490b2 100644
-> --- a/drivers/powercap/arm_scmi_powercap.c
-> +++ b/drivers/powercap/arm_scmi_powercap.c
-> @@ -17,6 +17,9 @@
->  #define to_scmi_powercap_zone(z)		\
->  	container_of(z, struct scmi_powercap_zone, zone)
->  
-> +#define to_scmi_powercap_root(z)		\
-> +	container_of(z, struct scmi_powercap_root, instance_root.zone)
-> +
->  static const struct scmi_powercap_proto_ops *powercap_ops;
->  
->  struct scmi_powercap_zone {
-> @@ -453,9 +456,36 @@ static int instance_root_release(struct powercap_zone *pz)
->  	return 0;
->  }
->  
-> -static int instance_root_get_power_uw(struct powercap_zone *pz, u64 *v)
-> +static int instance_root_get_power_uw(struct powercap_zone *pz, u64 *power_uw)
->  {
-> -	*v = 0;
-> +	struct scmi_powercap_root *pr = to_scmi_powercap_root(pz);
-> +	struct scmi_powercap_zone *child;
-> +
-> +	u64 p, acc = 0;
-> +	int i, ret;
-> +
-> +	if (!pz || !power_uw)
-> +		return -EINVAL;
-> +
-> +	for (i = 0; i < pr->num_zones; i++) {
-> +		child = &pr->spzones[i];
-> +
-> +		if (!child->registered || child->invalid)
-> +			continue;
-> +
-> +		if (child->info->parent_id != SCMI_POWERCAP_ROOT_ZONE_ID)
-> +			continue;
-> +
-> +		ret = scmi_powercap_get_power_uw(&child->zone, &p);
+Hey Linus,
 
-Should we skip domains without monitoring here as scmi_powercap_get_power_uw()
-return -EINVAL for such domains always ? If the system has one such node, you
-will always return error here ?
+/* Summary */
 
--- 
-Regards,
-Sudeep
+This contains the iomap changes for this cycle.
+
+The bulk is lazy bounce buffering for checksummed reads. XFS bounce
+buffers every direct read on a device that requires stable pages for
+checksumming so that userspace modifying the buffer while the read is
+in flight can't corrupt the data and fail the checksum. That burns DRAM
+bandwidth and CPU for copies that are almost never needed and, since
+the bounce buffer was a bio_vec, produced smaller and unaligned I/Os
+with 4k pages, i.e. 1 MB minus 4k. Now the read goes to the user buffer
+first and only a checksum failure allocates a bounce buffer and reads
+again. Integrity verification moves out of iomap into the filesystem
+so it can handle errors its own way, T10 PI handling for direct I/O
+moves into ->submit_io() to match buffered I/O, and a sysfs knob
+restores the old behaviour for the rare application that really does
+modify in-flight buffers. The block side gains bio_prepare_reissue(),
+exports fs_bio_integrity_{alloc,free}(), caps atomic writes by the PI
+buffer size and fixes an integer overflow in max_integrity_io_size()
+and a PI verification bug with an initial bvec offset. The old read
+side bounce buffering in the block layer is removed. This is a branch
+shared with the block tree and may also reach you through the block
+pull request.
+
+Three error handling regressions are fixed. A failed
+->writeback_submit() left wpc->wb_ctx pointing at an already completed
+ioend which was then submitted a second time and corrupted
+ip->i_ioend_list on XFS. iomap_fiemap() lost an iteration error when it
+flushed the pending extent and marked a truncated list as complete. And
+a failed direct I/O bio lost its error when the sub-block tail zeroing
+succeeded. An XFS error tag to inject the writeback failure comes with
+it.
+
+iomap_dio_hole_iter() respects the block size alignment when
+iov_iter_zero() stops short at a page boundary, which btrfs with 8k
+blocks on 4k pages hit as an assertion since it disables page faults
+during direct I/O. The homegrown deferral of error completions to task
+context is replaced with bio_complete_in_task(). Plus an unused
+parameter, two typo fixes and a kernel-doc fix.
+
+/* Testing */
+
+No build failures or warnings were observed.
+
+/* Conflicts */
+
+Merge conflicts with mainline
+=============================
+
+No known conflicts.
+
+Merge conflicts with other trees
+================================
+
+No known conflicts.
+
+The following changes since commit df2908090cda368b01ff43709f51890076c56157:
+
+  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
+
+are available in the Git repository at:
+
+  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.4-rc1.iomap
+
+for you to fetch changes up to a0f61a936b36a340998825cb945e5fdf03468988:
+
+  fs/iomap: document ret parameter of iomap_iter_continue (2026-10-13 16:59:01 +0200)
+
+----------------------------------------------------------------
+vfs-7.4-rc1.iomap
+
+Please consider pulling these changes from the signed vfs-7.4-rc1.iomap tag.
+
+Thanks!
+Christian
+
+----------------------------------------------------------------
+Andrea Parri (4):
+      iomap: don't resubmit an ioend after ->writeback_submit() failed
+      xfs: add an error tag to inject a ->writeback_submit() failure
+      iomap: don't lose a fiemap iteration error when emitting the last extent
+      iomap: don't lose a failed direct I/O bio's error when zeroing the tail
+
+Christian Brauner (4):
+      Merge patch series "iomap: fix typos and repeated words in comments"
+      Merge patch series "lazy bounce buffering for checksummed reads v3"
+      Merge patch series "use bio_complete_in_task for iomap error reporting"
+      Merge patch series "iomap: fix error handling regressions"
+
+Christoph Hellwig (24):
+      block: avoid integer overflows in max_integrity_io_size
+      block: cap atomic write size by PI buffer size constraints
+      block: improve aligning down bios in bio_iov_iter_bounce_write
+      block: split bio_iov_iter_bounce_write
+      block: export fs_bio_integrity_{alloc,free}
+      block: add a bio_prepare_reissue helper
+      block: pass a maxlen argument to bio_iov_iter_get_pages
+      block: warn on too larger integrity allocations
+      iomap: respect maximum I/O size in iomap_dio_bio_iter_one
+      iomap: add a iomap_ioend_flags helper
+      iomap: add a IOMAP_IOEND_INTEGRITY flag
+      iomap,xfs: move T10 PI handling for direct I/O into ->submit_io
+      xfs: move PI generation into xfs_submit_zoned_bio
+      block,iomap: fix protection information verification with initial bvec offset
+      iomap: better read bounce buffering support
+      xfs: use BIO_COMPLETE_IN_TASK for bounce buffered read I/Os
+      iomap,xfs: move integrity verification to the file system
+      xfs: add support for lazy direct read bounce buffering
+      xfs: add error injection for lazy bounce buffering
+      xfs: log a message at mount time when using integrity protection
+      block,iomap: remove the old read side bounce buffering support
+      iomap: use bio_complete_in_task for buffered read failures
+      iomap: use bio_complete_in_task for buffered write failures
+      iomap: use bio_complete_in_task for buffered simple dio read failures
+
+Hemanth Selam (2):
+      iomap: fix typo "metdata" in comment
+      iomap: fix repeated word 'the' in comment
+
+Muhammad Mahdi Amirpour (1):
+      fs/iomap: document ret parameter of iomap_iter_continue
+
+Pankaj Raghav (1):
+      iomap: remove the unused ifs parameter from ifs_find_dirty_range
+
+Qu Wenruo (1):
+      iomap: follow the alignment requirement for iomap_dio_hole_iter()
+
+Vincent Mailhol (1):
+      block: store GPT attributes as a raw value
+
+ block/bio-integrity-fs.c      |  15 ++-
+ block/bio-integrity.c         |   1 +
+ block/bio.c                   | 219 ++++++++++++++----------------------------
+ block/blk-map.c               |   2 +-
+ block/blk-settings.c          |   6 ++
+ block/fops.c                  |   3 +-
+ block/partitions/efi.h        |   8 +-
+ fs/iomap/bio.c                |  50 +---------
+ fs/iomap/buffered-io.c        |   8 +-
+ fs/iomap/direct-io.c          |  96 ++++++++----------
+ fs/iomap/fiemap.c             |   8 +-
+ fs/iomap/ioend.c              | 178 ++++++++++++++++++++++------------
+ fs/iomap/iter.c               |   1 +
+ fs/xfs/libxfs/xfs_errortag.h  |   8 +-
+ fs/xfs/xfs_aops.c             |  13 +--
+ fs/xfs/xfs_buf.c              |  11 +++
+ fs/xfs/xfs_file.c             |  11 +--
+ fs/xfs/xfs_ioend.c            | 137 ++++++++++++++++++++++++--
+ fs/xfs/xfs_ioend.h            |   2 +
+ fs/xfs/xfs_mount.h            |   8 ++
+ fs/xfs/xfs_reflink.c          |   5 +
+ fs/xfs/xfs_super.c            |   1 +
+ fs/xfs/xfs_sysfs.c            |  78 ++++++++++++++-
+ fs/xfs/xfs_trace.h            |   1 +
+ fs/xfs/xfs_zone_alloc.c       |   4 +
+ include/linux/bio-integrity.h |   3 +-
+ include/linux/bio.h           |  11 ++-
+ include/linux/blkdev.h        |   8 +-
+ include/linux/iomap.h         |  38 +++++++-
+ 29 files changed, 565 insertions(+), 369 deletions(-)
