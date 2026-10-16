@@ -1,234 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4976D4FC8E9;
-	Fri, 16 Oct 2026 16:08:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E6B64FDE50
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:08:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166932; cv=none; b=pC4Mo817thYUGIRYf07n8w3UvPQVm3hs5TLUdJ+MtKUSofOmshurB+HUWp4fmo+apmqfA3p6QZMfKe1W1A/p/11pfGIrKO8ga/UroMVS82/J6hEuS7bgfrmemXSJbbuecXYLz1FXIC0ZPMWpC3KpnfKZNbGW5C1MTeXEAHBYzJ8=
+	t=1792166938; cv=none; b=QdGl1Xlxz9qhyT/fI2P0dcPP7r3pd/bUpnGzzVmAo/yG2Q0R6VK+O2xtuCPbJ9JW8F5BBCihBqOjvZwMs5IpITZehwlKMUKnzb8gnhBOVPxv364qYY06tPmgMLCU7XS0Rd8Ye3I1Zuip46IROOB40PB6GZauRvdycbRH0+WpX7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166932; c=relaxed/simple;
-	bh=TFrbtsw4/NWtxnrV40DvdCowWXBoBbsoKgaf+ovSJ/g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YBrpfxP6Pztqs9xb3eRHmUVOjUfY1D7jK5ntH00KacYpB1WClAfhKkwvZ0LjEBQ9Oad9d5cjnl5JQLDFBjkdm9/RBTLaTOuSrnKCL5OnoOog97PdmF1pDRk05hFU+a3w5W2Arg/8mrEC9CER8l08v1Durt3NqNZ1rmKi91KAwnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LaVgmzB8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792166938; c=relaxed/simple;
+	bh=n1Dj36+CCyvzyVqupK5U7F0BlEQjzHPDpXfS7N5ssjs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uTKEA5tGvDpyd8wXheHQ2Omspq7wASe/OcXFhjDHuvyHeSu5E/RtMpp9HweLZe1WAUOviOiPZI+INAFYTJEy1SUGqtjFztHfWR15sDM00Nzp/am+tSJcSUXamxQtY6OzL0qTeB4SYsd3ywvdoK0CGZlCFrosJs2LLHlIa3dgNVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=plBJ3L2c; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LaVgmzB8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A1B91F000C4;
-	Fri, 16 Oct 2026 16:08:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792166931;
-	bh=CvxbrF9+7kJSGUOwpuxXUeWuwLElfWufjL06nR8gAR4=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=LaVgmzB8RYqIljRwSEaqwHjFKIrreMWVzrkmgJ4yoRYwmbFa8bm0RruErKOO01CUx
-	 53NZfv4dRYK5fzdJezSXAHPOssQxUfwVMmqPFsmD2dHOLj3svB6LPUw2kNuvl++wBk
-	 FYwrn8vyAdJHzgrR0Sxkal8IeAxvcWb0grcmOXApFyFmdAjHwodGAXFfdkhrJ86We2
-	 w5ubbABzVDjKB39yIcOeKeOTmboW2f2SAvLk1df+IYS1+yrpcNodGSykhvJdHNv387
-	 R3hLaoEQZcWF+cGxvTN/2x3yG1MvZsPSLM+zqP6X5S23UiFtdbUskVsFg+bWmLUyM3
-	 fo/TZLABCP/LA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id C8192CE0854; Fri, 16 Oct 2026 09:08:50 -0700 (PDT)
-Date: Fri, 16 Oct 2026 09:08:50 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: K Prateek Nayak <kprateek.nayak@amd.com>,
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	kernel-team@meta.com
-Subject: Re: Mapping from preempted task to running task on same CPU
-Message-ID: <974da9b7-4168-4345-8f04-ec18b32ac7df@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <e8b6b372-d16b-4939-aa7a-755b7149e0fb@paulmck-laptop>
- <a92f4a71-614f-44e4-b4f1-38e92deffae2@amd.com>
- <20261016072500.GX4120091@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="plBJ3L2c"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e011d370dso12902f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:08:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792166935; x=1792771735; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y3yD2VSIymN6B+DlBxpDWOb8du1EZz/KqBX+LpXERvI=;
+        b=plBJ3L2cKz9ck7x8jQY/AJnAoCNaJpqUeraxps9+iq8TyggaQSor+T41+rIo2UpUbl
+         LFzrQ4OwkVQ9X+mAVjoQahekWOgSAHpElKluF9sEiB0Qk4Cr0l6eifAgaSLjRpLsDuYs
+         alPjoHIIC2dEpRPfm3fNtPpXL50C9Jn/xrZj6A7HqsrZEszNd7UvPifLaoB7JlQj4eMz
+         FcNYmQK2hphreYd5h4ecCojoxYF6ScjWYHEFzXuLj2a4M2vUlXB4uLkEI/gya7NF4ugw
+         Oif8oM1Efal/FbnD/SMmEs1UaX2s1Kj+lSgViTuZVM546ORqVIITcjuSPRbuLFmvcTx1
+         WTpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792166935; x=1792771735;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y3yD2VSIymN6B+DlBxpDWOb8du1EZz/KqBX+LpXERvI=;
+        b=iay/QjWYwQ4mYBsB6VLyixquiBMwElAb/4Nrm0XoMd2BrjqWH+AQLuRPA8GKtntLjT
+         Cg9j/1agQcxwqSrGgbqhCtvTWM978iz00V3hjAMbyUXo4H2t3s3iNDnoa2+vBP4Z5qFu
+         DJ3Pk33H0FxCswohe8PrS+Z1SnEeeNXrXwF0uYqQJz9sVHHGSxZlnZReyIZkAHqGbEPW
+         naS1pb4bLHVi6NVMec/Jz1Ne4LNUFz0DO/Vin2yKjLFXf2E8mKJuJtK35Cg73n5iXohO
+         j7xFvGAZm0WT98wa+HoffSDFD45F1qUU7NLsAJdj5cVxDKqIx8LAv683c4xKacN/3XBN
+         omCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwKVsxPYsGf8H3ROojBbr2YChqWjBVShHK1mHkVG2Y4l9dpBdeZdavX91T4VdIz8CletNB48i0VMcNFHig=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLjbA9wvbUqowcue0hFvtUm9yqejC/mMpUOuFBHzIH93U8dhVyD
+	mOnyRjeF1O+JJkKyAwA+Q8J89DiwBQa7bMMYEGvKCJeHeyA+4Nrlm1hH
+X-Gm-Gg: AYBFou3ay0cmBon2Y/Y3YUFfXQI7IlAk92IiTI+ONcRa0VRjsy/6f09ZDw4/dQXh7CK
+	rBbGVHPbfQQXuXEY+tvExNnLXHH1xaxKW/8qT+7iLlIlMgWPJRoU4reCxikiEGwvy+ZUzPfx1pw
+	wa0S1UHGjKu563ZNz9RFm2ZO/zbT5FfvTxGcA+4Soj/yt9g+RaL/t3vAVE+DNR+rUpBB/IM5cEa
+	ZUqs7eBbFu1JTuOakdc8J3XCsZ88YKV6e2G1xI5cAIAF5M412m5/crnq3jMkwQuMfIeYzJB7Xbn
+	BVFiA40PS1Dl0AVfpr3wu2h9CToz0L06yDWn+4mgtoHZVUU2z8OoMMe//33gKufQZyZgj7rNjaV
+	GcxDZwGTJzIXfK3RhhajEdofPmal+uw5FSE0WyJIdx6NdTb1AMJE8BB2a4uD9wrynNEjcV/QEKn
+	t7M0/fg3UP7kbueVPjZfc85OlFL38/1vBYEypXfVbAom6xw3YHkMkvxBjfxZXvUMbP9ouGsdZzi
+	xYrqMayRBrUeO21UZlolJJwM+eT/+mE3ol5IfEWnv2j+BSHnxgfr9Brcm9aEFD2HR6MrIXNQ6Ij
+	l5wIK98=
+X-Received: by 2002:adf:f491:0:b0:488:7d08:edbc with SMTP id ffacd0b85a97d-48e07bc120cmr65033f8f.24.1792166935169;
+        Fri, 16 Oct 2026 09:08:55 -0700 (PDT)
+Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd471b06sm6766200f8f.5.2026.10.16.09.08.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 09:08:54 -0700 (PDT)
+From: George Neacsu <geocausa@gmail.com>
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: Sergey Lebedev <lsa.uz@pm.me>,
+	Andre Gilerson <andre.gilerson@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	German Pablo Lindo <germanpapulindez@gmail.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 2/2] media: i2c: imx681: Add C-PHY support
+Date: Fri, 16 Oct 2026 17:08:53 +0100
+Message-ID: <20261016160853.193378-1-geocausa@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <11f1a19d-7d57-497f-826e-901f9f88b99b@kernel.org>
+References: <20261015-imx681-x1e-v1-0-fd22f5f3b0c5@gmail.com> <20261015-imx681-x1e-v1-2-fd22f5f3b0c5@gmail.com> <11f1a19d-7d57-497f-826e-901f9f88b99b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016072500.GX4120091@noisy.programming.kicks-ass.net>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 09:25:00AM +0200, Peter Zijlstra wrote:
-> On Fri, Oct 16, 2026 at 10:14:27AM +0530, K Prateek Nayak wrote:
-> 
-> > > @@ -372,17 +381,24 @@ static int rcu_print_task_stall(struct rcu_node *rnp, unsigned long flags)
-> > >  	raw_spin_unlock_irqrestore_rcu_node(rnp, flags);
-> > >  	while (i) {
-> > >  		t = ts[--i];
-> > > -		if (task_call_func(t, check_slow_task, &rscr))
-> > > +		if (task_call_func(t, check_slow_task, &rscr)) {
-> > >  			pr_cont(" P%d", t->pid);
-> > > -		else
-> > > -			pr_cont(" P%d/%d:%c%c%c%c%c%c",
-> > > +		} else {
-> > > +			tc = rscr.rcu_rdr_cpu_task;
-> > > +			pr_cont(" P%d/%d:%c%c%c%c%c%c CPU %d%s %s (%d)%s",
-> > >  				t->pid, rscr.nesting,
-> > >  				".b"[rscr.rs.b.blocked],
-> > >  				".q"[rscr.rs.b.need_qs],
-> > >  				".e"[rscr.rs.b.exp_hint],
-> > >  				".l"[rscr.on_blkd_list],
-> > >  				".R"[rscr.rcu_rdr_running],
-> > > -				".B?"[rscr.rcu_rdr_boosted]);
-> > > +				".B?"[rscr.rcu_rdr_boosted],
-> > > +				rscr.rcu_rdr_cpu,
-> > > +				rscr.rcu_rdr_cpu_offline ? "!" : "",
-> > > +				tc ? tc->comm : "???",
-> > > +				tc ? tc->pid : -1,
-> > > +				tc ? (is_idle_task(tc) ? " (idle!)" : "") : " (no task)");
-> > > +		}
-> > >  		lockdep_assert_irqs_disabled();
-> > 
-> > ... since you are IRQs disabled, it should be fine to use it here.
-> > 
-> > If you don't want to take the overhead of rq_lock() + barrier,
-> > you can perhaps define a cpu_curr_snapshot_rcu() like:
-> > 
-> >     struct task_struct *cpu_curr_snapshot_rcu(int cpu)
-> >     {
-> >         return rcu_dereference_all(cpu_curr(cpu));
-> >     }
-> > 
-> > in kernel/sched/core.c and expose it similar to
-> > cpu_curr_snapshot().
-> > 
-> > I'll let Peter comment if he hates it or not ;-)
-> 
-> I would much rather do this than expose rq_lock().
+Hi Bryan,
 
-Thank you both!  Like this?
+The values come from two places on this machine: the Windows sensor
+file, and a kernel debugger attached to Windows while it streamed. They
+were then checked against the CCS definitions and on Linux. In detail:
 
-							Thanx, Paul
+1. The Windows sensor file. The Windows install on this Surface Pro 11
+   has a Qualcomm sensor module file for the IMX681 (SONY0681). A script
+   here parses its register tables: an init table of 364 writes and six
+   per-mode tables of 68 writes. Nothing from the file is
+   redistributed; only register values are used.
 
-------------------------------------------------------------------------
+2. Windows observed live. With a second machine as kernel debugger, I
+   set a breakpoint in the Windows front sensor driver just before it
+   applies the mode table, started the stock Windows Camera app, and
+   dumped the 68 writes it sent. They match the file's 3840x2160 30 fps
+   mode exactly. That live table includes
 
-commit 1468f6acb32add422b8f4dcebc0d75e7fd4b95aa
-Author: Paul E. McKenney <paulmck@kernel.org>
-Date:   Mon Sep 28 13:35:01 2026 -0700
+     0x0114 = 0x00 (CSI_LANE_MODE),
+     0x0306/0x0307 = 225, 0x030d = 3, 0x030e/0x030f = 375,
+     line length 6752, frame length 3554.
 
-    rcu: Print CPU that preempted stalled reader wants to run on
-    
-    This commit uses the dirty trick of defining an rcu_cpu_curr() within
-    kernel/sched/core.c in order to allow the RCU CPU stall warning call out
-    the CPU that a task preempted within an RCU reader would like to run on.
-    In addition, print out the task (if any) currently running on that CPU,
-    and add an exclamation mark ("!") after the CPU number if that CPU is
-    currently offline.
-    
-    This is a potential step towards allowing people (or LLMs, for that
-    matter) to locate any tasks that might be preventing the preempted RCU
-    reader task from running.
-    
-    [ paulmck: Apply feedback from K Prateek Nayak and Peter Zijlstra. ]
-    
-    Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+   In separate debugger sessions I read the CSIPHY2 registers while
+   Windows streamed. The receiver was in C-PHY mode, and its settings
+   match Qualcomm's GPL 2.5 Gsps C-PHY table (121 registers, compared
+   from two snapshots).
 
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 8b3d47a325cca..3606e5a2cec32 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -2532,3 +2532,5 @@ extern void migrate_enable(void);
- DEFINE_LOCK_GUARD_0(migrate, migrate_disable(), migrate_enable())
- 
- #endif
-+
-+struct task_struct *cpu_curr_snapshot_rcu(int cpu);
-diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
-index 803a56af3259f..33e953bb40b33 100644
---- a/kernel/rcu/tree_stall.h
-+++ b/kernel/rcu/tree_stall.h
-@@ -309,6 +309,9 @@ struct rcu_stall_chk_rdr {
- 	bool on_blkd_list;
- 	bool rcu_rdr_running;
- 	int rcu_rdr_boosted;
-+	int rcu_rdr_cpu;
-+	int rcu_rdr_cpu_offline;
-+	struct task_struct *rcu_rdr_cpu_task;
- };
- 
- /*
-@@ -317,8 +320,10 @@ struct rcu_stall_chk_rdr {
-  */
- static int check_slow_task(struct task_struct *t, void *arg)
- {
-+	int cpu;
- 	struct rcu_node *rnp;
- 	struct rcu_stall_chk_rdr *rscrp = arg;
-+	struct task_struct *th;
- 
- 	if (task_curr(t))
- 		return -EBUSY; // It is running, so decline to inspect it.
-@@ -327,6 +332,10 @@ static int check_slow_task(struct task_struct *t, void *arg)
- 	rscrp->on_blkd_list = !list_empty(&t->rcu_node_entry);
- 	rscrp->rcu_rdr_running = task_curr(t);
- 	rscrp->rcu_rdr_boosted = 0;
-+	rscrp->rcu_rdr_cpu = cpu = task_cpu(t);
-+	rscrp->rcu_rdr_cpu_offline = cpu_is_offline(cpu);
-+	// Interrupt are disabled for RCU read-side critical section. 
-+	rscrp->rcu_rdr_cpu_task = th = cpu_curr_snapshot_rcu(cpu);
- 	if (rscrp->on_blkd_list) {
- 		rnp = READ_ONCE(t->rcu_blocked_node);
- 		raw_spin_lock_rcu_node(rnp); /* irqs already disabled. */
-@@ -352,6 +361,7 @@ static int rcu_print_task_stall(struct rcu_node *rnp, unsigned long flags)
- 	int ndetected = 0;
- 	struct rcu_stall_chk_rdr rscr;
- 	struct task_struct *t;
-+	struct task_struct *tc;
- 	struct task_struct *ts[8];
- 
- 	lockdep_assert_irqs_disabled();
-@@ -372,17 +382,24 @@ static int rcu_print_task_stall(struct rcu_node *rnp, unsigned long flags)
- 	raw_spin_unlock_irqrestore_rcu_node(rnp, flags);
- 	while (i) {
- 		t = ts[--i];
--		if (task_call_func(t, check_slow_task, &rscr))
-+		if (task_call_func(t, check_slow_task, &rscr)) {
- 			pr_cont(" P%d", t->pid);
--		else
--			pr_cont(" P%d/%d:%c%c%c%c%c%c",
-+		} else {
-+			tc = rscr.rcu_rdr_cpu_task;
-+			pr_cont(" P%d/%d:%c%c%c%c%c%c CPU %d%s %s (%d)%s",
- 				t->pid, rscr.nesting,
- 				".b"[rscr.rs.b.blocked],
- 				".q"[rscr.rs.b.need_qs],
- 				".e"[rscr.rs.b.exp_hint],
- 				".l"[rscr.on_blkd_list],
- 				".R"[rscr.rcu_rdr_running],
--				".B?"[rscr.rcu_rdr_boosted]);
-+				".B?"[rscr.rcu_rdr_boosted],
-+				rscr.rcu_rdr_cpu,
-+				rscr.rcu_rdr_cpu_offline ? "!" : "",
-+				tc ? tc->comm : "???",
-+				tc ? tc->pid : -1,
-+				tc ? (is_idle_task(tc) ? " (idle!)" : "") : " (no task)");
-+		}
- 		lockdep_assert_irqs_disabled();
- 		put_task_struct(t);
- 		ndetected++;
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 559735f71b5dd..1fa63eee528c2 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -11320,3 +11320,10 @@ void sched_change_end(struct sched_change_ctx *ctx)
- 		p->sched_class->prio_changed(rq, p, ctx->prio);
- 	}
- }
-+
-+// Not for mainline, but hopefully someone has a trick that gets this
-+// job done.
-+struct task_struct *cpu_curr_snapshot_rcu(int cpu)
-+{
-+	return rcu_dereference_all(cpu_curr(cpu));
-+}
+   CSI_SIGNALING_MODE = 0x03 is in the init table. I have it from the
+   file, but I did not catch Windows writing it live.
+
+3. Why 0x03 means C-PHY. 0x0111 is CSI_SIGNALING_MODE and 0x0114
+   CSI_LANE_MODE in the MIPI CCS register map, as in
+   drivers/media/i2c/ccs/ccs-regs.h: 2 is CSI-2 D-PHY, 3 is CSI-2 C-PHY
+   (0 and 1 are the old CCP2 modes), and the lane mode is the lane or
+   trio count minus one. This agrees with the hardware: Sergey reads
+   back 0x02 and 0x01 on the Intel model while streaming two D-PHY
+   lanes; the Windows receiver here runs C-PHY on one trio; and under
+   Linux, with 0x03 and 0x00, the sensor streams into the PHY in C-PHY
+   mode.
+
+4. The 2.4 Gsym/s is calculated, not measured: 19.2 MHz / 3 * 375 from
+   the OP PLL values Windows writes. The receiver does not report the
+   rate, and it locks over a wide range of settle counts, so a working
+   capture does not prove the exact value. It does fall in the 2.5 Gsps
+   bin that Windows programs into the receiver. Likewise,
+   6752 * 3554 * 30 = 719.9 MHz matches v8's pixel rate, and the pixel
+   PLL (225) is the one v8 already writes.
+
+In the next version the commit message will say which values come from
+the live Windows capture, which come only from the sensor file, which
+are calculated, and what was checked on Linux. The extraction and
+capture process will also be written up in the project repository and
+linked. I will also read the CCS capability register 0x1602 (bit 3 =
+C-PHY) here, and Sergey may be able to read it on the Intel model.
+
+Thanks,
+George
