@@ -1,81 +1,118 @@
-Received: from mx1.zhaoxin.com (MX1.ZHAOXIN.COM [210.0.225.12])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 163852D9ECA;
-	Fri, 16 Oct 2026 11:58:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.0.225.12
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7B92D9ECA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:58:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792151907; cv=none; b=HEwlPHp2YEDyuJhmSdRcVi68p/6civlv49IZlFYx5nD2IkCNp53F6lH4fT+7uTs5rNJwvUb2gzE7PeSxE/QJcmUDymYVMXJNKKI38EgFr9RhecTvU0zZj7IDC7YohePZXvIvk6fbrl06rVLSX5wiXzl32kz0MMk1AV+jx8mYl70=
+	t=1792151937; cv=none; b=PAfgEu7yUnhHND8WWPr0guRHYzEZD+TamV9PvYhE06dCbHGTx+DEQpdHJXyZbK+bQ7XzazaOLe7Sc7HbO7rZDyhbyAqR5Uolsb1F2DNZSWFXgSCaqrACXjGM4pVVNBZ490CsQZ4AI2NpkCWb8YfxmPYz1pvGB/Ahh5OSZzf4HQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792151907; c=relaxed/simple;
-	bh=AcYGRXY36UAanRTnTVInPJm63pgo4pGI7wWIYwP9gAw=;
-	h=From:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Y/w/ETHrPwDJTKQGQPnprtHlI/FesjOrQ5FlmSFi75tf7e/9IT8m71wpLhiY2ia328wsf0uapDzcme+Oi/PmO2YTravGTVzMbXRd0sq8xPyUggEzR9WU0A5aWPbjhBg+q6X+sNSdvkQjJwgLO1RBJOEUWL2cN2eEl9iRH/SfNvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com; spf=pass smtp.mailfrom=zhaoxin.com; arc=none smtp.client-ip=210.0.225.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
-Received: from zhaoxin.com (unknown [127.0.0.1])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4j5k3c2l0Wzb0pbk;
-	Fri, 16 Oct 2026 19:58:20 +0800 (CST)
-Received: from zhaoxin.com (unknown [10.28.140.201])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4j5k3c1h8Szb0pbf;
-	Fri, 16 Oct 2026 19:58:20 +0800 (CST)
-Received: from [10.29.8.50] ([10.29.8.50] [10.29.8.50])
-	by zhaoxin.com (8.30) with ESMTPec4f970a45a5b88e734c302ee7f55106
-	Fri, 16 Oct 2026 19:58:18 +0800
-X-Eyou-Smtpauth: weitaowang-oc@zhaoxin.com
-X-Eyou-EnvelopeSender: weitaowang-oc@zhaoxin.com
-X-Eyou-From: zhaoxinweitaowangoc <weitaowang-oc@zhaoxin.com>
-From: "=?UTF-8?B?V2VpdGFvV2FuZy1vYw==?=" <weitaowang-oc@zhaoxin.com>
-Message-ID: <a6c0d634-f16b-4999-9e04-f13b123d195b@zhaoxin.com>
-Date: Fri, 16 Oct 2026 19:58:18 +0800
+	s=arc-20240116; t=1792151937; c=relaxed/simple;
+	bh=XWJhrf9bPy7m8cTmjHd5g/ZCR9ncCcb2WG8cntVMrec=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bUlfEvovyZUwQmzt4gpuJ1WP5+502VzhmrscrJUe5IfhGn5EMh7PAUvypzkxNwtUqTKCUau8gxT+t8cID8uenxwqH1fvAtHwtNeGFYfjPu+QwZKVDw9ZD/usvkDA1v/dwrHT51KIS47h4ps0+wFt23BfhuZpjLckpA/KcrdZf3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eQR5Oq3I; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eQR5Oq3I"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3acb512a7a0so773682a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:58:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792151936; x=1792756736; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LxdDa/5ciMRdv/9eQf773tGBdimu+xTTwUw9N85FYNg=;
+        b=eQR5Oq3IKe36xyZUQSIaGUGIzHWJeVvUouccQhE8vVX2Va99zYuojLNNa9qoBDaGzC
+         tWvJP+GnK8MZQHPSuxkhkx3F2Q7aIa3z4INm52ENnemu6B0j+w+3gfcDe4gh42D3B0xM
+         YulcUWDfFdHXMJuLReGgUV2vgIn1dZUhom2oxqD9lx9z2FxRsjs1uwsWjJGRWgcZ4WfQ
+         IBE+OGPc9jG7+J10hf58a5B++JW1rXffjDpEc8JobJn7dVp8LA3HNSPND6kjAoOxGptM
+         XNFzFq52eHLpuuFnTfk4ySZO/n+Gr61pVK2Aie3hg5RIOZtNyJ1wQKRDO8DAuC/S3TN2
+         11+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792151936; x=1792756736;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LxdDa/5ciMRdv/9eQf773tGBdimu+xTTwUw9N85FYNg=;
+        b=qNQQ3TR/+ZlyDu2VSVTle6PMEmh1ZAvXnPs4IjxwNnf0nEWc+eysS1JwqKVi6SyHRe
+         MV2UZlMgneQmGnR0mF/xr17YbXFtoWNkNmAb6jYsE7QGvoEM6GlAAStaN76q7Eybt6q0
+         tF7AhG3A2xbthvKfaKFTUp1Vp3xCXDiAADIVAoxwjAs4sp3h8QLkSQwftmP9NYM/aISu
+         SLG5hRq8RT9rDlILBidr0Z/VRjEYV6lG+IKEAS2d7fyV2eawoDxtpEGSzMPfeABq5uPt
+         42HRUJ4GskaSK6iKrlRjlP42k/r3p7srE7gPlJNKMFevHLePmbUrhAS2wSJ/eIoSndEN
+         qn9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw9nMLPMNnzPCLekqe9tdxGgFiEkblDXEYQiKRhm+HOP6URPFXa1q7zvPd5u6Nxi461Fej3NNSC6C1VrJk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJX0o0Z+6MRsDMLOJqYm2vKRoe20bnz4SD6lsmc1Ffk3T/JXu7u
+	i4xXBk3U8/BcVEp1VBbF7qyiVVma8jMYvaALeHBusu0gqcx2ZFBJUNeP
+X-Gm-Gg: AYBFou2cDN2ZCchSOtFXyeWV60YMnIa4XAwwsoRSCsd+RoOs6hIHIfjU/KgzxMnmMVY
+	cTvu+eT8s5UlVGkns/p1Bjgga6eGsN3rz7d37/jp2VeL7jPfHiGE1o269yeVOx4t33PdEco/wYT
+	AXC8CFyMK9ThRh1sRUpLTRmw9fHzU/XOYQtks8El71r0BMYT6x8sQoYW2Yxq8eX+QKpMkWcTERl
+	uZILbM2aHvlv1PwZbF2iT2FiieQ5RAEcpq6uyuqjljWPoeXtUwmgwcH3zy8O2eYWYPUAM4xAuZ3
+	Y+lBITfjLRNe2ksbRvg5yrvwO++6DAEoujO+GuMklgQmKaxyoopvcnm+3L1RFeueRYEUT+NN6m+
+	XKGMv/hchtZHVViRr1YD/K0ZQ//h5UCu5qqxqchSnSflBoloVQ5FpFdtNQyKazkYuDqqAam00IO
+	RUXTdidc7swztq0+nnTcHLcJqsYvrItmmS3ArfkpHW45/0EnhE/ch2ftmgx2CcBjtuDzqBa2fcE
+	g==
+X-Received: by 2002:a17:90b:58ec:b0:3ac:17c:6e8a with SMTP id 98e67ed59e1d1-3ac017c707cmr13397731a91.51.1792151935956;
+        Fri, 16 Oct 2026 04:58:55 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac5:d45a:16dc::247:b8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd9c4b4eesm1809055a91.2.2026.10.16.04.58.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 04:58:55 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Jan Kara <jack@suse.cz>,
+	Jori Koolstra <jkoolstra@xs4all.nl>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+8420e667af06b1709c00@syzkaller.appspotmail.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH] minix: reject rmdir of a directory with a corrupted link count
+Date: Fri, 16 Oct 2026 18:58:51 +0700
+Message-ID: <20261016115851.14276-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] x86/apic/msi: Fix MSI interrupt affinity configuration
-To: Thomas Gleixner <tglx@linutronix.de>, Koichiro Den <den@valinux.co.jp>
-Cc: mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
- x86@kernel.org, hpa@zytor.com, linux-kernel@vger.kernel.org,
- WeitaoWang@zhaoxin.com, wwt8723@163.com, CobeChen@zhaoxin.com,
- stable@vger.kernel.org
-References: <20260928164839.6381-1-WeitaoWang-oc@zhaoxin.com>
- <6mg2eqdehsmb5fh6hf7icsha2547xfdfvulnycawiit2czhhmh@6bbmicaoz2zd>
- <87jynid352.ffs@fw13> <316900d3-2ce8-4391-ad8f-556bb5540c2a@zhaoxin.com>
- <87bj8uc7rv.ffs@fw13>
-Content-Language: en-US
-In-Reply-To: <87bj8uc7rv.ffs@fw13>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Eyou-Sender: <weitaowang-oc@zhaoxin.com>
+Content-Transfer-Encoding: 8bit
 
-On 10/16/26 17:30, Thomas Gleixner wrote:
-> On Fri, Oct 16 2026 at 11:36, WeitaoWang-oc wrote:
->> On 10/16/26 06:12, Thomas Gleixner wrote:
->>> On Wed, Sep 30 2026 at 01:29, Koichiro Den wrote:
->>>> On Tue, Sep 29, 2026 at 12:48:39AM +0800, WeitaoWang-oc wrote:
->>>>> commit b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI
->>>>> quirk") try to fix the issue of misconfigured non-maskable MSI quirk.
->>>>> For non-maskable MSI interrupts, use the slow path to fix the MSI affinity
->>>>> race. Maskable MSI interrupts use the direct path to update configuration
->>>>> info. However, the current code logic is the opposite as only maskable
->>>>> MSI interrupts will enable reservation mode.
->> Thank you for the suggestions. I realize the problem description in my
->> previous patch needed to be more precise. Before posting v3, I have
->> updated the change log as shown below. Could you please take a look?
->> If this looks good to you, I will send out the next version.
-> 
-> Looks good
-Hi Thomas,
+minix_rmdir() calls minix_unlink(), which drops the victim's link
+count once, and then drops it a second time for the "." entry. An
+image where an empty directory has i_nlink < 2 makes the second drop
+hit drop_nlink() with i_nlink == 0:
 
-I've reworked the changelog as you requested. The correct version is
-the v3 sent at 18:10 UTC (Message-ID:
-20261016181016.3850-1-WeitaoWang-oc@zhaoxin.com,
-https://lore.kernel.org/20261016181016.3850-1-WeitaoWang-oc@zhaoxin.com/),
-which includes the changelog and Cc to stable. Please ignore the
-earlier v3 from 18:06 UTC. Sorry for the noise.
+  WARNING: fs/inode.c:408 at drop_nlink
+   minix_rmdir+0xe9/0x150
+   vfs_rmdir
+   filename_rmdir
+   __do_sys_unlinkat
 
-Thanks & Best Regards,
-Weitao
+The parent's link count is already validated; do the same for the
+directory being removed and fail with -EFSCORRUPTED.
+
+Reported-by: syzbot+8420e667af06b1709c00@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=8420e667af06b1709c00
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+ fs/minix/namei.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/fs/minix/namei.c b/fs/minix/namei.c
+index 5525ba367ed7..344cc70ba878 100644
+--- a/fs/minix/namei.c
++++ b/fs/minix/namei.c
+@@ -172,6 +172,10 @@ static int minix_rmdir(struct inode * dir, struct dentry *dentry)
+ 		minix_error_inode(dir, "inode has corrupted nlink");
+ 		goto out;
+ 	}
++	if (inode->i_nlink < 2) {
++		minix_error_inode(inode, "inode has corrupted nlink");
++		goto out;
++	}
+ 
+ 	err = -ENOTEMPTY;
+ 	if (!minix_empty_dir(inode))
+-- 
+2.43.0
 
