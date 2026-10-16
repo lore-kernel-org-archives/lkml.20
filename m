@@ -1,229 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4238A37F006;
-	Fri, 16 Oct 2026 16:44:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328634E56C2
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:45:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169099; cv=none; b=IqtqERFyZZTi/0MmwoCtAyyw/kSthJSDHXzLeXgAdk2dTfu9MAwKYF645zjWeRYjeOndb40+q9D15jxY+FkRxvs9QUpvzSAnHUn/j3QZGXVb/MbwRYVBiDlGV2UUDT8KofsoYrsr5afKVerRHzXN0ImHy9vyJyX6UckFUGOmtAA=
+	t=1792169123; cv=none; b=G29YTdcYL7pNfTr/XjGpcPlos9Yt/FEEtEW/sZgTSw4Tnlv4ya/IB3Ou2gjwmryAKQO4p2IxPI4NL2iRU9nRTUtlHexaekbF+m2UGNlUFxihqa4f+af9X8+141GMV0xrdcjxZgZ9dJVJgcEaEgGFOyqEgDTr4YMJAhsiS3xYBeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169099; c=relaxed/simple;
-	bh=VfWTephl8pf2SRTSLnrpj8mX4tB8jBBntqEfoI1/V+o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RQH3QsGttsBsP7Sw4+/wgDvQ4Pvw35HjbF945M0dj1YZiO3oDLiM5uQ++e1wgPHVvywDnVz3n2jBDHwh5YMHHCytm8IGkY864VIj2vyNJEtTJ7PBSGuXWnk9BO4dSJXbUFCoIzBEQUVOkeiSfj/Mf4GS4RCUkU28ViuSJAngyus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZHEARvLf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792169123; c=relaxed/simple;
+	bh=TwuGDXZHyDSI+hT3QHZyS+zWEbl9cG9HvK+PHfghsIE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=amA6sSgu0b7wMYadCgGP2YMG5ARg9vVMKajjz+Q4KZN8f8ET68+++bVbN7up6iw6muUXMFNTRfPYsOjAu/CC6DRJUohCqQizWyt/KANJr6wn2kxHgf8SGVGg5K15M8IzOXeshHACEzneGQGugQD9w3nYhhBBWgIzjDSiGyQkF68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=FMOUYAhf; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZHEARvLf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49C781F000C5;
-	Fri, 16 Oct 2026 16:44:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792169097;
-	bh=k2PPYvoZtUDSB0QpI8y8nVKIfHe5I595bZB7KIFYEN0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZHEARvLfZu4O/g6Nyh0bXYaTzR2KpzPxcMjSlF8WaiY/AYMp8ZUEmePIH0x36U+AV
-	 dkGwRrXAcFPcowGe92stgaKYD7QbEfeew/4welqoD2TdO8E3G7pWh4Akq9DgiIX+yY
-	 y7j2qTukGvCvUuXxqMnQU8W0m4veYSXueEI9aC/y0saah/MBrQvwOds90nNz56BGRz
-	 +QdA3dTRZZDcbLU9t9fTB+48//FTEt8/i35gzhvPAtyFMgY64PRofFRMPgv6Ez/dmW
-	 OX3dQA2Arl+QnBRQMKaCABNa+ahDxt+2Czw0mPgyVccH7WW3sgmmy1U8zy7PM0Rdoo
-	 WUGmNlCnL+E9g==
-Date: Fri, 16 Oct 2026 17:44:42 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Petr Pavlu <petr.pavlu@suse.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Randy Dunlap <rdunlap@infradead.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v4 13/22] modpost: cache section relocation mismatch state
-Message-ID: <atJSEhfOu-LWWHr_@gremlin>
-References: <20260923-build-speedup-v4-0-73128809a4a4@kernel.org>
- <20260923-build-speedup-v4-13-73128809a4a4@kernel.org>
- <d17b00f9-2a6c-425f-9697-6bc8f31f7a7a@suse.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="FMOUYAhf"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:Content-Type
+	:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=Ubzli7pv5RuOgqndP9DvGcdPeC74c6OIE+IHjZRVCww=; b=FMOUYAhf2yeRa9lOsaxGhH/s7x
+	RRZpkqvxffjSDQZHwVYQ9iE5uWbUnlO+zKcMzVQ4gWTchC//YzwVJYmEwndkdeK++MMQ8Qtk3Wt3Q
+	iFpAUr1M/goNMIhuCB1244d2U65OTrsw6d4zYia/dULT6vvZGsw6EZqauAyZtqdjRVYYUSaXTeY2F
+	Q/6r0EmUpJxJILWcDJhYnFhk41Pw9XwgkyjzkJlmcD0vgUsTCY2bg31nRQ4LX17W2KUVj2pJ8iYNW
+	zh2ZxfwP4DWiNLUfQpLndGks0jBsdOYOygtfl5fzAJGXauiRfXz2g15YA9p6BoeDrGWlduEY6Isbr
+	HEsqpYVA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xHl3W-0066eX-1z;
+	Fri, 16 Oct 2026 16:45:19 +0000
+Date: Fri, 16 Oct 2026 09:45:14 -0700
+From: Breno Leitao <leitao@debian.org>
+To: torvalds@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org, a.hindborg@kernel.org, leitao@debian.org
+Subject: [GIT PULL] configfs: Updates for 7.4
+Message-ID: <atJT326zoaI9wfhY@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <d17b00f9-2a6c-425f-9697-6bc8f31f7a7a@suse.com>
+Content-Transfer-Encoding: 8bit
+X-Debian-User: leitao
 
-On Thu, Oct 15, 2026 at 05:42:45PM +0200, Petr Pavlu wrote:
-> On 9/23/26 7:18 PM, Lorenzo Stoakes (ARM) wrote:
-> > For every relocation modpost invokes check_section_mismatch() to determine
-> > whether there is any kind of mismatch between the source and destination,
-> > and if so which classification applies.
-> >
-> > Each time it does this it invokes section_mismatch() which iterates
-> > through the sectioncheck[] array every time it's called.
-> >
-> > When walked a relocation section the source is fixed and there aren't many
-> > targets, so the same names are looked up over and over again.
-> >
-> > Therefore cache not only mismatch categorisation but also whether a
-> > mismatch even exists for a given section and look up the sections in the
-> > cache.
-> >
-> > Special indices (undefined, absolute, common) take the uncached path as
-> > before.
-> >
-> > This results in very significant speed ups for allmodconfig incremental
-> > builds.
-> >
-> > modpost is on the serial tail of every build that links vmlinux.
-> >
-> > Whole build, 128-thread Threadripper 9980X, best of N runs:
-> >
-> >                                          before   after     delta
-> >                                          -------------------------------
-> >   x86 defconfig, touch mm/vma.c, gcc        8.5s     8.3s    -0.14s (-2%)
-> >   x86 defconfig, touch mm/vma.c, clang      7.7s     7.6s    -0.13s (-2%)
-> >   x86 allmodconfig, touch mm/vma.c, gcc    33.9s    29.4s     -4.5s (-13%)
-> >   x86 allmodconfig, touch mm/vma.c, clang  31.9s    27.9s     -4.0s (-13%)
-> >
-> > Assisted-by: LLM
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-> This looks mostly ok to me. Below are some nits you might want to
-> consider addressing.
+Linus,
 
-Thanks! :)
+Please consider pulling these configfs updates for 7.4-rc1.
 
->
-> > ---
-> >  scripts/mod/modpost.c | 66 +++++++++++++++++++++++++++++++++++++++++++++++++--
-> >  1 file changed, 64 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
-> > index 75374c64b8cc..0fd43c8a89ea 100644
-> > --- a/scripts/mod/modpost.c
-> > +++ b/scripts/mod/modpost.c
-> > @@ -1155,12 +1155,67 @@ static void check_export_symbol(struct module *mod, struct elf_info *elf,
-> >  			 name);
-> >  }
-> >
-> > +/*
-> > + * mismatch_cache[section index] ->
-> > + *   0 - uncached.
-> > + *  -1 - no mismatch.
-> > + *  >0 - mismatch index + 1.
-> > + */
-> > +static int *mismatch_cache;
->
-> It might be cleaner to maintain this cache per elf_info, since it
-> logically belongs to the processing of an individual ELF file. This
-> would also be consistent with the existing symsearch cache, which uses
-> elf::symsearch.
+There are three parts: Thomas Weiﬂschuh's series that allows const
+configfs attribute structures, new selftests for the userspace
+interface, and three Rust binding changes that I merged from Andreas
+Hindborg's signed tag.
 
-Ack, makes sense, moved the decl inside elf_info.
+FWIW: The const series touches three drivers outside fs/configfs (acpi, xe,
+coco/guest report) because they implement the callbacks and bin attributes
+whose types change.
 
->
-> The description could use 'to_secndx' instead of 'section index' to
-> clarify whether it refers to the source or destination section of
-> a relocation.
+Thanks,
+--breno
 
-Ack, updated for v5.
+----------------------------------------------------------------
+The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907:
 
->
-> > +
-> > +static void init_mismatch_cache(unsigned int num_sections)
-> > +{
-> > +	mismatch_cache = xcalloc(num_sections, sizeof(*mismatch_cache));
-> > +}
-> > +
-> > +static void reset_mismatch_cache(unsigned int num_sections)
-> > +{
-> > +	memset(mismatch_cache, 0, num_sections * sizeof(*mismatch_cache));
-> > +}
-> > +
-> > +static void free_mismatch_cache(void)
-> > +{
-> > +	free(mismatch_cache);
-> > +	mismatch_cache = NULL;
-> > +}
-> > +
-> > +static const struct sectioncheck
-> > +*cache_mismatch(unsigned int secndx, const struct sectioncheck *mismatch)
->
-> Similarly here, s/secndx/to_secndx/.
+  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
 
-Ack, done.
+are available in the Git repository at:
 
->
-> > +{
-> > +	if (!mismatch) {
-> > +		mismatch_cache[secndx] = -1;
-> > +		return NULL;
-> > +	}
-> > +
-> > +	mismatch_cache[secndx] = (mismatch - sectioncheck) + 1;
-> > +	return mismatch;
-> > +}
-> > +
-> > +static const struct sectioncheck *get_section_mismatch(const char *fromsec,
-> > +		const struct elf_info *elf, unsigned int secndx)
->
-> s/secndx/to_secndx/, and the fromsec and elf arguments could be swapped
-> for consistency with the rest of the code.
+  https://git.kernel.org/pub/scm/linux/kernel/git/leitao/linux.git tags/configfs-7.4-rc1
 
-Ack, done.
+for you to fetch changes up to 6c1fa55e287a64ebbf6877f8dd288c6d2ecf4ede:
 
->
-> > +{
-> > +	int cached;
-> > +
-> > +	if (secndx >= elf->num_sections)
-> > +		return section_mismatch(fromsec, sec_name(elf, secndx));
-> > +
-> > +	cached = mismatch_cache[secndx];
-> > +	if (cached < 0)
-> > +		return NULL;
-> > +	if (cached > 0)
-> > +		return &sectioncheck[cached - 1];
-> > +
-> > +	return cache_mismatch(secndx,
-> > +			      section_mismatch(fromsec, sec_name(elf, secndx)));
-> > +}
-> > +
-> >  static void check_section_mismatch(struct module *mod, struct elf_info *elf,
-> >  				   Elf_Sym *sym,
-> >  				   unsigned int fsecndx, const char *fromsec,
-> >  				   Elf_Addr faddr, Elf_Addr taddr)
-> >  {
-> > -	const char *tosec = sec_name(elf, get_secindex(elf, sym));
-> > +	const unsigned int to_secndx = get_secindex(elf, sym);
->
-> The const qualifier can be dropped from the to_secndx definition to
-> match the usual kernel style.
+  Merge tag 'rust-configfs-for-v7.4-rc1' of https://git.kernel.org/pub/scm/linux/kernel/git/a.hindborg/linux into updates-v7.4 (2026-10-16 09:17:46 -0700)
 
-Ack, done.
+Tag SHA: c57cc6736ce0364c9294154e900680306ffa4520
+HEAD SHA: 6c1fa55e287a64ebbf6877f8dd288c6d2ecf4ede
 
->
-> --
-> Thanks,
-> Petr
+----------------------------------------------------------------
+configfs: Updates for v7.4
 
-Thanks for the review!
+- Attribute structures can now be const. From Thomas Weiﬂschuh.
 
---
-Cheers, Lorenzo
+- The first selftests for the configfs userspace interface, plus a
+  sample subsystem that accepts symlinks to test against. They include
+  a race of symlink(2) against rmdir of the target, which exercises
+  the use-after-free fixed in v7.3-rc3.
+
+- Rust bindings, merged from Andreas Hindborg's signed tag: fix the
+  data offset calculation in subsystem callbacks (marked for stable),
+  add the missing Send and Sync bounds, and correct a safety comment.
+
+----------------------------------------------------------------
+Andreas Hindborg (1):
+      rust: configfs: fix data offset calculation for subsystem callbacks
+
+Breno Leitao (5):
+      selftests/configfs: add tests for the userspace interface
+      samples/configfs: add a subsystem that accepts symlinks
+      selftests/configfs: cover symlink and unlink
+      selftests/configfs: race symlink against rmdir of the target
+      Merge tag 'rust-configfs-for-v7.4-rc1' of https://git.kernel.org/pub/scm/linux/kernel/git/a.hindborg/linux into updates-v7.4
+
+Thomas Weiﬂschuh (6):
+      rust: configfs: remove mutability from some field initializers
+      configfs: Constify is_visible/is_visible_bin in configfs_group_operations
+      configfs: Treat attribute structures as const internally
+      configfs: Constify configfs_bin_attribute
+      configfs: Allow the registration of const struct configfs_attribute
+      samples: configfs: constify the configfs_attribute structures
+
+Yilin Chen (2):
+      rust: configfs: fix release safety documentation
+      rust: configfs: require thread-safe callback data
+
+ MAINTAINERS                                        |   1 +
+ drivers/acpi/acpi_configfs.c                       |   2 +-
+ drivers/gpu/drm/xe/xe_configfs.c                   |   4 +-
+ drivers/virt/coco/guest/report.c                   |   6 +-
+ fs/configfs/configfs_internal.h                    |  10 +-
+ fs/configfs/dir.c                                  |  10 +-
+ fs/configfs/file.c                                 |   6 +-
+ fs/configfs/inode.c                                |   2 +-
+ include/linux/configfs.h                           |  73 ++--
+ rust/kernel/configfs.rs                            | 130 ++++--
+ samples/configfs/configfs_sample.c                 | 137 +++++-
+ tools/testing/selftests/Makefile                   |   1 +
+ .../selftests/filesystems/configfs/.gitignore      |   2 +
+ .../selftests/filesystems/configfs/Makefile        |   8 +
+ .../testing/selftests/filesystems/configfs/config  |   5 +
+ .../selftests/filesystems/configfs/configfs_test.c | 481 +++++++++++++++++++++
+ 16 files changed, 771 insertions(+), 107 deletions(-)
+ create mode 100644 tools/testing/selftests/filesystems/configfs/.gitignore
+ create mode 100644 tools/testing/selftests/filesystems/configfs/Makefile
+ create mode 100644 tools/testing/selftests/filesystems/configfs/config
+ create mode 100644 tools/testing/selftests/filesystems/configfs/configfs_test.c
