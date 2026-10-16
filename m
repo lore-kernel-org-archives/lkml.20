@@ -1,304 +1,775 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.n90.eu (mx.n90.eu [65.21.251.117])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E6149739C
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:57:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D235D481FAA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:57:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.251.117
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792155426; cv=none; b=EvoNvVBurrCFKruoEiH9V4WecRW00wMKduA47wnIpCCgRCzlN4RxIm1asRqGQXYIKpQjWsF4r2m4XaMOXK7rLlJe8VIul3FwLbuN+1cMB4t8HARGOI3a2l8OfWd/4xEbrR2n6vATjoE6JnzQpEf0AqRKIwOVTs/LaSl9VC//ajE=
+	t=1792155426; cv=none; b=UEaJGXISI/5sKpWwZ7v20GzEm7MYUphtDRhCy+tI28EFP6jOj5k2I6l7R/tYc2UYlojZaHFWu7zWDXMbsllz/q20arzRJbkmLk/uFs3fSIcY9KlL4Wduia0QIS22O6f+9qDgjKDfU93rXzNpiHgicIOFhuDWrptYxCjkDnzXj0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792155426; c=relaxed/simple;
-	bh=Ekjb4RAaTmxoa0IO6rlRf3a8/4fB0wmQGaAUCFBV+Ik=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=LZUfesdg4+fzIkX5KRubJMQLQfu6FK6XXU/tu4uhwQvo2VjkFgl22gj/vSnDduZe0uF1XEmbKjpxsjdZI42EvFEoJk2BZKVKIAacGUNf/8fnsR+KzkSMxmggss8lOCceLfC6i62XDf3ZjtHd/2iIchcr76zHyXhMUvLlPJktMSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4fb73e868aaso9011274b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:57:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792155423; x=1792760223;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4IAbPQgjRyg7z5Dw5BylhZDG8VRv1LKZBcfZP/RHIYs=;
-        b=VeroYjOleCa8D2wdwPxqR4xntDlxP6j/+gl46aa408v+C47wHczZR4t337hX8UyTbV
-         XK8xBYnuB8HfMM81fyp5AHPR7VRs46Qq2V4tc9DwOTC13n5aX2sJ/bal2M00LT6W1m1e
-         rQDVekd4RlzyIPApMJ7/GFJZ6+1pzWXSQgPBHGSIs9kSW06w7LRREkskx5EKEGnVj8Kk
-         grQowo6oCDE3Sve5uCovtm+A7rL4nbHQn+nioVh89KZin6FzuLL0NToJW38QfMAuHTO/
-         9jsxNFGcJAcBI3y6DY21d6yJZgzIleRPbZPdv72k4dIXBoeqQbxPZuoQAd0FHDt+/03/
-         EFmg==
-X-Gm-Message-State: AFq9FYJr+AgJHmus4n9rFCocC6c9pthvE/0G57qxtrPc/CN5DyONxrxQ
-	V7wBO6f5zcveKrDuLPXcpm/+/zHBys0KqdnX+71Q5YYdwdodXPdpizOdUVk7UgbYu+qvhkWfx9w
-	HtyR8eUj7k8ABLemuUPcnVg1LQpX8ida5InlV/dSNgdFoBdm4k1erCOjiDrY=
+	bh=8tf3AgVsLhjZjVO196616Trs4on58Q2aet4VUqyt4BY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hAl30m54Y7trF4HbX4p+Czap3foPo5g6pEUb6pOFmd7kWU+3CVN1zcWCPfF9hgQK6lF5ew4uRe5lENHLxofdfPt2GmBvQNLLhv2XdgA8s8knApB+VWJfG+LTTczU8FRqmSNqJLm9onKF+74v46jJg4jruGo+uS096F/vbqzpAE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=n90.eu; spf=pass smtp.mailfrom=n90.eu; dkim=pass (2048-bit key) header.d=n90.eu header.i=@n90.eu header.b=e8ygEU6V; arc=none smtp.client-ip=65.21.251.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=n90.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=n90.eu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=n90.eu header.i=@n90.eu header.b="e8ygEU6V"
+From: Aleksander Trofimowicz <trof@n90.eu>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=n90.eu; s=default;
+	t=1792154915; bh=GnqIyK5xYWDVOAhioxDV1M6jSEfy2+f44itGtnKzVbw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=e8ygEU6V4wuyBe29V/Teqh5IQuv16u9RQefj1ErSAs7t08qTaFcihOntJpxP0SPXL
+	 VhkCXTWG8C4DaDtcVN4mBYcmOIxirxXOLdP02vn+j37XQRE9euHbOwPb9b71pth0et
+	 SJOrywStKsr1lICCXYB4GxxjDn5BM4P060hBBsZrU6FLQbdezppVnQiWZ9Hc7mSuCl
+	 IcsKx9f1F/eKtvjLonG9pPwZiG4ZTXSJVEYwsxa8Srd7DuvWws7ZJrSo1ujlXG6IAe
+	 1H2XaHv6/ro6l660zz6LxnHYiwCSodhbTpaZbLTaFTcJuiK13ZNVIzxHABIJMYtWjb
+	 W/rQKOgyIVbNA==
+To: fuse-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Aleksander Trofimowicz <trof@n90.eu>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	Bernd Schubert <bernd@bsbernd.com>,
+	Joanne Koong <joannelkoong@gmail.com>
+Subject: [RFC PATCH 1/1] fuse: per-queue background request accounting for io-uring
+Date: Fri, 16 Oct 2026 12:48:11 +0000
+Message-ID: <20261016124820.316741-2-trof@n90.eu>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261016124820.316741-1-trof@n90.eu>
+References: <20261016124820.316741-1-trof@n90.eu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1b97:b0:4f3:e98f:fa0b with SMTP id
- 5614622812f47-50c556bc9d7mr21719980b6e.5.1792155423389; Fri, 16 Oct 2026
- 05:57:03 -0700 (PDT)
-Date: Fri, 16 Oct 2026 05:57:03 -0700
-In-Reply-To: <CABKbRoLOWKRt4bztv6eg93b6B304n3J7J=tDEXLgtkqsL0aXgw@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad21f1f.7952420f.283480.023e.GAE@google.com>
-Subject: Re: [syzbot] [net?] KASAN: slab-use-after-free Read in llc_conn_ac_send_sabme_cmd_p_set_x
-From: syzbot <syzbot+44efda9647c52be29d9c@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, miguelgarciaroman8@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+On many-core systems the connection-wide background request
+accounting is the dominant scaling bottleneck for fuse io-uring.
+This change addresses the problem by the means of
+per-queue background request limiters.
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-KASAN: slab-use-after-free Read in llc_conn_ac_send_sabme_cmd_p_set_x
+Signed-off-by: Aleksander Trofimowicz <trof@n90.eu>
+---
+ fs/fuse/control.c         |   5 +-
+ fs/fuse/dev.c             |  93 ++++++++++++++++---
+ fs/fuse/dev.h             |  22 ++++-
+ fs/fuse/dev_uring.c       | 187 ++++++++++++++++++++++++++++++++++----
+ fs/fuse/dev_uring_i.h     |  32 +++++++
+ fs/fuse/fuse_dev_i.h      |  18 ++++
+ fs/fuse/inode.c           |  13 ++-
+ include/uapi/linux/fuse.h |  11 ++-
+ 8 files changed, 347 insertions(+), 34 deletions(-)
 
-llc_process_tmr_ev: timer called on closed connection
-==================================================================
-BUG: KASAN: slab-use-after-free in llc_conn_ac_send_sabme_cmd_p_set_x+0x442/0x470 net/llc/llc_c_ac.c:782
-Read of size 1 at addr ffff888036088010 by task syz-executor394/6049
+diff --git a/fs/fuse/control.c b/fs/fuse/control.c
+index 21ffde596d61..611a9e93da5f 100644
+--- a/fs/fuse/control.c
++++ b/fs/fuse/control.c
+@@ -126,8 +126,11 @@ static ssize_t fuse_conn_max_background_write(struct file *file,
+ 	if (ret > 0) {
+ 		struct fuse_conn *fc = fuse_ctl_file_conn_get(file);
+ 		if (fc) {
+-			fuse_chan_max_background_set(fc->chan, val);
++			int err = fuse_chan_max_background_set(fc->chan, val);
++
+ 			fuse_conn_put(fc);
++			if (err)
++				ret = err;
+ 		}
+ 	}
+ 
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index 4fec31fc0b84..e025f7155cf1 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -114,6 +114,9 @@ static void fuse_put_request(struct fuse_req *req);
+ static struct fuse_req *fuse_get_req(struct fuse_chan *fch, bool for_background)
+ {
+ 	struct fuse_req *req;
++#ifdef CONFIG_FUSE_IO_URING
++	struct fuse_ring_queue *bg_queue = NULL;
++#endif
+ 	int err;
+ 
+ 	atomic_inc(&fch->num_waiting);
+@@ -130,17 +133,39 @@ static struct fuse_req *fuse_get_req(struct fuse_chan *fch, bool for_background)
+ 	if (!fch->connected)
+ 		goto out;
+ 
++#ifdef CONFIG_FUSE_IO_URING
++	if (for_background && fuse_uring_per_queue_bg(fch)) {
++		bg_queue = fuse_uring_bg_admit(fch);
++		if (IS_ERR(bg_queue)) {
++			err = PTR_ERR(bg_queue);
++			bg_queue = NULL;
++			goto out;
++		}
++	}
++#endif
++
+ 	req = fuse_request_alloc(fch, GFP_KERNEL);
+ 	err = -ENOMEM;
+ 	if (!req) {
+-		if (for_background)
++		if (for_background) {
++#ifdef CONFIG_FUSE_IO_URING
++			if (bg_queue) {
++				fuse_uring_bg_req_release(bg_queue);
++				goto out;
++			}
++#endif
+ 			wake_up(&fch->blocked_waitq);
++		}
+ 		goto out;
+ 	}
+ 
+ 	__set_bit(FR_WAITING, &req->flags);
+-	if (for_background)
++	if (for_background) {
+ 		__set_bit(FR_BACKGROUND, &req->flags);
++#ifdef CONFIG_FUSE_IO_URING
++		req->ring_queue = bg_queue;
++#endif
++	}
+ 
+ 	return req;
+ 
+@@ -159,10 +184,18 @@ static void fuse_put_request(struct fuse_req *req)
+ 			 * We get here in the unlikely case that a background
+ 			 * request was allocated but not sent
+ 			 */
+-			spin_lock(&fch->bg_lock);
+-			if (!fch->blocked)
+-				wake_up(&fch->blocked_waitq);
+-			spin_unlock(&fch->bg_lock);
++#ifdef CONFIG_FUSE_IO_URING
++			if (fch->bg_mode == FUSE_BG_MODE_PER_QUEUE &&
++			    req->ring_queue) {
++				fuse_uring_bg_req_release(req->ring_queue);
++			} else
++#endif
++			{
++				spin_lock(&fch->bg_lock);
++				if (!fch->blocked)
++					wake_up(&fch->blocked_waitq);
++				spin_unlock(&fch->bg_lock);
++			}
+ 		}
+ 
+ 		if (test_bit(FR_WAITING, &req->flags)) {
+@@ -392,16 +425,28 @@ EXPORT_SYMBOL_GPL(fuse_dev_chan_new);
+ 
+ unsigned int fuse_chan_num_background(struct fuse_chan *fch)
+ {
++#ifdef CONFIG_FUSE_IO_URING
++	if (fch->bg_mode == FUSE_BG_MODE_PER_QUEUE && fch->ring)
++		return fuse_uring_num_background(fch);
++#endif
+ 	return READ_ONCE(fch->num_background);
+ }
+ 
+ unsigned int fuse_chan_max_background(struct fuse_chan *fch)
+ {
++#ifdef CONFIG_FUSE_IO_URING
++	if (fch->bg_mode == FUSE_BG_MODE_PER_QUEUE && fch->ring)
++		return fch->uring_max_bg_per_queue * fch->ring->nr_queues;
++#endif
+ 	return READ_ONCE(fch->max_background);
+ }
+ 
+-void fuse_chan_max_background_set(struct fuse_chan *fch, unsigned int val)
++int fuse_chan_max_background_set(struct fuse_chan *fch, unsigned int val)
+ {
++#ifdef CONFIG_FUSE_IO_URING
++	if (fch->bg_mode == FUSE_BG_MODE_PER_QUEUE)
++		return -EINVAL;
++#endif
+ 	spin_lock(&fch->bg_lock);
+ 	fch->max_background = val;
+ 	fch->blocked = fch->num_background >= fch->max_background;
+@@ -409,6 +454,18 @@ void fuse_chan_max_background_set(struct fuse_chan *fch, unsigned int val)
+ 		wake_up_nr(&fch->blocked_waitq,
+ 			   fch->max_background - fch->num_background);
+ 	spin_unlock(&fch->bg_lock);
++
++	return 0;
++}
++
++void fuse_chan_per_queue_bg_enable(struct fuse_chan *fch, unsigned int max_bg)
++{
++	spin_lock(&fch->bg_lock);
++	fch->bg_mode = FUSE_BG_MODE_PER_QUEUE;
++	fch->uring_max_bg_per_queue = max_bg;
++	fch->max_background = UINT_MAX;
++	fch->blocked = 0;
++	spin_unlock(&fch->bg_lock);
+ }
+ 
+ unsigned int fuse_chan_num_waiting(struct fuse_chan *fch)
+@@ -652,10 +709,24 @@ void fuse_request_end(struct fuse_req *req)
+ 	WARN_ON(test_bit(FR_PENDING, &req->flags));
+ 	WARN_ON(test_bit(FR_SENT, &req->flags));
+ 	if (test_bit(FR_BACKGROUND, &req->flags)) {
+-		spin_lock(&fch->bg_lock);
+-		fuse_request_bg_finish(fch, req);
+-		flush_bg_queue(fch);
+-		spin_unlock(&fch->bg_lock);
++#ifdef CONFIG_FUSE_IO_URING
++		if (fch->bg_mode == FUSE_BG_MODE_PER_QUEUE && req->ring_queue) {
++			clear_bit(FR_BACKGROUND, &req->flags);
++			fuse_uring_bg_req_release(req->ring_queue);
++			if (!test_bit(FR_URING, &req->flags)) {
++				spin_lock(&fch->bg_lock);
++				fch->num_background--;
++				fch->active_background--;
++				spin_unlock(&fch->bg_lock);
++			}
++		} else
++#endif
++		{
++			spin_lock(&fch->bg_lock);
++			fuse_request_bg_finish(fch, req);
++			flush_bg_queue(fch);
++			spin_unlock(&fch->bg_lock);
++		}
+ 	} else {
+ 		/* Wake up waiter sleeping in request_wait_answer() */
+ 		wake_up(&req->waitq);
+diff --git a/fs/fuse/dev.h b/fs/fuse/dev.h
+index 8d25378c0918..e2730105ff13 100644
+--- a/fs/fuse/dev.h
++++ b/fs/fuse/dev.h
+@@ -4,10 +4,14 @@
+ #define _FS_FUSE_DEV_H
+ 
+ #include <linux/cleanup.h>
++#include <linux/types.h>
+ 
+ /** Maximum number of outstanding background requests */
+ #define FUSE_DEFAULT_MAX_BACKGROUND 12
+ 
++/** Maximum number of outstanding background requests per io-uring queue */
++#define FUSE_URING_MAX_BG_PER_QUEUE 4096
++
+ struct fuse_conn;
+ struct fuse_chan;
+ struct fuse_dev;
+@@ -31,7 +35,8 @@ void fuse_chan_release(struct fuse_chan *fch);
+ void fuse_chan_free(struct fuse_chan *fch);
+ unsigned int fuse_chan_num_background(struct fuse_chan *fch);
+ unsigned int fuse_chan_max_background(struct fuse_chan *fch);
+-void fuse_chan_max_background_set(struct fuse_chan *fch, unsigned int val);
++int fuse_chan_max_background_set(struct fuse_chan *fch, unsigned int val);
++void fuse_chan_per_queue_bg_enable(struct fuse_chan *fch, unsigned int max_bg);
+ unsigned int fuse_chan_num_waiting(struct fuse_chan *fch);
+ void fuse_chan_set_fc(struct fuse_chan *fch, struct fuse_conn *fc);
+ void fuse_chan_set_initialized(struct fuse_chan *fch, struct fuse_chan_param *param);
+@@ -95,6 +100,9 @@ void fuse_copy_finish(struct fuse_copy_state *cs);
+ 
+ #ifdef CONFIG_FUSE_IO_URING
+ bool fuse_uring_enabled(void);
++bool fuse_uring_per_queue_bg_advertise(void);
++unsigned int fuse_uring_per_queue_bg_budget(u64 flags, u16 daemon_max_bg,
++					    unsigned int user_bg_limit);
+ void fuse_uring_destruct(struct fuse_chan *fch);
+ #else /* CONFIG_FUSE_IO_URING */
+ static inline bool fuse_uring_enabled(void)
+@@ -102,6 +110,18 @@ static inline bool fuse_uring_enabled(void)
+ 	return false;
+ }
+ 
++static inline bool fuse_uring_per_queue_bg_advertise(void)
++{
++	return false;
++}
++
++static inline unsigned int
++fuse_uring_per_queue_bg_budget(u64 flags, u16 daemon_max_bg,
++			       unsigned int user_bg_limit)
++{
++	return 0;
++}
++
+ static inline void fuse_uring_destruct(struct fuse_chan *fch)
+ {
+ }
+diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
+index c6dd420c4034..d1778403348b 100644
+--- a/fs/fuse/dev_uring.c
++++ b/fs/fuse/dev_uring.c
+@@ -10,14 +10,27 @@
+ #include "fuse_trace.h"
+ 
+ #include <linux/bitmap.h>
++#include <linux/capability.h>
++#include <linux/cpumask.h>
+ #include <linux/fs.h>
+ #include <linux/io_uring/cmd.h>
++#include <linux/minmax.h>
+ 
+ static bool __read_mostly enable_uring;
+ module_param(enable_uring, bool, 0644);
+ MODULE_PARM_DESC(enable_uring,
+ 		 "Enable userspace communication through io-uring");
+ 
++static unsigned int uring_max_bg_per_queue = 1;
++module_param(uring_max_bg_per_queue, uint, 0644);
++MODULE_PARM_DESC(uring_max_bg_per_queue,
++		 "Default per-queue budget of outstanding background requests for io-uring (0 = disable per-queue background accounting)");
++
++static bool uring_max_bg_per_queue_force;
++module_param(uring_max_bg_per_queue_force, bool, 0644);
++MODULE_PARM_DESC(uring_max_bg_per_queue_force,
++		 "Activate per-queue background accounting for io-uring even if a daemon does not negotiate it");
++
+ #define FUSE_URING_IOV_SEGS 2 /* header and payload */
+ #define FUSE_URING_IOV_HEADERS 0
+ #define FUSE_URING_IOV_PAYLOAD 1
+@@ -29,6 +42,32 @@ bool fuse_uring_enabled(void)
+ 	return enable_uring;
+ }
+ 
++bool fuse_uring_per_queue_bg_advertise(void)
++{
++	return uring_max_bg_per_queue;
++}
++
++unsigned int fuse_uring_per_queue_bg_budget(u64 flags, u16 daemon_max_bg,
++					    unsigned int user_bg_limit)
++{
++	unsigned int nr_queues = num_possible_cpus();
++	unsigned int max_bg;
++
++	if (!enable_uring || !(flags & FUSE_OVER_IO_URING))
++		return 0;
++	if (!((flags & FUSE_PER_QUEUE_BG) && uring_max_bg_per_queue) &&
++	    !uring_max_bg_per_queue_force)
++		return 0;
++
++	max_bg = daemon_max_bg ?: uring_max_bg_per_queue;
++	max_bg = clamp(max_bg, 1U, FUSE_URING_MAX_BG_PER_QUEUE);
++	if (!capable(CAP_SYS_ADMIN) && user_bg_limit &&
++	    max_bg > user_bg_limit / nr_queues)
++		max_bg = max(user_bg_limit / nr_queues, 1U);
++
++	return max_bg;
++}
++
+ struct fuse_uring_pdu {
+ 	struct fuse_ring_ent *ent;
+ };
+@@ -120,6 +159,20 @@ static void fuse_uring_flush_bg(struct fuse_ring_queue *queue)
+ 	}
+ }
+ 
++static void fuse_uring_flush_bg_per_queue(struct fuse_ring_queue *queue)
++{
++	lockdep_assert_held(&queue->lock);
++
++	while (!list_empty(&queue->fuse_req_bg_queue) &&
++	       !list_empty(&queue->ent_avail_queue)) {
++		struct fuse_req *req;
++
++		req = list_first_entry(&queue->fuse_req_bg_queue,
++				       struct fuse_req, list);
++		list_move_tail(&req->list, &queue->fuse_req_queue);
++	}
++}
++
+ static bool can_zero_copy_req(struct fuse_ring_ent *ent, struct fuse_req *req)
+ {
+ 	struct fuse_args *args = req->args;
+@@ -160,11 +213,18 @@ static void fuse_uring_req_end(struct fuse_ring_ent *ent, struct fuse_req *req,
+ 	ent->fuse_req = NULL;
+ 	list_del_init(&req->list);
+ 	if (test_bit(FR_BACKGROUND, &req->flags)) {
+-		queue->active_background--;
+-		spin_lock(&fch->bg_lock);
+-		fuse_request_bg_finish(fch, req);
+-		fuse_uring_flush_bg(queue);
+-		spin_unlock(&fch->bg_lock);
++		if (fch->bg_mode == FUSE_BG_MODE_PER_QUEUE) {
++			clear_bit(FR_BACKGROUND, &req->flags);
++			if (!WARN_ON_ONCE(queue->bg_local == 0))
++				queue->bg_local--;
++			wake_up(&queue->bg_waitq);
++		} else {
++			queue->active_background--;
++			spin_lock(&fch->bg_lock);
++			fuse_request_bg_finish(fch, req);
++			fuse_uring_flush_bg(queue);
++			spin_unlock(&fch->bg_lock);
++		}
+ 	}
+ 
+ 	spin_unlock(&queue->lock);
+@@ -208,10 +268,17 @@ void fuse_uring_abort_end_requests(struct fuse_ring *ring)
+ 		WARN_ON_ONCE(fch->max_background != UINT_MAX);
+ 		spin_lock(&queue->lock);
+ 		queue->stopped = true;
+-		spin_lock(&fch->bg_lock);
+-		fuse_uring_flush_bg(queue);
+-		spin_unlock(&fch->bg_lock);
+-		spin_unlock(&queue->lock);
++		if (fch->bg_mode == FUSE_BG_MODE_PER_QUEUE) {
++			list_splice_init(&queue->fuse_req_bg_queue,
++					 &queue->fuse_req_queue);
++			spin_unlock(&queue->lock);
++			wake_up_all(&queue->bg_waitq);
++		} else {
++			spin_lock(&fch->bg_lock);
++			fuse_uring_flush_bg(queue);
++			spin_unlock(&fch->bg_lock);
++			spin_unlock(&queue->lock);
++		}
+ 		fuse_uring_abort_end_queue_requests(queue);
+ 	}
+ }
+@@ -278,6 +345,7 @@ void fuse_uring_destruct(struct fuse_chan *fch)
+ 		WARN_ON(!list_empty(&queue->ent_w_req_queue));
+ 		WARN_ON(!list_empty(&queue->ent_commit_queue));
+ 		WARN_ON(!list_empty(&queue->ent_in_userspace));
++		WARN_ON_ONCE(queue->bg_local);
+ 
+ 		list_for_each_entry_safe(ent, next, &queue->ent_released,
+ 					 list) {
+@@ -366,6 +434,8 @@ static struct fuse_ring_queue *fuse_uring_create_queue(struct fuse_ring *ring,
+ 	queue->ring = ring;
+ 	spin_lock_init(&queue->lock);
+ 	queue->zero_copy = zero_copy;
++	queue->max_bg = fch->uring_max_bg_per_queue;
++	init_waitqueue_head(&queue->bg_waitq);
+ 
+ 	INIT_LIST_HEAD(&queue->ent_avail_queue);
+ 	INIT_LIST_HEAD(&queue->ent_commit_queue);
+@@ -1096,6 +1166,9 @@ static void fuse_uring_ent_avail(struct fuse_ring_ent *ent,
+ 	WARN_ON_ONCE(!ent->cmd);
+ 	list_move(&ent->list, &queue->ent_avail_queue);
+ 	ent->state = FRRS_AVAILABLE;
++
++	if (queue->ring->chan->bg_mode == FUSE_BG_MODE_PER_QUEUE)
++		fuse_uring_flush_bg_per_queue(queue);
+ }
+ 
+ /*
+@@ -1785,6 +1858,71 @@ static struct fuse_ring_queue *fuse_uring_task_to_queue(struct fuse_ring *ring)
+ 	return queue;
+ }
+ 
++struct fuse_ring_queue *fuse_uring_bg_admit(struct fuse_chan *fch)
++{
++	struct fuse_ring_queue *queue;
++	int err = 0;
++
++	queue = fuse_uring_task_to_queue(fch->ring);
++	if (!queue)
++		return ERR_PTR(-ENOTCONN);
++
++	spin_lock(&queue->lock);
++	for (;;) {
++		if (queue->stopped ||
++		    READ_ONCE(queue->bg_local) < queue->max_bg)
++			break;
++
++		spin_unlock(&queue->lock);
++		if (wait_event_state_exclusive(queue->bg_waitq,
++					       queue->stopped ||
++					       READ_ONCE(queue->bg_local) < queue->max_bg,
++					       (TASK_KILLABLE | TASK_FREEZABLE))) {
++			spin_lock(&queue->lock);
++			err = -EINTR;
++			goto out_unlock;
++		}
++		spin_lock(&queue->lock);
++	}
++
++	if (queue->stopped || !READ_ONCE(fch->connected)) {
++		err = -ENOTCONN;
++		goto out_unlock;
++	}
++
++	queue->bg_local++;
++
++out_unlock:
++	spin_unlock(&queue->lock);
++	return err ? ERR_PTR(err) : queue;
++}
++
++void fuse_uring_bg_req_release(struct fuse_ring_queue *queue)
++{
++	spin_lock(&queue->lock);
++	if (!WARN_ON_ONCE(queue->bg_local == 0))
++		queue->bg_local--;
++	spin_unlock(&queue->lock);
++
++	wake_up(&queue->bg_waitq);
++}
++
++unsigned int fuse_uring_num_background(struct fuse_chan *fch)
++{
++	struct fuse_ring *ring = fch->ring;
++	unsigned int sum = 0;
++	int qid;
++
++	for (qid = 0; qid < ring->nr_queues; qid++) {
++		struct fuse_ring_queue *queue = READ_ONCE(ring->queues[qid]);
++
++		if (queue)
++			sum += READ_ONCE(queue->bg_local);
++	}
++
++	return sum;
++}
++
+ static void fuse_uring_dispatch_ent(struct fuse_ring_ent *ent)
+ {
+ 	struct io_uring_cmd *cmd = ent->cmd;
+@@ -1843,10 +1981,16 @@ bool fuse_uring_queue_bq_req(struct fuse_req *req)
+ 	struct fuse_ring *ring = fch->ring;
+ 	struct fuse_ring_queue *queue;
+ 	struct fuse_ring_ent *ent = NULL;
++	bool per_queue = fch->bg_mode == FUSE_BG_MODE_PER_QUEUE;
++	bool accounted = req->ring_queue;
+ 
+-	queue = fuse_uring_task_to_queue(ring);
+-	if (!queue)
+-		return false;
++	if (accounted) {
++		queue = req->ring_queue;
++	} else {
++		queue = fuse_uring_task_to_queue(ring);
++		if (!queue)
++			return false;
++	}
+ 
+ 	spin_lock(&queue->lock);
+ 	if (unlikely(queue->stopped)) {
+@@ -1858,14 +2002,21 @@ bool fuse_uring_queue_bq_req(struct fuse_req *req)
+ 	req->ring_queue = queue;
+ 	list_add_tail(&req->list, &queue->fuse_req_bg_queue);
+ 
++	if (per_queue) {
++		if (!accounted)
++			queue->bg_local++;
++		fuse_uring_flush_bg_per_queue(queue);
++	} else {
++		spin_lock(&fch->bg_lock);
++		fch->num_background++;
++		if (fch->num_background == fch->max_background)
++			fch->blocked = 1;
++		fuse_uring_flush_bg(queue);
++		spin_unlock(&fch->bg_lock);
++	}
++
+ 	ent = list_first_entry_or_null(&queue->ent_avail_queue,
+ 				       struct fuse_ring_ent, list);
+-	spin_lock(&fch->bg_lock);
+-	fch->num_background++;
+-	if (fch->num_background == fch->max_background)
+-		fch->blocked = 1;
+-	fuse_uring_flush_bg(queue);
+-	spin_unlock(&fch->bg_lock);
+ 
+ 	/*
+ 	 * Due to bg_queue flush limits there might be other bg requests
+diff --git a/fs/fuse/dev_uring_i.h b/fs/fuse/dev_uring_i.h
+index 263d0f8b9714..5f066ea9735a 100644
+--- a/fs/fuse/dev_uring_i.h
++++ b/fs/fuse/dev_uring_i.h
+@@ -139,6 +139,11 @@ struct fuse_ring_queue {
+ 
+ 	unsigned int active_background;
+ 
++	/* Per-queue background budget and accounting (FUSE_BG_MODE_PER_QUEUE) */
++	unsigned int max_bg;
++	unsigned int bg_local;
++	wait_queue_head_t bg_waitq;
++
+ 	bool stopped;
+ 
+ 	/* how this queue's payload buffers are provided */
+@@ -192,6 +197,9 @@ void fuse_uring_queue_fuse_req(struct fuse_iqueue *fiq, struct fuse_req *req);
+ bool fuse_uring_queue_bq_req(struct fuse_req *req);
+ bool fuse_uring_remove_pending_req(struct fuse_req *req);
+ bool fuse_uring_request_expired(struct fuse_chan *fch);
++struct fuse_ring_queue *fuse_uring_bg_admit(struct fuse_chan *fch);
++void fuse_uring_bg_req_release(struct fuse_ring_queue *queue);
++unsigned int fuse_uring_num_background(struct fuse_chan *fch);
+ 
+ static inline void fuse_uring_abort(struct fuse_chan *fch)
+ {
+@@ -222,6 +230,11 @@ static inline bool fuse_uring_ready(struct fuse_chan *fch)
+ 	return ring && smp_load_acquire(&ring->ready);
+ }
+ 
++static inline bool fuse_uring_per_queue_bg(struct fuse_chan *fch)
++{
++	return fch->bg_mode == FUSE_BG_MODE_PER_QUEUE && fuse_uring_ready(fch);
++}
++
+ #else /* CONFIG_FUSE_IO_URING */
+ 
+ static inline void fuse_uring_conn_init(struct fuse_chan *fch)
+@@ -251,6 +264,25 @@ static inline bool fuse_uring_request_expired(struct fuse_chan *fch)
+ 	return false;
+ }
+ 
++static inline bool fuse_uring_per_queue_bg(struct fuse_chan *fch)
++{
++	return false;
++}
++
++static inline struct fuse_ring_queue *fuse_uring_bg_admit(struct fuse_chan *fch)
++{
++	return NULL;
++}
++
++static inline void fuse_uring_bg_req_release(void *queue)
++{
++}
++
++static inline unsigned int fuse_uring_num_background(struct fuse_chan *fch)
++{
++	return 0;
++}
++
+ #endif /* CONFIG_FUSE_IO_URING */
+ 
+ #endif /* _FS_FUSE_DEV_URING_I_H */
+diff --git a/fs/fuse/fuse_dev_i.h b/fs/fuse/fuse_dev_i.h
+index 4b412a76225f..4ca724994af9 100644
+--- a/fs/fuse/fuse_dev_i.h
++++ b/fs/fuse/fuse_dev_i.h
+@@ -17,6 +17,18 @@
+ #define FUSE_INT_REQ_BIT (1ULL << 0)
+ #define FUSE_REQ_ID_STEP (1ULL << 1)
+ 
++/**
++ * Background request accounting mode
++ *
++ * @FUSE_BG_MODE_GLOBAL: legacy accounting, a single global spinlock
++ *	protects the background accounting of all queues
++ * @FUSE_BG_MODE_PER_QUEUE: each fuse_ring_queue owns its own budget.
++ */
++enum fuse_bg_mode {
++	FUSE_BG_MODE_GLOBAL,
++	FUSE_BG_MODE_PER_QUEUE,
++};
++
+ struct fuse_arg;
+ struct fuse_args;
+ struct fuse_pqueue;
+@@ -223,6 +235,12 @@ struct fuse_chan {
+ 	/** Protects: max_background, num_background, active_background, bg_queue, blocked */
+ 	spinlock_t bg_lock;
+ 
++	/** Background accounting mode, set at INIT, read-only afterwards */
++	enum fuse_bg_mode bg_mode;
++
++	/** Per-queue background budget (FUSE_BG_MODE_PER_QUEUE only) */
++	unsigned int uring_max_bg_per_queue;
++
+ 	/** Flag indicating that INIT reply has been received. Allocating
+ 	 * any fuse request will be suspended until the flag is set */
+ 	int initialized;
+diff --git a/fs/fuse/inode.c b/fs/fuse/inode.c
+index e9552be3637b..a899ef069e0c 100644
+--- a/fs/fuse/inode.c
++++ b/fs/fuse/inode.c
+@@ -1276,6 +1276,7 @@ static void process_init_reply(struct fuse_args *args, int error)
+ 	struct fuse_conn *fc = fm->fc;
+ 	struct fuse_init_out *arg = &ia->out;
+ 	bool io_uring_enabled = false;
++	unsigned int max_bg = 0;
+ 	bool ok = true;
+ 
+ 	if (error || arg->major != FUSE_KERNEL_VERSION)
+@@ -1408,6 +1409,10 @@ static void process_init_reply(struct fuse_args *args, int error)
+ 			if (flags & FUSE_OVER_IO_URING && fuse_uring_enabled())
+ 				io_uring_enabled = true;
+ 
++			max_bg = fuse_uring_per_queue_bg_budget(flags,
++								arg->max_bg_per_queue,
++								max_user_bgreq);
++
+ 			if (flags & FUSE_REQUEST_TIMEOUT)
+ 				timeout = arg->request_timeout;
+ 		} else {
+@@ -1418,6 +1423,9 @@ static void process_init_reply(struct fuse_args *args, int error)
+ 
+ 		fuse_init_server_timeout(fc->chan, timeout);
+ 
++		if (max_bg)
++			fuse_chan_per_queue_bg_enable(fc->chan, max_bg);
++
+ 		fm->sb->s_bdi->ra_pages =
+ 				min(fm->sb->s_bdi->ra_pages, ra_pages);
+ 		fm->sb->s_bdi->io_pages = fc->max_pages;
+@@ -1480,8 +1488,11 @@ static struct fuse_init_args *fuse_new_init(struct fuse_mount *fm)
+ 	if (IS_ENABLED(CONFIG_FUSE_PASSTHROUGH))
+ 		flags |= FUSE_PASSTHROUGH;
+ 
+-	if (fuse_uring_enabled())
++	if (fuse_uring_enabled()) {
+ 		flags |= FUSE_OVER_IO_URING | FUSE_HAS_IO_URING_BUFPOOL;
++		if (fuse_uring_per_queue_bg_advertise())
++			flags |= FUSE_PER_QUEUE_BG;
++	}
+ 
+ 	ia->in.flags = flags;
+ 	ia->in.flags2 = flags >> 32;
+diff --git a/include/uapi/linux/fuse.h b/include/uapi/linux/fuse.h
+index 7435e09c87fe..847c93a8c746 100644
+--- a/include/uapi/linux/fuse.h
++++ b/include/uapi/linux/fuse.h
+@@ -248,6 +248,9 @@
+  *  - add bufpool offset field to fuse_uring_ent_in_out struct
+  *  - add FUSE_URING_ZERO_COPY, FUSE_URING_ENT_ZERO_COPY, and
+  *    FOPEN_IO_URING_ZERO_COPY flag
++ *
++ *  7.47
++ *  - add FUSE_PER_QUEUE_BG
+  */
+ 
+ #ifndef _LINUX_FUSE_H
+@@ -283,7 +286,7 @@
+ #define FUSE_KERNEL_VERSION 7
+ 
+ /** Minor version number of this interface */
+-#define FUSE_KERNEL_MINOR_VERSION 46
++#define FUSE_KERNEL_MINOR_VERSION 47
+ 
+ /** The node ID of the root inode */
+ #define FUSE_ROOT_ID 1
+@@ -464,6 +467,8 @@ struct fuse_file_lock {
+  * FUSE_REQUEST_TIMEOUT: kernel supports timing out requests.
+  *			 init_out.request_timeout contains the timeout (in secs)
+  * FUSE_HAS_IO_URING_BUFPOOL: kernel supports io-uring buffer pools
++ * FUSE_PER_QUEUE_BG: kernel supports per-queue background request accounting
++ *                    for io-uring.
+  */
+ #define FUSE_ASYNC_READ		(1 << 0)
+ #define FUSE_POSIX_LOCKS	(1 << 1)
+@@ -512,6 +517,7 @@ struct fuse_file_lock {
+ #define FUSE_OVER_IO_URING	(1ULL << 41)
+ #define FUSE_REQUEST_TIMEOUT	(1ULL << 42)
+ #define FUSE_HAS_IO_URING_BUFPOOL (1ULL << 43)
++#define FUSE_PER_QUEUE_BG	(1ULL << 44)
+ 
+ /**
+  * CUSE INIT request/reply flags
+@@ -942,7 +948,8 @@ struct fuse_init_out {
+ 	uint32_t	flags2;
+ 	uint32_t	max_stack_depth;
+ 	uint16_t	request_timeout;
+-	uint16_t	unused[11];
++	uint16_t	max_bg_per_queue;
++	uint16_t	unused[10];
+ };
+ 
+ #define CUSE_INIT_INFO_MAX 4096
+-- 
+2.56.0
 
-CPU: 2 UID: 0 PID: 6049 Comm: syz-executor394 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <IRQ>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- llc_conn_ac_send_sabme_cmd_p_set_x+0x442/0x470 net/llc/llc_c_ac.c:782
- llc_exec_conn_trans_actions net/llc/llc_conn.c:437 [inline]
- llc_conn_service net/llc/llc_conn.c:362 [inline]
- llc_conn_state_process+0x3ec/0x1480 net/llc/llc_conn.c:66
- llc_process_tmr_ev net/llc/llc_c_ac.c:1442 [inline]
- llc_conn_tmr_common_cb+0x2d4/0x880 net/llc/llc_c_ac.c:1325
- call_timer_fn+0x198/0x5f0 kernel/time/timer.c:1748
- expire_timers kernel/time/timer.c:1799 [inline]
- __run_timers+0x757/0xb00 kernel/time/timer.c:2374
- __run_timer_base kernel/time/timer.c:2386 [inline]
- __run_timer_base kernel/time/timer.c:2378 [inline]
- run_timer_base+0x114/0x190 kernel/time/timer.c:2395
- run_timer_softirq+0x1a/0x50 kernel/time/timer.c:2405
- handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0x16a/0x210 kernel/softirq.c:758
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0xa3/0xc0 arch/x86/kernel/apic/apic.c:1062
- </IRQ>
- <TASK>
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:lock_acquire+0x5e/0x380 kernel/locking/lockdep.c:5947
-Code: 05 8f ce a5 12 83 f8 07 0f 87 da 00 00 00 48 0f a3 05 9e e2 5d 0f 0f 82 c9 02 00 00 8b 35 3e 14 5e 0f 85 f6 0f 85 c7 00 00 00 <48> 8b 44 24 30 65 48 2b 05 2d ce a5 12 0f 85 09 03 00 00 48 83 c4
-RSP: 0018:ffffc90005217830 EFLAGS: 00000206
-RAX: 0000000000000046 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: 0000000000000000 RSI: ffffffff8e36a0a0 RDI: ffffffff8c624080
-RBP: ffffffff8edec5e0 R08: 00000000ef9d33e4 R09: 0000000000000007
-R10: 0000000000000200 R11: 0000000000000000 R12: 0000000000000002
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- rcu_read_lock include/linux/rcupdate.h:849 [inline]
- class_rcu_constructor include/linux/rcupdate.h:1216 [inline]
- unwind_next_frame+0xd1/0x2090 arch/x86/kernel/unwind_orc.c:495
- arch_stack_walk+0x94/0xf0 arch/x86/kernel/stacktrace.c:25
- stack_trace_save+0x8e/0xc0 kernel/stacktrace.c:122
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:426
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5414 [inline]
- __kmalloc_noprof+0x32f/0x840 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- sk_prot_alloc+0x10b/0x2a0 net/core/sock.c:2252
- sk_alloc+0x36/0xe80 net/core/sock.c:2308
- llc_sk_alloc+0x32/0x4c0 net/llc/llc_conn.c:925
- llc_ui_create+0xeb/0x440 net/llc/af_llc.c:180
- __sock_create+0x339/0x860 net/socket.c:1676
- sock_create net/socket.c:1734 [inline]
- __sys_socket_create net/socket.c:1771 [inline]
- __sys_socket+0x14d/0x260 net/socket.c:1818
- __do_sys_socket net/socket.c:1832 [inline]
- __se_sys_socket net/socket.c:1830 [inline]
- __x64_sys_socket+0x72/0xb0 net/socket.c:1830
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fcea0c8bcc7
-Code: f0 ff ff 77 06 c3 0f 1f 44 00 00 48 c7 c2 d0 ff ff ff f7 d8 64 89 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 b8 29 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d0 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fce9dc4f1a8 EFLAGS: 00000246 ORIG_RAX: 0000000000000029
-RAX: ffffffffffffffda RBX: 0000000000000008 RCX: 00007fcea0c8bcc7
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 000000000000001a
-RBP: 00000000000011db R08: 0000000000000000 R09: 000000000000005f
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000007
-R13: 0000000000000022 R14: 0000000088888889 R15: 00000000000000be
- </TASK>
-
-Allocated by task 6047:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:426
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x2f8/0x6d0 mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- llc_sap_alloc net/llc/llc_core.c:29 [inline]
- llc_sap_open+0x120/0x3b0 net/llc/llc_core.c:96
- llc_ui_bind+0xb67/0xe40 net/llc/af_llc.c:386
- __sys_bind_socket net/socket.c:1945 [inline]
- __sys_bind_socket net/socket.c:1937 [inline]
- __sys_bind+0x1a9/0x260 net/socket.c:1976
- __do_sys_bind net/socket.c:1981 [inline]
- __se_sys_bind net/socket.c:1979 [inline]
- __x64_sys_bind+0x72/0xb0 net/socket.c:1979
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 6049:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:264 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:296
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- __rcu_free_sheaf_prepare+0x5d/0x300 mm/slub.c:3009
- rcu_free_sheaf+0x1a/0xe0 mm/slub.c:6061
- rcu_do_batch kernel/rcu/tree.c:2650 [inline]
- rcu_core+0x5f0/0x1260 kernel/rcu/tree.c:2919
- handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
- do_softirq kernel/softirq.c:546 [inline]
- do_softirq+0xaf/0xf0 kernel/softirq.c:533
- __local_bh_enable_ip+0xff/0x120 kernel/softirq.c:473
- spin_unlock_bh include/linux/spinlock.h:407 [inline]
- llc_sap_open+0xcb/0x3b0 net/llc/llc_core.c:103
- llc_ui_bind+0xb67/0xe40 net/llc/af_llc.c:386
- __sys_bind_socket net/socket.c:1945 [inline]
- __sys_bind_socket net/socket.c:1937 [inline]
- __sys_bind+0x1a9/0x260 net/socket.c:1976
- __do_sys_bind net/socket.c:1981 [inline]
- __se_sys_bind net/socket.c:1979 [inline]
- __x64_sys_bind+0x72/0xb0 net/socket.c:1979
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff888036088000
- which belongs to the cache kmalloc-2k of size 2048
-The buggy address is located 16 bytes inside of
- freed 2048-byte region [ffff888036088000, ffff888036088800)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88803608c000 pfn:0x36088
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000240(workingset|head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000240 ffff88801c042f00 ffffea000098b810 ffffea0000aaf410
-raw: ffff88803608c000 0000000000080007 00000000f5000000 0000000000000000
-head: 00fff00000000240 ffff88801c042f00 ffffea000098b810 ffffea0000aaf410
-head: ffff88803608c000 0000000000080007 00000000f5000000 0000000000000000
-head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd2820(GFP_ATOMIC|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 6045, tgid 6041 (syz-executor394), ts 73343557269
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7418
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __kmalloc_cache_noprof+0x4f4/0x6d0 mm/slub.c:5559
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- llc_sap_alloc net/llc/llc_core.c:29 [inline]
- llc_sap_open+0x120/0x3b0 net/llc/llc_core.c:96
- llc_ui_bind+0xb67/0xe40 net/llc/af_llc.c:386
- __sys_bind_socket net/socket.c:1945 [inline]
- __sys_bind_socket net/socket.c:1937 [inline]
- __sys_bind+0x1a9/0x260 net/socket.c:1976
- __do_sys_bind net/socket.c:1981 [inline]
- __se_sys_bind net/socket.c:1979 [inline]
- __x64_sys_bind+0x72/0xb0 net/socket.c:1979
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-page last free pid 6051 tgid 6041 ts 73290619137 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x1a0/0x1f0 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x69/0x90 mm/kasan/common.c:361
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_lru_noprof+0x265/0x6a0 mm/slub.c:5029
- sock_alloc_inode+0x26/0x2c0 net/socket.c:330
- alloc_inode+0x68/0x250 fs/inode.c:338
- new_inode_pseudo include/linux/fs.h:3047 [inline]
- sock_alloc+0x44/0x280 net/socket.c:710
- __sock_create+0xc2/0x860 net/socket.c:1640
- sock_create net/socket.c:1734 [inline]
- __sys_socket_create net/socket.c:1771 [inline]
- __sys_socket+0x14d/0x260 net/socket.c:1818
- __do_sys_socket net/socket.c:1832 [inline]
- __se_sys_socket net/socket.c:1830 [inline]
- __x64_sys_socket+0x72/0xb0 net/socket.c:1830
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Memory state around the buggy address:
- ffff888036087f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff888036087f80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->ffff888036088000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                         ^
- ffff888036088080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff888036088100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-----------------
-Code disassembly (best guess):
-   0:	05 8f ce a5 12       	add    $0x12a5ce8f,%eax
-   5:	83 f8 07             	cmp    $0x7,%eax
-   8:	0f 87 da 00 00 00    	ja     0xe8
-   e:	48 0f a3 05 9e e2 5d 	bt     %rax,0xf5de29e(%rip)        # 0xf5de2b4
-  15:	0f
-  16:	0f 82 c9 02 00 00    	jb     0x2e5
-  1c:	8b 35 3e 14 5e 0f    	mov    0xf5e143e(%rip),%esi        # 0xf5e1460
-  22:	85 f6                	test   %esi,%esi
-  24:	0f 85 c7 00 00 00    	jne    0xf1
-* 2a:	48 8b 44 24 30       	mov    0x30(%rsp),%rax <-- trapping instruction
-  2f:	65 48 2b 05 2d ce a5 	sub    %gs:0x12a5ce2d(%rip),%rax        # 0x12a5ce64
-  36:	12
-  37:	0f 85 09 03 00 00    	jne    0x346
-  3d:	48                   	rex.W
-  3e:	83                   	.byte 0x83
-  3f:	c4                   	.byte 0xc4
-
-
-Tested on:
-
-commit:         2f2f7eee Merge tag 'soc-fixes-7.3-3' of git://git.kern..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=10661621580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=929e4854a828f434
-dashboard link: https://syzkaller.appspot.com/bug?extid=44efda9647c52be29d9c
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-
-Note: no patches were applied.
