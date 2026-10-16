@@ -1,237 +1,217 @@
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB07B345ED3
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:21:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA04345ED3
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:21:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792120867; cv=none; b=DBjcaw44tE/0M1s4chUrq6vJ2Buz/uIfJNQabELPjHbrf57dyi1NumnGf71EE6dudXgom9l1llSDGiVPW/uQi/z5811mjQ/SRWRHjzPBPh0ogSURGY67mECr1FG1cVGlSLnYzyp4PWlA1yxEspfX4anMNy5m/R5k2taE+ZNRYw4=
+	t=1792120919; cv=none; b=Ppb7WvXc2c7D/eBadLmHR+LNCpnJNDk457oZA/fIr/nxv9dBBj3W/Gu8+A6847XdMr8i0fF1xWwmThK8hy46hSgKkPPNDVhBkOECCOpU7pqjc/siyKqqQSAlXMMqQPshr6juYQEUp7hwoimi6EoHg7eHiIBHRaAh97H+80h4Pu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792120867; c=relaxed/simple;
-	bh=T1hXkWwf1Ky3PIGLKl38skTFM/Wejn1S9poV/mkIkiY=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=h7Hcc4yAEnTwWLoOMpp2FnGiomUAqfysp21PcbCEVcDe0b6LlH7SMLYsbZf44D6k6K9vOYqZW/kcClMjcZz2sAspoQbnMRPplsRKGtnvQJ5UhlX3sXL47kL07Dd4bfR6VDuOmBkMTs4oZBtq+oKXP94vyDJcBSZ4wPYdxpJlY1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ods74m3i; arc=none smtp.client-ip=74.125.227.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792120919; c=relaxed/simple;
+	bh=fJNebOA6kOSU4sl/H0TFH6fkosa4uuU2btdjCjK3BIw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rR1rc6rAZuDEydGlIJQB8XLIkII0OPH4bXi7MEioTyzjvkxzEuYlrucxWQkbLnbqKliMVhQ2oVkhBHFZ/0rhWZaoglyMY1RMugDotnV5ngMip+BWLQUZq1GrSbYuxnkekFq9H9C4KfDtHxSNA+FJH0LoDStDjefYBpSCsCel3Y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IqwJvzVj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NgcJw4jo; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ods74m3i"
-Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-3abe4fb64d2so2660330a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:21:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IqwJvzVj";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NgcJw4jo"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FND6ne558197
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:21:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=egCdW1LXWuBj/OhNtABuXA
+	0BSDpsR1633mpKJv0DbUE=; b=IqwJvzVjMXe9Ds0rE/8j/PAj0+ZIvehFztaZDA
+	HOMD1hOwChVdr9waHxi6yXNW16sXN7/jWVsDXbBgLNxpYxrytm1cbFsgEJNReoxA
+	FvQqWf9ah+j1oy5VBlkCzlYjlz/CCJbKxuTjU8LXNZyjlkRgTJa1Ln6m/M+0CIz3
+	ChjPTNpvO24g9CLKOXE2jOLU3ihYn951Plvetl8t/c0s6HSQjNRnV2PS2Sg0J/d7
+	HKuvOfv4Djo2lafoPyCaQJnA0Y58n0qfwvlhB9mModcrXgNeNYVgZ63N6HaKGnaQ
+	6ewWGO3zGGKJNIgoM0d+dvAMtvz+B7xmlzmBMv/MaEzuYnnw==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb8a88p2w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:21:50 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3592749a017so549452eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:21:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792120865; x=1792725665; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BLv1jdYPShZUl6WRXA2OAAq/MQ9I53lb2Im743pbZNE=;
-        b=ods74m3iyJWkWu4lNHGKxbdhBEw18YNmlcdHGHrV1AfcHNdOGNzwP65X7waztvCeaZ
-         82McoEAeynVifup5M2Lp8qZDWNmvuIRu9AUJcndk9oX5lBNYDgY+gXDsCPj8XogR5xx/
-         CmuccwRRAdYQqKGpWjtIDm6ParoGEWiVew+BfW7kFcU4ysqQJFPmtItfCIPjjoh/vE6/
-         TpuxBCZf/RUC6z618x1k8+1dNtcirVxE+hFJdS7UYX3sPNakmXGvyANf9M8ZoVjG8pgr
-         Ub4A/LvIHq4BgFbfRqQg56Sfe0TdIvV2PLYuYVvZozNsv/et1Ky5edJhhPpe+dK4q1R5
-         vwDw==
+        d=oss.qualcomm.com; s=google; t=1792120910; x=1792725710; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=egCdW1LXWuBj/OhNtABuXA0BSDpsR1633mpKJv0DbUE=;
+        b=NgcJw4joLS20zrKpIBGbvDndlhqXtsDj51gPQyEuEvP2cc/eiQ7lQ7Ej2ErjQZm1/C
+         32fjo1+pAIuUWZFphj8XDJCM+PhEhlsDDXd7UwmpEdURx1VGx6nqeF3JdxzJnOCwLlvI
+         XarnQSMq/MAvkEyHaJSFd+oPGFp2ZYWUy1qTn1eKB5Osty3FSznu390XIjyJ5M3skDVk
+         U+4juiC7qw8sxDg05fqvkWQL3T7gOY4eOceFKbW/QLInKKb3LqbE+FZ/klM/YXrX9HbR
+         0yBXPBJtZ2bfAhZrjcuw7HTvFlLabfquhpmsgTrjzhVcwWAM+asmL2X4B5/2EzjunGD2
+         sYIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792120865; x=1792725665;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BLv1jdYPShZUl6WRXA2OAAq/MQ9I53lb2Im743pbZNE=;
-        b=tFke/Ukspy+lQSpcxatXgSN65Hni/cYW6Y8omMx3NLJbYxump6S8bB+EmFDVWNIOzk
-         xhc/e0p5Q3LSwAqQR9pkkWXCNrGiM3k6sVX7NhwLJXUwiOFBrQJZN90z7O2xLUF+M1Om
-         lA0ILQHj9ImG0sibwEIlcj0naGLsXy+GHuRFQUKEYiwWLgBqdCB+Bl4zPQ8rgMJhayL4
-         y+kS6fNgNbAbPjfPPhbfqY0dIkJ/WNYXX46YJ2BNi3PPGy0tjzTB1XSKVh2FMzlw4+HX
-         U09lvMwe7sCdtUksp3brTIB6dzjbgIjtLhF76arDujixwH2CqCR/CWXJKwuO+6RsSLVn
-         pwKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy0+FvbN/J8wg8gt6g6NOMMHI+UJMcpQZG+glMo7a7wkOpSMqOQ5wyjmArMOWIOnQo8Nu9ZJozc3LGr82s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLnPznYz1f6aE1pvYiAhVlssoqLkKOnmZbNBUwCY5O8LlI/VNOC
-	5xknpdqhMEGuSBSSaC80HaByOlarwlrQ39SgsmGB/1XC9XfMfy8je1oF
-X-Gm-Gg: AYBFou0nV5SjQoDXoqQrw0yPy2ndVknO6PHXucXy7ESwmm58ikk6Ddw0nR/C3N2Nnr7
-	RVhK7hZ1TYzeWE15IUiYprHCGsypwpXXiY0NpiUOPHEQB3JwZq0vbVFYzr2cL2QVLRwHuvOvuL3
-	6db5ryKXH1J5t/WOFPsG9QI0F8aikSjj6Es9P69f8Mfjx4Hg++69afG3I3hpQrtXzG2SOKtk46E
-	xQhcoHEEjXDIY2rWsJ37epOSCbExbEuAnq31mC0fpeIlF/3x75NmPfYLNQ4tVHkUC8/8+vdTS2w
-	Gkt35wRipoOnLDX67teMpeWh8TLl0avVAHHWdoIUtlfrDpj8al8j0E5tC3pjOzQLsUNfzNcU/Pj
-	abZcvINhx6LdRe3VU3H/VmDJj6An4ktIxhJCwcpmxeQvxB/8lfdgYG3Up8CeBuuJfuqCTkRvHcS
-	5UJr8tbE9hp7XqKoHKfwQB4fzl2Td4xyxTF9W1IOcIEBddtnlhVyfLValvmvtSbmmgojDyxctcC
-	AzUTA==
-X-Received: by 2002:a17:90b:1801:b0:3ac:a11a:7c79 with SMTP id 98e67ed59e1d1-3aca11a7d89mr3638559a91.16.1792120865028;
-        Thu, 15 Oct 2026 20:21:05 -0700 (PDT)
-Received: from [10.125.112.22] ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9474b52fsm7959974a91.9.2026.10.15.20.20.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 20:21:03 -0700 (PDT)
-Message-ID: <643bbd4c-1041-43b9-9362-17c5330fc06a@gmail.com>
-Date: Fri, 16 Oct 2026 11:20:45 +0800
+        d=1e100.net; s=20260707; t=1792120910; x=1792725710;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=egCdW1LXWuBj/OhNtABuXA0BSDpsR1633mpKJv0DbUE=;
+        b=GiH/PeeRFgMfoYgPvTJa5tjVUkKePyCorg5V99C15CEqdAcV9VeNpQFOE5UJ20SQsj
+         UYkdbBYPd5lQP1A6/1W7Umc1KjQhLbWYVCf59seq//DazSQm6jSBxbJO00BqwmGJorS8
+         3HoEkTLIH2znsXQOfp2fkaWg+OQhx+JJ2wvkGQrrrB9O9USi1cWgyZrf8EMISWo6JdZM
+         imhR+oteK/C2NncgQziIge0/mqIuOnMykZDRTsMqqh+xgouxQ557Lm//JVpzKufwUHfw
+         2yz51hLt58o5nRlXFdljiWaOD3esiMWHerOfWYQbg7LOMuFItUoDOcPjuLfpweGgKSMe
+         uchQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz7qyv/O7brwQNLAyG6P2tjsg9Ah9uP7EGadDR1cve2hB0dguOG9vFO3bc/bdnSwHt/HQDDXLCRdMkbbOo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYII9vIEph5sPxnZnju+dyoeAs5uW5ZVNB3wbk1iL+5JeALGw22w
+	nIE7GG+7S+a+sk+Jr+yzbQZRklWbnMpMz9sy7KejjZ7JaZxKlbnxbOPZzgs+72RseEhzPqBT872
+	UXUEQPmGwncwFF/qiykw3KiGZTnTnYviuv+zVWGrbbZq0mATcVuuKr1n+idTyO4sp8D0=
+X-Gm-Gg: AYBFou06EJ3nB5MF6FckeNT0US/oSlOH+7QJoR22K8kWP/BEDjp7GGZU1ACHJyb6UUX
+	bPJnH8BRv43sgkpeEdsTjXhHslLjkoTsrehYwMww7RhEOSdqIgOaZbw2ykmd54aPVYJEsgGa+DH
+	ElMJdu6CzP7bpXx2jVgnyFeNVP7xPTBS3Oa2ADbI2RoVFCAtzDkI9NddoqewAHbmm47z+aQ43tt
+	dr4BXO4pNlO64vGJNf2xb7fI2mTIiROaYUS5Ck5uCAy2o9340S+qCK4QM1CgMsK7KOhJqQmA6d/
+	vZ9s49NvcTM3uYDV9Wzwh5s1uteL9t7wrG7N3MvUNi/9NNzloR+EZXp3vxurMvd0jlQLK5ftz5E
+	JuEBM4VrSfllFebWD9usZuggmTcPYOVjoDkDT7C1HDRDS9Gr0BlZJrqtDp7aCgzS/+abuRdmxJ8
+	SvRmgO07AQ1K+er4EvxVc7PQ==
+X-Received: by 2002:a05:693c:88d1:20b0:353:ba38:789d with SMTP id 5a478bee46e88-36027340d18mr2367626eec.0.1792120909924;
+        Thu, 15 Oct 2026 20:21:49 -0700 (PDT)
+X-Received: by 2002:a05:693c:88d1:20b0:353:ba38:789d with SMTP id 5a478bee46e88-36027340d18mr2367593eec.0.1792120909218;
+        Thu, 15 Oct 2026 20:21:49 -0700 (PDT)
+Received: from hu-aarasahu-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360819be413sm2256698eec.13.2026.10.15.20.21.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 20:21:48 -0700 (PDT)
+From: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+Subject: [PATCH ath-next v2 00/17] wifi: ath12k: Add support for QCN6432
+Date: Fri, 16 Oct 2026 08:51:37 +0530
+Message-Id: <20261016-mpp-bringup-v2-0-f510c33bfcf5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/8] kdump: reduce vmcore size and capture time
-From: Wandun <chenwandun1@gmail.com>
-To: robh@kernel.org, baoquan.he@linux.dev, rppt@kernel.org,
- m.szyprowski@samsung.com
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
- chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
- palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
- hpa@zytor.com, saravanak@kernel.org, akpm@linux-foundation.org,
- pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev,
- robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
- kexec@lists.infradead.org, linux-mm@kvack.org, iommu@lists.linux.dev
-References: <20261016030855.4062882-1-chenwandun1@gmail.com>
-Content-Language: en-US
-In-Reply-To: <20261016030855.4062882-1-chenwandun1@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEGY0WoC/yWMQQrCMBQFr1Le2g9tMFa8irho6kv7BWNIUimU3
+ t2oy2GY2ZCZlBmXZkPiW7O+QgVzaDDOQ5goeq8M05pT13ZWnjGKSxqmJUpv/dH2jv5MohYx0ev
+ 6u10xlFkC14Lb3+TFPTiW7wz7/gEUCFUHeQAAAA==
+X-Change-ID: 20261015-mpp-bringup-75f457bef8ee
+To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, ath12k@lists.infradead.org,
+        Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>,
+        Sowmiya Sree Elavalagan <quic_ssreeela@quicinc.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAxMiBTYWx0ZWRfXyf6JojU2Ed5z
+ tZ30rTqnnzZd9TvNmpJ0sfK5+fwiYZwRb5X9n62RIEGmwWi2yO+3TkkjyQSRqnssBOBLKpA5gdA
+ bkUuWlYeXWZ0g3lOL/lA12JYPYe7XCM=
+X-Proofpoint-ORIG-GUID: b2i-P1ZTyNQk9VGp1DlOkQkhWxGjSbif
+X-Authority-Analysis: v=2.4 cv=GJadgeNK c=1 sm=1 tr=0 ts=6ad1984e cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=j9mdO8TpxRXb4I9anNkA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAxMiBTYWx0ZWRfX1XxZlMcg7Vfq
+ sWGwAC3wyd4Wo6jzcLefxCE1+e8A7sJ3VdRf1/4KRS55b7i1Xr1/Toq33UTBuXByyz4Hvjniucy
+ Q7y1QkfbD7zaKZ9EKbM5vyzTSBKPZR7MsKJegeksNQ5XeiFvpTi1esCOVu6N4b5RVq+GDO4TDiD
+ n+xQG37EJ7gfSQilC2OLeMauZ7ID9AyftA9ueL9+CH3lqWXlTtt6RQC98SFesUZ2Uvxf1d8GaFg
+ pL/omJeQTd6BHaKXlXUdd2+BH3WM5HgtioChCURBK6rjfcr6P4w9tQ0e2g4IDCVBgHOC5C6+GWV
+ tPsleCRULAY1MTDVFB3+SrxBOrNnIjF9yvtCJdGlf6pCU4dg0oudgVB5AV4QN5ZRHmolN77XZ/R
+ nECysPEX+G1tnOHH+DHwTZcue+wGoow2VOx+4Wkz5etCaZBkD6NiVHnld29qgCdTtOeXFvae76O
+ SPI7M8i4nR9nYmtXP1Q==
+X-Proofpoint-GUID: b2i-P1ZTyNQk9VGp1DlOkQkhWxGjSbif
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
+ bulkscore=0 priorityscore=1501 phishscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160012
 
+QCN6432 is a PCIe-based device attached to the WCSS Q6 processor. It is
+registered as a platform device (AHB), and remoteproc APIs are used to
+boot and shut down the device, similar to other AHB-based devices such
+as IPQ5332.
 
-Hi all,
+However, PCI APIs are used for device setup and register access. Since
+QCN6432 requires both AHB and PCI APIs for its operation, a hybrid
+AHB/PCI approach is implemented.
 
-My SMTP server hit a temporary error (4.3.0) partway through sending
-this series, so some patches did not make it to the list. I will resend
-the whole series later. Please ignore the current incomplete set.
+Overview:
+  - Patch [1/17] adds DT binding documentation for QCN6432.
+  - Patch [2/17] refactors PCI operations and MSI config structure to
+    support different MSI configurations.
+  - Patches [3,4,5/17] add hardware parameters, ring mask, and registers
+    for QCN6432.
+  - Patch [6/17] moves multi MSI vector flag to ath12k_dev_flags.
+  - Patches [7,8/17] add hybrid_bus_type and HIF operations support for
+    QCN6432.
+  - Patch [9/17] adds support for unified data-region memory allocation.
+  - Patch [10/17] moves MSI config to pcic for better abstraction.
+  - Patches [11,12/17] enable MSI interrupt support for CE and DP rings
+    specific to QCN6432.
+  - Patch [13/17] uses CMEM write for PPT on hybrid bus devices.
+  - Patch [14/17] stores and uses per CE DP MSI data for QCN6432.
+  - Patch [15/17] derives QMI service instance ID per protection domain.
+  - Patch [16/17] add userpd ID mapping per device.
+  - Patch [17/17] adds support for QCN6432 in the driver.
 
-Sorry for the noise.
+Changes in v2:
+- patch 1/17: Update the compatible string from qcom,qcn6432-wifi to qcom,qcn6432 and remove the | character.
+- patch 11/17 and patch 12/17: Fix resource leaks on probe error paths.
+- patch 16/17: Move the NULL check before the loop.
+- Link to v1: https://lore.kernel.org/linux-wireless/20261008-mpp_bringup-v1-0-2c5797b5e4ac@oss.qualcomm.com/
 
+---
+Aaradhana Sahu (10):
+      dt-bindings: net: wireless: Add QCN6432 device tree binding documentation
+      wifi: ath12k: Refactor PCI operations and MSI config structure
+      wifi: ath12k: move multi MSI vector flag to ath12k_dev_flags
+      wifi: ath12k: Add hybrid_bus_type in ath12k_hw_params
+      wifi: ath12k: add support for unified data-region memory allocation
+      wifi: ath12k: move MSI config to pci.c
+      wifi: ath12k: Add platform MSI support for CE
+      wifi: ath12k: use CMEM write for PPT on hybrid bus devices
+      wifi: ath12k: Resolve userPD ID per device
+      wifi: ath12k: Add QCN6432 AHB support
 
-Best regards,
-Wandun
-
-
-
-On 10/16/26 11:08, Wandun Chen wrote:
-> From: Wandun Chen <chenwandun@lixiang.com>
-> 
-> On SoCs that carve out large firmware-owned reserved memory (GPU,
-> camera ISP, ...), kdump currently dumps those carveouts as part of
-> system RAM even though their contents are firmware state that is not
-> useful for kernel crash analysis.
-> 
-> ACPI systems already filter reserved memory out of the vmcore through
-> their existing path: firmware reports those carveouts as unusable in
-> the EFI memory map, they get MEMBLOCK_NOMAP set in memblock.memory
-> (is_usable_memory(), efi-init.c), and the ELF header builder has
-> always skipped nomap regions; only DT-based systems currently fail
-> to filter these regions, which is what this series addresses.
-> 
-> This series introduces a MEMBLOCK_NODUMP flag (suggested by Rob) in
-> memblock to filter reserved memory on DT-based architectures. A new
-> flag is needed because MEMBLOCK_NOMAP can only express regions without
-> a linear mapping, while MEMBLOCK_NODUMP can filter regions that are
-> linearly mapped. Reserved regions are marked MEMBLOCK_NODUMP by default
-> so kdump omits them; reusable CMA regions are different because their
-> pages are handed back to the buddy allocator and may carry crash-relevant
-> data.
-> 
-> Since the reserved memory regions are filtered out, the vmcore is
-> smaller in size and faster to produce.
-> 
-> The series is based on linux-next and is organized as follows:
-> 
-> Patches 1-3: Preparation and bugfixes: switch riscv crash_mem to
->              memblock, fold the duplicated per-arch memblock walks
->              into the weak defaults, and serialize crash header
->              preparation against memory hotplug.
-> Patches 4-7: NODUMP infrastructure: switch crash_core to
->              for_each_mem_region(), introduce the MEMBLOCK_NODUMP
->              flag, add a dumpable flag to struct reserved_mem, and
->              mark /reserved-memory entries with MEMBLOCK_NODUMP.
-> Patch 8:     Skip MEMBLOCK_NODUMP regions when building the vmcore
->              ELF header.
-> 
-> v6 --> v8 (v7 mainly tried to fix the initrd issue on release in v6,
-> that approach is superseded here):
-> 
-> 1. Stop marking /memreserve/ regions with NODUMP. v6 marked
->    /memreserve/ regions with NODUMP. But a bootloader may specify
->    a /memreserve/ entry for memory that the kernel later frees
->    (e.g. the initrd), and those pages would then be wrongly
->    filtered out of the vmcore after being reused as normal memory.
->    The v7 fix (clearing the flag in free_reserved_area()) caused
->    a lockless runtime mutation of memblock.memory [1]. Better solutions
->    exist but need extra preparation, so they are left out to keep
->    this series simple in v8.
-> 
-> 2. Fix a build failure in patch 2 with both ARCH_KEEP_MEMBLOCK and
->    MEMORY_HOTPLUG are unset. There the memblock arrays live in
->    .init.data, and the weak defaults referencing them create section
->    mismatches, which turn into build errors when SECTION_MISMATCH_WARN_ONLY
->    is also unset.
-> 
-> 3. RISCV recently gained crash hotplug support, so adapt its handler
->    like x86 in patch 3: use __crash_prepare_headers() instead of
->    crash_prepare_headers() to avoid self-deadlock.
-> 
-> 4. Update the cover letter per review feedback: describe how ACPI
->    systems filter reserved memory and why a new flag is needed
->    instead of reusing NOMAP.
-> 
-> Every patch in this series now carries an Acked-by or Reviewed-by tag.
-> Patches 2 and 3 have changed since v6, but the changes (a build fix and
-> a riscv hotplug adaptation) do not alter the logic the tags were given
-> for, so their tags are kept. If any tag should not be carried, please
-> let me know and I will drop it.
-> 
-> 
-> v6 --> v7:
-> 1. Fix a stale MEMBLOCK_NODUMP flag issue [2]. Memory reserved and
->    marked as NODUMP may later be freed (the initrd, for example),
->    so the NODUMP flag must be cleared accordingly. Since the fix is
->    part of the NODUMP infrastructure introduced by patch 5, it has
->    been folded into that patch.
-> 2. Drop the "generic" related description in the cover letter.
-> 3. Collect the Acked-by and Reviewed-by tags received during the v6
->    review (thanks to Baoquan, Mike, Rob and Marek). Patch 5 is the
->    only one without a tag, as its Reviewed-by was dropped when the
->    fix was folded in.
-> 4. Drop patch 1 of v6, which has been merged separately.
-> 
-> 
-> v5 --> v6:
-> 1. Serialize crash header preparation against memory hotplug to avoid
->    out-of-bounds or use-after-free issues.
-> 2. MEMBLOCK_NODUMP marking is now done after memblock allows resizing,
->    avoiding a panic from too few regions before resize is permitted.
-> 3. Reordered the patches, put pre-existing bugfixes earlier in the series.
-> 
-> [1] https://lore.kernel.org/lkml/20260922090252.B01541F000FF@smtp.kernel.org/
-> [2] https://sashiko.dev/#/message/20260917220750.GA4013814-robh%40kernel.org
-> 
-> v5: https://lore.kernel.org/lkml/20260806093519.2907771-1-chenwandun1@gmail.com/
-> v4: https://lore.kernel.org/lkml/20260630074715.4126796-1-chenwandun1@gmail.com/
-> 
-> 
-> Wandun Chen (8):
->   riscv: build crash_mem ranges from memblock instead of resource tree
->   crash_core: fold duplicated memblock arch hooks into the weak default
->   crash_core: serialize crash header preparation against hotplug
->   crash_core: replace for_each_mem_range() with for_each_mem_region()
->   memblock: introduce MEMBLOCK_NODUMP flag
->   of: reserved_mem: add dumpable flag to opt-in vmcore
->   of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
->   crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF
->     header
-> 
->  arch/arm64/kernel/machine_kexec_file.c     | 29 ------------
->  arch/loongarch/kernel/machine_kexec_file.c | 27 -----------
->  arch/riscv/Kconfig                         |  2 +-
->  arch/riscv/kernel/crash.c                  |  2 +-
->  arch/riscv/kernel/machine_kexec_file.c     | 33 --------------
->  arch/x86/kernel/crash.c                    |  2 +-
->  drivers/of/fdt.c                           |  1 +
->  drivers/of/of_private.h                    |  1 +
->  drivers/of/of_reserved_mem.c               | 15 ++++++
->  include/linux/crash_core.h                 |  2 +
->  include/linux/memblock.h                   |  9 ++++
->  include/linux/of_reserved_mem.h            |  1 +
->  kernel/crash_core.c                        | 53 +++++++++++++++++++++-
->  kernel/dma/contiguous.c                    |  1 +
->  mm/memblock.c                              | 16 +++++++
->  15 files changed, 100 insertions(+), 94 deletions(-)
-> 
+Sowmiya Sree Elavalagan (7):
+      wifi: ath12k: Add hardware parameter for QCN6432
+      wifi: ath12k: Add hardware ring mask for QCN6432
+      wifi: ath12k: add hardware registers for QCN6432
+      wifi: ath12k: Add hif operation support for QCN6432
+      wifi: ath12k: Enable MSI interrupt support for DP interrupt
+      wifi: ath12k: store and use MSI data per CE and DP interrupt group for QCN6432
+      wifi: ath12k: Derive QMI service instance ID per protection domain
+ 
+ .../bindings/net/wireless/qcom,qcn6432-wifi.yaml   | 149 +++++++
+ drivers/net/wireless/ath/ath12k/Makefile           |   2 +-
+ drivers/net/wireless/ath/ath12k/ahb.c              |  54 ++-
+ drivers/net/wireless/ath/ath12k/ahb.h              |  10 +-
+ drivers/net/wireless/ath/ath12k/ce.c               |   7 +-
+ drivers/net/wireless/ath/ath12k/ce.h               |   6 +
+ drivers/net/wireless/ath/ath12k/core.c             |  10 +-
+ drivers/net/wireless/ath/ath12k/core.h             |  24 ++
+ drivers/net/wireless/ath/ath12k/dp.c               |  39 +-
+ drivers/net/wireless/ath/ath12k/dp.h               |   2 +-
+ drivers/net/wireless/ath/ath12k/hif.h              |  30 ++
+ drivers/net/wireless/ath/ath12k/hw.h               |   8 +-
+ drivers/net/wireless/ath/ath12k/mhi.c              |   4 +-
+ drivers/net/wireless/ath/ath12k/pci.c              | 111 +++---
+ drivers/net/wireless/ath/ath12k/pci.h              |  21 +-
+ drivers/net/wireless/ath/ath12k/pcic.c             | 435 +++++++++++++++++++++
+ drivers/net/wireless/ath/ath12k/pcic.h             |  24 ++
+ drivers/net/wireless/ath/ath12k/qmi.c              |  83 +++-
+ drivers/net/wireless/ath/ath12k/qmi.h              |   1 +
+ drivers/net/wireless/ath/ath12k/wifi7/ahb.c        |  45 ++-
+ drivers/net/wireless/ath/ath12k/wifi7/hal.c        |   7 +
+ .../net/wireless/ath/ath12k/wifi7/hal_qcn9274.c    |  85 ++++
+ .../net/wireless/ath/ath12k/wifi7/hal_qcn9274.h    |   1 +
+ drivers/net/wireless/ath/ath12k/wifi7/hw.c         | 142 +++++++
+ drivers/net/wireless/ath/ath12k/wifi7/pci.c        |  22 +-
+ 25 files changed, 1213 insertions(+), 109 deletions(-)
+---
+base-commit: 2d57db8fbf72b1872e7411e917166bd12ed5bc98
+change-id: 20261015-mpp-bringup-75f457bef8ee
 
