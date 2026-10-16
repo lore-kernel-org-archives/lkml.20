@@ -1,141 +1,127 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BB0E346E51
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:49:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52BB32BEFF6
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:50:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792129764; cv=none; b=n+PJuvP5FITKAy0MzrXr/0/72OashAesYJ5L9WKP1XdOxi/6GH1N89gW0mlp5kGBTYdGTq8Amjwih1/iCGUoDIJeWVZJ1aOyjPFkhuQeVdIrTkPAe9IXtAKeoe1XTfrtQwB/cpPLTjp4Wzd8ovv58TJ1DIx7XnexytwS5m+Lccg=
+	t=1792129823; cv=none; b=jjm6tMJbkYcockmLGtK3Cz3x1EWdtU7h/xOgBpXRRsyjPLzzmJAdZEKl6Hg+xod9S/aKGEa/IySrF487dz1sr0vvcCqB2bl1EJYmxGEkFh6/uh7lmf0QCfvHzp5y0VHd+K8bJt2WemxT8QKoaTC3p6OY1/A+++qrfvLlDzWqe/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792129764; c=relaxed/simple;
-	bh=rCTBXZWsA+DFjYHLb8u5Oa7Bvqyi+ouM5tudHnnjwtA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=foeUxTF/u/z1Nrq8YtaaeAYpJkhvMuzp1y+lPpXiqIIXkxNaaCtHpUGc2NAJOE/N0RhJp/GGaUjauE+WREm2dn8JejQneyQot0G+HBwt2/8nbD6cbMva7X899H5eEtd8RgdM64f1hXQGMViSOlnFcYz6bwUrQ+XPlwzBkn40p2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=d2XQTzi9; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1792129823; c=relaxed/simple;
+	bh=6Gvr2+KroXom53+mnaz4z076dzX52IfnhmMfpvf2f1c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ifuQ+WGAYkhBEX1IKTAXudz6P4nPraiS3mhj8cf1r7zc9VAuELiM1+w4SYCvPFc8trCE1u4tpLC1wOTjvQtO4/zb7KgUtKNTxCicBCghDOWGVgcHn2Of951TplOPF7mDkbZIZ6+AESCwjFmATH3Ulh+ciz8jbzacDXrInmayFxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=a6Vzh7EL; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="d2XQTzi9"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e8fe8e343fso25922785ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:49:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1792129762; x=1792734562; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z5sNEdkVrvo7sH9ZJvBOJJZb8XmvxfiMz5rU6UHY+Ek=;
-        b=d2XQTzi94gWL5bPrnej0TQLZ6cSFRh/+4KyRVkXIZpmehGuKz8TLkxYAApU8LFHGo9
-         04OkzblTr02VxpRoNrYBpB3T2KrcfTgCQqenwMklyuZwSCk2KoClphHhk6w/SN/2K5FJ
-         O5GN7D4mSX/z00OYGk8LIRM7Dt59P4JM7ifQBxOQUF6HcyEPFIM3ffQh0qlOq5pHH2Ri
-         RgUVkPkIgcy1oVlIIFuVSRvKzdYUDIeQXWSCtLZSlMjrbUT3AEMT3lLbMJ5YV5qJUJoL
-         iMUc+JVh8p1IsJWpZl3qqqv0TP7QJ6HV0RwGbYxdZjVwr7fAR2wKVjQOwALpDUxwy783
-         a8EA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792129762; x=1792734562;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z5sNEdkVrvo7sH9ZJvBOJJZb8XmvxfiMz5rU6UHY+Ek=;
-        b=Os4v3y3WV/L4eOy2YWqy6xXLb9aoXeMC+3wQYaPXxXweU53e7p2Fr8H4+3ffaJjdYK
-         UBd4c//YQ3nkQWoriaUSAgU5GeYaK22So90zhXWI0MvMJrp+729oARzfFMES9mxmqiL5
-         xG2ZqtosOYuCmrLyLr09/XSG1IhCLTTWxLf75irRb48tiL/5HoJRHk5gM7JRTKCFcE46
-         MgYrpvA8y5T0UgqIRcLqmp4W3yU/uqzv2JE+nZtocDGcDUIoLPJHrlRGekwFjoORQU0T
-         Wg9+jt0oZurKzDfksfeHgUOsPoDeRBn14bIL6bxyL5Qrm5tlIdTxYLxr52AoSSwac5KI
-         89yA==
-X-Forwarded-Encrypted: i=1; AKwUvBxeTt3whgQJ/TyncNdyVx0KmWktkVdI/O186tNDbT3vjqkfauTJ7+ta3sNUFfp4hQHP2nSpLI/kfR/HRq8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK55EPDC6uOfnnMtyI829GCBklQipEQZsxbEpZb8lysQT4ycybO
-	ZU8vHb538w7HHkDaOlVG7qAeRmICzX1amAW5j0dIKJknUOinfrjEpKjwYLCXguLvQbU=
-X-Gm-Gg: AYBFou1WpILouFfnkxl9V0r28viNl9u8gLJSOsEipyXjvRbmgajWLCQwDidYUfm1hmU
-	df1UiQsbLDoDaWSo6b6VwUJVFiFBCXQtU8Jc/uFwFpQGzABlleWiVeShYF+B8HajlyJ5R5FhM2+
-	2Qftdq10rVpK0RKds9J4r88fkmc0gzbNlCXkrWuxERr177j09tMox2qAmkDaqQHu6KVI2L14Nmu
-	WwTe1TIEuApPtmNPGeV2FOT/CXs11pCNFI9uKHA1J5iHLScwDvd/Rhl82FXBylpVxcBoxVsMBdq
-	jILa8fBVsPONCTADx+5mrSwOI68K1LDBJjl7/nf8OPoHl1HHjy6xgpdh+JHsZD0M2nO48Au+wjK
-	Y5pD8uiwaMHBI6D2dK85ZuJfce6kd8rdAb2SIiCLYhqNpxHhzdSsqkry1KyTwaE7qADN703k+1j
-	WNtgfq03mb43w+rORhwUxJ1POTtqoKiVhpiwdl4YlHljesCctIkMCdmho9x7bu2odgL+dVEjSnH
-	ztwoUgWxJ594Q7nmdw=
-X-Received: by 2002:a17:903:1b4f:b0:2e9:7ff5:544c with SMTP id d9443c01a7336-2e97ff55897mr13235965ad.25.1792129762374;
-        Thu, 15 Oct 2026 22:49:22 -0700 (PDT)
-Received: from n232-176-004.byted.org ([36.110.163.99])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e804d7csm4697445ad.15.2026.10.15.22.49.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 22:49:21 -0700 (PDT)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Dan Williams <djbw@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Joao Martins <joao.m.martins@oracle.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	stable@vger.kernel.org,
-	nvdimm@lists.linux.dev,
-	linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH] dax/pmem: fix unaligned compound devmap initialization
-Date: Fri, 16 Oct 2026 13:49:14 +0800
-Message-ID: <20261016054914.2601510-1-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="a6Vzh7EL"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 991B540E0498;
+	Fri, 16 Oct 2026 05:50:17 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 6lR6XK1SbiMP; Fri, 16 Oct 2026 05:50:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1792129814; bh=rrScfHS4GnofBvxxw+MCiqt5aU/I+G4MuOJOP57DfZg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=a6Vzh7ELny2/ijHAne3MvjQiPhqiFTEk9p8jT6zcvEVeckQ51rZ8PiRWKubQuEPJv
+	 5FKFazziykn0ueVhB++eGdNrcyJDaGQL14aH2rf27Zpvim8BjyIoMJ3KwJ6zVPVUgI
+	 95FsSiX3t/GzeRkF0qgv0S55JYCFcptg8rBuGV/3fBtIpRU/5Vw2YafTGafAhE2TR3
+	 AgVEtJIjGJ31NXIh0/uESaNGA3nQOvTPoKbV8heJa3gjHBFUzjxkQkyDmlRRlpUNNN
+	 nYYuHC18l7GZpXA8lW2dktbmH3ArZVSoLx56ByxEqXEoz7YArwEjmFSVtCfGa/haQ4
+	 jIOZqJkGHLcJlUpMq33Bs7nB1OdKCd9JfWV6NVPB9c7mOc7Ky41BffUl6iwyNHDs8M
+	 RcHVcQ+F1kq1voUGFofYupgtn18lnQrV29Ag/wE3mzrIXdK0Hq+cMYRs+SR9bFqOGg
+	 PrKMGVJGnsXzD7nL7odIxRjFmEg5R1KlUE3SYy69kxkihBuD/Kg1oea1fGPexYQEht
+	 StW/bI5AaruwIb9z9jh8banhSn9zMg5Cgx4SZE04CcYCRlxVU5rHwPkfXkhMJ7Q9ss
+	 lUsVR4JiHvPeyuy/dxqK+HNSU/TNRYWT4TaAyV8CMFDHo+1kVo4+6fBW4CnNUzDiZS
+	 DW/Avq928yeGxMrFZUj+l12U=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id CF7BA40E00E5;
+	Fri, 16 Oct 2026 05:49:57 +0000 (UTC)
+Date: Thu, 15 Oct 2026 22:49:54 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Nikola Ciprich <nikola.ciprich@linuxbox.cz>,
+	David Laight <david.laight.linux@gmail.com>,
+	Rik van Riel <riel@surriel.com>, ljs@kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, david@kernel.org,
+	Mike Rapoport <rppt@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>,
+	luizcap@redhat.com, pbonzini@redhat.com,
+	Tal Zussman <tz2294@columbia.edu>,
+	Matt Fleming <matt@readmodwrite.com>
+Subject: Re: hunting memory corruption bug in 6.18.x
+Message-ID: <20261016054954.GEatG7AgMNFRkiTo1H@fat_crate.local>
+References: <20261005132113.43548696@pumpkin>
+ <asP5xK4axiUk7jun@pcnci.linuxbox.cz>
+ <aseMsMGpGPT/G548@pcnci.linuxbox.cz>
+ <20261008182356.GBasffvDuTemTu1VUY@fat_crate.local>
+ <20261009090042.39ba9c06@pumpkin>
+ <aszH4vpXFAOQP1WG@pcnci.linuxbox.cz>
+ <20261014235736.GCatAW8GD0GlYumL4l@fat_crate.local>
+ <20261015172820.7961d2c0def74d41cc6c4b0c@linux-foundation.org>
+ <20261016031242.GDatGWKo98YSOhEOOn@fat_crate.local>
+ <20261015211832.45d87fab15bb3e0bbc2f47cb@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261015211832.45d87fab15bb3e0bbc2f47cb@linux-foundation.org>
 
-Static pmem Device DAX namespaces reserve space for namespace metadata
-before the user-visible data range, and may also include padding needed
-to satisfy the Device DAX alignment. __dax_pmem_probe() adjusts the
-dax_region range to start at the data range, but the dev_pagemap range
-still starts at the beginning of the namespace.
+On Thu, Oct 15, 2026 at 09:18:32PM -0700, Andrew Morton wrote:
+> The corruption patterns strongly resemble AMD VMCB state, particularly
+> FS/GS segment data appearing at the expected VMCB offsets in unrelated
+> host memory.
 
-That is not valid for compound devmap mappings whose memmap is stored in
-system RAM. Compound page initialization requires the start PFN to be
-naturally aligned to the compound page size, because the head and tail
-struct pages are initialized according to that geometry. If the pgmap
-starts before the aligned data range, memmap_init_zone_device() can build
-compound page metadata from an unaligned PFN.
+Aha, ok.
 
-The resulting struct page layout is inconsistent with the Device DAX
-mapping. A later mmap fault can then resolve the user-visible PFN through
-invalid compound page metadata and hit a kernel panic while inserting the
-DAX folio.
+> This suggests that a VMSAVE operation may have written to
+> an incorrect physical address.  Ordinary KVM performs VMLOAD/VMSAVE
+> without nested virtualization, so Boris's objection doesn't eliminate
+> this possibility.  However, the relevant assembly is essentially
+> unchanged between 6.18.55 and 7.3-rc6, and I haven't identified a newer
+> commit that convincingly explains why the corruption apparently stopped
+> reproducing.  The earlier candidate 55780d8a1dcc remains poorly
+> motivated without evidence of nested virtualization.
+> 
+> Two investigations look worthwhile.  First, test 6.18.55 with both the
+> KVM TLB-flush fix (26505e1b5b54)
 
-Fix this by advancing the pgmap start to the aligned Device DAX data
-range for non-altmap compound mappings. Leave base-page namespaces
-unchanged, and leave the altmap path unchanged because
-memmap_init_zone_device() already skips the altmap reservation itself.
+Pff, we've been looking at that one recently too, trying to figure out whether
+it was really necessary.
 
-Fixes: 14606001efb4 ("device-dax: compound devmap support")
-Cc: <stable@vger.kernel.org>
-Reported-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Closes: https://lore.kernel.org/r/wlrkqqvg.ritesh.list@gmail.com
-Assisted-by: LLM
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
----
- drivers/dax/pmem.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+> and tlbi=ipi;
 
-diff --git a/drivers/dax/pmem.c b/drivers/dax/pmem.c
-index bee93066a849..d3a9b85107b0 100644
---- a/drivers/dax/pmem.c
-+++ b/drivers/dax/pmem.c
-@@ -51,6 +51,13 @@ static struct dev_dax *__dax_pmem_probe(struct device *dev)
- 	/* adjust the dax_region range to the start of data */
- 	range = pgmap.range;
- 	range.start += offset;
-+	/*
-+	 * When the memmap is stored in RAM, exclude metadata and alignment
-+	 * padding from compound page initialization.  Otherwise, the pgmap
-+	 * may start before the naturally aligned Device DAX data range.
-+	 */
-+	if (!pgmap_altmap(&pgmap) && le32_to_cpu(pfn_sb->align) > PAGE_SIZE)
-+		pgmap.range.start = range.start;
- 	dax_region = alloc_dax_region(dev, region_id, &range,
- 			nd_region->target_node, le32_to_cpu(pfn_sb->align),
- 			IORESOURCE_DAX_STATIC);
+Yeah, we checked that, it ain't that.
 
-base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+> the existing results don't conclusively establish whether that combination
+> was tested.  Second, examine the vmcore to determine whether the corrupted
+> host pages contain complete FS/GS state matching a legitimate VMCB, rather
+> than merely a few matching values.  If they do, inspect the VMCB's
+> VMLOAD/VMSAVE interception and virtualization-enable bits.  That could
+> establish whether a hardware VMSAVE was allowed to write to an unintended
+> physical page.  The successful 7.3-rc6/rc7 testing is encouraging, but it
+> doesn't yet prove that all the reported corruption symptoms share one cause
+> or have been fixed.
+
+Hmm. I guess looking at and around VMSAVE handling wouldn't hurt...
+
+Thx.
+
 -- 
-2.54.0
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
