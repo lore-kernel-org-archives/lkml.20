@@ -1,94 +1,72 @@
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0B04DD3AA
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:18:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00E40312815
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:19:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792163924; cv=none; b=MvxsUDHitWzGgS1Hz+lXUGHgkj1lccMoXX4LEDzidbMvUOTuEAmeIoYFqdq58DFvgKDIPAYXOfRLt2u5UZlchB4hj+R9GhLnDP9EEEMVDLw9hK6QmRSygicY+6fsz7G2snvpR/athtzSObEGTaj3iHNoPCVuC4TwnFcaQaMESDs=
+	t=1792163944; cv=none; b=ei93sCclxBA0hEdQRE/6oKL1s/4AI8KehjpNVNJ+4IQVDwffajuS2O/PZSnDIzYH7m7QiL5rnfnvD5sJ+u0WFz0TpWzwgzOTxOLCvQsONyTQQN19+Der6xpGT+Px95Dyqr38494fFson8QUDrwmNt30WgLSo3L0CwfnvvhCv2Uo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792163924; c=relaxed/simple;
-	bh=gTsOfT7qc4+y/R1b+Q3dOr5vhFSgpJC8pEs2pNorJ7A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oaeOPui5aLMbda99rUD/+247Ek5Dlp5SKo85xRCLClrQQ5UPnfOnYbY8tkYV+cqig8rR34MUbxofU3PoAQgTEu2/1Ut11/vfVu32BYZViX83CCuTIFvGBmGuXKYCcrtWqF4efHBPpP2i36svzjNnRtSMZ8HdVVzVB3p8h/jXPoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=I8paqOTn; arc=none smtp.client-ip=209.85.219.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="I8paqOTn"
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-917a707f37eso1323586d6.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:18:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792163922; x=1792768722; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gTsOfT7qc4+y/R1b+Q3dOr5vhFSgpJC8pEs2pNorJ7A=;
-        b=I8paqOTnnBFl4CkOn5U2tiES1BNMEhJ9AhGndoNW6nis4nPUdDSdPf+KFX41YXHqEX
-         PHEu+27JD5JaY2CtLXAlUvIL7At5OVKogRdkeOqcQqIAuuYTxulfUoLUU148ys8nEvHv
-         zh6rZ2bLk+Z78gGyJPZPfDXTrL1vgSl9dr+zFSLToUp9FpCdsJueLcMMsmdy3K438/wx
-         06jj+HxmusbDb/dflHBzRuXq6HWFKD7jdSs+dMWn/qCSsxoi5N3IaTqIScZdbw4Fvj5T
-         qCbeT443JGf+uDJJZrMd2nBB7hFJY9b7F9QO6muUFZLVU7g6YPPLoGvlLSMQKdyVREgG
-         DjsA==
+	s=arc-20240116; t=1792163944; c=relaxed/simple;
+	bh=qxS5M2k++06YeBVAzqRMK3ua13m8+IZtU16V1iyrUhc=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Q2W+ZFrqgH/L5kZpWxXz/2fX9qz8DY/emwQIUta8LW12pjUyePcM6Um6GLO4Q3DlwmaBg9LJEDxc4k+6afhU5spXPiuechqoi5FJw3OPQIr1P/QqzVcWCqQ44/Ti5IC5xe/cJgAxDT85cRNXs0nO0S1aIKsUrwyTD0/tMTt1B+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4d2f0f77124so105199b6e.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:19:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792163922; x=1792768722;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gTsOfT7qc4+y/R1b+Q3dOr5vhFSgpJC8pEs2pNorJ7A=;
-        b=ubISfIUR/x4B0j5Jna6vaAsnt7Tq1C53Rk5gBUjQnyC8KG6bOl28eOt5MK5uOpDyUh
-         7zg4faw1YcRWTaWWXs5rWuZIo1kBTpMr2gHPQPBKf2nGD8wugDP/XIvZUGd9Dwb7Heso
-         oNqfY4GNVIAygngtHH/n+AJ9ktft323OW13qSghH+YdmZt8nKyfsu37i8E8VK9wyC8L+
-         rHYfRDJ4RgmMdNogIGLn3T3435g0h7iJDYj5Rojo3/+/K+31+euPcxP0nrQfgWvOFlVC
-         VZlunF+a8/G7K7ZpklPb31x/UTjI7vLNq1grWLc59ZIwn4h60hmTgxXsSpt0fmWU5P25
-         XBFA==
-X-Gm-Message-State: AFq9FYJV5UMtbDRfzfAo31WWtG+yOkSOg6XUl051jdcd5lAwQnOaQJ0g
-	+vljXexhIf6S0gGXE/Xt0xneGjwnyJyoLhXvUDixaNrDskHyXG38mWvMwlYHtrPVAnU=
-X-Gm-Gg: AYBFou3CIZzE7H1/te0krCh6rZ0avDuwZejDHw+oGswkHkf56y/ms4yrkZifI5WGv1T
-	YeUFNE2pFIghgub3QaAbRXzEWhfCxZ73OPxBkGkUK/f/fO6AWX9+TSKLLXEXdFHb7dQS0FA1hQK
-	xVcgL3Ypyz9dU9i19kjW8tPUZRQLaOof7iPUbSu+lusTid5Y0qI6s6imFZEVyCjkE3+H0LdpaC3
-	4Rz1mzc/yfk9Iu+CPwj3eu/1hM7lAuwb+4SpjKB4333DrhY88ILjDQHQ0tAQzT4VTdjvhjV6k7w
-	eNKmDwhmpxUVHouf3Cp4sZOUyThLRrTPTNREq249dfRfHGAeP5VYOqg0nsd/FoJowqURgKU4nwd
-	5kRqTFz0JDEhtq4cU77usaRgW1r4/ElK1NWrvM37RD6DreL88ckU1um06W47XnCii/+1HDYenFk
-	zrU+j8Bn1Gci7YTOzaP3zjtfxMKuDrEDvNqeDMzJbU0lucgYrLc8v27fm15Wkle20IFJ/cE2wPB
-	/Z8NnGLlS7eUnWp+LUei07KSkvmmWWWJlY4Kf+17LdpO45ktPgoy+E=
-X-Received: by 2002:a05:6214:202c:b0:90c:b843:d679 with SMTP id 6a1803df08f44-91bdf063686mr5556436d6.29.1792163921793;
-        Fri, 16 Oct 2026 08:18:41 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbade61csm24949136d6.26.2026.10.16.08.18.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 08:18:41 -0700 (PDT)
-Date: Fri, 16 Oct 2026 11:18:39 -0400
-From: Gregory Price <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, vbabka@kernel.org, surenb@google.com, mhocko@suse.com, 
-	brendan.jackman@linux.dev, hannes@cmpxchg.org, ziy@nvidia.com, mgorman@techsingularity.net, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/page_alloc: validate zonelist slots against
- concurrent rebuilds
-Message-ID: <atJAIfZ55x68Ft8p@gourry-fedora-PF4VCD3F>
-References: <20261015210539.3243563-1-gourry@gourry.net>
+        d=1e100.net; s=20260707; t=1792163942; x=1792768742;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YpKLujLoR/OQ9GnkebgU1r1DOmdOjHovwFu0VT7DXjk=;
+        b=Eg6LTYJ8iyPLfot971LYEStYk21z5VDZhFmNsAjq6LK2yoszTvy1oH1h98TdWPSwbI
+         FbuYJLJrXL6GzTRRZYkUvIPykKVs0QCeiZXl0VG8zA0tMAFRKT+mKXbffg5g4evb/Qtf
+         yy1ArO1dpQ5WoNm367iV/ooaKE5O06aGaegAyiczTaoluie7ARtiKSwyqzRCDdipiy9r
+         kRNadKCwfesZU+EmsF2kKT2TCck4oCYatcsT906bJ0fDbZY5yuWZ3DqJV95r8Ly4R1dc
+         TKfVKtrqt9nFeyX0KGUF7VhJJqnOyTu5wXvWLb7tNTexQVk9MF3TDrqBpCsOhLtcJCcV
+         7Kag==
+X-Forwarded-Encrypted: i=1; AKwUvBysp5ncX/3ykiWnV+mH/8A+NuR4pspjGh8lem59X/wc236tfs9og/Tr+sc8PIcMKV/IFISZ+v+6vIwpRNk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKbvHyJ0Cmrz8+wEbecQkqsCb6v9dV9s+KNKR7kJaS8pK/gjZsD
+	BxEI3Tts3+rSyH0eYMGHTO7BmZzdQj0K9Wn3AXLzUAU2AJbQadiao3xNxSJHZ+esNrDMgz9v8wz
+	p8RcmwG7QP8De8APXwEFWqI5PTWL6eRHOU6s/xg1b6m1ctDJAaFo4kvAVkQY=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015210539.3243563-1-gourry@gourry.net>
+X-Received: by 2002:a05:6809:3d9:20b0:532:4867:8916 with SMTP id
+ 5614622812f47-53248678a1amr3661651b6e.4.1792163942047; Fri, 16 Oct 2026
+ 08:19:02 -0700 (PDT)
+Date: Fri, 16 Oct 2026 08:19:02 -0700
+In-Reply-To: <20261016144050.105317-1-deaner92@yahoo.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad24066.7952420f.283480.0349.GAE@google.com>
+Subject: Re: [syzbot] [bluetooth?] WARNING in hci_connect_sco
+From: syzbot <syzbot+5897b3c764f5989ea942@syzkaller.appspotmail.com>
+To: deaner92@yahoo.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 15, 2026 at 05:05:39PM -0400, Gregory Price (Meta) wrote:
-> Onlining the first block of a zone (e.g. via virtio-mem or a DIMM)
-> rebuilds every node's zonelists in place. An allocation in flight can
-> then be served from a zone it never asked for: a GFP_KERNEL allocation
-> can get a page from ZONE_MOVABLE.
->
+Hello,
 
-Sashiko pointed out some other race conditions (related, different),
-i'm going to repackage this one with those fixes because they're likely
-to conflict and they'll all want to be backported together.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-~Gregory
+Reported-by: syzbot+5897b3c764f5989ea942@syzkaller.appspotmail.com
+Tested-by: syzbot+5897b3c764f5989ea942@syzkaller.appspotmail.com
+
+Tested on:
+
+commit:         90201351 wifi: atk9k: Revert "wifi: ath9k: reject shor..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1094618e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=1422747690f83bc1
+dashboard link: https://syzkaller.appspot.com/bug?extid=5897b3c764f5989ea942
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1277518e580000
+
+Note: testing is done by a robot and is best-effort only.
