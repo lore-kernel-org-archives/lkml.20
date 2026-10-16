@@ -1,119 +1,141 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE3FC4772B8;
-	Fri, 16 Oct 2026 12:22:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6B6457E5F
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:24:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792153344; cv=none; b=mLTxKEs5k0qHjvdnK7UGt6i/JElzaVaW/mxo6mxkqkIuOrRKjFckjoca1R/w31Od/CXh2+PelQLY7JOBzOyQbCMNFGpaHIdBYyKdm5vGWL2cgfHSTUEqE9qeuhP4mAvTN1OJtphHMTfLIU+3ak4KpIGy76mLA+dZIx5NtsOfp9Y=
+	t=1792153491; cv=none; b=Zps9J0hDS9HIBSXG0EZFFrt37DMP4Pxr6snBx8v2YxTDgVm1ert+8P2IoZGcS8DSPthnF9+yUcallaaoz307cN/oopyaX1goD5r3zFYE8vs2J8BZRBw3Z+VTolTH0bt5CzmuyD5zk6JBtEUQgK8a3+XDsv5v2Y4/MUgZ6XITeFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792153344; c=relaxed/simple;
-	bh=NULbTvIQZ/oHcmP/aTrGATa4IJHfneiO9zb4SUFhYOw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tqnnVB4rLz8rEIDGb2O/sgXNEqg+8LAm5G3cHxL1tG1rOasPb+Bfgvb8x8lzMcWE6rvqazE14ZLhaMHDbaRkb8g48cFezRLZNq3Jzi1LT85bjoQgVjEV4IYysip8u/Zy+eGygtFbQL+/RLKpsFqLgqVO9rc9KmP2YjdriM4431k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=shhqUlli; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792153491; c=relaxed/simple;
+	bh=VC4sNe1X6iAb2yPaUjz03oMmGXuxnQ8+8LNaYTSTyIY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W/ymyCG0itPlaVh00uR93ON7wGENW4D0BDGp8hVcoj828cGuumFcQrHF/l/6Sixtyao1mkZiPAOG3VB+jIfK6xak13uW68KGyxM97F1zkK56irM4fBRzgmn2Qb8p0WEXQx6G0KUPYhpYdnlTqkHctaK3KtgYO6u1cAcF1HnAkBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fPoJBApA; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="shhqUlli"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BE4C914BF;
-	Fri, 16 Oct 2026 05:22:18 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E1F923F871;
-	Fri, 16 Oct 2026 05:22:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792153342; bh=NULbTvIQZ/oHcmP/aTrGATa4IJHfneiO9zb4SUFhYOw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=shhqUlli7w1Npoly5BGrBS9Jy9AZY2n6Qb6sU26nBEEnyq71sbkEQEBxvCyhG8TkX
-	 g9tiyckxqyXXZraYz+0AqS9HqbmBj0vPQm+YEl3Fp3yPWsjb16Hsdua5atbQo6HLCb
-	 /BewOKm9GMLZuErY0jpDtTffJNkkLeQHDbyrauGg=
-Date: Fri, 16 Oct 2026 13:22:16 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Ankur Arora <ankur.a.arora@oracle.com>
-Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
-	bpf@vger.kernel.org, arnd@arndb.de, will@kernel.org,
-	peterz@infradead.org, akpm@linux-foundation.org,
-	mark.rutland@arm.com, harisokn@amazon.com, cl@gentwo.org,
-	ast@kernel.org, rafael@kernel.org, daniel.lezcano@kernel.org,
-	memxor@gmail.com, zhenglifeng1@huawei.com,
-	xueshuai@linux.alibaba.com, rdunlap@infradead.org,
-	david.laight.linux@gmail.com, broonie@kernel.org,
-	boris.ostrovsky@oracle.com, ashok.bhat@arm.com,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Christoph Lameter <cl@linux.com>
-Subject: Re: [PATCH v16 03/16] arm64/delay: move, fixup usecs_to_cycles()
-Message-ID: <atIW-GIWaN6-w44R@arm.com>
-References: <20261016070837.440748-1-ankur.a.arora@oracle.com>
- <20261016070837.440748-4-ankur.a.arora@oracle.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fPoJBApA"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e49fbf92aaso38028235ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:24:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792153489; x=1792758289; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Oh5sgg/8Wcm7Sy7xw+sd6a/6SFhAR+Yy8Mm3m/0UHV8=;
+        b=fPoJBApAkwhxp+AoIKDo2kyrc2zH5XmPK+7BXfEvMUlmDKpMKZigpehwnr6EDhC1sG
+         WqEE2T0A6D1Jks2m/UoeRDTIKtvVVmvLw0aUqj/SRtKrD7oO2dcj5rzsWp0TqC1luQ5V
+         1OyYzFkXqKlIrTgffNg4q9lBlxnR/UHKjtD58IyXq6Rzr+BNejYe87C/3WCkhcf69M4/
+         /9gwS8UjxmJoLlZK2yNokOb2ijLLpMGQ0msV+qmwx7opKy2+u8nSCDio88ZILRBM/WjC
+         hPeDc7R9PaTbLvnSMzQPDIZtTajvjtwZ+vyeE2+6SYwZVYjTEzFKi5hCUk9XqZEYPhrN
+         fJOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792153489; x=1792758289;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Oh5sgg/8Wcm7Sy7xw+sd6a/6SFhAR+Yy8Mm3m/0UHV8=;
+        b=Xcvev4tlcvyMUeAo7iGxfeGSGSjPZL6xIYEbfRLUb3qDoCj/7mUs9oOpd9X9/BsCGh
+         jkoNLz3wHZ9nlZ15/mF2d7m2fSAXBvw7mAZQPQRPu84ghAUM/7AqZdLuK82Nnp1dKFfv
+         0puIMeZoZQNs3XIK3Tp3NUWHFACJOrxxmBiFHj4TuI9+UT+2jUIzVrVcucwcXSsUTVYE
+         SudhdPUCYEJpgvn5z3Ojv8rC7tLeA1EdORPsjGI4a3bMF5AE/eRoSgVAXqkocaMI7VKA
+         Lc6wf+4K1yF5cw5OrngbaWotY6iXARUSZWzaKwSw+YQVsds64FfRFy+gzGCwQSj8UI9B
+         Szpg==
+X-Forwarded-Encrypted: i=1; AKwUvByL9BjG0MChLRXC+SYSN8I0/AmYS3HD+nR6qIgn3UyTuInzb25eA7bno+UuV8T7P1wE4z1KOncbCO1Jg5c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJmY5M0Qh0+hpLUW/MNO74FnwDyrLZNgTzcarCjcYXWQu7qIzjo
+	L0nZ6SRRLAoKFG3PBo/AUVQKggF2Rz+djFWxmDs/W8MYYXnfkZIT3OF4
+X-Gm-Gg: AYBFou2KtiJoU3/EPx8QG+JeySalbiXooPTQefGAtlpf82+N43Y+6S1JZbMCpZdJVNk
+	rcegiqtjWja914jzRtvhffrUJn1BNoESUAjQFUoTCBBH93BGHC+dygNwRvO7tLcSGuGNXZAUYQP
+	wreWObt50Cb36wirdZ4xRYgQVm8ohiJ310DEi6o4PLocSMokimLcms+xZg/fA0KqpyL3yaSjtsr
+	kmDcuYf+o9V97Y0zl9LhekXjliBQ5rCq8KhFYkcbEnwLzDftP6wUmvQ0yAAXe/1L7BYrUrBGJwc
+	ZWvbrA/MRA20x8b9/bZjp/bHa+3uP3txThQA/eYyvszZ6S9sPSRscf2CdqVKBK5gXLZ5ZGnmbuK
+	z7KFJCNoouBnL97dA0oHVNR3bQQR/3L/+bAjDOKM2TJD0hsKFYmFc2LrJZVmG5Wm5i88NpB3z6B
+	VpqnENFIP4MjscngWZWU0iu8jXXoftpu/DaFhnslNrTU0X0eHaIdFxo8K1y88karKtkzX167b94
+	vliuMcfKA2A/Q2Tj/QK4JUd8WCgICC3gbRbHtJqDSabUFWGF6O100ij
+X-Received: by 2002:a17:902:dacd:b0:2dd:ad73:5b6f with SMTP id d9443c01a7336-2e8429ade93mr185433745ad.31.1792153489196;
+        Fri, 16 Oct 2026 05:24:49 -0700 (PDT)
+Received: from yafangs-Air ([240e:46c:5700:24f:b9fd:c639:2cdd:8b37])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e8b98a9sm9455815ad.74.2026.10.16.05.24.45
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 16 Oct 2026 05:24:48 -0700 (PDT)
+From: Yafang Shao <laoar.shao@gmail.com>
+To: jpoimboe@kernel.org,
+	jikos@kernel.org,
+	mbenes@suse.cz,
+	pmladek@suse.com,
+	joe.lawrence@redhat.com,
+	song@kernel.org
+Cc: live-patching@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yafang Shao <laoar.shao@gmail.com>,
+	sashiko-bot <sashiko-bot@kernel.org>
+Subject: [PATCH objtool/urgent] klp-build: Fix memory leak when enabling the generated livepatch fails
+Date: Fri, 16 Oct 2026 20:23:14 +0800
+Message-ID: <20261016122314.81476-1-laoar.shao@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016070837.440748-4-ankur.a.arora@oracle.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 12:08:24AM -0700, Ankur Arora wrote:
-> diff --git a/arch/arm64/include/asm/delay-const.h b/arch/arm64/include/asm/delay-const.h
-> new file mode 100644
-> index 000000000000..6ccdfe0a4130
-> --- /dev/null
-> +++ b/arch/arm64/include/asm/delay-const.h
-> @@ -0,0 +1,35 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#ifndef _ASM_DELAY_CONST_H
-> +#define _ASM_DELAY_CONST_H
-> +
-> +#include <linux/math64.h>
-> +#include <linux/types.h>
-> +#include <asm/param.h>	/* For HZ */
-> +
-> +/* 2**32 / 1000000 (rounded up) */
-> +#define __usecs_to_xloops_mult	0x10C7UL
-> +
-> +/* 2**32 / 1000000000 (rounded up) */
-> +#define __nsecs_to_xloops_mult	0x5UL
-> +
-> +extern unsigned long loops_per_jiffy;
-> +static inline u64 xloops_to_cycles(u64 xloops)
-> +{
-> +	u64 loops_per_sec = (u64)loops_per_jiffy * HZ;
-> +
-> +	return mul_u64_u64_shr(xloops, loops_per_sec, 32);
-> +}
-> +
-> +static inline u64 usecs_to_cycles(u64 time_usecs)
-> +{
-> +	return xloops_to_cycles(time_usecs * __usecs_to_xloops_mult);
-> +}
-> +
-> +static inline u64 nsecs_to_cycles(u64 time_nsecs)
-> +{
-> +	return xloops_to_cycles((time_nsecs) * __nsecs_to_xloops_mult);
-> +}
-> +
-> +u64 notrace __delay_cycles(void);
-> +
-> +#endif	/* _ASM_DELAY_CONST_H */
+The klp-build generated livepatch module allocates the patch structure,
+the array of objects, and the per-object arrays of functions with
+kzalloc() in livepatch_mod_init().
 
-The bot reports are valid, moving these into headers pulled elsewhere
-will clash with existing functions with the same name. You fixed one but
-there's another. Isn't it easier to just add an arm64_ prefix to these?
+The result of klp_enable_patch() is returned directly. It bypasses
+the err_free_objs cleanup path when the call fails. As a result, all the
+allocated structures leak.
 
-Alternatively, I think we only need nsecs_to_cycles(). We have an out of
-line call to __delay_cycles() already, so can we not just add a new
-function to use directly and avoid polluting the headers:
+Save the return value and go into the error path on failure.
 
-u64 arm64_wfet_deadline(u64 timeout_ns)
-{
-        return __delay_cycles() + nsecs_to_cycles(timeout_ns);
-}
-EXPORT_SYMBOL_GPL(arm64_wfet_deadline);
+The per-object arrays of functions must be freed in the shared
+err_free_objs path as well. The cleanup loop in the funcs allocation
+failure path is removed instead. Otherwise, it would cause a double
+free when the new error path jumps into the shared cleanup.
 
-I prefer the latter if it works.
+Fixes: 59adee07b568 ("livepatch/klp-build: Add stub init code for livepatch modules")
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-173837@kernel.org/
+Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
+---
+ scripts/livepatch/init.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
+---
+
+It is based on tip's objtool/urgent branch.
+
+diff --git a/scripts/livepatch/init.c b/scripts/livepatch/init.c
+index 16aff8f..a1f6993 100644
+--- a/scripts/livepatch/init.c
++++ b/scripts/livepatch/init.c
+@@ -50,8 +50,6 @@ static int __init livepatch_mod_init(void)
+ 		funcs = kzalloc(sizeof(struct klp_func) * (nr_funcs + 1), GFP_KERNEL);
+ 		if (!funcs) {
+ 			ret = -ENOMEM;
+-			for (int j = 0; j < i; j++)
+-				kfree(objs[j].funcs);
+ 			goto err_free_objs;
+ 		}
+ 
+@@ -78,9 +76,14 @@ static int __init livepatch_mod_init(void)
+ 	patch->replace = true;
+ #endif
+ 
+-	return klp_enable_patch(patch);
++	ret = klp_enable_patch(patch);
++	if (ret)
++		goto err_free_objs;
++	return 0;
+ 
+ err_free_objs:
++	for (int i = 0; i < nr_objs; i++)
++		kfree(objs[i].funcs);
+ 	kfree(objs);
+ err_free_patch:
+ 	kfree(patch);
 -- 
-Catalin
+1.8.3.1
+
