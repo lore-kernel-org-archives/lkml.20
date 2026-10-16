@@ -1,316 +1,96 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic310-14.consmr.mail.bf2.yahoo.com (sonic310-14.consmr.mail.bf2.yahoo.com [74.6.135.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFCE2DB7B9
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:40:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E881D3563FB
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.135.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161651; cv=none; b=JSVyIIrvFksvB++OMNGkfeaH6+SIW244A7pdvN5VhQSYuAyjqnbdjD3zmPt+YGUZCA4m1uMXgG2Rp2Ft9rfuycH/DhYjeiYWd3QA+tyTZH/8jsaLN3oXev6rUTdMzG4Wr5LgLURczDZYH0NYKLz4u9oeADS7M2fdkFoxaYhLjao=
+	t=1792161666; cv=none; b=ohz5SJeaRpFrvlEbk8h4irE9Fiwwy2Q+Q5H7ClWNzjcrc0/xhXDxfBW3fmZFNagdmA85a5CWo+qPFQGQGtFs/d+h0YKu7XZhax9M3rGaG6wA7hXgWVTuFue0UKSpCjLmD/v7Ju7kE77ZzWm4CtMLUMpwIK1g/jEoZJpbyrCHFOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161651; c=relaxed/simple;
-	bh=wpgUo4tlfUOAavT5OSEA9Rp22opL76ck6Sk9O4PpWJk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HZEQAtC7SDrUCMxlI77vVGMOfCTaaalb3cHh9sMDf4wIEONsVhPLX0qXoaAHVlZlc7Rpa4XeZMZyrV5Gt5E/fESnkWg/QJUDzGIKfFUHJzb1hIesAdz3dDD2vI4QkHgo2K/sq4nhSIbITvQL1SEAFfcFsvC+oF7tRVm1hoSNslM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HA89WD97; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Bu2hgRlt; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792161666; c=relaxed/simple;
+	bh=DQBMScUdmHcykm0n5oqrLLDh/B7YIhxcY4rdkjrT32U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WSHaNpEaq6cPrBySu3lBBywehc8SUQnW9B6uTHdPj1C1e+ZGp8NSgud6C1RzWHbVUnd64wVVvah1dgNQwjqoWIArTt17tU9Uz/KJ0YR0UAWu3Ql/IQMOdadjE1P6VS42Qw3ftxAJkTjSjH++3p8tINBbwndMROoZXd0m9L86Ofk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=Ahva51Og; arc=none smtp.client-ip=74.6.135.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HA89WD97";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Bu2hgRlt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792161648;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LWwdo5Kq1dmAwX8uvj4MLC+o6yXs47hvnpvLkKvNuAY=;
-	b=HA89WD97gcMeDMVh3z8YNj5zvow1+mgnAPivC5LuNytIUo8KS8RQ49vgB6S48yB4orPP23
-	pZaEYh4X1fYXJ7bRm5lv0PIkwzqmRkTequREmuTYReigWxljUSMBii6jYCPIPPzdp6IlhN
-	VyIG3PJ8390jnKZZSlosAFy0spReKgk=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-86-TDIFBUceMLiWKcuH6lquZA-1; Fri, 16 Oct 2026 14:40:41 +0000
-X-MC-Unique: TDIFBUceMLiWKcuH6lquZA-1
-X-Mimecast-MFC-AGG-ID: TDIFBUceMLiWKcuH6lquZA_1792161640
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a1af80b913so113145e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:40:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792161640; x=1792766440; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LWwdo5Kq1dmAwX8uvj4MLC+o6yXs47hvnpvLkKvNuAY=;
-        b=Bu2hgRltUBe8e9IWTbUv/dl2qS7Ng2aZwwNgz52lI1+18xgWgcxK8Q9uwHKVhBVRjQ
-         n3Cl6oMV1Mz95hHfW5VB+XZ3YhbaXK3Lca76f4yi2aQaEH3QcoAqyh+KypkX8qRCFjdL
-         AhSM/1qTdLUTeBexGdM2emB9uE6mvPISogYlpxaGcEr6LTpa2wLRbzmtrHsDKZyd1mj7
-         JyItq855aMYX1rjGzL34BWV/NlI38dAFV7pJz5KuXJ1ojVkhPWhJ6fPwvjR/WLoYhz9n
-         7SaQblutVLB7uk7VensLaRF/X/x1c8rCjv8YtyNJXFlRwGkmxXfu4DYUd/XqKoOgj3OA
-         YMPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792161640; x=1792766440;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LWwdo5Kq1dmAwX8uvj4MLC+o6yXs47hvnpvLkKvNuAY=;
-        b=W7Pbe+nfN1AQ0OVdmCGmCLoKMvYJdLPB9lJpvycF+kEoTQeq7jQNthcB92PB4hDlK9
-         paU3+lAXOVCJl/3Snwd/UMpxzBD3x4TrvSBSbj17FInDK/kd1fDHmAFnlEAH20sDTpAM
-         mEbrk4sM1CkJOtmvBTU+FJ9qmrfxQXOmUEkW5fAueWBi4ARLoMJwUUmL1YHuMLpZ8268
-         0DmfpyipJ334WFjhJZfrX2nHhDrE9IOsDHgPXb0ABtQkBOL33RkKJCnVxKl6Z4E8FijP
-         AJWmgNiOpuwTbPKoSuD4OQgc4laO7V31WDuUvaJ8dI28oOIAiOvV5INsFwewiS7BllsU
-         mpng==
-X-Forwarded-Encrypted: i=1; AKwUvBx2T/ipoU9hHHNNVemmWo5iRT/SyDvJaNGxMX8/RyHAhqahalqXFZVIZuoTy5jEV9gwzuy05XpkMpvqEAQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+SXJkAUHi3y3cCHRtvYvbo2F0YyN6+u3tnFV69DllSRZusOQu
-	KdV1P3tpNREdpN1UCkCUM7uvO4Yr5zaqqkf0oI8E9w157xROnFj42m8VOS0Qk+T1RoVydKYKID4
-	9E0u0GHEbH4/LY/+HRw4tIUnMxPLmKC22d/jJUDLxmUcZh3HXrNfXnp6GuhK3oUOwJQ==
-X-Gm-Gg: AYBFou3dAErX1Vob8GECfw2x+uMG+hgBjlCVutkvxnrMtuO/DwPo9vNyyE+ib+YuAIX
-	/XMTPqpUHk8YoGXFpfxOuBPJn4qGwo7qaVT8Zr72j4mS9mDrEf/h2kMzl0S/Wi1T00+elAvlmC2
-	qtujNpEdKF9Y+udrgp1c/y5GppRg6F4Z3D9WCExl8MOZtf72Zbf7GJMFmvgiydXtt4wqGgsJvbm
-	PEgPqqNkFsuIHMgdHmeG/iAPSEOSF1c8BL89AbHwM1wppKAaJr/DvvZJREKrQyBTjkb+Oxr8fK+
-	xZKcTaTSm6DNHzfgaKyH7uj2mLMS2D8CNs2Rv/VPVMQD9mdRFNeKCvoQs9t0OZfB+WaJfutXZ2j
-	Hs+Pi
-X-Received: by 2002:a05:600c:1d11:b0:4a1:d307:b52a with SMTP id 5b1f17b1804b1-4a1d307b62fmr25323185e9.19.1792161639852;
-        Fri, 16 Oct 2026 07:40:39 -0700 (PDT)
-X-Received: by 2002:a05:600c:1d11:b0:4a1:d307:b52a with SMTP id 5b1f17b1804b1-4a1d307b62fmr25322625e9.19.1792161639342;
-        Fri, 16 Oct 2026 07:40:39 -0700 (PDT)
-Received: from sgarzare-redhat ([80.116.137.133])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ae6d2esm64518855e9.6.2026.10.16.07.40.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 07:40:38 -0700 (PDT)
-Date: Fri, 16 Oct 2026 16:40:35 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Jia Jia <physicalmtea@gmail.com>
-Cc: stefanha@redhat.com, mst@redhat.com, jasowangio@gmail.com, 
-	eperezma@redhat.com, xuanzhuo@linux.alibaba.com, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	virtualization@lists.linux.dev, kvm@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bobbyeshleman@gmail.com
-Subject: Re: [PATCH net-next v4 3/4] vsock/virtio: coalesce RX write-space
- notifications in lock batches
-Message-ID: <atI1-_FAri2x-k2p@sgarzare-redhat>
-References: <20261014115640.184286-1-physicalmtea@gmail.com>
- <20261014115640.184286-4-physicalmtea@gmail.com>
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="Ahva51Og"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792161657; bh=OO/5rzJUY2TjghANA+R9YBb35gGjSiidWbv54AUaO6s=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=Ahva51Og9VlSiNvgGPwz6IM/J2ho7UmOWteR7JP1DJT73odkIGOeD01PVvcClWbD3MAMxJ3xT1y1QRqmeZEKtbvQ6rBn9hyG798fR0mylA+zoj59CFpUCkDSfg3K8rheYbb6asoQX67F3icgVwlEdxacfGnqc6b+fB7xI3taEfdVwFi0gUCounvPIeKZbFe1DFwpmbrKrUk/eeFkt/PGQm2IDPEG4LL5RUh+ZimJYTrTaVp9oWVeDtPCqvRsGCjaO4RBZi4Q95EWVwVvYookLkfWy8Nvcgab6iEUKK5b6l9UmCvs040FEq9kLAD9hz2CKeqIZ0PUmxZ+qwwGPiIuuQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792161657; bh=f+7hynz/xVav9dfNeg40z5ezJvMsJTTw3Z8eHTOahqo=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=lywX+fyq7Ici/ppeeZvD526cyuCxPauNOXD/UCSwzl2qR8yMmcBxp9ds/jaOtwt9EqOdrauBTzo64tudyRnPHLHzG5xGDxd4WF2vvA/iaAQH8dV6SiQN+Ku7+ybbi52Ewsm4HSU4+lb94242k3GIiZtoEJcVWWrYVmYwsskDJRtK+HlNjDkRE1jZkSsVYqYpZoscqiku7LhCe8DcTxZMdz6PEjMEr4DZ0GmPVlKvHImGgjqZgK5DjFX00wboc+Gv+jqtLZH9qLjMKYRsc/AINrR1HC2oxF4EpaeFDXVo4i75OzySr8J6E8gdli560xb1oNEN2HMgNFaFSq4/s+Ta7A==
+X-YMail-OSG: yG7ScWEVM1lQUubxEUx3q2ekf2oO9ORZYu40uZsEOwTTDl6Dt4zwik2IinPWtbR
+ 4X8P3.9Zqr1DdLke2251UZiKMdwwwtBPsMxPOt.wDwwkyLo7tIlC7zSmfwKieKHDpfwIms_xllfm
+ AfyRrHl3mCYQF_xAd6CQZlrVTB6ivqlxqFepeasc80UT1q6w_LI06NBjtmWrNkSVgnKnftlkPkyv
+ yU6zpeKF4X3AtduB.NtMHMoBEUnRnhtAJ5wE05KvLM7PcGr0lb6MKLm0YeHLnWInEqtfqb0uK4F0
+ wsY594faQ55lWn50rRxM6QJ4DRdfWnrQBpU_9RDY.cd8UCUl91SQntmOvpk1tWHytdAVx7bmGIjj
+ BQzNyhCWljNhSFa7hIwrDwLLHsScjyZOu6YrZ9hZhis7oSmSAt1bDI_x5cMeVsOD6QDT_azeHkWI
+ DKo0g_Pt3GQ4cbzyKQNu06jVZzy8DGe77JwvUyHXb7352Rke1nRgBSbohrJUz5l_.f._WYvRQlYH
+ rw7_RrtjaMqFyqddKaP6CZVZ2s6sTRU5Yxt9fCmaSgMVksD6Xb2z1BqnahdI7sgjCVc5QHZNH7sj
+ 46tIBKzlM3ni83Qhbo2m.JPnypex9itutwdqScSvfAuTe873Uw8Qk0Wqy0RG.4nae8gRbdwjju8z
+ P7iYuuu2TacyUIpE6EHhzokQckGEcPHSXQoUlFipSZIKgMOhUZQM73hxOfWSmH4n9sGbkO_LBYci
+ VcjP3h0SauRpJytUoGB72oXx0hnIbz9SaBWsDwqy7G87EiIewGliSkDdNizsnjTHFQelkhTuvBRa
+ jdAjA3T03r.zCsQbPcYEpXsk6EiIXGzCGP0kSsQcPanQX0CftzdN7yx.IlTC4tZM8IoWPN6jJhb0
+ APeinOwvqHdSE5SvULOvgqV5PrsP6tK2psSNXTpmkcLvLNSmR1QslnbpbMMg41XmvhajSeRhNCRk
+ YZl43sh4aSyaMFQgdHPJrYsUUYUSyiXJ89ppqmuSgPRj83JxZkcAKJtZPSiBgAnw_32QC6ru.yzU
+ IuDpQEXeKedm5wrzGZQPkWk7qsISmtB533RsXyFVGFm11.PsKB.hs6nQkAVkW9QYrb0qV6I17RKb
+ f0V5obFkyg_HAYCq2ewNDBg4FSW6h5k0wgobazai2twBsX0W8SfCQ2KwTFXA75IudZiDPc8LRAkb
+ U5twuyF2oE5Px6.SOAnmE3e02GxKJk2wSFh_IG8JKEtJtRdAzkBIN1ENlrs0LcC1mr5wbBBefITw
+ YdEl5fuYC2BSMH6j7nSua9t7zDxfvvD5p.5qikOTd99bTiLSXoBHQirlqgqDXb2n3HrnSWRGgA5v
+ y0IxMlSu.k.s15aAqgd39sxVcg2PJP5I6_0wKBuZDE6DArUSPvPEh1.u7rU1kF..O1OcOLDpFJ.a
+ iNQRUhUt39yrnlJ41pWjV0TzthO12yA99sI9MKPvsFnbH1ZLQK2r4dMqvgePQesnWmuyIFrGUvZC
+ B8voJtiOmsqwR06pHIPRl4mJqX_9v2XPM_2oJX7OZn6O55BT7aI8rbUlhfN3yIoe_hjfpYvjJwK2
+ GBQtQfmBAoL_bnIsOB4Sz5eDULZn1THw4gVjhcbcqlEiWd35y2HnoR4q7qSmz1EzEvUwYehtJY7g
+ SjSNL0nLzrJ.VExGxw5yiwusldUyw9Rff_G0qhKJZjNhIKwn5TCaRhA0Qjj1Asm0piaYI4n1fYTl
+ NPjgawqyFYX1_fW1FDhnpx79D36t2TgFpLYpgLaU6kwyASirnoXKMhxMfAWigImIUdNk6siAQkeu
+ wrVv.YPjKjI_TKTVMhGTqWRcjP.6NgrEfZ5k5CmGkRBPWVptnHbG1vTWrGMQ1orPSCWbcrh1jzBL
+ XfxbZE4t6urx1rrI1ueH2BsZoZf.R9MC3w7QQC7FlZ0qyhXectDchWfviCRNjse4Klkzgl4IzUr5
+ 4uzrRCbPYQ6kWWeuzx9wkmi.33XZGbwXkzWdUiafw3BCB_z0J.hoqxzfdBttYznKKSRm3zcU5cUT
+ idBSg6YNO1hdoAADvNOlCMAtWiSVmIGSE1d6xhecsGoryQ3IykJI59bfczPqZIWKtG0guiDz2Svg
+ E_kORdVwVjHk.s2C3qilPT4cOHlXOOFoOvirFF44XLPQoQNxKJR6dvP98REaCKWiTSG5o.gdEkHM
+ LiEQou_mTTvT7k78s67EMPJzmjWnEVT255rlq4B7328SiEkGv635VjxkbUMHAPZ5Nx9L3VzfTt83
+ pf1kS5nOdWXPdeBfI.ELOnG0BLJQ.mV7KaJFH
+X-Sonic-MF: <deaner92@yahoo.com>
+X-Sonic-ID: 793cc6de-9318-4bc0-8b76-1cc1545a4dd0
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic310.consmr.mail.bf2.yahoo.com with HTTP; Fri, 16 Oct 2026 14:40:57 +0000
+Received: by hermes--production-bf1-6d6877594b-4bzzg (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 112798bec21759cfff79130505659e83;
+          Fri, 16 Oct 2026 14:40:53 +0000 (UTC)
+From: Jeremy Dean Clifton <deaner92@yahoo.com>
+To: syzbot+5897b3c764f5989ea942@syzkaller.appspotmail.com
+Cc: syzkaller-bugs@googlegroups.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [syzbot] [bluetooth?] WARNING in hci_connect_sco
+Date: Fri, 16 Oct 2026 14:40:50 +0000
+Message-ID: <20261016144050.105317-1-deaner92@yahoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <694c9ee9.050a0220.35954c.0030.GAE@google.com>
+References: <694c9ee9.050a0220.35954c.0030.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261014115640.184286-4-physicalmtea@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 07:56:39PM +0800, Jia Jia wrote:
->Each received packet updates peer credit and may call sk_write_space().
->A writer cannot use that credit until the batch releases the socket lock,
->so one notification at batch finish is sufficient.
->
->Save the initial sk_write_space callback when the AF_VSOCK socket is
->created and require it to remain installed for batching. This lets the
->transport module deliver the deferred notification without referring to
->the unexported default callback. Sockets with replaced callbacks retain
->their per-packet behavior.
->
->Record the batch socket before processing its first packet so a batch that
->ends on that packet cannot lose the pending notification.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-mmm, is this a fix of the previous patch?
-
->
->Signed-off-by: Jia Jia <physicalmtea@gmail.com>
->---
-> include/linux/virtio_vsock.h            |  1 +
-> include/net/af_vsock.h                  |  5 +++
-> net/vmw_vsock/af_vsock.c                |  1 +
-> net/vmw_vsock/virtio_transport_common.c | 53 +++++++++++++++++--------
-> 4 files changed, 44 insertions(+), 16 deletions(-)
->
->diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
->index 26dde6909c4ed..bf077ee0ded88 100644
->--- a/include/linux/virtio_vsock.h
->+++ b/include/linux/virtio_vsock.h
->@@ -287,6 +287,7 @@ struct virtio_transport_rx_batch {
-> 	struct sock *sk;
-> 	unsigned int pkts;
-> 	size_t bytes;
->+	bool write_space_pending;
-> };
->
-> void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
->diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
->index 5549298c1ec6b..9a40960d10cbe 100644
->--- a/include/net/af_vsock.h
->+++ b/include/net/af_vsock.h
->@@ -63,6 +63,11 @@ struct vsock_sock {
-> 	u32 peer_shutdown;
-> 	bool sent_request;
-> 	bool ignore_connecting_rst;
->+	/*
->+	 * Initial callback, used to identify replacements and deliver deferred
->+	 * write-space notifications.
->+	 */
->+	void (*default_write_space)(struct sock *sk);
-
-This is kind of virtio-vsock specific, why need to be here?
-
->
-> 	/* Protected by lock_sock(sk) */
-> 	u64 buffer_size;
->diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
->index 44cee74519555..fe7f49da6c4bc 100644
->--- a/net/vmw_vsock/af_vsock.c
->+++ b/net/vmw_vsock/af_vsock.c
->@@ -958,6 +958,7 @@ static struct sock *__vsock_create(struct net *net,
-> 		sk->sk_type = type;
->
-> 	vsk = vsock_sk(sk);
->+	vsk->default_write_space = sk->sk_write_space;
-> 	vsock_addr_init(&vsk->local_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
-> 	vsock_addr_init(&vsk->remote_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
->
->diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
->index ff74e805527a5..f4b5f0230493e 100644
->--- a/net/vmw_vsock/virtio_transport_common.c
->+++ b/net/vmw_vsock/virtio_transport_common.c
->@@ -1820,6 +1820,7 @@ virtio_transport_recv_pkt_batchable(struct virtio_transport *t,
-> 	return sk->sk_state == TCP_ESTABLISHED &&
-> 	       sk->sk_type == SOCK_STREAM &&
-> 	       READ_ONCE(sk->sk_prot) == sk->sk_prot_creator &&
->+	       READ_ONCE(sk->sk_write_space) == vsk->default_write_space &&
-
-Why?
-
-> 	       !sock_flag(sk, SOCK_DONE) &&
-> 	       vsk->transport == &t->transport &&
-> 	       vvs && virtio_transport_rx_skb_has_headroom(vvs) &&
->@@ -1828,13 +1829,15 @@ virtio_transport_recv_pkt_batchable(struct virtio_transport *t,
->
-> /*
->  * The caller holds sk's socket lock.  Set @batchable if the socket can remain
->- * locked for another ordinary STREAM/RW packet.  Return true if the caller
->- * must free @skb.
->+ * locked for another ordinary STREAM/RW packet.  When @batch is non-NULL,
->+ * record a default write-space notification for batch finish instead of
->+ * delivering it immediately.  Return true if the caller must free @skb.
->  */
-> static bool
-> virtio_transport_recv_pkt_locked(struct virtio_transport *t,
-> 				 struct sk_buff *skb, struct sock *sk,
->-				 bool *batchable)
->+				 bool *batchable,
->+				 struct virtio_transport_rx_batch *batch)
-> {
-> 	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-> 	struct sockaddr_vm src;
->@@ -1863,8 +1866,12 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
-> 	if (vsk->local_addr.svm_cid != VMADDR_CID_ANY)
-> 		vsk->local_addr.svm_cid = le64_to_cpu(hdr->dst_cid);
->
->-	if (space_available)
->-		sk->sk_write_space(sk);
->+	if (space_available) {
->+		if (batch)
->+			batch->write_space_pending = true;
->+		else
->+			sk->sk_write_space(sk);
->+	}
->
-> 	switch (sk->sk_state) {
-> 	case TCP_LISTEN:
->@@ -1931,7 +1938,7 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
-> 	}
->
-> 	lock_sock(sk);
->-	free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, NULL);
->+	free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, NULL, NULL);
-> 	release_sock(sk);
->
-> 	/* Release refcnt obtained when we fetched this socket out of the
->@@ -1949,22 +1956,27 @@ EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt);
->
-> /*
->  * Finish the RX batch.
->- * For a non-empty batch, the caller must hold the socket lock acquired with
->- * lock_sock(). This function releases the lock and the batch's lookup
->- * reference.
->+ * For a non-empty batch, the caller holds the socket lock acquired with
->+ * lock_sock(). Deliver any deferred write-space notification while the lock
->+ * is held, then release the lock and the batch's lookup reference.
->  * An empty batch is a no-op.
->  */
-> void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch)
-> {
->+	bool write_space_pending = batch->write_space_pending;
-> 	struct sock *sk = batch->sk;
->
-> 	batch->sk = NULL;
-> 	batch->pkts = 0;
-> 	batch->bytes = 0;
->+	batch->write_space_pending = false;
->
-> 	if (!sk)
-> 		return;
->
->+	if (write_space_pending)
->+		vsock_sk(sk)->default_write_space(sk);
->+
-> 	release_sock(sk);
-> 	sock_put(sk);
-> }
->@@ -2019,7 +2031,8 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
-> 			}
->
-> 			free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk,
->-								    &batchable);
->+								    &batchable,
->+								    batch);
-> 			if (!batchable)
-> 				virtio_transport_rx_batch_finish(batch);
-> 			if (free_pkt)
->@@ -2059,23 +2072,31 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
->
-> 	lock_sock(sk);
-> 	/*
->-	 * Sockmap removal restores the native protocol under sk_callback_lock.
->-	 * Serialize this initial eligibility check with that update.
->+	 * Sockmap teardown restores callbacks under sk_callback_lock. Keep the
->+	 * initial eligibility check consistent with that update.
-> 	 */
-
-Unrelated change?
-
-BTW if you are assisted by AI, please read https://docs.kernel.org/process/coding-assistants.html 
-
-> 	read_lock_bh(&sk->sk_callback_lock);
-> 	start_batch = virtio_transport_recv_pkt_batchable(t, sk);
-> 	read_unlock_bh(&sk->sk_callback_lock);
->
->+	if (start_batch)
->+		batch->sk = sk;
->+
-> 	free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk,
->-						    start_batch ? &batchable : NULL);
->+						    start_batch ? &batchable : NULL,
->+						    start_batch ? batch : NULL);
-> 	if (start_batch && batchable) {
-> 		/* Keep the lookup reference until the batch is released. */
->-		batch->sk = sk;
-> 		return;
-> 	}
->
->-	release_sock(sk);
->-	sock_put(sk);
->+	if (start_batch) {
->+		virtio_transport_rx_batch_finish(batch);
->+	} else {
->+		release_sock(sk);
->+		sock_put(sk);
->+	}
->+
-> 	if (free_pkt)
-> 		kfree_skb(skb);
-> }
->-- 
->2.53.0
->
-
+--- a/include/net/bluetooth/hci_core.h
++++ b/include/net/bluetooth/hci_core.h
+@@ -1726,8 +1726,15 @@
+ 		}
+ 
+ 		cancel_delayed_work(&conn->disc_work);
+-		queue_delayed_work(conn->hdev->workqueue,
+-				   &conn->disc_work, timeo);
++
++		/* Pairs with synchronize_rcu() in hci_dev_close_sync(): don't
++		 * queue disc_work while hdev->workqueue is being drained.
++		 */
++		rcu_read_lock();
++		if (!hci_dev_test_flag(conn->hdev, HCI_CMD_DRAIN_WORKQUEUE))
++			queue_delayed_work(conn->hdev->workqueue,
++					   &conn->disc_work, timeo);
++		rcu_read_unlock();
+ 	}
+ }
+ 
