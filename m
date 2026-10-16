@@ -1,84 +1,89 @@
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 433E8392C34;
-	Fri, 16 Oct 2026 21:45:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1473E3C4F;
+	Fri, 16 Oct 2026 21:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792187159; cv=none; b=S3Zb7cTX0MYhjRbdmF3EnUOGi2YrmO5DfPhH1gfpRudO3xeahf2gcBbfP54tN8dJ4c/3q6EZqIv79O9t0mSj500AMJKpOfy/fA0aPSxawuGjxuPZcC/vbw8banUMcxjjHSgtBaBH7Gpz/DHqIAXqqGDj4rCt29LFtEpMZlp0zek=
+	t=1792187227; cv=none; b=ZEk7mediZVBLbMpn1mS25tjub/ccuEx3ua1L90LprVoCWgOhg3G19Q/W66kD79Pv8CPjOILwZM0+QccAq+JQJ/mirdTqS41PMcCFVoYzTy7npJDxkx4T3453SN/BhNOKIkarlUZG6hGc4FMOL/LGSgo4O13i2C/q1EalZ2Np//4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792187159; c=relaxed/simple;
-	bh=k6q9vKTq/EZAzHVTpeoDIlCOyyjz6a3JeFSXhywddIU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=CyoIKHhjJgFlTXNwt9sU/9w6Zfi2R+kJGznVp3xPbrLimhGk9VkSl9bAjqgPA7lIqnvjb+lwHN+aMzhsjV56u8hmCpJ2im1xTPkNUDUj7ThjXDsk1NYJLRSX84kZ8I/28Ax2IZ0lqFehD2d0KXfQOGt5P5/8I4YfvZlyoV695Ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 524C792009C; Fri, 16 Oct 2026 23:45:54 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id 4D9FA92009B;
-	Fri, 16 Oct 2026 22:45:54 +0100 (BST)
-Date: Fri, 16 Oct 2026 22:45:54 +0100 (BST)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: John Ogness <john.ogness@linutronix.de>
-cc: Imre Kaloz <kaloz@kernel.org>, 
-    Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-    linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org, 
-    Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
-    Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: Re: [PATCH] MIPS: SGI-IP27: print the NMI dump on an nbcon console
-In-Reply-To: <87bj9d8fm7.fsf@jogness.linutronix.de>
-Message-ID: <alpine.DEB.2.21.2610162215580.22065@angie.orcam.me.uk>
-References: <20261001155013.1694-1-kaloz@kernel.org> <87ece98je8.fsf@jogness.linutronix.de> <55083820-478c-e6a6-b129-467140f161db@kernel.org> <87bj9d8fm7.fsf@jogness.linutronix.de>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	s=arc-20240116; t=1792187227; c=relaxed/simple;
+	bh=4nEnf66h6FKzoA+DQqMH+xfAoOybR1g0YLk3xiZwS/A=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=OckAYacPKK96MFv/bUtr4dIyHWev4JHdCowDiWrWcoed7U474a1GkzJi2Vf6IZPyFfVoNqj7/koYMoh7AWUuty6gmmJPX1fEASkV1lvFJHLiMqA69Sbqa0iC4J10jXzzpCTvb482XfVAwR2cCJu33Ye5Qkifn9RtPEJXu4SQr2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e4aVe74H; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e4aVe74H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE54D1F000C4;
+	Fri, 16 Oct 2026 21:47:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792187224;
+	bh=U4IOThkWmNkipJIf55NBfSbBXN+Gk6WkefKa3VNLNfU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=e4aVe74HL2/NyjqNi+YNXkXuhMoKwPaGrISTNrzypjnMNTqhNaTlbWQQ1oLlfz+7Q
+	 nJ3MCQ/pIgBxkGHjKSnUix5YFv9ZFCel6dZYxzkd7/0u/zz9QRCe+VAiqujx3V+G34
+	 SKdmrlkEVYx5x+q+65aGIu4RYIo7T38EN+S2c0I4ewzqN5zUsRxEXR/IoZVA3nZDcA
+	 OfFLn8mjzitzDjCOQ4gKuc6VGRXIgFmlYcv/tmB68wtPKvfy3M+SYzSLY1E0+kpyJo
+	 DuY++NRBFJkJ067Dm2TPpRW0E2IaxK9WiYFVexPH8XCgL9WrwmMXXf5dUexWhhNPTW
+	 xuzboLZysrSjQ==
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, sadre Alam <quic_mdalam@quicinc.com>, 
+ Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261016-ipq9650_spi_nand-v1-1-d341a76559b1@oss.qualcomm.com>
+References: <20261016-ipq9650_spi_nand-v1-1-d341a76559b1@oss.qualcomm.com>
+Subject: Re: [PATCH] spi: dt-bindings: spi-qpic-snand: Add IPQ9650
+ compatible
+Message-Id: <179217927349.3162228.2988082099851102104.b4-ty@b4>
+Date: Fri, 16 Oct 2026 20:34:33 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1137; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=4nEnf66h6FKzoA+DQqMH+xfAoOybR1g0YLk3xiZwS/A=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIuzQ6qfLgn7WJz+HEBg8yVQguXHZh1KsdM7KdeFo/Vs
+ ipWccH6jlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAExkpxLDX4EZj5hiGmt0GbIr
+ fk1Zf1doQ6rbomdZ8Ucbl8QKCDR942H4X2Rc1Sqkcasyskf/1Ald8/6LJqV/5se22tTpKeh3lx9
+ kBgA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 1 Oct 2026, John Ogness wrote:
+On Fri, 16 Oct 2026 12:53:04 +0530, Kathiravan Thirumoorthy wrote:
+> spi: dt-bindings: spi-qpic-snand: Add IPQ9650 compatible
 
-> > nmi_dump() has no caller in Linux. install_cpu_nmi_handler() stores
-> > its address in the per-CPU NMI vector the PROM keeps in low memory,
-> > and the PROM jumps to it when the system controller asserts NMI on
-> > the CPUs: the "nmi" command at the L1 (or the MMSC on an Origin
-> > 2000), typically used to get a dump out of a hung machine.
-> >
-> > Every CPU that takes the NMI enters nmi_dump(). The first one to get
-> > nmi_lock waits until all online CPUs have arrived, prints the saved
-> > state of every CPU and ends with the NI_PORT_RESET write. The others
-> > spin on nmi_lock, which is never released. No CPU goes back to the
-> > interrupted context
-> 
-> Thanks for the explanation. I guess it should have been obvious, also
-> because @nmi_lock is locked and never unlocked.
+Applied to
 
- Mind that NMI on MIPS is not recoverable in the general case, unlike with 
-say x86.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
 
- First the event takes the reset vector, which typically is handled by the 
-machine firmware and while it can be told apart by software from other 
-events causing execution to reach there, it requires a machine-specific 
-protocol.
+Thanks!
 
- The use of the error level for the exception handler switches off the MMU 
-for KUSEG and lets the register context be dumped for later restoration 
-using $zero register as the base pointer, but again it has to be there in 
-the firmware and then not to clash with OS use of memory.  Alternatively 
-scratch GPRs could be put aside for NMI handling in the ABI such as with 
-the kernel $k0-$k1 registers, but that'd be an overkill wasting precious 
-resources.
+[1/1] spi: dt-bindings: spi-qpic-snand: Add IPQ9650 compatible
+      https://git.kernel.org/broonie/spi/c/6c59290d62e7
 
- Then nesting is not supported since obviously it would clobber the state 
-of the outer NMI handler, so that'd have to be prevented from triggering 
-by system circuitry until cleared by software.  There's no internal latch 
-in the CPU such as with x86 that would prevent an NMI from retriggering.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
- All in all we do not strive to recover and only dump available state for 
-any post-mortem examination.  Some platforms can't even do that.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-  Maciej
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
