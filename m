@@ -1,171 +1,184 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0525A4FD7B2
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:09:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166952; cv=none; b=TbP8UT2lmQWysmTkpfbc3yOqKzYVcW/jDHn31XU/Yz/YOvbuv2q82/t0V5FPTRiPmlywseY5kWSL8oOmF8ORl64TlbWohAJp72AWJgefbSYpFVEoaaBYQL0zaa+tIgQErdKGYDPZkb8dBY/XSzwczCrIWbgN2DoZZAHuxdLw73A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166952; c=relaxed/simple;
-	bh=tCpJKERnr0ZloXOK19BWLHYdWvp2e1dFzy3ltFf2BYE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NOocQrKDlSSDCbTsP8wUMBkGdj56qJs1U1NxykOfciXtRYUloEn4GyAqxrfao6HbhykdefjCkYMItF3j4nZhl+RUxo7GDuNP7m1h55bKFG9wNzX0CJHVukjQQpJQg8mFPtqdJ0S0iCbbFBd8NI2118156sFau1jVhuslpT56rF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aMxlHvSU; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817215226B6
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:09:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792166974; cv=pass; b=f92mQPehukKK7oo/4U1ajHSdajH4u5BYxwYsp5I6bRDYNZ+N4LJgQuFwd5dGu8XepKmJgl8zL3vryn+nv3M4hQJ5yNSYo5U2tM58NVT3S+hgzSzBRvLHyieL/jhnIxyWyIyCKwi+LEL9pp9vHJ/xAw7omF0IAIyBXYxiw0ogRaQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792166974; c=relaxed/simple;
+	bh=JK1d3K7g5Jktfb+qNEOacma+tvhF8sNAGrJHfx8GOGA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HqCuavSip4puwkEYBR8USTwkXl5IiSFRFSRNQiLtiYvWSCtDS37lTj7yruN+uYpTV5FvvN4A7eecn15fIaMxAB51qddinZRUvRL8vgD1U4GuRBnwtobpHPZf9HDIjeZBZYpOQUJyGTmsmhhQ51chUyhICSfZQz/YvxOL4cdAAng=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p+BnD9PS; arc=pass smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aMxlHvSU"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso77452a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:09:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p+BnD9PS"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so1166515e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:09:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792166970; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AXe2KzV3wIj3Lu8DKJn1MJgjvPEmVWvRqY2bw1bJd0GtZm/XXJ0bW7pRHsAeYhEiCj
+         kzELRWB82f37o1pPE1aAEW0cezEPT5QwdkkCJgPmHhai8pNTWBsznW4fvCaF81d6z7Tm
+         SuESQSX0Uf/n0Mg0+wdha+ItjFuSvBMQu87wWo5uGV3Xpnu0kAscriS7abrN77Y+925N
+         bo4qBRPsfoBLepg/MyPZnzIK/K0q9fpXQMp8TVV0/JP32EedTUX5ghkob7XFYXKfskz3
+         PFOALqo++bYT750MKJil4Pe//+8dPpTO40ttBjKGXE+KOVVsMLPHozb4KjJNecocyfjY
+         Dlpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=01clFvS8PqYDYJUml8Ul3JDl8oOLRSNhVNdWYi0v5ig=;
+        fh=KK7ME0kxoBq4yqWmkrThAc6IwDLWCIRto2j7VP3jwbs=;
+        b=kWWkXT3m/Ca/vFHa37591ctfPs8mwa2TA//UEZtCjGh4HuWUzBnNWEBWQYSW5wrfGq
+         n5rB9WGt7+ocpI2HM++2fQl0zYU9mS/cmCMdaE8VXyliAa2DVMYuz5EINksjDIKEYuBE
+         xXgqI3d/gBYWJ0CCfQWX8OfmUBR4YjQD+taa9R4PBCnDmNiM2tgVA4RDyeQluCFtNftN
+         mowjw1kudXboGjCHAtprHYZROFxWAiFi+d+yed51x+htJ3u076M6Qi3NBWAQOPk0waJ1
+         JEMUMWvzvaR+3u2PC6YXGadHCuUMlUM3uvKrtO22hnlKqpG+tSS9BE5Jl41nLL9Qi+6I
+         GAHQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792166948; x=1792771748; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wW5ZaLzQtiiOdwOE1f4XYPa5S1VjrcXxgM6O8zAvb8M=;
-        b=aMxlHvSUPlZd5AbJ/CnLjszZG1/QyqXoiaDOdAW/S2i21skXV/KGaOci1Nqp3W4NZ4
-         HYulBVNyNSCjt/hiUz/q65TT7GtpmIkKMiaVl5gpwDYawILRBpROkIPiGGLQfkjAltPq
-         PYssX2dw2gSDP86zlSLp7jR5taMA25uvz8Wkz05O37FVfDpW2N/78W6YUMY3BFczj4rj
-         EzzOE1NBLNI5ovIwNTTtKRIIG4E4HQUe21pUfDg2f0vrGn8VqErgn2qqxQhXgmIxUpjg
-         JRLY++194uvq2ZIeG6GSVjI5il46a8xsrdRIvpYoQSDlKvWk392i+3P5Xg6lMCurwXGo
-         sCaw==
+        d=gmail.com; s=20251104; t=1792166970; x=1792771770; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=01clFvS8PqYDYJUml8Ul3JDl8oOLRSNhVNdWYi0v5ig=;
+        b=p+BnD9PSSMRcJuKdrC3LejFYMI6nR7EbIYmJoQwOoEdmLZznQBqATm2IDh1pijsF6q
+         LZgLDsre7xnRbLHBSfSrAjCEzdMMLkMytG5dpAtlgtbPlcT0Bl+yy76B8flVmmUbB3QR
+         R7cJsgqQrRfIlalslrKG03hpEA04L2ClhnUv88v/xVTjkdAT07e7csQyqyWly0WbWHeB
+         YWAFtYWxj7Le+b1jK+BRJqWalSVKjwd/9s2LMHuFzs64SZJlrUVXItPt7W5wW5sxSoUF
+         s5SBeczxn4hhoohd1TuqrRsTHxR7pnph3f+H5dQ8LTim6NOhWsgBkIeXmeoib88zU0DZ
+         kxYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792166948; x=1792771748;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wW5ZaLzQtiiOdwOE1f4XYPa5S1VjrcXxgM6O8zAvb8M=;
-        b=VUPDXWTex2Ik1Wk5vyqKtBJpvBaUwGqNDHruQJpc2OoYXvhcfse9z2A92XmUXTNp5+
-         apmLlfEyCYLmjYmEj38V2e/spq9FrDV0WUQi1+GbvXDZr41YDdXnyAEuRX3R2msbdIXo
-         EHJ30wLiGkGXD5jSIFTA8cxv91bWQGkUqcMWN2wocufr7kKsx38w6nilqOld7D1K25Tp
-         85/Hzq2r182JAJQ4xf8B1aO83JnjDEu8AV8IDqKZSJIgqau3enWa6VukEe6Kx/uUuv2F
-         a2A3r3Pi+WczivWjw7D5Yrd2bMMaeU2AYXl8cqDkLolazFO4uCTJRyDBZgLz5ZfuFjBm
-         OOpA==
-X-Forwarded-Encrypted: i=1; AKwUvBwbVcNougTmX+7IWtWgvQc8tEzpPydmSZpzdOpGSe6Vq2k/onoVRTmJfi1doRAKU/ECkBZdL3d2MltEol4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDlJ1AlBT4ZQ2XUudl4x1tbAh46qlFfAhM1vAfk5dcBmwdtJRX
-	kbstkC3XaOfnAJfyPeNpaBrSlzo9w1f7HMtBALCt9864OMoRFfMzlSlR
-X-Gm-Gg: AYBFou2NFXsreHdrp0kPjNmw83f0lco2zGoNnNqYfSjr242B/WqpC1bOcz8j8Pk6Dco
-	oW8w7ubBwujRryDL5G+NGwE+WHQmOAWLmPhnsCRFpdr+kfuOedA8TcIxOMrLRQ+3SOoxwxEur7L
-	SYqrQixlAGuVaAHCiMoh7AMFZru46s7WsYdUqlNPY0FW2iOXcnqg2j+QgQvV1kZr/+7TsoxYHln
-	3bsreYwM3EnE4SnukENUq892o0/91kvjAMMSkCkX2Jz1mxRkg/DbXpaR/2R7XF6PVH5yd4GHnkw
-	BVTgt2cOAcz40X+ZiGgdmS5NMkBbSdTTn61ruznazqMqZ4531/6TfrSuQWFOsaskP34JJpCqnZa
-	duFhZtX/jpw9k3KbvnCMhgRViKSgYaV4ctCzPiiEvrmb3gVAodtB8f1LBh2D2EG6A1u6YZsz0VH
-	UdgfGsz6fopcu62R7OdgRodB66F1JpoIyl4zK4DVPkPJJqbq0CNEeLFADx5gyB0yKmrFXlNUgbi
-	aY0wWVTVMFVBbv9SFjIqRd6KYlwl9br8BESy3OAKH9lwBju
-X-Received: by 2002:a17:90b:5112:b0:3ab:c80:9365 with SMTP id 98e67ed59e1d1-3acef0f47a8mr284962a91.42.1792166948066;
-        Fri, 16 Oct 2026 09:09:08 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac945e72c6sm9692007a91.5.2026.10.16.09.09.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 09:09:07 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <a0fb773d-dff3-46d0-9bc6-f408049ba12d@roeck-us.net>
-Date: Fri, 16 Oct 2026 09:09:05 -0700
+        d=1e100.net; s=20260707; t=1792166970; x=1792771770;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=01clFvS8PqYDYJUml8Ul3JDl8oOLRSNhVNdWYi0v5ig=;
+        b=uAroDzSYyHTil/onBrrz889EnlmXKHBMSK+jqGABDztOT8g90MA4IKUuTan3+Pb17B
+         how9NhKOf+StUhxwpfBsLdh+/is7irtcQkgBWukeEiP8Ddr+n9LN5ykZG4apagiH/KUk
+         7MDQC7xlkLGlm7SO6+KHIXFza5WtNNkqgeb0Ji1Xk71ne0ViD6dPgWQpRx7vBcfntOG/
+         qvH823dEY5UBHHF0qY2hc6M0cyPv8FU4EfcgdUSkiD8GNkCd6zcIJt8gFhwFvcqaGIGB
+         XFx0JFpmbkFVpUK4DWokijhQMxMfWES4HFrgLHTh3Q+7suruM55lZ98IWCcPmDZaOeMW
+         HeNw==
+X-Forwarded-Encrypted: i=1; AKwUvByIiFDLcjvqKd7/NdL8HL78JhN9q1k3/gV3sVUQMeR+vqSvXRxQuBEv4pV8x4X9OP4m3jY9mAPXGYpWtkA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3ziCEYnnCH1qOs9pnH1+tV+6gsfVt4kXgJmGhHRhLkQtDLv29
+	uutgRYKRGT8rp/h8ldgutez4J3RqiNTHehzTu3MpQG8T76hd1h/WK5Y8LhQlFBtAHoKhjbUA+5a
+	8VBpBRo1+0npTyDidVnO4YUZ7b0NHnsw=
+X-Gm-Gg: AYBFou0gNclszf+HQDzo0S0Em7oPdG5/RW8R2PyuYdgndI8J18uAzMgQ/KwmjhCFz6Y
+	z+Lf0vKWJtvk/JI42KiQAh5db2GLy0EtIj//6zi/IalnixD+k0Hk05GXv6MyUEYcf3jbW5aqFE/
+	+pdiM0DES0apVAWQjbtiRETkjYfeZ6PeQxjkq0g4MVBestG9m6m2EcG/DpveF4QIYTmYsthzr5R
+	bJdSeIORHQVQWOxMFDqyIFcZm3H+m+AdhpC6Z8ER1kAfPejZNHBP6HNnKKpMlIqU5hTdJ4ckMjo
+	/J/HhtqQJeIQVZea8AGgAjUeV2Ai2PynEkNyHG99WM53Jh9tlbgbwatHD0ve35N93C5iBlXImTU
+	FqXdc812C464o18QnriqjiLuN4XHc55vMIe4e4L3uVT3+xhyRRjOcq/zbcnBnkFkYZlbuUsAQhw
+	p4jynNAg==
+X-Received: by 2002:a05:600c:6215:b0:4a1:d41b:5060 with SMTP id
+ 5b1f17b1804b1-4a1d762b705mr4918205e9.22.1792166969428; Fri, 16 Oct 2026
+ 09:09:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hwmon: (asus_wmi_sensors) Drop misleading BIOS upgrade
- advice
-To: Qian Xiao <heyheyco@gmail.com>
-Cc: Ed Brindley <kernel@maidavale.org>, Denis Pauk <pauk.denis@gmail.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261014233318.34567-1-heyheyco@gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261014233318.34567-1-heyheyco@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261016120927.3191690-1-hongfengchen@xiaomi.com>
+In-Reply-To: <20261016120927.3191690-1-hongfengchen@xiaomi.com>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Fri, 16 Oct 2026 09:09:16 -0700
+X-Gm-Features: AclHuK_3q4fgvpP3PqMsH4m0BzcVF-oc6GrjQvM0hL6t6dEcQtFu56enbmqvAPg
+Message-ID: <CAKEwX=ONniSwdiZAe_8NT5XwVj=Mmc-WJs_rWE4Y5snjFg2=Eg@mail.gmail.com>
+Subject: Re: [RFC PATCH v4 0/2] mm/zsmalloc: defer object free to per-cpu batches
+To: Hongfeng Chen <chenhongfeng0212@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Barry Song <baohua@kernel.org>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Jens Axboe <axboe@kernel.dk>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Minchan Kim <minchan@kernel.org>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, Yosry Ahmed <yosry@kernel.org>, 
+	Wenchao Hao <haowenchao@xiaomi.com>, Wenchao Hao <haowenchao22@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, 
+	Hongfeng Chen <hongfengchen@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/14/26 16:33, Qian Xiao wrote:
-> The Known Issues section suggests that upgrading to a BIOS with WMI
-> method version two or greater should rectify the problem. However, the
-> driver refuses to bind when the BIOS reports a version below two, so
-> every system using the driver already meets that condition and the
-> advice does not help.
-> 
-> Remove the sentence. While at it, fix a typo in the preceding sentence.
-> 
-> Link: https://lore.kernel.org/linux-hwmon/CAFGXJCm6ZWK0NsFhZ1_ycgYtTTT3nhqj9mose60t+Rrry1aPvw@mail.gmail.com/
-> Signed-off-by: Qian Xiao <heyheyco@gmail.com>
-> ---
-> For context, the fan issue has continued to be reported with the in-tree
-> driver (which implies method version >= 2), e.g.:
-> https://www.reddit.com/r/archlinux/comments/tunnvb/psa_if_youre_experiencing_weird_fan_behaviour_on/
-> https://forums.unraid.net/topic/131340-semi-solved-611x612x-bug-system-fans-stopped-after-a-few-hours-asus-mainboard-linux-517-driver-asus-wmi-driver-issue/
-> 
+On Fri, Oct 16, 2026 at 5:10=E2=80=AFAM Hongfeng Chen
+<chenhongfeng0212@gmail.com> wrote:
+>
+> Performance results:
+>
+> ROCK 5B+ (RK3588: 4x Cortex-A55 at 1.8GHz, 4x Cortex-A76 at 2.4GHz,
+> performance governor), single process munmap on A55:
+>
+>   times in ms, speedups over base
+>               Base       Patch1       Patch1+2
+>   size        time    time speedup   time speedup
+>   64MB       13.81    3.62   3.81x   3.28   4.21x
+>   128MB      28.50    7.18   3.97x   6.49   4.39x
+>   192MB      42.19   10.71   3.94x   9.69   4.36x
+>   256MB      56.06   14.26   3.93x   12.89  4.35x
+>   512MB     109.50   28.43   3.85x   25.66  4.27x
+>   1024MB    217.10   56.70   3.83x   51.15  4.24x
+>
+> Same machine, single process munmap on A76:
+>
+>   times in ms, speedups over base
+>               Base       Patch1        Patch1+2
+>   size        time    time speedup    time speedup
+>   64MB        5.59    1.58   3.54x    1.49   3.76x
+>   128MB      11.86    3.16   3.75x    2.95   4.02x
+>   192MB      17.18    4.72   3.64x    4.45   3.86x
+>   256MB      22.89    6.29   3.64x    5.87   3.90x
+>   512MB      45.15   12.52   3.61x   11.64   3.88x
+>   1024MB     89.16   24.75   3.60x   23.12   3.86x
+>
+> x86 (Intel Core i7-14700HX, P-cores locked at 2.1GHz with turbo off),
+> single process munmap:
+>
+>   times in ms, speedups over base
+>               Base       Patch1         Patch1+2
+>   size        time    time speedup    time speedup
+>   64MB        2.87    1.50   1.92x    1.14   2.53x
+>   128MB       6.00    2.93   2.05x    2.21   2.71x
+>   192MB       9.33    4.35   2.15x    3.33   2.80x
+>   256MB      12.51    5.78   2.17x    4.38   2.85x
+>   512MB      24.96   11.39   2.19x    8.62   2.90x
+>   1024MB     50.19   22.78   2.20x   17.05   2.94x
+>
+> 1-4 process munmap of 256MB each:
+>
+>   times in ms, speedups over base
+>               Base       Patch1        Patch1+2
+>   mode        time    time speedup   time speedup
+>   1p         13.18    5.78   2.28x   4.35   3.03x
+>   2p         25.83   14.41   1.79x   4.57   5.65x
+>   3p         35.70   22.14   1.61x   4.68   7.63x
+>   4p         44.25   28.71   1.54x   4.75   9.31x
 
-Then maybe the advice should be changed to "upgrading to a more recent BIOS
-version might help" instead of being dropped entirely.
+The numbers look nice, but I think it's a given that if we measure the
+process whose work is offloaded, we'll see a speedup.
 
-Guenter
+But would this come at a cost?
 
+1. Would memory freeing be slowed down? Could you compare the host
+memory usage over this period of time etc.? Hopefully the parallelism
+would cancel out the extra overhead of setting up the work offloading.
 
->   Documentation/hwmon/asus_wmi_sensors.rst | 4 +---
->   1 file changed, 1 insertion(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/hwmon/asus_wmi_sensors.rst b/Documentation/hwmon/asus_wmi_sensors.rst
-> index 8f2096c..f6fa66f 100644
-> --- a/Documentation/hwmon/asus_wmi_sensors.rst
-> +++ b/Documentation/hwmon/asus_wmi_sensors.rst
-> @@ -72,7 +72,5 @@ Known Issues:
->      X470 Pro seems particularly bad for this. The more frequently the WMI
->      interface is polled the greater the potential for this to happen. Until you
->      have subjected your computer to an extended soak test while polling the
-> -   sensors frequently, don't leave you computer unattended. Upgrading to new
-> -   BIOS version with method version greater than or equal to two should
-> -   rectify the issue.
-> +   sensors frequently, don't leave your computer unattended.
->    * A few boards report 12v voltages to be ~10v.
+2. Would this introduce isolation issues, especially when this work is
+not properly accounted? Say you have a busy-ish host, with multiple
+tenants. One of them is killed. With this new mechanism, would this
+affect the performance of other tenants? (for e.g if we need more
+cycles for the async overhead, or if memory is released slower overall
+as stated above, etc.)
 
+Some more benchmarking to show this would be nice!
+
+Another thing I wonder is, how much of this slowed down is because of
+zsmalloc's own inefficiency, and how much is because we just have a
+larger logical footprint because compressing memory allows us to
+allocate more. If it's the former, we should dedicate more time
+towards improving zsmalloc. If it's the latter (or if fixing zsmalloc
+is just not possible) then yeah maybe parallelism/work offloading is
+the answer. An interesting setup would be, turning of zsmalloc, but
+allocate just as much memory (logically-speaking), then kill the
+process and sees if you observe the same slow down.
