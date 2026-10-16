@@ -1,215 +1,456 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010028.outbound.protection.outlook.com [52.101.85.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71E53BB12D
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:48:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792133288; cv=none; b=dOi1IMWI68GHkRkToVxsNtLmQ6nxxBs/B714v5g4fp0i11rncOklGaVpzVY4AymEzfNfbTP6aY8QPyvZj6ymdy3rVIg//B+/26MhDjl3Wt77PSwL6RTSWDSZj0hYjGZjBtXytmyUfw34A5pBHy26tF4POz7xBrSJGNI79DACwmY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648CB331EBE;
+	Fri, 16 Oct 2026 06:47:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792133288; cv=fail; b=FmwIn9FuCSMcABwvyLHdr0vgqhfePpUH2J0kSDWZq5DHFVkMemN0qateNiuZJAsPIJKWhflEQYD2vjhNuvHRb+9QhZbgPWOpVF0uk900vX1OrwzVwP84Do5aZcM7yiPKEZSBcZ/8LxxBxL2iRi3yHTduG3N2Stc3Z1rWw3ONifo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792133288; c=relaxed/simple;
-	bh=ArpyCUcdXnNRQly4XkQ4s9u69ZZAMn3+U1oycCt3GcU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hogBEGhXVSQlES00HiJveITSrzPegtvGrGG7AYRxp7y6co4TQ837K4DXfDV1YZnIAG/fRfCB/JMzObY5Y43u83mHB7+E7AGqlVQ2BdOJTQ2B1iQgqAnmomly3Dw7rE8zeGpoal8NA1+UyMR/i1NXO+Ech6XlAcPPW91aO/JmaAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aMaUenMM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=W3lXHios; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	bh=xdmtkWCsWgiM7m8ktaEGq0tS5zjmvXbhtMiKnkhI5wE=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=GCJIqV39A47AfBDqZMDv97YZXfoBhw0R28KaulEKU2wxaNPcropjLMxC0iqBM8oOfQGWz8g57lrrecvkm55lRnymNC5lnAFtov6C8r3K3EVxYLSO0GA+Y8Fqut/PX5orviCvES+e7ONAHjjOJyv09eMQmpknERSgTJDjoW+nk5E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=IpBRiJRH; arc=fail smtp.client-ip=52.101.85.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aMaUenMM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W3lXHios"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G44IYt3462832
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:47:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Pz0Akbts6DsXYURHmG6DvfbIIYwLAa3UJO6NTzI6f+0=; b=aMaUenMM0yE9Z8GD
-	VSilD5dwzySdYN3/WbxhBBK0m8yHCTstbeuzdIElOU7fuLHS63bM4BIXsZrnY7+3
-	aohuNchyVOgWW4shZu2qa6BXe6LV0kSem9A5Lc9yswyBmeJ6nOxDa9Shsne6D/JN
-	X+iGQNoqKzSTIxGf7xVeI5GoAvSdiGnDlj01PNm3AiNa7P4ajFY2EyQ44xkUOguy
-	7rbOL5B1z6aYL0Vd72qrMbwJdlKAyfKxnf7EPLRhkp20fXXEG51g2mEiqQARLbyv
-	NYBtWhWZhg6S4388hHAhUeCZlzu/YTHkf/pAI0lMJyv03Uaq4/GHZY/JNToq2zep
-	f/lOlg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hayu6bjkk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:47:59 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ab868fe362so8205709a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:47:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792133278; x=1792738078; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pz0Akbts6DsXYURHmG6DvfbIIYwLAa3UJO6NTzI6f+0=;
-        b=W3lXHiosbgUJh9nEiqBuCdR9tz5iX4WNdv/lQBp/zhytqZeADlTOHFqNZDbYq18Wza
-         j+OLoVAITyRzBGUI3Udriv0C2n8SIgzRmdApCc6gC9a3tzgY84YUP7yc9ddSfWfEJRLL
-         dnW0TH+nTsUX+HZ05e7+Ze5vRvkqRnXgvWuEuVXljjZ7388uC8I9cu1h7UUrFk438Sgo
-         kpNRieHXycEtUclmjbYpnVTmy3aOy5pB3YBrbTyDYD03YEWDJ+fi0aZVpJs4Ov4f6Kfn
-         uL1oeOo0kcmG/lNQJIkCuYbIUx3kPmiCu/vaXlIPwYuqCyxlvPEkPZW7RnKjRcz+aY3Y
-         UD9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792133278; x=1792738078;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Pz0Akbts6DsXYURHmG6DvfbIIYwLAa3UJO6NTzI6f+0=;
-        b=c7fVHMBiWQrZaFVn1dm6ATpLHF8k2R2os8fjdlJ14u1b01S97YuGwApOTtiJXhMk5t
-         IH1h9Lw4qBmyh+HvxbRa6tLvuRaH71Xl1EUtcy5ykQDOks6MxHLFF2uOzWPymwQIPeW8
-         Hjpcr+BJDMHKXOvsuKnzn61D877ijGDrZd31Mv8/orcS2S646gseDsSUoxQTm/wyrPAs
-         kSeVMNcfcSCZli8THaMwfHsGoMWrBloxL1dt/JnLZ6RQNwzqx072tOXLLXB2i5lgUIln
-         89YvRseoRRuQ2iWeVaVbpWc8uBUG7zMC9w9/p4EOVGzmD0tK7KOIc//zGRpA577I8jFG
-         x4TA==
-X-Forwarded-Encrypted: i=1; AKwUvByn1W/elioSyDZ5itavUHOfYLDUDbeT/ZQZo+31yqr3I9/18WuH7oPONMc5+d3sApaxJCeCmqIgy5tLJU4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzDsaR2trh8AD5y5hVERvBifveA22OGab6Ve66aPFhBj0Xhp00
-	pw11WAYg9kyhmbwU8lDr0emErpCNuJs5QdMRqxIrGSDNvYTnkSAWqdiYxe9NkuCf3zoWs3LcPOU
-	cheCvDu5kDHNX4hK4H+16pErKM3uny+0zyx1GY1oJZ895OH6nP7GVIfZF5SM/tpZRVBU=
-X-Gm-Gg: AYBFou2/pZS+/LOvrhh5xOunQOUB+6aaIMEMUw/rHST6pfIYy9wO+G0dj7iwWremaKM
-	ZHXynI3Ayii95e30n9DNsmhJok1tkohkyez+qe+sGVH/XhjhVk5J4W93OguY6V1A8uWSdbCqzXq
-	vyGyxxgiUQNWboOTdEIzc1v7/g1++SUpLz57udiiYciBDW5TFy/9hS+0ycQUl4dARBIQ35YqrVn
-	RqfkBvWgwKY1b9O+tyCbDgV2dLfR5K6TLUeqAH8hsFbwDvHRCwggQgg3KR4Dh9RoPZpfKxK464V
-	gq6nwQHji1zEHCKXNrAINHAzIrGP+Y2v/7EWlRUSo6yPwvTUtnLXYCWjJg3QuWWmgbREok+qS0o
-	wkiqs7eOHne8XQwucJif/K51SLK8=
-X-Received: by 2002:a17:90b:4d0f:b0:3ac:97e3:73a3 with SMTP id 98e67ed59e1d1-3ac97e3ca4bmr4148852a91.6.1792133278241;
-        Thu, 15 Oct 2026 23:47:58 -0700 (PDT)
-X-Received: by 2002:a17:90b:4d0f:b0:3ac:97e3:73a3 with SMTP id 98e67ed59e1d1-3ac97e3ca4bmr4148830a91.6.1792133277770;
-        Thu, 15 Oct 2026 23:47:57 -0700 (PDT)
-Received: from [10.218.18.193] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc487e509sm2669257a91.9.2026.10.15.23.47.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 23:47:57 -0700 (PDT)
-Message-ID: <b907dea8-d2eb-4237-b316-6d96c81a5b33@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 12:17:50 +0530
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="IpBRiJRH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LzIRn/i5a3Uefo5kTuL/N+hbT9RSvugAk5GmjfGmbDmM1hdgo/KjQ1TPw7pm8cXPuY23GZMJpVtzIHZgzHH/EFKZyOnTI73DbvKS+3CRyuSyv9f3MGm6cMNaG68RoTtxoeEbUVqyg1Bb23BWyPDqrOfXNbJY6FVtLlFACgmA4gS37FJEMIGihpUEdci470VDxiXn95r29chcuuSwvrgz/VeuSNupdsaR7j9Xi7TIcgGp4bq/OwAW+EgUNkeRia0r0HpQtApDZAv90+W2CfcCBkX70xlufjDpPPT35xNWERN//cKvLWTZp8tpNMour9sRnj1FvaGyMZGBui4BtgUPIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dhd7n89MMwo4gqI/25h4f8Tzw7JJGGhGtkUt6AgwmTY=;
+ b=oadmQ30b7WTjFG2Tfklxjzh91NUVjZb1H/cJvaCfutJcKLzNpA21FF88cQ2kBwu4LS7gf3UgNzC58wyHFVA2al+bEy5IAq9Ccs194xgqAxOUipITHwzE925GyDPHxodVVx4q4uCYxwzVYazkjNq6TucvJeytwm2Rt2xn+wCKWUcATRztsYi/9Ag2UDhqqSXAyvUp/ATo7NUON6ywp34uUSzcZ040jfP0LfWkEKYoskIKQXvNiyH7rwNoP3ka0HMv6RtbsbZA7AIfLkhWtgiFm+wU9KP5ZWMB0mimJzSjag897KiSO+H7Qlb1o4vAHm9rt13XG4xnOlSUlcFi/fDRAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dhd7n89MMwo4gqI/25h4f8Tzw7JJGGhGtkUt6AgwmTY=;
+ b=IpBRiJRHh/PSPDYiiGHjfU83/JWkmB5x3RlvGCbA7PHpaTyfjQeHGizFFZcmyX6zmJWoQWEl0OTxT39PWvTtTgldTnyB3Gg57Zdmr5Ud1Epnjx49WUBamnfSvRgH61bZMRQeo7JAvukfXU79mUrVl2Lhwqa870vzVarCQNLRlBZEsCDCHQYQhjIF7Q1rsDDbrWmTLSG1MKkaHUJQWC/0rbqszMt4e91VEyLWJ7fYNtMAPVa0IkS0GtZ3/GMAlEt0TNfefyCmq8OYqWfXBpek8RSfAwbSBnk8LEn0rUjdcSF2EBhLbcyYT8F8YN4bSizLJIUAibtaJqmRga/64NTKDw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by DS7PR12MB6021.namprd12.prod.outlook.com (2603:10b6:8:87::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.15; Fri, 16 Oct 2026 06:47:39 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
+ 06:47:39 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+Date: Fri, 16 Oct 2026 15:46:50 +0900
+Subject: [PATCH v2 04/11] ARM: dma-mapping: Implement and expose DMA setup
+ functions
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-b4-arm32-iommu-dma-cookie-v2-4-b06842a01938@nvidia.com>
+References: <20261016-b4-arm32-iommu-dma-cookie-v2-0-b06842a01938@nvidia.com>
+In-Reply-To: <20261016-b4-arm32-iommu-dma-cookie-v2-0-b06842a01938@nvidia.com>
+To: Robin Murphy <robin.murphy@arm.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>, 
+ Krishna Reddy <vdumpa@nvidia.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Yong Wu <yong.wu@mediatek.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, iommu@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
+X-Mailer: b4 0.16-dev
+X-ClientProxiedBy: TYCP286CA0184.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:382::7) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/4] ASoC: dt-bindings: qcom,pm4125-codec: Add the MBHC
- jack properties
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Alexey Klimov <alexey.klimov@linaro.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        ajay.nandam@oss.qualcomm.com, ajay.nandam@oss.qualcomm.com
-References: <20261015-pm4125_mbhc_support-v1-0-8bc1212db6f7@oss.qualcomm.com>
- <20261015-pm4125_mbhc_support-v1-1-8bc1212db6f7@oss.qualcomm.com>
-Content-Language: en-US
-From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-In-Reply-To: <20261015-pm4125_mbhc_support-v1-1-8bc1212db6f7@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: NlWeOceDK9c9wvUvVuHQkKl3X4IctT5M
-X-Authority-Analysis: v=2.4 cv=ff04WEQF c=1 sm=1 tr=0 ts=6ad1c89f cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=xz_OTyItpRnlL1KGmssA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: NlWeOceDK9c9wvUvVuHQkKl3X4IctT5M
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAyNiBTYWx0ZWRfXwkIDyUpUBmyH
- bPrMuTAWgLL8QDuB0MeGXfdbk2d/EVqjQcvdj1/niN364waD0Muu4fIVcLTFmYTi4t4vhJJhjed
- //3OcAPw92ihWcchkBt1i26U6AlUPLZCuheG3eSzyiDBc3Ald1i/2Zyk9Bz8gLH+VaAs+05kwMS
- MoskFF9oU72pYS8ci6xmgguTDbJlsWYNkTIdVeHUbidhISJLVr1fhF7vrYBKGuB71wscZmN5QwR
- meGH0qJ+yBH4quF8C4l4s8bbF6F5v6vRcYnIEi+KIIak5IzR6kN7ZYMO9EQLy5b1hVbmabciJv9
- k+svgK2tsRQ9o7PhAjy3eBg7H6qoG0ILkNqqz9cWS2GAAeAsszcI649KHFRkr+RPsemXb0ghHz8
- gWpGXzVbcHdBWItPRtz549ppc2nl2I+zuVjrZ7tE/oLXspHB853lr6XxD4mYjPiCfe2NltwA7XQ
- SglOEBelCl/De2RUFNQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAyNiBTYWx0ZWRfX47SgX4SNpufP
- 1iHsrkx2BdJ6McTHxPTKQklyGx5yPLViy4wudLfqpI8DVyxk3uyVnFxBXiUgAohzu6/74FOQr5A
- XJva9chC5//apLd5MBKQl1XAqX5GHOo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0 spamscore=0
- phishscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160026
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS7PR12MB6021:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac48d3ce-5914-4918-9338-08df2b515ef2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|56012099006|6133799003|10067099003|22082099003|11063799006|921020|18002099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	myDxq3DcSR7f+Y6h2wtj87IIEY25mFRnOztqtRwK12UIl6Z3KFW9910V1shI9OZr+dswQ2Yvhj7Pt9SgYcFcn/tV/INf/dHIx+z3Jw3B7xnDluqGSc8FnhGCtYZYinPsdEdCpZvs4CNrmhQ8In9tWpq2E+1f8vGckVqB4+uEnk1ZOkv7JdYCZy8W6pNzcWBMBZAvW1riOKK5iyw3ZF9Fqh1LHg5Rd8VvnifZ7L8jsOTcBR85/bkGlfZSJQesG6jmVagmTfPEq7r35ceWVQEEgrWNei1cuRHykrNMuUUJkgPRPAH+AmGkJfdIWYAeIqg9aP7hhJjjoNrif0qQPnpbCa1SM3xRDeMbmbxlIAqpAr5ptaNG9i5d3S7CoTfq51RIQlEp7DVLUxVQGP5dQnKjH3ykY5jw43Keu/jg1NhUNiBJIHjRR043v6K6AA/mrTjPy9AvsCmeccjfGkEV4RO51laMbRWRI+hHL+MZkFJ9FMsCMtG4scj00ZHnBeP/xMNmhLLN6XyXdy5D7qCnnZug59AsuFv4GbH63RarjOCzJPwE3eo6R7dO/uBHYKAUBuYEUzScq4Bh8vO7mopHiDe5joupAu04sg0gCcyJV+KFZbS2M7pYd04v66c+YuXHI1RTAo5Mb0DcJ9S+WW6Z4z5fh6Gc33CEBpIuqiYHeXhdGN0oGTJTA9X/hWz6AamJwTwyNV+CXsgNIwj0//qHkNZR5w==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(56012099006)(6133799003)(10067099003)(22082099003)(11063799006)(921020)(18002099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eGdlVHJOSVpWVGdkdXFjcGJLYllmd0FRd2R1WGM3dUpYT1QxQXVIeFU3c2c3?=
+ =?utf-8?B?WXJKQXpHL08vYXh5UTVNaUp1MjJUNXZZYzQ5YlEzMWdqaEJOS2JJbDRTT3lS?=
+ =?utf-8?B?QkJKQnJEMWlVTVJRUlJsS2N1NDRsdFR6SDBzdXJLR3JFaGQvaDNraDJ1NDdw?=
+ =?utf-8?B?Y3VKVHYvNVhhZmVOL1FpM3JPQ0xENndBaGdTU29CbjFHRmhQcEZ6S3d4RGlI?=
+ =?utf-8?B?YnEwa2dLc0pQWmFVWGNLS1dZdTg0dHNLQS9mamp3TTRGaFNSYmczRjRsclo4?=
+ =?utf-8?B?Tm9pMXZqbng3cGdaTmtONkdodkZsMm40Qmc3VHdaYWVxTnhHRUtSMWdqOXdL?=
+ =?utf-8?B?YlI5b3V1eERWVXNKMDc1KzBzNVVMRktEbGpXVk1PS2F0eHBBRmpsR25vdk94?=
+ =?utf-8?B?Y3dwTTVEaGp2dERSVXVWRnVzY2doUnRHNDhqUHB1Um5BT0s3YmhPRzhQM0Rs?=
+ =?utf-8?B?V2FuU0hjVUdtY3hDT1R3cjF5REs3Ui9jL3pTZVZoc2ZnamxJRHBzVmNqd2F2?=
+ =?utf-8?B?L29JYUhEOSs3eDMyVDFZT2xlOGJYaml2OUd2ZnZYQkJQWFgyTkc0eld0UjhE?=
+ =?utf-8?B?TDhEcnAydUNkVmZkVUJpS2xxaVh3SkYrQzlFQmhKVXUrYzlybGdMYllBTElu?=
+ =?utf-8?B?amVNUVhQak9pcjA1MTNzd29SamdIeVBVVDNCUS9aQ3o5ZkVTeU9DYUIrWGM1?=
+ =?utf-8?B?UGpYRTZZckRtSURKTjErdHBsL1FsSTZqVlR3NUVKTHZoM1F3ZFpraXpFZ2Zu?=
+ =?utf-8?B?SHJCcXd2bldJd0tLS2tkcnBCN2UyU1I2aDZsK05iZzBIdkM0M2s0cDFjQmxk?=
+ =?utf-8?B?WFNicThqcUJndzZ3bWtFT1FqSDgzUjNaL0d6RnQzL0hvdmZrZ2YvUWtyYXE2?=
+ =?utf-8?B?UjJTMGlOTktmejBhVkZxb3FzUXIyRGJSZXA2Z1poTW5NZnZXczl6eVFTeUx3?=
+ =?utf-8?B?TXpmTkc3OVFIZzlrZDRYdWVrcE5GMzVGNjc5YnROV3N4bjFWcERheStLM1VB?=
+ =?utf-8?B?WVlKODY4Wkh6UURONXU1aFN6QjhmT294Z3oxU3dXSmZvOERlNUdnYnM1ZXd5?=
+ =?utf-8?B?cFVyemFSSUZNaUZ4UjFsSGZZbVJQVGUvVm9nQmZXOE5LSm1WNEtsQXlMclhj?=
+ =?utf-8?B?SnR6WW5TbmJDM3cxU3pRWlljbW1VdGZFOVhTUkJZZE9WeHVPNTRlRVhMajVB?=
+ =?utf-8?B?OFFJTW95cG41ZTN4Z1hlNnR5NzNERlgrL29LOExSa2NpUTB1WEN5emxyTnY0?=
+ =?utf-8?B?dnlHSWVTREZQaTFaQ0lRdERIUVcyVkF4WkIxZ254RndmWkRxQ3lMZnA3Ty8r?=
+ =?utf-8?B?LzBsKzVaT256U3dFSDQ2aFlncWIreEVDdjFMcVBkM1MzMW9LMmtvQWJLVlc1?=
+ =?utf-8?B?SzNQSE9XQ3dpNk5yV016MEtDYlNlM1JvZks1V2IxTTFSb1prMGEvWmFHMVZi?=
+ =?utf-8?B?MXMrSGtHY09FWnJnV2ROU2grelhWSjZiSGs1bXVtVWdHL0VVc1VGWUNTNlVE?=
+ =?utf-8?B?QzA3cVhFcmlmS1pKUDdhNzcwVHRhMnMvaW1QbFpGaWRGaXFDVm5EMy9SbWdC?=
+ =?utf-8?B?cDUvQXBiejZSR2VmMXMzQ0RFeUhzWTJoazJkanl0MGxpZkJJRGtZODR1ZTFH?=
+ =?utf-8?B?c0UrVU52eXZJK3dRTmFxN1lwUjVkc3gzaTF4VUxrSDRwcmNrNlBsVU1WcjRI?=
+ =?utf-8?B?WUlOeklFdDMrVGZId2xKNzRBREUyd2UrS2FIZHJ1K2tqMDVoYU5YUW5GNEVR?=
+ =?utf-8?B?ZXloaG1VNFdwbDVVZldaYm1zaGI0Tnc1R3VlbWp6djVPL1MraDZlR2hLY2lP?=
+ =?utf-8?B?dHp5cmJUeWtkQkp3Ymk3UFlubkc3WkxLT0hObXk5S29HeDJjOUlsVm1TV0V4?=
+ =?utf-8?B?eThEZG5xbURIaUNjdEQ0eEVsOHdobkxoMlZWbjlxeXZtaStyM0tuT3RIV2hF?=
+ =?utf-8?B?T1poQ0pPT29JVWNMVmtjV0dwaXZONkJDeTl1QkxkR0d0QVlCSWsrN2xkTHpv?=
+ =?utf-8?B?dXRIMVcydWxybWp2czYxcmRVYmdwRVdrSDlPcDd6d2pudlFQUGt6UUxrWHF5?=
+ =?utf-8?B?N0xQdUNBeUxrdG90NG1VMVlsNUVubHRMNFVoUGtlTlpMbi9HQU9uTG9Sem1s?=
+ =?utf-8?B?RjFDSXdsUUszdHJmSnRHdTBEUnBkalRoeU9PNzJqclBzTVVCMXErdDdSTlov?=
+ =?utf-8?B?SDk3dFlkMi91V0hieFF5SUNpSHF5RWpyRmpVaFhZQm1SazJFMWoybEhta296?=
+ =?utf-8?B?aXpqdjhzSDcvM0k4MlllMktQUnFNaG4zdCs5TEczV2ZVaWk2S0JCOVIxS0w1?=
+ =?utf-8?B?VWZBUkp3MFFtbStoeW1SRENZNlp5dUVPb3RySVhJT3A0N0RpZUVNUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac48d3ce-5914-4918-9338-08df2b515ef2
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 06:47:39.6151
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HAyz4767llyjQWNYBIwsiYbRPdYAPG1F9W0nDOfFt8HQtNTitoyswY/pM8FszIoRxqj5q4aALpySK6GCOlv68Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6021
 
+ARM DMA domains are currently allocated by the ARM DMA code, with struct
+dma_iommu_mapping owning the domain and the IOVA bookkeeping. To allow
+the IOMMU core to own DMA domains as is the case with other
+architectures, we have to allow that code to allocate the domain and get
+the cookie from the ARM DMA code.
 
+Implement ARM versions of iommu_get/put_dma_cookie that create a struct
+dma_iommu_mapping that doesn't have its own domain, as well as
+iommu_setup/teardown_dma_ops that set the device's archdata.mapping,
+allowing ARM DMA ops to seamlessly work on these devices.
 
-On 10/15/2026 7:43 PM, Mohammad Rafi Shaik wrote:
-> The binding already describes qcom,mbhc-buttons-vthreshold-microvolt,
-> but not the rest of the data the MBHC block needs to detect a 3.5mm
-> jack, even though wcd_dt_parse_mbhc_data() reads all of it from the
-> codec node and the schema has unevaluatedProperties set to false. A
-> board that describes its jack is therefore rejected by the schema.
-> 
-> Document the remaining four properties, matching the descriptions used
-> for the same properties in qcom,wcd93xx-common.yaml:
-> 
->   - qcom,hphl-jack-type-normally-closed and
->     qcom,ground-jack-type-normally-closed describe the board's jack
->     switches. The MBHC logic has to know the idle state of the HPHL and
->     ground switches to tell an insertion from a removal.
->   - qcom,mbhc-headset-vthreshold-microvolt and
->     qcom,mbhc-headphone-vthreshold-microvolt are the ADC thresholds that
->     separate a headset from a headphone and a headphone from a floating
->     jack. They are board specific because they depend on the jack
->     wiring and on the microphone bias voltage they are measured against.
-> 
-> All four stay optional, as they are for the wcd93xx codecs: the driver
-> derives the thresholds from the microphone bias voltage when they are
-> absent and assumes normally open switches, so existing device trees
-> keep working unchanged.
-> 
-> Assisted-by: Claude Opus 5
-> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-> ---
->   .../devicetree/bindings/sound/qcom,pm4125-codec.yaml   | 18 ++++++++++++++++++
->   1 file changed, 18 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,pm4125-codec.yaml b/Documentation/devicetree/bindings/sound/qcom,pm4125-codec.yaml
-> index 6e2f103be..54e5b7607 100644
-> --- a/Documentation/devicetree/bindings/sound/qcom,pm4125-codec.yaml
-> +++ b/Documentation/devicetree/bindings/sound/qcom,pm4125-codec.yaml
-> @@ -64,6 +64,24 @@ properties:
->       minimum: 1800000
->       maximum: 2850000
->   
-> +  qcom,hphl-jack-type-normally-closed:
-> +    description: Indicates that HPHL jack switch type is normally closed
-> +    type: boolean
-> +
-> +  qcom,ground-jack-type-normally-closed:
-> +    description: Indicates that Headset Ground switch type is normally closed
-> +    type: boolean
-> +
-> +  qcom,mbhc-headset-vthreshold-microvolt:
-> +    description: Voltage threshold value for headset detection
-> +    minimum: 0
-> +    maximum: 2850000
-> +
-> +  qcom,mbhc-headphone-vthreshold-microvolt:
-> +    description: Voltage threshold value for headphone detection
-> +    minimum: 0
-> +    maximum: 2850000
-> +
->     qcom,mbhc-buttons-vthreshold-microvolt:
->       description:
->         Array of 8 Voltage threshold values corresponding to headset
+The code is protected by CONFIG_ARM_DMA_USE_IOMMU and mutually exclusive
+with the same-named functions in the dma-iommu code; and not reachable
+yet.
 
-The binding documents 8 button thresholds, but looking at the PM4125
-register definitions I only see threshold registers for BTN0 through 
-BTN4. The following registers are MICB2_RAMP, MBHC_CTL_1 and MBHC_CTL_2.
+Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+---
+ arch/arm/include/asm/dma-iommu.h |  17 ++++++
+ arch/arm/mm/dma-mapping.c        | 118 ++++++++++++++++++++++++++++++++++-----
+ drivers/iommu/dma-iommu.h        |  50 +++++++++++------
+ 3 files changed, 154 insertions(+), 31 deletions(-)
 
-Am I missing how thresholds for buttons 5-7 are programmed here, or 
-should PM4125 only expose 5 button thresholds?
+diff --git a/arch/arm/include/asm/dma-iommu.h b/arch/arm/include/asm/dma-iommu.h
+index 2ce4c5683e6d..85cf9b05faab 100644
+--- a/arch/arm/include/asm/dma-iommu.h
++++ b/arch/arm/include/asm/dma-iommu.h
+@@ -19,6 +19,14 @@ struct dma_iommu_mapping {
+ 	size_t			bits;		/* per bitmap */
+ 	dma_addr_t		base;
+ 
++	/*
++	 * Set for mappings created by arm_iommu_create_mapping(), where
++	 * @domain is owned by the mapping.
++	 * Clear for mappings that are a cookie of a domain owned by the IOMMU
++	 * core.
++	 */
++	bool			owns_domain;
++
+ 	spinlock_t		lock;
+ 	struct kref		kref;
+ };
+@@ -32,5 +40,14 @@ int arm_iommu_attach_device(struct device *dev,
+ 					struct dma_iommu_mapping *mapping);
+ void arm_iommu_detach_device(struct device *dev);
+ 
++#ifdef CONFIG_ARM_DMA_USE_IOMMU
++struct iommu_domain;
++
++void iommu_setup_dma_ops(struct device *dev, struct iommu_domain *domain);
++void iommu_teardown_dma_ops(struct device *dev);
++int iommu_get_dma_cookie(struct iommu_domain *domain);
++void iommu_put_dma_cookie(struct iommu_domain *domain);
++#endif
++
+ #endif /* __KERNEL__ */
+ #endif
+diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
+index 4284950a9246..f2d3e8ec3487 100644
+--- a/arch/arm/mm/dma-mapping.c
++++ b/arch/arm/mm/dma-mapping.c
+@@ -1531,6 +1531,79 @@ static void __arm_iommu_free_mapping(struct dma_iommu_mapping *mapping)
+ 	kfree(mapping);
+ }
+ 
++static int __arm_iommu_init_cookie(struct iommu_domain *domain,
++				   dma_addr_t base, u64 size)
++{
++	struct dma_iommu_mapping *mapping;
++
++	if (domain->cookie_type != IOMMU_COOKIE_NONE)
++		return -EEXIST;
++
++	mapping = __arm_iommu_alloc_mapping(base, size);
++	if (IS_ERR(mapping))
++		return PTR_ERR(mapping);
++
++	mapping->domain = domain;
++	domain->cookie_type = IOMMU_COOKIE_ARM_DMA;
++	domain->arm_cookie = mapping;
++
++	return 0;
++}
++
++/**
++ * iommu_get_dma_cookie - Set up a domain cookie for ARM IOMMU-based DMA API
++ * @domain: IOMMU_DOMAIN_DMA domain being configured
++ *
++ * Allocates IOVA bookkeeping for the domain based on the domain's specified
++ * geometry. The aperture can currently be at most 4GB in size, otherwise
++ * fails with -ERANGE.
++ */
++int iommu_get_dma_cookie(struct iommu_domain *domain)
++{
++	dma_addr_t base = domain->geometry.aperture_start;
++	u64 size;
++
++	if (base > domain->geometry.aperture_end)
++		return -EINVAL;
++
++	size = (u64)domain->geometry.aperture_end - base + 1;
++
++	return __arm_iommu_init_cookie(domain, base, size);
++}
++
++/**
++ * iommu_put_dma_cookie - Free domain cookie for ARM IOMMU-based DMA API
++ * @domain: the domain being freed
++ */
++void iommu_put_dma_cookie(struct iommu_domain *domain)
++{
++	__arm_iommu_free_mapping(domain->arm_cookie);
++}
++
++/**
++ * iommu_setup_dma_ops - Record a device's DMA API domain cookie
++ * @dev: the device
++ * @domain: the group's new default domain
++ *
++ * Records the cookie of @domain on @dev, or clears it if @domain is not a DMA
++ * API domain. The DMA ops themselves are per driver binding and are installed
++ * by arch_setup_dma_ops().
++ */
++void iommu_setup_dma_ops(struct device *dev, struct iommu_domain *domain)
++{
++	to_dma_iommu_mapping(dev) = iommu_is_dma_domain(domain) ?
++				    domain->arm_cookie : NULL;
++}
++
++/**
++ * iommu_teardown_dma_ops - Clear a device's DMA API domain cookie
++ * @dev: the device
++ */
++void iommu_teardown_dma_ops(struct device *dev)
++{
++	to_dma_iommu_mapping(dev) = NULL;
++}
++
+ /**
+  * arm_iommu_create_mapping
+  * @dev: pointer to the client device (for IOMMU calls)
+@@ -1541,28 +1614,32 @@ static void __arm_iommu_free_mapping(struct dma_iommu_mapping *mapping)
+  * IO address ranges, which is required to perform memory allocation and
+  * mapping with IOMMU aware functions.
+  *
++ * Unlike a default domain set up by the IOMMU core, the returned mapping owns
++ * the domain it describes and releases it along with the last reference.
++ *
+  * The client device need to be attached to the mapping with
+  * arm_iommu_attach_device function.
+  */
+ struct dma_iommu_mapping *
+ arm_iommu_create_mapping(struct device *dev, dma_addr_t base, u64 size)
+ {
+-	struct dma_iommu_mapping *mapping;
+-
+-	mapping = __arm_iommu_alloc_mapping(base, size);
+-	if (IS_ERR(mapping))
+-		return mapping;
++	struct iommu_domain *domain;
++	int err;
+ 
+-	mapping->domain = iommu_paging_domain_alloc(dev);
+-	if (IS_ERR(mapping->domain)) {
+-		int err = PTR_ERR(mapping->domain);
++	domain = iommu_paging_domain_alloc(dev);
++	if (IS_ERR(domain))
++		return ERR_CAST(domain);
+ 
+-		__arm_iommu_free_mapping(mapping);
++	err = __arm_iommu_init_cookie(domain, base, size);
++	if (err) {
++		iommu_domain_free(domain);
+ 		return ERR_PTR(err);
+ 	}
+ 
+-	kref_init(&mapping->kref);
+-	return mapping;
++	domain->arm_cookie->owns_domain = true;
++	kref_init(&domain->arm_cookie->kref);
++
++	return domain->arm_cookie;
+ }
+ EXPORT_SYMBOL_GPL(arm_iommu_create_mapping);
+ 
+@@ -1571,8 +1648,8 @@ static void release_iommu_mapping(struct kref *kref)
+ 	struct dma_iommu_mapping *mapping =
+ 		container_of(kref, struct dma_iommu_mapping, kref);
+ 
++	/* Frees mapping too, via iommu_put_dma_cookie(). */
+ 	iommu_domain_free(mapping->domain);
+-	__arm_iommu_free_mapping(mapping);
+ }
+ 
+ static int extend_iommu_mapping(struct dma_iommu_mapping *mapping)
+@@ -1595,8 +1672,13 @@ static int extend_iommu_mapping(struct dma_iommu_mapping *mapping)
+ 
+ void arm_iommu_release_mapping(struct dma_iommu_mapping *mapping)
+ {
+-	if (mapping)
+-		kref_put(&mapping->kref, release_iommu_mapping);
++	if (!mapping)
++		return;
++
++	if (WARN_ON(!mapping->owns_domain))
++		return;
++
++	kref_put(&mapping->kref, release_iommu_mapping);
+ }
+ EXPORT_SYMBOL_GPL(arm_iommu_release_mapping);
+ 
+@@ -1660,6 +1742,14 @@ void arm_iommu_detach_device(struct device *dev)
+ 		return;
+ 	}
+ 
++	/*
++	 * This pairs with arm_iommu_attach_device() on a driver-owned mapping.
++	 * A mapping which is merely the cookie of a core-owned default domain
++	 * must not be torn down from here.
++	 */
++	if (WARN_ON(!mapping->owns_domain))
++		return;
++
+ 	iommu_detach_device(mapping->domain, dev);
+ 	kref_put(&mapping->kref, release_iommu_mapping);
+ 	to_dma_iommu_mapping(dev) = NULL;
+diff --git a/drivers/iommu/dma-iommu.h b/drivers/iommu/dma-iommu.h
+index 349d6a57e5a0..71b23cb698c0 100644
+--- a/drivers/iommu/dma-iommu.h
++++ b/drivers/iommu/dma-iommu.h
+@@ -7,25 +7,24 @@
+ 
+ #include <linux/iommu.h>
+ 
+-#ifdef CONFIG_IOMMU_DMA
++/*
++ * Both dma-iommu.c and arch/arm/mm/dma-mapping.c implement functions to set up
++ * IOMMU_DOMAIN_DMA default domains. Only one provider can be compiled in at a
++ * time.
++ */
++#if defined(CONFIG_ARM_DMA_USE_IOMMU)
++
++#include <asm/dma-iommu.h>
++
++#elif defined(CONFIG_IOMMU_DMA)
+ 
+ void iommu_setup_dma_ops(struct device *dev, struct iommu_domain *domain);
+ void iommu_teardown_dma_ops(struct device *dev);
+ 
+ int iommu_get_dma_cookie(struct iommu_domain *domain);
+ void iommu_put_dma_cookie(struct iommu_domain *domain);
+-void iommu_put_msi_cookie(struct iommu_domain *domain);
+ 
+-int iommu_dma_init_fq(struct iommu_domain *domain);
+-
+-void iommu_dma_get_resv_regions(struct device *dev, struct list_head *list);
+-
+-int iommu_dma_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
+-		     phys_addr_t msi_addr);
+-
+-extern bool iommu_dma_forcedac;
+-
+-#else /* CONFIG_IOMMU_DMA */
++#else
+ 
+ static inline void iommu_setup_dma_ops(struct device *dev,
+ 				       struct iommu_domain *domain)
+@@ -36,11 +35,6 @@ static inline void iommu_teardown_dma_ops(struct device *dev)
+ {
+ }
+ 
+-static inline int iommu_dma_init_fq(struct iommu_domain *domain)
+-{
+-	return -EINVAL;
+-}
+-
+ static inline int iommu_get_dma_cookie(struct iommu_domain *domain)
+ {
+ 	return -ENODEV;
+@@ -50,6 +44,28 @@ static inline void iommu_put_dma_cookie(struct iommu_domain *domain)
+ {
+ }
+ 
++#endif
++
++#ifdef CONFIG_IOMMU_DMA
++
++void iommu_put_msi_cookie(struct iommu_domain *domain);
++
++int iommu_dma_init_fq(struct iommu_domain *domain);
++
++void iommu_dma_get_resv_regions(struct device *dev, struct list_head *list);
++
++int iommu_dma_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
++		     phys_addr_t msi_addr);
++
++extern bool iommu_dma_forcedac;
++
++#else /* CONFIG_IOMMU_DMA */
++
++static inline int iommu_dma_init_fq(struct iommu_domain *domain)
++{
++	return -EINVAL;
++}
++
+ static inline void iommu_put_msi_cookie(struct iommu_domain *domain)
+ {
+ }
 
-Thanks & Regards
-Ajay kumar Nandam
-
-> 
+-- 
+2.55.0
 
