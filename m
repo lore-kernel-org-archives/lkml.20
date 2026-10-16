@@ -1,238 +1,167 @@
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1DD2AD0C
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:47:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0397F175A6C
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:47:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792115247; cv=none; b=JKr9IyGaBD9UVmt4J+sA6UPZ9kERE7DtT5fmP2VhgdnJgeKecUBFZOhPtBc+R1+ocOWsSvTNH39Hz3Tq8SttcYkrSEhtLIQwrTBuLdlw2EQtfNE1oXB5jWH4cCZb/q1VLbA8x81gLYIR/GvPvqoLYGjL7Fa9KVhQ+hOdKdGRrvI=
+	t=1792115259; cv=none; b=S4HupOzgVi9KhR6YvN19HLKhS58Tru5rSRNtA6I9zZnxmbj0UeUtthjJbWktTEaAv2/Sz/MBHlGyCN/2jTgHPl6VXkXQPs7HiBIVa5e69Mcijb04c0ZaLvaUGZIeFGyEdv3V+s4EoIHul/W9FCPKYv8VGSsa9JwpVryk4ScpH8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792115247; c=relaxed/simple;
-	bh=eJtOKk7P/HGCOr6BwwUa3gt5Ip2aig0MLqeS1fSHCf0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R8BG0qqjAhCn3aGQVYhqxt/1E4peQorGJ1KUIIC4/XsZQ0cVKW7w+Gte8DnP6QAw5W2vsrti7oCF8gonC1n6QTvYnRafICGoCv+Re1YGI6c5SmfIWVlqxH6jkcSd5WM0vHJLy8GUiPr4MxTjgfoosrvUBuE/FH0zVOfiBwgusSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=GD/Tpsky; arc=none smtp.client-ip=115.124.30.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1792115259; c=relaxed/simple;
+	bh=5M2peoG8jXom4XHhqR1eJ4sUTNnWk2VuvSwruGiSMXg=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=XqVKSOMQNfVwkoCDwHIgfI8Z5AKgWyGjuv0j9lFsUlL3xr954yex9cv8vFrlT3dKs7pJdOIgSpCpi6piSVQlP2huoMUNhqFbB5WxqR1cIMyC62FBgjP2Jm0iL2kRDAPEodPNcpZXFaYsaiuDez15GYg5r5oHqeMMO6h61lUF3Pc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oGnKLMAA; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="GD/Tpsky"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792115241; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=dfUIw3nBCJ2Tb9sCItT56mvQgYidiqFThC9FCi7zIMI=;
-	b=GD/TpskyDMUuwDqy2PreHSaG5knX5fgqORrKK45wunB+3JAWYid7E54ScfvmA6/5NqsvV0gQqo7n8S6fhQRIq1iIJB958yxB9zyr0+i8C7g5J/WTbpBQbmaADYDKpIwCSTuB2SA1wJ+1Fe3Q2q5l8o5UQxCPR9lNo59BLyg0fP8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XCt4VcS_1792115238;
-Received: from 30.74.144.163(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCt4VcS_1792115238 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 16 Oct 2026 09:47:19 +0800
-Message-ID: <b1a9b500-0ddc-4791-9e1f-00087e367426@linux.alibaba.com>
-Date: Fri, 16 Oct 2026 09:47:18 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oGnKLMAA"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e8e16d22d8so39505935ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:47:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792115256; x=1792720056; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+I0hVQqHR1ieM6ZT8DAxKDUM+QaSKzLxn8i4OPlAHWM=;
+        b=oGnKLMAAJja4jXVbwkx5jcH3MVwudW1w4nQ3BvTUmYd/9qkLdaBm6+vrUC86wHv353
+         4SRZtmGKsry/kGiqJpo+SQGk03LuB1c6xmkwymxH5+gkgvaA3SrZ4vn3dqZD1Z2RfOr5
+         AeF2hcxe+B/wCzmDP2rUUgweLXIdpLMy+mbIttLD+SFjUZgLJZTLTQl5EAADJDe96zMd
+         nuEp3Km+7hH0+ClebfskJrFO2zX7dv48NeWAHcrPN5bhvdK4v0zKosmLWR3htu1nkRBm
+         FE1O3XaUJnznFwwcKLUrHId+zANPHUhHwABoLZpva0hXkTK20s+rU+BKl94vyFXuefWz
+         xVJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792115256; x=1792720056;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+I0hVQqHR1ieM6ZT8DAxKDUM+QaSKzLxn8i4OPlAHWM=;
+        b=WqR50JxK8nUL1Kvvp9XLPAuOYTau3AmFdYixYXxvwm2fUOUo9daTon2bQNAJvY9xOB
+         vR8tGVRZ446ZZZomdMaPNUbYbQe0gBZhTTXWQv5p5tsDjSqgwzqwEBlF+g7OZYNKV1PM
+         5jFUZb4N5lnH6WRIeuQRpVyOmsW30Jw5bbZveop7Z34RMTIagdH7Q3eC/nxkBBBbPu4z
+         +EY+gYu/djT/gxjbF/KPvxTjHqP1hdFWCCVuc0ggrmS3fNdiV/wgmN3H5b8wookjKSS7
+         PmNDDGIRJ4PQ2dh2+QZr8rcoMLQA6Bkk947SSSR86zNGITV80rM6XYJ9tnoesNGzqwA5
+         D5LA==
+X-Forwarded-Encrypted: i=1; AKwUvBwRrNJIYv1PxghCOpu4B2QzXHX2FB732BTorFGiQPjHiHCFaENvYKxvUuQ+cKq+tCFBQ+nXZXbCv05Qso4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlXp1FU1wjhR06QEbWtQenlA9XsyJABkXQ7VBxoxUso2c9JG8m
+	Y8JxsKqsEadVmAXpku4IAuUhV49PApAzzl7Jbt0IvdxjwuNn+ttttTjJCPw1LzEqstoeEMMJ73O
+	cntlQSA==
+X-Received: from plbmg15.prod.google.com ([2002:a17:903:348f:b0:2e9:3e55:fe6])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f688:b0:2dd:ad74:ac22
+ with SMTP id d9443c01a7336-2e842cfcd6emr190938585ad.29.1792115256038; Thu, 15
+ Oct 2026 18:47:36 -0700 (PDT)
+Date: Thu, 15 Oct 2026 18:47:35 -0700
+In-Reply-To: <a578b2ff-52a4-4959-832d-a84b24ccb80e@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm: memory: fix truncation removing mapped folios
-To: "David Hildenbrand (Arm)" <david@kernel.org>, akpm@linux-foundation.org
-Cc: ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
- surenb@google.com, mhocko@suse.com, qi.zheng@linux.dev, jack@suse.cz,
- pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <542c97482eae84f86704bcee56482633d1b32321.1791616645.git.baolin.wang@linux.alibaba.com>
- <8245424a-f068-4be5-9e58-713cbff1f8ae@kernel.org>
- <405811f5-ee36-4b3c-80d0-7dc6827ab5d4@linux.alibaba.com>
- <6660d3bb-3485-4c34-8734-3ea99df920f1@kernel.org>
- <02c9a968-92e2-49e2-bffc-74d264a5c911@linux.alibaba.com>
- <f7735584-e020-4ee1-8afb-2b5d580cfa49@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <f7735584-e020-4ee1-8afb-2b5d580cfa49@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <213d614fe73e183a230c8f4e0c8fa1cc3d45df39.camel@intel.com>
+ <20260224212939.2081828-1-changyuanl@google.com> <a578b2ff-52a4-4959-832d-a84b24ccb80e@linux.intel.com>
+Message-ID: <atGCN656hpWzSuci@google.com>
+Subject: Re: [PATCH] KVM: TDX: Set SIGNIFCANT_INDEX flag for supported CPUIDs
+From: Sean Christopherson <seanjc@google.com>
+To: Binbin Wu <binbin.wu@linux.intel.com>
+Cc: Changyuan Lyu <changyuanl@google.com>, rick.p.edgecombe@intel.com, binbin.wu@intel.com, 
+	bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
+	isaku.yamahata@intel.com, kas@kernel.org, kvm@vger.kernel.org, 
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, mingo@redhat.com, 
+	pbonzini@redhat.com, tglx@kernel.org, x86@kernel.org, xiaoyao.li@intel.com
+Content-Type: text/plain; charset="us-ascii"
 
-
-
-On 10/16/26 3:00 AM, David Hildenbrand (Arm) wrote:
-> On 10/15/26 08:41, Baolin Wang wrote:
->>
->>
->> On 10/14/26 9:25 PM, David Hildenbrand (Arm) wrote:
->>> On 10/13/26 11:36, Baolin Wang wrote:
->>>>
->>>>
->>>>
->>>> I had considered this approach before, but it is not feasible. IIUC, the
->>>> sync_with_folio_pmd_zap() is used to address the race with zap_huge_pmd(), and
->>>> both the PMD clear and the folio mapcount decrement are performed under the PMD
->>>> lock in zap_huge_pmd().
->>>
->>> Just to be clear, I am thinking about something like the following on the
->>> zap_pmd_range() side:
->>>
->>> diff --git a/mm/internal.h b/mm/internal.h
->>> index 38b1165212c94..a8820ad7e2f21 100644
->>> --- a/mm/internal.h
->>> +++ b/mm/internal.h
->>> @@ -584,14 +584,15 @@ void free_pgtables(struct mmu_gather *tlb, struct
->>> unmap_desc *desc);
->>>    void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
->>>
->>>    /**
->>> - * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
->>> + * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
->>>     * @mm: The mm_struct.
->>>     * @pmdp: Pointer to the pmd that was found to be pmd_none().
->>>     *
->>>     * When we find a pmd_none() while unmapping a folio without holding the PTL,
->>> - * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
->>> - * indicate that it's unmapped. Skipping the PMD without synchronization could
->>> - * make folio unmapping code assume that unmapping failed.
->>> + * zap_huge_pmd() or zap_empty_pte_table() may have cleared the PMD but not
->>> + * yet modified the mapped folios to indicate they are unmapped. Skipping the
->>> + * PMD without synchronization could make folio unmapping code assume that
->>> + * unmapping failed.
->>>     *
->>>     * Wait for concurrent zapping to complete by grabbing the PTL.
->>>     */
->>> diff --git a/mm/memory.c b/mm/memory.c
->>> index 8b0c2c735d3de..c585f5eb255c9 100644
->>> --- a/mm/memory.c
->>> +++ b/mm/memory.c
->>> @@ -2139,9 +2139,7 @@ static inline unsigned long zap_pmd_range(struct
->>> mmu_gather *tlb,
->>>                                   continue;
->>>                           }
->>>                           /* fall through */
->>> -               } else if (details && details->single_folio &&
->>> -                          folio_test_pmd_mappable(details->single_folio) &&
->>> -                          next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
->>> +               } else if (details && details->single_folio && pmd_none(*pmd)) {
->>>                           sync_with_folio_pmd_zap(tlb->mm, pmd);
->>>                   }
->>>                   if (pmd_none(*pmd)) {
->>>
->>
->> Yes, I've considered that. However, implicit memory barriers give me a headache,
->> so I ended up going with explicit memory barriers (suggested by Pedro).
->>
->> If you don't like memory barriers, let me re-check whether the implicit memory
->> barriers here can ensure race safety with sync_with_folio_pmd_zap(). A
->> simplified logic is as follows:
->>
->> CPU 0 (truncation)                        CPU 1 (zapping)
->> down_read() ->Acquire A1.                pte spin_lock() ->Acquire A4
->>                                           clear mapcount
->>
->>                                           pmd spin_lock() ->Acquire A5
->>                                           clear pmd
->>                                           pmd spin_unlock() ->Release R5
->>
->> if (pmd_none()) { //read pmd
->>                                           pte spin_unlock() ->Release R4
->>      pmd spin_lock() ->Acquire A2
->>      pmd spin_unlock() ->Release R2
->> }
->> up_read() -> Release R1
->>
->> spin_lock(y) ->Acquire A3
->> folio_mapped() // read mapcount
->> spin_unlock(y) ->Release R3
->>
->> CPU 0 constraints:
->> 1. R2 is a release, so "read pmd" completes before R2.
->> 2. A2 completes before A3 (ACQUIRE vs ACQUIRE).
->> 3. "read mapcount" completes after A3, hence after A2.
->>
->> CPU 1 constraints:
->> 1. R5 is a release. Both "clear mapcount" and "clear pmd" complete before R5.
->>
->> According to above constraints, if CPU0 sees pmd_none() caused by CPU1's clear
->> pmd, and CPU0 then acquires the same pmd lock released by CPU1 at R5, then
->> CPU1's clear mapcount happens before CPU0's later folio_mapped().
->>
->> Therefore folio_mapped() is guaranteed not to read the old mapcount in this
->> case. So I think sync_with_folio_pmd_zap() can work, but needs a small change to
->> avoid the double pmd_none() check.
+On Tue, Oct 13, 2026, Binbin Wu wrote:
+> On 2/25/2026 5:29 AM, Changyuan Lyu wrote:
+> 
+> [...]
+> 
+> > -----------------------
+> > 
+> >>From 18b967b718911c09872c3717d8ab083fa59c4a70 Mon Sep 17 00:00:00 2001
+> > From: Changyuan Lyu <changyuanl@google.com>
+> > Date: Fri, 20 Feb 2026 09:55:28 -0800
+> > Subject: [PATCH] KVM: TDX: Set SIGNIFCANT_INDEX flag for supported CPUIDs
+> > 
+> > Set the KVM_CPUID_FLAG_SIGNIFCANT_INDEX flag in the kvm_cpuid_entry2
+> > structures returned by KVM_TDX_CAPABILITIES if the CPUID is indexed.
+> > This ensures consistency with the CPUID entries returned by
+> > KVM_GET_SUPPORTED_CPUID.
+> > 
+> > Suggested-by: Sean Christopherson <seanjc@google.com>
+> > Signed-off-by: Changyuan Lyu <changyuanl@google.com>
 > 
 > 
-> I'd be okay with some (follow-up?) memory barrier handling inside
-> sync_with_folio_pmd_zap(), for example, based on the folio size and with proper
-> documentation why we need the PT lock in one case and why the memory barrier is
-> ok in the other case.
-
-I'm afraid that we can't fit all the memory barriers into 
-sync_with_folio_pmd_zap(). As the current patch does, we need memory 
-barriers on both the writer and reader sides.
-
->> David, does the following diff look good to you?
+> Hi Sean,
 > 
-> I think we should extend the sync_with_folio_pmd_zap() doc as suggested.
-
-Ack.
-
->> diff --git a/mm/memory.c b/mm/memory.c
->> index 6a8e7772b8d6..c0aadab1b59e 100644
->> --- a/mm/memory.c
->> +++ b/mm/memory.c
->> @@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
->>                  }
->>          } while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
->>
->> +       add_mm_rss_vec(mm, rss);
->> +       lazy_mmu_mode_disable();
->> +
->> +       /* Do the actual TLB flush before dropping ptl */
->> +       if (force_flush) {
->> +               tlb_flush_mmu_tlbonly(tlb);
->> +               tlb_flush_rmaps(tlb, vma);
->> +       }
->> +
->>          /*
->>           * Fast path: try to hold the pmd lock and unmap the PTE page.
->>           *
->> @@ -2044,16 +2053,8 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
->>           * to ensure they are still none, thereby preventing the pte entries
->>           * from being repopulated by another thread.
->>           */
->> -       if (can_reclaim_pt && direct_reclaim && addr == end)
->> +       if (can_reclaim_pt && direct_reclaim && addr == end) {
->>                  direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
->> -
->> -       add_mm_rss_vec(mm, rss);
->> -       lazy_mmu_mode_disable();
->> -
->> -       /* Do the actual TLB flush before dropping ptl */
->> -       if (force_flush) {
->> -               tlb_flush_mmu_tlbonly(tlb);
->> -               tlb_flush_rmaps(tlb, vma);
->>          }
->>          pte_unmap_unlock(start_pte, ptl);
->>
->> @@ -2102,12 +2103,11 @@ static inline unsigned long zap_pmd_range(struct
->> mmu_gather *tlb,
->>                                  continue;
->>                          }
->>                          /* fall through */
->> -               } else if (details && details->single_folio &&
->> -                          folio_test_pmd_mappable(details->single_folio) &&
->> -                          next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
->> -                       sync_with_folio_pmd_zap(tlb->mm, pmd);
->>                  }
->> +
->>                  if (pmd_none(*pmd)) {
->> +                       if (details && details->single_folio)
->> +                               sync_with_folio_pmd_zap(tlb->mm, pmd);
->>                          addr = next;
->>                          continue;
->>                  }
+> When I was preparing the v5 of the TDX CPUID patch series, the internal sashiko
+> reported a issue:
+>   > @@ -2359,6 +2359,15 @@ static int setup_tdparams_cpuids(struct kvm_cpuid2 *cpuid,
+>   >  		if (!entry)
+>   >  			continue;
+>   >  
+>   > +		/*
+>   > +		 * Reject entries whose index doesn't match the expected one.
+>   > +		 * This catches userspace passing a CPUID entry with the
+>   > +		 * KVM_CPUID_FLAG_SIGNIFCANT_INDEX flag cleared when the index
+>   > +		 * is significant.
+>   > +		 */
+>   > +		if (entry->index != tmp.index)
+>   > +			return -EINVAL;
+>   
+>   [Severity: Medium]
+>   Does this unconditional check inadvertently break userspace VMMs that provide
+>   valid CPUID entries but leave the index field uninitialized for
+>   non-significant leaves?
+>   
+>   Since kvm_find_cpuid_entry2() ignores the index field when
+>   KVM_CPUID_FLAG_SIGNIFCANT_INDEX is cleared, VMMs are not architecturally
+>   required to zero the index for non-significant leaves. This check forces
+>   the index to be exactly 0 (since tmp.index is normalized to 0) even for
+>   leaves that do not have architecturally significant subleaves.
 > 
-> We do have another sync_with_folio_pmd_zap() user in page_vma_mapped_walk(),
-> does that one need care as well?
+> 
+> I think the issue is valid,
 
-Good point. But I don't want to add page_vma_mapped_walk() changes into 
-this fix patch. I need to analyze all callers of page_vma_mapped_walk() 
-and the potential races. I'll look into whether it should be changed in 
-a follow-up patch.
+Yeah, requiring the index to be a specific value without SIGNIFCANT_INDEX set
+could break usrspace.
 
-Thanks for your comments.
+> so it needs to know whether the entry is a subleaf or not. I think it's more
+
+By "it", I assume you mean userspace?
+
+> reliable to do it via the information reported by the TDX module. i.e. my
+> patch set will rely on this patch to set KVM_CPUID_FLAG_SIGNIFCANT_INDEX for
+> entries that are indexed.
+> 
+> Will you apply this patch?
+> Or I can include this patch in my patch set. Also, 0x23 is still missing in
+> cpuid_function_is_indexed(), I can add a patch to add 0x23 as well.
+>
+> > ---
+> >  arch/x86/kvm/vmx/tdx.c | 4 ++++
+> >  1 file changed, 4 insertions(+)
+> > 
+> > diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+> > index 2d7a4d52ccfb4..1c039eab2f3d8 100644
+> > --- a/arch/x86/kvm/vmx/tdx.c
+> > +++ b/arch/x86/kvm/vmx/tdx.c
+> > @@ -167,6 +167,7 @@ static void td_init_cpuid_entry2(struct kvm_cpuid_entry2 *entry, unsigned char i
+> > 
+> >  	entry->function = (u32)td_conf->cpuid_config_leaves[idx];
+> >  	entry->index = td_conf->cpuid_config_leaves[idx] >> 32;
+> > +	entry->flags = 0;
+> >  	entry->eax = (u32)td_conf->cpuid_config_values[idx][0];
+> >  	entry->ebx = td_conf->cpuid_config_values[idx][0] >> 32;
+> >  	entry->ecx = (u32)td_conf->cpuid_config_values[idx][1];
+> > @@ -174,6 +175,9 @@ static void td_init_cpuid_entry2(struct kvm_cpuid_entry2 *entry, unsigned char i
+> > 
+> >  	if (entry->index == KVM_TDX_CPUID_NO_SUBLEAF)
+> >  		entry->index = 0;
+> > +	else
+> > +		entry->flags |= KVM_CPUID_FLAG_SIGNIFCANT_INDEX;
+
+Hrm, I'm getting deja vu.  Oh, this is an old thread.  *sigh*  I was expecting
+a new patch/thread, but it got "posted" inline.
+
+I'll send a small v2.
