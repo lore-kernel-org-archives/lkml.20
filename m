@@ -1,104 +1,61 @@
-Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC3E395AEA
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB879397945
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:10:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792120229; cv=none; b=gcHKgSV2DjQQvSKXZ3t+TlEi6osO1aWfo5v0EnD3N8M+vdRRMOXfEDB+DQ+hd3+djVkDLBCD8NW8/H6bszIdktKNLUqrbiUg/Ftohcg7py2Br3vRXQFaJpUmG5721XI792Ie9UMUxCFx0PgRVRoEPpPlWCj4Gb/nHr5kIhhES78=
+	t=1792120230; cv=none; b=sH6hXUJcXIzhYhAkRbeI04ZiBM+K8NpjtBEzZxOk1vFAPwaX95FGxnCTH04hQ8B5S02FVE2mav1MgRyo7uauV+wpexujcIFkUt0eqL26OpbvDsx13hR9mXRE29YGRMWYt+4HrrAd2A1CG3f+P0XgbVdV5OXZK8sbpkFSBbbrhUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792120229; c=relaxed/simple;
-	bh=KS2Sad4txxYAPU7Ulhsill0lGwhrig2221eGQ+9zjh4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h9yVFLP7kaJEzYKoevUSUvmsymk4crt0MmWUGEOasZK8X+CjKK7HZjWfhkPdZIthHn9CDtVjaGZCgh95nZmDFwkNOQyG+A1F5t8ulGwLXueFibtoRxbd3tDBzEtoY+e2WR8euPSnKRZHEgvcAgeN2NTL6fD95orud5WbiTX+YDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IV2Ytxcg; arc=none smtp.client-ip=74.125.227.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IV2Ytxcg"
-Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-39569e136f9so1779506a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:10:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792120228; x=1792725028; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EXuyqgfiF9x7HO7+fbFxeGIrd5nFUV6QECR0sZa4nrg=;
-        b=IV2YtxcgOAoslEI82SjyNA8PfCAR1TnlJ+VuscCAUCNz0Z0oQfDszOQsHtHLEDKw7c
-         Ipss62GbmLPgat1FPw6rUuN1UjWCrOX1xceGrvDiOuVGNubEPTHDp9lvykxGGZext7JH
-         fhzVM4hhjtlWlnhHSZJiWZhGjgK0aUrJXymVyhTrh/lOoQFPdYVwtU/dHPayhtf1xZ5d
-         P94FhMjVPxIIMAjiw7znSVoh7ptxkximV9wmtFw6BdQETgMK09Mp3sRKc7qQnKRk6bFK
-         lCR/KSWGcbgdpvmFxKK8RfZx7sC0w3Ua/Cz9cC+C7AJ2CxhRLrBKBMxPXj4gvE4OruJZ
-         vwVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792120228; x=1792725028;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EXuyqgfiF9x7HO7+fbFxeGIrd5nFUV6QECR0sZa4nrg=;
-        b=AoBuHSbRVhjpP+TZOD7xB6yLjLH6aWf6LyVhcTHf4BUYR4D5a6V/n4sn2zZhOGKXZL
-         FGgO3BRfQfPh2+UGCudbFATtGznKt4WOrg4O3mcEm/m1xzj1rD4QwQ6XNB3tJljHwHNk
-         nzSa9VUyl451xZPc+bMPY+EhpjJyemQxeUvAI7Sk3Vhqbmf4HOegGdl4niGe4vq2wWzY
-         zUVdQ8tgWSU2KdK96wOdMzoRwwf8K6XhFJoWKNyfCAN2FTowsJTHXSfmoaNNIQ87P6hK
-         Ksz6/+vOamHo7VRHKRJcHp85pD3mqxoWxsUN5+h2oDfZcKS5twijvL5c9j8WVj79AHJb
-         2nUg==
-X-Forwarded-Encrypted: i=1; AKwUvBy8KEjZ2krPsXouSyVWZABw/swu16dVs0mvQNX+tTihpORaVSi2LnLkboQxVqyZGYbA42QHAEEZmzjjZgE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKEU7sfqXpgiHPvnw0QjPv5XCE7sQe7hYYTNwZjNgbjQ+/T82ci
-	+JHM7qt+g2eKRFwcxs58iY9xMmm3/2B7b+YbkiPDSzDmR+kuDyPVbbkF
-X-Gm-Gg: AYBFou3/89mdPD2oNcGiwjyeIuRPBztNj/6E3gsa+WCEQgBmLR9bjrav6s3tIRIezQc
-	RwMRg+mr7Hm3DYkVnHHJPJFNkc4azytZmW4/5AMG+/mVRedzoFq5tmifzaDdFq1fvG7M1HTTd60
-	fxuyYSrikq7zr+YLQTg0Wa2u1Crg5jV8MNc1HEuWOtp8WrXoiUooG4ogBn9qB0S7nlE5oHziGsi
-	i4j38mbKqXm/w4YuLha0tdpP9Jfj3cXHKtLwGURSzmgEprY0kY2Tb67EA2iOtq1HKB80U/3Itp9
-	IkEqBqnttd9/jTuYuQvqLYsZXcsy9ucE3bVwDgXye2+zzead7CMA/KkwJ1R1Sz54KK2B87TRRv9
-	3yu4ms24BjWv3bATcw47VNVGuiVzZQmPLb9xIAPYgbweMisHVNzMSQgM19x43lLwpStTt0xW0hH
-	jTaGGM3uANdYvVp5Mp9lu2mIQJIUZiP3RGxCduun0mFnatemxpbCDN3NXoIAG8A7bxPOdSzfrBT
-	LPNScOkQbygKuTJwHfJXA==
-X-Received: by 2002:a17:90b:2d86:b0:3a7:d2b5:2e99 with SMTP id 98e67ed59e1d1-3ab3a60d1eamr16967413a91.20.1792120228159;
-        Thu, 15 Oct 2026 20:10:28 -0700 (PDT)
-Received: from intel.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3cc73c7sm370085a91.4.2026.10.15.20.10.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 20:10:27 -0700 (PDT)
-From: Wandun Chen <chenwandun1@gmail.com>
-To: robh@kernel.org,
-	baoquan.he@linux.dev,
-	rppt@kernel.org,
-	m.szyprowski@samsung.com
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	mark.rutland@arm.com,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	saravanak@kernel.org,
-	akpm@linux-foundation.org,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	ruirui.yang@linux.dev,
-	robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org,
+	s=arc-20240116; t=1792120230; c=relaxed/simple;
+	bh=rA5ggDv9ChQmCB/8QRJpMDUGTOGZug8ohy+IDQOg3VA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=djVgXRCK54hi8dgCaITHHXk136JaaB1W7wN4juessQN8OGu05dDFWNJRvuWvQiU7T0zvTbqmy1mEnYX9PXLXVuD1roZ7cMYGmIoKve4yJzq2VRur05SaXcVlliY3RH2s/4yHLnTPJTGosI/VI9x1lGwFQeTR9XHfp8QHmeTOpV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 1a219054c90f11f19a56ed5b684f684d-20261016
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED
+	SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
+	CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
+	GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:5c4e9449-0240-4d99-8ef6-89fa866b51e6,IP:10,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:10
+X-CID-INFO: VERSION:1.3.19,REQID:5c4e9449-0240-4d99-8ef6-89fa866b51e6,IP:10,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:10
+X-CID-META: VersionHash:7db8b62,CLOUDID:f21ea0ed1bdcf46785798b09998d501d,BulkI
+	D:261016111016W425NWVJ,BulkQuantity:0,SF:17|19|38|66|78|102|127|136|850|86
+	5|898,TC:nil,Content:0|15|50|99,EDM:-3|-100,IP:-2,URL:0,File:nil,RT:nil,Bu
+	lk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:
+	0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 1a219054c90f11f19a56ed5b684f684d-20261016
+X-User: wangxuewen@kylinos.cn
+Received: from localhost.localdomain [(223.70.159.239)] by mailgw.kylinos.cn
+	(envelope-from <wangxuewen@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1824619241; Fri, 16 Oct 2026 11:10:12 +0800
+From: Xuewen Wang <wangxuewen@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	iommu@lists.linux.dev
-Subject: [PATCH v8 6/8] of: reserved_mem: add dumpable flag to opt-in vmcore
-Date: Fri, 16 Oct 2026 11:08:53 +0800
-Message-ID: <20261016030855.4062882-7-chenwandun1@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261016030855.4062882-1-chenwandun1@gmail.com>
-References: <20261016030855.4062882-1-chenwandun1@gmail.com>
+	Xuewen Wang <wangxuewen@kylinos.cn>,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v1] ntfs: support persistent noatime attribute
+Date: Fri, 16 Oct 2026 11:09:57 +0800
+Message-Id: <20261016030957.1053110-1-wangxuewen@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -107,53 +64,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wandun Chen <chenwandun@lixiang.com>
+NTFS currently rejects FS_NOATIME_FL in its fileattr setter. This prevents
+users from disabling automatic access-time updates on individual files or
+directories with chattr +A.
 
-Add a 'dumpable' flag to struct reserved_mem to decide whether a
-reserved area should be included in the kdump vmcore. Non-dumpable
-regions are later marked MEMBLOCK_NODUMP; the filtering itself happens
-in memblock, keeping the arch kdump code independent of the DT API.
+Store noatime in bit 3 of the private $LINUXFLAGS EA and restore S_NOATIME
+when loading an inode. Report and accept FS_NOATIME_FL in the fileattr
+callbacks, updating the in-memory flag only after the EA update succeeds.
+The VFS then suppresses automatic atime updates for the inode, while
+chattr -A restores the mount's atime policy.
 
-Most reserved regions are owned by devices and do not contain data
-useful for kernel crash analysis, so dumpable default to false.
-Reusable CMA regions are different: their pages are handed back to the
-buddy allocator and may contain key data for crash analysis, so set
-dumpable to true in rmem_cma_setup().
+Document the new on-disk bit and that newly created children do not inherit
+the attribute.
 
-Suggested-by: Rob Herring <robh@kernel.org>
-Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
 ---
- include/linux/of_reserved_mem.h | 1 +
- kernel/dma/contiguous.c         | 1 +
- 2 files changed, 2 insertions(+)
+Tested in QEMU (x86-64, UP, NTFS debug and lockdep enabled) on disposable
+NTFS images mounted with strictatime. The unpatched kernel rejects +A on
+files and directories with EOPNOTSUPP. With this patch, chattr +A prevents
+atime updates on reads and directory enumeration, and chattr -A restores
+them. The attribute survives cache dropping, read-only/read-write remounts,
+unmount/mount and a fresh boot; clearing it also survives a fresh boot.
 
-diff --git a/include/linux/of_reserved_mem.h b/include/linux/of_reserved_mem.h
-index 49da515859f2..99c0f3ccc297 100644
---- a/include/linux/of_reserved_mem.h
-+++ b/include/linux/of_reserved_mem.h
-@@ -15,6 +15,7 @@ struct reserved_mem {
- 	phys_addr_t			base;
- 	phys_addr_t			size;
- 	void				*priv;
-+	bool				dumpable;
- };
+Also checked the on-disk EA value, non-inheritance by new children,
+combinations with immutable/append-only/nodump, FSGETXATTR/FSSETXATTR,
+owner/nonowner permissions, EROFS on a read-only mount, rejection of direct
+EA writes, and preservation of unrelated EAs and unknown flag bits.
+
+ Documentation/filesystems/ntfs.rst | 15 ++++++++++-----
+ fs/ntfs/ea.c                       |  2 ++
+ fs/ntfs/ea.h                       |  4 +++-
+ fs/ntfs/file.c                     | 11 +++++++++--
+ 4 files changed, 24 insertions(+), 8 deletions(-)
+
+diff --git a/Documentation/filesystems/ntfs.rst b/Documentation/filesystems/ntfs.rst
+index 699e91f884d4..d5819da6ab53 100644
+--- a/Documentation/filesystems/ntfs.rst
++++ b/Documentation/filesystems/ntfs.rst
+@@ -38,15 +38,20 @@ The project is available at:
+ Linux file attributes
+ =====================
  
- struct reserved_mem_ops {
-diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-index 90937dc7c627..d7bfc38ac762 100644
---- a/kernel/dma/contiguous.c
-+++ b/kernel/dma/contiguous.c
-@@ -567,6 +567,7 @@ static int __init rmem_cma_setup(unsigned long node, struct reserved_mem *rmem)
- 		dma_contiguous_default_area = cma;
+-The driver supports lsattr(1) and chattr(1). Immutable, append-only and
+-nodump are stored in a private ``$LINUXFLAGS`` extended attribute within the
++The driver supports lsattr(1) and chattr(1). Immutable, append-only, nodump
++and noatime are stored in a private ``$LINUXFLAGS`` extended attribute within the
+ standard NTFS ``$EA``/``$EA_INFORMATION`` attributes. Its value is a
+ 32-bit little-endian bitmask: bit 0 is immutable, bit 1 is append-only,
+-and bit 2 is nodump. Unknown bits are preserved when updating the flags;
+-the entry is removed when the entire value becomes zero. These settings
++bit 2 is nodump, and bit 3 is noatime. Unknown bits are preserved when updating
++the flags; the entry is removed when the entire value becomes zero. These settings
+ survive inode eviction, unmount and reboot. Direct writes to this EA
+ through setxattr(2) or removexattr(2) are rejected; use chattr(1) instead.
  
- 	rmem->priv = cma;
-+	rmem->dumpable = true;
++The noatime attribute (``chattr +A``) suppresses automatic access-time
++updates for the inode, including when mounted with ``strictatime``. It
++applies to directories as well as files, but is not inherited by newly
++created children. Use ``chattr -A`` to restore the mount's access-time policy.
++
+ System metadata files and files protected by the ``sys_immutable`` mount
+ option cannot have their immutable protection cleared with chattr(1).
+ Protection derived solely from the mount option is not stored in the EA.
+@@ -55,7 +60,7 @@ configured per file. Compression and encryption are reported but cannot
+ be changed through chattr(1).
  
- 	pr_info("Reserved memory: created CMA memory pool at %pa, size %ld MiB\n",
- 		&rmem->base, (unsigned long)rmem->size / SZ_1M);
+ These Linux flags are enforced by Linux. Storing them in an NTFS EA does
+-not make Windows enforce immutable, append-only or nodump semantics.
++not make Windows enforce immutable, append-only, nodump or noatime semantics.
+ 
+ 
+ Supported mount options
+diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
+index a1f948c4d2ec..fd97da73ff5c 100644
+--- a/fs/ntfs/ea.c
++++ b/fs/ntfs/ea.c
+@@ -501,6 +501,8 @@ int ntfs_ea_get_linuxflags(struct inode *inode)
+ 		inode->i_flags |= S_IMMUTABLE;
+ 	if (ni->linuxflags & NTFS_LINUXFLAGS_APPEND)
+ 		inode->i_flags |= S_APPEND;
++	if (ni->linuxflags & NTFS_LINUXFLAGS_NOATIME)
++		inode->i_flags |= S_NOATIME;
+ 	return 0;
+ }
+ 
+diff --git a/fs/ntfs/ea.h b/fs/ntfs/ea.h
+index 8f144fa4f9bb..3ad20431877b 100644
+--- a/fs/ntfs/ea.h
++++ b/fs/ntfs/ea.h
+@@ -11,8 +11,10 @@
+ #define NTFS_LINUXFLAGS_IMMUTABLE	BIT(0)
+ #define NTFS_LINUXFLAGS_APPEND	BIT(1)
+ #define NTFS_LINUXFLAGS_NODUMP	BIT(2)
++#define NTFS_LINUXFLAGS_NOATIME	BIT(3)
+ #define NTFS_LINUXFLAGS_MASK	(NTFS_LINUXFLAGS_IMMUTABLE | \
+-				 NTFS_LINUXFLAGS_APPEND | NTFS_LINUXFLAGS_NODUMP)
++				 NTFS_LINUXFLAGS_APPEND | NTFS_LINUXFLAGS_NODUMP | \
++				 NTFS_LINUXFLAGS_NOATIME)
+ 
+ extern const struct xattr_handler *const ntfs_xattr_handlers[];
+ 
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 58aad7f5c6c5..2cbe780758e3 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -167,6 +167,8 @@ int ntfs_fileattr_get(struct dentry *dentry, struct file_kattr *fa)
+ 		flags |= FS_IMMUTABLE_FL;
+ 	if (vi->i_flags & S_APPEND)
+ 		flags |= FS_APPEND_FL;
++	if (vi->i_flags & S_NOATIME)
++		flags |= FS_NOATIME_FL;
+ 	if (ni->linuxflags & NTFS_LINUXFLAGS_NODUMP)
+ 		flags |= FS_NODUMP_FL;
+ 	if (!NVolCaseSensitive(ni->vol))
+@@ -200,7 +202,8 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
+ {
+ 	struct inode *vi = d_inode(dentry);
+ 	struct ntfs_inode *ni = NTFS_I(vi);
+-	u32 allowed = FS_IMMUTABLE_FL | FS_APPEND_FL | FS_NODUMP_FL;
++	u32 allowed = FS_IMMUTABLE_FL | FS_APPEND_FL | FS_NODUMP_FL |
++		      FS_NOATIME_FL;
+ 	u32 readonly = 0;
+ 	u32 linuxflags = ni->linuxflags & ~NTFS_LINUXFLAGS_MASK;
+ 	unsigned int new_fl = 0;
+@@ -245,6 +248,10 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
+ 	}
+ 	if (fa->flags & FS_NODUMP_FL)
+ 		linuxflags |= NTFS_LINUXFLAGS_NODUMP;
++	if (fa->flags & FS_NOATIME_FL) {
++		new_fl |= S_NOATIME;
++		linuxflags |= NTFS_LINUXFLAGS_NOATIME;
++	}
+ 
+ 	mutex_lock(&ni->mrec_lock);
+ 	err = ntfs_ea_set_linuxflags(vi, linuxflags);
+@@ -252,7 +259,7 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
+ 	if (err)
+ 		return err;
+ 
+-	inode_set_flags(vi, new_fl, S_IMMUTABLE | S_APPEND);
++	inode_set_flags(vi, new_fl, S_IMMUTABLE | S_APPEND | S_NOATIME);
+ 	inode_set_ctime_current(vi);
+ 	mark_inode_dirty(vi);
+ 	return 0;
 -- 
-2.43.0
+2.25.1
 
