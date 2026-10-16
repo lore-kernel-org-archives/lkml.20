@@ -1,180 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A6B47143E;
-	Fri, 16 Oct 2026 10:28:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146482; cv=none; b=bB0A2eB1QkjS4N+ENcE5iCz5X/nI5Xr2TdfdjJiNMFR2dLJ7PNsVLneaWt1mGfNM0P69bWV65eX9alUPHhvc573kwjwflC1aY5RlV+K4vy0ZVDez81Vu81BE1sDx7KgHdB52w7lPnmzbAnlw4HxFXaeUHGEVJvGOMgthddVD0mc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146482; c=relaxed/simple;
-	bh=cGm/IUzGsl7M+005jqEJ8bgl7CrtXaLvlBO6w1BA05s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tH6nFfKOoRojzhUCCoUKpI3ZfqVNnvfezzx1kC/0GYhLPLUosEarO7l2DeFNx2cfeQvDL/JulSeLH/P5o/AuFbVNC6yrOrt/WrxXv9xS2Y+hMH6U7K1/4FXftH7rAkr82yUseyHTLZq+UOMavedJxzhAZftIEoo+7/17oQf7hhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnKe0ZIj; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2DF375ACB
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792146533; cv=pass; b=N6pcbDUVW6dH7RC77njWSUhUfVU+/RIdEG0npMrQkNB1hV4jkmHRqvh9oU8LnhhK3h7z4OseuexHbHtQHBS721G6JnNXVc7OzjjqPX+W1yn0pQFab855nnTn//UK/s+wVoBBBB7AcGoTXR/R2shpl+N+T57OWVXG7++45ucSPiU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792146533; c=relaxed/simple;
+	bh=pfrgNF+tr74oCJapKu2IFPZvUZW4uOtS7J0FD4Ai+4Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ir+ddrx/YUm1P3P8goOTMNh5gtZHdw5AemBs+1EXCXpNGpVf8XlVLCLxbIZ0km2b7MgHjrYICnnERRGR94Df7JBgIKCRby14XNiO80yzq1BjVrMgV9nqzodpk1elzL4NGfwoscqHNqjkF7Q1GKycqhXUrpqbhuBWx3Q1d5Te57U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X7i9VFS9; arc=pass smtp.client-ip=209.85.128.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnKe0ZIj"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 686AAC2BCF5;
-	Fri, 16 Oct 2026 10:28:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792146481;
-	bh=cGm/IUzGsl7M+005jqEJ8bgl7CrtXaLvlBO6w1BA05s=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=SnKe0ZIjS0DmUrzO0ZKDf7YBETuf6/m7M9fWBVVlPRFhSQkIBKi87MKezVUuLa/me
-	 zFx2f4lpYsg2xLqaZZgJRIqQ5w6il2GxUWK56P3jE9h+1mCXQbZgTzYTuxsARHoahX
-	 fHNd6LB9WqlKQ4aex4WMYhMq5ZTldEcMJyY2qulk2axjDSVCmRvLBp2deU+isjayRF
-	 S+MUDvwwEOZhKqb0Ml1t9W02hgIEMePEFX9ssZZGy8fs00FxJeI7tNhPlCWnPOg5/H
-	 KCG+PVrNu9wYFRedKM5+OeUxdMDyaGChFDudHY/GYBq01kaIlK2SGXzxyEzFg0ZMF/
-	 jtucacuz3UZZA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42025CC6B38;
-	Fri, 16 Oct 2026 10:28:01 +0000 (UTC)
-From: George Neacsu via B4 Relay <devnull+geocausa.gmail.com@kernel.org>
-Date: Fri, 16 Oct 2026 11:28:01 +0100
-Subject: [PATCH v2] media: i2c: vd55g1: fix VD55G0 streaming below 900 Mbps
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X7i9VFS9"
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-888cbacf70eso68792767b3.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:28:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792146531; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YBYU7SecSM819OXANZU1v8j1YUHvzR+rweVANL6o7glLkftAEIW1c59okMNu/mZn+Y
+         KEh+wZCXR2KgXn0dqmydOSRR07k8bW9h304A8HngqEHjlWcBQk3rbAHujP7hPj3cqZTF
+         Vj6QLeV0zq4ejrs8e0uBzs0Kh6quGs2I4BuWI0CW04V6QTMz/v27tKdJ9NaDMCe9t6Ac
+         WoVt186w/NMCCxDiiQFzZD4voVOsffxl+SM/GPiKXPrml5SSfNxGE5hKqjD1SfiXj9/+
+         q5KM7T8h4uYkG4omJGc0vnQ8yMXLibT27ILDPtcj1wqUGwI52sk5OABwmm1NybetVzUN
+         BDYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zV6ZIduNaIczlafS5ObokQ7IxrGgGQYf/oXSNU6g1rM=;
+        fh=PTDEX2XQDPHLRo5eYJ5i4eEVOh0C9t3mlyLalV0VHXs=;
+        b=C72zB6RphbUDw85kGMkQJUSwYoevoYoAFQS7curu/fLg3YPyMnhEQVM4Jfq+C4t27K
+         /yPz8P4UbFZVDYZiH6RBhM8Dv8gwDLaC34L5i8LJL6ullnY8Ic20VC/R/miw4mFvGveT
+         MkMNsAy3A/hHxVZHpy1tHYOwHGaRtcAdAlEZbEg7SSKjCMZCv+PgpA26zX4IaxPsMRl9
+         R/Ao6uUF8IgIsjHbyv3vwIw4F/PxFAyg/vqhr+THI/8ay7ehbT13FwJjmchmmPpRgfnR
+         c8GsFXxuHOg5vNBGHQLkFVK2f5MUNWX66j5ytaUVvNd4vm7TEXH0sRa1flJA9n0b7FS2
+         o/IQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792146531; x=1792751331; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zV6ZIduNaIczlafS5ObokQ7IxrGgGQYf/oXSNU6g1rM=;
+        b=X7i9VFS9f8nUvNVmCCpMeiWi/XXw6yTCUuJ8qKap0FMV3S6u2wU4lK+qrQhaCgDTC2
+         26dnrGFIccZOYNCDAS94SalSsgiYFCGkFGCjokPNzlCGCEi9ZKz3hvF0oaEoKu0ds9jV
+         a+bn0kxKDxnvwOaH/dHbYScvG29UkEeIkD06z/fs8E7ZDO/gBV0w6Zlcr4Y+khU3IbgF
+         LQMS6+gjmvyYWn64WdHk7Zkvf3ZVqnFqs5WpoAGKMC22y05F7k7aRdScJxicmqWKvG23
+         YV3Q9gNmhObDJVnqZ7K/GmBxlW6pifSjczRpA7jJOzdIfnZ8HuXMzsFCO3E0Q+EKuQRE
+         6iMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792146531; x=1792751331;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zV6ZIduNaIczlafS5ObokQ7IxrGgGQYf/oXSNU6g1rM=;
+        b=0rwLdn90HRjSVpXldFwD8lWX8gLQFh9OISgs4kYPuJWuuyJYSHg+6+wmUbh3Kpfnrm
+         Vx3y/QsrnxHug1mORU4vhFftvCc+QysvhtAvYL3DJVMh27ytXIKgpNOpum7DptryLpJ6
+         vX9hfhutLwcsmQ5NkoO5SsSSkVWWv0SEb14YVC8QVXfRnZcUdfuy52Y3dn/LPcgmIQQx
+         uELfJ+0jm//11ud3B+tRNj7YPD50I/LyAAxDw+wCaFYlu+SywUBSdO6G4hPhicfHiKc+
+         4+Gpyb9wBfNirX5exBCOQxJ6lw9vpNPt3MzYMd1uWwiK2suWyyQ/VqtEFSCtPGStcOFH
+         UOFw==
+X-Forwarded-Encrypted: i=1; AKwUvBxaiTdd+P7fTopPvc2aufxHtUveaDFeDNOypkwnc/izmIpif48QuKNrIyUQbx2r82Z6YQ04dncyRn+xCg4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTxnt0hqU62Liq23NdzzDVKSP+Qhe24c2emyPiTyMFpKCP/QRH
+	pzVDS8HusbzhWYE19AugH3YnDLQ4+ZMaznuKGnHdn3/iPSe2wAfEffsnKMCfa8DmtPeFeHxPIJf
+	ii/4HgG1ybuW9bnTrPCh62ZS8GJ8duR4u2iCPp/wXdT53iaA=
+X-Gm-Gg: AYBFou2MnDjPlXosPToaUFudwcFKJuH4odYyB0ccFQUnBmEW8GlkGXNyRZBql5l7IrT
+	URGYfdKXBbTeisUNWMRCAaldLJZCFdiBNa6/BA8mekb5YRLhXz60zbNl1utv1s4B7HVbPc1644c
+	x66VxoUXWls1E5UAzoTBQBF9QdX/P6w0sMrdThRjxWzLWjxBviXAOvX2cGFv3x3chXYkrrGrDIR
+	ec7+Jrw8ceZdZTa0wo4vaQJthKXdCYYhIoVol0riu1ldnOnk0c0p8nNXnu6vn4bwsSLOhY81+di
+	jXYIhJdOkVh/VM39YOEGAXUtq6s9oIVYyn00vJPK232n5bPkr0+4CySsUSYRpx0FBiwCvubf2A7
+	2YNw6Kpkqjg==
+X-Received: by 2002:a05:690c:389:b0:8ab:436f:6e7b with SMTP id
+ 00721157ae682-8b07ee91c26mr65816367b3.63.1792146531063; Fri, 16 Oct 2026
+ 03:28:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-vd55g0-sp11-fix-v2-1-aa08b4b8bbfc@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WS0WqbMQyFXyX81/uHZFu21au9x+iFJEvtD2vTJ
- VnYKHn3OSkMUtilBN859tF5X45+2Py4POzel4Oft+O2f51D+rJb7Flen3zdxpyXBKkiYF3Pg+g
- J1uMb4hrb77WCWi1CrDiWSb0dfK5vit8fP+aD//w1hU8fy+VNTvY8ZR92o5RWgnA0QbAYCJKxu
- iUF5lwLg2KRxjfdfxQANjOqGq2yKIDXpsPAKGFhwilq2rDeU0ySBkd0rN0VGyBQ7qNDFKWSuid
- t2rjfU96weU4uxljNJMyCvQlRMgHIAJ2GSL6neliJRtNSLGdJOAMaWtAw87CcsKvTjO2eoqTDq
- XKB+SAycIpSBqaOGKxcW1XLiHZPGSjnAuw5wyjaW9HcII2ZCTVPVhSmbE731JjuUQmQ+rRViYx
- XOw91n1+bR5WYacQnioxVoRWYZ0nAM7/oSqTK0LtI01RHbvqJQvNSJAcjFHGXkQz7oC5YGgzUg
- eKU8UqpHH21/cvLdnrY1RSlp4iWNbJ47wrWmRFn+q3NZwabBubl2rPn7XjaH/7cinzGW9H+29k
- zrrjOEhSd9x89+renF9l+fJ3Gy+PlcvkLwO3fkhYDAAA=
-X-Change-ID: 20261016-vd55g0-sp11-fix-60bc64a59b1d
-To: sylvain.petinot@foss.st.com, pm@petermarshall.ca, 
- benjamin.mugnier@foss.st.com
-Cc: sakari.ailus@linux.intel.com, linux-kernel@vger.kernel.org, 
- mchehab@kernel.org, linux-media@vger.kernel.org, fqwqf@fqwqf.xyz, 
- lsa.uz@pm.me, George Neacsu <geocausa@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792146480; l=4701;
- i=geocausa@gmail.com; s=20261015; h=from:subject:message-id;
- bh=m1dF/plKqq+CFSvKhg0SOvOc3T7aD4+VelQA4735/cg=;
- b=TbZ7Qoi11fjGV4j+vRAi/d6A7Wf1NUBg0naMFVaTcrA43rDuNcaaTb+TNf6qmN7IwKvZ39dMY
- U2eRnG4f0SzBgFhIFRRUNZkjZh0MIkg2nV9tSvcS2pIW1jiqdJITOzq
-X-Developer-Key: i=geocausa@gmail.com; a=ed25519;
- pk=KyQk/iWbxsikewDBh0SwlHI51RvAqahD3loqmRp9DVI=
-X-Endpoint-Received: by B4 Relay for geocausa@gmail.com/20261015 with
- auth_id=1199
-X-Original-From: George Neacsu <geocausa@gmail.com>
-Reply-To: geocausa@gmail.com
+References: <pm-fuse-full-objects-candidate-0002-v2-17d6013e5066de33396c@gmail.com>
+ <CAJfpegteiu8+=1QJbHq9Z9BuBHRYnmHAkYn2bMxbxxhNGvpBxg@mail.gmail.com>
+In-Reply-To: <CAJfpegteiu8+=1QJbHq9Z9BuBHRYnmHAkYn2bMxbxxhNGvpBxg@mail.gmail.com>
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Fri, 16 Oct 2026 18:28:39 +0800
+X-Gm-Features: AclHuK-KMTYlHjEguu9yYQE4h0G8BU9J8aYJfl5UYC5ANVzGsYvGxeSqHSHMniA
+Message-ID: <CAFRLqsWfJpH_TF_B13AzBFGNsZM7MQ3NLJn8tG8Z25RY4XGH8A@mail.gmail.com>
+Subject: Re: [PATCH] fuse: serialize processing table installation with I/O
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: George Neacsu <geocausa@gmail.com>
+Hi Miklos=EF=BC=8C
 
-On a Surface Pro 11 (Snapdragon X Elite, CAMSS) the VD55G0 IR sensor
-(cut 1, revision 0x1111) runs one D-PHY lane at 840 Mbps. With the
-VD55G0 support as posted, the sensor accepts the start command and
-reports STREAMING, but it never sends a frame and the stop command
-never completes.
+Miklos Szeredi <miklos@szeredi.hu> =E4=BA=8E2026=E5=B9=B410=E6=9C=8816=E6=
+=97=A5=E5=91=A8=E4=BA=94 18:18=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Thu, 8 Oct 2026 at 08:29, Cen Zhang <zzzccc427@gmail.com> wrote:
+> >
+> > The processing table of a /dev/fuse endpoint must be initialized before
+> > I/O can use it. fuse_dev_open() leaves pq.processing NULL, and
+> > fuse_dev_install_with_pq() publishes fud->chan before assigning the
+> > table. fuse_get_dev() accepts the published channel without taking
+> > fch->lock, so the installer's channel lock does not protect the reader.
+>
+> Thanks for the patch.  I arrived at a very similar fix for this issue:
+>
+>   https://lore.kernel.org/fuse-devel/20261016082243.2865588-1-mszeredi@re=
+dhat.com/T/#u
+>
+> Added Reported-by: tag from you.
+>
+> Thanks,
+> Miklos
 
-The minimum line length is the VD55G1 value, 1128 pixels. ST's
-reference vd55g0 driver uses 1200 below 900 Mbps and 1128 above. At
-840 Mbps the sensor stalls with 1128 and streams with 1200, so use 1200
-for the VD55G0 below 900 Mbps.
+Thanks, Miklos. Appreciate for that.
 
-With this change the sensor streams 644x604 Y10 at 61.6 fps, the
-diagonal grey-scale test pattern comes out correct, and stop completes.
-The built-in 2.11 cut1 patch is used unchanged.
-
-Link: https://github.com/STMicroelectronics/vd55g0-linux-driver/blob/a05627b0f6d8775aa54b6fa306e91f425f2cbf9e/vd55g0.c
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: George Neacsu <geocausa@gmail.com>
----
-This is an incremental fix for Peter's unmerged VD55G0 support (v2,
-patch 11/11), on top of Jizhou's register-width fix (v2). It does not
-apply to media-next on its own.
-
-Prerequisites:
-https://lore.kernel.org/all/20260918221705.323510-1-pm@petermarshall.ca/
-(and Jizhou Tong's "[PATCH v2] media: i2c: vd55g1: correct VD55G0
-register access widths", 12 October)
-
-Benjamin, I know you'd rather see a separate vd55g0 driver (Sergey's).
-ST's downstream driver also uses a 1200-pixel line below 900 Mbps, so
-this is a data point for that driver too. I can test Sergey's driver on
-the Snapdragon Surface Pro 11 when it is posted.
-
-Tested on mainline (62f482ff73bf) with Peter's v2 01 and 04-11 plus
-Jizhou's fix. 02 and 03 did not apply to that tree, and neither touches
-the driver. The receiver is qcom CAMSS (CSIPHY0 -> CSID0 -> VFE0 RDI0)
-with out-of-tree Surface Pro 11 board support.
----
-Changes in v2:
-- Drop the ISL_ENABLE (0x0329) change. Sergey found that writing it
-  does not stop the output on the Intel model, and a retest here agrees:
-  with the 1200-pixel line the sensor streams whether 0x0329 is written
-  at stream start, once per power-on, or not at all.
-- Link to v1: https://lore.kernel.org/r/20261016-vd55g0-sp11-fix-v1-1-eb14bd80d8f8@gmail.com
----
- drivers/media/i2c/vd55g1.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-index ba70447..4e23e88 100644
---- a/drivers/media/i2c/vd55g1.c
-+++ b/drivers/media/i2c/vd55g1.c
-@@ -76,6 +76,8 @@
- #define VD55G1_XCLK_FREQ_MAX				(27 * HZ_PER_MHZ)
- #define VD55G0_MIPI_RATE_MIN				(750 * MEGA)
- #define VD55G0_MIPI_RATE_MAX				(1200 * MEGA)
-+#define VD55G0_LINE_LENGTH_LOW_RATE			1200
-+#define VD55G0_LOW_MIPI_RATE_LIMIT			(900 * MEGA)
- #define VD55G1_MIPI_RATE_MIN				(250 * MEGA)
- #define VD55G1_MIPI_RATE_MAX				(1200 * MEGA)
- 
-@@ -1245,6 +1247,8 @@ struct vd55g1_model {
- 	u16 num_modes;
- 	u32 mipi_rate_min;
- 	u32 mipi_rate_max;
-+	u32 low_mipi_rate_limit;
-+	u16 line_length_low_rate;
- 	u16 width;
- 	u16 height;
- 	bool bayer;
-@@ -1323,6 +1327,8 @@ static const struct vd55g1_model vd55g0_model = {
- 	.num_modes = ARRAY_SIZE(vd55g0_supported_modes),
- 	.mipi_rate_min = VD55G0_MIPI_RATE_MIN,
- 	.mipi_rate_max = VD55G0_MIPI_RATE_MAX,
-+	.low_mipi_rate_limit = VD55G0_LOW_MIPI_RATE_LIMIT,
-+	.line_length_low_rate = VD55G0_LINE_LENGTH_LOW_RATE,
- 	.width = VD55G0_WIDTH,
- 	.height = VD55G0_HEIGHT,
- 	.bayer = false,
-@@ -1542,6 +1548,8 @@ static unsigned int vd55g1_get_hblank_min(struct vd55g1 *sensor,
- 
- 	/* Absolute time required for ADCs to convert pixels */
- 	min_line_length = VD55G1_LINE_LENGTH_MIN;
-+	if (sensor->mipi_rate < sensor->model->low_mipi_rate_limit)
-+		min_line_length = sensor->model->line_length_low_rate;
- 	if (sensor->model->hdr &&
- 	    sensor->hdr_ctrl->val == VD55G1_HDR_SUB)
- 		min_line_length = VD55G1_LINE_LENGTH_SUB_MIN;
-
----
-base-commit: 62f482ff73bf3ae88b0c899115527752cf9cbf13
-change-id: 20261016-vd55g0-sp11-fix-60bc64a59b1d
-prerequisite-patch-id: d4474f51d7a10cfd10a316ec2b09936490b14a79
-prerequisite-patch-id: 0017cc56bf769ab00e67bdc0c5214951447cb716
-prerequisite-patch-id: 95a2d9ff8168eb17010538d80f4b5428e2b7b798
-prerequisite-patch-id: e717e32eac916ccafccf9e7a552ca0030085daa3
-prerequisite-patch-id: 8fc4f7595aac33a2164adb41c139dc3218be5bc6
-prerequisite-patch-id: 52bde56940b545c0e5f44d12811f9b9676bc311c
-prerequisite-patch-id: c0b93409e330d4b874b3702d67b57e2c4b0bde32
-prerequisite-patch-id: dbc6f65015852bbaf31e5f4efbee52c60bafb79f
-prerequisite-patch-id: d5c9bb074014a20938df8b55bb9088aa7b26d37b
-prerequisite-patch-id: d1ce44a3f9104aeead2c18d58a1470d1bd1ae531
-
-Best regards,
--- 
-George Neacsu <geocausa@gmail.com>
-
-
+Best regards
+Cen Zhang
