@@ -1,202 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA4F246A61A;
-	Fri, 16 Oct 2026 09:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFE603E3DB1;
+	Fri, 16 Oct 2026 09:10:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141794; cv=none; b=Y7Tf5Dl/Nv817rhMtqKx6c++qL7ypUGpo1CeJd6bQ7o2dxv1DUuDIM+z9SkPVHlsmJ61mU60jhelB27q5f+2tUuySAGNJHcYEJ15iMu1ap2TeaPWk8JE3ZdPG7YySiZjaaJs6d35lRsENgaL76W3Dz1EgjMxzv3zhvy41VFKbAE=
+	t=1792141829; cv=none; b=uiMRCAQgqlyw1phzSVphrXrj328bcI0M+pIMp89d2XzgACPWbVbAVtiOCFFN8hAvFCozNUarJlPmWshpzMfU4KP7mm1IiRlwhm1g/ydqWGbgbja8da/l757DQLHsnO+ZsaqjKaZa44JzqwsnA9YZio1owfT+eEWP4xxFc9pW9YU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141794; c=relaxed/simple;
-	bh=hL8SkqQEIPT67O9+eQXaSndetiK3EBlWupMka/Wk/ZI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Hcu6rpNfj3ngYT2V3eQYvln5VwX/Xe8RC2HK/XLB29Y7xAWCdP48esx574AJ/IfrmiaeO/VKbFivCW4NX5w4+B1y25jkkk2n9RkcGB7dhCIBgwWFGO8YG1kbTNOALXkAAatPqmitDvL9vTaPI4r26TLXLmpHxyUkiU78E8e2Ihs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bjvk15rw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792141829; c=relaxed/simple;
+	bh=IcqZ76rfSDpcQwiD9DxB/mRMqJ9LDWG0ojtAogXJl9E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UFgqmxlzibjYxSwRSZuZuyZIDo/FD6PilgkAHaFakwKVi1GRJnp6Tnw3cb2fTddH0ctWNjv+oFi5TYxR13SRKGNYpJKVd7aI29QTj9mwqgSlxdfjt/Hzpk2ReAp9EpIG1pIzQ+eUhrTlk2uhqReFydWj9Q39iYQ5ZdRcKPys/pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DV9zFSaz; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bjvk15rw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E85291F000C5;
-	Fri, 16 Oct 2026 09:09:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792141792;
-	bh=jRJpfbMFIjfEU0tsH7yW/QKvARVo1QquuMxzsg0WdpE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bjvk15rwTZvV1Q5cX4++rHGhvASJtBttSkeUhg3pizMNzLOqeEdVjHq4bfxMKajVB
-	 wALXgdRPwgAToBLZwGG14tHsBGFTcO1f/Du6oW4H6YjIpoG00OBnn8Fk8a7n6Fu1pb
-	 EkL3uRgW9bjuk4JpaXcMsq1SfW+jaddLVg7AG6XPIn94hScTHM3DQAFYfUysyFj1h8
-	 SMBsPyqRUvlLwy8QGK1SD7UMCGnIGmVUL1pmQ08QGen3xMrg/hRJuKpljWcqF5XNNM
-	 H6feMr/Djq/7JQHiEKlNEAO54RGEY7xErpUm63PaTvm0inhkyiiHEcjg0gUrZII7Nf
-	 JJeZ/lwEGNDFQ==
-Message-ID: <aa5083cf-1400-476b-9e8f-b97e062dad92@kernel.org>
-Date: Fri, 16 Oct 2026 10:09:48 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DV9zFSaz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792141828; x=1823677828;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=IcqZ76rfSDpcQwiD9DxB/mRMqJ9LDWG0ojtAogXJl9E=;
+  b=DV9zFSazw7xpG6Wz+/GyyiPjfK9wR+0grvew4JE9An3oma2vUugh/1c5
+   daDBgMfREd+MTBaJlMK4cBQTFRqL8GG/EVHhiEuTB99RkGAIr+ZFSsI3f
+   cT5lL3Am+Azyd9OPEHpJnt1oI1dY07OYfYNer1kZrRu1Q+faNWo2agUr2
+   rz6e73NSFhiRKXoFf5+Ba5JTeIxKwbSgGcd/p0oClyDrjstygCAP+c7lY
+   +85tkERCH2PV4GTygHuXLMFtoq3YowBcl6dlxEz1QNFpHa8V+TgvZmCvz
+   m6rVy8JPG87idR865Fry5HRwSEKuEd5/ezfkzBNoVlyXlfNspQW4hjhPP
+   g==;
+X-CSE-ConnectionGUID: 6OAXGE5yQDScylHyBRUUcQ==
+X-CSE-MsgGUID: AF5aVkmOQG6hO3DgUfzxeA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="927110"
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="927110"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 02:10:27 -0700
+X-CSE-ConnectionGUID: f0ZxwHqcQzezsx9jeKD9wQ==
+X-CSE-MsgGUID: Dmx66YQHQDeMGJg02dnCpg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="1812539"
+Received: from litbin-desktop.sh.intel.com ([10.239.57.15])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 02:10:24 -0700
+From: Binbin Wu <binbin.wu@linux.intel.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: seanjc@google.com,
+	pbonzini@redhat.com,
+	dave.hansen@linux.intel.com,
+	andrew.cooper3@citrix.com,
+	nik.borisov@suse.com,
+	kas@kernel.org,
+	rick.p.edgecombe@intel.com,
+	xiaoyao.li@intel.com,
+	chao.gao@intel.com,
+	tony.lindgren@linux.intel.com,
+	kishen.maloor@intel.com,
+	dedekind1@gmail.com,
+	adrian.hunter@intel.com,
+	binbin.wu@linux.intel.com
+Subject: [PATCH v5 0/5] KVM: TDX: Validate directly configurable CPUID bits
+Date: Fri, 16 Oct 2026 17:14:17 +0800
+Message-ID: <20261016091422.3182216-1-binbin.wu@linux.intel.com>
+X-Mailer: git-send-email 2.46.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 4/4] media: qcom: camss: Configure C-PHY through the
- PHY API
-To: geocausa@gmail.com, Vinod Koul <vkoul@kernel.org>,
- David Heidelberg <david@ixit.cz>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com>
- <39_60e7JWzomu65UjqBRaN5wYsC-80_KwUWXiUI5xyrR4Xm1Hr1QSCLbafzYGahn5ArXl1FXM9Esj4xIBwaL7Q==@protonmail.internalid>
- <20261015-x1e-cphy-rfc-v1-4-1f3fa9af940a@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261015-x1e-cphy-rfc-v1-4-1f3fa9af940a@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15/10/2026 23:20, George Neacsu via B4 Relay wrote:
-> From: George Neacsu <geocausa@gmail.com>
-> 
-> With a PHY API CSIPHY, csiphy_stream_on() always asks for D-PHY. Ask for
-> C-PHY when the endpoint is C-PHY, and pass the trio count and the symbol
-> rate, which by the V4L2 convention is twice the link frequency.
-> 
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: George Neacsu <geocausa@gmail.com>
-> ---
->   drivers/media/platform/qcom/camss/camss-csiphy.c | 35 ++++++++++++++----------
->   1 file changed, 21 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
-> index f44f2aeb9..8e1b4335a 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csiphy.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
-> @@ -329,17 +329,15 @@ static int csiphy_stream_on(struct csiphy_device *csiphy)
->   	u8 bpp = csiphy_get_bpp(csiphy->res->formats->formats, csiphy->res->formats->nformats,
->   				csiphy->fmt[MSM_CSIPHY_PAD_SINK].code);
->   	struct csiphy_lanes_cfg *lncfg = &csiphy->cfg.csi2->lane_cfg;
-> -	struct phy_configure_opts_mipi_dphy *dphy_cfg;
-> -	union phy_configure_opts dphy_opts = { 0 };
-> +	const bool cphy = lncfg->phy_cfg == V4L2_MBUS_CSI2_CPHY;
-> +	union phy_configure_opts opts = { 0 };
->   	struct device *dev = csiphy->camss->dev;
->   	u8 num_lanes = lncfg->num_data;
->   	s64 link_freq;
->   	int ret;
-> 
-> -	dphy_cfg = &dphy_opts.mipi_dphy;
-> -
->   	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes,
-> -					csiphy->cfg.csi2->lane_cfg.phy_cfg == V4L2_MBUS_CSI2_CPHY);
-> +					cphy);
+The TDX module reports a set of CPUID bits that the VMM can directly
+configure for a TD, but KVM cannot blindly expose all module-supported
+bits to userspace.  Certain features imply additional architectural state
+(such as one or more MSRs) that KVM must explicitly manage across
+host/guest transitions to prevent host state corruption.
 
-That's a nice reduction, yikes who let that statement into the kernel :)
+Today, KVM hardcodes a denylist to filter out host state clobbering
+features that KVM doesn't support.  However, a denylist doesn't scale as
+the TDX module evolves, i.e. host state clobbering features added by a
+future TDX module are not covered by the denylist, and userspace could
+enable a feature that KVM doesn't support.
 
-> 
->   	if (link_freq <= 0) {
->   		dev_err(dev,
-> @@ -347,23 +345,32 @@ static int csiphy_stream_on(struct csiphy_device *csiphy)
->   		return -EINVAL;
->   	}
-> 
-> -	ret = phy_mipi_dphy_get_default_config_for_hsclk(link_freq, num_lanes,
-> -							 dphy_cfg);
-> -	if (ret < 0) {
-> -		dev_err(dev, "Invalid config for link frequency %lld\n",
-> -			link_freq);
-> -		return ret;
-> +	if (cphy) {
-> +		/* A C-PHY link frequency is half the symbol rate. */
+This series builds an allowlist for directly configurable CPUID bits, and
+filters and validates userspace input against it, so that newly introduced
+TDX directly configurable CPUID feature bits can only be enabled by
+userspace after KVM explicitly opts in.  Except for a few fixed-1 bits
+required for basic TDX support, host state clobbering features are either
+directly configurable or gated by TD ATTRIBUTES/XFAM.  KVM already
+validates ATTRIBUTES/XFAM, so the allowlist only needs to cover directly
+configurable bits.
 
-A comment that should live in a helper.
+Patch 1 is a standalone fix for the existing denylist check, which uses
+the index of the matched userspace entry instead of the subleaf reported
+by the TDX module, i.e. userspace can bypass the HLE/RTM/WAITPKG check.
+It is tagged for stable so that it can be backported independently of
+the rest of the series.
 
-> +		opts.mipi_cphy.symbol_rate = link_freq * 2;
+Patches 2-5 build the allowlist, add CORE_CAPABILITIES to it, filter
+KVM_TDX_CAPABILITIES, and validate the CPUID input of KVM_TDX_INIT_VM.
+The last two patches are user-visible changes, which are now called out
+in their changelogs, along with why existing userspace and guests are not
+expected to be affected.
 
-Sounds like something which should have a helper coming from the PHY layer.
+For this version, I'm hoping to continue to collect some RBs and Acks.
+The key discussions from v3/v4 [1] are summarized below.  Note, FRED KVM
+support is in progress upstream [2], and no TDX module with FRED support
+exists yet, so there is no immediate issue.  But it would be nice to get
+this series merged sooner rather than later.
 
-The analogue for DPHY is phy_mipi_dphy_get_default_config_for_hsclk()
+Discussions from v3/v4:
+- Rick asked whether the assumption that the reserved bits in
+  CPUID.0x1.EAX, CPUID.{0x4,0x18,0x1F} and CPUID.0x80000008.EAX won't be
+  used to enumerate features can be confirmed by the x86 architects [3].
+  Confirmation is still pending.  Per the SDM/APM, these leaves/registers
+  are defined for specific information (version, cache/TLB parameters,
+  topology, and address sizes), so the reserved bits are expected to be
+  used to extend the existing information rather than to enumerate
+  features.  Allowing these registers in full is a best guess, but it's
+  still far better than the existing denylist-based check.
 
-> +		opts.mipi_cphy.lanes = num_lanes;
-> +	} else {
-> +		ret = phy_mipi_dphy_get_default_config_for_hsclk(link_freq,
-> +								 num_lanes,
-> +								 &opts.mipi_dphy);
-> +		if (ret < 0) {
-> +			dev_err(dev, "Invalid config for link frequency %lld\n",
-> +				link_freq);
-> +			return ret;
-> +		}
->   	}
-> 
-> -	ret = phy_set_mode(csiphy->phy, PHY_MODE_MIPI_DPHY);
-> +	ret = phy_set_mode(csiphy->phy,
-> +			   cphy ? PHY_MODE_MIPI_CPHY : PHY_MODE_MIPI_DPHY);
+- Whether to restrict the TDX feature bits to kvm_cpu_caps[].
+  The conclusion from the discussions is to construct the allowlist based
+  on kvm_cpu_caps[], plus a few bits that KVM can support for TDs
+  independently of kvm_cpu_caps[].  If TDX feature enabling turns out to
+  be consistently blocked by non-TDX VM enabling, a solution can be worked
+  out then.
 
-Instead of a bool if you define an int which carriers the type you can 
-still disjunct on that all you like but ultimately pass it into 
-phy_set_mode() directly - skipping at least this ternary statement.
+- New opt-in interface vs. backporting.
+  There are two options for old KVM versions that don't do the filtering
+  and validation:
+  1) Add a new opt-in interface to expose features newly introduced by the
+     TDX module.
+  2) Backport this series to LTS/stable branches.
 
->   	if (ret) {
->   		dev_err(dev, "Failed to set phy mode\n");
->   		return ret;
->   	}
-> 
-> -	ret = phy_configure(csiphy->phy, &dphy_opts);
-> +	ret = phy_configure(csiphy->phy, &opts);
->   	if (ret) {
-> -		dev_err(dev, "failed to configure MIPI D-PHY\n");
-> +		dev_err(dev, "failed to configure MIPI %s\n",
-> +			cphy ? "C-PHY" : "D-PHY");
->   		goto error;
->   	}
-> 
-> 
-> --
-> 2.53.0
+  The opt-in design vs. backport decision is deferred, since this series
+  is correct and an improvement either way.
 
----
-bod
+- Potential backward compatibility issue when an effective fixed-1 bit
+  becomes directly configurable due to x86 feature deprecation.
+  This is left for the future, i.e. it can be addressed if and when such a
+  deprecation actually happens, e.g. by adding an opt-in interface to let
+  users/admins choose between migration flexibility and backwards
+  compatibility on old platforms.
+
+Changes since v4 [1]:
+- Split the CPUID entry index check out into a standalone fix, which
+  allows it to be backported to stable independently of the rest of the
+  series.
+- Exclude XTPR from the allowlist, as neither TDX nor KVM actually
+  virtualizes the feature and guests don't need it. (Xiaoyao, Rick)
+- Rename TDX_CFG_EXTRA_F() to TDX_CFG_INDEPENDENT_F(). (Xiaoyao)
+- Fix AMX_COMPLEX to be added for CPUID_7_1_EDX instead of CPUID_1E_1_EAX.
+- Drop the descriptions in the TDX documentation and the uapi header, as
+  the ioctl interfaces for KVM_TDX_CAPABILITIES and KVM_TDX_INIT_VM are
+  unchanged by this patch series.
+- Improve changelogs and comments. (Xiaoyao, Rick)
+
+The series follows the CSV version of the CPUID virtualization document
+from "Intel TDX Module ABI Definitions" [4], updated in June 2026.
+
+AI tools were used to:
+- Polish the cover letter and commit messages.
+- Do code review.
+
+[1] v4: https://lore.kernel.org/all/20260917072548.2314491-1-binbin.wu@linux.intel.com
+    v3: https://lore.kernel.org/all/20260827031837.2863609-1-binbin.wu@linux.intel.com
+    v2: https://lore.kernel.org/all/20260604023314.3907511-1-binbin.wu@linux.intel.com
+    v1: https://lore.kernel.org/all/20260417073610.3246316-1-binbin.wu@linux.intel.com
+[2] https://lore.kernel.org/all/20260911213659.2025974-1-sohil.mehta@intel.com
+[3] https://lore.kernel.org/all/e7182b3c03a0e39cb60392b4d75111255418d6cf.camel@intel.com
+[4] https://cdrdv2.intel.com/v1/dl/getContent/795381
+
+Binbin Wu (5):
+  KVM: TDX: Check unsupported CPUID bits against the TDX module's
+    subleaf
+  KVM: TDX: Track configurable CPUID bits allowed by KVM
+  KVM: TDX: Add CORE_CAPABILITIES to the allowlist
+  KVM: TDX: Report only KVM-allowed CPUIDs in KVM_TDX_CAPABILITIES
+  KVM: TDX: Validate userspace CPUID input for KVM_TDX_INIT_VM
+
+ arch/x86/kvm/vmx/tdx.c | 258 ++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 231 insertions(+), 27 deletions(-)
+
+
+base-commit: dea4f6380f4ec96e8f3b0aaf2343764bd0d25ef4
+-- 
+2.46.0
+
