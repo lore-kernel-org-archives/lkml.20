@@ -1,123 +1,102 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848D157F72B
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:03:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A19259C976
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:03:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792173790; cv=none; b=V28dVuuDLyjeEZ3lNU8AZVKugimwgz4EPLpO0VM8psuzkUHPkTAXmVqqSIjtacJ3cyJyRKBQzvOGGlFIV19vKp4cuMK3os2F4k7rsQtkw2i1mSbA59uu4hd9Mfbe1ocACipSNC4LJQI/W5s21+XNIU6uW8RTiB3tdiBBTWeCbA8=
+	t=1792173801; cv=none; b=W84Z+HAzNL9tGETOydHdHvxyVgMTA/ZMGbUngmfvpMQ3rFVVOqkKdWdWJwjPYYxBKkjeWoSDbajGaUXvOwnqEqixHYf+kxTnvtTDS8lyzK4yYIXHQ+S08FJPjKKMRA2fk0moVuGBx1MxkN3FbW4ccxrQn0K9F6pbTZgjCH3wfL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792173790; c=relaxed/simple;
-	bh=pTk9CQUhhcRb0FpSpb2UUz4euVW/T1p/m9rxv8ABrpo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TOOG+vBMaVsOJ2KkMBZPJkw8q+pFzmsp8KrW1b0MxaGMcoDCivhqFpYOJTzelWnQt6GfsKvaPUHqqet0S8foY6375YcTYIunsLAqDxGlY/ooNKyfyMRw6WTPl7BGvMUrlsAgwbGgD2Op0Kzcz2rdYGbjWkJpKN7NcXYyrkghSzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=GuzlP3Ds; arc=none smtp.client-ip=209.85.160.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1792173801; c=relaxed/simple;
+	bh=eM9ao6oAulDPYd6UEPWg93GZGjjztqDBossYWkJDlOs=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kAh/oHkNHhMgFBbP6Ljc6AAqhhuvnrJj6eyc+RscmBDZCzzSYUQngyCNcEQvOevRtAvVl0yu7+i9YRktGKwXI+Mwo+okPfuS7GZP3FOFcpnqul4GgszLX9CrMzzVEID/LpzqcjMWpBvamuVd+Zs8Cf4R29hsgYrYgkSzY24Vilw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N4ZYmPtx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="GuzlP3Ds"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-53391022dc0so1729691cf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:03:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792173787; x=1792778587; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oCOssGC3fJ3o3ujxU/0UoaTklTa5OtsoPRrPROKWjDk=;
-        b=GuzlP3Dszj8fOaIpiKJELviDnfMWGghiaf5nNIid9Tx3lOctWUerO4GbrDrzVC8qGb
-         asvylD1UE3Z8G0m3YpLRABnlslpHigxLRzjJ4md574n7wZ5z+FWzmoJOiHH2TwFcAgCp
-         BnMHNwWSLhFnlmdQ9DtRpRJ8h+UVr+MVi5xYUbXC9Fg+nQs6O/PBlluTNJKtuCbz4RcS
-         dNORCqMYeNgfJqkg6fShbIs5cM7Km0DZJ4EN7GlBUBFdzM0pcXeaEuig0L93Dq+2BY4t
-         C/aFjC23DhtlLqJNCLxuaPYU9ojIYOuFoRFMSRQrrYgTFq/FyRKjI5HmlFt06pi6J3pD
-         WSQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792173787; x=1792778587;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=oCOssGC3fJ3o3ujxU/0UoaTklTa5OtsoPRrPROKWjDk=;
-        b=IZCFCJ9oU/n+U8xjzrTwjE4UuVwemW+mn5ziEtAr+8Qi0VWcjE70WE/ZTl7B7xuT8l
-         Sx3ce35bfe9r8BwcCvjC95BeoRqb2I/RZq7nOznJ60nhJ9n2RZCwnblMDmXOsRIcIqlh
-         y0ll30Y7v4K89jp+BHs9/CPkSxCsesE2buwxkVcTbUC+Tvy4SYmJ1O6I1gmkLbwKeXXK
-         FKty3Li94vaRFbvPO8X2iecAJXCjWUawYgquubIya7U6jaVZ19TYXwgxGcRGOEv8+jrN
-         RSIzPl2qUWYynVVQyWyM2jlupneB133QBHgTtlchQ8QviGrxKnPkdicrNnTcbI1D43U/
-         7wbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx9nzw8xvnte13EKY+/6RfKtDfat0K8qRpOnZZinl6xY/CQiCeVYLYnNqHPzng3WUJSJ1FhisNs28MKNGk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1TxSl4IZMgzmtqseGRowhA6DJ9WnpszGEGmjrM5XWOyeNpjIX
-	ST7GRDdcfOkaA/k/tf8GhboMErl4vOj4F/9W94TIVZ/YvrizZDUryaxvf/8a60GCXjU=
-X-Gm-Gg: AYBFou3fHMAButwqxlB3pJPjWc4iaByUv2RDom1YrmBFNI2GnpPevraMuPIzqEqWbqH
-	cPD2r+cpptaFlM535x6OPDSuCybddhrJdYDQSpGOR+6bD+Gw3mh+gKe+IRvV4AJnYudil9wPUEc
-	0Z+QvG2OyyF7i/Y+ol5euXK4cqVGTF4ta4safUgQyPGdFeHpVx6Q5TUqB/jnqhnL8vSqyH+HefW
-	1UGuy0ksfls9w1SQe7HwqtXd8qvrp3JMcJCQncr4YmJ/nWAvdB+ejwQGCTZ/EXFjcENOfO5BuIf
-	DuVtnXA40W6VeIZv/OCdC0Zs/F58suvhr3OZv3hMFd3U0pkYmEkR+EALCThEmTqs9w0vwCq2PM5
-	OB82bNBu5cg5yeiQKSgEseQIsS5BJSqNnC6OokLQwjTPTxODfM/eXiUokYSWo3ChjCSdmln6cHz
-	4S+vho3GuhXGWTIPPZVQ6s7PeEyEusgbonUqujxAbIhbe0Faq42XN6P7ba4YRcOA78PrJK+b+VQ
-	SVFnjyl2H5Kq/ytQ6Db0bQvSveUXT0qA2M5pL7+BMUUeJnvJMoHlmCx
-X-Received: by 2002:a05:620a:1a1d:b0:93f:1cd7:7341 with SMTP id af79cd13be357-93f29d388f8mr119685685a.35.1792173787295;
-        Fri, 16 Oct 2026 11:03:07 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a19ce5asm271055585a.32.2026.10.16.11.03.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 11:03:04 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xHmGk-00000002F39-2Fc1;
-	Fri, 16 Oct 2026 15:03:02 -0300
-Date: Fri, 16 Oct 2026 15:03:02 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Daniel Mentz <danielmentz@google.com>
-Cc: Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev,
-	will@kernel.org, joro@8bytes.org, nicolinc@nvidia.com,
-	smostafa@google.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, dawei.li@linux.dev, praan@google.com
-Subject: Re: [PATCH v2] iommu/arm-smmu-v3: Align memory attributes for
- SMMU-originated accesses
-Message-ID: <20261016180302.GI14213@ziepe.ca>
-References: <20261004195027.227748-1-danielmentz@google.com>
- <92758f79-d5b7-4c15-a55d-6bea5f84a028@arm.com>
- <CAE2F3rAJdC9pAqMKcXhxpw1keGzH_kQUNBoPHXjTP8+7TOhfwQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N4ZYmPtx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 459D41F000C4;
+	Fri, 16 Oct 2026 18:03:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792173800;
+	bh=sY/vzPRyUSmg3b8tgu+9E+2fgPSs9yvbJDS5kTRiN3w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=N4ZYmPtx87e0hxQTvy+D4P2kH1NpwFHRyec9xKfSxnNZf3//khZBY4xEkRK0DIxI4
+	 g2aEqW1jgZv+e8JIW8PQ7pT1qa0qNcd4sFcdVCA/NE8vuOg0Ylof0NZESaKUIQVHFi
+	 jDT2Z+tvYI+b34Q4pcYcG45ugteipWujnt43JeaU6uA4RTVCvFtv4xz5KnTGw5j9BO
+	 mt34iej5Iu+Ws5J40TUfGHlUoYBU1WKrINvpUPYR+vOxyinRWVabR7Y+yoPA1ZU5BM
+	 fJPb9bSZr1832yOJWlj6aHcSMyfYEx3vGc6kZ10WsQRu6X8ySZX+4TCcazjKFpHUV9
+	 U4zLlXVwbjI1g==
+Date: Fri, 16 Oct 2026 08:03:19 -1000
+Message-ID: <2da5c0871093ae68069e60889a0481ca@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Marco Crivellari <marco.crivellari@suse.com>
+Cc: linux-kernel@vger.kernel.org, Lai Jiangshan <jiangshanlai@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Michal Hocko <mhocko@suse.com>, Breno Leitao <leitao@debian.org>
+Subject: Re: [PATCH v4 0/2] workqueue: Make WQ_UNBOUND the default behavior
+In-Reply-To: <20261015140148.231126-1-marco.crivellari@suse.com>
+References: <20261015140148.231126-1-marco.crivellari@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAE2F3rAJdC9pAqMKcXhxpw1keGzH_kQUNBoPHXjTP8+7TOhfwQ@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 05, 2026 at 02:26:08PM -0700, Daniel Mentz wrote:
-> On Mon, Oct 5, 2026 at 9:42 AM Robin Murphy <robin.murphy@arm.com> wrote:
-> > This still isn't answering the question of "why?" though. Yes the
-> > architecture says some things, but if we were strict about avoiding
-> > mismatched attributes then Linux couldn't ever support non-coherent DMA
-> > at all! Similarly while the architecture does permit SMMU
-> > implementations to be picky about their output attributes, does any such
-> > implementation actually exist at all, let alone in a system capable of
-> > running mainline Linux?
-> 
-> Fair point that existing implementations have been forgiving in
-> practice. My thinking here is simply that a small, self-contained
-> cleanup that brings the driver into line with the architecture spec is
-> worthwhile on its own merits, even without a known implementation where
-> this currently causes problems.
+Hello, Marco.
 
-I think we should fix this. At least we have HW that respects these
-attributes and they have a performance impact depending on how they
-are set. Fortunately at least our HW does not have a functional
-"mismatched attribute" issue.
+The following is a Claude-generated review.
 
-If the FW has selected to run the SMMU in non-coherent mode then all
-of the bits should be set to ask the SMMU to run non-coherent. Ditto
-for coherent.
+On Thu, Oct 15, 2026 at 04:01:46PM +0200, Marco Crivellari wrote:
+> Currently alloc_workqueue() make sure one among WQ_UNBOUND or WQ_PERCPU is
+> present. This is enforced warning and setting WQ_PERCPU as default when
+> alloc_workqueue() without WQ_PERCPU or WQ_UNBOUND.
 
-No sense in giving up performance due to mis set bits.
+- 1/2: The description gives the future removal of WQ_UNBOUND as the only
+  reason. Can it lead with why unbound should be the default, as
+  dadb3ebcf395 ("workqueue: WQ_PERCPU added to alloc_workqueue users")
+  does?
 
-These IP integrations are complicated, the FW may be saying to use
-non-coherent because some small slice of the system needs that. It
-doesn't mean that every access on every bus the SMMU has is forced
-non-coherent.
+  Moving the defaulting above the wq_size computation is the one subtle
+  point. Maybe add a sentence on it to the description?
 
-Jason
+  The new comment says WQ_UNBOUND is final at that point, but the
+  WQ_POWER_EFFICIENT block right below can still set it. The first two
+  paragraphs restate the if/else. Maybe trim it to the ordering
+  constraint against wq_size?
+
+  unlikely() on the neither-flag branch now marks the path that's meant
+  to become the default. Maybe drop it?
+
+  The WQ_POWER_EFFICIENT comment in include/linux/workqueue.h says such
+  workqueues are per-cpu by default. With this patch, one without
+  WQ_PERCPU is unbound regardless of workqueue.power_efficient. All
+  in-tree users pass WQ_PERCPU, so only the text needs updating.
+
+  Typos: "achive", "alloc_users()" (alloc_workqueue() users), "ensure" ->
+  "ensures", "neither flags are" -> "neither flag is".
+
+- 2/2: The description says WQ_PERCPU is set for WQ_BH "regardless of
+  what the caller passes", but WQ_BH | WQ_UNBOUND is rejected by the
+  __WQ_BH_ALLOWS check.
+
+  "the only permitted flags" dropped "additional", but WQ_BH itself is
+  in __WQ_BH_ALLOWS too. Also, "workqueueus" typo.
+
+  The new WQ_UNBOUND sentence sits after the "useful for the following
+  cases" bullets and reads as one more case. Maybe move it to the top of
+  the entry? Also, "Workqueue without" -> "Workqueues without".
+
+  The Guidelines section still says "using a bound wq is usually
+  beneficial", which now contradicts the default. Can that be updated
+  too?
+
+  Nit: doc patches in this tree usually use the "workqueue: doc:" prefix.
+
+Thanks.
+
+-- 
+tejun
