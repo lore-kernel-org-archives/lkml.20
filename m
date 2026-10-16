@@ -1,81 +1,56 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mta0.migadu.com (out-57.mta0.migadu.com [91.218.175.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8884238E135
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:34:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376AC339390
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:36:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792132477; cv=none; b=ekYeBS3uYw97xv2CdghtUrXRERfidjdIAkNwtm38UYDcRMA8ez01F2yDC3QKYMIVH6re5/2riSHj5IgVZk8rikBlqRr0ICrttUVmc1v+0MPQk0sosaRKfo3UwLfXqx840grkpTG5hB/mSlBRWdl+5eKIUB2KHSKq5rNKfIeZbw4=
+	t=1792132571; cv=none; b=HsYwZPMgxn5Ih4yDurmRreY0ngNFjaGvu/wkW4G6IbwmSPOGd+ayuFclXeD4HifkfG5ZPaaXaeS/rs/r/cXWKpJrslcmvh+yakVIibCAFbmbMdjX0ykQC0rkyA0DQhd5FrXFHpDX80CC8xVOUFtwYc+d501WbhghCDSPjkS9OM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792132477; c=relaxed/simple;
-	bh=ckd8Z01py6nfMuc7JfJGjW9DMPCumhB1KgWSdYZ3e0Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TnweKVnAswUMYR6NoWDfCpMHeyZSxpUVfDTCr+M8Mwd8bMqgNRFbyiF0ja499jNLcWXasEa7AUOQo/1uoeekB5e63PhkDZGEuKL3D6fCZfvqKMacBsmCLOUA3QAEBYwyejd54bXOV2zWEvhcv8hr0OfFkNTAecMENBWDFrYgJI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LjphkV2I; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792132571; c=relaxed/simple;
+	bh=FMULLhup5HxbZ62tpmVqhAwf9hbLzat0PudWDGHNiYM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EfVmZTMgDKIzEXOPq8Hf3lD5UP3Wh1aZMXxZeRbQ9tgUXY5u3QvvaMBR8gfbURqQJaVn3VkcHYViuQblOz84r2JYqq5eD/gQLvEF3w7qOBOy2qMf0S5zebZH6Of8uO5co0ulRrXpxFJtoK3Arrp8aa/pjTq/e+K85jdrudR7sUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=CvbPcpll; arc=none smtp.client-ip=91.218.175.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LjphkV2I"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3acd4850f40so126069a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:34:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792132476; x=1792737276; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ckd8Z01py6nfMuc7JfJGjW9DMPCumhB1KgWSdYZ3e0Q=;
-        b=LjphkV2ILgevGHXbwcsAEwbzCks+3pGhEr+G+Yx6d7SJ+5fJI3cjg8RXJEtOdaS4yG
-         pF9hdemfgU6ESqR3JwqHKx7VHN9R51vfrFFZEGPmr8nYg6q0X4eeRI5ywsjzIr6MpvYe
-         XhwR/XIXSpGnhaLY1o6Jfs5ZB40BDmdtkCdyu42r85hI4rbbZTF+oW/uH8KZdTzEQpIf
-         Cvx/br3BgF5Cpu3NUFgLfsbkfWC+bm6SWQPlWfDAiRtCtSSWEwXPQtOLeAmviH3UDA6W
-         ktCriXMkUxLCcCuQRzS5eCpzNiORSxIl1z7kfb/A6tu+qpU37Cas/xjkE40eNlE1ufDU
-         /zHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792132476; x=1792737276;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ckd8Z01py6nfMuc7JfJGjW9DMPCumhB1KgWSdYZ3e0Q=;
-        b=OzUJ09OaicMc1no0PODb9F1bnvTViUVPQTBAtvFbTF9R8hUiP50IP3FZUSbMDk3iRe
-         5E8jBLmk9K4E831t5TbocCM7qSG1C2YFGS9nVZ3J/EcNMyKx6bGN/7koRPKM/5ZrT+xM
-         jCvQIThrCE02CG2ifuSmfpb/e+qIvj9Q71kLispNHPssKg/I5ZOqRLIyrtkZBJkC6Llf
-         RgpIWoZho5MoG+y4iwyGwT+1Q6+9OoNbcEOBIrajnEuTs8PDdMPCPL+tuTP18/YdwU6x
-         q9hYOA77jGt57FZMCVRhNNdifInt/qKJmcoOqUFQ5pTyCg5LdNyzHzB7Jl+RA00QGB+C
-         xZ6A==
-X-Forwarded-Encrypted: i=1; AKwUvBzA3IAl0Qy7EghrDjD7ICpyFANeDRFbrR+miWuskrQmMIsZT0YsaMuXG/1sMTj3/UEKWLYp6q6iDDS/Ws8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI6//CFoDDIV5O1C0jh8GhSXx9453lVaz/8C7UWaldZabuj3fJU
-	DizGSKG3EDdonELa5CLlG1tRhp89OMzXYGh6LiqDdxlSayZYpo8uBLVa
-X-Gm-Gg: AYBFou2Gf4GjiGVGXn5HYAWpYv4Mqx0dEcucoldPdmzv2ezRn+qDeVoqR7W/Y2bL2FM
-	s5W5LtBHH0mDgLEMdyxBOWJfAlcfgQVHC67AFd8cC5e0rYt94KDzbRsKsz0oen2rNs/odemmS9g
-	i/LtBk5FY597iUX3TlqysFsvbrXmNatfIOpCltBRqf8fVIRN6Zb3rBoK3I22skn1ZO6CJYN8GHt
-	iKtrhiqm8oEyrGmQdT8JBVhULipUcSXd09Wu/7WS/8bnR9Xhix3kQQ91eCCi8K/+Xp9qcBVQBsR
-	sM2k7j7G3Mxv2Xo1HdHDWhCoZ+dmMeHjSdkXCyB6EfEGhoy8L2uO4Ygw+66He5edS4OmvZM8fik
-	gvgk5iy1Ors7TzfI2dkamSTBswPlmTaLPUIKPS1SKcHdn0/uGEH4UBRCdnoTx/IhSNJQdqMcc7M
-	MKPvIntq9N/aPdJZyC5xuGkVZlWxcrtpO2pLT8lfo1Cv0GAsviBqGVi3/+rWMRux3mPO2LGZFyX
-	hDQHVP7o/JYikMbo0Dmx+1Ffhs6btO8RYB0
-X-Received: by 2002:a17:90b:2885:b0:3a8:495b:d64b with SMTP id 98e67ed59e1d1-3ab3a32cbb8mr16897575a91.4.1792132475742;
-        Thu, 15 Oct 2026 23:34:35 -0700 (PDT)
-Received: from localhost.. (59-124-112-186.hinet-ip.hinet.net. [59.124.112.186])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac947dfa00sm7678169a91.17.2026.10.15.23.34.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 23:34:34 -0700 (PDT)
-From: chipang_kao <prozac2734@gmail.com>
-X-Google-Original-From: chipang_kao <chipang_kao@asus.com>
-To: hansg@kernel.org
-Cc: W_Armin@gmx.de,
-	ilpo.jarvinen@linux.intel.com,
-	corentin.chary@gmail.com,
-	luke@ljones.dev,
-	denis.benato@linux.dev,
-	scardracs@disroot.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] platform/wmi: Move ASUS platform drivers from x86 to wmi/asus
-Date: Fri, 16 Oct 2026 14:34:27 +0800
-Message-ID: <20261016063427.664738-1-chipang_kao@asus.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <41d6bd7a-e4ea-4077-87e3-e60102ebfef3@kernel.org>
-References: <41d6bd7a-e4ea-4077-87e3-e60102ebfef3@kernel.org>
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="CvbPcpll"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=FMULLhup5HxbZ62tpmVqhAwf9hbLzat0PudWDGHNiYM=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792132562; v=1; x=1792737362;
+ b=CvbPcpllizDVQslEA8T8vTrQgs8cllH0v/IsNZ0nz7+28DKWetcktDjvZtlNTL3hOkjBZ2q0
+ cnrCAZ+6VUVL3FWAfimw0k+klqf77g8BIDI4FKrgFONSl/bWgYwJ2TXxLhbfFsiWq/5nTzPfA+N
+ NieSNcYTtmZWELvcbrR1Y8ORl/eAzJmE/o4WAnYIlSQAZW5d/YNnUFWg+2m5RZgvZNjbAGBLluJ
+ /mihl4GMVLTElxq1px7Ktd6JSGl4izmcwFrnrCxR959rlHfLcP/jCW61J6qqjcxFcUDXQU3NLXL
+ /joC4Y0TaOMT9cuUcieStnsctKhtI/bKIJMmitZxdpL3g==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a73d9cd8a502dbf2;
+	Fri, 16 Oct 2026 06:36:02 +0000
+X-Mizu-Trace-ID: a73d9cd8a502dbf2
+X-Migadu-Flow: FLOW_OUT
+From: Val Packett <val@packett.cool>
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Val Packett <val@packett.cool>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Bhushan Shah <bhushan.shah@machinesoul.in>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Antoine Bernard <zalnir@proton.me>,
+	~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH RESEND v2] ASoC: qcom: qdsp6: q6afe: fix clk vote response type mismatch
+Date: Fri, 16 Oct 2026 03:29:17 -0300
+Message-ID: <20261016063536.598610-1-val@packett.cool>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,25 +59,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Armin, Hans, and all,
+The response sent by the firmware when requesting a clock vote (opcode
+AFE_CMD_RSP_REMOTE_LPASS_CORE_HW_VOTE_REQUEST) does not actually have
+the same opcode + status payload as APR_BASIC_RSP_RESULT. Rather, it
+returns one single u32 which is the client_handle that must be used in
+future unvote requests for the same clock.
 
-I tried moving the ASUS-related platform drivers from
-drivers/platform/x86 to a dedicated drivers/platform/asus/
-directory. Most drivers compile successfully after this
-restructuring, except for asus-armoury.c, which depends on
-firmware_attributes_class currently defined in
-drivers/platform/x86/firmware_attributes_class.c.
+As a result of this type confusion, the status returned by the callback
+to q6afe_vote_lpass_core_hw was actually an out-of-bounds read. It was
+only interpreted as success (0) most of the time due to luck, but there
+are some reports of random errors such as:
 
-I found that Sean Rhodes has submitted a similar change to
-move the firmware attributes class:
-https://lore.kernel.org/lkml/ar0DNFlI7MEA8zp2@tzungbi-laptop/
+[   20.961100] qcom-q6afe aprsvc:service:4:4: AFE failed to vote (3)
+[   20.961131] Failed to prepare clk 'core': -110
 
-The patch has been applied to the Chrome Platform tree's
-for-firmware-next branch, but I haven't found a corresponding
-pull request to Linus' tree.
+Fix by correctly interpreting the response as a single u32, and actually
+store it as the client_handle to ensure unvote would work correctly.
 
-Is this change expected to be sent to mainline for an
-upcoming merge window?
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/5976946.DvuYhMxLoT@antlia/
+Fixes: 55e07531d922 ("ASoC: q6dsp: q6afe: add lpass hw voting support")
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Signed-off-by: Val Packett <val@packett.cool>
+---
 
-Best regards,
-Chipang Kao
+Previously part of a series:
+https://lore.kernel.org/all/20260506204142.659778-2-val@packett.cool/
+
+but it's actually independent and reviewed, let's try again with just this..
+
+Thanks,
+~val
+
+---
+ sound/soc/qcom/qdsp6/q6afe.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/qcom/qdsp6/q6afe.c b/sound/soc/qcom/qdsp6/q6afe.c
+index f0ff1350e9dd..9ac51c304ead 100644
+--- a/sound/soc/qcom/qdsp6/q6afe.c
++++ b/sound/soc/qcom/qdsp6/q6afe.c
+@@ -393,6 +393,7 @@ struct q6afe {
+ 	struct q6core_svc_api_info ainfo;
+ 	struct mutex lock;
+ 	struct aprv2_ibasic_rsp_result_t result;
++	uint32_t vote_result;
+ 	wait_queue_head_t wait;
+ 	struct list_head port_list;
+ 	spinlock_t port_list_lock;
+@@ -1010,13 +1011,14 @@ static int q6afe_callback(struct apr_device *adev, const struct apr_resp_pkt *da
+ 	const struct aprv2_ibasic_rsp_result_t *res;
+ 	const struct apr_hdr *hdr = &data->hdr;
+ 	struct q6afe_port *port;
++	uint32_t *vote_res;
+ 
+ 	if (!data->payload_size)
+ 		return 0;
+ 
+-	res = data->payload;
+ 	switch (hdr->opcode) {
+ 	case APR_BASIC_RSP_RESULT: {
++		res = data->payload;
+ 		if (res->status) {
+ 			dev_err(afe->dev, "cmd = 0x%x returned error = 0x%x\n",
+ 				res->opcode, res->status);
+@@ -1043,8 +1045,10 @@ static int q6afe_callback(struct apr_device *adev, const struct apr_resp_pkt *da
+ 	}
+ 		break;
+ 	case AFE_CMD_RSP_REMOTE_LPASS_CORE_HW_VOTE_REQUEST:
++		vote_res = data->payload;
+ 		afe->result.opcode = hdr->opcode;
+-		afe->result.status = res->status;
++		afe->result.status = 0;
++		afe->vote_result = *vote_res;
+ 		wake_up(&afe->wait);
+ 		break;
+ 	default:
+@@ -1955,6 +1959,8 @@ int q6afe_vote_lpass_core_hw(struct device *dev, uint32_t hw_block_id,
+ 			       AFE_CMD_RSP_REMOTE_LPASS_CORE_HW_VOTE_REQUEST);
+ 	if (ret)
+ 		dev_err(afe->dev, "AFE failed to vote (%d)\n", hw_block_id);
++	else
++		*client_handle = afe->vote_result;
+ 
+ 	return ret;
+ }
+-- 
+2.55.0
+
