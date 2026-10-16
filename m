@@ -1,293 +1,220 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011063.outbound.protection.outlook.com [52.101.57.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4CB845FFD5;
-	Fri, 16 Oct 2026 09:09:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.63
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141780; cv=fail; b=Jjfcx+ug4evnWQyZSc0RiVr6vii7dckDZtCK3JAwZ8c21E5J49/bGMv9dKw16LeW1SgwICtCb8BKRo9AjDoxLBeESTJJcFfTDCnwQmghIJ7Ut3aJoJ4q6/rOrLUQzoE/ORCmhtBqM+9VdUYS90d8WUlx8wSoAQ9uIhtQ9pB/MeE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141780; c=relaxed/simple;
-	bh=S1BoyI2B98A7HsihSOEru3hNpN5FsTXCIexNrRxMA18=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=sNBixDtBuuogUf/QpQQZ1q5E/m5UbhNOArK+iN75rnUoqxWmELdgGLGjJwLodvxte42RrNxO+szz5cZlrSLgxHmkgMcI0WfK4x5vqTSWmeiKQ9UHB7K6LcPeWyTmDy6V1S2HoLXxKidrLEo3TQJfcInWjMoGJUfWB15IrXZil/k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=v2Xvq/gS; arc=fail smtp.client-ip=52.101.57.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B218466B04
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:09:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792141790; cv=none; b=uHJF6EdFiur2c16rfiRUD/0IrfkoXWpKPCHA3eH66ZS5MKcp4Xa4Hhum/x3BJdSoWhN+PUMnTxGyuRRyoZWa+Q5lvMl0dXRKxpVH70MalhJk7ATxQhEDk2VwhNkKiUAHIjIzOFTCpXq0VRhP4ZSrhpFZo91iBPhovp75SYbbW70=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792141790; c=relaxed/simple;
+	bh=ZrmwossZjTd29Ih+lCgZKFXmIOi4LDpBYUvzQdJYM1w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Xrred0NuRqsu6YkvnG4whuMgoaz3rymxttyDG3S59/opfnqJeAijCrvNWSN0dM4Dp0zV0caNs4YiSqoFqSHDDZO8K99qSBHio6rA5yYQFKtw8AjkakstaN2ktuFj435r1PhxXnD3dHZwgAbWRJrnF9pAFwHPiNDWBOMSOrhOB1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S2wXoia2; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="v2Xvq/gS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c9E5C537OI+tDPyooTa2tVlLcv2Nz4Btl5bAB1RCSbxrENYmGInQCkaOLRV5Yo5AJ8NUk2vnZl1EeLv2t31z7pXOf3UL1lSUmTskpmUtgk5TC6QdsnhwqbyZnpjQjd8vARIYSt+BbGRVceu2eBBsEp1ZDQ8Keg1nReErFsVy8OlLoj4ObG4D8cdUJtCNLeDO3c4vSdNWCHQeMZfXdPS1NHh/Q6snJqWzYMV3LHrBnhyUCPNKIFFGeVT5H9tUQHGpNtLPeRpNtix5Kkt2t2UrrQ0yd+3djtYRoKEA+5HOvRFiw0xJjI/HN+B2oJEl1AvbvoeltCBGPl2n36/RpAyLow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z4JZV1/rcYkWCsuaRpRpzI0IqXSWE6nD2ODhxdTcUFM=;
- b=HDQaqHV/dbuVTU9KUZgtiBQ5FBL4eeDiqkrOjWZDgHp1yX6ZTbrTf88G3giYQhY0YPr1I8oCGdSDYZyoe6575+MRabEenZXRfHskwuL7EvOZobw2bgApu6S2XgiEIo8Pv8tI+Cxv7bDmkXS6NY/K/7dhxIlQ2x84wqPmyXU68QpejTWzlAgW81Ubxw7dxvAXdNvcY+xvMwkbkcpzxpYLeEhOJonG8FwntqPWXTlpcMy/tx5yOneFghtlIskOxaAFMzkVkRA41b2x+ALcKwP4btjdSAIM4Lzr1V1oPLjMYXxu/VrBAG/thSJGqT7CnQJiGSdgHo6GbzOoeWYza3NgHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z4JZV1/rcYkWCsuaRpRpzI0IqXSWE6nD2ODhxdTcUFM=;
- b=v2Xvq/gSrXFJ4NlRiJIxL/tmMlumMSrYq02/A6OZNfb5gSn25mMfkosyD8oMavhU4fWm6AOjwLCm50tIu5o/ffZq1ut4fp1D+onDdhIPqZds+0dnNTT+J5Mgx1gNKk0nlTBz9KqFM+pOrvGQFAcOyK7dqVmYIr8INjaKRGt/TzI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM6PR12MB4076.namprd12.prod.outlook.com (2603:10b6:5:213::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 09:09:35 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Fri, 16 Oct 2026
- 09:09:34 +0000
-Message-ID: <8a0a2d4b-ee31-48f6-8a44-d5a7d4af579b@amd.com>
-Date: Fri, 16 Oct 2026 11:09:30 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: disable SVM when the GPUVM cannot cover CPU
- addresses
-To: Daniel Huang <danielhu@amd.com>, Felix.Kuehling@amd.com,
- alexander.deucher@amd.com
-Cc: alex.sierra@amd.com, Philip.Yang@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261016145129.69645-1-danielhu@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261016145129.69645-1-danielhu@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0188.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ca::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S2wXoia2"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so5115141a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:09:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792141787; x=1792746587; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W0DxMtdmaykVRK9lF7eAJZ0u00iNP9YbBzASFb6ienQ=;
+        b=S2wXoia2lrImRlDKixjLGE1Dc2iKverQBNUM1G6ld3fRQlIRdXbm6HcIUDI3pL1qTJ
+         IsYY/xR8fghawJsJZ0xXLnGxudhxUa+BUL3ayKrlfXMYSAsLDb0eO799VBUEda6efx/8
+         u0KKOL6gG56QkXSdcwQX+yu/wbvSYTUAtrj+SIDFgoUykAzPg46LNoUx/rAEW+7hVzNs
+         qdziKgfn6B2jKwHdw7Hhco/7HljTZka6n9NqPtgYieJzAJLnc8nAEhY9I9z0hjFz+OvJ
+         wSU8Os4/2SWQwQL/jBdTM111Ym7nZiBC+Jykn3+8CRIhG9hOlGUH69k1lXVC7K1aGrdk
+         RPjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792141787; x=1792746587;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W0DxMtdmaykVRK9lF7eAJZ0u00iNP9YbBzASFb6ienQ=;
+        b=WLAr5A5ONda6O+ppN9VqubiFbESphe+eeRXvMW535rkvNR+rHpXReStMV9+Fxod2ZR
+         Nb8eYX9E/J3jCRbmdrxKvbDa4DuFpiFzcFvZTaKU4E56d67lc5Yp5iGq7pJc8SwulwCd
+         nSjooHONU8ZSdfbUIFZKNChFQ3+rPHycN80kKXQnPOgR8onxexghgprMcBp2dDakFGfq
+         LwgL9jhT9rsKk50zYRd8ZHVZNsPTDWyjzuztDC/LIBrXTQsZ2iU5GaiLHPlC0LBG9+xW
+         F6WTFb8bk33GKm/DUTZuhfdBpZ8EdlKokRMCyAgU3sHA5A9hEBR+k3izFA1YiDvCt4QZ
+         FYVA==
+X-Forwarded-Encrypted: i=1; AKwUvBw9+bKRJJoarXcGUjQx3m9onxC8SjX1TOjv+Xiz2zD1Caeo6WuwGet4AxU4ZHy/mdOakYvybyig+aip9Yc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJH7FH75DyVUsxtg4YnN491fu63b2L6Il2v5NbtcDnyF5+PnqpC
+	E4FDGWiIrGfLffRAmHrbgoEYSAnj7RkQylt/ZwdIDAwHy8EQbNUqUARR
+X-Gm-Gg: AYBFou0/akagALuUdbUGSc6q3zIrq28R46mi2t0s8wgD3RAMoPn+MQPvsauU8rK2+HG
+	/kgmYOJ8bHpPhbsho1dwoxmowAKa/RBULBSPoAo7Epx1g0RSjcpNSmIGy4s+Ms/RblkSGseaxr8
+	LsphxgxOZ04fyl+6eQ0BK77uGOjHyy7guCLVq6lv7umG67/vloOfbgIUyBtEAj+w6BpZQ2sHN3J
+	tKl+FW2r9iNgMnaoEY2KOuB2wzgrPVhHZCrGcQj3QmpCoZmlVEjSjLEM65oGCkcZcaK6Vs9X9jx
+	Ppvz8MvvqLxw8yo0kfEFlC07TrYvV4BNjAO9+sAvE7CNIEnzugRepvoWfFQwnU5XTgvMcgsrI0w
+	1+A5ldk5RNdqAUnKgBQlrtBXl74JmtMLlgEuL00ehoUvx+VsyVJU34RAuntU8h14WRk4ZYI2n+m
+	oFDb4gYsInqGg058xLhaAzHAXrbHSeOME8Z0tk8UShB0gebJJwh7ORS75VnYP1gD5q180=
+X-Received: by 2002:a17:90b:3c4b:b0:3ac:ba49:2fed with SMTP id 98e67ed59e1d1-3acba4932b4mr2594734a91.58.1792141786759;
+        Fri, 16 Oct 2026 02:09:46 -0700 (PDT)
+Received: from wyb-ms7e59 ([38.55.195.146])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc43a1981sm3269097a91.2.2026.10.16.02.09.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 02:09:46 -0700 (PDT)
+From: wyibo6109@gmail.com
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yibo Wang <wyibo6109@gmail.com>,
+	David Heidelberg <david@ixit.cz>
+Subject: [PATCH 2/2] media: i2c: dw9719: Add DW9714VA support
+Date: Fri, 16 Oct 2026 04:09:30 -0500
+Message-ID: <20261016090930.947830-2-wyibo6109@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016090930.947830-1-wyibo6109@gmail.com>
+References: <20261016090930.947830-1-wyibo6109@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4076:EE_
-X-MS-Office365-Filtering-Correlation-Id: aed4eb4d-7ad8-49b6-9d7d-08df2b653209
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|6133799003|10067099003|18002099003|22082099003|3023799007|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	yqiCBfSyp1qtjCdKGw0myomoSejwQD24YiUCcsjeOC8nlxe4dpfedTm//+ySaIkz5p1onIfv6FPMFVTrn+YAHVjvKurb5hho1fK50NsNq9BOF3Z12J3vKdkzWZMt099LTLt1aTg/YJAsx4VwzGaHGfSpfrhCpUtb1d8h7eINLtMSdhuONAe+JpRH4NuR31CXskGaUQG25XGZgU+p3+Sfdt2V/PkQ39hjOwL3EnP5591Xa7GvMVHvNku7fztT3xB5bx6kzUx0IpiA0iyh3OfM5G7tUwcVRpOGLfcVQBOA4rQ3aFqX6Mao42Xoacz8PVkkQlWtIil4S3NuJ5Zx3yu1P27LNUWoh0woSSG5KmYwinfvRWnNMO4dxHdB8rZBFGZGHET5AZWlT5j5IEi1hFVxR+fmJGhrDWB4mW3vgZx6gF9ooUoHfIfI95/CmmpUhTLGdUOvBq7dA7Kw9317MIQh7lLiMBvddUidu2qpU1p2UEdUq/74VcKmxBUh9UZqNTYIAT8rRIf3nwsbJDsT3MASoEMFlxUFmlPgpkOagQmHnAUpqy68ENb31Fmfc+HMc4mEAY8WpqthaeTLkN2AZpGoEPg94+MDptAVEqec0X+899NCnb/klHowiL07ZjbwJUhI
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Znc5aDduMC9NMmt1dUdyMXd3bHBvcHdRMjdRN0Y3M2R5S1FsRTh4bi82R1Jq?=
- =?utf-8?B?YXJZNVRUWlNjQ04wRDNsb0NLTVFVTmJ5UnI0Q3NJZEIzcnErWlQ4dVZ6NzVw?=
- =?utf-8?B?NHliOExqeUpibnZLNURlZjBjYTUzNlljbHBrV0ZjdWVpMEZOVVdJRjBIditm?=
- =?utf-8?B?Z0lJMlp6YUwzUzhQRENrSC85dFM5ZjR3c09yOFJhRm5ibTlVS3F1cWZadkRZ?=
- =?utf-8?B?ZlVDNHRSNE9MRngvQkw1aUZIRCs1WE5ENWFjVHlHUmRXK3VMTHhYVVdZOU9m?=
- =?utf-8?B?MXhIWngrUXBGV3JoaUhxMFhOb1hiS25Zdzl5RWlvTSt0QUxSQTE3NURYMWNt?=
- =?utf-8?B?VWxPY0taWU1XYk5jUWFPNFlXRjB1ZXpkVlM3VnFITFV0OVN3MFlQSVdPQ2ow?=
- =?utf-8?B?L0tuZHZrUWpPZ0ZpdkU2bDRSNmk2MXBZb3VWS09mTW9hSTVtZUppODJVa08w?=
- =?utf-8?B?UEpXZVp0SEIwNUhIa2IzYnJrcXZwMGQvMUFOb3g3cGlsQmIvemU0Wk5nRlJq?=
- =?utf-8?B?UzZLaE4vWHV1UmdBUFdXL0E4bzJEN20vRGhDTUxDVTdDb2VVNlR3UVJZTXEz?=
- =?utf-8?B?RVJCalNKZ1VidWdTa1B1anVucWw3OVlWdktsaFd0MzJqc1VmUGlMUkZ5OGdW?=
- =?utf-8?B?Qy9nSXFadkhkV0JBOXBTdlpYVmJ6Q21VUWNTUTNIcHRLaWVGVTl4dC9TN0Ex?=
- =?utf-8?B?aWNNNzYxRTEyN05LZytTYmhVY1REU3B3clhrZXRjNzgvcE1iVHlzS3AxeHVU?=
- =?utf-8?B?YUZqS1d5R2IzNjBaS3NpMWR6LzRtZTE0UUtZYUdvYm16UTJJTUdvc1N0S3hY?=
- =?utf-8?B?ZlpMNHZGTGdpSUMyUG5GR3pzcFRGU21BcHRaNVV0Rmx2S1htbStkcWh0Mmwv?=
- =?utf-8?B?eTlUNHBMTk9mQmczcUtzYmhtQkJKbnE3M3MxMzJDZDBBeHhaa09ieFBiK3ZZ?=
- =?utf-8?B?QVYxcEtSdmR1S2M0SlVaN3NUcjF0YlhSOHdwcFlHK08zZHJvOHRqY1N0bTZ6?=
- =?utf-8?B?elRMdDlnOWN1UWx2UDk3cEpuR0Rob0R6blRVQ0ZNMHpKbVAyRUhMNWxhdXdV?=
- =?utf-8?B?VVE1UGZwR3FrTWFZZ2VnSGZralVwaWczSXZrOU9NWDhNVzM1WC9BMkJSaDFq?=
- =?utf-8?B?Z05iUzJscHJ0dmN4eFErN2RrZC9nR1JueHpPK2IvdjcrdFVQMnFzQmdwWFo1?=
- =?utf-8?B?U0pjVlF4VnFZS0lyb281VU44SnpSM0N6TWkzN3B1ckowdjRZZzdSUHlKc1J5?=
- =?utf-8?B?UjBDdlY2cC9iVVpTbUwzcHZIdUV4UEplc3phYTFSVGpHSXhmNjV4cTFmY3Bh?=
- =?utf-8?B?U0lrcFo3OTFRNzRON0RVenZsUVUraGJMZTJQeGJnQXV2WmUvQm5OZjAzZkIr?=
- =?utf-8?B?cEtHMFdjN3QwcUdUejRWYzNaOHo0RmNQUndxQjBGOUJDWVRNZjREZmlKSEh1?=
- =?utf-8?B?OE5UNDhLeVlKclc2WnpFWDZITURZVUo1TjBTQ09XVjIxdXFHaGF5MWxyUjJ0?=
- =?utf-8?B?aWxOREVNeVo1L3haOHNERHY5Nko5Wi9FWHpGVjhacnJaL0w4MDdHYnlnbmVa?=
- =?utf-8?B?d3o4RGpDNmpSRXlBRXA4NVhPZ0J5V0d2YUd6bDlTRnlSR0ZZZ016NW8rdHFw?=
- =?utf-8?B?WUQrcWVPUy80SVVpMkNCTDhKa1FIU2xORmp2bklVVmhaMkZObWZ3QnBmMFc5?=
- =?utf-8?B?VkpSOGFFbVhRby9lSHlUMllIdWtmdjB3aDkvWWtPa0FjV1RHM2s1b0svc1lo?=
- =?utf-8?B?TWZEUXQ2MmJib0RGWFB0QXpMdTMwSGZsSmJqRmcvMGZkeXN5bzBQRnQ0cjhP?=
- =?utf-8?B?em54ZDlwTjVLNVFKdmp2R0hCTnhubUUydmlxU1dmcGttb2IyT3JjSEVLNGpX?=
- =?utf-8?B?SW1XY0dkNVZGbjA3SytHdGxvSFVGSjd4d1NMMnpkdWVsM0E5Z25kSzlFcTRY?=
- =?utf-8?B?b3haV2hHQ3pINVVDUEV2SndkTHUraGZvelRBT3U2MFBLUkJuN3ZLOVRad1gw?=
- =?utf-8?B?OHRtZ2FUZ3BwR2dBdUFWTEkzbWs4SXZkVENGT3hhdk51T1lBd01vQldhZU1P?=
- =?utf-8?B?SDIzYi9KbGo5S0QrZGRZRFV4a1NTL09IM2hwSnMyV0xvZVEzenUwYSs5b3JT?=
- =?utf-8?B?NDVMUldUNWVlUHp2WUJZbWhLNEI0WEdZMWlaRnZINkdHbGtiTzRsQ3FTS3Er?=
- =?utf-8?B?bnoyT25MUjJhb3VQN2xCR0lURU0rdWw1anpmeW0vNVNGYXEyWUhsbEw1a0Qw?=
- =?utf-8?B?b0psNlZJRWZSSUh5TTc1c1lic3ovVnY1cEdQTmZ1YzdqcjN1NVJMSGFkREF5?=
- =?utf-8?Q?8Hslk7poAmrR2vnNya?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aed4eb4d-7ad8-49b6-9d7d-08df2b653209
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 09:09:34.3999
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OYIafMax9wQlwCPrPEjNgc2lM0hBnwEAeUl3ZJkmGZ9TuFcT7pcad6Sytmbh+yHM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4076
+Content-Transfer-Encoding: 8bit
 
-On 10/16/26 16:51, Daniel Huang wrote:
-> KFD SVM maps memory in GPUVM at the same virtual address used by
-> the CPU. However, svm_range_map_to_gpu() passes the corresponding
-> PFNs to amdgpu_vm_update_range() without checking them against
-> vm_manager.max_pfn.
-> 
-> If the GPUVM address range is smaller than the CPU address range,
-> the page-table walker can index beyond the allocated root page-table
-> entries. Unlike the SVM path, the BO mapping path validates the
-> address range through amdgpu_vm_verify_parameters().
-> 
-> An explicit amdgpu.vm_size override can trigger this condition by
-> configuring a smaller GPUVM than the driver would normally select.
-> 
-> Reproduced on a Radeon 780M (gfx1103) with amdgpu.vm_size=64.
-> Repeated hipMallocManaged() allocations attempted to map CPU
-> address 0x74bd48000000, well beyond the 64 GiB GPUVM limit.
-> The out-of-bounds root entry contained SLUB poison with
-> slub_debug=FZPU and recycled heap data without it, resulting in
-> a general protection fault:
-> 
->   RIP: 0010:amdgpu_vm_cpu_update+0x2f/0x140 [amdgpu]
->    amdgpu_vm_pte_update_flags+0xfa/0x1e0 [amdgpu]
->    amdgpu_vm_ptes_update+0x38b/0xa00 [amdgpu]
->    amdgpu_vm_update_range+0x279/0x930 [amdgpu]
->    svm_range_map_to_gpu+0x13d/0x400 [amdgpu]
->    svm_range_validate_and_map+0x8d3/0xaa0 [amdgpu]
->    svm_ioctl+0x66/0x80 [amdgpu]
->    kfd_ioctl+0x40a/0x650 [amdgpu]
-> 
-> As discussed in [1], rejecting out-of-range PFNs in
-> amdgpu_vm_update_range() is too late. SVM must not be initialized
-> when the GPUVM cannot represent the required CPU addresses.
-> 
-> Prevent this by disabling KFD SVM support when the GPUVM address
-> range is smaller than AMDGPU_GMC_HOLE_START. This prevents
-> affected devices from advertising SVM support and excludes them
-> from SVM mappings. Warn from kfd_update_svm_support_properties(),
-> which runs after the device memory pgmap is registered, so that
-> only devices that would otherwise have advertised SVM report the
-> loss of the capability.
-> 
-> [1] https://lore.kernel.org/amd-gfx/da43b0e3-5bd9-4aa1-86d3-b733f3bad108@amd.com/
-> 
-> Fixes: f80fe9d3c114 ("drm/amdkfd: map svm range to GPUs")
-> Closes: https://github.com/ROCm/legacy-rocm-build/issues/6691
-> Cc: stable@vger.kernel.org
+From: Yibo Wang <wyibo6109@gmail.com>
 
-I think we should drop the Fixes and CC stable tag, that is not really a bug fix.
+The dongwoon,dw9714va compatible names the DW9714V revision found on
+the OnePlus Pad 4 ("iceland") rear camera module.  DW9714VA is a
+coined name, not an official part number; the revision shares its
+IC INFO id (0xFE) with the other DW9714V revisions.
 
-> Signed-off-by: Daniel Huang <danielhu@amd.com>
-> ---
-> 
-> Tested on a Radeon 780M (gfx1103, PCI 1002:15bf), kernel
-> 7.0.0-38-generic, and ROCm 7.13.0-2.
-> 
-> The reproducer performs 24 iterations of hipMallocManaged(1 GiB),
-> hipMemset(), and hipFree() per run, with 40 runs per attempt.
-> 
-> With amdgpu.vm_size=64:
-> - Stock module: kernel Oops within approximately 2 seconds on
->   every attempt.
-> - Patched module: completed 40/40 runs in two attempts, with
->   stock and patched modules tested alternately on the same kernel.
-> 
-> With the default GPUVM size, the patched module preserved SVM
-> support, emitted no warning, and completed the same test.
-> 
-> Two questions for maintainers:
-> 
-> 1. I interpreted "SVM must fail to initialize" as disabling
->    the SVM capability for affected devices rather than failing
->    KFD initialization or rejecting the vm_size override.
->    Would a different approach be preferable?
+The part answers the DW9719 register interface in its register-mapped
+("advanced") mode: the chip responds to register-addressed transfers,
+IC INFO returns manufacturer 0xF / model 0xE (0xFE), and the reset
+value of the VCM_FREQ register (0x60) matches the DW9719/DW9800
+prescaler-in-[7:6] / SACT-in-[5:0] layout.  The SAC mode field in
+MODE is shifted by 6, like on the DW9800K.
 
-I think that this is ok.
+Both the register layout and the power-on behaviour differ from the
+currently available DW9714V datasheet (Rev. 0.03G).  The datasheet
+documents an advanced mode with SAC_MODE in [3:0] of SAC_CFG and
+separate PRESC (0x07, [1:0], reset 0x03) and SACT (0x08, [6:0],
+reset 0x7F) registers, and a power-on into the normal (direct DAC)
+mode that enters the advanced mode only through an explicit
+0xED 0xAB command sequence.  The observed part follows the DW9719
+layout instead and is in the advanced mode at the first host
+access; given the revision variance it gets its own coined
+compatible, dongwoon,dw9714va.
 
-The amdgpu.vm_size override is only for driver testing and not something end users are supposed to change in any way.
+Operation was verified on the device by sweeping the focus position
+across the full range while observing the lens: the motion is
+smooth with no ringing noise, so SAC works through the DW9800K
+write path.
 
-So that here is actually a really minor issue.
+Detect the chip through INFO and drive it through the DW9800K write
+path.
 
-> 
-> 2. This check also affects GMC v6/v7/v8, whose GPUVM address
->    ranges cannot reach AMDGPU_GMC_HOLE_START. Although these
->    devices do not register device-private memory, an APU with
->    apu_prefer_gtt can currently advertise SVM support.
-> 
->    Should the check apply to these devices as well, or should
->    it be limited to explicitly configured amdgpu.vm_size
->    overrides?
+The SAC parameters are module-specific: they have to match the
+mechanical resonance (tVIB) of the lens module. For the iceland rear
+module they were recovered from the vendor module firmware
+(com.qti.sensormodule.icelandmain.bin, which embeds the actuator init
+on this CamX generation): MODE 0x80 (SAC mode field 2) and FREQ 0x79
+(prescaler 1, SACT 0x39). They were verified on hardware by register
+readback (CONTROL 0x02, MODE 0x80, FREQ 0x79) and a three-frame
+capture at focus position 450 with no I2C errors. No such data
+exists for any other module with this part, so the driver carries no
+DW9714VA-specific defaults: it starts from the family defaults and
+boards are expected to provide the tuning through the existing
+dongwoon,sac-mode and dongwoon,vcm-prescale DT properties.
 
-So we still support GMC v6/v7/v8 with KFD? I think we have dropped that a while ago.
+The datasheet-conformant DW9714V and DW9714A in normal (direct DAC)
+mode are covered by the dw9714 driver; a series documenting them in
+the dongwoon,dw9714 binding by David Heidelberg is in flight:
 
-If we still support this then that would indeed be problematic.
+https://lore.kernel.org/linux-media/20260729-dw9714v-v1-0-3c479b3cf8c0@ixit.cz/
 
-Regards,
-Christian.
+Tested on the OnePlus Pad 4 (iceland) rear camera module on a
+v7.2-based downstream tree.
 
->  drivers/gpu/drm/amd/amdkfd/kfd_svm.h      | 18 ++++++++++++++++--
->  drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 14 +++++++++++++-
->  2 files changed, 29 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> index c7d7adae4476..6235ce0f988e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> @@ -203,11 +203,25 @@ struct kfd_process_device *
->  svm_range_get_pdd_by_node(struct svm_range *prange, struct kfd_node *node);
->  void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_struct *mm);
->  
-> +/*
-> + * SVM uses CPU virtual addresses for GPU mappings. Disable SVM if the GPUVM
-> + * address range cannot cover the required CPU address range.
-> + *
-> + * The parameter must be named adev since AMDGPU_GMC_HOLE_START references
-> + * adev->vm_manager.max_level.
-> + */
-> +static inline bool kfd_svm_vm_covers_user_va(struct amdgpu_device *adev)
-> +{
-> +	return (adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT) >=
-> +		AMDGPU_GMC_HOLE_START;
-> +}
-> +
->  /* SVM API and HMM page migration work together, device memory type
->   * is initialized to not 0 when page migration register device memory.
->   */
-> -#define KFD_IS_SVM_API_SUPPORTED(adev) ((adev)->kfd.pgmap.type != 0 ||\
-> -					((adev)->apu_prefer_gtt))
-> +#define KFD_IS_SVM_API_SUPPORTED(adev)					\
-> +	(((adev)->kfd.pgmap.type != 0 || (adev)->apu_prefer_gtt) &&	\
-> +	 kfd_svm_vm_covers_user_va(adev))
->  
->  void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
->  
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> index 35b3abe57b80..5de19fa27d12 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> @@ -2471,8 +2471,20 @@ void kfd_update_svm_support_properties(struct amdgpu_device *adev)
->  				sys_props.generation_count++;
->  			else
->  				dev_err(adev->dev, "Failed to update SVM support properties. ret=%d\n", ret);
-> -		} else
-> +		} else {
-> +#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
-> +			/* Report it rather than letting the capability
-> +			 * silently vanish from the KFD topology.
-> +			 */
-> +			if ((adev->kfd.pgmap.type || adev->apu_prefer_gtt) &&
-> +			    !kfd_svm_vm_covers_user_va(adev))
-> +				dev_warn_once(adev->dev,
-> +					      "GPUVM size 0x%llx is too small for KFD SVM; SVM disabled (amdgpu.vm_size=%d)\n",
-> +					      adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT,
-> +					      amdgpu_vm_size);
-> +#endif
->  			dev->node_props.capability &= ~HSA_CAP_SVMAPI_SUPPORTED;
-> +		}
->  	}
->  	up_write(&topology_lock);
->  }
+Tested-by: Yibo Wang <wyibo6109@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>
+Signed-off-by: Yibo Wang <wyibo6109@gmail.com>
+---
+ drivers/media/i2c/dw9719.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
+index 3b7ba88fd..2afe37361 100644
+--- a/drivers/media/i2c/dw9719.c
++++ b/drivers/media/i2c/dw9719.c
+@@ -45,6 +45,15 @@
+ #define DW9719_INFO			CCI_REG8(0)
+ #define DW9719_ID			0xF1
+ #define DW9761_ID			0xF4
++/*
++ * DW9714V family id, shared by the revisions.  The DW9714VA model
++ * names the revision found on the OnePlus Pad 4 (iceland) camera
++ * modules, always in its register-mapped ("advanced") mode: IC INFO
++ * reads manufacturer 0xF / model 0xE and the CONTROL/VCM/STATUS/MODE/
++ * FREQ registers follow the DW9719 layout, not the layout the DW9714V
++ * datasheet documents for its advanced mode.
++ */
++#define DW9714V_ID			0xFE
+ 
+ #define DW9719_CONTROL			CCI_REG8(2)
+ #define DW9719_STANDBY			0x00
+@@ -75,6 +84,7 @@
+ #define to_dw9719_device(x) container_of(x, struct dw9719_device, sd)
+ 
+ enum dw9719_model {
++	DW9714VA,
+ 	DW9718S,
+ 	DW9719,
+ 	DW9761,
+@@ -153,6 +163,16 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+ 			return ret;
+ 
+ 		switch (val) {
++		case DW9714V_ID:
++			dw9719->model = DW9714VA;
++			/*
++			 * No SAC tuning data exists for DW9714VA modules in
++			 * general; start from the family defaults and let DT
++			 * provide the module-specific values.
++			 */
++			dw9719->sac_mode = DW9719_DEFAULT_SAC;
++			dw9719->vcm_freq = DW9719_DEFAULT_VCM_FREQ;
++			break;
+ 		case DW9719_ID:
+ 			dw9719->model = DW9719;
+ 			dw9719->mode_low_bits = 0x00;
+@@ -188,6 +208,7 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+ 	}
+ 
+ 	switch (dw9719->model) {
++	case DW9714VA:
+ 	case DW9800K:
+ 		cci_write(dw9719->regmap, DW9719_CONTROL, DW9719_ENABLE_RINGING, &ret);
+ 		cci_write(dw9719->regmap, DW9719_MODE,
+@@ -440,6 +461,7 @@ static void dw9719_remove(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id dw9719_id_table[] = {
++	{ .name = "dw9714va", .driver_data = (kernel_ulong_t)DW9714VA },
+ 	{ .name = "dw9718s", .driver_data = (kernel_ulong_t)DW9718S },
+ 	{ .name = "dw9719", .driver_data = (kernel_ulong_t)DW9719 },
+ 	{ .name = "dw9761", .driver_data = (kernel_ulong_t)DW9761 },
+@@ -449,6 +471,7 @@ static const struct i2c_device_id dw9719_id_table[] = {
+ MODULE_DEVICE_TABLE(i2c, dw9719_id_table);
+ 
+ static const struct of_device_id dw9719_of_table[] = {
++	{ .compatible = "dongwoon,dw9714va", .data = (const void *)DW9714VA },
+ 	{ .compatible = "dongwoon,dw9718s", .data = (const void *)DW9718S },
+ 	{ .compatible = "dongwoon,dw9719", .data = (const void *)DW9719 },
+ 	{ .compatible = "dongwoon,dw9761", .data = (const void *)DW9761 },
+-- 
+2.53.0
 
