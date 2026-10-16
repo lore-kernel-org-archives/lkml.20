@@ -1,95 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D53248DB28;
-	Fri, 16 Oct 2026 22:58:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE26317166;
+	Fri, 16 Oct 2026 22:59:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792191508; cv=none; b=j++X9Z4tfCZ/zrVpxyntIdpJCm+AFL4lOUEoYl3NBkjARQb6Ypus4BCJp7zLKeeO5WCBTtrqNOC+vB0DJB7G1GYkXoHJ/M/PJeEdI0RtV4z26m9H4fBJZUFiBK/2MdOa/1LSsrInAThDWFLECsl9rvhwSD9UDsgZFn5eHPO9hkU=
+	t=1792191547; cv=none; b=E51CbjrcRI/9HoGVYwQOgLFGm1cglm3+u6FDhOmd7KOppYYILoOgv9B8KJ5VXedjFa1KOhu87Le7r43NB1zmErdOcGDXVvC7Zv8zbgKLC5ZbFG1usrPmRIipaxUVLymsrraPE1KhCra+EhBqPsugC+uNAiICEIp/eIE46CcV0Fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792191508; c=relaxed/simple;
-	bh=vqvvABVBzTGMebKz/IHc0AVIw4erDJUPvxE61OhS4Cw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RTqo7gQOJzZ7Dt/KDhQRHAEHEm8JHFBca2T7MsZA7WjPwifiaR394lqSj1kno0q+ihFiXxAPKpftEvNWu1TMjpVnDZhosTjlmlSSwCEk4DdfvaIjp8Y9KxLHesJ06TQTFp15H5/+mvjT8/MtNAxZqUpGzwuka1nt7qvo+z/O1IU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZJmnck2l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792191547; c=relaxed/simple;
+	bh=7CN2sWylHLMTfbtQ64it+kFHyCkbiD5pCb8+yR+bEjs=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=h4VvcC4XBCpVii+6EFVrO5Viz6IigUMTGfwvmCYVS7Qg3p7lhL4qFBjjj/ABmI5HWgLl2cW3VSNPlPiZ3rRUpE7AOQfH9meUmJG89fXie6WjUWNd4WbcJg7TeSR59qoVy5ZHn2RDGPWSa6jrX1KNQutxvksZsYkObUeRCbFmLhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=K0iehqGc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZJmnck2l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BFDD1F000C4;
-	Fri, 16 Oct 2026 22:58:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792191506;
-	bh=EwYRXxb65dU5pBBDG8naBKTasqjzlMLWFZHZF/jw8Pk=;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="K0iehqGc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25B501F000C4;
+	Fri, 16 Oct 2026 22:59:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792191546;
+	bh=2XIZw4yIu0sI+8wa1+fQEbc6VQXsqxREgHYBNQYWVKI=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ZJmnck2lGMYxZRZmBXW2oyIAi65yZueTyn8wlbxlJhIaYdOODi78PRC6yIVoPGPw4
-	 Mv+Jqxmr4PaFLqO+/X+4JS+SUBCF0bbVBWezVJYXWEoK+v60l2DYPX0ldc32AUcffa
-	 vHs86yv5E52hWNUl9lPe4leheba5r4SW6mImgeAeHxGt+3oT0iJab3hPIcqotrrDt+
-	 Afi2qjrw3+rbTBovqrfyHuwRUoqBdlAZUcGre7KJo282+Rj0M1W7e+7cOh+mFDzxiu
-	 bUf9YRwNzdnSiZFvCIQ5dG3OLsufeSMlzr2J6SYy61ZpBE19od8XWDtDkkM0Bx3uKp
-	 uv1MQ1XXpJrjA==
-Date: Fri, 16 Oct 2026 15:58:25 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: omermetekaya0@gmail.com
-Cc: netdev@vger.kernel.org, oneukum@suse.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3] usbnet: fix EVENT_RX_PAUSED race in
- usbnet_skb_return()
-Message-ID: <20261016155825.17d29015@kernel.org>
-In-Reply-To: <179175615306.434549.2652185067157444525@kernel.org>
-References: <20261007220311.113827-1-omermetekaya0@gmail.com>
-	<179175615306.434549.2652185067157444525@kernel.org>
+	b=K0iehqGcH6OaYxRdNrNEpl3rtaVqerqvgIjRBbpdxMovHc2N5nmd5gk9tKrViP3B+
+	 CVCq3cr9444LCA25tUNknkzy+Gm2THEOSPkIVShx18Q3s7BRkV6c/EuTXDzecbAv+6
+	 2CwNsL4Eu6qrnPjbXX8WPiP+LUgzjNiLytIU2bIg=
+Date: Fri, 16 Oct 2026 15:59:05 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Wang Yingjie <x-professor@outlook.com>
+Cc: Alexey Gladkov <legion@kernel.org>, "Eric W. Biederman"
+ <ebiederm@xmission.com>, Manfred Spraul <manfred@colorfullife.com>, Vasily
+ Averin <vasily.averin@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>, "cgroups@vger.kernel.org"
+ <cgroups@vger.kernel.org>
+Subject: Re: [PATCH] ipc/sem: account enlarged sops arrays to memcg
+Message-Id: <20261016155905.2a659b7bb7d61f33467a3263@linux-foundation.org>
+In-Reply-To: <20261016152609.2528805-1-x-professor@outlook.com>
+References: <20261016152609.2528805-1-x-professor@outlook.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sun, 11 Oct 2026 22:02:33 +0000 netdev-bot+sashiko@kernel.org wrote:
-> Will lockdep complain now that this lock is taken with hardirqs enabled?
-> 
-> Before this patch, rxq_pause.lock was only taken through skb_queue_tail()
-> and skb_dequeue(). Both use spin_lock_irqsave(). Here the lock is taken
-> with spin_lock_bh(). usbnet_resume_rx() below takes it with plain
-> spin_lock() inside local_bh_disable().
-> 
-> usbnet_probe() initializes all four queues with the same inline helper,
-> so they appear to share one lockdep class:
-> 
-> usbnet_probe() {
->     ...
-> 	skb_queue_head_init (&dev->rxq);
-> 	skb_queue_head_init (&dev->txq);
-> 	skb_queue_head_init (&dev->done);
-> 	skb_queue_head_init(&dev->rxq_pause);
->     ...
-> }
-> 
-> defer_bh() relies on this too. It uses spin_lock_nested() for
-> dev->done.lock while it holds rxq.lock or txq.lock.
-> 
-> Some host controllers do not set HCD_BH (OHCI, UHCI, musb and others).
-> On those, usb_hcd_giveback_urb() runs the completion directly from the
-> HCD interrupt handler, so rx_complete()->defer_bh() takes that lock class
-> in hardirq:
-> 
-> defer_bh() {
-> 	spin_lock_irqsave(&list->lock, flags);
-> 	...
-> 	spin_lock_nested(&dev->done.lock, SINGLE_DEPTH_NESTING);
->     ...
-> }
-> 
-> With CONFIG_PROVE_LOCKING, wouldn't the first qualifying MTU increase
-> through usbnet_change_mtu()->usbnet_resume_rx() then trigger an
-> "inconsistent {IN-HARDIRQ-W} -> {HARDIRQ-ON-W} usage" report and turn
-> lockdep off?
-> 
-> No code takes rxq_pause.lock itself from hardirq today, so no real
-> deadlock is known. Using spin_lock_irqsave()/spin_unlock_irqrestore() in
-> both new critical sections would match every other sk_buff_head lock use
-> in usbnet.c.
+(Alexey, Eric, others: please weigh in)
 
-Good suggestion. 
+On Fri, 16 Oct 2026 15:26:11 +0000 Wang Yingjie <x-professor@outlook.com> wrote:
+
+> Commit 50ec499b9a43 ("sysctl: allow change system v ipc sysctls
+> inside ipc namespace") lets an IPC namespace owner change kernel.sem.
+> The SEMOPM field defaults to 500 but has no semantic range check.
+> 
+> do_semtimedop() allocates nsops * sizeof(struct sembuf) with
+> GFP_KERNEL. A blocking operation retains that buffer, so a user can
+> raise SEMOPM and hold large attacker-selected amounts of host kernel
+> memory without charging the calling task memcg.
+> 
+> On the current mainline base, one 10,000,000-operation call retained
+> 60,936,448 bytes while a 32 MiB cgroup peaked at 909,312 bytes and
+> reported no limit event. Sixteen 1,000,000-operation calls retained
+> 100,860,416 bytes while the cgroup peaked at 1,310,720 bytes.
+> 
+> Commit 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in
+> do_semtimedop()") removed accounting on the premise that the buffer was
+> at most two pages. Preserve that default-sized path, but account arrays
+> larger than the default SEMOPM value.
+
+OK, I think. But...
+
+> With this change, both test configurations reach the 32 MiB cgroup
+> limit and the caller is terminated by the memcg OOM killer before it
+> can retain the enlarged arrays.
+
+Only if memcg is enabled and the task's memory cgroup has an effective
+limit.  Otherwise we can end up handing out idiotic amounts of kernel
+memory.  Memcg accounting isn't a substitute for limiting the
+allocation size.
+
+> The sysctl also accepts negative SEMOPM values. Since nsops is unsigned,
+> SEMOPM=-1 bypasses the intended operation-count check.
+
+Let's fix this first. nsops is unsigned int, whereas ns->sc_semopm is
+int. In the comparison nsops > ns->sc_semopm, a negative SEMOPM is
+converted to unsigned, so SEMOPM=-1 effectively sets the limit to
+UINT_MAX.
+
+I'm thinking:
+
+- Permit init_ipc_ns.sc_semopm to be set to any value from 1 to INT_MAX.
+  This preserves the existing ability of host root to configure larger
+  limits.
+
+- For all other IPC namespaces, permit values from 1 to 1000. The
+  documentation has long recommended 1000 as an upper limit, although
+  it hasn't been enforced. This would be a new restriction, so the
+  changelog should explain why we're introducing it.
+
+- Validate the new values before installing any of them.  The current
+  proc_ipc_sem_dointvec() updates the live array directly, and
+  rejecting an invalid value afterward would leave a window in which
+  other tasks could observe it.
+
+- Update the comment in include/uapi/linux/sem.h. The warning about
+  physical memory fragmentation is outdated now that the allocation
+  uses kvmalloc(). Document the new 1000 limit for non-initial IPC
+  namespaces instead.
+
+Ideally, a new IPC namespace would inherit its parent's configured
+limit, but currently every new namespace starts at SEMOPM=500. I don't
+think we need to change that as part of this fix.
+
+Then please redo your memcg-accounting patch as a separate followup,
+with suitably adjusted changelogging. That would provide additional
+protection for legitimately enlarged allocations in the initial IPC
+namespace and for allocations between 501 and 1000 operations elsewhere.
+
+Thanks.
