@@ -1,87 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-1.mta1.migadu.com [95.215.58.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621BE3A785D;
-	Fri, 16 Oct 2026 02:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7C6340DB8
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:21:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792117222; cv=none; b=EDpzq1CKTrCgPvOlbXv9UqtEO3oP1ratWj5FIQg91P97sqezKU5h/aieVKMm9lD5UaSQGTNAkc3ksVs5E9uK5sV7xBCj7oCasXenaZUhFq5GB60sgOjNwrauCxdEcjYb/wu17a0FK8FjpUHb9/dyjtmhrPcKPVHfDRC7/NJsU10=
+	t=1792117300; cv=none; b=Tf3fk3+Xa8U6VUDKkP0FcPbIGH0rm+TWcP/b0FRwwtcP5wXemc5cXfsgOiuzWLfXiQWksf47D8BKokuTt0Gj7IrCDxZJkko5YPCL1J0RnVTczBUX8znvuzRakF9d0XdsW30CFhfQCRfgTGb9wPIjWeIFvTeGdm+dnGL/0e2poaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792117222; c=relaxed/simple;
-	bh=aAkxculb6WK4een+nld2HVoM1WmI83TH7/WRDQHGBa0=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=oUjWXxJ0LMWK8uVkTc/6Cjb+rYsksIKO5BZZia3iF0d4QfhQSueyblIJZC+D6acvcKilwivCJ7UKylJYhPYxBhvfEcmBwfGqshDW7btNyjqNOPEkzFGg76F6hpdsthPA0kvROuyfQ0tO2q0klJMp4mejL/XZ5PrPv3utGFxhLqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=hf/APCPv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792117300; c=relaxed/simple;
+	bh=PbYYqHT+SMzVvR20Bp7GT5klw4B03JQJwWV5oZSWtrM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WBDH2ZxO3DmeLb6esltshNoTSdrEegONL5695nmzyn+6oTEUyJE4BdU8UX43ahAHv8aoBjRmVV5WKLzx3wXyrQlauy8WOMWljmz6VVdmEqNWD3wh367V7XgX0iPN3Vd4uGjqWoB0Ob2MbpM+0A39SoDqRdt9ufMdfNtfiQuOSfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=p1L+yfBY; arc=none smtp.client-ip=95.215.58.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="hf/APCPv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CA431F000C4;
-	Fri, 16 Oct 2026 02:20:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792117220;
-	bh=lmL800MhDzqLz11aGRmfqIVYdCooWhPvfrmpDQYpZBo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hf/APCPvm4wO/kVP8/Srv8sXIFsas6E4gZK6pVCUvfbV5Y54ulJdT94YVhW90h8n+
-	 5ZkvXCiNDfMlGLRjyYGJsOkQz6sX3kKaSWEVFdw4tguDytc1qG7n48LiDQZOtrGvrI
-	 PbeVzE0va94hMd5hKv51ZgPiQbvr7cBuaGyEiFxk=
-Date: Thu, 15 Oct 2026 19:20:20 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Kyle Zeng <kylebot@openai.com>
-Cc: linux-mm@kvack.org, David Hildenbrand <david@kernel.org>, Lorenzo
- Stoakes <ljs@kernel.org>, Rik van Riel <riel@surriel.com>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, Jann Horn
- <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/page_vma_mapped: continue past nonmatching huge PMDs
-Message-Id: <20261015192020.5336a49bc516219e8254dfdf@linux-foundation.org>
-In-Reply-To: <20261016011549.61146-1-kylebot@openai.com>
-References: <20261016011549.61146-1-kylebot@openai.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="p1L+yfBY"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PbYYqHT+SMzVvR20Bp7GT5klw4B03JQJwWV5oZSWtrM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792117296; v=1; x=1792722096;
+ b=p1L+yfBYuLXBO94jRcVZtXc0japvtH4v/SU+L/s91UbwZZpPyUexKHmiJHM73NlCQldLZIgV
+ Rx3pWEsDiGKznE/1XoFcJJYQAS7oJj5y8gb/XUctuxrNRzwGJKCPy/YmaBN25/6XDuCHYoIOmmn
+ XOQZVD6xWfu3d1wHWVEWDuec=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fc4319408f98a987;
+	Fri, 16 Oct 2026 02:21:35 +0000
+X-Mizu-Trace-ID: fc4319408f98a987
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a6153a50-26a8-45ed-984c-532bab4edb06@linux.dev>
+Date: Fri, 16 Oct 2026 10:21:31 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next v3 4/9] cgroup/cpuset: Do housekeeping check before
+ converting invalid partition to valid
+To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Hui Peng <benquike@gmail.com>
+References: <20261014140548.575122-1-longman@redhat.com>
+ <20261014140548.575122-5-longman@redhat.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20261014140548.575122-5-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 18:15:49 -0700 Kyle Zeng <kylebot@openai.com> wrote:
 
-> A PTE-mapped large folio can straddle PMD boundaries after an unaligned
-> mremap().  If the first part is discarded and replaced with an unrelated
-> huge PMD, page_vma_mapped_walk() stops instead of looking for the rest
-> of the folio in subsequent PMDs.
+
+在 2026/10/14 22:05, Waiman Long 写道:
+> When a hotplug event happens or when update_cpumasks_hier() is called, an
+> invalid partition may be converted back to valid. However check against
+> housekeeping conflict isn't being done which can lead to a partition
+> state that violates the housekeeping rules. Update the code to allow
+> reviving an invalid partition only if it can pass the housekeeping check.
 > 
-> This also affects migration entries.  A walk that stops at an unrelated
-> huge PMD can leave migration PTEs behind when migration or an anonymous
-> folio split restores the mappings.  Those entries do not hold mapping
-> references and can outlive the source folio.
+> Fixes: 4a74e418881f ("cgroup/cpuset: Check partition conflict with housekeeping setup")
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> ---
+>  kernel/cgroup/cpuset.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
 > 
-> Skip the current PMD rather than ending the walk on a flag or PFN
-> mismatch.  Do the same if the PMD became nonpresent before the locked
-> recheck.  Release the PMD lock, clear the per-PMD state and advance with
-> step_forward(), so the existing range limit controls termination.
-> This covers present, migration and device-private huge PMDs while
-> preserving the matching-PMD and split-to-PTE paths.
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index b2684c98d8c0..51723c299ca5 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -1959,9 +1959,14 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  			bool exclusive = true;
+>  
+>  			/*
+> -			 * Convert invalid partition to valid has to
+> -			 * pass the cpu exclusivity test.
+> +			 * Convert invalid partition to valid has to pass the
+> +			 * cpu exclusivity test as well as the housekeeping
+> +			 * check.
+>  			 */
+> +			if (prstate_housekeeping_conflict(cs->partition_root_state, xcpus)) {
+> +				part_error = PERR_HKEEPING;
+> +				goto write_error;
+> +			}
+>  			rcu_read_lock();
+>  			cpuset_for_each_child(child, css, parent) {
+>  				if (child == cs)
 
-As always, when fixing a bug please describe the worst-case
-userspace-visible effects of the bug.
+Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-I asked $LLM and was told
-
-: The worst credible effects are permanent application hangs, kernel
-: crashes, and potentially system-wide denial of service.  Stale
-: migration entries can refer to freed and reused physical pages, causing
-: page faults to access unrelated folio metadata.  Memory corruption is
-: possible but unproven; cross-process information disclosure has not
-: been established.
-
-But you have an LLM too!  So please never again send a bugfix without
-this info.
-
-Also please explain whether there's a reproducer and if so, at least
-describe it and confirm the before-and-after results.
-
-Thanks.
+Thanks,
+Guopeng
 
