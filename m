@@ -1,181 +1,111 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817E03A718D
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:54:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E4733B05AB
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:55:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792133701; cv=none; b=V/r5/UEkqyVP2h0rQ30+Yb/Uyx0PsHkJsvDvvZB5FN8Xwb4mEf5bVu3+HqhJcWIikRjvakEnCETlNG31Dw4rIRH6cle0nKbnuJITSMCog0Ct5OBFefC4qj3QX8gedB6YyPFy7XAcqCciN6QV9aU1uzdGEf/FxFazrZov+m9cgkw=
+	t=1792133728; cv=none; b=NtRkbUjel9/pOkjSU+eh0PR0AdfqVYaCqtQzM1oA42/kai5WvUU9f7PotYgH6jGCpI7tiTx0w3EkokpttV8ORvwZK4TadgOqL7RZ4e635awN/7nTbhpcvdfTYSVaxWUJuoY92z0GmfFnJgrcI1rDocXwu8P+mIDiFUD0cy5Lsmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792133701; c=relaxed/simple;
-	bh=351ElCUMniIjiuY5v6ejBqhzssHserQBP/iVWSvo8Tc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=snNFsMLasjmTwfS1lGEMkdIh0mul9F/UzfV3XSK11y6Q56eB7+1qTteEHNHjkL/05iWcN7cAqXYphYkkroFjL0hZIFrnwCTXORA2kEbM6yfvB7r66bOgZxkBP28cCHAmenCC0dWdReSIIHY6zeskK9a+N2kAiokANe1oZ/tGwYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=fXHsTmv3; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1792133728; c=relaxed/simple;
+	bh=ncpy0EnqF9l+kQ2Pf1jg0Ciz5YvWnfAlYtwJOLPYna0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FfjmgG3xzof7pz0IyHyidXoY6C2D97Vrl3p84eZXpNbgL89CRjqO0XDRNX8UYK+VWdexDYCpJkA2Wm4n59CYdF+yc+fqs62ORmuML2NErHzSrFHJWD3MeSsjjtLrX3nXTf6D5OMXNKaTz+vXEFi90So+/6iGL4fDcKnxYf6wdKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hLn/hfzi; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="fXHsTmv3"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48df54150dfso886140f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:54:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hLn/hfzi"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc758830601so2039288a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:55:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792133698; x=1792738498; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=F4FUcPRLKbuW4HkGF1Z/uZ9MIZyrAfZgEtA7+269nGA=;
-        b=fXHsTmv3mn5/XUwqFLuLfMUoDyPhs/awRoKnFZ14tUv4vbtvAxceM+lVkHyygE+dCu
-         x5TjnQPgspSvl+163qFh4ICcxRBhfaXeWvZJ+LiJydHfeh9k9712AcUXYr7/DvCB8rad
-         yrv+GN5OlbWx0fjYWyGGXOt2ARMbNkUb9ujcwizB40Lsa6Yr9jyZeKp8nTOBQD2lGlEP
-         ezSwKjeE2kYDKWV2nErf1GjPby4wEyj+nZQ5yhW6qssaVjyqP0ff5xjOIUz4wYROBduR
-         J5maHM/vEPDykeLEeXeyvW9/WiKV9NWe9kHSWSwaqkyNdOR6R61nJfaECWkZidoAyQBR
-         NJDQ==
+        d=gmail.com; s=20251104; t=1792133727; x=1792738527; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UMdZI/opS9rHJksOsCM3YzUdT2OraHcd3NLiwvXbxvE=;
+        b=hLn/hfzijn/ylmdOL+lzYRX0C3FeEsZbPVvuNexcC8RqrRG5GWSD5JePdbhSgui6zK
+         q+EUmZCEdvQSRNHF71Ac5BkTwFZa84KkvZfkuhnz80+k7zEOUZ7AaCfIB0HAEyyiN4oA
+         OzVADtPJYXScu/Eis2zAir+WhDWISXXINItVMYQBG0wdtx2pjlA8ltASAuOtVcf0VEe9
+         bi+ljTW5TcQnthMC0uGWgtqwIwK411hj9sOYhHuhQ+TFLIK+k039vqm7BOTGxWOV1iXr
+         uZ+HbNRKaqMmYth6cGp7IAmsjary8PMWmiA+EjibeX2m1GAJ1KE2cXSkDjvT+ZAYBKbL
+         Vs2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792133698; x=1792738498;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F4FUcPRLKbuW4HkGF1Z/uZ9MIZyrAfZgEtA7+269nGA=;
-        b=x82l0S8hEtiRxKXdB0KrCLhadyr8km8P1g0wVO9wHMBAqQ4wfIml8tIr1iD3ssYC2I
-         0eB7ALmz4amZn1132BYPGDfGFwaJMRoMoKMEVy7zxpy/Fi2115WfcfPj6h46jj/h6hPt
-         bArGAG4wWKpcTZWDS2JNDNSJPl3JMmZuuGqfynthH0226IZyUpuOvnmiyoGsw5AKtCxp
-         oEia67nPl3sb8M7bMQxBDmMyzNPAI30ENyAmnoan5PPAuyplEg/ckiPs/Mo5Js6H9wcb
-         nCAq5iNUPL6Zo1fj31eD9DRJrQabhwbdJPFC98S1/O6WhJvFQiIJQydiCuadxpL3mqV/
-         FE/g==
-X-Forwarded-Encrypted: i=1; AKwUvBwZJWZePz7alNGBvbiHuegzdZWZMieiyDJ45HpEjJLWs1qCiHgHMOeA39OMCG0zVTKHmpYds6ulGQlXtT0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgCE8WW7yRhlSm0f2CIqEzpbjliHu2iPVMUwrgYokgzPUxo7nP
-	W9O8J3y2CgpPDyiD306qd7lFXuZGynRfHbIpHLTITyVa1Yvl5CQPgkL4cZbSvZZKh9M=
-X-Gm-Gg: AYBFou1LKeaQo/8xiBAsNPtFYV6R6/N3JDQiJhL194Dmbo+qf1FFd/Z2LpG775LiqM2
-	9PjBZsP2A8CN0JLbRH0hFxbnzPag3h4w+8EjFEbnNJdQi6upBY4kcekG+J2+dPvv/NQt8YtUN34
-	PAUcWrTeoI6+q0y18HBOsQ43Aji75vfdhx9hNnF267nnqtphnrS8ySBkx3SlQG9Fr0EzAI9gAN4
-	PqfSEi+lWOkBO/DitkYKBs7ITvEbM/U0ieZg0nYwZj3GDw0hTECMkqWEXlhhIDVVyuuHgoko3WZ
-	ADmhdXQ72JwdR23tCgE2OGhPnYy8v5HFuk2SlQN/fLMxkjSoTA9iWpiY+Norote1Ygojn/FuOZ0
-	bEvMhC+LdIvan8B8QbvGdkCG2zsp1VtO+pYLWezWFwPDl04UF79fe8b0+MZFZSa6HP2B9o7k3iA
-	pNTMTWVIy8nEm+kytFgMan/ZaYBmtTZE1MMjE3X3wKJOvY3KryNx0kCZjW8dqHJ8jus/ZmaN8qX
-	2IyLROdFBBa
-X-Received: by 2002:a05:6000:3106:b0:488:8bc1:a2eb with SMTP id ffacd0b85a97d-48dca34316amr34701413f8f.39.1792133697666;
-        Thu, 15 Oct 2026 23:54:57 -0700 (PDT)
-Received: from localhost (109-81-30-108.rct.o2.cz. [109.81.30.108])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd50d080sm3121319f8f.53.2026.10.15.23.54.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 23:54:57 -0700 (PDT)
-Date: Fri, 16 Oct 2026 08:54:56 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Alexis Bouzigues <BouziguesAlexis@johndeere.com>
-Cc: "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
-	"liam@infradead.org" <liam@infradead.org>,
-	"ljs@kernel.org" <ljs@kernel.org>,
-	"linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] mm: nommu: set MMF_OOM_SKIP in exit_mmap()
-Message-ID: <atHKQFi0ckwxLa-P@tiehlicka>
-References: <20261013-fix-nommu-exit-mmap-oom-skip-v1-1-cb957cdbfcc3@JohnDeere.com>
- <as80Rpm-VHhP14aK@tiehlicka>
- <BY3PR05MB82607AF910C023253C48CD26A09D2@BY3PR05MB8260.namprd05.prod.outlook.com>
- <atB63fzpLyfWpzPn@tiehlicka>
- <BY3PR05MB826006B6F1E2D97E247104BFA09B2@BY3PR05MB8260.namprd05.prod.outlook.com>
+        d=1e100.net; s=20260707; t=1792133727; x=1792738527;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UMdZI/opS9rHJksOsCM3YzUdT2OraHcd3NLiwvXbxvE=;
+        b=HXVO2NRWZzhhokjjDm7Tauut53wgnUUI1pddgt4xTkD430/d+9iQKnTaABqM5m8xq4
+         yqaZIZXm8ynMUUgtPmS9kWQjYQYOipiSOd+K0tEWVWs7KvM9fOLLQEC31NWfZQNXWMOw
+         jUQK0LNPnutGgBoPr3k5IT5wttCI9gg/DzXjFOVdmGIAX54lak5aW1nP21UPfh0Wu7fu
+         xlzyRnbBxTvC9VvgDD3atxYsAXzVxniGehJCgVfSG5K4Sncd+WNnC2p0clbruzlqZEOr
+         x/DiP35MYOhRWBHTCI3+WeOAvUh3nrVVcfN7nM4HtwdRdGPelh/Og9xHdhZxHDqvwdQd
+         4nFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxg9yCCPCkhAf7dk6mz62Wm2fp1wvTANUCZJSHVKs2aQTT/JAIgHk9Pka8zqFgt18sn2zWyrH0y4VI6gyA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4QzOfvjBzdwkHQmTyoDPM8IGmMPHPm+66t475kjPbLwCUf2ce
+	7sv1W6IY4GUZuBaqjzNIVl8pfd5NmOWWbB5a3QD4vB0Z5poSt5/eFMcB
+X-Gm-Gg: AYBFou1FkX+xJCdLFwMgF9zVy1WvRIn/W6FW6Y7HYcQIPvgv0L5lksmfuwt/3nuYuuQ
+	P4z5NU/wX0mrccH1+EDAG2T/DcXhc3SUZsr+axQ2zHJZAScgPBLFngAHA58Oh6CJlOSo+RrLhpX
+	4KV88ab15/Bs2PI1c55POo7kqvVQGKF5IXWkNmtkVTarOQfUuEi9vzCcPg0CLNg/VVQJ9zJhNgL
+	tRqpgOofXZde77ZCDNv+u0qioSdyB2dNjOtuVIzQGQKTNQjQMHUdvYlmuil40hmm7jboH6e0hza
+	ouMI1pI61dxfVm/67NiBmpEG/J6N/pGhfdWRDVV8Ulq+5I1ZiwOsADDisuoGDJo7rl1SqScMEpo
+	m20WUfwUTdHxC/xnDjESgd50cVaGx1VqiX4D8MjsDj2huoBt+d+n2oGUq5lS50taU/ZezmP03Qr
+	l2y8jKzWWDFmPj4m7/sL5tFcBJ++x/C4lbMfljYE/hQdBFg/apbzhDlEUV2h3CFL8+Gro2juUL1
+	L1SbtNwWFKxg61Ta14hOsY8eX/zzVv2ORWf/qEo9P0Jj8EKidEzqZBv+WmQmU9wc0hByQ3M26Aj
+	ojxkwZAZgQAS9QTmRwELWj6umhiKGOMv0Oxq8IkM3QvC33gIVbbevay8TjYB
+X-Received: by 2002:a17:90b:1b02:b0:3ac:80de:44f0 with SMTP id 98e67ed59e1d1-3ac80de6793mr6477432a91.4.1792133726731;
+        Thu, 15 Oct 2026 23:55:26 -0700 (PDT)
+Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.249])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc9a40720sm1110434a91.1.2026.10.15.23.55.22
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 15 Oct 2026 23:55:26 -0700 (PDT)
+From: Yu Zhang <yuz08559@gmail.com>
+To: Mike Christie <michael.christie@oracle.com>,
+	Dmitry Bogdanov <d.bogdanov@yadro.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yu Zhang <yuz08559@gmail.com>
+Subject: [BUG] scsi: target: iscsi: connection-recovery (cr) double-free / list corruption in ERL=2
+Date: Fri, 16 Oct 2026 16:55:17 +1000
+Message-ID: <20261016065517.91750-1-yuz08559@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <BY3PR05MB826006B6F1E2D97E247104BFA09B2@BY3PR05MB8260.namprd05.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri 16-10-26 00:42:39, Alexis Bouzigues wrote:
-> On Thu, Oct 15, 2026 at 09:03:57AM +0200, Michal Hocko wrote:
-> > Are you really looking into the code or just relying on an LLM?
-> > Go and check to learn that the oom reaper is only compiled in with
-> > CONFIG_MMU=y
-> 
-> Hello,
-> 
-> Sorry about that, my earlier message used "reap" in the sense of
-> cleaning up the exited child in zombie state (waitpid), not in the sense
-> of oom-reaper.
+struct iscsi_conn_recovery has no refcount; its lifetime is governed only by
+sess->cr_i_lock / cr_a_lock, which protect list membership, not the object once
+a pointer escapes the lock.
 
-OK, this is what confused me indeed. Especially along with the changelog
-explicitly mentioning coordination with the oom reaper
-: Fixes: 212925802454 ("mm: oom: let oom_reap_task and exit_mmap run concurrently")
+iscsit_get_inactive_connection_recovery_entry() looks up a cr by CID and returns
+it after dropping cr_i_lock, with no reference taken:
 
-The whole oom reaper chnages should have no impact on the nommu OOM
-workflow.
+	spin_lock(&sess->cr_i_lock);
+	list_for_each_entry(cr, &sess->cr_inactive_list, cr_list) {
+		if (cr->cid == cid) {
+			spin_unlock(&sess->cr_i_lock);
+			return cr;
+		}
+	}
 
-> I also went through the code in detail today manually using a 
-> backtrace from the reproducer. I set a breakpoint at oom_evaluate_task 
-> (containing the MMF_OOM_SKIP check) ran the reproducer on v7.3-rc7
-> through qemu-system-arm with gdb. I iterated to confirm the
-> breakpoint keeps getting hit.
-> 
-> Here is a backtrace of the reproducer when the parent PID is livelocked:
-> 
->     oom_evaluate_task                  mm/oom_kill.c:354
->     select_bad_process                 mm/oom_kill.c:373
->     out_of_memory                      mm/oom_kill.c:1155
->     __alloc_pages_may_oom              mm/page_alloc.c:4113
->     __alloc_pages_slowpath             mm/page_alloc.c:5030
->     __alloc_frozen_pages_noprof        mm/page_alloc.c:5449
->     __alloc_pages_noprof               mm/page_alloc.c:5471
->     alloc_pages_node_noprof            mm/page_alloc.c:5485
->     alloc_pages_noprof                 include/linux/gfp.h:284
->     get_free_pages_noprof              mm/page_alloc.c:5507
->     alloc_pages_exact_noprof           mm/page_alloc.c:5641
->     do_mmap_private                    mm/nommu.c:959
->     do_mmap                            mm/nommu.c:1182
->     vm_mmap_pgoff                      mm/util.c:581
->     ksys_mmap_pgoff                    mm/nommu.c:1287
-> 
-> 
-> Inside oom_evaluate_task(), when the task is the zombie child pid
-> victim, without MMF_OOM_SKIP it aborts the loop from select_bad_process()
-> and sets oc->chosen to -1, preventing the oom killer from calling
-> oom_kill_process on oc->chosen
+The caller then runs iscsit_discard_cr_cmds_by_expstatsn(cr, ...) with no lock
+spanning lookup -> use; when cr->cmd_count reaches 0 it frees the cr:
 
-Correc.
+	iscsit_remove_inactive_connection_recovery_entry(cr, sess);
+	iscsit_attach_active_connection_recovery_entry(sess, cr);
+	iscsit_remove_active_connection_recovery_entry(cr, sess);  /* kfree(cr) */
 
-> Since oc->chosen is not NULL, it does not hit the deadlock branch in
-> out_of_memory instead it returns !!oc->chosen (1).
-> 
-> Returning to __alloc_pages_may_oom(), out_of_memory(&oc) evaluates
-> non-zero, so did_some_progress from __alloc_pages_slowpath gets set
-> to 1.
-> 
-> Then in __alloc_pages_slowpath(), since did_some_progress was set
-> to 1, it jumps to the retry label
-> 
-> As long as the system is out of memory, __alloc_pages_may_oom and 
-> out_of_memory will get called, meaning that oom killer does not make
-> progress and that the parent PID busy spins in the allocation.
+Two contexts run this get-then-discard on the same session with no
+serialization between them: the REMOVECONNFORRECOVERY logout handler
+(iscsi_target.c, per-connection tx thread) and the ERL=2 implicit logout on
+login path (iscsi_target_login.c). If both obtain the same cr (both find it on
+cr_inactive_list before either removes it) and both reach the cmd_count == 0
+branch, the cr is unlinked and kfree()d twice -> double-free, with a list_del on
+an already-freed entry in between -> list corruption.
 
-Correct. The question is why killing the child, which has passed
-exit_mmap stage sucessfully didn't help.
-
-> If the MMF_OOM_SKIP bit were to be set for the child zombie process, then
-> oom_evaluate_task would not abort and would select the parent, meaning the
-> oom killer can now call oom_kill_process on oc->chosen and progress.
-> 
-> So setting MMF_OOM_SKIP as soon as its memory gets freed (in exit_mmap)
-> would guard against the parent's mmap stalling oom killer, since
-> oom_evaluate_task would rule the child out and proceed.
-
-right MMF_OOM_SKIP will help to hide the killed child process. The
-question is whether this is just working around a propblem or it is a
-correct solution/workaround. There is absolutely no guarantee of a
-forward progress for nommu (due to missing oom_reaper) and overall
-nommu OOM handling is rather fragile and there is an implicit assumption
-that memory usage in this platform is very carefully scrutinized to make
-sure this doesn't really happen.
-
-So the main question you should focus on to explain is whether your
-specific example is  
-	a) a corner case of a valid nommu application or  this is 
-	   a theoretical problem
-	b) why this doesn't break otherwise very fragile nommu oom
-	   handling
-Thanks!
--- 
-Michal Hocko
-SUSE Labs
+Reported-by: Yu Zhang <yuz08559@gmail.com>
