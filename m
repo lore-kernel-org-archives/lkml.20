@@ -1,116 +1,192 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884571172E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:05:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8B352030A;
+	Fri, 16 Oct 2026 00:06:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792109138; cv=none; b=tVp6w3ZmVLTZVh9S16/QuUfUimgXnXpydlu9GxiFSSGaHpi09hWhsHV1Nm5RzP84bx7hxo6pJOoEaW2PE6/CYqOS/P5PTdrrKfz4JAvxlO9cLQiNwryR8IH3lCpL4fGbWK3zdjzeKoWJQ028suKslzR7cpyED67N/VNzocWIg1I=
+	t=1792109187; cv=none; b=HrstzWFfYZSR4400t3cj+LA65k0RT4wiOU79CaURfBhoNAQvS2+B/5EjFM3DwFrFT4bMV2m0qszFJrSSx/qEU2hSBfW1m75WnTdrJJVkRAocblzzv0KGKZMTWAwGLFEUY4/FqSiX5kQtMyeunZfK+tNW4ZdNli9qr6aPNLAtneM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792109138; c=relaxed/simple;
-	bh=fPRYypa44znrNavChK57m+Ydl3AyDgbMBifU9YzFMLU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D7lPmlId3Q/Dq13Kdcv8HBn/G2vGwGB6bI8lOMcAfJg+fZSaLXZfYR6NzlP8X6WzE79h2+y9LLDZl/vy0lniB3YNlXfjNSl647N0Ukq+jx3FsysDG6khMlJdfIJE0386OBDx5xcrg0+Ds7UCIvGoF9f2bSiTg6oQTOS4y1dt9N8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rScwL5k5; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792109187; c=relaxed/simple;
+	bh=JQNlIBOrQQ4CZzFwrfBRyxU2RHdddOs451H/qbf3jVQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qf2Xye0uyfE1BTGBcS4jQXx1pqpbbb8XdC1xqvlPKwssIX6s9tkmBcU2KreeY73qeuwvtKoxF1/R4Ztx8RpYnUQlBrYwdgkhrLqJk9mteVbP3aOQB36PBuDTGFjIqHtfYtOrQ3aIriIU8iAHvmcS7jOeX0TXAiEAncTc1W7qIR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oOHnLwpw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rScwL5k5"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4956869750eso38310725e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:05:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792109134; x=1792713934; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UnhsvI9MzVbrWhzAeYwgCkKjH6CfXVlO8VeDcgUlxMk=;
-        b=rScwL5k5O6KZT1xUuakOfKTXFJWr+OAjf8bQ8GsWjMa4D8l3XuFAzK3ywr6S7ER0g4
-         hw5cKkAhLWyypo3HS8444/rvHwgbanQDCjQtMRb1Sfpg47ArO6hWtTMWGEV08v94vzMc
-         qwbyUJz7/GgOmqHapRdvrEDirTx2GdWy5D9PDrXYB6cE2Kq6oS/FFfYJFk1XdKfGRKF4
-         pr5QELEyQ0xWdd2g/zbRhBV6v9lWfL6IhcIZsqsr5Qx+eXucI8MVITTOEWUh/2MqB6qf
-         5UGc2zYHC+B8dusJZUZspdAv4HwTUCa5wYSKjpZl1QIvu9raRQTuqBgRJqy6+E32Fwe6
-         NGwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792109134; x=1792713934;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UnhsvI9MzVbrWhzAeYwgCkKjH6CfXVlO8VeDcgUlxMk=;
-        b=DhLUW7lWz+JNVwnfxG3NMyGWwOuTnR3odO05i3ehYlS/oZmB0Y10fNYnrnpbImhysF
-         weT/0pT4fMml849UIJyyBtZhyymPvByFCtkL1c9xuJSc2drfVZFr9ZP/zLUwwDs6Rwml
-         b7stnOtv8Zc3m2cF/kU8fQ8BXpZPmVl4cpY8IeX4thOz+h2TSVdzyUZidMKfFTsc2Gyh
-         zodwIac4vFy1tCfULCVNljScwceMEZV8GCwH0mig9x69OQv8Y5DRmMOn3Pmniy/lAF2v
-         1y1r5oQo/LLE7jeW1npokhDVxlYHZk7xbo+RIcJJSnb3neEhrnhZ6EZjFtGg3I/5ZP+o
-         ewkg==
-X-Forwarded-Encrypted: i=1; AKwUvBwAx+yedzL87cz5gZbsFbRfljvMPZ5bkhcIuGdM7S9It5nnshdvJvNll5+izXFFdSTdYiazr5bTeWJ68+Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/xlGvGuSIG6ztRfHhw5wRJNSiWRWfuO520ctVs5sQCOWulCU8
-	kgN8TgZtWiFpLH4S+63wVbro6XORXGxsIK0tQSC13tgeA62yi6zbu3s1
-X-Gm-Gg: AYBFou2BPGPd6Ty5nWQJ9+jfhqV71DXFH79IvrphA+4Mroiz2O4RA1dbvbaoztV5zZO
-	2tqlSx3OEx+ULbyko1juaK2s4Li9ywr9zzADQZXSU6ytzfwh5eKj6enK6pjIvDETU348c3E/nzx
-	cmcYF9wnq0gp5eO/MigwgWc7keswSn/XR7RASXZUCPumhiln1sUy01bDCOL/wWveDxku/1GeYYg
-	3eQ+arzwIgatmvCAI4jg7oYz9HQwBZ4+Awsq9c2cPPQowW4xdfe8XJFMyJ+SZeTZ940aihjO9ip
-	bI6GPkkhYDKTDk52DBSTCeU0eUKEbmGfBXK6mWju+feXBpt5jn/AeJQKjDlSpzVzqq1eskRbg+m
-	YdrplCQ0C6dP8njS+7yRcdbvzg42vSGqD5XJoNapqw/EPnMxAAAeyWfVSkC1aJxDR+T7FVnqsjV
-	X3tQX9d0lq7hSVZJ6+XvzLSM+HK6/KqnAfUHPzMr8NXpiT8UBJTEwT8BN9D6XwERT9Tu0SldLsQ
-	ZXHYpdEzpPuDWmj1qhCwbm4BRmjSGoXwypB1kWY7/Nyzxfp2HsrjA==
-X-Received: by 2002:a05:600c:4747:b0:4a1:88de:9e8b with SMTP id 5b1f17b1804b1-4a18e49d65dmr411113445e9.5.1792109133763;
-        Thu, 15 Oct 2026 17:05:33 -0700 (PDT)
-Received: from fedora.fritz.box ([93.93.22.191])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8d1esm1315821f8f.39.2026.10.15.17.05.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 17:05:32 -0700 (PDT)
-From: Stefano Munari <stefanomunari.sm@gmail.com>
-To: Thangaraj Samynathan <Thangaraj.S@microchip.com>
-Cc: UNGLinuxDriver@microchip.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	netdev@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: usb: lan78xx: fix error handling in lan78xx_open()
-Date: Fri, 16 Oct 2026 02:05:21 +0200
-Message-ID: <20261016000521.92868-1-stefanomunari.sm@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oOHnLwpw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CB1C1F000C4;
+	Fri, 16 Oct 2026 00:06:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792109186;
+	bh=lj0QXNDYWzykhho+9TgSGkXQQEpotIYDIIMXMua7eT8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oOHnLwpwzXtkpHlf/6U6iF7vR87WzvWbEDkOSs+3dp8FKUwEDtOEWfd+6JMd2ssjz
+	 GksAiaUpsIWqUo0dFVk155pkKrt/uQGX1NYw1QEdERp+A1Nt6fjyyEr0VjxDe3MTLn
+	 y3tG+1pIiDhw0uPafqBUYvc9Ob3kIiwceYOBmf8l7m9JtxTkieKn+UDxCnUf+6eCLS
+	 OeTrKt80VAXQzJyVsPTmXXwbritv3DMzHM+pKHlhVzZH8TactA4tSM7tc2hImMGgUV
+	 ren66sBe8znD4ykW994KGmIo/iQIXn+69G6S9pkjIAYVzlA6PWgkL1vtq3LBsyYzxv
+	 dfLtdDCrcOvRw==
+Date: Thu, 15 Oct 2026 17:06:24 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Sunil V L <sunilvl@oss.qualcomm.com>
+Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
+	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
+	Atish Patra <atish.patra@linux.dev>,
+	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
+	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
+	Gong Shuai <gong.shuai@sanechips.com.cn>,
+	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
+	James Morse <james.morse@arm.com>,
+	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Peter Newman <peternewman@google.com>,
+	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Vasudevan Srinivasan <vasu@rivosinc.com>,
+	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
+	yunhui cui <cuiyunhui@bytedance.com>,
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	x86@kernel.org, devicetree@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v9 1/5] riscv_cbqri: Add capacity controller probe and
+ allocation device ops
+Message-ID: <atFqgJc4Vg2XPGl0@thelio>
+References: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org>
+ <20261003-dfustini-atl-sc-cbqri-dt-v9-1-52fd8be98dcf@kernel.org>
+ <CAB19ukHJ-TxXu+vMGGNqHz2sJj35Cg0X1RbcdfXzwDYpci1jQw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAB19ukHJ-TxXu+vMGGNqHz2sJj35Cg0X1RbcdfXzwDYpci1jQw@mail.gmail.com>
 
-A failed interrupt URB submission leaves NAPI enabled and EVENT_DEV_OPEN
-set. A subsequent open enables NAPI again, triggering BUG_ON() in
-napi_enable().
+On Mon, Oct 12, 2026 at 09:42:59PM +0530, Sunil V L wrote:
+> Hi Drew!
 
-Clear EVENT_DEV_OPEN and disable NAPI on the submission error path.
+Hi Sunil, thanks for reviewing!
 
-Reproduced using failslab on a Raspberry Pi 3 Model B+ (LAN7515).
-With the fix, the injected allocation failure returns -ENOMEM and a
-subsequent open succeeds. Verified connectivity with ping and SSH.
+> On Sat, Oct 3, 2026 at 12:45 PM Drew Fustini <fustini@kernel.org> wrote:
+> >
+> > Add support for the RISC-V CBQRI capacity controller. A platform driver
+> > passes a cbqri_controller_info descriptor together with the cache level
+> > to riscv_cbqri_register_cc_dt(), which probes the controller and adds it
+> > to the controller list.
+> >
+> > Assisted-by: LLM
+> > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> > Signed-off-by: Drew Fustini <fustini@kernel.org>
+> > ---
+> >  MAINTAINERS                      |   3 +
+> >  drivers/resctrl/Kconfig          |   9 +
+> >  drivers/resctrl/Makefile         |   3 +
+> >  drivers/resctrl/cbqri_devices.c  | 574 +++++++++++++++++++++++++++++++++++++++
+> >  drivers/resctrl/cbqri_internal.h | 122 +++++++++
+> >  include/linux/riscv_cbqri.h      |  45 +++
+> >  6 files changed, 756 insertions(+)
+[..]
+> > diff --git a/drivers/resctrl/cbqri_devices.c b/drivers/resctrl/cbqri_devices.c
+> > new file mode 100644
+> > index 000000000000..87d4ecf8f141
+> > --- /dev/null
+> > +++ b/drivers/resctrl/cbqri_devices.c
+[..]
+> > +static int cbqri_probe_controller(struct cbqri_controller *ctrl)
+> > +{
+[..]
+> > +
+> > +       if (!request_mem_region(ctrl->addr, ctrl->size, "cbqri_controller")) {
+> > +               pr_err("request_mem_region failed for %pa\n", &ctrl->addr);
+> > +               return -EBUSY;
+> > +       }
+> > +
+> Apologies for jumping on this late. But why not simply use
+> devm_platform_ioremap_resource() ?
 
-Fixes: e110bc825897 ("net: usb: lan78xx: Convert to PHYLINK for improved PHY and MAC management")
-Signed-off-by: Stefano Munari <stefanomunari.sm@gmail.com>
----
- drivers/net/usb/lan78xx.c | 2 ++
- 1 file changed, 2 insertions(+)
+This is an artifact of my fuller RFC series which implemented RQSC as
+well. For ACPI, it registers controllers directly from the RQSC table
+without a platform device.
 
-diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
-index 5655941f1478..6a95934bb3d3 100644
---- a/drivers/net/usb/lan78xx.c
-+++ b/drivers/net/usb/lan78xx.c
-@@ -3484,6 +3484,8 @@ static int lan78xx_open(struct net_device *net)
- 		if (ret < 0) {
- 			netif_err(dev, ifup, dev->net,
- 				  "intr submit %d\n", ret);
-+			clear_bit(EVENT_DEV_OPEN, &dev->flags);
-+			napi_disable(&dev->napi);
- 			goto done;
- 		}
- 	}
--- 
-2.55.0
+But you make a good point and this is what MPAM does as well. I will
+switch to devm_platform_get_and_ioremap_resource() and add a base field
+to cbqri_controller_info.
 
+> > +/**
+> > + * riscv_cbqri_register_cc_dt() - register a DT-described capacity controller
+> > + * @info:        registration descriptor. info->cache_id is used as the
+> > + *               resctrl domain id. info->type must be CAPACITY.
+> > + * @cache_level: cache level (2 or 3) the controller backs, mapped to the
+> > + *               resctrl L2/L3 resource by the resctrl glue.
+> > + *
+> > + * The cache level and id (info->cache_id) are supplied directly by the
+> > + * caller, which resolves them from cacheinfo. Domain membership is resolved
+> > + * per CPU at hotplug, so no cpu mask is stored. There is no firmware table
+> > + * to resolve any of this from.
+> > + *
+> > + * Return: 0 on success, -EEXIST when a controller for the same cache level
+> > + * and id is already registered, or another negative errno on failure.
+> > + */
+> > +int riscv_cbqri_register_cc_dt(const struct cbqri_controller_info *info,
+> > +                              u32 cache_level)
+> >
+> What is DT specific code in this function? IMO, it is better to gather
+> all information in the main
+> driver itself into a generic "info" structure. That way, all ACPI vs
+> DT differences will be handled in
+> one place and everything further will be generic.
+
+There is nothing that is DT specific beyond needing to pass the cache
+level whereas ACPI can determine it from PPTT.
+
+But I think it would make sense to be more generic. I will move
+cache_level into cbqri_controller_info and drop the _dt suffix.
+
+[..]
+> > +       /*
+> > +        * SRMCFG encodes RCID in 12 bits. Reject an out-of-range count rather
+> > +        * than silently truncating in every FIELD_PREP(SRMCFG_RCID_MASK, closid)
+> > +        * on the schedule-in fast path.
+> > +        */
+> > +       if (ctrl->rcid_count > FIELD_MAX(SRMCFG_RCID_MASK) + 1) {
+> > +               pr_warn("CC at %pa has RCID count %u beyond the 12-bit SRMCFG field, skipping\n",
+> > +                       &ctrl->addr, ctrl->rcid_count);
+> > +               cbqri_controller_destroy(ctrl);
+> >
+> Any reason to have explicit cleanups ?
+
+No. I will move the info->rcid_count check before allocation and use
+__free() for the controller.
+
+[..]
+> > diff --git a/drivers/resctrl/cbqri_internal.h b/drivers/resctrl/cbqri_internal.h
+[..]
+> > +extern struct list_head cbqri_controllers;
+> > +extern struct mutex cbqri_controllers_lock;
+> > +
+> >
+> Can these be made static in cbqri_devices.c and provide API for cbqri_resctrl.c?
+
+Yes, the only use outside of cbqri_devices.c is
+cbqri_resctrl_pick_caches(). I will make both static and add a helper
+that returns the registered controllers.
+
+Thanks,
+Drew
