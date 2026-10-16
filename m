@@ -1,105 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B79D3C061F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:20:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E07A25B09E;
+	Fri, 16 Oct 2026 08:20:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792138802; cv=none; b=c9NcTJPfzFCQEpmzhGR48ItwDSDlxxj9VPeuGK62qrel+EIjSmTu4df2BUsBhHzddi8jvMoQWhg9E4+kd06HCD+iRR7UZghvjoLhC9cm2w+/ngJUYT+uapBdRPELWfYF/tu0m6xZ8zO9AH0elQGhuijzKEea+D8VJFa+PUV/tZw=
+	t=1792138824; cv=none; b=NQ0I0WW2nW0NRMdfGlvvb2aN4IBwEW/HE12xqO5qRXpNupiSmhNKK3ScZwLUzXgqCRDfPwZ9NrB+FwQrVnZrVjG8LaWOY9djbAidNr8YGR+6sibojGvFZ0PAe6BpKb4OhUcaWB9Tvqqu1m+NjLThe4fE41Jul7mh7Xxt2kaKn84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792138802; c=relaxed/simple;
-	bh=Q/VFJDeaY/23ZJwVigeNwes0ycOyUM1dhiVYAZgu9lE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Tm/Bp7FyLHlpvP7P7LfrGJ/1vGujPcSPgFnEzL1TeuImUXncuPvnWHZuQZ9fDCSoaLFhQpdcAk4ywelS21fIUeTPz2oTzUVIvpefgOzai8aasjbYvVLMRL3DSgZUwX3VLCLZYYREMSiJkreaGA77nSv2BBj0PxD3bdjbzG9frQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iKxlHMUo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792138824; c=relaxed/simple;
+	bh=n9WdwMuog1XJRuyf6viuwo1i2SnqRRud8PTaE6rIMiY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ZXPSCmFP7nvOqSDV44Ue8RRJLm8tZ3PYT2yqr817xCEG1Lh//iUeWMGuiBhrWDAKRTfOGa7H2HeX3F7O35WU6BdhH3OqEsqx1YANnDtJJJ8WAuZbyu8r9vpQ4qiD+O2P2xxP4hJZjNRKRZ1ftE8/hw84ylc1qXxDozok4yrw1Gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bi7flnYP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iKxlHMUo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34D4E1F000CC
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:20:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792138800;
-	bh=NQNdQ79CqehE3MN8JBQ8cGNawuMei/JypxZtTt4YpYc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=iKxlHMUo+/1GZcAn9zFCZJrdBiM4xpOj7aQo/0biOZE99rPXdb9j84gzoYcPY3MQL
-	 n/vzJrQYSYACTqxmx/rxDWNdYugxZfkWiXvYgc6XW4MINFf4Br37NBRmQI7V9nw5vk
-	 e7lZJa8fl3D5k0KHMwV/Rg/qYUt3z1f6h3o8jAyRfc6NdkoGyOPLHQFX07bVm6B7G8
-	 snxa5s3JukuEMx+ugj0XqfA4DSQs3jawv/jwA3SsRPIGxcoYO/Df966VlkutDzq23b
-	 HeiTGXGGke2+QgOmf3/uXIOp5HxVSGPK9gm4OAlGKi1XAciFRVX16J5QOnnkYL9gjd
-	 c5dB4fQdnxYgg==
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-70094949641so842320eaf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:20:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzqv/wp3h/JRHBQkdcPL9GnZebAaervhXLYXpHhggL3lt9bOkTrygtieMPo6fKY5sDf4S60vlBKuW374q4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+NrTDqCpkUMvr+x2WEWiynMDEXcNoKz8hiNWBUSyoBAV004gD
-	8ybO+RGGbw2gGPFPWHfV5Th+LKM716qjvHlEsdFqVwfoDRIW/EfGfyGabMx9qMuQhydTZNFocDY
-	sHrOEUV9g3Tjj4/IuV18a9XJuLGWPpA0=
-X-Received: by 2002:a05:6820:f02a:b0:6d8:462d:2755 with SMTP id
- 006d021491bc7-70114debb9bmr1594715eaf.37.1792138799204; Fri, 16 Oct 2026
- 01:19:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bi7flnYP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CC828C2BCF4;
+	Fri, 16 Oct 2026 08:20:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792138823;
+	bh=n9WdwMuog1XJRuyf6viuwo1i2SnqRRud8PTaE6rIMiY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=bi7flnYPlJ99zyUXAUajuInwVOFXhaIWxS6kYEz+fVl+5HDWp54RoSK9NT0GaYksx
+	 8N+Efnd8OwQMpy6r29R1BvEcdFHOpWz7LZBr2WzO6XXCmquM8ocW7W1NCeIgjOEQQr
+	 0WldtQCpZZymPmw+aU5l3vBlRozetp05yndGwCJHj4xzEI09ju/TDL+LxENFkU5RD5
+	 qI8IsOWwa/1v0oQwNJKT9eHp056vn8Ci9RTXkN5hJpmaL67DY4xTcSognLJm3/nFCs
+	 iWk5RWq1W3V3kZFjWpS28ryQ5LHPOaGdkjwymvta7QKs2vJFIZhiUgAw/PrAg7SLmY
+	 wG5OX9WbtpWBQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B42D5CCA464;
+	Fri, 16 Oct 2026 08:20:23 +0000 (UTC)
+From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
+Date: Fri, 16 Oct 2026 13:50:18 +0530
+Subject: [PATCH 1/2] dt-bindings: remoteproc: qcom,sm6350-pas: Document
+ SM7250 ADSP
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015073736.2944215-1-tavip@google.com> <20261015073736.2944215-2-tavip@google.com>
- <CAAVpQUAnURtwVgKmRYXTZBjEyb58mxXkeJoMkh7Mc6+ESb1Sfg@mail.gmail.com>
-In-Reply-To: <CAAVpQUAnURtwVgKmRYXTZBjEyb58mxXkeJoMkh7Mc6+ESb1Sfg@mail.gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Fri, 16 Oct 2026 10:19:46 +0200
-X-Gmail-Original-Message-ID: <CAL4Wiipff3Aai0f=iwXmvc1MKessWzO2fojVu67BQ6e-pGPk3A@mail.gmail.com>
-X-Gm-Features: AclHuK_ghVWdNzfqvDun0kKrC7LGzJBYtDJxzI9zBA3uy3mDqEmjWu5L0M5ujAU
-Message-ID: <CAL4Wiipff3Aai0f=iwXmvc1MKessWzO2fojVu67BQ6e-pGPk3A@mail.gmail.com>
-Subject: Re: [PATCH net 1/2] tcp: clamp return value of tcp_wmem_schedule() to non-negative
-To: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: Octavian Purdila <tavip@google.com>, Neal Cardwell <ncardwell@google.com>, 
-	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Willem de Bruijn <willemb@google.com>, Soheil Hassas Yeganeh <soheil@google.com>, Wei Wang <weiwan@google.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, netdev@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-adsp-sm7250-v1-1-2f39ac1f0496@brar.si>
+References: <20261016-adsp-sm7250-v1-0-2f39ac1f0496@brar.si>
+In-Reply-To: <20261016-adsp-sm7250-v1-0-2f39ac1f0496@brar.si>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ishu Brar <patches@brar.si>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792138822; l=1256;
+ i=patches@brar.si; h=from:subject:message-id;
+ bh=z1Qa0DEUjqiJUo+KWFEZ0IxthpbJqvNpcU9mepDGsGI=;
+ b=0ps9BSiImVNiWX1nXu7otNLfAfp3zFp1BKVoU9SXFUn+x1U/AYS5T5W5ytbPmdXlpYZFmllJC
+ 7dUui3uSHfTCvFQ1JFkZrSZS+C2VRRGW+ET2NwMVPZSl0uiY7iUMpER
+X-Developer-Key: i=patches@brar.si; a=ed25519;
+ pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
+X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
+ auth_id=1189
+X-Original-From: Ishu Brar <patches@brar.si>
+Reply-To: patches@brar.si
 
-Le ven. 16 oct. 2026 =C3=A0 09:42, Kuniyuki Iwashima <kuniyu@google.com> a =
-=C3=A9crit :
->
-> On Thu, Oct 15, 2026 at 12:37=E2=80=AFAM Octavian Purdila <tavip@google.c=
-om> wrote:
-> >
-> > When sk_wmem_schedule(sk, copy) fails under TCP memory pressure and
-> > sk->sk_wmem_queued already reaches or exceeds sysctl_tcp_wmem[0],
-> > tcp_wmem_schedule() returns min(copy, sk->sk_forward_alloc).
-> >
-> > However, sk->sk_forward_alloc is a signed int that can transiently
-> > become negative when tcp_collapse() re-packs partially read or high
-> > payload-to-truesize SKBs in the receive queue and charges newly
-> > allocated SKBs via sk_mem_charge() before freeing the original SKB.
-> >
-> > If tcp_wmem_schedule() returns a negative value, tcp_sendmsg_locked()
-> > passes that negative copy length to skb_copy_to_page_nocache() ->
-> > copy_from_iter_full() -> check_copy_size(), where it is converted to an
-> > unsigned size_t > INT_MAX, triggering a WARN_ON_ONCE(bytes > INT_MAX)
-> > and returning -EFAULT instead of waiting for memory or returning
-> > -EAGAIN.
-> >
-> > Clamp the return value of tcp_wmem_schedule() to [0, copy] so callers
-> > treat negative sk_forward_alloc as 0 available bytes.
-> >
-> > Fixes: 849b425cd091 ("tcp: fix possible freeze in tx path under memory =
-pressure")
-> > Assisted-by: LLM
-> > Signed-off-by: Octavian Purdila <tavip@google.com>
->
-> Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
->
+From: Ishu Brar <patches@brar.si>
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Document the ADSP Peripheral Authentication Service on the Qualcomm
+SM7250 SoC. It has the same interrupts and LCX/LMX power domains as the
+SM6350 ADSP.
 
-> Basically sk->sk_forward_alloc should not be negative, and
-> I was able to avoid that by refactoring tcp_collapse(), but it was
-> a bit invasive for stable and late in rc8, so I'll post it in the next cy=
-cle.
->
-> $ git diff --stat HEAD~4
->  net/ipv4/tcp_input.c | 158 ...
->  1 file changed, 109 insertions(+), 49 deletions(-)
+Signed-off-by: Ishu Brar <patches@brar.si>
+---
+ Documentation/devicetree/bindings/remoteproc/qcom,sm6350-pas.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sm6350-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sm6350-pas.yaml
+index 42e02c643..74f2037f3 100644
+--- a/Documentation/devicetree/bindings/remoteproc/qcom,sm6350-pas.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/qcom,sm6350-pas.yaml
+@@ -19,6 +19,7 @@ properties:
+       - qcom,sm6350-adsp-pas
+       - qcom,sm6350-cdsp-pas
+       - qcom,sm6350-mpss-pas
++      - qcom,sm7250-adsp-pas
+ 
+   reg:
+     maxItems: 1
+@@ -86,6 +87,7 @@ allOf:
+           enum:
+             - qcom,sm6350-adsp-pas
+             - qcom,sm6350-cdsp-pas
++            - qcom,sm7250-adsp-pas
+     then:
+       properties:
+         interrupts:
+@@ -104,6 +106,7 @@ allOf:
+         compatible:
+           enum:
+             - qcom,sm6350-adsp-pas
++            - qcom,sm7250-adsp-pas
+     then:
+       properties:
+         power-domains:
+
+-- 
+2.56.0
+
+
