@@ -1,168 +1,270 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00561D432D
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:59:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792130366; cv=pass; b=T9nrUPU7MF75+t7kFtfdvAlrKdh3vAiBfsdisLuvyq0FYN1kTaswMz1xIONbGqE3Ee/x8x4JH+zIJGKd/djxEuXBkUrcGHnDJylqFXVVWi/j8DKXhj/bdduCnND5oYThVSLHa2rwKGBn2lI+JmpOc4bnsYAZp+DOegUm/8J06DI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792130366; c=relaxed/simple;
-	bh=cv8qgKln0Fe40yOvGUR02GyLpJU1kekbzM2OmTGYAko=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jVdSfpWprTKc8bDLPjVFWyw6+ZxxiTTNMXDvoz50On3k7U0CXhhOUSh9PW6dfvcDafPnqakHbZ+A/8Vik10MopUq/wpTfm+CLRO765+SaynroI+JznrkdxxKTSwoARmAYlLdMDd/YtiKFd8nmaLGYQUwGgIaB/E+RoLAWZiyc3M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=i4947tpT; arc=pass smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399B112B94
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:01:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792130477; cv=none; b=tVLct0ehijVdS6PuYlWC2xG/hHIEjcWcIwTdc792dOSCxCuvIncwEbhDOPRNde2UVg+R5mILMlU4/ZsnIziAiolykufbwIHKxug5o+wMT0KxA/OTsP/a9HXrZiVCSLlXGcqM41uLnL8PxqyOkc5DWfUkqN0hKS6lnebl17nJG8E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792130477; c=relaxed/simple;
+	bh=uBLkBYAnSKuFUV79EMpMgXiuISVUYHDZMEe0zvcXtN4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mS0s6IakVOtun+uKI7j9lZVOx1IfUh4B/lroMMNvBJXqoA8G0jRKShZi1TmsFE30EqrQYMWCWqXj7UyxPRJUL10b0I2GvTnKu0yVhida5wMNgUrYEahNKWDtPlnQx7PTYpkBfMSPMR+aYcATe8cmkqe5zSOQKGGx18iX/J2xC0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gvp5xJFC; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="i4947tpT"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-5361e313e63so14366061cf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:59:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792130364; cv=none;
-        d=google.com; s=arc-20260327;
-        b=desd2NNI4zz1v1sZwlvlhDKkhXRwwdOCWZ2PxhPcWS9BN9CyZXNDE3D0c9l/QQI0Zk
-         y5Y6KPF7g2IlFXCMb4aMZCFdV3iOVqVXQf7lzUbfFW34fKeneBwfm0fu8QL9uc7iElGi
-         0t+HzQeteZFdqj9vIc0uMPN5lRyVOl7/3m4lEtipZmdXp0gwDKUauKIdAVUnIYLw5buY
-         SH+aMKLV7UVsae9ZXpk4wzbtajenSRZBdXEh95ZeQOkOJKyyurd+YqOtdjsH40mWj+LO
-         WNh8nGTuhK+tH3QslZfEVJ8o7cTlGHD7SUPQxsF40CGn0nKoy9hqJ8Ij2mUNvIRNvq+t
-         nL6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cv8qgKln0Fe40yOvGUR02GyLpJU1kekbzM2OmTGYAko=;
-        fh=ePXfPKN9YFUqKYX9LSKR1230CxIw/Hlh0mIq87EhWpQ=;
-        b=HoAvYf8qS+pxADDX7wmiS/2dPAHnsGaGLK/w6m8FnWs+cVbNIcdaFdQtidFz7a17WC
-         8a/9/FrU3DvgiKl9aYfKgMi1kakww0ZYJXqSdOadOrZvh8eNLi9oZlEAPHHiBO71U7hM
-         Lzttz7HJS12U3AXHvgMPfsp4cp/pM4TM684zBrwexWvH95iHUHSG8cCGTQKgIB4EusvM
-         /3HSRJSDocaq+C9U/LrMz6cHKemiV1m6jTftHx9DN8ZcxvS7+GvI2mhFqzvyusrBUb2k
-         dzRGqr5KeLig/n3mHdp5KvukY1k8cAGEY++9hpUwUkDFq7znHafRt/MApSEavp58zUnt
-         NyNQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gvp5xJFC"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4887dbe4f2dso644729f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:01:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792130364; x=1792735164; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792130474; x=1792735274; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=cv8qgKln0Fe40yOvGUR02GyLpJU1kekbzM2OmTGYAko=;
-        b=i4947tpTCE/fCfSEzwMsdTU5RQ2BYj4BUf/ZEYWuvdzVYE/fuSMr1ujNBYx9JUz8YK
-         ykIP5lCMGB12IV6Ak5Tz+svLaCLs2+o5VE5iRdU9npbGij6rOK2lKHW7tOZAdv8Corhl
-         zUCjqWEEWsLeHdCic0oavfaHjaCS5C2dJK/K2XIPTtJRkC8NTOvWSpfc2mAqDW7K5RdM
-         042VNZ4ZoKYY9YIFqu4pnLrqAdtFlkyMWT1EQ3i3yzvXGS4D5HKUvXacHAmYxmgWTmjt
-         qX1ClZ4ibrsHhuShrjiwLgEEJ4qbkwq1uB+Uwlr0zFGocuy9rDp94cE49B+u7nHP6eZk
-         fntA==
+        bh=F8ceADCtVim4hSawqefDQ+4n/w2lyt7tKkBi/Vqtw64=;
+        b=Gvp5xJFCCfWFSW2+nQagLHXwrNtTEDiXQJuqldlDEXrH47BEo1GOwE1lzfW7/YlXJH
+         f7Ofaj4zM9/n+pt5mOMd6OJFSVstfgTFgMenZ/qmEByGkEXdBssXTBMRzDbpRdavdNX2
+         r8Jp7Eln5RSaNcFbwKfskBeKOBDibwmVVZG4ti7lTZzPpUZujE2bsqLxbA07ljcFEmiX
+         Pk5CrGFZToORAJ0DgUoHQr1aLYxLhSdwfSRHxvMaaRt+ilVgBTTaVNYjVv5HkcfU0r0W
+         P8NL29M6yp/Z87pgPqBwvqjlNo8v8W9guskMEBMcckoxv+A4dxd6HhMKFN+g3YL3oY3+
+         88AQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792130364; x=1792735164;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792130474; x=1792735274;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cv8qgKln0Fe40yOvGUR02GyLpJU1kekbzM2OmTGYAko=;
-        b=hx0QVA9vcyToGH8G7iCDYyZc5s55RV/BW/aON9jw2WYvUr6FUQ0xD8WSRaYQF7EBcf
-         QT+dtEEi+YGwzsXxiIgU9JN9PPGQhnXHtMJIDUbele/fT5XrIG0Sws9Ww+gaL2m4fTAn
-         M+Gy/L2heEA3nYp01+Cv+e3gVOezEzIQ9utMIaevze2jL1z08qWztgbKFPeSXzcoNwX6
-         y7WoBPaldxPkzdKtbxn0CSYkwsGNDqyomA1UBSX8v3UixL1UKHk1gKEI+pnnzwETxFze
-         XdWYg0ob6aykd9UT4DRDWVtpXrjMzSnagsDPkIHx9sOb5pxtEIMwY1+NmBRluUAVH0bm
-         FmAg==
-X-Forwarded-Encrypted: i=1; AKwUvBzQusgMfnha77vWm8exAAa283gxEd3uTsj+k+BQPV7JE+uDW/ktI7xoOaRU86jjrImkHVXVqRLXNeBi5Gw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKa4d+OCGlcZRzNyzXH6HdKXB9yEb4JJUZuhUvRfjKfVN4Kco9y
-	A/FgcD/I5xY6OjLV1TGMdcloc5BSv4yjvGpEriqpWUoCg64gfP1f+ETX1aZLwMtDkfk04+5mPCp
-	rQdKTjL7ifnPAb6eOjvuRz+DGPthlBWCEj09KY84LTH8wIIpEiAfKLltk
-X-Gm-Gg: AYBFou3CjCnUhDuPOjOkFmtSjMp0BoZFx4dMLBTaDPwyuPZHiblMf62aqHBLZmAnvcJ
-	3dT45EqVOr129/Hz/F7p3XnAkjWGe2VrJvBX0Wo5QvWJKYkkwWSYd9nikJj9HPkF+hPSZHdHVUq
-	H25FoVp7kCioL1WqEbkKvehc8csgRHDlefnBms3dQcdXNphYZT3fnaOtr2KIFKbxk9JsWFLN8Ri
-	Y8+R/Wo/JBfTQN8VsAaokwc7yDeYcZj9rN6RVwWPZPEINuASDooYoVL2S6Dy/rseXevWh35fa6f
-	Q1EaS8GauvwCx3PwNnfxQWknvFWWbCspQqaLRIxFdjJPfHlQfFvZ3p3LSIrNo4xDsfPB/Ziown3
-	KGjtXlU2c
-X-Received: by 2002:ac8:5d41:0:b0:535:a5fb:6446 with SMTP id
- d75a77b69052e-535a5fb693dmr360322771cf.64.1792130363037; Thu, 15 Oct 2026
- 22:59:23 -0700 (PDT)
+        bh=F8ceADCtVim4hSawqefDQ+4n/w2lyt7tKkBi/Vqtw64=;
+        b=azwYzlpz3XD18OpX4kMzhEZjfQBLJTEw+n108Q3oDsEy9JAd0l11wyWUBp5SUIdE6H
+         vRkNPJhlALd+9fvRYoHzUIcPY0nlQ4qKz9BFsbqTVkMzCAvacsn/UQoPxRmle3GRjopJ
+         6iLkvwwW15Fhri0ebOcuyb2xZgYVaIHe5hTYXmgbyK7lUQivjIhNHRr2uVgNR6cc7NLQ
+         Ka0gBv3eT5PJozpbWjBoFdAACGuvSxXuOSGZdgl8UQMX5nFW93jhdCZKM6EQhrb/DEJD
+         6K6upbOY8DExmsHNhxwGeiz2G/K78G3vKgPKkAglQVr/KYH1jqXDwF9hC95PFsVYgR8H
+         ZaGA==
+X-Forwarded-Encrypted: i=1; AKwUvBxxLX5OGcoQ5SoNYEwiUUTC5tfDVM0mbDyOdMgvY9UY6pxpv8XV1XB/FQGsU7mb/auorXk+KHlVaECMhOM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBF7DyeXYrptnYWOgeFr0oSEC43EY9flqk08gveZnvGCnXJTAe
+	pNSlVtx51+GP3ZCUKgrzZjRGfvmxbLxWFr5hfBjjDhTPw3aXM8D+k/Sl
+X-Gm-Gg: AYBFou17L3tVPVf264LxXXZMyRGTInhott/Hll1UaaR8rFxx988D4w3JWGTmF0NvCic
+	T/k3qFu9XR8SGqUu7EcNtWqVNnISR+RHCUrhLozVYaf4ObS+zfE27eK5imFnEee8Y8xGBZYS8vT
+	yfOxkUiwptQJyEtXOKXaid/cQVK5kJ4Ua08Mq8meWJHcL12p4lSifs4dYL65u1ANzdQ16+d0K1Q
+	T8r129ekxOPKGL8zywGcIgpQO74f9tWvBIZSYm/8hpD1qxolmAjiZGHNIiTucv7yfIgWwm8EsCh
+	8hpYlbtc+F3ZQaXV83xZ+N2yCWFXGQFiNqCtOxgbzJmmFUDx7df4cHL94BBXWL92x0il4miz2ll
+	jo5g+Bsr4R3e0L40XRgAyekinZmGxYBMd8A2vo9Te+mFo84wDu0r4bLxy++osFKQ1R8zoO7ZLCq
+	8XIMguLrsbwKOFgtEL6Uun90KZQrVKiyjkBvD+8ZemXGAn+LRqK2Sash78VICVNRPZvE1gsUtJp
+	45qyD0cVF8QGSjI9EvekOWR/g==
+X-Received: by 2002:a05:6000:4696:b0:48d:f1b3:7e82 with SMTP id ffacd0b85a97d-48df1b3802emr7524330f8f.0.1792130473816;
+        Thu, 15 Oct 2026 23:01:13 -0700 (PDT)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd471a64sm2962997f8f.6.2026.10.15.23.01.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 23:01:13 -0700 (PDT)
+Date: Fri, 16 Oct 2026 09:01:09 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Christian Loehle <christian.loehle@arm.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	cocci@inria.fr
+Subject: Re: [cocci] [PATCHv2] sched: Replace nr_iowait_cpu() with a bool
+ accessor
+Message-ID: <atG48yxevmlNFT7D@scheduler.schedules>
+References: <20261015083317.3733733-1-christian.loehle@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917043339.2093426-1-suleiman@google.com> <20260917043339.2093426-3-suleiman@google.com>
- <20260917153831.GL4121339@noisy.programming.kicks-ass.net>
- <CABCjUKD60kEn0BZo0r3zie6QE8wFh-0V=V6OG3nfa3b1evjVKQ@mail.gmail.com> <644b5845-4a3c-4f49-abfa-edb4fa6ed89c@amd.com>
-In-Reply-To: <644b5845-4a3c-4f49-abfa-edb4fa6ed89c@amd.com>
-From: Suleiman Souhlal <suleiman@google.com>
-Date: Fri, 16 Oct 2026 14:59:11 +0900
-X-Gm-Features: AclHuK-q-8Umw-Fhc1OUyPpFNao_hfE_h1fJ3qFfpd-RUURu2C5sR-Hzuh5vUiU
-Message-ID: <CABCjUKB9ntxrEzJQcd45j8dUde+91i--MCSW49RWR2Zr40QTCg@mail.gmail.com>
-Subject: Re: [RFC PATCH 02/12] futex: Switch PI futex to use p->pi_futex_lock
- instead of p->pi_lock.
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Darren Hart <dvhart@infradead.org>, 
-	Davidlohr Bueso <dave@stgolabs.net>, =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, zhidao su <soolaugust@gmail.com>, 
-	John Stultz <jstultz@google.com>, Qais Yousef <qyousef@google.com>, ssouhlal@freebsd.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261015083317.3733733-1-christian.loehle@arm.com>
 
-Hello,
+On Thu, Oct 15, 2026 at 09:33:17AM +0100, Christian Loehle wrote:
+> The menu governor was the last consumer of the per-CPU I/O-wait count
+> that needed its magnitude, apart from nr_iowait() summing it globally.
+> Commit 38f83090f515 ("cpuidle: menu: Remove iowait influence") removed
+> that use. All remaining per-CPU consumers only test for zero/nonzero.
+> 
+> Replace nr_iowait_cpu() with bool cpu_has_iowait() and update the generic
+> and s390 idle accounting callers. Have nr_iowait() read the counters
+> directly so that the global total and existing accounting are preserved.
+> Replace the stale menu comment with a description of the predicate.
 
-On Fri, Sep 18, 2026 at 7:07=E2=80=AFPM K Prateek Nayak <kprateek.nayak@amd=
-.com> wrote:
+So, this is a cleanup patch? OK.
+
+> 
+> The conversion was done with coccinelle:
+> 
+> @ predicate depends on patch @
+> expression cpu;
+> @@
+> 
+> - nr_iowait_cpu(cpu) > 0
+> + cpu_has_iowait(cpu)
+> 
+> @ callers depends on patch @
+> expression cpu;
+> @@
+> 
+> - nr_iowait_cpu(cpu)
+> + cpu_has_iowait(cpu)
+
+I had to figure out what coccinelle was first.
+Well, I still don't know fully what it is but I think
+it's an automatic replacement tool.
+
+I also checked Prateek's findings, I couldn't find more than he finds.
+With his changes, all of the places would be covered I think.
+
+> 
+> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+> ---
+> v2: Move the cocci excerpt to the commit message (Peter)
+> 
+> 
+>  arch/s390/kernel/idle.c    |  4 ++--
+>  include/linux/sched/stat.h |  2 +-
+>  kernel/sched/core.c        | 13 +++++--------
+>  kernel/sched/cputime.c     | 10 +++++-----
+>  4 files changed, 13 insertions(+), 16 deletions(-)
+> 
+> diff --git a/arch/s390/kernel/idle.c b/arch/s390/kernel/idle.c
+> index dd12efb58201..ff9732ef494c 100644
+> --- a/arch/s390/kernel/idle.c
+> +++ b/arch/s390/kernel/idle.c
+> @@ -82,13 +82,13 @@ static u64 arch_cpu_idle_time(int cpu, enum cpu_usage_stat idx, bool compute_del
+>  
+>  u64 arch_kcpustat_field_idle(int cpu)
+>  {
+> -	return arch_cpu_idle_time(cpu, CPUTIME_IDLE, !nr_iowait_cpu(cpu));
+> +	return arch_cpu_idle_time(cpu, CPUTIME_IDLE, !cpu_has_iowait(cpu));
+>  }
+>  EXPORT_SYMBOL_GPL(arch_kcpustat_field_idle);
+>  
+>  u64 arch_kcpustat_field_iowait(int cpu)
+>  {
+> -	return arch_cpu_idle_time(cpu, CPUTIME_IOWAIT, nr_iowait_cpu(cpu));
+> +	return arch_cpu_idle_time(cpu, CPUTIME_IOWAIT, cpu_has_iowait(cpu));
+>  }
+>  EXPORT_SYMBOL_GPL(arch_kcpustat_field_iowait);
+>  
+> diff --git a/include/linux/sched/stat.h b/include/linux/sched/stat.h
+> index 0108a38bb64d..4810b14d0372 100644
+> --- a/include/linux/sched/stat.h
+> +++ b/include/linux/sched/stat.h
+> @@ -20,7 +20,7 @@ extern int nr_processes(void);
+>  extern unsigned int nr_running(void);
+>  extern bool single_task_running(void);
+>  extern unsigned int nr_iowait(void);
+> -extern unsigned int nr_iowait_cpu(int cpu);
+> +extern bool cpu_has_iowait(int cpu);
+>  
+>  static inline int sched_info_on(void)
+>  {
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 1fe40de6ebe3..1bde5187dafd 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -5588,15 +5588,12 @@ unsigned long long nr_context_switches(void)
+>  }
 >
-> Hello Suleiman,
->
-> On 9/18/2026 12:41 PM, Suleiman Souhlal wrote:
-> > On Fri, Sep 18, 2026 at 12:38=E2=80=AFAM Peter Zijlstra <peterz@infrade=
-ad.org> wrote:
-> >>
-> >> On Thu, Sep 17, 2026 at 04:33:26AM +0000, Suleiman Souhlal wrote:
-> >>> Switch PI futexes to use p->pi_futex_lock instead of p->pi_lock.
-> >>>
-> >>> When augmenting PING futexes with proxy execution, we get lock order
-> >>> inversions, due to the lock order being p->pi_lock -> mutex->wait_loc=
-k
-> >>> in the scheduler, but wait_lock -> p->pi_lock in futex code.
-> >>>
-> >>> So move the futex code to use a new lock, p->pi_futex_lock, to
-> >>> protect p->pi_state_list and pi_state->owner.
-> >>
-> >> This is of course horrible. Lets not do this.
-> >
-> > I suppose the alternatives would be to either figure out how to
-> > un-nest pi_lock from wait_lock in futex code or un-nesting the
-> > blocked_on lock from pi_lock in the scheduler.
->
-> So the only time we try to grab pi_lock + blocked_lock is during
-> wakeup so I think doing that should be (theoretically) possible.
->
-> The ttwu_runnable() handling is extremely painful unless we block
-> the delayed task fully. Since we have he new p->is_blocked state,
-> we can safely retain the p->blocked_on while running the task -
-> it is either cleared during unlock by previosu owner or will be
-> same as the lock on which the task blocked on.
->
->
-> Based on John's tree at commit 06ac43db4d8e ("[ANNOTATION] =3D=3D=3D
-> Needs confirmation of functionality past this point =3D=3D=3D") on
-> proxy-exec-v31-7.2-rc4 branch:
+>  /*
+> - * Consumers of these two interfaces, like for example the cpuidle menu
+> - * governor, are using nonsensical data. Preferring shallow idle state selection
+> - * for a CPU that has IO-wait which might not even end up running the task when
+> - * it does become runnable.
+> + * Return whether any tasks are accounted as I/O waiters on this CPU.
+> + * They may wake up on a different CPU.
+>   */
+> -
+> -unsigned int nr_iowait_cpu(int cpu)
+> +bool cpu_has_iowait(int cpu)
+>  {
+> -	return atomic_read(&cpu_rq(cpu)->nr_iowait);
+> +	return atomic_read(&cpu_rq(cpu)->nr_iowait) != 0;
+>  }
+>  
+>  /*
+> @@ -5634,7 +5631,7 @@ unsigned int nr_iowait(void)
+>  	unsigned int i, sum = 0;
+>  
+>  	for_each_possible_cpu(i)
+> -		sum += nr_iowait_cpu(i);
+> +		sum += atomic_read(&cpu_rq(i)->nr_iowait);
+>  
+>  	return sum;
+>  }
+> diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
+> index 06bddaa738e5..1f84a950abed 100644
+> --- a/kernel/sched/cputime.c
+> +++ b/kernel/sched/cputime.c
+> @@ -431,7 +431,7 @@ static void kcpustat_idle_stop(struct kernel_cpustat *kc, u64 now)
+>  	if (!kc->idle_elapse)
+>  		return;
+>  
+> -	iowait = nr_iowait_cpu(smp_processor_id()) > 0;
+> +	iowait = cpu_has_iowait(smp_processor_id());
+>  	delta = now - kc->idle_entrytime;
+>  	steal = steal_account_process_time(delta);
 
-Sorry for the slow reply and thanks for the very quick patch.
+Yeah, these look way more cleaner to me.
 
-Unfortunately, it doesn't seem like this approach works in the end,
-because there is still a pi_lock -> rq lock -> blocked_lock transitive
-relationship, which deadlocks when trying to get the pi_lock while
-holding the blocked_lock (when fixing up the pi_state owner in the
-futex code). :-(
+>  
+> @@ -544,14 +544,14 @@ static u64 kcpustat_field_dyntick(int cpu, enum cpu_usage_stat idx,
+>  u64 kcpustat_field_idle(int cpu)
+>  {
+>  	return kcpustat_field_dyntick(cpu, CPUTIME_IDLE,
+> -				      !nr_iowait_cpu(cpu), ktime_get());
+> +				      !cpu_has_iowait(cpu), ktime_get());
+>  }
+>  EXPORT_SYMBOL_GPL(kcpustat_field_idle);
+>  
+>  u64 kcpustat_field_iowait(int cpu)
+>  {
+>  	return kcpustat_field_dyntick(cpu, CPUTIME_IOWAIT,
+> -				      nr_iowait_cpu(cpu), ktime_get());
+> +				      cpu_has_iowait(cpu), ktime_get());
+>  }
+>  EXPORT_SYMBOL_GPL(kcpustat_field_iowait);
+>  #else
+> @@ -601,7 +601,7 @@ static u64 get_cpu_sleep_time_us(int cpu, enum cpu_usage_stat idx,
+>  u64 get_cpu_idle_time_us(int cpu, u64 *last_update_time)
+>  {
+>  	return get_cpu_sleep_time_us(cpu, CPUTIME_IDLE,
+> -				     !nr_iowait_cpu(cpu), last_update_time);
+> +				     !cpu_has_iowait(cpu), last_update_time);
+>  }
+>  EXPORT_SYMBOL_GPL(get_cpu_idle_time_us);
+>  
+> @@ -625,7 +625,7 @@ EXPORT_SYMBOL_GPL(get_cpu_idle_time_us);
+>  u64 get_cpu_iowait_time_us(int cpu, u64 *last_update_time)
+>  {
+>  	return get_cpu_sleep_time_us(cpu, CPUTIME_IOWAIT,
+> -				     nr_iowait_cpu(cpu), last_update_time);
+> +				     cpu_has_iowait(cpu), last_update_time);
+>  }
+>  EXPORT_SYMBOL_GPL(get_cpu_iowait_time_us);
+>  
 
-On the other hand, Peter's suggestion of moving the scheduler's use of
-pi_lock to a new lock, p->sched_lock, seems to work in my testing, but
-is kind of a scary change to me.
+BTW, this is tied to counter being correct, if its not...
+Well we have problems. I think your other patch was covering that?
+But I have a bad memory, so IDK.
 
-Maybe an acceptable alternative would be for the new futex to use a
-new lock (similarly to what the original patch does), but keep regular
-PI futexes using pi_lock, at least as long as they are still based on
-rtmutexes.
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
 
-Thanks,
--- Suleiman
+Thanks!
+
+Kayra
+
+
+
+> -- 
+> 2.34.1
+> 
