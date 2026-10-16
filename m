@@ -1,358 +1,162 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159FA4B7A3C;
-	Fri, 16 Oct 2026 13:06:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9C12264A9;
+	Fri, 16 Oct 2026 13:08:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792156010; cv=none; b=hBgelM/eVSEZmvQwmmZkWdk0MRjXu8A02ajw/dGsJaelv+Jkgsl97LlOs6g5X6xD4sQFmDyEpuBxaW/dw5HiaTIuIqQhNxo2xi5zA/yr56fuACMx6l6pSxdKdOE+8vaQN7avXAjDvoutqe32PpMkvvjii8EOnzhK8sTGnurrwp8=
+	t=1792156086; cv=none; b=GCV+YPWI3KgYYEsPs7yUzOXD7ob+7CfJRHQrvpYcoiRbvDLMYS/PhEJ3bwQZbQpA47a2YHHseVWQJ9zoT0TGAc8slTdsGPOX8fBO5oerIAfDMqEELYuG6CsAPK6sRi1eucPptGq89/HOO5lS64KqbRwW3GRK5r73UTzs8WpJEnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792156010; c=relaxed/simple;
-	bh=xoh88ia03hSYikb1jErklZElh9aXVdkU37srG0dnlMU=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KZosp9V5CyDZqq1wRQqD0SSB3OvQgSBu/qW1kYJXGxRjy8iXYSUl/+KKcOlJ9u7SEUCNChIi+k9LN3Pl/5wuMdzkD2lQKUeh8vREU7/bp+QocLu+AAnxmiyNs/iNZ6YzmOLSmytqNBQKYHhEjoyKcK1cdl9hoCLZ4ToySDLb58Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=GuVHOpDU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=BKIbmaS7; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=GuVHOpDU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=BKIbmaS7; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1792156086; c=relaxed/simple;
+	bh=sYjJ0b0+DR9RbJ933aIA6Pe3CVrOOpnmRI/6zRSn1S0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=plYPoZjwGbTcKJmWCEJ5kGy2Tfa/ypB6YK0pyYH/j7Fpr8e5gMH+DYu/K9MfU6UZRyXLWx/AfZWMA55/OhBGLESlZRjIo9x5JH8CAz0fiHpbmJrSJgK3Y+1XMst4v83xOlair0aEQluzxQ7QJtrUR8ucExscy8nAZr5hKE23riI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HhO4bKNA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="GuVHOpDU";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BKIbmaS7";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="GuVHOpDU";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BKIbmaS7"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C198E21BEB;
-	Fri, 16 Oct 2026 13:06:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792156004; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6J1xCGEg4/c1WF8q12nop1AVdZvIbbp744BPBxeF1jk=;
-	b=GuVHOpDU/i2n1eWjO5BSP7HqWY5uEiry8tOsBaIOdcovKSEwSDE8Cm7XJfEVaSdWIbKVIa
-	noMs4pdRHEjp3azY3VpM7XuMkDdBuj4aapOTrcm0YjGg3FVFmM6GI6/lQ+3DPhU66LXtQt
-	NyxUrlnIh5O/bsgvZGDfYjVcCN6EOXY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792156004;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6J1xCGEg4/c1WF8q12nop1AVdZvIbbp744BPBxeF1jk=;
-	b=BKIbmaS74vwqQVuqcrVN74OtexkFbL8YgAz+6fTd5j+/lAxvUQgB0BM3Y/o4n2DzsLNO+c
-	tLedWuYBUcKJOxBQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792156004; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6J1xCGEg4/c1WF8q12nop1AVdZvIbbp744BPBxeF1jk=;
-	b=GuVHOpDU/i2n1eWjO5BSP7HqWY5uEiry8tOsBaIOdcovKSEwSDE8Cm7XJfEVaSdWIbKVIa
-	noMs4pdRHEjp3azY3VpM7XuMkDdBuj4aapOTrcm0YjGg3FVFmM6GI6/lQ+3DPhU66LXtQt
-	NyxUrlnIh5O/bsgvZGDfYjVcCN6EOXY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792156004;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6J1xCGEg4/c1WF8q12nop1AVdZvIbbp744BPBxeF1jk=;
-	b=BKIbmaS74vwqQVuqcrVN74OtexkFbL8YgAz+6fTd5j+/lAxvUQgB0BM3Y/o4n2DzsLNO+c
-	tLedWuYBUcKJOxBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4BDFE1378C;
-	Fri, 16 Oct 2026 13:06:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id lntCCGQh0mpmdAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 16 Oct 2026 13:06:44 +0000
-Date: Fri, 16 Oct 2026 15:06:43 +0200
-Message-ID: <87cxt9u74s.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	perex@perex.cz,
-	tiwai@suse.com,
-	phucduc.bui@gmail.com,
-	kees@kernel.org,
-	blum@kernel.org,
-	hui.wang@canonical.com,
-	kai.vehmanen@linux.intel.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com
-Subject: Re: [PATCH] ALSA: jack: Protect debugfs setup against control removal
-In-Reply-To: <CAFRLqsVH=Xkeoh2icgSftWCnk3uEUGPst=N3qeGoZ7Zy9+W6WA@mail.gmail.com>
-References: <pm-pmb-0f2e227b93626e3c7554-v2-0b7a6296bbea01ae57e8@gmail.com>
-	<87ik316gq4.wl-tiwai@suse.de>
-	<CAFRLqsVH=Xkeoh2icgSftWCnk3uEUGPst=N3qeGoZ7Zy9+W6WA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HhO4bKNA"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 34044C2BCFA;
+	Fri, 16 Oct 2026 13:08:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792156086;
+	bh=sYjJ0b0+DR9RbJ933aIA6Pe3CVrOOpnmRI/6zRSn1S0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=HhO4bKNAtFPxYuifk1wT8CFwwmNJKF3TpdRmqlQs3pImRAfB5c0cVImkaM4r9zft9
+	 FciZAqMoQdyMeVg47531TiKv+OLE2f5eeWa1eSBeww7++4Ahsfodr/WrG8IKS4jzXb
+	 lVzflBrwwk8N+qVNE1MdCGDfDUU/KhqAIgUq9HMjtRKAC5T79U9wcYM3AylNqbnpEX
+	 Y8iUvAPH53LbaqKszpdSI/1KePPZ73VnQ5yUHJDg4lpgSWKJi6Jq9gwT8XgCy0lpll
+	 VbwEnwbzSohkWJ/ercfh1taYKwtu1dWY/bkoAKAwiOMuy1TRvIxHOpC762Z8cMNa6R
+	 c+G9PKqlHG5SA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EEDFCC6B38;
+	Fri, 16 Oct 2026 13:08:06 +0000 (UTC)
+From: Vincent Choiniere via B4 Relay <devnull+choiniere.vincent.hydroquebec.com@kernel.org>
+Date: Fri, 16 Oct 2026 09:08:06 -0400
+Subject: [PATCH net] ice: fix Tx hang dump using stale tx_buf[0].skb
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-2022-JP
-X-Spamd-Result: default: False [-1.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.de,perex.cz,suse.com,gmail.com,kernel.org,canonical.com,linux.intel.com,vger.kernel.org];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -1.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-ice-tx-hang-dump-v1-1-3df0f5979a51@hydroquebec.com>
+X-B4-Tracking: v=1; b=H4sIALUh0moC/yWMQQrCMBREr1Jm7YemhiBeRVzYZFq/YCxJWgqld
+ zfV5ZvhvQ2ZSZlxbTYkLpr1EyuYUwP/fMSRoqEyurZzpjVO1FPKKscnYX5PQut6y2Av5+BQtSl
+ x0PWXvCGy4P4f89y/6MsRw75/AVz2cXJ5AAAA
+X-Change-ID: 20261016-ice-tx-hang-dump-e46b4ed483d6
+To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+ intel-wired-lan@lists.osuosl.org
+Cc: Aleksandr Loktionov <aleksandr.loktionov@intel.com>, 
+ Michal Kubiak <michal.kubiak@intel.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ Vincent Choiniere <choiniere.vincent@hydroquebec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792156085; l=3665;
+ i=choiniere.vincent@hydroquebec.com; s=20261016;
+ h=from:subject:message-id;
+ bh=kt4dx1VrvDe36KXprpuSVG48M5IH9Jew3kkpwsyl//I=;
+ b=rpz6gaUYmlu/qQeArQzXjGbdt7hmwbh5F2PXicMHbyd04KAmR7m0AivdHwD8NF8xUWPxaCq66
+ vusrlXo13J0B8Xt4KnPmLoDzQSufiqzXYtu2F+evb6a33g6/z8dzX7W
+X-Developer-Key: i=choiniere.vincent@hydroquebec.com; a=ed25519;
+ pk=MctQE067DucsZOaNqb+sjY7aQ+urhztuURanagEW3+8=
+X-Endpoint-Received: by B4 Relay for
+ choiniere.vincent@hydroquebec.com/20261016 with auth_id=1210
+X-Original-From: Vincent Choiniere <choiniere.vincent@hydroquebec.com>
+Reply-To: choiniere.vincent@hydroquebec.com
 
-On Fri, 16 Oct 2026 15:00:37 +0200,
-Cen Zhang wrote:
-> 
-> Hi Takashi,
-> 
-> Takashi Iwai <tiwai@suse.de> 于2026年10月16日周五 19:13写道：
-> >
-> > On Fri, 16 Oct 2026 04:04:37 +0200,
-> > Cen Zhang wrote:
-> > >
-> > > The jack control attachment must remain alive while its injection
-> > > interface is being initialized. snd_jack_kctl_add() links the attachment
-> > > to jack->kctl_list and then calls snd_jack_debugfs_add_inject_node(),
-> > > which dereferences jack_kctl->kctl to read the control name. Neither the
-> > > list insertion nor the debugfs setup holds controls_rwsem.
-> > >
-> > > With CONFIG_SND_JACK_INJECTION_DEBUG enabled, an independent kernel
-> > > control owner can remove the newly linked control in this order:
-> > >
-> > >   1. The creator publishes the control with snd_ctl_add(), which releases
-> > >      controls_rwsem, and links its attachment in snd_jack_kctl_add().
-> > >   2. The remover takes controls_rwsem for writing in snd_ctl_remove().
-> > >      __snd_ctl_remove() unlinks the control and calls snd_ctl_free_one().
-> > >      snd_jack_kctl_private_free() unlinks and frees the attachment, then
-> > >      snd_ctl_free_one() frees the control.
-> > >   3. The creator enters snd_jack_debugfs_add_inject_node() and reads the
-> > >      control name through the freed attachment.
-> > >
-> > > This causes a use-after-free read during jack creation. Hold the existing
-> > > controls_rwsem for reading before linking the attachment and until the
-> > > debugfs helper returns. The remover's write lock then keeps the attachment
-> > > and its control alive throughout this post-publication setup interval.
-> > >
-> > > KASAN report as below:
-> > >
-> > >     BUG: KASAN: slab-use-after-free in snd_jack_kctl_add+0x50b/0x5e0
-> > >     Read of size 8 at addr ffff88810d8def00 by task kworker/2:1/68
-> > >
-> > >     CPU: 2 UID: 0 PID: 68 Comm: kworker/2:1 Tainted: G           O        7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
-> > >     Tainted: [O]=OOT_MODULE
-> > >     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> > >     Workqueue: events azx_probe_work [snd_hda_intel]
-> > >     Call Trace:
-> > >      <TASK>
-> > >      dump_stack_lvl+0x93/0xd0
-> > >      print_report+0xce/0x630
-> > >      ? snd_jack_kctl_add+0x50b/0x5e0
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      ? __virt_addr_valid+0x20d/0x410
-> > >      ? snd_jack_kctl_add+0x50b/0x5e0
-> > >      kasan_report+0xe0/0x110
-> > >      ? snd_jack_kctl_add+0x50b/0x5e0
-> > >      snd_jack_kctl_add+0x50b/0x5e0
-> > >      ? snd_jack_kctl_add+0x5/0x5e0
-> > >      snd_jack_new+0x347/0x4c0
-> > >      snd_hda_jack_add_kctl_mst+0x19e/0x540 [snd_hda_codec]
-> > >      add_jack_kctl+0x1b9/0x2c0 [snd_hda_codec]
-> > >      ? __pfx_add_jack_kctl+0x10/0x10 [snd_hda_codec]
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      ? _raw_spin_unlock_irqrestore+0x44/0x60
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      ? pmbd_probe_hit_cookie+0xee/0x1c0
-> > >      snd_hda_jack_add_kctls+0x212/0x910 [snd_hda_codec]
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      snd_hda_gen_build_controls+0x23a/0x6a0 [snd_hda_codec_generic]
-> > >      ? __pfx_snd_hda_gen_build_controls+0x10/0x10 [snd_hda_codec_generic]
-> > >      snd_hda_codec_build_controls+0x2e4/0x9f0 [snd_hda_codec]
-> > >      ? __pfx_snd_hda_codec_build_controls+0x10/0x10 [snd_hda_codec]
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      ? snd_hda_codec_build_pcms+0x4d8/0x6e0 [snd_hda_codec]
-> > >      hda_codec_driver_probe+0x26e/0x590 [snd_hda_codec]
-> > >      ? __pfx_hda_codec_driver_probe+0x10/0x10 [snd_hda_codec]
-> > >      really_probe+0x21f/0xa90
-> > >      __driver_probe_device+0x1ec/0x490
-> > >      driver_probe_device+0x4f/0x130
-> > >      __device_attach_driver+0x1d2/0x2e0
-> > >      ? __pfx___device_attach_driver+0x10/0x10
-> > >      bus_for_each_drv+0x155/0x1d0
-> > >      ? __pfx_bus_for_each_drv+0x10/0x10
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      ? trace_hardirqs_on+0x18/0x160
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      ? _raw_spin_unlock_irqrestore+0x44/0x60
-> > >      __device_attach+0x1c3/0x490
-> > >      ? __pfx___device_attach+0x10/0x10
-> > >      ? snd_hda_codec_configure+0x4a2/0x690 [snd_hda_codec]
-> > >      snd_hda_codec_configure+0x4c5/0x690 [snd_hda_codec]
-> > >      ? __pfx_snd_hda_codec_configure+0x10/0x10 [snd_hda_codec]
-> > >      ? __pfx_azx_probe_codecs+0x10/0x10 [snd_hda_codec]
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      ? request_threaded_irq+0x21f/0x380
-> > >      azx_codec_configure+0x65/0x200 [snd_hda_codec]
-> > >      azx_probe_work+0x4d8/0x23b0 [snd_hda_intel]
-> > >      ? __pfx_azx_probe_work+0x10/0x10 [snd_hda_intel]
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      ? lock_release+0xc8/0x280
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      process_one_work+0x908/0x19c0
-> > >      ? __pfx_process_one_work+0x10/0x10
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      ? lock_is_held_type+0x8f/0x100
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      worker_thread+0x65c/0xe40
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      ? __kthread_parkme+0x175/0x220
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      ? __pfx_worker_thread+0x10/0x10
-> > >      kthread+0x34f/0x460
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      ? __pfx_kthread+0x10/0x10
-> > >      ret_from_fork+0x659/0x940
-> > >      ? __pfx_ret_from_fork+0x10/0x10
-> > >      ? srso_alias_return_thunk+0x5/0xfbef5
-> > >      ? __switch_to+0x74f/0xf80
-> > >      ? __pfx_kthread+0x10/0x10
-> > >      ret_from_fork_asm+0x1a/0x30
-> > >      </TASK>
-> > >
-> > >     Allocated by task 68:
-> > >      kasan_save_stack+0x33/0x60
-> > >      kasan_save_track+0x14/0x30
-> > >      __kasan_kmalloc+0xaa/0xb0
-> > >      __kmalloc_cache_noprof+0x251/0x610
-> > >      snd_jack_kctl_new+0x80/0x180
-> > >      snd_jack_new+0x4b/0x4c0
-> > >      snd_hda_jack_add_kctl_mst+0x19e/0x540 [snd_hda_codec]
-> > >      add_jack_kctl+0x1b9/0x2c0 [snd_hda_codec]
-> > >      snd_hda_jack_add_kctls+0x212/0x910 [snd_hda_codec]
-> > >      snd_hda_gen_build_controls+0x23a/0x6a0 [snd_hda_codec_generic]
-> > >      snd_hda_codec_build_controls+0x2e4/0x9f0 [snd_hda_codec]
-> > >      hda_codec_driver_probe+0x26e/0x590 [snd_hda_codec]
-> > >      really_probe+0x21f/0xa90
-> > >      __driver_probe_device+0x1ec/0x490
-> > >      driver_probe_device+0x4f/0x130
-> > >      __device_attach_driver+0x1d2/0x2e0
-> > >      bus_for_each_drv+0x155/0x1d0
-> > >      __device_attach+0x1c3/0x490
-> > >      snd_hda_codec_configure+0x4c5/0x690 [snd_hda_codec]
-> > >      azx_codec_configure+0x65/0x200 [snd_hda_codec]
-> > >      azx_probe_work+0x4d8/0x23b0 [snd_hda_intel]
-> > >      process_one_work+0x908/0x19c0
-> > >      worker_thread+0x65c/0xe40
-> > >      kthread+0x34f/0x460
-> > >      ret_from_fork+0x659/0x940
-> > >      ret_from_fork_asm+0x1a/0x30
-> > >
-> > >     Freed by task 436:
-> > >      kasan_save_stack+0x33/0x60
-> > >      kasan_save_track+0x14/0x30
-> > >      kasan_save_free_info+0x3b/0x60
-> > >      __kasan_slab_free+0x5f/0x80
-> > >      kfree+0x307/0x580
-> > >      snd_jack_kctl_private_free+0x154/0x200
-> > >      __snd_ctl_remove+0x29f/0x3b0
-> > >      snd_ctl_remove+0x46/0x70
-> > >      remove_control_set+0x110/0x1b0 [pmbd_alsa_control_remove]
-> > >      param_attr_store+0x191/0x2f0
-> > >      module_attr_store+0x5d/0x90
-> > >      sysfs_kf_write+0xed/0x140
-> > >      kernfs_fop_write_iter+0x34b/0x500
-> > >      vfs_write+0x637/0x1010
-> > >      ksys_write+0x111/0x200
-> > >      do_syscall_64+0x115/0x6a0
-> > >      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> > >
-> > >     The buggy address belongs to the object at ffff88810d8def00
-> > >      which belongs to the cache kmalloc-64 of size 64
-> > >     The buggy address is located 0 bytes inside of
-> > >      freed 64-byte region [ffff88810d8def00, ffff88810d8def40)
-> > >
-> > >     The buggy address belongs to the physical page:
-> > >     page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x10d8de
-> > >     flags: 0x200000000000000(node=0|zone=2)
-> > >     page_type: f5(slab)
-> > >     raw: 0200000000000000 ffff8881000428c0 dead000000000100 dead000000000122
-> > >     raw: 0000000000000000 0000000000200020 00000000f5000000 0000000000000000
-> > >     page dumped because: kasan: bad access detected
-> > >
-> > >     Memory state around the buggy address:
-> > >      ffff88810d8dee00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-> > >      ffff88810d8dee80: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-> > >     >ffff88810d8def00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-> > >                        ^
-> > >      ffff88810d8def80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc
-> > >      ffff88810d8df000: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-> > >     ==================================================================
-> > >
-> > > Fixes: 2d670ea2bd53 ("ALSA: jack: implement software jack injection via debugfs")
-> > > Assisted-by: LLM
-> > > Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> > > ---
-> > >
-> > > diff --git a/sound/core/jack.c b/sound/core/jack.c
-> > > index 0f04018181acb20f6bf85b11a9f6d4c7d3179e5a..dd604ffd8c815a9828f5e4b30a70b7597c86a37f 100644
-> > > --- a/sound/core/jack.c
-> > > +++ b/sound/core/jack.c
-> > > @@ -418,6 +418,7 @@ static void snd_jack_kctl_private_free(struct snd_kcontrol *kctl)
-> > >
-> > >  static void snd_jack_kctl_add(struct snd_jack *jack, struct snd_jack_kctl *jack_kctl)
-> > >  {
-> > > +     guard(rwsem_read)(&jack->card->controls_rwsem);
-> > >       jack_kctl->jack = jack;
-> > >       list_add_tail(&jack_kctl->list, &jack->kctl_list);
-> > >       snd_jack_debugfs_add_inject_node(jack, jack_kctl);
-> >
-> > That looks too ad hoc.  We need to check the real cause at first.
-> >
-> > Could you elaborate how this situation is triggered?  In the above
-> > stack trace, it looks like that the jack ctl was created via hd-audio
-> > codec, but how was it removed?
-> >
-> >
-> > thanks,
-> >
-> > Takashi
-> 
-> I'm very sorry for wasting your time. Please disregard this patch.
-> I'll be much more careful
-> in the future.
+From: Vincent Choiniere <choiniere.vincent@hydroquebec.com>
 
-OK.  Meanwhile, I think we should work on the jack driver code a bit
-more regarding the debugfs: namely, the debugfs is exposed already at
-the creation of kctls, so they are accessible before other interface
-registration via snd_card_register().  The debugfs addition should be
-rather moved to the register phase for avoiding the unexpected access
-via debugfs, instead.  I'm going to submit a patch later.
+ice_tx_hang_reporter_dump() always reads tx_ring->tx_buf[0].skb,
+regardless of next_to_clean. The Tx cleanup path frees the skb and
+marks the buffer empty without clearing the skb pointer, so slot 0 can
+hold a stale pointer. A NULL check alone does not cover this, and
+devlink_fmsg_dump_skb() can fault on the freed skb.
+
+Read tx_buf[next_to_clean] instead, use its skb only if the buffer type
+is ICE_TX_BUF_SKB, and skip the skb dump otherwise.
+
+Observed on an E810 PF passed through to a KVM guest (Ubuntu 7.0.0-14,
+PREEMPT_RT, local scheduler patch): a delayed queue IRQ led to a Tx
+timeout and a page fault in devlink_fmsg_dump_skb():
+
+ BUG: unable to handle page fault for address: 0000000004cd0c11
+ Workqueue: ice ice_service_task [ice]
+ RIP: devlink_fmsg_dump_skb+0x2d8/0x5d0
+ Call Trace:
+  ice_tx_hang_reporter_dump+0x1ce/0x210 [ice]
+  devlink_health_do_dump+0xcc/0x190
+  devlink_health_report+0x1d7/0x260
+  ice_report_tx_hang+0x7d/0xa0 [ice]
+
+With this change and auto_dump enabled, starving a queue IRQ thread
+reproduced the Tx timeout; the dump contained the test packet, no Oops
+occurred and the PF recovered.
+
+Fixes: 2a82874a3b7b ("ice: add Tx hang devlink health reporter")
+Link: https://lore.kernel.org/all/20260327072332.130320-1-aleksandr.loktionov@intel.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Vincent Choiniere <choiniere.vincent@hydroquebec.com>
+---
+This complements the NULL check in [1]. With only that check, a non-NULL
+but stale tx_buf[0].skb is still dereferenced by devlink_fmsg_dump_skb().
+I have only reproduced the crash on an Ubuntu 7.0.0-14 kernel with
+PREEMPT_RT and a local scheduler patch, and the skb lifetime against
+concurrent Tx cleanup still needs review. Feedback welcome.
+
+In my case next_to_clean was 0xfc while the reporter read slot 0.
+Upstream v7.0, v7.2 and current net main (191aa4154) all read
+tx_buf[0].skb unconditionally. Before this change, recovery stayed
+stuck until reboot.
+
+[1] https://lore.kernel.org/all/20260327072332.130320-1-aleksandr.loktionov@intel.com/
+---
+ drivers/net/ethernet/intel/ice/devlink/health.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/intel/ice/devlink/health.c b/drivers/net/ethernet/intel/ice/devlink/health.c
+index 8e9a8a817..059859c36 100644
+--- a/drivers/net/ethernet/intel/ice/devlink/health.c
++++ b/drivers/net/ethernet/intel/ice/devlink/health.c
+@@ -390,12 +390,15 @@ static int ice_tx_hang_reporter_dump(struct devlink_health_reporter *reporter,
+ 				     struct netlink_ext_ack *extack)
+ {
+ 	struct ice_tx_hang_event *event = priv_ctx;
+-	struct sk_buff *skb;
++	struct sk_buff *skb = NULL;
++	struct ice_tx_buf *tx_buf;
+ 
+ 	if (!event)
+ 		return 0;
+ 
+-	skb = event->tx_ring->tx_buf->skb;
++	tx_buf = &event->tx_ring->tx_buf[event->next_to_clean];
++	if (tx_buf->type == ICE_TX_BUF_SKB)
++		skb = tx_buf->skb;
+ 	devlink_fmsg_obj_nest_start(fmsg);
+ 	ICE_DEVLINK_FMSG_PUT_FIELD(fmsg, event, head);
+ 	ICE_DEVLINK_FMSG_PUT_FIELD(fmsg, event, intr);
+@@ -409,7 +412,8 @@ static int ice_tx_hang_reporter_dump(struct devlink_health_reporter *reporter,
+ 	ice_fmsg_put_ptr(fmsg, "skb-ptr", skb);
+ 	devlink_fmsg_binary_pair_put(fmsg, "desc", event->tx_ring->desc,
+ 				     event->tx_ring->count * sizeof(struct ice_tx_desc));
+-	devlink_fmsg_dump_skb(fmsg, skb);
++	if (skb)
++		devlink_fmsg_dump_skb(fmsg, skb);
+ 	devlink_fmsg_obj_nest_end(fmsg);
+ 
+ 	return 0;
+
+---
+base-commit: 191aa41548b2d2b6af534a6d5cf84a552435c74c
+change-id: 20261016-ice-tx-hang-dump-e46b4ed483d6
+
+Best regards,
+--  
+Vincent Choiniere <choiniere.vincent@hydroquebec.com>
 
 
-thanks,
-
-Takashi
