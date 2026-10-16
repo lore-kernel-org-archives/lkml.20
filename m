@@ -1,121 +1,165 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E96D48488D
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:37:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFFCF4C9E01;
+	Fri, 16 Oct 2026 16:38:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.245.251.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792168638; cv=none; b=esyinaBuMG/zZr+2JVF2X32G2L14PtmJjhTmSjohzuamfFi4sk69aBWrhZZYUvMDwPKa5Pe48GN8eHQCjBA5XgIWEltDtqlEzVMRQ7ImnUk0HBGU/UPcCYPVcXcKeS2p1cPsXZngxyrgX6TWxe50u8x1d2GjFbEIjwcWHPgIBc4=
+	t=1792168713; cv=none; b=B4Y9KZOlFAB13D6cwFdN1oIsQVdOF43E2gINhlmBeXkGeKIoF+Y1uRUw1691alNHF4KQ6ip5lDnrdW4ByBaH0p9x8QpAUtDQhYPGw94l4sgiPgu+SY5S3llSbyOXhlZ7AB8Hx5a/vmnIijFercAW5kpsZHGASwSrszV/QZ1UjcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792168638; c=relaxed/simple;
-	bh=ay0QhUIxWGqQW7tkXs2XfwnADTvpm/OD3c2MGP4/vpw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rNFtDKYKRyxHZUWKR+iijd7T8/K5uEu3DbrOCcP7Y1hlxgJKOM1D7KyDVh9DUWDirnCfbQ8hMwKU6lyeHkilNKSjaU+f/cP5ILX7qbpMejspTgiPNaybg+gi7PyK6mtEDJcL3uZriyzQysiN9o5dfpuqimxplM50VGnfTBS6l64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MwrPIoeG; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792168713; c=relaxed/simple;
+	bh=iy+Huz9CW4T2GWHOcLU7+Fv6hIf4yWIOcMvWFcLWwqo=;
+	h=Message-ID:Date:MIME-Version:Subject:References:To:Cc:From:
+	 In-Reply-To:Content-Type; b=nGi3TaZUepgyof+Co+GuF5HzKpHfImKzW33vQCf4g9uTmLqAxgBZl3+Ayc9IUDuizLD180fMefhJMLfx1CBX7dNDp4lc+dtMGprRUHgSZZrSxjjP6MAIBft70YallFjJxAzLzMM5a4isNCuLuDvtMFooklVvTuN3UbNawc+K0+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net; spf=pass smtp.mailfrom=fhannenheim.net; dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b=Qe+B7lgT; arc=none smtp.client-ip=188.245.251.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MwrPIoeG"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cd1006978ecso22698a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:37:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792168636; x=1792773436; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fE/8k1v1er6yt8K5zlufTxmneZEuI8I3OJXU6lY3dxA=;
-        b=MwrPIoeGFOy7FkZdsQzeZ/DRbDwSpkRA1Fo375X/TH7U/C69ozfBKrSWeWLBWRM5kv
-         XmL47UpYlAT0bHRJ3IZjYI5XeEU6o1nIaG5mYYxHhTdaOm5LHhvsLiYy07kNcNrNE+tI
-         m7Qjsft+9CTn3oAlN2EfTylW5hvGRJMP/JxcZA9d21eUzy7f+z+96vz0VKa5uZgDl8MW
-         nHYRev/u5MCfqGcH4E7UHfRgQ4gE6ZkBr4jSmY/xSBfkauW4x6hLaEGslWdy+3LrqDSw
-         5o0OpRDqoN2icKP/PYu4njLyaxmcCmHaXpjUJ88dAlIW81QfjWi5ft0MVKmeBJ9PsS3E
-         CUcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792168636; x=1792773436;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fE/8k1v1er6yt8K5zlufTxmneZEuI8I3OJXU6lY3dxA=;
-        b=BHCrxk1UWGe/gEVlRsoa6DlJZaqMjmeWEFBE/+1hMYtUC4kQgvPtuWW6CToWotTT4j
-         z6Sa94kEcGE0KNNamWyYKMsC3VFZbgwug2VGYI8pqZPB8AXmLIHpgtZ/JvkmIQJlKsF9
-         5k9phHHxsLTpH5yN9O+sw6Zs6SuHzEZ6fTifFH+PIUbU2dtY8Gdk6ekRtgEwgxsGh3Fm
-         i2L5egLUC3I2zJhZLbaFgWNXwhIdcR1aR7AZIby52EpaaJpDKUQyAZ0Wf71ea/PSscam
-         Asphu6LhKVdWSGIYcJxAd4HGLYDRUwRbNPyUGFBs43X8CSMjK8yrxCP+7ZVWxBFu8vgQ
-         PPUQ==
-X-Forwarded-Encrypted: i=1; AKwUvByTjiW7b18y3g/qHt3x1wVoAxuPTLg06yaw+JBgXIVl/oZtfsbl4dr9GqGWOJe8oM7EDTDsSQLPpP4cgSI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHL3EdzshUlDVZsByMrX32g7Qw/SgjZ2SihCqUliLQNrpHCWzP
-	oGkJJqB1VInWBs68A5vsX6fuFaudEvSfoHMjJ4kppVAZM2png7FC1IOj
-X-Gm-Gg: AYBFou222182PeI0F33QPXgUrFhZMwd5xm6qShA+4L4dAUNmWt6VwIAjAKWuIKGT0Cj
-	Brio9ScZEIK7ffXxo51vmqCCXiJsdIn+uPqJJ0Gm748YTfEejFdVIuvokT1iPFP8Xp0UlZKuPWG
-	OLXBh8XXsqFk5cxQdHUMCFK0mOQEJrsaA3hz47WsAampJ3dhCypTWysxS6SVNxDT/jdvztgBPsb
-	ExeieN2u7hB7SdNrCm3ngsqdxypHoWm9mcNhr6Wn88gKl3//KriKOb1d/IPwZ4bwtN2LikUJo5M
-	g4nvRLBdnoeqZa4naMWgNRJOR6qxbdDYaBrYqqM2LTyVnjUAfzdlJpHtNiX5andPlMGgmvs9BDK
-	a6U5vuq1daq56gxG81yK9DmWx27ZcJYT/ItgQCgRXJnCQKSdfKnkQd45oOAGprDRmtNUrwSBC1y
-	9edtXI499izKgroalKtN4Ic5qfpLx8bEVHNTtAhJrCCn/mAye6HpMNRMUZsV9NuO3/863HZct8C
-	aMMyZi9R60ojZ9CIziB968=
-X-Received: by 2002:a17:90b:4cc6:b0:3ac:9e76:aa96 with SMTP id 98e67ed59e1d1-3aceebea420mr590463a91.3.1792168635662;
-        Fri, 16 Oct 2026 09:37:15 -0700 (PDT)
-Received: from MELOKC-LAPTOP ([61.171.228.110])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9474b52fsm11154255a91.9.2026.10.16.09.37.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 09:37:15 -0700 (PDT)
-From: Anfernee Cao <anferneemelokc5@gmail.com>
-To: Russell King <linux@armlinux.org.uk>,
-	Ulf Hansson <ulfh@kernel.org>
-Cc: linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Anfernee Cao <anferneemelokc5@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mmc: mmci: fix DMA channel leak when mmc_add_host() fails
-Date: Sat, 17 Oct 2026 00:37:07 +0800
-Message-ID: <20261016163707.3508-1-anferneemelokc5@gmail.com>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b="Qe+B7lgT"
+Message-ID: <0ff136f5-5ed7-4fa0-a93a-07c06706273f@fhannenheim.net>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
+	s=mail; t=1792168703;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=e7b24QwjbL5Rp7Pwru68/kBNU3OhYLVXU1CkIm0gP/o=;
+	b=Qe+B7lgT0NrhM0scM6LY/0LOg5xkYe2Qrxt/TSOa27KU3psCxmyIKDgQTeYGFWX3qwoIBi
+	Gy0dllQ6TvSglgLwxbSh86KVNp0awDs2ZESV3KD7HtRNWamDCP14ryMW/tqiXHzUJZCUHZ
+	rktPhncvbvA1fE6rteRVK9PWV1N++vA=
+Date: Fri, 16 Oct 2026 18:38:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: oneplus-kebab: new device
+Content-Language: en-US
+References: <c14fe062-2e87-4040-b9a8-7d90a04d7a8c@fhannenheim.net>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Frieder Hannenheim <git@fhannenheim.net>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Robert Oscilowski <drgitx@gmail.com>,
+ =?UTF-8?Q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+From: Frieder Hannenheim <mail@fhannenheim.net>
+Autocrypt: addr=mail@fhannenheim.net; keydata=
+ xjMEaX+iTBYJKwYBBAHaRw8BAQdAjgnNmu6pLzUJq/DD3ZU3tTbKzC2npfFhEK6NYMLRukrN
+ KUZyaWVkZXIgSGFubmVuaGVpbSA8bWFpbEBmaGFubmVuaGVpbS5uZXQ+wpAEExYKADgWIQRD
+ lxn4P3kTLC9X/iFsAXPIt5MeUwUCaX+iTAIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAK
+ CRBsAXPIt5MeUzNaAP9KklaL+chH1bUa7To1Pn346guR/N/PkMkyvWgKRs+yzwEA6N2E6TZ6
+ CJF8cW6gVaSFmNgGcGZUAw5A5MrUleV5PwPOOARpf6JMEgorBgEEAZdVAQUBAQdA51B2jbQ4
+ iUnmggSYEqwukOYQmjBwsyUpc8Wkk9I8qkYDAQgHwngEGBYKACAWIQRDlxn4P3kTLC9X/iFs
+ AXPIt5MeUwUCaX+iTAIbDAAKCRBsAXPIt5MeU3oKAQDyZDbjdjzNsJdliBQBkZXuaJDAB1Mn
+ 59LycSSRsRVCPQEAmNQIItBArt/kiQFu6vC4mXjtM5LzbPLmj/QA26ee2Qk=
+In-Reply-To: <c14fe062-2e87-4040-b9a8-7d90a04d7a8c@fhannenheim.net>
+X-Forwarded-Message-Id: <c14fe062-2e87-4040-b9a8-7d90a04d7a8c@fhannenheim.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-mmci_probe() calls mmci_dma_setup(), which acquires the RX and TX DMA
-channels via dma_request_chan(). These channels are not managed by
-devres, and are released only by mmci_dma_release().
+Hi Konrad, thanks for the review comments. Replies inline.
 
-If the following mmc_add_host() fails, probe jumps to the clk_disable
-label, which only disables the clock. As probe then fails,
-mmci_remove() is never called, so both DMA channels are leaked.
+On 16.10.26 10:23, Konrad Dybcio wrote:
+> On 10/15/26 2:32 PM, Frieder Hannenheim wrote:
+>> Add initial device-tree for the OnePlus 8T. Downstream reference is [1].
+>>
+>> [1] https://github.com/LineageOS/android_kernel_oneplus_sm8250/blob/lineage-23.2/arch/arm64/boot/dts/vendor/oplus/kona-kebab-overlay.dts
+>>
+>> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
+>> Co-developed-by: Robert Oscilowski <drgitx@gmail.com>
+>> Signed-off-by: Robert Oscilowski <drgitx@gmail.com>
+>> ---
+>>   Documentation/devicetree/bindings/arm/qcom.yaml   |   1 +
+>>   arch/arm64/boot/dts/qcom/Makefile                 |   1 +
+>>   arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts | 129 ++++++++++++++++++++++
+> 
+> Better. Please split off the dt-bindings changes to a separate patch,
+> and put it first in the series.
+> 
+> [...]
+> 
+> 
+>> +&framebuffer {
+>> +	width = <1080>;
+>> +	height = <2400>;
+>> +	stride = <(1080 * 4)>;
+> 
+> Does the resolution differ between the two devices?
 
-Release them by adding a dedicated unwind label, reached only after
-mmci_dma_setup().
+There's 4 devices: 8 (instantnoodle), 8T (kebab), 8 Pro (instantnoodlep)
+and 9R (lemonades).
 
-This issue was found by manual code inspection.
+All except the 8 Pro have a 2400x1080 screen, the 8 Pro has a 3168x1440 
+screen.
 
-Fixes: b38a20f29a49 ("mmc: mmci: fix return value check of mmc_add_host()")
-Cc: stable@vger.kernel.org # v6.2+
-Signed-off-by: Anfernee Cao <anferneemelokc5@gmail.com>
----
- drivers/mmc/host/mmci.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+>> +};
+>> +
+>> +&i2c2 {
+>> +	status = "okay";
+>> +
+>> +	pm8008: pmic@8 {
+>> +		compatible = "qcom,pm8008";
+> 
+> Is it not present on the other one?
 
-diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-index 416bdb184ed4..4db5c55b2700 100644
---- a/drivers/mmc/host/mmci.c
-+++ b/drivers/mmc/host/mmci.c
-@@ -2477,11 +2477,13 @@ static int mmci_probe(struct amba_device *dev,
- 
- 	ret = mmc_add_host(mmc);
- 	if (ret)
--		goto clk_disable;
-+		goto dma_release;
- 
- 	pm_runtime_put(&dev->dev);
- 	return 0;
- 
-+dma_release:
-+	mmci_dma_release(host);
-  clk_disable:
- 	clk_disable_unprepare(host->clk);
- 	return ret;
--- 
-2.54.0.windows.1
+The OnePlus 8 doesn't have this according to the downstream dt. >> +	 
+reg = <0x8>;
+>> +
+>> +		interrupt-parent = <&tlmm>;
+>> +		interrupts = <112 IRQ_TYPE_EDGE_RISING>;
+>> +
+>> +		reset-gpios = <&tlmm 93 GPIO_ACTIVE_LOW>;
+>> +
+>> +		vdd-l1-l2-supply = <&vreg_s8c_1p3>;
+>> +		vdd-l3-l4-supply = <&vreg_bob>;
+>> +		vdd-l5-supply = <&vreg_bob>;
+>> +		vdd-l6-supply = <&vreg_bob>;
+>> +		vdd-l7-supply = <&vreg_bob>;
+>> +
+>> +		pinctrl-names = "default";
+>> +		pinctrl-0 = <&pm8008_default>, <&pm8008_interrupt>;
+> 
+> nit:
+> 
+> property-n
+> property-names
+> 
+> in this order, file-wide, please
 
+Will fix
+
+> [...]
+> 
+>> +&i2c16 {
+>> +	status = "okay";
+>> +
+>> +	fuel-gauge@55 {
+>> +		compatible = "ti,bq28z610";
+>> +		reg = <0x55>;
+>> +		monitored-battery = <&battery>;
+>> +	};
+> 
+> Likewise, is this absent on the other phone?
+
+Not absent but different. The 8T and 9R use two-cell batteries while the 
+others only have one cell and use a different fuel gauge.
+
+>> +};
+>> +
+>> +&tlmm {
+>> +	pm8008_default: pm8008-default-state {
+>> +		pins = "gpio93";
+>> +		function = "gpio";
+>> +		bias-pull-up;
+>> +		output-high;
+> 
+> Drop the output-high, the driver will set it for you
+
+Will do.
+
+Frieder
