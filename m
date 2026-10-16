@@ -1,279 +1,214 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8A347DD64
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:57:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10FE73DFC7B;
+	Fri, 16 Oct 2026 13:57:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792159044; cv=none; b=kBCJ3ETOfGk/khtdMKesxxYDfN3P5kR6JuDkG9OfMuYa4Emkesy95mvCsil0LknD4flz543UHOeAaEWCFfx7cgpm/Or6iluvNlw21aLaHGoJNfDO8Ea17APau3FVvVTME4W/UxPCWBIGSJN2xE7wmS8BMX4QZJpy9OvLx5upEwo=
+	t=1792159056; cv=none; b=RraVhGJLx/RyDL6i8pV8fwkFlfrmljQM6Zm3vzrgadJDrR96CanXyrWim8MVziWatljGSCQe/8uptTPzB0WO8nPkvP9uf6nNipiseU8A/C/CMNwSUVkavM+TyGUBTlJ9pXT7W7w6WqN2BJHD//neHCHlQjVRvIpqLeXfvp7DIzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792159044; c=relaxed/simple;
-	bh=S7X1mMDwx723lVqSZVdRuT2D932pXIMIiHueG/CDdG8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qfd5IiHmM0foGGpcN6/cNquliAnTuIOEfRF3AthmqSnWqoZD5zycWxo3xqNSs7BA7FhTV2WldTg97OxzFwcKNp5a/vsgKXAjlRHiIEYKhr1qErKZdoskqSqXaz6YpnRzY7iZrs47f7pHozQraDlDJ3EI4OGx2kmR1dGrXOi3rjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DwnZvJ7U; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792159056; c=relaxed/simple;
+	bh=ETa1RDVtBiJ+rVRNbECOazML+umgUAf6OecbHc87jXs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j/a9Vz7wLjrpsER+H3YB8XDFF6IE94yCOV8AA/OzQLV4l9GZ9K+2v036v6SEPeZXPc9aE/QuNlyVb2opLwzJOmiTXQl3zBXCatS8QlPulixUa42G35SFen5FNlGVqZ02nFFiMEXE5pjGtpeBucWMfZBKzdiGVxzRNfpQ/Q2T8mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B6TAxUxC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DwnZvJ7U"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c263415982eso834067966b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:57:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792159041; x=1792763841; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uM/uqb6jB5bPusJ8VZ1C6mfq3AmMpsh982OmnP2N20Q=;
-        b=DwnZvJ7U6iW0NFiiKVIjyjglbPFx7A41WWxb7vyCVioNUWrHeutIm0WoqRDukoVXT1
-         If7mrbiF+3DMZ0yb0CzKc+8rR1GWdvIixcLjUhyiIF+W+tDhI20ED7eQCN/UlbSc8U/I
-         XO2hKIAiNzLNV/4EBStlP7yRitc5+sybsbOycAWGMmpkharAjN305m/u0akNc9BGUtvb
-         Kr1ADUC2sUdKQ5/1hPAKfl2TTz82tdhT0YmSwsgVeNvkamwcW1Fzm4Pi0lMifPDYoBQG
-         dLSrksjeUqBzZV5YaFS5YaoIm0AtYuZC1a9hRKUBXy+8HLhhwVJcYVVSQgeDOF/5Yoy6
-         S4UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792159041; x=1792763841;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uM/uqb6jB5bPusJ8VZ1C6mfq3AmMpsh982OmnP2N20Q=;
-        b=CwpMxIvoZrGcv/wq54IXw0gLG5CVDZayuPJUSMzqhpUkypIXa6bhNqTtADEXQ0wSmd
-         bOw56BeTfZM76btsdABUDIe7r3SIeApWwoZYuDj1nBiz3puzD0is/v2XkpfQDTjHr/F8
-         biSbQzV0SFj/99RKy2Gy9KLumEQ1Lpre2kIoH8G8n2SXwZHHr2wLIgg42Xb/DGjkpdMj
-         E9i45PspWroGllQaIqK4abqWnGkkZpHnWsM1sP8xmWNV+HkLTD/nyX92b1tMWYohmpQr
-         1Mtdg1RutTVE8Insz68v5vxm/l/Gm2Fif0WtjnIoOxXAFBB0lccpVdNmzMm4v8RKWDRd
-         phKw==
-X-Forwarded-Encrypted: i=1; AKwUvBxbyxmVpHzWhEmc/fAvQ9Y9aY/IN3VnCBP+FLD1W9xsVPf32hwM3D3dF4OL/iSqj4mcThfP+CS+1hzLlps=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIf/KftEizit/gJ2iwQMbDvJmTKtcPOWJeDNLPPyOHAL/opl6mq
-	JgxYAmGOZngmzTZvC45gu2Va56qkTY6x5lvi41LDyM7AvXvLTKoYxTZ6Bu80lYRL
-X-Gm-Gg: AYBFou1Oawu4qegVAqrzv4VzwnlSLsUQ3ync1XYLWBKeauQw3L9kaXz/qQp7RjstDc5
-	a5DDxKUKpl4dCmm+jo75/7vrKgwdq/SRFsP3s6tgzlyAPrcRtyMGMMc1Zc7PFSp2d7mZck8297j
-	I7hORs4qmP0XDV6NDzD5fEfGicd0WWlFMB/6Z+pdUAfbXR1UsZqwTL0UOAXw6QIkPGiRHnDbmiB
-	96VCY/Wrq9vP7vo3IiNtj2KWuTFwF3cscAj7YM2mbvWc+4vUw2lbjmbkPglKac8vhN235f7nO2H
-	QsK2YM+xJO+DchmZiTSIqw1/Z5I2PbSh0TBG9tkkssDPeEgfdPkclH8taZTbw36mzlIfvA/+xkF
-	bp3KUGCTNVWEzM2L95/jVAMXDI5D/3iAjpfPo/DYVyAx4wsdGED0cnDqXnVCQlOR3pcQzEWAtPw
-	3Rg3iWoWsDWyO5+4hXFxJytAJqLEZopM40yZnFr+aXS0a7JG5+CbE4OMXRKDBVCwCJkBL7QSNLX
-	e3lJZqdnQ2JMvf1w7k1/X7Ub9asEYro2HXEH6UiKzfcVl1mXed3nA==
-X-Received: by 2002:a17:907:3f18:b0:c41:735b:968b with SMTP id a640c23a62f3a-c41735bb4b3mr39888566b.3.1792159040829;
-        Fri, 16 Oct 2026 06:57:20 -0700 (PDT)
-Received: from ptb-02009389.paris.inria.fr (pd956db4d.dip0.t-ipconnect.de. [217.86.219.77])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919c1282sm72704866b.63.2026.10.16.06.57.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 06:57:20 -0700 (PDT)
-Date: Fri, 16 Oct 2026 15:57:18 +0200
-From: Ella Ma <alansnape3058@gmail.com>
-To: Julia Lawall <julia.lawall@inria.fr>
-Cc: cocci@inria.fr, linux-kernel@vger.kernel.org, nicolas.palix@imag.fr
-Subject: Re: [PATCH v3] coccinelle: free: add a checker for
- `__cleanup(kfree)` usage
-Message-ID: <20261016135718.ab5322cdyozostuj@ptb-02009389.paris.inria.fr>
-References: <ec578f57-a7f5-7afc-ec2-9156c336187@inria.fr>
- <20261007164316.15102-1-alansnape3058@gmail.com>
- <f635d9fd-8dd5-47f-7996-239bc74bd828@inria.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B6TAxUxC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49E5D1F000C4;
+	Fri, 16 Oct 2026 13:57:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792159054;
+	bh=bc5PopMUZG6tewygth6c6ikLmGZALIPiVeD4sThuW2Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=B6TAxUxCFtfqiUtHjkgAFQnS9/isrMyZPAL7Lt5C+MOfj4CpDRP/e9Vqy4E6vn3IL
+	 cWa7yPz+5SUKhTVt7+Cqr0Y5Sj/vhdrh5PKdFz+Byq8QDfdhZLIorRiFYqW5YgqvKe
+	 JfjJUmWdYZvXSeIgYjBKeusMRRZWiWEB6R6yhVqh6J43ibmQZ+qteVl3e97ArsDZFJ
+	 e5TCPfNZkvF473ALRavuuJDupoP6Zx/vXijK6qHHlGsx+5AQQVrFFRnDjFeJke/NoH
+	 PIreMB7h9VpHuvK1KY+f3YwuUTQGCpFpusLoqN3vRsRScqz2OVP3uGuljh2kNruQ67
+	 o9wTy12nin0tw==
+Message-ID: <4e7eb12e-f932-4262-a3c9-2c6620b9354d@kernel.org>
+Date: Fri, 16 Oct 2026 15:57:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f635d9fd-8dd5-47f-7996-239bc74bd828@inria.fr>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] dt-bindings: mailbox: Add AMD PL Mailbox IP
+To: Ben Levinsky <blevinsk@amd.com>
+Cc: "jassisinghbrar@gmail.com" <jassisinghbrar@gmail.com>,
+ "andersson@kernel.org" <andersson@kernel.org>,
+ "mathieu.poirier@linaro.org" <mathieu.poirier@linaro.org>,
+ "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+ <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "Simek, Michal" <michal.simek@amd.com>,
+ "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "Shah, Tanmay" <tanmay.shah@amd.com>, "Levinsky, Ben" <ben.levinsky@amd.com>
+References: <20261014213426.2957480-1-ben.levinsky@amd.com>
+ <20261014213426.2957480-4-ben.levinsky@amd.com>
+ <20261015-humble-eager-mushroom-9db4aa@quoll>
+ <DM4PR12MB644859F1CA3A936684A3338B839C2@DM4PR12MB6448.namprd12.prod.outlook.com>
+ <7067e343-24b9-4e3e-8e5e-42c98239ccae@amd.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <7067e343-24b9-4e3e-8e5e-42c98239ccae@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 07, 2026 at 08:27:33PM +0200, Julia Lawall wrote:
+On 15/10/2026 16:29, Ben Levinsky wrote:
 > 
+>>
+>>
+>> *From: *Krzysztof Kozlowski <krzk@kernel.org>
+>> *Date: *Thursday, October 15, 2026 at 2:46 AM
+>> *To: *Levinsky, Ben <ben.levinsky@amd.com>
+>> *Cc: *jassisinghbrar@gmail.com <jassisinghbrar@gmail.com>; andersson@kernel.org 
+>> <andersson@kernel.org>; mathieu.poirier@linaro.org <mathieu.poirier@linaro.org>; 
+>> robh@kernel.org <robh@kernel.org>; krzk+dt@kernel.org <krzk+dt@kernel.org>; 
+>> conor+dt@kernel.org <conor+dt@kernel.org>; Simek, Michal <michal.simek@amd.com>; 
+>> linux-remoteproc@vger.kernel.org <linux-remoteproc@vger.kernel.org>; 
+>> devicetree@vger.kernel.org <devicetree@vger.kernel.org>; linux-arm- 
+>> kernel@lists.infradead.org <linux-arm-kernel@lists.infradead.org>; linux- 
+>> kernel@vger.kernel.org <linux-kernel@vger.kernel.org>; Shah, Tanmay 
+>> <tanmay.shah@amd.com>
+>> *Subject: *Re: [PATCH 3/6] dt-bindings: mailbox: Add AMD PL Mailbox IP
+>>
+>> On Wed, Oct 14, 2026 at 02:34:23PM -0700, Ben Levinsky wrote:
+>>  > Document the AMD programmable-logic Mailbox IP used for bidirectional
+>>  > FIFO communication between two processor-facing interfaces.
+>>  >
+>>  > The same IP is used on ZynqMP, Versal, Versal NET and Versal Gen 2.
+>>  > Name each SoC in its compatible, and use amd,zynqmp-pl-mbox-2.1 as the
+>>  > fallback that drivers match.
+>>  >
+>>  > Define the transmit and receive channel indices together with the register
+>>  > aperture, interrupt, and interface clock. Describe the FIFO depth chosen
+>>  > when the IP is configured, so that the driver can size received messages
+>>  > to it.
+>>  >
+>>  > Assisted-by: LLM sparse
+>>
+>> How sparse assists here? It's something new. Since when does it parse
+>> yaml code?
 > 
-> On Wed, 7 Oct 2026, Ella Ma wrote:
+>   Hi Krzysztof,
 > 
-> > Using __cleanup(kfree) will pass the stack address of the annotated
-> > local variable to kfree functions. This will lead to invalid
-> > deallocation issues. Inspired by CVE-2026-45959 and similar bugs
-> > recently detected.
-> >
-> > Signed-off-by: Ella Ma <alansnape3058@gmail.com>
-> > ---
-> >
-> > Changes in v2:
-> > - Add virtual rules `report` and `org` as suggested by Sashiko
-> > - Remove `kvfree_sensitive` from rule `cleanup` as suggested by Sashiko
-> > - Add `free_percpu` to rule `free`
-> > - Add `kfree_const` to rule `cleanup`
-> >
-> > Changes in v3:
-> > - Edit the error messages to clarify the reasons and results
-> >
-> >  scripts/coccinelle/free/cleanup-free.cocci | 112 +++++++++++++++++++++
-> >  1 file changed, 112 insertions(+)
-> >  create mode 100644 scripts/coccinelle/free/cleanup-free.cocci
-> >
-> > diff --git a/scripts/coccinelle/free/cleanup-free.cocci b/scripts/coccinelle/free/cleanup-free.cocci
-> > new file mode 100644
-> > index 000000000000..48e47ed2186a
-> > --- /dev/null
-> > +++ b/scripts/coccinelle/free/cleanup-free.cocci
-> > @@ -0,0 +1,112 @@
-> > +// SPDX-License-Identifier: GPL-2.0-only
-> > +///
-> > +/// Find __cleanup(kfree)
-> > +/// Using __cleanup(kfree) will pass the stack address of the annotated
-> > +/// local variable to kfree, causing an invalid free.
-> > +/// I.e., `T v __cleanup(kfree);` --> `kfree(&v);`
-> > +/// Such usage is impossible to be correct.
-> > +///
-> > +// Confidence: High
-> > +// Copyright: (C) 2026 Ella Ma
-> > +// Options: --no-includes --include-headers
-> > +
-> > +virtual report
-> > +virtual org
-> > +
-> > +// Suggesting using __free for the functions with a DEFINE_FREE definition.
-> > +// Update this list when new DEFINE_FREE definitions are added.
-> > +@free@
-> > +attribute name __cleanup;
-> > +symbol kfree, kfree_sensitive, kvfree, kvfree_atomic, free_percpu;
-> > +type T;
-> > +identifier v, n;
-> > +position p;
-> > +@@
-> > +
-> > +(
-> > +  T v __cleanup@p(
-> > +(
-> > +  n
-> > +&
-> > +(
-> > +  kfree \| kfree_sensitive \| kvfree \| kvfree_atomic \| free_percpu
-> > +)
-> > +)
-> > +  );
-> > +|
-> > +  T v __cleanup@p(
-> > +(
-> > +  n
-> > +&
-> > +(
-> > +  kfree \| kfree_sensitive \| kvfree \| kvfree_atomic \| free_percpu
-> > +)
-> > +)
-> > +  ) = ...;
-> > +)
-> > +
-> > +@script:python depends on report@
-> > +p << free.p;
-> > +n << free.n;
-> > +@@
-> > +
-> > +msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}; use __free({n}) to free the pointee"
-> > +coccilib.report.print_report(p[0], msg)
-> > +
-> > +@script:python depends on org@
-> > +p << free.p;
-> > +n << free.n;
-> > +@@
-> > +
-> > +msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}; use __free({n}) to free the pointee"
-> > +coccilib.org.print_todo(p[0], msg)
-> > +
-> > +
-> > +// Reporting __cleanup usage for the functions without a DEFINE_FREE definition.
-> > +// The following list only contains frequently used functions. Supplement it if
-> > +// necessary.
-> > +@cleanup@
-> > +attribute name __cleanup;
-> > +symbol vfree, vfree_atomic, kfree_const;
-> > +type T;
-> > +identifier v, n;
-> > +position p;
-> > +@@
-> > +
-> > +(
-> > +  T v __cleanup@p(
-> > +(
-> > +  n
-> > +&
-> > +(
-> > +  vfree \| vfree_atomic \| kfree_const
-> > +)
-> > +)
-> > +  );
-> > +|
-> > +  T v __cleanup@p(
-> > +(
-> > +  n
-> > +&
-> > +(
-> > +  vfree \| vfree_atomic \| kfree_const
-> > +)
-> > +)
-> > +  ) = ...;
-> > +)
-> > +
-> > +@script:python depends on report@
-> > +p << cleanup.p;
-> > +n << cleanup.n;
-> > +@@
-> > +
-> > +msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}"
-> > +coccilib.report.print_report(p[0], msg)
+>   Thank you for the review.
 > 
-> Hello, this is more words, but is not what I was hoping for.  You explain
-> the effect, but not the cause.  And to fix the bug with confidence the
-> reader wants to know the cause.  Here I would have expected something like
-> "__cleanup usage for a function without a DEFINE_FREE definition. This will cause an invalid free"
+>   You are right, sparse was not used for this patch. It was only run on
+>   the C patches of the series, and I applied the same trailer to the
+>   whole series by mistake. In v2 the binding patches will name only the
+>   model, and the tool list will match what was actually used on each
+>   patch.
+> 
+>>
+>>  > Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
+>>  > ---
+>>  >  .../mailbox/amd,zynqmp-pl-mbox-2.1.yaml       | 74 +++++++++++++++++++
+>>  >  1 file changed, 74 insertions(+)
+>>  >  create mode 100644 Documentation/devicetree/bindings/mailbox/amd,zynqmp-pl- 
+>> mbox-2.1.yaml
+>>  >
+>>  > diff --git a/Documentation/devicetree/bindings/mailbox/amd,zynqmp-pl- 
+>> mbox-2.1.yaml b/Documentation/devicetree/bindings/mailbox/amd,zynqmp-pl- 
+>> mbox-2.1.yaml
+>>  > new file mode 100644
+>>  > index 000000000000..2cc0d106b888
+>>  > --- /dev/null
+>>  > +++ b/Documentation/devicetree/bindings/mailbox/amd,zynqmp-pl-mbox-2.1.yaml
+>>  > @@ -0,0 +1,74 @@
+>>  > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>  > +%YAML 1.2
+>>  > +---
+>>  > +$id: http://devicetree.org/schemas/mailbox/amd,zynqmp-pl-mbox-2.1.yaml# 
+>> <http://devicetree.org/schemas/mailbox/amd,zynqmp-pl-mbox-2.1.yaml#>
+>>  > +$schema: http://devicetree.org/meta-schemas/core.yaml# <http:// 
+>> devicetree.org/meta-schemas/core.yaml#>
+>>  > +
+>>  > +title: AMD Programmable Logic Mailbox IP
+>>  > +
+>>  > +maintainers:
+>>  > +  - Ben Levinsky <ben.levinsky@amd.com>
+>>  > +
+>>  > +description: |
+>>  > +  The AMD Programmable Logic Mailbox IP provides bidirectional message passing
+>>  > +  between two processor-facing interfaces. Each interface writes messages to
+>>  > +  a send FIFO and reads messages from a receive FIFO. The register aperture,
+>>  > +  interrupt, and clock described by a node belong to one processor-facing
+>>  > +  interface. Channel 0 represents transmit and channel 1 represents receive
+>>  > +  for that interface.
+>>  > +
+>>  > +properties:
+>>  > +  compatible:
+>>  > +    oneOf:
+>>  > +      - const: amd,zynqmp-pl-mbox-2.1
+>>
+>> What is 2.1? Your SoC has different versions?
+> 
+>   2.1 is the version of the Mailbox IP core in the Xilinx IP catalog
+>   (Mailbox v2.1). It is not a SoC version. The IP is synthesized into the
+>   programmable logic, so the same core is used on every SoC, and the SoC
+>   names in the compatibles do not add information.
 
-Do you mean only the second rule needs a refinement, or both rules?
-
-==> __cleanup vs __free, both rules:
-
-Using DEFINE_FREE declarer only defines a forwarding function that can
-be annotated to a local variable via __free attribute. Defining such a
-function with DEFINE_FREE will not automatically make __cleanup correct.
-User still need to use __free instead.
-
-FYI: __cleanup will pass the stack address to the annotated function
-directly; while __free will first call the forwarding function defined
-with DEFINE_FREE, and then the forwarding function will correctly pass
-the pointee address to the annotated function.
-
-==> Only the second rule:
-
-Yes. For the functions without a forwarding function definition, one of
-the root cause is lacking the definition. But I am not sure whether this
-semantic patch should suggest adding one.  As these free functions are
-all those frequently used, perhaps the DEFINE_FREE definition should be
-added to the corresponding public header files.  Or, do you mean this
-semantic rule only needs to report this missing, and the users will add
-them where they think is good?
-
-Besides, after adding a definition, the current error message will
-become misleading, as there are no rules to search for existing
-DEFINE_FREE definitions in the code base. Do you think it is necessary
-for this semantic patch to search for the corresponding DEFINE_FREE
-definitions first and then generate the error message accordingly?
-
-I.e.,
-with DEFINE_FREE:
-requiring replacing __cleanup with __free.
-without DEFINE_FREE:
-reporting missing DEFINE_FREE and also requiring replacing __cleanup
-with __free.
-
-ella
+Heh? This is in contrast to writing bindings.
 
 > 
-> julia
-> 
-> 
-> > +
-> > +@script:python depends on org@
-> > +p << cleanup.p;
-> > +n << cleanup.n;
-> > +@@
-> > +
-> > +msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}"
-> > +coccilib.org.print_todo(p[0], msg)
-> > --
-> > 2.34.1
-> >
-> >
+>   In v2 I will use a single IP-versioned compatible, "xlnx,mailbox-2.1",
+>   and drop the SoC-specific ones. This is also the compatible the Xilinx
+>   device tree generator already emits for this IP.
+
+No, use SoC naming. Just like every other vendor. Remember: before doing
+something completely different, first find arguments why your
+vendor/patchset should be special.
+
+
+Best regards,
+Krzysztof
