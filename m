@@ -1,30 +1,62 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic316-21.consmr.mail.ne1.yahoo.com (sonic316-21.consmr.mail.ne1.yahoo.com [66.163.187.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E17A30D405;
-	Fri, 16 Oct 2026 01:14:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480CF30D405
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.187.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792113267; cv=none; b=WjhLJvm8t7YPt+HuBH7Us4UUEuJz52Fgo/+WcgySshwkY6sl2b3em9hAVs6XLS1BOlu/mVAba7Z+Io1jXEEnaQ1dmFG5ClU0DHhdNCCi6d/Q2JdN4xdIxLz8UzzMPxygpwjQ7s3Ov/AbWmFnydzXMm1tNrRJkzy++8s1Q7ATFLU=
+	t=1792113306; cv=none; b=WTrn4dMGAQ9ZlGtSZrX1tQeDeffLlG0x+x6TQm1hYn8KWL+zI7CD0j+OSXZm0ifzbINHt6SubcfH6uqUuCvMX2cuUkaq2qW4VHk6xNxIGmH5QOS1QRNFTlPoN7LPTRvEeUuol9E2NA6mprRetYlTX6GBHZL609gmKW6DEva/qzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792113267; c=relaxed/simple;
-	bh=utYDO2knyr3kTzqHGy2mLzrgeNKbg7RW6hWzjUnMa+I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XyfyByWvNmjXx5p3UeRu5pRiANSO2+/9Cr/336MkMdumhaBX4iY3xkLxp60j/JmV0cXGNZuknImBv8WreBAMB4hZKi3ePoVP+gdi9DSXZZrBOCZ2jMbCpWVV1RoUhC/+fFv2paGhuBgNrM0bdANKU+W+QoKy+mKmE+eTVmrPy6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j5RlM2PQszYQts3;
-	Fri, 16 Oct 2026 09:13:19 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id E3F9340577;
-	Fri, 16 Oct 2026 09:14:14 +0800 (CST)
-Received: from [10.67.110.36] (unknown [10.67.110.36])
-	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgBnav1letFqppRiAg--.4825S2;
-	Fri, 16 Oct 2026 09:14:14 +0800 (CST)
-Message-ID: <71090bb4-dd82-415c-a0cd-5ce11841e261@huaweicloud.com>
-Date: Fri, 16 Oct 2026 09:14:13 +0800
+	s=arc-20240116; t=1792113306; c=relaxed/simple;
+	bh=vc4cv9TfXy6V0eLdTZ8XChpWs9cMoE+yk9vORjbehJg=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=be1ZVBYZItgvJ7E81T8XEXWP4GqrdJVkf+uj+RpT9/Qrxv9oM0AE2v6n/zcZ5OnfpsgeEgvzcKG3tEqI1v1UTbLWaxDqXUmg4+X9J9Elbf0ebIXcg8rtkJS3yC/P7tvenTnTSwJNlIMu61LmnyuG4M4xH/yOi8v2boTK3e5H2sU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=PjCWAiXy; arc=none smtp.client-ip=66.163.187.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="PjCWAiXy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792113304; bh=2r/v4f4+CTOzNYNcrtTt3nliQmx97miAvQ2bp6jBsgk=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=PjCWAiXyB4Q8bcXuOvUtMLcxmBBQxDUqgVUldVfLsVv9BsI4NhyS+PiNzAhbpoh3mXTTXglnPptXIMUPA1GkDoXDDi8+p6K1WS6JnoHCnoyr5reM3p5fr8NBekcMXu0Lg495yvA+Rv/jOHBDk3u/tcu5TmGg3NcIojOm9QG2BSLf3quZ1PtRXL2y3W38NS3KV9tBqrfMz5UtCMOSqqiy+jsn+tzKnDMUVBKMGWAqiuLBBBtY7c7WT/jdZAca/RSTrFpB/4wYORBb92Z1GHO2/r6dQaOhIJ/nMSsvA4pWM/CvOdbWw3ALDkEJtmnUvpGceDJDv00qB+E55nVn1sBC5w==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792113304; bh=5AGlOCCQwnxCsI8Ce5QAHKapA2AAURxCXRO6/vc9qpe=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=RezCnSflKhjAMx/3KnSwoTOR+LGkc7uUs7XzEgKc3vwyX8fxdCsXK5Heqe+v1tE9Q1yIQb64buJfCcA5eqz9iNgNTgXI5mx2dt/b0qZvSGomajI/dG3VyobgBX2z6LtyF9SIlMd//WxdNt5cukdmGfWJYWLC5OBPBx0l/2bb3wS97Xcgml+oSG6u+a1+c+UrIRznY6ArdX0+W1/EDzez/feSCGFma2iwj4+FtKzQlOqSBXLIvIN9wkTMDWuY+TtZVLW4W3B68gbH8rdqUu1w6QVPXaNojiaLnDrk/8m9Prk8Ye9AvEIbKLhsj1dex64DwRB8u/owTInvx0U0E9izYg==
+X-YMail-OSG: .WYQ_kQVM1niajJ1KaOQqCVlAFecPF9lr4OHpbZoP7Te5Tx_YM7bC0dT9QRcBjX
+ UxbE.qKlrKgKLlydSklEP2HDzxwQmSsyL.0xIi2qBIcyt_JwmtewUV3b6AtycBrEfz_rz8Rn7_yd
+ cQAw0gvVMPN7B6.UD76XWaVOsifVHf84m0xm2dD2a0kynG3RwZpjLFtrGx0mBTpVxCybh03T7ApS
+ sxiXyihVP3ndZk5LeXSqas9_twdSb5IUPa5zRneGWmi0k_PZMgzRDWKjix5W6vDEBzw0cbQk2oly
+ Ayk_dntEDJG9l3YCZwamIBmt7yfSKN5KXHzvzMmKb_Xm7jumz6T6CKR6Vu4CzFdB9a_EG31GxqL_
+ J.MuQftWmsGWMcaYAAbFIrU679nMwREnDfHyQvq4kIOkGZ8FhH3Z8iRpoh273Z35wW4_8DghEZlm
+ flwR3kl5y5igHAOvlpBiQxzSxhoP9a7k0uoCwEx_WurhpgUP.eBtlSds0vnpXINlkU8a2LGmRdWf
+ fbHsSlnq5gfwb8XZM3oX8VvpHxhvmKnmwlzEA2ofemYlEuVjoDzqAcfEFysu8eaNhKMC1n2nRIw.
+ MIDkks5aiK.1xoeJzGNQTZsjZudWefz0e.rm_k9f6M8vwJJca7FLNxu1Jp14IAofdiVeQvFrkD8K
+ OssLhgycQtjArs5_kVnPpQcjTJQs8FB4otje0PWxbOKE_jW7o1d4Kg6G_i961go9j5B1x5YNPByk
+ tRXS4yCHxVQ.AvgdAFpceCGVIp7rrQyr.lWVMOrD.Q0KOTwMxa6IFBKDwh2ClgCRQrnFW.2q9zo5
+ m0NZvbdabUlth7X1BbQCe3ZqGKv7weTar5LAruDM.0oRU6YNVMRNsZmcuynZc7Dg9JfTKGG3r.yp
+ AH4SJv3U5c0ddreUJl82VshwWTaxS22ZJWphowmuP8WY.1nZ4iq9jDep3eUaR7MLVF4d8RoEJW_k
+ SaUzOa12mHyYGjfYy2f_aNn3WQlnUYIRPA5z_G__1KjWyuidtbR8jYDpynBaKszfN27M.DQRMPFI
+ 6bRSrI30ZFCobTK1mpkOIuzjoXA34gXOx8P3L0JErgfYNwEc2JusddxGm_ynGcb5VXEn8NHGkMoP
+ i.wstUhNwt0zM7aC9Nt1h22fsVB9n_3MJwU.Ya8J_5ZEGv06OcQvj_.bfIfiIRGZIXxbWPqfa_NG
+ Vf.OIK_xoAQWSy2J9MNqzF.fUHKYcnCuO2OrFdf3Uaox2mcbWYvzlv3WVBwL7fdFDi2s7BiFPHYE
+ Fi12tXBccIF9m63_6xGi_LMn_yhZew087PJ2MG2KJXyL5sKpoIej3lzcOXUndNEvaV6w6l0YilFP
+ JNjLDd0q.R1jABhed8On_YoQJK7AZmcHj6cWkxGpCvoLEk5mAHhP6hYSUGS4Qqg5XIPna2dDXnlR
+ WpjRMmLKVPgz3W66SfBs5z97HVrh6V3Y2I5sTJ50i1G2NUVZCp5W5G8laNEIw4DdR3B6Wix0oupY
+ XlujvTzEHrjYgAvEclDBniv1LQj3kdJQBnqXymDZYnehNk2CWEafmtdKNCECG3JAv5C6osjfhIcA
+ 699nbCSfQ7vcFeVKFc1N2Y61EcLfdMcl5HG3Nkp4Xri31QkDY0zNLlGxf8MIlqJUMCh8fXLKnJK0
+ F4qqA9dni_Qq5Zuv9jxQtlkZUzhH6YGp6LLHNYI0nPVnr5LoCAQDs54LY.ukMPYAqzagFzTrQ4.L
+ 9SFWh7JaoA55fZ045YtXrfkxLwYQ15JspAkPjAAqoJ44MTcuQZ5tEXCc6eIyF7FcxjtMDR81g1P.
+ 4Glw17wBtw7aL4bdUb_BWw1nIZ17Ia4jEZ_wpN9JrAw33amQ5Db_OnZYrlfo4iWhuJfmZLhq9v4d
+ zvGyihmkF2UdGuY3Ms6jgFdSH7BeG0XoSD84.6NLJGiSJ3Wlx38vKEBqxVmroTVF6rvZPMwx2bAh
+ pCYdNOlfst3V4.jcId4uPligNA4AIbUNAxKWuKfUo8PIMxVcNaVCWHfQXROVXoj1J4r4_izPlrIr
+ k5xFD684wq.IfohLOmQmmw3TYyl439JrAyG.xP60ivhHlEllfJzm0fvPe5by95F3U5uubiVTDaq.
+ ayk2ES_3kwltPsRrIfvfvfkVYoo0bNOdPl9BcgbOfICtjQ.1rhVVpi4J8z3.jqa_6A5VdHtEix98
+ 62Cfcq74ipQiqlkaR52JpyV_rFj.9lDbNktg5XK2a9NIJTfEGHQ1Dwx5BYDNSjVW0bl5W8szdIgk
+ GZZAKe_A7bxTIr_t1aLYLcMeD_1ijslumA.7jnJXGsSbk3wVJkOa7a5Wq7lcsmPiMWDZyv6a7D4L
+ KxrtOsN0cL1q_DiIdBxGd7wuF.bLovPdFQes-
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: aec25bf8-369e-4eb8-927d-ccf1a4a23a18
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic316.consmr.mail.ne1.yahoo.com with HTTP; Fri, 16 Oct 2026 01:15:04 +0000
+Received: by hermes--production-ir2-5dd9bf4598-xpdvn (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 1104f8dfdca916fd523cdad120337e09;
+          Fri, 16 Oct 2026 01:04:46 +0000 (UTC)
+Message-ID: <aca905a9-9cc2-456d-ba5f-2d9425f1b5c1@yahoo.com>
+Date: Fri, 16 Oct 2026 03:04:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -32,126 +64,154 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 06/15] perf annotate-arm64: Support store instruction
- tracking
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: james.clark@linaro.org, xueshuai@linux.alibaba.com,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, leo.yan@linux.dev,
- Li Huafei <lihuafei1@huawei.com>, Ian Rogers <irogers@google.com>,
- Kim Phillips <kim.phillips@arm.com>, Mark Rutland <mark.rutland@arm.com>,
- Ingo Molnar <mingo@redhat.com>, Bill Wendling <morbo@google.com>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Adrian Hunter <adrian.hunter@intel.com>, Zecheng Li <zli94@ncsu.edu>,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev
-References: <cover.1791629326.git.wutengda@huaweicloud.com>
- <eb44bbf4b74555bc43f3659f4733faff403debbf.1791629326.git.wutengda@huaweicloud.com>
- <atFbbrGdobp83fgA@google.com>
-Content-Language: en-US
-From: Tengda Wu <wutengda@huaweicloud.com>
-In-Reply-To: <atFbbrGdobp83fgA@google.com>
+Subject: [PATCH net-next v6 4/9] net: dsa: realtek: rtl8365mb: set RGMII mode
+ for family D
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
+Content-Language: pl
+In-Reply-To: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_Ch0CgBnav1letFqppRiAg--.4825S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJF17WFWxGr18uw15tF4UCFg_yoW5CrWkpr
-	Z8C3W5KF4Utr4IgFnxXF4j9r9I9a1Sgws0kr9rt397AF42yrn3Krs5Ka13KFWrJrZxuw1U
-	ta1DKr1DGayjyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6x
-	kF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAq
-	x4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6x
-	CaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0E
-	n4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I
-	0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8
-	ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcV
-	CY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAF
-	wI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa
-	7IU0s2-5UUUUU==
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
+X-Mailer: WebService/1.1.26740 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
+On family D, RGMII on extension interface 1 needs two things that the
+other families do not: the EXT1 RGMII TX clock delay field in
+EXT_TXC_DLY (0x13f9, bits [5:3]) must be cleared, and the pin mux in
+the top-level configuration register must be set up.
 
+The vendor RGMII setup for EXT1 clears the RGMII field of EXT_TXC_DLY
+(0x13f9, bits [5:3]) in addition to programming TXDELAY in RGMXF.
+Do the same. The init jam table writes 0x0090 to this register, which
+leaves the field at 2, so without the clear an extra TX delay would be
+applied on top of tx-internal-delay-ps. Clearing it makes
+tx-internal-delay-ps the only source of TX delay.
 
-On 2026/10/16 7:02, Namhyung Kim wrote:
-> On Tue, Oct 13, 2026 at 01:28:04PM +0000, Tengda Wu wrote:
->> Extend update_insn_state_arm64() to handle standard store instructions
->> (str, stur, stlr, stp). Exclusive stores (e.g., stxr, stxp) are omitted
->> as they exhibit different operand semantics.
->>
->> Unlike load instructions, a store instruction sets a value in the struct
->> within the memory where the destination register resides, and does not
->> alter its type. Therefore, no processing is required for the transfer.
-> 
-> But the target location also can be stack which requires type info,
-> right?  Oh, I think you have a patch later to handle that.
+If the internal MAC4 block occupies extension 1, do not advertise RGMII
+for port 7 in phylink_get_caps(), so the configuration is refused before
+any EXT1 register is touched. This mirrors the vendor RTL8367D API, which
+returns an error for RGMII on port 7 when UTP port 4 uses the RGMII
+interface. Otherwise bind the RGMII/MII pins to MAC7. SerDes 1, which
+shares the pins, is always disabled.
 
-Yes, this is supported in the subsequent patch 10 for stack-related loads
-and stores.
+The family D branch is not reachable until the chip table entry is
+added in the last patch.
 
-Thanks,
-Tengda
+Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+---
+ drivers/net/dsa/realtek/rtl8365mb_main.c | 68 +++++++++++++++++++++++-
+ 1 file changed, 66 insertions(+), 2 deletions(-)
 
-> 
-> Thanks,
-> Namhyung
-> >>
->> The only point to note is that store instructions support pre-index and
->> post-index addressing modes, so calling adjust_reg_index_state() is still
->> necessary to handle their addressing.
->>
->> Reviewed-by: Ian Rogers <irogers@google.com>
->> Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
->> ---
->>  .../perf/util/annotate-arch/annotate-arm64.c  | 25 +++++++++++++++++++
->>  1 file changed, 25 insertions(+)
->>
->> diff --git a/tools/perf/util/annotate-arch/annotate-arm64.c b/tools/perf/util/annotate-arch/annotate-arm64.c
->> index fb48bf95b32f..54d9928b536f 100644
->> --- a/tools/perf/util/annotate-arch/annotate-arm64.c
->> +++ b/tools/perf/util/annotate-arch/annotate-arm64.c
->> @@ -661,6 +661,20 @@ static void update_load_insn_state(struct type_state *state,
->>  	adjust_reg_index_state(state, dloc, dl, src);
->>  }
->>  
->> +/*
->> + * Match standard store variants (str, stur, stlr, stp) that follow
->> + * straightforward store semantics: source registers on the left (read-only)
->> + * and memory target on the right. Excludes exclusive stores (stxr, stxp, etc.)
->> + * which have status/result register side effects.
->> + */
->> +static bool is_standard_store_insn(const char *name)
->> +{
->> +	return !strncmp(name, "str", 3)  ||  /* str, strb, strh */
->> +	       !strncmp(name, "stur", 4) ||  /* stur, sturb, sturh */
->> +	       !strncmp(name, "stlr", 4) ||  /* stlr, stlrb, stlrh */
->> +	       !strncmp(name, "stp", 3);     /* stp */
->> +}
->> +
->>  static void update_insn_state_arm64(struct type_state *state,
->>  				    struct data_loc_info *dloc, Dwarf_Die *cu_die,
->>  				    struct disasm_line *dl)
->> @@ -742,6 +756,17 @@ static void update_insn_state_arm64(struct type_state *state,
->>  	/* Memory to register transfers */
->>  	if (is_standard_load_insn(dl->ins.name))
->>  		update_load_insn_state(state, dloc, dl, src, dst);
->> +	/* Register to memory transfers */
->> +	else if (is_standard_store_insn(dl->ins.name)) {
->> +		/*
->> +		 * Ignore transfers since it'd set a value in a struct
->> +		 * and won't change the type.
->> +		 *
->> +		 * Needs to update the pre-index and post-index addressing
->> +		 * modes for the destination register.
->> +		 */
->> +		adjust_reg_index_state(state, dloc, dl, dst);
->> +	}
->>  }
->>  #endif
->>  
->> -- 
->> 2.34.1
->>
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+index 2dabc4d..f00c1c2 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_main.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+@@ -332,6 +332,12 @@
+ #define   RTL8365MB_SDS_OPTION_ARM_KEY		0x0249
+ #define RTL8365MB_SDS_OPTION_REG		0x13C1
+ 
++#define RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK		GENMASK(4, 0)
++/* Shared "disable" encoding for both SDS_MISC's and SDS1_MISC0's
++ * 5-bit mode fields.
++ */
++#define RTL8365MB_D_PORT_SDS_MODE_DISABLE		0x1f
++
+ /* Embedded DW8051 microcontroller control registers. The microcontroller
+  * can run firmware to manage the SerDes link, but this driver keeps it in
+  * reset and disabled: phylink already performs the link management that
+@@ -465,6 +471,20 @@
+ #define   RTL8365MB_PORT_MISC_CFG_VLAN_EGRESS_MODE_MASK		GENMASK(5, 4)
+ #define   RTL8365MB_PORT_MISC_CFG_CONGESTION_SUSTAIN_TIME_MASK	GENMASK(3, 0)
+ 
++/* EXT_TXC_DLY holds a 3-bit TX clock delay per external interface, for
++ * RGMII ([2:0] EXT0, [5:3] EXT1, [8:6] EXT2) and separately for GMII.
++ * Only the EXT1 RGMII field is used here, and it is cleared in RGMII
++ * mode so that tx-internal-delay-ps is the only TX delay applied.
++ */
++#define RTL8365MB_D_REG_EXT_TXC_DLY				0x13f9
++#define   RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK			GENMASK(5, 3)
++
++#define RTL8365MB_D_REG_TOP_CON0				0x1d70
++#define   RTL8365MB_D_MAC7_SEL_EXT1_MASK			BIT(13)
++#define   RTL8365MB_D_MAC4_SEL_EXT1_MASK			BIT(12)
++
++#define RTL8365MB_D_REG_SDS1_MISC0				0x1d78
++
+ /**
+  * enum rtl8365mb_vlan_egress_mode - port VLAN egress mode
+  * @RTL8365MB_VLAN_EGRESS_MODE_ORIGINAL: follow untag mask in VLAN4k table entry
+@@ -1270,6 +1290,33 @@ static int rtl8365mb_ext_config_rgmii(struct realtek_priv *priv, int port,
+ 	if (ret)
+ 		return ret;
+ 
++	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D &&
++	    extint->id == 1) {
++		ret = regmap_update_bits(priv->map,
++					 RTL8365MB_D_REG_EXT_TXC_DLY,
++					 RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK, 0);
++		if (ret)
++			return ret;
++
++		/* Bind the RGMII/MII pins to MAC7. MAC4 does not own them:
++		 * RGMII is not advertised otherwise, see
++		 * rtl8365mb_phylink_get_caps().
++		 */
++		ret = regmap_update_bits(priv->map,
++					 RTL8365MB_D_REG_TOP_CON0,
++					 RTL8365MB_D_MAC7_SEL_EXT1_MASK,
++					 RTL8365MB_D_MAC7_SEL_EXT1_MASK);
++		if (ret)
++			return ret;
++
++		ret = regmap_update_bits(priv->map,
++					 RTL8365MB_D_REG_SDS1_MISC0,
++					 RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK,
++					 RTL8365MB_D_PORT_SDS_MODE_DISABLE);
++		if (ret)
++			return ret;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -1773,6 +1820,8 @@ static void rtl8365mb_phylink_get_caps(struct dsa_switch *ds, int port,
+ 		rtl8365mb_get_port_extint(ds->priv, port);
+ 	struct realtek_priv *priv = ds->priv;
+ 	struct rtl8365mb *mb = priv->chip_data;
++	u32 data;
++	int ret;
+ 
+ 	config->mac_capabilities = MAC_SYM_PAUSE | MAC_ASYM_PAUSE |
+ 				   MAC_10 | MAC_100 | MAC_1000FD;
+@@ -1802,8 +1851,23 @@ static void rtl8365mb_phylink_get_caps(struct dsa_switch *ds, int port,
+ 	 * which remain unimplemented.
+ 	 */
+ 
+-	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_RGMII)
+-		phy_interface_set_rgmii(config->supported_interfaces);
++	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_RGMII) {
++		/* On family D the EXT1 pins are shared with MAC4 (UTP port 4).
++		 * If MAC4 owns them, RGMII on this port cannot work.
++		 */
++		if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D &&
++		    extint->id == 1) {
++			ret = regmap_read(priv->map, RTL8365MB_D_REG_TOP_CON0, &data);
++			if (ret)
++				dev_warn(priv->dev,
++					 "failed to read TOP_CON0, RGMII on port %d disabled: %pe\n",
++					 port, ERR_PTR(ret));
++			else if (!(data & RTL8365MB_D_MAC4_SEL_EXT1_MASK))
++				phy_interface_set_rgmii(config->supported_interfaces);
++		} else {
++			phy_interface_set_rgmii(config->supported_interfaces);
++		}
++	}
+ 
+ 	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_SGMII &&
+ 	    mb->sds_supported)
+-- 
+2.53.0
 
