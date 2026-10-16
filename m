@@ -1,64 +1,64 @@
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1031399D0C
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256DB3AF656
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:12:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792131130; cv=none; b=qZRLTKZul7rGkcAnNuq8wsL9xECnXODP1EZYIB0MS16WqVoNVtB9PzQollNI3nKfVE8HdryBWKzvMKKFRajfFx/awfVQD14X0glE/W9nWv/Ar3W1GdYPAfe/NBRV+XFH6NZ9g4T0gZfan/YGxZU+0M3GlV51qLG31whtC7V2R54=
+	t=1792131135; cv=none; b=hxoGY2EZenAvUzGgDxuFTleXoZ75+3i9ZwMjgEYpcQFyAAphrejlNBZWmWaUNlQ0cPet/iwoeDuy6VV5jfUQTpFY0UK887iQNSOqA2BXjmngKIBqoLDJYFpL536lz1jl0MM46pyd/9t2MPTwtyp7TiwecAGgeEngQxbqPGJTptM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792131130; c=relaxed/simple;
-	bh=L9ZFiyAFmPsRderO1/Rh8bWC0nqqw4eZS58Lu9GM2YE=;
+	s=arc-20240116; t=1792131135; c=relaxed/simple;
+	bh=+8u8/e19AlhCP7ZcBLcWul/CcxHHWq6yEhKJ5AL0gE0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rmYhNelvZlwHoX6hxzD65z3ZLq1Sxo0yxcqXqQJQGtdEi2eQD3fDx6GjnuTThCz9vicl1A4uN676wybyVf8xEGNsrEPYGidRzd36kz8HUBJfpJDSu4xi916Dt5mGMCqjNP7FNObQztvELgPKzkEq0HwyegLsHpRsylI4bmAMt0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V2DX4C4K; arc=none smtp.client-ip=74.125.82.50
+	 MIME-Version; b=Qhk8j44pdULrylqk6vPGb821Mejn+jg2yNZOHfjdudbtGgqyVgHljfrudcseKixHdPjxJlvLtuUvR4rFo8BTPhN52F4rnzNp4Q25IcRlv8CPQC4ZChataUhdkY7mydp3u0+vQ2LK7+gr//BiOTRxeNKp2SizmeK6g0cnvmkbOGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JWcpGR5S; arc=none smtp.client-ip=74.125.82.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V2DX4C4K"
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-16079d54c17so296527c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:12:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JWcpGR5S"
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-16079d54c17so296624c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:12:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792131127; x=1792735927; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792131132; x=1792735932; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8JY0PAJ8qLoMlN4L9aNAG6FBeK4r0HomK4GOKTTjBOY=;
-        b=V2DX4C4KC5EgOE4gzbxBD1swceF+drPnKz66lXurb0IRsJgwq3aAMjt4UTJQKxKQFz
-         Jlze47oOKwp01hhH1fk26x9kVNgT19HCKIQIMApaf8bauH68i2a40aJEdBo8d9LhMIGk
-         KMFxVRmKW2KQKwe1n8yVCPJJTae4eY5VLX/kzBr6BC16iE1PIvOsbe2L2IBU1QaYy/dG
-         gjImftdhKoDPXFG2ymTA4tp3sr5DmlER8ibI8jiGcvnm9129YEPNYgN3cjqOTLvt2miZ
-         M54+oml1P215mN6wAvBW3VK56zaiiGEBl/p7IajwaoYpBQK60L1/TIUWUPPOexKI1huO
-         Y/SQ==
+        bh=6X6wzE3wvd9aUwN+DPOs4etEkN6w/QmC2PVX0ZhQI4I=;
+        b=JWcpGR5SKJ8KhSGeUEb0cC3WqGM4zdczBxxh2RV3lrn/ETteOzc4qzWeq+RMkVvbnA
+         WJupc6/bhRPgNG4ojWqsZfTnjDdloD5mvAA6j96gujlA20IinA23O2IAoW0gNk1Erc0p
+         /Ps3gjfJ/iCmwbqLpI/eQ42Jl5olzqMlGfBvQxYpF4sTna7Z5oR66AmqovLobfmuiUcp
+         sHOSv1ruyp4YmszNBddBQvVlEq8F+VGfI93D6KNqPAdZx5bvncF+21OL/WtVVynYw+t/
+         saal3oWhDyVm4HSJtyAsBKpCWU2XPfKpNP7O4e1oteS1b0GCgbWmjmy10P39ebpCy4OK
+         um8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792131127; x=1792735927;
+        d=1e100.net; s=20260707; t=1792131132; x=1792735932;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8JY0PAJ8qLoMlN4L9aNAG6FBeK4r0HomK4GOKTTjBOY=;
-        b=UEzRHW+E2+bqn/Y9u5vT76NPTkKhmFqaqvi4NnG11Zqm3/6QcA5P3gBymd6RdyPpBe
-         n35yoJ4hf1XG/5pKONMem7G6FyWPBsU2tboj2BM8ptyQnakTInxoy5r53p72o4CYAVtm
-         /QPUdwQU164qrgnLquGMouKdMdPuQaD/tAQ3ZXFwK0aZGjDG0ppc1HSBjCCs1iEONFYP
-         Bu+z2iUAdN68D9JTJo1PaJ7vYYoh3ZSvvBN54nPjPQ/k69sJ+dIRD00bXvQRk0L37610
-         KvZ92fr2oVIIOG7ZUEmPM/pLqaCKhw/Lx1nOBEvq0BdfFHSjtKj4CqGytuoeecU4kYlZ
-         H5MQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxmLaDxvuXmVpaaZhO5f/3r38sw/GvfD1RAtUfYWCLOBDXT4m0+ccL3LLlUQmbjhlSQOXL1Jn4e3TwlPzs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKF9qkMf2MxDOIh95sF/cKVREKI7Xcjz6oHQCl//5KH+tmGSrgL
-	lxu7443YZh2c5sfhIzzjLkzNks0DjgR2oerbC9nGd+sBe0qzKvLjMwC1
-X-Gm-Gg: AYBFou2+Z7pj0kICiOP17udcrylLb9+MBaCViDlzvW6cWXN4PKZX0sVxBspIDaStint
-	sfhItHG+d45B3XGqSx4nyNcbM7q0rmvfyY1XsEc9wEWssHuIkY8KYkGjDqGtrISZT3l8nh0dqZN
-	TeuIn5dteRbBPqBFjN2jVPYiaSJzPT8/UWNiKXFg6GqUOm79oxzNA1+TeltvgfhhiQm51RANYlp
-	MG1cqsIx8aOFajXzNO3L2AdEjeafgztDPa1ixVv6vSjrKYi6C2PumQEqBBTxoUQcfbMHmxbZ9VH
-	gcG0p7+LiBCFhnzRbzD8Su62oASTo72x/85J/0BxpoVPYMaMqeXs9Rq+sa/DgoeSK0vYAKBaVPz
-	uhyld8VjltNwRuz5A3w+XRIDt/mDgtD9TOUK6Ox9rTyvTRdiRXhR8kX3VJrx+I/cW1biotn5HgI
-	g3vR25ulCUg8t8l4qPI9CNuFg7g5Va3mSNEJvyuw9Kyl7eIuPt5z/oA8OPIe3WybCsCQ3PA9lPt
-	BO4lQbd8SzO7jAhgb+agkgox932+SjVks+QvlOqRhrXFjw=
-X-Received: by 2002:a05:7022:ea8b:b0:145:287:ce91 with SMTP id a92af1059eb24-16a5c6ec19cmr28597123c88.14.1792131126858;
-        Thu, 15 Oct 2026 23:12:06 -0700 (PDT)
+        bh=6X6wzE3wvd9aUwN+DPOs4etEkN6w/QmC2PVX0ZhQI4I=;
+        b=y6TyjhCJo6MkO4ktMPHBAgAR/2doTWzxkMHw4VsYXwDXSqeu2rZnGCqV2JWvgpJgpV
+         TCEIAA9J2WoqNXyuRpjdiPZ88anGqAY6yln55BFjTOrAFdfModKsVQI3Vc9uKOnQOgYq
+         l6FVJSJyrXaZsbfFfjb6EYy/YnicKyWhWHkE06VZH3oDfDu1WJjcosspebUrxIJ2bZm0
+         y/C/pD1a+sAIIa/FNpIrW8ONBdCVdGTAuALmt0m+8368zr6nkH9u578LQwU85wbtMg7z
+         gBIU11R+No/lRgMLomWfz7/kSqofdi7GtT2YyHBe7oO8Rxrd5/CqK49TL58Q/fL4bG6O
+         t0og==
+X-Forwarded-Encrypted: i=1; AKwUvByx51TPjvzk1JDKRcoapLjoRX8Fc4TqnKKkHsb9C50utH7s+wemRA/vKfl6V0CV67Tj0wezYU/nWBYf1m8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL6giju5C6jmXpr8vCchOnp5AUjtU5cp3k42j29JbigUY9wSWw4
+	SjISYC/TYAcUdcYlsOgzLiZ9xUishoYVfq1t4brZ8LPwb1M9L1PB2vUk
+X-Gm-Gg: AYBFou3+P2C4KPfPrXfbrzt/A0S/fTY8YLC554pQ4qTu+b1RjDSVmUtuOKWlqexhP6g
+	1Nm6jQTNavGuh1qZrNsug2Mt8Sldmz2xtZy1vY0Voh6B+BJhke9ihlCxPJxiTNDL9p7g/R3rCHL
+	im65UhkFZj6SrN/rgTk23JeKhTXAnwI56Y/Rn8Uxb30wwZENj4KcDMA9RXFcwHUzVint7aroLpB
+	Kc3XZ+CbC16UtYKMR8k9XMpR+CaZ0OfQ/D5tT1VRJhe3C2bYy/A8CSCrrWkwLAZQomjn1QrolHT
+	8ydJPMxxnzX0OvUwkJdvyWjQmQ4F0oG1ht+abxi+DnhZyuDvF7W36XhXRixWQsMEAjTQC4hdOMA
+	vMqsdafeqwcSNhjuMbILVDzspkV5Yp+gOnNgph2xX40SkaT2QrQTTDlp95/M8RF2lowQEx1fyaY
+	5ZzVy2qkVq537Nm16DwoWzZzQuFUvVjQvvZxf3cLa7CrR8zPUveV8M/mGX5BlbafhN47iOzjZoj
+	sBOdWcgTJweQkWTOtPuhoLg/PPaTKWGAst/JsGj2/AqU5k=
+X-Received: by 2002:a05:7022:ea8b:b0:16b:fdbf:4a9c with SMTP id a92af1059eb24-16bfdbf4fe6mr23611687c88.23.1792131132120;
+        Thu, 15 Oct 2026 23:12:12 -0700 (PDT)
 Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan ([183.242.161.82])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831acba710sm3755480c88.13.2026.10.15.23.12.01
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831acba710sm3755480c88.13.2026.10.15.23.12.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 23:12:06 -0700 (PDT)
+        Thu, 15 Oct 2026 23:12:11 -0700 (PDT)
 From: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
 To: Marc Kleine-Budde <mkl@pengutronix.de>,
 	Vincent Mailhol <mailhol@kernel.org>
@@ -71,9 +71,9 @@ Cc: Chen-Yu Tsai <wens@kernel.org>,
 	linux-can@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 3/4] can: janz-ican3: don't discard the IRQ lookup error in probe
-Date: Fri, 16 Oct 2026 14:11:38 +0800
-Message-ID: <28add8d0570b72d35c65c19b2365007cf0aa15c3.1792118040.git.chaosheng.qu.linux@gmail.com>
+Subject: [PATCH net-next 4/4] can: ifi_canfd: don't discard the IRQ lookup error in probe
+Date: Fri, 16 Oct 2026 14:11:39 +0800
+Message-ID: <165f3fccb8faf1db65e8f18dbee4694c95266e31.1792118040.git.chaosheng.qu.linux@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1792118040.git.chaosheng.qu.linux@gmail.com>
 References: <cover.1792118040.git.chaosheng.qu.linux@gmail.com>
@@ -85,46 +85,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ican3_probe() collapses every failure of platform_get_irq() into
--ENODEV:
+ifi_canfd_plat_probe() maps every failure of platform_get_irq() to
+-EINVAL:
 
-	mod->irq = platform_get_irq(pdev, 0);
-	if (mod->irq < 0) {
-		ret = -ENODEV;
-		goto out_free_ndev;
-	}
+	irq = platform_get_irq(pdev, 0);
+	if (irq < 0)
+		return -EINVAL;
+
+The driver matches through an of_match_table ("ifi,canfd-1.0"), so
+of_irq_get() returns -EPROBE_DEFER while the interrupt controller has not
+been probed. The probe overwrites it and the driver core stops retrying,
+leaving the device unbound even though the interrupt controller appears
+later.
 
 Return the lookup error unchanged, as the neighbouring CAN platform
 drivers do, e.g. commit 057bd6168d98 ("can: cc770: don't discard the IRQ
 lookup error in probe").
 
-This driver cannot see -EPROBE_DEFER and the change does not fix a
-deferred probe. The device is an MFD child of janz-cmodio, which takes
-the interrupt from the carrier board's PCI device, and the driver has
-neither an of_match_table nor an ACPI match. The probe should not invent
-an error code for a lookup that failed for another reason.
+A device tree without an interrupt now reports -ENXIO rather than
+-EINVAL; the driver core treats both as a failed probe.
 
 Build tested on x86_64.
 
 Assisted-by: LLM
 Signed-off-by: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
 ---
- drivers/net/can/janz-ican3.c | 2 +-
+ drivers/net/can/ifi_canfd/ifi_canfd.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/can/janz-ican3.c b/drivers/net/can/janz-ican3.c
-index 1efdd1fd8caa..a65326b0f11e 100644
---- a/drivers/net/can/janz-ican3.c
-+++ b/drivers/net/can/janz-ican3.c
-@@ -1944,7 +1944,7 @@ static int ican3_probe(struct platform_device *pdev)
- 	/* find our IRQ number */
- 	mod->irq = platform_get_irq(pdev, 0);
- 	if (mod->irq < 0) {
--		ret = -ENODEV;
-+		ret = mod->irq;
- 		goto out_free_ndev;
- 	}
+diff --git a/drivers/net/can/ifi_canfd/ifi_canfd.c b/drivers/net/can/ifi_canfd/ifi_canfd.c
+index 9eecfe5a87bd..e0f5abd934fa 100644
+--- a/drivers/net/can/ifi_canfd/ifi_canfd.c
++++ b/drivers/net/can/ifi_canfd/ifi_canfd.c
+@@ -965,7 +965,7 @@ static int ifi_canfd_plat_probe(struct platform_device *pdev)
  
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0)
+-		return -EINVAL;
++		return irq;
+ 
+ 	id = readl(addr + IFI_CANFD_IP_ID);
+ 	if (id != IFI_CANFD_IP_ID_VALUE) {
 -- 
 2.43.0
 
