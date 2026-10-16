@@ -1,65 +1,66 @@
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8464446FA
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C945A3B9618;
+	Fri, 16 Oct 2026 21:15:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792185309; cv=none; b=rj3L0KMrIho76+OXAv9YQEGJxpY0uPwNSatc0O38KJx9O8TO+9a0Ey39xUM6R99xopAYepspnPd4NxYJP/hqO4/HKhwU9pdgGsfLtlvRVGUASPypbqSZ6gv+1e+lMquRirWonmkW+D+9e7bxzYxx+FMzhMYVi2+XeG3BOt859Yk=
+	t=1792185325; cv=none; b=SzJO0khOvUsuXU++B1mt+u+LbGz38NvPkITlIJiGfmn2184+EmX6+RNkxRH76APuuvPKINaEyARRHNzDF8pu+eYs0tcRnKIUfmToZNyBvUeu/To+etzpd/hpyh/kg+iqaPQieXbLcBNfg9jQjVj/LYJx9w6L/zXvxYFsbRf838U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792185309; c=relaxed/simple;
-	bh=yriD6uTUC4utVl0VQfR0kaNvh3CTGmhVvw9IdhjcU9U=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sHopKJiD4QcIDxwIUxRg5fKau9zXEEVo8bUxoEpL7iJOl6vyeoVDRqXvOrSrKXBviSnCBGopgYGdYgSUcUQJ6HRnzVKAsv0RuqwXbF4PwLBdekLptNPZ1/W/fQkZrDuZ/x7Gjnxbl1fid4drWO96OPhJo1BoicQNBu/z6BdWP5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=ka542Eie; arc=none smtp.client-ip=109.224.244.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1792185325; c=relaxed/simple;
+	bh=uvOCeyTWk32Oc8I9oURGHXBD8dLhY+Awni9PyG6hjQw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VkR6Z2b1UluYsaJWC+GVMJCpLgZkolnDg6hytdOxogXNlR0okzekWqMI5EckTIfgY7T7S+JzjNwwmZKnfFR/4MBsi1NwteGWXTvHDpRyttd2gMjaXhTCBpOy5h4F2+FRATA5AUlvzPXKdsyCl8jKlRSD2Cu5KGHe8OFCA3y/x5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=LuBokLXw; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ka542Eie"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792185305; x=1792444505;
-	bh=yriD6uTUC4utVl0VQfR0kaNvh3CTGmhVvw9IdhjcU9U=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ka542EieI1HlnKcdLNL5Kb8J/GV7sNF9S/D9bPxc2PYgNpB7HkVAmckd9Ene/fA64
-	 38M/Xpt6rX3wxU/ObwQa7XYdFcZ4bjAPhbJVe8w11NdOoQ98/BAkoPwiT/a+E6G+Fx
-	 QBTCvBRNSkgLrDA0VCjj6A2L7YRSXRZVFaYYI7KSZYQS+ZlKKVqRfd4x5FwsYfr5J/
-	 bRU7JmIyTqx3TalLOC8QogqdE4MecepVvrnRcr8XLvTf6J1C0jeFHADurDPPogdr+p
-	 PUf/yR1aEHY2SZYJMP5yBQKt07oI23TfnEsj7ssx+elVu3xQYWXkrlZ9MQQ1zSP0zh
-	 rBUpbqDIULxlw==
-Date: Fri, 16 Oct 2026 21:14:58 +0000
-To: George Neacsu <geocausa@gmail.com>, Bryan O'Donoghue <bod@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Andre Gilerson <andre.gilerson@gmail.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 2/2] media: i2c: imx681: Add C-PHY support
-Message-ID: <20261016211450.62994-1-lsa.uz@pm.me>
-In-Reply-To: <20261016160853.193378-1-geocausa@gmail.com>
-References: <20261015-imx681-x1e-v1-0-fd22f5f3b0c5@gmail.com> <20261015-imx681-x1e-v1-2-fd22f5f3b0c5@gmail.com> <11f1a19d-7d57-497f-826e-901f9f88b99b@kernel.org> <20261016160853.193378-1-geocausa@gmail.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: f8ff3cfe9572acb7d8752375a1bfad56a4c2b617
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="LuBokLXw"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=ivDw6bJhoWzzKstC5AO/as3JqfLON/2q0Bd7LFscufs=; b=LuBokLXwYer51MILgIjAoeX9Tm
+	uyOPlz0ng01ZNyty1Dq0OKzVMVErhIVNOsdOb2iXOWe7DuZSWfyrNjZPz6XJbJnsVozptFJj+Wrzu
+	Jvp+nfZnI7/1KuduKcSwDCPXs9q2Afx+n9le8SOABISZVlROHqMrAZ9JxSvDfvbGVvjo=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xHpGn-00BEDd-2K; Fri, 16 Oct 2026 23:15:17 +0200
+Date: Fri, 16 Oct 2026 23:15:17 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Robert Marko <robert.marko@sartura.hr>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, lxu@maxlinear.com,
+	hkallweit1@gmail.com, linux@armlinux.org.uk, michael@walle.cc,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, lrosu@maxlinear.com,
+	luka.perkov@sartura.hr
+Subject: Re: [PATCH net-next v2 5/5] net: phy: mxl-gpy: support MxL86211C
+ lane mapping
+Message-ID: <3840f9a8-ef21-4f15-b5f6-3d32251775d4@lunn.ch>
+References: <20261016112033.949026-1-robert.marko@sartura.hr>
+ <20261016112033.949026-5-robert.marko@sartura.hr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016112033.949026-5-robert.marko@sartura.hr>
 
-Hi George,
+On Fri, Oct 16, 2026 at 01:19:36PM +0200, Robert Marko wrote:
+> Configure the MxL86211C mapping from physical TPI lanes to analog
+> front ends (ASPs) when specified in DTS.
+> 
+> Leave the hardware reset mapping untouched when the optional property
+> is absent.
+> 
+> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 
-On 16/10/2026 17:08, George Neacsu wrote:
-> I will also read the CCS capability register 0x1602 (bit 3 =3D
-> C-PHY) here, and Sergey may be able to read it on the Intel model.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Read on the Intel model while the sensor streams on two D-PHY lanes
-(model 0x0681): CSI_SIGNALING_MODE_CAPABILITY, 0x1602, is 0x04, so bit 2
-(D-PHY) is set and bit 3 (C-PHY) is not. PHY_CTRL_CAPABILITY, 0x1600,
-reads 0xff, every bit set, which is also what an unimplemented register
-can return, so I would not lean on this block alone. Either way it does
-not show C-PHY here; your reading on the Snapdragon model will tell
-whether the two differ.
-
-Sergey
-
+    Andrew
