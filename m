@@ -1,64 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFE13E3151;
-	Fri, 16 Oct 2026 09:47:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6DFF3FFF9D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:47:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792144035; cv=none; b=nSjQCfuAh2srVkM7+K1TTEzOopSB3GlxJEOVJszAmQj38hV/zLi+0uB7zexfPhNGdO6N6daGnTzi38jcASN6enn1nFqWnzlph4UIAl0drJaP9MMhtizor9pUH97UBUqPhwOyBCphpS5mpWN14eTPJb7XN/a7cEqnEGxcw1nBeKI=
+	t=1792144047; cv=none; b=F4DKFzAMu8WpbUmePNfs2R8Eum22UNKEhZMh5ckkzdFsyb72iwjTQUzx74fc1jRu/HtDEVRPF0R+ru2qN4Yq+YgCsmqku8bHdq965r9XWz2NKy1YVhhqz41yBclMXqHYJTVqfOMbifU0eA+yH4mG5bYvuBUe5P7M5a/HcYV8X10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792144035; c=relaxed/simple;
-	bh=ZOYydDlmEgzriDQWPacHOTU/xDuRElhEUVV23N2F6eA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=tNWd1+EyIpxI5sldLgqpm70LFahzN+SjmbcUoh1SH8FtABu2zdqP8Bw8gbKEhqFaZ1ndDtLtFgWvT6yDuh0/v/p3E/w/XqAfELJgW33uHONM6gcQgBNCIyoTZbk7hqhIGfoajvH2lBs+hrY/Z94na4m0ye9NMZWPMRhRrUnMnKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J6sAAOFi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792144047; c=relaxed/simple;
+	bh=/6bOhgavwLkfu7osE233gpBu5fCr5YepuuO9BGSvMqA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LrHT8/aDLr46C9Tu0S0WmL5g3fIjmTcFLZqepRG4Xo3J7oHq+STdLbmvVzESbd5xwb7I3egZmExehJmbe51tuknmldgHZqDkH3WXhW0AMis6/LIwnLaDA2thm3jgtIAMfiB1qqHKCwh+ul1WPe0ibNFH8wNDcc1ONA2Tw8IX7xw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LLJguYNV; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=PYpA+yMa; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J6sAAOFi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 138A01F000C5;
-	Fri, 16 Oct 2026 09:47:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792144034;
-	bh=NPbmmExBaAac8C63fvfQqxtmvebEOFFyFE4QwQXHOog=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=J6sAAOFirKTiuXvu2u+yEwIPTA6HI4OzYmwg6p3vJsph3T8n8LVqnG8TtrPZeCCfh
-	 frDp4ZPZYoAd2Idncla7BPuXicOSJfdVj3n397mJ8bubV6znhtFeUHqMi6Hb84/a62
-	 KYO0GfpfZoCwdSRxl3wEV8X2kebaqklWSffQdlNLyD8YTXaKRkJrMRkyu+HFH30MJ0
-	 /S9pRMmMP0RsksJfghxEEH7nkhhVPzC77lG0+q6SUJ0GezBwOp8r+9F400DnbzDclK
-	 Wgu/3InZSeo0bZILZPgDil06BNFgjIgSc3wiMBQ5xQJ4A1GX8lCPV7nbXzPvf099MB
-	 +nmXgcrdYlaNQ==
-Date: Fri, 16 Oct 2026 11:47:11 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
-cc: Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
-    Aditya Garg <aditya.garg@linux.dev>, linux-kernel@vger.kernel.org, 
-    syzbot+5ad4fc9c8360b68e353f@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] HID: magicmouse: fix null pointer dereference in
- magicmouse_event()
-In-Reply-To: <20261003072959.388811-1-nehuenlian.kernel@gmail.com>
-Message-ID: <q564sq6p-r544-96n2-4q8p-n11p35p30959@xreary.bet>
-References: <20261003011820.1295672-1-nehuenlian.kernel@gmail.com> <20261003072959.388811-1-nehuenlian.kernel@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LLJguYNV";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="PYpA+yMa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792144044;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tbR14oJGPzfB2FN3IihSMtrRfZxHPOZ8SpBePeCP3+Q=;
+	b=LLJguYNV0QOMOfRRPdJtyj6zslbI5Bwb1pFFt5qx942i/QphEMqtbG3nnHJi5RrE6+TxR8
+	mVg0ICtf2U+7O9soqjhg+2/NFD4/gW4MfoCUg9Xlm4Wp1uTNo1bT+Imt8mvqiFiYBnNtHc
+	PTkZZHZyflSQpVYWAYN7sAQskjUBaNo=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-676-wsMAFC_COXiqSRknHnTiLg-1; Fri, 16 Oct 2026 09:47:23 +0000
+X-MC-Unique: wsMAFC_COXiqSRknHnTiLg-1
+X-Mimecast-MFC-AGG-ID: wsMAFC_COXiqSRknHnTiLg_1792144042
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a1bfd5516bso17751445e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:47:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792144042; x=1792748842; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tbR14oJGPzfB2FN3IihSMtrRfZxHPOZ8SpBePeCP3+Q=;
+        b=PYpA+yMaY0zjApl+C0gkRZ+mOR6fSqZ+7HFs9dYmeFDvWffhZD9G0JmCevu3UwByXF
+         sfFnq8FEVL/A9TNpz6Qx/IWNNGYJa2uktUtiqFZl+4KvuOsc4wQNep3V7o4fC4aXOaVG
+         JzpTZCDpUi7WgaRiiqfpsZd61H5NcO7kcdZjAKgEh3Ip2vm5LeFuAM8j8AcLowP/4Bps
+         bXQBsICdxQTA2eTUErNH/VyNPvVQKv+c4dqXwUmsZ/15q3Dl9NCbD+NhB3iJRMc3vL78
+         bkEAiThapeK+neC91FYLuZOBMIo+1LbZFMpxIbXYq0sLEJLdllek1nTRYR3AO9RD+BaS
+         y+jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792144042; x=1792748842;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tbR14oJGPzfB2FN3IihSMtrRfZxHPOZ8SpBePeCP3+Q=;
+        b=09tQBphfRuaDX5jCs/jYAfv1Hs1OocLqJbgygroA5dG+UYkejSLWTfd/cWaSwOT+jn
+         yZHUBa6gJKXLVN9hItXKnOrp6wTwgsIvEbo0EgIaqQ3cDaM4DHmr0cSVwvvNyw+1iduz
+         7lbmnJP+xGyW9wW3U00fIW1sWW4bu/oFkxoyEJ1ISfErGQt1TwH00CXmIG0ivdUvavf6
+         mtVKOm01l6g57FLUN/znFvcwtJjTwsOfvZNviRARchwIo2+MV6UrOIYO6BYTxOnUPQEE
+         m1zcickp4IMS+aYaFWVV/yzsXbQGRS8790exDVWtYZnxoendj+JLTf2vzsYoAX/q4E11
+         mxRA==
+X-Gm-Message-State: AFq9FYKNj+V54SAZ3QSZVUKZZcxPUXBqI4Zi1EWmQ+QRLZF5yT2a35GK
+	d3RyRnAgVGCnctbC2ObqfsqO2YqtJCaTb7EgsVT/ZaymgnIJxw5wIYtgkRE1uYFXXaSoagUa7WH
+	P9UQUy/6IOeVCRa+cpd7lXKsog7CAhpUtqg5kwTa5O8lH0JzPhR75Zh/X5eX10ovd6w==
+X-Gm-Gg: AYBFou1Dr5Ut1V7bTq+jDrjgcE9YPo//D8MyhY3jUTDbKoS2NccitNJLHeRQIJE+ynC
+	gdCNL5T/BHCZABcAX/15NJFIxDPYyRgc5paSA9xRjD3np1duhthKJY22pv0exDIAgZzmyqLpFtL
+	uCM87erQR8HoOdMKrlcPKMvHOl9P1tsIIwpxxA0VNwEvgeseSr/H1US3bMLw8q/CUh5bBCfCDfZ
+	pbuGW0wJguTITg3kdxx2DJaY3Fg5wQFHyqeiyJAdMKiohFZvNucSbXCsux4ZgmWC8aln90MloNK
+	jG4WZ1wzT6O2YNPdlOdlqsWpLNvo4cV5Yh7umEPXq7nEocx9mcikrD4mLR2JUl1Opx6NOw==
+X-Received: by 2002:a05:600d:82ea:b0:4a1:cedc:ab49 with SMTP id 5b1f17b1804b1-4a1cedcacd6mr26955365e9.31.1792144042069;
+        Fri, 16 Oct 2026 02:47:22 -0700 (PDT)
+X-Received: by 2002:a05:600d:82ea:b0:4a1:cedc:ab49 with SMTP id 5b1f17b1804b1-4a1cedcacd6mr26955045e9.31.1792144041692;
+        Fri, 16 Oct 2026 02:47:21 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8d12sm4029612f8f.36.2026.10.16.02.47.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 02:47:21 -0700 (PDT)
+Date: Fri, 16 Oct 2026 05:47:16 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-kernel@vger.kernel.org,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	linux-um@lists.infradead.org
+Subject: Re: [PATCH net-next v2 2/7] um: vector: honor virtio net hdr
+ conversion failures
+Message-ID: <20261016054558-mutt-send-email-mst@kernel.org>
+References: <cover.1792067836.git.mst@redhat.com>
+ <6716834884238de0ab1ab313004044122aa2adbf.1792067836.git.mst@redhat.com>
+ <8420ba1fe84fc7d105825026802d4ad10d44af71.camel@sipsolutions.net>
+ <20261015085119-mutt-send-email-mst@kernel.org>
+ <64ee40b97fc447bbf3abb80250ad0d9f3cf3c6fa.camel@sipsolutions.net>
+ <20261016054142-mutt-send-email-mst@kernel.org>
+ <18ba10ec7aa6659ee4711f8dd3f3138e314e4af6.camel@sipsolutions.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <18ba10ec7aa6659ee4711f8dd3f3138e314e4af6.camel@sipsolutions.net>
 
-On Sat, 3 Oct 2026, Nehuen Lian Bova wrote:
-
-> Add a guard clause to check if 'msc' and 'msc->input' is NULL
-> before attempting to access its fields, preventing a general
-> protection fault.
+On Fri, Oct 16, 2026 at 11:44:16AM +0200, Johannes Berg wrote:
+> On Fri, 2026-10-16 at 05:43 -0400, Michael S. Tsirkin wrote:
+> > 
+> > > > > > -	virtio_net_hdr_to_skb(skb, vheader, virtio_legacy_is_little_endian());
+> > > > > > +	if (virtio_net_hdr_to_skb(skb, vheader,
+> > > > > > +			virtio_legacy_is_little_endian()) < 0)
+> > > > > > +		return -1;
+> > > > > >  	return 0;
+> > > > > > 
+> > > > > 
+> > > > > Seems it'd be simpler to just
+> > > > > 
+> > > > > 	return virtio_net_hdr_to_skb(...);
+> > > > > 
+> > > > > As far as I can tell, the function only returns -EINVAL or 0 (never a
+> > > > > positive value), and the caller only cares about negative (error) or
+> > > > > positive (no checksum needed), so that'd be equivalent?
+> > > > > 
+> > > > > johannes
+> > > > 
+> > > > if raw_verify_header can safely return any errno - i did not want to
+> > > > audit it.
+> > > 
+> > > You already used an LLM and still didn't want to? ;-)
+> > > 
+> > > I checked briefly (by hand) and it seems fine, it's assigned to the
+> > > function pointer, which only has two callers on the _kern.c side.
+> > > 
+> > > johannes
+> > 
+> > 
+> >                                header_check = vp->verify_header(
+> >                                         mmsg_vector->msg_hdr.msg_iov->iov_base,
+> >                                         skb,
+> >                                         vp
+> >                                 );
+> >                                 if (header_check < 0) {
+> >                                 /* Overlay header failed to verify - discard.
+> >                                  * We can actually keep this skb and reuse it,
+> >                                  * but that will make the prep logic too
+> >                                  * complex.
+> >                                  */
+> >                                         dev_kfree_skb_irq(skb);
+> >                                         vp->estats.rx_encaps_errors++;
+> >                                         (*skbuff_vector) = NULL;
+> >                                         mmsg_vector++;
+> >                                         skbuff_vector++;
+> >                                         continue;
+> >                                 }
+> >                                 if (header_check > 0) {
+> >                                         vp->estats.rx_csum_offload_good++;
+> >                                         skb->ip_summed = CHECKSUM_UNNECESSARY;
+> >                                 }
+> > 
+> > 
+> > 
+> > so any negative is fine, but if we return 1 then it will force to CHECKSUM_UNNECESSARY
+> > which I am not sure is what was intended?
+> > 
+> Right, but virtio_net_hdr_to_skb() cannot return 1, only 0 on success
+> and -ERROR on failure?
 > 
-> Fixes: b8d56ef91cc3 ("HID: magicmouse: Apple Magic Mouse 2 USB-C support")
-> Reported-by: syzbot+5ad4fc9c8360b68e353f@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=5ad4fc9c8360b68e353f
-> Signed-off-by: Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
+> johannes
 
-Applied, thanks.
+After this patchset, it can, to signal slow path software checksum.
+I'm changing callers first so that changing the function itself
+does not break bisect. I should mention this in the commit log.
 
 -- 
-Jiri Kosina
-SUSE Labs
+MST
 
