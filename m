@@ -1,186 +1,154 @@
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C026E253B73
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:32:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD6C222580;
+	Fri, 16 Oct 2026 02:34:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792117952; cv=none; b=HDxXgsrrT7kPdBNIGs4CUrLzwB488Y6uEM/LAzMlcymkwYwg4t8GFaqlmYYTawesY6arKikNFcYcCQim/09ketXPF1deWml0EKVcrfv8R6M3pRTIRc18HK1t4Efs8d7gZvH0mK6ZVAJBE8HLtquw+NPPOTPHFiyUrBfH26i804E=
+	t=1792118046; cv=none; b=T9VvHgUQlZzJ1u86R1q95TKq4uiAiRzAaeU+QmZUmOg/JLGBdIjQ4NV9H8FQsOVMRhjRRrxZE7uI/t/xFAOQqClhU5zDGORmvjkRvNAdDCd1QT804MMN/vAuAwbzRxStYyNn6EMnwkojXgM4G+ojGSfzlZG87QDHp1eNhsgF6aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792117952; c=relaxed/simple;
-	bh=Jwbt4sna4q8SKqLdUWxKiDuVxC9GU3p1BMahIzU/F2A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oRFQt2f305vKf6FWhe5+NMY/F4nmZN0IevAZrZ2VQ7IYajmJs441q7WiVqekIx2mRNT9GSzApVpIXAjTU47YBUhPPHzp1KKwfR7+JfHhi7B/j91XHfGt4UkXpaTmZ2qbaV6N+WN9Gqlt6blrXRJcfJjoBIgRKyztmagugGEV63k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=ihfPfg1D; arc=none smtp.client-ip=74.125.82.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1792118046; c=relaxed/simple;
+	bh=2mlYCwTuDre2pY1UtM0QzTBYr7c2iLuTUGPMKaJprRg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JQBHcFqY0J2VH21EywwaztEVTl0FiJbN590JXZ5RRrRv6O1sa68+cU4hnWys3SK6ApEQREpJX6384rC+viI50QbLu+ZRxm8dV2JzVWgkEKzq6zIyCq0HuIJQS0Vn9AC8HQlbxNP3HPaepKRdCXLy44/BvMs2gyezj+Kp7joW5/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=j4Yy7sNx; arc=none smtp.client-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="ihfPfg1D"
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-17bc533fda3so2911562c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:32:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792117950; x=1792722750; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B9xTWWD9mfzJtMcAru9lP6tSUbC9S1bscJnItCWs39w=;
-        b=ihfPfg1DOeIlqGcgUwVDOXhrTBDxBBdUFyXNgVcKv0evpDlm0VwnnPBM3v9CkDpfDb
-         b0VFEVLcuo8frMM2nZBGRUu5vr1UQ/kqVZeyrNqND2cSy5Gpt4kxYbeDSmub2frUQTFk
-         21SHyDQ72+CZEMbzC/LLvmXKyBZe6vyXQK9Sq3sT69TiMa5VsA5hpLice1AmsvNzldAW
-         end3lw5NHaVorHfSVxIiltN1FKZi3nK4y8o8xuy30llVPjrpYJDwd+p0DRDH1+M3Th3/
-         JM5csGr4LgYDFNvMtt0lJFLpoWFTGLuUahfnje5Itq/8T8PVNHHt7sgirhb4BCMr2m71
-         Swpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792117950; x=1792722750;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B9xTWWD9mfzJtMcAru9lP6tSUbC9S1bscJnItCWs39w=;
-        b=iZJlNan0Wc+dCj9XDG5jck7qeAoKspUZ28XbD/p60E6tmJ8Md6absbHoNqPp0ALJN/
-         FtzzjIMCO0C4oS7QJ14+BysF/XPOzQ5jx7GlajHMzyFWa5HorWp3Ay2TSb4UTLoqIxJH
-         4p5m60/1FZpJrguxyweBqwWWiaaPqkM9O7CR/Qk1gdQBWbvzX8Mqi1ShPTJigBNQ9lct
-         S039d0UuzqgHzu1nxLf1Qq9n4ChTFqZ3KFiRUX9SluA9A9wwz2kQRU0Gi4jN5S1XE1OQ
-         Wr2RpPf8J+dPS/kuPB12eWAbRdVDSxnot1WrxqXIJHVyfSXNN282R/1WGkSXsce1CxRq
-         hCLw==
-X-Forwarded-Encrypted: i=1; AKwUvBwZ+67imLEfxoXibbPx+Y/MHOZKQBMi7V127VwlHW22SwzZgmmhmaqcknH+V4CPuYxNAPtlQT+WWy0l3FI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+GbyE35/Qy35WyP9w14O5A3fKNZdBbLBgwbK/yH5QKMqNO6nU
-	CSpLi/5bnwmcNQwgQiT/8NUNZEXXv/a09EHjGn4q1YYaEhIuy6ViOsSf/0KKbuT17a4=
-X-Gm-Gg: AYBFou2AiOuLkxLDgK7K4wh+O+xZDonMCWoRpPSmu6aTWaNvZKwZXL27oCJAmWHgU9n
-	HEhHAIjGP4+CJNfRdl+uJywXWlraFr9cItfGbY2p+hNWIZYAWSOnACYl2pL0z9MhGjmOOvd65UN
-	3aX/6s0g9LhSpS6YgUusx6Gtg6ZYb9xVZQWGfLSiR9XUdQRW+pr1t00QD1obwf5sQJTgk4L2vdU
-	F1lxYX+TPboammRhWN0c5G8h3lejeQnCjNGmiDQTHyox/Vpt/uZkxjU3VHSIIaQvjIhg8isTojF
-	aBH9e+rFD8V5DJCOj2K3ZdEhqcC1mPKrqtRAck3AzYOi5LIzqaSPKI0m3ETO6IBLJKOIVSltild
-	sz3aBr1AaMH6W1iKK4vxpheC1n6SdVRMe4UZ1DNDzNg0m1BG1vIadUoakXzyRNUq0f9BEDbezZt
-	TCa5KCbAknFzxDUwqwG6YYIHH6NRoZJv+NF7DWp5dnx1ZXTLIioGylkSI1rPvH9LqdcXgN59RIB
-	cpCGOw/A68zojNNTALwEvD4PTiLu15nU097lLtSN25iN+qnhnM4EW+Xr4nzggv/RPiA9g==
-X-Received: by 2002:a05:7022:171c:b0:14f:8e70:fad0 with SMTP id a92af1059eb24-16a6090d024mr26389777c88.33.1792117949507;
-        Thu, 15 Oct 2026 19:32:29 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:d66:d0e8:dae3:3257])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6791sm2233692eec.6.2026.10.15.19.32.27
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 15 Oct 2026 19:32:28 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: andrii@kernel.org,
-	ast@kernel.org,
-	bpf@vger.kernel.org,
-	contact@arnaud-lcm.com,
-	daniel@iogearbox.net,
-	eddyz87@gmail.com,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	jolsa@kernel.org,
-	linux-kernel@vger.kernel.org,
-	martin.lau@linux.dev,
-	memxor@gmail.com,
-	song@kernel.org,
-	yonghong.song@linux.dev
-Subject: [PATCH 6.6.y] bpf: Fix stackmap overflow check in __bpf_get_stackid()
-Date: Thu, 15 Oct 2026 22:32:25 -0400
-Message-ID: <20261016023225.19034-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="j4Yy7sNx"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792118040; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=GwRBWNugQ+ez7PQ9anvHaCPoVAAqhLatL//ZldKkejU=;
+	b=j4Yy7sNxe7z7Qw9jfOs8+FQTof7RB5qWlyP/piynZTCl6X1pYGxmogjlcTFErzhd70ZYDvvubtCGaYX0Il4JGdCQ6ZrzCeeiRVupJ2HDHvc16SZ9LvxEsuD4mE3fTAdQJEyOh8V5LJ1f4WLDgaEVRUiHRF8YF6tEMWmv0ApanNs=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R591e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=peng_wang@linux.alibaba.com;NM=1;PH=DS;RN=19;SR=0;TI=SMTPD_---0XCtIv.x_1792118038;
+Received: from localhost(mailfrom:peng_wang@linux.alibaba.com fp:SMTPD_---0XCtIv.x_1792118038 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 16 Oct 2026 10:33:59 +0800
+Date: Fri, 16 Oct 2026 10:33:58 +0800
+From: Peng Wang <peng_wang@linux.alibaba.com>
+To: Waiman Long <longman@redhat.com>
+Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Peter Zijlstra <peterz@infradead.org>, Tejun Heo <tj@kernel.org>,
+	He Rongguang <herongguang@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org
+Subject: Re: [RFC PATCH 0/2] tick/nohz: Add runtime control of non-idle tick
+ suppression
+Message-ID: <atGNFhQk9Uj-wuVu@MacBook-Pro.local>
+Reply-To: Peng Wang <peng_wang@linux.alibaba.com>
+References: <cover.1792067271.git.peng_wang@linux.alibaba.com>
+ <8d10bb84-d312-4be0-8c43-ddd602850a1d@redhat.com>
+ <atER8P0ws6Gg4GWE@MacBook-Pro.local>
+ <f12ad8ee-4cad-4c7e-a0c9-c22fe894f14c@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f12ad8ee-4cad-4c7e-a0c9-c22fe894f14c@redhat.com>
 
-From: Arnaud Lecomte <contact@arnaud-lcm.com>
+On Thu, Oct 15, 2026 at 04:13:49PM -0400, Waiman Long wrote:
+> On 10/15/26 1:48 PM, Peng Wang wrote:
+> > On Thu, Oct 15, 2026 at 12:00:25PM -0400, Waiman Long wrote:
+> > > On 10/15/26 8:43 AM, Peng Wang wrote:
+> > > > Workloads and their need for periodic ticks can change after boot.
+> > > > This series lets userspace choose at runtime which CPUs in the boot-time
+> > > > nohz_full set retain the non-idle scheduler tick and which are permitted
+> > > > to stop it, while preserving the existing isolation configuration.
+> > > > 
+> > > > The first patch adds a per-CPU tick dependency; the second exposes a
+> > > > sysfs CPU list. Permission defaults to all nohz_full CPUs. Revocation
+> > > > uses the existing asynchronous kick. Idle tick suppression is unchanged,
+> > > > and policy persists across hotplug.
+> > > So you are basically setting up more nohz_full CPUs than the system actually
+> > > needs to use at the moment and so want to disable nohz/tick part of
+> > > nohz_full CPUs that don't need it. Can you elaborate more about the problems
+> > > solve by introducing this new behavior?
+> > Hi Waiman,
+> > 
+> > Yes. We have CPU-pinned workloads that benefit from reduced periodic
+> > tick interference. The desired tick policy changes with CPU allocation.
+> > 
+> > With spare capacity, we allow selected nohz_full CPUs to stop their
+> > tick. When capacity is fully allocated, we prefer to retain the
+> > non-idle periodic tick across CPUs, avoiding an additional difference
+> > in tick interference between housekeeping and nohz_full CPUs.
+> What problem does that cause?
 
-[ Upstream commit 23f852daa4bab4d579110e034e4d513f7d490846 ]
+Hi Waiman,
 
-Syzkaller reported a KASAN slab-out-of-bounds write in __bpf_get_stackid()
-when copying stack trace data. The issue occurs when the perf trace
- contains more stack entries than the stack map bucket can hold,
- leading to an out-of-bounds write in the bucket's data array.
+The concern is placement-dependent performance variation between
+vCPUs sold under the same specification. Customers do not see which
+host CPU backs their vCPU, so such differences would appear as
+unexplained variation within the same specification.
 
-Fixes: ee2a098851bf ("bpf: Adjust BPF stack helper functions to accommodate skip > 0")
-Reported-by: syzbot+c9b724fbb41cf2538b7b@syzkaller.appspotmail.com
-Signed-off-by: Arnaud Lecomte <contact@arnaud-lcm.com>
-Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
-Acked-by: Yonghong Song <yonghong.song@linux.dev>
-Acked-by: Song Liu <song@kernel.org>
-Link: https://lore.kernel.org/bpf/20251025192941.1500-1-contact@arnaud-lcm.com
+At full allocation, we want a consistent non-idle tick policy across
+the allocated CPUs to avoid this additional source of variation.
 
-Closes: https://syzkaller.appspot.com/bug?extid=c9b724fbb41cf2538b7b
-Assisted-by: LLM
-[ Backport to 6.6.y: stack_map_calculate_max_depth() was introduced by
-  e17d62fedd10 ("bpf: Refactor stack map trace depth calculation into
-  helper function"), which is not in 6.6.y; open-code the same
-  computation in __bpf_get_stackid(). ]
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi,
+> > A CPU may still have only one runnable task in either case, so the
+> > existing tick dependencies do not express this policy.
+> > 
+> > This series keeps the boot-time nohz_full CPU set, context tracking,
+> > RCU offloading and housekeeping configuration unchanged. It only
+> > controls whether those CPUs may stop their non-idle tick. The policy
+> > can be changed without taking CPUs offline.
+> 
+> So the policy is to make the tick keeps running when there is only one
+> running task. Right? I am just not clear about the advantage of doing that.
+> Is there a use case that will require this particular feature? I doubt this
+> will get accepted unless there is a compelling reason to show why we will
+> want to have this feature.
 
-Please consider this backport of the fix for CVE-2025-68378 to 6.6.y.
+Yes. We run cloud hosts with vCPU threads pinned one-to-one to host
+CPUs. Some CPUs are kept outside nohz_full for housekeeping, but
+they also provide vCPU capacity at full allocation. Dedicating them
+exclusively to housekeeping would reduce the capacity available to
+guests.
 
-The only difference from upstream is that the
-stack_map_calculate_max_depth() helper, which 6.6.y lacks, is
-open-coded in __bpf_get_stackid().
+At full allocation, vCPUs also run on housekeeping CPUs, which
+retain their non-idle tick. Allowing only the nohz_full CPUs to stop
+the tick would introduce a placement-dependent difference in tick
+behavior between vCPUs of the same specification.
 
-The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
+We therefore want to restore the non-idle tick on those nohz_full
+CPUs, accepting the extra tick overhead to remove this controllable
+difference. Host-side background activity is limited in this
+deployment, and we can tolerate the remaining housekeeping noise.
 
-Build-tested only as part of a cumulative 6.6.y series on x86_64
-(allmodconfig, CONFIG_WERROR=y); no runtime testing.
+With spare capacity, we want to allow selected nohz_full CPUs to
+stop the tick to reduce host scheduler-tick interference with guest
+execution. This is an opportunistic optimization when capacity
+permits.
+
+Host allocation changes as customers acquire or release vCPUs, while
+other customers' VMs continue running.
+
+A nohz_full CPU hosting a remaining vCPU may still have that vCPU
+thread as its only runnable task, whether the host is fully or
+partially allocated. The existing tick dependencies therefore do
+not express the desired change in policy.
+
+The proposed control allows per-CPU runtime changes without taking
+CPUs offline or changing the boot-time nohz_full set or other
+isolation settings.
 
 Thanks,
-Artem Dinaburg
+Peng
 
- kernel/bpf/stackmap.c |   20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
-
-diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
---- a/kernel/bpf/stackmap.c
-+++ b/kernel/bpf/stackmap.c
-@@ -216,7 +216,8 @@
- 	struct bpf_stack_map *smap = container_of(map, struct bpf_stack_map, map);
- 	struct stack_map_bucket *bucket, *new_bucket, *old_bucket;
- 	u32 skip = flags & BPF_F_SKIP_FIELD_MASK;
--	u32 hash, id, trace_nr, trace_len;
-+	u32 hash, id, trace_nr, trace_len, max_depth;
-+	u32 curr_sysctl_max_stack;
- 	bool user = flags & BPF_F_USER_STACK;
- 	u64 *ips;
- 	bool hash_matches;
-@@ -225,7 +226,12 @@
- 		/* skipping more than usable stack trace */
- 		return -EFAULT;
- 
--	trace_nr = trace->nr - skip;
-+	curr_sysctl_max_stack = READ_ONCE(sysctl_perf_event_max_stack);
-+	max_depth = map->value_size / stack_map_data_size(map);
-+	max_depth += skip;
-+	if (max_depth > curr_sysctl_max_stack)
-+		max_depth = curr_sysctl_max_stack;
-+	trace_nr = min_t(u32, trace->nr - skip, max_depth - skip);
- 	trace_len = trace_nr * sizeof(u64);
- 	ips = trace->ip + skip;
- 	hash = jhash2((u32 *)ips, trace_len / sizeof(u32), 0);
-@@ -354,15 +360,11 @@
- 		return -EFAULT;
- 
- 	nr_kernel = count_kernel_ip(trace);
-+	__u64 nr = trace->nr; /* save original */
- 
- 	if (kernel) {
--		__u64 nr = trace->nr;
--
- 		trace->nr = nr_kernel;
- 		ret = __bpf_get_stackid(map, trace, flags);
--
--		/* restore nr */
--		trace->nr = nr;
- 	} else { /* user */
- 		u64 skip = flags & BPF_F_SKIP_FIELD_MASK;
- 
-@@ -373,6 +375,10 @@
- 		flags = (flags & ~BPF_F_SKIP_FIELD_MASK) | skip;
- 		ret = __bpf_get_stackid(map, trace, flags);
- 	}
-+
-+	/* restore nr */
-+	trace->nr = nr;
-+
- 	return ret;
- }
- 
+> 
+> Cheers,
+> Longman
+> 
