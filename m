@@ -1,44 +1,44 @@
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.184])
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.185])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0CA4CEE4F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:37:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B6A4D2EC1
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:37:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.185
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161441; cv=none; b=uOv26q9b56gTcFE5u1HcnPm0KRfhTmbWVo9e6GG9Kj/7vpbpH9FzpkI+XkPFBJk7YNXIXcDOiXtvdd8kWp2+mBXAkLpPwliikkwnYQTbxh8T9J8fwwmskdfqzgVAokAFADDF0u/vVGByWKEG00N9XmX+3YVPRjVamJv3Qy6H3Z4=
+	t=1792161441; cv=none; b=Qzaut1G4R5pr6cdmraJRSKUQJ1ZP+sH40tY7yc0QzJ0D9940Dx1K0JRfiwJgUWU8Ol/9iu6GA3a0azUQOZ2zymlWQ0GVcgz9SbWHthHZlVkpsPb565A20wnDT9RYe/8UPdGlEcL3A37Sj5EG8cCTCytHDmMH78THCUv9S/pWdoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792161441; c=relaxed/simple;
-	bh=pxw9X7GFfrnGr+oBpwK3JU0BudTL64mDfSFKZuVflJo=;
+	bh=kI4CvoBqwq+FfW3CQYO5fcVPpk7JpfRW+eBNodHBGN8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XAbMHLBn9hipTjNewr4DRPzU4jK+6+PgJnrHb8sTuW0aP24wTeTym119BW8f/BXVi6RELdnPy0fM3UgtJzZjnVgHcqVPf4DzqYp24zFjDQ5vvjSuJRKIhmCJuve0zyAMN7oS7xbl2z/FKPpF5ANr94gcirIqiFm7N85koYXwM8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=Vc0mXS+y; arc=none smtp.client-ip=195.121.94.184
+	 MIME-Version; b=MhLB3Tc0f0haUfPPGKElyYO/U+I8w2q0zWdEgVkdDU6fCjnpla8OCncE/gdzZcOFpshDptZnL3fSv3UhS/Zbjp2VRYjYYUK/B8uJCcDK6xH1zcAd9Hpsk4ClsZ/9QFO5wyKoWJwOokY1DurH0OXwhM8fAFs56WWvGqOmAPECqos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=pTzJznn2; arc=none smtp.client-ip=195.121.94.185
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="Vc0mXS+y"
-X-KPN-MessageId: 12ab2848-c96f-11f1-a5a4-005056994fde
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="pTzJznn2"
+X-KPN-MessageId: 10948f38-c96f-11f1-9e93-005056999439
 Received: from smtp.kpnmail.nl (unknown [10.31.155.5])
 	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-	id 12ab2848-c96f-11f1-a5a4-005056994fde;
-	Fri, 16 Oct 2026 16:37:11 +0200 (CEST)
+	id 10948f38-c96f-11f1-9e93-005056999439;
+	Fri, 16 Oct 2026 16:37:08 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xs4all.nl; s=xs4all01;
 	h=mime-version:message-id:date:subject:to:from;
-	bh=d2sNLBgtHRcDVLf3/7VYRBsiYi+o3czrWxvpiAbCzMI=;
-	b=Vc0mXS+yPHkbfXl5cgREJE06EtW64Av82zJY2BuMXOUHJYPTZ/4QtrYUCYrODgb9sfa0/+2u9YQqi
-	 9cIPmw0ItU4+xtBWSNcOsSWPeuRzTA4cVm5aZ5ZJbLoK0norAX5/cNsXlojzI1MWeAjgGHGl1Hxc+7
-	 Tq3DJysNMzAQR2DShuqsGh3/PfV9caRIXQMATfBa+semNkeendsebg5IO9Fin7ndM5+Zg8oU88veMx
-	 O7d4Xu6hjFQcE7InV52R7Ewi1Y4aeQmfhs386JE8Syo3VpQA0klWs78b1LC/8uxB2KEtKX0VNyROGt
-	 3SwXM2yWGjnLghTU8iKnyr+dsvObHLQ==
-X-KPN-MID: 33|f9qZXpR8sqgrMx5/NUPpVy3lN8CY3WqIrspFOC9ZhEkyyBtvbW2kdg96GwywnhW
- Nqt3fO3kIk9T2SXJbz6/tjIXJOwI2BSlmcirmypfVM6A=
+	bh=3mm/w1EXXI67RyDCAz9DR5/sv5ocQ8avN+Cr+GA9AaA=;
+	b=pTzJznn2EgyUzXXXATR96AGaRVggULpumTvsFhGXh3B/G6sVEyvfeHmqMJ0DZ3TZHg7bSDRsUjO0A
+	 KXW1CyKkQCPdZA+6C1zMArs9R+iPNicCJ1zzitgTjdC8u4kkwwAUGkfMDp/Ha4VD4zPZkpKUucTxq9
+	 cFg3U5b6YrBt3bL1N1d824Q3tw+30e1RJD7VIjXVfvvCaEnSC+jj/Vi91pyt4OKA45wr7czmHWTDmS
+	 T/UQWKsEaZDITup5xz/N57sVKg/9tT3G+5yCRUUJ81sTCfn1wKk9l3MA4m6HAjFs0b8Ri1z15BEya8
+	 sWUzUZ0XU+8K3KoCq9ne4hklviF/5Hg==
+X-KPN-MID: 33|LscIXE6pUo/OESTC534fUFqQIsGB5zcoDUbDwjcCAdB+KMQxaVZOUPLmZdMAe4J
+ kFdn0UFV+jbJK0xPvMlEAIIjOtSbxQJwq5d742NS9Ue8=
 X-KPN-VerifiedSender: Yes
-X-CMASSUN: 33|Sr7xoVn1lht9mnjiUn9G4xDSyKUH5+J3Eic0eDPk5JUsVKwUJTnYqwjI01ILUvl
- gK80n4pIxUZZods0SeCd3wQ==
+X-CMASSUN: 33|YCdb5T4qjy7hPExlGFDuXVKIRp4oWANuPRBgRiEmwyDdlr2C/oRS/8GDMBGdpLo
+ r32w734PqkfRkRe5XEROEog==
 Received: from daedalus.home (unknown [178.228.137.172])
 	by smtp.xs4all.nl (Halon) with ESMTPSA
-	id 126994b7-c96f-11f1-a202-00505699b758;
-	Fri, 16 Oct 2026 16:37:11 +0200 (CEST)
+	id 104fe31d-c96f-11f1-a202-00505699b758;
+	Fri, 16 Oct 2026 16:37:08 +0200 (CEST)
 From: Jori Koolstra <jkoolstra@xs4all.nl>
 To: Christian Brauner <brauner@kernel.org>,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -52,9 +52,9 @@ Cc: linux-fsdevel@vger.kernel.org,
 	Amir Goldstein <amir73il@gmail.com>,
 	Aleksa Sarai <cyphar@cyphar.com>,
 	Jori Koolstra <jkoolstra@xs4all.nl>
-Subject: [PATCH v7 06/12] vfs: lookup_open(): lock the parent as I_MUTEX_PARENT
-Date: Fri, 16 Oct 2026 16:38:00 +0200
-Message-ID: <20261016143806.2946578-7-jkoolstra@xs4all.nl>
+Subject: [PATCH v7 05/12] vfs: lookup_open(): use vfs_create_no_perm()
+Date: Fri, 16 Oct 2026 16:37:59 +0200
+Message-ID: <20261016143806.2946578-6-jkoolstra@xs4all.nl>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261016143806.2946578-1-jkoolstra@xs4all.nl>
 References: <20261016143806.2946578-1-jkoolstra@xs4all.nl>
@@ -66,36 +66,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-lookup_open() takes the parent directory's i_rwsem with inode_lock(),
-that is, in the I_MUTEX_NORMAL class, before creating the last
-component. Every other VFS path that locks a directory in order to
-create something in it goes through start_dirop() and friends, which
-use inode_lock_nested(dir, I_MUTEX_PARENT).
+We can replace the code in the no create_error/negative dentry found
+from lookup case in lookup_open() with the vfs_create_no_perm() helper.
 
-Lock the parent as I_MUTEX_PARENT here too, so that lookup_open()
-matches the rest of the VFS before it starts calling ->mkdir(), which
-until now was only ever reached with the parent held that way.
-
-No functional change intended.
-
+Reviewed-by: NeilBrown <neil@brown.name>
 Signed-off-by: Jori Koolstra <jkoolstra@xs4all.nl>
 ---
- fs/namei.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/namei.c | 25 +++++++------------------
+ 1 file changed, 7 insertions(+), 18 deletions(-)
 
 diff --git a/fs/namei.c b/fs/namei.c
-index b864aa426102..0cae8b4c071d 100644
+index 000d8841a8ec..b864aa426102 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
-@@ -4511,7 +4511,7 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
- 		 */
+@@ -4459,8 +4459,14 @@ static struct dentry *atomic_open(const struct path *path, struct dentry *dentry
+ 		}
+ 		dput(dentry);
+ 		dentry = ERR_PTR(error);
++	} else {
++		if (file->f_mode & FMODE_CREATED)
++			fsnotify_create(dir_inode, dentry);
++		if (file->f_mode & FMODE_OPENED)
++			fsnotify_open(file);
  	}
- 	if (open_flag & O_CREAT)
--		inode_lock(dir_inode);
-+		inode_lock_nested(dir_inode, I_MUTEX_PARENT);
- 	else
- 		inode_lock_shared(dir_inode);
  
++
+ 	return dentry;
+ }
+ 
+@@ -4610,22 +4616,12 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
+ 		goto out_dput;
+ 	}
+ 
+-	error = try_break_deleg(dir_inode, LEASE_BREAK_DIR_CREATE, &delegated_inode);
+-	if (error)
+-		goto out_dput;
+-
+-	error = dir_inode->i_op->create(idmap, dir_inode, dentry, mode);
++	error = vfs_create_no_perm(idmap, dentry, mode, &delegated_inode);
+ 	if (error)
+ 		goto out_dput;
+ 
+ 	file->f_mode |= FMODE_CREATED;
+ out:
+-	if (!IS_ERR(dentry)) {
+-		if (file->f_mode & FMODE_CREATED)
+-			fsnotify_create(dir_inode, dentry);
+-		if (file->f_mode & FMODE_OPENED)
+-			fsnotify_open(file);
+-	}
+ 	if ((open_flag & O_CREAT) || create_error)
+ 		inode_unlock(dir_inode);
+ 	else
+@@ -5245,13 +5241,6 @@ struct file *dentry_create(struct path *path, int flags, umode_t mode,
+ 			/* Drop the extra reference */
+ 			dput(orig_dentry);
+ 
+-		if (!error) {
+-			if (file->f_mode & FMODE_CREATED)
+-				fsnotify_create(dir->d_inode, dentry);
+-			if (file->f_mode & FMODE_OPENED)
+-				fsnotify_open(file);
+-		}
+-
+ 		path->dentry = dentry;
+ 
+ 	} else {
 -- 
 2.56.0
 
