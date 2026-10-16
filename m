@@ -1,71 +1,81 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63CE542255C
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:11:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543294A841E
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:11:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792156264; cv=none; b=Xid88EmAltda2bMR/And1TnBLAu4v52FtoDSNZnW9IjZIxZ5xr5VRPGCFx/SGXzukSfj19x71x4aOYfAlegF/HcI7e9bTWRJoRVdB+lR/AH0hcjtj9NsbtVQ+Zs1emq5HMLvz0DTRuDCIO8gPWVolC9INucandRaog9YntMevCc=
+	t=1792156273; cv=none; b=b6rm+vg44wzo5ZlGrjuMNaA8Ik3fQ7ipu85RTUxn5zQVQBAGUzoJVo3HN3xFU5YNjL3K7cyXuIHQZckky1+zzNqTMsCJ05pHWYqX/Vxqc91HzHeLpydq0Et5Atfv8d9gnCFmpMSP5jxeUymEm6+5/e21BZD5Oh5dPTQ4+eMB/N8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792156264; c=relaxed/simple;
-	bh=gIw5P0GfnxePuFCkKlRrGsOKJZ4pQjFMrtgtrp/MNZU=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=BSMz/KBHEFEZ55qas//4le9DfJgbn2LF3EGeamsmz07Je4ETgsaWmvhFwxjbnCveAb8NQ3WN5R1NfBsV00Nb7AzqdpYZNY2CoD0U7fSv6RWK79Bouskhe+r1dxZqoatuY2LRT5XMFY+SbdXCF8KoMGsUjqsvoOpzRztFhOyCpt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c307941971so9412896b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:11:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792156262; x=1792761062;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Df8SnbvBNaPsZqX3Q1kfA2N/DVnwY4RzcGXRPX1g8RI=;
-        b=ShS8Yt4CieVVIR4HhS2j6OmTyKXlSZ/rk/NtZmXNMaa+RktSlitc8RqcbvH6ybGcB0
-         oKYK7aUYx1+E3k4p+DiHdm4u6WhuFkWKah379DkR0FAIJYuQP/r525F5aZnjdowl5OUe
-         FU1Zjw8tMyZZURqvkZW87tVONt9ZYjG9j7fQXN4yHt6X24swOVN6vwho6hIrYN84Cc4b
-         ReF76gienI5oaB6/IS3V83rdyWdYNxbhdDxphXXJbE3newiotVf7McwzZJzoBM0Lyv8Y
-         HEu97+eu2nON4uYVdNAScHZ16czuEVqKJXo4lEeTT+NgNwFQvuOQB8wb3lCSfxEQFiAr
-         9cMA==
-X-Gm-Message-State: AFq9FYKG2uLmFm87I/nsMCbK9t7AkRH/+pnJGCL+IdcF6IdEYRtoVnuE
-	ssCdcop81FmKPUz5oExDX+2nILJuJVgm9IPMV5ZAaO2ZVIygW2RsH0qNDFbO2to0PpZr0DoN/Rt
-	mwY/m8CFpz+98TwUPKPInRGPKjPL5kfuXHhEL3cDvoHQ0x5HgazifwF1KwOM=
+	s=arc-20240116; t=1792156273; c=relaxed/simple;
+	bh=BBsIr0ceDH3+48Wp3B6AC6dZfwGfRQvuUXtgjeRw0mc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RlKAWiqdE3RgnW8LS+C0U77alOsImDbDP40MNFIh7rM7xSAcms5SWjqKSl7qb4c7LtA7Tnt4o9sOUKjKjrJXOr+FwhWdjfKIMLKLzzcwBK1qZXFyX4/2NLmv/8wXcVqS5uwDqq0C+ldpiWEaifB9yDoWpN/FEMG+uVooU05CuNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Za3Uv6Uc; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Za3Uv6Uc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6B31F000C6
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:11:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792156272;
+	bh=BBsIr0ceDH3+48Wp3B6AC6dZfwGfRQvuUXtgjeRw0mc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Za3Uv6UcKLj0XRYXFTQq/4RqqDGfPiu1h3/6xmB5lFnc4g4vTmcWi2s6G7Fffm2n1
+	 3x/l4xMR/8JJKu4IDtR0bBvJSpYcbpCRHsgcreuqMul/wlgiCP+dJwcGOEfV66/g7k
+	 GaiZxmnD/LxJFEcex14X0fnSFoBmizamkfMPSCji+F+0fNVnu8qqzQ0xerQ3CzoG/q
+	 DvsH/ZyOPqEFWhFS4oHLM2LfidVvfpV7C4RXw6Ty58LRtFl6TufKZM8KyKjSoM68l+
+	 cgPHx/+fiJjeFwUYUQ8tuCAT30CuXTHMHfRuDnJQiqLU74izGkikfGDx3+bE1acfKB
+	 fUo3wCyontNFQ==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bccc73eea4so1083602e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:11:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByZNnxaaW+RFDI1DP061izlQGP+RUlrS6lHoCrHl6iHoe3z06OHPmj/3Xai9DGIBceUBagQpiKwheHx8lc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSZT1wgbOofijJ72jP1QZsGA967w3+v0f2xgtqqskIACCJk11i
+	smjwZVwVtdAmZ3eEvnGqKt65eB2GqmuDulcPpUB3vMNBmgalU13mcNjOEgwBrkn32FJPYnL7jd0
+	FFYoUvoPFZCo5jblMUv9bBzzJ5K1sdnw=
+X-Received: by 2002:a05:6512:3c96:b0:5ba:445b:4b8d with SMTP id
+ 2adb3069b0e04-5be475afe8emr1060502e87.4.1792156271003; Fri, 16 Oct 2026
+ 06:11:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2211:b0:4f6:5279:5c6e with SMTP id
- 5614622812f47-50c42170b8amr19014824b6e.8.1792156262173; Fri, 16 Oct 2026
- 06:11:02 -0700 (PDT)
-Date: Fri, 16 Oct 2026 06:11:02 -0700
-In-Reply-To: <CABKbRoKcyARgA15t7c6-itGkAPTEYZkWjku1ooihbJD_uLK52w@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad22266.7514cce4.1ece07.0152.GAE@google.com>
-Subject: Re: [syzbot] [net?] KASAN: slab-use-after-free Read in llc_conn_ac_send_sabme_cmd_p_set_x
-From: syzbot <syzbot+44efda9647c52be29d9c@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, miguelgarciaroman8@gmail.com, 
-	syzkaller-bugs@googlegroups.com
+References: <20261014-gpio-shared-fwnode-lookup-v4-0-2253ad645fd6@oss.qualcomm.com>
+ <20261014-gpio-shared-fwnode-lookup-v4-2-2253ad645fd6@oss.qualcomm.com>
+In-Reply-To: <20261014-gpio-shared-fwnode-lookup-v4-2-2253ad645fd6@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 16 Oct 2026 15:10:55 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=PmXA=6wNKB5+knFgESPO8w9+dbx53zQhLaTJLfMzn3g@mail.gmail.com>
+X-Gm-Features: AclHuK_nqW6_dALNF0pMMcEXNEFSryLqZA472GtOh4iREDgY7eMxeRYQs5SCHGI
+Message-ID: <CAD++jL=PmXA=6wNKB5+knFgESPO8w9+dbx53zQhLaTJLfMzn3g@mail.gmail.com>
+Subject: Re: [PATCH v4 2/4] gpio: shared: gracefully handle no-device lookup
+ of shared GPIOs
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Wed, Oct 14, 2026 at 11:38=E2=80=AFAM Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> wrote:
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+> We use platform lookup tables for shared GPIOs. This mechanism needs a
+> struct device to work so fwnode-based lookup with no device associated
+> currently causes a NULL-pointer deference.
+>
+> Adding this functionality will require a larger rework and it has never
+> worked anyway so add a check that allows the kernel to gracefully handle
+> this situation with an error ahead of implementing that functionality as
+> a new feature.
+>
+> Cc: stable@vger.kernel.org
+> Reported-by: Abel Vesa <abelvesa@kernel.org>
+> Fixes: a060b8c511ab ("gpiolib: implement low-level, shared GPIO support")
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Reported-by: syzbot+44efda9647c52be29d9c@syzkaller.appspotmail.com
-Tested-by: syzbot+44efda9647c52be29d9c@syzkaller.appspotmail.com
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Tested on:
-
-commit:         2f2f7eee Merge tag 'soc-fixes-7.3-3' of git://git.kern..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=15da0031580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=929e4854a828f434
-dashboard link: https://syzkaller.appspot.com/bug?extid=44efda9647c52be29d9c
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=164f269c580000
-
-Note: testing is done by a robot and is best-effort only.
+Yours,
+Linus Walleij
