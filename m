@@ -1,40 +1,86 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D671C50C29D;
-	Fri, 16 Oct 2026 16:19:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792167591; cv=none; b=QQJ0SguTuA1itw+8ZBwiCDCqTv6x9Bxl/AxAbabmpuwzpmQSVEEkU8myNTTXEgULE2g/Xw5IAXWFPegnFZfxuB+u4yvlchcquO52IxKRlH+udaCMAIXEXXcERJI7/JP8qso1WQAroNg1Zr0ApU2uAWZjAlqCQKr+VXJYRMMbHeI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792167591; c=relaxed/simple;
-	bh=ENFZgHtxdvF4pI9iefiApJtXu8xO78IX1WmmevgYHZc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qmhFt+cl4dFxIVSNJli6bf6uUBH/KN+3dHT/Tgf2ciIOHE/Z59mSRcVuBZ4a3L/1/y3/PdzbGkPxLoKjjQQm6shzBlE61Wa+2ZhNSyi8cCayF1Za6LZKpiZsOn3pBHoh7OgdeNUysLOcN7Zlr+YxcZFPk9CZiw3BTOhuJvcaERY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=UKTdQzBT reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010036.outbound.protection.outlook.com [52.101.56.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE6A30C161;
+	Fri, 16 Oct 2026 16:19:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792167592; cv=fail; b=iMLQUUI2mBVlHAjUHg+2n0wYCe7GsqgAP1h6FgmvrxS4vD3hFvXYERlO0/K03zQO+L5Mwwp/BM6LhP7JmHKDyWa1Dgwkc9iCXVeT2eljz8j/jXG0J499PfDBbVyks4LnAC+5kbm5PxsrgVgc0gx9UPYnm32A4N+2ktR/j2Pierk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792167592; c=relaxed/simple;
+	bh=am69YKTcUFnXm+AV/PVmrUsPkBvp1H2ZWbGgId9fsSg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=D2K2UG9rav76IgQrFPy7t9SE4SsxgyzFJTsDiSpWC4jDs+L+HR2s6coeuY+Z0JJVabSuNhioTt6fFIKkoLFr4PSqF0FTmPGDzDrmhV1Jk5GUBixPClpbx21ci9Blt2clFDdrjmZgiMlt2D1a46QAmHggwrj+gyvTEvZAVZ9jL6s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=NjIkssgq; arc=fail smtp.client-ip=52.101.56.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="UKTdQzBT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=3SI2PYB4A4
-	I6Xf6xw/bHHDGscaxuo07tsHr29BUxlDg=; b=UKTdQzBTSoxeovbnd7wka+ES1Q
-	aTENkin+kyTYL/zxpqM0MLMRQJjsM7X22TC6/fW8k3PQLFhvyCW1QvbE55gWYkt6
-	DsJ2aiB7ZC5ZkJVmMXw92ymxzFH5aDrDhB8+dzeZ4qdzMdXUaLbAvkvRF9Osfb2n
-	jQB15rftgZlrroQ9I=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.96])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkC2uv2TTtJqAPOrAA--.62184S2;
-	Sat, 17 Oct 2026 00:19:33 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] wifi: rtw88: usb: drop RX frames received before the device is started
-Date: Sat, 17 Oct 2026 00:19:31 +0800
-Message-Id: <20261016161931.18495-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="NjIkssgq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eGeg+CvAY2pmdBpjw9Db0cWBGah7AAPRkxQmfgPOsPuupxJ6ypZS4ikf3d6omMjDup9YSRVqnrbgNg2DVAS86qCSQxMD21qLoo5Z6seOFKZ8azldTO2+s0BEk/saI9lUK5Nmtc3tdMOfAK4yMfsDkaaydAZBFKqUMVcbtH6ZpUBP72Cn2JYxMvJDdbxhWknIDTn0LY2u9gBy4EyzOLY67EHjH9DBu7DwVhdtgX3yFxC7a/4u7tQermmQWUoslvkBD60XCWg/9SbmedjTfDTHaB3zu7Re7K0kfcN6ql5yDMP8Q/fCdb6WdXWpehmxDpcBKZyRrn7z0VKJOQ61X9GHWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/RNRzZQmxJ6azvT23EAp9EddohIuaC194tU77dBlHlw=;
+ b=AJ59Hmjv32a2a7Aq1dcatsAO65H/SvEBhcKlajGdr3a9MZX9ksxqZJ2e7ttnjdrrjJSTJe0t37RTnFC1Faihysffxa8ZNbwl6v3bdbxliXhSK96r0tz26711v6JR632em9oPzrr8a1fmbdAZ1rTWKFhNTLW0dRQ4GEAX3f2VusU170zIJCxJmB4XGayYwQJzuqkvBu5JjrZ/JEGXbFMEY85xeK54I8X3UrE9CfODcFNl3jVxOX3DDxLhBoDOKg7TT/urEt9ssdMrDDL36AAFbH6FyviXFZ/WIGwNiBJ48Ma4n1M02nsZz+jcH2i/cICGxAFxG7VkJ3M6pi+AS3W+RA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=shazbot.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/RNRzZQmxJ6azvT23EAp9EddohIuaC194tU77dBlHlw=;
+ b=NjIkssgq1uhporIqI26Df9SieQQLXudVN8wSvmErzNSFk3F9AGXB+A7FLv9rlJUznwOnBqpR6mjq8gLUlykZrNcnlmNpVszka0qT8OIzsKhK78x1xBxaB8eAqLSdccDvI0OnkiZCwH4r+bwrJwWkrSnfTUY8OY7gywXRBqCYIOywM3Zs4HPXgvOxqGMOIv+3ljEebjECA6fmHJeoQDXkcWcvXgoWKTDVYl1u9ww4a6T15zYi6lMnRQAJGcmyPO3T7uJvWzuIhrhtN10b42LypFOM5k4bTJp5vg9XhQwTFVMNnOBI/POIDM7HdUsWIPyKHjLejHSceqPsSfCP86SDeA==
+Received: from MN2PR16CA0061.namprd16.prod.outlook.com (2603:10b6:208:234::30)
+ by MW6PR12MB8915.namprd12.prod.outlook.com (2603:10b6:303:23e::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
+ 2026 16:19:39 +0000
+Received: from BN7PEPF000000A6.namprd05.prod.outlook.com
+ (2603:10b6:208:234:cafe::a4) by MN2PR16CA0061.outlook.office365.com
+ (2603:10b6:208:234::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 16
+ Oct 2026 16:19:39 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN7PEPF000000A6.mail.protection.outlook.com (10.167.245.230) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 16:19:39 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 16 Oct
+ 2026 09:19:13 -0700
+Received: from nvidia-4028GR-scsim.nvidia.com (10.126.230.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 16 Oct 2026 09:19:04 -0700
+From: <mhonap@nvidia.com>
+To: <alex@shazbot.org>, <jgg@ziepe.ca>, <ankita@nvidia.com>,
+	<jic23@kernel.org>, <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
+	<smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+	<dave@stgolabs.net>, <alison.schofield@intel.com>,
+	<vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
+	<yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
+	<bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
+	<gustavoars@kernel.org>
+CC: <cjia@nvidia.com>, <kjaju@nvidia.com>, <vsethi@nvidia.com>,
+	<zhiw@nvidia.com>, <mhonap@nvidia.com>, <linux-doc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
+	<linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: [PATCH v6 01/31] cxl/regs: Split the BAR block request and ioremap helpers
+Date: Fri, 16 Oct 2026 21:48:08 +0530
+Message-ID: <20261016161839.2765592-2-mhonap@nvidia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016161839.2765592-1-mhonap@nvidia.com>
+References: <20261016161839.2765592-1-mhonap@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,102 +88,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkC2uv2TTtJqAPOrAA--.62184S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWF4UGF4UuF1xWw45Kry8Zrb_yoW5Zw4DpF
-	WrJayYkF93GF1jvF1fWF1xJFyrZws7AryxuFWrKa48ZFn8XF1SkFyFgFW2vryDAFWkAFy3
-	CF1DtryUGan8CrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Jr0_Gr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
-	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx
-	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
-	1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43
-	ZEXa7IU59TmPUUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUID2rSPdEJEgABsN
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF000000A6:EE_|MW6PR12MB8915:EE_
+X-MS-Office365-Filtering-Correlation-Id: e13a7b98-56a9-4d39-ae48-08df2ba1472f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|7416014|376014|22082099003|10067099003|18002099003|921020|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	x7c8Tsz2RraqqfIoJLWjPC5W72B3RHPqCUCdZiybfWzJO9Fg3P5vPD1ktsMXSfGt52Zy0zP6FonSMYP0otaQXQrtin2iPik8oMHEUiRnLbi6ij5LaL3vSLJcmSHkuqjnW2t0OvBgZ0srG/t2L7xWtPVWsfFyrEFsKJeDwABOzjkPv5N+5OVuLd06n2kCpSIpMyUW1l+pjo5E6uF15oQWhOIBW0VFexddlAVzb0KeSaHyXdRuMcvC+TB1LQ55YGBrfBbZHXAN+KUj0dTfssxrJa05vHPxxtdY1hXBG9ROQsF0ijpoBQLPlAXjmr64Nm+UNwBrr8KY+FDBF7eg+585q6UYHo5T3IycXz2JOXRzn+qZN8t7oo8L/Ov2xlK5CNuMXbKjmtgfUHfJ529euVACZ7Ezdh9HarHmzUbdFGPEK679UQN4qYkojrFVYIAbMObX6uDW4Oc+X3/IAR/97NfLYS42YA7GLv8F2HQJd9HcTurmI3q2VUeuATv8R3mCzc3acacZ1bCv6oJgHMfY/2vc5yTKF4inqPBKvdKWHqCbBwrXoDwBXTjylknEo80napgjWtIfgLDV4CH5LAx+V/FmgyBf5zkfn+BV9ckoleGz26qfOlVyetfvSy+MAra8MHy6xmQNfF9Me5g05hV7V8qxa4GQZTg79vP/wOjaAO0owQm44SISKFEKVwPdgyUHQyg+d8tSFigdn66DaJl+4eqNaNzyCuHCWPJhTPYwJR/5QOh87uxCDREpDWHwZyyZ5qNc
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(7416014)(376014)(22082099003)(10067099003)(18002099003)(921020)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	HowUvtEJ7i9vE6Gwmh2q/+X6FJnW61lf2wXfQr2n46ZsS6GgxhRrA5UBO8sPtweOhy7Nf9T8CHcCIhtTM5kwUEBKeMAjFC9Gk2oCEyzBWUhriPuz4Di7H+1Si60mxo1v9Qitr3TWhNHbk31WWj1ZSzWoBPl6HL7D3aWdpI7Ut2mltmaBW2reJoqhoKgld5JBuiWgV12kj4ODVUkvGieCm60NEQqUPdWa1/L50jzlLt5RNd4XCfZ/3ivkJuvV3liXhWtvzyCnTDvnhRGr0t2th5dBNTsEAzmelrkceievdHmQIFpxwqU34iFMPXXTG6X9FG1wxrar5cB+GjkPMcHjWrY01oT1jNhhkDGJEskh+U6DF6j2vj0ijx8P9qZIa+GeHoAe2Bww0+LVOi+/J+tzuZ9G+obCpUExdOx7uUGZFGW17gYVyqIi1urOHGRXlO4B
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 16:19:39.2031
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e13a7b98-56a9-4d39-ae48-08df2ba1472f
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN7PEPF000000A6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8915
 
-rtw_usb_probe() submits the bulk-in RX URBs at the end of probe, right
-after rtw_register_hw(). A device can already have data queued on that
-endpoint, so rtw_usb_read_port_complete() runs and queues the frame on
-rtwusb->rx_queue before any interface has been brought up. Submitting
-the URBs late does not close that window: the frame can arrive as soon
-as they are submitted, which is still before the device is started.
+From: Manish Honap <mhonap@nvidia.com>
 
-rtw_usb_rx_handler() hands every non-C2H frame to mac80211 without
-checking whether the device is running, so ieee80211_rx_irqsafe() runs
-while local->started is still false. mac80211 treats that as a driver
-bug and warns in ieee80211_rx_list():
+devm_cxl_iomap_block() claims a register block with
+devm_request_mem_region() and then maps it with devm_ioremap().
 
-  WARNING: net/mac80211/rx.c:5601 at ieee80211_rx_list
-   Call Trace:
-    <IRQ>
-    ieee80211_rx_napi
-    ieee80211_rx
-    ieee80211_handle_queued_frames
-    <TASK>
-    rtw_usb_rx_resubmit
-    rtw_usb_setup_rx
-    rtw_usb_probe
+A driver that already owns the parent BAR needs to skip the sub-block
+request while still mapping it, so the request and the map must be
+callable independently.
 
-The frame is dropped by mac80211 anyway, and because the URB is
-resubmitted from its completion handler, every further frame repeats the
-warning, which floods the log until an interface is actually started.
+Split them into devm_cxl_request_block() and devm_cxl_ioremap_block().
+devm_cxl_iomap_block() keeps calling both in turn, so there is no
+functional change.
 
-rtw_ops_tx() already drops frames outside of start/stop by checking
-RTW_FLAG_RUNNING, which mirrors local->started: it is set at the end of
-rtw_core_start() and cleared at the beginning of rtw_core_stop(). Use
-the same check in the RX path and free the frame while the device is not
-running. This also covers the opposite ordering, where a frame that is
-still queued in rtwusb->rx_queue is handed over after the device has
-been stopped again.
-
-C2H packets are left untouched: they go to the firmware event queue
-handled by rtw_fw_c2h_cmd_rx_irqsafe() and are never passed to mac80211.
-
-Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Assisted-by: LLM
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Signed-off-by: Manish Honap <mhonap@nvidia.com>
 ---
- drivers/net/wireless/realtek/rtw88/usb.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/cxl/core/regs.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw88/usb.c b/drivers/net/wireless/realtek/rtw88/usb.c
-index 64e1c3420e0a..12fb669015d1 100644
---- a/drivers/net/wireless/realtek/rtw88/usb.c
-+++ b/drivers/net/wireless/realtek/rtw88/usb.c
-@@ -664,7 +664,7 @@ static void rtw_usb_rx_handler(struct work_struct *work)
+diff --git a/drivers/cxl/core/regs.c b/drivers/cxl/core/regs.c
+index ba1f942d20e1..9235520b2f4e 100644
+--- a/drivers/cxl/core/regs.c
++++ b/drivers/cxl/core/regs.c
+@@ -177,6 +177,20 @@ void cxl_probe_device_regs(struct device *dev, void __iomem *base,
+ }
+ EXPORT_SYMBOL_NS_GPL(cxl_probe_device_regs, "CXL");
  
- 			if (pkt_stat.is_c2h) {
- 				rtw_fw_c2h_cmd_rx_irqsafe(rtwdev, pkt_offset, skb);
--			} else {
-+			} else if (test_bit(RTW_FLAG_RUNNING, rtwdev->flags)) {
- 				skb_pull(skb, pkt_offset);
- 				rtw_update_rx_freq_for_invalid(rtwdev, skb,
- 							       &rx_status,
-@@ -672,6 +672,14 @@ static void rtw_usb_rx_handler(struct work_struct *work)
- 				rtw_rx_stats(rtwdev, pkt_stat.vif, skb);
- 				memcpy(skb->cb, &rx_status, sizeof(rx_status));
- 				ieee80211_rx_irqsafe(rtwdev->hw, skb);
-+			} else {
-+				/*
-+				 * RX URBs are submitted at the end of probe,
-+				 * so frames can arrive before the device has
-+				 * been started. mac80211 does not accept
-+				 * frames in that state, so drop them here.
-+				 */
-+				dev_kfree_skb_any(skb);
- 			}
++static struct resource *devm_cxl_request_block(struct device *dev,
++					       resource_size_t addr,
++					       resource_size_t length)
++{
++	return devm_request_mem_region(dev, addr, length, dev_name(dev));
++}
++
++static void __iomem *devm_cxl_ioremap_block(struct device *dev,
++					    resource_size_t addr,
++					    resource_size_t length)
++{
++	return devm_ioremap(dev, addr, length);
++}
++
+ void __iomem *devm_cxl_iomap_block(struct device *dev, resource_size_t addr,
+ 				   resource_size_t length)
+ {
+@@ -186,7 +200,7 @@ void __iomem *devm_cxl_iomap_block(struct device *dev, resource_size_t addr,
+ 	if (WARN_ON_ONCE(addr == CXL_RESOURCE_NONE))
+ 		return NULL;
  
- skip_packet:
+-	res = devm_request_mem_region(dev, addr, length, dev_name(dev));
++	res = devm_cxl_request_block(dev, addr, length);
+ 	if (!res) {
+ 		resource_size_t end = addr + length - 1;
+ 
+@@ -194,7 +208,7 @@ void __iomem *devm_cxl_iomap_block(struct device *dev, resource_size_t addr,
+ 		return NULL;
+ 	}
+ 
+-	ret_val = devm_ioremap(dev, addr, length);
++	ret_val = devm_cxl_ioremap_block(dev, addr, length);
+ 	if (!ret_val)
+ 		dev_err(dev, "Failed to map region %pr\n", res);
+ 
 -- 
-2.34.1
+2.53.0
 
