@@ -1,156 +1,193 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2440F37E5DE
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:41:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CD4D33A254D;
+	Fri, 16 Oct 2026 03:42:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792122086; cv=none; b=X71Kd6upNXX9bK4aT9U5b/imyjDRTpbJoyqdz0eTh7jIbwGWUSAy7i3Fc4zpd6uriorMlGD1JP1UFZBnAskPa+FqqVNozirc5p75lQ9jEGzf34NGbU2MTOChbv1IHbmdpPi0cuw/yr0k3DcZZQoGU2vRGJZZ5DmHkb1o1p7a50w=
+	t=1792122181; cv=none; b=SX7o7imAawOOhlwSBBFP2M+ILHQka7lNzQP+MeOpcKi8PtBA+685hh0Nfg4LUJEY8g2Z3sUD3gA/hYyuqJ9B2CrfrO8PFWROpxdhobwYV0DSxkwAMedjurAxzwKViBPBvYk75znIMtlsWWaYAKJlMVuboIpVYV/aIEXtoJ4qbmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792122086; c=relaxed/simple;
-	bh=/gKhrnSB2Ga0boparH1a8Djf6iN4HKSr9MVFBg/1NOE=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=RLq7Kcxf4o5rIglyjBwDr19Uz9IvAxHzP2G4zT6SvYOR9agG8Qq9cSmkpLkW6sYUEQqNTbgzUWl9lAXZ8l1mdJHFnTt4fHeZN01C/BLOtgXQ3upeeOXI/Fyy0t5dA5b4uEcq1IqI3SmoPwAZGjgVVGxEVLb3LVAEnO4JSR3z20c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b38ea4c6acso5254074b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:41:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792122084; x=1792726884;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dom8hMmQmzUIGCj8Zk/utIF9ipnYSkCSo6FcsDXzWKE=;
-        b=eQUG191i+Wh9Hs3uYRAC0gkWFqrmV6b437veOsQn5nXX/hE5oreYJMmUIM7qtGoPRs
-         4ZQeGq1Gmpp6MDY7+4rQHaHETQHE35hv/Fyxc7Ytf6gU/JuEtPt/GuxpT203VU4SW2L4
-         p0GDdFLeCjfjXcjX5NMNjxq6bu9ncpT6hkeN1+Hw4uzYErPp9jxdmvhg8Pr1j1Ie1wc3
-         v5QavWvvhLkwQEgofZYj0N6v9oyn4sYCw0iP43BYdS4lfyXJTU7hr1iXM3VNfx3GQmwd
-         7+X2Gmy0/eNN+CCtZqD+cBRIDfFBhXKSrh7h5MluzaAm3wmaV1oPvBwp6cwp52T/vpME
-         ymnQ==
-X-Forwarded-Encrypted: i=1; AKwUvByWnvvTDRDpkAicgmAuqYcSGTdkpqI9ZQsibh2V5MqUBHKH8NXxkgE7+jJrajwLpEihUV1Y5P4q3YTUlpI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwsFTeMbRWvrzXOIr+rzAcGGWKDXLKK0piPJ1+C1Zz6qaVLyFR
-	4XPn1nXFDUAIEeSgiaBkioQ3SdqxrN1ArzdeqmcE7gf5tLvEnKBzryCourCL6PTGvZxuJ4O/MKh
-	1IaXts37+ls4gkjuNEonkhX4Q44kejdJRal3f74OXKwVlg6zu8TjN/t9qX0s=
+	s=arc-20240116; t=1792122181; c=relaxed/simple;
+	bh=DlWIM5dXJ3GdyCoiDLrTaQ3AxwLiFsj0vfEsQq2VN5Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PSNM3NdWKH6sQWhL7GZ5cai6Mbe289Zwk+6S462kPwP54SMZkHX8cBD5UfBH1kG2T1H3GlxvYcMohj3KmSuwupRgRtaqRfV2C2fWvyNSC9vmYggY5aY27eT/+3YpTmPKt5+OZwEpNgu89H/Z8x8t1KZQsZtt5DVwgkzAPoFownU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.2.5.213])
+	by gateway (Coremail) with SMTP id _____8BxLNI_ndFqhWEWAA--.65292S3;
+	Fri, 16 Oct 2026 11:42:55 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.2.5.213])
+	by front1 (Coremail) with SMTP id qMiowJBxrM4+ndFqDPwsAA--.1574S2;
+	Fri, 16 Oct 2026 11:42:54 +0800 (CST)
+From: Bibo Mao <maobibo@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>,
+	kvm@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] LoongArch: KVM: Add hypercall crash support
+Date: Fri, 16 Oct 2026 11:42:45 +0800
+Message-Id: <20261016034245.3002859-1-maobibo@loongson.cn>
+X-Mailer: git-send-email 2.39.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4495:b0:4d6:9293:9bc3 with SMTP id
- 5614622812f47-50c592a3a14mr16787609b6e.61.1792122084109; Thu, 15 Oct 2026
- 20:41:24 -0700 (PDT)
-Date: Thu, 15 Oct 2026 20:41:24 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad19ce4.7952420f.283480.01c3.GAE@google.com>
-Subject: [syzbot] [iommu?] WARNING in iommu_setup_default_domain
-From: syzbot <syzbot+2a4570d89a1e13003dbf@syzkaller.appspotmail.com>
-To: iommu@lists.linux.dev, joro@8bytes.org, linux-kernel@vger.kernel.org, 
-	robin.murphy@arm.com, syzkaller-bugs@googlegroups.com, will@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJBxrM4+ndFqDPwsAA--.1574S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7
+	ZEXasCq-sGcSsGvfJ3UbIjqfuFe4nvWSU5nxnvy29KBjDU0xBIdaVrnUUvcSsGvfC2Kfnx
+	nUUI43ZEXa7xR_UUUUUUUUU==
 
-Hello,
+Now generic pvpanic is supported in Linux kernel which will notify VMM
+with VM crash event. There is some limitations with pvpanic, such as it
+requires good kernel stack or CPU hardware context and panic() C function
+is in health state.
 
-syzbot found the following issue on:
+Sometimes CPU hardware context or kernel/irq stack is corrupted. Hypercall
+code is more direct and low-level crash method, which is useful in
+exception entry with assmble language, here add one hypercall code to
+support VM crash function, so that VMM can capture CPU crash context
+in time.
 
-HEAD commit:    b88c841d1164 Merge tag 'input-for-v7.3-rc6' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=117d540d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=44ac479246d4559b
-dashboard link: https://syzkaller.appspot.com/bug?extid=2a4570d89a1e13003dbf
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-b88c841d.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e27770b53aa6/vmlinux-b88c841d.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/3a314a5eb19d/bzImage-b88c841d.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+2a4570d89a1e13003dbf@syzkaller.appspotmail.com
-
-R10: 0000000000000000 R11: 0000000000000292 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-------------[ cut here ]------------
-ret
-WARNING: drivers/iommu/iommu.c:3205 at iommu_setup_default_domain+0xbb6/0xf30 drivers/iommu/iommu.c:3205, CPU#2: syz.2.802/11603
-Modules linked in:
-CPU: 2 UID: 0 PID: 11603 Comm: syz.2.802 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:iommu_setup_default_domain+0xbb6/0xf30 drivers/iommu/iommu.c:3205
-Code: 24 10 48 89 de ba 01 00 00 00 e8 25 5e ff ff 31 ff 41 89 c4 89 c6 e8 79 97 42 fc 45 85 e4 0f 84 37 fc ff ff e8 fb 9c 42 fc 90 <0f> 0b 90 e9 4b fd ff ff e8 ed 9c 42 fc 8b 35 c7 c9 7c 0c 48 8b 7c
-RSP: 0018:ffffc90002d87610 EFLAGS: 00010287
-
-RAX: 000000000003c9f5 RBX: ffff88801d082c00 RCX: ffffc9000c001000
-RDX: 0000000000080000 RSI: ffffffff85c90575 RDI: ffff888024200000
-RBP: dffffc0000000000 R08: 0000000000000005 R09: 0000000000000000
-R10: 00000000fffffff4 R11: 0000000000000001 R12: 00000000fffffff4
-R13: 0000000000000000 R14: ffff888026609150 R15: ffff888026609048
-FS:  0000000000000000(0000) GS:ffff88809594a000(0063) knlGS:00000000f5456b40
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 00000000f7fa8000 CR3: 000000004dc43000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- __iommu_probe_device+0x1174/0x1550 drivers/iommu/iommu.c:678
- iommu_probe_device+0x28/0x130 drivers/iommu/iommu.c:715
- iommu_bus_notifier drivers/iommu/iommu.c:1823 [inline]
- iommu_bus_notifier+0x5b/0x110 drivers/iommu/iommu.c:1815
- notifier_call_chain+0x99/0x3f0 kernel/notifier.c:85
- blocking_notifier_call_chain kernel/notifier.c:380 [inline]
- blocking_notifier_call_chain+0x69/0xa0 kernel/notifier.c:368
- bus_notify+0x56/0x80 drivers/base/bus.c:1086
- device_add+0x1169/0x1970 drivers/base/core.c:3741
- pci_device_add+0xdb6/0x1820 drivers/pci/probe.c:2769
- pci_scan_single_device drivers/pci/probe.c:2794 [inline]
- pci_scan_single_device+0x1d0/0x240 drivers/pci/probe.c:2780
- pci_scan_slot+0x1c9/0x7c0 drivers/pci/probe.c:2877
- pci_scan_child_bus_extend+0x6b/0x7b0 drivers/pci/probe.c:3096
- pci_scan_child_bus drivers/pci/probe.c:3209 [inline]
- pci_rescan_bus+0x18/0x40 drivers/pci/probe.c:3500
- rescan_store+0xfb/0x130 drivers/pci/pci-sysfs.c:474
- bus_attr_store+0x74/0xb0 drivers/base/bus.c:172
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
- do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf7fa7fec
-Code: Unable to access opcode bytes at 0xf7fa7fc2.
-RSP: 002b:00000000f545650c EFLAGS: 00000292 ORIG_RAX: 0000000000000004
-RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 0000000080000140
-RDX: 0000000000000001 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000292 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-
-
+Signed-off-by: Bibo Mao <maobibo@loongson.cn>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+  v1 ... v2:
+  1. Add VM feature checking with KVM_LOONGARCH_VM_FEAT_CRASH from VMM
+     user space.
+---
+ arch/loongarch/include/asm/kvm_host.h      |  1 +
+ arch/loongarch/include/asm/kvm_para.h      | 15 +++++++++++++++
+ arch/loongarch/include/uapi/asm/kvm.h      |  1 +
+ arch/loongarch/include/uapi/asm/kvm_para.h |  1 +
+ arch/loongarch/kvm/exit.c                  | 11 +++++++++++
+ arch/loongarch/kvm/vm.c                    |  4 +++-
+ 6 files changed, 32 insertions(+), 1 deletion(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/arch/loongarch/include/asm/kvm_host.h b/arch/loongarch/include/asm/kvm_host.h
+index 65d91c3ce313..96f9f1317cad 100644
+--- a/arch/loongarch/include/asm/kvm_host.h
++++ b/arch/loongarch/include/asm/kvm_host.h
+@@ -168,6 +168,7 @@ enum emulation_result {
+ #define LOONGARCH_PV_FEAT_MASK		(BIT(KVM_FEATURE_IPI) |		\
+ 					 BIT(KVM_FEATURE_PREEMPT) |	\
+ 					 BIT(KVM_FEATURE_STEAL_TIME) |	\
++					 BIT(KVM_FEATURE_CRASH)	|	\
+ 					 BIT(KVM_FEATURE_USER_HCALL) |	\
+ 					 BIT(KVM_FEATURE_VIRT_EXTIOI))
+ 
+diff --git a/arch/loongarch/include/asm/kvm_para.h b/arch/loongarch/include/asm/kvm_para.h
+index fb17ba0fa101..3b183bb1aaa8 100644
+--- a/arch/loongarch/include/asm/kvm_para.h
++++ b/arch/loongarch/include/asm/kvm_para.h
+@@ -14,6 +14,7 @@
+ #define KVM_HCALL_CODE_SERVICE		0
+ #define KVM_HCALL_CODE_SWDBG		1
+ #define KVM_HCALL_CODE_USER_SERVICE	2
++#define KVM_HCALL_CODE_CRASH		3
+ 
+ #define KVM_HCALL_SERVICE		HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_SERVICE)
+ #define  KVM_HCALL_FUNC_IPI		1
+@@ -22,6 +23,7 @@
+ #define KVM_HCALL_SWDBG			HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_SWDBG)
+ 
+ #define KVM_HCALL_USER_SERVICE		HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_USER_SERVICE)
++#define KVM_HCALL_CRASH			HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_CRASH)
+ 
+ /*
+  * LoongArch hypercall return code
+@@ -161,6 +163,19 @@ static __always_inline long kvm_hypercall5(u64 fid,
+ 	return ret;
+ }
+ 
++static __always_inline long kvm_hypercall_crash(void)
++{
++	register long ret asm("a0");
++
++	__asm__ __volatile__(
++		"hvcl "__stringify(KVM_HCALL_CRASH)
++		: "=r" (ret)
++		: : "memory"
++		);
++
++	return ret;
++}
++
+ #ifdef CONFIG_PARAVIRT
+ bool kvm_para_available(void);
+ unsigned int kvm_arch_para_features(void);
+diff --git a/arch/loongarch/include/uapi/asm/kvm.h b/arch/loongarch/include/uapi/asm/kvm.h
+index cd0b5c11ca9c..b222bfc48042 100644
+--- a/arch/loongarch/include/uapi/asm/kvm.h
++++ b/arch/loongarch/include/uapi/asm/kvm.h
+@@ -106,6 +106,7 @@ struct kvm_fpu {
+ #define  KVM_LOONGARCH_VM_FEAT_PTW		8
+ #define  KVM_LOONGARCH_VM_FEAT_MSGINT		9
+ #define  KVM_LOONGARCH_VM_FEAT_PV_PREEMPT	10
++#define  KVM_LOONGARCH_VM_FEAT_CRASH		11
+ 
+ /* Device Control API on vcpu fd */
+ #define KVM_LOONGARCH_VCPU_CPUCFG	0
+diff --git a/arch/loongarch/include/uapi/asm/kvm_para.h b/arch/loongarch/include/uapi/asm/kvm_para.h
+index d28cbcadd276..bf1a0c826ca6 100644
+--- a/arch/loongarch/include/uapi/asm/kvm_para.h
++++ b/arch/loongarch/include/uapi/asm/kvm_para.h
+@@ -16,6 +16,7 @@
+ #define  KVM_FEATURE_IPI		1
+ #define  KVM_FEATURE_STEAL_TIME		2
+ #define  KVM_FEATURE_PREEMPT		3
++#define  KVM_FEATURE_CRASH		4
+ /* BIT 24 - 31 are features configurable by user space vmm */
+ #define  KVM_FEATURE_VIRT_EXTIOI	24
+ #define  KVM_FEATURE_USER_HCALL		25
+diff --git a/arch/loongarch/kvm/exit.c b/arch/loongarch/kvm/exit.c
+index 4f58e6e2cf86..3b6daa946c76 100644
+--- a/arch/loongarch/kvm/exit.c
++++ b/arch/loongarch/kvm/exit.c
+@@ -911,6 +911,17 @@ static int kvm_handle_hypercall(struct kvm_vcpu *vcpu, int ecode)
+ 		vcpu->run->hypercall.ret = KVM_HCALL_INVALID_CODE;
+ 		ret = RESUME_HOST;
+ 		break;
++	case KVM_HCALL_CRASH:
++		if (!kvm_guest_has_pv_feature(vcpu, KVM_FEATURE_CRASH)) {
++			kvm_write_reg(vcpu, LOONGARCH_GPR_A0, KVM_HCALL_INVALID_CODE);
++			break;
++		}
++
++		vcpu->run->exit_reason = KVM_EXIT_SYSTEM_EVENT;
++		vcpu->run->system_event.type = KVM_SYSTEM_EVENT_CRASH;
++		vcpu->run->system_event.ndata = 0;
++		ret = RESUME_HOST;
++		break;
+ 	case KVM_HCALL_SWDBG:
+ 		/* KVM_HCALL_SWDBG only in effective when SW_BP is enabled */
+ 		if (vcpu->guest_debug & KVM_GUESTDBG_SW_BP_MASK) {
+diff --git a/arch/loongarch/kvm/vm.c b/arch/loongarch/kvm/vm.c
+index 6dabb227a732..9bf4b3bb8f25 100644
+--- a/arch/loongarch/kvm/vm.c
++++ b/arch/loongarch/kvm/vm.c
+@@ -49,8 +49,9 @@ static void kvm_vm_init_features(struct kvm *kvm)
+ 		kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_PMU);
+ 
+ 	/* Enable all PV features by default */
+-	kvm->arch.pv_features |= BIT(KVM_FEATURE_IPI);
++	kvm->arch.pv_features |= BIT(KVM_FEATURE_IPI) | BIT(KVM_FEATURE_CRASH);
+ 	kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_PV_IPI);
++	kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_CRASH);
+ 	if (kvm_pvtime_supported()) {
+ 		kvm->arch.pv_features |= BIT(KVM_FEATURE_PREEMPT);
+ 		kvm->arch.pv_features |= BIT(KVM_FEATURE_STEAL_TIME);
+@@ -163,6 +164,7 @@ static int kvm_vm_feature_has_attr(struct kvm *kvm, struct kvm_device_attr *attr
+ 	case KVM_LOONGARCH_VM_FEAT_PV_IPI:
+ 	case KVM_LOONGARCH_VM_FEAT_PV_PREEMPT:
+ 	case KVM_LOONGARCH_VM_FEAT_PV_STEALTIME:
++	case KVM_LOONGARCH_VM_FEAT_CRASH:
+ 		if (kvm_vm_support(&kvm->arch, attr->attr))
+ 			return 0;
+ 		return -ENXIO;
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
+-- 
+2.39.3
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
