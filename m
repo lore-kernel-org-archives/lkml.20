@@ -1,86 +1,74 @@
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D9A345ED3
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7842EACF2
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792119762; cv=none; b=qO159J8+dwdDYdD2L2mfByxrdhswcaLMTSLHMuOAKm7Z1c/iHDvGjPCcxd9bDiM9kYE2xKNmvZBrpc/lzJ5xwWlc7Fiz37x0MEyt/RSurdEDEqZh1ykS1058M8l6qbP5K2UTu1ii0Sovr3L0lUXJVdVoO+eABp5BgkoR48xp5KE=
+	t=1792119763; cv=none; b=eXitw/SRT5+JOQLLwgG2JrVpfs+5Q6IkBlyr0UFNGWH7Zu/kszhGb44D/RKT6Updf8mXepmZtcT3WVPu26rwGuWMZzOOWk0CCZALIIy9mKIYfdNbHnWP1VjQISOVgdi0RMfSOqFsYNPncQJ+8EIE8XHQrITOqRRMnVIlx6v23aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792119762; c=relaxed/simple;
-	bh=Ncfi737IhfgoTSXedrzzjI4FEr50ydWxAOSaf860uDs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cCMDoUJMMC25RHTaX9ja8zhNmxVcnFv3malssPeX659cFXINEKe0pp2z+Vb+ishWCse20sA3/YNA7CEfg0Ri4x6jvYb40hbJpShDV7mQzrHlEJvTfKNJtbgZN77IhsKF8/2aqMTfPLMWQnGnPG85euKPLnuOTBKf4F8YQUwBzaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J3Bcc94Z; arc=none smtp.client-ip=74.125.82.42
+	s=arc-20240116; t=1792119763; c=relaxed/simple;
+	bh=L2CSYq3mCoqIUn6oPxJeobbnJD5kXI5TuxiahJaHTFY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fy8Wit6jpj5ahLCEF9n/eBY5srSV9I21nnocsRXhw7hvRFnCzUM3o7NL5HbyreeQRIpdCqOrUCFFMdwKFJHPA0llt1G+Rm0+bT1WcXolfeHV35j2MbE48zTMgJrTDzz3wWJkBmOxWxDpVzb+TzBbs/mD3J/t9TA88xrWwcduzBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=klsEHlY6; arc=none smtp.client-ip=209.85.160.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J3Bcc94Z"
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-15943c9c005so3009205c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:02:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="klsEHlY6"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-533778ab0bdso67757761cf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:02:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792119760; x=1792724560; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mg4v7BHfqkhi7Mtq+V05hYnu3rpb+ZBoFup4gff0eTY=;
-        b=J3Bcc94ZZTdoPuZwv2gg4GhhisTH8hbOfLhU+PFZ3VNUR/cmHWpfZGN5Ipsoecge7Z
-         hWQxlfza7KnnYkWXSHUSbIV3Ssg0jzFduamygASLv7HylbY4aCtWbGpWrsZ1t2dtLI6w
-         7KZXX149JGPqBA1L8faJ6Lgn6N0qCuv1KsGmvquU0kn2Es+anjzBikCyE0ofmNxZyW0c
-         qU8G1l4uHbvUwxSoM+7mvRY1AR8BXsYEoQ3op5etGn+fKcLAmHaGY8NgsSYiWG+3I+4M
-         5lKAL41fPFBtu6/Vud54Csc0HAJvPHhnz2+6sh7qn3CQpyMMG9KCSlT26NQG3JAqqTou
-         MYMQ==
+        d=gmail.com; s=20251104; t=1792119761; x=1792724561; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s4D9yM14KvjVwR70sp6To7FJ7frrG/aute3zZt6nzPY=;
+        b=klsEHlY6hJxsdb10Hz80kpuVCAljJEWLIbFLKLBMj3B/AUa2BE4IsR1lDQZhwIM9wQ
+         MysNrG4TMY47JijxTpIgeuNWXgFw4JSu3X2rS8HOgznH5TmZoxz8stxcIIDdpI+uJz3D
+         Hz0JO6QWtXKjffHnMWJ3DflXe6S9OrewHfOz8F/o+QULXWMZeobCunRJBhq9rKx8W9BU
+         4kSVeDEAE0cUMNfxqpwoRlKpgEqUmAy0tm/NqUok050GTBSiohNAfO6t5OmcTZIBoEad
+         Y1JNaAhbiNNb83gQCk+fNsYLRckVJDpRNlY/twozhEKGOcwLwxoWdsDzforFPdP27oVC
+         Zm0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792119760; x=1792724560;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mg4v7BHfqkhi7Mtq+V05hYnu3rpb+ZBoFup4gff0eTY=;
-        b=op8xH9o8znFwp4/DsNR34LqJd0vBCx4LfYHosQQC+9ItbITs0l44+1ji9wcb/uxtug
-         B2fKkE6FHVScZp2LNtk0bukgjH8GQQm8A2PW/UWesW745JsrTJbpdsZJaOXefAqJz7sF
-         uuKSa+Q+2TwgQleHKHqLFrCNgo5bOKyc+ei+8dBzMSwqCXp4pk66QYmLRgagIOoXwBDq
-         uqd1fITNnY2cXdWu6bSjcm3q/qPcmorVwx1vI0e2zwiz3vGI1+QkWOY1cy624buNomYE
-         ve3vW/50lsI+YretmYdxaGu/yt4F/XSlPM1oLD+jTzC63AlV6heXmaU44QoKVvpwYoQ+
-         kN5w==
-X-Forwarded-Encrypted: i=1; AKwUvBzKtfGvdSAhCyuAApKS2oQJrpMKhyi2bjP1Jk5wRFphWfEQ2VcJpWJoAShDvr0cVoV3c1YfnIAQXB6bAKM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOweNV2cwTKbKU1EN2xxVl3UCqQJMecZNCt/wpPs31uZp1dXoo
-	xi4IMoxECYJBuiso2cgdmj1Xt5wthUq741bJX7FUHQbCcE52sOVYldiv
-X-Gm-Gg: AYBFou2YmdY+KlijpV/chhc/9I4H7lXeKkoxc84hOTmc8hhXrlhmShJYVa//iM665TE
-	IG7qvWCIF5tQ2OyCmKyu4huvdMqWWgDODbpWzuqlPjJTPJmwzQgEYbYPFgLWOzz2+HWAcIyvO8f
-	eL+REEUtXqIKHNwZ9YxUlg9nAbQz2mIoP5ypG1Pw/INcesKSJi6d9YTrqfAR5+vEDmh0DHwo3ay
-	Ywy67R4phYoZWj8aGigAsQrwqEg7Cbnjv24EU1x7ZbxvCVNAuGKBTQaiz/kIeDC6hw9KYRJw6BV
-	q9KcpVMSuhdfOFHDjAChHdv9LYuJMRAByoKUulC1i73LLdagmyI5n6t6pXltUNX+kpFbdsfMqPp
-	AwKXC4Ea3rZzYfV2sFyk+qehbXTl03UufjJyvmEPMEUaDR1aCVuKI3Huba5XnOHUlUuprV235Mm
-	hbjNlU97nKsc2qrYFPEYgRkrFWNLJLDwTxr6OP7Yr+J/wkWbQ0bCB4Js88iIKOY4E=
-X-Received: by 2002:a05:7022:3b86:b0:143:5266:48ee with SMTP id a92af1059eb24-16a6535ab09mr30808175c88.42.1792119760148;
-        Thu, 15 Oct 2026 20:02:40 -0700 (PDT)
-Received: from ubuntu.. ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1830f213ba7sm1913846c88.0.2026.10.15.20.02.36
+        d=1e100.net; s=20260707; t=1792119761; x=1792724561;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=s4D9yM14KvjVwR70sp6To7FJ7frrG/aute3zZt6nzPY=;
+        b=WbqbwhSzxlAO7mLR1I0xtssdMsD9ZqPvuAqIWd8bWTXon8hNfpM3oBK37TYDhcLgrF
+         hJfaM2VIYAyjZKt8m3ZuD8VRRHObrsut8yYYMm2mZA8jf06GtN26R+0vFN+w5F3VBbrp
+         MpN7/36md+Nns/bhuyNwjitGm2yBONFIpEFXLQar/H5FEPD3DpvQXYmMu6kQU2roOE8E
+         P/YVV2cwbiZIEp8UrlQJZOUlDNp0b6cQJY8q4lQkWLBPf7FmpBt83kE7qBgRpjQcqhvZ
+         2CP134pYgGHw3TWXlEZRzuwdRWxBTfeQeltdpRMOkaZNNP16MbIaw8VLlppiChh1wRj5
+         4TJw==
+X-Forwarded-Encrypted: i=1; AKwUvBwmOoa303vpKSiM8RnAky7eZ0R/Uby/Iv4irRCzcomn3EW/6AjMm1GIyOc2xf4mkHJT1dlElXQU5sk8rOY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLyV9CfKuCBSRS7Q/FzNkUIklIhns7YmzghP4mGASpkhkWGEBWH
+	wpQmcepgBBGd0qJs1ky0YtfWDaQMqK6whDj2Wdj0Ebp0SCiC/JDRZiEh
+X-Gm-Gg: AYBFou3FhBc4AYv6nG3Ro5Dbg1hFx9vobtN5S26kWED1cEKoypxbwbMkXUn3GWM9ety
+	cmhNEnpAdLPdywIm5/9+fqdbQhqasBzRZYRlcnHV3CRIAqpQnM+BNByoEPLMrpz1BeSok8pPpli
+	omi8w69HB8vW6Us80dFP5klyegiZGB0ShurESceorF6AQri121FTdw2PzC/JjSc4dnyn31glmYw
+	7shdA7Xfif21UO6Je7PJ/UNErcQfsKRF0CVb5km7NcXR8tLynDucjWdCp4WdnsuqTeXSgSMXhmo
+	z80toiPw/9ikP2ABmCY6rXe1oIqDXAd0yHkHGM2xwpvAVe7wfHy0ZIHXo6Zkf4s0T7ztOMptpq0
+	oYshvbbV5RcjL0E1cpscRFAwFdal6aLVCrCgbQBOBo8qh09UOMHIBs7Tt3FowI/hG0W2HdIvJPR
+	F7zKM2HmpY4mcqgzSf+Hvt6ewf9rrlVycGfDkZEjCmkXasPpDvbkv2CBhmnM6IhAPn9cCnNxyYZ
+	cXLrKUySfXikn/2OWYR/Q==
+X-Received: by 2002:ac8:5f4b:0:b0:533:43b1:5610 with SMTP id d75a77b69052e-5359fae165emr373990021cf.21.1792119761476;
+        Thu, 15 Oct 2026 20:02:41 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362aa19a3asm10205701cf.24.2026.10.15.20.02.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 20:02:39 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-To: Amery Hung <ameryhung@gmail.com>
-Cc: Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Shuah Khan <shuah@kernel.org>,
-	bpf@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf-next v3 0/3] bpf: Fix a struct_ops use-after-free behind a flaky assoc_in_timer test
-Date: Fri, 16 Oct 2026 11:02:33 +0800
-Message-ID: <20261016030233.3429038-1-odys.yuan@gmail.com>
+        Thu, 15 Oct 2026 20:02:40 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Alexander Graf <graf@amazon.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>,
+	linux-kernel@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v1] misc: nsm: reset device before deleting the virtqueue on removal
+Date: Thu, 15 Oct 2026 23:02:03 -0400
+Message-ID: <20261016030235.758830-1-oss.patchbox@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAMB2axPRjfe=ROzA0rMR1_FPyv1mA-jaH3bHQHZje=Q1PjoEVA@mail.gmail.com>
-References: <20261015-selftests-bpf-struct-ops-assoc-timer-v3-0-efe643d4b2a3@gmail.com> <CAMB2axPRjfe=ROzA0rMR1_FPyv1mA-jaH3bHQHZje=Q1PjoEVA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,38 +77,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 10:41 AM Amery Hung <ameryhung@gmail.com> wrote:
-> I think this fix is heading in the wrong direction. The struct_ops map
-> association was designed as an RCU-protected pointer: asynchronous
-> users may outlive the map and observe a NULL association. The existing
-> selftest explicitly verifies this behavior.
->
-> The problem is that the disassociation now happens after the grace
-> period initiated by bpf_map_put(). Could we instead make
-> disassociation safe in map_free_pre_rcu(), before that existing grace
-> period, rather than adding another deferred-free path?
+nsm_device_remove() deletes the virtqueue without resetting the device
+first.  del_vqs() frees the vring backing, but does not provide a generic
+device quiesce operation.  In particular, modern virtio-pci keeps enabled
+queues active until the device is reset, so the device can still access
+the vring memory after it has been released.
 
-Agreed, that is simpler. v4 [1] does it in two steps:
+It also leaves the device status at DRIVER_OK, so unbinding the driver
+trips the WARN_ON_ONCE() in virtio_dev_remove() that checks the driver
+has reset the device.
 
-1. Replace st_ops_assoc_mutex with a spinlock taken with irqs disabled,
-   and put the map of a non-struct_ops prog after dropping it.
-   map_free_pre_rcu() runs wherever the last reference is dropped,
-   which can be softirq, e.g. bpf_struct_ops_put() from
-   tcp_cleanup_congestion_control().
+Reset the device before deleting the virtqueue.
 
-2. Call bpf_struct_ops_map_dissoc_progs() from
-   bpf_struct_ops_map_free_pre_rcu() instead of
-   bpf_struct_ops_map_free().
+Fixes: b9873755a6c8 ("misc: Add Nitro Secure Module driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+ drivers/misc/nsm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-One thing to confirm: bpf_map_put() waits only for a regular RCU grace
-period unless free_after_mult_rcu_gp is set, and no struct_ops sets it
-today. bpf_wq_work() runs the callback of a struct_ops prog under
-rcu_read_lock_trace(), and that callback can read the association too,
-so v4 sets free_after_mult_rcu_gp for every struct_ops map. Would you
-rather leave that to each struct_ops?
+diff --git a/drivers/misc/nsm.c b/drivers/misc/nsm.c
+index a3a9f9bfc6b7..7193dfc4343b 100644
+--- a/drivers/misc/nsm.c
++++ b/drivers/misc/nsm.c
+@@ -483,6 +483,7 @@ static void nsm_device_remove(struct virtio_device *vdev)
+ 
+ 	hwrng_unregister(&nsm->hwrng);
+ 
++	virtio_reset_device(vdev);
+ 	vdev->config->del_vqs(vdev);
+ 	misc_deregister(&nsm->misc);
+ }
 
-On a KASAN kernel with v4, st_ops_assoc_in_timer_free passes 100 of 100
-runs, where it hits the int3 Oops on run 1 without the fix, and lockdep
-reports nothing over the struct_ops and tcp_ca selftests.
+base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
+-- 
+2.43.0
 
-[1] https://lore.kernel.org/r/20261016-selftests-bpf-struct-ops-assoc-timer-v4-0-9ad31c21220c@gmail.com
