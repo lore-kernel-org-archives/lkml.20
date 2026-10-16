@@ -1,74 +1,88 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05BAB271A94;
-	Fri, 16 Oct 2026 20:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F70D370ACA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:01:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792184391; cv=none; b=rvRVcmEyzt9rMG3gmfHSRT3UvrdsfAlnEUc/dEazcvTFiSXXxZzP52es9nTrlKBf8w3NvfNbHqOF8ZrGMDRjgfwzic17tG5OCGbivw9ksvsOClUYLYjyrED/mo4vZt8hKZflEOp7L5yCwJrmN03AH5aUTzrFmI9bkU1o1yywD08=
+	t=1792184494; cv=none; b=CS6ckRdwSIiO7LBDz7NSKX6owqDIXG3/X7XUoi5JOoGNYTk0MwtfMaF993fKe40HAvaS09aKOkYN6UtTWSQZbt2wHBhklTllHRd3qfgPX9Q1DQI6rxiv+PEz0VTq3CYh1FTlGrbM1z6fviY+BbO4AtzUgVzeCHWuFuDNhgiB+88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792184391; c=relaxed/simple;
-	bh=bMeL6tHlQ6inzNnfaRqcSOiSvbtkoDQrWgNDJ3ZEPno=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ohZyF6YgfrQvslsTWRGAztdWZGpfNSn0bEvPhlmdBRShG0Fx+iIFe9KB/sRe/IH85TNU5mhxNk9WK9bzU8NljhEj4a9nN/FEbpDROng5QySQ6cxpdE/iDd5bHTmmyRG8zTmuV71okaiwG13J2QkX1D6EBZV0jaWvCVj22qMsk3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=PQIUNC0c; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1792184494; c=relaxed/simple;
+	bh=x84aPTx8609GVu9kidYl7vrHKXVzx1OJjssGI8EzzJU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=It5b/+uPt0WlxdC9WAN3SdDk14vRzOwuQjChgsU3e86CPg5xTrXnNcG+4MksEwUsKeGgTphL81yBbZFwATnjnmLVeBb53+CI3BfITLa+NeFMl6W/6TE4dGgpdES3aiX435XUVRTAlln95NZHcXI7X0wMLACsjKrrtRbHkjJZNOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gjmg3vLz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="PQIUNC0c"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=vtJqI8YsdfW+gxZii/Z1VxgXOvJbDlTlvuwqPo5TN7o=; b=PQIUNC0cBfW3xjCJn68w+s6Mu9
-	7UVTgRDCwAq5q5Arp2OOnFwHbgt+dzVnbbuPvzO87RJJLzD7RwR9uZPrRc6VNDX6rS3aoIFjE5E+y
-	UB8vktCQsOT6lvsEpXyhvuHkcZfwvPrSQa2Xs1XTXBv2SBTSDIPYfxjLyAvSSk8OMsAU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xHp1S-00BDxQ-DV; Fri, 16 Oct 2026 22:59:26 +0200
-Date: Fri, 16 Oct 2026 22:59:26 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Marek Vasut <marex@nabladev.com>
-Cc: netdev@vger.kernel.org, Vladimir Oltean <vladimir.oltean@nxp.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Clark Wang <xiaoning.wang@nxp.com>,
-	Claudiu Manoil <claudiu.manoil@nxp.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-	UNGLinuxDriver@microchip.com, Wei Fang <wei.fang@nxp.com>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org
-Subject: Re: [net-next,PATCH 2/2] enetc: Make eMDIO MDC rate configurable
- from DT
-Message-ID: <725fe351-bdd0-4b53-b551-0f638d02f98a@lunn.ch>
-References: <20261016193344.115518-1-marex@nabladev.com>
- <20261016193344.115518-2-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gjmg3vLz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0A171F000C8
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:01:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792184492;
+	bh=Q3xG/vQ/oHvjXvJdtmtHwaYrf3UPIKtY4II7aIFXNyI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Gjmg3vLzNilF8SOJF0uslQx/s8kO3JMAmo/88NN7rmZ+homAw4ZgRsxX+EbrL0OVL
+	 7c2uxoSR5zouQu/MAQCAlfULSAn/PokD+lUoyYqFsvvMvP4ILhJ/PNp+ppZyoUm9/X
+	 EFlTlIIjJ6P/9j1rJqrUkVGMsn4RMctXTGcDIQu3yaIzIbQj8oCapp9ueZUaXzDoN4
+	 gxPHapusHPhMTQ8RxwvXO83DRZrRG8UWARA7/9y7CEn+c7zEuuuhCjez7OpVs6NlUA
+	 BE6zgl2Qhrbc550uptKBtLrIRY4u1Zh0FgFdM2iRxc7H4Vo6VZjDRHf++JRlrgumV7
+	 DjpgpNlMARJQQ==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ab07d956f2so1681031fa.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:01:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz4L5xT3au3g0IuJsOZ+UJnp7uDi8XSkxqVHsZwl3DY3mzh5RPtsNygDu/J75f5ybpVwMBtuSl+/fO4LOM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGhPqr7G8BHSr+Rnf2HJOh6Y232wOcU7rCS6HsxTAnSfAOirt9
+	BtV2hD75Dl+iJdPou7c1t0YTMA35Kr95HRBL09ZQcb2gnFESWg/gJWeUacN/3qQbbzlvYfP6y6u
+	glmw/zwAsbwQ+3BdjSwWySD7AAoOrVD4=
+X-Received: by 2002:a2e:be08:0:b0:3a9:9b66:c5fb with SMTP id
+ 38308e7fff4ca-3ab2940bda6mr2317381fa.29.1792184491585; Fri, 16 Oct 2026
+ 14:01:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016193344.115518-2-marex@nabladev.com>
+References: <20261016-iio-light-gp2ap002-v1-0-7c93312fa8d5@rudorff.com> <20261016-iio-light-gp2ap002-v1-2-7c93312fa8d5@rudorff.com>
+In-Reply-To: <20261016-iio-light-gp2ap002-v1-2-7c93312fa8d5@rudorff.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 16 Oct 2026 23:01:19 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkSjbMRV_53rjpd1D+vxg=OVVWzVwiddUL0eqmSBoONHw@mail.gmail.com>
+X-Gm-Features: AclHuK_-uCiG2lo-MUzDBEEJ29WextQc6K-sVKLlU4i1vx2eSoj4AmldZKoXnFQ
+Message-ID: <CAD++jLkSjbMRV_53rjpd1D+vxg=OVVWzVwiddUL0eqmSBoONHw@mail.gmail.com>
+Subject: Re: [PATCH 2/3] iio: light: Update DT bindings for GP2AP002
+To: Christoph Rudorff <chris@rudorff.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> +	div = ((clk_get_rate(enet_clk) / mdc_freq) - 1) / 4;
-> +	if (div < 5 || div > 0x1ff)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "Requested MDC frequency is out of range, ignoring\n");
+Hi Christoph,
 
-Returning -EINVAL is not really 'ignoring' the invalid value. Since
-these are optional properties which are present, if they are not valid
-returning an error is good. So please fix the message.
+thanks for your patch!
 
-Why is dev < 5 an issue?
+On Fri, Oct 16, 2026 at 4:43=E2=80=AFPM Christoph Rudorff <chris@rudorff.co=
+m> wrote:
 
-	Andrew
+> +  vled-supply:
+> +    description: LED power supply a phandle to a regulator
+
+What datasheet is this from?
+
+My datasheet for the GP2AP002S00F clearly has only
+VIO and VCC, enjoy:
+https://dflund.se/~triad/krad/GP2AP002S00F.pdf
+
+There is however two *outputs* from the GP2AP002S00F
+called LEDA and LEDC.
+
+These read "LED Anode" and "LED Cathode" and is where
+the IR LED is supposed to be connected.
+
+I'm just puzzled by this patch.
+
+Yours,
+Linus Walleij
