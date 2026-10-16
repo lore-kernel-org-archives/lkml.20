@@ -1,79 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7850B4CDDC3;
-	Fri, 16 Oct 2026 13:40:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9A14D1791
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:40:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158014; cv=none; b=t2xRGpdsGorM0cs7Rw5ZGkrbqSaQhAspBm7+Qe8iX2+S0iOpOmFJ3jj9BS7I/WgH7sDXb5WNoY8kMG91pCE3pyAbMH9I9q4ChVhC+koopnSs8Ag4X+YXqVCXUJKtkBX1usAsIe7hGg6Oj8wR+K0iWch+MOuRnKXV5voz4pmcjXU=
+	t=1792158016; cv=none; b=HP/q8lYW3c3A98BeXUqh7+m4YTHva3Jt2HfSXGT1EZoMeSkQ+scQVvj/vWPGWlqXvAeNFB+ZdJFifpcdh/Orlza40qfWmWkyIGAA4dGWUJfTNHKg3htCvSd9qsjaN1ytYJMuOoJJItIuBBmQ2wi3uWUh/W40KRcBQ91hb1S6SOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158014; c=relaxed/simple;
-	bh=0IHTEs+pvAYa+7vQMln3xlEfDIWWNKsBpDvOnwo8Yrk=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=IP+lYaYe6rdq+NCcW6+bHYNpS+uxv/E+b0zJjSyEQWylAxfVgpzdlA5sm5ctfLhX+FtOxBDFL410GVbXZCexfJMWP3Xu0/5xf8jCA1Wc/PBhmSoVHTS42MxZzEwvsJaIvVu1H51KVoIlCQiItAVN4MmQG159yBBhUTjGvVUPNmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N54YhCq3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792158016; c=relaxed/simple;
+	bh=erMqNnqKnE3TTlb4bHitvna4KLJz4uoSJmF4IdyTeC4=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=g4rQPsTe5HYJcaLvr4s6zl+Rk9SWM1lGm1/ZWzBIPHCklvqtPmpuyq9BVMbYaMhHUqToJ8IN5MRwGr7X5HFcK/mwR8m0hmSzrxqs7brlaq101zRBVHTNFn/eISYK5y+BL9Pr0bzyApFgaApUcFIU7VpSr2jFWoU0ARGzUmiV7bM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hiJUU6Xu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N54YhCq3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 472591F000C4;
-	Fri, 16 Oct 2026 13:40:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hiJUU6Xu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A73BD1F000CA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:40:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792158013;
-	bh=q4+yFQ1RMTVGxRi4ZRN5qNEa/3n1uEqLEnZJnPJw83o=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=N54YhCq3dbbNJlVWMM/Celw4+UppRffTa1ak3EhneeVTs5wiAwXZuhvvSIy6cnGbY
-	 e1HdMV+dtZpHGo3bydHFIIjAB8xwr2S3jqpwJav/Bp5rG3htkMjbfVJ2O6GHcyxJNF
-	 eSV+omXdybqfjbYM4khcDGghAFpM8KYAV6xtUuCDrAUN2TAtR4/1rDkqEqxU3oIfo7
-	 WRZFBCidF8eMjoM5j2AJkhv/QRMl99015z+DVgWLbS7g7BdQzmNynU9HPt+aP+wPho
-	 xM0XdXQJlvSHNurvsGlW7VdozKs3DSOR2a7VXZXWKcsxcWXoGaY5VbHZ6epobORtxM
-	 aTYwsQOQfEu/w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3AC13380A95C;
-	Fri, 16 Oct 2026 13:40:13 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1792158014;
+	bh=eNVBQyP50cHJEa5KS5OJogHRlPLCmh3Z4HuhJl22Lv8=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=hiJUU6Xu0Z9AlP5L+IEXay2yVtDatHVCdvOGnJO0wgS4J/QLLFSyQPgqOBGBYKnEe
+	 eQLPBh2e1k+82sHtpj4Yy3mfPEkfTq5zxqaDj8CfrrHh34Zg5SQVUd0hcurx0J6ouB
+	 hqjcM6MQ4v+8OG6dy9foKwlAf8A0cWvlzNRmJUx1G4y95lTlmh3J7DFbdFHTALU5qB
+	 p2hTDIpYcsEFAq1f1pMNLOxLmDQ96lL7qoqzvstuJ3tWvyt2b68e058qZT8twOP9fF
+	 07JfskBb4+Urv4oS+O08/jnAKzJFFAVD1KPi6ySoA4snZpRN6QkyqMzEIbbhnaKfp9
+	 5cxYHZDu62cgw==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bcdae234ecso6021926e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:40:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwgyKxgboH2OhaMZn0VuMQbPhbHx3Sexj0IO0ecYFa3tmS0198waFfiCTJwWq8lWdvt6ie4fwFL8/yDBIk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8UGJLXGe7C3ZF9pC1BZs2Rwgy4ODMG4uMBKsWwNvqdNoPxc/N
+	zlrv4AKH9LID9f6G/XQuDErKxu3XhNaJvofwwJW445hcF3IvwQPgAuZWesgbt8FXxyMFcPlMk99
+	KpciQ7awYXOvftVMflmJRZy4PUkC1qvacWc+JoiBT/g==
+X-Received: by 2002:a05:6512:3994:b0:5be:4c7c:fb8 with SMTP id
+ 2adb3069b0e04-5be4c7c0ffcmr610991e87.13.1792158013398; Fri, 16 Oct 2026
+ 06:40:13 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 16 Oct 2026 09:40:08 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 16 Oct 2026 09:40:08 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0@uniontech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf-next] bpftool: Fix inverted tracefs validation when
- scanning /proc/mounts
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179215801179.300760.9186201876116142523.git-patchwork-notify@kernel.org>
-Date: Fri, 16 Oct 2026 13:40:11 +0000
-References: <20261016015057.127061-1-chenyuan_fl@163.com>
-In-Reply-To: <20261016015057.127061-1-chenyuan_fl@163.com>
-To: chenyuan <chenyuan_fl@163.com>
-Cc: bpf@vger.kernel.org, chenyuan@kylinos.cn, qmo@kernel.org, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- kuba@kernel.org, linux-kernel@vger.kernel.org
+References: <20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0@uniontech.com>
+Date: Fri, 16 Oct 2026 09:40:08 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Mf6DbSHKEnXLOpDXs8x3bHYQN+oQHmg+tj4aD-rCc9dzg@mail.gmail.com>
+X-Gm-Features: AclHuK-59soD-0iTM4uUCy0udpQ6HrlKwlsewh314Ac8DwFej8E-BhAtkZWIOM4
+Message-ID: <CAMRc=Mf6DbSHKEnXLOpDXs8x3bHYQN+oQHmg+tj4aD-rCc9dzg@mail.gmail.com>
+Subject: Re: [PATCH 0/3] crypto: qce - fix CCM AAD buffer leak and the AEAD
+ error paths
+To: ZhaoJinming <zhaojinming@uniontech.com>
+Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Bartosz Golaszewski <brgl@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S. Miller" <davem@davemloft.net>, Thara Gopinath <thara.gopinath@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello:
+On Fri, 16 Oct 2026 04:09:42 +0200, ZhaoJinming
+<zhaojinming@uniontech.com> said:
+> This series fixes a memory leak in the QCE AEAD driver together with two
+> bugs in the error handling around it.
+>
+> qce_aead_ccm_prepare_buf_assoclen() allocates rctx->adata for every CCM
+> request that carries associated data, but the buffer is never freed.
+>
+> While preparing that fix, two problems in the error path of
+> qce_aead_async_req_handle() turned out to matter:
+>
+>   - It unmaps req->src although rctx->src_sg is the scatterlist that was
+>     passed to dma_map_sg().  For CCM requests with associated data,
+>     rctx->src_sg carries the AAD buffer, so its mapping is leaked, and
+>     freeing rctx->adata there would free memory that is still DMA-mapped.
+>
+>   - A dma_map_sg() failure for the source scatterlist is not detected,
+>     because the result is checked for a negative value while
+>     dma_map_sg() returns 0 on failure.  The error path then unmaps a
+>     scatterlist that was never mapped.
+>
+> Patch 1 unmaps the correct scatterlist, patch 2 adds the missing frees
+> and patch 3 fixes the dma_map_sg() check.
+>
+> All three were reported as pre-existing in the Sashiko review of the QCE
+> BAM locking series.  They touch the same function that was recently fixed
+> by commit 7f2345f47dd1 ("crypto: qce - fix CCM AAD buffer
+> underallocation").
+>
+> Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
+> ---
 
-This patch was applied to bpf/bpf-next.git (master)
-by Daniel Borkmann <daniel@iogearbox.net>:
+All three look correct to me, thanks!
 
-On Fri, 16 Oct 2026 09:50:57 +0800 you wrote:
-> From: Yuan Chen <chenyuan@kylinos.cn>
-> 
-> The /proc/mounts fallback in get_tracefs_pipe() accepts only
-> non-tracefs mount points, so a tracefs mounted outside the default
-> locations is ignored: bpftool prog tracelog then mounts a second
-> tracefs, or exits silently with --nomount. Negate the condition.
-> 
-> [...]
-
-Here is the summary with links:
-  - [bpf-next] bpftool: Fix inverted tracefs validation when scanning /proc/mounts
-    https://git.kernel.org/bpf/bpf-next/c/21c755efaab1
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
