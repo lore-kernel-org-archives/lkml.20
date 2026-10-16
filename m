@@ -1,72 +1,120 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673A24FC8E5;
-	Fri, 16 Oct 2026 16:07:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDDC4E36C8;
+	Fri, 16 Oct 2026 16:07:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166822; cv=none; b=k9geJfZD5IrhYp1eBdCZZb7YEjPHzZeqw85v0anOkH7OE1YKZIr0PJCCc4oLWr29fZ62WKciJ33f8w0rGuB0Ik2D2zKgcYekpraeXJU1bisx4tu2PQdl0eYXWZiKmhhqMik4jo79W4Pq9uTxJUJkEO0nEPwbJBhIZn9QEhEiEp0=
+	t=1792166824; cv=none; b=My3SUgcrC/6flwcXx3WKW+9x5b+hk83u0h1bqVbUC9/jaAn6hwwtVmdMRuLtbDegyE3tOFwX3BjLrEBRbTgCK92qu1sXlLYJ6C08ttv5xVICzpiy91fFWjOzKWdVAPg8H6qQisP2wNXsATycOse74N7gj3MpuV3JLNB9nlcbR38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166822; c=relaxed/simple;
-	bh=9sHF3JRaXcIWL09bXPLmsqW1Z21hCdeAHOj00DITeFY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aOR/ywIgKmTlDXit8wGMDarufmm8D4VrS/pULHc/JJILyELTif4pmNAmQFmptliV8T6ImZnNVIBWH9prSdbjZi/O4OloNzx4w0NkYSbkRtr+nbDUJOYkm+I+hagMx+cqNVV+CEFlg8qTFQDtWEVpGJUcAx6KfR3+1FAsVGoK8Ek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100.1)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1xHkSL-0000000086k-1X6n;
-	Fri, 16 Oct 2026 16:06:53 +0000
-Date: Fri, 16 Oct 2026 17:06:50 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Paul Elder <paul.elder@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Dafna Hirschfeld <dafna@fastmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	s=arc-20240116; t=1792166824; c=relaxed/simple;
+	bh=vMSXYhWLHgCBvF6lMZjjuvJ/Yz8NwzSjsTqzWMLkl4g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RPbHaNMTBCq/Ic3bsgNU+utXrWbMLr+hiAzofkZ5AzzuP++c7PHtw0iQGgtHyDSymk2Hjo+5IijAtuDvFqO80PDXlSzHku+3aNWNecwB5H8T3xw9vaFuJEvbUXTuxW9AXPFPcChWb9qMC1ggLwBxB9KQ3NeGRjRO5A4zNyhpCak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nvN/Wjbo; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nvN/Wjbo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20EC51F000C5;
+	Fri, 16 Oct 2026 16:07:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792166823;
+	bh=OruC+xVMUOjeQ0CCeCTlrwXSIelR6KAByPpIlRqyTfk=;
+	h=From:To:Cc:Subject:Date;
+	b=nvN/Wjbo5/6SUmUglC+oaP9HXTRyaQEx6EkhnKmEZc916Ohdgbyh63cA1IL+hyWwQ
+	 /I8vZpAU1qsb2NZcWq0rczGwe/cnY0xA2eQAGCJgSSvno5N2zsbXYzDF91lbqMRUkJ
+	 labZHPSKPsl1bpf4Q2UxA6bBGrHFzqYJZKMSmRhPrHTiwevwNrfW5Sg0c/NBsiwwTD
+	 /PMEG1kiMTjJhlSSbb0Pf0EqVRRNNyQgsgF4vLH2y+k7aBjQF3z691/iswQf1NWlzV
+	 xcuMRYTUeb5BkfBbfc9FCCWmjijS86ZCzj2NoS/oXlcvUUbuCYay82GhN4OvmrOA7E
+	 R+AKrhnfLmSMg==
+From: Sasha Levin <sashal@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, michael.riesch@collabora.com,
-	stefan.klug@ideasonboard.com, mehdi.djait@linux.intel.com,
-	xuhf@rock-chips.com, zyc@rock-chips.com, dalong.deng@rock-chips.com,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 5/5] arm64: dts: rockchip: add ISP nodes to rk3588
-Message-ID: <atJLmq50uRVfeuyX@makrotopia.org>
-References: <20260827-rkisp2-v3-0-e91ff0a604d6@ideasonboard.com>
- <20260827-rkisp2-v3-5-e91ff0a604d6@ideasonboard.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Aaron Kling <webgeek1234@gmail.com>,
+	Diogo Ivo <diogo.ivo@bootlin.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/6] Keep the fuse clock enabled while the Tegra GPU is powered
+Date: Fri, 16 Oct 2026 12:06:53 -0400
+Message-ID: <20261016160700.3831336-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827-rkisp2-v3-5-e91ff0a604d6@ideasonboard.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 07:48:34PM +0900, Paul Elder wrote:
-> From: Xu Hongfei <xuhf@rock-chips.com>
->
-> Add device tree nodes for the ISP and their iommus on the RK3588.
-[...]
-> +	isp0: isp@fdcb0000 {
-> +		compatible = "rockchip,rk3588-isp";
-> +		reg = <0x0 0xfdcb0000 0x0 0x7f00>;
-> +		interrupts = <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH 0>,
-> +			     <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH 0>,
-> +			     <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH 0>;
-> +		interrupt-names = "isp_irq", "mi_irq";
+Since the GPU on the Jetson TX1 was enabled in its device tree, nouveau
+often fails to bring up the GM20B: BOOT_0 reads back garbage, PRI reads
+time out, or the first register reads stall until an SError. The GPU needs
+the fuse clock running while it is powered, but nothing keeps that clock
+enabled: the Tegra fuse driver only turns it on around its own fuse reads.
 
-Three interrupts with two names, while the binding in patch 4 has
-maxItems: 2 and isp1 below lists two, so dtbs_check rejects isp0. If
-134 is the MIPI line it needs a name and an entry in the binding (the
-RV1126 has that third line and the driver can use it for the CSI-2
-receiver errors); otherwise drop it.
+This series describes the fuse clock in the GPU device tree nodes and has
+nouveau keep it enabled from before the GPU rail is turned on until after
+it is turned off. Patch 1 makes the fuse clock required by the binding and
+lists the exact clocks for each GPU. Patches 2-5 add it to the Tegra124,
+Tegra132, Tegra186 and Tegra210 device trees; Tegra194 already has it.
+Patch 6 makes nouveau use it.
 
-Best regards,
-Daniel
+nouveau keeps treating the fuse clock as optional, so device trees that
+lack it continue to work as before.
+
+On eight Jetson TX1 devkits, the GPU failed to come up in 27 of 109 boots
+without the fix and in 11 of 291 with it; patch 6 has the details. Aaron
+Kling reported that a Jetson Nano that almost never loaded nouveau did so
+on 3 of 3 boots with v1. The Tegra124, Tegra132 and Tegra186 device tree
+changes have only been checked with dtbs_check.
+
+Changes in v2:
+- 1/6: List the exact clocks for each GPU, so that "fuse" cannot appear
+  twice, and make the fuse clock required (Thierry).
+- 2/6, 3/6, 4/6: New. Add the fuse clock to the Tegra124, Tegra132 and
+  Tegra186 GPUs as well (Thierry).
+- 5/6: Add a Fixes: tag, as the nouveau fix depends on it.
+- 6/6: Disable the fuse clock on power down even if disabling the
+  regulator fails (sashiko).
+
+v1: https://lore.kernel.org/r/20261013145210.103565-1-sashal@kernel.org
+
+Sasha Levin (6):
+  dt-bindings: gpu: nvidia,gk20a: Require the fuse clock
+  ARM: tegra: Add the fuse clock to the Tegra124 GPU
+  arm64: tegra: Add the fuse clock to the Tegra132 GPU
+  arm64: tegra: Add the fuse clock to the Tegra186 GPU
+  arm64: tegra: Add the fuse clock to the Tegra210 GPU
+  drm/nouveau/tegra: Keep the fuse clock enabled while the GPU is
+    powered
+
+ .../devicetree/bindings/gpu/nvidia,gk20a.yaml | 52 ++++++++++++++-----
+ arch/arm/boot/dts/nvidia/tegra124.dtsi        |  5 +-
+ arch/arm64/boot/dts/nvidia/tegra132.dtsi      |  5 +-
+ arch/arm64/boot/dts/nvidia/tegra186.dtsi      |  5 +-
+ arch/arm64/boot/dts/nvidia/tegra210.dtsi      |  5 +-
+ .../gpu/drm/nouveau/include/nvkm/core/tegra.h |  1 +
+ .../drm/nouveau/nvkm/engine/device/tegra.c    | 22 +++++---
+ 7 files changed, 69 insertions(+), 26 deletions(-)
+
+
+base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
+-- 
+2.53.0
+
