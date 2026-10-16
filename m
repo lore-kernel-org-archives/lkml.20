@@ -1,187 +1,158 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5934611C2
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:52:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792194778; cv=none; b=BN6h3WZGD7NjcFcggygBIiySsampywPsVmNiTfKJx0xyRLZBU/NINESlGYLf5XYnLtA1WZu1+XLl3XtXrihh4z79x6oNJPTOuc53umJ/UsBWu+0G8paGW5DE6Y/u+LZ0JRDyqXvRJ3pv+4O98JNX+V9ErMGH5FlXoNxWWQoYQtY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792194778; c=relaxed/simple;
-	bh=meA6MsQGL4r+3NWB8mPcZgx3ZsEQbioVKTri4hnL4O8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R9hfbbQ5c4M1OLR1FB1PIWko+lqnD6rQhRL+w1VcolwESRsTUrBTqBigeXKVX83BDLIN17Inmf8xpiSYoO0GH99w3nVduIge2srwd4YfX8+oCidXRi7kkLzphPmLM5IgoPfzb2nD+jWQ5yu2so7RvF69uMFX9VCimhFgRa+E5tA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GPe5AK6Q; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740943C584B
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:54:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792194883; cv=pass; b=u1TrrpPlK5REIBFv68x8aeXPvFzf+WK76zp2StMJU6g38PX7Z0vZLCIv0UUwPFbARFvRQLwABKhPe6Dj/F1MlMck+IC7JUTH+KFVvFvE6FZTqtJIC2nlgxLtu3Z+jD1CqxbNMU6AhLIrSOMKybyjV87gK6rzDrsL9PfoXW73tU8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792194883; c=relaxed/simple;
+	bh=Xu70sCv6gBchM8XqIWDLSGQJVvPN3Uu3ZYyJG0fpoHo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=vBqdpHNVTHot8kI3SAF69L1/UFasrFAvsRdasIGbFMgNR72zcIgIATPmivmLQmCp+gPB9KpvZLAcjEqOv4nw76UP8/kCECmuPAQ073JolWypi7omcaFN5Wm1ueffedU1Ux9TAyvfDRdjiosxQp3LYtIvHWUbPGYlqWdth/AYcYw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JWhiWKXw; arc=pass smtp.client-ip=209.85.208.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GPe5AK6Q"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-30b6dad2382so1234083eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:52:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JWhiWKXw"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3a980c1153bso2464771fa.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:54:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792194880; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RuKTDht9cFPCr7tNSgnmIzmp8vC00oza+iZ5mYD5lY8DEK4pEAxgbeOz0iJ8OJ+tSD
+         G2FyUhZvDLGkhcxgXJn2EsgPrLeCiLGXdIA4OqTyi4Mb52tjv03cMCu6VO6iBVwClgU2
+         AAGEIVA46FaDYa3SG3OnfnsHXAXX4COWnVtBo/PihR9VgRMBtUQ+89n39IZpnOxGcIYN
+         xJyGYnxlATXMTFXigRpbMSSf7dpof7bbWv1MXsu3jG1mvhqDNidY3cXt09B6UR+Meyj4
+         y1UDAJDfmKZpLPxnu7/ei7EcO9Y9VFxbZuJyzWwHi8BvlSes27Fmzj8DWfht2ybO3HkI
+         os2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hPUuJtr2Z7cXgheskjaddEaTgz9tX41V1DHpHN9aHT0=;
+        fh=PmY20a7ItN0sEBxbvanI272F92PHR+2nxtIguGcizrg=;
+        b=mzt9UkhPQfThJZ4lkNJkafrMDnUHXk3KjZbAYerPGSD3pmuK/v74fOaHDmilPzzZ/2
+         Ud/HkHnmKNVzzWMrP/yzMmp6IgNfABVfrKw4UshKWWe7pywGVwDJtPQkIQGT2mRqapzB
+         SZKQVLjlcNQTK+FrCAbCxEYms3pJKlwx9rkXufG3+k2VHe/l2DSHa1Sii67hXFxN92Eg
+         bqNvPoPvBP3QAqN8ZVslnzTdU4xZifNpB4d3ic+NI2Syzwo7pLAhM8fp8ZqiIWsMkNED
+         FnT2j8LRbqrjJj7wLiV5q+kZfUmRUnN+zVQg4MPCZwgddMSz4yFnFXkq3S7m/wdkrUwL
+         CGIw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792194776; x=1792799576; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PJzMPP3FpZ1Vumfeo71j9PoiRQb0nGjd9sFzsJIM0NY=;
-        b=GPe5AK6QjV3Cnc+Y5GEwsyK7FawTgaK0F/bNA0PT0XOfvjfWBB3qq8WBi029HFkRVD
-         cD5J68YMSeU2rWI13hOSoSo7ezB/tAchX9TQNez1ktgdBZFagCeuLfNLA0V7Hf2Oi8i0
-         +27WLU1EXX6slI4CSysQ8qZS5aOKi/z4Q8+KfTh4HEWf6W5kOlGjU7VGPgWg4qSOQuPe
-         UNTvvJfVWNLFgLk/qwrIPt+HnTUgRAILOrQDa8I2RU+utp+zPw4bnTgDLQGtBVQ1Yxuz
-         mJGRRC7bNxFQ/s9evc++PyEE3CJzV0OxvEwonmNH5hLeo+lhq25kNe/zH6ioArxiTmgR
-         c2jA==
+        d=gmail.com; s=20251104; t=1792194880; x=1792799680; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hPUuJtr2Z7cXgheskjaddEaTgz9tX41V1DHpHN9aHT0=;
+        b=JWhiWKXwvq1E2jNbMBDl/rLpYYXleh6ovNmddqYaPDKpiGcm7RR8XC5VCMkPSiTqH4
+         4Lrro/f/ArobvNZJOfiRS8sfH8dKHgmjugdph4Dtg1Z9zz0VTvxPgyRQT5wzHTEsfzdx
+         5GMQORLxJw94S2ZuAj+9IXQSBvLKO3w7VuiCcL4CYFeHEGO56gr/GYRVngriTEo5EACK
+         9J9iZiglBo5KflyIJcqiyC64XZc0fU7jelhfiG0SsTvV43EXXWBztos4KBfltY0GU6Ik
+         tcZowYIzspmMOUcw/WXdZsTBPjFJGocX0wm8C77t0jI31Tr8oXdKpnS1aCGVxp+4lq+U
+         qxsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792194776; x=1792799576;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PJzMPP3FpZ1Vumfeo71j9PoiRQb0nGjd9sFzsJIM0NY=;
-        b=w3Aa+ox7ftTw+jC7590ka739Wzo2SMUN8BsjlshXRHRL8pZHyI6/kPaCFWjNDcAfEo
-         GAlI0nDLii/ojW0EmLjKC0W+fjU//7DKAOHUMIPkztna5CozsyTLNmBFO0bCmWmHspZu
-         xOrHwC0ay9Lbt4QfHC81ozKBUKLyPmgYEvEUT43i2TpUEZKFpTfR6W9e+XnD73S/FX7d
-         Cb4ooS/bz2/b3tWnHrtVaAuAqysGgl+q7DmaNF8gWrgH/+r24YsorLTB0lNRB2IbStEA
-         0stePsHsnh9Y6zyg7A+q7hsQgBfkXGDK0DG4Cx/1tFxbl3TuBBBEM+FO93xgEQ6G+piM
-         vS9A==
-X-Gm-Message-State: AFq9FYK3778PQVaONz9alq8ahYhJqcNWmGHqfstVpSH/rxDxt/DxWy2b
-	k8qPg4y3ORjrOv2ZbWM+r7C4oA+L8VNpi4sOS1+2jn8fGz6CVb3wZ4GV
-X-Gm-Gg: AYBFou0URV3IOrEhwfsX00MD3VPR3APnWoD9ZGqCP52sPRCLr/ks3z1PyJzSiOSME/m
-	B1MLWoscEAk2zMkU0Ropb3MKurtPSxfYdM4XYoN9y/L2O3W4k8gwTzk6i8IE/u8x0D6wJCvXxWl
-	+9C5Ws43xR7fexCqDr8k9wedx0YJBIFQDfwibknM8N5bM/0gFAB8/zwOpiVhdVUwBDZvQbUjSvb
-	ValBadY3amoDq8D1N8YCykFECdityXa6XLYmWXWu5p15HhjhU440OYslFYBAWAoNbkhq3z96Snv
-	p9kZiYRbWbKNti21/K+5p4cz1yJ2s8ZqsVp1yzsURceZ9BQ/4AD3K3y5ZgF6y4/Y0MBFSC7y7T0
-	HVCk4ed7KE5lNSVi00RjzBx0RbeSnssGvTkZbie9n+WOXgZQDf/mXjfKGPNVVJNJGiHRsYR+uqM
-	Lg2U51hshjMsAVzDv+gwWpPDHCWzBsd0enck4Ily2w5tYv71Q6/IFGWt+S6k5pabrjWQgYY36D7
-	vdKR8347oqtcHKvfF0is704hc2K82o9yuU46Y2G5bzAULo8Q61QMGC+mssDzZQqZyY=
-X-Received: by 2002:a05:7301:2710:b0:360:b8b4:840a with SMTP id 5a478bee46e88-361a2747820mr1915199eec.39.1792194775702;
-        Fri, 16 Oct 2026 16:52:55 -0700 (PDT)
-Received: from ?IPV6:2a03:83e0:1151:15:c24:4ad9:f660:1904? ([2620:10d:c090:500::7:ec14])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082e81a06sm9181665eec.26.2026.10.16.16.52.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 16:52:54 -0700 (PDT)
-Message-ID: <a0eb0511-fe0f-419c-adec-159dc16913ae@gmail.com>
-Date: Fri, 16 Oct 2026 16:52:50 -0700
+        d=1e100.net; s=20260707; t=1792194880; x=1792799680;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hPUuJtr2Z7cXgheskjaddEaTgz9tX41V1DHpHN9aHT0=;
+        b=afuvSmc2nZMAOY+PIJmZ2Yejev96g73wuRbV6nfL6U+muzk0gjfxchMgHWcgA+RScs
+         vj+XNO+Kaxs8l87u0iXa+v3mVk8iAxMNa4k82U/s8zgeTyPVVvsqmpaV4cxVzPqpdrJQ
+         jHxRrWNasa1qSNiTUufWPqJal6YqCPZ/1RacyndNX6tqLqsDZ3ss7KJ75c6+7l/RdDLL
+         Cnbc7AkTXeuh93pV2WVqMob5CWaLOVQbcfsJuyfr8+Ddp8OgtR5ZpsTqkbFHi7FQjGYi
+         b62uj+eFAwXvc7uELwIskXHdLZu99cM5e9S7yd2zyLDtuAV3rE1gg1GiIetQKMMup7pj
+         jEaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzOF1GVhludvMAYGFb1kEPZn6RnrofNFE1heWNUyRw7AGXNLwY6NXKPIimpMCLO57gfbsEP6ZxxQUsjE74=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLmgZ8OiXhZRTteylFwGSNYqQbVaiV8it9DXg9fXGGHDN0MtUY0
+	52wA9kcB1bRfbraeQrudGA9KkGSkZE3bEK0syHpexAGMsdgBvWVP2sAOHvKo/WBNJPaeyaSI+xU
+	2GpxB9/FWCfa7o6VG2NJZp5DB8lg12Sw=
+X-Gm-Gg: AYBFou3xbrAxONI2ko7BxiwJq5odtCHt83pPB8wqADs6MR0TwfXc9Kf1N6RsPGFDStl
+	AH3qgOT0V/PhuIW1VDDn7h24KtEOMVv1MBJlAZdcWT2OCrBhWnAaseBMY/c4d6If4USRHGLP/Ii
+	CTfg2Sc4clin/FuElPcLK1b7SQd6hhx9ZKuuuC41vvxQwqDBtcQKm+INWmtQ85JdMWlBggaloYJ
+	5UKOT4cBOgNaNtZZW+JvSF4KjwXCBUy+/YeWZqznF+f3Dl9afP9s+dXQnzLc0mrviHD3IA1W/T3
+	AqvyhC9BA1TFcw3U7rgladSzjYa8lFxlHGlSdjDWRQQHXK07BpvjMeglwmmTaulJTQLhc2S1V72
+	0FemBZ4xFcMy0zgKpy+FGaoJm2nu9RGz2G7WtVQ==
+X-Received: by 2002:a05:651c:b11:b0:3a6:622a:2cad with SMTP id
+ 38308e7fff4ca-3ab2928a0f6mr2581751fa.10.1792194880130; Fri, 16 Oct 2026
+ 16:54:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v16 1/2] hinic3: Add ethtool statistic ops part1
-To: Fan Gong <gongfan1@huawei.com>, Wu Di <wudi234@huawei.com>,
- Teng Peisen <tengpeisen@huawei.com>, netdev@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Ioana Ciornei <ioana.ciornei@nxp.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Mohsin Bashir <mohsin.bashr@gmail.com>,
- Harshitha Ramamurthy <hramamurthy@google.com>,
- Larysa Zaremba <larysa.zaremba@intel.com>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Zhou Shuai <zhoushuai28@huawei.com>, Wu Like <wulike1@huawei.com>
-References: <cover.1792149958.git.gongfan1@huawei.com>
- <3cda990995ccb002019f147b7a0c004c542229aa.1792149958.git.gongfan1@huawei.com>
-Content-Language: en-US
-From: Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>
-In-Reply-To: <3cda990995ccb002019f147b7a0c004c542229aa.1792149958.git.gongfan1@huawei.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261001165018.415526-1-mattst88@gmail.com> <alpine.DEB.2.21.2610162207360.22065@angie.orcam.me.uk>
+ <CAEdQ38FOXiV+Sz8fdPswRN=m2dKkYzgF2-9OWx3WskdsmWUGtQ@mail.gmail.com> <alpine.DEB.2.21.2610162254380.22065@angie.orcam.me.uk>
+In-Reply-To: <alpine.DEB.2.21.2610162254380.22065@angie.orcam.me.uk>
+From: Matt Turner <mattst88@gmail.com>
+Date: Fri, 16 Oct 2026 19:54:27 -0400
+X-Gm-Features: AclHuK-x7TuHH0mEi9Pj4V7Hm4nU0EXmWkGGruSlpHEUPPLEzlbY4sMq3pYo3WA
+Message-ID: <CAEdQ38FRnjHSSAWxFJqUBUL2zMRg5_GDcJJC3fx8i=K8ZWWK3Q@mail.gmail.com>
+Subject: Re: [PATCH 1/4] alpha: replace dead links in Kconfig help text
+To: "Maciej W. Rozycki" <macro@orcam.me.uk>
+Cc: linux-alpha@vger.kernel.org, Magnus Lindholm <linmag7@gmail.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Oct 16, 2026 at 6:36=E2=80=AFPM Maciej W. Rozycki <macro@orcam.me.u=
+k> wrote:
+>
+> On Fri, 16 Oct 2026, Matt Turner wrote:
+>
+> > >  Of course nested links may or may not work, but at least references =
+to
+> > > some information are retained.  Or has it all been already extracted =
+and
+> > > written down in the wiki?
+> >
+> > Did you compare any of the wiki pages and the old links?
+>
+>  I read through the old pages and found them reasonable.  No, I didn't
+> reach for the wiki, perhaps I should have.
+>
+> > I looked at all of these links via archive.org before sending the
+> > patches and didn't see any useful information. The LX164 link just
+> > contained the board specs and a link to the Technical Reference
+> > Manual. The Rawhide link is an install guide for Red Hat 6.0. Similar
+> > situation with the Ruffian page.
+> >
+> > If you see any information that's missing from the wiki that I spent a
+> > huge amount of time creating, point it out and I'll add it. At this
+> > point, I see no reason to keep links to 1999-era articles.
+>
+>  Fair enough, I take your word, this was just a question.  I guess it
+> wouldn't hurt having your effort mentioned in the commit description;
+> indeed I think it would help saying that the wiki has made all the old
+> references obsolete.
 
+Sorry, re-reading my message, it feels unnecessarily aggressive. Not my int=
+ent.
 
-On 10/16/26 4:13 AM, Fan Gong wrote:
-> This commit adds per-queue TX/RX software counters and firmware-backed
-> vport and physical port statistics to the hinic3 driver. It implements
-> the .get_strings, .get_sset_count and .get_ethtool_stats callbacks so
-> these can be read with ethtool -S, and adds packet/byte accounting to
-> the RX and TX hot paths.
-> 
-> Co-developed-by: Wu Di <wudi234@huawei.com>
-> Signed-off-by: Wu Di <wudi234@huawei.com>
-> Co-developed-by: Teng Peisen <tengpeisen@huawei.com>
-> Signed-off-by: Teng Peisen <tengpeisen@huawei.com>
-> Signed-off-by: Fan Gong <gongfan1@huawei.com>
-> ---
->  .../ethernet/huawei/hinic3/hinic3_ethtool.c   | 294 ++++++++++++++++++
->  .../ethernet/huawei/hinic3/hinic3_hw_intf.h   |  11 +
->  .../huawei/hinic3/hinic3_mgmt_interface.h     |  37 +++
->  .../ethernet/huawei/hinic3/hinic3_nic_cfg.c   |  64 ++++
->  .../ethernet/huawei/hinic3/hinic3_nic_cfg.h   | 108 +++++++
->  .../net/ethernet/huawei/hinic3/hinic3_rx.c    |  64 +++-
->  .../net/ethernet/huawei/hinic3/hinic3_rx.h    |   8 +-
->  .../net/ethernet/huawei/hinic3/hinic3_tx.c    |  70 ++++-
->  .../net/ethernet/huawei/hinic3/hinic3_tx.h    |   5 +-
->  9 files changed, 649 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c b/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
-> index 90fc16288de9..bb6094d61196 100644
-> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
-> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
-> @@ -13,8 +13,11 @@
+>  And I get nervous whenever pointers to old information get removed, as i=
+t
+> makes it gradually more and more difficult to chase.  As recently as the
+> day before yesterday I have pointed someone to an archive.org copy of a
+> specification they were after and could not find for an old piece of MIPS
+> hardware, that no contemporary search engine would list and I could only
+> locate because 20+ years ago I recorded the full URL as I downloaded it.
 
-[...]
-> +static u16 hinic3_get_hw_stats_strings(struct hinic3_nic_dev *nic_dev, char *p)
-> +{
-> +	u16 i, cnt = 0;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(hinic3_function_stats); i++) {
-> +		memcpy(p, hinic3_function_stats[i].name, ETH_GSTRING_LEN);
-> +		p += ETH_GSTRING_LEN;
-> +		cnt++;
-> +	}
+Yeah, I feel that. I did everything I could to preserve history and
+sources for the wiki content. I spent months waiting on GitHub support
+to transfer the "alphalinux" organization that the late Peter Petrakis
+set up a decade ago
 
-Do you need to manually add/track the offset? Couldn't you let
-ethtool_puts()/ethtool_sprintf() do the hard work?
+https://github.com/alphalinux/
 
-> +
-> +	if (!HINIC3_IS_VF(nic_dev->hwdev)) {
-> +		for (i = 0; i < ARRAY_SIZE(hinic3_port_stats); i++) {
-> +			memcpy(p, hinic3_port_stats[i].name, ETH_GSTRING_LEN);
-> +			p += ETH_GSTRING_LEN;
-> +			cnt++;
-> +		}
-> +	}
-> +
-> +	return cnt;
-> +}
-> +
-> +static void hinic3_get_qp_stats_strings(struct hinic3_nic_dev *nic_dev, char *p)
-> +{
-> +	u8 *data = p;
-> +	u16 i, j;
-> +
-> +	for (i = 0; i < nic_dev->q_params.num_qps; i++) {
-> +		for (j = 0; j < ARRAY_SIZE(hinic3_tx_queue_stats); j++)
-> +			ethtool_sprintf(&data,
-> +					hinic3_tx_queue_stats[j].name, i);
-> +	}
-> +
-> +	for (i = 0; i < nic_dev->q_params.num_qps; i++) {
-> +		for (j = 0; j < ARRAY_SIZE(hinic3_rx_queue_stats); j++)
-> +			ethtool_sprintf(&data,
-> +					hinic3_rx_queue_stats[j].name, i);
-> +	}
-> +}
-> +
-> +static void hinic3_get_strings(struct net_device *netdev,
-> +			       u32 stringset, u8 *data)
-> +{
-> +	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
-> +	char *p = (char *)data;
+It now hosts various repositories, including the wiki content:
 
-What's the purpose of casting here and throughout the patch?
+https://github.com/alphalinux/alphalinux.org-wiki-content
 
-> +	u16 offset;
-> +
-> +	switch (stringset) {
-> +	case ETH_SS_STATS:
-> +		offset = hinic3_get_hw_stats_strings(nic_dev, p);
-> +		hinic3_get_qp_stats_strings(nic_dev,
-> +					    p + offset * ETH_GSTRING_LEN);
-> +
-> +		break;
-[...]
+and all of the Alpha-related mailing list archives I could find:
+
+https://github.com/alphalinux/mailing-list-archives
+
+My intention is that even if I (and alphalinux.org) disappear, the
+wiki content won't.
