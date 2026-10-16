@@ -1,125 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C36E3B7B7F;
-	Fri, 16 Oct 2026 21:53:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EFBB3CFF6C;
+	Fri, 16 Oct 2026 21:53:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792187597; cv=none; b=QhCASDyOg/GUStYq/WREJlMmCZFADAF70dIW372cp3QDVx8B+wk1I+Ewr8/SBQ9g/vTS3S7brUMw8t89Oeum3nNivxCUz+VdJ9p444EalK9a30HmTC/PRwpKS0LWWBwH1jWNhLTGfij0dhutERpDCqj8aHU2gY7MQIEEV6hVWnM=
+	t=1792187626; cv=none; b=lmZoM/+nvh9AZX4ieYPvtLjIsZjl+8IYf+VCyatFKeVVLssZbe7Gzp6W2yguW4A0lN2ym3pUapAzm4qSQFeZmnKhYvZZKdOVtCtfh5KIOMJ+fFZEV25PEdUSyNsARK13coZ/wFCXFPRkzyV2qj0aVvbx40z/02GBnUnBoxhgvzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792187597; c=relaxed/simple;
-	bh=QBy0HwD0lLTpQ9uwTj4TWf7LEA5pfjIqOIdiYDu71Ro=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=DsTukguRB9Sd+LMFWrUL/9pqgi+hOKkMwM9fxr2T6FSnGnpy2idprZXhdFop0gc7dGNqO0t7ajJNw5Y5sbzbNJHM4K22cSIrW6fxASGgaWYGhekwOnmwDslbCbNFCJerr++0uJm8YXlmAXCqpJyxnmpBzoqSN3jKsHZxoX1sKlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nwC2iZd/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792187626; c=relaxed/simple;
+	bh=5ncO26zUgAzacnJdmXq46ZrsrdttBtWumnVLKjBg57k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Crq68FsSp5dr4zjfutOz4F+KfMmcRYXNCoNdbcqgTvsegqzicsfkTZnKONmyu4NQPeLgQG5A5jPtSybJ4YY9HUU6Ymda7V8CgUjimkTVr/lu+nK6ENhzO6VqwDVtc3YDIjyKmCEl6LroZj77PLkB1KnfnpG0wUpgaFtfm/+mW/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cno4Pw5W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nwC2iZd/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E46F71F000C4;
-	Fri, 16 Oct 2026 21:53:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cno4Pw5W"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 30E251F000C4;
+	Fri, 16 Oct 2026 21:53:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792187595;
-	bh=9yyDzOBMSD5wdNS8DHMru0KPEHgSFgzy5ujz0evy5Po=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=nwC2iZd/0l8zgQPbx+jIENTjighTql5B+zHMFX8fQQL7ECVJB5x2XpABtoroCpFBV
-	 T0W9Ak7Ckxbhhrijm4qxD33o2YRQc6YoKHTbs054u3QVyuHajMOmVMIMKmCyiCibhe
-	 dIfw+Le9BrWYeJHuNNlVRzYgE5RD849yyAt7PaVvHRUKviJV1bDaNxuEJfYHqgJW0e
-	 TIEgtj4EEijI+bE5P3YJ+2KKNdZIf0Qn1WS3FJ30g0+bjGKALs1zTXwjUVrXwygjy1
-	 5ULkTOGMB5ALB5SHXP6dAW7nOyZzQPPD3z5Gw6FKoDIkyE3h2TqXaoOB5E9AyECJFX
-	 Fjh8V1XDXTmKw==
-From: Thomas Gleixner <tglx@kernel.org>
-To: salil.mehta@opnsrc.net, Catalin Marinas <catalin.marinas@arm.com>, Will
- Deacon <will@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>, James Morse <james.morse@arm.com>,
- Peter Zijlstra <peterz@infradead.org>, Mark Rutland
- <mark.rutland@arm.com>, Jinjie Ruan <ruanjinjie@huawei.com>, Yicong Yang
- <yangyicong@hisilicon.com>, Jonathan Corbet <corbet@lwn.net>, Gavin Shan
- <gshan@redhat.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, Salil
- Mehta <salil.mehta@opnsrc.net>
-Subject: Re: [RFC PATCH 1/2] cpu/hotplug: Skip disabled CPUs in
- cpuhp_smt_enable
-In-Reply-To: <4ca071f1678acd1d3b8ecc0266938f59b45f629a.1790692295.git.salil.mehta@opnsrc.net>
-References: <cover.1790692295.git.salil.mehta@opnsrc.net>
- <4ca071f1678acd1d3b8ecc0266938f59b45f629a.1790692295.git.salil.mehta@opnsrc.net>
-Date: Fri, 16 Oct 2026 23:53:12 +0200
-Message-ID: <874ielcnxz.ffs@fw13>
+	s=k20260515; t=1792187623;
+	bh=qo8rbdOa6zlFJe2Zn3Q0iR8dm89CJ5tc0zSKYvSHs2k=;
+	h=From:To:Cc:Subject:Date;
+	b=cno4Pw5W2fB6YDg0qUH0bYiKM70JWeBLWZ6jLs0qV0UzdFAm0J9dPnJuWUaO6UkUG
+	 T0N0NJsY/kwanan639lXilH3lncIG+xCoBVVhxr/UGAOoF1wx5CHBdA1KY/V7eIfod
+	 Zz5+vZrsa2+xaCQcXSl7ZBRXn/CEgV7k2AnIBef7BniYptTY6gd0722PFptjz0TNc5
+	 H6fWxKHDVwe5bVr9yu9tYQK58LRKJj4rxrfJ7bJoPvKCJ9TRPv0fyeAuID22SFE89a
+	 rC3KTWqPuWG4yqcXBIIUXw9KU4qufjAx6Uynj3vDlZNHGzeorFGeFkgDmwehaPgkKP
+	 F4IoZCMk9CFGg==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: keyrings@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [RFC PATCH 0/6] KEYS: From assoc_array to rhashtable migration
+Date: Sat, 17 Oct 2026 00:52:58 +0300
+Message-ID: <20261016215326.4110064-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29 2026 at 19:41, salil.mehta@opnsrc.net wrote:
-> From: Salil Mehta <salil.mehta@opnsrc.net>
->
-> The CPU enabled mask describes whether a present CPU may currently be
-> brought online. cpuhp_smt_enable() is an online operation, but currently
-> walks all present CPUs and only filters CPUs that are already online or
-> belong to offline NUMA nodes.
->
-> This can make it attempt _cpu_up() for a present CPU which firmware has
-> not enabled and which has not yet been registered as a CPU device.
->
-> Use the enabled mask for the policy decision it was introduced to
-> represent. This keeps present-but-disabled CPUs out of the SMT bring-up
-> path while still allowing registered offline SMT threads to be brought
-> back online.
->
-> Present and enabled are separate generic CPU states, so callers which
-> intend to bring CPUs online should not assume that every present CPU is
-> enabled.
+As a constant source of LLM attention this must be done.
 
-The 'enabled mask' was introduced two years ago to deal with the ARM64
-oddity of present, but disabled CPUs, which nobody else needs. So yes,
-it's generic in some sense, but that's not the argument to be made here.
+This patch set started from Claude Opus 5.5 generated code that I got from
+Linus. I tweaked what I got over one day scoping it into a proper kernel
+patch, fixing some minor bugs in the core change, improved the use of
+types and basic stuff like that.
 
-The argument is that present CPUs might not be set in the enabled mask
-and therefore cannot be brought online.
+This felt a good chance to try out LLM in the kernel context and I used
+Gemini Flash 3.8 to seek for out-of-scope bugs intersecting with the
+core change.
 
-> Signed-off-by: Salil Mehta <salil.mehta@opnsrc.net>
-> ---
->  kernel/cpu.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/kernel/cpu.c b/kernel/cpu.c
-> index b3c8553d7bd6..988b7a1e8298 100644
-> --- a/kernel/cpu.c
-> +++ b/kernel/cpu.c
-> @@ -2706,8 +2706,9 @@ int cpuhp_smt_enable(void)
->  	cpu_maps_update_begin();
->  	cpu_smt_control = CPU_SMT_ENABLED;
->  	for_each_present_cpu(cpu) {
-> -		/* Skip online CPUs and CPUs on offline nodes */
-> -		if (cpu_online(cpu) || !node_online(cpu_to_node(cpu)))
-> +		/* Skip online/disabled CPUs and CPUs on offline nodes */
-> +		if (cpu_online(cpu) || !cpu_enabled(cpu) ||
-> +		    !node_online(cpu_to_node(cpu)))
+Since this patch set is marked as RFC, I did not yet cut out-of-context
+bug fixes out, so for most part consider them as white noise. This applies
+to patches 1-3.
 
-Seriously?
+Jarkko Sakkinen (6):
+  keys: prevent quota overflow and widen quotalen and datalen to 32 bits
+  keys: reclaim link quota during keyring garbage collection
+  keys: verify key identity on unlink and move
+  keys: Add keyring_is_empty() for {fs,dm}-verity
+  KEYS: Replace assoc_array with struct keyring_index
+  lib: Remove unused assoc_array
 
-What's wrong with the obvious one-liner:
+ Documentation/core-api/assoc_array.rst        |  564 ------
+ Documentation/core-api/index.rst              |    1 -
+ .../zh_CN/core-api/assoc_array.rst            |  473 -----
+ .../translations/zh_CN/core-api/index.rst     |    1 -
+ drivers/md/dm-verity-verify-sig.c             |    2 +-
+ fs/smb/client/cifsacl.c                       |    6 +-
+ fs/verity/signature.c                         |    2 +-
+ include/keys/keyring-type.h                   |    1 -
+ include/linux/assoc_array.h                   |   88 -
+ include/linux/assoc_array_priv.h              |  178 --
+ include/linux/key.h                           |   24 +-
+ lib/Kconfig                                   |   14 -
+ lib/Makefile                                  |    1 -
+ lib/assoc_array.c                             | 1724 -----------------
+ security/keys/Kconfig                         |    1 -
+ security/keys/internal.h                      |   10 +-
+ security/keys/key.c                           |   33 +-
+ security/keys/keyctl.c                        |    9 +-
+ security/keys/keyring.c                       |  887 ++++-----
+ security/keys/request_key.c                   |    2 +-
+ .../dm-verity/test-dm-verity-keyring.sh       |    2 +-
+ 21 files changed, 478 insertions(+), 3545 deletions(-)
+ delete mode 100644 Documentation/core-api/assoc_array.rst
+ delete mode 100644 Documentation/translations/zh_CN/core-api/assoc_array.rst
+ delete mode 100644 include/linux/assoc_array.h
+ delete mode 100644 include/linux/assoc_array_priv.h
+ delete mode 100644 lib/assoc_array.c
 
--  	for_each_present_cpu(cpu) {
-+  	for_each_enabled_cpu(cpu) {
-
-That would be too self explaining, right?
-
-But that change is only a small subset of the overall story because now
-the hotplug core looks at enabled mask in one place while all the other
-places still utilize present mask.
-
-With your second patch, that will then try to bring up present, but
-disabled CPUs in bringup_nonboot_cpus(), which might be a silent fail or
-not. The other instances which use present mask are probably silently
-skipped due to the hotplug state.
-
-Just because you did not observe a warning due to that does not mean
-it's correct.
-
-Thanks,
-
-        tglx
-
+--
+2.47.3
 
