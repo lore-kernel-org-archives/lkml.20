@@ -1,63 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C6234D382;
-	Fri, 16 Oct 2026 07:29:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B9B265623;
+	Fri, 16 Oct 2026 07:29:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135767; cv=none; b=P3QTgox2aGKu+rltQLwbJJwlWnIORkNvOe9Sda9C4+ReScEieE4jUFZJ2NcE8xFk4T/QPworWDRtVZMNMZ+NoGFhWvDXBLHWQrd11E/adhO1DWOwSUAKQS1BOY8C5wLm+oH0FUUIpmqZEtg/CnwMMiWVsns7MqoNc0Zi6hCnMh4=
+	t=1792135788; cv=none; b=fiWoaWsY55epIUNiCofJrIbFZzwlojanev41XHvVzvYnrqIs/3o0r02xfRxVUUbQg2AzTgwNH/CDLiWSOTE9ll95XLmBrRehjy5BKcl1uOADuEJHuNEhHFhC8ehqHXoKAUeieBhoZlN5gye3pmjW7tCOfiThpGXx2gx1Q+K/VpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135767; c=relaxed/simple;
-	bh=0Kz+uz79rxdLTxcsBO1572arfN2rTyeOHFfwrchcLxw=;
+	s=arc-20240116; t=1792135788; c=relaxed/simple;
+	bh=gmV+GbP2VEl5VU13HkRril9s1wl4NEpe5TWY5aTceAg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GeLQLVErRQT8/p5jy7Uf7vBPfXB8wRRSWYhNbTd3cwQzHA7N/vj6glwH9t7YvP7dTELf/YBdD9SA3AR11ouzRix2SxMT3BSy/NeMz9cFNVkVOivBOxZMMaM61YNjusjKjxvJ2JlidDCluSKOpKaGV9w18RpvqvEAAjZ+5o0mWeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UJ1dbdxX; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=R4TbccONgowDsg6DbzwDHYDdjfOwRPAJg9MfvzFW/kALL6EM7ePbx4QwbLGAlo6rCxF17DlxqrFMG0A3ss1XaxHFhhF28QwZLBHfVu0YLgTiTFpMAcr+nNGAhMkoXHk5VIewNnjelXfZQCfQUihF2UAlm/0rNJLBk3r3NXd9jFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AqpNx+Hj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UJ1dbdxX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91A901F000C5;
-	Fri, 16 Oct 2026 07:29:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AqpNx+Hj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 947EB1F000C4;
+	Fri, 16 Oct 2026 07:29:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792135765;
-	bh=Rq6pRCQaGsckMnSn2g00vwitNSiwavPxWyGYcycfMW0=;
+	s=k20260515; t=1792135787;
+	bh=k9n7YXXh/4p8cv6sga3JFDGjo9ZmIZeY5cQUzxvZfwM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UJ1dbdxXC3sT4JBxcaHCvwbtN+BiHIPej4dRaeok9Yu9DfvcR7Gv4zQUQ1fg+sYlR
-	 eXxVu+xjd6ewUyNW++cARbnFFPYLdH7FgcUnaiZS49+sQZ8JDWCHRDFiv+A5EbKecQ
-	 VyLYgGU0KsRH/6PW3ylhO4m+Bzwre2mik58tj02OqSSz2c4FENt4tPJVSo1PcMxiet
-	 nWuaJGMInl48NE9zxP7cLKHw5ve6FBSOW4h3amavD4b+SdR4KL5ZmZmaeyw4uvfaGf
-	 6+7nXdpBpgQ0ZFlwyQQEuW3lJ8Dihm2nqmTr/rFZ1tY42yBJQ+g1XpXrEk2OdXeWa6
-	 Mw7o9yBm4u+JA==
-Date: Fri, 16 Oct 2026 00:29:24 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-Cc: ardb@kernel.org, herbert@gondor.apana.org.au, Jason@zx2c4.com,
-	skhan@linuxfoundation.org, me@brighamcampbell.com,
-	jkoolstra@xs4all.nl, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] lib/crypto: md5: remove unused header
-Message-ID: <20261016072924.GC3049@sol>
-References: <20261016023558.8797-1-raizudeen.kerneldev@gmail.com>
+	b=AqpNx+HjnUmXVZkNrUGL7lqQDAWLO8RwttV7lMcj9654og8/qd7dd/+SorEXqC6Uu
+	 fSnqiXYu3yf2/2DsyUe3KdoXvXqWFQvaod8XHmIxkaE3V7UxyhWQQ9PF/jBhxhRaFC
+	 tk/S92/EmbrqY9LZ5V+6rPxp52d0kE218RkUnBSwD2/HFJRC3sJUzcYi8f9H5UEAh7
+	 JJD3NExpWEalnbqFAHGA56qTC2AHFfDMakvZ4pRuZ8JBkCL75dDdkXrrb+TUvdkFB0
+	 DMoK6QhXilPlYw7GXgnHd58IfxSVhwjizlyA6trEWtFn0CB3jj3Ttxof0fPw/JNyXV
+	 MspwDeqeK+18w==
+Date: Fri, 16 Oct 2026 09:29:42 +0200
+From: Antoine Tenart <atenart@kernel.org>
+To: Jerry Jiang <kj2864@nyu.edu>
+Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, edumazet@google.com, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, co+71b6509cb791e531@bugs.sh, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: ipv4: add zero check for snd_cwnd_clamp
+Message-ID: <atHQupHr7_ocAJ_A@kwain>
+References: <20261014195640.430824-2-kj2864@nyu.edu>
+ <atCf_85Ei_J9CDtd@kwain>
+ <CAPqbLS2sM9JZ8VbrzWviV-6XNRniKib_L+seaKtnCfR3pwMMig@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261016023558.8797-1-raizudeen.kerneldev@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPqbLS2sM9JZ8VbrzWviV-6XNRniKib_L+seaKtnCfR3pwMMig@mail.gmail.com>
 
-On Fri, Oct 16, 2026 at 08:05:57AM +0530, Mohamad Raizudeen wrote:
-> The `<linux/unaligned.h>` header is included but never actually used.
-> The code handles memory accesses using memcpy() instead of the unaligned
-> helpers.
-> 
-> Remove this unused header to avoid false dependencies.
-> 
-> Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-> ---
-> Changes in v3:
-> - Update the commit message to accurately describe memory accesses.
+On Thu, Oct 15, 2026 at 12:57:51PM -0400, Jerry Jiang wrote:
+> I have considered rejecting 0 in tcp_snd_cwnd_set but afaik patching
+> tcp_snd_cwnd only would just ignore the problem. My current patch
+> should completely reject the user from creating a socket if 0 is
+> passed for RTAX_CWND.
 
-Applied to https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux.git/log/?h=libcrypto-next
+I'm not arguing against the current patch. My point is warning on 0
+values in tcp_snd_cwnd_set made sense before but since this is now known
+to cause oops there might be something better to do there.
 
-- Eric
+> On Thu, Oct 15, 2026 at 5:57 AM Antoine Tenart <atenart@kernel.org> wrote:
+> >
+> > On Wed, Oct 14, 2026 at 03:56:41PM -0400, Kaho Jiang wrote:
+> > > User can pass zero to snd_cwnd_clamp via RTAX_CWND type.
+> > > This could lead to division of zero error if not checked properly.
+> > >
+> > > Oops: divide error: 0000 [#1] SMP KASAN NOPTI
+> > > Call Trace:
+> > >  <IRQ>
+> > >  tcp_reno_cong_avoid (net/ipv4/tcp_cong.c:510 (discriminator 1))
+> > >  tcp_ack (net/ipv4/tcp_input.c:3517 net/ipv4/tcp_input.c:3873 net/ipv4/tcp_input.c:4440)
+> > >  tcp_rcv_established (net/ipv4/tcp_input.c:6685)
+> > >  tcp_v4_do_rcv (net/ipv4/tcp_ipv4.c:1854)
+> > >  tcp_v4_rcv (net/ipv4/tcp_ipv4.c:2248)
+> > >  ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207 (discriminator 1))
+> > >  ip_local_deliver_finish (net/ipv4/ip_input.c:241 (discriminator 1))
+> > >  ip_local_deliver (./include/linux/netfilter.h:325 ./include/linux/netfilter.h:319 net/ipv4/ip_input.c:262)
+> > >  ip_rcv (./include/net/dst.h:481 (discriminator 6) net/ipv4/ip_input.c:492 (discriminator 6) ./include/linux/netfilter.h:325 (discriminator 6) ./include/li)
+> > >  __netif_receive_skb_one_core (net/core/dev.c:6297 (discriminator 4))
+> > >  __netif_receive_skb (net/core/dev.c:6410)
+> > >  process_backlog (net/core/dev.c:6761)
+> > >  __napi_poll.constprop.0 (net/core/dev.c:7830)
+> > >  net_rx_action (net/core/dev.c:7893 net/core/dev.c:8050)
+> > >  handle_softirqs (kernel/softirq.c:645)
+> > >  __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softirq.c:758)
+> > >  irq_exit_rcu (kernel/softirq.c:775)
+> > >  sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discriminator 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
+> > > RIP: 0010:tcp_cong_avoid_ai (net/ipv4/tcp_cong.c:482)
+> > >
+> > > Fix by checking if user pass in zero as parameter,
+> > > if so reject the value zero.
+> > >
+> > > Fixes: 51c5d0c4b169 ("tcp: Maintain dynamic metrics in local cache.")
+> >
+> > This looks like a refactoring commit only, 814d488c6126 might be more
+> > appropriate but please check.
+> >
+> > > Cc: stable@vger.kernel.org
+> > > Reported-by: co+71b6509cb791e531@bugs.sh
+> > > Assisted-by: LLM
+> > > Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
+> > > ---
+> > >  net/ipv4/metrics.c | 4 ++++
+> > >  1 file changed, 4 insertions(+)
+> > >
+> > > diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
+> > > index ad40762a8b38..e83a129a25b6 100644
+> > > --- a/net/ipv4/metrics.c
+> > > +++ b/net/ipv4/metrics.c
+> > > @@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
+> > >                       NL_SET_ERR_MSG(extack, "Unknown flag set in feature mask in metrics attribute");
+> > >                       return -EINVAL;
+> > >               }
+> > > +             if (type == RTAX_CWND && val == 0) {
+> > > +                     NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero");
+> > > +                     return -EINVAL;
+> > > +             }
+> > >               metrics[type - 1] = val;
+> > >       }
+> >
+> > My understanding is tcp_snd_cwnd(tp) can return 0 and then the divide by
+> > 0 occurs in tcp_cong_avoid_ai. Have you also considered updating
+> > tcp_snd_cwnd_set to not only warn about invalid values but also reject
+> > them, preventing similar oops?
