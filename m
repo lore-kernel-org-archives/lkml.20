@@ -1,48 +1,51 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D7644C4FB;
-	Fri, 16 Oct 2026 12:21:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE3FC4772B8;
+	Fri, 16 Oct 2026 12:22:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792153308; cv=none; b=GTJCdy3ijCOI62RzpvTIUtfQD1KyHHtuKMG+lVQmCiqLSvPnT16U66seA5sajbbeHgxNrnbZp0d45e9Xw1LVc2ogaY2C2TRUN3jWuTLsB7xT4oUmt28QyANHmO7uRsZ1Q7WwA7udFARQLKRixibWLmN+Vj72SN08eYHW3Q+yCBY=
+	t=1792153344; cv=none; b=mLTxKEs5k0qHjvdnK7UGt6i/JElzaVaW/mxo6mxkqkIuOrRKjFckjoca1R/w31Od/CXh2+PelQLY7JOBzOyQbCMNFGpaHIdBYyKdm5vGWL2cgfHSTUEqE9qeuhP4mAvTN1OJtphHMTfLIU+3ak4KpIGy76mLA+dZIx5NtsOfp9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792153308; c=relaxed/simple;
-	bh=HxtnMKpZHiMByeKjzOwdFZJF2Cc6fNn3qfk/ehSwlV4=;
+	s=arc-20240116; t=1792153344; c=relaxed/simple;
+	bh=NULbTvIQZ/oHcmP/aTrGATa4IJHfneiO9zb4SUFhYOw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s9s5eBE9lYV6OyOL8SQoZ+bvQdEtrjmB0JnyP0lzfesnsePILEk9oIkWFmss5DUjjSBt3jAoRSBn7sEikGNRwOBsJxnDOG8X2K7Wen5wCw+Yinh8UbsaRYiDQ/yn+t5JG51v0nJi9lplM0nfK5xLUQ0Zdp6YNFXoQPLF7EaO1+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=XQ5CXe67; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=tqnnVB4rLz8rEIDGb2O/sgXNEqg+8LAm5G3cHxL1tG1rOasPb+Bfgvb8x8lzMcWE6rvqazE14ZLhaMHDbaRkb8g48cFezRLZNq3Jzi1LT85bjoQgVjEV4IYysip8u/Zy+eGygtFbQL+/RLKpsFqLgqVO9rc9KmP2YjdriM4431k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=shhqUlli; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="XQ5CXe67"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=fAVKR37Op5c869xb/LHQtZ5GUTNDvUF8xw/fbi6lf6g=; 
-	b=XQ5CXe67AwgMknczJnVNO/l4t4lHCJLYGiy/8WRPmmHFhKnHyiXLU3juDm/LWtfrHtsBU1uQ7WA
-	3MHAoFPTFAY1beKKLosOl2Z/Q3NDvxXdz89cgnZ3IIzRZCca/1lNR5DlbFUDuZI5pIwD+QUf+ULSm
-	6+aCzh8uGRGsqggA6a6NRZWUVArJxTSNMUEh2JiYhpHyPkCynlPAReA469fGqs7MMjTJPhAG4qisq
-	fSnIixTyOVVudFVFd+JL0xZv81X9Y+zjuGipJpk5oLQ5gk4EquHtLSXs9N3fRECG/yKDSdtTEPHd6
-	i6B4qFpjGZVfDXE9blvXT/eqYp67MxUvtTgw==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xHgwM-00000004XuF-19DW;
-	Fri, 16 Oct 2026 20:21:39 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 16 Oct 2026 20:21:38 +0800
-Date: Fri, 16 Oct 2026 20:21:38 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Srujana Challa <schalla@marvell.com>,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Lukasz Bartosik <lbartosik@marvell.com>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH v2] crypto: marvell/octeontx - clean up VF resources when
- DOWN fails
-Message-ID: <atIW0jxNMR3wxvQU@gondor.apana.org.au>
-References: <20261011203456.1879639-1-mhun512@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="shhqUlli"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BE4C914BF;
+	Fri, 16 Oct 2026 05:22:18 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E1F923F871;
+	Fri, 16 Oct 2026 05:22:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792153342; bh=NULbTvIQZ/oHcmP/aTrGATa4IJHfneiO9zb4SUFhYOw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=shhqUlli7w1Npoly5BGrBS9Jy9AZY2n6Qb6sU26nBEEnyq71sbkEQEBxvCyhG8TkX
+	 g9tiyckxqyXXZraYz+0AqS9HqbmBj0vPQm+YEl3Fp3yPWsjb16Hsdua5atbQo6HLCb
+	 /BewOKm9GMLZuErY0jpDtTffJNkkLeQHDbyrauGg=
+Date: Fri, 16 Oct 2026 13:22:16 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Ankur Arora <ankur.a.arora@oracle.com>
+Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+	bpf@vger.kernel.org, arnd@arndb.de, will@kernel.org,
+	peterz@infradead.org, akpm@linux-foundation.org,
+	mark.rutland@arm.com, harisokn@amazon.com, cl@gentwo.org,
+	ast@kernel.org, rafael@kernel.org, daniel.lezcano@kernel.org,
+	memxor@gmail.com, zhenglifeng1@huawei.com,
+	xueshuai@linux.alibaba.com, rdunlap@infradead.org,
+	david.laight.linux@gmail.com, broonie@kernel.org,
+	boris.ostrovsky@oracle.com, ashok.bhat@arm.com,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Christoph Lameter <cl@linux.com>
+Subject: Re: [PATCH v16 03/16] arm64/delay: move, fixup usecs_to_cycles()
+Message-ID: <atIW-GIWaN6-w44R@arm.com>
+References: <20261016070837.440748-1-ankur.a.arora@oracle.com>
+ <20261016070837.440748-4-ankur.a.arora@oracle.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,51 +54,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261011203456.1879639-1-mhun512@gmail.com>
+In-Reply-To: <20261016070837.440748-4-ankur.a.arora@oracle.com>
 
-On Sun, Oct 11, 2026 at 04:34:56PM -0400, Myeonghun Pak wrote:
-> A failed DOWN mailbox notification makes otx_cptvf_remove() skip all
-> local cleanup. The driver core still completes unbind and releases the
-> devm-allocated cptvf, leaving the raw IRQ handlers registered with that
-> object as their argument. The sysfs group, crypto device-table entry,
-> software queues and PCI resources also remain uncleaned.
-> 
-> Keep the notification error diagnostic, but run local cleanup regardless
-> of the PF response. The PF only acknowledges DOWN; it does not disable the
-> VF queue. Disable the VQ locally and poll its INFLIGHT count for up to one
-> second before releasing the DMA command queues. Warn if the queue does
-> not become idle, but continue local teardown. Clear PCI bus mastering
-> before freeing resources. Remove both IRQ handlers before killing the
-> tasklet and releasing its resources.
-> 
-> This issue was identified during our ongoing static-analysis research
-> while reviewing kernel code.
-> 
-> Fixes: 10b4f09491bf ("crypto: marvell - add the Virtual Function driver for CPT")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
-> Changes in v2:
-> - Disable the local VQ and poll INFLIGHT for up to one second before
->   freeing DMA command queues.
-> - Warn on an idle timeout and continue local cleanup.
-> - Clear PCI bus mastering before releasing resources.
-> 
-> v1: https://lore.kernel.org/r/20261004042634.1130247-1-mhun512@gmail.com
-> Review: https://sashiko.dev/#/patchset/20261004042634.1130247-1-mhun512%40gmail.com
-> 
->  .../crypto/marvell/octeontx/otx_cptvf_main.c  | 44 ++++++++++++-------
->  1 file changed, 29 insertions(+), 15 deletions(-)
+On Fri, Oct 16, 2026 at 12:08:24AM -0700, Ankur Arora wrote:
+> diff --git a/arch/arm64/include/asm/delay-const.h b/arch/arm64/include/asm/delay-const.h
+> new file mode 100644
+> index 000000000000..6ccdfe0a4130
+> --- /dev/null
+> +++ b/arch/arm64/include/asm/delay-const.h
+> @@ -0,0 +1,35 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef _ASM_DELAY_CONST_H
+> +#define _ASM_DELAY_CONST_H
+> +
+> +#include <linux/math64.h>
+> +#include <linux/types.h>
+> +#include <asm/param.h>	/* For HZ */
+> +
+> +/* 2**32 / 1000000 (rounded up) */
+> +#define __usecs_to_xloops_mult	0x10C7UL
+> +
+> +/* 2**32 / 1000000000 (rounded up) */
+> +#define __nsecs_to_xloops_mult	0x5UL
+> +
+> +extern unsigned long loops_per_jiffy;
+> +static inline u64 xloops_to_cycles(u64 xloops)
+> +{
+> +	u64 loops_per_sec = (u64)loops_per_jiffy * HZ;
+> +
+> +	return mul_u64_u64_shr(xloops, loops_per_sec, 32);
+> +}
+> +
+> +static inline u64 usecs_to_cycles(u64 time_usecs)
+> +{
+> +	return xloops_to_cycles(time_usecs * __usecs_to_xloops_mult);
+> +}
+> +
+> +static inline u64 nsecs_to_cycles(u64 time_nsecs)
+> +{
+> +	return xloops_to_cycles((time_nsecs) * __nsecs_to_xloops_mult);
+> +}
+> +
+> +u64 notrace __delay_cycles(void);
+> +
+> +#endif	/* _ASM_DELAY_CONST_H */
 
-Please address the Sashiko review:
+The bot reports are valid, moving these into headers pulled elsewhere
+will clash with existing functions with the same name. You fixed one but
+there's another. Isn't it easier to just add an arm64_ prefix to these?
 
-https://sashiko.dev/#/patchset/20261011203456.1879639-1-mhun512%40gmail.com
+Alternatively, I think we only need nsecs_to_cycles(). We have an out of
+line call to __delay_cycles() already, so can we not just add a new
+function to use directly and avoid polluting the headers:
 
-Thanks,
+u64 arm64_wfet_deadline(u64 timeout_ns)
+{
+        return __delay_cycles() + nsecs_to_cycles(timeout_ns);
+}
+EXPORT_SYMBOL_GPL(arm64_wfet_deadline);
+
+I prefer the latter if it works.
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Catalin
