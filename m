@@ -1,77 +1,141 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.7])
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2101E260C
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:53:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3DF372EFF
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:56:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792130020; cv=none; b=W+m413LArgp6Ziv1fd4owSvFrw4xOkdT3a9aZ+2whgv5WsBjEj2cjGNZzm57A8u6BZcB8Fsby/ukIKq982TPsCGPW0NNoqC7HN5UjRxwed4yYSazAw6PbTVRyOtd4iSbBn/0zSR8Eww14XMSdaqM8RnEvCQy5LF8W0C6A19d9Rc=
+	t=1792130218; cv=none; b=uH/2gQJYFXyQidlpbH95zJm3diuYn2KrrO5oFSIlHOaLufaWmiN3jvBpzjCwnt3pG4ddpz2+d+KxrEzpWWOKv+olT/4+6TzUis3zjfw4/QsafO5qF8oZ6+j/aJrPrB7xqJgkfdpM0TwvuJjT9xwXNw2LksHyVcBTWUavKxj8xBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792130020; c=relaxed/simple;
-	bh=gxxJ7t8PmHmqWd0Zl5m8j55pw8ZjQSvr1vPwKZmXGhE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=KPgSBezJhshGxIWi+Mj47NFJv+y5OfmLdJdoZovHD5gsZkxq4sbmkADjvfja5IVzVZcbjBiZdFN15RMTrn8CfysH7CCBuddfUgU2ieV/jy7i5bm+48SCOwgPxeopf9b1xtKPxQeXD1w7uVjiNll4QY/YQF7y9DufBuMimXSMvq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=mst5Lq8I; arc=none smtp.client-ip=117.135.210.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1792130218; c=relaxed/simple;
+	bh=8L8HzNgF6UOk2WsNrdDmE1W3zYL26KSmgD85qAfB+6E=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=URrNG+B2XfQ0MCvmrWSwNmGT44vl+1qg3MKl2KWehuZr6J3MiZ71r9GYMLyl8Jt0xGi3fDOp2sNPwHPvqQ4S+D+XpGn5IzzRWh6EpuT4M3Tw+No0hRX8PNIIWGW//480jvdJL9kLG/Cwl/iFkI/iBvaFE8p8YKiSB9Fa+kk7inA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Sx6FHmso; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=mJizv4a/; arc=none smtp.client-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="mst5Lq8I"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=gxxJ7t8PmHmqWd0Zl5m8j55pw8ZjQSvr1vPwKZmXGhE=; b=m
-	st5Lq8IvndQW9xdfHyEs2JAK34IG5zslFY/Y9w5nIJWqhL04SITsDt9idWa7bBad
-	7SBJi2frhnqpX+bjTN6UzNGdYUu2NWbMFzn+edONYuVcu9BMrsTnvw1ir10GTW1o
-	ubINAw90l/EhGF2zOW6zsTFH5l+OiZONnyw7joyZn0=
-Date: Fri, 16 Oct 2026 13:52:48 +0800 (CST)
-From: "Nanzhe Zhao" <nzzhao@126.com>
-To: "Chao Yu" <chao@kernel.org>
-Cc: "Nanzhe Zhao" <nzzhao.sigma@gmail.com>,
-	linux-f2fs-devel@lists.sourceforge.net,
-	"Jaegeuk Kim" <jaegeuk@kernel.org>, "Barry Song" <baohua@kernel.org>,
-	"Nanzhe Zhao" <zhaonanzhe@xiaomi.com>,
-	"Juan Yescas" <jyescas@google.com>,
-	"Daeho Jeong" <daehojeong@google.com>, "Dev Jain" <Dev.Jain@arm.com>,
-	"David Hildenbrand" <David.Hildenbrand@arm.com>,
-	linux-kernel@vger.kernel.org, "Bo Zhang" <zhangbo56@xiaomi.com>,
-	"Kalesh Singh" <kaleshsingh@google.com>,
-	"Pengfei Li" <lipengfei28@xiaomi.com>,
-	"Ryan Roberts" <Ryan.Roberts@arm.com>
-Subject: Re:Re: [PATCH v5 03/16] f2fs: support regular file buffered writes
- on large folios
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 126com
-In-Reply-To: <1349f52e-af6d-48ab-b06a-4c8f5b3f7e68@kernel.org>
-References: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
- <20261014064445.2835813-4-zhaonanzhe@xiaomi.com>
- <1349f52e-af6d-48ab-b06a-4c8f5b3f7e68@kernel.org>
-X-NTES-SC: AL_Qu2SAP2ZtkEt7iaRYukdmEoVj+o8Xsaxs/8g2YJSc80OnBD3wjIGZFNdN3b84eyRCCG3vRavXhpezMdoeLh5/no9kIvx6gZOH46EorBpHQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Sx6FHmso";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="mJizv4a/"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 5EBABEC003D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:56:56 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Fri, 16 Oct 2026 01:56:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792130213;
+	 x=1792216613; bh=lNSrLzG+uV5sUgUaNCSkdhQ4V/ofgesAl8PShfeqIbA=; b=
+	Sx6FHmso3QouPijgUlsaUePC2QmFgGQYqTWlcbtKHqPMBzBZccoTgGyGkTSHFH/j
+	BG/vlHIdGZYiC4AcXvbmIaZlhNn/4pz4EHMFVHXaOalDqiF50PwVCyLRATQ8rIat
+	UHelzUbWv3PzQ9TNfANZZTQIp8Z3Eg8m2mOVQmM8h3gtiYatvIhznEV3JNZW5yBZ
+	fdF2JCUsnPGvk85pU7Zb6DtFTAoHg+kMKJK+v3JyM8+WLYHPgDaYhfAcQGrkoCsO
+	N4AlG4ZxGizQcED2VVnUv06/xvdpyrN5IHc7mKu1r9PWx0tW4iAstLrecpKA7O0S
+	T7XXB3e4667ZpCd+t010mA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792130213; x=
+	1792216613; bh=lNSrLzG+uV5sUgUaNCSkdhQ4V/ofgesAl8PShfeqIbA=; b=m
+	Jizv4a/dmWCRPgNgItYYo2ZFGTyKd34PFziC1GMKjY1iz6x7rBEEZrHtSyrSncxf
+	XImwLHWOHyQJdFKom4QrWLs8AlfUAkKuaU9LYFGReF+mDTenGjm5+sVjmCdLpUQD
+	mn73l85AXZJJ608YbiFLp0wk1UJyLyC43lwuIspp5dBxyzqPXLVPUQtS8JsP+dMc
+	lNhJ4F7VFY3ALXXOLjn7tOq9PSEnnElo3CT01eae/53vne63BlOBzEd36p/s4/Xr
+	8YFTZgqrGKykjslVhsn/A9nvOzVQYSG9GpWVFJehDvT1uxcJ/wn0SJ3i54Tp0aLq
+	HHncmQs64O2eUHqMC1fNw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792130213; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:jARD8Hd5KTPEEKOMt0bZ7QTq6drXmENTYtQhGq5+WhNvm1r
+	L0cq+I9gw/w/QRMhUsMiluREAAbcRaI1MXDrzLWphPQkBiQF41RD5Qes0Cyl95lV
+	W9JxWhmLNUGSmn5iy41uxQY57IuR1W8MB8rpTRivmxihL6Vg0PtRFP5AcWHL4F4p
+	F+9VwCS9le0jKX6dAnsm9R+u+OO+3FsCsqMHc6UYx8fsR5NPE5F80q6DG1aAOco6
+	CYH4j/x8ksQ1wK7KM9z6li/pkIGh0N0qlbUU+jSOWxz/KxEEKmD8tPVnqy55+Nvg
+	wBw8BsEerCCKiY/2L/IwplzuODPvL3EuzejcSJg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:bMqNEJXtgGarsJ8kSglbU2UA+ASYKREnCbMVjZKtGsc=:8L8HzNgF6UOk2WsNrdDmE1W3zYL26KSmgD85qAfB+6E=;
+X-ME-Sender: <xms:o7zRarOw3-FrPnUe2xySoK89zoP06IBJvO4efEDZejmCoDd5D0sKng>
+    <xme:o7zRagzikR-CinYkuoziNHxSmHJmi4of2ha5rEPmIEWvL7SQlzJ8RDl8wwB3gU8-8
+    G4lg9Odgg28uMhb9HIj8stlRdkCRLzuzZMGNCfROl_4kkwyJp5JrTo>
+X-ME-Proxy-Cause: dmFkZTFJ7NL4BuKdK9/TOR1cLmMjzwgneETDDQl0CBSBDEmR2uqX7ImE5xXXuidhw4ciLj
+    n187L/rLcROIWkVVwOppYq4ZYzp0/qdSxJzsWT3Pnf7hNhok1YPgAxUaiJUOipQFV1RAGz
+    XvndiBYdM8tOfCRt/9ghZb7iZ1e9muSzGftIijhEQEE9jVnkUUvpsdA1tbdJhqs2rcu2WM
+    MAZgAe+FDtf7+HQ35htJL+tly6q5+WWJdc2FPPPaO4FaCvci4hnKs8medHljarJQa+B9RJ
+    ImbiXI3U3qA4+bdH875FCbx4aCQARrZ0l8rX2Z+z7ymeK4Bz5X7WXDr8Yoqmjz9xraV4sL
+    rrU02bqtOapEoK4jmYgifCFK062KmT8DwKB638lhY2tnA68uE/G0a7gb9rd38uDAU22Qc+
+    3k8OEAEwTIGGoirh0LaTmUe3lO1mFE7EiZ59r4iak86vGu5ypQ4hcRvVeddt8ZI8IfQjbM
+    q+hIqL6JAnuqam6EgC5EVbNWaLyaOphh51JVh/qbXc07SyHg+OylTwbFC6Lf6o8Q89tVxk
+    uy0yAEcX19TubTNhvXm2919CRRBouZv/8JagYLPGpxVQci/1Np8lCj7Jhw5h0ptrMsuHz0
+    Zx1Ctd8xJikYTW1YMSH35AquaXW+IEfXsMad0c1oM0yXyrJLtpxt8CEjYLHg
+X-ME-Proxy: <xmx:pLzRata3lrQxy-4AWiLFLDx00h4mgUe7NAhx8A79dLliEMz1T2bpoA>
+    <xmx:pLzRatXjml7r78FeanKBCrRqPgPUG6kt_HVIAjjgtYYle9rzNxbJmQ>
+    <xmx:pLzRarinOYVtlLe4Ss8Db6mWZBu6O049bMdKAMbNB7-tV2tbBwb-Sg>
+    <xmx:pLzRarv6TKs5akK6QGG5KEs6lSEUoBvgN8SiY15WyXgIZkxOoxcnLw>
+    <xmx:pbzRaszg8jRxU3HZjenKPEXQ0j2zwcAFFQjRp8ylET6zB6QvEDkOqS1z>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 67B9732A008F; Fri, 16 Oct 2026 01:56:51 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <7ce0ac29.3f00.1a143452a3e.Coremail.nzzhao@126.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:cykvCgCXf3ewu9Fq5apQAA--.31231W
-X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBoxAq+WrRu7Bx9wAA3W
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+X-ThreadId: AJ8BcjErQSfB
+Date: Fri, 16 Oct 2026 07:54:34 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Tzu-Ching Yang" <shingekinocore@gmail.com>,
+ "Yury Norov" <yury.norov@gmail.com>
+Cc: "Rasmus Villemoes" <linux@rasmusvillemoes.dk>,
+ Linux-Arch <linux-arch@vger.kernel.org>, linux-kernel@vger.kernel.org
+Message-Id: <7eb58dd0-99f9-45aa-bdf4-9707a0c9e1b4@app.fastmail.com>
+In-Reply-To: <20261016025634.2690862-1-shingekinocore@gmail.com>
+References: <20261016025634.2690862-1-shingekinocore@gmail.com>
+Subject: Re: [PATCH] bitops: Share the generic ffs()/fls() binary search via UNROLL()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Cgo+PiArCWYyZnNfc3VibWl0X3BhZ2VfcmVhZChpbm9kZSwgTlVMTCwgZm9saW8sIGluZGV4LCBi
-bGthZGRyLAo+PiArCQkJICAgICAgUkVRX09QX1JFQUQsIGZhbHNlKTsKPgo+QGZvcl93cml0ZTog
-dHJ1ZT8gbGlrZSB3ZSBkaWQgaW4gZjJmc193cml0ZV9iZWdpbiAtPiBmMmZzX3N1Ym1pdF9wYWdl
-X3JlYWQoLi4sIHRydWUpLgo+T3RoZXJ3aXNlLCBpdCBjYW4gcnVuIGludG8gbW0gcmVjbGFpbSBh
-ZnRlciBob2xkaW5nIGZvbGlvIGxvY2ssIGNhdXNpbmcgZGVhZGxvY2sgaXNzdWUKPnBvdGVudGlh
-bGx5Lgo+Cj5UaGFua3MsCj4KPj4gKwpJbiBmYWN0IFNhc2hpa28gYWxzbyByZXBvcnRlZCB0aGlz
-IGlzc3VlLCBJJ3ZlIGdvdCBhIGJpdCBoZXNpdGF0ZWQgdG8gY2hhbmcgQGZvcl93cml0ZSB0byB0
-cnVlCnRob3VnaCwgYmVjYXVzZSBJIGtub3cgdGhhdCB3ZSBhbHJlYWR5IHJlbW92ZSBHRlBfTk9G
-UyBpbiBmb2xpbyBhbGxvY2F0aW9uLiBBbmQgSSBhbHNvCmNoZWNrIHNocmlua19mb2xpb19saXN0
-IGFuZCBzdHVkeSBzaHJpbmtfc2xhYiBhbmQgc3dhcGZpbGUgaW4gbm93YWRheXMgbWFpbmxpbmUg
-YW5kIGRpZG4ndApmaW5kIGEgZGVhZGxvY2sgaXNzdWUuIEJ1dCBJIGRvIG1pc3MgdG8gdGFrZSBw
-b3J0aW5nIGxhcmdlIGZvbGlvIG9uIG9sZGVyIGtlcm5lbCBsaWtlIDYuMTIgaW50bwpjb25zaWRl
-cmF0aW9uLiBBbnl3YXksIEkgZGlkbid0IHJlY2VpdmUgcmVwb3J0IG9yIHRlc3QgZGF0YSBvbiBk
-aXJlY3QgcmVjbGFpbSBjYXN1c2UgYnkgYmlvIGFsbG9jYXRpb24Kd2l0aCBHRlBfTk9JTywgc28g
-SSdsbCBjaGFuZ2UgQGZvcl93cml0ZSB0byB0cnVlIGluIHY2LgoKCgo=
+On Fri, Oct 16, 2026, at 04:56, Tzu-Ching Yang wrote:
+> generic_ffs(), generic___ffs(), generic_fls() and generic___fls() each
+> open-code the same binary search: if the low (or high) half of the bits
+> still in play is zero, shift it out and adjust the result, then repeat
+> with half the width. Each copy spells out its own masks, the two
+> unsigned long versions need an #if for their 32-bit step, and the
+> copies differ in the order of the two updates in a step and in how the
+> test is written. They implement some or all of these operations on
+> riscv (without Zbb, and as the fallback with Zbb), ARM before ARMv5,
+> m68k without bitfield instructions, sh, sparc32, microblaze, nios2 and
+> a few other architectures.
+>
+> Add <asm-generic/bitops/ffs-fls-search.h> with one search step per
+> direction, whose shift and mask follow from the step number and the
+> type of the word, and expand the steps with UNROLL() from
+> <linux/unroll.h>. The four functions keep their definitions and
+> kernel-doc; only the steps are shared. UNROLL() works in the
+> preprocessor, so every shift and mask is still an integer constant
+> expression. Its count has to be a literal, so rather than hard-coding
+> six steps for a 64-bit word, expand the 20 that UNROLL() supports: a
+> step past the width of the word shifts by 0 and is optimized away,
+> which also removes the #if.
+
+I don't understand what you are trying to do here, but I don't
+think we want this change: I find the nested macros harder
+to read than the open-coded version and your changelog text
+fails to explain what the purpose is.
+
+If you have a specific problem with one of the platforms using
+this, I would suggest you address that one but leave the
+generic code unchanged.
+
+      Arnd
