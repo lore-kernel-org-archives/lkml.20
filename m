@@ -1,101 +1,60 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 32534471432;
-	Fri, 16 Oct 2026 11:52:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20F54772B2;
+	Fri, 16 Oct 2026 11:52:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792151526; cv=none; b=LptRXur61bsimFvN2W2Z09W4VM5ZeEp5CvZkYwS3+LE4r4Tm8IW7KYuhpq8Cod1u4xwLwDNdH+0tkm9V6Da74SbOHtXK8paJtm5f6/xSssV4FMNJSdOqI8FQyekHL8LyBIM2GCfxkL8GH6pUGV8K9xMn22W6FXDB/b4+3k0f0/k=
+	t=1792151556; cv=none; b=dtk64DJbhlvo6QQaoau8OOfLh7pDOwGfnRqcKKn2It+Tm2Az44N3t9zyrce4zowYRi8nQ2n7yWhRi+TggGBy2qhj1oLxzRHdAmBo2a0R8kXqNr+IN/jbG2wtOXifNRTJMLTyuW1UqEU1gM/gl6vBv3TSRmqmFa4BoRgpdWe0PHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792151526; c=relaxed/simple;
-	bh=9oLt4k0yVG4pSkU/NV7m6aM4jq0+mfviic4Sf4D4cz8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=suHJapLOF72jbbewfuvwswlXYVsS0uoaoNNIBUjmwbhk+ZA0vNsKKcgJNO8ETL3J2SmjJAr6JTiUyCjG2FaVWsLNOP+EyD5uzvBtCxiTGgqUXFsuElii6s4cRho2leFBvsMwCABamnW+QJk+NbgP2Fwp0FWNr/ZQMoVqpLOJjC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jV16h8Rc; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792151556; c=relaxed/simple;
+	bh=oa9f/2v1sR+ykNNWDoUx6e84AN0mDVBk+4Ba+4On3u8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=onVqcCxbujfTANCQDt7nzSj/3XyV7mYp5AWx4u7kKf/cmF75In7WPKd/XnrxaRROr2mdZtcdO2yZ/CdG3CTfl7k3CCmk/VLg3b4LsA1x0cFVBnI9D/pa8VrwKvSap5riy5oPxpa/48DPuuwqWmzpOzmOwky30oBIAzTVcoCMMwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bXJhVJuS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jV16h8Rc"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 403E914BF;
-	Fri, 16 Oct 2026 04:52:00 -0700 (PDT)
-Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 829943F673;
-	Fri, 16 Oct 2026 04:52:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792151523; bh=9oLt4k0yVG4pSkU/NV7m6aM4jq0+mfviic4Sf4D4cz8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jV16h8Rc7BeWT5F78lALDJYh/DElPXM6sce1x1m+hoI6BuDMfTH4IZ7w3BRzR8jJ3
-	 NxAKZLUPf/4OfQahSHLbAb01qvG4Pieh+f9m9YYMIXpjAC0ROLZLGjtpvQpwQfvqdA
-	 60XbyRpbRzv7kkL8H/w4VcfLgUuVV0y1C/gCwdq0=
-Date: Fri, 16 Oct 2026 12:51:58 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Tomohiro Misono <misono.tomohiro@fujitsu.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Marc Zyngier <maz@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Kohei Enju <enju.kohei@fujitsu.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	kvmarm@lists.linux.dev
-Subject: Re: [PATCH v2 1/4] arm64: cputype: Add FUJITSU MONAKA definition
-Message-ID: <atIP3ub81suIRX2g@J2N7QTR9R3.cambridge.arm.com>
-References: <20261016-monaka-fix-for-upstream-v2-0-fc7ede7f9f48@fujitsu.com>
- <20261016-monaka-fix-for-upstream-v2-1-fc7ede7f9f48@fujitsu.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bXJhVJuS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1909B1F000C7;
+	Fri, 16 Oct 2026 11:52:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792151555;
+	bh=oa9f/2v1sR+ykNNWDoUx6e84AN0mDVBk+4Ba+4On3u8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=bXJhVJuSfGPszEBsc3oqDZOybZVKfDR9jVQN1GTbPnAd9DP2MhsdFsiIoJTSSDYoJ
+	 UipWIA9XIKKucazhfzv+s9BqfJ1G97JiwAIh3eQH8DLE/rUaNhYbxLOnMwnfjajVcD
+	 ySDMFZPvrPz7Dk9OD4iTkL74dBIquAfU//8hYPmEMaOWbAhY3hi+ZMwIgH+u+zEUZZ
+	 xk7DfOVXGcUGKyWMGAi/6pAfUPFwgTstII7aci7tRRddgqlvg4+aIfmnzmUJXOBiFz
+	 C1q0iO6o/TlT6rW3X71i1AR85y10Tm2mDJLqNf6FvyDFe3UrC97VfHyEtC94LzrShs
+	 3ryCddCgAXZTg==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: "Michael S. Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, Jason Wang
+ <jasowangio@gmail.com>, Eugenio =?utf-8?Q?P=C3=A9rez?=
+ <eperezma@redhat.com>, Xuan Zhuo
+ <xuanzhuo@linux.alibaba.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, virtualization@lists.linux.dev, Rusty Russell
+ <rusty@rustcorp.com.au>, Max Krasnyansky <maxk@qualcomm.com>
+Subject: Re: [PATCH net-next v2 7/7] virtio_net: cleanup protocol calculation
+In-Reply-To: <3c828204754ba2218e419f8d0a20bede7d8dffe1.1792067836.git.mst@redhat.com>
+References: <cover.1792067836.git.mst@redhat.com>
+ <3c828204754ba2218e419f8d0a20bede7d8dffe1.1792067836.git.mst@redhat.com>
+Date: Fri, 16 Oct 2026 13:52:32 +0200
+Message-ID: <87mrsd50cf.fsf@all.your.base.are.belong.to.us>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016-monaka-fix-for-upstream-v2-1-fc7ede7f9f48@fujitsu.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 16, 2026 at 07:00:45PM +0900, Tomohiro Misono wrote:
-> Add cpu part definition for FUJITSU-MONAKA.
-> 
-> Signed-off-by: Tomohiro Misono <misono.tomohiro@fujitsu.com>
+"Michael S. Tsirkin" <mst@redhat.com> writes:
 
-FWIW, this looks fine, so:
+> A trivial cleanup removing a duplicated code line.
+>
+> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 
-Acked-by: Mark Rutland <mark.rutland@arm.com>
-
-I assume that Will and Catalin pick up along with the other patches,
-when folk are happy they're all ready.
-
-Mark.
-
-> ---
->  arch/arm64/include/asm/cputype.h | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/arch/arm64/include/asm/cputype.h b/arch/arm64/include/asm/cputype.h
-> index 1fa29616e586e..3f648cb10e61c 100644
-> --- a/arch/arm64/include/asm/cputype.h
-> +++ b/arch/arm64/include/asm/cputype.h
-> @@ -138,6 +138,7 @@
->  #define NVIDIA_CPU_PART_OLYMPUS		0x010
->  
->  #define FUJITSU_CPU_PART_A64FX		0x001
-> +#define FUJITSU_CPU_PART_MONAKA		0x003
->  
->  #define HISI_CPU_PART_TSV110		0xD01
->  #define HISI_CPU_PART_HIP09			0xD02
-> @@ -235,6 +236,7 @@
->  #define MIDR_NVIDIA_CARMEL MIDR_CPU_MODEL(ARM_CPU_IMP_NVIDIA, NVIDIA_CPU_PART_CARMEL)
->  #define MIDR_NVIDIA_OLYMPUS MIDR_CPU_MODEL(ARM_CPU_IMP_NVIDIA, NVIDIA_CPU_PART_OLYMPUS)
->  #define MIDR_FUJITSU_A64FX MIDR_CPU_MODEL(ARM_CPU_IMP_FUJITSU, FUJITSU_CPU_PART_A64FX)
-> +#define MIDR_FUJITSU_MONAKA MIDR_CPU_MODEL(ARM_CPU_IMP_FUJITSU, FUJITSU_CPU_PART_MONAKA)
->  #define MIDR_HISI_TSV110 MIDR_CPU_MODEL(ARM_CPU_IMP_HISI, HISI_CPU_PART_TSV110)
->  #define MIDR_HISI_HIP09 MIDR_CPU_MODEL(ARM_CPU_IMP_HISI, HISI_CPU_PART_HIP09)
->  #define MIDR_HISI_HIP12 MIDR_CPU_MODEL(ARM_CPU_IMP_HISI, HISI_CPU_PART_HIP12)
-> 
-> -- 
-> 2.43.0
-> 
+Reviewed-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
