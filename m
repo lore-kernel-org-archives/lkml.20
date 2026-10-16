@@ -1,68 +1,68 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7CBC4749CB
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:06:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7CA46AA62
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:06:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145188; cv=none; b=R6/YYd3xSoPm6KV1f0hMVZ7ZTT0cU5asog2BykXM1XvVptA5avZGWzzTjaJ1i7Efcc0LuaH/Bk6/fZQNJdhwLQVi1CRijEuiHiC2gMdJcFh4Xnx9z9SbQLsQRyN+JMVGaXHqR/mOIygNd53dcfhzVMwwqe2KeTPVpLKcUwPBI98=
+	t=1792145191; cv=none; b=W8VG0nJ6degAL7rBrPC9bWr8OpWHqqDcUyMPxPmBuXlaj2QHsTRQvIFuTV1is1b0fV7GAq5D+bccOOPa0aHOq5gac61FroUGIp25PiYnL0ojgmjB8JVTbAZ2tax443dF8s9kdubmDAgnVsBhB30WxQRoGlPBvXE/WaKKDx2PaTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145188; c=relaxed/simple;
-	bh=HDb6dEAlQfqZ6w+pZ27i4VhJh9De9UuXiV4QYl9+3Es=;
+	s=arc-20240116; t=1792145191; c=relaxed/simple;
+	bh=YUMCWRzPD/GCJZY/NypdTrsAkUtkxHAtUWEfKJcLCxc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lzbcnF/iqxFOqIZQBMk6IUGuywoPKC5IpkhLWm2J5ST/Gt3oRDkmhKc8pwkS7Rt8LvJaclpLuC0u2iq3RaCFB9F3wRZII9qkAFpkLhZeVrlsuZn9Ch//+8x6JyUYDLHV54FEMZtMc3rNPnL/nC1ifwMn14FraUgj1g1RzWKEHQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BkE1d+lk; arc=none smtp.client-ip=209.85.128.46
+	 MIME-Version; b=tm0rXnHy25a6epXCW1L2pmShQw5sr6NWzERYvwIcFs5ztl/ir2SgDHfHpRefMtsRw6dsmtTD3j31P/seMkNwyG1y4fSCgDAQc3M8UQkUw8QJu4H9n5uIr+o0YFGeohD3YlmpDlNTcylWnzhMxvzNa/RbdOgvxJzhqJqK6Ur8/a4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ny4vxMpH; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BkE1d+lk"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49ff680331aso32810695e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:06:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ny4vxMpH"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1ad2e2391so29037985e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:06:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792145184; x=1792749984; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792145186; x=1792749986; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kZIV8SpDryJCkEdmLv3viRxRvmm/nGJEMBGvh6BKJRw=;
-        b=BkE1d+lkOibyPPHKbYu/5LrI+PtWmFW1AKMnN+2+MCphdNXLUaU8P40SJRDLrVB1KL
-         fJjrtvB4K+WVH/gqkuOqcsJU/thpSJhGO4FVFY9gglVmAD8Io9lBcfSgmvemZqfsnApx
-         +CbBsf18hP0ctq5IhlRU0nXbp/7gbZ+eYLfvJblsG/8DeCuvhps0Z3TXtBfg/tvXjYli
-         Yto8Xrb/0Ro7RUZhQpaQP7vkPfMa9dnI42YmAw/6aVwhy9cjNiKL8nFfVAgqnu4lRVgF
-         3wWa4RXAGQI3TAbJXJaMwmuqCiiskCKzGnhpqTrzkvv7M7yyXzjQh0ik5h+r78XmmORD
-         71og==
+        bh=Dzo/ODszSYxTk3F2wSXg0f3yesaVb/VOhamsMvYKREc=;
+        b=ny4vxMpHQD7R7QEIzgDAWurX5WK3rMV2L1LbgLctLpoDIBJIzFHzyg+urJ2IRc5637
+         JTiEY68bPTZcuGgv+4cApOQhmlZZvyGbLsm8yKhcZn+8caPqM6CC8Q3hDk+ovTPPfkTG
+         66gClkLyqCh6iGf6M1LnzuRW5tgiILsT4Db9mEACXeIxMNNlBGAzOW6VTSjX6tOOsSjJ
+         wDXQFJPh2zqF1MXNQOnD1nTu9sBzxyn5tANO0V1N/yGI3ZCS6s8cfipjAiQX2hmiOgLc
+         NzZ8LqKEHMkdCDbmXFlre3HTzmogbIe/h8LglvBakxalI0uxe+3fhZuTJHAYGVnfwaf0
+         HeEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792145184; x=1792749984;
+        d=1e100.net; s=20260707; t=1792145186; x=1792749986;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kZIV8SpDryJCkEdmLv3viRxRvmm/nGJEMBGvh6BKJRw=;
-        b=WGNhzjqk+pv+d5CyMYUhlqVpvjHAHw12O9SpOvD2kymziaRWyib7MJjD2Jwjhdqs97
-         q6sMnPV7H+wEZuSJCE20KU7xz8jyt7qXWEOZa8q+o35rzjM74indc5BzZkJ8EpzwtDsH
-         Cc5fgbVBPDGSPwWiUkIP2I3Ta8A3+Ju/7ahBNBM6S2aprJcF2zaQRw/CvMCDgSrYLekh
-         mLrCMHmGrVDCYMEUSNNvqUg+rmak+j04HgAclMzO4BDGrmGflhMBDM8QLAwyR2QtMZvP
-         u+W5nDy5LYHTFbvSdSd9uP6Xtu9Xh0HClqg34N8AGvNXW6O4OQK0PAnJHXYXA8IbUEih
-         SJjg==
-X-Forwarded-Encrypted: i=1; AKwUvBylCdvwCt8BpK7wAbpGYidkoqewiVZXYLGmjlXKIYi6+ALY94YV1OoAnA164HUSDQAQzs0YTO9f5gUuBV4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHpm5UzWGJntSJ/s1bmga0u7JgzPFMldVPoFcCcmv62PiGdHOD
-	ic01eJAQ7iUnJKqOQsPdE357ADNDO3cS+stdYqARMfhgEaIc/cVClklM
-X-Gm-Gg: AYBFou1Xr1XO++EfFk0YazFVOatLPktdPGUlmB+ZNNQSKnKznhT6xXHDCtC9XrigQYX
-	WMy1v5C5RDa1IH42iNIxLJKxv1/5lmADg8b4lT6MBaGfib4XsdtKFND2oOa093umwyMv3n+gZ6E
-	FiUTVdkU6B2P9/ZW7ZJcBQE3cEa1S3HfzN5PKtNDgHOmRExrjjLpLvJfXzrUtY61L50VkeOSWnA
-	EOUxTm5B1aIy9AvOpScPABTd/G44ZDRMKsB7BPUGuzAK1upQb4ncS16Z0d8U8ZyNsc2oi3ZeiVK
-	nCrHwEYIKhk3e/2iauCPw6Z0j3737lXrnuyZBR7MP55E0ufMKZqw+OW+1vJxkBg8oiSeaXTvtSU
-	QWRCwiihE1PIW0b65ijHyt/aa7gPqSy+m0P4mRn2QnSfT9I7LwmgkwgBRPo4FShhPYPMcRDJpEg
-	ktD2IWDuQz997cc8505e2+PYaAp4h+o2ARlf+m56Zg7IcRnMF5GwrSEwMC6INrM8UXBmEGyGd/4
-	P4/ZoQi9dL7vz2pSoENimA7Y3GJhkNw2zCbSIOrvnKOwrvbDa2beuncgq2eRFFHMSNtCiv49Mmd
-	h1rehqo=
-X-Received: by 2002:a05:600c:8208:b0:4a0:1b14:d00c with SMTP id 5b1f17b1804b1-4a18e446f55mr452412475e9.3.1792145183665;
-        Fri, 16 Oct 2026 03:06:23 -0700 (PDT)
+        bh=Dzo/ODszSYxTk3F2wSXg0f3yesaVb/VOhamsMvYKREc=;
+        b=GcwTI170dQ73tPbgabXsNTd7pz5BPvEwv/9KdsH0drMIZVo5IDNZLNvcUHE9fQVwqu
+         JRjmbwzM/7JLVsQ/9kt9/tXyQguJKOKRN8y3MB1RORYSKln8fXfrpTIRWt2IbqeHbiO/
+         K491pzkF6YXlEIwGt61sCxnd0ON2TJMQ6eLYo08FcaV2vFZZ8meir35T4ep0bZDmaL9+
+         NgTFWnf+AI/Kmn2pCz8tne3z3XBDH5BpHiyVZUE8SFOMGsRmZbXRT6+Ak8ZzAG8iz0IF
+         p9QU5O1ob90QmTSCHqmsodBbLb1UNdthaJHWsReR7YRDMD/m9ING1AZAWEIjBW9S1F86
+         RmcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwjf+mK2qutOh2q4f6ERke0Kd/Le6+LozBnVmKsv8DUMxdHtmqMscHxPW7la1KS+2GwyHugSbdLlhfEfCA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJVY76ySEPCtdytov1aUzvbTvPqhfXtyU7jO8+Zb6z/gY8ZUOvO
+	BcA/HDCf4F+aWu7Pj2dzOjKygHlvK1tk3K8Uph7Ximh8uQa8HArCT9E5
+X-Gm-Gg: AYBFou1yfTb49XgLJ6gXcJneUas2PQvE9g3jg+lNU9q80YTjGvgIsyO4v3LVd1yaKMz
+	w2Mh02ZJZs9VZrBUWAZ3frCQjdifJTwmYhifHdEZbWCIESvo/OEz59uReHCTIpRx2xhbjlkDu2F
+	bbqlJi/8A9QsjSFBMKZfQyz+/UYONQzywN+uahMVkOcpvyhGzlg4Od4NFfgtV4NSBsqfKvYlDhy
+	+kBGjyNIgK7hR8PdQnRzAHo9acOfZKfRVAE7dWohqmrS1A/TjZgNGOedPKbkXYlkKTEbSyAsYsR
+	mLdmTumorVRy3SkXZAK2PN9hKOXSE3GZFiJl7fBYKcEch6q+HSnILQrwZBrZ8qghVITbOWRgYw0
+	3N55LbggPb3i1UHCxgOaDAqXDhW0rw0TlOcdXsF2EO1Z5s2aVjVNS6KH6hit2IZgg9ByzGrmmFQ
+	KsPKJgFhYqKBkxM1JdgCGL52BqO5/qKuzE9U95Adlh9tlYJnGAqG8Av8rC2PujxexJC7KehSPvK
+	C70rPDorg4oW5PMOaT+rfUvTfzWiuZxmM/S5r19S1/7H5BqHP+alTNQvMct1Q28vkIMlNs+
+X-Received: by 2002:a05:600c:1d11:b0:4a1:d307:b52a with SMTP id 5b1f17b1804b1-4a1d307b62fmr7356695e9.19.1792145185802;
+        Fri, 16 Oct 2026 03:06:25 -0700 (PDT)
 Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8de7230sm45403835e9.14.2026.10.16.03.06.22
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd471a64sm4404889f8f.6.2026.10.16.03.06.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 03:06:23 -0700 (PDT)
+        Fri, 16 Oct 2026 03:06:25 -0700 (PDT)
 From: George Neacsu <geocausa@gmail.com>
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>,
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
 	David Heidelberg <david@ixit.cz>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
 	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
@@ -72,13 +72,16 @@ Cc: Vinod Koul <vkoul@kernel.org>,
 	linux-phy@lists.infradead.org,
 	linux-media@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
+	linux-kernel@vger.kernel.org,
+	Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+	Suresh Vankadara <svankada@qti.qualcomm.com>,
+	tjose@qti.qualcomm.com
 Subject: Re: [PATCH RFC 2/4] phy: qcom-mipi-csi2: Add C-PHY support for X1E80100
-Date: Fri, 16 Oct 2026 11:06:21 +0100
-Message-ID: <20261016100621.427612-1-geocausa@gmail.com>
+Date: Fri, 16 Oct 2026 11:06:23 +0100
+Message-ID: <20261016100623.427688-1-geocausa@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <7aed254e-18c5-481b-a77f-576944fff1d4@kernel.org>
-References: <20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com> <20261015-x1e-cphy-rfc-v1-2-1f3fa9af940a@gmail.com> <7aed254e-18c5-481b-a77f-576944fff1d4@kernel.org>
+In-Reply-To: <bd13910e-ddcd-45a5-a7ce-7e6e74290955@oss.qualcomm.com>
+References: <20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com> <20261015-x1e-cphy-rfc-v1-2-1f3fa9af940a@gmail.com> <bd13910e-ddcd-45a5-a7ce-7e6e74290955@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,33 +90,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Bryan,
+Hi Nihal,
 
-Thanks for the reviews, and thanks to Loic as well.
+On 16/10/2026 15:29, Nihal Kumar Gupta wrote:
+> Thanks for working on this. I also have local C-PHY enablement patches, so it
+> is good to see this being discussed upstream.
 
-The series is on next-20261015. There, phy-qcom-mipi-csi2-3ph-dphy.c is
-blob 966d79c98, the same as on the media-committers next branch, so I
-think your tree has a different revision of the CSI2 PHY driver. 3/4 and
-4/4 also sit on top of David's "C-PHY configuration on Qualcomm
-platforms" v9 [1], for phy_sel and the C-PHY link frequency, which is not
-in -next yet.
+Thanks for the review. If your patches cover more SoCs or data rates, I am
+happy to fold them in or to rebase on top of them, whichever is easier for
+you. I can test anything on the Surface Pro 11 (X1E80100, IMX681 on
+CSIPHY2, one trio).
 
-Which base would you like v2 on? If your branch is public I will rebase
-onto it. Otherwise I will use -next plus David's series and spell the
-dependency out in the cover letter.
+> Could we add blank lines between the repeated per-trio register blocks here?
 
-For v2 I have:
+Yes, will do in v2.
 
-- 1/4: lanes -> trios, and a PHY-layer helper for the C-PHY symbol rate,
-  the analogue of phy_mipi_dphy_get_default_config_for_hsclk()
-- 2/4: dphy_/cphy_ naming for the init sequences, if/else instead of the
-  ternaries, the D-PHY and C-PHY lane setup split into helpers instead of
-  the goto, and the helper in configure()
-- 3/4: FIELD_PREP() with a mask for the PHY type select
-- 4/4: the helper, and an enum phy_mode variable passed straight to
-  phy_set_mode()
+>> +	{.reg_addr = 0x1000, .reg_data = 0x0e, .delay_us = 3048,
+> Any specific reason for this much delay?
 
-[1] https://lore.kernel.org/all/20260617-qcom-cphy-v9-0-83da8a8e4e44@ixit.cz/
+It is copied from the downstream reset exit entry,
+{0x1000, 0x0E, 0xBE8, CSIPHY_3PH_REGS}, and I have not tried anything
+shorter. If you know the real requirement I will use it. Either way, a
+delay this long should be a sleep rather than udelay(), which v2 will fix.
+
+> For this C-PHY table, I do not see a CSIPHY_SETTLE_CNT_LOWER_BYTE entry.
+> Is the settle timing already encoded in one of the fixed register values in
+> lane_regs_x1e80100_cphy[]?
+
+Yes: 0x020c/0x0208 per trio (0x060c/0x0608, 0x0a0c/0x0a08 for the other
+two) are the settle count low and high bytes. Downstream marks them
+CSIPHY_SETTLE_CNT_LOWER_BYTE/HIGHER_BYTE and overwrites them with the
+count derived from the sensor settle time. The RFC writes the table's
+default, 0x22/0x00, as fixed values. That works for the IMX681 at
+2.4 Gsym/s, but you are right that it is rate dependent. In v2 these
+entries will use the settle count parameter types and the count will be
+computed from the symbol rate, as for D-PHY.
+
+> Could we avoid carrying a separate parsed `bus_type` and derive the PHY type
+> from the PHY layer state instead?
+
+Agreed. The bus type is still needed at parse time for the lane count and
+polarity checks, but the runtime paths will use phy_mode.
+
+> The C-PHY and D-PHY lane-mask calculation could be combined into a helper to
+> avoid open-coding the C-PHY path separately.
+
+Thanks, I will take your helper. Together with Bryan's request, this also
+removes the goto.
+
+> This gives us a single C-PHY register sequence for the SoC. Do we expect this
+> to be enough long term?
+
+Not long term, no. I only have one C-PHY sensor running at one rate, so I
+would prefer to keep v2 to the single table with the settle count fixed,
+and add selection by symbol rate as a follow-up, unless Bryan would rather
+have the structure in place now.
 
 Thanks,
 George
