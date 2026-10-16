@@ -1,216 +1,87 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBD1423A72;
-	Fri, 16 Oct 2026 07:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C812D3727;
+	Fri, 16 Oct 2026 07:55:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792137342; cv=none; b=FRNDR8lpST0S7c0NoRXcVULjIZebgyvc27JDEC7wEIf2i6x1lv6XjDXRnlwb13fmCgMMn39KTmW5zpmZDF67giYSVdkZtlCwC50vcOmor0dFe0gkmpcRC6qSInHSN6fImBmlgjl8iWkD+q8LJPIjX/aP3+xDby+dDM9Hmy62sXk=
+	t=1792137342; cv=none; b=ptA0GXWV48D1a3GDDFbyrVbXhAut3bgHQcgNEiC4iyb5M2pFai9SljCeU3TY46RacqeGRWCrIyt9IgZLQz8cRvOpsdm8+jHnFH92TB2tX9jiqB6GuuQ7r/j2sQhT63c/DW5/PMhUHTVNMPPTCdyCMerl96K+FieDlEpAB0AT4WE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792137342; c=relaxed/simple;
-	bh=jeTa1WMw9Xg9wE8dfbqzKvv8wfhtrqE8K1meC++ZrwU=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=gFgVZTFfsiks8Onz7vH0TunFHT0Vl5W4KoSZbg9IYx3oVrOqc+ke9jeJapHZ4+3v8RGhmcueY5nniRioZLJOJeMvt9xYueSWpT2CCWx+Bino5XK5LfZIRcGLQB+Dhq9R5zKGSpvv23f6/FYzfVEs14E7vV4YuqYE7bheO0osmZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=tXgcC+oj; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=JH7FXyPg; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	bh=oGuTNCcaS/ru9gt9wOxR4fiDuG37+U6RlBOr7lQ3QlQ=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=CCf2WsE9PB6WBEXrLyjY3ymatX1hwn+12uQ40C63YJPWiCFK8R45ho5gSKcR9+xYgpZdCb0lk+quJ6/MdaxuiHqV+DqlPEFU7JkepWDHJj9aZlLrYzpMk6+gfacRrS5qc+yj/L6X70bD9ZYlO2bXCohRa9bhQEGqGqltS4hXw58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YGJWk1Nd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="tXgcC+oj";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="JH7FXyPg"
-Date: Fri, 16 Oct 2026 07:55:35 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792137337;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Mfgxfawd34JYw3SDE3kZ8EExRk822nKQHkRcFUq4JSs=;
-	b=tXgcC+ojE0lA216bzA+G11Pg9vijTdRq36DbpqtGCinFgO82Aex7sG+A4HOhoHTCIhGhOG
-	v/GFJeVBsf4zdoa1it0cRso58pJJmKjtj9iY8dSu8QcIZ9YrnUI5si6cxamTApELRSdz00
-	oidNF6xbMFU6Hq0/ah3sJ2cxJvvwxXGNn3KJaTKh59UGws66+tVociKJcueYvj/P3m3Qaq
-	scc61wxXxky+T6VLqMLT3rfcJ6HLncDroBa+gGFOXvB+FO6XzCqI73p0/Pf2M0CbXNfj+r
-	mXdrrE4x8dAe/F3yVyv0hDgmaj4uRMdPX+8URGJLXPlRykyz4w3ARqXJSlpqmw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792137337;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Mfgxfawd34JYw3SDE3kZ8EExRk822nKQHkRcFUq4JSs=;
-	b=JH7FXyPg/jjjLZLSanLcCg2knhMnZya2TYiND64Hu7rV4GOdg3QI6NLb3A2r+Vd2fw8BIK
-	v9qc9ranEsuJTVBA==
-From: "tip-bot2 for Lorenzo Stoakes (ARM)" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: perf/urgent] perf: Track the perf mlock gift separately
-Cc: Ameer Hamza <ameer.hamza@truenas.com>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>, stable@vger.kernel.org,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261003-perf-locked-vm-fix-v1-1-d214dcaf0d76@kernel.org>
-References: <20261003-perf-locked-vm-fix-v1-1-d214dcaf0d76@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YGJWk1Nd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 331861F000C5;
+	Fri, 16 Oct 2026 07:55:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792137340;
+	bh=LfnYK9wuqqNvQYXwL+C7ZhSJlmFE6g+Vm0Z+GDaNmYU=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=YGJWk1NdE3s6iWwTJlsbjI8oPUGeiGVdn00Uf/zNNuJ8svicsxzQ+ax9qYK0SRNE7
+	 WCYC3ZrfXH3HMnDUKcddXsqYngI/SP3Ni59N9Z/5Dc9DUoCnCE0bpWz1l54skdrHZE
+	 xsEWL6iGX33jCZczTzYCqapqxESUaa988Fd81gkRkuuXFj5eKe+FQcnyvNtgjS2OLO
+	 pQYiYhitTbZkshOjKDjhKdHbFWUylzCZXzv7WJwtCWcF6z++yrGD1zEAU0ffDGjU33
+	 gXQfCwQhlYuDG0kFeHLOTZtrdAvccooO7gV2fmeg278SmH43w0ssfzP1BEFx6C4/lV
+	 YonIDIlyEOXFA==
+Content-Type: multipart/mixed; boundary="===============6623771970694444259=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179213733594.2666988.15815189695227726657.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Message-Id: <afe82bcf3be90afbd548fc12aa07092f1216d45c90f5a6df7143c71657e566e4@mail.kernel.org>
+In-Reply-To: <20261016070837.440748-15-ankur.a.arora@oracle.com>
+References: <20261016070837.440748-15-ankur.a.arora@oracle.com>
+Subject: Re: [PATCH v16 14/16] barrier: add tests for smp_cond_load_*_timeout()
+From: bot+bpf-ci@kernel.org
+To: ankur.a.arora@oracle.com,linux-kernel@vger.kernel.org,linux-arch@vger.kernel.org,linux-arm-kernel@lists.infradead.org,linux-pm@vger.kernel.org,bpf@vger.kernel.org
+Cc: arnd@arndb.de,catalin.marinas@arm.com,will@kernel.org,peterz@infradead.org,akpm@linux-foundation.org,mark.rutland@arm.com,harisokn@amazon.com,cl@gentwo.org,ast@kernel.org,rafael@kernel.org,daniel.lezcano@kernel.org,memxor@gmail.com,zhenglifeng1@huawei.com,xueshuai@linux.alibaba.com,rdunlap@infradead.org,david.laight.linux@gmail.com,broonie@kernel.org,boris.ostrovsky@oracle.com,ashok.bhat@arm.com,ankur.a.arora@oracle.com,julianbraha@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri, 16 Oct 2026 07:55:38 +0000 (UTC)
 
-The following commit has been merged into the perf/urgent branch of tip:
+--===============6623771970694444259==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Commit-ID:     78436f3882fb8d848c823bf8cf754988202c5ca5
-Gitweb:        https://git.kernel.org/tip/78436f3882fb8d848c823bf8cf754988202=
-c5ca5
-Author:        Lorenzo Stoakes (ARM) <ljs@kernel.org>
-AuthorDate:    Sat, 03 Oct 2026 17:29:07 +01:00
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Fri, 16 Oct 2026 09:49:01 +02:00
+> barrier: add tests for smp_cond_load_*_timeout()
 
-perf: Track the perf mlock gift separately
+TL;DR: Nit only, in the KUnit test patch: the suite name
+"smp-cond-load-*-timeout" and file name barrier-timeout-test.c may not follow
+KUnit naming conventions (underscores, _kunit.c suffix).
 
-The locked_vm field in struct user_struct was originally introduced by
-commit 789f90fcf6b0 ("perf_counter: per user mlock gift") to provide an
-mlock-like budget for perf measured against mm->pinned_vm (since 2011).
+> diff --git a/lib/tests/barrier-timeout-test.c b/lib/tests/barrier-timeout-test.c
+> new file mode 100644
+> index 000000000000..9c12cd36e7d2
+> --- /dev/null
+> +++ b/lib/tests/barrier-timeout-test.c
+> @@ -0,0 +1,129 @@
 
-perf grants each user a 'gift' of perf_event_mlock_kb * online CPUs of
-buffer pages which is charged to user->locked_vm without any RLIMIT_MEMLOCK
-check.
+[ ... ]
 
-Only pages beyond the gift are checked against RLIMIT_MEMLOCK, per-mm, via
-mm->pinned_vm, which makes it different from the standard mlock() check,
-which is per-mm and made against RLIMIT_MEMLOCK.
+> +static struct kunit_suite barrier_timeout_test_suite = {
+> +	.name = "smp-cond-load-*-timeout",
+> +	.test_cases = barrier_timeout_test_cases,
+> +};
 
-However, since this was introduced, a number of other components have
-utilised this field where a shared resource needed to be limited against
-RLIMIT_MEMLOCK.
+this isn't a bug, but would a different suite name fit the KUnit naming
+conventions better?
 
-The other users are currently MSG_ZEROCOPY, io_uring, AF_XDP, iommufd,
-s390 KVM zPCI and most recently, secretmem in commit 97d34aa65c29
-("mm/secretmem: properly account locked pages").
+Documentation/dev-tools/kunit/style.rst asks for underscores rather than
+dashes in suite names, and for the test file to be named
+tests/<suite>_kunit.c.  The current name "smp-cond-load-*-timeout" uses
+dashes and a literal '*', and the file is barrier-timeout-test.c.
 
-This field is shared between all of these, but because the gift is not
-checked against RLIMIT_MEMLOCK, user->locked_vm alone can exceed it - 16
-CPUs * 516 KiB is already more than the default 8 MiB - after which every
-other user of the field fails unconditionally.
+Would something like smp_cond_load_timeout (with the file named
+lib/tests/barrier_timeout_kunit.c or similar) work instead?
 
-This was reported by a user who saw secretmem failing while running a
-simultaneous perf record.
 
-Resolve the issue by simply giving perf its own field separate from the
-rest.
-
-BPF used user->locked_vm up until commit 80ee81e0403c ("bpf: Eliminate
-rlimit-based memory accounting infra for bpf maps") which landed in 5.11.
-
-Thus also eliminate the now-defunct ifdef for CONFIG_BPF_SYSCALL for
-user->locked_vm.
-
-This issue exists between all of the components which use user->locked_vm
-and perf, however secretmem is the first user who has caused a report over
-many years and has been backported, so target the fix at that.
-
-Fixes: 97d34aa65c29 ("mm/secretmem: properly account locked pages")
-Closes: https://lore.kernel.org/20261002175651.811343-1-ameer.hamza@truenas.c=
-om
-Reported-by: Ameer Hamza <ameer.hamza@truenas.com>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261003-perf-locked-vm-fix-v1-1-d214dcaf0d76@=
-kernel.org
 ---
- include/linux/sched/user.h |  8 +++++---
- kernel/events/core.c       | 12 ++++++------
- 2 files changed, 11 insertions(+), 9 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
-index 8d7e552..ec262b6 100644
---- a/include/linux/sched/user.h
-+++ b/include/linux/sched/user.h
-@@ -23,11 +23,13 @@ struct user_struct {
- 	struct hlist_node uidhash_node;
- 	kuid_t uid;
-=20
--#if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
--	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
-+#if defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
- 	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD) || \
- 	defined(CONFIG_SECRETMEM)
--	atomic_long_t locked_vm;
-+	atomic_long_t locked_vm;	/* pinned pages charged to RLIMIT_MEMLOCK */
-+#endif
-+#ifdef CONFIG_PERF_EVENTS
-+	atomic_long_t perf_mlock;	/* perf buffer pages within perf_event_mlock_kb */
- #endif
- #ifdef CONFIG_WATCH_QUEUE
- 	atomic_t nr_watches;	/* The number of watches this user currently has */
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 7846d70..8b69d50 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -7059,7 +7059,7 @@ static void perf_mmap_close(struct vm_area_struct *vma)
- 		perf_pmu_output_stop(event);
-=20
- 		/* now it's safe to free the pages */
--		atomic_long_sub(rb->aux_nr_pages - rb->aux_mmap_locked, &mmap_user->locked=
-_vm);
-+		atomic_long_sub(rb->aux_nr_pages - rb->aux_mmap_locked, &mmap_user->perf_m=
-lock);
- 		atomic64_sub(rb->aux_mmap_locked, &vma->vm_mm->pinned_vm);
-=20
- 		/* this has to be the last one */
-@@ -7242,11 +7242,11 @@ static bool perf_mmap_calc_limits(struct vm_area_stru=
-ct *vma, long *user_extra,=20
- 	/* Increase the limit linearly with more CPUs */
- 	user_lock_limit *=3D num_online_cpus();
-=20
--	user_locked =3D atomic_long_read(&user->locked_vm);
-+	user_locked =3D atomic_long_read(&user->perf_mlock);
-=20
- 	/*
- 	 * sysctl_perf_event_mlock may have changed, so that
--	 *     user->locked_vm > user_lock_limit
-+	 *     user->perf_mlock > user_lock_limit
- 	 */
- 	if (user_locked > user_lock_limit)
- 		user_locked =3D user_lock_limit;
-@@ -7254,7 +7254,7 @@ static bool perf_mmap_calc_limits(struct vm_area_struct=
- *vma, long *user_extra,=20
-=20
- 	if (user_locked > user_lock_limit) {
- 		/*
--		 * charge locked_vm until it hits user_lock_limit;
-+		 * charge perf_mlock until it hits user_lock_limit;
- 		 * charge the rest from pinned_vm
- 		 */
- 		*extra =3D user_locked - user_lock_limit;
-@@ -7272,7 +7272,7 @@ static void perf_mmap_account(struct vm_area_struct *vm=
-a, long user_extra, long=20
- {
- 	struct user_struct *user =3D current_user();
-=20
--	atomic_long_add(user_extra, &user->locked_vm);
-+	atomic_long_add(user_extra, &user->perf_mlock);
- 	atomic64_add(extra, &vma->vm_mm->pinned_vm);
- }
-=20
-@@ -7281,7 +7281,7 @@ static void perf_mmap_unaccount(struct vm_area_struct *=
-vma, struct perf_buffer *
- 	struct user_struct *user =3D rb->mmap_user;
-=20
- 	atomic_long_sub((perf_data_size(rb) >> PAGE_SHIFT) + 1 - rb->mmap_locked,
--			&user->locked_vm);
-+			&user->perf_mlock);
- 	atomic64_sub(rb->mmap_locked, &vma->vm_mm->pinned_vm);
- }
-=20
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/38867477666
+--===============6623771970694444259==--
