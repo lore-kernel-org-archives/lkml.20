@@ -1,153 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D444C3148D2;
-	Fri, 16 Oct 2026 12:19:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D7644C4FB;
+	Fri, 16 Oct 2026 12:21:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792153165; cv=none; b=fe8Cx0gL+cL5LJVW0+xNAuXYzs8MRqE8l4uIOdwqgzVS88RhkloingaNL8zaCzG3OaEi+N637PJMrbk7Q5VT8uH/RcVjgw6v4YVRf2BmKZ1/PjuYlui3ycmioZxiBuSD3jK3tsPpc1EKqr4+wR2dhe5L54F0WYI6HWioRECaHhk=
+	t=1792153308; cv=none; b=GTJCdy3ijCOI62RzpvTIUtfQD1KyHHtuKMG+lVQmCiqLSvPnT16U66seA5sajbbeHgxNrnbZp0d45e9Xw1LVc2ogaY2C2TRUN3jWuTLsB7xT4oUmt28QyANHmO7uRsZ1Q7WwA7udFARQLKRixibWLmN+Vj72SN08eYHW3Q+yCBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792153165; c=relaxed/simple;
-	bh=DSH+AvFSx4rSB2I3L8SguVd7gi22r4ADmAr9vYB5kcU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lT4ydttBOZarS91LYJZexYH0g0X3baK5F/aB9XVpL/s+4373wcd/hhcckSto6CAEeL2bI2Z92TnjUa/c07coiNQnkSjvQu+kuhfcPg6SL0bDq5J2fTSXjoDpIjHHKL+euu/Nn1Yp1ccUAuMJdP3Cic7BJD4FpSwmbxSQmecE7kM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ekWjNZ3o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792153308; c=relaxed/simple;
+	bh=HxtnMKpZHiMByeKjzOwdFZJF2Cc6fNn3qfk/ehSwlV4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s9s5eBE9lYV6OyOL8SQoZ+bvQdEtrjmB0JnyP0lzfesnsePILEk9oIkWFmss5DUjjSBt3jAoRSBn7sEikGNRwOBsJxnDOG8X2K7Wen5wCw+Yinh8UbsaRYiDQ/yn+t5JG51v0nJi9lplM0nfK5xLUQ0Zdp6YNFXoQPLF7EaO1+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=XQ5CXe67; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ekWjNZ3o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D8B31F000C4;
-	Fri, 16 Oct 2026 12:19:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792153163;
-	bh=ez3WTV3wXyvA2qsEtDAAQhPoUgCZjt1BQZubvtpWNZk=;
-	h=From:Date:Subject:To:Cc;
-	b=ekWjNZ3oSUYSugEFRILIitc33dot8jDfMAsAu3L7ZxBrfGUkTXBND8H8f3sHfaeB5
-	 YhuhBLru0j1fax7LCg2S+n4m5DoAF1j3s50gEkd9f1SlcKg0tgoUPWj8GO1I2az//v
-	 mTngxnRLSentOqEJb/9148sDZz0+e782qQAzbC4TEhtSARDbvIph8DcAXTX+DO+JZS
-	 AflpWonu+iXo1y8Qtld7zpLvvJ4o7hhjQgRc1s89xZl7cp01bKpr04RpGpijqwnyt0
-	 8VtB7PEh7uLoisupMcQgCbXVQXG5L14/+XiI3O+nhLZz+G4TWzT3LlwYChvJFBOJki
-	 qe+0FtkLPrVLw==
-From: Eugen Hristev <ehristev@kernel.org>
-Date: Fri, 16 Oct 2026 15:18:53 +0300
-Subject: [PATCH] PCI: iproc-msi: Bound events handled per IRQ
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="XQ5CXe67"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=fAVKR37Op5c869xb/LHQtZ5GUTNDvUF8xw/fbi6lf6g=; 
+	b=XQ5CXe67AwgMknczJnVNO/l4t4lHCJLYGiy/8WRPmmHFhKnHyiXLU3juDm/LWtfrHtsBU1uQ7WA
+	3MHAoFPTFAY1beKKLosOl2Z/Q3NDvxXdz89cgnZ3IIzRZCca/1lNR5DlbFUDuZI5pIwD+QUf+ULSm
+	6+aCzh8uGRGsqggA6a6NRZWUVArJxTSNMUEh2JiYhpHyPkCynlPAReA469fGqs7MMjTJPhAG4qisq
+	fSnIixTyOVVudFVFd+JL0xZv81X9Y+zjuGipJpk5oLQ5gk4EquHtLSXs9N3fRECG/yKDSdtTEPHd6
+	i6B4qFpjGZVfDXE9blvXT/eqYp67MxUvtTgw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xHgwM-00000004XuF-19DW;
+	Fri, 16 Oct 2026 20:21:39 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 16 Oct 2026 20:21:38 +0800
+Date: Fri, 16 Oct 2026 20:21:38 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Srujana Challa <schalla@marvell.com>,
+	Bharat Bhushan <bbhushan2@marvell.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Lukasz Bartosik <lbartosik@marvell.com>,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH v2] crypto: marvell/octeontx - clean up VF resources when
+ DOWN fails
+Message-ID: <atIW0jxNMR3wxvQU@gondor.apana.org.au>
+References: <20261011203456.1879639-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-iproc-irq-v1-1-ebaaf027f29e@kernel.org>
-X-B4-Tracking: v=1; b=H4sIACwW0moC/yXMTQ5AMBBA4avIrDVpiQZXEQvGYCz8TBFJ4+6K5
- Ze8PA+OhMlBGXkQOtnxMgeYOAIcm3kgxV0wJDqxRhureJUFFcumCsxy7CktTJZD6Fehnq/vVdW
- /3dFOhPs7gPt+ANvf8extAAAA
-X-Change-ID: 20261016-iproc-irq-9c58cfe39158
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Ray Jui <rjui@broadcom.com>, 
- Scott Branden <sbranden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Eugen Hristev <ehristev@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3668; i=ehristev@kernel.org;
- h=from:subject:message-id; bh=DSH+AvFSx4rSB2I3L8SguVd7gi22r4ADmAr9vYB5kcU=;
- b=owGbwMvMwCXWkjcnuXne3fmMp9WSGLIuiTmaH81mvvydS+xJknra+zdi0Ruqila8a7yUvfF2m
- dR+i7DJHaUsDGJcDLJiiizVJv9qhft3uJ90tVSBmcPKBDKEgYtTACZi+o3hf8qOixl2CeGVK1tu
- v10b+czn3r+ne3dVzQ5ccmdmfKGqfSwjw4PkKO2mFPW/bzwzV2Usuil/qUwvm3c790/hgw+q40/
- 3swEA
-X-Developer-Key: i=ehristev@kernel.org; a=openpgp;
- fpr=AB184498D27A77B65D7852C81EB31E020EAC2FC8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011203456.1879639-1-mhun512@gmail.com>
 
-Limit each iProc MSI parent IRQ to 16 event-queue entries.
+On Sun, Oct 11, 2026 at 04:34:56PM -0400, Myeonghun Pak wrote:
+> A failed DOWN mailbox notification makes otx_cptvf_remove() skip all
+> local cleanup. The driver core still completes unbind and releases the
+> devm-allocated cptvf, leaving the raw IRQ handlers registered with that
+> object as their argument. The sysfs group, crypto device-table entry,
+> software queues and PCI resources also remain uncleaned.
+> 
+> Keep the notification error diagnostic, but run local cleanup regardless
+> of the PF response. The PF only acknowledges DOWN; it does not disable the
+> VF queue. Disable the VQ locally and poll its INFLIGHT count for up to one
+> second before releasing the DMA command queues. Warn if the queue does
+> not become idle, but continue local teardown. Clear PCI bus mastering
+> before freeing resources. Remove both IRQ handlers before killing the
+> tasklet and releasing its resources.
+> 
+> This issue was identified during our ongoing static-analysis research
+> while reviewing kernel code.
+> 
+> Fixes: 10b4f09491bf ("crypto: marvell - add the Virtual Function driver for CPT")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+> Changes in v2:
+> - Disable the local VQ and poll INFLIGHT for up to one second before
+>   freeing DMA command queues.
+> - Warn on an idle timeout and continue local cleanup.
+> - Clear PCI bus mastering before releasing resources.
+> 
+> v1: https://lore.kernel.org/r/20261004042634.1130247-1-mhun512@gmail.com
+> Review: https://sashiko.dev/#/patchset/20261004042634.1130247-1-mhun512%40gmail.com
+> 
+>  .../crypto/marvell/octeontx/otx_cptvf_main.c  | 44 ++++++++++++-------
+>  1 file changed, 29 insertions(+), 15 deletions(-)
 
-A continuously fed queue could otherwise keep the chained handler running
-and starve other work. The budget still drains pending events and lets the
-next parent interrupt continue processing, improving fairness and bounding
-interrupt-handler latency.
+Please address the Sashiko review:
 
-Without this starvation avoidance, one CPU can stall indefinitely
-in the loop and not serve other interrupts, timers, etc.
+https://sashiko.dev/#/patchset/20261011203456.1879639-1-mhun512%40gmail.com
 
-While testing it with an Ethernet NIC,  when too many MSI interrupts
-come in, CPU might get starved:
-
-Connecting to host 192.168.30.1, port 5201
-[  5] local 192.168.30.2 port 52586 connected to 192.168.30.1 port 5201
-[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
-[  5]   0.00-1.00   sec   240 MBytes  2.01 Gbits/sec    2    334 KBytes
-[  5]   1.00-2.00   sec  63.2 MBytes   531 Mbits/sec    1   1.41 KBytes
-[  5]   2.00-3.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
-[  5]   3.00-4.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
-[  5]   4.00-5.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
-[  5]   5.00-6.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
-[  5]   6.00-7.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
-[  5]   7.00-8.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
-[  5]   8.00-9.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
-[  177.568497] rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
-[  177.568913] rcu:     0-...!: (1 GPs behind) idle=28ac/1/0x4000000000000002 softirq=28922/28930 fqs=1
-[  177.569457] rcu:     (detected by 1, t=5256 jiffies, g=21629, q=819 ncpus=4)
-[  177.569870] Sending NMI from CPU 1 to CPUs 0:
-
-With this bounded approach, IRQ handler will complete and continue
-to serve MSI events on the next handler invocation.
-
-Assisted-by: Github Copilot
-Signed-off-by: Eugen Hristev <ehristev@kernel.org>
----
- drivers/pci/controller/pcie-iproc-msi.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/pci/controller/pcie-iproc-msi.c b/drivers/pci/controller/pcie-iproc-msi.c
-index 9ba242ab9596..6649807822d2 100644
---- a/drivers/pci/controller/pcie-iproc-msi.c
-+++ b/drivers/pci/controller/pcie-iproc-msi.c
-@@ -29,6 +29,9 @@
- /* Number of entries in each event queue */
- #define EQ_LEN                         64
- 
-+/* Bound parent interrupt handler such that a queue cannot starve CPU. */
-+#define IPROC_MSI_MAX_EVENTS_PER_IRQ   16
-+
- /* Size of each event queue memory region */
- #define EQ_MEM_REGION_SIZE             SZ_4K
- 
-@@ -326,6 +329,7 @@ static void iproc_msi_handler(struct irq_desc *desc)
- 	struct iproc_msi_grp *grp;
- 	struct iproc_msi *msi;
- 	u32 eq, head, tail, nr_events;
-+	unsigned int event_budget = IPROC_MSI_MAX_EVENTS_PER_IRQ;
- 	unsigned long hwirq;
- 
- 	chained_irq_enter(chip, desc);
-@@ -360,9 +364,11 @@ static void iproc_msi_handler(struct irq_desc *desc)
- 			break;
- 
- 		/* process all outstanding events */
--		while (nr_events--) {
-+		while (nr_events && event_budget) {
- 			hwirq = decode_msi_hwirq(msi, eq, head);
- 			generic_handle_domain_irq(msi->inner_domain, hwirq);
-+			nr_events--;
-+			event_budget--;
- 
- 			head++;
- 			head %= EQ_LEN;
-@@ -373,6 +379,8 @@ static void iproc_msi_handler(struct irq_desc *desc)
- 		 * head pointer.
- 		 */
- 		iproc_msi_write_reg(msi, IPROC_MSI_EQ_HEAD, eq, head);
-+		if (!event_budget)
-+			break;
- 
- 		/*
- 		 * Now go read the tail pointer again to see if there are new
-
----
-base-commit: b810335a0699d1810683796b0e3ffe8827ddfe6c
-change-id: 20261016-iproc-irq-9c58cfe39158
-
-Best regards,
---  
-Eugen Hristev <ehristev@kernel.org>
-
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
