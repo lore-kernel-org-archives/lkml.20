@@ -1,199 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337233B27D6;
-	Fri, 16 Oct 2026 06:37:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30620380FFD
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:38:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792132678; cv=none; b=eQEz1Jr4XSSDNmrXmnWn1K0hhx9l5rt54eLm7s37HeAmBfgdq0+A+g+Otjbgg1+pK2Sr/1aItwHpG8m5mSHR+7Zh5ErBmq/PPjFyi+nlbrFX74UUAj0Lv7F7mcET3/kqWGum7y0YBfjE9x+wjo0Zd7lxIu2j9c218bz7eeVADkU=
+	t=1792132703; cv=none; b=IieXrPormwXqyjRhREC/69Pn9+Vy2LmEPL40M+1S+H+CoMy6Juhk316DfjpW2iQeu4uPMV0eorJWQ27KXAlxPxzhQX+t8XVBWx4P2gAb6EFzr8kHMKiTwEZ4l1+5mpygJeFwZ5IpxFD8/PPN8b8LiEnX43cIpDthM2lfb0Hn78c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792132678; c=relaxed/simple;
-	bh=HWpTXpqeGccXOhG+etsDdBrWUQc1QRCSs5YG9/CPkrI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fzjP2PXxIsn+OBikohHt9eiRpAmqFXHu/MjWxq6BLwYSRVxn1+l4DzLDHUmGAtq4V3vuB9QpnWYvEZmwzweka6fxPKAghIUwukLYD0b0rmBk4O//ghvmA3dPhijdkk/GeQjG8K/UiY3fbicjS1NfcSehABFtvPSrReuRB28zK7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bUYNy6Ki; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792132703; c=relaxed/simple;
+	bh=zbBYNRqIpU/zXlbS3PL2t380sFU4bLeo0x/J25o3/Yk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TXqC/H3p68r0SkmFEJGV88mBfRn1cjWXBZ1gb94IiRi0jrsPNBoHUj587Uc+bZyTXh+x1dwr5mqfK7uJ90nm3hHDtNjiV8HUiDjD9EAlcJf6lf4A5XL1JfNEu7jr14KjTIbqv71NQve1ZDtBjwrDB7OavTDBe9Qnwb/JMlG+nps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E3DXmfgw; arc=none smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bUYNy6Ki"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A2533C2BCF5;
-	Fri, 16 Oct 2026 06:37:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792132677;
-	bh=HWpTXpqeGccXOhG+etsDdBrWUQc1QRCSs5YG9/CPkrI=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=bUYNy6KiLrjkdvrbAOwp94aK8sDrvO03nQplc3G0EwtnCkP5d14CLfBUazLn4If0d
-	 Dc3YC2VDMtSERq994EBUiomY4ZD48dg7QnUSju5DESHZZx/xxEDxctEuPY2QkQ/bOg
-	 /JKO4WK/iBZivLSLEHG0oXf0SKmgmkAGDZ/FApq4uOVV21o5Z5aoohpMsWW0krUPGm
-	 aJ/JyEBook7SYaMGZVkv+rIg9yF1tX2ulAhXaIOem2D3PdbcKCGmcn2AljP6/T/WI3
-	 2Chjce0TY+0laM6rikIHIlva89I7EHAaYDsOgQemp7FzkKWeQV4awZCkvLdPkfraeY
-	 meQOf+AI4pm/w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D6E0CCA462;
-	Fri, 16 Oct 2026 06:37:57 +0000 (UTC)
-From: George Neacsu via B4 Relay <devnull+geocausa.gmail.com@kernel.org>
-Date: Fri, 16 Oct 2026 07:37:57 +0100
-Subject: [PATCH] media: i2c: vd55g1: fix VD55G0 streaming below 900 Mbps
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E3DXmfgw"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35b2c599f43so2290153eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:38:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792132700; x=1792737500; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zozTgap9/7XkjDcW6YDxcMncGVIIlLjENhuebqzWUwg=;
+        b=E3DXmfgw8Dj1wT02wEE5t7YjMuE4zdH7znDclOe3bDWRpO3nVfwmL0+/JwuvdyNTw7
+         D5ssn6Ia3Kom58Gy25WdJw/xOxkVZUy+XI0OSXIqZ5Z0uCef7bxlNTCN5phHLfqifE1G
+         bO4dl4FwuG4rOsyDd/yt+ynMBN+h0EP2+X73mMH6pBYDZC9B0ClBfwCqUm08pg2IEINw
+         b0HoAII4MrkqHkNiQsUjibIufAp/Ht2Watbquc5ywDNoJn+6UYN/kwV5pbtX25kdCQ5I
+         maXGlskNebD0nGmwMg0KupBj+HHviU2lfRi3pvU49/bvIZBog9oEvh79ZSdPt60kgbQB
+         F8jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792132700; x=1792737500;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zozTgap9/7XkjDcW6YDxcMncGVIIlLjENhuebqzWUwg=;
+        b=dn6S0IPxZ5wUbHvsDS+BsZSf7Kh4+pEILCfHIHVK3+N+/gMpTjfOFoTz2x8eqAVdsU
+         bp3ZE5DMFuDJ8lTRO0GAJfDWKxojjdxea5lGAO+Fhpr8vlkAltcIBUL2m1AOOR6iXCKH
+         LyFgxGzb4XmAH2UUT7Sy+sLXE7KslXuyF8k0yjlHlTeMNx/mmxnMuHMNi5GntM72uFsl
+         5h5QyegfkCHRWHeE/R5o2ZGYhmteB64HUd2jcBpcvf4gb+DgY5X0yCveXNgbf0JGhb4w
+         2WI9DDxPfkli+z8xQPbh3u1rj2zTqVzXHg3zB4UZ0LcFeEsudkgtMDSwAHHApB5p0CRv
+         +sAw==
+X-Forwarded-Encrypted: i=1; AKwUvByg1EO5XMyRER2JuLTIdjTu3rx06pV1d7yq0m4wJcGSHiXoNbUuGhkOfSsNW1K1gIoq0kpF83yAXm+LZEw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLsz9dGbDlQwGwjkfUDlrz+BnZcRC4A0ZrBNkC+IIhNLpmZGCUX
+	Wzh4wV6yJlOqFXUorUdMJCY8VNeK3hATTJ3i7KwvrHoseFcHlrVW2ODh
+X-Gm-Gg: AYBFou30SfpIsFewBoGa4Q7IrShrVMYN/6lvO2VbNsvhcUXsgWZhhnHxeQemM/lGN0+
+	Se8J8p1yRZZC1yjIBh0Yp5bmzLDy1nGvusxguQW3WAdXc5sO7066thqGW3iIKaw876bpn876AYj
+	MjeZt1njdFN8rYLJAzfI4vILfYGUYkKQwHbf8BBooY+nQF8d9FR90hUaWQmdpIhQnWlTa1ZQGd4
+	YhIZlxa3s0Hn9YWp/CXZSFHUB8Z1kPpUZYrbeYf7bGnqo0gamwxI3eDHB+h0DJ/j80HWLlISQEi
+	1+wdUxXNr++RYHjFRRRNngpaOqs5CcJ+oSQOCX2B4v6RawlgtsnhCxVY4NSIdQGwOOietOSQ50Q
+	je972mxqx6XL9okL/wimdPKV78KZCEmLGrSkLt/c1hKEqDjYZ3NorFAVmq2oYQFNi3HJf4A5Ktw
+	QrrPvmGBJuhGqUJLILZQh8oFqm337Ct0vYODc4rpgpFqFV2nqxMdD3Kk5SDTuolD0cxmGLw2Ci7
+	1rV/w==
+X-Received: by 2002:a05:701b:2305:b0:14f:505d:813 with SMTP id a92af1059eb24-16a60811423mr29806233c88.41.1792132700064;
+        Thu, 15 Oct 2026 23:38:20 -0700 (PDT)
+Received: from user.. ([2405:201:c052:b00b:78ea:36df:1d29:86cb])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-18319d3b880sm2650986c88.10.2026.10.15.23.38.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 23:38:19 -0700 (PDT)
+From: pavankumaryalagada@gmail.com
+To: pure.logic@nexus-software.ie
+Cc: johan@kernel.org,
+	elder@kernel.org,
+	gregkh@linuxfoundation.org,
+	rmfrfs@gmail.com,
+	vireshk@kernel.org,
+	greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	outreachy@lists.linux.dev,
+	Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+Subject: [PATCH] staging: greybus: Align function arguments
+Date: Fri, 16 Oct 2026 12:06:48 +0530
+Message-ID: <20261016063648.22795-1-pavankumaryalagada@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-vd55g0-sp11-fix-v1-1-eb14bd80d8f8@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12RwU6jMQyEX6X6z/tLdhLHMa+CONiODT0A3baLV
- kK8+waQVirHsfTN2OP37RLnY1y2u8P7do634+X4+rIE/jps/qQvj7Ef59JbgdIRsO9vk+gR9ss
- Jcc/j372DeW9KYji3RZ3OscZfjvcP3/ocv/8s4+v3cDvp1Z+W7d1htsYtCScrgudE0Io9vBiI1
- N4EDJuyfPn+pwCQ3albchc1gOhs08GpYBPCZerG2G8pIS1TMgf2EYYMCFTHHJDNqJURxdhYxi0
- VjBy1hLpgd9d0TwlWouIKUAEGTdV6S430lkwrUr1WLbgKmtbQscr0WnBY0KrtlqJiM6hLg7UQO
- QRlaxPLQEwx6dzNK6LfUg4mtYFErTCbDW5WGcpcnRBH8WawbGu5peZKz06ANFasaVb8jIu0iHX
- aeqrmaiN/UORiBtxgvaWArP5yGJGZwBiqbKXPyvaDQo/WtKYgNI3QWRzHpKHYGCbaRA2q+EmZX
- mL31+fn4/Xu0Eu2UTK5WlaNMQx8iCCu9pnXmiluiXV7+Pj4B2mKXVrJAgAA
-X-Change-ID: 20261016-vd55g0-sp11-fix-60bc64a59b1d
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
- Peter Marshall <pm@petermarshall.ca>, 
- Sylvain Petinot <sylvain.petinot@foss.st.com>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- Jizhou Tong <fqwqf@fqwqf.xyz>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>, 
- George Neacsu <geocausa@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792132676; l=5492;
- i=geocausa@gmail.com; s=20261015; h=from:subject:message-id;
- bh=GU0MyDBe6lLQUO5Q8auruEMChbN8UFtavHtDbFIx0pM=;
- b=VCHwLg2Rf6FkACPUMLeBsyS5G3PUMZagCUVDsQB1j3d0qZWRm59LIKaDSt47gETEByNaJOjjv
- NPiNgbJDFkCBWsQ9qrHKYtwhI76w9rajExH5DXHeRkjVTlBic8l43Cw
-X-Developer-Key: i=geocausa@gmail.com; a=ed25519;
- pk=KyQk/iWbxsikewDBh0SwlHI51RvAqahD3loqmRp9DVI=
-X-Endpoint-Received: by B4 Relay for geocausa@gmail.com/20261015 with
- auth_id=1199
-X-Original-From: George Neacsu <geocausa@gmail.com>
-Reply-To: geocausa@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: George Neacsu <geocausa@gmail.com>
+From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
 
-On a Surface Pro 11 (Snapdragon X Elite, CAMSS) the VD55G0 IR sensor
-(cut 1, revision 0x1111) runs one D-PHY lane at 840 Mbps. With the
-VD55G0 support as posted, the sensor accepts the start command and
-reports STREAMING, but it never sends a frame and the stop command
-never completes.
+Align the function arguments to follow the coding style and
+improve readability, addressing the alignment warning reported by
+checkpatch.pl
 
-Two settings cause this:
-
-- The minimum line length is the VD55G1 value, 1128 pixels. ST's
-  reference vd55g0 driver uses 1200 below 900 Mbps and 1128 above.
-  At 840 Mbps the sensor stalls with 1128 and streams with 1200.
-
-- Writing 0 to 0x0329, mapped as ISL_ENABLE for the VD55G0, also stops
-  frame output, even with the longer line. The register reads 0x01
-  after boot, and the ST reference driver never writes it. Drop it from
-  the VD55G0 map and only write ISL_ENABLE on models that have it.
-
-With both changes the sensor streams 644x604 Y10 at 61.6 fps, the
-diagonal grey-scale test pattern comes out correct, and stop completes.
-The built-in 2.11 cut1 patch is used unchanged.
-
-Link: https://github.com/STMicroelectronics/vd55g0-linux-driver/blob/a05627b0f6d8775aa54b6fa306e91f425f2cbf9e/vd55g0.c
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: George Neacsu <geocausa@gmail.com>
+Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
 ---
-This is an incremental fix for Peter's unmerged VD55G0 support (v2,
-patch 11/11), on top of Jizhou's register-width fix (v2). It does not
-apply to media-next on its own.
+ drivers/staging/greybus/loopback.c | 3 ++-
+ drivers/staging/greybus/spilib.c   | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-Prerequisites:
-https://lore.kernel.org/all/20260918221705.323510-1-pm@petermarshall.ca/
-(and Jizhou Tong's "[PATCH v2] media: i2c: vd55g1: correct VD55G0
-register access widths", 12 October)
-
-Benjamin, I know you'd rather see a separate vd55g0 driver (Sergey's).
-ST's downstream driver already uses a 1200-pixel line below 900 Mbps
-and never writes 0x0329, so this is also a data point for that driver:
-these are the two settings this hardware needs. I can test Sergey's
-driver on the Snapdragon Surface Pro 11 when it is posted.
-
-Tested on mainline (62f482ff73bf) with Peter's v2 01 and 04-11 plus
-Jizhou's fix. 02 and 03 did not apply to that tree, and neither touches
-the driver. The receiver is qcom CAMSS (CSIPHY0 -> CSID0 -> VFE0 RDI0)
-with out-of-tree Surface Pro 11 board support.
----
- drivers/media/i2c/vd55g1.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-index ba70447..4471c5a 100644
---- a/drivers/media/i2c/vd55g1.c
-+++ b/drivers/media/i2c/vd55g1.c
-@@ -76,6 +76,8 @@
- #define VD55G1_XCLK_FREQ_MAX				(27 * HZ_PER_MHZ)
- #define VD55G0_MIPI_RATE_MIN				(750 * MEGA)
- #define VD55G0_MIPI_RATE_MAX				(1200 * MEGA)
-+#define VD55G0_LINE_LENGTH_LOW_RATE			1200
-+#define VD55G0_LOW_MIPI_RATE_LIMIT			(900 * MEGA)
- #define VD55G1_MIPI_RATE_MIN				(250 * MEGA)
- #define VD55G1_MIPI_RATE_MAX				(1200 * MEGA)
+diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
+index 2a623fc2e99b..0f699afc10f2 100644
+--- a/drivers/staging/greybus/loopback.c
++++ b/drivers/staging/greybus/loopback.c
+@@ -653,7 +653,8 @@ static int gb_loopback_request_handler(struct gb_operation *operation)
+ 		}
  
-@@ -169,7 +171,6 @@ static const int vd55g0_reg_map[REG_MAX_INDEX] = {
- 	[REG_OIF_IMG_CTRL] = CCI_REG8(0x030f),
- 	[REG_MIPI_DATA_RATE] = CCI_REG32_LE(0x0224),
- 	[REG_SYSTEM_FSM] = CCI_REG8(0x002c),
--	[REG_ISL_ENABLE] = CCI_REG8(0x0329),
- 	[REG_FWPATCH_REVISION] = CCI_REG16_LE(0x0022),
- 	[REG_PATGEN_CTRL] = CCI_REG16_LE(0x0400),
- 	[REG_READOUT_CTRL] = CCI_REG8(0x047a),
-@@ -1245,6 +1246,8 @@ struct vd55g1_model {
- 	u16 num_modes;
- 	u32 mipi_rate_min;
- 	u32 mipi_rate_max;
-+	u32 low_mipi_rate_limit;
-+	u16 line_length_low_rate;
- 	u16 width;
- 	u16 height;
- 	bool bayer;
-@@ -1323,6 +1326,8 @@ static const struct vd55g1_model vd55g0_model = {
- 	.num_modes = ARRAY_SIZE(vd55g0_supported_modes),
- 	.mipi_rate_min = VD55G0_MIPI_RATE_MIN,
- 	.mipi_rate_max = VD55G0_MIPI_RATE_MAX,
-+	.low_mipi_rate_limit = VD55G0_LOW_MIPI_RATE_LIMIT,
-+	.line_length_low_rate = VD55G0_LINE_LENGTH_LOW_RATE,
- 	.width = VD55G0_WIDTH,
- 	.height = VD55G0_HEIGHT,
- 	.bayer = false,
-@@ -1542,6 +1547,8 @@ static unsigned int vd55g1_get_hblank_min(struct vd55g1 *sensor,
+ 		if (!gb_operation_response_alloc(operation,
+-				len + sizeof(*response), GFP_KERNEL)) {
++						 len + sizeof(*response),
++						 GFP_KERNEL)) {
+ 			dev_err(dev, "error allocating response\n");
+ 			return -ENOMEM;
+ 		}
+diff --git a/drivers/staging/greybus/spilib.c b/drivers/staging/greybus/spilib.c
+index e4d1ae8308aa..c1982f3fb931 100644
+--- a/drivers/staging/greybus/spilib.c
++++ b/drivers/staging/greybus/spilib.c
+@@ -160,7 +160,8 @@ static struct spi_transfer *get_next_xfer(struct spi_transfer *xfer,
  
- 	/* Absolute time required for ADCs to convert pixels */
- 	min_line_length = VD55G1_LINE_LENGTH_MIN;
-+	if (sensor->mipi_rate < sensor->model->low_mipi_rate_limit)
-+		min_line_length = sensor->model->line_length_low_rate;
- 	if (sensor->model->hdr &&
- 	    sensor->hdr_ctrl->val == VD55G1_HDR_SUB)
- 		min_line_length = VD55G1_LINE_LENGTH_SUB_MIN;
-@@ -2117,7 +2124,8 @@ static int vd55g1_enable_streams(struct v4l2_subdev *sd,
- 	/* Configure output */
- 	vd55g1_write(sensor, REG_MIPI_DATA_RATE, sensor->mipi_rate, &ret);
- 	vd55g1_write(sensor, REG_OIF_CTRL, sensor->oif_ctrl, &ret);
--	vd55g1_write(sensor, REG_ISL_ENABLE, 0, &ret);
-+	if (sensor->model->reg_map[REG_ISL_ENABLE])
-+		vd55g1_write(sensor, REG_ISL_ENABLE, 0, &ret);
- 	if (ret)
- 		goto err_rpm_put;
- 
-
----
-base-commit: 62f482ff73bf3ae88b0c899115527752cf9cbf13
-change-id: 20261016-vd55g0-sp11-fix-60bc64a59b1d
-prerequisite-patch-id: d4474f51d7a10cfd10a316ec2b09936490b14a79
-prerequisite-patch-id: 0017cc56bf769ab00e67bdc0c5214951447cb716
-prerequisite-patch-id: 95a2d9ff8168eb17010538d80f4b5428e2b7b798
-prerequisite-patch-id: e717e32eac916ccafccf9e7a552ca0030085daa3
-prerequisite-patch-id: 8fc4f7595aac33a2164adb41c139dc3218be5bc6
-prerequisite-patch-id: 52bde56940b545c0e5f44d12811f9b9676bc311c
-prerequisite-patch-id: c0b93409e330d4b874b3702d67b57e2c4b0bde32
-prerequisite-patch-id: dbc6f65015852bbaf31e5f4efbee52c60bafb79f
-prerequisite-patch-id: d5c9bb074014a20938df8b55bb9088aa7b26d37b
-prerequisite-patch-id: d1ce44a3f9104aeead2c18d58a1470d1bd1ae531
-
-Best regards,
+ /* Routines to transfer data */
+ static struct gb_operation *gb_spi_operation_create(struct gb_spilib *spi,
+-		struct gb_connection *connection, struct spi_message *msg)
++						    struct gb_connection *connection,
++						    struct spi_message *msg)
+ {
+ 	struct gb_spi_transfer_request *request;
+ 	struct spi_device *dev = msg->spi;
 -- 
-George Neacsu <geocausa@gmail.com>
-
+2.43.0
 
