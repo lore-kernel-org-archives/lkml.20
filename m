@@ -1,146 +1,123 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813604825DA
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:22:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB334A4992
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:22:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792156960; cv=none; b=Wq3ByXNzVa4Mr/vm/OUOe7RcaJT2pW7b83aTidWogzcOvpjkG+YPWNJVQ36N1hE8qlbCDVD3/fhw/MTZx4Hjb8Gv4hNASoDUZrN3yx7KnpedPpC7CKQxl48uqMbwvBdSaWAQuKwo060hYZ0KhK9P/EmDlWBHoBslASVJ8KBSZ3g=
+	t=1792156979; cv=none; b=daKsh/FvSSeclCBvADbZish3qqlbuMKtWvI0dV6eU1BdBITUCnqPDf+EwrzQ5LAkf9E3U8y/NXihfGG6mt65ENrgFCbmAGCIbUwhwE0esiBtsnrSwx/wVhnl4v+lcsPsH/KEpePCrk07GvcwNz34cW/vyVGvJVDLDcPJJY1Yof4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792156960; c=relaxed/simple;
-	bh=u3NCbjlF65MzYbR+oR2Tct4Ob6r1UTi0DYYNdD9tCKg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YONtYCszhGPKucmHbX6awqwcFVI38f0GGujDq+rp40BoGjoMRfJh1SdpWjqiF050K5QDkuF006Muhqm8D3LA+QaS5t2HqeDZDVmIk5m4SSyhUL6l7UHW/5DnQcvjZkWglzidelWVwhkD6MGjG/1bARKUMZfeBuhFbDznt6MxiHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=m8xAVPq2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d+rK/+6p; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792156979; c=relaxed/simple;
+	bh=Zoh3g5792438IIctiUeh8nECzubz/AI0R3YK2S7Ak+w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jCVvM81b7K8hr9SWcx7XJ00G7ggj+pqpXTHL9XrgNCrp9r2AfH+/FtEG3Sq5nvGkxQcQCVD32/ETDCU3aJzppCHBzMVypT/r/XNCZD+B8/GP2M9q3ogL7xH9CK3BGtZX02FDscz6bKZ0nwygPQwjsdnYruDKbvSBI+dmaoCXy3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=aIRxyiBd; arc=none smtp.client-ip=209.85.219.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="m8xAVPq2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d+rK/+6p"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAAA5h1983163
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:22:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	WFnblkCZk590L97ihVInQZtbtIXSB+YbRNIrJk5YPFQ=; b=m8xAVPq28s85+rGt
-	66bkL94GxtJPu2AO1TQCIUNqtScwBLYGQHBI1z1cekyAjnhrLvGUVYUOBwQ1vmbr
-	wVaB3zwHUN0OvxpSaYUY/MLzYVkFK1qnHjrvKvTpTmA8HRS1THBKHxWdvhLZyC3P
-	z02XANusJN5Rg/Q5UpgC4yPDl2mzXU7qwLfyn1YGN2BgLjP4KRINTH1BFWsoRuUj
-	4OYipnacOdXJRW7XWMla6xyMoJHRX+CZz5e2nAt/0fXHxxfwe15ai195rj4c3Wv3
-	TCcdjYP/QJbMsSpwEHwmThg7HcqO0BHBPqHVJm8XxSguQoWZAuEhYrJZWDj7qMYw
-	9vWoxA==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb8a8asqb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:22:38 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5e705718bebso251706e0c.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:22:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="aIRxyiBd"
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-917a20e9efeso90154356d6.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:22:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792156957; x=1792761757; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WFnblkCZk590L97ihVInQZtbtIXSB+YbRNIrJk5YPFQ=;
-        b=d+rK/+6pOgspWZ+Vs6P0aR0tuLn4ouXWBm6mhl0ke08wyXq4el2hThB8wscW3xgYun
-         0vp/qcxvdBV4NevO9FM4zLkMEJtZX/FWYCm/T0BrveYlkbvPiaeIZoZtea/vdFAUQe1b
-         a+tHnn9lg0vcv7f54XVFJRSMfx2vsu29oUkrie9nUR+I1f1sHRoRxYqGiIG8xqwNxfoe
-         D8P9STeroOg/bJI+L00hl5YZEGxTZRRG/06MAhIjv55VFvB15ut3McTE0VOHueeTXkYj
-         ORW+Jl2oo977wj1tYkUbnUs2kTzcvhUPOGEk+IHeAozQHBcob5unhs19CS9l9RBctu1I
-         wKhw==
+        d=gourry.net; s=google; t=1792156977; x=1792761777; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UZ+jg+YnV/4Rx7SNrmGuegpLMiyUs48QsBYMqR/oF7c=;
+        b=aIRxyiBdQKFslLI7IwkstdBnBMGLfGlEWoFqH10Jjz+Y2g0YfcV5P6lStNPSpwdtwL
+         aLkNPbmpmGqNRi6yrtFAtO0ulHS2hktyQuc6V/zZwCP/6321xiYHogrghmfvWro3mSUU
+         IMWSV2BzIglZdKIW4fCxT6J4HypF96Bc8/QTehx6Im/fd3VDD46vLJUXcR8/fYQcRKGt
+         VTebs8IKKfD2LzpP5o7Dtx6ls53jPpjoMH3QN82tsB1OdcCG/SOifAc+lMbH6w+JtyUt
+         WG3Wn2TW48Mx18iYv0YqS3nDd0rij3I3wMyzeiT6aILQ2DB3jR90U9a4XKFdZPmTZZa3
+         57YA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792156957; x=1792761757;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WFnblkCZk590L97ihVInQZtbtIXSB+YbRNIrJk5YPFQ=;
-        b=1GUOw8MdLmGXs0qScEoFUWW3xCtXTnshSclHYhjq7yOCjctQpX+6KLDRVjXGhAn2Rv
-         sMbE5g6QNuetQMNK+BUUHhnS9sbACWxHjrtujN38t1NXPR1GSHuaO2zT12jHUBbrySqz
-         GZCIJggAukCf2JrV4vvb9H74HF52JlRkLPjqTmhQDS8Bq2o7Gc4n/3twxtyTCw1RnNDe
-         KVE8UHBo/SYlX7Wkxq5xmGdmMh7esN+cXJZOlXNBl9KGamq+MezY4yN81Pvcv6gYbJII
-         Nwjbom7tJPJHtw6gSQe8d/mEsyOmfaaOi5jzbXhmL+KpS1ewWYXFp5mqknfzo5iSDaTj
-         xrEA==
-X-Forwarded-Encrypted: i=1; AKwUvBy8HJ+VxjYV6qILUGDw02fmEpngKoO5hTLF3PxP2DhQMXYvsB5/qA3RBIEgHLwoNA/jdWAudcJk7C2FsmQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI55Cvz/eZP4TyZF+7X+oWEOHYmqb6hWHKekdnrmJTF8YwcRvFh
-	mj3YeqdCe1Mn1YzrPRE4iJx+aPNqXN9iVzkfxEldRGaSNFyVO1PVSbl7z6FYSgoHd7/EnCXZb9O
-	8fDqpP4xjqJwjh2KrX/zXZKijxwbFMafyC0km1FwDS81DeH/qVAo2GBCBjMH+v3KzMSI=
-X-Gm-Gg: AYBFou3CqNs2h0DtvtDIC2yjrGPfJLjzBC0q61+6pG3tr2hzxjWJBm/4sUJTSeS2Adj
-	RyRXJiYC/Ud0bGH5ZQsbCbz9HevGQlGmZ22e722ye5xKSjb9gWT30mr45Xl0E8QiFRG5+xOZJOr
-	iRIsWHX7ScAbVY/PSQSxlHuxIInCiXPI5/2YQkSetWwx51Anbddv3TLm4vDoFqL2GsljUW+fm+b
-	COPBRJOTWBmxvnppwgIwsWGn9wA9JUdRLkLh82Vs8U8Wy4X5fYhdfi1sIlbYgIAJlOY/Vg8N+kH
-	JhmambZCJ2tlj4j3I8OdcuEQ0DdYytZHFkg4BNNU1Kf44FnhY9SBEXXUSKBGNCZAv8i8Nagpsec
-	sb5cI2Ul9TJ3HTygK7NcAkQ==
-X-Received: by 2002:ac5:c001:0:20b0:5e9:4e2b:4c9f with SMTP id 71dfb90a1353d-5e94e2b4d71mr3414850e0c.4.1792156957588;
-        Fri, 16 Oct 2026 06:22:37 -0700 (PDT)
-X-Received: by 2002:ac5:c001:0:20b0:5e9:4e2b:4c9f with SMTP id 71dfb90a1353d-5e94e2b4d71mr3414831e0c.4.1792156957176;
-        Fri, 16 Oct 2026 06:22:37 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4091eb256csm71413666b.78.2026.10.16.06.22.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 06:22:36 -0700 (PDT)
-Message-ID: <95d6c0a0-b0ef-4e4b-a8b1-772ac27e9d07@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 15:22:33 +0200
+        d=1e100.net; s=20260707; t=1792156977; x=1792761777;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UZ+jg+YnV/4Rx7SNrmGuegpLMiyUs48QsBYMqR/oF7c=;
+        b=K0ExR5qpU+VKLKgLZriYEMwGXLYE8SS9Elf1w9Fbq0t6ih3gWmDQnYCR1qk2Wn90UM
+         I3Wd2VWaclJCYj1HwhHj+XY6GdmnkLKTnI+pNk6ZZibmRNyz9ATT5covLNJQ8EEbWlIQ
+         mxR2m6wGueya8lDbH59z7an17VmV4Vm9w77+sg1Bq1ZrkKz4pyD/SAUgDKvlW32x3IFg
+         WWn89E3/xOtqX4sCHQduuRYeGKE/DAN8Gl4BFeMWDCDooI37xvF/N104/k1FFzHguzPS
+         G3V3mpw7DU5spsaam1IcOH1yxKZLt0kL0jVR+ABRD2rR8BixivLvMjUjcy1yOY/1oVw4
+         JEXA==
+X-Forwarded-Encrypted: i=1; AKwUvBwMP2SZWt9wHLl8vB3b9kt6KQqeO5ShZuWWx1SjVr/ktED79XK2Q2zu694udd8aj5Lfs/MZRg2g2LY1RXg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5xSQx+lU37pUlkpSqSNdfJVJwv2pUFGalduz2AAlbwP3eVuY4
+	bQTsXElrmUaqGQ/wNtT4aANIOqOWqahH3QJt08S0nELqwoZ1IIS0P4ZY7Wg86DP36YI=
+X-Gm-Gg: AYBFou0MU/ktUnwUo2+R5FAsTHE92M6v/MdC0hGt28JrFpZ0zS3dJ4a1o6ZrxMa8rVS
+	Yc8Ytpidytwg3TEibz6C+Zy1lxCieflljTVLRKi1KW6JQJy9R1oSKzSx1MxMiGZGY1p0RiPlyvg
+	UYj9Wg2vtS0gv2LcUN21cc9XBar8Fe554tEMjw0Ojqc+FiXpH7wzZNYpiC18ts7HYKXaLjHmkNB
+	HzUWgoybeD6k25d8mcGf86ojTKsATccGOZgntjflhP+1McAk3COLoCKBcg8vmaWCxv6sJgk5tZW
+	qpEbngMBcmzw/NG+pWJ2tJjT38e+5K1Oo48v362HD+UyQhtFdotsdM8/JiQh5VQjzXIg3yyYJba
+	NvYJ1iUGDWOAYXcCT9dzXAYleF/kkZhkMZ9P3WLRL9kNtzvw7L8tAIcMrlTs96vqml7Vr8rl+mz
+	mNQqlgOAlkemD2z2ECHk+UkkBNy3LrUqpBoE3Rpiq1m8c+RolKDefGgZfKcAK2a8xGCqqYJ+wsJ
+	Sc1TlBeZw1oy5hnHkaDf2a4Xj+5hOy6TWLJpg0mDYy6YJmD+pPS+uI=
+X-Received: by 2002:a05:6214:4808:b0:917:8b5a:8e81 with SMTP id 6a1803df08f44-91b55564619mr403547436d6.29.1792156976561;
+        Fri, 16 Oct 2026 06:22:56 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbb756fcsm22569936d6.42.2026.10.16.06.22.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 06:22:56 -0700 (PDT)
+Date: Fri, 16 Oct 2026 09:22:54 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Sarthak Sharma <sarthak.sharma@arm.com>
+Cc: linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
+	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, shuah@kernel.org
+Subject: Re: [PATCH 3/8] selftests/mm: check MADV_COLD and MADV_PAGEOUT range
+ handling
+Message-ID: <atIkDw9r6CVDJaG7@gourry-fedora-PF4VCD3F>
+References: <20261014175756.2035176-1-gourry@gourry.net>
+ <20261014175756.2035176-4-gourry@gourry.net>
+ <73c55ce6-67a5-471d-811c-facf712b2fe9@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: qrtr: ns: retry service announcements on -EAGAIN
-To: Joonhoe Kim <26rote@gmail.com>
-Cc: mani@kernel.org, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-        pabeni@redhat.com, horms@kernel.org, christopher.lew@oss.qualcomm.com,
-        deepak.singh@oss.qualcomm.com, pranav.phansalkar@oss.qualcomm.com,
-        andersson@kernel.org, linux-arm-msm@vger.kernel.org,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        regressions@lists.linux.dev, stable@vger.kernel.org
-References: <20261016124600.31-1-26rote@gmail.com>
- <bbdaabf7-ffdb-433d-91fb-f6ca03b0747c@oss.qualcomm.com>
- <20261016132034.711-1-26rote@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261016132034.711-1-26rote@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA1MyBTYWx0ZWRfXw9w3mbBbg45A
- Fyp1TNEceNuqIfzuL9bPtXlWvay1EDHe4Wwoj+c/3ihtOk6H3D6DSEuOaKN3SMd+TPgL4FkZAyL
- Gh0SnZRXFyjRkf88JMMKPxszIpfNOno=
-X-Proofpoint-ORIG-GUID: Gn6LEQOyF4Vby6lLd_uNQ3xnUOB7EC8f
-X-Authority-Analysis: v=2.4 cv=GJadgeNK c=1 sm=1 tr=0 ts=6ad2251e cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=BNqwQ8rykVb9Ldng7p0A:9 a=QEXdDO2ut3YA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA1MyBTYWx0ZWRfX23HHuo5oalnL
- 2hw/hZoTnsJj0kKTGPtgm+Bshit+YBFeTebFEhIqE5VBFSspwL9FibHnRrmfO3kRL8qR5NMPUie
- iA2O63162W52TzfdKqYI3+PXqSEeXB5iLdcs4aO/lgJhaygtRKNAzCMIcD812x2EpNaaDSN0yTP
- j5zNLnjYNqLtgNu3AcFZFLy29hFLlHuJ2+tHqf1aJB+hyt9s+yQ6Y/sUegSJUY9NHCzZ6zF6l5W
- FZcBNmyiJytPnFobPrg2sTO4dUYIGFVpnDgFUo2c3fiiYNxQ49+eI4gOlrFwA3UCI+/QiQ0Y162
- eF6HUj8hLu6afTsObElXEzRfMIV8AdMicSSUB7TtfRF4MpU42fllsMzlzIi4NduS1wvUbpt0eh8
- PNdzHydCvvGw4XAOJ7U4cRHUZLnoPaSng93/+WyiKxzhoZNym+XSpQal33qmpJvis5lVVmQdx/G
- HxklZITuvG5zmZ6+GYQ==
-X-Proofpoint-GUID: Gn6LEQOyF4Vby6lLd_uNQ3xnUOB7EC8f
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- bulkscore=0 priorityscore=1501 phishscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160053
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <73c55ce6-67a5-471d-811c-facf712b2fe9@arm.com>
 
-On 10/16/26 3:20 PM, Joonhoe Kim wrote:
-> On 10/16/26 3:14 PM, Konrad Dybcio wrote:
->> Please remember about Assisted-by tags if they apply in your case
+On Fri, Oct 16, 2026 at 05:47:57PM +0530, Sarthak Sharma wrote:
+> > +/*
+> > + * An unmapped gap in the range makes either hint fail with ENOMEM, after
+> > + * advising the mapped pages on both sides of the gap. Only MADV_PAGEOUT has
+> > + * an effect on those pages that the test can observe.
+> > + */
+> > +TEST_F(madvise, unmapped_gap_fails_after_advising)
+> > +{
+> > +	char *mapping, *control;
+> > +	bool swapped = false;
+> > +	int retry;
+> > +
+> > +	pin_to_current_cpu(_metadata);
+> > +
+> > +	/* Make sure MADV_PAGEOUT can swap at all before relying on it. */
+> > +	control = mmap(NULL, page_size, PROT_READ | PROT_WRITE,
+> > +		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+> > +	ASSERT_NE(control, MAP_FAILED);
+> > +	control[0] = 1;
+> > +	if (!pageout_until_swapped(_metadata, control, page_size,
+> > +				   self->pagemap_fd))
+> > +		SKIP(return, "MADV_PAGEOUT did not swap the page");
 > 
-> It does apply: I used an LLM for the analysis and for writing the
-> patch. I left the tag off after "docs: remove Assisted-by references"
-> was queued in docs-next, but I can add it back in v2 or note it below
-> the "---", whichever you prefer.
+> This test is checking for both MADV_COLD and MADV_PAGEOUT. So if we skip
+> here because we couldn't pageout, then we don't test for MADV_COLD
+> behaviour at all. Do we want it this way, or should the tests for both
+> of these be separate?
+> 
 
-OK so we went through with removing that, didn't notice. No worries then!
+If swap is off, the behavior of COLD and PAGEOUT look pretty much the
+same, and we can't actually test them meaningfully.
 
-Konrad
+We check that madvise(COLD) returns -1, but that's also largely
+meaningless if this initial pageout_until_swapped() call fails.
+
+At least that's my thought.  If you think I should split it, I can.
+
+~Gregory
