@@ -1,135 +1,122 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011018.outbound.protection.outlook.com [40.93.194.18])
+Received: from 11.mo584.mail-out.ovh.net (11.mo584.mail-out.ovh.net [46.105.34.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D963839B9;
-	Fri, 16 Oct 2026 09:39:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792143561; cv=fail; b=WhFbOnv2dDOq0Sox424SjKPjlLte+2iVkx4RH33wq+c3wWeBqSA67Nl1XnFbzfcXr27wLVC6EWigMD+Ma+iu3rbjG6HEg99J3EiPyAu5N1ZQOlRZpwqpJ5J6Q++dSXTHHmx35X6w4znOEWolnkc1URnz6mtT7b0d1haok2oAlxU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792143561; c=relaxed/simple;
-	bh=ZgNRA5SpPbmkZ1eXdONpiEtC/kY3Zj6toH63lXmjJ9M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=l2HhoYgtQG1b2rnMGMqLaJe7i1hG3IcdjjsZsRuY7ba3MmG8boXe2U92VIwYdyM6zXEvtFxXd+oQIPSL20bzNhxwMlK80z0h5KGcXr78LVeT5kv+XHaARrkTXjoEVhictjxDehA/aYj8zB5wsbcoEZLXLW5cUDB6ajH2IKTtf7Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JgkM0okE; arc=fail smtp.client-ip=40.93.194.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392AF30CD81
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:39:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.34.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792143559; cv=none; b=qeHhk8izLUVB3iFoSkA8qaiwGIryhSs919QrAVnAHwiufGLZW0G5ahUUlfnbkYCJunC1laEiK2kiRjvCcX7/AY7ZEkXxyc0rn+KKQwyHcdQyb7tiSBrz5xuKo7cdUgeA5Hy64MsaERu2eVCJvj6Q9sZvzPs0iZJAVztI3b0AyDU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792143559; c=relaxed/simple;
+	bh=GoWEVXuz3SV+0QV9W0MsYJgQqCZkJcUhEIBaJR097YY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eSheYHPddgOwKFxs0jH+IZVWYtMhl/9jOyd4db3M5NmcbNGWR8U31zlRS7rcp7iOw4UcOkr4APXZq8nhz9g9sGiFWRPzhJ+LrFNAiOKEnR+aBXRG1MwHreG52aWBXgbxaJubCsV576/rmmAgcvCheCry3ht4ajfxwgA6Ap5caF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com; spf=pass smtp.mailfrom=cynove.com; dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b=A+nEdGPV; arc=none smtp.client-ip=46.105.34.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cynove.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JgkM0okE"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hl7RAjNnKSC998bVrZmSwQPx24zQUQD4zqBqCSDdTZQNbbDuECeN7Be5/Mjr5EZQWPrtYEwsgcrC8Y0bkrAuBUVPTMQROUXMpJMXSxTs0KWcVgQiPB843FZm3YipdmBn7+uGZb05b43pgWtIAVwqYK60xPSehbVVGBhZvbdLl3wBeA32APeu10RxcrW3Yni0ThPnjnLaz8obHFR+X8ju1uMyLgjopok/jac8VZPJrHhaT18PExmxphrhg30DItyE5Ryiaq7zNwgpb2EH8TfyXDBppAs0NMrsvL662ekQMdr6tszBUZ7TIjPRyUKLENm3VUHLPh6FSgqbkIjZloYR/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZgNRA5SpPbmkZ1eXdONpiEtC/kY3Zj6toH63lXmjJ9M=;
- b=CaWBgfCbHqHIcxfI/8gt3OxhlxNosXSMJbrlSAAzLuizx8rZTa6VeZbrOFB3Urg8WbfHVvLEITgtNcN1ds3C5cNgsKyESNlPGJ6Io1i0m//MIoh+gAt6sTA+inXsmIixQV2nOP+u44nqdGWsz1TqtdZPntnxoLGQ0NqAs55iw3SQpXjWFoyfokHfSIniPFAXX1zQp2LkfFw98VJCgHn9+F7hnTQl9n+g0meSv6v8ZiOF508+m9/HiyICmfOw5swRuw02vbz0poj8YGsQYN1UMtWyzp1Mq4UrSg+f+yX/ncp0NwEFOOevStUDb4H7y21Y6Mw/uNnkja6jlfn3cmztIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZgNRA5SpPbmkZ1eXdONpiEtC/kY3Zj6toH63lXmjJ9M=;
- b=JgkM0okE8tou+kTPMvBX/ay+wMeAhbEZtlIyHo7gGYelomEBC9RyzWpnBGhzebUts6MQxJ8Fw8/6kTE1aFjVIDGqQiwPySL1JyLTTijbRgTHetyh3WS+eiNpu7yWy/FS8WTlqcrA2KNMFIaswlNQAvETgNVmOooH/04TwdZ/srw+0AK8qxGwi8heW7tPtVlOHAM4EBFhVaehUtnDQct/ISydwusQShQLVuzvq4pWrcshAbdNZ7cwrngjqj9A2RmOmIEpmMy7+evJKcZQGbgo1dx09HYuC7uY/lQVvGU5k6SKWQ9inZ1sUc1vfDn05WqW+UZwzInqgWgui5Wah84Wcw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19)
- by LV1PR12MB090032.namprd12.prod.outlook.com (2603:10b6:408:516::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Fri, 16 Oct
- 2026 09:39:17 +0000
-Received: from PH7PR12MB5974.namprd12.prod.outlook.com
- ([fe80::f5a5:bbc3:e9da:f8a0]) by PH7PR12MB5974.namprd12.prod.outlook.com
- ([fe80::f5a5:bbc3:e9da:f8a0%3]) with mapi id 15.21.0522.012; Fri, 16 Oct 2026
- 09:39:16 +0000
-From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Kent Gibson <warthog618@gmail.com>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpiolib: clear the event clock flags when a line is released
-Date: Fri, 16 Oct 2026 12:39:12 +0300
-Message-ID: <20261016093912.2060866-1-aambrozewicz@nvidia.com>
+	dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b="A+nEdGPV"
+Received: from director3.ghost.mail-out.ovh.net (unknown [10.110.43.241])
+	by mo584.mail-out.ovh.net (Postfix) with ESMTP id 4j5fBH1Stjz8WB9
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:03:51 +0000 (UTC)
+Received: from ghost-submission-7ccd8bbbb6-4kjr4 (unknown [10.111.174.188])
+	by director3.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 12AEEC04D3;
+	Fri, 16 Oct 2026 09:03:49 +0000 (UTC)
+Received: from cynove.com ([37.59.142.97])
+	by ghost-submission-7ccd8bbbb6-4kjr4 with ESMTPSA
+	id fClPE3Xo0WpZ/AEAmtFogg
+	(envelope-from <stephane.debusne@cynove.com>); Fri, 16 Oct 2026 09:03:49 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-97G002c379f266-6ab0-44a4-95a2-c2dc528ae5e8,
+                    49BC7871EA8B080B249AF49F55FA702C3B4DE52D) smtp.auth=Stephane.Debusne@cynove.com
+X-OVh-ClientIp:176.150.47.247
+From: Stephane Debusne <stephane.debusne@cynove.com>
+To: herbert@gondor.apana.org.au,
+	lukas@wunner.de
+Cc: ignat@cloudflare.com,
+	davem@davemloft.net,
+	horia.geanta@nxp.com,
+	pankaj.gupta@nxp.com,
+	gaurav.jain@nxp.com,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stephane Debusne <stephane.debusne@cynove.com>
+Subject: [PATCH 0/2] crypto: fix RSA results corrupted by non-coherent DMA
+Date: Fri, 16 Oct 2026 11:03:31 +0200
+Message-ID: <20261016090333.2247764-1-stephane.debusne@cynove.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAMRc=Mc89+8Vaxno65wepjg9MwSNeHZGtb=FQ0QVAv7rAZYLNQ@mail.gmail.com>
-References: <20261012-gpiolib-event-clock-v1-1-aambrozewicz@nvidia.com> <sashiko-outbox-168236@kernel.org> <20261016074704.1860749-10-aambrozewicz@nvidia.com> <CAMRc=Mc89+8Vaxno65wepjg9MwSNeHZGtb=FQ0QVAv7rAZYLNQ@mail.gmail.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TL0P290CA0004.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:5::17) To PH7PR12MB5974.namprd12.prod.outlook.com
- (2603:10b6:510:1d9::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5974:EE_|LV1PR12MB090032:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3fc91083-2e15-44f0-e4dc-08df2b69589e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|22082099003|10067099003|18002099003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	CZtpI+gNBQnLwx/j35iOyvOZCuAp1nQMWGzbBB6Bi65l1qzxiaiwiqXbhboC8nPiT9QFDQuOBTOO3CIhftlO5m0hdOg+ObslFcBHByB3S42UDvuPtnBoZIj3ZD9MXr63WhRv+msklgpipf5F9OitrH1mDV97v2iJ8MSIZUH4snOmNTqyZB23LWQLMBj9Xo1JULScEe2UZ3qgtpS10UGb5CZt1bW272ObJOi29vkt42H3phPg50Rn+v2uVr9cG+Tzb4NkoXidD4m0HTxCEzb1uX8jdr1Tu5Rcbd+cAUQb+Y3xk4WXppEHLqBlWm6U4gbfM4FdJeDYY1lVQtWCDfxcs2/8inMercTvNqLn7kZ5ydWf0KlH4VdjrNO0dodNlxrYYk81H35f32PLmsp+de3uEMCHNxRDV7mKpeGtSSZ/EOzI5jqNC8u53DPSQ1TJ6dBnqZZULVy8scHPpFp8iAkNF0D/7FktkGFCe0VSP5OdI37dKoIMewMnZgw8NcIIL6q3qqfsGElRErxfoTn9Ir+YnSBwzJjlVyhX2IXD9PzW1hx290xJufzpRtpy3tYSubHB47CIMh9WYGE5nc2nwAaKO+0yRPjM622vBUvJNK/snhKjcBGwbZwzQ6Ot/5SIxY6RhKbg/hKhzTXjG+nMtPhg6OrkVP0kJ0NK6ZKRorqAd2M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5974.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(22082099003)(10067099003)(18002099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?STuJ5T7qq7/DxXdV79snmz8Jyn4UgYbpGn8YkBWbRAMGtkSEXQSnS2Y8wcw1?=
- =?us-ascii?Q?QWo3HTt3ntc6mzf8nx0g71Sucr4T2KZymp0cfZLkbP4JRZC1GEpHh2KOakIc?=
- =?us-ascii?Q?yqA2T/li1CHMNcbVbD9gApx1VDg6KTkL7gbG2tq8gyRjDYUk4lRLIja6JIL8?=
- =?us-ascii?Q?g0oDIuTp13JrJcUXU3qpb5shGEU1B6NmNhOHooHmfXdsqnYkrsQTYlL+MQPz?=
- =?us-ascii?Q?WYDykSeIqDuXOIuZLToJfLJ1Lcs/6i1jcrjiAEhXffOc2DgAOwAvN1WVcLvv?=
- =?us-ascii?Q?gU5SSRPGro/ORYWZ4XvGpUf7iKsYhSxUhuvn8B4i2rib8PVySZEwOK6vpyp8?=
- =?us-ascii?Q?hg8SbQo8xrpiFaE41g94sadz8NwR0Fw+F7aEEMeBN+d6Dt9DttVMdyeUaFTl?=
- =?us-ascii?Q?lftB89obt/aU0ofctI0vi8+RZb6KdtZMkrfMv6QOt3Mrrenx3xNp+Ml9P0xA?=
- =?us-ascii?Q?ACu9y3aFgzdgYBDAzX4/xI4u5IzqvSuhGqQAgumQen8q9o7Kiih1ZJI5yHhB?=
- =?us-ascii?Q?T62HCFWZsIh7ukZCd+O4XNAbGIJQpzNNyLA11wr8Je9sFn+hgTZERDw5Qb6D?=
- =?us-ascii?Q?VjN4dSiPok28JV7uqi3mELfgyE3VMykIZozz3+EX4xMwO/qXH6B6pgiLDbcB?=
- =?us-ascii?Q?oZsaClpaHVXc0JnOJcQS4XGZimdk/VNXr5htJAmZURTMBrZbQu0OXn8WQUxm?=
- =?us-ascii?Q?VJ/ly/Kt2lj2lZMtOI2dmJWno1f+bV4yiVFOyJNxFXYX/lTgHLamf09uS+ac?=
- =?us-ascii?Q?BG0QH2v4KYAQ5eG1vesyzlbAscv9JAAZSBAbk+Xq1b+geJW9pOHDd1//4aMe?=
- =?us-ascii?Q?An3oDZr9InvzTkxH6odTAgPkhufxtSEdt9fNakTYS2ZGZYdEq9mscQfCrkl4?=
- =?us-ascii?Q?0qVdeGIkeCfriD8cWXxdZIFEh2rnq3XWFDMQoJ0CduWTTORhM0pn74bHrr88?=
- =?us-ascii?Q?Mlw0fsSoOsSvqcgT/J7AE639vM9tg/UCI09F1vETXkyo6TIErzCz2rXrg9Bj?=
- =?us-ascii?Q?HKugCGejNPgl//npEC2x3BdTx2jJ7ZhIJAhndzrS803P2w97mcy0UYOQubG8?=
- =?us-ascii?Q?q1LS+VVPjqvjYJbixWeBpUGGI0c78AGOA4XdeiJDmcLwTvKHD1uSiaJWN43Z?=
- =?us-ascii?Q?4YHlZPkqqJ9br5sz30rG+nlPhI8t1osptjTJefOAvtlktFIQvctJ4P3QLc/j?=
- =?us-ascii?Q?V6jObcEnUlRIUGk/6UaWTNKM3vsIFJN7/lkYVt6keGwY2evBI+204OjeL6CS?=
- =?us-ascii?Q?ai7qrTda4xdbSXOiN1V6tTaRRl2YtaYLwH97veFrq3S97G5NXlwFSuBOjTy4?=
- =?us-ascii?Q?Ah4rdwbGIhr7JasoLAvS4j6RaejV8C45LEY3ZJFIOAscuLW5u45IynCq/cX2?=
- =?us-ascii?Q?EddJZ7iBLCF/NmUfX9kE+bcobIZASSz2vSh7SrQgEI+pLptGbUJ8XQRbYtvb?=
- =?us-ascii?Q?7T9vyrbWBPNpv+PV6oz0O4T+BhtQDm3Ggo1zLxxEBSDG52aBFLLh7KkcIbPe?=
- =?us-ascii?Q?47fQHw5WwTqDl1kefpGLopDj3botIPJ7O11trBkF6nv8+O+qORzpTGPrFy1b?=
- =?us-ascii?Q?5kaBVesJlHwL6YwDJiEHHz4GJEucorUM2I7dPprcLV9IBH4ZKrVqsyyeywsH?=
- =?us-ascii?Q?xi8ZaVY8f0U0cfrd6r4Lt6hv2XEjM1VhyHLsF7JPB2CJOJPSBD2ZpemNjmIc?=
- =?us-ascii?Q?dD14DCfLxTs4CSewVKAmhQ7YNiGhf5bYQ1n/CRy/bHZkvYpdv5JRO2xk2HAV?=
- =?us-ascii?Q?mK0AbpCCdA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3fc91083-2e15-44f0-e4dc-08df2b69589e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5974.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 09:39:16.9101
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qYIVTGnpONL9gA+Vl9CXU5vvieY4xb9rGy+T5bCObgfNX0DL8CNExhgIsRIjjLfMvYxoousf8iolvFAeAl2KJQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB090032
+Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 16750857342188313563
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: dmFkZTGL3rmz5cC2p8+9bAmZzWxEtdmhtw9UvlBsC3FFBHLEsgbGJeL3cAw2ZsUQrXWNZcUijzcE9vqPk8wGFgBDxCoAbFG5UUKTwCbbnreesoLHHLZpWOjJQc1vxr73GbbpWFEp+e4I9zZDjhBynB9N/C1ZT6erUIbHDq6PQYxAxRSbwHKqMcmS2UBkv+Q1tr0HMBKS1TTih/I620EkY38MTkp9IePZPfnRNzlk7WwULdCXIHAemvGoU7Mie10uWnxMqbyR7MP5nNq8hSXUNTy8QSrFtJlqYeR70UI0BAoFIxDMSb00eJAhRZnZSxAYHSOBspR+EXu0L2Fzpw3e1wX0hdIAEp/CA2WFwz7nwY9ks13XgL3wO8Ro0k0InsGeMUhpy/+/ZZeyxHbwKCmhNxnyacBgF6hqHsKY9EoQ2zS7ndcjRbOqVYmCRs6SWjzsTsOmj3AleycHuxBbUpDseRkYARASIDDm/kg/rFjrz3IeJKx/Xmuyz8PPvoxMLWq6DzXguCyCkzeCV9GAAotatG4BkXn7zwlkQx77J4v+qvz+3UVx3LJBsHlmM4+DOi8w0ZSbCIQ1oiNIUKILBX7JHr/wEJD7HN5EkA2bUspAQ53p/dRfiV3GebU8RnSCtRupf4R7QVv50Lw201QHbgT6GT0XDZAoQNiCWjxcWz9Ddwmm8oxHOw
+DKIM-Signature: a=rsa-sha256; bh=edf/xAgFCHK0tt5B2Dt64h3lDrjvSXV1WHSKZFxFQ/g=;
+ c=relaxed/relaxed; d=cynove.com; h=From; s=ovhmo4616632-selector1;
+ t=1792141431; v=1;
+ b=A+nEdGPVPnL9IQ4tUB7NPZC299CcYNgFOzRqHaSNvX3PZu5q43FPjHS+6kEs6T5BU/6Ahx+f
+ afE/1JaoVAXLk6vT5WdUo/a0RDwyZAJqKOAk6lbAsRqhvm+Pb1dBvRCYpaWYBW9gcbi/4bAUtv2
+ nFNZukjMzrDnX/5ludRcb2z8eyO1HOyp/DMPOiygAAlXHokbgUB+5taH0bzKiHfZkEVb3geOvzS
+ nPJwJ4DiPNg9kIz1WL2q4IOPYPvdHrSmWs3XhzxnOuAF5m55vy4fBniq+9Y6YCimYC0El4V8kB7
+ wiYoGoDUJbUcN6LddVrTCzk6eR0TcM/zVi02hgqySkLhg==
 
-On Fri, Oct 16, 2026 at 04:03:24AM -0500, Bartosz Golaszewski wrote:
-> Will you resend this together with that v2? Or should I take it independently?
+On i.MX8M Mini with the CAAM (rsa-caam, caam_jr loaded), PKCS#1 v1.5
+signature verification fails almost every time: cfg80211 rejects
+regulatory.db ("loaded regulatory.db is malformed or signature is
+missing/invalid"), and a valid self-signed X.509 certificate cannot be
+added to a keyring (EINVAL). Seen with the NXP BSP lf-6.18.37 and stable
+updates up to 6.18.57; the code involved is identical in mainline.
 
-Please take it independently. It doesn't depend on the removal series
-and still applies to gpio/for-current and gpio/for-next.
+crypto_akcipher_sync_prep() and rsassa_pkcs1_verify() place the data
+buffer right after the request context, in the same allocation. caampkc
+writes req_ctx->edesc and req_ctx->akcipher_op_done after mapping the
+destination, so the cache line shared by the end of the context and the
+start of the buffer is dirty while the device writes the result. On
+arm64, dma_unmap_sg(DMA_FROM_DEVICE) cleans and invalidates that partial
+line, and the stale CPU copy overwrites the first bytes of the result.
+The self-tests pass because testmgr uses separate buffers.
 
-The debounce fix didn't go into v2 in the end: Kent asked to keep fixes
-for existing problems out of the removal series, and the fix builds on
-the gpiod_free_commit() rework in patch 2. I'll send it once the series
-is applied.
+A test module comparing rsa-caam with rsa-generic (2048-bit key, 200
+public-key operations per case, CAAM era 9, non-coherent DMA) gives:
 
-Adrian
+  destination buffer                        wrong results
+  separate kmalloc() buffers                0/200
+  in place, own kmalloc() buffer            0/200
+  separate source, dst after req. context   200/200
+  in place, after req. context (rsassa)     200/200
+  crypto_akcipher_sync_encrypt()            199/200 (patch 1: 0/200)
+  pkcs1(rsa-caam,sha256) verification       398/400 (patch 2: 0/200)
+
+In the wrong results reported, bytes 0 to 23 always hold the previous
+content of the buffer: the buffer starts 168 bytes into the allocation,
+at offset 40 of the 64-byte line that also holds edesc and
+akcipher_op_done. The rare correct results are consistent with that
+line being evicted before the device writes.
+
+Both patches give the data buffer its own allocation, as rsa-pkcs1pad
+did before 6.13. The driver could instead avoid writing its request
+context while the buffers are mapped, but any DMA-based akcipher on a
+non-coherent platform could hit the same problem, so fixing the callers
+seemed more robust. rsassa_pkcs1_verify() could also use the fixed sync
+helper instead of its own allocation; I kept the change minimal, and
+will gladly rework the series in either direction.
+
+Tested on i.MX8M Mini with 6.18.57: with caam_jr loaded, regulatory.db
+loads again, and the test module reports no wrong result through the
+sync helper and the pkcs1 template. The test module is available if
+useful.
+
+Stephane Debusne (2):
+  crypto: akcipher - use a separate buffer in the sync helpers
+  crypto: rsassa-pkcs1 - use a separate buffer for the RSA output
+
+ crypto/akcipher.c     | 21 ++++++++++++++-------
+ crypto/rsassa-pkcs1.c | 16 +++++++++++++---
+ 2 files changed, 27 insertions(+), 10 deletions(-)
+
+-- 
+2.43.0
+
