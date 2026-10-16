@@ -1,108 +1,273 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E38645EF40
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:48:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53374212564;
+	Fri, 16 Oct 2026 21:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792187323; cv=none; b=QQm8rXU9TLZZW41OURrLuWZ/EadZhvb7WKpUQzySHCXB1FqH7thfQG9cwK/gbJlxVqFGel4VG0DFqwS1I9yzUitetu3skw4jJL5hrOSvnjOdxjiSFP96PqioD4v0fJMYSMvizO+u6CdpdL37j+hGRQKZuN8xcHpY82/PPSxtj4Q=
+	t=1792187453; cv=none; b=VbHiz7lX15LzosgbG1VjSpjCo1V5MBXRJKCbTAYZjKr/3o3hzZNnV3iTE4lb0sJgxhysCmpiN5z2+g3BXEfC6SYSko6qqXbeaJwE661TtOXVvXyfuZHl9CRCPxGPLk2ji/ZMZb9Z/TQUq+1IBeXCLQgwt4E/6OvvUCAQpAWNoLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792187323; c=relaxed/simple;
-	bh=vHDTCK2dGVe+D3aHp5cDy0Nnns8/vCBii2fB6P4rL9k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W2tMlnnJAQbP5L6A/HDTyiMMR2CgiGO/jTCxj5JrOS2/fbZo0St8llKXNnXe3pRExHrshQJRZdBnwHHOC41OjYocoXqyUba31dF/sDesw9nS+ZTnj5nJbpE7NxigD9E7rnH/1cbEm+rdeGDrnG6dkkWuTJpPI33mga7G6HSbX/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K0/vIQuh; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792187453; c=relaxed/simple;
+	bh=1Lu+Zimfdm3yDDrAheWgWt13z38YR9wbPe1Y2xiFHcM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=iHyCQs961Wt8SeGUPEIR9pxrrhMx9j+GouYvp4wto0RSjura8UFrpxUvCkrlKDbsko0Oj9jyGKv/EGrS590cmDcFVZ9hyzdwo8dwBJsR54jMLjSu04lOVazTONKmuBMzWBdhBzlh1ft4dhSQ15NdltD6O+OKGHFjkP3ra7OSs3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a3C00wwO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K0/vIQuh"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48de6a62a4cso217317f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:48:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792187318; x=1792792118; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vHDTCK2dGVe+D3aHp5cDy0Nnns8/vCBii2fB6P4rL9k=;
-        b=K0/vIQuhbLaq/49N3SaAx359tDZUVwG7Ptb/KMX5EZjncgZXchJ+TbW/HBZtTbQyMf
-         5gBvrFDtfcKGmccaF20POCr9l0uRoju/inwvt4Lwdm6pXJSVJpRBLQcVVhJaIa4lOTuI
-         05JlPBzCZZXc25PsMzo6yPsUt5ZzDPFWYHioutSLP8T/AuBo0VyAAh1kA+sFM4UGfmzU
-         MxfqTRm8N/Bxlwkw3CCJDSWTAFrjXzCGO2J85xwcjx240SLc/JE9guH3dR9XfqELT1R3
-         yRz/bnV8JTXAhGtECvLS4M8IRQ0Trdi4eNOKVFmgvW6RhhXQYohGJZdIbeTWNsdIrcTe
-         8qtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792187318; x=1792792118;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vHDTCK2dGVe+D3aHp5cDy0Nnns8/vCBii2fB6P4rL9k=;
-        b=wodPX3BdajcEOuXCCc6YvTubZRH6f7d+qs744ToiNv7WfOaUGVQE9DLfGslBkBxIIy
-         hvcq6pkR+YJAv3OJWoGabv9hhJuQMoiMFKDPCN3UbZodR9X3QBT30N+kzN7LaHaXrizp
-         mJ/Cvgg56F5K3oLjiWsklV9IuTx6VPHv2vfErvMvZM+xaN7AHojr28vgPALBvSm+Q8kM
-         qI2byzAhZci4qkzKyuDJGMllgsTMp0ZfkJtSmAFCBcY4UE98rHxbWNAU3gRjsaFE9sje
-         nRTGQD3sva7mBMnp4NJnfUGk9Y0bvzgeBVXFm5uP8fBe09oHtB0lhP671P69mBe5piDA
-         hPqg==
-X-Forwarded-Encrypted: i=1; AKwUvBy3jOq6ZIEruwkvXvl7q+dlm7PuRQrvYlYu5MMlM5FUuqXbo3+vuGn/DmdQobJHkZIdWrXZpjH+TVBI/hU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJXmOjfWzYnbhp95QhV/yOZE1l+QhwenD/ObvGZfacRBOAHdbyi
-	Y3g/7GVxRNKMep4IDccenNzborYPapAmGrgeO1p5DZTzKRekZOzGPuZX
-X-Gm-Gg: AYBFou1RBxf9updCu8nRSMQVpAlJDB/cGC70A6uALDJ/IL4T9pDmg4GF6UMcG72xlt4
-	GfPunD1QH50dQ9f+n+N4DcQf848uEB6ZtKVtNl2cSSDX5TSgBsWc/AGe1sPvkbmI0D/S8pNAJfO
-	0Dbe7sDHS85xcCZbhavP0ggamKLitCyAohz0k2ljetOciqIru3mndwWYzxFNbNLrS80hpRS60Ta
-	PVy0gRXOvhJwTK7yuX89WTZd1BV83mJj3ZmG81UhQcjSfzJvx5R+oj0JRLM8z3P4uhYi2+mrMS9
-	sETmRPV8DTwTjuo4OBLkyE4yxMOw7BHsUeKzDIJDKmoWBs55TsoKzTo7jfHJ292jYXDK3gf/2P4
-	RqllWj8OOxNSI4otGHyZvzecsOFKePK+VWs5NKuRtUU05bxUQAcqoZwLReaE9O6GzBF2SETWgEl
-	LwUYbmbwHuV2PZoufrCmJEXJxpVYoQaUcvPs/xJQz/9ChfGPUjzCOnC2K4wvJjn1lOtAgQY9hip
-	gyxLcwAFciLryvvCJfn4p1dXVhTgN0+vd9FafhaioPUe9ZrAk4+2isH/5rgnaucE0Opcxw1
-X-Received: by 2002:a05:6000:3c4:b0:486:fb08:2353 with SMTP id ffacd0b85a97d-48e07bc3e93mr1724560f8f.31.1792187317851;
-        Fri, 16 Oct 2026 14:48:37 -0700 (PDT)
-Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd503a24sm7557302f8f.49.2026.10.16.14.48.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 14:48:36 -0700 (PDT)
-From: George Neacsu <geocausa@gmail.com>
-To: Sergey Lebedev <lsa.uz@pm.me>,
-	Bryan O'Donoghue <bod@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	German Pablo Lindo <germanpapulindez@gmail.com>,
-	Simon Kruse <simon0x+git@proton.me>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: i2c: ov13858: Add device tree support
-Date: Fri, 16 Oct 2026 22:48:33 +0100
-Message-ID: <20261016214833.967344-1-geocausa@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016210802.60605-1-lsa.uz@pm.me>
-References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com> <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com> <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org> <20261016161618.209290-1-geocausa@gmail.com> <711e8518-5054-49ab-8432-346049a86cd1@kernel.org> <20261016210802.60605-1-lsa.uz@pm.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a3C00wwO"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CE4FEC2BCF4;
+	Fri, 16 Oct 2026 21:50:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792187452;
+	bh=1Lu+Zimfdm3yDDrAheWgWt13z38YR9wbPe1Y2xiFHcM=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=a3C00wwOQAdS3nS4L2MU96fhx/cK2drhsYknlTgAseClygbk3nY6XBlHwtbMqKiuL
+	 xke/hwCWgtsz1ZPk3hbPnJk46S1Cq91KruPEZU44babSXTYObwfMDWfvPP7bgtkeyE
+	 rPNNBsNJTbJxIHrt7W2CzbuesMLKDOm3PHlVzD5Zv83c0bdGIzfbcvnZ+BTfA0shX6
+	 I0mjdt0ubmk6TmOEyee9bNHtnzNY2FNbC0BV4dCA/jwHjUYtv/3sc4vR6DMjb7VHb0
+	 l4vIIZwkHhyLUpOIHEEeQzJSt3YkmNRyiqdgX65G+pn211PITs/4xmUgzqW9qu0/8G
+	 EPUgbgCAgW63Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BAE39CCF2C1;
+	Fri, 16 Oct 2026 21:50:52 +0000 (UTC)
+From: Zane via B4 Relay <devnull+git.turtledev.nz@kernel.org>
+Date: Sat, 17 Oct 2026 10:50:42 +1300
+Subject: [PATCH v3] platform/x86: asus-wmi: fix camera key LED on Zenbook
+ S14
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261017-asus-wmi-camera-led-v3-1-845a82373997@turtledev.nz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCQAxG4auUrA1kRjqCVxEXcfpXI7bKxKpQe
+ veOuvwW783kKAanfTNTwcvc7mPFdtNQvuh4BltXTVFiChJ2rD45vwfjrAOK8g0dS9IEaXsJiFT
+ LR0Fvn9/1cPzbp9MV+fld0bKsvOpYoXcAAAA=
+X-Change-ID: 20261017-asus-wmi-camera-led-06a6e05f01e2
+To: Corentin Chary <corentin.chary@gmail.com>, 
+ "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ platform-driver-x86@vger.kernel.org
+Cc: =?utf-8?q?Jos=C3=A9_Guilherme_de_Castro_Rodrigues?= <jose.guilherme.cr.bh@gmail.com>, 
+ linux-kernel@vger.kernel.org, Zane <git@turtledev.nz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792187451; l=8241;
+ i=git@turtledev.nz; s=20261016; h=from:subject:message-id;
+ bh=DCqIlCnS2PlfrDNjeCfm0AeJ4HsZgHKNKXAP1tABPrM=;
+ b=CFDhhTk9PwdpymGUfJkDjwo3VXaULttYZhYs3MPMODYPlaVizr9+FBwRvwf6h28+3QgeVvGLb
+ rBiV99Vgt3jDo7ZbFJEVdBu/Tk6D35pifB8r+Umaov4wuLqbpH0mnSz
+X-Developer-Key: i=git@turtledev.nz; a=ed25519;
+ pk=7P3HBZD1ukp3nMYpf+9Dcl3ryKIU5pYgOUKe/HOox6c=
+X-Endpoint-Received: by B4 Relay for git@turtledev.nz/20261016 with
+ auth_id=1217
+X-Original-From: Zane <git@turtledev.nz>
+Reply-To: git@turtledev.nz
 
-Hi Sergey,
+From: Zane <git@turtledev.nz>
 
-On 16/10/2026 22:08, Sergey Lebedev wrote:
-> Please make that v4:
-> https://lore.kernel.org/all/20261016210246.58562-1-lsa.uz@pm.me/
+On some newer Zenbooks (Zenbook S 14 UX5406SA, Zenbook S 16 UM5606WA) the
+camera key turns the camera off in firmware, but the LED on the key never
+lights up under Linux. These machines don't have
+ASUS_WMI_DEVID_CAMERA_LED, so asus-wmi never registers asus::camera. The
+firmware exposes the state through ASUS_WMI_DEVID_CAMERA_LED_NEG instead.
 
-Thank you for running the suspend test, and for tracking down and
-fixing the stall. The next version will declare v4 as its dependency
-through b4, as Bryan suggested, and will not describe system sleep
-handling for the sensor.
+Reading CAMERA_LED_NEG is what drives the LED: the DSTS handler reads the
+camera state from the EC and writes it to the LED GPIO before returning
+it. The set side can't be used, the firmware only accepts DEVS on this
+device once per boot.
 
-Bryan, on 1/2: the next version also makes the clocks, supplies and
-reset optional in the binding, as you asked.
+So read it at probe, which fixes the LED being dark after a cold boot
+with the camera disabled, and after every camera key event. Also
+register a read-only asus::camera LED on these machines so userspace can
+see the camera state and gets a brightness_hw_changed event on each key
+press.
 
-Before sending it I will rebase on v4 and run runtime PM cycles on the
-Surface Pro 11.
+This builds on José Guilherme de Castro Rodrigues' v2, which added the
+read after the camera key event.
 
-Thanks,
-George
+Link: https://lore.kernel.org/r/adg6GzkykThAB_4u@djouze-zen
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221752
+Assisted-by: Claude:claude-opus-5-5 iasl
+Signed-off-by: Zane <git@turtledev.nz>
+---
+José, this is a respin of your v2 since it had stalled, I hope that's ok.
+Happy to drop it if you'd rather send v3 yourself, or to add your
+Co-developed-by/Signed-off-by if you want them on it.
+
+Changes in v3:
+- Rebased on pdx86 for-next
+- Also read CAMERA_LED_NEG at probe, so the LED is right after a cold boot
+- Register a read-only asus::camera LED when only CAMERA_LED_NEG exists,
+  with brightness_hw_changed on key presses (Ilpo's suggestion on v2)
+- Comment on why the read is what updates the LED (also from v2 review)
+
+Tested on a Zenbook S 14 UX5406SA, BIOS 309, on the Fedora 7.2.9 kernel
+with the same change applied to its asus-wmi:
+- Key presses: the LED, asus::camera and the camera output (live picture
+  vs. the firmware's grey "camera disabled" frame) switch together every
+  time, and brightness_hw_changed follows.
+- Cold boot with the camera disabled: the LED is lit and asus::camera
+  reads 1 before anything is pressed. Without the patch the LED stays dark
+  until the next key press.
+- Suspend/resume: the LEDs come back correctly, but that's the firmware
+  restoring them, it does the same without the patch. So nothing is done
+  on resume.
+
+A Zenbook S 16 UM5606WA owner reported on the bug that reading
+CAMERA_LED_NEG after the key event (WMI code 0x85 there) fixes it on that
+machine too. The DSDT details are in the bugzilla entry.
+
+I used Claude (Anthropic's AI assistant) while working on this. It helped
+me read through the DSDT, drafted the changes on top of v2 and wrote the
+test scripts. I went through the patch myself and ran the tests on my
+laptop.
+
+v2: https://lore.kernel.org/r/adg6GzkykThAB_4u@djouze-zen
+---
+ drivers/platform/x86/asus-wmi.c            | 72 ++++++++++++++++++++++++++++++
+ include/linux/platform_data/x86/asus-wmi.h |  2 +-
+ 2 files changed, 73 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index fb1d4a0..fd2ba8c 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -72,6 +72,8 @@ module_param(fnlock_default, bool, 0444);
+ #define NOTIFY_KBD_TTP			0xae
+ #define NOTIFY_LID_FLIP			0xfa
+ #define NOTIFY_LID_FLIP_ROG		0xbd
++#define NOTIFY_CAMERA_TOGGLE_1		0x82
++#define NOTIFY_CAMERA_TOGGLE_2		0x85
+ #define NOTIFY_KEYSTONE			0xb4
+ 
+ #define ASUS_WMI_FNLOCK_BIOS_DISABLED	BIT(0)
+@@ -312,6 +314,7 @@ struct asus_wmi {
+ 	u32 kbd_rgb_dev;
+ 	bool kbd_rgb_state_available;
+ 	bool oobe_state_available;
++	bool camera_neg_led_available;
+ 
+ 	u8 throttle_thermal_policy_mode;
+ 	u32 throttle_thermal_policy_dev;
+@@ -2096,6 +2099,53 @@ static int camera_led_set(struct led_classdev *led_cdev,
+ 	return err < 0 ? err : 0;
+ }
+ 
++static bool is_camera_toggle(int code)
++{
++	return code == NOTIFY_CAMERA_TOGGLE_1 || code == NOTIFY_CAMERA_TOGGLE_2;
++}
++
++/*
++ * Some models (e.g. Zenbook S 14 UX5406SA, Zenbook S 16 UM5606WA) have no
++ * ASUS_WMI_DEVID_CAMERA_LED. The firmware handles the camera key itself and
++ * only exposes the state through ASUS_WMI_DEVID_CAMERA_LED_NEG, and reading
++ * that has a side effect: the firmware copies the state to the LED GPIO.
++ * Nothing else updates the LED, so read it at probe and after every camera
++ * key event. Setting it is no use, the firmware accepts DEVS on this device
++ * only once per boot.
++ *
++ * Returns 1 if the camera is disabled (LED lit), 0 if enabled, or -errno.
++ */
++static int camera_neg_led_sync(struct asus_wmi *asus)
++{
++	u32 result;
++	int err;
++
++	err = asus_wmi_get_devstate(asus, ASUS_WMI_DEVID_CAMERA_LED_NEG, &result);
++	if (err)
++		return err;
++
++	return !(result & ASUS_WMI_DSTS_STATUS_BIT);
++}
++
++static enum led_brightness camera_neg_led_get(struct led_classdev *led_cdev)
++{
++	struct asus_wmi *asus = container_of(led_cdev, struct asus_wmi, camera_led);
++	int state = camera_neg_led_sync(asus);
++
++	return state < 0 ? LED_OFF : state;
++}
++
++/* The firmware owns this LED; a write just resyncs it with the camera state. */
++static int camera_neg_led_set(struct led_classdev *led_cdev,
++			      enum led_brightness brightness)
++{
++	struct asus_wmi *asus = container_of(led_cdev, struct asus_wmi, camera_led);
++
++	if (!(led_cdev->flags & LED_UNREGISTERING))
++		camera_neg_led_sync(asus);
++	return 0;
++}
++
+ static void asus_wmi_led_exit(struct asus_wmi *asus)
+ {
+ 	scoped_guard(spinlock_irqsave, &asus_ref.lock)
+@@ -2233,6 +2283,17 @@ static int asus_wmi_led_init(struct asus_wmi *asus)
+ 		asus->camera_led.brightness_get = camera_led_get;
+ 		asus->camera_led.brightness_set_blocking = camera_led_set;
+ 
++		rv = led_classdev_register(&asus->platform_device->dev,
++						&asus->camera_led);
++		if (rv)
++			goto error;
++	} else if (asus->camera_neg_led_available) {
++		asus->camera_led.name = "asus::camera";
++		asus->camera_led.max_brightness = 1;
++		asus->camera_led.flags = LED_BRIGHT_HW_CHANGED;
++		asus->camera_led.brightness_get = camera_neg_led_get;
++		asus->camera_led.brightness_set_blocking = camera_neg_led_set;
++
+ 		rv = led_classdev_register(&asus->platform_device->dev,
+ 						&asus->camera_led);
+ 		if (rv)
+@@ -4733,6 +4794,13 @@ static void asus_wmi_handle_event_code(int code, struct asus_wmi *asus)
+ 	if (is_display_toggle(code) && asus->driver->quirks->no_display_toggle)
+ 		return;
+ 
++	if (is_camera_toggle(code) && asus->camera_neg_led_available) {
++		int state = camera_neg_led_sync(asus);
++
++		if (state >= 0 && (asus->camera_led.flags & LED_BRIGHT_HW_CHANGED))
++			led_classdev_notify_brightness_hw_changed(&asus->camera_led, state);
++	}
++
+ 	if (!sparse_keymap_report_event(asus->inputdev, code,
+ 					key_value, autorelease))
+ 		pr_info("Unknown key code 0x%x\n", code);
+@@ -5210,6 +5278,10 @@ static int asus_wmi_add(struct platform_device *pdev)
+ #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
+ 
+ 	asus->oobe_state_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_OOBE);
++	asus->camera_neg_led_available =
++		asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED_NEG);
++	if (asus->camera_neg_led_available)
++		camera_neg_led_sync(asus);
+ 
+ 	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_THROTTLE_THERMAL_POLICY))
+ 		asus->throttle_thermal_policy_dev = ASUS_WMI_DEVID_THROTTLE_THERMAL_POLICY;
+diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/platform_data/x86/asus-wmi.h
+index 4ea1ccc..5964063 100644
+--- a/include/linux/platform_data/x86/asus-wmi.h
++++ b/include/linux/platform_data/x86/asus-wmi.h
+@@ -57,7 +57,7 @@
+ #define ASUS_WMI_DEVID_MUTE_LED	0x0004001C
+ 
+ /* Disable Camera LED */
+-#define ASUS_WMI_DEVID_CAMERA_LED_NEG	0x00060078 /* 0 = on (unused) */
++#define ASUS_WMI_DEVID_CAMERA_LED_NEG	0x00060078 /* 0 = on */
+ #define ASUS_WMI_DEVID_CAMERA_LED	0x00060079 /* 1 = on */
+ 
+ /* Backlight and Brightness */
+
+---
+base-commit: ea40f1e9f07aab937b9a217633be7a1f66260394
+change-id: 20261017-asus-wmi-camera-led-06a6e05f01e2
+
+Best regards,
+--  
+Zane <git@turtledev.nz>
+
+
