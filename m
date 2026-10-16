@@ -1,78 +1,57 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27CAA443E4D;
-	Fri, 16 Oct 2026 09:30:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CAC414A27;
+	Fri, 16 Oct 2026 09:31:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792143016; cv=none; b=DVQTcrfLzymHECwjTyhdNT66AKx3TVwYRCwlwkXdOwL2GcSt5csPf2L/hcPn7BBPiI+o9hMTCw951bxKYm9d5YiwDhwQYfMx8J2Nn7vtvkaPUdqXTeDkU6Lka4D5UaeSjVeMgdBWkOV6yqIUmWiDmJNRXID1UkVOb4O+hKI9ZHw=
+	t=1792143068; cv=none; b=sSSpNb2KLKxwM3hOTbRLvT1BQ49qXaI09YTnH68+7th8MEQt2gaeSur6wbs1X4KCqs0ApmfSF5ipPTX6PTqX4mDASblNxhE1x+wKysCgoAsviAvkikNU43Ioj1S37XmP/LYxXkeFLx3EaUjMVtU6pW8UrlnACuV+VwavOVdQdkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792143016; c=relaxed/simple;
-	bh=58a1SVAwb6Pj+SSeSiRP5qR15p1liFYrokie5kI4VPs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=otBM5Tf0N214JZY/QYeqRrSQS8iIC6mn74jNLPgs7VwoohCWbR/jjlDNclvC7gNbz2Bia4bc3xlePwRmBhQyeRtgKe1gmSRh79ZsSQSV7FmnPA47cbokUDDBxrgvPclxBzX9GglAkyq4aT27UXhMddtL6dwepe7WSljzhpa/Llo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rZwrePGy; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=gjcgG819; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792143068; c=relaxed/simple;
+	bh=6EbV1oYJAfQEQG33N5w4YYAgDqd4UAZMM8GN+PWrKrQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=FA7EE4OAWBtlsdLbmKUfJo1xEMsFQ6MRqIeV0m+qHBjIUHlYSfedxdi6cbF/VFG4SJLtNd8gqptJH56a08x4n3XZt+k6avA5LcDlILN6me5IvB95WlQsX21OsMfkkDyr4FJYy01dKi8ubc7xxpWePOoJ9geyEqXGyc+qmxlukgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GLMuhnFJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rZwrePGy";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="gjcgG819"
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792143013;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=58a1SVAwb6Pj+SSeSiRP5qR15p1liFYrokie5kI4VPs=;
-	b=rZwrePGyswMD9tY34Kh0mBH8vg20fnmJgu4FZ0AlmMP+LDIELMiT/YadGuaKeULK9eutEr
-	k0tMCw9TEboVpc3H/B9ziUpZTzRSD5pp52NtRA87kv0/K7hz+5QhctjmR4UNl15TwvIFsX
-	dK2stsjsw3tPtESHj0oKb4/gUtuBAHclST9PVVCo184B6YZn8VsCqsbnraEYj0wuR2asyT
-	LY+fnDlMs4KEIQGnDOZgwc3CquwTP8AcVaE1TtG9kiv+4TzUWPPXlWFhnlAhGdue9xBz2t
-	lol/yISODlnKo6ts9ImsSfdOSUfFaOQ7kcqhpOke4rhdIbwgE4hHTnH5kq3Wnw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792143013;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=58a1SVAwb6Pj+SSeSiRP5qR15p1liFYrokie5kI4VPs=;
-	b=gjcgG819aKj3P1V1XBqVLm/IG9C4YmY9s5i0AQADRpK6m1PQOZP/IfXpIGD/cDkQrY7lak
-	GSlr3sN0WN0cWsBA==
-To: WeitaoWang-oc <weitaowang-oc@zhaoxin.com>, Koichiro Den <den@valinux.co.jp>
-Cc: mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
- x86@kernel.org, hpa@zytor.com, linux-kernel@vger.kernel.org,
- WeitaoWang@zhaoxin.com, wwt8723@163.com, CobeChen@zhaoxin.com,
- stable@vger.kernel.org
-Subject: Re: =?utf-8?B?W+atpOS4uuWklumDqOmCruS7tiDosKjpmLLpo47pmald?= Re:
- [PATCH] x86/apic/msi: Fix MSI interrupt
- affinity configuration
-In-Reply-To: <316900d3-2ce8-4391-ad8f-556bb5540c2a@zhaoxin.com>
-References: <20260928164839.6381-1-WeitaoWang-oc@zhaoxin.com>
- <6mg2eqdehsmb5fh6hf7icsha2547xfdfvulnycawiit2czhhmh@6bbmicaoz2zd>
- <87jynid352.ffs@fw13> <316900d3-2ce8-4391-ad8f-556bb5540c2a@zhaoxin.com>
-Date: Fri, 16 Oct 2026 11:30:12 +0200
-Message-ID: <87bj8uc7rv.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GLMuhnFJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74BD41F000C4;
+	Fri, 16 Oct 2026 09:31:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792143067;
+	bh=noLcCu746mLJ9CAt+FDWT03FSrYXn2DTKmLvKK1mhTI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=GLMuhnFJO4MdbAcRnD5kvYqKVswW1HXMUIu95ARHYi0ETLy42A5p0VmpuE13hPda2
+	 QpwFEL9JwhqAW41qnkicoZT9qbOQ9yVRwppJ5G+1T7gUT/XaT1XUZxDfldRCjhdlJA
+	 eFIwO3V16EWrINE2JKjU4/l0fPRUWjB8ATEGFNKO6AvB7bSlBUizFek1o5s9BOcteI
+	 Yqx6deBgjaNmTozQDRi2zhf2woQU/PUhwSpzYBiPcM1Ad0xT1TtMvoBVUyq2y7SEfq
+	 tBbTPvrQHqes+PzuUOWd3t7MQmpsXySgqr7qsK9K2sirQSFFWErSTIlsShI9YbSvQj
+	 05t8bqusobbDg==
+Date: Fri, 16 Oct 2026 11:31:04 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Tjark Effenberger <mail@teffenberger.de>
+cc: linux-input@vger.kernel.org, bentiss@kernel.org, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] HID: Kysona: Add support for Kysona M600V2 variant
+In-Reply-To: <20260926124337.45870-1-mail@teffenberger.de>
+Message-ID: <3rqrn962-8s32-4op6-p398-0n9q5p7no82s@xreary.bet>
+References: <20260926124337.45870-1-mail@teffenberger.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, Oct 16 2026 at 11:36, WeitaoWang-oc wrote:
-> On 10/16/26 06:12, Thomas Gleixner wrote:
->> On Wed, Sep 30 2026 at 01:29, Koichiro Den wrote:
->>> On Tue, Sep 29, 2026 at 12:48:39AM +0800, WeitaoWang-oc wrote:
->>>> commit b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI
->>>> quirk") try to fix the issue of misconfigured non-maskable MSI quirk.
->>>> For non-maskable MSI interrupts, use the slow path to fix the MSI affinity
->>>> race. Maskable MSI interrupts use the direct path to update configuration
->>>> info. However, the current code logic is the opposite as only maskable
->>>> MSI interrupts will enable reservation mode.
-> Thank you for the suggestions. I realize the problem description in my
-> previous patch needed to be more precise. Before posting v3, I have
-> updated the change log as shown below. Could you please take a look?
-> If this looks good to you, I will send out the next version.
+On Sat, 26 Sep 2026, Tjark Effenberger wrote:
 
-Looks good
+> The M600V2 has a different HID ID on the wireless dongle.
+> 
+> Signed-off-by: Tjark Effenberger <mail@teffenberger.de>
+
+Applied to hid.git#for-7.3/upstream-fixes, thanks.
+
+-- 
+Jiri Kosina
+SUSE Labs
 
