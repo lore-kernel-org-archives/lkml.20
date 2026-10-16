@@ -1,269 +1,184 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50CB447237;
-	Fri, 16 Oct 2026 21:20:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782B73B9D81;
+	Fri, 16 Oct 2026 21:21:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792185632; cv=none; b=Wbg6F1qY4e4AfQs/cEFoiS3p0oqGSegDOU+WgJz0Sqae27wITgIgVizpW5DEzDu8gDxxXPd95VZDJvG9lZof9gDq9uOTTCgFE6ynLxQ+sK/5kw1xfosSp/yWg3Ki9CqtW/dor29AII2Q/2pF9Srw3LGWzwUZGwc+IbK9iZ6gnvY=
+	t=1792185671; cv=none; b=gbYkn3UAPgcfOCZWZ2zRBubYumZVkkoAum8nsJUFLFqqd9K+C/jD4Tdo8lHI7MUL4PhbvwAquz4Je8uGr8m2k5FEp9t0zulokX7fcvGfyQr/l+KaXtDYbQVECXm2itXvrWWsTwFjBjZd0gZtUcX9HK+vyCKjVlkuZAbRBLtb3Lw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792185632; c=relaxed/simple;
-	bh=OdKy32Jqan6bAzDpc0sKtlJIX0vMrwxr2S7flCylqVI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I5HcQgSmUIyTUrzqVcViKWUUeqogVvb90JIAhuZRu9QS+pWuIAx7NV046DJyjEOsE+JCiH7VoNtLeC87FQx5+MlF8OpvyF7JYKmPBzOP9U/4bES47rFPf3IuDZIe2LaJo5ssDqzI3k5vh3pgQ9nxIqaIqOwZE7CL8Vwz5Va4wAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=EgU4zL2z; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1792185671; c=relaxed/simple;
+	bh=aryYcMOHEdOxgQ9Sg+pSoVsCsfSE+QicI9aG2aNS7X4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WhgBeyd7ZzT8YypsChOGfnF7kGDkMcXgA/NPnAjQA8/Em2N4dR3JB5ECNkkuUGDlrwtiw171BghQcSl2QI7fDw3NzW4Zm6Gdgfk1BuxnSssRqeq6D8cUtH49cJhXujtNnUxYwFJsMBukoSfMUWMP3PXPJmY7uqRgWPLfOhmfA1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U9y7ym43; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="EgU4zL2z"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GJiVVm490428;
-	Fri, 16 Oct 2026 21:19:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=xNPZw3
-	EXSZ4uPiOZfoHoPbFl9PKDY4YhWD1OfoEY5XM=; b=EgU4zL2z5Z3ACfQgm9YYeA
-	1fne1LemoT36UHHAGYYzoZH9vt/JRw9kqpFILWJmG5lR1JugUkgQ4prOEPiHb9oa
-	Xzf9AhCkooX9waQTcDUZ5/36erULE3ftofRk+Eyw3m9L4cG5NApO1ObNn2ax6RQ9
-	jJVY7m4cgVH/HY6USwIc65cFX9ElOFiDLal8W3O9AGSX0VoLTvXJuCHwK6C9ImaY
-	bwnxQBFELop56xFQldWhe3R1MuNO9/iJ6IIx+f8jh91J/mYt0s8lfcT5K38I+niT
-	e4B3sgsYW8ctBN4C/QcUkwqlniqMcUM+SwgUJb5T5f0RPpmslSdrzsV2y+oO+8gw
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv41jcm-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 21:19:52 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69GJo89t2965759;
-	Fri, 16 Oct 2026 21:19:51 GMT
-Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hbne4sg7y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 21:19:51 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com [10.39.53.228])
-	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69GLJohX32899590
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 16 Oct 2026 21:19:50 GMT
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 21EA358059;
-	Fri, 16 Oct 2026 21:19:50 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F1CE158067;
-	Fri, 16 Oct 2026 21:19:46 +0000 (GMT)
-Received: from [9.67.103.235] (unknown [9.67.103.235])
-	by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 16 Oct 2026 21:19:46 +0000 (GMT)
-Message-ID: <de6d786b-fdbd-42f8-b2c9-b175a6a33c69@linux.ibm.com>
-Date: Fri, 16 Oct 2026 14:19:46 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U9y7ym43"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 306401F000C4;
+	Fri, 16 Oct 2026 21:21:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792185670;
+	bh=DWxLpy8/S0VRrqInMpY+F1AAkB4XKyozIHvSCf4dLU0=;
+	h=From:To:Cc:Subject:Date;
+	b=U9y7ym43qlYhjyhS0XfxPF1x1yjJ9A+Q72mGf48uI+QAvppjz2yYFrPeY+SDYsQDf
+	 CCeS83lYpDqYVFZ7NqPcsWmG8qLgb10hGJ5rUFbPwJAFOLhV0+mw0GzPV40kHls/u3
+	 fKRDiwTSe/GaSV22OqX132xJEoFBbiFPJnGw9qxFZ7ojfScsluxMEHUcLxL03r2Vr3
+	 xQzC6/ihP0qMN6Q6PZVrPvmnjSDemK0DvguYzUqkNU/G9/G9jrvcLtnXZ9hJM1RGtE
+	 Fj7NlnmZhEgNB4hPlolSAnFhQpZlq4rjIVJGNSCvrKnakLT7jmIuMMTDRtJWRzgc14
+	 a0aJCcolD/23g==
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	Michael Petlan <mpetlan@redhat.com>
+Subject: [PATCH v4 00/21] perf test attr: Report the failures again and cope with more than one core PMU
+Date: Fri, 16 Oct 2026 18:20:41 -0300
+Message-ID: <20261016212102.76550-1-acme@kernel.org>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v4 1/6] ibmvnic: Move long delayed work on
- system_dfl_long_wq
-To: Marco Crivellari <marco.crivellari@suse.com>, linux-kernel@vger.kernel.org,
-        netdev@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
-        Frederic Weisbecker <frederic@kernel.org>,
-        Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-        Michal Hocko <mhocko@suse.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S . Miller" <davem@davemloft.net>,
-        Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Haren Myneni <haren@linux.ibm.com>,
-        Rick Lindsley <ricklind@linux.ibm.com>,
-        Nick Child <nnac123@linux.ibm.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        linuxppc-dev@lists.ozlabs.org
-References: <20261012095452.135828-1-marco.crivellari@suse.com>
- <20261012095452.135828-2-marco.crivellari@suse.com>
-Content-Language: en-US
-From: mingming cao <mmc@linux.ibm.com>
-In-Reply-To: <20261012095452.135828-2-marco.crivellari@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: LGXgFU0TpwWO4Rmjiw6wRlCKA4EQoH_L
-X-Proofpoint-ORIG-GUID: TjZICohO1dTAQx0xDC9FPrm7GTarATKr
-X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6ad294f9 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8 a=voM4FWlXAAAA:8 a=iox4zFpeAAAA:8
- a=tkcf6-MeEqR6izG4hBoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=O8hF6Hzn-FEA:10 a=IC2XNlieTeVoXbcui8wp:22 a=WzC6qhA0u3u7Ye7llzcV:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA4NCBTYWx0ZWRfX0bt0ILkmD9/o
- jTvfNCQLa1mQGB/qU9SmRmSyCy5cu6kye+YCQsWqwlXlzFl5nj/HnIpudSINruK9rVsCdUTSVvy
- /I0QQ5fxZglk3YjzxiKRNLMgy/Yczb8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA4NCBTYWx0ZWRfXxB+JlbBJyzI3
- Acx+6yxotE9DfpYHkf7VC14+iL7TU8Hkt15f+nOtqxnd7LARup7oYoSbbqmTh+mD+yqBolAZafH
- yldDBD2tWVkwoWks82qds8rjeJJ9Xtxklko5ODfDfdWcc2BN0gmcE6v/MZKAThuQXlYRBm7p/K9
- bKhLIuUtrfOP/V0bGnxH/NHPuUBCYPDh+DHAvTKzzk3tEFxWD0cYFjGIIFWEKhERFSsZtIMzPfj
- 3l4voCqS1xDaESbmSKwkAMQZ7rnEcIYo15yhsMnGDF282GmxBFeYuKBh9N+vyRQbv2CIxpOXoFj
- Z2atUTKMJhOZILSlv0SJQWakYrfyA53cy5MZf2s796AnetRBgL/qgra21Y0d28kxzekHwfaHt7v
- XNqjgbdwOFMczd8sWJ5K684vumk87mkCXJV8uA4MYdRCMGyzBQG/+mYbZzzTUploGq3z0gqTIZx
- 8kdTtEk5emp9CPiF64w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_03,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1011 spamscore=0 malwarescore=0 suspectscore=0
- bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610160084
 
-On 10/12/26 2:54 AM, Marco Crivellari wrote:
-> Currently the code enqueue work items using {queue|mod}_delayed_work(),
-> using system_long_wq. This workqueue should be used when long works are
-> expected and it is a per-cpu workqueue.
-> 
-> The function(s) end up calling __queue_delayed_work(), which set a global
-> timer that could fire anywhere, enqueuing the work where the timer fired.
-> 
-> Unbound works could benefit from scheduler task placement, to optimize
-> performance and power consumption. Long work shouldn't stick to a single
-> CPU.
-> 
-> Recently, a new unbound workqueue specific for long running work has
-> been added:
-> 
->      c116737e972e ("workqueue: Add system_dfl_long_wq for long unbound works")
-> 
-> Since the workqueue work doesn't rely on per-cpu variables, there is no
-> obvious reason that justify the use of a per-cpu workqueue. So change
-> system_long_wq with system_dfl_long_wq so that the work may benefit from
-> scheduler task placement.
-> 
-> Cc: Haren Myneni <haren@linux.ibm.com>
-> Cc: Rick Lindsley <ricklind@linux.ibm.com>
-> Cc: Nick Child <nnac123@linux.ibm.com>
-> Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
-> Cc: Michael Ellerman <mpe@ellerman.id.au>
-> Cc: Nicholas Piggin <npiggin@gmail.com>
-> Cc: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-> Cc: linuxppc-dev@lists.ozlabs.org
-> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
-> ---
->   drivers/net/ethernet/ibm/ibmvnic.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/ibm/ibmvnic.c b/drivers/net/ethernet/ibm/ibmvnic.c
-> index 5a510eed335e..d4c284c8ef43 100644
-> --- a/drivers/net/ethernet/ibm/ibmvnic.c
-> +++ b/drivers/net/ethernet/ibm/ibmvnic.c
-> @@ -3229,7 +3229,7 @@ static void __ibmvnic_reset(struct work_struct *work)
->   	if (adapter->state == VNIC_PROBING &&
->   	    !wait_for_completion_timeout(&adapter->probe_done, timeout)) {
->   		dev_err(dev, "Reset thread timed out on probe");
-> -		queue_delayed_work(system_long_wq,
-> +		queue_delayed_work(system_dfl_long_wq,
->   				   &adapter->ibmvnic_delayed_reset,
->   				   IBMVNIC_RESET_DELAY);
->   		return;
-> @@ -3267,7 +3267,7 @@ static void __ibmvnic_reset(struct work_struct *work)
->   	spin_lock(&adapter->rwi_lock);
->   	if (!list_empty(&adapter->rwi_list)) {
->   		if (test_and_set_bit_lock(0, &adapter->resetting)) {
-> -			queue_delayed_work(system_long_wq,
-> +			queue_delayed_work(system_dfl_long_wq,
->   					   &adapter->ibmvnic_delayed_reset,
->   					   IBMVNIC_RESET_DELAY);
->   		} else {
-> @@ -3454,7 +3454,7 @@ static int ibmvnic_reset(struct ibmvnic_adapter *adapter,
->   	list_add_tail(&rwi->list, &adapter->rwi_list);
->   	netdev_dbg(adapter->netdev, "Scheduling reset (reason %s)\n",
->   		   reset_reason_to_string(reason));
-> -	queue_work(system_long_wq, &adapter->ibmvnic_reset);
-> +	queue_work(system_dfl_long_wq, &adapter->ibmvnic_reset);
->   
->   	ret = 0;
->   err:
-On 10/12/26 2:54 AM, Marco Crivellari wrote:
- > Currently the code enqueue work items using {queue|mod}_delayed_work(),
- > using system_long_wq. This workqueue should be used when long works are
- > expected and it is a per-cpu workqueue.
- >
- > The function(s) end up calling __queue_delayed_work(), which set a global
- > timer that could fire anywhere, enqueuing the work where the timer fired.
- >
- > Unbound works could benefit from scheduler task placement, to optimize
- > performance and power consumption. Long work shouldn't stick to a single
- > CPU.
- >
- > Recently, a new unbound workqueue specific for long running work has
- > been added:
- >
- >      c116737e972e ("workqueue: Add system_dfl_long_wq for long 
-unbound works")
- >
- > Since the workqueue work doesn't rely on per-cpu variables, there is no
- > obvious reason that justify the use of a per-cpu workqueue. So change
- > system_long_wq with system_dfl_long_wq so that the work may benefit from
- > scheduler task placement.
- >
- > Cc: Haren Myneni <haren@linux.ibm.com>
- > Cc: Rick Lindsley <ricklind@linux.ibm.com>
- > Cc: Nick Child <nnac123@linux.ibm.com>
- > Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
- > Cc: Michael Ellerman <mpe@ellerman.id.au>
- > Cc: Nicholas Piggin <npiggin@gmail.com>
- > Cc: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
- > Cc: linuxppc-dev@lists.ozlabs.org
- > Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
- > ---
- >   drivers/net/ethernet/ibm/ibmvnic.c | 6 +++---
- >   1 file changed, 3 insertions(+), 3 deletions(-)
- >
- > diff --git a/drivers/net/ethernet/ibm/ibmvnic.c 
-b/drivers/net/ethernet/ibm/ibmvnic.c
- > index 5a510eed335e..d4c284c8ef43 100644
- > --- a/drivers/net/ethernet/ibm/ibmvnic.c
- > +++ b/drivers/net/ethernet/ibm/ibmvnic.c
- > @@ -3229,7 +3229,7 @@ static void __ibmvnic_reset(struct work_struct 
-*work)
- >   	if (adapter->state == VNIC_PROBING &&
- >   	    !wait_for_completion_timeout(&adapter->probe_done, timeout)) {
- >   		dev_err(dev, "Reset thread timed out on probe");
- > -		queue_delayed_work(system_long_wq,
- > +		queue_delayed_work(system_dfl_long_wq,
- >   				   &adapter->ibmvnic_delayed_reset,
- >   				   IBMVNIC_RESET_DELAY);
- >   		return;
- > @@ -3267,7 +3267,7 @@ static void __ibmvnic_reset(struct work_struct 
-*work)
- >   	spin_lock(&adapter->rwi_lock);
- >   	if (!list_empty(&adapter->rwi_list)) {
- >   		if (test_and_set_bit_lock(0, &adapter->resetting)) {
- > -			queue_delayed_work(system_long_wq,
- > +			queue_delayed_work(system_dfl_long_wq,
- >   					   &adapter->ibmvnic_delayed_reset,
- >   					   IBMVNIC_RESET_DELAY);
- >   		} else {
- > @@ -3454,7 +3454,7 @@ static int ibmvnic_reset(struct ibmvnic_adapter 
-*adapter,
- >   	list_add_tail(&rwi->list, &adapter->rwi_list);
- >   	netdev_dbg(adapter->netdev, "Scheduling reset (reason %s)\n",
- >   		   reset_reason_to_string(reason));
- > -	queue_work(system_long_wq, &adapter->ibmvnic_reset);
- > +	queue_work(system_dfl_long_wq, &adapter->ibmvnic_reset);
- >
- >   	ret = 0;
- >   err:
-I walked through the reset path and the conversion looks fine.
+From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-All three system_long_wq users move together and there are no
-remaining users in the driver. The work items don't rely on per-CPU
-state, so system_dfl_long_wq seems appropriate here.
+Hello all,
 
-Minor commit message nit: ibmvnic doesn't use mod_delayed_work(), and
-one of the conversions is queue_work() rather than delayed work.
+perf test 82 stopped reporting failures when it got its shell wrapper
+(8519e4f44c2af722), so expectations that no longer match perf went
+unverified.  The prerequisite fixes are upstream now, so they are not
+repeated here.
 
-Acked-by: Mingming Cao <mmc@linux.ibm.com>
+This series updates those expectations and makes the test cope with
+machines with no core PMU, or with more than one.  Asking for one event
+on the latter gives one event per core PMU.  The expectations ignore
+what that adds; the commit messages say what and why.
+
+The tests that map ring buffers take turns on the per user mlock budget
+(kernel.perf_event_mlock_kb) through a robust, process-shared mutex.
+The sysctl is left alone.  A test killed while holding the budget does
+not leave the next one waiting.
+
+Tested: 'perf test -vv attribute' Ok on an Amlogic A311D (aarch64, as
+root), an Intel i7-14700K (hybrid, two core PMUs), x86_64 (AMD Ryzen 9
+9950X3D, kernel 7.2.10-200.fc44) and riscv64 (Orange Pi RV).  On
+riscv64 the stat tests run and the record tests report unsupp, as
+sampling is not available there (no Sscofpmf).
+
+Best regards,
+
+- Arnaldo
+
+What changed from v3:
+
+  - sashiko-bot's v3 review: the python binding no longer leaks the
+    parse error entries it prints when parsing fails.
+  - sashiko-bot's v3 review: attr.py no longer compares an event against
+    itself unrecorded, and masks both sides with both events' types.
+  - sashiko-bot's v3 review: evsel__open_cpu() no longer leaks the fds
+    of an attempt abandoned to disable missing features.
+  - sashiko-bot's v3 review: <stdio.h> included where FILE and
+    snprintf() are used, in builtin-test.c and tests-scripts.c.
+
+What changed from v2:
+
+  - sashiko-bot's v2 review: a one-component kernel_since or
+    kernel_until (f.i. kernel_until = 6) no longer crashes attr.py.
+  - sashiko-bot's v2 review: mutex_trylock() and cond_wait() now take
+    over a robust mutex left behind by a dead owner, as mutex_lock().
+
+What changed from v1:
+
+  - Namhyung's python fix and Michael Petlan's two fixes are upstream
+    now, so they are dropped from the series.
+  - Namhyung's v1 report (test-record-branch-filter-any_call): probe
+    events are no longer dumped, and the core PMU fallout is masked.
+  - New, not from review: the 'requires = core-pmu' skip, the skip
+    reasons and the mlock budget part.
+  - New, not from review: the events of the other core PMUs are left
+    out, when the expectations name a core PMU.
+
+ tools/build/Makefile.feature                  |   1 +
+ tools/build/feature/Makefile                  |   4 +
+ tools/build/feature/test-all.c                |   5 +
+ .../build/feature/test-pthread-mutex-robust.c |  18 +
+ tools/perf/Documentation/perf-test.txt        |  36 +-
+ tools/perf/Makefile.config                    |   4 +
+ tools/perf/tests/backward-ring-buffer.c       |   2 +-
+ tools/perf/tests/builtin-test.c               | 174 ++++++-
+ tools/perf/tests/code-reading.c               |   2 +-
+ tools/perf/tests/keep-tracking.c              |   2 +-
+ tools/perf/tests/mmap-basic.c                 |   1 +
+ tools/perf/tests/openat-syscall-tp-fields.c   |   1 +
+ tools/perf/tests/perf-record.c                |   1 +
+ tools/perf/tests/perf-time-to-tsc.c           |   1 +
+ tools/perf/tests/shell/attr/README            |  10 +-
+ tools/perf/tests/shell/attr/base-stat-group   |  45 ++
+ .../tests/shell/attr/test-record-graph-dwarf  |   2 +-
+ .../shell/attr/test-record-group-sampling     |   5 +-
+ .../shell/attr/test-record-group-sampling1    |   5 +-
+ .../shell/attr/test-record-group-sampling2    |   5 +-
+ .../perf/tests/shell/attr/test-record-group1  |   3 +-
+ .../perf/tests/shell/attr/test-record-group2  |   3 +-
+ .../perf/tests/shell/attr/test-record-group3  |   3 +-
+ tools/perf/tests/shell/attr/test-stat-C0      |   1 +
+ tools/perf/tests/shell/attr/test-stat-basic   |   1 +
+ tools/perf/tests/shell/attr/test-stat-default |  91 ++--
+ .../tests/shell/attr/test-stat-detailed-1     |  99 ++--
+ .../tests/shell/attr/test-stat-detailed-2     | 111 +++--
+ .../tests/shell/attr/test-stat-detailed-3     | 115 +++--
+ tools/perf/tests/shell/attr/test-stat-group1  |   3 +-
+ .../tests/shell/attr/test-stat-no-inherit     |   1 +
+ tools/perf/tests/shell/drm_pmu.sh             |   2 +-
+ tools/perf/tests/shell/ftrace.sh              |   2 +-
+ tools/perf/tests/shell/kallsyms.sh            |   2 +-
+ tools/perf/tests/shell/lib/attr.py            | 461 ++++++++++++++++--
+ tools/perf/tests/shell/list.sh                |   2 +-
+ tools/perf/tests/shell/perf_sched_stats.sh    |   2 +-
+ tools/perf/tests/shell/probe_vfs_getname.sh   |   2 +-
+ tools/perf/tests/shell/python-use.sh          |   2 +-
+ tools/perf/tests/shell/schedstat_snapshots.sh |   2 +-
+ tools/perf/tests/shell/stat+csv_output.sh     |   2 +-
+ tools/perf/tests/shell/stat+csv_summary.sh    |   2 +-
+ .../tests/shell/stat+event_uniquifying.sh     |   2 +-
+ tools/perf/tests/shell/stat+json_output.sh    |   2 +-
+ tools/perf/tests/shell/stat+shadow_stat.sh    |   2 +-
+ tools/perf/tests/shell/stat+std_output.sh     |   2 +-
+ tools/perf/tests/shell/stat.sh                |   2 +-
+ .../perf/tests/shell/stat_all_metricgroups.sh |   2 +-
+ tools/perf/tests/shell/stat_all_metrics.sh    |   2 +-
+ tools/perf/tests/shell/stat_all_pfm.sh        |   2 +-
+ .../tests/shell/stat_bpf_counters_cgrp.sh     |   2 +-
+ tools/perf/tests/shell/stat_metrics_cgrp.sh   |   2 +-
+ tools/perf/tests/shell/stat_metrics_values.sh |   2 +-
+ tools/perf/tests/shell/test_ilist_python.sh   |   2 +-
+ .../perf/tests/shell/test_stat_cpi_python.sh  |   2 +-
+ .../tests/shell/test_test_junit_output.sh     |   5 +-
+ .../shell/test_uprobe_from_different_cu.sh    |   2 +-
+ tools/perf/tests/sw-clock.c                   |   2 +-
+ tools/perf/tests/task-exit.c                  |   1 +
+ tools/perf/tests/tests-scripts.c              |  85 +++-
+ tools/perf/tests/tests.h                      |  17 +
+ tools/perf/util/evsel.c                       |  42 +-
+ tools/perf/util/evsel.h                       |   1 +
+ tools/perf/util/mutex.c                       | 101 +++-
+ tools/perf/util/mutex.h                       |   6 +
+ tools/perf/util/pfm.c                         |   1 +
+ tools/perf/util/print-events.c                |   1 +
+ tools/perf/util/python.c                      |   2 +
+ 68 files changed, 1256 insertions(+), 272 deletions(-)
+
+base-commit: cb9dba6f4764fc68ab75c36e332887332339f9c3
+v1-head: b1300831ecc4503d
+v2-head: da166ef7a002
+v3-head: c5f0897aceb01743
