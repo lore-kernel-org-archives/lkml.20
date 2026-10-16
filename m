@@ -1,154 +1,257 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5131646AA96
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:15:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7339C4746BD;
+	Fri, 16 Oct 2026 10:15:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145720; cv=none; b=jU54xg7j1f1yQPRP4NAKxz3L8lufrQ6HYMIvd+itv5/4TTsgQmLZCtGd/1HoBTtF0WB2b3X586KWwsRRVCsVMrsU9BpUVfgXgiMThFETsDShP3tThvpSjKZWCbgCpdCDW3k3oO+LZApQQwumS0d0vA69j0RGw64Z3rkUgSqTNPg=
+	t=1792145726; cv=none; b=lXyo7GwoSnqjk+4mDRHzwh2UXOUtB0eptG0zCICIOV9cMsrcusnwQLnLXKyXU2grWHSA0c9VaxM2d0CHgUWKdKG9Hjf24/yDFPqMVRlr49wxMuFGzUoL0mHE1Cyl4/x36i2jk1q2sKT5A4f4oDHmdFXcUpaLC1T4JPUklsPdCdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145720; c=relaxed/simple;
-	bh=5+Mp4TeDYq2o2TK3O/vdVC//j8jljTpTyZBFtmJvflw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QGL0cw09xcPbVR/gZfDduOS03bKbVDIuAsYpCR1KG6OJrtyNCFNdtcIrt/6pnGhV5H+9pMNY/+2vHD5DK8VAXdrLN0zk3Eh1iWVM3iNR1mVNkCkGWvbzBOPM2RAeTqBxXuuFDi5zMJGfZC5icHl6t8ZdLlfqlmHCCd9nQNr9hPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BYjhTfry; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792145726; c=relaxed/simple;
+	bh=gr2SAyuSoKp+gmPGzAmknKWYhLAqbIgxgoGVxFA816I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jppmmRtO7pk3GJuQEDLm3K0Y5OKlm1fDuzpmOeE998Elg9V5x/jWVsGywwEUH/BdP77To51gWC+7/OpesqqH53pHvm9zPJpMTKw26TjjtqZtUN2ar5eJv3cUXtqkUMyF/w2StbJSbifAxDiBJnfvTWtII3V3cjP29QnzqmlB+KA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gRhirOVN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BYjhTfry"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e87c66e556so4486455ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:15:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792145715; x=1792750515; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vf6qHtCJHYPPUhzxjpIczur0NsiTKA4BX6nz592iMDQ=;
-        b=BYjhTfryOnMsL2nJc/pxdvotLlKoa8WSJ+zs5hTyG6HElTUdnmUC/9W2iPP9/AyP15
-         CSJpET4eNB6wRyfZe/08CAI6I+18ukOQo7bAeBFfFKurYs6pOcl6yBUvnbopE/fZmdKo
-         n4SkE1maVnDEvl54LJQnTmNXTKu8IXMzi7JMqdLHDPPIvO8CDS75My3tdiJqQJt1OcMv
-         XoSlq/DDEGupu701v6DxsiaxCNCYp1z3k+GiLErlXfUXGjxzvMU+OC0H5OQ7tdc+mrsD
-         svobjx+8d/Vjx+vpaWCYQI1mB7Rsl4VjHvsSnqh5x372jVpxOZk1xMyAoInhhK2z22e5
-         V4Dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792145715; x=1792750515;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vf6qHtCJHYPPUhzxjpIczur0NsiTKA4BX6nz592iMDQ=;
-        b=zxQUrQ9zvQikqxHK3crdrQdse9wCQM6eHxmDMdU0jZOFbwzrW+W1CItLINM/akTDWS
-         D32QlR2rBY2TmV3W6vfSTthHnWtylqW5dNDKXGSjLbl+sfQRLRZ9Yn+H3o0PIu9R+K06
-         E3QJVHqD/7my6C0JxyMsDaDp2VLns459QMwZYVdw52JDrp/3iAL0FuFsJuvLwYpQhy5/
-         8H5sVVMA9o1wK44oPcH7aohWYa7KvZHZbK9Mb38DtOCxNZ1X0nfSN5jWKHNpTAaHzV3i
-         458U8sUWNhC5X44ZjHOOg6y8L9m0kIMjNMyVCBwugjyNmw5T5maWmInYXcKw4ftMYes1
-         My3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxoI0oBolKzzc2SjAkYiv/H6XOHSRsBPYQvfXtKtH2U09aaIDHNmzKrRX3FOD+9eV7Ikt4OWn1buAi7FWs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ86OkCE8g8Ps4Iwno6EBeA5LXUmhUzMsElEZUkhIIgsfxf60xE
-	sZ+7/ftA+6r3eyeUReG5cLOrLMzDd/Mm7ug1eHAlk9GAxs4mXp6HGJoB
-X-Gm-Gg: AYBFou3YN/oWZ5lz8NxWK5fWLMQ1CFeYQIZdu+CWUwMsZMvOdYT24XaBnG3/X4or9Q0
-	qZvt32WFR5gL5KEP0K9pNDAccOqu2Q3fh6PuprFtUp9JDtO3HmpMvS3b8lauNkxK9lEdK8TJHnD
-	uDVo5U0qaz8b8CV18PiHUXwY6Ujj/+DLPx5hKUbQNwvLHvZzn+GALh+viPlQlOfjOQF0N6C4VOl
-	u7HQChYxSIpSsD2705ikYUvEUX01EYTjaDC+WPntatctRLmxM84lyYJD32p+H7vp3Mvr31R/m9F
-	Yu8bz01S7yeygSlSCD3KKGyZy/cKkrBa1YRgqgdh33GpOWqm3SizLwMTecxzU57I5akaMTBivZQ
-	t6bJOCnN3xdqodoYo4kli5OVir8fV9I3bcw7pZhFu7iOIthtBmWqXRM0CgVaaC0woSjCqjBazH1
-	5/IA9r2IMHLGu+U2J9BFCMMKMJ9BaPycKz+diP4+UhtaVLxc6e03EeKpI71j8b0yYANUnyeC/rM
-	jEvdzHSmv4JjSDwwLmFBw==
-X-Received: by 2002:a17:903:2f8b:b0:2df:b004:df28 with SMTP id d9443c01a7336-2e9772b0555mr20367255ad.35.1792145715452;
-        Fri, 16 Oct 2026 03:15:15 -0700 (PDT)
-Received: from fedora ([61.74.238.173])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e85fd1dsm7876465ad.49.2026.10.16.03.15.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 03:15:13 -0700 (PDT)
-From: SeungJu Cheon <suunj1331@gmail.com>
-To: anup@brainfault.org,
-	atish.patra@linux.dev
-Cc: tjytimi@163.com,
-	inochiama@gmail.com,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	andrew.jones@linux.dev,
-	pbonzini@redhat.com,
-	seanjc@google.com,
-	kvm-riscv@lists.infradead.org,
-	kvm@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	SeungJu Cheon <suunj1331@gmail.com>
-Subject: [PATCH] KVM: riscv: Set Accessed bit in dirty-log write fault fast path
-Date: Fri, 16 Oct 2026 19:14:58 +0900
-Message-ID: <20261016101458.221648-1-suunj1331@gmail.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gRhirOVN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4A2F1F000C4;
+	Fri, 16 Oct 2026 10:15:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792145725;
+	bh=EWoSt2vnkwCds2EzgO8UlEcp7hd5z6kwQM5kM48UwUg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gRhirOVNocs2O/ciKx+YyF4F62QOv3JCV78cdXI/l2PyH4P9T7S5+QRX79xml8NQk
+	 NbZeGCce5RvJGvWliSBTOzPHOAX4i9ViDBPwj0cT5wHC4SZnWNph7wkSrYWioZIbs2
+	 qKDuh1U0XEpA2p179w+VkX+nEJS2KVvMMxz6MVRPMyOlacNNJ3XiiLy90ryzDKEZsI
+	 aRT9i2Bs/S6XDokL+8cdDJQhAZ1Nx3ALAKe+Px5C9az+EFQLu/EYJ+O7lFnZDt7pV7
+	 GYLwjOK1sE/15P4AStb+VlnbrTnKs16Od6aOjXPPvxVUlicbjZSyMPNhxEh3wSVmp0
+	 HJ5lETD17yPAg==
+From: Christian Brauner <brauner@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL 02/19 for v7.4] kernel signal
+Date: Fri, 16 Oct 2026 12:15:01 +0200
+Message-ID: <20261016-kernel-7.4-rc1.signal-3dbe927d2fe3@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016-vfs-v74-41eaf6c4712c@brauner>
+References: <20261016-vfs-v74-41eaf6c4712c@brauner>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9825; i=brauner@kernel.org; h=from:subject:message-id; bh=gr2SAyuSoKp+gmPGzAmknKWYhLAqbIgxgoGVxFA816I=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRd/Kl3henXnG3JzLrbKw+Wxt5gezb1vc23Kp49XbdDH fNUdRsPd5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEyksp6RoafCmeH5p90tlwpe Z5ZfmjNjwcuEHbfe32MLrq7f/Sf42BxGhrv7Zl2utFoiNuOokuRq5Zrqnr8eku6hDI8On/3W4TR 1LTMA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-kvm_riscv_mmu_dirty_log_write_fault_fast() considers a leaf with W
-and D set already handled, even if aging has cleared its A bit.
-On hardware that faults when A is clear, the fast path returns
-true without setting A and skips the slow path that would set it.
-The guest retries the same store, but A is still clear, so it
-faults again. This repeats indefinitely, preventing the guest
-from making progress.
+Hey Linus,
 
-Host reclaim or page_idle can trigger this while dirty logging is
-enabled, potentially hanging vCPUs during live migration.
+/* Summary */
 
-Require _PAGE_ACCESSED in addition to W and D before treating the
-fault as handled, and set A along with W and D. The existing
-cmpxchg loop retries if aging changes the PTE before the update.
+This stops TIF_NOTIFY_SIGNAL from interrupting work that can't be
+restarted and fixes a bunch of coredump and signal bugs.
 
-Fixes: 7705be59eb2d ("KVM: riscv: Fast-path dirty logging write faults")
-Cc: stable@vger.kernel.org # 7.2+
-Signed-off-by: SeungJu Cheon <suunj1331@gmail.com>
----
-Testing:
+TIF_NOTIFY_SIGNAL kicks a task out of an uninterruptible sleep so it
+returns to userspace, runs its task work and goes back to sleep. That
+breaks coredumps. dump_interrupted() only lets fatal signals interrupt
+a dump and writes to a regular file ignore TIF_NOTIFY_SIGNAL. But the
+pipe and the socket paths check signal_pending() deep down in code that
+is shared with regular syscalls and bail. So a crashing process with
+io_uring requests in flight loses most of its coredump. In the selftest
+an unfixed kernel delivers 357324 of at least 5111808 bytes. And
+io_uring isn't the only source. klp_send_signals(),
+bpf_task_work_schedule_signal(), landlock's tsync, kthread_stop() and
+the printk kunit test raise the bit as well, some of them from irq
+context against any task. So this can't be fixed per subsystem and the
+state has to be per-task and ambient.
 
-On a HiFive Premier P550 (EIC7700X, which traps on clear A/D bits),
-run:
+Add PF_NO_NOTIFY_SIGNAL and no_notify_signal_save()/restore() helpers
+modelled on memalloc_nofs_save(). Inside such a section
+signal_pending() ignores TIF_NOTIFY_SIGNAL. Coredumps, the smb send
+path, which hand-rolled its own version of this, and the pid namespace
+reaper, which busy-looped when the bit kept getting raised, are
+converted.
 
-dirty_log_perf_test -v 3 -b 256M -i 3
+The second part is a set of fixes that fell out of looking at the
+coredump code with kres and modelling it in TLA+:
 
-While the test runs, repeatedly mark all system RAM idle through
-/sys/kernel/mm/page_idle/bitmap.
+- coredump_finish() woke the parked threads without holding rcu. A
+  parked thread can exit on a spurious wakeup and be freed before
+  wake_up_process() takes its pi_lock.
 
-Before the fix, the test did not complete its first iteration in
-over 11 minutes, with lock_stat showing about 16k read-side
-mmu_lock acquisitions per second from the fast path.
+- Only SIGKILL and the freezers interrupt a dump now and the three
+  freezers agree. Power management and cgroup v1 freezing aborted a
+  dump while a cgroup v2 freeze either waited for the dump or cut it
+  short depending on where the core went.
 
-After the fix, all three iterations complete, each taking about
-29 seconds under the same aging workload.
+- io-wq set its exit bit without a barrier against the task work that
+  creates workers. On weakly ordered architectures exit could hang on
+  worker_done.
 
- arch/riscv/kvm/mmu.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+- retarget_shared_pending() slingshotted a shared signal to the dumper
+  when a zapped sibling restored its signal mask. That set
+  TIF_SIGPENDING on the dumper and truncated the core.
 
-diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-index 78a1826c466d..042d1e3b3547 100644
---- a/arch/riscv/kvm/mmu.c
-+++ b/arch/riscv/kvm/mmu.c
-@@ -591,14 +591,15 @@ static bool kvm_riscv_mmu_dirty_log_write_fault_fast(struct kvm *kvm,
- 			dirty_marked = true;
- 		}
- 
--		if ((pte_val(old_pte) & (_PAGE_WRITE | _PAGE_DIRTY)) ==
--		    (_PAGE_WRITE | _PAGE_DIRTY)) {
-+		if ((pte_val(old_pte) &
-+		     (_PAGE_WRITE | _PAGE_DIRTY | _PAGE_ACCESSED)) ==
-+		    (_PAGE_WRITE | _PAGE_DIRTY | _PAGE_ACCESSED)) {
- 			new_pte = old_pte;
- 			ret = true;
- 			break;
- 		}
- 
--		new_pte = pte_mkdirty(pte_mkwrite_novma(old_pte));
-+		new_pte = pte_mkyoung(pte_mkdirty(pte_mkwrite_novma(old_pte)));
- 
- 		if (kvm_riscv_gstage_try_update_pte(&gstage, ptep_level, gpa,
- 						    ptep, old_pte, new_pte)) {
--- 
-2.52.0
+- A tracer could clear the signal mask of a user worker with
+  PTRACE_SETSIGMASK and inject a coredump signal. An io-wq worker of an
+  SQPOLL ring dumping core deadlocks the whole group. PTRACE_SETSIGMASK
+  is refused for user workers now and __set_task_blocked() enforces the
+  fork-time mask.
 
+- exec cancels io_uring requests before de_thread() so a worker
+  creation queued as task work can't add a thread to a thread group
+  that de_thread() just took down.
+
+- No io threads are created from a PF_SIGNALED or PF_POSTCOREDUMP
+  creator anymore. Such a worker was invisible to zap_process() but
+  still decremented threads_remaining on exit so the dumper could leave
+  coredump_wait_inactive() early.
+
+Also included are a comment that do_each_pid_task() needs
+tasklist_lock, a READ_ONCE() in pid_alive() and a regression test for
+fork() into a pid namespace whose ancestor lost its init.
+
+/* Testing */
+
+No build failures or warnings were observed.
+
+/* Conflicts */
+
+Merge conflicts with mainline
+=============================
+
+No known conflicts.
+
+Merge conflicts with other trees
+================================
+
+This conflicts with the cifs tree in fs/smb/client/transport.c between
+commit 80f49404968d6 ("smb: client: fast fail sends if need to
+reconnect") from the cifs tree and commit d0ae35565f5d5 ("smb: prevent
+TIF_NOTIFY_SIGNAL from interrupting") from this tree. The cifs tree
+bails out early after sock_sendmsg() when a reconnect is needed and
+this tree wraps the call in a no_notify_signal guard and drops the
+EINTR special case below it:
+
+diff --cc fs/smb/client/transport.c
+index cf11af490b0d,93ff6a4dbb35..60699d2799fb
+--- a/fs/smb/client/transport.c
++++ b/fs/smb/client/transport.c
+@@@ -171,26 -170,11 +170,22 @@@ smb_send_kvec(struct TCP_Server_Info *s
+  		 * after the retries we will kill the socket and
+  		 * reconnect which may clear the network problem.
+  		 *
+- 		 * Even if regular signals are masked, EINTR might be
+- 		 * propagated from sk_stream_wait_memory() to here when
+- 		 * TIF_NOTIFY_SIGNAL is used for task work. For example,
+- 		 * certain io_uring completions will use that. Treat
+- 		 * having EINTR with pending task work the same as EAGAIN
+- 		 * to avoid unnecessary reconnects.
++ 		 * Task work must not abort the send, see signal_pending().
+  		 */
+- 		rc = sock_sendmsg(ssocket, smb_msg);
++ 		scoped_guard(no_notify_signal)
++ 			rc = sock_sendmsg(ssocket, smb_msg);
+ +
+ +		/*
+ +		 * If need to reconnect, blame it for any non-interrupt error
+ +		 * and bail out early, even if -EAGAIN;  reconnect will never
+ +		 * happen in parallel as cifs_reconnect() needs server mutex
+ +		 * (which we're already holding), so it's pointless to retry.
+ +		 */
+ +		if (unlikely(rc <= 0 && !is_interrupt_error(rc) &&
+ +			     READ_ONCE(server->tcpStatus) == CifsNeedReconnect))
+ +			return -ECONNRESET;
+ +
+- 		if (rc == -EAGAIN || unlikely(rc == -EINTR && task_work_pending(current))) {
++ 		if (rc == -EAGAIN) {
+  			retries++;
+  			if (retries >= 14 ||
+  			    (!server->noblocksnd && (retries > 2))) {
+
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/kernel-7.4-rc1.signal
+
+for you to fetch changes up to 12e19bba68ba4ef222033ff9a3b63df07b7fad38:
+
+  pid: use READ_ONCE() in pid_alive() (2026-10-12 11:13:01 +0200)
+
+----------------------------------------------------------------
+kernel-7.4-rc1.signal
+
+Please consider pulling these changes from the signed kernel-7.4-rc1.signal tag.
+
+Thanks!
+Christian
+
+----------------------------------------------------------------
+Babanpreet Singh (1):
+      pid: use READ_ONCE() in pid_alive()
+
+Christian Brauner (20):
+      signal: allow taks to temporarily block TIF_NOTIFY_SIGNAL
+      coredump: prevent TIF_NOTIFY_SIGNAL from interrupting coredumps
+      selftests/coredump: test that TIF_NOTIFY_SIGNAL doesn't truncate a coredump
+      smb: prevent TIF_NOTIFY_SIGNAL from interrupting
+      pid_namespace: prevent TIF_NOTIFY_SIGNAL from interrupting the reaper
+      Merge patch series "Stop TIF_NOTIFY_SIGNAL from interrupting work that can't be restarted"
+      coredump: hold RCU while releasing parked threads
+      io-wq: order the exit bit against worker creation task work
+      signal: don't retarget shared signals in a dying thread group
+      signal: only SIGKILL and the freezers interrupt a coredumping task
+      selftests/coredump: test shared signal retargeting during a dump
+      ptrace: refuse to change the signal mask of a user worker
+      selftests/coredump: test a user worker as the coredumping thread
+      selftests/coredump: expect PTRACE_SETSIGMASK to be refused on a user worker
+      exec: cancel io_uring requests before de_thread()
+      fork: move the coredump and exec checks into create_io_thread()
+      fork: don't create io threads once PF_POSTCOREDUMP is set
+      fork: use SIG_KERNEL_ONLY_MASK for the user worker signal mask
+      signal: enforce the user worker signal mask in __set_task_blocked()
+      Merge patch series "coredump & signals: an impossible affair"
+
+Oleg Nesterov (1):
+      pid: document that do_each_pid_task() needs tasklist_lock
+
+Sahaj Chaudhari (1):
+      selftests: pid_namespace: test fork with dead ancestor
+
+ fs/coredump.c                                      |  18 +-
+ fs/exec.c                                          |  11 +-
+ fs/smb/client/transport.c                          |  13 +-
+ include/linux/pid.h                                |  11 +-
+ include/linux/sched.h                              |   2 +-
+ include/linux/sched/signal.h                       |  27 +-
+ io_uring/io-wq.c                                   |   2 +
+ kernel/fork.c                                      |  11 +-
+ kernel/pid.c                                       |   2 +-
+ kernel/pid_namespace.c                             |   3 +-
+ kernel/ptrace.c                                    |   6 +
+ kernel/signal.c                                    |  14 +
+ tools/testing/selftests/coredump/.gitignore        |   2 +
+ tools/testing/selftests/coredump/Makefile          |  11 +-
+ .../selftests/coredump/coredump_notify_signal.h    |  29 ++
+ .../coredump/coredump_notify_signal_helper.c       |  46 +++
+ .../coredump/coredump_notify_signal_test.c         | 245 +++++++++++
+ .../selftests/coredump/coredump_signal_test.c      | 238 +++++++++++
+ tools/testing/selftests/coredump/coredump_test.h   |   1 +
+ .../selftests/coredump/coredump_test_helpers.c     | 311 ++++++++++++++
+ .../selftests/coredump/coredump_worker_test.c      | 447 +++++++++++++++++++++
+ tools/testing/selftests/pid_namespace/.gitignore   |   1 +
+ tools/testing/selftests/pid_namespace/Makefile     |   2 +-
+ .../selftests/pid_namespace/pidns_dead_ancestor.c  | 174 ++++++++
+ 24 files changed, 1593 insertions(+), 34 deletions(-)
+ create mode 100644 tools/testing/selftests/coredump/coredump_notify_signal.h
+ create mode 100644 tools/testing/selftests/coredump/coredump_notify_signal_helper.c
+ create mode 100644 tools/testing/selftests/coredump/coredump_notify_signal_test.c
+ create mode 100644 tools/testing/selftests/coredump/coredump_signal_test.c
+ create mode 100644 tools/testing/selftests/coredump/coredump_worker_test.c
+ create mode 100644 tools/testing/selftests/pid_namespace/pidns_dead_ancestor.c
