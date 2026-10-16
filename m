@@ -1,173 +1,105 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5B23368A9;
-	Fri, 16 Oct 2026 12:16:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6985C47F3BD
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:16:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792153007; cv=none; b=t/SQqm9hU+RbGRKTj1PO36c8Vj/asqrWmW7wCAsCNsD9+EjEpr6rJzgzS4xMrQLyjcuFagwpqD/rAnssAbs4yRfkvcATkPFdu+YzD+EIlYQMFzbekvAcMQ5J1gz4RPOxNcUfWnj/Uha97oWTCoLHcq0BTkFmrhuKFLGo5vvCgRE=
+	t=1792153007; cv=none; b=OgTFbN2ISV5qQ4BJdQHZ+dGdXKCrRHskhoJa9nYGZxylVIXyowrGiM95+7X5lT87+EHpxDJ7qbTWR/Hb/YwGjMnihpGrdtshs5PAsdLqndMK0WSOVEVDThDn6ftY6bwubzXD7D3hWs/IhJXnNdDmzulK7elRv/NX/D8s1DwDvrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792153007; c=relaxed/simple;
-	bh=Bu/VoZNuiEdhEWGo00Kj5rCUiRZTVHSpLXvx6jo2EaU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=e4XBl6llsXuHq/Y1GsIpyMft9Qcp4pgq0UWnydNl611jZDJZlsIUUgp3mDPdfUbtolBN+EUT1/PQIS5tkY3ODDPqJvyaP0TLPwj78oBcmr2OSqRRYeXr78ggLNk7lm0KSQwFzhwrMssV6/AJKMg9TDIha6IKNXiNJVDsbKGBdtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=P+m4W8Pk; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	bh=G/fuQkFUEJE9xmz/wmhoad2EDBIutXpsINbMT306D0o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=keFX5gRNKYmAuLFocJfOOJAi3NV7uU0BgtvUbMaRwW4y7F6PU/gp5vdq5znWYf//t8WYkh5MbyWej8oMbpCH8/DNk/0PVp2+gNUwk8ltHMvAg7M56TvWyVv4gv0MXq+NRPxQplB+Jso8b9Vd/NS5rupeM4wQcJSgs0kgiBlWgjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FQ10XZ7I; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="P+m4W8Pk"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
-	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
-	From:Reply-To:Content-ID:Content-Description;
-	bh=WxZBoPVq89DlzEuXI3J15DiLUSM8TLChgH6sUBQbat0=; b=P+m4W8PkqhARrQ5Brokl80avXA
-	84uyde890m+wCCwjwGq0R3LSAoSAAILFQbSR3NX93ZwLKJvzzR5O+0ywfy53kR6V/8uF9L3es4frX
-	KCtukA6GfvdcxsV8f0+KnP6EEMd/utle+7sfi+IzenpFbh5P+5JtP0qMKfG73wmE+OXTxNSurAiBu
-	zAfK9gqOLyMfe5Ns2kzDh0mfRWpZmKO9fdRux/pJ87OXpwLRAExovKSeRM34ggjVsayuqF+rQ1mAa
-	YVUcLsU1z3kTyUuogpMYhgUwhTuAXYjQ/e/H+3qKUqqjoCus8kJFul5iZGh5GpGxF1XBmX/RImuEo
-	LZG90Bzw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xHgrU-005xTu-0O;
-	Fri, 16 Oct 2026 12:16:36 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 16 Oct 2026 05:15:45 -0700
-Subject: [PATCH v6 5/7] drivers/base/memory: count the poison a block
- already holds when creating it
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FQ10XZ7I"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-486e8faff03so2781857f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:16:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792153004; x=1792757804; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kXwcfo+faB/d8Y5clwXPismEZjCAQ2x4NezFd8SmQ80=;
+        b=FQ10XZ7IFg/28nhtcRfp7Wjd07EOAxIu5iJxw2Of5wj5gNyR2cV15GnHvTtCdTgTkt
+         mv/NWNeZTWoNzLBaH3uMPEOtYuXq1ukWvXuhzv2VfUn+qKVQD3GVomVvmg81spspmdMt
+         srMZzfwNHaNaSyjZJdqy5MGUTAXb50+t5WjCspVA51IA3OKDsJuBk56OYYjZ+5wgcS9s
+         3fM0R/xa96bGcq0PyzhEIw6qJKQBMKOVGFz3JYxiDt4h/UV4ehLXvHevoqJWZfgw2ICd
+         HZy8TnOyCRSUo6C68mYB6TqWYAh7PjcTq2Y763g6Qrpi9xdxSYSLaZUK5eipRIHakMRp
+         Umgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792153004; x=1792757804;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kXwcfo+faB/d8Y5clwXPismEZjCAQ2x4NezFd8SmQ80=;
+        b=GNqZXuzWmw68fq3Hr5qQcfm8CQgE2TGwcKYOrl+kW5QqJbTI5Z8dTb/IcP1qoSALeZ
+         L+6bzYEs1rIGBhQkniOeV+v8PBbZtTBLVFmrTHNbY8pGS/np5eaaUxuenyrTGaELnNv5
+         H8bzRoveJhe7QUtlEOMb82JbqS+BSvX5xnKd4907qcJRpjm7S5nKKToSVdkOjfl09ko/
+         q6o88Ujem32rxABEMnFwk81YKyRnfkgUfOBJ0PfJVGnxMk4RxdCwKhzMmV+qLTOBlH9G
+         9wqg4QvmDBOUYixpj3k/rmkcdS/X/RRUt3/5ppgLaDXzu7olVojdpZ+gQEi/RnduJ8xC
+         SHSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy/Ufkv0hruICfqxpcQ4i0O1lS3NuRhyT4tITRsg+12ei1WC1YqCI7dnXtlm8mk3gnbi0TFNRDSgzqvaFQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKbb4NFh/LxZCtZwAdegnT3wE5HDcJiphg6FpMGz+ac1X5C11h
+	3qYk6OyoIe5XqEPRXSQCFVjmtlLaJgntjffIGCRM2ozc3IC1o+hc1XgH
+X-Gm-Gg: AYBFou3x78gTmx3DiM6QnnV5uJ5w50Ro/86iAsCEMMjeZ3s9UoFB7hHzEY+XtcvTNCb
+	f9eJJ0OM17Lw1XVRY4PYGa5gSpo6qEboN48Ui/8l7Z4xnUwvPBkJI4i8VomiVDuaVU+/emU6wH4
+	jg6c63xsZYDg5GKSBll0bH7J6jglsnvHBzW3MFp/PUF2tC5NGVHUesJWG0flIxwuvEVX2AvvyZW
+	iiAW/vT31IGPh2cYrDp1GK6IOQJVosNDYG4G8iPm536x6cbwJwLb86tkphkN6R5SSyyadrIOk1E
+	wYZ0+m0HUBnW1D1hYkOCdiNzWqLzroH1sVFShqf3gwaJtWEbphzS/bndOhjyPEOiRTvCN7sG3Jk
+	N8eFhPs6n6vYMmKVlYqO719ekcnF1KXycKOhhDNfx+LacPl+A3tn5JyMOBonHZg0+7+J+Kz1LDu
+	IVPI3YlUJ5wl88trzdEGLjo8eb/eFGAMaKagdyrY/U2vckzWpMB+z8XYFcUInbZfqhug==
+X-Received: by 2002:a05:6000:4303:b0:48d:de0f:b79 with SMTP id ffacd0b85a97d-48dde0f0ba0mr29342329f8f.0.1792153004392;
+        Fri, 16 Oct 2026 05:16:44 -0700 (PDT)
+Received: from [192.168.1.18] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f5b2dsm5076765f8f.31.2026.10.16.05.16.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 05:16:43 -0700 (PDT)
+Message-ID: <6e0c5a1a-1e82-4847-ae23-1b2574042ca1@gmail.com>
+Date: Fri, 16 Oct 2026 14:16:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/vma: avoid spurious write locks when
+ mm->mm_lock_seq overflows
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>
+Cc: linux-mm@kvack.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Daehyeon Ko <4ncienth@gmail.com>
+References: <20261016-fix-vma-lock-overflow-v2-1-9eb778b79b58@kernel.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261016-fix-vma-lock-overflow-v2-1-9eb778b79b58@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-hwpoison-kho-v6-5-f304255147da@debian.org>
-References: <20261016-hwpoison-kho-v6-0-f304255147da@debian.org>
-In-Reply-To: <20261016-hwpoison-kho-v6-0-f304255147da@debian.org>
-To: Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Oscar Salvador <osalvador@suse.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, kas@kernel.org, 
- kexec@lists.infradead.org, Brendan Jackman <brendan.jackman@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
- shakeel.butt@linux.dev
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, rmikey@meta.com, riel@surriel.com, 
- Breno Leitao <leitao@debian.org>, harry@kernel.org, kernel-team@meta.com
-X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2711; i=leitao@debian.org;
- h=from:subject:message-id; bh=Bu/VoZNuiEdhEWGo00Kj5rCUiRZTVHSpLXvx6jo2EaU=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq0hV0/dx08nW5bcNGpUjsilj8UAtstZQu4E9fx
- 64pXp49b1mJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCatIVdAAKCRA1o5Of/Hh3
- bZjxEACogEk9bO3cK/jZkbLp0V62/KsgOz02SBwb5bR4Q1zqslmB7ZV+Ye0+X4h2hv93nOg1AZ+
- GmqOFkuuXv2Z64THfDAkVy+4hp+NDhgNZrABLVx9FRMvUj0VqbLzNMJPPuthfKFicEX7mdiGRBX
- WzMdSKrjz6HNxxlMKVnFejtUVrV14u0bbvUGzJGPzhE8FtHWZW5+P8K15Dg6VZWLH/mmwlKALd6
- vDO/r4z1t5hO/AZ9XKC3mXDDubJYi112HNKdbUrV3rlxayVV1q5a0Fk8CNDCXmzIr6sNqJCCI87
- Uv2CPeO0fOaXI9RjKqjxFaRfB8njgaHeUiBaSoKwY9HPressp8iADlgiW4emNdSWloY0F3sKYso
- UBcRwTDn3bXvJYQNLG8iQTnxL/I25Vx0DDHeOf7zDabsXmT1XtkEHwFuaHzIP099QPgUzc8zT9a
- bEkarLJr/TPOEk7KTkIZhwqoLz5B6XA2C83WSNyCa2qF1onO590TRvOuczMOXXDiWwwkBW9xbmW
- 7u4Qd1qBdARcWAnFdd0rnu7Ie9Hk6kElo5fpK9/CbKFjjR8ckT+P8r8Zat0Y01fRFk7mRtIRVO/
- L6Znz9VCFGUYJsIt9ZFenxE82EDy5/csFeVMCmLV4T6WbDK/6HONT/h7flHstR45VHE19/R4FBv
- 0smWVjFM1HCVK0Q==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
 
-A frame flagged poisoned before memory_dev_init() runs cannot be counted
-on its memory block. memblk_nr_poison_inc() divides by sections_per_block,
-which memory_dev_init() sets, and the block does not exist yet. The block
-is then created reading zero, however many of its frames are poisoned.
+On 10/16/26 1:34 PM, Lorenzo Stoakes (ARM) wrote:
+> So far the assumption has been that mm->mm_lock_seq overflow is benign,
+> resulting only in readers spuriously falling back to the mmap lock, however
+> it turns out that this was an unsafe assumption.
 
-Until now nothing could poison a frame that early. It becomes possible
-once a kernel flags the frames it inherits from the one that kexeced into
-it, as it initializes its memmap.
+[snip]
 
-memory_block_online() refuses a block that holds a poisoned frame, and a
-counter stuck at zero lets one through.
+LGTM :) and also tested on qemu so:
 
-Count what a block holds when it is created at boot. The walk sits behind
-num_poisoned_pages, so a machine with no poison does not pay for it.
-
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- drivers/base/memory.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
-
-diff --git a/drivers/base/memory.c b/drivers/base/memory.c
-index 5eead3346f1e32..77481f375c2206 100644
---- a/drivers/base/memory.c
-+++ b/drivers/base/memory.c
-@@ -220,11 +220,16 @@ int memory_notify(enum memory_block_state state, void *v)
- 
- #if defined(CONFIG_MEMORY_FAILURE) && defined(CONFIG_MEMORY_HOTPLUG)
- static unsigned long memblk_nr_poison(struct memory_block *mem);
-+static void memblk_nr_poison_init(struct memory_block *mem);
- #else
- static inline unsigned long memblk_nr_poison(struct memory_block *mem)
- {
- 	return 0;
- }
-+
-+static inline void memblk_nr_poison_init(struct memory_block *mem)
-+{
-+}
- #endif
- 
- /*
-@@ -807,6 +812,7 @@ static int add_memory_block(unsigned long block_id, int nid, unsigned long state
- 	mem->state = state;
- 	mem->nid = nid;
- 	INIT_LIST_HEAD(&mem->group_next);
-+	memblk_nr_poison_init(mem);
- 
- #ifndef CONFIG_NUMA
- 	if (state == MEM_ONLINE)
-@@ -1251,4 +1257,28 @@ static unsigned long memblk_nr_poison(struct memory_block *mem)
- {
- 	return atomic_long_read(&mem->nr_hwpoison);
- }
-+
-+/*
-+ * Frames poisoned before the block existed were never counted on it. Count
-+ * them now, or the first unpoison takes the counter below zero.
-+ */
-+static void memblk_nr_poison_init(struct memory_block *mem)
-+{
-+	unsigned long pfn = section_nr_to_pfn(mem->start_section_nr);
-+	unsigned long end = pfn + PAGES_PER_SECTION * sections_per_block;
-+	unsigned long nr = 0;
-+
-+	/* A hotplugged block is created before its pages are online. */
-+	if (mem->state != MEM_ONLINE || !atomic_long_read(&num_poisoned_pages))
-+		return;
-+
-+	for (; pfn < end; pfn++) {
-+		struct page *page = pfn_to_online_page(pfn);
-+
-+		if (page && PageHWPoison(page))
-+			nr++;
-+	}
-+
-+	atomic_long_set(&mem->nr_hwpoison, nr);
-+}
- #endif
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Tested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
 -- 
-2.53.0-Meta
-
+cheers,
+jose a. p-a
