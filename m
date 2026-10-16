@@ -1,184 +1,132 @@
-Received: from h3cspam01-ex.h3c.com (smtp.h3c.com [60.191.123.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05004570DC
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:13:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.191.123.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB77B45D5F6
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:13:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792142011; cv=none; b=MoWuYDZpBGt5lvjmBnjD/0f5rGNRp5GfUdvCPHgIFOCzj5+5ZFSzXkdGEUSp5fZxrygFRABIeSAtSYgg+ePRMEj1B0MH6GVG+f0R70M0+LcS2pthth+wNjIe2J+Kx0hdnxKu+GJ3QHLiwMlC0veEifL6cBdBzq5i5cF3w4EfZO4=
+	t=1792142022; cv=none; b=lovpbt8ROJbrV0EYqAhVlRRnj8AP5DqNFvdtT73x8iq5yOWateT2Ss4sQyM+KOTYNYYmrUJbh67t5WXoXJ7YhflfaVa+uWFoEOYQmvtVd1I0QVbFvVP/3BxMk2Zz/wxP5pLfdwGgtWQZoQT/o1Vd0SDsmDLQtn92vzrzOXp6Ui0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792142011; c=relaxed/simple;
-	bh=i9OUOy5R7JPZY55a+CqVEZcm2NGkJhLvHqBJZzxIFm0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=YgstPFqXSavbTcal9Qj/mgCbCxfEn5UqIWLlHV0Fmyucsm/E3AdbhRFM28oM4muBfz7Qs0xz3lr2ZLFWzKgbUs95TZFaWrySphizGH9To0w3pLUH2407dg+Vc5MgeQXSzd/2M8z/9IzAZUrE6R3kVGtME7CWO1Kn85o/OdPsk0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=h3c.com; spf=pass smtp.mailfrom=h3c.com; arc=none smtp.client-ip=60.191.123.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=h3c.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h3c.com
-Received: from mail.maildlp.com ([172.25.15.155])
-	by h3cspam01-ex.h3c.com with ESMTP id 69G9CKlJ023180;
-	Fri, 16 Oct 2026 17:12:25 +0800 (+08)
-	(envelope-from lin.nan@h3c.com)
-Received: from DAG6EX09-BJD.srv.huawei-3com.com (unknown [10.153.34.11])
-	by mail.maildlp.com (Postfix) with ESMTP id DA56A2284EA4;
-	Fri, 16 Oct 2026 17:15:23 +0800 (CST)
-Received: from localhost.localdomain (10.142.164.48) by
- DAG6EX09-BJD.srv.huawei-3com.com (10.153.34.11) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.1258.27; Fri, 16 Oct 2026 17:12:25 +0800
-From: Nan Lin <lin.nan@h3c.com>
-To: <richard@nod.at>, <chengzhihao1@huawei.com>
-CC: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-        <lin.nan@h3c.com>, <wangxiaoqing@h3c.com>, <zhou.kete@h3c.com>
-Subject: [PATCH] ubifs: zero stale data beyond EOF before file size grows
-Date: Fri, 16 Oct 2026 17:04:58 +0800
-Message-ID: <20261016090458.1891272-1-lin.nan@h3c.com>
-X-Mailer: git-send-email 2.33.0
+	s=arc-20240116; t=1792142022; c=relaxed/simple;
+	bh=n3KdobETTVuz7fcHeH4lrKwLcMcsgWk3U6bQYdigMGk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lW1CzM/fuGA50BKWw8Jx1I88oJWNoik2FHbeaDfTD8KHiYwwTRlsagkZBsfBokzCmU+2FZrTWFGOAmRY0dSFnJou/yBFjiOBPx2yBXHb3SZ9nBu079sosek4oojhQ7le/LUUQVWt61HQ02qyYm9skwNg3RuugwofPcj1YaX41vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ylc4MP6s; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ylc4MP6s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9921F000CC
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:13:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792142021;
+	bh=5i6MhlYke8rnqKO/tS98g5fBrnPRxzSkJ1XspPZU0EE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Ylc4MP6shCeSJV4WrGsrfrjjA/Fz8tO0A+VDlxgExXH9rrTOXeyGrHARmllzf3Zr8
+	 T2H+Bkd5SvDMAreRqiewzPCByEFzDEo4EEdDfAWEmGey38Owg9KqeUXmUbpgbSad66
+	 OzT2ZyWl/NuZVjnKm8EHBlUtD8/+ygkrIKh0soevDAva5qxApnwYfgG3kNkdX1VJzy
+	 Vo4VU/Z7rKdETYzdpEAJio8clCXfAID1Vu92GR2vKVV6Cp3FeR+Bjvsh3nhwLxxTjr
+	 hI9qRrtEZuxR6/QrneYK4bWvw+NFhXP3yWeWgwwjsQxvac2bJQDfF69YgEyoHZevIc
+	 IU0nC4ulTDzVA==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5b2b92065ffso3422377e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:13:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxuJIQ6ZJNvCpbIxI1hBIlIVjrm287UUB2GyJY+vEfxFPnXrGNIixsEpWI84m6HqUaijKIPPNzQ3brM4ro=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/hRykiktINZoREtN2FdI7l5d/BlGs3xEGUtfcD7k1a4etRs+3
+	gHz17Fan4oBB8O1ABDHF9Qkm8vmLbKUb3FOJb4e/SWAw4epYSXCzU9RuoD3aZjTYPc0wu9gzcbq
+	HB4ZtAF91m9ytnGR4AbcOAz9FZ7bYy54=
+X-Received: by 2002:a05:6512:2251:b0:5be:323a:358f with SMTP id
+ 2adb3069b0e04-5be323a362bmr3949389e87.24.1792142020304; Fri, 16 Oct 2026
+ 02:13:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BJSMTP02-EX.srv.huawei-3com.com (10.63.20.133) To
- DAG6EX09-BJD.srv.huawei-3com.com (10.153.34.11)
-X-DNSRBL: 
-X-SPAM-SOURCE-CHECK: pass
-X-MAIL:h3cspam01-ex.h3c.com 69G9CKlJ023180
+References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com>
+ <20261011-gpio-mxc-cleanup-v6-7-cb47ce2ad758@nxp.com> <CAD++jLnDxTAz2=ge5RgvO02mp+BJyLBV0zR8xqsm8LSsSEcRYQ@mail.gmail.com>
+ <as8+sqlBEuhfdtZ8@shlinux89>
+In-Reply-To: <as8+sqlBEuhfdtZ8@shlinux89>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 16 Oct 2026 11:13:28 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=tKnT0qr5chD-fhxgTM-f9kcdFRsKVBbbqionBp9iTyw@mail.gmail.com>
+X-Gm-Features: AclHuK-rmknBFrbVZQXIDXh4F4e2O13GZgGSgm2vgJ2GpZVzPlYS8PS1UAie0Ck
+Message-ID: <CAD++jL=tKnT0qr5chD-fhxgTM-f9kcdFRsKVBbbqionBp9iTyw@mail.gmail.com>
+Subject: Re: [PATCH v6 07/13] gpio: mxc: convert pad wakeup compatible checks
+ to hwdata flags
+To: Peng Fan <peng.fan@oss.nxp.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
+	Andy Shevchenko <andy.shevchenko@gmail.com>, linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Peng Fan <peng.fan@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-mmap writes can dirty the page cache beyond EOF without changing
-i_size. A later extending write or ftruncate turns that region into a
-hole, but UBIFS never zeroes the partial page at the old EOF, so reads
-expose the stale data.
+On Wed, Oct 14, 2026 at 10:30=E2=80=AFAM Peng Fan <peng.fan@oss.nxp.com> wr=
+ote:
+> On Wed, Oct 14, 2026 at 01:10:48AM +0200, Linus Walleij wrote:
 
-Zero the tail of the old-EOF folio in all three size-extending paths:
-ubifs_write_begin() for writes starting beyond EOF, do_setattr()
-before truncate_setsize() grows the size, and ubifs_vm_page_mkwrite()
-so mmap writes cannot leave such a tail behind. This mirrors what
-block_page_mkwrite() does for buffer_head filesystems and what ext4
-does on size extension.
+> >Hi Peng,
+> >
+> >On Sun, Oct 11, 2026 at 1:51=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp=
+.com> wrote:
+> >
+> >>  static bool mxc_gpio_generic_config(struct mxc_gpio_port *port,
+> >>                 unsigned int offset, unsigned long conf)
+> >>  {
+> >> -       struct device_node *np =3D port->dev->of_node;
+> >> +       int ret;
+> >> +
+> >> +       if (!mxc_gpio_has_pad_wakeup(port))
+> >> +               return false;
+> >
+> >Why is the entire call to mxc_gpio_generic_config()
+> >bailing out here if the port does not have pad wakeup?
+> >
+> >> -       if (of_device_is_compatible(np, "fsl,imx8dxl-gpio") ||
+> >> -           of_device_is_compatible(np, "fsl,imx8qxp-gpio") ||
+> >> -           of_device_is_compatible(np, "fsl,imx8qm-gpio"))
+> >> -               return (gpiochip_generic_config(&port->gen_gc.gc,
+> >> -                                               offset, conf) =3D=3D 0=
+);
+> >> +       ret =3D gpiochip_generic_config(&port->gen_gc.gc, offset, conf=
+);
+> >> +       if (ret)
+> >> +               return false;
+> >
+> >Then no generic config can happen.
+> >
+> >This looks weird, isn't it just some of the configs that
+> >don't work?
+>
+> The early return is correct and matches the original behavior - only
+> i.MX8 SoCs with SCU have pad wakeup hardware.
+>
+> gpiochip_generic_config() here calls into the pinctrl backend's
+> pin_config_set(), which on i.MX8 programs the SCU firmware with the
+> PAD wakeup source type.  Non-i.MX8 SoCs don't have an SCU pinctrl backend=
+.
+>
+> The function name is misleading - its only caller is mxc_gpio_set_pad_wak=
+eup().
 
-All zeroing takes the old-EOF folio lock without ui->ui_mutex, keeping
-the folio_lock -> ui_mutex order of ->writepage() and
-->page_mkwrite(); the reverse order deadlocks.
+This is just a big hack and I want it removed.
 
-Signed-off-by: Nan Lin <lin.nan@h3c.com>
----
- fs/ubifs/file.c | 73 +++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 73 insertions(+)
+Implicit in this reasoning is: the only config we support on
+the pinctrl back-end is wakeups so let's gate the entire function
+call if we don't support wakeup.
 
-diff --git a/fs/ubifs/file.c b/fs/ubifs/file.c
-index e73c28b12f97..e09b17d36495 100644
---- a/fs/ubifs/file.c
-+++ b/fs/ubifs/file.c
-@@ -202,6 +202,53 @@ static void release_existing_page_budget(struct ubifs_info *c)
- 	ubifs_release_budget(c, &req);
- }
- 
-+/**
-+ * ubifs_zero_eof_hole - zero the stale tail of the old-EOF folio.
-+ * @inode: inode whose size is about to grow
-+ * @new_end: new end of the file, only used to bound the tail
-+ *
-+ * Zero the cached folio containing the old EOF for [old EOF,
-+ * min(folio end, @new_end)) so a size extension does not expose stale
-+ * data left beyond EOF by mmap writes.
-+ *
-+ * Must be called without ui->ui_mutex held: we block on the old-EOF
-+ * folio lock, and ->writepage() and ->page_mkwrite() hold that folio
-+ * lock while taking ui_mutex; the reverse order deadlocks.
-+ */
-+static void ubifs_zero_eof_hole(struct inode *inode, loff_t new_end)
-+{
-+	loff_t old_size = i_size_read(inode);
-+	unsigned int from, to;
-+	struct folio *folio;
-+
-+	if (new_end <= old_size)
-+		return;
-+
-+	folio = filemap_lock_folio(inode->i_mapping, old_size >> PAGE_SHIFT);
-+	if (IS_ERR(folio))
-+		return;
-+
-+	/*
-+	 * Re-read i_size under the folio lock: a concurrent truncate may
-+	 * have shrunk the file, turning this folio into valid data.
-+	 */
-+	old_size = i_size_read(inode);
-+	if (new_end <= old_size)
-+		goto out;
-+
-+	from = old_size & (PAGE_SIZE - 1);
-+	if (!from)
-+		goto out;
-+	to = (old_size >> PAGE_SHIFT) == (new_end >> PAGE_SHIFT) ?
-+	     new_end & (PAGE_SIZE - 1) : PAGE_SIZE;
-+	if (to > from)
-+		folio_zero_range(folio, from, to - from);
-+
-+out:
-+	folio_unlock(folio);
-+	folio_put(folio);
-+}
-+
- static int write_begin_slow(struct address_space *mapping,
- 			    loff_t pos, unsigned len, struct folio **foliop)
- {
-@@ -423,6 +470,14 @@ static int ubifs_write_begin(const struct kiocb *iocb,
- 	if (unlikely(c->ro_error))
- 		return -EROFS;
- 
-+	/*
-+	 * The write starts beyond EOF: zero the stale tail of the old-EOF
-+	 * folio before budgeting takes ui->ui_mutex. do_readpage() only
-+	 * sanitizes the write folio, not the old-EOF folio.
-+	 */
-+	if (pos > inode->i_size)
-+		ubifs_zero_eof_hole(inode, pos);
-+
- 	/* Try out the fast-path part first */
- 	folio = __filemap_get_folio(mapping, index, FGP_WRITEBEGIN,
- 			mapping_gfp_mask(mapping));
-@@ -1220,6 +1275,10 @@ static int do_setattr(struct ubifs_info *c, struct inode *inode,
- 
- 	if (attr->ia_valid & ATTR_SIZE) {
- 		dbg_gen("size %lld -> %lld", inode->i_size, new_size);
-+
-+		/* Must run before the size change loses the old boundary. */
-+		ubifs_zero_eof_hole(inode, new_size);
-+
- 		truncate_setsize(inode, new_size);
- 	}
- 
-@@ -1494,6 +1553,7 @@ static vm_fault_t ubifs_vm_page_mkwrite(struct vm_fault *vmf)
- 	struct timespec64 now = current_time(inode);
- 	struct ubifs_budget_req req = { .new_page = 1 };
- 	int err, update_time;
-+	loff_t i_size;
- 
- 	dbg_gen("ino %llu, pg %lu, i_size %lld",	inode->i_ino, folio->index,
- 		i_size_read(inode));
-@@ -1553,6 +1613,19 @@ static vm_fault_t ubifs_vm_page_mkwrite(struct vm_fault *vmf)
- 		filemap_dirty_folio(folio->mapping, folio);
- 	}
- 
-+	/*
-+	 * Zero the part of the EOF folio beyond i_size so mmap writes
-+	 * cannot leave a stale tail behind (see ubifs_zero_eof_hole()).
-+	 * For a page-aligned i_size the mkwrite entry check has already
-+	 * returned SIGBUS, so @from is always non-zero here.
-+	 */
-+	i_size = i_size_read(inode);
-+	if (folio->index == (i_size >> PAGE_SHIFT)) {
-+		unsigned int from = i_size & (PAGE_SIZE - 1);
-+
-+		folio_zero_range(folio, from, PAGE_SIZE - from);
-+	}
-+
- 	if (update_time) {
- 		int release;
- 		struct ubifs_inode *ui = ubifs_inode(inode);
--- 
-2.33.0
+This is a *generic* back-end like the function says:
+gpiochip_generic_config() so the GPIO driver can't make
+assumptions about what the pinctrl backend can and
+cannot do. In a new SoC using the same driver the
+pinctrl back-end could be something different.
 
+So this is breaking modularization and encapsulation.
+
+It is better to let the pin controller return -ENOTSUPP
+or whatever is appropriate instead of gating the
+call like this,
+
+Yours,
+Linus Walleij
