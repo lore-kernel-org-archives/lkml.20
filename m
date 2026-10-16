@@ -1,206 +1,413 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECDB83B7B7F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:09:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E980348C6B;
+	Fri, 16 Oct 2026 21:11:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792184998; cv=none; b=pHnjeqdZF6oM5MO0ntXcc2DJdfRmoCO0uDRTnhimGyVPvJND6ZdnNxYEvq0YgP3goa0BmcP9Y3dVD+Cfu62ZOrRF7hujXJIQMLLPBtzcPNDSy3xBecFy2sTy8/CvQfa+XoN1IEHVMlHAhNBr8Ojewr+hhcryewO2eFFlANiVPvc=
+	t=1792185115; cv=none; b=Qg8KtTTHbIscm69sbJrPpk1Wg6fR6ARJYdmn0bcFet1+v5aY94KByv3eW7qCznN0NIRgYtho46ja1o7GClXKR/Vk+2Po3yNGao9qSuQhK9y7B7YevUSWHHZ57MWJ5UG9gVJ3GNpDk5LJgWc3vG3SPMOt8wud6vNvwS4dsBcvjzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792184998; c=relaxed/simple;
-	bh=T866gN9ytWDgY0fuxIWfToDyoTMPhkGUWXJZyhl3M4Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P44HGMCOI9ufHgbdrHT2LiWEKgoh0spqg/W1awwLjsrGZA7MxF+K4LKW4r5aNvfMeqHa7b2F8AghXVMuNOvcdXnjNglqxwb9NuJbu7RJVHLkRTmTTvi2pDKWFCbu6MnZmMQi2FVeKoe8b4zD+PVMp7hNq+Zlu1YfRtGy3Vy7iAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YLiNTO4R; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HFqg+G5x; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792185115; c=relaxed/simple;
+	bh=v5IRc2wXkJvb9zEx9NMmKT+hK8jhjvsVg6/IJYj+gEA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Zu3ehefq6L5t3pE7IUA6vQiJz2H5rJaJLhPGVDOh9zsoo3FyeHGmjBqS+Uym+zzhZE+cmfmKqxHdNnzEYSZtDI9cq+QH8fOCKKrL5Hfpilv9ccr+F0a0jRJ8foaJFy3OVTE/32IqUv3RNxwbbY+f91ACFH1hLGm1hPum6fp/evA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ibfn3GXR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YLiNTO4R";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HFqg+G5x"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792184994;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h0qksnsO83V4fm5WG/41JKqf/QyvNW2rkxwNDprb2Xo=;
-	b=YLiNTO4RMHjyXshECrUDaVaIXn90681npsI0/76SBdqYFeZMvJsXmoIU1ex58hIbmLhAIv
-	V4FVEwQtr2S0VRQN91Ec9zfJXQubIX5lCTDVCmcecouL58fCK1Lwl/sx3DWfptQJWb8p0y
-	iMEe8z6LHlbUnUIYD9c53bS1vyeGplM=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-5-3xeiXdSONuWhc-KYKaocvQ-1; Fri, 16 Oct 2026 21:09:47 +0000
-X-MC-Unique: 3xeiXdSONuWhc-KYKaocvQ-1
-X-Mimecast-MFC-AGG-ID: 3xeiXdSONuWhc-KYKaocvQ_1792184986
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a028616bebso2182685e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:09:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792184986; x=1792789786; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h0qksnsO83V4fm5WG/41JKqf/QyvNW2rkxwNDprb2Xo=;
-        b=HFqg+G5xxxsoqSsmQ8R2QLuvkg/PYeqtHAhJlwARpEO0fWF8WwKMsw1O8Yq+5HnQfj
-         LMEnrP9PgIBiedtXtR8u9Xib7UIoCJDrmNGreklUsnpiBPc5yatGjX8hKZUJvsg0NwAY
-         qkp/DUuKK0DZmTxuEZVR9xCRHsnRCXOOeCokmJTlZHl7rdTKVhbfi/o9Q4kQ9gvO0ODG
-         dxmCzNUXPlsx4ksTdxo/kHG0O8BBfLr+OXLMnmoXMbblFdCLP+7hy8kShwrNnwHVUKgc
-         yixcnIQp+2+W1xXlWrVRFycHRzp2AicaPgaVGON2+qj2Lr5/LLaaFbPLW18tW+Ev7kcy
-         Pdqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792184986; x=1792789786;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h0qksnsO83V4fm5WG/41JKqf/QyvNW2rkxwNDprb2Xo=;
-        b=c5qMmQLKVnrwWGTPrYoo5H6q0Ax/fH6e4S0iKmiWBryk/pwddaSNWNqLSvTuHufY/I
-         oFZ0izs5EPhrZ177oTfVq8ulgma0amq81JYtgotLZVhhVXfFU96NOLuKpz+Nq9qvYs4c
-         a+rKrkYn5J9zzf0Gjj6isFANzjsRARCVtqYdXGicwKQeyYWl8kC0QhVKgvLisDfKXkHO
-         qvjBxuInqXCBbCDxveB01zWKglSwgkZsKg2203DRXtWyXam3/bklcL9srsyChC7mVkvS
-         QdHHVv3WWoydXCZoqB/XkAdfdCJ+Wtb4KIbjpfXAyxDmRMrwzpqxM3JA/sEOAWv2MHCK
-         +Lhg==
-X-Forwarded-Encrypted: i=1; AKwUvBwlBOrV9gt1XWgmNdIXTtITRmopcTX6tBsTIsWEhIOHl9TF8L6U8KhDo2JWhkf/7YszrKKfVQcRJE/xBUE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLpelR8wC4la04oXFvaxf1ihIeI8zasyM1U4DYS0LZOZCYAVB3c
-	CxEmvdY9mN8gN+aRQo7a8wFcyJ7eiBAFERE00CguF4M8rDlDRxsigjxvMrFYzSVIYgWswLro1+s
-	BVIs8AaYeO47VETaGs6htX8Ux0ywx9rma2bJK9R1zRdyaRLTedg4tjoAMeAhubrwIFEyRzFZKrQ
-	==
-X-Gm-Gg: AYBFou29kuWJCNPNXCcfNlntoBFtGhJ5N88HATeMQd+ccY/UwkV5wrRzZMrxWLecPH8
-	8mV9EepxheKQNQgfnOJRfPiZDlD6ojzdQ7K3bxA/0ozpm2jdLV5Yn7MZzBSrmPITGp/1jLzQnPI
-	4eG8ULRMOG8aVpt/sFiLppasjTaL/HnkAjhs/91OoQJnTXvZKeLYLr/KJ6C9VV/iwxcclH9vnup
-	AZFkWc7OBnuFILyanPr17g5R1CadLlpaCT1F7m3dp5FO+RQ3ffc5A625hiphalmcaOCfQLhS+JG
-	8P6A+DgTSGeHnMGICOxqDS5JE3Hdeb/VhzsndHItCLBmuOWBynwK4Hpm3EGXuEaym7g+QAFU+1E
-	HSx/wGLq34DPxaXuG29TJzaOlYAJGtJ2IcZ9+CwDEOVb48M0=
-X-Received: by 2002:a05:600c:6217:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4a1d7600654mr22701015e9.22.1792184986451;
-        Fri, 16 Oct 2026 14:09:46 -0700 (PDT)
-X-Received: by 2002:a05:600c:6217:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4a1d7600654mr22700745e9.22.1792184986118;
-        Fri, 16 Oct 2026 14:09:46 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:11aa:87f0:ea69:b2b0:2dae:5ef9? ([2a01:e0a:11aa:87f0:ea69:b2b0:2dae:5ef9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cca26dc8sm57458935e9.3.2026.10.16.14.09.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 14:09:43 -0700 (PDT)
-Message-ID: <8e525023-dc47-416e-a3fe-c5e6c5660ca5@redhat.com>
-Date: Fri, 16 Oct 2026 23:09:32 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ibfn3GXR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15B291F000C4;
+	Fri, 16 Oct 2026 21:11:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792185113;
+	bh=2tEGSeF5PI35Lt2CQPZaEHitbLYXEGdQbg6YAh37VEU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Ibfn3GXRGAzXdkltyjMBNq2ArWdRdSJRJkwjOFbDhecAKm9B4NfzLIgCAF7tvTvLD
+	 lKLsFFfdurC5miZLFn72wsAHygR8YBvo4bhLD/WxeXL0BMsj7nZtqchLbt7WmoXy/j
+	 L2ttbSHVVi9BQhL46o7+hYVQOiFkueoM1kigYhfAxcHaFq/kofNsht9Pci7P1+L1EF
+	 Kt/xthVwWi2solX8hXftLUdleM5XSCRIHsyLUf7qMemM4LQxmUPYHGprIIJsIJlNLW
+	 l8hqYUcg7OUV9/NVb8biL/yXAZwWSw4sSPBDlNQSgm7ZQxaPVrgIaPd8ULBYiPADhe
+	 AM1ZgFHyTzPfg==
+Date: Fri, 16 Oct 2026 23:11:48 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, skhan@linuxfoundation.org,
+ rdunlap@infradead.org, mchehab@kernel.org, paulmck@kernel.org,
+ linusw@kernel.org, Julia.Lawall@inria.fr, gary@garyguo.net,
+ rmk+kernel@armlinux.org.uk, hemanth.selam@gmail.com
+Subject: Re: [PATCH] docs: kdoc: handle TRACE_EVENT_FN() family in
+ tracepoint parser
+Message-ID: <20261016231148.7b5a88ef@foz.lan>
+In-Reply-To: <20261016204335.46241-1-emmaonana18@gmail.com>
+References: <20261015190639.7b722dd7@foz.lan>
+	<20261016204335.46241-1-emmaonana18@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/panic: Fix kmsg screen hang on a long log line
-To: Devin Wittmayer <lucid_duck@justthetip.ca>,
- Javier Martinez Canillas <javierm@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- luyuantao <luyuantao01@163.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261016052722.60051-1-lucid_duck@justthetip.ca>
-Content-Language: en-US, fr
-From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <20261016052722.60051-1-lucid_duck@justthetip.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 10/16/26 07:27, Devin Wittmayer wrote:
-> The kmsg panic screen reads the log back one chunk at a time. A record
-> that does not fit in a chunk comes back empty without moving on, so the
-> screen asks for it again forever and the panic never finishes. Every
-> oops logs the list of loaded modules, and on my machine that list does
-> not fit.
+On Fri, 16 Oct 2026 21:43:35 +0100
+Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com> wrote:
+
+> kernel-doc fails to parse tracepoint declarations that use
+> TRACE_EVENT_FN(), e.g. gpu_power_status:
 > 
-> Read into a buffer the size printk formats one record into, and stop if
-> a read still comes back empty.
-
-Thanks for investigating this issue.
-That looks good to me.
-
-Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
-
-I'm sorry, I probably forgot to push [1], so I will push both patches 
-next week if no other comments.
-
-[1] https://lore.kernel.org/all/20260126100732.365-1-luyuantao01@163.com/
-
-Best regards,
-
--- 
-
-Jocelyn
+>   drivers/gpu/drm/panthor/panthor_trace.h:28 ... Unrecognized
+>   tracepoint format ...
+>   ... expecting prototype for gpu_power_status(). Prototype was for
+>   TRACE_EVENT_FN() instead
 > 
-> Fixes: 54034bebb22f ("drm/panic: Add a kmsg panic screen")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+> tracepoint_munge() only matches TRACE_EVENT(), so the macro name is
+> kept as the prototype and the TP_PROTO() arguments leak into the
+> parameter list as garbage.
+> 
+> Match TRACE_EVENT_FN(), TRACE_EVENT_FN_COND(),
+> TRACE_EVENT_CONDITION() and TRACE_EVENT_SYSCALL() the same way as
+> TRACE_EVENT()
+> 
+> Add a regression test for the gpu_power_status declaration.
+> 
+> Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
 > ---
-> I usually work on Wi-Fi drivers, so this is new ground for me. While I
-> was testing a fix for a Wi-Fi driver crash, my test machine froze after
-> the crash where it should have rebooted, and stayed that way until I
-> power cycled it. Working out why led me here.
+> Move tracepoint handling to xforms_lists, together with SYSCALL_DEFINE
+> as requested by Mauro.
 > 
-> To reproduce, with the kmsg screen and panic=10 on a display driver with
-> panic support, as root:
-> 
->    printf "%600s\n" "" | tr ' ' x > /dev/kmsg
->    echo c > /proc/sysrq-trigger
-> 
-> Before this patch the panic never gets to its reboot.
-> 
-> QEMU, 10 runs each, on drm-misc-fixes and drm-misc-next (bochs) and
-> 6.12.113 (simpledrm):
-> 
->                                       before    after
->    one 600 char line                  hangs     reboots
->    same, then 400 short lines         hangs     reboots
->    one record of 300 short lines      hangs     reboots
->    oops with 24 modules loaded        hangs     reboots
->    plain panic                        reboots   reboots
-> 
-> amdgpu, 2 runs each, Arch's source and config, before and after:
-> 
->    6.18.52, the two commands above    hangs     reboots
->    6.18.52, one record of 300 lines   hangs     reboots
->    6.18.52, oops                      hangs     reboots
->    7.2.6, kmsg screen set, oops       hangs     reboots
-> 
-> luyuantao's patch [1] stops reading once the screen is full, so it only
-> helps the second row. With both on drm-misc-fixes, every row reboots.
-> 
-> The buffer is shared, like the QR code buffers; a panic only draws from
-> one CPU. In drm-misc-next this code is in drm_panic_helper.c, where the
-> same change was tested.
-> 
-> [1] https://lore.kernel.org/all/20260126100732.365-1-luyuantao01@163.com/
-> 
->   drivers/gpu/drm/drm_panic.c | 7 ++++++-
->   1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-> index e576c4791861d..29b1487de7ae0 100644
-> --- a/drivers/gpu/drm/drm_panic.c
-> +++ b/drivers/gpu/drm/drm_panic.c
-> @@ -556,7 +556,8 @@ static void draw_panic_screen_kmsg(struct drm_scanout_buffer *sb)
->   	const struct font_desc *font = get_default_font(sb->width, sb->height, NULL, NULL);
->   	struct drm_rect r_screen = DRM_RECT_INIT(0, 0, sb->width, sb->height);
->   	struct kmsg_dump_iter iter;
-> -	char kmsg_buf[512];
-> +	/* the size printk formats one record into, too big for the stack */
-> +	static char kmsg_buf[2048];
->   	size_t kmsg_len;
->   	struct drm_panic_line line;
->   	int yoffset;
-> @@ -574,6 +575,10 @@ static void draw_panic_screen_kmsg(struct drm_scanout_buffer *sb)
->   		char *start;
->   		char *end;
->   
-> +		/* a record that does not fit comes back empty, every time */
-> +		if (!kmsg_len)
-> +			break;
-> +
->   		/* ignore terminating NUL and newline */
->   		start = kmsg_buf + kmsg_len - 2;
->   		end = kmsg_buf + kmsg_len - 1;
-> 
-> base-commit: 324fac81f365fc123247f9c8a52cb66ebd93b5e5
+> Question for Mauro: is adding syscall_munge() and
+> tracepoint_munge() in apply() what you meant, or
+> did you want a pure CMatch? 
 
+I meant a pure CMatch. One of the hardest things to maintain at
+kernel-doc are those complex regex logic spread all over it. The
+goal for CMatch and the C tokenizer is to avoid adding more - and 
+instead - to reduce the existing ones over time.
+
+In the specific case of commas, the tokenizer, ideally double commas
+should be generating a singe STRING token and single commas a single
+CHAR.
+
+> A pure CMatch looks
+> like it would need a tokenizer fix for nested
+> commas, so I'd prefer to keep it this way unless
+> you want the pure CMatch rework.
+
+If the nested commas logic there is broken, indeed it needs a fix, on a 
+separate patch.
+
+> 
+>  tools/lib/python/kdoc/kdoc_parser.py  | 110 ++++++--------------------
+>  tools/lib/python/kdoc/xforms_lists.py | 109 +++++++++++++++++++++++++
+>  tools/unittests/test_kdoc_parser.py   |  28 +++++++
+>  3 files changed, 159 insertions(+), 88 deletions(-)
+> 
+> diff --git a/tools/lib/python/kdoc/kdoc_parser.py b/tools/lib/python/kdoc/kdoc_parser.py
+> index 80d4245acd17..a274e06b9f23 100644
+> --- a/tools/lib/python/kdoc/kdoc_parser.py
+> +++ b/tools/lib/python/kdoc/kdoc_parser.py
+> @@ -1059,8 +1059,27 @@ class KernelDoc:
+>              #
+>              # Apply the initial transformations.
+>              #
+> +            # This also handles SYSCALL_DEFINE*() and TRACE_EVENT*()/
+> +            # DEFINE_EVENT*() via CTransforms (see xforms_lists.py).
+> +            #
+>              prototype = self.xforms.apply("func", prototype)
+>  
+> +            #
+> +            # Tracepoints are documented with their short name, e.g.
+> +            # gpu_power_status for trace_gpu_power_status().
+> +            # Accept the short name and store the full trace_ name.
+> +            #
+> +            r = KernRe(r'\btrace_(\w+)')
+> +            if r.search(prototype):
+> +                if self.entry.identifier == r.group(1):
+> +                    self.entry.identifier = f"trace_{self.entry.identifier}"
+> +
+> +
+> +            r = KernRe(r'TRACE_EVENT|DEFINE_EVENT|DEFINE_SINGLE_EVENT')
+> +            if r.search(prototype):
+> +                self.emit_msg(ln,
+> +                              f"Unrecognized tracepoint format:\n{prototype}\n")
+> +
+>          # Yes, this truly is vile.  We are looking for:
+>          # 1. Return type (may be nothing if we're looking at a macro)
+>          # 2. Function name
+> @@ -1493,82 +1512,6 @@ class KernelDoc:
+>              self.entry.add_text(doc_content.group(1))
+>          # else ... ??
+>  
+> -    def syscall_munge(self, ln, proto):         # pylint: disable=W0613
+> -        """
+> -        Handle syscall definitions.
+> -        """
+> -
+> -        is_void = False
+> -
+> -        # Strip newlines/CR's
+> -        proto = re.sub(r'[\r\n]+', ' ', proto)
+> -
+> -        # Check if it's a SYSCALL_DEFINE0
+> -        if 'SYSCALL_DEFINE0' in proto:
+> -            is_void = True
+> -
+> -        # Replace SYSCALL_DEFINE with correct return type & function name
+> -        proto = KernRe(r'SYSCALL_DEFINE.*\(').sub('long sys_', proto)
+> -
+> -        r = KernRe(r'long\s+(sys_.*?),')
+> -        if r.search(proto):
+> -            proto = KernRe(',').sub('(', proto, count=1)
+> -        elif is_void:
+> -            proto = KernRe(r'\)').sub('(void)', proto, count=1)
+> -
+> -        # Now delete all of the odd-numbered commas in the proto
+> -        # so that argument types & names don't have a comma between them
+> -        count = 0
+> -        length = len(proto)
+> -
+> -        if is_void:
+> -            length = 0  # skip the loop if is_void
+> -
+> -        for ix in range(length):
+> -            if proto[ix] == ',':
+> -                count += 1
+> -                if count % 2 == 1:
+> -                    proto = proto[:ix] + ' ' + proto[ix + 1:]
+> -
+> -        return proto
+> -
+> -    def tracepoint_munge(self, ln, proto):
+> -        """
+> -        Handle tracepoint definitions.
+> -        """
+> -
+> -        tracepointname = None
+> -        tracepointargs = None
+> -
+> -        # Match tracepoint name based on different patterns
+> -        r = KernRe(r'TRACE_EVENT\((.*?),')
+> -        if r.search(proto):
+> -            tracepointname = r.group(1)
+> -
+> -        r = KernRe(r'DEFINE_SINGLE_EVENT\((.*?),')
+> -        if r.search(proto):
+> -            tracepointname = r.group(1)
+> -
+> -        r = KernRe(r'DEFINE_EVENT\((.*?),(.*?),')
+> -        if r.search(proto):
+> -            tracepointname = r.group(2)
+> -
+> -        if tracepointname:
+> -            tracepointname = tracepointname.lstrip()
+> -
+> -        r = KernRe(r'TP_PROTO\((.*?)\)')
+> -        if r.search(proto):
+> -            tracepointargs = r.group(1)
+> -
+> -        if not tracepointname or not tracepointargs:
+> -            self.emit_msg(ln,
+> -                          f"Unrecognized tracepoint format:\n{proto}\n")
+> -        else:
+> -            proto = f"static inline void trace_{tracepointname}({tracepointargs})"
+> -            self.entry.identifier = f"trace_{self.entry.identifier}"
+> -
+> -        return proto
+> -
+>      def process_proto_function(self, ln, line, source):
+>          """Ancillary routine to process a function prototype."""
+>  
+> @@ -1598,18 +1541,9 @@ class KernelDoc:
+>              r = KernRe(r'^(\S+\s+)\(\s*\*(\S+)\)')
+>              self.entry.prototype = r.sub(r'\1\2', self.entry.prototype)
+>              #
+> -            # Handle special declaration syntaxes
+> -            #
+> -            if 'SYSCALL_DEFINE' in self.entry.prototype:
+> -                self.entry.prototype = self.syscall_munge(ln,
+> -                                                          self.entry.prototype)
+> -            else:
+> -                r = KernRe(r'TRACE_EVENT|DEFINE_EVENT|DEFINE_SINGLE_EVENT')
+> -                if r.search(self.entry.prototype):
+> -                    self.entry.prototype = self.tracepoint_munge(ln,
+> -                                                                 self.entry.prototype)
+> -            #
+> -            # ... and we're done
+> +            # ... and we're done. SYSCALL_DEFINE*() and TRACE_EVENT*()/
+> +            # DEFINE_EVENT*() are handled via xforms_lists.CTransforms
+> +            # inside dump_function().
+>              #
+>              self.dump_function(ln, self.entry.prototype, source)
+>              self.reset_state(ln)
+> diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
+> index 15f6f21c7a9e..aa82dc927ef1 100644
+> --- a/tools/lib/python/kdoc/xforms_lists.py
+> +++ b/tools/lib/python/kdoc/xforms_lists.py
+> @@ -17,6 +17,98 @@ class CTransforms:
+>      into something we can parse and generate kdoc for.
+>      """
+>  
+> +    @staticmethod
+> +    def syscall_munge(proto):
+> +        """
+> +        Handle syscall definitions.
+> +
+> +        Turns SYSCALL_DEFINE*() into a plain C prototype, e.g.::
+> +
+> +            SYSCALL_DEFINE3(setpriority, int, which, int, who, int, niceval)
+> +            -> long sys_setpriority(int which, int who, int niceval)
+> +        """
+> +
+> +        is_void = False
+> +
+> +        # Strip newlines/CR's
+> +        proto = re.sub(r'[\r\n]+', ' ', proto)
+> +
+> +        # Check if it's a SYSCALL_DEFINE0
+> +        if 'SYSCALL_DEFINE0' in proto:
+> +            is_void = True
+> +
+> +        # Replace SYSCALL_DEFINE with correct return type & function name
+> +        proto = KernRe(r'SYSCALL_DEFINE.*\(').sub('long sys_', proto)
+> +
+> +        r = KernRe(r'long\s+(sys_.*?),')
+> +        if r.search(proto):
+> +            proto = KernRe(',').sub('(', proto, count=1)
+> +        elif is_void:
+> +            proto = KernRe(r'\)').sub('(void)', proto, count=1)
+> +
+> +        # Now delete all of the odd-numbered commas in the proto
+> +        # so that argument types & names don't have a comma between them
+> +        count = 0
+> +        length = len(proto)
+> +
+> +        if is_void:
+> +            length = 0  # skip the loop if is_void
+> +
+> +        for ix in range(length):
+> +            if proto[ix] == ',':
+> +                count += 1
+> +                if count % 2 == 1:
+> +                    proto = proto[:ix] + ' ' + proto[ix + 1:]
+> +
+> +        return proto
+> +
+> +    @staticmethod
+> +    def tracepoint_munge(proto):
+> +        """
+> +        Handle tracepoint definitions.
+> +
+> +        Turns TRACE_EVENT*()/DEFINE_EVENT*() into a plain C prototype,
+> +        e.g.::
+> +
+> +            TRACE_EVENT_FN(gpu_power_status, TP_PROTO(...), ...)
+> +            -> static inline void trace_gpu_power_status(...)
+> +
+> +        Returns the original string if the tracepoint format is not
+> +        recognized, letting the caller emit a warning.
+> +        """
+> +
+> +        tracepointname = None
+> +        tracepointargs = None
+> +
+> +        # Match tracepoint name based on different patterns.
+> +        # NOTE: DEFINE_EVENT*() takes a template name first, so the
+> +        # event name is the second argument.
+> +        for pattern, group in [
+> +            (r'TRACE_EVENT\((.*?),', 1),
+> +            (r'TRACE_EVENT_FN\((.*?),', 1),
+> +            (r'TRACE_EVENT_FN_COND\((.*?),', 1),
+> +            (r'TRACE_EVENT_CONDITION\((.*?),', 1),
+> +            (r'TRACE_EVENT_SYSCALL\((.*?),', 1),
+> +            (r'DEFINE_SINGLE_EVENT\((.*?),', 1),
+> +            (r'DEFINE_EVENT\((.*?),(.*?),', 2),
+> +        ]:
+> +            r = KernRe(pattern)
+> +            if r.search(proto):
+> +                tracepointname = r.group(group)
+> +
+> +        if tracepointname:
+> +            tracepointname = tracepointname.lstrip()
+> +
+> +        r = KernRe(r'TP_PROTO\((.*?)\)')
+> +        if r.search(proto):
+> +            tracepointargs = r.group(1)
+> +
+> +        if not tracepointname or not tracepointargs:
+> +            return proto
+> +
+> +        return f"static inline void trace_{tracepointname}({tracepointargs})"
+> +
+> +
+>      #
+>      # NOTE:
+>      #      Due to performance reasons, place CMatch rules before KernRe,
+> @@ -147,6 +239,23 @@ class CTransforms:
+>          if xforms_type not in self.xforms:
+>              return source
+>  
+> +        #
+> +        # Handle special declaration syntaxes first, so that the
+> +        # declarative transforms below see plain C prototypes.
+> +        #
+> +        if xforms_type == "func":
+> +            source_str = str(source)
+> +            if 'SYSCALL_DEFINE' in source_str:
+> +                source_str = self.syscall_munge(source_str)
+> +                source = source_str
+> +            else:
+> +                r = KernRe(r'TRACE_EVENT|DEFINE_EVENT|DEFINE_SINGLE_EVENT')
+> +                if r.search(source_str):
+> +                    munged = self.tracepoint_munge(source_str)
+> +                    # tracepoint_munge() returns the input unchanged
+> +                    # when the format is not recognized.
+> +                    source = munged
+> +
+>          if isinstance(source, str):
+>              source = CTokenizer(source)
+>  
+> diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
+> index 4baa78ca02b3..04dafae412e4 100755
+> --- a/tools/unittests/test_kdoc_parser.py
+> +++ b/tools/unittests/test_kdoc_parser.py
+> @@ -444,6 +444,34 @@ class TestContextLockStruct(GenerateKdocItem):
+>          self.assertEqual(entries[0].name, "debugfs_cancellation")
+>          self.assertEqual(entries[0].warnings, [])
+>  
+> +class TestTraceEventFn(GenerateKdocItem):
+> +    def test_trace_event_fn_declaration(self):
+> +        source = """
+> +            /**
+> +             * gpu_power_status - called when hardware turns on or off
+> +             * @dev: pointer to device
+> +             * @shader_bitmap: bitmap
+> +             */
+> +            TRACE_EVENT_FN(gpu_power_status,
+> +                TP_PROTO(const struct device *dev, u64 shader_bitmap),
+> +                TP_ARGS(dev, shader_bitmap),
+> +                TP_STRUCT__entry(__field(u64, shader_bitmap)),
+> +                TP_fast_assign(__entry->shader_bitmap = shader_bitmap;),
+> +                TP_printk("%s", __get_str(dev_name)),
+> +                my_register, my_unregister
+> +            );
+> +        """
+> +
+> +        kernel_doc = KernelDoc(self.config, "test.c", self.xforms)
+> +        patcher = patch('builtins.open', new_callable=mock_open,
+> +                        read_data=dedent(source))
+> +        with patcher:
+> +            _, entries = kernel_doc.parse_kdoc()
+> +
+> +        self.assertEqual(len(entries), 1)
+> +        self.assertEqual(entries[0].name, "trace_gpu_power_status")
+> +        self.assertEqual(entries[0].warnings, [])
+> +
+>  #
+>  # Class and logic to create dynamic tests from YAML
+>  #
+
+
+
+Thanks,
+Mauro
