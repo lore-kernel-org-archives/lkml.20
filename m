@@ -1,124 +1,102 @@
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CD64DB547
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9374FDE7B;
+	Fri, 16 Oct 2026 15:40:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792165229; cv=none; b=IkagG3H+DPox5JhA0uQUA0tp6e7EPx7bX1W8IXl/wxPYwF0kOOlKB9BzeQatt6GSWMUigIkCWYZx1YUVnRy0afTqVYiJwFpoY2aexGpqvJOcuPOwCopov8ufOaXNXGFEVPa6M5lXNFUyEZnlr1Ja2rENev2pegUj7Jn2ZbFMcUc=
+	t=1792165253; cv=none; b=tDsQ+IKf9xTiE5EW6LhDp0gd6v4WVnI951BeVFM9cWj5ppOkqY9HLVEWP/3PLYGx3JwudqAyhxu00qjsgzFjFDWVeNoHESP4Jn6SsmxzSFoDLN2FPmHQyvNBMvOTFnKqY2O4cqBCqKt7GBedqSO1/inalrqjSlgkLWTqa/Estv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792165229; c=relaxed/simple;
-	bh=gDjFUhDwJ4sT9CgsizLZoWRdJEdTSPq77NqXBJWa+f0=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=Di/9mL9j//SQdffhvQAK050aqiG2AT2D6oQJdS+lZtWEDE3JT2z3OkBOqFNOK6t19To3M+GBlonbiAo9qRWPRIjPpMrgkU4Q85QJQsCWg+qaAkBoOtpZnRjKY9wnfzfQztCIyCguKANVLokpLWvIulqBWzon5IKqDubgh2Ea1ao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
-Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 69GFeJku088831
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:40:19 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
-	(authenticated bits=0)
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 69GFeIXJ088828
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO)
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:40:19 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <6efed2d0-fe66-4d29-876b-fd3b74abaa70@I-love.SAKURA.ne.jp>
-Date: Sat, 17 Oct 2026 00:40:14 +0900
+	s=arc-20240116; t=1792165253; c=relaxed/simple;
+	bh=PWKkcdsBBgYQxSU2/GWGHlKuFkpH4PAl87IVc32ausk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BZHJmcQH3uVe+vltRAKPfl7HHjmCn7nmKIB9rHgsQM6wZ9GFfkyRD4R2EEM/IKBQtjleZsp5kW1mtAqNGnYaCOoxsYi0XwSR/44jmnENLFbfgFHugHfPr6/XuN4wGRHYHspNIftKTGqBHMVsWjvMnLRHeglUs4PtYJz9T4Gkk9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=nW8dNfcx; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="nW8dNfcx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=zV1tkuQVhB7asiK+J7N184oVAmpF7qz9rFGuGv/mKyw=; b=nW8dNfcxTDYiFECGGfWoIX/Ku7
+	sNm/7PDt5sXWvnWyXzhpOQ2gJNbHyuDrk9MvdSwog/lwmUtPRdYxf/cY8s5vrupvCYCd5nLhfXZkc
+	T+HCLAIsl4EYA1mG6U13D3Fg74Ln3knSk4rATAMC7bC7iRz98pywJkmpdcpg8OX3tMa0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xHk2y-00BArn-3k; Fri, 16 Oct 2026 17:40:40 +0200
+Date: Fri, 16 Oct 2026 17:40:40 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Biao Huang <biao.huang@mediatek.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Eric Dumazet <edumazet@kernel.org>, kernel@collabora.com,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH net-next v3 2/9] dt-bindings: net: mediatek-dwmac: add
+ support for MT8189 SoC
+Message-ID: <b4950f82-0163-4482-9799-a5e3c6eb5964@lunn.ch>
+References: <20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com>
+ <20261016-dwmac-mediatek-mt8189-v3-2-25daf2bbcf35@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH v7] block: avoid long sync_blockdev() under disk->open_mutex
- during parallel close
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-To: LKML <linux-kernel@vger.kernel.org>
-References: <17fb5b42-4f54-41db-8bcb-2c13e05c6137@I-love.SAKURA.ne.jp>
- <d52496da-fb19-4b60-91bc-76402822c6b7@I-love.SAKURA.ne.jp>
- <450c6828-9187-487e-a219-f64e56d34fe7@I-love.SAKURA.ne.jp>
- <f9f521a6-2132-4eb7-ad74-28363366e6a8@I-love.SAKURA.ne.jp>
- <8d188283-b5c7-4b16-95ee-6d985472c120@I-love.SAKURA.ne.jp>
- <06cd882d-7f4e-4697-b6b1-ba140f8ad4dd@I-love.SAKURA.ne.jp>
-Content-Language: en-US
-In-Reply-To: <06cd882d-7f4e-4697-b6b1-ba140f8ad4dd@I-love.SAKURA.ne.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Anti-Virus-Server: fsav412.rs.sakura.ne.jp
-X-Virus-Status: clean
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-2-25daf2bbcf35@collabora.com>
 
-Commit b849dd84b6cc ("bdev: Reduce time holding bd_mutex in sync in
-blkdev_close()") introduced a sync_blockdev() call immediately before
-holding disk->open_mutex. But this check was racy and best-effort basis.
+> Finally, update "mediatek,rx-delay-ps" and "mediatek,tx-delay-ps" property
+> description to add MT8189 RX/TX delay stage divider values, as they
+> differ from existing supported SoC.
 
-If more than one thread concurrently called bdev_release() and saw
-atomic_read(&bdev->bd_openers) > 1, the thread which actually hit
-the atomic_dec_and_test(&bdev->bd_openers) condition will call
-sync_blockdev() from blkdev_flush_mapping() (which could take several
-minutes) with disk->open_mutex held.
+These should be mark deprecated and the standard rx-internal-delay-ps
+and tx-internal-delay-ps used in there place for new devices.
 
-Kill this race window and make sync_blockdev() always be called before
-holding disk->open_mutex, by using a counter that tracks how many threads
-are calling sync_blockdev() from bdev_release() without disk->open_mutex
-held.
+> @@ -86,8 +85,10 @@ properties:
+>        or will round down. Range 0~31*170.
+>        For MT2712 RMII/MII interface, Allowed value need to be a multiple of 550,
+>        or will round down. Range 0~31*550.
+> -      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a multiple of 290,
+> -      or will round down. Range 0~31*290.
+> +      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a
+> +      multiple of 290, or will round down. Range 0~31*290.
+> +      For MT8189 RGMII/RMII/MII interface, Allowed value need to
+> +      be a multiple of 180, or will round down. Range 0~31*180.
 
-Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
----
- block/bdev.c              | 18 +++++++++++++++---
- include/linux/blk_types.h |  1 +
- 2 files changed, 16 insertions(+), 3 deletions(-)
+Please make this:
 
-diff --git a/block/bdev.c b/block/bdev.c
-index cd8323083740..cc9f66fd9d6b 100644
---- a/block/bdev.c
-+++ b/block/bdev.c
-@@ -1150,6 +1150,17 @@ static inline void bd_yield_claim(struct file *bdev_file)
- 		bd_end_claim(bdev, holder);
- }
- 
-+static inline void bd_early_sync(struct gendisk *disk, struct block_device *bdev)
-+{
-+	if (atomic_read(&bdev->bd_openers) == 1 + bdev->bd_closers) {
-+		bdev->bd_closers++;
-+		mutex_unlock(&disk->open_mutex);
-+		sync_blockdev(bdev);
-+		mutex_lock(&disk->open_mutex);
-+		bdev->bd_closers--;
-+	}
-+}
-+
- void bdev_release(struct file *bdev_file)
- {
- 	struct block_device *bdev = file_bdev(bdev_file);
-@@ -1167,10 +1178,11 @@ void bdev_release(struct file *bdev_file)
- 	 * of the world and we want to avoid long (could be several minute)
- 	 * syncs while holding the mutex.
- 	 */
--	if (atomic_read(&bdev->bd_openers) == 1)
--		sync_blockdev(bdev);
--
- 	mutex_lock(&disk->open_mutex);
-+	bd_early_sync(disk, bdev);
-+	if (bdev_is_partition(bdev))
-+		bd_early_sync(disk, bdev_whole(bdev));
-+
- 	bdev_yield_write_access(bdev_file);
- 
- 	if (holder)
-diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-index 98e21b4cbf32..04d378818c76 100644
---- a/include/linux/blk_types.h
-+++ b/include/linux/blk_types.h
-@@ -74,6 +74,7 @@ struct block_device {
- #ifdef CONFIG_SECURITY
- 	void			*bd_security;
- #endif
-+	int			bd_closers;
- 	/*
- 	 * keep this out-of-line as it's both big and not needed in the fast
- 	 * path
--- 
-2.56.0
+For MT8189 RGMII/RMII/MII interface, this property is not used, the
+standard tx-internal-delay-ps should be used instead.
+
+> @@ -96,8 +97,10 @@ properties:
+>        or will round down. Range 0~31*170.
+>        For MT2712 RMII/MII interface, Allowed value need to be a multiple of 550,
+>        or will round down. Range 0~31*550.
+> -      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a multiple
+> -      of 290, or will round down. Range 0~31*290.
+> +      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a
+> +      multiple of 290, or will round down. Range 0~31*290.
+> +      For MT8189 RGMII/RMII/MII interface, Allowed value need to
+> +      be a multiple of 180, or will round down. Range 0~31*180.
+
+Same here.
+
+     Andrew
