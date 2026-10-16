@@ -1,44 +1,44 @@
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.185])
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4BB84D797E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:37:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.185
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8362470EA0
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:37:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161445; cv=none; b=F6O7K/70WRKRQmpStVdIdnjJGxtrJB988amL3m6ehdtEjWLkWAVa3qCd+RduI8ulQDGJN23AGocsB2xUiVNKVEEPujglgP7mNni0sHrSL0k8C+T8RncgdGKXTM0cByh5jUb/EWfawHffuO//6q2FrooTe/qFohnwmZrx7/S7ibk=
+	t=1792161451; cv=none; b=nS7nBVC4PIyMayZOObz5+2f0Zf99BhUZDZo20lFa1M0as51pB/qoFi/Cy73CfCAZgTwfpsutqmknUMgokKVFjpIKZin+tnF/cWda41BuN/4X52s+EK/R7SrebcTLSy70WxvNiEK7qBwpIjy1OCbOVEZ34LIktmXdhjl90QYVJow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161445; c=relaxed/simple;
-	bh=db3t3SLMaE5wUMdZy9nxNXDoVE66uYdw2Xc3Fqc26UA=;
+	s=arc-20240116; t=1792161451; c=relaxed/simple;
+	bh=knN/WO8T2DJVGdQnjMzzoMHPSNEorim/xkjdAhCKYg8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tvN6a6/XEWuUmyq2rk7kYa6b+jyjXeISGN7u1e9Rfky2jeZpWAerELIHeOhwi9ErehlXQPON0y7a1CAaZE9XUJAOF1/wODItWNK9KHDHOpEGwQOdwFKyibq+LatR4/PslywWegLW+i5MutJaznMv1zYEgbIf47QnCToU1pmaH0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=n3CyEnHV; arc=none smtp.client-ip=195.121.94.185
+	 MIME-Version; b=kEIdbsxqDe/dB35fbkOlFsRpOqDgVn6/2//yOJ2pviLbyh4NnePvy5NQNPdLlL/JBF5W3WLwCACyUwdQz0MYezsVvHmN28XHwtwVCh9IoZ5p18Rt4ozie8bVsVCIWLSM+GEglaQOGXZ0wFn6vNyDEFiQLHGUtgSuSKhMez1crK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=I0qauHB0; arc=none smtp.client-ip=195.121.94.183
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="n3CyEnHV"
-X-KPN-MessageId: 146e1159-c96f-11f1-9e93-005056999439
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="I0qauHB0"
+X-KPN-MessageId: 19a1b8ce-c96f-11f1-8f57-005056992ed3
 Received: from smtp.kpnmail.nl (unknown [10.31.155.5])
 	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-	id 146e1159-c96f-11f1-9e93-005056999439;
-	Fri, 16 Oct 2026 16:37:14 +0200 (CEST)
+	id 19a1b8ce-c96f-11f1-8f57-005056992ed3;
+	Fri, 16 Oct 2026 16:37:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xs4all.nl; s=xs4all01;
 	h=mime-version:message-id:date:subject:to:from;
-	bh=D3EEWYYkwC8DyARDmtg/iTxbMv+cBjwnGlGgHxIhuRY=;
-	b=n3CyEnHVoEIj2aRCkMXnA2cZ6PlSJCBQDr/HhWg/OOmf/iLwZBqKAPs1BcY6+a0z76oa3LM8x3cxr
-	 8+tTUCcr12lN/70Rt3P00FeeY1Fk1kEqWJAvVjQ6iCRP1E6zkGlLsMSaP06Tbi2WSGqQ1np40kkit/
-	 trtRPZXBuI9wyo4NegzaaCy9u06vKMQQqzPNFp4ja27D9TCgHTO8vThgpVlG/9GDVooUioqXAbPLcz
-	 lIaIp1kSvxj3Vx4MowbVSdunvcpAp+UEpern4by3kBPLfJJVMpfSg4LwcoPWh0kDnimxvZws5t2wEW
-	 y6amwSiYhtoWB2jSgTS00lUfg1HVeLQ==
-X-KPN-MID: 33|3f2O/EKeGRHyCsYzof/BZFSZ18lEhlVz2DSJJ4Cef49cTBQLCeTY9QrJYqEtpeA
- +0AuSPdRLaI5AUocD86OTK25X6OompI9duRV6DPyQZ+I=
+	bh=Zh+0cDXvPBYGqWRWAkoqsDVPqqGBZbu+XPuazUehe0c=;
+	b=I0qauHB08sX76mkp1m3zKEwNR9GecPA7pLzXyD9LdAe8B+ozbRvQ8Jv1rU2kXl4dMH7u8MbtfUPGi
+	 TweZNDG8TEOdI1/+NUwVLsJVCuZyFwXwxBJrNTfX8f0n38BzCDbRSY1zI6984t6bKc4iYpCoAWY+U5
+	 Pb1h0yTsZjvIer2YNbRA2U2Y8ZdpvfjGWXh3N7d9e+ievaFbrSP88wcPArTqTqhc9m/y1FyOKA0Aos
+	 eIDzEh8ApHj3FcP/8js+/Ul71ZTxyu35AcCcz0HcDbCLbrg0hVZe9kdl0vM3AvAILH5MqjNJxJ3ugZ
+	 JIunhHqdckOUT8ks5nUG48eAOFzxg8w==
+X-KPN-MID: 33|rQUINPHakDusw10tbpHEJzMgI72v1wSdKldnJ1J1vO0ipeLdz9FdZLvDNWppVO8
+ EVlF0wQa/DH2nes5eYHbaHU9MuoDI09ioBuhXuTFmk4w=
 X-KPN-VerifiedSender: Yes
-X-CMASSUN: 33|MBu+FYC3YOBbhhyJF65R8mWgB32WSLOsRiu/ufWj0cMOnp2dyryktJfwDcgZQ0X
- L4VVUv41+D4HOUU5fOW96uA==
+X-CMASSUN: 33|VsIKehK9vLPV5SnugEKHxHU+oe/hxWNwOwBfesGk+cY9mQBBIs4tHRXIvTQeXfH
+ Bt6iqks5v58F8CzRx2zgGGw==
 Received: from daedalus.home (unknown [178.228.137.172])
 	by smtp.xs4all.nl (Halon) with ESMTPSA
-	id 142b6dc5-c96f-11f1-a202-00505699b758;
-	Fri, 16 Oct 2026 16:37:14 +0200 (CEST)
+	id 196720f1-c96f-11f1-a202-00505699b758;
+	Fri, 16 Oct 2026 16:37:23 +0200 (CEST)
 From: Jori Koolstra <jkoolstra@xs4all.nl>
 To: Christian Brauner <brauner@kernel.org>,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -52,9 +52,9 @@ Cc: linux-fsdevel@vger.kernel.org,
 	Amir Goldstein <amir73il@gmail.com>,
 	Aleksa Sarai <cyphar@cyphar.com>,
 	Jori Koolstra <jkoolstra@xs4all.nl>
-Subject: [PATCH v7 07/12] kernfs: hold kernfs_iattr_rwsem when initializing a new inode
-Date: Fri, 16 Oct 2026 16:38:01 +0200
-Message-ID: <20261016143806.2946578-8-jkoolstra@xs4all.nl>
+Subject: [PATCH v7 09/12] vfs: use finish_lookup() helper in __lookup_slow() and lookup_open()
+Date: Fri, 16 Oct 2026 16:38:03 +0200
+Message-ID: <20261016143806.2946578-10-jkoolstra@xs4all.nl>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261016143806.2946578-1-jkoolstra@xs4all.nl>
 References: <20261016143806.2946578-1-jkoolstra@xs4all.nl>
@@ -66,67 +66,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kernfs_refresh_inode() copies the uid, gid, timestamps and nlink of a
-kernfs_node into its VFS inode. Since commit 9caf69614225 ("kernfs:
-Introduce separate rwsem to protect inode attributes.") these are
-protected by kernfs_iattr_rwsem.
+The same code around calling ->lookup() on an in-lookup dentry is
+open-coded in both __lookup_slow() and lookup_open(). lookup_open() is
+becoming quite unwieldy so factor this out.
 
-kernfs_init_inode() calls kernfs_refresh_inode(), but was not converted.
-Its callers in turn hold kernfs_rwsem (kernfs_iop_lookup(),
-kernfs_fill_super()) or no lock at all (__kernfs_fh_to_dentry()),
-neither of which excludes a concurrent
-kernfs_setattr()/kernfs_iop_setattr().
+No functional change intended.
 
-Take kernfs_iattr_rwsem for reading around the refresh in
-kernfs_init_inode(). This nests inside kernfs_rwsem, which matches
-kernfs_link_sibling() and kernfs_unlink_sibling().
-
-Also, kernfs_get_inode() then does not need to hold kernfs_rwsem, so
-drop it from kernfs_fill_super().
-
-Fixes: 9caf69614225 ("kernfs: Introduce separate rwsem to protect inode attributes.")
 Signed-off-by: Jori Koolstra <jkoolstra@xs4all.nl>
 ---
- fs/kernfs/inode.c | 3 ++-
- fs/kernfs/mount.c | 3 ---
- 2 files changed, 2 insertions(+), 4 deletions(-)
+ fs/namei.c | 51 ++++++++++++++++++++++++++++-----------------------
+ 1 file changed, 28 insertions(+), 23 deletions(-)
 
-diff --git a/fs/kernfs/inode.c b/fs/kernfs/inode.c
-index abb286bc3474..83f2007498db 100644
---- a/fs/kernfs/inode.c
-+++ b/fs/kernfs/inode.c
-@@ -204,7 +204,8 @@ static void kernfs_init_inode(struct kernfs_node *kn, struct inode *inode)
- 	inode->i_generation = kernfs_gen(kn);
+diff --git a/fs/namei.c b/fs/namei.c
+index c16150965041..e7d3d28f3fd7 100644
+--- a/fs/namei.c
++++ b/fs/namei.c
+@@ -1889,12 +1889,34 @@ static struct dentry *lookup_fast(struct nameidata *nd)
+ 	return dentry;
+ }
  
- 	set_default_inode_attr(inode, kn->mode);
--	kernfs_refresh_inode(kn, inode);
-+	scoped_guard(rwsem_read, &kernfs_root(kn)->kernfs_iattr_rwsem)
-+		kernfs_refresh_inode(kn, inode);
- 
- 	/* initialize inode according to type */
- 	switch (kernfs_type(kn)) {
-diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
-index a57399021c8b..202a5ca2bd34 100644
---- a/fs/kernfs/mount.c
-+++ b/fs/kernfs/mount.c
-@@ -283,7 +283,6 @@ struct dentry *kernfs_node_dentry(struct kernfs_node *kn,
- static int kernfs_fill_super(struct super_block *sb, struct kernfs_fs_context *kfc)
++/*
++ * If @dentry is in-lookup, look it up in @dir through ->lookup().  Returns
++ * the dentry to use from now on: @dentry itself, or the dentry or ERR_PTR()
++ * that ->lookup() returned instead, in which case @dentry is dropped.
++ */
++static struct dentry *finish_lookup(struct inode *dir, struct dentry *dentry,
++				unsigned int flags)
++{
++	struct dentry *res;
++
++	if (!d_in_lookup(dentry))
++		return dentry;
++
++	res = dir->i_op->lookup(dir, dentry, flags);
++	d_lookup_done(dentry);
++	if (unlikely(res)) {
++		dput(dentry);
++		return res;
++	}
++	return dentry;
++}
++
+ /* Fast lookup failed, do it the slow way */
+ static struct dentry *__lookup_slow(const struct qstr *name,
+ 				    struct dentry *dir,
+ 				    unsigned int flags)
  {
- 	struct kernfs_super_info *info = kernfs_info(sb);
--	struct kernfs_root *kf_root = kfc->root;
- 	struct inode *inode;
- 	struct dentry *root;
+-	struct dentry *dentry, *old;
++	struct dentry *dentry;
+ 	struct inode *inode = dir->d_inode;
  
-@@ -304,9 +303,7 @@ static int kernfs_fill_super(struct super_block *sb, struct kernfs_fs_context *k
- 	sb->s_shrink->seeks = 0;
+ 	/* Don't go there if it's already dead */
+@@ -1913,17 +1935,10 @@ static struct dentry *__lookup_slow(const struct qstr *name,
+ 				goto again;
+ 			}
+ 			dput(dentry);
+-			dentry = ERR_PTR(error);
+-		}
+-	} else {
+-		old = inode->i_op->lookup(inode, dentry, flags);
+-		d_lookup_done(dentry);
+-		if (unlikely(old)) {
+-			dput(dentry);
+-			dentry = old;
++			return ERR_PTR(error);
+ 		}
+ 	}
+-	return dentry;
++	return finish_lookup(inode, dentry, flags);
+ }
  
- 	/* get root inode, initialize and unlock it */
--	down_read(&kf_root->kernfs_rwsem);
- 	inode = kernfs_get_inode(sb, info->root->kn);
--	up_read(&kf_root->kernfs_rwsem);
- 	if (!inode) {
- 		pr_debug("kernfs: could not get root inode\n");
- 		return -ENOMEM;
+ static noinline struct dentry *lookup_slow(const struct qstr *name,
+@@ -4614,19 +4629,9 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
+ 		goto out;
+ 	}
+ 
+-	if (d_in_lookup(dentry)) {
+-		struct dentry *res = dir_inode->i_op->lookup(dir_inode, dentry,
+-							     nd->flags);
+-		d_lookup_done(dentry);
+-		if (unlikely(res)) {
+-			if (IS_ERR(res)) {
+-				error = PTR_ERR(res);
+-				goto out_dput;
+-			}
+-			dput(dentry);
+-			dentry = res;
+-		}
+-	}
++	dentry = finish_lookup(dir_inode, dentry, nd->flags);
++	if (IS_ERR(dentry))
++		goto out;
+ 
+ 	if (dentry->d_inode || !(op->open_flag & O_CREAT)) {
+ 		/*
 -- 
 2.56.0
 
