@@ -1,94 +1,234 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587DA34EF05
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:48:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5662737FC
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:49:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162137; cv=none; b=Hcdvs23cPJhqBierX+7wWo1hmPFLC2upIvm2bmStkJAQYHnTgakfmqth9jZsMI2BMG0eAS8QWcf+5u/6eR8QRdMu+BL3SPCUXriJhuFOQZQ8rMDWaf1+x71i7pLtkCPvLCzssLdtiKYFUtObUzxpWsHs8FN5wxReVg65diOU+r4=
+	t=1792162169; cv=none; b=EjkW9WKNH1H4UUurA37Inz7S5TqFm+vbEera+Lbz+UXbQ7G+LX7lLKwDMDWtp0bAB1uuKedzty4xIUKjz/ggjasi5/E+mtxvRkUtHJ2DhvAgQzfU5FH/IOxW4MgsBHRXKr52mG4pve34C6cW8si/YWvM40L97r4djyMWZyvBuSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162137; c=relaxed/simple;
-	bh=gj3wE3tKC5/eIlP+bFvEKPBktyUQp6ShnPK82oCwDFc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nG34+rM3o7tH7YX3sJK38Cyv1CrXALLDwZLmvl7L+KE5l+1s34mn0avORf8HU6qlZWhtxxxv3ArM4HXH+gSj9WzgXu0tusas0lPotxNp/nq7V7vDFUj9XN5jM3L6ZTfOdmQrTnMDz7gLiYq4s9fAYNOdF2A1ZBScLE19ZeaNuPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lT/kzjbN; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1792162169; c=relaxed/simple;
+	bh=xnd576x0/BHjM0UR6VTvITc/teuAO+ZV6DBnplo5bTY=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=ZDslpBmmHBe3ms8VGIVaZWM0xE6YkCeey+dAL2f6GBXVkBxYg/iVUU3aKPFvsR/RV9IDfXqG0ZX8OPt+hV4K8whFeksi57BBajLWeBMBStBG0PXBN3rn2vwry5lHZglebD1UeU/BdX0KMGH8ovgxQK9HzyRnQAwL0bmf97QTocY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=HA2ElU+M; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=MOzh2WFj; arc=none smtp.client-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lT/kzjbN"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8917c712f32so3113253b3a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:48:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792162136; x=1792766936; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=euwyB0Hu9EKnWTfQGDAfCyg2u8gsMszPEB2wlSrIzaU=;
-        b=lT/kzjbN2ELM3ANZrQKeajMvfT9aGBEfMwbyQ0KfK3TwX156iwB6Ju0/PJcb8li3ux
-         SRUwzrxIXjdL62WGQlxCFwsqFajXoXjZyiW70AD53UOStiJ08paqZYSDYn8G+7yyTNpY
-         4UKb3XorvPxp0KiBw1nsFLDgs279/e5GYi5MwYFK/Yzen7rBET98cRWmj/kew7SnyMI+
-         kgmeucauOodhoxPuKAcSoac5ekyrqHwOF6YIbdhfeJ3MROpE3Ez/PPAAsszNC6hBrLKa
-         OO+YgiGaZVO5IS3232m2f+h3XbHhK7K8zeuYVUFlM4qwGZ90VfrqjCkEtuggW5faqLPy
-         mAqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792162136; x=1792766936;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=euwyB0Hu9EKnWTfQGDAfCyg2u8gsMszPEB2wlSrIzaU=;
-        b=aGvbpQaSE1934dxJ72UJ99pNK2ZVRzVuLPwZ2iLBmLgW4vNQHQBhXmTAA3waZvY5MG
-         IG/CX609FJ63f6yr+xurBn3wqvhYWq+7qnjgaUdIhE5zxBwn1ZgAbRfFkMzi5rQRQAld
-         Ak2p4i22syA6UjxvVi7gI/mi2ZSZrzUpwthiC6fBfnPzCqlwmzJuEQQ/nNCAd37d/rzf
-         JHKGwHYBTcsyLRp1oY2qN1VbdHmFetZ+TZvoDTckrtFZhi6exkx9206Cv+GI6p0C/ehe
-         XPvXYojiSmhskpOnC11TxXovEOyM9lof1VumcOSB7cScV/9fHl0HfrSwxCnRE3KfI2sq
-         jQTw==
-X-Forwarded-Encrypted: i=1; AKwUvBztRl6PKbQz07qsvysnzMYQ9tUzI34EhovScBKfC5ghkDoAtkDCo1K/WFs4zOfhfN+Dif6inoe/c/LjPGY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmJ/7xibplKdeUKnWY14QD2c6+EhJqbEAQop1lh2iNnXt9wslM
-	8ARGd06tYDPiomdHKR83XucJrea8aFZGVdHf0YtMg4v2RRsgXa3PHUPue0TcD+21AyxhqT27ZaW
-	3POFO
-X-Gm-Gg: AYBFou36SAYqfnK1XW3vsMtbtJbfOC3VBEKXsI0A2tZLFmIhjaq2BKuQ3WLf0Jf88yY
-	ny/BaV+WV1LetiOcnas90X37B2etr4cvfpL2tup12mtcA9+cUU7SXgQ2tZyC4n/QOSUJ8W7Tp/4
-	9j1dh5eyj07E2f1KbD1rQjkXhs8vq++TTipjShqkieE0tZFTpMetiVBFx5yMRuPEXbuEERsAXze
-	IJvlRAGI1gT/gvn7bjLi4l7uxT9JfBv5F+ANxX0zq1Wg5XwtKCVByZ5DwRdEh380J+RdI8IJR8M
-	U9/cvR9ijexEIH3zz7I6hQMO291+TTeV+sQL7kxlydcNQRE7S1/dqIPYSjT2xUbu8G/NMqVzOnU
-	6Gr+/2VkpGpsfZF0GgGL73ZIG6Pl90O6BlO0443lehepPS2TRj5ft5cZi43yQxM0bYIPiRtxiFX
-	aXmu3DE3MXCTWg2kUAyOD377VI95hJfs6L4BShObd69+meqnecBOlUncO1dV1wNHLEMPpCdUGww
-	w==
-X-Received: by 2002:a05:6a20:eec4:20b0:3e1:bb25:126b with SMTP id adf61e73a8af0-3e1bb2515f5mr8280336637.36.1792162135553;
-        Fri, 16 Oct 2026 07:48:55 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:ff2f:8a9c:5623:f753])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd654850c61sm1273911a12.1.2026.10.16.07.48.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 07:48:55 -0700 (PDT)
-Date: Fri, 16 Oct 2026 08:48:52 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Atul Akella <atul.akella@gmail.com>
-Cc: bjorn.andersson@linaro.org, linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] remoteproc: mtk_scp: fix da_to_va() bounds checks
-Message-ID: <atI5VLH_CiIBu0tq@p14s>
-References: <cover.1791198233.git.atul.akella@gmail.com>
- <20261015151938.1331-1-atul.akella@gmail.com>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="HA2ElU+M";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="MOzh2WFj"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 33B3AEC01CC
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:49:27 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Fri, 16 Oct 2026 10:49:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792162164;
+	 x=1792248564; bh=VbOmtD0ftdDqCiNEvPeZiHI6VvhMe34PI7oI5j719Sw=; b=
+	HA2ElU+M9g8gJFcWF4WJxvHNd93CEWK6D7JYbEX67H6DUGgrOIKFKylHGSlxgfL9
+	fc87+cQ/QR7bY/16+VcofgZNNiVrMpxkSgZwYo23HP1sOJi3ALOF0NlE/qxB9Gq4
+	1VVpy7I+NRKgbGRYh1q9sdSPTZeqHecKRFTJPFoSIBOGCYhFmxyzVDwcJf5URK4d
+	dWedxdrgGbJrqQOqMcKOqOP9RwztMNet2A/LLDm5n8wq9M6zW0ngxYbiT/uqq1dn
+	V5jX/scWOsrJpNpxAgkpPLdgkmyP6pDOwpZG0/qw0IvpLGy6rxmFaz3owYH5/LxA
+	JAXoC4bj5GfM17Et+EZjew==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792162164; x=
+	1792248564; bh=VbOmtD0ftdDqCiNEvPeZiHI6VvhMe34PI7oI5j719Sw=; b=M
+	Ozh2WFj3olrn3LgWq8qXhrWFIKcFNTPs+I6AIWNAH2DmBK1Id/Te0OantiMrAPic
+	cREpaKh2Q8c9w2duMYFKPWydBUUN1D5zY1koWQDqnK+fkNE6841BaEwD3EHhocPb
+	4aawBbU4lz2nUUQDqZBfazg750KdRhlITA5HHWga3kDkRFkfO+OD95BA15ihjVKN
+	kUXpefh+uox7f8iEP/DW1oPATr4TH7eVC8xM7NzXKmsolJtp++2Eqmyl8IMQrUXW
+	dIj8o6H6YcsOAYP2sE2P9CyYq152FcJdiOmW1U56nXMXPrD8VKhL8ldVfWaYgh5P
+	FE4VPVa4O6bEYkr8SIDPw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792162164; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:H1WLwU9346C1+zyedBIYvejrV4yVHPokAU+vflqc2UyivK8
+	u5OuOwZzouu6lAavPwJqglaOMG/bgiPWl+FupTYySx8HydwtJuxdxZpElJ24zQbY
+	CFdWKg8tTAsjBLFdo6ZbQxJmhyLj2oek7ebeALbFB0caEPsP2LANCByMcKDcV/kt
+	3gHp6PgShe0NIS7yM6EyZ0b8oILvbsFI0eYO6sz1Usnq1x/y4M5yWzSrqwkxxuCP
+	m5Zy4HKmNb5zEcg2FfpwMUcTA2/Ge3vyFaRivPLehlhz5yNWRjipGm+DljjPJDj3
+	QOiJpfh7WgocMbA6pLtJgsG6wd3PjmYhN4xRImA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:Gtxp/RklLel/o6Sg8Kunod1iHE5Zgj43yPDsf2w/wzU=:xnd576x0/BHjM0UR6VTvITc/teuAO+ZV6DBnplo5bTY=;
+X-ME-Sender: <xms:cjnSajvI1kgd_nMUWoGXaZKA_rfqtjrsPnSkie9cKGlAKIfkkZrheQ>
+    <xme:cjnSavQWS5eaYOVlePAOhuCy6QpqEMuc4AGuv5H7jhC4oRWgBishnFcZl5PbLHs5y
+    PVu7vgfTMywquOu0YvKh09F92zSd4foeLm8Y60UXecJCqhABM5sRaxG>
+X-ME-Proxy-Cause: dmFkZTEs8XK3Dm5x5Os5mnHR2L0vK5Mmv8mQErbydUtW8nm6SZxNbgcutm+a0ap7Sg0qaI
+    Ajm7r6rBEOEZL7ALb9auTpp1CDifogfFddYfVyaAJOgEOqEUIJFDxwPDVIep7h+4u4d5HV
+    AvUQwEXeri1gRicfWvqADNm/+7GV/aoqT775YoGdbI/mjMjmwetrz73Nv8LsmFkZvCPkHW
+    DYUj4OlKYFkeaxPKHEV/xEFZbIszDSf+K28lVIziKHA6GNmAYJbHeKNfgorDA2CnDQ23qH
+    ZxffD0o8PycVCLBRGPFMqTU9YOGWyrWCWXogr2U97i4lA16oqDQn+n3MbdF9kdCmRBOYC5
+    iMl/Rkk4Ka0HyLN6RuGUJyuh0ymgPKonN08skMgmdUj3Bwg+4bjztygBvsMOO0XC+wXdd5
+    z7x1G23oKBi/maNWXB/bCwlmEpeZtBvTr2ccH7wwYXLs1i1uMOCEp42l/tVoi0w3yHMFDG
+    53xiP1kjX5bFqPYPlqiUJ89B+ADDc6+8emGx9+5Rxxcw/BHrM7a2x6p6ubb2U/W6JvsQHp
+    qS0EctwB/FOCJqujMcXWcQ4/G6Dfr51GwOc/jQLwi0p0jAbO/KiFtwu6RhSS6RHy4Qcigs
+    10P7LSV3TG4E9ATBdSfpQt4eBD81GncFDfjFSu6B7AyjEeyPPO/7sGpOHxiw
+X-ME-Proxy: <xmx:dDnSat5jJ1KgZSM_OJ8auogm1jgWwsmbKQctPZEHGg2lmiYDKR_IeQ>
+    <xmx:dDnSaj1TI_cTRxugcgv1eGcv7FZhCq_aAJr5l_LgRP8sptlr_jdUXQ>
+    <xmx:dDnSagCHSO--yLPnuwp8UVbbmVlmH786AM54btcJHw3l2FPfTaFumA>
+    <xmx:dDnSamO8nHYQpNdvmY4e43HBnJDglCpo4khQ_7C2UnswqTN7iHhEzA>
+    <xmx:dDnSatTmh-x_DOggy4PaXCeX5vdMySzITW1HP1xTA8-bq2GpDr14_7sQ>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id BDB8C32A0095; Fri, 16 Oct 2026 10:49:22 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015151938.1331-1-atul.akella@gmail.com>
+X-ThreadId: AJ8BcjErQSfB
+Date: Fri, 16 Oct 2026 16:49:02 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Tzu-Ching Yang" <shingekinocore@gmail.com>
+Cc: "Yury Norov" <yury.norov@gmail.com>,
+ "Rasmus Villemoes" <linux@rasmusvillemoes.dk>,
+ Linux-Arch <linux-arch@vger.kernel.org>, linux-kernel@vger.kernel.org
+Message-Id: <affe7da1-41aa-4710-bee0-5e3c2b8a8dfc@app.fastmail.com>
+In-Reply-To: <20261016135329.509250-1-shingekinocore@gmail.com>
+References: <20261016025634.2690862-1-shingekinocore@gmail.com>
+ <7eb58dd0-99f9-45aa-bdf4-9707a0c9e1b4@app.fastmail.com>
+ <dbb44e92-0bc5-449d-9e43-1f93362aa6c3@app.fastmail.com>
+ <20261016135329.509250-1-shingekinocore@gmail.com>
+Subject: Re: [PATCH] bitops: Share the generic ffs()/fls() binary search via UNROLL()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 15, 2026 at 08:49:38PM +0530, Atul Akella wrote:
-> Hi,
-> 
-> Just following up on this series. Both patches are compile-tested only (arm64 defconfig, W=1).
-> I haven't tested them on actual mt8183/mt8192 hardware, but I'd be happy to help with hardware testing if someone has access to a suitable board. I'm also open to addressing any review feedback.
+On Fri, Oct 16, 2026, at 15:53, Tzu-Ching Yang wrote:
+> On Fri, Oct 16, 2026, at 09:16, Arnd Bergmann wrote:
+>> If you are interested in creating helpful patches in this area,
+>> maybe you could work towards eliminating the generic versions
+>> of these functions in favor of using the builtin ones on targets
+>> where the compilers produce sensible code for them.
 >
+> Thanks, I looked into this. For each architecture variant, I put the
+> kernel's current version of each function and the builtin one into a
+> small userspace test file, each in a function of its own, compiled it
+> at -O2 and -Os with every GCC major release from 8 to 16 and Clang 17
+> to 23 that supports the target, and compared the instruction counts
+> for a variable argument. Of the rows below, only hexagon (Clang only),
+> powerpc and mips other than octeon could be built with Clang. A few
+> GCC -Os builds did not inline the kernel's version, so those cells
+> (arc ARCompact, ffs() and fls() on mips, and ffs() on microblaze) use
+> -O2 only.
+>
+> Each cell below gives what the kernel uses today (G the generic
+> version or a copy of it, A arch asm, B the builtin) and how the
+> builtin compares with it:
+>
+>   +  inline and never more instructions, with every compiler
+>   ~  as +, but only with some compilers (see below)
+>   -  more instructions, with every compiler
+>   x  the hardware has an instruction, but the compiler never emits it
+>      (the builtin is a library call)
+>
+> In the "fls (clzg)" column, the code in parentheses is for fls()
+> written as 32 - __builtin_clzg(x, 32), which needs GCC 14 or Clang 19
+> or later, so it covers only those compilers.
 
-That patchset did not show up on my radar because it did not include the people
-listed by "get_maintainer.pl".  Please resend with the correct recipient list.
- 
-> Thanks,
-> Atul
+Thanks for checking those!
+
+                      | __ffs | ffs | __fls | fls (clzg)
+> ---------------------+-------+-----+-------+-----------
+> ColdFire ISA_A+/C    | A-    | A-  | G+    | G+  (G+)
+> microblaze PCMP 8.10 | G+    | G+  | G+    | G+  (G+)
+> microblaze PCMP 11.0 | G~    | G~  | G~    | G~  (G+)
+> hexagon              | A+    | A+  | A+    | A+  (A+)
+> mips32 r2/r6         | A~    | A+  | A+    | A~  (A+)
+> mips64 r2            | A~    | A+  | A+    | A~  (A~)
+> mips64 r6            | G+    | A+  | G+    | A~  (A~)
+> mips octeon          | A+    | A+  | A+    | A-  (A+)
+> xtensa NSA           | A+    | A+  | A+    | A-  (A-)
+> arc ARCompact        | A+    | A-  | A+    | A-  (A-)
+> m68k 68020+          | A+    | A-  | A+    | A-  (A-)
+> arc HS               | A~    | A+  | A~    | A-  (A-)
+> csky                 | Ax    | Ax  | A+    | A-  (A-)
+> openrisc FF1/FL1     | Ax    | Ax  | Ax    | Ax  (Ax)
+> powerpc              | B     | B   | B     | A~  (A+)
+>
+> The ~ cells depend on the compiler: microblaze 11.0 needs GCC 14
+> (older GCC compares "v11.0" and "v8.10.a" as plain strings and emits a
+> library call), arc HS needs GCC 12, mips __ffs() is + only with GCC,
+> mips and powerpc fls() only with Clang, and on mips64 neither fls()
+> nor clzg is + with Clang 19.
+>
+> Not listed are the targets without a suitable instruction, where GCC
+> turns the builtins into library calls, so their current code has to
+> stay: alpha ev56, arm v4/v4t, ColdFire ISA_A/ISA_B, m68000, microblaze
+> without PCMP or before 8.10.a, mips R3000, nios2, openrisc without
+> FF1/FL1, parisc, riscv without Zbb, loongarch la32r, sh and sparc32.
+
+Right, that list is pretty much anyone using the generic helpers
+today, so it does not sound like we can convert any of them to
+the built-in version, only the architectures that currently use
+a custom helper.
+
+> The G cells are the clear candidates: microblaze with PCMP (8.10.a or
+> later) uses the generic versions although GCC emits clz for the
+> builtins, and ColdFire ISA_A+/C still uses them for __fls() and fls(),
+> while __ffs() and ffs() there already use ff1 in asm. On mips64 r6,
+> __ffs() and __fls() end up in the C fallback of __fls(), a copy of the
+> generic version. I confirmed this in 64r6el_defconfig builds with GCC
+> 16 and Clang 23: the dclz branch is used only if cpu_has_mips64 is a
+> compile-time constant, and on r6 it is not, because cpu_has_mips64r6
+> still tests a runtime flag. The builtins would cut both functions
+> there from 34-64 instructions to 4-8; making cpu_has_mips64r6 constant
+> on 64-bit r6 kernels would fix this as well.
+
+> In the A cells, __ffs() and __fls() could mostly switch at no cost,
+> which also lets the compiler fold constant arguments where the asm
+> does not. fls() pays for the zero test that __builtin_clz() needs,
+> unless the compiler knows what the instruction returns for 0: Clang
+> does on hexagon, mips and powerpc, and GCC only with __builtin_clzg(),
+> on mips and powerpc. That test is why powerpc keeps asm for fls() with
+> non-constant arguments.
+>
+> If this is what you had in mind, I would send one patch per
+> architecture to its maintainers, with you, Yury and Rasmus on Cc:
+> first the G+ cells (microblaze, ColdFire and mips64 r6), then the A+
+> cells (hexagon, mips, xtensa, arc, m68k 68020+ and csky), with fls()
+> using __builtin_clzg() behind a __has_builtin() check where the table
+> shows that it helps (mips and powerpc). The same change to
+> builtin-fls.h would make fls() smaller with some compilers, and never
+> larger, on arm, arm64, loongarch and s390 (on arm64 from 6 to 4
+> instructions at -O2 with GCC 14 and later). The ~ cells would need a
+> check for the compiler or its version, so I would only do those if the
+> maintainers want it. Each patch would be tested with kernel builds and
+> the ffs KUnit test.
+
+I would focus on the ones where you can manage to reduce complexity
+in the architecture specific code, i.e. replace a custom helper with
+the builtin one, but skip the ones where you would need additional
+conditionals on toolchain or target options.
+
+On most of these architectures, adding performance or size
+optimization is no longer a concern, but source code
+simplification does help.
+
+If you have cases where gcc-12 and above produce better code wiht
+the built-in, it may still be worth doing that for all toolchains
+even if the older compilers may be off slightly worse.
+
+> I agree that each step is easier to check in the open-coded version.
+> The trade-off is one place to check instead of four, but since you
+> find the current code easier to read, I'm happy to drop this unless
+> Yury sees it differently.
+
+Ok.
+
+     Arnd
