@@ -1,38 +1,41 @@
 Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FAE04E1C7F;
-	Fri, 16 Oct 2026 14:14:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258144EB862
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:14:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792160094; cv=none; b=QQMgFWUz/P31vaRPsK53VbGp2UCRl04lcuKsmUVy8S6JNBmp4wGoeSExNKSzfyD1MNrU6KAfGXU5zaKtlVM5kJOY9RWsec2y/llaAZCVIJZJpxVBsv/rAOLYQLaW7Ljf6PnLEMk7ZyXjupGB2139jPThpMnQlErrL5sOImZXv2Q=
+	t=1792160099; cv=none; b=UrhlH+hdjM2mx5JIGUfhl43nciWoJ59RSb/JO8CTxck7o6G/49e7bFgWeukL34B+m1qtNZ88ZFztQJ2I8Q1bMAWu1ldpYnGyTOTdOvceuyRoS8Qk6TXNNzjX7rOkQ3eeoT2KDpnHilby6dMTF8EoS4CruEUWZSzBozUqaccRn8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792160094; c=relaxed/simple;
-	bh=Q7PuZdCHhIZHpdnsBA5C7MXBa/Ikv1PFkneA/wFXmkQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rxxWxVTl6fh0+pue4Gh2VK5+WyYaaYwj1Pu5ht/1TfAaLjNv8pAb6fIHt8QLEnum8Esy4/UfbMT0z/f6VxYgxvoEKnFZVXNeVK/fkZKWlLLC1g4nWaq6oPbe4HF0hpKyCAyOqK/awRbTtx0HvIqrx2D+FYGpUFeX4yHyBF6SW4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=B+VNPbFR; arc=none smtp.client-ip=117.135.210.3
+	s=arc-20240116; t=1792160099; c=relaxed/simple;
+	bh=Nz0N0ZPWAe77xJozIcdH0jKwSXv+sDAKyMDGYscNFcM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QhJtD6bE4ZYB4IgTCO+xSRwWuz5Xo2wCPTcdub9v7I8fgzhMOUh5FWrXYk/wDh1okc3ux6+CZJtqRsuJc9KWOdrvb9I+ACwqCJGKYknhjdjUDzaYhNnXG6rLZUaMILTUbUjz6QNY1Ej5kL2W3y9x2/QO+qy/9rBEQDgMwHcKpEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=atP/F5NT; arc=none smtp.client-ip=117.135.210.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="B+VNPbFR"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="atP/F5NT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=fO
-	uWWgVjFJqz+6H8lNNzMJceAQ+WE/qQKk554DMd7dE=; b=B+VNPbFRRIQAKA0JM8
-	EL7bkWDUrUQHQipva+5yFMT+XTvNEWxih4SX7pectMcTGOTU+YoEM4ne5mc3uIYH
-	D8gAimKb2+kFpMSGPWhERde/sIbXbma+t7ZLdj3wF1jK5EU+fTzCZ9vXV5RDJIqe
-	muXRZxWbxDetQjxNmKOp+Y20I=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=LO
+	T2Z8jiCDygq9wy3lNmBD3OJ7/M4p6jYZV0Ih21sj0=; b=atP/F5NTkXAbsrUmVw
+	tZgQuqGkBxIoClhMgfhFLxJriGOl85Ffshq7lwpcs2H0N+Q5dqn28mpvrHV8m1aq
+	N5CjcVIbSaaeCFF+RbVG6vHDy7iqssKB4ejbSoPBgueNKSTg3dyexs/C7sEA9FVW
+	X9peexn3ohb2yMPvZozaTvsHU=
 Received: from pc.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgD3n6hSMdJqLevbAA--.28162S2;
-	Fri, 16 Oct 2026 22:14:43 +0800 (CST)
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgB3lRxCMdJqBejPAA--.25305S2;
+	Fri, 16 Oct 2026 22:14:26 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	linux-acpi@vger.kernel.org,
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
 	linux-kernel@vger.kernel.org
 Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH] ACPI: processor: validate CPU mapping entries
-Date: Fri, 16 Oct 2026 22:14:40 +0800
-Message-Id: <20261016141440.2794000-1-yaojiale02@163.com>
+Subject: [PATCH] x86/boot: validate SRAT subtables before parsing
+Date: Fri, 16 Oct 2026 22:14:24 +0800
+Message-Id: <20261016141424.2793636-1-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -41,99 +44,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgD3n6hSMdJqLevbAA--.28162S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF1kWF4DXFWkur4xZr18Krg_yoW5Cr4rpF
-	yUKa4rJw4UWF4agr4fJa1rZrW5Z3y8WF9rXF4fG34fKa17KF15XFW0kFy2qasrAFW0ga1f
-	Z3W0vFWUGF48AF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUeq2ZUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BOv6WrSMVOuggAA3T
+X-CM-TRANSID:PSgvCgB3lRxCMdJqBejPAA--.25305S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF4kCrWfXw1DWryruFWUtwb_yoW8Zw1kpF
+	45K3s8KrW5WrW2qr1xJr4F9w43G3yfu3W7GrW7G34jgw1DWFyfWFWxKry2gFW8CF43Wan3
+	Aw4qgFy5Cr4vyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUb6pPUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wOr5WrSMUOkJQAA3p
 
-CPU physical ID lookup walks MADT subtables directly and also accepts
-records returned by _MAT. Both paths can pass a truncated typed record
-to a CPU-specific mapper, and the MADT walker can be stalled or moved
-outside the table by an invalid length.
+The compressed boot SRAT walker only rejects zero-length subtables. It
+can advance beyond the table or read memory-affinity fields from a
+truncated record when firmware supplies an invalid length.
 
-Validate generic record bounds and the minimum size required by each
-supported CPU record before dispatching it on both provider paths.
+Validate the SRAT header, each generic subtable range, and the fixed
+memory-affinity record before accessing typed fields.
 
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/acpi/processor_core.c | 48 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 47 insertions(+), 1 deletion(-)
+ arch/x86/boot/compressed/acpi.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/acpi/processor_core.c b/drivers/acpi/processor_core.c
-index 3bf076c150fa..4d5ff53f27ab 100644
---- a/drivers/acpi/processor_core.c
-+++ b/drivers/acpi/processor_core.c
-@@ -157,6 +157,47 @@ static int map_core_pic_id(struct acpi_subtable_header *entry,
- 	return -EINVAL;
- }
+diff --git a/arch/x86/boot/compressed/acpi.c b/arch/x86/boot/compressed/acpi.c
+index aed27604c11f..310ddb9243b8 100644
+--- a/arch/x86/boot/compressed/acpi.c
++++ b/arch/x86/boot/compressed/acpi.c
+@@ -289,14 +289,22 @@ int count_immovable_mem_regions(void)
+ 		return 0;
  
-+static bool madt_cpu_entry_is_valid(struct acpi_subtable_header *entry,
-+				    unsigned long end)
-+{
-+	unsigned long start = (unsigned long)entry;
-+	size_t length, min_length;
+ 	table_header = (struct acpi_table_header *)table_addr;
++	if (table_header->length < sizeof(struct acpi_table_srat))
++		return 0;
 +
-+	if (start >= end || end - start < sizeof(*entry))
-+		return false;
-+
-+	length = entry->length;
-+	if (length < sizeof(*entry) || length > end - start)
-+		return false;
-+
-+	switch (entry->type) {
-+	case ACPI_MADT_TYPE_LOCAL_APIC:
-+		min_length = sizeof(struct acpi_madt_local_apic);
-+		break;
-+	case ACPI_MADT_TYPE_LOCAL_X2APIC:
-+		min_length = sizeof(struct acpi_madt_local_x2apic);
-+		break;
-+	case ACPI_MADT_TYPE_LOCAL_SAPIC:
-+		min_length = sizeof(struct acpi_madt_local_sapic);
-+		break;
-+	case ACPI_MADT_TYPE_GENERIC_INTERRUPT:
-+		min_length = offsetofend(struct acpi_madt_generic_interrupt,
-+					 arm_mpidr);
-+		break;
-+	case ACPI_MADT_TYPE_RINTC:
-+		min_length = offsetofend(struct acpi_madt_rintc, uid);
-+		break;
-+	case ACPI_MADT_TYPE_CORE_PIC:
-+		min_length = sizeof(struct acpi_madt_core_pic);
-+		break;
-+	default:
-+		min_length = sizeof(*entry);
-+		break;
-+	}
-+
-+	return length >= min_length;
-+}
-+
- static phys_cpuid_t map_madt_entry(struct acpi_table_madt *madt,
- 				   int type, u32 acpi_id)
- {
-@@ -172,7 +213,8 @@ static phys_cpuid_t map_madt_entry(struct acpi_table_madt *madt,
- 	/* Parse all entries looking for a match. */
+ 	table_end = table_addr + table_header->length;
+ 	table = table_addr + sizeof(struct acpi_table_srat);
  
- 	entry += sizeof(struct acpi_table_madt);
--	while (entry + sizeof(struct acpi_subtable_header) < madt_end) {
-+	while (madt_cpu_entry_is_valid((struct acpi_subtable_header *)entry,
-+				       madt_end)) {
- 		struct acpi_subtable_header *header =
- 			(struct acpi_subtable_header *)entry;
- 		if (header->type == ACPI_MADT_TYPE_LOCAL_APIC) {
-@@ -251,6 +293,10 @@ static phys_cpuid_t map_mat_entry(acpi_handle handle, int type, u32 acpi_id)
- 	}
+-	while (table + sizeof(struct acpi_subtable_header) < table_end) {
++	while (table < table_end) {
++		if (table_end - table < sizeof(struct acpi_subtable_header)) {
++			debug_putstr("Invalid truncated SRAT subtable header.\n");
++			return 0;
++		}
  
- 	header = (struct acpi_subtable_header *)obj->buffer.pointer;
-+	if (!madt_cpu_entry_is_valid(header,
-+			(unsigned long)header + obj->buffer.length))
-+		goto exit;
+ 		sub_table = (struct acpi_subtable_header *)table;
+-		if (!sub_table->length) {
+-			debug_putstr("Invalid zero length SRAT subtable.\n");
++		if (sub_table->length < sizeof(*sub_table) ||
++		    sub_table->length > table_end - table) {
++			debug_putstr("Invalid SRAT subtable length.\n");
+ 			return 0;
+ 		}
+ 
+@@ -304,6 +312,11 @@ int count_immovable_mem_regions(void)
+ 			struct acpi_srat_mem_affinity *ma;
+ 
+ 			ma = (struct acpi_srat_mem_affinity *)sub_table;
++			if (sub_table->length < sizeof(*ma)) {
++				debug_putstr("Invalid memory affinity subtable.\n");
++				return 0;
++			}
 +
- 	if (header->type == ACPI_MADT_TYPE_LOCAL_APIC)
- 		map_lapic_id(header, acpi_id, &phys_id);
- 	else if (header->type == ACPI_MADT_TYPE_LOCAL_SAPIC)
+ 			if (!(ma->flags & ACPI_SRAT_MEM_HOT_PLUGGABLE) && ma->length) {
+ 				immovable_mem[num].start = ma->base_address;
+ 				immovable_mem[num].size = ma->length;
 -- 
 2.34.1
 
