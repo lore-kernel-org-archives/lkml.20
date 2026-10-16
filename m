@@ -1,151 +1,289 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CECC49BB4E;
-	Fri, 16 Oct 2026 18:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792176908; cv=none; b=MvjimQy/+G1uTc6WCLtFkoPt+d6upOOgPGw323zeKhk9oQ5VIepWwZCML/QOczIJ7prv6NTE5X+jcTWh3967qdQgyaMajLJMw7RystSi+mpxM0Kwc8Y9DqciK70BNpxEJ1IuLJU8Z+oc2UfSL3QUtI3b31aR1V1vXnswBgtoKm8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792176908; c=relaxed/simple;
-	bh=t0omOA4J4Sy1V1uFhDZ7myYH+em1KXa3+Iu4jgoGr3g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H0UfMArLYiWHyiNktoh8HxittlTKHu8uHN+wjTR1X4yjsAwqX4mFBmQmWECwliaupnlONFtuWJi81bsPQvY8MxJOw+AYDUdqQ908Ox+iLGLmqWc4KksCo3J/uH3EH14YZt3R0pEXHQCJW3CkSKbNjaldVzudmEPiG5JtDivaRyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=OjqalnuE; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6388749BB4E
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:55:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792176947; cv=pass; b=dRQT/6GQJBgLzXpHXRrM57YARJPbWco4hDaeXMQLkTfMAwskV/7xwhbJbRxISZskpZNZszGsimZigMDD9dkQb/zPPu25sfGkEtkOYijSsZnD94yWYhQwIGCoHwBfBjnuBqh0k9smkstY1tjgYcU8DkNfiNNM0+9MnX5wncsUur0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792176947; c=relaxed/simple;
+	bh=1b3l1S2U0IeSv/QvOzf8c5X71ocbK46nZ4fIx0EPyIQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SGk3BGRrVJD22ebU8Dn6tyPYR+rsIme+frxs7fQIWZFiX2+bUrF0VHBNeNvy6HJdN54gkuEta0tGQUpozgRUJPx+1+lztyw0055dDQj5O5havBZCAB9tYsYGn+/DmWsLPh6GXCIWKal2CO2PUWvBgJy9M95Tepn6RyL/AcEPZmM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=olf1foT+; arc=pass smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="OjqalnuE"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 76D7B5340818;
-	Fri, 16 Oct 2026 20:55:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1792176904;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=TTXOyh0JDj7vREwVTOovWc/4Nz19Ir19Iwwl3eTjcfo=;
-	b=OjqalnuE3hYTTOn1LJMVwQ2muGmNAc4mfJ8WE7ls7Xgoc3c1nBjFThFcMPeTv6dND/iSNb
-	4jt77Y+HZ33IvgLhRVdwn3uL5wUtn4N6lSOjyKhBHTHKRFirJm+OipjhLWvP3RpghZAqF3
-	ODF+oKRUSqHbRZ0gHJyVjDq0dLeSzms=
-Message-ID: <b1a538e7-6ce5-48d2-9854-298432257db5@ixit.cz>
-Date: Fri, 16 Oct 2026 20:55:04 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="olf1foT+"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3a0aaa0fd13so308863a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:55:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792176944; cv=none;
+        d=google.com; s=arc-20260327;
+        b=o79t8dQuwwi1upZutXPqixoFBV3GJX5+HHcK4k/d7sbKD2IBUPkoqTst/JCMmk1BYq
+         4hxyBIyM4VOlEEBTyc/bfTtC9e5FSYVKt6q9Z6zm5bFEJgUXALVGdQuBAqVwF6od6DMb
+         qOM3QZBylC7wih8TAouqyObPkY+gi5npXGYa2vhJEjs8wRNegx9tbbsXOsoNPgstjLqS
+         MhCC22zspmED4/xwFFWUCLbHX/eZ1CVqsQvDqGX9OMCGM2KRCmv+NSnawATUUIrXhMh8
+         09soxBLeuQeN9LnSqVabApfACVBh1EP+3tCKWPJCQn17C/qZm/ndtPvr2SrEeBQ9B/zW
+         Zfhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=e+xIg4uo6CKkH27g0w/i7+r2VZ1i9gtFiDMjRJWV7+k=;
+        fh=EjxuQIOicHgn7KJLDe9jknEUsiDztP2sdxyS95DrUZk=;
+        b=JzpmeDMEAWHhQ1AkTSnqFzWrZz7cEQJTcc/oA0fWtDjzogaHe+z3D/5UE+ksE6py3G
+         m1TwZCgplCjg3UkAYXv7+C1ZHYVBhAKAOXFfUV+G0vQJyCBKMD9sM+kGY2Ejrj47W0+f
+         2T4kyrvFlS1rte3Cqg3ukT3DoG+hQkdMAOhU9yF1lzcthqb+da0BlMH8uFBXNG7fCiyA
+         513cOMSH+onnOpxKqcOyZFPcJyYfgDbHdmyfCRVRNWkZxaf8vJqoNJVT71G8XM4Vu7gA
+         Rb/pP8aRwk6nLE21iwc0xrlsGVy+6G/2y5Cb4THGJ1z5Kr3Znx8fmlVhCx4BTZs0OcvK
+         d/Dw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792176944; x=1792781744; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=e+xIg4uo6CKkH27g0w/i7+r2VZ1i9gtFiDMjRJWV7+k=;
+        b=olf1foT+TM6UUCwOOd74yhoOs2/kgUsN7hJjPVSCx4RPPrb1dheKgJ64MurKat7v+9
+         GELPwyss3NwjxTOQ417YSQTqxc145wo7gm4icZo7S5sazTuoqiU0ynpHgfHs44w2Ikqz
+         KX84I7DVrxBelOM288VBP3M7VFZ1sLEnBnq38WQrd/1Un1Z4XU/xHrJvYyYWNaNVB/nU
+         U7DOYYYpd4xkFbobHgQcZz2bFIsaWE4pqs+niFa4K0cnhqQJxH1r1jC3lYtI6fgk4o2/
+         yGCAa6k+sjsg4wk6C1l63uEgZdiTJiW74qInfZoI8ACuAKWbykvcVIUv9Kx21ksKS7wT
+         DqjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792176944; x=1792781744;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e+xIg4uo6CKkH27g0w/i7+r2VZ1i9gtFiDMjRJWV7+k=;
+        b=hQGcrtP0svJnIc8wAexvPz0bo3CgdLmD3X6K17GNhvbBTYBiY+sKY/tn6eNOursYSk
+         UgM+UxwcgPPG4GCcVF+Qb7CmBQCjPdx1V7Dfejs4/5r5tG3+GYj4gWx3EL/q4m7CxyFG
+         4IuocwzbBs0Tx4Ctv49KbS5nTsr7HvTAKDJF83mUKNlQcr61u6X1gb3LX/baRkhqDNRv
+         9M5qbmFqIPLxZHemtyg0r+FKsCfKkBpr0/N24qGfsUV6JEvxULc1PcioSsjJG/ygshck
+         n6f1whSk76N39hFX4FO/W74jS2Fx7Fl30ATS4GmtYY8yvi8zJ6lOGdo+7soA4uozgjt7
+         RcYQ==
+X-Forwarded-Encrypted: i=1; AKwUvByIAcSLBcAlm1QAnNsViH/qlo+RNMKZJ+a0oNT3VCOiGBpdIsu6O9yRpQ/vr/I2z07DuruK1zQiFQ7xXgc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpwepsCqMJWADxJZtVoowRR4xjHh35tnNKdWlnhuYZvqRYpXOu
+	RuD59muAOM+DF+0MpQfgKGS2zy1d5bA1qaFGLnK8eHuZkfJ4dJiEjvS+mJr73Giex/SL7M9yQX7
+	KilkOZIAJE9Vnx71nPqZ6Hl77tg5JViY=
+X-Gm-Gg: AYBFou1ObRjmxKDqj6iiAn6+K/w1KK+HTUFnRW2YC9D9If+7FGaLVpe7K+j+19IgnMk
+	M+OZYfFK6+FVpbWfrZ1EJDMh/7+yQX7fziWbMUizbq7rhqAvevuqWPP7XgWxkHT0hI5yukstyZx
+	hyq21zy1txftCRsohQzsHNRAf7lHanr/hNc7rcOG93BBWuKFffRgSBktKq/42QjaLec1yeZ2Ss1
+	tjBcHZhlS7p4Mwz9rXi6SStX5JGS5GX7CGhqJX62SNYvF576eQ2aC4tF4wufS/TjRpAx18ICl4o
+	2dQC4Qm7O2PE1KQHXZnMq8q1g2r5rbOuqAJJmDX5L5IUSP1jy8faORFQP+6p8WQpGKQPKbi8wTm
+	Ceh+bBfzZ2bL6MtJ9+8qfk2ZqZGq0HZAOSYkz
+X-Received: by 2002:a17:90b:2e45:b0:3a6:dc51:cce9 with SMTP id
+ 98e67ed59e1d1-3acef10a75fmr661384a91.57.1792176943703; Fri, 16 Oct 2026
+ 11:55:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: add Xiaomi Mi 8 (dipper)
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260915-dipper-v2-0-cbade54919ee@ixit.cz>
- <20260915-dipper-v2-2-cbade54919ee@ixit.cz>
- <1a7d0385-db7c-4c44-9f26-74afa62c9109@oss.qualcomm.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <1a7d0385-db7c-4c44-9f26-74afa62c9109@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261009130708.1370675-1-wusamuel@google.com> <c090cb17-9bed-4742-a1c1-92cae6ee239e@oracle.com>
+ <CAG2KctozPSev+EXSpHitM3JWfjufQaEjsPJHS_1HJ1wSm7sJ1w@mail.gmail.com>
+In-Reply-To: <CAG2KctozPSev+EXSpHitM3JWfjufQaEjsPJHS_1HJ1wSm7sJ1w@mail.gmail.com>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Fri, 16 Oct 2026 11:55:31 -0700
+X-Gm-Features: AclHuK-cBrYRS_O8fHGSWtkg2J2Lupu1xGROacOaq8RNVp1uJrrftZ6oLOb2wes
+Message-ID: <CAEf4BzZQ6uyOOj5gCZyVnqdswtn23wAVWWWsNEH3Ay4drv051Q@mail.gmail.com>
+Subject: Re: [PATCH bpf-next] libbpf: Resolve typeless ksyms in the kernel
+To: Samuel Wu <wusamuel@google.com>
+Cc: Alan Maguire <alan.maguire@oracle.com>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, kernel-team@android.com, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Sun, Oct 11, 2026 at 8:56=E2=80=AFAM Samuel Wu <wusamuel@google.com> wro=
+te:
+>
+> On Sat, Oct 10, 2026 at 12:09=E2=80=AFPM Alan Maguire <alan.maguire@oracl=
+e.com> wrote:
+> >
+> > On 09/10/2026 14:07, Samuel Wu wrote:
+> > > libbpf resolves typeless symbols by parsing /proc/kallsyms, which
+> > > dominates load time for BPF programs with typeless symbols. This most=
+ly
+> > > comes from needing to do thousands of syscalls and a linear scan of
+> > > kallsyms.
+> > >
+> > > Call bpf_kallsyms_lookup_name() from BPF_PROG_TYPE_SYSCALL, such that
+> > > the resolution can be done with a couple of syscalls and a binary
+> > > search. This is a similar approach to what the light skeleton does. T=
+he
+> > > fast path passes the name and result through ctx, which requires comm=
+it
+> > > ae5ef001aa98 ("bpf: Support variable offsets for syscall PTR_TO_CTX")=
+.
+> > >
+> > > Any fast path error (e.g. kernels without ae5ef001aa98) falls back to
+> > > the legacy /proc/kallsyms scan, including strong misses, since the
+> > > kernel doesn't match LTO "<name>.llvm.<hash>" symbols. Weak misses
+> > > default to zero.
+> > >
+> > > Depending on the device, I see ~9-11x loading speedup when resolving =
+a
+> > > BPF program with 11 typeless lock externs.
+> > >   - x86_64 VM, 6.18 + ae5ef001aa98: 147ms -> 17ms
+> > >   - ARM64 phone, 7.1: 626ms -> 55ms
+> > >
+> > > Signed-off-by: Samuel Wu <wusamuel@google.com>
+> > > ---
+> > >  tools/lib/bpf/libbpf.c | 59 ++++++++++++++++++++++++++++++++++++++++=
++-
+> > >  1 file changed, 58 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
+> > > index cb09ded90773..7564ec6bde64 100644
+> > > --- a/tools/lib/bpf/libbpf.c
+> > > +++ b/tools/lib/bpf/libbpf.c
+> > > @@ -9590,6 +9590,58 @@ static int bpf_object__read_kallsyms_file(stru=
+ct bpf_object *obj)
+> > >       return libbpf_kallsyms_parse(kallsyms_cb, obj);
+> > >  }
+> > >
+> > > +static int bpf_object__resolve_ksyms_in_kernel(struct bpf_object *ob=
+j)
+> > > +{
+> > > +     struct extern_desc *ext;
+> > > +     int i, prog_fd, err =3D 0;
+> > > +     struct {
+> > > +             __u64 addr;
+> > > +             char name[512];
+> > > +     } ctx =3D {};
+> > > +     LIBBPF_OPTS(bpf_prog_load_opts, opts, .prog_flags =3D BPF_F_SLE=
+EPABLE);
+> > > +     LIBBPF_OPTS(bpf_test_run_opts, topts, .ctx_in =3D &ctx, .ctx_si=
+ze_in =3D sizeof(ctx));
+> > > +     /* bpf_kallsyms_lookup_name(ctx.name, sizeof(ctx.name), 0, &ctx=
+.addr) */
+> > > +     static const struct bpf_insn insns[] =3D {
+> > > +             BPF_MOV64_REG(BPF_REG_4, BPF_REG_1),
+> > > +             BPF_ALU64_IMM(BPF_ADD, BPF_REG_1, 8),
+> > > +             BPF_MOV64_IMM(BPF_REG_2, sizeof(ctx.name)),
+> > > +             BPF_MOV64_IMM(BPF_REG_3, 0),
+> > > +             BPF_EMIT_CALL(BPF_FUNC_kallsyms_lookup_name),
+> > > +             BPF_EXIT_INSN(),
+> > > +     };
+> > > +
+> > > +     if (obj->gen_loader || obj->token_fd)
+> > > +             return -EOPNOTSUPP;
+> > > +
+> > > +     prog_fd =3D bpf_prog_load(BPF_PROG_TYPE_SYSCALL, NULL, "GPL",
+> > > +                             insns, ARRAY_SIZE(insns), &opts);
+> > > +     if (prog_fd < 0)
+> > > +             return prog_fd;
+> > > +
+> > > +     for (i =3D 0; i < obj->nr_extern; i++) {
+> > > +             ext =3D &obj->externs[i];
+> > > +             if (ext->type !=3D EXT_KSYM || ext->ksym.type_id)
+> > > +                     continue;
+> > > +             if (snprintf(ctx.name, sizeof(ctx.name), "%s", ext->nam=
+e) >=3D sizeof(ctx.name)) {
+> > > +                     err =3D -ENAMETOOLONG;
+> > > +                     break;
+> > > +             }
+> > > +             err =3D bpf_prog_test_run_opts(prog_fd, &topts) ?: (int=
+)topts.retval;
+> > > +             if (err =3D=3D -ENOENT && ext->is_weak) {
+> > > +                     err =3D 0;
+> > > +                     continue;
+> > > +             }
+> > > +             if (err)
+> > > +                     break;
+> > > +             ext->is_set =3D true;
+> > > +             ext->ksym.addr =3D ctx.addr;
+> > > +             pr_debug("extern (ksym) '%s': resolved in kernel to 0x%=
+llx\n",
+> > > +                      ext->name, ext->ksym.addr);
+> > > +     }
+> >
+> > Great to see the win in terms of resolution time, but I wonder if we co=
+uld
+> > speed things up further by resolving multiple symbols at once, since we=
+ have
+> > all the externs available (either by dynamically creating your program =
+that
+> > does symbol resolution as a side-effect, or adding a more direct resolu=
+tion method)?
+> >
+> > A single syscall could provide an even faster speedup, so might be wort=
+h a look.
+>
+> I tried resolving multiple symbols in one pass, but unfortunately the
+> impact was negligible and made the code much more complex. I profiled
+> a few numbers, and turns out it's because resolving typeless symbols
+> is down to ~1% of total load time (from ~90%), with the remaining time
+> mostly spent on BTF loading, CORE relocation, and BPF verification.
+>
+> > Another concern would be a lot of production kernels won't have BPF tes=
+t run
+> > support baked in, so relying on that without fallback would be a proble=
+m.
+>
+> Are you referring to BPF_PROG_TEST_RUN when mentioning "BPF test run
+> support", or something else? And totally agreed in that we need a
+> fallback, of which it currently falls back to reading /proc/kallsyms
+> on any error during the new fast path.
+>
+
+Have you considered adding a faster interface to /proc/kallsyms
+instead? That would benefit not just this particular use case, but
+generally lots of other user space applications that have to deal with
+kallsyms (all kinds of symbolizers, tracers, etc).
+
+A while ago I added PROCMAP_QUERY ioctl()-based interface to
+/proc/PID/maps to query process VMAs and I think it turned out quite
+nicely and is super useful in practice. Back then I was hoping we'll
+eventually also add similar (in principle) extensible ioctl()-based
+interface to /proc/kallsyms as well, so that at least fast
+address-to-symbol and symbol name-to-symbol point query could be done
+quickly. And it actually would finally provide a way to provide more
+information per kernel symbol, if necessary (/proc/kallsyms is
+basically set in stone, besides it being text based and thus slow and
+inconvenient for programmatic access).
+
+Can you please look into that, I think it would be a much more generic
+and desirable outcome instead of this somewhat hacky solution of
+calling BPF program to resolve a symbol.
+
+WDYT?
+
+pw-bot: cr
 
 
-
-On 15/10/2026 11:47, Konrad Dybcio wrote:
-> On 9/15/26 4:32 PM, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> Initial submission for one member of the prime Xiaomi Mi 8 family.
->> Mi 8 Pro (equuleus) and Mi 8 Explorer (ursa) are nearly identical.
-> 
-> [...]
-> 
->> + * Xiaomi Mi 8 family common device tree source.
->> + * Covers Mi 8 Explorer Edition (equuleus), Mi 8 (dipper), Mi 8 Pro (urza).
-> 
-> 								"ursa"? ^
-> [...]
-> 
->> +	reserved-memory {
->> +		/*
->> +		 * It seems like reserving the old rmtfs_mem region is
->> +		 * also needed to prevent random crashes
-> 
-> Have you verified that with e.g. memtest=1?
-> 
->> +		 */
->> +		old-rmtfs@88f00000 {
->> +			reg = <0 0x88f00000 0 0x200000>;
-> 
-> 0 -> 0x0, please
-
-Isn't this a bit overkill? We just +2 chars for no gain here..
-
-> 
-> [...]
-> 
->> +&tlmm {
->> +	gpio-reserved-ranges = < 0 4>, /* SPI (Goodix Fingerprint) */
-> 
-> drop the leading space inside the value
-
-dropped, but added space before the comment so it aligns for better readability..
-
-David
-
-> 
-> Konrad
-
+> > > +     close(prog_fd);
+> > > +     return err;
+> > > +}
+> > > +
+> > >  static int find_ksym_btf_id(struct bpf_object *obj, const char *ksym=
+_name,
+> > >                           __u16 kind, struct btf **res_btf,
+> > >                           struct module_btf **res_mod_btf)
+> > > @@ -9863,7 +9915,12 @@ static int bpf_object__resolve_externs(struct =
+bpf_object *obj,
+> > >                       return -EINVAL;
+> > >       }
+> > >       if (need_kallsyms) {
+> > > -             err =3D bpf_object__read_kallsyms_file(obj);
+> > > +             err =3D bpf_object__resolve_ksyms_in_kernel(obj);
+> > > +             if (err) {
+> > > +                     pr_debug("failed to resolve ksyms in kernel: %s=
+, falling back to /proc/kallsyms\n",
+> > > +                              errstr(err));
+> > > +                     err =3D bpf_object__read_kallsyms_file(obj);
+> > > +             }
+> > >               if (err)
+> > >                       return -EINVAL;
+> > >       }
+> >
