@@ -1,239 +1,115 @@
-Received: from mta0.migadu.com (out-116.mta0.migadu.com [91.218.175.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67149213E9C
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D29A445AE7
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135970; cv=none; b=Y3gFeNAJoy/YQz1H5WrIDsU/4n6cxZE1G5XWrL2q3pEzJTYq0jF3p9rVaVpiKCN7IHFJw0exGbaRxTEnr0UbBuC918QmOmj42/j6W8VYkHD0LRUTUhs7ADprgjjAioxKFFaLffYxLd1tVxGqPkZ7BR3aiOMc4UVdq6OSAIKurxc=
+	t=1792135973; cv=none; b=nEcgIV8zDc7ieGAaqEjm7jzEa3cgt4MHqMrVhs21Ub8UudwwiYF5v0WUnGUptEp1t+BrCGAAic7xH+nxzpPDYGV5gS4KdUEJy7y8Q/xvgK+vC9D639VBFXhj8Ka6kEpYPVoczjiiLC7ToBYSjCMTQbl8JglZHBGPglYBz00SU8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135970; c=relaxed/simple;
-	bh=h4iQMDwculI35BN+CaCK0/O9tu5VYhaUA1qiA1U2urM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WvgeBqRmgwqFItqr1kP3t9GOOAiimIXLLsXLVengkvA7JtMhC1u2DcpuHikGGq3YEEZPfVDT/p3kULQb7+jDtp5hcAOeCtMwwvAfoGUnYbkykNFxh2QH+VJ/87SFvp3KshM0Va0CXb88BAYB+q9ANaJ14IDfazbpZdUR7vj/pTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=R6TDZH4u; arc=none smtp.client-ip=91.218.175.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	s=arc-20240116; t=1792135973; c=relaxed/simple;
+	bh=IJ+5u7srEk6nIaU0cmJ8MAIsRra4lgyOsCM5Ol4qCpg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=buYbcuveuaeOpFf/+siOlZneXQrh93gKe8T4FLoLp01vkb75WIlT8V3dYyyKjRYvoy86umtRbebUTmo555R+O+QiTHu4lkTJWyYUYIIVd3qWlSRUgSj5/s5NaC3f/rNCEGwQ3lxhQei1ETusynIyUe6QF39cXxX3uvBDNTquiec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WG7ptaQx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="R6TDZH4u"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=h4iQMDwculI35BN+CaCK0/O9tu5VYhaUA1qiA1U2urM=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792135964; v=1; x=1792740764;
- b=R6TDZH4ufGC7yzzou84+p5kCxMO2nPvFjhPSm+HcYRnua+1vv7GsfWpqoy/nR9/dkb8UXvz4
- zmH8asAy08i9x2HXQI1zJmXe6oiaEbSRfV1ki8R4XxiOn7U0H55UyMNFELtaiieEebe9cUyeDTb
- 2GuidxlumJL9qGToz5WdBc5cgcwAvoFBzyo3lLSh4Kutwfze7q64nWsFIoWtY/Nr1ZpMu46mG5O
- urxvYPyE8OJklvMEehA2d3jK8Tl2Qp+EGty7kpYUDycFYQrXLTXQrstofDC5BNdjZltBL+S/ZGk
- g360KnFTY30/WWoJvMBP2pUnp298JRI5DHbm6rm/8m4Uw==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 26581679077c411a;
-	Fri, 16 Oct 2026 07:32:44 +0000
-X-Mizu-Trace-ID: 26581679077c411a
-X-Migadu-Flow: FLOW_OUT
-From: Val Packett <val@packett.cool>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Val Packett <val@packett.cool>,
-	Mark Brown <broonie@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 5/5] arm64: dts: qcom: motorola-dubai: Add sound card with aw88261 speakers
-Date: Fri, 16 Oct 2026 04:31:53 -0300
-Message-ID: <20261016073157.611956-6-val@packett.cool>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261016073157.611956-1-val@packett.cool>
-References: <20261016073157.611956-1-val@packett.cool>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WG7ptaQx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29B911F000C4;
+	Fri, 16 Oct 2026 07:32:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792135969;
+	bh=1v2ntwu8Em8B5OdazZkfPG61sIQaYLlgT9DtGFP4HNY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=WG7ptaQxvhJShJBNpdEZTV8T4Ff3H3ud960vZ4LjnauWUvtqu6ls16RowkTLeZFBg
+	 8vz0cNeme2i3hJHugTe5ydbgYAE+fv+egfJJBGhXXU/+UsX+jYvWmTgXRmsDorSri+
+	 Ub+iWD8o1+CQ1rKUVk2Ku7D8ITf2dTP4XvA8vUrjlQcsKVfs9uNYY7vsM6jucFMsVC
+	 Z5NZQiS7fiEsor3IT1PddNF98eLessuxoEdqEj6y6mwwrGLlnzFPYVhyEJA3TMo0y1
+	 hrNjKK9vCtmIRmmaUDMJSFPUVlcBQP0OJLrsN4LvQZolaWoY5C+roUAGIBTDBhuMEH
+	 4T9fxEwCpoTTw==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Fri, 16 Oct 2026 09:31:45 +0200
+Subject: [PATCH v5 13/14] drm/vkms: Switch container_of helpers to
+ container_of_const
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-drm-reset-state-flag-v5-13-dad2d64b693b@kernel.org>
+References: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
+In-Reply-To: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1708; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=IJ+5u7srEk6nIaU0cmJ8MAIsRra4lgyOsCM5Ol4qCpg=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkXLz3reHdzo94V5s6Qr9FvjXY/OWURfe2/Vf/CuTukL
+ q2qXuHI0zGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAm8uQEY50124dF+7cL2rPs
+ XFLA8yuFyarlVE/kfeszzSs2RIpO+H/pwKG8tZE7bmvzHTv0Kbk/KIuxTrX0fuC86d4aTGpra62
+ feaUaz7vkw6MrOW2T/tGny7RfnYhYeZ371MbrDltkD73TmMbXCAA=
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-Enable the sndcard node with three MultiMedia frontends, a USB offload
-RX link, and two Awinic AW88261 speaker amps on senary MI2S.
+The vkms container_of helpers use container_of() which discards the
+const qualifier from the input pointer. This prevents passing a const
+state pointer to to_vkms_plane_state() without a cast, for instance
+in atomic_get_property which receives a const drm_plane_state.
 
-While here, use the correct compatible for audiocc for this phone,
-and remove references to power-domains from a 'reserved' node.
+Switch all four helpers to container_of_const() so the const qualifier
+is properly propagated to the result type.
 
-Signed-off-by: Val Packett <val@packett.cool>
+Reviewed-by: Daniel Stone <daniels@collabora.com>
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- .../qcom/sm7325-motorola-dubai-common.dtsi    | 119 ++++++++++++++++++
- 1 file changed, 119 insertions(+)
+ drivers/gpu/drm/vkms/vkms_drv.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi b/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
-index 3860ab8508a0..1e1c195de1af 100644
---- a/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
-@@ -16,6 +16,8 @@
- #include <dt-bindings/leds/common.h>
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include <dt-bindings/sound/qcom,q6afe.h>
-+#include <dt-bindings/sound/qcom,q6asm.h>
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
+index 381483aa4fb0..dea6cad3f1b9 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.h
++++ b/drivers/gpu/drm/vkms/vkms_drv.h
+@@ -248,20 +248,20 @@ struct vkms_device {
+ /*
+  * The following helpers are used to convert a member of a struct into its parent.
+  */
  
- #include "sm7325.dtsi"
- #include "pm7325.dtsi"
-@@ -699,6 +701,40 @@ &gpu_zap_shader {
- 	firmware-name = "qcom/sm7325/motorola/dubai/a660_zap.mbn";
- };
+ #define drm_crtc_to_vkms_output(target) \
+-	container_of(target, struct vkms_output, crtc)
++	container_of_const(target, struct vkms_output, crtc)
  
-+&i2c1 {
-+	clock-frequency = <100000>;
-+
-+	status = "okay";
-+
-+	/* Bottom speaker */
-+	aw88261_r: audio-codec@34 {
-+		compatible = "awinic,aw88261";
-+		reg = <0x34>;
-+
-+		dvdd-supply = <&vreg_l18b_1p8>;
-+		sound-name-prefix = "Amplifier R";
-+		firmware-name = "qcom/sm7325/motorola/dubai/aw88261_acf.bin";
-+
-+		awinic,audio-channel = <0>;
-+
-+		#sound-dai-cells = <0>;
-+	};
-+
-+	/* Top speaker / ear speaker */
-+	aw88261_l: audio-codec@35 {
-+		compatible = "awinic,aw88261";
-+		reg = <0x35>;
-+
-+		dvdd-supply = <&vreg_l18b_1p8>;
-+		sound-name-prefix = "Amplifier L";
-+		firmware-name = "qcom/sm7325/motorola/dubai/aw88261_acf.bin";
-+
-+		awinic,audio-channel = <1>;
-+
-+		#sound-dai-cells = <0>;
-+	};
-+};
-+
- &i2c4 {
- 	clock-frequency = <100000>;
+ #define drm_device_to_vkms_device(target) \
+-	container_of(target, struct vkms_device, drm)
++	container_of_const(target, struct vkms_device, drm)
  
-@@ -732,6 +768,11 @@ &ipa {
- 	status = "okay";
- };
+ #define to_vkms_crtc_state(target)\
+-	container_of(target, struct vkms_crtc_state, base)
++	container_of_const(target, struct vkms_crtc_state, base)
  
-+&lpass_audiocc {
-+	compatible = "qcom,qcm6490-lpassaudiocc";
-+	/delete-property/ power-domains;
-+};
-+
- &pm7250b_adc {
- 	channel@4e {
- 		reg = <ADC5_AMUX_THM2_100K_PU>;
-@@ -972,10 +1013,22 @@ &pon_resin {
- 	status = "okay";
- };
+ #define to_vkms_plane_state(target)\
+-	container_of(target, struct vkms_plane_state, base.base)
++	container_of_const(target, struct vkms_plane_state, base.base)
  
-+&q6afedai {
-+	dai@147 {
-+		reg = <SENARY_MI2S_RX>;
-+		qcom,sd-lines = <0>;
-+	};
-+};
-+
- &qfprom {
- 	vcc-supply = <&vdd_qfprom>;
- };
- 
-+&qup_i2c1_data_clk {
-+	drive-strength = <2>;
-+	bias-pull-up;
-+};
-+
- &qup_spi13_cs {
- 	drive-strength = <6>;
- 	bias-pull-down;
-@@ -1066,6 +1119,72 @@ &rmtfs_mem {
- 		    <QCOM_SCM_VMID_NAV>;
- };
- 
-+&sound {
-+	compatible = "motorola,dubai-sndcard";
-+	model = "Motorola-dubai";
-+
-+	pinctrl-0 = <&lpass_i2s2_active>;
-+	pinctrl-1 = <&lpass_i2s2_sleep>;
-+	pinctrl-names = "default",
-+			"sleep";
-+
-+	mm1-dai-link {
-+		link-name = "MultiMedia1";
-+
-+		cpu {
-+			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
-+		};
-+	};
-+
-+	mm2-dai-link {
-+		link-name = "MultiMedia2";
-+
-+		cpu {
-+			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA2>;
-+		};
-+	};
-+
-+	mm3-dai-link {
-+		link-name = "MultiMedia3";
-+
-+		cpu {
-+			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA3>;
-+		};
-+	};
-+
-+	i2s-dai-link {
-+		link-name = "Senary MI2S Playback";
-+
-+		codec {
-+			sound-dai = <&aw88261_l>, <&aw88261_r>;
-+		};
-+
-+		cpu {
-+			sound-dai = <&q6afedai SENARY_MI2S_RX>;
-+		};
-+
-+		platform {
-+			sound-dai = <&q6routing>;
-+		};
-+	};
-+
-+	usb-dai-link {
-+		link-name = "USB Playback";
-+
-+		codec {
-+			sound-dai = <&q6usbdai USB_RX>;
-+		};
-+
-+		cpu {
-+			sound-dai = <&q6afedai USB_RX>;
-+		};
-+
-+		platform {
-+			sound-dai = <&q6routing>;
-+		};
-+	};
-+};
-+
- &spi13 {
- 	status = "okay";
- 
+ /**
+  * vkms_create() - Create a device from a configuration
+  * @config: Config used to configure the new device
+  *
+
 -- 
 2.55.0
 
