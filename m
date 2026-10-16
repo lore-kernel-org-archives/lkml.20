@@ -1,160 +1,284 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012063.outbound.protection.outlook.com [52.101.66.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5B314CF498;
-	Fri, 16 Oct 2026 19:04:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B4544724D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:05:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792177499; cv=fail; b=LB7R4YYVdn29UzgkPD9Qa51ywXoLM0FOiMaoav++qRSYJ/tNogpUBIIZUBhNetPQg4zQnuInAKeQv7gvKY63z1fJdwpfq5ww+fOr+g9OxrjTD5hZoIZhN6lyx/RSMZcgRtOfQzKPzuz3/sVHc/d+xoLozyiVlniitBDyI4lPUeg=
+	t=1792177506; cv=pass; b=dGzWdzOr5cuC6spBPERftYXSz+UWM+ezc2naHcJ2ggC+kPDgcJLWnLlB54PItK4OfbqdX7B7XN5hW7jr3mtD9npNqirpqqPvZLBmLwcuxKBgLF+8eBwHEXB/ZPJv3/EXZ1r/+GEg1K4J8XDWz8jFLorAhAJ8uRHsZGF6c1JCoY0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792177499; c=relaxed/simple;
-	bh=AObj4KtXQ7qFNea7ZnCVn7w08PDijzsTzP7GDMKa7o0=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=SxDJRY/hud+DpRekiQMFcp2Dx+tIQZZ2xuCpTePt/jAi2Cp1P+AoBHYA2cNCgWWL5U7l/ucnBNixDN1jYcnQU5KioQR7FMydrPATkU6epuenT7kNX2Uve/glFJLbuXQr2cL1JRU542CkfgiAeD8PnZ8F0kWvghDAQ8uwGlsacbM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=GmrLJQ2s; arc=fail smtp.client-ip=52.101.66.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1792177506; c=relaxed/simple;
+	bh=M6p6HiXD6ueH0boimsmVmlWWlfyQBggD43Es1j4k350=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lVlV0kXWnF3J/Co9SS+3ZHeMC4fmZ/jE8yRbt+u7rdy2JPbXmwtK8tSJ7FMIVXci6NC5c/zHowZBi/dJTP2eelbJ0NRE2A8RSgp+Ii9Be+AuTVMfpbPfGK6ovjt0HHaA4gIkNVqnlPNdrPwnWf9ynfCUU78vndZv3/FSE86MT+c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dElp7kYZ; arc=pass smtp.client-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="GmrLJQ2s"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ypW73tXkG6aS4+UgSlqXCYgXut6TKrZgC8MieUFxQ8cJDO1mkWoxGJpefIoCP1x0FDOQh9yzqsmlfDOHV6tCc0s3S7s5LwtpFgO+1y3t2skIlIkZr7/Bxz81+BT2LzDj+L1x8QWOPj7A6qBH6wzG6YCjmWt4yzmYnffLEvHz6suXvfrH4cXOnOkMEND1pgPt3Du/Vh1vWh7vuNxQLMJ9KnFgbeHzS/ol5NMhF5b96HGhpiRLjzgIxd3T04Dp7j3eZlTwUAZ32WH8TBH4e+zGLATrwqWvxtGUV5qaN3ECL9nSRBwfOinX/dfcT1+gOCnilu+s1BsuFR9nSs50VdS9Ag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qp1V6+JKo9ljK1Y+99OBj4L13kUOHax6svosKs/vEn8=;
- b=ar46LjvZbbXeG/SW/E9eztosVnD6nyXTizTn3PAgS5M7HvrecyQVFSD8VZdEDSxLbUcza9loUFWo3Y3KCTbKRFqxLLYJW1mtfY+jnOnyyqF/+YV8dLD21cfFV51Saaau8jgxftTjh4Drb6xU+6N96FNloNkd+ZSTJHa8ICngqep5N+ASm+baWL0MzJAH7fFO2KGZfbRaXkq+Um23qqtKv8RdpDMlN238ukJhhhMBqmvr4cySqYEx6YkliIkv//SzDynUBF1q34qJl0ZrtivEvJkvWGB2QwjgmGeTdat8odUcohIfVqyephG8lTLsq7S34rcR2YqxGxFMbXLNIWZ2rQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qp1V6+JKo9ljK1Y+99OBj4L13kUOHax6svosKs/vEn8=;
- b=GmrLJQ2srYaqdixtJpjEWcj284TTMvwBJ5/MbXId0kpN2dTuMlaVNQHgTB2ttrSaCpy98Mr4/81d9488o4SCCgzdyefFM8q7udV6DbWq661ltDKGuJqG7L8GlJ87uTyxs7jI9hxjbIM96DClt3dd9Ut6vb0CAfxmz3na2v3I4paDLkyPwbJL7wPM021KfPAtZZBb4W9Sj0sBPnHQNNl5U6ZEtXKKkqKCIBLZrvjiv7oGyBZ3Lkn1AmpU4222mq6Xylape81+CN/VDAdstGYD8ISwdXuzKtJ4s5aAPkhwmyoxWeLSgoVasb/PEGKkIxiSiyUlCe7NFZ3+WJrvhZo6MQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS1PR04MB9559.eurprd04.prod.outlook.com (2603:10a6:20b:483::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
- 2026 19:04:54 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 19:04:54 +0000
-From: Frank.Li@oss.nxp.com
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	dri-devel@lists.freedesktop.org (open list:DRM PANEL DRIVERS),
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-kernel@vger.kernel.org (open list)
-Cc: imx@lists.linux.dev,
-	Frank Li <Frank.Li@nxp.com>
-Subject: [PATCH 1/1] dt-bindings: display: sgd,gktw70sdae4se: use unevaluatedProperties
-Date: Fri, 16 Oct 2026 15:04:47 -0400
-Message-ID: <20261016190447.752297-1-Frank.Li@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PH8PR20CA0005.namprd20.prod.outlook.com
- (2603:10b6:510:23c::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dElp7kYZ"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be4c78e8caso230080e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:05:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792177502; cv=none;
+        d=google.com; s=arc-20260327;
+        b=s4aUfq2p+J4PBz68nkprVrwmHlEYWzCyAp2VWWWBuRw/qIHHfk9StyyGKDbeDA/8KL
+         nI7xFyL87CvSHQIvk6m3LYUSiCJz/5V146UVEIHud4Iq5bU/7GFo3MFzbzexDOzMi+/X
+         Ho49ldhrN03JLfYkVvVlSZ9dJXILuk2Nq/tja6i0dRdoCgSHenRO0bfNACZIntxqQPkk
+         +3lnpMSXeOxuLIuxsrk5TIGexDJXXFGhEeEC1Sgt+P7Gg+tMeTCwoeg3AxUM0tiGbEgH
+         Cwgck9YaM0sDnAiIS/kwIQHT0xcRJiJcmfzhed2/3FVpbrBUJisalKLdsfp6+7URICMP
+         ic3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eFr5a0FeYIfPj3OlM5ijOjEBoPrB3ZZlxk7SDs3PmPw=;
+        fh=ClzoSUVn8Yxn3FIK/8NPxaRixeKTuUffwKkpzLtP+z0=;
+        b=lT33YVGWKlBQQFLkTMZ2FCR5vV6OyBVzmCdo/WmxXdoBqbV2LdfudMH5Df/TLkrDnx
+         df3OLpXdGhDmy0qPjhAal0slZlZmFFzHq/Ig6dgaD0CUK/j+cvxVHtmdgAs1ElUbJcx5
+         1/i5i/n5lzNXYuGSyuZsKgIjEYzPWEDaLnhC21HZiM2PijOTiy7eV5BILkImebXNXVsz
+         AFVWoSLJvsH4xawKObm3byUL3Q0dCKtqBQzgqy+prntQMIWppRieW97GtGgO9IPVpwaU
+         j8dUSAuIT7wyExqy8SY0x1rX9mwreT8EasT1JNkDybjZ2FEfTSGwbClm3p27vg2m6G4m
+         RaaQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792177502; x=1792782302; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eFr5a0FeYIfPj3OlM5ijOjEBoPrB3ZZlxk7SDs3PmPw=;
+        b=dElp7kYZQoZBicmNW470HTN0awFsXpWFqPwpQwN8xRBUZkPfoj5EhFKRLmBXLCPdiC
+         yG5y9QXK3EyaIS1vyMVAB2pxO+xyOQB1Rg9k+SvTBy9tG0lYvJ2ESQDgUR2wZOj5O82C
+         w9XehSrA2201cUmPZtL1WCfpREsewxtszXiD+Qd8KLIexrEbQirjEiNdy+xrvDx4lZwH
+         VkxVHfM6IimUG7YvgtEgo0jKlqh4iRq8k8xcKfAah7reYbElufYRDs7LkXqUytmghPVn
+         KAJdtuTWltm60GO1KGG6vYuJ3PNWk1dwumYbNtkd6+plWYLuT3+wrvyutS8lBUaNJugk
+         9zTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792177502; x=1792782302;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eFr5a0FeYIfPj3OlM5ijOjEBoPrB3ZZlxk7SDs3PmPw=;
+        b=gGzrDE7Ia8B4qkkWFXMhWAXKFtEk4e9SvLgxuP8/VS8wcXXb6vWm4zO7ZmT9Kss29a
+         yLpdcTK2743ZAteVYO4XiMi9aQ+UoGiQ6EHkSZEYBAjQ/8UOzIXIEClB1yMbEtg+8Mce
+         2l5DjBZXo1KNcgUoqjBy/h3YLkalp11pWpv+V17TwpwV9RzLdtGQrd1s+saOalBUQCMI
+         g8ZpmwO51QIg1ydSZoM8pcu8To/FPSHkTUkODdN3Wentl4a3BOHpKq+vrqa7IXfgcE27
+         ZjBIdJwqGPnyevA1i5ezfuFNtgJJpYPxCObArsuPFcRvkj5BEJp+gIRq9h4nzItVqYeH
+         kaNA==
+X-Forwarded-Encrypted: i=1; AKwUvBw86j8Xjcfamwjlr8DWs2R8E+mTlyXeEH9TaSKsvn2wGBVBFH4br3IDBfhPE9khPuKihXqyQoAbpqACgQE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcy5yNna8Ld8efBQrHooKKu+i004FKf9BOadNTLseuNLWwrTh0
+	TFsA6+Mm9/UQGlsjanJ1TFYPIoaNC3xMWmuw7ZteYVfACGLhSmCccCrrP5a5dcLOTWmOib7ha6B
+	TLU7fEEgWfWP+E5y9f1OhspmhFC1x6fNWjJIB
+X-Gm-Gg: AYBFou1PhQFl95o61Uu1IHyjaHRJxeqCUFnngbELUtI+BhgJFzw5rJZsPMYhUuTMHhq
+	WBV+NKjveQ3a5ldrgu5lER32dKg2J3nuth+9+4joxvlkC1WCloZ6wiGQbDW+ixcaJMmnq0OdFgZ
+	/Kb7dPzSv9h7LdvE9Z/SZjO08up5XXK3+Y25dMlamKQKyYxQi12T1xkZ4FivOXQegXseavDZGC7
+	mYowvbXhfAW0TSg7Z5DoD2touv7nE/c7t/cu5q/wYO2GxqWzEITqDazig6eMDju+1iolxi8tHr4
+	CTWx5V96gBiIysgG5XwaMyAzXo7BheFb5e218PapxLyqKxp2tmu4W4M=
+X-Received: by 2002:a05:6512:3d1e:b0:5be:4d3f:bcb with SMTP id
+ 2adb3069b0e04-5be509f6406mr140553e87.6.1792177501725; Fri, 16 Oct 2026
+ 12:05:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS1PR04MB9559:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a3a247b-18a6-4c91-65aa-08df2bb85d02
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|1800799024|7416014|376014|23010399003|56012099006|11063799006|921020|261009223027099003|10067099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	vqUgRdZO2txkhWXRTPlG7sTT9FgbvT3YzzTXRdBj5FIH15866kSt7EABUyygscXR4XPZYUPqJtV+I8d9cSnyZfnlQhoqf3u2RoBRp70VZzbh3UVMXmnrgLmShYUdqjh6e3ramacE9vVti/OHA0kCeFcnbRpTDYtXiRNrkiP9buvIzkb8sqNwd15BLoQGbiePAOElEeVq1BuUiN1LKMeTH/AfbmYzzbILr7CCgFyG2Po+EKPagJ61+reU1oC2NVXBEsUi0beaOxitGCaqgkeG34sfDeTkG3bKAKUhKFMebtfXwVyrTNSpxfWwItU8vakXshhGs894JcC2NxtFFZnEvACA56wndL9itwCYbjcrQZgUekdAUx00Jd7pv46PsKcMcCwiRPJ0rqNbLeVuHFXZrqK6YJoMSHsELTHIcu7eRBG2W0Yk2RNUoFyMQqUSz8GnXLtkJdPpNAv8uFFVjrs+Z6qAlMeMKPQFq3SUejihcz5dg81Y1bNjKOP/YEzqI25N+caNGm0rJQa16DKNBv+/gUv1n8piVQN2MI0FV+uk0S1CyXDxa5fvp9Iv+e45sECfA18vSBDD5IMwnzrFPguK2hpoKxFGPNBhsnvdq7ClIiQcaiDlWLaQADm+NK8ykfctEUzwaLkCQnzt5xVy2wjn8absxfUSFgWCw2a25mJad30=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(7416014)(376014)(23010399003)(56012099006)(11063799006)(921020)(261009223027099003)(10067099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cMAVvEV0v4Iax+vf96QHk0mOW9gHLzMrXAehdMbI86LPfVxD1cjJIsFqnwAs?=
- =?us-ascii?Q?/HQPWQAi6vbR6cBLEoq+oUfl8+FEUQHy9h7BoWAsvPLMuSBvW68XI/tGqN3L?=
- =?us-ascii?Q?tCE2Kh1okciCja0BRUwefwa60kGmp0s+RZ+19w65Br8Y22asoh2GLxS4yuZb?=
- =?us-ascii?Q?Mw3astuZ/9y2xYUJZBzCdt7q4gIBXclb6ZzMApycVDgSHR+uE0ogeHiKUi4x?=
- =?us-ascii?Q?SQoWYZ5wXo+TYmY4PoBv4Lu4395VPB4v2UlVKANTYLEbYCQ5jwGlmqHsARvd?=
- =?us-ascii?Q?gxZGH5tS6eJ/n8pwHvo0jHj+pHWeKjTaoDes8b8DLZK6+RnYylzMbv+e/dU+?=
- =?us-ascii?Q?pfn0YnHmx0dxZoA92FE0AbTfLK6M0DxtLM4UmjkURnvytEUeGguSuPgWFzj2?=
- =?us-ascii?Q?SbsJK8czfWaUl6U8sYQGHrHkSyGVgUoubBEOmJzEwMiDXr4Grg7tlr/9IJsd?=
- =?us-ascii?Q?CxH8mrI0dKHHDZ4Qq7nvGY3zJOisIrdrXgd7Vsta2YiHzXBwP3XrR+rMMylH?=
- =?us-ascii?Q?dakIM9cMX8M9k8jwKV99RHpX3JAbxG0a28oscW19vW72e8zcmNpFKrUF995Y?=
- =?us-ascii?Q?zsS1L0asatNMFof2uMiHZAWtJVkemu9SZZSENpKof2zSmCsCMaSpP6Edk0dv?=
- =?us-ascii?Q?ccv7buK5w3yy7FKYdYbC0pweEz12gMOTQyWrXv4PeQYge/IUcnts6XPYOAtQ?=
- =?us-ascii?Q?W7pN38ZfXk+yPPwdLnyQWOqPD648DynNkGCoX2BSWUtshVXoW2sKXfy8/hWB?=
- =?us-ascii?Q?LNPLGDNo6LvaFYQ24Yx2yQVFqh4Eho2iMtIMUToTcNkV10eht2cW309MOP2P?=
- =?us-ascii?Q?0Kd3T1KNq9lUTAQLgrIpYeIZGWB7w6PG5R4EtGMtxuDuXCkYR20POzF5HSih?=
- =?us-ascii?Q?AwLvg6W4rP1vCCMHk/hobEL7d/cMO8gDjMtMWU+b53e7SR+5y/htSTPUQ2I8?=
- =?us-ascii?Q?4ZoHzcrPtSXjYc1gcywx9j+bgSy0ybQiGZ5anqiY/lUogRDdRMi4Ob1ivOYj?=
- =?us-ascii?Q?dkupsZnoudHt3PuLmL3q66UpbJgq80C2HFCDDbULUAL5DqQ7YNkHPIaeOYWw?=
- =?us-ascii?Q?14fjPAZluYphv44LIes4sXV46QaJzniYY1311XntgjLpgWQNYyJ9gVx0C+H/?=
- =?us-ascii?Q?U5ZF5gG0AOTdsuWlHHmzeown/iTOjuYpNZxnJKg/NAhUH5Fto7/NwjPGT/vo?=
- =?us-ascii?Q?sJILGXYReO0HWrhCnkQz1YNHS6YHxuah8a1eNMRQv9b1GG9XKeMTS0wGeiIX?=
- =?us-ascii?Q?WujJVN1384KVfBB/j3Zk0dMtBImsMBEoGelDNJzG6SXWumnWMGXU0nHhXzFw?=
- =?us-ascii?Q?L+t2CW3uU0DXQoIt0qyomFL2LbZElK97wzDGBaM86CUUjBvtqgkwr5pt2qb+?=
- =?us-ascii?Q?oHnpwNU4b7+ZB2LiXb/EXhz8Ni+Ai34WD+mUM5a4R/H/ATMYgEdPCCDZNjjK?=
- =?us-ascii?Q?u4brVPtJyDbBhKMg75DdHXJiW7nc8w4fqid8as/4hRLkWFNZ1TkoF1b7OLLv?=
- =?us-ascii?Q?/dJqVP3GWxvY/kT7StB+fUn9x9546tW3IX4MOpM0tR4sLRtrW2KrzeTyNAMo?=
- =?us-ascii?Q?GW2kJ3McME7YkHtPXKVXNXAcbD1h2rSm0BOc/lIr6oSTK3A4sEljVc0PPMGR?=
- =?us-ascii?Q?nS34lXgfgFVWeGIYuYoWuxv/+Aq/89revAJ6FEkt5WQvi7Ntx94sEtY/7Glm?=
- =?us-ascii?Q?fVooztD7Q0kGyOGlt0tGLrKVWNPTJ/QiFtZt0zczce0e08TUdN9YQbSdVM0D?=
- =?us-ascii?Q?JENUK+tjiHOtd257XNbDNbV/9EdrelXUE2IUYlGE6WksY1dmonJs?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a3a247b-18a6-4c91-65aa-08df2bb85d02
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 19:04:54.6162
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ov/282pHgx+1tBl/iOQOhE3iNAzt1kqEjKVd0ZovYqYiiWoI1PNGqMw2VgHDMlooSZfeMOXWuJUUGFSN0wVSvcr5ij6gQETejhOqxZ3vaNfVN8BxYfoUazPghvgSQr33
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9559
+References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com> <CAO9r8zOHtaeo5jhHkHB8Vtb9+KZXO+DH74v+7Y84W0v=tatRqg@mail.gmail.com>
+In-Reply-To: <CAO9r8zOHtaeo5jhHkHB8Vtb9+KZXO+DH74v+7Y84W0v=tatRqg@mail.gmail.com>
+From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Date: Fri, 16 Oct 2026 12:04:49 -0700
+X-Gm-Features: AclHuK9MIvQEnJq535pIpXHoDNUv0NJGjcL6pnvPWj57xwMyrngG-QJeAgr-Nsw
+Message-ID: <CACpmpofN-JfCgJtW9D0wNu0_pL1pRWGfNphUQnE9Bse-P5tHpQ@mail.gmail.com>
+Subject: Re: [PATCH v1 0/8] Batched zswap_store() with compression batching
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
+	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
+	davem@davemloft.net, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
+	senozhatsky@chromium.org, 
+	"Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Frank Li <Frank.Li@nxp.com>
+On Fri, Oct 16, 2026 at 9:14=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> On Thu, Oct 8, 2026 at 11:28=E2=80=AFAM Kanchana P. Sridhar
+> <kanchanapsridhar2026@gmail.com> wrote:
+> >
+> > v1: Batched zswap_store() with compression batching
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D
+> >
+> > This series is a spin-off of "v14: zswap compression batching with opti=
+mized
+> > iaa_crypto driver" [1], and focuses on the generic crypto_acomp and zsw=
+ap
+> > compression batching enablers. Resuming work on this series following a=
+ gap
+> > since v14 (January 2026). Please note that my email address and affilia=
+tion have
+> > changed from kanchana.p.sridhar@intel.com to kanchanapsridhar2026@gmail=
+.com. I
+> > have retained the original Intel sign-offs on prior patches for histori=
+cal
+> > attribution while signing off v1 of this series with my current address=
+.
+> >
+> > To summarize the main contribution of this patch series: Batching is in=
+troduced
+> > in zswap_store() of large folios: we carve out a large folio into batch=
+es of
+> > ZSWAP_MAX_BATCH_SIZE (8 pages) for software compressors, and store each
+> > batch. Moving the fundamental operations that need to be happen to stor=
+e a page
+> > to now work at the granularity of a batch offers opportunities to optim=
+ize them
+> > from these perspectives:
+> >
+> > 1) Utilize existing kernel API that minimize obtaining locks for bulk
+> >    operations, e.g. kmem_cache_alloc_bulk()/kmem_cache_free_bulk().
+> >
+> > 2) We keep the working set for each of the core store functionalities (=
+alloc
+> >    entries, compress pages, store pages in zsmalloc) to be focused on a
+> >    batch, thereby minimizing cache evictions and benefiting from cache
+> >    locality.
+> >
+> > 3) Along the lines of (1), the main zswap_compress() batching routine o=
+btains
+> >    the acomp_ctx mutex lock once per batch, and releases it after it ha=
+s
+> >    processed all pages in that batch.
+> >
+> > 4) Any zswap store functionality that works on a batch can potentially =
+be
+> >    parallelized as a next step, to further improve performance.
+> >
+> > Performance data: usemem with 60% over-commit:
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > Validation was done with mm-unstable as of 10-3-2026 (Baseline) and wit=
+h this
+> > patch series.
+> >
+> > Testing was done on a Chromebook with a QEMU "vng" VM running in Crosti=
+ni.
+> >
+> > Chromebook Diagnostics reports:
+> >   Intel(R) Core(TM) Ultra 5 115U (10 CPUs, 4.200GHz)
+> >   RAM: 16GB
+> >
+> > vng setup:
+> >          Memory: 7G
+> >            Swap: 3G
+> >     Pinned CPUs: 4 (E-Cores: 4,5,6,7)
+> >
+> > zswap compressor:
+> >   ZSTD
+> >
+> > mTHP enabled:
+> >   64kB
+> >
+> > vm-scalability/usemem setup:
+> >
+> >   cgroup memory.high: 3G
+> >   4 usemem processes, each allocates 1200M anonymous memory, reads the
+> >   Silesia dataset [2] from a pre-fork-allocated buffer into the 1200M,
+> >   writes to each unsigned long in the 1200M, sleeps for 10 sec, then
+> >   frees the memory and exits.
+> >
+> >     usemem --read-silesia -w -O -b 1 -s 10 -n 4 1200M
+>
+> What is --read-silesia? Is this a local change you made to usemem?
 
-Use unevaluatedProperties replace additionalProperties because it ref
-other yaml file to allow backlight and label property.
+Yes, this is a local change I made because I wanted to get compressed
+lengths besides 565, which is the only compressed length of data
+swapped out from the original usemem.
 
-Fix below CHECK_DTBS warning:
-  arch/arm/boot/dts/nxp/imx/imx6q-var-dt6customboard.dtb: lvds-panel (sgd,gktw70sdae4se): 'backlight', 'label' do not match any of the regexes: '^pinctrl-[0-9]+$'
-        from schema $id: http://devicetree.org/schemas/display/panel/sgd,gktw70sdae4se.yaml
+To replicate my setup:
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
----
- .../devicetree/bindings/display/panel/sgd,gktw70sdae4se.yaml    | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+1) Setup Silesia dataset to be read by usemem:
 
-diff --git a/Documentation/devicetree/bindings/display/panel/sgd,gktw70sdae4se.yaml b/Documentation/devicetree/bindings/display/panel/sgd,gktw70sdae4se.yaml
-index 1beb4ba92248b..4c70576fe8a8f 100644
---- a/Documentation/devicetree/bindings/display/panel/sgd,gktw70sdae4se.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/sgd,gktw70sdae4se.yaml
-@@ -49,7 +49,7 @@ required:
-   - height-mm
-   - panel-timing
- 
--additionalProperties: false
-+unevaluatedProperties: false
- 
- examples:
-   - |+
--- 
-2.43.0
+wget https://wanos.co/assets/silesia.tar
+tar -xvf silesia.tar
+# concatenate the 12 binary files into one
+cat * >> /tmp/silesia.bin
 
+2) Modifications to usemem:
+
+usemem_orig.c is
+https://git.kernel.org/pub/scm/linux/kernel/git/wfg/vm-scalability.git/tree=
+/usemem.c.
+
+diff usemem.c usemem_orig.c:
+
+75,76d74
+< unsigned long silesia_bytes =3D 211938580UL;
+< char *silesia_dataset;
+103d100
+< int opt_read_silesia =3D 0;
+166d162
+<       "    --read-silesia      write memory with data from
+Silesia.tar to allocate the pages from Linux kernel after
+malloc/mmap\n"
+209d204
+<       { "read-silesia", 0, NULL,   0 },
+352,373d346
+< static void fill_buffer_from_silesia(char *buf, size_t length, const
+char *silesia_path)
+< {
+<     size_t bytes_read =3D 0;
+<
+<     int fd =3D open(silesia_path, O_RDONLY);
+<     if (fd < 0) {
+<         perror("Failed to open Silesia dataset");
+<         return;
+<     }
+<
+<     while (bytes_read < length) {
+<         ssize_t res =3D read(fd, buf + bytes_read, length - bytes_read);
+<         if (res <=3D 0) {
+<             /* Loop back to beginning of silesia.bin if allocation
+exceeds ~210MB */
+<             lseek(fd, 0, SEEK_SET);
+<             continue;
+<         }
+<         bytes_read +=3D res;
+<     }
+<     close(fd);
+< }
+<
+613,623d585
+< static inline void copy_silesia_to_buffer(char *from, char *to, size_t le=
+ngth)
+< {
+<       size_t nr_bytes_copied =3D 0, remaining_bytes;
+<
+<       while (nr_bytes_copied < length) {
+<               remaining_bytes =3D min(silesia_bytes, length - nr_bytes_co=
+pied);
+<               memcpy(to + nr_bytes_copied, from, remaining_bytes);
+<               nr_bytes_copied +=3D remaining_bytes;
+<       }
+< }
+<
+638,642d599
+<
+<               if (opt_read_silesia) {
+<                       copy_silesia_to_buffer(silesia_dataset, (char
+*)p, (size_t)bytes);
+<               }
+<
+1053,1054d1009
+<                       } else if (strcmp(opts[opt_index].name,
+"read-silesia") =3D=3D 0) {
+<                               opt_read_silesia =3D 1;
+1263,1268d1217
+<       }
+<
+<
+<       if (opt_read_silesia) {
+<               silesia_dataset =3D (char *)allocate(silesia_bytes);
+<               fill_buffer_from_silesia(silesia_dataset,
+(size_t)silesia_bytes, "/tmp/silesia.bin");
