@@ -1,83 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995813BA244;
-	Fri, 16 Oct 2026 10:28:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A6B47143E;
+	Fri, 16 Oct 2026 10:28:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146481; cv=none; b=XIMidj4O8nyt4TXKWyeJeWktGx1AOoGRl+T5UtPxKvv4fkbGHmRVq4KNBvv0gi0H6psuuWkwLd5nUpO0bq0cAMSSaTFZMKcWguie3PBCCRLczaFu6MQbvsuAlStHSQ5t2yDsSJOLLmfqMkynXgXwiuOLznBOXTFFibaedmYJdGQ=
+	t=1792146482; cv=none; b=bB0A2eB1QkjS4N+ENcE5iCz5X/nI5Xr2TdfdjJiNMFR2dLJ7PNsVLneaWt1mGfNM0P69bWV65eX9alUPHhvc573kwjwflC1aY5RlV+K4vy0ZVDez81Vu81BE1sDx7KgHdB52w7lPnmzbAnlw4HxFXaeUHGEVJvGOMgthddVD0mc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146481; c=relaxed/simple;
-	bh=mrE/BzO7bhFTMiLHsRW6/vXVrJHPy36G3R74Gh3OASw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pp5W/XWtI7XjAuPXlHX50JdWqysre4yEu+cN+3mt5zWRuoQMyHUHERNcVX5BzYdMCvt8UZukVDS8nvrVRql4/Gox/iFbaQY5194nsfSHEUl3Z6/UnkEWYZdUpdLcXOVmfzOyzpcgcaH1aedH5aF/XxA5jOr3hOMasTg7aydFK3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cUSsEjB+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792146482; c=relaxed/simple;
+	bh=cGm/IUzGsl7M+005jqEJ8bgl7CrtXaLvlBO6w1BA05s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tH6nFfKOoRojzhUCCoUKpI3ZfqVNnvfezzx1kC/0GYhLPLUosEarO7l2DeFNx2cfeQvDL/JulSeLH/P5o/AuFbVNC6yrOrt/WrxXv9xS2Y+hMH6U7K1/4FXftH7rAkr82yUseyHTLZq+UOMavedJxzhAZftIEoo+7/17oQf7hhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnKe0ZIj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cUSsEjB+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524C71F000C5;
-	Fri, 16 Oct 2026 10:27:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792146480;
-	bh=mrE/BzO7bhFTMiLHsRW6/vXVrJHPy36G3R74Gh3OASw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cUSsEjB+E23hz6BEJoFYLGF7+rFGynzwXMi1/SR1ljJOM5acgFubhLGBYxAr8Y5Hc
-	 U9rPCO2DPsB3I2ZQEAH6Ipmqeilb0BBgQwRdFMWIVZ8mD7Z8Igd1q0oWn/ZaoPqF2N
-	 JKZ3yl7j3MBAlD0ghMPmeuzwYJX925sbOMkB8X/LS+CFe/NK+VM5NsiUM/poegS3ZW
-	 lWiq6/JUom/aHBiq6v9ajPDAzgq/5lyqPtalWgT9G2jGOWtHjivR1CT20w5XjPZtvH
-	 HnSBtAbM1se4hM9Nxpti+vJOyaEBKDbdbpWWYk1PJLMzKxMtJ4BygiABsbWu2dQ2jq
-	 P+CfIQJm3UUQA==
-Date: Fri, 16 Oct 2026 11:27:56 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Weibin Liu <liuwb@xiaopeng.com>
-Cc: thangaraj.s@microchip.com, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] spi: spi-pci1xxxx: quiesce DMA engines on transfer
- timeout
-Message-ID: <c16a2559-7fcc-48ba-a3b1-3e1273f6666f@sirena.org.uk>
-References: <a02880a9-f20f-45ad-b22b-c405fb7e74d0@sirena.org.uk>
- <20261016020036.1333548-1-liuwb@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnKe0ZIj"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 686AAC2BCF5;
+	Fri, 16 Oct 2026 10:28:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792146481;
+	bh=cGm/IUzGsl7M+005jqEJ8bgl7CrtXaLvlBO6w1BA05s=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=SnKe0ZIjS0DmUrzO0ZKDf7YBETuf6/m7M9fWBVVlPRFhSQkIBKi87MKezVUuLa/me
+	 zFx2f4lpYsg2xLqaZZgJRIqQ5w6il2GxUWK56P3jE9h+1mCXQbZgTzYTuxsARHoahX
+	 fHNd6LB9WqlKQ4aex4WMYhMq5ZTldEcMJyY2qulk2axjDSVCmRvLBp2deU+isjayRF
+	 S+MUDvwwEOZhKqb0Ml1t9W02hgIEMePEFX9ssZZGy8fs00FxJeI7tNhPlCWnPOg5/H
+	 KCG+PVrNu9wYFRedKM5+OeUxdMDyaGChFDudHY/GYBq01kaIlK2SGXzxyEzFg0ZMF/
+	 jtucacuz3UZZA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42025CC6B38;
+	Fri, 16 Oct 2026 10:28:01 +0000 (UTC)
+From: George Neacsu via B4 Relay <devnull+geocausa.gmail.com@kernel.org>
+Date: Fri, 16 Oct 2026 11:28:01 +0100
+Subject: [PATCH v2] media: i2c: vd55g1: fix VD55G0 streaming below 900 Mbps
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="C1mMnbE9vl43J2N5"
-Content-Disposition: inline
-In-Reply-To: <20261016020036.1333548-1-liuwb@xiaopeng.com>
-X-Cookie: <<<<< EVACUATION ROUTE <<<<<
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-vd55g0-sp11-fix-v2-1-aa08b4b8bbfc@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WS0WqbMQyFXyX81/uHZFu21au9x+iFJEvtD2vTJ
+ VnYKHn3OSkMUtilBN859tF5X45+2Py4POzel4Oft+O2f51D+rJb7Flen3zdxpyXBKkiYF3Pg+g
+ J1uMb4hrb77WCWi1CrDiWSb0dfK5vit8fP+aD//w1hU8fy+VNTvY8ZR92o5RWgnA0QbAYCJKxu
+ iUF5lwLg2KRxjfdfxQANjOqGq2yKIDXpsPAKGFhwilq2rDeU0ySBkd0rN0VGyBQ7qNDFKWSuid
+ t2rjfU96weU4uxljNJMyCvQlRMgHIAJ2GSL6neliJRtNSLGdJOAMaWtAw87CcsKvTjO2eoqTDq
+ XKB+SAycIpSBqaOGKxcW1XLiHZPGSjnAuw5wyjaW9HcII2ZCTVPVhSmbE731JjuUQmQ+rRViYx
+ XOw91n1+bR5WYacQnioxVoRWYZ0nAM7/oSqTK0LtI01RHbvqJQvNSJAcjFHGXkQz7oC5YGgzUg
+ eKU8UqpHH21/cvLdnrY1RSlp4iWNbJ47wrWmRFn+q3NZwabBubl2rPn7XjaH/7cinzGW9H+29k
+ zrrjOEhSd9x89+renF9l+fJ3Gy+PlcvkLwO3fkhYDAAA=
+X-Change-ID: 20261016-vd55g0-sp11-fix-60bc64a59b1d
+To: sylvain.petinot@foss.st.com, pm@petermarshall.ca, 
+ benjamin.mugnier@foss.st.com
+Cc: sakari.ailus@linux.intel.com, linux-kernel@vger.kernel.org, 
+ mchehab@kernel.org, linux-media@vger.kernel.org, fqwqf@fqwqf.xyz, 
+ lsa.uz@pm.me, George Neacsu <geocausa@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792146480; l=4701;
+ i=geocausa@gmail.com; s=20261015; h=from:subject:message-id;
+ bh=m1dF/plKqq+CFSvKhg0SOvOc3T7aD4+VelQA4735/cg=;
+ b=TbZ7Qoi11fjGV4j+vRAi/d6A7Wf1NUBg0naMFVaTcrA43rDuNcaaTb+TNf6qmN7IwKvZ39dMY
+ U2eRnG4f0SzBgFhIFRRUNZkjZh0MIkg2nV9tSvcS2pIW1jiqdJITOzq
+X-Developer-Key: i=geocausa@gmail.com; a=ed25519;
+ pk=KyQk/iWbxsikewDBh0SwlHI51RvAqahD3loqmRp9DVI=
+X-Endpoint-Received: by B4 Relay for geocausa@gmail.com/20261015 with
+ auth_id=1199
+X-Original-From: George Neacsu <geocausa@gmail.com>
+Reply-To: geocausa@gmail.com
+
+From: George Neacsu <geocausa@gmail.com>
+
+On a Surface Pro 11 (Snapdragon X Elite, CAMSS) the VD55G0 IR sensor
+(cut 1, revision 0x1111) runs one D-PHY lane at 840 Mbps. With the
+VD55G0 support as posted, the sensor accepts the start command and
+reports STREAMING, but it never sends a frame and the stop command
+never completes.
+
+The minimum line length is the VD55G1 value, 1128 pixels. ST's
+reference vd55g0 driver uses 1200 below 900 Mbps and 1128 above. At
+840 Mbps the sensor stalls with 1128 and streams with 1200, so use 1200
+for the VD55G0 below 900 Mbps.
+
+With this change the sensor streams 644x604 Y10 at 61.6 fps, the
+diagonal grey-scale test pattern comes out correct, and stop completes.
+The built-in 2.11 cut1 patch is used unchanged.
+
+Link: https://github.com/STMicroelectronics/vd55g0-linux-driver/blob/a05627b0f6d8775aa54b6fa306e91f425f2cbf9e/vd55g0.c
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: George Neacsu <geocausa@gmail.com>
+---
+This is an incremental fix for Peter's unmerged VD55G0 support (v2,
+patch 11/11), on top of Jizhou's register-width fix (v2). It does not
+apply to media-next on its own.
+
+Prerequisites:
+https://lore.kernel.org/all/20260918221705.323510-1-pm@petermarshall.ca/
+(and Jizhou Tong's "[PATCH v2] media: i2c: vd55g1: correct VD55G0
+register access widths", 12 October)
+
+Benjamin, I know you'd rather see a separate vd55g0 driver (Sergey's).
+ST's downstream driver also uses a 1200-pixel line below 900 Mbps, so
+this is a data point for that driver too. I can test Sergey's driver on
+the Snapdragon Surface Pro 11 when it is posted.
+
+Tested on mainline (62f482ff73bf) with Peter's v2 01 and 04-11 plus
+Jizhou's fix. 02 and 03 did not apply to that tree, and neither touches
+the driver. The receiver is qcom CAMSS (CSIPHY0 -> CSID0 -> VFE0 RDI0)
+with out-of-tree Surface Pro 11 board support.
+---
+Changes in v2:
+- Drop the ISL_ENABLE (0x0329) change. Sergey found that writing it
+  does not stop the output on the Intel model, and a retest here agrees:
+  with the 1200-pixel line the sensor streams whether 0x0329 is written
+  at stream start, once per power-on, or not at all.
+- Link to v1: https://lore.kernel.org/r/20261016-vd55g0-sp11-fix-v1-1-eb14bd80d8f8@gmail.com
+---
+ drivers/media/i2c/vd55g1.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+index ba70447..4e23e88 100644
+--- a/drivers/media/i2c/vd55g1.c
++++ b/drivers/media/i2c/vd55g1.c
+@@ -76,6 +76,8 @@
+ #define VD55G1_XCLK_FREQ_MAX				(27 * HZ_PER_MHZ)
+ #define VD55G0_MIPI_RATE_MIN				(750 * MEGA)
+ #define VD55G0_MIPI_RATE_MAX				(1200 * MEGA)
++#define VD55G0_LINE_LENGTH_LOW_RATE			1200
++#define VD55G0_LOW_MIPI_RATE_LIMIT			(900 * MEGA)
+ #define VD55G1_MIPI_RATE_MIN				(250 * MEGA)
+ #define VD55G1_MIPI_RATE_MAX				(1200 * MEGA)
+ 
+@@ -1245,6 +1247,8 @@ struct vd55g1_model {
+ 	u16 num_modes;
+ 	u32 mipi_rate_min;
+ 	u32 mipi_rate_max;
++	u32 low_mipi_rate_limit;
++	u16 line_length_low_rate;
+ 	u16 width;
+ 	u16 height;
+ 	bool bayer;
+@@ -1323,6 +1327,8 @@ static const struct vd55g1_model vd55g0_model = {
+ 	.num_modes = ARRAY_SIZE(vd55g0_supported_modes),
+ 	.mipi_rate_min = VD55G0_MIPI_RATE_MIN,
+ 	.mipi_rate_max = VD55G0_MIPI_RATE_MAX,
++	.low_mipi_rate_limit = VD55G0_LOW_MIPI_RATE_LIMIT,
++	.line_length_low_rate = VD55G0_LINE_LENGTH_LOW_RATE,
+ 	.width = VD55G0_WIDTH,
+ 	.height = VD55G0_HEIGHT,
+ 	.bayer = false,
+@@ -1542,6 +1548,8 @@ static unsigned int vd55g1_get_hblank_min(struct vd55g1 *sensor,
+ 
+ 	/* Absolute time required for ADCs to convert pixels */
+ 	min_line_length = VD55G1_LINE_LENGTH_MIN;
++	if (sensor->mipi_rate < sensor->model->low_mipi_rate_limit)
++		min_line_length = sensor->model->line_length_low_rate;
+ 	if (sensor->model->hdr &&
+ 	    sensor->hdr_ctrl->val == VD55G1_HDR_SUB)
+ 		min_line_length = VD55G1_LINE_LENGTH_SUB_MIN;
+
+---
+base-commit: 62f482ff73bf3ae88b0c899115527752cf9cbf13
+change-id: 20261016-vd55g0-sp11-fix-60bc64a59b1d
+prerequisite-patch-id: d4474f51d7a10cfd10a316ec2b09936490b14a79
+prerequisite-patch-id: 0017cc56bf769ab00e67bdc0c5214951447cb716
+prerequisite-patch-id: 95a2d9ff8168eb17010538d80f4b5428e2b7b798
+prerequisite-patch-id: e717e32eac916ccafccf9e7a552ca0030085daa3
+prerequisite-patch-id: 8fc4f7595aac33a2164adb41c139dc3218be5bc6
+prerequisite-patch-id: 52bde56940b545c0e5f44d12811f9b9676bc311c
+prerequisite-patch-id: c0b93409e330d4b874b3702d67b57e2c4b0bde32
+prerequisite-patch-id: dbc6f65015852bbaf31e5f4efbee52c60bafb79f
+prerequisite-patch-id: d5c9bb074014a20938df8b55bb9088aa7b26d37b
+prerequisite-patch-id: d1ce44a3f9104aeead2c18d58a1470d1bd1ae531
+
+Best regards,
+-- 
+George Neacsu <geocausa@gmail.com>
 
 
---C1mMnbE9vl43J2N5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Fri, Oct 16, 2026 at 10:00:36AM +0800, Weibin Liu wrote:
-> If a DMA-mapped transfer times out waiting for DMA_TERM and neither DMA
-> abort interrupt arrived, pci1xxxx_spi_transfer_with_dma() returns
-> through the error label while both DMA engines are still enabled, the
-> done/abort interrupt status is still armed and the transfer state
-> (p->xfer, p->tx_sgl, p->rx_sgl) is still registered.
-
-Please don't send new patches in reply to old patches or serieses, this
-makes it harder for both people and tools to understand what is going
-on - it can bury things in mailboxes and make it difficult to keep track
-of what current patches are, both for the new patches and the old ones.
-
---C1mMnbE9vl43J2N5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrR/CsACgkQJNaLcl1U
-h9DbFQf9HQTODZj2F1BAfEjNyDgAhTr+T1RqJ/j8y6sNWOy5nNkSZDpvxdsOj/gC
-2eXdK2HVMC1IBX0LFWguyuVQKPy3mRVbQnNjmyCAkiFhosRJxIJ+Zx+/YL+vj2H8
-PkT54dYqfFNhaB+KAYdWDj3jAm/iq++NfgJ/SQNnZ2g42ym4iWa0fGfPyOwAjnKj
-76akhk+2MByEtjtubsLmgcJsN6kNK/j9+e4hhAwX0ujt05GdQBx+4NW3kpwnvWg6
-psg0G1Np1Bp5lUHxFq189OAAszdknZoHaITJmgZCAaco25xoyYJYGVgnXkZiE4av
-XadeFk1nRK24a1oQ5YdT4if/15k63g==
-=KJZa
------END PGP SIGNATURE-----
-
---C1mMnbE9vl43J2N5--
