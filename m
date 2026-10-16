@@ -1,120 +1,73 @@
-Received: from mta0.migadu.com (out-241.mta0.migadu.com [91.218.175.241])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F033909B1
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:20:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.241
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1922561A7;
+	Fri, 16 Oct 2026 14:21:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792160460; cv=none; b=ttVQpXJxpzJZALOP7/70AQskrfUnDbkmfgUDzSfjLqFGNwWthmXyLx8ka7fvcoDIiFbcyVZ1JnE3gvjtryKTUTeNdgBtch84SS2DmAeGMfKJwAtU5EcOxuis16qeAR5w5kJMEAjA0EpPDoU5UvVRl38feWcVGANGSm/O2DWMMtA=
+	t=1792160493; cv=none; b=bH9sPWLxx+sXFaHejfTFLOoGs1osziaoMxPJr/MEda+vo+BQC5bzm0Rf0aindpfBe/tzS3uCZf5y0LaykYcOEUTw4a/maidHrUIO/nHhpGz/s96XAOhae4I9q4G9PjGwk8slsbKiZLWSkyym4sRMVhqgshOj0ZvXikVZ4VQqAKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792160460; c=relaxed/simple;
-	bh=uLgps/BcCrUfqTwdXt1T1MjxdCO880rGw3kHRu4gKF4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JN0rzgO3gmwZLZrz1MAD2ZqAIjaCGvVeWAOLRzLkK8536T1Ohge0BH5DH0ryGMyryc+4snQzeFusAR5fSndzOuS6WIueC1d/jzGocoFFCo+A2CAoxhghC4V2HFSv3FJFcHUDdX5ZwjWsozCS8cXrMlz1NEt+VF6FSUSKqTrCwnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=diHyNP68; arc=none smtp.client-ip=91.218.175.241
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792160493; c=relaxed/simple;
+	bh=dFzBhwDkFPwOsZeLSfCKf0dx/m1DdSIIHK+HD+S+UUQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B+irWSWG/2stx7/BNbHng3220Rwaokv0xhYifAl8BFuYXzS65rvSlh8lazihlzyVhqN6fMBZbruR+4kUIo0Z9ajovkE0kLsLX2XU3TcWLkASjVYOMIWwQyiVyaS9FlwxatGmwIbUm8ghJCYwpGNjQN4rQFYogYL3XYKJvNO5HtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EOSn+n0h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="diHyNP68"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uLgps/BcCrUfqTwdXt1T1MjxdCO880rGw3kHRu4gKF4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792160456; v=1; x=1792765256;
- b=diHyNP685IpWJI/iFOZ+UKMDuT5mNyH5jk4kXwA0XzHVwBfM/Q7u3YPgydo2JCpPI65szRp0
- jAtGE+6y9fgrbjV2G1mUX3kZI34RL8H7wb8iJZLqVLaUEfR2Jt0/BJayvhqnZ7/UymQICwDx8kO
- oVhTFSAl+oYdFPe7P8UIxfhc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 18eec510ebf0c4fe;
-	Fri, 16 Oct 2026 14:20:55 +0000
-X-Mizu-Trace-ID: 18eec510ebf0c4fe
-X-Migadu-Flow: FLOW_OUT
-From: Leon Hwang <leon.hwang@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	Leon Hwang <leon.hwang@linux.dev>
-Subject: [PATCH bpf-next 2/2] bpf: Drop unnecessary ftrace_location() in register/unregister/modify_fentry_multi()
-Date: Fri, 16 Oct 2026 22:20:14 +0800
-Message-ID: <20261016142014.12420-3-leon.hwang@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261016142014.12420-1-leon.hwang@linux.dev>
-References: <20261016142014.12420-1-leon.hwang@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EOSn+n0h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D45571F000C6;
+	Fri, 16 Oct 2026 14:21:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792160491;
+	bh=dFzBhwDkFPwOsZeLSfCKf0dx/m1DdSIIHK+HD+S+UUQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EOSn+n0hToLCaX8bnSfZ3uWLYIdT4IAlXz2Qo5q957Yq5LYCfR8btLgeLMhLhOIEA
+	 KZaX+OMp6nx5+stqC3rZ+dVKK3m1UKEpJvs9KokSXZ9Kln0UN+vCJ5V4QoQh/2FrpO
+	 3xPGeNgSlJ0QaePJD4womy6BlYhaYD224akqz8j5t1cJD608Y/r0zoAAASfylt6OEy
+	 MB8B/Zu84CKdUVL7z+xpXf2xKrrsMAqeRYWTns2ntNjR8E/22Sz9Sh+jwenrCVSFjr
+	 EXYkQfI3VV9BJJAef6zdTB5t/ZaFwJrMDV2X2iGWlorUV9lvveYYcSZLUrpjouedIV
+	 a/YQ2h9Is5Iaw==
+Date: Fri, 16 Oct 2026 15:22:00 +0100
+From: Jean-Philippe Brucker <jpb@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Alex Williamson <alex@shazbot.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org,
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [RFC PATCH v2 15/15] misc/arm-cla: Add vfio-mdev user interface
+Message-ID: <CABCqBse_aZL-EH0us2uA5X10q6E4WP02MoHTYf+M9ezRZr26WQ@mail.gmail.com>
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <20261015142552.4128028-16-ryan.roberts@arm.com>
+ <20261015164102.GC13920@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015164102.GC13920@nvidia.com>
+X-TUID: CePXLswkibsA
 
-Since 'tr->ip' is already a 'ftrace_location()'-ed IP in
-bpf_trampoline_lookup(), it is unnecessary to call ftrace_location() again
-in register/unregister/modify_fentry_multi().
+On Thu, 15 Oct 2026 at 17:41, Jason Gunthorpe <jgg@nvidia.com> wrote:
+> I think I said this last time, please don't use vfio mdev for
+> anything. There is nothing mediated about this.
 
-No functional changes intended.
+We don't multiplex a device between guests, but the host driver must
+control part of the device registers while the remainder is assigned to
+a guest. The host configures accelerator access, stage-2 translation,
+handles CPUHP and context save/restore. So we can't bind the device to
+vfio-platform.
 
-Acked-by: Jiri Olsa <jolsa@kernel.org>
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
----
- kernel/bpf/trampoline.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
-
-diff --git a/kernel/bpf/trampoline.c b/kernel/bpf/trampoline.c
-index 17f2a8133f61..21d460866dfe 100644
---- a/kernel/bpf/trampoline.c
-+++ b/kernel/bpf/trampoline.c
-@@ -1629,8 +1629,8 @@ static void ftrace_hash_add(struct ftrace_hash *hash, struct ftrace_func_entry *
- static int register_fentry_multi(struct bpf_trampoline *tr, struct bpf_tramp_image *im, void *ptr)
- {
- 	unsigned long addr = (unsigned long) im->image;
--	unsigned long ip = ftrace_location(tr->ip);
- 	struct bpf_tracing_multi_data *data = ptr;
-+	unsigned long ip = tr->ip;
- 
- 	/*
- 	 * Different BTF ids get different trampolines, but they can still
-@@ -1651,13 +1651,12 @@ static int register_fentry_multi(struct bpf_trampoline *tr, struct bpf_tramp_ima
- static int unregister_fentry_multi(struct bpf_trampoline *tr, u32 orig_flags, void *ptr)
- {
- 	unsigned long addr = (unsigned long) tr->cur_image->image;
--	unsigned long ip = ftrace_location(tr->ip);
- 	struct bpf_tracing_multi_data *data = ptr;
- 
- 	if (bpf_trampoline_use_jmp(tr->flags))
- 		addr = ftrace_jmp_set(addr);
- 
--	ftrace_hash_add(data->unreg, data->entry, ip, addr);
-+	ftrace_hash_add(data->unreg, data->entry, tr->ip, addr);
- 	tr->cur_image = NULL;
- 	return 0;
- }
-@@ -1666,13 +1665,12 @@ static int modify_fentry_multi(struct bpf_trampoline *tr, u32 orig_flags, struct
- 			       bool lock_direct_mutex, void *ptr)
- {
- 	unsigned long addr = (unsigned long) im->image;
--	unsigned long ip = ftrace_location(tr->ip);
- 	struct bpf_tracing_multi_data *data = ptr;
- 
- 	if (bpf_trampoline_use_jmp(tr->flags))
- 		addr = ftrace_jmp_set(addr);
- 
--	ftrace_hash_add(data->modify, data->entry, ip, addr);
-+	ftrace_hash_add(data->modify, data->entry, tr->ip, addr);
- 	tr->cur_image = im;
- 	return 0;
- }
--- 
-2.55.0
-
+Thanks,
+Jean
