@@ -1,105 +1,108 @@
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F1E47D44D
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:17:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E9746F4A4
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:18:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792156676; cv=none; b=U8e+tMKRW54+Uy057rHA/kGnOWCbAsxaBHXpL0LX+Pye9i1NXkTJEXiHQsGnZhKlX6II9lR1i1AsQniHiunITNiN4McjxGZ7RYHdN8/0eAouB+gkZB+l1GttRiPvKmiI56OxcJYXbm5Eop7lBWMzs5iAqkqYapPc4G0sOOkO5KE=
+	t=1792156718; cv=none; b=RUE3gT/XGE+bbWzD/DlYLf1aCpdnFUFfDE+7AhJGFHLaQN3UPKxkjL9qMGMsoxBW450yjRry2H1FkjiuBjaBw8YWY/NwTmW5B+3oqIdGECJeAfnyRhEmLaFt2ZRhsA6l6QIhCraFEE6Mih21HtfpTuGJDzzOwwPZiwGpBBubKJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792156676; c=relaxed/simple;
-	bh=aK7qUen+NyX1GNayTzmaSYy015S35Zl3Kwbf2q2lZnY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FLRQnIgW/l/kTti4dcXjCZsGptP9qctVwvDV5pJN7NCCmiCRMlQx6isvjNy1sVlgOW529cLBx9pwlHp4C5PHj0o23rVUyXlevx17J9fEXO+zBflXCl4FT+5aP03HeBe4jlmOrH5cdsER7EFQ/rowjWSV1EYHgi4svFDUFggttsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=UyDiUGhx; arc=none smtp.client-ip=209.85.219.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1792156718; c=relaxed/simple;
+	bh=x2BW8oerNSOEYucbHzD1Mf72nQU2zapeYz/1ijKKC0g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=A51wlo4p6EFiR9RNrUVk555FlY/QTFo8yiPGjc81/+VaVqO5Lg0+RsXhZUN9pnzUtEou0/vY8OYG/rzM2Pp00csgIpr7K8/jSOGouAhLmKtq5V4G+Gj5RYF6hsurdky2MQuHzbG8gymizbj4RzRpMKj2A7z44RnoKivJFPFDh5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu; spf=none smtp.mailfrom=monstr.eu; dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b=uMKw/fgi; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=monstr.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="UyDiUGhx"
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-9196d8543cbso23403536d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:17:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b="uMKw/fgi"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c3fd91337baso222001466b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:18:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792156665; x=1792761465; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eCoaTxM/vxVZVMtWCyBRil1iHn0bt6ZcqZozloqgfQ0=;
-        b=UyDiUGhxkP0Nr3d9yMgfNBz+IB6muQrMKgRkADhW0BE4bmbo7eu5Q3JJkspcT9gojF
-         9SiDTrvIs7DLLbTazrAJMZws7SJYEiyh+VRVHyEZJxJI/2XgPUcWwChvIvFeIYVAhmY2
-         t4MoRtRnbKUuMR0g/E2IEaKO0TupVxBl6qon5SJrl6xL9T1DhFzYQj0h2CfZrInh6Tcr
-         yNTAS4PzZBhjyooPZxIwH8RutobNH4MO6vzRqN+QnbPhjTgoH71dj0829+OJvTX0q6CS
-         +dhjei4ywQ48pxyuhnsvQQbzfQHFVdJVr+2f3ty63nPUXTGFS/neW8jqqP/Qdkt3TNSK
-         WBtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792156665; x=1792761465;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=monstr-eu.20251104.gappssmtp.com; s=20251104; t=1792156710; x=1792761510; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eCoaTxM/vxVZVMtWCyBRil1iHn0bt6ZcqZozloqgfQ0=;
-        b=Q7T8gfTVRFVzbPHSKb3cE8vEBlp7FU82FjJGcFfqogo1PybEZOgHC7YArgLeyjm+bm
-         8sl3G17dCsSIxcWbzyCX3gKoQAIyx4gSU722TWTqpzSHLlbdskYvEnKPgb83sQc3JKMN
-         eHKamm3Qz7dIbgU+2Fav98wO9D5DLthJoD/gzx1+f+5k6NlhBC435FeedohLSGebHJFO
-         WUnuUYvWHONMDkFPTUZNkuqQHZ2T8TmloQ5w73vyQ21Wrm+DBlpabfS0ShwfTywFI7sL
-         yThyDz6EkHwIsnqtZQGYiM1ipapWCfeUHLnZEzAj49hqrSBOTl1FReXfukVHvTRBH1ig
-         HrOw==
-X-Forwarded-Encrypted: i=1; AKwUvBwx/CwcJJ+YVx2psR7VKkSuhf3Nz19Dwmtx2GHnCFRob1AyDZq6TA1m8jaCAtqeRe+f3xBnzJBf2eAh878=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKj88VkL36A4X3Lt4MLw3Xwr7cFlwHpqcy8LErMzbfeybJCZHWN
-	19mnOJQbKt3gD8uQchigswSmrUz5iyxKwL5RyW+onlVJtrkJ6lYnwFGRmOqHS6IJKW8=
-X-Gm-Gg: AYBFou33sWnIt8SbdMJkYJwmPZpOzQGbQWeuIqEVi3VEjQZCLV6PyiKV9X9M6ImSGNX
-	PJAFoEMLb7OSe8IGhsz618DCG++Z8g177tV2AZgt6SUBydF6uNI+tTY2o46Uku0PFseAVxz3l6V
-	S3bbu0XQFt0VEsvXWGHRGhTnmWcZH4uM9hDy68kiu5sfOkuDAoDfpi3eSCN1KIznEm2kstujRSf
-	oBw24A+OgVHnsETOV3s1uYm2neTRcy4say+gWfTindmc4kkPne9nenPL1C19JW+TXDwI1o2QaLL
-	GEMFS0lagdtpdjf4jC27Q1vwalR/vdlLujlHHK5v1FHJFWsthE95FKgOCVUxLchAWkMH6oLIK+u
-	4x/+ZfI1CPb9kNXpsa82bxgpramHmDcRmviWiCrSepQvh9zpPQTktGQuh6rr89h4qycywwuPFSo
-	YCoALUDplAQFN0wDDN/TMCqzSf859mcrJH/D8GCXx/TtSlHtvqj42ntr6FdDO5eWruqUxsCyeSf
-	UrgCyEMaoPH9bqr47zSAk+AFtnybG0DblMkrrbDB0SoXjYYLulO9i1fQ+jtLH3sfw==
-X-Received: by 2002:a05:6214:2b8b:b0:917:a253:4f8f with SMTP id 6a1803df08f44-91b55577090mr362058926d6.40.1792156665348;
-        Fri, 16 Oct 2026 06:17:45 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbb0961csm22365796d6.30.2026.10.16.06.17.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 06:17:44 -0700 (PDT)
-Date: Fri, 16 Oct 2026 09:17:42 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, 
-	ying.huang@linux.alibaba.com, kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] mm/mempolicy: convert mempolicy refcnt to refcount_t
-Message-ID: <atIj60f_iMYCl7I6@gourry-fedora-PF4VCD3F>
-References: <20261015231322.3392551-1-gourry@gourry.net>
- <b64e2b5d-d880-4ea9-ab2c-c04a0963427f@kernel.org>
+        bh=NDK24tEpJcT+rcp42kZubJw5bx4qYVZ1Fb/7qslQT5I=;
+        b=uMKw/fgi3gwq1YGyYi4pEHBVWgaUWJpYNo6XmPIDJ2MAwO0gNO8oyhPfmld3xg6VWS
+         qkPWBgjCkZQxit9acVzHoaG6//ArW0KADQz1LAfH4JkaGUW2mhHi8zCIIyHTaT94lDHc
+         GMin+sZeBX2/ySQp8QG5Mc4vXbMM06BBbfB4wkVUdGeVhwKGAm1ObjqhP7xtot6yGaS3
+         vfoezFnhp0gVikldMSY+cnS5yapgEEi1BLXHEBCdHZkrRmMB4kcl/vrsFiHOMPMX5EME
+         9eoD+K54fI47Tzpcrd5szLjYgobX67q9zkCE3iSQ2StrNhu2ZYUrinPjm+2bDhvMb606
+         ogsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792156710; x=1792761510;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NDK24tEpJcT+rcp42kZubJw5bx4qYVZ1Fb/7qslQT5I=;
+        b=p8B+7lNpB2NpUW7VNzZDimfyxNG20yCwnbHt/UvaYgQD41m+Q0tGbBLXJQHXcG2nSy
+         +/+h6dk8TdNoDNaLZyQKxjXvW2oX3kudEXfXcjMZTKXyS2wMqbbJdWP8Mt3wCQYAqEd2
+         OYYSCIobAlSF2mA7UR4/FF+B9A60WFcY4WQ8uxjhBPmRdp2xE2aTJrmH2BqSFayV0pS8
+         TAwYdPGfo9KcaVeWe0B4Exkc8pdKbMtadjn74awpmaNAJI1eYtsIeDkjuoqmkS+E+M9L
+         2vV1sh2Y9IGnvEjsMTG0D7iLnPpqi7KyzOWClBcEefA3MTSuKpcLfeDzDwHrn+6XawoJ
+         fbxg==
+X-Gm-Message-State: AFq9FYIhlv3BRTtWctOTYNz/xl8/hUlyKbjUtypPcltO3juV6acc8/CL
+	ICMKRGYWRCMFq6qtaZ1Ti4IoKOEqqBFzeTT+Ynide1XLL3HRKTlsluKt+y6I2v7cEuozKHVI8x6
+	ipNPp3q72
+X-Gm-Gg: AYBFou1cyldruvSBFwTzRixT0og5r4ldWdOd5rVkFswBBjS8TFK2+ZO+Ypoh69Y+QPj
+	xZ8usu7/M1tVu2zpfElJVEbhHjBoeu8K3qY/jAI2VFpGYaQFMxrPxHP8e+yV/5CTZkbcsAndPYr
+	jQZOUw3PCaRjbpsrO7cX0HhjpqOQdTWDVRFd9TSYoxve1RDeCp91fIPYVfL5dcMWwZiGw9H72hu
+	oodcLuqQ/mIBhj6/6tXlxneHDDtsmML5q+uNVzKT8p0yeLfe5fZWYljJwyDcAfsHjK32Pit2kVZ
+	H2275Zk162G9eA8YKMZ5P9713skc7HYok36SysiUQA+qCbfV7G4cbWN1ZKCQxG/I0q4vWriZosk
+	ee6QLzzJda1+Z3VNuywoaEccuBcflVc4sWiQqDZz549oIo7ZE1orbEUXNEtWKYUyR/vllg59+Eq
+	WSRph1jvxwX2kfWJQT2MDD1E0mL7uBxc7VR912OC7zBnW5AGTTCodAySUFTnNO28seWupc8pcww
+	Aocp12DTHQdzY29gIF76C2cmRv2qycCfiWl9ucbVV/DQFA=
+X-Received: by 2002:a17:907:3f10:b0:c2d:c6e7:9e9f with SMTP id a640c23a62f3a-c31aa081161mr2184120366b.27.1792156709971;
+        Fri, 16 Oct 2026 06:18:29 -0700 (PDT)
+Received: from [192.168.0.105] (nat-108f.starnet.cz. [109.164.53.108])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4091eb14a7sm72600566b.76.2026.10.16.06.18.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 06:18:29 -0700 (PDT)
+Message-ID: <ba1c11fa-5d11-49ce-8780-a57d23187f12@monstr.eu>
+Date: Fri, 16 Oct 2026 15:18:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b64e2b5d-d880-4ea9-ab2c-c04a0963427f@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] microblaze: Build userprogs for the correct endianness
+To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Cc: linux-kernel@vger.kernel.org
+References: <20260919-microblaze-cc-can-link-v1-1-01da67e75ebb@weissschuh.net>
+Content-Language: en-US
+From: Michal Simek <monstr@monstr.eu>
+In-Reply-To: <20260919-microblaze-cc-can-link-v1-1-01da67e75ebb@weissschuh.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 09:54:33AM +0200, David Hildenbrand (Arm) wrote:
-> On 10/16/26 01:13, Gregory Price (Meta) wrote:
-> > struct mempolicy uses an atomic_t as a pure reference counter.
-> > 
-> > Convert it to refcount_t so that overflow and underflow are caught
-> > by the refcount saturation checks.
-> > 
-> > This silences the atomic_as_refcounter.cocci warning, which started
-> > matching __mpol_put() when it switched kmem_cache_free() to kfree_rcu().
-> > 
-> > No functional change for correct callers.
-> > 
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Closes: https://lore.kernel.org/oe-kbuild-all/202610061946.Bx22ZFrw-lkp@intel.com/
-> > Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> > ---
+
+
+On 9/19/26 20:43, Thomas Weißschuh wrote:
+> Currently microblaze userprogs are built for whichever endianness is the
+> default for the use toolchain. They may not be the correct one for the
+> actually built kernel.
 > 
-> Wondering if we want a Fixes? If this only fixes cocci warnings I guess not.
->
+> Implement the correct hooks to build userprogs so they can run on the
+> built kernel. Also test the endianness in CC_CAN_LINK.
+> 
+> Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+> ---
+>   arch/microblaze/Kconfig | 11 +++++++++++
+>   1 file changed, 11 insertions(+)
 
-That was my thought.
+Applied.
+M
 
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+-- 
+Michal Simek, Ing. (M.Eng), OpenPGP -> KeyID: FE3D1F91
+w: www.monstr.eu p: +42-0-721842854
+Maintainer of Linux kernel - Xilinx Microblaze
+Maintainer of Linux kernel - Xilinx Zynq ARM and ZynqMP/Versal ARM64 SoCs
+U-Boot custodian - Xilinx Microblaze/Zynq/ZynqMP/Versal/Versal NET SoCs
+TF-A maintainer - Xilinx ZynqMP/Versal/Versal NET SoCs
+
