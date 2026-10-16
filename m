@@ -1,268 +1,222 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013008.outbound.protection.outlook.com [52.101.83.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC363FE348
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:10:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145459; cv=fail; b=A8nJHnqyJa6S7qcgiJukH3VD4REqT+gPHyrejAU2IRr4ureG8MQIsJSBpwpHzNG0boZsbJlu6VFN8YOwVvqpe9XJBP7jkWhSnfbsXjIhBk1DrjAaJu5kwpfbg4ocRpgKsSPlk20LkvyAT2SNa2i5j+3L3WjX7mbgj7WlSJbTwxU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145459; c=relaxed/simple;
-	bh=+fj2KWXry551v5EjZLl9lvI1APO/5VvCSVahN25dNsc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=WTV0n5LlkF8Fyc6pzaMfDlzAhs8lwnrpFUAEXmap0m/yi0T/cfIBf0x7yb6k+P+CzBFKuYd5uY1T3FpT6O5varY0CJ+Nm1xOL7GTo+yiP3PffeoIQlNic6KJtU21diCdjKWxnM2zxXR50OOO2gRcdpj/jjq6JGdIlkrbF5VTO/4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=hdXftFyg; arc=fail smtp.client-ip=52.101.83.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03123ED3BB;
+	Fri, 16 Oct 2026 10:12:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792145560; cv=none; b=g+B1gjoExk/HrinG70pUKas945i/9taz6Ijdd3G3gvcjHY/jWRpQPrxfoxto4ylKkxdG6yNnBKMBNTpeXHPW5EN8U2WH7GqnxKZSaPqPOsggTdAD7RrH12QI4At3vaRGCUym1+zFa16dwQyxe+HzHC4KRCLAtngbAJN3R1MqGjc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792145560; c=relaxed/simple;
+	bh=idmo1GeyJuJ6N3QJmqPhnGkr7HwQLwgKJovNjaEznRY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cKQi8N0sbby/7hM4+k7a/7QfY1f/vn28FVdkiOwzLgYKA92EDQxMedBatA2Dk1X3DFXTLQd5oaRvnb2bQSGhVMeEqZRVtFpf+msnSAcIXkbUroKgBGs284Z+ob1LxkFbwLksd9G1L4JBrCron83gaA1GU0fFH9zTyqCju4lWENQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NEMCrwxu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="hdXftFyg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MOMgLdgAgVaD4e/cdrx0v6Vjf2hRf0mDTQJXAYZixhmS+gC85/Ub5Ce/zslcYqrb0h65n+EJ1I5hEDkeMbckTCXC0wMM42ZOV4lQDeiIreUXh8wuYfhqAxWmTL88JCaqPfcBu41I36v8l3GX27L7R9S8jWamYCUACdF0NTJP+8hKP3TM6UcThTKicsfKHdeL+hl+gccqd/fdr/bqWlEn6hYfk6cAZ8plCyM9fqgG3itPG3VicZKF76fdERG5/1jhElOR1uKVcaDEsCwLFEXC8fY3to2NtvuzmmZXldkRQIKplFalmuKmtUXAn6qOA20ymD+JcRfvQEyeABKWq0+zWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dNmK3WW1lSkcbfVgEGvwGsj9SUPIW5Hee/qC35RHhbk=;
- b=wwaJmSuSAghoT3j3MHoY6Xmj7kTgxMconQ5zpeOyXzibeP3/Da1LWbnANU8xBMYAoJaWNkAmyusJuy74MpoxtJMZaAQOTmI1Ftm0eZoNJkFTvc5l0MI+0BcLgsEND6BL/tQMjK3LENgv8byhe3ZAq/SxriVDgI9VNwYQJCS8gwQSdvK5wztW3AjbhI4Pr8ZIRRRlA6eSU1roKvb+ULe/FsNxBgP3BRVNKoRiPKo0S+FK4ZDMjRQlOJLSsaohZ7LqmzaxMqlK4yNz+z6vhB9ad7dFl2iRfiwZJii2YuL4n0V+2oqS3tYHSPNjKGdT+hILBpEU2Itvhl411RtPwblEkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dNmK3WW1lSkcbfVgEGvwGsj9SUPIW5Hee/qC35RHhbk=;
- b=hdXftFygbi2/cRMGlF9Mv+efjHSFeFxDkw8C2M4Qll+Bm9peALD+9OpCTeiO4iI888IZIeQzapTX72s0Foo8SKuDremRCaLMO4u2HPW4BaPOfomrIndbJofBgTTr0Cu3TxGBP+zof3LzSLCT3zeA+FjUKDHTXoaTpVJ7TfvGomU7DFK0u+MXSamI5zKpDIwmruVMaVIXljR007BK+ZwogBN6o9q8E/psdjKrOuF2KUWSWgCsZw7Q1OfPYAwG8zXJlCi08bxDirA543vH2gj8op+MZbsCIXDl7D9uxG2o8YMmJi8RVKsW9yNDUuQsXexn49AlYicR7Wv9iXHZ8ptm8g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
- by MMZPR04MB783605.eurprd04.prod.outlook.com (2603:10a6:190:45::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 10:10:52 +0000
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 10:10:52 +0000
-Date: Fri, 16 Oct 2026 18:12:27 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Guido =?iso-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Robert Chiras <robert.chiras@nxp.com>,
-	Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	"Oliver F. Brown" <oliver.brown@oss.nxp.com>
-Subject: Re: [PATCH RESEND v4 4/4] drm/bridge: nwl-dsi: Correct MIPI DSI
- horizontal sync timing
-Message-ID: <atH4i_KcmccKb8Ge@raspi>
-References: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
- <20261014-nwl-dsi-fixes-v4-4-b9138ea5e12c@geanix.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014-nwl-dsi-fixes-v4-4-b9138ea5e12c@geanix.com>
-X-ClientProxiedBy: MA5P287CA0230.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b1::14) To MI9PR04MB350878.eurprd04.prod.outlook.com
- (2603:10a6:290:c0::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NEMCrwxu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D12491F000C4;
+	Fri, 16 Oct 2026 10:12:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792145557;
+	bh=75PhmblfKKNm9YT5QCltoh5unVEmTBo+VfQEF4Aeyac=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NEMCrwxurtStnVI51zk85h1Xn062G8gNb20uB+gBmg8erJwnEIPCRibaJfYQ0uh5P
+	 hkhkWflReftxiBozwZj+Y63Zu6vCQ1abwftzct7a+lVsaYUzJ0AjtLKVAykDH0tR5Y
+	 +m5qN3zPDCn1VUXfOajnGP7SbK3hvH5eJ9q5B2R3fr+30dGlTLZircWZ8ESnEnXvV3
+	 0jbeRWlUHN3cqShxRrGvt1bPaID6CWZLSvvMRv73DGb9En+XzFSJugT4pbKEkja/d4
+	 avjwG3fj2suXE8n7+zQGDGje6t26bOh6LQaELV3Uy2KIaR7BDqnXpuYHIupnlSELGB
+	 QuBx6Ru2dfXwQ==
+Message-ID: <30989671-7159-4b4f-bbf7-29303a9e13ea@kernel.org>
+Date: Fri, 16 Oct 2026 11:12:33 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|MMZPR04MB783605:EE_
-X-MS-Office365-Filtering-Correlation-Id: c853cbb8-5185-4236-716a-08df2b6dc22f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|7416014|1800799024|366016|376014|18002099003|22082099003|10067099003|4143699003|261009223027099003|261009221227099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	CGuur9YjxRYUyxiE9nOoofRG63RDw/IIg0nANHRcGSTwZBJMOWuMivtcZI1ZUoeujYSg32LNCAy5mT0VVRbidIxUP/uUCxuQMepCmIIrfetdi2qPk+67W3CSFH4bDuc/iBEuOWQ7yOYH0W1KWv/okNoGQcjeUYcKVJBTbBQV5eIs5gNaM6nQJDsfYkWYj/d3yK0B8HRl+9u7S7lrgZ1uIFh52mIBVbJwBAIce4HOL3ZCAKA9B1WbEtSI8EXhd5bxUif6ypdQookCPjr72W1wimnZmiimahiY2WC6O6v5Q0gJjIhbIfZXyNKzz40cqyTt/6eaYy5xEcukOGYMQZPoHoLExO9LTW9Hn+kuh9kcOKSWzUpPhFY9uTy31xnq9lqADoRWRqlyDl3+Attc8mfKe7xxkpEO5stO9cFDz68SzSxgILta4zkiHPTJvW9ZvInITSTkuQrudO30JKhhrzxJF5WDyQQE0ppWOkOX79ULoNNAsM/q+NpVoYaxYTQfYaZzgy5z3ZJVsWNrefLy6hV7ksKNTfCP6N851C4sryVo1FVixbPLwA5CRBPLGOxfUxXG2Eiup+p3hcnvMFl4Tyvh4WEteKLeLxc0uU6UrdwarJpmGEea82C1PZPxTnMOBKGu1/pAKPfyfQGj2kyUOG22DNoECbX2uQT6NsYmVn+3Eec=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(7416014)(1800799024)(366016)(376014)(18002099003)(22082099003)(10067099003)(4143699003)(261009223027099003)(261009221227099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?GTPTT/mSNXeOhtL4A5P7VewxQ0Is8wUogUBDymCwicNQgeSiJKOOdUAGGEm+?=
- =?us-ascii?Q?KCqqwTn88S91G0TxxQ5x/aia2LMp9GcJaA3RDANxQCox8lEFXgemDtUBtSnc?=
- =?us-ascii?Q?gTlwE3L9J2Tcd3l/AQFT0O+e1HWXczFhNp8RpnYwuAbEMqNML6aQVA2jSXjp?=
- =?us-ascii?Q?N5+X28EBLtQyD2a6otoGoXxnshmQa63laJzgU3zrvd/sheqBrwCD+97BOoeZ?=
- =?us-ascii?Q?ZSMk41NOvYKNrKiK3lbeCp883S7yILeWuIeQjNPc24a3Vfp+tmYr1VJqKNJf?=
- =?us-ascii?Q?4dQzp+eIsbrjasQhNOdPjJTfnJiioBpofeBhB3uxWAYOtCz0vLKgl3heN1Cs?=
- =?us-ascii?Q?/UFFGPHc8/8j7yT+F4vD+3CeekUxXnR3QEaS70ELmB+Quy2WdMXyEAiAMxuG?=
- =?us-ascii?Q?XrAh6VkdD/fSf3mocLsrGHkmxp3Bn2zV8gwY03l9vKL2ipLBofVqnDyAeYkb?=
- =?us-ascii?Q?5Em/7+N0ZOs4OBlGcKkFQUYPu0s92GIA6zkyJGQQZC0f3GTrzjHN2P+B71bM?=
- =?us-ascii?Q?0WJFxqVGwHZa9cKR8CqvZPWCijFbW8rwIiw9GnMITXjKkGx3uMHpGEnk9yeD?=
- =?us-ascii?Q?AD13+Cpv6mS/XtDbexYMF1+53kD4n3St+QiABozqTNhvkcgJbm4AxT6s6Yzv?=
- =?us-ascii?Q?p2I/CyB+eiT9YMgzS4QYoOD4REWCvSb9xmZzD4Js+imVT3O0zHlnbcThs/vN?=
- =?us-ascii?Q?eyVmbbOFRMq3GlppLJvcHvP2K+BWPjDBeLcolBxcT6+H2k9BGcpNongkdu6X?=
- =?us-ascii?Q?w7eDqX+DkcvjFjrXiCUFWBIKs/oUcNkjqvmxBpXmHbT+SpyzYby4hgZ19Eme?=
- =?us-ascii?Q?rSV/8W2OV/LNv3stSd6A2g1ZI6+wbGLLoMRBS6JcSGZ4DjOY3MLkba2dS9/9?=
- =?us-ascii?Q?OFqbgEHw+dIyTRU1kLMLOg/wbtJPyVheqNL4+iE8iW2ua9C7qRrOcl8FDDwZ?=
- =?us-ascii?Q?Dwzk8rxZko6PVundbnBDGxX+9yun/1/jQ++ckkSGnNqOGO+XrZC2bP+NR7MY?=
- =?us-ascii?Q?IogkDOD3Lji5fyZA+AtIEnStL0VyKJtiSD42zLC80Y77hPm4QCkGvkSzmZWm?=
- =?us-ascii?Q?EHWgpuaa/KmOvay5koPq7qzEdOC5xHklpTN+evZHcWXLojB/0fwqHQWxC/1z?=
- =?us-ascii?Q?MUSFAYYgzgNuRQle1zjFAGUFUwq32Mfv9mxihj5qNV4AVGLyslg5NRuGdgqr?=
- =?us-ascii?Q?gmABaJho8p0Ta2h3lv93aPtDJmx1NVVae+rJ88FuR7eV+QTuObbdK/Wezy80?=
- =?us-ascii?Q?pmjardcH5WnjaBIVcqAM7sADZjBCyoBE1mXjCEdNqELTuhf7hsDcl8r4eBo0?=
- =?us-ascii?Q?wUkozdBU5zUPjx8YMM0/LZ4+N4bMKtj46Sn7MsZAeVt5V9xsaDJhx2sCabYy?=
- =?us-ascii?Q?fkR0nMamrJW5/sWmMB1v8UogoNoR8pHCZyEQW1Mn7hbrqa908Nrj+lFgta32?=
- =?us-ascii?Q?K18pM1ruegTYqmcbco7pcjJ16gwu6Zow8rhB3Krg72QLWcU9+We2/YIqOTSJ?=
- =?us-ascii?Q?2L+kPQHIk0yKWjvKEbjkSwcFh1av5qH4SfSCfOUIkP5yc95QNR8344CEgMi2?=
- =?us-ascii?Q?g8bddZaKi2s89At5H+CLfvbN2dIVl4bCzKQ0AajWSgBfm6JDqDNzVzGUZQ2v?=
- =?us-ascii?Q?Qot6UWJpbwuAhJEqU+6PmC2X3nMzJqlYuw0wJA0iLU+/bJ8GJJxHwgiU52AL?=
- =?us-ascii?Q?APVbeiNAPwazIZTPQ3bFMg21Ditm8z7xG/A6Eh87cB9+P+CbEbcJvu5SbaCH?=
- =?us-ascii?Q?OFKaoLPyMQ=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c853cbb8-5185-4236-716a-08df2b6dc22f
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 10:10:52.2258
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZUJHjfsh5P+JU84oMqqD7AU/bXxKQGH1v0WtQKzC+kFpqnTquRx9P7mgBrM7m+jKSDiXEgi+JJ4W6B+KLhxQcQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MMZPR04MB783605
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 2/4] phy: qcom-mipi-csi2: Add C-PHY support for
+ X1E80100
+To: George Neacsu <geocausa@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, David Heidelberg <david@ixit.cz>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com>
+ <20261015-x1e-cphy-rfc-v1-2-1f3fa9af940a@gmail.com>
+ <7aed254e-18c5-481b-a77f-576944fff1d4@kernel.org>
+ <O2OGvixLI-H1FleIR5UiLkxLAN4pfWDm8F8qMBuX6LT1klt688s0GbH-iHKW80Uqs-6zSNWE7ExAXsNHxIwYjQ==@protonmail.internalid>
+ <20261016100621.427612-1-geocausa@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261016100621.427612-1-geocausa@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 09:44:45AM +0200, Esben Haabendal wrote:
-> The NWL MIPI Host controller registers specifies the horizontal front
-> porch, sync pulse, and back porch in DSI packet payload size in bytes (ie.
-> not in pixel clocks).
+On 16/10/2026 11:06, George Neacsu wrote:
+> Hi Bryan,
 > 
-> The calculation for this is (mostly) described in section 13.6.3.5.1.2 of
-> the i.MX 8M Dual/8M QuadLite/8M Quad Applications Processors Reference
-> Manual (rev. 3.1). The formula shown there does not take packet header size
-> into account though.
+> Thanks for the reviews, and thanks to Loic as well.
 > 
-> The formula implemented here converts the hfp, hsa, and hbp to DSI packet
-> bytes and then subtracts the number of packet header bytes.
-> 
-> It is worth noting that these values only needs to match approximately,
-> according to the reference manual.
-> 
-> Based on commit in NXP vendor tree
-> commit f2a61699749d ("LF-7981-4: drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing")
-> 
-> Signed-off-by: Esben Haabendal <esben@geanix.com>
-> Cc: Robert Chiras <robert.chiras@nxp.com>
-> Cc: Oliver F. Brown <oliver.brown@oss.nxp.com>
+> The series is on next-20261015. There, phy-qcom-mipi-csi2-3ph-dphy.c is
+> blob 966d79c98, the same as on the media-committers next branch
+Series doesn't apply to linux-next or phy-next - given we are at -rc7 
+linux-next is probably better, after -rc7 phy-next is best.
 
-Worth a Fixes tag?
+Either -next:
 
-> ---
->  drivers/gpu/drm/bridge/nwl-dsi.c | 60 ++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 57 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
-> index f3f4334136c0..eb604733eea0 100644
-> --- a/drivers/gpu/drm/bridge/nwl-dsi.c
-> +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-> @@ -22,6 +22,7 @@
->  #include <linux/reset.h>
->  #include <linux/sys_soc.h>
->  #include <linux/time64.h>
-> +#include <linux/math64.h>
+[~/Development/worktree/bod-media-committers]$ git fetch linux-next 
+  
+                              *[bod-qcom-media-committers]
+[~/Development/worktree/bod-media-committers]$ git reset --hard 
+linux-next/master 
+                                      *[bod-qcom-media-committers]
+HEAD is now at b810335a0699d Add linux-next specific files for 20261015
+[~/Development/worktree/bod-media-committers]$ b4 shazam 
+20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com 
+                                             *[bod-qcom-media-committers]
+Looking up 
+https://lore.kernel.org/all/20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com/
+Grabbing thread from 
+lore.kernel.org/all/20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com/t.mbox.gz
+Checking for newer revisions
+Grabbing search results from lore.kernel.org
+Analyzing 15 messages in the thread
+Analyzing 0 code-review messages
+Checking attestation on all messages, may take a moment...
+---
+   ✗ [PATCH RFC 1/4] phy: Add MIPI C-PHY mode and configuration options
+     + Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org> (✓ 
+DKIM/linaro.org)
+   ✗ [PATCH RFC 2/4] phy: qcom-mipi-csi2: Add C-PHY support for X1E80100
+   ✗ [PATCH RFC 3/4] media: qcom: camss: csid-680: Select C-PHY in the 
+receiver
+     + Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com> (✓ 
+DKIM/oss.qualcomm.com)
+   ✗ [PATCH RFC 4/4] media: qcom: camss: Configure C-PHY through the PHY API
+   ---
+   ✗ No key: ed25519/geocausa@gmail.com
+---
+Total patches: 4
+---
+Applying: phy: Add MIPI C-PHY mode and configuration options
+Applying: phy: qcom-mipi-csi2: Add C-PHY support for X1E80100
+Applying: media: qcom: camss: csid-680: Select C-PHY in the receiver
+Applying: media: qcom: camss: Configure C-PHY through the PHY API
+Patch failed at 0004 media: qcom: camss: Configure C-PHY through the PHY API
+error: patch failed: drivers/media/platform/qcom/camss/camss-csiphy.c:329
+error: drivers/media/platform/qcom/camss/camss-csiphy.c: patch does not 
+apply
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+hint: When you have resolved this problem, run "git am --continue".
+hint: If you prefer to skip this patch, run "git am --skip" instead.
+hint: To restore the original branch and stop patching, run "git am 
+--abort".
+hint: Disable this message with "git config set advice.mergeConflict false"
 
-Sort the header files alphabetically.
+Or -phy:
 
->  
->  #include <drm/drm_atomic_state_helper.h>
->  #include <drm/drm_bridge.h>
-> @@ -264,6 +265,9 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
->  	bool burst_mode;
->  	int hfront_porch, hback_porch, vfront_porch, vback_porch;
->  	int hsync_len, vsync_len;
-> +	int hfp, hbp, hsa;
-> +	u64 hs_clk_rate, pclk_rate;
-> +	int h_blank, pkt_hdr_len, pkt_len;
->  
->  	hfront_porch = dsi->mode.hsync_start - dsi->mode.hdisplay;
->  	hsync_len = dsi->mode.hsync_end - dsi->mode.hsync_start;
-> @@ -317,9 +321,59 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
->  			      dsi->mode.hdisplay);
->  	}
->  
-> -	nwl_dsi_write(dsi, NWL_DSI_HFP, hfront_porch);
-> -	nwl_dsi_write(dsi, NWL_DSI_HBP, hback_porch);
-> -	nwl_dsi_write(dsi, NWL_DSI_HSA, hsync_len);
-> +	hs_clk_rate = dsi->phy_cfg.mipi_dphy.hs_clk_rate;
-> +	pclk_rate = (u64)dsi->mode.clock * 1000;
-> +	DRM_DEV_DEBUG_DRIVER(dsi->dev, "hs_clk_rate: %llu Hz\n", hs_clk_rate);
-> +
-> +	/*
-> +	 * Calculate the bytes needed, according to the RM formula:
-> +	 * Time of DPI event = time to transmit x number of bytes on the DSI interface
-> +	 * dpi_event_size * dpi_pclk_period = dsi_bytes * 8 * hs_bit_period / num_lanes
-> +	 * ===>
-> +	 * dsi_bytes = dpi_event_size * dpi_pclk_period * num_lanes / (8 * hs_bit_period)
-> +	 * ===> (substituting period = 1 / rate)
-> +	 * dsi_bytes = dpi_event_size * num_lanes * hs_clk_rate / (8 * dpi_pclk_rate)
-> +	 */
-> +	hfp = DIV64_U64_ROUND_UP((u64)hfront_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
-> +	hbp = DIV64_U64_ROUND_UP((u64)hback_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
-> +	hsa = DIV64_U64_ROUND_UP((u64)hsync_len * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
-> +
-> +	/* Make sure horizontal blankins are even numbers */
-
-s/blankins/blankings/
-
-> +	hfp = roundup(hfp, 2);
-> +	hbp = roundup(hbp, 2);
-> +	hsa = roundup(hsa, 2);
-> +
-> +	/*
-> +	 * We need to subtract the packet header length: 32
-> +	 * In order to make sure we don't get negative values,
-> +	 * subtract a proportional value to the total length of the
-> +	 * horizontal blanking duration.
-> +	 */
-> +	h_blank = hfp + hbp + hsa;
-> +
-> +	if (h_blank) {
-> +		pkt_len = min(hfp, roundup(((hfp * 100 / h_blank) * 32) / 100, 2));
-> +		pkt_hdr_len = pkt_len;
-> +		hfp -= pkt_len;
-> +
-> +		pkt_len = min(hbp, roundup(((hbp * 100 / h_blank) * 32) / 100, 2));
-> +		pkt_hdr_len += pkt_len;
-> +		hbp -= pkt_len;
-> +
-> +		pkt_len = min(hsa, 32 - pkt_hdr_len);
-> +		pkt_hdr_len += pkt_len;
-> +		hsa -= pkt_len;
-> +		if (pkt_hdr_len != 32)
-> +			dev_warn(dsi->dev,
-> +				 "Unable to subtract packet header length fully: %d left\n",
-> +				 32 - pkt_hdr_len);
-> +	}
-> +
-> +	DRM_DEV_DEBUG_DRIVER(dsi->dev, "Register values: hfp=%d hbp=%d hsa=%d\n", hfp, hbp, hsa);
-> +
-> +	nwl_dsi_write(dsi, NWL_DSI_HFP, hfp);
-> +	nwl_dsi_write(dsi, NWL_DSI_HBP, hbp);
-> +	nwl_dsi_write(dsi, NWL_DSI_HSA, hsa);
->  
->  	nwl_dsi_write(dsi, NWL_DSI_ENABLE_MULT_PKTS, 0x0);
->  	nwl_dsi_write(dsi, NWL_DSI_BLLP_MODE, 0x1);
-> 
-> -- 
-> 2.56.0
-> 
-
-Not sure if the fix is 100% correct, but it is a correct direction to
-change the blanking packet payload size from in pixel clocks to in bytes,
-so better than no fix:
-Acked-by: Liu Ying <victor.liu@nxp.com>
-
--- 
-Regards,
-Liu Ying
+[~/Development/worktree/bod-media-committers]$ git fetch phy 
+  
+                              *[bod-qcom-media-committers]
+ From git://git.kernel.org/pub/scm/linux/kernel/git/phy/linux-phy
+    c7f2322431cb6..8f56fdf3d8cb9  next       -> phy/next
+[~/Development/worktree/bod-media-committers]$ git reset --hard phy/next 
+  
+                              *[bod-qcom-media-committers]
+Updating files: 100% (16814/16814), done.
+HEAD is now at 8f56fdf3d8cb9 phy: tegra: Add support for Tegra238 XUSB 
+pad controller
+[~/Development/worktree/bod-media-committers]$ git am --abort 
+  
+                              *[bod-qcom-media-committers]
+warning: You seem to have moved HEAD since the last 'am' failure.
+Not rewinding to ORIG_HEAD
+[~/Development/worktree/bod-media-committers]$ b4 shazam 
+20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com 
+                                             *[bod-qcom-media-committers]
+Looking up 
+https://lore.kernel.org/all/20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com/
+Grabbing thread from 
+lore.kernel.org/all/20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com/t.mbox.gz
+Checking for newer revisions
+Grabbing search results from lore.kernel.org
+Analyzing 15 messages in the thread
+Analyzing 0 code-review messages
+Checking attestation on all messages, may take a moment...
+---
+   ✗ [PATCH RFC 1/4] phy: Add MIPI C-PHY mode and configuration options
+     + Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org> (✓ 
+DKIM/linaro.org)
+   ✗ [PATCH RFC 2/4] phy: qcom-mipi-csi2: Add C-PHY support for X1E80100
+   ✗ [PATCH RFC 3/4] media: qcom: camss: csid-680: Select C-PHY in the 
+receiver
+     + Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com> (✓ 
+DKIM/oss.qualcomm.com)
+   ✗ [PATCH RFC 4/4] media: qcom: camss: Configure C-PHY through the PHY API
+   ---
+   ✗ No key: ed25519/geocausa@gmail.com
+---
+Total patches: 4
+---
+Applying: phy: Add MIPI C-PHY mode and configuration options
+Applying: phy: qcom-mipi-csi2: Add C-PHY support for X1E80100
+Applying: media: qcom: camss: csid-680: Select C-PHY in the receiver
+Applying: media: qcom: camss: Configure C-PHY through the PHY API
+Patch failed at 0004 media: qcom: camss: Configure C-PHY through the PHY API
+error: patch failed: drivers/media/platform/qcom/camss/camss-csiphy.c:329
+error: drivers/media/platform/qcom/camss/camss-csiphy.c: patch does not 
+apply
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+hint: When you have resolved this problem, run "git am --continue".
+hint: If you prefer to skip this patch, run "git am --skip" instead.
+hint: To restore the original branch and stop patching, run "git am 
+--abort".
+hint: Disable this message with "git config set advice.mergeConflict false"
