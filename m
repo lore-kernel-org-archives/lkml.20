@@ -1,206 +1,116 @@
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392183F9F2E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:15:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792181748; cv=pass; b=n1CFVa9tqhXbM2r0kIy68H3q6vvzh8P8eVqNst1HlO4Aw56Tff2iTmr8uK2mzCdTZCvXRPPu9oJg1IuJjHV61fNPitOEjUIAx4TRaWd+l0OVeTaVQOcDnzTLfVkPEXv9qeGTe95MGEg9+tIekYmyDuVj0+0uS2/+BLXUE8EK5ps=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792181748; c=relaxed/simple;
-	bh=gCtW1g9OXbHbP5WARIAr6crnyFAi76AA0+tgDuZZFxc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aMpbs/IOQQqm2slEqXRgjXMLUVHmWj6pDLHX4GtCHaHpVLn+X95mrvD/b+dkOj+/1sDzpFN9sN7ZSyz3PSUDp4cqtYb0gGn5gJta2vey97ISwtnP8hQW6Xy6vFBVYPjxTfAhu4yZ95RJGMe/7LF+XxhFEPq3PhQsoh3Fl0lUnUU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BxIjCsFF; arc=pass smtp.client-ip=209.85.167.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D0E3F4DFE;
+	Fri, 16 Oct 2026 20:15:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792181750; cv=none; b=nAe3Nbtkt70SrurDrlXWRspM/xAOcMj5EiXkhUgwHYk3EMx1p5fP3Adkk9awBc/HdSPtjV09GcpOC07QOjCCBuEsIDjnkZ9Gvr9iewkWuvN55stN8Fhl1cRr92VUjBLyZrExceLqXNdEG/J/I1oapzRKLpnBtlkcMJmQsSIr5Sw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792181750; c=relaxed/simple;
+	bh=1CtdNjBP/tT+f6Z4HSlvplXa838Nfx85jUo5kW1Umdk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=WMxrBPeHZESip9QOMQkKQcMubQUsp16ohd1hchZIi5k9X56CzPVcssV7EcidrbqcrePqByQozcIXLHAVudwhMN2efkLcSk9F4eHcwOxPVOPQsiWDAcFuMfXMjfuO9Z+Gm17pO/x6tOyvHf7sOyMSrJhE+8arpufWJjAG6d4uUSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ndcfiN7l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BxIjCsFF"
-Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-4c5d8c7f326so176735b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:15:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792181744; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JWfeDeyOGPJrsTOH8wAZANa8ilDeaAfx3y+cyLy/LF+kgG7LdjvbRJJTeh0rvRFp5d
-         RynSFEa6ZEvD4LFsw5sYTvVHw2OzI/0Z+vRyR8d9jaqd5IAgpI/43VdJMLRkxUDtRtbQ
-         5inm6rhnEXQXlCvLkRdhXExTiRf0bd96t/w12tjgsOhEgXJXxG8ZCEPVt56/oU/qXBMZ
-         Rb1nVurHwwtT3VnaTzrgIzZCM7JJHPkyiT1NMgMxdXFF1KgRScjMs8IrG0dC1QtLQemS
-         NfA1KHeVwGdEAzRUV8UAOllkW2v6fPg+IrozCUltbOhJPhrJz2gfFXMboVvwdZyP7kQl
-         uKtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Bu/RyIDM5PTqk4ZpQzE0STFmO57l8GWV7zB4VPEn3po=;
-        fh=FsvYRa/XwU+ldgFdHNAcZUGLYvlJkGK/GT9vqITjsFU=;
-        b=U/gn+F3IZYG3tPzVXBS9P5B2cC19nPzcJ6G8CjAB+QpmCfahRVBx9eq6+lU0lVFauB
-         10POA04LAnb/iHz2+Tt9hHkEpWREquH+xX1jUEZL8O3meIPeMNoZ+22ZR4kFrEbDdlAh
-         21FHix1c9cIeOmDzOijflz8cKeEQCSXbacP9eH575dgNuDJ6R6PMmVb7/vEf5t+2Xs7N
-         tOzpJJRaA4tdqUMmPi2Hrr6beUwYVBF1G8UbM05hxE7q0Z4nuWVfUd2Ps5V7kCBZQXb3
-         MgX9LQB30IDldO++/Ktk1D0OHP1+uoiC/lSiaF24AJuhyGR+FC1r2kEyEN8EEezlNm7p
-         AX4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792181744; x=1792786544; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Bu/RyIDM5PTqk4ZpQzE0STFmO57l8GWV7zB4VPEn3po=;
-        b=BxIjCsFFDsYdZjwbYAmRxyVgsKZ1UOeeyABiGWQ5zGvPiFH0UypL+P5sCSGkjMiub7
-         XTdnY7DCDTzwMZdEVuf8o1Nqjrg5NMxueZegQv1pk4nO1/aE6GjDPVq6o1adl0AbMDsR
-         GROdKgDJiyqbUe4nFaMElmgy9pqjVg/gdFtR1wnx4VLdDZvGV9HU/Mgf2WYbhrrEG/zI
-         M4CtQrik2JM3wUn38wZfDRDeRa6QBJM2mz0cc3oF4xRt40EOUf2Pvs03JHu5DfnoC+tk
-         SfCXfrjz/ITEpxtf857t+DSknLbM81vw8pRrTQMfsA9Sd6PuL5TBow3z5bC0R00bDypM
-         Wu1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792181744; x=1792786544;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bu/RyIDM5PTqk4ZpQzE0STFmO57l8GWV7zB4VPEn3po=;
-        b=CtUPiBkjj1P7GPh708xttmt9YlUcI9CGgWKN+w6yCdf4I/0Cv6rEzqO6eitz7GC0P2
-         CNOisR38oKngs4Jy0QCj+K11O3IxEP+4nZBjoc+d7BKvgnXu2BSjyME1YhWOqEA4nVco
-         HS8GUfhm2ZwdsGiisrAWu5rm5AbFvEABg4wxPWL9kZ4fXxasnhl9JGDfCm8HJ5fOPE1o
-         B+v0khIflpSlUG3EMbtZE0HF9jVsCXu4ct4E+3v+LQiC/EPUMaHrgvMVTkzzsbJMTGw6
-         8Nw7N2vnYA4LXkWoKkYFXRDcSi+WZi4PUP31lD/efqNxrLrl5QsNUpJYof/ZdlRoUA6J
-         /cHw==
-X-Forwarded-Encrypted: i=1; AKwUvBywKmXKTQEfd+TH4U1IMxqti/Y+fE0gU388AMhmrstnK10DjsP6cHKDeasnA6t2mXcRQFP55EZk30P+yUI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLeZAuIk3MnPfSwA1AAU66ECBSzfpuuZ/Y6xHlBYyQykQHf6GPx
-	VAZScQ6l5kjzcguqbFI3d8WOIDe8CW7zQZl+eo4kXwrOUChJx6JMe4ipuv/qhK53t6bcmoYzjfs
-	Xrc3P+S+huzv7Dx+X/yeTe7jYnywCQAE=
-X-Gm-Gg: AYBFou3mvqyBNf/XC4Ld4vESdGL/Wt03zMo4okUR6W0eQONuh/4nkWbhBlmUYUH1bpF
-	Gy2hHQK7Y8QrxHTkBhLOBfhr1g7cvQSFdteoPjS/vDAVFsu75w+sUITUc6V1Hpkn9TfU5r0h624
-	2zZ9Y+BU7Kz7D2WTXsMlUTErZ17D0zvrbPb+yuuVz2V1VRKTywEDCtiahbxKUrjCaT2Sk/EDdGA
-	fkTpZYnt1jQ/91W/LcesjXhIOs8w2eu1ZBfJ9goELcIY534HXHoiKIUV8idVvBvkAS5Jx4PLqAm
-	UjfvP6/7rZIPdFq82DnpYH0//38jtxh9Q7mxcrY9TIPnkVi23r7PSZBKmkScTjzXeRhMlOOKVQi
-	JPTZ6pEqAEVX8SUEQsWO85Im87Hx3j4H+/tl9E2TY5b0jGw==
-X-Received: by 2002:a05:6808:1507:b0:504:5fe1:c8d4 with SMTP id
- 5614622812f47-53cd2f4386fmr654852b6e.59.1792181743855; Fri, 16 Oct 2026
- 13:15:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ndcfiN7l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11A401F000C4;
+	Fri, 16 Oct 2026 20:15:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792181745;
+	bh=PHvv5s7xTkvqkhoQfbECIs2qM/anmRUbsbBZ2oBhi/4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=ndcfiN7lDTkzMOicy2la/SON2lfNP0pJSTx2lrPdJGuuT2vEFOMpwsik6ZHhUgVjC
+	 akyhqHohEI1uaki5sly91FgO6V802YngT5LNIEN7MWTuNP8Wjrgft26QejzvzaO7OT
+	 PERVh1hhoC9cltKHBWv8zw9O3UQcJqXkRWE/vjtkGZr62m8zlr8Qbj9jhQuBT6F3c4
+	 jOR/19F6doBkyuh6RsUeGsykLdR07svkJgWrMdoyYzDcaw0JkhCHzhJVMiOr8+6PmZ
+	 55dNpbDz6b5qhI4PCwGAC8wkbVxFbywNw7YlDEkp4Q2sXNrO8og+saIp6iOKOgQPbj
+	 d3HucrKe+/0nw==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Cc: Clement Lecigne <clecigne@google.com>, aleksander.lobakin@intel.com,
+ edumazet@google.com, netdev@vger.kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kuba@kernel.org, sdf@fomichev.me,
+ horms@kernel.org, john.fastabend@gmail.com, ast@kernel.org,
+ daniel@iogearbox.net
+Subject: Re: [PATCH v3] xsk: fix memory corruptions in net/core/xdp.c
+In-Reply-To: <atIfJAKqp3dZdY4M@boxer>
+References: <20260629072300.1664622-1-clecigne@google.com>
+ <87qzhp51vc.fsf@all.your.base.are.belong.to.us> <atIfJAKqp3dZdY4M@boxer>
+Date: Fri, 16 Oct 2026 22:15:42 +0200
+Message-ID: <87cxt94d1t.fsf@all.your.base.are.belong.to.us>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013011122.1889766-1-kyle.switch@motor-comm.com> <20261013011122.1889766-6-kyle.switch@motor-comm.com>
-In-Reply-To: <20261013011122.1889766-6-kyle.switch@motor-comm.com>
-From: David Yang <mmyangfl@gmail.com>
-Date: Sat, 17 Oct 2026 04:15:07 +0800
-X-Gm-Features: AclHuK9indAuT9sQ1gYBXpJavrWPxXYJRGBt8G_7TObPBqWYMK0ks2cmSCXGj8Y
-Message-ID: <CAAXyoMPeOmMZ8u=+S9=W=aJ0riSRbkBX9afrcVdfrE4BreO-Hw@mail.gmail.com>
-Subject: Re: [PATCH net-next v14 5/5] net: dsa: motorcomm: Add support for
- Motorcomm YT922x
-To: Kyle Switch <kyle.switch@motor-comm.com>
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com, 
-	jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 9:11=E2=80=AFAM Kyle Switch <kyle.switch@motor-comm=
-.com> wrote:
-> +/* yt922x register lists */
+Maciej Fijalkowski <maciej.fijalkowski@intel.com> writes:
 
-The indents below look inconsistent. Please adjust to match the existing ma=
-cros.
-
-> +#define YT92XX_PAGE_SELECT     0x1e
-> +#define YT92XX_PAGE            0x1f
-> +#define YT922X_PORTn_STATUS(port)      (0x80200 + 4 * (port))
-> +#define  YT922X_PORT_LINK_STATE                        BIT(8)
-> +#define  YT922X_PORT_LINK_DUPLEX               BIT(7)
-> +#define  YT922X_PORT_RX_FC_EN                  BIT(6)
-> +#define  YT922X_PORT_TX_FC_EN                  BIT(5)
-> +#define YT922X_PORT_SPEED_10           0
-> +#define YT922X_PORT_SPEED_100          1
-> +#define YT922X_PORT_SPEED_1000         2
-> +#define YT922X_PORT_SPEED_10000                3
-> +#define YT922X_PORT_SPEED_2500         4
-> +#define YT922X_PORT_SPEED_5000         5
-
-Leftover from yt921x_speed.
-
-> +/* ISO */
-
-The comments here (and below) did not provide much information beyond
-the code itself.
-
-> +#define YT922X_PORTn_ISOLATION(port)   (0x4 * (port) + 0x180d80)
-
-(0x180d80 + 4 * (port))
-
-> diff --git a/drivers/net/dsa/motorcomm/mdio_bus.c b/drivers/net/dsa/motor=
-comm/mdio_bus.c
-> index 3aa1111efaa4..a4cb74d0fd90 100644
-> --- a/drivers/net/dsa/motorcomm/mdio_bus.c
-> +++ b/drivers/net/dsa/motorcomm/mdio_bus.c
-> @@ -299,3 +299,42 @@ int yt921x_mbus_ext_init(struct yt921x_priv *priv, s=
-truct device_node *mnp)
+> On Fri, Oct 16, 2026 at 01:19:35PM +0200, Bj=C3=B6rn T=C3=B6pel wrote:
+>> Waking a dead thread: RISE FROM YOUR GRAVE!
+>>=20
+>> Clement Lecigne <clecigne@google.com> writes:
+>>=20
+>> > From: Cl=C3=A9ment Lecigne <clecigne@google.com>
+>> >
+>> > Commit 560d958c6c68 ("xsk: add generic XSk &xdp_buff -> skb conversion=
+")
+>> > introduced a vulnerability in the handling of XDP_PASS for AF_XDP zero=
+-copy
+>> > frames.
+>>=20
+>> Hmm, I acually hit this in my WIP for UMEM page pool provider hack.
+>>=20
+>> > Note: Currently, this specific AF_XDP zero-copy conversion path is only
+>> > reachable from the drivers/net/ethernet/intel/ice and
+>> > drivers/net/ethernet/intel/idpf drivers.
+>> >
+>> > When building an skb, xdp_build_skb_from_zc() uses the chunk size
+>> > (xdp->frame_sz) for the allocation. However, napi_build_skb() automati=
+cally
+>> > reserves space at the end of the allocation for the skb_shared_info
+>> > structure.=20
+>> >
+>> > Most high performance UMEM applications use 4K chunks, where the
+>> > corruption cannot happen.
+>>=20
+>> I think this can also happen with 4K UMEM chunks.
+>>=20
+>> For example, on ice, use MTU 3800, 4K chunks, and no extra UMEM
+>> headroom. Attach an xdp.frags program that returns XDP_PASS, and bind
+>> the socket without XDP_USE_SG.
+>>=20
+>> A 3814-byte Ethernet frame fits in the UMEM chunk:
+>>=20
+>>   256 headroom + 3814 packet =3D 4070 bytes
+>>=20
+>> But the copied skb also needs space for skb_shared_info. Using
+>> the 320-byte size from your example:
+>>=20
+>>   256 headroom + 3814 packet + 320 shared info =3D 4390 bytes
+>>=20
+>> The old code allocates only 4096 bytes, so the packet copy
+>> overwrites skb_shared_info.
+>>=20
+>> Am I missing something?
 >
->         return 0;
->  }
-> +
-> +/* intif extend register read/write api */
-> +int
-> +yt921x_intif_ext_write(struct yt921x_priv *priv, int port, int reg, u16 =
-val)
-> +{
-> +       int res;
-> +
-> +       if (port > priv->series->max_ports)
-> +               return -ENODEV;
-> +
-> +       res =3D yt921x_intif_write(priv, port, YT92XX_PAGE_SELECT, reg);
-> +       if (res)
-> +               return res;
-> +
-> +       res =3D yt921x_intif_write(priv, port, YT92XX_PAGE, val);
-> +       if (res)
-> +               return res;
-> +
-> +       return 0;
-> +}
-> +
-> +int
-> +yt921x_intif_ext_read(struct yt921x_priv *priv, int port, int reg, u16 *=
-valp)
-> +{
-> +       int res;
-> +
-> +       if (port > priv->series->max_ports)
-> +               return -ENODEV;
-> +
-> +       res =3D yt921x_intif_write(priv, port, YT92XX_PAGE_SELECT, reg);
-> +       if (res)
-> +               return res;
-> +
-> +       res =3D yt921x_intif_read(priv, port, YT92XX_PAGE, valp);
-> +       if (res)
-> +               return res;
-> +
-> +       return 0;
-> +}
-> diff --git a/drivers/net/dsa/motorcomm/mdio_bus.h b/drivers/net/dsa/motor=
-comm/mdio_bus.h
-> index e79b725d435b..513a8d2d7618 100644
-> --- a/drivers/net/dsa/motorcomm/mdio_bus.h
-> +++ b/drivers/net/dsa/motorcomm/mdio_bus.h
-> @@ -50,5 +50,7 @@ yt921x_intif_modify(struct yt921x_priv *priv, int port,=
- int reg, u16 mask,
+> I was pushing back on relying on scenario above as we respect the tailroom
+> now since some time:
 >
->  int yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *m=
-np);
->  int yt921x_mbus_ext_init(struct yt921x_priv *priv, struct device_node *m=
-np);
-> +int yt921x_intif_ext_write(struct yt921x_priv *priv, int port, int reg, =
-u16 val);
-> +int yt921x_intif_ext_read(struct yt921x_priv *priv, int port, int reg, u=
-16 *valp);
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
+/?id=3Da315e022a72d95ef5f1d4e58e903cb492b0ad931
 >
->  #endif
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
+/?id=3D1ee1605138fc94cc8f8f273321dd2471c64977f9
 
-intif_ext_* should be placed right after intif_* (if they are still in
-mdio_bus).
+Hmm, isn't that only with XDP_USE_SG? My example binds without it.
+
+Then xsk_pool_get_rx_frame_size() returns 3840. XDP_PASS still builds an
+skb with skb_shared_info, even if it's linear. So we only have 4096 -
+256 - 320 =3D 3520 bytes for the packet.
+
+Or am I missing another check?
