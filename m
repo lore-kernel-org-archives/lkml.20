@@ -1,120 +1,208 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022112.outbound.protection.outlook.com [52.101.126.112])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A9831F9A4;
-	Fri, 16 Oct 2026 04:20:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792124421; cv=fail; b=So6ErC7FyyKkUI3PCBgEgSHVKJWqwaB1fxFfTYP2D1NCaLR44Qd+Ry8o6CCkWKPRPuWo0Ti2RykldDlqsLkpsatBRcnyBpuslhuUFJgE9mw3qPvaEShDLfm98ixhjjGtoYh6ZAnYu5Meqbbi/c+fW2WJuxw4ELm3oqdBxPwVosk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792124421; c=relaxed/simple;
-	bh=vWt2tEdqMWuOECG8UABnXw+t1J5bIE7S8p+cEvkfAE8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WWqXiPmez2HGYZ31wt4AxTXrczx2TLuTciK98JGKwlAcVgLDOWUBGbRV3Uo6Ws8Q/WD85+QaJ+ELDiQXGVU0ojvWqVFn5hMI+lyBCbSxlL2hh+4baDryS+4c5/bfSIbHdZhzWBGHO/xeUPjx+gNGpFBuep3T02oecHcqUFG6bVA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.126.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ats6Oro/zdhKAoRqIMpd3PYZA47ok+CSnQ1wJD9fLShHW4hBZCxWSj4rTUAwzXm7CCX19cuEGsr5WYvLkAYsDtA1d4nAppIrOEP1DxQpdwFpF6MIw0AO7Acj3tmFUHm3+0AMgkCcbdV9iN5jviA++CcfCaaelxRCGhcmcjDnQnAFqENokicVGkL4Paaybq5l/6yrsduklJ1FfRSUX5JwKOFOq6aIoBRhhk6jNKT86zhE5wqWXNeT2n2V3zYdBPc/NQOK+2I2ObjJsV4wxIIxVbGChTD8yQlzN5TTpDoO4hzjlJKGnLL5UOK0u4kmJQkpZ4g4yCTbzstuCIwg4KpOCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uiqCA4qnLtnX4DF1IZrq2kWLRAqrZAuGv1yrVlnPGcg=;
- b=e8xA6s4jA+9qO46RnY/fz8Gao0Ex4JYAdhYAZE5NkM3ACP78sb9hraOCTgMOzp0O2V5E4osgUpwlUdTRuU/e2psY+Og8bPNGAs/tJ1AvBZhgJWXzX1t4+c7tUCB8HTD1ost3RYNOKYMDHRnuWsbgzHGrb3KRlVCesxRe9bJ8dyhMaJK9F2I5No2aaweDcNc4fzFvw6/+Fu6sF6l4CrB9p5/8ujntUcBBdWs9J/vYL10s7DIBtg89axox2Z2N/Cvic/ydPIYOa73qI1sH7gHHhKVXvjm8BhzhAqsEY7sYk4w/haJUySBnJJl9YsmseJZmOrxFv5iI6Q4xIyUroS5Q4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI1PR02CA0006.apcprd02.prod.outlook.com (2603:1096:4:1f7::11)
- by TY0PR06MB5684.apcprd06.prod.outlook.com (2603:1096:400:272::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
- 2026 04:20:16 +0000
-Received: from OSA0EPF000000CB.apcprd02.prod.outlook.com
- (2603:1096:4:1f7:cafe::8c) by SI1PR02CA0006.outlook.office365.com
- (2603:1096:4:1f7::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
- Oct 2026 04:20:15 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- OSA0EPF000000CB.mail.protection.outlook.com (10.167.240.57) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 04:20:15 +0000
-Received: from JohnnyFan (unknown [172.21.64.24])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 7508442C6441;
-	Fri, 16 Oct 2026 12:20:14 +0800 (CST)
-Date: Fri, 16 Oct 2026 12:20:13 +0800
-From: Johnny Fan <johnny.fan@cixtech.com>
-To: Jeremy Linton <jeremy.linton@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>, linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	will@kernel.org, mark.rutland@arm.com, james.clark@linaro.org,
-	leo.yan@arm.com, cix-kernel-upstream@cixtech.com,
-	bob.zhang@cixtech.com, jie.fu@cixtech.com, fugang.duan@cixtech.com
-Subject: Re: [PATCH] perf: arm_spe: Support heterogeneous ACPI systems
-Message-ID: <atGl/ZTg49t/VfVj@JohnnyFan>
-References: <20261015062908.3565761-1-johnny.fan@cixtech.com>
- <86mrsf1bnv.wl-maz@kernel.org>
- <atC+lsWALy6ueGAB@JohnnyFan>
- <14d16970-915b-4c86-afeb-bfc3058564df@arm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEDC190462
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:23:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792124610; cv=none; b=s5fCM00SUMJ4pwBf3mW4e3114J/ZvV7wwpzNUtgUbmsS+tUuAhPjZlmY0cpHUJU3HcRY7XfoZrT/auubJVDBntyEIZsySdgm3aD82o4eHjMAkizEzgKDcqyU9rSeZluH4ZCLCTknQXkxGRP4EnGpc9yll40zr7cv7GRDL/v9oSQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792124610; c=relaxed/simple;
+	bh=ag/Pnoodh+wXUn89zlxc5YHV2k1IOI1YA6yNirvUmiQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NWkSkhggpcutQfYHQ2MV6rWNVlzl+DWW7DrqFIPzOr8TgwRC6r5ztZa/go4k9rtlhPlddPohCAqBcHIDhhrJRWPQTSzzxinuKQNSDi9+g091c0B1DDyDfDr5GBZROUbWD6wylsLyLSPFLeyxFpn+4hnH4EdZEGWPgUTM1XHf7wA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UGOdUFNE; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UGOdUFNE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=jfJhnyhGv7xLHyhQ8lmOcf8LFvAOPIP/V+VGHwAn2yw=;
+	b=UGOdUFNEq8HH2c4iEmzmgVyfujUAJGFWkhVb56p9w1+eGq6Gzx4lQMYYiT0Ssb
+	h7NI4QItNSU5o8avONie8l13lwSZROqfNkhE1IjcTqgHK5InoGR233t5X9YsC9Wo
+	eD9yEBDI2PcfdYT4DphhdeUxT7BZTQWc6+6DICs/4SJfk=
+Received: from [IPV6:2409:8900:1a87:d0a0:8212:3d05:576c:220f] (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3V9KnptFqBHWoAQ--.40078S2;
+	Fri, 16 Oct 2026 12:23:05 +0800 (CST)
+Message-ID: <3f23f6d5-0699-4c16-a1c0-a3d97139e5dc@163.com>
+Date: Fri, 16 Oct 2026 12:23:03 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <14d16970-915b-4c86-afeb-bfc3058564df@arm.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSA0EPF000000CB:EE_|TY0PR06MB5684:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4321b928-25f0-4f8a-c337-08df2b3cc78d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|376014|36860700016|261009223027099003|10067099003|4143699003|18002099003|56012099006|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	oOklGPSFVHekC3g5CO1VYL4jaIVEmrA1QI0hluUmgPjThTIJAvJ4BH/e+KiEpUbfaU2hJS0tddnzL1/Md8xgbVFtR7l+hsf+U9GBWIvdMR/eYTkF5GSfom4LAVK1shpR11fE7V66XtXn5Pe9i1Ob+cO7DKn4G7PvsUyPs/a7q6cAufnaym41V2tYwBwPBfjN5moWVozsnw+8eDfmWJV4Naui/LfI0t+ZBvaW7NVuDmFpQzM1vg/uWrtPE9cS1mQd6Vird2uX4aT//rzUM+9a+uf+KEBC0XLG1K6u/x1g8lOGFFcPecH8LgZryquudhr2Y5mGZ3CxNgNb5aW6qUSjgtrLRoxGUHNDdyMhwJNHFDMkreT2NKC30p9An7FTGC7bS5JEg81qt6HauBSXadaWAp7fKZm1Yj9zR1xoZ2TcT4w83soiT8s1NTHfKiW1L4pvK4b5A86NJ3wWKwvANfscgyD+yWai3/vayY8tgWw+beS5vaWI5gllTX9BVO7A9wp+UsvspSwCwfeAzyazf9XPHxmp0riSAabkoHsAlJkZxFSfjDAhmj3YbzmF7OzBcxpplgX05Fo1m6z/NGhgb8gTBdjT0tcBGk4qL5MVEGDccPz1yFuXMyt9CGSfggzj635XKthe6aWmmQq3iYC1KZSGL3IRAz/ET3DRnEn2Yr8yCuQ6ANvj0oKmsX4EAl5xttup0jKDTUBkalktYMVXc8FFzw==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(376014)(36860700016)(261009223027099003)(10067099003)(4143699003)(18002099003)(56012099006)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	uU4SupIF14hTm3yspd+ovLYaKu2TfvRWjvQMvmCGIBEOaFENeaMgR9AZyAQEqGht9np1Ah+/QMvNf9YFjkdL/UPAEOiAyFqRaQtto6iW7g0fQUWerKKVybHVQrJP9j2DG4eUAXGk/MR43tqfORBysyiqtETEFQMZbHnerrp6bwVYEnw65kGg8tkUeI1wcv+0eI/aLdSeHqhI5LfvNT4kUx176/BOy/cinvL+RuTxJBTLjzViDY9CbyPqlsA1FmSilEINQY7r6GHROL9ofO6sYy7AWT3d51oS3c0bEfuycI6q1V1HRtz3KS9lL1P2S7fT650DcWrm5eRePryDo4hki6VwBDq5MCcRiD/BGOS0b1GlXx3vZjVApZEI3ko1x9wPEk35CDX+yI1I/2pDJR9YHajl8NXwqyjBUbFTQfqodPU+RZDZKvAm8LgXSxI+Zirz
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 04:20:15.3851
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4321b928-25f0-4f8a-c337-08df2b3cc78d
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	OSA0EPF000000CB.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR06MB5684
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] ntfs: support persistent noatime attribute
+To: Xuewen Wang <wangxuewen@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Baolin Liu <liubaolin@kylinos.cn>
+References: <20261016030957.1053110-1-wangxuewen@kylinos.cn>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20261016030957.1053110-1-wangxuewen@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3V9KnptFqBHWoAQ--.40078S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuw1fJw4DCFy5Cw1xGr1rWFg_yoWxZr4fpa
+	95GFy3K3yrJa42k392kF4UW3WSvrn3JayUJryDXw18Aas8G3WSgF1fKF4rXa18Kr1fCw12
+	qa1UtrWDZry5Z37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U24iUUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gnirWrRpqmgfgAA3G
 
-On Thu, Oct 15, 2026 at 10:58:10AM -0500, Jeremy Linton wrote:
-> I don't think the GICC is sufficient, you have to consider actual
-> heterogeneous machines that have differing SPE implementations with the
-> same PMSVer, which mean you have to keep the PPTT hetid check, and set
-> the mask based on both it and the GSIV. Then, like DT create multiple
-> platform devices. Which is true with the current patch as well, the
-> hetid still needs to be there even if you have differing PPI's because
-> it could have more than two differing implementations.
 
-Following that direction, the question on ACPI is how each registered
-SPE device gets its supported_cpus: the platform devices are created
-without an fwnode, so platform_get_irq_affinity() falls back to
-cpu_possible_mask today, regardless of which CPUs actually implement
-SPE. That's the plumbing question I asked Marc about -- would be good
-to know if you have a preference here too.
 
-Thanks,
-
-Johnny
+在 2026/10/16 11:09, Xuewen Wang 写道:
+> NTFS currently rejects FS_NOATIME_FL in its fileattr setter. This prevents
+> users from disabling automatic access-time updates on individual files or
+> directories with chattr +A.
 > 
+> Store noatime in bit 3 of the private $LINUXFLAGS EA and restore S_NOATIME
+> when loading an inode. Report and accept FS_NOATIME_FL in the fileattr
+> callbacks, updating the in-memory flag only after the EA update succeeds.
+> The VFS then suppresses automatic atime updates for the inode, while
+> chattr -A restores the mount's atime policy.
+> 
+> Document the new on-disk bit and that newly created children do not inherit
+> the attribute.
+> 
+> Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
+> Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+> Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
+> ---
+> Tested in QEMU (x86-64, UP, NTFS debug and lockdep enabled) on disposable
+> NTFS images mounted with strictatime. The unpatched kernel rejects +A on
+> files and directories with EOPNOTSUPP. With this patch, chattr +A prevents
+> atime updates on reads and directory enumeration, and chattr -A restores
+> them. The attribute survives cache dropping, read-only/read-write remounts,
+> unmount/mount and a fresh boot; clearing it also survives a fresh boot.
+> 
+> Also checked the on-disk EA value, non-inheritance by new children,
+> combinations with immutable/append-only/nodump, FSGETXATTR/FSSETXATTR,
+> owner/nonowner permissions, EROFS on a read-only mount, rejection of direct
+> EA writes, and preservation of unrelated EAs and unknown flag bits.
+> 
+>   Documentation/filesystems/ntfs.rst | 15 ++++++++++-----
+>   fs/ntfs/ea.c                       |  2 ++
+>   fs/ntfs/ea.h                       |  4 +++-
+>   fs/ntfs/file.c                     | 11 +++++++++--
+>   4 files changed, 24 insertions(+), 8 deletions(-)
+> 
+> diff --git a/Documentation/filesystems/ntfs.rst b/Documentation/filesystems/ntfs.rst
+> index 699e91f884d4..d5819da6ab53 100644
+> --- a/Documentation/filesystems/ntfs.rst
+> +++ b/Documentation/filesystems/ntfs.rst
+> @@ -38,15 +38,20 @@ The project is available at:
+>   Linux file attributes
+>   =====================
+>   
+> -The driver supports lsattr(1) and chattr(1). Immutable, append-only and
+> -nodump are stored in a private ``$LINUXFLAGS`` extended attribute within the
+> +The driver supports lsattr(1) and chattr(1). Immutable, append-only, nodump
+> +and noatime are stored in a private ``$LINUXFLAGS`` extended attribute within the
+>   standard NTFS ``$EA``/``$EA_INFORMATION`` attributes. Its value is a
+>   32-bit little-endian bitmask: bit 0 is immutable, bit 1 is append-only,
+> -and bit 2 is nodump. Unknown bits are preserved when updating the flags;
+> -the entry is removed when the entire value becomes zero. These settings
+> +bit 2 is nodump, and bit 3 is noatime. Unknown bits are preserved when updating
+> +the flags; the entry is removed when the entire value becomes zero. These settings
+>   survive inode eviction, unmount and reboot. Direct writes to this EA
+>   through setxattr(2) or removexattr(2) are rejected; use chattr(1) instead.
+>   
+> +The noatime attribute (``chattr +A``) suppresses automatic access-time
+> +updates for the inode, including when mounted with ``strictatime``. It
+> +applies to directories as well as files, but is not inherited by newly
+> +created children. Use ``chattr -A`` to restore the mount's access-time policy.
+> +
+>   System metadata files and files protected by the ``sys_immutable`` mount
+>   option cannot have their immutable protection cleared with chattr(1).
+>   Protection derived solely from the mount option is not stored in the EA.
+> @@ -55,7 +60,7 @@ configured per file. Compression and encryption are reported but cannot
+>   be changed through chattr(1).
+>   
+>   These Linux flags are enforced by Linux. Storing them in an NTFS EA does
+> -not make Windows enforce immutable, append-only or nodump semantics.
+> +not make Windows enforce immutable, append-only, nodump or noatime semantics.
+>   
+>   
+>   Supported mount options
+> diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
+> index a1f948c4d2ec..fd97da73ff5c 100644
+> --- a/fs/ntfs/ea.c
+> +++ b/fs/ntfs/ea.c
+> @@ -501,6 +501,8 @@ int ntfs_ea_get_linuxflags(struct inode *inode)
+>   		inode->i_flags |= S_IMMUTABLE;
+>   	if (ni->linuxflags & NTFS_LINUXFLAGS_APPEND)
+>   		inode->i_flags |= S_APPEND;
+> +	if (ni->linuxflags & NTFS_LINUXFLAGS_NOATIME)
+> +		inode->i_flags |= S_NOATIME;
+>   	return 0;
+>   }
+>   
+> diff --git a/fs/ntfs/ea.h b/fs/ntfs/ea.h
+> index 8f144fa4f9bb..3ad20431877b 100644
+> --- a/fs/ntfs/ea.h
+> +++ b/fs/ntfs/ea.h
+> @@ -11,8 +11,10 @@
+>   #define NTFS_LINUXFLAGS_IMMUTABLE	BIT(0)
+>   #define NTFS_LINUXFLAGS_APPEND	BIT(1)
+>   #define NTFS_LINUXFLAGS_NODUMP	BIT(2)
+> +#define NTFS_LINUXFLAGS_NOATIME	BIT(3)
+>   #define NTFS_LINUXFLAGS_MASK	(NTFS_LINUXFLAGS_IMMUTABLE | \
+> -				 NTFS_LINUXFLAGS_APPEND | NTFS_LINUXFLAGS_NODUMP)
+> +				 NTFS_LINUXFLAGS_APPEND | NTFS_LINUXFLAGS_NODUMP | \
+> +				 NTFS_LINUXFLAGS_NOATIME)
+>   
+>   extern const struct xattr_handler *const ntfs_xattr_handlers[];
+>   
+> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+> index 58aad7f5c6c5..2cbe780758e3 100644
+> --- a/fs/ntfs/file.c
+> +++ b/fs/ntfs/file.c
+> @@ -167,6 +167,8 @@ int ntfs_fileattr_get(struct dentry *dentry, struct file_kattr *fa)
+>   		flags |= FS_IMMUTABLE_FL;
+>   	if (vi->i_flags & S_APPEND)
+>   		flags |= FS_APPEND_FL;
+> +	if (vi->i_flags & S_NOATIME)
+> +		flags |= FS_NOATIME_FL;
+>   	if (ni->linuxflags & NTFS_LINUXFLAGS_NODUMP)
+>   		flags |= FS_NODUMP_FL;
+>   	if (!NVolCaseSensitive(ni->vol))
+> @@ -200,7 +202,8 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
+>   {
+>   	struct inode *vi = d_inode(dentry);
+>   	struct ntfs_inode *ni = NTFS_I(vi);
+> -	u32 allowed = FS_IMMUTABLE_FL | FS_APPEND_FL | FS_NODUMP_FL;
+> +	u32 allowed = FS_IMMUTABLE_FL | FS_APPEND_FL | FS_NODUMP_FL |
+> +		      FS_NOATIME_FL;
+>   	u32 readonly = 0;
+>   	u32 linuxflags = ni->linuxflags & ~NTFS_LINUXFLAGS_MASK;
+>   	unsigned int new_fl = 0;
+> @@ -245,6 +248,10 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
+>   	}
+>   	if (fa->flags & FS_NODUMP_FL)
+>   		linuxflags |= NTFS_LINUXFLAGS_NODUMP;
+> +	if (fa->flags & FS_NOATIME_FL) {
+> +		new_fl |= S_NOATIME;
+> +		linuxflags |= NTFS_LINUXFLAGS_NOATIME;
+> +	}
+>   
+>   	mutex_lock(&ni->mrec_lock);
+>   	err = ntfs_ea_set_linuxflags(vi, linuxflags);
+> @@ -252,7 +259,7 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
+>   	if (err)
+>   		return err;
+>   
+> -	inode_set_flags(vi, new_fl, S_IMMUTABLE | S_APPEND);
+> +	inode_set_flags(vi, new_fl, S_IMMUTABLE | S_APPEND | S_NOATIME);
+>   	inode_set_ctime_current(vi);
+>   	mark_inode_dirty(vi);
+>   	return 0;
+
+
+Looks good to me.
+
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+
