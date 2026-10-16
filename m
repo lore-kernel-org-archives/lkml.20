@@ -1,174 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 202353D0919
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:48:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12F9457E6E
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:48:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792187317; cv=none; b=MRm/rK9k+462MPdo0BUCpP1wYSylt9wlWYaA1+RlkhoNdLk5PV17z5mGtQd2uFbMg+OmBxenUR11V48nKYudMeDbrblthRvjJYAK9W00jRUb037E517gGMQpyTVIvNU+QfR3OnH0/ATkqCFWqYJfm/yRC408ge54PKDEb8pLOmo=
+	t=1792187319; cv=none; b=Z2y/+dm476/dQE/iMbqfmoqqk7uHeWvXN5MCq7OkvkCaqLcoUib1GE9cpk6n6wsO0m7C+3PYc7k7RLL5OmIyPPkQaFE/4nLYdYkOJTTp1DI9o7y08UX6lGA49SexNpudc77TyCqSZJhE853cHBMO+RhLw5bhbTSDDb8xdMANaIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792187317; c=relaxed/simple;
-	bh=KI0lbA3taZSp/xfnZz8dan8dBH4/HQNH0lOer+P480U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=heSGD7wurTG8Cji1mL4lGXPs39OVdh4ytnHT8w50HOSFXAjY1DmQkaNiT37da96ZFld7dNbyf1b/7SY3l4Vpj5crh/DSosdrXMBSj1YMSqSrRxQaxyXteFnGmGL1LDCqQM+lPYl6gFD9q9E7rtJMq2krKHYuyntLQT7fwBlBK7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LVuTTWsY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792187319; c=relaxed/simple;
+	bh=pf4S8ZgH9+PvvxDZQuHR3QM0QpM39DDVDjfBr1JlGr4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tT+TU9pErIK67w2G77hpbPGdsH76kn/H8C2ABTnAmHYkudVPu9CjFoGwMj2n4adCbFZraRk9r82Ee2TiNMOmfgD3B0VfxMociT8eNwUbWBWZ8Q8jN/pMBBJmvgKdnr9qd4px/wm71feFn5HRgTqfmg6qgjNEdJ30WN8ivKwNvpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q19gX7SG; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LVuTTWsY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A42951F000D0
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:48:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792187314;
-	bh=ylh7TTsoBZmvoxuSRMyoR3bwQNz2SMz21EvQ30zmx9A=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=LVuTTWsYz6W76Thi1YXgOVaDYQM2FTrz/ArcFuNiQTA0ZvQEDAJNpG0BBWxa86LeD
-	 LIkLjWb6G/CpviF/y/xZdhoRDWIe8lbPQaINDtJPy4VdxpGO4ZByUAhR2gLK5ipTjF
-	 W74FyAZQ4sgzUkyu+2tVhebb/4ymzRPh7ywDEoGCDUMx8qfD6yDQSCVaZt3QEwviMI
-	 FBVocAahARGfvkTUOOPujFfCGQ1mP03pJacvOiNL1CJEuqQn+86kY2jbKCdaf2NQAj
-	 7knsfLzMWukW4TNSwbuD797GMNG7AcfsAWWbie4s5qP2LEToK9Xk2/nmJ9CJmxWNbe
-	 9LvY+aEbOOIHA==
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c3ee49054ecso44604666b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:48:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwM3N/FaAqdpTjYXtOSjwvRcaEJWulXcuxtuzd9hfgu2cisOkxhlHrD4PJy2wDXIVw1nmm+6kMlSHXiWX4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIyjTTvKHZQIWnuIHPHNLfvcypmC60gEl0vEWUVZC2xFHTz56zt
-	v2KXAuJ2aL/br4DqeR4SoQnkQTMjk8xsaG4jryg5Lz8SjjhSDrs5iY7iuC04jPr3TH7pwMLYunO
-	mDQhhWaRtaYvu8I1gdJRK4KkCNZ8Rgt4=
-X-Received: by 2002:a17:907:868a:b0:c40:aa04:18d0 with SMTP id
- a640c23a62f3a-c419da41336mr78750666b.17.1792187313507; Fri, 16 Oct 2026
- 14:48:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q19gX7SG"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso5058155e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:48:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792187314; x=1792792114; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pf4S8ZgH9+PvvxDZQuHR3QM0QpM39DDVDjfBr1JlGr4=;
+        b=q19gX7SGtks2o2Mpeg6KHckxqyXr9UlqpXJwlz3xAnPyjRLo7qxcuFE0g3JUtTZVo0
+         1isDvVo99qq47af98m2wG8CIlzhz21kTMUPkGOmTteMDGMwgtsIkYQVl7RSzFiVwKZHM
+         rFhyIcVFoeNg5i5XWkhf3nmVwZ/QCvbeqptNd3Trt+X7Mg7UDKwJN/dw3/QXyYOAFCGk
+         uZWGi2rjHhL9AvUUEVfLbSvF4wCc8Icy/+Lzkq6an/0RTMhZh251VWYKWwkUE/EfE7Nl
+         tlX60sqstaTp/WCaxI1A480tyykm/jnwcq+zFtuxmrf6sTH2qONpkYUn7+l/tRAThl/m
+         lIGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792187314; x=1792792114;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pf4S8ZgH9+PvvxDZQuHR3QM0QpM39DDVDjfBr1JlGr4=;
+        b=lb9vCMPLuZaIOvO+mFCmWyGx9WSALgYId72qf8ab1IXpP/0w4UD+VMmXfeLABwZiuF
+         9Oco7UD6UdlwUNTnJ7CZMSIYmG/FYNEqQN9zGu4/dMLw2GMVhyqGe0ha2Xhg19C4CkKy
+         jm+l1NDCd0eJ/nDjw8u+fKIwnSgy9pEDMQEigHJztTgoqZ5clNpJ6HNEj7nLypw5m0VB
+         tZtDfudFAeExy6dsXRZ7af9+TaeoYPGLI2i0wR+id+jyVrPet1LcWdb5JW8PNWiAp9Jl
+         rprV2Hko5+aFcKXJUIrFR8ByYneg9i+7YVbwnPzowqnUePb56tU5cPWlN4MmYmEl+inr
+         BiUQ==
+X-Forwarded-Encrypted: i=1; AKwUvByNZ0la8WYmZuE3IibxgcZ8thMmWKZdu0ZA4LySDg7tB+UvACeflqHw7HfaBYH1ny4ygHtknopRucFQb2k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7vZcL4suANurWet9jpJVtmf9JYWAuok5Aok6+9D6/oQaWCMGd
+	GEbpkkMlrnPJtAxPhnR16vzAR76ovPp8Zo0jB/X/ve5Fm22dlbRsiwJo
+X-Gm-Gg: AYBFou0ii8ISKze9XMZhO+uCPwHTw71+nQ6123qpYBSBJng03mVnhSS0rI4Lvbb+zzi
+	lvvOTN7a4XOIWoBlk/wxGT0504h9DIBPLvR7DTwzfHImC8Gx3Oy1qb6GR0g9QuiNzYwGuptqnrq
+	OZq+DsUFoyvV+Ic9RLfZYFdzvjeODPUS8YpKQqNL94il0cuOMw5VgFecjDqDdhLnYuyytfnKara
+	Bfa5H9Tvz/pzy8vivGwP1DK+VRF1/Uz0iY8k8fF04133F+3AHw9aZMVTNEsXbK/5xt1Gl0/aOfh
+	r5eOTa9uWoBRSuvVRbC+MtRSww8P/0Gt+cdbIvMfknm8QywSzbYb5BYEZfxxWqpmnbqHh3VVsNg
+	MYVHngQCW6xARFf0s+YM+6bY4Db7tJhevmvHQPF5qC8wPwN9svZMetgl9H61jVKxfBqtjm4SLmx
+	x+JTy+tHCc+JsqVg0/cLIneK9TbFEVJAmv2H6Xt0EWZRPADK7TijnXGzdCX6bYgMD05QoKSX4Ng
+	OLwbpQOQ8BHzMvl6pN7mx0eRMtilhTfS+fAneDi/lB7HtP3un5DqvwmPWOE8/W2uRAWjIPJ
+X-Received: by 2002:a05:600c:4f88:b0:4a1:9c71:9f17 with SMTP id 5b1f17b1804b1-4a1d75fe190mr20996095e9.9.1792187313567;
+        Fri, 16 Oct 2026 14:48:33 -0700 (PDT)
+Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b35a6sm169959455e9.6.2026.10.16.14.48.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 14:48:31 -0700 (PDT)
+From: George Neacsu <geocausa@gmail.com>
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	David Heidelberg <david@ixit.cz>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+	Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+	Suresh Vankadara <svankada@qti.qualcomm.com>,
+	tjose@qti.qualcomm.com,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	linux-phy@lists.infradead.org,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/6] phy: qcom-mipi-csi2: C-PHY for X1E80100
+Date: Fri, 16 Oct 2026 22:48:30 +0100
+Message-ID: <20261016214830.967217-1-geocausa@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <5a90fbdc-7106-45e3-8fca-eaf5c60e0337@kernel.org>
+References: <20261016-x1e-cphy-rfc-v3-0-40a346a72153@gmail.com> <5a90fbdc-7106-45e3-8fca-eaf5c60e0337@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
- <CAO9r8zOHtaeo5jhHkHB8Vtb9+KZXO+DH74v+7Y84W0v=tatRqg@mail.gmail.com> <CACpmpofN-JfCgJtW9D0wNu0_pL1pRWGfNphUQnE9Bse-P5tHpQ@mail.gmail.com>
-In-Reply-To: <CACpmpofN-JfCgJtW9D0wNu0_pL1pRWGfNphUQnE9Bse-P5tHpQ@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Fri, 16 Oct 2026 14:48:21 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zO+0h3LLuaFGi6RF02sBYrG71Zf9qMei73UPvRi2onGxg@mail.gmail.com>
-X-Gm-Features: AclHuK_zAfaGRUrzaXzEs4qzNQZy6mar-GxIugKXPKJjvgPfBJdYRUyLH6KYsfc
-Message-ID: <CAO9r8zO+0h3LLuaFGi6RF02sBYrG71Zf9qMei73UPvRi2onGxg@mail.gmail.com>
-Subject: Re: [PATCH v1 0/8] Batched zswap_store() with compression batching
-To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
-	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
-	davem@davemloft.net, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
-	senozhatsky@chromium.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 12:05=E2=80=AFPM Kanchana P. Sridhar
-<kanchanapsridhar2026@gmail.com> wrote:
->
-> On Fri, Oct 16, 2026 at 9:14=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wr=
-ote:
-> >
-> > On Thu, Oct 8, 2026 at 11:28=E2=80=AFAM Kanchana P. Sridhar
-> > <kanchanapsridhar2026@gmail.com> wrote:
-> > >
-> > > v1: Batched zswap_store() with compression batching
-> > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
-> > >
-> > > This series is a spin-off of "v14: zswap compression batching with op=
-timized
-> > > iaa_crypto driver" [1], and focuses on the generic crypto_acomp and z=
-swap
-> > > compression batching enablers. Resuming work on this series following=
- a gap
-> > > since v14 (January 2026). Please note that my email address and affil=
-iation have
-> > > changed from kanchana.p.sridhar@intel.com to kanchanapsridhar2026@gma=
-il.com. I
-> > > have retained the original Intel sign-offs on prior patches for histo=
-rical
-> > > attribution while signing off v1 of this series with my current addre=
-ss.
-> > >
-> > > To summarize the main contribution of this patch series: Batching is =
-introduced
-> > > in zswap_store() of large folios: we carve out a large folio into bat=
-ches of
-> > > ZSWAP_MAX_BATCH_SIZE (8 pages) for software compressors, and store ea=
-ch
-> > > batch. Moving the fundamental operations that need to be happen to st=
-ore a page
-> > > to now work at the granularity of a batch offers opportunities to opt=
-imize them
-> > > from these perspectives:
-> > >
-> > > 1) Utilize existing kernel API that minimize obtaining locks for bulk
-> > >    operations, e.g. kmem_cache_alloc_bulk()/kmem_cache_free_bulk().
-> > >
-> > > 2) We keep the working set for each of the core store functionalities=
- (alloc
-> > >    entries, compress pages, store pages in zsmalloc) to be focused on=
- a
-> > >    batch, thereby minimizing cache evictions and benefiting from cach=
-e
-> > >    locality.
-> > >
-> > > 3) Along the lines of (1), the main zswap_compress() batching routine=
- obtains
-> > >    the acomp_ctx mutex lock once per batch, and releases it after it =
-has
-> > >    processed all pages in that batch.
-> > >
-> > > 4) Any zswap store functionality that works on a batch can potentiall=
-y be
-> > >    parallelized as a next step, to further improve performance.
-> > >
-> > > Performance data: usemem with 60% over-commit:
-> > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > Validation was done with mm-unstable as of 10-3-2026 (Baseline) and w=
-ith this
-> > > patch series.
-> > >
-> > > Testing was done on a Chromebook with a QEMU "vng" VM running in Cros=
-tini.
-> > >
-> > > Chromebook Diagnostics reports:
-> > >   Intel(R) Core(TM) Ultra 5 115U (10 CPUs, 4.200GHz)
-> > >   RAM: 16GB
-> > >
-> > > vng setup:
-> > >          Memory: 7G
-> > >            Swap: 3G
-> > >     Pinned CPUs: 4 (E-Cores: 4,5,6,7)
-> > >
-> > > zswap compressor:
-> > >   ZSTD
-> > >
-> > > mTHP enabled:
-> > >   64kB
-> > >
-> > > vm-scalability/usemem setup:
-> > >
-> > >   cgroup memory.high: 3G
-> > >   4 usemem processes, each allocates 1200M anonymous memory, reads th=
-e
-> > >   Silesia dataset [2] from a pre-fork-allocated buffer into the 1200M=
-,
-> > >   writes to each unsigned long in the 1200M, sleeps for 10 sec, then
-> > >   frees the memory and exits.
-> > >
-> > >     usemem --read-silesia -w -O -b 1 -s 10 -n 4 1200M
-> >
-> > What is --read-silesia? Is this a local change you made to usemem?
->
-> Yes, this is a local change I made because I wanted to get compressed
-> lengths besides 565, which is the only compressed length of data
-> swapped out from the original usemem.
->
-> To replicate my setup:
+Hi Bryan,
 
-Thanks for sharing the details. I am having trouble reproducing the
-results, mainly because the standard deviation seems to be too high to
-make conclusions. What is the standard deviation in your runs?
+On 16/10/2026 17:09, Bryan O'Donoghue wrote:
+> Using drivers/phy means not doing CPHY inline in CAMSS. If you require
+> patches from the V9 series - you should cherry-pick them - sign off them
+> and the post them.
 
-Also, I tried measuring the latency of zswap_store() itself through
-bpftrace, and it doesn't seem to change much throughout the series.
+Understood. The two CAMSS patches need only three of David's nine
+patches, and none of his CSIPHY C-PHY tables:
+
+- 2/9, which keeps the endpoint's bus type in the lane configuration;
+- 4/9, which adds the CSID PHY select for C-PHY;
+- 8/9, which lets camss_get_link_freq() account for C-PHY symbols.
+
+The other six program C-PHY inline in camss-csiphy-3ph-1-0.c, which the
+PHY API path does not use.
+
+So the CAMSS side will go out as one series on top of this one: those
+three, kept under David's authorship with my sign-off added, followed
+by the two CAMSS patches. David, is that all right with you?
+
+Thanks,
+George
