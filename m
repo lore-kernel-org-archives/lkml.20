@@ -1,64 +1,64 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6B5426EB7;
-	Fri, 16 Oct 2026 07:55:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DAA741DEF4;
+	Fri, 16 Oct 2026 07:55:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792137339; cv=none; b=uA4sHzzH+wcGG2fe+b7ncz2zsGyhbtguG/fv9WImgd2cy52FG33VexvNjxNe+vZDBcRvQvL+GV41Mr9a9RqUbmDn+jcK3foZcJdIDfZsY1Kys22hu8qyLg32hx1Kb020234Cvij4B35l+fyeWO+3Qb0RVWX5avCsQ1gIAt7CZws=
+	t=1792137342; cv=none; b=KsGJNS2a+rdKdNbsrwRYm5OlUUCQuXSqUolTJa85U4bMshY55gJ8ewp+spabPHmMkkNCAln+GP2ohWs75ZQQTf3lwzGvvLFwRa7gz347rF3ajz2pC9nKUBi0jdiRvFW/ftIkRY0P5Fos3jJoZS7S9lOxFFe6CqR3kEsvMaT3NLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792137339; c=relaxed/simple;
-	bh=JoXuSMmICTJiARkn5vtLovlQ/zg36H4wogFtNkxSwj4=;
+	s=arc-20240116; t=1792137342; c=relaxed/simple;
+	bh=2I0t0yJeRVx4k3vZF1wdCH/nHgTInmX8Ne+O7ZmUll4=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=sg+xMuumL3Uhg6Kkf1zsnSHtC3vrJjHH8ZPU8MgzhDHzfhB+uKeKjNeSTPu5I3Rin4vkCfbb4UnnWCAjm/kEwecMGPY0qPe1iD6Zuxj5BX7fVi6Mvk2LQqbcCFN41e0vxL7Pqccu7ATCNp0jyh1BUqHw55y9xzX3w+o3o0ZmOjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=c1Ysd++d; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=OIKb4VHH; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=GW+Y/EAAu8RPDWFmdkHKmSMJpYqtSqxT6pWQDW5/QHRrdBX0d+UHWk6d5lddGdcUOdZqwP1KwXU+0P+R8ZSjDVxDO5tqSAzXRFudh0bIiGFF3XCUe1hyPJYtxakd6H/TUH2eT2CEg4GjId62QRWOUA28588kCfW1ibg7IuPZjAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=YhS3NUrV; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=EL5dpLpp; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="c1Ysd++d";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="OIKb4VHH"
-Date: Fri, 16 Oct 2026 07:55:32 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="YhS3NUrV";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="EL5dpLpp"
+Date: Fri, 16 Oct 2026 07:55:34 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792137334;
+	s=2020; t=1792137336;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=o8JGJxYjAh3S8zQg9t4gn4BpuOpa6oyb1sCXm6d9llo=;
-	b=c1Ysd++dDTV+ajDSwTmtbMg70DiRJ2MkQZjOkbcBgm3hxr6tIsDlPRIThx4fYsMLiAnvJV
-	5jbK2a4nChClVK9Uoyz6DxyC/qnj1F8fjV6Dul/vy7TiF2Mms3xXcJZzR7qnN5gpfCN2TB
-	aIXACk93fDZlYbs6CEeh+MVgzt19LxvFXICSyAL+FTBPJten3W9dHknzlZ5zipRMMcnLnk
-	61HjYzrAUxO+MsG4U3KtvwROdOfVB77hfS+jYIsTuhZKWFdN5MZMtcPlfOywaULInKUWQL
-	1Ra55x51ooYoQds24vhIPkpzUQCUz02+Q36CrLTmVbjPL3Ye9n22bpnWkTOYKA==
+	bh=zqS+nMo3xeXTPck9pXUq2BmDH2uRE+Iw5ccvJGCGlfY=;
+	b=YhS3NUrVbvx9Zva3b109fL9ScSdV4kyoqqB7B02xLtXB762NTfwTKIT4ateMBMmDpri1jo
+	NZOCqfHeFZUvJptFq98InD+yOkgCOw/ia7fQZNJKQkuBoCQYF6HcSOmQU+APeb8Z561oDb
+	czEuiFNmRaZqhN/73AP6qGVyT312E59O5Hqtvik38jFafW6l5iveKUI7hyqWWzj6y4IK+9
+	Ll6kcoHJZKVEP0qc7xdVcfpGal5WahjkuLHXLm8NKXK3Th++x4PttaMtYZPgSNK7x241K2
+	reAP3pikBAvlS9/POMn5U08JDm/8D438gEfwcGTYYZbUM3IosANperG3WLyxEw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792137334;
+	s=2020e; t=1792137336;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=o8JGJxYjAh3S8zQg9t4gn4BpuOpa6oyb1sCXm6d9llo=;
-	b=OIKb4VHHo8CuWJQXhyhrCVG4S/e52A8njaUssEF47i4dz8XRQXbq8tIE4cTkZz+80loVT3
-	FoWZDYVuJrtbjhCg==
-From: "tip-bot2 for Antoine Huret" <tip-bot2@linutronix.de>
+	bh=zqS+nMo3xeXTPck9pXUq2BmDH2uRE+Iw5ccvJGCGlfY=;
+	b=EL5dpLpplUV2CbVUizj/v9YfYiIq4V6KjZtOrk2+qznNsj5y/IQk6g2HwiF5pGBU3gRI/U
+	PjMorhS4mfw36PCQ==
+From: "tip-bot2 for Haris Okanovic" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
 Subject:
- [tip: perf/urgent] perf: Update cgroup time when rotating multiplexed events
-Cc: Antoine Huret <antoine.huret@bull.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>, stable@vger.kernel.org,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261015-perf-cgroup-rotation-time-v1-1-93e177dfee5d@bull.com>
-References: <20261015-perf-cgroup-rotation-time-v1-1-93e177dfee5d@bull.com>
+ [tip: perf/urgent] perf: Fix perf_pmu_migrate_context() leaving events behind
+Cc: Haris Okanovic <harisokn@amazon.com>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261013185603.1347265-2-harisokn@amazon.com>
+References: <20261013185603.1347265-2-harisokn@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179213733278.2666988.9877476391312937926.tip-bot2@tip-bot2>
+Message-ID: <179213733440.2666988.10746007703349764375.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -68,59 +68,81 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the perf/urgent branch of tip:
 
-Commit-ID:     e4c7c401c6b9174c0c893084fdaa6a84bd2520d7
-Gitweb:        https://git.kernel.org/tip/e4c7c401c6b9174c0c893084fdaa6a84bd2=
-520d7
-Author:        Antoine Huret <antoine.huret@bull.com>
-AuthorDate:    Thu, 15 Oct 2026 14:55:56 +02:00
+Commit-ID:     e76b36b4be7160eaa14b416681e548b125702395
+Gitweb:        https://git.kernel.org/tip/e76b36b4be7160eaa14b416681e548b1257=
+02395
+Author:        Haris Okanovic <harisokn@amazon.com>
+AuthorDate:    Tue, 13 Oct 2026 13:56:00 -05:00
 Committer:     Peter Zijlstra <peterz@infradead.org>
 CommitterDate: Fri, 16 Oct 2026 09:49:01 +02:00
 
-perf: Update cgroup time when rotating multiplexed events
+perf: Fix perf_pmu_migrate_context() leaving events behind
 
-Since commit bd2756811766 ("perf: Rewrite core context handling"),
-perf_rotate_context() only updates the context time before scheduling
-out the flexible events. It no longer updates the cgroup time, which
-ctx_sched_out() used to do.
+__perf_pmu_remove() walks the group leaders of a CPU and PMU with
+perf_event_groups_for_cpu_pmu(), removing each one as it goes.
+perf_remove_from_context() takes the leader out of the groups rbtree,
+after which rb_next() on that node returns NULL, prematurely ending the
+walk. Other groups stay behind in the source context.
 
-Cgroup events take their times from the per-cpu cgroup clock, so
-between two cgroup switches the rotations see a frozen clock. The
-events rotated out lose the running time they accumulated, and the next
-update, usually a read, credits the whole interval to the events that
-happen to be on the PMU at that moment.
+On CPU hotplug, they are then torn down with the dying CPU. They keep
+running until teardown, while the PMU's interrupt and migrated events
+are on a new CPU, which drivers rely on never happening.
 
-As a result, the time_running of multiplexed cgroup events is wrong,
-and so are their scaled counts, as long as no other cgroup runs on the
-CPU, e.g. a busy job alone on its CPUs. Counting cycles over one second
-of a busy loop in a cgroup gives from half to several times the max
-frequency of the CPU.
-
-Update the cgroup time before rotating the CPU context, as was done
-before the rewrite.
+Walk ctx->event_list instead and pick out the PMU's events by their
+pmu_ctx.
 
 Fixes: bd2756811766 ("perf: Rewrite core context handling")
-Closes: https://lore.kernel.org/r/PR3PR07MB69223331EED5BEBE150375B7849C2@PR3P=
-R07MB6922.eurprd07.prod.outlook.com/
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Antoine Huret <antoine.huret@bull.com>
+Signed-off-by: Haris Okanovic <harisokn@amazon.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261015-perf-cgroup-rotation-time-v1-1-93e177=
-dfee5d@bull.com
+Link: https://patch.msgid.link/20261013185603.1347265-2-harisokn@amazon.com
 ---
- kernel/events/core.c | 1 +
- 1 file changed, 1 insertion(+)
+ kernel/events/core.c | 20 +++++++-------------
+ 1 file changed, 7 insertions(+), 13 deletions(-)
 
 diff --git a/kernel/events/core.c b/kernel/events/core.c
-index dd3c82b..c4217c9 100644
+index 8b69d50..dd3c82b 100644
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
-@@ -4639,6 +4639,7 @@ static bool perf_rotate_context(struct perf_cpu_pmu_con=
-text *cpc)
+@@ -14394,23 +14394,18 @@ err:
+ }
+ EXPORT_SYMBOL_GPL(perf_event_create_kernel_counter);
 =20
- 	if (cpu_event) {
- 		update_context_time(&cpuctx->ctx);
-+		update_cgrp_time_from_cpuctx(cpuctx, false);
- 		__pmu_ctx_sched_out(cpu_epc, EVENT_FLEXIBLE);
- 		rotate_ctx(&cpuctx->ctx, cpu_event);
- 		__pmu_ctx_sched_in(cpu_epc, EVENT_FLEXIBLE);
+-static void __perf_pmu_remove(struct perf_event_context *ctx,
+-			      int cpu, struct pmu *pmu,
+-			      struct perf_event_groups *groups,
++static void __perf_pmu_remove(struct perf_event_context *ctx, struct pmu *pm=
+u,
+ 			      struct list_head *events)
+ {
+-	struct perf_event *event, *sibling;
++	struct perf_event *event, *tmp;
++
++	list_for_each_entry_safe(event, tmp, &ctx->event_list, event_entry) {
++		if (event->pmu_ctx->pmu !=3D pmu)
++			continue;
+=20
+-	perf_event_groups_for_cpu_pmu(event, groups, cpu, pmu) {
+ 		perf_remove_from_context(event, 0);
+ 		put_pmu_ctx(event->pmu_ctx);
+ 		list_add(&event->migrate_entry, events);
+-
+-		for_each_sibling_event(sibling, event) {
+-			perf_remove_from_context(sibling, 0);
+-			put_pmu_ctx(sibling->pmu_ctx);
+-			list_add(&sibling->migrate_entry, events);
+-		}
+ 	}
+ }
+=20
+@@ -14486,8 +14481,7 @@ void perf_pmu_migrate_context(struct pmu *pmu, int sr=
+c_cpu, int dst_cpu)
+ 	 */
+ 	mutex_lock_double(&src_ctx->mutex, &dst_ctx->mutex);
+=20
+-	__perf_pmu_remove(src_ctx, src_cpu, pmu, &src_ctx->pinned_groups, &events);
+-	__perf_pmu_remove(src_ctx, src_cpu, pmu, &src_ctx->flexible_groups, &events=
+);
++	__perf_pmu_remove(src_ctx, pmu, &events);
+=20
+ 	if (!list_empty(&events)) {
+ 		/*
