@@ -1,217 +1,134 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36F12DEA8F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC8E3019A9;
+	Fri, 16 Oct 2026 13:19:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792156731; cv=none; b=NL8Y86J6C8DZwaouSdpcI+rJUUChf6kg21DqwS002Or9E+OaGot8Q91j9EFjP7cBjaF9bTG2WlmouHGqVO8Ui5OxRY5D6CODiAL2JIgYWS1oLf1wXDU+/yaiJmEbMTno3fSRudPN/ntl1cl1cLPSbgIYk3qc9MQ2J1GygAiGXH8=
+	t=1792156783; cv=none; b=C6VaQAcWRoOKpVuozAxdKAwhPVBj8a9tIWxwfhxVNRFVSdadpcyMsXFCKwqDg8Nh+Kwe94HPFlPDO6nxp3ukD24q4AfIK8hqgUJ/2KBVix8JTWo8MA0mVJ1hl1xQhvGVYiS3fKar+yyyCZkMXvcCeyLbNpDLokf9hbFZ4yi+Gsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792156731; c=relaxed/simple;
-	bh=1MfDaovX0Rxo7uc1tcX7jscOcFmXuxrnuU575oK7onA=;
+	s=arc-20240116; t=1792156783; c=relaxed/simple;
+	bh=V4PkteCKx/ZxERlS7LFcwpcqpKl234HFVZU267Hcd0g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gd3CuMfuI8M3cNUpCZ+xOYTryfTUXPz9AGJFGXLvloi1TAqZgodIDW7DEYR8TrU2wyykvvCNRPBEej+oaBZkBfpPGFHGgNTA784fuqEYS41+0qfNWNCBwtwho587DjczupxbykcZKPJdMqUeQ+sjKRxIc8VP4mC0FpL/QisOjqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=UnmfVm1t; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ev1VyZ7c; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=w5tKgH8+; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=4eNxa2jk; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=NHoAgrIB5PVz175Z/65S7KwyG4eATZFjUmRtVSSQMeB5jUNq8O5xkuAVjimQ98X9G7CkWfeKBi373hh+KNsg86PTr2foDSyZxC7eW/LPFD5U9c77tf6fohNW2RK2S2dun1IzwOIz58UgPme9ebWH9eH6dszQy65OzBJMlzOJYMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CmlkGu/o; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="UnmfVm1t";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ev1VyZ7c";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="w5tKgH8+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4eNxa2jk"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 92BE921C64;
-	Fri, 16 Oct 2026 13:18:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792156727; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mvOXCsd43Usn/ts9ZeDzJEb232W8k5UHTWzvCgsNFXk=;
-	b=UnmfVm1tqwplPFdONtyFvTQ1AS5VP5cTD3qAq7xlctd+CFRVtHCsgbhkCMx9uSzccqMWsN
-	3q4cKvYz4btr6MgHhN7ES/xZ1Q7FEzw60UOuYHFuWX1O2iBY1g7ZVXTwc0kgnR2/sx3dBB
-	XBctDAKpjnkQLXYobhahIMgRTICUFYg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792156727;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mvOXCsd43Usn/ts9ZeDzJEb232W8k5UHTWzvCgsNFXk=;
-	b=ev1VyZ7cv3eveqXi+jJAUUTkN9NMMWx5zYAdiOWV4c6zddfHkO0DgBV9/Tt8SL/eGsPU6Q
-	IE+x/Fg39ceYm+Dg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792156726; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mvOXCsd43Usn/ts9ZeDzJEb232W8k5UHTWzvCgsNFXk=;
-	b=w5tKgH8+hN6tM6f+SHj3du8Q1iln5C1HSTlEC76yTb/PPnf6Ntbd67FFRlPvNuzWQGJifd
-	vvonu/hW2hUYbfTfWV819LHbEAsv9Bs9RXv3k1NNmpBCE8IbWqFvVXbQAl3czQrJdrGNd/
-	N+H87JUNigQsOnP/0AhRsOa1tQxLYTc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792156726;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mvOXCsd43Usn/ts9ZeDzJEb232W8k5UHTWzvCgsNFXk=;
-	b=4eNxa2jkwB9wPUj6ps1INqFC8cCFqBjjGltQCxyfJ6ZCOSlq2/OSdWhNviZc8iz/lFt9na
-	RQ4TsTKuYa1RHNCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 189E11339F;
-	Fri, 16 Oct 2026 13:18:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id mn7RNTQk0mqLAQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Fri, 16 Oct 2026 13:18:45 +0000
-Date: Fri, 16 Oct 2026 14:18:43 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Lance Yang <lance.yang@linux.dev>, akpm@linux-foundation.org, 
-	david@kernel.org, ziy@nvidia.com, liam@infradead.org, nico.pache@linux.dev, 
-	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, 
-	kas@kernel.org, jack@suse.cz, djwong@kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, hch@lst.de, 
-	syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com, ngocthang2710.1999@gmail.com, willy@infradead.org, 
-	rppt@kernel.org, ljs@kernel.org
-Subject: Re: [PATCH v3 1/1] khugepaged: fix readahead lock inversion in
- collapse_file()
-Message-ID: <atIiR1NWNssDvgt6@pedro-suse.tail5790ac.ts.net>
-References: <20261016065920.4153-1-lance.yang@linux.dev>
- <27e5aadc-2d68-428f-a958-308e4a75c058@linux.alibaba.com>
- <atICp2NL8j2z7UFM@pedro-suse.tail5790ac.ts.net>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CmlkGu/o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792156782; x=1823692782;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=V4PkteCKx/ZxERlS7LFcwpcqpKl234HFVZU267Hcd0g=;
+  b=CmlkGu/oUXS5PckbGPTSen2oX5soqc/Lp0aWkut7A/dM0NAdCzG50ntK
+   jZjVlQQ+/c09gPSNT1Q30CuHmQB2ElwUmAYHJ/DzgPwd3PY39aNA2oVNX
+   WRiWo3jYB4MI9HvHg6H+bULsqSqxzX+BqhzI8I5okc4Ryak8rAVvE7UsH
+   BfDXik0/X5adPEqCFop+go4o81WPT0FBsHsT21Uhi+Jja2WywW9ABZH9D
+   gKsmkNx7ptLLQIhGmmNuDXdCLjYgXzi+64zKRoyo3s5rUDq1Ycw8oJFcK
+   J3HYWoUW9g4h0mnyMECbFf9XmK2Kg8wbCK723mqH60WIy1bqblHt41T7Y
+   g==;
+X-CSE-ConnectionGUID: o3cHtQacQc6ckGZNyxMm+w==
+X-CSE-MsgGUID: Biv+r8jMRHOdPJSMJ9sWtA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="951416"
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="951416"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 06:19:41 -0700
+X-CSE-ConnectionGUID: AcvKuJBFRfCe6ErDfXiifA==
+X-CSE-MsgGUID: y9cPUVNMSNOTskDScbYCzg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="2367032"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.35])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 06:19:36 -0700
+Date: Fri, 16 Oct 2026 16:19:33 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux@analog.com, devicetree@vger.kernel.org,
+	linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: [PATCH 02/10] iio: backend: add devm_iio_backend_get_optional()
+Message-ID: <atIkZa0noHjcl13X@ashevche-desk.local>
+References: <20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com>
+ <20261015-ad9910-backend-support-v1-2-3c21648c8e26@analog.com>
+ <atEeZPOLASHAcnjF@ashevche-desk.local>
+ <atHjHqyxXj6jkObW@nsa>
+ <w7waqang6lriwbcq6o5s5yuedouuwgacmnj55qsjpzjrv3jut2@cthvkakgyhpi>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <atICp2NL8j2z7UFM@pedro-suse.tail5790ac.ts.net>
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[16bf7cd0ebeb1de93aa5];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[22];
-	MISSING_XM_UA(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux.dev,linux-foundation.org,kernel.org,nvidia.com,infradead.org,arm.com,suse.cz,kvack.org,vger.kernel.org,lst.de,syzkaller.appspotmail.com,gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[appspotmail.com:email,imap1.dmz-prg2.suse.org:helo,linux.dev:email,syzkaller.appspot.com:url]
-X-Spam-Score: -2.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <w7waqang6lriwbcq6o5s5yuedouuwgacmnj55qsjpzjrv3jut2@cthvkakgyhpi>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Oct 16, 2026 at 12:00:24PM +0100, Pedro Falcato wrote:
-> On Fri, Oct 16, 2026 at 05:57:48PM +0800, Baolin Wang wrote:
-> > 
-> > 
-> > On 10/16/26 2:59 PM, Lance Yang wrote:
-> > > collapse_file() can end up calling page_cache_sync_readahead() with
-> > > source folios from earlier in the range still locked. If truncate already
-> > > holds mapping->invalidate_lock exclusively and is waiting for one of
-> > > those folios, readahead blocks on the same invalidate_lock and neither
-> > > side can make progress.
+On Fri, Oct 16, 2026 at 08:18:08AM -0300, Rodrigo Alencar wrote:
+> On 16/10/26 09:45, Nuno Sá wrote:
+> > On Thu, Oct 15, 2026 at 09:41:40PM +0300, Andy Shevchenko wrote:
+> > > On Thu, Oct 15, 2026 at 01:49:42PM -0300, Rodrigo Alencar via B4 Relay wrote:
 > > > 
-> > > Do readahead in a separate pass before we start holding source folios
-> > > locked for collapse. Keep page_cache_sync_readahead() and its existing
-> > > policy, and drop each folio's lock and reference after checking that it
-> > > is uptodate. If truncate or reclaim removes a folio between the two
-> > > passes, roll back instead of doing readahead again with source folios
-> > > locked.
-> > > 
-> > > Shmem handles swapin and fallocated folios through shmem_get_folio()
-> > > without taking mapping->invalidate_lock, so it isn't affected by this
-> > > lock inversion.
-> > > 
-> > > Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
-> > > Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
-> > > Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
-> > > Signed-off-by: Lance Yang <lance.yang@linux.dev>
-> > > ---
-> > 
-> > Thanks for the fix.
-> > 
-> > > Thanks to Nguyen Ngoc Thang for v2. David asked for volunteers, so I'm
-> > > happy to take this over.
-> > > 
-> > > Some older stable trees lack the folio infrastructure used here, and the
-> > > code will differ for each stable tree, so each backport will need quite a
-> > > bit of rework and its own review. I'm not sure whether to Cc stable here.
-> > > Once we agree on the fix, I'll send a separate backport for each maintained
-> > > stable tree except 5.10, which isn't affected.
-> > > 
-> > > v2 -> v3:
-> > >   - Replace the scan-wide invalidate_lock and page_cache_ra_unbounded() with
-> > >     a preparation pass using page_cache_sync_readahead().
-> > >   - Roll back on a new page cache miss during collapse.
-> > >   - https://lore.kernel.org/all/20260913163644.122133-1-ngocthang2710.1999@gmail.com/
-> > > 
-> > >   mm/khugepaged.c | 42 +++++++++++++++++++++++++++++++-----------
-> > >   1 file changed, 31 insertions(+), 11 deletions(-)
-> > > 
-> > > diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> > > index ef5cd6fda34f..b3f67617caf0 100644
-> > > --- a/mm/khugepaged.c
-> > > +++ b/mm/khugepaged.c
-> > > @@ -2262,6 +2262,34 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
-> > >   	new_folio->index = start;
-> > >   	new_folio->mapping = mapping;
-> > > +	if (!is_shmem) {
-> > > +		/*
-> > > +		 * Populate the range before accumulating locked source folios:
-> > > +		 * readahead may block on invalidate_lock.
-> > > +		 */
-> > > +		for (index = start; index < end;) {
-> > 
-> > why drop xas_unlock_irq()?
-> > 
-> > > +			folio = filemap_lock_folio(mapping, index);
-> > > +			if (IS_ERR(folio)) {
-> > > +				page_cache_sync_readahead(mapping, &file->f_ra,
-> > > +							  file, index, end - index);
-> > > +				folio = filemap_lock_folio(mapping, index);
-> > > +				if (IS_ERR(folio)) {
-> > > +					result = SCAN_FAIL;
-> > > +					goto rollback;
-> > > +				}
-> > > +			}
-> > > +			if (!folio_test_uptodate(folio))
-> > > +				result = SCAN_FAIL;
-> > 
-> > Do we need to check PG_uptodate after locking the folio? If we successfully
-> > lock the folio, doesn't that mean the read I/O has completed? The following
-> 
-> Yes, you do; a read can "complete" without the IO having completed successfully,
-> and in those cases PG_uptodate is not set, but the folio is unlocked.
-> 
-> Either way, why are we checking for uptodate here? We only care for starting readahead.
-> Anyway, I would possibly recommend we do this as post-processing, not pre-processing.
-> The current loop is a little overhead-happy.
+> > > > Frontend devices might not need a backend driver to rely on. An IIO device
+> > > > that supports backends can behave differently when they are not available
+> > > > and that should be acceptable. Such parts may provide basic functionality
+> > > > solely using the control interface (SPI for instance), being able to have
+> > > > extended features when a backend is present.
+> > > > 
+> > > > Add devm_iio_backend_get_optional(), which returns NULL when the backend
+> > > > is not described in firmware, i.e., when the io-backends property is not
+> > > > present or, for a named lookup, when the name is not listed in the
+> > > > io-backend-names property. Other errors, such as probe deferral, are
+> > > > still returned.
+> > > > 
+> > > > To make that possible, a named lookup that does not match any entry of
+> > > > io-backend-names now fails with -ENOENT, the same error returned when the
+> > > > io-backends reference is missing. Also, the missing reference is no longer
+> > > > logged as an error, leaving that to the caller.
 
-To clarify: I would do this kind of RA as an error path if isolation failed.
-Namely, at the end of rollback, after unlocking folios. It doesn't make sense
-to me to do this kind of checking upfront. I don't think it's particularly
-realistic that, starting RA upfront, you'd see uptodate completed folio reads
-when doing the actual isolation.
+...
+
+> > > >  		ret = device_property_match_string(dev, "io-backend-names", name);
+> > > > +		if (ret == -EINVAL || ret == -ENODATA)
+> > > > +			return ERR_PTR(-ENOENT);
+> > > 
+> > > No. Please, use device_property_present() instead.
+> > 
+> > Oh right! Totally forgot about that internally :). And it fits into my
+> > internal point where I don't agree much in treating -ENODATA the same
+> > way as property does not exist.
+
++1
+
+> Say a frontend consumes multiple backends, but some of them are optional.
+> If we care only about the presence of the property we would fail when
+> trying to acquire the optional ones when the required ones are defined.
+> am I thinking correctly?
+
+If there is an empty property for names, shouldn't we simply fail? I rather
+would consider the firmware table to be broken in such a case.
 
 -- 
-Pedro
+With Best Regards,
+Andy Shevchenko
+
+
