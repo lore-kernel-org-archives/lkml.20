@@ -1,91 +1,85 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB263EB7F0;
-	Fri, 16 Oct 2026 08:22:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03D330CD89
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:22:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792138941; cv=none; b=abF+twn+gjWjaF8948BcUTTOLwiaIJycG2ib4VzL9JCMSJYj9aY7L7LmGBZlH+W679a98f1oMxNgd6OvK9u5/kz6e91d8C+ENjoQHPCwevAzBFkp8AWTNKstdpyKxi3CXN3Xbl7yozraugZuZUWSXEXJ9VQZSwDAGEW+Uj9DsCs=
+	t=1792138953; cv=none; b=fQbJ/SwevlytuLlTixKzH+bpPOOJ4Dg+hrFvaKE+xuTMjIpRAfDMqnkNgJLa6VTblKpdHKKF8+jjmU+uMg5NpG+MQJuyH+lRD+Y2co6E8kDnoUl/FUBtQNOQi0vIBRc5O6SMoKQWkH3f8BsV0nfcJdWDJ6RuaO9/xFbrt4e7FxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792138941; c=relaxed/simple;
-	bh=sfO6LCsGgF+OiKNkyO2VSvSNhYREPROhaSICrmDWiaU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=B9M98UthaZgmS1kYCo1QL2Q2eLOG5X/ea9qMunj7ETuBFpD/ScIPJ2LysLWns6PoH9Vwy82ZBTrurbFrnkJZXgbWBc7+wmHtnAqnNbkDPZNrhkH9iyAiP0uMzVq5R9rQNbWJVhDirDd8uLpKbmbZwyqE3NRMZloiSRrzP8pl0zA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=VZaggYG+; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1792138953; c=relaxed/simple;
+	bh=CT2UM6Jhu67KbLLdIzICiyzevSgLMbCH4BsymlH3F50=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DHMMPPWgoCrMj6FrcD8yN47ZmGWWSA7vxmZyfnQLZMfvCxoaxV1JGhHqeVXr8154K1qd2vDXZblYAcBW7LOnTsU1LwpNJ5d7c7CFFEJ6zpo4zwBBBvB/miCiQgOO3B/Q1SSOIkA2BBOKRmOrOzCHZiB+rcenQBVNz7pw1n9mbLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kVKmpjVe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="VZaggYG+"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69G8LYCL03356776, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1792138894; bh=xy40lAvYmLZ+fYRL+/NhoNwZ5jC4w0xBwGVLPtkbokM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=VZaggYG+VmjYthi1QEQI1EppTuztcovyAQs7PlXpXBsFAQ7YKSm4DhlW2Bc1MyQ2I
-	 j1AgoT4r95ITNcYstrGAP6Vv3X3fzS26ZOvdDSFdE8qe8T+CtpdG7z3u7Rq4vybTrR
-	 q8DokoNmI8gprqVDTY4ehhC5AU1UyEVKwkeXH/QtOCtLoPSZiwmab4irZT7h7qyQE+
-	 pIaKp3nv0k3xtWm4Otf8NJZiyhPHwVsLVa0BT96BSHLsPi7ZdXa+vKi3O81zx2/IVF
-	 HoIOCt1Prcs2a1KAJ90OP0PygttusKNcPGmH7kxUPQHheipK0xNEXYI9kVuGYggwY/
-	 qwg108OykkzRw==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69G8LYCL03356776
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 16 Oct 2026 16:21:34 +0800
-Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 16 Oct 2026 16:21:34 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 16 Oct 2026 16:21:34 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Fri, 16 Oct 2026 16:21:34 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Dan Carpenter <error27@gmail.com>, Luka Gejak <luka.gejak@linux.dev>
-CC: Ethan Tidmore <ethantidmore06@gmail.com>, "pavankumaryalagada@gmail.com"
-	<pavankumaryalagada@gmail.com>, "gregkh@linuxfoundation.org"
-	<gregkh@linuxfoundation.org>, "outreachy@lists.linux.dev"
-	<outreachy@lists.linux.dev>, "dennylin0707@gmail.com"
-	<dennylin0707@gmail.com>, "linux-staging@lists.linux.dev"
-	<linux-staging@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] staging: rtl8723bs: remove unnecessary parentheses
-Thread-Topic: [PATCH] staging: rtl8723bs: remove unnecessary parentheses
-Thread-Index: AQHdXUYKvJrQKS2gBUyEx7jfNjA3B7b/043Q
-Date: Fri, 16 Oct 2026 08:21:34 +0000
-Message-ID: <78e3ad912e994e77813cba1af461c7c1@realtek.com>
-References: <20261015120634.95218-1-pavankumaryalagada@gmail.com>
- <5d577cb1b4a91e8cdfda171bc7100105ae90d91e@linux.dev>
- <DM5IYFCRBE9W.1U3KCU36BUE36@gmail.com> <atEtUV5q9MHRSTJb@stanley.mountain>
- <672f78b36290a4021d3f94d9ec401d23420febbc@linux.dev>
- <dec2320eb01dc6499948a936c94512ddfd47e2a4@linux.dev>
- <atHcT5GG8zzoH7kk@stanley.mountain>
-In-Reply-To: <atHcT5GG8zzoH7kk@stanley.mountain>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kVKmpjVe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95FA1F000CD
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:22:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792138952;
+	bh=CT2UM6Jhu67KbLLdIzICiyzevSgLMbCH4BsymlH3F50=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kVKmpjVeqa25mLAYRQuLE1P8+ZQJ36Coa/pdza9hclMIN9y8zZgUVpj0JwlVF2RdF
+	 BxFEdVar5bVh8hi7rxTs1+Pdf0mW4dKxfgNGYvr5xmndCFS/e9+ceP0+e0FisxDt2f
+	 FmuCiLpNs7bziEwN/oRAZlNlap/kWbEY1k+qG8qUvwN8vdCx1lgS/zzxnOoRKJWZYD
+	 p1AyzvRZzo3YanoHG5H7vOAJIcDt+9L9PNNJVAFAdep/P21OlcoiixPmQmegZFGWrf
+	 a0cm6zb1pF393DAG6Z7n+K/Qzp8y5E+1k7HzfP59P8IMXJ0CVO7AKk0hLVNDcfjD3P
+	 nO3cy+FHPEnmg==
+Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-504db7f7870so4170629b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:22:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzI0KR9uD1YkE7U5Mc2L3kdlIhKnjsiHk0ytndlH+lZBAHXwGLMP107kBY+ZnN7jOJffwH9LEDrTSMtFVk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/nHgeaq6u27bLsArJcmdb/GJmvdyZfT6ofyYcrN9ZE55SDwbp
+	R/nCbmloCZtCOxVsleZak8lXve+OmViOsHaXgXIDXVcbAHknQXHOiAGH98+LIN242Y+y76uIub0
+	CQpckIBEWjH6kP5SKeK0PbpVDEjXOXZM=
+X-Received: by 2002:a05:6808:50a5:b0:4d6:2545:b15d with SMTP id
+ 5614622812f47-50c52471033mr20298122b6e.23.1792138951871; Fri, 16 Oct 2026
+ 01:22:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20261015073736.2944215-1-tavip@google.com> <20261015073736.2944215-3-tavip@google.com>
+ <CAAVpQUCpFC-7J=uEgBfh37hFb5BCJvhJQZx7_YKEDCtvbGrGWw@mail.gmail.com>
+In-Reply-To: <CAAVpQUCpFC-7J=uEgBfh37hFb5BCJvhJQZx7_YKEDCtvbGrGWw@mail.gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Fri, 16 Oct 2026 10:22:20 +0200
+X-Gmail-Original-Message-ID: <CAL4WiiozXgApewA6WWQA--YxaweezQASpiOiiLz7=ijrqbkqgQ@mail.gmail.com>
+X-Gm-Features: AclHuK-H_6_SSjKnbDy6Z64lIVyJHl3ANaXr8rZtT8VsFNm3RYx19KAU4O0E5Jc
+Message-ID: <CAL4WiiozXgApewA6WWQA--YxaweezQASpiOiiLz7=ijrqbkqgQ@mail.gmail.com>
+Subject: Re: [PATCH net 2/2] selftests: net: packetdrill: add test for
+ negative sk_forward_alloc in tcp_wmem_schedule()
+To: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: Octavian Purdila <tavip@google.com>, Neal Cardwell <ncardwell@google.com>, 
+	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, Soheil Hassas Yeganeh <soheil@google.com>, Wei Wang <weiwan@google.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, netdev@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Dan Carpenter <error27@gmail.com> wrote:
-> Ah...  I didn't realize this patch was applied to a different tree.
-> #Unexpected.
->=20
-> https://lore.kernel.org/all/7e53bd59b7b146caabebeca4347674c7@realtek.com/
->=20
-> That's a mistake.  Staging patches should go through the staging tree
-> or atleast they should be Acked by the staging maintainer.
+Le ven. 16 oct. 2026 =C3=A0 09:54, Kuniyuki Iwashima <kuniyu@google.com> a =
+=C3=A9crit :
+>
+> On Thu, Oct 15, 2026 at 12:37=E2=80=AFAM Octavian Purdila <tavip@google.c=
+om> wrote:
+> >
+> > Add a packetdrill test that drives sk->sk_forward_alloc negative via
+> > tcp_collapse() on the receive queue while sk->sk_wmem_queued exceeds
+> > sysctl_tcp_wmem[0], and verifies that a subsequent non-blocking write()
+> > under TCP memory pressure fails with EAGAIN rather than returning a
+> > negative copy length from tcp_wmem_schedule() and failing with EFAULT.
+> >
+> > Assisted-by: LLM
+> > Signed-off-by: Octavian Purdila <tavip@google.com>
+>
+> Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+>
+> Thanks !
 
-Sorry. I forgot to pick the ack [1] to the thread.
-
-[1] https://lore.kernel.org/linux-wireless/cbf165fa6213c22e88559081ca1c1603=
-75c9009c@linux.dev/T/#m6311fc160b8c020f7f87a3d9435ce02d69d07e4d
-
-
+Are you sure this test is passing on arches with 6K pages (as some
+arm64 and ppc64 platforms) ?
+We might need to add a check to only run it on 4K platforms.
