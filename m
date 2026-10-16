@@ -1,116 +1,87 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E36A419FC5
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:53:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388453A5E7D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:53:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792137195; cv=none; b=fjeTNXe+y3u+Ht8OaoFlDT6kHx0BSxOR3Izz1NxC1ayKfBfcorTn1NC7eosXrkxFjQvyoKGnRNoxUTbEw1z+1o57SxkML/eLPRVVxoSbx/dAR8kCmObqm3QmY4noJmqoTDNR5ApxNo6gl9ju5yz7E5UH7H3mBykvUWZOSptlPf4=
+	t=1792137203; cv=none; b=ZsupDA0w4YTA59omHdGU7uUdIz9SQ9K7N30B0yOyWPcIEsF4ZrLAtkFRabvOGUmKWLLrruQBL643tUJfqNuoDnwrnJYKnO+/jR3d3jBf8CnLiCTvm45BwjUMU9CQzPimTo5Fgat+a2qFE4MrYIpz7S9/FxlAgOBMKFNbI3PAnFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792137195; c=relaxed/simple;
-	bh=RkQa2rwd6kpRSbwwN11dZQPlOLf/pA03xbAsLQIV+pw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FosJummbRQO21EcbFDxlXbxRnn3FizaXCdb1BueiuXred6VbaaNDUfFAksJmiMrAB+8Tv7HmSAaVKJ7Dtzg7kHeK8H7Ry8xeYG9dbCUo85/qhtXruQgBY8LF7UUBzepTsV00QkLy19alRnpXVEnlhYhAt9k9FQAtWaiOg3IPfCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=XWQIWM3X; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1792137203; c=relaxed/simple;
+	bh=B4IzSxY5F+HMjumQYpLQgv1VgHUd/a3qHH2cQv2H0rc=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MSVOSoeNWiJLwqAoTo2Jv7sXtV3G32ZZCfxAeNtYl28x8vGUUnYGEhUCzC7Zum70N8ThXvtDQ1QHVkqbe77xOa2RxtlMzcCN+hFKe2wXf5epZj5BCmmTMBlzgC1S8KL2/eePbPtEuUC4XPLx3YEaO77PJBiiV8Tt9ypFnX4zmtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dT5tTDMV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="XWQIWM3X"
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9AB3D1E4;
-	Fri, 16 Oct 2026 09:51:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792137061;
-	bh=RkQa2rwd6kpRSbwwN11dZQPlOLf/pA03xbAsLQIV+pw=;
-	h=From:Date:Subject:To:Cc:From;
-	b=XWQIWM3XZ+Xc/fIjcErk6jQJWAIEZY2SHRAXNZxA1wnP0Ttecjall8+2WLWiu9lWb
-	 3KqYU0ueYMtJSIVtHHApS8csllZj/I3qfzPItaPtPhEfVIjPYXxcfjzYveRaKvweSe
-	 BZJFzHOdUaIj2dRGwu9Pb4DqkJakMNvv4C99Zt9o=
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Fri, 16 Oct 2026 10:52:43 +0300
-Subject: [PATCH] regulator: rpi-panel-attiny: Fix probe failure after a
- host cold boot
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dT5tTDMV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB4081F000CC
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:53:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792137201;
+	bh=B4IzSxY5F+HMjumQYpLQgv1VgHUd/a3qHH2cQv2H0rc=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=dT5tTDMVwARRICgF/BJtr/AAl0dIOaT24SeXD5WFiEgDpxXdnXhjnBVsg3GZLDih2
+	 Z6CPE9XFxQmC7TaQjQGhJUJwPMR39f6/UZh5pKalCqhaRZz2IFMXKEjeLUfOhgemmy
+	 mJxSF57AAHR3yeSudCXeaeufm5LomhHETaK77JWwFYpfMoTbGNCWptuzjT6ZHA1S/e
+	 Stqe+TUw6gfJm47IcgWoW69FRg/zeyO9GTOQQbcRQezTFXn4M2GmTIg1BD6G8o2cs/
+	 sdc1LZzU3KLFdP2AlS8bdZD85bXP3zluUnCfCRgP6/8Yp8fcb4G6UqanZpqYwkQNt7
+	 REUgWELe6y61w==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5ba3fba0080so4398403e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:53:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz844APaulpOEFdIfiZpecwu0bop5eCA9Wgtv4PCi803AVHLwxOaAuUkWYu9qoEV56UTRQd/qyOIkkgzM8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLxdzKgFOY99J411jYO6HI8FeV8PbTX+5vQ7JiZQJFEZ873adY
+	lFQuBBxde9c+9KgIhi4E/T7dxi4yT3m2WJHFS9DwbqsLY+SqW/5wWm3MP6YgjMnjYwFv8UXPFqD
+	TGcfVjRJ2/MEpAUTY9GrB9QrAG8jBkWBuv+VXQRla1A==
+X-Received: by 2002:a05:6512:2399:b0:5b8:f9b0:5779 with SMTP id
+ 2adb3069b0e04-5bcde35b9f5mr7386749e87.8.1792137200300; Fri, 16 Oct 2026
+ 00:53:20 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 16 Oct 2026 03:53:19 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 16 Oct 2026 03:53:19 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <atGIRTRuhFILV9pz@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-attiny-probe-fix-v1-1-96337ba58dfa@ideasonboard.com>
-X-B4-Tracking: v=1; b=H4sIAMrX0WoC/yXMQQ5AMBCF4avIrE3SVkO4ilhQg7EoaUuIuLti+
- b3k/Rd4ckwequQCRzt7XmyETBMwU2tHQu6jQQmVSyFzbENge+Lqlo5w4AOFJq2LTBVmKCHeVkd
- x/pJ189tv3UwmvB247wdtOgiRdAAAAA==
-X-Change-ID: 20261016-attiny-probe-fix-04e447327cf9
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Marek Vasut <marex@denx.de>
-Cc: Devarsh Thakkar <devarsht@ti.com>, linux-kernel@vger.kernel.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1942;
- i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=RkQa2rwd6kpRSbwwN11dZQPlOLf/pA03xbAsLQIV+pw=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0dfaZ0x7ropWYJZzoPlEdU1vP5ExjlwAFN3I3
- cc6q5MbBkyJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatHX2gAKCRD6PaqMvJYe
- 9ej/D/9s+TzEuyKHV79leyCQzEr8Mr+kiQApm7HSH/g71zVhSRQfPBZNK8zwt4lcg+fmEJuDWP1
- H4BLZOTeFqxLHaKg1lvQTCtsQqMPaV6X8mFitqDSMw12VmL7b8khY3fxMBNiCXzMUSe86QKUCN+
- bn/BBahusG+Pj04aVu/hyNxvwBAG5FP5XBKnh+0ndRl5IJVl2uTWludsUEu12+vK3RVb+JNYnZN
- ZNuABzVgssGJUjLGZL54pRKqVrmmeUVN4KPULQ6uhikf4qeP7s8Sdn9H6LibuMepl0d+QCxfZta
- jxx7IcgFUEN21Qd3BH+dJF7ajpk5rkHus/pL/25h3RokUbLnw8NAXwRY0gn6NGd+282Psb82I36
- RhBCY/SRqwj4lv36gK+7iaQ1vKSYDISI4k4fRGtP2g9AhHq7zGIMVG8u9C+sBb+7xu40JvQrc6v
- Dw74ULTIvnfDfCV/8MHFYuQ6gh5vC7Iajt0i9e1IKqKQDBF9W8kcg1p4KiWShPjynGnjMDIvsjy
- xIrhCHZfXHOJOYRjtQ1yHMq5bs1tOYq+/145nAVk+LLjHkXJBLRxNFf8OnVweW7nircnvAZe+J+
- gJ9yFV2AH7556sa6e2mxrWeHXEGsjl/EpsxgDlByK/Yz33lHd/2KrU1XHI8eMhDYCOL0YeIxaOP
- ago68jP8ADYib5A==
-X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
+References: <20261013-qce-fix-self-tests-v10-0-57162a38a554@oss.qualcomm.com>
+ <CAMRc=MejhYpC6QNXwK_cG_NuJs5XpOviK2NPsEwtnK0RxDi61Q@mail.gmail.com> <atGIRTRuhFILV9pz@gondor.apana.org.au>
+Date: Fri, 16 Oct 2026 03:53:19 -0400
+X-Gmail-Original-Message-ID: <CAMRc=MeNk8RSRPvd7u6ZsrTk=yT6nWiEGuB8ARb_mV8tDdpWHQ@mail.gmail.com>
+X-Gm-Features: AclHuK8gYInkzaF2IUtMPvsqDxyb_UtfI2wLBn_4ZvR4nTK7V8zh1xtSkrWeKJc
+Message-ID: <CAMRc=MeNk8RSRPvd7u6ZsrTk=yT6nWiEGuB8ARb_mV8tDdpWHQ@mail.gmail.com>
+Subject: Re: [PATCH v10 00/14] crypto: qce - Fix crypto self-test failures
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, linux-crypto@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Thara Gopinath <thara.gopinath@gmail.com>, 
+	"David S. Miller" <davem@davemloft.net>, Stanimir Varbanov <svarbanov@mm-sol.com>, 
+	Eneas U de Queiroz <cotequeiroz@gmail.com>, Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, 
+	Eric Biggers <ebiggers@kernel.org>, Demi Marie Obenour <demiobenour@gmail.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Abel Vesa <abelvesa@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-attiny_i2c_probe() reads REG_ID with attiny_i2c_read(), a function added
-in commit e4a7e3f741f7 ("regulator/rpi-panel-attiny: Use two
-transactions for I2C read") specifically for fixing REG_ID read failures
-at probe.
+On Fri, 16 Oct 2026 04:13:25 +0200, Herbert Xu
+<herbert@gondor.apana.org.au> said:
+> On Thu, Oct 15, 2026 at 10:49:37AM -0400, Bartosz Golaszewski wrote:
+>>
+>> It came back with some more issues. And seems I have a build failure midway
+>> in the series so that needs fixing too.
+>
+> How about breaking the large series into smaller chunks?
+>
+> Just make sure that each fix is independent and makes an
+> improvement without regressing.
+>
 
-On TI's BeagleY-AI (but also on other TI boards tested) with the
-Raspberry Pi 7-inch touchscreen, the first I2C transfer to the attiny
-after a cold boot of the board usually fails, so the probe fails.
-Retrying the transfer once fixes the problem.
+Yeah, makes sense and likely will get the changes upstream faster.
 
-It is unclear why this happens, but as the earlier commit adding
-attiny_i2c_read() shows, attiny seems to have i2c issues. It is not out
-of the question that the issue could be on the TI i2c side, but as the
-other i2c peripherals (like sensors) work fine, adding this workaround
-to attiny driver feels sensible.
-
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
----
- drivers/regulator/rpi-panel-attiny-regulator.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/regulator/rpi-panel-attiny-regulator.c b/drivers/regulator/rpi-panel-attiny-regulator.c
-index 3020839b9ef1..77da916852e1 100644
---- a/drivers/regulator/rpi-panel-attiny-regulator.c
-+++ b/drivers/regulator/rpi-panel-attiny-regulator.c
-@@ -249,7 +249,13 @@ static int attiny_i2c_read(struct i2c_client *client, u8 reg, unsigned int *buf)
- 	msgs[0].len = ARRAY_SIZE(addr_buf);
- 	msgs[0].buf = addr_buf;
- 
-+	/*
-+	 * The first transfer after a power-up of the host usually fails on
-+	 * (at least) some TI boards, so retry the transfer on failure.
-+	 */
- 	ret = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
-+	if (ret != ARRAY_SIZE(msgs))
-+		ret = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
- 	if (ret != ARRAY_SIZE(msgs))
- 		return -EIO;
- 
-
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261016-attiny-probe-fix-04e447327cf9
-
-Best regards,
---  
-Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-
+Thanks,
+Bartosz
