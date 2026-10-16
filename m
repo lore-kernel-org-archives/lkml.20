@@ -1,102 +1,85 @@
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D652848DB30
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:13:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E257245EF4D;
+	Fri, 16 Oct 2026 19:13:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792177983; cv=none; b=NQAVPnLHKIq2R0dr7mCQCPH+fIcZrd8JN5O6MZSq0SI/d42cs2WV4fukdV0N5EhNz5SDYa76SUrkO4N7pWeqre5PiJLC+ZvmfILAkdLkmbp2nwcHd5Y5sYlbmbTB+Xo/jslY6HxyJLCrMihIOm0TKcDVCgi9bgEXoKjPHNppzgw=
+	t=1792178026; cv=none; b=O/IGiy0wKnlSRFKY9ooyPzTTTy4dMy7epi3lGRkoVP1414JS3dop1xhgZ8ucl85lY5mxpV9gPe6hHgIY2EvvtRFUHqoJ4EYQkERIWYxGqOBT+bxH2qj63o9G3ExPNP57Jf+xaMcbfcy2tcL4BPcM4DkgSzQKcmPgPxjZFkasfLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792177983; c=relaxed/simple;
-	bh=SuEs0VC4ZxRrh/SlRaM5hxVO3gHCDJyCOFm9YRH4SIo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aAbWd2ZfSfsSgZLUqpUmj3CaLGcE+ohtqORIV2Out6CQ7Y8gXrZxzF32behwgKRMNqOunTqTJHiXOMbpgVEkgwBnF3BQvYvLTb5RKWbBmeoJLnTtqWiPmkVN0tqRhyz7kJvjje/7nc7Pu7YzD0GxzhDAGqQ4Z3edQ2MLhujGdVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tu4YGEHd; arc=none smtp.client-ip=209.85.128.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792178026; c=relaxed/simple;
+	bh=zwm/QEKqYo+ogql6ZscEM/nW2CLcr0werV481LlFNNM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ckewZ61g8Ra9NVsrYlekWRqDAOC6wTBxsyyGKS1m/D0AM4ejYP8vt2ltxYb9hc1XNBlZ6/NVMR9flIgD68B/eY2ZiFLTZVLEJWmmKtkzQe2/fIdbCP3GNmJGjoRl0f/W5KCOSrLykxX7YS7wCPTuINMY77LPHgihPN/bGqlsTWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=kkGIL1bp; arc=none smtp.client-ip=216.40.44.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tu4YGEHd"
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8aca68653e3so996137b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:13:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792177981; x=1792782781; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SuEs0VC4ZxRrh/SlRaM5hxVO3gHCDJyCOFm9YRH4SIo=;
-        b=Tu4YGEHdXzh8vt6Yx2Pe7T0dmaI5HIifQ1GycfC1+2alVuEFvzO2LYkQiUE1Nae41B
-         eAXvK/cM639GXNcSggu0Zusv3Hg1yh69R5qhAOjbJ9x97Cm0eu1Wz9EYlnXn/YltebRU
-         +WjkkANoa5I9S/vZUX1g9s2f4d9tUgQpfg9lFppeNWZ7TlQ8snf1Y0hJfv7zezAvWNa5
-         X4ji6YrOgjPPafjo/pWSC0sH2lt8m76sqE6fYIHmAZbtQrkhJmE0TKw7tOcd4Ia1/+fK
-         I39TfSqrZhnXTj7RF+QVwAJp7Gro+Mq0o1RQ+sj2SYNWCGnMMpCfByYL7CbcH70nt8xl
-         5B8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792177981; x=1792782781;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=SuEs0VC4ZxRrh/SlRaM5hxVO3gHCDJyCOFm9YRH4SIo=;
-        b=jNSFtyS5F4tUOwkEg7wG85fB19r8bdAz2EHah65F/JfqYYfbt/s79IaX43ecgVrIh1
-         TCK+HCpxbAzchlAMcalmFOCu7Ir3A1UQblGr097g0D6YR/E6y1NMueJlXEk5nFR/Xvpe
-         97SC7wwcQGzwaHKcMdXoRuR7ZZNNtJc4MKhVVX2LwOt+fPabnZYDg2zR5kJj1biZfiLI
-         REMuJJm1wkt2zcXmbPAB/BmVxA/Olt0unl7pkZi0uuBmSxIgmCnPLSslZmdb3DdjKKFF
-         gwCR1IS/mNP64TLlCV3oIyaPgwsa3SO4sHyGqtsn93rr8u+JohQEzgSLRjDODdgdjB3f
-         SVWA==
-X-Forwarded-Encrypted: i=1; AKwUvBzItbV9icZbfjoMfqved9zemZ7EmDoPT5sUTpOHPgjn7Us/Ilcs6MvMeN8YKebHzcIDq89YxaAGatknI5A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLyIO1Pq8DKcEqvGiyuEefHOoes7bEpKz2zTy9aSoOsqf7vwmlJ
-	IAew+0M25f9We00FSHihljAuRXGhruQ3nhQ6f5aw3z8H0zgvLsrMMPKk
-X-Gm-Gg: AYBFou3GWWvWlVOz5AEmynzpLecVH4WdYZ1lOUF8QnuoRh5xGnv/0ipuNBrCMZzV4/F
-	nybhnhpQS2gkcZIHhbnDJDbi9JRCr6dOL/YY32N09eOurT9Ix/D2G1+MmZxfMGwKvMqQFt7o7X4
-	RY1994s+EEk2tR7FEJPD4ENI7A2z7pDfVCAUrm+I8tpqm0etE+cX+G1Zncs4hRg+/igXxh/e+Ou
-	0WFiMvp6v+K4qNIajf4AD8oJ4gDXbPXLx/5qRAA4r7ji620y/phHjRSEnkaS7QeXE0kCdhUGyX3
-	ZNxlSbLUcoIcFUh4Rbi6AYK7iuzp1phyTJ4nOovGDfcKCEx+QiL5HFs/1iBx9YolI4X1WkD18TX
-	DIDM66uhF/PaP/Wt6+7Zw65S9Bgd5Si/3TqSY0kiqF3TuWnB4TVtCQ3iAd88saRL5uvAd3avrzw
-	fSl8qJXz+YLLW3yq3x7EYWbSj5LxhkID3oTTfcQebEmocjp/p+t3YG
-X-Received: by 2002:a05:690c:788:b0:8a8:8456:a970 with SMTP id 00721157ae682-8b0f21e9dbemr3970507b3.68.1792177980610;
-        Fri, 16 Oct 2026 12:13:00 -0700 (PDT)
-Received: from corey ([2600:1702:5081:b900::49])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e58c80a7sm13103557b3.22.2026.10.16.12.12.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 12:13:00 -0700 (PDT)
-Date: Fri, 16 Oct 2026 19:12:57 +0000
-From: Igor Malovitsa <igor.malovitsa@gmail.com>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: bpf@vger.kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
-	martin.lau@linux.dev, eddyz87@gmail.com, song@kernel.org, yonghong.song@linux.dev, 
-	jolsa@kernel.org, memxor@gmail.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf 1/2] bpf: Load ringbuf consumer_pos under the spinlock
-Message-ID: <atJ3KJn1TVK8Oo-h@corey>
-Mail-Followup-To: Igor Malovitsa <igor.malovitsa@gmail.com>, 
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>, bpf@vger.kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
-	martin.lau@linux.dev, eddyz87@gmail.com, song@kernel.org, yonghong.song@linux.dev, 
-	jolsa@kernel.org, memxor@gmail.com, linux-kernel@vger.kernel.org
-References: <20261016003318.529860-1-igor.malovitsa@gmail.com>
- <20261016003318.529860-2-igor.malovitsa@gmail.com>
- <DM6EA4NZEW6T.1QXD6YWB6J9JZ@gmail.com>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="kkGIL1bp"
+Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay02.hostedemail.com (Postfix) with ESMTP id CAB69120585;
+	Fri, 16 Oct 2026 19:13:42 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id 78AC62E;
+	Fri, 16 Oct 2026 19:13:40 +0000 (UTC)
+Date: Fri, 16 Oct 2026 15:13:39 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Bill Wendling <morbo@google.com>, Jonathan Corbet <corbet@lwn.net>,
+ linux-doc@vger.kernel.org, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Petr Mladek <pmladek@suse.com>, Randy
+ Dunlap <rdunlap@infradead.org>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v5 12/12] docs: core-api: Document the seq_buf API
+Message-ID: <20261016151339.79339dc9@gandalf.local.home>
+In-Reply-To: <20261005155708.1471260-12-kees@kernel.org>
+References: <20261005155653.late.426-kees@kernel.org>
+	<20261005155708.1471260-12-kees@kernel.org>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM6EA4NZEW6T.1QXD6YWB6J9JZ@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: z7e3ficsbp6gu6r1yoyu94rqxa56npzt
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: 78AC62E
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18PGHpWT8N1m2wPlqH0k89uYtXhHRXQ8xE=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=/iMMTjSKlkO+qTb76qEyDS5V8nAb2S0TVGmoe4hOGI0=; b=kkGIL1bp+K/1lvgyPHFjFIwQTHMTMcujQx+wpTQ0EfZHIBXMpGNC4yi/Lup3zPLhZwUnDxSYG5fx05sho+3sBVhzxB2WYOKdKDerN1L3fKEvcOge9Ei/3A4efnuBp6DXTECbMwUodrWUgu5a4PozzLb8oyB8XJxTGWIg/LYm2z8=
+X-HE-Tag: 1792178020-794876
+X-HE-Meta: U2FsdGVkX1+x00LDw52Wlg8pFsmZ9wMCPnZfM4z9uxdMSwdHSHby5RMsBT4eRdaZdO8+qoUETuvUSK1cA158P1auMmdv1YglFia0GckAHEtaH60+0aLfEtdZsvb5n1sBygURYC+k/2FFzYgwbr3ktGASb4KqQsEdv/u/YJyg+dkHEkW5nRZtTl/DZiwWqGT3QfcuvAtmJrI+ze4Dz88y0mtuiMPw7bcXsgxWRXqgh2GPontVr4GMX832UqPWaHSSj+GOiYyulJ1CfmFraugSfpyFqBDXi50CmlklgWmQDaygn2X+EqkIPrDlXGR3sOdb3KNW70EyWDuIwtZfDZhA5lv7O/3eCVT/4UsHDoYjsd+03feGYEBhKV8GA5ha7gmFO9P1AJMHgr/U4R20IEZFrZd/aE8yZ5yxeRh+SGitANqF6BUA0/M9RpQgp+AfQ8gj6wrLWinyqx7eT2+lTGsFRsfgAyrNOyQcv4YlAkmF3ds=
 
-On Fri, Oct 16, 2026 at 16:14:44 +0000, Alexei Starovoitov wrote:
+On Mon,  5 Oct 2026 08:57:02 -0700
+Kees Cook <kees@kernel.org> wrote:
 
-> libbpf writes consumer_pos after every record, so this load is
-> a cache miss most of the time.
-> Today it's done before the lock. With this patch all other producers
-> spin on the lock while this cpu waits for it. On 64-bit too.
-> So "Neither changes anything on 64-bit" in the cover letter is not correct.
->
-> imo it's not worth slowing down everyone for that.
+> The kernel-doc in include/linux/seq_buf.h and lib/seq_buf.c documents
+> the seq_buf interface, but no .rst file pulls either of them in, so none
+> of it reaches the generated documentation.
+> 
+> Add the missing kernel-doc for seq_buf_clear() and seq_buf_init(), and a
+> Sequence Buffers section to the kernel API documentation. The static
+> internal helper seq_buf_can_fit() is left out. Additionally fix
+> seq_buf_hex_dump() indentation to avoid the reported Sphinx error:
+> 
+>   ERROR: Unexpected indentation.
+>   WARNING: Block quote ends without a blank line; unexpected unindent.
+> 
+> Verified with "make SPHINXDIRS=core-api htmldocs", which rendered
+> happily into core-api/kernel-api.html.
+> 
+> Assisted-by: LLM
+> Co-developed-by: Bill Wendling <morbo@google.com>
+> Signed-off-by: Bill Wendling <morbo@google.com>
+> Tested-by: Randy Dunlap <rdunlap@infradead.org>
+> Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+> Signed-off-by: Kees Cook <kees@kernel.org>
+> ---
 
-Thank you for the quick review. I do agree that a bug limited to 32-bit,
-requiring 4GB of traffic to reproduce is not worth the trouble.
-The reason I raised this patch is building a formal model and
-discovering there's technically a bug. If this corner case is
-not a concern, I can abandon this patch.
-The second patch is zero cost, though.
+Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+
+-- Steve
+
