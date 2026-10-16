@@ -1,180 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012018.outbound.protection.outlook.com [52.101.48.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBB04E1C7F;
-	Fri, 16 Oct 2026 15:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166350; cv=none; b=uXhGnr9IDTRUWe59SLTT9WUy5QuelQlQJ/eyAxm67UoFk6U7IiOH0oFnTCmFSfM61fc77O4hjxgAY6xmIjpChpdBEDJGwcYMRZJpXtn+iiOA/HkK3jur1Ni1wt7GlpFcqov1coqf5wXa/i9k0rj7eqd/BdPJH8l311CLeQcOkN4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166350; c=relaxed/simple;
-	bh=JZkCUaYNbTjvJWnmmtv9H9MNAuE+gT+Yyx0xOr1Z3h0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KxMDYskhOKGdbAJEJGHgC2VIg3DxsLDMUC5AeBjkn7YGTASLaeAlE+GPpdQmbDLJY/BH1pwMGDKWjSJV7c4msdtBDUvpk0Fdosn/+8uzvVyhqVULJSvDzpmiwp5bP+HyOi02HlnPSUKQQdNiNA5dcTqnnJtmTF3JlxW/2DPG1Oo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HCPYR1rf; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03234EDCB6;
+	Fri, 16 Oct 2026 15:59:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792166356; cv=fail; b=RnyiGuWMLdkj3dzdt6lRRGfkfsSlr197oqelxoXPvRZhQGLAFqwl9y1ri4oW74edK+NV8peJY7pVO5JAr9jMZFWAEpwUtH8eVMEGny/U0c8QtG27qYLOB/QnPAxFbDZR/RtwBzNROdNAUf5eDaN3/2d18+qslk/NNmN52N3IWHk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792166356; c=relaxed/simple;
+	bh=aOMrmhYVOsNWtN9oZdKyqldGu7303XWOiVwGEaep2xs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=OzJDOuUjUpRqbxYvlUe9Yn4sNLq7ZlZlZfouXUZrYpM4h7yDBT1Dm59783llcJ7OR8a2GyAG9j74JZbqG40wL6wAdogBEIChl3c9vLNpg/gzHHzuaZxLrNtXBlJRVfWh+I1GP+cIt7LDpZnMmn0DFwrLO2wcg471wYiSg0bpub4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=lfV2aeZi; arc=fail smtp.client-ip=52.101.48.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HCPYR1rf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48B8F1F000C4;
-	Fri, 16 Oct 2026 15:59:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792166349;
-	bh=YHSmvSRoGh4J5BvFL3E9o6lG/BagsB6+05cLPaRYUy8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HCPYR1rfQwKKl+OfX65tFRzcJC75Wb6PDIe6djP3MycwDxWp1rbve0D4LF4OrQ98Y
-	 vCZZj2IEwb5k+e+tejxlHvUdSp32BJYDltdAgAAXBhjJjqhneK/hSDYXpRS4lKRev0
-	 Hgoa4FDsA1LwwyRIUnz94caDEBAG9PtKJ2FpkjPUJafzRSdzwZ3XpSrsVpvTkVz91i
-	 85hb3MU0JiQXNz1KEyE36pjk4WqdoMM2BEg0XksXD9oGxWGO+lJf9J9kDZLPS+VwR6
-	 yxX4WCEMu3RPf+C4mTDeHxBxCwwnhdfmSvmj9fzj5sd/LTz4AgrhNZfzexncsA8tTm
-	 iSWpMxU89Ogeg==
-Message-ID: <e5d75c47-2051-4b09-9d33-d2eb64a141f5@kernel.org>
-Date: Fri, 16 Oct 2026 16:59:05 +0100
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="lfV2aeZi"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZcBNTAs+dwteyL97LZf3uuGI8nex+TxCd4D3RF6SvxlmBCscb6P1UYAH8OMrCVYbc1SJfxXiGKzNEcM9lhJSGJ2e2xMN8E+KPWZ1mbf90TMhfQaHU/HjdWHWU2yeMTvR2kv5GfVtzcHLwTAc2EI4vgM+U563Q7KPJWYWszRjmK5i5QOaHR3qfUVh9eT846Jbe9FI1K6gsPp0jyIh+hd06ZiAW9t4vMXjzFy3iy6iPjU+RBw0ojTlCBShGaZ1Upt6wIsOX96Hl9jtF/URY+v/D86jHQAzbZOdvV8htDbBrJCJZuCl2lf3GLhdtw0mSnpOodv2zSoI5Ow0DXljcIOVCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A+8H0/wapOTuFPL/A4+y1ckgZpP0mnX/veUNHa2v4uU=;
+ b=t+bmiaTsZsCkFX5wajpzIjwc+IXBEhjkaWiX9N+YiX14mHVWfaXMR8KABFHyfV+zihZ/Vb4kLBJqRSbbgHhGA3m1v2EeBS5OmsQF8yoiQKeeVmEdg71fD0pOgo3HmB78IRDeGkpOQaqgGs6F3WvhL6Lu6GCU0VHSMCwbRxlhFd0GXWHuJwvEV03wkGMc1OR08tYoVxm30Oi4i1FNnHUjkjNiYK8nGIeSzY4aID8a3JwTQ1kv9S6BDF+5kcl1MKSZ0bhGm6e70CugLK7vpfNYbnEZL16lXJoo1mYsXbfmdtqCaALbEbEaMCYyju4HgTSiEnDknDI+VY1cx3a6GdTgEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A+8H0/wapOTuFPL/A4+y1ckgZpP0mnX/veUNHa2v4uU=;
+ b=lfV2aeZiI13Qfc6kn9lYv3aOWgvpf8lGUUdYHjiqaD+UtLmzNbnR0Q+yXxCB7dC9YWx+Ao0mQ5eidRFnH2Rvs26n4rlZTA5x/eiBsDMG5jRKz1nBBenmZ3fEfaENURe3/yhZgsUR2Md73qAHaMO8WyWdHDyOQZERKYh2K+Hwb0U=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
+ MW3PR12MB4346.namprd12.prod.outlook.com (2603:10b6:303:58::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.14; Fri, 16 Oct 2026 15:59:11 +0000
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf%5]) with mapi id 15.21.0522.016; Fri, 16 Oct 2026
+ 15:59:11 +0000
+Date: Fri, 16 Oct 2026 11:59:02 -0400
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: linux-pci@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org, bhelgaas@google.com
+Subject: Re: [PATCH v2 00/10] PCIe Flit Logging Ext Capability Support
+Message-ID: <20261016155902.GA1176@yaz-khff2.amd.com>
+References: <20260918145619.3016889-1-yazen.ghannam@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918145619.3016889-1-yazen.ghannam@amd.com>
+X-ClientProxiedBy: BL1PR13CA0402.namprd13.prod.outlook.com
+ (2603:10b6:208:2c2::17) To DM4PR12MB6374.namprd12.prod.outlook.com
+ (2603:10b6:8:a3::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 1/2] dt-bindings: media: sony,imx681: Allow a C-PHY
- bus
-To: geocausa@gmail.com, Sergey Lebedev <lsa.uz@pm.me>,
- Andre Gilerson <andre.gilerson@gmail.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015-imx681-x1e-v1-0-fd22f5f3b0c5@gmail.com>
- <tP5-ts7J2p2uA3eoaiQwwAt4gozW7_GQiAxznsXqqGXZ8LQ95eM_ulaspPz3EoTdN6kIUbHAio3TI31qbvjukg==@protonmail.internalid>
- <20261015-imx681-x1e-v1-1-fd22f5f3b0c5@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261015-imx681-x1e-v1-1-fd22f5f3b0c5@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|MW3PR12MB4346:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17b3c68b-bd0f-45de-4f16-08df2b9e6ae5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|56012099006|11063799006|18002099003|10067099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	xssyz53v8YmWk/UeT7bc1RAvjpu/Ev7DqOx4jjJ4Sp0u5LU46LKCckF7wu0G+ICypwaVEwxNXdcdj0l67jCw5P70a7AXeRnDVs206ZaINX+kqf+LUbRQ6oZwYY2lYI+Gznok8O5qYouPNDyCmjNIX2GFUMokRELt1bSc/t5PY92MQh29ztsXahfY3ZT4zSp/+f8slOuqw/CBpQ5NZcDLzdboxxpUeON+/XxFq5ueCx7fshbBxQrRG+G6qrd4vzK/sNtFSTekQGEIA+hsOK286WhWSIzKUETGm04xgbaq7uEGDSpHxwqx3fzDvQbCnUiEcUyyDZB7CrZkDABl7hmLJvPtHtFCHYAcWd3FnsdTjjJwesctgpfiKjLTXHNc32IQEyFAmQxEIVk/VILQXCRW7N6n2pw3UAmb9nbiQxYe96UbI3uZMqxw8X/uPF2G7BViU8z9K5/NZucmmwPSxUfBaC1gPQlWwvhPyHqtO72N8DTCAlFCOmUaWC+WAmm5FI0Li7ULhd0yrz07heAsWjVpeiC6ATHdTJqf9CuIidUNmOVBu/Z//Ro0CUJ36Wddns/yM1C9nG0Gf4x34f83hM1Eb2/dez2euZkCCWsKz64q5jYJug0brSaQItN0PZrOdstrHe9SjVlJCjs6d0F9TI7kgB5z40CpinAuQq/zQyWtmy0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(56012099006)(11063799006)(18002099003)(10067099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?MN+rUnkuJ98SNLaH0IVWFqiq21yTIOSLlxhg1tFyN8u3ndK9Jf8DsNFCBnI6?=
+ =?us-ascii?Q?jPaVqUdwSXQS3WewgZc+SNkkGe8CHbtAKP+/sVuR9TqPEJBFJez2KMCtVxI7?=
+ =?us-ascii?Q?TWfRTVgT9AcaCTz6lZ59AKZDSSnkL2AuSbo2CELLj8JBuMWcmRYJWevsr++2?=
+ =?us-ascii?Q?hFlLdMn0My/TWYEUh+kcUQX4mSiVvZyvX3Xjj83CTeRzxVtgg3IzNBLIROJs?=
+ =?us-ascii?Q?ElO6p3B9xGyIqF6r0p5QkgcPsPuquPd/9bNQSJsKr4K+TRxi5o1nLi5PnBrx?=
+ =?us-ascii?Q?sCijb0BhH2OxnzT0aSYAVFumPC1VDqCViK074PW6WQI5IxG0c+nIsI/ytgas?=
+ =?us-ascii?Q?IT40rRM7p20iRlWHUqt9zZ0vO7lwhtVp1Jj8th38CYoE7Ms+MwJShcuG7h39?=
+ =?us-ascii?Q?a6iZTOVnoP5FItKlkFMtZxEFFAqBTf2NMTDmmDTwO84XCE/+qNFvg99Kil2Z?=
+ =?us-ascii?Q?F7cRpbCbKggCq199v0yX5VDr9u0GxEAR2ru2Rtyu0GH279yh9ur6F9eAd4Sp?=
+ =?us-ascii?Q?A+0HOtqEG8gisJIKoRZ7PUB843FMhA1M1IrqoIQWpD2f862a5+KhqwaqC71M?=
+ =?us-ascii?Q?CCSiHfqGeE/cBnXxe9wOIkqgFXAZ//p9bWJqgde3oUZLPZOrVA7KeAQqLPFD?=
+ =?us-ascii?Q?WE5ad/TJqx2cvc6pg/DqqxHxA0vJC72TaDBtozn4GcjtraSL1ve9Go1I2AzG?=
+ =?us-ascii?Q?prVpMeOyuPcYuS/pNQGRKva516eu12D7F5kphg/dtRcrTSXfPsrcuAhB2pK2?=
+ =?us-ascii?Q?6wwzlgY0zQOh65lWEW3fZYZt59i5Vi+/EMI8GiQ/SJlIgSzP7uQdMTAUem/R?=
+ =?us-ascii?Q?A53ubtSxVAjKedTCDxjO77EZnxLMkPTH6v7GE5QgSBeY35Hjlq3GxYNQdkPp?=
+ =?us-ascii?Q?JcljkY+en4krs2VhlqeoYZ08n79nqw2UKcZV+5RoNmMMi0iegtjI7Zj1Z2fE?=
+ =?us-ascii?Q?AiOSOy8Zfpb/uRrfUm+oxzW/VaHeVYyqZHwB+sZI+6woTEd+Uni8A3bNtpqk?=
+ =?us-ascii?Q?EDmdthtnt1tremoK+3+0ReBsRm0oqAoyxpTjlDodROp+RNHOfiRm+hx0bsk0?=
+ =?us-ascii?Q?G/ViDPODoN+zopw8O1eHtzAsYWTxNnvNccTPjpOxtmjbf6YEA9xMfRoGU9fO?=
+ =?us-ascii?Q?BNlyQtA3M54piy7DvwZHgqSuUWWUktKXiwVoGWwKY3SumOEztPkFLH/YDXc6?=
+ =?us-ascii?Q?KdusRKg0W9HlsZfQ2n5dmGlcw9laW4CEZUA7ecnO29JFmDf7madRnO17e7Qu?=
+ =?us-ascii?Q?jqjs0S5FVSUErL4S/59cK3rC2/wEMBNUr0UGeQ2FaIK2O0dymM8ehyb8MH2M?=
+ =?us-ascii?Q?le1+2Xs1RgrTKFrt50Bb6b34sv68hhgW0QRRczR6o+DOwA0ekxXVkIDurcub?=
+ =?us-ascii?Q?SUiyOPCfU584p6KHqsQhJ0GnhMQcoma54UrjPdCNGnRG6SH7/A8+79O0erMd?=
+ =?us-ascii?Q?KLHqkLxdgtfHr8AAZjUm66T71DESI2kRmh5RGybTUyInNuuNGLLLpbCshVw2?=
+ =?us-ascii?Q?LepEuBgLuN3oKwDkuOXumfx5mM7uOLZbwKk6TcnTtjbrnesiTZaAzLevsfN2?=
+ =?us-ascii?Q?TiyMdZpIEiDZrDhparnJ/Iy5MJb9HkCNrE29FaQH9uVxu+yNVOA2vbDSaGQ4?=
+ =?us-ascii?Q?QCf2vsFg6VIFD/lzxmG+gK072xPn6vhgtk5vKY4/I/eyTCOhgzjHrv6iGTiq?=
+ =?us-ascii?Q?xXrd+MsaIHOU83k84R1canVbhati2A4b8n91PEDdsftptTBU?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17b3c68b-bd0f-45de-4f16-08df2b9e6ae5
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 15:59:11.0943
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wz5Ey6QvoErZNmYUvsjEtjBbFRAv9GBIApWAwPe0pjfQeBCqYxXNGe2Nm3iB0Ds5ZpzIroT0uk1luh7B3Bjo9A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4346
 
-On 15/10/2026 22:25, George Neacsu via B4 Relay wrote:
-> From: George Neacsu <geocausa@gmail.com>
+On Fri, Sep 18, 2026 at 09:56:08AM -0500, Yazen Ghannam wrote:
+> Hi all,
 > 
-> On the Surface Pro 11 with a Snapdragon X Elite, the IMX681 reaches the
-> CAMSS CSIPHY over one MIPI C-PHY trio rather than over the two D-PHY
-> lanes of the Intel model. Let bus-type select C-PHY, and with it a single
-> data lane, keeping two D-PHY lanes as the default.
+> This set adds basic support for using the Flit Logging capability
+> introduced in PCIe v6.0.
 > 
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: George Neacsu <geocausa@gmail.com>
-> ---
->   .../devicetree/bindings/media/i2c/sony,imx681.yaml | 26 ++++++++++++++++++++--
->   1 file changed, 24 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
-> index 62e7eae..51256a7 100644
-> --- a/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
-> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
-> @@ -14,8 +14,8 @@ description:
->     The Sony IMX681 is a CMOS active pixel image sensor with a square pixel
->     array, used as the user-facing camera on several Microsoft Surface devices.
->     It operates from analog 2.8 V, digital 1.05 V and interface 1.8 V supplies,
-> -  is programmable over I2C, and outputs 10-bit Bayer data over a two-lane
-> -  MIPI CSI-2 D-PHY interface.
-> +  is programmable over I2C, and outputs 10-bit Bayer data over MIPI CSI-2,
-> +  either on two D-PHY lanes or on one C-PHY trio.
-> 
->   allOf:
->     - $ref: /schemas/media/video-interface-devices.yaml#
-> @@ -54,7 +54,14 @@ properties:
->           unevaluatedProperties: false
-> 
->           properties:
-> +          bus-type:
-> +            enum:
-> +              - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +              - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-> +            default: 4
-> +
->             data-lanes:
-> +            minItems: 1
->               items:
->                 - const: 1
->                 - const: 2
-> @@ -63,6 +70,21 @@ properties:
->             - data-lanes
->             - link-frequencies
-> 
-> +        if:
-> +          properties:
-> +            bus-type:
-> +              const: 1
-> +          required:
-> +            - bus-type
-> +        then:
-> +          properties:
-> +            data-lanes:
-> +              maxItems: 1
-> +        else:
-> +          properties:
-> +            data-lanes:
-> +              minItems: 2
-> +
 
-I think you should constrain the existing minItems for DPHY mode and 
-then add CPHY on top of it.
+Hi everyone,
 
-Your commit log says Add CPHY mode but then it goes on to do other 
-things like this.
+I'm working on another revision that'll include all the recent AER,
+_OSC, etc. rework.
 
-Break the two things up into different patches.
-
->       required:
->         - endpoint
+> Patches 1-4 are fixes for AER sysfs issues.
 > 
-> 
-> --
-> 2.53.0
 
----
-bod
+Any feedback on these ^^^?
+
+I'll send the next revision as a standalone set.
+
+> Patches 5-6 are refactor prep.
+> 
+> Patches 7-10 are the Flit Logging support.
+> 
+
+Next revision will have the feedback from Ilpo and Sashiko.
+
+Also, PCIe v7.1 includes the updates for Flit Logging capability
+revision 2. So I'd like to include support for that as additional
+patches in this set. I don't have hardware to test rev2. But I figure
+it'd be good to include it in this initial design to try and reduce
+rework later.
+
+Thanks,
+Yazen
