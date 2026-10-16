@@ -1,299 +1,148 @@
-Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4623E3A7F68
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:16:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.6
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792131393; cv=none; b=hgVhOafmvq+uWTutP+LsBIsrSL6X9zI7PvIBUYtdyAWfIFuhD8Sb48SpLyoFHiAVDgxIg8A38ACmTtnspnmVQ+hB/fR4gtHNEWsNMQhx/QdWQ37gl1CzSA/q2CLeKKfR3pXqUQgBF0vMP4s5ofPicStNaG5sRzG5C9kzDy3oZC8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792131393; c=relaxed/simple;
-	bh=XLWTvyCPrvBH6IrX2SQmS/lbWi/l2CNUS/x21NzD+5I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Dl1FQmCbIFNt0grorN5OQ6lEnz6zs5hy9fb/cfttzHJ4RERI880Epf5g0RnlrJ3urZV4R7H0k9Qwut8GxuR9+CerkJkHzbiugkMTHv+nMdgpDB7L1Fmtz6fPxCR3k8bG7QGUppMXFTO1h0yUDoeo8xK/QrvXTpKTAWtq4Z6I8xQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nulv1CVc; arc=none smtp.client-ip=74.125.228.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108403921ED
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:16:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792131400; cv=pass; b=Of22MJPJwjNvQrImClKuT14PvLNWP07/uxauu8GRR3Yo464c7qmJhJ7Ryq7EaxymQOmaqYhcHo/kVgeY0d0gC9BbMdyFgZF8DRhYZxjMn2bWGSqzjwW4681CxslrQJj1QkNourD+x/YkygPJXoWdBm0OSY1pEXo9oZ4o9t6UT9o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792131400; c=relaxed/simple;
+	bh=btnoV6CU2q0UBdK7jbLnMoo6ItmP18ZDQfYmAVaSBNk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=O0hK4gQpPfFdgzhn07yqrigGdheHeBIvkVdiA6ij42Kv/OgUsYGnRKnp3Itxgk/mP/HewiZxUNm41V7BS8DnQ1SZ0MQ3VX6MHvjdCKUIb9FZOXHWmG8DlM1EJCNhwfzUeP+0QkiUWNCeMv3NXMJ9wneqlgPFHA9BwA8wMOMzQ9w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HLqSw+d1; arc=pass smtp.client-ip=209.85.210.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nulv1CVc"
-Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cd613507bd1so462195a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:16:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HLqSw+d1"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-89f1318195fso423826b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:16:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792131398; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SybFGOTuU30lOA7VQ20dLFk7M1j6ZSoCtCiz0vvCwZYcCn0/AdAKQ6prfzQ2rH65Sz
+         n/yMvJLb3b6P9RnqaKu2YMJDiYGKNi1KFhdVpKMu/UkyzOLR8a4T0Iy1YtCIl9BY2xg3
+         r+fWNY4fT0bo7PjWzXXv96W9TttvSNHjWvbPRRhPaFj8QvGOmxAER1CtW3kCj/ABb5N9
+         hRGsuvLdqbdGU3FfJoYVAuZrUjODA3GbOs8hWWrtvLXKiIwEMFeQ9mxxYwZDrSgKTMIM
+         4Agoa2VeFP3+hTLkHkbO4RlfYjGjaEa809De/P+GMKqoMATjc7Jpmaq7+wDSIwZOQNKk
+         ak5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Nw95ViH0murspGBeVdDuR7/ikIvvt0nVUNuA1BMwLqs=;
+        fh=cCMR4qnPGK4rKBKMlgWy3boefqRkjGUrg5CprSdaEME=;
+        b=b7BZRyxrBNywKtB20xZtMXxQ3mJ5z69Du30uFoEQUcUOqsTwIR2pDroGvu8bcL0KX0
+         PzcanUBB6AbimzctV5sHOu9aMjqR/ZesJkJ29TYsU52ASQZ2ebRkMfHiOIRBBlC04m+m
+         jnGAv6bJhpZLBV2ncTxG/mU6k4jSyRZc1Gt+V1oZKgzndaeYIjIP9HBSEHlWA2ajrRDf
+         7qZ49mmqzpSeb1QhIAPSPDAMM7QBrczdUQCXyUfeE6nzaVp5zcMu+7VoL94zbzrDl2Cs
+         +On7xZPQvCZfXBpxgp9vZqKDwLI5ObBaVQK+suzT+t2pvG72xGV7cvq6R1ft+7vyz2tR
+         HLHQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792131391; x=1792736191; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ChIsG9Vgmjf7e0EG0U79egn378mU9W7gdCp3fG4lF2s=;
-        b=nulv1CVcRj6ZadP+Em6RYqWyLh0A1hopqGrO3X5H7C7i80FyiEaaAZRtNJqEvl0QE8
-         B1SPgfa9vz7TSmUPkBxqtyUc/JSNBFYH/NFGrgFzv7l53Dpz+VL/2oWBzAamGG60CaO2
-         3GOq4NjAUZCHWgwrIzf53pYYYOhZLpKAYc8KEgZr0ZGgXpjrKm+fdCaMXc5MDzLuH1e1
-         WOBPdwyTOVFoA1MCCze8G+hpKKS02bkMHoJid4E+dqhno7OBik2UDbfYCDVgSqgG8eXj
-         QvAHwgU28UknjHd1Bq93WDYWe1/nOZse5M7z2fIjAJsrNBzpD0/bbMci+w6iUhbPONhF
-         B8oA==
+        d=gmail.com; s=20251104; t=1792131398; x=1792736198; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Nw95ViH0murspGBeVdDuR7/ikIvvt0nVUNuA1BMwLqs=;
+        b=HLqSw+d1c5BP3YfnQSbETX3F1bFbr1NwlertT1k0xGAN68/dGLHBFi4MjPBEmblQow
+         rfYKoOr7uKTjk2RBD2MZZquiaZ1GJgwf7kXUMpwIr23BECbq0yIS2vna8GnAQbbxQHRs
+         FyHUARSj5NdA+u/C5BjzFAZs46EQsd8tLaESvOX8SBs3BASBp6ZzRZJDXLjY7lbQrvq2
+         TWAsJw8v0tpXlGJ9Z9xpAS2wBxxEvF+AdrRsu+hWM6tFjGMf1/bh3+HbxLoK4Dj48HfO
+         +Ciyg9CPpL7wSOf6901qidksaVg2UDm73By/h1QZ6im4OW73WnmF3DUR1zBFXp4MumoB
+         WYPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792131391; x=1792736191;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ChIsG9Vgmjf7e0EG0U79egn378mU9W7gdCp3fG4lF2s=;
-        b=R2lBlx5azaRHxkKjTGKXceLghdvnUoYGczUAVgr9IWcRKWDlBYEORyDbEpXMkDstTy
-         vLRCDnPYKnH/pueMFzE/SyBAT+10egbnvxJAO9r+xNNoEU34cLQyAAFOYq8EvVAs9ah4
-         yHtuWi6Q//apxr2uJG5uuD5kBP/ddyNcQS+vmgQGaVYzM4YBIcVsUAa1KY4F0lLhPppD
-         nH3QkUbVLa+P5oV5x2FPYwSW+4WTcO1J9opusGIsXCAr3N6NG/Dz01JtNFbCmfpWF/q5
-         rnp4qjy0Ol8MqpiSmG4BpdqYM/Wbhv6eFnEN4MQ4E2wkhTVIf91sdSkJhZdFEnLkuaLZ
-         gXQA==
-X-Forwarded-Encrypted: i=1; AKwUvBzwWu4RS4XQFiqPP+8yU5RUnfVeO84D3FxTUao08HBuDYqDp06L+tMCiP0c9PB8Vv6Km/RCDnanGERivT4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILEMNX7qsdn03F6B/9HR1XHKpDkQTaFpcLMBPfzqDliofqDlH2
-	ogqOuGq+qnLEbjRGrtpOub7LoTzvoHY8lLN3WfIaJiXAmoWsjrR7E3DY
-X-Gm-Gg: AYBFou1w3TA0wMO8xC/vXbsdPkjld/OPAiJRLJqQ60h0GYBQEgMy85/tkM0soTRbLhY
-	foDPPDWOsBl9P964S8eB0QLpRPAbfX9JhmRwYFYGxQ7AC+bN8I/Nh076bJMoxAYRYueLQIk0QCK
-	mKFKbhlkZM7OG0sdeFgncA8jadgn686TlTD0CsQ3qo/okTtbkD8FZN3oBdfLQkb5PR0IsymMGLO
-	oAFwVNaz56AGOmpxGI9vM/xFYDiocb2anb7MbwW4ErbNYteIDWF6zF4auIWVwvMKhy+O1bc1rEf
-	7dzWHXusQYbOgsvn4zQFGC/IOSI0FUKbzAZt+yCRXhJ9I2leLCAjRG2+uS25wDsrzw53NzmyI/W
-	Vr8MPFlihu698blbNujM6nPlM9ZKy4MMlX5/YRm++Bf4H+zdyoJs8eE+rLhOy+8PCQXAsyHrPG5
-	WDQ+uk5jDy6v2uWGalZzr5ETlXRnc1EMDp08Jvl3qP7lqo2Lq2fwPUHG9JQDC1t4wB9ZE1A6JeF
-	1RedB4AqttTBls8F8ReNQ==
-X-Received: by 2002:a05:6a00:99b:b0:881:5dcb:400e with SMTP id d2e1a72fcca58-897c8991295mr20719510b3a.56.1792131390645;
-        Thu, 15 Oct 2026 23:16:30 -0700 (PDT)
-Received: from intel.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f57b334e6sm586375b3a.42.2026.10.15.23.16.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 23:16:29 -0700 (PDT)
-From: Wandun Chen <chenwandun1@gmail.com>
-To: robh@kernel.org,
-	baoquan.he@linux.dev,
-	rppt@kernel.org,
-	m.szyprowski@samsung.com
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	mark.rutland@arm.com,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	saravanak@kernel.org,
-	akpm@linux-foundation.org,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	ruirui.yang@linux.dev,
-	robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	iommu@lists.linux.dev
-Subject: [RESEND PATCH v8 2/8] crash_core: fold duplicated memblock arch hooks into the weak default
-Date: Fri, 16 Oct 2026 14:15:43 +0800
-Message-ID: <20261016061549.4181390-3-chenwandun1@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261016061549.4181390-1-chenwandun1@gmail.com>
-References: <20261016061549.4181390-1-chenwandun1@gmail.com>
+        d=1e100.net; s=20260707; t=1792131398; x=1792736198;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Nw95ViH0murspGBeVdDuR7/ikIvvt0nVUNuA1BMwLqs=;
+        b=cyiaCGxfv4V5FcFIs6npTnBrwbhFT+QCIKlm1Dtm/TTfbPQ7By+sPBTmTYj4bd2d1q
+         hcJ2/Ca7y3XzW8P7VHxnAH2wafdKEsp3M4S98K32q61GrhE1DxfUgjhbXKwvtx/395ei
+         sTxGVFBRAOzTc0NM4qWIpa5AGPwGBhs1B3iQV1oltO5vwsDPP9sd+cKcEUw8B3SiywoD
+         H1tPFID/F/GYVXgHvLjZ3XtlVPBoV88dv3DeBG8Bhv/cJvfBId7kWcDfI67tEpEkup2L
+         UTY9SHr4/KsYLmwP8WEbyE8OOKtNclK/YSNL9pKTIsr5dabHdJrbs6jCJTXpmtuiOqlx
+         V4Jw==
+X-Forwarded-Encrypted: i=1; AKwUvBztEb9Vsix2VFWNmiPiRxW2rLye8PuJ/cHW2U7EM3jOqcbeABO7ONzlFWp4x9vKB9dWR6OArqqIVgmYNxE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhVWQ8WQzewgPykR0eMEY2LCXczj98SV0qqhbRPyu6GZ4OJF7o
+	gg1ABqOpUXWnyRHq5KOoD4DI+9XbUS7YtL3E5VcDQykJx6jtN8AY5Wtm/nNLEstcFcLR475mU7A
+	eCRMLe7stkprUiw2cXZgXXPAclvQ8q2Q=
+X-Gm-Gg: AYBFou2vRy+jOX92/sdp0vY+X38Iu1YXPJW/fMwhWRehjQELUJhTcB9uA7AAifSOp1b
+	uYndptFAdDunuYiZHHhr09EABj+m4Fy+ioMFQidq5exlbdQKBAO4yBOPbaHkoLnGpRSEypr8b9x
+	8lcfii+Ba5Mk4TMeOthoNDT/qFFGN/MN014Wzjx/uBjSgDtCiJLkQSg1G/JaxmbeSH7T/RyEqTu
+	XNZkI7mgg+IWXC0zeoVspfeKmhtAws8po7l4Cm5Ix9ri8Vm9Zcz0clSOxqJBIJUHzJVPODTWEK3
+	Cdg8G8i68JH2UGk06qBwDb+GJ/S4zVQEckp9l+IRfoNUyHNuBZoaxMQi4EHtcUA6Xm+xdO2maKJ
+	JsJCTNnxUzEROCpSBbt2yrYwVUzgcRi/yCNDP2S270BnEC5KHrBJlKjsN3e0RAsWkRebZHA==
+X-Received: by 2002:a05:6a00:3d11:b0:88f:9fd9:3779 with SMTP id
+ d2e1a72fcca58-897c65410bemr19217680b3a.19.1792131398279; Thu, 15 Oct 2026
+ 23:16:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com>
+ <20261016-mglru-fg-v4-3-2106750c0bfa@tencent.com> <atEkfmRFgXJCbJuK@thinkstation>
+In-Reply-To: <atEkfmRFgXJCbJuK@thinkstation>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Fri, 16 Oct 2026 14:15:59 +0800
+X-Gm-Features: AclHuK9suf2MtgpJ8U-2R0dSol8SG-UyxjWNOAi7XM84G6vCwX9BAPJIIlEtxbI
+Message-ID: <CAMgjq7A6Yom=dHDMXk+mpYm3dotgOaVRjPHgUsOryjJ1VjPC6Q@mail.gmail.com>
+Subject: Re: [PATCH v4 03/17] mm/memcg: add folio-based lruvec live helper
+To: Harry Yoo <harry@kernel.org>
+Cc: linux-mm@kvack.org, "Liam R. Howlett" <liam@infradead.org>, SJ Park <sj@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Chris Li <chrisl@kernel.org>, 
+	Baoquan He <baoquan.he@linux.dev>, Nico Pache <nico.pache@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, 
+	Gregory Price <gourry@gourry.net>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Ryan Roberts <ryan.roberts@arm.com>, 
+	Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>, Hugh Dickins <hughd@google.com>, 
+	David Rientjes <rientjes@google.com>, Yu Zhao <yuzhao@google.com>, 
+	Vernon Yang <vernon2gm@gmail.com>, Zicheng Wang <wangzicheng@honor.com>, 
+	Chen Ridong <chenridong@xiaomi.com>, Tal Zussman <tz2294@columbia.edu>, 
+	Xiang Liu <liuxiang.277@bytedance.com>, Ehab Ababneh <ehab.ababneh@intel.com>, 
+	zhaozhengzhuo <zhaozhengzhuo@uniontech.com>, Lian Wang <lianux.mm@gmail.com>, 
+	Kunwu Chan <kunwu.chan@gmail.com>, linux-kernel@vger.kernel.org, 
+	cgroups@vger.kernel.org, damon@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Wandun Chen <chenwandun@lixiang.com>
+On Fri, Oct 16, 2026 at 3:11=E2=80=AFAM Harry Yoo <harry@kernel.org> wrote:
+>
+> On Fri, Oct 16, 2026 at 02:15:52AM +0800, Kairui Song via B4 Relay wrote:
+> > From: Kairui Song <kasong@tencent.com>
+> >
+> > Add a helper that resolves a stable lruvec for a folio under RCU
+> > without taking the lruvec lock.  It takes a folio directly so the
+> > lruvec lookup happens inside the RCU read-side critical section,
+> > which a lruvec-based interface cannot guarantee.
+> >
+> > No functional change.
+> >
+> > Tested-by: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
+> > Signed-off-by: Kairui Song <kasong@tencent.com>
+> > ---
+>
+> This new helper is doing the the same thing as what
+> get_non_dying_memcg_start/end() do.
+>
 
-arm64, loongarch and riscv open-code the same memblock walk in
-arch_get_system_nr_ranges() and arch_crash_populate_cmem(). Move it into
-the __weak defaults in kernel/crash_core.c and delete the arch copies.
+Hi Harry, thanks for letting me know, I wasn't aware this helper
+exists, this series started before the re-planting work, so I missed
+it.
 
-No functional change.
+But it's a bit different though, get_non_dying_memcg_start assumes the
+caller holds a reference to memcg, while folio_lruvec_live_get only
+assumes the caller holds an reference to the folio.
 
-Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-Acked-by: Baoquan He <baoquan.he@linux.dev>
----
- arch/arm64/kernel/machine_kexec_file.c     | 29 ----------------------
- arch/loongarch/kernel/machine_kexec_file.c | 27 --------------------
- arch/riscv/kernel/machine_kexec_file.c     | 26 -------------------
- kernel/crash_core.c                        | 27 ++++++++++++++++++++
- 4 files changed, 27 insertions(+), 82 deletions(-)
-
-diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
-index 854d872dfd0f..34d944d3f22f 100644
---- a/arch/arm64/kernel/machine_kexec_file.c
-+++ b/arch/arm64/kernel/machine_kexec_file.c
-@@ -14,7 +14,6 @@
- #include <linux/kernel.h>
- #include <linux/kexec.h>
- #include <linux/libfdt.h>
--#include <linux/memblock.h>
- #include <linux/of.h>
- #include <linux/of_fdt.h>
- #include <linux/slab.h>
-@@ -39,34 +38,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
- 	return kexec_image_post_load_cleanup_default(image);
- }
- 
--#ifdef CONFIG_CRASH_DUMP
--unsigned int arch_get_system_nr_ranges(void)
--{
--	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* for exclusion of crashkernel region */
--	phys_addr_t start, end;
--	u64 i;
--
--	for_each_mem_range(i, &start, &end)
--		nr_ranges++;
--
--	return nr_ranges;
--}
--
--int arch_crash_populate_cmem(struct crash_mem *cmem)
--{
--	phys_addr_t start, end;
--	u64 i;
--
--	for_each_mem_range(i, &start, &end) {
--		cmem->ranges[cmem->nr_ranges].start = start;
--		cmem->ranges[cmem->nr_ranges].end = end - 1;
--		cmem->nr_ranges++;
--	}
--
--	return 0;
--}
--#endif
--
- /*
-  * Tries to add the initrd and DTB to the image. If it is not possible to find
-  * valid locations, this function will undo changes to the image and return non
-diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
-index 5412aa9f3568..481b8f906a56 100644
---- a/arch/loongarch/kernel/machine_kexec_file.c
-+++ b/arch/loongarch/kernel/machine_kexec_file.c
-@@ -13,7 +13,6 @@
- #include <linux/ioport.h>
- #include <linux/kernel.h>
- #include <linux/kexec.h>
--#include <linux/memblock.h>
- #include <linux/slab.h>
- #include <linux/string.h>
- #include <linux/types.h>
-@@ -56,32 +55,6 @@ static void cmdline_add_initrd(struct kimage *image, unsigned long *cmdline_tmpl
- }
- 
- #ifdef CONFIG_CRASH_DUMP
--unsigned int arch_get_system_nr_ranges(void)
--{
--	int nr_ranges = 2; /* for exclusion of crashkernel region */
--	phys_addr_t start, end;
--	uint64_t i;
--
--	for_each_mem_range(i, &start, &end)
--		nr_ranges++;
--
--	return nr_ranges;
--}
--
--int arch_crash_populate_cmem(struct crash_mem *cmem)
--{
--	phys_addr_t start, end;
--	uint64_t i;
--
--	for_each_mem_range(i, &start, &end) {
--		cmem->ranges[cmem->nr_ranges].start = start;
--		cmem->ranges[cmem->nr_ranges].end = end - 1;
--		cmem->nr_ranges++;
--	}
--
--	return 0;
--}
--
- /*
-  * Add the "mem=size@start" command line parameter to command line, indicating the
-  * memory region the new kernel can use to boot into.
-diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
-index 808e872f4063..fdc6695e8588 100644
---- a/arch/riscv/kernel/machine_kexec_file.c
-+++ b/arch/riscv/kernel/machine_kexec_file.c
-@@ -37,32 +37,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
- }
- 
- #ifdef CONFIG_CRASH_DUMP
--unsigned int arch_get_system_nr_ranges(void)
--{
--	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* For exclusion of crashkernel region */
--	u64 i;
--	phys_addr_t start, end;
--
--	for_each_mem_range(i, &start, &end)
--		nr_ranges++;
--
--	return nr_ranges;
--}
--
--int arch_crash_populate_cmem(struct crash_mem *cmem)
--{
--	u64 i;
--	phys_addr_t start, end;
--
--	for_each_mem_range(i, &start, &end) {
--		cmem->ranges[cmem->nr_ranges].start = start;
--		cmem->ranges[cmem->nr_ranges].end = end - 1;
--		cmem->nr_ranges++;
--	}
--
--	return 0;
--}
--
- static char *setup_kdump_cmdline(struct kimage *image, char *cmdline,
- 				 unsigned long cmdline_len)
- {
-diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-index d0bd2d0cf899..faa0f22dbb41 100644
---- a/kernel/crash_core.c
-+++ b/kernel/crash_core.c
-@@ -281,8 +281,35 @@ static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
- 	return cmem;
- }
- 
-+#ifdef CONFIG_ARCH_KEEP_MEMBLOCK
-+unsigned int __weak arch_get_system_nr_ranges(void)
-+{
-+	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* crashk_res + crashk_low_res, +CMA splits */
-+	phys_addr_t start, end;
-+	u64 i;
-+
-+	for_each_mem_range(i, &start, &end)
-+		nr_ranges++;
-+	return nr_ranges;
-+}
-+
-+int __weak arch_crash_populate_cmem(struct crash_mem *cmem)
-+{
-+	phys_addr_t start, end;
-+	u64 i;
-+
-+	for_each_mem_range(i, &start, &end) {
-+		cmem->ranges[cmem->nr_ranges].start = start;
-+		cmem->ranges[cmem->nr_ranges].end = end - 1;
-+		cmem->nr_ranges++;
-+	}
-+	return 0;
-+}
-+#else
- unsigned int __weak arch_get_system_nr_ranges(void) { return 0; }
- int __weak arch_crash_populate_cmem(struct crash_mem *cmem) { return -1; }
-+#endif
-+
- int __weak arch_crash_exclude_ranges(struct crash_mem *cmem) { return 0; }
- 
- int __weak arch_crash_exclude_mem_range(struct crash_mem **mem,
--- 
-2.43.0
-
+I'll check if I can deduplicate it though.
