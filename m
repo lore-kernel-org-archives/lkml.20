@@ -1,176 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0ACD42E8FA;
-	Fri, 16 Oct 2026 07:54:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EEB130EF91
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:54:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792137273; cv=none; b=cy/m0VOcHkcXr57VebKJXZUKdA1j/0qrhcJ9wY/fZkmhIH+1830h4Auh9OdzwTkKjp6qcLpBoOqv9VX7eJlaXA7UVafCoTCLJ4P8fMH5ahFyNfcyZO46YpQ7tqOSe7vNFtR6Yjuwsi1zWI73zG6ocCuNBjo6pE+ybrUjQlvytrA=
+	t=1792137279; cv=none; b=jpB0H2hqEmhjax+mTfcA9YaOoiAoi1vcoJgalpUQjQ+jVKB5/R+rkTlymYYH7biBwuFvOj18opMK921ozqv1VeEtMTmQ2WXNWixOdZzOlQPbjiytO0XHXAi79ezDAzs5u7oJYxuVModLNOa7vb0pc75kkUKSx0DZmtQJXw5KlPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792137273; c=relaxed/simple;
-	bh=B4CPDpky7w5FgLS/onM9HRBqmo51W+e0jt3zz/rjflM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sMWau3kMI5kJgMkAxn0pbMeiAUD1kJCo5QoDtzFAeyQ8f4oOTIutHtHR6REW0ifrzl3Zy9jsCThyRB3oBLsWRNYQraWXe3sOD3y/2hHGOtyo/tOsNtFKEqrQ6F6+EkCocdySVCGcW/6Gb206xXoq1/cLV9iO8njeAIZURJRgnv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oms+Uij7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792137279; c=relaxed/simple;
+	bh=K2E7D9rj67R9Q4+qBfDWR/mcQHAiGBd400B25fJIhNU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TCzJPc3vLzCd79/rqJ6vj2CAqdcjwg2lzMKn8jtrX9yxnJF52sGiDnTULv8Dy3bKEyLo0b0WRxj78guFksnuiZz6IcIP+ZeIMmo6GMhSma36mQ93H0W2oYM48kusl/ZUZCsia2t8DmqOYy2zme5PQix3uoTxRLIqH3zpIFlN4II=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D0GM1obR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oms+Uij7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E711F000C4;
-	Fri, 16 Oct 2026 07:54:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D0GM1obR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B5A11F000C4;
+	Fri, 16 Oct 2026 07:54:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792137272;
-	bh=m077PZ/8pu1RVicoq78kccvHI8Fg5iPC5XD7PenZLSk=;
-	h=From:To:Cc:Subject:Date;
-	b=oms+Uij7Gxt3w0BjsfVzzrEDj585ap07St2Y2w9Byl5eWuxB9ozjd4Uba6jWawj2Y
-	 S0jzrEDY9sxQDVk7d41eb5QfZKXL0PAjrF4YChsF2l/G5XSYy4OxDbiHAub8EAzbSR
-	 BZAsELub1SoX3IgiYq6grpVfdVcDxAuiWdEwPfUtLYHuQYIfdSSIYj6g6xhNOYG3tX
-	 n7a0aRXIkkdDeRtYCXnuVre/zYpSuBV/cPa/J9wmXpPA+lAtZYS//IGO63vg05jmhL
-	 Iud05S0mET4vw62wPCGIswsD1as9roOKEP4nGwy+bP2RLcAQFAFBPtfG7Ze54qXZ1m
-	 f2hDSaofYOxEQ==
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
-	Xi Pardee <xi.pardee@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tzungbi@kernel.org,
-	tfiga@chromium.org
-Subject: [PATCH v2] platform/x86/intel/pmc: Disable ACPI PM timer during suspend on Panther Lake
-Date: Fri, 16 Oct 2026 07:54:16 +0000
-Message-ID: <20261016075416.3139759-1-tzungbi@kernel.org>
-X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
+	s=k20260515; t=1792137278;
+	bh=Wv9SRxWQ25pNAKGW38KUgKHliKUCOnNxndAUVFEo+TI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=D0GM1obRxZ4b+2H3T7h8p3NTacDTVcwAIILo+zsG155txmJVR0hYAeEhM3EjzFNgK
+	 q3QqupxRe4rlN7PsfyTnw7+EHeQk/iO51sInKcpFSLeeoYkkzadGPbKkIYsRMoCa1B
+	 szn6S8d9BmJkfgNSifEZHYcK/+HCAEwtnsZTFSLtW4WDJ8kFfJkApP9tF628X13zXv
+	 ZBMoYlI4FQLjEdH0qePl2xrzo/Biurt/B00shjQjUc2mX4u9zoFjVEiJmFEub8P0pW
+	 se/FmSO13DVkBrklvuqt5CM1HjH0OWA9hUVY8yhttkeraQi3Wkmh+5qvoIQz3mSS6t
+	 be3Zn5Qpdy/lw==
+Message-ID: <b64e2b5d-d880-4ea9-ab2c-c04a0963427f@kernel.org>
+Date: Fri, 16 Oct 2026 09:54:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/mempolicy: convert mempolicy refcnt to refcount_t
+To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com,
+ rakie.kim@sk.com, ying.huang@linux.alibaba.com,
+ kernel test robot <lkp@intel.com>
+References: <20261015231322.3392551-1-gourry@gourry.net>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261015231322.3392551-1-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The ACPI PM timer is used to drive the ACPI Watchdog Action Table
-(wdat_wdt) hardware watchdog.  When the ACPI PM timer is enabled by
-firmware on Panther Lake, leaving it running during s2idle prevents the
-SoC from entering its deepest S0i2.2 substate (staying in S0i2.1).
+On 10/16/26 01:13, Gregory Price (Meta) wrote:
+> struct mempolicy uses an atomic_t as a pure reference counter.
+> 
+> Convert it to refcount_t so that overflow and underflow are caught
+> by the refcount saturation checks.
+> 
+> This silences the atomic_as_refcounter.cocci warning, which started
+> matching __mpol_put() when it switched kmem_cache_free() to kfree_rcu().
+> 
+> No functional change for correct callers.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202610061946.Bx22ZFrw-lkp@intel.com/
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
 
-Since the watchdog is stopped during system suspend, the ACPI PM timer
-does not need to remain active while suspended.  Disable the timer via
-ACPI_TMR_CTL (PWRMBASE + 0x18fc) in ptl_suspend() and re-enable it in
-ptl_resume() only if it was active prior to suspend.
+Wondering if we want a Fixes? If this only fixes cocci warnings I guess not.
 
-Unlike commit e86c8186d03a ("platform/x86:intel/pmc: Enable the ACPI PM
-Timer to be turned off when suspended"), which was reverted in commit
-5fa607880168 because it acquired pmcdev->lock from the acpi_pm
-clocksource suspend callback inside tick_freeze() atomic context, toggle
-the register in ptl_suspend() and ptl_resume() without taking
-pmcdev->lock.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
----
-v2:
- - Include <linux/bits.h> for BIT().
- - Rename ptl_set_acpi_pm_timer_on_suspend() -> ptl_set_acpi_pm_timer().
- - Update register values on separate lines.
-
-v1: https://lore.kernel.org/all/20261015035712.3604634-1-tzungbi@kernel.org
----
- drivers/platform/x86/intel/pmc/core.h |  2 ++
- drivers/platform/x86/intel/pmc/ptl.c  | 40 ++++++++++++++++++++++++++-
- 2 files changed, 41 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/platform/x86/intel/pmc/core.h b/drivers/platform/x86/intel/pmc/core.h
-index e55164e5807f..8aae69775ab3 100644
---- a/drivers/platform/x86/intel/pmc/core.h
-+++ b/drivers/platform/x86/intel/pmc/core.h
-@@ -487,6 +487,7 @@ struct pmc {
-  * @s0ix_counter:	S0ix residency (step adjusted)
-  * @suspend:		Function to perform platform specific suspend
-  * @resume:		Function to perform platform specific resume
-+ * @pm_timer_enabled:	Whether the ACPI PM timer was enabled before suspend
-  *
-  * @pkgc_ltr_blocker_counters: Array of PKGC LTR blocker counters
-  * @pkgc_ltr_blocker_offset: Offset to PKGC LTR blockers in telemetry region
-@@ -506,6 +507,7 @@ struct pmc_dev {
- 	u64 s0ix_counter;
- 	void (*suspend)(struct pmc_dev *pmcdev);
- 	int (*resume)(struct pmc_dev *pmcdev);
-+	bool pm_timer_enabled;
- 
- 	u64 *pkgc_res_cnt;
- 	u8 num_of_pkgc;
-diff --git a/drivers/platform/x86/intel/pmc/ptl.c b/drivers/platform/x86/intel/pmc/ptl.c
-index a7d5d4f77934..3cb063944007 100644
---- a/drivers/platform/x86/intel/pmc/ptl.c
-+++ b/drivers/platform/x86/intel/pmc/ptl.c
-@@ -6,6 +6,8 @@
-  * Copyright (c) 2025, Intel Corporation.
-  */
- 
-+#include <linux/bits.h>
-+#include <linux/io.h>
- #include <linux/pci.h>
- 
- #include "core.h"
-@@ -548,6 +550,9 @@ static const u8 ptl_pmc_list[] = {PMC_IDX_MAIN};
- #define PTL_NPU_PCI_DEV                0xb03e
- #define PTL_IPU_PCI_DEV                0xb05d
- 
-+#define ACPI_TMR_CTL_OFFSET            0x18fc
-+#define ACPI_TIM_DIS                   BIT(1)
-+
- /*
-  * Set power state of select devices that do not have drivers to D3
-  * so that they do not block Package C entry.
-@@ -558,9 +563,42 @@ static void ptl_d3_fixup(void)
- 	pmc_core_set_device_d3(PTL_NPU_PCI_DEV);
- }
- 
-+static void ptl_set_acpi_pm_timer(struct pmc_dev *pmcdev, bool suspend)
-+{
-+	struct pmc *pmc = pmcdev->pmcs[PMC_IDX_MAIN];
-+	u8 val, old_val;
-+
-+	if (!pmc || !pmc->regbase)
-+		return;
-+
-+	if (!suspend && !pmcdev->pm_timer_enabled)
-+		return;
-+
-+	val = readb(pmc->regbase + ACPI_TMR_CTL_OFFSET);
-+	old_val = val;
-+
-+	if (suspend) {
-+		pmcdev->pm_timer_enabled = !(old_val & ACPI_TIM_DIS);
-+		if (pmcdev->pm_timer_enabled)
-+			val |= ACPI_TIM_DIS;
-+	} else {
-+		val &= ~ACPI_TIM_DIS;
-+	}
-+
-+	if (val != old_val)
-+		writeb(val, pmc->regbase + ACPI_TMR_CTL_OFFSET);
-+}
-+
-+static void ptl_suspend(struct pmc_dev *pmcdev)
-+{
-+	ptl_set_acpi_pm_timer(pmcdev, true);
-+	cnl_suspend(pmcdev);
-+}
-+
- static int ptl_resume(struct pmc_dev *pmcdev)
- {
- 	ptl_d3_fixup();
-+	ptl_set_acpi_pm_timer(pmcdev, false);
- 	return cnl_resume(pmcdev);
- }
- 
-@@ -576,7 +614,7 @@ struct pmc_dev_info ptl_pmc_dev = {
- 	.regmap_list = ptl_pmc_info_list,
- 	.map = &ptl_pcdp_reg_map,
- 	.sub_req_show = &pmc_core_substate_blk_req_fops,
--	.suspend = cnl_suspend,
-+	.suspend = ptl_suspend,
- 	.resume = ptl_resume,
- 	.init = ptl_core_init,
- 	.sub_req = pmc_core_pmt_get_blk_sub_req,
 -- 
-2.56.0.176.g3575e65682-goog
+Cheers,
 
+David
