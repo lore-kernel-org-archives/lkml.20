@@ -1,321 +1,100 @@
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189A538B122
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:31:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4170A3783AE
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:31:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161076; cv=none; b=MP+y5Bks7nZKbg+4mTgztBOMxKieisofPztIcIM65Gsm8IFkCBBdUzskdlk18jWp2T44PrwdMCy6U/3goRadgd1ZhYp3lcNu7QPjBlniD+t8hhDnwxl2uRfROz2yNasWCRJ0RGCFGzJUQ+BS5U8TBC6rzCGnhOh6hEomsQZdtC4=
+	t=1792161096; cv=none; b=kgoEHJCgpFKczSXHNzVXhg1jfxSfV/9RAL9MpGl4luNLT6+QFXHKiy1xfeizvcYUcc6L7M9g8xBOSTuaX/UV/LByD3tCSJ5gmPdN/uzhXOn2BUEK1d7jRPVNBw5tJMe4O7x1ZHdVQ5kb/i1RYigH7GT9U75vMwVrUn2xi8vr0+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161076; c=relaxed/simple;
-	bh=K91HiQt1yEIn09CwVOcy8afHlysNdhjOqO+vmGR1S5U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mO1oZIFwV59Gu0/GBcRgTPu7LtXUTXIQbQmQIMtDjkXOlE4o05u8UPSYpZ0L5Fp9uroFdwexQhOrk41d0f/ynfbDBchQ4jBOttwwiCyBOTPmiV1uhuzxAz74E+Jrz6eepRvgY3QkLe/7+t8kRl+BuB8exeMC3JaSlKJDJawwVug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=km57NTZD; arc=none smtp.client-ip=209.85.161.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792161096; c=relaxed/simple;
+	bh=YEN7lB9SiiTQSb0397ehFYptjSq53i+TTYYMOmXaPFA=;
+	h=Message-ID:Date:From:To:Cc:Subject; b=dYUedDK/SuVr512MuaHsJtCagT7jVTZdcvr/oeepHtutp7B6OLrGMMs1TpDrKu1ibD9Ibfl79Q+SwKAWlf0E/7XdJPYwyGoxCE5rl5ywv6tPotDK//SekunEMBT+Cw22O7Nu1bFnK49re3fBtHSSn2Iyd1pKBtBCq9gEhKmsZko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F8F5uqzt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="km57NTZD"
-Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6dde81a6820so2436338eaf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:31:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792161074; x=1792765874; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mLwSzLny46jupzvFLvBEk+T6b2l6mUuh85ElZv2WpbQ=;
-        b=km57NTZDJvheHfYTaI00mQwHBe/895HSk2QcGO2iYyaiYM1pbiPgXNTnTVypsdr/LN
-         0r5THtoPaU/6++F0NQX+cBLit0WQAmdrT0rzfmeiij5usKNwwrPH4BatXheNKa0Z/WM8
-         fEMh7gqnjFD0EMm7Y5kIFAAp8isJKsGgkUx1A78zVF8Tjf5fOpiB27fjPKUOdh0lANxD
-         p8hwbSTMY0z41Ti6mvXl6rywMV5Rd7uah80PEWGrJxCuygIu85kQcKe/I4KNNm+occRp
-         r1iiCiTsd+00iLB6SrgMadXESwMb/F+YEpjG1R515m7QGKKSDxtAv57KbynV+7u1/Jzh
-         hwQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792161074; x=1792765874;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mLwSzLny46jupzvFLvBEk+T6b2l6mUuh85ElZv2WpbQ=;
-        b=yNounAImDBO1MMnMprYP2R6EhmDUl6OyBnDsD+WySt9tR5Iqo0nYuFHt8k8IGxdsRl
-         FK+uUxQH8ZegsKJKSfY/tu/dErGVrSIlFXY35AM7JdAChBkCguXPE5hQbH7Lg/7VclIe
-         uoXYG6Q9AjmUS2jV2B784EVbbYXPnXPWNpNipPof5UKnJ4Yvx/H8AMv0kzoPuXX27lF4
-         GjHhyAozD51V2JpMD3GdsF9479L2s2VukCZ5Rr6OmmaxMfrVX58Rdl/deQtQXR8aIxhq
-         VuqQAFkvuPZqqAwmJ6SLIOMWUoVKzvR+/qkQJdUnTthhUzgSng97PQsHMF50SHVFiLpV
-         ww3w==
-X-Forwarded-Encrypted: i=1; AKwUvBxujxGNC8mLgKk6HITQqWB0kAx9vtrvxqv8bgFnJ/wJBV4gaxEkZiOj17vvlOt9oLTdL9K0aMoRdSUo2No=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRCKLR9ASRpH6eVeUUaM1BImj3tGLKwtmV/+VV2Ib5QNRnYbGl
-	M76tiV/S45MiMxxJOCAfmvuaIX++BH6mg/dI+RcSTIYAYpNZMw2UBKiE
-X-Gm-Gg: AYBFou2YlK0zeHqKLr01ANUI/fwoDNxT3+7Id0sudNprHH9E+iqEIIpomO8mm9T4BC6
-	pUYO6lxEw2sMHfH73VRc45PXlrgcOgaR4ZSMCbq41KHxG4Qf3okzPK8pVpdPxu4i3fnZjezyyta
-	XPXvSDZbcG15AI0PkTtaKXTNLdVJEMufqSBGsX6hvMyHMAls0bpXsR6dBQY7IpqO/Enb7ixlJIJ
-	tlp3myCgwy4rxUO6TWblOOai5yiRk835Rcuu3ERjbjw1uV7DhFEmgZugmzD4R8gsjMHhKOo/78H
-	P6G/mOgT43hPcIKF2fh9NJrsy2ge8TzkYvQkzctQTzHBzo6SdQEI0pzJ2llhCNOtnnkux8I3MUV
-	XRouIuj3ep2jNxgIxPY9pjOeVI0a/tqry+V7npsksNW0yT3UzdMVkHsDtinbovL+pF/hV6qNert
-	O4z4TR5vlg4xyK/VbdYUCyA5/0QCS9B7PPSOzlpL91tFIhUDrXOs7ufdI+cqJsY3x/L80=
-X-Received: by 2002:a05:6820:1c86:b0:6f7:384:a09a with SMTP id 006d021491bc7-6f70384ab38mr11546790eaf.24.1792161073822;
-        Fri, 16 Oct 2026 07:31:13 -0700 (PDT)
-Received: from localhost ([2a03:2880:ff:45::])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a73b763339sm1824054fac.15.2026.10.16.07.31.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 07:31:12 -0700 (PDT)
-Date: Fri, 16 Oct 2026 07:31:10 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: Jia Jia <physicalmtea@gmail.com>, stefanha@redhat.com, mst@redhat.com,
-	jasowangio@gmail.com, eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com, davem@davemloft.net,
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, virtualization@lists.linux.dev,
-	kvm@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v4 1/4] vsock/virtio: split socket lookup from
- locked RX processing
-Message-ID: <atI1LidDfxztx7sj@devvm29614.prn0.facebook.com>
-References: <20261014115640.184286-1-physicalmtea@gmail.com>
- <20261014115640.184286-2-physicalmtea@gmail.com>
- <atImp74JbTbEb0d_@sgarzare-redhat>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F8F5uqzt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F26A81F000C4;
+	Fri, 16 Oct 2026 14:31:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792161095;
+	bh=MQ0kPcwtSoVokNjBeHLy590gY98bUlYQnLSOH6uuz10=;
+	h=Date:From:To:Cc:Subject;
+	b=F8F5uqztzdES81KTqtUQXeFoe8PVP895LKXQY5cjBEiDA31pGBHTE1u6LvaZ2inwh
+	 b5SXCmLhTTo2V5isDKjVGNQQ9oZpG17ZXwjSu1nvlabJRH1DvGSB/viHmmb3H2cRbk
+	 aR+F5pG0Kv5DKNzlyX5TPsYSkypFpHqc1aRQIC8WmNJeBrT7+z+P4d4KXS2uBwKv1C
+	 w/vmqswP2U7IriEdDnX0fLj7l1OS0SlfbHGkMFvqfehvcxSE+EVwNZess+R0jLND+d
+	 Iz7kixyFf+JSJxO3ro2farIj9ux1mogoHMsx3frVRZR8V4HaTj1J6L9SlyqOsj5qmt
+	 TT/ygAX4KJG0A==
+Received: from rostedt by gandalf with local (Exim 4.100.1)
+	(envelope-from <rostedt@kernel.org>)
+	id 1xHiy6-00000000XgL-0t2c;
+	Fri, 16 Oct 2026 10:31:34 -0400
+Message-ID: <20261016143115.392980228@kernel.org>
+User-Agent: quilt/0.69
+Date: Fri, 16 Oct 2026 10:31:15 -0400
+From: Steven Rostedt <rostedt@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: [for-next][PATCH 00/18] tracing: Updates for 7.4
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atImp74JbTbEb0d_@sgarzare-redhat>
 
-On Fri, Oct 16, 2026 at 03:47:33PM +0200, Stefano Garzarella wrote:
-> On Wed, Oct 14, 2026 at 07:56:37PM +0800, Jia Jia wrote:
-> > Split virtio_transport_recv_pkt() so socket lookup is separate from
-> > receive state machine processing under the socket lock. This prepares the
-> > receive path to keep a looked-up socket across multiple packets in a later
-> > change.
-> > 
-> > Keep virtio_transport_recv_pkt() on its existing per-packet locking path.
-> > The locked helper obtains packet-specific addresses from the skb and uses
-> > the matched socket namespace for reset replies. Preserve source validation
-> > and failure handling.
-> > 
-> > No functional change intended.
-> > 
-> > Signed-off-by: Jia Jia <physicalmtea@gmail.com>
-> > ---
-> > net/vmw_vsock/virtio_transport_common.c | 128 ++++++++++++++----------
-> > 1 file changed, 75 insertions(+), 53 deletions(-)
-> > 
-> > diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-> > index f225f53ed4bab..61ee3bc205d5d 100644
-> > --- a/net/vmw_vsock/virtio_transport_common.c
-> > +++ b/net/vmw_vsock/virtio_transport_common.c
-> > @@ -1774,81 +1774,60 @@ static bool virtio_transport_valid_type(u16 type)
-> > 	       (type == VIRTIO_VSOCK_TYPE_SEQPACKET);
-> > }
-> > 
-> > -/* We are under the virtio-vsock's vsock->rx_lock or vhost-vsock's vq->mutex
-> > - * lock.
-> > - */
-> > -void virtio_transport_recv_pkt(struct virtio_transport *t,
-> > -			       struct sk_buff *skb, struct net *net)
-> > +static struct sock *
-> > +virtio_transport_find_socket(struct sk_buff *skb, struct sockaddr_vm *src,
-> > +			     struct sockaddr_vm *dst, struct net *net)
-> > {
-> > 	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-> > -	struct sockaddr_vm src, dst;
-> > -	struct vsock_sock *vsk;
-> > 	struct sock *sk;
-> > -	bool space_available;
-> > -
-> > -	vsock_addr_init(&src, le64_to_cpu(hdr->src_cid),
-> > -			le32_to_cpu(hdr->src_port));
-> > -	vsock_addr_init(&dst, le64_to_cpu(hdr->dst_cid),
-> > -			le32_to_cpu(hdr->dst_port));
-> > -
-> > -	trace_virtio_transport_recv_pkt(src.svm_cid, src.svm_port,
-> > -					dst.svm_cid, dst.svm_port,
-> > -					le32_to_cpu(hdr->len),
-> > -					le16_to_cpu(hdr->type),
-> > -					le16_to_cpu(hdr->op),
-> > -					le32_to_cpu(hdr->flags),
-> > -					le32_to_cpu(hdr->buf_alloc),
-> > -					le32_to_cpu(hdr->fwd_cnt));
-> > 
-> > -	if (!virtio_transport_valid_type(le16_to_cpu(hdr->type))) {
-> > -		(void)virtio_transport_reset_no_sock(t, skb, net);
-> > -		goto free_pkt;
-> > -	}
-> > +	if (!virtio_transport_valid_type(le16_to_cpu(hdr->type)))
-> > +		return NULL;
-> > 
-> > -	/* The socket must be in connected or bound table
-> > -	 * otherwise send reset back
-> > -	 */
-> > -	sk = vsock_find_connected_socket_net(&src, &dst, net);
-> > -	if (!sk) {
-> > -		sk = vsock_find_bound_socket_net(&dst, net);
-> > -		if (!sk) {
-> > -			(void)virtio_transport_reset_no_sock(t, skb, net);
-> > -			goto free_pkt;
-> > -		}
-> > -	}
-> > +	sk = vsock_find_connected_socket_net(src, dst, net);
-> > +	if (!sk)
-> > +		sk = vsock_find_bound_socket_net(dst, net);
-> > +	if (!sk)
-> > +		return NULL;
-> > 
-> > 	if (virtio_transport_get_type(sk) != le16_to_cpu(hdr->type)) {
-> > -		(void)virtio_transport_reset_no_sock(t, skb, net);
-> > 		sock_put(sk);
-> > -		goto free_pkt;
-> > +		return NULL;
-> > 	}
-> > 
-> > -	if (!skb_set_owner_sk_safe(skb, sk)) {
-> > -		WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
-> > -		goto free_pkt;
-> > -	}
-> > +	return sk;
-> > +}
-> > 
-> > -	vsk = vsock_sk(sk);
-> > +/*
-> > + * The caller holds sk's socket lock and must free skb if this returns true.
-> 
-> Why the skb must be freed by the caller and not by this function itself?
-> 
-> > + */
-> > +static bool
-> > +virtio_transport_recv_pkt_locked(struct virtio_transport *t,
-> > +				 struct sk_buff *skb, struct sock *sk)
-> > +{
-> > +	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-> > +	struct sockaddr_vm src;
-> > +	struct vsock_sock *vsk = vsock_sk(sk);
-> > +	bool space_available;
-> 
-> Please, follow the netdev convection for ordering local variables: https://www.kernel.org/doc/html/v7.2/process/maintainer-netdev.html#local-variable-ordering-reverse-xmas-tree-rcs
-> 
-> > 
-> > -	lock_sock(sk);
-> > +	vsock_addr_init(&src, le64_to_cpu(hdr->src_cid),
-> > +			le32_to_cpu(hdr->src_port));
-> > 
-> > -	/* Check if sk has been closed or assigned to another transport before
-> > -	 * lock_sock (note: listener sockets are not assigned to any transport)
-> > +	/* Listener sockets accept packets from any source and are not assigned to
-> > +	 * a transport.
-> > 	 */
-> 
-> Why changing this comment in this commit?
-> 
-> Oh because we moved out lock_sock, right?
-> 
-> I think we should keep in some way the old info that was much more
-> informative that the current comment that just say what the check is doing
-> and not why.
-> 
-> > 	if (sock_flag(sk, SOCK_DONE) ||
-> > 	    (sk->sk_state != TCP_LISTEN &&
-> > 	     !vsock_check_source(vsk, &t->transport, &src))) {
-> > -		(void)virtio_transport_reset_no_sock(t, skb, net);
-> > -		release_sock(sk);
-> > -		sock_put(sk);
-> > -		goto free_pkt;
-> > +		(void)virtio_transport_reset_no_sock(t, skb, sock_net(sk));
-> 
-> We need to be careful here, IIRC Bobby used the net from the caller for a
-> reason.
-> 
-> Are you sure it's fine this change? Why not passing net as parameter and
-> minimize changes?
+  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
+trace/for-next
 
-I think you may be remembering this issue:
+Head SHA1: d3e0dfc1ba49a0ab6aeddbb4bcde4bfc0e171a02
 
-a6ae12a599e0 ("virtio: set skb owner of virtio_transport_reset_no_sock() reply")
 
-?
+Chen Jun (1):
+      tracing: Add "within" filter for call-stack-based event filtering
 
-If so, sock_net(sk) might still be okay, but I 100% agree we shouldn't
-change things haphazardly if avoidable.
+Donggeun Yoo (7):
+      tracing: Print the bucket size as unsigned
+      tracing: Add the bucket size to expr_field_str()
+      tracing: Only report the stacktrace modifier on a real field
+      tracing: Unregister field variable histograms when the command fails
+      tracing: Clamp the printed end of a histogram bucket at U64_MAX
+      tracing: Fix 64-bit and signed histogram fields on 32-bit kernels
+      tracing: Print a signed histogram key as signed
 
-> 
-> > +		return true;
-> > 	}
-> > 
-> > 	space_available = virtio_transport_space_update(sk, skb);
-> > 
-> > 	/* Update CID in case it has changed after a transport reset event */
-> > 	if (vsk->local_addr.svm_cid != VMADDR_CID_ANY)
-> > -		vsk->local_addr.svm_cid = dst.svm_cid;
-> > +		vsk->local_addr.svm_cid = le64_to_cpu(hdr->dst_cid);
-> > 
-> > 	if (space_available)
-> > 		sk->sk_write_space(sk);
-> > @@ -1870,17 +1849,60 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
-> > 		kfree_skb(skb);
-> > 		break;
-> > 	default:
-> > -		(void)virtio_transport_reset_no_sock(t, skb, net);
-> > +		(void)virtio_transport_reset_no_sock(t, skb, sock_net(sk));
-> > 		kfree_skb(skb);
-> > 		break;
-> > 	}
-> > 
-> > +	return false;
-> > +}
-> > +
-> > +/* We are under the virtio-vsock's vsock->rx_lock or vhost-vsock's vq->mutex
-> > + * lock.
-> > + */
-> > +void virtio_transport_recv_pkt(struct virtio_transport *t,
-> > +			       struct sk_buff *skb, struct net *net)
-> > +{
-> > +	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-> > +	struct sockaddr_vm src, dst;
-> > +	struct sock *sk;
-> > +	bool free_pkt;
-> > +
-> > +	vsock_addr_init(&src, le64_to_cpu(hdr->src_cid),
-> > +			le32_to_cpu(hdr->src_port));
-> > +	vsock_addr_init(&dst, le64_to_cpu(hdr->dst_cid),
-> > +			le32_to_cpu(hdr->dst_port));
-> > +
-> > +	trace_virtio_transport_recv_pkt(src.svm_cid, src.svm_port,
-> > +					dst.svm_cid, dst.svm_port,
-> > +					le32_to_cpu(hdr->len),
-> > +					le16_to_cpu(hdr->type),
-> > +					le16_to_cpu(hdr->op),
-> > +					le32_to_cpu(hdr->flags),
-> > +					le32_to_cpu(hdr->buf_alloc),
-> > +					le32_to_cpu(hdr->fwd_cnt));
-> > +
-> > +	sk = virtio_transport_find_socket(skb, &src, &dst, net);
-> > +	if (!sk) {
-> > +		(void)virtio_transport_reset_no_sock(t, skb, net);
-> > +		goto free_pkt;
-> > +	}
-> > +
-> > +	if (!skb_set_owner_sk_safe(skb, sk)) {
-> > +		WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
-> > +		goto free_pkt;
-> > +	}
-> > +
-> > +	lock_sock(sk);
-> > +	free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk);
-> > 	release_sock(sk);
-> > 
-> > 	/* Release refcnt obtained when we fetched this socket out of the
-> > 	 * bound or connected list.
-> > 	 */
-> > 	sock_put(sk);
-> > +	if (free_pkt)
-> > +		kfree_skb(skb);
-> > 	return;
-> > 
-> > free_pkt:
-> > -- 
-> > 2.53.0
-> > 
-> 
+Steven Rostedt (1):
+      tracnig: Add proper error message for glob use with "within" filter
+
+Thomas Weißschuh (6):
+      tracing: Remove duplicate declaration of ftrace_set_clr_event()
+      tracing: Stop modifying the input buffer in ftrace_set_clr_event()
+      tracing: Split the event string parsing logic into a dedicated function
+      tracing: Add a test for ftrace_parse_event_string()
+      tracing: Add a filter argument to __ftrace_set_clr_event()
+      tracing: Parse filter from boot event string
+
+Vincent Donnefort (3):
+      ring-buffer: Rename ring_buffer_size() to ring_buffer_capacity()
+      tracing: Rename trace_array::entries to capacity
+      tracing: Rename tracing_entries_fops to tracing_capacity_fops
+
+----
+ Documentation/admin-guide/kernel-parameters.txt |   9 +-
+ Documentation/trace/events.rst                  |  17 ++++
+ Documentation/trace/histogram.rst               |   3 +
+ include/linux/ring_buffer.h                     |   2 +-
+ include/linux/trace_events.h                    |   3 +-
+ kernel/trace/Kconfig                            |   8 ++
+ kernel/trace/Makefile                           |   1 +
+ kernel/trace/ring_buffer.c                      |  13 ++-
+ kernel/trace/trace.c                            |  51 +++++-----
+ kernel/trace/trace.h                            |  13 ++-
+ kernel/trace/trace_boot.c                       |   2 +-
+ kernel/trace/trace_events.c                     | 128 +++++++++++++++---------
+ kernel/trace/trace_events_filter.c              |  44 +++++++-
+ kernel/trace/trace_events_hist.c                |  42 ++++++--
+ kernel/trace/trace_events_test.c                | 122 ++++++++++++++++++++++
+ kernel/trace/trace_snapshot.c                   |  14 +--
+ 16 files changed, 365 insertions(+), 107 deletions(-)
+ create mode 100644 kernel/trace/trace_events_test.c
