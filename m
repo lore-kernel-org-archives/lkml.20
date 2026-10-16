@@ -1,124 +1,100 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E3BC419B3CB
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:41:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212432D73A0;
+	Fri, 16 Oct 2026 10:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792147297; cv=none; b=eAL/KsPNJNgh0OnrRSvmwltvKafeJaagm1w8Yt1bqs2lbOJMojBuuiDcoDmpDtW5f3c6FXSU0NlgaNPlV7DUUzElIpUkTJao3MHMXtYJlN+v3zjrRjalgvZY+tWromuhDxUjXzyncIBEXf+IdGZzJbfru5iIN0RIChlS/SWHGYA=
+	t=1792147330; cv=none; b=QwORAwDVv7jVMsCa4qVvtVN7B4vy9g/AspWXSMs3shrvegJHycfSx5ZaATHiLTsB7LgmuUdvVnRoPWLJjvSWv6lC/cQuuRRJsGla+1TdJZHzke9IGucP9NvOzEBSGceMooaHbUjQpYmi2uMsiDEwrszefV5DiJNg8uEYEpnR8eU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792147297; c=relaxed/simple;
-	bh=ZXdlfSSPCJTMIh+glpoDkaZxKHJM2I43BiERY+VLHGY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xi/eL7tMs/DLnx4OMjd73fxHUjNlfee0O+oDcmroCm3WSB5lskCdhrEmTuCNGGQCdz2JlgNzmsATJ/mZkW9r2drDmhqmLIBr5NBWQVIfgv1r+h6r389rmpBtFBzt99rpbx7hHGCIqAMR49UvXmnyNBSuEQd3p/m8XMzwJ0/cH9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=n9OENrt5; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792147330; c=relaxed/simple;
+	bh=F71yxtaSCRE0wXd4f6uIRENIbKKS4F4/XQzsDVoFqOI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=PI5Gjf04c/skoa3s4AYmz51k3N9qijtQyeOwQIsTZg8ziv8reE99SHrkuYyz+FPXxeT0izR05SxefMICsK32H5TEunlLYvn3dDJ75eIaoFDXiBseIl16248l+KdZVlMS3pYRNJKEb3tGLqq7kH9F9W2e1FQY6Eq2d150tIOGF4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=vLf0FZ4g; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=EO7sA8qy; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="n9OENrt5"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 033B71516
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:41:32 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 03F4C3F871
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:41:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792147295; bh=ZXdlfSSPCJTMIh+glpoDkaZxKHJM2I43BiERY+VLHGY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=n9OENrt5XLCq8szpnpDjD5KdqGU8cwl88w23cDGDVDBHyx9zb5AaYyICkgfx/5IXo
-	 Dt6mWlHTwbfwtC3v3ry8JTbotkYkg0cqrMx7ixWLgU+SumCTXcB+g0Ak7Dikm8noXy
-	 BSsdQGy+Uv6as8N9hU6mMKeVGNep7yCbKIfm1nTU=
-Date: Fri, 16 Oct 2026 11:41:23 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Akash Goel <akash.goel@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] drm/panthor: Move cache-flush after UPDATE(UNMAPPED)
-Message-ID: <atH_UwhLuO5len3n@e142607>
-References: <20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com>
- <20260924-panthor-mmu-fixes-v1-3-e25f9b106466@collabora.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="vLf0FZ4g";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="EO7sA8qy"
+From: Nam Cao <namcao@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792147326;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=epipb8UoYa5GWthCFcixoeMax2SLLfM/Rj85ANexd1w=;
+	b=vLf0FZ4g3rNum2yM5/2nRCLLFF98FWcx27XeYwjcgF4q/MH0kVjJGYHaQhdBBU+QXqYX6E
+	AdNGoggZGd8TPd8ir5VwzLV3krIZWF91W2FCx1L54v3sMnWmOpb4xDaqsxp1B+5PzuM3DG
+	6C88yDXZPFlrKhruG35E5ebTQYENERf68qZ1Xtusim1zwzmr0JOyU0kpPEIup2YObfJKm8
+	c1Cvu4AZJ1z79QwxmUs+ZHlZDG6cvd+HVRLpBUC1FPvbS5chtP43Q1OupshtOktj36VFoo
+	zA9tKUM7Y0tF1P820FOOJNPlevimzgEEu3ylxJx327thQrhIq7JlW5i0S0YIgw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792147326;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=epipb8UoYa5GWthCFcixoeMax2SLLfM/Rj85ANexd1w=;
+	b=EO7sA8qyfPso319AYSbb7NyPsYzOTG7CwoFSdh/qMxnqgMYlnroole8M+YBbo7MoE9T9H4
+	6Wq3i301xBraihCg==
+To: Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>, Paul Walmsley
+ <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>, Naveen N Rao <naveen@kernel.org>,
+ "David S . Miller" <davem@davemloft.net>, Masami Hiramatsu
+ <mhiramat@kernel.org>, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, Xiaofeng
+ Yuan <yuanxiaofeng@eswincomputing.com>
+Subject: Re: [PATCH v6 2/2] riscv: kprobes: add KUnit test for LR/SC
+ sequence rejection
+In-Reply-To: <20261016081706.1085-3-yuanxiaofeng@eswincomputing.com>
+References: <20261016081706.1085-1-yuanxiaofeng@eswincomputing.com>
+ <20261016081706.1085-3-yuanxiaofeng@eswincomputing.com>
+Date: Fri, 16 Oct 2026 12:42:04 +0200
+Message-ID: <87pkxa3p1f.fsf@yellow.woof>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260924-panthor-mmu-fixes-v1-3-e25f9b106466@collabora.com>
+Content-Type: text/plain
 
-On Thu, Sep 24, 2026 at 02:30:45PM +0200, Boris Brezillon wrote:
-> Right now, there's a theoretical window during which the GPU can populate
-> the cache with data from a VM that's about to be evicted through the
-> UPDATE(UNMAPPED) command.
-> In practice this won't happen (hence the absence of Fixes tag) because
-> when panthor_mmu_as_disable() is called, the VM is guaranteed to be idle
-> (no active CSG pointing to this VM), but as we say, better safe than
-> sorry.
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com> writes:
+> +.section .rodata
+> +SYM_DATA_START(test_kprobes_lrsc_offsets)
+> +	RISCV_PTR .Llrsc_before
+> +	RISCV_PTR .Llrsc_lr
+> +	RISCV_PTR .Llrsc_inside
+> +	RISCV_PTR .Llrsc_sc
+> +	RISCV_PTR .Llrsc_after
+> +SYM_DATA_END(test_kprobes_lrsc_offsets)
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+"_offsets" is not precise, as this array has absolute addresses. Maybe
+rename to "_addresses"?
 
-Best regards,
-Liviu
-
-> ---
->  drivers/gpu/drm/panthor/panthor_mmu.c | 19 ++++++++++++-------
->  1 file changed, 12 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 038a092fd08c..bb71274aa36b 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -631,12 +631,6 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr)
->  	panthor_mmu_irq_disable_events(&ptdev->mmu->irq,
->  				       panthor_mmu_as_fault_mask(ptdev, as_nr));
->  
-> -	/* Flush+invalidate RW caches, invalidate RO ones. */
-> -	ret = panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
-> -				       CACHE_CLEAN | CACHE_INV, 0);
-> -	if (ret)
-> -		return ret;
-> -
->  	if (vm && vm->locked_region.size) {
->  		/* Unlock the region if there's a lock pending. */
->  		ret = as_send_cmd_and_wait(ptdev, vm->as.id, AS_COMMAND_UNLOCK);
-> @@ -648,7 +642,18 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr)
->  	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), 0);
->  	gpu_write64(mmu->iomem, AS_TRANSCFG(as_nr), AS_TRANSCFG_ADRMODE_UNMAPPED);
->  
-> -	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
-> +	ret = as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Flush+invalidate RW caches after we've unmapped, to make sure any
-> +	 * cacheline eviction is effective before we potentially return
-> +	 * memory pointed by this VM to the system. This needs to be done
-> +	 * after the UPDATE(UNMAPPED) operation to guarantee that not further
-> +	 * PT-walk can pull VM data into the cache.
-> +	 */
-> +	return panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
-> +					CACHE_CLEAN | CACHE_INV, 0);
+> diff --git a/arch/riscv/kernel/tests/kprobes/test-kprobes.c b/arch/riscv/kernel/tests/kprobes/test-kprobes.c
+> index 027424a3f..c2d9c87f2 100644
+> --- a/arch/riscv/kernel/tests/kprobes/test-kprobes.c
+> +++ b/arch/riscv/kernel/tests/kprobes/test-kprobes.c
+> @@ -43,8 +43,39 @@ static void test_kprobe_riscv(struct kunit *test)
+>  	kfree(kp);
 >  }
 >  
->  static u32 panthor_mmu_fault_mask(struct panthor_device *ptdev, u32 value)
-> 
-> -- 
-> 2.55.0
-> 
+> +static void test_kprobe_lrsc(struct kunit *test)
+> +{
+> +	/*
+> +	 * test_kprobes_lrsc_offsets[] points, in order, at an instruction
+> +	 * right before an LR/SC sequence, the LR itself, an instruction
+> +	 * inside the sequence, the SC, and an instruction right after it.
+> +	 * reject[] must have the same number of entries.
+> +	 */
+> +	bool reject[] = { false, true, true, true, false };
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+I am not a fan of coupled code. A change at test_kprobes_lrsc_offsets
+mandates a change here.
+
+Instead of this, how about we split test_kprobes_lrsc_offsets into
+test_kprobes_lrsc_allowed_addresses and test_kprobes_lrsc_rejected_addresses?
+
+Nam
