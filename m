@@ -1,167 +1,192 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871C3446BEA
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E64468C37;
+	Fri, 16 Oct 2026 09:10:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141829; cv=none; b=rotQXkC26YYjRIFX2HTpoBLuHcEBJo0yUGQJEVGAMm4Fql02HZUoBYTYmQYSESLZbLQ40Dz3Ne+Q18xkOeLJhTs3nrZ2YXXzfjfpSVk33HqD/4T0YEfc2YA5FpkieTl7v9TJHTkeImi6dDnGbY2DQHIz5TDC/41Wt6ZcgMWis4s=
+	t=1792141833; cv=none; b=b9DxUL2hr0Tq45a/xbI2+dvu8hAhU2Gwen3Qfk5MGYO9gnm+qNhCwYMu9t1WPYfZ6W7EVryTXZWaWDak4HFz4eSOG7T9IE8SgR1nzxOsU0PGMDEhaFrT2rDLFY4l6T5uqzjuUNrPIeATdy1wa3/WE5yiifGqryJ4/AJJg6KkMC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141829; c=relaxed/simple;
-	bh=FknUXR2V50SRgDJQCdH6IzolRKWGlrnF1TNNVowTK5M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NIKUJ9PSKn5aPyhDZS3uaI4iaKLGJVV14cTOg14GGJead+U7OtXyEEnhGyZ9WGOSZBGPrUhic7Tq2iYVQ2QmkdqU6S5ClTVVk0cFcVWf1rJK1xvVfM6ZcvDjo3gzwrtu13APv75eRq4i+te5rTaMePVYs70VyeNhFehXDPgiwpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mRoFUeIg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=S4POjRTn; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792141833; c=relaxed/simple;
+	bh=axyD8OVAMk3Wtc0/earijSD6skFEO+Hk+l1bvj2fTeM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GdKrN8linUkWGeZeSVDBDXS2/+h0MoAFzoaYnQedhTPYCv3YuOjhZTqhF2y05mjdb6PlhPpq8aZkGEOggqRtp4hajW6J99uT7Ci4ROoQF9ky2AeImECuCUg1wE/zqMgPMpsqHE4+Ud+MaJOt5UdIkEQL+fQXQ8rhTNKM9uGjww8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hxj74d3J; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mRoFUeIg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="S4POjRTn"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G8lJJ7303532
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:10:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Qdw1IMSJPlaVw9V5/5RUUe24WWrftggVUgg+EtKpg0A=; b=mRoFUeIghvPRrNcW
-	M1dseKIVbsc6Zw7kDzvhwk/T6GanfkjAQPcFxTlvBmyc3lXlUWl9DFyn/OwIVrdI
-	t0xvlXFxbO0f0Wr8+YQsf2C3miZXKmQvUYPEpEuDX6nEGuLnJcEwmQ4l6bMzvHVO
-	VoSY6UUOKqQK99xlofpB9GUFgnIGSMg3RyXWw1QSR6qnI8A8zcADcHmiLLc3wqyo
-	QKy5o4RGcKWBwN4h72+sm1xxIiK7b+g77n0O5ZFkKzGHiFTjGg10LuCwDH/6VNlG
-	K0nAoUIxzhalXSvBCbZUG/SFZddQGeYs11p/g0NE1ccSIfuDitTw30F3hoYJ+xPw
-	mOzvEg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbcjt939j-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:10:27 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5362ce9df1eso1098411cf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:10:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792141827; x=1792746627; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qdw1IMSJPlaVw9V5/5RUUe24WWrftggVUgg+EtKpg0A=;
-        b=S4POjRTnt0uFhrPPAzKgqqjhBSQY3w3Cp2+R7fkjllzwqyvfkkt/hSlyyHZ9irJEQh
-         NtJIrpfcwl12tgasI6d9i9zHqEx+hGRUMf1la56FFDDBPXDIUvQrRXlmQPqZbpWyXgwo
-         GXlgbJxSJgnrJcEAE9nuURiJr82wFdp0BqbnpEELWsAAz7Z5rBF6+qTfMyR1wm1P0Unk
-         eAGyucQ+D2jg6RztU4muTPKaKu9byaINbIS2G9foVX30AEHudMwBlaJYQQ6KRnVM7Nkm
-         zkUqg4cwXBzFwrhkzsxLiDq1FSV14demsvaT+lswkuEgg58fBiKbQAqFF6JxFkJpmNkW
-         olSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792141827; x=1792746627;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qdw1IMSJPlaVw9V5/5RUUe24WWrftggVUgg+EtKpg0A=;
-        b=cP7o+4+W06zDqiZD/tnQx6K1EICrri34DasLbW/Yyb0TUlLW1j30RvddgUWQM5cz7q
-         meRSNNWBZ5aFNVDsJcI7E0q2Z/ZREISiRvYZ8nftnY7wb00A3oT9k0gNcVlOHR+gE0VY
-         R/6qyHYkdijBb0BGr+ToXeusaU1udd+HQH3wCBUXro1VvxAv15Xnm4fGa/XXSovoJMwA
-         ovM1dCiy7bOxrLxnBwrAFx7Exr46O2gIMSWM3BpotLzDqO1Cx1pqGC76/QQqSuI8qfQC
-         lq4mDpZjfrQUH5GRbW9qzxFFKupMyBE+NMois/3UEv8QPAEnJsnFFcRpalbtLfkC+Xrn
-         Z0VA==
-X-Forwarded-Encrypted: i=1; AKwUvBy7kmsgi/CPQFyY28BT0g4lN6qguUcHtpAOsD8xKiv1NxoEJlMV4H/e12wiZYU5QJ8RDSCiq8kN2OWHiAw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzx+tTYHwIFfz1yVeVS8YiCNlhPgg2MgxXO6fFnrEs3dUHdRNf
-	k2SUV1EKZGFnx3yMeWWr2GSMgdkg6g2eqtvYpv/R8oURSv6gvKSg+FYNnjikwf7spfjc6SZcuqa
-	y47Dkj8MA/+0qzwRKM+OJ6KYbOiU39aLND2GtoD7jQMAEX/FMeDOEeO6+3RsBF9FX7ZY=
-X-Gm-Gg: AYBFou0bjySkeI4RN5k6Gu1u/zz+Fo4+i0EEigAHT3CsVGtepEsBByMhfslRYO0277z
-	K22Zyq0pRXr0rmkjSNUxZZeAbDeoFHufXgdW0ZWPUwDIMJT67aFU1Yrw04K3aaxC6Bpj3SsIa29
-	z3sksiLGYG5/tjp+nlndw9OaZpqsuP9tpuWPAVj2YrmCPqIM4bIx+z/L6YXlDSnrm48GRmVPXW7
-	rCR6Sh8rbosPLjjmahWbkRS+RDAqrhkoFNQ79nNU2hyTVOX+gDPlsan5gczHZnBYKtaSMTeMhb+
-	OjSKdxGnpJtbzyDn80JSgDW7smuJSdkv43R+035Mdle5/YUjCeA1t24ZIeGIaQv1G/asSPCfx9I
-	2rfDgbg3oiqjjGcbOtG7nPA==
-X-Received: by 2002:a05:620a:a43:b0:93f:211f:7ba4 with SMTP id af79cd13be357-93f211f7e97mr73036285a.5.1792141826669;
-        Fri, 16 Oct 2026 02:10:26 -0700 (PDT)
-X-Received: by 2002:a05:620a:a43:b0:93f:211f:7ba4 with SMTP id af79cd13be357-93f211f7e97mr73032885a.5.1792141826093;
-        Fri, 16 Oct 2026 02:10:26 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c409239b3a1sm52586266b.85.2026.10.16.02.10.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 02:10:25 -0700 (PDT)
-Message-ID: <3866c346-ddeb-4c9d-9f4d-3e09e3854bbb@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 11:10:21 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hxj74d3J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792141831; x=1823677831;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=axyD8OVAMk3Wtc0/earijSD6skFEO+Hk+l1bvj2fTeM=;
+  b=hxj74d3JT1oLf0CraeppVCNL1RnHRfKtDz6M91LejEfz90LmiB7gysFz
+   +71DC4Vs+W/I4saUSMV/Y+/31wzBg5GKMSRvSUuPMI0oSmBhyjTt+79ym
+   L39kbpRDao5rdSdBvN0l6PSYZQ7WxghDCCzFB51Fh3o7UQNqGRQ63JF/7
+   ctPn/diJRlq5F8CJN7Jcg/baOBIN/j6jrh9o/Oy45oyAfmlKo6jck+yt0
+   9aiFFgCpgiOoFDBFQlC8FagMHWoxtnr0BVFnQbeBj6HkswsYZ1rsIpqT+
+   XP6x3abxf1/3/fJoGjRQoiwnGFw+goF9zJhw5ugDMlGb7vDsEjo6thOy2
+   Q==;
+X-CSE-ConnectionGUID: NoffNtIFSHi3/4cxke71+g==
+X-CSE-MsgGUID: pwP9jd6xQGi7/PC1QPk2sQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="927121"
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="927121"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 02:10:30 -0700
+X-CSE-ConnectionGUID: fWEqfsMEQmic9VR31IiGCQ==
+X-CSE-MsgGUID: rCr8xMiJRXOjCS26/yvOfQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="1812554"
+Received: from litbin-desktop.sh.intel.com ([10.239.57.15])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 02:10:28 -0700
+From: Binbin Wu <binbin.wu@linux.intel.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: seanjc@google.com,
+	pbonzini@redhat.com,
+	dave.hansen@linux.intel.com,
+	andrew.cooper3@citrix.com,
+	nik.borisov@suse.com,
+	kas@kernel.org,
+	rick.p.edgecombe@intel.com,
+	xiaoyao.li@intel.com,
+	chao.gao@intel.com,
+	tony.lindgren@linux.intel.com,
+	kishen.maloor@intel.com,
+	dedekind1@gmail.com,
+	adrian.hunter@intel.com,
+	binbin.wu@linux.intel.com
+Subject: [PATCH v5 1/5] KVM: TDX: Check unsupported CPUID bits against the TDX module's subleaf
+Date: Fri, 16 Oct 2026 17:14:18 +0800
+Message-ID: <20261016091422.3182216-2-binbin.wu@linux.intel.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20261016091422.3182216-1-binbin.wu@linux.intel.com>
+References: <20261016091422.3182216-1-binbin.wu@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] arm64: dts: qcom: kaanapali-mtp: Enable USB
- headset and Type-C accessory mode
-To: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>,
-        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
-        Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
-        Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261015-kaanapali_dp-v2-0-c15cb83d9140@oss.qualcomm.com>
- <20261015-kaanapali_dp-v2-4-c15cb83d9140@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261015-kaanapali_dp-v2-4-c15cb83d9140@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfX9xlg4FOM5g2G
- tljP3wUYqinqnebGYIWmDYARlLI/7YG1ZaJ/K4JUf9kJFCHRnojcIXdhW6jZJ6fv+vV28fZ4Uzt
- RcqnXCiPOaQ7ELqV2wYJ7YJH1tQorMlTs7xFr5NyZbU2JA0jwfcCD4aLqrPQg+JfBdkfPpLxbRE
- goflFJCM70bMde5GJxr6eIyN2PXIkFpVC0O5davHMohX7Zjxi2+PJa1gHZsvAW9BMJ9ErGmFKEC
- 3EqCEIn9cdvGBkaj01MBln+IPu6EEHUUPevXZxaPHtYXXV14vsS2i8iUc7yX7bVCvsmUthEp9OK
- 5jodlO6IxPOL+D7P44R4RBD4aNGQWj+UHibmvArPXBXvPPbtftEr7XA8Cv9Ec5A+jGtEa40ozxW
- yaBoMcX53LRl01eo1Z921eh+rnmSink+hWmFuWRP7WXL6SgFdQmhqi5gmz6/x0tm1bKWETN/iHw
- vNkDSqSBvWuFzSwKHdg==
-X-Proofpoint-ORIG-GUID: E6u2p99HzL6kpeHPTtHY1FfXrpgh-rJQ
-X-Proofpoint-GUID: E6u2p99HzL6kpeHPTtHY1FfXrpgh-rJQ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfX3pS4mJBTeH8l
- Oq9H+AJVv2t96IUh1xelSlBwRPw85ruMbk5T4TGHjrhk5hGY4/fgFXRxuL5OqO+zZLpJ39AVF7b
- aEumC0m6oqVcOulQx9Fki4nyMWqjbuM=
-X-Authority-Analysis: v=2.4 cv=VpS2kO2n c=1 sm=1 tr=0 ts=6ad1ea03 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=ENyogFyUuOtWwiBkGF8A:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 adultscore=0 phishscore=0 clxscore=1015
- malwarescore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610160036
+Content-Transfer-Encoding: 8bit
 
-On 10/15/26 11:54 AM, Balaji Kalkonda wrote:
-> MTP does not have audio jack connected and relies on USB mux (WCD9395).
-> Add necessary nodes for proper audio headset support along with USB
-> Type-C accessory mode and orientation.
-> 
-> Set the I2C bus clock frequency to 100 kHz for the WCD9395 USBSS mux.
-> 
-> Signed-off-by: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
-> ---
+Check for unsupported CPUID bits using the subleaf reported by the TDX
+module instead of the index of the matching userspace entry, so that KVM
+validates the same subleaf that the values are copied into.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+setup_tdparams_cpuids() walks the directly configurable CPUID leaves
+reported by the TDX module and looks up the corresponding userspace entry
+via kvm_find_cpuid_entry2().  If userspace doesn't set
+KVM_CPUID_FLAG_SIGNIFCANT_INDEX on an entry, kvm_find_cpuid_entry2()
+ignores the entry's index, i.e. the matched entry's index can differ from
+the TDX module's subleaf.  tdx_unsupported_cpuid() checks HLE, RTM and
+WAITPKG based on the userspace entry's index, while the register values
+are applied to the TDX module's subleaf, which allows userspace to bypass
+the check.
 
-Konrad
+E.g. if userspace provides a CPUID.0x7 entry with index 3, WAITPKG set,
+and KVM_CPUID_FLAG_SIGNIFCANT_INDEX cleared, the entry is matched for the
+TDX module's subleaf 0.  The check sees index 3 and passes, while ECX is
+copied into td_params for CPUID.0x7.0, where WAITPKG is directly
+configurable.  The TDX module accepts the value, and the TD ends up with
+WAITPKG enumerated despite KVM not supporting it.  The same applies to RTM
+and HLE.
+
+Don't reject the mismatch outright, as the ABI allows userspace to provide
+an arbitrary index when KVM_CPUID_FLAG_SIGNIFCANT_INDEX is cleared.  It's
+userspace's responsibility to provide the intended entries; KVM only needs
+to ensure that the values it validates are the values it applies.
+
+Fixes: 6d415778f106 ("KVM: TDX: Disable support for TSX and WAITPKG")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/kvm/20260604024927.E22311F00893@smtp.kernel.org
+Cc: stable@vger.kernel.org
+Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
+---
+v5:
+- Split out from "KVM: TDX: Validate userspace CPUID input for
+  KVM_TDX_INIT_VM" as a standalone fix.  Sashiko reported the issue
+  against the TDX CPUID validation patch, but it also applies to the
+  existing code, so split it out to allow backporting to stable
+  independently of the rest of the series.
+- Check the userspace values against the subleaf reported by the TDX
+  module instead of rejecting the request when there is a mismatch.
+
+  A simpler alternative would be to require a zero index when
+  KVM_CPUID_FLAG_SIGNIFCANT_INDEX is cleared, but that would be an ABI
+  change.
+---
+ arch/x86/kvm/vmx/tdx.c | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
+
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index ee1d412b0ee6..ae7135784878 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -119,9 +119,9 @@ static u32 tdx_set_guest_phys_addr_bits(const u32 eax, int addr_bits)
+ 
+ #define TDX_FEATURE_TSX (__feature_bit(X86_FEATURE_HLE) | __feature_bit(X86_FEATURE_RTM))
+ 
+-static bool has_tsx(const struct kvm_cpuid_entry2 *entry)
++static bool has_tsx(const struct kvm_cpuid_entry2 *entry, u32 index)
+ {
+-	return entry->function == 7 && entry->index == 0 &&
++	return entry->function == 7 && index == 0 &&
+ 	       (entry->ebx & TDX_FEATURE_TSX);
+ }
+ 
+@@ -130,9 +130,9 @@ static void clear_tsx(struct kvm_cpuid_entry2 *entry)
+ 	entry->ebx &= ~TDX_FEATURE_TSX;
+ }
+ 
+-static bool has_waitpkg(const struct kvm_cpuid_entry2 *entry)
++static bool has_waitpkg(const struct kvm_cpuid_entry2 *entry, u32 index)
+ {
+-	return entry->function == 7 && entry->index == 0 &&
++	return entry->function == 7 && index == 0 &&
+ 	       (entry->ecx & __feature_bit(X86_FEATURE_WAITPKG));
+ }
+ 
+@@ -143,16 +143,16 @@ static void clear_waitpkg(struct kvm_cpuid_entry2 *entry)
+ 
+ static void tdx_clear_unsupported_cpuid(struct kvm_cpuid_entry2 *entry)
+ {
+-	if (has_tsx(entry))
++	if (has_tsx(entry, entry->index))
+ 		clear_tsx(entry);
+ 
+-	if (has_waitpkg(entry))
++	if (has_waitpkg(entry, entry->index))
+ 		clear_waitpkg(entry);
+ }
+ 
+-static bool tdx_unsupported_cpuid(const struct kvm_cpuid_entry2 *entry)
++static bool tdx_unsupported_cpuid(const struct kvm_cpuid_entry2 *entry, u32 index)
+ {
+-	return has_tsx(entry) || has_waitpkg(entry);
++	return has_tsx(entry, index) || has_waitpkg(entry, index);
+ }
+ 
+ #define KVM_TDX_CPUID_NO_SUBLEAF	((__u32)-1)
+@@ -2381,7 +2381,13 @@ static int setup_tdparams_cpuids(struct kvm_cpuid2 *cpuid,
+ 		if (!entry)
+ 			continue;
+ 
+-		if (tdx_unsupported_cpuid(entry))
++		/*
++		 * Check the userspace values against the subleaf reported by
++		 * the TDX module, i.e. the subleaf the values are applied to,
++		 * not the index of the userspace entry, which may differ if
++		 * KVM_CPUID_FLAG_SIGNIFCANT_INDEX isn't set.
++		 */
++		if (tdx_unsupported_cpuid(entry, tmp.index))
+ 			return -EINVAL;
+ 
+ 		copy_cnt++;
+-- 
+2.46.0
+
