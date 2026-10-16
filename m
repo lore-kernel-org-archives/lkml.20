@@ -1,142 +1,118 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C4A384243;
-	Fri, 16 Oct 2026 14:35:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F23449B17
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:35:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161306; cv=none; b=MhzNlXLbyiyyhQjfOrFqwKQ7wwn7j6MNI9A8lI8f5ZpKh7vSmTVg46uaLx+qK5ZjSwcxjIqJCXJQn6+2MtDHuP0EGkdf+edRtPudsbhpbpgpd/jxbp6JLtr4OuSIFM0hZQRuO0SfceT8JSS1tHRwim1mKvOJK05S+4voXfWM+Us=
+	t=1792161308; cv=none; b=X4IrUVOfCSI3XkLq1CD0QH+PXxc4oNMbLzvDgJBXEILQBsdtwvm9g+DARMsIu7QDYUVJV3HfiXSkVWXxFpfNPoy7WyHr4yv+lBwCGTD0OTm+klTW8YSJrfqQABC4GsWRiBnCR+5fVHHXSDJEQgtV9cNM04M8I+N4xbv18EtHsfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161306; c=relaxed/simple;
-	bh=aBVgL8O/8INZNFlNDJwxZAU+ZC8md4pxGzLmVIYYXgA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nYwrvU4zl70VUfxOEGd9TxlUgVmrivf4XJX+UMSKUjGCwXOHr3w2ni5fk9iEw4AzZMYveRZsICljYihusRvQhxPjZL5f6Oc7yzij0YFIf+XaPe8YwiIToZAYdw5L4FsZqbEevU1uueWbSzkRlWggd/0Gsk1/2RNXQKYWpKZxZ/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=nrPNjHrN; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mMNOoK6G; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=nrPNjHrN; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mMNOoK6G; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1792161308; c=relaxed/simple;
+	bh=gz1raXdRDuMYeoxzMbWlo3kUM6kY7kLVnye9ACNibKw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=m5CX4RpZT3Qfhl59TQBrkarqH62k4vSIZ0Ja37I/WmZ3+2FS9IFU54dd4KeKIogIN44bTqnmdAnYnzJ7anAJx35kPOV9vcmAS5NjsK++whsJTzYptOiV9VMcEIuOuV+chWPg51FVJg7VoMkRw3GcXwsJy1nOtJNxXLH8y5Th1uY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KERwriiA; arc=none smtp.client-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="nrPNjHrN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mMNOoK6G";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="nrPNjHrN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mMNOoK6G"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id CF34B1F445;
-	Fri, 16 Oct 2026 14:35:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792161303; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DvevIo56gnD9RKfRjHMCZAoapMkclUhhZLXxXNOsKFw=;
-	b=nrPNjHrNIwZqSdnT+S2HVu9fYo8T+GCugireiC7KlLuJP4f+ehAQRuLl6pePQ6dJaIC1q2
-	GNSYj3MEl4wuGijoCWZjAUn/twscjJOIeaosYj9t/XVS7rCZs/weJfF1y23VfbBljJx1oh
-	5Z14GJ8axXI09jlYiKHygstCBYqeAVw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792161303;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DvevIo56gnD9RKfRjHMCZAoapMkclUhhZLXxXNOsKFw=;
-	b=mMNOoK6G6Ocet99MnO8c8h594dYsTr4U2fP4oNNKJ3SNRHni99cmls3pXJoxSDUf/SaCBm
-	NOQl+0z/7m2KJnDw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792161303; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DvevIo56gnD9RKfRjHMCZAoapMkclUhhZLXxXNOsKFw=;
-	b=nrPNjHrNIwZqSdnT+S2HVu9fYo8T+GCugireiC7KlLuJP4f+ehAQRuLl6pePQ6dJaIC1q2
-	GNSYj3MEl4wuGijoCWZjAUn/twscjJOIeaosYj9t/XVS7rCZs/weJfF1y23VfbBljJx1oh
-	5Z14GJ8axXI09jlYiKHygstCBYqeAVw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792161303;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DvevIo56gnD9RKfRjHMCZAoapMkclUhhZLXxXNOsKFw=;
-	b=mMNOoK6G6Ocet99MnO8c8h594dYsTr4U2fP4oNNKJ3SNRHni99cmls3pXJoxSDUf/SaCBm
-	NOQl+0z/7m2KJnDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BD7C61378C;
-	Fri, 16 Oct 2026 14:35:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id MNLIJBY20mr7JAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Fri, 16 Oct 2026 14:35:02 +0000
-Date: Fri, 16 Oct 2026 15:35:01 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Kees Cook <kees@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Andrew Morton <akpm@linux-foundation.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, cgroups@vger.kernel.org, 
-	linux-mm@kvack.org, Kuniyuki Iwashima <kuniyu@google.com>, 
-	linux-hardening@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 2/2] ipc, msg: Account msg_msg allocations with
- GFP_KERNEL_ACCOUNT again
-Message-ID: <atI1-HjSgPkLCNQT@pedro-suse.tail5790ac.ts.net>
-References: <20261014052338.nothing.279-kees@kernel.org>
- <20261014052344.384723-2-kees@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KERwriiA"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-30b6dad2382so15816125eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:35:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792161306; x=1792766106; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yc3ap3MWdlDha/MVHspUrtH+yCZz2kVrPVlYau2goN0=;
+        b=KERwriiACVOpvM73DhTZJjDpjg9FlWH7VCI3eK9c0Rsu7BsVMFg5m5eTVvxQGdSqe/
+         3tF0ePCiaLiq6Q3mmjM2vCB2kTMTwR7ZFVQFZOYSHJx3yTj9fmOTFfIVb99BtEVet0pE
+         sOTVA5k2VuZgSDxVuIfAbQ8Av51AAghF2op6h7V2frKdbNBU0brBkHgg6CceU+l4b513
+         NlHNQ6bO9aTATuDWbsdsgMXsW3uoXrnAS0StDsAB8ipLZFCJmKnuHslvkW1wvtPWnDIS
+         2y7EpD16ZqauSt+bdDz8DkDiBFH+YNaye/KDn0z81Ge78gEncCpAvaXBwawCnTAMGt97
+         4oTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792161306; x=1792766106;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yc3ap3MWdlDha/MVHspUrtH+yCZz2kVrPVlYau2goN0=;
+        b=DR2vLYvFeVC3YWz2LAUluuNLeBHTyeWzLKNpqgntkvt4IKbaNAkhHunNLadlFc8egb
+         cK+UMWYTsVaCj6LXyRzIFvfciYeuZTWKL6U2Q2R4WVtOXgQsruFqPD1cQI6dNdgWQ5Ru
+         mhbh14Ey/+4epcsJEYZqJFNXDreM7oHbQlBTvYrP5puZwd7vKNSTXzuyp4VoKPnG3HM7
+         93TPi5/riMNqmG0o6CUAGyi7EofAOSaeuZo8KXL1ZDw25VbXcRKTjj9eHEgnZ5/k8jCM
+         WZEhB0l8VgLfd+UkJoJ4jvaIBfOmQ33HHuRV4gaxU6rFvkhxfeTzHLop72C22XRH6HNL
+         DS0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw+XMO5zVvlRsIDOd5TIjCzwBdwLOUdMSYNpHIFgCugQtEtoG9uu8rF/MJacnNBJpdlSUF9txZ3LDaPAtc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0yJjpe3rHlvuUewAwd9GiECI3wk4rrKyJeUWa4tOlcGWnUvQT
+	Cg9EEdjfCxz28Mw1ZH9P2yimE4XNAC8rdfFWj0JJDa0AWCv7oEZsk2PmzqVJA71OTp4=
+X-Gm-Gg: AYBFou0VVLwxXjQuQe86jqRYADQ6Ol2MA8MboNQmISlTtBwn5jhwNlD7egmUEPGM9im
+	94Nf53Hmvo4AQdDSENqP5fljnA2+A5yPCIN9iS9yVHtDNcV/wpx+TN0UnCNrD4bQx7b+hPi1+x1
+	Dc0JJ97Lft21PFTNnXSPRQdmeOkJBCmOMKhFbjvlQqXfOLWQ32N+tvn2h/Kst7ZYjd65WOSB8S6
+	Cdeuc9oL2NQecP16Nqe2imfKWLM7w5Zwq2t4HsMg3mWj+JcIAU/uQfg+iGx+4/WsYE4BbPkMHHy
+	QGekC87ReTXZQNFaw2rJruWUv9Lw3pjCHAOFOicbCOK2q/pYDLEkW8/ZEgG46SV01HJgylDsS8T
+	jLnUsyrQWEi0Si+jnvTFIEsbQjbSrb2O0N1Jp+2Ser9ecQ5gN4ah/sW6B05vMHg+LNlLTGOpob9
+	iOrRqvYNluf/Av+UOiE2P77O/EU52gdLkKiXTGprQupus0gFy2ryCBWBmMvHV7/gJJKtN8Gs4Y5
+	VMCZA==
+X-Received: by 2002:a05:7301:424a:b0:35b:9bd:1435 with SMTP id 5a478bee46e88-3619ea236e5mr34190eec.2.1792161302290;
+        Fri, 16 Oct 2026 07:35:02 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608297f4f7sm7611812eec.23.2026.10.16.07.34.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 07:35:01 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Subject: [PATCH 0/2] mm/ksm: keep smart scan from losing duplicate pages
+Date: Fri, 16 Oct 2026 22:34:55 +0800
+Message-Id: <20261016-bug-mm-ksm-smart-scan-align-skips-v1-0-2f91d76416be@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014052344.384723-2-kees@kernel.org>
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAA820moC/x3NQQqDMBBG4avIrP0hESraqxQX0zhNB5tUMm0pi
+ Hc3uPw2721kUlSMrs1GRX5q+s4Vvm0oPDlHgc7V1Lmu9873uH8jUsJiCZa4fGCBM/ilMcMWXQ1
+ hdl4uPA7DyFQ7a5GH/s/Hbdr3A9Hmhv9zAAAA
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Stefan Roesch <shr@devkernel.io>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-On Tue, Oct 13, 2026 at 10:23:43PM -0700, Kees Cook wrote:
-> Since commit 734bbc1c97ea7 ("ipc, msg: Use dedicated slab buckets for
-> alloc_msg()"), alloc_msg() allocates with GFP_KERNEL, and a msg_msg is
-> accounted only through SLAB_ACCOUNT on its bucket caches. With
-> CONFIG_SLAB_BUCKETS=n, kmem_buckets_create() creates no caches and
-> kmem_buckets_alloc() is a GFP_KERNEL kmalloc() from the general caches,
-> which do not account it; the same happens when kmem_buckets_create()
-> fails. Either way, the allocation is not charged to the sender's memory
-> cgroup.
-> 
-> Allocate with GFP_KERNEL_ACCOUNT again, as before that commit, so the
-> allocation is charged whichever cache serves it.
-> 
-> Build tested ARCH=x86_64 defconfig with GCC 16.2.0, with
-> CONFIG_SLAB_BUCKETS as y and n.
-> 
-> Fixes: 734bbc1c97ea7 ("ipc, msg: Use dedicated slab buckets for alloc_msg()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Kees Cook <kees@kernel.org>
+With smart scan, which is on by default, two identical pages that become
+mergeable some scans apart can stay unmerged for as long as they live:
+each page times its skipped scans on its own, and once both are old they
+may never be looked at in the same scan, which merging through the
+unstable tree requires. This showed up as intermittent failures of
+ksm_tests "KSM NUMA merging" in run_vmtests.sh.
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
- 
+Patch 1 picks the skipped scans by the global scan number, so all old
+pages are looked at together every eighth scan. Over 420 pairs made
+mergeable 0 to 20 scans apart, 317 merged before and all of them after,
+at the cost of about 7% more ksmd time on memory that never merges.
 
+Patch 2 adds a ksm_functional_tests case that fails 20/20 without patch
+1 and 0/20 with it.
+
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+---
+Qiliang Yuan (2):
+      mm/ksm: align smart scan skips with the scan number
+      selftests/mm: cover merging KSM pages aged by smart scan
+
+ mm/ksm.c                                          |  24 ++---
+ tools/testing/selftests/mm/ksm_functional_tests.c | 108 +++++++++++++++++++++-
+ 2 files changed, 117 insertions(+), 15 deletions(-)
+---
+base-commit: 437a7e839def0f505277022622fc59a8b071d6cf
+change-id: 20261016-bug-mm-ksm-smart-scan-align-skips-cd01e5a9889a
+
+Best regards,
 -- 
-Pedro
+Qiliang Yuan <odys.yuan@gmail.com>
+
