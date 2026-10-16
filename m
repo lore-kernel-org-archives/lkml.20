@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D9054E73BE;
-	Fri, 16 Oct 2026 15:28:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218374E73B8;
+	Fri, 16 Oct 2026 15:28:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792164526; cv=none; b=mqR1SlmtkWujwRwHtiXR8wvWUant9SFX2sJFhzBWhdGs1IbU4R7pJHFTc15RJ74brIDT1xp+KjYHEPOs5hhw7lTofU9H8M7eFmFLBKJ7qe7y9o8yx+P1NGJD8H8CxPJ/ZEZ660dd9w4WTp6fQqNiqlKEvT2URKsloASFGPRrb2k=
+	t=1792164528; cv=none; b=rmvcm5xZVB/vPPMEznXXvyC8wg3t+0XlGm3iiPeiIO/DfAO2GrtFIS1vqMwDdD3Cj9YyoDLYM0YUn1D1WTxDrLK0CwaEBO2dQ/Y+iVp7QoS2soYBxL2hIlUFdHUdh10UGmMipiff3sHt196sQs9Fdnv0c4NJPnO/7EFk+iJddf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792164526; c=relaxed/simple;
-	bh=8kVjykMyManGZhZ+/2f3hBYbozBVDhZFuz4DVC06+a0=;
+	s=arc-20240116; t=1792164528; c=relaxed/simple;
+	bh=/PwxB63ZoOfB2/5xFJosvWKGJ6EpfHIzhRbOfapizU0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UbEHzibaO3fUIdLa5wSiju8C6+UzkYKqv2PgWiwA0rOuWRzGvJVMFkD1vhj5FFAYP2/8seJRTURfLZ2QvLD81t7+dejSYMPDJyHORemewpzn+Aq4w1vRCqvf8JgJIMTM4zZo4FGNoZ393jlVf9GrUguDqKCmPtOPUtt6a3IcpMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M27pB3Zr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=N9hUbozbjcaQijmpxxoHTAZng+2aJWRWt54EABrH8wiITCEhxEK9b07la1IcIeM5B4gejqjkBnvdUd340tGT8hS/Na+3PGvW84ZcRFvQ+qI4K4pmnVrlGW1Q6Obgcvozkj08X7ukZ2pFbzZqA62wb8rU34OASKIm9B3rAcRMUog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=flVrMcYp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M27pB3Zr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7243D1F000C6;
-	Fri, 16 Oct 2026 15:28:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="flVrMcYp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C30D91F000C4;
+	Fri, 16 Oct 2026 15:28:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792164524;
-	bh=RnQ7OsHSHtRunD9WK97qAaLfBda46Z6BJcOTHh72RCY=;
+	s=k20260515; t=1792164526;
+	bh=scyt5e+BoH7eAKJNSiBVIsQ9P94M5xVl/mVZ28jvaOo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M27pB3ZrYq7A+R93QTT471Z504gBz51KsngkYS4G+T4J6UD9KX8z0phxi7y0bCqgJ
-	 Rz5tMk/OBFajoqAkD+fwVR6WR80RzUI4gO0WZi2HIgEHBcdBUqjLubtJ8K+X+14/NJ
-	 D28jJcdAy4/+I8z5+oIeG8WH9CMsh11s3Rr6TpngbdG3IKpbPYem5DV5Ih+KYC/+BD
-	 gLBWbdaGmCKnqjwhxhbWhDNVoWWUN60dvTnIf4V8eRKgC2DsFqhoQNh6fKyjeKGcWS
-	 O5sTvIIMdQlSFpY+4CbIkEUPog6GirmTCGwevlLUoHSrmciFFh5AemPcW8zx45RRtM
-	 eaYwdw5+brkSg==
+	b=flVrMcYpJV87IqkvJnml08hgJRVew2VmPox+be/ylw70rygmdB1YDWb+1XgvdZ41E
+	 BOtZcz0GWHKP5eTgGN9oiVcQ8SrJaTIV+CVjNIG1EA//8eaRkiQrexcvQp6KfqfDrg
+	 zQSrXOzUIsI9zEqmTPv+WRCKHRP/KD2dPI+Akk6jBiJl9fEo/2NRezkIbiRQliJ/BJ
+	 c4/qOA20ECN/r4PU0vbRkBuXTbXNpvMynsYkM6QPzrpaWU9cvE6gKd5hpEHcnwMpHq
+	 xbFZ3/R/X1KSDAEH+N8nYuuRMgSp7mQ53tyGdwvyhKdwVL+2ms0tLOEBrRR1ruu7h+
+	 0yTAUPstLWbHg==
 From: Sasha Levin <sashal@kernel.org>
 To: workflows@vger.kernel.org,
 	ksummit@lists.linux.dev
@@ -47,9 +47,9 @@ Cc: linux-doc@vger.kernel.org,
 	Dan Carpenter <error27@gmail.com>,
 	Miguel Ojeda <ojeda@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH v3 6/7] agents: add a skill to find other instances of a fixed bug
-Date: Fri, 16 Oct 2026 11:28:26 -0400
-Message-ID: <20261016152828.3765695-7-sashal@kernel.org>
+Subject: [PATCH v3 7/7] agents: add a skill to write commit messages
+Date: Fri, 16 Oct 2026 11:28:27 -0400
+Message-ID: <20261016152828.3765695-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261016152828.3765695-1-sashal@kernel.org>
 References: <20261016152828.3765695-1-sashal@kernel.org>
@@ -61,173 +61,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A bug fixed in one place often exists elsewhere, in copied code, sibling
-drivers, or other users of the same interface, and reviewers routinely
-ask whether that was checked. Left alone, agents tend to audit the whole
-tree by reading it. Add a skill that states the defect as a rule,
-searches for it through shared interfaces, copied code, the introducing
-series and earlier fixes, and verifies each candidate before reporting
-it.
+Assistants are asked to commit a fix with a detailed message, and the
+find-fixes and stable-tag skills leave their tags for that message, but
+nothing says how to write it. Messages written by assistants tend to be
+long, and Linus recently asked that pull request text written with an
+LLM be less verbose and prefer the imperative voice.
 
-When Coccinelle is available, the skill searches with a semantic patch:
-it looks for an existing one under scripts/coccinelle/, checks that the
-rule marks the fixed site in the code before the fix, runs it over the
-whole tree with coccicheck, and checks which code spatch could not
-parse. These steps live in references/coccinelle.md, which the agent
-reads only when it uses Coccinelle.
+Add a skill that sends the agent to the parts of submitting-patches.rst,
+5.Posting.rst and the maintainer documentation that cover commit
+messages, cover letters and pull requests, and to the P: profiles of the
+changed files. It adds what agents get wrong: stating only what the
+change and the supplied sources support, keeping the text short and in
+the imperative mood, and adding no tags that were not supplied.
 
-Tested on the parent of commit 989fe6771266 ("drm/nouveau/gsp: fix
-mismatched alloc/free for kvmalloc()"): both the existing
-api/kfree_mismatch.cocci and the example rule mark the two kfree() calls
-that commit fixed, and a whole-tree run found the same bug in four other
-drivers that were later fixed separately.
+Point the bug-fix procedure in coding-assistants.rst at the skill.
 
-The sites found are reported, not fixed; each needs its own fix, Fixes
-tag and stable decision. Point the bug-fix procedure in
-coding-assistants.rst at the skill.
-
+Link: https://lore.kernel.org/r/CAHk-=wgXU50=KgZNZc1JDxsSxg9Z+DjG1_2yU-fNXpZtUe4XDw@mail.gmail.com
 Assisted-by: LLM
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/process/coding-assistants.rst   |  5 +-
- agents/skills/find-siblings/SKILL.md          | 31 +++++++++
- .../find-siblings/references/coccinelle.md    | 66 +++++++++++++++++++
- 3 files changed, 101 insertions(+), 1 deletion(-)
- create mode 100644 agents/skills/find-siblings/SKILL.md
- create mode 100644 agents/skills/find-siblings/references/coccinelle.md
+ Documentation/process/coding-assistants.rst | 10 +++--
+ agents/skills/commit-message/SKILL.md       | 42 +++++++++++++++++++++
+ 2 files changed, 48 insertions(+), 4 deletions(-)
+ create mode 100644 agents/skills/commit-message/SKILL.md
 
 diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
-index fc4e98fd96e11..a89a33980c41f 100644
+index a89a33980c41f..9cae53cc5d8b9 100644
 --- a/Documentation/process/coding-assistants.rst
 +++ b/Documentation/process/coding-assistants.rst
-@@ -39,6 +39,8 @@ The following skills are available:
-   checks an existing one.
- * agents/skills/stable-tag/SKILL.md decides whether a fix goes to stable and
+@@ -41,6 +41,8 @@ The following skills are available:
    returns its stable tag, or checks an existing one.
-+* agents/skills/find-siblings/SKILL.md looks for the same bug elsewhere in the
-+  tree.
+ * agents/skills/find-siblings/SKILL.md looks for the same bug elsewhere in the
+   tree.
++* agents/skills/commit-message/SKILL.md writes, rewrites or reviews a commit
++  message or cover letter, and writes the text of a pull request.
  
  Licensing and Legal Requirements
  ================================
-@@ -101,7 +103,8 @@ these steps:
- 5. Build and verify that the fix works either using the reproducer or by
-    re-running a complete analysis; drop any fix that doesn't work and try
+@@ -105,10 +107,10 @@ these steps:
     another one. The fix must not add build warnings and must pass the
--   checkpatch.pl checks (see submitting-patches.rst).
-+   checkpatch.pl checks (see submitting-patches.rst). Then look for the same
-+   bug elsewhere with the find-siblings skill.
- 6. Commit the working fix with a detailed message describing the problem, the
-    solution, a Fixes tag determined with the find-fixes skill, and a stable tag
-    if the stable-tag skill calls for one. Do not add a Signed-off-by tag, and
-diff --git a/agents/skills/find-siblings/SKILL.md b/agents/skills/find-siblings/SKILL.md
+    checkpatch.pl checks (see submitting-patches.rst). Then look for the same
+    bug elsewhere with the find-siblings skill.
+-6. Commit the working fix with a detailed message describing the problem, the
+-   solution, a Fixes tag determined with the find-fixes skill, and a stable tag
+-   if the stable-tag skill calls for one. Do not add a Signed-off-by tag, and
+-   add an Assisted-by tag, as described above.
++6. Commit the working fix with a message written with the commit-message skill,
++   describing the problem, the solution, a Fixes tag determined with the
++   find-fixes skill, and a stable tag if the stable-tag skill calls for one. Do
++   not add a Signed-off-by tag, and add an Assisted-by tag, as described above.
+ 7. Identify the maintainers and lists using scripts/get_maintainer.pl.
+    Documentation/process/security-bugs.rst shows how to do that.
+ 8. Indicate what could not be done. If the fix could not be built or tested, or
+diff --git a/agents/skills/commit-message/SKILL.md b/agents/skills/commit-message/SKILL.md
 new file mode 100644
-index 0000000000000..471ce8d9c0bd6
+index 0000000000000..0825c2f5117c9
 --- /dev/null
-+++ b/agents/skills/find-siblings/SKILL.md
-@@ -0,0 +1,31 @@
++++ b/agents/skills/commit-message/SKILL.md
+@@ -0,0 +1,42 @@
 +---
 +# SPDX-License-Identifier: GPL-2.0-only
-+name: find-siblings
++name: commit-message
 +description: >-
-+  Find other places in the Linux kernel tree that have the same defect as a
-+  bug being fixed, and verify each candidate. Use after fixing or reviewing
-+  a bug fix, or when asked whether the same bug exists elsewhere.
++  Write, rewrite or review the commit message for a Linux kernel change or
++  the cover letter for a patch series, and write the signed tag and pull
++  request text for a subsystem pull. Use when committing or preparing
++  patches, when asked to improve or check a commit message, or when
++  preparing a pull request for an upstream maintainer.
 +---
 +
-+# Find other instances of a bug
++# Write a commit message
 +
-+Follow the rules for skills in Documentation/process/coding-assistants.rst.
++Read "Describe your changes", the sections on tags, "The canonical patch
++format" and "Commentary" in Documentation/process/submitting-patches.rst, and
++Documentation/process/5.Posting.rst for cover letters. Follow the maintainer
++profiles, the `P:` entries in MAINTAINERS, for the changed files; they take
++precedence. Follow the rules for skills and for attribution in
++Documentation/process/coding-assistants.rst, and
++Documentation/process/generated-content.rst when a tool found the problem.
++When editing someone else's message, also follow
++Documentation/maintainer/modifying-patches.rst.
 +
-+- State the defect as a rule that does not depend on local names, such as
-+  "memory from kvmalloc() is released with kfree()".
-+- Search the tree as it was before the fix, not the working tree. Look at
-+  other users of the same interface, field or lock, code copied from the same
-+  origin, the rest of the series that introduced the bug, and earlier fixes
-+  for the same defect. Limit history searches to the relevant directories.
-+- If Coccinelle is available (`spatch --version` works), search for the
-+  defect with a semantic patch as
-+  [references/coccinelle.md](references/coccinelle.md) describes. Otherwise
-+  use text searches and report that limit.
-+- A match is a lead. Read each candidate with its callers, locking and object
-+  lifetimes, and classify it as confirmed, safe or undetermined, with the
-+  reason. Check whether a confirmed site is already fixed in the current tree
-+  or in a pending tree such as linux-next.
++- State only what the diff and the sources you were given support, such as a
++  bug report, a crash log, test results, or the list discussion found with
++  `lei q` on lore.kernel.org. If the reason for the change is not known,
++  return no message and say what is missing.
++- Take the Fixes and stable tags from the find-fixes and stable-tag skills.
++  Add other tags only when they were supplied or given on the list. Never add
++  a Signed-off-by.
++- Use the imperative mood and keep the message as short as its content
++  allows. Leave out markdown, labels such as "Root cause:", intensifiers, a
++  restatement of the subject, and the story of the investigation.
++- Check the result with `scripts/checkpatch.pl --no-signoff`.
 +
-+Return the searches you ran and their scope, and the classified sites with
-+their maintainers. Do not fix the sites: each confirmed one is a separate bug
-+that needs its own fix, Fixes tag and stable decision.
-diff --git a/agents/skills/find-siblings/references/coccinelle.md b/agents/skills/find-siblings/references/coccinelle.md
-new file mode 100644
-index 0000000000000..6b09ce9d04c8c
---- /dev/null
-+++ b/agents/skills/find-siblings/references/coccinelle.md
-@@ -0,0 +1,66 @@
-+<!-- SPDX-License-Identifier: GPL-2.0-only -->
-+
-+# Searching for a bug pattern with Coccinelle
-+
-+Documentation/dev-tools/coccinelle.rst describes `make coccicheck` and its
-+options. The semantic patch language is documented at
-+https://coccinelle.gitlabpages.inria.fr/website/docs/.
-+
-+1. Look under `scripts/coccinelle/` for a semantic patch that already covers
-+   the defect. Read its rules rather than its name: `kfree()` of memory from
-+   `kvmalloc()` is covered by `api/kfree_mismatch.cocci`, while
-+   `api/kvmalloc.cocci` only flags an open-coded `is_vmalloc_addr()` test.
-+
-+2. Otherwise, write a semantic patch outside the repository. Match only what
-+   the defect needs, not names or statements specific to the fixed site. Mark
-+   the lines of interest with `*`, and declare `virtual context`: coccicheck
-+   passes `-D context`, and spatch rejects a mode the file does not declare.
-+   A minimal rule for memory from `kvmalloc()` released with `kfree()`, a
-+   case that `api/kfree_mismatch.cocci` covers more completely:
-+
-+       virtual context
-+
-+       @@
-+       expression E;
-+       @@
-+       E = \(kvmalloc\|kvzalloc\|kvcalloc\|kvmalloc_array\)(...);
-+       ...
-+       * kfree(E);
-+
-+3. Check that it finds the site you fixed. Coccinelle reads the files on
-+   disk, where the fix is usually already applied, so copy the file as it was
-+   before the fix to a directory outside the repository and run
-+   `spatch -D <mode> --very-quiet --sp-file <rule> <copy>`, with a mode the
-+   rule declares on a `virtual` line, such as `context` or `report`. Without
-+   `-D`, rules that depend on a mode do not run and nothing is reported. The
-+   rule must mark the fixed site in that copy, and nothing in the fixed
-+   version. If it misses the site, correct the rule before searching further.
-+
-+4. Search the whole tree:
-+
-+       make coccicheck MODE=context COCCI=<rule> DEBUG_FILE=<new log file>
-+
-+   - Use a `MODE` the rule declares on a `virtual` line, as in step 3.
-+   - In context mode the output is a diff, and each line starting with `-`
-+     is a line the rule marked; report mode prints one warning per site.
-+     coccicheck searches the files on disk, so a site you already fixed
-+     there is not marked; step 3 covers it.
-+   - The kernel's `.cocciconfig` makes spatch skip files that do not contain
-+     the rule's identifiers, so a whole-tree search is usually quick when the
-+     rule names distinctive functions. Add `M=<dir>/` only if it is not.
-+   - Give `COCCI` and `DEBUG_FILE` as absolute paths. With `M=`, coccicheck
-+     runs from that directory.
-+   - Read the log. Without `DEBUG_FILE`, spatch errors are discarded and a
-+     broken rule shows only as "coccicheck failed". coccicheck refuses to
-+     reuse an existing log file.
-+   - Header files are searched only with `SPFLAGS=--include-headers`, or with
-+     a `// Options: --include-headers` line at the top of the rule.
-+
-+5. Check what was not searched. Coccinelle skips code it cannot parse without
-+   saying so. Run `spatch --parse-c` on the searched files or directories: a
-+   nonzero `nb bad` count means part of them was skipped. Search those files
-+   another way and report the gap.
-+
-+If the rule marks many sites that turn out to be safe, tighten it, for example
-+with `when !=` constraints, and run it again rather than discarding candidates
-+by hand.
++For the signed tag and email of a pull request, follow
++Documentation/maintainer/pull-requests.rst,
++Documentation/maintainer/rebasing-and-merging.rst and
++Documentation/maintainer/messy-diffstat.rst. Summarize what the pull contains
++and why from the commit messages in the range, in the same voice, without
++repeating the shortlog. Ask the caller for conflict resolutions and testing
++that the history does not show.
 -- 
 2.53.0
 
