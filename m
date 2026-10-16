@@ -1,51 +1,77 @@
-Received: from a27-24.smtp-out.us-west-2.amazonses.com (a27-24.smtp-out.us-west-2.amazonses.com [54.240.27.24])
-	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5481A38423D;
-	Fri, 16 Oct 2026 04:25:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.240.27.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2BE535E955
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:25:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792124751; cv=none; b=NQWkNeYeD2bnJ43WXEcXa7SkmnYza3aXVSFt2ixWA9FaOxmCsIAbxOcyMVdo0Im2I/A7h8GvDG2X7fVntcL2RyV/eXsubeKgz/PKnR8wiNP784GQIj/BS0Zq8ON6eNVvrt9VjYJgb0e9oNiDnoFzmm1y5opHWQPs2dUe7YCR7CY=
+	t=1792124757; cv=none; b=qIUv3+mhktpl2wJLsIHg2rcMQz+tG4kbXRFKlPTiVmwQgUkh6gz7kyb7TH1dSALc6BMV+GVw2fiSv2cwkINAuXmPjT3x7ykdOGK3l7Gx3b46Fqe+zoDEKOUXFTisMFfgAC8L2pnen1rEOmICIBeyoxGTPoAXygcy9zTBIKN/MRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792124751; c=relaxed/simple;
-	bh=fhTPlTuxhWyAUi0BlB7l5x8jVd7gI8ACauyF8TedkAY=;
+	s=arc-20240116; t=1792124757; c=relaxed/simple;
+	bh=p0x3i7T/RxJVoGuThfamGRwD7CghCOEP9gza4S5L3y4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p3a9PnQXSMl+3L3ogMvnAtM5ngQLRkP85aF/cLmCPMd6QrYam/FLLnDAKglDZObUntwBHONxXqs35QsJ7PzzaG5SpkRsUVROoV5H+Bqc+A/JQk+rdls9BwY6StQSr2ctpJKX9D1bzfiPzY3a1b3fwl9o2H2bjr1FIGBKBITBbyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dougvj.me; spf=pass smtp.mailfrom=bounce.dougvj.me; dkim=pass (2048-bit key) header.d=dougvj.me header.i=@dougvj.me header.b=tVjhaQj5; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=OqTr6I1V; arc=none smtp.client-ip=54.240.27.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dougvj.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bounce.dougvj.me
+	 MIME-Version; b=qFw13jsz/VFduudzhWjd74vTdG8BCeRxvwsVYYA41uRWGndR0CQ0II0nYAnzipJLtTj17+bbpSHB4tdy8DpbpCoywdExeynaJ4oUWnY2barptJLcmq4i1VdW5jaRBwe6INBoLi4O0DK0nqzHKEDZVDStkz+g0MKmboUpTTdH+ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=Toefbp1C; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dougvj.me header.i=@dougvj.me header.b="tVjhaQj5";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="OqTr6I1V"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=75cpmoop2pyf56gdndy2e364ijbokrge; d=dougvj.me; t=1792124748;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=fhTPlTuxhWyAUi0BlB7l5x8jVd7gI8ACauyF8TedkAY=;
-	b=tVjhaQj5RWtkMVxoYLn579Ey1hDe31yXy7aPZxZZpVzXFstgs/lzuBDCv6AHFyHb
-	kcVtNnoqAu6q0pGG1MrzMZEPVXUTcbiDRhZuje6b8EMgHbiSBNpT71nYimEW0h0T1+2
-	DhLy3j5GeDaKum9RgTY/XmyKkCAfTfYXJgvRdOCVsZdQcItdJoY33+QwsxqQ3yoSIcO
-	KnJsSAqeceOp1xS0bpzFy3mASubKvGbuhkWnpkyYqpNc70JTuEOZ1N3ePmDyGOurLXK
-	tWcyEptf82D+GHFb6VKpN7uMFGUOPa1D8Xzy7kJ8yVl02E2JNfhHd2gbPCEV1hfZHzJ
-	fpnxOQEWYQ==
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1792124748;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Feedback-ID;
-	bh=fhTPlTuxhWyAUi0BlB7l5x8jVd7gI8ACauyF8TedkAY=;
-	b=OqTr6I1VaWXqCNIR83q4/p0cIPPe9iXUlAY8QNKnrmyM4oKmPyd/UpwTdYOpmhwY
-	EabmnqmLPPxwcYwLfKyKBs1bhOgKCDrIcKipAHInnnci6mRPX6ymjTnhutwBy4FiGRQ
-	ofPRWmEH31lB9aWqAYDSmXqF+dkTscU56Zot5CxI=
-From: Doug V Johnson <me@dougvj.me>
-Authentication-Results: mail.bonnevilleinformatics.com;
-	auth=pass smtp.mailfrom=me@dougvj.me
-To: linux-raid@vger.kernel.org
-Cc: song@kernel.org, yukuai@fygo.io, magiclinan@didiglobal.com, 
-	xiao@kernel.org, chencheng@fnnas.com, linux-kernel@vger.kernel.org, 
-	Doug V Johnson <me@dougvj.me>
-Subject: [PATCH v4 3/3] md/raid5: warn when a read fails due in some part to bad-block metadata
-Date: Fri, 16 Oct 2026 04:25:48 +0000
-Message-ID: <010101a142f583eb-3d8069c0-51c1-4db5-a301-d62f9c2937fa-000000@us-west-2.amazonses.com>
-In-Reply-To: <20261016042537.277516-1-me@dougvj.me>
-References: <20261016042537.277516-1-me@dougvj.me>
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="Toefbp1C"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3a813079a55so447756a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:25:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792124755; x=1792729555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7NjascJlmAL/rXDM10mAvnCXgy0lONG3ZAo9QK6lWOM=;
+        b=Toefbp1CczGg27b4WQ3RSa0cWLW0g4jIndM2HFQewqxGYKOB3OaRprdXynJC5n8TWo
+         13TYM6swIN5OYCXwt1yC0OVENSxinXkFr10agmmqUsnQf3yL/mnJAzkxjZMrcZwUlMT+
+         gRAzNA5EKBbz1xEo4kfWZnMiXfUb48kdCOwM2Tq92hVtMnT1HsnLqggPRAldg/SZpV/O
+         K57Qpyoqhy7XFUHnJGZi4AYBeABZGUjBEuI9tkif6g5aXQGTM3KjkslUvu+Q+2fEUYfc
+         Amj0toRDwtB7zg1kEuattJlbxjS2hxFxS0GMO7vgtMMZwASZhSzz4GlCfz7D9D0nPXzU
+         40rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792124755; x=1792729555;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7NjascJlmAL/rXDM10mAvnCXgy0lONG3ZAo9QK6lWOM=;
+        b=ebDh0qK+MOVhpRIfmD3xqVKCbmJK77u2yuUZ3HT9bJinCRdP8dTud9DOitM1iLPl/r
+         KN33uCRB3bTcxprXLpyYXUGw2Wpx4ZWv6RrpIbPbeS+BhBLp5zgqnvxuRUHb8VEn0FhN
+         +nn9d79MV4jacHZfJ9BXr/S1t2T6zRzuOlYDQ2WOE9hf4tIaoAUJX/TmB6YMRdnjNCB/
+         wW78SAMRz8+D0ZYBZ7Z9/plsr49uN9fn+Yp0N1obmttPoUgSoGivD1C8GfGavL51af9Z
+         jTvq76ktvYmtBRJs7JC+3nJJscN6XJnTbT1DGEmq3RsCgZ1RNThWgT7eMzNWHdG8IWMi
+         WHKA==
+X-Forwarded-Encrypted: i=1; AKwUvBzm5ylAZaH/sjl4fYBo4NefbYWUqqEd26bs6Z3ubBjeXtQXy6MbQm0PEMVnBo03mL8PLSdoVOs+knFeyFo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2V5HBLl38iSlu9KWzjooGzXMn/r5SpL54gi1udCErndXnhE5i
+	Q3hK0tnotxKAac42/37caAHUqrwHEJhh9xBjhNMKDcJWNRcZkBqpfcSZwYmNSV1MRBU=
+X-Gm-Gg: AYBFou18qn8wHBZRUwJRiRcMeJjY25Z/aSvQrh9p253x6Rcqkmg5rFN2a0BH27kgy9k
+	li9yX/WCvxi3i5p0Cj7PQKbMoHWYI1v1EqF2I9YvElHEKmBr0piMm3klch/Bg9TpEvwfnWYYasg
+	UKn2MDi/ALGBGQWoDhuZeY0SUZM7H3tRbXoNFbTw1Smy2q7H+VZpaG2IRnJPJLJzQwhoTWsJBM9
+	md1G8p4ncyiKkWo2gDQjKkYb5V0FMVaZ+FgcCVbszvwEXOEiWsLjz7J8NHpDwj2sxnjPfUyPEBs
+	WL+cALfh6UNo0Fdhr/wtSANjEocJYqK9qt3XxORJk0nxCisaxEQ6q/brnLU/SMMsNS4h02DEOtH
+	WNEkwjjj5Sr75hzx2klks5umeZnQFy03QQarw3qKbEUf98jnIsxNRxddCgRYEPZgGG3X7cDcabQ
+	TSZ9uEZSWGvcxIDUrjJlvb5YNm33v9Qlnwsdmnz7ODtvxZGzCHQuFoZdqG8ApwR3rHd9lq8iXhj
+	OWqvQ==
+X-Received: by 2002:a17:90b:3146:b0:3a4:9416:a2f8 with SMTP id 98e67ed59e1d1-3acbb879edcmr1595043a91.9.1792124754870;
+        Thu, 15 Oct 2026 21:25:54 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549b761bsm424443a12.15.2026.10.15.21.25.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 21:25:54 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Jeff Chen <jeff.chen_1@nxp.com>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v3 1/3] wifi: nxpwifi: guard the 11ax response handlers against a detached command buffer
+Date: Fri, 16 Oct 2026 13:25:40 +0900
+Message-ID: <20261016042542.773945-2-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261016042542.773945-1-yhlee@isslab.korea.ac.kr>
+References: <20261016042542.773945-1-yhlee@isslab.korea.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,75 +79,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Bar: -----
-Feedback-ID: ::1.us-west-2.yIAaOWcA3P0r3CWRzBxY2mlnWgm/DtEO6k5/iZ9ogRk=:AmazonSES
-X-SES-Outgoing: 2026.10.16-54.240.27.24
 
-Report that bad block metadata contributed to a read failure on the
-array so that it's clear that the failure may not be directly due to
-an immediate underlying device read failure.
+nxpwifi_wait_queue_complete() detaches the caller-owned data buffer from
+the still-current command when the wait is interrupted or times out:
 
-There has been a documented case of bad block metadata being erroneously
-copied around contributing to mystery read failures with no underlying
-device failure.  This warning will help users understand why the
-failure exists and may lead to the discovery of this condition sooner.
+	spin_lock_bh(&adapter->nxpwifi_cmd_lock);
+	if (adapter->curr_cmd == cmd_queued)
+		adapter->curr_cmd->data_buf = NULL;
+	spin_unlock_bh(&adapter->nxpwifi_cmd_lock);
 
-Link: https://lore.kernel.org/r/20250224090209.2077-2-dougvj@dougvj.net
-Link: https://lkml.iu.edu/2501.3/01088.html
-Assisted-by: LLM
-Signed-off-by: Doug V Johnson <me@dougvj.me>
+nxpwifi_cancel_all_pending_cmd() keeps the current command -- "no
+recycle probably wait for response" -- so a late response still reaches
+nxpwifi_process_cmdresp(), which passes that now-NULL pointer to the
+command's cmd_resp callback.
+
+Commit 068986fd6f2a5 ("wifi: nxpwifi: detach sync command buffer on
+interrupted wait") introduced that detached state and swept the response
+handlers that dereference the buffer unconditionally, adding a "return
+0" to nxpwifi_ret_sta_get_chan_info(), nxpwifi_ret_sta_hs_wakeup_reason()
+and nxpwifi_ret_sta_robust_coex(). The sweep did not cover 11ax.c.
+mwifiex, which the detachment was ported from, has no 11ax or TWT
+support, so there was no counterpart there to compare against.
+
+All three handlers in 11ax.c dereference the buffer with no check:
+
+  nxpwifi_ret_11ax_cfg() takes &ax_cfg->he_cap_cfg and stores through it
+  at "he_cap->id = tlv_type". nxpwifi_set_11ax_status() declares the
+  struct nxpwifi_11ax_he_cfg on the stack and issues HOST_CMD_11AX_CFG
+  synchronously while bringing an AP up, so this one is reachable.
+
+  nxpwifi_ret_twt_cfg() stores at "twt_cfg->sub_id = ...". The twt_setup,
+  twt_teardown, twt_report and twt_information debugfs files each pass a
+  stack struct nxpwifi_twt_cfg to a synchronous HOST_CMD_TWT_CFG, so this
+  one is reachable too.
+
+  nxpwifi_ret_11ax_cmd() stores at "ax_cmd->sub_id = ...". Nothing in the
+  tree sends HOST_CMD_11AX_CMD, so this one is guarded for symmetry only.
+
+Return 0 and drop the response, the way the three handlers the original
+sweep covered already do.
+
+Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/md/raid5.c | 16 ++++++++++++++++
- drivers/md/raid5.h |  2 +-
- 2 files changed, 17 insertions(+), 1 deletion(-)
+ drivers/net/wireless/nxp/nxpwifi/11ax.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index 23ff549fa363..f721eb97f655 100644
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -3672,6 +3672,16 @@ handle_failed_stripe(struct r5conf *conf, struct stripe_head *sh,
- 				wake_up_bit(&sh->dev[i].flags, R5_Overlap);
- 			if (bi)
- 				s->to_read--;
-+			/*
-+			 * If we recorded bad blocks from the metadata
-+			 * on any of the devices then report this to
-+			 * userspace in case anyone might suspect
-+			 * something more fundamental instead
-+			 */
-+			if (bi && s->bad_blocks)
-+				pr_warn_ratelimited("%s: read encountered block in device bad block list at %llu\n",
-+						    mdname(conf->mddev),
-+						    (unsigned long long)sh->sector);
- 			while (bi && bi->bi_iter.bi_sector <
- 			       sh->dev[i].sector + RAID5_STRIPE_SECTORS(conf)) {
- 				struct bio *nextbi =
-@@ -4764,6 +4774,12 @@ static void analyse_stripe(struct stripe_head *sh, struct stripe_head_state *s)
- 		if (rdev) {
- 			is_bad = rdev_has_badblock(rdev, sh->sector,
- 						   RAID5_STRIPE_SECTORS(conf));
-+			if (is_bad) {
-+				s->bad_blocks++;
-+				pr_debug("bad blocks encountered dev %i sector %llu %lu\n",
-+					 i, (unsigned long long)sh->sector,
-+					 (unsigned long)RAID5_STRIPE_SECTORS(conf));
-+			}
- 			if (s->blocked_rdev == NULL) {
- 				if (is_bad < 0)
- 					set_bit(BlockedBadBlocks, &rdev->flags);
-diff --git a/drivers/md/raid5.h b/drivers/md/raid5.h
-index cb5feae04db2..6b90c9565ec0 100644
---- a/drivers/md/raid5.h
-+++ b/drivers/md/raid5.h
-@@ -282,7 +282,7 @@ struct stripe_head_state {
- 	 * read all devices, just the replacement targets.
- 	 */
- 	int syncing, expanding, expanded, replacing;
--	int locked, uptodate, to_read, to_write, failed, written;
-+	int locked, uptodate, to_read, to_write, failed, written, bad_blocks;
- 	int to_fill, compute, req_compute, non_overwrite;
- 	int injournal, just_cached;
- 	int failed_num[2];
+diff --git a/drivers/net/wireless/nxp/nxpwifi/11ax.c b/drivers/net/wireless/nxp/nxpwifi/11ax.c
+index 96540914f3cf6..d15495a85d2ba 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/11ax.c
++++ b/drivers/net/wireless/nxp/nxpwifi/11ax.c
+@@ -205,9 +205,13 @@ int nxpwifi_ret_11ax_cfg(struct nxpwifi_private *priv,
+ 	struct host_cmd_11ax_cfg *he_cfg = &resp->params.ax_cfg;
+ 	struct nxpwifi_ie_types_header *header;
+ 	u16 left_len, tlv_type, tlv_len;
++	struct nxpwifi_11ax_he_cap_cfg *he_cap;
+ 	u8 ext_id;
+-	struct nxpwifi_11ax_he_cap_cfg *he_cap = &ax_cfg->he_cap_cfg;
+ 
++	if (!ax_cfg)
++		return 0;
++
++	he_cap = &ax_cfg->he_cap_cfg;
+ 	left_len = le16_to_cpu(resp->size) - sizeof(*he_cfg) - S_DS_GEN;
+ 	header = (struct nxpwifi_ie_types_header *)he_cfg->tlv;
+ 
+@@ -346,6 +350,9 @@ int nxpwifi_ret_11ax_cmd(struct nxpwifi_private *priv,
+ 	struct host_cmd_11ax_cmd *he_cmd = &resp->params.ax_cmd;
+ 	struct nxpwifi_ie_types_data *tlv;
+ 
++	if (!ax_cmd)
++		return 0;
++
+ 	ax_cmd->sub_id = le16_to_cpu(he_cmd->sub_id);
+ 
+ 	switch (ax_cmd->sub_command) {
+@@ -582,6 +589,9 @@ int nxpwifi_ret_twt_cfg(struct nxpwifi_private *priv,
+ 	struct host_cmd_twt_cfg *twt_cfg_cmd = &resp->params.twt_cfg;
+ 	u16 action;
+ 
++	if (!twt_cfg)
++		return 0;
++
+ 	action = le16_to_cpu(twt_cfg_cmd->action);
+ 	twt_cfg->sub_id = le16_to_cpu(twt_cfg_cmd->sub_id);
+ 
 -- 
-2.54.0
+2.43.0
 
