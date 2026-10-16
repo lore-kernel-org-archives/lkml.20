@@ -1,77 +1,131 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B071C5499
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:00:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458DF23E342
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:01:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792123225; cv=none; b=eOYb3KMYGAhtUsYuKScZPrXTHiSxGa5bPU9m9Jn7ZIggBuQXFN+1Q8BqiEibUzqDjB60URy1uZeredlvhN3R+Do6uYibPz9f9zbV3COYPqCWqoeQnQWI0vf4JV5BDB0yrNFKoNNp5FrgXxGozB7wqo7PWDZmWH3ApCJadnG0ZDo=
+	t=1792123276; cv=none; b=U9mwadmUx2j1ebI0J8hxDd+0py+1ymgxvnb4ekdSE+C7mft1zPpDMMEPf+4dVF+YRnsNo9yUFZ5Zujz2DfJ+/j4MKuyJoTjVk75rijInpLMTwRBO79on6hdgHqesw7Wh2VNSDKd+yWYul1thgEgm/Urv7m6fxpDl/VuF5Zy3tao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792123225; c=relaxed/simple;
-	bh=R1f53fZVOQpXpGpCi4RklZRTZOgEf4RFVZqHIV1IEjY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kRevOutoXIp0I0obwVXtGfBW8mm2Nilb1iNLhG3VIBuZTiK4YD0X5hoMO+J9vlW8UaleGrf2lDpWElMRWnQxW29nrDSfx4m0NnXMq3zstkSzxROspsVnjVUfe/H8sAzwS6lE91gq00Tw908m6CIG4kHVUuM8OUgUF2p0WUGl6GA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LZIn4Nb8; arc=none smtp.client-ip=209.85.216.52
+	s=arc-20240116; t=1792123276; c=relaxed/simple;
+	bh=kz6hWgoXjwzN/plzsOuupJpm8SEQMOhxfOMvvFLoLo4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UH1dw2xQbny+0uCdZ0FY73oW62W0oy9pIzQqALxylKLVULHED+SHL13/S/4s0m7yakeMXQLiQ5ONYYpPIr8ye2WCNrqPjX/oZ9B9SV+XvPaWj3fO9OlVGwUqx7fOb6hgIRDBDsuIVc7zG1Qh2UqeGYe6niW9GP0vuAJe98Alulg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YiU6kWI3; arc=none smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LZIn4Nb8"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so458308a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:00:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YiU6kWI3"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e987b4a710so1115215ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:01:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792123222; x=1792728022; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g9IQw/iWHXUIP0xYQGBwa0OfUNbaaj14Fj4E0JqM4sE=;
-        b=LZIn4Nb86Im+eJt/C2Z8tvysgraS2xt11OqHgABFEDtbc4L9UzgX+rkAmvCaf3qWpZ
-         YrRQ/G9DWEHcA3jaEQVGVLgo1w6xS4ttOxTDJiarb9APKyqPBovADl9C/WFYx5gjuNIp
-         NYxK934bVsZnzU4025+/660RdteqDSkEOjjCLYBYpp75chpAug5MlTcNHiCFHauNf5ee
-         xnPfvK2P7k2P9q/jSGzTildbi5YZA/ZMctd1x+Sw+aJdu1TmqCj/gJ7+qoxkkdY/d6XH
-         x6jcETDeUjBSd72vBER9PuBgP61DzxNIUd1eDYK4dOCXVpCQ5fk4AbXVPxL3+XP5BECO
-         5llw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792123222; x=1792728022;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792123274; x=1792728074; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=g9IQw/iWHXUIP0xYQGBwa0OfUNbaaj14Fj4E0JqM4sE=;
-        b=xv/BY5k6peuXFKBXFuaVYdNoOBpncnrvsH9LdIPhUSfKAa64itDvmmz2tXOeZ4wciv
-         /RCym4cqFn0/aQehI8WY0NSb+O4iCeKmlqBCpAA/T5tfvSHG3n/A4Brm5nimvXbfI8AV
-         NHWrABq+rBtYn4QbYfm7fY0KxsFNqvJxVqPTtVGvU5t5pRE0+/pvwsSlnpWoQJRByNrj
-         vtLxlrzR2gGebadvZFMMDu8i1zOBtdiKxoau/ZSn0cNC3bzSFB2DVgsq0VxZ2VVUx/fy
-         MTyXlm3wkgvqx/YliKvQ9OhxLUAYMLinsJ96lOoZnXDscTytJ+O7mKY5xB1of+lnf/lI
-         sSKA==
-X-Forwarded-Encrypted: i=1; AKwUvByL/rKXtGrjczECBZZadJptqhM8PHt/VawHlIX8hFJPsl1/AH27QwKptNaUUX/WPsMQBsYYCSpj/5llplY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBXeDufEhMc6OBHXxWO23XNqxwta5r7kQRr9C51tbSifCxie67
-	JQ+2R7pBUQohBsLYLdDOxfpsTPtUq4+t5+ul1BZZyhBIT6EP7irqpRKb
-X-Gm-Gg: AYBFou3+MOp0RP+InSVQmo1fKx55B2n5LFibaHgtTYOcXyC92+DJgd2/Eh4fvoqjk2Z
-	ecY5FMTL4ojmkCsf25Xi6Q6bCR8vTstnlvogh6Ly8roRMZ/5qjbCcXy1/gqcbtAn6EN8cZmjLj6
-	TaWGKi75PG0b9B67hlP0Ch/sugKxdTJkRYqDEo+6wLbnkg3FMVwKaQ3QTTGDyFcIuZkZIK5HXkS
-	S+k5e+1lBELRC4TPMGKlfqdZscdZsvkkKxEBJjuKAW0gd8/+L7elIQN0EPpaomEkJoSwkwW4y6u
-	rQVbLamhyfwTPiTNbPwHMZcJHvhwl8reg3GODxfKdvwBWp2VT0YwHA3Ue7E3EImo2bgXDTuZhyP
-	GN/w5tXBihp2sF8yDTaGPlu+fwL7k+jtA477y6KjXYA1vvt+6/HCEAbj6MAUVy9bYCQ+yI4trHw
-	yW9bNxFKoiGLOC/qlqDsE2ckfMGfz5mQGacdXq6LfbN5NEBt6ULRO/dMIFT6CdotAEEhdRysUQK
-	TsgEehUJmk=
-X-Received: by 2002:a17:90b:3e89:b0:3aa:412f:b0a7 with SMTP id 98e67ed59e1d1-3acbb689d36mr1258321a91.5.1792123221974;
-        Thu, 15 Oct 2026 21:00:21 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94627250sm7017040a91.8.2026.10.15.21.00.17
+        bh=5Qhe5E4dgThyJhSYyDtuQ9hNBBoGOWOTPXhOMe7iZzE=;
+        b=YiU6kWI38o7n8Ng0a9H5qDIsVqCAnrHCHj1sdVAJsUntfAoVin71Cn3xhsDnYP/Exn
+         pcZYJ/86txoykL0YK/CjwFnX6J9y+wBaG5FO1sKU/6/amBr78Qs8jXJHi1FiptgiM9+M
+         ILBrXV3rcdDaEZinW8tA7y+yGf/RIEj+VDMQm89ey18mr6j+yvxpibG8qGgxaFPvQO6F
+         svObyTy2lSHy+sgyySDEspbm9DJqRqkL0Ce5lJD2BcNfUQSSIiKo3ums+6bpcfBem/Tp
+         IhnWn8kdo1BAmkQMg8YDJlLcmiXHpTpCqqmiZXzE2FFE2Jf4pL6WBF+BjGLoGmoQYu2k
+         Spmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792123274; x=1792728074;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5Qhe5E4dgThyJhSYyDtuQ9hNBBoGOWOTPXhOMe7iZzE=;
+        b=LLkn/ujKED/Fn2RjmXQZytIU39QQmje1n2dyyFDxnaSVRnfBnPQE/f5Rrjh98X0Nxc
+         QZkF4eBshwasUBeaNDGTbIpDM4Wb3BhkSIjzNavGV9uU9uNiEt401CodWYckZ7+9mY4O
+         h5kKRNYaiA9ZGj8/GtZTgLRTJnANnt7YiHtYj2jnMgt32arLNddXqThcM/IGdZEXuiBv
+         2gorhk76fSLBgSqDZSny22nNM0xyHUj9X+ZNCzAbCBDf9KvzQ6mU58DLhwqIE2CE2JK5
+         8qyvUVLc5LZydRa5hJF/9Wtx2Y+8oL3K8DPwyiFUDDaox/R2e3UEfW8mgK8c2bfUTjhy
+         P1Nw==
+X-Forwarded-Encrypted: i=1; AKwUvBzM1pWDWdqvJAWo1LIGl8WzZHFyhDesIU6jIZACULt7Ijl8dtXz9K8P3KSYYUJgEKqlc0kqSxkusCQQI+A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRyhC6nDTdf88LH/Pq1j7VmkQDhGdV931+3r6umXwclPjZjlWP
+	peoGR5Ay2fZtA8bhvtmlSTqyeoir6v8JMRHu0j5GMdUdbf2hiM232keD
+X-Gm-Gg: AYBFou1IsOx6N9dKEqGy1YVneGtnEl6TPdbiMXsyi10upYexYa9xs0ggHvzxqNpJR2E
+	qX/CMf9b2AxhFkrNDiUNQke8aA8JGxcwaQ7G7c5Kyqvw3Nz4wdH9ttt9MoRFCSsRmcBAuA8s4fa
+	LJB+z/4ZU0qguBXeTqARpBJGddr7vQDU0+DwQq1/g+HsZRGOYorON9Z7gwSxjDQqocM/PMbbS3F
+	6idtUqX4KBqhB57SERmE6A7JzrJXL6E8IR5b1PHgk4NZPejpa/s6zqTXuPRjpV4cOenaxuix11j
+	+G8TN72pH7RysDdKkHpaZ8FgKBorHwXF+DMOLMljOakzBpmMeitZ/Bg5UvM2aqRJHH04Gcqhnp1
+	JnOrOOViPQvAYCxqYgToCmAY4Ph3547rfZ2RpDT1f604wNZiocft2qaqi9dn9I8VXm4nZjhS+Jq
+	U8wpVL+UBkMHDdd3uRWNqfFC80q7EKtVgDuX5AacVFXy1x89yJDzegOUgk143QwtJ4IuJyhFdCH
+	I4kTrzescXigDanVEwMh+rzh1f1Cue2TZJbfu4vDAncl4gsm+FUTI4FystiShwDj4WV9iG64Xpm
+	QivWrJ9gXillazE=
+X-Received: by 2002:a17:90b:39a4:b0:3ac:b764:8521 with SMTP id 98e67ed59e1d1-3acbb9255ccmr1718768a91.38.1792123274359;
+        Thu, 15 Oct 2026 21:01:14 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc4872861sm2304450a91.7.2026.10.15.21.01.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 21:00:20 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: David Howells <dhowells@redhat.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>,
-	"Jason A . Donenfeld" <Jason@zx2c4.com>,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
+        Thu, 15 Oct 2026 21:01:13 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	povik+lin@cutebit.org,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Andrei Simion <andrei.simion@microchip.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Kees Cook <kees@kernel.org>,
+	Syed Saba Kareem <syed.sabakareem@amd.com>,
+	wangdicheng <wangdicheng@kylinos.cn>,
+	Chris Bainbridge <chris.bainbridge@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Neo Chang <YLCHANG2@nuvoton.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	u.kleine-koenig@baylibre.com,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Hemanth Selam <hemanth.selam@gmail.com>,
+	Md Shofiqul Islam <shofiqtest@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Zain Aboobacker <zainaboobacker33@gmail.com>,
+	Sang-Heon Jeon <ekffu200098@gmail.com>,
+	Bo Shen <voice.shen@atmel.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	linux-sound@vger.kernel.org,
+	asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	patches@opensource.cirrus.com,
+	linuxppc-dev@lists.ozlabs.org,
+	imx@lists.linux.dev,
+	linux-rockchip@lists.infradead.org,
+	linux-renesas-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] keys: big_key: Reserve the final quota before destroying the payload
-Date: Fri, 16 Oct 2026 13:00:04 +0900
-Message-ID: <20261016040004.324286-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH v2 25/25] ASoC: rockchip: rockchip_max98090: Mark the link as started on success
+Date: Fri, 16 Oct 2026 11:00:48 +0700
+Message-ID: <20261016040048.506531-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015014324.5569-1-phucduc.bui@gmail.com>
+References: <20261015014324.5569-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,61 +134,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A big_key is charged a fixed 16 bytes of key quota, regardless of the
-actual payload size.  big_key_update() currently reserves the actual new
-payload length before destroying the old payload, while the subsequent
-generic_key_instantiate() reserves the fixed quota length.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-For an update to a payload shorter than 16 bytes, the first reservation
-temporarily returns quota.  Another key operation by the same user can
-consume that quota before generic_key_instantiate() tries to reserve it
-again.  If that second reservation fails, the key remains instantiated but
-its old big_key payload has already been destroyed.  Reading a
-buffer-backed key or revoking a shmem-backed key then dereferences a NULL
-payload pointer.
+snd_pcm_hw_constraint_minmax() may return 1, which is then returned
+from rk_aif1_startup(). ASoC only marks the DAI link as started
+when .startup() returns 0.
 
-On a KASAN build, reading a buffer-backed key reports:
+This currently has no functional impact, as there is no .shutdown()
+callback in the relevant snd_soc_ops. Still, return 0 explicitly on
+success to match what ASoC expects and ensure the DAI link is correctly
+marked as started.
 
-  BUG: KASAN: null-ptr-deref in big_key_read+0x110/0x310
-  Read of size 64 at addr 0000000000000000
-  ...
-  big_key_read+0x110/0x310
-  keyctl_read_key+0x2da/0x550
-
-Revoking a shmem-backed key reports, with oops=panic:
-
-  Oops: general protection fault
-  KASAN: null-ptr-deref in range [0x68-0x6f]
-  RIP: vfs_truncate+0xa2/0x730
-  big_key_revoke+0xbd/0xe0
-  key_revoke+0xc0/0x1a0
-  Kernel panic - not syncing: Fatal exception
-
-Reserve the final fixed quota length before destroying the old payload.
-The reservation in generic_key_instantiate() then has no quota delta and
-cannot fail for this reason after the destructive step.
-
-Fixes: b6f61c314649 ("keys: Implement update for the big_key type")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- security/keys/big_key.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/rockchip/rockchip_max98090.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/security/keys/big_key.c b/security/keys/big_key.c
-index 268f702df380e..6aff1a73c7b38 100644
---- a/security/keys/big_key.c
-+++ b/security/keys/big_key.c
-@@ -195,7 +195,7 @@ int big_key_update(struct key *key, struct key_preparsed_payload *prep)
+diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
+index 426506a8e18e..de392b420ebd 100644
+--- a/sound/soc/rockchip/rockchip_max98090.c
++++ b/sound/soc/rockchip/rockchip_max98090.c
+@@ -191,12 +191,23 @@ static int rk_aif1_hw_params(struct snd_pcm_substream *substream,
+ 
+ static int rk_aif1_startup(struct snd_pcm_substream *substream)
  {
- 	int ret;
++	int ret;
+ 	/*
+ 	 * Set period size to 240 because pl330 has issue
+ 	 * dealing with larger period in stress testing.
+ 	 */
+-	return snd_pcm_hw_constraint_minmax(substream->runtime,
+-			SNDRV_PCM_HW_PARAM_PERIOD_SIZE, 240, 240);
++	ret = snd_pcm_hw_constraint_minmax(substream->runtime,
++					   SNDRV_PCM_HW_PARAM_PERIOD_SIZE,
++					   240, 240);
++	if (ret < 0)
++		return ret;
++
++	/*
++	 * ASoC only marks the DAI link as started when .startup() returns 0.
++	 * Since snd_pcm_hw_constraint_minmax() may return 1, explicitly
++	 * return 0 to ensure the DAI link is correctly marked as started.
++	 */
++	return 0;
+ }
  
--	ret = key_payload_reserve(key, prep->datalen);
-+	ret = key_payload_reserve(key, prep->quotalen);
- 	if (ret < 0)
- 		return ret;
- 
+ static const struct snd_soc_ops rk_aif1_ops = {
 -- 
-2.55.0
+2.43.0
 
