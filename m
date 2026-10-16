@@ -1,146 +1,248 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9373459ACB
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:57:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C7F43B6CB;
+	Fri, 16 Oct 2026 08:57:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141049; cv=none; b=sJsTYr1UvoV9TE2DK9ALmUrIt5s/NOgkNkCnR0vxgoeUF+LZ3Up493ZUqTmiSKdG8vhzUE6iqtJFl7Imn9d6lRyYHYHdGIf+4NGf4Qo55PMQVvlyHojhgUrbVGh5RT4K981DLEIQTrN/Dbvxbkrx6daqSwyawIwd6dtxJJbBeLk=
+	t=1792141065; cv=none; b=ldy5Fzu6BmtcVHjsO9TOJZL8ootpoXUAUdqY89uhc2h0ekyPTcmsWIFK6xuSiQxl8FalEXnLLqWiIqgQ+nNE0WJwFBjMLYq647KZ2qVrRNWVRZAhvyOJOJrS5MDS4kGcmTzzR+MyMjM3c9dm69new19mA7s/VKrSi6pttBUHocU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141049; c=relaxed/simple;
-	bh=voVWteIAMcvsWoD6mSPSofIc9qX+e1A01al1D32H/J0=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=S8wAu1dnuIZQwrWJmIJCrbuG7VpanFsGaxM87BN1s+AgeCwr0bApjbCYyKPNAKcnbN98vjjzvn50AftQBHIqZqu5IKkrYCLByi+cbDMB1XUF3hZOB+jrgjieVnYIVw/7JhtHB2kAQKcpE7B3RF8T8b5tzqo+KVgOJAlyxminlCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bzUbN9Wa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792141065; c=relaxed/simple;
+	bh=EJiO2CazLnMRA5FW49tacdv8iguOTRATJo3OUbHAW5I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=E8/ocF36FDwbhvPtLUBCnDK9zB3YZ8agynRXaR2IZ2cDiYpkWTc/bhHCO8JptgcFDshHPuPGwkFSHWkkyk/QNWfBhzX0TbCeDKEi7cV3WcO/5weiG2CGXHp8RoCofVn1SvDmlIIDZnnKGWbBAjLmoFLvG2n5YQNsduQIrkE6vNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CXa13UQS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bzUbN9Wa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65CE41F000CA
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:57:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CXa13UQS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35D7A1F000C7;
+	Fri, 16 Oct 2026 08:57:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792141047;
-	bh=3Rbs8zVcRHXRrELHto1MGOKdswB/81BGLddudHF8cN4=;
-	h=From:Date:Subject:To:Cc;
-	b=bzUbN9WaULpsj5q2WiIFX0YbeSEtxF76GBymNckoMfC38CODR3KOg5Aag8a6UYL7j
-	 5Oo+TopBEQFe86wuqp3/vSSWv7p/URmxkh/5aebAF+dlZBAs80ADKx9LG9oAXRLgNo
-	 8qRqrN7S15oqovOSZEB4QmU4pIYa/wVAQ/GprfYZPUFWRyV//vB4TFfpcJLQ1bgmfb
-	 R9UOpJtmTn2bUoUx9E+K6ZaO2VWEpeQG8OfYChLmL8NQkMJZsb32b0hbzEBRvHhzLQ
-	 745RymeD52E0hPBbLEZRUYduzb7rvnJfRoSxIP0q7cGhPSVbsBDYhkO8P2A7rYbE8z
-	 jlaqLUgK7zQVg==
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5be42ae8eadso835985e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:57:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxheBABWq/0FeAq4LQVjFAUsjY20HVin8CxPcUtH6tAGT3fkWE9ynI8lINrYIhUweGU22es6bDu34PRNjI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJexle+q1osB1KRQ1LiNM+I3FuWyWzbjYludUgcARXl9cE1Z+lR
-	PV+sUuOkZoixwiOdvCP1U0wy1bi+qlbXLSYA5r6+lFVSCVnNzs1guofGEOjdr1RbKDRTJSXyc5u
-	UtY0GItWZlJOzn00c9FoB6luqyN6aLlk=
-X-Received: by 2002:a05:6512:3b83:b0:5be:428e:2be7 with SMTP id
- 2adb3069b0e04-5be428e2c87mr1589216e87.11.1792141046106; Fri, 16 Oct 2026
- 01:57:26 -0700 (PDT)
+	s=k20260515; t=1792141060;
+	bh=aej8WaS0LNe5yTn1v0c4I4d5bR9AGZ4UhcXScLARNJI=;
+	h=From:To:Cc:Subject:Date;
+	b=CXa13UQStidtU8onQdyD3oodWfVDjbX856Xos2ITCz4avEPobh81jJN9HdAkKLnxt
+	 Y9+/4Fj6NYdfY8UQxQSKEUh22TcBcheG7YEAwa2G0py0QAGYKTTVPyN5nfW3ckcUVM
+	 TNzMpSgELG1yIiUtneBEt8Esnq12osXpMITlqRy/HduDlGea4okOEQ7eWoxNaPakKV
+	 XNzz5O3aqj/B+6gEmeDAdpFX62wYkM2WoeGIvST8T8Bf1WFQLy45yAx1M69pTkFy5N
+	 c2FZCyARH8BWO1FmYPI6hdArjiH90QrnJUeBfUnkUDvaNjvj9bAlW0oRKIpAnPeXcO
+	 G5nl1FOKENAeA==
+From: Philipp Stanner <phasta@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	John.harrison@igalia.com,
+	da.gomez@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org
+Subject: [RFC PATCH v6 0/5] rust: Add drm::JobQueue
+Date: Fri, 16 Oct 2026 10:57:19 +0200
+Message-ID: <20261016085724.1031766-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 16 Oct 2026 10:57:13 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=ZDuXfj8GCCapkF3vxo55pzuEcU_98GkbALDpCcRdGSQ@mail.gmail.com>
-X-Gm-Features: AclHuK-Lp0xhea3l8g1Ub5v6bM83ymjT8wfav2HZ4-MRr0Df3GxU50r4xPVAH6U
-Message-ID: <CAD++jL=ZDuXfj8GCCapkF3vxo55pzuEcU_98GkbALDpCcRdGSQ@mail.gmail.com>
-Subject: [GIT PULL] pin control fixes for v7.3
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linux pin control <linux-gpio@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Linus,
+Changes in v6:
+  - Rework DmaFence so you can signal fences without dropping them
+    (since we'd have to drop in atomic context otherwise)
+  - Use synchronize_rcu() for fence dropping for now – with a fast path
+    optimization! – instead of call_rcu() because the latter can run in
+    atomic context.
+  - Add DropWorker for JobQueue which drops jobs and their fences in
+    process context.
+  - Rework locking design: All JQ API functions can be invoked without
+    any driver locks. run_job() is not executed with the JQ lock held,
+    thus the driver can sleep.
+  - Add a seqno based approach to catch potential races with the
+    unlocked call to run_job().
+  - Redesign JobQueue::complete_jobs_up_to_seqno() so that by default
+    jobs are completed with status == Ok(()). This is done because it
+    makes the race-catcher above easier to implement (otherwise we'd
+    have to carry the last error around, and if we ever implement batch
+    submissions we'd need a list of errors).
+  - Since our design assumption is that users will always close their
+    ring and drop their JQ if anything goes wrong on the ring, just
+    provide one function that signals with an error on teardown:
+    JobQueue::teardown().
+  - Move the work items out of the locked JobQueueInner, since the work
+    queue lock already synchronizes everything. The
+    Revocable<JobQueueInner> needs to stay, however, so that the
+    SubmitWorker can be safely cancelled on JQ::drop().
+  - Fix various logical bugs that I found (code is unfortunately still
+    untested).
+  - Extend documentation significantly.
+  - Formatting.
 
-some late fixes for the v7.3 kernel.
+Changes in v5:
+  - Add back the Revocable<JobQueueInner…> from my earliest RFCs. Reason
+    is still the same: JQ dropping while dependency fences signal could
+    deadlock. Similarly, this solves a dependency kicking of the work
+    item again while drop() is running.
+  - Do not call run_job() with a lock held, since run_job() might sleep.
+    AFAICS, this also makes the proposed XArray solution impossible and
+    demands that we use a list.
+  - Re-add the earlier credit-count-system, so that run_job() is
+    infallible. Simplifies the design quite a bit. (Danilo)
+  - Drop jobs in a deferred manner through the work item so that job
+    payload data can do atomic-hostile stuff.
+  - Because of the point above, I suggest that we stop dropping a
+    DriverFence on signal (Danilo's and my idea). It has no real
+    advantage, and getting rid of it allows for better controlling what
+    drops when through JobQueue. For fence it's only relevant that there
+    is an RCU grace period, thus:
+  - Replace DriverFence::drop()'s call_rcu() with synchronize_rcu(). We
+    would, therefore, demand that everyone who's got a problem with the
+    delay drops via work item.
 
-This should have been sent earlier but I have too much to do.
+This can still not be tested as I'm blocked by pin-init vs self-ref.
+Just FYI.
 
-The AMD fix is really important for users of AMD equipment I think,
-the Qualcomm fixes are many because they have a large team and
-support many differentiated SoCs.
+I would appreciate confirmation of these following thoughts on locking
+design:
 
-Please pull it in!
+1.
+I believe that callers of jq.new_job() and jq.submit_job() do not need
+an outer serialization mutex. Reason is that JQ serializes with its
+internal lock. Sequence numbers cannot take over older seqnos because it
+is submit_job() who sets the seqno.
 
-Yours,
-Linus Walleij
+2.
+I, furthermore, believe that a driver will not need to hold a
+driver-lock while calling jq.complete_jobs_up_to_seqno().
+
+IOW, I am suggesting that a driver can always safely use JQ without an
+outer lock, and actually *should* do so to avoid potential locking
+issues.
+
+Reason:
+
+let driver_stuff = foo.lock();
+let current_gpu_seqno = driver_stuff.get_seqno();
+drop(driver_stuff);
+jq.complete_jobs_up_to_seqno(current_gpu_seqno);
+
+Thus, I believe that it is OK for me to take the JQ lock in
+jq.complete_jobs_up_to_seqno().
+
+Please correct me if I'm missing something.
+
+Should I be wrong and a lock inversion could occur, then we could
+hypothetically add a fence Signaler object, with which we could signal
+fences with a different lock. Similar to how drm_sched does it with the
+hardware_fence.
 
 
-The following changes since commit 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e:
+Regards
+P.
 
-  Linux 7.3-rc5 (2026-09-27 13:55:01 -0700)
 
-are available in the Git repository at:
+====
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-pinctrl.git
-tags/pinctrl-v7.3-3
+Cover letter from v4:
 
-for you to fetch changes up to c5895eadf287116434b7b01d67b92e8146f7ff61:
+As the commit messages and code comments detail, progressing JobQueue is
+currently somewhat blocked because of an issue with self-referential
+PinInit, which Gary generously offered to investigate.
 
-  pinctrl: sunxi: dt: do not accumulate npins across probe attempts
-(2026-10-12 11:30:12 +0200)
+This code compiles, but the example does not because of the
+aformentioned issue. Nevertheless, I wanted to provide another RFC here
+so that we can move our discussions forward in the meantime, especially
+since very much about JobQueue has changed.
 
-----------------------------------------------------------------
-Pin control fixes for v7.3:
+Our, now upstreamed, DmaFence abstractions informed some of the notable
+changes in JobQueue. Most notably, JobQueue now owns the FenceContext,
+Jobs are created on the queue and own the DriverFence. Jobs, again, are
+owned by the JobQueue. We hope to enforce correct behavior that way,
+having FenceContext, JobQueue and firmware ring all correspond with each
+other 1:1:1.
 
-- AMD: Clear S4 wake bits when firmware has _AEI, this is
-  important for some AMD systems.
+I suspect that a potential deadlock on JQ drop still exists. I
+previously solved that with Revocable, which I tend to think will also
+be the way to go here.
 
-- Do not accumulate sunxi npins across probe() attempts with
-  deferred probe. (desc->npins just went ++ and ++...)
+(One very great news btw is that we almost magically solved a number of
+issues with the new DmaFence design – in combination with this JobQueue
+design, for the first time it would be possible to fully support the
+dma_fence backend_ops. The driver-unload-problem previously had most
+users use intermediate fences, like the drm_sched_fence, which means
+that callbacks, e.g. from userspace, could not be passed through to the
+driver. Now, with FenceContextOps <-> JobQueueOps, we can theoretically
+support all of them)
 
-- Qualcomm patch galore: split QUP functions on the Nord pin
-  controller, fix an OF module alias on IPQ5210 so the module
-  modprobes, fix two groups on the IPQ5018, make direction
-  changes exclusive on the SPMI-GPIO, and fix the interrupt
-  target width on four different SoCs.
+The differences between this draft and Daniel / Tyr's prototype which
+probably are most noteworthy are the different lock design
+("Philipp"-JobQueue has one big lock, wheres Tyr-JobQueue has 2, 3 if
+you count the XArray lock) and the used data structure.
 
-----------------------------------------------------------------
-Adriel Santos (1):
-      pinctrl: qcom: ipq5018: replace gcc_plltest with pwm2 on gpio12
+The presented solution uses lists over XArray because:
+  1. XArray is semantically more complex and has an additional lock.
+  2. An Xarray-as-ringbuffer needs own algorithms for index tracking,
+     wrapp around etc. With list you enqueue into a waiting list, and
+     for running you move into the running_list.
+  3. The memory reservations we need for pre-allocating everything for
+     our job-submission path are solved in one go with list, because a
+     job simply contains a list head.
+  4. Most notably, it is unclear how XArray behaves for ever-increasing
+     indices with a sliding window, whereas the list semantic is well
+     understood and deterministic.
 
-Bartosz Golaszewski (1):
-      Merge tag 'v7.3-rc5' of
-git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux into
-pinctrl-qcom/for-current
+I obviously don't claim to own all the wisdom in that regard; it's just
+that I still propose this solution because these arguments make me
+believe that it is the right one.
 
-George Moussalem (1):
-      pinctrl: qcom: ipq5018: update PWM groups and corresponding pin functions
+Since all the list handling is done with iterators, there is currently
+no unsafe needed.
 
-Gilberto Conde (1):
-      pinctrl: qcom: ipq5018: add missing pwm3 function on gpio13
 
-Konrad Dybcio (3):
-      pinctrl: qcom: hawi: Fix intr_target_width
-      pinctrl: qcom: maili: Fix intr_target_width
-      pinctrl: qcom: qcs8300: Fix intr_target_width
+I hope we can discuss many things here before we, hopefully soon, can
+address the lifetime issue and move to a v1.
 
-Linus Walleij (1):
-      Merge tag 'pinctrl-qcom-fixes-for-v7.3-rc7' of
-git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux into fixes
 
-Mario Limonciello (1):
-      pinctrl: amd: Clear S4 wake bits when firmware has _AEI
+This is based on drm-rust-next (10a6623a24a8), plus Danilo's ScopedWork
+[1] and my patches [2][3] regarding 'static and lock errors.
 
-Pablo Mazzini (1):
-      pinctrl: sunxi: dt: do not accumulate npins across probe attempts
+Regards,
+Philipp
 
-Shawn Guo (2):
-      pinctrl: qcom: nord: Split QUP1 SE2/SE3 into lane-pair functions
-      pinctrl: qcom: spmi-gpio: make direction changes exclusive
+[1] https://lore.kernel.org/rust-for-linux/20260807165252.3849875-1-dakr@kernel.org/
+[2] https://lore.kernel.org/rust-for-linux/20260922083631.444614-2-phasta@kernel.org/
+[3] https://lore.kernel.org/rust-for-linux/20260924085523.2620704-2-phasta@kernel.org/
 
-Zhangfei Gao (1):
-      pinctrl: qcom: nord: fix GPIO interrupt target width
+Philipp Stanner (5):
+  rust: DmaFence: remove static lifetime
+  rust: DmaFence: Implement Deref for FenceContext
+  rust: DmaFence: Don't drop on signal
+  rust: DmaFence: Replace call_rcu() with synchronize_rcu()
+  rust: drm: Add JobQueue
 
-hpp.iscas (1):
-      pinctrl: qcom: ipq5210: Publish the OF module alias
+ rust/kernel/dma_buf/dma_fence.rs |  88 ++--
+ rust/kernel/drm/job_queue.rs     | 700 +++++++++++++++++++++++++++++++
+ rust/kernel/drm/mod.rs           |   4 +
+ 3 files changed, 731 insertions(+), 61 deletions(-)
+ create mode 100644 rust/kernel/drm/job_queue.rs
 
- drivers/pinctrl/pinctrl-amd.c            |  9 ++++++++
- drivers/pinctrl/qcom/pinctrl-hawi.c      |  1 +
- drivers/pinctrl/qcom/pinctrl-ipq5018.c   | 20 ++++++++---------
- drivers/pinctrl/qcom/pinctrl-maili.c     |  1 +
- drivers/pinctrl/qcom/pinctrl-nord.c      |  1 +
- drivers/pinctrl/qcom/pinctrl-qcs8300.c   |  1 +
- drivers/pinctrl/qcom/pinctrl-spmi-gpio.c | 37 +++++++++++++++++++++++++-------
- drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c |  1 +
- 8 files changed, 53 insertions(+), 18 deletions(-)
+-- 
+2.55.0
+
