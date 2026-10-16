@@ -1,172 +1,236 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44D953148D2
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:15:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7994372B3C;
+	Fri, 16 Oct 2026 12:16:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792152948; cv=none; b=tnmRaso6UzcLO97HGPSFi6NvQQhUg3du+2YSoEbXUKrIRCO9t1tgYhqGSGDkAoYcv9MXQ0tLD1x247kwdJyy3UIAQmHsYpGXL6DMSwhtLD3vX29UbgU8qlu9GRKPGxNacjPDrMXhvOkp5MjKNcMB5s6Zc9J9JAaYG4zrKL363Ac=
+	t=1792152980; cv=none; b=BKUWtwQ8C/JNvzJ5R8/6HbjwtqKmtEXnL9Dxs4d4u9mu+OkpFp1HbcRbmu9B8EjdTI+91hYTIGDuZ/ZnZrfB8RWGNqF+ji5EyCdL0c9yHKhVo5LXLjB3Z5Q+qCq0LF3M5dnsNGDM6Iy+lBkADc5CfxosTE04lBMCf99zmERLAd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792152948; c=relaxed/simple;
-	bh=vGIIm/l6PqOQD0D80ys+x+Zadlrmm1Ea6QCypojg+4U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XoRDeJH9gxKZGN1lb5Id+mnzNipRPoUhPWrrPgGChygnR44D9sGHqJiA5bUfQgB2vjNbl6/78fZnYXZrpeabxWCtq7sayM9OCkJxggGByK/QhnVmWobldDxAYQgSWXZ62cHFWoFj6GYXU1Njh3ofP1zbUem/VBVo935pnHyW0UQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QPC7kml2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=H4Tl+dbw; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792152980; c=relaxed/simple;
+	bh=TZAZEdFgh6ZrIGE/ZagpHGTrCcQOqwFNn+LakPr479E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=S5Y6tBTNCOj6BnDdLtbm6gW18Vr8Sywg2t+ZHgXtnoYsWGZTLzbwQhLR62d3RlRG9f/56WNSTQ/Q85UrilDebHf4lfYdSna2llFNIVoEXX6s+fIC98dk9Q+m2tCQCU/rws/f4SlYH4V757iSifWPd9RivRjMXj3NWzMdeGHfbO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=TqLQ666W; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QPC7kml2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="H4Tl+dbw"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAA3CZ942684
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:15:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	TNpPPGyxn1DpxOGZA92s1GsOApCTBihQPd/vIfBU21Y=; b=QPC7kml2saoVqKmV
-	7Hta0d32FzRYQBZ7KkFvmpC4fZttSih7o6JyzQYiIKAyP+1olonh19kFobNca8dk
-	yjk21OEedNeh6xxkRGhIj+NeAuKhKjFf7QMHpBqwQS2eAs/dMlaCoRvKZ7KyPOo9
-	mikxxoTFLZjAupBQ57ygWhW7B8MNh2b1ZOAqTtI1It0zIFOebeEkr8beXA+qtJg3
-	1gMyeDL+3/bWLKKlIj60B7bwcjqgLVLl1FvNUETmsnV6g0xmmS/0DCb+nq6+A7Bc
-	2EI5YudfVhSSj1ygQ0PYUarUvyhgi/JBgMQQjI7A/jEbAhG9zuF+1DPEgiXXL9ai
-	5AZpfw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbhur0dyb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:15:45 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93edac58b24so95904485a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:15:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792152944; x=1792757744; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TNpPPGyxn1DpxOGZA92s1GsOApCTBihQPd/vIfBU21Y=;
-        b=H4Tl+dbwluvoIQbWQ63yHGGy0WCwbHfuc1Pjnmnyi6mNgSVb4KhmTPgiMWmvkxb+4J
-         8ScHCEWPSuQomYf8TyY37/popycq4RJ4qlUlRNv9pw8U8E0IfibN0PY5K7soEqM4Zhxh
-         K72Nai6K+TtyYk6lsUSyWYxxQ2lh4czlK1p9BSO9s2bgn1qbiY3uHGsEZ/G+wCBFsLSM
-         wOWdhN7mHuU/EF4PhsYEVilTtp19fRxtgXxmRU83H3UzRC6ShelNNUl4ZqDriz9JY6W/
-         BAcES7CIWIF6pcySTsPKxm6+RbGmJ6Kmt0KxIe0beaG8Zd8hmNcvs7K2kKVjCXtI+2Em
-         IPRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792152944; x=1792757744;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TNpPPGyxn1DpxOGZA92s1GsOApCTBihQPd/vIfBU21Y=;
-        b=ONECjotTOfztYHvzQb+Aylw6bn68gsc0rQka6d4SgiatMtTeP28M74/aUSI2F699Fz
-         l+9uM7bGm24Dhn3Ou2d8VHedw/DUFQ6Uer7Ttd1g4xXzbYHdImpQWrO6+Y0WFAW1cQ1V
-         5nggUc91PfIvfCkOpxirn8eLhKFJClYYxLlvJK4vdw5lFdXFLtaqwCvFRlU1VLCj3VpF
-         zbJEvBKIerM3FmNbYOfPpv47x6+jxqs6nEsDiwS1NggyK5Cm2xJ8mNzjbu6Xn1CZT1MH
-         ao/IinO7/ph6BsmGB7+NatPcOKINGApkZSMYpyRCOXqxW8wH0y2cPPyyH7On+AcuaeLp
-         WcmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwIX97sSHBJFSOUprG6nhmfJnZmihivzHkgYUUtKq9E/yzLp8fEZw1mMMgUUm1QEkLyY8DCWJoZHCbCQk0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK+8XuaxettD3lryfQBKT6ax+1M+K8CbWMcLrm5uAbL+bPYaVUq
-	8sG8QzLICQ5kLgL9Yi6mXOn5clYXBhdJKjWwQOfoO89Mkvn0nVAg4Eu4qWBlEtnHdprjXpy8uff
-	QC9fKH4yQZBUZzX+tha9PMf19CfXlfcMybv35rTzg1PfBVL1FzTaIj52yprhtPt4gmJQ=
-X-Gm-Gg: AYBFou1cTr5EGHVWfjz/phqBrAXV19CofoSMDYbfY8Mp5k13h2dQy5ScSqQOSJx/bAy
-	qRglOi9DL3Gl4CHXCXzJaaNpSPt+v9bd0mlPX8skaOCIaobxh3ats8M5tlTvzSMeRyE+f6f4e7C
-	+IWuPnFuntaIqtFtB7Elh5CZODnT/5FIxZa0m5AVZkC6NMAD9IBYH/aIo+SX0F59h6iO/njXFB1
-	6hg8jOnMA8Xbi1+BPQUFA1rFiJo9VB6C4J39BWcwn8obsC1FT/CBFGwO5eUFWX0OqtDgod9hyGn
-	YaYa2YG8oi6BObolLyrwVc1VxDCYC9yc3jMtOZ38EqOEwQeimfy2UVBSytxQj66ys8OY+759nW8
-	Ed8CFJ2ftKOq3Fd0d295M6Q==
-X-Received: by 2002:a05:620a:8084:b0:93e:571e:94f0 with SMTP id af79cd13be357-93ebd1eabeamr4089554685a.3.1792152944310;
-        Fri, 16 Oct 2026 05:15:44 -0700 (PDT)
-X-Received: by 2002:a05:620a:8084:b0:93e:571e:94f0 with SMTP id af79cd13be357-93ebd1eabeamr4089541885a.3.1792152943447;
-        Fri, 16 Oct 2026 05:15:43 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1c633asm834421a12.16.2026.10.16.05.15.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 05:15:42 -0700 (PDT)
-Message-ID: <929e67f4-8006-4978-b14d-507161e7e6d3@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 14:15:40 +0200
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="TqLQ666W"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=ojjYtQh43bC+vi04ki8U6V/KKjiHj8BalpRCWljStRA=; b=TqLQ666WDqV6RUZk6NR3JQVIMB
+	UdPqLqaQASkk+l9mOiFruRm1XgkrHgdxqKrLAJYNh8BfzfsWlEThrehslrsoupb3EXFUGwWFrWAd5
+	2J9KSzBpiZs1o+WxwPv2CHf/b9FFskwTGiuWR0P+4PSDLwdZi+bxukuG3EYekD6bhMwQeNtfp8iGz
+	2o+IIOIAQOM2LZolMMjzEQ661AW4yf/jPtmKAqddXaLIRIh02Xst4Du7pTrNyLfYvWb9M8mPY2RY9
+	02o9+f+bEfG1LYwKIeHcd9nkqKoCIcdGFXgFiaPqkAYJtM+MPUjxhfqqmmAuXrfn8JQcCukHrCg+F
+	HZK98GSA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xHgqy-005xSg-2j;
+	Fri, 16 Oct 2026 12:16:05 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Fri, 16 Oct 2026 05:15:41 -0700
+Subject: [PATCH v6 1/7] mm/memory-failure: efi: add the
+ LINUX_EFI_POISONED_MEMORY configuration table
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: monaco-evk: Add suspend-only power
- collapse state
-To: Maulik Shah <maulik.shah@oss.qualcomm.com>, Rob Herring
- <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
- <20261005-s2idle_state-v1-3-3c402c66f388@oss.qualcomm.com>
- <0afbd549-3e9c-4b06-928d-34b2912754be@oss.qualcomm.com>
- <406a393d-56ec-4143-bdea-2d46c5a4d1bb@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <406a393d-56ec-4143-bdea-2d46c5a4d1bb@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA0OCBTYWx0ZWRfX/E+CUbFi6Du0
- lka9i+Fk4fFXVvPp4BUKn1fHiSEr/EpV+QV42iglBt1jesG7tR9nb93GD+5FYadmFFE2/t6cuRQ
- wix0QllVak7OC8Cipk3kniTlW5QhPYRICM7SUKid6EUE9IVzj7NQYmlNAWl4XSbGqhkRPnm4om3
- JtzcVfEj+OFHyaIBZHwW8+guS88lOK7EFS31+ywMguFGAjQRuQeBwng3fImBVmz2/m+m9OplNv+
- /8V7c+ouZY81qEsRoppSAMLTcZ/GtDxmKiLzENYqeuZcyHn94Hmfci+pEKFwjMdddJyF/+89TPo
- pML5Ak7losOSVKfIHX0yEdOaykmDNDoPz+fAlbZCpyCwaCq7vkaZpQTOZlHThYhTLcMav7PAJK0
- MZFlOyVH9Z/erigoy3jW/5BFdEqNV84LXriaWr1USWHfD7f7YAemQfF3BI4IV/BQMQgn+ESI40z
- tqyflUAcRuAK1ScwSJg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA0OCBTYWx0ZWRfX8Yv4fhJr4NnU
- gBJmC1EKMjSAn5B+zQpVp1olzhOE8OrslAjbHArUJlrHeVejHkVU4ptB0a2QPZSVm3mthv/VHN4
- /TjlEQeUKpEdnJLUjNqIKjft1crQjpM=
-X-Authority-Analysis: v=2.4 cv=PqsG/AM3 c=1 sm=1 tr=0 ts=6ad21571 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=c69CFNmdBQlqmWoHYt4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: oQOY405-3SBHB5pzduNHkGo20YHz2AGR
-X-Proofpoint-GUID: oQOY405-3SBHB5pzduNHkGo20YHz2AGR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
- phishscore=0 clxscore=1015 malwarescore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160048
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-hwpoison-kho-v6-1-f304255147da@debian.org>
+References: <20261016-hwpoison-kho-v6-0-f304255147da@debian.org>
+In-Reply-To: <20261016-hwpoison-kho-v6-0-f304255147da@debian.org>
+To: Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Oscar Salvador <osalvador@suse.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, kas@kernel.org, 
+ kexec@lists.infradead.org, Brendan Jackman <brendan.jackman@linux.dev>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+ shakeel.butt@linux.dev
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, rmikey@meta.com, riel@surriel.com, 
+ Breno Leitao <leitao@debian.org>, harry@kernel.org, kernel-team@meta.com
+X-Mailer: b4 0.16-dev-f8e9d
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6024; i=leitao@debian.org;
+ h=from:subject:message-id; bh=TZAZEdFgh6ZrIGE/ZagpHGTrCcQOqwFNn+LakPr479E=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq0hV0jUKXc63ziNZ+4w5tiGa2kxptbOf6tsMC/
+ PqxCb4wd5uJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCatIVdAAKCRA1o5Of/Hh3
+ bUk8D/sE89175sxKV2NWtklw5VOucGRb/VKl+hHa52CSou+cw8zYPs7yE8HYkKD5mjHiBPV+LO7
+ QVfyTJNPpUW56oD6cPPOY6uzXsnERX+Jm+sF1S7JnCqPgrwQPTh1pEUFAn0vXwZ7FuN5UmVQSvE
+ oUpa9QPFwcFgTktFfvcj+Pz0UaAiTynKIaemLFCkcebZcv+EM5+7Q6I2/iV/mTnpaK1WWFUR2GR
+ +e+HRlwsSuWlIAp+ysmgRIZSYtH64a2pxEioBfaW0+ESjsc55WC/vb944OFJGVmODP3LJh10u4C
+ R5YqREIO4SYuB02HBmxINO3edi9gTCeXinhmAzEHwrTaMilkn9+lUTZVOWr4rlQBJY9X2ehGzyr
+ Cd+jM2ZYkfYT9ThXRK/g0C/iZhaUJ8y7NI6W0Wg3JfVn1vll1xly9e7MUwB+UiOMNjT9y6ScCBN
+ UrdYQQ5ORXV07MfLx9l7rIehodFWrTB1gE28SKL82+WrbjsrLwLAmglTKj6lnmbdHRd/lktnCxc
+ YeZ8YdPCRnU0nGipcoC2VlbW8LiXnCir8IOjCHb3ETponoqXu+teQA7fkgYhUz+BCEfTdK5gT63
+ 8DK58p+CIWKIR1qIX8fTfpFsZzaRGhj02OKUkMBz2JR9SlzS9nV97vl1wxcI/AoiLk3KBgEIli9
+ TWAANAHmG6N2F7Q==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On 10/14/26 8:15 AM, Maulik Shah wrote:
-> 
-> 
-> On 13-10-2026 14:38, Konrad Dybcio wrote:
->> On 10/5/26 5:29 PM, Maulik Shah wrote:
->>> To achieve SoC low power mode like chip rail power collapse (CxPC),
->>> the Monaco EVK board with four PMICs requires coordinated power-down of
->>> CPUSS and the Safety Island (SAIL) subsystem. This deepest system power
->>> collapse state is reserved for system-wide suspend (s2idle).
->>>
->>> Add the system_suspend domain idle state, mark it with system-state,
->>> and reference it from the system power domain.
->>>
->>> Assisted-by: Codex:GPT-6
->>> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
->>> ---
->>>  arch/arm64/boot/dts/qcom/monaco-evk.dts | 17 +++++++++++++++++
->>>  1 file changed, 17 insertions(+)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/monaco-evk.dts b/arch/arm64/boot/dts/qcom/monaco-evk.dts
->>> index 539c9c80a808..b2978be6823d 100644
->>> --- a/arch/arm64/boot/dts/qcom/monaco-evk.dts
->>> +++ b/arch/arm64/boot/dts/qcom/monaco-evk.dts
->> Why is this board-specific?
-> The deepest state is only supported on the Monaco EVK board with four PMICs. The monaco-ac-evk.dts is with two PMICs and do not support the power down of SAIL.
+Hardware-poisoned page frames are tracked only in the running kernel's
+data structures, so a kexec loses them and the next kernel doesn't have
+this information, thus, tripping into them again.
 
-Nothing in the commit message explains that.
-In any case, this should not be specific to the EVK, but rather we
-should probably have a monaco-ac.dtsi holding these differences
+Add an EFI configuration table to carry that information across kexec.
 
-Konrad
+It is a bitmap with one bit per EFI_POISON_UNIT_SIZE (2MiB) of physical
+memory starting at phys_base, modeled on the LINUX_EFI_UNACCEPTED_MEMORY
+table, and it rides the EFI system table to every kernel in the chain.
+Basing the bitmap keeps a machine whose RAM starts high from paying for
+the hole below it.
+
+List the table in the x86 efi_tables[] too, so an SME host maps it
+unencrypted like every other EFI table.
+
+The Kconfig symbol has no prompt. There is nothing for a user to decide,
+so it is on wherever it can be, and it only costs 64K per TiB of RAM on
+a kernel that already has the EFI stub and MEMORY_FAILURE. It is
+restricted to 64BIT because the unit arithmetic divides by a runtime
+unit_size, which needs div_u64() on 32-bit. That combination is
+reachable, X86_32 with FLATMEM selects ARCH_SUPPORTS_MEMORY_FAILURE and
+has an EFI stub, so the dependency is what keeps the division out rather
+than a config nobody can build.
+
+The bitmap is an unsigned long array reached with the native bitops, like
+the unaccepted memory table it copies. That is endian dependent, but
+EFI_STUB && 64BIT is little-endian everywhere: arm64 turns EFI off under
+CPU_BIG_ENDIAN, and no other architecture with the stub is big-endian.
+
+Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ arch/x86/platform/efi/efi.c  |  3 +++
+ drivers/firmware/efi/Kconfig |  8 ++++++++
+ drivers/firmware/efi/efi.c   |  6 ++++++
+ include/linux/efi.h          | 14 ++++++++++++++
+ 4 files changed, 31 insertions(+)
+
+diff --git a/arch/x86/platform/efi/efi.c b/arch/x86/platform/efi/efi.c
+index 0c39adb96b912b..2b37b96a36e099 100644
+--- a/arch/x86/platform/efi/efi.c
++++ b/arch/x86/platform/efi/efi.c
+@@ -93,6 +93,9 @@ static const unsigned long * const efi_tables[] = {
+ #ifdef CONFIG_UNACCEPTED_MEMORY
+ 	&efi.unaccepted,
+ #endif
++#ifdef CONFIG_EFI_POISONED_MEMORY
++	&efi.poisoned_memory,
++#endif
+ };
+ 
+ u64 efi_setup;		/* efi setup_data physical address */
+diff --git a/drivers/firmware/efi/Kconfig b/drivers/firmware/efi/Kconfig
+index 29e0729299f5bd..aafcd41bc00630 100644
+--- a/drivers/firmware/efi/Kconfig
++++ b/drivers/firmware/efi/Kconfig
+@@ -263,6 +263,14 @@ config EFI_COCO_SECRET
+ 	  virt/coco/efi_secret module to access the secrets, which in turn
+ 	  allows userspace programs to access the injected secrets.
+ 
++config EFI_POISONED_MEMORY
++	def_bool y
++	depends on EFI_STUB && MEMORY_FAILURE && 64BIT
++	help
++	  Record page frames that are hardware-poisoned while this kernel runs
++	  into an EFI configuration table, and honor that table early on the
++	  next kernel so a kexec does not hand known-bad RAM back out.
++
+ config OVMF_DEBUG_LOG
+ 	bool "Expose OVMF firmware debug log via sysfs"
+ 	depends on EFI
+diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/efi.c
+index 6d987d7f97781f..af1fa443839c4d 100644
+--- a/drivers/firmware/efi/efi.c
++++ b/drivers/firmware/efi/efi.c
+@@ -55,6 +55,9 @@ struct efi __read_mostly efi = {
+ #ifdef CONFIG_UNACCEPTED_MEMORY
+ 	.unaccepted		= EFI_INVALID_TABLE_ADDR,
+ #endif
++#ifdef CONFIG_EFI_POISONED_MEMORY
++	.poisoned_memory	= EFI_INVALID_TABLE_ADDR,
++#endif
+ };
+ EXPORT_SYMBOL(efi);
+ 
+@@ -677,6 +680,9 @@ static const efi_config_table_type_t common_tables[] __initconst = {
+ #ifdef CONFIG_UNACCEPTED_MEMORY
+ 	{LINUX_EFI_UNACCEPTED_MEM_TABLE_GUID,	&efi.unaccepted,	"Unaccepted"	},
+ #endif
++#ifdef CONFIG_EFI_POISONED_MEMORY
++	{LINUX_EFI_POISONED_MEMORY_TABLE_GUID,	&efi.poisoned_memory,	"POISON"	},
++#endif
+ #ifdef CONFIG_EFI_GENERIC_STUB
+ 	{LINUX_EFI_PRIMARY_DISPLAY_TABLE_GUID,	&primary_display_table			},
+ #endif
+diff --git a/include/linux/efi.h b/include/linux/efi.h
+index c35446a0b66fac..efaf63f9a54edd 100644
+--- a/include/linux/efi.h
++++ b/include/linux/efi.h
+@@ -23,6 +23,7 @@
+ #include <linux/pstore.h>
+ #include <linux/range.h>
+ #include <linux/reboot.h>
++#include <linux/sizes.h>
+ #include <linux/uuid.h>
+ 
+ #include <asm/page.h>
+@@ -422,6 +423,7 @@ void efi_native_runtime_setup(void);
+ #define LINUX_EFI_COCO_SECRET_AREA_GUID		EFI_GUID(0xadf956ad, 0xe98c, 0x484c,  0xae, 0x11, 0xb5, 0x1c, 0x7d, 0x33, 0x64, 0x47)
+ #define LINUX_EFI_BOOT_MEMMAP_GUID		EFI_GUID(0x800f683f, 0xd08b, 0x423a,  0xa2, 0x93, 0x96, 0x5c, 0x3c, 0x6f, 0xe2, 0xb4)
+ #define LINUX_EFI_UNACCEPTED_MEM_TABLE_GUID	EFI_GUID(0xd5d1de3c, 0x105c, 0x44f9,  0x9e, 0xa9, 0xbc, 0xef, 0x98, 0x12, 0x00, 0x31)
++#define LINUX_EFI_POISONED_MEMORY_TABLE_GUID	EFI_GUID(0xaf828a15, 0x0ef4, 0x439a,  0xb8, 0x6a, 0xd6, 0xd6, 0x9e, 0xaf, 0xba, 0xfa)
+ 
+ #define RISCV_EFI_BOOT_PROTOCOL_GUID		EFI_GUID(0xccd15fec, 0x6f73, 0x4eec,  0x83, 0x95, 0x3e, 0x69, 0xe4, 0xb9, 0x40, 0xbf)
+ 
+@@ -650,6 +652,7 @@ extern struct efi {
+ 	unsigned long			mokvar_table;		/* MOK variable config table */
+ 	unsigned long			coco_secret;		/* Confidential computing secret table */
+ 	unsigned long			unaccepted;		/* Unaccepted memory table */
++	unsigned long			poisoned_memory;	/* Hardware-poisoned memory table */
+ 
+ 	efi_get_time_t			*get_time;
+ 	efi_set_time_t			*set_time;
+@@ -1272,6 +1275,17 @@ struct linux_efi_memreserve {
+ #define EFI_MEMRESERVE_COUNT(size) (((size) - sizeof(struct linux_efi_memreserve)) \
+ 	/ sizeof_field(struct linux_efi_memreserve, entry[0]))
+ 
++/* Bit N covers the unit at @phys_base + N * @unit_size. */
++struct linux_efi_poisoned_memory {
++	u32		version;
++	u32		unit_size;	/* bytes of phys space per bitmap bit */
++	u64		phys_base;	/* address the first bit covers */
++	u64		size;		/* bitmap size in bytes */
++	unsigned long	bitmap[];
++};
++
++#define EFI_POISON_UNIT_SIZE	SZ_2M
++
+ void __init efi_arch_mem_reserve(phys_addr_t addr, u64 size);
+ 
+ /*
+
+-- 
+2.53.0-Meta
+
