@@ -1,131 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243CC3812D2;
-	Fri, 16 Oct 2026 16:14:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA1D4E1C97
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:14:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792167253; cv=none; b=h6dk6idBH50IWGplW4XPhhDqbifRRrfvI9YqxylefMNvoefDPwiP3anYNp4anRoBAmlaSOpF/Qq8s7mf3HOCEb57/sIew4Mlb1+6vPPts81OkTT8wwJ+JSLyGYEWoETajU3hcxWkNRz6SRjpifpvrJw/vd3Pie8xUii33EEW7So=
+	t=1792167259; cv=none; b=em30fS9yol/ao9WsVXPLmxhZk2mighBc0dP7xTRvnpfplGViFMweI6JaSlJFIXQC069bKg2KKdaUHS5cxsieOXuufbRlouGNLvnqrwYxhi+SvbVl93JWMumVFyFfKDHfQvvChIjQnNg0DaCNSO7ldvHiv5jOgzX4vXsbcdWekNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792167253; c=relaxed/simple;
-	bh=T/M3FgE2S0gHydqo2K66Min/mGnFLCTuCoxxmE69db8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qH/hP66kISiWJRgoWLuWjQfMzuuMUpzBySJMCNl7DHzoHCV6m5IMPvAXz1F/MNpzgRwOricmAEiVoBhWdsz/+6ymVsRj45CCAyWk10CkWw1xxkyGBLaWkURLT9251Ra1TOpRWd8HuFfZVG0HC1pH8RuDVlS172x0//8OXAhVj5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=otWvrSJX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792167259; c=relaxed/simple;
+	bh=EEgSJxUHXytv+88ivCC7IE5/Yv/QjkjdVtmqS56qz3s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZwM2qpWMOiAyXuQn66V80UNpmXMwzocubxMfI+AnoJKIRLndb2y2wXtUBFd9iaeXZ3F9uVf/GMW8Nm9JFOah1wZFsLRlug7dg6g4KALaeFrdnCDoQpGg6ol0XhGGjdT92Fzg6jJdSZMHh6V1p60nE359WRQkZ+LyMhv9APRqB0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ce2iQ+aN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="otWvrSJX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAB081F000C4;
-	Fri, 16 Oct 2026 16:14:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ce2iQ+aN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0625D1F000C9
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:14:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792167250;
-	bh=T/M3FgE2S0gHydqo2K66Min/mGnFLCTuCoxxmE69db8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=otWvrSJXHsurzGaHAbePB5oAHNk2uAGwd9jUZ02mYctQnhDhmb/6YJAXD4d4fmCrm
-	 UWe6tw4FryKYSAjr5rqrvV3DH6z+2TXBQrZtMg+2uUwBTE4I1xw7pQEEcaicRTLd02
-	 AZ1wsLsPQ/BJ5IqWTooQuIZHAiqK0fLGzU6tzE+bDd3fDYb+lhcvu5OVHTtS5u8ncS
-	 Eu04OKEwg1gHlgQ/kp4mo3NFzv0sMqanDyCBKOqedE5GeXchXn7T+OgBbOsFl902Uk
-	 QM8GDIGOZfgn14EtKmFyuxz6KCf1q5tw9tqon36TjpZ64EEF1ClKNjVlPKfgEHb5bG
-	 CQPJBVWXRVnpg==
-Date: Fri, 16 Oct 2026 17:14:02 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sasha Levin <sashal@kernel.org>, 
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com, workflows@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Justin Stitt <justinstitt@google.com>, Carlos Maiolino <cem@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>, 
-	Brian Foster <bfoster@redhat.com>, Christoph Hellwig <hch@infradead.org>, 
-	David Disseldorp <ddiss@suse.de>, Mark Brown <broonie@kernel.org>, 
-	Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: Re: [PATCH] docs: remove Assisted-by references
-Message-ID: <atI_TSQXzAQFWBfx@gremlin>
-References: <20261009083137.3-1-sashal@kernel.org>
- <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
- <asz9AeFe3CutP73z@gremlin>
- <20261013123132.GC4214@killaraus.ideasonboard.com>
- <as4pAEnLd4H68W4W@gremlin>
- <20261013131243.GM56180@killaraus.ideasonboard.com>
- <as4xMnT8a75pIw9v@gremlin>
- <20261013173240.GK4214@killaraus.ideasonboard.com>
+	s=k20260515; t=1792167257;
+	bh=Dn+zQ94Xx5nbXHRqVu2X2ak1EC4Zynh6vHRjEPrbNFM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Ce2iQ+aNWDa3bNAHmS+VFScdYtMvOZUU12Ia3m21vTFFw6XVN/tklXYG1bX4+2X+y
+	 k/63DtKhqTyKvJ8SnUvR5bs+7rWzwPH/j2jfYzPZmSHrW499daGHRt+/ZMYm3LwhLX
+	 TY7cE0YeUZauHk5fbEFqH7s4m7nYKwpAAP0RV3A1qW0W2wDh7wwzbAEEU1cLuxDUm7
+	 oOjM5zPgBSZfGMc3l4PVGhb4xN4+0TGJCPjyb7OGvAffKJVeVfGpZbAodk8yCM0xgm
+	 s4XopY+7vjcZ3PagXHVppWtm5mHfsR718FyeLi6/18ox3d4BUzVJThVQ6IPvy20fwc
+	 TuMUjEowDwiCg==
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c418e215671so12096166b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:14:16 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByl2nERYHTdSc4ikOZmw3eULg8dWswOiGtyvGNI8ZAiFaD05WtWBYHWFonV9M27wfakZIc2d1OK39yltZw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDTofwQJ/HE6hW6KwhOQHaV3S66exrpBWiAF124x3aRTG6b2wq
+	LmPEO5hK+EhoStxZ/W8uRZsZtJTKCtQmRE59jRGErGUvzcIvFT8pj8OfbOZY5CuVpB+yWd7mzUW
+	VPFYp5HScuEk/qI+CWc9yi9ESD73fyQ0=
+X-Received: by 2002:a17:906:9f86:b0:c40:560a:45e with SMTP id
+ a640c23a62f3a-c419f416b79mr22483966b.35.1792167255917; Fri, 16 Oct 2026
+ 09:14:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013173240.GK4214@killaraus.ideasonboard.com>
+References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
+In-Reply-To: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Fri, 16 Oct 2026 09:14:04 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zOHtaeo5jhHkHB8Vtb9+KZXO+DH74v+7Y84W0v=tatRqg@mail.gmail.com>
+X-Gm-Features: AclHuK-wTWiI_HWFi3__wF5R0bm5SgzhJD-59mYqegifCIi_SvzEA4blKihevCg
+Message-ID: <CAO9r8zOHtaeo5jhHkHB8Vtb9+KZXO+DH74v+7Y84W0v=tatRqg@mail.gmail.com>
+Subject: Re: [PATCH v1 0/8] Batched zswap_store() with compression batching
+To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
+	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
+	davem@davemloft.net, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
+	senozhatsky@chromium.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 07:32:40PM +0200, Laurent Pinchart wrote:
-> > Yes there will be collateral damage, but it's that or no more open source (we're
-> > not the only ones going through this!)
+On Thu, Oct 8, 2026 at 11:28=E2=80=AFAM Kanchana P. Sridhar
+<kanchanapsridhar2026@gmail.com> wrote:
 >
-> Think how you will feel the day you will be treated as collateral
-> damage.
-
-I'm already working evenings and weekends to deal with AI slop to the point
-of burnout (finished work at 9pm last night, for instance), so I already
-feel like I'm collateral damage.
-
-And it's utterly thankless work. You get negativity no matter what you do
-with this stuff.
-
-I accept all that, I do it because I care. So you take it on the chin. But
-the AI slop wave has changed everything.
-
-What was already an unsustainable review load has now doubled, or tripled,
-and there's every reason to believe it's only the beginning.
-
-So now maintainership and review is thankless at an unprecedented scale,
-which leads to only one thing - burnout. Possibly even the medical variety,
-where you don't come back for a long while, if ever.
-
-The project simply cannot function like this, it can't. And nothing that
-requires per-submitter effort scales.
-
-There are people sending 500 patches in 2 hours already, for instance.
-
-The only solution that can possibly work is large-scale ignoring, because
-the number of submissions can grow exponentially, and even small
-effort-per-submission is vastly beyond available resource.
-
-The alternative is maintainers quitting en masse and the project dies at that
-point. So it's a choice between two bad options, but one of them is 'linux
-dies'. So the other one seems better.
-
+> v1: Batched zswap_store() with compression batching
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
 >
-> I find this mail thread it taking an almost cynical and violent turn.
-> Are people rejoicing at the prospect of actively discriminating against
-> sincere contributors, or am I misreading it ? The kernel community needs
-> more care.
+> This series is a spin-off of "v14: zswap compression batching with optimi=
+zed
+> iaa_crypto driver" [1], and focuses on the generic crypto_acomp and zswap
+> compression batching enablers. Resuming work on this series following a g=
+ap
+> since v14 (January 2026). Please note that my email address and affiliati=
+on have
+> changed from kanchana.p.sridhar@intel.com to kanchanapsridhar2026@gmail.c=
+om. I
+> have retained the original Intel sign-offs on prior patches for historica=
+l
+> attribution while signing off v1 of this series with my current address.
+>
+> To summarize the main contribution of this patch series: Batching is intr=
+oduced
+> in zswap_store() of large folios: we carve out a large folio into batches=
+ of
+> ZSWAP_MAX_BATCH_SIZE (8 pages) for software compressors, and store each
+> batch. Moving the fundamental operations that need to be happen to store =
+a page
+> to now work at the granularity of a batch offers opportunities to optimiz=
+e them
+> from these perspectives:
+>
+> 1) Utilize existing kernel API that minimize obtaining locks for bulk
+>    operations, e.g. kmem_cache_alloc_bulk()/kmem_cache_free_bulk().
+>
+> 2) We keep the working set for each of the core store functionalities (al=
+loc
+>    entries, compress pages, store pages in zsmalloc) to be focused on a
+>    batch, thereby minimizing cache evictions and benefiting from cache
+>    locality.
+>
+> 3) Along the lines of (1), the main zswap_compress() batching routine obt=
+ains
+>    the acomp_ctx mutex lock once per batch, and releases it after it has
+>    processed all pages in that batch.
+>
+> 4) Any zswap store functionality that works on a batch can potentially be
+>    parallelized as a next step, to further improve performance.
+>
+> Performance data: usemem with 60% over-commit:
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> Validation was done with mm-unstable as of 10-3-2026 (Baseline) and with =
+this
+> patch series.
+>
+> Testing was done on a Chromebook with a QEMU "vng" VM running in Crostini=
+.
+>
+> Chromebook Diagnostics reports:
+>   Intel(R) Core(TM) Ultra 5 115U (10 CPUs, 4.200GHz)
+>   RAM: 16GB
+>
+> vng setup:
+>          Memory: 7G
+>            Swap: 3G
+>     Pinned CPUs: 4 (E-Cores: 4,5,6,7)
+>
+> zswap compressor:
+>   ZSTD
+>
+> mTHP enabled:
+>   64kB
+>
+> vm-scalability/usemem setup:
+>
+>   cgroup memory.high: 3G
+>   4 usemem processes, each allocates 1200M anonymous memory, reads the
+>   Silesia dataset [2] from a pre-fork-allocated buffer into the 1200M,
+>   writes to each unsigned long in the 1200M, sleeps for 10 sec, then
+>   frees the memory and exits.
+>
+>     usemem --read-silesia -w -O -b 1 -s 10 -n 4 1200M
 
-You're misreading it.
-
-I feel _terrible_ for newcomers. Really. It hurts me that this situation
-exists.
-
-I came up as a hobbyist from nowhere. I wrote a book thinking nobody would
-care, part-time, while doing a busy non-kernel job.
-
-And the kernel being what it is let me get where I am, for which I'm
-eternally grateful.
-
-I want to encourage talented newcomers. They are rare, and are the future
-of the kernel.
-
-I explicitly spent time at LPC encouraging newer people, in person, for
-instance. I have (often behind the scenes) encouraged young, talented
-developers. So in general, I've _actively_ worked on this.
-
-And new people sending small, sensible, non-slopped patches/series will
-still most likely get their stuff merged in mm.
-
-So it's very far from the case of 'oh wow now I can just ignore everybody'.
-
---
-Cheers, Lorenzo
+What is --read-silesia? Is this a local change you made to usemem?
