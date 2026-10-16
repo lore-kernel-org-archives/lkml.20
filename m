@@ -1,84 +1,38 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0267543FD32
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:13:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5573C1D63;
+	Fri, 16 Oct 2026 08:14:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792138442; cv=none; b=PHrGHWxt/QYg+Rany11/tjggzrqiwLpdCpzhoQsnq5skdZoaOow5KbTT9OqsPLjya8M7vXE/7IciDIaRmsLVTJbSWXSmoargp0A3x7UoT1y5xEnyAqYgXa1MfAsHfp3fyyRp+m1vUnS+5UcUh1LS6LFp45PTqoCqlmlCMKNC7Rg=
+	t=1792138470; cv=none; b=p4B7bsAWwFN2ccI0WVSLe+Zg74Z5S1jv3JdxhDq7EQsMKkoYJ+VXjXub5SDh56S8ZTZA7Rfu1O4/qGbAgafpCrxM64F/A5suNwL6Yx30hBI1G3MR4t6xZzN1eapRACRPlVEbo7F2Pho/uelCtqXS2UX/tr+GibmJqlhsuf4bVgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792138442; c=relaxed/simple;
-	bh=Qjt0ImWaPoLULJSFVDaFQ0fOmeE5T/u5+zco1KFI0nc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VgxxjZnb7mcOpdghV8jrZV9V3YeEXNbJRV2nrwtkWIlh2y9HOErqdtQSXoKTv08jNmGrd947QMGl1r7ZDvzrLoca9MK+QT2zzZDwdF3SOk90bnkmAQ4i8Aq12K4TNNu5WvMZbn30e7CGSgGz/GY5Owsi+aAiMR2yXrGNOiCX8/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=A7RnU2DZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AGSwCTYE; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792138470; c=relaxed/simple;
+	bh=6MzXY6URcuyZMGe9mH9bcydnzkC4AGYAyCDj4+DY9rE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Yj1nvi+6NYomaQVUQj+0lkY7jq6z5pAT6qiGOPdzGsvZErncZpHXK8TOKVetsiZ6ChZ8WJzbGJimuvewaaV2bMDyNhyOzjH+eaTg9UbYsh3zMoueidMkFNVE0oOiKxSgHxArT6rRx2DLKLpIuikQbt4GZHmrMNRFdLLtKJ9A2kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mMCA8c7+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="A7RnU2DZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AGSwCTYE"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G2FExF3202275
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:13:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=kuPF0Y4twrIcLIzCKcknx7
-	X/u8SkXoaz3VxXQbGtel8=; b=A7RnU2DZqbuTo/dyxCh2RlVtKCZFyP8i7VKp4O
-	Bnop5XBTcbpFs96qyHSm6DdAj1oaRh14EvrNihl4kgXhMZIcsYDrEW+tAKK9Py5n
-	fnxmu5cWyNzl+2TsGc70wPuztwNAZCzmoE+5H5eDB6HNBujqAT62zDVMHYRFrVlz
-	viI9xBCAp5cA2zjkDmoiyxez28tQh6HaBEeeFZpQD0+HH/Vei74R+BoYGISG15bq
-	5hwsMmjiTn5TnjkMwt1Kjzfuel7Q2cI9jI+IgtjEHIl5hqh0fywn+ixeyTISZdlm
-	tDafA+J1WwIFzAtlSowmh2639jqb7y0HVTmrH4sgcmVF/1AQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb3r3atsx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:13:58 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cc40759b2so1302559685a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:13:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792138437; x=1792743237; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=kuPF0Y4twrIcLIzCKcknx7X/u8SkXoaz3VxXQbGtel8=;
-        b=AGSwCTYEcOYUURvZ0usXc1zoXNB00xMqOJUYXTfDOfyWfmqB20X9z6siUAC/B+HJBE
-         zpAIy8oTYGvqyYNuleGfzE9jbBJUFQMe/3SwRJek0by4spKI83Jby7OAgkIp3jUPHbXj
-         dQlu68Mbp9fdkM+sOwn9K+ZZeCQyN4NmgJQzrn+F8K+1yjOGJcb9gW3ArzuRVkXM1KBL
-         x5cgbFVvR7VVLbCk19v40sm78N1V+pEm06ra0qgMiSSFNtjceaqMbDx5IiAuI9qMCzBI
-         2FI/9I3JKaJX4I1gmgXrdaxU0WigGeIjom/Lu3iO/zUKmC2u7TWCdVoFCi2aTsDytmVw
-         ByVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792138437; x=1792743237;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=kuPF0Y4twrIcLIzCKcknx7X/u8SkXoaz3VxXQbGtel8=;
-        b=uJ8m14BjTlLZKv6omt/V8+PXqVVoV4Usphvt7jtgjbVYujzGGAh0h5+YKrrbcFD/qc
-         naAlcVLDii2QyszV2UYg4BbANhjV03i14cq1hbMMvURP9ODofGkcxBsfpeqDirN7sP8H
-         Qn4sHmwvCJap7AtOuFC9nuBGuWHAxsQJSWeOSY7G/5ahj3FKX6tB9iku/zLHaodOBUvo
-         ZjRUvPFGOvWT0ZLKPCB7R6Lxp36HStkgIORwYRWs+nB38IPaqxYH4xQJZNDAlK+SHtjP
-         U8/S/pbMGysMAYpCbgSpytByAYFOQnhwq6wj59R1BVlHBdqZy5jTLdHAVc0Rktkr93ic
-         slmw==
-X-Forwarded-Encrypted: i=1; AKwUvByDUCeC8jVZ07U8loY0s1ARec/tsV8ROTCgGQzcy7JQGy9fuelpMutJTDvYpEV8/noRGrxREdfa1rr0F0U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKM18eP/VtfrdQYhDlxzj9UB9RxXnIgAdvKX/KY7J2veliXSJXI
-	+5yd/pDfySIdcew+XrlsmMJ86kTEJc+8kyqj9QxtQ8xkvSumNsE0LhcWMTyyeNZixtrfyyoGRh3
-	zkt26pLJRM7oewg67zfUG3XUzD4PgiuaHOY+8qWDfbhrbGfSXgNq+V1pnNT8VmhrQzbA=
-X-Gm-Gg: AYBFou0izJtXqk+RP6/i0scrbAmEOHmpVO8FlucGIAIZKE1OFTH206iuzVDA0VbPX+q
-	b06kSgBcAdXdmzezgm//nwLH8UBk0WR/TqLe08OoJgJSVukyGp4V5KnZXVa3qYtL9Wllmdssuzq
-	rU7YA9479reD2c9wPHmo9SmjvUixmD5LWihDtbiVIsr5KbkwGZeJ3BB2R917xao6YtjTAyEQk0X
-	gUSfRX4AKpjZ05KR4T9HaaL4oyrXDfAITeMb+j9yguBHhLH7xuIg/UEy8JJmkFrUMPx+0B82stK
-	/Y7uA9twkyzDwtJ36HyavGwfvFzLpkiQlL4vGo+1lfclgnkUv0jTflNUpDWHuchdJS+vYFDo4fI
-	CmC0+v7HD0Kgfqds9o/3/1zw+Rk2x
-X-Received: by 2002:a05:620a:800d:b0:93f:12d4:67cb with SMTP id af79cd13be357-93f12d474afmr610066485a.80.1792138437112;
-        Fri, 16 Oct 2026 01:13:57 -0700 (PDT)
-X-Received: by 2002:a05:620a:800d:b0:93f:12d4:67cb with SMTP id af79cd13be357-93f12d474afmr610062985a.80.1792138436482;
-        Fri, 16 Oct 2026 01:13:56 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f5b2dsm3622190f8f.31.2026.10.16.01.13.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 01:13:55 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 10:13:50 +0200
-Subject: [PATCH RFC] gpio: sim: access sysfs attributes as const
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mMCA8c7+"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CFB05C2BCFC;
+	Fri, 16 Oct 2026 08:14:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792138469;
+	bh=6MzXY6URcuyZMGe9mH9bcydnzkC4AGYAyCDj4+DY9rE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=mMCA8c7+7OQUi9TopRTWXNRVcMFFZ+I8byPWFUaWakF503vQHPhFeDaDzrBm1TZFI
+	 hCSaBoSfuaI1zqVATP0dgJKLwmtwOg6wgZfxwVoKq3qbDcusZZxGCcuvhb23ck31Jm
+	 zc7nk0jdFEcu9eZdHIxuYi1YxpcBlx/ruD9hiqFqYo3kJwONHdmxDQZfyk5wJA+i0F
+	 CEmelynrJbNP7JQLnVnejxlfuIJ6xpnoxTg8S5MW1RQJKygvlzKWLAXwqjzIlFfdfl
+	 I1yM/y9vhjefoR8OYgfwgp7D3byF3KgoEnc2R1dUa9JBWxqfxY9EJobDH0YIm/1KfG
+	 YbG8lhgZTWazA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3361CCA462;
+	Fri, 16 Oct 2026 08:14:29 +0000 (UTC)
+From: HuskerMinion via B4 Relay <devnull+mocker-mug-unwoven.duck.com@kernel.org>
+Date: Fri, 16 Oct 2026 02:14:02 -0600
+Subject: [PATCH 2/2] ASoC: mediatek: mt8183: Fix UL1_CH2 I2S0_CH2 routing
+ register
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,128 +41,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-gpio-sim-const-sysfs-attr-v1-1-5d2f832890d6@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAL3c0WoC/x3MMQqEMBBA0avI1A5MFCNsK3gA28VC4qhTbCKZs
- Cji3Q2Wr/j/AuUorPApLoj8F5XgM0xZgNsmvzLKnA0VVdaQsbjuElDlhy54TainLopTShHrhlq
- yzrUNEeR+j7zI8b6/MPQdjPf9AFIiIuNwAAAA
-X-Change-ID: 20261016-gpio-sim-const-sysfs-attr-350706cc7500
-To: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-        Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2719;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=Qjt0ImWaPoLULJSFVDaFQ0fOmeE5T/u5+zco1KFI0nc=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq0dy/6RzJjr3GP6PPiEm+WGKWOaTwfm8FdiOGl
- y9h1D2C+7iJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCatHcvwAKCRAFnS7L/zaE
- w0kmD/9iFOpdnx/+89CShNAcyi5wnvvz1sCeJLeDKLwmfZXE+HfW7ezEwLORTyvbpld6nVW6QPB
- 10zQBKW3q6CIG9TuTagdk5UEvofhYkQcD6JMHiJysv968GFE5tVfRPyvTx0D5CEfMwlSBKd1E2o
- V0MESs0ImAlKQGtD1wP2zt5S8Ogh7BrlOXdcCsyolin3MYzW0za+cvU/ffkE4rpu6lrJgJtwxgn
- PCgGSAycB5kNmDx+kuXAtNpsdQMYgTMYP8GqPwKi1KpoO1GdHP78FTQugQRRZrA60y/w6XKcBBM
- KyJ2WiA/u8nikTXXviPuKPO8pSUoWF7eWD9q3Lm5gw3Ys4QUjLp/kdMcti/78uuPu5jMrKZ4gWz
- FgT/f/Vsv8QfzOM79Nmam4mPAyGo1lLPc49sNo9Ok9sMmmU3+eFKFg5ebsn+rbFDI3xFPaXFrUY
- nTIdm0+qVff8L9W+aCb2HLoNguVrOPq5G/bmI04jxI4lk2dQuaWC5XJl9jBqkPz1EElPz8JZ8q8
- fIOVfiij1L2qlUHf3V5XBHJ9EKrQkjhlBgWUzK9y51IbZaGxF2J1P/ULPoqay5HKG4onmgWygge
- ni1maD3MEspcKZ0Ksuuj/u5nvThQWzD+Ej9kCEWtrC1M3m276zbuzI0Rn1fLJbHmvgjuHTIA5jJ
- Xf+ivSYzuUzsbAQ==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzMiBTYWx0ZWRfX6siYaACWy/ay
- JddtlAQ3GTaoSdTJeRxgHbL0mvrGssKJZdCrl0b7tdhPVuxau+j8LFslY2AP1grq+W/t1M8LWCC
- VyaEtEk23uV7pNxZ1SQf8jQYAhwzSVnOLkz/AKd1gQK+rf9vkmTS1XmVtUeR/PdCmMhogE3+/ke
- zgxqiGLMDEO8JdYbWDpu6DkaAwXKtV05VlR7PkGSxt3p6kOl63+LE/qw2L/h4EhJkmVmNOikKTH
- SDQsEjUXIiXuBQDWzv/fC1cDPqWwvxsMrM589WlEZKEuu/rUZd9i4OhiX5ph2y/cIjBfsUd8zZi
- cZzHmxwvXo6vbSBBjJyFcBw+3jL/aAtjFgNceWToCYURz9H6+tKTZ5Jn/OYxj5HpGivVDajdwB6
- KHOLSBJB3qfdgB8/z0c/S3up63HEf90xbew4t+UXvsTZtPZJNUTDQ8UABOtRrHrnIpg+dQXGtaY
- zAG6cHrx62QuWuWyOWQ==
-X-Proofpoint-GUID: _5aMNCatA5NonW2W4Gb0tRHCTiNEOJf_
-X-Proofpoint-ORIG-GUID: _5aMNCatA5NonW2W4Gb0tRHCTiNEOJf_
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzMiBTYWx0ZWRfX96iUYCPSw7Tr
- zWp0ETCPvR46zLatd69xsY4RKw2GBkXI1ofhxD916kokgHoKfCQ2UyukDATRmMoDjlAJ8DqJWFH
- mYHcEVojLtOVaAoZiV4C7dAJwEzC1oM=
-X-Authority-Analysis: v=2.4 cv=INGXmQvG c=1 sm=1 tr=0 ts=6ad1dcc6 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=fcOsHt8QbKoA0gQdPhQA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 spamscore=0 adultscore=0 priorityscore=1501
- malwarescore=0 suspectscore=0 bulkscore=0 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160032
+Message-Id: <20261016-mt8183-afe-fixes-v1-2-f0db51e0c073@duck.com>
+References: <20261016-mt8183-afe-fixes-v1-0-f0db51e0c073@duck.com>
+In-Reply-To: <20261016-mt8183-afe-fixes-v1-0-f0db51e0c073@duck.com>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ HuskerMinion <mocker-mug-unwoven@duck.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792138468; l=1450;
+ i=mocker-mug-unwoven@duck.com; s=20261016; h=from:subject:message-id;
+ bh=mEWhlclh4rsOZ/4zrF6u9RE5QWi0z/CRm0Rz/ciL1HE=;
+ b=6YXlyoF5BZSa8qalNwQEhwPQZX15OAoWl6Cwl3SmMzWojxGvBMbRuyUf4ivpDoMJbSHk0bkXW
+ k1493RQj8XmBmDpzzjLmThkLYOaOUD56lijYARzfS8X/I4voQADCpZL
+X-Developer-Key: i=mocker-mug-unwoven@duck.com; a=ed25519;
+ pk=Q7l9BnP4XnFimCK28K+NVowcECqTaJNXicdBAInot0k=
+X-Endpoint-Received: by B4 Relay for mocker-mug-unwoven@duck.com/20261016
+ with auth_id=1206
+X-Original-From: HuskerMinion <mocker-mug-unwoven@duck.com>
+Reply-To: mocker-mug-unwoven@duck.com
 
-Use the const variant of constainer_of() to access struct
-gpio_sim_attribute which wraps the dynamically allocated sysfs
-attributes for value and pull of simulated GPIO lines in line with the
-currently preferred approach.
+From: HuskerMinion <mocker-mug-unwoven@duck.com>
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+The "I2S0_CH2" switch of the UL1_CH2 mixer writes AFE_CONN21. That is
+the interconnect register for UL1 channel 1 (O21). Channel 2 is O22,
+which is AFE_CONN22, as the "ADDA_UL_CH2" switch of the same mixer
+already uses.
+
+So enabling the switch routes I2S0 channel 2 into UL1 channel 1, mixed
+with channel 1, and UL1 channel 2 gets nothing from I2S0.
+
+Use AFE_CONN22.
+
+Found while adding UL1 capture routes for the four microphones of the
+Amazon Echo Show 8 (2nd gen). That board captures from I2S2, so the
+I2S0 path itself is only compile tested.
+
+Fixes: d232591c9482 ("ASoC: Mediatek: MT8183: add I2S2 control path from UL2 and UL3")
+Signed-off-by: HuskerMinion <mocker-mug-unwoven@duck.com>
 ---
-Hi Thomas!
+ sound/soc/mediatek/mt8183/mt8183-afe-pcm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Following your talk, I'm sending a patch for the GPIO simulator module
-that attempts to constify the sysfs attributes. Please tell me if this
-is all I need here as the attributes are part of another struct that's
-allocated dynamically. I'm not sure if there's anything more to do here.
----
- drivers/gpio/gpio-sim.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpio/gpio-sim.c b/drivers/gpio/gpio-sim.c
-index 0c73bec042670fc5706b4a93700e652cbaf3605e..e0ae586cd08d8adbb3c16918607074fce116654e 100644
---- a/drivers/gpio/gpio-sim.c
-+++ b/drivers/gpio/gpio-sim.c
-@@ -59,10 +59,10 @@ struct gpio_sim_attribute {
- 	unsigned int offset;
+diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+index d6175da3b..2b2ee0575 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
++++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+@@ -301,7 +301,7 @@ static const struct snd_kcontrol_new memif_ul1_ch1_mix[] = {
+ static const struct snd_kcontrol_new memif_ul1_ch2_mix[] = {
+ 	SOC_DAPM_SINGLE_AUTODISABLE("ADDA_UL_CH2", AFE_CONN22,
+ 				    I_ADDA_UL_CH2, 1, 0),
+-	SOC_DAPM_SINGLE_AUTODISABLE("I2S0_CH2", AFE_CONN21,
++	SOC_DAPM_SINGLE_AUTODISABLE("I2S0_CH2", AFE_CONN22,
+ 				    I_I2S0_CH2, 1, 0),
  };
  
--static struct gpio_sim_attribute *
-+static const struct gpio_sim_attribute *
- to_gpio_sim_attr(struct device_attribute *dev_attr)
- {
--	return container_of(dev_attr, struct gpio_sim_attribute, dev_attr);
-+	return container_of_const(dev_attr, struct gpio_sim_attribute, dev_attr);
- }
- 
- static int gpio_sim_apply_pull(struct gpio_sim_chip *chip,
-@@ -272,7 +272,7 @@ static void gpio_sim_dbg_show(struct seq_file *seq, struct gpio_chip *gc)
- static ssize_t gpio_sim_sysfs_val_show(struct device *dev,
- 				       struct device_attribute *attr, char *buf)
- {
--	struct gpio_sim_attribute *line_attr = to_gpio_sim_attr(attr);
-+	const struct gpio_sim_attribute *line_attr = to_gpio_sim_attr(attr);
- 	struct gpio_sim_chip *chip = dev_get_drvdata(dev);
- 	int val;
- 
-@@ -302,7 +302,7 @@ static ssize_t gpio_sim_sysfs_pull_show(struct device *dev,
- 					struct device_attribute *attr,
- 					char *buf)
- {
--	struct gpio_sim_attribute *line_attr = to_gpio_sim_attr(attr);
-+	const struct gpio_sim_attribute *line_attr = to_gpio_sim_attr(attr);
- 	struct gpio_sim_chip *chip = dev_get_drvdata(dev);
- 	int pull;
- 
-@@ -316,7 +316,7 @@ static ssize_t gpio_sim_sysfs_pull_store(struct device *dev,
- 					 struct device_attribute *attr,
- 					 const char *buf, size_t len)
- {
--	struct gpio_sim_attribute *line_attr = to_gpio_sim_attr(attr);
-+	const struct gpio_sim_attribute *line_attr = to_gpio_sim_attr(attr);
- 	struct gpio_sim_chip *chip = dev_get_drvdata(dev);
- 	int ret, pull;
- 
 
----
-base-commit: b810335a0699d1810683796b0e3ffe8827ddfe6c
-change-id: 20261016-gpio-sim-const-sysfs-attr-350706cc7500
-
-Best regards,
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.43.0
+
 
