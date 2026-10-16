@@ -1,57 +1,57 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318823AC0C9
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:44:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB9738330A
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:44:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792125869; cv=none; b=RrEm9iwWSP3rUbbNCtX+UXczN0HI18wIGYadAXNL6PO5Dkptk8MLvNxVXC0wW6H+iiJWSvdV7y9U87KzzUtNK7+gbc5HJPk46o+v692hUA9HC1QnE+tV3vOGF8nO7tZl8VPnW0kZoTcYarFSKnQMml8rwBtAliQyFFNv04QFVBQ=
+	t=1792125869; cv=none; b=uWPAByO77Pn4yk2cscQ9XzRZOwB3ZD3RKLP/Yyx2c+c73CD1SIS1BfKgrHb/qr16aXLmzXh/xgd0q40YX5mfJLGM2+VwhFfYmTLg8L1r/rHAmaFBIAbGcPo8DC6AQeTV7je/+tBfT0AXxST0TEZNBEad655YsSRlWP0X/ELbiN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792125869; c=relaxed/simple;
-	bh=AYl29IyzDFGsW4Te6bGo3a4kTSV9f6xaOb4sFf2k6bU=;
+	bh=BI8LboydJDmCLOgFAWDKwKKmSthXHsSH6WEzLYZ2ou0=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=HxcKsKzW5IzNFT0x4YTSpSIULgb41zZjt62hDRMCSPFHibLs+JZSjEba2U/4sRiNrulHYkbw3JcuHX22K6qqiGShoLSLr3YdLKG3CzAdcynwnMRhnZhka8PBVLzR8qEbdP8LgCn5HrE5pDJlwlpnFywhPjYlxxGUs/epkCevtm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PNSrWdaI; arc=none smtp.client-ip=209.85.216.71
+	 To:Cc:Content-Type; b=lXnt8ia6XQK4Mwh12IyVRBROH0CmLFNby0pCJz5q7JmX6ye0hOlZECb52KdXTCKo1aFKjPQdIj3Vmju85s0ExiYMhYXjP+zBNvnfAmMXEjTx63qT2yN8WK/hsNpSDQ2dnx30JcPoIOS6ShsuilwghNk9ydwFVd+WMHjrciA0U3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lwM1/yQc; arc=none smtp.client-ip=209.85.216.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PNSrWdaI"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a4a0017549so9643014a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:44:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lwM1/yQc"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3a8af172664so2423403a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:44:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792125863; x=1792730663; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792125865; x=1792730665; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=56vaPXdds2F34Emh82hQX7OE/j80SqxhIBSL1vxCjk4=;
-        b=PNSrWdaIoz7YHm0YzFoGe+pZmVaE1maI9K906CkzSDDqWtcHRY2h03djtNJVglSvJy
-         a/yN20Qa0ze5YEUdVwSOMSPC+NlZYV6TjLFy8xsN0Lyaw4jqM9iYQcszcgDv9a1yYw6A
-         AlKHtvTOZsF3Pn1XlSuzRL7lbsb2hsUA+zAGGC6NWcpDomnEx9JZO/mWTkDVZgf94EYg
-         rdOwzPUrwUjzhoUwqe7eAU4397Q9uaan1wqQlhAPojCVoKoma7Yd2dCSyaNAW9nu2m7p
-         dZHzESeaa017pLByXcHTVuREAiv2LOYCNYSikDaYo/P7a6rlbx2nzC+MTSUkTl2Pp7E9
-         CpMQ==
+        bh=0dsL2LXx3zlXkaINPvu2OhA7+saKQIia3nDteA/w9/A=;
+        b=lwM1/yQcAsmWLes5Xgvbr+3IFUaCBFhao5bpv3W5SWhnd/Li2JMfYuPUXVD7JNdhT8
+         ejUYYSVVZbBlYlUIQm4zSHzvrEXS4d0k+q+iiLHUtVZ9DtcmTqiJJBeFN3r+XDWhVyb4
+         kmV4+Xc1h2U/k/M0VHUklj5Xj9vzlKmY2h6rN3WSn+q5YkyVefU/bkG83PTqC14jWK6J
+         OJw5tWvR/DLWoo2De0YyZdTnme+VxTphZH5bhGd9dRFf5asb+7pCnro36czz3xOj4SDq
+         blbT6dNsEM85yhfdEGPrCgGaHh2P3H7WsT2GvIBy37cdt0MBdt2v2jZ6eVZnzChgctkm
+         zGRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792125863; x=1792730663;
+        d=1e100.net; s=20260707; t=1792125865; x=1792730665;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=56vaPXdds2F34Emh82hQX7OE/j80SqxhIBSL1vxCjk4=;
-        b=RgzOMTycNvpdr2I7VKXB61rPY2TlmsdLRzeP5MYN3ms2WZpBAE/6nRGocAdg9tz8kK
-         Qofcjan5VzHgK2aHMtov5GdWHkx4J2ndbtiMg+WBMRW50Suksj/CZPnJsnPlQjRB61iy
-         43jcjGb83wGVIAogDeTuDo0daUqw/p6ZnVBWtFnxnjRfrdEu5BtUhg7mxd2dRQzmu4/O
-         R24rmouFUAYNyK50e4WaAilgm3Z+LsR0BOhGn4rxCnSCCqdLwI1+QHNyszCLzmP1o+pj
-         +J8721uKyDZh2CmZ+EZRlliJlj3LEmIdh0r3keID4baB1WH6m6Mr4Cf3pnWPEol/TfBy
-         SFXw==
-X-Forwarded-Encrypted: i=1; AKwUvBwVvA/zpL9HLfvWMcKwel5TGfkmLEPWrEXwmpOeyig1NPXwpVimQmalaQpe92bOlg24ZliN1Y7eDdblPLA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLcJY9px528dAXGiPtaDDY3Fw2u/jhNNxm5q63mIqy7E0KGa+iA
-	9q7fxX2HU+45scnKgaxqTIhpxaNABBs9Hrw0gu9JB46uuUpJJkZDlpmsWbcNNUe5fCiGKJfcRlU
-	7vJRXSQ==
-X-Received: from pjbcz4.prod.google.com ([2002:a17:90a:d444:b0:3ac:989f:b65f])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:388d:b0:3ac:9669:846d
- with SMTP id 98e67ed59e1d1-3ac96698778mr4977624a91.51.1792125862892; Thu, 15
- Oct 2026 21:44:22 -0700 (PDT)
+        bh=0dsL2LXx3zlXkaINPvu2OhA7+saKQIia3nDteA/w9/A=;
+        b=MiL5DoI5RL+ARRB8gm/53E/U8+nTCEAn91Kod2BPzQa9tXeT0OZ26tj8CTW/SPsR8k
+         3MEPq06XTgoLvmaO/c9BbcOFQdzT610avYujQJ5tYEsmQWogypF6f3rsiqIxCa2RHVeT
+         +mEVAnTY91SD+bcOBA9fXiEnL82NAxpeXNUsfHlQ1RFpRpnYvXQIuN+mN8Bj44uah87w
+         mTgP/1QTTBwzyLKUblQS8ZTf1Ll+cSYro/B93c/dJ+PXq3PzjybQgctihIuEC+Ue7mPS
+         jAeJiJ8ZGDTgkj1AoW0FDeobClBFSaAzibeLz7rHt2d8LgyL1DhG8BJGw+Dy0RSU2SaS
+         Rx0A==
+X-Forwarded-Encrypted: i=1; AKwUvByIBL4WzImThoIneEb2aBHFuE/s9Uyc2VXqU74dGqQ9b/bsOYVQqE41tRU9ZGr1A8UEQlapesVzxxZ/fsE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI79PaeZZSou6VzJ1oWsXuzgu7a3X6Jt/Mf6UzXxlxAAXGxZ6n0
+	oV5lMaXGimO0bGdUA6yP5XlnO5mYXZvsiKVghjLdIY+Gv5mT6e9cLSSiKUpb9cSAKU0Emn122Dj
+	zT3z+qg==
+X-Received: from pjbkk5.prod.google.com ([2002:a17:90b:4a05:b0:3ab:ef97:851c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:53c6:b0:3ab:e588:c275
+ with SMTP id 98e67ed59e1d1-3abe588f863mr11870863a91.20.1792125864501; Thu, 15
+ Oct 2026 21:44:24 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Thu, 15 Oct 2026 21:44:10 -0700
+Date: Thu, 15 Oct 2026 21:44:11 -0700
 In-Reply-To: <20261016044415.958618-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,25 +61,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261016044415.958618-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-Message-ID: <20261016044415.958618-6-seanjc@google.com>
-Subject: [GIT PULL] KVM: selftests: Add PPC support
+Message-ID: <20261016044415.958618-7-seanjc@google.com>
+Subject: [GIT PULL] KVM: Selftests changes for 7.4
 From: Sean Christopherson <seanjc@google.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Sean Christopherson <seanjc@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Add PPC selftests support.  I grabbed the patches because it seemed easier
-overall than coordinating a stable tag with maintainers that don't usually
-send you pull requests.  The expectation going forward is that PPC selftests
-changes will be routed through the KVM tree[1], since KVM selftests tend to
-have a lot more cross-arch interactions/collisions than KVM proper
+Note, there are five actual KVM changes lurking in here.  They're all relatively
+small/minor and were accompanied by large selftests cleanups, so I plopped them
+into "selftests" to avoid having significant selftests changes in 4+ branches.
 
-The memory regions rework will also show up in the "selftests" pull request
-(I don't know why I didn't throw those changes in a dedicated branch), and
-they have a silent conflict with kvm/master[2] due to the new vgic_its_save
-arm64 test that came in through a 7.3 fixes pull request.  This is roughly
-the resolution we've been using in next.
+As mentioned in the PPC selftests pull request, the memory regions rework will
+silently conflict with kvm/master:
 
  +static void setup_memslot(size_t sz)
  +{
@@ -106,8 +101,91 @@ the resolution we've been using in next.
  +      return gpa;
  +}
 
-[1] https://lore.kernel.org/all/ld8fjt6w.ritesh.list@gmail.com
-[2] https://lore.kernel.org/all/aqqap3DngKznNrSA@sirena.org.uk
+The VMX APIs purge will also conflict with kvm/master, thanks to the newly
+minted nested_x2apic_test.c.  The resolution is straightfoward, but tedious
+and ugly:
+
+ +static void l1_vmx_code(struct vmx_pages *vmx, struct hyperv_test_pages *hv_pages)
+ +{
+ +      u64 control;
+ +
+ +      if (hv_pages) {
+ +              wrmsr(HV_X64_MSR_GUEST_OS_ID, HYPERV_LINUX_OS_ID);
+ +              enable_vp_assist(hv_pages->vp_assist_gpa, hv_pages->vp_assist);
+ +              evmcs_enable();
+ +      }
+ +
+-       GUEST_ASSERT_EQ(prepare_for_vmx_operation(vmx), true);
+++      prepare_for_vmx_operation(vmx);
+ +
+ +      if (hv_pages) {
+-               GUEST_ASSERT(load_evmcs(hv_pages));
+++              load_evmcs(hv_pages);
+ +              current_evmcs->hv_enlightenments_control.msr_bitmap = 1;
+ +      } else {
+-               GUEST_ASSERT(load_vmcs(vmx));
+++              load_vmcs(vmx);
+ +      }
+ +
+ +      prepare_vmcs(vmx, NULL);
+-       GUEST_ASSERT_EQ(vmwrite(GUEST_RIP, (unsigned long)l2_guest_code), 0);
+++      vmwrite(GUEST_RIP, (unsigned long)l2_guest_code);
+ +
+-       control = vmreadz(PIN_BASED_VM_EXEC_CONTROL);
+++      control = vmread(PIN_BASED_VM_EXEC_CONTROL);
+ +      control |= PIN_BASED_EXT_INTR_MASK;
+ +      vmwrite(PIN_BASED_VM_EXEC_CONTROL, control);
+ +
+-       control = vmreadz(CPU_BASED_VM_EXEC_CONTROL);
+++      control = vmread(CPU_BASED_VM_EXEC_CONTROL);
+ +      control |= CPU_BASED_USE_MSR_BITMAPS | CPU_BASED_TPR_SHADOW;
+-       GUEST_ASSERT_EQ(vmwrite(CPU_BASED_VM_EXEC_CONTROL, control), 0);
+++      vmwrite(CPU_BASED_VM_EXEC_CONTROL, control);
+ +
+-       control = vmreadz(SECONDARY_VM_EXEC_CONTROL);
+++      control = vmread(SECONDARY_VM_EXEC_CONTROL);
+ +      control |= SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE |
+ +                 SECONDARY_EXEC_APIC_REGISTER_VIRT |
+ +                 SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY;
+ +      control &= (rdmsr(MSR_IA32_VMX_PROCBASED_CTLS2) >> 32);
+-       GUEST_ASSERT_EQ(vmwrite(SECONDARY_VM_EXEC_CONTROL, control), 0);
+++      vmwrite(SECONDARY_VM_EXEC_CONTROL, control);
+ +
+-       GUEST_ASSERT(!vmlaunch());
+-       GUEST_ASSERT_EQ(vmreadz(VM_EXIT_REASON), EXIT_REASON_CPUID);
+-       GUEST_ASSERT_EQ(vmwrite(GUEST_RIP,
+-                       vmreadz(GUEST_RIP) + vmreadz(VM_EXIT_INSTRUCTION_LEN)), 0);
+++      vmlaunch();
+++      GUEST_ASSERT_EQ(vmread(VM_EXIT_REASON), EXIT_REASON_CPUID);
+++      vmwrite(GUEST_RIP, vmread(GUEST_RIP) + vmread(VM_EXIT_INSTRUCTION_LEN));
+ +}
+ +
+ +static void l1_vmx_code_part2(void)
+ +{
+ +      u64 control;
+ +
+-       control = vmreadz(CPU_BASED_VM_EXEC_CONTROL);
+++      control = vmread(CPU_BASED_VM_EXEC_CONTROL);
+ +      control &= ~CPU_BASED_TPR_SHADOW;
+-       GUEST_ASSERT_EQ(vmwrite(CPU_BASED_VM_EXEC_CONTROL, control), 0);
+++      vmwrite(CPU_BASED_VM_EXEC_CONTROL, control);
+ +
+-       control = vmreadz(SECONDARY_VM_EXEC_CONTROL);
+++      control = vmread(SECONDARY_VM_EXEC_CONTROL);
+ +      control &= ~(SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE |
+ +                      SECONDARY_EXEC_APIC_REGISTER_VIRT |
+ +                      SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY);
+-       GUEST_ASSERT_EQ(vmwrite(SECONDARY_VM_EXEC_CONTROL, control), 0);
+++      vmwrite(SECONDARY_VM_EXEC_CONTROL, control);
+ +
+-       GUEST_ASSERT(!vmresume());
+-       GUEST_ASSERT_EQ(vmreadz(VM_EXIT_REASON), EXIT_REASON_CPUID);
+-       GUEST_ASSERT_EQ(vmwrite(GUEST_RIP,
+-                       vmreadz(GUEST_RIP) + vmreadz(VM_EXIT_INSTRUCTION_LEN)), 0);
+++      vmresume();
+++      GUEST_ASSERT_EQ(vmread(VM_EXIT_REASON), EXIT_REASON_CPUID);
+++      vmwrite(GUEST_RIP, vmread(GUEST_RIP) + vmread(VM_EXIT_INSTRUCTION_LEN));
+ +}
 
 The following changes since commit d4b7fb647204f0c81dfeae2d1a708e4d858e0c94:
 
@@ -115,37 +193,80 @@ The following changes since commit d4b7fb647204f0c81dfeae2d1a708e4d858e0c94:
 
 are available in the Git repository at:
 
-  https://github.com/kvm-x86/linux.git tags/kvm-x86-ppc_selftests-7.4
+  https://github.com/kvm-x86/linux.git tags/kvm-x86-selftests-7.4
 
-for you to fetch changes up to 23140d6e54ac31e2f4ef3bcd7fb586a14360be34:
+for you to fetch changes up to bef953c069806148ae2f10714b39a08726c9a076:
 
-  KVM: selftests: Enable hardware disable test PPC (without pSeries LPAR) (2026-10-13 12:07:29 -0700)
-
-----------------------------------------------------------------
-KVM PPC selftests support for 7.4
-
-Rework KVM selftest's handling of memory regions all so that PPC can force its
-page table allocations to be naturally aligned, and then add initial selftests
-support for PPC.
+  KVM: selftests: Spell out UCALL in nested TSC scaling test's enums (2026-09-30 14:23:47 -0700)
 
 ----------------------------------------------------------------
+KVM selftests changes and a few KVM x86 fixes for 7.4
+
+ - Fix emulation of VMPTRST and VMPTRLD when eVMCS is in-use to match real
+   Hyper-V's behavior.
+
+ - Saturate L2's TSC frequency if stacking L1 and L2 scaling multipliers
+   exceeds what hardware supports, as attempting to run L2 with an illegal
+   multiplier will either cause VM-Entry to fail (VMX) or trigger a #GP when
+   writing MSR_AMD64_TSC_RATIO (SVM).  The #GP is thankfully benign in the
+   grand scheme as even "unsafe" WRMSRs have exception fixup.
+
+ - Rework KVM selftest's handling of memory regions so that PPC can force its
+   page table allocations to be naturally aligned.
+
+ - Clean up selftest's VMX instruction helpers, and drop an absurd number of
+   completely useless return values, e.g. functions that unconditionally
+   return %true and then have every caller assert success.
+
+ - Add selftests support for Zhaoxin CPUs.
+
+ - Overhaul the TSC scaling test to add a regression test for the saturation
+   behavior, and to increase its coverage in general.
+
+ - Fix selftests usage various NUMA syscalls to account for an undocumented,
+   but known since 2007, off-by-one kernel bug.  Add helpers to try and avoid
+   re-introducing the same flaws in the future.
+
+ - Automatically run xAPIC IPI migration test (between NUMA nodes) when
+   possible, as the entire point of the test is verify KVM's handling of page
+   migration of the APIC backing page.
+
+ - Misc cleanups.
+
+----------------------------------------------------------------
+Amirmohammad Eftekhar (1):
+      KVM: x86: Saturate L2's TSC frequency if it exceeds hardware supports
+
+Chaithanya Lagisetty (3):
+      KVM: selftests: Fix the never-true negative UFFD delay check
+      KVM: selftests: Fix transposed calloc() arguments in the uffd helper
+      KVM: selftests: Check calloc() return in vcpu_get_reg_list()
+
+Frank Zhu (8):
+      KVM: selftests: Add Zhaoxin CPU detection support
+      KVM: selftests: Use host_cpu_is_intel_compatible for mediated PMU
+      KVM: selftests: Add TDP detection for Zhaoxin CPUs
+      KVM: selftests: Allow running invalid guest state test on Zhaoxin CPUs
+      KVM: selftests: Add Zhaoxin CPU support in x86's "fix" hypercall test
+      KVM: selftests: Extend Intel MSR_IA32_UCODE_REV quirk to Zhaoxin
+      KVM: selftests: Add Zhaoxin CPU support to nested exceptions test
+      KVM: selftests: Check for APIC access virtualization support in said test
+
+Gokul K (6):
+      KVM: selftests: Fix the bounds of the SEV debug dst buffer check
+      KVM: selftests: Free the VM when the SEV smoke test's guest completes
+      KVM: selftests: Free the VM when NX hugepage disabling is denied
+      KVM: selftests: Delete the declaration of vcpu_set_cpuid_maxphyaddr()
+      KVM: selftests: Move test_read() into elf.c and delete lib/io.c
+      KVM: selftests: Delete the unused guest_snprintf()
+
 Hisam Mehboob (1):
       KVM: selftests: Replace ulong with unsigned long
 
-Nicholas Piggin (2):
+Nicholas Piggin (1):
       KVM: selftests: Use goto instead of do-while to retry finding unused physical pages
-      KVM: PPC: selftests: add support for powerpc
 
-Ritesh Harjani (IBM) (7):
-      KVM: selftests: Don't limit LE dirty-bitmap bitops to s390x
-      KVM: selftests: Move memslot_perf_test off the 256M ELF load address
-      KVM: selftests: Skip the max vCPU ID test when KVM_CAP_PPC_SMT is set
-      KVM: selftests: Add helper for checking if running on powerpc pseries LPAR
-      KVM: selftests: Skip kvm_create_max_vcpus on powerpc pseries LPAR
-      KVM: selftests: Enable access tracking perf test for PPC (with LPAR clause)
-      KVM: selftests: Enable hardware disable test PPC (without pSeries LPAR)
-
-Sean Christopherson (19):
+Sean Christopherson (57):
       KVM: selftests: Use MEM_REGION_PT memslot instead of '0' for s390 regions/segments
       KVM: selftests: Use the common minimum GPA for page tables on LoongArch
       KVM: selftests: Use vm_alloc_page_table() to allocate LoongArch page tables
@@ -165,58 +286,122 @@ Sean Christopherson (19):
       KVM: selftests: Use TEST_ASSERT(), not assert(), in vm_get_mem_region()
       KVM: selftests: Automatically pick min_gpa for allocations based on region type
       KVM: selftests: Add arch hook to force page tables to be naturally aligned
+      KVM: selftests: Don't clobber RFLAGS in happy path of __KVM_ASM_SAFE()
+      KVM: selftests: Assert success in vmptrst(), kill off vmptrstz()
+      KVM: selftests: Always assert that vmxon() and prepare_for_vmx_operation() succeed
+      KVM: selftests: Always assert that vmclear() succeeds
+      KVM: selftests: Always assert that vmptrld() succeeds
+      KVM: selftests: Drop useless return code from load_vmcs()
+      KVM: selftests: Add macros to handle simple VMX instructions
+      KVM: selftests: Drop dead return code from evmcs_vmptrld() and load_evmcs()
+      KVM: selftests: Dedup assembly code for VMLAUNCH and VMRESUME
+      KVM: selftests: Assert success in vmlaunch() and vmresume()
+      KVM: selftests: Add __vmwrite() and use it when initializing optional fields.
+      KVM: selftests: Always assert that vmwrite() succeeds
+      KVM: selftests: Always assert that vmreadz() succeeds
+      KVM: selftests: Account for kernel's off-by-one bug in NUMA node syscalls
+      KVM: selftests: Compute node masks on-demand in xAPIC IPI test
+      KVM: selftests: Add common helper to get mask+number of usable memory NUMA nodes
+      KVM: selftests: Automatically run xAPIC IPI migration test when possible
+      KVM: selftests: Skip xAPIC IPI migration test when forced but unsupported
+      KVM: SVM: Fallback to the default TSC ratio if KVM tries to use a bad multiplier
+      KVM: x86: Allow userspace to set KVM's max supported guest TSC frequency
+      KVM: selftests: Use KVM's pRNG to randomize L1's TSC ratio in TSC scaling test
+      KVM: selftests: Drop redundant VMWRITE of TSC_MULTIPLIER_HIGH
+      KVM: selftests: Drop unnecessary use of PRIu64 in nested TSC scaling test
+      KVM: selftests: Randomize L2's scale factor in nested TSC scaling test
+      KVM: selftests: Rename TSC freq checkers in nested TSC scaling test
+      KVM: selftests: Extract guts of nested TSC scaling test to helper function
+      KVM: selftests: Track L2 multiplier, not scale-up factor, in nested TSC test
+      KVM: selftests: Print out the failing L{0,1,2} level in nested TSC scaling test
+      KVM: selftests: Allow +/- 1 tolerance if expected TSC frequency is <100
+      KVM: selftests: Use KVM's reported TSC KHz as L0's frequency (sanity checked)
+      KVM: selftests: Explicitly pass TSC frequencies to guts of TSC scaling test
+      KVM: selftests: Sanity check KVM's default TSC freq in nested TSC scaling test
+      KVM: selftests: Test L1 "up" and L2 "down" in nested TSC scaling test
+      KVM: selftests: Verify that KVM saturates L2 TSC freq on {under,over}flow
+      KVM: selftests: Test non-zero TSC offset on SVM in nested TSC scaling test
+      KVM: selftests: Randomize L2's TSC offset in the nested TSC scaling test
+      KVM: selftests: Use GUEST_SYNC2() in nested TSC scaling test
+      KVM: selftests: Spell out UCALL in nested TSC scaling test's enums
 
- MAINTAINERS                                        |   2 +
- tools/testing/selftests/kvm/Makefile               |   2 +-
- tools/testing/selftests/kvm/Makefile.kvm           |   9 +
- .../selftests/kvm/access_tracking_perf_test.c      |  10 +
+Shivank Garg (2):
+      KVM: selftests: Fix maxnode argument to migrate_pages() in xapic_ipi_test
+      KVM: selftests: use BITS_PER_TYPE() for NUMA masks
+
+Vitaly Kuznetsov (4):
+      KVM: nVMX: Make VMPTRLD result in #UD when eVMCS is used
+      KVM: nVMX: Make VMPTRST return eVMCS GPA when it is used
+      KVM: selftests: Adapt to the updated VMPTRST behavior when eVMCS is used
+      KVM: selftests: Check VMPTRLD with active eVMCS
+
+ arch/x86/kvm/svm/svm.c                             |   9 +
+ arch/x86/kvm/vmx/nested.c                          |  24 +-
+ arch/x86/kvm/x86.c                                 |  62 +++++-
+ tools/testing/selftests/kvm/Makefile.kvm           |   1 -
  tools/testing/selftests/kvm/arm64/hypercalls.c     |   2 +-
  .../testing/selftests/kvm/arm64/page_fault_test.c  |  18 +-
  .../testing/selftests/kvm/arm64/vgic_lpi_stress.c  |  21 +-
- tools/testing/selftests/kvm/dirty_log_test.c       |  12 +-
- .../testing/selftests/kvm/hardware_disable_test.c  |   3 +
- tools/testing/selftests/kvm/include/kvm_util.h     | 132 +++++-
- .../testing/selftests/kvm/include/powerpc/hcall.h  |  17 +
- .../selftests/kvm/include/powerpc/kvm_util_arch.h  |  22 +
- .../selftests/kvm/include/powerpc/ppc_asm.h        |  32 ++
- .../selftests/kvm/include/powerpc/processor.h      |  39 ++
- .../testing/selftests/kvm/include/powerpc/ucall.h  |  21 +
+ tools/testing/selftests/kvm/demand_paging_test.c   |   3 +-
+ tools/testing/selftests/kvm/guest_memfd_test.c     |   2 +-
+ tools/testing/selftests/kvm/include/kvm_util.h     | 106 +++++++--
+ tools/testing/selftests/kvm/include/numaif.h       |  43 ++++
+ tools/testing/selftests/kvm/include/test_util.h    |   5 -
+ tools/testing/selftests/kvm/include/x86/evmcs.h    |  78 +------
+ .../testing/selftests/kvm/include/x86/processor.h  |  13 +-
  tools/testing/selftests/kvm/include/x86/smm.h      |   2 +-
- tools/testing/selftests/kvm/kvm_create_max_vcpus.c |  14 +-
+ tools/testing/selftests/kvm/include/x86/vmx.h      | 178 ++++++---------
  tools/testing/selftests/kvm/lib/arm64/processor.c  |   4 +-
- tools/testing/selftests/kvm/lib/guest_modes.c      |  20 +-
- tools/testing/selftests/kvm/lib/kvm_util.c         | 135 ++++--
+ tools/testing/selftests/kvm/lib/elf.c              |  48 +++-
+ tools/testing/selftests/kvm/lib/guest_sprintf.c    |  12 -
+ tools/testing/selftests/kvm/lib/io.c               | 157 -------------
+ tools/testing/selftests/kvm/lib/kvm_util.c         | 128 ++++++-----
  .../selftests/kvm/lib/loongarch/processor.c        |   5 +-
- tools/testing/selftests/kvm/lib/powerpc/handlers.S |  93 ++++
- tools/testing/selftests/kvm/lib/powerpc/hcall.c    |  45 ++
- .../testing/selftests/kvm/lib/powerpc/processor.c  | 512 +++++++++++++++++++++
- tools/testing/selftests/kvm/lib/powerpc/ucall.c    |  22 +
  tools/testing/selftests/kvm/lib/riscv/processor.c  |   4 +-
  tools/testing/selftests/kvm/lib/s390/processor.c   |   7 +-
- tools/testing/selftests/kvm/lib/x86/processor.c    |  15 +-
- tools/testing/selftests/kvm/memslot_perf_test.c    |   7 +-
+ tools/testing/selftests/kvm/lib/userfaultfd_util.c |   6 +-
+ tools/testing/selftests/kvm/lib/x86/memstress.c    |   8 +-
+ tools/testing/selftests/kvm/lib/x86/processor.c    |  23 +-
+ tools/testing/selftests/kvm/lib/x86/vmx.c          | 159 +++++++++-----
+ tools/testing/selftests/kvm/memslot_perf_test.c    |   5 +-
  tools/testing/selftests/kvm/s390/cmma_test.c       |  19 +-
  tools/testing/selftests/kvm/s390/irq_routing.c     |   2 +-
  .../testing/selftests/kvm/set_memory_region_test.c |   8 +-
  tools/testing/selftests/kvm/steal_time.c           |  20 +-
  tools/testing/selftests/kvm/x86/amx_test.c         |   2 +-
+ tools/testing/selftests/kvm/x86/aperfmperf_test.c  |  10 +-
  tools/testing/selftests/kvm/x86/cpuid_test.c       |   2 +-
+ .../selftests/kvm/x86/evmcs_smm_controls_test.c    |   6 +-
+ .../testing/selftests/kvm/x86/feature_msrs_test.c  |   2 +-
+ .../testing/selftests/kvm/x86/fix_hypercall_test.c |   2 +-
  tools/testing/selftests/kvm/x86/hyperv_clock.c     |   2 +-
- tools/testing/selftests/kvm/x86/hyperv_evmcs.c     |   4 +-
+ tools/testing/selftests/kvm/x86/hyperv_evmcs.c     |  87 +++++---
  tools/testing/selftests/kvm/x86/hyperv_svm_test.c  |   2 +-
+ tools/testing/selftests/kvm/x86/kvm_buslock_test.c |   8 +-
+ .../selftests/kvm/x86/nested_close_kvm_test.c      |   6 +-
+ .../selftests/kvm/x86/nested_dirty_log_test.c      |   8 +-
+ .../selftests/kvm/x86/nested_emulation_test.c      |  23 +-
+ .../selftests/kvm/x86/nested_exceptions_test.c     |  33 +--
+ .../selftests/kvm/x86/nested_invalid_cr3_test.c    |  14 +-
+ .../selftests/kvm/x86/nested_tdp_fault_test.c      |  16 +-
+ .../selftests/kvm/x86/nested_tsc_adjust_test.c     |  10 +-
+ .../selftests/kvm/x86/nested_tsc_scaling_test.c    | 244 +++++++++++++--------
+ .../testing/selftests/kvm/x86/nx_huge_pages_test.c |   3 +-
+ .../kvm/x86/save_restore_pf_stress_test.c          |  14 +-
  tools/testing/selftests/kvm/x86/set_boot_cpu_id.c  |   2 +-
+ tools/testing/selftests/kvm/x86/sev_dbg_test.c     |   6 +-
+ tools/testing/selftests/kvm/x86/sev_smoke_test.c   |   3 +-
  .../kvm/x86/smaller_maxphyaddr_emulation_test.c    |   9 +-
- tools/testing/selftests/kvm/x86/state_test.c       |   4 +-
+ tools/testing/selftests/kvm/x86/smm_test.c         |   4 +-
+ tools/testing/selftests/kvm/x86/state_test.c       |  74 +++----
+ .../selftests/kvm/x86/triple_fault_event_test.c    |   8 +-
  tools/testing/selftests/kvm/x86/tsc_msrs_test.c    |   2 +-
- .../selftests/kvm/x86/vmx_nested_la57_state_test.c |   2 +-
- .../selftests/kvm/x86/vmx_preemption_timer_test.c  |   4 +-
- 44 files changed, 1144 insertions(+), 167 deletions(-)
- create mode 100644 tools/testing/selftests/kvm/include/powerpc/hcall.h
- create mode 100644 tools/testing/selftests/kvm/include/powerpc/kvm_util_arch.h
- create mode 100644 tools/testing/selftests/kvm/include/powerpc/ppc_asm.h
- create mode 100644 tools/testing/selftests/kvm/include/powerpc/processor.h
- create mode 100644 tools/testing/selftests/kvm/include/powerpc/ucall.h
- create mode 100644 tools/testing/selftests/kvm/lib/powerpc/handlers.S
- create mode 100644 tools/testing/selftests/kvm/lib/powerpc/hcall.c
- create mode 100644 tools/testing/selftests/kvm/lib/powerpc/processor.c
- create mode 100644 tools/testing/selftests/kvm/lib/powerpc/ucall.c
+ .../selftests/kvm/x86/vmx_apic_access_test.c       |  22 +-
+ .../selftests/kvm/x86/vmx_apicv_updates_test.c     |  16 +-
+ .../x86/vmx_exception_with_invalid_guest_state.c   |   2 +-
+ .../kvm/x86/vmx_invalid_nested_guest_state.c       |  12 +-
+ .../selftests/kvm/x86/vmx_nested_la57_state_test.c |  12 +-
+ .../selftests/kvm/x86/vmx_preemption_timer_test.c  |  28 ++-
+ tools/testing/selftests/kvm/x86/xapic_ipi_test.c   |  78 +++----
+ 68 files changed, 1024 insertions(+), 930 deletions(-)
+ delete mode 100644 tools/testing/selftests/kvm/lib/io.c
