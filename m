@@ -1,108 +1,100 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A131ABEDE
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:38:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FA12E5B2A;
+	Fri, 16 Oct 2026 00:38:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792111095; cv=none; b=Cw7j9dI9Q26X2Wbs0+Y5lyKrPnaRdxzoLgdvRckn9BWGFF4xaY6E1UmLsQpCbq7hJpuvbSjx4vphNoBtbjEAGDvw2EHQzP9yLrSih+RJ34vUcUC4wuDzCy+pSQCeXg0XBw5AcGFaY49yrKfm3R+xMyH/0zG8IuOCuFIjDJWGSHo=
+	t=1792111110; cv=none; b=PaURvSxhIpjuOBDLdueW3pmXqKp64CGlnQSbR1hX1Ejr3ptHPyZyybjX0818QxQZTIVGBjfOPSphRJcNF3zuylK32dgFQboDocahkIzshlAx/D0XkeFsDfr5WnLCmb5PmJ/Z4FWOtX3csTANGbSg4LpecFb8jRGaU9+feXnIgD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792111095; c=relaxed/simple;
-	bh=wJv6Oy02ZyVpQIEV4S+JLl2ZMXIUTlylj7/wOCMhJJY=;
-	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:In-Reply-To:
-	 References:MIME-Version; b=JyT9NNJp04fXgsteNWen4vbJIq4xqjjY4RVKaIreVEXLWm3D/zZUF9uO3+pB7VwKx9sEpihrvaxm2q9jSw4rKmEHR6L0lKbVRH1Cj7E+zx0wL6Kv1qZ4vN+g3unEJLzMSoow4vaBd1k15oXfNOuUXqjJ1U6Bg6fiZpZFtXGVQc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a3bkIh7E; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792111110; c=relaxed/simple;
+	bh=NgcR8jGYw8Ii1hwCDbbFCJgZmg5BJd9Tvj+Gqt+ug/Q=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=dQmKiQAHL1qZf9lEmPBWPvzmnITgVAxXuOamcxj321aSU7hhHimi/CY6I6RwociJrpGAY7po8g629CSGvCb1UMvuslOL7wZ+02pm6WkxN+xRhZqMqnSoGYIHkj8pEQGCI4BnLKUPcmyWWOf/pcoaTfIUEHK4/dTzm/fJVG2mJtg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ZurLXw1a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a3bkIh7E"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2db80fcdf8bso34305415ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:38:14 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ZurLXw1a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D58E81F000C4;
+	Fri, 16 Oct 2026 00:38:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792111094; x=1792715894; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
-         :from:subject:message-id:date:content-type:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wJv6Oy02ZyVpQIEV4S+JLl2ZMXIUTlylj7/wOCMhJJY=;
-        b=a3bkIh7Ee8Kg3CriNDEwX8oGdI8Qdq5fV8e7jXfgg0J1TidIHQ4ixKF3GGM/J9uPaU
-         e9p3Qhm0hYO6htG8BQo38S6WoWM17XaFGJgXz52hh0QoGrW0FDwdFx014NgxccrzmPDu
-         tgbpiLo9zoTQFGvOXV/dtf2i06sLTA0NjLV7QioPqD/w0Lj9OfYijzAFuzNuiRYVAi6d
-         N0MAhUGZZgq6jxOVaP4SUrgfmC9X+wf0hf06uCR2fckrgo66IiFyfvGxl1JjLyDrCPO/
-         S/vw5NXyrspYxKUnw5D8+EHgJ2a0J83wCznPI/OO3Clz8nc6Gz2YW1YzxBTBClAAqsCa
-         L4Lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792111094; x=1792715894;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
-         :from:subject:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wJv6Oy02ZyVpQIEV4S+JLl2ZMXIUTlylj7/wOCMhJJY=;
-        b=iL/WPu47b18mM443UAWdw7Y4pL0hc+bZTjDX4S/gALohW7FK13ubZTyeOtQmJk64Iz
-         wk8YqvSuMAva7T696dxEZHjgoMkaN7vdqDiAlTeuzcId4zLGaJewzzK4yy4dp2nSrJht
-         1QZ+/L28y7r6qOqQtr7kG82F5Oh2aLMdXdhT6FZYfOEo2GtTreLpE+rEq/B9SWIhupix
-         XG74JWCiNnLz1Pr7cxQ+OFuIkjIoM25r3vdaPhISjws3Ma7JCpgV+CVaqtwRs9GUkq3O
-         f6pjzMM0vcv0vj+Ak9chDMPH0J9AgLi9ev7fLBmlONLBGlVvK9qphawwgnzRiiKvwmO6
-         DyYA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1ux5tyR+zOaQm5RImKqYvKB9y/UCEA5mpUaVGyUb5z0RPG9wdAn6jhR4m8017pUlcAQ4ptNWZo21DW7g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3WsNd4QiqxhXzsXNLtV+Z1AMgArsFUUq3O1ofeGzYMN1+amLS
-	y3R5oXoOkIuQ47iBt9IFEOD/plYki/haLkisTcnkLvyuv7bTJQvlzKqV
-X-Gm-Gg: AYBFou2zCh+conT2+u6pvnsCeK3KZcKv+VfezEJzWBMQoAqmhlpMfY55j/2hyQlCB1G
-	FG1OuaVtjFvY6dhC2m6G2hbmUF8Q4Qk93asWcXwCmTgGPJZC3AAGGUcwBJFC+0o+OZujpUctMLl
-	/ZrxhLurs0mLrAnFvXvfzFF/CdpgbDLChr6UbNFo9dNEaYaKUWENsJuqpaXbxV3vnswI4n/rUCk
-	VlQv98qsedZniehTD7bLslMVxl3qUVoWZmmKueHPkQNwJeSmC6V5J/OAfD78HEiIW15TqTXDXuH
-	WvxY8PrYmnoqtq8MOX5gMwo/gbwtMxcRVQbByj8KubA3m8pzqzcDmF6ni77JsECZmd/z31mGeeN
-	/wFOSNpZo8bT1PZy/S5p4KOCP1aEZ8p5xA8wTJYe3fCpmEokz7EfSsF/orL2+tn9NVmOyA8+2xY
-	ydrjAX0BWjjdjqL8sJKOzS+Hz9wlygSF9hhwShXapJPtWZ7bBQmPvRY1drZk9L7DngP94gUwypd
-	qTM6Zos1s/rbjEkyraHyWij6f4SqxCsI00bODExaJJwwLVmP984p5fHhSOfacLqLoF0vmoqoDAf
-	fL0=
-X-Received: by 2002:a17:90b:1d4f:b0:3ab:c80:936f with SMTP id 98e67ed59e1d1-3ab3a94ffa7mr15824328a91.16.1792111093664;
-        Thu, 15 Oct 2026 17:38:13 -0700 (PDT)
-Received: from localhost ([153.61.198.253])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac947dfa00sm6462107a91.17.2026.10.15.17.38.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 17:38:12 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 16 Oct 2026 00:38:11 +0000
-Message-Id: <DM5UD20248FG.3BXPS76LK06F5@gmail.com>
-Subject: Re: [PATCH bpf-next v2 0/3] keys: Add well known IDs for
- fs-verity/dm-verity keys
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Christian Brauner" <brauner@kernel.org>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Alasdair
- Kergon" <agk@redhat.com>, "Mike Snitzer" <snitzer@kernel.org>, "Mikulas
- Patocka" <mpatocka@redhat.com>, "Benjamin Marzinski" <bmarzins@redhat.com>,
- "David Howells" <dhowells@redhat.com>, "Jarkko Sakkinen"
- <jarkko@kernel.org>, "Paul Moore" <paul@paul-moore.com>, "James Morris"
- <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, "Eric Biggers"
- <ebiggers@kernel.org>, "Theodore Y. Ts'o" <tytso@mit.edu>, "Jonathan
- Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
- Dunlap" <rdunlap@infradead.org>, "Andrew Halaney" <andrew@amutable.com>
-Cc: <dm-devel@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <keyrings@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
- <bpf@vger.kernel.org>, <fsverity@lists.linux.dev>,
- <linux-doc@vger.kernel.org>
-In-Reply-To: <20261012-broschen-inanspruchnahme-gebilde-d72cf2b99cda@brauner>
-References: <20261008-ajhalaney-dmverity-key-identifier-v2-0-008456d189cb@amutable.com> <20261012-broschen-inanspruchnahme-gebilde-d72cf2b99cda@brauner>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+	d=linux-foundation.org; s=korg; t=1792111107;
+	bh=5TB8q3jOLCWfi6nq3LQFTYj1ETHvnif/9oaoAQuSXpY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ZurLXw1a+hxon7EKEidO2yueKgWEk5blqWjqaamtLSRCsBIzY8FHyhEzvzkEUTA7B
+	 tBlA3od06X0fsQSI0Wcp2Y+7VfqBs2+xpZQVUi0mJyBXIfLW2sIC8wENlGkLLwMQPL
+	 agL+iUAd4qWd+NsX+vwGLfXAVs7Rr+vSDGtOq+zw=
+Date: Thu, 15 Oct 2026 17:38:26 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Nimrod Oren <noren@nvidia.com>
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Zi Yan <ziy@nvidia.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, Ryan
+ Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
+ <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
+ <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Brendan Jackman
+ <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, David
+ Laight <david.laight.linux@gmail.com>, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm: stop recalculating min_free_kbytes once set by
+ userspace
+Message-Id: <20261015173826.e7ffb7333fb84f5be927ae88@linux-foundation.org>
+In-Reply-To: <26103c38-7b22-4176-8bc3-63e4b8fc6bbb@nvidia.com>
+References: <20261014140859.1006967-1-noren@nvidia.com>
+	<20261014144823.8c89da26c547fa95936a2fe5@linux-foundation.org>
+	<26103c38-7b22-4176-8bc3-63e4b8fc6bbb@nvidia.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026 at 12:38 PM Christian Brauner <brauner@kernel.org> wrote:
-> Applied to the vfs-7.4.keyring branch of the vfs/vfs.git tree.
-> Patches in the vfs-7.4.keyring branch should appear in linux-next soon.
+On Thu, 15 Oct 2026 19:16:40 +0300 Nimrod Oren <noren@nvidia.com> wrote:
 
-What is this branch based on ?
-v2 was sent against bpf-next, because
-commit 264d8fd2794f ("bpf, keys: Add a bpf keyring for program signature validation")
-is only there.
-All hunks in keyctl.h, key.h and process_keys.c have its lines as
-context, so the patches don't apply to -rc as-is.
-And patch 3 documents KEY_SPEC_BPF_KEYRING.
+> On 15/10/2026 0:48, Andrew Morton wrote:
+> > On Wed, 14 Oct 2026 17:08:59 +0300 Nimrod Oren <noren@nvidia.com> wrote:
+> > 
+> >> min_free_kbytes is recalculated on memory hotplug and on THP sysfs
+> >> writes. The new value comes from calculate_min_free_kbytes() or, while
+> >> THP is enabled, from set_recommended_min_free_kbytes(). A value written
+> >> to the vm.min_free_kbytes sysctl is replaced whenever the new value is
+> >> higher, so a lower value does not stick. This matters most when THP is
+> >> enabled on configurations with large pageblocks, where the new value
+> >> can be excessive [1].
+> >>
+> >> Stop recalculating min_free_kbytes once a value has been written to the
+> >> sysctl. Systems where the sysctl is never written keep the current
+> >> behavior.
+> > 
+> > This problem lies somewhere in the range of "minor annoyance" to
+> > "catastrophically horrible", but it isn't clear where in that range it
+> > falls.
+> > 
+> > So can we please can we have a paragraph which explains the real-world
+> > userspace-visible runtime effects of this problem?
+> 
+> Sure. Can we add the following after the first paragraph?
+> 
+>   For example, with default arm64 pageblock sizes, the THP
+>   recommendation can reach 5.5 GiB per eligible zone with 64 KiB
+>   pages vs 22 MiB with 4 KiB pages. This keeps a significant amount
+>   of memory free, reducing what applications can use and triggering
+>   reclaim much earlier. Users can lower vm.min_free_kbytes to avoid
+>   this, but the lower value only sticks until the next recalculation.
+> 
 
-I'm confused.
+Thanks.
+
+Do you (and others) feel that we should backport this?  Or is it just
+not applicable to real-world users of older kernels?
+
+If we expect there to be non-zero users of 64k-page kernels on older
+versions then I think "yes, our users will benefit from this".
 
