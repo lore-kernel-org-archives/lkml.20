@@ -1,153 +1,152 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 352533CAE93
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:37:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792179437; cv=pass; b=kLddrUMpohmdlpuFXpT0H0jpyIVCz5+XgpoKZA8II13RiyOWZss2YqrD5gW3ooQmcGrFnrw/dsM3pcuhyoXaJe80hzQ4iXg2WlC3lBuhrdS+woUiglspVA8oU75Ijl5D8ImW3oyi+rwf+oBP2+YSmIGcWh7PZ86jmhnIalhUbMs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792179437; c=relaxed/simple;
-	bh=T24EBAmmRXB3PyxMRw5x/uGX9vSuVj8AHohfJzGwWRg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=izWzzRKw7em+UwOHX7fRStTOL9+wyoZWwa2A9ZxewbqV13wl0X+rmn2eYzyXH9SMv9oR8xNylz1cu/vZLkzb+nOcrOg8R15pjwhLBe0s6oVJpEJF882R4ShQ5EjF9QDgxspK9rHNnKvOoFS2AUvgDJ4xnEn4QJiy/Q6Gd+MDvP8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NXnHxUpL; arc=pass smtp.client-ip=209.85.160.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA873B95E9;
+	Fri, 16 Oct 2026 19:37:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792179462; cv=none; b=nL7nyqGxcGs8b5/i3zFcMoCLy1QOfqO8oreg4wc8DFx74mSbjb1Mfpq4XXo5QxzunuQahsW9V6LNqbv4YHq/6nxONb0xPYgElEfIFoqvE2dKOGscEPRHxAyl18y2OxV7bf2vozDeT5DowhMUWyLH420fBeMGIPABWS/GjoCxOyY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792179462; c=relaxed/simple;
+	bh=RAFhKdwU/ZLZZ4wlCCnNdhreSddlf7qDekDinE6g4aA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=CifQcELTtTHjFvF7koNoR1lXum7XnToofip+4ORfrK8swEqKdyj0LzVmOJImBBbC9xQ5MRmBfDQHWN5zaimWREXuJROGv0Kw+B+GEoTmX3Qcd6rgF4jRZwL3zImd8GjRC7U4i/u3zdO+6hCC9lug1d4jwepZi8LZCnlZEGOipe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LX267mri; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NXnHxUpL"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-533202fe429so60041cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:37:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792179434; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Dhl6YzwWlEgy6/mlEId/kQ0ZyNC4aKy9IKY1sEWrKsZ/F1JTJCMdkqpmeYuApzrVMb
-         ikxXoVmCArmp5BNHW9KRqEhA1nOY8aLMnC9ifnUmCHW6h8Z9q2Z92Thp1cCRNZF3ybkz
-         Romzis31jxF2BMNV3YWESp0sshgY+sfksUpkGJywbBrxs8eYPI9FbF6DVZOc5iVhHxwm
-         mmhcq3S8gfk6rdZceftVvs/fe0vsm9rKPkWCtesn2HdzpHXzXKMWEmxOMblMfmAgg4jB
-         irnm8k7wK0e5ixkzGtdrJIW6r0AorXEbSsUPEQ6ifoI6QbwEWI+vjV/Dcarim2yY0C39
-         PSPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Um6BosUUMDxetnqhnpCeanhIvXYZRN4p7ISZfy18W6o=;
-        fh=GlSGCIo4umV210WkzGvDFjFGhRf/lqQLiAwUUPAx4d0=;
-        b=oCyHSNxCReq8Zl6bv+8QwOBCNVdccXCXUhsl718Was/eQ/aZaqOgtocP77cB8S4OEC
-         9ucxvYqNF08oLnGnrbfOYDnyDxK/09uH/Hs4PN7OlJTOU4HvdO7kPkXXMA7UI5C/lQ8U
-         4yZbnZR4YX9devzZMsmunRnsHapBjCrgDcltd4DLPU71WGNXKmSD9NT4iW6D+2lg72xQ
-         JneeTbKP+3H6WW/WDwlpIxY3+so3I+tFJ5E/GaMycLcDPot8jQxKUZ1QOtZKdfCcYjOc
-         O3T37X/qIKyx7mR/iVTtRiBAqanhO9IqoEJZZzO3/L1v6KOoxl7d4NwvtQMufgrxYtzk
-         1/pA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792179434; x=1792784234; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Um6BosUUMDxetnqhnpCeanhIvXYZRN4p7ISZfy18W6o=;
-        b=NXnHxUpLf9ZHs2Q9xRKz2TCK3RLgb23vin75BINP5G0fCtS0JnsAGs9EjLbZDDKSZ5
-         9nBtWIh1Mn06jqoZUfXHHhlBFyR/0AWCXJUJj4J798dmxlcsyjPP7OZkt2oW3vCwHz7A
-         VgEbGEYbg9FfB2aHBBRxrUmbXFvKFl2DN32yuKBfGo4qsMyAGBmAhaOExxCai+bRGYgk
-         ZcQyrrTnf1UxGpLKQMvnLeyZx1BBinid4w/KEym0q+qOcH1uevYFJlh90mkmXaqzhMkz
-         Mmf9UOyaz0Jvh3FCLDe8DD6HQx2ufeD+MH+/at8nhPt7Tbk7YpjJ9fYCPLeNdWr4iLuM
-         9bcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792179434; x=1792784234;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Um6BosUUMDxetnqhnpCeanhIvXYZRN4p7ISZfy18W6o=;
-        b=2FKToLynIldZtvTPYtHbg4wIrgMewYcLbdbqS0tLbEHcmSiccafBx63IAH7oMqphtD
-         Zr4Q8edoVGucCic3Bgz3ztyXg/LWOUBwVNitRKJsyKFRJsaVSGUFP/06jVRCsivlhQkE
-         OEHVxhPHQr/jLywoeTbauHuHCDedadtHwCtiJscSovCkfBOfXeumsbYHL9ZAaS5KsrUD
-         BaodCICQVk8xjPNZS6Y4OIJdc598bBTYH+Bf34jU1Ke+W2hMhV4nv/mML72GYPYeYK5L
-         Wvps84NpiSS3lvz/rPdepmsyA9JRIostsZdAjXaiU2AVrOAlht6l5zs9Se5EEg2FWlKF
-         BwrA==
-X-Forwarded-Encrypted: i=1; AKwUvBwaBV+WUQrN3QfyZK4nidrNrUAmPg5rmDsAA+LQnPYlgfP6frMHZgRNdXPO8mFP88hGlmeP+FqvSCQyZyM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3saIONatqiZCh8QUePYeV2Pf9QjRkYWB9ogBJXibZcDFxxh64
-	9wpVGvs9vZOyp/ut8DrFkhlWcVfUggvp5dIigf3xX2m9PV/SjjiSCrMzVC5Wtnp3p827AmXHncd
-	xIs8dQqeGyYIcCqOS+Q86/dOb3jDzUfKRF0nWfarD
-X-Gm-Gg: AYBFou16Z/uucDek0FK24fxL1mVNxmXGAJQB+/BH7d+sz+ABB1KuSrUdf4JgK8HhcI2
-	J/Eht+VwPRvMhPA68AsIAgJoyQeZ9z1lmCGoJi3rKXrFjw4jtXn/aD/PWkroKEKA2/eKAtGWaiv
-	panUmHLBXZ3OsZN0rPEyKePlY7fdTaSFe9yqJyBDhRLgDifyE/sKG/VPVl0n+PzD5baiQFPXmN7
-	d/ltEvMTTXxMStwLp42GHI6pMBMOIYxf6X5erMIVAaWxHoSk4CuHmmiedGevM+Eu5+WApJ3Du6z
-	pUeiCv7W3XaNqEYxh8sbt/YgDn6t6fC4XC1bIYLsVLLJ3QXfIC9hMlqH
-X-Received: by 2002:a05:622a:598f:b0:536:3d22:fb83 with SMTP id
- d75a77b69052e-536465eabddmr3092751cf.13.1792179433180; Fri, 16 Oct 2026
- 12:37:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LX267mri"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E0012C2BCF5;
+	Fri, 16 Oct 2026 19:37:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792179462;
+	bh=RAFhKdwU/ZLZZ4wlCCnNdhreSddlf7qDekDinE6g4aA=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=LX267mriyyLVVedgpNqnkUXj7lZS7YLLGVpCKGtC9ligGMgIBKfU+9dUCxXvE2tIf
+	 ryiPCnhavYcRwPs4ggrAml9aRfkUrFd7ISbeWzeo74RgYMv53rQflYy4544ObGa8iB
+	 +4h7gIDrpQo9E7wLAQLpQmtgCCmayMNAOtaM3UUYLO4GaqWbZ30fCqSTQywpH7vs3D
+	 luI8511448wWgpyjiEMeV398gx2jWkiFSbGwdTjSEW2CVGMQLjPTQ2rJV6vHlcvf1i
+	 FTiATz+d/MzwsqZvDpm4s2B0gI0Kog0ShIec1UdNIhqLge7WPdEFhiUM32XruL39JZ
+	 KCiVqzJzBkiYQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CA739CCF2C4;
+	Fri, 16 Oct 2026 19:37:41 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Fri, 16 Oct 2026 21:37:39 +0200
+Subject: [PATCH] arm64: dts: qcom: sdm845-google: Configure qup_i2c2 pins
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-12-yosry@kernel.org>
- <CALMp9eThakVB_zqPQX=fQLrKh13BR33jmGg__rncOLDa2ZkXWw@mail.gmail.com> <CAO9r8zPHA2Xbwqm5sL1uymCy+T65LKLWDh6CKvV83euHhxPWTg@mail.gmail.com>
-In-Reply-To: <CAO9r8zPHA2Xbwqm5sL1uymCy+T65LKLWDh6CKvV83euHhxPWTg@mail.gmail.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Fri, 16 Oct 2026 12:36:59 -0700
-X-Gm-Features: AclHuK92jepxWuUtFmMlKXO_5v4ZdybtV_AOdjCsjdE0ksCnXN8ts3BnKwKo--A
-Message-ID: <CALMp9eR7MLnZNWFgDWBuux6uuqWOwB0CrDs9UyYouSPHbZYbqg@mail.gmail.com>
-Subject: Re: [PATCH v3 11/27] KVM: SVM: Only flush the fallback ASID when used
- by a different vCPU
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-pixel3-i2c2-fix-v1-1-6a527d52c865@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4auEWTuQmUDQXqV0UeOoIyUNSVsE8
+ e7GuvwevH+DIlmlwM1skOWnRd+xghoDYX7GSVCHamDLnix5TLrKy6FyYBx1RWc7ZqG2Jd9DfaU
+ sdf4X74/L5dsvEj5nBvb9ABWz7ENzAAAA
+X-Change-ID: 20261016-pixel3-i2c2-fix-30922e18816b
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Selvaraj <foss@joelselvaraj.com>, 
+ Vinod Koul <vkoul@kernel.org>, Amit Pundir <amit.pundir@linaro.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1863; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=8F2FDAtyMGjBlCfXnVch0dchQePJ+YFwNeu8d37XgO0=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq0n0Ejd6G2KZGoA5pQ/H8YhwgaKY6lt5YR78vk
+ 35DF/EHVAqJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCatJ9BAAKCRBgAj/E00kg
+ cn8OEACZ5vPBQ90lPLqneAwW0b9lvU/3btUX4VBUkbHDBDHSCoJMZ4yMiTPq9/6EiPT17yg95je
+ VrEkfFZWpmC7s8YUd5uTEgVzFivHDhHGlm/gxhIFKrX1dlEUTsPRGn13m4kztbv6FDrVW5yFge/
+ 9B6iH6WD9+MKCeXZCaAs0acqp5pdyizySj14BA2KGtZyCfdEXdqOAXYDT8RqAbefTBuTc6nXKQZ
+ iU2fpPDBV4G3Rq9QiKS8I3LrNku155wRgWwhBwS5w6neAgm2JqF4UN7egPUA9VrOdkt7zMKnmS1
+ 8zggGXujDwrVf0GzYNyciMO0Nr62aJ4zZbCAg4pEQpwNY0AZUm7bkoKraLLg5rOF/XVtq4CHDvv
+ 5F8SCL8FobVN5yobyE4xJS2CjGMI0QPswjc1AhyyRJ4cMIKP//hh4EmqjLHkXDjHTuhJLwqAS95
+ 9HjlwHfk7LHoQUgpDeAVHlQ/XCAn9WWkFMZ6l8d32mJcsS+skvqCf6OXh5b8VwfTB+Bd3TGcqMX
+ wbk7kqw365OJ0dGvaMJdOz7IOmqQ1waexhAOpT2BcOPw3dHHWq75vinpjEDmi/+l8gGE81kGR8Q
+ VQs+Cu/+hShwwgxUtXv3Z7o12tQIX9TaQ9/x6zHrwVMTeTWrNMRgmhqyKc8u8v+LquHaC0Rc4F2
+ 8h+cKqpenjnJkrg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Thu, Oct 15, 2026 at 3:03=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
->
-> On Thu, Oct 15, 2026 at 2:44=E2=80=AFPM Jim Mattson <jmattson@google.com>=
- wrote:
-> >
-> > On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> =
-wrote:
-> > >
-> > > Instead of always flushing the fallback ASID on every vCPU run, only
-> > > flush it if the last vCPU that used it on the pCPU changes. This avoi=
-ds
-> > > constant TLB flushing on a vCPU using the fallback ASID if no other
-> > > vCPUs that use the same ASID ran on the same pCPU.
-> > >
-> > > Note that checking (and flushing) the current ASID on vCPU load is no=
-t
-> > > sufficient, as it is possible that a vCPU is using the fallback ASID
-> > > only for L1 or only for L2. To do this correctly on vCPU load, both L=
-1
-> > > and L2 ASIDs would need to be checked, and the respective VMCB would
-> > > need to be flushed. This would not be much simpler, and would perform
-> > > unnecessary flushes in some cases (e.g.  loading a vCPU that uses the
-> > > fallback ASID for L2, but L2 doesn't actually run until the vCPU is
-> > > unloaded).
-> > >
-> > > Another alternative is always flushing on vCPU load if the current AS=
-ID
-> > > is the fallback ASID, and flushing on nested transitions if the new A=
-SID
-> > > is the fallback ASID. Again, this is not much simpler and also incurs
-> > > unnecessary flushes in some cases.
-> > >
-> > > Do the logical thing and track the vCPU using the fallback ASID inste=
-ad.
-> >
-> > Wouldn't it be simpler to track the VMCB associated with the fallback
-> > ASID on each pCPU? Then, you avoid any confusion regarding whether L1,
-> > L2, or both have been assigned the fallback ASID.
->
-> It would be if we went with checking the ASID on vCPU and nested
-> transitions. But since we're checking in pre_svm_run(), I don't think
-> it simplifies things. Oh, I guess it doesn't simplify this specific
-> patch, but we don't need to check if both L1 and L2 use the fallback
-> ASID on nested transitions.. but we have to check if they both use the
-> same ASID anyway for SEV.
->
-> OTOH, it would make cleanup more complicated, as we'd need to do it in
-> both vCPU freeing and nested freeing.
->
-> Did I miss something?
+From: Marco Mattiolo <marco.mattiolo@hotmail.it>
 
-I trust your judgment.
+Set drive strength and disable the pull on the touchscreen i2c pins by
+amending the qup_i2c2_default state from sdm845.dtsi, as the other QUP
+users on this board do, and drop the unused touchscreen_i2c_pins state
+that duplicated the pins with the gpio function.
+
+Fixes: a678adbf2d22 ("arm64: dts: qcom: Add support for Pixel 3 and Pixel 3 XL")
+Suggested-by: David Heidelberg <david@ixit.cz>
+Signed-off-by: Marco Mattiolo <marco.mattiolo@hotmail.it>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+index f1379857e2742..b019b57502a1a 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+@@ -459,16 +459,21 @@ &pmi8998_charger {
+ &qupv3_id_0 {
+ 	status = "okay";
+ };
+ 
+ &qupv3_id_1 {
+ 	status = "okay";
+ };
+ 
++&qup_i2c2_default {
++	drive-strength = <2>;
++	bias-disable;
++};
++
+ &qup_uart9_rx {
+ 	drive-strength = <2>;
+ 	bias-pull-up;
+ };
+ 
+ &qup_uart9_tx {
+ 	drive-strength = <2>;
+ 	bias-disable;
+@@ -510,23 +515,16 @@ touchscreen_reset: ts-reset-state {
+ 	};
+ 
+ 	touchscreen_pins: ts-pins-gpio-state {
+ 		pins = "gpio125";
+ 		function = "gpio";
+ 		drive-strength = <2>;
+ 		bias-disable;
+ 	};
+-
+-	touchscreen_i2c_pins: qup-i2c2-gpio-state {
+-		pins = "gpio27", "gpio28";
+-		function = "gpio";
+-		drive-strength = <2>;
+-		bias-disable;
+-	};
+ };
+ 
+ &uart6 {
+ 	pinctrl-0 = <&qup_uart6_4pin>;
+ 
+ 	status = "okay";
+ 
+ 	bluetooth {
+
+---
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+change-id: 20261016-pixel3-i2c2-fix-30922e18816b
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
+
