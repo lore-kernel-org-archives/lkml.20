@@ -1,74 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from business190-3.web-hosting.com (business190-3.web-hosting.com [66.29.153.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C688B41A923;
-	Fri, 16 Oct 2026 08:27:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6AD9302767;
+	Fri, 16 Oct 2026 08:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.29.153.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792139251; cv=none; b=Jw43Bm5RWnrbgxgc5BU2/BfEJ/FH4YlEb4WcQ6n0eLkuyaIXXTWb32Ke8xSjCJ1P8lZXncD0t2lwQuG2HcocYRgB1DVxR+Rxd2L1scz6qOTeds9+Y0nI9yKC+NhWrmIKqjTi6TmV/1Q2T1w4qX3L4EQxB+BTjOCcgV14LDcJeBY=
+	t=1792139299; cv=none; b=F++uw5CxzPimti+oy2nno+w0UbogKcll2ZxJGzQFhK3+AjdHggLkjMeYSSIWRF1w6nE5Zwl207TLwNbpC/8RMp0y6QPZKrrm/Wf/evltTrVerEyq06vVBg0vmt2r0vuO3/LHkNk+3FmVuB0HuT7r+PRDMRF6e1MJGrM/1kKBFZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792139251; c=relaxed/simple;
-	bh=+H+gcbO8/GdePEPNqNGwAbchsNQcK6/a1jIVjw7YQZU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OMon0gDfAPRJzG8O3WAr+5tHnoBtf5vJOaEKOnprv31vj0zNNpXm3eL8Uq+x92lthbJdi8hJnCE461ucDkD9GYrQpZaNz4qpf56YfvM1Irmyp/V3WNDSBxQt8Z9H+TmM2k9ozbLJS+bLsSlccU/85H6CJrds/I9GYAx4zBUYUzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lzs4bUl9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792139299; c=relaxed/simple;
+	bh=6LV9wLOnGQtumPmVokzYVkAPy2/Dg57Wk2EpoYUlbTo=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=bQCWr/Z+hn+KJ3Dyqs4RAKtCDUiv5udEsmCXMK+5aRU8LRuEu5qpxU0oTZ31sqObL8y9kdTAp1r/+dlqG2jkRMUarP9NiLuWKaLJ40wvphz7wcpdK6U349ZBShn5NvXPBhCOl3WgDxAyxLFyWgKQeZlOUGWbw6v7F/dGC6u86Xc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mathgraph.org; spf=pass smtp.mailfrom=mathgraph.org; dkim=pass (2048-bit key) header.d=mathgraph.org header.i=@mathgraph.org header.b=FhUv+qHp; arc=none smtp.client-ip=66.29.153.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mathgraph.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mathgraph.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lzs4bUl9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 502F21F000C4;
-	Fri, 16 Oct 2026 08:27:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792139249;
-	bh=43WzBBDSBPDoqOTx2OTFsH6xhSXl8SSUb+vJUiJbtJ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Lzs4bUl9+WVWd8J3U435zH6GMfKNGMwrZcogSut62Tucr1JDLK9yzO0N9XgOJ9xj1
-	 ueE97ndDBy3XFCpVxw6jT+SvlPDfhSSBt1KC3SAocfHqdRvdNnp5YsOzWk/d+V0BRN
-	 ywOgjkYd3nw/tZdcF4GKJTw84Tvveaas8aKMipgv/DGkOQ5kpnHtGGKOHBShx9nYgT
-	 iQMB5NABBDaYBIedyjVC2AxN2E4rvEUbswjYIuswGRvhQ0yJeStCP4VGCDpdULPRNl
-	 rYrKJwmnC+gefsx9QSxulci43rgXc1r0RGZd0ljaNQ3tXUftExeDvNqosr62RdyXwc
-	 Lj96KswkODT/Q==
-Date: Fri, 16 Oct 2026 10:27:19 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Alasdair Kergon <agk@redhat.com>, 
-	Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, 
-	Benjamin Marzinski <bmarzins@redhat.com>, David Howells <dhowells@redhat.com>, 
-	Jarkko Sakkinen <jarkko@kernel.org>, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
-	Eric Biggers <ebiggers@kernel.org>, "Theodore Y. Ts'o" <tytso@mit.edu>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Andrew Halaney <andrew@amutable.com>, dm-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	bpf@vger.kernel.org, fsverity@lists.linux.dev, linux-doc@vger.kernel.org
-Subject: Re: [PATCH bpf-next v2 0/3] keys: Add well known IDs for
- fs-verity/dm-verity keys
-Message-ID: <20261016-ratlos-endkunde-eindimensional-1fe5eef08d13@brauner>
-References: <20261008-ajhalaney-dmverity-key-identifier-v2-0-008456d189cb@amutable.com>
- <20261012-broschen-inanspruchnahme-gebilde-d72cf2b99cda@brauner>
- <DM5UD20248FG.3BXPS76LK06F5@gmail.com>
+	dkim=pass (2048-bit key) header.d=mathgraph.org header.i=@mathgraph.org header.b="FhUv+qHp"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=mathgraph.org; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=Kx2v3a8EiiKPqdJGZPX5lUJcVkR1MUr1WjyMhou2L0s=; b=FhUv+qHpa4e5
+	qbHf0z3/Nwf39FGvLLQ81MNxo9BoRxx4/+FmpISTvPyOHougl4Ohgo6U+zt3/oEQYAPBFlpcUdKmA
+	ewUVnMbyQwIQFfjmeytrejA+wydqT/eiULpnYKeFkU/PtDE+UzjWdSs6u50BIxoG3L9l7bnayPc0W
+	01WfW+Rtq1/4zp+59saUwzgfCdcUQZcO3kSxDOoCkuGEABRW8bzxUCAC/ObtuKn8ZqzhMECZ2EhnU
+	3KSxMklKJBurYYUg7mKCvv7PbdWcwAk0zl9/NmlzTOKPzCLEVmD+cT9wKqm/CFhJv2g8qlIqdw+0I
+	7XSwoh0Ob1oNOY/E6IAHng==;
+Received: from [::1] (port=47094 helo=business190.web-hosting.com)
+	by business190.web-hosting.com with esmtpa (Exim 4.100.1)
+	(envelope-from <heath@mathgraph.org>)
+	id 1xHdIN-0000000Fozb-0sqk;
+	Fri, 16 Oct 2026 04:28:07 -0400
+Received: from cgn-ote149-19-21-226.as55850.net ([149.19.21.226])
+ via cgn-ote149-19-21-226.as55850.net ([149.19.21.226])
+ by business190.web-hosting.com
+ with HTTP (HTTP/1.1 POST); Fri, 16 Oct 2026 04:28:06 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <DM5UD20248FG.3BXPS76LK06F5@gmail.com>
+Date: Fri, 16 Oct 2026 04:28:06 -0400
+From: heath@mathgraph.org
+To: Gabriele Monaco <gmonaco@redhat.com>
+Cc: rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] verification/rvgen: reject ambiguous state/event
+ transitions
+In-Reply-To: <9fc2d6a03fabc2c756bfa696bc907ef23dcc175a.camel@redhat.com>
+References: <11d37dced04f512153c023b8b7361309@mathgraph.org>
+ <9fc2d6a03fabc2c756bfa696bc907ef23dcc175a.camel@redhat.com>
+User-Agent: Roundcube Webmail/1.6.19
+Message-ID: <f8a773ce204c7dfe5b15bdefe21131b1@mathgraph.org>
+X-Sender: heath@mathgraph.org
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - business190.web-hosting.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - mathgraph.org
+X-Get-Message-Sender-Via: business190.web-hosting.com: authenticated_id: heath@mathgraph.org
+X-Authenticated-Sender: business190.web-hosting.com: heath@mathgraph.org
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-From-Rewrite: unmodified, already matched
 
-On Fri, Oct 16, 2026 at 12:38:11AM +0000, Alexei Starovoitov wrote:
-> On Mon, Oct 12, 2026 at 12:38 PM Christian Brauner <brauner@kernel.org> wrote:
-> > Applied to the vfs-7.4.keyring branch of the vfs/vfs.git tree.
-> > Patches in the vfs-7.4.keyring branch should appear in linux-next soon.
+Thanks, Gabriele! Really appreciate you taking the patch and the 
+clarification on LLM disclosures.
+
+One small question- this work is part of MathGraph, developed at 
+Metalogic Labs. Is there a conventional way to acknowledge that 
+affiliation in the commit? No worries at all if not — I wouldn’t want to 
+complicate or delay the patch.
+
+Thanks again!
+
+Heath Sanchez
+Metalogic Labs | MathGraph
+https://mathgraph.org
+
+On 2026-10-16 03:55, Gabriele Monaco wrote:
+> On Tue, 2026-10-13 at 15:51 -0400, heath@mathgraph.org wrote:
+>> The rvgen generator builds a transition table indexed by source state
+>> and event. A DOT specification with different destinations for the 
+>> same
+>> key is currently accepted, and the selected destination depends on the
+>> iteration order of parsed transitions.
+>> 
+>> Reject duplicate state/event keys after sorting the transitions, 
+>> before
+>> generating the monitor. This prevents silently selecting an arbitrary
+>> destination without changing valid automata.
+>> 
+>> OpenAI GPT-6 assisted in finding the issue, developing the fix and
+>> tests,
+>> and drafting the changelog. I reviewed the changes and take
+>> responsibility
+>> for this contribution.
+>> 
+>> Fixes: cad252db78a9 ("verification/rvgen: Switch __create_matrix() to
+>> Lark")
+>> Assisted-by: LLM
+>> Signed-off-by: Heath Sanchez <heath@mathgraph.org>
 > 
-> What is this branch based on ?
-> v2 was sent against bpf-next, because
-> commit 264d8fd2794f ("bpf, keys: Add a bpf keyring for program signature validation")
-> is only there.
-> All hunks in keyctl.h, key.h and process_keys.c have its lines as
-> context, so the patches don't apply to -rc as-is.
-> And patch 3 documents KEY_SPEC_BPF_KEYRING.
-
-It's based on the portion of bpf-next that has Daniel's keyring patches.
-Which means I just wait until bpf-next is merged and then send it as a
-follow-up pr.
+> Thanks for the quick V2. I'm going to take this.
+> 
+> As a side note, I just read ([1], subscription required) that the 
+> Maintainers
+> decided at the 2026 Summit that models used and other LLM details are 
+> no longer
+> to be included in the changelog.
+> 
+> You don't need to send a V3, I'm trimming that paragraph. Anyway this 
+> kind of
+> transparency is largely appreciated, so feel free to include it after 
+> the --- on
+> your next contributions.
+> 
+> Thanks,
+> Gabriele
+> 
+> [1] - https://lwn.net/Articles/1099594
+> 
+>> ---
+>> Changes in v2:
+>> - Drop the redundant hybrid-automaton regression fixture and test.
+>> - Match the full traceback prefix in the negative assertion.
+>> - Move detailed qualification results outside the permanent changelog.
+>> 
+>> Verification: original rvgen suite 30/30; revised suite 31/31;
+>> 64 deterministic/hybrid hash-seed replays rejected malformed models.
+>> https://github.com/metalogiclabs/mathgraph/actions/runs/38452477359
+>> 
+>> diff --git a/tools/verification/rvgen/rvgen/automata.py
+>> b/tools/verification/rvgen/rvgen/automata.py
+>> index fd37ce3..1f9a56a 100644
+>> --- a/tools/verification/rvgen/rvgen/automata.py
+>> +++ b/tools/verification/rvgen/rvgen/automata.py
+>> @@ -418,6 +418,13 @@ class Automata:
+>>                   transitions.append(Transition(src, dst, event, 
+>> reset,
+>> rule))
+>> 
+>>           transitions.sort(key=lambda t : (t.src, t.event))
+>> +        previous_key = None
+>> +        for transition in transitions:
+>> +            key = (transition.src, transition.event)
+>> +            if key == previous_key:
+>> +                raise AutomataError(
+>> +                    f"Duplicate transition for event 
+>> {transition.event}
+>> in state {transition.src}")
+>> +            previous_key = key
+>>           return transitions
+>> 
+>>       def __parse_states(self):
+>> diff --git a/tools/verification/rvgen/tests/rvgen_monitor.t
+>> b/tools/verification/rvgen/tests/rvgen_monitor.t
+>> index 5f25626..8d635fc 100644
+>> --- a/tools/verification/rvgen/tests/rvgen_monitor.t
+>> +++ b/tools/verification/rvgen/tests/rvgen_monitor.t
+>> @@ -84,4 +84,9 @@ check "invalid ltl file syntax" \
+>>   	"$RVGEN monitor -c ltl -s tests/specs/test_invalid.ltl -t per_task" 
+>> 1
+>> \
+>>   	"No terminal matches 'i'" "Traceback (most recent call last)"
+>> 
+>> +# Reject ambiguous source state/event pairs.
+>> +check "reject conflicting deterministic automaton transitions" \
+>> +	"$RVGEN monitor -c da -s tests/specs/test_nondeterministic_da.dot -t
+>> per_cpu" 1 \
+>> +	"Duplicate transition for event event_2 in state state_a" "Traceback
+>> (most recent call last)"
+>> +
+>>   test_end
+>> diff --git
+>> a/tools/verification/rvgen/tests/specs/test_nondeterministic_da.dot
+>> b/tools/verification/rvgen/tests/specs/test_nondeterministic_da.dot
+>> new file mode 100644
+>> index 0000000..1b63b5d
+>> --- /dev/null
+>> +++ 
+>> b/tools/verification/rvgen/tests/specs/test_nondeterministic_da.dot
+>> @@ -0,0 +1,16 @@
+>> +digraph state_automaton {
+>> +	{node [shape = circle] "state_b"};
+>> +	{node [shape = plaintext, style=invis, label=""] "__init_state_a"};
+>> +	{node [shape = doublecircle] "state_a"};
+>> +	{node [shape = circle] "state_a"};
+>> +	"__init_state_a" -> "state_a";
+>> +	"state_a" [label = "state_a"];
+>> +	"state_a" -> "state_a" [ label = "event_2" ];
+>> +	"state_a" -> "state_b" [ label = "event_2" ];
+>> +	"state_b" [label = "state_b"];
+>> +	"state_b" -> "state_a" [ label = "event_2" ];
+>> +	{ rank = min ;
+>> +		"__init_state_a";
+>> +		"state_a";
+>> +	}
+>> +}
