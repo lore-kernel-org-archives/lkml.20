@@ -1,95 +1,81 @@
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4810B4756DF
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462AD3431E3
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:00:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792159198; cv=none; b=lXPhRYeCiKCxrEJoAjDlWPofceuUkxH7iXTEDltbmHCJWktZ7PnM2lSRsI0CyAeEskM/gbc7AaG58AJZXEsL9NKzijjU1ZNoKTOst+qW1jnQfKTQk/G8zTEprVWgsMefyycutRwikh5AWD4/fY98cVV0sCYdDtJvbYFJf0S14G4=
+	t=1792159219; cv=none; b=K7/7+QhW352KsYFqyJ0JUWh3XCU1tILirT11iwr8UnrhhPl+sQUvI+2Nq17qx1eF6sb3zb3vleymZzfWiS8Va2HsmjmOzVh1Sk1LU679hOGOrBMDyUdsj5RGRV//wkY7XrTcHIT/Wqr/wC3xHz5mi8nVlzvkubKJ1JmL8fhsnJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792159198; c=relaxed/simple;
-	bh=Y+JRhxf+t1+giLUhjsuzR3Vgd4cOaEzcBSqbm/PM+UQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lUsrrbpOnzkvy+eZKL+yGXd5FsNSmcSnwuMC3MiRjyq7yws+aH1gjWSlaWNuw3V1oEfUqs0/q1R4/bCy35S+N/M5G/CpH3xhKlhKJhB9N5mgL1U5AOQ7D7DpLXj9TjIzLIQ6VIkpjMzRYk4LwxZICEKGn67LFSG5Pexup1SVD88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=vZ8fmPXz; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=AkDg98Aj; arc=none smtp.client-ip=202.12.124.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1792159219; c=relaxed/simple;
+	bh=v2V5fnVsa5KLtIz1AyZRKlfVKI+s2yAGKM9+SZyiR6A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oOwUm++FvWbKRXI2LjojH+ONWTr5u4dRaEw7iI6gCUoAwGegPkinVyJQQdpjS2Zq+zFZunuCSW3qo5Sl8zt2QhrwpLrmWkQt4PrXv50QFPoFloeFCxPBTKWihF68WWMcQe9Rov/QmWKAz4udWYw2rfQg4s/7PHy2l0kba5VLcnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smartx.com; spf=pass smtp.mailfrom=smartx.com; dkim=pass (2048-bit key) header.d=smartx-com.20251104.gappssmtp.com header.i=@smartx-com.20251104.gappssmtp.com header.b=NR/Q1CL9; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smartx.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smartx.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="vZ8fmPXz";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="AkDg98Aj"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.stl.internal (Postfix) with ESMTP id 799D71D00111
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:59:52 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Fri, 16 Oct 2026 09:59:52 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm2; t=1792159192; x=1792245592; bh=i0vVjAcXvk
-	JCXYxLgfrfZrdi9/GRG+My+XE+PzXTx+A=; b=vZ8fmPXzEg94URKlUkxL8RAgt2
-	/JinrGRDFBCUfxnBdUGJIF3kjKcDYNkCdu6wpw05PDZWN5ElqfIplHfASwD28C1X
-	5GU30d/MxP6izSiOjTqDc5l2WPTWE8KEjyqBcRUFTK7lrsayBh0H9f7pQ+bCqpGC
-	IFnz18Uld6bkdZsN2o+9NYMyIueIE3lETDJdTSmJ/MiAKpZ7VFw/ys9wzIdW5QEv
-	rharGe+c4k9a9K+e0xLQ6JVcM9p7nTfu3DWzAN6/pDKlKnFT5JqegIOdpHF3bAas
-	Nq9dBpKWVK5iDHS8NG73spB+mQuiyG6pC/Zr+v2JZ4O6qsRMwPvDanSR/BsQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792159192; x=1792245592; bh=i0vVjAcXvkJCXYxLgfrfZrdi9/GRG+My+XE
-	+PzXTx+A=; b=AkDg98AjN2ReFNkD1uxc00kXfDo6W27URS+SbFi9FEz8Ej9CmWp
-	Das/0rIGWoA9frwzaOsYa7f6NHcPPhYorq3Jfwk8dftQYBPCtxdlWwvpQ5uLUpzh
-	DD3GfJt8ACZMgCP8fmxqwlETmQn2XvC28b5hhygFSbvNJ6qhcVXYEPcbGh8ox2p/
-	nRvFsVk5eFS1cV9bKV3XwyFQsM2gh3tMHBAwqTRZ5jrSItH2mf07OW7jm2xdxTfi
-	Ah0FWFNXgUN70x9+V/hlvcDfBGtMOf/zVvMyh8uC57e0Eod7BwuzsLI8AGI5t6E9
-	iBuuZMAUo/V9aNOzW9oR+HUQ/5sVSi5F0Tw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792159192; d=sakamocchi.jp;
-	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:uAJuMv1QIy3sbxw3aJhKhYAPIOTQPzOSEy4mrDusliNyo4u
-	9+22ExlrWsWR1Ai+qpRXVLp4zC8Tm9hbyBBLJsFwa7pMlToYJuJ8U0yeZLX/GdXD
-	7TuRIWNW8NfE95pYRQYKhZf2XM8xpogWgIbLbFu0Fl7ydPFx4y5AqydeTqygQZyq
-	Xtb4mnk9ur/S4DXY9Z514Qd3sQAEBpCjCCuB/4cmFnhGRiG+sMaIK17+sOzU5dRM
-	trNRTfQ1Vo58JbipOfOKxlYZq0GyatzsDspOYyAXqDa70i11JpQ5a3AlWQwiDp1l
-	gwQRa5mzdnvWZoyBWiJf1HSSKNqXLRhLg9VhYOQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:4F3r2jBwk7MWQE47+DEqL6w990gy/6cu8YVyxQEBOzo=:Y+JRhxf+t1+giLUhjsuzR3Vgd4cOaEzcBSqbm/PM+UQ=;
-X-ME-Sender: <xms:2C3Sarco3gNFI7TmopdMM_M4-51A2L7gosNjjeNn70C6G9dOLPwADg>
-    <xme:2C3SavIIuqDt-rdCULqy44Pbnm70Y_-h_y36xbhN8AUum_TjpvYlCL055CN5w6gKs
-    _sgh9Ig3qr56ucQtxS4CExokBy0isG7yrMPN8QloUCgAxiUc5-_1UIM>
-X-ME-Received: <xmr:2C3SasG4HZgPJd41kIfpuphTbqZYf5ilmgYGa8QwfT-US1-_gIFJlPH8lG-q8X2oY61qnZNHN3a75g4lz_KMOJB-gfIfyyRO4xJC23JFVpss_A>
-X-ME-Proxy-Cause: dmFkZTFYcriJzN3Z2c+FJEGGRytlgbhK9YddTzBlauZb1fXJggI7gQ1n1Tbl55D5aE46Dn
-    tdyBpX/ApEetCKz5Y7Tx7DV/itnoZm+kR7QgibeGwASuJQ/3EzVvDRndGC2DwXa8U8KWyo
-    W1VOE4BQn6K3kZ0+eopaVrnBsCqfiZg3xhCT8yIslW065XTRqWfn8LVEfFRBMxNFoAyv30
-    G9sBdZh/0gJSulNcnq4R3CP+5zjtk84S33J7vMbGftgN55rBoibHskaUYWqOZi18gpiX+M
-    2zkKZS5Ktusfou556ijEYIFz/0EGi8tejz+hKw1abDQRsH2L1ADrfcyl2aR0IwGXzFJbdE
-    JPOp1iVNO/ZYfKOY9uD6KZhl0rpMOj13BdGyhVMAf01dbTKh4dTIOST9OmSYg8ariRwqJA
-    he7s/jnqKBKbtnQRR+20wr9GpqeYPFYieeodVEAgR7L71urofulE6LefJCtOKhwKRlIlf5
-    wO03kn92fg2pO99EI2BbU9amMgqAfbGuCtQpDtPqdCzWfrSxXm3luFpcoSwaDaDJLke3Z3
-    opMuj6W5NfsXqr3aKDOCWavauKqSXvNNluE/lZau0PyOKWj+ZpCFi0DLlZa0hFEeVoLk4s
-    5K07g9uxp1F7uq+eT58ogqC41V9Qs4wU54i37Y+MzyY8kxwFEU7PFx2ZPgGQ
-X-ME-Proxy: <xmx:2C3Sapr7KMbnKvbOjVjQFCChDkkH3XVzffI9gxluamtM_UJIlImyCA>
-    <xmx:2C3SalQvDIsvJzzMIEJvkLFqFM4xHlpvYpssCDnqg3P2PXa0NUxWdg>
-    <xmx:2C3SamOW91FkQ3hVlyp24483YXGRRUPh1CzJ9cQ11YtMU5tdChmD2A>
-    <xmx:2C3SaoMCSglOzIy81A2r-VSVZIAb2QrJQcmeAsbyenGnCLYJ6eUKgQ>
-    <xmx:2C3SakweNQ14uUAkVXzWLQJP_KSaVZzsfQzDXEbZr2yUqnZ-VOhbjQZt>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 16 Oct 2026 09:59:51 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] firewire: core: invoke packet callback from workqueue when removing card instance
-Date: Fri, 16 Oct 2026 22:59:48 +0900
-Message-ID: <20261016135948.85343-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=smartx-com.20251104.gappssmtp.com header.i=@smartx-com.20251104.gappssmtp.com header.b="NR/Q1CL9"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-30b6dad2382so15703160eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:00:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=smartx-com.20251104.gappssmtp.com; s=20251104; t=1792159215; x=1792764015; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2Z5Tjzw79dxuxAtPkKiR6MybscKYv3iH1kbV3jyfWto=;
+        b=NR/Q1CL9Qa0Qc3V3DzWap3i8pkUCekX3fBBPqHNzB/idGNB/rq7k3zjM6/6V1/2SUT
+         4n4OICp9Ih761z+VxntV1kZX5I6qB7w9yioGfGToQa2o8MAq9amDG0/YLRnLkK2g0OZU
+         sHnt1v2hBZnebsX2C7PrpqwIlfBmKqU5/0sWJ/khop7JqqLfAdwU2KstI3eyMm1IE5NX
+         TaRo5SF0PFMyOSpS2vRUNBFOMBYCtzIESYUWEKadoMe+XR7/ELMDv1+HDLVH2wNMevLK
+         mF5p4XYmFLj6LHC541uenjUkYzn4TdJfI3fXyHRswVPYUiiGppzdG6IpOA/sFXHVxxQT
+         hw2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792159215; x=1792764015;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2Z5Tjzw79dxuxAtPkKiR6MybscKYv3iH1kbV3jyfWto=;
+        b=lAVi6Uz2ofH0mykakHlj7pEpvingzD7laPB2F0xOg1OgOUKZsw9KZRQ2KK5T3Skoxy
+         qZ38G/ZJ1TgMS7M6W4U/Pn1+ESjeoqJFcj0UDtxhM5fLZUGiyxqrgBAkw7VoXYtyrfvF
+         OaMueFVQIv9QtEsTz9uHHEAV/BmfLqTkEe18Xjuvi+fFx0ZAqgHL5ic6zLdYUXyf29O2
+         xUj0Fvtv4xST3+D6mjYE1MSqAG5DThXSh+Efu24LcXk5Qdk+2jar39tQLHKuUQebJh+B
+         H1HUcvKBmeaM8JBfazW6JAcV9xa6/bi908/hRx/c/U+P904hsEJygycHPmznplGEyLOJ
+         +jEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwAONm8H1aQyl+Qjgraq6BZd+zVNIUeyioBF9mB5G93gbZXU9PYN6ZXhVIYPMQYDTPLpufbC0mAuvkMPYA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKm6eRlBH9gFI9RhitpuwU3oAP2jd8t0Nxr7FPHhmzB2NBvLZX/
+	mNOT7m6GD6c5LDn5fkfcLTMdMH2C9H/EOWEZMHpKh2swMOdTfJ40mqyybZjx3qDYq6RQ5Pn33IW
+	HHYX/QIWnfwzuq33YyFlKIe1WrwneT57jev1RTkgRTyamJNvGNY6uL/4wEQc=
+X-Gm-Gg: AYBFou1cIJxMUIIHq6ARPn4716DvZqzBJJHo0NseiOAEX7Pdv4v4L3rCfbOE5zLBOyc
+	i9wBQ3lbRmiHWU7BKZgouB+Vuh/ruewB3Fq7VX1DK2kcAW2Xz+R7nSXGVnLwqJJ4WbW1wQE0V9h
+	IZCkGoP8Ilon4maWOG+ClfOdFTP/ZCqk+kukeiM84RGsro6iYetmXlv5buqaSwX2niMcEYcLx6C
+	9rBP8PlyEnnhhAtcqU0DOqYdRJq9L7iaL6Cqh2PaHTkjy209vzwMOPJ5yc3+BpewBa+eEm4Cx0E
+	phSTdj8iySje/jySAkOE1yZuiOWCEzGEQUwd+8sZOQOy/v0tNYnwWpVcn7O/Jf84+Vs6raCNpeB
+	mb/Sp4sSPHSnb+BtnGXUq+lMRFWbMjDABcxiz4YikCuF2TMSHQvU2PeN9qoYHpLCc83Juplo5Sw
+	VRicITcPfe+iDnvl3Lur3GbijOJKBNHJIwQNYRD7qLFGvbrfhd6ZlbvEFTfIbIy89AaM5nP8pvR
+	7VDlZnLhZs=
+X-Received: by 2002:a05:693c:4146:10b0:35d:ddf2:e986 with SMTP id 5a478bee46e88-35dddf2eaf5mr12328335eec.11.1792159208802;
+        Fri, 16 Oct 2026 07:00:08 -0700 (PDT)
+Received: from localhost.localdomain ([23.148.204.241])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082b8573dsm7159141eec.25.2026.10.16.07.00.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 07:00:08 -0700 (PDT)
+From: Wang Zhan <wang.zhan@smartx.com>
+To: netdev@vger.kernel.org,
+	Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Wang Zhan <wang.zhan@smartx.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] veth: set the real number of queues before registering the devices
+Date: Fri, 16 Oct 2026 21:59:55 +0800
+Message-ID: <20261016135955.714731-1-wang.zhan@smartx.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261016-bug-veth-init-queues-before-register-v1-1-f48eb2bb25a0@gmail.com>
+References: <20261016-bug-veth-init-queues-before-register-v1-1-f48eb2bb25a0@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,127 +84,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Current implementation switches the underlying driver of a card instance
-to the dummy driver in the kernel stack when removing the card. The dummy
-driver simply invokes callbacks when sending request and response
-packets.
+On Fri, 16 Oct 2026 14:51:05 +0800 Qiliang Yuan wrote:
+> Since commit 9d3684c24a52 ("veth: create by default nr_possible_cpus
+> queues"), each veth device is allocated with one rx and one tx queue
+> per possible CPU, and veth_newlink() reduces the real number of queues
+> to one unless the user asked for a number.
+>
+> Both devices are already registered at that point, so
+> netif_set_real_num_tx_queues() and netif_set_real_num_rx_queues()
+> remove the sysfs objects of every extra queue that register_netdevice()
+> has just created, each one emitting an add and a remove uevent, and the
+> tx side also waits for an expedited RCU grace period. This happens with
+> RTNL held, twice per pair, and grows with the number of possible CPUs:
+> with 240 of them a veth pair emits about 1900 uevents, and udev
+> processing them slows down later sysfs work such as deleting devices.
+>
+> Set the number of queues before registering each device. For a device
+> that is not registered yet this only updates the counters, so the extra
+> queues never appear in sysfs, and the error paths that undid a
+> registration are no longer needed.
+>
+> Creating and then deleting 500 veth pairs, one ip -batch each, in a 16
+> vCPU guest, median of 3 runs, per pair:
+>
+>                                    before      after
+>   16 possible CPUs    create      1644 us     520 us
+>                       delete     11822 us    9750 us
+>   240 possible CPUs   create     17253 us    1339 us
+>                       delete     17082 us    9941 us
+>                       uevents        1918          6
+>
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 
-Recent changes for the 1394 OHCI driver and core transaction layer ensure
-that callbacks are invoked in process context from a workqueue. This
-guarantees a consistent execution context for callbacks. However, card
-removel is currently an exception.
+Looks fine to me. virtio-net uses this ordering too. I checked that
+veth's ndo_init() leaves the real queue counts alone, and I don't see
+any missing cleanup after the move.
 
-Invoke packet callbacks from a workqueue during card removal.
+I ran some basic veth tests under QEMU TCG; no regressions found.
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- drivers/firewire/core-card.c | 57 +++++++++++++++++++++++++++++++-----
- 1 file changed, 49 insertions(+), 8 deletions(-)
+Reviewed-by: Wang Zhan <wang.zhan@smartx.com>
+Tested-by: Wang Zhan <wang.zhan@smartx.com>
 
-diff --git a/drivers/firewire/core-card.c b/drivers/firewire/core-card.c
-index be6f18d67ece..a26b5e380c6c 100644
---- a/drivers/firewire/core-card.c
-+++ b/drivers/firewire/core-card.c
-@@ -688,6 +688,15 @@ EXPORT_SYMBOL(fw_card_add);
-  * .set_config_rom() is never called since the card is taken out of card_list
-  * before switching to the dummy driver.
-  */
-+struct fw_card_driver_closer {
-+	struct fw_card_driver driver;
-+
-+	// For closing operations.
-+	struct fw_card *card;
-+	struct list_head packet_list;
-+	spinlock_t packet_list_lock;
-+	struct work_struct work;
-+};
- 
- static int dummy_read_phy_reg(struct fw_card *card, int address)
- {
-@@ -700,14 +709,39 @@ static int dummy_update_phy_reg(struct fw_card *card, int address,
- 	return -ENODEV;
- }
- 
-+static void dummy_packet_callback_work(struct work_struct *work)
-+{
-+	struct fw_card_driver_closer *closer = container_of(work, typeof(*closer), work);
-+	struct fw_packet *p;
-+
-+	spin_lock(&closer->packet_list_lock);
-+	while ((p = list_first_entry_or_null(&closer->packet_list, typeof(*p), link_for_local))) {
-+		list_del(&p->link_for_local);
-+		spin_unlock(&closer->packet_list_lock);
-+
-+		p->callback(p, closer->card, RCODE_CANCELLED);
-+
-+		spin_lock(&closer->packet_list_lock);
-+	}
-+	spin_unlock(&closer->packet_list_lock);
-+}
-+
- static void dummy_send_request(struct fw_card *card, struct fw_packet *packet)
- {
--	packet->callback(packet, card, RCODE_CANCELLED);
-+	struct fw_card_driver_closer *closer = container_of(card->driver, typeof(*closer), driver);
-+
-+	scoped_guard(spinlock_irqsave, &closer->packet_list_lock)
-+		list_add_tail(&packet->link_for_local, &closer->packet_list);
-+	queue_work(card->async_wq, &closer->work);
- }
- 
- static void dummy_send_response(struct fw_card *card, struct fw_packet *packet)
- {
--	packet->callback(packet, card, RCODE_CANCELLED);
-+	struct fw_card_driver_closer *closer = container_of(card->driver, typeof(*closer), driver);
-+
-+	scoped_guard(spinlock_irqsave, &closer->packet_list_lock)
-+		list_add_tail(&packet->link_for_local, &closer->packet_list);
-+	queue_work(card->async_wq, &closer->work);
- }
- 
- static int dummy_cancel_packet(struct fw_card *card, struct fw_packet *packet)
-@@ -789,7 +823,7 @@ EXPORT_SYMBOL_GPL(fw_card_release);
- 
- void fw_core_remove_card(struct fw_card *card)
- {
--	struct fw_card_driver dummy_driver = dummy_driver_template;
-+	struct fw_card_driver_closer closer;
- 
- 	might_sleep();
- 
-@@ -800,11 +834,17 @@ void fw_core_remove_card(struct fw_card *card)
- 	scoped_guard(mutex, &card_mutex)
- 		list_del_init(&card->link);
- 
--	/* Switch off most of the card driver interface. */
--	dummy_driver.free_iso_context	= card->driver->free_iso_context;
--	dummy_driver.stop_iso		= card->driver->stop_iso;
--	dummy_driver.disable		= card->driver->disable;
--	card->driver = &dummy_driver;
-+	closer.card = card;
-+	INIT_LIST_HEAD(&closer.packet_list);
-+	spin_lock_init(&closer.packet_list_lock);
-+	INIT_WORK(&closer.work, dummy_packet_callback_work);
-+
-+	// Switch off most of the card driver interface.
-+	closer.driver = dummy_driver_template;
-+	closer.driver.free_iso_context	= card->driver->free_iso_context;
-+	closer.driver.stop_iso = card->driver->stop_iso;
-+	closer.driver.disable = card->driver->disable;
-+	card->driver = &closer.driver;
- 
- 	drain_workqueue(card->isoc_wq);
- 	drain_workqueue(card->async_wq);
-@@ -821,6 +861,7 @@ void fw_core_remove_card(struct fw_card *card)
- 	destroy_workqueue(card->isoc_wq);
- 	destroy_workqueue(card->async_wq);
- 
-+	WARN_ON(!list_empty(&closer.packet_list));
- 	WARN_ON(!list_empty(&card->transactions.list));
- }
- EXPORT_SYMBOL(fw_core_remove_card);
+BTW, Li RongQing also posted a net fix changing veth_init_queues(peer, tb)
+to use tbp, so there may be a conflict.
 
-base-commit: 82d59eb7f5431771cfc6fb074b74f466cd4e3353
--- 
-2.53.0
-
+https://lore.kernel.org/netdev/20261014013620.2497-1-lirongqing@baidu.com/
