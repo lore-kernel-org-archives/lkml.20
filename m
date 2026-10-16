@@ -1,73 +1,84 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F866470EA0
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:15:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5131646AA96
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:15:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145719; cv=none; b=L4BjWR5kLMnW3Te8IrGOCrQ8yVV0IZPqRgS7sAP+IJlrhT7DSqFMDXKqR7cwF/uk4reU79rN35gaNryPhUJV4rMO6dO1YJBTFjvH0759zy5obubWnyAOeRVm1tBxIu8VRZHhX3t1He82C7JjVJp2egEkVnKm9JDXOc8QHXQCSo4=
+	t=1792145720; cv=none; b=jU54xg7j1f1yQPRP4NAKxz3L8lufrQ6HYMIvd+itv5/4TTsgQmLZCtGd/1HoBTtF0WB2b3X586KWwsRRVCsVMrsU9BpUVfgXgiMThFETsDShP3tThvpSjKZWCbgCpdCDW3k3oO+LZApQQwumS0d0vA69j0RGw64Z3rkUgSqTNPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145719; c=relaxed/simple;
-	bh=D7sxvwTQORDG9UZDgAwID33nx8Gdqdcm0JU1TwJ2tdo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i3RWlNF6GguFMaW7mqMJhhAGlAsF2fIKFFZ2jqgZhtpV7qvPDFYlhf/nnTucbbp03eyufKriUgb2y13qgRXkH8BUqQKtDeJTQW747ZAxBJ2+x6EFKBivRwT9FVPDg/qoz6hHVsl4qYAT8Bf5dSkSAqqZr5Q9+kB+KRIUTHM2tHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mPGiuZEl; arc=none smtp.client-ip=74.125.82.47
+	s=arc-20240116; t=1792145720; c=relaxed/simple;
+	bh=5+Mp4TeDYq2o2TK3O/vdVC//j8jljTpTyZBFtmJvflw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QGL0cw09xcPbVR/gZfDduOS03bKbVDIuAsYpCR1KG6OJrtyNCFNdtcIrt/6pnGhV5H+9pMNY/+2vHD5DK8VAXdrLN0zk3Eh1iWVM3iNR1mVNkCkGWvbzBOPM2RAeTqBxXuuFDi5zMJGfZC5icHl6t8ZdLlfqlmHCCd9nQNr9hPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BYjhTfry; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mPGiuZEl"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-17bc533fda3so3192513c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:15:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BYjhTfry"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e87c66e556so4486455ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:15:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792145716; x=1792750516; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792145715; x=1792750515; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XsEajUbPO5LI3z3KVxIR8CEQ6sxYOQ2C/IR/YdstWrc=;
-        b=mPGiuZElz+S6Aypjve2nCZ82notXj4Ady2f0U472EXWutdT2ogsj9MH9XnllSSerde
-         fbVcYuM2P915+jkxDQ1cE4qoHHEBV3Dkhpto7ve2Dqwkzhakd6zkYswOyXJTZ0Wxj3Q3
-         V5zsLI/GgJFyNNj4qaUJVHRdGwb/JLKuPZ5kT/OmniZ79vXmLtKZPTzeSMuvk7NRP3Jk
-         FMSA+iMUwvPSuAHmlrc3/Y2j1aJmRgxuXno5NSAFa2wyDKc2Slwx7Wa1N29e4rBsAaSu
-         L9ORGPhCH9kpdXYuI0xwLrRDvQDgvdHV/HhHqp225c1HZLJU4WiES8yPI4SFXG0fCkW7
-         vQIg==
+        bh=vf6qHtCJHYPPUhzxjpIczur0NsiTKA4BX6nz592iMDQ=;
+        b=BYjhTfryOnMsL2nJc/pxdvotLlKoa8WSJ+zs5hTyG6HElTUdnmUC/9W2iPP9/AyP15
+         CSJpET4eNB6wRyfZe/08CAI6I+18ukOQo7bAeBFfFKurYs6pOcl6yBUvnbopE/fZmdKo
+         n4SkE1maVnDEvl54LJQnTmNXTKu8IXMzi7JMqdLHDPPIvO8CDS75My3tdiJqQJt1OcMv
+         XoSlq/DDEGupu701v6DxsiaxCNCYp1z3k+GiLErlXfUXGjxzvMU+OC0H5OQ7tdc+mrsD
+         svobjx+8d/Vjx+vpaWCYQI1mB7Rsl4VjHvsSnqh5x372jVpxOZk1xMyAoInhhK2z22e5
+         V4Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792145716; x=1792750516;
+        d=1e100.net; s=20260707; t=1792145715; x=1792750515;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XsEajUbPO5LI3z3KVxIR8CEQ6sxYOQ2C/IR/YdstWrc=;
-        b=h+agxQDj2UCsdbP1j5DzNg/nXkBpRSsmtrRJXje9zqfmdtiKbf7t6Y7Hwppdsawpsq
-         YpXDsR1p+1LeNzytLYuLV6u7UH7B/PK7Q78cZKm+nNRy/3MqvqAhMS5rQOWRQIFiI3s6
-         QCEpj8/e8UtD0g/74+B9Sa+nAk/+imy+Obp6Ak0BGoZLErM41D2JfL2rJMFiB5p+2NNg
-         TlTrW+BkmeHlr7Q+RGWt2E24LRIhIC/jdpqoIYVxvDEKC4PDgbcKg+Y7ib7exvfDDdXN
-         8V08Oaa2fXrYOjY2AMuyO9xS9uVwWmU+Lqk8Ty4QeYgQ6GbKjQv8AuW4FAa+GDLiKh/8
-         D4rA==
-X-Forwarded-Encrypted: i=1; AKwUvBx9p7pnqFBrWYf7/qUWn8VgsWFnh1bKurtHowgMGUNqXTk202SCwrRy2UdIFVuteP5vc0YPnMsQ9lQpyRs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL0Nl2wj7J1buGo3BOigBFWgPUD6tTNdPzh1Pl1Q/sbBtFlALfl
-	eolXv8c5dQdf+eZVmcgjLGeOW6U34HqVYSIX+adiFfvh5IH2LpkhBm1y
-X-Gm-Gg: AYBFou1PcoWNHrfuymR98LYrk1+KidLnTv6OHvohKLi8OIgc82xfuHOkLLf1xc9TsO2
-	BHmRnsk+l7yuA/kDvJ2/K+X0z9j7JDA1mCo9jCtLEHYn3fPAChnCIZbGYQOkdbWvmFT2NyTIF/J
-	B3B2NtcDUr7qOuvntGVXpWbSJwlup/wasVE7xhaDG3T45b6N6qTy7lj6IlEbaJ/TVk+sus99l3h
-	w4BXC8tTgbFx8GsfxJcmmMd6y5D1k+8F0D5+j0MkizjSe0AGF+/yvJrA4FHA0JbC6zPbUmQ6A/K
-	csoeaWJP5ygs+rlvZ1UHSBr5+7CdHHIbuzoZ4csjXHmcCrKEEMcUCjygJ8w/2YuoEvhI7jkGxbP
-	HiVwWDdLSj00DNfZL9q2g/Zfo3icHwdmlzC8rpQqr0KNqNeCjNzvMi7O36tcqdheCjrFU1RH2wn
-	8ksQp8nJnTjccs1lQUREPpcYlnG3z3SqUHtnLJAnAwws8RYTHL/WTvMRQQkM9tGhz3HLoK1jtPs
-	HyzbzuC2jTgcisaE20hXe1+8+39UCaMpxOxiLIRFrG+kaXqjecqFp5qsAZ3y74LmKK2ddBU
-X-Received: by 2002:a05:701b:4281:10b0:184:1898:adda with SMTP id a92af1059eb24-1841898afaemr832160c88.44.1792145716297;
-        Fri, 16 Oct 2026 03:15:16 -0700 (PDT)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:1467:1666:71b7:b993])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-183190aa3ebsm4294724c88.8.2026.10.16.03.15.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        bh=vf6qHtCJHYPPUhzxjpIczur0NsiTKA4BX6nz592iMDQ=;
+        b=zxQUrQ9zvQikqxHK3crdrQdse9wCQM6eHxmDMdU0jZOFbwzrW+W1CItLINM/akTDWS
+         D32QlR2rBY2TmV3W6vfSTthHnWtylqW5dNDKXGSjLbl+sfQRLRZ9Yn+H3o0PIu9R+K06
+         E3QJVHqD/7my6C0JxyMsDaDp2VLns459QMwZYVdw52JDrp/3iAL0FuFsJuvLwYpQhy5/
+         8H5sVVMA9o1wK44oPcH7aohWYa7KvZHZbK9Mb38DtOCxNZ1X0nfSN5jWKHNpTAaHzV3i
+         458U8sUWNhC5X44ZjHOOg6y8L9m0kIMjNMyVCBwugjyNmw5T5maWmInYXcKw4ftMYes1
+         My3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxoI0oBolKzzc2SjAkYiv/H6XOHSRsBPYQvfXtKtH2U09aaIDHNmzKrRX3FOD+9eV7Ikt4OWn1buAi7FWs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ86OkCE8g8Ps4Iwno6EBeA5LXUmhUzMsElEZUkhIIgsfxf60xE
+	sZ+7/ftA+6r3eyeUReG5cLOrLMzDd/Mm7ug1eHAlk9GAxs4mXp6HGJoB
+X-Gm-Gg: AYBFou3YN/oWZ5lz8NxWK5fWLMQ1CFeYQIZdu+CWUwMsZMvOdYT24XaBnG3/X4or9Q0
+	qZvt32WFR5gL5KEP0K9pNDAccOqu2Q3fh6PuprFtUp9JDtO3HmpMvS3b8lauNkxK9lEdK8TJHnD
+	uDVo5U0qaz8b8CV18PiHUXwY6Ujj/+DLPx5hKUbQNwvLHvZzn+GALh+viPlQlOfjOQF0N6C4VOl
+	u7HQChYxSIpSsD2705ikYUvEUX01EYTjaDC+WPntatctRLmxM84lyYJD32p+H7vp3Mvr31R/m9F
+	Yu8bz01S7yeygSlSCD3KKGyZy/cKkrBa1YRgqgdh33GpOWqm3SizLwMTecxzU57I5akaMTBivZQ
+	t6bJOCnN3xdqodoYo4kli5OVir8fV9I3bcw7pZhFu7iOIthtBmWqXRM0CgVaaC0woSjCqjBazH1
+	5/IA9r2IMHLGu+U2J9BFCMMKMJ9BaPycKz+diP4+UhtaVLxc6e03EeKpI71j8b0yYANUnyeC/rM
+	jEvdzHSmv4JjSDwwLmFBw==
+X-Received: by 2002:a17:903:2f8b:b0:2df:b004:df28 with SMTP id d9443c01a7336-2e9772b0555mr20367255ad.35.1792145715452;
         Fri, 16 Oct 2026 03:15:15 -0700 (PDT)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: "Derek J . Clark" <derekjohn.clark@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	linux-input@vger.kernel.org,
+Received: from fedora ([61.74.238.173])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e85fd1dsm7876465ad.49.2026.10.16.03.15.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 03:15:13 -0700 (PDT)
+From: SeungJu Cheon <suunj1331@gmail.com>
+To: anup@brainfault.org,
+	atish.patra@linux.dev
+Cc: tjytimi@163.com,
+	inochiama@gmail.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	andrew.jones@linux.dev,
+	pbonzini@redhat.com,
+	seanjc@google.com,
+	kvm-riscv@lists.infradead.org,
+	kvm@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: [PATCH] HID: hid-msi: Use str_true_false() helper
-Date: Fri, 16 Oct 2026 15:44:58 +0530
-Message-ID: <20261016101506.14084-1-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
+	stable@vger.kernel.org,
+	SeungJu Cheon <suunj1331@gmail.com>
+Subject: [PATCH] KVM: riscv: Set Accessed bit in dirty-log write fault fast path
+Date: Fri, 16 Oct 2026 19:14:58 +0900
+Message-ID: <20261016101458.221648-1-suunj1331@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,35 +87,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace the open coded ternary in enabled_show() with the helper from
-string_choices.h. Gives Same output, but with one less conditional.
+kvm_riscv_mmu_dirty_log_write_fault_fast() considers a leaf with W
+and D set already handled, even if aging has cleared its A bit.
+On hardware that faults when A is clear, the fast path returns
+true without setting A and skips the slow path that would set it.
+The guest retries the same store, but A is still clear, so it
+faults again. This repeats indefinitely, preventing the guest
+from making progress.
 
-Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+Host reclaim or page_idle can trigger this while dirty logging is
+enabled, potentially hanging vCPUs during live migration.
+
+Require _PAGE_ACCESSED in addition to W and D before treating the
+fault as handled, and set A along with W and D. The existing
+cmpxchg loop retries if aging changes the PTE before the update.
+
+Fixes: 7705be59eb2d ("KVM: riscv: Fast-path dirty logging write faults")
+Cc: stable@vger.kernel.org # 7.2+
+Signed-off-by: SeungJu Cheon <suunj1331@gmail.com>
 ---
- drivers/hid/hid-msi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Testing:
 
-diff --git a/drivers/hid/hid-msi.c b/drivers/hid/hid-msi.c
-index 3225d3bf6..4822b5d6d 100644
---- a/drivers/hid/hid-msi.c
-+++ b/drivers/hid/hid-msi.c
-@@ -28,6 +28,7 @@
- #include <linux/mutex.h>
- #include <linux/pm.h>
- #include <linux/spinlock.h>
-+#include <linux/string_choices.h>
- #include <linux/sysfs.h>
- #include <linux/types.h>
- #include <linux/unaligned.h>
-@@ -1586,7 +1587,7 @@ static ssize_t enabled_show(struct device *dev,
- 			return -ENODEV;
- 	}
+On a HiFive Premier P550 (EIC7700X, which traps on clear A/D bits),
+run:
+
+dirty_log_perf_test -v 3 -b 256M -i 3
+
+While the test runs, repeatedly mark all system RAM idle through
+/sys/kernel/mm/page_idle/bitmap.
+
+Before the fix, the test did not complete its first iteration in
+over 11 minutes, with lock_stat showing about 16k read-side
+mmu_lock acquisitions per second from the fast path.
+
+After the fix, all three iterations complete, each taking about
+29 seconds under the same aging workload.
+
+ arch/riscv/kvm/mmu.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
+index 78a1826c466d..042d1e3b3547 100644
+--- a/arch/riscv/kvm/mmu.c
++++ b/arch/riscv/kvm/mmu.c
+@@ -591,14 +591,15 @@ static bool kvm_riscv_mmu_dirty_log_write_fault_fast(struct kvm *kvm,
+ 			dirty_marked = true;
+ 		}
  
--	return sysfs_emit(buf, "%s\n", drvdata->rgb_enabled ? "true" : "false");
-+	return sysfs_emit(buf, "%s\n", str_true_false(drvdata->rgb_enabled));
- }
- static DEVICE_ATTR_RW(enabled);
+-		if ((pte_val(old_pte) & (_PAGE_WRITE | _PAGE_DIRTY)) ==
+-		    (_PAGE_WRITE | _PAGE_DIRTY)) {
++		if ((pte_val(old_pte) &
++		     (_PAGE_WRITE | _PAGE_DIRTY | _PAGE_ACCESSED)) ==
++		    (_PAGE_WRITE | _PAGE_DIRTY | _PAGE_ACCESSED)) {
+ 			new_pte = old_pte;
+ 			ret = true;
+ 			break;
+ 		}
  
+-		new_pte = pte_mkdirty(pte_mkwrite_novma(old_pte));
++		new_pte = pte_mkyoung(pte_mkdirty(pte_mkwrite_novma(old_pte)));
+ 
+ 		if (kvm_riscv_gstage_try_update_pte(&gstage, ptep_level, gpa,
+ 						    ptep, old_pte, new_pte)) {
 -- 
-2.46.0
+2.52.0
 
