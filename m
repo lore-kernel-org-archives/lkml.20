@@ -1,39 +1,39 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53EB37F321
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:23:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FFFE3AA1B2
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:24:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135432; cv=none; b=mF1aYlxUhPNqq/AqL1ijP4sI0Q/iPCo35nhXBWYY87TgtY9oRGjXselWq7ti13Jk57xGiYPVqgcl80I2VUTM8xu0n9MlGFNjHt2Wahqst4iKlqsm6ZWxyOTH4l1YmSbpQpFuTYsauPqtoCzeFRnjUVrFnh3B3+sP24x71cI8weI=
+	t=1792135453; cv=none; b=GDZ+4MAajbPvox5OHanBCZQOYe9sjKghxoYRyrF2CTh2TQ+j6BpB3WeU+2ZF6HEnUR+CO0m/7KkUUd361cBlVIXHAu5Z09L0Qo9z5OZTZFXp4yu1EMvgyH99nldx/BE3xI9CYtxctEAL7wPyV3+2+dIeCaCiSR9FjLVCa+Az1Mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135432; c=relaxed/simple;
-	bh=cXYta/SdbAfhvxOFTW9Ci6MQaKBb5fwjWdyuX0HxoIY=;
+	s=arc-20240116; t=1792135453; c=relaxed/simple;
+	bh=51L8G0Ydbv4ExcyJQfSfsKUKGUlZkJRcRFAI4PJwzig=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=av0dj9etoirUZz394jKbUHJAzYTjBLh5QNKMJQwcrlQxFwlnm8iVR4h36IQlmIDk/PSKD0UOj6WFo/EIWCxkBjYFypA9BkCSTKx1Zr2Wov8M3omwT559qdukL5FxiMR/xr1WN1/xBO6LHTu4eW7HyZ1Ma+gCQUBItuZBIxnI0vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=S2UUEXIo; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version:Content-Type; b=uMTJbnGWkK3WQYKQXwS9ViQ9OOiiCbS46XQb1VS9beOAncnH2ai37TjMWD2mxpPueD55EKa9nr7RJ44iVKCEpV1ICp9q+SlXu03b/ZKBsn2Ydxtrez2+Q7BC62vifkG16JhqqciGfnUF94p3bmHaCk/d2bhskAXAweKNj2AiA6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=dtsAq3HR; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="S2UUEXIo"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="dtsAq3HR"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1792135422;
-	bh=cXYta/SdbAfhvxOFTW9Ci6MQaKBb5fwjWdyuX0HxoIY=;
+	s=mail; t=1792135450;
+	bh=51L8G0Ydbv4ExcyJQfSfsKUKGUlZkJRcRFAI4PJwzig=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=S2UUEXIoPD64zicHqiajshxy7U366+LBYKzPr5Sbzu+KYT4gzGiPXnsGRsShCRu5Y
-	 iQcETmqLZbGX8KGLpdG2yPOk9QJj3spZLPRwd5KZVekspIUa0tIVGq9uvvs1ZbHcQ1
-	 CMgZKO1MKLRDs60nQBDp1yO9/T6qF5VU5PJ+zf5CYFhS8s+A6/7HxnCtuhbMdpC1Wx
-	 LTLx8kGaPCQkCPNWVtEIlCuCoYlljvRhFq4Z+JOU0h7BMLreBuv2mcLGfgoEUWLU4I
-	 x7Yor2D/j8bDYWBsiYiT66LbqdPx/H1bxxWKqh2Ko1HoND0aDcvyYQEG3NYtoJtzDP
-	 lulYJgwa5lj5g==
+	b=dtsAq3HR/yIkLteEMeejIpvz+NFb0MqLZDWN1oZ/nn8XDvST1JUoStd6PkaA7nWhF
+	 Q2snl0bqrOOdLR5IrAAviODCXeXpmnOpEwzJ/qgNo7BWGMXQayqCoMbuZ94b3rUHjn
+	 M401Hrtyn5ePxXuFBr/UVMIbsaifONXmISpsiUZ2t9qQf3H869FYx6AZ5TFPI0sjiT
+	 6krZEeg6hLlggEr7ssllZalqQvUwvdaTi7954NJenPffkL2jYOnvBBHyw9bvYiLpCl
+	 s4rzd2mHG1s6q7aRxqp3siMYs2p/Oyy4nYpibEBcTeE6ZiIuAegRd+0G5LV1KArPEI
+	 s0XxWpSoCfktg==
 Received: from fedora-21.home (unknown [100.64.0.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5F49117E0036;
-	Fri, 16 Oct 2026 09:23:42 +0200 (CEST)
-Date: Fri, 16 Oct 2026 09:23:36 +0200
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C223A17E0411;
+	Fri, 16 Oct 2026 09:24:09 +0200 (CEST)
+Date: Fri, 16 Oct 2026 09:24:05 +0200
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
 Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
@@ -43,7 +43,7 @@ Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH 1/2] drm/panfrost: Enable cycle counting when perfcnt is
  enabled
-Message-ID: <20261016092336.10ed78da@fedora-21.home>
+Message-ID: <20261016092405.14eebba9@fedora-21.home>
 In-Reply-To: <20261015-panfrost-reset-races-fixes-v1-1-bb74c1786a0b@collabora.com>
 References: <20261015-panfrost-reset-races-fixes-v1-0-bb74c1786a0b@collabora.com>
 	<20261015-panfrost-reset-races-fixes-v1-1-bb74c1786a0b@collabora.com>
@@ -70,10 +70,7 @@ Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 nstable ioctls")
 > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Let's make sure this is merged in the same release the perfcnt uAPI
-changes are in, so userspace can check the driver version to know if
-the fix is present or not (we have a workaround in mesa for that which
-we can drop when the fix is in).
+Also, you need to add your SoB here.
 
 > ---
 >  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 3 +++
