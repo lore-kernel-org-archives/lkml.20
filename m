@@ -1,279 +1,127 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071EF518140
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:41:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792165307; cv=pass; b=DYoKuYsr0I81g29JKRFLw77W40ryLpImgDrelatdm/IwtAhc9nrlRBnji58qwyWN824Y94ZBvxOWCh6VcM/55CzCbw6g8UzSlQVCuEGdAL9YxK7KMzR+IXLp1zs3BsWiGyMmUQKZF+6fGsQq8bT6f8w+pX4qVuZRsHD/x8+4m/0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792165307; c=relaxed/simple;
-	bh=EdkSpCj7hNZcxLPGAmr5Svs9uzq/yo5MUONBoId45GE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sUbNY/q2CZPChC2Dq41mGBOSHDmOivA2JeQHaXR93NGd7ldIebBBxs6ZSRRmdFJ7BrVOZyeg2LIEwN+wiy1u+1zWaxvPvMiMQSdzM6i4FE1o1DSm/L9CKUbhbuPx5CKsT/gbKv/sJsR7JGnFbBOtv99RkTRN1PvDSNedGpXAaek=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SpTnDsq8; arc=pass smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2620451C067
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:42:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792165354; cv=none; b=UBST/WIiN/YAuWEys3R+KH/+r9VVXvpB7DIpz9cwIEPm8+Ya6JQ64vl5PL2DecNREAC5XC6X0a93tOlAgqWSdc0mL22+2fR3c11DSUCbojQ2oNfiF9/qNLk8lf2C7/164OFOM9jsDG0EVcWY5X85iiS2m1KSAqBHUXkl4kT3qko=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792165354; c=relaxed/simple;
+	bh=zk3J/AL6+Z3Ly59Klf2ISnugpy+IF3qjEzcB3g2kr28=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sdZXrYv25o7WGHrGajc0dCRbVmvlFgKKZUyhWkmB4LmFXfoc1EkIe+NVGEHbrkugh/u24xhWuSp/6/NMhuDFNhbZu7zhOTqyIdnRlCqYiVtoSPXDKE/6AAKcfhRNQZru222xGY3qOan4JT0Iq9RqUPLYDWeKGXOkrBJNIPk+bnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ClrYcPFk; arc=none smtp.client-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SpTnDsq8"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-533202fe429so367031cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:41:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792165304; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rEUmZAMm8rGk21pPXjQZxoge3X2d8MBGhyOxndtI8qZ2iVQazNmOkIlRpo+Y7XBwjB
-         JZYBB9HjaEoVinihTjjnnTBLlM2Zs3ZqAZbjuay9b57Xp3S/6rmy+gx/FScmGDJZJtBm
-         5u9C2chHQNwccZgY6jZOKEX6yJniOOpTKyvrJjCJo/4yN7PNnp/DmzMFWtxk5oe+JqAj
-         KLDZdCgvBQjWBR7Q0Hs0i75Fw8QJSRBZTyIb+R+pid3kxhSN4nMJAqvexVeIzXilfnvu
-         0uDsgkIBp9hLsvkN/IOW0huQdFcsz/bLtRqxDy7FGf3SnTfOqZ6pt1FG4KSaByQGnpcQ
-         vI5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=w/6QFU6AYA8TWsY/UeVE0scsevyNdyU2Km01Cay74S0=;
-        fh=5tlfc7UqvGXAfZNlKZcqu0czxLjNdwOxNXK92cSQvEE=;
-        b=qwTxvvvrFGe4IRuP7NXS2dcRHJfhRfQcPYzfBC9QGBvXmRB0vb1JEQ5Ht89/+Yfduw
-         egMxMKT4IjHbSGuO9Bag8aETrx/p3jrzqfdt4OtaGwiT+4+zBcGw+maYI8rhL3oGGiYg
-         qGz/ZhXC9X4bc/K5QhVbo8wBBCynX0SVUp5q02gbThOzDVaF+NH6/WTVO8qw0zx0Zbmg
-         WDNmvciPS3AJLVmk/7kgCQdFWyJ/x1g33cllXc1PFV28/Vup8vdpuQf2EN3O+I1Z2PYI
-         sT787PiY870ZLhLvMv0aM+rbqEm3KcOeKsChd0dvHiShX4LdR+cxOX0M7eVIRorEZcpX
-         14kQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ClrYcPFk"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3514b90bb89so6385851eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:42:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792165304; x=1792770104; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=w/6QFU6AYA8TWsY/UeVE0scsevyNdyU2Km01Cay74S0=;
-        b=SpTnDsq8X7VkO0CvYXgjhQ6CWiNrIPmallUfl+G+1LhHyQO+w1rT2xHWAKVKI0Hjk2
-         IQsXjIrBm2FxqTIH/6e1HkBaQ+z2e7pbaGq+JAx+d1fnopP8mhjPXLko7ZEXNYypanIr
-         CdB6/IMYo2R3P/DpFRQlqyD7TnbFO6IeWNM5cnRPknQw0GT87vT7PZZj1RuO/YBvZ8LT
-         fM9uaifDgeCGk+sEOK/nm1Y9OBqGdGdCIHNqrLnulbhl+jR0/+g541TEVOXpoY/GVuaT
-         n6UMZql600Bjy6WFAo0e7tEITVBlomFp2F7uzvUw+QdlCxx/Gxb+rIoT5N6lfSJ1/pnP
-         psNw==
+        d=gmail.com; s=20251104; t=1792165351; x=1792770151; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o2folU0O4bOJirQCG1bT84vwZiHZNPZr+tDe4ocPaDM=;
+        b=ClrYcPFkgXXAK4R2h4FZHHDO4rmBKH9B+KM9AqDymgVbbZwd4UERMaU7tXfpQzvwZW
+         JZf4KOgant3D9oQhkEAys8FDQYbeTEWqbEbVWM/5B/kLo8Qt/QnJUae9xe2C5zLlyvfO
+         VaDmI0S8Z5EpREk4SNHuPqoIHvvEZeKPGBcfqt92oN6yADwntStgOh+g3RD2Hgcv4s60
+         G8OLNLwrTLUpxmBNxKu5v4WtgpuRIn6ZkeY4X8BYO/rz2zCjS4adwWUdYgMzYOqaPbqh
+         uMINDUYO1OoVS3id8iG0XlzbrkCWR761e2tLJ+tTM8GWzCxYXkUgccgZ94iKHaxr+HmM
+         45kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792165304; x=1792770104;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w/6QFU6AYA8TWsY/UeVE0scsevyNdyU2Km01Cay74S0=;
-        b=kbOR8/MLbUY77oTOQdLT/vWky/6FMgB8RCzmgWQMRsDMg2edlx7Pv5V8uVytCDBVNd
-         22aFgw/nco8IE20acouKUHkMYD6Qjh3dYQr7iW2MfsJYcimSXhb8z0XDrAWq3brT8OBO
-         zu5rdshZS8ZOf+2R7wEljQqvyzCS/WyWCjyiajaYmnFMlyh7dNqut1vqMv5UNY85LMlT
-         vZdM0VlnszH41/7AFmoYfLRwidhQvZexYc2IoC0sVcG7b6FEqwoAFx4qLjCjzdkGyevU
-         Uglue2h1NYZgR6A2BcNHWoUUJPQHhjIM+lsKuPbTAoJg/taKhNnY/mp0YCpAG3jtSwR4
-         Dqyw==
-X-Forwarded-Encrypted: i=1; AKwUvBwkpPzk3Hckd+welJ3Pjkrt42iGyQKU9iJv2S8rMkZlNTuEnaFgEzJTlPqi3jnkioPKzvNC2lVQAwV+JLs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKAXKhFL7nrpwU8ITpEHMSOcipa36Bfq52syBQmuQC8e/uiBe/j
-	7Vqxo1t/6LQRzlqFpwdHKg3KZ5IucuskD3HwmvJdX0xLrA5lvpIBzHXLmkiTh64jnBX84UNTjoL
-	Is1LB2CIkBc9ImDZ0f4jcZdRql6asioGYcCxFDvGs
-X-Gm-Gg: AYBFou1nlbZsFS+oPl6SfV1D4I2NTvwS2eANb3gw/c0fEV2frhFozD7750DgvevlSVH
-	GaelD1rRPR/9qhjL0Zwf3/1DQREMjhdoiMAvCZgvGKjiQmJOpGPwK2+HB7rlIampHrHUwm8Qitu
-	f+JT9VIX06dN60VcCi9iaPAm4VlMuaUhr0J/y0/CEmcOjN1vvM++Dlmc4fjpyIE25f3mypy+MHZ
-	gD40ehRBTgnFiT7g7yR9kg5ErMm/Pl3yB6YbVTE7Qv8gbnN4g+75uHfXQ9RzxcponWQV06xRDo7
-	gV5LekBJxaS0894MAn3eFEmnuZWMcWYQCmUo5uxxlA4CIK7WdO06fz5F9lnwv/bowzKx9bwWDlh
-	nEmnC3L0t4Ug=
-X-Received: by 2002:a05:622a:4886:b0:533:9731:f0f1 with SMTP id
- d75a77b69052e-5362b3e7881mr20460851cf.10.1792165302889; Fri, 16 Oct 2026
- 08:41:42 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792165351; x=1792770151;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o2folU0O4bOJirQCG1bT84vwZiHZNPZr+tDe4ocPaDM=;
+        b=jyJG0B58KEciyCUfhGOF/Txdpp5wozFgAmd1CncZQlgR7YsM4ePetvmezGXOeSPqwm
+         YZv22vl82/rZWjMkQ8FEXje03PJOB6KEaY0CNej3wTI6iYATX/6HfhYbBeSLGtq2JaFH
+         DB/BdkoW5r03RVTsPjvBnCf+Wc6I41s2YAFG/a6zxLS6ZJsFeXJGWR/K2JVvSqjvAbBz
+         cq3iXn63TAFyPvXGOz31jysiOJnw0z4C51mSxDIvhbAq+805KbOJs8g5XGVb6lQoJVkk
+         hu/Yk9HRMvEEOsKurmC+YkhniAee+3MyYeT4fPknu0k+fM/VQy+Q5siMgkvUT0wpIUlc
+         7F4g==
+X-Forwarded-Encrypted: i=1; AKwUvBzQuu8gbjWO/atuQ8E9AhkA4IaVRhm2AROce9Q0QfG/yjlDXmCAB4gDPTwx/W0IWKs0pAfEb/yrrHkH13E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKiZBSwxsCf3D7WO665FZ9mp3c5vL7hiXRzHoRW7qxshAYNspQT
+	BNPPWBlVGnuXHVECUoad5g5U0k4TmJ0v3GEoJ6Aj2mV7oaO9kreCKYzq
+X-Gm-Gg: AYBFou1Hs5nXzLUzusVbzjV439umgNkXX/WQu+1E4Ob+1iGpw8447qoPcn/fyPpZfLR
+	VIVIK9HGUKuqK2hVxp3bexvuuvcSNc64k0vkLXnEe0NxcnGwkloG/d8tY9UHbyZTe+8P5FxjgiD
+	D8/rzl2tTd4fkuivALUXXgXCzjdHtV7J5pnCl+alWnWDifF/Xx409/jZ+3BiMJfovPZyagInzd7
+	+nj36U/CNoaoNnVMEzXrjme9scm1jfAt5r6biXGn6BicM+DZsgZZTIflDzpWuUtvTHYkxtgmRZ0
+	zW+wp5x4rork0dxoWb9ljRSxvEvz6uEbOjkLx0EXSvmCw/7Hra1A1A9p4SPuLqmIHjKrSDj1w9L
+	iGG8gNh8eKHDQAKPCopsKtyKFiGdPuQB6TpZwNtsKTuhiooyGytqZmd4kkmDlgymQfNnoXTWqY4
+	cNl4u/suqHMUGZA1HN7PTDPoIYugN49sAghcJKrrv/35xyA1ff6ghBsUASWRB70K8DmPM2j/Pm5
+	uVWp9RYrDnpvP/R8O1ilkzAMatltdM=
+X-Received: by 2002:a05:693c:20cc:10b0:328:3944:ee53 with SMTP id 5a478bee46e88-3619ed11502mr264970eec.2.1792165350843;
+        Fri, 16 Oct 2026 08:42:30 -0700 (PDT)
+Received: from hp-OMEN-Laptop-15-en0xxx.. ([122.172.84.237])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082e81a06sm7273806eec.26.2026.10.16.08.42.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 08:42:30 -0700 (PDT)
+From: Jayaraj Devaraj <jayarajdmit@gmail.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Vladimir Zapolskiy <vz@mleia.com>,
+	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jayaraj Devaraj <jayarajdmit@gmail.com>
+Subject: [PATCH v2] gpio: lpc32xx: check devm_gpiochip_add_data() return value
+Date: Fri, 16 Oct 2026 21:12:09 +0530
+Message-Id: <20261016154209.23193-1-jayarajdmit@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261016143143.3613501-1-sashal@kernel.org> <20261016143143.3613501-4-sashal@kernel.org>
-In-Reply-To: <20261016143143.3613501-4-sashal@kernel.org>
-From: Ian Rogers <irogers@google.com>
-Date: Fri, 16 Oct 2026 08:41:29 -0700
-X-Gm-Features: AclHuK9Nw6uxiW7Jt1G3pjd76v05weMuSMdw0gbbOHi_Cx8XoClXGbI2Vr90vjg
-Message-ID: <CAP-5=fV_A+k-_g683q7n897YMudBwwvQPkS_cKRSdOxkEYFa0Q@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 3/7] perf build: Add MINIMAL=1 to build without
- optional features
-To: Sasha Levin <sashal@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, linux-kbuild@vger.kernel.org, 
-	Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	linux-perf-users@vger.kernel.org, =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 7:31=E2=80=AFAM Sasha Levin <sashal@kernel.org> wro=
-te:
->
-> Turning off every optional feature takes a long list of NO_* variables,
-> and the list has to follow features as they are added and renamed. The
-> one in tests/make for make_minimal has fallen behind: it leaves
-> libtraceevent, jevents, slang, AIO, LZMA, zlib, libLLVM and Rust to be
-> detected, so a make_minimal build still needs libtraceevent and python.
->
-> Add MINIMAL=3D1, which turns off every optional feature, the BPF skeleton=
-s
-> and the shellcheck run. perf then builds, natively or cross, with no
-> library beyond the C library and without python, pkg-config, clang or
-> rustc, and the result does not depend on what is installed on the build
-> machine.
->
-> A MINIMAL=3D1 build also leaves out the notices that post unwind and
-> python support are disabled, which it asked for, and the one about the
-> pkg-config search path for cross builds, as pkg-config is not needed
-> then.
->
-> It is handled in Makefile.perf rather than Makefile.config, as
-> Makefile.config is included after the pkg-config and shellcheck setup.
->
-> Use it for make_minimal in tests/make.
->
-> Suggested-by: Ian Rogers <irogers@google.com>
-> Link: https://lore.kernel.org/r/CAP-5=3DfWFY-tpJz2vcBZvurwdZY5gwd8cuTemE9=
-q1rtZ0Vi0dng@mail.gmail.com
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  tools/perf/Makefile.config |  8 ++++++--
->  tools/perf/Makefile.perf   | 40 ++++++++++++++++++++++++++++++++++++--
->  tools/perf/tests/make      |  8 +-------
->  3 files changed, 45 insertions(+), 11 deletions(-)
->
-> diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
-> index 4d5993da9f945..137c9e120670b 100644
-> --- a/tools/perf/Makefile.config
-> +++ b/tools/perf/Makefile.config
-> @@ -742,7 +742,9 @@ dwarf-post-unwind-text :=3D BUG
->  # setup DWARF post unwinder
->  ifdef NO_LIBUNWIND
->    ifdef NO_LIBDW
-> -    $(warning Disabling post unwind, no support found.)
-> +    ifneq ($(MINIMAL),1)
-> +      $(warning Disabling post unwind, no support found.)
-> +    endif
->      dwarf-post-unwind :=3D 0
->    else
->      dwarf-post-unwind-text :=3D libdw
-> @@ -828,7 +830,9 @@ endef
->
->  PYTHON_EXTENSION_SUFFIX :=3D '.so'
->  ifdef NO_LIBPYTHON
-> -  $(call disable-python,Python support disabled by user)
-> +  ifneq ($(MINIMAL),1)
-> +    $(call disable-python,Python support disabled by user)
-> +  endif
+lpc32xx_gpio_probe() registers each gpio chip with
+devm_gpiochip_add_data() but ignores the return value. If registering
+a chip fails, probe still returns 0, so the driver binds with a chip
+missing and no error is reported.
 
-Thanks for the clean up!
+Check the return value, print an error naming the failing chip and
+return the error code. Chips registered earlier in the loop are devm
+managed and are removed automatically on failure.
 
-In perf-tools-next/linux-next both LIBPYTHON and LIBPERL are gone
-(context in https://lore.kernel.org/linux-perf-users/20260926062029.800743-=
-47-irogers@google.com/#t
-).
+Signed-off-by: Jayaraj Devaraj <jayarajdmit@gmail.com>
+Reviewed-by: Vladimir Zapolskiy <vz@mleia.com>
+---
+v2: use dev_err_probe() as suggested by Bartosz
 
->  else
->
->    ifndef PYTHON
-> diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
-> index 29cfd44c427f3..c770077e7d392 100644
-> --- a/tools/perf/Makefile.perf
-> +++ b/tools/perf/Makefile.perf
-> @@ -129,6 +129,9 @@ include ../scripts/utilities.mak
->  # Define GEN_VMLINUX_H to generate vmlinux.h from the BTF.
->  #
->  # Define NO_SHELLCHECK if you do not want to run shellcheck during build
-> +#
-> +# Define MINIMAL=3D1 to build without any optional feature, needing only=
- a C
-> +# compiler and library, flex and bison
->
->  # As per kernel Makefile, avoid funny character set dependencies
->  unexport LC_ALL
-> @@ -174,6 +177,37 @@ endef
->
->  LD +=3D $(EXTRA_LDFLAGS)
->
-> +# MINIMAL=3D1 is handled here rather than in Makefile.config, which is i=
-ncluded
-> +# after the pkg-config and shellcheck setup below
-> +ifeq ($(MINIMAL),1)
-> +  NO_LIBELF :=3D 1
-> +  NO_LIBDW :=3D 1
-> +  NO_LIBTRACEEVENT :=3D 1
-> +  NO_JEVENTS :=3D 1
-> +  NO_LIBPYTHON :=3D 1
-> +  NO_LIBBPF :=3D 1
-> +  BUILD_BPF_SKEL :=3D 0
-> +  NO_SLANG :=3D 1
-> +  NO_DEMANGLE :=3D 1
-> +  NO_BACKTRACE :=3D 1
-> +  NO_AIO :=3D 1
-> +  NO_ZLIB :=3D 1
-> +  NO_LZMA :=3D 1
-> +  NO_LIBZSTD :=3D 1
-> +  NO_LIBNUMA :=3D 1
-> +  NO_LIBLLVM :=3D 1
-> +  NO_CAPSTONE :=3D 1
-> +  NO_LIBPFM4 :=3D 1
-> +  NO_LIBDEBUGINFOD :=3D 1
-> +  NO_BABELTRACE2 :=3D 1
-> +  NO_SDT :=3D 1
-> +  NO_JVMTI :=3D 1
-> +  NO_RUST :=3D 1
-> +  NO_PERF_READ_VDSO32 :=3D 1
-> +  NO_PERF_READ_VDSOX32 :=3D 1
-> +  NO_SHELLCHECK :=3D 1
+ drivers/gpio/gpio-lpc32xx.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-We should expand this with NO_MYPY and NO_PYLINT for the
-perf-tools-next version.
+diff --git a/drivers/gpio/gpio-lpc32xx.c b/drivers/gpio/gpio-lpc32xx.c
+index 37fc54fc7385..7fb46262e18c 100644
+--- a/drivers/gpio/gpio-lpc32xx.c
++++ b/drivers/gpio/gpio-lpc32xx.c
+@@ -510,7 +510,7 @@ static int lpc32xx_of_xlate(struct gpio_chip *gc,
+ 
+ static int lpc32xx_gpio_probe(struct platform_device *pdev)
+ {
+-	int i;
++	int i, ret;
+ 	void __iomem *reg_base;
+ 
+ 	reg_base = devm_platform_ioremap_resource(pdev, 0);
+@@ -524,8 +524,11 @@ static int lpc32xx_gpio_probe(struct platform_device *pdev)
+ 			lpc32xx_gpiochip[i].chip.of_gpio_n_cells = 3;
+ 			lpc32xx_gpiochip[i].reg_base = reg_base;
+ 		}
+-		devm_gpiochip_add_data(&pdev->dev, &lpc32xx_gpiochip[i].chip,
+-				  &lpc32xx_gpiochip[i]);
++		ret = devm_gpiochip_add_data(&pdev->dev, &lpc32xx_gpiochip[i].chip,
++					     &lpc32xx_gpiochip[i]);
++		if (ret)
++			return dev_err_probe(&pdev->dev, ret,
++					"failed to register gpio chip %d\n", i);
+ 	}
+ 
+ 	return 0;
+-- 
+2.34.1
 
-Thanks,
-Ian
-
-> +endif
-> +
->  # Some distros provide the command $(CROSS_COMPILE)pkg-config for
->  # searching packges installed with Multiarch. Use it for cross
->  # compilation if it is existed.
-> @@ -195,8 +229,10 @@ else
->        PKG_CONFIG_LIBDIR :=3D $(PKG_CONFIG_LIBDIR):/usr/local/share/pkgco=
-nfig/
->        PKG_CONFIG_LIBDIR :=3D $(PKG_CONFIG_LIBDIR):/usr/share/pkgconfig/
->        export PKG_CONFIG_LIBDIR
-> -      $(warning Missing PKG_CONFIG_LIBDIR, PKG_CONFIG_PATH and PKG_CONFI=
-G_SYSROOT_DIR for cross compilation,)
-> -      $(warning set PKG_CONFIG_LIBDIR for using Multiarch libs.)
-> +      ifneq ($(MINIMAL),1)
-> +        $(warning Missing PKG_CONFIG_LIBDIR, PKG_CONFIG_PATH and PKG_CON=
-FIG_SYSROOT_DIR for cross compilation,)
-> +        $(warning set PKG_CONFIG_LIBDIR for using Multiarch libs.)
-> +      endif
->      endif
->    endif
->  endif
-> diff --git a/tools/perf/tests/make b/tools/perf/tests/make
-> index d2c2f526e1db0..dbbc971a144b2 100644
-> --- a/tools/perf/tests/make
-> +++ b/tools/perf/tests/make
-> @@ -115,13 +115,7 @@ make_install_prefix       :=3D install prefix=3D/tmp=
-/krava
->  make_install_prefix_slash :=3D install prefix=3D/tmp/krava/
->  make_static         :=3D LDFLAGS=3D-static NO_PERF_READ_VDSO32=3D1 NO_PE=
-RF_READ_VDSOX32=3D1 NO_JVMTI=3D1 NO_LIBTRACEEVENT=3D1 NO_LIBELF=3D1
->
-> -# all the NO_* variable combined
-> -make_minimal        :=3D NO_LIBPYTHON=3D1
-> -make_minimal        +=3D NO_DEMANGLE=3D1 NO_LIBELF=3D1 NO_BACKTRACE=3D1
-> -make_minimal        +=3D NO_LIBNUMA=3D1 NO_LIBBIONIC=3D1 NO_LIBDW=3D1
-> -make_minimal        +=3D NO_LIBBPF=3D1
-> -make_minimal        +=3D NO_SDT=3D1 NO_JVMTI=3D1 NO_LIBZSTD=3D1
-> -make_minimal        +=3D NO_CAPSTONE=3D1
-> +make_minimal        :=3D MINIMAL=3D1
->
->  # binutils 2_42 and newer have bfd_thread_init()
->  new_libbfd :=3D $(shell echo '#include <bfd.h>' | $(CC) -E -x c - | grep=
- bfd_thread_init)
-> --
-> 2.53.0
->
