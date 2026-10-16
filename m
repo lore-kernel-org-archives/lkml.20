@@ -1,181 +1,96 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648AE348C6B
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:14:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D9BC3CC313
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:15:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792185244; cv=none; b=U8ebLt9wMZeM7ozS3teIhGURIM1g3uiSKJVqbzc+yiADPppChidQTGa7vgxe7lD63UVE4ylstVLrUvq6DWdvEb+pwf3ZKQVMz5++P1zyzYkJmudyxbT2iIoy0nn/2EJmPAz7Lgc5jpovEi+Tc3BQZxlYq8EMvTQO+vVZFxsdSOE=
+	t=1792185307; cv=none; b=PzwSf2rMGwDRXHI3d8S4FMmyO806bjqr60ozeirrYZpgpOBHg7lj0xST7hMLElJ66PyXeNjfwr/da5pD4PCl2qyyunwvHIrHJp9yJjSfq5r+T/fFcBDJzvUzsx2dMtz6/lu3sFmyyvA658jnxoptOGN23UYIQD9+Nt3rEppPZUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792185244; c=relaxed/simple;
-	bh=x8zF7ssZRk4C1LfWpKfMEKBTDGVxN0yPrxMVHWCtVP4=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=RWE69nj+5JpR/6S76oOsAZyts40CXH8VXZHRWxXQZY6zkeAUwsFMITB2HZwnmD6MwMgYsMt3uY6Kcm2RWOmtGbK4z3botCqfwJ3zpkdGd+794jyICej65GAFHv+eCDsuqc10QvG1bq6JZ+3XedWMknzW2uEjqyhSsOV62YL13oU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b37620eb73so691065b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:14:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792185242; x=1792790042;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qYO0cPAjr2yELPdH2vaJ41E9lef0IfSfW1IbfHqxq6o=;
-        b=Ur7Dc0RlgitXZNt+ekFpmO9zINAFUKT4mrOmchj5aWX5xU3EY5fhCX46eQKKV9kQYU
-         VTiOEaTjFl2X9LS8swaaWAPvMV5dnfuLWlvufoYIm+604jiF60w/Pay/MLyBxLu/meZ0
-         9xKngIMjBNosXQe8ZCMe+rrWSYoXjbETVseU2m3h1erH2sfWkj7VC9A7HE50HS4QTK/q
-         6+6tnUgwRDNkCZG8hG4J5RTVjazLzkhygomOvT4an57cb4dIKSqKwbCV4x6VlH0Ozppj
-         k9LVvCVzsUKRIVTETenrBE40glfFjiBozUQ4KRSlxoWUjbmbg2tnzOMbm2sEnlpNZl19
-         6CyQ==
-X-Gm-Message-State: AFq9FYITbGML08vJlWs4XjPB/YdzEmehDCFPr2xZuvuFy6um+ztdglZZ
-	vy9LRXgsOK6ltxEmIv8gbBikewwukK4xwTeA+nRfNaMcjNdMqWVHZdTV9qWJEktLHwRTVc7wwiY
-	6UNLZcN1Zq/+0DxEXELsYOKEqRpeIxvTWELti9BrxPBQt3QNPdXgzvCT8f20=
+	s=arc-20240116; t=1792185307; c=relaxed/simple;
+	bh=XnDcigIQogj9VPzhFmb1u5EwChzTVE1u40a9G7Kkp3g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IbslKqsRYwvmSwY660s/IkFmCR9iDW/qCaw9zzte8yoLdjRTz0OqRHEMqYu08ligAoLJzrDRr84Tuapa5eTcqGw3dC9VQUBCBvre4NSk8xX1OeDhLSlD8uWMeBUWNUJZMY1zyI49SOvNxkX6FVSOAiphwC5XZKz37qtsle/L8yk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DEyj8AwU; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DEyj8AwU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE4D1F000CB
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:15:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792185306;
+	bh=XnDcigIQogj9VPzhFmb1u5EwChzTVE1u40a9G7Kkp3g=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=DEyj8AwUZx9W+ruO9fCTzQQVAEVdYP9QsWREem5xVGFsl478eGF7zIIsLVcybEdzv
+	 78c082ksBDoNj+d+X88ZyqHVUthFzmQ/Yq2z9ZtvFBpGaWjQrXZw2Wu8RwZKf6K96z
+	 BysU4xjv+CTcMmW6I7keumfztAVNeFDmBdOsiLp/6pL7ASw5aQoYIbSLhRtQmZ3seU
+	 Tr5JnIetHjJQAqOfAe1oWtGKv0r+UefNaP2/hoKW4Qs0HWcoMBn1xR3woBGrZyAm+P
+	 r7XrEFXpLQjV8rNkTYSj7zBW2cuZH8AF83UejHVxOcn0QEjUa5TfVwFLkBLhPcvGx0
+	 AaGC+GGMaDDMw==
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a65ed9c7cfso2177991fa.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:15:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByoMJCYrumDXQ5BRMPr7wXNPJ1VodHEEI41KXxKlBL8ud+CLjCqQFg1DWFEPWJMPtDQDbDxePHFdaAmFFU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUySccwpPHmT8PpIKQlpoeErAnGsDL80r6K0cxHtSfQdW81J9E
+	HT/op8dB8GKC81TZ1vO43+XMx+mcYk6nw6BfIXq074o0/G9wQKCTn+73X5GzlJmYIipNDTisoel
+	pBwbpZm0W+WFWiMix4BoLWG780uV1jEU=
+X-Received: by 2002:a05:651c:31cf:b0:39c:624d:82b9 with SMTP id
+ 38308e7fff4ca-3ab29286cbdmr2067561fa.4.1792185304697; Fri, 16 Oct 2026
+ 14:15:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:159e:b0:4f5:e13:95e2 with SMTP id
- 5614622812f47-53cc2aa8af8mr1091295b6e.9.1792185242354; Fri, 16 Oct 2026
- 14:14:02 -0700 (PDT)
-Date: Fri, 16 Oct 2026 14:14:02 -0700
-In-Reply-To: <d6cdf0eebe5e351e4c4dbbbf8ffea867@inf.ufrgs.br>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad2939a.7952420f.283480.0353.GAE@google.com>
-Subject: Re: [syzbot] [input?] general protection fault in input_ff_flush
-From: syzbot <syzbot+788733b16e87faa63deb@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, matheus.aalmeida@inf.ufrgs.br, 
-	syzkaller-bugs@googlegroups.com
+References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
+ <20261012-lstp-usb-adapter-v1-6-aambrozewicz@nvidia.com> <CAD++jLkru2AL2_7ieOdbYrePAhNSFaa3wwEzCagiPsALgG2GwQ@mail.gmail.com>
+ <20261016081917.1958681-4-aambrozewicz@nvidia.com>
+In-Reply-To: <20261016081917.1958681-4-aambrozewicz@nvidia.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 16 Oct 2026 23:14:51 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkQd70V+wQhCaKES8LQqWoU+dmt=Dr0PgbA81xHh+hppw@mail.gmail.com>
+X-Gm-Features: AclHuK-u1MiFTw786aZCKlVc09dcjgjhKNYlnZODKOuP7oo7rrcG4a5O7l15i0c
+Message-ID: <CAD++jLkQd70V+wQhCaKES8LQqWoU+dmt=Dr0PgbA81xHh+hppw@mail.gmail.com>
+Subject: Re: [PATCH 06/11] gpio: Add NVIDIA LSTP GPIO driver
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Donald Shannon <donalds@nvidia.com>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-usb@vger.kernel.org, llvm@lists.linux.dev, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Fri, Oct 16, 2026 at 10:19=E2=80=AFAM Adrian Ambrozewicz
+<aambrozewicz@nvidia.com> wrote:
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-general protection fault in input_ff_flush
+> > It seems some pins are only input and some are only output.
+> >
+> > Have you considered using serialized register access over
+> > regmap and use regmap-gpio with fixed direction bitmaps?
+>
+> Yes, the device configuration fixes each pin's direction. I looked at
+> gpio-regmap: a regmap bus with one register per pin would cover get,
+> set and the fixed directions. Two parts don't fit well, though.
+> gpio-regmap has no get_multiple/set_multiple, while the device takes
+> several pins in one request,
 
-Warning: Permanently added '10.128.1.14' (ED25519) to the list of known hosts.
-[*] Reproducer for general protection fault in input_ff_flush
-[+] opendir /sys/class/udc successful.
-[+] closedir /sys/class/udc successful.
-[+] Using UDC device: dummy_udc.2
-[+] open /dev/raw-gadget successful (fd=3).
-[+] USB_RAW_IOCTL_INIT successful.
-[+] pthread_create ep0_loop successful.
-[+] pthread_create ep_io_loop successful.
-[+] USB_RAW_IOCTL_RUN successful.
-[*] Waiting for Logitech G920 to enumerate and bind...
-[+] Found Logitech G920 device: 0003:046D:C262.0001
-[*] Starting deterministic fault injection rebind loop (1..100)...
-[+] fail_n=1: bind succeeded, scanning /dev/input to trigger bug...
-[*] Opened /dev/input/event4, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event4.
-[*] Opened /dev/input/event3, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event3.
-[*] Opened /dev/input/event2, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event2.
-[*] Opened /dev/input/event1, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event1.
-[*] Opened /dev/input/event0, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event0.
-[+] fail_n=6: bind succeeded, scanning /dev/input to trigger bug...
-[*] Opened /dev/input/event4, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event4.
-[*] Opened /dev/input/event3, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event3.
-[*] Opened /dev/input/event2, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event2.
-[*] Opened /dev/input/event1, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event1.
-[*] Opened /dev/input/event0, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event0.
-[+] fail_n=7: bind succeeded, scanning /dev/input to trigger bug...
-[*] Opened /dev/input/event4, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event4.
-[*] Opened /dev/input/event3, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event3.
-[*] Opened /dev/input/event2, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event2.
-[*] Opened /dev/input/event1, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event1.
-[*] Opened /dev/input/event0, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event0.
-[*] Tested fail_n=10
-[+] fail_n=12: bind succeeded, scanning /dev/input to trigger bug...
-[*] Opened /dev/input/event4, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event4.
-[*] Opened /dev/input/event3, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event3.
-[*] Opened /dev/input/event2, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event2.
-[*] Opened /dev/input/event1, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event1.
-[*] Opened /dev/input/event0, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event0.
-[*] Tested fail_n=20
-[*] Tested fail_n=30
-[+] fail_n=31: bind succeeded, scanning /dev/input to trigger bug...
-[*] Opened /dev/input/event4, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event4.
-[*] Opened /dev/input/event3, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event3.
-[*] Opened /dev/input/event2, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event2.
-[*] Opened /dev/input/event1, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event1.
-[*] Opened /dev/input/event0, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event0.
-[+] fail_n=35: bind succeeded, scanning /dev/input to trigger bug...
-[*] Opened /dev/input/event3, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event3.
-[*] Opened /dev/input/event2, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event2.
-[*] Opened /dev/input/event1, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event1.
-[*] Opened /dev/input/event0, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event0.
-[+] fail_n=36: bind succeeded, scanning /dev/input to trigger bug...
-[*] Opened /dev/input/event3, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event3.
-[*] Opened /dev/input/event2, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event2.
-[*] Opened /dev/input/event1, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event1.
-[*] Opened /dev/input/event0, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event0.
-[+] fail_n=37: bind succeeded, scanning /dev/input to trigger bug...
-[*] Opened /dev/input/event4, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event4.
-[*] Opened /dev/input/event3, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event3.
-[*] Opened /dev/input/event2, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event2.
-[*] Opened /dev/input/event1, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event1.
-[*] Opened /dev/input/event0, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event0.
-[+] fail_n=38: bind succeeded, scanning /dev/input to trigger bug...
-[*] Opened /dev/input/event4, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event4.
-[*] Opened /dev/input/event3, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event3.
-[*] Opened /dev/input/event2, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event2.
-[*] Opened /dev/input/event1, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event1.
-[*] Opened /dev/input/event0, closing now (should crash if ff teardown leaked flush)...
-[*] Closed /dev/input/event0.
+So just add it (get/set_multiple) to gpio-regmap.c?
 
+There is a nice generic implementation of get/set_multiple in
+drivers/gpio/gpio-mmio.c to draw on for inspiration.
 
-Tested on:
+It will certainly make everyone happier.
 
-commit:         70dd4ee7 Merge tag 'pinctrl-v7.3-3' of git://git.kerne..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=10fa313e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c4b098695335c89f
-dashboard link: https://syzkaller.appspot.com/bug?extid=788733b16e87faa63deb
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=10df6fd1580000
+> What I would take from it is reading the directions once at probe into
+> bitmaps, instead of asking the device on every call. Would that be
+> acceptable, or would you still prefer gpio-regmap despite the lost
+> batching?
 
+I don't quite get it, but I prefer gpio-regmap with an extended
+gpio-regmap.
+
+I guess it could be challenging, but I'm here to challenge
+people. ;) If it looks very tricky ask for help.
+
+Yours,
+Linus Walleij
