@@ -1,157 +1,148 @@
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A64528433
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:51:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C7E52D2BC
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:52:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169470; cv=none; b=JCjpVekOF+39Zyt4QhWc00M2hc6ex08HdhRIGpj/oLsUtXTqrfmgZ9ey3azQnYxoV49F0GKOM0V/1xRjmYgM47GnBc2X1R/vRw6P+BKv+TCuZZzGiCeUYryrIrHXdh42hSNUi9K6byY3S9LUfCrEJmTOVxZOVPEtkRH9b3Tsi9k=
+	t=1792169526; cv=none; b=KkuVcjhe/Ix6d2e1bc1cEZhkCltQjnDrG2Kg6B/WSGTkx7X9ll6UK3yvzTGQ1p8rlFDsGOjIMJVW4G8B6gj0VqGijrtzrRDqn+v+TQZ2xdnm9lyXUr8IemJG4iDQRjax8OcLVXepua6GUgNYkN0wwH6GsGKKMOOzjgyAFu29JwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169470; c=relaxed/simple;
-	bh=1qYWCAKTkhmKcOwT31wEJeKAJhbyN0fE6ogE2fCnyyM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=J47M8mgDMaoC+uqXYxaV8DVj10kMraUQGHlfQH2g/L2aAvZ5AShADvXZAlOeCjMVdTHff5gEPfF7W4k767DMaD7O2DJzdTb1NxXWpZhIb76ApSTA9/PjIhv73B9mGlacDSl1udcDMOHR/WGK+wWAWEurtFHSJ7fzEVAnk+4K3hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=NmltWcTy; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=qlL1mJXF; arc=none smtp.client-ip=202.12.124.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	s=arc-20240116; t=1792169526; c=relaxed/simple;
+	bh=W5A5RR0SuYkUxR2wxua/CkYjZk4Cl2M9yT2itezgmRA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KplmUoprvyky7Pjv1OaXm3dCHodk+FEBI6ijNvemLSpSmCObGrLe5ZvMTfAf6JAvZKYFZ42nlYat+db5D1+bgh7LpE4BZUx1d2yZPxYNQWwYQMiamJrz3p3uHxYF0QykLzZHX5DrD5zbwWxuNMVEJSyPMvxvOvQwKersHL+DpcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RWu+iHWq; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="NmltWcTy";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="qlL1mJXF"
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 3BAEF7A00FF
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:51:06 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-12.internal (MEProxy); Fri, 16 Oct 2026 12:51:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792169464;
-	 x=1792255864; bh=Ra1TtkI4ooI5DONSEwts9vxaOUDseQDBqDPzSb+JDls=; b=
-	NmltWcTyz26kCRY3Q2UDN+Tu2nFMJf2mtTQ7KKbYAnsMAomue6fYHlg6HdkHkv3J
-	aiCTtabcMUtAwujTL84C95PIu9va8x/wFYEdJhVH2JhF22GLUqKozke1llm9MD7B
-	niWDO0C3FOTl9FZ5T5EHqttjLriRSHsBxevqAS7jEsrj4eNn+AqIp8gAQ4frOYpV
-	dgwDZLf4N+PE+66JGejJYTYy8w+htM95hcsHPdqAsNz1P28jtX/OSemkUHw0vINE
-	afb0mdAJI/cxy6ob1+Jpq4zMeVGhNqAoFcA+NOz/OpdFrdFVk3WVSfAzZt+gSAB0
-	ncgBf4/HEr5mzxDgGyNzpA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792169464; x=
-	1792255864; bh=Ra1TtkI4ooI5DONSEwts9vxaOUDseQDBqDPzSb+JDls=; b=q
-	lL1mJXFfZcsO572+lyKZRvBxS472YmQZgw7VswkPhdo5+pzD1/Y75WnbuvAumd6M
-	HFlCQwBw1MqYwC/fHDp40/ADEdSFr3ViBYiwJbuGmtlBXGax2gvkKtSPpTJm4GK7
-	jEnAEpDaOUK/kAqEk0iFNDWRsOD+aeyxjr+B34FFeFQpn20a5IywtaEpURC9YUw5
-	Rf4v8CeFbN81uHcZOFzwF4z4e0Yy7cFW6OiVwQ3mj0jz/Mtsm/LZiWtWNsfFn0u1
-	Cu8TIyL+wQXf6JFDzjBEKsS9MKsPpupuTroWhMYXQDMGXOFCfmMJUgPj/BitofAy
-	geQtlyXD8J5SZzSTYoiWQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792169464; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:LIcZALJymy2s9C6xxsrLYhvYN2P2VvyyghzI60/sppSFJQ/
-	3neN2+83863gIu05ne8Jnr3lQibo0e4etmU3Lr1YKiM0DlvuO207rKKmCye3LlEW
-	QqLI7vEBSMVGL1QZ5n7tMhrP2azeIvW/amSP851L8qK8LLkV2Rms4Xu92f6jlfAk
-	AoNN+GvTpgZkaFZ4o2NXVRykejcxgkiKMCHDje0izeoiyBD0jbbsmtEVgqMXYw3S
-	aSpiLpZSXo+ZG6IMhF9D7LVVll7ud2OTbUgKGbxg5SkuQ/BqsdAeVZcIPaoxU0pn
-	1ity+P4Z47pPmb2j8xvdj9MvdUE6FA5oYWFve+Q==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:SzDpePWH6uPmF+REI6xlkInAQKnZPagQrDhOOc7MqcA=:1qYWCAKTkhmKcOwT31wEJeKAJhbyN0fE6ogE2fCnyyM=;
-X-ME-Sender: <xms:-FXSantN3UdZpwW0kh0gnI7svsQARFnmA0qzfyIi9TAdI3ZeSdZwBQ>
-    <xme:-FXSariAr7ShND5JoLFHvTgcNUcTsvaRZ1cDoOoZm_-nA0RcDnn9H2SK_5chgSoUJ
-    HNa2kibPd29KG6CIPgpsOkIUxrd32z5xYu2MbulAGCEufyXjTjKdpY>
-X-ME-Received: <xmr:-FXSalb2HDLxMHxuRCzeI_q6HJ3JVxwKT5cOIXq3-3du8hTSG1iPcOfz9QzomQ>
-X-ME-Proxy-Cause: dmFkZTGfp9DYtFpIWflhSEcKnl9D+LKiGYgtMQnr4eHzyx6i8eXv0cf/RffRQh/9m0XbT+
-    k2UQ+2zo03iz3nqmutVkT19I4vAnjlE6iP0cIiP/pAhpGBUTc87JVmh8qrA5wFPzy+b0I4
-    GxlK/Y0dEcXO0icPjN22dmf8Zjif/JDvYdahTCzJMi2szyNVbF8DlMqbPIcTyolGp559Cr
-    ujnYbmAEozlQWFmEIFFwVNXuyelM6coyaKqpae/tVCihHZhYUDLv1mJBsCVNCrFF41703+
-    z+7ouRtMIBHQFhd5VT55hc0w3M5pDW7ysiuRXix0sBgUtsDZW0afUIGRMw5qZz9r/klnPk
-    jfgilf8HrzUKllfyOO0uMr91YVrrZHXFC8OzP/HtyszWRd4bTOQx7bV438LDkImq7LqsPz
-    Qov0VDerzsFnw4zWY6PVegWvhl60i6aJIuVJ6Fy0r2ItjTDOpHHeQmGvP9+tzDHq7EHiDf
-    LonMNpQWHdd79GjtTFp8jVymbb6nVBPJ6FuAxkfcFOFewcPNaFUzEDuKTKs5/Z8Y5vNza7
-    7nAO5GW74Mvlb1xeUEmXBFPldYlfS63C7P67ui1N0AjAicdviRLQjUlxyNwjMr9AfjqMZZ
-    1NNAVD06icpAcL+LT1bbeCHtx8gxuE/hkR7KjoUu32Bu2JzOTvZzI72vHIBw
-X-ME-Proxy: <xmx:-FXSaiae8N_3vAreFYX5PhPjk5qY1pRtJEmUSCEv44YQpdqns_HVuw>
-    <xmx:-FXSaizjUdpxFFVRUSX8MF2lDQANwtF4zRoT3WFbvGrOtwQVRak0LA>
-    <xmx:-FXSamdS-d0BMzvMwVSXbHDHO9nB7E2WsO4vAQOCsbo28sArOq0b3Q>
-    <xmx:-FXSav5hn1U18-ivMLSlW81nAjTIL6HnRadwAe8OJVpjbBN7UNUHWQ>
-    <xmx:-FXSambvb2zZlT7Qc2STZw0uGDBc8SRwVZulxI7fpFqj6QQZF0eE34RC>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 16 Oct 2026 12:51:03 -0400 (EDT)
-Date: Fri, 16 Oct 2026 10:51:02 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Yishai Hadas <yishaih@nvidia.com>, Shameer Kolothum
- <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, Jiaqi Yan
- <jiaqiyan@google.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- alex@shazbot.org
-Subject: Re: [PATCH v2 0/2] vfio/nvgrace-gpu: Separate the fallback-mode
- open_device
-Message-ID: <20261016105102.32b769fa@shazbot.org>
-In-Reply-To: <20261015081937.405320-1-parri.andrea@gmail.com>
-References: <20261015081937.405320-1-parri.andrea@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RWu+iHWq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792169521;
+	h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
+	bh=9h659B2RptcGt42FBHhwLceGi5uTr95VBygMYb+FdvI=;
+	b=RWu+iHWqqKq9k0tTOdentLcZ7/Sx2R8n28TxZthoW7M+Dt746D5s7BYWvAQrktVpjVmBzQ
+	ViKM/8PfNVjSUSEKROCfV4JyzU9gZ15vCri/yqY0Xcoaw2GdZBkhAJMjInZhm5YlWFKVPo
+	kIIso/hOsiUHNzcGtAmPbz+aNlqDZjU=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-209-kqL7C2OrPAWEclzwXyBbdg-1; Fri,
+ 16 Oct 2026 16:51:55 +0000
+X-MC-Unique: kqL7C2OrPAWEclzwXyBbdg-1
+X-Mimecast-MFC-AGG-ID: kqL7C2OrPAWEclzwXyBbdg_1792169514
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3A6B619560BD;
+	Fri, 16 Oct 2026 16:51:54 +0000 (UTC)
+Received: from localhost (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B4E857D9;
+	Fri, 16 Oct 2026 16:51:53 +0000 (UTC)
+Date: Fri, 16 Oct 2026 12:51:52 -0400
+From: Derek Barbosa <debarbos@redhat.com>
+To: Petr Mladek <pmladek@suse.com>
+Cc: John Ogness <john.ogness@linutronix.de>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>
+Subject: Re: [PATCH printk v2] printk: Postpone kthread startup
+Message-ID: <atJMSFPnU4cjoE7a@debarbos-thinkpadt14gen5.rmtusma.csb>
+Reply-To: debarbos@redhat.com
+References: <20261016085441.857695-1-john.ogness@linutronix.de>
+ <atIndeV-NzO0eIz2@debarbos-thinkpadt14gen5.rmtusma.csb>
+ <atI9c_kFhntodl68@pathway.suse.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atI9c_kFhntodl68@pathway.suse.cz>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Thu, 15 Oct 2026 10:19:33 +0200
-Andrea Parri <parri.andrea@gmail.com> wrote:
+On Fri, Oct 16, 2026 at 05:06:27PM +0200, Petr Mladek wrote:
+> On Fri 2026-10-16 09:36:41, Derek Barbosa wrote:
+> > On Fri, Oct 16, 2026 at 11:00:34AM +0206, John Ogness wrote:
+> > > There have been various bug reports related to SMP systems hanging
+> > > on boot. The reports vary but seem to have some overlap with regard
+> > > to missed IPI's during SMP setup. The reports also show that
+> > > reverting NBCON console usage allows the bugs to disappear.
+> > > 
+> > > The NBCON kthreads for console printing are started very early
+> > > during boot using early_initcall(). Since these kthreads are
+> > > asynchronously enabling/disabling interrupts during early boot, they
+> > > may be interfering with early SMP setup on some hardware platforms.
+> > > 
+> > > Starting the console printing kthreads later has shown to avoid the
+> > > hanging on systems that could previously reproduce the issue.
+> > > 
+> > > Postpone kthread starting until after all arch initcalls have
+> > > completed.
+> > 
+> > In the v1 thread, I mentioned that I would leave the reproducer spinning in the
+> > test environment for a few more hours. It has been well over 9 hours. No signs
+> > of the existing issue popping up.
+> > 
+> > Tested-by: Derek Barbosa <debarbos@redhat.com>
+> 
+> Thanks a lot for testing this. It is good to know that it helped.
+> 
+> I am a bit nervous that we do not know what is the culprit.
+> For example, I wonder if the same problem might happen during
+> CPU hot-plug at runtime.
 
-> In fallback mode, where the ACPI memory properties are missing or the
-> C2C link is down, nvgrace-gpu opens a device through
-> nvgrace_gpu_open_device() but closes it through
-> vfio_pci_core_close_device().  The open registers an empty usemem range
-> for poison handling that nothing unregisters, so a second open fails
-> with -EBUSY, and the first open after an unbind hits a KASAN
-> slab-use-after-free in register_pfn_address_space().
-> 
-> Patch 1 gives the fallback table its own open_device, as Alex suggested
-> on v1, and is marked for stable.  Patch 2 drops a usemem length check
-> in nvgrace_gpu_open_device() that only existed for fallback mode.
-> 
-> Tested on x86-64 under virtme-ng with KASAN, not on Grace hardware.  A
-> QEMU cxl-type3 function, bound through driver_override, takes the
-> fallback path and is opened through a noiommu VFIO cdev.  On v7.3-rc7
-> the second open fails with -EBUSY and the open after unbind and rebind
-> reports the use-after-free.  With patch 1, and with the whole series,
-> neither happens.  Patch 2 only affects full mode, which this setup
-> cannot reach.
-> 
-> Changes in v2:
-> - Replace the usemem.memlength guards with a core-only open_device for
->   the fallback table (Alex)
-> - Add patch 2
-> - Fallback open no longer fails when BAR0 cannot be mapped; Ankit
->   confirmed fallback mode does not need that check
-> - Rebase on v7.3-rc7
-> 
-> v1: https://lore.kernel.org/r/20260925161024.189771-1-parri.andrea@gmail.com/
-> 
-> Andrea Parri (2):
->   vfio/nvgrace-gpu: Use a core-only open_device in fallback mode
->   vfio/nvgrace-gpu: Drop the usemem length check in open_device
-> 
->  drivers/vfio/pci/nvgrace-gpu/main.c | 23 ++++++++++++++++++-----
->  1 file changed, 18 insertions(+), 5 deletions(-)
-> 
-> 
-> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+FWIW, this fixes a corner-case that seems to affect older platforms that had
+been noted to have "issues" with some workloads on older firmware/microcode.
 
-Applied to vfio next branch for v7.4.  Thanks,
+For the cpu hot-plug example, I am unsure of how to properly stress/test that
+condition to quell these concerns. I could run a modified version of John's old
+console_blast script and take some CPUs on/off-line in a loop with:
 
-Alex
+    $ echo 1 > /sys/devices/system/cpu/cpu$N/online
+    # do some delay here
+    $ echo 0 > /sys/devices/system/cpu/cpu$N/online
+
+but I don't think that does a good job of emulating the original bug, where
+kicking on the console-printing-kthreads very early in the init process (prior
+to smp's secondary cpu bringup) could interfere with SMP setup. I could always
+give it a shot.
+
+> 
+> Anyway, I had a brain storming session with John and we were not able
+> to find any hole in the nbcon API design. We did not find any location
+> where it could cause deadlock. All busy loops are under
+> con->device_lock(), aka port->lock. And the port lock is taken with
+> IRQs disabled. And neither the con->device_lock() nor the busy loop
+> is done in NMI.
+> 
+> So, this rather looks like an existing problem. And the parallel
+> handling of the serial console just made it more likely to happen.
+
+I also hold this to be true. Considering I haven't seen anything quite like this
+(up until this point) even with older versions of the code, I am chalking it up
+to some sort perfect-storm of bad interactions.
+
+> 
+> The converted uart 8250 is being used on many production systems
+> which are running the RT kernel and got this change from the external
+> RT patchset. And I have heard about this problem for the first time just
+> a few weeks ago. This makes me believe that it affects only small
+> amount of HW.
+> 
+> This change clearly helped. Which makes me even more confident
+> that we could keep the uart 8250 driver converted in 7.3.
+> I am going to commit this patch and create a pull request...
+> 
+> Best Regards,
+> Petr
+> 
+
+Cheers,
+
+-- 
+Derek <debarbos@redhat.com>
+
