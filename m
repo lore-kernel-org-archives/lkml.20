@@ -1,226 +1,299 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 367453B05AB;
-	Fri, 16 Oct 2026 06:22:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792131780; cv=none; b=hTkharpJPwTbieGS6ZlupmEa8t3XPK1NmE2lI4ynio90iumVQK0OMGlkO9PmM0/VpLd9V/SFApWVJP/OJmy+jnrRgk2dPHg9yKHHKWmL/yHckxJNEd/TNpLY/SGNIexSjWox96plX1sUQhY+ZTFMEnTG3LVx9SLUFGzwknCl8XY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792131780; c=relaxed/simple;
-	bh=C9qvTUrTH8VNtDED+cvldsVstCOQcFMyni/7YqTX8dw=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=Ymq2uxUV2rkFJnuRaMoIOOt0Igrj/15TkKrWwOIsYLYdkYBgPQK/Sgcs4XVG5yUH7C5o3NgbTg/zlQyUHJ2i0T9D10J/UGV09md2heE7s4OWIUCCB0QmX6gj/nkKGQoM2kwMLc85Jr1T3jxDU4ywWapjyYTJhI7dseSLnIOs4WA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8Cxf9O_wtFqc2kWAA--.65375S3;
-	Fri, 16 Oct 2026 14:22:55 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJCxNs29wtFqYAQtAA--.15575S2;
-	Fri, 16 Oct 2026 14:22:55 +0800 (CST)
-Subject: Re: [PATCH v2] LoongArch: KVM: Add hypercall crash support
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>, kvm@vger.kernel.org,
- loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261016034245.3002859-1-maobibo@loongson.cn>
- <CAAhV-H7JeBurcvmqPm1icKvSmGTnTP9HifRhdz6PqLhhtkcYKg@mail.gmail.com>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <d7c5bc1e-d50d-fd3d-05c3-b35ba4c20911@loongson.cn>
-Date: Fri, 16 Oct 2026 14:24:14 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013059.outbound.protection.outlook.com [40.93.201.59])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315E17404E;
+	Fri, 16 Oct 2026 06:23:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792131830; cv=fail; b=f92bF2WdvQA6J0g7LSMi/Scr6NV8HnlrzyZw3VOBbVEjFGzHhFGl9oLhCKfd5b9dStaDiIi1fEAvcTIHC9I2HD4dOc1Ntw55MKzDq4yvC9ZNBRzhFOHeJD+uPjE8HBPUYgBGD1s1fKxMlGHjSY0RI5u13Qy7grsAbb3fq3pGn64=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792131830; c=relaxed/simple;
+	bh=aVY8a21iCwbgz1vvzhOhWkt1cyBXwW+eJjyHY7PqzmQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=KlrEsHCjvrIN4GNdLLoI/uZeapLu51l9EA+WuLtYjWRH2mLhj4T9+Ho0kuIM+3CjFeOKkHJLhAMj+f1UNvZqEiY3GWDIRuRvzWqdeZDVs91YdiRxODTabrgmmf0eWMKVyx1UJCoPN5GUiYNZMwRRQVjJUq5+rIgXy4k5ChC12yM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=GZf7LFUz; arc=fail smtp.client-ip=40.93.201.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="GZf7LFUz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vrebuuRzkQ4MJu/AlPvXTlS3ygwTAxJd8L4kdZJ7CpIbjqo8dv5+cfJAmWQxxdUTTOd3tmOIPp+TLKCToxaPT527zRTartl1rTVTDk0JUZ8if4koqeiHtf2+2wEIVUekV90qdL6G/IC1YRKKd0OzB9lArCC+P5+EW+6ozwU075V8Lq4hVruqmlyDRT7Ll7y+kQD3o25p6shrVoyh3gs5CH5Kt7rWxm4ngF6nB6rozmDLA/kVd/a+6hF6medGYUvXoLsd/6WgwSqlq9E82FAM1tQ2nYU8X92Aq5zrLQp7M4ODXyKRhQSTub/tXMc6gkVERPXuDH9VvXHxfkKs0N+lag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=czSLFUGDMzAFLI3Pr/+hBd+9bUbci1aNuPRSFzs8ryQ=;
+ b=Y1uOZNmrZ3fIMggBT8fU4rTOGjaURlixroJtIZ5NUcI9iPzlwjjjsET0fGSJSfHgV9qIALNuU7TNcUupg3WfGWXhXyzJF2PT/iJqZ7ZTvQzuzbYLbNsU/xpeF7QHAl6wsC/VzaVklE8ojLAjPiyeE5ARhiZ7Iw4RqR0Ta9SbTZWlB5Tmhzi8pBpEN+3fLC1OGItEf+JWKRBYVpQSxu9m6RtZqmbuIOyLaG638dFdh+BysNYlDmEzcAncxDcIVO7evvYiyz/x1lDS+hs/758nvAql4spS3cFExhR/knqGCTLrqL5LeDcEoECAEb57bHUBOtTUDmm3oufSVrpu4vmCSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=soleen.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=czSLFUGDMzAFLI3Pr/+hBd+9bUbci1aNuPRSFzs8ryQ=;
+ b=GZf7LFUzS8MvemknUjhEgE4bhTlxpTZH9a35BqyZ7p8paUjfi46/VDQoIHBiERuKKQDRDx+qPbwsZdlF2uOPVEaVV+Psj8hKz8Uf8ZpHJ+UXIjgCHUVhmJU4l4hsEt53onvzDKskf8sXLBIUrNXhvkX89iSG/DkGUjGYF8/MYh8=
+Received: from BY3PR04CA0017.namprd04.prod.outlook.com (2603:10b6:a03:217::22)
+ by SA9PR12MB407125.namprd12.prod.outlook.com (2603:10b6:806:a6::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Fri, 16 Oct
+ 2026 06:23:45 +0000
+Received: from EA8PEPF00000006.namprd05.prod.outlook.com
+ (2603:10b6:a03:217:cafe::3f) by BY3PR04CA0017.outlook.office365.com
+ (2603:10b6:a03:217::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
+ Oct 2026 06:23:45 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ EA8PEPF00000006.mail.protection.outlook.com (10.167.249.229) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 06:23:45 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 16 Oct
+ 2026 01:23:38 -0500
+Received: from [10.136.45.168] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Fri, 16 Oct 2026 01:23:28 -0500
+Message-ID: <b618f528-ba35-4fb3-881b-e0ca12bc9558@amd.com>
+Date: Fri, 16 Oct 2026 11:53:21 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <CAAhV-H7JeBurcvmqPm1icKvSmGTnTP9HifRhdz6PqLhhtkcYKg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 5/8] sched/topology: Avoid redundant O(N^3) group
+ capacity walks and unused allocations in build_sched_domains()
+To: Pasha Tatashin <pasha.tatashin@soleen.com>, <kees@kernel.org>,
+	<rppt@kernel.org>, <juri.lelli@redhat.com>, <nik.borisov@suse.com>,
+	<tglx@kernel.org>, <vschneid@redhat.com>, <vincent.guittot@linaro.org>,
+	<bp@alien8.de>, <thorsten.blum@linux.dev>, <cgroups@vger.kernel.org>,
+	<tony.luck@intel.com>, <david@kernel.org>, <mingo@redhat.com>,
+	<akpm@linux-foundation.org>, <linux-mm@kvack.org>, <seanjc@google.com>,
+	<ljs@kernel.org>, <zhangguopeng@kylinos.cn>, <dietmar.eggemann@arm.com>,
+	<mhocko@suse.com>, <vinicius.gomes@intel.com>, <tj@kernel.org>,
+	<vbabka@kernel.org>, <linux-kernel@vger.kernel.org>, <peterz@infradead.org>,
+	<surenb@google.com>, <hpa@zytor.com>, <x86@kernel.org>,
+	<dmatlack@google.com>, <tim.c.chen@linux.intel.com>,
+	<kexec@lists.infradead.org>, <pratyush@kernel.org>,
+	<dave.hansen@linux.intel.com>, <rostedt@goodmis.org>, <gmonaco@redhat.com>,
+	<jgross@suse.com>, <mgorman@suse.de>, <graf@amazon.com>,
+	<linux-edac@vger.kernel.org>, <liam@infradead.org>, <ridong.chen@linux.dev>,
+	<longman@redhat.com>, <bsegall@google.com>
+References: <20261015153331.1872641-1-pasha.tatashin@soleen.com>
+ <20261015153331.1872641-6-pasha.tatashin@soleen.com>
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCxNs29wtFqYAQtAA--.15575S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoW3Wr4xJr1fGr1kAw4xGFW7GFX_yoWxCry8pF
-	92yFs5GrW8Gr1fCws3twnI9ry7WFs7Cr1IgFy29FWrCF4Y9wn5ur18KryDCF98X3y8Wa40
-	vF9Yq3s8ZFsrt3cCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
-	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE
-	14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCYjI0SjxkI62AI1c
-	AE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
-	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtw
-	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
-	67AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
-	0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU1MK
-	ZJUUUUU==
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <20261015153331.1872641-6-pasha.tatashin@soleen.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: EA8PEPF00000006:EE_|SA9PR12MB407125:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9b6d24ad-fbb3-4d95-ce32-08df2b4e081a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|36860700016|82310400026|921020|11063799006|56012099006|4143699003|261009223027099003|18002099003|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	cwyugd9Ar6kwce5wuyRcoWNsxU77MTwwjmePIXiPadVq2WbGRID6tG6CRm9pKlIzwlT5OO5aQoVIMkrXOY7NTPPTkFubpgsnE6PbXXmfG7EpGW4A8Bbh7Eqyirt60CzVeqYiqnUAdfgTY1s7NgJaJVirJ8MJQaQal7CXqeQZ19v/LiAWYBA1GVIrt2bCukyZVKCrvKMj50F+JyDfZ3d7h59LZ4+GYVeEnQoj/P40/hAk2MPNxQ1RB4hSv56PvFFXs3/4n3vnFecoRv4cog1SfFP/ep7qhGeRmRcevQcttZTbIu24uUSZRj2Y+aJZP/vI77Qkt/n3PB7ImHu1ZKFUEzZu7SwLMQ2gTui/lCIm2tKBa+V+iuh058K8NM7JMYCSmaCW34XyysIJu3+wCtbl5Ri8OC3/YkOn4F82TIWW81vdiqJEhdnrEnWnZKBAwx1/mO80pFNNkwxwxpbpiaMSTmLvTFw8DEC90srHmtHP9tW3WftLO+YWUdi6PTtw19cqyGmMPTlSG/ktJV0bcIievwy1snXrSR5E+jKYAOOxt+R66uiKQ4l9l9ON0OLFXxe5mNUGDyaDmxV9RPMFpqj3nrxeB1Dg1IJn5mY9o4DYK7WdqFibz607Ltz60UfPK5wr5C7ngi3ez7LBMgNq7mdvg0zJ2e2n7aQiDTgndrJibLwbiWac0kpHsapMrlnxjpzwBYLktMz2iQ1J47ulZc7pKs2qL4uBuMgTQRj8MCKq5OijHbwuYjeow6jlgyBLPumO
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(36860700016)(82310400026)(921020)(11063799006)(56012099006)(4143699003)(261009223027099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/HaWa5VmaHTpxA2nn6kKUeGS9PCYyqO2z1eyacGJFLrydEv7+ujDqh5I94fqZ5Qo8mGXvd/Zlgj/sBR6sJKBxNtrQf0F1/oOpesFdtTd13QEYoOtOo692RMgxQ3IEJ4MxBAp91GoW2jprO0r7zydDh3ZauhZlHRCWTIUt4/Ho0b9/C6etvZbmPFx4MN8DydPxxxxMmx71idIp+dtUAP4s/AvfmujzMTjd08e+Bh2cRuWoUoqxTM58B22aT5QqhcMz+Mgg95fYKpJW5B8dMaRWDBN0g74kMHeHEhf4hkpjfPyRxaCBAnPQZbtihdDIQTy5BC6U8IJ+o2CX+WbzwZ6qCHQOQSFfIClq1H19ztV/+bA7Aq+8DOnm7XozfOWz7nfBTOjW8h1/Y0MJ4+ICCFp9K3SET7NB2pqqK1DFaTdMceGopHhJW0FsdDFuKjtMSEE
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 06:23:45.1969
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b6d24ad-fbb3-4d95-ce32-08df2b4e081a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	EA8PEPF00000006.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA9PR12MB407125
 
+Hello Pasha,
 
-
-On 2026/10/16 下午12:32, Huacai Chen wrote:
-> V1 in the pull-request has been merged.
-It is my fault. Will submit the fix version after rc1.
-
-Regards
-Bibo Mao
+On 10/15/2026 9:03 PM, Pasha Tatashin wrote:
+> diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+> index 0248227d983a7..02c38089a80c9 100644
+> --- a/kernel/sched/topology.c
+> +++ b/kernel/sched/topology.c
+> @@ -1259,32 +1259,49 @@ build_group_from_child_sched_domain(struct sched_domain *sd, int cpu)
+>         return sg;
+>  }
 > 
-> Huacai
+> -static void init_overlap_sched_group(struct sched_domain *sd,
+> -                                    struct sched_group *sg)
+> +static int init_overlap_sched_group(struct sched_domain *sd,
+> +                                   struct sched_group *sg)
+>  {
+>         struct cpumask *mask = sched_domains_tmpmask2;
+>         struct sd_data *sdd = sd->private;
+> -       struct cpumask *sg_span;
+> -       int cpu;
+> +       struct cpumask *sg_span = sched_group_span(sg);
+> +       struct sched_group_capacity *sgc;
+> +       int cpu = cpumask_first(sg_span);
+> +       struct sched_domain *first_sd = *per_cpu_ptr(sdd->sd, cpu);
+> +
+> +       sgc = *per_cpu_ptr(sdd->sgc, cpu);
+> +       if (sgc && atomic_read(&sgc->ref) > 0 &&
+> +           first_sd && first_sd->child &&
+> +           cpumask_equal(sg_span, sched_domain_span(first_sd->child))) {
+> +               atomic_inc(&sgc->ref);
+> +               sg->sgc = sgc;
+> +               return 0;
+> +       }
+
+
+This insanely specific check perhaps can be something like:
+
+diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+index 06cc9f6397bd..a7d7a3b51c71 100644
+--- a/kernel/sched/topology.c
++++ b/kernel/sched/topology.c
+@@ -1203,6 +1203,33 @@ int group_balance_cpu(struct sched_group *sg)
+  */
+ 
+ 
++/* Find the group_balance_cpu() */
++static int find_group_balance_cpu(struct sched_domain *sd, struct sched_group *sg)
++{
++	const struct cpumask *sg_span = sched_group_span(sg);
++	struct sd_data *sdd = sd->private;
++	struct sched_domain *sibling;
++	int i;
++
++	for_each_cpu(i, sg_span) {
++		sibling = *per_cpu_ptr(sdd->sd, i);
++
++		/*
++		 * Can happen in the asymmetric case, where these siblings are
++		 * unused. The mask will not be empty because those CPUs that
++		 * do have the top domain _should_ span the domain.
++		 */
++		if (!sibling->child)
++			continue;
++
++		/* If we would not end up here, we can't continue from here */
++		if (cpumask_equal(sg_span, sched_domain_span(sibling->child)))
++			return i;
++	}
++
++	return nr_cpu_ids;
++}
++
+ /*
+  * Build the balance mask; it contains only those CPUs that can arrive at this
+  * group and should be considered to continue balancing.
+@@ -1212,17 +1239,19 @@ int group_balance_cpu(struct sched_group *sg)
+  * can fully construct this using the sched_domain bits (which are already
+  * complete).
+  */
+-static void
+-build_balance_mask(struct sched_domain *sd, struct sched_group *sg, struct cpumask *mask)
++static void build_balance_mask(int group_balance_cpu,
++			       struct sched_domain *sd,
++			       struct sched_group *sg,
++			       struct cpumask *mask)
+ {
+ 	const struct cpumask *sg_span = sched_group_span(sg);
+ 	struct sd_data *sdd = sd->private;
+ 	struct sched_domain *sibling;
+-	int i;
++	int i = group_balance_cpu;
+ 
+ 	cpumask_clear(mask);
+ 
+-	for_each_cpu(i, sg_span) {
++	for_each_cpu_from(i, sg_span) {
+ 		sibling = *per_cpu_ptr(sdd->sd, i);
+ 
+ 		/*
+@@ -1281,7 +1310,17 @@ static int init_overlap_sched_group(struct sched_domain *sd,
+ 	struct cpumask *sg_span;
+ 	int cpu;
+ 
+-	build_balance_mask(sd, sg, mask);
++	cpu = find_group_balance_cpu(sd, sg);
++	if (WARN_ON_ONCE(cpu >= nr_cpu_ids))
++		return -ENOENT;
++
++	sg->sgc = *per_cpu_ptr(sdd->sgc, cpu);
++	if (sg->sgc && atomic_read(&sg->sgc->ref)) {
++		atomic_inc(&sg->sgc->ref);
++		return 0;
++	}
++
++	build_balance_mask(cpu, sd, sg, mask);
+ 	cpu = cpumask_first(mask);
+ 
+ 	sg->sgc = *per_cpu_ptr(sdd->sgc, cpu);
+---
+
+We just find the first CPU and reuse the scg. Otherwise, build the
+balance mask.
+
+With those changes ...
+
 > 
-> On Fri, Oct 16, 2026 at 11:43 AM Bibo Mao <maobibo@loongson.cn> wrote:
->>
->> Now generic pvpanic is supported in Linux kernel which will notify VMM
->> with VM crash event. There is some limitations with pvpanic, such as it
->> requires good kernel stack or CPU hardware context and panic() C function
->> is in health state.
->>
->> Sometimes CPU hardware context or kernel/irq stack is corrupted. Hypercall
->> code is more direct and low-level crash method, which is useful in
->> exception entry with assmble language, here add one hypercall code to
->> support VM crash function, so that VMM can capture CPU crash context
->> in time.
->>
->> Signed-off-by: Bibo Mao <maobibo@loongson.cn>
->> ---
->>    v1 ... v2:
->>    1. Add VM feature checking with KVM_LOONGARCH_VM_FEAT_CRASH from VMM
->>       user space.
->> ---
->>   arch/loongarch/include/asm/kvm_host.h      |  1 +
->>   arch/loongarch/include/asm/kvm_para.h      | 15 +++++++++++++++
->>   arch/loongarch/include/uapi/asm/kvm.h      |  1 +
->>   arch/loongarch/include/uapi/asm/kvm_para.h |  1 +
->>   arch/loongarch/kvm/exit.c                  | 11 +++++++++++
->>   arch/loongarch/kvm/vm.c                    |  4 +++-
->>   6 files changed, 32 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/loongarch/include/asm/kvm_host.h b/arch/loongarch/include/asm/kvm_host.h
->> index 65d91c3ce313..96f9f1317cad 100644
->> --- a/arch/loongarch/include/asm/kvm_host.h
->> +++ b/arch/loongarch/include/asm/kvm_host.h
->> @@ -168,6 +168,7 @@ enum emulation_result {
->>   #define LOONGARCH_PV_FEAT_MASK         (BIT(KVM_FEATURE_IPI) |         \
->>                                           BIT(KVM_FEATURE_PREEMPT) |     \
->>                                           BIT(KVM_FEATURE_STEAL_TIME) |  \
->> +                                        BIT(KVM_FEATURE_CRASH) |       \
->>                                           BIT(KVM_FEATURE_USER_HCALL) |  \
->>                                           BIT(KVM_FEATURE_VIRT_EXTIOI))
->>
->> diff --git a/arch/loongarch/include/asm/kvm_para.h b/arch/loongarch/include/asm/kvm_para.h
->> index fb17ba0fa101..3b183bb1aaa8 100644
->> --- a/arch/loongarch/include/asm/kvm_para.h
->> +++ b/arch/loongarch/include/asm/kvm_para.h
->> @@ -14,6 +14,7 @@
->>   #define KVM_HCALL_CODE_SERVICE         0
->>   #define KVM_HCALL_CODE_SWDBG           1
->>   #define KVM_HCALL_CODE_USER_SERVICE    2
->> +#define KVM_HCALL_CODE_CRASH           3
->>
->>   #define KVM_HCALL_SERVICE              HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_SERVICE)
->>   #define  KVM_HCALL_FUNC_IPI            1
->> @@ -22,6 +23,7 @@
->>   #define KVM_HCALL_SWDBG                        HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_SWDBG)
->>
->>   #define KVM_HCALL_USER_SERVICE         HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_USER_SERVICE)
->> +#define KVM_HCALL_CRASH                        HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_CRASH)
->>
->>   /*
->>    * LoongArch hypercall return code
->> @@ -161,6 +163,19 @@ static __always_inline long kvm_hypercall5(u64 fid,
->>          return ret;
->>   }
->>
->> +static __always_inline long kvm_hypercall_crash(void)
->> +{
->> +       register long ret asm("a0");
->> +
->> +       __asm__ __volatile__(
->> +               "hvcl "__stringify(KVM_HCALL_CRASH)
->> +               : "=r" (ret)
->> +               : : "memory"
->> +               );
->> +
->> +       return ret;
->> +}
->> +
->>   #ifdef CONFIG_PARAVIRT
->>   bool kvm_para_available(void);
->>   unsigned int kvm_arch_para_features(void);
->> diff --git a/arch/loongarch/include/uapi/asm/kvm.h b/arch/loongarch/include/uapi/asm/kvm.h
->> index cd0b5c11ca9c..b222bfc48042 100644
->> --- a/arch/loongarch/include/uapi/asm/kvm.h
->> +++ b/arch/loongarch/include/uapi/asm/kvm.h
->> @@ -106,6 +106,7 @@ struct kvm_fpu {
->>   #define  KVM_LOONGARCH_VM_FEAT_PTW             8
->>   #define  KVM_LOONGARCH_VM_FEAT_MSGINT          9
->>   #define  KVM_LOONGARCH_VM_FEAT_PV_PREEMPT      10
->> +#define  KVM_LOONGARCH_VM_FEAT_CRASH           11
->>
->>   /* Device Control API on vcpu fd */
->>   #define KVM_LOONGARCH_VCPU_CPUCFG      0
->> diff --git a/arch/loongarch/include/uapi/asm/kvm_para.h b/arch/loongarch/include/uapi/asm/kvm_para.h
->> index d28cbcadd276..bf1a0c826ca6 100644
->> --- a/arch/loongarch/include/uapi/asm/kvm_para.h
->> +++ b/arch/loongarch/include/uapi/asm/kvm_para.h
->> @@ -16,6 +16,7 @@
->>   #define  KVM_FEATURE_IPI               1
->>   #define  KVM_FEATURE_STEAL_TIME                2
->>   #define  KVM_FEATURE_PREEMPT           3
->> +#define  KVM_FEATURE_CRASH             4
->>   /* BIT 24 - 31 are features configurable by user space vmm */
->>   #define  KVM_FEATURE_VIRT_EXTIOI       24
->>   #define  KVM_FEATURE_USER_HCALL                25
->> diff --git a/arch/loongarch/kvm/exit.c b/arch/loongarch/kvm/exit.c
->> index 4f58e6e2cf86..3b6daa946c76 100644
->> --- a/arch/loongarch/kvm/exit.c
->> +++ b/arch/loongarch/kvm/exit.c
->> @@ -911,6 +911,17 @@ static int kvm_handle_hypercall(struct kvm_vcpu *vcpu, int ecode)
->>                  vcpu->run->hypercall.ret = KVM_HCALL_INVALID_CODE;
->>                  ret = RESUME_HOST;
->>                  break;
->> +       case KVM_HCALL_CRASH:
->> +               if (!kvm_guest_has_pv_feature(vcpu, KVM_FEATURE_CRASH)) {
->> +                       kvm_write_reg(vcpu, LOONGARCH_GPR_A0, KVM_HCALL_INVALID_CODE);
->> +                       break;
->> +               }
->> +
->> +               vcpu->run->exit_reason = KVM_EXIT_SYSTEM_EVENT;
->> +               vcpu->run->system_event.type = KVM_SYSTEM_EVENT_CRASH;
->> +               vcpu->run->system_event.ndata = 0;
->> +               ret = RESUME_HOST;
->> +               break;
->>          case KVM_HCALL_SWDBG:
->>                  /* KVM_HCALL_SWDBG only in effective when SW_BP is enabled */
->>                  if (vcpu->guest_debug & KVM_GUESTDBG_SW_BP_MASK) {
->> diff --git a/arch/loongarch/kvm/vm.c b/arch/loongarch/kvm/vm.c
->> index 6dabb227a732..9bf4b3bb8f25 100644
->> --- a/arch/loongarch/kvm/vm.c
->> +++ b/arch/loongarch/kvm/vm.c
->> @@ -49,8 +49,9 @@ static void kvm_vm_init_features(struct kvm *kvm)
->>                  kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_PMU);
->>
->>          /* Enable all PV features by default */
->> -       kvm->arch.pv_features |= BIT(KVM_FEATURE_IPI);
->> +       kvm->arch.pv_features |= BIT(KVM_FEATURE_IPI) | BIT(KVM_FEATURE_CRASH);
->>          kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_PV_IPI);
->> +       kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_CRASH);
->>          if (kvm_pvtime_supported()) {
->>                  kvm->arch.pv_features |= BIT(KVM_FEATURE_PREEMPT);
->>                  kvm->arch.pv_features |= BIT(KVM_FEATURE_STEAL_TIME);
->> @@ -163,6 +164,7 @@ static int kvm_vm_feature_has_attr(struct kvm *kvm, struct kvm_device_attr *attr
->>          case KVM_LOONGARCH_VM_FEAT_PV_IPI:
->>          case KVM_LOONGARCH_VM_FEAT_PV_PREEMPT:
->>          case KVM_LOONGARCH_VM_FEAT_PV_STEALTIME:
->> +       case KVM_LOONGARCH_VM_FEAT_CRASH:
->>                  if (kvm_vm_support(&kvm->arch, attr->attr))
->>                          return 0;
->>                  return -ENXIO;
->>
->> base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
->> --
->> 2.39.3
->>
+>         build_balance_mask(sd, sg, mask);
+>         cpu = cpumask_first(mask);
+> 
+> -       sg->sgc = *per_cpu_ptr(sdd->sgc, cpu);
+> -       if (atomic_inc_return(&sg->sgc->ref) == 1)
+> +       sgc = *per_cpu_ptr(sdd->sgc, cpu);
+> +       if (!sgc) {
+> +               sgc = kzalloc_node(sizeof(*sgc) + cpumask_size(),
+> +                                  GFP_KERNEL, cpu_to_node(cpu));
+> +               if (!sgc)
+> +                       return -ENOMEM;
+> +               sgc->id = cpu;
+> +               *per_cpu_ptr(sdd->sgc, cpu) = sgc;
+> +       }
+> +
+> +       sg->sgc = sgc;
+> +       if (atomic_inc_return(&sg->sgc->ref) == 1) {
+
+... we can be sure this is a new sgc and just do an
+atomic_set(&sg->sgc->ref, 1) here and initialize the rest of the
+fields.
+
+Thoughts?
+
+>                 cpumask_copy(group_balance_mask(sg), mask);
+> -       else
+> +               sg->sgc->capacity = SCHED_CAPACITY_SCALE * cpumask_weight(sg_span);
+> +               sg->sgc->min_capacity = SCHED_CAPACITY_SCALE;
+> +               sg->sgc->max_capacity = SCHED_CAPACITY_SCALE;
+> +       } else {
+>                 WARN_ON_ONCE(!cpumask_equal(group_balance_mask(sg), mask));
+
+Do note this check will be lost with the optimization for the
+fast-path case but that should be okay(?)
+
+> +       }
+> 
+> -       /*
+> -        * Initialize sgc->capacity such that even if we mess up the
+> -        * domains and no possible iteration will get us here, we won't
+> -        * die on a /0 trap.
+> -        */
+> -       sg_span = sched_group_span(sg);
+> -       sg->sgc->capacity = SCHED_CAPACITY_SCALE * cpumask_weight(sg_span);
+> -       sg->sgc->min_capacity = SCHED_CAPACITY_SCALE;
+> -       sg->sgc->max_capacity = SCHED_CAPACITY_SCALE;
+> +       return 0;
+>  }
+-- 
+Thanks and Regards,
+Prateek
 
