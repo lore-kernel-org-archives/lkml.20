@@ -1,140 +1,158 @@
-Received: from flow-a8-smtp.messagingengine.com (flow-a8-smtp.messagingengine.com [103.168.172.143])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0A82D0629
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:43:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.143
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176E536B909;
+	Fri, 16 Oct 2026 14:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161822; cv=none; b=Nuxm5xejQjTC1KWcHJiXfoj4XmaJ68hxERmJsrE2EQmm+L1Zmjc393L2dyZFpaZvxSRXsscAzv2Wr0qwBPfF0Pln1J9R6CX8faxLxcCDE7IL/g1eFVk+BFuzN3JJzOtEHVgO4ghbWkei+QgkoFGgoux51DKBYKlR+hi1K1MAL50=
+	t=1792161830; cv=none; b=Bq4y+gs3T+Or7rgDrtoAMAhK9scpBqg7wAt27IL2CvYgZ09fHe/4/YDBwlrmz8pZCAbS6Yc7uvNwSVlbFGspqxEWRO9Wa0FpcgX0ScUwiEy8lKB9YOCnmzKVDZ08U8ccyGVw9QCJz9sN8m6gM9WqlWKia8QKVCFUis9noTjXbak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161822; c=relaxed/simple;
-	bh=pNdXBEgtey5QskBpU8A7puCi2oaNLXY0APuCxhs8Xjg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TNn2QRwl9/Uxd8x7EGrTtg8MhMn1omhR1pnoTsTkCBcrzKqt2/Ij96uzXr9LzZsFy1BmkRvAzor+EdLdSE4zwEeQn6ASx+pvGlbZZ8NCGxwk2cVv+H67cODt4F/zcqIll58zQJWAQtDEpw8GRIlILWNPb+e0PLP4mJGfXWDj8Bo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=Wt4cDLzf; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PbQasFDQ; arc=none smtp.client-ip=103.168.172.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1792161830; c=relaxed/simple;
+	bh=IWDhpwO8T5XdBFtIM0r0GmIxS3m1LCBKjHgIzvYQ3JI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SEt8ZaZRsRvoGBGf4+VV/DkhZYI89NtfA9NkMK81WX3riMSZNS0owsR0b/Vtvsx/3lK+Fn+G8I79JcF27vUfWvx+FZf74cy0CWGdvrqgjObi2M0Zo5dBuRlq7LGcKLG0KEthpqYbdbUUbOvvMN8sWnZLhSFQdMXVEpt4iEhmlY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/k1yiOd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="Wt4cDLzf";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PbQasFDQ"
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailflow.phl.internal (Postfix) with ESMTP id EA1A913802B7
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:43:39 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-10.internal (MEProxy); Fri, 16 Oct 2026 10:43:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1792161819; x=
-	1792169019; bh=Q7YiqwWDZQk+2n0xT60CqKD7dnGue7NdCKkacoM2NUY=; b=W
-	t4cDLzfwd1JAm9iWky6dsqe1ygMvsiRilmhlchkEdz5rL1qXHKlD8RGB5fcn44I3
-	YZTFc5AWeEbCw/OSotMAhzf/m1CsCFTjWrZfHBSvZuy/Z/a5HyEB+uuQoLFuDiFE
-	KOzgMhOluq69GhBgVjT6g3lxqluTSIWnDvyHAbnG2bx3rDl/KIdNw+0GHtwGroh2
-	3HDNxwOwZcPdtbfDUf8tvg7Z5rZDUTDsjm8tCTawwHBhY/6KoiuwoU2e1S2zmwwk
-	sFQQTasOojUXpmsyWpuMQV+bnkMpR4GtdvNLAicpnmuwfhG7cuI87aunpXrKEU8D
-	zzfMfBzUx/RHn3m6C/oXg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792161819; x=1792169019; bh=Q7YiqwWDZQk+2n0xT60CqKD7dnGue7NdCKk
-	acoM2NUY=; b=PbQasFDQyrQ+A+8cKn4D8RjfMmBlPPTeZPRRj5GPvCNZBEk3Htj
-	NNl1MtIIEF450FCpPI78sMx6K9B5W2DrVbblEX8gCDAc037ZtwmDnFVFPMa1e5g1
-	NtRLEoeMPDpLlLqBjXjXzxAUStpbWYSv1QY5aauQArmYQYDZQoFt3GqXvL4ZHCV4
-	9PbjnFZybxpYw3dur/4VZPUY0mqmgV3mSTO3bYIV+mbbOtrIZCtayRziOSJFoKKc
-	g2Smep7j1ooX8Ycb7HJYLNOoIdaa+O8iGrzH+qoaiFa6ZZcNoZz4i279OjBwo2PX
-	2cn0GaSd4d/wh1vHrD9KSYkeQEyl2/s13vA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792161819; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:sNgSr+nM0DDnz0kOyCbp/a5PKi3tGDZipAxteUYjGtxF/zb
-	yC4ikQCtNiB18JQ4+t1pL0+M+dnm+Xqos89cGcLdpuAC7CwGp6LqTYqtCWGBB3SL
-	W6srEcdrvdNQDABz6xn0jjso0I8rJliXabaPZhGr1TUpyfEWU8ZONzDhB6trYlIt
-	gkCxJZn0svwVZUveMlGVh8rKA48vi9kcm1n7tVVEgNQWcRGcczE1ei+WmOSSuOyS
-	svQ8RunayrXlvJsld860UxyPXR1ce4k0BEdc0dK7Q0b2yLscNaoEFsQ0xm7tdZfC
-	xWtCtJnTNoU/HjHfp6J8qh0lGg+HFx33agFibJw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:Zb7vPP8S+mofmUXGssuNEJW2eqeSaoQC/gKcr2BfKcM=:pNdXBEgtey5QskBpU8A7puCi2oaNLXY0APuCxhs8Xjg=;
-X-ME-Sender: <xms:GzjSar-Y6JCeXGT6Huo2WILtsWHa7904jsurZ4DRN8aeOgJ9h2g8Tg>
-    <xme:GzjSasmWqSBlrS43RLvc5V-LGAJE0NLE6vtPm_VJYxENPemSq_4AQmJ4IPwWZVpbP
-    OiJcOnKdLqYnVYnfPONbV9eLaXTeSTaEKBrrDGFCFNkOnQyJ_1oZIYu>
-X-ME-Received: <xmr:GzjSamnaJe19cukq5f3SeX7NLQ043stsfCZNBKmsZLZIZVzstwwE285Sz18>
-X-ME-Proxy-Cause: dmFkZTGPCwNLlIreOA8d/FUYkTGC+HHrYcO9/o1KThzMkoChb947LgMAYu6dAGmTNWyiri
-    Rz7sk3NorietT7VJbAz/9bYwJ7ebwYatXcyTZIhsmGzgJAEog3F5mvpcw2wtCMDP0s87kD
-    7G4Wr7Qz5MO5JKN+als71og6ex1cpr0AGL/3D3N+/lIPTTy/rki+kL8DvA7SVvSrdyr2IJ
-    pvrqI4Q6KxfSOOzun2NE6+zs++YlosAPx8a10GtjyisOYVmdso4hVVxElXTQPnxZAzfgg0
-    rOLrmw/KNpWVBQ20YDQqeQsPZBQM/xGUZP6xODuxvGCs10JRBZIZB8E2xK2gIrrtgVnEaL
-    vWzddWLyXsghBiq4MvB8Qjyjbcb63PddmiEFM+Y0ZPEXWDXLPmer2ZeEIUniPerz5JrbAd
-    QsMB/J9ahY5WTkFRKQhFngpecixgjgTSmNZ0dmWVO1m/TdI3KySbBO2BeGodg1ZIxXhOTX
-    SI4TvIf0A4MsuieMbWwGzY/UQKZhp+XwKcEEHmuMFz75RVr6WFYQKKvZ/yQlEhwrmZKcEG
-    8uapbHf/m4fNtm5Nl9susNBmOzhrlkNy5zNFx2S2E5etMFhMd8N+jVS4UgWLJNpXi0h6iF
-    PCjxNQ1Yn3DJATMrR2PkPdwQ29HO3Lavjy+RivU/ogtSNHGvQM8N/5ShmeaQ
-X-ME-Proxy: <xmx:GzjSapgkx26g_AiG54qvD69YL378c4oNk0EU-73UJDDTMe7d0Suqdw>
-    <xmx:GzjSavV9Ez4XjQvO1WHp5NH-wFab5uWmkOKC8Qlwp4yMl4nu-hUiJw>
-    <xmx:GzjSargGfVMMmEz5SdUPlQFfOmkA0i_9l9N6ovTrhkR_UJnRvKyDrQ>
-    <xmx:GzjSaj5soupLuMsVHj3TPzWqMsytwQwbeXYvZvnr21x-kZdK9qyt6A>
-    <xmx:GzjSaussv_3R8BX44BJXCqD5NLcEzX9RUw7Zdqdo7QjmBwe7HEH9MT7N>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 16 Oct 2026 10:43:38 -0400 (EDT)
-Date: Fri, 16 Oct 2026 15:43:36 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Jaegeuk Kim <jaegeuk@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Pedro Falcato <pfalcato@suse.de>, Harry Yoo <harry@kernel.org>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Ilya Gladyshev <ilya.gladyshev@linux.dev>, 
-	Matthew Wilcox <willy@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Luis Chamberlain <mcgrof@kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	linux-mm <linux-mm@kvack.org>, "Paul E. McKenney" <paulmck@kernel.org>
-Subject: Re: Improve page refcount scalability
-Message-ID: <atI30-1q2iEFPEbR@thinkstation>
-References: <CAHk-=wjLjgfwgSZ1RDk4YdNFcV0ntosMO5AmBoHD76Zb3HFY7Q@mail.gmail.com>
- <as690Xcu7FxIDYjf@thinkpad>
- <CAHk-=wiak+h+d2tZ5W_MwRzatUP=hJKn7cpGjDxArG-gwgHLXg@mail.gmail.com>
- <as9-2cIuGuXwE2Oa@pedro-suse.tail5790ac.ts.net>
- <CAHk-=wgkoAuxNXga29nQ8w7GxdqR+4vPAUhPsbfp+gzKrb9EgA@mail.gmail.com>
- <CAHk-=whzkNzkBmCspHYd80D1Z=krDc4SgVC32=pJ5PtEgqSDrw@mail.gmail.com>
- <3c613725-406a-4506-b788-987a337b9771@app.fastmail.com>
- <CAHk-=wh+1Hz+3HJ8evmh=FKO1fCGiwuNTqArXEfe-tAJ6hDy0A@mail.gmail.com>
- <atA2g8OgpiNOiVL_@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/k1yiOd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C36F1F000C5;
+	Fri, 16 Oct 2026 14:43:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792161828;
+	bh=wau/q72ALP0InLnitZWqmqti3x9g8kQoq78sQZw2it4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=g/k1yiOdG0cvI/ATBJ/PvZ89eOxUFU+Os9Va1Bhb7DIBPcJI46gmL78JlK282f+fO
+	 mzmYBqJUquM6tj7/gZPX1IIsfAQGqD5kcyTBmaUQLqLgr6A/5ihplMyP/4jpRXUuQJ
+	 MUTG2pndfGmdAZkZVfckkrxxHKXJ5Z16l8UJ5f15qxamAaE9jm4SHv0Q33HCKOr6cL
+	 OhotK8ofZ8LSiAKxpVViBLogMOGa3ARODqN/7cVNudULSS3qaIP0LHf5AisBRUCeQl
+	 U0FOi2eP6xZ+gRK4amFojhBNrFP4JIuS4aMFmB8omYTty1VAB3WBRp5eP5Nxe/UDMv
+	 URW2uiFF1G0EQ==
+Message-ID: <af011ab8-b9ab-49d1-b9fe-4e87b3979bbd@kernel.org>
+Date: Fri, 16 Oct 2026 16:43:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atA2g8OgpiNOiVL_@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: iio: light: Add AMS TCS3472 and TCS3400
+To: mocker-mug-unwoven@duck.com, Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Arka Mondal
+ <arka@arkamondal.net>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261016-tcs3400-v1-0-3d79d2a7f449@duck.com>
+ <20261016-tcs3400-v1-1-3d79d2a7f449@duck.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261016-tcs3400-v1-1-3d79d2a7f449@duck.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 15, 2026 at 02:12:19AM +0000, Jaegeuk Kim wrote:
-> Indeed, it's a bug that user can see zeros between F2FS_IOC_START_ATOMIC_REPLACE
-> and F2FS_IOC_COMMIT_ATOMIC_WRITE. I think we need to move the truncation path
-> into the commit phase and use truncate_inode_pages() instead.
+On 16/10/2026 10:15, HuskerMinion via B4 Relay wrote:
+> From: HuskerMinion <mocker-mug-unwoven@duck.com>
+> 
+> The tcs3472 driver has no binding yet. It matches DT nodes only through
+> its I2C device ID.
+> 
+> Document the TCS3472 family and the AMS TCS3400 family, which the next
+> patch adds to the driver. Both are I2C color sensors with one threshold
+> interrupt and a VDD supply.
+> 
+> Signed-off-by: HuskerMinion <mocker-mug-unwoven@duck.com>
 
-What about f2fs_abort_atomic_write(inode, true)?
+Please read submitting patches how to properly attribute the work with
+your real and known identity
 
-It calls truncate_inode_pages_final() as well. As far as I can see, it
-runs on the last writer's close (f2fs_release_file()), on flush when the
-atomic writer exits (f2fs_file_flush()), from
-F2FS_IOC_ABORT_ATOMIC_WRITE and when F2FS_IOC_COMMIT_ATOMIC_WRITE fails.
 
-Can other processes still have the file open at those points?
+> ---
+>  .../devicetree/bindings/iio/light/ams,tcs3472.yaml | 57 ++++++++++++++++++++++
+>  1 file changed, 57 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/light/ams,tcs3472.yaml b/Documentation/devicetree/bindings/iio/light/ams,tcs3472.yaml
+> new file mode 100644
+> index 000000000..cd4a0516e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/light/ams,tcs3472.yaml
+> @@ -0,0 +1,57 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/light/ams,tcs3472.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: AMS TCS3472 and TCS3400 color light-to-digital converters
+> +
+> +maintainers:
+> +  - HuskerMinion <mocker-mug-unwoven@duck.com>
+> +
+> +description: |
+> +  Color light sensors with 16-bit clear, red, green and blue channels, an
+> +  I2C interface and a threshold interrupt.
+> +
+> +  The TCS3472 family covers the TCS34721, TCS34723, TCS34725 and TCS34727.
+> +  The TCS3400 family covers the TCS34001, TCS34003, TCS34005 and TCS34007.
 
-AS_EXITING is never cleared. Does the inode then stay "exiting" until
-it is evicted? If so, reclaim stops leaving shadow entries for the file,
-and with the rcu-free series a hot folio of it could be freed without a
-grace period while a reader still has the file open.
+We do not take families, but actual devices. TCS3400 seems to be a real
+device, so I don't get why you call it a family.
 
-Would truncate_inode_pages() work for the abort path too?
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+> +  The variants differ in I2C address and interface voltage.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ams,tcs3400
+> +      - ams,tcs3472
+
+Your driver cod suggests these are compatible, so it should be expressed.
+
+
+Best regards,
+Krzysztof
