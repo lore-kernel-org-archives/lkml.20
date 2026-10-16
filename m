@@ -1,140 +1,277 @@
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4733A4AF66B
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C947530C161
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:42:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161751; cv=none; b=CwNky8QQDHQdavv4Ht+BITxd0gGFY+CTlVH4EVIGnWoPtK/UiAxSE5LTUMNPOfjNF7ppz3LgKz9BD68QXU9hZ0KHe8soa4RxJuX4kuQFJAIBPpBHaFOwDlfbmQQOv8OBTgae2pMoNdoGWBdbWpmiTt8Ss+gukNasOk0Z7OihDb4=
+	t=1792161779; cv=none; b=gPbS8IBAffHWupOEE+BJrDvLAyYR/hFv9yLOQvQkPtMt7ahhrOdWoKHVlMu4S2cZICpDTzpWT8OErO/AAn0IJ1R3CatB58u1bu3xLvo2mgUujHfm5Gozv54TmkmO+uRrLgDoIVxbUps1XOHdenK9Z8zjwzZq6+vh9usiKUFsgf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161751; c=relaxed/simple;
-	bh=+nc4F9eQckj7R90Z9Q2QAGsijSxI7+KgudcWTIBAlmg=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=Nq6ubMSkF75bK5+WG2FqYiBrdQaotqimXYkuE1mjlcGdyP626mP1sV//MN+wXWomnb1cU5XYy9be+BcSVCQey6kO0lBgkJDp8UMyoDcW2M0JqnE/k9NVxRydP8ioei/yxRgMStQ2QJ9WxnZ/aqEKU38R3obaUZbrW2fS+ZKD0PA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=V8PPXjMs; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=a9Zs3sm4; arc=none smtp.client-ip=103.168.172.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1792161779; c=relaxed/simple;
+	bh=6nU0p7akGtqHdSMO8WKU+bNNm8kXt03xfgcKKZOrDGg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iwB4Fnwv76gIActLdmj2bxcZh3EW+xdhuBHLxELF/MdyhuJKnrKOMLl+WINF+65hbwyT4cQ1fE64oRTDmBHk1Tb2+ppYAtR1593rF9mWaAZB2pQJrdgiQQpO07u5VQo9AJMDkuGXdd7Xq9vs5TIu9nKl2xv2N30oLKk++5Vqv0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IdTRJ53L; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Pu3FxlXj; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="V8PPXjMs";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="a9Zs3sm4"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 31564EC00E0
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:42:29 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Fri, 16 Oct 2026 10:42:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792161744;
-	 x=1792248144; bh=aKpnb7yXuWN79+CT5JC4DKumb3SvQ4AMvlQXBzXMP+M=; b=
-	V8PPXjMs0B4JLEonkN+/l4V+KmdgVisapme+D4QH/aGw2aL3CKGOL8e0fPYGutdq
-	wnSTTsR0DzK/y1Z6hAHJrE7z8e8yilGlTKCYsYl3iw8Id85p27nsE1854z5ZKd3l
-	UoGPdjeF9uHeMvGWG4JSrjmht5J6u/4PNsziIeCZDpQ4s0s/uvpMAs8fDgdaj7xl
-	oHCaFeJsuc640hOvysj/4+wPWRqMawEDbMwGv2dNfS9tbHDsOfb53aUkmC2QsyQD
-	DKi5TFNzDqLYGj6yh0CIDLjxKK2j13tSBsTG/lTH6nKq3OQKYsmR1xPxS9MAGyWj
-	ySxVnI8WVrs+vYQJWJSGxg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792161744; x=
-	1792248144; bh=aKpnb7yXuWN79+CT5JC4DKumb3SvQ4AMvlQXBzXMP+M=; b=a
-	9Zs3sm4I76Vaj5D6gQON7Vx6K4rcAflIUWoxzAZpFk7qPRtBn1fJgfVJ5NqwMh1w
-	bT/j5grxJRoDMItroh9/WZZwTe9vwhdUpsoDPEpfVynaD0NMY39hLTms5w1GD5tI
-	Y5mV0xNGmtN+aBHZH9Bn3NeONPRwl/LLc7EEhH8sh8nLfKVp3SgAXoMmTV7Qpt9r
-	hCI+Vs1/B1WKKy9I0fxBuqzAbV5o20XEA4FLhvMtRkWLyBGMNjpUGzWMjU6jnFMQ
-	3bP/YcP72IPuZUaP76bXdaYn22oyqllcPMZoL1/6Z3BBEt9oMFOQQp+rDBSkrIWP
-	PRWjTNIsTUwLed6INZaWw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792161744; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:Oe96FQbrcOCl2JVN6j05CRei634dTR1gTZVTNZ/FG8DIIbj
-	E/4JrPL1MbLiqBfuKSm+Zdzy98p804/T3UP4NI8m1Jw+oCiKDciUtKfah3fcOXt9
-	8nj2Fl4FMIK8RVzmvmGNdEDXCGayb5whNeIagxqUQjXURnt1mRkcbvu9DYUWIj7J
-	IoLog8ZqMkJz+PuAKcFj66tNFuYmDPUOUGR/GnmWG1NNSQAPJ9FozDdLEGYacBNZ
-	bm0CtMsOs+2D5CSus4/vrk/tPA7QyLg/FdtOp2H4pqMYt/53KzKaN7rUZY0VJNyx
-	XBcoFqUmnVs1rbfT45ffRp1TXx/HuLgWhar9AvQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:517RQdKwcZ2E9HUT6oL098gqiwhapSKZVShqyWaxe/s=:+nc4F9eQckj7R90Z9Q2QAGsijSxI7+KgudcWTIBAlmg=;
-X-ME-Sender: <xms:yzfSavWKk1CWdiXw8r5FzOYTFtgxgqNYCIKultGgH9-tltZJS8QZ7Q>
-    <xme:yzfSaiYcFUmqFhP3QgSplPucIvjUaZznOayAqtrHDxZ5tqdQJdzAn2nHLVvsfyKfz
-    fDN4q3F_BkwHyrIRYKtn0FjUYinJU0azr8k1pRN8Pk8a76CQ0X2QA8T2Q>
-X-ME-Proxy-Cause: dmFkZTF+3rfSvQkPH5vX+1X2huUFhfjyJS4C9bKeG9uGBVPWuaVR0D3ZOB7E78/lg6lBuU
-    yeBeDN3khuVjziy4hSwH9Df2QVhA0Xv5BaQrEJmvPDOP3bk2IIb77+jIifD9y5gHsoM6uH
-    0BpA3/U3YMURqaIU3ydySEv5DU07I/Jq0t5sA7PZhzNG/2Y0PDb+t3LFZAmaAD5CebEXhF
-    aKhfQfmsQWHms8hnZM06bYRxMF0H3s5kZnDarIoMXepYLKKjDvRkeZdTj7d/WZ1kjLRsWj
-    khDmaG7O5INuZPg/R2wbe6iKf7de5mIwuPeBJAn5JcJO+0tSKulsLV5NSZBtSIfdJjTTk5
-    olmJOdht7R5yTejFZHBHUB9g6WzTtvOi/zkP63dRWIc6dsUGD7WGwk1Q3JfA7Axsayc8L9
-    gIFNTGForC1WFBhK8RxKPPSVFfP/K9wZZ7lVIbRhUtVXiYlyNgtb89JNlKSeaUhqyMsrns
-    WNirtWw2o5aLwlNXNu7Bijbt1wX/2zTPZUDpBw6G2Co4QALkUsn0f+w0pdT8wZv5kGMpji
-    cyEnkjEHMalCTDmSMX9n+izdpCFFIzZXCElzfy5sWo4vJm2buslxecJgKRv7R9TbcQTwW/
-    1qEgRPGeFhuCW5t414ga+l5N7kd9eF5PU8pBlfqTAQwjXVZhP8eOlCDNs5hg
-X-ME-Proxy: <xmx:zTfSam7umEVih8a4--NQmF-q0lwAH6Fr1UyW46AQFqENdv7HVBbRiA>
-    <xmx:zTfSarwroTDoX6Lc1tXnVi4_ZYKYGPziuDSlyLyfPNBv3mZmjQCyTw>
-    <xmx:zTfSaieiBasoGJWfcs8R-MyABsbCqWo_hUa-NNOLOUbebiIUEvPfZw>
-    <xmx:zTfSaoB_OuzJ4sZYoFis-zvJp8bGgMDz0LmIdb9Ji7OJn3-_025LVw>
-    <xmx:0DfSaiI0VNjCYk10DjPyPdQ372pfkfhUVI0srhoHy_PJQoP8GzEpKklL>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id A5F3C32A008E; Fri, 16 Oct 2026 10:42:19 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IdTRJ53L";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Pu3FxlXj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792161776;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ad1yI/+jctmjqADu5rjo+cKNGx7OsfvQXcHn8HUJncA=;
+	b=IdTRJ53LQR6APrr2wCB6ymRjJExqBLizNBapQRYffOZ7gOM7SK9f2xLJxZjBWDqT4SEx9i
+	vTKEbYVSzcjAugN3apgjtdHozZguFxrVGWgxdpsn+9G7XHca+rHLtpGr3icUPtDJS1Bi8U
+	OpG3xQNEzfENRGPthb0oIiFYn3V7pcM=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-53-sMXtw-2WPjGTNfNnKuJR9Q-1; Fri, 16 Oct 2026 14:42:54 +0000
+X-MC-Unique: sMXtw-2WPjGTNfNnKuJR9Q-1
+X-Mimecast-MFC-AGG-ID: sMXtw-2WPjGTNfNnKuJR9Q_1792161773
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48c46582442so1778627f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:42:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792161773; x=1792766573; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ad1yI/+jctmjqADu5rjo+cKNGx7OsfvQXcHn8HUJncA=;
+        b=Pu3FxlXjYfvB8ktV+jUUbBkrAF7NuPolPf7k8YWaWuk2qJuHnTiVZzeirjWL2q79d1
+         WInxKGBjO6/G4pouYwafkhSptjKdsEXlID4QtBAP+PoChaGNF9SOprux2KessZOv/2xi
+         hsv+QKjomXrflfGIg7uiIg6WVgs1tEeihWVUKq2QOXT6BQbuSZBtoM3M0JppkfMt5TYv
+         K/6IhN/CX9cwN1dicY0xdUS6Vvf6TzbkISJARP0PdgnJTQbAl/waKcS0VJvaDlEWQRoo
+         A5raI0l2zdEmy2jpffs25IDmRaaDZt+BWoag8DHHDZ8oZqnZ6tk4YcIwO3yFehgloZX2
+         JCdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792161773; x=1792766573;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ad1yI/+jctmjqADu5rjo+cKNGx7OsfvQXcHn8HUJncA=;
+        b=dnmv1fhMg3ivscJ2YDsGkEapxflc97tuw05ka7fW9n7vS/3oUHk8OQGCyAOadOwwAB
+         mcFvfJ5qOs5qS5sYf2QItMFaV84fL2R1BGzANll1ICBrObhOZBChczMsIi/dwfkLfuNl
+         OfS3lH0ifACKfI5rIU43bkYMUNrPJin4OT3PqJX/ttqqiUWID6zAkb8VRsnWp3B9KaFQ
+         +MipZwKQnyx31p7ZjJRz3se9k+9oLxO0EPHcV0AgSL7FWlNLhS0aDeoZOA/SB5CmMnk1
+         RLB1javMcbonibt7YPmMhA1tyaJ3BwysjQQdcJm+GmnyzL2Ma9aQkjOYllYJ9Ow45OD9
+         nP/A==
+X-Forwarded-Encrypted: i=1; AKwUvBzkPcnDC6Vrv/QE+kbxekK6Z4sQ/gqcRhzlHM8F8oI82ekZEAQkAqunEFD3XOgd3aCeh1xnGe3LNv8RN3A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJ8c1QxKgK+hY5l2y6KbadWSd0LS56OZqLf94Eg0cESPfI9ppj
+	YFB/P15Y42tUUlynP7feE2qlVCIdtdMTmhEhFAAOlATjqBGXbpg0+S8y/gEGXmuYheDdlogNgUi
+	vk6e+EQfyWW4O/eFrQ5DetCwuV1qRwfvmx/DMsaWJV/wDZOaHvyPSTMwoQAv2Xhbn+q0/R9LFVQ
+	==
+X-Gm-Gg: AYBFou3KV+IDPjryYn+XbWkyZ25ecZDiKuoRLBzykCg6a33sUo2GTrTd/fZ8nk/ph3u
+	uviRR7gQopQe/kdSL8owMQvCT7HHm+Zrc849rszygi9U093iB2WcljclukC2/TzUChH6qhDh5IM
+	jL0AVYoifqHxYpvkJir46UnOsJT85XbWvGQTLdZdudEu5z6Pj+Bkt4EsM8TiBG13UBPsVEhTKXn
+	S9enNTXQ3RRgROUE94Nj1FcxPyDbFxGAT+i/4ctul7Ap21Fww5EZtu39kkVCxAcIyLBNPL+m2l+
+	L+sgZpQoKkQ7O6tsJX1O3lsutjCL8aASqklZxgBBTWYIumkJ/F5MGTdqSTZgI9Lb+AguAAYdRLn
+	Se8+2
+X-Received: by 2002:a5d:55c8:0:b0:48c:7d67:8ee5 with SMTP id ffacd0b85a97d-48dbaae35c2mr34270734f8f.43.1792161773054;
+        Fri, 16 Oct 2026 07:42:53 -0700 (PDT)
+X-Received: by 2002:a5d:55c8:0:b0:48c:7d67:8ee5 with SMTP id ffacd0b85a97d-48dbaae35c2mr34270691f8f.43.1792161772592;
+        Fri, 16 Oct 2026 07:42:52 -0700 (PDT)
+Received: from sgarzare-redhat ([80.116.137.133])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd50d1bcsm5554362f8f.54.2026.10.16.07.42.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 07:42:51 -0700 (PDT)
+Date: Fri, 16 Oct 2026 16:42:49 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Jia Jia <physicalmtea@gmail.com>
+Cc: stefanha@redhat.com, mst@redhat.com, jasowangio@gmail.com, 
+	eperezma@redhat.com, xuanzhuo@linux.alibaba.com, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	virtualization@lists.linux.dev, kvm@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bobbyeshleman@gmail.com
+Subject: Re: [PATCH net-next v4 4/4] vsock/virtio: defer RX notifications
+ until batch unlock
+Message-ID: <atI3neoHXhgiEpYJ@sgarzare-redhat>
+References: <20261014115640.184286-1-physicalmtea@gmail.com>
+ <20261014115640.184286-5-physicalmtea@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A4WN0AQLOakc
-Date: Fri, 16 Oct 2026 16:41:39 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
- "Arnd Bergmann" <arnd@kernel.org>
-Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Jiri Slaby" <jirislaby@kernel.org>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- "Hugo Villeneuve" <hvilleneuve@dimonoff.com>, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- imx@lists.linux.dev
-Message-Id: <912aecf9-b135-48fb-b539-52ba3a1704a1@app.fastmail.com>
-In-Reply-To: <atImm4Ixv_PwUqLb@ashevche-desk.local>
-References: <20261016130328.1037616-1-arnd@kernel.org>
- <atImm4Ixv_PwUqLb@ashevche-desk.local>
-Subject: Re: [PATCH 1/2] tty: serial: remove hub6 multiport support
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261014115640.184286-5-physicalmtea@gmail.com>
 
-On Fri, Oct 16, 2026, at 15:28, Andy Shevchenko wrote:
-> On Fri, Oct 16, 2026 at 02:59:47PM +0200, Arnd Bergmann wrote:
+On Wed, Oct 14, 2026 at 07:56:40PM +0800, Jia Jia wrote:
+>An RX batch can make a socket readable while the worker still holds its
+>socket lock. Waking a blocking reader then only moves it to waiting for
+>the same lock.
 >
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> But there are some minor issues to fix, see below.
+>Record the existing low-watermark condition and notify once after
+>release_sock(). Move the coalesced write-space notification after the
+>unlock as well, since both callbacks wake sk_sleep(sk). Deliver
+>write-space before data-ready and keep the lookup reference until both
+>callbacks complete.
 >
-> ...
+>As with write-space, save the initial sk_data_ready callback and batch only
+>while both saved callbacks remain installed. Sockets with replaced
+>callbacks retain their per-packet behavior.
 >
->>  {
->>  	unsigned long old_iobase, old_mapbase;
->> -	unsigned int old_type, old_iotype, old_hub6, old_shift;
->> +	unsigned int old_type, old_iotype, old_shift;
+>The existing psock-marker check also covers a concurrent sockmap attach:
+>at most the already admitted packet completes on the native path, and the
+>next packet ends the batch.
 >
-> Move it line up, so we will have reversed xmas tree order.
+>Signed-off-by: Jia Jia <physicalmtea@gmail.com>
+>---
+> include/linux/virtio_vsock.h            |  1 +
+> include/net/af_vsock.h                  |  5 ++--
+> net/vmw_vsock/af_vsock.c                |  1 +
+> net/vmw_vsock/virtio_transport_common.c | 35 ++++++++++++++++++-------
+> 4 files changed, 31 insertions(+), 11 deletions(-)
 >
-> ...
+>diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
+>index bf077ee0ded88..f1396ca3ad9b5 100644
+>--- a/include/linux/virtio_vsock.h
+>+++ b/include/linux/virtio_vsock.h
+>@@ -288,6 +288,7 @@ struct virtio_transport_rx_batch {
+> 	unsigned int pkts;
+> 	size_t bytes;
+> 	bool write_space_pending;
+>+	bool data_ready_pending;
+> };
 >
->> +	/* hub6 is no longer support */
->> +        if (new_info->hub6 != 0)
->> +                return -EINVAL;
+> void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
+>diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
+>index 9a40960d10cbe..78bab5820f528 100644
+>--- a/include/net/af_vsock.h
+>+++ b/include/net/af_vsock.h
+>@@ -64,9 +64,10 @@ struct vsock_sock {
+> 	bool sent_request;
+> 	bool ignore_connecting_rst;
+> 	/*
+>-	 * Initial callback, used to identify replacements and deliver deferred
+>-	 * write-space notifications.
+>+	 * Initial callbacks, used to identify replacements and deliver deferred
+>+	 * notifications.
+> 	 */
+>+	void (*default_data_ready)(struct sock *sk);
+> 	void (*default_write_space)(struct sock *sk);
 >
-> Please, fix the indentation, should use tabs.
+> 	/* Protected by lock_sock(sk) */
+>diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+>index fe7f49da6c4bc..f40659ec29df0 100644
+>--- a/net/vmw_vsock/af_vsock.c
+>+++ b/net/vmw_vsock/af_vsock.c
+>@@ -958,6 +958,7 @@ static struct sock *__vsock_create(struct net *net,
+> 		sk->sk_type = type;
+>
+> 	vsk = vsock_sk(sk);
+>+	vsk->default_data_ready = sk->sk_data_ready;
+> 	vsk->default_write_space = sk->sk_write_space;
+> 	vsock_addr_init(&vsk->local_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
+> 	vsock_addr_init(&vsk->remote_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
+>diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
+>index f4b5f0230493e..8b62b789b71c5 100644
+>--- a/net/vmw_vsock/virtio_transport_common.c
+>+++ b/net/vmw_vsock/virtio_transport_common.c
+>@@ -1588,7 +1588,8 @@ virtio_transport_recv_enqueue(struct vsock_sock *vsk,
+>
+> static int
+> virtio_transport_recv_connected(struct sock *sk,
+>-				struct sk_buff *skb)
+>+				struct sk_buff *skb,
+>+				bool *data_ready_pending)
+> {
+> 	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
+> 	struct vsock_sock *vsk = vsock_sk(sk);
+>@@ -1607,7 +1608,13 @@ virtio_transport_recv_connected(struct sock *sk,
+> 			vsock_remove_sock(vsk);
+> 			break;
+> 		}
+>-		vsock_data_ready(sk);
+>+		if (!data_ready_pending) {
+>+			vsock_data_ready(sk);
+>+		} else if (!*data_ready_pending &&
+>+			   (vsock_stream_has_data(vsk) >= sk->sk_rcvlowat ||
+>+			    sock_flag(sk, SOCK_DONE))) {
+>+			*data_ready_pending = true;
+>+		}
+> 		return err;
+> 	case VIRTIO_VSOCK_OP_CREDIT_REQUEST:
+> 		virtio_transport_send_credit_update(vsk);
+>@@ -1820,6 +1827,7 @@ virtio_transport_recv_pkt_batchable(struct virtio_transport *t,
+> 	return sk->sk_state == TCP_ESTABLISHED &&
+> 	       sk->sk_type == SOCK_STREAM &&
+> 	       READ_ONCE(sk->sk_prot) == sk->sk_prot_creator &&
+>+	       READ_ONCE(sk->sk_data_ready) == vsk->default_data_ready &&
+> 	       READ_ONCE(sk->sk_write_space) == vsk->default_write_space &&
+> 	       !sock_flag(sk, SOCK_DONE) &&
+> 	       vsk->transport == &t->transport &&
+>@@ -1830,8 +1838,9 @@ virtio_transport_recv_pkt_batchable(struct virtio_transport *t,
+> /*
+>  * The caller holds sk's socket lock.  Set @batchable if the socket can remain
+>  * locked for another ordinary STREAM/RW packet.  When @batch is non-NULL,
+>- * record a default write-space notification for batch finish instead of
+>- * delivering it immediately.  Return true if the caller must free @skb.
+>+ * record default write-space and data-ready notifications for batch finish
+>+ * instead of delivering them immediately.  Return true if the caller must
+>+ * free @skb.
+>  */
+> static bool
+> virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+>@@ -1883,7 +1892,9 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+> 		kfree_skb(skb);
+> 		break;
+> 	case TCP_ESTABLISHED:
+>-		virtio_transport_recv_connected(sk, skb);
+>+		virtio_transport_recv_connected(sk, skb,
+>+						batch ?
+>+						&batch->data_ready_pending : NULL);
+> 		break;
+> 	case TCP_CLOSING:
+> 		virtio_transport_recv_disconnecting(sk, skb);
+>@@ -1957,27 +1968,33 @@ EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt);
+> /*
+>  * Finish the RX batch.
+>  * For a non-empty batch, the caller holds the socket lock acquired with
+>- * lock_sock(). Deliver any deferred write-space notification while the lock
+>- * is held, then release the lock and the batch's lookup reference.
+>- * An empty batch is a no-op.
+>+ * lock_sock(). Release the lock, deliver any deferred write-space and
+>+ * data-ready notifications in that order, then drop the batch's lookup
+>+ * reference. An empty batch is a no-op.
+>  */
+> void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch)
+> {
+> 	bool write_space_pending = batch->write_space_pending;
+>+	bool data_ready_pending = batch->data_ready_pending;
+> 	struct sock *sk = batch->sk;
+>
+> 	batch->sk = NULL;
+> 	batch->pkts = 0;
+> 	batch->bytes = 0;
+> 	batch->write_space_pending = false;
+>+	batch->data_ready_pending = false;
+>
+> 	if (!sk)
+> 		return;
+>
+>+	release_sock(sk);
+>+
 
-Fixed both, and the typo in the comment here, thanks
-for the review!
+Why in the previous patch we release the socket after calling 
+default_write_space() and now we are moving before?
 
-    Arnd 
+> 	if (write_space_pending)
+> 		vsock_sk(sk)->default_write_space(sk);
+>
+>-	release_sock(sk);
+>+	if (data_ready_pending)
+>+		vsock_sk(sk)->default_data_ready(sk);
+>+
+> 	sock_put(sk);
+> }
+> EXPORT_SYMBOL_GPL(virtio_transport_rx_batch_finish);
+>-- 
+>2.53.0
+>
+
