@@ -1,35 +1,35 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1DA4C541461
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:55:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 84AD15349BD
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:55:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169743; cv=none; b=gqtk7RPUVFS/jk8AwspuBE+EeitK4JPavTGJzm9KCzyrWu9eNCjEdyGFRXwjS+TlsmPWOb8LvbNsiyr3YeOaGw4ygsHhIWzcRNKPbGwBlT/K8EajpShVxRXO9PAOLSAjpjwaopZxQm2WUZx1SzWVkOSSXbYdnauIXc054FVNGy0=
+	t=1792169745; cv=none; b=J8SZPNHhaYWD0WRsGVDnWpL2qN9+zwclEcGKAiNs8w54LRO/DODTxEze2kPtLb4ZrWph5BEAqPX8NUuRictEi7eFYgWNNxuWW1+XF08MaP/uOXtou4+Z0xrbZv4B195Ji1WfZPvzwdBgrb6lRmzOqmsE9+Zt9sFOR+ORxzMGICI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169743; c=relaxed/simple;
-	bh=yWcMQrJ3DBzynGtO8A/EkzjEPEYj/c5Q1ImidAgitGc=;
+	s=arc-20240116; t=1792169745; c=relaxed/simple;
+	bh=xWOfM2JxhW8k1I5NjNuuL5MN3cqFbmprf5JA+C66BDc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aTlMuoo5beq0NC8HlvT/t/uiWEV/9U1LLA8/CoAsCY7WoZ0dSW2LPYj9slLoC2ohJaoj/3oUyrDM0Llo+enHqkfyW1l5Peb/GHOOg3km8JA1LX/5+SMtidWDRSbDtMs/+bz6G1S4dIYACFouIXHSCS7uZFnG1dyqIKrhhbqCCNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UkORsnD8; arc=none smtp.client-ip=217.140.110.172
+	 In-Reply-To:To:Cc; b=rc3tXGvxuC01P5TaruYKA/yx/5FmtevNjf329gfhb+E56XYwvQyvufTdthlhizug0cdVAr0FPsz3N+H55J5X4jv75sCsmY9zfGDBCg33QCFqQiToEHix3k0+9Sm2fAuPrgyXXHwanwv6NcCAHNweMloN565hD4SDxOfWBY79WMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SD6yXz3L; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UkORsnD8"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SD6yXz3L"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 206BE1477;
-	Fri, 16 Oct 2026 09:55:38 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CBFFD3F7B4;
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EFDB81691;
 	Fri, 16 Oct 2026 09:55:39 -0700 (PDT)
+Received: from e132581.arm.com (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A5ED33F7B4;
+	Fri, 16 Oct 2026 09:55:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792169741; bh=yWcMQrJ3DBzynGtO8A/EkzjEPEYj/c5Q1ImidAgitGc=;
+	t=1792169743; bh=xWOfM2JxhW8k1I5NjNuuL5MN3cqFbmprf5JA+C66BDc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=UkORsnD8vOoc0ygorycTnWUM9PzAGQJxcxG3Dl8j5RPUJ3dxlE+o4dr1Z2lHLYB31
-	 /vNji6DEz3bBNwOBFIVmo6CBSoZ0D4abqsu1F5dsOCeGvDOqtmH+96KYM5+wKmAVON
-	 2zgCOoD8PtrSWaVZlQhakviZTcPtr9IE9KFDqMt4=
+	b=SD6yXz3LQKh1IqjgArlPGsyU7HrPdqNZvoKSSCzvoZXXbbsD/V64/UlcMI9mAYdJb
+	 Skusi7C3BFawsDGlESvGdeVXq3kWy6EZ4Kl6Ez5aRChE3AukXNHV1eO+kgCbIXI0ea
+	 5j9bmMMSx824ZTHy4IpOY9SjAzbRzoNzV3TrkVfA=
 From: Leo Yan <leo.yan@arm.com>
-Date: Fri, 16 Oct 2026 17:55:14 +0100
-Subject: [PATCH v2 16/23] coresight: trbe: Always classify TRBSR when
- updating buffer
+Date: Fri, 16 Oct 2026 17:55:15 +0100
+Subject: [PATCH v2 17/23] coresight: trbe: Calculate trace size across
+ buffer wrap
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-trbe_enable_disable_irq_handle_refactor-v2-16-3f57cf3199b1@arm.com>
+Message-Id: <20261016-trbe_enable_disable_irq_handle_refactor-v2-17-3f57cf3199b1@arm.com>
 References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
 In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
@@ -50,91 +50,121 @@ To: Suzuki K Poulose <suzuki.poulose@arm.com>,
 Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  coresight@lists.linaro.org, Leo Yan <leo.yan@arm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792169710; l=2929;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792169710; l=4357;
  i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=yWcMQrJ3DBzynGtO8A/EkzjEPEYj/c5Q1ImidAgitGc=;
- b=N2IcP89/ynF6Y+HXtEcyjSRV3HhA3DmguaPBS50vwyHMcNl4eSfqlsgJbWLrnltijRcTrJW11
- O5HX38akGFcDjV5Bd//4ye0p+EN+WpsLp33Mkv4/wvNATRvPYqhti1y
+ bh=xWOfM2JxhW8k1I5NjNuuL5MN3cqFbmprf5JA+C66BDc=;
+ b=HC6011WXYVwcJ+m/L3PIyxQJXH9yObGUggmTEsnYVgyPvAT5tPCfeAB9mlY4tpC9PnDvtce/L
+ RmkbE+3ztwdDaqfw9c6mYrGlYwSaaULwROyEtf6b5YtE/YQI4Klu/Cj
 X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
  pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-arm_trbe_update_buffer() must account trace when perf stops a session,
-even if no maintenance interrupt has been handled. Prepare it for
-trigger and wrap modes by making the trace-size decision from the
-drained TRBSR status rather than gating classification on IRQ.
-Acknowledge IRQ only when it is set.
+trbe_get_trace_size() assumes that the TRBE write pointer is always ahead
+of the perf AUX head. That is not true after a WRAP event, where the write
+pointer can move back to the start of the programmed TRBE span.
 
-In FILL mode, reaching LIMIT sets WRAP and IRQ and returns TRBPTR to
-BASE. Interrupt delivery can be delayed, so update_buffer() may run
-before the IRQ handler. The existing IRQ-gated path uses WRAP to size
-through LIMIT in that case; preserve this while also classifying
-updates without a pending IRQ.
+Calculate the size in two parts for WRAP: the bytes from the current AUX
+head to TRBLIMITR_EL1, plus any bytes from TRBBASER_EL1 to the current
+TRBPTR_EL1. Keep the non-WRAP path strict and reject an unexpected write
+pointer below the AUX head.
 
-With classification on the no-IRQ path, a normal software stop can
-have TRBSR.S clear and an ignored detected trigger can set TRBSR.TRG.
-Neither should warn or discard valid trace. Mark fatal status as
-truncated and return zero. Use LIMIT for a filled WRAP and TRBPTR
-otherwise.
+For CPUs affected by the overwrite-fill-mode or write-out-of-range errata,
+continue to ignore TRBPTR_EL1 on WRAP and account data only up to
+TRBLIMITR_EL1, since bytes beyond the programmed limit are uncertain.
+
+Apply this fallback before validating the write pointer so a WRAP report
+with a pointer outside the programmed range still publishes the trace
+from the AUX head to the programmed limit.
 
 Signed-off-by: Leo Yan <leo.yan@arm.com>
 ---
- drivers/hwtracing/coresight/coresight-trbe.c | 24 +++++++++---------------
- 1 file changed, 9 insertions(+), 15 deletions(-)
+ drivers/hwtracing/coresight/coresight-trbe.c | 62 +++++++++++++++++-----------
+ 1 file changed, 37 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
-index ac49098aa08412a23a20d32f84c2e1977ee4a223..661f4a78e67c30652de8c834e4773819fa67b5ac 100644
+index 661f4a78e67c30652de8c834e4773819fa67b5ac..9a469c8009ce8a8a8b804c2b63a68e741f1dceaa 100644
 --- a/drivers/hwtracing/coresight/coresight-trbe.c
 +++ b/drivers/hwtracing/coresight/coresight-trbe.c
-@@ -662,8 +662,6 @@ static enum trbe_fault_action trbe_get_fault_act(struct perf_output_handle *hand
- 	int ec = get_trbe_ec(trbsr);
- 	int bsc = get_trbe_bsc(trbsr);
+@@ -730,43 +730,55 @@ static enum trbe_fault_action trbe_get_fault_act(struct perf_output_handle *hand
+ static unsigned long trbe_get_trace_size(struct perf_output_handle *handle,
+ 					 struct trbe_buf *buf, bool wrap)
+ {
+-	u64 write;
+-	u64 start_off, end_off;
+-	u64 size;
+ 	u64 overwrite_skip = TRBE_WORKAROUND_OVERWRITE_FILL_MODE_SKIP_BYTES;
++	u64 base = buf->trbe_base;
++	u64 start_off = PERF_IDX2OFF(handle->head, buf);
++	u64 write = get_trbe_write_pointer();
++	u64 limit = get_trbe_limit_pointer();
++	u64 limit_off, write_off, size;
  
--	WARN_ON(is_trbe_running(trbsr));
--
- 	if (is_trbe_abort(trbsr)) {
- 		err_str = "External abort";
- 		goto out_fatal;
-@@ -844,7 +842,6 @@ static unsigned long arm_trbe_update_buffer(struct coresight_device *csdev,
- 	enum trbe_fault_action act;
- 	unsigned long size, status;
- 	unsigned long flags;
--	bool wrap = false;
+ 	/*
+-	 * If the TRBE has wrapped around the write pointer has
+-	 * wrapped and should be treated as limit.
+-	 *
+ 	 * When the TRBE is affected by TRBE_WORKAROUND_WRITE_OUT_OF_RANGE,
+-	 * it may write upto 64bytes beyond the "LIMIT". The driver already
++	 * it may write up to 64bytes beyond the "LIMIT". The driver already
+ 	 * keeps a valid page next to the LIMIT and we could potentially
+ 	 * consume the trace data that may have been collected there. But we
+ 	 * cannot be really sure it is available, and the TRBPTR may not
+-	 * indicate the same. Also, affected cores are also affected by another
+-	 * erratum which forces the PAGE_SIZE alignment on the TRBPTR, and thus
+-	 * could potentially pad an entire PAGE_SIZE - 64bytes, to get those
+-	 * 64bytes. Thus we ignore the potential triggering of the erratum
+-	 * on WRAP and limit the data to LIMIT.
++	 * indicate the same.
++	 *
++	 * Also, affected cores are also affected by another erratum
++	 * TRBE_WORKAROUND_OVERWRITE_FILL_MODE, which forces the PAGE_SIZE
++	 * alignment on the TRBPTR, and thus could potentially pad an entire
++	 * PAGE_SIZE - 64bytes, to get those 64bytes. Thus we ignore the
++	 * potential effects of the erratum on WRAP and limit the data to
++	 * LIMIT.
+ 	 */
+-	if (wrap)
+-		write = get_trbe_limit_pointer();
+-	else
+-		write = get_trbe_write_pointer();
++	if (wrap &&
++	    (trbe_may_overwrite_in_fill_mode(buf->cpudata) ||
++	     trbe_may_write_out_of_range(buf->cpudata)))
++		write = limit;
  
- 	WARN_ON(buf->cpudata != cpudata);
- 	WARN_ON(cpudata->cpu != smp_processor_id());
-@@ -896,23 +893,20 @@ static unsigned long arm_trbe_update_buffer(struct coresight_device *csdev,
- 		 */
- 		clr_trbe_irq();
- 		isb();
+-	/*
+-	 * TRBE may use a different base address than the base
+-	 * of the ring buffer. Thus use the beginning of the ring
+-	 * buffer to compute the offsets.
+-	 */
+-	end_off = write - buf->trbe_base;
+-	start_off = PERF_IDX2OFF(handle->head, buf);
++	/* Should never happen ... */
++	if (WARN_ON_ONCE(write < base || write > limit))
++		return 0;
+ 
+-	if (WARN_ON_ONCE(end_off < start_off))
++	limit_off = limit - base;
++	write_off = write - base;
++
++	if (WARN_ON_ONCE(start_off >= limit_off))
+ 		return 0;
+ 
+-	size = end_off - start_off;
++	if (!wrap) {
++		if (WARN_ON_ONCE(write_off < start_off))
++			return 0;
++
++		size = write_off - start_off;
++	} else {
++		size = limit_off - start_off;
++
++		if (write != limit)
++			size += write_off;
 +	}
- 
--		act = trbe_get_fault_act(handle, status);
--		/*
--		 * If this was not due to a WRAP event, we have some
--		 * errors and as such buffer is empty.
--		 */
--		if (act != TRBE_FAULT_ACT_WRAP) {
--			perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
--			size = 0;
--			goto done;
--		}
-+	act = trbe_get_fault_act(handle, status);
- 
-+	/* If an error occurred, the buffer may be empty */
-+	if (act == TRBE_FAULT_ACT_FATAL) {
-+		perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
-+		size = 0;
-+		goto done;
-+	} else if (act == TRBE_FAULT_ACT_WRAP) {
- 		trbe_report_wrap_event(handle);
--		wrap = true;
- 	}
- 
--	size = trbe_get_trace_size(handle, buf, wrap);
-+	size = trbe_get_trace_size(handle, buf, act == TRBE_FAULT_ACT_WRAP);
- 
- done:
- 	local_irq_restore(flags);
++
+ 	/*
+ 	 * If the TRBE is affected by the following erratum, we must fill
+ 	 * the space we skipped with IGNORE packets. And we are always
 
 -- 
 2.34.1
