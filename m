@@ -1,158 +1,99 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3AC3486E43;
-	Fri, 16 Oct 2026 10:32:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CEA42D5932;
+	Fri, 16 Oct 2026 10:32:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146730; cv=none; b=FD9spNrj49hgIW0eypfMRABl6d5HGp8H4iCijkgpGyf60l53qWcMot2IdZwynH4uBq4r9jTMMC+M6aNU/2OCfphAwcvThT/yKPxoSUdbq+8gVaopltHMKo/9oPl9NVJ0zsGpAKj34Wf8kOrQuTD8LbQ6eyxyHRfGhUzVX2QOwIQ=
+	t=1792146737; cv=none; b=Kzrrrv5fkI14Ozqp6LFHq/c/Zt0ituXVHNhp3/d6CDqqRtTnC/oGgx3HM94hwF4ajyXMUuzkgaK0g//rU6C+VnQ+oaruAYqoESvYBTyBfou4u1fD9oz49cTIv0l70qHmiyIApKFa/+VcyUMZj+5U2RgFMuxcwqqxboV0oBkDJS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146730; c=relaxed/simple;
-	bh=i2eA1g8hDVZivBeAZaOHWG6zdSgE3ONYneQsyHDZBF8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lQxEh8Cjk09GbIfN8Yb6D5q1HC50brYT9Bq9YkL+WjsAjbVHcvbGAJRHid1Gkioi9wCRJ2lEMZ7rNGb7X7ubDebB2Yym5aUW5VkWAA2DWfgKQkiit4qtzYvFh05ACBKUZQIwQxZY6aGiL2OaFYBMuMH+GwmtcOUUFnYDJziXpxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=K27pmBMH; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1792146737; c=relaxed/simple;
+	bh=QA6H725sNaaCumj0ZOWAynE1zh2dAh5usErDk4nYc9Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=af43c+oxdXGxlW7u+xwHv/7WJ+EcqV/PSu/sAAQGGbQyO3FGtRI0mi+i1BV8AR1oAWYNNsDDzP/BHImM94WaSqMpkOZrIjw416wHzbMa8ZtV/yRBaGpI9jiBfm3LFkWFODANENWd/hPRQGchYs5otBbHULCcQfxQco/V09HkbPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MQ1uOra4; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="K27pmBMH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1792146727;
-	bh=i2eA1g8hDVZivBeAZaOHWG6zdSgE3ONYneQsyHDZBF8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=K27pmBMHZzU+7NVK8xmAja3oWC9Hj0xg4sgcGjS0yUfsnyLxBsmHPD7mS2cw4cGqN
-	 H/ZUUkPiR2W9UiO8WtxyuXASvmNSX+Z2lHcN0UYXOFGzyHcJSHTVZELX2or2OYuy/p
-	 4saUPA7JMNjtvQDwpTK1GvD2zs6mRtKPt8EC9sxyOaxL72YwmpOqIkW+82Zv1E/mYm
-	 XANUA9nzuBDbcCZwCSLbboL1OT2OBtyX1l0azFbHJpaEZNaUmOf00Ug1duf5/MZv+y
-	 MzD0c1o521+BpCD6WEg8gW+yeukGppoYW5FHB5p/A0GN5sdaQwRLJ0aS4GSERB5svn
-	 sQwv221kl7ouw==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 510B017E020C;
-	Fri, 16 Oct 2026 12:32:06 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Fri, 16 Oct 2026 12:31:13 +0200
-Subject: [PATCH net-next v3 9/9] net: stmmac: mediatek: add support for
- MT8189 SoC
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MQ1uOra4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792146736; x=1823682736;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=QA6H725sNaaCumj0ZOWAynE1zh2dAh5usErDk4nYc9Y=;
+  b=MQ1uOra4WbEHwKoY9WXf6brSrOUajA0eY3gKWTbWq/L42wnQem4H0Xsy
+   3cMpt9eTe67sG8gTOqZACsPgtFD2+6U1EZ1qMvz7+mQSBPYjqvmUOWfiO
+   +Yur4O7q2q+Z+L4kio0Sua//yYv+oMoxiNFd9g8oWb1pRU6oRZd1PhTKm
+   eX80a22NHocvi4pYkI6P6fqtDE/qP+HcPrAAz1l16EDuMp/eubSs0lq8S
+   Tz01qxIikqlXLM264KQ8h8w7Vb/Kf6g5YyYH8g04AZn8dR1MFfXMlI3Bm
+   bLyFR1NFGPVr90/vn79sUMN824X0Dj3HBYlNemGx4K8MNr87HWAo0T3ZK
+   g==;
+X-CSE-ConnectionGUID: 1J0cVEBQQOistqaDSc410g==
+X-CSE-MsgGUID: yD5wAQD5RRu57Up2eK1i2Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="923749"
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="923749"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:32:16 -0700
+X-CSE-ConnectionGUID: K9+WOhvtRHCc2DZHFsgaRA==
+X-CSE-MsgGUID: uxxvin9sR/yveu3AxuWW2A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="3666038"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa012.fm.intel.com with ESMTP; 16 Oct 2026 03:32:13 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 4BEC799; Fri, 16 Oct 2026 12:32:12 +0200 (CEST)
+Date: Fri, 16 Oct 2026 12:32:12 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Mika Westerberg <westeri@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-gpio@vger.kernel.org, linux-acpi@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>, linux-kernel@vger.kernel.org,
+	Trijan Koju <trijankoju11@gmail.com>,
+	Abduvaliy Abdulazizov <abduvaliy.hbai@gmail.com>
+Subject: Re: [PATCH] gpiolib: acpi: Ignore GPIO 11 interrupt on Acer Nitro
+ 16S AI
+Message-ID: <20261016103212.GW176164@black.igk.intel.com>
+References: <20261007120944.1705014-1-abduvaliy.hbai@gmail.com>
+ <20261016052602.GU176164@black.igk.intel.com>
+ <CAMRc=MdgwgA_h0mHzQ_Jd4hQYe0Z_zFWYE+T441Cc_kCRLFAbw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-dwmac-mediatek-mt8189-v3-9-25daf2bbcf35@collabora.com>
-References: <20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com>
-In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Biao Huang <biao.huang@mediatek.com>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
-Cc: kernel@collabora.com, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792146716; l=3119;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=i2eA1g8hDVZivBeAZaOHWG6zdSgE3ONYneQsyHDZBF8=;
- b=9yIUu0ofzyAAWDOQnO/YpjHDr+MOngyMS/O2iwlxiUts+wqjUGCc9WrenITtvMepTp6Grlj64
- UwLNfyetg6FCPEYMyoaCcIMLqTt37pAgepfdrAEOoUvJ+IqA/czy+1B
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAMRc=MdgwgA_h0mHzQ_Jd4hQYe0Z_zFWYE+T441Cc_kCRLFAbw@mail.gmail.com>
 
-Like MT8195 SoC, MT8189 SoC uses the Ethernet control registers from
-the peripheral configuration (pericfg) but at a different offset.
-It also has different RX and TX internal delay stage dividers (290ps
-for MT8195, 180ps for MT8189), and by consequence a reduced value range
-for these delays. It finally needs additional feature such as the
-TX clock output enable one.
+Hi,
 
-Thus, add compatible, clock definitions and specific platform data to
-support the MT8189 SoC.
+On Fri, Oct 16, 2026 at 05:02:11AM -0400, Bartosz Golaszewski wrote:
+> On Fri, 16 Oct 2026 07:26:02 +0200, Mika Westerberg
+> <mika.westerberg@linux.intel.com> said:
+> > On Wed, Oct 07, 2026 at 05:09:44PM +0500, Abduvaliy Abdulazizov wrote:
+> >> The Acer Nitro 16S AI (AN16S-61) has the same problem as the Acer Nitro
+> >> V 16S AI: the firmware powers the internal USB camera (0408:4059)
+> >> through GPIO 11 of AMDI0030, but also lists that pin in _AEI. Requesting
+> >> it as an input cuts the power, so the camera never enumerates. On this
+> >> model the same rail also powers the internal microphones, so they do
+> >> not work either.
+> >>
+> >> Booting with gpiolib_acpi.ignore_interrupt=AMDI0030:00@11 fixes both
+> >> the camera and the microphones. Add a DMI quirk for this family too.
+> >>
+> >> Tested-by: Trijan Koju <trijankoju11@gmail.com>
+> >> Assisted-by: LLM
+> >> Signed-off-by: Abduvaliy Abdulazizov <abduvaliy.hbai@gmail.com>
+> >
+> > Acked-by: Mika Westerberg <westeri@kernel.org>
+> >
+> 
+> Andy, Mika: do you want me to queue this as well for next week's fixes PR to
+> Linus?
 
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
- .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   | 28 ++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-index 147e217b8662..d480c339a16d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-@@ -45,8 +45,15 @@
- #define MT2712_RGMII_DLY_TXC_MAX	17600 /* 32 x 550ps */
- 
- /* Peri Configuration register for mt8189 */
-+#define MT8189_PERI_ETH_CTRL_OFFSET	0x270
-+
- #define MT8189_CTRL0_TXC_OUT_OP_EN	BIT(20)
- 
-+#define MT8189_DLY_RXC_STAGE_DIV	180  /* 180ps per stage */
-+#define MT8189_DLY_RXC_MAX		5760 /* 32 * 180ps */
-+#define MT8189_DLY_TXC_STAGE_DIV	180  /* 180ps per stage */
-+#define MT8189_DLY_TXC_MAX		5760 /* 32 * 180ps */
-+
- /* Peri Configuration register for mt8195 */
- #define MT8195_PERI_ETH_CTRL_OFFSET	0xFD0
- 
-@@ -134,6 +141,10 @@ static const char * const mt8195_dwmac_clk_l[] = {
- 	"axi", "apb", "mac_cg", "mac_main", "ptp_ref"
- };
- 
-+static const char * const mt8189_dwmac_clk_l[] = {
-+	"axi", "apb", "mac_main", "ptp_ref"
-+};
-+
- static int mt2712_set_interface(struct mediatek_dwmac_plat_data *plat,
- 				u8 phy_intf_sel)
- {
-@@ -495,6 +506,21 @@ static void mt8195_fix_mac_speed(void *priv, phy_interface_t interface,
- 			   reg_val);
- }
- 
-+static const struct mediatek_dwmac_variant mt8189_gmac_variant = {
-+	.dwmac_set_phy_interface = mt8195_set_interface,
-+	.dwmac_set_delay = mt8195_set_delay,
-+	.dwmac_fix_mac_speed = mt8195_fix_mac_speed,
-+	.clk_list = mt8189_dwmac_clk_l,
-+	.num_clks = ARRAY_SIZE(mt8189_dwmac_clk_l),
-+	.dma_bit_mask = 35,
-+	.rx_delay_max = MT8189_DLY_RXC_MAX,
-+	.tx_delay_max = MT8189_DLY_TXC_MAX,
-+	.rx_rgmii_delay_stage_div = MT8189_DLY_RXC_STAGE_DIV,
-+	.tx_rgmii_delay_stage_div = MT8189_DLY_TXC_STAGE_DIV,
-+	.peri_eth_ctrl_offset = MT8189_PERI_ETH_CTRL_OFFSET,
-+	.mac_txclk_out_en = true,
-+};
-+
- static const struct mediatek_dwmac_variant mt8195_gmac_variant = {
- 	.dwmac_set_phy_interface = mt8195_set_interface,
- 	.dwmac_set_delay = mt8195_set_delay,
-@@ -751,6 +777,8 @@ static void mediatek_dwmac_remove(struct platform_device *pdev)
- static const struct of_device_id mediatek_dwmac_match[] = {
- 	{ .compatible = "mediatek,mt2712-gmac",
- 	  .data = &mt2712_gmac_variant },
-+	{ .compatible = "mediatek,mt8189-gmac",
-+	  .data = &mt8189_gmac_variant },
- 	{ .compatible = "mediatek,mt8195-gmac",
- 	  .data = &mt8195_gmac_variant },
- 	{ }
-
--- 
-2.56.0
-
+That would be great, thanks!
