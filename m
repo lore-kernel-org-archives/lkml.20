@@ -1,180 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49804377558;
-	Fri, 16 Oct 2026 10:22:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 881C4442372;
+	Fri, 16 Oct 2026 10:22:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146152; cv=none; b=BR/HHURrenW0qeyRchSZlFu8ho+v47Pfc3NDNfbXTVtPSnwr9aEQv/sCsO9hNLh2FhzYkHwBt7LLkrVUyKvpNLBowQcLpbSmBmXCc07aoYEm9Jyii7YjfHZ/kJbFywswgJ+6j6x/wP8a7QkbAwjXvNzbFpR0kxL8DMmqDi1pxX8=
+	t=1792146158; cv=none; b=SdiylXEF2Q59ThsRDFW9xhxgheSjsckF/KTxh69dCZZ0n/xrHjk0n9upogiMa5Rc1UF17ImtmYG2RIXlr5SSEKZAKuw2caKb8Cg0jxmx3niuzWZ8mwsxpnE5BziC8Pl2bosg3rhoWxXgrfu1zeRZ+NP9Jw75awWojkqQrHRf2xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146152; c=relaxed/simple;
-	bh=XLEWQiURi7aTHFjkuux9+QTBXfbA+Tn69PBNfHt4MlY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=To8AzHRs8/sjdlZ4BSmCGjgj89ipXDep7mklP1RdaZ1JYL3wrEjMuLlrj0aNgvESxl3y6BDyAQ5brqydpHaToQLtrQ7/xB1k3hBD5kGeR01tixmNHSrxJdLX3A+XOyN+8ETg3tQ7QQHfbtdJ/yhYo3gHN+ij6uVZpwA2sEzVrAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KUuIJobk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792146158; c=relaxed/simple;
+	bh=MW5IvNBYwiHBeYNR4r2nz/EeyoR93OeQnRKavzXx0FA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DT91kkZheKpPgVOGC0jMXQkMmtxHWXf3tNQLY9X6h6G4vrRMoBlyN1CvWSmHZmh+Dulz9P4cimNq8n+RWOv5AYXR4Lj4FU4T6l0zITrQw+1EP4r3OAT6K7RhMzK6k9icddfRo4KG5+oY2gDSZ8LmH6RDKqFZ/poXIdgCLY68r0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=KEWrpJW9 reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KUuIJobk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8380E1F000C4;
-	Fri, 16 Oct 2026 10:22:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792146150;
-	bh=MmsD/+E77JzcPrYTTMXzSxDw0SRmaBW7nVo2SCiVios=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KUuIJobkfdIAK1xw1cr+2nUJ2Xgth+pSBxQ0EE8B68egwpz4HdQM1AB7BmgzLIVPl
-	 z68hoF5XAlgzML8NTD48H5krOE5x5OsvtOnYkyr3XgXv8zOdfN26fe/X82pFRnwmvI
-	 EXGi1sov1WSJ9K9k7lhvTqHENS/l0uUnybOa9iDIvR/yILRS3jjWnjUlvirDgYeQOS
-	 Xfio8oxBdiIRfrzzRnTy/GvEyaGfG63WipDztNWdDb44GdH63MKMWJAWfX4iHbCPb9
-	 wIIb/eQJxCCxKeDW8bUDWJ4iZZce1ciEPkS4g35AVk/Vo1g7CeXTZeWOqFUbOE0xl/
-	 /V2cwsB3tn/jQ==
-From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL 12/19 for v7.4] vfs kernfs
-Date: Fri, 16 Oct 2026 12:21:59 +0200
-Message-ID: <20261016-vfs-7.4-rc1.kernfs-d34b0bc9b87b@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016-vfs-v74-41eaf6c4712c@brauner>
-References: <20261016-vfs-v74-41eaf6c4712c@brauner>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="KEWrpJW9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=/lK1aOrmSM
+	sK6G3QvQQvpEM4E0EN5PTXRgpLljzp2xQ=; b=KEWrpJW9Z5NsxnagTaTmEJRXaC
+	KvcBfCwrTQOx8eh51wpiu0PF+6mp6lYv4f6sJiTHF5g7bU8twREzxC0aJHb0c0in
+	0hZu8ZXZLR+niUT4fNffhbU3lKuI+XFsKViGsvT+E8tLKhu+Yrxn08xJjLSIb5jD
+	GDYXKH5xJmiCz+dxY=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.90])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkC2vP_X+tFqXf+pAA--.50685S2;
+	Fri, 16 Oct 2026 18:22:16 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: [PATCH] media: go7007: return queued buffers on start_streaming() failure
+Date: Fri, 16 Oct 2026 18:22:13 +0800
+Message-Id: <20261016102213.42771-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6438; i=brauner@kernel.org; h=from:subject:message-id; bh=XLEWQiURi7aTHFjkuux9+QTBXfbA+Tn69PBNfHt4MlY=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRd/HVL9OytqpfPS3gO1m3ujpi6+M8VtYxb6XaMm7lyb 52PcD38s6OUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAiQm4MfwWlL6nu4tuV9uz1 3/1HXK6vLPqTOf9j/oQlwUejr28OmsTE8N/H9veOqv5rurN2zz/d9UWR7d27Le48C1vvHVt4jXP W2mkcAA==
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkC2vP_X+tFqXf+pAA--.50685S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWw4rAFWxGFykXF4ftFW3Awb_yoW5ZFWfpF
+	yY9ayayrZ8tF48ua13Gw1ag3WYkas7A347CayfWwn5Arn8JF98u3y0q3yqgr1DC3yxZF1j
+	yrZ8CFW3CF4jyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9K14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
+	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
+	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
+	x2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Gw1l42xK82IYc2Ij64vIr4
+	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
+	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
+	v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUYxhLUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUID2rQ7FG19QAAsE
 
-Hey Linus,
+The vb2 framework hands ownership of every queued buffer to the driver
+through the buf_queue() callback before start_streaming() is called.  If
+start_streaming() then returns an error, the driver must return those
+buffers to vb2 with vb2_buffer_done() and VB2_BUF_STATE_QUEUED.
+Otherwise vb2_start_streaming() fires WARN_ON(owned_by_drv_count) and
+forcibly reclaims the buffers.
 
-/* Summary */
+go7007_start_streaming() returns -EIO when go7007_start_encoder() fails,
+which happens for example when a USB transfer cannot be submitted because
+the device has been disconnected:
 
-This contains kernfs scalability work from Shakeel driven by what Meta
-sees in their fleet. kernfs_rwsem is per kernfs root, so sysfs and
-cgroupfs each have one for the whole machine, and every create, remove
-and rename takes it for writing. rwsems don't let readers steal the lock
-once a writer is queued, so one cgroup being created or a device being
-renamed parks the entire incoming reader stream in uninterruptible
-sleep. Daemons that poll cgroup files in a loop turn that into a convoy
-and the two that hurt most, oomd and below, are the ones that are
-supposed to relieve memory pressure and record what happened.
+    go7007 1-1:1.0: error submitting audio urb 5: -2
+    go7007 1-1:1.0: error starting stream transfer
+    WARNING: drivers/media/common/videobuf2/videobuf2-core.c:1797 at vb2_start_streaming
 
-kernfs_dop_revalidate() took kernfs_rwsem for read once per path
-component of every walk into a kernfs mount. Nothing it reads needs the
-semaphore. kn->active is an atomic_t, kn->__parent and kn->name are rcu
-pointers, kn->ns can be compared instead of dereferenced and the
-directory revision is a plain counter. The callback runs under rcu now.
-Readers walking cgroupfs and sysfs while another thread churns cgroups,
-renames netdevs and plugs devices went from 48,593,360 read
-acquisitions and 1,744,517 contentions to 1,280,280 and 429,846 on an
-8-CPU VM and path walk throughput improved 35-53%. LOOKUP_RCU still
-returns ECHILD because kernfs_iop_permission() forces every walk out of
-rcu-walk anyway. That is left for later.
+but it leaves the already queued buffers on go->vidq_active.  Give them
+back to vb2 with VB2_BUF_STATE_QUEUED before bailing out, clearing
+go->active_buf as well.
 
-kernfs_fop_readdir() held the semaphore across dir_emit(). dir_emit()
-copies to userspace and under memory pressure that fault goes to
-reclaim with the lock every create, remove and rename needs held for
-reading. Meta sees 120 second allocation stalls in filldir64() from
-below and systemd-oomd stuck behind it. The lock is dropped around
-dir_emit() now. Since the entry the listing stopped on can disappear in
-that window and two entries can share a hash, readdir resumes on the
-full (hash, ns, name) key and the fallback search lands after the
-missing entry instead of repeating or skipping one. The repeat was a
-pre-existing bug between two getdents(2) calls.
+Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/media/usb/go7007/go7007-v4l2.c | 29 +++++++++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
 
-Three more lock holds are shortened. kernfs_notify_workfn() no longer
-holds kernfs_rwsem across fsnotify() which allocates against the memcg
-of the watching cgroup that is already under pressure. The open node is
-allocated outside the hashed open file mutex, the most contended lock
-in kernfs on their fleet with 2.19M waiters over 29 days and a 77ms
-median hold. A new node is activated without dropping and retaking the
-write lock, lock_stat says 1200 -> 830 write acquisitions for five
-dummy netdevs, and kernfs_rename_ns() allocates the new name before and
-frees the old one after the lock so a rename can't enter reclaim or
-wait out a grace period with it held.
+diff --git a/drivers/media/usb/go7007/go7007-v4l2.c b/drivers/media/usb/go7007/go7007-v4l2.c
+index 2087ffcb85a5..e0b646e8dad1 100644
+--- a/drivers/media/usb/go7007/go7007-v4l2.c
++++ b/drivers/media/usb/go7007/go7007-v4l2.c
+@@ -394,6 +394,31 @@ static void go7007_buf_finish(struct vb2_buffer *vb)
+ 	vbuf->field = V4L2_FIELD_NONE;
+ }
+ 
++/*
++ * Return all buffers that have been queued to the driver back to vb2.
++ *
++ * The vb2 framework hands ownership of every queued buffer to the driver
++ * before calling start_streaming().  If start_streaming() fails, those
++ * buffers must be returned with VB2_BUF_STATE_QUEUED, otherwise
++ * vb2_start_streaming() triggers WARN_ON(owned_by_drv_count).
++ */
++static void go7007_return_queued_buffers(struct go7007 *go)
++{
++	struct go7007_buffer *vb, *tmp;
++	unsigned long flags;
++	LIST_HEAD(buffers);
++
++	spin_lock_irqsave(&go->spinlock, flags);
++	list_splice_init(&go->vidq_active, &buffers);
++	go->active_buf = NULL;
++	spin_unlock_irqrestore(&go->spinlock, flags);
++
++	list_for_each_entry_safe(vb, tmp, &buffers, list) {
++		list_del(&vb->list);
++		vb2_buffer_done(&vb->vb.vb2_buf, VB2_BUF_STATE_QUEUED);
++	}
++}
++
+ static int go7007_start_streaming(struct vb2_queue *q, unsigned int count)
+ {
+ 	struct go7007 *go = vb2_get_drv_priv(q);
+@@ -409,8 +434,10 @@ static int go7007_start_streaming(struct vb2_queue *q, unsigned int count)
+ 	else
+ 		ret = 0;
+ 	mutex_unlock(&go->hw_lock);
+-	if (ret)
++	if (ret) {
++		go7007_return_queued_buffers(go);
+ 		return ret;
++	}
+ 	call_all(&go->v4l2_dev, video, s_stream, 1);
+ 	v4l2_ctrl_grab(go->mpeg_video_gop_size, true);
+ 	v4l2_ctrl_grab(go->mpeg_video_gop_closure, true);
+-- 
+2.34.1
 
-Three standalone fixes come with selftests. Same-parent renames take
-kernfs_rename_lock too so kernfs_path_from_node() can't build a path
-that never existed. Decoding a file handle takes the semaphore so a
-decode racing rmdir() can't hash an inode after the removal's ilookup()
-pass and lose IN_DELETE_SELF. And kernfs_create_link() reads the
-target's uid and gid under kernfs_iattr_rwsem so a chown in between
-can't give the link an owner the target never had. The kernfs selftests
-grew from two xattr checks to coverage of dentry revalidation, rename,
-namespace tagging, file handles and readdir under churn.
-
-/* Testing */
-
-No build failures or warnings were observed.
-
-/* Conflicts */
-
-Merge conflicts with mainline
-=============================
-
-No known conflicts.
-
-Merge conflicts with other trees
-================================
-
-No known conflicts.
-
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
-
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.4-rc1.kernfs
-
-for you to fetch changes up to 1c45110a23bd7fb4a1a7d5f5a1014c5b688844ae:
-
-  Merge patch series "kernfs: do less work under the kernfs_rwsem write lock" (2026-09-25 16:59:12 +0200)
-
-----------------------------------------------------------------
-vfs-7.4-rc1.kernfs
-
-Please consider pulling these changes from the signed vfs-7.4-rc1.kernfs tag.
-
-Thanks!
-Christian
-
-----------------------------------------------------------------
-Christian Brauner (4):
-      Merge patch series "kernfs: remove kernfs_rwsem from dentry revalidation"
-      Merge patch series "kernfs: three standalone fixes"
-      Merge patch series "kernfs: don't hold kernfs_rwsem across dir_emit()"
-      Merge patch series "kernfs: do less work under the kernfs_rwsem write lock"
-
-Shakeel Butt (18):
-      kernfs: Use VFS lookup context in d_revalidate()
-      kernfs: Prepare directory revisions for lockless reads
-      kernfs: Avoid namespace dereference in d_revalidate()
-      kernfs: Remove kernfs_rwsem from dentry revalidation
-      selftests: cover kernfs dentry revalidation
-      selftests: cover kernfs file handles and same-parent rename
-      kernfs: take kernfs_rename_lock for same-parent renames too
-      kernfs: don't lose IN_DELETE_SELF when decoding a file handle
-      kernfs: fix up the unlocked attribute reads on the creation paths
-      kernfs: allocate the open node outside the open file mutex
-      kernfs: don't hold kernfs_rwsem across notification delivery
-      kernfs: don't repeat or skip an entry when readdir resumes
-      kernfs: resume readdir on the full entry key
-      kernfs: don't hold kernfs_rwsem across dir_emit()
-      selftests: cover readdir resuming at a removed entry
-      kernfs: activate a new node without dropping kernfs_rwsem
-      kernfs: allocate the new name outside kernfs_rwsem
-      kernfs: free the old name outside kernfs_rwsem
-
- MAINTAINERS                                       |    1 +
- fs/kernfs/dir.c                                   |  225 ++--
- fs/kernfs/file.c                                  |   47 +-
- fs/kernfs/kernfs-internal.h                       |   18 +-
- fs/kernfs/mount.c                                 |   32 +-
- fs/kernfs/symlink.c                               |   17 +-
- tools/testing/selftests/filesystems/config        |    8 +
- tools/testing/selftests/filesystems/kernfs_test.c | 1187 ++++++++++++++++++++-
- 8 files changed, 1414 insertions(+), 121 deletions(-)
- create mode 100644 tools/testing/selftests/filesystems/config
