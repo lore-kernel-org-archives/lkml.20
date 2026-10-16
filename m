@@ -1,80 +1,76 @@
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666914C9E12
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:48:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC5854706C
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:49:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158535; cv=none; b=V2DJiqOND2AgNtuvAbIjIKnagEQihHRUsLvnV+rmx+XIrMpGu9LaaeZUPsz/vcwxi4vaFibwBKQcsWzBLgcdS8xXxds0VwSaTKWh7pnwFjO5VNfUV44p5qZbExOjo6cxiKHfaAjdkcE6j2JMQ5/dhjJCNbAhxTTLGQRrhQy53TY=
+	t=1792158559; cv=none; b=Y1Z6i3uoyz692kKNHy36/Qo0C8EfALiN8vzjRh+1A2qI8y8IodlnWk7tERUstNHQSWjAEZOHYkJlys9DvZ+xPpvJVjKcsk+7dHlo8s0rjcGlsUTxinKVnxxSMpOINGxjFT6f2pFB3sbNeySBAEDYoLvGzsiEGmLb9UOqzfu5vHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158535; c=relaxed/simple;
-	bh=qap1eOGitYV75+L/QKg9xm+U2tLDgEHHJGYhahzwLNs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=UEja1gSlj2p2ISAX2ORuMtI9up4jEyUo7CwfTw2dVRH1rgD4OuaWvtP3zAV+co619hoVFR7RitpsebVcwU9L1SNBuv7rmQxRepOOU/+NkZgvX+AAvhAQtF3RQkWwtFz/tB952Zo0FS3ocJvE0QdvGohfLsabtIL8aKuV1oScn5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OXyzV+9D; arc=none smtp.client-ip=74.125.82.48
+	s=arc-20240116; t=1792158559; c=relaxed/simple;
+	bh=2oPOPJSo8SwZG2zShQhf9c9WjJUFK6Ksr1Sry34EbzU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=b67zmCiSWObJlY4xpFpXqQehEQIWXLPIVPDOmIg1q2PfeiP5aEkqPF8iQY13nqYA70nn9YRuK83+pDY1V6x7m8f9EasMy03i7QDNzd8GMGivE2I2U2Th+lwtxNfkCRc9MkWl66ps+YpYuVVtmRTJCmLq+ZPTiEDpVauKmy2kCJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mcCm71ir; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OXyzV+9D"
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15756f82e8aso712277c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:48:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mcCm71ir"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e86dce4510so33206565ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:49:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792158533; x=1792763333; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792158557; x=1792763357; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5uF+LfQczF3q7pmbkjozwjBwMdX5SJot+p3Vd/HXF+0=;
-        b=OXyzV+9DdmB5v5sTvPfcd58P9I0M1XdYAkofvygaDhgnhbz2y2/dfYKPOKNDkADwCe
-         2+zXDEckGwqW7cXcjCMgc4LkKVHrLb/wRDmMYhM81KycdZRtFwJL46rJpinqi0p5ebky
-         vgQay7OYzjPxHWpIBDh0V4Zh7Ci1q4HY/qoHfpzNu6NNLw+dwKojcH8jF6LzkVOQHqtV
-         9TP1MUNmGWoQZS37k+S7D2JsOVZVuxJd+asQpuGj42lcTtV/xltbiz1Z0T6P3gkNr7JW
-         m003/kNphSMkQa9wg30idhUriSfILjukVPYkiHPx3FOoKgk2zPQUaI80DDwxxkwiwQ3H
-         /jFA==
+        bh=2oPOPJSo8SwZG2zShQhf9c9WjJUFK6Ksr1Sry34EbzU=;
+        b=mcCm71irbVZSlfGUNhUZhx0XBaLg8JsVwT2iTb2wdkb5nE9rd0mysQ8/0RiV+IAbRr
+         bh6bd/DvRGpK7GIU4u3roxhQ5DCa0CeSSDBNSiOwqTi7NI5YK0lZVjn5oe2l/4fg1vS6
+         kzLKNX1GGnTrBu9ntID5sp7uJo9MBWkFBJ9/ET9K36P7FUKu4fJWAVYyZ7x/CUNUFL52
+         aG+PYcawvz+hUVXsmMQAMwvpiXbZ3cb8NgTk6AhezUf8CD5TRdsexmUiklLZH7fP7oei
+         ojmDPC8hxcPM/3xVv+q78eWcJqEwBs1Ys3DeVhmlP5gs9pVvc9cODqfpouuCbBC/s7sZ
+         IjQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792158533; x=1792763333;
+        d=1e100.net; s=20260707; t=1792158557; x=1792763357;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5uF+LfQczF3q7pmbkjozwjBwMdX5SJot+p3Vd/HXF+0=;
-        b=jhesn97uMw8N16Pa2pEC+qxFDp5Ho3mtPPNCzLrmwmzZC50+5GW4U7dckNoJY6VRrQ
-         wmI03aa5onHMqWhihsUC6Nva4UUb6Y0orbFxmJWrznMo7W8l3lci1BFad5cKg5en+VBa
-         cBGTlLqfam//8lIof4pFuJfJLDppHEstCbPs8EWon6Ka/pK3r24cCAKdMtBm8A9lpocu
-         ZLxBUGybeGZ+b1IkQqv/lXmL6WiQsWtOICuWxxEu3UWXJGDuTqekCHPuEV5hS3useVwL
-         30gVcT/+FMnbmGk7YkHLaLr3jFR/KsLFRPaUR1REqc1jpAHMhMFUaeG5eu2R/TgL+qTc
-         YHCg==
-X-Forwarded-Encrypted: i=1; AKwUvByfWWRVdQYUsQBLA6EFfcyh/tNEv4vsc5P2VVXKysPdlX9zcYhnVUh/bbWohr72tRUFMpddWGrtv1HY1g0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJC2lSpBlq13eevZAa7QIYxKeYA++YVBAceapW9W1kpA6lUt27o
-	thZCRPmKUyTz+VaHWKnyFO6ObZVKhL1V1eWX37i1VPKGDDYg+XFXgguo
-X-Gm-Gg: AYBFou1vFPvK00azs/0IAB26S1pA8UISYDsV/hrkm+HllFnlvb2kvC3zielWKro7dZC
-	JW6yHYpbtO8mw3MQKd031hM03KY5/JF+L1wCFbmR+ibrpHtMafgN/qXt1aTpuOKwt3EwWgrql3m
-	tsN2/yTZI4vMblPNRJ/wVlQGiUkvU6MLi9lyFKiXoRgHBp6wZ3rULyEhYDv3RATA1puFCfp9/Un
-	wZ58BnK1NCV1061zCHv76BO/liFhg1p2CuKIJh8CqeCoY5l6Imj2lFLGschl7IReAo8kJXt0L1H
-	ITT//47nx/DMMJAXDRQiMJh/F+yJeT3qfCGVPxk+ZtOoNoE+J/WnqrdzozoBZBlWvxfbe/h5QCa
-	yic4in2B1TxFwzUb0AHZMBtigAa9f0BR31w58PbjXdJWu6ymA+/p8/I4zSZaK13NQFlNM6q9Ldx
-	5GsO7v1qOoKKVB0UWZ8KWwPx3O/zkZYV/5bHeo7W8lr7Wd5kubMJOPAfkXev9b4uc1aS2tDUt16
-	/hY/ic5yZhbHQBoWsSpHlHR6fR10n++8MQBu136AUw6h4XOEFNYVKcvKl/YtqNOFM7HIuBq8/M=
-X-Received: by 2002:a05:7022:43a5:b0:152:dd1b:4fa7 with SMTP id a92af1059eb24-18511eb69acmr15578c88.19.1792158532965;
-        Fri, 16 Oct 2026 06:48:52 -0700 (PDT)
-Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831919fc14sm7956376c88.6.2026.10.16.06.48.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 06:48:52 -0700 (PDT)
-From: Bo Zhang <zhangbo0325@gmail.com>
-To: senozhatsky@chromium.org
-Cc: akpm@linux-foundation.org,
-	baohua@kernel.org,
-	bgeffon@google.com,
-	minchan@kernel.org,
-	richardycc@google.com,
-	linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH v3 10/11] zram: use rw_semaphore for decompression streams
-Date: Fri, 16 Oct 2026 21:48:47 +0800
-Message-Id: <20261016134847.1620103-1-zhangbo0325@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <atHftz13hWzGludk@google.com>
-References: <atHftz13hWzGludk@google.com>
+        bh=2oPOPJSo8SwZG2zShQhf9c9WjJUFK6Ksr1Sry34EbzU=;
+        b=Y8Hz7nwkJl1c9p6d80m6S2cARy1d7cQXiyPShK7aMXzuZ6g9AE0O67IKY1X+JgQcTt
+         meHPJTdAZLiYbXSZ8KCQR6tu3sR0ciKtbFY3P+JKqVrB+62Fe6m+bRcG+EzrZJdT7sa4
+         m7cCD72T7+GbBoDsq1dyoNAplsH48irIRhY1n4VrL0izalF7lWLaYYrLqhYHBXK7Ksi3
+         UCPzhPPrHttbIG2UXH3JS1rX1QDvqeid7cFah62XZr9QeIuKQ+lvtNMSf9SF8O9yE5dC
+         xvmV+gbesDnF7iJaTPS4VmrAJiyTnOrW01y4aLlTbNShmbKQQH02gxoZ6zcPyt9NAZVL
+         tILg==
+X-Forwarded-Encrypted: i=1; AKwUvBw9VuXlnQ9zBRDPgh0pUR+KVFY1vUbW7/paCPbL0VNJ6X+QhIs+EVWu4yJv7U5HnUxU5LVrp2231ORcE2w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLGGED3aNFbWnuvem7YqxRm3a9XeYsabWK4q4KlyqHQthht7f06
+	4WSvXqAgu3oMD4sFmsw6vKG1gJ7B4MBmjRi9fV5/0yIJ4C/YGxVFYbj6
+X-Gm-Gg: AYBFou1JbKTg6NHyrjknZR5IabKZ6mTsMrLnwlnXGvvQbWixaqAE0NIC+6+26ELeJfs
+	hnVH8oPeuQdcBxIfiJ6AK9RyDC0u1e1sbNwwRB66pf+F1EBYAhM45NU/LKuQMB3wbVVR3RLss+w
+	mj+uwL/7bW6Aq9PRgv66GUdQNxPBpHLSCWDalZQCBJUaJxhfmI8gipzrNFk87ZCV/H/aG9SoriK
+	LCVvt/AUDXM4k/yFGuYlu+e58zd4qUE+CNIRXiNB/biGiTGMTBNyR7Ne06yzlMG1UKOVlDDKR/9
+	hjQ7nOfaSc+/hn5pIbQxjw6PfeaOy9AG8j42Afo5LwrY/unGWviIPfBGmDG9AyZDCzFqxWjjBBI
+	sWdEL+baIW51twrvo40IaQUFKfWf/DDh00UDd/XZ2MhrExVkjsIVWtPIrbUj+WGV3pYST9a40Vn
+	JhvbuT8k5EYVjguI5nPCXrrid48kI0uUPgPEsCQ98haGCCext7vvtVX9yn6bS95JYbqItsCN6kD
+	7Ymub9oHP7Hn52bHhQz7WBKMMx3qmSxhDNOeC2mael6Zs5bCtU6GlzOb7xw6cbCc+NYJneIpA==
+X-Received: by 2002:a17:902:ef45:b0:2e9:7ace:ccc7 with SMTP id d9443c01a7336-2e9a69eadc5mr215965ad.39.1792158557334;
+        Fri, 16 Oct 2026 06:49:17 -0700 (PDT)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:1467:1666:71b7:b993])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e87836bsm10762845ad.47.2026.10.16.06.49.14
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 16 Oct 2026 06:49:16 -0700 (PDT)
+From: Aryan Sinha <sinha.aryan03@gmail.com>
+To: Rob Herring <robh@kernel.org>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] accel: ethosu: Fix kernel-doc for ethosu_gem_cmdstream_create()
+Date: Fri, 16 Oct 2026 19:19:06 +0530
+Message-ID: <20261016134910.35015-1-sinha.aryan03@gmail.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20261016132726.GH5059-robh@kernel.org>
+References: <20261016132726.GH5059-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,37 +79,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, 16 Oct 2026 17:54:25 +0900 Sergey Senozhatsky <senozhatsky@chromium.org> wrote:
-> A quick and dirty patch, as usual, just to play around with.  This
-> attempts to improve the reader side, because the reader is side
-> much more sensitive.  Tested only with zstd.
+On Fri, Oct 16, 2026 at 08:27:26AM -0500, Rob Herring wrote:
+> Why are you sending this again after 4 days?
 
-I applied the cross-CPU borrowing patch on-device and re-ran the same
-zstd Android A/B, so it can be compared against the preempt-disable
-numbers I posted earlier. Focusing on the read (exclusive decompression)
-side, which is what this patch targets:
+My mistake sorry, this is an accidental resend. It is the same patch as the
+12 Oct posting with nothing changed:
 
-                        9+10+kmalloc   preempt-disable   cross-CPU borrow
-  dexcl_contended       15,919         54                1,447
-  dexcl_wait_ns_total   109.6 s        0.68 s            3.66 s
-  dexcl_wait_ns_max     145 ms         34.6 ms           26.6 ms
-  dexcl_avg_wait        6.88 ms        12.6 ms           2.53 ms
-  dexcl_acquire         2.21M          2.75M             2.94M
+https://lore.kernel.org/all/20261012152118.33548-1-sinha.aryan03@gmail.com/
 
-Borrowing clearly works: dexcl contention drops 15,919 -> 1,447 (-91%),
-and the residual 1,447 are the genuinely all-CPUs-busy cases that fall
-through to wait_event(). More importantly for us, the worst case and the
-average are the best of the three - max 145ms -> 26.6ms (-82%), avg down
-to 2.53ms.
+Please ignore this copy and use the original. Sorry for the duplication.
 
-One note so the table isn't misread: the preempt-disable column also
-disabled preemption on the *write* stream, which is why its
-cwrite_contended was 48; this borrow-only build has no write-side change
-(cwrite_contended back at ~16k, as before 9+10). That's expected - your
-patch deliberately leaves the writer side for later, and the writer
-isn't on the swap-in path, so it's lower priority for us too.
-
-Scripts and raw numbers on request.
-
-Thanks,
-Bo
+Aryan
