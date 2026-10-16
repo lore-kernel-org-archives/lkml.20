@@ -1,172 +1,165 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C533BE162
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:50:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE90471408;
+	Fri, 16 Oct 2026 10:50:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792147807; cv=none; b=pOfeDz2WSZXEnHeDexy9Rb2ANCH05MioZKk36nuxlvNbxptMwG26kzsuu1W7S2zPLWQ64UBJigooNQtd3T7ZFABPy0JPNM+Z3ZdWogSMhBF8xv6j0Dsi+00worycAwmcAw/pTdAhiL0p4FQCQJEvJUh2vNvUHCPcZ3EffAXYI1Q=
+	t=1792147834; cv=none; b=tlvmIU5Eu/PTo7XbReoCXXGW5W9goL1Ukvm7t/RKNrR5xmFQsNTne6faKNKaDCUYadjG99hg6aQhaBqBi4KTwO5r5FlpitUzdPJX6Sb7/wpROVVdRuf2gG3VPhnvuRle9NCkRZCS9ZyV51BwJ5cKXlE+G3vMjJmzXw7cofS7JkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792147807; c=relaxed/simple;
-	bh=U8xUhBZ2f/kkhuBOykgloPNFWKazFRIm//qLiwVE7iM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pe7Lo2Oz331Fc/+EYIjcCglB2Y962c1GfMXmzJdxkLnEUCXxPHmWMJKSuaaYJBJIXxP6wBG7g4F/I0hto5LVH6hX+ljXLcfxqt9HsGEEPZ325xrKTUeZSP5GqrZoOEuVIu7AxjmcgaZPexfY5lYv2gMfVULODSuRzIln1+LExr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KDFLm7WD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WuSQ9o3u; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792147834; c=relaxed/simple;
+	bh=QuTUpXOUCaUuBOC1UbPUqse6N0EFcQRqSPKqz3NAqFs=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=o9UF5AM4TQ70PEN7VLkhdw5E2Rt+7CHpiZiKSZVQUDCvu2+w5RsM08srpkKhDCwy7ll7wf+Y7/TxvJG6/8MNfIc/ACNSbZLQKvGsw3KH3+ri76T16VLxqKQgxpT8LpFr31p1Ch83HJRS5oPa0oN2qz5bv7SHOGrTtiPYBZXH6QA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Se2sqRSe; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KDFLm7WD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WuSQ9o3u"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAAAU21983169
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:50:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	k7IjtS+liWyVhegtfUxpKcwt7nA/GvT2mnO8kEfaBY8=; b=KDFLm7WDjdFSWKCn
-	JLQNDj/WX8//nfSPhvhauZ+5hauVRkFliSfKHys8GdykmrnH/VpPErquCJObScfh
-	8bCtnsgGb6spti/bbDCq+y5PgE4ZD0DqCDjO7UHd8wR6H0CpNf78rJiFvaYs1wlV
-	6qQYAg/7rVA0qLyJreQQRQDXLIvlfgIXQxhAR/ZXCii0S8I61GlNPkeWQsQjce1a
-	+dQqeh67NcbuqTKPNHEFFr2jHXxk5OUysbvyrVywfn0ITtkfVRkB25tOeY3HjqES
-	3piShFQ15FYNq2R2T/U1UT58Do7biODm7pGMgGTDYU2mTcHyrSoWPAxYVWOJxhZ1
-	LYtaHQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb8a8a8r2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:50:05 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cac495d99so49274785a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:50:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792147805; x=1792752605; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k7IjtS+liWyVhegtfUxpKcwt7nA/GvT2mnO8kEfaBY8=;
-        b=WuSQ9o3uyW0OfHuq7Z8Uxh3JOtGTb+FmbePUuhFmtWBqXMsAUA1vubWDKe+6g9EncP
-         lPt/vWJcRqOqtUr2mh0hvYnL65nVKVe62v7Wh9+77B0jvzshRd0vAgGv4RyoYYPw32jF
-         5za1mROpHxH6KTrLXOcIThl0iPbrxTWUuXO8y318RJAu+XAZxMhEh7tCfBuf8ULj541q
-         /hXtXMyc7x4cXitEUawP/lR4172bTO4Dxw7l6qCnxQO+CyXnc8tF9c5jLgAwaEXHjCmE
-         1YHLsD6eJX9PINuYFVUv9l8UOkHJeWrVmZpxfxPB2osxG4WIXpywfUfFVoqhE7HJqwyB
-         cdaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792147805; x=1792752605;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k7IjtS+liWyVhegtfUxpKcwt7nA/GvT2mnO8kEfaBY8=;
-        b=M38/gonRp3l00PP+OognhazTpLyIl+SlhsUWh4NSfNfiZOMz++OSxc8NxnfKdiE53u
-         o+tK1xKCWilnKWnQ67jKyrn1DZC8TWMDLQIVo8pGxXF0PJS5B+m+lV+DdK5wJrG2qmQe
-         YeQmit8NrE3T2fwGXm2y7rLSNx1et8ua0X9R2i8NGIUJGYCDmS2EE7HAaKSvftxD4pvI
-         QOKbKbJGXNTv/uKTdY0SIPAmTqbOX8O7o73yvj1dnFYDpNpl+TD/auDgECLpXvMSIOdr
-         Lg9hd3/qX4LnjOic3dj6nKrnAUPFo+IGa+gt3aJBVBE3ahAb3LEb+su/EbXZ4nO0TGY7
-         l0Ag==
-X-Forwarded-Encrypted: i=1; AKwUvBzITZ3NTZXgz9xwZik3SJ/e5TgstUbe2celE9izJgrS0ReHXBtQQnaUgfOAcFXsCLfWfCjOwXm1OaTYRWs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOfGip2cc3O+vcg8E118s01YUteUbqTmCyp8ft5XMwJKtd8p5B
-	fBt/kJO79v+AEQyGW1TAcZa/I6t4uTFYuRYw0Xp1BeQzZxGAYX+HmSRzMeuifJTvZFnITuYElJT
-	MIcaGhsiOWQgbKuhslhfX3LbEk2IL9krnj3WzF12X8xXhutOZdHfIDWXiOsO7ZS+9S8k=
-X-Gm-Gg: AYBFou1LrsXDLlMwN9S+AulrCiDfo6kiMTY+e+JSHOYYImpWFEtP61/SMYQK+mejmlg
-	Z04PyXz384iPXqmyWJZWapEsxI3ipjSjgb1MZ8/G8DEaMqfla0SmhfRlJHmSuZ028u3kC7LySd2
-	lAaAHZCRRTRjfRoiWzso0Idp3VnTAgTec2g2KcgU0pMLJgfEtnBF9Dr7UyxBtbL+9Kp5DwX7Lb7
-	MIuf/lY7y/2vn9jTPDqI8pz8yFhcCD+hjr2ueeViM/x48MIMaA98o+/LQmF+QkWrZoL/xDziAz4
-	ju2VIak4pXnd4m+ubYThjhvZkjb9QGsFZqKfjDa+MEQK53C6qx4ABGcKSYD3K9wmBRZFRXoNTtO
-	2ActLZ+Nj8dYzKEszJhWeow==
-X-Received: by 2002:a05:620a:1a10:b0:93c:c96c:a5b4 with SMTP id af79cd13be357-93ebd23a4f6mr4072003985a.4.1792147804562;
-        Fri, 16 Oct 2026 03:50:04 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a10:b0:93c:c96c:a5b4 with SMTP id af79cd13be357-93ebd23a4f6mr4072000485a.4.1792147803965;
-        Fri, 16 Oct 2026 03:50:03 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1d8b4csm750199a12.26.2026.10.16.03.50.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 03:50:02 -0700 (PDT)
-Message-ID: <67366b4e-21d8-4094-abff-b0539bae47c3@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 12:50:00 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Se2sqRSe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792147832; x=1823683832;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=QuTUpXOUCaUuBOC1UbPUqse6N0EFcQRqSPKqz3NAqFs=;
+  b=Se2sqRSeb2FgWNQgLKfCR6Q1N2Zv2ZBvezWG1F3VD7YpQrVzNOzXtD0b
+   xsHK0wwXxVX3mzlre/W0WREwRhoDvDMau1OMdwb8tuJtHSuwXzoffzazP
+   0QoOnqSIiZK6wLMz8sf0i7FxiYeJPM8+3sqvNEaktF5FvvAHCcSUbBBUw
+   2g18eSwv21wIxG1b5Z4buOvArsIVFyp2akKwARqi4h965lDGphZEPsSVZ
+   N6UMfw25cnqXgXe5UW+idQz1oWa35E+Vk/tXzZpaouHfMdRjFtc2DAbDW
+   lUzWL7DJ9gR4BA19c0HdIENCt1gCG+oiebiPBkNpkz7GjW0YPe2B/q4I9
+   w==;
+X-CSE-ConnectionGUID: frXJgo58RfqbbVGv8D4peg==
+X-CSE-MsgGUID: HdbjNfjcQU+Ml49qUCZ1MA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="813144"
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="813144"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:50:30 -0700
+X-CSE-ConnectionGUID: tS1l6KnoTtyw9/CX2dJCKg==
+X-CSE-MsgGUID: Okq7koC+Ti6Lzl5JCFYy8g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="1991378"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.34])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:50:26 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 16 Oct 2026 13:50:21 +0300 (EEST)
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+    Guenter Roeck <linux@roeck-us.net>, Bjorn Andersson <andersson@kernel.org>, 
+    Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
+    linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v4 2/4] platform: arm64: Add a driver for the EC found
+ on ASUS Glymur machines
+In-Reply-To: <e4cec04d-2c66-4900-940c-d7d3d245cc64@oss.qualcomm.com>
+Message-ID: <f97000c4-496d-0ce1-318a-1df5c0de804b@linux.intel.com>
+References: <20261015-topic-asus_ec-v4-0-af6305ffcb10@oss.qualcomm.com> <20261015-topic-asus_ec-v4-2-af6305ffcb10@oss.qualcomm.com> <ba7830c7-9ad8-6695-f543-c4c419aa9133@linux.intel.com> <e4cec04d-2c66-4900-940c-d7d3d245cc64@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] phy: qcom-qusb2: describe autoresume bit
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Kathiravan T <quic_kathirav@quicinc.com>,
-        Baruch Siach <baruch@tkos.co.il>, Dmitry Baryshkov <lumag@kernel.org>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Manu Gautam <mgautam@codeaurora.org>,
-        Kishon Vijay Abraham I <kishon@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-kernel@vger.kernel.org
-References: <20260920-fix-qusb2-v3-0-c273e75c9fb7@oss.qualcomm.com>
- <20260920-fix-qusb2-v3-3-c273e75c9fb7@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260920-fix-qusb2-v3-3-c273e75c9fb7@oss.qualcomm.com>
+Content-Type: multipart/mixed; boundary="8323328-1896846893-1792147821=:1180"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323328-1896846893-1792147821=:1180
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA0MyBTYWx0ZWRfXwpUfv3tu8ekR
- IvKgtALp0VM8iM76IfhqaPw/rTdcZ8oYBVMbIEQRHLzKkKCDb20MYbuH2VvKUMq2dQkYXR491BB
- 6eIQm88cpJ7ac4dThfIK+qhe0YgQ+7Y=
-X-Proofpoint-ORIG-GUID: cmqnj0ig6E1ggQAkk2jleYpS5eRemY_l
-X-Authority-Analysis: v=2.4 cv=GJadgeNK c=1 sm=1 tr=0 ts=6ad2015d cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=ma_R596jXcS_LPZDPT8A:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA0MyBTYWx0ZWRfX1/QL3OJFoY2f
- i/bKbSGIzhefB68WOx3dbFTlGPsi/43OK0n8/ZRi6qa3TqY6M4O2RjrBKOhdsBiOup8yWxAMeDI
- 9lJgOsLEobiPCvRa6Hail5GFeEPXOWwGK6nYMKcpIE7H5nYefFgXBxmpEATMFAQ6LR0vqgv1mB0
- GvE16xsjA5iUk7X03BCy/l9Jy58BZOPrVKIaracz5pN9EQJYBMsKwWJfAgk9XW4nLnl73ElCJY0
- 2l3hWUQAknuHrWubhoJh7GMSbhcfgIvC0g1DTS7qNoIF60j8iOnmrAJUfI3sNl2cFiOIsxZAGgv
- 1q3simYVqusz8xriuzPBIcgKdxWKM4815210jKH8r3M8667X1qMr94ptrOF/4HJNR+A1VATjR1p
- AvAYuIcBhtLTrsqKvdyVTtf0rBUkFE1DQbNr2XEktKQgMuo6HcwQq1JfIr773xdEDH4TiRnVhJz
- WR+W/zSV5128Qy1XQ2A==
-X-Proofpoint-GUID: cmqnj0ig6E1ggQAkk2jleYpS5eRemY_l
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- bulkscore=0 priorityscore=1501 phishscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160043
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-On 9/20/26 3:59 PM, Dmitry Baryshkov wrote:
-> There is a confusion regarding the autoresume bit. Some verions of the
-> QUSB2 PHY have it in the TEST1 register, while on the others it is a
-> part of the TEST_CTRL register. When adding support for autoresume bit,
-> the code attempted to simplify the handling of those registers, putting
-> both registers to the TEST1 layout entry. In the end,
-> ipq6018_regs_layout ended up correctly definig TEST1 register at 0x98
-> (because platforms using that layout didn't use autoresume), while
-> msm8996_regs_layout used TEST_CTRL offset (0xb8) for the TEST1
-> layout entry.
-> 
-> Update the platform data to specify the register to be used for
-> autoresume handling, define both TEST1 and TEST_CTRL registers and merge
-> ipq6018_regs_layout and msm8996_regs_layout which become identical
-> afterwards.
-> 
-> Fixes: 891a96f65ac3 ("phy: qcom-qusb2: Add support for runtime PM")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+On Thu, 15 Oct 2026, Konrad Dybcio wrote:
 
-GPT has a concern:
+> On 10/15/26 4:24 PM, Ilpo J=C3=A4rvinen wrote:
+> > On Thu, 15 Oct 2026, Konrad Dybcio wrote:
+> >=20
+> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>
+> >> Some Qualcomm Snapdragon X2 Elite (Extreme)-based ASUS laptops (at
+> >> least the Zenbook A14 and A16) expose a custom, somewhat
+> >> Qualcomm reference-derived EC interface. Introduce a driver to
+> >> communicate with said EC, allowing for fan speed reporting, keyboard
+> >> backlight setting and receiving of a number of miscellaneous sideband
+> >> events.
+>=20
+> [...]
+>=20
+> >> +/* RAM addresses are sent MSB first, while returned data is LSB first=
+=2E */
+> >> +struct asus_qcom_ec_ram_request {
+> >> +=09__be16 addr;
+> >> +=09u8 count;
+> >> +=09u8 reserved[2];
+> >> +} __packed;
+> >> +
+> >> +struct asus_qcom_ec_ram_response {
+> >> +=09__le16 data;
+> >> +=09u8 unused[3];
+> >> +} __packed;
+> >=20
+> > Endianness stuff looks sane now but __packed also needs an include.
+>=20
+> Some fun statistics:
+>=20
+> $ rg compiler_attributes.h drivers -l | wc -l
+> 30
 
-[P2] Preserve Shikra's autoresume behavior
+You didn't consider compiler.h -> compiler_types.h ->=20
+compiler_attributes.h that seems a guaranteed include path to me. The=20
+numbers would be slightly better with that.
 
-shikra_phy_cfg uses msm8996_regs_layout but doesn't set
-autoresume_disable. This adds TEST_CTRL[3] to the shared layout, so
-runtime suspend will now toggle it for Shikra whenever the PHY mode
-is valid. Previously, its unset autoresume_en was zero, making these
-writes no-ops. Unless enabling autoresume on Shikra is intentional
-and verified, preserve the old behavior by disabling it for this
-configuration.
+> $ rg __packed drivers -l | wc -l
+> 1228
+>=20
+> [...]
 
-but I think that's fine since we *want* autoresume?
+So lets not add another mine to what is already a scary minefield. :-)
 
-Konrad
+The indirect include paths are a minefield if somebody ever wants to=20
+refactor a header. I know some maintainers may be more lax on this but=20
+here we try to follow include-what-you-use principle to extent that is=20
+reasonable (when the include path is guaranteed such as=20
+platform_device.h -> device.h or linux/x.h -> asm.h you can only include=20
+the former ones).
+
+> >> +static int asus_qcom_ec_read_ram(struct asus_ec *ec, u16 addr, u8 cou=
+nt, u16 *out)
+> >> +{
+> >> +=09struct asus_qcom_ec_ram_request req =3D {
+> >> +=09=09.addr =3D cpu_to_be16(addr),
+> >> +=09=09.count =3D count,
+> >> +=09=09.reserved =3D { 0 },
+> >=20
+> > 0 is the default init value so generally =3D {} should be enough but I =
+think=20
+> > it's not necessary to add the reserved member at all because the entire=
+=20
+> > struct should be initialized anyway by the surrounding construct.
+> >=20
+> > With these fixed,
+> >=20
+> > Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+>=20
+> Yeah I know. I still left it in deliberately so that in case anyone
+> wants to audit the format here and compare it to the DSDT it's more
+> obvious that this wasn't an oversight. Do you still prefer I resend
+> (or maybe you'd like to fix that up while applying, which I don't
+> mind either)?
+
+We can keep the member there but I'll change it to {}.
+
+I can try to remember to fix these while applying (I'm good in=20
+forgetting though :-)). But I at least try to check all the comments made=
+=20
+to the last version.
+
+--=20
+ i.
+
+--8323328-1896846893-1792147821=:1180--
