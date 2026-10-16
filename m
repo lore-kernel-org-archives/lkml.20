@@ -1,124 +1,167 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB7E39C637
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:58:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792133886; cv=pass; b=EsfWu3Cuoq1pAs6JVFco73056sKKN1WsWys0U2BJfeqtazo+bQj/8whCiYwQMZZ81GnuC18pIrSR4zanHprJmtd1G1NcIsigyy6BVs6Z6RpeQ0H/wrNqaRI79WQPy5JiUGCkrE/RRWSXHRN1QbQR3I9rUbbvsVOF0fcY8hl2ce4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792133886; c=relaxed/simple;
-	bh=U76ebMoSyTQsuVPgYGLotffYpp8DopeIDr7nhIKrbho=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fREgAsIskz8V/KwJJ8PYxhommmUEGKUND0ItYliOC3h3XbMT45aI7Ks46iwgqDVVLIuRb8kcRIDT7JmOj+0r2nc0EH3HpbavHVFnBivWpmC0FjszSJSzdR79t/tPM6y3cRVwRixB7mW6lB/7ZPpiMT68WNmCU1xLgLhzZRsSzQI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BugadP+j; arc=pass smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B927D26C385
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:58:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792133919; cv=none; b=SbI9+kgnmPTHuTphbscJKAnZO68FWPdsV9ngJpWoXHxUK5M24ZQM40rk760vvgiFv2mX9GEaZUpkUTSfHci6EChqZqv+G4ZJYe0icdhTTFiz1DKNYBEg6IicVQ56Sfpe2Uelkimu1B5QmonHEnYYUBaw3zlQaTj2uHJqUK+iFuM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792133919; c=relaxed/simple;
+	bh=/QmjDIzxFxv7B9+RJHIJIap4aC0fYrOEg6LTg47Ow6Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M5WN8YfOmfxZtKumP8ed0Hw5u46FL4Q5TsfIP0UxmMm8OwozEolb+XFnUHTq7HYc3uOwtv5OgxwLFV7TEm5k4wSRvJ5dxS6PuVlKf6wT+1uDpKm/UWGB6tCuTNiY4sVsfoBqbjmimAZ3POqxER6+xFrtHGMKfBIcM2aymnuVgcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=wwO0yVDM; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BugadP+j"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b1dae0febeso3564435a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:58:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792133883; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lo+VSrj7Ym6Efvec10HMSms0Eifd+3DC37W+5NTjdjylQ/VQLwDyo2mVWTHNV/AKUf
-         VkOx53yn/Q57I4eGU4So72XWb1FltRh+8739+trO5VR+vBtwu3DJxU34vvf3WE5N/8fr
-         DXLXDqCTF7i/uBLo59x4nvIv/4GdmcrXQ36TaPx8NjjFH/FyKLW5Yt9ZDZQVxiX31h6e
-         QOU6WL+1c1WCN0WXgVfiD1HD0qhkuGrLPUzPpTooy6EQRwfkqAbOOK+eu3Taq+3iOMbm
-         sSUMcZtZWRX2/xlGixG6yM+AK7yzO9TUrk4X6Ci3Dlf3p7K7HoZHDMf4VdZEm11D1O8q
-         a4Pw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=SLmKggqak5/Dj+cuhyZUgxKGUgEOUrXFwflmJJiDsks=;
-        fh=+xEJjP4epfL2K9jDh5KyKZ09wm7LrV96k+NcSqzwMSQ=;
-        b=mKfWEAljWc79Bb4vkGTd72HCpzjGXZBntoKExH07rCLqL7jdqX8tjml0eH5iM5BQO5
-         GfXYJnvLOHQfb4pRaNL7qc8v+5Ga8gJmg71UttkniemPRI9hoHMXM5nXuqzwB4gFDB5r
-         3KDbP2htVMB3+sVYBi76W30JcOBmitr7YqyNhUd/Z1Ks6sbYjZibZpuEp5Uaa5h35Iro
-         V9mKGe0x/GKorjBJeqLORXP14dGatl0Xi+82lws7q7ANJpHGYqcPF292jHx7TgmmCD1m
-         F5mONZ9e2o3VkJ1pHY1tT1L8jjY56R5CEd3tWT5lxHTEdfbtbbF1Ur4O5kbUD8sKcoxm
-         efrA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="wwO0yVDM"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-89a595332c7so3352931b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:58:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792133883; x=1792738683; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SLmKggqak5/Dj+cuhyZUgxKGUgEOUrXFwflmJJiDsks=;
-        b=BugadP+jf8T/v67A/JZWzdLRyW4AdJANwF79NplWKBXhKgdrT0gT+DKp9Nc96q0g4i
-         7SsTwmyUVBckHll0pINvBD6Kk9lE3rYk41B1Rc8/pVVxuxfXEP7T3Hgqd6K35uebzOeU
-         ftYZo+a8UHNm5Dmj/4/QMnDbLDbaybFVxQxqNjUy9h47XJ1LW8b8HtDpiHCcQsRasznw
-         cvlaB6v2dNUcYfOotwIvATL72CllhzEMLPQh2wbFjQ9Hf6uILynFO2XQxabhETwzE2+Q
-         I8BTsP/VqZk500g3spKzLYEheOgoVX1iywgT4m3F91Nshu00qpYPudpoDlGrwKNA/55H
-         JXRA==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792133917; x=1792738717; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DBflvqmY4i8z8xnUcTVk+s1WaJsD4jRg6K85yIIY1Zg=;
+        b=wwO0yVDMLD+aQGTF4kG24zfTTHBW7yaFB0CAxhDEcBllX2D+lCNW5cHHr02xFWvjpV
+         6EX5Y8f7KFkOkzgyYG0HtELRNcbxTAhgi1vpK0e/mOnEQS5UUZ6GwuYevV5KocB2156T
+         eqdWQ7aXHCJ+unrgXPV5CWDO4tKntpbEiCKyzcTEfkkSEpxKCFccCUifyxG64pNqehwH
+         QGbaiLwWjhBA3Uqz1ycbG0Gsfo5gLzhaxjf0IVx/1JBO2OF06y1KYbcsQJeQdo1p8JRG
+         +RaOlKtUoQdJ7nvJ95rkaPaLxvCB7sEIImY0Gtgx/BRKD7n4mTI/f1E8R9dr43yDnGZS
+         nvHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792133883; x=1792738683;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SLmKggqak5/Dj+cuhyZUgxKGUgEOUrXFwflmJJiDsks=;
-        b=rihocfBvEpknDZ9fFX0hHl7gEogd+WoIgFgVSc2h4/qC/14JQbOP9Ki60MpTd8mnEr
-         CypzGqycZ58DHdeDGA8oOcX7Ibhzl9QmhUUU7XcqkIJDo0Q7fHWM2TLZJaYu2h4w1Fmq
-         yylGRlbJijXxCaEoYKAcAQWTQsswqgwBbRYg55nb/3xQHklaDpCFyGYjiG5MVQmw/55g
-         vuuHwEHI6QCyBm+aDAy/F5YxyHSZhwWzHSHUHKUi81zqBZsuHCY3/VtqdTMbVFUwO3I9
-         YIxI8MmWMFGV/HxICvzykOeDXJHqw3pPmPnwFofgdYPoQg4eMICYCDuvRfKGkQSjsbAm
-         oNXw==
-X-Forwarded-Encrypted: i=1; AKwUvBzGwt/i1jkqSglGHSshPuqncl+R7rOO6r4OZrrIDyPqVUlMoAJ6QmgDQtJR1esPh1wuIrPCCDlL5nn2xgA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJyWBc+sIQozlmNCvxyUpXNKvZWbSabCE4aDfJRS8FKcb94dwR
-	mOp58yBI1gyRSmdgrSWNTYWHdKg8D+gnB5vyGj3G9OFQ3ghCCZnV9Up0Qv5+T7U6NiBYVfBaLJN
-	fQx5UOFIVgP/7SL1KARosJFJGRRLCLL0=
-X-Gm-Gg: AYBFou12Dwbg8xFthyefiHxLMtWAA5cuXznd73+FACAdRdTEsVAR1RPwZamVUbb54Yt
-	fhxkZB//PgI71Xpbq81UEQbzChiRAPNMgFjD72+KwjkGmTDNxhG41lAuwSRkaGYqrqzbfvGHyg0
-	9yCuW7+Sjd6UuZX2Bx7SpFWNFm8hkdRLfH3RgVqeGUKZOLwRyN4Vzopb2irClkkatSfzpVgnNvV
-	kAdY7yDC8+4qcrzaVbAp6KGdK2olUGpk7Ltncoi4eY6plTiKvIqiwwAnd5jT+izUxLh9Q+rGd2F
-	iVYPlFPue8yQru29tbDc/WrHqFink0H+AstWCt9j1dif9xI8igEOwNrt
-X-Received: by 2002:a05:6402:5006:b0:6ac:fe75:16a with SMTP id
- 4fb4d7f45d1cf-6b17c21c293mr17047655a12.1.1792133883273; Thu, 15 Oct 2026
- 23:58:03 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792133917; x=1792738717;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DBflvqmY4i8z8xnUcTVk+s1WaJsD4jRg6K85yIIY1Zg=;
+        b=ZMhSTHA1pgCWgecXizxRU3kIIh+nQTEcfLu58z7wlrZyiiDntMgdXOIHSN68biZeoi
+         /5+2xooNOosDZEQEI/I1sQ2EHcj9xNMAHHmKUbZWXRBAJAb2ygHTmnzdvOCd1cCwetOV
+         wV6SvFnZBFIr3uAoQ05TuikQRRE4mpT7tNaQGx/DUbl9kWTtj9nFwVPNT6vArWVIMtQP
+         6XRCgWbulsiYo+Jw7nDRzM7wnBj3ikN2tv4S70hpx4zeRi0bz9ic+ko3DEy859K4UxKT
+         7pJoT8kRNkLTv+YBJk2wRlw/p+4PlT+PLdKa36nREWwnEZ3erJSDBF9t8iatDBxDgWw9
+         5QRw==
+X-Forwarded-Encrypted: i=1; AKwUvBxKLPmhtkxZtAfnJzgdH0UgsgyxEK/QWpXrDG1BRJtSqLiWV26dB01o8GTE23FgIzdwz8AuOyeTN3w/AdA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeczKTrgtSn6i62lLj2Oa0sj1k4UgtODEcQozjbEIZivRqEC2B
+	fx1AG7e9HoYJ5ICGgZt3RwHeWiIYEFAYhE1c2eCnWiGKMGNG0gETMp3m5Ki+5jKFp/wnPxdnAZ/
+	YQAjy
+X-Gm-Gg: AYBFou1NyVEokZtiOVACLAnEMWa3bMyZHU5wrMrynz8VeJoISkTRYYTqA1U6fJdke7P
+	iZ1bmo9a1rgJvyGbbq0E3g2Ly4XE9fa7VxgfjXWHvo7xZptuTMkOWAlIjtjC5OJ/MPXkYYRGjmq
+	h44GW7kB8pF5hNMhEMQNkOKMCutg5ixYg93M+a1sQUOdzdLaLUEg8VlP2E7VsmrN1s8I4EGXiL7
+	9VmB3h3hA+s3Z9TmLB6qntIFXOHaBGNwXgVKdV/+7sM8rGMV0ObDAvgFbzwOA/BkIq5zn4grI8O
+	BsKM7JFTJIziDbmZLSL51PQe9KZEuIm15NtGyzSxixB84HLQKWvTaRfbIMdTmbrkyAtzxLvoQRd
+	urA5HftTuwyjGSL3BLF0RUH3uPJa9sfFJNkfIY9Z7HLUmcZ5ijRIDPpPlnpSZhvpYRAbCN+AFMR
+	P6pHMzy/XBp8g+qMFWwAYDzFlo/GJPPHE82oicR0yXG8sh1IHWSvDEEH9XM+SlHLLlYabbr7LwQ
+	SWAfg==
+X-Received: by 2002:a05:6a00:178f:b0:88b:72d6:b80e with SMTP id d2e1a72fcca58-897c5d55bc4mr18421605b3a.13.1792133917035;
+        Thu, 15 Oct 2026 23:58:37 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f5735e513sm636642b3a.27.2026.10.15.23.58.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 23:58:36 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v2] scsi: bfa: bound the RSCN event list by the received frame length
+Date: Fri, 16 Oct 2026 15:58:27 +0900
+Message-ID: <20261016065827.1011210-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002223746.3248726-1-neilb@ownmail.net>
-In-Reply-To: <20261002223746.3248726-1-neilb@ownmail.net>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Fri, 16 Oct 2026 08:57:50 +0200
-X-Gm-Features: AclHuK9MH6B6PzJPsaSzlLYudYyT9yvA5ySybSRksoXyZI_T9lFw0oouAp4jzR8
-Message-ID: <CAOQ4uxhkGPc8Wiik61_9-u_Jf=gUx0Z4EDaW1z=FMhx73oE_eQ@mail.gmail.com>
-Subject: Re: [PATCH 0/3] Fixes for dentry lockdep tracking on stacking filesystems
-To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	"Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, Jeff Layton <jlayton@kernel.org>, 
-	Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-unionfs@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 3, 2026 at 12:41=E2=80=AFAM NeilBrown <neilb@ownmail.net> wrote=
-:
->
-> The recent addition of lockdep tracking for in-lookup dentries didn't
-> take into account the needs of stacking filesystems.  For this we need
-> different lock keys for different filesystems in the stack.
->
-> Thanks,
-> NeilBrown
->
->
->  [PATCH 1/3] VFS: per-fs-type lockdep key for dentry in-lookup locking
->  [PATCH 2/3] VFS: rename lookup_map to dep_map
->  [PATCH 3/3] ovl: provide private lockdep class for dentry->dep_map
+bfa_fcs_lport_scn_process_rscn() is given the length of the frame it has
+to parse and never looks at it. The number of events it walks comes only
+from the payload length the peer put in the frame:
 
-Christian,
+	num_entries =
+		(be16_to_cpu(rscn->payldlen) -
+		 sizeof(u32)) / sizeof(rscn->event[0]);
 
-These are fixed to the series you have staged on vfs-7.4.lookup
+	for (i = 0; i < num_entries; i++) {
+		rscn_pid = rscn->event[i].portid;
 
-Best append them to this branch per PR?
+payldlen is a 16-bit field, so num_entries can be 16382 while the frame
+sits in an unsolicited frame buffer that holds 569 events after the
+fchs_s and the RSCN header. The loop reads up to 63 kB past the frame it
+was handed, and the duplicate scan nested inside it is quadratic in
+num_entries, so one frame can also take the receive path through more
+than a hundred million iterations.
 
-I have added my RVB for the ovl patch.
+The length that bounds this is already here. bfa_fcs_uf_recv() takes it
+from the completion with bfa_uf_get_frmlen() and it reaches this function
+through bfa_fcs_fabric_uf_recv() and bfa_fcs_lport_uf_recv(). Work out
+how many events the received frame can hold and take the smaller of that
+and what the payload claims. A frame whose payload fits is parsed exactly
+as before; one that claims more is parsed only as far as it goes, which
+also caps the duplicate scan.
 
-Thanks,
-Amir.
+Reject a payload length below the four-byte RSCN header it is measured
+from as well, instead of subtracting past it.
+
+The same shape is in lpfc_els.c, where lpfc_els_rcv_rscn() and
+lpfc_rscn_payload_check() walk the payload length without comparing it to
+the frame either.
+
+I have no Brocade hardware; this is from the code, with the arithmetic and
+the loop bounds modelled against an unsolicited frame buffer under KASAN.
+
+Fixes: 7725ccfda597 ("[SCSI] bfa: Brocade BFA FC SCSI driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+v2: bound by the received frame length only (drop the buffer-capacity
+term, which did not account for the VFT header offset); reject payloads
+shorter than the RSCN header.  Addresses review feedback.
+
+ drivers/scsi/bfa/bfa_fcs_lport.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/scsi/bfa/bfa_fcs_lport.c b/drivers/scsi/bfa/bfa_fcs_lport.c
+index 8c9d423129c07..49bcb76c118b6 100644
+--- a/drivers/scsi/bfa/bfa_fcs_lport.c
++++ b/drivers/scsi/bfa/bfa_fcs_lport.c
+@@ -5533,17 +5533,28 @@ bfa_fcs_lport_scn_process_rscn(struct bfa_fcs_lport_s *port,
+ 			struct fchs_s *fchs, u32 len)
+ {
+ 	struct fc_rscn_pl_s *rscn = (struct fc_rscn_pl_s *) (fchs + 1);
+-	int             num_entries;
++	int             num_entries = 0, max_entries = 0;
+ 	u32        rscn_pid;
+ 	bfa_boolean_t   nsquery = BFA_FALSE, found;
+ 	int             i = 0, j;
++	u32             pl_off = sizeof(struct fchs_s) + sizeof(*rscn);
++	u16             payldlen = be16_to_cpu(rscn->payldlen);
+ 
+-	num_entries =
+-		(be16_to_cpu(rscn->payldlen) -
+-		 sizeof(u32)) / sizeof(rscn->event[0]);
++	/* payldlen spans a four-byte header and the event list */
++	if (payldlen >= sizeof(u32))
++		num_entries = (payldlen - sizeof(u32)) / sizeof(rscn->event[0]);
+ 
+ 	bfa_trc(port->fcs, num_entries);
+ 
++	/* the event list cannot run past the frame that was received */
++	if (len > pl_off)
++		max_entries = (len - pl_off) / sizeof(rscn->event[0]);
++
++	if (num_entries > max_entries)
++		num_entries = max_entries;
++
++	bfa_trc(port->fcs, max_entries);
++
+ 	port->stats.num_rscn++;
+ 
+ 	bfa_fcs_lport_scn_send_ls_acc(port, fchs);
+
+base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
+-- 
+2.43.0
+
