@@ -1,82 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE0A47A88E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:35:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF2C47A88E
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:35:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792154108; cv=none; b=TDZvRV89DelUDKJ69UIgeDI/NMQ43UjmzeepnZJt8oT0ZmaDjBu3k1NPTdv9XvKSD0+vKJ5grcFfCRT8GlzqxZjg2xwm7vroTxumjsEIO2KAiYV5utKzHQ1i6zBluvqS5G7Bj3Y6hPAr/6RP68S9rmoazjMlgwoQOjsLkjDBjgg=
+	t=1792154116; cv=none; b=YrXVgepnUYZMfEPBnlYYgTttK4I2g5AMNopLYN7HM9x94FFNrwUL0Xb4R+anCEHAwzm2TCsvQNWRlkB0Xi1cc+YmmJ75zqhsHlTuhHKcSqOtF05RYbc/efjvE/qr12IxygE3Qlo8jvm3S4XkOzGaYHo8j77ngzbspYTdQ36Be+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792154108; c=relaxed/simple;
-	bh=KJMaIRd1Wz2StYLkzuTGe2FFJE4FwOZc/zYJMMrt/Cg=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=i7ZrVj1pal+Y54MjRCbFNWA7cGViW7Tzq0KYcsrVkZw9FZDnaaWo/HQamCa/rAsZV4HHtUv7y2N88mH+cXFIFiND2ia46oDBM5ESd+jMywJgFGe338eRhMSSt8LpjLL581ASK82LA/IiD96wKww3ezDNlMXbWZFq99PWVWCjGlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=khFz+gPo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792154116; c=relaxed/simple;
+	bh=cXn/JAAY5QHO7gSOwDgZG/1D2SkKrfxhPsylIeP28zI=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=PXAV2udyFxYNRYDEPvIlLa7XRb2N+oa9z7ohb9j2f199eLZFQv3tabxX2tw0IjJuc8B4fO653cp3y09+YGXA4on+BW0CB9QLBEyATwRGAeAkMmgUWgmjU9co/ilN7nMEWtBksOyET+xr+n37diBlZLju/KFC6aIxqzm7C5vosHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f9G5zY/b; arc=none smtp.client-ip=74.125.228.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="khFz+gPo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EAC21F000C9
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:35:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792154107;
-	bh=KJMaIRd1Wz2StYLkzuTGe2FFJE4FwOZc/zYJMMrt/Cg=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=khFz+gPo7qCZeP2kVfoZGuMuZGpw6va2P1I/L3YDadrvQTzK64qbzTirgQ8v4FO8h
-	 Rou4tXogblJ8kah1yu/duaC1ms5M48Ywla4inUFo8iYi52ehE5G0hiXaJc75Q/D430
-	 77/8vR1XK4GSqt0PdlqJ3I8ExMLuYJ6rhoNWdAwRhRF7BUkbqL7rgxwe1KGaiomQYK
-	 AFu8A6C9VTJCGJWgQJnLQDN265hu9sxxH6ARuuaMVp9JG3LONjhZL1c88nhOcD10Xo
-	 MgzpTEp/UYYYzRjv54oyMGwFPw8T+74r0ivw9NYXS9S30/MU8kAcVC2zb3WlD0Ic85
-	 b2A+V05R+kxmw==
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3a808f09021so23963241fa.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:35:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxXL+2zY9Bcp1uqAmCEMhwlvXflwni2DMxpCbX0S6x4SbG64ajIL8v/wHggxTAm00yItfGBaG1GjmyVfBY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJaw0zKNStOhMKA6xF8gbQwBxnrMBgEQwyLxSobq0Mpg5UOW2+J
-	dcgu+TE1PiWJpKcxig8bdVabp93DKMSqbn+IaQr8JaExbAdHOqyPXbGlpp80MZ8E7FtEktFdsnq
-	OTw1RZumS08nNvR8FLuqxumLymDOd+zucHc6NQWN2Ng==
-X-Received: by 2002:a05:651c:19a7:b0:3a6:6f3d:c804 with SMTP id
- 38308e7fff4ca-3a9c538bfacmr55474691fa.19.1792154105792; Fri, 16 Oct 2026
- 05:35:05 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 16 Oct 2026 08:35:03 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 16 Oct 2026 08:35:03 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261014121910.1509541-2-linghui.wu@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f9G5zY/b"
+Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cd6035e2789so267277a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:35:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792154115; x=1792758915; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HVfYgQsMCF8Qw1/e6sPegSr7q8k8sKUP9Wx/2uIXt/8=;
+        b=f9G5zY/bZFP2eE6g2Tl8on9Hwt3NcGuFrF8gmIKzEga+k2NqrGWrWR8EfZ97pXJ7yL
+         aM4OADqGRO5zcUvj976hqF6M/vZZ2yhFmyIF+iEDVL8awcF3t4CUm7EQjtB0CMNk8AUx
+         VVwh+5BTgrlf9tC4sp4+BP3EhQoa51b2fcjz3G2M/ZBoKXpyL3eq+DTJ8OtriTah6lod
+         XXwQfgMakEywqCzVtuZReAbYadssWK5p3toXTeK60WGa90vcPzLJXd5t9pI/e2xu9+w/
+         LpL3EiZh3bAhYkpf8Plzedt7ALDnJSfmrQ7W8SuU9Q1Z9aH6DCPgDvNXrABdug+XZRGE
+         JwrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792154115; x=1792758915;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HVfYgQsMCF8Qw1/e6sPegSr7q8k8sKUP9Wx/2uIXt/8=;
+        b=ULKTkkyQltlunhBpl+UdfefK/t+ImCQHiOlI2GYMUSIv6i5/cVYS9jXjgOc8CsYcJg
+         ha6kKpnFErbs/szZm5732W6uypKuLuqMHX+l36zBMuXTuehX6XEVLEUC7sRQZSVJHQqN
+         gNjuZjnWs7YopBXN6tZluRVs+NZv698vzYgK0eFKeUg1ilmSR6cj1LluEGR/NBzUAEA7
+         Usw+dHNq6FVW6i9zPdYyR9MO1T27nFXvE7Jjrn2C/wx2lrCG/DyJxWcfZP+tXpjhAo7P
+         Nekyoeoub34mMYyDyuONytFkV9vJTKl7RndwrSjy4OIqPHFEfLONFnmDKCrl2duPieXg
+         9p5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxZWkhDtm4yHSTKBYB5RD0KS9ruuIUWqcqbk2oKY52IO4zWBMgNkQiS5i0p3QvhnvcH1eVKERjBcSWvE6M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLV5PHMq8lLVaQlUfD5pG8OnAVSBqsRFjyjeR49/fhASeME18FY
+	ejCeE8Rhi/SpODHaDU1V1hhbrQi6/IrJb4CpQlcD7zZwdjn4wVVPftzVCG0P9o5huSU=
+X-Gm-Gg: AYBFou2K07otkquyRSHKw2xwL7wJvdJAufUj3h9huWlDbS6osD4AisAG5rpEa3AC3Z9
+	3xFUeXezHJa2UWNGEuruT+5sE/Ma4b1iWaCDlL1leHM5cLR8IAZVhLKEFfaDoxWxwNYEHhw4zFA
+	Cs/6hDxTt627zhyyjr1WyYFuVXzMmOW9edoeY9LdqJ2e3FQUp/I3HPj8/39cVCn0ZmT1H6aI4zY
+	xh2TSVOnt78NA7aj4BUX0vAkcHMKx3SZCFij4udnAZfTqSSJTQJOkSqj1Pc5EsV1Sj9WIDqXs8w
+	zasG+iE7/PegOCNeVZ4S3VTUdOeE7DfKhAMt0lNEQ7AhPYnIr1uThTyB+cfIztnhdbvRobBwFIK
+	6YuJZTccDgqiEB3hlvUqXLKmsoDJmQC1z+BSAFinNNY4d25m/2p3/cwKVEgq8PqtAsh/qcnTKkZ
+	CNxTR+oCgtIgkVzd3aEygQvIKsGnbphGPoVEp276p8N9Finec5yvh6ZN0q/hhyNBeqlYUjEGcfM
+	LqZDJ/jIb8lnv2o9ku171Pfp2YxwlKJXT3jSALriNQt2h6kvWgWQAsohLZl401mohfaNkkBdQKz
+	3Q==
+X-Received: by 2002:a17:90b:4d8e:b0:3a8:786a:cfed with SMTP id 98e67ed59e1d1-3acbb8bf8cfmr2230412a91.37.1792154114934;
+        Fri, 16 Oct 2026 05:35:14 -0700 (PDT)
+Received: from [172.20.10.4] (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc4972fe6sm4162850a91.15.2026.10.16.05.34.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 05:35:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014121910.1509541-1-linghui.wu@oss.qualcomm.com> <20261014121910.1509541-2-linghui.wu@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 08:35:03 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Mf5fw0+J8uyPgO6j_ooEnB06DoXVRDkpk+JiwcPw2uCFg@mail.gmail.com>
-X-Gm-Features: AclHuK-OTs0buPx-1r5yVX8Ujv5PkAKBIfDAdTiHHnUDkJSI6OM5b9nTO6kfpkY
-Message-ID: <CAMRc=Mf5fw0+J8uyPgO6j_ooEnB06DoXVRDkpk+JiwcPw2uCFg@mail.gmail.com>
-Subject: Re: [RFC PATCH 1/3] dt-bindings: power: sequencing: qcom-wcn:
- document wakeup-source
-To: Linghui Wu <linghui.wu@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>, 
-	Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>, linux-pm@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] mm/damon/reclaim: improve grammar and style
+From: Aveline Noir <jm5905938@gmail.com>
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, damon@lists.linux.dev, 
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261015080623.808458-2-manuelebnerli@mailbox.org>
+References: <20261015080623.808458-2-manuelebnerli@mailbox.org>
+Date: Fri, 16 Oct 2026 20:34:51 +0800
+Message-Id: <179215409165.864368.11903228864381211337.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openssh-sha256; t=1792154097; l=2627;
+ i=jm5905938@gmail.com; h=from:subject:message-id;
+ bh=cXn/JAAY5QHO7gSOwDgZG/1D2SkKrfxhPsylIeP28zI=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgboJ0y2WZIrQV0H4HJI1WEQ5sxS6pM
+ Nc/XEYGLW8ee6wAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QLmlhrl3kquPOrFE+xeC/g7LLIxZBSwDp24vLbGOb7+M1Qt1DRDethJgmuvu9LttDVtPsNydeRW
+ aZIKr2ijYEAE=
+X-Developer-Key: i=jm5905938@gmail.com; a=openssh;
+ fpr=SHA256:oSxqik6Pl1M8EjQW1QXKHoylm1jy0sguOWFFJlA9zf0
 
-On Wed, 14 Oct 2026 14:19:08 +0200, Linghui Wu
-<linghui.wu@oss.qualcomm.com> said:
-> Some WCN3990-family designs connect SW_CTRL to an interrupt capable of
-> waking the application processor.
+Hi Manuel,
+
+A few suggestions from my view for you here :)
+
+On Thu, 15 Oct 2026 10:06:23 +0200, Manuel Ebner wrote:
+
+> @@ -30,12 +30,12 @@ guests could mitigate this problem.
+> -DAMON_RECLAIM finds memory regions that didn't accessed for specific time
+> +DAMON_RECLAIM finds memory regions that weren't accessed for specific time
+>  duration and page out. To avoid it consuming too much CPU for the paging out
+
+"weren't accessed" fixes the grammar, but "page out" still doesn't
+agree with the subject. How about "DAMON_RECLAIM identifies memory
+regions that have not been accessed for a specified period and
+attempts to reclaim their pages.".
+
+>  operation, a speed limit can be configured. Under the speed limit, it pages
+> -out memory regions that didn't accessed longer time first. System
+> +out memory regions that weren't accessed longer time first. System
+>  administrators can also configure under what situation this scheme should
+
+"weren't accessed longer time first" sounds a little strange to me.
+Maybe "Within the configured speed limit, it prioritizes regions
+that have been idle longer for reclamation." would read better?
+
+> @@ -88,11 +88,11 @@ identifies the region as cold, and reclaims it.
+>  sampling and aggregation intervals. The auto-tuning aims to capture meaningful
+>  amount of access events in each DAMON-snapshot, while keeping the sampling
+> -interval 5 milliseconds in minimum, and 10 seconds in maximum. Setting this as
+> -``N`` disables the auto-tuning.
+> +interval to 5 milliseconds in minimum, and to 10 seconds in maximum. Setting this
+> +to ``N`` disables the auto-tuning.
+
+Maybe "between 5 milliseconds and 10 seconds" would read more
+naturally here.
+
+> @@ -113,8 +113,8 @@ quota_sz
+>  Limit of size of memory for the reclamation in bytes.
 >
-> Document the dedicated "wakeup" interrupt and wakeup-source property for
-> the WCN PMU node.
->
-> Signed-off-by: Linghui Wu <linghui.wu@oss.qualcomm.com>
-> ---
+> -DAMON_RECLAIM charges amount of memory which it tried to reclaim within a time
+> -window (quota_reset_interval_ms) and makes no more than this limit is tried.
+> +DAMON_RECLAIM recordes the amount of memory which it tried to reclaim within a time
+> +window (quota_reset_interval_ms) and stops when this memory limit is reached.
 
-The commit subject should say: "dt-bindings: regulator: ...". There's no such
-thing as power sequencing as far as DT bindings are concerned.
+Agree with SJ that "charges" fits better here, since this is quota
+accounting. 
 
-Bart
+> -While keeping the caps that set by other quotas, DAMON_RECLAIM automatically
+> +While keeping the caps set by other quotas, DAMON_RECLAIM automatically
+>  increases and decreases the effective level of the quota aiming this level of
+>  memory pressure is incurred.
+
+Maybe "While respecting the limits imposed by other quotas," would
+be another option I think.
+
+Thanks,
+Aveline
+
