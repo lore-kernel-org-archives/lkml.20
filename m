@@ -1,96 +1,65 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D9BC3CC313
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:15:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8464446FA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792185307; cv=none; b=PzwSf2rMGwDRXHI3d8S4FMmyO806bjqr60ozeirrYZpgpOBHg7lj0xST7hMLElJ66PyXeNjfwr/da5pD4PCl2qyyunwvHIrHJp9yJjSfq5r+T/fFcBDJzvUzsx2dMtz6/lu3sFmyyvA658jnxoptOGN23UYIQD9+Nt3rEppPZUk=
+	t=1792185309; cv=none; b=rj3L0KMrIho76+OXAv9YQEGJxpY0uPwNSatc0O38KJx9O8TO+9a0Ey39xUM6R99xopAYepspnPd4NxYJP/hqO4/HKhwU9pdgGsfLtlvRVGUASPypbqSZ6gv+1e+lMquRirWonmkW+D+9e7bxzYxx+FMzhMYVi2+XeG3BOt859Yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792185307; c=relaxed/simple;
-	bh=XnDcigIQogj9VPzhFmb1u5EwChzTVE1u40a9G7Kkp3g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IbslKqsRYwvmSwY660s/IkFmCR9iDW/qCaw9zzte8yoLdjRTz0OqRHEMqYu08ligAoLJzrDRr84Tuapa5eTcqGw3dC9VQUBCBvre4NSk8xX1OeDhLSlD8uWMeBUWNUJZMY1zyI49SOvNxkX6FVSOAiphwC5XZKz37qtsle/L8yk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DEyj8AwU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792185309; c=relaxed/simple;
+	bh=yriD6uTUC4utVl0VQfR0kaNvh3CTGmhVvw9IdhjcU9U=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sHopKJiD4QcIDxwIUxRg5fKau9zXEEVo8bUxoEpL7iJOl6vyeoVDRqXvOrSrKXBviSnCBGopgYGdYgSUcUQJ6HRnzVKAsv0RuqwXbF4PwLBdekLptNPZ1/W/fQkZrDuZ/x7Gjnxbl1fid4drWO96OPhJo1BoicQNBu/z6BdWP5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=ka542Eie; arc=none smtp.client-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DEyj8AwU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE4D1F000CB
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:15:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792185306;
-	bh=XnDcigIQogj9VPzhFmb1u5EwChzTVE1u40a9G7Kkp3g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DEyj8AwUZx9W+ruO9fCTzQQVAEVdYP9QsWREem5xVGFsl478eGF7zIIsLVcybEdzv
-	 78c082ksBDoNj+d+X88ZyqHVUthFzmQ/Yq2z9ZtvFBpGaWjQrXZw2Wu8RwZKf6K96z
-	 BysU4xjv+CTcMmW6I7keumfztAVNeFDmBdOsiLp/6pL7ASw5aQoYIbSLhRtQmZ3seU
-	 Tr5JnIetHjJQAqOfAe1oWtGKv0r+UefNaP2/hoKW4Qs0HWcoMBn1xR3woBGrZyAm+P
-	 r7XrEFXpLQjV8rNkTYSj7zBW2cuZH8AF83UejHVxOcn0QEjUa5TfVwFLkBLhPcvGx0
-	 AaGC+GGMaDDMw==
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a65ed9c7cfso2177991fa.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:15:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByoMJCYrumDXQ5BRMPr7wXNPJ1VodHEEI41KXxKlBL8ud+CLjCqQFg1DWFEPWJMPtDQDbDxePHFdaAmFFU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUySccwpPHmT8PpIKQlpoeErAnGsDL80r6K0cxHtSfQdW81J9E
-	HT/op8dB8GKC81TZ1vO43+XMx+mcYk6nw6BfIXq074o0/G9wQKCTn+73X5GzlJmYIipNDTisoel
-	pBwbpZm0W+WFWiMix4BoLWG780uV1jEU=
-X-Received: by 2002:a05:651c:31cf:b0:39c:624d:82b9 with SMTP id
- 38308e7fff4ca-3ab29286cbdmr2067561fa.4.1792185304697; Fri, 16 Oct 2026
- 14:15:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ka542Eie"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792185305; x=1792444505;
+	bh=yriD6uTUC4utVl0VQfR0kaNvh3CTGmhVvw9IdhjcU9U=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=ka542EieI1HlnKcdLNL5Kb8J/GV7sNF9S/D9bPxc2PYgNpB7HkVAmckd9Ene/fA64
+	 38M/Xpt6rX3wxU/ObwQa7XYdFcZ4bjAPhbJVe8w11NdOoQ98/BAkoPwiT/a+E6G+Fx
+	 QBTCvBRNSkgLrDA0VCjj6A2L7YRSXRZVFaYYI7KSZYQS+ZlKKVqRfd4x5FwsYfr5J/
+	 bRU7JmIyTqx3TalLOC8QogqdE4MecepVvrnRcr8XLvTf6J1C0jeFHADurDPPogdr+p
+	 PUf/yR1aEHY2SZYJMP5yBQKt07oI23TfnEsj7ssx+elVu3xQYWXkrlZ9MQQ1zSP0zh
+	 rBUpbqDIULxlw==
+Date: Fri, 16 Oct 2026 21:14:58 +0000
+To: George Neacsu <geocausa@gmail.com>, Bryan O'Donoghue <bod@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Andre Gilerson <andre.gilerson@gmail.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 2/2] media: i2c: imx681: Add C-PHY support
+Message-ID: <20261016211450.62994-1-lsa.uz@pm.me>
+In-Reply-To: <20261016160853.193378-1-geocausa@gmail.com>
+References: <20261015-imx681-x1e-v1-0-fd22f5f3b0c5@gmail.com> <20261015-imx681-x1e-v1-2-fd22f5f3b0c5@gmail.com> <11f1a19d-7d57-497f-826e-901f9f88b99b@kernel.org> <20261016160853.193378-1-geocausa@gmail.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: f8ff3cfe9572acb7d8752375a1bfad56a4c2b617
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
- <20261012-lstp-usb-adapter-v1-6-aambrozewicz@nvidia.com> <CAD++jLkru2AL2_7ieOdbYrePAhNSFaa3wwEzCagiPsALgG2GwQ@mail.gmail.com>
- <20261016081917.1958681-4-aambrozewicz@nvidia.com>
-In-Reply-To: <20261016081917.1958681-4-aambrozewicz@nvidia.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 16 Oct 2026 23:14:51 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkQd70V+wQhCaKES8LQqWoU+dmt=Dr0PgbA81xHh+hppw@mail.gmail.com>
-X-Gm-Features: AclHuK-u1MiFTw786aZCKlVc09dcjgjhKNYlnZODKOuP7oo7rrcG4a5O7l15i0c
-Message-ID: <CAD++jLkQd70V+wQhCaKES8LQqWoU+dmt=Dr0PgbA81xHh+hppw@mail.gmail.com>
-Subject: Re: [PATCH 06/11] gpio: Add NVIDIA LSTP GPIO driver
-To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Donald Shannon <donalds@nvidia.com>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-usb@vger.kernel.org, llvm@lists.linux.dev, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 16, 2026 at 10:19=E2=80=AFAM Adrian Ambrozewicz
-<aambrozewicz@nvidia.com> wrote:
+Hi George,
 
-> > It seems some pins are only input and some are only output.
-> >
-> > Have you considered using serialized register access over
-> > regmap and use regmap-gpio with fixed direction bitmaps?
->
-> Yes, the device configuration fixes each pin's direction. I looked at
-> gpio-regmap: a regmap bus with one register per pin would cover get,
-> set and the fixed directions. Two parts don't fit well, though.
-> gpio-regmap has no get_multiple/set_multiple, while the device takes
-> several pins in one request,
+On 16/10/2026 17:08, George Neacsu wrote:
+> I will also read the CCS capability register 0x1602 (bit 3 =3D
+> C-PHY) here, and Sergey may be able to read it on the Intel model.
 
-So just add it (get/set_multiple) to gpio-regmap.c?
+Read on the Intel model while the sensor streams on two D-PHY lanes
+(model 0x0681): CSI_SIGNALING_MODE_CAPABILITY, 0x1602, is 0x04, so bit 2
+(D-PHY) is set and bit 3 (C-PHY) is not. PHY_CTRL_CAPABILITY, 0x1600,
+reads 0xff, every bit set, which is also what an unimplemented register
+can return, so I would not lean on this block alone. Either way it does
+not show C-PHY here; your reading on the Snapdragon model will tell
+whether the two differ.
 
-There is a nice generic implementation of get/set_multiple in
-drivers/gpio/gpio-mmio.c to draw on for inspiration.
+Sergey
 
-It will certainly make everyone happier.
-
-> What I would take from it is reading the directions once at probe into
-> bitmaps, instead of asking the device on every call. Would that be
-> acceptable, or would you still prefer gpio-regmap despite the lost
-> batching?
-
-I don't quite get it, but I prefer gpio-regmap with an extended
-gpio-regmap.
-
-I guess it could be challenging, but I'm here to challenge
-people. ;) If it looks very tricky ask for help.
-
-Yours,
-Linus Walleij
