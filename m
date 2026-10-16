@@ -1,334 +1,94 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0932466AEF
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:12:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792152732; cv=pass; b=IsCDn0FVag+b9wbnt2ZfJb0hCXln/6txO4gmx9onds8SHdvRn3AihWrVp4qnvBTC2evHOL2y130/Lw8XhFFrMpNlR6Cjk3r7wPlAxAVXYWSGeZUF7XjJA4hDHjl8elVJJXIKz7t7w6pABcEFiZJ73lFYvfy2+6rhwPY+1o8A9jg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792152732; c=relaxed/simple;
-	bh=6IYjp02uYmxvMluUbWofrgoM9m03JSf8XQivc0rvedw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bapg1ZxBp7mF3z3FifwEBArdgHFKRM633mRRxnk1XsE1kVbuNL0CGhtnOUKTNaOdsOkkG0FssKQyIk8f6Vyiqr+e465JIOF670bqTf6nNXQ6tLLuJWwsWWWrWkvwriZWqD0xdikdA6gEnHIu3pyDIKiVyjwTsrz6LI2QeQn61hE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KsMCenwG; arc=pass smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F9647ECE4
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792152756; cv=none; b=Qcx2k24ulJfA9A245ZG5AFjQmlli18XVcHkZ9rYmSWc4sDQL7XV0fyEE2H72hQQmG5d6GTWOrc8P8qzV+80txW1wYWsoyhDsVMfLLhGnKtP8eyJx8Ov4QzH9sYOABfi1vdWViBKwm5cPP/PlyojQPbESQJJCDPu6fAZKSifgEEI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792152756; c=relaxed/simple;
+	bh=NoH99aicsFlriFvr4iO9OOUEPgUPA3yDZM37SVANJLU=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=AW8pQRB9Kv8d1QAXIRFv27c4OwNVCURFxh05cPjblOCzYQ2a6YEU/TVd0fBFSe6r5RbEcvFazgQFdzuAshOZnBj4fTLJbWu+PSJ3rp/2PRtRcI6HUMmo20KTkdcMR6ba+f02o4Y9UoB+bpI1iepmYeTnTPZcOIGNLCILX1gV29g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NNA6xt86; arc=none smtp.client-ip=209.85.128.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KsMCenwG"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2dc8cb0decso325051366b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:12:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792152729; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZnZ48EyLuInVE3tUpJLb9w3xl6VdmpxaWlCS7IdR0I3t4iXkw823brfEKK7bWw8qv7
-         pq9eHI2CA+PfhlkfbbEx/NAiuJ8crrv6tC/gI4yyuaCqBSadCdaI5rmLYcsK533JrJQy
-         sI942SkzVJqOmfckX2e7SA45ArKTff9L3QMndGoIBuqwkPKPDIFfLbEVX7TWVlSm2lqJ
-         p4/eipZ9wnI4zAXFDSQVfA2DpZoWEJiCtHVGFGH96DLeKczDpGlEfNk9bgAd2nROZePT
-         yZEwNn60sr1JxLeK9qN+FhuV47qcWFYuxeMshvpO8DCBh5mFrnrWnXyBlNTnyBhw4Ut6
-         o3RQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6t2J8EE3L3nlE7G0BZMfNQxPefv2h/6dn0nY1OvRibM=;
-        fh=fYTjju1mn8HhrS0gumiwBZ6w1JOZeG5cNlcZvGGm/3s=;
-        b=M3osVCUIOY2mGqmYydU1yYijRGgHAjQzirxweGMy6Y3y6juOuBkbpKP9moBRiEUv42
-         9+X70ZYvTRfJASoPIC2kJTU5G6E70Q7hyGbB8faY8U/zA8SyZ5AUdA+JC54G5PP5sDH4
-         2ooFEUkHZzdA+k5FpIwVrR3XqJAS9zbHmNN86R6vv4r6Kg7ePKpE9wAguXDqmXu3PNq8
-         ujd0Zc/gfIfNkGBCRsPW5sIWP6Km+XCdT+CnsBPFAcLCTpf7nxPY9eAi/PubkxtTAshA
-         K9MFIysTljnfwOmR/WofqerPV/c5oVXM4Rif/6FC8uQQJRJGZUuCHtCIEEL+A+cQLs/S
-         0fVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NNA6xt86"
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4994d67d0e3so21846475e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:12:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792152729; x=1792757529; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6t2J8EE3L3nlE7G0BZMfNQxPefv2h/6dn0nY1OvRibM=;
-        b=KsMCenwG4UKWLxxBE6KqU1ddztmwWw4k1EAO0JaJSOVkMOvywgA28VEnyrrKZKZUiw
-         K6GuKxuYyH3yiJbJjrrqfXCdu80PO9CvtJ+9ngNS2ngF59q+OpZAbKlB1rcvLh5kiJ5v
-         agsC3bVm1aZPz2k1ERTKIuLLjmZQN2k3G6ulezBjR0NOyilLM0vL2ev+O73fyhwm5feH
-         Bh5no+EhvL+857OvptDpIvJ0pgIq40xAlGMcLWo+lp37iB80ZDNPtKaHWYuKKMlMyxAx
-         SzUN9tx7eAtgrBICXvoa+A4tJ7Y+FC8MGVf4hmwQQoIooOVETYMM7kLJf4Gur47LLDKJ
-         QNsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792152729; x=1792757529;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792152754; x=1792757554; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6t2J8EE3L3nlE7G0BZMfNQxPefv2h/6dn0nY1OvRibM=;
-        b=eo/u4Cj9mx0WLp+rQ6yAw7tqn0xV8TfWlKhC4zTzhofJIJEX4enM4cmc4uQIvwWcte
-         ILTz9v/Mwk7PgFhvwTPTeW2CYa81qvajz4Z6D+bfF+ZdwvlSJwgpPYDtUsrnt8bDnw1C
-         aLTSViv3V9N7GKMyLW+KPJWFOE0hJhVQC8hvxTo4/QVxVxstlXvaTEukptm/jobu7iGJ
-         fbcqazxy/SnIYDmSRtCmTvL7fUdX3GLLOBHrpYvFez5uEJmlU27eCsoHpEXmy8o9KrEO
-         q8XyJV4ZeTufZizWg1lnP9lcF65BAHfEH7/HX5psGd7TU28JGLFHVTOEfLtcLYAJ2MNH
-         stNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwHMEWgbXWZNGCcqyo4P/W2St+y39omJ1RDvIuyF0q70VYymmrVP29rCxG9QX/YdZO2K0qkjpHVX3jvBSk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDYvFn62SrBrbxkiBQ7jDxY2H17gU9SlvPQddFp+MKSITcdYFH
-	Leb8Y+MK1mhHUQHBXNEnhMkYfdODgfwoQRU/OISBilNb/NkRZ7YSnBztNKkxC8nnyNU14MfoaQv
-	Cy5fzNV/AS1j8lV7PciyRQZOrrQxYq+4=
-X-Gm-Gg: AYBFou27aeATOvUvD/S07Cz3MgVELg9OOAk30SvCHYlvW1S8zQBv8gEnX24datE9AK7
-	v+b7YRRE/XQqGaivxJmOEYPZtSKoBvDAfiqwNI5yoM27wgBeD4zLY4hv62gk/WbmwfEFKnaSNjF
-	vN0gVZBROkYQVO0kOD38HYRh8/Hn1JfDj+oWC73LT8jCqPsqmgZKxCp5zSKQINnZVMxnL0zE681
-	ni07VlpnietIgYK6DSuxh8fTGS28ZSD14U6V40ToMkA8riVAkdFSwv3TFO2g0kUtZTX+YkU4eas
-	/VfcIGHg3wUjffdWQdVwBl/vt6wxiM9aUPNVHlUobKS0XEk1R/++a2uXerSHf8IcNTcdEm0XvxD
-	ltyQ5a60JJ3/x
-X-Received: by 2002:a17:906:ba90:b0:c41:1e13:4ba9 with SMTP id
- a640c23a62f3a-c411e1365e0mr83342566b.6.1792152728681; Fri, 16 Oct 2026
- 05:12:08 -0700 (PDT)
+        bh=pcrR92pfRDgRPvJUR5cNdBc0H4+TqegTvgg+s0NCJZM=;
+        b=NNA6xt8632OBb2w6c8prLrVzFmwuext1C8QXNfJ6sc8j54V4Bue69P14B6aEu6tXU7
+         Ae9op8hBbsVgAkZplzJCciFoPlAQ4inBT7RNddS5xEPiGc1ukjLgEmiRqSQeC1QcgmZl
+         aku+4MW4Ez6DVpzs8jnTQOxQH5riiI/+czMCgj54eD2Az/WK51UuXhrCAXg6O8qx74pt
+         qyNpVHp4mslAPix/yo6K6UM4IGJrLIpeZC4hNS9LVQaShiWHbCV5wBOAtzb1xzGFqDHT
+         v3NkMue5h2irJHEKRG0weKxBT6M4boaKBvoUBaL0DNjlaDXCfn+VRLwYCd2XncokAFG6
+         T8pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792152754; x=1792757554;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pcrR92pfRDgRPvJUR5cNdBc0H4+TqegTvgg+s0NCJZM=;
+        b=D5n+tk8AV1mLndXuAWdxyYPlk56U3NjZci3NCt65NU0te37LNIAWmKWsVXIq7JeaDW
+         S6f+pxM3Ur1VSlHtS3hkaJhpAAbKLHaK9vdPjCtd7f82GQ6xGZJTw1RkSVoAqyD5J6PQ
+         dBOykBUrSnr1eaxxqZmj7WacR9t4NG/4goOXo78DPo0Dh2M7iPPj+1fn6I7GSL5Kuvx3
+         KL7Xylh62niuRyXXYWlntpVpXgg97rvrynoKLel4ih5xRoFKGEolkJH21jKLypKKb8iq
+         b/sxDmSo75GNkBqbUIythyWgVHKtSYluuqNqoAL1sWe3jLmlRpv0bb7byioQNrOY1uYj
+         MXRg==
+X-Forwarded-Encrypted: i=1; AKwUvByl1MlAJ7+jMSrs6JjtzphjfhrcIdG108udJvO51J9DYQ95oFP/6MSKpbF4otl+5ZFKfNcIbAEjuRJDQeI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrFWBTuLHkJx9MA4bS9oboV+sL8lg505E9+CevHr/oaEri0ffg
+	lKSCGcKrPDPw086XOZCnO/Mi/AUgX3yI81OggUrU5EH9bo8rcc/k2e5N58r2CcacCmxeqh7Yg4S
+	rpajDWfQ8sqkbltzeOA==
+X-Received: from wmdd8.prod.google.com ([2002:a05:600c:a208:b0:4a1:787e:6a00])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:5251:b0:49f:e772:6ddf with SMTP id 5b1f17b1804b1-4a18e4d5a01mr446361805e9.32.1792152752925;
+ Fri, 16 Oct 2026 05:12:32 -0700 (PDT)
+Date: Fri, 16 Oct 2026 12:12:30 +0000
+In-Reply-To: <20261005133857.1572243-3-beata.michalska@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com>
- <20261016084256.12955-1-baohua@kernel.org> <CAMgjq7AtuK22FsuqvGRLVZ2eWrp-N4qQ_MHoXsXDkVBprekdDA@mail.gmail.com>
-In-Reply-To: <CAMgjq7AtuK22FsuqvGRLVZ2eWrp-N4qQ_MHoXsXDkVBprekdDA@mail.gmail.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Fri, 16 Oct 2026 20:11:32 +0800
-X-Gm-Features: AclHuK-z6qzMGmKAbzLQtij7nv772LAigQWhuT7JqlQxVqOPHcB0PjAQdUtEGDA
-Message-ID: <CAMgjq7Ao-1q5r7KtwV-UyvuP3hSazkfr3BbmKL+fv=dSDaU2Cg@mail.gmail.com>
-Subject: Re: [PATCH v4 00/17] mm/mglru: frequency guided promotion (MGLRU-FG)
- and flag cleanup
-To: "Barry Song (Xiaomi)" <baohua@kernel.org>
-Cc: devnull+kasong.tencent.com@kernel.org, akpm@linux-foundation.org, 
-	axelrasmussen@google.com, baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, 
-	cgroups@vger.kernel.org, chenridong@xiaomi.com, chrisl@kernel.org, 
-	damon@lists.linux.dev, david@kernel.org, dev.jain@arm.com, 
-	ehab.ababneh@intel.com, gourry@gourry.net, hannes@cmpxchg.org, 
-	hughd@google.com, kunwu.chan@gmail.com, lance.yang@linux.dev, 
-	liam@infradead.org, lianux.mm@gmail.com, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, liuxiang.277@bytedance.com, ljs@kernel.org, 
-	mhocko@kernel.org, muchun.song@linux.dev, nico.pache@linux.dev, 
-	nphamcs@gmail.com, qi.zheng@linux.dev, rientjes@google.com, 
-	roman.gushchin@linux.dev, ryan.roberts@arm.com, shakeel.butt@linux.dev, 
-	shikemeng@huaweicloud.com, sj@kernel.org, surenb@google.com, 
-	tz2294@columbia.edu, usama.arif@linux.dev, vbabka@kernel.org, 
-	vernon2gm@gmail.com, wangzicheng@honor.com, weixugc@google.com, 
-	willy@infradead.org, ying.huang@linux.alibaba.com, youngjun.park@lge.com, 
-	yuanchu@google.com, yuzhao@google.com, zhaozhengzhuo@uniontech.com, 
-	ziy@nvidia.com, stable@vger.kernel.org
+Mime-Version: 1.0
+References: <20261005133857.1572243-1-beata.michalska@arm.com> <20261005133857.1572243-3-beata.michalska@arm.com>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261016121230.3724323-2-aliceryhl@google.com>
+Subject: Re: [PATCH v4 2/3] rust: platform: wire runtime PM callbacks
+From: Alice Ryhl <aliceryhl@google.com>
+To: Beata Michalska <beata.michalska@arm.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, ojeda@kernel.org, dakr@kernel.org, 
+	gregkh@linuxfoundation.org, rafael@kernel.org, boqun@kernel.org, 
+	gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org, 
+	a.hindborg@kernel.org, tmgross@umich.edu, daniel.almeida@collabora.com, 
+	boris.brezillon@collabora.com, work@onurozkan.dev, samitolvanen@google.com, 
+	acourbot@nvidia.com, rust-for-linux@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 16, 2026 at 7:43=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrot=
-e:
->
-> On Fri, Oct 16, 2026 at 4:43=E2=80=AFPM Barry Song (Xiaomi) <baohua@kerne=
-l.org> wrote:
-> >
-> > On Fri, Oct 16, 2026 at 2:15=E2=80=AFAM Kairui Song via B4 Relay <devnu=
-ll+kasong.tencent.com@kernel.org> wrote:
-> > [...]
-> > >
-> > > LevelDB Scan/Get
-> > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > I also retested the LevelDB benchmark from the cache_ext paper [5].
-> > > Interestingly, mainline MGLRU already beats CLRU on this one after a
-> > > recent change in lru_gen_folio_seq that bumps new folios with refs =
-=3D=3D 1
-> > > to the second-oldest generation as discussed. That change accidentall=
-y
-> > > gave random reads a higher hotness level while making sequential read=
-s
-> > > much colder as described before [14]. However it's unreliable and
-> > > incorrect because it depends on LRU drain timing, and hurts some work=
-loads
-> > > as reported, or where the sequential part is actually hotter (any wor=
-kload
-> > > involving hotter large file and many small cold files will be affecte=
-d)
-> > > which is reproduced below.
-> > >
-> > > This series improves it while covering ordinary workloads too and sho=
-uld
-> > > fix regressions:
-> > >
-> > > LevelDB Scan / Get, Throughput Total:
-> > > CLRU:         4708.3 ops/s
-> > > MGLRU:        5026.9 ops/s (faster than CLRU, but hurts other workloa=
-ds)
-> > > MGLRU After:  5179.2 ops/s (even better in all cases, and no regressi=
-on)
-> > >
-> > > The hot-sequential and cold-random workload can be easily reproduced =
-with
-> > > SQLite and grep. SQLite continuously scans and looks up a small hot
-> > > portion of a DB file, while grep iterates over a set of small files m=
-uch
-> > > larger than RAM [6]:
-> > >
-> > >          SQLite scan & lookup time:       Grep iterate time:
-> > > CLRU:                       14.51ms               13281.37ms
-> > > MGLRU mainline:            567.05ms               13694.47ms
-> > > MGLRU After this series:    10.58ms               12930.43ms
-> > >
-> >
-> > Thanks, Kairui. I'll do a thorough review of the whole patchset over
-> > the next two weeks.
-> >
-> > BTW, do you think we need a quick fix patch like the one below
-> > for the above problem before this patchset, so that it can be
-> > backported to stable? I assume your patchset is too large to
-> > backport?
->
-> Hi Barry,
->
-> Good question, I think we can patch it first.
->
-> > From f9683205d2ab6e3b185022d7d5af3496dfe5f35f Mon Sep 17 00:00:00 2001
-> > From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-> > Date: Fri, 16 Oct 2026 11:48:06 +0800
-> > Subject: [PATCH] mm/mglru: fix using folio_mark_accessed to replace
-> >  folio_set_active
-> >
-> > Commit 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to
-> > replace folio_set_active") tried to avoid over-protecting
-> > fault-around read-ahead file folios by placing them in the
-> > second-oldest generation instead of the youngest generations.
-> >
-> > However, it abuses `PG_referenced` on read-ahead file folios
-> > for this purpose, potentially coupling their handling with
-> > normal syscall-based file accesses that also use
-> > `PG_referenced`.
-> >
-> > This could regress some workloads, as reported by Kairui Song[1]
-> > and Ehab Ababneh[2]. Many thanks to both for reporting these
-> > issues!
-> >
-> > The long-term fix is Kairui's MGLRU-FG, but in the meantime,
-> > we also need a quick fix that can be backported to stable.
-> >
-> > This patch reverts all of the original commit's behavior that
-> > abuses `PG_referenced`, while preserving the semantics of
-> > avoiding over-protection of fault-around read-ahead file
-> > folios by adjusting only `lru_gen_folio_seq()`.
-> > Specifically, fault-around read-ahead file folios with
-> > `PG_active` set but `PG_workingset` clear are placed in the
-> > second-oldest generation.
-> > Activated file folios and refaulted workingset file folios
-> > are still placed in the youngest generations.
-> >
-> > Build kernel cases in a memcg shows it not only perserve
-> > the benefit of original patch, but also even improve
-> > performance further.
-> >
-> > w/o fix:
-> >
-> > real    1m49.094s
-> > user    25m31.484s
-> > sys     3m40.959s
-> > pswpin: 662112
-> > pswpout: 2504415
-> > pgpgin: 4424336
-> > pgpgout: 10355273
-> > refault_file: 359626
-> > refault_anon: 670724
-> >
-> > w/ fix:
-> >
-> > real    1m48.913s
-> > user    25m31.639s
-> > sys     3m30.875s
-> > pswpin: 689815
-> > pswpout: 2689894
-> > pgpgin: 4422659
-> > pgpgout: 11043464
-> > refault_file: 326566
-> > refault_anon: 697138
-> >
-> > Revert original patch:
-> >
-> > real    1m50.044s
-> > user    25m37.137s
-> > sys     4m4.493s
-> > pswpin: 1349087
-> > pswpout: 4317933
-> > pgpgin: 7083597
-> > pgpgout: 17602735
-> > refault_file: 337676
-> > refault_anon: 1368542
-> >
-> > [1] https://lore.kernel.org/linux-mm/20261003-mglru-fg-v3-0-cbd4546a5bd=
-9@tencent.com/
-> > [2] https://lore.kernel.org/linux-mm/20260901180704.168106-1-ehab.ababn=
-eh@intel.com/
-> > Fixes: 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to replace foli=
-o_set_active")
-> > Cc: <stable@vger.kernel.org>
-> > Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-> > ---
-> >  include/linux/mm_inline.h |  8 +++++---
-> >  mm/folio.c                | 16 +++-------------
-> >  mm/vmscan.c               |  9 ++-------
-> >  mm/workingset.c           | 10 ++++------
-> >  4 files changed, 14 insertions(+), 29 deletions(-)
-> >
-> > diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-> > index ab69b9930893..7aaff4e06e80 100644
-> > --- a/include/linux/mm_inline.h
-> > +++ b/include/linux/mm_inline.h
-> > @@ -311,7 +311,8 @@ static inline unsigned long lru_gen_folio_seq(const=
- struct lruvec *lruvec,
-> >          * | Accessed through page tables and  | Accessed through file =
-descriptors |
-> >          * | promoted by folio_update_gen()    | and protected by folio=
-_inc_gen()  |
-> >          * +-----------------------------------+-----------------------=
-------------+
-> > -        * | PG_active (set while isolated)    |                       =
-            |
-> > +        * | PG_active (set while isolated)    | PG_active (files|     =
-            |
-> > +        * |                                   | fault-readahead)|     =
-            |
->
-> This comment is not correct I think, faulting file folios are not
-> access through fd, we may just better leave it uncommented.
->
-> >          * +-----------------+-----------------+-----------------+-----=
-------------+
-> >          * |  PG_workingset  |  PG_referenced  |  PG_workingset  |  LRU=
-_REFS_FLAGS |
-> >          * +-----------------------------------+-----------------------=
-------------+
-> > @@ -319,7 +320,8 @@ static inline unsigned long lru_gen_folio_seq(const=
- struct lruvec *lruvec,
-> >          * |<---------------------------- MAX_NR_GENS -----------------=
------------>|
-> >          */
-> >         if (folio_test_active(folio))
-> > -               gen =3D MIN_NR_GENS - folio_test_workingset(folio);
-> > +               gen =3D MIN_NR_GENS - folio_test_workingset(folio) +
-> > +                     (type ? !folio_test_workingset(folio) : 0);
->
-> This looks a bit hard to follow. Does it mean that for active but
-> non-workingset files, they are put into the third newest generation?
-> It creates more divergence of file / anon but if it work for now, I'm
-> fine with it.
->
-> >         else if (reclaiming)
-> >                 gen =3D MAX_NR_GENS;
-> >         else if ((!folio_is_file_lru(folio) && !folio_test_swapcache(fo=
-lio)) ||
-> > @@ -327,7 +329,7 @@ static inline unsigned long lru_gen_folio_seq(const=
- struct lruvec *lruvec,
-> >                   (folio_test_dirty(folio) || folio_test_writeback(foli=
-o))))
-> >                 gen =3D MIN_NR_GENS;
-> >         else
-> > -               gen =3D MAX_NR_GENS - (folio_test_workingset(folio) || =
-folio_test_referenced(folio));
-> > +               gen =3D MAX_NR_GENS - folio_test_workingset(folio);
->
-> This is a nice change, but meanwhile the LevelDB and cerain workload
-> gain are gone too, we will again have a ~40% regression for similiar
-> workloads, I just double checked it. But that's fine, though, it was
-> never meant to be optimized that way, and the long-term fix can be
-> done later.
+On Mon, Oct 05, 2026 at 03:37:40PM +0200, Beata Michalska wrote:
+> @@ -223,6 +225,14 @@ pub trait Driver {
+>      /// The table of ACPI device ids supported by the driver.
+>      const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = None;
+>  
+> +    /// Provides driver's PM callbacks, if any.
+> +    fn dev_pm_ops() -> Option<crate::pm::DevPMOpsRef<'static, Adapter<Self>>>
+> +    where
+> +        Self: Sized,
+> +    {
+> +        None
+> +    }
 
-Here I mean the "optimization" of 6cbdd9726fb5 is more like a side
-effect, and not reliable, that is simply not the goal of 6cbdd9726fb5.
-So I think it stands well as a fixes for 6cbdd9726fb5.
+Since `DevPMOps::pm_ops()` is a `const fn`, can this be an associated constant
+`const DEV_PM_OPS: Option<crate::pm::DevPMOpsRef<'static, Adapter<Self>>> = None;`
+to match `OF_ID_TABLE` and `ACPI_ID_TABLE` right above it?
+
+Alice
