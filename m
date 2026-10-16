@@ -1,79 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B60634EF05;
-	Fri, 16 Oct 2026 14:49:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0C037A833;
+	Fri, 16 Oct 2026 14:50:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162192; cv=none; b=ttlpoxGyaZjfnPJHe3A8Ypw9dyKzlFNodbIXzyMqvdgbP/QF4CqB57QExjc8Wved/3YTXPOK5P00bc5ixUDVlTCMAWQix1rvSJXie4l/skuy9WUAJUmdYkFY2i45ZtiouQtytgkoPyuML295wEpDcAO1kTLiNvG0cgs/KwlaAYE=
+	t=1792162202; cv=none; b=OG7Y6X3ypXpycVMKA+uBToJ5jROnzLtEwiaPNglNIVyzn/3Unc0KJcmb42553hYbNFLIHiKodWLLl+sm/81Ipbaa5qWQhWBUiqdCnd58wnDCyjQAhKbo6lpBFDXMAT5jrFU/fzcrO/TiBykGpigG3OUKB0xd02udNj2C897So1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162192; c=relaxed/simple;
-	bh=hiM7IQAVwtsiqq6Qk8g5K+CQEtzNX3uTaG2Qf9uFW+I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VL1reZLl2A4joeOoNy3UvrQpH/NQkL/gLrRz0DI7X08izOS0AB5bySWO6/8d3Ys2Wt53pbTA6kG2k1j2diDWcRENLxRAViqgie+lqgD85bRMZspuihMFnEgwCtb2LL0hNIUBiICRV4ZSkchIwfri0Ypu2TfN6P9UaaleSsbc/Pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EpdMq1Ye; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792162202; c=relaxed/simple;
+	bh=3oVsqgR6QWCr1wnCTiWnz68ltC2UitHUqxVqn9QjEwA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XrEJIRAM4SlDYQg8aO6gRW58rosgKQjmKy6Slv3pXgsjr9A7mR+KIw+4UDjb4/akVXmKDKzdN1Xy8KOl1yuoLKM60UB/zP2bmKbVfHs+Ja6smW8qSuvlHvY6KPpJbu6jGmfxbqc6Kcg6R3UjYPdx5FlYE65Xp9w3SkMYiYkkkM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FG/dhRBv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EpdMq1Ye"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35DCC1F000C4;
-	Fri, 16 Oct 2026 14:49:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792162190;
-	bh=yqXt6lpLaj6UPjxlhdP5l0JbPEHElrrrHrY+I0+u+og=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EpdMq1YeI1Oxurg0JjSUD/I5FMLejyFv9/RHuR8pEVI9C+Cq/kIJ1LnlBcG39nD2l
-	 hDaCPdD5argWeuAReHCCPyKuJ5z/86tyLy3Bp5zFCZOq+Rls4Qi5o+EqCeUEl1hkMn
-	 0HaKRlqsvmjThFaCnubeJ8/1TpLaYUlGEM4ZHx01P0fhEjlb45wJwz1YFlM/QsbGRd
-	 XAMkqubLBpZyGV9KWdZGXSGYI5QakyafLv/ftNkwQrDsgC0P6nhQFf3GTNbDVOiQUv
-	 4xIsfkxdeVLFY6IxLV4mVYNpxZDaZuoHPFH6WDFX+lIszitakQ70JkYTb05F4QrSWg
-	 xihMgSFzTIivg==
-From: Sasha Levin <sashal@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	workflows@vger.kernel.org,
-	ksummit@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Mark Brown <broonie@kernel.org>,
-	Theodore Ts'o <tytso@mit.edu>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	"Michael S . Tsirkin" <mst@redhat.com>
-Subject: Re: [PATCH v2 0/5] agents: add skills for Fixes tags, stable tags, similar bugs, and commit messages
-Date: Fri, 16 Oct 2026 10:49:45 -0400
-Message-ID: <20261016144946.3640829-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAMuHMdXR+U+pgyN+B=trSuPJuS5Kn1-kN=VMFPRSvSUiiwbqDg@mail.gmail.com>
-References: <20261012213452.1863248-1-sashal@kernel.org> <87zewiy1sd.fsf@trenco.lwn.net> <202610122047.A9E381A@keescook> <CAMuHMdXR+U+pgyN+B=trSuPJuS5Kn1-kN=VMFPRSvSUiiwbqDg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FG/dhRBv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B01781F000C4;
+	Fri, 16 Oct 2026 14:50:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792162201;
+	bh=sYF+g4bwj7gR3EA8CYKHagb1DJ1vROZwWDQ7o9vjfik=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FG/dhRBvbvi3cke4fjRtGCMP/KhOj5N6Gtfzxc2Dk88HhPJ24xnMFFkYCA92Wo3dx
+	 igHLjv+KiJLZGBzyYwW9tvO9HG5y+PEuVcWp6drH77Eq75ZvhxvQuwU8QxJexE6alp
+	 Ak5HFqu6kpDa7S3wzcBL7bTPIiHcrMFX0hzVxG9U=
+Date: Fri, 16 Oct 2026 16:50:04 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jori Koolstra <jkoolstra@xs4all.nl>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org, Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>, Amir Goldstein <amir73il@gmail.com>,
+	Aleksa Sarai <cyphar@cyphar.com>
+Subject: Re: [PATCH v7 07/12] kernfs: hold kernfs_iattr_rwsem when
+ initializing a new inode
+Message-ID: <2026101626-idealist-overshoot-26d6@gregkh>
+References: <20261016143806.2946578-1-jkoolstra@xs4all.nl>
+ <20261016143806.2946578-8-jkoolstra@xs4all.nl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016143806.2946578-8-jkoolstra@xs4all.nl>
 
-On Wed, Oct 14, 2026 at 03:51:27PM +0200, Geert Uytterhoeven wrote:
->The expectation is that the agents are becoming better in understanding,
->so more "instructions" can be shared?
->
->If that is not the case, perhaps we need
->Documentation/translations/simple/, cfr. https://simple.wikipedia? ;-)
+On Fri, Oct 16, 2026 at 04:38:01PM +0200, Jori Koolstra wrote:
+> kernfs_refresh_inode() copies the uid, gid, timestamps and nlink of a
+> kernfs_node into its VFS inode. Since commit 9caf69614225 ("kernfs:
+> Introduce separate rwsem to protect inode attributes.") these are
+> protected by kernfs_iattr_rwsem.
+> 
+> kernfs_init_inode() calls kernfs_refresh_inode(), but was not converted.
+> Its callers in turn hold kernfs_rwsem (kernfs_iop_lookup(),
+> kernfs_fill_super()) or no lock at all (__kernfs_fh_to_dentry()),
+> neither of which excludes a concurrent
+> kernfs_setattr()/kernfs_iop_setattr().
+> 
+> Take kernfs_iattr_rwsem for reading around the refresh in
+> kernfs_init_inode(). This nests inside kernfs_rwsem, which matches
+> kernfs_link_sibling() and kernfs_unlink_sibling().
+> 
+> Also, kernfs_get_inode() then does not need to hold kernfs_rwsem, so
+> drop it from kernfs_fill_super().
 
-Mostly, yes. v3 shrinks each skill to a short file that points at the existing
-process documents, and moves the Fixes tag rules agents kept getting wrong into
-submitting-patches.rst, where humans get them too. What stays in the skills is
-agent specific, such as not trusting blame and not making up the reason for a
-change.
+Oh, nice, this fixes the issue of kernfs not keeping the inode like we
+talked about at LPC?  Can't argue with this tiny patch, nice work!
 
-So hopefully no simple/ translation needed :)
-
--- 
-Thanks,
-Sasha
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
