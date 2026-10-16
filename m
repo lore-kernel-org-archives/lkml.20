@@ -1,109 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp9.goneo.de (smtp9.goneo.de [85.220.189.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DE940BCB2;
-	Fri, 16 Oct 2026 11:00:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E6E3839B9;
+	Fri, 16 Oct 2026 11:02:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.220.189.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792148441; cv=none; b=g29EdMtiOw06P1ru+shu8chUFmxIgP+eJN32nY6EyngW5GLPj4Zgh/D/5J5/ITAzWveGQhBZ6K8GjIoBrmXpGtKxbUwiXJdOe9NbkGMaVeehaiDjrezzOMKirI9VCa7eZ1vVwrQxbf/nBA5W3GLq7UhUN34P1mujwvXHtl53cRc=
+	t=1792148531; cv=none; b=PdXS2eshNX2d3MynR8gzu8UAj4U0eB2gcZzvSJ31MZlJOqPz2eXTn8q3tbrfEFYGFrghr7hJUVe6BSSHkUUCJMIFriI5oiRsYDjB4hfaUJlFo1EFLMNcePp2ukOcqqEXINhHNUODZDafJGztEeu8QPJOGjUfH1dDIE7CT6WxOHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792148441; c=relaxed/simple;
-	bh=A5vzqO97WgNgrRSuAFaMNoJdjRf2NsEvaKC2UjsFRLM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KAo7F6fxfyxGuymAorxZqlHWpESHeRSe9ZunRZG/LeHH4kPCi6CffS77bPjG10AV3E3BM8C77z7z+YX6Gn5/hTDdwvVckxIZysmuy90jT/NkwfLsZoiIL9jWh5AFX5s4gdFkEwBbH9qW4iMhs1wgEW97SVwN5YIO+k6HKQ+1BCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lSrDood8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792148531; c=relaxed/simple;
+	bh=OAjaeubeUAUHPhGY8HoI6VjDEw4sf82UHdDveAXI7yg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ockvzfor8LFbE2ySTBZICdWehlvFF3JRf7i5eKXVhTeorxP0hlZSnxTR63oyr1fCITdmRngbjlPjBS/Km60HJ6YmDWYQVNHe8thUQhss8Cuif97ysoZ+oxLaXV7vePu2UXi5fihP65hntuaQAmXtpmTeOFgMC4l1+rOATi7/HlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de; spf=pass smtp.mailfrom=tk154.de; dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b=gSfeBhSK; arc=none smtp.client-ip=85.220.189.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lSrDood8"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B2CDAC2BCFA;
-	Fri, 16 Oct 2026 11:00:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792148440;
-	bh=A5vzqO97WgNgrRSuAFaMNoJdjRf2NsEvaKC2UjsFRLM=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=lSrDood8FrYKE2qrBZPbVIIwBUuTmfY80LHxX3LLFDwxBFXrbBE4XfXQqFarySAjK
-	 xlrPwYIzuthTl3EONWqLvvS07shSYasN1Zhf8XXL7Dd84eqQZ2CsTgeKnLDy2yQpvD
-	 wIWqm/7Kl2FjBnNFUI0aGW+5mHzeN8JeBV1nIBgcCRpY3tZrWmwFXdI7eI+PxdAza0
-	 +dMZwF2s2bLywpnbvmrPPh3+JVZMGVFHKc4Sb32+Ktm+q5j2Lrm0PVvikT4IDuuBs3
-	 r7UNwk7pzej2pQQzsrJcawyNpBmfFISRM/K1cmv8vVRHe69mY58iFi8aY3p0ZwGLNh
-	 rn79NkkHEn+2g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A0494CCA464;
-	Fri, 16 Oct 2026 11:00:40 +0000 (UTC)
-From: Andrea Amer via B4 Relay <devnull+and.amer.gmail.com@kernel.org>
-Date: Fri, 16 Oct 2026 13:00:20 +0200
-Subject: [PATCH v2] iio: afe: rescale: always expose offset
+	dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b="gSfeBhSK"
+Received: from hub1.goneo.de (hub1.goneo.de [IPv6:2001:1640:5::8:52])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by smtp9.goneo.de (Postfix) with ESMTPS id 41B27240107;
+	Fri, 16 Oct 2026 12:53:41 +0200 (CEST)
+Received: from hub1.goneo.de (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by hub1.goneo.de (Postfix) with ESMTPS id CF0A8240420;
+	Fri, 16 Oct 2026 12:53:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
+	t=1792148018;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KyVzT5xYH9NgbmAWX7BSNshyzc+gh18tHUHGZSLLP8Q=;
+	b=gSfeBhSK+uB/U7rPkXlmmqZ2rmEsW5FCSF1frfwbJGeYdPASakR37TPGgr64HjQuLRgrXn
+	Fa/cV+0D61dwAoSOzufA/oYVoelC5vmD8xl0LuPyLm389HglEC1Dhc0EpKt+WY2QZ8rd9x
+	e8tG8+EgC39iuOJ8yohYKTQJYKp0peml0SHrxq0DTwvUFWLqvJMmbpU0NLaSNm5juiytnC
+	4Mv9wNq5VqZCKLEJLqb2w3NHxGnJdycqn4S3s66HItQ3Eezk7MRE64kZgkFUAD97gIhzKu
+	TSSw8QGF0PikVIKY/dqD5OK2JUDZcTmjmlq32feC+wxcnxuyGKUO2uAY3pAZDg==
+Received: from [IPV6:2003:c5:ff08:ee00::d0f] (p200300c5ff08ee000000000000000d0f.dip0.t-ipconnect.de [IPv6:2003:c5:ff08:ee00::d0f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hub1.goneo.de (Postfix) with ESMTPSA id B1D112407E1;
+	Fri, 16 Oct 2026 12:53:35 +0200 (CEST)
+Message-ID: <d1735e38-fc90-4c2e-8b0f-25e6fe70c15b@tk154.de>
+Date: Fri, 16 Oct 2026 12:53:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] mlxsw: Initialize register query payloads
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org,
+ Petr Machata <petrm@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jiri Pirko <jiri@resnulli.us>, Vadim Pasternak <vadimp@mellanox.com>,
+ linux-kernel@vger.kernel.org
+References: <20261014173117.26305-1-mail@tk154.de>
+ <20261015160007.GB1836432@shredder>
+Content-Language: en-US, de-DE
+From: Til Kaiser <mail@tk154.de>
+In-Reply-To: <20261015160007.GB1836432@shredder>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-iio-rescale-offset-v2-1-02c825967139@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAMMD0moC/32NQQqDMBBFryKzbooTY4pd9R7FRZpMdECNJCItk
- rs39QDlr96H//4BiSJTgnt1QKSdE4elgLxUYEezDCTYFQZZS401SsEcRKRkzUQieJ9oEwplq0z
- TvLTTUIZrJM/vU/rsC4+cthA/58eOv/avbkdRoshh29067+VjmA1PVxtm6HPOX08tp+S0AAAA
-X-Change-ID: 20261012-iio-rescale-offset-41254a33b6d6
-To: Peter Rosin <peda@lysator.liu.se>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Liam Beguin <liambeguin@gmail.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jonathan Cameron <jic23@kernel.org>, Andrea Amer <and.amer@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792148437; l=1534;
- i=and.amer@gmail.com; s=20261012; h=from:subject:message-id;
- bh=smDOZf3s0TRH8qOItOidEFI5I1QOKi3ZjzCMwcFZDI8=;
- b=UR/i6E6rwteZ0Erdlwc7kK0TfnZAzzWBdHcBVSiQNaCkKvutisIOPQoqdlDbpXTGqKVvuXrua
- 8hVFvwQCq4KCzhsirlUCUM73+FI3tMml7m9wjmB4yKv3FiF/pmCQ/7Z
-X-Developer-Key: i=and.amer@gmail.com; a=ed25519;
- pk=TiMK202FvcPM+yKGkAI4hsAZA7QkwyEgru97PAFa4pg=
-X-Endpoint-Received: by B4 Relay for and.amer@gmail.com/20261012 with
- auth_id=1165
-X-Original-From: Andrea Amer <and.amer@gmail.com>
-Reply-To: and.amer@gmail.com
+X-Rspamd-UID: 4a9e5c
+X-Rspamd-UID: df1129
 
-From: Andrea Amer <and.amer@gmail.com>
+On 10/15/26 6:00 PM, Ido Schimmel wrote:
+> 
+> I assume that you don't have CONFIG_INIT_STACK_ALL_ZERO enabled?
+> 
 
-A rescale channel advertises IIO_CHAN_INFO_OFFSET only when its own
-offset is non-zero. A child rescale therefore hides a source offset,
-and consumers apply raw * scale and drop it. rescale_read_raw() already
-folds the source offset in, so expose the attribute in every case.
+Correct, CONFIG_INIT_STACK_ALL_ZERO is not enabled by default in
+OpenWrt's x86 builds.
 
-Fixes: a29c3283653b ("iio: afe: rescale: add offset support")
-Signed-off-by: Andrea Amer <and.amer@gmail.com>
----
-Changes in v2:
-- Keep the IIO_CHAN_INFO_SCALE line unchanged (Andy Shevchenko)
-- Link to v1: https://lore.kernel.org/r/20261012-iio-rescale-offset-v1-1-14ed15979ff2@gmail.com
----
- drivers/iio/afe/iio-rescale.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> Can you share the firmware versions?
+> 
 
-diff --git a/drivers/iio/afe/iio-rescale.c b/drivers/iio/afe/iio-rescale.c
-index 3a6a09ffa5267ddfd5131fbd04a5df928836589d..4639a67ea462bf5c29603783a6f230d769fb02b0 100644
---- a/drivers/iio/afe/iio-rescale.c
-+++ b/drivers/iio/afe/iio-rescale.c
-@@ -301,11 +301,9 @@ static int rescale_configure_channel(struct device *dev,
- 	}
- 
- 	chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+		BIT(IIO_CHAN_INFO_OFFSET) |
- 		BIT(IIO_CHAN_INFO_SCALE);
- 
--	if (rescale->offset)
--		chan->info_mask_separate |= BIT(IIO_CHAN_INFO_OFFSET);
--
- 	/*
- 	 * Using .read_avail() is fringe to begin with and makes no sense
- 	 * whatsoever for processed channels, so we make sure that this cannot
+I tested with firmware 2020.1148 and with 2016.3900 from
+linux-firmware.
 
----
-base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
-change-id: 20261012-iio-rescale-offset-41254a33b6d6
-
-Best regards,
--- 
-Andrea Amer <and.amer@gmail.com>
-
-
+Til
