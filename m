@@ -1,64 +1,91 @@
-Received: from 4do.net (4do.net [51.68.154.128])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-252.mta1.migadu.com [95.215.58.252])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE081FE451;
-	Fri, 16 Oct 2026 06:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.68.154.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9546C3B95F8
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:46:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.252
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792133170; cv=none; b=XkuI0cCDz/nkrdiGsg7uzbuSSHte6kiwk5Rz804MCoW1yjTDyW0RDul2h1QZ2BroUaZm7gnXXOMwkhwARmY6NeQDplRuXv5L9QaC+A1StfCYIbWdcQzwJXh6M7faZGdkLpjq8k1c44YPW+qqZUmv7+odm+TIhlzrZzv/pFkAhbc=
+	t=1792133225; cv=none; b=V1rG7wd19tLlT1I4y+aqkQsFLXTilEzLSq5aejYOK4DjX1WWQqHP3JT9yPXOcYhlHZQxk0RFK6pe2m0ay31hr0Yl/SgPtln++QcbZEhvClzOMUwz/q71Fi6Jjpm09sKa2RLBxovBa8t+QNTzlq78b7L6wXJTqQlDB0bUZOYWGEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792133170; c=relaxed/simple;
-	bh=TgDyxgu8IDR41V90BIj5qe9X5y5frV/UovMkQLzWCYY=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=AtmGP9QGUel17skJNCQa067+tUv1Q8zocWsVdJAi4vndu8xRwB5xjzfXb+DlZawiRGebXssXB1XdOS9j0CrUEWFmueIj2ghD6q9nmb9BqDZf/oN7Ka4Z+Bju0FZv4Neh0s/u7+xU27IS4yY6uWDfL1Z3AOVkA8PmDpYR71CGFEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fromdisposition.org; spf=pass smtp.mailfrom=fromdisposition.org; arc=none smtp.client-ip=51.68.154.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fromdisposition.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fromdisposition.org
+	s=arc-20240116; t=1792133225; c=relaxed/simple;
+	bh=Fq2kJAt2D35K+AljUwJE/9dkfpEho8mR0jX5LFexqKI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HnS0iQJ5YFis6yl8HezNO7ygbQ7ii+PLYmC7meNfPXW+J8SHCxNgqygbEeNwjxNxg4EbdNdngclkNBmcXdZjQevzdKelr+RSs3eu8UCrnzZGO6ERWo7JS3q/1KPbSr2cKwThF97NF6z3K6zb6bCma/S7rxzN4DOPI4vw7Dqmcss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wikj2tQE; arc=none smtp.client-ip=95.215.58.252
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wikj2tQE"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Fq2kJAt2D35K+AljUwJE/9dkfpEho8mR0jX5LFexqKI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792133206; v=1; x=1792738006;
+ b=wikj2tQE6QNa7GbUEnBAgm5aZYrEylAwrGbFbYpnVFKIo7T9CNT7Zbcn8XMqXtarhfwi1OhJ
+ mr5AU+rCPz7dFMwpzH3QSJoJr4bcHfeI2yP+wkf8Ux4q1qo919QrtKoqjATcvfVA5Z5skVFPvdX
+ aEeAoynq3+dKQYLsyzJtPaPw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6cc5102f79aecafd;
+	Fri, 16 Oct 2026 06:46:46 +0000
+X-Mizu-Trace-ID: 6cc5102f79aecafd
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so5664e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:46:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwBdmqZ0HYc7Xr/vph4rPG51s+9P0qBoqD5W4mvfNihYzKtxdZ77eju9NQsQYFzKRs9deDg8lCrHUDjfIU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLLj96ESh2wzvAzVGM5kDP9kl0ijNggFA5KfP5yuRay38bP3TVr
+	FFtEeVesu5uXY9PIDpmQ9UeeTcjCPD3QIKjmNAhybcbfEpEBcVM3obsXCKhPoGKyaW1/C2Seuib
+	LTjeBtodi4h5teb5kvTf9M4iMApTNCHVHrliTH2ok
+X-Received: by 2002:a05:6512:6816:b0:5bc:ed54:d5b1 with SMTP id
+ 2adb3069b0e04-5be403b66a5mr223821e87.14.1792133202280; Thu, 15 Oct 2026
+ 23:46:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 16 Oct 2026 06:39:31 +0000
-From: Demeter Barna <me@fromdisposition.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Lorenzo Pieralisi
- <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas
- <bhelgaas@google.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Qiang
- Yu <qiang.yu@oss.qualcomm.com>, Jeff Johnson <jjohnson@kernel.org>, Liam
- Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, Luiz
- Augusto von Dentz <luiz.dentz@gmail.com>, Balakrishna Godavarthi
- <quic_bgodavar@quicinc.com>, Rocky Liao <quic_rjliao@quicinc.com>, Bjorn
- Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath11k@lists.infradead.org, devicetree@vger.kernel.org, Bartosz Golaszewski
- <brgl@bgdev.pl>, linux-bluetooth@vger.kernel.org, Bartosz Golaszewski
- <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 2/7] wifi: ath11k: enable support for WCN6851
-In-Reply-To: <fiuuh6rwohtlmwdiy7cwqee62e7jrtdgii7fklfy7jkgh25yul@mzlefhqgzo55>
-References: <20260608-sm8350-wifi-v2-0-efb68f1ff04c@oss.qualcomm.com>
- <20260608-sm8350-wifi-v2-2-efb68f1ff04c@oss.qualcomm.com>
- <fiuuh6rwohtlmwdiy7cwqee62e7jrtdgii7fklfy7jkgh25yul@mzlefhqgzo55>
-Message-ID: <850ada71460dc62152218e42e78079c6@fromdisposition.org>
-X-Sender: me@fromdisposition.org
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261015153041.3770032-1-fuad.tabba@linux.dev> <86h5im29xv.wl-maz@kernel.org>
+In-Reply-To: <86h5im29xv.wl-maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Fri, 16 Oct 2026 07:46:05 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTwZCkfj8V4x-VJhB09x4V=R84Zky8fU=ffyWAJNrJYyCw@mail.gmail.com>
+X-Gm-Features: AclHuK-Mh0opfYvOg-0ZXaKxljR9jjbWCLN44NxLHz-5KGKDM7ZO10cIFATr3tM
+Message-ID: <CA+EHjTwZCkfj8V4x-VJhB09x4V=R84Zky8fU=ffyWAJNrJYyCw@mail.gmail.com>
+Subject: Re: [PATCH] KVM: arm64: Only enable S1PIE and S1POE for a guest with
+ TCR2 and ATS1A
+To: Marc Zyngier <maz@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Mark Brown <broonie@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-06-11 20:05, Dmitry Baryshkov wrote:
-> This crashes with the firmware that came with the board,
-> WLAN.HSP.1.1.c3-00200-QCAHSPSWPL_V1_V2_SILICONZ. I will revert to 3
-> vdevs for v3.
+Hi Marc,
 
-Same here with a newer firmware, WLAN.HSP.1.1-02922 (2021-11-04),
-on a Razer Edge 5G (SM8350, WCN6855 hw1.1; next-20261012 plus a
-board DTS that is not upstream yet). With 4 vdevs the firmware
-crashes (MHI_CB_EE_RDDM, no WMI ready event). With 2 + 1, as in
-v1, Wi-Fi works.
+On Thu, 15 Oct 2026 17:41:16 +0100, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> > diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
+[...]
+> > +static bool feat_s1poe(struct kvm *kvm)
+> > +{
+> > +        return (kvm_has_feat(kvm, FEAT_S1POE) &&
+> > +                kvm_has_feat(kvm, FEAT_TCR2) &&
+> > +                kvm_has_feat(kvm, FEAT_ATS1A));
+>
+> Where's what the relevant bits of the JSON say:
+>
+> (FEAT_S1POE ==> FEAT_TCR2)
+> (FEAT_S1POE ==> FEAT_ATS1A)
+> (FEAT_S1POE ==> FEAT_HPDS)
+>
+> So this is missing an additional check on FEAT_HPDS, which is advertised
+> as:
+>
+> (FEAT_AA64EL1 ==> (FEAT_HPDS <=> (UInt(ID_AA64MMFR1_EL1.HPDS) >= 1)))
 
-Happy to test v3.
+Thanks, I'll add the FEAT_HPDS check to feat_s1poe() and respin.
+
+Cheers,
+/fuad
