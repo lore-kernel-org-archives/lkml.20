@@ -1,63 +1,65 @@
-Received: from mail-ej2-f6.google.com (mail-ej2-f6.google.com [74.125.228.134])
+Received: from mail-ed2-f11.google.com (mail-ed2-f11.google.com [74.125.228.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD71442FDF
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:52:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3604A43FE
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:52:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792155161; cv=none; b=cNjOcsC4TATHDQ9un4QI2Wh5TPSTpcgOZo1VWRj/mEXwECsgJHJHpa6O2JmwmwHio+qSthkjFo6acBjHDCapNVLL1Tv6dCJcOZrNcVsjUNDJvx4OB6Ji9hr2JwbeJLHM747jgCi4zQGwUKcBL53WAS0YQOHPKPgfi4uq1BQ94qY=
+	t=1792155164; cv=none; b=rTNkiWL1z8qJr0LvyM9PF8KXGed+EAwOUMGUfi4y/n0QpsGv4CBFy6MmzALpLdYLF3Wl4eqJQ2W4YSR0bbcaLk2bEycF44eGtDQpaSpf5fnlDWP1cMPJDfQhpjQFV5YU5bWU7q7smS5GsQ3604GES4fOCviD6rlShgKff6CL5MM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792155161; c=relaxed/simple;
-	bh=liozZw3edUG90dfqSRetHlnAXnjby7qz60x6l6yH+zo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rBvB8fi9/C6fC2VUyCkDEHktuS9DbomV556SbBq/QWwSJYUmh1Q78pu2THVvtBVGdxkLxxqlUDaMQcnarX7ClgOtHDUsc0CsRVMnqMsJzldbINmAWJ06UxVMajf/Rq3lfCUFzzurDMJRG0BhRf1yydav8I/9s0D4aoiIGJhkijg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GFcURtjh; arc=none smtp.client-ip=74.125.228.134
+	s=arc-20240116; t=1792155164; c=relaxed/simple;
+	bh=PHKzI/DaDGeG0UXrccrwqI/qjKAvZq6HiGbjGmmX6Hc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=p489CQ/7K2f/2il3Wv6Uc8k0llDqhcvhjS4B3KSuGsyErSuT4qvBULpFltrx5z6Mz9tzOlEvSv32xDAVWCJ/eOLfpsnM4DM+PzxCjcb/PZdVtCVSUmAJYQyg0VvUcQnoYFHq1ChYCE8i13JhgsJryyGiXZBqVVKuf1rCHmgORi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SXu/gvXW; arc=none smtp.client-ip=74.125.228.75
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GFcURtjh"
-Received: by mail-ej2-f6.google.com with SMTP id a640c23a62f3a-c410cdcab7dso22956766b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:52:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SXu/gvXW"
+Received: by mail-ed2-f11.google.com with SMTP id 4fb4d7f45d1cf-6ab01685260so1404090a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:52:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792155159; x=1792759959; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4bLZq1EO3Hw3snWP7J++9hibpM77l9B4DBDoATQxFi0=;
-        b=GFcURtjhm6qPAJYlWeAx2+t186sObC9+6M6TIo4AUtWND5aXbAimxv3/Pt4ZSV2y6i
-         Qg51/ZYpt4k12Ce8rs4rYnFL+bQPz/DHZWJ4Tu9sp8lQ4wl8aWqs+UOHUVSPLccwKRU+
-         9kH2wFUcHH3s9uRQUAQG56dbk7BW4t9wDIXL+jsJ2c0ZuTO8oxZNzOlbero7XXYxEgNd
-         EeW9t0N5JrE0ptvb5fStBJbcilJyx7NpIxS06J2O6/7hN52gb8WZVH3jp9GLLfOOPF7K
-         p0ZD1cQ3rrvkJjwMNnhLRzAhabyYporGw1ywhim6mzbc9K30l+8krU0cGbrr3dqF4yCe
-         A8Yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792155159; x=1792759959;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792155161; x=1792759961; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4bLZq1EO3Hw3snWP7J++9hibpM77l9B4DBDoATQxFi0=;
-        b=lxbNoG+9D+sQ/yhzaw9/Tnb1hLkk//TvFTyovaVJrKd1+JA454uSZWnEE3woHyGiZe
-         DMLlJB198q2f3G8GoVWy3vcTQ5llygYCDPv6r1n/CyaWNUBH36LTMReyIOn4K5xOs1A7
-         A0MvDnqYn011A/VIBlkV098aq122kSBRfYq9wrEtiz/RqbDdzCQuIAfcQN6Sw0YImT8Z
-         9uhsAXk6aLVEaEE4ez4qbkvmf5T5J6UEC1L3om4C7Ha1PS1096BkNk8RBj1uSVRU26WB
-         B74VJZ+eAKb9ogylXJ1Jy0FKgrHhgKy9ViyY9vvU6+qYPxqW14/ZrX1MTQsmBN72A9m5
-         qsGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzoerT5pFTy4RdNumDx7gMC5dz+hf4WBpQv31jZFvQWO2lYXwxDjouutDWjDBjP/vAvwnWwXQuJmcpi7/k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIoyUZjdtwG6YLT8KJXGqnWFSqxPq1HxdZYQ+CwkzalfUwA/D2/
-	exIyb7uSbc+QXhmKMqbRnFUI/zytz4U41sy7rvnIvFtywnedhGN0NFZdOgN1RTPH
-X-Gm-Gg: AYBFou2W+Z+dvQt0IjtrhCHJXAAV3iAx+9wBKUe0bm8lFycmoDP4dJHDo7TbpdTBZxj
-	B533tSWdhsIo/bXP51iccKCeKWRyANH5yDdqzT4CBzfxufPillALcXi1Gs++b4K49R9XiSABy0d
-	UBdSZZVkUSO+yEajaFnK7JtxrmfuQaCbBdxQMSXAhy2sYAVFwCWC9qmiRlDqbmPS829VS67wlJK
-	yKMuCd8X2dvvyeRuKNy20vj3WQn/M2eQB0Gf9aJgDvJ0II1JYajMjIFUoGotze8uctJ02dI2VUO
-	K/gTxzuG7LEGwss0v5aGjIXuRdFUB8LtrWqiDpwLvc8dmhU7ag2bDeItLc+eH34M7ue1ITDGFf4
-	9rFf2NTnjzaDtB30RvAfpr/q2a4mSoYlPNYM8guvLkUf9lRjUWA6X0XsyE30y7/FGhrqoVbQtv6
-	qiaf5lLqVls1NkZs75hiKgRUiBLdS0EKg+CuoVnqqYfEFrDYRjaIpKkF2HOtR2RD3Lca6WFi6uH
-	X5eIv1Afn3X06KO218gZpIrmaLFYqYMWiBI8lPatHk72g8CnfnPDCT8sae0LfuG5qAOfo3TJrzJ
-	grWlymhXKPg6vx8iDxlpYOORxQ==
-X-Received: by 2002:a17:906:4fce:b0:c3f:ce1b:9971 with SMTP id a640c23a62f3a-c3fce1ba820mr366288966b.25.1792155158395;
-        Fri, 16 Oct 2026 05:52:38 -0700 (PDT)
+        bh=kA+vTZ/Eeoad9jIjZ1JZy2rB2AcKRzVxwNFQY1s/X5o=;
+        b=SXu/gvXWM1umyElGQdWJfYtfOkzprDVdQVATTVHyvU9TsZHg/10bPwQZk0DW+aRxAA
+         DIo1ByLWofOwyNAPgMR0dNk/QJrsE1aipJdgrQMJIi9GXU6jHieEHlIV7fZoz4VGMWny
+         O80W4VAZ3xbV4OzUk1s309mSkTJ/HLpDBdU4saNCqd9AoZABNkl9qrhbx8U0jHxnjAZy
+         G/gcQe83kuLAJdM+az9mFe1pHlGexDLeScyMdvI0ZQaGxXkJn/C0qYu+pi1X7V/bqG2C
+         961UGAosd3iuRGR1god5YAnOp3KzYiZpeVw26VpO+cuZnIU9OfePbmGgT/VdAqgCHKKc
+         yNJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792155161; x=1792759961;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kA+vTZ/Eeoad9jIjZ1JZy2rB2AcKRzVxwNFQY1s/X5o=;
+        b=FEmGvj1qjuWGmUgMeaWfx5X/1fTriKWi2tvQDTJ71Oufg7C2vZupu2C5lyupR0uUdo
+         VLnqO/vFELa84sy7HiOYrfMZl4c7uywp+r/5dobQXUjOmKrMjbIvaPrf9Z1ByLbWENkx
+         c/e7obVznifwF7JjM1SnsymwUwX9CWztGnv9fkSOckTaIJRQTv39hpQicRnHmcuTwsc6
+         sKYPxwpW7dANkGXmoIpshDmv36RHJGtYJZSyYvxAexqKyjLMOtqYwqRLHg1JtcDQAkTm
+         pQKtBDGVTg4lazKuebZXnk6v1fPHgJpthf/OffKS0SXP9/6HRkZBCKuM9LXsgLvDkL7M
+         T79Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy7124jvpbrIwDD3SG21mfDbAX0Bpk4k8rxds1ajBnyxrMx9lIJvbImVfGOPC9bZfpDkAz+L6nAF1y2Ieg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLG2LqvbST8igNEqf7r5zB7DgukuJo7gpk4gMRdSWQoQaOeSOrX
+	OdqUBZGuqH/oVi/8K8kTAdgW6JqVHjegY7PtsYYVrJmUyL1zNn51Dwao
+X-Gm-Gg: AYBFou2wLp4Wf2aPdDT4Pf3nZszaHeJFA556uWXKubolPFeyUEuJBknuVBtrULT1TEv
+	NvAWb8Pywou6kuJJEzIBguwpFGrgy0nltfYJb4NcVz6w/JAt5cxzsdWNnazpyrhm3ENQynl/Ps8
+	2VnKccRQkqrve2qIsBX1a6+9SDvxMYrqhGEQ/SdKUMouAvtPorgsR+//Ac+gnD/aGI3CbtEWkY0
+	8RPjPAAHKIvVVNp40RQ1XR01HJ1U59ZiTGcCMV8vCTRAFIsJ9YGEckmHcFCe7azAQHeqcmVCWqr
+	UQZZtKJ0MJ7lC0lO9+C2+Dqg1H4J1FYTqtieYS1Pc/bQpaa0wDFPsMJ4I/Pt1Qgw3fYchDwxkjF
+	5DjOdDNHOq2tfq6iv4nvHSNyHhaIGneZy+MByKt14UACk4G9muwn+lRsj9c/lbgWz1O0IYKzmCM
+	4PZkz/3MR5le78Glo59MlaeL+hrgu1zCQSPLtbNvlGMWoBV/zUT6JbxA2QA0kJbU08Y5PJo0FUj
+	oKlZk/2RkPaPfnhDvxh7Kg6rzX24WSFbmEMUK6jiSAslIspGIIojvxZ8XNRMeB82SMXNrOZdtrB
+	UOesYL+0bfkHlDTdMLfoMF/WoR8=
+X-Received: by 2002:a17:907:8687:b0:c16:4e5:944a with SMTP id a640c23a62f3a-c31aa02a1ebmr1954672466b.21.1792155160445;
+        Fri, 16 Oct 2026 05:52:40 -0700 (PDT)
 Received: from thi-server.fritz.box (dslb-092-076-089-226.092.076.pools.vodafone-ip.de. [92.76.89.226])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32876asm69433966b.10.2026.10.16.05.52.37
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32876asm69433966b.10.2026.10.16.05.52.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 05:52:37 -0700 (PDT)
+        Fri, 16 Oct 2026 05:52:39 -0700 (PDT)
 From: Thilo Zirnstein <thi.zirnstein@gmail.com>
 To: michal.simek@amd.com,
 	andi.shyti@kernel.org
@@ -65,10 +67,12 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Thilo Zirnstein <thi.zirnstein@gmail.com>
-Subject: [PATCH v3 0/2] i2c: i2c-xiic: fix clearing of bnb irq and waiting/ clearing while atomic
-Date: Fri, 16 Oct 2026 14:52:27 +0200
-Message-ID: <20261016125229.1798791-1-thi.zirnstein@gmail.com>
+Subject: [PATCH v3 1/2] i2c: i2c-xiic: fix clearing of bnb irq
+Date: Fri, 16 Oct 2026 14:52:28 +0200
+Message-ID: <20261016125229.1798791-2-thi.zirnstein@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261016125229.1798791-1-thi.zirnstein@gmail.com>
+References: <20261016125229.1798791-1-thi.zirnstein@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,59 +81,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Dear all,
+Add a function for clearing the bnb bit,
+It waits for all preconditions before clearing the bnb bit or times out.
 
-This patch-series fixes the clearing routine for the bus not busy (bnb) irq
-plus the waiting and clearing routines while in atomic context.
-
-The bnb is used to indicate that the current transfer is done.
-A high level view of the software flow for tx:
-
-* init i2c controller
-* prepare all registers ( fill fifo, enable irqs, ... )
-* start i2c txfer
-* clear and enable bnb
-* wait for completion
-* ( serve interrupts )
-* ( bnb interrupt ): complete completion
-
-The datasheet ( pg090-axi-iic, Interrupt-Status-Register ISR)
-states that the bnb bit can only be cleared if
-the bus busy bit in the status register is set.
-So the iic controller must have recognized that their is some activity
-on the bus. ( Start condition )
-
-Currently the bnb bit is cleared without checking or waiting for this
-condition. This can lead to spurious bnb interrupts.
-
-Andi suggested to use an atomic-save function to wait for bnb.
-This was applied for other waiting/ clearing functions, too.
-
-One question left:
-
-Are the timeouts fine, while in an atomic context ?
-One second seems to be rather high.
-
-Kind regards,
-
-Thilo Zirnstein
+Signed-off-by: Thilo Zirnstein <thi.zirnstein@gmail.com>
 ---
+ drivers/i2c/busses/i2c-xiic.c | 40 ++++++++++++++++++++++++++++-------
+ 1 file changed, 32 insertions(+), 8 deletions(-)
 
-Changes in v3
-- Use atomic-save functions for waiting and clearing.
-- Fix intendation
-- Unintentional changes removed
+diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.c
+index ba560462d451..e68e17bdf0ba 100644
+--- a/drivers/i2c/busses/i2c-xiic.c
++++ b/drivers/i2c/busses/i2c-xiic.c
+@@ -233,6 +233,8 @@ static const struct timing_regs timing_reg_values[] = {
+ #define XIIC_RESET_MASK             0xAUL
 
-Changes in v2:
-- Unintentional changes removed.
+ #define XIIC_PM_TIMEOUT		1000	/* ms */
++/* timeout waiting for bus busy */
++#define XIIC_BB_TIMEOUT_US	1000
+ /* timeout waiting for the controller to respond */
+ #define XIIC_I2C_TIMEOUT	(msecs_to_jiffies(1000))
+ /* timeout waiting for the controller finish transfers */
+@@ -394,6 +396,30 @@ static int xiic_wait_tx_empty(struct xiic_i2c *i2c)
+ 	return 0;
+ }
 
-Thilo Zirnstein (2):
-  i2c: i2c-xiic: fix clearing of bnb irq
-  i2c: i2c-xiic: fix waiting/clearing while atomic
++static void xiic_clear_en_bnb(struct xiic_i2c *i2c)
++{
++	u8 sr = 0, isr = 0;
++	int ret;
++
++	isr = xiic_getreg8(i2c, XIIC_IISR_OFFSET);
++	if (!(isr & XIIC_INTR_BNB_MASK)) {
++		xiic_irq_en(i2c, XIIC_INTR_BNB_MASK);
++		return;
++	}
++
++	ret = read_poll_timeout_atomic(xiic_getreg8, sr,
++			sr & XIIC_SR_BUS_BUSY_MASK, 0, XIIC_BB_TIMEOUT_US, 0,
++			i2c, XIIC_SR_REG_OFFSET);
++
++	if (ret) {
++		dev_err(i2c->dev, "Failed to clear bnb\n");
++		return;
++	}
++
++	xiic_setreg8(i2c, XIIC_IISR_OFFSET, XIIC_INTR_BNB_MASK);
++	xiic_irq_en(i2c, XIIC_INTR_BNB_MASK);
++}
++
+ /**
+  * xiic_setclk - Sets the configured clock rate
+  * @i2c: Pointer to the xiic device structure
+@@ -883,9 +909,6 @@ static irqreturn_t xiic_process(int irq, void *dev_id)
+ 	}
 
- drivers/i2c/busses/i2c-xiic.c | 68 ++++++++++++++++++++++++++++-------
- 1 file changed, 55 insertions(+), 13 deletions(-)
+ 	if (pend & XIIC_INTR_BNB_MASK) {
+-		/* IIC bus has transitioned to not busy */
+-		clr |= XIIC_INTR_BNB_MASK;
+-
+ 		/* The bus is not busy, disable BusNotBusy interrupt */
+ 		xiic_irq_dis(i2c, XIIC_INTR_BNB_MASK);
 
+@@ -1030,7 +1053,7 @@ static void xiic_start_recv(struct xiic_i2c *i2c)
+
+ 		xiic_setreg16(i2c, XIIC_DTR_REG_OFFSET, val);
+
+-		xiic_irq_clr_en(i2c, XIIC_INTR_BNB_MASK);
++		xiic_clear_en_bnb(i2c);
+ 	} else {
+ 		/*
+ 		 * If previous message is Tx, make sure that Tx FIFO is empty
+@@ -1097,7 +1120,7 @@ static void xiic_start_recv(struct xiic_i2c *i2c)
+
+ 	if (i2c->nmsgs == 1)
+ 		/* very last, enable bus not busy as well */
+-		xiic_irq_clr_en(i2c, XIIC_INTR_BNB_MASK);
++		xiic_clear_en_bnb(i2c);
+
+ 	/* the message is tx:ed */
+ 	i2c->tx_pos = msg->len;
+@@ -1181,11 +1204,11 @@ static void xiic_start_send(struct xiic_i2c *i2c)
+ 		/* Clear any pending Tx empty, Tx Error and then enable them */
+ 		xiic_irq_clr_en(i2c, XIIC_INTR_TX_EMPTY_MASK |
+ 				XIIC_INTR_TX_ERROR_MASK |
+-				XIIC_INTR_BNB_MASK |
+ 				((i2c->nmsgs > 1 || xiic_tx_space(i2c)) ?
+ 				XIIC_INTR_TX_HALF_MASK : 0));
+
+ 		xiic_fill_tx_fifo(i2c);
++		xiic_clear_en_bnb(i2c);
+ 	} else {
+ 		/*
+ 		 * If previous message is Tx, make sure that Tx FIFO is empty
+@@ -1227,8 +1250,9 @@ static void xiic_start_send(struct xiic_i2c *i2c)
+
+ 		/* Clear any pending Tx empty, Tx Error and then enable them */
+ 		xiic_irq_clr_en(i2c, XIIC_INTR_TX_EMPTY_MASK |
+-				XIIC_INTR_TX_ERROR_MASK |
+-				XIIC_INTR_BNB_MASK);
++				XIIC_INTR_TX_ERROR_MASK);
++
++		xiic_clear_en_bnb(i2c);
+ 	}
+
+ 	i2c->prev_msg_tx = true;
 --
 2.43.0
 
