@@ -1,98 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339964502F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:17:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01997335067
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:17:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.83
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792117066; cv=none; b=IGYgJsrCYAHj5wfLTDLj5DkLxA9H57KO/IKIDJD0CGVksE/VJVrfZT5noVxkQt+We8NsmnG0uAKizSuzrrPD9n7sp+qzPzbyuukVnn82WRI/dDJer2JKiekS+QIcIHxegnXxYP8IQE+c79l0K9qIU78x2BwmjrTKhJGzLN7gUqg=
+	t=1792117069; cv=none; b=uVaYBMcz2aUageI1RyUK2KcrIP1uNx3JncmRtB/VkID6mJHDyiTx1TCJACoPWzeYdiXSwp/KltynVDRDEQOYJJdrIUasYZ1WuHF4HKBJWA1TFxa01FjkaJ2kHGxBIygdgZEoi56RTazRVnFmUiWBoECaE7En/GMABw8zwJK59O0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792117066; c=relaxed/simple;
-	bh=xErXpopCd8UN+mMGNFM56AAFKWg1/RDBwJYs7e0gnUw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yi13WyT6tfmjOyCEuHRb8wicVyAHBcSjgqucVLQitiW9hwf9Q0J+fKjfhXCBDXDYHCM2eB6THRB5B00rtfsrbo4jT/8SgHOaN+QW80g1Da8FMXHhSKzAfShL794RsSrtt24JHZGc7np4hMoFSmJFuzX9GKaigbBpkTUIo3oVLsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mT7GrIVY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792117069; c=relaxed/simple;
+	bh=8CVjULxw1Qae8Qz6Vwp8+Ozk2dvMPLfvrgZOdhJxKdQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=nhUusQEXDh8aQBNRmMTG6P2bTaStHr5kteHpk8XMTGQZZgPf5gfTx/VL7PCmFI/L18p/Ckreix/5Lmv/Y3WSipEFrDRlR3Z+sYExIpwp5WRRvYpDJMKHXM4fm9yoyMyu5Fs35bzM3xNPYFmP45SXcMBuzEUHz5mrz2k3XiDjbyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=lhH97SQU; arc=none smtp.client-ip=192.134.164.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mT7GrIVY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F188E1F000C4;
-	Fri, 16 Oct 2026 02:17:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792117064;
-	bh=L94us/dI4Z6GcNc8VtVqCl6M0xP+pjDIX04oSImnsOo=;
-	h=From:To:Cc:Subject:Date;
-	b=mT7GrIVYHl56Ghyh8drgVZIDxkh6da8hLUoTenII2SL7fBgbx8OHUcmHH3aXwrQiM
-	 dcbvuZADqHjWgx4iNxhiBbnIOoZucL9MO+EaH6MrnlKnjSp4pnb27/edeMN8Br+6uJ
-	 NakC3wPUUlGOwZpmrZXx/22XY9p4Me7uRJ8lTlGAIN0h5rwG09WOgC6NKFVsqsF7Nr
-	 hcHmwG5rAyOwACM9F/gJlwivjH9espZWMboudKjTSAokC3pffqoX28Lm/jg6a9oobx
-	 qhUc+VgougzxYXJTh0q/ftLEeBAVGGwj0oFgwFDJmwv6tTbrz2aCZwmAWCOFUuJu4e
-	 uq1p3QlPn9WUg==
-From: Chao Yu <chao@kernel.org>
-To: jaegeuk@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Daeho Jeong <daehojeong@google.com>
-Subject: [PATCH] f2fs: fix to avoid potential reference count leak in do_garbage_collect()
-Date: Fri, 16 Oct 2026 10:17:37 +0800
-Message-ID: <20261016021737.4121867-1-chao@kernel.org>
-X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
+	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="lhH97SQU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=qSKq1SQxgrg3nMP6/wpK9hSRG2aMAkgSMQurDxr0tnM=;
+  b=lhH97SQUvly31jMdMdb5xenP2oszSt1WN89c81icY9eK1LqI20gkX1em
+   ETSZAoPtjJ1LYC0tZpWfi3T2TUpFYGEHbLQFfuilb4fJeLweC0GlifUYH
+   mREPzND9ajFVFPn7jeYosabFvbOcRDm072sj0wgToS0P6YYQ8zfhokqyl
+   s=;
+X-CSE-ConnectionGUID: DEb1+WoYT0mGWeFYXLSQ5A==
+X-CSE-MsgGUID: PINxWsyBR3maTnnRMwdIuw==
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.27,161,1787004000"; 
+   d="scan'208";a="300457787"
+Received: from static.host-68-71-1-178.nrbn.ca (HELO hadrien) ([68.71.18.178])
+  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 04:17:37 +0200
+Date: Thu, 15 Oct 2026 22:17:35 -0400 (EDT)
+From: Julia Lawall <julia.lawall@inria.fr>
+To: Okhuomon Ajayi <okhuomonajayi54@gmail.com>
+cc: outreachy@lists.linux.dev, Johan Hovold <johan@kernel.org>, 
+    Alex Elder <elder@kernel.org>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: greybus: add blank lines after struct definitions
+ in gbphy.h
+In-Reply-To: <20261015222735.89251-1-okhuomonajayi54@gmail.com>
+Message-ID: <fcdee571-d94c-a5ae-5ae5-b41977f22073@inria.fr>
+References: <20261015222735.89251-1-okhuomonajayi54@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-From: Chao Yu <chao@kernel.org>
 
-In do_garbage_collect(), we have reserved reference counts on summary cache
-of all segments, once gc_thread encounter freezing, we need to release all
-reference counts.
 
-Cc: stable@kernel.org
-Cc: Daeho Jeong <daehojeong@google.com>
-Fixes: 02d91398a602 ("f2fs: fix to freeze GC and discard threads quickly")
-Signed-off-by: Chao Yu <chao@kernel.org>
----
- fs/f2fs/gc.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
+On Thu, 15 Oct 2026, Okhuomon Ajayi wrote:
 
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 5bb117e5e811..ad6f604cc27f 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -1901,6 +1901,9 @@ static int do_garbage_collect(struct f2fs_sb_info *sbi,
- 		if (block_end_segno > end_segno)
- 			block_end_segno = end_segno;
- 
-+		if (unlikely(freezing(current)))
-+			goto next_block;
-+
- 		if (is_cursec(sbi, GET_SEC_FROM_SEG(sbi, segno))) {
- 			f2fs_err(sbi, "%s: segment %u is used by log",
- 							__func__, segno);
-@@ -1968,12 +1971,6 @@ static int do_garbage_collect(struct f2fs_sb_info *sbi,
- 				sbi->next_victim_seg[gc_type] =
- 					(cur_segno + 1 < sec_end_segno) ?
- 					cur_segno + 1 : NULL_SEGNO;
--
--			if (unlikely(freezing(current))) {
--				f2fs_put_cache(sum_entry, false);
--				f2fs_put_cache(sum_entry, false);
--				goto stop;
--			}
- 		}
- next_block:
- 		f2fs_put_cache(sum_entry, false);
-@@ -1981,7 +1978,6 @@ static int do_garbage_collect(struct f2fs_sb_info *sbi,
- 		segno = block_end_segno;
- 	}
- 
--stop:
- 	if (submitted)
- 		f2fs_submit_merged_write(sbi, data_type);
- 
--- 
-2.49.0
+> Add blank lines between the structure definitions and the
+> to_gbphy_dev() and to_gbphy_driver() macros to improve
+> readability. This fixes the following checkpatch warning:
 
+Thanks for the patch.  But I suspect that the lack of a newline was
+intentional, to show that the #define is closely associated with the
+previous structure declaration.
+
+julia
+
+>
+> CHECK: Please use a blank line after function/struct/union/enum
+> declarations
+>
+> Signed-off-by: Okhuomon Ajayi <okhuomonajayi54@gmail.com>
+> ---
+>  drivers/staging/greybus/gbphy.h | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/staging/greybus/gbphy.h b/drivers/staging/greybus/gbphy.h
+> index d4a225b76338..1de510499480 100644
+> --- a/drivers/staging/greybus/gbphy.h
+> +++ b/drivers/staging/greybus/gbphy.h
+> @@ -15,6 +15,7 @@ struct gbphy_device {
+>  	struct list_head list;
+>  	struct device dev;
+>  };
+> +
+>  #define to_gbphy_dev(d) container_of(d, struct gbphy_device, dev)
+>
+>  static inline void *gb_gbphy_get_data(struct gbphy_device *gdev)
+> @@ -43,6 +44,7 @@ struct gbphy_driver {
+>
+>  	struct device_driver driver;
+>  };
+> +
+>  #define to_gbphy_driver(d) container_of(d, struct gbphy_driver, driver)
+>
+>  int gb_gbphy_register_driver(struct gbphy_driver *driver,
+> --
+> 2.43.0
+>
+>
+>
