@@ -1,117 +1,210 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541B43A1686
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:52:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58DE545039;
+	Fri, 16 Oct 2026 23:52:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792194724; cv=none; b=TGIfUCEf5Y7KkRs6pNxwpQ5h3okRhTeIpJPBJNUkMJa6ykfkAQ/93W9mBRrK7znQ5uRSfkgNMPwhCSsy+bzQqsKNitUDFLuq3U0QSGMaH5EDUPJKHcZo7Y9xgAQZ6LX9z9xqYYjFUMfCKibhHOJ4y9iKe53fDhMJrp8XJ7lSZD8=
+	t=1792194767; cv=none; b=YEXdt5ibb9FEtLQqh4QGRZQUZ+Io06+4Ow18O4uYgDzPoKGH5TUQQLjxkRG2T1pA5TcXI/jZCA82gkeiAN5Mb+hTiEiZsX58DbhZpDUPIut53wp7MnVuFF6KFEryTiaIO7iBcnFQsXzgF2xD9+I9JKkqHMFelQZmwMvLc+5xRfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792194724; c=relaxed/simple;
-	bh=encltDdbwP86iA3t/RWo0uh5+73YF5lHb4R7QxtVGSc=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:MIME-Version; b=MKDxOfMRLQK5vGE3/oTeNFyIb0vTIdMl9UJ4lKOSDzllZmwZ9oD/rd9MElcgzKjZy6kHtwHOHit6Ptobgv7Q4FuVgNlPjUYy2fZQaziD8bk9oSdwwr1+OPvph16uXAGLlJVkeYKOKrFb78OGLt4ZTctzcXbH0HgjI81jf6dTQ5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i5/ESChz; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792194767; c=relaxed/simple;
+	bh=QXilKyRqJrwNMzcX7XioD1gEYG2j2+eesqh+yf+HYU4=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=GlLn/hdlp89nv9crw+xiMOjnFI9YJ/F4/ONWjzLP2mnnADZHgFdYPZoTuH6qJWgYNRMfayEy3t+4GrGRf8asaQe/u7uTfz6jYTQjTfdHweCpKwg7mwp3GkT/qA56gPH8JN7Ww/cY6r2Sj6kjIQR58NrQfEaZTyKLw2XBbMOjHvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=yqe0fViP; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i5/ESChz"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e934449bb0so2988105ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:52:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792194723; x=1792799523; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LEuEMUsoi9gqHznlDv6aFR0STWW3QPHsNbZxVfkH0AU=;
-        b=i5/ESChzehoZqOnDmo5QAe0grXmsnQAgamVuu3FZMvSX7rkfz233i3eXVjUafU0CUg
-         5R2J5BXI3uZVWVhZjAyiK/Y47KmBv86SieFhGQROGXAP1/PZRPkBQ0hRYmZiR3DAVgdH
-         SX5yslwd4sIN4Teo+rON6BhgNnGWVDTfMEAP8z5a4OC769lzWBFaEj4iu+DwUwmzouWf
-         N5Cn+AdjCYlNdjltdOzblD1LBONRTNvbrJ4e+bBplr7haKc8YJsCVPS6Y6VE8qvZ47Ss
-         ifHHFHhFZXuWxfieLzAMV6u8PdlqiR1PcuWM77jX4TJyUBY1glqZJA6RWU+TUsJMYclZ
-         73Sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792194723; x=1792799523;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LEuEMUsoi9gqHznlDv6aFR0STWW3QPHsNbZxVfkH0AU=;
-        b=1RXbcWJdM0gc5kbjOgooa4G2ciBN/1qWPi3CspZPXHAzcV0W6XVsnoO+ePMKWXYrOr
-         hJgpZUd5Bp8dMJNVXYCabiBrVdZG3N0dln3Ld9CgNgDZFgXnRTkk8ZK+EUDfubd/9Jj2
-         MHB9z8qXxPuDGzJgiNnwIEguXM7T1YuPqLdqRSE5SfAh/IhrzPqn5RCFNWdDCHDZuKr4
-         o/IDC1neXkJi7BcMJzk1sFZbaICXHU05NVdzHWpoH9M3Ec+xVsO/YS+VJtHvuANUtY4w
-         /Bs81GkQxZ58Qaad2RQAOfY77RmcncdQiPg7XssXmhxAhkCkURRFooAr4be6raWwm9pS
-         a+Jw==
-X-Forwarded-Encrypted: i=1; AKwUvBzvtFJmVoZ1l2VAyzvxu2IGvsb9yBrIDPzvfA393ksrG54rvHvBK8JB3lsvyDtQmKMm5jrzXUzCzTMrN5U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvufLVXrWea9T1pLW8iNQOarrzmfwEthY/hylhRwhE20dIQEyA
-	b4JXGVZibJ/qAUg1RSNFqF6aAeJcKrHSv4RWY/TPMV6/v12WyvP1OoK9
-X-Gm-Gg: AYBFou239vFaajmI0bCes+KGOyAtB+HoK6d8DzY32kpN6tKrVgGWB/yvCaPxpxTqEHP
-	abR+4sJ5ockgH1+L5eyim8rCVM2pseTOdW/6RNrgezjWCI1fYW//odErKFAelsfipHELpusbMbw
-	eXspsydCw8P4dJg0uac99/33WLKVPhXWfrw/X93APH8P/0c/gZiA1OkGm1ho5v7e8qFJTSDs/TF
-	u+EUlE3n/nauI7KyYjdFpf13Gsy40o9B4NbGlb/ZhvoomYrpspu507VLmzsbSh8JhBejdqd3LFG
-	aNSvSH9RIqsImbMHRwcZh+GEaoc+03l+VrTurZIvRFXYux/qVl18foA7+vUsqrfikx437oUGG6t
-	UIXt754hnHVWN9CUpagekwGSNVKD0XqLDDOC1c1tUwDI6tXKLJQQY2RiQRSoBB6kc49mJC4xYeI
-	5aqTz7kJgImexCifgYA+B1GqdIhzQGD8RGKuTPN2UWvnGqlH99obARgD910lUwCxOYDJ2xwWs5Q
-	lM70MX8FNazejVa6GhW2Rj/z7iGHetI+X7ujs9h094a+CmMogIZ3cbcmpe4EBQ/49bLaIzeHXau
-	T9mKlIKZZ3OBsg==
-X-Received: by 2002:a17:903:370b:b0:2e9:55fc:ded2 with SMTP id d9443c01a7336-2e9a6d1f605mr14152635ad.52.1792194722571;
-        Fri, 16 Oct 2026 16:52:02 -0700 (PDT)
-Received: from localhost ([153.61.198.253])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e833ffdsm16714415ad.32.2026.10.16.16.52.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 16:52:02 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 16 Oct 2026 23:52:01 +0000
-Message-Id: <DM6O08VBRY20.1PFUYACCZ38JL@gmail.com>
-Cc: <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Sashiko" <sashiko-bot@kernel.org>, "Jakub
- Sitnicki" <jakub@cloudflare.com>
-Subject: Re: [PATCH bpf-next 2/3] bpf, sockmap: Restrict iter-context
- sockmap updates to iter/sockmap
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Michal Luczaj" <mhal@rbox.co>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
- Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
- <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
- <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa"
- <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor
- Solodrai" <ihor.solodrai@linux.dev>, "Shuah Khan" <shuah@kernel.org>, "John
- Fastabend" <john.fastabend@gmail.com>, "Lorenz Bauer" <lmb@cloudflare.com>
-In-Reply-To: <20261016-sockmap-update-limit-iter-v1-2-23fa946db59e@rbox.co>
-References: <20261016-sockmap-update-limit-iter-v1-0-23fa946db59e@rbox.co> <20261016-sockmap-update-limit-iter-v1-2-23fa946db59e@rbox.co>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="yqe0fViP"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:Subject:Cc:To:From:
+	Message-ID:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=aGtv9OjoqZMn1pYmcItOtLJ0759sNOoF1i5JiX/CXbs=; b=yqe0fViP+IiKkRAbNTNjoRbvlY
+	mlITTZtVhZq83KAWVsfAbeTWJdHa1f5wX9yTSpGVgK3+pGn/rCxUMZeHJBunADNz3/vTwyLSrzSDH
+	ERK8A7wAmiymda9Ri5rZM7EZq26/Dt19LDeZavumh3o3kYCqmkngN/X4WGNE/qA2FVOlrvJE6ufkN
+	SvL7i/kQTwC1J0ijus3sj8Qi43h7NwVFhNBs2ZBNkcchPFvN0eqnKCeDvgNV/h2ITdS03V10SmVA/
+	n6PivAV6IXTAJNQCAoXH+HWw5DNqq8DiOcWFCGhML0ZDswgMKJErqqSsUgyNXwvlwUOp64W+6nfju
+	koD95p6A==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1xHrj8-00000003pDj-1oWX;
+	Fri, 16 Oct 2026 20:52:42 -0300
+Message-ID: <fcf60d2f4382fc7ccd77ea41c5e55b50@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Christian Brauner <brauner@kernel.org>, Mark Brown <broonie@kernel.org>,
+ linux-cifs@vger.kernel.org, linux-next@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] smb client changes for v7.4
+Date: Fri, 16 Oct 2026 20:52:42 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain
 
-On Fri, Oct 16, 2026 at 11:09 PM Michal Luczaj <mhal@rbox.co> wrote:
-> [2]: commit 64c2f93fc325 ("bpf, sockmap: Take state lock for af_unix iter")
+Linus,
 
-unix_state_lock() in bpf_iter_unix_seq_show() was added only for
-unix_stream_bpf_update_proto() called from the iter prog.
-iter/unix cannot get there anymore.
-can we drop it ? can be a follow up...
+Please pull the following smb client changes for v7.4.  These are mostly
+cleanups, a number of fixes (crashes, out-of-bounds reads and
+data-integrity bugs), support for changing SMB compression through
+chattr and internal CIFS version removal.
 
-> +		if (eatype == BPF_TRACE_ITER &&
-> +		    env->prog->type == BPF_PROG_TYPE_TRACING &&
-> +		    !strcmp(afname + strlen(BPF_ITER_FUNC_PREFIX), "sockmap"))
->  			return true;
+This conflicts with the vfs tree in fs/smb/client (mnt_idmap
+constification, fscache_resize_cookie() and transport.c).  The
+resolution is trivial and linux-next has been carrying it for a while.
 
-iter/sockmap prog is not limited to ctx->sk it seems.
-bpf_skc_to_unix_sock(ctx->sk)->peer is a plain PTR_TO_BTF_ID and
-the value arg of bpf_map_update_elem() accepts it.
-The peer doesn't have to be in any map, so it has no psock,
-and sock_map_seq_show() holds nothing but rcu.
-sock_map_update_elem() takes bh_lock_sock(), then sock_map_link() does
-sk_psock_init() and unix_stream_bpf_update_proto() on a socket
-that unix_release_sock() can be tearing down.
-That's the same unlocked socket as in iter/task_file.
+Thanks,
+Paulo
 
-Should we restrict it to ctx->sk somehow?
+----------------------------------------------------------------
+The following changes since commit ff47652a4b66c067c765a7ad464d930b5a9367cc:
 
-pw-bot: cr
+  Merge tag 'cifs-fixes-7.3-rc6' of https://git.manguebit.org/linux (2026-10-02 14:04:11 -0700)
+
+are available in the Git repository at:
+
+  https://git.manguebit.org/linux.git tags/cifs-for-7.4
+
+for you to fetch changes up to 78f73985846465a25a7bd1d89904053661f3ca92:
+
+  smb: client: reclaim credits for decrypted reads with no matching mid (2026-10-15 16:45:30 -0300)
+
+----------------------------------------------------------------
+ - Implement ->fileattr_set so chattr(1) compression changes (chattr +c/-c)
+   go through the generic VFS fileattr path and its permission and
+   serialization checks instead of the raw FS_IOC_SETFLAGS fallback and
+   remove the now-unreachable file flags ioctl handlers
+
+ - Require stable pages when the connection is signed or SMB compression is
+   enabled, so a buffered write can no longer modify a folio that is still in
+   flight and corrupt its signature (surfaced as -EIO) or, with compression,
+   silently corrupt the data stored on the server
+
+ - Stop breaking a file's just-granted lease while probing it for a
+   Minshall+French symlink, by reusing an already open handle or opening with
+   the inode's lease key
+
+ - Fix several out-of-bounds reads and use-after-free bug in SMB1
+
+ - Fix an use-after-free bug in cifs_ses_add_channel()
+
+ - Fix a NULL pointer dereference in the demultiplex thread when an encrypted
+   read response matches no outstanding request and reclaim the credits
+   granted on such responses to avoid starving the connection of credits
+
+ - Fail sends fast when the connection needs to reconnect
+
+ - Drop the redundant nls_table argument threaded through the session setup,
+   tree connect and path-based call paths, allocate the session setup state
+   on the stack and remove the internal CIFS version number along with a
+   batch of write-only fields and commented-out code
+
+----------------------------------------------------------------
+Diego Oliva (7):
+      smb: client: fix use-after-free infoleak via the readdir resume name
+      smb: client: fix OOB last_entry pointer from unbounded LastNameOffset
+      smb: client: fix OOB read of the resume name sent in TRANS2_FIND_NEXT2
+      smb: client: fix OOB read in the SMB_FIND_FILE_UNIX name scan
+      smb: client: reject FIND data areas that run past the received response
+      smb: client: reject short or out-of-range FIND response parameters
+      smb: client: drop the redundant name bounds in cifs_filldir()
+
+Enzo Matsumiya (1):
+      smb: client: fast fail sends if need to reconnect
+
+Henry Martin (1):
+      smb: client: fix use-after-free in cifs_ses_add_channel()
+
+Huiwen He (2):
+      smb: client: implement fileattr_set for compression flags
+      smb: client: remove unused file flags ioctl handlers
+
+Paulo Alcantara (49):
+      smb: client: rename mfsymlink helpers to the smb2_ prefix
+      smb: client: set lease_granted before revalidating inode in cifs_nt_open()
+      smb: client: avoid breaking the file lease when probing mfsymlinks
+      smb: client: log the selected security type on session setup failure
+      smb: client: remove commented-out ntlmv2_support definition
+      smb: client: remove commented-out i_flags assignment
+      smb: client: remove commented-out cancel_*_requests() calls
+      smb: client: remove commented-out oplock assignment
+      smb: client: remove commented-out write debug message
+      smb: client: remove commented-out LOCK_RSP declaration
+      smb: client: remove commented-out QPathInfo debug message
+      smb: client: remove commented-out CIFSSMBWinSetPerms() call
+      smb: client: remove commented-out time conversion debug message
+      smb: client: remove commented-out Unix caps assignment
+      smb: client: clean up cifs_buf_release()
+      smb: client: remove the internal CIFS version number
+      smb: client: remove unused overrideSecFlg from struct cifs_ses
+      smb: client: remove write-only max_rw from TCP_Server_Info
+      smb: client: remove write-only sec_kerberosu2u from TCP_Server_Info
+      smb: client: remove write-only signing_negotiated from TCP_Server_Info
+      smb: client: remove unused num_acl_set stat from cifs_tcon
+      smb: client: size smb2_compound_vars.qi_iov for the padding iov
+      smb: client: drop redundant nls_table arg from SMBSetInformation()
+      smb: client: drop redundant nls_table arg from CIFSSMBSetPathInfo()
+      smb: client: drop redundant nls_table arg from ->set_EA()
+      smb: client: drop redundant nls_table arg from build_avpair_blob()
+      smb: client: drop redundant nls_table arg from calc_ntlmv2_hash()
+      smb: client: drop redundant nls_table arg from setup_ntlmv2_rsp()
+      smb: client: drop redundant nls_table arg from build_ntlmssp_negotiate_blob()
+      smb: client: drop redundant nls_table arg from build_ntlmssp_smb3_negotiate_blob()
+      smb: client: drop redundant nls_table arg from build_ntlmssp_auth_blob()
+      smb: client: drop unused nls_table arg from ascii_oslm_strings()
+      smb: client: drop redundant nls_table arg from unicode_domain_string()
+      smb: client: drop unused nls_table arg from ascii_domain_string()
+      smb: client: drop redundant nls_table arg from unicode_ssetup_strings()
+      smb: client: drop unused nls_table arg from ascii_ssetup_strings()
+      smb: client: drop redundant nls_table arg from decode_unicode_ssetup()
+      smb: client: drop unused nls_table arg from decode_ascii_ssetup()
+      smb: client: drop redundant nls_table arg from ->sess_setup()
+      smb: client: drop redundant nls_table arg from cifs_setup_session()
+      smb: client: drop redundant nls_table arg from ->tree_connect()
+      smb: client: drop redundant nls_table arg from CIFSPOSIXDelFile()
+      smb: client: drop redundant nls_table arg from CIFSPOSIXCreate()
+      smb: client: drop redundant nls_table arg from SMBLegacyOpen()
+      smb: client: drop redundant nls_table arg from CIFSSMBRenameOpenFile()
+      smb: client: allocate struct sess_data on the stack
+      smb: client: allocate struct SMB2_sess_data on the stack
+      smb: client: require stable pages for SMB compression
+      smb: client: reclaim credits for decrypted reads with no matching mid
+
+Zikang Gao (1):
+      smb: client: do not pass a NULL buf to is_oplock_break()
+
+ fs/smb/client/asn1.c        |   2 -
+ fs/smb/client/cifs_debug.c  |   1 -
+ fs/smb/client/cifsencrypt.c |  31 +++--
+ fs/smb/client/cifsfs.c      |  11 +-
+ fs/smb/client/cifsfs.h      |   5 +-
+ fs/smb/client/cifsglob.h    |  26 ++---
+ fs/smb/client/cifsproto.h   |  19 +--
+ fs/smb/client/cifssmb.c     | 183 +++++++++++++++++------------
+ fs/smb/client/connect.c     |  59 +++++++---
+ fs/smb/client/dfs.c         |   6 +-
+ fs/smb/client/dir.c         |   1 -
+ fs/smb/client/file.c        |   7 +-
+ fs/smb/client/inode.c       |  36 +++---
+ fs/smb/client/ioctl.c       | 165 ++++++++++++--------------
+ fs/smb/client/link.c        | 273 ++++++++++++++++++++++++++++++++------------
+ fs/smb/client/misc.c        |   4 +-
+ fs/smb/client/netmisc.c     |   3 -
+ fs/smb/client/ntlmssp.h     |  11 +-
+ fs/smb/client/readdir.c     |  80 +++++++++----
+ fs/smb/client/sess.c        |  37 +++---
+ fs/smb/client/smb1ops.c     |  14 +--
+ fs/smb/client/smb1proto.h   |  21 ++--
+ fs/smb/client/smb1session.c | 120 +++++++++----------
+ fs/smb/client/smb2glob.h    |   8 ++
+ fs/smb/client/smb2inode.c   |   7 +-
+ fs/smb/client/smb2ops.c     |  36 +++---
+ fs/smb/client/smb2pdu.c     |  66 +++++------
+ fs/smb/client/smb2pdu.h     |   3 +
+ fs/smb/client/smb2proto.h   |  17 ++-
+ fs/smb/client/trace.h       |   2 +
+ fs/smb/client/transport.c   |  33 ++++++
+ fs/smb/client/xattr.c       |   2 +-
+ 32 files changed, 740 insertions(+), 549 deletions(-)
