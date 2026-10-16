@@ -1,226 +1,123 @@
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022085.outbound.protection.outlook.com [52.101.96.85])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CA6175A85;
-	Fri, 16 Oct 2026 05:31:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.85
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792128694; cv=fail; b=oLeJC2VzqTCbQQDg0zv5vNw/0W29UXTHkLwwrjl/QCPOCt4H5wkJF5XIhjh6E2cgyLhJ/+abGJVzVOw0JHu0xJTtqHrEuGuH3N8J3RPO4wnDo8aWTAkZOwIGrsBZwN/H0b8BGM8CTNhvwuqu+bQ6diiKxgM0C/sX03O0IexXQ0g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792128694; c=relaxed/simple;
-	bh=Av4jMjQAAYqyurxSalO8pMO1lSX6Q2ipRwTU8dDBTP4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=DDA7Uhdvzs3oAlsbvhWfh4YNx3EO7zMoFR8qX05QZkmeI6Vkj1gdTdgONLvT4jynv0uYHo3i9bPSQmo7etao7jrZQ10Pcm2WGmknThgn36rHbjiVBwYuRg9AaOQRRodYUeOOK6CffDgboduF6lDsBuTUdnW4J3qaJoszmeIpo7Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.96.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=APRtfXIwNFxLpJ7MIPdEEWhGU921KpPXVdAvX2Hgr3tJVle+ElXbTD+PPIkk8HZSFTqULSOEyoh8OOqIoWMqNBD+UrJPJe14NNZyZvCRUbWNAsDGgHrtl4yWKn3QPhZI4Bs6jB4l6M+V3B0qEFrvC+HkSyN1D/BUJeUUwa9oQAOZk6mFdLYMJAqiXTxJFYG6dEJ2XJhFo1HkYSvcH/A5YmDW8xmbXsgTvSIdvQGFr+DeGi67iYBVPzaDK1nSs2FXZ/rOG34hJRgCfQT2M+LXP/UHHE476HIn0CcjPa4AJnJYWM5ljdnPxLTJBCgYbb2UEYsvUAcZV45PT31d98RE3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=DE8nbJ1F5xYJhQLp15HiYM1epb9kI9P94uD++uao91E=;
- b=ZCKsfQiGsLbO8/zvloFc2tZLpZFZbEhmvEQRfERayvMZnD7Z71QzJAsmpMbKjbo0OELWjMIp9LfWGEOBC6Pr6Ecl4qytBV82DuLSuAZrGQJF4qvxiMIbshYOmRKFQxIkd+nGirnEUsA4Lw2j+bx72NB3jnxydQzL8Wg8wsbsuAo/RDWTof4/+piikCmtWo8r17hox5I3C4MhTfz6fRZjRyZGcvAnWc6FP782wGolZLjgM/bIjO1J3Ni5fRFnb/K7yjttmHR+1H7gnH5GypLXi91EXXnX7Q2NYu0c5wC1dr+KK4yShVO7g98i4fg8WPySqgWKt0Y/uxJQUdGnX4A3Ug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LOYP123MB3149.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:e3::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Fri, 16 Oct
- 2026 05:31:28 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 05:31:28 +0000
-Date: Fri, 16 Oct 2026 01:31:24 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
-	linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH v2] perf c2c: Fix memory leaks on output fields
-Message-ID: <mvp32oxysbmvji6peauvhe73kqwh744on6ba2damsqahbobknf@63lxcn54rojb>
-References: <20261015233237.542258-1-namhyung@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261015233237.542258-1-namhyung@kernel.org>
-X-ClientProxiedBy: SA0PR11CA0078.namprd11.prod.outlook.com
- (2603:10b6:806:d2::23) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC4E175A85
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792128779; cv=none; b=I2OUsPqhdtdf6PVkHnh4Br7cZqqQKWOVwVqvtLMxN2O77eFThN4miXKFBOphDZgBOTxALPFVo7dFESNooKR9I9f++IecGvN52FM3kG0eCfXDcwlYWZkK4fRZG4XI1Mbev6Qg+3ZNofkJai6M0Yxih2RYxBFlv0EqANkDfnTpBP4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792128779; c=relaxed/simple;
+	bh=lYuyURMuIbppUXXXJrgW4gw+eqD6yqHCNHsM9EaqF0s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sUE//947CaUSMu5c0EH+si64Ue0+QDxZ2v9qb3Rg3E6CpSoxbZht6QMvI8kfH4kvUiCnLPFIAXCZ2RmZX0XFJJlbWyquhoOaRFMqBbH2S7j2DoeByEM7JMNzJAHzwfu0lkNtXiQACDp1lh6DlWPv+gWF/jUE6KyY4A7ugQ7o4nM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jypHDWXj; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jypHDWXj"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48afcb1e5f9so803347f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:32:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792128776; x=1792733576; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CkZFo6ItG/Epf7kTNm0ZIiNbcMGEza7urQULiKNKTAE=;
+        b=jypHDWXjFGqZV8Ir3dOJ3E0tw5U/AXMOhXvsdzgqjZJJTWVIwCTOdDIqVKs+Qavoqe
+         cmx5Yka+qfzgIS47ffH1j+wFi4m18ZhL8UW4jbNcoOgwKurFLd2sDr8X4RspD4pd82wH
+         1YBqxX0c0lU3zB8BnUpNgEmnZQKiNn9tZ1faADiOu0VZiyJTHoMzUFLiTVxkn9HgCeNe
+         dbxkItYdw5LhC0NhqeJmgRXiOj6TZobpvApIKPjsDh2JUEyZ3l7SdlC5xvU1JIqo7NpT
+         OeamfE+yy0IGv36M7Yx52x5fq1pzrPIrbGWnpdzJeqyFcZT7pUPiuQi+oGCx5Yx7Dd2E
+         g58g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792128776; x=1792733576;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CkZFo6ItG/Epf7kTNm0ZIiNbcMGEza7urQULiKNKTAE=;
+        b=PjeMp+erPv3OidAEuVZbExuVTkIQf+HEVCUnoDzASK+jINX+Ei6YPXu1H0ed0/bOL7
+         jon+mhyYaVMSncHx4XUlYwwDoRgZq2gunV0p2xHlWZKPXxaCydJczyqom/906TFXkP0o
+         ioOGbaDRfSsHW083nJEjssfvB5K9cSeDu1uw8IV9x5IbzJFch7Mx79P/pYg7L8Lo0DjO
+         urM0fG4DuajXuCVDEt7NFFwDFluLpNFI1TGzw1Y+a4xl7xPdtJ1hThxYob3rDRn7dQXl
+         zgii3Dfm4KZxiOhj/3lvXn4hp9rmltbu7+EQX+aDao3+DcquO6+RANB1qrydEn7ZNUxK
+         rorg==
+X-Forwarded-Encrypted: i=1; AKwUvBzEbu9uPGEJVP6gYrw6G9a7F5s7shdwabaPo1frIyb+ldFZsPu5QEk00y5stzxdtLlHzM6L9kQVJ5FD0B4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuXeh6D3WhMuACQS8wGGI+keKLH8lPj2qx8h86ZZ0GFpkSYbfo
+	hR0j32nXmJoZE+C1w9vvPjKbayspgfScI/6rSnC3FdAAWwd7o4WcPuIj
+X-Gm-Gg: AYBFou09rxugJOMBmeMYeyIAAbzaRUqI9i0CG6wnVlugP5XhZmBbv9PGdHpuDTmOkQE
+	GN08rPBY0cuSbGHLC/tRGL03LNN9TzcT19/NEqjAkVw46IdRKBwvwAFAhxaWY7hTYDytEMAwAT5
+	d70OBjw1dUJeJQ/wh3+ZzBv/HRlkDVaC4UVwaO5KkBpJp2sv7yUFk79ByOnATT+Hwt46iXSSrrB
+	BKOeLKpyziW9eOzefxkdAv1XAEnv20eYlWbSb7VWLNz4Ku9/8flspM/GfcjcbnwGjUGtqekWdCD
+	8xkrHQs6tG4+xlAhchF1aJ0+fniPBU2gjHA3jX74+vw4v8DBeJmuIrzE9M6NAf528Z3io7c15RM
+	RKsSVIWQGe9Fgo7R75Rnz4Hqc+z4VDzZgWzt6dBuFG58hoqM9SJUj8zN9QqxTjyON4Eq31wOJwd
+	iaM6MsiY7KcEz0G98OUxWJVLxy5gwChu7e/Zn6AyUnDqk3CpiOuhEENbX1Be5xGfj+BHCnlZ0BK
+	3uZIPl3mhSZ+QCxbMlAqgUb9Q==
+X-Received: by 2002:a05:600c:3e19:b0:4a1:c7f3:218e with SMTP id 5b1f17b1804b1-4a1c7f32285mr31365525e9.1.1792128775912;
+        Thu, 15 Oct 2026 22:32:55 -0700 (PDT)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cf983b88sm12219055e9.7.2026.10.15.22.32.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 22:32:55 -0700 (PDT)
+Date: Fri, 16 Oct 2026 08:32:52 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Christian Loehle <christian.loehle@arm.com>
+Cc: peterz@infradead.org, bsegall@google.com, dietmar.eggemann@arm.com, 
+	juri.lelli@redhat.com, kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, 
+	mgorman@suse.de, mingo@kernel.org, rostedt@goodmis.org, tj@kernel.org, 
+	vincent.guittot@linaro.org, vschneid@redhat.com
+Subject: Re: [PATCH v2 1/4] sched: Rename/clarify
+ sched_class::task_tick(.queued) argument
+Message-ID: <atGzh4IJjRnWEif5@scheduler.schedules>
+References: <20260929085319.981147568@infradead.org>
+ <20261013171410.58340-1-kayracizmeci@gmail.com>
+ <5f98f865-6bae-494b-b08f-662e3325370c@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LOYP123MB3149:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ced2b3f-fc4b-4b19-27a8-08df2b46ba61
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|56012099006|261009223027099003|260925022911599003|260925021911599003|260925021311599003|10067099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	r/+NCcE9aw/dZxfKBKAlwlCAisK4XbufxMXT07AZkorwctjeM9ei+6av7KGUZdIUcja64i7xBqkHi7833X6w3m5mfjYkBUDEKZiNwFTxder8nP5oOFXFLHRJEu0kmfNLp4vRQKnP5rtBYHNDGqBZ0RDFfj+laBNRP2lCP44HBQvO8Hlted5qfdVXdlv/xBMV5rqsO0JaZaVvQ4TI7+9DecTCo3A0PAHM7XftaCIc1ZAt29kx/VZYrIrQ7WzqREgz+ZVSMkKjlq8HPB2Uv5u0buM1NLw7mS49Q3EDYQ+4oqoZTb96MSNZfVNvHaFTdCBXSbewRhVnfVRPumSS4EcyWYLV7d0Bkw1Bu8Uc8uSMDQNKzBPnmRJxiMZ7F6gSpT4fzZtTSqRoVAhtq9UYgH2CqWNEfw2EMJDTTydExPZo0Mu5pJPNkNNSt+YvAZdcnpfxc9EEaAyzaQWwod9yHqv13vHGN2YJKY0j8WFrDmxX8CUBz/avXPL7QLXFsk1ALnyn7RzaYj8pP4Tho5K595hNBoukER8P6KfxvfCaO93taT8MlK/4U64NbvBcyVeQNTSxPtnI+rYJldXYWFA+ezxwIEkAz6yKj3KEzT/DB9rbQ9SvKrPKnqS/et89eA7dW1uXiyYY6O3miEvQ48r0bfXtZB5rIKri8PaOO0NBVWRsIEA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(56012099006)(261009223027099003)(260925022911599003)(260925021911599003)(260925021311599003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OUNuSndBTTBqWWRmSVd2azA1Vk5yV3NkU2NJOVRmTG9LN1h5Mk1LelhXSVVO?=
- =?utf-8?B?RHdnVE0rNzhlZklJSHNlK1RjTnpRRUNneXhVbms1R25KbjJKczVFVkV5T1NZ?=
- =?utf-8?B?UkR2RHZZRXJNdnN1NGRCUitGclFZU2VPVEtYcFVGN1h2RWRBaW1zVjh1RGZY?=
- =?utf-8?B?SlpSZnAzQitVTjlRTzFLUU50L2x6bEkzTFQ5bDlyaTlKNHh4alJWNWVyck1W?=
- =?utf-8?B?QU5KRkg4cTFHWEcvNXZtd1UxTjN0M3Vzb2FSSzRqcmd1UVlJbzhXOEhRZ2dw?=
- =?utf-8?B?bEgvblVwaUdJNUszUTFVeW92WEZEZDBGVUp6bE90Q0FlU1NCOTh5eVpYWWlB?=
- =?utf-8?B?a3dGT21mZEVrQ1dqWE5iWllxTkt4RVNzSkpkU09xeTZTWTZuQnlxeFlMYXN2?=
- =?utf-8?B?WlE1TUZOVHd6S2pSUWNLZHlTMlA0emFSdmJyOHFOSTE5Y0xsenk0ZFFUZVZy?=
- =?utf-8?B?WmJwaWRvQ1kvak5VQ0NuY2tBRlJyUWhObnVDZS9FeW1DWDZmT292dEZJOWZB?=
- =?utf-8?B?UElPcTRWVE10SHA0UlhFVUJFR05rS01OOElTRnoxOG1DdWVaRVFoZlZhUGpU?=
- =?utf-8?B?Q0xWM0MvcE5OVngrMzdqd3JUZ1lUeVEzQkx0blRYbmF1T2tBalNjYjlCS3or?=
- =?utf-8?B?aXNEbGFlU1hxZ01ZZFhhNERtZTd5ejQ3eUZqN25CMVJVNXJGaDBlSFFkLzB0?=
- =?utf-8?B?L0QrVzBwdzJFUjN4SGx4ZFpHd3lVRjZKOUp0VEZGdlZYSW9heC9OMUlqcHdV?=
- =?utf-8?B?UXFkaCtIYjZrTVVwNTh3VjBpUWJldFpkdngzQU9rbmxZVkFjRGFsM3A5V0hS?=
- =?utf-8?B?QWgzK3BmZ1hIYXVDZnFLRVM2bkVOS2prek1WN0FpSWVPRXZLNldueFN1MTFU?=
- =?utf-8?B?NURsak5tOURyVEUxQ0RQN2J6TVB3RDltMFJOTkhCVjRwWG5CU0ZDNC9kamlm?=
- =?utf-8?B?L2VOTHRTejNTaTVQLzNPUXhvMTRsR0lXbmp2RTRnSGQ0eEJza3FubGNUYkd0?=
- =?utf-8?B?aVJSVklhSWlBMlphSzd4SW9md20vVEdueXJLZzFQUHVWa0lHaGJTWm5QRHNE?=
- =?utf-8?B?WjVaNGdLME9DaG9IUE8zZTV1Zmgxb0hFZVo3NXJUMkZVZ282OFFZU3Zxc3JG?=
- =?utf-8?B?T2Vnay9BMXlXRWhTR1hxaDJJRkN2dTFMbllLZHQ0RUNwSVpJeVk2VlV0VFdR?=
- =?utf-8?B?dEhiMVN6TzhLaXhSWUlVOFBPaWV2RkpqU0FrenN3REZoYmxmeVpQcXJoREZm?=
- =?utf-8?B?K3FRUnA0R2tTdE1ubnBCN0xIN1VpZTJhKzNRMWtnK3E3cHpmMG82MzliVktM?=
- =?utf-8?B?azdNWE9oSXBCWExJbkt4c0Rac0t5ako5dytrWVNVZ29RRFFQdUhZL0pYc3Yy?=
- =?utf-8?B?TWJMTFVweEVKUGFTZkJUWktDMy9LM3RZQ0t4ZTVRRjdJbEJRVUNad2t0dWpM?=
- =?utf-8?B?MVkrQnptYytCTThoWi9NTkFDNkx4b2l5UWZzeFZtelJOYnBsSXRDQlpjb0VH?=
- =?utf-8?B?MTBrcUFqQzljbXZSNjlSdHBndU5CU0gySEJBTkZQU1FZMkpIamswWWxiUXBq?=
- =?utf-8?B?WlVmdkJmUXVVeEROT3BNanJDUERrdXhPc2J2VkNOTkJzQUlLeXNMK3RWd2NB?=
- =?utf-8?B?Y2RRSGhHTnpTVW5nSVZQZEZISXJXeXkxSEI0R3NUUFBQbWFnSlM1Q2tMZG1j?=
- =?utf-8?B?WmZDaEdyVlVPcXkrcUYzMlVPUzc0ZGlKTlJoTGpBb1VWM1VFeGJzQ2JKTExm?=
- =?utf-8?B?cW90bHBZbXhBN3pDTUIxVExYb3lsYTV5WGVxeDh3VjZnRGNIbmt0b0JMTkNu?=
- =?utf-8?B?clZ4MTBKNjRTRjlWTWpCTjBVQ2lBV1AxNXRsQ2Juc0x2Ky9PWngvUExoSXVj?=
- =?utf-8?B?R2dOMTVNbndwNXJEeWlMTFNtR2FzbTEzajJKbEhLNjZpc0UyNGdGa3VJK2Jy?=
- =?utf-8?B?WlE0dWxpT1REYWVvSTRXNWhCazZCSGxBVENsbHdOY3VrV2tpeU5JMWNKczQ4?=
- =?utf-8?B?c1hySy9LMmIzcG1DRy92MWIwZEEzTThWQTlrV3JRTW1UTkVoV1liM0VtVEFz?=
- =?utf-8?B?bUVEM2V3cmVWS0R2M0ozcWozdzdlaVFoall6UUw4cGo5NFZ3Tk5SU2lXOUZi?=
- =?utf-8?B?S3pIa29oV1g4NXM5aXM1dUxNTWdNTm9zczgwdTc3NTJZOWx5OUtiZkxZb3lp?=
- =?utf-8?B?UmR0aW9FQjRTeERPUGFucUMrRFRqS0tvS3d0U2VieU05d3h2UzEwQ3FnVnhI?=
- =?utf-8?B?ZVdhcVlqRE1IU0grRXdDQUh3WWJmMy9vTS9lUjF4VElQaWd6dmJlUUlITEVp?=
- =?utf-8?B?cHRCY1czUFhqdkErbVI4bjRsdXVmSklhQTVuaDVlWk1KMy90ek81Zz09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ced2b3f-fc4b-4b19-27a8-08df2b46ba61
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 05:31:28.5265
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: svqeFrIUB1gUSLYa0HnP85Z9zydiwAohXIJ/MQ4U84doI/sGKOPIdDKKYfmiK3tEeTuFkjnkIW8zql6uIZJang==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP123MB3149
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <5f98f865-6bae-494b-b08f-662e3325370c@arm.com>
 
-On Thu, Oct 15, 2026 at 04:32:37PM -0700, Namhyung Kim wrote:
-> The perf_hpp_list was not freed after use.  Let's add it for the main
-> c2c hists list in perf c2c report and a local list in print_pareto().
+On Thu, Oct 15, 2026 at 09:01:15PM +0100, Christian Loehle wrote:
+> On 10/13/26 18:14, Kayra Cizmeci wrote:
+> >> For some reason the sched_class::task_tick() argument that indicates it being
+> >> an hrtick, is called @queued. I'm sure naming is hard and all, but lets fix
+> >> this.
+> > 
+> > "For some reason"...
+> > 
+> > I grepped. I think task_tick_stop() is skipped. That's a nit.
+> > Just sayingggggg........
+> > 
+> > Aside from that, or with that IDC.
+> > 
+> > Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+> > 
+> > (How y'all find things to review? I just go to the threads that I see the messages of. I think
+> > That's why I'm a bit late :<)
+> > 
+> > 
 > 
-> Previously it was detected by ASAN like below.
-> 
->   =================================================================
->   ==42183==ERROR: LeakSanitizer: detected memory leaks
-> 
->   Indirect leak of 1064 byte(s) in 7 object(s) allocated from:
->       #0 0x7f17334ef24f in calloc (/lib64/libasan.so.8+0xef24f) (BuildId: 61e8165ca90f7a4f06b73f064a938c76deaae079)
->       #1 0x0000005fa099 in zalloc  ../../lib/zalloc.c:8
->       #2 0x0000004faf6d in get_format  tools/perf/builtin-c2c.c:1978
->       #3 0x0000004fb45e in c2c_hists__init_output  tools/perf/builtin-c2c.c:2004
->       #4 0x0000004fb7de in __hpp_list__parse  tools/perf/builtin-c2c.c:2047
->       #5 0x0000004fbae9 in hpp_list__parse  tools/perf/builtin-c2c.c:2085
->       #6 0x0000004fee13 in print_pareto  tools/perf/builtin-c2c.c:2563
->       #7 0x0000004ffcd7 in perf_c2c__hists_fprintf  tools/perf/builtin-c2c.c:2708
->       #8 0x000000500ab5 in perf_c2c_display  tools/perf/builtin-c2c.c:2949
->       #9 0x0000005045c3 in perf_c2c__report  tools/perf/builtin-c2c.c:3522
->       #10 0x000000505caa in cmd_c2c  tools/perf/builtin-c2c.c:3676
->       #11 0x0000005df50e in run_builtin  tools/perf/perf.c:383
->       #12 0x0000005df9b1 in handle_internal_command  tools/perf/perf.c:436
->       #13 0x0000005dfd7f in run_argv  tools/perf/perf.c:480
->       #14 0x0000005e02d6 in main  tools/perf/perf.c:581
->       #15 0x7f1729450680 in __libc_start_call_main (/lib64/libc.so.6+0x3680) (BuildId: 85075e2ae2e13352a1413d41c327dacf6461526c)
->       #16 0x7f1729450797 in __libc_start_main@GLIBC_2.2.5 (/lib64/libc.so.6+0x3797) (BuildId: 85075e2ae2e13352a1413d41c327dacf6461526c)
->       #17 0x000000409c34 in _start (tools/perf/perf+0x409c34) (BuildId: 36a64600776d92e4ab7dfd5ca20c92280d72a645)
-> 
->   SUMMARY: AddressSanitizer: 1064 byte(s) leaked in 7 allocation(s).
-> 
-> Fixes: c75540e3160f ("perf c2c report: Add dimension support")
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-> ---
->  tools/perf/builtin-c2c.c | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
-> 
-> diff --git a/tools/perf/builtin-c2c.c b/tools/perf/builtin-c2c.c
-> index 4222ac784fabef6b..f51fa23f3bf18b90 100644
-> --- a/tools/perf/builtin-c2c.c
-> +++ b/tools/perf/builtin-c2c.c
-> @@ -2155,6 +2155,11 @@ static int c2c_hists__reinit(struct c2c_hists *c2c_hists,
->  	return ret;
->  }
->  
-> +static void c2c_hists__exit(struct c2c_hists *c2c_hists)
-> +{
-> +	perf_hpp__reset_output_field(&c2c_hists->list);
-> +}
-> +
->  #define DISPLAY_LINE_LIMIT  0.001
->  
->  static u8 filter_display(u32 val, u32 sum)
-> @@ -2563,7 +2568,7 @@ static void print_pareto(FILE *out, struct perf_env *env)
->  	ret = hpp_list__parse(&hpp_list, cl_output, /*evlist=*/NULL, env);
->  
->  	if (WARN_ONCE(ret, "failed to setup sort entries\n"))
-> -		return;
-> +		goto out;
->  
->  	nd = rb_first_cached(&c2c.hists.hists.entries);
->  
-> @@ -2577,6 +2582,9 @@ static void print_pareto(FILE *out, struct perf_env *env)
->  		c2c_he = container_of(he, struct c2c_hist_entry, he);
->  		print_cacheline(c2c_he->hists, he, &hpp_list, out);
->  	}
-> +
-> +out:
-> +	perf_hpp__reset_output_field(&hpp_list);
->  }
->  
->  static void print_c2c_info(FILE *out, struct perf_session *session)
-> @@ -3378,12 +3386,12 @@ static int perf_c2c__report(int argc, const char **argv)
->  	err = setup_nodes(session);
->  	if (err) {
->  		pr_err("Failed setup nodes\n");
-> -		goto out_session;
-> +		goto out_hists;
->  	}
->  
->  	err = mem2node__init(&c2c.mem2node, env);
->  	if (err)
-> -		goto out_session;
-> +		goto out_hists;
->  
->  	err = setup_callchain(session->evlist);
->  	if (err)
-> @@ -3525,6 +3533,8 @@ static int perf_c2c__report(int argc, const char **argv)
->  	free(output_str);
->  out_mem2node:
->  	mem2node__exit(&c2c.mem2node);
-> +out_hists:
-> +	c2c_hists__exit(&c2c.hists);
->  out_session:
->  	perf_session__delete(session);
->  out:
-> -- 
-> 2.56.0.176.g3575e65682-goog
+> Depends what kind of patches you're interested in, most kernel developers
+> have an elaborate mail filter setup based on linux-kernel@vger.kernel.org
+> If it's just scheduler patches, you can either start filtering for "sched:"
+> https://lore.kernel.org/lkml/?q=s%3Asched%3A
 
-Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
+I set it up yesterday. It works fine, compared
+to the old way of typing my message to a .txt and then
+sending it with a git send-email command.
 
--- 
-Aaron Tomlin
+
+> 
+> or check one of the people in MAINTAINERS (preferably somebody who isn't listed
+> for a bunch of other stuff) e.g.:
+> https://lore.kernel.org/lkml/?q=t%3Aeggemann+OR+c%3Aeggemann
+
+I'm already tracking down half of sched at this point :-)
+
+Thanks for da tips!
