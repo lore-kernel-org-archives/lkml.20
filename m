@@ -1,196 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.186])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4374CF471;
-	Fri, 16 Oct 2026 23:57:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16603F58F0
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.186
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792195036; cv=none; b=APXZIlnrgCqGmp0xNWM4TqR1EBbJBbFDi6mzVTe/L8794m9gag8XHWRrMhjt63R+72qkEFHnFQfBOF9IZW7NIKtbbDXuRMIbStqPsTZ8In+zwP4xRnJhAnzPTD1zOL28A9Bj02diG+80B3o6m/bM1LUfAetWg3Ehg40rZoIoRs8=
+	t=1792195089; cv=none; b=LUcrHwQtRQR+ARTuUP7T++9Fm8e4XGTyL3UmGJbJMxyl6ghYSxUMaOBRXFD47kxtA11fGXuiydOYujOs5gEz484O+O2oTTXtSNnGG9tFW9CWASnCHFTWQLgfBgvh35k8rpmkEpnKUAjbzF2xc1OKeR3TklSiDvP+Kx6awcCW7ZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792195036; c=relaxed/simple;
-	bh=1ieCLC7URCvyBrd1DA3JhtgOvvTZghMqmYS1oJzq29s=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ElR9hpYYc0ziOwF6ciFvG8uWm5EYGGSV6OCUpun9vTdP5R9i4ieCt+KWYX1NUX0b/74O8WKQG+qasJQk10JfkCgmLnBZFD9JlEZnAhrRXpRDE7zcZ0nnXDjsGtc1R8E0jMfPKtPrcx9untk72+Rbu+PxXMjPSOoYDuSiZ90SSV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nZncxkHf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792195089; c=relaxed/simple;
+	bh=Sol7b/YHIC7fBZ3r1UNj405eVEsThuaewoMzP6GaWnY=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=ls4SX0bxEiGiQhG7IPrqIdkBUG377VLCa7h3xG1svNSo6W5GOz14PGUIGfAazAst8TX242qHob4yUN5jw1HnfuGkCoIPl2+B0PsHh5YeZkV/O3pDtBqPeOv/xjyA/3OJcHaBMxiYfpTIbG5QYR0HxSIf/FSKJ8lHEcyrXvsZDTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=ulsBXqxM; arc=none smtp.client-ip=195.121.94.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nZncxkHf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8653A1F000C4;
-	Fri, 16 Oct 2026 23:57:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792195035;
-	bh=RyTiiSxvmDfn/osn8G/jibbVhsbBSmPAubOj1FNHER8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nZncxkHfoy/0ABpXAn27iZ60hfDRl0NESPicG1YiTdpksP7rqLBBWdwmfWVQc0suE
-	 y332SqKSiNQ+0PnRCMuAICJgh2My2iQ1GmYZguFrqIgAYrYsNtZmBbtBlxbbbsDDKJ
-	 tmXxQv3DVZx9xmGuQgha7aOZX3c3a7rG4af6xZAhY/+yAQQH+NOtjdo3eGRHcLBd2t
-	 ujIZ2f/kHN1+Vwc2c0RbJ++VAzrh8Hr8Dv7zHwB2IcDcI6X18HxXW8SlpbL035q0UH
-	 HiPeZJ2CjGiryx7cIgzA1D0rmJX+jkOz/r3kzW4T2yHz8LnBfjIqc4gZynoYUxRk65
-	 rUFJsB+iTe9ZA==
-Date: Sat, 17 Oct 2026 00:57:09 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Cc: linux-iio@vger.kernel.org, Eddie James <eajames@linux.ibm.com>, Joel
- Stanley <joel@jms.id.au>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@intel.com>, Uwe =?UTF-8?B?S2xlaW5lLUs=?=
- =?UTF-8?B?w7ZuaWc=?= <u.kleine-koenig@baylibre.com>, Joshua Crofts
- <joshua.crofts1@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Rupesh
- Majhi <zoone.rupert@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 3/5] iio: pressure: dps310: add per-chip data
-Message-ID: <20261017005709.1bf16c34@jic23-hlaptop>
-In-Reply-To: <20261016153533.3701000-4-paulius.zaleckas@gmail.com>
-References: <20261016153533.3701000-1-paulius.zaleckas@gmail.com>
-	<20261016153533.3701000-4-paulius.zaleckas@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="ulsBXqxM"
+X-KPN-MessageId: 6aa0dac5-c9bd-11f1-bfc1-00505699b430
+Received: from mta.kpnmail.nl (unknown [10.31.161.188])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id 6aa0dac5-c9bd-11f1-bfc1-00505699b430;
+	Sat, 17 Oct 2026 01:58:00 +0200 (CEST)
+Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.189])
+	by mta.kpnmail.nl (Halon) with ESMTP
+	id 6a9f658b-c9bd-11f1-ac19-00505699693e;
+	Sat, 17 Oct 2026 01:58:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xs4all.nl; s=xs4all01;
+	h=content-type:mime-version:subject:message-id:to:from:date;
+	bh=nP905omsFDEXnfiXjNt86xtCsoYoZxyqyX9+gdjuAdU=;
+	b=ulsBXqxMEkKXsns1ECCv5AxFghkyHl2HTQGrLPX8zAXOsxllIlMbeQMeigZgghOt+f/MeCMCwmlAL
+	 HuUzxAaBiucl5xoXzdtw1vCYdIpD18fg1vfLn7JOVnq75AkxOu8F+V6qn22jES2F7iggK3nsK2n6Uh
+	 RbUO6Xc9R+4Aipt1mn+V94awoDZPc0T3bRFST2jaGLX/cmLv6Tr5cXDPVogss447QLXeMn43jP9Het
+	 U8M5OFlZnIPrOp0PPH2TVt1Ktk5cjIyWMDrJunx5K05Jz5dSldnfy95IdQPweFTlL1mBdGKcyiDxUs
+	 R+/zjPqOPBIYVffYmBnOuCrvl1k+HXA==
+X-KPN-MID: 33|4KkrTwsmvmLPOjDbP8/4VvjI5Egql+PqJfiQryUT8cMhNzTGJUqLK422dFR66ox
+ TYPYn83v2Xzepu18SFQsr4uN+h4W2PfTRxOc6N9g5LOk=
+X-CMASSUN: 33|V02M0cnroX7SueAXwXU36SMJsDpH0uyW++JyHN9fUXFj+hzmu1qcBwgy6fsTQRc
+ vC7lcEr8X1+WO5p3WZGGBiw==
+X-KPN-VerifiedSender: Yes
+Received: from cpxoxapps-mh04 (cpxoxapps-mh04.personalcloud.so.kpn.org [10.128.135.210])
+	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
+	id 6a92e50e-c9bd-11f1-8edd-00505699eff2;
+	Sat, 17 Oct 2026 01:57:59 +0200 (CEST)
+Date: Sat, 17 Oct 2026 01:57:59 +0200 (CEST)
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org, Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>, Amir Goldstein <amir73il@gmail.com>,
+	Aleksa Sarai <cyphar@cyphar.com>
+Message-ID: <2059185467.1255949.1792195079917@kpc.webmail.kpnmail.nl>
+In-Reply-To: <2026101626-idealist-overshoot-26d6@gregkh>
+References: <20261016143806.2946578-1-jkoolstra@xs4all.nl>
+ <20261016143806.2946578-8-jkoolstra@xs4all.nl>
+ <2026101626-idealist-overshoot-26d6@gregkh>
+Subject: Re: [PATCH v7 07/12] kernfs: hold kernfs_iattr_rwsem when
+ initializing a new inode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Priority: 3
+Importance: Normal
 
-On Fri, 16 Oct 2026 18:35:31 +0300
-Paulius Zaleckas <paulius.zaleckas@gmail.com> wrote:
 
-> Move the coefficient count, the TMP_CFG startup value and the IIO device
-> name into a per-chip structure, passed through the I2C and ACPI match
-> data. This prepares for the Zilltek ZTS8032, which has two more
-> coefficients and a different TMP_CFG layout.
+> Op 16-10-2026 10:50 EDT schreef Greg Kroah-Hartman <gregkh@linuxfoundation.org>:
 > 
-> No functional change.
+>  
+> On Fri, Oct 16, 2026 at 04:38:01PM +0200, Jori Koolstra wrote:
+> > kernfs_refresh_inode() copies the uid, gid, timestamps and nlink of a
+> > kernfs_node into its VFS inode. Since commit 9caf69614225 ("kernfs:
+> > Introduce separate rwsem to protect inode attributes.") these are
+> > protected by kernfs_iattr_rwsem.
+> > 
+> > kernfs_init_inode() calls kernfs_refresh_inode(), but was not converted.
+> > Its callers in turn hold kernfs_rwsem (kernfs_iop_lookup(),
+> > kernfs_fill_super()) or no lock at all (__kernfs_fh_to_dentry()),
+> > neither of which excludes a concurrent
+> > kernfs_setattr()/kernfs_iop_setattr().
+> > 
+> > Take kernfs_iattr_rwsem for reading around the refresh in
+> > kernfs_init_inode(). This nests inside kernfs_rwsem, which matches
+> > kernfs_link_sibling() and kernfs_unlink_sibling().
+> > 
+> > Also, kernfs_get_inode() then does not need to hold kernfs_rwsem, so
+> > drop it from kernfs_fill_super().
 > 
-> Assisted-by: LLM
-> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Signed-off-by: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-A few little things in line.
+> Oh, nice, this fixes the issue of kernfs not keeping the inode like we
+> talked about at LPC?  Can't argue with this tiny patch, nice work!
 
-Sorry I'm late to the game - too much travel and catch up recently!
+No, that part is included in the patch following this one. This is a bit of
+preliminary work to fix the locking around kernfs_refresh_inode(). I think the
+memory requirement for the allocated inodes is not a blocker (but you judge, since
+you told me that's the primary concern here). The inode allocation only happens
+for userspace mkdir(2) calls afaict, and then you probably want to do a lookuo
+anyway.
 
-Jonathan
+I see there's some work by a Meta team on kernfs. Since I'm in that code now
+I'll try to review that soon.
 
-> ---
->  drivers/iio/pressure/dps310.c | 36 +++++++++++++++++++++++++++--------
->  1 file changed, 28 insertions(+), 8 deletions(-)
+Enjoy the weekend!
+Jori.
+
 > 
-> diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-> index 1d0b3232db9e..f2a8698e1e30 100644
-> --- a/drivers/iio/pressure/dps310.c
-> +++ b/drivers/iio/pressure/dps310.c
-> @@ -62,6 +62,9 @@
->  #define DPS310_RESET		0x0c
->  #define  DPS310_RESET_MAGIC	0x09
->  #define DPS310_COEF_BASE	0x10
-> +#define DPS310_COEF_LEN		18
-> +
-> +#define MAX_COEF_LEN		18
->  
->  /* Make sure sleep time is <= 30ms for usleep_range */
->  #define DPS310_POLL_SLEEP_US(t)		min(30000, (t) / 8)
-> @@ -86,10 +89,23 @@ static const int scale_factors[] = {
->  	2088960,
->  };
->  
-> +struct dps310_chip_info {
-> +	const char *name;
-> +	u8 tmp_cfg;	/* TMP_CFG at startup: sensor the coefficients are for */
-
-I had to look at the datasheet for the dps310 to figure out what this
-meant.  Can we instead use a field for exactly what it is within TMP_CFG?
-
-	bool coef_for_ext_sensor;
-
-
-> +	u8 coef_len;
-> +};
-> +
-> +static const struct dps310_chip_info dps310_chip_info = {
-> +	.name = "dps310",
-> +	.tmp_cfg = DPS310_TMP_EXT,
-> +	.coef_len = DPS310_COEF_LEN,
-> +};
-> +
->  struct dps310_data {
->  	struct i2c_client *client;
->  	struct regmap *regmap;
->  	struct mutex lock;	/* Lock for sequential HW access functions */
-> +	const struct dps310_chip_info *info;
->  
->  	s32 c0, c1;
->  	s32 c00, c10, c20, c30, c01, c11, c21;
-> @@ -149,13 +165,13 @@ static const struct iio_chan_spec dps310_channels[] = {
->  static int dps310_get_coefs(struct dps310_data *data)
->  {
->  	int rc;
-> -	u8 coef[18];
-> +	u8 coef[MAX_COEF_LEN];
->  	u32 c0, c1;
->  	u32 c00, c10, c20, c30, c01, c11, c21;
->  
->  	/* Read all sensor calibration coefficients from the COEF registers. */
->  	rc = regmap_bulk_read(data->regmap, DPS310_COEF_BASE, coef,
-> -			      sizeof(coef));
-> +			      data->info->coef_len);
->  	if (rc < 0)
->  		return rc;
->  
-> @@ -252,10 +268,10 @@ static int dps310_startup(struct dps310_data *data)
->  		return rc;
->  
->  	/*
-> -	 * Set up external (MEMS) temperature sensor in single sample, one
-> -	 * measurement per second mode
-> +	 * Set up the temperature sensor the coefficients are for in single
-> +	 * sample, one measurement per second mode
->  	 */
-> -	rc = regmap_write(data->regmap, DPS310_TMP_CFG, DPS310_TMP_EXT);
-> +	rc = regmap_write(data->regmap, DPS310_TMP_CFG, data->info->tmp_cfg);
-With change above this would then ideally use appropriate FIELD_PREP()
-calls to write 3 fields such that we don't need the comment at all. Something
-like
-	rc = regmap_write(data->regmap, DPS310_TMP_CFG,
-			  FIELD_PREP(DPS310_TMP_PRC_BITS, DPS310_TMP_PRC_1) |
-			  FIELD_PREP(DPS310_TMP_RATE_BITS, DPS310_TMP_RATE_1SPS) |
- 			  FIELD_PREP(DPS310_TMP_EXT,
-				     data->info->coef_for_ext_sensor ? 1 : 0));
-(with a few defines to make that work).
-BTW I love that the PRC values are defined as 'optional, and may not be relevant'.
-Huh? What does that mean. I guess - don't use them!
-
->  	if (rc)
->  		return rc;
->  
-> @@ -979,7 +995,11 @@ static int dps310_probe(struct i2c_client *client)
->  	data->client = client;
->  	mutex_init(&data->lock);
->  
-> -	iio->name = DPS310_DEV_NAME;
-> +	data->info = i2c_get_match_data(client);
-> +	if (!data->info)
-> +		return -ENODATA;
-> +
-> +	iio->name = data->info->name;
->  	iio->channels = dps310_channels;
->  	iio->num_channels = ARRAY_SIZE(dps310_channels);
->  	iio->info = &dps310_info;
-> @@ -1018,13 +1038,13 @@ static int dps310_probe(struct i2c_client *client)
->  }
->  
->  static const struct i2c_device_id dps310_id[] = {
-> -	{ .name = DPS310_DEV_NAME },
-> +	{ .name = "dps310", .driver_data = (kernel_ulong_t)&dps310_chip_info },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(i2c, dps310_id);
->  
->  static const struct acpi_device_id dps310_acpi_match[] = {
-> -	{ "IFX3100" },
-> +	{ .id = "IFX3100", .driver_data = (kernel_ulong_t)&dps310_chip_info },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(acpi, dps310_acpi_match);
-
+> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
