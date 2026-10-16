@@ -1,98 +1,236 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736BC1D432D;
-	Fri, 16 Oct 2026 21:28:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3DA4CF48C;
+	Fri, 16 Oct 2026 21:31:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792186106; cv=none; b=OOB0Oi30ZqAQqp5SPQGXKQJ5oYVUoUghjF09DavbmBxtsKMjYqK+mTdgNyCYxMYZGxa49GLPV5krQ3rP+xo2kptUHXzXH8rsdwgSv42xiiviYIgdwCYJWkm0JKz/mymWKxFuYmAh7XScRxw8uKhxQwX8t0+C4yU9MTm5C63pjnM=
+	t=1792186284; cv=none; b=jBWP/pxomqGQILl0dxMllyTPorXCbaQfVy7abENUA3YrvK7f95PUqRwnmsqeK40CRYpbJR8SVTWnOqY8v7UbqSdKwjE4nyJ7X9QLtlezeTwTdFM+Du+u0FNA4M4KTX3ubaHUaAiK73rYS4ll5vlQ8bC+IF14hjtt73IW7KPza2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792186106; c=relaxed/simple;
-	bh=3yW94EvGIctt7sRzx8qc6G7IIBlQRjys8xk0V6EgEBM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=AHbmIyFyybzcTorQT6eAH5WMXzCjEv2MB6PqWXFr0lru7n9Gmb0WQDqjHtlTFbu7yyC/0B45elOSLbODnD3ujMrK0NPOiA2ZhGAabZZVNDjgSnj3aEVIMfhj4y/pdO6/Sh03eiP/Hpal4fGVSmiWjUij/EWaP/tDIFFmFbQvsqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bhK5CACk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792186284; c=relaxed/simple;
+	bh=tv1Xmifa3z2JYzB+wTFFeiSz+jO0/Ocbi0W99Nl3H8Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=M9oiR1Et92LP9Ke6NGQq5SBHCrnk4YJeelS0n2KMcNsTn9sJ261AAGT/2LX8ayu+4Em5pRUZElw9cD1HkoutYl9jLGoYGr4CaeqIFfQihaLAEYVji/EkHjQa/f+TgcUR7lquFMB+3+ldQ7cLZqRoni06kXQ8phAbe0ROspVHffg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ELUOrHbZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bhK5CACk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F8E1F000C4;
-	Fri, 16 Oct 2026 21:28:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ELUOrHbZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB52D1F000C4;
+	Fri, 16 Oct 2026 21:31:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792186105;
-	bh=YL8v3ikz/W8u+Qt9X03/iAXSAmcRvygnsgXdC5kGQwQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bhK5CACkCHQDF66EDC8C2pABK4CFbYwJawdxJRRT3/v6QK1aLVKO+9lIN7vy4Z2pA
-	 PQpGUx1JRAQOh4Sk1x98fZuPu7U3alrLDAMglVo077+b7R3JWIHvvtrnagJXXVSDgP
-	 zNmSiXjqu4MWnj+UDkMBE/ZNGCY974pVR9pOccNupA4QGF8KKo3F777YSClX1cNHF6
-	 ekKkbFdHbFpcZWn4mzly4QAn52eanzAZ+cu7su5MG3XFiK37Wg+SgjX9lHsez7fqO/
-	 K87QMoeOKB4hqBGKX16vjjWoLNfRoR63BJAf7rG3xAQxjOAZepRXSWVTIlho1A2+lt
-	 OIa1G1c5NFUIg==
-Date: Fri, 16 Oct 2026 11:28:24 -1000
-Message-ID: <29b280c82730b879e5f3ccdb35639ead@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Liz Fong-Jones <lizf@honeycomb.io>
-Cc: Jan Kara <jack@suse.cz>, Christian Brauner <brauner@kernel.org>, "Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>, Roman Gushchin <roman.gushchin@linux.dev>, Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, ian@honeycomb.io
-Subject: Re: [PATCH] writeback: keep cleanup_offline_cgwb()'s scan out of syncs
-In-Reply-To: <20261015114307.1041273-1-lizf@honeycomb.io>
-References: <20261015114307.1041273-1-lizf@honeycomb.io>
+	s=k20260515; t=1792186283;
+	bh=6xXCI1y+KIL4EzZd1UBU0Rx2a4JShmZFF+y9QS0NW0s=;
+	h=From:To:Cc:Subject:Date;
+	b=ELUOrHbZ/x6S19d8SFb6r93LmJRMj8w8VM7M0XrgbI5tqbBF8NAzMi7O6GsYQENqb
+	 vOxC/Ra8idG//RrWiFTSy3mTZosZ9ME6EwO7kRhKJi+pgN1P/e3G2WZ1EI7csRy6U2
+	 Ii/2uLoE4qTdNk4t16BUBvRXr0i3Fz8DZT/vIR0e6wYnToK51qtCAAcovCPhHjqMeU
+	 qRglTLYlT9UJ4yhJLXJ1yTtMsre4IAeUKLlIFR+su9q+TSg3NoJ9nBdT9jwfBjG5GT
+	 YeFA5WXgKj16/BhQ26sF+HC/a6XNFNWQe7jCCh4Nns/Y42zQXWsixmNVKj36zUK/qD
+	 VvXefLWmItnew==
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+To: akpm@linux-foundation.org,
+	linux-mm@kvack.org
+Cc: ehab.ababneh@intel.com,
+	axelrasmussen@google.com,
+	baohua@kernel.org,
+	kasong@tencent.com,
+	lance.yang@linux.dev,
+	linux-kernel@vger.kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	weixugc@google.com,
+	yuanchu@google.com,
+	yuzhao@google.com,
+	baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/mglru: fix using folio_mark_accessed to replace folio_set_active
+Date: Sat, 17 Oct 2026 05:31:15 +0800
+Message-Id: <20261016213115.70515-1-baohua@kernel.org>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hello, Liz.
+Commit 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to
+replace folio_set_active") attempted to avoid over-protecting
+in-fault read-ahead file folios by placing them in the
+second-oldest generation rather than the young generations.
 
-On Thu, Oct 15, 2026 at 11:43:09AM +0000, Liz Fong-Jones wrote:
-> Trigger: a wb has lazytime-dirty inodes on b_dirty_time when a sync
-> starts, an inode on it gets a timestamp update after the sync's cutoff,
-> and then its memcg (or, if the wb is already dying, any memcg) is
-> removed, which runs cleanup_offline_cgwb() on it before the sync work
-> queues inodes.
+However, it repurposes `PG_referenced` on in-fault read-ahead
+file folios for this purpose, potentially coupling their
+handling with that of regular file accesses through syscalls,
+which also use `PG_referenced`.
 
-The late inode has to be one without a pending lazytime update. One
-already on b_dirty_time keeps its position and dirtied_when.
+This could regress some workloads, as reported by Kairui Song[1]
+and Ehab Ababneh[2]. Many thanks to both for reporting these
+issues!
 
-cleanup_offline_cgwbs_workfn() skips wbs with anything on b_dirty, b_io
-or b_more_io. So the scan has to land between wb_writeback() fixing
-dirtied_before and taking list_lock for the first queue_io(), which is a
-few instructions. The exception is a multi-pass drain that started
-before the wb got dirty IO, as the loop doesn't recheck. Maybe say that
-the window is narrow so that stable can weigh it?
+The long-term fix is Kairui's MGLRU-FG, but in the meantime,
+we also need a quick fix that can be backported to stable.
 
-> Once an isw fills before the scan reaches a newer inode, or a later pass
-> walks past it, older inodes land in front of it on b_dirty_time.
+This patch reverts the original commit's abuse of `PG_referenced`
+while preserving its goal of avoiding over-protection of
+in-fault read-ahead file folios by adjusting only
+`lru_gen_folio_seq()`.
 
-A pass keeps the inodes it walks in order, so the only reordering is
-between the walked inodes and the ones a filled pass didn't reach. "or a
-later pass walks past it" doesn't seem to be a separate case.
+Specifically, in-fault read-ahead file folios with `PG_active`
+set but `PG_workingset` clear are placed in the second-oldest
+generation (the third-youngest generation). Activated file
+folios and refaulted workingset file folios remain in the
+youngest generations.
 
-> Tejun spotted this reordering racing with a sync on b_dirty in a patch
-> under review and suggested holding wb_switch_rwsem for read across that
-> scan [1]. cleanup_offline_cgwb()'s scan of b_dirty_time needs the same.
+Kernel build tests in a memcg show that this approach not only
+preserves the original patch's benefits but also further
+improves performance.
 
-The description is pretty long for a six-line fix. Maybe drop this
-paragraph, which Suggested-by and Link already cover, move the test
-details below ---, and tighten the rest?
+w/o fix:
 
-> +	/*
-> +	 * The scan reorders b_dirty_time.  Keep it out of a sync's way, which
-> +	 * could otherwise miss timestamps moved past its cutoff.
-> +	 */
+real    1m49.094s
+user    25m31.484s
+sys     3m40.959s
+pswpin: 662112
+pswpout: 2504415
+pgpgin: 4424336
+pgpgout: 10355273
+refault_file: 359626
+refault_anon: 670724
 
-The inodes' dirtied_when doesn't change. What moves is their list
-position. Maybe something like:
+w/ fix:
 
-	/*
-	 * The scan moves walked inodes to the newest end of b_dirty_time,
-	 * past ones it didn't reach. If one of those was dirtied after a
-	 * sync's cutoff, the sync's queue_io() stops there and misses the
-	 * moved ones. Exclude syncs as process_inode_switch_wbs() does.
-	 */
+real    1m48.913s
+user    25m31.639s
+sys     3m30.875s
+pswpin: 689815
+pswpout: 2689894
+pgpgin: 4422659
+pgpgout: 11043464
+refault_file: 326566
+refault_anon: 697138
 
-None of the above is blocking.
+Revert original patch:
 
-Acked-by: Tejun Heo <tj@kernel.org>
+real    1m50.044s
+user    25m37.137s
+sys     4m4.493s
+pswpin: 1349087
+pswpout: 4317933
+pgpgin: 7083597
+pgpgout: 17602735
+refault_file: 337676
+refault_anon: 1368542
 
-Thanks.
+[1] https://lore.kernel.org/linux-mm/20261003-mglru-fg-v3-0-cbd4546a5bd9@tencent.com/
+[2] https://lore.kernel.org/linux-mm/20260901180704.168106-1-ehab.ababneh@intel.com/
+Fixes: 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to replace folio_set_active")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+---
+ * An earlier discussion can be found here:
+ https://lore.kernel.org/linux-mm/20261016084256.12955-1-baohua@kernel.org/
+ Thanks for Kairui's comment on it.
 
+ include/linux/mm_inline.h |  5 +++--
+ mm/folio.c                | 16 +++-------------
+ mm/vmscan.c               |  9 ++-------
+ mm/workingset.c           | 10 ++++------
+ 4 files changed, 12 insertions(+), 28 deletions(-)
+
+diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+index ab69b9930893..97f157aafd58 100644
+--- a/include/linux/mm_inline.h
++++ b/include/linux/mm_inline.h
+@@ -319,7 +319,8 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
+ 	 * |<---------------------------- MAX_NR_GENS ---------------------------->|
+ 	 */
+ 	if (folio_test_active(folio))
+-		gen = MIN_NR_GENS - folio_test_workingset(folio);
++		gen = MIN_NR_GENS - folio_test_workingset(folio) +
++		      (type ? !folio_test_workingset(folio) : 0);
+ 	else if (reclaiming)
+ 		gen = MAX_NR_GENS;
+ 	else if ((!folio_is_file_lru(folio) && !folio_test_swapcache(folio)) ||
+@@ -327,7 +328,7 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
+ 		  (folio_test_dirty(folio) || folio_test_writeback(folio))))
+ 		gen = MIN_NR_GENS;
+ 	else
+-		gen = MAX_NR_GENS - (folio_test_workingset(folio) || folio_test_referenced(folio));
++		gen = MAX_NR_GENS - folio_test_workingset(folio);
+ 
+ 	return max(READ_ONCE(lrugen->max_seq) - gen + 1, READ_ONCE(lrugen->min_seq[type]));
+ }
+diff --git a/mm/folio.c b/mm/folio.c
+index 35e242b48870..2af724cecb31 100644
+--- a/mm/folio.c
++++ b/mm/folio.c
+@@ -474,20 +474,10 @@ void folio_add_lru(struct folio *folio)
+ 			folio_test_unevictable(folio), folio);
+ 	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
+ 
+-	/*
+-	 * For refaulted workingset folios, set PG_active so they
+-	 * can be added to active generations.
+-	 * For prefaulted file folios, folio_mark_accessed() sets
+-	 * PG_referenced so lru_gen_folio_seq() places them into
+-	 * the second oldest generation.
+-	 */
++	/* see the comment in lru_gen_folio_seq() */
+ 	if (lru_gen_enabled() && !folio_test_unevictable(folio) &&
+-	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC)) {
+-		if (folio_test_workingset(folio))
+-			folio_set_active(folio);
+-		else if (!folio_test_referenced(folio))
+-			folio_mark_accessed(folio);
+-	}
++	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC))
++		folio_set_active(folio);
+ 
+ 	folio_batch_add_and_move(folio, lru_add);
+ }
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index daa7e37c2236..e82ba737c028 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -952,13 +952,8 @@ static bool lru_gen_set_refs(struct folio *folio, const vma_flags_t *vma_flags)
+ 		return false;
+ 	}
+ 
+-	/* Promote on second access */
+-	if (folio_lru_refs(folio) > 1) {
+-		folio_set_workingset(folio);
+-		folio_set_lru_refs(folio, 0);
+-	} else {
+-		folio_mark_accessed(folio);
+-	}
++	folio_set_workingset(folio);
++	folio_set_lru_refs(folio, 0);
+ 	return true;
+ }
+ #else
+diff --git a/mm/workingset.c b/mm/workingset.c
+index 1504f91cdca5..10d4ce202cca 100644
+--- a/mm/workingset.c
++++ b/mm/workingset.c
+@@ -319,13 +319,11 @@ static void lru_gen_refault(struct folio *folio, void *shadow)
+ 
+ 	atomic_long_add(delta, &lrugen->refaulted[hist][type][tier]);
+ 
++	/* see folio_add_lru() where folio_set_active() will be called */
++	if (lru_gen_in_fault())
++		mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
++
+ 	if (workingset) {
+-		/*
+-		 * see folio_add_lru(), where folio_set_active() is
+-		 * called for workingset folios
+-		 */
+-		if (lru_gen_in_fault())
+-			mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
+ 		folio_set_workingset(folio);
+ 		mod_lruvec_state(lruvec, WORKINGSET_RESTORE_BASE + type, delta);
+ 	} else
 -- 
-tejun
+2.34.1
+
