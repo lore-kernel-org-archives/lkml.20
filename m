@@ -1,105 +1,206 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B9B1FCFFC
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:09:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECDB83B7B7F
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:09:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792184961; cv=none; b=kOm9zK+m6xv3FXFVhMXQwfYqlQTtjFlSbDm3qttlTRcZNjO3vF4/WBTO6IOYxoh8R0txsb0lLjs9SsdxsuE0EqYyY+Yc5L73z8tfBPGc6IDSUacLAm59i/fYFqNX31cvd/sdmxTN1Ut32fv9N8v9bG8wkdMjCbAQVPojhq/lwBc=
+	t=1792184998; cv=none; b=pHnjeqdZF6oM5MO0ntXcc2DJdfRmoCO0uDRTnhimGyVPvJND6ZdnNxYEvq0YgP3goa0BmcP9Y3dVD+Cfu62ZOrRF7hujXJIQMLLPBtzcPNDSy3xBecFy2sTy8/CvQfa+XoN1IEHVMlHAhNBr8Ojewr+hhcryewO2eFFlANiVPvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792184961; c=relaxed/simple;
-	bh=L6oFpqBtkP4dSgVh312zLHKJQWKbAC9qrFyoscDAtL8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HuAuOiMF+DJ60LyT6I8omCheLK3VxqSnFDh26uCwN6bUqJbEqdwVOjOuZ4VuVihGDDgYysMz3GuWOV3WymA/IcCLmJLvqpgaGUVFSRAjL2hR2SKF8EaEa/VqWnzwyfIcNpIGveKCppSmd3aJkRlq6o9gVNkv+nFYPXQtkl+x808=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=Px65jPBx; arc=none smtp.client-ip=74.125.224.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	s=arc-20240116; t=1792184998; c=relaxed/simple;
+	bh=T866gN9ytWDgY0fuxIWfToDyoTMPhkGUWXJZyhl3M4Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=P44HGMCOI9ufHgbdrHT2LiWEKgoh0spqg/W1awwLjsrGZA7MxF+K4LKW4r5aNvfMeqHa7b2F8AghXVMuNOvcdXnjNglqxwb9NuJbu7RJVHLkRTmTTvi2pDKWFCbu6MnZmMQi2FVeKoe8b4zD+PVMp7hNq+Zlu1YfRtGy3Vy7iAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YLiNTO4R; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HFqg+G5x; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="Px65jPBx"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-677af43eed4so474760d50.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:09:19 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YLiNTO4R";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HFqg+G5x"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792184994;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=h0qksnsO83V4fm5WG/41JKqf/QyvNW2rkxwNDprb2Xo=;
+	b=YLiNTO4RMHjyXshECrUDaVaIXn90681npsI0/76SBdqYFeZMvJsXmoIU1ex58hIbmLhAIv
+	V4FVEwQtr2S0VRQN91Ec9zfJXQubIX5lCTDVCmcecouL58fCK1Lwl/sx3DWfptQJWb8p0y
+	iMEe8z6LHlbUnUIYD9c53bS1vyeGplM=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-5-3xeiXdSONuWhc-KYKaocvQ-1; Fri, 16 Oct 2026 21:09:47 +0000
+X-MC-Unique: 3xeiXdSONuWhc-KYKaocvQ-1
+X-Mimecast-MFC-AGG-ID: 3xeiXdSONuWhc-KYKaocvQ_1792184986
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a028616bebso2182685e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:09:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1792184959; x=1792789759; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3kcaABY1wxvfGcJvUlVBxGbnL2EPcgOQ7tPDx9WCKSU=;
-        b=Px65jPBxGzR6xtzJU2UspsDLAykZqiWiOe3+fzRqJN3fAgJqil8n1hZXhCqRveyKFG
-         TmzhS+RDuFJLQPxYDAFcDWNhI8C2RisHT3eSL3pZppj9uUV6eFi8GxVWxLbGg5cSAZwN
-         uCYWfRRKfnh/N3NsLt4g2rAsmDCTjgUKCTt/oSsDCRTyG//QpioM9wwq2yR4FngZo5Da
-         YOFpcVYCDOkvU4xIoB/LXXZJr7v1dpb2JQyDD1GEH3nsu3DS8h2y4Ed6BOE4/hQ4vCm+
-         Lk36zuUr1J9nj/YlizSihJbvbwYxZcGiUrqNeIDJjFnkZX9HajzzNvKJBIKQBs9vfW5O
-         wa9g==
+        d=redhat.com; s=google; t=1792184986; x=1792789786; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h0qksnsO83V4fm5WG/41JKqf/QyvNW2rkxwNDprb2Xo=;
+        b=HFqg+G5xxxsoqSsmQ8R2QLuvkg/PYeqtHAhJlwARpEO0fWF8WwKMsw1O8Yq+5HnQfj
+         LMEnrP9PgIBiedtXtR8u9Xib7UIoCJDrmNGreklUsnpiBPc5yatGjX8hKZUJvsg0NwAY
+         qkp/DUuKK0DZmTxuEZVR9xCRHsnRCXOOeCokmJTlZHl7rdTKVhbfi/o9Q4kQ9gvO0ODG
+         dxmCzNUXPlsx4ksTdxo/kHG0O8BBfLr+OXLMnmoXMbblFdCLP+7hy8kShwrNnwHVUKgc
+         yixcnIQp+2+W1xXlWrVRFycHRzp2AicaPgaVGON2+qj2Lr5/LLaaFbPLW18tW+Ev7kcy
+         Pdqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792184959; x=1792789759;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3kcaABY1wxvfGcJvUlVBxGbnL2EPcgOQ7tPDx9WCKSU=;
-        b=l2MudekMApxNz/gXhMwr3RNuDerwNXcZ182qmT6EsZDljDmnb6AafzAP5wqaBrU4FK
-         8mO43xDe19ck4NYOl7SX4I4gv3G0TxU4POEAXpdUoTiphzzFUhoPkTxLXT53Y3jynscQ
-         VY/MGH19L/NJiIv/v9c9cjJD37OUIFYEq758M4nbOW47tTL5WPkIGCeinT29TTqfrq10
-         6dR+LwLf7Oa54Do1f1Ovsia1t6Wflc1d709ZcHjhemiuvIk8s8e5hC3JTkBjKeOmrAsL
-         NHST+agCFa5r8F00UGovFA2GiQ7se+hgqRxOWK6m473ns3PQUgMBZRWlIyBpXrJRU5r8
-         qsMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBziiIFY7QPf2F4yi5lckyK0oJunFyVmA/ftkkujWI6xPLA1n1WYIer6/TIPKsus64+6zYr2M6V9iW3akfo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIiS0ip2Pw2swZFggqLHe/i8c9x15mTO0kETYgGisvwBMiSa8eA
-	F+Q3q/ibdfRWgNZqOz33CVs0GRSyqRNPlXV6lO7HprhOdIqV4AIfr4wMYvgSt6aTzJs=
-X-Gm-Gg: AYBFou1/XG/YJZjfgO195J3X3zhXbZ+SPb7TWa/YNFjdcER5Iid+aFayAmsTvkh0KTA
-	j38gBUuNmWFODBQUdszNtEOzi6hcW81RYO0ZyZKYnc0UjmA/0tH6kxP79pEm1SlLuOpGgcPNRes
-	DPULsQ7zAzghoy7sEfX/RX4mZOqavpPWabv+1H+ky8pUDNriG2dk9pZXrPlbvqToMncKBGPpIVb
-	HuKJ+uXm1q/IKQxgb8D4Ug+6ecdwUfLak0/8DD4FZgGzBaBqTbKrJ71Ln278BovtFPeg23SzG0p
-	ZHdA+QDGM/LLE4ivR59wUxBJ6Acb6Cfc4W0TsAPmLHRaHOWbo1uCPftiuybdCrlfvBdYitSJlHq
-	ZKDsEMAYa+42ZSmaIk/x2CS4AxxzQbfHvbCrcq73rFxeBndjCk82qVXzHVMNzer2EumcPftL2G4
-	OVNC2w1rBRYGIqwWBUejcC8Cb0prMKoaAaqLdLBLS521anq+zY6n83XerG2/zYhAHNY2RYozwuV
-	SgaQCKky3vFr46zgK6d
-X-Received: by 2002:a05:690e:191a:b0:679:ba28:1272 with SMTP id 956f58d0204a3-679ca7b9b4cmr284821d50.41.1792184958919;
-        Fri, 16 Oct 2026 14:09:18 -0700 (PDT)
-Received: from localhost ([2600:1700:220:5c80:6dfb:85d9:d6b:fdcb])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679b1e11207sm1547350d50.8.2026.10.16.14.09.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 14:09:18 -0700 (PDT)
-Date: Fri, 16 Oct 2026 16:09:17 -0500
-From: Andy Chiu <tchiu@tenstorrent.com>
-To: Radim =?iso-8859-1?Q?Krcm=E1r?= <radim.krcmar@oss.qualcomm.com>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Andy Chiu <andybnac@gmail.com>, Guodong Xu <guodong@riscstar.com>,
-	Zong Li <zong.li@sifive.com>,
-	Charlie Jenkins <thecharlesjenkins@gmail.com>
-Subject: Re: [PATCH 3/6] riscv: hwprobe: Report Zicfilp and Zicfiss only when
- available
-Message-ID: <atKSfUS8rRW3mHyw@Tao-Chiu's-Mac>
-References: <20261006075303.205216-1-radim.krcmar@oss.qualcomm.com>
- <20261006075303.205216-4-radim.krcmar@oss.qualcomm.com>
+        d=1e100.net; s=20260707; t=1792184986; x=1792789786;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h0qksnsO83V4fm5WG/41JKqf/QyvNW2rkxwNDprb2Xo=;
+        b=c5qMmQLKVnrwWGTPrYoo5H6q0Ax/fH6e4S0iKmiWBryk/pwddaSNWNqLSvTuHufY/I
+         oFZ0izs5EPhrZ177oTfVq8ulgma0amq81JYtgotLZVhhVXfFU96NOLuKpz+Nq9qvYs4c
+         a+rKrkYn5J9zzf0Gjj6isFANzjsRARCVtqYdXGicwKQeyYWl8kC0QhVKgvLisDfKXkHO
+         qvjBxuInqXCBbCDxveB01zWKglSwgkZsKg2203DRXtWyXam3/bklcL9srsyChC7mVkvS
+         QdHHVv3WWoydXCZoqB/XkAdfdCJ+Wtb4KIbjpfXAyxDmRMrwzpqxM3JA/sEOAWv2MHCK
+         +Lhg==
+X-Forwarded-Encrypted: i=1; AKwUvBwlBOrV9gt1XWgmNdIXTtITRmopcTX6tBsTIsWEhIOHl9TF8L6U8KhDo2JWhkf/7YszrKKfVQcRJE/xBUE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpelR8wC4la04oXFvaxf1ihIeI8zasyM1U4DYS0LZOZCYAVB3c
+	CxEmvdY9mN8gN+aRQo7a8wFcyJ7eiBAFERE00CguF4M8rDlDRxsigjxvMrFYzSVIYgWswLro1+s
+	BVIs8AaYeO47VETaGs6htX8Ux0ywx9rma2bJK9R1zRdyaRLTedg4tjoAMeAhubrwIFEyRzFZKrQ
+	==
+X-Gm-Gg: AYBFou29kuWJCNPNXCcfNlntoBFtGhJ5N88HATeMQd+ccY/UwkV5wrRzZMrxWLecPH8
+	8mV9EepxheKQNQgfnOJRfPiZDlD6ojzdQ7K3bxA/0ozpm2jdLV5Yn7MZzBSrmPITGp/1jLzQnPI
+	4eG8ULRMOG8aVpt/sFiLppasjTaL/HnkAjhs/91OoQJnTXvZKeLYLr/KJ6C9VV/iwxcclH9vnup
+	AZFkWc7OBnuFILyanPr17g5R1CadLlpaCT1F7m3dp5FO+RQ3ffc5A625hiphalmcaOCfQLhS+JG
+	8P6A+DgTSGeHnMGICOxqDS5JE3Hdeb/VhzsndHItCLBmuOWBynwK4Hpm3EGXuEaym7g+QAFU+1E
+	HSx/wGLq34DPxaXuG29TJzaOlYAJGtJ2IcZ9+CwDEOVb48M0=
+X-Received: by 2002:a05:600c:6217:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4a1d7600654mr22701015e9.22.1792184986451;
+        Fri, 16 Oct 2026 14:09:46 -0700 (PDT)
+X-Received: by 2002:a05:600c:6217:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4a1d7600654mr22700745e9.22.1792184986118;
+        Fri, 16 Oct 2026 14:09:46 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:11aa:87f0:ea69:b2b0:2dae:5ef9? ([2a01:e0a:11aa:87f0:ea69:b2b0:2dae:5ef9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cca26dc8sm57458935e9.3.2026.10.16.14.09.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 14:09:43 -0700 (PDT)
+Message-ID: <8e525023-dc47-416e-a3fe-c5e6c5660ca5@redhat.com>
+Date: Fri, 16 Oct 2026 23:09:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261006075303.205216-4-radim.krcmar@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/panic: Fix kmsg screen hang on a long log line
+To: Devin Wittmayer <lucid_duck@justthetip.ca>,
+ Javier Martinez Canillas <javierm@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ luyuantao <luyuantao01@163.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261016052722.60051-1-lucid_duck@justthetip.ca>
+Content-Language: en-US, fr
+From: Jocelyn Falempe <jfalempe@redhat.com>
+In-Reply-To: <20261016052722.60051-1-lucid_duck@justthetip.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 06, 2026 at 09:53:00AM +0200, Radim Krcmár wrote:
-> User-mode use of Zicfilp and Zicfiss requires senvcfg.LPE and
-> senvcfg.SSE, respectively, which we set only when is_user_lpad_enabled()
-> and is_user_shstk_enabled() (CONFIG_RISCV_USER_CFI, the extension on all
-> harts, and not disabled by riscv_nousercfi).  hwprobe reports the
-> extensions from the per-hart ISA bitmaps alone, so it can advertise
-> extensions that are always disabled in user-mode.
+On 10/16/26 07:27, Devin Wittmayer wrote:
+> The kmsg panic screen reads the log back one chunk at a time. A record
+> that does not fit in a chunk comes back empty without moving on, so the
+> screen asks for it again forever and the panic never finishes. Every
+> oops logs the list of loaded modules, and on my machine that list does
+> not fit.
 > 
-> Report correct environment to user-mode.
-> 
-> The changes to arch/riscv/include/asm/usercfi.h avoid
-> IS_ENABLED(CONFIG_RISCV_USER_CFI) guards in the conditions.
-> 
-> Fixes: 30c3099036a9 ("riscv/hwprobe: add zicfilp / zicfiss enumeration in hwprobe")
-> Signed-off-by: Radim Krcmár <radim.krcmar@oss.qualcomm.com>
+> Read into a buffer the size printk formats one record into, and stop if
+> a read still comes back empty.
 
-Reviewed-by: Andy Chiu <tchiu@tenstorrent.com>
+Thanks for investigating this issue.
+That looks good to me.
+
+Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
+
+I'm sorry, I probably forgot to push [1], so I will push both patches 
+next week if no other comments.
+
+[1] https://lore.kernel.org/all/20260126100732.365-1-luyuantao01@163.com/
+
+Best regards,
+
+-- 
+
+Jocelyn
+> 
+> Fixes: 54034bebb22f ("drm/panic: Add a kmsg panic screen")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+> ---
+> I usually work on Wi-Fi drivers, so this is new ground for me. While I
+> was testing a fix for a Wi-Fi driver crash, my test machine froze after
+> the crash where it should have rebooted, and stayed that way until I
+> power cycled it. Working out why led me here.
+> 
+> To reproduce, with the kmsg screen and panic=10 on a display driver with
+> panic support, as root:
+> 
+>    printf "%600s\n" "" | tr ' ' x > /dev/kmsg
+>    echo c > /proc/sysrq-trigger
+> 
+> Before this patch the panic never gets to its reboot.
+> 
+> QEMU, 10 runs each, on drm-misc-fixes and drm-misc-next (bochs) and
+> 6.12.113 (simpledrm):
+> 
+>                                       before    after
+>    one 600 char line                  hangs     reboots
+>    same, then 400 short lines         hangs     reboots
+>    one record of 300 short lines      hangs     reboots
+>    oops with 24 modules loaded        hangs     reboots
+>    plain panic                        reboots   reboots
+> 
+> amdgpu, 2 runs each, Arch's source and config, before and after:
+> 
+>    6.18.52, the two commands above    hangs     reboots
+>    6.18.52, one record of 300 lines   hangs     reboots
+>    6.18.52, oops                      hangs     reboots
+>    7.2.6, kmsg screen set, oops       hangs     reboots
+> 
+> luyuantao's patch [1] stops reading once the screen is full, so it only
+> helps the second row. With both on drm-misc-fixes, every row reboots.
+> 
+> The buffer is shared, like the QR code buffers; a panic only draws from
+> one CPU. In drm-misc-next this code is in drm_panic_helper.c, where the
+> same change was tested.
+> 
+> [1] https://lore.kernel.org/all/20260126100732.365-1-luyuantao01@163.com/
+> 
+>   drivers/gpu/drm/drm_panic.c | 7 ++++++-
+>   1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
+> index e576c4791861d..29b1487de7ae0 100644
+> --- a/drivers/gpu/drm/drm_panic.c
+> +++ b/drivers/gpu/drm/drm_panic.c
+> @@ -556,7 +556,8 @@ static void draw_panic_screen_kmsg(struct drm_scanout_buffer *sb)
+>   	const struct font_desc *font = get_default_font(sb->width, sb->height, NULL, NULL);
+>   	struct drm_rect r_screen = DRM_RECT_INIT(0, 0, sb->width, sb->height);
+>   	struct kmsg_dump_iter iter;
+> -	char kmsg_buf[512];
+> +	/* the size printk formats one record into, too big for the stack */
+> +	static char kmsg_buf[2048];
+>   	size_t kmsg_len;
+>   	struct drm_panic_line line;
+>   	int yoffset;
+> @@ -574,6 +575,10 @@ static void draw_panic_screen_kmsg(struct drm_scanout_buffer *sb)
+>   		char *start;
+>   		char *end;
+>   
+> +		/* a record that does not fit comes back empty, every time */
+> +		if (!kmsg_len)
+> +			break;
+> +
+>   		/* ignore terminating NUL and newline */
+>   		start = kmsg_buf + kmsg_len - 2;
+>   		end = kmsg_buf + kmsg_len - 1;
+> 
+> base-commit: 324fac81f365fc123247f9c8a52cb66ebd93b5e5
+
