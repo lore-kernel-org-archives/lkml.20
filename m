@@ -1,156 +1,248 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC72537C112
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:49:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A129538DC75
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:50:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792140580; cv=none; b=aQZw5N2YNE5rp3JLrhP65pSVi4peKzpU+oLI/nKB639xkoBk5UTXmUbxDRTqOH4aTXW/xk5hBU4k1YkP8NELYL0Ix8graf5HP99XdfLBBEsnYMprwE9nM97Vv7gta1Gxy7cbfhGubfmMdDxXNJaKdczBkIrQWqI9QXSn0iM9ofQ=
+	t=1792140649; cv=none; b=TV7w0MKOsS4jSpLW6L6GYYKtDODG2K93pkLY51XWH85bP3EFv4Z3Ya9hpqmZrPj6BxgD0D7kgnQmWcI9dRcunubzvYem19vJ32PgHwkuQr3KuTH+bp4pU9/gnpPQ6ckXi1aN/jtSUkRzgYwCTt5gs9YivyMXw+1D34sGd7zc4hM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792140580; c=relaxed/simple;
-	bh=LV+tsjLIUEHEBxSJw3wNQTx+6xef7y2FTS1D05i/6N8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nmstxis8OFzGjCTXvXtcRkP/Je2ApjbWsEHXWuK3BzO6ZryFfHvqwihAAz2D07DnDi0/jdMZ4nEq1mnRHsUoPWlpVwvSIpmqW3uM9QH9yRfiR8NhBssL/cq08EvJ9iHqsUpy5itaGRRNfB+9Nl287WRlW6BlS1W6G4ZL2aE7E1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YfEJdmQq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cqcm66Zq; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792140649; c=relaxed/simple;
+	bh=v3cVT4VRZtVSHr3ccC/StOZDkykK/u7xHqCfsu6zTjo=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=j9Ts5nPj0v/kMqMMGKPH1Z0ayCuXSwUeTEFpJkjX3rtbjLSgeFsmw/svAy1BGKiL+CUkGeQ3KFHwm59z/vpb0QyfAfHma4CrGLXgU6Dci5+u8PF9+naC0tmpI+e4JCh8jEmlcC3Gv4t0IeLRufIeIM9im2pfNAcxORo3nLyiRO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Iu7leCJy; arc=none smtp.client-ip=209.85.221.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YfEJdmQq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cqcm66Zq"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G8lgDh921323
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:49:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=Ae9/W8idpRqilFnmg657Xc
-	PTn01x9W+1TIzNRFLZYiY=; b=YfEJdmQqpLgjHu/zz2JCn+LtaGl9N0NK3frYcZ
-	RDtbQvaPfZdJlLiF5BKczIHag/7NU3tAAiMMIImRsQhaQcSxJ+Q3iU0nl4W3JOwm
-	RMVcOPo7SiLRst3NNRSd/E5kypzJUUi/9gB0M9I7BENIdz09I2dV+Gw1rdKMNaHr
-	YOUc3FHqUIpOa9hxtSfzgVjaeTENCta+g8R4D1s+4pITvzSwTmIA7lHKf1bpFiaw
-	rQSk3KBlW+7Gmcd6T2mGmWNNPj32ke54Tcs+0l+6isBZkCYTWqFOMd7uh6Eatb25
-	nK9vvkyLoZjG1mz7UOBjHqBveQTUu4/N8UcLxs25NpMna2WQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb3r3ay8j-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:49:38 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cb7f9bb86so1238806285a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:49:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Iu7leCJy"
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48b02d63407so3733359f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:50:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792140577; x=1792745377; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ae9/W8idpRqilFnmg657XcPTn01x9W+1TIzNRFLZYiY=;
-        b=cqcm66Zq7HKfDzzy4EHRIfOZgfYX3Zjjme0MzZaNtZl7UJQ24PRZAWMdLj0EWDkQHd
-         Gvej7mPiRrBdXV1ub2kJ+wOIO0yYMIJO19cffqou4teoz2gh3n6Y07XrcdHxHnxSSi2g
-         Bs8LXPuvlp527AztqYLO3i/m0Mk4ow7sXPIftjy+p0zKO72o1Ejn/dl25KHQw7cKwoHU
-         4ulNiedMun7dpRmB3RIfnHrKtZiTr/Ay7K0Wrf2Tfp7cEyRCw5xNF4zklUtAEyOh2Qqc
-         qbPxBhA8nxfkL8d3pHzShVTk44/1A79EDbQc/WT8QIoS98dn+9yg5keYn4opiYWfG55+
-         MA6w==
+        d=google.com; s=20251104; t=1792140646; x=1792745446; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2/UBdI9P0FC4JKA54j7nOy5LwjpD7g9ywzmZnD86QTg=;
+        b=Iu7leCJy12KIhhXYHe6tH7TL3EGwFxSjn7PSgM9gsH56BkXJhdEguluu3jFDOJHyCx
+         9X+EetlTuLDtw0vZ0RrZ8GIwA2pYMvx0uAtyewkgb+OucbRJuOhCRGbeRlh9ObVpj/Nd
+         zuZkJ5PKZ0Gd31g3YUVPbX+CYcHHzxrTpZ/2yOY+hg8nyIsbIy22z3ZGhyWx+YZlI7G3
+         JUSqulOZF1KuFH5ZoYqPsIK0dl2viRKDFQQRhJR2/UCGAWIy6+cQCZ5CQGIIy2hOi8/r
+         yHqF9czw+zVTBkwF9Ksr9KBhawbD22clGEG+gb7oVDdWoZQdtL4E90L75Meo4kVJ0Ewq
+         A2ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792140577; x=1792745377;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ae9/W8idpRqilFnmg657XcPTn01x9W+1TIzNRFLZYiY=;
-        b=NDgtFRE6P3KXk4paN/OlIM3FzSxWtbnoB7nwx3QopgdsF7wPQgsxvjGHBg49z3xFFY
-         EuKDpDD9CeSvodfZFlsEiGm1s06OlnrTtvcPpUWNyxsgmhg2UMuagTI5VONaFsuLlCpY
-         hpANFCVlw17qhAwYIt+PfiF9OpIyJIMI1DtSrB966ev7qumFZq89EQcUIHAi9xnXetVj
-         XqIoW96Tbc6uXMUCkYex9wAjVEKcwIYF4Q7JWJx2NvHSAkIJOyHHMuqE+hmvXFP596BK
-         tcQXn3+hCDlzcTZaFwWvObovRxtu2hgvbCZ1TyIKmzHfxz7dvB7aUiYqz5Y4ghjJ5FJo
-         3Jtg==
-X-Forwarded-Encrypted: i=1; AKwUvByLrzydshfRiSbt+wS6avy4ud732YlYzpgDTV4DG8oyPTq2PksDxnuyLOB077KtspJKiByuny4WARhv1PU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7gPh/cZXRpH51RueDGVI4TBKKy4OKZZZKTdCZDj8rhXbD5mxJ
-	FoOWeHrZQC0c4qHqPTxRb1c27uNt0u8QULCMqSsUK7Ot8B6pt3MMR/qNEdkP+dGG7ysx9fxjO11
-	iXZhNCTuhanDCTuRaVCEIBPWHiwhxXCKZyo8qqhzxX78idRAGF1FoP4/3mTBgYx6xhDA=
-X-Gm-Gg: AYBFou3iKAE124QAao7KOEAMo9kpxZEwuRxPy/wRxb6aof6DQ36iGz8keqtqdHdi3uQ
-	5KvPS5V40WoO8fuh4kuWHAkvlRFRBQnRaREwYjvV9qh/Ycdjn1qUe56ck/e+X2cuRNlIuKqxOfF
-	BODRIG66vd3fwdudgHPsW8wojLmS0S5pVYAaSNQpVYdnZblt7lC1ZA1wsZXjSzmZNwEJSy8YrjE
-	EsWt08O6vqN4xe/fCz2SiU1UWhl61nEBbVWgKGm5KQ4OEPmu9X0QGFyModjMbvvUbVvTDpDaV10
-	J5VKv5+b5uXgbqpYgzkPrbsSypZA4nIR1MRkQcehum7edegR8kk8EqLxxoMkOp/dZC9AokFD/CF
-	6b2RVnuyr/IcoWS13DB09EhDP20k=
-X-Received: by 2002:a05:620a:628d:b0:93f:1dbf:6cfc with SMTP id af79cd13be357-93f1dbf7018mr123108485a.36.1792140577156;
-        Fri, 16 Oct 2026 01:49:37 -0700 (PDT)
-X-Received: by 2002:a05:620a:628d:b0:93f:1dbf:6cfc with SMTP id af79cd13be357-93f1dbf7018mr123107185a.36.1792140576712;
-        Fri, 16 Oct 2026 01:49:36 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd50d1bcsm3649332f8f.54.2026.10.16.01.49.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 01:49:35 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, brgl@kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [GIT PULL] power sequencing fixes for v7.3
-Date: Fri, 16 Oct 2026 10:49:32 +0200
-Message-ID: <20261016084933.39924-1-bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20260707; t=1792140646; x=1792745446;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2/UBdI9P0FC4JKA54j7nOy5LwjpD7g9ywzmZnD86QTg=;
+        b=dLf/x1f7x2NNDmaOFCaZA4CQx77FMAB6Se4j3C7/qu44tcD/u1aoJXumUIpMIWZhP6
+         BqxoPgds+VZpHtYts+6vVPI1Q9UbMniDxUiTRWqbRH/1Ipc7x1NpMxyDK+ySzLqcCWMS
+         oYIvLFct81r/YsoOv1SmkecMtNCmT9v8v0iY4Bzd16RosN8qgzmN0JUYDYFWKqzvNtTt
+         NuozkggqmlV52iRi/i63d2wXgaaW5P8/6y6rwhamAauo5GJ0isx5m44utDQO/Q6U15mb
+         C7H7SshjkXkZ8JQgyODAHYQMHg9KOwUUa7mXVMhW9ws6lJK8WHDT6LGlrZp69L8Ehk1W
+         QIKg==
+X-Forwarded-Encrypted: i=1; AKwUvBzohUQwpOJso4q5MJMUbLsHxsJDzVZeELjk9/4FTON/gmrD07oKauT29vtnAc/hXxlo5XxWzSnqtJEXVr8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXIjHMbwTzan5HqnYKtRA7fpT7NIMRxOLnCMcdsf1bjfSoNyER
+	+/DVoyXVb5guTnde/iBV4WNxgGpsGveh+jElekSYbS1CHTCIFKTUFzPAAMHTw0IFTYozqAQjqao
+	sJaipqhxxCFg6T79IqQ==
+X-Received: from wmkz7.prod.google.com ([2002:a7b:c7c7:0:b0:4a1:9e7b:11b2])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:83c9:b0:4a1:70f0:ac2 with SMTP id 5b1f17b1804b1-4a18e4ce9cfmr439668265e9.24.1792140645760;
+ Fri, 16 Oct 2026 01:50:45 -0700 (PDT)
+Date: Fri, 16 Oct 2026 08:50:44 +0000
+In-Reply-To: <20261001145940.1077801-5-zhiw@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzNCBTYWx0ZWRfX6D1GC9LI4GjQ
- 82gmeq68ATBtLfm9XJCLIvPLBhUaTmLc8tTE9a9CfuWOCv02Ml4CHfkW1i+f7E+VCqeVgN+OTEt
- Q0xHZm/Ylyv0S6HtqYi38NjvDh6BvjvHw7vXQtKMLQlXZBgix79VESZPvynNPkTiE+YzbtI1qiS
- 0O2F0MR1uszJpE/oCq9MuEjNQ61P1cWD0JwoU+XzhkCMXd9cCdFpV9pHkhvzPEp1K1W/wZYdAVh
- 71SWqR7DxCWRaTEcNXsHTuiwqHl7t5xc3omJx+x8LylvLKpKTfH7oo52uCOXPEr5u6LnEMMGQ9h
- XJsy3ltIme1Hf4hnGuRQze/wClAdQyrCsTndMjEpad0d4RtK7wh44rvXxeQfGiMMgxwAaiO69eO
- +d3/iP5nDO6Ro3zYVEtCQhIRqk/J8rly+AliXbUyuFMXdr8KZdjFoYW9G0gUSs6U63gxiktHvkY
- O8hccQ8rd934MW5RDCA==
-X-Proofpoint-GUID: 5nSVcOklKKg6eAkESbFWEde08eECbgUv
-X-Proofpoint-ORIG-GUID: 5nSVcOklKKg6eAkESbFWEde08eECbgUv
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzNCBTYWx0ZWRfX7QFHRyYsFWBz
- KViZ94r4cPF7j5z+g6+9DRzUKepR1WJzVJ7BlCcuQ7o90w9BUmGb9ytN3BWRph5euxo4BBVi5ii
- uLe77WkASiWAMkia3FofeToOqwIjoiU=
-X-Authority-Analysis: v=2.4 cv=INGXmQvG c=1 sm=1 tr=0 ts=6ad1e522 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
- a=i_sB5PnZ_mCEERRZbpYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 spamscore=0 adultscore=0 priorityscore=1501
- malwarescore=0 suspectscore=0 bulkscore=0 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160034
+Mime-Version: 1.0
+References: <20261001145940.1077801-1-zhiw@nvidia.com> <20261001145940.1077801-5-zhiw@nvidia.com>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261016085045.3517539-1-aliceryhl@google.com>
+Subject: Re: [PATCH v3 4/5] rust: print: add dynamic debug support to pr_debug!
+From: Alice Ryhl <aliceryhl@google.com>
+To: Zhi Wang <zhiw@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, andrewjballance@gmail.com, 
+	daniel.almeida@collabora.com, dakr@kernel.org, ojeda@kernel.org, 
+	boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, 
+	lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu, cjia@nvidia.com, 
+	smitra@nvidia.com, ankita@nvidia.com, aniketa@nvidia.com, 
+	kwankhede@nvidia.com, targupta@nvidia.com, kjaju@nvidia.com, 
+	alkumar@nvidia.com, acourbot@nvidia.com, jhubbard@nvidia.com, 
+	zhiwang@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Linus,
+On Thu, Oct 01, 2026 at 05:59:39PM +0300, Zhi Wang wrote:
+> +/// A dynamic debug callsite descriptor.
+> +///
+> +/// The [`crate::dynamic_debug!`] macro places descriptors at stable add=
+resses in `__dyndbg`.
+> +#[repr(transparent)]
+> +pub struct Descriptor {
+> +    /// The C descriptor, exposed for static-branch field addressing.
+> +    pub inner: bindings::_ddebug,
+> +}
 
-Please pull one final power sequencing fix for this cycle. It removes
-a workaround for a PCI core issue that was since fixed and the workaround
-started causing problems instead.
+Should this be #[repr(C, align(8))] to match how C adds __aligned(8) in=20
+DEFINE_DYNAMIC_DEBUG_METADATA_CLS?
 
-Thanks,
-Bartosz
+> +impl Descriptor {
+> +    /// Creates an initially disabled descriptor.
+> +    pub const fn new(
+> +        module: &'static CStr,
+> +        file: &'static CStr,
+> +        format: &'static CStr,
+> +        line: u32,
+> +    ) -> Self {
+> +        // SAFETY: `_ddebug` contains raw pointers, integers and, with j=
+ump labels, a static key.
+> +        // All accept zero; the pointers and bitfields are filled in bef=
+ore publication.
+> +        let mut descriptor: bindings::_ddebug =3D unsafe { core::mem::ze=
+roed() };
+> +        descriptor.modname =3D as_char_ptr_in_const_context(module);
+> +        descriptor.function =3D as_char_ptr_in_const_context(c"<unknown>=
+");
+> +        descriptor.filename =3D as_char_ptr_in_const_context(file);
+> +        descriptor.format =3D as_char_ptr_in_const_context(format);
+> +
+> +        // C packs `lineno:18`, `class_id:6` and `flags:8` into an unsig=
+ned int. Bindgen's setters
+> +        // are not const, so encode the target's bitfield ordering expli=
+citly. Truncate line numbers
+> +        // as the C bitfield assignment does.
+> +        let line =3D line & ((1 << 18) - 1);
+> +        let class =3D bindings::_DPRINTK_CLASS_DFLT;
+> +        let flags =3D bindings::_DPRINTK_FLAGS_NONE;
+> +        #[cfg(target_endian =3D "little")]
+> +        let bits =3D (line | (class << 18) | (flags << 24)).to_le_bytes(=
+);
+> +        #[cfg(target_endian =3D "big")]
+> +        let bits =3D ((line << 14) | (class << 8) | flags).to_be_bytes()=
+;
+> +        descriptor._bitfield_1 =3D bindings::__BindgenBitfieldUnit::new(=
+bits);
+> +
+> +        #[cfg(CONFIG_JUMP_LABEL)]
+> +        // An all-zero key is `STATIC_KEY_INIT_FALSE`.
+> +        static_assert!(bindings::JUMP_TYPE_FALSE =3D=3D 0);
+> +
+> +        Self { inner: descriptor }
+> +    }
 
-The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907:
+Two comments here:
 
-  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
+1. Instead of hardcoding `c"<unknown>"` for `descriptor.function`, how
+   about passing `$crate::c_str!(module_path!())` from `dynamic_debug!`
+   (an idea from Thomas Wei=C3=9Fschuh's RFC series [1])? Even though Rust
+   doesn't have a `function_name!()` macro, recording `module_path!()`
+   makes the `+f` prefix flag useful and allows `func` queries in
+   `/proc/dynamic_debug/control` to filter by Rust module path within a
+   multi-file crate.
 
-are available in the Git repository at:
+   [1] https://lore.kernel.org/rust-for-linux/20261011-rust-dyndbg-v1-8-832=
+e4039b71f@weissschuh.net/
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/pwrseq-fixes-for-v7.3
+2. The inline bitfield manipulation and `unsafe { core::mem::zeroed() }`
+   is pretty ugly. Please use the same strategy as `FamilyFlags` in
+   `rust/kernel/net/netlink.rs` to handle bitfields in `const` context:
 
-for you to fetch changes up to dbd674ccf30f66f5eccf637964a93910df8dbf84:
+   - Move the bitfield construction into a dedicated helper struct with a
+     `const fn into_bitfield(self) -> bindings::__BindgenBitfieldUnit<[u8; =
+4]>`
+     method.
+   - Construct `bindings::_ddebug` directly using struct literal syntax
+     with `..pin_init::zeroed()`, avoiding `unsafe { core::mem::zeroed() }`
+     and field-by-field mutation.
+   - Add a kunit test (like `test_family_flags_bitfield`) that verifies
+     `into_bitfield()` against bindgen's generated `set_lineno`,
+     `set_class_id`, and `set_flags` (or `bindings::_ddebug::new_bitfield_1=
+`).
 
-  power: sequencing: qcom-wcn: power off WLAN at probe (2026-10-12 15:36:07 +0200)
+> +    /// Prints arguments with the crate's log prefix and the dynamic deb=
+ug prefixes.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// `descriptor` must point to an initialized descriptor valid for t=
+his call, whose string
+> +    /// pointers refer to valid NUL-terminated C strings. Concurrent acc=
+ess must follow the C
+> +    /// dynamic debug and jump label synchronization rules, without conf=
+licting Rust accesses.
+> +    pub unsafe fn print(descriptor: *mut Self, prefix: &CStr, args: fmt:=
+:Arguments<'_>) {
+> +        // SAFETY: The descriptor is valid by the caller's guarantee. Th=
+e helper uses the C string
+> +        // `prefix` and consumes `args` through `%pA` synchronously, so =
+their borrows remain valid.
+> +        unsafe {
+> +            bindings::ddebug_print(
+> +                &raw mut (*descriptor).inner,
+> +                prefix.as_char_ptr(),
+> +                core::ptr::from_ref(&args).cast(),
+> +            )
+> +        };
+> +    }
 
-----------------------------------------------------------------
-power sequencing fixes for v7.3
+`Descriptor::print` (and `Descriptor::dev_print` in patch 5/5) should be
+marked `#[inline]`, just like `Descriptor::enabled`.
 
-- with the PCIe code reworked to power the endpoint via pwrctl before it
-  starts the link training, we can now remove the workaround for WLAN
-  power which instead started causing an issue with endpoint enumeration
+> +macro_rules! dynamic_debug {
+> +    ($descriptor:ident, ($($arg:tt)*), $body:block) =3D> {{
+> +        // Keep item names out of the user's scope, including implicit f=
+ormat captures.
+> +        let (descriptor, enabled) =3D {
+> +            // `used(compiler)` avoids `SHF_GNU_RETAIN`, which the modul=
+e loader interprets as
+> +            // `SHF_RO_AFTER_INIT`.
+> +            #[used(compiler)]
+> +            #[unsafe(link_section =3D "__dyndbg")]
+> +            static mut DESCRIPTOR: $crate::print::dynamic_debug::Descrip=
+tor =3D
+> +                $crate::print::dynamic_debug::Descriptor::new(
+> +                    $crate::c_str!(env!("RUST_MODNAME")),
+> +                    $crate::c_str!(file!()),
+> +                    $crate::dynamic_debug_format!($($arg)*),
+> +                    line!(),
+> +                );
 
-----------------------------------------------------------------
-François Roux (1):
-      power: sequencing: qcom-wcn: power off WLAN at probe
+Is `#[used(compiler)]` needed here at all?
 
- drivers/power/sequencing/pwrseq-qcom-wcn.c | 16 +---------------
- 1 file changed, 1 insertion(+), 15 deletions(-)
+When the `pr_debug!` / `dev_dbg!` statement is reachable, `DESCRIPTOR`
+is already referenced by `static_branch_unlikely!(DESCRIPTOR, ...)` and
+by `&raw mut DESCRIPTOR` passed to `Descriptor::print`. And if the
+callsite is optimized out (for example, inside an unused function or
+dead branch), we *want* the static `DESCRIPTOR` to be deleted as well
+rather than leaving an orphan entry in `__dyndbg`. This would match C's
+`DEFINE_DYNAMIC_DEBUG_METADATA_CLS`, which does not use `__used`.
+
+For instance, with `#[used(compiler)]` present, the uncalled `fn example`
+in the `dev_dbg!` doctest still emits a dead `DESCRIPTOR` into `vmlinux`'s
+`__dyndbg` section.
+
+> +/// Stub for host doctests, matching [`crate::print_macro!`].
+> +#[cfg(testlib)]
+> +#[macro_export]
+> +macro_rules! dynamic_debug {
+> +    ($descriptor:ident, ($($arg:tt)*), $body:block) =3D> {
+> +        ()
+> +    };
+> +}
+
+If `dynamic_debug!` drops `$body` under `#[cfg(testlib)]`, any variables
+used only inside `pr_debug!` or `dev_dbg!` will trigger `unused_variables`
+warnings under `testlib`, and `$body` won't be type-checked. How about:
+
+    if false {
+        let $descriptor: *mut $crate::print::dynamic_debug::Descriptor =3D
+            ::core::ptr::null_mut();
+        $body
+    }
+
+Alice
