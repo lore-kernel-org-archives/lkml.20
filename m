@@ -1,72 +1,174 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA8EA3F86E1
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:16:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A69C44723D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:17:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792181767; cv=none; b=VEReCa7qhDDSoMlp+TGK7F4O1O2pUnhtCHuqTzZsGZua9JQ+57yoKHTqaz4OtkxwmsbXay/y5k+TV4ynCwEqdri1JG21w0bfbgy8mznune1GYVprIpEbhI1utobyZhSCxEF5dqhWDLxIJ1FXf9gKscCDQ9MkTUqkrZpI8A5xe3M=
+	t=1792181854; cv=none; b=Pak/v+EHE7MD33sJiMPKll3StarcxrSDxp8IyV219rQYrPI6rpHuIEV2ge++0FETv+tPoer4//tY7Zc3syOKR/WBB87amcYkKzI+o1YH0VGkHLkZC1y+bnfp8BfrBDOA+cqq56y9AbWbz4SL+4mQwZ/tOe8ivANuTW9Cdzk4WGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792181767; c=relaxed/simple;
-	bh=1nxu4pA/Om4V0atY9ShqiD4KS7VYOfNUk0chVS9G/0Q=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=RVDJKuULJ5rzFCDZpdjjAhXc2n/r6Kf0ryuRQqjW4qrh1u+rlOxZaQOd/7B0xMenAa5TYpM2n6gx59QU4uy58DyzKDK0egSG6YvE87uTMi5hbZUlUzwW7pDQmReYhOqFb3RC1QgwYBM3v4mIpPpyblnWERvNGsqamT+Z5AYXG2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4e778acdbc6so545134b6e.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:16:04 -0700 (PDT)
+	s=arc-20240116; t=1792181854; c=relaxed/simple;
+	bh=/OHS7CbxIjBbPttwPMwIagfUH3hXetk1CB+uZa9XJMQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kuHbFSZT7y2RP+DVn95S2bd5fdOJvwq+0wkygPQrSdwGbAE6jAvZthhALADwikFzoW2zlBrqLFiapA9c41GoHxRMzO4OUBxb4WPDon52MXYYbt7XLE4Kv5N6lR0elZmk815QPh6H6/DbPL7dIIQb5RdsKxirK1feRmZkW8GGmmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cl7J11iJ; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cl7J11iJ"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8899a204034so177083b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:17:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792181844; x=1792786644; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OsnszACXPTVDnPZfOqDQkfMfDgaLqJRUD8jA3813/H4=;
+        b=cl7J11iJ3QKHzMi8S2V7wlsOS7RsGPKGYX3HE539xHUyZDKHMopuMs88Dmo71KQSTx
+         nNKEjyYXzaYHEvu2hLdl/ax/BYOP7LpvbWUobSdnwmyzlUsxHE87ZXjTDSidB1wedbQu
+         4UWbRd+011CD/Y21SDUjnW6I+ZS8BJAOr02vHqzy97mfyb/WaI1N3gYogwnFAN2gh+ZE
+         TeacLRe8UeR/uQTH5llbrZ3akRd+rvTRQajlG6Xnok7iYZJQp2lYS8nPf/5eCoPIGmv7
+         ePOn90ITA/i1USnnBSyCczdsEboTgYQZxDJs2zHSLCtvHBkD4XhdbaQeIbdmMBp/1TUS
+         JcUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792181764; x=1792786564;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=pjXHKA23cauKt6S5MBjLM3ZXgx4VBXK9g4Pk56xy3PQ=;
-        b=bXNZPN6O0CYH+k9xH9YxRQYkj0Cj9jgTR+OLZj3pKRBtQEKnNaryJA98UDAm89h/Xl
-         DybRlml7fdRuo4p5DVt2YSEar7N8xisN751+J6pza4dsDgpb7ZNJ/Ic7jcURfTdIPDH7
-         i8ejQFOsv1WowGFUjykWhH1yax5EsPy0Quz73v6+MjlfbpQ68V8D55gOJKLgP4Ht3HNr
-         07DQqVt6L6zFjxFpml9/Ri8uCYnZaE8GX2gw2ooTku8LG4uizw81eY2qmArmayWuoGdt
-         fNFpNfRi2vnrNEj/XgTI6kFGRHynGYVxpDnUfBC0Br/8vUuNllKsUbW9A+QkItoxvylx
-         r84g==
-X-Forwarded-Encrypted: i=1; AKwUvBytUGZvgiz+al1hiMM4SUF+FzgCapwGnw5iB+yMvBa8bDJ0lHsxlhX1nnRoQYKhek1SkskduMD983KLpcM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKIFmAquUPSQXTQcxOsigcdVzZGfeR362lKwOGQeaq5K32vBnCE
-	ewasy3cX3biu0L9/y3fvc2fLjU6Ew2WFNTFKqNYoXmo4agtgCIaG/cs3wTEE2CYtCr/xoB5Ph1z
-	BLkQFsdDtiaqgnG94LvlU/FbcAVzK23bUko/bxJNO1/OybRGBAZOh56OpGjc=
+        d=1e100.net; s=20260707; t=1792181844; x=1792786644;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OsnszACXPTVDnPZfOqDQkfMfDgaLqJRUD8jA3813/H4=;
+        b=jKjvrCltmRTEuIuyXlkCzJXbzC3R8YPDp2fWpkXrQGpuH5jlXpY5pf+hOmgdHzlkuu
+         gZwo2mQuFTnCsjAAS6XUV/KZfxzSROXRjbrPzd3kt2M0oGPIXEJIB9PEC7Om/o2e3jGi
+         ZaESGHV1nGSuWhExtkhJ6ajnD2doX99YxQna8S34EUHWzb+XirHDyfsQ8zajhvkbUZKp
+         d8qMrdUXfwULFT0o8U0uIEgMZ7i4cwrwihrhQv/nllarSclY/Wy1qqptVFcPg8Oets3N
+         treejnwaGcq/dSv4NHFvNX1tKdvreEWysFevY/4KxS1ZS0NVvEadbObQrZKUvu1KvcJI
+         iOpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxdfrPfjbHlbmCHq9sSyl2l816gbv0yGCSaH5dEo2GQRxXLGXurNGSPP0rTkLDkKXnO8BXGPBFLXraMiH4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhd8nKQ/DQJr4iw7bQsZUdsi8CwTVmORj5r46okPBLFSqKhGxr
+	mUxGucrGRdZRmbXCoh06g9MbUzBHbSRVt+/H506zTSx6iKWRUzQpraeZJRV6kMVseQ==
+X-Gm-Gg: AYBFou3jQBWDuPEAjqeH1w1+G2wFirAHdCA9o3k0x5Q4lq/3hiKB32fkARbpjH2NRWm
+	LbDPStjr9N+/KlKnFuU80TaLhaZ/ZwQoZvDkgMSg5V6AhO3uSIoTsN32BYJ51zuEIdf6ce0zUyy
+	qYinVn9+cgbjdelDCxzmPl9lTCGD9YQhSQT/KSk1P8ICZl9puCdlw8IavhaxYM+sIfj6dNGcYaG
+	2IUFrKZfCKMDBpkOZedSGFVWUhLdoSGbFsRNWXUFhyOkQ3QZDGLaNXykaVmt6QR7htVPWXVq4/d
+	CrCS96/KghC/H4PKHMEuakKHGEFOhxiYzbIMJlEdXeoc8gjXRqld7JCjiBWgERSWIRFEpIsGMaR
+	JDA7wCQ2aMkToEBdmKhb0jkkd8x7o/CffJNB904pSHVcWWogFvcz+Wm9XOzcm1TVLaidXb1yKD/
+	vVPoVq4jtJMbk7YkRtNBBcN/Xr58TNZ3OrW2wEypRUazqoip6k7IutSPkzz8BBI7QpyFfqLj3dG
+	EPQKR7R89ExUR5jaYSEiM9ijF6nNFz5z04+JTAI8FVRrcFwAYOs+OjpFAQdbaraiqP0Zdsb25VN
+	4csZIAod93K2wcjl
+X-Received: by 2002:a05:6a00:189a:b0:882:94ab:20ea with SMTP id d2e1a72fcca58-8a04be37e89mr491979b3a.39.1792181843202;
+        Fri, 16 Oct 2026 13:17:23 -0700 (PDT)
+Received: from google.com (64.75.127.34.bc.googleusercontent.com. [34.127.75.64])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f58017c70sm1663372b3a.48.2026.10.16.13.17.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 13:17:22 -0700 (PDT)
+Date: Fri, 16 Oct 2026 20:17:18 +0000
+From: David Matlack <dmatlack@google.com>
+To: Michal Clapinski <mclapinski@google.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+	Lukas Wunner <lukas@wunner.de>, linux-kernel@vger.kernel.org,
+	Pasha Tatashin <pasha.tatashin@soleen.com>
+Subject: Re: [PATCH RESEND] PCI/DOE: Poll briefly for a response before
+ sleeping
+Message-ID: <atKGTn7PqaDaednD@google.com>
+References: <20261012114213.1757207-1-mclapinski@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1993:b0:4f7:f874:8cac with SMTP id
- 5614622812f47-53cd5a0daeamr960785b6e.66.1792181763723; Fri, 16 Oct 2026
- 13:16:03 -0700 (PDT)
-Date: Fri, 16 Oct 2026 13:16:03 -0700
-In-Reply-To: <20261016145646.105391-1-gservice341@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad28603.a6d1a155.34a93f.0004.GAE@google.com>
-Subject: Re: [syzbot] [bluetooth?] WARNING in hci_connect_sco
-From: syzbot <syzbot+5897b3c764f5989ea942@syzkaller.appspotmail.com>
-To: gservice341@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012114213.1757207-1-mclapinski@google.com>
 
-Hello,
+On 2026-10-12 01:42 PM, Michal Clapinski wrote:
+> doe_statemachine_work() waits for a response by sleeping
+> PCI_DOE_POLL_INTERVAL (PCI_DOE_TIMEOUT / 128) between status reads,
+> which is 7 ms at HZ=1000 and 4 ms at HZ=250. Exchanges are served from
+> the device's local mailbox logic and typically complete within tens of
+> microseconds, so nearly all of that sleep is wasted. Every DOE-capable
+> endpoint pays it once per supported feature during enumeration.
+> 
+> Poll with usleep_range(20, 50) for the first ~2 ms before falling back
+> to the jiffies-based wait. On an Intel Emerald Rapids system, time spent
+> in pci_device_add() for a DOE-capable endpoint drops from 41.8 ms to
+> 14.0 ms.
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Does any of this remaining time come from pci_doe_abort()? I see that is
+also called during mailbox creation and has the same call to
+pci_doe_wait(). If so, maybe the poll logic can be shared.
 
-Reported-by: syzbot+5897b3c764f5989ea942@syzkaller.appspotmail.com
-Tested-by: syzbot+5897b3c764f5989ea942@syzkaller.appspotmail.com
+> 
+> Signed-off-by: Michal Clapinski <mclapinski@google.com>
+> ---
+> I was asked if I can do this with interrupts instead. I don't see a way
+> to do that during device enumeration that won't collide with the
+> drivers.
+> ---
+>  drivers/pci/doe.c | 28 +++++++++++++++++++++++-----
+>  1 file changed, 23 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/pci/doe.c b/drivers/pci/doe.c
+> index 6b5d9ba8e969..5e93d78a1a97 100644
+> --- a/drivers/pci/doe.c
+> +++ b/drivers/pci/doe.c
+> @@ -27,6 +27,9 @@
+>  /* Timeout of 1 second from 6.30.2 Operation, PCI Spec r6.0 */
+>  #define PCI_DOE_TIMEOUT HZ
+>  #define PCI_DOE_POLL_INTERVAL	(PCI_DOE_TIMEOUT / 128)
 
-Tested on:
+It would be nice to also fix the HZ=100 issue, in a separate patch
+within the same series, since you are updating this code.
 
-commit:         70dd4ee7 Merge tag 'pinctrl-v7.3-3' of git://git.kerne..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=105a618e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1422747690f83bc1
-dashboard link: https://syzkaller.appspot.com/bug?extid=5897b3c764f5989ea942
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+> +#define PCI_DOE_POLL_FAST_MIN_US	20
+> +#define PCI_DOE_POLL_FAST_MAX_US	50
+> +#define PCI_DOE_POLL_FAST_TRIES		40
+>  
+>  #define PCI_DOE_FLAG_CANCEL	0
+>  #define PCI_DOE_FLAG_DEAD	1
+> @@ -487,7 +490,7 @@ static void doe_statemachine_work(struct work_struct *work)
+>  	int offset = doe_mb->cap_offset;
+>  	unsigned long timeout_jiffies;
+>  	u32 val;
+> -	int rc;
+> +	int rc, tries = 0;
+>  
+>  	if (test_bit(PCI_DOE_FLAG_DEAD, &doe_mb->flags)) {
+>  		signal_task_complete(task, -EIO);
+> @@ -525,10 +528,25 @@ static void doe_statemachine_work(struct work_struct *work)
+>  			signal_task_abort(task, -EIO);
+>  			return;
+>  		}
+> -		rc = pci_doe_wait(doe_mb, PCI_DOE_POLL_INTERVAL);
+> -		if (rc) {
+> -			signal_task_abort(task, rc);
+> -			return;
+> +		/*
+> +		 * Exchanges are served from the device's local mailbox
+> +		 * logic and usually complete in tens of microseconds, far
+> +		 * below the jiffies granularity of PCI_DOE_POLL_INTERVAL.
+> +		 * Poll for up to ~2 ms before falling back to it.
+> +		 */
 
-Note: no patches were applied.
-Note: testing is done by a robot and is best-effort only.
+If tens of microsecond is the norm then is polling for up to 2ms
+overkill?
+
+> +		if (tries++ < PCI_DOE_POLL_FAST_TRIES) {
+> +			if (test_bit(PCI_DOE_FLAG_CANCEL, &doe_mb->flags)) {
+> +				signal_task_abort(task, -EIO);
+> +				return;
+> +			}
+> +			usleep_range(PCI_DOE_POLL_FAST_MIN_US,
+> +				     PCI_DOE_POLL_FAST_MAX_US);
+> +		} else {
+> +			rc = pci_doe_wait(doe_mb, PCI_DOE_POLL_INTERVAL);
+> +			if (rc) {
+> +				signal_task_abort(task, rc);
+> +				return;
+> +			}
+>  		}
+>  		goto retry_resp;
+>  	}
+> -- 
+> 2.56.0.385.gd3acb90ef8-goog
+> 
