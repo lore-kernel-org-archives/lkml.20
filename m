@@ -1,118 +1,219 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7B92D9ECA
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:58:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A301E260C
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792151937; cv=none; b=PAfgEu7yUnhHND8WWPr0guRHYzEZD+TamV9PvYhE06dCbHGTx+DEQpdHJXyZbK+bQ7XzazaOLe7Sc7HbO7rZDyhbyAqR5Uolsb1F2DNZSWFXgSCaqrACXjGM4pVVNBZ490CsQZ4AI2NpkCWb8YfxmPYz1pvGB/Ahh5OSZzf4HQU=
+	t=1792152058; cv=none; b=Q3Pb7rdNvtV0IfYRNH3ZCb4PLGwo8CxgG2lzbCTO8JvCe+6T3lTcsLGoRQUDwlXhEmiHZAkJwpDb8F3+ym6IlZuNbJLhJlrfQHxmPYUb6YePA69aqK4wiq23omfG7U7YXCnzl9rJRiu3NlBVXx6s8ws85kBUi0BacO0VfmdpwxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792151937; c=relaxed/simple;
-	bh=XWJhrf9bPy7m8cTmjHd5g/ZCR9ncCcb2WG8cntVMrec=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bUlfEvovyZUwQmzt4gpuJ1WP5+502VzhmrscrJUe5IfhGn5EMh7PAUvypzkxNwtUqTKCUau8gxT+t8cID8uenxwqH1fvAtHwtNeGFYfjPu+QwZKVDw9ZD/usvkDA1v/dwrHT51KIS47h4ps0+wFt23BfhuZpjLckpA/KcrdZf3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eQR5Oq3I; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792152058; c=relaxed/simple;
+	bh=oTSvWT5egyr1CETBh/x/wkC85/WmhMt+MS1XJCPi3H0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y3+xmL/ma+EUi80vLF3D1X2DGKfdXguJv2vvGYyWSA6JGVbqyjQ0zeOlY7SAws5nRp92kXlcvhIc5OrGBvW8JmDRITPXL3KfSsDn5f13VVPRDzi9oxID9yGtJRZ5fcP5hqjZDch7zQx/tgaJITxl88wtWh5UTuWUZpmoTVbfbws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j+MDOWuu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aIOsBG8L; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eQR5Oq3I"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3acb512a7a0so773682a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:58:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j+MDOWuu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aIOsBG8L"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAALvl488576
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:00:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MFSnFBHYg/fTRbadTyfMpG/V5zT5Z8plQKNhaT3h4mw=; b=j+MDOWuuEAnLtaCj
+	dhFfpJnZaceAOQg7i6HqGoiSNkMEqpi+VhjA+RPY1AWyLZJt3fV1CeQauB5MM0cJ
+	h2upB3hlkhqTKsXo6fjvYEyDLzIfJleHYS8d3AsV6v22dqmIyqSIMxZ10MKAvHQ/
+	7ZwxiaOxEa1dlBaPT/ULmtLCoATOdhbn/fbNBZSMqQCx5ncAFd7o+iG5tKw6kR9m
+	cASy1YgBuiLiy6AyUO9C+FgVjbVLpo8sGSQXrPnX8fMdgLvxBICgthIgul9Fq8Ba
+	vgREYwsQ3CjM5qGEFMNBA275Rct0ZEC6O6Nfi0/lu+dwkO+H1HL29vyTfP8YcLCK
+	VbWWgA==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbcjt9qmr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:00:55 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e9821ca96fso9022725ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:00:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792151936; x=1792756736; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LxdDa/5ciMRdv/9eQf773tGBdimu+xTTwUw9N85FYNg=;
-        b=eQR5Oq3IKe36xyZUQSIaGUGIzHWJeVvUouccQhE8vVX2Va99zYuojLNNa9qoBDaGzC
-         tWvJP+GnK8MZQHPSuxkhkx3F2Q7aIa3z4INm52ENnemu6B0j+w+3gfcDe4gh42D3B0xM
-         YulcUWDfFdHXMJuLReGgUV2vgIn1dZUhom2oxqD9lx9z2FxRsjs1uwsWjJGRWgcZ4WfQ
-         IBE+OGPc9jG7+J10hf58a5B++JW1rXffjDpEc8JobJn7dVp8LA3HNSPND6kjAoOxGptM
-         XNFzFq52eHLpuuFnTfk4ySZO/n+Gr61pVK2Aie3hg5RIOZtNyJ1wQKRDO8DAuC/S3TN2
-         11+A==
+        d=oss.qualcomm.com; s=google; t=1792152055; x=1792756855; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MFSnFBHYg/fTRbadTyfMpG/V5zT5Z8plQKNhaT3h4mw=;
+        b=aIOsBG8L4VQ6drXqM3O7WaQtEhA3peFd6uKK8AVzRkOjGfrPNxQ/uGA3Cc9egCNQCc
+         3yJlyP0bkBbMxJR7ikyP2qZcwpWu/BCb2mXvazgJtr8KPG3rnih93tvqMaPHlmEeSNjk
+         HqkXf/DFMNc6XeWJ2pnuUajazMAtR8p/M71fha9abQdY/+M3pNgpMP0BlGiSgDJ9Xe9j
+         qUXk17XQSUKmZaz0O7huydnGiKtM0+CKDEe6v/ldJr/KEkGohyqpWoVTtIcfUN9Y5CIr
+         +uXkwca3Si4y3qtaGk25qRHxJ13NA8FfJtz01lRgkp1Q3i5hYRGb7FUGOb3prrq6gi2Q
+         xixg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792151936; x=1792756736;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792152055; x=1792756855;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LxdDa/5ciMRdv/9eQf773tGBdimu+xTTwUw9N85FYNg=;
-        b=qNQQ3TR/+ZlyDu2VSVTle6PMEmh1ZAvXnPs4IjxwNnf0nEWc+eysS1JwqKVi6SyHRe
-         MV2UZlMgneQmGnR0mF/xr17YbXFtoWNkNmAb6jYsE7QGvoEM6GlAAStaN76q7Eybt6q0
-         tF7AhG3A2xbthvKfaKFTUp1Vp3xCXDiAADIVAoxwjAs4sp3h8QLkSQwftmP9NYM/aISu
-         SLG5hRq8RT9rDlILBidr0Z/VRjEYV6lG+IKEAS2d7fyV2eawoDxtpEGSzMPfeABq5uPt
-         42HRUJ4GskaSK6iKrlRjlP42k/r3p7srE7gPlJNKMFevHLePmbUrhAS2wSJ/eIoSndEN
-         qn9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw9nMLPMNnzPCLekqe9tdxGgFiEkblDXEYQiKRhm+HOP6URPFXa1q7zvPd5u6Nxi461Fej3NNSC6C1VrJk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJX0o0Z+6MRsDMLOJqYm2vKRoe20bnz4SD6lsmc1Ffk3T/JXu7u
-	i4xXBk3U8/BcVEp1VBbF7qyiVVma8jMYvaALeHBusu0gqcx2ZFBJUNeP
-X-Gm-Gg: AYBFou2cDN2ZCchSOtFXyeWV60YMnIa4XAwwsoRSCsd+RoOs6hIHIfjU/KgzxMnmMVY
-	cTvu+eT8s5UlVGkns/p1Bjgga6eGsN3rz7d37/jp2VeL7jPfHiGE1o269yeVOx4t33PdEco/wYT
-	AXC8CFyMK9ThRh1sRUpLTRmw9fHzU/XOYQtks8El71r0BMYT6x8sQoYW2Yxq8eX+QKpMkWcTERl
-	uZILbM2aHvlv1PwZbF2iT2FiieQ5RAEcpq6uyuqjljWPoeXtUwmgwcH3zy8O2eYWYPUAM4xAuZ3
-	Y+lBITfjLRNe2ksbRvg5yrvwO++6DAEoujO+GuMklgQmKaxyoopvcnm+3L1RFeueRYEUT+NN6m+
-	XKGMv/hchtZHVViRr1YD/K0ZQ//h5UCu5qqxqchSnSflBoloVQ5FpFdtNQyKazkYuDqqAam00IO
-	RUXTdidc7swztq0+nnTcHLcJqsYvrItmmS3ArfkpHW45/0EnhE/ch2ftmgx2CcBjtuDzqBa2fcE
-	g==
-X-Received: by 2002:a17:90b:58ec:b0:3ac:17c:6e8a with SMTP id 98e67ed59e1d1-3ac017c707cmr13397731a91.51.1792151935956;
-        Fri, 16 Oct 2026 04:58:55 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45a:16dc::247:b8])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd9c4b4eesm1809055a91.2.2026.10.16.04.58.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 04:58:55 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Jan Kara <jack@suse.cz>,
-	Jori Koolstra <jkoolstra@xs4all.nl>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+8420e667af06b1709c00@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: [PATCH] minix: reject rmdir of a directory with a corrupted link count
-Date: Fri, 16 Oct 2026 18:58:51 +0700
-Message-ID: <20261016115851.14276-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=MFSnFBHYg/fTRbadTyfMpG/V5zT5Z8plQKNhaT3h4mw=;
+        b=pxs3GMlsF+bNZWAscv5WzYMzob2wECFiMctWE8XXU/I/7uZBpcGjc6tmAgzGU8ntwL
+         jnf8qDitDoNeQU2AlZWvkoZX7z5+stWbyIN4HbQ1x9ho35ESurU0pilNgGMeJwUkJVZJ
+         kv12kQU4k4HGdDNWOyTU53EHK+2eehm9R+eCs39OPlfOvc/l+k2MMbxOtHXNocY3Tyv2
+         at+mbYBHruBj/bxhqOD6BrkfI1OeAzLXDB4QzwsbCQSAZcg69GzulCiygK+KB2jDs6HH
+         nygYTYmEo9EwKuXPg3whHj7MjbRd1MsZfiKtH3jrRsX6YEk0D//QzVG+jNfEQrPjuUZz
+         uddw==
+X-Forwarded-Encrypted: i=1; AKwUvBz2G4VLxUqIcwMxyJe6rMW+3q9hqbl+koI3lH+DokzYYxplO5ZqR0EWLBDS4ctNvE7+5oG6KGok5y4Oko8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhwWG4wcC8w2wOj4WEpH+But/wCkJfzQgC9NMzFbZCIAKymF6G
+	UkZGhMYHsB5wKfmjoBUrIJvkH3KPDBYzrCABQ6aJ7gwantQvaxUA7yoP1vitw2UtRck6NgFim7c
+	e+S68vQH/WxT+ydooypuiQftwfXgo0DTGG/aOPVFFjobzYD5wg3PajP049NZXdF9Gg2s=
+X-Gm-Gg: AYBFou1f2ZrIx3nYTL4rSzMjxaQAaqNnap6UHu7iG+TaHNOQIjodQBRHNGrMYT6qDKO
+	NOc929Wqo5ycWdPQtOzjra5KspzD6lncCumlyyqZexT0QyCznls9fXv9rdXWycEkfyCuL1fhF3N
+	EoQgwUSS7AjSLfhzjkAMciFFCBSz+47KKuHDbdO82VeF2DP0Sh245mnalY+N1nBT7T2MNbdJ/UG
+	lALxOnPKDfqMu/LBXU6y8ugdZn4J5ioc9FV31UhypxgX3gZ4rtbXgCJmyFZYt8vHN6q5c7/kGIN
+	uxkEniXybHijASD5CUvqL+yoqTDbHc1q3by0/mY72Eeuy/RyBhmGiZKMocCMG1mJywWWq5mGmXt
+	jUvcVPrH3nzCNpv0gh8qvU/QPQ4w=
+X-Received: by 2002:a17:90b:274d:b0:3ac:aa8d:19f2 with SMTP id 98e67ed59e1d1-3acaa8d21b7mr3444874a91.62.1792152054883;
+        Fri, 16 Oct 2026 05:00:54 -0700 (PDT)
+X-Received: by 2002:a17:90b:274d:b0:3ac:aa8d:19f2 with SMTP id 98e67ed59e1d1-3acaa8d21b7mr3444817a91.62.1792152054113;
+        Fri, 16 Oct 2026 05:00:54 -0700 (PDT)
+Received: from [10.218.18.193] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc48e8646sm3775998a91.10.2026.10.16.05.00.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 05:00:53 -0700 (PDT)
+Message-ID: <3e247695-90ab-425a-a8c0-d6350362d1d1@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 17:30:47 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] ASoC: mediatek: mt8183: Leave cache-only mode before
+ enabling clocks
+To: mocker-mug-unwoven@duck.com, Mark Brown <broonie@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org, ajay.nandam@oss.qualcomm.com
+References: <20261016-mt8183-afe-fixes-v1-0-f0db51e0c073@duck.com>
+ <20261016-mt8183-afe-fixes-v1-1-f0db51e0c073@duck.com>
+Content-Language: en-US
+From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+In-Reply-To: <20261016-mt8183-afe-fixes-v1-1-f0db51e0c073@duck.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA0NyBTYWx0ZWRfX1epPWSI3FSit
+ 1g21NBJB4SmcY3XA6n41F4sqccWkzKU5/00B2R5nzcl2C7mkQDTXc6WdHzHMVyoyju1uqfTsuFI
+ i6UyxTBOE/0FZO4CS12Xux6Iu5Q7YokTd+psV+ehIqrldYZOWWd6FcD+6Ko5UudnwTUqMtcP18w
+ QmAMd1UgLwQgj9yDTrbVFevWrnFLvzXSbFASIruTv4tQ/mCC0wO1wHsVAqH5DASWTFpKMnVIWA1
+ /AZ47fBJpuvbGqyoKrYUEJUv+bI7fzZiMqPdnPWAyzFhXszd4QQZhWJb0xiWs5nFfVx0lAWHzbJ
+ dLylbYzUsuAxDDbfJfhVs+RW15+Oti1eNa3r+UvBHu4z7K8yKasfIIRBbeqQVZr0H199kb0Lb8X
+ nKnFnVH/0Djsdmegjtsvr/n4IT6J32l0jeen80fbMXbGdFawMEeRJyysylk+Me8c+sSPeYAo6PL
+ 85+Fp4yIuMWzVfni5iw==
+X-Proofpoint-ORIG-GUID: qp-5F8UQhv7wGdKLrKwGUwWgEcQEyUTj
+X-Proofpoint-GUID: qp-5F8UQhv7wGdKLrKwGUwWgEcQEyUTj
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA0NyBTYWx0ZWRfXwtOVw9Um+VRh
+ 92P0YnjgYoVqpwes3e5SOjj1Ap41hUyRV9OwvVTzzRSetL1GeZr3+Y+Prc3RXGgbVQaD6QWz8Kp
+ AgxatQQU77flYnWFytPD3cRdQiqhNM0=
+X-Authority-Analysis: v=2.4 cv=VpS2kO2n c=1 sm=1 tr=0 ts=6ad211f7 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=oAJgE6QaAAAA:8 a=VwQbUJbxAAAA:8 a=RUIXpT8KVlbvrv2-URwA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22 a=x6WLLiyY5-E8SSaYOalI:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 adultscore=0 phishscore=0 clxscore=1015
+ malwarescore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610160047
 
-minix_rmdir() calls minix_unlink(), which drops the victim's link
-count once, and then drops it a second time for the "." entry. An
-image where an empty directory has i_nlink < 2 makes the second drop
-hit drop_nlink() with i_nlink == 0:
 
-  WARNING: fs/inode.c:408 at drop_nlink
-   minix_rmdir+0xe9/0x150
-   vfs_rmdir
-   filename_rmdir
-   __do_sys_unlinkat
 
-The parent's link count is already validated; do the same for the
-directory being removed and fail with -EFSCORRUPTED.
+On 10/16/2026 1:44 PM, HuskerMinion via B4 Relay wrote:
+> From: HuskerMinion <mocker-mug-unwoven@duck.com>
+> 
+> The audiosys clock gates are bits in AUDIO_TOP_CON0 and AUDIO_TOP_CON1.
+> The clock driver writes them through the audiosys syscon regmap, which
+> is the same regmap the AFE driver uses. The AFE marks both registers
+> volatile, so while the regmap is cache-only, regmap_update_bits() on
+> them returns -EBUSY and nothing reaches the hardware. The MediaTek gate
+> clock ops ignore that error.
+> 
+> mt8183_afe_runtime_resume() calls mt8183_afe_enable_clock() first and
+> only then takes the regmap out of cache-only mode. After probe the
+> regmap is always cache-only at that point, so the gate enables are
+> dropped. The clock framework then counts the AFE and I2S gates as
+> enabled while they are still closed in hardware.
+> 
+> On the Amazon Echo Show 8 (2nd gen) the bootloader leaves these gates
+> closed. Playback and capture never start: the memif current pointer
+> stays at 0, no AFE interrupt fires and aplay fails with an I/O error.
+> clk_summary lists aud_afe and aud_i2s1 as enabled, but with hardware
+> enable N, and their power-down bits in AUDIO_TOP_CON0 are still set.
+> 
+> Leave cache-only mode before enabling the clocks, and go back to
+> cache-only mode if enabling them fails. The bypass case used during
+> probe is unchanged.
+> 
+> Fixes: a94aec035a12 ("ASoC: mediatek: mt8183: add platform driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: HuskerMinion <mocker-mug-unwoven@duck.com>
 
-Reported-by: syzbot+8420e667af06b1709c00@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=8420e667af06b1709c00
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
- fs/minix/namei.c | 4 ++++
- 1 file changed, 4 insertions(+)
+This fixes the ordering on resume, but what about the suspend path?
 
-diff --git a/fs/minix/namei.c b/fs/minix/namei.c
-index 5525ba367ed7..344cc70ba878 100644
---- a/fs/minix/namei.c
-+++ b/fs/minix/namei.c
-@@ -172,6 +172,10 @@ static int minix_rmdir(struct inode * dir, struct dentry *dentry)
- 		minix_error_inode(dir, "inode has corrupted nlink");
- 		goto out;
- 	}
-+	if (inode->i_nlink < 2) {
-+		minix_error_inode(inode, "inode has corrupted nlink");
-+		goto out;
-+	}
- 
- 	err = -ENOTEMPTY;
- 	if (!minix_empty_dir(inode))
--- 
-2.43.0
+runtime_suspend() still switches the regmap to cache-only before calling
+mt8183_afe_disable_clock(). Should the clocks be disabled before 
+switching the regmap back to cache-only?
+
+Thanks
+Ajay Kumar Nandam
+
+
+> ---
+>   sound/soc/mediatek/mt8183/mt8183-afe-pcm.c | 16 +++++++++++++---
+>   1 file changed, 13 insertions(+), 3 deletions(-)
+> 
+> diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+> index d8938542b..d6175da3b 100644
+> --- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+> +++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+> @@ -706,16 +706,26 @@ static int mt8183_afe_runtime_resume(struct device *dev)
+>   {
+>   	struct mtk_base_afe *afe = dev_get_drvdata(dev);
+>   	struct mt8183_afe_private *afe_priv = afe->platform_priv;
+> +	bool reg_ctl = afe->regmap && !afe_priv->pm_runtime_bypass_reg_ctl;
+>   	int ret;
+>   
+> +	/*
+> +	 * The audiosys clock gates are written through this same regmap and
+> +	 * are volatile, so their writes are dropped while it is cache-only.
+> +	 */
+> +	if (reg_ctl)
+> +		regcache_cache_only(afe->regmap, false);
+> +
+>   	ret = mt8183_afe_enable_clock(afe);
+> -	if (ret)
+> +	if (ret) {
+> +		if (reg_ctl)
+> +			regcache_cache_only(afe->regmap, true);
+>   		return ret;
+> +	}
+>   
+> -	if (!afe->regmap || afe_priv->pm_runtime_bypass_reg_ctl)
+> +	if (!reg_ctl)
+>   		goto skip_regmap;
+>   
+> -	regcache_cache_only(afe->regmap, false);
+>   	regcache_sync(afe->regmap);
+>   
+>   	/* enable audio sys DCM for power saving */
+> 
 
