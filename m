@@ -1,172 +1,261 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E12A31D367
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:05:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3FB7E3168EB;
+	Fri, 16 Oct 2026 01:05:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792112706; cv=none; b=SbIKYi8Oy8tKUR75KhfNhE8EbX1sKJD9DQUB8DI+b+hf0YHaiyvTDIK7eYcp2VU7TwaKQ9RrmgrHLATuJcnCvDX6AWFZY5qeF6+13Qvk0+LtZ1DCiZZEP95j8uimr3M71Y1lyllUoox74pax09WQ2um7DmtZNlG/q6HcEx0ow3E=
+	t=1792112714; cv=none; b=lW5wuccP8lIRkuoFrGuiUueS3pdZosEOqYgKvYCDNsyD4aCm3zZII3jG7yn/tK68Wy+h90+9UjRKwS6megg50nh52uQJaz1nfU6uQVF8u/ReoM5maIZb8WrcRZLyMIT+sWh2DcsUHd70mUFqluE89nBrpHd22ReTLwMaB3tM8xM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792112706; c=relaxed/simple;
-	bh=O8MDKZM6orbok+3kIkwxaUSh/e4nFOYJeY8hZUI/E60=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=GvrocyTipNeNoAaQZJCRYT9GY1Oh+dq2dK7PFiMF4arTMoOj2sy9H6ENB84jFUTZbu4d4P6dXU59KUKJ+qkl5/cx2e74FlfF/hSyloZQYzAurWTRTD1mx6d4N880ROhORk01q5dYykOUh5FFDLSgva07Iqmw+YnqntQUdqVeFuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IONcRzMZ; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IONcRzMZ"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-88b7d853b11so1144303b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:05:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792112705; x=1792717505; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W2FqaMzaGINgzjJOw7zufrrcqxjVM6pp3g9UOy5lEX8=;
-        b=IONcRzMZRqog6BoQgnHuzD5yvx41J1B5NXNpjuL/sqqj1+xZVB5c59/3dzDlDl1058
-         l2JXphvYFWmyUYSsKxp7PiKZn1+YXoxUETY1St0bU3ZCyqWnnS7mR5SQ1br7xUBEPHko
-         m//YgfCyEVi9h080c5eX0FLjazEkmLo0ZajVK2LRy/en/5lwQEx8Ufx8EiXeoXw9rqYU
-         d667dWjHZBJm8LQnOzL4aWKpgG/05FaB3HH8rSkqXU8ovYes8j85ang0AcD/cS4Eog7c
-         oQEsZtxtqB2yeBgV0GQFGuYT2UTlf0Ltea/deqPpqQaMee3+TddlVIFl2bio/5xAzavE
-         z27A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792112705; x=1792717505;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W2FqaMzaGINgzjJOw7zufrrcqxjVM6pp3g9UOy5lEX8=;
-        b=JF/cXFld8jCjdL3QwlGbXlhXgMwcMN8rvfo+wmxeDu78of7+F35/p0xB2YaIRo7WS2
-         2nCt9wOgGP2uLpkjS3eWesgldb2MuSae33IST3/FC/c4VbKBRhWkSmyKmOBfoJzpp7xZ
-         vX6mxdruCigAUudr/GOBDgcZvJBr9CV7zxTGOZg1H8Ic/wUDWJIiNdttTXNw1CjOk5ny
-         LviqrF1p+YPg11+qSlKhgdm4QzfZ6zhSdKyFZYbTMWKlCuX2QIYWoyMKSDRmRIbQyRre
-         NtH9pQAD251thmnMOqj464I7ho+Ujd0jkahCz1iMHmTnm160cFWt8NlQ00eZG7jFBokg
-         9Wow==
-X-Forwarded-Encrypted: i=1; AKwUvBzV37ToeJvImK9e54xJgcyG9dyxDQ7VbTUFxJ1DTtmSKOqMiPRMfpK6eIQttBYWzPPOYbZYcyJ1HntHAYU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbGJtxhbecIfz8UODVhhgPAl5pAxw9UoA6/PJREvD+pofWcb02
-	BaM5S1fkFMdWq1wrY5srrDZ0qm/yH4n6KZ5bBUrcadkQHzWkFQyZLacl
-X-Gm-Gg: AYBFou3ExE7V6ZOXKRA4TalAbEyJauzd7C9DO+rqHtY9ijiqYHraoMgMswTkbRcqZqz
-	MNlIveY32oBiq4bpG8M93t44WoWnpv3MONI06K2BhofH4A5xQg8Qu31gv90qI2iApkhQsGB7rZl
-	+9VQWLVO3PDr2BKwHdhmDY+BHvCi9UgtEYhPhlxhWFaEJMl5BvmXklKCMfQtMPyPJKkRsAkiqef
-	h/pnA1wKxbTrb1JPgh/DcPaZiNJ5TeiX+B7A6aMkmGsHsl0KIBvIwmCe1FGsc8OtL0+CS0OGmkb
-	kL4k7/mcVj2vH74Ht1HUlxu0e0NNmvYgIgdJCQpcXj+rXES8H8YtPV0A+gjDWZcKVyVTeYg2fs2
-	eatSo5xnYH1BXLK/68xhmsSDwnT3c1f2DRZIr6gGDfz0De9k0876KQsfUpesur5T0Q6xH9aw1h1
-	XMVrUVV3VQM0mNmWHEZ1UqOb5WvFPWGelmeC0OGcWAUVVZBYgDaz81ECktpy/kEr707HYlpo+E1
-	OtuL21+BN/JvecDzY1p3d9kuet8oIZV13kEiEJso6NmTRsF1LAEdymW
-X-Received: by 2002:a05:6a00:983:b0:89e:8423:6863 with SMTP id d2e1a72fcca58-89e84236d2emr3324731b3a.37.1792112704665;
-        Thu, 15 Oct 2026 18:05:04 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f5735e513sm302821b3a.27.2026.10.15.18.05.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 18:05:03 -0700 (PDT)
-From: Zi-Yu Chen <zychennvt@gmail.com>
-To: Andi Shyti <andi.shyti@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Zi-Yu Chen <zychennvt@gmail.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v12 1/3] dt-bindings: i2c: nuvoton,ma35d1-i2c: Add MA35D1 I2C controller
-Date: Fri, 16 Oct 2026 09:04:46 +0800
-Message-Id: <20261016010448.324856-2-zychennvt@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261016010448.324856-1-zychennvt@gmail.com>
-References: <20261016010448.324856-1-zychennvt@gmail.com>
+	s=arc-20240116; t=1792112714; c=relaxed/simple;
+	bh=eKNoThAGDtKWt1R1Bvk2EjAEx06Dv8sA1PrM7Gvz49s=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=MPjj2+/x5oAhU/BpOHUM1Qc65ha4GynoxjIajJLZ0Z/GP7SewwQcE0Ed/husk7/HAgzNkguWhfUuByiO0XtWGtKhUxovAT5seCbKX4ne9B6rjmBlFPva7zi2zf9Nix7NgagP/ftK84Ti3UtRP3XrwB9qn1u9+HAXB8XIrlFs1ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.62])
+	by gateway (Coremail) with SMTP id _____8BxhvBGeNFqQVYWAA--.64703S3;
+	Fri, 16 Oct 2026 09:05:10 +0800 (CST)
+Received: from [10.20.42.62] (unknown [10.20.42.62])
+	by front1 (Coremail) with SMTP id qMiowJAxlMxFeNFq_+ssAA--.1619S2;
+	Fri, 16 Oct 2026 09:05:10 +0800 (CST)
+Subject: Re: [PATCH] LoongArch: KVM: Add hypercall crash support
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>, kvm@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260909085350.2046788-1-maobibo@loongson.cn>
+ <CAAhV-H5uz3SM=tYG02Lz3WiN9stJocY7MQJFSKmVbNrNnz+9Gw@mail.gmail.com>
+ <82f2c59a-59f5-8e49-f0c5-dc6feb4070df@loongson.cn>
+ <CAAhV-H4U_-u-Tb1Hn69ahmS3gstDVswrmjby2QfHYvPtLo5cXQ@mail.gmail.com>
+ <f86ec356-898b-1ff5-c2d3-182d3eaed14f@loongson.cn>
+ <CAAhV-H51k23-1Bd+70kmmrF+OiLA=8x=z7PoKLzsz+ebhn4uEA@mail.gmail.com>
+From: Bibo Mao <maobibo@loongson.cn>
+Message-ID: <654d03ff-1690-a1bd-f126-f9d339c71e99@loongson.cn>
+Date: Fri, 16 Oct 2026 09:06:31 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+In-Reply-To: <CAAhV-H51k23-1Bd+70kmmrF+OiLA=8x=z7PoKLzsz+ebhn4uEA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxlMxFeNFq_+ssAA--.1619S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj93XoW3Xr4rAFWfArW5ZFWDWF47KFX_yoW3Zr1xpF
+	y0yF4kGrWUJr1fCwnYq3s0gry7tr1DGr10gF17Kry8AFn0qrn8Jr18tryDCF1DXw18XFy0
+	qFyYq343ZF43J3cCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUvYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AK
+	xVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzV
+	AYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
+	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIx
+	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8JVW5JwCI42IY6xIIjxv20xvEc7CjxVAF
+	wI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F
+	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j8CztU
+	UUUU=
 
-Add device tree binding documentation for the I2C controller
-found in the Nuvoton MA35D1 SoC.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
----
- .../bindings/i2c/nuvoton,ma35d1-i2c.yaml      | 63 +++++++++++++++++++
- 1 file changed, 63 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/i2c/nuvoton,ma35d1-i2c.yaml
 
-diff --git a/Documentation/devicetree/bindings/i2c/nuvoton,ma35d1-i2c.yaml b/Documentation/devicetree/bindings/i2c/nuvoton,ma35d1-i2c.yaml
-new file mode 100644
-index 000000000000..0713e1c1ecb8
---- /dev/null
-+++ b/Documentation/devicetree/bindings/i2c/nuvoton,ma35d1-i2c.yaml
-@@ -0,0 +1,63 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/i2c/nuvoton,ma35d1-i2c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Nuvoton MA35D1 I2C Controller
-+
-+maintainers:
-+  - Zi-Yu Chen <zychennvt@gmail.com>
-+
-+description:
-+  The Nuvoton MA35D1 I2C controller supports controller and optional target mode.
-+
-+allOf:
-+  - $ref: /schemas/i2c/i2c-controller.yaml#
-+
-+properties:
-+  compatible:
-+    const: nuvoton,ma35d1-i2c
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-frequency:
-+    description:
-+      Desired I2C bus clock frequency in Hz. The absence of this property
-+      indicates the default frequency 100 kHz.
-+
-+  resets:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - resets
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
-+    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
-+
-+    i2c0: i2c@40800000 {
-+      compatible = "nuvoton,ma35d1-i2c";
-+      reg = <0x40800000 0x1000>;
-+      interrupts = <GIC_SPI 13 IRQ_TYPE_LEVEL_HIGH>;
-+      clocks = <&clk I2C0_GATE>;
-+      clock-frequency = <100000>;
-+      resets = <&sys MA35D1_RESET_I2C0>;
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+    };
--- 
-2.34.1
+On 2026/10/14 下午12:30, Huacai Chen wrote:
+> On Mon, Oct 12, 2026 at 8:55 AM Bibo Mao <maobibo@loongson.cn> wrote:
+>>
+>>
+>>
+>> On 2026/10/11 下午10:06, Huacai Chen wrote:
+>>> On Thu, Oct 8, 2026 at 9:50 AM Bibo Mao <maobibo@loongson.cn> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 2026/10/3 下午12:02, Huacai Chen wrote:
+>>>>> Hi, Bibo,
+>>>>>
+>>>>> On Wed, Sep 9, 2026 at 5:01 PM Bibo Mao <maobibo@loongson.cn> wrote:
+>>>>>>
+>>>>>> Now generic pvpanic is supported in Linux kernel which will notify VMM
+>>>>>> with VM crash event. There is some limitations with pvpanic, such as it
+>>>>>> requires good kernel stack or CPU hardware context and panic() C function
+>>>>>> is in health state.
+>>>>>>
+>>>>>> Sometimes CPU hardware context or kernel/irq stack is corrupted. Hypercall
+>>>>>> code is more direct and low-level crash method, which is useful in
+>>>>>> exception entry with assmble language, here add one hypercall code to
+>>>>>> support VM crash function, so that VMM can capture CPU crash context
+>>>>>> in time.
+>>>>>>
+>>>>>> Signed-off-by: Bibo Mao <maobibo@loongson.cn>
+>>>>>> ---
+>>>>>>     arch/loongarch/include/asm/kvm_host.h      |  1 +
+>>>>>>     arch/loongarch/include/asm/kvm_para.h      | 15 +++++++++++++++
+>>>>>>     arch/loongarch/include/uapi/asm/kvm.h      |  1 +
+>>>>>>     arch/loongarch/include/uapi/asm/kvm_para.h |  1 +
+>>>>>>     arch/loongarch/kvm/exit.c                  | 11 +++++++++++
+>>>>>>     arch/loongarch/kvm/vm.c                    |  3 ++-
+>>>>>>     6 files changed, 31 insertions(+), 1 deletion(-)
+>>>>>>
+>>>>>> diff --git a/arch/loongarch/include/asm/kvm_host.h b/arch/loongarch/include/asm/kvm_host.h
+>>>>>> index 65d91c3ce313..96f9f1317cad 100644
+>>>>>> --- a/arch/loongarch/include/asm/kvm_host.h
+>>>>>> +++ b/arch/loongarch/include/asm/kvm_host.h
+>>>>>> @@ -168,6 +168,7 @@ enum emulation_result {
+>>>>>>     #define LOONGARCH_PV_FEAT_MASK         (BIT(KVM_FEATURE_IPI) |         \
+>>>>>>                                             BIT(KVM_FEATURE_PREEMPT) |     \
+>>>>>>                                             BIT(KVM_FEATURE_STEAL_TIME) |  \
+>>>>>> +                                        BIT(KVM_FEATURE_CRASH) |       \
+>>>>>>                                             BIT(KVM_FEATURE_USER_HCALL) |  \
+>>>>>>                                             BIT(KVM_FEATURE_VIRT_EXTIOI))
+>>>>>>
+>>>>>> diff --git a/arch/loongarch/include/asm/kvm_para.h b/arch/loongarch/include/asm/kvm_para.h
+>>>>>> index fb17ba0fa101..3b183bb1aaa8 100644
+>>>>>> --- a/arch/loongarch/include/asm/kvm_para.h
+>>>>>> +++ b/arch/loongarch/include/asm/kvm_para.h
+>>>>>> @@ -14,6 +14,7 @@
+>>>>>>     #define KVM_HCALL_CODE_SERVICE         0
+>>>>>>     #define KVM_HCALL_CODE_SWDBG           1
+>>>>>>     #define KVM_HCALL_CODE_USER_SERVICE    2
+>>>>>> +#define KVM_HCALL_CODE_CRASH           3
+>>>>>>
+>>>>>>     #define KVM_HCALL_SERVICE              HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_SERVICE)
+>>>>>>     #define  KVM_HCALL_FUNC_IPI            1
+>>>>>> @@ -22,6 +23,7 @@
+>>>>>>     #define KVM_HCALL_SWDBG                        HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_SWDBG)
+>>>>>>
+>>>>>>     #define KVM_HCALL_USER_SERVICE         HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_USER_SERVICE)
+>>>>>> +#define KVM_HCALL_CRASH                        HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_CRASH)
+>>>>>>
+>>>>>>     /*
+>>>>>>      * LoongArch hypercall return code
+>>>>>> @@ -161,6 +163,19 @@ static __always_inline long kvm_hypercall5(u64 fid,
+>>>>>>            return ret;
+>>>>>>     }
+>>>>>>
+>>>>>> +static __always_inline long kvm_hypercall_crash(void)
+>>>>>> +{
+>>>>>> +       register long ret asm("a0");
+>>>>>> +
+>>>>>> +       __asm__ __volatile__(
+>>>>>> +               "hvcl "__stringify(KVM_HCALL_CRASH)
+>>>>>> +               : "=r" (ret)
+>>>>>> +               : : "memory"
+>>>>>> +               );
+>>>>>> +
+>>>>>> +       return ret;
+>>>>>> +}
+>>>>> Why this function has no caller?
+>>>> Currently we directly modify guest kernel and hard-code the hypercall
+>>>> instruction to debug. This inline function is only example for howto
+>>>> usage, the normal usage such as checking KVM_FEATURE_USER_HCALL feature
+>>>> + kvm_hypercall_crash() is too complicated in exception entry assemble
+>>>> language.
+>>> There are no examples for KVM_HCALL_SWDBG and KVM_HCALL_USER_SERVICE,
+>>> I think KVM_HCALL_CRASH is no special.
+>>>
+>>> So if you agree, I will remove this example when applying.
+>> Removinge the example usage with KVM_HCALL_CRASH is fine to me.
+> Now all KVM patches for 7.4 is merged to loongarch-kvm. You can test
+> it if you want.
+Thanks. there is no problem from the code side, will test this in 7.4- 
+rc1 version.
+
+Regards
+bibo
+> 
+> 
+> Huacai
+> 
+>>
+>> Regards
+>> Bibo Mao
+>>>
+>>>
+>>> Huacai
+>>>
+>>>>
+>>>> Regards
+>>>> Bibo Mao
+>>>>>
+>>>>>
+>>>>> Huacai
+>>>>>
+>>>>>> +
+>>>>>>     #ifdef CONFIG_PARAVIRT
+>>>>>>     bool kvm_para_available(void);
+>>>>>>     unsigned int kvm_arch_para_features(void);
+>>>>>> diff --git a/arch/loongarch/include/uapi/asm/kvm.h b/arch/loongarch/include/uapi/asm/kvm.h
+>>>>>> index cd0b5c11ca9c..b222bfc48042 100644
+>>>>>> --- a/arch/loongarch/include/uapi/asm/kvm.h
+>>>>>> +++ b/arch/loongarch/include/uapi/asm/kvm.h
+>>>>>> @@ -106,6 +106,7 @@ struct kvm_fpu {
+>>>>>>     #define  KVM_LOONGARCH_VM_FEAT_PTW             8
+>>>>>>     #define  KVM_LOONGARCH_VM_FEAT_MSGINT          9
+>>>>>>     #define  KVM_LOONGARCH_VM_FEAT_PV_PREEMPT      10
+>>>>>> +#define  KVM_LOONGARCH_VM_FEAT_CRASH           11
+>>>>>>
+>>>>>>     /* Device Control API on vcpu fd */
+>>>>>>     #define KVM_LOONGARCH_VCPU_CPUCFG      0
+>>>>>> diff --git a/arch/loongarch/include/uapi/asm/kvm_para.h b/arch/loongarch/include/uapi/asm/kvm_para.h
+>>>>>> index d28cbcadd276..bf1a0c826ca6 100644
+>>>>>> --- a/arch/loongarch/include/uapi/asm/kvm_para.h
+>>>>>> +++ b/arch/loongarch/include/uapi/asm/kvm_para.h
+>>>>>> @@ -16,6 +16,7 @@
+>>>>>>     #define  KVM_FEATURE_IPI               1
+>>>>>>     #define  KVM_FEATURE_STEAL_TIME                2
+>>>>>>     #define  KVM_FEATURE_PREEMPT           3
+>>>>>> +#define  KVM_FEATURE_CRASH             4
+>>>>>>     /* BIT 24 - 31 are features configurable by user space vmm */
+>>>>>>     #define  KVM_FEATURE_VIRT_EXTIOI       24
+>>>>>>     #define  KVM_FEATURE_USER_HCALL                25
+>>>>>> diff --git a/arch/loongarch/kvm/exit.c b/arch/loongarch/kvm/exit.c
+>>>>>> index 4f58e6e2cf86..3b6daa946c76 100644
+>>>>>> --- a/arch/loongarch/kvm/exit.c
+>>>>>> +++ b/arch/loongarch/kvm/exit.c
+>>>>>> @@ -911,6 +911,17 @@ static int kvm_handle_hypercall(struct kvm_vcpu *vcpu, int ecode)
+>>>>>>                    vcpu->run->hypercall.ret = KVM_HCALL_INVALID_CODE;
+>>>>>>                    ret = RESUME_HOST;
+>>>>>>                    break;
+>>>>>> +       case KVM_HCALL_CRASH:
+>>>>>> +               if (!kvm_guest_has_pv_feature(vcpu, KVM_FEATURE_CRASH)) {
+>>>>>> +                       kvm_write_reg(vcpu, LOONGARCH_GPR_A0, KVM_HCALL_INVALID_CODE);
+>>>>>> +                       break;
+>>>>>> +               }
+>>>>>> +
+>>>>>> +               vcpu->run->exit_reason = KVM_EXIT_SYSTEM_EVENT;
+>>>>>> +               vcpu->run->system_event.type = KVM_SYSTEM_EVENT_CRASH;
+>>>>>> +               vcpu->run->system_event.ndata = 0;
+>>>>>> +               ret = RESUME_HOST;
+>>>>>> +               break;
+>>>>>>            case KVM_HCALL_SWDBG:
+>>>>>>                    /* KVM_HCALL_SWDBG only in effective when SW_BP is enabled */
+>>>>>>                    if (vcpu->guest_debug & KVM_GUESTDBG_SW_BP_MASK) {
+>>>>>> diff --git a/arch/loongarch/kvm/vm.c b/arch/loongarch/kvm/vm.c
+>>>>>> index 6dabb227a732..e5d10ceb5e67 100644
+>>>>>> --- a/arch/loongarch/kvm/vm.c
+>>>>>> +++ b/arch/loongarch/kvm/vm.c
+>>>>>> @@ -49,8 +49,9 @@ static void kvm_vm_init_features(struct kvm *kvm)
+>>>>>>                    kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_PMU);
+>>>>>>
+>>>>>>            /* Enable all PV features by default */
+>>>>>> -       kvm->arch.pv_features |= BIT(KVM_FEATURE_IPI);
+>>>>>> +       kvm->arch.pv_features |= BIT(KVM_FEATURE_IPI) | BIT(KVM_FEATURE_CRASH);
+>>>>>>            kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_PV_IPI);
+>>>>>> +       kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_CRASH);
+>>>>>>            if (kvm_pvtime_supported()) {
+>>>>>>                    kvm->arch.pv_features |= BIT(KVM_FEATURE_PREEMPT);
+>>>>>>                    kvm->arch.pv_features |= BIT(KVM_FEATURE_STEAL_TIME);
+>>>>>>
+>>>>>> base-commit: df2908090cda368b01ff43709f51890076c56157
+>>>>>> --
+>>>>>> 2.39.3
+>>>>>>
+>>>>>>
+>>>>
+>>
 
