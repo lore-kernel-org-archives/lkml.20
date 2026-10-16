@@ -1,100 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73BD838B14B;
-	Fri, 16 Oct 2026 10:37:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 796453C553B
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:37:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792147044; cv=none; b=D7A85CYQlLxnXqmALAH5dq3i3qFkSOLdaUoVf9B/ml9lHhy12JKbLzS0MP+z3Iag7Ug6H/lFPab/9EMWnoOqs1bfkNUYXp78iMMQgJH1FhLv5JBPK9oRiU1Xz8qTYA1oN8W0hFVBfu8eO+1oUpO3jikc8fo2BCI8e3b3kwH2+10=
+	t=1792147063; cv=none; b=EdSHqS85tzsTeZm/2VR3U+CPKeFxlsYs5Ix+21ryFuOiOEeD3VjXnnIaIB7LAGXevnhfMxskrkDRCMZC6FAj1RZ5a6BK3o5TYDY0A8kL8DSqpG5BVn+R6ENyPQKt+eubRsEtNW9o53kehXpbdbYc8A4pyM9Q+LtV2kNoAfhZd6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792147044; c=relaxed/simple;
-	bh=U/zsYIFNWot17p0deMnHXJr6Q80A3cLi1A4erXmjbes=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hvpR+z28Ukwpenf35Pq56s7G3rOCD799uD85quucYTkWd53rVNY7FnsSCWzVb1k7Hn0HtTA5+xzit4rzlFL+712bWPHWWcBF61dcQr3ID8Vgp13g6isjv7cZ6Z3tsXz9oJVyrgrTlmxToC4MJRtZz9yFHPkQfbl3ueMJ88lzNEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bsgNZvBV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792147063; c=relaxed/simple;
+	bh=H5mKO5Y1gmWntaGySIDF8f2mRTRQxgVPKQrC/XW56zU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZpPPJh4KuCGFTdotaZNKKmKapuVHn2YQWWUaz2NB6iy0+NTGJ7NZ1fR+xdUuHc5rO4bXy4shyqcR4G15aPVSO7V9hOeFZJQ9Y3sVnfVUQlo5Lr8mHHad26nnDJ8rn72HXfTZ/GCkI/VbeUJGH9Gm7Zg5qBhy8jZ5Sop5mMRoCEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=LRYpFZ0j; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bsgNZvBV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBC161F000C4;
-	Fri, 16 Oct 2026 10:37:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792147043;
-	bh=1Dg/1ir7HT06b/ZEkKFmtVaUrGgv3eZCS+P11wu3YQs=;
-	h=From:To:Cc:Subject:Date;
-	b=bsgNZvBVdvFx2rgzJQ/Y8pPq1HMiH1zOwt4f3l9IYIxomLVFfh9KFJxX03WeIWb5V
-	 a9nR+Fo5jdmHVJDfQPy58fUdIhSUMmAO/aNKKBnWmabWUTF1IcO/XGri1xTpntdTzf
-	 oMkFWHwpDO4yS4YM7spHxQ1c6VPi3tIK7zYKnccEyuZJSkw0XGKJ1Ov9DMju/gXAge
-	 VXYalYVyPhDatbpwOFe3lcI5EWyHkz45CPjxA9Z9k/evFqjx1vw9fss2B3MEz2xl9Y
-	 f9RMHBZvOd2KUkJ78S4wOAolpS4oRwlMJjbqdLh9WdDr5e05bZOjOBZezBNGYVHyKa
-	 ahe+XLVXFX5fA==
-From: Thorsten Blum <blum@kernel.org>
-To: Laurent Vivier <lvivier@redhat.com>,
-	Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Rusty Russell <rusty@rustcorp.com.au>,
-	Amos Kong <akong@redhat.com>
-Cc: Thorsten Blum <blum@kernel.org>,
-	virtualization@lists.linux.dev,
-	linux-crypto@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="LRYpFZ0j"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 396BC14BF
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:37:37 -0700 (PDT)
+Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 453A13F871
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:37:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792147060; bh=H5mKO5Y1gmWntaGySIDF8f2mRTRQxgVPKQrC/XW56zU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LRYpFZ0jNSgUfmWOj2RoGRR3rCUFhBpShCdFblr5jHv/RuAe13aLInbCGPu5uuXSF
+	 npUD8pYCtaceQ2fftqVT1Zyg0VYM69KWAsYUviAGGNuo1XO/1hLDYItxhl8JkieQGj
+	 hc2FEojH2Gxb2oTttt3F8OPtWgNEkqhnDTdflWpw=
+Date: Fri, 16 Oct 2026 11:37:29 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Akash Goel <akash.goel@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] hwrng: virtio - prevent use-after-free after a failed restore
-Date: Fri, 16 Oct 2026 12:36:40 +0200
-Message-ID: <20261016103640.4989-2-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+Subject: Re: [PATCH 1/3] drm/panthor: Don't invalidate OTHER caches
+Message-ID: <atH-aR1wVZw8Ppke@e142607>
+References: <20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com>
+ <20260924-panthor-mmu-fixes-v1-1-e25f9b106466@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1605; i=blum@kernel.org; h=from:subject; bh=U/zsYIFNWot17p0deMnHXJr6Q80A3cLi1A4erXmjbes=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkX/1kcV+s7verCVMM0Lf7SW4fUZ4pHvFx3aXPJBOMYk atnD2TydJSyMIhxMciKKbI8mPVjhm9pTeUmk4idMHNYmUCGMHBxCsBEQj8wMvxZ1VBeajXf/7nE nMi4T3a16zjv3NiTy7AtPoupKrp29w5Ghv5zWpZxq7WTynPMJY+X+zxZYHXq+Sfh3nvGJXHGPWf zWQA=
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260924-panthor-mmu-fixes-v1-1-e25f9b106466@collabora.com>
 
-remove_common() frees the driver data during freeze, but does not clear
-vdev->priv, which points to freed memory. If probe_common() then fails
-during restore, a later remove or freeze can dereference the dangling
-pointer.
+On Thu, Sep 24, 2026 at 02:30:43PM +0200, Boris Brezillon wrote:
+> Don't invalidate the OTHER caches (AKA L1 read-only caches) since
+> this seems to trip out the flush-elimination logic on v13, and it's not
+> needed in practice (can't leak other context data because of TLB
+> invalidation or corrupt physical pages returned to the system because
+> it's a RO cache).
+> 
+> It's also worth noting that the downstream driver has been avoid
+> OTHER caches invalidation from the start, and that we were doing
+> the same until atomic page table update was introduced.
+> 
+> Fixes: 6e2d3b3e8589 ("drm/panthor: Add support for atomic page table updates")
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Clear vdev->priv on the probe_common() error cleanup path and before
-freeing the driver data in remove_common(). Also reset the device and
-return early from remove_common() if vdev->priv is already NULL for a
-safe teardown after a failed restore.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-Fixes: 08e53fbdb85c ("virtio-rng: support multiple virtio-rng devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- drivers/char/hw_random/virtio-rng.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Best regards,
+Liviu
 
-diff --git a/drivers/char/hw_random/virtio-rng.c b/drivers/char/hw_random/virtio-rng.c
-index 5e83ffa105e4..a9ff520975a7 100644
---- a/drivers/char/hw_random/virtio-rng.c
-+++ b/drivers/char/hw_random/virtio-rng.c
-@@ -190,6 +190,7 @@ static int probe_common(struct virtio_device *vdev)
- err_find:
- 	ida_free(&rng_index_ida, index);
- err_ida:
-+	vdev->priv = NULL;
- 	kfree(vi);
- 	return err;
- }
-@@ -198,6 +199,11 @@ static void remove_common(struct virtio_device *vdev)
- {
- 	struct virtrng_info *vi = vdev->priv;
- 
-+	if (!vi) {
-+		virtio_reset_device(vdev);
-+		return;
-+	}
-+
- 	vi->hwrng_removed = true;
- 	vi->data_avail = 0;
- 	vi->data_idx = 0;
-@@ -207,6 +213,7 @@ static void remove_common(struct virtio_device *vdev)
- 	virtio_reset_device(vdev);
- 	vdev->config->del_vqs(vdev);
- 	ida_free(&rng_index_ida, vi->index);
-+	vdev->priv = NULL;
- 	kfree(vi);
- }
- 
+> ---
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 9f63a048df61..7e98084b9a1e 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -634,7 +634,7 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
+>  
+>  	/* Flush+invalidate RW caches, invalidate RO ones. */
+>  	ret = panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
+> -				       CACHE_CLEAN | CACHE_INV, CACHE_INV);
+> +				       CACHE_CLEAN | CACHE_INV, 0);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -1841,8 +1841,7 @@ static void panthor_vm_unlock_region(struct panthor_vm *vm)
+>  		 * range is narrow enough and the HW supports it.
+>  		 */
+>  		ret = panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
+> -					       CACHE_CLEAN | CACHE_INV,
+> -					       CACHE_INV);
+> +					       CACHE_CLEAN | CACHE_INV, 0);
+>  
+>  		/* Unlock the region if the flush is effective. */
+>  		if (!ret)
+> 
+> -- 
+> 2.55.0
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
