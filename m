@@ -1,331 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D7D282F14
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:31:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 21E18309EF9
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:31:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792125082; cv=none; b=UnVcMraMwfIYrVxvoM60u120fgckyPWS9sloZ+6ycoyi+ZRq0GdsVu4zgf/e4lO4qX9+W2wdEYSqc3EIXcE/5D+LCVXi+EjTyB6Y7TmIzXpTPOeMlX/WXR1DyK+W8t/i8bOC7obT+itab4dHIdTpsnaflLG52dbOPiJqHVQL3rc=
+	t=1792125099; cv=none; b=KsXdNmUgajFfm+oikKtkZlV0z/n1QaaEzZLJJgwC7S81OxTKtTR0DIw3O2fE6teva/K/z27hFt7aS1mNYQF9joVyn+rcZt4ESZsYchI6T2fGZ296BrwG5CJCVN4QIG/7a1ocZJ0M5LuX0ZkCXfQuX92SrtShHH6hNsF3b8Ox/xw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792125082; c=relaxed/simple;
-	bh=KpidYZdXrR64JPhB2FTc4k/OIPlcrb+5ujZf2NetLA8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZNxJkV5obp1rEqBTYwWdPNF24CBm7G80y7m04SovZlHI5nAHQ4Zbk78CeV9vz3xJ/ZXqE/d3vnPev1rWcjHndr/1L83Af8AGe3Wh7OrbPFck7SJqut9iqiUEdWO1S8IZteu5/Zh1O0912HKV6Crq1IoBbtE//OVF9DyHBFEHg1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eUgn2rh6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792125099; c=relaxed/simple;
+	bh=7dvgtR6IAJzmByMHoU98gCi2VvaEl4YphESQfyGMYs8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=McGaeOnhQ0LL7FMad6TUUxqG0qoi/AJScCTPmykl/CXXwFkoMJW/nMbj5+sPSdlMIuhT/ckp3vKnDpnaBSq5tdIgl3FLccvM23ZtaBV/Y3wfX7Cl7Cnq8HYn8YFF1edBunsy6x/lBlT8x2JUHbEKm5gDDWzu56gvmOYQ5X0xGB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=i2XNg9RY; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eUgn2rh6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71D551F000C7
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:31:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792125078;
-	bh=BIUlkBgjdjbrG+MYn8ushJVDjtas9pFOnEXDesAHWzo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=eUgn2rh6qBb8SryBV4mUF+KaX6K8su9WvPnqcxYDRRjIkiZqr45/dOwsT6MTJO57i
-	 K0kmB9qTCM5rnybWZ1W+lQb6hC5DC1yO6y2fDpWKLt+so6AA3UK5gOUUZzpyAMddMg
-	 fH/KvitdcDPVPVLdU5ltAQTAqvOb9IB2lWzSFHnNbh2N+oHL39dzn01Bz8RxgWhETx
-	 Wf028LerEYOB1PW7ZuERTxBD/X2mz9PCWWPagx5+E+89C6kTNNAQVWlcEORotnfHiT
-	 72SpGuTC0WDc5ub+gAYtlf08mmNVg6mMY+n/OeKd48y0oJNodLhvLKn7WGMpdRX4j3
-	 ZIqS/LUb6Uhxw==
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6ae27f06c2fso5178115a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:31:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwWeCgly6K66+bYHpGNCjwZ72wlHWN9MT7nr89VuhS5z8TnvCL2Q9SO/E9U/YZ4wRuyvUd2vEzx7n6uviY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKtjX7XcvEtfWFPpfZbiEn8g8isBPj6qG2fIx+sLYYIhF9rglr
-	SMnHt4Tfo6kip/RT6vZeK/Mafl2QaBzKB5qT//i3Y9dbvyNll5HdJIe3YtjT9ZjyikUaHnPCBoo
-	XGM7Xm2Gf65IvW7DoDv4WDdfE+0rbmyo=
-X-Received: by 2002:a05:6402:5187:b0:6b1:ecee:8e77 with SMTP id
- 4fb4d7f45d1cf-6b1ecee91f6mr8509720a12.43.1792125077041; Thu, 15 Oct 2026
- 21:31:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="i2XNg9RY"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 369241476;
+	Thu, 15 Oct 2026 21:31:33 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BE2543F871;
+	Thu, 15 Oct 2026 21:31:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792125096; bh=7dvgtR6IAJzmByMHoU98gCi2VvaEl4YphESQfyGMYs8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=i2XNg9RYo68YXCxpG4Ep0vz7SCjihqAY0qVVIe2GCxbC049N49ZUN5d+K3okqBHd7
+	 ScnlxUeqcFHr63+D0J+h/SeqsBosSudpFH2jh0W7/U4bEK3n59PP6z6t3eVbw1BpNA
+	 y8X5Ts2Li+BK8RAHdnZG8fIcdEZE/APfhhY/+l8k=
+Date: Fri, 16 Oct 2026 10:01:33 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
+	maz@kernel.org, oupton@kernel.org, joey.gouly@arm.com, suzuki.poulose@arm.com, 
+	yuzenghui@huawei.com, tabba@google.com, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: Use symbolic constants for the ccmp NZCV
+ immediates
+Message-ID: <i45aoi7mqknrhxm6ubpif5hwgahqcje64vjhfwzspnte472bd5@sqohcb3mftnc>
+References: <20261009072147.474952-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909085350.2046788-1-maobibo@loongson.cn> <CAAhV-H5uz3SM=tYG02Lz3WiN9stJocY7MQJFSKmVbNrNnz+9Gw@mail.gmail.com>
- <82f2c59a-59f5-8e49-f0c5-dc6feb4070df@loongson.cn> <CAAhV-H4U_-u-Tb1Hn69ahmS3gstDVswrmjby2QfHYvPtLo5cXQ@mail.gmail.com>
- <f86ec356-898b-1ff5-c2d3-182d3eaed14f@loongson.cn> <CAAhV-H51k23-1Bd+70kmmrF+OiLA=8x=z7PoKLzsz+ebhn4uEA@mail.gmail.com>
- <654d03ff-1690-a1bd-f126-f9d339c71e99@loongson.cn> <1374103b-931d-d068-8a9f-6f1fdc1ab1c1@loongson.cn>
-In-Reply-To: <1374103b-931d-d068-8a9f-6f1fdc1ab1c1@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Fri, 16 Oct 2026 12:31:06 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4NoXQu=eCrU_=WMsLYfEr4EEAYrQ_KEpkuwn=26LiCVg@mail.gmail.com>
-X-Gm-Features: AclHuK8wbQV0D5DJe0VyA8EuqUUojIxc5T5IaVUenGf9oDjRfrfUDBFdvGWPeoA
-Message-ID: <CAAhV-H4NoXQu=eCrU_=WMsLYfEr4EEAYrQ_KEpkuwn=26LiCVg@mail.gmail.com>
-Subject: Re: [PATCH] LoongArch: KVM: Add hypercall crash support
-To: Bibo Mao <maobibo@loongson.cn>
-Cc: WANG Xuerui <kernel@xen0n.name>, kvm@vger.kernel.org, loongarch@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009072147.474952-1-fuad.tabba@linux.dev>
 
-On Fri, Oct 16, 2026 at 11:27=E2=80=AFAM Bibo Mao <maobibo@loongson.cn> wro=
-te:
->
->
->
-> On 2026/10/16 =E4=B8=8A=E5=8D=889:06, Bibo Mao wrote:
-> >
-> >
-> > On 2026/10/14 =E4=B8=8B=E5=8D=8812:30, Huacai Chen wrote:
-> >> On Mon, Oct 12, 2026 at 8:55=E2=80=AFAM Bibo Mao <maobibo@loongson.cn>=
- wrote:
-> >>>
-> >>>
-> >>>
-> >>> On 2026/10/11 =E4=B8=8B=E5=8D=8810:06, Huacai Chen wrote:
-> >>>> On Thu, Oct 8, 2026 at 9:50=E2=80=AFAM Bibo Mao <maobibo@loongson.cn=
-> wrote:
-> >>>>>
-> >>>>>
-> >>>>>
-> >>>>> On 2026/10/3 =E4=B8=8B=E5=8D=8812:02, Huacai Chen wrote:
-> >>>>>> Hi, Bibo,
-> >>>>>>
-> >>>>>> On Wed, Sep 9, 2026 at 5:01=E2=80=AFPM Bibo Mao <maobibo@loongson.=
-cn> wrote:
-> >>>>>>>
-> >>>>>>> Now generic pvpanic is supported in Linux kernel which will
-> >>>>>>> notify VMM
-> >>>>>>> with VM crash event. There is some limitations with pvpanic, such
-> >>>>>>> as it
-> >>>>>>> requires good kernel stack or CPU hardware context and panic() C
-> >>>>>>> function
-> >>>>>>> is in health state.
-> >>>>>>>
-> >>>>>>> Sometimes CPU hardware context or kernel/irq stack is corrupted.
-> >>>>>>> Hypercall
-> >>>>>>> code is more direct and low-level crash method, which is useful i=
-n
-> >>>>>>> exception entry with assmble language, here add one hypercall
-> >>>>>>> code to
-> >>>>>>> support VM crash function, so that VMM can capture CPU crash cont=
-ext
-> >>>>>>> in time.
-> >>>>>>>
-> >>>>>>> Signed-off-by: Bibo Mao <maobibo@loongson.cn>
-> >>>>>>> ---
-> >>>>>>>     arch/loongarch/include/asm/kvm_host.h      |  1 +
-> >>>>>>>     arch/loongarch/include/asm/kvm_para.h      | 15 +++++++++++++=
-++
-> >>>>>>>     arch/loongarch/include/uapi/asm/kvm.h      |  1 +
-> >>>>>>>     arch/loongarch/include/uapi/asm/kvm_para.h |  1 +
-> >>>>>>>     arch/loongarch/kvm/exit.c                  | 11 +++++++++++
-> >>>>>>>     arch/loongarch/kvm/vm.c                    |  3 ++-
-> >>>>>>>     6 files changed, 31 insertions(+), 1 deletion(-)
-> >>>>>>>
-> >>>>>>> diff --git a/arch/loongarch/include/asm/kvm_host.h
-> >>>>>>> b/arch/loongarch/include/asm/kvm_host.h
-> >>>>>>> index 65d91c3ce313..96f9f1317cad 100644
-> >>>>>>> --- a/arch/loongarch/include/asm/kvm_host.h
-> >>>>>>> +++ b/arch/loongarch/include/asm/kvm_host.h
-> >>>>>>> @@ -168,6 +168,7 @@ enum emulation_result {
-> >>>>>>>     #define LOONGARCH_PV_FEAT_MASK         (BIT(KVM_FEATURE_IPI)
-> >>>>>>> |         \
-> >>>>>>>
-> >>>>>>> BIT(KVM_FEATURE_PREEMPT) |     \
-> >>>>>>>
-> >>>>>>> BIT(KVM_FEATURE_STEAL_TIME) |  \
-> >>>>>>> +                                        BIT(KVM_FEATURE_CRASH)
-> >>>>>>> |       \
-> >>>>>>>
-> >>>>>>> BIT(KVM_FEATURE_USER_HCALL) |  \
-> >>>>>>>
-> >>>>>>> BIT(KVM_FEATURE_VIRT_EXTIOI))
-> >>>>>>>
-> >>>>>>> diff --git a/arch/loongarch/include/asm/kvm_para.h
-> >>>>>>> b/arch/loongarch/include/asm/kvm_para.h
-> >>>>>>> index fb17ba0fa101..3b183bb1aaa8 100644
-> >>>>>>> --- a/arch/loongarch/include/asm/kvm_para.h
-> >>>>>>> +++ b/arch/loongarch/include/asm/kvm_para.h
-> >>>>>>> @@ -14,6 +14,7 @@
-> >>>>>>>     #define KVM_HCALL_CODE_SERVICE         0
-> >>>>>>>     #define KVM_HCALL_CODE_SWDBG           1
-> >>>>>>>     #define KVM_HCALL_CODE_USER_SERVICE    2
-> >>>>>>> +#define KVM_HCALL_CODE_CRASH           3
-> >>>>>>>
-> >>>>>>>     #define KVM_HCALL_SERVICE
-> >>>>>>> HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_SERVICE)
-> >>>>>>>     #define  KVM_HCALL_FUNC_IPI            1
-> >>>>>>> @@ -22,6 +23,7 @@
-> >>>>>>>     #define KVM_HCALL_SWDBG
-> >>>>>>> HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_SWDBG)
-> >>>>>>>
-> >>>>>>>     #define KVM_HCALL_USER_SERVICE
-> >>>>>>> HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_USER_SERVICE)
-> >>>>>>> +#define KVM_HCALL_CRASH
-> >>>>>>> HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_CRASH)
-> >>>>>>>
-> >>>>>>>     /*
-> >>>>>>>      * LoongArch hypercall return code
-> >>>>>>> @@ -161,6 +163,19 @@ static __always_inline long
-> >>>>>>> kvm_hypercall5(u64 fid,
-> >>>>>>>            return ret;
-> >>>>>>>     }
-> >>>>>>>
-> >>>>>>> +static __always_inline long kvm_hypercall_crash(void)
-> >>>>>>> +{
-> >>>>>>> +       register long ret asm("a0");
-> >>>>>>> +
-> >>>>>>> +       __asm__ __volatile__(
-> >>>>>>> +               "hvcl "__stringify(KVM_HCALL_CRASH)
-> >>>>>>> +               : "=3Dr" (ret)
-> >>>>>>> +               : : "memory"
-> >>>>>>> +               );
-> >>>>>>> +
-> >>>>>>> +       return ret;
-> >>>>>>> +}
-> >>>>>> Why this function has no caller?
-> >>>>> Currently we directly modify guest kernel and hard-code the hyperca=
-ll
-> >>>>> instruction to debug. This inline function is only example for howt=
-o
-> >>>>> usage, the normal usage such as checking KVM_FEATURE_USER_HCALL
-> >>>>> feature
-> >>>>> + kvm_hypercall_crash() is too complicated in exception entry assem=
-ble
-> >>>>> language.
-> >>>> There are no examples for KVM_HCALL_SWDBG and KVM_HCALL_USER_SERVICE=
-,
-> >>>> I think KVM_HCALL_CRASH is no special.
-> >>>>
-> >>>> So if you agree, I will remove this example when applying.
-> >>> Removinge the example usage with KVM_HCALL_CRASH is fine to me.
-> >> Now all KVM patches for 7.4 is merged to loongarch-kvm. You can test
-> >> it if you want.
-> > Thanks. there is no problem from the code side, will test this in 7.4-
-> > rc1 version.
-> My bad. There is problem which is pointed out by sashiko-bot. I had
-> thought I have sent v2 version already. Will send v2 soon.
-The pull request has been merged.
+On Fri, Oct 09, 2026 at 08:21:47AM +0100, Fuad Tabba wrote:
+> The ccmp instructions in the EL2 setup code, reset_pmuserenr_el0 and
+> the hyp vectors give the flags to set when their condition fails as a
+> raw NZCV immediate, #4 or #8. Which condition that leaves true for the
+> branch that follows has to be worked out from the pseudocode each time.
+> 
+> Define CCMP_NZCV_EQ and CCMP_NZCV_LT from the PSR bits, named for the
+> condition each leaves true, and pass those instead.
+> 
+> No functional change intended.
+> 
+> Suggested-by: Will Deacon <will@kernel.org>
+> Link: https://lore.kernel.org/all/asIQ1ZwUjkmNJbRP@willie-the-truck/
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-Huacai
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
 
->
-> diff --git a/arch/loongarch/kvm/vm.c b/arch/loongarch/kvm/vm.c
-> index e5d10ceb5e67..9bf4b3bb8f25 100644
-> --- a/arch/loongarch/kvm/vm.c
-> +++ b/arch/loongarch/kvm/vm.c
-> @@ -164,6 +164,7 @@ static int kvm_vm_feature_has_attr(struct kvm *kvm,
-> struct kvm_device_attr *attr
->          case KVM_LOONGARCH_VM_FEAT_PV_IPI:
->          case KVM_LOONGARCH_VM_FEAT_PV_PREEMPT:
->          case KVM_LOONGARCH_VM_FEAT_PV_STEALTIME:
-> +       case KVM_LOONGARCH_VM_FEAT_CRASH:
->                  if (kvm_vm_support(&kvm->arch, attr->attr))
->                          return 0;
->                  return -ENXIO;
->
-> Regards
-> Bibo Mao
-> >
-> > Regards
-> > bibo
-> >>
-> >>
-> >> Huacai
-> >>
-> >>>
-> >>> Regards
-> >>> Bibo Mao
-> >>>>
-> >>>>
-> >>>> Huacai
-> >>>>
-> >>>>>
-> >>>>> Regards
-> >>>>> Bibo Mao
-> >>>>>>
-> >>>>>>
-> >>>>>> Huacai
-> >>>>>>
-> >>>>>>> +
-> >>>>>>>     #ifdef CONFIG_PARAVIRT
-> >>>>>>>     bool kvm_para_available(void);
-> >>>>>>>     unsigned int kvm_arch_para_features(void);
-> >>>>>>> diff --git a/arch/loongarch/include/uapi/asm/kvm.h
-> >>>>>>> b/arch/loongarch/include/uapi/asm/kvm.h
-> >>>>>>> index cd0b5c11ca9c..b222bfc48042 100644
-> >>>>>>> --- a/arch/loongarch/include/uapi/asm/kvm.h
-> >>>>>>> +++ b/arch/loongarch/include/uapi/asm/kvm.h
-> >>>>>>> @@ -106,6 +106,7 @@ struct kvm_fpu {
-> >>>>>>>     #define  KVM_LOONGARCH_VM_FEAT_PTW             8
-> >>>>>>>     #define  KVM_LOONGARCH_VM_FEAT_MSGINT          9
-> >>>>>>>     #define  KVM_LOONGARCH_VM_FEAT_PV_PREEMPT      10
-> >>>>>>> +#define  KVM_LOONGARCH_VM_FEAT_CRASH           11
-> >>>>>>>
-> >>>>>>>     /* Device Control API on vcpu fd */
-> >>>>>>>     #define KVM_LOONGARCH_VCPU_CPUCFG      0
-> >>>>>>> diff --git a/arch/loongarch/include/uapi/asm/kvm_para.h
-> >>>>>>> b/arch/loongarch/include/uapi/asm/kvm_para.h
-> >>>>>>> index d28cbcadd276..bf1a0c826ca6 100644
-> >>>>>>> --- a/arch/loongarch/include/uapi/asm/kvm_para.h
-> >>>>>>> +++ b/arch/loongarch/include/uapi/asm/kvm_para.h
-> >>>>>>> @@ -16,6 +16,7 @@
-> >>>>>>>     #define  KVM_FEATURE_IPI               1
-> >>>>>>>     #define  KVM_FEATURE_STEAL_TIME                2
-> >>>>>>>     #define  KVM_FEATURE_PREEMPT           3
-> >>>>>>> +#define  KVM_FEATURE_CRASH             4
-> >>>>>>>     /* BIT 24 - 31 are features configurable by user space vmm */
-> >>>>>>>     #define  KVM_FEATURE_VIRT_EXTIOI       24
-> >>>>>>>     #define  KVM_FEATURE_USER_HCALL                25
-> >>>>>>> diff --git a/arch/loongarch/kvm/exit.c b/arch/loongarch/kvm/exit.=
-c
-> >>>>>>> index 4f58e6e2cf86..3b6daa946c76 100644
-> >>>>>>> --- a/arch/loongarch/kvm/exit.c
-> >>>>>>> +++ b/arch/loongarch/kvm/exit.c
-> >>>>>>> @@ -911,6 +911,17 @@ static int kvm_handle_hypercall(struct
-> >>>>>>> kvm_vcpu *vcpu, int ecode)
-> >>>>>>>                    vcpu->run->hypercall.ret =3D
-> >>>>>>> KVM_HCALL_INVALID_CODE;
-> >>>>>>>                    ret =3D RESUME_HOST;
-> >>>>>>>                    break;
-> >>>>>>> +       case KVM_HCALL_CRASH:
-> >>>>>>> +               if (!kvm_guest_has_pv_feature(vcpu,
-> >>>>>>> KVM_FEATURE_CRASH)) {
-> >>>>>>> +                       kvm_write_reg(vcpu, LOONGARCH_GPR_A0,
-> >>>>>>> KVM_HCALL_INVALID_CODE);
-> >>>>>>> +                       break;
-> >>>>>>> +               }
-> >>>>>>> +
-> >>>>>>> +               vcpu->run->exit_reason =3D KVM_EXIT_SYSTEM_EVENT;
-> >>>>>>> +               vcpu->run->system_event.type =3D
-> >>>>>>> KVM_SYSTEM_EVENT_CRASH;
-> >>>>>>> +               vcpu->run->system_event.ndata =3D 0;
-> >>>>>>> +               ret =3D RESUME_HOST;
-> >>>>>>> +               break;
-> >>>>>>>            case KVM_HCALL_SWDBG:
-> >>>>>>>                    /* KVM_HCALL_SWDBG only in effective when
-> >>>>>>> SW_BP is enabled */
-> >>>>>>>                    if (vcpu->guest_debug &
-> >>>>>>> KVM_GUESTDBG_SW_BP_MASK) {
-> >>>>>>> diff --git a/arch/loongarch/kvm/vm.c b/arch/loongarch/kvm/vm.c
-> >>>>>>> index 6dabb227a732..e5d10ceb5e67 100644
-> >>>>>>> --- a/arch/loongarch/kvm/vm.c
-> >>>>>>> +++ b/arch/loongarch/kvm/vm.c
-> >>>>>>> @@ -49,8 +49,9 @@ static void kvm_vm_init_features(struct kvm *kv=
-m)
-> >>>>>>>                    kvm->arch.kvm_features |=3D
-> >>>>>>> BIT(KVM_LOONGARCH_VM_FEAT_PMU);
-> >>>>>>>
-> >>>>>>>            /* Enable all PV features by default */
-> >>>>>>> -       kvm->arch.pv_features |=3D BIT(KVM_FEATURE_IPI);
-> >>>>>>> +       kvm->arch.pv_features |=3D BIT(KVM_FEATURE_IPI) |
-> >>>>>>> BIT(KVM_FEATURE_CRASH);
-> >>>>>>>            kvm->arch.kvm_features |=3D
-> >>>>>>> BIT(KVM_LOONGARCH_VM_FEAT_PV_IPI);
-> >>>>>>> +       kvm->arch.kvm_features |=3D BIT(KVM_LOONGARCH_VM_FEAT_CRA=
-SH);
-> >>>>>>>            if (kvm_pvtime_supported()) {
-> >>>>>>>                    kvm->arch.pv_features |=3D
-> >>>>>>> BIT(KVM_FEATURE_PREEMPT);
-> >>>>>>>                    kvm->arch.pv_features |=3D
-> >>>>>>> BIT(KVM_FEATURE_STEAL_TIME);
-> >>>>>>>
-> >>>>>>> base-commit: df2908090cda368b01ff43709f51890076c56157
-> >>>>>>> --
-> >>>>>>> 2.39.3
-> >>>>>>>
-> >>>>>>>
-> >>>>>
-> >>>
->
+> ---
+>  arch/arm64/include/asm/assembler.h | 2 +-
+>  arch/arm64/include/asm/el2_setup.h | 4 ++--
+>  arch/arm64/include/asm/ptrace.h    | 4 ++++
+>  arch/arm64/kvm/hyp/hyp-entry.S     | 2 +-
+>  4 files changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/assembler.h b/arch/arm64/include/asm/assembler.h
+> index 0b58b550e8dce..b4b97e03db828 100644
+> --- a/arch/arm64/include/asm/assembler.h
+> +++ b/arch/arm64/include/asm/assembler.h
+> @@ -500,7 +500,7 @@ alternative_else_nop_endif
+>  	mrs	\tmpreg, id_aa64dfr0_el1
+>  	ubfx	\tmpreg, \tmpreg, #ID_AA64DFR0_EL1_PMUVer_SHIFT, #4
+>  	cmp	\tmpreg, #ID_AA64DFR0_EL1_PMUVer_NI
+> -	ccmp	\tmpreg, #ID_AA64DFR0_EL1_PMUVer_IMP_DEF, #4, ne
+> +	ccmp	\tmpreg, #ID_AA64DFR0_EL1_PMUVer_IMP_DEF, #CCMP_NZCV_EQ, ne
+>  	b.eq	9000f				// Skip if no PMU present or IMP_DEF
+>  	msr	pmuserenr_el0, xzr		// Disable PMU access from EL0
+>  9000:
+> diff --git a/arch/arm64/include/asm/el2_setup.h b/arch/arm64/include/asm/el2_setup.h
+> index 1da277baacf78..c0ece880e85bd 100644
+> --- a/arch/arm64/include/asm/el2_setup.h
+> +++ b/arch/arm64/include/asm/el2_setup.h
+> @@ -137,7 +137,7 @@
+>  	mrs	x1, id_aa64dfr0_el1
+>  	ubfx	x0, x1, #ID_AA64DFR0_EL1_PMUVer_SHIFT, #4
+>  	cmp	x0, #ID_AA64DFR0_EL1_PMUVer_NI
+> -	ccmp	x0, #ID_AA64DFR0_EL1_PMUVer_IMP_DEF, #4, ne
+> +	ccmp	x0, #ID_AA64DFR0_EL1_PMUVer_IMP_DEF, #CCMP_NZCV_EQ, ne
+>  	b.eq	.Lskip_pmu_\@			// Skip if no PMU present or IMP_DEF
+>  	mrs	x0, pmcr_el0			// Disable debug access traps
+>  	ubfx	x0, x0, #11, #5			// to EL2 and allow access to
+> @@ -422,7 +422,7 @@
+>  	mrs	x1, id_aa64dfr0_el1
+>  	ubfx	x1, x1, #ID_AA64DFR0_EL1_PMUVer_SHIFT, #4
+>  	cmp	x1, #ID_AA64DFR0_EL1_PMUVer_IMP_DEF
+> -	ccmp	x1, #ID_AA64DFR0_EL1_PMUVer_V3P9, #8, ne
+> +	ccmp	x1, #ID_AA64DFR0_EL1_PMUVer_V3P9, #CCMP_NZCV_LT, ne
+>  	b.lt	.Lskip_pmuv3p9_\@		// Skip if < PMUv3p9 or IMP_DEF
+>  
+>  	orr	x0, x0, #HDFGRTR2_EL2_nPMICNTR_EL0
+> diff --git a/arch/arm64/include/asm/ptrace.h b/arch/arm64/include/asm/ptrace.h
+> index f7dc5fb9427d6..15c381ef7d2c2 100644
+> --- a/arch/arm64/include/asm/ptrace.h
+> +++ b/arch/arm64/include/asm/ptrace.h
+> @@ -30,6 +30,10 @@
+>  #define PSR_MODE_THREAD_BIT	(1 << 0)
+>  #define PSR_IL_BIT		(1 << 20)
+>  
+> +/* CCMP NZCV immediates that make the named condition hold */
+> +#define CCMP_NZCV_EQ		(PSR_Z_BIT >> 28)
+> +#define CCMP_NZCV_LT		(PSR_N_BIT >> 28)
+> +
+>  /* AArch32-specific ptrace requests */
+>  #define COMPAT_PTRACE_GETREGS		12
+>  #define COMPAT_PTRACE_SETREGS		13
+> diff --git a/arch/arm64/kvm/hyp/hyp-entry.S b/arch/arm64/kvm/hyp/hyp-entry.S
+> index 03f97d71984c4..8621eacd13738 100644
+> --- a/arch/arm64/kvm/hyp/hyp-entry.S
+> +++ b/arch/arm64/kvm/hyp/hyp-entry.S
+> @@ -46,7 +46,7 @@ el1_sync:				// Guest trapped into EL2
+>  	mrs	x0, esr_el2
+>  	ubfx	x0, x0, #ESR_ELx_EC_SHIFT, #ESR_ELx_EC_WIDTH
+>  	cmp	x0, #ESR_ELx_EC_HVC64
+> -	ccmp	x0, #ESR_ELx_EC_HVC32, #4, ne
+> +	ccmp	x0, #ESR_ELx_EC_HVC32, #CCMP_NZCV_EQ, ne
+>  	b.ne	el1_trap
+>  
+>  	/*
+> -- 
+> 2.39.5
+> 
