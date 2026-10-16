@@ -1,104 +1,173 @@
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378934F0539
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:04:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166687; cv=pass; b=mg1j/o5tnKeq5Pd0v2GULPC4p4JaEqSP5o/2guaCVGuU1RU2dRBWeh4VJutCYxXK6EQ4ZbO/ZUvvhNFyNL75yi49hSHJanHAO2Mwqt7/RhsPeHhX6/e9UCymIqJuy7p3/uQhoI8ouZnaekYV2X4F296crNGRlvC4jzDzy33DxgU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166687; c=relaxed/simple;
-	bh=iXULWRiQelhnvcT3Ak66Mg2j8IEu0ZMQcqJtR6BRIrQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=orAYYvVlT1Vwtfc+dt5G89knXm9QU417rt6JLUQNNyUJaON1uG6ujlflsKwIwY0FpJ+tQ9FhCedaHjPpwSKWa6SFqi2OCKkeiYDE+6Fi4OEXQ6F1XxjHYFK/LKwi1w1Lcps8Jpy0drWLt8G/+OVdmLNLkF5rA3y6stlY/3qqjog=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CuOJ798b; arc=pass smtp.client-ip=209.85.128.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CuOJ798b"
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8ae8607e8afso526677b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:04:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792166685; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CEiTdSwDOT2mgSXX1z6dLAqTZ9Mr77bzwozenyMRz3qFJbnG+S5mUr8jQ4FJ1kBnTj
-         c8PKwLQKlsuAkCC8CMj1bHTDpvBwSESYMCal2YjC0MoOLfbZURRygEBgOrC3sMQzt/oW
-         YFadUc+zC8qoKzmStYMjJOZhp5kEUuAuFp7o6zybVEyazZShQz9fByhSZE15n8IUpd12
-         gwFAJ47M4yLS090lJRZhKIcCj75ekPxS3ZTI8yLmWXeBeEfBwqFw8LCGAj4EieutB0Mq
-         h5L9JMIlgxi0LJpgJYLAl6Fr8WgGpHDEGaUbgfTwg4V/39rUozAGdO6sr51kgbJ5kimz
-         cpTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=iXULWRiQelhnvcT3Ak66Mg2j8IEu0ZMQcqJtR6BRIrQ=;
-        fh=YRTMA3p03mjaUG/FpziJHUC0qZeNI9BjCsFuQPO2sDk=;
-        b=T8SHqouuker3hGj3uDya1vfGHXCHYVnxTgdUY56545SUT3X0/6KZHNmk8ubv3H5Ir2
-         ME+uHloLRDS0x6v4HrGnYIt2MfUp2BXH0yq3j8AL/WitvsLNh/D6gGNxAEGhoPcjdgg5
-         oH6uiYoJyDtP7ZzmJKEYp0f8m3WtlS4KREYzRbhr97vbFzIGkcMjiJeyNjikpNbqXrTw
-         I0VumzpPa8J8dgRWtkQecl9ZZU8xOkD+EdYaUDR9VRdrxdQT7h++XSGcp/OIhmMXFj1S
-         OzWLBis9xrk2rNupRzyGNZ/z00BEkTbp7pm/3Mg1hVhZYvCicFXAyOMViRYtvMDFeb2H
-         ukGg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792166685; x=1792771485; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iXULWRiQelhnvcT3Ak66Mg2j8IEu0ZMQcqJtR6BRIrQ=;
-        b=CuOJ798bMYtCDpC5LWiwZJn7uw8bjiBagVxTyI6Y9WQHtVprqQYt1y47sCo21XrVNV
-         UsOmF8vDTwr5vLG1QXN92cTa+5Im2jGEIYiRKKdOqgzUUOTnYt87XsGOn5018IMq+alk
-         L7aJy/CQT1mulKcTs4zCTHTgB7D+ulX8GyNiMTZTTx8J0UwhjLxhSJpG1LHGNK5izf3Y
-         c2jU0TWODuroFYqhSPgwpTpsaCq26tN2n6wpUb4c5k5Tj1qTFSAea6HSAfpp6N0Uh0Bf
-         YY7iLlNhbSOArmXeqmWMYCYhiAV6fxBNdp+6tcTdfA02yg1vXQ4NCEjPo42auL7rK04m
-         J4KQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792166685; x=1792771485;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iXULWRiQelhnvcT3Ak66Mg2j8IEu0ZMQcqJtR6BRIrQ=;
-        b=H5Z6KsMEelNKlrepMazcsWy3Cw0MSztlXk5DgPl4GzRdcgBogHuZ+BYYMtIFGBZxUA
-         bdlQ8ns3sq4IcVSJVwmQajaO3CeuKDyO+SvCv+VaH2lhCxc+/7G7318DDhEvlvfAEw6I
-         B6ndyu19IZGanbVxV4WExRAeKmQUE2RnktGHxru3CJSrE5R1P2XQUt2MSFtbNDvKwnm6
-         ChvZ2GxzQFihTdIjU5AitNM5ekW9/4aJsMVLh1S4EHx0+AfUt/H2+8r3XdCJRro7LPhP
-         DHXco7o1dZQ8z9ueCEC8/NDOAG2qUPXBE5+BCYbLyo9JNfc2n+c+uBe/MtWFo869zmM/
-         +tsw==
-X-Forwarded-Encrypted: i=1; AKwUvBwJy19+1zcAE4LpVNgP3YJRAiDRPB1uiR2Aya6xFMrSbiX6g8wpkW3yV7xNzlysZ7TyS+OFMxPvfC/c+2Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIic+zU2hjsuv6btWtmMd4bA3O2EVzyIHsl5beo8+yLBOL0iyAM
-	obe4twinBWNwPR2Pl1pKHNkCD+T6xsUzGgZvEFRYN4DsWbR/ykYJeMotZS47ANloTXK0EfiYflp
-	LPFtaGLHzk44Y1mYvaOrHGeS782vYnIPiw5tJI+Q=
-X-Gm-Gg: AYBFou3RJLF3rIwINIpBpuu3RGTbUmxLAGeWhQNuJES+vq8+/tBy+U9a5ZN/3X4BlZL
-	BjS9YKZtY9HL0Bt91dyG7TaizYy175E9iNzOda2jrWgIEDaZUuyUeVHB+1O3dWUMLkbqjQNfPKy
-	4eEOsbEwg0iSQNGbqciIQ2lzD/WC7eEY/cUHJHxwLElc5pmKOtB6kBoEY0QsNqEY2BaeuepI9FJ
-	of6sz4KHPoKG9h8zLi6Kf3UIZzuW9vItHe3R8gHtRLJ5Yqai4Ve+Woewx5kzF8Q5hu14dzDvSEV
-	cnEsJiMouIXVtosgQnOJZoq9fw0ztPa6myvQca+sb+ea05RoAFfNigU=
-X-Received: by 2002:a05:690e:168d:b0:679:94b3:a257 with SMTP id
- 956f58d0204a3-67994b3d526mr1957505d50.115.1792166684969; Fri, 16 Oct 2026
- 09:04:44 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768D04EFFC3;
+	Fri, 16 Oct 2026 16:05:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792166720; cv=none; b=nkyOMrbc0KmYpYC7wWyb8o2r2Leqwsw+TLlmi8cQMFHEVJgnYGAkWN26RqBSYRIT6DJ8mPgrvmWcJMyAVasPU+4kwHdDIL9GvNssqhSqBPXx9EDsYES1Fp8+MfIRFgCq/Jy6ofmCjlvQmvTcjwZoF3vGa3z8Yu+sxgzgD561z7w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792166720; c=relaxed/simple;
+	bh=NUft4pH7f3JIjyQBKOEWfBoZDwmWN2kTTtQYfVs85Sc=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=UimZ6iqs27MCgTmGJ7dmGUoaVBUBt5A28gQayz7ADgITg+91WB+50s2OJQGS3TEO9sHKSghCw0RN99Iwjb+Fevzm8GkyFIm12M23VP6c33bniB/td+BZRpxLHwuowI4zdqH/+sBs/Htfa6sVJ+S37Fo8YpeU3u+vZKbdH5hH6eE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
+Date: Fri, 16 Oct 2026 17:04:47 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: sashal@kernel.org
+CC: broonie@kernel.org, corbet@lwn.net, error27@gmail.com, geert@linux-m68k.org,
+ gregkh@linuxfoundation.org, kees@kernel.org, konstantin@linuxfoundation.org,
+ ksummit@lists.linux.dev, laurent.pinchart@ideasonboard.com, leon@kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux@leemhuis.info,
+ mst@redhat.com, ojeda@kernel.org, rdunlap@infradead.org,
+ skhan@linuxfoundation.org, tytso@mit.edu, workflows@vger.kernel.org
+Subject: Re: [PATCH v3 5/7] agents: add a skill to determine stable tags
+In-Reply-To: <20261016152828.3765695-6-sashal@kernel.org>
+Message-ID: <E8B4AB04-80A1-421C-B5F8-C33743BCF484@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261016090930.947830-1-wyibo6109@gmail.com> <57d28e27-459d-4d58-b6ea-78739936d152@ixit.cz>
-In-Reply-To: <57d28e27-459d-4d58-b6ea-78739936d152@ixit.cz>
-From: Yibo Wang <wyibo6109@gmail.com>
-Date: Fri, 16 Oct 2026 11:04:34 -0500
-X-Gm-Features: AclHuK8HVxQHZuZqBOsgDtltrMYxi2H1SXCcO2OimABd3Lxmh6ZoSPvRZjNaQho
-Message-ID: <CALQ9cS49UzOPA8PUh8Yf55+D5oim=9YRF9iHw0Hi0sXuZFDTVw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: dongwoon,dw9719: Document DW9714VA
-To: David Heidelberg <david@ixit.cz>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Thanks, sorry for the trouble caused by my insufficient checking.
-I did use an LLM to organize register tables for the binding and clean-room
-HAL user space drivers work when I find my chip acts differently. I
-focused too much on C files and neglected docs.I will treat documents
-more seriously in future patches. Since this chip is common and someone
-will inevitably do a better job, I won't send a v2. Please feel free to
-drop this series. Sorry for the noise.
+On 16 October 2026 16:28:25 BST, Sasha Levin <sashal@kernel.org> wrote:
+>Whether a fix needs a stable tag, and which releases it should reach, is
+>decided by hand and is often missed or left too broad. Add a skill that
+>sends the agent to stable-kernel-rules.rst for the decision and the tag
+>format, lists the kinds of changes the stable trees take and leave out
+>in practice, and adds the checks agents tend to get wrong: finding the
+>first release that contains each introducing commit, checking that the
+>fix applies to the oldest affected release, giving every stable tag the
+>same version, and following the subsystem's stable policy.
+>
+>If the decision cannot be made, the skill returns no tag. Point the
+>bug-fix procedure in coding-assistants.rst at the skill.
+
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+
+
+>
+>Assisted-by: LLM
+>Signed-off-by: Sasha Levin <sashal@kernel.org>
+>---
+> Documentation/process/coding-assistants.rst |  7 +-
+> agents/skills/stable-tag/SKILL.md           | 72 +++++++++++++++++++++
+> 2 files changed, 77 insertions(+), 2 deletions(-)
+> create mode 100644 agents/skills/stable-tag/SKILL.md
+>
+>diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
+>index ddff951856dce..fc4e98fd96e11 100644
+>--- a/Documentation/process/coding-assistants.rst
+>+++ b/Documentation/process/coding-assistants.rst
+>@@ -37,6 +37,8 @@ The following skills are available:
+> 
+> * agents/skills/find-fixes/SKILL.md determines the Fixes tag of a bug
+> fix, or
+>   checks an existing one.
+>+* agents/skills/stable-tag/SKILL.md decides whether a fix goes to stable and
+>+  returns its stable tag, or checks an existing one.
+> 
+> Licensing and Legal Requirements
+> ================================
+>@@ -101,8 +103,9 @@ these steps:
+>    another one. The fix must not add build warnings and must pass the
+>    checkpatch.pl checks (see submitting-patches.rst).
+> 6. Commit the working fix with a detailed message describing the problem,
+> the
+>-   solution and a Fixes tag determined with the find-fixes skill. Do not add a
+>-   Signed-off-by tag, and add an Assisted-by tag, as described above.
+>+   solution, a Fixes tag determined with the find-fixes skill, and a stable tag
+>+   if the stable-tag skill calls for one. Do not add a Signed-off-by tag, and
+>+   add an Assisted-by tag, as described above.
+> 7. Identify the maintainers and lists using scripts/get_maintainer.pl.
+>    Documentation/process/security-bugs.rst shows how to do that.
+> 8. Indicate what could not be done. If the fix could not be built or
+> tested, or
+>diff --git a/agents/skills/stable-tag/SKILL.md b/agents/skills/stable-tag/SKILL.md
+>new file mode 100644
+>index 0000000000000..d87bcc95089d3
+>--- /dev/null
+>+++ b/agents/skills/stable-tag/SKILL.md
+>@@ -0,0 +1,72 @@
+>+---
+>+# SPDX-License-Identifier: GPL-2.0-only
+>+name: stable-tag
+>+description: >-
+>+  Decide whether a Linux kernel fix should be backported to stable kernels
+>+  and return verified Cc: stable tag lines. Use when preparing or reviewing
+>+  bug-fix patches, drafting their commit messages, or checking an existing
+>+  stable tag.
+>+---
+>+
+>+# Determine a stable tag
+>+
+>+Read Documentation/process/stable-kernel-rules.rst. It says which changes go
+>+to stable and how to write the tag, its prerequisites and its version. Follow
+>+the rules for skills in Documentation/process/coding-assistants.rst.
+>+
+>+Judge a change by what it does, not by how its description labels it: a
+>+"cleanup" that releases a resource on an error path fixes a leak. In practice,
+>+the stable trees take:
+>+
+>+- Fixes for crashes, oopses, BUG and WARN splats, hangs, lockups, RCU stalls,
+>+  deadlocks, data corruption and security issues.
+>+- Fixes for use-after-free, double free, NULL pointer dereferences,
+>+  out-of-bounds accesses, integer overflows, uninitialized data, reference
+>+  counting errors, and memory or resource leaks.
+>+- Fixes for races, including data races.
+>+- Fixes for incorrect behavior, such as wrong results, wrong hardware
+>+  programming, or endianness and type errors.
+>+- Fixes for problems reported by syzbot, other fuzzers, or the KASAN, KMSAN,
+>+  KCSAN and UBSAN sanitizers.
+>+- New device IDs and quirks for drivers that exist in the stable trees, device
+>+  tree fixes, and device tree additions for hardware that existing drivers
+>+  support.
+>+- Corrections to documentation that is wrong.
+>+- Performance fixes that prevent lockups, stalls or hangs.
+>+- Reverts of commits that are in a released kernel.
+>+- Fixes for bugs introduced by commits that were backported to stable.
+>+
+>+They do not take the following, unless a fix that is taken depends on it:
+>+
+>+- New features, new user-visible interfaces or behavior, new drivers, and new
+>+  module parameters or sysfs attributes.
+>+- Refactoring, code movement and other preparation patches.
+>+- Optimizations that do not prevent lockups, stalls or hangs.
+>+- Cleanups that do not change behavior, such as style, renames and comment
+>+  changes.
+>+
+>+Then work out which releases need the fix:
+>+
+>+- Determine the Fixes tags with the find-fixes skill first. A change with no
+>+  introducing commit, such as a new device ID, a quirk or a build fix, or a
+>+  bug older than the available history, affects every release that contains
+>+  the code it changes. Otherwise, if the Fixes tags are unresolved, so is the
+>+  stable decision.
+>+- For each Fixes tag, find the first release that contains the commit, not the
+>+  release it was based on. If no release contains it, check whether the
+>+  commit was itself backported to stable.
+>+- Check that everything the fix uses exists in the oldest affected release.
+>+  If something is missing, list the commit that added it as a prerequisite
+>+  if it is small and fit for stable, or start the tag at the first release
+>+  that has it.
+>+- Give every stable tag in a commit the same version: a tag without a version
+>+  asks for every stable tree and overrides the versions in the other tags.
+>+  The stable tooling reads the first version number in a tag comment as the
+>+  version, so describe what older trees need in the commit message.
+>+- Follow the stable tag policy in the maintainer profiles, the `P:` entries in
+>+  MAINTAINERS, for the changed files.
+>+- Ask the caller whether the fix addresses an unpublished vulnerability, as
+>+  described in Documentation/process/threat-model.rst.
+>+
+>+Return the tag lines with the reasons for them, or the reasons for no tag. If
+>+the decision cannot be made, return no tag and say what is missing.
+>
+
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
