@@ -1,201 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F254044BC97;
-	Fri, 16 Oct 2026 23:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCF0447237;
+	Fri, 16 Oct 2026 23:04:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792191763; cv=none; b=ph30J4uJMFYcypVpFCBP5DD1RJMshprU7npTvN4FW+lhYCyDckVYEUa9yG7qxcstK5Fh++YOP2mh5xDezuiRjSPplnmUWj3XcyzFF/APrHbN1EHXsgje8JqA3HibL9um5KV4Li1AnyRNyxa7/hpfAR+kNVriiYYiQMAm5rmbw38=
+	t=1792191848; cv=none; b=It5Dh/PxY6y0U4D6vlrzeCEIQC4jFkHMKZFuK62dxA+FEg/37/jTAB8o5UeK303vwVRI2gIBXyjajiY/fdvVor/Df3a2s2NKLtN3ChZ6Hv5e7aXhhoQ52gGUvtqDziAQ4m14YCdDKSExb/JTGKv6RlnHQoKcDU0lQmpx/h0pTcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792191763; c=relaxed/simple;
-	bh=n3ty2ZyvDzwgUhYeZDEYtUwS66NH+nc/7eGrAnKN6Oo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WrTKyFlRJ6p5AXFN8++jGpJ2ymvdmPeqAxAO6bIAGQQUFYZBarDWYn7XuOut28Cpjkew0BYyu0Q3u977zCFrAnOtCvWmJqoTZ04jV6m+I767Ezsi9jgJBS+jmjXK59oKFzjkIxNo7Mq5VXC2dmyzZ6eJowhLv2wlzA4ecWksWjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JkhsbZVd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792191848; c=relaxed/simple;
+	bh=4hzHIB0Y5JPlhprW+J1idLrj1nO22R2E8VcKkQJMrDE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OiX26FuKaTqMQYEuYDf6LigNWh1B3uWzT0vAXa2bTiwxxxZwxH1QyY6luNScrgQwUOfnnLcsit/yiglLr8f5Q0RysZI1K7BpFP6+ixIQ59Gn0Xk1uCwihZ06DMjqRlS336umXHwQ/rBWeCKGzqjWnmq60h1vAhuZ6evsjbbBE7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=UJJyq1RO; arc=none smtp.client-ip=35.83.148.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JkhsbZVd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08A271F000C4;
-	Fri, 16 Oct 2026 23:02:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792191761;
-	bh=gDPFJsipEFwmkLMvZylTLQTQ9ctAuVaoBrxo7YA/QQI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JkhsbZVdvnNuIM7WsGZ0/7PEHhrq+DG1SJQiCJizHg/uQz9g5JYHV8M9lIGHU15N9
-	 XYW0hdXgiTJyiCxrgrw4ZCjTFOZB+GtYgFgUUwFhRi5m0rMaPBbi8Dz35opMMVZ5lI
-	 wdbB0XZXpOcL2WDxHBFKFcstuqd7wNRfjnqpC94PsZztqCDkz64RsQVRoq47cyGjK3
-	 GJqb30hhGnnAb+q4rBPlS6JLxAy36Dmf47cZ05F5lEHTWI6KGic7Hn8pPqm5ZV6qv+
-	 4OlO1LDsVhZAxTaKUUIXEHDsk5RpZnhMOQNzU+I5nMqgjqLloJHOoIGXdSuml9PiVn
-	 mEC8ywo+Lv2ng==
-Date: Sat, 17 Oct 2026 00:02:33 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Bruce Tsao via B4 Relay <devnull+bruce.tsao.analog.com@kernel.org>
-Cc: bruce.tsao@analog.com, linux-iio@vger.kernel.org, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: iio: dac: Document Analog Devices
- AD5413 single-channel DAC
-Message-ID: <20261017000233.4f929ce7@jic23-hlaptop>
-In-Reply-To: <20261017-ad5413-upstream-v1-1-61f40c8fef25@analog.com>
-References: <20261017-ad5413-upstream-v1-0-61f40c8fef25@analog.com>
-	<20261017-ad5413-upstream-v1-1-61f40c8fef25@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="UJJyq1RO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1792191846; x=1823727846;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=N+HMwtYomXTCU6APfdeFwp0AAr9WthCoGnVUMU/qw5o=;
+  b=UJJyq1ROJz09KPFHrW0RQQauGEK+FvBzv35nWYS9VCwagv/rvvR5C+rG
+   i/Fj26g20Qw2lxaavHItzh4LTDw2QMTPouV/Xd7cW3/kFw0Xc4h3KMaJK
+   CudiE7w0QoGrqo3Pp38xjNtWihduySQGPQGD8kUWI8Sf6IEm23kJQsKkH
+   jgWJ6xT87RaITQJ5l1e6vzZj3mTsZZTDRhHDOZ9qMSk0M7xMm2SBVraTB
+   7gqCBmDx6r5xHCzmu2gTmeCAPzbVSLGvWDdibPh2ixvLHuNK2fxyIplkl
+   dJrLx/wDqmYGmYK5Gr4SnuCy0mkZM3KWt0+EcTxEK2Prus4/HVDrt9Sri
+   A==;
+X-CSE-ConnectionGUID: F+PGbVPKT32QkFZLKUD5yA==
+X-CSE-MsgGUID: KLTRFuNBQQW9sgbw8K6hGA==
+X-IronPort-AV: E=Sophos;i="6.27,162,1787011200"; 
+   d="scan'208";a="31289766"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 23:04:05 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:26478]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.40.190:2525] with esmtp (Farcaster)
+ id 7051b923-aa5f-4e2a-8f20-94827baa4d21; Fri, 16 Oct 2026 23:04:05 +0000 (UTC)
+X-Farcaster-Flow-ID: 7051b923-aa5f-4e2a-8f20-94827baa4d21
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Fri, 16 Oct 2026 23:04:04 +0000
+Received: from dev-dsk-aarnahmd-2a-95203392.us-west-2.amazon.com
+ (172.19.38.251) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Fri, 16 Oct 2026
+ 23:04:04 +0000
+From: Aaron Ahmed <aarnahmd@amazon.com>
+To: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+	<mhiramat@kernel.org>
+CC: Mark Rutland <mark.rutland@arm.com>, Mathieu Desnoyers
+	<mathieu.desnoyers@efficios.com>, <linux-trace-kernel@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Gavin Inglis
+	<giinglis@amazon.com>
+Subject: [PATCH] ftrace: Initialize modname and offset in print_rec()
+Date: Fri, 16 Oct 2026 23:04:03 +0000
+Message-ID: <20261016230403.4916-1-aarnahmd@amazon.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Sat, 17 Oct 2026 03:23:53 +0800
-Bruce Tsao via B4 Relay <devnull+bruce.tsao.analog.com@kernel.org> wrote:
+print_rec() leaves 'modname' and 'offset' uninitialized and
+kallsyms_lookup() only sets them on success. When the lookup fails like
+when a module is being loaded or unloaded, 'modname' holds a garbage
+value, passes the 'if (modname)' check, and is dereferenced by
+seq_printf().
 
-> From: Bruce Tsao <bruce.tsao@analog.com>
->=20
-> Document the devicetree bindings for the Analog Devices AD5413, a
-> single-channel precision DAC controlled via SPI. The device supports
-> voltage or current output modes and programmable slew-rate control.
->=20
-> Signed-off-by: Bruce Tsao <bruce.tsao@analog.com>
-Hi Bruce,
+  Oops: general protection fault
+  RIP: 0010:string+0x48/0xe0
+  Call Trace:
+   vsnprintf+0x1f5/0x650
+   seq_printf+0x8e/0xb0
+   print_rec+0x6c/0xc0
+   t_show+0x4c/0x440
+   seq_read_iter+0x119/0x480
 
-Welcome to IIO.
+This can be triggered by reading available_filter_functions while a
+module is being loaded or unloaded.
 
-> ---
->  .../devicetree/bindings/iio/dac/adi,ad5413.yaml    | 101 +++++++++++++++=
-++++++
->  1 file changed, 101 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5413.yaml b/=
-Documentation/devicetree/bindings/iio/dac/adi,ad5413.yaml
-> new file mode 100644
-> index 000000000000..74e869304aab
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5413.yaml
-> @@ -0,0 +1,101 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/dac/adi,ad5413.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Analog Devices AD5413 DAC
-> +
-> +description:
-> +  Analog Devices AD5413 is a single-channel precision DAC supporting vol=
-tage
-> +  or current output modes with programmable slew-rate control.
-> +  The output mode is selected via the adi,chan-current-mode property.
-> +  Optional reset GPIO may be provided.
+Initialize both variables so a failed lookup skips the module name.
 
-New line per sentence isn't really adding anything. I'd reflow this
-a a paragraph.
+Fixes: b39181f7c690 ("ftrace: Add FTRACE_MCOUNT_MAX_OFFSET to avoid adding weak function")
+Cc: stable@vger.kernel.org
+Tested-by: Gavin Inglis <giinglis@amazon.com>
+Signed-off-by: Aaron Ahmed <aarnahmd@amazon.com>
+---
+Reproducer: https://gist.github.com/ginglis13/dd3f64426767cd48df55dfe5d26c2299
 
-> +
-> +maintainers:
-> +  - bruce.tsao@analog.com
-> +
-> +properties:
-> +  compatible:
-> +    const: adi,ad5413
-> +
-> +  spi-max-frequency:
-> +    maximum: 50000000
-> +
-> +  spi-cpha: true
-> +
-> +  spi-cpol: false
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description: Optional reset GPIO (active low).
-=46rom a quick glance looks like we also have LDAC SYNC and FAULT.
-+ a reference out that probably wants to be modeled as a supply.
+ kernel/trace/ftrace.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Upshot is this looks like an incomplete binding and generally=20
-we try to make them as complete as possible from the start, even
-if the driver doesn't yet use everything.
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index 673a54fdf3929..164fbc07bce05 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -4426,9 +4426,9 @@ subsys_initcall(ftrace_check_for_weak_functions);
+ 
+ static int print_rec(struct seq_file *m, unsigned long ip)
+ {
+-	unsigned long offset;
++	unsigned long offset = 0;
+ 	char str[KSYM_SYMBOL_LEN];
+-	char *modname;
++	char *modname = NULL;
+ 	const char *ret;
+ 
+ 	ret = kallsyms_lookup(ip, NULL, &offset, &modname, str);
 
-> +
-> +  avdd-supply:
-> +    description: Analog positive supply (AVDD)
-> +
-> +  dvdd-supply:
-> +    description: Digital positive supply (DVDD)
-> +
-> +  avss-supply:
-> +    description: Analog negative supply (AVSS)
-> +
-> +  adi,chan-current-mode:
-> +    type: boolean
-> +    description: Select current output mode. If absent, voltage mode is =
-used.
-
-We have some existing dt bindings for multi mode channels on adi
-parts. See adi,ch-func in various other bindings.
-Whilst we've had various discussions about generalizing that to
-a generic dac binding so far we haven't done so. Maybe now is the time...
-
-
-> +
-> +  adi,slew-time-us:
-> +    description: Output digital slew control time in microseconds
-> +    minimum: 0
-> +    maximum: 1000000
-> +    default: 0
-> +
-> +required:
-> +  - compatible
-> +  - spi-cpha
-> +  - avdd-supply
-> +  - dvdd-supply
-> +  - avss-supply
-> +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        dac@0 {
-> +            compatible =3D "adi,ad5413";
-> +            reg =3D <0>;
-> +            spi-max-frequency =3D <1000000>;
-> +            spi-cpha;
-> +            reset-gpios =3D <&gpio 0 GPIO_ACTIVE_LOW>;
-> +            avdd-supply =3D <&avdd>;
-> +            dvdd-supply =3D <&dvdd>;
-> +            avss-supply =3D <&avss>;
-> +            adi,slew-time-us =3D <125>;
-> +        };
-> +    };
-> +
-> +  - |
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        dac@0 {
-> +            compatible =3D "adi,ad5413";
-> +            reg =3D <0>;
-> +            spi-max-frequency =3D <1000000>;
-> +            spi-cpha;
-> +            avdd-supply =3D <&avdd>;
-> +            dvdd-supply =3D <&dvdd>;
-> +            avss-supply =3D <&avss>;
-> +
-> +            adi,chan-current-mode;
-> +        };
-> +    };
->=20
+base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
+-- 
+2.47.3
 
