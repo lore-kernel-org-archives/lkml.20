@@ -1,87 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C684A1396
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:25:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C754825BA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:25:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157113; cv=none; b=WVTu8F/NlcRrRJG8zbixOcH9BTDD1LnWUDctfRcv3pDxs5FlEAFAPbqhn0dgMeosld7OFZOEphM62NB0b1u6Fd/pJ0a+RIJy/XlvZE7Up/iqcpOMULRm5yKVsC5mBtlmAkql+UERsJbNk/zT1KEB5bUUVH1BPUghD/PKfb/1xnI=
+	t=1792157136; cv=none; b=ugGbURhGmMGtPFaHejlXODdmDZDbOFVNtx3SiBmFvuPZ16qTsRlYLynoY+/LQobV+CawBInhMNwBeXbRfoZlZLmCINuiNobrU6WgWNWW9ZpVhbpEE5VY9chplsDEzcsb7nUG1R44wVOS6bCmpaAxY/dX2uaPBnFxXvSnQfKQtX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157113; c=relaxed/simple;
-	bh=Tlea2Q0EBAFRXRjsYugk9moCyLboTuSNrsPj5Wr+sks=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=K8VGgnLnrCwc9Wgp086a/9stjJquEhkCZKUG+7kCqT/wEHwvkrN9uxtSvNu8JvOsDExbkxO+sGv5izBGPkIkyr4AGrs7I/iHDzOW3ugxYtFhwYDKgvQqcqBPHXgPB0uChUXTTVF8Ba+gKGwZgf7ilaDKslQqn7LylbMJwGve4Xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YcSTbCFg; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YcSTbCFg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0E441F000CE
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:25:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792157112;
-	bh=Tlea2Q0EBAFRXRjsYugk9moCyLboTuSNrsPj5Wr+sks=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YcSTbCFgpmB3xrRWnOgIIhOE+92oRwATWlKOqVXB/zN+qk49KA2jUXS7TXZkWo/RS
-	 //I0YBf5qvuwRkEshrHv+LgL81kcJc2XFk5REexXzN98MsHuJ4phvic2DvKWBjl8cl
-	 Hhs3eO//fdgJ3MBGBR73dqHptfpHrYPTLS7aI3PvfRsn0rS9GT1wIysHX761M27HVm
-	 oq9h56a//xG4tvzvGJepNWoU+A0tleguX7Jl+Q6LOlEHUvU5hZP3AEyNUMyI+NPJlD
-	 227XrfNMi+YXxQ75y8hNwiG7Ju/Y4kuZtFh8Huq+rlPFWUhqkq+zMjAfNIcj+K4R7K
-	 ImtZV32oq5/ZQ==
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3aae7df0971so12887021fa.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:25:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwruJaLYNgCaiyx8c30C4nGXQ5dUAKkVGWem1GgCIFukLZYK11jXA1rDKFkyBLzO2UdA8uCRkHqHfUSF8E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLX+xD2VfejZQYGX92PEuUaCrkZvpGPVtRDFGDjmDFDi5PbQAY2
-	ceuJEK/BtD9S25bHzq8kbfuX4g92Xnh18vJHI0fB1R5mamU8bgMlISibRtS8j11WqnLdOKmyCez
-	fyZQkGhmO1aa/540gxDuvScngNKNkVR8=
-X-Received: by 2002:a05:651c:b27:b0:3a9:9b67:25f7 with SMTP id
- 38308e7fff4ca-3a9c53b0b19mr55217301fa.4.1792157111400; Fri, 16 Oct 2026
- 06:25:11 -0700 (PDT)
+	s=arc-20240116; t=1792157136; c=relaxed/simple;
+	bh=AiiZ4DiR6tTRDnOKRO9Mgk5fgpd4Py7avti+Sgg9f6s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fego0CbQt51kNfWJhl5k8sDkSUss1H3BRV3NLjbp6nW5rjfR0cFZFSSONiirTAHJIe6P6G6lkTVpHdwFTKsbkK8/ayJPG4JaLAHBS6K88SE/EZj15qYWn32mX0FXknzHOczGVENi7nxZkK7Rn3AUjA4twL6VGK+gnCrFoXHxPUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xHhvr-00EzQh-2V;
+	Fri, 16 Oct 2026 09:25:11 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Vlastimil Babka <vbabka@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Hao Li <hao.li@linux.dev>,
+	Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] mempool: fix min_nr exceeding the elements array after concurrent resizes
+Date: Fri, 16 Oct 2026 09:25:10 -0400
+Message-ID: <20261016132510.789715-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015-cv75-gpio-v10-0-3fe3eb315a55@ambarella.com> <20261015-cv75-gpio-v10-1-3fe3eb315a55@ambarella.com>
-In-Reply-To: <20261015-cv75-gpio-v10-1-3fe3eb315a55@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 16 Oct 2026 15:24:59 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=aNubwbmLSj0EMg01BcUcd5MyWpYwmWi283US6oPJ9+A@mail.gmail.com>
-X-Gm-Features: AclHuK-MGWqO6jqIhu5ZLp0uRJgIH1bUuwjVAvxYHrfT6dMzuZatQfpnFO72h3Y
-Message-ID: <CAD++jL=aNubwbmLSj0EMg01BcUcd5MyWpYwmWi283US6oPJ9+A@mail.gmail.com>
-Subject: Re: [PATCH v10 1/8] dt-bindings: gpio: pl061: add Ambarella CV75 variant
-To: longzhao@ambarella.com
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, 
-	Michael Walle <mwalle@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Conor Dooley <conor+dt@kernel.org>, 
-	devicetree@vger.kernel.org, Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org, 
-	Conor Dooley <conor.dooley@microchip.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 12:54=E2=80=AFPM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
+mempool_resize() shrinks a pool by dropping pool->lock around every
+free_fn() call and, once the pool holds no more than new_min_nr
+elements, stores new_min_nr into pool->min_nr.  new_min_nr was only
+compared against pool->min_nr before the lock was first dropped, so that
+store assumes nothing changed meanwhile.  The kernel-doc allows
+mempool_alloc()/mempool_free() to run while a resize is in progress and
+the grow path also copes with concurrent resizes ("Raced, other resize
+will do our work"), but the shrink path does not: while its lock is
+dropped another resize may shrink the pool below new_min_nr and a third
+one may grow it again to a size between the two, replacing
+pool->elements with an array of exactly that size.  Storing the stale
+new_min_nr afterwards leaves pool->min_nr larger than the elements
+array.
 
-> From: Long Zhao <longzhao@ambarella.com>
->
-> The CV75 GPIO is a modified PL061. The basic registers have the same
-> names and roles (DAT/DIR/IS/IBE/IEV/IE/MIS/IC). Each bank is 32-bit
-> and 32 lines and adds MASK and ENABLE, so it is not
-> register-compatible with the ARM PL061 and arm,pl061 must not be
-> used as a fallback.
->
-> The AMBA core matches the PL061 driver by PrimeCell ID, not by the DT
-> compatible string. These blocks do not implement the standard PL061 ID
-> (0x00041061) in the ID registers, so arm,primecell-periphid is required
-> and is fixed to 0x000e8061; the driver uses that ID to select the
-> Ambarella layout. gpio-ranges is required because each bank is a slice
-> of the SoC pinctrl pin space.
->
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+Interleaving on a pool with min_nr = curr_nr = 10:
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+  CPU A: mempool_resize(pool, 8)
+    takes the lock, 8 <= 10 so it shrinks: remove_element(), drops the
+    lock, calls free_fn() and is preempted there
+  CPU B: mempool_resize(pool, 3)
+    completes: curr_nr = 3, min_nr = 3, elements still has 10 slots
+  CPU B: mempool_resize(pool, 5)
+    completes: elements = kmalloc_objs(5), min_nr = 5, curr_nr = 5
+  CPU A: retakes the lock, 8 < curr_nr (5) is false, stores min_nr = 8
+    while elements has 5 slots
 
-Yours,
-Linus Walleij
+Every later mempool_free() sees curr_nr < min_nr and add_element()
+stores the returned element at elements[5], [6] and [7], past the end
+of the 5-slot kmalloc allocation: a heap out-of-bounds write, i.e. slab
+corruption, a KASAN report, or a crash in whichever unrelated object
+sits next to the array.  The invariant that breaks is that pool->min_nr
+never exceeds the size of pool->elements; every other path that changes
+min_nr or elements keeps it.
+
+An in-tree caller can hit this: fs/smb/client resizes the global
+cifs_req_poolp from cifs_demultiplex_thread() (grow, when a TCP session
+is created) and from clean_demultiplex_info() (shrink, when one goes
+away).  The two are coordinated only through the atomic
+tcpSesAllocCount, so mounts and unmounts racing on one client run the
+resizes above concurrently; pool->free is kmem_cache_free() there and
+the window is a preemption inside it.  The other callers
+(block/blk-zoned.c, drivers/s390/scsi/zfcp_erp.c) serialise their
+resizes.
+
+The shrink path has stored new_min_nr unconditionally since
+mempool_resize() was introduced, while the grow path has always
+re-checked pool->min_nr after reacquiring the lock.
+
+Re-check new_min_nr against pool->min_nr under the lock before storing
+it.  If a concurrent resize has shrunk the pool below new_min_nr in the
+meantime, keep that resize's min_nr (and whatever array it installed),
+as the grow path already does; otherwise the store is unchanged.  The
+elements the loop has already freed stay freed, which is right either
+way because the pool's limit is now below new_min_nr.
+
+Found by formal verification of mm/mempool.c against the kernel binary.
+Reproduced with a userspace build of the affected functions in which the
+free_fn() callback drives the interleaving above: before the fix min_nr
+ends at 8 with a 5-slot array and the next mempool_free() writes past it
+(AddressSanitizer heap-buffer-overflow); after the fix min_nr stays at 5
+and the element is handed to free_fn().  Not reproduced on a running
+kernel, where the window is a single preemption inside free_fn().
+
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
+
+ mm/mempool.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/mm/mempool.c b/mm/mempool.c
+index cb74e718b2c6..95533e2975ce 100644
+--- a/mm/mempool.c
++++ b/mm/mempool.c
+@@ -378,7 +378,9 @@ int mempool_resize(struct mempool *pool, int new_min_nr)
+ 			pool->free(element, pool->pool_data);
+ 			spin_lock_irqsave(&pool->lock, flags);
+ 		}
+-		pool->min_nr = new_min_nr;
++		/* Raced, the array may now be smaller than new_min_nr */
++		if (new_min_nr <= pool->min_nr)
++			pool->min_nr = new_min_nr;
+ 		goto out_unlock;
+ 	}
+ 	spin_unlock_irqrestore(&pool->lock, flags);
+
+base-commit: 90201351a862182bdabfc1ad1c97b1e1b6ed5931
+-- 
+2.53.0
+
