@@ -1,87 +1,68 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8693443E4D
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:13:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981A1471432
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:14:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792152814; cv=none; b=B2E9uHpMRAS3aJcr2xACH0qIe1kRovCHOGyo6WCMernU+8D9wHDJ1Ekanf+L4ZozjoUpDNm8fLmtuFvEIDEdmDaGjRD4eZzy8Ac+UgxHAfGLviVbKFpl8BT+HcsJAFpXD9rGrHARujCvjPDKJgPy3D+DeUx8NNAw6L4UqjAiRf4=
+	t=1792152863; cv=none; b=DJDu2Sls1ql0ewWHZx4yoWJ5dC17LusVlLP9LNh1+nw0gNSb+9Yz+9gKdrVzl1R198pi0OBBLWtHQBWVMg5uhUCfHZkfrzwMnhfv8auGpNcDnIjqi9x76oGgslvbJbITaVulaXcl1AQGUxxlPWI7PVw/KRci0clq3PEtbins+iM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792152814; c=relaxed/simple;
-	bh=Hx+kasX757nKJIHFXkZ8sY5/J1mcVKzN1Gb/FSM58J4=;
+	s=arc-20240116; t=1792152863; c=relaxed/simple;
+	bh=N91STIRoJBKZikDLI3znzjcc/Fnu8R6YXCPQBVKhEB0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IVlTn79iMT5EihlWbdSJVgGNEBnScD+tOG5g+ko9JK6dCPerVC7OODP8pRBEWGCMucpxc0Lm4EA9xhdvTdy09KvCTbGmnqSj0tYuP8bKBgAz/SXmwf+fg+aSA5FQKvCeglyAoZ+nUy+xxTGWPhGoFhZW+9NXNC2hUk4El54sZHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mOZBAvNq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=On+VGYgA; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=u8sobp/MAdW50sPl30Dq2B9Vd6uBN105YhqkWT0vGPWhALyA8HEACNW36DNSMVPyt1gSFgvvl9diCE55ukIWFBoo16E5PUy6YJr/aXPDjIQa27N5XiGTbms3UH7DTl5fN60vU9SZsd/ImsOBu+N23mUILRWJ4L5EU+fU0V4TQ14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=DGoMVrGU; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mOZBAvNq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="On+VGYgA"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAAMO62998612
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:13:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2ftWXraDk9QDVAMxNPvnX3+vFGzgyBKZIXYyP3mhWOg=; b=mOZBAvNqrETlTo5t
-	oLXQdt8d3iOaBaEl1nkvyHEMF4pAOblVuA/fagfV2eefOEmZsSNV3zGcfF3FyOHE
-	MQQWf6qOJ3OkhTsPhs13Q0VSwi8lTZdUGA8VTjIyIbC2dRB7MBNgLIlvTHaeSdYZ
-	oWjQCE4TImGjAQnCXRg23KtSPXJzIBxf7omIeKiWtDQFDRfaWk9KTfhLdCRVfsKL
-	fVwFCEEdvRp87bb6noRdrMXrkX/yRWR7m1WQoC6uefKkZN+OR3HukJXwEJ0C76Ol
-	GfjDngAV/FBpbQDlTtdRaxnuriCAmxLzjPsikQefDXAfB9J03TgN075A5x9S3klV
-	GYVg3A==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb8r12fdf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:13:31 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9179d9bc964so18627096d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:13:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="DGoMVrGU"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48de72fc832so1139242f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:14:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792152811; x=1792757611; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1792152859; x=1792757659; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2ftWXraDk9QDVAMxNPvnX3+vFGzgyBKZIXYyP3mhWOg=;
-        b=On+VGYgAKKhbA2Ug1qo9vhrLTYUmKiLKzcB0ajp8yugEdU+2VWikVTWjAKnEbggceB
-         Qah+mjRFrn5jPHPTyPtugGiv3MMcayBsAutMCltXw61U812kV77no9FDzuc2U6ME3hcY
-         6bPgiZ8AzrXggYIvpxM9mU8xh2or0skrHGJ6Eec6fOlbtmZEUpEE2t61yDHts+aJxZjB
-         Q1BYpCkF2eWitd1NZe6qMLU07Qf/QE9PUWCLvnuLJcrFsZG0oj+Cde9wRVcfFxh1xjm9
-         Ut4y1SpFgcTcB6BE9L+KqRvozX030yi+APPloF267lfiBGxsWOT3UGSqnzykeZnT7XnC
-         eNug==
+        bh=O+NQOhqzv2YbuUrbjrP3YSMvBckVI+bztNOXhDG1B+k=;
+        b=DGoMVrGUSZiEQbmzuZv2c0lefpUmktzWmFxukcY/eo/C1GHsI+Eh0qFdtv14W3zkuU
+         ENoLCGpwz3pQpA3iEQwgG+QnUXGzW6SvXXnXZbDE7VVzyXq/Sy8o41EmHLVhoVuOOiqh
+         pLUwQ8ZjGt+UNNcu2L7A+t5aI30KTXval9arjwDmVwwnlcQupszacyfbHNgiuOAovgjm
+         FTC1ReFmTbA9Ow4LqQZ24y+YIGGFLXS6bGk5XTtW2wPFllVRkuTCKY1A2KbWbwQHBK3y
+         QU1XCuqd52vxFvZrNV6y5/btuYUZdfg+U7CdB0Ne2hzJVtOHaN2ld7UEvyJ42XRFWuJX
+         boAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792152811; x=1792757611;
+        d=1e100.net; s=20260707; t=1792152859; x=1792757659;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2ftWXraDk9QDVAMxNPvnX3+vFGzgyBKZIXYyP3mhWOg=;
-        b=sFfgfpNYt/VcG/Mkc63oLkOhjdmw4fFnZ8+5AZ60UFc8Z4fGADeudPsV6Ikrg1tNC2
-         41vsYuFD0xexSxBwN1aUQfjeDujbT3iQrOTOBPWOuzAaO4nwYFO6vRWg5gCJ4lRUmKSK
-         dMtaFC4nShlYQHNMetvw8AiNBycxIwQfgQAqrPkHcKkt47de3BwwEkRg8JRPmoVUSXEV
-         6H16/nPMDIkvokx4LDZq1RsdvNbzcp29uRiFVTN23sAfBBdX6Of+4rZ8UiAeAbuaDROI
-         UdbohTmAI86g8xQkZbK5C2mMVATpcfrSBCrQZFA2ZrC4yzV1BOILE8OAMFoav807yKLt
-         Zx6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxm7ROjrfQPVqXAXCotg8GK8yyGXv16xeP7Y+Dab4Zr4n/nppYyuLRoL+LVabFdaD1/Vm65NhkXCJvS+U4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPGJuYG+2BcBISSwzCjA0IYnXV1EKtESIXLYchgBmiypgzr13n
-	Cg5Y/0iT16vXhDqCWBTvmk2r3YAArHyvFRxYGAyFnv1D2N2dYS04DqNKdITRPC6r+9s9gD9xJAX
-	1p8eWJQAqfgtm5H/NNV8Y2r+Z3BKscEenFZk7nk+1P28GDQ1fcz7tABIw9cy32SCQxLQ=
-X-Gm-Gg: AYBFou3++xD6C/8xwMloVk1sofXv04ylemNmk0heYjZ5pgIjnECVb1C3oytN9GJeQWE
-	uQjkBa27zmA/aizCbxFm22K+vojEafd0RXM8TUixsBXnTO5EHJK3yZS9Pq8hLxny9De5AcAt2ek
-	efEdYFNWMx6cfhq/1y5Fdn93MYVGNd5BOzJzVVMidaQc5cZU8OhwlEWaRJHlp6oGf2arXE41VV8
-	Usi/8hA7cumJ/l8yLinG2luk4VPkgJytjyA94a05RAn3lZrt/8eoOUBHhCxAjQdyI9ibRgsMJJ3
-	QfTCroBP/E0eq0MA2DOjK5vDwJgECayUjVsJzyBq+W1qNraKQDJdZMJYZv2BUdnzPHjqI+tRcst
-	MFzqLvJAwxQYvXN4uyd46fw==
-X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr4177425185a.2.1792152810775;
-        Fri, 16 Oct 2026 05:13:30 -0700 (PDT)
-X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr4177421185a.2.1792152810265;
-        Fri, 16 Oct 2026 05:13:30 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dcf35asm65905066b.19.2026.10.16.05.13.28
+        bh=O+NQOhqzv2YbuUrbjrP3YSMvBckVI+bztNOXhDG1B+k=;
+        b=br5MZ5Bo3hvENmNz8AcBVYuXfMudpyOfcz6yc0TpaWKzepKne7Cs8+Zwi0Q0ZMxgW3
+         Uf28IgklKA2nvhnJdZe0vPYCzRJaUuTMYEzN7i/eYkwdOLCvuc8uMsf0Xuu6yfs2Vbo4
+         HrTbd0dnplo5Z464kP/IhOMer5e4c1jgG1xOuxbUEze4WAuLdlCtPxHc24FQIMGdr2Wq
+         ZQIGUonmDCpb3QzbIIijaoWbRQYRI6SBhCnq8Mk2lxWVDuAeRN3jd992+DSmsxIlh6jO
+         N1WdfCik1mcp5pOgnVgn6Y7fkrazheSqwCJg9IsExQsPJUcxlvEUDZgcYov8cggLLitG
+         pD7w==
+X-Forwarded-Encrypted: i=1; AKwUvBy7huawAUe+6/DFYz4V7xOc//1+0mwjqouJP4MJa9v5TzTC9Q+oNdDU2vq7VUW2HGfHxoL9fXVgAN8KOoA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKpEFH9TkN/FlyPaJFZnlIzHCwoCElLeJNFvORqKxxenbXdBnI0
+	bniRHGTYYHp02HOLth2ieesOGWX5QSsx55rqj/rv+xEJB/dRPK6uoQunWRcXVvaJYnM=
+X-Gm-Gg: AYBFou3QMy1AvCVtrmEDNM6xi3D5xwyTrW5kWYS4JAHew0eVYCIpuCU40MlsjAOL6Np
+	3oG5EPF6GoWwT7foPrg0TAc8HxoU9FmIdob4jCe83SRwDZch3uDomxNYHwfG9SU9gRFqa2UyElt
+	Ojzhzr7l7wGnj0G/JDJ1C9ucMdQKzV1gi/CTESAmN1aR/CkJwbpKGOdL1zUQjstyHoexAErUw/3
+	/sk3FHYJcG7tdbSeTZ7ckAN9toJR+LhT2I+lVVmXhy/xvoWs6/DP7x5k4yCQUTi1p8wrnWMfxhl
+	nEJ1fUl5lP1DLJZroe/Gp/pox/I70zIq3C+Fu/kqNLFWFXpcjMbC2wkjbomb8LMPxfzPSOo/35s
+	Qq+qBcHbzOr4aXDA8LWSxpf/pdpax+Pvs6dzFE3W8PmsKsc0th9ciT1+eoAk3ebkK5Fi8O5Q6XT
+	JKMDF+J7m9AKBqqd/XTD797CEGox98VcMmW1nxeUaG9dae7A0zjdo5pYjjkiTb9QZzMi7IjpBkN
+	OjwHvxN20G/VXo2fmUGl+avF2BZdKi70eY=
+X-Received: by 2002:a05:6000:2686:b0:48d:f3a4:610b with SMTP id ffacd0b85a97d-48df3a462bcmr12096973f8f.25.1792152858574;
+        Fri, 16 Oct 2026 05:14:18 -0700 (PDT)
+Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd50d080sm4940009f8f.53.2026.10.16.05.14.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 05:13:29 -0700 (PDT)
-Message-ID: <c1abd9d4-98ef-4469-b4f3-94a8dcad9d0b@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 14:13:27 +0200
+        Fri, 16 Oct 2026 05:14:17 -0700 (PDT)
+Message-ID: <b17e9924-ca92-4cdf-b5e6-54164039e09a@suse.com>
+Date: Fri, 16 Oct 2026 14:14:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,83 +70,487 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] phy: qualcomm: qmp-combo: Differentiate clocks related to
- the USB block
-To: Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-kernel@vger.kernel.org, jason.pettit@oss.qualcomm.com
-References: <20260930-qmp_phy_usb_clks_v1-v1-1-d4dccc9eb263@oss.qualcomm.com>
+Subject: Re: [PATCH v4 14/22] modpost: emit module descriptors as assembly
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+ linux-hardening@vger.kernel.org
+References: <20260923-build-speedup-v4-0-73128809a4a4@kernel.org>
+ <20260923-build-speedup-v4-14-73128809a4a4@kernel.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260930-qmp_phy_usb_clks_v1-v1-1-d4dccc9eb263@oss.qualcomm.com>
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20260923-build-speedup-v4-14-73128809a4a4@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: rnuSMgRbKm4x0psno5NdZQdqF4_6H6qx
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA0OCBTYWx0ZWRfXzvzVJHVz6GPT
- YNkEkgvrSCAIwE2XuWEw8CRuX6rBXU6FBpwY6UohlGOz4UXbUlEOoC06CxjIRrR9GQBTzyId6ga
- uFSFENKPBB1KH4UZSfCMKPrldE60BG0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA0OCBTYWx0ZWRfX/tm9tl7e0Yj/
- 19qSGiHiZdVn/a/1HcGodbb4rXg9GHBln83xuRi171/aFNaOURXYYQGvPmrcBHhX4CqbDOWcYrh
- 0070fd9HG4i8GsEt+b1pkPexxZOy3Ux0Q3IPXhlUf7vfWi7/pOE0momY8usTKVDNsl2YrwfM+sq
- V7aZnb7OcEB9WjbIAZ3B4Jk0YMuKDyz9Ie5kgK/FX1sN8LkolGMC/JF1fwa7kveJFcBngy9l8HD
- MzJBGbHqDMpD2uH2mzpVsZ/9lb5PJjw9Nx2XDNDEETb89AKXSd0sGkFEGvj5lp4AbIbFc/bRls1
- v1QunAzvXXTi1hxw6yCOMtwfLHKp1PrIbAbqc7NvDS4Qf4Y1zz4Cnn7GKV3Hu0UHtyf+tZaifUL
- 5KVF/jpNOvn8E2dtvLoL63n9zmuKV6MDQNGjmgyhPPlHJ81uvfJnRSzf1fHixMZK1fbg/BufzPS
- s76VNZzEvN8MIUDXSZg==
-X-Proofpoint-GUID: rnuSMgRbKm4x0psno5NdZQdqF4_6H6qx
-X-Authority-Analysis: v=2.4 cv=L/CI0OT8 c=1 sm=1 tr=0 ts=6ad214eb cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=p9KmNGLgWT_GFA4DS74A:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501
- lowpriorityscore=0 impostorscore=0 phishscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160048
 
-On 10/1/26 3:16 AM, Wesley Cheng wrote:
-> The Qualcomm QMP combo PHY has a USB and Displayport block that is
-> sourced with different clocks.  In situations where the USB path is not
-> utilized, and only Displayport is active, unnecessary clocks are enabled
-> and not used.  Split the current clock list into USB specific clocks,
-> which will be enabled whenever the USB initialization routine is
-> executed.
+On 9/23/26 7:18 PM, Lorenzo Stoakes (ARM) wrote:
+> modpost generates a descriptor for every module in the form of a
+> <module>.mod.c file with .modinfo strings, the __this_module descriptor,
+> exported symbol tables and (with CONFIG_MODVERSIONS set), the CRC of
+> imported symbols.
 > 
-> In addition, move autonomous mode control specifically when USB is
-> active, as its primary purpose is to detect RX detection and LFPS
-> signals, which occurs only when USB is active.
+> These files are compiled like any other kernel C file with all of the
+> -include preamble, as well as including linux/module.h, header dependencies
+> generated by fixdep of a few hundred headers, an objtool run and if LTO is
+> being performed, a link is performed to generate native code.
 > 
-> Signed-off-by: Wesley Cheng <wesley.cheng@oss.qualcomm.com>
-> ---
+> On an x86-64 allmodconfig build 11,189 *.mod.c files are built, each
+> taking ~0.24s of CPU time to compile, and module finalisation as a whole
+> 6,300 CPU seconds, or 64 seconds of wall time when run over 128 threads.
+> 
+> It also generates ~1.3 GiB of *.mod.o.cmd files that every subsequent build
+> has to read back.
+> 
+> Avoid all this by emitting the descriptors as assembly instead.
+> 
+> The layout required (size and alignment of struct module, struct
+> modversion_info, the module's name offsets, init, and exit fields and
+> whether the architecture uses PREL32 ksymtab references) can all be derived
+> from scripts/mod/module-offsets.h.
+> 
+> The fields of __this_module are emitted in offset order rather than
+> declaration order, as CONFIG_RANDSTRUCT shuffles struct module so the name,
+> init and exit fields can land anywhere.
+> 
+> An assembly file avoids all of the issues previously mentioned so this
+> conversion results in a very significant performance win on kernel build.
+> 
+> As a consequence of this change, since module-offsets.c includes
+> linux/module.h, scripts/mod is now built after the generated headers in
+> prepare0, rather than before.
+> 
+> Also update .gitignore and make clean to handle .mod.S files, but keep
+> .mod.c files there to ensure that users do not end up with untracked
+> changes/dirty trees after the change takes effect.
+> 
+> The sections were confirmed to be byte-for-byte identical to the C version
+> produced - each of .modinfo, .gnu.linkonce.this_module, __ksymtab*,
+> __ksymtab_strings, __kcrctab*, __kflagstab*, __versions,
+> __version_ext_crcs, __version_ext_names and their relocations - for all
+> 8,135 modules of a clang allmodconfig build with CONFIG_COMPILE_TEST off
+> and CONFIG_MODVERSIONS, CONFIG_EXTENDED_MODVERSIONS and
+> CONFIG_MODULE_SRCVERSION_ALL on, and for a sample built with gcc.
+> 
+> What differs is what the compiler added around them: the __UNIQUE_ID_*
+> locals, the KASAN constructor for the .mod.c globals, and on x86 a
+> .note.gnu.property that the linker already drops from any module containing
+> an assembly file and the loader never reads.
+> 
+> None of these have any impact on the build, however.
+> 
+> The assembly carries no debug information, so in order to keep describing
+> __this_module in each module's debug information, define it weakly in
+> module-common.c too, in a section which the module link discards.
+> 
+> x86_64 kernels built with gcc and clang, with CONFIG_MODVERSIONS,
+> CONFIG_EXTENDED_MODVERSIONS and CONFIG_MODULE_SRCVERSION_ALL, were booted,
+> every module and an external one loaded and unloaded, and the srcversions
+> checked against modinfo, i386 and arm64 defconfigs (gcc and clang) and a
+> ThinLTO build were also built as part of testing.
+> 
+> An x86_64 CONFIG_RANDSTRUCT_FULL build with clang, which places the name
+> field after init and exit, was checked the same way and produces the same
+> .gnu.linkonce.this_module sections and relocations as the C version.
+> 
+> On the x86_64 allmodconfig with clang 22, "make modules" with every
+> *.mod.o and *.ko deleted goes from 64.5s (6,306 CPU-s) to 28.5s (518
+> CPU-s).
+> 
+> A consequence of this change is that the make jobs are now so small that
+> make cannot dispatch them quick enough, however the next commit in the
+> series addresses this issue.
+> 
+> This impacts clean and no-op builds with a large number of modules most
+> noticeably.
+> 
+> Whole build, 128-thread Threadripper 9980X, best of N runs:
+> 
+>                                          before   after     delta
+>                                          -------------------------------
+>   x86 allmodconfig, no-op make, gcc        12.7s     2.3s    -10.4s (-82%)
+>   x86 allmodconfig, no-op make, clang      13.9s     2.8s    -11.2s (-80%)
+>   x86 allmodconfig, clean, gcc            342.6s   306.6s    -36.0s (-11%)
+>   x86 allmodconfig, clean, clang          340.1s   290.2s    -49.8s (-15%)
+> 
+> Assisted-by: LLM
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-GPT has the following concerns:
+This version looks mostly ok to me, from a modules perspective. Below
+are a few nits plus one more useful comment about handling
+MODULE_ARCH_INIT.
 
-[P1] Don't disable USB clocks that USB init didn't acquire
-drivers/phy/qualcomm/phy-qcom-qmp-combo.c: USB init/runtime suspend
+> diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
+> index 0fd43c8a89ea..9d96459e492c 100644
+> --- a/scripts/mod/modpost.c
+> +++ b/scripts/mod/modpost.c
+> [...]
+> +/* The name and namespace strings a ksymtab entry refers to. */
+> +static void add_asm_kstrtab(struct buffer *buf, const struct symbol *sym)
+> +{
+> +	buf_printf(buf, "\t.section \"__ksymtab_strings\",\"aMS\",%%progbits,1\n");
+> +	buf_printf(buf, "__kstrtab_%s:\n", sym->name);
+> +	buf_asciz(buf, sym->name);
+> +	buf_printf(buf, "__kstrtabns_%s:\n", sym->name);
+> +	buf_asciz(buf, sym->namespace);
+> +	buf_printf(buf, "\t.previous\n");
+> +}
+> +
+> +/* The equivalent of SYMBOL_FLAGS(). */
+> +static void add_asm_kflagstab(struct buffer *buf, const struct symbol *sym)
+> +{
+> +	buf_printf(buf, "\t.section \"___kflagstab+%s\", \"a\"\n", sym->name);
+> +	buf_printf(buf, "__flags_%s:\n", sym->name);
+> +	buf_printf(buf, "\t.byte 0x%02x\n", get_symbol_flags(sym));
+> +	buf_printf(buf, "\t.previous\n");
+> +}
+> +
+> +/* The equivalent of KSYMTAB_FUNC()/KSYMTAB_DATA(). */
+> +static void add_asm_ksymtab(struct buffer *buf, const struct symbol *sym)
+> +{
+> +	const char *name = sym->name;
+> +
+> +	add_asm_kstrtab(buf, sym);
+> +
+> +	buf_printf(buf, "\t.section \"___ksymtab+%s\", \"a\"\n", name);
+> +	buf_printf(buf, "\t.balign %d\n", KSYM_ALIGN);
+> +	buf_printf(buf, "__ksymtab_%s:\n", name);
+> +	add_asm_ksym_ref(buf, sym->is_func ? MOD_FUNC_PREFIX : "", name);
+> +	add_asm_ksym_ref(buf, "__kstrtab_", name);
+> +	add_asm_ksym_ref(buf, "__kstrtabns_", name);
+> +	buf_printf(buf, "\t.previous\n");
+> +
+> +	add_asm_kflagstab(buf, sym);
+> +}
 
-When USB4 is active, `qmp_combo_usb_init()` takes its early return and
-increments `usb_init_count` before the new clock-enable call. Runtime
-suspend then uses that count to disable `usb_clks`, although that path
-didn't acquire them. This can unbalance clock references; the count
-needs to reflect actual clock ownership, or the USB4 case needs
-separate handling.
+add_asm_kstrtab() and add_asm_kflagstab() are only called from
+add_asm_ksymtab() and their logic is fairly short. I suggest merging
+these functions.
 
-=> the USB4 state machinery is a bit fragile.. but perhaps an if or
-   two will solve things
+> +
+> +/* The equivalent of SYMBOL_CRC(). */
+> +static void add_asm_crc(struct buffer *buf, const struct symbol *sym)
+> +{
+> +	buf_printf(buf, "\t.section \"___kcrctab+%s\",\"a\"\n", sym->name);
+> +	buf_printf(buf, "\t.balign 4\n");
+> +	buf_printf(buf, "__crc_%s:\n", sym->name);
+> +	buf_printf(buf, "\t.long 0x%08x\n", sym->crc);
+> +	buf_printf(buf, "\t.previous\n");
+> +}
+> +
+> +static bool export_is_kept(const struct symbol *sym)
+> +{
+> +	return !trim_unused_exports || sym->used;
+> +}
 
-[P2] Unwind clocks if USB-clock resume fails
-drivers/phy/qualcomm/phy-qcom-qmp-combo.c: runtime resume
+export_is_kept() is only called once from add_asm_exported_symbols().
+The condition can be inlined directly there.
 
-The patch enables the common clocks and `pipe_clk` before enabling
-`usb_clks`. If the latter enable fails, it returns without disabling
-the earlier clocks, leaving them enabled after a failed resume.
+> +
+> +/* The exported symbols and, with modversions, their CRCs. */
+> +static void add_asm_exported_symbols(struct buffer *buf, struct module *mod)
+> +{
+> +	struct symbol *sym;
+> +
+> +	list_for_each_entry(sym, &mod->exported_symbols, list) {
+> +		if (!export_is_kept(sym))
+> +			continue;
+> +
+> +		add_asm_ksymtab(buf, sym);
+> +
+> +		if (!modversions)
+> +			continue;
+> +
+> +		if (!sym->crc_valid)
+> +			mod_warn(mod, "EXPORT symbol '%s' version generation failed, symbol will not be versioned.\n"
+> +				 "Is '%s' prototyped in <asm/asm-prototypes.h>?\n",
+> +				 sym->name, sym->name);
+> +		add_asm_crc(buf, sym);
+> +	}
+> +}
+> +
+> +/* Zero fill up to the offset. */
+> +static void asm_skip_to(struct buffer *buf, unsigned int *pos,
+> +			unsigned int offset)
+> +{
+> +	if (offset < *pos)
+> +		fatal("__this_module field at offset %u overlaps the previous one\n",
+> +		      offset);
+> +	if (offset > *pos)
+> +		buf_printf(buf, "\t.skip %u\n", offset - *pos);
+> +
+> +	*pos = offset;
+> +}
+> +
+> +/* A non-zero field of __this_module: its offset and the name or symbol in it. */
+> +struct this_module_field {
+> +	unsigned int offset;
+> +	bool is_name;
+> +	const char *value;
+> +};
+> +
+> +#define THIS_MODULE_MAX_FIELDS	5
+> +
+> +static int compare_field_offsets(const void *ptr_a, const void *ptr_b)
+> +{
+> +	const struct this_module_field *field_a = ptr_a, *field_b = ptr_b;
+> +
+> +	if (field_a->offset != field_b->offset)
+> +		return field_a->offset < field_b->offset ? -1 : 1;
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * The fields of __this_module which are not zero, in offset order. The order
+> + * is only known from module-offsets.h, CONFIG_RANDSTRUCT shuffles struct module.
+> + */
+> +static unsigned int get_this_module_fields(const struct module *mod,
+> +					   const char *modname,
+> +					   struct this_module_field *fields)
+> +{
+> +	unsigned int nr_fields = 0;
+> +
+> +	fields[nr_fields++] = (struct this_module_field)
+> +		{ MOD_OFF_module_name, true, modname };
+> +	if (mod->has_init)
+> +		fields[nr_fields++] = (struct this_module_field)
+> +			{ MOD_OFF_module_init, false, MOD_FUNC_PREFIX "init_module" };
+> +#ifdef MOD_OFF_module_exit
+> +	if (mod->has_cleanup)
+> +		fields[nr_fields++] = (struct this_module_field)
+> +			{ MOD_OFF_module_exit, false, MOD_FUNC_PREFIX "cleanup_module" };
+> +#endif
+> +#ifdef MOD_OFF_module_arch_fixup_start
+> +	fields[nr_fields++] = (struct this_module_field)
+> +		{ MOD_OFF_module_arch_fixup_start, false, "__start_fixup" };
+> +	fields[nr_fields++] = (struct this_module_field)
+> +		{ MOD_OFF_module_arch_fixup_end, false, "__stop_fixup" };
+> +#endif
+> +	qsort(fields, nr_fields, sizeof(*fields), compare_field_offsets);
+> +
+> +	return nr_fields;
+> +}
+> +
+> +/* Emit one field of __this_module, returning its size. */
+> +static unsigned int add_asm_this_module_field(struct buffer *buf,
+> +					      const struct this_module_field *field)
+> +{
+> +	if (field->is_name) {
+> +		buf_printf(buf, "\t.ascii \"%s\"\n", field->value);
+> +		return strlen(field->value);
+> +	}
+> +
+> +	buf_printf(buf, "\t" MOD_PTR_DIRECTIVE " %s\n", field->value);
+> +	return MOD_SIZEOF_LONG;
+> +}
+> +
+> +/*
+> + * The equivalent of:
+> + *
+> + *	__visible struct module __this_module __section(".gnu.linkonce.this_module")
+> + *		= { .name = KBUILD_MODNAME, .init = init_module, .exit = cleanup_module,
+> + *		    .arch = MODULE_ARCH_INIT };
+> + *
+> + * Everything not listed is zero, MODULE_ARCH_INIT included, except on m68k.
+> + */
+> +static void add_asm_this_module(struct buffer *buf, const struct module *mod,
+> +				const char *modname)
+> +{
+> +	struct this_module_field fields[THIS_MODULE_MAX_FIELDS];
+> +	const unsigned int nr_fields = get_this_module_fields(mod, modname, fields);
 
-Konrad
+The const qualifier can be removed from the nr_fields definition to
+match the usual kernel style.
+
+> +	unsigned int pos = 0, i;
+> +
+> +	buf_printf(buf, "\n\t.section .gnu.linkonce.this_module,\"aw\",%%progbits\n");
+> +	buf_printf(buf, "\t.balign %d\n", MOD_ALIGNOF_struct_module);
+> +	buf_printf(buf, "\t.globl __this_module\n");
+> +	buf_printf(buf, "\t.type __this_module, %%object\n");
+> +	buf_printf(buf, "\t.size __this_module, %d\n", MOD_SIZEOF_struct_module);
+> +	buf_printf(buf, "__this_module:\n");
+> +
+> +	for (i = 0; i < nr_fields; i++) {
+> +		asm_skip_to(buf, &pos, fields[i].offset);
+> +		pos += add_asm_this_module_field(buf, &fields[i]);
+> +	}
+> +
+> +	asm_skip_to(buf, &pos, MOD_SIZEOF_struct_module);
+> +}
+> +
+> +/*
+> + * An unresolved symbol without a module is not versioned; one without a CRC
+> + * cannot be, so warn about it.
+> + */
+> +static bool skip_unversioned(struct module *mod, const struct symbol *sym)
+> +{
+> +	if (!sym->module)
+> +		return true;
+> +	if (sym->crc_valid)
+> +		return false;
+> +
+> +	mod_warn(mod, "symbol '%s' has no CRC!\n", sym->name);
+> +	return true;
+> +}
+> +
+> +/* One struct modversion_info: the CRC, then the name padded to the end. */
+> +static void add_asm_version(struct buffer *buf, const struct symbol *sym)
+> +{
+> +	buf_printf(buf, "\t" MOD_PTR_DIRECTIVE " 0x%08x\n", sym->crc);
+> +	buf_printf(buf, "\t.ascii \"%s\"\n", sym->name);
+> +	buf_printf(buf, "\t.skip %zu\n", MOD_SIZEOF_struct_modversion_info -
+> +		   MOD_OFF_modversion_info_name - strlen(sym->name));
+> +}
+> +
+> +/*
+> + * The equivalent of:
+> + *
+> + *	static const struct modversion_info ____versions[]
+> + *	__used __section("__versions") = { { crc, "name" }, ... };
+> + *
+> + * for unresolved symbols.
+> + */
+> +static void add_asm_versions(struct buffer *buf, struct module *mod)
+> +{
+> +	struct symbol *sym;
+> +
+> +	if (!basic_modversions)
+> +		return;
+> +
+> +	buf_printf(buf, "\n\t.section __versions,\"a\",%%progbits\n");
+> +	buf_printf(buf, "\t.balign %d\n", MOD_ALIGNOF_struct_modversion_info);
+> +	list_for_each_entry(sym, &mod->unresolved_symbols, list) {
+> +		if (skip_unversioned(mod, sym))
+> +			continue;
+> +
+> +		if (strlen(sym->name) >= MOD_NAME_LEN) {
+> +			/* Only the extended table can hold it. */
+> +			if (extended_modversions)
+> +				continue;
+> +
+> +			mod_error(mod, "too long symbol '%s'\n", sym->name);
+> +			break;
+> +		}
+> +
+> +		add_asm_version(buf, sym);
+> +	}
+> +}
+> +
+> +/*
+> + * The equivalent of:
+> + *	static const u32 ____version_ext_crcs[] __section("__version_ext_crcs") = { crc, ... };
+> + *	static const char ____version_ext_names[] __section("__version_ext_names") = "name\0" ...;
+> + *
+> + * for unresolved symbols.
+> + */
+> +static void add_asm_extended_versions(struct buffer *buf, struct module *mod)
+> +{
+> +	struct symbol *sym;
+> +
+> +	if (!extended_modversions)
+> +		return;
+> +
+> +	buf_printf(buf, "\n\t.section __version_ext_crcs,\"a\",%%progbits\n");
+> +	buf_printf(buf, "\t.balign 4\n");
+> +	list_for_each_entry(sym, &mod->unresolved_symbols, list) {
+> +		if (skip_unversioned(mod, sym))
+> +			continue;
+> +
+> +		buf_printf(buf, "\t.long 0x%08x\n", sym->crc);
+> +	}
+> +
+> +	/*
+> +	 * A symbol without a CRC was warned about above, and is skipped here
+> +	 * too so that the names line up with the CRCs.
+> +	 */
+> +	buf_printf(buf, "\t.section __version_ext_names,\"a\",%%progbits\n");
+> +	list_for_each_entry(sym, &mod->unresolved_symbols, list) {
+> +		if (!sym->module || !sym->crc_valid)
+> +			continue;
+
+This condition must match the logic in skip_unversioned(). It would be
+clearer to keep it only in one place by calling skip_unversioned() here
+and adding a "silent" parameter to the function.
+
+> diff --git a/scripts/mod/module-offsets.c b/scripts/mod/module-offsets.c
+> new file mode 100644
+> index 000000000000..a336dd47aa33
+> --- /dev/null
+> +++ b/scripts/mod/module-offsets.c
+> @@ -0,0 +1,35 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Layout of the structures modpost emits into *.mod.S, extracted from the
+> + * target headers as devicetable-offsets.c does for the device tables.
+> + */
+
+The second part of the comment, after the comma, is superfluous. It is
+expected that the various parts of modpost use consistent mechanisms
+where appropriate.
+
+> +#define COMPILE_OFFSETS
+> +#include <linux/kbuild.h>
+> +#include <linux/module.h>
+> +
+> +int main(void)
+> +{
+> +	DEFINE(MOD_SIZEOF_LONG, sizeof(long));
+> +	DEFINE(MOD_PREL32_RELOCATIONS, IS_ENABLED(CONFIG_HAVE_ARCH_PREL32_RELOCATIONS));
+> +	DEFINE(MOD_FUNC_PLABEL, IS_ENABLED(CONFIG_PARISC) && IS_ENABLED(CONFIG_64BIT));
+> +
+> +	DEFINE(MOD_SIZEOF_struct_module, sizeof(struct module));
+> +	DEFINE(MOD_ALIGNOF_struct_module, __alignof__(struct module));
+> +	OFFSET(MOD_OFF_module_name, module, name);
+> +	OFFSET(MOD_OFF_module_init, module, init);
+> +#ifdef CONFIG_MODULE_UNLOAD
+> +	OFFSET(MOD_OFF_module_exit, module, exit);
+> +#endif
+> +#if defined(CONFIG_M68K) && defined(CONFIG_MMU)
+> +	/* MODULE_ARCH_INIT: the only architecture where it is not all zeroes. */
+> +	OFFSET(MOD_OFF_module_arch_fixup_start, module, arch.fixup_start);
+> +	OFFSET(MOD_OFF_module_arch_fixup_end, module, arch.fixup_end);
+> +#endif
+
+I feel it is a bit of a layering violation for modpost to know how
+individual architectures need to initialize module::arch.
+
+For now, this is probably ok. I would just remove MODULE_ARCH_INIT from
+include/linux/module.h and arch/m68k/include/asm/module.h, along with
+the comment referring to it in scripts/mod/modpost.c.
+
+In the future, this could be avoided by having the m68k module support
+look up the .m68k_fixup section at runtime, as other architectures
+typically do for similar sections.
+
+-- 
+Thanks,
+Petr
