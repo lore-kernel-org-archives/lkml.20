@@ -1,167 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012022.outbound.protection.outlook.com [52.101.43.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCE33CF95A;
-	Fri, 16 Oct 2026 07:40:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792136451; cv=none; b=C0tWZ74SB3C1//DpSbDG2JFvWoVWG6rQ8CeoEmvBaEqTyfSzlXtJUgbq29o+bO1l5lG2mA8Y2H9TQE1asRM4JMTwuArPLNTbn4Nx8ne/eoBK6lmvq1si0VAaRNDy6xCT/YrPeXVyWA+/kFKPxKd1DcOm2lhqmUQLkbDHLJc9KMk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792136451; c=relaxed/simple;
-	bh=9YHeeSkEad9lcO7e8anS5ZoWgjCCJVfc2anH4fFucFM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sWz5TdWtpaet9w9ZS2QQRSWPxHHokOJvNVVhIlpkThL48/i+5DLPS/+1COgQrurdWmLbpJ1LnE7Oj+Uq8k8drTNtls+5erUtOAAlA2j3oq+GD1jSGhwhml29QRpZ/tvnYTZPv8SNdPaAxC47AU07SfusYTBfUyJufH/ihlNPoWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QeHXOyzS; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3753346E51;
+	Fri, 16 Oct 2026 07:41:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.22
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792136469; cv=fail; b=Rb8d+XEqC6dtQ/35lzajeExtTBIrAONEHT+kJBZLPp5dUFV74ZOJg4ZTDG4e4UvuKjp5Az1Wj1ZY8Ld1+TIh68UkNa4X5TeDDtin0DB9cNzN+ZTjY/stuLy88D0TeiycWbzZjqboJbGmyJndzi7Pn/qqNXLokej5YJbkHhjk9E4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792136469; c=relaxed/simple;
+	bh=+8ZyDKNaCjxv1CtjHAQXHGXX1ynr8fmFLe6FwTZpVdk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qZk9vz41/bIW8R9fEmwZwHZVUMG1pzUstSQC72oY1/FD8uCE54QZ3TKpP/CWy8JOUrtrKd+KAOgFTuHj3htMXZ/S97x9JStt6OQLMEQkqBw5+H2LdQUvwSv01DTpvggs9x5hcRjdk8cWQrnka/UZG923quPqRwBWuEgw2Ozxhgc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=bq02HmC7; arc=fail smtp.client-ip=52.101.43.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QeHXOyzS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C33181F000C4;
-	Fri, 16 Oct 2026 07:40:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792136449;
-	bh=YqKGI+j411IZYdGH/R2G+obmJPd4f+afYx7B7iKNFqc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QeHXOyzSZlJf70cWT/G9GYdva8YdkpRA+kCN//bbbUSjuZ7nWsJH54DybwORCfd9O
-	 W843SNlU4sGXHAKMmjVD8EK9Zi1PzPv30x9j6lDm8DpxYg9EQN6qBC+cTVOWZi+bLG
-	 VN9dfd/0oNUAN9WBzzdgnxFQSLsVzLefFO5dBJ1+5Jud+89Mr41LYn/oHUtdb/kzTv
-	 Xac9eEDNLrL9P7kRVDsaxW4jp7GYf24FX052aJLv8oEKxk9f8MoeTr3RusV+KQRyUi
-	 NRg+kq4wJ80ILSX03Dj+B1a4myJGi0IPit/JZM/K5s+tYThRxQ7d6xlrKPrGbOz3Gi
-	 MPVQOHeVUPOKw==
-Message-ID: <02ce93f0-b5ea-4b7b-baea-3b3035c8c2e6@kernel.org>
-Date: Fri, 16 Oct 2026 09:40:40 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="bq02HmC7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ET5AY2mBqv5pQPj911CDuND9cAQsS0yiyWRTYurUDRlKjRW6BH0ihbIIEhB7AeFDwvmyGOvId/kDvfg+lOoEO9GeFrGwJax2r+mp91O0lRWdLW/wC0lFAY3lWxkpJYAJiDqATH4RdajkC992ldWKxMbmRUw/uKHqnsQkSbSPkcbiS8jpGoc5NGEmnyrVKIrsuxdZ+rbTg6vZgy1YMJXQzdMlux0NdjzKesbypzc2E/0F2uYNXCCDjop3fZqDyPIkAApK2Br6J8bnT6Adk4waxcpQxQXY65Zu7MXnGdK+j/HVuxPZM+/ZAqmv+roMMD6htGWsn9N6JeYI5X6TmQgI6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ufXIfqoyytwHusXrcLoKxMGBZ7IAawRImXMYPV7fzlQ=;
+ b=hCKT08CToZ2PF0Xekcf2lkmUw+dovxSj7eoklXZZYw9BezfAMA8a93MWI3WThCClq8uyJHz0S5EiGMRF/IB7B470bu9B0wfCMpKpMG2Ftq2BuG/f7IRY2GA2TGvpZTg09gXtFUmptzPqbcaGHNjd3ep3a3X8gMBwbbq8a6gR0/ocaUkVvVf1PNABmAT4wZa7u0YOYSR0PQxNOOAZ1m6PGjR9DC7Gq8J5IytTc4jtJojKdkEReqzk4tOvirZAON+VnDjPtSXDrmEu8MWQtHweEsEa4/LwWhZDhjKQaSU1ycRlCSjGpVvRW/Hz+F+IoSNcolWjbFCXA3svjbFm2falEg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=gmail.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ufXIfqoyytwHusXrcLoKxMGBZ7IAawRImXMYPV7fzlQ=;
+ b=bq02HmC73AvM/j0l94mjW1p19zTmOn3A49IeCGJ9L6vJuwcomi9qRLPlRcmNOdsqizUKPrnMFTWiiLDF/HLlyef1EonHMr1/FxlEMvjSA947uDws8T7clfVaYDgGffRz3ZVDi66IZNyAB+FUCGf0rPLZUWm81iVSv7VHu8nzABuam0dYZmDz7BIci5UbJvsNDvDi8DZnG93MkSt4Ghy+xJ0NIGZeFFB1rvhmcL4SDjqwQKb4ZOwCSYxEJlCIp8afts8HZtIS+Gd5vtUdgBECjvvTv7VnDjNnkYw+i8fG0phMQeTwqpy0c9RoV3Tvk4kA+mxTMWurKgnj26/HBXiP+Q==
+Received: from MW4PR04CA0188.namprd04.prod.outlook.com (2603:10b6:303:86::13)
+ by CY8PR12MB7657.namprd12.prod.outlook.com (2603:10b6:930:9d::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Fri, 16 Oct
+ 2026 07:41:05 +0000
+Received: from EA8PEPF00000008.namprd05.prod.outlook.com
+ (2603:10b6:303:86:cafe::13) by MW4PR04CA0188.outlook.office365.com
+ (2603:10b6:303:86::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
+ Oct 2026 07:41:05 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ EA8PEPF00000008.mail.protection.outlook.com (10.167.249.231) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 07:41:05 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 16 Oct
+ 2026 00:40:45 -0700
+Received: from mmaddireddy-ubuntu.nvidia.com (10.126.231.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 16 Oct 2026 00:40:41 -0700
+From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+To: <jingoohan1@gmail.com>, <mani@kernel.org>, <lpieralisi@kernel.org>,
+	<kwilczynski@kernel.org>, <bhelgaas@google.com>, <linux-pci@vger.kernel.org>
+CC: <robh@kernel.org>, <thierry.reding@kernel.org>, <jonathanh@nvidia.com>,
+	<vidyas@nvidia.com>, <cassel@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-tegra@vger.kernel.org>, <mmaddireddy@nvidia.com>
+Subject: [PATCH v2 0/5] PCI: dwc: Clean up RAS-DES and register field handling
+Date: Fri, 16 Oct 2026 13:10:21 +0530
+Message-ID: <20261016074026.564302-1-mmaddireddy@nvidia.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/10] mm: various (urgent?) fixes
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Oscar Salvador <osalvador@suse.de>,
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, Adam Litke <agl@us.ibm.com>,
- Mel Gorman <mel@csn.ul.ie>, Rik van Riel <riel@surriel.com>,
- Peter Xu <peterx@redhat.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Josef Bacik <josef@toxicpanda.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Chris Mason <mason@kernel.org>
-References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
- <A061083A-3A02-4ADB-9CFB-7CF6C731A872@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <A061083A-3A02-4ADB-9CFB-7CF6C731A872@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: EA8PEPF00000008:EE_|CY8PR12MB7657:EE_
+X-MS-Office365-Filtering-Correlation-Id: d5a88254-d039-4c1b-ae24-08df2b58d5c3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|82310400026|36860700016|11063799006|56012099006|261009223027099003|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	Uf0+pTfOuC5yl8mE3axpLXsA1QQaGACLMugvX6XZi9dglih/nokvDFwJS2FeZeasfatEeOMopMpVOyFVUq9MsFgst4BTrObR5YL1+qhLu25DbKzGhhIlK0TLfonkbmpRMfVE0pomQUpwhD7CkI6qOoWLTYql0odYIbgr3lhf+9ajVvaMae3X/CwsL98ds56ow9NqdtlbdpfPs0CPhkekGrqfI56STzsVsydRRoOvA05VYtNDz6dXsTzrfQn4QJAv4piIURIkf/7i43KwPx+Gb4A9HsjDtg/6BanW1NnIpNNbc1I836kk9UHxFf2AzDjek1ChAJIBPfgLHtzq31nCCCg5XHwq3Ih80P2ZM5EYtWGUMgiIOrFS1WhphLxYlIkTHhjrlRMngsNuqjV77tqHLO6lghkLFoZt/U1yuHIkFESjW4Ur7eI8puZyQaq9iqdScDbuDEl6MVdA3tyR7KohWDMXmq1ggJumi8r7J5GUhpmjXQ5XubpepBIIJFEoV6JwV5vEzllXdU6W4z1AUiutnoUbUxEKOl2sSnArhF+HrbeuiP04FeyKBaoaSsL6lhXs0XGAJoFcGp/oUbPd/KgqPTA2+ul+wYOl7mZhg7XrIfd4q0tgQ/zrzATnwuVTCcv9HJJo8/SFcvohUW62yqOWUxQfm2yTtCRU84OHclo+FPynbfVYwhsTNa2Qw8LW1b4Mk33H8lmaklZD3oEpDdGQ2A==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(82310400026)(36860700016)(11063799006)(56012099006)(261009223027099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	4l+HlPP6qKex3AQP4M0z9oQ7B6fH+/U9HT7u5fi65oPdeZWMxrog1PCorNHChVRT3+32BhfS7VrrqFcuaXb+7gtU24NQeSwrpEdqDHi5r9zj2mnZkTnfd9M37kEXJSabxi55Zy3uhuP+ivzGskrF2KS9OmTpRKZ60jUgWmkci92M7eLIJm6G3YkttURuHjBjFGTFucXSD9Kvbea9+ndrvUOSNFirUm0GBUqib6x8sTgdhe/KqrodxAI5J8yIUi4j9HMXVMYLBAXK43GfgFbR7WzdGUhW1s/nX94w36dsGlO2khyPCsL8PzFikt4n4I1i8nrO+O3c/ACLJDbI8pwIHnKMMr/i/9VrGynqrVo1/Znsl5vdCkL5TuZDw05IMNU2H4T4CUROwiWrQRQ5yIKDQ88SomodDnCKw5Eh/IFEKlzFuQo2MRcfRPmumG+sVEHd
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 07:41:05.2292
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5a88254-d039-4c1b-ae24-08df2b58d5c3
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	EA8PEPF00000008.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7657
 
-On 10/16/26 09:15, Muchun Song wrote:
-> 
-> 
->> On Oct 16, 2026, at 00:07, David Hildenbrand (Arm) <david@kernel.org> wrote:
->>
->> Hi,
->>
->> here are various MM fixes. The majority was reported by Josef at
->> Anthrophic, the remainder was found while reviewing/overhauling them.
->>
->> Two issues/fixes reported are not included, as we are discussing
->> (better) alternatives on the list already.
->>
->> I left most of the original commit messages as schloppy as they are: I
->> don't particularly care as long as the code is in good shape and as long as
->> they are not actively wrong. But I (and Mike) could not be stopped from
->> overhauling at least some of them.
->>
->> While I don't think there is anything too critical in here, I think this
->> is a good opportunity to see how fast we can get pre-screened/pre-reviewed
->> fixes upstream that might be security-related.
->>
->> The majority are hugetlb + uffd issues, that are not actually that
->> relevant for most installations. But all things that should just get
->> fixed. Some uffd fixes need proper follow ups to fix some more of the
->> root causes of leftover UFFD PTE bits (or proof that there are none
->> remaining).
->>
->> I ran some MM selftests and nothing popped up.
->>
->> So let's try to get these upstream in a timely fashion.
->>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
->> David Hildenbrand (Arm) (4):
->>      mm/hugetlb: fix use-after-free in hugetlb_mfill_atomic_pte()
->>      mm/hugetlb: tolerate uffd bits set without uffd for PROT_NONE PTEs
->>      mm/hugetlb: tolerate UFFD_WP markers outside uffd-wp VMAs
->>      mm/mremap: fix calling fixup_hugetlb_reservations() on the wrong VMA
->>
->> Josef Bacik (6):
->>      mm/vma: don't leak the commit charge on mmap failure
->>      mm/hugetlb: fix use-after-free of a new anon folio
->>      mm/hugetlb: unmap the page where the other VMA maps it
->>      mm/hugetlb: don't clear the resv_map of a VMA whose lock is held
->>      mm/hugetlb: fix endless write fault on a leftover uffd bit
->>      mm/hugetlb: don't leave a uffd-wp marker when zapping an RWP entry
-> 
-> HugeTLB is really nasty, while no new features are landing, we have a steady
-> stream of bug fixes coming in.
+This series addresses review feedback around register field handling in the
+DWC PCIe code and the Tegra194 PCIe driver.
 
-Yes, and so far it's mostly due to:
+The first patches add shared masks for the RAS-DES event counter fields,
+convert Tegra194 register programming to FIELD_PREP()/FIELD_MODIFY(), and
+drop shift macros that become unused after the conversion.  The final
+patches make Tegra194 use the common RAS-DES selector definitions and
+consolidate the event counter field definitions in the DWC header.
 
-* PMD table sharing
-* Reservation handling
-* Userfaultfd
+There should be no functional change intended beyond making the
+bitfield programming explicit and keeping the shared RAS-DES definitions in
+one place.
 
-Which is no surprise given how people already felt about most of these features
-in the past :)
+Manikanta Maddireddy (5):
+  PCI: dwc: Add RAS event counter field masks
+  PCI: tegra194: Use FIELD_*() for register fields
+  PCI: dwc: Drop unused shift macros
+  PCI: tegra194: Use standard RAS event selector mask
+  PCI: dwc: Consolidate RAS-DES event counter fields
+
+ .../controller/dwc/pcie-designware-debugfs.c  |  56 ++++---
+ drivers/pci/controller/dwc/pcie-designware.h  |  10 +-
+ drivers/pci/controller/dwc/pcie-tegra194.c    | 145 +++++++++---------
+ 3 files changed, 106 insertions(+), 105 deletions(-)
 
 -- 
-Cheers,
+2.34.1
 
-David
