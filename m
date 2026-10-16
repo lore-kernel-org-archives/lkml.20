@@ -1,139 +1,156 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D167954A7D6
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:55:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117AF37A833;
+	Fri, 16 Oct 2026 16:57:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169756; cv=none; b=PpOX0/4YIXpVzxSOn+NVRpzs6C3sVrxxcmGj/O1vPM9SlqLf8cRdJVbHBdK3P/okXFZ77n6l+8j8eu8m89w3Sd9fHl5Z1NAMgXSGdyEJ2urz6bfLW5OZ6wBOEkfs7W7WHfHXKPfFo7AGAhgi0o8PucPqUpCIZEkgwMzDkev8vmY=
+	t=1792169825; cv=none; b=r+JW469AstOmMECDxORFRdjAwB2md0cbF0fpp7BpFm+q1e6Opu26YglSs1oyK4mMQyFvoP10nS32n0XwdCctHjtvKMb5fLF83JYgmSclaCyFEPmCxbQqe8+uKHAWO+aeb+pHWqdHh5ipbEm1FJlmwhbgmt4zI04oehbmJvlItko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169756; c=relaxed/simple;
-	bh=heLyCzP1OgFt+fIxgZTcGvWkmEm4xEc14PmqM7fQv9o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hfxKBcpQv49R8Fjh8QPFubzIxQ4S8gBX5x2WffWwwtBgK/HJzsn8bNyErQPd8gq5ObXW5VxzKUouXGImwiKQwJFhKVzFFz1zPD/hfWSZwEzAvCEs+jiPcTpyiyDjJ7aTlaUCP8c9Jk71EqJR7/Ar1xIymq/X6kNmfJKZOG/Lr2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=MZNK9mBU; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792169825; c=relaxed/simple;
+	bh=Akx0YvKoaSycAnST5WW9WCTjIwrjKDBD4IujP+nsVy0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=idMkLYFMRHnZ9jcbPlzdjKG/16MZrFhS6KTJ51P0k96Q8l9pT2nLi98Gz2fuj13jSPSpAlCOzwlNo4B53kQYY/o3yKUbZ909C1LVIE0ZQGglgoMauR7lgDYic9C5baV1FpiI7eWUTgy/BfPIe3hqEG/20NFrw31IdldpSU7caDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; dkim=pass (2048-bit key) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.b=YfFF7DuQ; arc=none smtp.client-ip=141.14.17.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=molgen.mpg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="MZNK9mBU"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ED5EF175D;
-	Fri, 16 Oct 2026 09:55:50 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A9B243F7B4;
-	Fri, 16 Oct 2026 09:55:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792169754; bh=heLyCzP1OgFt+fIxgZTcGvWkmEm4xEc14PmqM7fQv9o=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=MZNK9mBUe9kCsPgtWkV1BZFie4DV9HzyIrE3N0fF7ZU+87JlD4oqMUWBNTOs/4r+y
-	 llHMR3GFNAKSqtQZVcq7usYmiEFxfryLlLSZ3eU1kpr8AGIxTPJwz7+4B49g4cxRBD
-	 R5tn41tTSj9PtO+3uDnEXu2140pds6KVgYklUBHI=
-From: Leo Yan <leo.yan@arm.com>
-Date: Fri, 16 Oct 2026 17:55:21 +0100
-Subject: [PATCH v2 23/23] coresight: trbe: Report trace gaps with PARTIAL
- instead of COLLISION
+	dkim=pass (2048-bit key) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.b="YfFF7DuQ"
+Received: from [10.0.36.124] (unknown [62.214.191.67])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: pmenzel)
+	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 0ABF64C442F863;
+	Fri, 16 Oct 2026 18:56:02 +0200 (CEST)
+Message-ID: <5a1b4d3d-c2c4-4b3f-8969-551767309ded@molgen.mpg.de>
+Date: Fri, 16 Oct 2026 18:56:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] ice: fix Tx hang dump using stale tx_buf[0].skb
+To: Vincent Choiniere <choiniere.vincent@hydroquebec.com>
+Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ intel-wired-lan@lists.osuosl.org,
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ Michal Kubiak <michal.kubiak@intel.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261016-ice-tx-hang-dump-v1-1-3df0f5979a51@hydroquebec.com>
+Content-Language: en-US
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <20261016-ice-tx-hang-dump-v1-1-3df0f5979a51@hydroquebec.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-trbe_enable_disable_irq_handle_refactor-v2-23-3f57cf3199b1@arm.com>
-References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
-In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Anshuman Khandual <anshuman.khandual@arm.com>, 
- Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>, 
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- coresight@lists.linaro.org, Leo Yan <leo.yan@arm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792169710; l=3130;
- i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=heLyCzP1OgFt+fIxgZTcGvWkmEm4xEc14PmqM7fQv9o=;
- b=dbGqZUyaDLNBTHx4jK+djoBtF4nEgp1sIJbFz3bMeMLfoLtgMew6Ecf1iItF83agWnFh26J3p
- P9eIoNmg232BTNmWbG314KQ8tVGm9DegVTDh+U46AqHws4KkMdYvXUL
-X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
- pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=molgen.mpg.de; s=20260906; 
+	t=1792169762; 
+	h=from:from:subject:date:message-id:mime-version:content-type:content-transfer-encoding; 
+	bh=M86NJ4IZ6fNbViWJtHydCb8YPVJzzZtCVo1NWFk9yDs=; 
+	b=YfFF7DuQldV9OVPmSexX3aVubwPR3i7CDpaUPPEl2FVG7McvNAIyadMcH8KU0dHwLfR7yPtJgvLN
+	Vm+a/eC3ntuytUHmF2fFiGPatyVGHvr+9bzMr53XlFLNwf6/4U/DH1DhwHY6mtiwfTPkSI8xRSFMZA
+	0tzGsuxV7WmroroHeNKUbT3ckgXUI8x5hOOLgkgM6Zl644V4vI/mQYqWuMk0wKaZJ5EWNl0EEBsC2n
+	/XT0YqbVeHElexuLi4TsnW3t8nRH1QMz4hrRtjYtxHLp2ysH9TIJ+TMTeI9dxSARGo2zOSQwCgUIPD
+	H79DG8g1YWw+xyVpVLJbA3knh+wc9P5A==
 
-When a fill-mode wrap stops TRBE, the trace source can continue running
-until software handles the stop. Trace generated during this interval
-may be lost.
+Dear Vincent,
 
-The overflow path now stops and restarts the trace source around buffer
-reprogramming. This emits ASYNC packets so the decoder can synchronize
-with the next trace segment. Use PERF_AUX_FLAG_PARTIAL to report the
-possible gap instead of PERF_AUX_FLAG_COLLISION.
 
-Set PARTIAL in both the overflow handler and the buffer update callback.
-This also preserves the gap indication when event shutdown handles a
-pending wrap, even if no further trace segment follows. Limit the flag
-to stopped buffers.
+Thank you for your patch.
 
-Signed-off-by: Leo Yan <leo.yan@arm.com>
----
- drivers/hwtracing/coresight/coresight-trbe.c | 29 +++++++---------------------
- 1 file changed, 7 insertions(+), 22 deletions(-)
+Am 16.10.26 um 15:08 schrieb Vincent Choiniere via B4 Relay:
+> From: Vincent Choiniere <choiniere.vincent@hydroquebec.com>
+> 
+> ice_tx_hang_reporter_dump() always reads tx_ring->tx_buf[0].skb,
+> regardless of next_to_clean. The Tx cleanup path frees the skb and
+> marks the buffer empty without clearing the skb pointer, so slot 0 can
+> hold a stale pointer. A NULL check alone does not cover this, and
+> devlink_fmsg_dump_skb() can fault on the freed skb.
+> 
+> Read tx_buf[next_to_clean] instead, use its skb only if the buffer type
+> is ICE_TX_BUF_SKB, and skip the skb dump otherwise.
+> 
+> Observed on an E810 PF passed through to a KVM guest (Ubuntu 7.0.0-14,
+> PREEMPT_RT, local scheduler patch): a delayed queue IRQ led to a Tx
+> timeout and a page fault in devlink_fmsg_dump_skb():
+> 
+>   BUG: unable to handle page fault for address: 0000000004cd0c11
+>   Workqueue: ice ice_service_task [ice]
+>   RIP: devlink_fmsg_dump_skb+0x2d8/0x5d0
+>   Call Trace:
+>    ice_tx_hang_reporter_dump+0x1ce/0x210 [ice]
+>    devlink_health_do_dump+0xcc/0x190
+>    devlink_health_report+0x1d7/0x260
+>    ice_report_tx_hang+0x7d/0xa0 [ice]
+> 
+> With this change and auto_dump enabled, starving a queue IRQ thread
+> reproduced the Tx timeout; the dump contained the test packet, no Oops
+> occurred and the PF recovered.
 
-diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
-index 6bc82d5b55539795059da37039d2929b4ea504e3..29a1882b1f3c2eb7166f71eeef37badece67039c 100644
---- a/drivers/hwtracing/coresight/coresight-trbe.c
-+++ b/drivers/hwtracing/coresight/coresight-trbe.c
-@@ -285,25 +285,6 @@ static void trbe_reset_local(struct trbe_cpudata *cpudata)
- 	write_sysreg_s(0, SYS_TRBSR_EL1);
- }
- 
--static void trbe_report_wrap_event(struct perf_output_handle *handle)
--{
--	/*
--	 * Mark the buffer to indicate that there was a WRAP event by
--	 * setting the COLLISION flag. This indicates to the user that
--	 * the TRBE trace collection was stopped without stopping the
--	 * ETE and thus there might be some amount of trace that was
--	 * lost between the time the WRAP was detected and the IRQ
--	 * was consumed by the CPU.
--	 *
--	 * Setting the TRUNCATED flag would move the event to STOPPED
--	 * state unnecessarily, even when there is space left in the
--	 * ring buffer. Using the COLLISION flag doesn't have this side
--	 * effect. We only set TRUNCATED flag when there is no space
--	 * left in the ring buffer.
--	 */
--	perf_aux_output_flag(handle, PERF_AUX_FLAG_COLLISION);
--}
--
- static void trbe_truncate_event(struct perf_output_handle *handle)
- {
- 	perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
-@@ -917,10 +898,12 @@ static unsigned long arm_trbe_update_buffer(struct coresight_device *csdev,
- 		perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
- 		size = 0;
- 		goto done;
--	} else if (act == TRBE_FAULT_ACT_WRAP) {
--		trbe_report_wrap_event(handle);
- 	}
- 
-+	/* Trace may have been lost before the source was stopped. */
-+	if (act == TRBE_FAULT_ACT_WRAP && !is_trbe_running(status))
-+		perf_aux_output_flag(handle, PERF_AUX_FLAG_PARTIAL);
-+
- 	size = trbe_get_trace_size(handle, buf, act == TRBE_FAULT_ACT_WRAP);
- 
- done:
-@@ -1246,7 +1229,9 @@ static int trbe_handle_overflow(struct trbe_cpudata *cpudata,
- 	if (buf->snapshot)
- 		handle->head += size;
- 
--	trbe_report_wrap_event(handle);
-+	if (is_buffer_stopped)
-+		perf_aux_output_flag(handle, PERF_AUX_FLAG_PARTIAL);
-+
- 	perf_aux_output_end(handle, size);
- 	event_data = perf_aux_output_begin(handle, event);
- 	/*
+Also past the dump (excerpt)?
 
--- 
-2.34.1
+> Fixes: 2a82874a3b7b ("ice: add Tx hang devlink health reporter")
+> Link: https://lore.kernel.org/all/20260327072332.130320-1-aleksandr.loktionov@intel.com/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vincent Choiniere <choiniere.vincent@hydroquebec.com>
+> ---
+> This complements the NULL check in [1]. With only that check, a non-NULL
+> but stale tx_buf[0].skb is still dereferenced by devlink_fmsg_dump_skb().
+> I have only reproduced the crash on an Ubuntu 7.0.0-14 kernel with
+> PREEMPT_RT and a local scheduler patch, and the skb lifetime against
+> concurrent Tx cleanup still needs review. Feedback welcome.
+> 
+> In my case next_to_clean was 0xfc while the reporter read slot 0.
+> Upstream v7.0, v7.2 and current net main (191aa4154) all read
+> tx_buf[0].skb unconditionally. Before this change, recovery stayed
+> stuck until reboot.
+> 
+> [1] https://lore.kernel.org/all/20260327072332.130320-1-aleksandr.loktionov@intel.com/
+> ---
+>   drivers/net/ethernet/intel/ice/devlink/health.c | 10 +++++++---
+>   1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/intel/ice/devlink/health.c b/drivers/net/ethernet/intel/ice/devlink/health.c
+> index 8e9a8a817..059859c36 100644
+> --- a/drivers/net/ethernet/intel/ice/devlink/health.c
+> +++ b/drivers/net/ethernet/intel/ice/devlink/health.c
+> @@ -390,12 +390,15 @@ static int ice_tx_hang_reporter_dump(struct devlink_health_reporter *reporter,
+>   				     struct netlink_ext_ack *extack)
+>   {
+>   	struct ice_tx_hang_event *event = priv_ctx;
+> -	struct sk_buff *skb;
+> +	struct sk_buff *skb = NULL;
+> +	struct ice_tx_buf *tx_buf;
+>   
+>   	if (!event)
+>   		return 0;
+>   
+> -	skb = event->tx_ring->tx_buf->skb;
+> +	tx_buf = &event->tx_ring->tx_buf[event->next_to_clean];
+> +	if (tx_buf->type == ICE_TX_BUF_SKB)
+> +		skb = tx_buf->skb;
+>   	devlink_fmsg_obj_nest_start(fmsg);
+>   	ICE_DEVLINK_FMSG_PUT_FIELD(fmsg, event, head);
+>   	ICE_DEVLINK_FMSG_PUT_FIELD(fmsg, event, intr);
+> @@ -409,7 +412,8 @@ static int ice_tx_hang_reporter_dump(struct devlink_health_reporter *reporter,
+>   	ice_fmsg_put_ptr(fmsg, "skb-ptr", skb);
+>   	devlink_fmsg_binary_pair_put(fmsg, "desc", event->tx_ring->desc,
+>   				     event->tx_ring->count * sizeof(struct ice_tx_desc));
+> -	devlink_fmsg_dump_skb(fmsg, skb);
+> +	if (skb)
+> +		devlink_fmsg_dump_skb(fmsg, skb);
+>   	devlink_fmsg_obj_nest_end(fmsg);
+>   
+>   	return 0;
+Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
 
+
+Kind regards,
+
+Paul
