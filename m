@@ -1,68 +1,41 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3279C483819
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:30:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D692C15BB;
+	Fri, 16 Oct 2026 10:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146648; cv=none; b=SEbVu8sleGziOxYylI5dpUToxrbXuASuROOFG5wjDZS+6uG4BIp+jdB8QkL3IsbJdCCYO6at7LqWWxNmPcTwsQuwsZkhoozJGdcn3z+Q/TCa09dJdANJA6BX41lcI9nTwx96lKi0S4UH7WNq4Yw4916ROGMGRzfZxRE7vPIz4WY=
+	t=1792146720; cv=none; b=TjB5sIBtcFP1DV4kWLiV6gOAuoJ6haUy+2UdCrzRfRwrCJwbvT6QhVCBYBxc43VPwvEGWXbSe7khaaUCfJqhZ/5UdA51qvZiM6P2H8BBU5NugAPbo3dCQuRj4OibXrDs8oULLdFdzM+F+ZrAG5daBiEsRWuMLjka4F7NhkWIobQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146648; c=relaxed/simple;
-	bh=G4VSqVe1DypmfEvCezrBpXLylcDmqXTCY/nLWX1ELto=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=q2n5MnQbXMEAsnVeNn61y//rCrcjoAaMH6fE6BSHum/Fv+YYeEao63MH1bpWyGzU8a6/m5siyG6kstk0MnqdXV4Tdjd0yijOZKwEqkMbdxX5PlK8YZaWKEOpkJQvwlXX6ekbWjH/3whG8IxTbzXR11m4a6QUko8aKbpOKhwpChA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MgYcZNjo; arc=none smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792146720; c=relaxed/simple;
+	bh=zumrvlMufacpBL+t1/9JMnrcup7QYswF3CVBRJj8Blo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iDYJi6MEbojDRN1NMCHVKZ1abYP/M7EEDBy1N/+45WAxrAe7KxARVpQwlwWodbjHhMNgPa/vpcAgKXig4LbWk/juzawh9EpAdQz3WlQ5ybQgHAZmLjeQcnPHvnt3CZekZCiKy3rdJ+UZY9ORwCzCtL0Uiwzuh1V8gHppfVvBLI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mXcJfPoW; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MgYcZNjo"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c38ac26cc5dso522922866b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:30:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792146644; x=1792751444; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lQKLRUdMlLSBUekzZJpinIZOOSjB4LUAvJOk+PTbgrU=;
-        b=MgYcZNjoSq4EXvLuXvkekNl39wD1zl3R5iP2xKxXCp8Iv+g2vc333tqeYPkAUcEq4u
-         fyMM3nb4lGXHbKaDUTJF3ST7agcnmwEYGsyKiIo56BHulGrQ4i3FEbSpl+oB2TyppD3r
-         z6rYnmywSe2joGeivgIM8rfl1h0pAqD8iZr0eAMKArwzJpBgaCYSPRGyq8JfO9jEBO5O
-         xasApoF9lZjMljC/Tghz8UpOHPxRsRTRceYzwHufv5E+6Gf3JLc+4W3VD74uJ8pgR8cR
-         4B43ygGZQEtLe5Ubeuf3Hn9NMBxL/vfgdvr1rLlJBeNCtL8uCdluYlTCHeKVy3g01Vga
-         E0zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792146644; x=1792751444;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lQKLRUdMlLSBUekzZJpinIZOOSjB4LUAvJOk+PTbgrU=;
-        b=DurG7JS4og+fZ5sVRpVLhV/v8XWxK6PoJdYOvGvF0Wxat8Z+nfd/dueqGyMSuDVCj9
-         3+YMJmAbmyP5/Os+UeFTYAyDvhR4W6Ds02rtNPluTynrEPtON2vxXi0kJNOaFO9oQFQk
-         x39/A/XmqCNL0h8VVCdNgKvSh9YxkqH1a4QMze2icjch/+WOgIKq1lEIGBq1jYq5PNen
-         2mDnTzfOzv3cBoUFvOHNGjIuhlDJi6W6ZpuKik1U2NpHfmELv71nmYsO5Ta5+V3VG7tW
-         +jaqd603rW9r5lZwxEuoLwQ44YkfsJKxnzvZfMXaiis1TK4ppbmQr0ytYged9zrkj5py
-         no1A==
-X-Forwarded-Encrypted: i=1; AKwUvByMpcLVvjnzMdv00rO9iz9+V8/POo/wgRArMxemAWinC1Dci7LKUtKsK8X4rOmdGh005tpCKg+ZAGNiFG0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1JDa/hA3x9yDkhVJK4Zc/9wNWV7z32UWSMCEmkCjVAA9BCfD6
-	REwgB6CRxW5MsJD9IIHhkWWzLS2iX9rCwq42IPdzFERq+ctIfViCmLFJ
-X-Gm-Gg: AYBFou03OuWMPY8sNnyR7d8V4f/d6Nv6OK8YXSFZh8fsawx/9SX1qUeY1gdtQl6nLBl
-	/oLX8Sk2qhF2MnJvN5j7i6v2O+sgmZYts3a9Nv79GfxBZoUp7VP+7rTSZM2wHuSWPv23Z38R/1e
-	7eLuw1Ijs+gJGtjKnZq+IXrBcLDG5r03Et9y58EZ+77HkT143lREEqYi+FeADu7k9n9JxyTCbVX
-	VD6D8qCCEzz3rYoUWmn+W1iknjiGiPGNcO2pFbn4MSjoEYK6IOmKk0tb+dFOtIaIs3ePcbOViBn
-	eyfBvzyA+F0pt9EADUC+279OYuvjlWFOSvG/J1vVSz0K3st9h1HaLczjG8YCztHK8yQW1ssMkqq
-	yOXySImAQZyMbKRpKHhdKAyPw3sww2depi1l6SA5hIvEUEbBr+jL65TLSAxshDZcrhDF+FaYrXK
-	LIzS5vL5lNrdj51BV9Qtf7YUcwXp/krP9hUjTEtdvoDSsi5D1YSS25B0AEzM9HkEB/5soSrtEtd
-	+RgizHxKZ6J92JoWu6nQWY=
-X-Received: by 2002:a17:907:a4ca:b0:c29:f5d8:9c82 with SMTP id a640c23a62f3a-c31aa0dc185mr1999601666b.49.1792146644128;
-        Fri, 16 Oct 2026 03:30:44 -0700 (PDT)
-Received: from localhost.localdomain ([193.107.16.241])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912ce133sm60613866b.31.2026.10.16.03.30.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 03:30:43 -0700 (PDT)
-From: Dmitry Yashin <dmt.yashin@gmail.com>
-Date: Fri, 16 Oct 2026 15:29:36 +0500
-Subject: [PATCH v2 4/5] arm64: dts: rockchip: add Forlinx OK3568-C
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mXcJfPoW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1792146717;
+	bh=zumrvlMufacpBL+t1/9JMnrcup7QYswF3CVBRJj8Blo=;
+	h=From:Subject:Date:To:Cc:From;
+	b=mXcJfPoWjuLxgUML8sEXUtkuI63lxTyOjoPC8fmsbkeNq6vYfOZv1fg0VLahpRtd2
+	 WJ6Yh6wdKAGbV2rsvR4oRywj4yKktTm2EjxV1Bm/vqriOhL9hEPnLecBYW83MDe78S
+	 u/Lcasl1ZY3IYI7Nl/NOfmZZt8/V5K8wMzvWERAqnh+bsvtP1M8AylfPvrm8QiIjSK
+	 Seicc/2mvDPPNtGEVqM5BGCGc9kEJl+XY7DtJzrjRnmFGJdBfok3p5prVBw5jGm3fe
+	 5Tr5rEg/KMiBw25hKTadqRUdH7ZRnFKvjMTYmTHOjtG4KBPwaGa6oeDBQkZpqXMuf8
+	 RIwSbAYgty1Ww==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5E30A17E04E5;
+	Fri, 16 Oct 2026 12:31:56 +0200 (CEST)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Subject: [PATCH net-next v3 0/9] net/stmmac: Add Mediatek MT8189 support
+Date: Fri, 16 Oct 2026 12:31:04 +0200
+Message-Id: <20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,657 +44,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-ok3568-c-v2-4-068d68430e6d@gmail.com>
-References: <20261016-ok3568-c-v2-0-068d68430e6d@gmail.com>
-In-Reply-To: <20261016-ok3568-c-v2-0-068d68430e6d@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOzU7DMBCEXyXymUX+Sx33xHsgDht7Qy3qGGwTi
+ qq8O5aphITU42hmvpkrK5QDFXYcrizTFkpIaxPqYWDuhOsrQfBNM8nlgRuuwH9FdBDJB6z0BrF
+ OYrJgPS6k7KTtKFjrvmdawqVzn9lKFVa6VPby62T6+GxD9WbPWAhcijHU43CYFRlljJ7E2POnU
+ GrK3/3gJnrh9sXc+bIJ4CDMovRIiA7Vk0vnM84p42Ob6dRN/pGs1PdIspG04rM32o+02P+kfd9
+ /AKHcoj9CAQAA
+X-Change-ID: 20260703-dwmac-mediatek-mt8189-9dafe3984951
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
- Johannes Berg <johannes@sipsolutions.net>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, Dmitry Yashin <dmt.yashin@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792146625; l=15237;
- i=dmt.yashin@gmail.com; s=20260930; h=from:subject:message-id;
- bh=G4VSqVe1DypmfEvCezrBpXLylcDmqXTCY/nLWX1ELto=;
- b=wZ/EkHjBx/pNx4oryQA83uZ1yXWIxu65caIIxuqvkmTrETtJPoIrE1nvixO7FLNi3D0kEgYit
- OGMmR8WoL6aBG7ZguObCjsH39WadC8VJeV7oF2FybweNbrywsBoH8iU
-X-Developer-Key: i=dmt.yashin@gmail.com; a=ed25519;
- pk=vBe9jaaOEH5bQEvfzb1tWOlz3AMIcXCu/GL/CdlwJco=
+ Richard Cochran <richardcochran@gmail.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Biao Huang <biao.huang@mediatek.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
+Cc: kernel@collabora.com, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792146716; l=4158;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=zumrvlMufacpBL+t1/9JMnrcup7QYswF3CVBRJj8Blo=;
+ b=ZQhCbUkZrEMjGd5BTitKBa9L/WRb+azHxAgOBy1ypPWUVvAv8RLzQ+ff8CzGXHjgK6iYoonLZ
+ 7a+Ng6mQJNbCiCBInbB0xos2dly3W5500CM/PknLi9EYtAJmpj+hR17
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-OK3568-C is the carrier board for FET3568-C System on Module.
+This series adds the Ethernet support for Mediatek MT8189 SoC and its
+variants (MT8371, MT8391). These SoC integrate a Gigabit Ethernet MAC
+with RGMII/RMII/MII interface, with a similar design than previous SoCs
+such MT8188 or MT8195.
 
-OK3568-C features:
+This series is based on net-next tree (sha1: 6b3e73774815).
+It has been tested on Mediatek Genio 520-EVK (MT8371) and 720-EVK
+(MT8391) boards, which both integrate an Airoha AN8801R Ethernet
+PHY, with hardware enablement series ([1]).
+It has been also tested on Mediatek Genio 510-EVK (MT8370, variant of
+MT8188) and 1200-EVK (MT8395, variant of MT8195).
 
-2x 1GbE Realtek RTL8211F Ethernet
-1x HDMI Type A out
-1x Edp and LVDS headers
-2x USB Type C (2.0 and debug console)
-1x USB 3.0 OTG Type A (2.0 part is multiplexed with Type C)
-1x USB 3.0 M.2 M Key (4G/5G modem)
-2x USB 2.0 Type A
-1x PCIE 3.0 PCIe (2 lanes)
-1x PCIE 2.1 PCIe (1 lane)
-1x TF scard slot
-1x MIPI CSI
-1x MIPI DSI
-2x CAN 2.0
-1x RTC
-1x earphone output and Speaker output, 1x mic.
-50-pin expansion header
-ADC keys
-onboard WiFi And BT (AW-CM358SM)
+[1]: https://lore.kernel.org/linux-mediatek/20260924-add-mediatek-genio-520-720-evk-v3-0-2ec5c80677d4@collabora.com/
 
-Add support for Forlinx OK3568-C board.
-
-Signed-off-by: Dmitry Yashin <dmt.yashin@gmail.com>
 ---
- arch/arm64/boot/dts/rockchip/Makefile            |   1 +
- arch/arm64/boot/dts/rockchip/rk3568-ok3568-c.dts | 579 +++++++++++++++++++++++
- 2 files changed, 580 insertions(+)
+Changes in v3:
+- Rebased on net-next (sha1: 6b3e73774815)
+- Added Reviewed-By trailers in patch 3 and 5
+- Added patch 1 to fix unit in rx/tx delay property description
+  (Sashiko)
+- Patch 2:
+  - Reworded patch description to add clock list details
+  - Removed the specific MT8189 clocks list so the axi and apb clocks
+    are also described for this compatible too and reworked the clock
+    list and number check
+  - Added mediatek,rmii-clk-from-mac as not allowed for MT8189 (Sashiko)
+- Added patch 4 to simplify TX/RX delay handling in mt2712_set_delay,
+  as suggested by M. Chevallier and modified following patches
+  accordingly
+- Fixed in patch 7 tx_rgmii_delay_stage_div null case and register value
+  in mt8195_fix_mac_speed (Sashiko)
+- Added in patch 9 the axi and apb clocks to MT8189 clock lists 
+- Link to v2: https://lore.kernel.org/r/20260924-dwmac-mediatek-mt8189-v2-0-430bd74d5ef9@collabora.com
 
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index e7936a21c118..48c83f79f83b 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -155,6 +155,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-mecsbc.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-nanopi-r5c.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-nanopi-r5s.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-odroid-m1.dtb
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-ok3568-c.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-photonicat.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-qnap-ts233.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-qnap-ts233-pcb-12-11.dtbo
-diff --git a/arch/arm64/boot/dts/rockchip/rk3568-ok3568-c.dts b/arch/arm64/boot/dts/rockchip/rk3568-ok3568-c.dts
-new file mode 100644
-index 000000000000..24418ea0be86
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3568-ok3568-c.dts
-@@ -0,0 +1,579 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/soc/rockchip,vop2.h>
-+#include "rk3568-fet3568-c.dtsi"
-+
-+/ {
-+	model = "Forlinx OK3568-C";
-+	compatible = "forlinx,ok3568-c", "forlinx,fet3568-c", "rockchip,rk3568";
-+
-+	aliases {
-+		ethernet0 = &gmac0;
-+		ethernet1 = &gmac1;
-+		mmc1 = &sdmmc0;
-+	};
-+
-+	adc-keys-0 {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 0>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <1750000>;
-+		poll-interval = <100>;
-+
-+		button-volume-up {
-+			label = "V+/Recovery";
-+			linux,code = <KEY_VOLUMEUP>;
-+			press-threshold-microvolt = <1750>;
-+		};
-+
-+		button-volume-down {
-+			label = "V-";
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			press-threshold-microvolt = <297500>;
-+		};
-+
-+		button-menu {
-+			label = "Menu";
-+			linux,code = <KEY_MENU>;
-+			press-threshold-microvolt = <980000>;
-+		};
-+
-+		button-escape {
-+			label = "ESC";
-+			linux,code = <KEY_ESC>;
-+			press-threshold-microvolt = <1305500>;
-+		};
-+	};
-+
-+	hdmi-con {
-+		compatible = "hdmi-connector";
-+		type = "a";
-+
-+		port {
-+			hdmi_con_in: endpoint {
-+				remote-endpoint = <&hdmi_out_con>;
-+			};
-+		};
-+	};
-+
-+	/* DSC557-0344FI1 clock generator */
-+	pcie30_refclk: pcie-clock-generator {
-+		compatible = "gated-fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <100000000>;
-+		clock-output-names = "pcie30_refclk";
-+		vdd-supply = <&vcc3v3_pi6c_oe>;
-+	};
-+
-+	rfkill-modem {
-+		compatible = "rfkill-gpio";
-+		label = "M.2 USB Modem";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&modem_5g_reset>;
-+		radio-type = "wwan";
-+		reset-gpios = <&gpio1 RK_PB2 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	rk809-sound {
-+		compatible = "simple-audio-card";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&hp_detect>;
-+		simple-audio-card,name = "Analog RK809";
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,hp-det-gpios = <&gpio4 RK_PD2 GPIO_ACTIVE_HIGH>;
-+		simple-audio-card,mclk-fs = <256>;
-+		simple-audio-card,widgets =
-+			"Headphone", "Headphones",
-+			"Speaker", "Speaker",
-+			"Microphone", "Onboard Microphone",
-+			"Microphone", "Headset Microphone";
-+		simple-audio-card,routing =
-+			"Headphones", "HPOL",
-+			"Headphones", "HPOR",
-+			"Speaker", "SPKO",
-+			"MICL", "Onboard Microphone",
-+			"MICR", "Headset Microphone";
-+
-+		simple-audio-card,cpu {
-+			sound-dai = <&i2s1_8ch>;
-+		};
-+
-+		simple-audio-card,codec {
-+			sound-dai = <&rk809>;
-+		};
-+	};
-+
-+	vcc12v_dcin: regulator-12v-vcc-dcin {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc12v_dcin";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <12000000>;
-+		regulator-max-microvolt = <12000000>;
-+	};
-+
-+	vcc1v8_wifi_bt_reg_on: regulator-1v8-vcc-wifi-bt-reg-on {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpios = <&gpio3 RK_PD4 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&wifi_reg_on>;
-+		off-on-delay-us = <20000>;
-+		regulator-name = "vcc1v8_wifi_bt_reg_on";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		startup-delay-us = <200>;
-+	};
-+
-+	vcc1v8: regulator-1v8-vcc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc1v8";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		vin-supply = <&vcc3v3>;
-+	};
-+
-+	vcc3v3_pi6c_oe: regulator-3v3-vcc-pi6c-oe {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpios = <&gpio0 RK_PA5 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pi6c_oe>;
-+		regulator-name = "vcc3v3_pi6c_oe";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		startup-delay-us = <5000>;
-+	};
-+
-+	vcc3v3_pcie20: regulator-3v3-vcc-pcie20 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc3v3_pcie20";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc5v0>;
-+	};
-+
-+	vcc3v3_pcie30: regulator-3v3-vcc-pcie30 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc3v3_pcie30";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc5v0>;
-+	};
-+
-+	vcc3v3: regulator-3v3-vcc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc3v3";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc5v0>;
-+	};
-+
-+	vcc4v2_5g: regulator-4v2-vcc-5g {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpios = <&gpio1 RK_PB1 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&modem_5g_pwr>;
-+		regulator-name = "vcc4v2_5g";
-+		regulator-min-microvolt = <4200000>;
-+		regulator-max-microvolt = <4200000>;
-+		startup-delay-us = <50000>;
-+		vin-supply = <&vcc5v0>;
-+	};
-+
-+	vcc5v0: regulator-5v0-vcc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&vcc12v_dcin>;
-+	};
-+};
-+
-+&can0 {
-+	compatible = "rockchip,rk3568v3-canfd", "rockchip,rk3568v2-canfd";
-+	assigned-clocks = <&cru CLK_CAN0>;
-+	assigned-clock-rates = <300000000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&can0m0_pins>;
-+	status = "okay";
-+};
-+
-+&can1 {
-+	compatible = "rockchip,rk3568v3-canfd", "rockchip,rk3568v2-canfd";
-+	assigned-clocks = <&cru CLK_CAN1>;
-+	assigned-clock-rates = <300000000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&can1m1_pins>;
-+	status = "okay";
-+};
-+
-+&combphy0 {
-+	status = "okay";
-+};
-+
-+&combphy1 {
-+	status = "okay";
-+};
-+
-+&combphy2 {
-+	status = "okay";
-+};
-+
-+&gmac0 {
-+	clock_in_out = "output";
-+	phy-handle = <&rgmii_phy0>;
-+	phy-mode = "rgmii-id";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gmac0_miim
-+		     &gmac0_tx_bus2
-+		     &gmac0_rx_bus2
-+		     &gmac0_rgmii_clk
-+		     &gmac0_rgmii_bus
-+		     &gmac0_clkinout
-+		     &eth0_pins>;
-+	status = "okay";
-+};
-+
-+&gmac1 {
-+	clock_in_out = "output";
-+	phy-handle = <&rgmii_phy1>;
-+	phy-mode = "rgmii-id";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gmac1m1_miim
-+		     &gmac1m1_tx_bus2
-+		     &gmac1m1_rx_bus2
-+		     &gmac1m1_rgmii_clk
-+		     &gmac1m1_rgmii_bus
-+		     &gmac1m1_clkinout
-+		     &eth1m1_pins>;
-+	status = "okay";
-+};
-+
-+&hdmi {
-+	avdd-0v9-supply = <&vdda0v9_image>;
-+	avdd-1v8-supply = <&vcca1v8_image>;
-+	status = "okay";
-+};
-+
-+&hdmi_in {
-+	hdmi_in_vp0: endpoint {
-+		remote-endpoint = <&vp0_out_hdmi>;
-+	};
-+};
-+
-+&hdmi_out {
-+	hdmi_out_con: endpoint {
-+		remote-endpoint = <&hdmi_con_in>;
-+	};
-+};
-+
-+&hdmi_sound {
-+	status = "okay";
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+
-+	pcf8563: rtc@51 {
-+		compatible = "nxp,pcf8563";
-+		reg = <0x51>;
-+	};
-+};
-+
-+&i2s0_8ch {
-+	status = "okay";
-+};
-+
-+&i2s1_8ch {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2s1m0_sclktx
-+		     &i2s1m0_lrcktx
-+		     &i2s1m0_sdi0
-+		     &i2s1m0_sdo0>;
-+	rockchip,trcm-sync-tx-only;
-+	status = "okay";
-+};
-+
-+&mdio0 {
-+	rgmii_phy0: ethernet-phy@1 {
-+		compatible = "ethernet-phy-id001c.c916";
-+		reg = <0x1>;
-+		clocks = <&cru CLK_MAC0_OUT>;
-+		assigned-clocks = <&cru CLK_MAC0_OUT>;
-+		assigned-clock-rates = <25000000>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&rgmii_phy0_rst>;
-+		reset-assert-us = <20000>;
-+		reset-deassert-us = <100000>;
-+		reset-gpios = <&gpio3 RK_PA4 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&mdio1 {
-+	rgmii_phy1: ethernet-phy@1 {
-+		compatible = "ethernet-phy-id001c.c916";
-+		reg = <0x1>;
-+		clocks = <&cru CLK_MAC1_OUT>;
-+		assigned-clocks = <&cru CLK_MAC1_OUT>;
-+		assigned-clock-rates = <25000000>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&rgmii_phy1_rst>;
-+		reset-assert-us = <20000>;
-+		reset-deassert-us = <100000>;
-+		reset-gpios = <&gpio3 RK_PA2 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&pcie2x1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pcie20m0_pins>;
-+	reset-gpios = <&gpio0 RK_PB6 GPIO_ACTIVE_HIGH>;
-+	vpcie3v3-supply = <&vcc3v3_pcie20>;
-+	status = "okay";
-+};
-+
-+&pcie30phy {
-+	status = "okay";
-+};
-+
-+&pcie3x2 {
-+	clocks = <&cru ACLK_PCIE30X2_MST>, <&cru ACLK_PCIE30X2_SLV>,
-+		 <&cru ACLK_PCIE30X2_DBI>, <&cru PCLK_PCIE30X2>,
-+		 <&cru CLK_PCIE30X2_AUX_NDFT>,
-+		 <&cru CLK_PCIE30X2_PIPE_DFT>,
-+		 <&pcie30_refclk>;
-+	clock-names = "aclk_mst", "aclk_slv",
-+		      "aclk_dbi", "pclk", "aux",
-+		      "pipe", "ref";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pcie30x2m0_pins>;
-+	reset-gpios = <&gpio0 RK_PC6 GPIO_ACTIVE_HIGH>;
-+	vpcie3v3-supply = <&vcc3v3_pcie30>;
-+	status = "okay";
-+};
-+
-+&pinctrl {
-+	bluetooth {
-+		bt_wake_host: bt-wake-host {
-+			rockchip,pins = <0 RK_PD3 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+
-+		host_wake_bt: host-wake-bt {
-+			rockchip,pins = <0 RK_PD5 RK_FUNC_GPIO &pcfg_pull_down>;
-+		};
-+	};
-+
-+	ethernet {
-+		rgmii_phy0_rst: rgmii-phy0-rst {
-+			rockchip,pins = <3 RK_PA4 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		rgmii_phy1_rst: rgmii-phy1-rst {
-+			rockchip,pins = <3 RK_PA2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	modem {
-+		modem_5g_pwr: modem-5g-pwr {
-+			rockchip,pins = <1 RK_PB1 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		modem_5g_reset: modem-5g-reset {
-+			rockchip,pins = <1 RK_PB2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	/* Drop pcie20_clkreqnm0 pin. Used as DSC557-0344FI1 enable-gpio instead. */
-+	pcie20 {
-+		pcie20m0_pins: pcie20m0-pins {
-+			rockchip,pins =
-+				/* pcie20_perstnm0 */
-+				<0 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>,
-+				/* pcie20_wakenm0 */
-+				<0 RK_PB5 3 &pcfg_pull_none>;
-+		};
-+	};
-+
-+	pcie30x2 {
-+		pcie30x2m0_pins: pcie30x2m0-pins {
-+			rockchip,pins =
-+				/* pcie30x2_clkreqnm0 */
-+				<0 RK_PA6 2 &pcfg_pull_none>,
-+				/* pcie30x2_perstnm0 */
-+				<0 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>,
-+				/* pcie30x2_wakenm0 */
-+				<0 RK_PC5 3 &pcfg_pull_none>;
-+		};
-+
-+		pi6c_oe: pi6c-oe {
-+			rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	sound {
-+		hp_detect: hp-detect {
-+			rockchip,pins = <4 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	wifi {
-+		wifi_reg_on: wifi-reg-on {
-+			rockchip,pins = <3 RK_PD4 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&pmu_io_domains {
-+	pmuio1-supply = <&vcc3v3_pmu>;
-+	pmuio2-supply = <&vcc3v3_pmu>;
-+	vccio1-supply = <&vccio_acodec>;
-+	vccio2-supply = <&vcc_1v8>;
-+	vccio3-supply = <&vccio_sd>;
-+	vccio4-supply = <&vcc_1v8>;
-+	vccio5-supply = <&vcc_3v3>;
-+	vccio6-supply = <&vcc_1v8>;
-+	vccio7-supply = <&vcc_3v3>;
-+	status = "okay";
-+};
-+
-+&saradc {
-+	vref-supply = <&vcca_1v8>;
-+	status = "okay";
-+};
-+
-+&sdmmc0 {
-+	bus-width = <4>;
-+	cap-sd-highspeed;
-+	disable-wp;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&sdmmc0_bus4 &sdmmc0_clk &sdmmc0_cmd &sdmmc0_det>;
-+	sd-uhs-sdr50;
-+	sd-uhs-sdr104;
-+	vmmc-supply = <&vcc3v3_sd>;
-+	vqmmc-supply = <&vccio_sd>;
-+	status = "okay";
-+};
-+
-+/* WiFi part of the AW-CM358SM connected with SDIO */
-+&sdmmc2 {
-+	bus-width = <4>;
-+	cap-sd-highspeed;
-+	cap-sdio-irq;
-+	keep-power-in-suspend;
-+	non-removable;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&sdmmc2m0_bus4 &sdmmc2m0_clk &sdmmc2m0_cmd>;
-+	sd-uhs-sdr104;
-+	vmmc-supply = <&vcc3v3>;
-+	vqmmc-supply = <&vcc1v8_wifi_bt_reg_on>;
-+	status = "okay";
-+};
-+
-+/* BT part of the AW-CM358SM connected with UART */
-+&uart8 {
-+	dma-names = "tx", "rx";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart8m0_xfer &uart8m0_ctsn &uart8m0_rtsn>;
-+	uart-has-rtscts;
-+	status = "okay";
-+
-+	bluetooth {
-+		compatible = "nxp,88w8987-bt";
-+		device-wakeup-gpios = <&gpio0 RK_PD5 GPIO_ACTIVE_LOW>;
-+		interrupt-parent = <&gpio0>;
-+		interrupts = <RK_PD3 IRQ_TYPE_EDGE_FALLING>;
-+		interrupt-names = "wakeup";
-+		nxp,wakein-pin = /bits/ 8 <18>;
-+		nxp,wakeout-pin = /bits/ 8 <19>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&bt_wake_host &host_wake_bt>;
-+		vcc-supply = <&vcc1v8_wifi_bt_reg_on>;
-+		wakeup-source;
-+	};
-+};
-+
-+&usb_host0_ehci {
-+	status = "okay";
-+};
-+
-+&usb_host0_ohci {
-+	status = "okay";
-+};
-+
-+&usb_host0_xhci {
-+	extcon = <&usb2phy0>;
-+	status = "okay";
-+};
-+
-+&usb_host1_ehci {
-+	status = "okay";
-+};
-+
-+&usb_host1_ohci {
-+	status = "okay";
-+};
-+
-+&usb_host1_xhci {
-+	dr_mode = "host";
-+	status = "okay";
-+};
-+
-+&usb2phy0 {
-+	status = "okay";
-+};
-+
-+&usb2phy0_host {
-+	phy-supply = <&vcc4v2_5g>;
-+	status = "okay";
-+};
-+
-+&usb2phy0_otg {
-+	phy-supply = <&vcc5v0>;
-+	status = "okay";
-+};
-+
-+&usb2phy1 {
-+	status = "okay";
-+};
-+
-+&usb2phy1_host {
-+	phy-supply = <&vcc5v0>;
-+	status = "okay";
-+};
-+
-+&usb2phy1_otg {
-+	phy-supply = <&vcc5v0>;
-+	status = "okay";
-+};
-+
-+&vop {
-+	assigned-clocks = <&cru DCLK_VOP0>, <&cru DCLK_VOP1>;
-+	assigned-clock-parents = <&pmucru PLL_HPLL>, <&cru PLL_VPLL>;
-+	status = "okay";
-+};
-+
-+&vop_mmu {
-+	status = "okay";
-+};
-+
-+&vp0 {
-+	vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
-+		reg = <ROCKCHIP_VOP2_EP_HDMI0>;
-+		remote-endpoint = <&hdmi_in_vp0>;
-+	};
-+};
+Changes in v2:
+- Rebased on net-next (sha1: 528de6832b21)
+- Dropped "net: stmmac: mediatek: rename MT2712 and MT8195 variant
+  methods" and "net: stmmac: mediatek: add support for TX deallocation
+   adjustment feature" patches, present in v1 (M. Chevallier)
+- Patch 1:
+  - Removed rmii_internal clock from required clock list (A. Lunn)
+  - Added MT8189 stage delay divider values in "mediatek,rx-delay-ps" and
+    "mediatek,rx-delay-ps" property description (Sashiko)
+  - Updated commit description
+- Added patch 2 to simplify TX/RX delay handling in mt8195_set_delay
+- Added patch 3 to add RX/TX delay stage divider in platform data
+- Patch 4:
+  - Replace MT8195_PERI_ETH_CTRL_BASE by MT8195_PERI_ETH_CTRL_OFFSET to
+    harmonize the variable and definition naming (A. Lunn)
+  - Added Reviewed-By tag
+- Added patch 5 to add the TX Clock phase shift use in
+  RGMII and in 1G speed
+- Patch 6:
+  - Reworded flag and define names to explicit a bit more what the
+    feature does
+  - Updated commit description
+- Patch 7:
+  - Added the new definitions and needed fields in platform data
+  - Updated commit description to add the info about MT8189 RX/TX delay
+    stage divider and maximum values, and remove reference about 
+    stage fine feature 
+- Link to v1: https://lore.kernel.org/r/20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com
 
+---
+Louis-Alexis Eyraud (9):
+      dt-bindings: net: mediatek-dwmac: fix unit in rx/tx delay property description
+      dt-bindings: net: mediatek-dwmac: add support for MT8189 SoC
+      net: stmmac: mediatek: simplify TX/RX delay handling in mt8195_set_delay
+      net: stmmac: mediatek: simplify TX/RX delay handling in mt2712_set_delay
+      net: stmmac: mediatek: add RX/TX delay stage divider in platform data
+      net: stmmac: mediatek: add PERI_ETH_CTRLx register offset in platform data
+      net: stmmac: mediatek: use TX clock phase shift in RGMII mode with 1Gbps speed
+      net: stmmac: mediatek: add support for TX clock output enable feature
+      net: stmmac: mediatek: add support for MT8189 SoC
+
+ .../devicetree/bindings/net/mediatek-dwmac.yaml    |  58 +++-
+ .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   | 363 ++++++++++++++-------
+ 2 files changed, 287 insertions(+), 134 deletions(-)
+---
+base-commit: 6b3e73774815910a39d8ca75b9ad7df963f61d50
+change-id: 20260703-dwmac-mediatek-mt8189-9dafe3984951
+
+Best regards,
 -- 
-2.56.0
+Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
