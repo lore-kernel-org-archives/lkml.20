@@ -1,141 +1,146 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D535C34388D;
-	Fri, 16 Oct 2026 14:20:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262A436A341
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:20:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792160404; cv=none; b=LVDfdtVxMpStT56LrAT9G+gWJKAa7qi2KjE9hP7II3yM/EzxIPEXz75Qix2i7WPUlO8Psj26Z8CpXmDb4bXRKyrrbl3nALGe8FEKUDzcmnf2qjSBzZyCNKaYj/uM6diw5+ojZcgpFlr2YXG0MxgcIBhSKw32Q5Er1nQv10ZyUG4=
+	t=1792160410; cv=none; b=d/iU9aVLv8bdBzWug3oMnK4RJ+qopTieCTdDyVN08YXAe1BCO7ok04C9sf3at6Qnyr6CvALT2E7evwsNw4AEX5PxKtDcOumJW8uTcopKbeqLEXcZHtdDUxHi5OKtVDTLdrb8KYVB+Bp0Z5xp8aKp9gEqYCkZfIVd+OUzrOjw8Sw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792160404; c=relaxed/simple;
-	bh=iqNBBJIlVjt4caCTbNHs1e+BYgx5oZ6XFn2kqTGUyRA=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Wxz9BjtkfbY7OssUkTahTHVuG61nS/uQFPsyXEJ2+ol0RszgYzDdrM95XJDsEx7O2YEkQWlQd5eakMZBYGPlHIqeh7Zkdqs9EB3pUxb1i+hvMTvdnKzMfU1IMmoa02mIy0MVgAFIot3NiHgGXIivsNgl0yjo0HZd0Xv+XiOWrVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=O9zrLUL2; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=3JIp4AQp; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=gXlWOB0U; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Z+Fl/Gx1; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1792160410; c=relaxed/simple;
+	bh=YwzXpAOIl2Vv15haH4xKrFCc0zZX28zmgV8E0lOwtSQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mWObRq/ajHpono8tgSE0M/TjgbpX6gJSk1xczCZ3EExAEti8DTsPDbvNFWaT5lZhZXaXE7KEnnhJPOZGt+0Uy7m3Z1ozbszba0vn3r/ZdYodR4KoDzV0lUN00Fbz3IPONoLz7Uqsorl/ETfHeYaXObul1SWXBw14DpKsN16THdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B/Q08eGN; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="O9zrLUL2";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3JIp4AQp";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gXlWOB0U";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Z+Fl/Gx1"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id CE79B21C42;
-	Fri, 16 Oct 2026 14:20:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792160401; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iwQlgmeU4ZA2UJ4lAP9mbLBESGN/5Miy+QpPsG3hxqk=;
-	b=O9zrLUL2WxwNdt6mRtSBLUuehw2OGKmPiHdIop5XZUESl1YDGeBOxr5gCgDVABMCClqYYf
-	psqYMhkgYWgyDf9IQrklR5hq+4VM3+IvSwT4JMD1lbOzKonvhaHGBOJsQhgM4zGvnTFDRH
-	8gMhS/xhpTMLHVZ8TXHg3wnzMlPnvFw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792160401;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iwQlgmeU4ZA2UJ4lAP9mbLBESGN/5Miy+QpPsG3hxqk=;
-	b=3JIp4AQpmBmPhxSqW4Gk74ykHj+K3cBBDJw9UI1mj0AFdOmxyozjtPZwWe1pulM6ybMEh4
-	pbD27/8V9b4klfBQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792160400; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iwQlgmeU4ZA2UJ4lAP9mbLBESGN/5Miy+QpPsG3hxqk=;
-	b=gXlWOB0ULhUBbR9XjRDoR/iuNCTDNoyPHs7Q6lHs7aTEwe3N/ajfh5sS2XMgtKvjrrjjoG
-	M/Z4K72yGMBL/5B8VB5oJn6p6h3eBbLWYj2Xk5d/+F02uYNHACQxTbFvWPIXpQKlOtBc4w
-	4q2BGmM4uTMhjSt3rRfx+6WvOxG2F2E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792160400;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iwQlgmeU4ZA2UJ4lAP9mbLBESGN/5Miy+QpPsG3hxqk=;
-	b=Z+Fl/Gx11TkUbveQ4RkOWQLEIlBG/wX6NQH6lpm6QSinoSnhx+F7+DMObNgAI/QeZojVD/
-	B0Yzfl5X5S3UFyBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7DAF71378C;
-	Fri, 16 Oct 2026 14:20:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id cXkyFZAy0mqeFQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 16 Oct 2026 14:20:00 +0000
-Date: Fri, 16 Oct 2026 16:20:00 +0200
-Message-ID: <878q3x3ey7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Zhang Heng <zhangheng@kylinos.cn>
-Cc: tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	linux-kernel@vger.kernel.org,
-	lethiebaut2@gmail.com
-Subject: Re: [PATCH] ALSA: hda: cs35l41: Add support for HP OmniBook 7 14-hg0xxx
-In-Reply-To: <20261016130219.690074-1-zhangheng@kylinos.cn>
-References: <20261016130219.690074-1-zhangheng@kylinos.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B/Q08eGN"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a021c809e3so106425e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:20:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792160407; x=1792765207; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6uidg5CuGsKY6XwWY8ZHCyov81k9buURAeTyWzFMBtY=;
+        b=B/Q08eGN9wnU3Sz5mqFoxOAC+QotyVNkZG2c1yU4adlK5ZOgzMotUat3PGgQDVKgaw
+         8rbycccK/RMeyD0hKg3lulr/DepFBbSrKgXktRCJrAnat0yOBN8Iqifg35179W2c2Wl9
+         6zlR3cpccThcEmLXvRv22thBTpepuOxqTGy+T8erm3gm0OwhDIzRdJCzhil6PGcRKxjj
+         oP84QlawC+rZF0Xj63BSY44Bx0DYSZm6/WTD9Gsw6F8MBVDKMYuTiQNTLp6UeHezOp23
+         GgbuB1JjbW5BsaSDJ8GDFAAAX+KC7u+2fkIRoK7OtdVmbX/C/IiqLJScFfvCTyyX202Y
+         WsLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792160407; x=1792765207;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6uidg5CuGsKY6XwWY8ZHCyov81k9buURAeTyWzFMBtY=;
+        b=0kqWZlGK0X8HKoueXVNSH7to9dT97DcArC+EwHrlscmCd+V3jShSnFgczUyR+MSLrB
+         iSSEt8EVRwjImcAhib7yo3GHNhKqulkxzOm5MkzuJBNHnifNMowQGI5ONxFMV5+kECRX
+         IsHv5NcQJJEuZpWqeyIMyAAeNnm5TKk/c/w+WrAxfWl7gA1T3p98bOnyR4g78UeaZr/y
+         Bd8Tyn8q9m4UEOQeuxajQNlxSB8TzDJflZB9lKqoz2w3YJllM/zxPZi+0WTuCVQd/Q34
+         Jl4IBk8fxIQGQnzAEUCpKoYwI+5L7pC3RJWis/gWIgOUUws0QBzl8C4Ad01/2zc3dbFc
+         HCVQ==
+X-Forwarded-Encrypted: i=1; AKwUvByXAQvBRhgZwq/9abXB7qSG1NCbnfoLc2+2w92U4tOzt2PFVRa/B8k+48ESsjji/yE1DcvpESMBJDJ5ltA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKc7omEgR2HkXUkDJ4SaCwcqHbUFq7XQ2SGGl/BTGQZAo5M7Xwz
+	KIQmteQCQRCZrJmOixOd9ehzO5LHyQUhYJQz/XOvU6F4wAxdaWdUQBVx
+X-Gm-Gg: AYBFou0NuOymsnuJXldlcdTyboDzFeuJYb/zJuokYIxMmJO0GcQK+4Q/xkm2b78Md3l
+	hS2FGKuGABCXSHygpENuYSlE3C6lkFB0rRSIJ3yTpyUEELjUHyU5E8JzzFNuyyEqhBrumsHDEIP
+	LbnFJiJcAE7sv6BBwDTcCvipFbQoiH+1lYdFePIYZQ4JmLRtnywGPn/ljaollntc34fLaHBONKC
+	rV+v1gDQwKLj7tLLFGa0NOCjSzNmUC4+WpchECuDjxFXd7pGjI4tj3Q/OA806QiGYLyl3gJk5QT
+	+bvTnj6chDHSBg1Yhu4xgiv6TSJOdmhXSQrL166OG9dt5Tv0+ndyV1A0RzAeZxbGuy/RsQOlUZZ
+	1TgGC3oMtxgBLruflFP1sFgj/B10yVgnKN1e5OUJMf6njwIdVFbrShoHeziryNq8lf2tg+ODZft
+	YS163vItkaJBAEzyI3H5MZHmJNqflRwJ2Q6BK4nzx6FxMNNbtfLBWLn+9M2Pyl+InBDl8OCjyxM
+	fWYKk0r44gkmzOO9HkaJexW4H18dmRpwEVLEZZL+OYQJKiWEyoSSuX5qUjl4KwOiLkdu2myd19q
+	8sa1rcoDH4p2h6eBVDRPhibCe/OduzZttZsXFsDBVYx4qEOq8cJFtvsOzKXNoHbi80I8H9PvPlg
+	=
+X-Received: by 2002:a05:600c:3f1a:b0:4a1:ac66:6ac6 with SMTP id 5b1f17b1804b1-4a1ac667160mr252470685e9.26.1792160406983;
+        Fri, 16 Oct 2026 07:20:06 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a951-9501-1471-d90c-a21f-9dd7.310.pool.telefonica.de. [2a02:3100:a951:9501:1471:d90c:a21f:9dd7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cbedb6f7sm63818405e9.2.2026.10.16.07.20.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 07:20:06 -0700 (PDT)
+Date: Fri, 16 Oct 2026 16:20:04 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Jakub Kicinski <kuba@kernel.org>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] docs: kerneldoc.py: preserve headings in kernel-doc
+ output
+Message-ID: <atIw3EWamd4KN4VP@gmail.com>
+References: <20261002230114.39651-1-kmehltretter@gmail.com>
+ <8733u8w6p4.fsf@trenco.lwn.net>
+ <20261014233956.605e0960@foz.lan>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[suse.com,vger.kernel.org,opensource.cirrus.com,gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,kylinos.cn:email]
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014233956.605e0960@foz.lan>
 
-On Fri, 16 Oct 2026 15:02:19 +0200,
-Zhang Heng wrote:
+On Wed, Oct 14, 2026 at 11:46:13PM +0100, Mauro Carvalho Chehab wrote:
+> On Wed, 14 Oct 2026 11:08:39 -0600
+> Jonathan Corbet <corbet@lwn.net> wrote:
 > 
-> The HP OmniBook 7 14-hg0xxx (SSID 103C8F07) uses two CS35L41
-> amplifiers connected via I2C. The left speaker works, but the right
-> speaker is silent because the cs35l41-hda driver fails to probe with
-> -EINVAL:
+> > Which versions of Sphinx and docutils have you tested this with?  I
+> > needs to work across the full range of supported versions...
 > 
->   cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: Failed property cirrus,dev-index: -22
->   cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: error -EINVAL: Platform not supported
->   cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: probe with driver cs35l41-hda failed with error -22
+> The minimal docutils supported is 0.16, and the minimal Sphinx
+> supported version is 3.4.4.
 > 
-> Add the missing SSID entry to the CS35L41 configuration and property
-> tables, using the generic DSD configuration and the same parameters as
-> other HP laptops (e.g. 103C8CDE). This allows both amplifiers to probe
-> and restores the right speaker.
+> You can use /tools/docs/test_doc_build.py to double check if your change
+> is compatible with the minimal supported Sphinx/docutils versions.
 > 
-> Tested on HP OmniBook 7 14-hg0xxx (SSID 103C8F07).
-> 
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222124
-> Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
 
-Applied to for-next branch now.  Thanks.
+I completed the A/B matrix using tools/docs/test_doc_build.py -f. The
+full matrix shows the improvement without a regression. 
 
+I also tested Sphinx 9.0.0, 9.0.4, and 9.1.0, plus the previously
+discussed Sphinx 9.1.0 / Docutils 0.21.2 pair.
 
-Takashi
+In total, this covered 32 combinations and 64 full htmldocs builds: A
+unpatched and B patched.
+
+Successful, with identical A/B output and normalized diagnostics (26):
+
+  Docutils  Sphinx
+  --------  --------------------------------------------------------
+  0.16      3.4.3, 3.5.0, 4.0.0
+  0.17      4.1.0, 4.3.0, 4.4.0
+  0.17.1    4.5.0, 5.0.0, 5.1.0
+  0.18      5.2.0
+  0.18.1    5.3.0, 6.0.0, 6.1.0, 6.1.1, 6.2.0, 7.0.0, 7.1.0
+  0.20      7.2.6, 7.3.0
+  0.20.1    7.4.0, 7.4.7
+  0.21      8.0.0
+  0.21.1    8.1.0, 8.1.3
+  0.21.2    8.2.0, 9.1.0
+
+Successful, with only the intended A/B output change (2):
+
+  Sphinx  Docutils  Normalized diagnostics  Changed output
+  ------  --------  ----------------------  --------------------------
+  8.2.3   0.21.2    62 -> 62, identical     networking/kapi.html,
+                                             searchindex.js
+  9.1.0   0.22.4    74 -> 60, removals only networking/kapi.html,
+                                             searchindex.js
+
+Identical pre-existing failure before and after the patch (4):
+
+  Sphinx         Docutils  Status A/B  Normalized diagnostics A/B
+  -------------  --------  ----------  --------------------------
+  7.2.0, 7.2.1   0.19      2 / 2       191 / 191, identical
+  9.0.0, 9.0.4   0.22      2 / 2        53 /  53, identical
+
+No combination gained a diagnostic or changed its build result. The
+only generated-output differences were the intended restored headings
+and derived anchors. 
+
+Karl
