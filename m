@@ -1,100 +1,129 @@
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD46D346A0C
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:18:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BAD15190462;
+	Fri, 16 Oct 2026 04:19:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792124319; cv=none; b=SyfW1y71xYfOMT+yeFJ0dAFyVA0/EWTsvsORriLX8ofLwTpVsPMNl38qhsYtu07Jp4mHO9rrEVr0OjxfBmIx2cHTCipGyOP8CYFwe55UxpOEROdfNaOXdw88Gax1+nX66Ndmui+4GJSEkv8QEU0oX+QpPTnjfxoTuCRPbxK66ZM=
+	t=1792124357; cv=none; b=UTa520ocZCk2/MXtksw0iZ4fgeundGf5TOfxnJN/9L3qBaN9id+usA/JeBTMX8AdXCJu332dipssd8oPaLl36ZBMM+LmXgL/8p15bQ/81zOytTiOXjQkGiLmH8Df3NFTSerBYFsUT9Z69IZ0G3l8RJwH0xz8xmrVuGaL5hGsCak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792124319; c=relaxed/simple;
-	bh=SAgAlVumd4bSNcq7POTdK2o5SfAl7K4HhN0qAdrkl68=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DFwnn7/yMifExhGrdpnmfZ5ciRWhl/R6buLPilQsRMUQ382zpOWr7N9u9uQ2XjgBC8MmuN2GicB+IdEwrdwC61QsF5ogCFVok9zYf4PuErLLguZ3sQDwj67zrK1NLczMkd7p9qcbnY+F7rBwPae0m3xg0ERjHfZSipRS+87jKBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PI/LPUma; arc=none smtp.client-ip=209.85.210.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792124357; c=relaxed/simple;
+	bh=PC5BrwmvKNaZleWn/1Vr1yOtS3cJHKZ1xVrJYdiiG2c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g2vwiO7A7acjKOHHZJZkdyj3NaxuvcUFwqBRB1f5AjTCiXpZahSgsfEovpNWQLSMwm4y56cv+E0+w1qlqxPOGv2lwH/4BwM1iSiW/gnyTxuf4gdl9ut8nP3NKfYK7XSvwrHpYKUgR/6+KHDw59CM5rYPER9e2fCpugu7jMVPY+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.shzu.edu.cn; spf=none smtp.mailfrom=stu.shzu.edu.cn; dkim=fail (0-bit key) header.d=stu.shzu.edu.cn header.i=@stu.shzu.edu.cn header.b=Z5kugXTu reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.shzu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=stu.shzu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PI/LPUma"
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7fccba9c675so909833a34.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:18:38 -0700 (PDT)
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.shzu.edu.cn header.i=@stu.shzu.edu.cn header.b="Z5kugXTu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792124317; x=1792729117; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=L4MYjMxl4nk9/tU0R8Bn0SAxgenA02VkldF0zXaf2oQ=;
-        b=PI/LPUmaQqkqDv81HV68nr3ejn8LYdN/bZYAn52zawy1agZ3fNb/UyQrRK09FowflA
-         bqcfqxCX3eyucP87tlb+uEc9uB5yJjR913gfskFyTY1+TbedrvKCV5U6X1LV6gH2LS8t
-         RNCp944+uVSx2Sy7hXZsjXr2Nao+AeW0CMFMYwvwGvBuUKA74gZPl0kWsLw3dWfSIvgd
-         k6XscpJDZ9uCQZc86tniyYws5XyDSBjap3d6RIklnpkYFcVSgRtultdYFcehYRzUyMKv
-         addTjdbDNmHD+TMCnB9J1Djvj0CTP8fNPYXJTA/RWdhdtj3PP9ST65UrUW62/Gq5h5en
-         Zn5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792124317; x=1792729117;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L4MYjMxl4nk9/tU0R8Bn0SAxgenA02VkldF0zXaf2oQ=;
-        b=1kIBL+Yk3mtvYEDEIIMlLKcILnUhT/z4Fk/onlqS116GeONUL5zPvUHvl/lWDn9wx5
-         GV964AMOKopEkpqtzHcf3TIQx+UoHwDjWQEhw1e2qCQozu0AMFL+jYpy4ZSb2fm9ZEgg
-         j6I9Brh4TwMcBBa45J8gKzbckKOqcNWOaMsi1LkQ9KOUiFW1hNRjuzqxZG7ElS8sU+L1
-         WaD81ClEGOAMqtko9Ll6b5uFo8TSQtKm/XeBgoWWp/RHjuYPvQjTediIhssAoOgnjXdM
-         wWLF8Gy1EVsqv0iCqEnHjLFwMlGxG4+2JcIauGqpULQuSrEyJQm+DKONT255p2sBYU6L
-         UDbg==
-X-Forwarded-Encrypted: i=1; AKwUvBx0hIC/5viTl7lQ7ITkz252+UGx+jjQ6LJVag4pVB//RjqDNL2STCwSUmOgLbL7ea1WyqN/icP6I5j1gtQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJSFYqQ8oj9HSPu8qab4GrdVS4ZBui8r86khItkl/kP+LIHLex5
-	sbIyRziUCvxeHaUCXl2MegqHOPLEloHgNBBw83FtvAX0ySuV+k2jcY64
-X-Gm-Gg: AYBFou2ECQnYfCBSh1WUi9YSe+mkP2PbZ6H5tl498PPeEaY7xQEdbQ+rFV2mGB3VgME
-	tCJjDbT7TriQcRi2EysSWPofR7JKqew+NRgaR9dCs8rbL+w2RS2O/o1QhZnE2rA7TcQfVIONx/3
-	sgg8ij9VAatbwtbyxzyd2FRc7bKDGE6nl6DnI+OtBXYZRr4trnnz7hhOBVDUfFjToc0H2uzDeq8
-	VEuF7IfbGavMmtx/u7PAIvnG6PBCPJqG4vtwRmuamklxhaLwJ3dzEtsdBM6uG1brZjgBhD41xDn
-	dNyO/hpfyGIAU3AjOjNW2ool56SBSqxP5c9ydFyStf3SVnao92mAXLpRbLAPyCE0ksP/IOieaJc
-	m9KRjxZynW2BrgMkpkLgfAk/shKTJV4dNBdPMNv5eLMAA6Wvlp8IWEC3FkHUHzpHCtUL8kAt1tM
-	Iq4889oJtHvavVsNbKZsmudWSIWTaQy3XsmzYlgro0ZWB9wQGTCrp6noyrOoqK5ylUb7TDwJjXe
-	TqrThqLyx+6o5IN2q7xETmhFpoQrpgpPQr4ZL8MDip9XRbU/wZRl3Py2ZeIc2tgi/KZgKUxvaIG
-	9W4=
-X-Received: by 2002:a05:6830:a20b:20b0:807:2dcf:5353 with SMTP id 46e09a7af769-842020f96a0mr949776a34.35.1792124317643;
-        Thu, 15 Oct 2026 21:18:37 -0700 (PDT)
-Received: from fedora-laptop ([172.245.82.59])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a111dda4sm849120a34.1.2026.10.15.21.18.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 21:18:37 -0700 (PDT)
-Date: Thu, 15 Oct 2026 23:18:30 -0500
-From: Ming Lei <tom.leiming@gmail.com>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Yu Kuai <yukuai@fygo.io>,
-	Hannes Reinecke <hare@suse.de>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] blk-mq: drop the tag_set argument from
- blk_mq_free_rq_map/tags
-Message-ID: <atGllms8KX7X6Fk-@fedora-laptop>
-References: <20261001-bug-blk-mq-global-tags-srcu-v1-0-e8415da10d1b@gmail.com>
- <20261001-bug-blk-mq-global-tags-srcu-v1-2-e8415da10d1b@gmail.com>
+	d=stu.shzu.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=K3Akf3G/3u
+	8zEPgbWZuKxqlKNU3hSMuCPNtj7j8swgM=; b=Z5kugXTuK0DCXsTFphgc8nDdsP
+	frLbkx1W3zh4P4LE5/MPs//6+Vjq31JAmPVYeaSgKhOkuRwmrpLK91hlQPRV/MiN
+	UDLRPjYS50vnh6pLTiHSYMJG6Rn3KBANFS0270oNFXoy6DD8vpyx0GkcGNze03rW
+	wog89Z5ewtYaYOPO8=
+Received: from localhost.localdomain (unknown [2409:8a50:9417:df90:2d38:f26c:c355:d0a2])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBWmwC4pdFqMzyoAA--.9558S2;
+	Fri, 16 Oct 2026 12:19:05 +0800 (CST)
+From: Wang Xiong <20221010117@stu.shzu.edu.cn>
+To: Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [RFC PATCH] media: imon: stop receivers before shared input teardown
+Date: Fri, 16 Oct 2026 12:18:48 +0800
+Message-ID: <20261016041848.1081-1-20221010117@stu.shzu.edu.cn>
+X-Mailer: git-send-email 2.51.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-bug-blk-mq-global-tags-srcu-v1-2-e8415da10d1b@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkBWmwC4pdFqMzyoAA--.9558S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxurykXF18AF4xZFW3XFy5Arb_yoW5ArW8pF
+	WrWFW3tFWDtr1rCFWDuF4UXFW5Wrs3GFW3u3Z8W3yjg3Z8WFySyayvyrya9a1Uur48AFyj
+	yrZxXws5u3Wku3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK6Ix8MxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8Jb
+	IYCTnIWIevJa73UjIFyTuYvjxU9XyZDUUUU
+X-CM-SenderInfo: qsqsjiyqrqiiux6v33wovk63oohg3hdfq/1tbiAgUICWrQ7rxwqgAAs0
 
-On Thu, Oct 01, 2026 at 05:17:51PM +0800, Qiliang Yuan wrote:
-> Commit 9ad8e5af3279 ("blk-mq: Pass tag_set to blk_mq_free_rq_map/tags")
-> added the argument so that both helpers could reach the tag set's
-> tags_srcu. Now that the SRCU instance is global, nothing uses it.
-> Remove it.
-> 
-> No functional change.
-> 
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Both receive callbacks access the shared RC and panel input devices.
+Interface-0 disconnect unregisters the RC device before stopping RX0,
+while RX1 can still access the shared objects.
 
-Reviewed-by: Ming Lei <tom.leiming@gmail.com>
+An archived KASAN report records a write in the interface-1 receive
+callback after imon_disconnect() freed the RC allocation. The selected
+frames include rc_g_keycode_from_table(), imon_incoming_packet() and
+usb_rx_callback_intf1().
 
-Thanks,
-Ming
+Stop RX0 and synchronously poison RX1 before unregistering either shared
+input device. Keep RX1 poisoned so that a surviving interface cannot
+resubmit receive transfers after shared input teardown.
+
+Signed-off-by: Wang Xiong <20221010117@stu.shzu.edu.cn>
+---
+
+Notes (mail-human-signoff-20261016):
+    This RFC addresses receive-callback ordering during input teardown. If
+    interface 0 is unbound while interface 1 remains bound, a later
+    interface-1 resume can return -EPERM while RX1 remains poisoned.
+    Independent unbind, suspend/resume and rebind behavior needs review.
+    These runtime paths have not been tested.
+    
+    Selected fault frames from the archived report (excerpts):
+      BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave
+      rc_g_keycode_from_table
+      imon_incoming_packet
+      usb_rx_callback_intf1
+    
+    The precise runtime repair of the archived crash has not been verified.
+    No introducing commit is attributed by a Fixes tag in this RFC.
+    
+    Build-tested with GCC 14.2.0 and binutils 2.44 on x86_64, against
+    base 03e2778d1f11de9260543f969e9e888a1c2bf830 (Linux 7.1.2).
+    The baseline and candidate bzImage/modules builds passed. The
+    candidate driver was enabled as a module in a minimal configuration.
+    The original crash configuration and runtime repair were not tested.
+    
+    Related interface-ownership series, for review context:
+    https://lore.kernel.org/r/c922986ec1b360b47165a591b3a539abf3b8792e.1789460680.git.sean@mess.org
+    Please advise whether that series covers this receive/teardown
+    ordering or should be preferred over this RFC.
+
+ drivers/media/rc/imon.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/rc/imon.c b/drivers/media/rc/imon.c
+index 9bb27ba8240f831ff5de42b0df50642b283108f9..e27cec2c103fa919e01656f0ce200bd372c3b96c 100644
+--- a/drivers/media/rc/imon.c
++++ b/drivers/media/rc/imon.c
+@@ -2536,8 +2536,10 @@ static void imon_disconnect(struct usb_interface *interface)
+ 
+ 	if (ifnum == 0) {
+ 		ictx->dev_present_intf0 = false;
+-		rc_unregister_device(ictx->rdev);
+ 		usb_kill_urb(ictx->rx_urb_intf0);
++		/* Both interfaces use the RC device and panel input device. */
++		usb_poison_urb(ictx->rx_urb_intf1);
++		rc_unregister_device(ictx->rdev);
+ 		input_unregister_device(ictx->idev);
+ 		rc_free_device(ictx->rdev);
+ 		if (ictx->display_supported) {
+
+base-commit: 03e2778d1f11de9260543f969e9e888a1c2bf830
+-- 
+2.47.3
+
