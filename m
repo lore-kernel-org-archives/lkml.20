@@ -1,25 +1,25 @@
 Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021088.outbound.protection.outlook.com [52.101.100.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4982C370D4F;
-	Fri, 16 Oct 2026 04:03:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B2136EA8D;
+	Fri, 16 Oct 2026 04:03:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.88
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792123416; cv=fail; b=pctD/o8W2lTF9OJMgFWCtdDgomtjAZAUj+rKKr4JrWU8ItXVjadqWXn2aq0UWXeeKBid2ocdRot/WbD58q9pTwGb7sNQ6uvebDMHTqJbxC1G3IMmmlz3I9lMcvf/vUPkVEZBGLsHRq6fl3iLxVp7SIVcWkinNl8VLkZE8seeNxo=
+	t=1792123426; cv=fail; b=eghYiNyAvngt4oCQzcVdZIyxS2AGO3KLkAX3iWAXI3L9Sb0tKRQgtZM0X82NMnVMGdka40VtzlqXtrSuh9In+UalQDzfR4I7/G7aGvSxPB2G1olLtU78uOZ+mrzSEdZK0iIbu3oBdvx0BfOgE3gjX/V72x01uIWyxYWQtnfeyhY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792123416; c=relaxed/simple;
-	bh=G7YMDci4IQMLXnN923lMkGBE+tIlkPFOzvfC8FnTHCM=;
+	s=arc-20240116; t=1792123426; c=relaxed/simple;
+	bh=RIIHqawolaNGUvszqp7cj3MNR/5T/fumXhW4i+PVsP0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VhBIGjCKPLnoQ8dvL9ITq1eDobRziQZUcSOveuF1YqLsyevSvbJzkxKT1BacAZEhn4sKaaCY0Pl7rwBUh188EZRwZ++AwbFvPTM4T2LOlqkqWkkAT4tFBhVDF/xF1EDswtCxtcQYr8GYRUqDmome9klJjkZv7tsDiOmenyKpzEo=
+	 Content-Type:MIME-Version; b=XRFtXAeB5rG4Ar/xIL7T7nWNEWhQZY2rvVueSgN46fvY5DW2Vt+eOqaUkdnLnbK7M8+MiapUI6QGyCh8TXHwK5vh2woynyYflNybxHjb9RXk5UoIPNVSeOfsDKGM+X693NGREK7Z2jZzgNhpOjzVztl9UkkPAdGeqGITq1cTJUQ=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.100.88
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a45grN5aNwZPP8JxjuquSEfYxI2SlVbKJSlyzpWqEeQ7rJqgwK6HvTJkO9cslFADFs9n/GRGnYkFKEKwuXOlWwknBl3vXy1W+kHH0QN9OAJ72sjOCs0i5m16Ca+nzzhMGIQtSqif7Hbbu1GzvBRReIh8A1n4vd9an7o/c/4M3noiWgUw3rV28ttA4CE0evUT+6hx8KoKIKSBCUAbL0szR2asFPtrTu6qDo+Vpn88OoNFlme4AGrJn9EIH4/lG8Hy6pz4p7tP52pgXlxoQv8IXGlW2r9F92Fm92tQX4tqDLshQMogDOYumRXMKgAiz/UYbThWOVT7bEQ6ALdNNu2V8Q==
+ b=EJj/oEZHGkADGBz14xF72I7PrrXra961aovQ7AoizDbqnOqh4yGjQsMCBxhktZIi4CV3iU8z1/5OlUsMtyEKiinfrdnSWkcPT10yqjUIsRkflkTBmyPMWYKri9WZbMEW/Ow7H3p62x+Trfmp8JKwY8MVG4+4hvlgKF2viBjiQkVjTtlpcyncjDFNP7liEUfuG+X4LfpgdJRoaC6S8ee/89/O23ziFngRE7or73M6OZCHWRuUsv7yVxaRRXZBEjwjCpVHpPRVdEcSkB5yjAg2K3z/e/X0Gyh4D/aBqKMuW1uJcHEDTP6o1nfbR4xfDRsVjYqM4yjHlCK5UwBBvma/kA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=TX/2yRhP5LFzMVsgJhnDlWoSjuJTNcJwx1U8JbBp2d8=;
- b=pb8dpAUbawqndM9Iy2oTs5EfD93wSrA1RfecbIAY4FbZVlEfyW2IYCk3rIBO7TpS2DHtzeiN7XYuovOcrgfsLNX+RBmM6L5L3Zc1QuMWaUFvVaxTVAKmCZem0E1w6Rl4+XfNkdmOzr2J2sKTSSt3ByrikAb8q2LOIFAJHY4ncL+2dmqSp6W4l9Mbzr0+mai9Y5MnL9/42K5FReDDQaJEzQeCQdzVKHG/yfEV31rL6ttzVLHJhoa0VSaUy5acRjmrrWiWFFQAEU/Co7wTVBr55Dp3HwVSkjs5rTERsYz3wBjdAighVcDIpwqRUdgYVDpaJSt2a228DvQw6w+Nh5ROKA==
+ bh=gHf97wnQlxIYbL4rG/VL0RbvYYbqi7lWEpp+DEnyX6w=;
+ b=vk39fxNTDS3Qx11LZAd9RwiHuMbmMT3pfw5IIU/JM5UMPg3i212RFNyNP5dnb6WA/qyYrrM/iVKTBfR0iTqNtHhicIS+yoFfVxDMKsZHF91cE5qmdPcVWrPT+Ujgtzr0Pppkb/G7/0U4hx6+V2KNpzGrCUoRmhzMQtXHtL+cW5AKJgbRsioO9Prk8kdafl7yup6WpSgTUqiVYvxTBnWANtu5ZSBl3Hvzl6K9LZlXEvaI3O5DReGz0RC/5f2WD3limazMNv8Nt2wjVyoTcB/HBC0F3ZaOGfRieweyN9b9s48nhzBzMHM/dtbLqmklnuAKixIzuJUHaJ2sDWyr+lQoyg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
  dkim=pass header.d=atomlin.com; arc=none
@@ -29,11 +29,11 @@ Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
  by LOAP123MB8944.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:491::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Fri, 16 Oct
- 2026 04:03:29 +0000
+ 2026 04:03:39 +0000
 Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 04:03:29 +0000
+ 04:03:39 +0000
 From: Aaron Tomlin <atomlin@atomlin.com>
 To: peterz@infradead.org,
 	mingo@redhat.com,
@@ -47,16 +47,16 @@ Cc: mark.rutland@arm.com,
 	atomlin@atomlin.com,
 	linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH perf-tools-next v6 2/5] perf ftrace: Support filtering return address comments
-Date: Fri, 16 Oct 2026 00:03:07 -0400
-Message-ID: <20261016040310.482876-3-atomlin@atomlin.com>
+Subject: [PATCH perf-tools-next v6 4/5] perf ftrace: Support omitting execution duration in function graph tracer
+Date: Fri, 16 Oct 2026 00:03:09 -0400
+Message-ID: <20261016040310.482876-5-atomlin@atomlin.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261016040310.482876-1-atomlin@atomlin.com>
 References: <20261016040310.482876-1-atomlin@atomlin.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: CP4P284CA0012.BRAP284.PROD.OUTLOOK.COM
- (2603:10d6:103:128::10) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-ClientProxiedBy: PH0PR07CA0026.namprd07.prod.outlook.com
+ (2603:10b6:510:5::31) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -66,415 +66,345 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LOAP123MB8944:EE_
-X-MS-Office365-Filtering-Correlation-Id: d4bd8961-3946-4c52-9f41-08df2b3a6fb2
+X-MS-Office365-Filtering-Correlation-Id: 1f306247-6584-4d39-d1ab-08df2b3a75bb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|56012099006|261009223027099003|10067099003|18002099003|22082099003|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	L5XMsDwWH6RLnAG/07XmScwAXzV/QNn5pAWJoud5ciDpb2GTvYXX38zFlnGi420yexZvLH74v4LfjU5RfbtQW0EiDoggwzXm8fapa30qUDoxphcvCwKF/jaTIjqYxsS/OeJ9zCAQb5WZ9W+eKf885++yChsXHB/rwb2XMUsjvKqbS4oHkioAUdJWkyUSo7rimnYNOXaxCQZKHouRKdjrHDZBj8tlGCykn1LZIzcJugC0iEFbLDZ+k5KMGCC/noNspACQjNeN5HVjPiIA55orPvLyVf8Zd04DbICdDvelX+czrINfXyzpFssZxoPpkkDqpWvwVSQVO3m7qUn4Wt3j/W4pqwJ1A0MOvmh64/FRsU68D9Lim+Y7bfBHSV3TyccC2pz9V3ZRTHe3I3TgGKJRT8ZyGH8dlHNRDdfl7E8GDOBznaqbUzBHax8QTc1H290vC0bTsEuFF6IFx4oB/OOLNvMWVHpKkFY0noU0gz9EtcY7ze0bBjx05yMMj1V8NWI5F91zajx1yZcJQ0R8EX4bYQC1tGEKi/vpJNqBc9scxF2PILi/K5gZo3qNprzh0uBrV0VqwLNzk8eaLo3lSHawGjwvgmA6DUE667915mnTIDrMBSi7zkOQS7kHPbMLbvMTnvcpV6x2yvMCKRsxtm6nSOdNUUixo2HthRyZeOeBaO8=
+	6gcXbJivNyTR3+eWlvm8y9QVH/ga/fhP9MCBUjN53VFxlqHLfxpTkMqQbDWir6D4IF27lvw4GjKiNJuhosyYwSsp9yGvG0NX9+ZLbblXTxS7N5lCGScjPIGRcCSbI7QNcEzgz1PhMSTw+XjVU+w/LciWysDrkGX5F8K843ntafuephfuh78bU1YOOYsKfJ6DuvznuSodB+QcqkqCm31zaOcAULJ0NBbRYhYppr1KCeSovPF8tquBcunNGWrV6Zno7s0hikHtehYSa3tKyaheo3QPHBVEAUZcZFNJL30pDdQJiQVqyQDcIIwbrU+TlxUXCpTnclM5uPPmQP1YmMTtj12LjTpd+wgW7svO+eq029Ea6AzXw+EvvqcmaJdhBMD151nUTPeFQe4qxix/p2Yknhjts6Qup1ntHlRdggpdJLj85/EcfOugIpGKh8r0wsyZ36UBlymiEiqZo89d+VOu+zq70zBObm5zpsEFie969+JzxusygwPh+tehY5LC4pUt6U+C/Ygu51P4P554PV0crzR6Fn8Eb474QuI2kjIsA/9Zex1spME3VjmdH6VsKghisi7lZDUwSDLvKwUwODVzBabXVq/BcdyPW+gefVC3bAetgGtAdhEqkkTEq0J2ThUBxk/59267OsyPtqvIKFEo/leOBUaf6CnFDKF3lyzCugI=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(56012099006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?5Da8oS3Kvirs1Z582l1x3B3njGowQFj58ozkJ8PX6DgS34mA6vnWBwHeUKha?=
- =?us-ascii?Q?dWw6n6QLvzqElwC49y5ZLg37yHyALF0wkXV789QRni+Q56oxAqNaYazdxNu/?=
- =?us-ascii?Q?kI07tix6v8dmuVjARNp7kR0dyHmRp6NZDrXPTDQ0ahZGWOgDkuHGWejKSuGd?=
- =?us-ascii?Q?CmFc7/5Gr+EoMwAmOOaM8BNBf2cCzlAt08/8WGw+Lb+oZWGTGfADpZBlwFsu?=
- =?us-ascii?Q?MbTl8somWcfbawuNTJGYxbxT6r3O/8bfUffrOpfbuPd+F14+5GFMCsfak16l?=
- =?us-ascii?Q?FcOifoXilglKXO4PFI7A9NP4Gn9gPQwGG17KYvKS0CX8HCp6400fRcrbiz/+?=
- =?us-ascii?Q?k7Hz5Bi/kzS0HQmhaHJk4uO+1H8Y955Jqr2/lY0tpZapda+WEcAZD05y6NW3?=
- =?us-ascii?Q?+kT9pM0TpUPZiSJavuauUKkzkxry87qbG3JcKQxy2lV4cUo6rDG0l2gkLiAi?=
- =?us-ascii?Q?BlJfJJn+j8kT6lI0J7n327AE4pBquwneD7XNkEz08sPZBA4ZuhS04wQ301gb?=
- =?us-ascii?Q?fKt4g6/0COPeebdl/sFo9ATliAvyeuXTkc8AKk2S8rL9/5muicuyFobH1D/6?=
- =?us-ascii?Q?iKxH0QEdQxADksfjB82lqEgoJO8zYbHnXQyzziwE0MkcuWX1Cdsch07E7x81?=
- =?us-ascii?Q?R7r+vSOix42zHnIuMILfSZ3G/59S53U6qvI5OMuHLjWhEpxTeNlKHs2fYMzM?=
- =?us-ascii?Q?qYcnuZJRucftn3N49N0BsO4r2yEtrdUrF7qthgnB7Jy5lWmt0jcsxY8oNDqU?=
- =?us-ascii?Q?DLaDzzEp8RXQwSUl7U8/Pv2Ux3mhCy2s/MNBX54gM2mCPb5Km4xg/oMl6L1O?=
- =?us-ascii?Q?4E1nYHz5npwn27eynWxU1w864PHRquatdTL//9Tix8k8weZcywr7esAe9it0?=
- =?us-ascii?Q?fz9foARIEjw2rE5CIH8sNrkOmsNwCNJoShtzRbEwPU6mxKQHf18x2WWWgLtd?=
- =?us-ascii?Q?uWsi/5p5o/8aWtC4r8PffQfSfmWo1oxlmgeKwWEVLITs6bvzAm8Ep/gk0dmX?=
- =?us-ascii?Q?tP7KBHLnHYcDduVySX5ZHLg++/8it8n7EWDieX3bqpuMLJYEKcuY76Ae0XW2?=
- =?us-ascii?Q?GUMJ4rTH6Ujir4t7qFT65k0bV7gzoWi0JkMidBiWGpleJ3P13FY1SsGDmUe3?=
- =?us-ascii?Q?lQ6IO0pta8Pa9Qsxz/Q+SDYGo6diHhUR0vvXf50Os4m0EEQsyTHGTXEPwut9?=
- =?us-ascii?Q?K4jpx/gj7xzvo0U3NmjVjZ/7uue1oeAqX56lgU/h6D9pMR0eJbXb5KpTHc6E?=
- =?us-ascii?Q?SNjpHNLdzMC/CDtVmUQKnzi4ao5f/xTcjSO6NsxB0vvpYDOOxBIL9hDMNL0X?=
- =?us-ascii?Q?bDosrODhJdjeDTVoDAaOqRRJvK7iaaVqlUwnd5wrNNvfqsJ/bY/mudTDbLt6?=
- =?us-ascii?Q?Ku8d7phFR5/W3QIoSJsoxdjrDWNX/IPbfKJ9Og7WmxUOSDiBGNi3OUQx9VMb?=
- =?us-ascii?Q?3kbHpGeszKStto0KK+2juVrxBuc2splGou8zGFtd2sDl4BXzvf5VfLDtIYn5?=
- =?us-ascii?Q?U6N1fMuJJlLHg/Di6HFmi+tChkSH6kLAO4n1dkz8NfCWQU4Ezd2CMh719lE/?=
- =?us-ascii?Q?x/jBni8EibMLd0rF4U6j9IFlSJzKroJxdcG4/BBMui2TlHlUoaHtlOWmoAra?=
- =?us-ascii?Q?sb0u344VfcaMJxEHgLvFFx/uE5avy+IBxVYZMo+e38xZfQKpflqExlaCtV1h?=
- =?us-ascii?Q?jEMiLcc3hiB7T7XLj13rRXolpYr4RFEieaXl/gAvQDCNz9ImMEfSChXwUx8C?=
- =?us-ascii?Q?ijeiqKUORA=3D=3D?=
+	=?us-ascii?Q?7pXQ5aLqz0L+05+tXioyjrpyrnlh7V8+QZaIcYLGXG0dVapZ/gQRJrQp12dh?=
+ =?us-ascii?Q?+oNWJnYWMIMRJCE2m8odpaQCjVbcFUonLXN95CWaXJHfw3vveq+wJuSpVwg7?=
+ =?us-ascii?Q?9x9hVBEDk1JSBBIYBbJt3uCWWJOhz4/VyO6GKtD2KQevBeZ+jqPIF8L4u6d1?=
+ =?us-ascii?Q?9nBuPLR/VhVpBQIt2GCPNAcXt6Zb925AypH1IC6j3A0QBq77svI6F9m+nfKO?=
+ =?us-ascii?Q?mbxD5p7vegh0zA6HaQtfTB0Z1rikVgtaOA6sEJ+2EfF3/eGRmLEBAGm0Guvf?=
+ =?us-ascii?Q?Z5Nkrj2nskrVE/l/pybWVJgKR0GaD9+YPh5Ds/krCiXBRwW4boh9HvvZ6Squ?=
+ =?us-ascii?Q?qunkuhx1VIbAkSicxF2W7It1PHsP+8YKnPgzWJrefan8axSLQ9AXp2xhUgG5?=
+ =?us-ascii?Q?IreCBqX0zTHJ5JQk78djrvROpURU1vWnA1u89PISHwhBC7b07Yn2XteIvrJG?=
+ =?us-ascii?Q?P/OlrEAwF+neLpUthRXbkUzEYfK1bDInfe46xOfCctdvevzvSCNgGY+qQsnB?=
+ =?us-ascii?Q?YGm34fSEFRQqIJijcuKMvZvBMo/LVsSA7xkPxC7cCoZJZQWr/oPaisYOxVuj?=
+ =?us-ascii?Q?LHKHFriGYKuGH3VrXkAk9g3C4wwTCkl6ZlJrme5liMM/kO45lBHxrIrdIOU2?=
+ =?us-ascii?Q?2/pD8QNPsRv0HU30hj+yC91LoTukmaz9xFHYIzbl6s2Q5KBAQ0ya41xwplqD?=
+ =?us-ascii?Q?h5DH6zzisqkwDURh1lRaVr2MAJjAeO4pNsNjKNKm+8vF+Ca+sAuQd9H2keWb?=
+ =?us-ascii?Q?lDwLfn2Q0qcexAkdcwgcmeaWv3DWLvGuwvUKzL/PqLxYLaSXQOWcgZIWjxrj?=
+ =?us-ascii?Q?lWwv4Eu/FiP8ASFy4eLCs+nNxnW95nnaO26Ee75Pe8G0q5obyG3z9XMTajTx?=
+ =?us-ascii?Q?C3btGFvCjIrbrJ5ZmvbnX9ULK9mNyAubfE5UNHnHQCQrvshFFcR+IncrB4UZ?=
+ =?us-ascii?Q?bPpQJ+fuVeu2LlWdzld+bw/sAGcUHY1AKaVXTfJOolzuAnNEyeAiS6J8EvaQ?=
+ =?us-ascii?Q?+F9E96Hzyjn2XJbudSnwQ+WZofAlsdvZDqariBvGiy/NMGgij3SnaFhUItZF?=
+ =?us-ascii?Q?Nf4Jn1F9en4ifwIXORGUp1HtSQbwJDUC2P4SbL5UEZcE4IP8qLdtsY+Sv7Mg?=
+ =?us-ascii?Q?rofuS4gJJuLklXTbKCGjFTkpS/2QXMxrBgNYLhz3Iyp/ePzVez45aJjZlFOW?=
+ =?us-ascii?Q?JD1CYfQMwhCRg+ycfUOTdYKmulHfRMymRY1HmoLDc3VVStH/EWjGNqYQ8S76?=
+ =?us-ascii?Q?8UisCGQZD/kOluQcSeYsfkeuRjKFWhJwkZVa5nvum/KE8Ja2AvsWDyqPDXx1?=
+ =?us-ascii?Q?zPLrezixxn277hLEW6vQm6QjXXI26T36T/SOWm8XPIb2s9SinHmXu9Rs+M3u?=
+ =?us-ascii?Q?7CP/nLc57UcHVIQDtHPyADrbXdee96AN/KQNgH/t2fjfkovDSNWi4zq8VLbB?=
+ =?us-ascii?Q?GnOkvk8ucboSaFpHGcy7qMbCPa//rdceGoiKIJAfL+HOyJH8D1n3+3+lGmba?=
+ =?us-ascii?Q?EYZfcXrNv0VmMqjkxjZFvq0QwLo+Tc8H2cU7neelOAOrtEr+lTHMIp7yI1vG?=
+ =?us-ascii?Q?1mhrCVK7VxOuhdhHa7IBzksx+GrDJBOJr3dkVZzGCLxq8RvjwiduudEaOcPu?=
+ =?us-ascii?Q?x4L23h5S2HyTD7yPuw8mOkIseMlpAbIuvsM/qiT07Dm3K4ZMqyS1XGXrIXkJ?=
+ =?us-ascii?Q?sLp1JKuEpJHNRbQVgqeg3Co6Zi5BQy52PpCXbRLugVfjyJfFYMojmIMM0DRZ?=
+ =?us-ascii?Q?cGOnhMtE6Q=3D=3D?=
 X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4bd8961-3946-4c52-9f41-08df2b3a6fb2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f306247-6584-4d39-d1ab-08df2b3a75bb
 X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 04:03:29.3838
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 04:03:39.5329
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Re/z75Y3CTzKJIKy2ewut68ys7yD9IQtJe3ETql9ygt5P6fHK08j0utBdKw+uKAtFsiehnhiU4nHUYrPz/eiiw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: PI690tkFLpl34gFwu7Cb9kRZrzX53fEDtEmTp7Oi/daWnCuH6YODIhMcwOgFJu+wgOwjHPOsFjHSfdfA4HQn6A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOAP123MB8944
 
-When tracing with the Linux kernel's function graph tracer, enabling
-funcgraph-retaddr records the return address of each function entry as
-a comment in the trace stream (e.g. /* <-load_elf_phdrs+0x6c/0xb0 */).
-While valuable for tracing execution origins, these trailing comments
-can add considerable visual clutter to the call graph, particularly
-when examining deeply nested call trees or when synthesising higher-level
-abstractions.
+The Linux kernel's function graph tracer displays the execution duration
+of completed functions by default via the funcgraph-duration trace
+option. Whilst informative, in scenarios where the user is solely
+interested in the call graph topology, call flow sequence, or inlined
+hierarchy, the duration column can add visual clutter and widen each
+trace line.
 
-Introduce support for filtering out return address comments from
-function graph trace output. Provide a standalone --filter-retaddr
-flag.
+Introduce support for omitting function duration by exposing the
+noduration sub-option under --graph-opts. Consistent with the existing
+nosleep-time and noirqs sub-options, it accepts an optional value, so
+noduration=0 explicitly retains the duration column; when specified
+more than once, the last occurrence takes effect. When enabled, perf
+ftrace configures the kernel's tracing instance option
+funcgraph-duration to 0, and restores it to 1 upon resetting tracing
+options.
 
-Key aspects of this implementation:
+Because the profile subcommand fundamentally requires function execution
+duration to compute timing statistics and call counts, combining
+noduration with perf ftrace profile is rejected with an explicit error.
 
-    1.  Return address parsing and filtering
-
-        Implement ftrace_filter_retaddr() in tools/perf/util/ftrace.c
-        to locate return address comments and strip them in-place with
-        memmove(3).
-
-        Additionally, introduce ftrace_parse_retaddr() to parse caller
-        symbol names and offsets across diverse output styles (standard
-        format, return values, and bracketed addresses), establishing
-        the parsing foundation for subsequent inlined callchain
-        resolution.
-
-    2.  Command-line interface
-
-        Expose --filter-retaddr in
-        tools/perf/builtin-ftrace.c, updating the documentation in
-        tools/perf/Documentation/perf-ftrace.txt accordingly.
-
-    3.  Automated verification
-
-        Add a dedicated unit test suite ("Ftrace return address
-        processing") in tools/perf/tests/ftrace.c to validate comment
-        parsing and string filtering across all supported formats.
-
-Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 ---
- tools/perf/Documentation/perf-ftrace.txt |  4 ++
- tools/perf/builtin-ftrace.c              |  8 +++
- tools/perf/tests/Build                   |  1 +
- tools/perf/tests/builtin-test.c          |  1 +
- tools/perf/tests/ftrace.c                | 80 ++++++++++++++++++++++
- tools/perf/tests/tests.h                 |  1 +
- tools/perf/util/Build                    |  1 +
- tools/perf/util/ftrace.c                 | 86 ++++++++++++++++++++++++
- tools/perf/util/ftrace.h                 |  5 ++
- 9 files changed, 187 insertions(+)
- create mode 100644 tools/perf/tests/ftrace.c
- create mode 100644 tools/perf/util/ftrace.c
+ tools/perf/Documentation/perf-ftrace.txt |  1 +
+ tools/perf/builtin-ftrace.c              | 34 ++++++++++++-
+ tools/perf/tests/ftrace.c                | 64 ++++++++++++++++++++++--
+ tools/perf/util/ftrace.c                 | 18 +++++--
+ tools/perf/util/ftrace.h                 |  1 +
+ 5 files changed, 109 insertions(+), 9 deletions(-)
 
 diff --git a/tools/perf/Documentation/perf-ftrace.txt b/tools/perf/Documentation/perf-ftrace.txt
-index 3f3808e513fe..e8105083e67c 100644
+index 445c8ccc22d2..a50f3bae86b2 100644
 --- a/tools/perf/Documentation/perf-ftrace.txt
 +++ b/tools/perf/Documentation/perf-ftrace.txt
-@@ -134,6 +134,10 @@ OPTIONS for 'perf ftrace trace'
+@@ -129,6 +129,7 @@ OPTIONS for 'perf ftrace trace'
+ 	  - retaddr      - Show function return address.
+ 	  - nosleep-time - Measure on-CPU time only for function_graph tracer.
+ 	  - noirqs       - Ignore functions that happen inside interrupt.
++	  - noduration   - Do not print function duration.
+ 	  - verbose      - Show process names, PIDs, timestamps, etc.
+ 	  - thresh=<n>   - Setup trace duration threshold in microseconds.
  	  - depth=<n>    - Set max depth for function graph tracer to follow.
- 	  - tail         - Print function name at the end.
- 
-+--filter-retaddr::
-+	Filter out function return address comments (`/* <-caller+offset */`)
-+	from function_graph output.
-+
- 
- OPTIONS for 'perf ftrace latency'
- ---------------------------------
 diff --git a/tools/perf/builtin-ftrace.c b/tools/perf/builtin-ftrace.c
-index 65983259b07e..c715cbebaabe 100644
+index cdacf5af14a6..2309ef88ffdb 100644
 --- a/tools/perf/builtin-ftrace.c
 +++ b/tools/perf/builtin-ftrace.c
-@@ -837,6 +837,8 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
- 				break;
- 			for (int i = 0; i < n; i++) {
- 				if (buf[i] == '\n') {
-+					if (ftrace->filter_retaddr)
-+						ftrace_filter_retaddr(linebuf.buf);
- 					if (fprintf(stdout, "%s\n", linebuf.buf) < 0)
- 						break;
- 					strbuf_setlen(&linebuf, 0);
-@@ -874,6 +876,8 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
- 			break;
- 		for (int i = 0; i < n; i++) {
- 			if (buf[i] == '\n') {
-+				if (ftrace->filter_retaddr)
-+					ftrace_filter_retaddr(linebuf.buf);
- 				if (fprintf(stdout, "%s\n", linebuf.buf) < 0)
- 					break;
- 				strbuf_setlen(&linebuf, 0);
-@@ -885,6 +889,8 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
- 	}
+@@ -300,6 +300,7 @@ static void reset_tracing_options(struct perf_ftrace *ftrace __maybe_unused)
+ 	write_tracing_option_file("func_stack_trace", "0");
+ 	write_tracing_option_file("sleep-time", "1");
+ 	write_tracing_option_file("funcgraph-irqs", "1");
++	write_tracing_option_file("funcgraph-duration", "1");
+ 	write_tracing_option_file("funcgraph-proc", "0");
+ 	write_tracing_option_file("funcgraph-abstime", "0");
+ 	write_tracing_option_file("funcgraph-tail", "0");
+@@ -599,6 +600,26 @@ static int set_tracing_funcgraph_irqs(struct perf_ftrace *ftrace)
+ 	return 0;
+ }
  
- 	if (!ferror(stdout) && linebuf.len > 0) {
-+		if (ftrace->filter_retaddr)
-+			ftrace_filter_retaddr(linebuf.buf);
- 		fprintf(stdout, "%s\n", linebuf.buf);
- 		strbuf_setlen(&linebuf, 0);
- 	}
-@@ -1850,6 +1856,8 @@ int cmd_ftrace(int argc, const char **argv)
- 		     "Size of per cpu buffer, needs to use a B, K, M or G suffix.", parse_buffer_size),
- 	OPT_BOOLEAN(0, "inherit", &ftrace.inherit,
- 		    "Trace children processes"),
-+	OPT_BOOLEAN_SET(0, "filter-retaddr", &ftrace.filter_retaddr, &ftrace.filter_retaddr_set,
-+			"Filter out funcgraph return address comments"),
- 	OPT_INTEGER('D', "delay", &ftrace.target.initial_delay,
- 		    "Number of milliseconds to wait before starting tracing after program start"),
- 	OPT_PARENT(common_options),
-diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
-index 395f2866094a..136138932fcb 100644
---- a/tools/perf/tests/Build
-+++ b/tools/perf/tests/Build
-@@ -72,6 +72,7 @@ perf-test-y += hwmon_pmu.o
- perf-test-y += tool_pmu.o
- perf-test-y += subcmd-help.o
- perf-test-y += kallsyms-split.o
-+perf-test-y += ftrace.o
- 
- ifeq ($(SRCARCH),$(filter $(SRCARCH),x86 arm arm64 powerpc riscv))
- perf-test-$(CONFIG_DWARF_UNWIND) += dwarf-unwind.o
-diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-index d2f594921e25..9663f48afb92 100644
---- a/tools/perf/tests/builtin-test.c
-+++ b/tools/perf/tests/builtin-test.c
-@@ -137,6 +137,7 @@ static struct test_suite *generic_tests[] = {
- 	&suite__perf_hooks,
- 	&suite__unit_number__scnprint,
- 	&suite__mem2node,
-+	&suite__ftrace,
- 	&suite__time_utils,
- 	&suite__jit_write_elf,
- 	&suite__pfm,
-diff --git a/tools/perf/tests/ftrace.c b/tools/perf/tests/ftrace.c
-new file mode 100644
-index 000000000000..596cecee844e
---- /dev/null
-+++ b/tools/perf/tests/ftrace.c
-@@ -0,0 +1,80 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <linux/compiler.h>
-+#include <linux/kernel.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include "tests.h"
-+#include "debug.h"
-+#include "util/ftrace.h"
-+
-+static int test_parse_retaddr(void)
-+{
-+	char sym[128];
-+	u64 offset = 0;
-+
-+	/* Standard format */
-+	TEST_ASSERT_VAL("parse standard retaddr",
-+			ftrace_parse_retaddr("kernel_read() { /* <-load_elf_phdrs+0x6c/0xb0 */",
-+					     sym, sizeof(sym), &offset));
-+	TEST_ASSERT_EQUAL("sym name", strcmp(sym, "load_elf_phdrs"), 0);
-+	TEST_ASSERT_VAL("offset", offset == 0x6c);
-+
-+	/* With return value */
-+	TEST_ASSERT_VAL("parse retaddr with ret",
-+			ftrace_parse_retaddr(
-+				"__cond_resched(); /* <-load_elf_phdrs+0x6c/0xb0 ret=0x0 */",
-+				sym, sizeof(sym), &offset));
-+	TEST_ASSERT_EQUAL("sym name", strcmp(sym, "load_elf_phdrs"), 0);
-+	TEST_ASSERT_VAL("offset", offset == 0x6c);
-+
-+	/* Bracketed address */
-+	TEST_ASSERT_VAL("parse bracketed retaddr",
-+			ftrace_parse_retaddr("foo() { /* <-[0xffffffff818534c8] bar+0x20/0x40 */",
-+					     sym, sizeof(sym), &offset));
-+	TEST_ASSERT_EQUAL("sym name", strcmp(sym, "bar"), 0);
-+	TEST_ASSERT_VAL("offset", offset == 0x20);
-+
-+	/* No return address */
-+	TEST_ASSERT_VAL("no retaddr",
-+			!ftrace_parse_retaddr("do_filp_open();", sym, sizeof(sym), &offset));
-+
-+	return TEST_OK;
-+}
-+
-+static int test_filter_retaddr(void)
-+{
-+	char line1[] = "kernel_read() { /* <-load_elf_phdrs+0x6c/0xb0 */";
-+	char line2[] = "__cond_resched(); /* <-load_elf_phdrs+0x6c/0xb0 ret=0x0 */";
-+	char line3[] = "do_filp_open();";
-+
-+	ftrace_filter_retaddr(line1);
-+	TEST_ASSERT_EQUAL("filter standard retaddr", strcmp(line1, "kernel_read() {"), 0);
-+
-+	ftrace_filter_retaddr(line2);
-+	TEST_ASSERT_EQUAL("filter retaddr with ret", strcmp(line2, "__cond_resched();"), 0);
-+
-+	ftrace_filter_retaddr(line3);
-+	TEST_ASSERT_EQUAL("filter line without retaddr unchanged",
-+			  strcmp(line3, "do_filp_open();"), 0);
-+
-+	return TEST_OK;
-+}
-+
-+static int test__ftrace(struct test_suite *test __maybe_unused, int subtest __maybe_unused)
-+{
-+	int ret;
-+
-+	ret = test_parse_retaddr();
-+	if (ret != TEST_OK)
-+		return ret;
-+
-+	ret = test_filter_retaddr();
-+	if (ret != TEST_OK)
-+		return ret;
-+
-+	return TEST_OK;
-+}
-+
-+DEFINE_SUITE("Ftrace return address processing", ftrace);
-diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
-index 9c96f33483d1..1aec32e094c8 100644
---- a/tools/perf/tests/tests.h
-+++ b/tools/perf/tests/tests.h
-@@ -163,6 +163,7 @@ DECLARE_SUITE(perf_hooks);
- DECLARE_SUITE(unit_number__scnprint);
- DECLARE_SUITE(mem2node);
- DECLARE_SUITE(maps);
-+DECLARE_SUITE(ftrace);
- DECLARE_SUITE(time_utils);
- DECLARE_SUITE(jit_write_elf);
- DECLARE_SUITE(api_io);
-diff --git a/tools/perf/util/Build b/tools/perf/util/Build
-index 2c1f880c4c47..5b082d09006d 100644
---- a/tools/perf/util/Build
-+++ b/tools/perf/util/Build
-@@ -169,6 +169,7 @@ perf-util-y += list_sort.o
- perf-util-y += mutex.o
- perf-util-y += sharded_mutex.o
- perf-util-y += intel-tpebs.o
-+perf-util-y += ftrace.o
- 
- perf-util-$(CONFIG_PERF_BPF_SKEL) += bpf_counter.o
- perf-util-$(CONFIG_PERF_BPF_SKEL) += bpf_counter_cgroup.o
-diff --git a/tools/perf/util/ftrace.c b/tools/perf/util/ftrace.c
-new file mode 100644
-index 000000000000..aaf108369c36
---- /dev/null
-+++ b/tools/perf/util/ftrace.c
-@@ -0,0 +1,86 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <linux/compiler.h>
-+#include <linux/kernel.h>
-+#include <linux/string.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <ctype.h>
-+#include "util/ftrace.h"
-+
 +/**
-+ * ftrace_parse_retaddr - Parse return address comment from trace line
-+ * @str: The trace line containing the comment
-+ * @sym_name: Buffer to store the parsed symbol name
-+ * @sym_len: Length of the @sym_name buffer
-+ * @offset: Pointer to store the parsed offset
++ * set_tracing_funcgraph_duration - Set funcgraph-duration tracing option
++ * @ftrace: Perf ftrace context
 + *
-+ * Extract the function name and offset from a funcgraph-retaddr comment
-+ * (e.g. "<-load_elf_phdrs+0x6c/0xb0").
++ * Configure the kernel's funcgraph-duration tracing option based on the
++ * ftrace->graph_noduration flag.
 + *
-+ * Return: true if successfully parsed, false otherwise.
++ * Return: 0 on success, or a negative error code on failure.
 + */
-+bool ftrace_parse_retaddr(const char *str, char *sym_name, size_t sym_len, u64 *offset)
++static int set_tracing_funcgraph_duration(struct perf_ftrace *ftrace)
 +{
-+	const char *p = strstr(str, "<-");
-+	const char *plus;
-+	const char *bracket;
-+	size_t name_len;
++	if (!ftrace->graph_noduration)
++		return 0;
 +
-+	if (!p)
-+		return false;
++	if (write_tracing_option_file("funcgraph-duration", "0") < 0)
++		return -1;
 +
-+	p += 2;
-+	while (*p == ' ')
-+		p++;
++	return 0;
++}
 +
-+	if (*p == '[') {
-+		bracket = strchr(p, ']');
-+		if (bracket)
-+			p = bracket + 1;
-+		while (*p == ' ')
-+			p++;
+ static int set_tracing_funcgraph_verbose(struct perf_ftrace *ftrace)
+ {
+ 	if (!ftrace->graph_verbose)
+@@ -708,6 +729,11 @@ static int set_tracing_options(struct perf_ftrace *ftrace)
+ 		return -1;
+ 	}
+ 
++	if (set_tracing_funcgraph_duration(ftrace) < 0) {
++		pr_err("failed to set tracing option funcgraph-duration\n");
++		return -1;
 +	}
 +
-+	plus = strchr(p, '+');
-+	if (!plus)
-+		return false;
+ 	if (set_tracing_funcgraph_verbose(ftrace) < 0) {
+ 		pr_err("failed to set tracing option funcgraph-proc/funcgraph-abstime\n");
+ 		return -1;
+@@ -1774,6 +1800,7 @@ static int parse_graph_tracer_opts(const struct option *opt,
+ 		{ .name = "retaddr",		.value_ptr = &ftrace->graph_retaddr },
+ 		{ .name = "nosleep-time",	.value_ptr = &ftrace->graph_nosleep_time },
+ 		{ .name = "noirqs",		.value_ptr = &ftrace->graph_noirqs },
++		{ .name = "noduration",		.value_ptr = &ftrace->graph_noduration },
+ 		{ .name = "verbose",		.value_ptr = &ftrace->graph_verbose },
+ 		{ .name = "thresh",		.value_ptr = &ftrace->graph_thresh },
+ 		{ .name = "depth",		.value_ptr = &ftrace->graph_depth },
+@@ -1863,7 +1890,7 @@ int cmd_ftrace(int argc, const char **argv)
+ 	OPT_CALLBACK('g', "nograph-funcs", &ftrace.nograph_funcs, "func",
+ 		     "Set nograph filter on given functions", parse_filter_func),
+ 	OPT_CALLBACK(0, "graph-opts", &ftrace, "options",
+-		     "Graph tracer options, available options: args,retval,retval-hex,retaddr,nosleep-time,noirqs,verbose,thresh=<n>,depth=<n>",
++		     "Graph tracer options, available options: args,retval,retval-hex,retaddr,nosleep-time,noirqs,noduration,verbose,thresh=<n>,depth=<n>,tail",
+ 		     parse_graph_tracer_opts),
+ 	OPT_CALLBACK('m', "buffer-size", &ftrace.percpu_buffer_size, "size",
+ 		     "Size of per cpu buffer, needs to use a B, K, M or G suffix.", parse_buffer_size),
+@@ -2070,6 +2097,11 @@ int cmd_ftrace(int argc, const char **argv)
+ 		cmd_func = __cmd_latency;
+ 		break;
+ 	case PERF_FTRACE_PROFILE:
++		if (ftrace.graph_noduration) {
++			pr_err("Error: 'noduration' option cannot be used with profile\n");
++			ret = -EINVAL;
++			goto out_delete_filters;
++		}
+ 		cmd_func = __cmd_profile;
+ 		break;
+ 	case PERF_FTRACE_NONE:
+diff --git a/tools/perf/tests/ftrace.c b/tools/perf/tests/ftrace.c
+index ece7f4b73f44..6a3702e1992a 100644
+--- a/tools/perf/tests/ftrace.c
++++ b/tools/perf/tests/ftrace.c
+@@ -97,6 +97,18 @@ static int test_inline_processing(void)
+ 		" 1234.567890 |   0)   bash-1234    |               |    activate_task() { /* (inline) */";
+ 	static const char line_verbose_inline_exit[] =
+ 		" 1234.567890 |   0)   bash-1234    |               |    } /* activate_task (inline) */";
++	static const char line_verbose_nodur_entry[] =
++		" 1234.567890 |   0)   bash-1234    |  wake_up_new_task() {";
++	static const char line_verbose_nodur_enqueue[] =
++		" 1234.567890 |   0)   bash-1234    |    enqueue_task() { /* <-wake_up_new_task+0x1d1/0x3e0 */";
++	static const char line_verbose_nodur_exit_enqueue[] =
++		" 1234.567890 |   0)   bash-1234    |    } /* enqueue_task */";
++	static const char line_verbose_nodur_exit_task[] =
++		" 1234.567890 |   0)   bash-1234    |  } /* wake_up_new_task */";
++	static const char line_verbose_nodur_inline_entry[] =
++		" 1234.567890 |   0)   bash-1234    |    activate_task() { /* (inline) */";
++	static const char line_verbose_nodur_inline_exit[] =
++		" 1234.567890 |   0)   bash-1234    |    } /* activate_task (inline) */";
+ 	struct perf_ftrace ftrace;
+ 	char *out_buf = NULL;
+ 	size_t out_len = 0;
+@@ -315,6 +327,33 @@ static int test_inline_processing(void)
+ 		free(out_buf);
+ 		out_buf = NULL;
+ 		ftrace.graph_verbose = false;
 +
-+	name_len = plus - p;
-+	if (name_len == 0 || name_len >= sym_len)
-+		return false;
++		/* Test verbose noduration prefix formatting for synthesised inlines */
++		ftrace.graph_verbose = true;
++		ftrace.graph_noduration = true;
++		out = open_memstream(&out_buf, &out_len);
++		if (!out) {
++			ret = TEST_FAIL;
++			goto out_cleanup;
++		}
 +
-+	memcpy(sym_name, p, name_len);
-+	sym_name[name_len] = '\0';
++		ftrace_process_fgraph_line(&ftrace, line_verbose_nodur_entry, out);
++		ftrace_process_fgraph_line(&ftrace, line_verbose_nodur_enqueue, out);
++		ftrace_process_fgraph_line(&ftrace, line_verbose_nodur_exit_enqueue, out);
++		ftrace_process_fgraph_line(&ftrace, line_verbose_nodur_exit_task, out);
 +
-+	*offset = strtoull(plus + 1, NULL, 16);
-+	return true;
-+}
++		fclose(out);
++		ftrace_cpu_states__clear();
 +
-+/**
-+ * ftrace_filter_retaddr - Remove return address comment from trace line
-+ * @str: The trace line to modify
-+ *
-+ * Find and strip the funcgraph-retaddr comment from the trace line
-+ * in-place, removing trailing spaces where applicable.
-+ */
-+void ftrace_filter_retaddr(char *str)
-+{
-+	char *start = strstr(str, "/* <-");
-+	char *end;
++		TEST_CHECK("verbose noduration inline entry preserves comm-pid",
++			   strstr(out_buf, line_verbose_nodur_inline_entry) != NULL);
++		TEST_CHECK("verbose noduration inline exit preserves comm-pid",
++			   strstr(out_buf, line_verbose_nodur_inline_exit) != NULL);
 +
-+	if (!start)
++		free(out_buf);
++		out_buf = NULL;
++		ftrace.graph_verbose = false;
++		ftrace.graph_noduration = false;
+ 	}
+ 
+ out_cleanup:
+@@ -384,20 +423,36 @@ static int test_column_layouts(void)
+ {
+ 	static const struct {
+ 		const char *desc;
+-				bool verbose;
++		bool noduration;
++		bool verbose;
+ 		const char *in;
+ 		const char *expected;
+ 	} cases[] = {
+ 		{
+-			"default layout", false,
++			"default layout", false, false,
+ 			" 7)               |  wake_up_new_task() { /* <-kernel_clone+0x160/0x510 */",
+ 			" 7)               |  wake_up_new_task() {\n",
+ 		},
+ 		{
+-			"verbose layout", true,
++			"noduration layout", true, false,
++			" 7)   housekeeping_any_cpu(); /* <-ring_buffer_unlock_commit+0x1a0/0x1f0 */",
++			" 7)   housekeeping_any_cpu();\n",
++		},
++		{
++			"verbose layout", false, true,
+ 			" 1234.567890 |   7)   bash-1234    |               |  wake_up_new_task() { /* <-kernel_clone+0x160/0x510 */",
+ 			" 1234.567890 |   7)   bash-1234    |               |  wake_up_new_task() {\n",
+ 		},
++		{
++			"verbose noduration layout", true, true,
++			" 1234.567890 |   7)   bash-1234    |  wake_up_new_task() { /* <-kernel_clone+0x160/0x510 */",
++			" 1234.567890 |   7)   bash-1234    |  wake_up_new_task() {\n",
++		},
++		{
++			"noduration context switch marker", true, false,
++			"   7)  bash-1234    =>  sh-5678",
++			"   7)  bash-1234    =>  sh-5678\n",
++		},
+ 	};
+ 	struct perf_ftrace ftrace;
+ 	char *out_buf = NULL;
+@@ -409,7 +464,8 @@ static int test_column_layouts(void)
+ 		memset(&ftrace, 0, sizeof(ftrace));
+ 		ftrace.use_inline = true;
+ 		ftrace.filter_retaddr = true;
+-				ftrace.graph_verbose = cases[i].verbose;
++		ftrace.graph_noduration = cases[i].noduration;
++		ftrace.graph_verbose = cases[i].verbose;
+ 
+ 		out = open_memstream(&out_buf, &out_len);
+ 		if (!out)
+diff --git a/tools/perf/util/ftrace.c b/tools/perf/util/ftrace.c
+index 96d612d2f1a1..6cdb87b445ea 100644
+--- a/tools/perf/util/ftrace.c
++++ b/tools/perf/util/ftrace.c
+@@ -296,6 +296,9 @@ static void make_blank_prefix(const struct perf_ftrace *ftrace, const char *line
+ 	memcpy(buf, line, len);
+ 	buf[len] = '\0';
+ 
++	if (ftrace->graph_noduration)
 +		return;
 +
-+	end = strstr(start, "*/");
-+	if (!end)
-+		return;
-+
-+	end += 2; /* skip end-of-comment delimiter */
-+
-+	/* Also backtrack any spaces before comment */
-+	while (start > str && *(start - 1) == ' ')
-+		start--;
-+
-+	memmove(start, end, strlen(end) + 1);
-+}
+ 	if (*pipe_char == '|') {
+ 		if (ftrace->graph_verbose) {
+ 			/* In verbose mode, duration starts after the comm-pid '|' */
+@@ -334,10 +337,12 @@ static void make_blank_prefix(const struct perf_ftrace *ftrace, const char *line
+  *   [ abstime |]  CPU)  [ comm-pid |]  [ duration |]  func
+  *
+  * The abstime and comm-pid columns are only present with --graph-opts
+- * verbose.
++ * verbose, whereas the duration column, and thus its '|' delimiter, is
++ * omitted with --graph-opts noduration.
+  *
+  * Return: A pointer to the last character of the context columns (the final
+- * '|' delimiter). Returns NULL if @line is not a trace record.
++ * '|' delimiter, or the CPU ')' when no delimiter follows it). Returns NULL
++ * if @line is not a trace record (e.g. a header or a context switch marker).
+  */
+ static const char *find_func_column(const struct perf_ftrace *ftrace,
+ 				    const char *line, int *cpu)
+@@ -365,9 +370,14 @@ static const char *find_func_column(const struct perf_ftrace *ftrace,
+ 			return NULL;
+ 	}
+ 
+-	p = strchr(p + 1, '|');
+-	if (!p)
++	if (!ftrace->graph_noduration) {
++		p = strchr(p + 1, '|');
++		if (!p)
++			return NULL;
++	} else if (strstr(p, " => ")) {
++		/* Context switch marker: " CPU) comm-pid => comm-pid" */
+ 		return NULL;
++	}
+ 
+ 	*cpu = (int)val;
+ 	return p;
 diff --git a/tools/perf/util/ftrace.h b/tools/perf/util/ftrace.h
-index 950f2efafad2..50216d3fef64 100644
+index 4140902d9de6..d202a09d112f 100644
 --- a/tools/perf/util/ftrace.h
 +++ b/tools/perf/util/ftrace.h
-@@ -39,6 +39,8 @@ struct perf_ftrace {
+@@ -36,6 +36,7 @@ struct perf_ftrace {
+ 	int			graph_retaddr;
+ 	int			graph_nosleep_time;
+ 	int			graph_noirqs;
++	int			graph_noduration;
  	int			graph_verbose;
  	int			graph_thresh;
  	int			graph_tail;
-+	bool			filter_retaddr;
-+	bool			filter_retaddr_set;
- };
- 
- struct filter_entry {
-@@ -93,4 +95,7 @@ perf_ftrace__latency_cleanup_bpf(struct perf_ftrace *ftrace __maybe_unused)
- 
- #endif  /* HAVE_BPF_SKEL */
- 
-+bool ftrace_parse_retaddr(const char *str, char *sym_name, size_t sym_len, u64 *offset);
-+void ftrace_filter_retaddr(char *str);
-+
- #endif  /* __PERF_FTRACE_H__ */
 -- 
 2.55.0
 
