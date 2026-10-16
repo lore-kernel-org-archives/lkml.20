@@ -1,136 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F7643F081;
-	Fri, 16 Oct 2026 10:17:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145870; cv=none; b=nuPhsBFq+/lvi5+1AVo7ha9gvUg8UqVwvvkFAAVO9ilNJvQwhMDQO3jfuEqFqNQ+kjSDsYjKHCzpvz0hkR3XsTk7ECPrQVqx35EOoPllljRr+h+1kBMmYV4096UFiWkNAgvIFyNa45sMG60x1fX8HwpfrXe4QwBe277804Tv+2Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145870; c=relaxed/simple;
-	bh=DSV5U/CGTvXGddicdSkV8DgnBBuH5SeZkd7oku8KTEU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kCIbyKlSIYkUHQAelWp5sNa4C3YWH3LCQ9+Ap3xZEPWnoG+BsHm+27Wn8esUlbRXKA8z4kr6agVv2mRbzOFU68q0Rj6eG6S2mcqpOnh2I2075ILc2fUFXJiaExG1ueHWZXtX6tqNx5XgmKKPGttPrpRF6iK3v8FIVh7wMltfixk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XjcAzAro; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C38433D6CC3
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:18:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792145883; cv=pass; b=mrFllb88yhY+SMvX2GUHP1OWDLqSXucB3CKaFp1lEQIJpLfwU/4FdPIyWXvlmX+rLizQYPLWw48sNbEK0rRXcYvSvK6kmSLvGpPW5jl5Zsj7ohRuwBPOv8UsRzQzszZrL8fhz1CWiSyntZpKz+CtdsLELy+nfIlPewkCrHAzg0w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792145883; c=relaxed/simple;
+	bh=Sj3xvQXzBwK5FlxAyMdrOj5qa7nyHTSMWIZmSF1lNkM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BP7659opPI53ymZQiCPTu7belcKWgvTRDB0RMQZbO9saMKidmMxquvd4wbCRZ6MmepdLkN8bOhb+Tdp57PG1ZgUrbII9E+VdacUlN+I8MJ+pLb1i1xryQJPHF57U7c1JYvkqzgD2PzesvOj6Ro7pjXbaz3gqYWwWGyy1FylUgJg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=OuyEkAcy; arc=pass smtp.client-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XjcAzAro"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EDE61F000C4;
-	Fri, 16 Oct 2026 10:17:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792145868;
-	bh=4GlZJfSFQCbt6wnR4CS/52kHNCF2Ud+mSKD+K+/hEN8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XjcAzAroCTYAGVUB577eaCTlEzRQQ5Np0qAHLQXlS9UxXsNdsHdB1z+DyWkrV9pXe
-	 RJxCUgJ/JjBjD/TSC3j8rjNSq4YSbpxWRt82cGL8CE5qSiEAbQtCy5PJOyh4mO84wl
-	 cXbhtJkfzb2NEZx1otEjLO5IdYwmtyH2xnpyeojeUpDKs5ryI/1WoYqtJsy8rga/j4
-	 oA6tv8i/4og8Xkx7q6xXWS/uv8NdUrm/ISXo/DPMH13GYAuS+I8Mg47k0qHMQ8dmz3
-	 8Keb1V0z8oUjDTP41tsgPAdz1IjODo2DnG5FQp6nAhBNoEPlQeyxCOdxUokRI5tb+l
-	 +RXeJY5T7KFWw==
-From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL 07/19 for v7.4] vfs close_range
-Date: Fri, 16 Oct 2026 12:17:24 +0200
-Message-ID: <20261016-vfs-7.4-rc1.close_range-bfb6cb8d0f6a@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016-vfs-v74-41eaf6c4712c@brauner>
-References: <20261016-vfs-v74-41eaf6c4712c@brauner>
+	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="OuyEkAcy"
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-53396adbc53so27594221cf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:18:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792145881; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TygFj2FvLwTyhzydcZXk1Nrk76AyhvFVL0dTYiaDhuq+ohC6FNmzGIAobXlOz8mwox
+         z/gy03LULzBu6OmGL/9d0R5qYMBz3dQdDCKjVJJHAmfeB66lf372zDxoEOP/j9sBkWGt
+         p6q0Bs7tv4xONmK7E8rv/n7KeRY00g484G6tsj/30ycO/lBced4pKFk4CDFG903toT8A
+         Tn/FraHHsk7BJNtQ546Axbg6LoX/NBTxgqxv369GngfKwuYIFEQcB6Vpprv3xqnBUbxh
+         IfQpGOyr+tmdf8RM6N30v+JJ67bU6yXEL/WfG699NxYosv56WiwDXUJmsvHH6pfa8aVY
+         YkRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=lEC/VqWw8QmnDgQ20hndozyHJsfsJu9lNxjgfFPQVRM=;
+        fh=X8C6VreHqabey0+zNWlimJuOC1ZMYu3Ex+FushugXbY=;
+        b=Hb1UvHZDV8/Gx2SI8eq92AY7TTav1qTrVwJVRZ2qHg76pE7mDhKhA/W1OuisrulTe0
+         ODXCfbyjbxT2/hqX/ARGvdbqOYvTNy7GHqQ4Ial+DTpq5esR2yYOc0E+0TmXHFTxGWG+
+         80r4YrL+5QZoijQSya6Znau9NrwkOUsuD1KizLeRTnMZYc+RdfX0bT4N4ZOmslL3Aqsb
+         VRU7l2PzTEBb1CefJDEn+Vjb3WfaafGM9Tl1y2mxkIKClgCwGuZYY5xEyAq5ZfZPYqWJ
+         s7hBdhi2/RKsCLSlsYFfdEW51wmWJSJ/rDbSJuJjVjm7MVVRN8yhioaJ5kbOaPklHECf
+         Ap0g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=szeredi.hu; s=google; t=1792145881; x=1792750681; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lEC/VqWw8QmnDgQ20hndozyHJsfsJu9lNxjgfFPQVRM=;
+        b=OuyEkAcyVJlp7CN4PsEtbh7AG3bdMUkB2h2Mo4DMPlLZ5T6DyBJ5F+WmZAsaT0PEht
+         v+Rj31FHi9Xfvh/shD6MkxWrQZK0dwC9+6LuB7OfnXBzCtQOnoygHdXjubxwnjjEJP+n
+         /YJjyQjcHj7QqRvGEXGNhxQiKSwfJAb+BxGjU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792145881; x=1792750681;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lEC/VqWw8QmnDgQ20hndozyHJsfsJu9lNxjgfFPQVRM=;
+        b=Hv0/QhVX7eCEBf+AkDtdkjjWmQcfAYpwW3OzwUB8MzGMc1dv6idtNsH+mge3SR50tC
+         nuUNw4oKfiAlOcHjdvMUs/YAwwmcfpj9GPs3GWIIgkLC1kxwJ85TmjshXxRvT0e49+o5
+         FMt2s2IeI6+6167lqbkhFHaDSfhoEif2DU+L6F4C64fTUfo7nS02TCiNl8/udFDMU0tL
+         gx2T0Y4BExucxBw5fF/an/8q5UxNr/ZG7ssC7L71pET9GPPJ4vgjbKc+p9/qviR9L9sh
+         HkLCXsFdGe24Rw7a0GvHOPifFCaZ7oog2c9Gv258uGwUnjM/i/Uh5Ka+gH5Qvo0/NWaz
+         gMBA==
+X-Forwarded-Encrypted: i=1; AKwUvBzzqMaK1HJCFtS94qCUOlx2UUBFlRLEilDY++/iJZ6vzJ2EJXKTvlLtiOY2qO6G+seKvyQq1M9jgzvIicw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLh2smdKhB+SaV8BniZypwrkoKyehrqL2OBhmA9nPfjdMBIAlDr
+	QD+Aq1SLNE/gZtkOqaz45M0aVASKJ4m6l9HkGPsoEPfZgXzbwcQaM+QJsK73FEo7vTU8ITjT0p4
+	JWoNwje9eLuRySzzIJ2qMlCGSm5kRIk7nxPSasYN6tjkevM99JUuY+TM=
+X-Gm-Gg: AYBFou2mumLIwcgyA3vpkCi2B7GSBtWPLBn6PBbvOiwwCPClaacf25A1+0RML29KSJ4
+	/h4sOIsPP3nNUytHzN/QxZoTA3F0nJd+cWlvdTyJtlFbI35sg/fY9WJPZNMO0mXmL1dF4RWRN6L
+	OniJVX9EEBB9vPd3a+ODaeRlqfd9k4HCxHZrGFeg5tKEt6xfyOElSYSLmhi3W7nKKXH8hP9gkKU
+	oahShxeL2z/zU7N5FhsHzY8hwzJ02mwUmITwh++w4mKyOTKC+pZtgSaoqCmy3gf2hc+jRY9c6hq
+	1HgXtJpbJjqJnVV8hJKCUllNbEaO3QvGoOc6OAEDY+NkQ2jecNgI4ZKZXOEccsS9ECH2UswQ0Un
+	GXjHIbSg=
+X-Received: by 2002:a05:622a:1e12:b0:532:c057:9564 with SMTP id
+ d75a77b69052e-5359fab3627mr359378831cf.23.1792145880855; Fri, 16 Oct 2026
+ 03:18:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3497; i=brauner@kernel.org; h=from:subject:message-id; bh=DSV5U/CGTvXGddicdSkV8DgnBBuH5SeZkd7oku8KTEU=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRd/Hmg3LD6iFjVUb0tq3t590stc+euEDzxTInR5WW3x DKWbH3tjlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIncNWb477bK3/Oq/w0xzqvT W/7EpP7d/Pxn5cGsUo+5119Y11Y8vs7IcNQibdsaESPrbbdleu9fv8FR3+PhuFDh29TVj0T2Pkr jYQAA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+References: <pm-fuse-full-objects-candidate-0002-v2-17d6013e5066de33396c@gmail.com>
+In-Reply-To: <pm-fuse-full-objects-candidate-0002-v2-17d6013e5066de33396c@gmail.com>
+From: Miklos Szeredi <miklos@szeredi.hu>
+Date: Fri, 16 Oct 2026 12:17:49 +0200
+X-Gm-Features: AclHuK-GA-MxM9Iu4dlDwiNkLK28UyhPoiqmCUn-nyc9cOB66nsj-BxHZ_7_UWE
+Message-ID: <CAJfpegteiu8+=1QJbHq9Z9BuBHRYnmHAkYn2bMxbxxhNGvpBxg@mail.gmail.com>
+Subject: Re: [PATCH] fuse: serialize processing table installation with I/O
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hey Linus,
+On Thu, 8 Oct 2026 at 08:29, Cen Zhang <zzzccc427@gmail.com> wrote:
+>
+> The processing table of a /dev/fuse endpoint must be initialized before
+> I/O can use it. fuse_dev_open() leaves pq.processing NULL, and
+> fuse_dev_install_with_pq() publishes fud->chan before assigning the
+> table. fuse_get_dev() accepts the published channel without taking
+> fch->lock, so the installer's channel lock does not protect the reader.
 
-/* Summary */
+Thanks for the patch.  I arrived at a very similar fix for this issue:
 
-This adds two new close_range() flags.
+  https://lore.kernel.org/fuse-devel/20261016082243.2865588-1-mszeredi@redhat.com/T/#u
 
-CLOSE_RANGE_EXCEPT makes close_range() operate on all file descriptors
-outside of [fd, max_fd] instead of the ones inside. Alone it closes
-everything but the range. With CLOSE_RANGE_CLOEXEC it marks everything
-but the range close-on-exec. With CLOSE_RANGE_UNSHARE dup_fd() never
-takes a reference on what is dropped. So a task between
-clone(CLONE_FILES | CLONE_VM | CLONE_VFORK) and execve() that has the
-descriptors for the child in one window can shed the rest of the shared
-table in one call and nothing outside of the window is referenced by
-the child at any point.
+Added Reported-by: tag from you.
 
-CLOSE_RANGE_CLOEXEC_ONLY closes the close-on-exec descriptors in the
-range and leaves everything else alone. Whatever the caller
-deliberately passes down, stdio, LISTEN_FDS, an inherited pipe, stays
-where it is. Combined with CLOSE_RANGE_EXCEPT it names the handful of
-close-on-exec descriptors that have to survive, the executable or an
-error pipe, and closes every other close-on-exec descriptor.
-
-Along the way dup_fd() stops copying a range in the middle of the table
-only to close it again. close_range(CLOSE_RANGE_UNSHARE) only avoided
-the copy when the range sat at the end of the table. Descriptors in a
-skipped range are never copied and no reference is taken on them, so
-->flush() isn't called anymore for files from a table they were never
-part of. The flags are turned into an enum and selftests cover the
-window positions, the shared and the private table and the unshare
-form.
-
-/* Testing */
-
-No build failures or warnings were observed.
-
-/* Conflicts */
-
-Merge conflicts with mainline
-=============================
-
-No known conflicts.
-
-Merge conflicts with other trees
-================================
-
-No known conflicts.
-
-The following changes since commit fd73f4a6659897191fa0d40695fe370925dd3780:
-
-  Linux 7.3-rc3 (2026-09-13 14:38:02 -0700)
-
-are available in the Git repository at:
-
-  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.4-rc1.close_range
-
-for you to fetch changes up to c73c0e243836d5dfd1c617f73b6003b1ad40b2d1:
-
-  Merge patch series "files,close_range: add CLOSE_RANGE_{CLOEXEC_ONLY,EXCEPT}" (2026-10-05 13:02:41 +0200)
-
-----------------------------------------------------------------
-vfs-7.4-rc1.close_range
-
-Please consider pulling these changes from the signed vfs-7.4-rc1.close_range tag.
-
-Thanks!
-Christian
-
-----------------------------------------------------------------
-Christian Brauner (11):
-      file: let dup_fd() leave the punched hole behind
-      selftests/core: test the hole CLOSE_RANGE_UNSHARE leaves behind
-      file: rename dup_fd()'s punch_hole to range
-      file: let dup_fd() drop everything outside of the range
-      close_range: turn the flags into an enum
-      file: add CLOSE_RANGE_EXCEPT
-      selftests/core: test CLOSE_RANGE_EXCEPT
-      file: let dup_fd() drop only close-on-exec descriptors
-      file: add CLOSE_RANGE_CLOEXEC_ONLY
-      selftests/core: test CLOSE_RANGE_CLOEXEC_ONLY
-      Merge patch series "files,close_range: add CLOSE_RANGE_{CLOEXEC_ONLY,EXCEPT}"
-
- fs/file.c                                       | 200 ++++-
- include/linux/fdtable.h                         |   9 +
- include/uapi/linux/close_range.h                |  31 +-
- tools/testing/selftests/core/close_range_test.c | 951 ++++++++++++++++++++++++
- 4 files changed, 1151 insertions(+), 40 deletions(-)
+Thanks,
+Miklos
