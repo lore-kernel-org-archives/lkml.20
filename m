@@ -1,88 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F70D370ACA
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:01:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5531E36215F;
+	Fri, 16 Oct 2026 21:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792184494; cv=none; b=CS6ckRdwSIiO7LBDz7NSKX6owqDIXG3/X7XUoi5JOoGNYTk0MwtfMaF993fKe40HAvaS09aKOkYN6UtTWSQZbt2wHBhklTllHRd3qfgPX9Q1DQI6rxiv+PEz0VTq3CYh1FTlGrbM1z6fviY+BbO4AtzUgVzeCHWuFuDNhgiB+88=
+	t=1792184548; cv=none; b=LBm1k3tWU/yN/CkvAa8V4ZdPLSzj60iTqcB/hoLguadt81sGw/hPrk1u0ttBhwU8Ae+lpMWS+g8bq8RtTPYUTNoBlxQc17l6xJ2l/mOYyJ+2LpYW9fKMAApmpnhG5AvmUddYjXPMFhMuBWO1XJ2QgZ6q0ggdShRe0yb8XXNxUmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792184494; c=relaxed/simple;
-	bh=x84aPTx8609GVu9kidYl7vrHKXVzx1OJjssGI8EzzJU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=It5b/+uPt0WlxdC9WAN3SdDk14vRzOwuQjChgsU3e86CPg5xTrXnNcG+4MksEwUsKeGgTphL81yBbZFwATnjnmLVeBb53+CI3BfITLa+NeFMl6W/6TE4dGgpdES3aiX435XUVRTAlln95NZHcXI7X0wMLACsjKrrtRbHkjJZNOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gjmg3vLz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792184548; c=relaxed/simple;
+	bh=BsB5dVBBbTUqF1SgLFU07VClvGySbZppOTm8ooenev8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V6/gimy0ulgG61rJXdZY0miGDkqKJ/wikaqSFsrXE2jexCbZ0tjUEtyVLuyZh+2koW0aVsM4iovf9hW5m/kVjyt4SXlp6DH7QAk7gMZ8WQ0NaXVgC80UG8YyJHwZmCVKvod+eu6VWYv9k0wZ6jsQmu4UzQuEGP76GWGZxujkOPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=4kZXtyNZ; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gjmg3vLz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0A171F000C8
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:01:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792184492;
-	bh=Q3xG/vQ/oHvjXvJdtmtHwaYrf3UPIKtY4II7aIFXNyI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Gjmg3vLzNilF8SOJF0uslQx/s8kO3JMAmo/88NN7rmZ+homAw4ZgRsxX+EbrL0OVL
-	 7c2uxoSR5zouQu/MAQCAlfULSAn/PokD+lUoyYqFsvvMvP4ILhJ/PNp+ppZyoUm9/X
-	 EFlTlIIjJ6P/9j1rJqrUkVGMsn4RMctXTGcDIQu3yaIzIbQj8oCapp9ueZUaXzDoN4
-	 gxPHapusHPhMTQ8RxwvXO83DRZrRG8UWARA7/9y7CEn+c7zEuuuhCjez7OpVs6NlUA
-	 BE6zgl2Qhrbc550uptKBtLrIRY4u1Zh0FgFdM2iRxc7H4Vo6VZjDRHf++JRlrgumV7
-	 DjpgpNlMARJQQ==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ab07d956f2so1681031fa.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:01:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz4L5xT3au3g0IuJsOZ+UJnp7uDi8XSkxqVHsZwl3DY3mzh5RPtsNygDu/J75f5ybpVwMBtuSl+/fO4LOM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGhPqr7G8BHSr+Rnf2HJOh6Y232wOcU7rCS6HsxTAnSfAOirt9
-	BtV2hD75Dl+iJdPou7c1t0YTMA35Kr95HRBL09ZQcb2gnFESWg/gJWeUacN/3qQbbzlvYfP6y6u
-	glmw/zwAsbwQ+3BdjSwWySD7AAoOrVD4=
-X-Received: by 2002:a2e:be08:0:b0:3a9:9b66:c5fb with SMTP id
- 38308e7fff4ca-3ab2940bda6mr2317381fa.29.1792184491585; Fri, 16 Oct 2026
- 14:01:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="4kZXtyNZ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=8Zd+3BcJq9wM1lwqpTFXrmASNhXTBOIJ3TZjQBUIVa0=; b=4kZXtyNZ6FBLVI+lvThyNL2EWi
+	141iNllT9KOx+xRJyv7D3YCrZ8g8olRUqvkO0QxTTvEk/k7lfSnVNv7akoN0Gz1M6RfRfj9edn2Bp
+	+PAb8BQ23fEes5QI7bSGlGMJdgHN2qNSzwPKStWpaVvJFf8ORNeknKmFirmkBb0pxNPM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xHp49-00BDzz-Uq; Fri, 16 Oct 2026 23:02:13 +0200
+Date: Fri, 16 Oct 2026 23:02:13 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jacky Chou <jacky_chou@aspeedtech.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Po-Yu Chuang <ratbert@faraday-tech.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v3 4/6] net: ftgmac100: Require phy-mode for
+ AST2700
+Message-ID: <8087213a-8cb2-41cd-a6f0-16da1e49bf6c@lunn.ch>
+References: <20261015-support_ast2700-v3-0-8d7999171ac4@aspeedtech.com>
+ <20261015-support_ast2700-v3-4-8d7999171ac4@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261016-iio-light-gp2ap002-v1-0-7c93312fa8d5@rudorff.com> <20261016-iio-light-gp2ap002-v1-2-7c93312fa8d5@rudorff.com>
-In-Reply-To: <20261016-iio-light-gp2ap002-v1-2-7c93312fa8d5@rudorff.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 16 Oct 2026 23:01:19 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkSjbMRV_53rjpd1D+vxg=OVVWzVwiddUL0eqmSBoONHw@mail.gmail.com>
-X-Gm-Features: AclHuK_-uCiG2lo-MUzDBEEJ29WextQc6K-sVKLlU4i1vx2eSoj4AmldZKoXnFQ
-Message-ID: <CAD++jLkSjbMRV_53rjpd1D+vxg=OVVWzVwiddUL0eqmSBoONHw@mail.gmail.com>
-Subject: Re: [PATCH 2/3] iio: light: Update DT bindings for GP2AP002
-To: Christoph Rudorff <chris@rudorff.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-support_ast2700-v3-4-8d7999171ac4@aspeedtech.com>
 
-Hi Christoph,
+On Thu, Oct 15, 2026 at 02:46:56PM +0800, Jacky Chou wrote:
+> The driver currently defaults to RGMII when the "phy-mode" property
+> is missing from the device tree. This default is no longer valid for
+> AST2700, which also supports RMII via FTGMAC100_QUIRK_RMII_ENABLE.
+> 
+> Make "phy-mode" a required property for AST2700 and fail probe with
+> an error message if it is not specified, instead of silently
+> defaulting to RGMII.
+> 
+> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
 
-thanks for your patch!
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-On Fri, Oct 16, 2026 at 4:43=E2=80=AFPM Christoph Rudorff <chris@rudorff.co=
-m> wrote:
-
-> +  vled-supply:
-> +    description: LED power supply a phandle to a regulator
-
-What datasheet is this from?
-
-My datasheet for the GP2AP002S00F clearly has only
-VIO and VCC, enjoy:
-https://dflund.se/~triad/krad/GP2AP002S00F.pdf
-
-There is however two *outputs* from the GP2AP002S00F
-called LEDA and LEDC.
-
-These read "LED Anode" and "LED Cathode" and is where
-the IR LED is supposed to be connected.
-
-I'm just puzzled by this patch.
-
-Yours,
-Linus Walleij
+    Andrew
