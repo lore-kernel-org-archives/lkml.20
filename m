@@ -1,102 +1,132 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m205210164250.xmail.ntesmail.com (mail-m205210164250.xmail.ntesmail.com [205.210.164.250])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E4F23C8AE
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:31:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8250E1397;
+	Fri, 16 Oct 2026 00:33:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.210.164.250
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792110681; cv=none; b=iJFVSKHd7xmrmdzj1Z1DZ47g4MmvwcxbCnXoUK5fDqzy3foB5Yb0H4vAosXoCPnuzEDwB+TMq8Ek3iDBjyO/NkTAzLY9oSF5oriSSgUejiZ/g7bKvEIuiX+sHuMr/bK1Rm91w4Iz4Gu/k1yIRtVc6FP4Z6u525doCutC7g1BW98=
+	t=1792110825; cv=none; b=tb2ev5WhqQoKH1jhWe/gs1uxZgSVVgifzqSXl7l0K1fWP2K1EdvT2Fj7idqwxfTDxiRo9RMtaKui3oGac3HZuizFK7i2B11nxIucEJ4ZUSscb36JTlgTYuYA7LBleDg90L95DuQZkO45frHN2HzaBuc9DRBGdyOeeQh0GJKMGMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792110681; c=relaxed/simple;
-	bh=pPpVYZE37MEdXM4A+LvUAcPCWE74zNQfH8gS2u8rINM=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:MIME-Version; b=bpEEYbLQguPXHnFKr6NhUFROqFmZPUEndXYYDoy6O7fRKlAveyW21l2pO5xXekQVuFnu6p6IsO2iEyZvL2JB9eQ1a6mTLY/kjDb1iuG6Pu8W5bLVK9WWJ6QwmpnehA6PV0rx06ROYhOscdaaUDvBkPK9gGdLgrnsRzrpaig8Ybo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dA54Ps/7; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792110825; c=relaxed/simple;
+	bh=WPu+l6nh0kJ+lGMFRxPLZd6gvYfw7HXZAULcSvrEci8=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=Y9Iph0Vvl1pZTKqx6HepvFVwa+MYF+uLovSxeE6jmHvBFKC7J0lLuJEp/LI8XtdUImQ4Xy6U42SUbHwiFIyxK8Kho12h3qPiR4kBEvYhTIqOuatjSdmKZV1Cdaje2SuuWIuNPW84+//8znIpYidU+dlRiwY/bHPx1ef1JqdIsO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=HCvp4J3B; arc=none smtp.client-ip=205.210.164.250
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dA54Ps/7"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-89d6bd67045so314025b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:31:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792110680; x=1792715480; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pPpVYZE37MEdXM4A+LvUAcPCWE74zNQfH8gS2u8rINM=;
-        b=dA54Ps/7pR0FU9wNDr9tY3+FpNTxC29Ck0g7Lx9551UcjbWRuergvCfYwqHsLcci0k
-         psV0muIX38K/9zdQFoVCKZE1QuBHSNFSNJcHGrfhYSkHKdbgpAR/k+6dEMK4jXpl6CeR
-         dfOsI3iMB0v9G3k+hGqStjHifMQklrv5V3tG7rT6Pbl9WQl5Nd747zoKFCwZvskD8vcx
-         By3uujNiVzEnkZnMcewEvCnuM9nwy5SvP8+Z2Yr+/OE+OmmWeJ89NDzyy7U4r8Y25AKT
-         3UJ8/pWZLrLw6U69XeNrydWYhGkvQHY9JPqNx6eNd5x+xdTMs/o2QPCc8f1Z/n9d8dHN
-         PmNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792110680; x=1792715480;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pPpVYZE37MEdXM4A+LvUAcPCWE74zNQfH8gS2u8rINM=;
-        b=ny1yMpr/EuhDZnzDlGZRMpUIZfP9/nv4maRZUW/mYEYtgAg3NQ/xzLqNbHKcrfqiXx
-         UFAdb54WBujwiKGnAHE4itF3xMKlQ/e4Et9pNFjog2y/hZl7r6hkC9L79NXrhiVmvUce
-         rj3wE/jcEsuz4hKWSkC2+ammvWN7N9Fzu8jI3fMCR5Xw+PkvLmsmdAttEE1X6va5+ker
-         dKj/9LdQ3w1zP53JbUHxMzUS90UhhEbbuvfz2FyGMaJa+EvSVBWVU/QG5BM83JzuwHYR
-         ueNwG6zx5o4IfQYH5x8LzrsGE6223LPRHfZ9OAw8ywkp3L7svued3c/rgiSD72RsQtAb
-         efsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzyQTSpDjuGk5PU2+YRdlWgAwiLJ6oEKWgAQJJKsc+otS+t775TG9l5ARheIuegHkOQoW1zvcBQTkQOZIQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6B5hjjSxyRRtmh5hYBxuRI6qsO/V4iQQEFhCjWlPSvaDU7LG1
-	p060e3ENf+b9N8aZ9FCtRIT7v7Ldn/By7v5U0uGk+tkoxSy04c3Im82E
-X-Gm-Gg: AYBFou1TPE6Vc1q/BvMSh1Ogrt51farC/R21INe+tubKPHwvkR+DEETvqPdhYYbt0L3
-	nDG1X84V1i3FOxa2XWhDMSiGtvSz8VBngmallcSe6EK1mCz+uy7+QrMhSSt/IexslbnaohkcLvX
-	+gb1rKjdiZvlEm0QjywuzzcBlcYE8mliQSrk66YZ/Kvxj2+0PQVl4VOX0+qWZuh0e5zPoJWW9SO
-	Dl5kUO3jyvhAwSG1dHRx/WzXBwjsiDjPRAKmTzK7q+aEXkoD6tE/PKXhio7sR1KbiB0wXm1yNN5
-	P9tJSRlBUf0vQhEyNM4GERHRJiydFBUt3P0febO3WefxVx1jEobwyZIDDH6EoDUTjFs1Rs3gmbq
-	CuDskQBYnThOBs8NXeTHjnCtwBZXc0ilifUuiRVq43IHUuKw3nggxRemSV/N4aoV8EkruOMKm/b
-	rf8aYWootml6O6aYeHcfK2DR1Ctf8tdoH5zwH2va2+Y6eyQKn2ctMjbkZVgRo07M2FfHqTcnccK
-	lifsuFUbGd1q2LEkrW0Bb3NiEDY3xR9R7iceijOA3qknD4O4crcuwx1hEPGouIWmG5kzEFkj8+l
-	Z2g=
-X-Received: by 2002:a05:6a00:230c:b0:877:ce59:bd6 with SMTP id d2e1a72fcca58-89f1e9a1c35mr1115329b3a.1.1792110679891;
-        Thu, 15 Oct 2026 17:31:19 -0700 (PDT)
-Received: from localhost ([153.61.198.242])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f57947a64sm275547b3a.41.2026.10.15.17.31.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 17:31:19 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 16 Oct 2026 00:31:18 +0000
-Message-Id: <DM5U7S0WO4CB.72E73EAOUSGZ@gmail.com>
-Cc: <daniel@iogearbox.net>, <andrii@kernel.org>, <eddyz87@gmail.com>,
- <memxor@gmail.com>, <martin.lau@linux.dev>, <song@kernel.org>,
- <yonghong.song@linux.dev>, <jolsa@kernel.org>, <emil@etsalapatis.com>,
- <ihor.solodrai@linux.dev>, <john.fastabend@gmail.com>,
- <davem@davemloft.net>, <edumazet@kernel.org>, <kuba@kernel.org>,
- <pabeni@redhat.com>, <horms@kernel.org>, <jakub@cloudflare.com>,
- <jiayuan.chen@linux.dev>, <kuniyu@google.com>, <willemb@google.com>,
- <shuah@kernel.org>, <netdev@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH bpf 0/2] bpf: Fix iterator link update target validation
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Jan-Gerd Tenberge" <janten@gmail.com>, <bpf@vger.kernel.org>
-In-Reply-To: <20261008161309.8179-1-janten@gmail.com>
-References: <20261008161309.8179-1-janten@gmail.com>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="HCvp4J3B"
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 51398676d;
+	Fri, 16 Oct 2026 08:33:33 +0800 (GMT+08:00)
+Message-ID: <bfe8baa4-e740-4908-9d2a-4defc5240a82@rock-chips.com>
+Date: Fri, 16 Oct 2026 08:33:29 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-i2c@vger.kernel.org,
+ Andi Shyti <andi.shyti@kernel.org>, linux-kernel@vger.kernel.org,
+ Heiko Stuebner <heiko@sntech.de>, "david.wu" <david.wu@rock-chips.com>
+Subject: Re: [PATCH] i2c: rk3x: Disable the controller between transfers
+To: Alexey Charkov <alchark@flipper.net>
+References: <20261015-i2c-rk3x-disable-v1-1-81625845c175@flipper.net>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261015-i2c-rk3x-disable-v1-1-81625845c175@flipper.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa14220df3303a4kunm31bb4bf9443a31
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGhlLVhhMHh4aHUgYS0NNTFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=HCvp4J3BqeW8tRqo6dqlhjxVhHgXindjIk9oimTtEj3E5SxwUCPWKXY2qPa/QlX7fedQWmi+NehpzYlQhIjTeohfO7GNITLnqNzecvfolBOsHQ/R/qUndYVWSMaKtnkYXdsgf01DZyKSl80XMKqkbbyRCpamHG37O4QclElLkSM=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=Ctt3HFSEzRTcfY1DycVxiEiuhDGVs7yfYDgMipksSOQ=;
+	h=date:mime-version:subject:message-id:from;
 
-On Thu, Oct 08, 2026 at 06:13 PM Jan-Gerd Tenberge <janten@gmail.com> wrote:
-> Runtime testing in disposable QEMU guests confirmed that the resulting
-> out-of-bounds access can reach kernel-owned metadata of a separately
-> allocated live map and cause a deterministic kernel panic. Corrupting a
+Cc: + David
 
-Way too long.
-The prog needs CAP_BPF and CAP_PERFMON and it writes past the end
-of the map value. That's all that needs to be said.
-See "Length" and "Impact Evaluation" in
-Documentation/process/security-bugs.rst.
-Trim the commit log of patch 1 as well.
+在 2026/10/15 星期四 22:00, Alexey Charkov 写道:
+> The driver leaves the controller enabled once a transfer completes, and
+> an enabled controller keeps tracking the bus. If the lines collapse under
+> it while idle, as happens when a target's supply is switched off while
+> its bus pull-ups stay powered, its state machine wedges driving SDA low.
+> Every later transfer then times out, since the timeout path only requests
+> a STOP and never disables the controller, and the stuck state even
+> survives a kexec.
+> 
+> Clear the enable bit once each transfer is done, successful or not, so
+> that the controller does not watch an idle bus and starts every transfer
+> from a clean state.
+> 
 
-pw-bot: cr
+I checked the vendor kernel tree and saw another case that you perhaps
+need to fold something similar below into your patch, along with your
+disabling controller?
+
+     In some case，log like this:
+
+     [   12.393926] rk3x-i2c ff150000.i2c: irq in STATE_IDLE, ipd = 0x51
+     [   12.416592] rk3x-i2c ff150000.i2c: irq in STATE_IDLE, ipd = 0x51
+
+     The i2c clock is disabled, so the pending irq clean is not
+     worked. Disable the interrupt after the i2c jobs were done,
+     the error log would not happen.
+
+
+/* Disable i2c all irqs */
+#define IEN_ALL_DISABLE   0
+
+i2c_writel(i2c, IEN_ALL_DISABLE, REG_IEN);i2c_writel(i2c, 
+IEN_ALL_DISABLE, REG_IEN);
+
+
+
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> ---
+>   drivers/i2c/busses/i2c-rk3x.c | 10 ++++++++++
+>   1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/i2c/busses/i2c-rk3x.c b/drivers/i2c/busses/i2c-rk3x.c
+> index fcede9f6ed54..dbf1ed30fda6 100644
+> --- a/drivers/i2c/busses/i2c-rk3x.c
+> +++ b/drivers/i2c/busses/i2c-rk3x.c
+> @@ -1125,6 +1125,16 @@ static int rk3x_i2c_xfer_common(struct i2c_adapter *adap,
+>   		}
+>   	}
+>   
+> +	/*
+> +	 * Do not leave the controller enabled between transfers. It keeps
+> +	 * tracking the bus while enabled, and if the lines collapse under it,
+> +	 * e.g. as an unpowered target clamps them, its state machine wedges
+> +	 * driving SDA low until it is disabled. This also gets it out of
+> +	 * whatever state it was stuck in when a transfer timed out.
+> +	 */
+> +	val = i2c_readl(i2c, REG_CON) & REG_CON_TUNING_MASK;
+> +	i2c_writel(i2c, val, REG_CON);
+> +
+>   	clk_disable(i2c->pclk);
+>   	clk_disable(i2c->clk);
+>   
+> 
+> ---
+> base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+> change-id: 20261015-i2c-rk3x-disable-24672d4f38bb
+> 
+> Best regards,
+> --
+> Alexey Charkov <alchark@flipper.net>
+> 
+> 
+> _______________________________________________
+> Linux-rockchip mailing list
+> Linux-rockchip@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-rockchip
+> 
+
