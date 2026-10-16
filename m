@@ -1,138 +1,141 @@
-Received: from out203-205-221-239.mail.qq.com (out203-205-221-239.mail.qq.com [203.205.221.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-15.mta0.migadu.com [91.218.175.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE04D12B94;
-	Fri, 16 Oct 2026 03:03:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BAEB27A907
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:03:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792119796; cv=none; b=NUQfFmIzl0KKdYtSodUWuaxNgbqx1NRpoKQXHNan34IE17tvkvoVf5is8cL4eCBksIuCdS2qBwgf/OPvHQGw34LMKmSPHkEJELe2Nu+iCOK4A7etmlcoo9lcxcCdR/vqBkxGj/JClYePoksOAyQ4gZdR4GjlOEFfOaaOy2eSuoA=
+	t=1792119794; cv=none; b=kQCfhRcOuE/L+2+D+10sYwX50sBezgYgaIV+VYfhCwLouOvwYF24i4KzdBgmsJUId8K4LGb8kHyoGJtpz3ViT6tKT+/mpBEhJGRUTkhNXfCrkcYKg64To8/E3ydsJTtl9Z4R4qJxKVmJLZdbin0kC33pFHYtNJozFSO6K1exOYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792119796; c=relaxed/simple;
-	bh=c5+Qn0u5dGLKbio/A2LqXctpm57GdwAam5o/vEj+s+I=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=nTcZzpCjOsMtyHox/8vxvMQKfIwsrgFdT0e4rs91TOxg+JiKtqYYzOAOOM2AMvduyD8e4pGa93ziym4vSS8UxXIid/HCJTrvCdrPkgsLLv3+v1miFB3ZTR3+TA+nDze/Db7CktpafLkH5o59ddGQRWTbu7JjBvFqd5emGyClznA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=OKnn/Spv; arc=none smtp.client-ip=203.205.221.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1792119794; c=relaxed/simple;
+	bh=4wygRKFSnqgr6PR5rOi3tKEHsDx4IhZAfPvVtWyXV6w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iUtRxL/0ejINvVqLdrWBd1f4vng1ekgnxplj5o0hDfQpxciGu1U6FanTeAwC79/h5bh409GIFBfwzKgsDXIxTblE2jXY+iAsrP+SfWnsKP5UcDGoCzsw7SH7CBbtu9D+OMEg8m5nNigrus/hB+OJhdq+UuaC/RgcAceyJMykFEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=UyVu8LvV; arc=none smtp.client-ip=91.218.175.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="OKnn/Spv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792119782; bh=Zq3kt9ZuQAllMYj6cXvY63ia8/gcFZEyk9awgZJEUwY=;
-	h=From:To:Cc:Subject:Date;
-	b=OKnn/SpvcZKHIZnylQClOBF/lgeuMnZCHMfhMYucp1VWk8NFIvhkhC5+vrQcBn9h9
-	 sL4IwYU7adwVBpfTKvRYKJu/zO4FX8w7QgxCBz9GnOKnSqk73Bm9uAavWTHf2bm9Ty
-	 9AuPY+MTKWua5iRqhuJzx7f9Vndc4H9AAoCibkoM=
-Received: from kernel-lab.tail5e91bb.ts.net ([223.104.134.165])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id BA9A251; Fri, 16 Oct 2026 11:02:58 +0800
-X-QQ-mid: xmsmtpt1792119778tghfpzqbk
-Message-ID: <tencent_A643419B56079E9A448D97922763FF069F08@qq.com>
-X-QQ-XMAILINFO: MvUAcPkRmFBfwgaTR9JhZbNfSWOrkIDOCz7D3VEXBitmACpX4fnV/d6Rswkgyo
-	 GO6KOlg8JnggKymGW7GohkkMHpaQJtAWGKauGxU1XgvGi+Pv27NdIRmxVnjPHEUQG0/abCL5sNax
-	 dns7uLy+sWUbXExmam9fsTMZmMsScwQqgS1neJky5lfeRFWx2C1hCuX7lpanVxiyrl1VnEChOjc7
-	 8S+1YGhZ6fSug4t0yOBozU0yGGaqLsroL77Fy/uzSvQrLn+Jxp3Buq7Kn91VXqyoP+1SxIp714zX
-	 ohfmzWqLa2NcL2NJw4F7sMBOnGaEw1+ti64e0s1Br/EuD0g12kuEl4JfbjTK7FlwJaSw49c+J5NV
-	 N+Dte5MtUe2qM+IVQfLGNW+zU8M+ZobtBVriIEGlR6W0fUlznz+akUrUgqmewT7qXDfVrHEjgAS8
-	 4aF//rBUlBX+JDXQanToGrIX4sK7Vnq+RDxNXXi0PLEAWC+SntP2rHpKM9esUxtGMlRqzczF/lbU
-	 648styimpP6ViF0FXZk2k5GL0GpeaKg8SOXwuV4fMsbdElYdfGbbjOsR8jtH41lfjRIe+FmP6VYU
-	 8+y8SIhFVc6qx++G3ZmlBXInWPJjQ+3sjlwFB4QghgPjZJVkooAdhaWMHoSGrgsgfZ1Xy/ocCzCs
-	 f9AK6a2O6K2GglLgtBhHJgkbVHQascHQ0HCojVEdO8mjs9zAt9s6I3MCqW7M0cOvAPa87oplq+Ti
-	 gYWCtf+SdgPCu/RYrZl3KeZMEgP+R3Co8JuZIw59P6lRZ37Txj1lJmwraWMVvqbFZLugQJFoY5cG
-	 gCtWb6ycRAo4NHw24fDyK4gxpaII7CRYuIC+58SNi5NZ/KmG83SQ4szIZIhOCsBT26OUpRkiyJ0p
-	 n5TynIOCvf61ww4I8o1Tu8VsgIt/9oduFPIMmCNjwp4VpxVw61AVHQkxZyEk3uWsxGUqyDDDenu+
-	 jdNqu0z9CBgi+qB+g4l5M2PFBNtGXVCcwRLZyP/MViFhQ7PKkoMm8eFEuzNNr7Lne+VUq0Mfl1ZQ
-	 de0knfaWXw6354s89nJ0pcUaQbgPggiGbo55jEKDEi2oRkNjaiLZh6frD18JslIiwqENIwYA==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-From: Yingjie Wang <1075151112@qq.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	corbet@lwn.net,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	stable@vger.kernel.org,
-	kuniyu@google.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	Yingjie Wang <1075151112@qq.com>
-Subject: [PATCH net v3] net: unix: reject negative max_dgram_qlen values
-Date: Fri, 16 Oct 2026 11:02:58 +0800
-X-OQ-MSGID: <20261016030258.2027522-1-1075151112@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="UyVu8LvV"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=4wygRKFSnqgr6PR5rOi3tKEHsDx4IhZAfPvVtWyXV6w=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792119790; v=1; x=1792724590;
+ b=UyVu8LvVi9FBljEix6kcgd/o2rQR7UMjRVbX86NR/5frH/B+RQnMOIeVAAFC1C1tfkxjm0pM
+ N/juytQyF1fOgcpLwROY20Axskw4x0X9FW/F0TN56cGiGX8BzcTgH9KGVOFqiE4PTWb/Iq/XV74
+ 1qbaB7f5c/B0sMOITmxB+MCPKScKAbuviCVQPXaE2po5+tpX5UPlTuPhXPajaqi97N0NVcX6sgd
+ m0tcNrvfjRIPysFyRrSDBbMdi3ES3HYxT7tKjj3K6lJY9mR2pLQp4QGkdEN128pvde/pDWFqh+N
+ yODkxwWde/gcZukmtFykyj9I/kxgwkQDd110+SlLzNh3A==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0d9d1dbd2876dfe1;
+	Fri, 16 Oct 2026 03:03:09 +0000
+X-Mizu-Trace-ID: 0d9d1dbd2876dfe1
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <5f0ee2bd-1b2b-4745-a547-83708b977544@packett.cool>
+Date: Fri, 16 Oct 2026 00:03:02 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/8] PCI/ASPM: Add pci_force_enable_link_state() API
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Bjorn Helgaas <helgaas@kernel.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Rob Herring <robh@kernel.org>, Nirmal Patel <nirmal.patel@linux.intel.com>,
+ Jonathan Derrick <jonathan.derrick@linux.dev>,
+ Jeff Johnson <jjohnson@kernel.org>, linux-pci@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ ath11k@lists.infradead.org, ath10k@lists.infradead.org,
+ Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+ Qiang Yu <qiang.yu@oss.qualcomm.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+References: <20261013163107.GA1522779@bhelgaas>
+ <2517d322-9e5d-5b81-aa67-56705879be74@linux.intel.com>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <2517d322-9e5d-5b81-aa67-56705879be74@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-net.unix.max_dgram_qlen is parsed as a signed int and copied to the u32
-sock::sk_max_ack_backlog when an AF_UNIX socket is created.  Consequently,
-a negative value such as -1 is accepted and converted to UINT_MAX.  Since
-the receive queue length is also u32, its fullness check cannot become true
-for that limit.
 
-max_dgram_qlen has no documented negative sentinel.  Its existing signed
-interface represents nonnegative values only through INT_MAX; negative bit
-patterns are not a supported encoding for the upper half of the u32
-consumer range.
+On 10/13/26 2:42 PM, Ilpo Järvinen wrote:
+> On Tue, 13 Oct 2026, Bjorn Helgaas wrote:
+>> On Tue, Oct 13, 2026 at 02:41:32PM +0300, Ilpo Järvinen wrote:
+>>> On Mon, 12 Oct 2026, Bjorn Helgaas wrote:
+>>>> On Wed, Jul 08, 2026 at 04:30:16PM +0200, Manivannan Sadhasivam wrote:
+>>>>> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+>>>>>
+>>>>> pci_enable_link_state() and pci_enable_link_state_locked() APIs only enable
+>>>>> the ASPM states that were not previously disabled via
+>>>>> pci_disable_link_state*() API or blacklisted during init (e.g. the pre-1.1
+>>>>> device blacklist, which is only meant to be overridden with
+>>>>> 'pcie_aspm=force'). This is an intentional behavior as these APIs must not
+>>>>> silently re-enable states that were deliberately disabled, since doing so
+>>>>> could enable ASPM on a link where it is known to be unsafe.
+>>>> I think this is saying that many uses of pci_disable_link_state() are
+>>>> to avoid hardware errata, i.e., these are basically quirks, and we
+>>>> should *never* enable those ASPM states.
+>>>>
+>>>>> However, some drivers (e.g. the atheros WLAN drivers) save the currently
+>>>>> enabled ASPM states, disable all ASPM states before firmware download, and
+>>>>> then try to restore exactly the states that were enabled before. Restoring
+>>>>> those states requires re-enabling states that were just disabled via
+>>>>> pci_disable_link_state() API. But, this cannot be achieved using the
+>>>>> existing APIs.
+>>>> This sounds like it's also for hardware errata: if ASPM works
+>>>> correctly, there's no need to disable it during firmware download.  I
+>>>> think this is *only* the atheros drivers, isn't it?  I didn't see any
+>>>> others.
+>>> There are more that should use disable/enable API. In addition ath*, I had
+>>> also these in my unfinished series:
+>>>
+>>>    brcmfmac
+>>>    ib-hfi1
+>>>    rtlwifi
+>>>    rtsx
+>>>    r8169
+> [..]
+>>>> Instead of adding pci_force_enable_link_state(), I think we should add
+>>>> a new interface for the *quirk* behavior that permanently disables
+>>>> states.  Then pci_enable_link_state() and pci_disable_link_state()
+>>>> could be made symmetric.
+>>> My suggestion is to make the disables/enables counted per state which
+>>> would allow parallel sources of disables to function without clashing.
+>> By parallel sources, are you thinking of sysfs and driver calls?  If
+>> locking would be sufficient I think that would end up being simpler.
+>>
+>> But maybe the issue is these devices where we think ASPM breakage only
+>> happens in certain circumstances, e.g., firmware download, so we want
+>> to keep states disabled for that period.  Then I guess locking inside
+>> the enable/disable doesn't prevent sysfs from enabling those states
+>> during that period.
+> There are (at least) these sources:
+>
+> - quirks (disable only)
+> - hw has ASPM related problem at certain phase of operation
+> [..]
 
-Switch to proc_dointvec_minmax and make the established 0..INT_MAX input
-range explicit.  This rejects negative values without adding new accepted
-values or changing the default and zero-value behavior.  Very large valid
-values can still make the queue limit impractical to reach; this change
-corrects the input domain rather than imposing a new resource ceiling.
+FWIW, one not-yet-merged user is this patch that disables ASPM around 
+link retraining for bwctrl on host controllers that do require that:
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
----
-v3:
-  - Keep the signed backing type and preserve the established 0..INT_MAX
-    userspace range instead of extending the interface to the full u32 range.
-  - Add an explicit INT_MAX upper bound and document the accepted range.
-  - Clarify that the change validates the input domain rather than imposing a
-    practical resource ceiling.
-v2: https://lore.kernel.org/netdev/tencent_9FDB4FAAFE9F3EF38210AC963C73897A2E09@qq.com/
-  - Change the backing value and handler to unsigned.
-v1: https://lore.kernel.org/netdev/tencent_4AD5738B48FDD2FC84E21FE59338C8DBAA05@qq.com/
+https://lore.kernel.org/all/20260819-bwscale-v5-1-6dea79786b37@oss.qualcomm.com/
 
- Documentation/networking/ip-sysctl.rst | 3 ++-
- net/unix/sysctl_net_unix.c             | 4 +++-
- 2 files changed, 5 insertions(+), 2 deletions(-)
+That particular version of the patch was already written assuming 
+symmetric enable/disable and I hit that when testing it, so here's an 
+example of the potential trouble :)
 
-diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
-index 208f469..776a3f7 100644
---- a/Documentation/networking/ip-sysctl.rst
-+++ b/Documentation/networking/ip-sysctl.rst
-@@ -3821,5 +3821,6 @@ l3mdev_accept - BOOLEAN
- max_dgram_qlen - INTEGER
- 	The maximum length of dgram socket receive queue
- 
--	Default: 10
-+	Possible values: 0 - INT_MAX
- 
-+	Default: 10
-diff --git a/net/unix/sysctl_net_unix.c b/net/unix/sysctl_net_unix.c
-index 47660d5..fa1fbae 100644
---- a/net/unix/sysctl_net_unix.c
-+++ b/net/unix/sysctl_net_unix.c
-@@ -19,7 +19,9 @@ static const struct ctl_table unix_table[] = {
- 		.data		= &init_net.unx.sysctl_max_dgram_qlen,
- 		.maxlen		= sizeof(int),
- 		.mode		= 0644,
--		.proc_handler	= proc_dointvec
-+		.proc_handler	= proc_dointvec_minmax,
-+		.extra1		= SYSCTL_ZERO,
-+		.extra2		= SYSCTL_INT_MAX,
- 	},
- };
- 
--- 
-2.43.0
+
+Naming suggestion: if it ends up being that counter thing, it should use 
+the verb "inhibit", like idle inhibitors in userspace. Those are 
+commonly understood to be counter-based ("as long as there's at least 
+one inhibitor, the state is disabled") and temporary.
+
+~val
 
