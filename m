@@ -1,203 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011013.outbound.protection.outlook.com [40.107.130.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7E74DDB27;
-	Fri, 16 Oct 2026 15:56:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166201; cv=none; b=hwfa7wgT8GHjiX/IlYGyDi2+XZF2a3qcqQuWKEu0EJUk7GjpPJ5xpgG6UEfn05N4TZmYiQ/CyTE1z474SwvPv/yYyN/jM0sdPDnZfPxVltCiVx9/OspC3otg87f9suKByqXACtGonmQIZsvC4zaQ6OFwhj1PKNUMzPS0sbPB6Hs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166201; c=relaxed/simple;
-	bh=T8y7cKssUYL8zOci4FWAI+FBzLXBMiwRTUnMKVq7KUc=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=S2s686kc0XiLIdrofsHhpAZvVs90VeT6KITlPkkQhNGpVcGwzKNRTZgngVZ82UFnq/+thKn7ETjy+rxC8gs4sJNIIq4tAzKGps2eoICyPlQ2swCbABuR2no5b9kQl9YmVwWfsMrxsaEhTwk8Uf3FDdUiR/jbniVWM9iKY9RY6Kk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UmuKQWaY; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D336B4E8DE0;
+	Fri, 16 Oct 2026 15:56:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792166209; cv=fail; b=BmHk9EgghRi2Xmj9Vl9p5DbXBb+teI5u7rJ33N+MAtw039EHvf/VqPLbw5ZrVQpPmo7FrcGqmpJvz8utai3dc/DZqHIxlhRxdX98uQYPr19UNuHyQjx/xPEzU+2HzuAGDt836WG80BA+nfLPmJlQ3A+3qSsfJGoF3EcBMIRHQrk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792166209; c=relaxed/simple;
+	bh=smWFxD6EoY1wszDOPe6XKG/Y94FYDPHX1vrclGpiZuw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=gw75XRf+7tJfMZ++YAuJMGAXepjloBtuk0PFOW/z+e7BPgmrFspnlNE9acOL+zS18eFdK8c/FnI5+4s6Ev06IVZEdcvWH/0XaUxIeTMe1xLZ+cW1wkeXOWAvSeuwiyYL5UXPVVMM3xI/AqTNeO81MyG01IZ7ponbNPITXYVz32c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Xot/9NIw; arc=fail smtp.client-ip=40.107.130.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UmuKQWaY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE00D1F000C8;
-	Fri, 16 Oct 2026 15:56:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792166200;
-	bh=yQB95Af/E5XMUzOd1o5+dg+Sf+tk922WnkyKACk5+dk=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=UmuKQWaYNhLCoCDvX8WEM8hcq42dPkmZLFhcpxMHA9x4utlhotv8Bfcq7o95hJPdW
-	 6T/dj2i5BbBlVux21pmLg1iLWVp6sHNB16FtiGhm3HHocacX8aFrMe22vLhymGO61i
-	 vwVp6MCiq0eEs1kmPrhNOe0G6zdszUocUkFZMnqReoCov6qfl8hMtpmC3Davhncqzt
-	 oAMLe5wkyi2OB2xZgrkIFSw55eN9G3P9AVt6oOCJJGslVO13upX34dD1vtLkLgdUSp
-	 Lt3EtlPqIAjBbA1l2WRFTj2nJJkQW5fMJdHu84tYstWAH7xoecALQ7//2O+jIyGGcE
-	 otrQO9Fmp8DGw==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 5BE5D198003A;
-	Fri, 16 Oct 2026 11:56:37 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Fri, 16 Oct 2026 11:56:37 -0400
-X-ME-Sender: <xms:MUnSakfzuYcWJiut2WUllz8GSqbeg6MbLu_a5l4pnrpc8TB1nfparg>
-    <xme:MUnSahAzwY0W75fa-KrgEywqTeSBGUZCz6OP-8S7VesWAbLiyWSBEiQhbMW1OBw6k
-    J_3S6DxFjLikGSirWPuZFvH3TOxTOaAltcFZhIGwd2DBEyNka00OP3O>
-X-ME-Proxy-Cause: dmFkZTEd5A+po8hRzEuoSl6lbgWNmZNleZYJTjJeD+qXa20JbnLlhSKqyEW8jLoFYvJcYn
-    SBmRcSI98oQZwgbaCtIhnWqdvYVVA0ib8iDey8x+O5Cqyi9T6c/SVIONSslSft+LfU3yH1
-    crV0TLVqX2UkylxZgHGr/NSrLqmqU8MPwtxiAR3xM2a1rXr9uz//kHZ9RLGThEPck1N8iu
-    YRCOpVisIQWp2Q3eHYq22vIaFRoGWqw3Sf3T+hfcZEsm3F8S7ROqwnz0S1XDQvN/0jhCA9
-    Fusj2a/avYvPwAT0N1a5zJ3wG+Tp/KDi1XpMUotrdDVrep7Upus2yIlRmt+5KYEdGZefWJ
-    RKcsokkX02LxsGbxe0bRU26k5WR0xvX2ls5b5USByHtU9BiQ1LAJqHm4el5XC9wmQOZQHa
-    x1ywvLsPo5ptomQFkjsTWfA8ZM7HZC5iYrMPrX0uRu8V/GhFlCZf43vPGEvY3IPyRDAQwi
-    hBU50uLFSoX0IJXDntBvLX8/ssDVhMBKYsrjhEmc6Q7zb1LUwh7h7WWBqj2dg8g2vxsbt0
-    E3zVcGle6vkdNxsjfKx0YirYMuE33spaeySunshr96xjKEknsJ0YmCJoJk/kRzzvI1dex/
-    v1dOZe0+oJoGx1y+QWSjGWy1irTZptXN1YhtohsK0d6xjCKdfapS6Z8wBIvw
-X-ME-Proxy: <xmx:NUnSaroYEdU46thzMj9KCjPtsyJT7GhrjOISMsvF2_aZLZZU54xQMg>
-    <xmx:NUnSahtU9Sgb1KGPYTnzsfWmgSsvEJdWZ9QQY9XfRILG_5BvjKAQZg>
-    <xmx:NUnSajgHWCZp7C29Jk66411JPGXC77Uxz47AlJock2TjHPBIiRSUHg>
-    <xmx:NUnSat2_A6ZknAC4W2Fr_OAirIJFVjZjyTPnu9V-tCMApqCbWvih-Q>
-    <xmx:NUnSaj--l7QickoLRbAHz_Lfhp3Del5G5AuZ83LPZ75dnxseGIouatg4>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 5291AF8008E; Fri, 16 Oct 2026 11:56:33 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Xot/9NIw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=T61tI4vwbf9/vIDSD9zKHEePqH54yde+fhQeTT+jNEN8I8z4F5nYIDdIJuhAue9iRGtnh2g8Q7zgPAUd4/nAA5SGbwfp5So16p7E/dql00MScexqES5iaqoVrs5eFYp/oVplx67xp7OgLWaM0dkO7qyglHbhcQD+zzNMx0ZdNsgfiOle2jdBC4OACgqBQMhJkFghkDnU+JSJ+qEK77DeEBcYGEDG2NA5Mx+rH8ROPxQKQMiNf+jPtSLOJXPkNGV3nXvZklUvA6yIyz7UDEBExM3rlnV8Evj10Pe3DEF221SgE89843ME3DTA8dQ56s5WRD6jX3zCZCZeA0dV9PbOhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uSxo511YdW/EufdQ2X8JZsJI6HKqzAzvvV+EezNsWfM=;
+ b=gg8J3vWivHe6UGgTME0w2+C5Od1oQjP6iLCbq+H69bEPblRHDAJmr1JiM+bpSK0hc34iiACIKVEwgdRuLYDZ1LqtqW5TC75xdqo7I4d1L00jRsceDbcSY6Ut2r6gaUrFBe3cL441ABAtQQA60v5I9YsAVdgmNlX9GQDNAbMGlNzz12YfsiznQ2wjyUhJSuokvI0P97SiTCBc+HAbmHhiLATS/UZ3+0tHw01qpWCrcM9cLfkZ/3fheoRE6kkvvncEogEHJiWWh88J/LbSzx3EeDLiNWAug+hGpkUlITm3jiFxNLJ3M7vyaMAPWANuv/tIiBJw884JDO2AgB1XaLtXVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uSxo511YdW/EufdQ2X8JZsJI6HKqzAzvvV+EezNsWfM=;
+ b=Xot/9NIwThvcx/2MAadR+ETWXfLugPujQV/sjSXr8sIUFNgaicGQl+4w5kY1pDgMJ8xtz19tX6wxbSfbmhDAn773+fR7FAbcp4G3li04sK8yVX4WLpq1IDvFggQT5prY0xUXeYSj9DX4FkTTl5VT5qzhlyS7cXb8xsWGA9yFV0LVidOwMRoQjsluXlTO2cn4uLfbdeb23GK7hbAMSebRml1zwfTm2qUvw740jm10tnVC6Mz0f2maD6d960UQoDAPqTN4QYkx8XMfZPQPo+z0E4LQwCgfw9mLZLAF6Sw1pQ2d0tCI0pT0lAcjpPOu9Zo/PEgx0hi4ZatrSoJBuXdoFA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA4PR04MB9688.eurprd04.prod.outlook.com (2603:10a6:102:271::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
+ 2026 15:56:42 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
+ 15:56:42 +0000
+Date: Fri, 16 Oct 2026 11:56:36 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Brian Masney <bmasney@redhat.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2] dmaengine: qcom: gpi: correct gchan in error paths
+Message-ID: <atJJNN-BfkgVGlZH@lizhi-Precision-Tower-5810>
+References: <20260708-qcom-gpi-err-fix-v2-1-49c9be055501@redhat.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708-qcom-gpi-err-fix-v2-1-49c9be055501@redhat.com>
+X-ClientProxiedBy: DS3P221CA0004.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:8:45e::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 16 Oct 2026 17:56:13 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Jason Gunthorpe" <jgg@nvidia.com>,
- "Abhishek Shinde" <abhshinde@nvidia.com>
-Cc: "Mark Rutland" <mark.rutland@arm.com>,
- "Alexei Starovoitov" <ast@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>,
- "John Fastabend" <john.fastabend@gmail.com>,
- "Andrii Nakryiko" <andrii@kernel.org>,
- "Martin KaFai Lau" <martin.lau@linux.dev>,
- "Eduard Zingerman" <eddyz87@gmail.com>, "Song Liu" <song@kernel.org>,
- "Yonghong Song" <yonghong.song@linux.dev>,
- "Jeremy Linton" <jeremy.linton@arm.com>,
- "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
- "Simon Horman" <horms@kernel.org>, "Gerd Hoffmann" <kraxel@redhat.com>,
- "Vitaly Kuznetsov" <vkuznets@redhat.com>, "Philipp Rudo" <prudo@redhat.com>,
- "Viktor Malik" <vmalik@redhat.com>, "Jan Hendrik Farr" <kernel@jfarr.cc>,
- "Andrew Morton" <akpm@linux-foundation.org>, kexec@lists.infradead.org,
- bpf@vger.kernel.org, systemd-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Message-Id: <5236ef55-28b4-4331-8c7d-a6d112aa185f@app.fastmail.com>
-In-Reply-To: <20261016144121.GA439341@nvidia.com>
-References: <20260322014402.8815-1-piliu@redhat.com>
- <20261011201325.GA918242@nvidia.com>
- <722bd9d8-5620-498a-a6c2-d9a1f498e0b7@app.fastmail.com>
- <20261014000227.GV13920@nvidia.com>
- <8fb05f13-e770-41a4-af66-d239b4c95201@app.fastmail.com>
- <20261016144121.GA439341@nvidia.com>
-Subject: Re: [PATCHv7 00/13] kexec: Use BPF lskel to enable kexec to load PE format
- boot image
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA4PR04MB9688:EE_
+X-MS-Office365-Filtering-Correlation-Id: fd7283d1-057d-4c5a-6bfe-08df2b9e127a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|366016|376014|1800799024|6133799003|18002099003|10067099003|22082099003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	c/uArwt0zbQiVO9v+lfylu0953jqlBQ49WDUwINuAMiabJ/k/RFYIfmUEVUfuYLleWjUNE6/6sIQoIL/feCA1SkwOAJVCkB/cZWFdqqa+3DREMOymKkBP2tVKghNsWdX4e1ohX74NkeYJzPQZQuYubUrn5HqKNvbPa+CchM0gGYaw7tlDUc0Vt9wFbsJVHwvHNCDdlo8T9MEr3Vq/aFUdhTQ2r64BYwFVKuoDLu5Fp/gZBA3MTI1+UX3I6AQuiWK7WrQh3eWg8YMjD0TlsgwbczrZCtYMtU3kIg4W1QR/865j6arZsL8ZbVp1M3A7ndn+UG7TizSOb2AAZAtq6eOV3gNo43an9j64ZOS2SDWG+aeaj5Has34YzlCnjTjPDELxjpmWas7l6NBda2t8i5IHjkm8Z3ozeyh/VJhutIYYIV2wLgbUDe39Cn3bBvsTQe53llbb2m78YsA43JcMxdGcevoyzkjJQLgMgogk0wa7SZ0A/9SpgLb3vI7ie8VS2hq+PkFI58LdJhFGj3M2UD42Dgft1T/2+sZZsIbIVvhVqmuFhzBgOywCQuHgPmDGRKdAQmkcbukC9RQbI/1ekGdHcOjYmMs5W8Tkv3XhwCirEMwB/iH5k17F9hfcoSvuXRT
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(376014)(1800799024)(6133799003)(18002099003)(10067099003)(22082099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?8JRfyZfqR5cWpdu/4ypwZSxke6FWK+T39LDZHNUcicG+daC+aSrzf4okCIl9?=
+ =?us-ascii?Q?UsTGQlW+sj6QG9p9fgTjBx83uhm/3CVxjnAmoIBvqN6JbLP4cLsEUipFmewS?=
+ =?us-ascii?Q?0C61SmTlPn6jEDzxayjOwi1Rrtmi9CaOOJx+IFoE198A+dxmKCl9+iT6E4jA?=
+ =?us-ascii?Q?+hDOV8Wilt8VIkb1DQE1/PQvsZaa2UraumGzMSSctm2BR/iFsWdHzRHC+StC?=
+ =?us-ascii?Q?K0DYMjkh8S4zPJmFAbiQm5jwoIracmN8UewSh/Edoxw8tB0H0N2hAN580vjP?=
+ =?us-ascii?Q?x7S+K3hW2V0dYvEzxTmsIwhFQ9edIkfwJOYxcF+QK1je06VK6Rha12YsQYJi?=
+ =?us-ascii?Q?S+HqE9TjWL1fpU9rJWCB91C05e4AEqeh+Vl9LGv8ym4EXlumjiJe55Vnp30C?=
+ =?us-ascii?Q?YJm76oP7c3Pjx6CBOugMvdeWGPOd4Je/oVRCuCTyS3g85o1L/PXuC3Im5UE1?=
+ =?us-ascii?Q?nZ9JLtbGnC2dlAGn9SIx1SifuTTYUnlwoYg4dF/UqDtIQUI3Xd0RY5jzCT32?=
+ =?us-ascii?Q?rjBqE7OXxrlGyDLzIGKcQdd2ESbtM7b3+qNiRkO+TrtYLtDTe0hyzVvOqhGd?=
+ =?us-ascii?Q?LhwMqYq2H/l04G2ZwkuQwaKXf+/RX+VXbzR45VGQ62wS7QemN2zkt2deF0af?=
+ =?us-ascii?Q?2AoYCUEqhu8PtmgtHoDtY1nA8Jbds9ED++CDsr/daPgHffsSoINFXVugyly1?=
+ =?us-ascii?Q?yVRAdNW2O8SQux22xeekKNw375NzL+v2Yd6+JQS2mlhfUbUNxt3uSfPSp4pS?=
+ =?us-ascii?Q?ONoilCTtb8/dOfk4qAr0aYZRz3Z3wkMbptcyO+aoMNUdi4jccL38+waku1Mo?=
+ =?us-ascii?Q?HWhF46Sz7A3lOim5TKGS9gxbE0Mqj25MZE1uTBHhTSqImajUxMsBIZHnbg8V?=
+ =?us-ascii?Q?vP7xERWdPygvm4ntKeYZMjG2f33epJAIwuoNwYBCalyudu5LPERPHh+3eIkN?=
+ =?us-ascii?Q?Ru1+JK3qt771HE35lE5YwEg3H3CLNUH4+7FxnenrswgW+nHfBEpktrJXlCfQ?=
+ =?us-ascii?Q?nOn/bZB8h8LH9bAXBYHQFHgfEz36ani3NnEiQiwS2MgMXDNkWjVZMzLaaBg+?=
+ =?us-ascii?Q?cuJO2tfxiU5MflH+sVbK7Iiou56DvRQ/bB6relMv7ZcB0XtoeqLkQW4yj0Hm?=
+ =?us-ascii?Q?NsOwLpFO57Sh96e+MyR+V6HT56zsBgQCR+1zupssY4tvO1b3NFqUf6pbxlyF?=
+ =?us-ascii?Q?9MKTJPTOOR+ODXRif4YRzLgCSYp+MW57wn8wbbtvhQUOFARpOcXITa0L80P1?=
+ =?us-ascii?Q?6J1bxZYkMqjs1z1JU2zTfJZJ4zrpQ0xyPqu8Uo9eaS5J/fFTmjIjEVEeqEyg?=
+ =?us-ascii?Q?RcsvV2C4T/9eDGxkLLtSSxebasOGWg6ymQ/mPpWGPDZ4K59IGwxhfi6GXXLG?=
+ =?us-ascii?Q?W5WJheerYCZeFw+pxJ3k5h5wxcKAdNyGjbk5vn6ULrag5ettv4WrfPpTgq+3?=
+ =?us-ascii?Q?lk/e6UcxiHzLhXI49n/YU+TYWtEMJ/Qb7LSlcBSLnQx33fnUzjLOJ/rWni+h?=
+ =?us-ascii?Q?GnM0hBNG+J9iCaNZpJAXzlNzck+jSI+Gq8aD+o3SEnqGQrNcFx5wW+APBWSb?=
+ =?us-ascii?Q?eoNovU6+uCWVwVV+61pjF+7ensE1ul8w3CxzZzLGqIoBEezDom6Grq0bPsKI?=
+ =?us-ascii?Q?SKXV5/883CUJd4enntKvIL6Lad9LZS8mSr1PpW9no8/DeM8Xrf8FOt2lFimr?=
+ =?us-ascii?Q?xhWSmKFPmf84i1nKAIO+i1DIgJKdRIU2PTMHEuWwln4qcLzdrss2Ceoschyo?=
+ =?us-ascii?Q?ATGQkGaI2xlFGjhB9cPiRj2joSo3p/JjyGVwcrmouWBSOvX6xkwG?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd7283d1-057d-4c5a-6bfe-08df2b9e127a
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 15:56:42.6230
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6l1HFycM9JRLGOWBXPhh6PYGduLRNe0CTs2cz3JT62twFB0cxkrSDbfwDMcNrkb6gSyr7ZWmCnViypFwqGkZQov6IXpOtDLjB2WvByEnHx0eqRdJtHVtNrUo626prYQT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9688
 
+On Wed, Jul 08, 2026 at 06:57:25PM -0400, Brian Masney wrote:
+> When attempting to start the Fedora graphical installer from a USB
+> thumbdrive on the Lenovo Thinkpad x13s laptop, the following errors are
+> shown in dmesg multiple times:
+>
+>     kernel: gpi 800000.dma-controller: cmd: CH START completion timeout:0
+>     kernel: gpi 800000.dma-controller: Error with cmd:CH START ret:-5
+>     kernel: gpi 800000.dma-controller: Error start chan:-5
+>
+> Looking through the error path, gpi_send_cmd() sends the wrong gchan to
+> gpi_send_cmd() in gpi_ch_init()'s error path. Fix this by passing the
+> correct gchan in gpi_ch_init()'s error path of gpi_send_cmd().
+>
+> Fixes: 5d0c3533a19f ("dmaengine: qcom: Add GPI dma driver")
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Brian Masney <bmasney@redhat.com>
+> Assisted-by: Claude:claude-opus-4-6
+> ---
 
-On Fri, 16 Oct 2026, at 16:41, Jason Gunthorpe wrote:
-> On Wed, Oct 14, 2026 at 06:39:14AM +0200, Ard Biesheuvel wrote:
->
->> > I've asked some folks here to take a look and try to test this with
->> > real DRTM capable HW. It seems very promising that it will work to me,
->> > and I surmize this is also close to boot a UKI?
->> 
->> It already works for UKIs as well.
->> 
->> The next step is to run it deprivileged - I think the arm64 stub code
->> is already very close to being runnable in that manner.
->
-> Abhishek was able to test it on some Grace hardware, and investigate
-> the DRTM. He was able to show it works, using some FW debugging to the
-> serial port and the post-kexec dmesg:
->
->  <kexec>
->    INFO:    DRTM service handler: version
->    INFO:    DRTM service handler: get error
->    INFO:    ++ DRTM service handler: TPM features
->    INFO:    ++ DRTM service handler: Min. mem. requirement features
->    INFO:    ++ DRTM service handler: DMA protection features
->    INFO:    ++ DRTM service handler: Boot PE ID features
->    INFO:    DRTM service handler: dynamic launch
->
->    [..]
->
->    [  10.655030] DRTM: launch completed
->
-> So this solution is absolutely viable for DRTM kexec. Great!
->
+The same problem fixed by
 
-Excellent news!
+commit dd27c3f4d6108556b74b5f3f4d1d885269e7ffa3
+Author: Aniket Randive <aniket.randive@oss.qualcomm.com>
+Date:   Wed Aug 19 17:09:31 2026 +0530
 
-> He had a couple of issues, I will try to summarize them as I
-> understood them.
+    dmaengine: qcom: gpi: Fix resource leaks as part of channel clean up
+
+    The gpi_ch_init() error handling paths do not fully clean up resources
+    when channel initialization fails.
+
+Frank
+
+> There's a separate issue with the graphical Fedora installer not
+> working that I haven't had time to dig into further. I can work
+> around it by using the text installer.
 >
-> 1) ARM DRTM requires that the executing CPU be the boot CPU when
->    launching the kernel. My patches enforced this in the EFI stub
->    assuming that the EFI stub will be the same CPU as after exit boot
->    services. Since the kthread has no CPU assignment it picks
->    something random and fails these checks:
+> Changes in v2:
+> - Commit message cleanup as suggested by Frank
+> - Commit title cleanup as suggested Konrad
+> - Add Konrad's Reviewed-by
+> - Link to v1: https://lore.kernel.org/r/20260625-qcom-gpi-err-fix-v1-1-5ca3f00fe2e3@redhat.com
+> ---
+>  drivers/dma/qcom/gpi.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
->    [ 3219.695710] kexec_efi: EFI stub: ERROR: DRTM: boot PE 0x20000 
-> does not match current PE 0x430000
->    [ 3219.695726] kexec_efi: EFI stub: WARNING: DRTM: preparation 
-> failed, continuing without DRTM
->    [ 3219.732742] kexec_efi: EFI image suspended at ExitBootServices(), 
-> system table @ 0x1001bff00090
+> diff --git a/drivers/dma/qcom/gpi.c b/drivers/dma/qcom/gpi.c
+> index a5055a6273af..3f390b5821ab 100644
+> --- a/drivers/dma/qcom/gpi.c
+> +++ b/drivers/dma/qcom/gpi.c
+> @@ -1965,12 +1965,12 @@ static int gpi_ch_init(struct gchan *gchan)
+>  error_start_chan:
+>  	for (i = i - 1; i >= 0; i--) {
+>  		gpi_stop_chan(&gpii->gchan[i]);
+> -		gpi_send_cmd(gpii, gchan, GPI_CH_CMD_RESET);
+> +		gpi_send_cmd(gpii, &gpii->gchan[i], GPI_CH_CMD_RESET);
+>  	}
+>  	i = 2;
+>  error_alloc_chan:
+>  	for (i = i - 1; i >= 0; i--)
+> -		gpi_reset_chan(gchan, GPI_CH_CMD_DE_ALLOC);
+> +		gpi_reset_chan(&gpii->gchan[i], GPI_CH_CMD_DE_ALLOC);
+>  error_alloc_ev_ring:
+>  	gpi_disable_interrupts(gpii);
+>  error_config_int:
 >
->    The kthread this runs in picks a random CPU so it doesn't
->    work. Abhishek was able to put a kthread_bind() in to always use
->    the boot CPU
+> ---
+> base-commit: 6c94b38b83a04c43ea49004275f0391404051093
+> change-id: 20260625-qcom-gpi-err-fix-06ef18453608
 >
-
-Interesting. I'm not sure this is a reliable workaround, though, given
-that the return from ExitBootServices() occurs as a result of another
-syscall(), and the kthread is long gone by then.
-
-I think the reliable approach here is taking down all the other cores
-before doing the kexec.
-
-> 2) Most of our systems use 64K page size, so the restriction in the
->    series is not great. Abhishek used a 4k predecessor kernel and
->    confirmed he could boot a 64k successor
+> Best regards,
+> --
+> Brian Masney <bmasney@redhat.com>
 >
-
-I've dropped that requirement already - the TTBR0 side can just switch
-to 4k pages.
-
-> 3) Some compile glitches:
->
->    1. arch/arm64/kernel/kexec_efi.c:175:35: error: 'PTE_ADDR_HIGH'
->    undeclared (first use in this function); did you mean 'PTE_ADDR_LOW'?
->
-
-That is only #define'd when CONFIG_ARM64_PA_BITS_52 is set. I don't think
-we should be using that directly, though - I'll investigate.
-
->    2. KEXEC_EFI_STUB declares depends on ARM64_4K_PAGES but nothing about
->    PA_BITS, so a 4K + 48-bit-PA config does not compile.
->
-
-Same problem, I suppose?
-
->    3. With rustc 1.85.0, which is what scripts/min-tool-version.sh asks
->    for on arm64, the link fails:
->
->      ld: arch/arm64/kernel/kexec_efi_glue.o: undefined reference to
->      `__rust_no_alloc_shim_is_unstable'
->
->      ld: rust/alloc.o: undefined reference to 
-> `__rust_alloc_error_handler_should_panic'
->
->    He used rustc 1.96.0 instead and it builds fine.
->
-
-I think this is related to the use of the 'alloc' API, which my efiloader
-crate uses but does not exist in the same way in the kernel. I'll look into
-this as well.
-
-In other news, I've added some other features to the prototype: x86_64
-support, support for UKIs including sidecars etc (the kexec image loader
-now accepts a cpio archive which can be presented as the ESP) and some
-other improvements. This is highly in flux so let's compare notes often
-so things do not diverge unnecessarily.
-
-
