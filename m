@@ -1,33 +1,36 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F01C379998;
-	Fri, 16 Oct 2026 21:43:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07BD37F30C
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792187011; cv=none; b=t/H66Sd9M7XkNVrIN8ippe1ZG82HGkWClC0bgfQmcacIqSYAE8KOLauPsNncd1ksnWDo3t/vpbI5W9d1fG9Flg9k/3u8gzdJoPvRklBVZ7wYcdyOVt64eNSJ08DBhbACMWZpT7mMpXIwN8D9h6N4FbmXuBTkGiSTpq/hecmLcMY=
+	t=1792187078; cv=none; b=I6mXVigxkw22qA/wEYUqb9fdxLjxq3yCMwCkEwVZrWwRblkI8wiL69ANaw+WfSsk7fuIXGM1dvabCkZB1SN6cfgTNOTZk6mYbVB8IAMlWnqN8iI2ulcw0iL6+lDP1iDUbJbkJTc/Z78atZiVKuQJAUXryFKPzIyFcM32vLpCEkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792187011; c=relaxed/simple;
-	bh=5ni9DWOhhkA6ZJMpivpMZJ/ffnQ58jGVkOB6Wp18s9Q=;
+	s=arc-20240116; t=1792187078; c=relaxed/simple;
+	bh=lhFfiEgXj73twNX++4UBIJ86l8yeC06XDfNjPNJ3K9o=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sooNBgSupxLpS37DwmebrAyIN0pXITnPMOQlXH/lTKwQalK8NrYVsO+j3joHcFNWILk4absUsV2qvwLRH0CxIXCJTsGbzSMZk6GnKoho8y3AW10RLGvI23U9NSE3DOlaDPPsqn665x+LwIpV8k1NFNxt39ltPy4D/DfQZuLRmM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UUcTsyYw; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=fyi67A0b24Vqz8i5DodpEfloei/IETrBCpmd23PO1qOknPpFbxucu/1jggQznLY/f5L+uFt2mWQSkWqs0ToiRmQwGNCmt5fTIMQMaX/z2jH+vtv2tTBhyIAqjGovBDW8YflK6cAjp/Vlnkda+62ijwZ3mY3vVmIClhPfJAJfbWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=Lbx1edA9; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UUcTsyYw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D5891F000C4;
-	Fri, 16 Oct 2026 21:43:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792187009;
-	bh=OBNIk6GoeiU0KnlnafzMX+l37pZvubkqJSQdyn+9OqA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UUcTsyYw7p+QaiI/82XOMyszxWhbgxO5ajlXU/cERhbYXKfFN6+3JDyTjQF9t3UI6
-	 iAfZEQLi0CECOTsIYXRhP9IGVr7Fr85HQBpZFJ+oRuqO9Bxbl9BMsJ2Cvf7i/4IccO
-	 WBA2H+/kZfW2vb6h26JUJEH9imRMaFwDkq37kk7JC834HyKE2tPx1DbBoo0AgGA3q5
-	 0tNKTK/PAunpnL3thq8rr7AMdKVbQc81Bxr0NnEyy+sEvEG4IcKJOVaUfgHYCyffml
-	 7IpoESXjnieEfW4SnWw2E7eau9RF90SYLLHIKcxzDRCIHvnA2gUkce8RMW8+8i08py
-	 9Y0tD+I/0gnRA==
-Message-ID: <d8a95ffc-d4ab-4c45-9d6d-53c49e3137aa@kernel.org>
-Date: Fri, 16 Oct 2026 16:43:26 -0500
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="Lbx1edA9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=g0Zf2J1CP5PMO/q2SJC02U8X5dIjn1ORSO6M5pd19Bk=; b=Lbx1edA9H82D5vzL9njua8LfUf
+	8mn1geV1OMSdUAmcHEi9GQetKFfKLHfMfC+leA6K7jaOL45cJa9kE+uGRH1iDUEwoqwK3MQAxMLbt
+	lJxEnL+nNS9CNVmXhbvoIe5K4/U4QhM991j76M0VwwUcGL+59TuzCr5sNBsEqsN9zyP8vyUxlS3i5
+	Tla5s3eKMQl+Ufs1QGpKg4Ye6JT5DxZ+1aGl66STmPPRCqmkNy68qasY6uVHiTMzQAodaWo5gzzWI
+	bATNzR/0cu8amg8zfk892zT7t6/wkDxNOFVz9jGq4GhTLUQBk8YIKDLDog9BNKKPifhj37dI3tMCj
+	FPdvF7Xg==;
+Received: from [179.190.179.102] (helo=[192.168.1.27])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xHpiz-001FYW-C5; Fri, 16 Oct 2026 23:44:25 +0200
+Message-ID: <f7af30de-197b-426e-a8ab-efbb3d7b049e@igalia.com>
+Date: Fri, 16 Oct 2026 18:44:22 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,143 +38,384 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PCI: Disable async suspend for AMD rev 0x62 ACP and HD
- Audio
+Subject: Re: [PATCH v2] drm/xe/lrc: Restore CTX_CS_INDIRECT_CTX_OFFSET
+ programming for ADL
+To: Matt Roper <matthew.d.roper@intel.com>
+Cc: rodrigo.vivi@intel.com, demarchi@kernel.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ tvrtko.ursulin@igalia.com, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com
+References: <20260930170434.317671-1-koike@igalia.com>
+ <20260930232937.GQ730887@mdroper-desk1.amr.corp.intel.com>
+ <be2b367a-870b-4b93-84dc-eb36542fee82@igalia.com>
+ <20261015192801.GC578251@mdroper-desk1>
 Content-Language: en-US
-To: Diogo Sousa <diogogsousa@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>,
- linux-pci@vger.kernel.org
-Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- David Glushkov <david.glushkov@sntiq.com>, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261016135042.44914-1-diogogsousa@gmail.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20261016135042.44914-1-diogogsousa@gmail.com>
+From: Helen Koike <koike@igalia.com>
+In-Reply-To: <20261015192801.GC578251@mdroper-desk1>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/16/26 08:50, Diogo Sousa wrote:
-> On AMD platforms with a revision 0x62 ACP, such as Dragon Range and Fire
-> Range laptops, the HD Audio controller usually stops responding after
-> resume from suspend:
+Hi Matt
+
+On 10/15/26 4:28 PM, Matt Roper wrote:
+> On Thu, Oct 01, 2026 at 11:17:17AM -0300, Helen Koike wrote:
+>> Hi Matt,
+>>
+>> Thank you for your reply, please see my comments below.
+>>
+>> On 9/30/26 8:29 PM, Matt Roper wrote:
+>>> On Wed, Sep 30, 2026 at 02:04:30PM -0300, Helen Koike wrote:
+>>>> CTX_CS_INDIRECT_CTX_OFFSET default value is not retrieved from the GPU
+>>>> by inhibit+context save mechanism since it is not part of the Engine
+>>>> Context. Thus, at restore, 0x0 is programed back to the GPU, which is
+>>>> an invalid value according to the PRM.
+>>>
+>>> I don't follow this explanation, but I don't think this is quite right.
+>>> For example, CS_INDIRECT_CTX_OFFSET definitely is part of the in-memory
+>>> context image (the CTX_CS_INDIRECT_CTX_OFFSET is the offet into that
+>>> context image where it's found). Let me try to explain the relevant
+>>> flows here.
+>>>
+>>> When hardware first comes up, it contains "hardware default" values for
+>>> various registers.  For CS_INDIRECT_CTX_OFFSET, the hardware's default
+>>> value is 0xD, so that's the value the register will have when the
+>>> hardware first wakes up or powers on.
+>>>
+>>> For registers that are part of an engine's LRC, whenever a regular
+>>> context switch happens, the current copy of the register gets written
+>>> out to memory in the outgoing context's LRC image, and a new value is
+>>> loaded from memory into the register from the incoming context's LRC
+>>> image.
+>>>> "Restore inhibit" is a special case that gets used at one place during
+>>> initial driver startup where we tell the hardware "switch to this
+>>> context but do *not* load any register values from memory for the
+>>> context that we're switching into."  When restore inhibit is used, the
+>>> currently-present register values remain unchanged by the context
+>>> switch and the only thing that changes is the hardware's idea of which
+>>> context is currently "active."
+>>
+>>
+>> The problem is that CTX_CS_INDIRECT_CTX_OFFSET is not inhibit by Restore
+>> inhibit.
 > 
->    snd_hda_intel 0000:69:00.6: CORB reset timeout#2, CORBRP = 65535
+> Sorry for the delay getting back to you here.  After re-reviewing the
+> internal bspec, you're right CS_INDIRECT_CTX_OFFSET is indeed part of
+> "execlist context" section of the LRC instead of the "engine context"
+> section, so it doesn't get affected by the "engine context restore
+> inhibit" bit.
 > 
-> Audio playback then stalls.
+> You can ignore my earlier feedback since it was mostly wrong.  :-)
 > 
-> The ACP (function 5) and the HD Audio controller (function 6) share an
-> audio block whose power is gated by the firmware.  In the AMD CPMACPV4
-> SSDT, the _PS0 method of each function marks the function as present
-> and then calls a common method that powers the block up only if exactly
-> one function is present:
+> It seems like programming CS_INDIRECT_CTX_OFFSET is something we should
+> be doing on all platforms, not just the pre-Xe2 platforms.  And contrary
+> to the comment that exists in the code today, 0xD is documented as the
+> hardware default for INDIRECT_CTX_OFFSET[15:6] on all engine types and
+> all Xe1/Xe2/Xe3/Xe3p platforms.
 > 
->    Method (_PS0, 0, NotSerialized)  // ACP; AZAL sets M279 instead
->    {
->        M278 = One
->        M276 ()
->    }
+> The failures you got from CI on the Xe2 platforms seem surprising to me,
+> but I can reproduce them on a local LNL machine, so they don't seem to
+> be a fluke.  If I can find some free time, I'd like to update that
+> configfs test to update registers that are actually part of the LRC
+> before/after the point we indicate via INDIRECT_CTX_OFFSET and see what
+> their behavior is.  A test update like that is slightly more involved
+> than just changing the string passed to configfs since we'd also need to
+> adjust the register readback strategy to actually use the command
+> streamer to read the correct context's copy of the register (today the
+> test just uses a CPU iomap to read the register after the LRC is no
+> longer running, so it only works to verify registers that aren't part of
+> the LRC's save/restore list and won't revert to hardware defaults).
 > 
->    Method (M276, 0, Serialized)
->    {
->        Acquire (M27E, 0xFFFF)
->        If (!(M278 ^ M279))
->        {
->            Release (M27E)
->            Return (Zero)
->        }
 > 
->        // Power up the audio block.
->        ...
->    }
+> I haven't looked at the old public PRMs too carefully, but for reference
+> here are the restrictions that are currently documented in our internal
+> bspec for INDIRECT_CTX_OFFSET:
+
+
+Thank you for your investigation, thoughfull reply and references.
+
 > 
-> The presence flags are set outside the lock, and M276 calls a debug
-> print method before the check, during which the AML interpreter can run
-> other threads.  So when the PM core resumes both functions in parallel,
-> both flags can be set before either _PS0 reaches the check.  Both _PS0
-> methods then skip the power up, each assuming that the other function
-> did it.  An ACPICA trace of a failing resume shows exactly that: the
-> M276 call of the ACP sees both flags set and returns early.
+>   * "Indirect context pointer itself is restored during context restore
+>     and hence Indirect Context Offset must not be programmed with value
+>     less than 0x5."
 > 
-> Disable async suspend for both functions, so that the PM core never
-> suspends or resumes them at the same time.
+>     This restriction would imply that the current (before your patch)
+>     value of 0x0 is invalid.  Yet the IGT test that exercises
+>     INDIRECT_CTX via configfs somehow seem happy if we leave it at 0.
+
+I can try to take a look for ADL.
+
 > 
-> This started with v7.1, which moved these ACPs from the RPL driver to
-> the YC driver.  With the ACP bound to the RPL driver, test resumes
-> worked, but it isn't clear why the YC driver makes the race so much
-> more likely.
+>   * "It is not valid to program this to a value that is greater or equal
+>     to the starting offset for RS context."
 > 
-> Fixes: df4148a5a3cf ("ASoC: Add DMIC support for the AMD RPL platform")
-> Link: https://github.com/CachyOS/linux-cachyos/issues/950
-> Assisted-by: LLM
-> Signed-off-by: Diogo Sousa <diogogsousa@gmail.com>
-> ---
-> Tested on an ASUS ROG Strix G16 G614FR (Ryzen 9 9955HX3D, BIOS G614FR.317):
-> without this patch (v7.2.9), every resume from s2idle broke audio; with it,
-> on top of v7.3-rc7, three resumes in a row worked.
+>     I believe "RS context" refers to the resource streamer, which is
+>     something that was removed from hardware all the way back in gen11
+>     and isn't relevant to either Xe1 or Xe2+ hardware.  It seems this
+>     bspec note is outdated, but I'm not sure if there's some different
+>     upper bound that needs to be honored today or not.
 > 
-> This also covers the MSI Raider A18 HX A9WJG, for which a quirk matching its
-> subsystem ID was posted:
-> https://lore.kernel.org/r/20260606204547.11945-1-david.glushkov@sntiq.com
+>   * "Offset of Indirect CS context must be always programmed to a command
+>     boundary and cacheline boundary inside the context image."
+> 
+>     This one shouldn't be a problem; it looks like cacheline 0xD should
+>     fall on an instruction boundary for all engine types and all current
+>     platforms.
+> 
+>   * "BCS/VCS/VECS: This register functionality is not supported and must
+>     not be programmed"
+> 
+>     This restriction seems a bit ambiguous to me.  I'm not sure if it
+>     means the hardware ignores the value and it doesn't truly matter what
+>     we program for non-RCS engines, or whether programming something
+>     incorrectly can cause problems.  Doing nothing in the driver (as is
+>     the case before your patch) would leave the register at 0 and violate
+>     the other requirement about not being < 0x5.  Getting the hardware
+>     default of cache line 0xD into the register does require some
+>     explicit programming (as in your patch).
+> 
+ > > Anyway, I think we can mostly go with your existing patch here for now
+> with just a couple minor changes:
+> 
+>   * Replace "for Alder Lake" in the commit message with "for pre-Xe2
+>     platforms."  Also add an extra sentence or so explaining that even
+>     though this looks like it should be correct for all platforms, we're
+>     restricting it to Xe1 for now while we investigate the unexpected
+>     behavior we're seeing there.
+> 
+>   * Remove the entire "Enable INDIRECT_CTX leaving INDIRECT_CTX_OFFSET at
+>     its default" code comment since it was already wrong (i.e., the
+>     default offset does not vary by engine, and not programming the
+>     register doesn't actually leave the register at its default).
 > 
 
-Before you go down this direction, can you please check for a BIOS update.
+Ack, done, I just sent v3, please check.
 
-There was another issue very similar to this which was fixed by a BIOS 
-update.
+Helen
 
-https://gitlab.freedesktop.org/drm/amd/-/work_items/5529
-
->   drivers/pci/quirks.c | 32 ++++++++++++++++++++++++++++++++
->   1 file changed, 32 insertions(+)
 > 
-> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> index de9bbccda21f..d4e4ab3c332e 100644
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -1901,12 +1901,44 @@ static void quirk_jmicron_async_suspend(struct pci_dev *dev)
->   }
->   DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_JMICRON, PCI_ANY_ID, PCI_CLASS_STORAGE_IDE, 8, quirk_jmicron_async_suspend);
->   DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_JMICRON, PCI_ANY_ID, PCI_CLASS_STORAGE_SATA_AHCI, 0, quirk_jmicron_async_suspend);
->   DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_JMICRON, 0x2362, quirk_jmicron_async_suspend);
->   DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_JMICRON, 0x236f, quirk_jmicron_async_suspend);
->   
-> +/*
-> + * On AMD platforms with the revision 0x62 ACP (e.g. Dragon Range and Fire
-> + * Range), the firmware power gates the ACP (function 5) and HD Audio
-> + * (function 6) together.  The _PS0 method of each function marks it as
-> + * present and then powers up the shared audio hardware only if the other
-> + * function isn't present yet.  The marking isn't done under the lock that
-> + * serializes the power up, so if both _PS0 methods run concurrently, they can
-> + * both conclude that the hardware is already powered up.  The HD Audio
-> + * controller is then left unpowered, with all its registers reading ~0.
-> + *
-> + * Suspend and resume both functions synchronously, so that the PM core never
-> + * transitions them at the same time.
-> + */
-> +static void quirk_amd_acp_hda_async_suspend(struct pci_dev *pdev)
-> +{
-> +	struct pci_dev *acp;
-> +
-> +	acp = pci_get_slot(pdev->bus, PCI_DEVFN(PCI_SLOT(pdev->devfn), 5));
-> +	if (!acp)
-> +		return;
-> +
-> +	if (acp->vendor == PCI_VENDOR_ID_AMD && acp->device == 0x15e2 &&
-> +	    acp->revision == 0x62) {
-> +		device_disable_async_suspend(&pdev->dev);
-> +		pci_info(pdev, "async suspend disabled to avoid ACP/HD Audio power up race\n");
-> +	}
-> +
-> +	pci_dev_put(acp);
-> +}
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x15e2, quirk_amd_acp_hda_async_suspend);
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x15e3, quirk_amd_acp_hda_async_suspend);
-> +
->   #ifdef CONFIG_X86_IO_APIC
->   static void quirk_alder_ioapic(struct pci_dev *pdev)
->   {
->   	int i;
->   
->   	if ((pdev->class >> 8) != 0xff00)
+> Matt
 > 
-> base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+>>
+>> If you check the documentation on https://www.intel.com/content/www/us/en/docs/graphics-for-linux/developer-reference/1-0/tiger-lake.html
+>> , you can find:
+>>
+>> PRM Vol 8:
+>>
+>> "When a context is submitted for the first time for execution, SW can
+>> inhibit engine from restoring engine context by setting the "Engine Context
+>> Restore Inhibit" bit in CTXT_SR_CTL register of the
+>> logical ring context. This will avoid software from populating the Engine
+>> Context. Software must program all the state required to initialize the
+>> engine in the ring buffer which would initialize the
+>> hardware state. On a subsequent context save engine will populate the engine
+>> context with appropriate values."
+>>
+>> And also:
+>>
+>> ""INDIRECT_CTX" and "INDIRECT_CTX_OFFSET" registers are part of the context
+>> image and gets restored as part of the given
+>> context's context restore flow, these registers are part of the ring context
+>> image which are prior to
+>> engine context restore and hence the requirement of the offset being in
+>> engine context restore."
+>>
+>> In other words: "INDIRECT_CTX_OFFSET" is not part of the Engine Context (see
+>> table on page 49 of the pdf from Vol 8, Engine Context is marked in dark
+>> blue), it is part of the Ring Context, so Restore Inhibit doesn't afect this
+>> register, which means it programs 0x0 back to the GPU, which is invalid.
+>>
+>>
+>> Without this patch I get the following:
+>>
+>> :/ # cat /sys/kernel/debug/dri/0000:00:02.0/tile0/gt0/default_lrc_rcs
+>> [0x00000000] MI_NOOP (1 dwords)
+>> [0x11081019] MI_LOAD_REGISTER_IMM: 13 regs
+>>   - 0x2244 = 0xffff0008
+>>   - 0x2034 = 0x000000a8
+>>   - 0x2030 = 0x000000a8
+>>   - 0x2038 = 0x00530000
+>>   - 0x203c = 0x00003001
+>>   - 0x2168 = 0x00000000
+>>   - 0x2140 = 0x00200094
+>>   - 0x2110 = 0x00000000
+>>   - 0x21c0 = 0x00543001
+>>   - 0x21c4 = 0x00542001
+>>   - 0x21c8 = 0x00000000 ---> Zeroed
+>>   - 0x2180 = 0x00000080
+>>   - 0x22b4 = 0x00000000
+>>
+>>
+>>>
+>>> So the overall flow for initialization is:
+>>>
+>>>    * Hardware powers up / comes out of reset; INDIRECT_CTX_OFFSET should
+>>>      be 0xD.
+>>>
+>>>    * Driver allocates memory to serve as the storage space for the
+>>>      "default LRC" (aka "golden context"); once initialization is
+>>>      complete, this will be the template that is copied to create new
+>>>      LRCs.  The registers/state in the default_lrc should be a copy of the
+>>>      hardware default values, with various adjustments the driver makes
+>>>      for things that we want modified for every context by default (e.g.,
+>>>      register changes requested by various hardware workarounds).
+>>>>    * Driver writes (with CPU) a basic LRI with the early register offsets
+>>>      (but not their values) into the LRC storage space.  This is just so
+>>>      that the hardware says "yep, this looks like an LRC" when we hand it
+>>>      over for a context switch.  Although we're only filling in register
+>>>      offsets and not values, this doesn't actually mean that registers are
+>>>      being set to 0 or anything like that.  Honestly I'm not sure if the
+>>>      hardware even truly needs us to do this anymore on modern hardware.
+>>>
+>>>    * Driver submits the default LRC to the hardware with the "restore
+>>>      inhibit" flag.  This means that the hardware does *not* load any
+>>>      register values from memory like it usually would (i.e., live
+>>>      INDIRECT_CTX_OFFSET remains at 0xD)....
+>> This is not true for INDIRECT_CTX_OFFSET as stated above (unless I missed
+>> something).
+>>
+>>>      ...The batch buffer submitted on
+>>>      the context adjusts various registers away from their hardware
+>>>      defaults if there are non-default settings we want present on every
+>>>      context in the future (e.g., settings requested by various hardware
+>>>      workarounds).
+>>>
+>>>    * The batch buffer finishes executing, so the live register values are
+>>>      now the hardware default values, with a handful of modifications.
+>>>      Since we don't have any workarounds that adjust INDIRECT_CTX_OFFSET
+>>>      today, it's still sitting at its default value of 0xD.
+>>
+>> This is not true for INDIRECT_CTX_OFFSET as stated above (unless I missed
+>> something).
+>>
+>>>
+>>>    * The driver submits a second context to the hardware with a noop
+>>>      batch buffer.  This context switch causes the live register values
+>>>      (including 0xD in INDIRECT_CTX_OFFSET) to get written out to the
+>>>      the first context (default_lrc)'s memory storage.
+>>>
+>>>    * ...driver finishes initialization and user starts running real
+>>>      programs...
+>>>
+>>>    * When a userspace process creates a new context, the "default_lrc"
+>>>      snapshot is copied as the starting point for the new context.  After
+>>>      that, various registers in the LRC are updated with unique
+>>>      context-specific values as necessary.  So every context created on
+>>>      the system should have INDIRECT_CTX_OFFSET set to 0xD.
+>>>
+>>
+>> This is not true for INDIRECT_CTX_OFFSET as stated above (unless I missed
+>> something).
+>>
+>>>
+>>> So I don't see any way that CTX_CS_INDIRECT_CTX_OFFSET could become 0.
+>>> Unless there's a hardware bug, the hardware should come up with a value
+>>> of 0xD, that value winds up getting recorded in the default_lrc
+>>> snapshot, and then every context we make later on down the road inherits
+>>> that value.  While we could change it to another value if we wanted the
+>>> indirect context batchbuffer to run at a different point during the
+>>> context save/restore process, we don't have a need to do that.
+>>>
+>>> If you're seeing problems related to this register, I'd have a few
+>>> questions to try to narrow down what's going on:
+>>>
+>>>    * Are you seeing problems on all engines or just a specific one?
+>>
+>> I understand gt_engine_needs_indirect_ctx() returns true for Alder Lake only
+>> on XE_ENGINE_CLASS_RENDER, so this is the only one I tested.
+>>
+>>>
+>>>    * Can you provide the contents of
+>>>      /sys/kernel/debug/dri/0/gt0/default_lrc_* ; the value of this
+>>>      register should be at dword offset (0x16 + 1), so we can see if it is
+>>>      getting stored in memory correctly or not.
+>>>
+>>
+>> pasted above.
+>>
+>>>
+>>> Do note that Xe1 platforms like ADL aren't officially supported by the
+>>> Xe driver, so it's quite possible that there might be some hardware
+>>> workarounds for ADL that we just never implemented on Xe that could be
+>>> causing a problem.  Xe's force_probe support is just for usage by KMD
+>>> driver developers, so it was never expected to be fully stable or usable
+>>> for general end-user use cases.
+>>
+>> I see, thanks for the note.
+>>
+>> Even so, I believe that writting a default value in the beggining to make
+>> ADL happy should't be a problem.
+>>
+>> Please let me know if you think I'm missinterpreting things, and thank you
+>> again for your review/reply.
+>>
+>> Helen
+>>
+>>>
+>>>
+>>> Matt
+>>>
+>>>
+>>>>
+>>>> This causes sporadic hangs on Alder Lake when executing test
+>>>> IntelAngleEnd2EndTestCases (error VK_DEVICE_LOST).
+>>>>
+>>>> Fix it by partially reverting commit c9dfd66cb91e ("drm/xe/lrc: Allow
+>>>> INDIRECT_CTX for more engine classes"). Re-add the programming of
+>>>> CTX_CS_INDIRECT_CTX_OFFSET for Alder Lake.
+>>>>
+>>>> Fixes: c9dfd66cb91e ("drm/xe/lrc: Allow INDIRECT_CTX for more engine classes")
+>>>> Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>> Signed-off-by: Helen Koike <koike@igalia.com>
+>>>>
+>>>> ---
+>>>> v2:
+>>>>     - according to intel CI results, it seems that this default is not valid for
+>>>>       LNL and BMG platforms, so limit the change only to ADL.
+>>>>     - program the default only on ADL.
+>>>>     - restore the comment, but add note with exception for ADL.
+>>>>     - update the commit title/message with "for ADL".
+>>>> ---
+>>>>    drivers/gpu/drm/xe/regs/xe_lrc_layout.h | 3 +++
+>>>>    drivers/gpu/drm/xe/xe_lrc.c             | 7 ++++++-
+>>>>    2 files changed, 9 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/xe/regs/xe_lrc_layout.h b/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
+>>>> index 4ab86fc369fd..e4c7c3549735 100644
+>>>> --- a/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
+>>>> +++ b/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
+>>>> @@ -43,4 +43,7 @@
+>>>>    #define INDIRECT_CTX_RING_START_UDW	(0x08 + 1)
+>>>>    #define INDIRECT_CTX_RING_CTL		(0x0a + 1)
+>>>> +#define CTX_INDIRECT_CTX_OFFSET_MASK	REG_GENMASK(15, 6)
+>>>> +#define CTX_INDIRECT_CTX_OFFSET_DEFAULT	REG_FIELD_PREP(CTX_INDIRECT_CTX_OFFSET_MASK, 0xd)
+>>>> +
+>>>>    #endif
+>>>> diff --git a/drivers/gpu/drm/xe/xe_lrc.c b/drivers/gpu/drm/xe/xe_lrc.c
+>>>> index 35b4e8289b5f..923bc1ddc851 100644
+>>>> --- a/drivers/gpu/drm/xe/xe_lrc.c
+>>>> +++ b/drivers/gpu/drm/xe/xe_lrc.c
+>>>> @@ -1451,13 +1451,18 @@ setup_indirect_ctx(struct xe_lrc *lrc, struct xe_hw_engine *hwe)
+>>>>    	/*
+>>>>    	 * Enable INDIRECT_CTX leaving INDIRECT_CTX_OFFSET at its default: it
+>>>> -	 * varies per engine class, but the default is good enough
+>>>> +	 * varies per engine class, but the default is good enough, except on
+>>>> +	 * Alder Lake.
+>>>>    	 */
+>>>>    	xe_lrc_write_ctx_reg(lrc,
+>>>>    			     CTX_CS_INDIRECT_CTX,
+>>>>    			     (xe_bo_ggtt_addr(lrc->bo) + state.offset) |
+>>>>    			     /* Size in CLs. */
+>>>>    			     (state.written * sizeof(u32) / 64));
+>>>> +	if (GRAPHICS_VER(lrc_to_xe(lrc)) < 20)
+>>>> +		xe_lrc_write_ctx_reg(lrc,
+>>>> +				     CTX_CS_INDIRECT_CTX_OFFSET,
+>>>> +				     CTX_INDIRECT_CTX_OFFSET_DEFAULT);
+>>>>    	return 0;
+>>>>    }
+>>>> -- 
+>>>> 2.54.0
+>>>>
+>>>
+>>
+> 
 
