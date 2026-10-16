@@ -1,75 +1,77 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142CF379C5A
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:28:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28546379C26
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:28:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792160895; cv=none; b=r5nPccsxi8IOir0oLDY8EuS2v7eGnfjHwNryqH29kuvDj9kDZUdpXvN8Z9yJDq1FvTLqiC/LiU64cCamL2l2ifNLsy8K6YyH3n3CH0rxTlhrU7WyblfjqJRGCZwj7upKMAb7OFX46u4zVabCBZe0Cbi+2syyuqsyayhZun0N/Do=
+	t=1792160918; cv=none; b=D4HDPqTju30jXVjOMjgosvvGngHZn0VlERRVJGQ4//CDoYEK+zEBk15KB3FAMrj+EkbVBSzVZhEY91gSPQDG4r3u4VooGZNunuRzKtZmQuPlwt18zBe3wHVFr9u12wUsBILwNtD1zgyhHB9hlML3U1jZnKoPNswbTmbvYxfni3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792160895; c=relaxed/simple;
-	bh=GKozz/tp+bIJFpaOUq0zh72SepGChCeoHpNrT2chlz8=;
+	s=arc-20240116; t=1792160918; c=relaxed/simple;
+	bh=HUDExN3lnnesXXgTgOZLlsoxX5V8SQadHshH92kBxYw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=r7RW/T6qphBv70RqniDRbdGAtBX2b82OFlnw0jZ4p6ll4bc16fAKs00wCw8FPTMDxSpV/Yuh+BZrH3D9+f+x/NdtL8ZkMxcxzvSvRqajjx1zo9munfuitoAj4XSxIJMDq0sT4qq56umbJE6iSq84ozY9adycVPNoKtqCAQA8UlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=lPVO/ncz; arc=none smtp.client-ip=74.125.82.179
+	 MIME-Version:Content-Type; b=bh5wvIa1NmtEqN7/XVsec7lPR7XcGaBVmQSO4Ss3roAK5E2zRpfLYKNuiZxWKyxTznMbrnp2iI11xRb7dJjT5f/PKCXM+6tDGkSrG2sXhuLdKAh8XbRsJLUABPu74AfXM9PV5INHClr2MvR9ibI3KfS5Kt5zyREQpJMOy/Wzo/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=eGTkRS/9; arc=none smtp.client-ip=74.125.82.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="lPVO/ncz"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-30b6dad2382so15792495eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:28:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="eGTkRS/9"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3550c917fd3so4352780eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:28:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792160893; x=1792765693; darn=vger.kernel.org;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792160916; x=1792765716; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=43txGlXvjyVAOxBJD3LVtjY+Cbo0l8Mor35q0LNFkb0=;
-        b=lPVO/nczy2fUjgL8kAqdKTL186bWK5fY2ekFwMoseo3TzQbFgqhDdeLqS58K7qsv2H
-         oA9hejzY6jtaQx0P9XZ81tSrtFu8J/YtXef+iYK80cYNbmLR9XDAsmhColXme7H/KYZH
-         kJGbCCrWjNO0AL0OFapWYwFfgiVZIred4FhO4L0S9omIIhcu3PN1D4DXk+E3cVzXqPHu
-         FG3801z5zWlj8eiQRu+H8XIyQgaUpeQSokt76//uhF/i5dJQWr31E7ze+7uztCx8zKaR
-         dtu9AAB6RtXM1jRHNXwR62qxW1adp3apwrGU1FWowGd0GiPVUH9KNAr5h96bNbZMcW7I
-         rufQ==
+        bh=XCmVsxrmgZ8pEfg7Qw32h+8bf370YAvLf7Ni1e9gfE8=;
+        b=eGTkRS/96QFF7yVAVOedV3E2Xi7Bg/T33N4Xux5QEx637bkhvXvByfMLP+kffeAPHX
+         COWK/tTbVleP/gsieO8fT04PAZwa8nhHdOT/Y+oF+PXmguh0VVH72xPgk+mavuMYxoJV
+         x2Txm9CcfGf/kz9lkz6pLsKE2DcHozo2paAVqNFNtE8/P19FqhxViSFNvnvZo38XEmS1
+         HHPGm6CIn/7f0u1181qMhMWlwxobF7t5xE3fjwnjHXg6d6TbgZlc5vV/oM4/IDeUPOZg
+         Q+cHFRJB/bIa+nk3QqJgsSTzXeQmTAgRb6g9NEV7lB4TLjxlPu2AY/2Wcj9Zn6FuRTFS
+         JezA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792160893; x=1792765693;
+        d=1e100.net; s=20260707; t=1792160916; x=1792765716;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=43txGlXvjyVAOxBJD3LVtjY+Cbo0l8Mor35q0LNFkb0=;
-        b=SXrFwh/ET7i7kDSKx82dbynCA9hPGFvUx4Op1TEJ7AxM1CL4Zh/ZwV0raU0yQ2pk5K
-         susyCevoZa2sdPaefC2LS4HJf8hZTpafr9hug2b+wKZmlMatBMwzFGiw6V6CFkSaMtm7
-         Uhkyx3M7MCaM8V5RZnzr7luA2qc133oAy1kCYxokUzpeQLNiLBSD5N0/7z6/DUj/sSEo
-         d6Mu7D95ZlDTxzUQKhnPTV5pSOqm45/D35gjmEnSWaf++upk/2H3yBXy5u/nk4Pk3UnU
-         W0tbYfTuRlnrodsLKo12kGNrpWkzD9vzCSlqBYSItVJdnkqU460pqkeYVjh/NrzsSBNc
-         49/w==
-X-Forwarded-Encrypted: i=1; AKwUvBxyikFjtglrpFV0Rb3ctR8Wthej9QiIZSt3ArkEAPln/SOxj/2IyHwgv2m/77MMpHAPh6Ubc2z2NaXw/Z4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrbe9CicXZOqHIxr/TXjt57xB0Q2l9qm/vdB1Aa5ghOS7jit1N
-	bDv1jBopC50yv5Z4qBFs43FKtGqh8FgGi2DhLB25vr3VyDarDyPbQCMtxfmwdVdIkg4=
-X-Gm-Gg: AYBFou1EIUJXdPKNlh6o2D+VkS1ME+We93+0pupow1dStBhiKlWIWhqfu1B/49lRM03
-	MDtXIcjKatN/tbo7X+gXYnpDdpcM8jQi/ZAyzlJf2p1m5NWZRHo72eJyVG6FlPb1gZX/J72P4aC
-	0A8DzzXtXpjxhojel8yDtu3KGYWspvnrYSceQC098dh3c7BtRwc83TalWXu2DXeJb7FuFQPGd8r
-	G1nrDEU7WzYPuI0cD/8eLYb150dN/SNrYpNvPDSVKAwU4o7MNJ3bPoIVLr83HZnmBZy8ONIfKJf
-	4p8mHo1AH2Z3esa3IlHkOljMXDBbDKzEtCGRULYAOb36HIoqeHbMqfG8TvTy2WrH4OVJ6EruQ8S
-	H9XkEnC0wbl1DpxIW5YqkLGF9zDALIPm6AvdBkn4HXpkp3hEYKF3okYI5u0unygEZIaJaZQZafj
-	j/pZZR83znF5bd+68boppmmtMLQgeNSzqAbFkHjJ6ASV3SFWWGFP1T0HinU/GWUhrEQNAmDBghc
-	/z3SYx/Oaqj1C4UOUaDAC0QNnibSoeFGzNjTaenIqwvIJh4+sScyefc6w==
-X-Received: by 2002:a05:693c:88d5:10b0:35e:5ca:e0df with SMTP id 5a478bee46e88-35e05cae713mr11058517eec.35.1792160892526;
-        Fri, 16 Oct 2026 07:28:12 -0700 (PDT)
+        bh=XCmVsxrmgZ8pEfg7Qw32h+8bf370YAvLf7Ni1e9gfE8=;
+        b=ttOY9Vucxct67OKfhr4vCuKNzIzyW5dN8t53ouRKGDjLpLmAXKClGjQKWskPB0QNFH
+         TjbE8+kqcamdbjsceuXYs7zh6ak7dE3cRjnls88qjenFDtErw2yn5ycy3xTviUuIX2C9
+         5Yt/5iRIeFO8GCa74oQbezZPpwQCr6nqwrBnWESGQAUBwYF4BTj/8cnP6mHjL+iFxVkB
+         ROym8MgprphDyTLgOcYUE2V2/3nRz9PmtBQhv2kSDa9woIehyGDkCzKrV7s2WAlOH1K+
+         8lGIkD84qcVIPXVCD/IyvYfdFB6sLw+UPy4RkovJ1liYdo15b0Z6W7l6RKrMHazIt6Yz
+         TNmA==
+X-Forwarded-Encrypted: i=1; AKwUvByDwswdEjqnuyItH9TdvHbMap61SIE3alk48Rd5i1HiF+bzALgIE2NQYgKYfGRZMmIfq2r2UZmrBuW06IA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHv343bH9nba8z7FQJgcGscSWEJkGndEgwutZux+oj3A4FYmcT
+	SeokM+gHVOdXhAJPlj8Gs1sbXa9KCUzPHDgmdseQ43m2a1MyCR0sX40/5OOa0avwRAE=
+X-Gm-Gg: AYBFou3OO/BymBhE/bhqsw8vJHYeNXywBKDFcYWDVOv5qPEBm68eKwvJ9HMoyrKdA0e
+	s9sKkXjEWa0o6Ufo6dy8BKHX/IkymPfNlsuV0n+lA7dbPr0cKS8buXNeskZ6s6S5a4uAq3nDvdU
+	Q9mrKzZNZIHsy4jLq83g+GioabrY7E/D484GRbFOuRTfgXHEBpwuMz3gtC94kEHxww/fQ+5hznb
+	a/BMwoYzi7Y6HUmn0QwA/i6G5AFJnHvM78bG7ObsxJyO3I1kQPQtznIogyA8jQVH1mo3KBOG7wO
+	S8Fn2N29axVmLNqDAB9CRad4F5ZRzWAuyh21ovTrQCSqliZZqsxYG7cHARLjoPd83+YQzXACOTz
+	ZlYBc5Au0QESEqXPrzPnuFawPkQ1lf42WwilARNwjE/kL3czzYcAVhQMxdsvEyKgRYODadXL4JU
+	rmnplemlRVgBkiOV2nudEl+EIe/zZ/LilpkK06VlAe3lAC7XeU5i4bw703d+WgVqauO1OFkC5Ro
+	iM722zXQQ2EXovxYOXLrOVRk944TnO7pgwVAtxJmoT/L8xBKIW4jF/yNQ==
+X-Received: by 2002:a05:7300:c00c:10b0:35a:22a4:12a with SMTP id 5a478bee46e88-35a22a420demr23834016eec.18.1792160900544;
+        Fri, 16 Oct 2026 07:28:20 -0700 (PDT)
 Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081bafa7asm7150945eec.14.2026.10.16.07.28.11
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081bafa7asm7150945eec.14.2026.10.16.07.28.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 07:28:11 -0700 (PDT)
+        Fri, 16 Oct 2026 07:28:20 -0700 (PDT)
 From: Jens Axboe <axboe@kernel.dk>
-To: tj@kernel.org, josef@toxicpanda.com, hch@infradead.org, 
- Tao Cui <cui.tao@linux.dev>
-Cc: cgroups@vger.kernel.org, linux-block@vger.kernel.org, 
- linux-kernel@vger.kernel.org, cuitao@kylinos.cn
-In-Reply-To: <20260922043856.2020116-1-cui.tao@linux.dev>
-References: <20260922043856.2020116-1-cui.tao@linux.dev>
-Subject: Re: [PATCH v4 0/4] blk-iocost: charge flushes and zone appends
-Message-Id: <179216089150.2070939.9793392159431285905.b4-ty@b4>
-Date: Fri, 16 Oct 2026 08:28:11 -0600
+To: Ming Lei <tom.leiming@gmail.com>, Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Yu Kuai <yukuai@fygo.io>, Hannes Reinecke <hare@suse.de>, 
+ "Martin K. Petersen" <mkp@kernel.org>, 
+ "Paul E. McKenney" <paulmck@kernel.org>, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261001-bug-blk-mq-global-tags-srcu-v1-0-e8415da10d1b@gmail.com>
+References: <20261001-bug-blk-mq-global-tags-srcu-v1-0-e8415da10d1b@gmail.com>
+Subject: Re: [PATCH 0/2] blk-mq: stop waiting for an SRCU grace period when
+ freeing a tag set
+Message-Id: <179216089963.2070939.15710192231611954920.b4-ty@b4>
+Date: Fri, 16 Oct 2026 08:28:19 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,28 +83,22 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15.2
 
 
-On Tue, 22 Sep 2026 12:38:52 +0800, Tao Cui wrote:
-> While testing iocost's weight-based throttling under concurrent IO, we
-> observed that a cgroup limited to 1% weight could issue an unbounded
-> number of flushes without being throttled: an fsync loop produced ~510k
-> flushes in 12s with cost.usage staying at zero the entire time.  The
-> device was monopolized while iocost reported no activity.  Zone appends
-> were in the same position: the builtin linear cost model defines
-> coefficients only for READ and WRITE, so REQ_OP_ZONE_APPEND is priced
-> at zero and excluded from the latency statistics as well.
+On Thu, 01 Oct 2026 17:17:49 +0800, Qiliang Yuan wrote:
+> blk_mq_free_tag_set() calls srcu_barrier() on the tag set's own
+> tags_srcu before cleaning it up. That costs a full SRCU grace period,
+> 1-3 ms, on every tag set teardown. When the free happens under a lock,
+> the cost multiplies. ublk drops its last device reference under the
+> global ublk_ctl_mutex, which caps 16-thread deletion of 4000 devices at
+> 19 s on 7.3-rc5.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/4] blk-iocost: add flush cost support with the flushiops model parameter
-      commit: f8bc5c74d9eccc87d2e27767f92b8c11b3315d72
-[2/4] blk-iocost: charge zone appends as writes
-      commit: febdbf5682fa7e8f325b07a2c115e7632c4252bd
-[3/4] blk-iocost: account zone append completions in latency stats
-      commit: c38975c427cc3d3f6eb66a36143893be5cdf4ebd
-[4/4] blk-iocost: fix stale comment in ioc_rqos_throttle()
-      commit: 40607f9a6a5eaa071797481bd0ba5ea3ef1eb405
+[1/2] blk-mq: share one tags_srcu instance across all tag sets
+      commit: e1c51edd6a575ba3b6fc5acb57ed2fec6951a910
+[2/2] blk-mq: drop the tag_set argument from blk_mq_free_rq_map/tags
+      commit: 5f702d4bd61be29f11d07dc1c4a6953d39b28f9f
 
 Best regards,
 -- 
