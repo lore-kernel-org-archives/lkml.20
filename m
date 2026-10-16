@@ -1,100 +1,121 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B1EE390CB7;
-	Fri, 16 Oct 2026 22:55:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D269A447237;
+	Fri, 16 Oct 2026 22:55:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792191327; cv=none; b=bhN6nPKT+8J42sR9VsNXdD2CjKjHsJi2B0zV2DdxIOpizhOv9n6UUlQ8+5RXkIs0Cz04xnTBMmzwsuT/KqjeTbEVzLyqJFPFMj/+e7Zj62b4/hHGERNosg1WW2QvlFUVGHajWBdV9hjFqJyVymI+uTGWNTDs1HbMUz2Yjp83STc=
+	t=1792191341; cv=none; b=WPmzArc/hMVRXtPC6cmIHBvzUaroV+RIcQo1Hz5NsMJuqEKS4Z0PFBL+e0bNvRf0GuF1YLvzKMGYRfURBOd+D6xlJGdRp8bylBSi7RXEQz8E52H6u5TYpdfP5vo4SVTzIiH2rDh9FNg1WJ6agJ3chQP9JD/kZGlKeZ/SjVWVK10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792191327; c=relaxed/simple;
-	bh=eLcXstUGQpu+xrOJ8PeHGrIktdadao5yyHaVL34ACQ0=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=fe8CAX4XRU2RJRk2BEX6Q+ktYlPWWdh1WwYsUZgbDgL1KCHMWDCh25Rr09FcuYfzVje7sKJFmMs8cLV1ctz4XDRVG2FIAu0spHbfazE0XVu33BNQs++NhigetjSBNdHOUfUOkHITmyHlCAOi61GzyZDLLadyX1OG59lapit0dig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=MrxFxZ1e; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1792191341; c=relaxed/simple;
+	bh=WUe4HY0OVlgw7iQWm1lGNiuW3oIyFgu21q3Aoas0C+k=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=OpYOcm6haIx1WFe/bNvlOH3/tLBETmZmnPaRAE+hNnLaBwkrg4TkraPmXQm03HIGnjxulHeCZgKY0P95fjza30ZP4jT3RwM5wc8tv/xNxp72F4oJc+fOc4n8dFHIXdgiJ4+7dv72MI0KGcXA8LVFFcNw79ROcnWWvoD+cIkhB9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=drmmTrUJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="MrxFxZ1e"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=pkithiv798uVgMzxb5UwY/p9qnpe6saIvaiV4xnnvbM=; b=MrxFxZ1eCmPPTVkoO/7d402aFx
-	54n2ufNyF/N+ngkBlIuLiqbXr4QQbmPebkPoK+pbYNWVLdb6hxK6hgrv5fnv7pYBx/w3a/eslHbfG
-	qzp+xinSmAOEQkpFBse7CspNBt+Sp0bU5ssyL6kXNuDvGZLdo4MqbrFIDYnexNykjMm/aueV86NJC
-	uYuR178SBkOGSSzNliyes3CyvhEovU/0/xxg2dsiu0cxZPR5LJOOP8469PK4+YBp0LkhIO0N6e48c
-	Ciy4dq6hDVYn+/DoR9fs8BZt+U4CTd+bRanjKun1J4UEAv7rJ/5eqdHBJ80v/m5b3mBkVrNYWg5iS
-	VWLi5w5A==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1xHqpf-00000007pyk-0pWS;
-	Fri, 16 Oct 2026 16:55:24 -0600
-Message-ID: <8b01d643-f62d-4118-a700-8874341d953b@deltatee.com>
-Date: Fri, 16 Oct 2026 16:55:20 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="drmmTrUJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0D411F000C4;
+	Fri, 16 Oct 2026 22:55:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792191340;
+	bh=r+fjZAA8UGKYXICmEmHMmO2IajMcg2qwTMJzf+lYDvo=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=drmmTrUJ8iWi865TABSjtQJ9sJU0X1ucWOZmcbbFlVromL4oRSkfQnK+vqE2SGeHU
+	 ANYRmOXzK0XCc74VOaBQOj0uYXzU2MWSShhuzhgDcUNw3lobZ15xl0SPVG7K5OhHVh
+	 DOiS+M8n01gTzcOAo7DNt7Tm6P70gsnjwF/zdnPm1VMzTqcDBCneVdwYKPF6I7bZ/G
+	 9QHUCYt41VoxCuQABUNzjja3lz9arKIVLgLNd6AimShaLvDw4Due7NWo+Xoy8niIjL
+	 12McuF8dO36y2gwjxSja1Nt1AM8ih46v+w7JplqmyiGmb4HC89Q7YUukk8D51P6hWU
+	 4YdShyNew+6Zg==
+Date: Sat, 17 Oct 2026 00:54:33 +0200 (CEST)
+From: Imre Kaloz <kaloz@kernel.org>
+To: Harry Yoo <harry@kernel.org>
+cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
+    Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, 
+    Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
+    Roman Gushchin <roman.gushchin@linux.dev>, Jann Horn <jannh@google.com>, 
+    linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+    "Jose A . Perez de Azpillaga" <azpijr@gmail.com>
+Subject: Re: [PATCH v2] mm/slab: sample slab_state once in
+ kmem_cache_destroy()
+In-Reply-To: <atDCYwNfKW3m6YXh@thinkstation>
+Message-ID: <ff8d44d0-d27f-2766-85e9-ce91b8e8e944@kernel.org>
+References: <20261014150844.8536-1-kaloz@kernel.org> <d966f16a-a2be-48c7-b31a-a2c7d3ef6d5c@kernel.org> <atDCYwNfKW3m6YXh@thinkstation>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Pavel Popov <pavel.e.popov@intel.com>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: Jim Chow <jim.chow@broadcom.com>, Radu Rugina <radu.rugina@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>, Wei Liu
- <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>,
- Lukas Wunner <lukas@wunner.de>, Leon Romanovsky <leonro@nvidia.com>,
- Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
- bcm-kernel-feedback-list@broadcom.com, virtualization@lists.linux.dev,
- linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261016223402.19991-1-pavel.e.popov@intel.com>
- <20261016223402.19991-2-pavel.e.popov@intel.com>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20261016223402.19991-2-pavel.e.popov@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: pavel.e.popov@intel.com, bhelgaas@google.com, jim.chow@broadcom.com, radu.rugina@broadcom.com, alexey.makhalov@broadcom.com, wei.liu@kernel.org, mhklinux@outlook.com, lukas@wunner.de, leonro@nvidia.com, nathan.d.ciobanu@linux.intel.com, bcm-kernel-feedback-list@broadcom.com, virtualization@lists.linux.dev, linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH v2 1/2] PCI/P2PDMA: Allow P2PDMA in VMware guests on Intel
- hosts
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+
+Hi Harry,
+
+On Thu, 15 Oct 2026, Harry Yoo wrote:
+
+> On Thu, Oct 15, 2026 at 09:21:43AM +0200, Vlastimil Babka (SUSE) wrote:
+>> On 10/14/26 17:08, Imre Kaloz wrote:
+>>> kmem_cache_release() tests slab_state >= FULL after kmem_cache_destroy()
+>>> has dropped slab_mutex and unlinked the cache, and for a
+>>> SLAB_TYPESAFE_BY_RCU cache after rcu_barrier(). If slab_late_init() runs
+>>> before that test it sets slab_state to FULL but skips the unlinked cache,
+>>> which never got a sysfs entry, so sysfs_slab_release() calls kobject_put()
+>>> on a kobject that was never initialized:
+>>>
+>>>   WARNING: lib/kobject.c:734 at kobject_put+0x64/0x2c0, CPU#1: kworker/u8:3/55
+>>>   kobject: '(null)' ((____ptrval____)): is not initialized, yet kobject_put() is being called.
+>>>   refcount_t: underflow; use-after-free.
+>>>   kobject_put+0x64/0x2c0
+>>>   sysfs_slab_release+0xc/0x20
+>>>   kmem_cache_destroy+0x104/0x1e0
+>>>   bioset_exit+0x13c/0x1e0
+>>>   disk_release+0x54/0x140
+>>>   put_disk+0x18/0x40
+>>>   floppy_async_init+0xbec/0xd10
+>>>
+>>> The release-time test has run outside slab_mutex since at least v4.4 for
+>>> SLAB_TYPESAFE_BY_RCU caches, and since v6.0 for the others. Since v6.12
+>>> the unlink-time test in kmem_cache_destroy() is a separate read of its
+>>> own, also after mutex_unlock(), so the two can disagree. Both tests ask
+>>
+>> It would be useful to mention the commits here along with the versions. Also
+>> this suggests 3 commits but there's only 2 in Fixes.
+>
+> Agreed.
+>
+> At second look I think we should improve the changelog a bit....
+> And the history of this race is really... messy.
+>
+> I'll just rewrite this part a little bit with specific commits and
+> add Fixes: tags for each commit that introduced for re-introduced
+> the commit, along with some history so that people* can decide whether
+> they* should pick this up.
+>
+> *who may maintain downstream stable Linux kernels
+>
+>>> the unlink-time test in kmem_cache_destroy() is a separate read of its
+>>> own, also after mutex_unlock(), so the two can disagree.
+>
+> This part is unnecessary because reading slab_state outside
+> slab_mutex is what we should fix. As long as it's read under
+> slab_mutex, reading it once or twice doesn't really matter.
+>
+> (See full changelog at the end of this email)
+>
+>> I would guess the 6.0 change is not a crucial one?
+>
+> Uh, I thought the Fixes: was 6.0 one, not 6.12 one :/
+>
+>> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+>
+> Thanks!
+>
+> So... below is my suggestion. What do you think?
+
+<snip>
+
+Looks good to me, thanks for untangling all of that history.
 
 
+Best,
+Imre
 
-On 2026-10-16 16:34, Pavel Popov wrote:
-> +#ifdef CONFIG_X86
-> +/* CPUs whose host bridges support p2pdma, see pci_p2pdma_whitelist[] */
-> +static const struct x86_cpu_id hypervisor_p2pdma_cpu_ids[] = {
-> +	X86_MATCH_VFM(INTEL_SKYLAKE_X, NULL),
-> +	X86_MATCH_VFM(INTEL_ICELAKE_X, NULL),
-> +	X86_MATCH_VFM(INTEL_ICELAKE_D, NULL),
-> +	X86_MATCH_VFM(INTEL_SAPPHIRERAPIDS_X, NULL),
-> +	X86_MATCH_VFM(INTEL_EMERALDRAPIDS_X, NULL),
-> +	X86_MATCH_VFM(INTEL_GRANITERAPIDS_X, NULL),
-> +	X86_MATCH_VFM(INTEL_GRANITERAPIDS_D, NULL),
-> +	X86_MATCH_VFM(INTEL_ATOM_CRESTMONT_X, NULL),
-> +	X86_MATCH_VFM(INTEL_ATOM_DARKMONT_X, NULL),
-> +	X86_MATCH_VFM(INTEL_DIAMONDRAPIDS_X, NULL),
-> +	{}
-> +};
-> +
-> +static bool hypervisor_supports_p2pdma(void)
-> +{
-> +	/* Hypervisor hides host topology, allow p2pdma on whitelisted CPUs */
-> +	if (hypervisor_is_type(X86_HYPER_VMWARE))
-> +		return x86_match_cpu(hypervisor_p2pdma_cpu_ids);
-> +
-> +	return false;
-> +}
-One quick thought, after a very quick pass at this:
-
-Why does this now need to be related to the hypervisor? Wouldn't it make
-sense to do this check regardless of whether VMWare is involved?
-
-Logan
