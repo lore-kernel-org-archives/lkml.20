@@ -1,217 +1,179 @@
-Received: from sonic316-21.consmr.mail.ne1.yahoo.com (sonic316-21.consmr.mail.ne1.yahoo.com [66.163.187.147])
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480CF30D405
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:15:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.187.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1E2296BB5
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:15:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792113306; cv=none; b=WTrn4dMGAQ9ZlGtSZrX1tQeDeffLlG0x+x6TQm1hYn8KWL+zI7CD0j+OSXZm0ifzbINHt6SubcfH6uqUuCvMX2cuUkaq2qW4VHk6xNxIGmH5QOS1QRNFTlPoN7LPTRvEeUuol9E2NA6mprRetYlTX6GBHZL609gmKW6DEva/qzk=
+	t=1792113358; cv=none; b=AOYNWTEX8NDb3Io7KT+r1uSRTzYoIo0vWoTLSR6lT9p5opK5jX4fsafLyeR7p5AXhW0Lb8pCf5QCwtb7VBeQaAdWam6UPqGlXBHaeQ0+I7H0XqFbloEV+p7HSB/wzMifgjZrcsP7oJ1hoh/e+sLGNevsm6dffAtulpszsotDg74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792113306; c=relaxed/simple;
-	bh=vc4cv9TfXy6V0eLdTZ8XChpWs9cMoE+yk9vORjbehJg=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=be1ZVBYZItgvJ7E81T8XEXWP4GqrdJVkf+uj+RpT9/Qrxv9oM0AE2v6n/zcZ5OnfpsgeEgvzcKG3tEqI1v1UTbLWaxDqXUmg4+X9J9Elbf0ebIXcg8rtkJS3yC/P7tvenTnTSwJNlIMu61LmnyuG4M4xH/yOi8v2boTK3e5H2sU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=PjCWAiXy; arc=none smtp.client-ip=66.163.187.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1792113358; c=relaxed/simple;
+	bh=9VAJj7cYZ380+pNqLiYIjT2WUQyqSLCyrHJH/HMmkLY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SnAL3/C+UOaRV1k3LW7AFpNujVrPzg58CL2GpwJ28XAwrSABEjsN9fIzvNkucz1rqsQbssGqXnxKY6pXMjibYV7/kxpLQOFvo8U7PKZ1mVMIfx4lrIYDh94aPTcGP3tQZy1w8/0OBeYoJPjBgEQDGpQ8mu91e0RN3PBLzuWNuDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=EAPBPvPO; arc=none smtp.client-ip=209.85.210.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="PjCWAiXy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792113304; bh=2r/v4f4+CTOzNYNcrtTt3nliQmx97miAvQ2bp6jBsgk=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=PjCWAiXyB4Q8bcXuOvUtMLcxmBBQxDUqgVUldVfLsVv9BsI4NhyS+PiNzAhbpoh3mXTTXglnPptXIMUPA1GkDoXDDi8+p6K1WS6JnoHCnoyr5reM3p5fr8NBekcMXu0Lg495yvA+Rv/jOHBDk3u/tcu5TmGg3NcIojOm9QG2BSLf3quZ1PtRXL2y3W38NS3KV9tBqrfMz5UtCMOSqqiy+jsn+tzKnDMUVBKMGWAqiuLBBBtY7c7WT/jdZAca/RSTrFpB/4wYORBb92Z1GHO2/r6dQaOhIJ/nMSsvA4pWM/CvOdbWw3ALDkEJtmnUvpGceDJDv00qB+E55nVn1sBC5w==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792113304; bh=5AGlOCCQwnxCsI8Ce5QAHKapA2AAURxCXRO6/vc9qpe=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=RezCnSflKhjAMx/3KnSwoTOR+LGkc7uUs7XzEgKc3vwyX8fxdCsXK5Heqe+v1tE9Q1yIQb64buJfCcA5eqz9iNgNTgXI5mx2dt/b0qZvSGomajI/dG3VyobgBX2z6LtyF9SIlMd//WxdNt5cukdmGfWJYWLC5OBPBx0l/2bb3wS97Xcgml+oSG6u+a1+c+UrIRznY6ArdX0+W1/EDzez/feSCGFma2iwj4+FtKzQlOqSBXLIvIN9wkTMDWuY+TtZVLW4W3B68gbH8rdqUu1w6QVPXaNojiaLnDrk/8m9Prk8Ye9AvEIbKLhsj1dex64DwRB8u/owTInvx0U0E9izYg==
-X-YMail-OSG: .WYQ_kQVM1niajJ1KaOQqCVlAFecPF9lr4OHpbZoP7Te5Tx_YM7bC0dT9QRcBjX
- UxbE.qKlrKgKLlydSklEP2HDzxwQmSsyL.0xIi2qBIcyt_JwmtewUV3b6AtycBrEfz_rz8Rn7_yd
- cQAw0gvVMPN7B6.UD76XWaVOsifVHf84m0xm2dD2a0kynG3RwZpjLFtrGx0mBTpVxCybh03T7ApS
- sxiXyihVP3ndZk5LeXSqas9_twdSb5IUPa5zRneGWmi0k_PZMgzRDWKjix5W6vDEBzw0cbQk2oly
- Ayk_dntEDJG9l3YCZwamIBmt7yfSKN5KXHzvzMmKb_Xm7jumz6T6CKR6Vu4CzFdB9a_EG31GxqL_
- J.MuQftWmsGWMcaYAAbFIrU679nMwREnDfHyQvq4kIOkGZ8FhH3Z8iRpoh273Z35wW4_8DghEZlm
- flwR3kl5y5igHAOvlpBiQxzSxhoP9a7k0uoCwEx_WurhpgUP.eBtlSds0vnpXINlkU8a2LGmRdWf
- fbHsSlnq5gfwb8XZM3oX8VvpHxhvmKnmwlzEA2ofemYlEuVjoDzqAcfEFysu8eaNhKMC1n2nRIw.
- MIDkks5aiK.1xoeJzGNQTZsjZudWefz0e.rm_k9f6M8vwJJca7FLNxu1Jp14IAofdiVeQvFrkD8K
- OssLhgycQtjArs5_kVnPpQcjTJQs8FB4otje0PWxbOKE_jW7o1d4Kg6G_i961go9j5B1x5YNPByk
- tRXS4yCHxVQ.AvgdAFpceCGVIp7rrQyr.lWVMOrD.Q0KOTwMxa6IFBKDwh2ClgCRQrnFW.2q9zo5
- m0NZvbdabUlth7X1BbQCe3ZqGKv7weTar5LAruDM.0oRU6YNVMRNsZmcuynZc7Dg9JfTKGG3r.yp
- AH4SJv3U5c0ddreUJl82VshwWTaxS22ZJWphowmuP8WY.1nZ4iq9jDep3eUaR7MLVF4d8RoEJW_k
- SaUzOa12mHyYGjfYy2f_aNn3WQlnUYIRPA5z_G__1KjWyuidtbR8jYDpynBaKszfN27M.DQRMPFI
- 6bRSrI30ZFCobTK1mpkOIuzjoXA34gXOx8P3L0JErgfYNwEc2JusddxGm_ynGcb5VXEn8NHGkMoP
- i.wstUhNwt0zM7aC9Nt1h22fsVB9n_3MJwU.Ya8J_5ZEGv06OcQvj_.bfIfiIRGZIXxbWPqfa_NG
- Vf.OIK_xoAQWSy2J9MNqzF.fUHKYcnCuO2OrFdf3Uaox2mcbWYvzlv3WVBwL7fdFDi2s7BiFPHYE
- Fi12tXBccIF9m63_6xGi_LMn_yhZew087PJ2MG2KJXyL5sKpoIej3lzcOXUndNEvaV6w6l0YilFP
- JNjLDd0q.R1jABhed8On_YoQJK7AZmcHj6cWkxGpCvoLEk5mAHhP6hYSUGS4Qqg5XIPna2dDXnlR
- WpjRMmLKVPgz3W66SfBs5z97HVrh6V3Y2I5sTJ50i1G2NUVZCp5W5G8laNEIw4DdR3B6Wix0oupY
- XlujvTzEHrjYgAvEclDBniv1LQj3kdJQBnqXymDZYnehNk2CWEafmtdKNCECG3JAv5C6osjfhIcA
- 699nbCSfQ7vcFeVKFc1N2Y61EcLfdMcl5HG3Nkp4Xri31QkDY0zNLlGxf8MIlqJUMCh8fXLKnJK0
- F4qqA9dni_Qq5Zuv9jxQtlkZUzhH6YGp6LLHNYI0nPVnr5LoCAQDs54LY.ukMPYAqzagFzTrQ4.L
- 9SFWh7JaoA55fZ045YtXrfkxLwYQ15JspAkPjAAqoJ44MTcuQZ5tEXCc6eIyF7FcxjtMDR81g1P.
- 4Glw17wBtw7aL4bdUb_BWw1nIZ17Ia4jEZ_wpN9JrAw33amQ5Db_OnZYrlfo4iWhuJfmZLhq9v4d
- zvGyihmkF2UdGuY3Ms6jgFdSH7BeG0XoSD84.6NLJGiSJ3Wlx38vKEBqxVmroTVF6rvZPMwx2bAh
- pCYdNOlfst3V4.jcId4uPligNA4AIbUNAxKWuKfUo8PIMxVcNaVCWHfQXROVXoj1J4r4_izPlrIr
- k5xFD684wq.IfohLOmQmmw3TYyl439JrAyG.xP60ivhHlEllfJzm0fvPe5by95F3U5uubiVTDaq.
- ayk2ES_3kwltPsRrIfvfvfkVYoo0bNOdPl9BcgbOfICtjQ.1rhVVpi4J8z3.jqa_6A5VdHtEix98
- 62Cfcq74ipQiqlkaR52JpyV_rFj.9lDbNktg5XK2a9NIJTfEGHQ1Dwx5BYDNSjVW0bl5W8szdIgk
- GZZAKe_A7bxTIr_t1aLYLcMeD_1ijslumA.7jnJXGsSbk3wVJkOa7a5Wq7lcsmPiMWDZyv6a7D4L
- KxrtOsN0cL1q_DiIdBxGd7wuF.bLovPdFQes-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: aec25bf8-369e-4eb8-927d-ccf1a4a23a18
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic316.consmr.mail.ne1.yahoo.com with HTTP; Fri, 16 Oct 2026 01:15:04 +0000
-Received: by hermes--production-ir2-5dd9bf4598-xpdvn (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 1104f8dfdca916fd523cdad120337e09;
-          Fri, 16 Oct 2026 01:04:46 +0000 (UTC)
-Message-ID: <aca905a9-9cc2-456d-ba5f-2d9425f1b5c1@yahoo.com>
-Date: Fri, 16 Oct 2026 03:04:41 +0200
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="EAPBPvPO"
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-825b40f8a26so2874291a34.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:15:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=openai.com; s=google; t=1792113356; x=1792718156; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6NehW30zqnjXf2BZQWCFKMsNatcoAA2i6XIIUsdpRco=;
+        b=EAPBPvPOekpK8Iln5SdDepOa9mPsiKmVKqIOD8Kj9bBpptcdAjgP9N/7wBus8Z27/G
+         +ItyZrRQCZkH1TO3wn9cqB7zGHG7HWp1CFG9iGu3JEIVS73wWH6lYJ9tWwKT11S2s6Jm
+         jBnB4v/Kb1foK/mRB13c/+wIeeed5Gq6vzZpM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792113356; x=1792718156;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6NehW30zqnjXf2BZQWCFKMsNatcoAA2i6XIIUsdpRco=;
+        b=Ty8//1sjJOisKv6fDNHZCJrC9hiC2RAhzk8W7Y8VAIca76eNwWJbEmjkUnu17YHaOA
+         HHH+GHAKQCDwURfAJSA4Px5Fh+pIKADegDQhfZL7ooTUdSxS18v2a+slPkK021DFuPIY
+         r5trwuyA0BuSx6JaSwhkWrcsA/e792YTvj+VCkBQWuH2oMAswYPkWR0K10DfbMRzJnyT
+         GSKeh2ezUPAQa/dLwQ/EoG+7JKU2HIrRVdrKDqTnyVdnNxvz+TMqV+mnfFEmyhZJLJR7
+         fYhsCnDBNm2UQuGUNYE/zl1wAe4K4R5cQwLBv3BZ4VlbCGDGGFwSQATvS/aw70hx+5UW
+         S3dg==
+X-Forwarded-Encrypted: i=1; AKwUvBzcqPe8QLAEGPvibGPj9VOkGcE9HVhlUtsJsdODSN5MKI5JewYfh79fmc7n2RmenM68ks3PxPS7SlEoFAk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVeaCFcoeRIqSg0g5pYR974ZFPp4nLNpSYjiVqf2e96eY2XAen
+	gyqgDfPY1PO9HZ9d+CMI1OLCvoAvovVYpIFz94Kpkrp7zeoYWdGBao4xy75nyxmm0SldDg1tF9w
+	v0TtTWJ0=
+X-Gm-Gg: AYBFou2JVi2F2wGpIUuUeSwVnCaltl1CLRtBQ5r9n5Au0T7QBOXy9xgv7XjfqG1vIeR
+	aWjvLSwCrNn7NJR80y3dw+s8tgzIw5sb+SPwbf5xEmUbNPtF0QoOt+Ifs6pZv/6pxQBTz7hLKHi
+	Jb9P66fJh/wf8DeFXiAa2Ivg7qRaF+trvFYia11ug5vPnvi4SOg0F2BQ8+XcvABHaXLsg55fT5b
+	pRuA+/qUSS/CxdMCJbHMFQFzHYBLYgEc3x3v8PWRr0QUjEpGvZXLT4S7J8To/hPI013qtpkrxDU
+	/tBz2FzwHyPcTehufFGHhgRvi06ZLFvYy8ed/8ag0QfKiJmYav/2G3pm8FMbJ2j9qQj5jyXN2XJ
+	hMaWi6AJCYMXHN2304TmxnKku5fN3sU2flZZ5gzJBfwN1bplDqeg0uoanwG78r1xHW6rdna9DEq
+	0yNQWlBjK8leVF/Pd9rO9Qfz1YM5xQM77PmwgkIMsCtdB9fP8xp4Wiuxb0X9yOueYVywl5g/buA
+	DrcV51rChlKgT0ZOQxlxgIg9YWt8R4/h6LS7YyOLUx8IjPW8lQ7DzFlcAyCU5iccw/U/1z5t7k=
+X-Received: by 2002:a05:6830:67d6:b0:829:9992:2106 with SMTP id 46e09a7af769-830984475fcmr20639981a34.22.1792113356354;
+        Thu, 15 Oct 2026 18:15:56 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a4a01f56sm547197a34.7.2026.10.15.18.15.55
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 15 Oct 2026 18:15:56 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-mm@kvack.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Rik van Riel <riel@surriel.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Kyle Zeng <kylebot@openai.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/page_vma_mapped: continue past nonmatching huge PMDs
+Date: Thu, 15 Oct 2026 18:15:49 -0700
+Message-ID: <20261016011549.61146-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v6 4/9] net: dsa: realtek: rtl8365mb: set RGMII mode
- for family D
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
-Content-Language: pl
-In-Reply-To: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26740 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
 
-On family D, RGMII on extension interface 1 needs two things that the
-other families do not: the EXT1 RGMII TX clock delay field in
-EXT_TXC_DLY (0x13f9, bits [5:3]) must be cleared, and the pin mux in
-the top-level configuration register must be set up.
+A PTE-mapped large folio can straddle PMD boundaries after an unaligned
+mremap().  If the first part is discarded and replaced with an unrelated
+huge PMD, page_vma_mapped_walk() stops instead of looking for the rest
+of the folio in subsequent PMDs.
 
-The vendor RGMII setup for EXT1 clears the RGMII field of EXT_TXC_DLY
-(0x13f9, bits [5:3]) in addition to programming TXDELAY in RGMXF.
-Do the same. The init jam table writes 0x0090 to this register, which
-leaves the field at 2, so without the clear an extra TX delay would be
-applied on top of tx-internal-delay-ps. Clearing it makes
-tx-internal-delay-ps the only source of TX delay.
+This also affects migration entries.  A walk that stops at an unrelated
+huge PMD can leave migration PTEs behind when migration or an anonymous
+folio split restores the mappings.  Those entries do not hold mapping
+references and can outlive the source folio.
 
-If the internal MAC4 block occupies extension 1, do not advertise RGMII
-for port 7 in phylink_get_caps(), so the configuration is refused before
-any EXT1 register is touched. This mirrors the vendor RTL8367D API, which
-returns an error for RGMII on port 7 when UTP port 4 uses the RGMII
-interface. Otherwise bind the RGMII/MII pins to MAC7. SerDes 1, which
-shares the pins, is always disabled.
+Skip the current PMD rather than ending the walk on a flag or PFN
+mismatch.  Do the same if the PMD became nonpresent before the locked
+recheck.  Release the PMD lock, clear the per-PMD state and advance with
+step_forward(), so the existing range limit controls termination.
+This covers present, migration and device-private huge PMDs while
+preserving the matching-PMD and split-to-PTE paths.
 
-The family D branch is not reachable until the chip table entry is
-added in the last patch.
-
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
+Cc: <stable@vger.kernel.org>
+Assisted-by: LLM
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
- drivers/net/dsa/realtek/rtl8365mb_main.c | 68 +++++++++++++++++++++++-
- 1 file changed, 66 insertions(+), 2 deletions(-)
+ mm/page_vma_mapped.c | 28 +++++++++++++++++++---------
+ 1 file changed, 19 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index 2dabc4d..f00c1c2 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -332,6 +332,12 @@
- #define   RTL8365MB_SDS_OPTION_ARM_KEY		0x0249
- #define RTL8365MB_SDS_OPTION_REG		0x13C1
+diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+index 4e964545e5e8..67c8039e9d28 100644
+--- a/mm/page_vma_mapped.c
++++ b/mm/page_vma_mapped.c
+@@ -258,28 +258,28 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 				softleaf_t entry;
  
-+#define RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK		GENMASK(4, 0)
-+/* Shared "disable" encoding for both SDS_MISC's and SDS1_MISC0's
-+ * 5-bit mode fields.
-+ */
-+#define RTL8365MB_D_PORT_SDS_MODE_DISABLE		0x1f
-+
- /* Embedded DW8051 microcontroller control registers. The microcontroller
-  * can run firmware to manage the SerDes link, but this driver keeps it in
-  * reset and disabled: phylink already performs the link management that
-@@ -465,6 +471,20 @@
- #define   RTL8365MB_PORT_MISC_CFG_VLAN_EGRESS_MODE_MASK		GENMASK(5, 4)
- #define   RTL8365MB_PORT_MISC_CFG_CONGESTION_SUSTAIN_TIME_MASK	GENMASK(3, 0)
+ 				if (!(pvmw->flags & PVMW_MIGRATION))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				entry = softleaf_from_pmd(pmde);
+ 				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				return true;
+ 			} else if (pmd_is_device_private_entry(pmde)) {
+ 				softleaf_t entry;
  
-+/* EXT_TXC_DLY holds a 3-bit TX clock delay per external interface, for
-+ * RGMII ([2:0] EXT0, [5:3] EXT1, [8:6] EXT2) and separately for GMII.
-+ * Only the EXT1 RGMII field is used here, and it is cleared in RGMII
-+ * mode so that tx-internal-delay-ps is the only TX delay applied.
-+ */
-+#define RTL8365MB_D_REG_EXT_TXC_DLY				0x13f9
-+#define   RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK			GENMASK(5, 3)
-+
-+#define RTL8365MB_D_REG_TOP_CON0				0x1d70
-+#define   RTL8365MB_D_MAC7_SEL_EXT1_MASK			BIT(13)
-+#define   RTL8365MB_D_MAC4_SEL_EXT1_MASK			BIT(12)
-+
-+#define RTL8365MB_D_REG_SDS1_MISC0				0x1d78
-+
- /**
-  * enum rtl8365mb_vlan_egress_mode - port VLAN egress mode
-  * @RTL8365MB_VLAN_EGRESS_MODE_ORIGINAL: follow untag mask in VLAN4k table entry
-@@ -1270,6 +1290,33 @@ static int rtl8365mb_ext_config_rgmii(struct realtek_priv *priv, int port,
- 	if (ret)
- 		return ret;
+ 				if (pvmw->flags & PVMW_MIGRATION)
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				entry = softleaf_from_pmd(pmde);
+ 				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				return true;
+ 			} else if (!pmd_present(pmde)) {
+-				return not_found(pvmw);
++				goto next_pmd;
+ 			}
+ 			if (likely(pmd_trans_huge(pmde))) {
+ 				if (pvmw->flags & PVMW_MIGRATION)
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				if (!check_pmd(pmd_pfn(pmde), pvmw))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				return true;
+ 			}
+ 			/* THP/device-private pmd was split under us: handle on pte level */
+@@ -292,8 +292,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 			    (pvmw->nr_pages >= HPAGE_PMD_NR))
+ 				sync_with_folio_pmd_zap(mm, pvmw->pmd);
  
-+	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D &&
-+	    extint->id == 1) {
-+		ret = regmap_update_bits(priv->map,
-+					 RTL8365MB_D_REG_EXT_TXC_DLY,
-+					 RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK, 0);
-+		if (ret)
-+			return ret;
-+
-+		/* Bind the RGMII/MII pins to MAC7. MAC4 does not own them:
-+		 * RGMII is not advertised otherwise, see
-+		 * rtl8365mb_phylink_get_caps().
+-			step_forward(pvmw, PMD_SIZE);
+-			continue;
++			goto next_pmd;
+ 		}
+ 		if (!map_pte(pvmw, &pmde, &ptl)) {
+ 			if (!pvmw->pte)
+@@ -336,6 +335,17 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 			pvmw->ptl = ptl;
+ 		}
+ 		goto this_pte;
++next_pmd:
++		/*
++		 * A large folio can be PTE-mapped across PMDs, so a
++		 * nonmatching PMD does not end the walk.
 +		 */
-+		ret = regmap_update_bits(priv->map,
-+					 RTL8365MB_D_REG_TOP_CON0,
-+					 RTL8365MB_D_MAC7_SEL_EXT1_MASK,
-+					 RTL8365MB_D_MAC7_SEL_EXT1_MASK);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_update_bits(priv->map,
-+					 RTL8365MB_D_REG_SDS1_MISC0,
-+					 RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK,
-+					 RTL8365MB_D_PORT_SDS_MODE_DISABLE);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	return 0;
- }
- 
-@@ -1773,6 +1820,8 @@ static void rtl8365mb_phylink_get_caps(struct dsa_switch *ds, int port,
- 		rtl8365mb_get_port_extint(ds->priv, port);
- 	struct realtek_priv *priv = ds->priv;
- 	struct rtl8365mb *mb = priv->chip_data;
-+	u32 data;
-+	int ret;
- 
- 	config->mac_capabilities = MAC_SYM_PAUSE | MAC_ASYM_PAUSE |
- 				   MAC_10 | MAC_100 | MAC_1000FD;
-@@ -1802,8 +1851,23 @@ static void rtl8365mb_phylink_get_caps(struct dsa_switch *ds, int port,
- 	 * which remain unimplemented.
- 	 */
- 
--	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_RGMII)
--		phy_interface_set_rgmii(config->supported_interfaces);
-+	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_RGMII) {
-+		/* On family D the EXT1 pins are shared with MAC4 (UTP port 4).
-+		 * If MAC4 owns them, RGMII on this port cannot work.
-+		 */
-+		if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D &&
-+		    extint->id == 1) {
-+			ret = regmap_read(priv->map, RTL8365MB_D_REG_TOP_CON0, &data);
-+			if (ret)
-+				dev_warn(priv->dev,
-+					 "failed to read TOP_CON0, RGMII on port %d disabled: %pe\n",
-+					 port, ERR_PTR(ret));
-+			else if (!(data & RTL8365MB_D_MAC4_SEL_EXT1_MASK))
-+				phy_interface_set_rgmii(config->supported_interfaces);
-+		} else {
-+			phy_interface_set_rgmii(config->supported_interfaces);
++		if (pvmw->ptl) {
++			spin_unlock(pvmw->ptl);
++			pvmw->ptl = NULL;
 +		}
-+	}
++		pvmw->pmd = NULL;
++		step_forward(pvmw, PMD_SIZE);
+ 	} while (pvmw->address < end);
  
- 	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_SGMII &&
- 	    mb->sds_supported)
+ 	return false;
 -- 
-2.53.0
+2.55.0.openai.911.g06873a30d2f3
 
