@@ -1,34 +1,34 @@
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBCEE4D9553;
-	Fri, 16 Oct 2026 13:33:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77AB54C8FE5;
+	Fri, 16 Oct 2026 13:33:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157622; cv=none; b=A0BmFEHr654WpXPxB9lbN/HVkUFK/20iWUmVG2aRPnZBL1NZ72yRXMNHEeejPGauQ4oFg/6shiy+YUjM1karsLfUiTjO3m70q+fD9Lv0Ff2Zu64lDaBhT8qVoOnGTzuCdYZE8dYquRcZelsVrH3qzuJHLeai+T8XnoMw/jycUw4=
+	t=1792157624; cv=none; b=Ed5BlByCFgkk1u04zK5vsiRNbjbIMu1PqRNuzHUHhnXK/LJd/OV7C5QdMMWzH3bfJqPvDGdbJYO2KcmQXr6fwRrXKuMcX/PYZe9pLvu/zmuWzqVgewgYfJ0ECWpwYIASZEdnyWTly4+2tytVx0oGU7xVUpkS4JUYYWGxKveneas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157622; c=relaxed/simple;
-	bh=GnukF0EAMbTuvPrV1VX0fdJFg3svHNTfh4wJT8Xahhs=;
+	s=arc-20240116; t=1792157624; c=relaxed/simple;
+	bh=/WP613G9znw7N9tMvrDgABOW01Fc9hMQFNx2v9WYwJ0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=LHQapsPbOr3OeCNOQ37P8Xj+fmUKfbaEsnIhyRaHLuRe5tW1lSJPDw8a26l3hOhbuaCtlCMyYmIqcrjJZZjMaVvvwgzyAAxyldyGcR1ic74KHBDXYrByUs8yyDtknjofGNQgC+e7vxu3D8c258EedWyzsGOR3kq/75ScP6G4PIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=bm8zoYe4; arc=none smtp.client-ip=158.69.130.18
+	 MIME-Version; b=C1R/BT9o4CJ8Rd6G0EQWI7VzfQU6o3d9/Qsu0s4Ch6zet4xE+66W8XDtGy+WQkV+uXdUehoz/Oq7+5OsifkidVAcKasd87jiidw+Ry7dLiMAHY6qWSfiY/yymUO9HscvblWZq99kfQEoI7PXEbForNtLHbhLY9P6Tz7iMt1EKBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=HOHnRpHz; arc=none smtp.client-ip=158.69.130.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="bm8zoYe4"
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="HOHnRpHz"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1792157608;
-	bh=7X4buT9Q5UTNQL8q3IIuPCNTR7o7TTWY3vI9lkbJNMk=;
+	s=smtpout1; t=1792157609;
+	bh=+kqURlLMv57q3aS0uDJobZTTa1tVwiNWSL57bZ+4ycM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=bm8zoYe4A8NeM8rRv0rFhyXJI40QQE9A3RxQWiZCAoEub47WmmcMtb55UJw8sX7Hf
-	 DM2dko1S/s+RIh48YsxdhfBKebfd+ztMKV0DU/6/0UfujuACHENQHeInrVKsXKSRoF
-	 oYmP+wQywjBkSL2yw9SO837wiC9mHIVtp5PARoRY75F3PKqyQOdRtlrn7d9Q6z5v3r
-	 vP2/PebAcIBEjqsJvSc5DrZkkzWVCMPgiV0tY7YbWrduUB9ACsRyxRi58KIrvR0BEy
-	 iIdGXibejmaZ6SUxIejQEBpl2LQGjoB/n+ipWrcFy+ooHzaIfZ7Hw0b07b2MPfUKAD
-	 s+gs7lgiBZyIw==
+	b=HOHnRpHzSaPRDIHG8P8gNvqMqWUhimxv85/x2hMpj3KQqymc0z4+l73TndsrdT+Xd
+	 DQrh20NiCARqfINfq9y0Csd29XtCJErNFi+cJCF3JH4KCV+9ijTP38npdXTP3RDksN
+	 QfLPQ74hp8tp7qICDnZsmELzBz/v4lWl85VKFeML2/6HFBN7SYkVGppKY0QoWzW/Wc
+	 Z6944QpZI9onQtyZxgL56aQmDOo8p46twglWN51bn7WQKzksEt1Dou5MqWRnWzTzS2
+	 faSD+X2T+MeDgwP+IPEMRDhvTrzUyrd5a5iNi0l/4DsIrTip8PUyyFmkIMnFWLXKe9
+	 8rZy37+j8julQ==
 Received: from thinkos.internal.efficios.com (unknown [IPv6:2606:6d00:100:4000:52b6:7728:7602:8919])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4j5m9M6PcWzmKZ;
-	Fri, 16 Oct 2026 09:33:27 -0400 (EDT)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4j5m9P2JzgzmjC;
+	Fri, 16 Oct 2026 09:33:29 -0400 (EDT)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: "Paul E . McKenney" <paulmck@kernel.org>
 Cc: linux-kernel@vger.kernel.org,
@@ -56,9 +56,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Ingo Molnar <mingo@kernel.org>,
 	Thomas Gleixner <tglx@kernel.org>,
 	rcu@vger.kernel.org
-Subject: [RFC PATCH 05/12] rcu_txn: Add an hlist edited through transactions
-Date: Fri, 16 Oct 2026 09:33:12 -0400
-Message-Id: <20261016133319.433617-6-mathieu.desnoyers@efficios.com>
+Subject: [RFC PATCH 12/12] samples: Add a cache on RCU pseudo-transactions with a lock per node
+Date: Fri, 16 Oct 2026 09:33:19 -0400
+Message-Id: <20261016133319.433617-13-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261016133319.433617-1-mathieu.desnoyers@efficios.com>
 References: <20261016133319.433617-1-mathieu.desnoyers@efficios.com>
@@ -70,973 +70,785 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add rcu_txn_hlist, a list with a single-pointer head shaped like hlist,
-whose edits are recorded into an RCU pseudo-transaction.  Its commit
-makes all of them, on one list or on many, visible to readers at once:
-an entry can move between two hash buckets, through a copy, and be in
-exactly one of them at any instant.
+Show RCU pseudo-transactions under fine-grained locking: the same cache
+as the mutex sample, with writers that exclude each other per node
+rather than under one mutex, so that writers updating distinct entries
+run in parallel.  Every entry, every bucket and the head of the list
+has a spinlock, and a writer holds the lock of every node updated by its
+transaction.
 
-Readers walk forward only and never load pprev, so a single update has
-one reader-visible edge.  The _rcu forms make such an update outside of
-any transaction, as hlist_add_head_rcu() does: they publish that edge
-with rcu_assign_pointer(), then write pprev with a plain store, which no
-other writer reads in between.  Every transaction settles its slots
-before its commit returns, and the writers are excluded, so the slots
-they read hold no proxy.  They allocate nothing and cannot fail.
+A writer plans under RCU, with no lock held: it finds the entry by
+walking its bucket, and reads the other nodes around it from its links.
+It then takes the locks of those nodes, in the order of the locks'
+addresses, and validates the plan: no planned node is dead, and the
+planned links are in place, in the entry and in its neighbours.  If not,
+it releases the locks and plans again.  The dead flag is an entry's
+tombstone, set by the writer that unlinks it, since an unlinked entry
+keeps its links for the readers standing on it.
 
-The _prepare forms record into a transaction of the caller's, and
-transact pprev too, as a slot of its own.  A later operation of the same
-transaction then loads its neighbour's pprev as the transaction leaves
-it, which lets edits of one bucket compose, and a transaction that fails
-or is cancelled leaves every pprev as it was.  An update with a
-successor thus records two edges there, and takes the descriptor path at
-commit even alone.
+The operation is one RCU read-side critical section from the plan to the
+commit, which keeps every node it found allocated; its records are
+reserved before that section.  The locks are of one lockdep class, with
+a comparison function that gives lockdep their order.
 
-A writer that excludes the others walks a chain with the same iterators
-as readers, outside of an RCU read-side critical section, by passing
-them a lockdep condition for that exclusion, such as lockdep_is_held()
-of its lock, as with hlist_for_each_entry_rcu().  rcu_txn_hlist_empty()
-takes the same condition: unlike hlist_empty(), it may have to resolve a
-proxy, which reads the descriptor of a commit in flight.  Add
-__rcu_txn_cond() to the engine, which picks that optional condition.
+As in the mutex sample, lookup threads find entries under RCU alone, and
+each insertion, update, deletion or eviction is one transaction over the
+hash table and the list; a second chance moves a referenced entry from
+the tail of the list to its front.  The module runs and reports as the
+mutex sample does, with its writers' retries and lost races in the
+report.
 
 Assisted-by: LLM
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- include/linux/rcu_txn.h       |   7 +
- include/linux/rcu_txn_hlist.h | 483 ++++++++++++++++++++++++++++++++++
- lib/tests/rcu_txn_kunit.c     | 396 ++++++++++++++++++++++++++++
- 3 files changed, 886 insertions(+)
- create mode 100644 include/linux/rcu_txn_hlist.h
+ Documentation/RCU/rcu_txn.rst             |   4 +-
+ samples/rcu_txn/Makefile                  |   2 +-
+ samples/rcu_txn/rcu_txn_cache_node_lock.c | 713 ++++++++++++++++++++++
+ 3 files changed, 717 insertions(+), 2 deletions(-)
+ create mode 100644 samples/rcu_txn/rcu_txn_cache_node_lock.c
 
-diff --git a/include/linux/rcu_txn.h b/include/linux/rcu_txn.h
-index 2946c63fb044..b9ee242a01ce 100644
---- a/include/linux/rcu_txn.h
-+++ b/include/linux/rcu_txn.h
-@@ -363,6 +363,13 @@ static inline void *rcu_txn_resolve(void *v, unsigned long tag)
-  */
- #define rcu_txn_dereference(p, tag)	rcu_txn_dereference_check(p, tag, 0)
+diff --git a/Documentation/RCU/rcu_txn.rst b/Documentation/RCU/rcu_txn.rst
+index 8f63c1ce9c38..b8c4d58c8cca 100644
+--- a/Documentation/RCU/rcu_txn.rst
++++ b/Documentation/RCU/rcu_txn.rst
+@@ -200,7 +200,9 @@ Samples
+ table of ``rcu_txn_hlist`` buckets, and kept in an ``rcu_txn_list`` as their
+ LRU.  Its lookups run under RCU alone, and each of its changes is one
+ transaction over both structures.  ``rcu_txn_cache_mutex`` excludes its
+-writers with a single mutex.  ``CONFIG_SAMPLE_RCU_TXN`` builds it.
++writers with a single mutex; ``rcu_txn_cache_node_lock`` with a spinlock in
++every node, taken in the order of their addresses, so that its writers run in
++parallel.  ``CONFIG_SAMPLE_RCU_TXN`` builds them.
  
-+/*
-+ * The optional lockdep condition of an iterator, as for
-+ * list_for_each_entry_rcu(): the condition if one was given, else 0.
-+ */
-+#define __rcu_txn_cond(cond...)			___rcu_txn_cond(0, ## cond, 0)
-+#define ___rcu_txn_cond(zero, cond, extra...)	((zero) || (cond))
-+
- /**
-  * rcu_txn_slot() - the engine's view of an RCU-protected pointer's address
-  * @pp: address of an __rcu pointer, of any type
-diff --git a/include/linux/rcu_txn_hlist.h b/include/linux/rcu_txn_hlist.h
+ Debugging
+ =========
+diff --git a/samples/rcu_txn/Makefile b/samples/rcu_txn/Makefile
+index 6d7845352afc..1ceee3c6e903 100644
+--- a/samples/rcu_txn/Makefile
++++ b/samples/rcu_txn/Makefile
+@@ -1,2 +1,2 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+-obj-$(CONFIG_SAMPLE_RCU_TXN) += rcu_txn_cache_mutex.o
++obj-$(CONFIG_SAMPLE_RCU_TXN) += rcu_txn_cache_mutex.o rcu_txn_cache_node_lock.o
+diff --git a/samples/rcu_txn/rcu_txn_cache_node_lock.c b/samples/rcu_txn/rcu_txn_cache_node_lock.c
 new file mode 100644
-index 000000000000..aecb1e4b94dc
+index 000000000000..423567a07e48
 --- /dev/null
-+++ b/include/linux/rcu_txn_hlist.h
-@@ -0,0 +1,483 @@
-+/* SPDX-License-Identifier: LGPL-2.1-or-later */
++++ b/samples/rcu_txn/rcu_txn_cache_node_lock.c
+@@ -0,0 +1,713 @@
++// SPDX-License-Identifier: LGPL-2.1-or-later
 +/*
-+ * RCU hlist edited through single-writer RCU pseudo-transactions
++ * A cache on RCU pseudo-transactions, its writers under a lock per node
 + *
 + * Copyright (C) 2026 Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-+ */
-+#ifndef _LINUX_RCU_TXN_HLIST_H
-+#define _LINUX_RCU_TXN_HLIST_H
-+
-+/*
-+ * rcu_txn_hlist: an RCU list with a single-pointer head, shaped like hlist, for
-+ * a single writer (writers mutually excluded, as with hlist_add_head_rcu()).
-+ * Its edits are recorded into a transaction of <linux/rcu_txn.h>, whose commit
-+ * makes all of them, on one bucket or on many, visible to readers at once.
 + *
-+ * Forward-only readers, and pprev
-+ * -------------------------------
-+ * A node's backward link is a pointer to the slot that points to it
-+ * (&prev->next or &head->first), not to a node, so no operation has a head
-+ * special case.
++ * The same cache as rcu_txn_cache_mutex.c, with writers that exclude each other
++ * per node rather than under one mutex, so that writers updating distinct
++ * entries run in parallel.  Every entry, every bucket and the head of the list
++ * has a spinlock, and a writer holds the lock of every node whose links its
++ * transaction changes.  An entry's links are its next and pprev in its bucket
++ * and its next and prev in the list; a bucket's is its first entry; the head's
++ * are the first and the last entry of the list.
 + *
-+ *   Node: { struct rcu_txn_hlist_node *next;    (node ptr; reader-visible)
-+ *           struct rcu_txn_hlist_node **pprev;  (slot ptr; writer-only) }
++ * A writer plans under RCU, with no lock held: it finds the entry it works on
++ * by walking its bucket, which finds the associated node, and reads the other
++ * nodes around it from its links.  It then takes the surrounding nodes' locks
++ * in the order of the locks' addresses, so that two writers cannot deadlock,
++ * and validates the plan: no planned node is dead, and the planned links are in
++ * place, in the entry and in its neighbours.  If not, the writer releases the
++ * locks and plans again.
 + *
-+ * Readers walk forward only and never load pprev, so each operation has exactly
-+ * one reader-visible edge: the next slot it re-points.
++ * The dead flag is an entry's tombstone, set with its lock held by the writer
++ * that unlinked it.  An unlinked entry keeps its links, for the readers
++ * standing on it, so its neighbours' links alone are not enough to determine
++ * that it is gone.
 + *
-+ * Single updates and transactions
-+ * -------------------------------
-+ * The _rcu forms make a single update, outside of any transaction: they publish
-+ * its one edge with rcu_assign_pointer(), as hlist_add_head_rcu() does, then
-+ * write pprev with a plain store.  The writers are mutually excluded, and every
-+ * transaction settles its slots before its commit returns, so the slots they
-+ * read hold no proxy, and no other writer reads pprev in between.  A single
-+ * update allocates nothing and cannot fail.
++ * The operation is one RCU read-side critical section from the plan to the
++ * commit, which keeps every node it found allocated.  lockdep is told the
++ * order of the locks: they are one class, with a comparison function.
 + *
-+ * The _prepare forms record into a transaction of the caller's, which may
-+ * compose several updates, and which may fail or be cancelled.  They transact
-+ * pprev too, as a slot of its own.  A later _prepare of the same transaction
-+ * then loads its neighbour's pprev as the transaction leaves it, which is what
-+ * makes edits of one bucket compose (see rcu_txn_hlist_del_prepare()), and a
-+ * transaction that fails or is cancelled leaves every pprev as it was.  An
-+ * update with a successor records two edges, and so takes the descriptor path
-+ * at commit even alone: a single update is cheapest in its _rcu form.
++ * Each operation is one transaction over the hash table and the list, recorded
++ * and committed with the locks held, its records reserved before.  An
++ * insertion links the new entry into its bucket and at the front of the list;
++ * an update replaces the entry in both; a deletion or an eviction unlinks one
++ * from both; a second chance moves a referenced entry from the tail of the
++ * list to its front.  Lookup threads find entries under RCU alone, and mark
++ * the ones they find referenced.
 + *
-+ * Composing edits of one hlist
-+ * ----------------------------
-+ * Operations whose neighbourhoods touch may share a transaction: each _prepare
-+ * loads the slots it reads, next/first and pprev, as the transaction leaves
-+ * them, and chains a second write to a slot onto the first.  Two rules remain
-+ * for the caller:
-+ *
-+ *   - Look up the nodes before editing, rather than by traversing the list in
-+ *     the middle of the transaction.
-+ *
-+ *   - Every node an operation is anchored on must still be in the list as the
-+ *     transaction leaves it.  A single-writer delete leaves no deletion mark:
-+ *     nothing in a deleted anchor distinguishes it from a live one.
-+ *
-+ *     Example: 1 -> 2 -> 3, del_prepare(2) then add_behind_prepare(9, 2).  The
-+ *     delete records {&1->next: 2 -> 3} and {&3->pprev: &2->next -> &1->next}.
-+ *     The add then records {&2->next: 3 -> 9}, and chains 3's pprev from
-+ *     &2->next, where the delete left it at &1->next.  CONFIG_DEBUG_RCU_TXN
-+ *     warns there, in rcu_txn_record_chain().  The commit still returns 0, and
-+ *     the committed chain is 1 -> 3: node 9 is reachable only through the
-+ *     removed node 2, and 3->pprev points to a slot that no live node holds.  A
-+ *     later del_rcu(3) follows that pprev, commits into the unreachable node 9
-+ *     and succeeds, while 1->next still points to 3, which the caller then
-+ *     frees.
-+ *
-+ *     add_before and replace anchored on a deleted node chain onto the delete's
-+ *     record of 1->next instead, where CONFIG_DEBUG_RCU_TXN warns as well, and
-+ *     replace warns again on 3's pprev.  The commit links the deleted node, or
-+ *     its replacement, back into the chain.
-+ *
-+ * Proxy tag
-+ * ---------
-+ * The slots, head->first, node->next and node->pprev, are transacted under
-+ * RCU_TXN_HLIST_TAG, bit 0.  No live value a slot holds carries it: a slot
-+ * holds NULL, the address of a node, or, for pprev, the address of a pointer.
-+ *
-+ * Read side
-+ * ---------
-+ * Iterate within an RCU read-side critical section, through
-+ * rcu_txn_hlist_first_rcu() / _next_rcu() or the macros below.  Never use what
-+ * rcu_dereference() returns for node->next directly: a slot may transiently
-+ * hold a tagged proxy.
-+ *
-+ * Write side
-+ * ----------
-+ * Writers must be mutually excluded.  A removed node keeps its own next, so a
-+ * reader standing on it still reaches the live chain; the caller reclaims it
-+ * after a grace period, as with hlist_del_rcu().
-+ *
-+ * The add forms take a node that no reader can reach, and build its next with
-+ * a plain store, so they cannot move a node.  To move an entry to another
-+ * bucket, delete its node and add a copy's, in one transaction.
-+ *
-+ * A writer that excludes the others walks the chain with the same iterators,
-+ * outside of an RCU read-side critical section, if it passes them a lockdep
-+ * condition for that exclusion, such as lockdep_is_held() of its lock, as with
-+ * hlist_for_each_entry_rcu(); rcu_txn_hlist_first_check(), _next_check() and
-+ * rcu_txn_hlist_empty() take one too.
++ * The sample runs for duration_ms when it is loaded, then checks that the hash
++ * table and the list hold the same entries, and reports what it did.  An
++ * allocation failure stops the writers there.
 + */
 +
-+#include <linux/build_bug.h>
-+#include <linux/container_of.h>
++#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
++
++#include <linux/delay.h>
++#include <linux/hash.h>
++#include <linux/kthread.h>
++#include <linux/module.h>
++#include <linux/random.h>
 +#include <linux/rcu_txn.h>
-+#include <linux/rcupdate.h>
-+
-+/* Proxy tag of the slots, head->first, node->next and node->pprev. */
-+#define RCU_TXN_HLIST_TAG	1UL
-+
-+/*
-+ * Under a zero tag every plain value would pass for a proxy.  A tag beyond
-+ * RCU_TXN_TAG_MASK would overlap the address of a record.
-+ */
-+static_assert(RCU_TXN_HLIST_TAG != 0 &&
-+	      (RCU_TXN_HLIST_TAG & ~RCU_TXN_TAG_MASK) == 0);
-+
-+struct rcu_txn_hlist_node {
-+	struct rcu_txn_hlist_node __rcu *next;		/* reader-visible */
-+	struct rcu_txn_hlist_node __rcu * __rcu *pprev;	/* writer-only */
-+};
-+
-+/* A bucket head is one pointer, like struct hlist_head. */
-+struct rcu_txn_hlist_head {
-+	struct rcu_txn_hlist_node __rcu *first;
-+};
-+
-+#define RCU_TXN_HLIST_HEAD_INIT	{ .first = NULL }
-+
-+static inline void rcu_txn_hlist_init(struct rcu_txn_hlist_head *head)
-+{
-+	RCU_INIT_POINTER(head->first, NULL);
-+}
-+
-+/*
-+ * First node and forward step, within an RCU read-side critical section or
-+ * where @c, a lockdep condition, holds.
-+ */
-+#define rcu_txn_hlist_first_check(head, c)				\
-+	rcu_txn_dereference_check((head)->first, RCU_TXN_HLIST_TAG, c)
-+
-+#define rcu_txn_hlist_next_check(node, c)				\
-+	rcu_txn_dereference_check((node)->next, RCU_TXN_HLIST_TAG, c)
-+
-+/* First node and forward step, for use within an RCU read-side section. */
-+static inline struct rcu_txn_hlist_node *
-+rcu_txn_hlist_first_rcu(struct rcu_txn_hlist_head *head)
-+{
-+	return rcu_txn_dereference(head->first, RCU_TXN_HLIST_TAG);
-+}
-+
-+static inline struct rcu_txn_hlist_node *
-+rcu_txn_hlist_next_rcu(struct rcu_txn_hlist_node *node)
-+{
-+	return rcu_txn_dereference(node->next, RCU_TXN_HLIST_TAG);
-+}
-+
-+/*
-+ * True iff the chain is empty, within an RCU read-side critical section or
-+ * where @cond, an optional lockdep condition, holds.
-+ *
-+ * Unlike hlist_empty(), which is a plain load, this needs one or the other:
-+ * while a commit of two records or more is in flight on head->first, the slot
-+ * holds a proxy, and telling an empty chain from another then reads the
-+ * transaction's descriptor, which is freed after a grace period.  A writer that
-+ * excludes the others finds no proxy there, and passes a lockdep condition for
-+ * that exclusion as @cond.
-+ */
-+#define rcu_txn_hlist_empty(head, cond...)				\
-+	(!rcu_txn_hlist_first_check(head, __rcu_txn_cond(cond)))
-+
-+/*
-+ * Write-side read of a head->first or node->next slot: this transaction's
-+ * pending write to it if it recorded one, else the slot's committed value.  A
-+ * typed wrapper over rcu_txn_load().  The _prepare forms read every forward
-+ * link through this, which is what lets edits compose on one bucket (see
-+ * rcu_txn_hlist_del_prepare()).  Readers use rcu_txn_hlist_first_rcu() /
-+ * _next_rcu() instead.
-+ */
-+static inline struct rcu_txn_hlist_node *
-+rcu_txn_hlist_pending_next(struct rcu_txn *txn,
-+			   struct rcu_txn_hlist_node __rcu **slot)
-+{
-+	return rcu_txn_load(txn, rcu_txn_slot(slot), RCU_TXN_HLIST_TAG);
-+}
-+
-+/* The pprev counterpart of rcu_txn_hlist_pending_next(). */
-+static inline struct rcu_txn_hlist_node __rcu **
-+__rcu_txn_hlist_pending_pprev(struct rcu_txn *txn,
-+			      struct rcu_txn_hlist_node *node)
-+{
-+	return rcu_txn_load(txn, rcu_txn_slot(&node->pprev), RCU_TXN_HLIST_TAG);
-+}
-+
-+/*
-+ * Record that @node's pprev, @old as the transaction leaves it so far, becomes
-+ * @new.
-+ */
-+static inline void
-+__rcu_txn_hlist_record_pprev(struct rcu_txn *txn,
-+			     struct rcu_txn_hlist_node *node,
-+			     struct rcu_txn_hlist_node __rcu **old,
-+			     struct rcu_txn_hlist_node __rcu **new)
-+{
-+	rcu_txn_record_chain(txn, rcu_txn_slot(&node->pprev), old, new,
-+			     RCU_TXN_HLIST_TAG);
-+}
-+
-+/**
-+ * rcu_txn_hlist_insert_at_slot_prepare() - record an insertion at a slot
-+ * @txn: the transaction
-+ * @new: the node to insert
-+ * @slot: the address of head->first, to insert at the head, or of pos->next,
-+ *        to insert behind @pos
-+ * @succ: the node @slot points to as this transaction leaves it, or NULL
-+ *
-+ * Record the edge that makes @slot point to @new, without committing.  When
-+ * @succ is non-NULL, its pprev becomes the address of new->next.
-+ *
-+ * @succ must be read with rcu_txn_hlist_pending_next(): @new is built pointing
-+ * at it, and a value read directly would link @new behind a node that an
-+ * earlier edit of the same transaction displaced.  The add_head and add_behind
-+ * forms below do so.
-+ */
-+static inline void
-+rcu_txn_hlist_insert_at_slot_prepare(struct rcu_txn *txn,
-+				     struct rcu_txn_hlist_node *new,
-+				     struct rcu_txn_hlist_node __rcu **slot,
-+				     struct rcu_txn_hlist_node *succ)
-+{
-+	/* Build the fresh node's links before it becomes reachable. */
-+	RCU_INIT_POINTER(new->next, succ);
-+	RCU_INIT_POINTER(new->pprev, slot);
-+
-+	rcu_txn_record_chain(txn, rcu_txn_slot(slot), succ, new,
-+			     RCU_TXN_HLIST_TAG);
-+	if (succ)
-+		__rcu_txn_hlist_record_pprev(txn, succ, slot, &new->next);
-+}
-+
-+/**
-+ * rcu_txn_hlist_add_head_prepare() - record an insertion at the head
-+ * @txn: the transaction
-+ * @new: the node to insert
-+ * @head: the list
-+ *
-+ * See rcu_txn_hlist_insert_at_slot_prepare().
-+ */
-+static inline void
-+rcu_txn_hlist_add_head_prepare(struct rcu_txn *txn,
-+			       struct rcu_txn_hlist_node *new,
-+			       struct rcu_txn_hlist_head *head)
-+{
-+	struct rcu_txn_hlist_node *first =
-+			rcu_txn_hlist_pending_next(txn, &head->first);
-+
-+	rcu_txn_hlist_insert_at_slot_prepare(txn, new, &head->first, first);
-+}
-+
-+/**
-+ * rcu_txn_hlist_add_behind_prepare() - record an insertion behind a node
-+ * @txn: the transaction
-+ * @new: the node to insert
-+ * @pos: the node to insert it behind
-+ *
-+ * See rcu_txn_hlist_insert_at_slot_prepare().
-+ */
-+static inline void
-+rcu_txn_hlist_add_behind_prepare(struct rcu_txn *txn,
-+				 struct rcu_txn_hlist_node *new,
-+				 struct rcu_txn_hlist_node *pos)
-+{
-+	struct rcu_txn_hlist_node *next =
-+			rcu_txn_hlist_pending_next(txn, &pos->next);
-+
-+	rcu_txn_hlist_insert_at_slot_prepare(txn, new, &pos->next, next);
-+}
-+
-+/**
-+ * rcu_txn_hlist_add_before_prepare() - record an insertion before a node
-+ * @txn: the transaction
-+ * @new: the node to insert
-+ * @pos: the node to insert it before
-+ *
-+ * @pos's pprev points to the slot to re-point.
-+ */
-+static inline void
-+rcu_txn_hlist_add_before_prepare(struct rcu_txn *txn,
-+				 struct rcu_txn_hlist_node *new,
-+				 struct rcu_txn_hlist_node *pos)
-+{
-+	struct rcu_txn_hlist_node __rcu **slot =
-+			__rcu_txn_hlist_pending_pprev(txn, pos);
-+
-+	RCU_INIT_POINTER(new->next, pos);
-+	RCU_INIT_POINTER(new->pprev, slot);
-+
-+	rcu_txn_record_chain(txn, rcu_txn_slot(slot), pos, new,
-+			     RCU_TXN_HLIST_TAG);
-+	__rcu_txn_hlist_record_pprev(txn, pos, slot, &new->next);
-+}
-+
-+/**
-+ * rcu_txn_hlist_del_prepare() - record the unlink of a node
-+ * @txn: the transaction
-+ * @elem: the node to unlink
-+ *
-+ * @elem's own next and pprev are left as they are, so a reader standing on it
-+ * still reaches the live chain; the caller frees @elem a grace period after the
-+ * commit.
-+ *
-+ * Composing on one bucket, by example: delete the adjacent A and B from head ->
-+ * A -> B -> C in one transaction, a record being written {slot: old -> new}.
-+ * del(A) records {head->first: A -> B}, and that B's pprev now points to
-+ * head->first.  del(B) loads B's pprev as the transaction leaves it and finds
-+ * head->first, not the stale A->next, so it records against head->first, finds
-+ * it recorded, and chains: {head->first: A -> C}.  It then records that C's
-+ * pprev points to head->first.
-+ *
-+ * Had del(B) read B->pprev directly, it would have found A->next, a slot inside
-+ * the node that del(A) unlinks, and head->first would be left pointing to the
-+ * deleted B.
-+ */
-+static inline void rcu_txn_hlist_del_prepare(struct rcu_txn *txn,
-+					     struct rcu_txn_hlist_node *elem)
-+{
-+	struct rcu_txn_hlist_node *next =
-+			rcu_txn_hlist_pending_next(txn, &elem->next);
-+	struct rcu_txn_hlist_node __rcu **ppv =
-+			__rcu_txn_hlist_pending_pprev(txn, elem);
-+
-+	rcu_txn_record_chain(txn, rcu_txn_slot(ppv), elem, next,
-+			     RCU_TXN_HLIST_TAG);
-+	if (next)
-+		__rcu_txn_hlist_record_pprev(txn, next, &elem->next, ppv);
-+}
-+
-+/**
-+ * rcu_txn_hlist_replace_prepare() - record the replacement of a node
-+ * @txn: the transaction
-+ * @old: the node to replace
-+ * @new: the node that replaces it
-+ *
-+ * @new takes @old's slot and successor, and @old keeps its own next for readers
-+ * standing on it.  Arguments are (old, new), as hlist_replace_rcu().
-+ */
-+static inline void rcu_txn_hlist_replace_prepare(struct rcu_txn *txn,
-+						 struct rcu_txn_hlist_node *old,
-+						 struct rcu_txn_hlist_node *new)
-+{
-+	struct rcu_txn_hlist_node *next =
-+			rcu_txn_hlist_pending_next(txn, &old->next);
-+	struct rcu_txn_hlist_node __rcu **ppv =
-+			__rcu_txn_hlist_pending_pprev(txn, old);
-+
-+	RCU_INIT_POINTER(new->next, next);
-+	RCU_INIT_POINTER(new->pprev, ppv);
-+
-+	rcu_txn_record_chain(txn, rcu_txn_slot(ppv), old, new,
-+			     RCU_TXN_HLIST_TAG);
-+	if (next)
-+		__rcu_txn_hlist_record_pprev(txn, next, &old->next,
-+					     &new->next);
-+}
-+
-+/*
-+ * The _rcu forms: each makes a single update, outside of any transaction.  See
-+ * "Single updates and transactions" above.
-+ */
-+
-+/*
-+ * Read a head->first or node->next slot outside of any transaction.
-+ * CONFIG_DEBUG_RCU_TXN checks that it holds no proxy: one would be another
-+ * writer's, in the middle of its commit.
-+ */
-+static inline struct rcu_txn_hlist_node *
-+__rcu_txn_hlist_load(struct rcu_txn_hlist_node __rcu **slot)
-+{
-+	struct rcu_txn_hlist_node *v = rcu_dereference_protected(*slot, 1);
-+
-+	RCU_TXN_WARN_ON(__rcu_txn_holds_proxy(v, RCU_TXN_HLIST_TAG));
-+	return v;
-+}
-+
-+/* A node's pprev, which only the writers access, outside of any transaction. */
-+static inline struct rcu_txn_hlist_node __rcu **
-+__rcu_txn_hlist_pprev(struct rcu_txn_hlist_node *node)
-+{
-+	return rcu_dereference_protected(node->pprev, 1);
-+}
-+
-+static inline void
-+__rcu_txn_hlist_insert_at_slot_rcu(struct rcu_txn_hlist_node *new,
-+				   struct rcu_txn_hlist_node __rcu **slot)
-+{
-+	struct rcu_txn_hlist_node *succ = __rcu_txn_hlist_load(slot);
-+
-+	RCU_INIT_POINTER(new->next, succ);
-+	RCU_INIT_POINTER(new->pprev, slot);
-+	rcu_assign_pointer(*slot, new);
-+	if (succ)
-+		RCU_INIT_POINTER(succ->pprev, &new->next);
-+}
-+
-+static inline void rcu_txn_hlist_add_head_rcu(struct rcu_txn_hlist_node *new,
-+					      struct rcu_txn_hlist_head *head)
-+{
-+	__rcu_txn_hlist_insert_at_slot_rcu(new, &head->first);
-+}
-+
-+static inline void rcu_txn_hlist_add_behind_rcu(struct rcu_txn_hlist_node *new,
-+						struct rcu_txn_hlist_node *pos)
-+{
-+	__rcu_txn_hlist_insert_at_slot_rcu(new, &pos->next);
-+}
-+
-+static inline void rcu_txn_hlist_add_before_rcu(struct rcu_txn_hlist_node *new,
-+						struct rcu_txn_hlist_node *pos)
-+{
-+	struct rcu_txn_hlist_node __rcu **slot = __rcu_txn_hlist_pprev(pos);
-+
-+	RCU_INIT_POINTER(new->next, pos);
-+	RCU_INIT_POINTER(new->pprev, slot);
-+	rcu_assign_pointer(*slot, new);
-+	RCU_INIT_POINTER(pos->pprev, &new->next);
-+}
-+
-+static inline void rcu_txn_hlist_del_rcu(struct rcu_txn_hlist_node *elem)
-+{
-+	struct rcu_txn_hlist_node __rcu **ppv = __rcu_txn_hlist_pprev(elem);
-+	struct rcu_txn_hlist_node *next = __rcu_txn_hlist_load(&elem->next);
-+
-+	rcu_assign_pointer(*ppv, next);
-+	if (next)
-+		RCU_INIT_POINTER(next->pprev, ppv);
-+}
-+
-+static inline void rcu_txn_hlist_replace_rcu(struct rcu_txn_hlist_node *old,
-+					     struct rcu_txn_hlist_node *new)
-+{
-+	struct rcu_txn_hlist_node __rcu **ppv = __rcu_txn_hlist_pprev(old);
-+	struct rcu_txn_hlist_node *next = __rcu_txn_hlist_load(&old->next);
-+
-+	RCU_INIT_POINTER(new->next, next);
-+	RCU_INIT_POINTER(new->pprev, ppv);
-+	rcu_assign_pointer(*ppv, new);
-+	if (next)
-+		RCU_INIT_POINTER(next->pprev, &new->next);
-+}
-+
-+#define rcu_txn_hlist_entry(ptr, type, member)				\
-+	container_of(ptr, type, member)
-+
-+#define rcu_txn_hlist_entry_safe(ptr, type, member)			\
-+({									\
-+	typeof(ptr) ____ptr = (ptr);					\
-+									\
-+	____ptr ? rcu_txn_hlist_entry(____ptr, type, member) : NULL;	\
-+})
-+
-+/*
-+ * Iterate forward over a bucket, within an RCU read-side critical section, or
-+ * where @cond, an optional lockdep condition, holds.
-+ */
-+#define rcu_txn_hlist_for_each_rcu(pos, head, cond...)			\
-+	for (pos = rcu_txn_hlist_first_check(head, __rcu_txn_cond(cond)); \
-+	     pos;							\
-+	     pos = rcu_txn_hlist_next_check(pos, __rcu_txn_cond(cond)))
-+
-+#define rcu_txn_hlist_for_each_entry_rcu(pos, head, member, cond...)	\
-+	for (pos = rcu_txn_hlist_entry_safe(				\
-+			rcu_txn_hlist_first_check(head, __rcu_txn_cond(cond)), \
-+			typeof(*(pos)), member);			\
-+	     pos;							\
-+	     pos = rcu_txn_hlist_entry_safe(				\
-+			rcu_txn_hlist_next_check(&(pos)->member,	\
-+						 __rcu_txn_cond(cond)),	\
-+			typeof(*(pos)), member))
-+
-+#endif /* _LINUX_RCU_TXN_HLIST_H */
-diff --git a/lib/tests/rcu_txn_kunit.c b/lib/tests/rcu_txn_kunit.c
-index 3f005cdee4d0..13e4bbae1053 100644
---- a/lib/tests/rcu_txn_kunit.c
-+++ b/lib/tests/rcu_txn_kunit.c
-@@ -8,6 +8,7 @@
- #include <kunit/test.h>
- #include <linux/bug.h>
- #include <linux/rcu_txn.h>
 +#include <linux/rcu_txn_hlist.h>
- #include <linux/rcupdate.h>
- #include <linux/sched/task.h>
- #include <linux/string.h>
-@@ -913,6 +914,387 @@ static void rcu_txn_test_debug_load_proxy(struct kunit *test)
- 	rcu_txn_cancel(&txn);
- }
- 
-+/*
-+ * <linux/rcu_txn_hlist.h>
-+ */
++#include <linux/rcu_txn_list.h>
++#include <linux/slab.h>
++#include <linux/sort.h>
++#include <linux/spinlock.h>
 +
-+struct hn {
-+	struct rcu_txn_hlist_node node;
-+	int key;
++#define CACHE_HASH_BITS	6
++#define CACHE_KEYS	512	/* keys are 0 to CACHE_KEYS - 1 */
++#define CACHE_SIZE	128	/* entries held, about */
++#define CACHE_CHANCES	4	/* second chances an eviction gives at most */
++#define CACHE_THREADS	16	/* of each kind, at most */
++#define CACHE_LOCKS	5	/* locks an operation holds at most */
++
++static unsigned int nr_lookups = 2;
++module_param(nr_lookups, uint, 0444);
++MODULE_PARM_DESC(nr_lookups, "Lookup threads");
++
++static unsigned int nr_writers = 4;
++module_param(nr_writers, uint, 0444);
++MODULE_PARM_DESC(nr_writers, "Writer threads");
++
++static unsigned int duration_ms = 2000;
++module_param(duration_ms, uint, 0444);
++MODULE_PARM_DESC(duration_ms, "How long the threads run, from the load");
++
++struct cache_entry {
++	spinlock_t lock;			/* its links, and @dead */
++	unsigned long key;
++	unsigned long value;			/* key + CACHE_KEYS * version */
++	struct rcu_txn_hlist_node hnode;	/* in its bucket */
++	struct rcu_txn_list_node lru;		/* in the list, newest first */
++	struct rcu_head rcu;
++	bool dead;				/* the tombstone: unlinked */
++	bool referenced;			/* found since it last moved */
 +};
 +
-+/* Freed with the test: a removed node stays valid for any reader. */
-+static struct rcu_txn_hlist_node *hn_new(struct kunit *test, int key)
-+{
-+	struct hn *n = kunit_kzalloc(test, sizeof(*n), GFP_KERNEL);
++struct cache_bucket {
++	spinlock_t lock;			/* its first entry */
++	struct rcu_txn_hlist_head head;
++};
 +
-+	KUNIT_ASSERT_NOT_NULL(test, n);
-+	n->key = key;
-+	return &n->node;
++static struct cache_bucket cache_hash[1 << CACHE_HASH_BITS];
++static struct {
++	spinlock_t lock;			/* the first and last entries */
++	struct rcu_txn_list_head head;
++} cache_lru = { .head = RCU_TXN_LIST_HEAD_INIT(cache_lru.head) };
++static atomic_t cache_count;
++
++static atomic_long_t nr_lookup, nr_hit, nr_bad, nr_insert, nr_update,
++		     nr_delete, nr_evict, nr_chance, nr_retry, nr_lost,
++		     nr_nomem;
++
++/* Set at the first allocation failure, which stops the writers. */
++static bool cache_failed;
++
++static void cache_fail(void)
++{
++	atomic_long_inc(&nr_nomem);
++	WRITE_ONCE(cache_failed, true);
 +}
 +
-+/* Build the list @keys by prepending in reverse. */
-+static void hlist_build(struct kunit *test, struct rcu_txn_hlist_head *head,
-+			const int *keys, int nr)
++#ifdef CONFIG_PROVE_LOCKING
++/* The locks of the cache are taken in the order of their addresses. */
++static int cache_lock_cmp(const struct lockdep_map *a,
++			  const struct lockdep_map *b)
 +{
-+	int i;
++	return cmp_int((unsigned long)a, (unsigned long)b);
++}
++#endif
 +
-+	for (i = nr - 1; i >= 0; i--)
-+		rcu_txn_hlist_add_head_rcu(hn_new(test, keys[i]), head);
++/* Every cache lock is of one lockdep class, ordered by cache_lock_cmp(). */
++static void cache_lock_init(spinlock_t *lock)
++{
++	spin_lock_init(lock);
++	lock_set_cmp_fn(lock, cache_lock_cmp, NULL);
 +}
 +
-+/* The test is the chain's only writer, and owns every node until it ends. */
-+static struct rcu_txn_hlist_node *hlist_find(struct rcu_txn_hlist_head *head,
-+					     int key)
++static struct cache_bucket *cache_bucket(unsigned long key)
 +{
-+	struct hn *n;
++	return &cache_hash[hash_long(key, CACHE_HASH_BITS)];
++}
 +
-+	rcu_txn_hlist_for_each_entry_rcu(n, head, node, true)
-+		if (n->key == key)
-+			return &n->node;
++static struct cache_entry *hnode_entry(struct rcu_txn_hlist_node *node)
++{
++	return node ? container_of(node, struct cache_entry, hnode) : NULL;
++}
++
++/* The entry of a node of the list, or NULL for the head. */
++static struct cache_entry *lru_entry(struct rcu_txn_list_node *node)
++{
++	if (node == &cache_lru.head.node)
++		return NULL;
++	return container_of(node, struct cache_entry, lru);
++}
++
++static spinlock_t *lru_lock(struct rcu_txn_list_node *node)
++{
++	struct cache_entry *e = lru_entry(node);
++
++	return e ? &e->lock : &cache_lru.lock;
++}
++
++/* The first entry of a bucket, with the bucket's lock held. */
++static struct rcu_txn_hlist_node *bucket_first(struct cache_bucket *b)
++{
++	return rcu_txn_hlist_first_check(&b->head, lockdep_is_held(&b->lock));
++}
++
++/* The first node of the list, with the head's lock held. */
++static struct rcu_txn_list_node *lru_first(void)
++{
++	return rcu_txn_list_next_check(&cache_lru.head.node,
++				       lockdep_is_held(&cache_lru.lock));
++}
++
++/* Within an RCU read-side critical section. */
++static struct cache_entry *cache_find(unsigned long key)
++{
++	struct cache_entry *e;
++
++	rcu_txn_hlist_for_each_entry_rcu(e, &cache_bucket(key)->head, hnode)
++		if (e->key == key)
++			return e;
 +	return NULL;
 +}
 +
-+/*
-+ * The forward walk gives @want, and each node's pprev points to the slot that
-+ * points to it: &head->first for the first node, &prev->next thereafter.  A
-+ * torn pprev is invisible to the forward walk but breaks the next edit, hence
-+ * the separate check.
-+ */
-+static void hlist_expect(struct kunit *test, struct rcu_txn_hlist_head *head,
-+			 const int *want, int nr)
-+{
-+	struct rcu_txn_hlist_node __rcu **slot = &head->first;
-+	struct rcu_txn_hlist_node *p;
-+	int i = 0;
++/* What a writer found under RCU, and the locks it takes. */
++struct cache_plan {
++	struct cache_entry *e;			/* the entry it works on */
++	struct rcu_txn_hlist_node __rcu **pprev; /* the slot pointing to @e, */
++	struct cache_entry *pprev_entry;	/* an entry's, or NULL */
++	spinlock_t *pprev_lock;			/* and its lock */
++	struct rcu_txn_hlist_node *hnext;	/* next in the bucket */
++	struct rcu_txn_list_node *prev, *next;	/* in the list */
++	struct rcu_txn_list_node *first;	/* of the list */
++	spinlock_t *locks[CACHE_LOCKS];		/* taken in address order */
++	unsigned int nr_locks;
++};
 +
-+	rcu_txn_hlist_for_each_rcu(p, head, true) {
-+		if (i < nr)
-+			KUNIT_EXPECT_EQ(test,
-+					container_of(p, struct hn, node)->key,
-+					want[i]);
-+		KUNIT_EXPECT_PTR_EQ(test, rcu_access_pointer(p->pprev), slot);
-+		slot = &p->next;
-+		i++;
++static void cache_want(struct cache_plan *p, spinlock_t *lock)
++{
++	unsigned int i;
++
++	for (i = 0; i < p->nr_locks; i++)
++		if (p->locks[i] == lock)
++			return;
++	if (!WARN_ON(p->nr_locks == CACHE_LOCKS))
++		p->locks[p->nr_locks++] = lock;
++}
++
++/* Take the locks in address order. */
++static void cache_lock(struct cache_plan *p)
++{
++	unsigned int i, j;
++
++	for (i = 1; i < p->nr_locks; i++)
++		for (j = i; j > 0 && p->locks[j - 1] > p->locks[j]; j--)
++			swap(p->locks[j - 1], p->locks[j]);
++	for (i = 0; i < p->nr_locks; i++)
++		spin_lock(p->locks[i]);
++}
++
++static void cache_unlock(struct cache_plan *p)
++{
++	while (p->nr_locks)
++		spin_unlock(p->locks[--p->nr_locks]);
++}
++
++/*
++ * Find the entry of @key by walking its bucket, which gives the slot that
++ * points to it there: the bucket's first, or the next of the entry before it.
++ */
++static struct cache_entry *cache_find_slot(unsigned long key,
++					   struct cache_plan *p)
++{
++	struct cache_bucket *b = cache_bucket(key);
++	struct rcu_txn_hlist_node __rcu **slot = &b->head.first;
++	struct cache_entry *before = NULL;
++	struct rcu_txn_hlist_node *node;
++
++	for (node = rcu_txn_hlist_first_rcu(&b->head); node;
++	     node = rcu_txn_hlist_next_rcu(node)) {
++		struct cache_entry *e = hnode_entry(node);
++
++		if (e->key == key) {
++			p->e = e;
++			p->pprev = slot;
++			p->pprev_entry = before;
++			p->pprev_lock = before ? &before->lock : &b->lock;
++			return e;
++		}
++		slot = &node->next;
++		before = e;
 +	}
-+	KUNIT_EXPECT_EQ(test, i, nr);
++	return NULL;
 +}
 +
-+static void rcu_txn_test_hlist_add(struct kunit *test)
++/* What an operation on an entry changes besides its list neighbours. */
++enum cache_mode {
++	CACHE_UNLINK,	/* the bucket: a deletion, an update */
++	CACHE_FRONT,	/* the front of the list: a second chance */
++};
++
++/* Is @e, a planned entry or NULL for a bucket or the head, unlinked? */
++static bool cache_dead(const struct cache_entry *e)
 +{
-+	static const int keys[] = { 1, 2, 3 };
-+	static const int behind[] = { 1, 2, 9, 3 };
-+	static const int before[] = { 1, 8, 2, 9, 3 };
-+	struct rcu_txn_hlist_head head = RCU_TXN_HLIST_HEAD_INIT;
-+
-+	KUNIT_EXPECT_TRUE(test, rcu_txn_hlist_empty(&head, true));
-+	hlist_build(test, &head, keys, ARRAY_SIZE(keys));
-+	hlist_expect(test, &head, keys, ARRAY_SIZE(keys));
-+
-+	rcu_txn_hlist_add_behind_rcu(hn_new(test, 9), hlist_find(&head, 2));
-+	hlist_expect(test, &head, behind, ARRAY_SIZE(behind));
-+
-+	rcu_txn_hlist_add_before_rcu(hn_new(test, 8), hlist_find(&head, 2));
-+	hlist_expect(test, &head, before, ARRAY_SIZE(before));
++	return e && e->dead;
 +}
 +
-+static void rcu_txn_test_hlist_del(struct kunit *test)
++/* A slot of a bucket, with the lock of its owner held. */
++static struct rcu_txn_hlist_node *
++hlist_link(struct rcu_txn_hlist_node __rcu **slot, spinlock_t *lock)
 +{
-+	static const int keys[] = { 1, 2, 3, 4, 5 };
-+	static const int middle[] = { 1, 2, 4, 5 };
-+	static const int ends[] = { 2, 4 };
-+	struct rcu_txn_hlist_head head = RCU_TXN_HLIST_HEAD_INIT;
-+	struct rcu_txn_hlist_node *removed;
-+
-+	hlist_build(test, &head, keys, ARRAY_SIZE(keys));
-+	removed = hlist_find(&head, 3);
-+	rcu_txn_hlist_del_rcu(removed);
-+	hlist_expect(test, &head, middle, ARRAY_SIZE(middle));
-+	/* A reader standing on the removed node still reaches the chain. */
-+	KUNIT_EXPECT_PTR_EQ(test, rcu_txn_hlist_next_check(removed, true),
-+			    hlist_find(&head, 4));
-+
-+	rcu_txn_hlist_del_rcu(hlist_find(&head, 1));	/* first */
-+	rcu_txn_hlist_del_rcu(hlist_find(&head, 5));	/* last */
-+	hlist_expect(test, &head, ends, ARRAY_SIZE(ends));
++	return rcu_txn_dereference_check(*slot, RCU_TXN_HLIST_TAG,
++					 lockdep_is_held(lock));
 +}
 +
-+static void rcu_txn_test_hlist_replace(struct kunit *test)
++/* A link of the list, with the lock of its node held. */
++static struct rcu_txn_list_node *
++lru_link(struct rcu_txn_list_node *node, struct rcu_txn_list_node __rcu **link)
 +{
-+	static const int keys[] = { 1, 2, 3 };
-+	static const int want[] = { 1, 22, 3 };
-+	struct rcu_txn_hlist_head head = RCU_TXN_HLIST_HEAD_INIT;
-+
-+	hlist_build(test, &head, keys, ARRAY_SIZE(keys));
-+	rcu_txn_hlist_replace_rcu(hlist_find(&head, 2), hn_new(test, 22));
-+	hlist_expect(test, &head, want, ARRAY_SIZE(want));
++	return rcu_txn_dereference_check(*link, RCU_TXN_LIST_TAG,
++					 lockdep_is_held(lru_lock(node)));
 +}
 +
 +/*
-+ * Composition on one bucket, with neighbourhoods that touch: the case the
-+ * _prepare forms read their own writes for.
++ * With the locks held: no planned node is dead, and the planned links are in
++ * place, as @p->e and as its neighbours see them.
 + */
-+
-+/* Delete the adjacent 2 and 3 from 1..5 in one transaction. */
-+static void rcu_txn_test_hlist_compose_adjacent_del(struct kunit *test)
++static bool cache_plan_holds(const struct cache_plan *p, enum cache_mode mode)
 +{
-+	static const int keys[] = { 1, 2, 3, 4, 5 };
-+	static const int want[] = { 1, 4, 5 };
-+	struct rcu_txn_hlist_head head = RCU_TXN_HLIST_HEAD_INIT;
-+	struct rcu_txn_hlist_node *e2, *e3;
-+	struct rcu_txn txn;
++	struct cache_entry *e = p->e;
 +
-+	hlist_build(test, &head, keys, ARRAY_SIZE(keys));
-+	e2 = hlist_find(&head, 2);
-+	e3 = hlist_find(&head, 3);
-+	rcu_txn_init(&txn, GFP_KERNEL);
-+	rcu_txn_hlist_del_prepare(&txn, e2);
-+	rcu_txn_hlist_del_prepare(&txn, e3);	/* the neighbour of e2 */
-+	/* &1->next, chained, and the pprev of 3 and of 4. */
-+	KUNIT_EXPECT_EQ(test, txn.nr, 3);
-+	KUNIT_EXPECT_EQ(test, rcu_txn_commit(&txn), 0);
-+	hlist_expect(test, &head, want, ARRAY_SIZE(want));
-+}
++	if (e->dead || cache_dead(lru_entry(p->prev)) ||
++	    cache_dead(lru_entry(p->next)))
++		return false;
++	if (lru_link(&e->lru, &e->lru.prev) != p->prev ||
++	    lru_link(&e->lru, &e->lru.next) != p->next ||
++	    lru_link(p->prev, &p->prev->next) != &e->lru ||
++	    lru_link(p->next, &p->next->prev) != &e->lru)
++		return false;
 +
-+/* Delete 2 and insert 9 into the same gap, behind 1, in one transaction. */
-+static void rcu_txn_test_hlist_compose_del_and_add(struct kunit *test)
-+{
-+	static const int keys[] = { 1, 2, 3 };
-+	static const int want[] = { 1, 9, 3 };
-+	struct rcu_txn_hlist_head head = RCU_TXN_HLIST_HEAD_INIT;
-+	struct rcu_txn_hlist_node *e1, *e2;
-+	struct rcu_txn txn;
++	if (mode == CACHE_UNLINK) {
++		struct cache_entry *n = hnode_entry(p->hnext);
 +
-+	hlist_build(test, &head, keys, ARRAY_SIZE(keys));
-+	e1 = hlist_find(&head, 1);
-+	e2 = hlist_find(&head, 2);
-+	rcu_txn_init(&txn, GFP_KERNEL);
-+	rcu_txn_hlist_del_prepare(&txn, e2);
-+	rcu_txn_hlist_add_behind_prepare(&txn, hn_new(test, 9), e1);
-+	KUNIT_EXPECT_EQ(test, rcu_txn_commit(&txn), 0);
-+	hlist_expect(test, &head, want, ARRAY_SIZE(want));
-+}
-+
-+/* Three consecutive deletes in one transaction: &1->next is chained twice. */
-+static void rcu_txn_test_hlist_compose_triple_del(struct kunit *test)
-+{
-+	static const int keys[] = { 1, 2, 3, 4, 5 };
-+	static const int want[] = { 1, 5 };
-+	struct rcu_txn_hlist_head head = RCU_TXN_HLIST_HEAD_INIT;
-+	struct rcu_txn_hlist_node *e[3];
-+	struct rcu_txn txn;
-+	int i;
-+
-+	hlist_build(test, &head, keys, ARRAY_SIZE(keys));
-+	for (i = 0; i < ARRAY_SIZE(e); i++)
-+		e[i] = hlist_find(&head, i + 2);	/* 2, 3, 4 */
-+	rcu_txn_init(&txn, GFP_KERNEL);
-+	for (i = 0; i < ARRAY_SIZE(e); i++)
-+		rcu_txn_hlist_del_prepare(&txn, e[i]);
-+	KUNIT_EXPECT_EQ(test, rcu_txn_commit(&txn), 0);
-+	hlist_expect(test, &head, want, ARRAY_SIZE(want));
-+}
-+
-+/*
-+ * Insert 9 behind 1, then delete 1, in that order: the fresh node inherits
-+ * &1->next as the slot that points to it, and the next operation removes the
-+ * node that slot lives in.  add_behind must have recorded &9->next as 2's
-+ * pprev, and del(1) must then re-point head->first to the pending 9 rather than
-+ * to the committed 2, and record &head->first as 9's pprev.
-+ *
-+ * A wrong pprev for 2 leaves the forward order intact here: only the pprev
-+ * check catches it.
-+ */
-+static void rcu_txn_test_hlist_compose_add_then_del_host(struct kunit *test)
-+{
-+	static const int keys[] = { 1, 2, 3 };
-+	static const int want[] = { 9, 2, 3 };
-+	struct rcu_txn_hlist_head head = RCU_TXN_HLIST_HEAD_INIT;
-+	struct rcu_txn_hlist_node *e1;
-+	struct rcu_txn txn;
-+
-+	hlist_build(test, &head, keys, ARRAY_SIZE(keys));
-+	e1 = hlist_find(&head, 1);
-+	rcu_txn_init(&txn, GFP_KERNEL);
-+	rcu_txn_hlist_add_behind_prepare(&txn, hn_new(test, 9), e1);
-+	rcu_txn_hlist_del_prepare(&txn, e1);
-+	KUNIT_EXPECT_EQ(test, rcu_txn_commit(&txn), 0);
-+	hlist_expect(test, &head, want, ARRAY_SIZE(want));
-+}
-+
-+/*
-+ * Delete the first node, then insert before its successor.  add_before loads
-+ * 2's pprev as the transaction leaves it, &head->first, which del(1) recorded.
-+ * The committed &1->next would publish head->first == 1.
-+ */
-+static void rcu_txn_test_hlist_compose_del_then_add_before(struct kunit *test)
-+{
-+	static const int keys[] = { 1, 2, 3 };
-+	static const int want[] = { 9, 2, 3 };
-+	struct rcu_txn_hlist_head head = RCU_TXN_HLIST_HEAD_INIT;
-+	struct rcu_txn_hlist_node *e1, *e2;
-+	struct rcu_txn txn;
-+
-+	hlist_build(test, &head, keys, ARRAY_SIZE(keys));
-+	e1 = hlist_find(&head, 1);
-+	e2 = hlist_find(&head, 2);
-+	rcu_txn_init(&txn, GFP_KERNEL);
-+	rcu_txn_hlist_del_prepare(&txn, e1);
-+	rcu_txn_hlist_add_before_prepare(&txn, hn_new(test, 9), e2);
-+	KUNIT_EXPECT_EQ(test, rcu_txn_commit(&txn), 0);
-+	hlist_expect(test, &head, want, ARRAY_SIZE(want));
-+}
-+
-+/*
-+ * Two buckets in one transaction: a node leaves one and its replacement
-+ * enters the other.  The edges are installed as proxies, so that at any instant
-+ * the key is in exactly one bucket.
-+ */
-+static void rcu_txn_test_hlist_move(struct kunit *test)
-+{
-+	static const int keys[] = { 1, 2, 3 };
-+	static const int from[] = { 1, 3 };
-+	static const int to[] = { 2 };
-+	struct rcu_txn_hlist_head a = RCU_TXN_HLIST_HEAD_INIT;
-+	struct rcu_txn_hlist_head b = RCU_TXN_HLIST_HEAD_INIT;
-+	struct rcu_txn txn;
-+
-+	hlist_build(test, &a, keys, ARRAY_SIZE(keys));
-+	rcu_txn_init(&txn, GFP_KERNEL);
-+	rcu_txn_hlist_del_prepare(&txn, hlist_find(&a, 2));
-+	rcu_txn_hlist_add_head_prepare(&txn, hn_new(test, 2), &b);
-+	/* The two forward edges, and the pprev of 3. */
-+	KUNIT_EXPECT_EQ(test, txn.nr, 3);
-+	KUNIT_EXPECT_EQ(test, rcu_txn_commit(&txn), 0);
-+	hlist_expect(test, &a, from, ARRAY_SIZE(from));
-+	hlist_expect(test, &b, to, ARRAY_SIZE(to));
-+}
-+
-+/*
-+ * One _prepare alone: an update with a successor records its forward edge and
-+ * the successor's pprev, and commits through the descriptor.
-+ */
-+static void rcu_txn_test_hlist_prepare_alone(struct kunit *test)
-+{
-+	static const int keys[] = { 1, 2, 3 };
-+	static const int want[] = { 1, 3 };
-+	struct rcu_txn_hlist_head head = RCU_TXN_HLIST_HEAD_INIT;
-+	struct rcu_txn txn;
-+
-+	hlist_build(test, &head, keys, ARRAY_SIZE(keys));
-+	rcu_txn_init(&txn, GFP_KERNEL);
-+	rcu_txn_hlist_del_prepare(&txn, hlist_find(&head, 2));
-+	KUNIT_EXPECT_EQ(test, txn.nr, 2);
-+	KUNIT_EXPECT_EQ(test, rcu_txn_commit(&txn), 0);
-+	hlist_expect(test, &head, want, ARRAY_SIZE(want));
-+}
-+
-+/*
-+ * Every kind of edit in one transaction over 1..5: del(2), add_behind(9, 1),
-+ * replace(4, 44), add_before(8, 5).  The last re-points the slot that the
-+ * replace made 5's, inside the fresh node 44, and so loads 5's pending pprev
-+ * to find it.
-+ */
-+static void hlist_prepare_mixed(struct kunit *test, struct rcu_txn *txn,
-+				struct rcu_txn_hlist_head *head)
-+{
-+	struct rcu_txn_hlist_node *e1 = hlist_find(head, 1);
-+	struct rcu_txn_hlist_node *e2 = hlist_find(head, 2);
-+	struct rcu_txn_hlist_node *e4 = hlist_find(head, 4);
-+	struct rcu_txn_hlist_node *e5 = hlist_find(head, 5);
-+
-+	rcu_txn_hlist_del_prepare(txn, e2);
-+	rcu_txn_hlist_add_behind_prepare(txn, hn_new(test, 9), e1);
-+	rcu_txn_hlist_replace_prepare(txn, e4, hn_new(test, 44));
-+	rcu_txn_hlist_add_before_prepare(txn, hn_new(test, 8), e5);
-+}
-+
-+static void rcu_txn_test_hlist_compose_mixed(struct kunit *test)
-+{
-+	static const int keys[] = { 1, 2, 3, 4, 5 };
-+	static const int want[] = { 1, 9, 3, 44, 8, 5 };
-+	struct rcu_txn_hlist_head head = RCU_TXN_HLIST_HEAD_INIT;
-+	struct rcu_txn txn;
-+
-+	hlist_build(test, &head, keys, ARRAY_SIZE(keys));
-+	rcu_txn_init(&txn, GFP_KERNEL);
-+	hlist_prepare_mixed(test, &txn, &head);
-+	KUNIT_EXPECT_EQ(test, rcu_txn_commit(&txn), 0);
-+	hlist_expect(test, &head, want, ARRAY_SIZE(want));
-+}
-+
-+/*
-+ * The same transaction, cancelled: nothing was written outside it, so the chain
-+ * and every pprev are as they were.  A later single update then finds the
-+ * pprev it relies on.
-+ */
-+static void rcu_txn_test_hlist_cancel(struct kunit *test)
-+{
-+	static const int keys[] = { 1, 2, 3, 4, 5 };
-+	static const int want[] = { 1, 2, 4, 5 };
-+	struct rcu_txn_hlist_head head = RCU_TXN_HLIST_HEAD_INIT;
-+	struct rcu_txn txn;
-+
-+	hlist_build(test, &head, keys, ARRAY_SIZE(keys));
-+	rcu_txn_init(&txn, GFP_KERNEL);
-+	hlist_prepare_mixed(test, &txn, &head);
-+	rcu_txn_cancel(&txn);
-+	hlist_expect(test, &head, keys, ARRAY_SIZE(keys));
-+
-+	rcu_txn_hlist_del_rcu(hlist_find(&head, 3));
-+	hlist_expect(test, &head, want, ARRAY_SIZE(want));
-+}
-+
-+/*
-+ * Out of memory after two edits, the sticky state set by hand as a failed
-+ * record() leaves it: commit() reports it and publishes nothing, and the edits
-+ * recorded before the failure leave no pprev behind either.
-+ */
-+static void rcu_txn_test_hlist_oom(struct kunit *test)
-+{
-+	static const int keys[] = { 1, 2, 3, 4, 5 };
-+	struct rcu_txn_hlist_head head = RCU_TXN_HLIST_HEAD_INIT;
-+	struct rcu_txn_hlist_node *e1, *e2, *e4;
-+	struct rcu_txn txn;
-+
-+	hlist_build(test, &head, keys, ARRAY_SIZE(keys));
-+	e1 = hlist_find(&head, 1);
-+	e2 = hlist_find(&head, 2);
-+	e4 = hlist_find(&head, 4);
-+	rcu_txn_init(&txn, GFP_KERNEL);
-+	rcu_txn_hlist_del_prepare(&txn, e2);
-+	rcu_txn_hlist_add_behind_prepare(&txn, hn_new(test, 9), e1);
-+	txn.state = RCU_TXN_OOM;
-+	rcu_txn_hlist_replace_prepare(&txn, e4, hn_new(test, 44));
-+	KUNIT_EXPECT_EQ(test, rcu_txn_commit(&txn), -ENOMEM);
-+	hlist_expect(test, &head, keys, ARRAY_SIZE(keys));
-+}
-+
-+/*
-+ * An add_behind anchored on a node that the same transaction deleted: it
-+ * records the successor's pprev from a slot that the delete already moved it
-+ * from.
-+ */
-+static void rcu_txn_test_hlist_debug_ghost_anchor(struct kunit *test)
-+{
-+	static const int keys[] = { 1, 2, 3 };
-+	struct rcu_txn_hlist_head head = RCU_TXN_HLIST_HEAD_INIT;
-+	struct rcu_txn_hlist_node *e2;
-+	struct rcu_txn txn;
-+
-+	need_debug(test);
-+	hlist_build(test, &head, keys, ARRAY_SIZE(keys));
-+	e2 = hlist_find(&head, 2);
-+	rcu_txn_init(&txn, GFP_KERNEL);
-+	rcu_txn_hlist_del_prepare(&txn, e2);
-+	kunit_warning_suppress(test) {
-+		rcu_txn_hlist_add_behind_prepare(&txn, hn_new(test, 9), e2);
-+		KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 1);
++		if (cache_dead(p->pprev_entry) || cache_dead(n))
++			return false;
++		if (rcu_access_pointer(e->hnode.pprev) != p->pprev ||
++		    hlist_link(p->pprev, p->pprev_lock) != &e->hnode ||
++		    hlist_link(&e->hnode.next, &e->lock) != p->hnext ||
++		    (n && rcu_access_pointer(n->hnode.pprev) != &e->hnode.next))
++			return false;
 +	}
-+	rcu_txn_cancel(&txn);
-+	hlist_expect(test, &head, keys, ARRAY_SIZE(keys));
++	if (mode == CACHE_FRONT)
++		return !cache_dead(lru_entry(p->first)) &&
++		       lru_first() == p->first;
++	return true;
 +}
 +
- static struct kunit_case rcu_txn_test_cases[] = {
- 	KUNIT_CASE(rcu_txn_test_single_record),
- 	KUNIT_CASE(rcu_txn_test_multi_record),
-@@ -946,6 +1328,20 @@ static struct kunit_case rcu_txn_test_cases[] = {
- 	KUNIT_CASE(rcu_txn_test_debug_disjoint),
- 	KUNIT_CASE(rcu_txn_test_debug_stale_chain),
- 	KUNIT_CASE(rcu_txn_test_debug_load_proxy),
-+	KUNIT_CASE(rcu_txn_test_hlist_add),
-+	KUNIT_CASE(rcu_txn_test_hlist_del),
-+	KUNIT_CASE(rcu_txn_test_hlist_replace),
-+	KUNIT_CASE(rcu_txn_test_hlist_compose_adjacent_del),
-+	KUNIT_CASE(rcu_txn_test_hlist_compose_del_and_add),
-+	KUNIT_CASE(rcu_txn_test_hlist_compose_triple_del),
-+	KUNIT_CASE(rcu_txn_test_hlist_compose_add_then_del_host),
-+	KUNIT_CASE(rcu_txn_test_hlist_compose_del_then_add_before),
-+	KUNIT_CASE(rcu_txn_test_hlist_move),
-+	KUNIT_CASE(rcu_txn_test_hlist_prepare_alone),
-+	KUNIT_CASE(rcu_txn_test_hlist_compose_mixed),
-+	KUNIT_CASE(rcu_txn_test_hlist_cancel),
-+	KUNIT_CASE(rcu_txn_test_hlist_oom),
-+	KUNIT_CASE(rcu_txn_test_hlist_debug_ghost_anchor),
- 	{}
- };
- 
++/*
++ * Plan an operation of @mode on the entry of @key, take the locks of the nodes
++ * whose links it changes, and look again.  Returns false, holding no lock, if
++ * there is no such entry, or if it is not @want when that is given.  Within an
++ * RCU read-side critical section, which keeps what it finds allocated.
++ */
++static bool cache_lock_entry(struct cache_plan *p, unsigned long key,
++			     struct cache_entry *want, enum cache_mode mode)
++{
++	struct rcu_txn_list_node *head = &cache_lru.head.node;
++	bool dead;
++
++	for (;;) {
++		p->nr_locks = 0;
++		if (!cache_find_slot(key, p) || (want && p->e != want))
++			return false;
++		p->hnext = rcu_txn_hlist_next_rcu(&p->e->hnode);
++		p->prev = rcu_txn_list_prev_rcu(&p->e->lru);
++		p->next = rcu_txn_list_next_rcu(&p->e->lru);
++		p->first = rcu_txn_list_next_rcu(head);
++
++		cache_want(p, &p->e->lock);
++		if (mode == CACHE_UNLINK) {
++			cache_want(p, p->pprev_lock);
++			if (p->hnext)
++				cache_want(p, &hnode_entry(p->hnext)->lock);
++		}
++		cache_want(p, lru_lock(p->prev));
++		cache_want(p, lru_lock(p->next));
++		if (mode == CACHE_FRONT) {
++			cache_want(p, &cache_lru.lock);
++			cache_want(p, lru_lock(p->first));
++		}
++		cache_lock(p);
++		if (cache_plan_holds(p, mode))
++			return true;
++		dead = p->e->dead;
++		cache_unlock(p);
++		if (dead && want)
++			return false;
++		atomic_long_inc(&nr_retry);
++	}
++}
++
++/*
++ * Unlink the entry of @key from its bucket and from the list, or replace it
++ * with @new in both, with @txn, which has four records reserved and which this
++ * consumes.  When @want is given, only if it is that entry.  Returns false if
++ * there is no such entry, or if the transaction could not be allocated.
++ * Within an RCU read-side critical section, which keeps @want allocated.
++ */
++static bool __cache_unlink(struct rcu_txn *txn, unsigned long key,
++			   struct cache_entry *want, struct cache_entry *new)
++{
++	struct cache_plan p;
++	bool done = false;
++
++	if (!cache_lock_entry(&p, key, want, CACHE_UNLINK)) {
++		rcu_txn_cancel(txn);
++		return false;
++	}
++	if (new) {
++		rcu_txn_hlist_replace_prepare(txn, &p.e->hnode, &new->hnode);
++		rcu_txn_list_replace_prepare(txn, &p.e->lru, &new->lru);
++	} else {
++		rcu_txn_hlist_del_prepare(txn, &p.e->hnode);
++		rcu_txn_list_del_prepare(txn, &p.e->lru);
++	}
++	if (!rcu_txn_commit(txn)) {
++		p.e->dead = true;
++		done = true;
++	}
++	cache_unlock(&p);
++	if (done) {
++		kfree_rcu(p.e, rcu);
++		if (!new)
++			atomic_dec(&cache_count);
++	} else {
++		cache_fail();
++	}
++	return done;
++}
++
++/* Unlink the entry of @key, or replace it with @new: see __cache_unlink(). */
++static bool cache_unlink(unsigned long key, struct cache_entry *new)
++{
++	struct rcu_txn txn;
++	bool done;
++
++	/* Before RCU and the locks, as it may sleep. */
++	rcu_txn_init(&txn, GFP_KERNEL);
++	rcu_txn_reserve(&txn, 4);
++
++	rcu_read_lock();
++	done = __cache_unlink(&txn, key, NULL, new);
++	rcu_read_unlock();
++	return done;
++}
++
++/*
++ * Move @e to the front of the list, with @txn, which has six records reserved
++ * and which this consumes.  Within an RCU read-side critical section, which
++ * keeps @e allocated.
++ */
++static void cache_move_front(struct rcu_txn *txn, struct cache_entry *e)
++{
++	struct cache_plan p;
++
++	if (!cache_lock_entry(&p, e->key, e, CACHE_FRONT)) {
++		rcu_txn_cancel(txn);
++		return;
++	}
++	/* Nothing is recorded if it is there already. */
++	rcu_txn_list_move_after_prepare(txn, &e->lru, &cache_lru.head.node);
++	if (rcu_txn_commit(txn))
++		cache_fail();
++	cache_unlock(&p);
++}
++
++/*
++ * Evict the oldest entry that no lookup found since it last moved, after giving
++ * the referenced entries at the tail a second chance at the front.
++ */
++static void cache_evict(void)
++{
++	unsigned int chances = 0;
++
++	for (;;) {
++		bool evicted = false;
++		struct cache_entry *e;
++		struct rcu_txn txn;
++
++		/* Before RCU, for a move (six records) or an unlink (four). */
++		rcu_txn_init(&txn, GFP_KERNEL);
++		rcu_txn_reserve(&txn, 6);
++
++		/* One critical section, which keeps @e allocated throughout. */
++		rcu_read_lock();
++		e = lru_entry(rcu_txn_list_prev_rcu(&cache_lru.head.node));
++		if (!e) {
++			rcu_read_unlock();
++			rcu_txn_cancel(&txn);
++			break;
++		}
++		if (chances < CACHE_CHANCES && READ_ONCE(e->referenced)) {
++			WRITE_ONCE(e->referenced, false);
++			cache_move_front(&txn, e);
++			chances++;
++		} else {
++			evicted = __cache_unlink(&txn, e->key, e, NULL);
++		}
++		rcu_read_unlock();
++		if (evicted) {
++			atomic_long_inc(&nr_evict);
++			break;
++		}
++		if (READ_ONCE(cache_failed))
++			break;
++		/* Another writer unlinked it first: try the new tail. */
++	}
++	atomic_long_add(chances, &nr_chance);
++}
++
++/*
++ * Link @new into its bucket and at the front of the list.  Returns false if
++ * its key is in the cache already, or if the transaction could not be
++ * allocated.
++ */
++static bool cache_link(struct cache_entry *new)
++{
++	struct cache_bucket *b = cache_bucket(new->key);
++	struct rcu_txn_list_node *head = &cache_lru.head.node;
++	struct cache_plan p;
++	struct rcu_txn txn;
++	bool there;
++
++	rcu_txn_init(&txn, GFP_KERNEL);
++	rcu_txn_reserve(&txn, 4);
++
++	rcu_read_lock();
++	for (;;) {
++		/* The first entries of the bucket and of the list change. */
++		p.nr_locks = 0;
++		p.hnext = rcu_txn_hlist_first_rcu(&b->head);
++		p.first = rcu_txn_list_next_rcu(head);
++		cache_want(&p, &b->lock);
++		if (p.hnext)
++			cache_want(&p, &hnode_entry(p.hnext)->lock);
++		cache_want(&p, &cache_lru.lock);
++		cache_want(&p, lru_lock(p.first));
++		cache_lock(&p);
++		if (bucket_first(b) == p.hnext && lru_first() == p.first)
++			break;
++		cache_unlock(&p);
++		atomic_long_inc(&nr_retry);
++	}
++
++	/* No other writer inserts into the bucket while its lock is held. */
++	there = !!cache_find(new->key);
++	if (!there) {
++		rcu_txn_hlist_add_head_prepare(&txn, &new->hnode, &b->head);
++		rcu_txn_list_add_after_prepare(&txn, &new->lru, head);
++	}
++	if (rcu_txn_commit(&txn)) {
++		cache_fail();
++		there = true;
++	} else if (!there) {
++		atomic_inc(&cache_count);
++	}
++	cache_unlock(&p);
++	rcu_read_unlock();
++	return !there;
++}
++
++/* Insert @key, or update it, at version @version. */
++static void cache_insert(unsigned long key, unsigned long version)
++{
++	struct cache_entry *new;
++	bool old;
++
++	new = kzalloc_obj(*new, GFP_KERNEL);
++	if (!new) {
++		cache_fail();
++		return;
++	}
++	cache_lock_init(&new->lock);
++	new->key = key;
++	new->value = key + CACHE_KEYS * version;
++
++	rcu_read_lock();
++	old = !!cache_find(key);
++	rcu_read_unlock();
++	if (old) {
++		if (cache_unlink(key, new)) {
++			atomic_long_inc(&nr_update);
++			return;
++		}
++	} else {
++		if (atomic_read(&cache_count) >= CACHE_SIZE)
++			cache_evict();
++		if (cache_link(new)) {
++			atomic_long_inc(&nr_insert);
++			return;
++		}
++	}
++	atomic_long_inc(&nr_lost);		/* another writer was first */
++	kfree(new);
++}
++
++static void cache_delete(unsigned long key)
++{
++	if (cache_unlink(key, NULL))
++		atomic_long_inc(&nr_delete);
++}
++
++static int cache_lookup_fn(void *arg)
++{
++	unsigned long lookups = 0, hits = 0, bad = 0;
++
++	while (!kthread_should_stop()) {
++		unsigned long key = get_random_u32_below(CACHE_KEYS);
++		struct cache_entry *e;
++
++		rcu_read_lock();
++		e = cache_find(key);
++		if (e) {
++			hits++;
++			if (e->value % CACHE_KEYS != key)
++				bad++;
++			if (!READ_ONCE(e->referenced))
++				WRITE_ONCE(e->referenced, true);
++		}
++		rcu_read_unlock();
++		lookups++;
++		cond_resched();
++	}
++	atomic_long_add(lookups, &nr_lookup);
++	atomic_long_add(hits, &nr_hit);
++	atomic_long_add(bad, &nr_bad);
++	return 0;
++}
++
++static int cache_writer_fn(void *arg)
++{
++	unsigned long version = 0;
++
++	while (!kthread_should_stop()) {
++		unsigned long key = get_random_u32_below(CACHE_KEYS);
++
++		/* After an allocation failure, wait to be stopped. */
++		if (READ_ONCE(cache_failed)) {
++			msleep(20);
++			continue;
++		}
++		if (get_random_u32_below(8))
++			cache_insert(key, ++version);
++		else
++			cache_delete(key);
++		cond_resched();
++	}
++	return 0;
++}
++
++/*
++ * With the threads stopped: every entry of the hash table is in its bucket and
++ * in the list, both ways, and there are cache_count of them.
++ */
++static bool cache_check(void)
++{
++	unsigned int in_hash = 0, in_list = 0, in_reverse = 0, i;
++	unsigned int count = atomic_read(&cache_count);
++	struct cache_entry *e;
++	bool ok = true;
++
++	rcu_read_lock();
++	for (i = 0; i < ARRAY_SIZE(cache_hash); i++) {
++		rcu_txn_hlist_for_each_entry_rcu(e, &cache_hash[i].head,
++						 hnode) {
++			ok &= cache_find(e->key) == e;
++			in_hash++;
++		}
++	}
++	rcu_txn_list_for_each_entry_rcu(e, &cache_lru.head, lru) {
++		ok &= cache_find(e->key) == e;
++		in_list++;
++	}
++	rcu_txn_list_for_each_entry_reverse_rcu(e, &cache_lru.head, lru)
++		in_reverse++;
++	rcu_read_unlock();
++	return ok && in_hash == count && in_list == count &&
++	       in_reverse == count;
++}
++
++/*
++ * With the threads stopped, no reader or writer is left: free every entry
++ * without unlinking it, which allocates nothing and so cannot fail.
++ */
++static void cache_free_all(void)
++{
++	struct rcu_txn_list_node *head = &cache_lru.head.node;
++	struct rcu_txn_list_node *node, *next;
++	unsigned int i;
++
++	for (node = rcu_txn_list_next_check(head, true); node != head;
++	     node = next) {
++		next = rcu_txn_list_next_check(node, true);
++		kfree(lru_entry(node));
++	}
++	rcu_txn_list_init(&cache_lru.head);
++	for (i = 0; i < ARRAY_SIZE(cache_hash); i++)
++		rcu_txn_hlist_init(&cache_hash[i].head);
++	atomic_set(&cache_count, 0);
++}
++
++static int __init cache_init(void)
++{
++	struct task_struct *threads[2 * CACHE_THREADS];
++	unsigned int i, n = 0;
++	bool ok;
++
++	for (i = 0; i < ARRAY_SIZE(cache_hash); i++) {
++		cache_lock_init(&cache_hash[i].lock);
++		rcu_txn_hlist_init(&cache_hash[i].head);
++	}
++	cache_lock_init(&cache_lru.lock);
++
++	for (i = 0; i < min(nr_lookups, CACHE_THREADS); i++)
++		threads[n++] = kthread_run(cache_lookup_fn, NULL,
++					   "rcu_txn_lookup/%u", i);
++	for (i = 0; i < min(nr_writers, CACHE_THREADS); i++)
++		threads[n++] = kthread_run(cache_writer_fn, NULL,
++					   "rcu_txn_writer/%u", i);
++	msleep(duration_ms);
++	for (i = 0; i < n; i++)
++		if (!IS_ERR(threads[i]))
++			kthread_stop(threads[i]);
++
++	ok = cache_check();
++	pr_info("%ld lookups, %ld hits, %ld bad; %ld insertions, %ld updates, %ld deletions, %ld evictions, %ld second chances, %ld retries, %ld lost races, %ld allocation failures; %d entries\n",
++		atomic_long_read(&nr_lookup), atomic_long_read(&nr_hit),
++		atomic_long_read(&nr_bad), atomic_long_read(&nr_insert),
++		atomic_long_read(&nr_update), atomic_long_read(&nr_delete),
++		atomic_long_read(&nr_evict), atomic_long_read(&nr_chance),
++		atomic_long_read(&nr_retry), atomic_long_read(&nr_lost),
++		atomic_long_read(&nr_nomem), atomic_read(&cache_count));
++	if (!ok || atomic_long_read(&nr_bad))
++		pr_err("the hash table and the list disagree\n");
++	if (READ_ONCE(cache_failed))
++		pr_warn("an allocation failed, which stopped the writers\n");
++	cache_free_all();
++	return 0;
++}
++
++static void __exit cache_exit(void)
++{
++}
++
++module_init(cache_init);
++module_exit(cache_exit);
++
++MODULE_DESCRIPTION("A cache on RCU pseudo-transactions, its writers under a lock per node");
++MODULE_LICENSE("GPL");
 -- 
 2.47.3
 
