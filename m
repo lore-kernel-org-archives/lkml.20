@@ -1,223 +1,349 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639CD4DA9A6
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:55:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24E03DFC7B;
+	Fri, 16 Oct 2026 13:57:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158951; cv=none; b=SD0f5gUBE0oyARyn01mmD/AMeK6L2uE6q+ss+UxplJTP9DzysmJC9G59ihhJ+19Rbg0ccsTG5FGfy5lD1VsvpVo9IuaDdZo3IFhHVae7H0J5zptF3Wi6L5vcltgQ9bhITBfNn4k24jt25qCtWd3ajG9dJnez+l9XOERe+Lh1Nms=
+	t=1792159039; cv=none; b=THMDjjYxLH4gtPDeq1cL/12KWGCnynsqwcWSAVThA09ys+Pix0IFJ8cC2lW9TnGFM/t7+E2kAYGFnseFR3HnZIxP32fe6magW6cyuNIq8WB3fJIzrmu6p0vrkkKtt1szl4MyBuWnp3vbMQPWDn+NK9xkmshupoxnksAKtdIZE/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158951; c=relaxed/simple;
-	bh=d5FVs0cU6YT9A5FAP0zN6t5JoMPck6gxpWuDMrf+JtU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FWxMOPu8SRhi4sJNMMprUW2gIwJk/RgvulsXbH3LnPW8IEuvnSMhMF6TK7PeoLkIKgasp5FUyVj+aFVrJdD//257LzOP2tIDPeRY6aZusK5hJofcHFeorsurlfVnuNrme6LFeZzcQbf5VI0dARb+ymHz1fu+KSu8D/QIZARLqBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ND7Ya3oE; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792159039; c=relaxed/simple;
+	bh=bWJ6GpVkJ5f0cCSpMNIzTrqipg1uURSdKwE/IVmYeIM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=C3881TbqZ0h9ZJ0f+NDKVvzxdt9mJZc61K6v4htDr4i6xXQPNjkrOI9hARGU2dpxkluO/rYdKtgPKuP2aPoLubAsXmYS+YLqTdSSjVcmRCtJ1+MTgqWSZMuQp9h7kWsJQjYe7Dr3fEi5Dpeatt6CAtBCy9QazIxU3Opl1dEGwqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cwQp5o0S; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ND7Ya3oE"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c418e215671so3958866b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:55:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792158948; x=1792763748; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J7fWtLho0S4gbcF+2uj+Telg0L6TRvj3s8UotmzSZL0=;
-        b=ND7Ya3oEIC7B9sy4e5ISWyw0MWqUI8g9hfJqe2epANzUBY0JgVmlNzmgLdS0uTYla4
-         JEykeg9t8YehHshOOPUVsF+VgeXBCqwmavF5WZAhkbrOkCKne621blfsmDKzkGUF71xr
-         E2swO1sJwj2aU6FT/vH3s8KTspMkvRtGAgBQtwBTUgMQeUk21B7ugNlgaX+6xjZIWubN
-         fqkyQHbEZI/PMoTTqPf56qmLYQEgd0l3A8/0sXdccP1niAeyAnRQD2D+C0KEiRhoXOZb
-         BwmhizpsDcv12n0IujcIczDo/TENukpaS/L71hzewFhp3ShvbfsgFcZgYof1nKLPUwU6
-         ebaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792158948; x=1792763748;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J7fWtLho0S4gbcF+2uj+Telg0L6TRvj3s8UotmzSZL0=;
-        b=dTcWqN2zlpOa35wxYJPJuh41HE7UGtD+N+NG5qwnIXYeYOkiOqBoUphqLp7q/GjONd
-         mdi69WQ/meAVMdelMArFCbxtUNcHu8+rs7ogBazrb4G3MbWyGRWxdb22+Q38ezhgXEOL
-         ppXQA+J0ikZmim90FcRjvqdPzMT80WRGFwPag/oHVDokC+tvfjUh/+61uZAOTOrSDKkb
-         tLfaCowilLAwQawC+jilXqBL2pbhoHKfvXiLYIOR1kz1gMlkZlCsP9tUIjRygIQQNHd/
-         AJvTJbHQXL7OGH+dlDG2kW+b4VN9eJh1Ns9p+Fuyhgjy0WV5isY2GQpvak/ESPx+7kgY
-         8BwA==
-X-Forwarded-Encrypted: i=1; AKwUvBy0KCNqdxU/gg2CsUtzLuKdVKiPTqIzoezeeJvopPDwUsrzDIidrBGnJBkCjCafuxB5zfpteHCxpSYxC08=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwHfJ+QKJV/XcKKVNlcyOhP1LMqHTtT0Ej3KifPO2Je4FVaw0m
-	yIxhnCY4YlUee8aVgdUDBI8soz7x/KXpWapeumtJZrvinxC/nLkhUVwS
-X-Gm-Gg: AYBFou3Taor0H6Bzh+SX4GdXOAdbVOSLAJY/pbIesTrtrA64+pIKrfmaUBEs73l4D06
-	seIVDx6j4M14DnFA3BmQ5tXEI5IzioCp85fc/g2JykCauULAz6E9FpnWnIGTW+KANF/k/RmSeLC
-	cP8z48Q+f+BKr/4DXnG+CXrOD1HITqUi1UnODK3H3O8PwSc9i1cjMEix/AAYVxWBs2mM0Yn2tSC
-	nqRXSC+6Cs12OptWtCtDxH7lBc1pe9gLi8RFLtuUAImoGzWIeQ1/+xmieydpqge2Lk2g7E4dTTt
-	OurYP/o4HYKG/roW8yisN2yHDHSMZs55t6EXJho0Jf6XM8Db/LFcSnliPf7aPeLBKCoQsUUMnxT
-	AaVWRw9lhH0qljKt7WLHT0RCv8XXysLFSNEDQjqYdlDBJKVtgnZD6P/zf1dShnhYsmVeZAyuEy/
-	AJ1x/YGMiBreiOAhhnrdOZCZ2ZjKDklGvq8aLYaTHn/p3DIgGILMkhgWM8FOlv3+TCfjtfiz+XT
-	A==
-X-Received: by 2002:a17:907:97cd:b0:c2e:317e:d711 with SMTP id a640c23a62f3a-c31aa03cd20mr2000032166b.27.1792158947336;
-        Fri, 16 Oct 2026 06:55:47 -0700 (PDT)
-Received: from beelink ([187.15.113.228])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e328775sm75262366b.7.2026.10.16.06.55.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 06:55:46 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v5 2/2] HID: multitouch: fix use-after-free of haptic data on delayed input release
-Date: Fri, 16 Oct 2026 10:55:16 -0300
-Message-ID: <20261016135516.2957381-3-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016135516.2957381-1-qwe.aldo@gmail.com>
-References: <20261009103333.2476105-1-qwe.aldo@gmail.com>
- <20261016135516.2957381-1-qwe.aldo@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cwQp5o0S"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 66C7AC2BCF4;
+	Fri, 16 Oct 2026 13:57:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792159038;
+	bh=bWJ6GpVkJ5f0cCSpMNIzTrqipg1uURSdKwE/IVmYeIM=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=cwQp5o0SvOBb/GbwIyNmnK5znayb1y5jQZrn+PYfO6DFA10IdP7XhLt9iCY9np266
+	 PxwYbGzu608yKDhfgGE7mLJg9H6hL4r3nX+2iCaFYP+H8mvFfjmedpP7ADFMAnhnuZ
+	 NQJB2WcdqkhRz4jCBZFHF6ylQSDBMU5KRHsSgNUpAzcBmU1rZCw7n+/ca6bGAIHO29
+	 GmjtFGZwftLEBTo3lVif+8vi06SamB2Plixf9VDpuQOd7g6A1wjvcwajRQpRxSNFTQ
+	 UtXM3szR3SSWkdDLEgKBzNeES7RaAKtuIyQMWfQ6J0kDl2g8NkdsuuDyL9ou88Fyaq
+	 dqVW4HBaLIgBA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D6E4CCA462;
+	Fri, 16 Oct 2026 13:57:18 +0000 (UTC)
+From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
+Date: Fri, 16 Oct 2026 13:57:09 +0000
+Subject: [PATCH] arm64: dts: qcom: sm8350: Flatten USB controller nodes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-sm8350-usb-flatten-v1-1-22a2ca3e642f@fromdisposition.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CMBBA4auQWTtJh5+KXsWwKDjAGKimU4gJ4
+ e5WWH6L9zZQDsIK92yDwKuovH0CXTLoRucHRnkmQ25yS4Ys6lwXlcFFW+wnFyN7tHVF7lpauhU
+ lpPATuJfvMX00p3VpX9zF/wn2/QfO7r2LdgAAAA==
+X-Change-ID: 20261016-sm8350-usb-flatten-6851a7461934
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Demeter Barna <me@fromdisposition.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792159042; l=8406;
+ i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
+ bh=4PeNvpz5gpApVBXDzwm7sndi++evymHPK2bxZ29Wsto=;
+ b=0njUvmb7SVmJ422XS7gYC8RsVTfO//QrL1015R5XwLDZZ3I/jscNl+TMiteV7vZPocpG71WXX
+ 1iP76AtG22yCGtWDr1XYSpYjyYjcfnl2QFSRzdMPfSdQh2ST+Iavjvf
+X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
+ pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
+X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
+ auth_id=1163
+X-Original-From: Demeter Barna <me@fromdisposition.org>
+Reply-To: me@fromdisposition.org
 
-mt_probe() allocates td->haptic with devm_kzalloc() and hid_haptic_init()
-stores it in ff->private.  When the HID device is removed while an evdev
-fd is still held, devres frees td->haptic at unbind but
-hid_haptic_destroy() runs later from input_dev_release() and dereferences
-the freed pointer.  input_ff_destroy() then double-frees it via
-kfree(ff->private).
+From: Demeter Barna <me@fromdisposition.org>
 
-Move all resource cleanup into a devm_add_action() callback so it runs
-at unbind before devres frees the struct.  hid_haptic_destroy() becomes
-just ff->private = NULL, making the later kfree a no-op.  The input
-device is pinned with input_get_device() to prevent concurrent release
-during the devres action; the workqueue is drained first while all
-buffers are still live.
+The USB controllers still use the legacy two-node layout, which binds
+dwc3-qcom-legacy. That driver updates the QSCRATCH VBUS valid override
+only through extcon, so with usb-role-switch the controller does not see
+the cable being pulled and does not enumerate again when it comes back.
 
-Fixes: 8d0bf7908b5a ("HID: multitouch: add haptic multitouch support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Flatten both controllers as on SM8450, so that dwc3-qcom updates the
+override with the role, and move the board properties from &usb_N_dwc3
+to &usb_N.
+
+Signed-off-by: Demeter Barna <me@fromdisposition.org>
 ---
- drivers/hid/hid-haptic.c | 65 +++++++++++++++++++++++++++++++++++-----
- 1 file changed, 57 insertions(+), 8 deletions(-)
+Tested on a Razer Edge 5G (SM8350, board not upstream yet; Type-C
+through pmic-glink): without this patch USB does not enumerate again
+after the first unplug; with it, it does on every re-plug, after deep
+sleep (5/5) and across reboots (3/3). The other boards are only
+build-tested; dtbs_check is clean for all.
 
-diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
-index 592b44e..109b4df 100644
---- a/drivers/hid/hid-haptic.c
-+++ b/drivers/hid/hid-haptic.c
-@@ -379,32 +379,57 @@ static int hid_haptic_erase(struct input_dev *dev, int effect_id)
+Prepared with an LLM coding assistant; tested on my device.
+---
+ arch/arm64/boot/dts/qcom/sm8350-hdk.dts            | 12 +--
+ .../dts/qcom/sm8350-microsoft-surface-duo2.dts     |  6 +-
+ arch/arm64/boot/dts/qcom/sm8350-mtp.dts            |  6 +-
+ .../boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi   |  6 +-
+ arch/arm64/boot/dts/qcom/sm8350.dtsi               | 94 ++++++++++------------
+ 5 files changed, 51 insertions(+), 73 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
+index 24ad073b4143..47519654640a 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
++++ b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
+@@ -847,12 +847,10 @@ &ufs_mem_phy {
+ };
  
- static void hid_haptic_destroy(struct ff_device *ff)
- {
--	struct hid_haptic_device *haptic = ff->private;
--	struct hid_device *hdev = haptic->hdev;
-+	/*
-+	 * Resource cleanup is handled by hid_haptic_devm_release() which
-+	 * runs at driver unbind.  This callback only disconnects the FF
-+	 * subsystem's pointer so input_ff_destroy()'s kfree(ff->private)
-+	 * becomes kfree(NULL), preventing a double-free of the
-+	 * devres-managed haptic struct.
-+	 */
-+	ff->private = NULL;
-+}
-+
-+static void hid_haptic_devm_release(void *data)
-+{
-+	struct hid_haptic_device *haptic = data;
-+	struct input_dev *dev = haptic->input_dev;
- 	int r;
- 
--	if (hdev)
--		put_device(&hdev->dev);
-+	/*
-+	 * Drain pending work first -- handlers dereference ff->private
-+	 * through the input_dev, so the workqueue must be idle before
-+	 * we NULL that pointer or free any buffers.
-+	 */
-+	if (haptic->wq) {
-+		destroy_workqueue(haptic->wq);
-+		haptic->wq = NULL;
-+	}
-+
-+	if (dev && dev->ff && dev->ff->private == haptic)
-+		dev->ff->private = NULL;
-+
-+	if (haptic->hdev)
-+		put_device(&haptic->hdev->dev);
- 
- 	kfree(haptic->stop_effect.report_buf);
- 	haptic->stop_effect.report_buf = NULL;
- 
- 	if (haptic->effect) {
--		for (r = 0; r < ff->max_effects; r++)
-+		for (r = 0; r < FF_MAX_EFFECTS; r++)
- 			kfree(haptic->effect[r].report_buf);
- 		kfree(haptic->effect);
- 	}
- 	haptic->effect = NULL;
- 
--	destroy_workqueue(haptic->wq);
--	haptic->wq = NULL;
+ &usb_1 {
+-	status = "okay";
+-};
 -
- 	kfree(haptic->duration_map);
- 	haptic->duration_map = NULL;
- 
- 	kfree(haptic->hid_usage_map);
- 	haptic->hid_usage_map = NULL;
- 
-+	if (dev)
-+		input_put_device(dev);
+-&usb_1_dwc3 {
+ 	dr_mode = "otg";
+ 	usb-role-switch;
 +
- 	module_put(THIS_MODULE);
- }
++	status = "okay";
+ };
  
-@@ -419,6 +444,9 @@ int hid_haptic_init(struct hid_device *hdev,
- 	};
- 	const char *prefix = "hid-haptic";
- 	char *name;
-+	int (*flush)(struct input_dev *dev, struct file *file);
-+	int (*event)(struct input_dev *dev, unsigned int type,
-+		     unsigned int code, int value);
+ &usb_1_dwc3_hs {
+@@ -879,14 +877,12 @@ &usb_1_qmpphy_out {
+ };
  
- 	haptic->hdev = hdev;
- 	haptic->max_waveform_id = max(2u, haptic->max_waveform_id);
-@@ -511,6 +539,8 @@ int hid_haptic_init(struct hid_device *hdev,
- 		goto stop_buffer_free;
- 	}
+ &usb_2 {
+-	status = "okay";
+-};
+-
+-&usb_2_dwc3 {
+ 	dr_mode = "host";
  
-+	flush = dev->flush;
-+	event = dev->event;
- 	ret = input_ff_create(dev, FF_MAX_EFFECTS);
- 	if (ret) {
- 		dev_err(&hdev->dev, "Failed to create ff device.\n");
-@@ -525,6 +555,25 @@ int hid_haptic_init(struct hid_device *hdev,
- 	ff->playback = hid_haptic_playback;
- 	ff->erase = hid_haptic_erase;
- 	ff->destroy = hid_haptic_destroy;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&usb_hub_enabled_state>;
 +
-+	/*
-+	 * Pin the input device so it cannot be released concurrently
-+	 * with our devres cleanup.  hid_haptic_devm_release() drops
-+	 * this reference after cleanup is complete.
-+	 */
-+	input_get_device(dev);
-+
-+	ret = devm_add_action(&hdev->dev, hid_haptic_devm_release, haptic);
-+	if (ret) {
-+		input_ff_destroy(dev);
-+		dev->flush = flush;
-+		dev->event = event;
-+		input_put_device(dev);
-+		put_device(&hdev->dev);
-+		module_put(THIS_MODULE);
-+		goto stop_buffer_free;
-+	}
-+
- 	return 0;
++	status = "okay";
+ };
  
- stop_buffer_free:
--- 
-2.53.0
+ &usb_2_hsphy {
+diff --git a/arch/arm64/boot/dts/qcom/sm8350-microsoft-surface-duo2.dts b/arch/arm64/boot/dts/qcom/sm8350-microsoft-surface-duo2.dts
+index 442405ba5f6a..01e39565c68f 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350-microsoft-surface-duo2.dts
++++ b/arch/arm64/boot/dts/qcom/sm8350-microsoft-surface-duo2.dts
+@@ -338,11 +338,9 @@ &ufs_mem_phy {
+ };
+ 
+ &usb_1 {
+-	status = "okay";
+-};
+-
+-&usb_1_dwc3 {
+ 	dr_mode = "peripheral";
++
++	status = "okay";
+ };
+ 
+ &usb_1_hsphy {
+diff --git a/arch/arm64/boot/dts/qcom/sm8350-mtp.dts b/arch/arm64/boot/dts/qcom/sm8350-mtp.dts
+index 410bb0befeea..a282e6d2007e 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350-mtp.dts
++++ b/arch/arm64/boot/dts/qcom/sm8350-mtp.dts
+@@ -336,11 +336,9 @@ &ufs_mem_phy {
+ };
+ 
+ &usb_1 {
+-	status = "okay";
+-};
+-
+-&usb_1_dwc3 {
+ 	dr_mode = "peripheral";
++
++	status = "okay";
+ };
+ 
+ &usb_1_hsphy {
+diff --git a/arch/arm64/boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi b/arch/arm64/boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi
+index 969c8cb31df9..6e26aa3590b5 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi
+@@ -909,11 +909,9 @@ &ufs_mem_phy {
+ };
+ 
+ &usb_1 {
+-	status = "okay";
+-};
+-
+-&usb_1_dwc3 {
+ 	dr_mode = "peripheral";
++
++	status = "okay";
+ };
+ 
+ &usb_1_hsphy {
+diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+index 55b32050ce9c..21863ba00d17 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+@@ -2615,13 +2615,10 @@ compute-cb@8 {
+ 			};
+ 		};
+ 
+-		usb_1: usb@a6f8800 {
+-			compatible = "qcom,sm8350-dwc3", "qcom,dwc3";
+-			reg = <0 0x0a6f8800 0 0x400>;
++		usb_1: usb@a600000 {
++			compatible = "qcom,sm8350-dwc3", "qcom,snps-dwc3";
++			reg = <0 0x0a600000 0 0xfc100>;
+ 			status = "disabled";
+-			#address-cells = <2>;
+-			#size-cells = <2>;
+-			ranges;
+ 
+ 			clocks = <&gcc GCC_CFG_NOC_USB3_PRIM_AXI_CLK>,
+ 				 <&gcc GCC_USB30_PRIM_MASTER_CLK>,
+@@ -2638,12 +2635,14 @@ usb_1: usb@a6f8800 {
+ 					  <&gcc GCC_USB30_PRIM_MASTER_CLK>;
+ 			assigned-clock-rates = <19200000>, <200000000>;
+ 
+-			interrupts-extended = <&intc GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
++			interrupts-extended = <&intc GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>,
++					      <&intc GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
+ 					      <&intc GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>,
+ 					      <&pdc 14 IRQ_TYPE_EDGE_BOTH>,
+ 					      <&pdc 15 IRQ_TYPE_EDGE_BOTH>,
+ 					      <&pdc 17 IRQ_TYPE_LEVEL_HIGH>;
+-			interrupt-names = "pwr_event",
++			interrupt-names = "dwc_usb3",
++					  "pwr_event",
+ 					  "hs_phy_irq",
+ 					  "dp_hs_phy_irq",
+ 					  "dm_hs_phy_irq",
+@@ -2657,48 +2656,40 @@ usb_1: usb@a6f8800 {
+ 					<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_USB3_0 0>;
+ 			interconnect-names = "usb-ddr", "apps-usb";
+ 
+-			usb_1_dwc3: usb@a600000 {
+-				compatible = "snps,dwc3";
+-				reg = <0 0x0a600000 0 0xcd00>;
+-				interrupts = <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>;
+-				iommus = <&apps_smmu 0x0 0x0>;
+-				snps,dis_u2_susphy_quirk;
+-				snps,dis_u3_susphy_quirk;
+-				snps,dis_enblslpm_quirk;
+-				snps,dis-u1-entry-quirk;
+-				snps,dis-u2-entry-quirk;
+-				phys = <&usb_1_hsphy>, <&usb_1_qmpphy QMP_USB43DP_USB3_PHY>;
+-				phy-names = "usb2-phy", "usb3-phy";
++			iommus = <&apps_smmu 0x0 0x0>;
++			snps,dis_u2_susphy_quirk;
++			snps,dis_u3_susphy_quirk;
++			snps,dis_enblslpm_quirk;
++			snps,dis-u1-entry-quirk;
++			snps,dis-u2-entry-quirk;
++			phys = <&usb_1_hsphy>, <&usb_1_qmpphy QMP_USB43DP_USB3_PHY>;
++			phy-names = "usb2-phy", "usb3-phy";
+ 
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
+ 
+-					port@0 {
+-						reg = <0>;
++				port@0 {
++					reg = <0>;
+ 
+-						usb_1_dwc3_hs: endpoint {
+-						};
++					usb_1_dwc3_hs: endpoint {
+ 					};
++				};
+ 
+-					port@1 {
+-						reg = <1>;
++				port@1 {
++					reg = <1>;
+ 
+-						usb_1_dwc3_ss: endpoint {
+-							remote-endpoint = <&usb_1_qmpphy_usb_ss_in>;
+-						};
++					usb_1_dwc3_ss: endpoint {
++						remote-endpoint = <&usb_1_qmpphy_usb_ss_in>;
+ 					};
+ 				};
+ 			};
+ 		};
+ 
+-		usb_2: usb@a8f8800 {
+-			compatible = "qcom,sm8350-dwc3", "qcom,dwc3";
+-			reg = <0 0x0a8f8800 0 0x400>;
++		usb_2: usb@a800000 {
++			compatible = "qcom,sm8350-dwc3", "qcom,snps-dwc3";
++			reg = <0 0x0a800000 0 0xfc100>;
+ 			status = "disabled";
+-			#address-cells = <2>;
+-			#size-cells = <2>;
+-			ranges;
+ 
+ 			clocks = <&gcc GCC_CFG_NOC_USB3_SEC_AXI_CLK>,
+ 				 <&gcc GCC_USB30_SEC_MASTER_CLK>,
+@@ -2717,12 +2708,14 @@ usb_2: usb@a8f8800 {
+ 					  <&gcc GCC_USB30_SEC_MASTER_CLK>;
+ 			assigned-clock-rates = <19200000>, <200000000>;
+ 
+-			interrupts-extended = <&intc GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>,
++			interrupts-extended = <&intc GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>,
++					      <&intc GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>,
+ 					      <&intc GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>,
+ 					      <&pdc 12 IRQ_TYPE_EDGE_BOTH>,
+ 					      <&pdc 13 IRQ_TYPE_EDGE_BOTH>,
+ 					      <&pdc 16 IRQ_TYPE_LEVEL_HIGH>;
+-			interrupt-names = "pwr_event",
++			interrupt-names = "dwc_usb3",
++					  "pwr_event",
+ 					  "hs_phy_irq",
+ 					  "dp_hs_phy_irq",
+ 					  "dm_hs_phy_irq",
+@@ -2736,19 +2729,14 @@ usb_2: usb@a8f8800 {
+ 					<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_USB3_1 0>;
+ 			interconnect-names = "usb-ddr", "apps-usb";
+ 
+-			usb_2_dwc3: usb@a800000 {
+-				compatible = "snps,dwc3";
+-				reg = <0 0x0a800000 0 0xcd00>;
+-				interrupts = <GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>;
+-				iommus = <&apps_smmu 0x20 0x0>;
+-				snps,dis_u2_susphy_quirk;
+-				snps,dis_u3_susphy_quirk;
+-				snps,dis_enblslpm_quirk;
+-				snps,dis-u1-entry-quirk;
+-				snps,dis-u2-entry-quirk;
+-				phys = <&usb_2_hsphy>, <&usb_2_qmpphy>;
+-				phy-names = "usb2-phy", "usb3-phy";
+-			};
++			iommus = <&apps_smmu 0x20 0x0>;
++			snps,dis_u2_susphy_quirk;
++			snps,dis_u3_susphy_quirk;
++			snps,dis_enblslpm_quirk;
++			snps,dis-u1-entry-quirk;
++			snps,dis-u2-entry-quirk;
++			phys = <&usb_2_hsphy>, <&usb_2_qmpphy>;
++			phy-names = "usb2-phy", "usb3-phy";
+ 		};
+ 
+ 		iris: video-codec@aa00000 {
+
+---
+base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
+change-id: 20261016-sm8350-usb-flatten-6851a7461934
+
+Best regards,
+--  
+Demeter Barna <me@fromdisposition.org>
+
 
