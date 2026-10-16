@@ -1,149 +1,80 @@
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E132B2D9ECA
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:27:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB39457E5F;
+	Fri, 16 Oct 2026 12:27:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792153624; cv=none; b=jodZjVY6w0zA0rlNHc8402LdWxhlFCiKa7xciPcmJZQ8SmvjAC/0jRExtjdq8FtMFu6d88TKPE7qsRNDisuGI3jok/bPzg7kgQYPJgXzP6WKELAGHgElrW0MaQww3UWgiz156EJJ1Ts6JiLNZHUw9lDoRS2wt1FPY6AsepPpoEM=
+	t=1792153625; cv=none; b=ZhghMugK9l4z77HStKcobD1DnSnLXiWM3L1m5XUDz8n0evLwY58eSqr9ExP8l87feXgd3bIUZaanT+2b8kj0B6n0bW/KXza2cjHp7kBEZBO0bH0YuuO26OjCw0kYQMBEd8ENjf1CVZOiyLlNqLr8q2CzR95rHNry/lV85vaZTZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792153624; c=relaxed/simple;
-	bh=98ecSyrkO17ZqCtnhH8e84mWBDe5ugw9lqXvEjXRHKs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bNWmusLEeKVOh4dyUzKASHXYzvD+y4Y8/UfDCSCPZQZ48S0uEiD5JjwhmUyuW5iz/Y9S07zeBj4BekVKmFKo9CixY0VOfW4ht1W0p2/ksuK31nE6xc0uEDKGWDynMlpIyGQSB0hRm2WdC7b+oJ2bIWNLXGPl5WeVfu5gqakwlJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=minyard.net; spf=pass smtp.mailfrom=minyard.net; dkim=pass (2048-bit key) header.d=minyard.net header.i=@minyard.net header.b=b+2k1yRi; arc=none smtp.client-ip=209.85.167.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=minyard.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=minyard.net
+	s=arc-20240116; t=1792153625; c=relaxed/simple;
+	bh=MmGvErraHmGXymUgElckL0Yil5M9Kitm7TIQpXtyBTU=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LqWTTGXn6ZbCYfCTXjzRjmYYJChEzC4Q6mu2PZyHIq0NRN8a1wpsRjvo9WxUzRXfH/2w3wWPpi6EcJZ8IdoG/4oR7JkFKy4yYxV3ZWrzhXN+Wuy0x8+ZHrJ1GFrlZ7CP024C+kdlm90sqafTyZ7sLLMX5VS4x7efyFSaRpU4Jh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Wnp1Q22P; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=minyard.net header.i=@minyard.net header.b="b+2k1yRi"
-Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4f66bb2ab57so2618386b6e.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:27:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minyard.net; s=google; t=1792153622; x=1792758422; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:reply-to:message-id:subject:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4kk3k2LAPaVpQXPqXdPSS2vKhVQ1RIeU8ENmgowXRu0=;
-        b=b+2k1yRiwqqYvx9KvyWNuExEgWtZusSznhBwUW6ANIt7k0wILOGc/eq6FrhjhiEOC7
-         FcNpNA97YgXZTZO4fUEu2vABkLNO5s/KWj+wFbPSRAE6Meo6hBIvpEgX0M9SuIgEUJAL
-         FuM3+JpRhpolIZH3WDxwaAJ1WNvusZbWOoJS1CUZz/dYXWWV7lMogSYX9WxfHsJxn6ng
-         cAoBUb1okF/mRaZMpq7vO44PHh1FV9oEnE4NPKDh9W8efEsEaugdaFms4tRkuHJ2oKFp
-         jlT3hx+/7jNYBt/OliEIspOhsAI334oQWdpmrpVhhqFPt3zdRfyR0/hYST0C9v/+1Qmi
-         5E7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792153622; x=1792758422;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4kk3k2LAPaVpQXPqXdPSS2vKhVQ1RIeU8ENmgowXRu0=;
-        b=ikKuqZVbCv0pnTolQJcs/jaBpaxqJXl8W0Kl0fzWjvlZykjQYqUCt0hS0LEDA5yLFU
-         hKoUmBVBf6u9iZR3oU41c0OwXNT5AXpeSDXYiEPrD8vPd5DTwKaoEZDjpx5tClfhEAiL
-         EJ6eFF9NV2hcUmhJLL81L/IMouAB+5/G7NjHPkPROlcfIkxUIQ/j5ZzhMIl07VuUwc7d
-         p9uWv5PT+fV6uNghISXebLtIHt2L1UZa+i5b1ugYBtZEboMdL/I3QTWwgTyfuq24t1wT
-         Z1Sos5QFCW/4kxOpwHzgG1E+rasoDLqY2UJHWUsI69areZRSSvVu85L6xqVhZ5fRjk+Z
-         yPJg==
-X-Forwarded-Encrypted: i=1; AKwUvBx0dC+wFdCFwVJ0T76thhNS0eXDc8D9Zuwi4j5ILex1lT3O7KJ9RRmbyYNuY4+drl9OVacJ2bPVAR8nNkI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+ApZw/7twVZtbd3FVWz9ZXKwI+gY1GuuiSbyYfds1vTujdvPm
-	x1zENUV3HflUZzDacilDwewTQlFsrXiHL+hTpT1l658l/MBqzw0K+z6nfxUtIzLxk+M=
-X-Gm-Gg: AYBFou0SWlPW68ZG3dRNmCcK4GBuaZ4LstTkaEdGodh6tiQR3+Z55ZKPtyWp9UgbwvW
-	XsWPM9NRUYkDpvKeIWrgU2ZKJgg2rwPEVaZX/ue95BN/ge71t4hy7UukyNmpRPzlhiNZo801g5N
-	9sbOBktKn6FizXceIOGk0YyWQ57iUlAE2CFGPpYJo6qk3hKP7LzO4Mtif5DExHwNvIboTwqJmEC
-	wwSm4Ylvb2xn9Csqj8e0lcmAMmoTWtTcGGkUeawFBzVcX+zq9kKBzYxE2bmmGJ/u7uTavbx1ZvA
-	Vbiv0EYL7pR0lw2s72CMIqRd5uv95TunMPaWlgDsV82qhqAnBKLywEO/T7fcIESz9TYHy7PSMwh
-	Y+TEc3mx1x0D5/sm2hdHG9XMTR6kG6y7a4cvLojguPdrbGL4GsUq+lpxQQHstjINTEG5EXndDmJ
-	JclAlwyquy2jphXrxxNOWHXfv/Epu/fxz98X1OqHacueiWddLY0X2xNTx7RtJOxbzvJ7aFqf7Wl
-	ctrPQfCc9WM8H/Otgi7Oje2R+DNNqhstjcRHv6y0rgWzWMR1sUhrva7bYOLmUmqhGCAA7aRAiYw
-	YIWlcFg5qyFd/bS0hg==
-X-Received: by 2002:a05:6808:309c:b0:53b:11c7:2da0 with SMTP id 5614622812f47-53b11c76e54mr477729b6e.21.1792153621529;
-        Fri, 16 Oct 2026 05:27:01 -0700 (PDT)
-Received: from mail.minyard.net ([2001:470:b8f6:1b:e18c:88fa:219f:261])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5388a928ab3sm1366174b6e.3.2026.10.16.05.26.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 05:26:59 -0700 (PDT)
-Date: Fri, 16 Oct 2026 07:26:53 -0500
-From: Corey Minyard <corey@minyard.net>
-To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-Cc: Donald Shannon <donalds@nvidia.com>, linux-kernel@vger.kernel.org,
-	openipmi-developer@lists.sourceforge.net, linux-usb@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Quan Nguyen <quan@os.amperecomputing.com>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>
-Subject: Re: [PATCH 11/11] ipmi: Add NVIDIA LSTP IPMI BMC driver
-Message-ID: <atIYDWk8CNlWOUZk@mail.minyard.net>
-Reply-To: corey@minyard.net
-References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
- <20261012-lstp-usb-adapter-v1-11-aambrozewicz@nvidia.com>
- <as1MyFx8Ih_I9BGX@mail.minyard.net>
- <20261016081917.1958681-2-aambrozewicz@nvidia.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Wnp1Q22P"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1792153624; x=1823689624;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=MmGvErraHmGXymUgElckL0Yil5M9Kitm7TIQpXtyBTU=;
+  b=Wnp1Q22Pws3WaLj8UsXckRdR7aVoCa5Ywuwv0OdoQm6Ac07BzBljOmlq
+   eBOZNREQB4+xsCbouzavEkjRObp4436CRrJjqkBRihdXgfpICik/DqR8y
+   ++HawzcReQ1YwEaz4j3QSw5oOlF0XR5K+S9KEwlMAk51wsKap1YgmkmsY
+   fkosLpnYhZOhk+iW8tI2D4x6P2DnLgOmWvjJxiehNN8Bsy2EpClXucCi8
+   FxMb5iNHZ3dBzyM7+yWeC7j3QhATNq8I0NZlu/g7p8NSWw41tnQPh8OyA
+   +9gitf+IyB658CEGanuEr+HMMxjNwJR8kh2uL6sHTgLjhqts7SzbrnKdV
+   w==;
+X-CSE-ConnectionGUID: I0R7QpXoSLeudXur/QpfVA==
+X-CSE-MsgGUID: NPZwkujlShm4Mhi8gM3t+w==
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="296564488"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 16 Oct 2026 05:27:03 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Fri, 16 Oct 2026 05:27:03 -0700
+Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex03.mchp-main.com
+ (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Fri, 16 Oct 2026 05:27:00 -0700
+Date: Fri, 16 Oct 2026 14:26:59 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Jijie Shao <shaojijie@huawei.com>
+CC: <davem@davemloft.net>, <edumazet@kernel.org>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <andrew+netdev@lunn.ch>, <shenjian15@huawei.com>,
+	<liuyonglong@huawei.com>, <chenhao418@huawei.com>,
+	<yangshuaisong@h-partners.com>, <ningwei15@huawei.com>,
+	<shiyongbang@huawei.com>, <fengzheng6@huawei.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] net: hibmcge: set netdev_ops before hbg_init() to
+ fix NULL pointer dereference
+Message-ID: <20261016122659.3nyou6kycfu3m74x@DEN-DL-M70577>
+References: <20261016110421.2288670-1-shaojijie@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20261016081917.1958681-2-aambrozewicz@nvidia.com>
+In-Reply-To: <20261016110421.2288670-1-shaojijie@huawei.com>
 
-On Fri, Oct 16, 2026 at 11:19:14AM +0300, Adrian Ambrozewicz wrote:
-> Hi Corey,
+> The driver assigns netdev_ops after hbg_init(), but hbg_init() calls
+> hbg_mdio_init() -> hbg_phy_connect() -> phy_connect_direct() ->
+> phy_attach_direct() -> phy_link_topo_add_phy(), which invokes
+> netdev_need_ops_lock(). With CONFIG_NET_SHAPER enabled, this function
+> dereferences dev->netdev_ops->net_shaper_ops. Since netdev_ops is still
+> NULL at this point, a NULL pointer dereference occurs.
 > 
-> Thanks for the review.
-> 
-> On Mon, Oct 12, 2026 at 04:10:32PM -0500, Corey Minyard wrote:
-> > Can you name the file usb_lstp.c, or something like that, to match
-> > the other BMC side devices?
-> 
-> Sure. Would lstp_bmc.c work, next to ssif_bmc.c and kcs_bmc.c?
-> Otherwise usb_lstp.c it is.
+> Move the netdev_ops assignment before hbg_init() so that
+> netdev_need_ops_lock() can safely access netdev_ops during PHY
+> attachment.
 
-Either name works.  Just want it to be consistent, and your suggestion
-is better than mine.
-
-> 
-> >> +static DEFINE_IDA(lstp_ipmi_ida);
-> >
-> > Wouldn't you want to assign the numbers in the device tree so they
-> > always have the same number?
-> 
-> I'd rather keep them out of DT. The binding rules ask not to add
-> instance index properties or custom aliases
-> (Documentation/devicetree/bindings/writing-bindings.rst): DT describes
-> the hardware, not how Linux numbers its device nodes. Our out-of-tree
-> driver used to take the node name from a "label" property, and we
-> dropped it for that reason.
-> 
-> A stable name comes from udev instead. The node's parent is the
-> channel's auxiliary device under the USB device, so a rule matching the
-> USB port path and the channel can add a symlink with whatever name the
-> BMC userspace expects.
-
-Yes, that's the right way to do this, since udev has something to
-differentiate the device.
-
-> 
-> > It seems a little strange to set this up here and then register it in
-> > the next section.  Why not set it up right before the register?
-> >
-> > The breakup of the probe function seems a little unnatural.  Not a
-> > bit deal, but it makes the code a little harder to follow.
-> 
-> Agreed. The next version fills in the miscdevice right before
-> misc_register() and folds the init and start helpers into one probe
-> function.
-
-Going a little higher level, I'm wondering if there is any advantage to
-having this in the kernel.  Since it's USB you could do this all in
-userland.  There's no kernel subsystem that this would tie in to.
-
-I suppose the big advantage is it looks like the other BMC interfaces.
-But you can maintain it more easily if it's in userland.  I don't know a
-lot about USB, though, and how all that works.  Just something to
-think about, perhaps.
-
--corey
-
-> 
-> Thanks,
-> Adrian
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
