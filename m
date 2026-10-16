@@ -1,114 +1,261 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA327556BA7;
-	Fri, 16 Oct 2026 18:40:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792176040; cv=none; b=pKEmdCr+sH3ahlVS3etZoDX1UQlmalJQfw2NdL1CsCw7xKjhiJ8ufErbsG6+rdtGyDlOjtj45whrv1VyuX9JcdfliMT08aqDZ8Atk5AKh9Di9xnosr1qLrCCnFrW8M4cHDOR1Ump8yEJ4VLf9sFq1ZZVY4UQxqQPcarbGAhVp44=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792176040; c=relaxed/simple;
-	bh=9LMV74fjQdWBQqOV4k9uNQo6WLTjeAWmWJpG/8qu2ok=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GIu+qTVLwCoJgS4MBYpbNdDjRc2Wkb2nq/XLcRnqkyFI2/rULq5mwZFFexkxjaOvZneRjy0Qnv8LjlJgtOBJm+nvCMdn2Jgx5e3CW1hsfqX5QCMCJ/0D6vG+aMWlukbioyV+utJDzfqA2Vmn8B0GcVBuWIIcurCdbXzTgKb8X6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=p67Y5djG; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 323E149BB72
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:42:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792176124; cv=pass; b=Jw6dfKzuNpCMu4erT6sKoHzF3AWeKolUR8sItrFKgmwTvxKHorjVV5oRLj4tg/EKJ8aU3I2Qss/aWso1JkQNoXpHYUJFjzSuUG9ZiLM1LIUMCfwKv7ZfxD1BQPvl+xGfU3W3IpKUwHZKI5ACnpo3fmkLwLbmhWZOq+TCXEJULTQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792176124; c=relaxed/simple;
+	bh=CMHgJrH9XVdYO4T4rQoWxXZzZma1VoOICvB9CRktih0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KZNfJQIRa8yA72qokDMsj/ktY4r/VgW+PxouKs6HwuxLlIVf4jVQhZd+9DoIaUv/7MpCN/7JWocRLc04sNTFF7iMxr1AXzasJDIdJuf0/1/33ozslFdZbWrK2XAzA4eiw1JBM6d1bHBW+XmSKnofXnWdjEBgOpz73NtoVp1uYwE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ccfFf5Ra; arc=pass smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="p67Y5djG"
-Received: from francesco-nb.. (93-33-119-6.ip44.fastwebnet.it [93.33.119.6])
-	by mail11.truemail.it (Postfix) with ESMTPA id 53CCE1FAA9;
-	Fri, 16 Oct 2026 20:40:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1792176029;
-	bh=xCo5Z7bS7mkeqjfSouZzs+qx9hT0+GW/Gdoe9SuvPmQ=; h=From:To:Subject;
-	b=p67Y5djGUePOMWx4tpZmF3GTxzYdoh/RO/QctyXj/jWDmyKrTiSI3f0mcwf23M1Js
-	 FW4nm7oUhk/YUKNji87MtilPIHCdQbTPB89Fdf2vKI/zibgruJBaog/6bB6ymLOINe
-	 hfcZa9XdF1xmrecQmleGiITcfKE+a+ZBdE3w+ZKJ2UlGQicHTv1I2+0daZqZVenGUs
-	 M/v8VDCoFV5CbnGIBBj2x8O1AmRo3E38KYjKlz6dANQNC2xQbF+hhMoSkqz5IY9kgN
-	 dbA2CU6Td+TZxXXxJZJpdEC6Bd+EuFTFu1ok/r6Z0EtHzyKJHY/DOJRa8r1YRzLb6l
-	 4L23aDc8pUQGg==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] arm64: dts: freescale: imx95-toradex-osm-dev: Remove ETH_A PHY interrupt
-Date: Fri, 16 Oct 2026 20:40:18 +0200
-Message-ID: <20261016184020.46763-2-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261016184020.46763-1-francesco@dolcini.it>
-References: <20261016184020.46763-1-francesco@dolcini.it>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ccfFf5Ra"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a018493d57so9175e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:42:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792176121; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fZg3vDAMA8Cdb1Yth1UnzgnKyLQSzjDK1Aatz+XW3gS+TegvfGxzI+D4PoOU6z24qe
+         kS4e1kprAW+XMwlKKSBvLEk9QkVXcid79UcRLTlfmSEBYwoV09zurPLMYCTfEEp4/1Ny
+         5pmhkcNNPZw+kTMsBSrrj76teFUDKJttKbQVRnkJviZRXpTqZhC54w7Uy7WaaJsDaT1Z
+         9/QAd55mxli1yEbh3odnUF6W17UbMgtII4YRfF9lBX4OphprwlrCByD1AawutTh/WAAr
+         aPUkClRoiuHnP8jlcwtOEWDLf5hqULcunQvD/64loowe27cst2uIjU9LQAAb2jpw0bPi
+         REBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4MGdpuHW/L5Zmmr4IQf9JmPKDG4lNfOLKsaZahdnDXI=;
+        fh=fwoIgmU54bB55587rkHJW+wLf8fJZhG+hPfz9jZ991c=;
+        b=gg13+IpMPsFX/DqKS1R6WaVoNGdp24ijr2zkCcy6kH2HOyga8/5lnqNqHoJnw5v/z0
+         7QRfbGMBEhqmlGlwkHQnc9uoGZWqllmF7RT0hx+2VlNZJypsK/4X127fZkZunNnZraga
+         YawapdDDFGhS0oPCupMuNZa0pHCw9oWHRyyCiEjFJT4Ikk2K/lnPPabBQ8JOmftzL/IF
+         nOFTBPwO/T0ano7Fnnc0YWqvlZvYd5kRWhusJOk4p0AgCTjnhkHsEVx+y8wlSzZ5mOBF
+         ThUq+H8646splpX7P6YMRZjd38TNd5sMxpoeNE70E1yywW2mJVy0fPhwjhTlsDaYoFka
+         cbzg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792176121; x=1792780921; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4MGdpuHW/L5Zmmr4IQf9JmPKDG4lNfOLKsaZahdnDXI=;
+        b=ccfFf5RaYmHUw+upk/3xQTf7BTM6YNxO4FozswEmV45ducckNecEzl+w6dtcArzptf
+         O5tkO0ZFdoGyneotoWg82ZKVF+V8hJ3/iLpJgBxjq9ADya0LucwrdE7EDrTgcW93RWi4
+         bMTL5HV8I6oU7E5vtxLcGOViyzaFClbd7T+LVm9YFdmgjO9mgcykm//lpvzVaz0ur99m
+         ch0fUSKroo+HT+ksSsPcqJzEI8Evxr0XFri6wuoxcaXKOPWTs2Cy1jhrN6oqbd2eDi0Y
+         WtktJSzfkZ7EVyfXJlVYqQqdsbZeG71Pe9l5edSABfIb16qCzk2E2WcPj58P+vlLGUBm
+         BbrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792176121; x=1792780921;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4MGdpuHW/L5Zmmr4IQf9JmPKDG4lNfOLKsaZahdnDXI=;
+        b=LwUZZfH8Dx4RiMhakruug0WUUeRRCVL0mpvR8IIXHHWQELQFRmSr+xafQ7OWVzm5n7
+         shgPqj+GsAAo11XaO92z4KhX2Cu/Yg08qKTiiAB6vWa7KKsvd7fszvS2i0b71feCmM+d
+         R0udadetPIJBTRC7ZKMDHtyx/C72iXmDpcnkWPbhwt0Q1VFRPBjOsYGoKOrSR9fUCdZ5
+         HeqSUYJVNTmlueIS0Tm8Iz0egSOnvVEjplpX3dw8uaxXXsMy2ImeMnrE0U1eubmOdOE8
+         OrFOyDbzoMA6V2d5Y44XLNt6S0Bk9qIXXCXfWr2FHMaDFgLkkPHNs6XdcxeM5ho/49u6
+         CGQA==
+X-Forwarded-Encrypted: i=1; AKwUvBzb9JWthDfeSfg4XK72PIZopPemMgsDl9rMjc/pfceX9HezCLxa39vBSpyR9Ry5+mvoxQTfff2Iok+8w9s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYmoIO5gu+3qzsPT63FbpdnCdODxJ8i3BaqxBFRYpHH6hWdGRw
+	BR7Jp7GFKiPoIlfBtEbugLFtIPC4Oi9dTvgKO81RaKFCtdBLZUMsYvnVFHxLR2h4E8aI0Jv1Hrn
+	Qc4XP/PQNRFZV0S5Rr1i/BtQkCM1MeiREnUHkfJtk
+X-Gm-Gg: AYBFou2mdnDcQmfsE6/nLEXrLKC2ebtSRWa4ZvGYMq9ZL1/vY/Zsf4s2hJiGWV3dbXi
+	dh5+0zqEkx+AsQ9GbXCDFB7NLoz4ZNtBLQoNb8/B4H3vGMorsuycpjUOWRVSmMxrDh0XqCA/FAN
+	86AY797Ch4Oba7Tcb+Av5K8DKYI5KSDlxDrHhsJ7/bcgGL4OEIFTpOyuZzwKBeS6B+wNnjef7P1
+	TToe/18R7HLFWMGEr/SGaXglmmR2Zl27Dt00c+bhQPCygQp4BkzdgGQTgviskLWbQoSDjCy4oq/
+	3wnqCtxumas6Fx1w3ghgKW6zZ5gnM+GIH1HgJwX4tqNiRdkscYLnbAUKQMQED6MdmLT9Tst8p9Y
+	z/EKdBTm+rZW6w1zmP7Q9g90X5PhrmxPgW+mTzKoK0A==
+X-Received: by 2002:a7b:c3d1:0:b0:4a1:d373:5759 with SMTP id
+ 5b1f17b1804b1-4a1d89362c4mr66215e9.8.1792176120903; Fri, 16 Oct 2026 11:42:00
+ -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261016-binder-memcg-v1-0-d659b8ae088b@google.com> <20261016-binder-memcg-v1-1-d659b8ae088b@google.com>
+In-Reply-To: <20261016-binder-memcg-v1-1-d659b8ae088b@google.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Fri, 16 Oct 2026 11:41:47 -0700
+X-Gm-Features: AclHuK9APEBKrgB4cPVdNX9-JhNjIO32BvrHhv1beJHZa-WfokICUu6lsS8CM-4
+Message-ID: <CABdmKX1L36W0aZmhmOgTJTJwoMA+t4PG4ok3++G6Ggfg-RvfFA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] rust: page: add Page::alloc_page_memcg()
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	linux-mm@kvack.org, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>, 
+	Shakeel Butt <shakeel.butt@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Fri, Oct 16, 2026 at 6:30=E2=80=AFAM Alice Ryhl <aliceryhl@google.com> w=
+rote:
+>
+> Pages allocated on behalf of a userspace process and mapped into its
+> address space should be accounted to the process's memory cgroup. Thus,
+> add `Page::alloc_page_memcg()` to charge newly allocated pages using
+> `mem_cgroup_charge()`, and switch `Page::drop()` from `__free_pages()`
+> to `put_page()` so that charged folios are uncharged when freed.
+>
+> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+> ---
+>  rust/helpers/page.c | 17 +++++++++++++++++
+>  rust/kernel/page.rs | 50 +++++++++++++++++++++++++++++++++++++++++++++++=
+++-
+>  2 files changed, 66 insertions(+), 1 deletion(-)
+>
+> diff --git a/rust/helpers/page.c b/rust/helpers/page.c
+> index f8463fbed2a2..145758a8a954 100644
+> --- a/rust/helpers/page.c
+> +++ b/rust/helpers/page.c
+> @@ -2,6 +2,7 @@
+>
+>  #include <linux/gfp.h>
+>  #include <linux/highmem.h>
+> +#include <linux/memcontrol.h>
+>  #include <linux/mm.h>
+>
+>  __rust_helper struct page *rust_helper_alloc_pages(gfp_t gfp_mask,
+> @@ -10,6 +11,22 @@ __rust_helper struct page *rust_helper_alloc_pages(gfp=
+_t gfp_mask,
+>         return alloc_pages(gfp_mask, order);
+>  }
+>
+> +__rust_helper void rust_helper_put_page(struct page *page)
+> +{
+> +       put_page(page);
+> +}
+> +
+> +__rust_helper struct folio *rust_helper_page_folio(struct page *page)
+> +{
+> +       return page_folio(page);
+> +}
+> +
+> +__rust_helper int rust_helper_mem_cgroup_charge(struct folio *folio,
+> +                                               struct mm_struct *mm, gfp=
+_t gfp)
+> +{
+> +       return mem_cgroup_charge(folio, mm, gfp);
+> +}
+> +
+>  __rust_helper void *rust_helper_kmap_local_page(struct page *page)
+>  {
+>         return kmap_local_page(page);
+> diff --git a/rust/kernel/page.rs b/rust/kernel/page.rs
+> index 1c0796ea229f..7a36b7dd6c9c 100644
+> --- a/rust/kernel/page.rs
+> +++ b/rust/kernel/page.rs
+> @@ -10,8 +10,10 @@
+>      bindings,
+>      error::{
+>          code::*,
+> +        Error,
+>          Result, //
+>      },
+> +    mm::Mm,
+>      uaccess::UserSliceReader, //
+>  };
+>  use core::{
+> @@ -195,6 +197,28 @@ pub fn alloc_page(flags: Flags) -> Result<Self, Allo=
+cError> {
+>          Ok(Self { page })
+>      }
+>
+> +    /// Allocates a new page and charges it to the memory cgroup of `mm`=
+.
+> +    #[inline]
+> +    pub fn alloc_page_memcg(flags: Flags, mm: &Mm) -> Result<Self, Memcg=
+AllocError> {
+> +        let page =3D Self::alloc_page(flags)?;
+> +        // Note: Charging the folio with `mem_cgroup_charge()` only work=
+s because `Page::drop` uses
+> +        // `put_page()` (which uncharges the folio before freeing it) ra=
+ther than `__free_pages()`.
+> +        //
+> +        // SAFETY: `page` was just allocated, so we hold the only refere=
+nce to it and it is not
+> +        // yet charged to any memcg. `mm.as_raw()` is a valid pointer to=
+ an `mm_struct`.
+> +        let ret =3D unsafe {
+> +            bindings::mem_cgroup_charge(
+> +                bindings::page_folio(page.as_ptr()),
+> +                mm.as_raw(),
+> +                flags.as_raw(),
 
-GPIO_A7 is a boot strap on the OSM iMX95 module. The pull-up on the OSM
-Development Board Ethernet PHY interrupt line causes the module to enter
-USB loader mode instead of booting normally when the reset button is
-held for more than 0.5 seconds.
+I wonder if we should we mask out __GFP_ACCOUNT from flags? It's not
+provided by the new caller in the next patch, but it could be included
+inadvertently in a future call elsewhere. The VM_BUG_ON_FOLIO that
+checks if the page would be double charged only happens when
+CONFIG_DEBUG_VM=3Dy. Without it on production builds, folio->memcg_data
+just gets overwritten. We'd probably catch that eventually in a
+CONFIG_DEBUG_VM build, but not sure if we should rely on that. I don't
+feel strongly, just
 
-On the OSM Development Board the PHY interrupt line reaches GPIO_A7
-through a jumper. Boards are shipped with this jumper removed to avoid
-the strap conflict, with no change to the board revision, and GPIO_A7
-is available in the jumper area for general-purpose use. A future board
-revision might drop the PHY interrupt connection from the schematics
-altogether.
 
-Switch the PHY to polling and move the GPIO_A7 pinctrl configuration to
-the GPIO controller. Polling works regardless of whether the jumper is
-fitted, so this is transparent across existing and future board
-revisions.
-
-Fixes: 39be5a7e3ecc ("arm64: dts: freescale: Add Toradex OSM iMX95")
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
-v2: explain the jumper and board revision situation in the commit message
----
- arch/arm64/boot/dts/freescale/imx95-toradex-osm-dev.dts | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx95-toradex-osm-dev.dts b/arch/arm64/boot/dts/freescale/imx95-toradex-osm-dev.dts
-index b3d54be07c43..8f56c2bafb66 100644
---- a/arch/arm64/boot/dts/freescale/imx95-toradex-osm-dev.dts
-+++ b/arch/arm64/boot/dts/freescale/imx95-toradex-osm-dev.dts
-@@ -115,6 +115,11 @@ &flexcan3 {
- 	status = "okay";
- };
- 
-+&gpio1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio_a7>;
-+};
-+
- &gpio5 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpio_a1>, <&pinctrl_gpio_a2>, <&pinctrl_gpio_a3>,
-@@ -317,10 +322,6 @@ &netc_emdio {
- 
- 	ethphy_a: ethernet-phy@2 {
- 		reg = <2>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&pinctrl_gpio_a7>;
--		interrupt-parent = <&gpio1>;
--		interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
- 		ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
- 		ti,tx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
- 	};
--- 
-2.47.3
-
+> +            )
+> +        };
+> +        if ret !=3D 0 {
+> +            return Err(MemcgAllocError::Memcg);
+> +        }
+> +        Ok(page)
+> +    }
+> +
+>      /// Returns a raw pointer to the page.
+>      pub fn as_ptr(&self) -> *mut bindings::page {
+>          self.page.as_ptr()
+> @@ -376,7 +400,31 @@ pub unsafe fn copy_from_user_slice_raw(
+>  impl Drop for Page {
+>      #[inline]
+>      fn drop(&mut self) {
+> +        // We need to use `put_page()` instead of `__free_pages()` to pr=
+operly handle memcg
+> +        // accounting.
+> +        //
+>          // SAFETY: By the type invariants, we have ownership of the page=
+ and can free it.
+> -        unsafe { bindings::__free_pages(self.page.as_ptr(), 0) };
+> +        unsafe { bindings::put_page(self.page.as_ptr()) };
+> +    }
+> +}
+> +
+> +/// Error returned by [`Page::alloc_page_memcg`].
+> +#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+> +pub enum MemcgAllocError {
+> +    /// Allocating the page failed.
+> +    Alloc,
+> +    /// Charging the page to the memory cgroup failed.
+> +    Memcg,
+> +}
+> +
+> +impl From<AllocError> for MemcgAllocError {
+> +    fn from(_: AllocError) -> Self {
+> +        Self::Alloc
+> +    }
+> +}
+> +
+> +impl From<MemcgAllocError> for Error {
+> +    fn from(_: MemcgAllocError) -> Error {
+> +        ENOMEM
+>      }
+>  }
+>
+> --
+> 2.56.0.212.g129ede20d9-goog
+>
