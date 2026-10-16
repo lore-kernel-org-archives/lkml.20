@@ -1,175 +1,322 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0035F598C0B
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:31:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C983598C09
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:31:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792171917; cv=none; b=cjjnu+a6WjfwDbw++UUkFWEIAcno9628mxfcwtHIBDKNa+kAquHe2g4mGvkhZ84RppICxewWlEj+LJCky0AzSuJ8m+HKTvuo6KQn2TUN52dGzrLYAoK3rNHVt2T1E5icvsCm3/oVZCAYL62HeA+jZTh+TRMDUweYpzYELxZ5HOo=
+	t=1792171919; cv=none; b=h/fxz1f1H/RdWR/3E+0cYgZXgZsRMM7lxzITfV3WjDmUGWEP5G7bfR/HKi0yDml7BqAPEkyfDftgr0zz0CBSYTL6BdinA0RUNSudk9og+7Ljy3rBvHl82SmktvBzuJC4dtjcub/13ZNz7Egxk4wXgSsJrU6ojeOdB3joidg8yPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792171917; c=relaxed/simple;
-	bh=RsVlH+APnIxb/YW5DKjHZSFF1ttkYz7gihzSpOO4FPw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g9eYD3dsIPZ/Gn8BvQyRRBYHeMTZ2WLlVZKZwj5QddzA5rnesw1/V7Afu91tPfsFD11XdJ39+6Pg0QI+3DEEjYtzPAPjXh4ua7jh1/3wo94nad2HCwJCrrudnb04KgYh5Oc3s+SEnbDJn5HoQ0PbFJFgm1jrez92RgeY4kIR0FI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WhyLQ4wR; arc=none smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792171919; c=relaxed/simple;
+	bh=JhUWynhIEZWiLWjQpGn0ld49QveimZB7k1DTXPYl0Hc=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Htp8CAlPO2/hxkzqwfWC9QsVYHhZQo9IOmKqLUt5LfyZp9ZoRypdBLtkRdFprdEdfWDTw3+d6QI7MlPSiWFGg77VBXrY4znE1Ph0xMd2u8e1YGj4pfXxEQWRvZ6zjg6HH1ksZ1vcos97fW5vWoOaz78GTsT0k66O3qqSP0TT1+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bM+GR5ev; arc=none smtp.client-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WhyLQ4wR"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-9179bfa9e9cso3590566d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:31:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bM+GR5ev"
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3592749a017so158977eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:31:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792171915; x=1792776715; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8hf4LaRDBNm1FH/XNRRtnuj8oud85TuTPQVIbPrpZ7E=;
-        b=WhyLQ4wRM4w2la5ZBjkKAOlotFxvoiORYwU0tWkiodaKXwnQ8pDLEG/lut12W6L+m2
-         ciWjb/LYnGTIQ7BCTJZTD15n6IxsuUEZEDJ0lOaC3Ur71qSOtJnYnkjB+GAOOrsoz3Bs
-         fQSRVGtyKr7LhP8f3SmdT4UDqcsLmi9JJjLZ8HTXRXBTv4W8hrUW9ZepQcC241XmCKmT
-         BOfPC1hlJFEBu3ngA9PdXehkjkWT/QaE0P7K7AAohg+AAvT/idRiZ7SeZjIkE+Hij5F/
-         94SWUsQpDjt+wiXepnLAADSFlexPAx6z/g1TXVRQHGUqH7kw2gz+IDpjZSfIVZzh2Swz
-         AD+w==
+        d=google.com; s=20251104; t=1792171916; x=1792776716; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=60QbVpuGydrNDKWPP4KASVAU2WPfOezgWPH2lNk+OJs=;
+        b=bM+GR5evEZz3tqNuD16raf556Ej9PZCMQXdSP9KV0G9Q3ktwuEMSlG/OIW187GzgSa
+         r3U8VZ/qPYsZfBcC7sSACo/94qiuS6D7e6RhjMOetRE1KOVTRnhHA7/H5UKykfkQ0Evn
+         PNUbFfIast20V1QcAvc6r0XcE5vwJTNC9kcV5amgOB+MJO6BzCJzq4tyD8lKmW/w1R0W
+         NdQytY3dESRNJvxRjYLI+VLNtYM35xHCTr/pW18Rfek8M6TZSqCL9lOKliTxLDe9c/9S
+         +u+D1w/jPDt6WjYdn8PDvwdQSSY+Ae3kJO0WsA16Ns5CogcaV20T2IhYJz8kJaNOBz6F
+         TA8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792171915; x=1792776715;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8hf4LaRDBNm1FH/XNRRtnuj8oud85TuTPQVIbPrpZ7E=;
-        b=TemkBCNRWGMxneO5+kbIxp2vz9RW+l2ZrQsgmN4965IOTAb9PKAxMA+I/m7U7oteos
-         FqJem6Q3nj+Hz5zPbH/JEsYC+T1vjokgiKUr4gVAz4b1vZluxfXXoJWISfg5Y2YcW7Us
-         S9mf25flFbDYefM5DpAa8dSsJITvVLYbmRFXZaMp/nReTUk/mHOiVWWTB897Y41Rij7j
-         B8uGwOxPgUwSrzMajH7/65Dy+BObER+/twiQpKsg9MV1s8ufggi/HFfqy/m20rniCuIj
-         JtW4D5rlV9XgeXVCc6jV1VX6H/DBDatcj9y57mZeGixN4gtVpE+Swvn9moqXVrOIwJv2
-         1wwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzlWLtyW3v3IOdjeLaBxpz4RXS6pr+r40HY+E15c2KnZUY+l76T1PH83XKBLvCdqxVFJFR2QxT1NGB5mSE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSxQ+aifeV1fiCidqtpB9deTO7orfbB0XdD/IgeryKFIg9MFz/
-	XYNuq0GlAeGpGhj9IPuiaPf8rKVEGcg2Ll3XQUkqFkjhFpAmN4l+AcoLr2v5vxlamjc=
-X-Gm-Gg: AYBFou3XPTqujdg2IDMAEdjd1QxJSRR9oDVgIIvdOy/hAlN56valPyH6ua/6hap9SEJ
-	AAmXGliSes/F71tImusN8JiizbqBYjB8Vg+xD/QA8tB+hod54liARsiAhpHQ/w8TmU4GME8SXIE
-	vOYV9VTRRlOTP6UfU7l43ZI85dm2YU23oG/IMNodEvvw1v71eqyfydg3qSCpQIg5QB3u09gi+D6
-	awa0v0B/FMESeKUBmQbpr1bCZhcSFuWAOAh17jD3NmJUaQEeEEMaL2BiLqmJpRZ1OTOL9GhayFc
-	zYZMrFhEp6y8xwldRmF7s3xxF+wZ84Jd20aRT7YdV3mSiCZcm31XaKFc3nT6b9ZFDL8kV8Tr3sa
-	VAmgeHRPvj0XYn81lzmFsUdVYJp9eAayjODwxxrLZwu6Xj2Xng+ax3F+BZ6gFPLcVDnYPI7DAQx
-	gqp6lU0kIAEfjBBcr2iC7SXC7rjWye9vToYvA7XanVMJ4Wggzm71m44adve94cfis=
-X-Received: by 2002:a05:620a:3955:b0:937:d6e8:59b0 with SMTP id af79cd13be357-93f29ba0b06mr100125185a.10.1792171914802;
-        Fri, 16 Oct 2026 10:31:54 -0700 (PDT)
-Received: from beelink ([187.15.139.183])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a18510fsm262760085a.22.2026.10.16.10.31.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 10:31:54 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v8 1/2] HID: haptic: reorder try_module_get/get_device before input_ff_create
-Date: Fri, 16 Oct 2026 14:30:55 -0300
-Message-ID: <20261016173056.3397211-2-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016173056.3397211-1-qwe.aldo@gmail.com>
-References: <20261016163349.3293666-1-qwe.aldo@gmail.com>
- <20261016173056.3397211-1-qwe.aldo@gmail.com>
+        d=1e100.net; s=20260707; t=1792171916; x=1792776716;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=60QbVpuGydrNDKWPP4KASVAU2WPfOezgWPH2lNk+OJs=;
+        b=qyWBoEvijwbD/R2LjnkVbZbhe1BLWftRFPDZFJXZ50HAgBohxJ43142RE4yLnfltuD
+         vGYaRiFbJgsMz74er/XyWOF8gq59PYdxT8RtLIgYCJbKrvLCHV/mo8L72P87gr28AZ+0
+         Q0wqUPotoEHTP5ZPnee+H9g7i4jgoVJK8o+uWouDBrxXrRStsvalFCBh2/ur9iN2nq+z
+         IksQq+iAmmA9VQwS+rKXns6gtPEtEEM84yNPpQJk5URwgILIvEOYp/UCyXlW+Yfhn6VB
+         UnbFyWU3EjtUJvStk1P2e1u5zJRbhsiUvzvI7SwDFSW5PZHE70xaZCv8a4pX48mQZvTs
+         S99A==
+X-Forwarded-Encrypted: i=1; AKwUvBwadaFb8ikFTExjeLIixLhRa5E6EOmkGeZBr2vbGauVWOydB3hCEwElnVNllmJybyscxcwjOXcyso/Vrxc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/KKo/uCPBOXgWSVNOxHepUhR5PAP9MzHOdaS+BON7lJQejZDg
+	qqoJKellibSS7+zAwBaaa/O+Q2F6SSXH49oJIv7P/M3e1TerkZspNLYzm3Jed4RdFBT9FjaR+n0
+	+frXyocJ/jw==
+X-Received: from dyz21.prod.google.com ([2002:a05:693c:4095:b0:351:4806:4ae4])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:fc09:b0:357:ee3a:267a
+ with SMTP id 5a478bee46e88-3619ed152d7mr486641eec.2.1792171915593; Fri, 16
+ Oct 2026 10:31:55 -0700 (PDT)
+Date: Fri, 16 Oct 2026 10:31:03 -0700
+In-Reply-To: <20261016173106.679725-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261013222622.1822619-1-irogers@google.com> <20261016173106.679725-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261016173106.679725-15-irogers@google.com>
+Subject: [PATCH v3 14/17] perf intel-tpebs: Use DEFINE_MUTEX for tpebs_mtx
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
+	justinstitt@google.com, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, ljs@kernel.org, llvm@lists.linux.dev, 
+	mingo@redhat.com, morbo@google.com, nathan@kernel.org, 
+	ndesaulniers@google.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-Move try_module_get() and get_device() before input_ff_create() in
-hid_haptic_init().  The original order placed them after
-input_ff_create(), and failures went to input_free which called
-input_ff_destroy() without ever setting ret.  The caller saw ret == 0
-on failure and kept a dangling pointer to the haptic struct.
+Replace tpebs_mtx_get() and its pthread_once() initialization helper
+tpebs_init() with DEFINE_MUTEX(tpebs_mtx) and static initializers for
+control_fd and ack_fd.
 
-With the references acquired first, all failure paths reach
-stop_buffer_free directly.  The flush/event save/restore is no longer
-needed.
-
-Clear the EV_FF and FF_HAPTIC capability bits on failure so a masked
-error from the caller does not leave the input device advertising FF
-support without a dev->ff -- EVIOCGEFFECTS would NULL-deref otherwise.
-
-Fixes: 8d0bf7908b5a ("HID: multitouch: add haptic multitouch support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- drivers/hid/hid-haptic.c | 38 ++++++++++++++++++--------------------
- 1 file changed, 18 insertions(+), 20 deletions(-)
+ tools/perf/util/intel-tpebs.c | 75 ++++++++++++++---------------------
+ 1 file changed, 30 insertions(+), 45 deletions(-)
 
-diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
-index 8760eeb..b8aa4bf 100644
---- a/drivers/hid/hid-haptic.c
-+++ b/drivers/hid/hid-haptic.c
-@@ -419,8 +419,6 @@ int hid_haptic_init(struct hid_device *hdev,
- 	};
- 	const char *prefix = "hid-haptic";
- 	char *name;
--	int (*flush)(struct input_dev *dev, struct file *file);
--	int (*event)(struct input_dev *dev, unsigned int type, unsigned int code, int value);
+diff --git a/tools/perf/util/intel-tpebs.c b/tools/perf/util/intel-tpebs.c
+index b81831f5e5a4..57e08476a13d 100644
+--- a/tools/perf/util/intel-tpebs.c
++++ b/tools/perf/util/intel-tpebs.c
+@@ -36,11 +36,11 @@
  
- 	haptic->hdev = hdev;
- 	haptic->max_waveform_id = max(2u, haptic->max_waveform_id);
-@@ -501,12 +499,24 @@ int hid_haptic_init(struct hid_device *hdev,
+ bool tpebs_recording;
+ enum tpebs_mode tpebs_mode;
++static DEFINE_MUTEX(tpebs_mtx);
+ static LIST_HEAD(tpebs_results);
+ static pthread_t tpebs_reader_thread;
+ static struct child_process tpebs_cmd;
+-static int control_fd[2], ack_fd[2];
+-static struct mutex tpebs_mtx;
++static int control_fd[2] = { -1, -1 }, ack_fd[2] = { -1, -1 };
+ static bool tpebs_stopping;
  
- 	input_set_capability(dev, EV_FF, FF_HAPTIC);
+ struct tpebs_retire_lat {
+@@ -57,23 +57,8 @@ struct tpebs_retire_lat {
+ 	bool started;
+ };
  
--	flush = dev->flush;
--	event = dev->event;
-+	if (!try_module_get(THIS_MODULE)) {
-+		dev_err(&hdev->dev, "Failed to increase module count.\n");
-+		ret = -ENODEV;
-+		goto ff_cap_clear;
-+	}
-+	if (!get_device(&hdev->dev)) {
-+		dev_err(&hdev->dev, "Failed to get hdev device.\n");
-+		ret = -ENODEV;
-+		module_put(THIS_MODULE);
-+		goto ff_cap_clear;
-+	}
-+
- 	ret = input_ff_create(dev, FF_MAX_EFFECTS);
- 	if (ret) {
- 		dev_err(&hdev->dev, "Failed to create ff device.\n");
--		goto stop_buffer_free;
-+		put_device(&hdev->dev);
-+		module_put(THIS_MODULE);
-+		goto ff_cap_clear;
+-static void tpebs_init(void)
+-{
+-	mutex_init(&tpebs_mtx);
+-	control_fd[0] = control_fd[1] = -1;
+-	ack_fd[0] = ack_fd[1] = -1;
+-}
+-
+-static struct mutex *tpebs_mtx_get(void)
+-{
+-	static pthread_once_t tpebs_once = PTHREAD_ONCE_INIT;
+-
+-	pthread_once(&tpebs_once, tpebs_init);
+-	return &tpebs_mtx;
+-}
+-
+ static struct tpebs_retire_lat *tpebs_retire_lat__find(struct evsel *evsel)
+-	__must_hold(tpebs_mtx_get());
++	__must_hold(&tpebs_mtx);
+ 
+ static int evsel__tpebs_start_perf_record(struct evsel *evsel)
+ {
+@@ -200,19 +185,19 @@ static int process_sample_event(const struct perf_tool *tool __maybe_unused,
+ {
+ 	struct tpebs_retire_lat *t;
+ 
+-	mutex_lock(tpebs_mtx_get());
++	mutex_lock(&tpebs_mtx);
+ 	if (tpebs_cmd.pid == 0) {
+ 		/* Record has terminated. */
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		return 0;
  	}
- 
- 	ff = dev->ff;
-@@ -515,23 +525,11 @@ int hid_haptic_init(struct hid_device *hdev,
- 	ff->playback = hid_haptic_playback;
- 	ff->erase = hid_haptic_erase;
- 	ff->destroy = hid_haptic_destroy;
--	if (!try_module_get(THIS_MODULE)) {
--		dev_err(&hdev->dev, "Failed to increase module count.\n");
--		goto input_free;
--	}
--	if (!get_device(&hdev->dev)) {
--		dev_err(&hdev->dev, "Failed to get hdev device.\n");
--		module_put(THIS_MODULE);
--		goto input_free;
--	}
+ 	t = tpebs_retire_lat__find(sample->evsel);
+ 	if (!t) {
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		return -EINVAL;
+ 	}
+ 	if (should_ignore_sample(sample, t)) {
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		return 0;
+ 	}
+ 	/*
+@@ -222,7 +207,7 @@ static int process_sample_event(const struct perf_tool *tool __maybe_unused,
+ 	 */
+ 	t->last = sample->weight3;
+ 	update_stats(&t->stats, sample->weight3);
+-	mutex_unlock(tpebs_mtx_get());
++	mutex_unlock(&tpebs_mtx);
  	return 0;
+ }
  
--input_free:
--	input_ff_destroy(dev);
--	/* Restore dev flush and event */
--	dev->flush = flush;
--	dev->event = event;
--	return ret;
-+ff_cap_clear:
-+	__clear_bit(FF_HAPTIC, dev->ffbit);
-+	__clear_bit(EV_FF, dev->evbit);
- stop_buffer_free:
- 	kfree(haptic->stop_effect.report_buf);
- 	haptic->stop_effect.report_buf = NULL;
+@@ -252,7 +237,7 @@ static void *__sample_reader(void *arg)
+ 	return NULL;
+ }
+ 
+-static int tpebs_send_record_cmd(const char *msg) __must_hold(tpebs_mtx_get())
++static int tpebs_send_record_cmd(const char *msg) __must_hold(&tpebs_mtx)
+ {
+ 	struct pollfd pollfd = { .events = POLLIN, };
+ 	int ret, len, retries = 0;
+@@ -266,7 +251,7 @@ static int tpebs_send_record_cmd(const char *msg) __must_hold(tpebs_mtx_get())
+ 	 * Let go of the lock while sending/receiving as blocking can starve the
+ 	 * sample reading thread.
+ 	 */
+-	mutex_unlock(tpebs_mtx_get());
++	mutex_unlock(&tpebs_mtx);
+ 
+ 	/* Send perf record command.*/
+ 	len = strlen(msg);
+@@ -322,14 +307,14 @@ static int tpebs_send_record_cmd(const char *msg) __must_hold(tpebs_mtx_get())
+ 		pr_err("tpebs: perf record control ack failed\n");
+ out:
+ 	/* Re-take lock as expected by caller. */
+-	mutex_lock(tpebs_mtx_get());
++	mutex_lock(&tpebs_mtx);
+ 	return ret;
+ }
+ 
+ /*
+  * tpebs_stop - stop the sample data read thread and the perf record process.
+  */
+-static int tpebs_stop(void) __must_hold(tpebs_mtx_get())
++static int tpebs_stop(void) __must_hold(&tpebs_mtx)
+ {
+ 	int ret = 0;
+ 
+@@ -345,9 +330,9 @@ static int tpebs_stop(void) __must_hold(tpebs_mtx_get())
+ 		tpebs_send_record_cmd(EVLIST_CTL_CMD_STOP_TAG);
+ 		tpebs_cmd.pid = 0;
+ 		reader_thread = tpebs_reader_thread;
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		pthread_join(reader_thread, NULL);
+-		mutex_lock(tpebs_mtx_get());
++		mutex_lock(&tpebs_mtx);
+ 		if (control_fd[0] >= 0) {
+ 			close(control_fd[0]);
+ 			control_fd[0] = -1;
+@@ -483,20 +468,20 @@ static int evsel__tpebs_prepare(struct evsel *evsel)
+ 	struct evsel *pos;
+ 	struct tpebs_retire_lat *tpebs_event;
+ 
+-	mutex_lock(tpebs_mtx_get());
++	mutex_lock(&tpebs_mtx);
+ 	tpebs_event = tpebs_retire_lat__find(evsel);
+ 	if (tpebs_event) {
+ 		/* evsel, or an identically named one, was already prepared. */
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		return 0;
+ 	}
+ 	tpebs_event = tpebs_retire_lat__new(evsel);
+ 	if (!tpebs_event) {
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		return -ENOMEM;
+ 	}
+ 	list_add_tail(&tpebs_event->nd, &tpebs_results);
+-	mutex_unlock(tpebs_mtx_get());
++	mutex_unlock(&tpebs_mtx);
+ 
+ 	/*
+ 	 * Eagerly prepare all other evsels on the list to try to ensure that by
+@@ -530,9 +515,9 @@ int evsel__tpebs_open(struct evsel *evsel)
+ 	if (!tpebs_recording)
+ 		return 0;
+ 
+-	mutex_lock(tpebs_mtx_get());
++	mutex_lock(&tpebs_mtx);
+ 	if (tpebs_stopping) {
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		return -EBUSY;
+ 	}
+ 	/* Only start the events once. */
+@@ -542,17 +527,17 @@ int evsel__tpebs_open(struct evsel *evsel)
+ 
+ 		t = tpebs_retire_lat__find(evsel);
+ 		valid = t && t->started;
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		/* May fail as the event wasn't started. */
+ 		return valid ? 0 : -EBUSY;
+ 	}
+-	mutex_unlock(tpebs_mtx_get());
++	mutex_unlock(&tpebs_mtx);
+ 
+ 	ret = evsel__tpebs_prepare(evsel);
+ 	if (ret)
+ 		return ret;
+ 
+-	mutex_lock(tpebs_mtx_get());
++	mutex_lock(&tpebs_mtx);
+ 	if (tpebs_stopping || tpebs_cmd.pid != 0) {
+ 		ret = -EBUSY;
+ 		goto out;
+@@ -624,7 +609,7 @@ int evsel__tpebs_open(struct evsel *evsel)
+ 			}
+ 		}
+ 	}
+-	mutex_unlock(tpebs_mtx_get());
++	mutex_unlock(&tpebs_mtx);
+ 	return ret;
+ }
+ 
+@@ -644,7 +629,7 @@ int evsel__tpebs_read(struct evsel *evsel, int cpu_map_idx, int thread)
+ 
+ 	count = perf_counts(evsel->counts, cpu_map_idx, thread);
+ 
+-	mutex_lock(tpebs_mtx_get());
++	mutex_lock(&tpebs_mtx);
+ 	t = tpebs_retire_lat__find(evsel);
+ 	/*
+ 	 * If reading the first tpebs result, send a ping to the record
+@@ -653,10 +638,10 @@ int evsel__tpebs_read(struct evsel *evsel, int cpu_map_idx, int thread)
+ 	 */
+ 	if (t && &t->nd == tpebs_results.next) {
+ 		ret = tpebs_send_record_cmd(EVLIST_CTL_CMD_PING_TAG);
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		if (ret)
+ 			return ret;
+-		mutex_lock(tpebs_mtx_get());
++		mutex_lock(&tpebs_mtx);
+ 	}
+ 	if (t == NULL || t->stats.n == 0) {
+ 		/* No sample data, use default. */
+@@ -695,7 +680,7 @@ int evsel__tpebs_read(struct evsel *evsel, int cpu_map_idx, int thread)
+ 			break;
+ 		}
+ 	}
+-	mutex_unlock(tpebs_mtx_get());
++	mutex_unlock(&tpebs_mtx);
+ 
+ 	if (old_count) {
+ 		count->val = old_count->val + val;
+@@ -720,7 +705,7 @@ void evsel__tpebs_close(struct evsel *evsel)
+ {
+ 	struct tpebs_retire_lat *t;
+ 
+-	mutex_lock(tpebs_mtx_get());
++	mutex_lock(&tpebs_mtx);
+ 	t = tpebs_retire_lat__find(evsel);
+ 	if (t) {
+ 		list_del_init(&t->nd);
+@@ -729,5 +714,5 @@ void evsel__tpebs_close(struct evsel *evsel)
+ 		if (list_empty(&tpebs_results))
+ 			tpebs_stop();
+ 	}
+-	mutex_unlock(tpebs_mtx_get());
++	mutex_unlock(&tpebs_mtx);
+ }
 -- 
-2.53.0
+2.56.0.212.g129ede20d9-goog
 
