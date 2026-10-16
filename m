@@ -1,180 +1,181 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-66.mta0.migadu.com [91.218.175.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7DE39479F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:42:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C3427144B
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:42:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792140123; cv=none; b=DyNml13fY+aGbjdmhNJ4A45miuGezQD37W7hVKXygXCv/Oti9opVcUTRRhZ5C1F4VKwtdokpeWF4UFKPhwzW6grGk2JHgafD8qo6ESNbFaclChnnR9cJnHZdvtjA1fWZWhtFvIUWuQH+K1Q0lmlPvQW3w1ynTcc4BYdmQwaFjHs=
+	t=1792140172; cv=none; b=GVEx4LtQwv5XhnNTeTZZKCrdz096Aae9jSupEPuIYZBaFKYhylg6bV83zoIwP2T8UPTJZTaK3diWunYnlEz8lj9AyIqy5Mem5Y4v0uwmFwlmssg54yRN1FI43jnfHIj68eN1e2g61tH3O4DKIi/uwmsBMDweKrVIe49w5vnOUJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792140123; c=relaxed/simple;
-	bh=f35hvVF7i0AhAl5XBNbt5JyELF/E6DPKGTAChcrUV18=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LwDpzNglJm7lYf03OuBt924VBkLFPsNypZTOCYKSs+I/bhUZ8drGgzSsZa4MD65V6Wh2pZnni0swdX/z83mZQ+vVNIeKeNEgqtN5O+35Yh/Hu908hA9vrNVN6URzuIt/vyCEhrocPI6HUSzMVmWLN3hshojaeGvgKsfQm7K1g24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k4mwTtye; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LQZqxBmi; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792140172; c=relaxed/simple;
+	bh=RaqzrXtafggiA6Vtw0Bb+3qEZqwTeX7kkg/munQcgtU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g0Qzslbmtd04adP/aEuT/rbTAsI9hYc1BfN8v9UyjB+zla+0bNEsGfnAaSKAAeovV+t/tQzpJA76TFjHYbcre7Qa8LOUdJ/11QK0pjI8lswcTQ1mIPnFDj6RdIFt/I79Nk1T1Se2BF8ozTGnrhbFoAB66qDI0XFMimLpk37gPVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lUMViyjj; arc=none smtp.client-ip=91.218.175.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k4mwTtye";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LQZqxBmi"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G6EDn52678171
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:41:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=pjF6bo+9BdkiXpKV2UrWU2z2lv2vcOexCov
-	G0fmugZg=; b=k4mwTtyeOEW4FfY0cRnHR/5kPFZVMWU6oKB337mlyON9d0ODXNL
-	evTuA00jV+qtjcbbgzraLoBsq/xBhQlVY1qZT+vcG86BXiwoDBK4N6Elo7R6vu8A
-	bWPXYW72vnxh61j/6pccV15dDhrrUnNyTAWuxvYD/yc1Reqt1+B3jzX2Qw9asEmU
-	jY45EAQUIOK0jUeGMpApi2yij/1BrhsCbcHdA5rzKnREowTb4YojYOYl6sO9E4zH
-	vc8sSMhNVpbTrQTu6RBcTL+qe5Ku0oXGh8RCafqzakK6ILKxNAOpnbHyPOIfN4PS
-	h3Ejqlfhh5TPecQ8TBgpYwEXKXZbWFlq6kA==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb19tbkwu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:41:59 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-917a7fffbe0so133405176d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:41:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792140119; x=1792744919; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pjF6bo+9BdkiXpKV2UrWU2z2lv2vcOexCovG0fmugZg=;
-        b=LQZqxBmiNVYzasy/FNDXRbtuNjOBe6cfDzoBAadiiCj5SYazl2dXCt+6fII2LEcqKP
-         ylIqAGv2qbv0vzjACewvyfNgDmPXiB4bj6Pe8L1ui1zJYyrIF7YdmmVzDOIL3xV+v0cb
-         HuYWep5C5OgAo+WwudJ0gUm24R7ktgmKSqRfiKamO5pN2XxVKD+uF+bbUlVrDtMhrnOr
-         7DGawYrjbp0saacqqO6jkrny6/xx8B3pCpO/aFlMJeYx8paLxb3G+Eej87B1QGFPjZAC
-         3UUNC/FXAcEi6sROjNH7beLJDGgIViqFOR95bruXi8vhLPqCQ2Vr0pJgtdnIZ+xLPKUj
-         tHAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792140119; x=1792744919;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pjF6bo+9BdkiXpKV2UrWU2z2lv2vcOexCovG0fmugZg=;
-        b=NxpygyeWivImg056586GEso1bJIyO/ediCHX9mdUGBF/2FXJXwDocJGTObAxbLcRji
-         a5NT7AFBsF10rGKxjqZCGGoVcJHK8LRb2UTx3otiL/fUxfCoz8PtGLZYgPkMyXvAxxpd
-         xEKod0S2d2F2Hehq1DLKnVdwAeez5otxTsTfftuTB/wae3KT3lsukIkvcQAjuTLk0xoH
-         w+NQrii7oFRvtVJ5ADPceiowUxoe81ETcc8vSMVjcTqYSW3IUS7i1OCsjsjWvZSI3LMG
-         ghV1UrZPfiGqmivTIaLTLYnbQTXZzt9A3DLGWwkzfCakJ+lfn2SlKKy6ZEuROf0LxMCa
-         Un5A==
-X-Forwarded-Encrypted: i=1; AKwUvBz8TwJBRTffFNh0/Wo2FwpcifyTFstMKihTz8wZTE2ki4RZyOt8H4kFK4a0Dxn/Ps97WroV6BY2/y+hjAM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9jCuldTtPcdnLNypIsQn9vEJMstE2VsGVaDaFMJCh3XTxhxEe
-	lGpVYOJzMH3EjpBk6yFe0l5UHRgnzMT1U/To+la7IT1xQy0OeVAgDtyvOEJK6a74QPYl1Ktgj05
-	uf9dr3DYfer4Xeq18ReOoFjMRvQ9yNlEhDi1PMh45HfHF0O6H0sFUe1kvzkOjvi1FJdQ=
-X-Gm-Gg: AYBFou3fANkzcukCrZREqobN55dFqBTfwJmyv4ByKqDGEjec3BJ4oXk89IP3jO8DazQ
-	UPYw1jwzvPOXcTQgSNbwHgETThdEP5beLYhnw4zv9o4na8cFFmwBxtVI8jwqEfUHZOUNYOje2Iz
-	Y19d7RUOu7HnftC9ZE+3Hn1XoDGiehmYa/xT87nFvzSG9AiUuBtCKEHxAWs9A3Efv9c9JqvKOV5
-	3+ZX/ANT2BuvmQtrKAppXOSJb99HSyAY8i15nZV45wry/EpEhmWK47Dh6z9MJZ5xgO3CeKJ5z6z
-	8IbhDVJeFqnMdy5fycRO/DyUJ2eSVa6Od5CIFUycC0HvihdFwA3i1dV3MtwgvCSZ4YNOrdshtRu
-	EMyveHB8bzYO+uly0e1QpcRc4RO4=
-X-Received: by 2002:a05:620a:2841:b0:93e:646c:9138 with SMTP id af79cd13be357-93ebd1bb36emr3369542285a.26.1792140118890;
-        Fri, 16 Oct 2026 01:41:58 -0700 (PDT)
-X-Received: by 2002:a05:620a:2841:b0:93e:646c:9138 with SMTP id af79cd13be357-93ebd1bb36emr3369537885a.26.1792140118192;
-        Fri, 16 Oct 2026 01:41:58 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ac4c70sm32435235e9.2.2026.10.16.01.41.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 01:41:57 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
-        linux-kernel@vger.kernel.org, brgl@kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [GIT PULL] gpio fixes for v7.3
-Date: Fri, 16 Oct 2026 10:41:54 +0200
-Message-ID: <20261016084154.39009-1-bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lUMViyjj"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RaqzrXtafggiA6Vtw0Bb+3qEZqwTeX7kkg/munQcgtU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792140167; v=1; x=1792744967;
+ b=lUMViyjj7OSmbIQE/3JD2Ytjnn5qFksmgBQQcbYVoQI0aYd9N3RULVBSTODggc6HbX3E2DtF
+ PY6FFkkbyFPQFtbqpagkFz+wfTdQDYevrffqv9DeVLe3XRLAMI1AcYI7Z0LdIPb+ea77fuInLrL
+ UHJh/nJLSur17C3F8+d110rw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 88eda0bda127cae6;
+	Fri, 16 Oct 2026 08:42:46 +0000
+X-Mizu-Trace-ID: 88eda0bda127cae6
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <62d17959-d695-4fec-a87b-8eadaaf995a8@linux.dev>
+Date: Fri, 16 Oct 2026 16:42:40 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH mm-next] mm/swap: free swap cache folios the zap path gave
+ up on
+To: Kairui Song <ryncsn@gmail.com>
+Cc: linux-mm@kvack.org, Jiayuan Chen <jiayuan.chen@shopee.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Youngjun Park <youngjun.park@lge.com>, linux-kernel@vger.kernel.org
+References: <20261014090821.227366-1-jiayuan.chen@linux.dev>
+ <CAMgjq7D50X47JFsTnF2-jYGv7i-Nd3WhQLK-TJGy4XkhMQU4OQ@mail.gmail.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <CAMgjq7D50X47JFsTnF2-jYGv7i-Nd3WhQLK-TJGy4XkhMQU4OQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: o-VPKYkHp5DNiOlCWJdCVmoyP657bj4k
-X-Proofpoint-ORIG-GUID: o-VPKYkHp5DNiOlCWJdCVmoyP657bj4k
-X-Authority-Analysis: v=2.4 cv=NqZE4MdJ c=1 sm=1 tr=0 ts=6ad1e357 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8 a=wQmr6_J7Rd46EVQ_6L8A:9
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzNCBTYWx0ZWRfX+OW8UIfiVGI5
- vujpHSqhbtBqtde4aNZhmKV2GDO9FiV58nVFU2kMn6fmEYBO0rAACyR2IlrJsDPSjA/hMNrkHaR
- 5/sjGb5kb6ICmWpQEj4jkZz5rBHJNbvwosiVcMJZ4ZWhT+poJo/y1iKYJz37WdQsGiMUD477ZhL
- nKlLYcq6x0Syi8AWvu2aD3Ojq3Uhcb8TU0oOUyo/DY2v3sXY8XZODU6vq3UCuZbUXWd0LVHIF8X
- lTk+0h3uyUL0oPstY8vba+/DfHhcPFfGFDaAruJ1VlSFuNNEde92UvrlXmX4KighS8p0C+x3Mm+
- llrBP+Esi4b4hMdjYZDAyhgErAeLAbRg20XCcuQu+t8Y5MJrDshIAtdIFkT7oQZGPCZmMmzXfef
- RorRhmgaORGSjjK2e816wDCEfv0CRNCxqIuEMvGSq97jMfaobjETNd5m+SaTA0TPNHnwud0aPnz
- V5m/qvYNNvo/OPGaZHw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzNCBTYWx0ZWRfX4iP2PjaaBNOd
- FuEpJA86/of37NnHOdYfnSGzfoxfebeu0oacCK9WbLN9Gaek8clWy0aqN/m5ocGJlm1YaEKA2Et
- JuuvJwJ9zX/WPjC3Vc82gmtCCe0aNjs=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 adultscore=0 spamscore=0 bulkscore=0
- impostorscore=0 malwarescore=0 suspectscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160034
 
-Linus,
 
-Please pull the final set of GPIO fixes for this release.
+On 10/16/26 11:05 AM, Kairui Song wrote:
+> On Wed, Oct 14, 2026 at 5:10 PM Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
+>> From: Jiayuan Chen <jiayuan.chen@shopee.com>
+>>
+>> On our production hosts we saw swap cache only pages keep growing for days:
+>> on a box with a 500 GiB swap partition, 250 GiB of RAM and 250 GiB of
+>> swap slots were held by folios that no process mapped any more, charged
+>> to cgroups whose workloads had long exited. The only way to get them
+>> back was swapoff, and with other services actively swapping on the
+>> same host that is not an option.
+> Hi, thanks for the report.
+>
+>> Such a slot has swap count 0 and an unmapped folio pinned in the swap
+>> cache, left there after a process exited or did MADV_DONTNEED. No page
+>> table holds its swap entry any more, so nothing comes back for the
+>> slot; LRU reclaim drops it eventually, and the allocator only reclaims
+>> such slots once swap is half full. The growth stopped exactly there:
+>> at 50% of the device, where vm_swap_full() becomes true.
+> Hmm, I think this indicates a much cleaner fix is available.
+> vm_swap_full is inherited from the old allocator, we can instead just
+> let the allocator reclaim the slot if the slot have a count of 0 and
+> ignore vm_swap_full at that point.
+>
+> Will this work? (Just a minimal implementation for reference, will be
+> even better if we can avoid the overhead).
+>
+> diff --git a/mm/swapfile.c b/mm/swapfile.c
+> index c3288910b3e3..94670fe82f31 100644
+> --- a/mm/swapfile.c
+> +++ b/mm/swapfile.c
+> @@ -212,6 +212,9 @@ static int __try_to_reclaim_swap(struct
+> swap_info_struct *si,
+>          nr_pages = folio_nr_pages(folio);
+>          ret = -nr_pages;
+>
+> +       if (folio_mapped(folio) && !vm_swap_full())
+> +               goto out;
+> +
+>          /*
+>           * We hold a folio lock here. We have to use trylock for
+>           * avoiding deadlock. This is a special case and you should
+> @@ -903,8 +906,6 @@ static bool cluster_scan_range(struct swap_info_struct *si,
+>                  if (swp_tb_is_null(swp_tb))
+>                          continue;
+>                  if (swp_tb_is_folio(swp_tb) && !__swp_tb_get_count(swp_tb)) {
+> -                       if (!vm_swap_full())
+> -                               return false;
+>                          *need_reclaim = true;
+>                          continue;
+>                  }
+>
+Hi Kairui,
 
-Thanks,
-Bartosz
+I tried it on our box (224 CPUs, 931 GiB swap partition). It doesn't
+help there: after 100 rounds of the reproducer the leftover is 291 GB
+with it and 309 GB without, and both stop growing at the same place,
+488 GB, half of the device:
 
-The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907:
+# cat /proc/swaps
+Filename                Type        Size        Used Priority
+/dev/nvme1n1p1                          partition    976561148 
+489006260    -1
 
-  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
+# cat /proc/meminfo | grep Swap
+SwapCached:     489006260 kB
+SwapTotal:      976561148 kB
+SwapFree:       487554888 kB
 
-are available in the Git repository at:
+cluster_alloc_swap_entry() picks clusters from nonfull_clusters first,
+then free_clusters; it looks at frag_clusters only when both are empty,
+and at full_clusters only when vm_swap_full(). A cluster gets onto
+nonfull_clusters in partial_free_cluster(), that is when
+__swap_cluster_free_entries() frees a slot in it; after
+alloc_swap_scan_cluster() has used it, relocate_cluster() moves it to
+frag or full.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/gpio-fixes-for-v7.3
+A leftover slot has count 0 and a folio, so __swap_cluster_free_entries()
+never runs for it. Once the live slots of a cluster are gone, nothing
+calls partial_free_cluster() on it again, it stays on frag or full, and
+cluster_alloc_swap_entry() doesn't pick it until the device is half
+full. That is what the swap table looked like after the run:
 
-for you to fetch changes up to 205cccd06e545694754e1bf8d626ea96e742cd8a:
+list      clusters   leftover slots
+FULL        106415       54484480   (all 512 slots leftover)
+FRAG         44822       18471614
+NONFULL          1              0
 
-  gpio: mxc: fix race between gpiochip registration and IRQ domain setup (2026-10-15 14:21:15 +0200)
+Making cluster_alloc_swap_entry() revisit those clusters means changing
+the list policy.
 
-----------------------------------------------------------------
-gpio fixes for v7.3
 
-- gracefully handle unsupported fwnode-only, no-device GPIO lookup for
-  shared pins
-- mark the GPIO controller as sleeping in gpio-nct6694
-- fix a GPIO device reference leak in kunit tests
-- fix memory leak in error path in gpiod_set_array_value_complex()
-- fix races in GPIO controller and its associated irqchip setup in
-  gpio-mxc
-- use atomic bitops where races can occur in gpio-mxc
-- fix build failure in gpio tools
 
-----------------------------------------------------------------
-Bartosz Golaszewski (3):
-      gpio: shared: fix use-after-free bug when adding shared proxies
-      gpio: shared: gracefully handle no-device lookup of shared GPIOs
-      gpio: kunit: fix GPIO device reference leak with __free()
+> Or, from the LRU's side, put swap readahead folios at the tail. I'm
+> actually trying to do that and it's not very easily doable at the
+> moment but will soon be easy to do.
 
-Kent Gibson (1):
-      gpiolib: fix memory leak in gpiod_set_array_value_complex() on error paths
 
-Ming Yu (1):
-      gpio: nct6694: Mark the GPIO controller as sleeping
+That helps the RAM side under pressure but doesn't give the slots
+back.
 
-Peng Fan (4):
-      gpio: mxc: fix race between chained IRQ handler install and probe completion
-      gpio: mxc: fix both_edges bit operations
-      gpio: mxc: fix wakeup_pads bit operations
-      gpio: mxc: fix race between gpiochip registration and IRQ domain setup
 
-Sasha Levin (1):
-      tools: gpio: fix building from the top level with O=
+>> Options considered:
+>>
+>> 1. Fix it on the readahead side: after the read, check the swap count
+>>     and free the slot. Covers the lock, not writeback, and the
+>>     asynchronous read path unlocks in the bio completion where the slot
+>>     cannot be freed. Two places to patch, neither clean.
+> In fact, readahead checks the count before starts the read. It should
+> prevent some of the problems but seems not enough.
 
- drivers/gpio/gpio-mxc.c       | 36 ++++++++++++++++++++++--------------
- drivers/gpio/gpio-nct6694.c   |  2 +-
- drivers/gpio/gpiolib-kunit.c  |  9 +++++++--
- drivers/gpio/gpiolib-shared.c | 19 ++++++++++++++-----
- drivers/gpio/gpiolib.c        |  9 +++++----
- tools/gpio/Makefile           |  6 ++++++
- 6 files changed, 55 insertions(+), 26 deletions(-)
+
+Right, the count is still 1 at that point. The zap drops it to 0 while
+the read is in flight, after the folio is already in the swap cache.
+
+
+> And another idea, what if we just add dropbehind flag or rotate the
+> folio, if folio_try_lock failed in __try_to_reclaim_swap?
+
+
+dropbehind would work for readahead and writeback if the read
+completion honoured it too; today only folio_end_writeback() does, for
+zswap writeback folios, and swap_writeback_dropbehind_folio() expects
+the folio off the LRU. It still misses other lock holders (migration,
+split, ...). Rotating only helps under memory pressure.
+
