@@ -1,133 +1,112 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723CF340DB8;
-	Fri, 16 Oct 2026 02:23:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF18C3546D3
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:26:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792117394; cv=none; b=ZjA6q9do0jtUPACUe7RJugafd25ytWgm4H7hzT13Wx2uRJRAi6siTJ4Q0Kg4pxO8BiwqfNq0GMklabAkVprvojpEmRJhp3S/ZEVt9V9SabnXf09kWYAfm4uk7ftbRIxW4jPizKFj89ZyoDv49pmfLtZrWPwyKGP+alY84BBgblM=
+	t=1792117600; cv=none; b=O3klBLgvqBcaxDSze+jKgSHQ0gwD//Z6uJ9bpTcifUdG+J+lijLmZN2pMcVoE+d0SjVNbf7k07mHijg1AkEEkEGoRzD3/EM2Dm6GQAvt7UIdyinD8A4fKipiypQ/fr22uMDyq6CJkbC3rF3zh2rxpHheC3CwzMun4erB4WZL6vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792117394; c=relaxed/simple;
-	bh=jQV+RVh2Qewbh4Vqk/FeyC0beSCtrHUBkc+3mWD6YIo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JTz7SUL7vXJlXNefsCR+4xhYfgHgS4lg8DfeTw/wPbp1FzE1FW6BvcQMaR4Edxzy8XnUuZCE9ntUyu7wWrZtoFlK/+zhuwVG9K8JW95b+dn3RNdAUr3OEs9vlbspXefcadLQk2J88GKNtIJ+N15mRD30L0sVqefogUybZVkZEAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fJ8fWBA+; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1792117600; c=relaxed/simple;
+	bh=OSxEYFJNp1rnoU/dlmKyuTHFZzDjOW9xv88L7AJilZ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sAfq01VSIN+J1bKEHBe/rCnF4tliiQ222H4STng7s6Py1EbfcCmUWwYQU4nKvQfwetk6EEQmOHAhV9SG0uRjDk4t09TKciCG1b6jhTN5THTBa1h6mP3BnEtHbEUx5TMca0MYsr+dYia/YA2o9E6TpIYwwKqWXIcPrZI9f3U63I8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hjSvuJhM; arc=none smtp.client-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fJ8fWBA+"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FKKCUM3800036;
-	Fri, 16 Oct 2026 02:23:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=BGJhlOttxqSxiS7YwBNLr3QeGcUiZGXBjL/
-	x70jFWOE=; b=fJ8fWBA+18DXhZmLcNV4v5kymEKZh9gst1Vk/8G6CHZpvwtobCC
-	9nbwt4Ee1kQJ/ICQfl9BCLxakDEMvlCO8nFcFF38SuuI3PIlHq3TWZsRGIj5Q4Em
-	IanywhB0o/l0kWQLt91/O3QLyG5ciNnWwwBo88YLr163nNd/+MyCXEtDgN8T1+wx
-	chfvLdGgLdZzeuq123lIYhUSDhUuQBSeQp3R2ucN3cNcOtT5po2YtGo5sWI/vb88
-	74PUpMRfR9sti8mtp7b0qdRpzi+bYkIN4wD908tpoOzb3okCIE92DrZiJyO+Vati
-	Is/RyBn2rrHjjcuUB3quKodr5DZNk5SLb6Q==
-Received: from aptaippmta01.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb5se945a-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 02:23:06 +0000 (GMT)
-Received: from pps.filterd (aptaippmta01.qualcomm.com [127.0.0.1])
-	by APTAIPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69G2N48U2676934;
-	Fri, 16 Oct 2026 02:23:04 GMT
-Received: from shuaz-gv.ap.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
-	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTPS id 69G2N4dH2676926
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 02:23:04 +0000 (GMT)
-Received: by shuaz-gv.ap.qualcomm.com (Postfix, from userid 4467449)
-	id 4510F644; Fri, 16 Oct 2026 10:23:03 +0800 (CST)
-From: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-        linux-kernel@vger.kernel.org, chejiang@qti.qualcomm.com,
-        quic_chezhou@quicinc.com, wei.deng@oss.qualcomm.com,
-        jinwang.li@oss.qualcomm.com, mengshi.wu@oss.qualcomm.com,
-        Shuai Zhang <shuai.zhang@oss.qualcomm.com>
-Subject: [PATCH v2] Bluetooth: hci_qca: Reopen port after power on for QCA2066
-Date: Fri, 16 Oct 2026 10:23:02 +0800
-Message-Id: <20261016022302.4003647-1-shuai.zhang@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hjSvuJhM"
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-16079d54c17so41906c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:26:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792117599; x=1792722399; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ebMt1DK9lztKBpw1BhAsTvvwM6Q4iMNpgorgR7TB5+U=;
+        b=hjSvuJhMwsv4R5+u4iIJVuUZjlpKC2vlm9FY1q4mQ/E75H4QpEaxQRsUaKVgQSQkDP
+         yFc7E8W9q6fDGFIrtE7JsjjehL99u/BDM5DtHx0rh8DQPEel/09M7wElrmlFTubbeQ3/
+         L4jHc2aykgoYIdgPxdP9l6QjarMn7Dspp9mfxMsgh35CS0yyBtuuM03tLUtP8VA9qM5S
+         2a1we7hvsOlOgJuZgUFCOmB54biZubSr9WMOtQ2dogZJD9x3z7tWmA2htJAQu7mE1Fh0
+         nwcBc25R12WI9f9O5hHmwWgso0kOHMdcWqwafdrOm99rKm//3s9bsToedGzekHCjlEuA
+         5TPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792117599; x=1792722399;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ebMt1DK9lztKBpw1BhAsTvvwM6Q4iMNpgorgR7TB5+U=;
+        b=TSZ5AldsRNuVls6sgA2w90Y7GdBmR70GV0RpyQvZPCFRn1LtqJiivMLQlI7Bx6vLEZ
+         z2tvo3yO1s5VNivfizff6dMFchDrwvcHDfkQUIM+BH3iys7gSM0tv+BrbiDVzbW1F5pA
+         mtdaoHLd2dIFGtV+krYZyArOY0eo5DzJaEtg4tgB6WsXXuOr/298Ghy3KPomNx1COeEa
+         NtX34okGXmc5sf1bD0D5Sh9zJdfUOwEPZ1S1NzJAFz3ol24SM8+mwfgs8Si5a+StzLWL
+         5MudU2e7PuKnhV5A/M5INDyzLxGepOI0c+yVwPQjcGjgaf/MYhkELxmEUIFVDXv6e23M
+         1Nhg==
+X-Forwarded-Encrypted: i=1; AKwUvBzOQQj5QJsUiN7EgDHCO8mkLBcRLSXmAiFju/J7EO6A+v15YhGmw4g3ypA/RxSgP1cPSlyMEL9gKOPaGVo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKnMbFDyyGnKC3CX0nx1ZKQVHTq4UWS6/0yeRVzWsHy+k4S91m2
+	ueunlWN84EQEKLfWBe+MvFjo8DZlbJ9RWvHLicwkn6VA9TBvz6u68NtN
+X-Gm-Gg: AYBFou2T3aRTZPmQjVG0zLBxEssreFcJQx99XtPg98luf1QyF7XLApHDYdY1fEbcwx/
+	qmtdhY7c5A2X0tWWyN34l29bzHDPppS3wELAIAjzXsFpkLAz9oTXrnXk4z5N+ptfIW6jmRok6wG
+	YNj3F6+1HmrzViNC7XYO5oQ+BpPxQLfP0oXN2mEmLejOrezFATqbLRoPxu1mnKf5/CPO16y8Gye
+	cxDo+NgqsQFnNrJnQFGIdmjBGAhwySMEzKFhZ6t4LiU34WcOgbma0p7PNC//rDbGy3huktPhXIT
+	4hiZuH5Gyp1X/txQ8RLr7jQeu5len9kbf9YRzcY0N6LUQ6MgoU/X1nujrjRNf1BGBNqFMDJiQVw
+	JIHBelYiBYEdWdpnER8YIPBLeU+syGaF4g62q31FwNoKbtYSJFUlH3f3Dbiz6Uxj3YQJVMCcyiQ
+	Ckd/JCkhdlijxUJ/HVFnZpEGySeXDiVH7cEJebcwNZ7m0R7RxIpfdXOEhDTRN4x8qZ+OlEu64Cb
+	zEjgPdh1U7GCBc=
+X-Received: by 2002:a05:701b:2305:b0:14f:505d:813 with SMTP id a92af1059eb24-16a60811423mr29115022c88.41.1792117598697;
+        Thu, 15 Oct 2026 19:26:38 -0700 (PDT)
+Received: from kernel ([45.251.35.75])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831acba710sm1746391c88.13.2026.10.15.19.26.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 19:26:38 -0700 (PDT)
+Date: Fri, 16 Oct 2026 07:56:31 +0530
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: herbert@gondor.apana.org.au, ardb@kernel.org, Jason@zx2c4.com,
+	skhan@linuxfoundation.org, me@brighamcampbell.com,
+	jkoolstra@xs4all.nl, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] lib/crypto: md5: remove unused header
+Message-ID: <atGLVxfnna9yZR11@kernel>
+References: <20261015060806.5377-1-raizudeen.kerneldev@gmail.com>
+ <20261015175655.GA2170687@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAwOSBTYWx0ZWRfX1TO88fzVepLa
- z7G3pT4oNI8EuRX25A22yYJO9pWZBGMgDjF7D268thPkIrYmm2sFSa/H79D+XAPbnxu61IOI/26
- gQPfFaDZyjlCDc27LO6aAXRdqwiU6AI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAwOSBTYWx0ZWRfX4lp3rOPvlDJU
- 6KTSSSEIM7fnnBVFlQZ3ShngkVYPn22nS29srmTE9SlJtUtKqc/MwDEtPXjGmuuxh3n6jRevl+V
- P2zs1E1MJZcYgFPygw/FHdiLE7gwzQkTHUAfbN5MofJjWLsw6a8+TDYcnkSsGTLHKHcwc4huJfI
- +twOpT+qez8GbgKjURxYTG3J+BA5rkqnlrIuRVGvQuK93Ckgs7h7ZCkFqFsbQoSuWLQsRwFVThz
- sqOnP0TMkBcbf6U8PxXc+FlcxTEcy5HT5SJDEhx2FcTrEYyGVv7WG8fdk5k8gwq88zqnWYUD2sb
- 6dprAlNaihKWdjnTvFfFV4HR08onUCfd+ltg2siebazncO8Z0ewUZ0SoyjRcU/DVXxHiiH1bYLj
- 1Dtll6+aKa2rDhVYzIs6BiE4CgeM9c8nP204DnwaAezPQGITWcYAroCnexNYqbOJQn8k5prOX2T
- VMmdWnq1IVkrHDg1Z5A==
-X-Authority-Analysis: v=2.4 cv=P4yvFSAu c=1 sm=1 tr=0 ts=6ad18a8a cx=c_pps
- a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=i-ZuXnGKmWlNg_lG8XwA:9
-X-Proofpoint-ORIG-GUID: AbYkkqnYVznoksIJ9kCNKD_1eldMWyU1
-X-Proofpoint-GUID: AbYkkqnYVznoksIJ9kCNKD_1eldMWyU1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015
- malwarescore=0 impostorscore=0 bulkscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160009
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015175655.GA2170687@google.com>
 
-QCA2066 needs the serial port reopened after the controller is powered
-on, otherwise the host and the device run into RTS/CTS synchronization
-issues.
+On Thu, Oct 15, 2026 at 05:56:55PM +0000, Eric Biggers wrote:
+> On Thu, Oct 15, 2026 at 11:38:06AM +0530, Mohamad Raizudeen wrote:
+> > The code handles memory accesses using direct pointer casts and
+> > functions like 'cpu_to_le64()' instead of the unaligned helpers.
+> 
+> This should say "using memcpy() instead of the unaligned helpers".  The
+> actual unaligned accesses in lib/crypto/md5.c are the following:
+>     
+>         memcpy(in, data, MD5_BLOCK_SIZE);
+>         le32_to_cpu_array(in, ARRAY_SIZE(in));
+> 
+>     and:
+> 
+>         cpu_to_le32_array(ctx->state.h, ARRAY_SIZE(ctx->state.h));
+>         memcpy(out, ctx->state.h, MD5_DIGEST_SIZE);
+> 
+> - Eric
 
-Signed-off-by: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
----
-Changes for V2
- - Use a separate case for clearer logic.
- - V1 link
-   https://lore.kernel.org/all/20261015092224.262158-1-shuai.zhang@oss.qualcomm.com/
----
- drivers/bluetooth/hci_qca.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+You are right, the main data block accesses use memcpy().
 
-diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
-index 7089e9b63..ee3ccb59e 100644
---- a/drivers/bluetooth/hci_qca.c
-+++ b/drivers/bluetooth/hci_qca.c
-@@ -1867,6 +1867,19 @@ static int qca_power_on(struct hci_dev *hdev)
- 		ret = qca_regulator_init(hu);
- 		break;
- 
-+	case QCA_QCA2066:
-+		qcadev = serdev_device_get_drvdata(hu->serdev);
-+		if (qcadev->bt_en) {
-+			gpiod_set_value_cansleep(qcadev->bt_en, 0);
-+			msleep(50);
-+			gpiod_set_value_cansleep(qcadev->bt_en, 1);
-+			/* Controller needs time to bootup. */
-+			msleep(50);
-+		}
-+
-+		ret = qca_port_reopen(hu);
-+		break;
-+
- 	default:
- 		qcadev = serdev_device_get_drvdata(hu->serdev);
- 		if (qcadev->bt_en) {
--- 
-2.34.1
+The reason I mentioned "direct pointer access" because of the 
+`*(__le64 *)` cast used for the bitcount padding in __md5_final() and
+hmac_md5_final(). But I agree that mentioning memcpy() is more accurate
+for the whole file.
 
+I will update the commit message and send a v3 soon.
+
+Thanks,
+Mohamad Raizudeen
