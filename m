@@ -1,180 +1,168 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CF08046D2A9
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:39:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DFB47AF6D;
+	Fri, 16 Oct 2026 10:39:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792147154; cv=none; b=hjCfhA1Q8tvJtcy2MqjuWpd86culCfLA4oPgq3xZAkUVGdtmMkBotQ09qdhXgj0+F+t+p/8gXAjl3u8sLh+GAlcEGXyHJw71+BgtnvrwuFtmAnAwbNS5SIHkc/miZN8fVDcePhNNTYaA5fRofQAlqsaXEpx+6YtryDzEYfC7eKg=
+	t=1792147168; cv=none; b=s7BBzm4R81VAzUCOvYKjjgt6hZDzR2tQjWzV055HgGBfQvtPUdU2bgwC3KFemTt0hXW5tuLq27ne0BexYUjiZL+o46cO4/dZSJZiYkqWorZMeqP9EPqoOQ/JQBFSrey88izycNgmDVjl2sMXoEZ+UZ2OsOGxShzGhkdZHom6fTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792147154; c=relaxed/simple;
-	bh=2B4Z86NfvKmlxyck4uLPlQZc7XMsSM1bkdLs8y9O8Hg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YujAhWrXsMfm3XGScbBrV0peHyGxJCjFwoAHk724a8UV8/CiDoubfmpit2iDkDxt0yw/xA5K1NuYO9a3RRyZ4501qK5a92xYY+cayTZUJGC2E9PdqC5YX33rHtS/2VwcTVDtdXn5RvmgMbyTiYD3Y/y3y9b9MTBw/u0V3BBlsy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sen2S5g4; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792147168; c=relaxed/simple;
+	bh=9sspgSaYTLzPxx3ClMpy7dqKoUQ+jVKhLBbkq1ajX5A=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VT3s1julRARZ4iUfDhyCFTtbZNt/dZCey3qXIuzwUfBD1aTDR2KXeMWMh+PGuNklHbAYjbvwGm7L2L6bMhOD4xeZTnlxqhL7hPsy3CJvKFP/E4cSbPFlScxS7r60gaNnhDYN6zzbRkKowKPWOTxUuw4cv2D6eJIHk2yGmqDg/IQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=rsetRnlN; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sen2S5g4"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5EDC61516
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:39:02 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6A1C73F871
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:39:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792147145; bh=2B4Z86NfvKmlxyck4uLPlQZc7XMsSM1bkdLs8y9O8Hg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sen2S5g4R72QyHKvDrYQ+CHSFfgi3FT2S0JH0b06uGlCwoQig2pwUsAzepIR9KqpG
-	 Bme4qhTUbVVsq91WGI2++XZv2JL26n2Luz+hNJ/030vq7ZAdpf6vw873OgzVcJC0ov
-	 oJWiB3X5bJ0NMaeNRsw9Xg6Rpp+wLDEWH332wuOo=
-Date: Fri, 16 Oct 2026 11:38:54 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Akash Goel <akash.goel@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] drm/panthor: Fully disable the AS even if it's going
- to be re-assigned
-Message-ID: <atH-vsYXtgKOk2D3@e142607>
-References: <20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com>
- <20260924-panthor-mmu-fixes-v1-2-e25f9b106466@collabora.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="rsetRnlN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1792147160; x=1823683160;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=9sspgSaYTLzPxx3ClMpy7dqKoUQ+jVKhLBbkq1ajX5A=;
+  b=rsetRnlNvvjvCSAHtnV5qh1nalT6MvalNDeiLQCMTceFEd+EG0XGYxaT
+   8Zj0qOJY6nbAgp0cJSfSx4Fr5WaRYqKkJ3rka869HG16ILvzo2cnjzZot
+   ae/EhYDkx8JkfLmW+OlFFavmwyVDaguKeznBhgjzmKv4LojC5v5jiIqie
+   KnMCkHqnE56WyLRvA0Ow8nBGPbLnJ9j5bJrU1fvOXBFc0oMpTf/GbDZKA
+   UhAkcNtTrJtXoR0CylKgPd5tdNlVyug6ZHiapqbBMefTTRGQVATx4EBh5
+   Gwe+beH7V2+FQKFeewC/auO1bvAChSvYC8zA/uaERmrcw7VUUic53f32d
+   g==;
+X-CSE-ConnectionGUID: CBrgGqszSDuBkd2lr1fY0Q==
+X-CSE-MsgGUID: wlRWJqn0SvSwY/oWWETj4w==
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="296557721"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:39:18 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Fri, 16 Oct 2026 03:39:17 -0700
+Received: from che-ll-i67131.microchip.com (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Fri, 16 Oct 2026 03:39:08 -0700
+From: Manikandan Muralidharan <manikandan.m@microchip.com>
+To: <pratyush@kernel.org>, <mwalle@kernel.org>,
+	<takahiro.kuwano@infineon.com>, <miquel.raynal@bootlin.com>,
+	<richard@nod.at>, <vigneshr@ti.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <srini@kernel.org>, <nicolas.ferre@microchip.com>,
+	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
+	<linux@armlinux.org.uk>, <richardcochran@gmail.com>, <linusw@kernel.org>,
+	<arnd@arndb.de>, <pengpeng@iscas.ac.cn>, <gregkh@linuxfoundation.org>,
+	<mathieu.dubois-briand@bootlin.com>, <michael@walle.cc>,
+	<linux-mtd@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<netdev@vger.kernel.org>
+CC: <manikandan.m@microchip.com>
+Subject: [PATCH v9 2/8] dt-bindings: nvmem: layouts: add Microchip/SST SFDP EUI layout
+Date: Fri, 16 Oct 2026 16:08:30 +0530
+Message-ID: <5cbdd783d560480d3fc527340e36c48a97328d94.1792145382.git.manikandan.m@microchip.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1792145382.git.manikandan.m@microchip.com>
+References: <cover.1792145382.git.manikandan.m@microchip.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260924-panthor-mmu-fixes-v1-2-e25f9b106466@collabora.com>
+Content-Type: text/plain
 
-On Thu, Sep 24, 2026 at 02:30:44PM +0200, Boris Brezillon wrote:
-> We're trying to be smart by skipping the UPDATE(UNMAPPED) step, but
-> it remains to be proven it adds any noticeable overhead. Moreover, it's
-> breaking the assumption that, once the VM is unbound, no access can
-> happen on it.
-> 
-> For instance, say the panthor_mmu_as_enable() call in panthor_vm_active()
-> fails after we've called panthor_vm_release_as_locked(), we're now in a
-> state where the HW still points to the old page table, but SW slot points
-> to the new VM, which is not truly HW-bound.
-> 
-> If, after the as_slots lock is released, the evicted VM itself is
-> released, the HW might have access to memory that has been returned
-> to the system until the reset we scheduled (because of the faulty
-> AS_COMMAND) is effective.
-> 
-> Let's make this bullet-proof by doing a full bound -> unbound -> bound
-> cycle on AS slot recycling.
-> 
-> Fixes: 32e593d74c39 ("drm/panthor: Make sure caches are flushed/invalidated when an AS is recycled")
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+Add a binding for the NVMEM layout that exposes the factory-programmed
+EUI-48 identifier from the Microchip/SST vendor-specific SFDP parameter
+table (e.g. SST26VF064BEUI) as a "mac-address" NVMEM cell, and reference
+it from nvmem-layout.yaml.
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
+---
+ .../layouts/microchip,sst26vf-sfdp-eui.yaml   | 60 +++++++++++++++++++
+ .../bindings/nvmem/layouts/nvmem-layout.yaml  |  1 +
+ 2 files changed, 61 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/nvmem/layouts/microchip,sst26vf-sfdp-eui.yaml
 
-Best regards,
-Liviu
-
-> ---
->  drivers/gpu/drm/panthor/panthor_mmu.c | 21 +++++++--------------
->  1 file changed, 7 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 7e98084b9a1e..038a092fd08c 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -620,8 +620,7 @@ static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
->  	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
->  }
->  
-> -static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
-> -				  bool recycle_slot)
-> +static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr)
->  {
->  	struct panthor_mmu *mmu = ptdev->mmu;
->  	struct panthor_vm *vm = ptdev->mmu->as.slots[as_nr].vm;
-> @@ -645,12 +644,6 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
->  			return ret;
->  	}
->  
-> -	/* If the slot is going to be used immediately, don't bother changing
-> -	 * the config.
-> -	 */
-> -	if (recycle_slot)
-> -		return 0;
-> -
->  	gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), 0);
->  	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), 0);
->  	gpu_write64(mmu->iomem, AS_TRANSCFG(as_nr), AS_TRANSCFG_ADRMODE_UNMAPPED);
-> @@ -777,7 +770,7 @@ int panthor_vm_active(struct panthor_vm *vm)
->  		drm_WARN_ON(&ptdev->base, refcount_read(&lru_vm->as.active_cnt));
->  		as = lru_vm->as.id;
->  
-> -		ret = panthor_mmu_as_disable(ptdev, as, true);
-> +		ret = panthor_mmu_as_disable(ptdev, as);
->  		if (ret)
->  			goto out_unlock;
->  
-> @@ -919,7 +912,7 @@ static void panthor_vm_declare_unusable(struct panthor_vm *vm)
->  	vm->unusable = true;
->  	mutex_lock(&ptdev->mmu->as.slots_lock);
->  	if (vm->as.id >= 0 && drm_dev_enter(&ptdev->base, &cookie)) {
-> -		panthor_mmu_as_disable(ptdev, vm->as.id, false);
-> +		panthor_mmu_as_disable(ptdev, vm->as.id);
->  		drm_dev_exit(cookie);
->  	}
->  	mutex_unlock(&ptdev->mmu->as.slots_lock);
-> @@ -1911,7 +1904,7 @@ static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
->  			ptdev->mmu->as.slots[as].vm->unhandled_fault = true;
->  
->  		/* Disable the MMU to kill jobs on this AS. */
-> -		panthor_mmu_as_disable(ptdev, as, false);
-> +		panthor_mmu_as_disable(ptdev, as);
->  		mutex_unlock(&ptdev->mmu->as.slots_lock);
->  
->  		status &= ~mask;
-> @@ -1940,7 +1933,7 @@ void panthor_mmu_suspend(struct panthor_device *ptdev)
->  
->  		if (vm) {
->  			drm_WARN_ON(&ptdev->base,
-> -				    panthor_mmu_as_disable(ptdev, i, false));
-> +				    panthor_mmu_as_disable(ptdev, i));
->  			panthor_vm_release_as_locked(vm);
->  		}
->  	}
-> @@ -2065,7 +2058,7 @@ static void panthor_vm_free(struct drm_gpuvm *gpuvm)
->  		int cookie;
->  
->  		if (drm_dev_enter(&ptdev->base, &cookie)) {
-> -			panthor_mmu_as_disable(ptdev, vm->as.id, false);
-> +			panthor_mmu_as_disable(ptdev, vm->as.id);
->  			drm_dev_exit(cookie);
->  		}
->  
-> @@ -3360,7 +3353,7 @@ void panthor_mmu_unplug(struct panthor_device *ptdev)
->  
->  		if (vm) {
->  			drm_WARN_ON(&ptdev->base,
-> -				    panthor_mmu_as_disable(ptdev, i, false));
-> +				    panthor_mmu_as_disable(ptdev, i));
->  			panthor_vm_release_as_locked(vm);
->  		}
->  	}
-> 
-> -- 
-> 2.55.0
-> 
-
+diff --git a/Documentation/devicetree/bindings/nvmem/layouts/microchip,sst26vf-sfdp-eui.yaml b/Documentation/devicetree/bindings/nvmem/layouts/microchip,sst26vf-sfdp-eui.yaml
+new file mode 100644
+index 000000000000..37357efb7840
+--- /dev/null
++++ b/Documentation/devicetree/bindings/nvmem/layouts/microchip,sst26vf-sfdp-eui.yaml
+@@ -0,0 +1,60 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/nvmem/layouts/microchip,sst26vf-sfdp-eui.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NVMEM layout of the Microchip/SST SFDP EUI-48 identifier
++
++maintainers:
++  - Manikandan Muralidharan <manikandan.m@microchip.com>
++
++description:
++  Some Microchip/SST serial flashes (for example the SST26VF064BEUI) are
++  factory programmed with a globally unique EUI-48 identifier stored in a
++  vendor-specific SFDP parameter table and permanently write-protected. This
++  layout locates that table and exposes the EUI-48 as an NVMEM cell so that,
++  for example, a network driver can use it as a MAC address. The location of
++  the data is discovered at runtime from the SFDP; no offset is encoded in the
++  device tree.
++
++select: false
++
++properties:
++  compatible:
++    const: microchip,sst26vf-sfdp-eui
++
++  mac-address:
++    type: object
++    description:
++      The factory-programmed EUI-48 identifier, usable as a MAC address.
++    additionalProperties: false
++
++required:
++  - compatible
++
++additionalProperties: false
++
++examples:
++  - |
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        flash@0 {
++            compatible = "jedec,spi-nor";
++            reg = <0>;
++
++            sfdp {
++                compatible = "jedec,sfdp";
++
++                nvmem-layout {
++                    compatible = "microchip,sst26vf-sfdp-eui";
++
++                    mac-address {
++                    };
++                };
++            };
++        };
++    };
++...
+diff --git a/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml b/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml
+index 382507060651..e63b93083821 100644
+--- a/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml
++++ b/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml
+@@ -20,6 +20,7 @@ description: |
+ oneOf:
+   - $ref: fixed-layout.yaml
+   - $ref: kontron,sl28-vpd.yaml
++  - $ref: microchip,sst26vf-sfdp-eui.yaml
+   - $ref: onie,tlv-layout.yaml
+   - $ref: u-boot,env.yaml
+ 
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+2.43.0
+
