@@ -1,208 +1,131 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from a27-52.smtp-out.us-west-2.amazonses.com (a27-52.smtp-out.us-west-2.amazonses.com [54.240.27.52])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEDC190462
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:23:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AEB138DD3;
+	Fri, 16 Oct 2026 04:25:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.240.27.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792124610; cv=none; b=s5fCM00SUMJ4pwBf3mW4e3114J/ZvV7wwpzNUtgUbmsS+tUuAhPjZlmY0cpHUJU3HcRY7XfoZrT/auubJVDBntyEIZsySdgm3aD82o4eHjMAkizEzgKDcqyU9rSeZluH4ZCLCTknQXkxGRP4EnGpc9yll40zr7cv7GRDL/v9oSQ=
+	t=1792124745; cv=none; b=ULU7QWaQ/vyUkFjFVaRVGkdHWJ2vcoxqjeXOSnh0iobiTpt23kGbTeTKwI/Rn5xUMgcQmGTukt8c1+TUHsmuYoHsTda29zKYUzHgEujpTQO3f01RwuIBTHogGSHNSWOBrIIG46znRY7/dgP21elR7ZrhAs4dyYBZP0UJmN/SYDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792124610; c=relaxed/simple;
-	bh=ag/Pnoodh+wXUn89zlxc5YHV2k1IOI1YA6yNirvUmiQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NWkSkhggpcutQfYHQ2MV6rWNVlzl+DWW7DrqFIPzOr8TgwRC6r5ztZa/go4k9rtlhPlddPohCAqBcHIDhhrJRWPQTSzzxinuKQNSDi9+g091c0B1DDyDfDr5GBZROUbWD6wylsLyLSPFLeyxFpn+4hnH4EdZEGWPgUTM1XHf7wA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UGOdUFNE; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792124745; c=relaxed/simple;
+	bh=/ssxF5HvQo6gEw10H7jK5yS8w/E6a/FwNZ5ElsLQyLg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cZjGO6rTx4SycBrmygPTeNBVR/CoDqtllOQAYt3Z9ZBMvaWMQW7DL3So0srCYYT0SpWjRvSqXLOppHpjqWOAuPhDyM3tuxuWoE/twNLAAkJp6FC6I+cfMQ1Cgl6AVBW/0sSSr30IxwmB3I8nDVKw/i8T83gpZWZWwulSAxL9cRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dougvj.me; spf=pass smtp.mailfrom=bounce.dougvj.me; dkim=pass (2048-bit key) header.d=dougvj.me header.i=@dougvj.me header.b=a/ZOJX/J; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=W8HOIU0H; arc=none smtp.client-ip=54.240.27.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dougvj.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bounce.dougvj.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UGOdUFNE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=jfJhnyhGv7xLHyhQ8lmOcf8LFvAOPIP/V+VGHwAn2yw=;
-	b=UGOdUFNEq8HH2c4iEmzmgVyfujUAJGFWkhVb56p9w1+eGq6Gzx4lQMYYiT0Ssb
-	h7NI4QItNSU5o8avONie8l13lwSZROqfNkhE1IjcTqgHK5InoGR233t5X9YsC9Wo
-	eD9yEBDI2PcfdYT4DphhdeUxT7BZTQWc6+6DICs/4SJfk=
-Received: from [IPV6:2409:8900:1a87:d0a0:8212:3d05:576c:220f] (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3V9KnptFqBHWoAQ--.40078S2;
-	Fri, 16 Oct 2026 12:23:05 +0800 (CST)
-Message-ID: <3f23f6d5-0699-4c16-a1c0-a3d97139e5dc@163.com>
-Date: Fri, 16 Oct 2026 12:23:03 +0800
+	dkim=pass (2048-bit key) header.d=dougvj.me header.i=@dougvj.me header.b="a/ZOJX/J";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="W8HOIU0H"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=75cpmoop2pyf56gdndy2e364ijbokrge; d=dougvj.me; t=1792124744;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Transfer-Encoding;
+	bh=/ssxF5HvQo6gEw10H7jK5yS8w/E6a/FwNZ5ElsLQyLg=;
+	b=a/ZOJX/JfXbMMcZ2VV0ZO+Y6els0ktiJMVJVnyzk0D+hA6B3i3838BaYh+ieg2jn
+	3DbKCNQxMscNvZVFHu5xEsStnh/LVJwUAxFUiDtRz9jxHy6x2L2vH6lqK4AAKrWa+Ig
+	o60pSzio+3AJNFNm24YGWq3YSsuHxh0GBwC/PkjuQKFZ+IqdvVigYLjPJFvRFX1ZKmL
+	VbkzgdOnXmntWQxr3GJTeZXwRzc/dr/PqiNlOXgRG6aeWaLdK3Y1YltAFy7soM5GQy9
+	rwARL1l4mZw8mzb340GRaM0SbGnClzZ/BnjMM1kAzY9ZtEKZhXulRZ8LZpBasL3s3eK
+	DnDh4jtmmQ==
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1792124744;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Feedback-ID;
+	bh=/ssxF5HvQo6gEw10H7jK5yS8w/E6a/FwNZ5ElsLQyLg=;
+	b=W8HOIU0HLkb8Ut0W8P8NdN1ckQXZLrOUT35Gwy4rGJaUXBDfghdz+DZ1YXlzNmBh
+	ZbiD51HLSrZGyV75EOd7rdlUfSEYBpIDq9tbwIfaLIArYiNAy2SOcdijJCL8Rc4X7ph
+	i/JRebt4mRadnCuagfvHhRr7mkqNbG0ngWWnJqT8=
+From: Doug V Johnson <me@dougvj.me>
+Authentication-Results: mail.bonnevilleinformatics.com;
+	auth=pass smtp.mailfrom=me@dougvj.me
+To: linux-raid@vger.kernel.org
+Cc: song@kernel.org, yukuai@fygo.io, magiclinan@didiglobal.com, 
+	xiao@kernel.org, chencheng@fnnas.com, linux-kernel@vger.kernel.org, 
+	Doug Johnson <me@dougvj.me>
+Subject: [PATCH v4 0/3] md/raid5: freeze and interrupt reshape when handling failed reshape
+Date: Fri, 16 Oct 2026 04:25:43 +0000
+Message-ID: <010101a142f570d2-8a719acb-e1b2-4d74-82f8-b2138eab84da-000000@us-west-2.amazonses.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] ntfs: support persistent noatime attribute
-To: Xuewen Wang <wangxuewen@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- Baolin Liu <liubaolin@kylinos.cn>
-References: <20261016030957.1053110-1-wangxuewen@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20261016030957.1053110-1-wangxuewen@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3V9KnptFqBHWoAQ--.40078S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuw1fJw4DCFy5Cw1xGr1rWFg_yoWxZr4fpa
-	95GFy3K3yrJa42k392kF4UW3WSvrn3JayUJryDXw18Aas8G3WSgF1fKF4rXa18Kr1fCw12
-	qa1UtrWDZry5Z37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U24iUUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gnirWrRpqmgfgAA3G
+X-Spamd-Bar: -
+Feedback-ID: ::1.us-west-2.yIAaOWcA3P0r3CWRzBxY2mlnWgm/DtEO6k5/iZ9ogRk=:AmazonSES
+X-SES-Outgoing: 2026.10.16-54.240.27.52
+
+From: Doug Johnson <me@dougvj.me>
+
+Some time ago I had a RAID6 array reshape stall on me creating a hung
+kernel thread that I couldn't recover from without a magic SysRq. I
+was able to reproduce the issue with a test case:
+
+https://github.com/dougvj/md_badblock_reshape_stall_test
+
+A patch was recently merged that stopped the kernel stall:
+
+Commit 788e4139463f ("md/raid5: fix reshape deadlock while
+failed devices more than max degraded"), by Chen Cheng:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=788e4139463f74b945600237f7186411015d996e
+
+Submission and review:
+https://lists.openwall.net/linux-kernel/2026/07/11/656
+
+In v3 of this patch series, I had similar reshape failure handling,
+but Chen's approach was more correct. However, it doesn't account for
+reshape failures that occur even when all devices are active and in
+sync, such as when there are more bad blocks in a stripe than can be
+recovered at a given RAID level.
+
+I have a test fixture for this published here:
+
+Link: https://github.com/dougvj/md-raid-reshape-badblock-corruption-test
+
+This clearly demonstrates that there are still gaps in handling
+unrecoverable reads during a reshape.
+
+In this patch series the gaps are addressed:
+
+1. If an unrecoverable read failure occurs during the reshape, stop the
+   reshape using Chen's approach but always mark the reshape frozen
+   and interrupted to improve array recoverability conditions in the
+   case where devices are online but still produce unrecoverable reads.
+
+2. Detection of known bad read conditions from bad block metadata before
+   starting a reshape to prevent starting a reshape that will fail.
+
+3. Additional kernel logging for bad block metadata paths for improved
+   cause tracing.
+
+With these 3 changes, this unusual situation is significantly mitigated.
+
+Claude Opus 4.6 was used early 2026 to assist with the sweep overlap
+logic.  Codex GPT-6.1-Sol assisted with the upstream rebase, preflight
+implementation, regression analysis, QEMU fixtures, testing, and patch
+preparation.  Claude Fable 5.1 reviewed the series at medium effort;
+its findings prompted targeted reproductions and the degraded-member
+correction.
+
+I wrote the prose in the code and commits, except for the schematic
+example in patch 1, which Codex helped draft. Codex also assisted
+with the citations and this disclosure. GPT-6 Astra independently
+reviewed the series with an isolated context.
+
+Assisted-by: LLM
+
+Doug V Johnson (3):
+  md/raid5: freeze and interrupt reshape when handling failed reshape
+  md/raid5: do not reshape if overlapping rdev bad block ranges prevent
+    it
+  md/raid5: warn when a read fails due in some part to bad-block
+    metadata
+
+ drivers/md/raid5.c | 108 +++++++++++++++++++++++++++++++++++++++++++++
+ drivers/md/raid5.h |   2 +-
+ 2 files changed, 109 insertions(+), 1 deletion(-)
 
 
-
-在 2026/10/16 11:09, Xuewen Wang 写道:
-> NTFS currently rejects FS_NOATIME_FL in its fileattr setter. This prevents
-> users from disabling automatic access-time updates on individual files or
-> directories with chattr +A.
-> 
-> Store noatime in bit 3 of the private $LINUXFLAGS EA and restore S_NOATIME
-> when loading an inode. Report and accept FS_NOATIME_FL in the fileattr
-> callbacks, updating the in-memory flag only after the EA update succeeds.
-> The VFS then suppresses automatic atime updates for the inode, while
-> chattr -A restores the mount's atime policy.
-> 
-> Document the new on-disk bit and that newly created children do not inherit
-> the attribute.
-> 
-> Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
-> Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-> Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
-> ---
-> Tested in QEMU (x86-64, UP, NTFS debug and lockdep enabled) on disposable
-> NTFS images mounted with strictatime. The unpatched kernel rejects +A on
-> files and directories with EOPNOTSUPP. With this patch, chattr +A prevents
-> atime updates on reads and directory enumeration, and chattr -A restores
-> them. The attribute survives cache dropping, read-only/read-write remounts,
-> unmount/mount and a fresh boot; clearing it also survives a fresh boot.
-> 
-> Also checked the on-disk EA value, non-inheritance by new children,
-> combinations with immutable/append-only/nodump, FSGETXATTR/FSSETXATTR,
-> owner/nonowner permissions, EROFS on a read-only mount, rejection of direct
-> EA writes, and preservation of unrelated EAs and unknown flag bits.
-> 
->   Documentation/filesystems/ntfs.rst | 15 ++++++++++-----
->   fs/ntfs/ea.c                       |  2 ++
->   fs/ntfs/ea.h                       |  4 +++-
->   fs/ntfs/file.c                     | 11 +++++++++--
->   4 files changed, 24 insertions(+), 8 deletions(-)
-> 
-> diff --git a/Documentation/filesystems/ntfs.rst b/Documentation/filesystems/ntfs.rst
-> index 699e91f884d4..d5819da6ab53 100644
-> --- a/Documentation/filesystems/ntfs.rst
-> +++ b/Documentation/filesystems/ntfs.rst
-> @@ -38,15 +38,20 @@ The project is available at:
->   Linux file attributes
->   =====================
->   
-> -The driver supports lsattr(1) and chattr(1). Immutable, append-only and
-> -nodump are stored in a private ``$LINUXFLAGS`` extended attribute within the
-> +The driver supports lsattr(1) and chattr(1). Immutable, append-only, nodump
-> +and noatime are stored in a private ``$LINUXFLAGS`` extended attribute within the
->   standard NTFS ``$EA``/``$EA_INFORMATION`` attributes. Its value is a
->   32-bit little-endian bitmask: bit 0 is immutable, bit 1 is append-only,
-> -and bit 2 is nodump. Unknown bits are preserved when updating the flags;
-> -the entry is removed when the entire value becomes zero. These settings
-> +bit 2 is nodump, and bit 3 is noatime. Unknown bits are preserved when updating
-> +the flags; the entry is removed when the entire value becomes zero. These settings
->   survive inode eviction, unmount and reboot. Direct writes to this EA
->   through setxattr(2) or removexattr(2) are rejected; use chattr(1) instead.
->   
-> +The noatime attribute (``chattr +A``) suppresses automatic access-time
-> +updates for the inode, including when mounted with ``strictatime``. It
-> +applies to directories as well as files, but is not inherited by newly
-> +created children. Use ``chattr -A`` to restore the mount's access-time policy.
-> +
->   System metadata files and files protected by the ``sys_immutable`` mount
->   option cannot have their immutable protection cleared with chattr(1).
->   Protection derived solely from the mount option is not stored in the EA.
-> @@ -55,7 +60,7 @@ configured per file. Compression and encryption are reported but cannot
->   be changed through chattr(1).
->   
->   These Linux flags are enforced by Linux. Storing them in an NTFS EA does
-> -not make Windows enforce immutable, append-only or nodump semantics.
-> +not make Windows enforce immutable, append-only, nodump or noatime semantics.
->   
->   
->   Supported mount options
-> diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-> index a1f948c4d2ec..fd97da73ff5c 100644
-> --- a/fs/ntfs/ea.c
-> +++ b/fs/ntfs/ea.c
-> @@ -501,6 +501,8 @@ int ntfs_ea_get_linuxflags(struct inode *inode)
->   		inode->i_flags |= S_IMMUTABLE;
->   	if (ni->linuxflags & NTFS_LINUXFLAGS_APPEND)
->   		inode->i_flags |= S_APPEND;
-> +	if (ni->linuxflags & NTFS_LINUXFLAGS_NOATIME)
-> +		inode->i_flags |= S_NOATIME;
->   	return 0;
->   }
->   
-> diff --git a/fs/ntfs/ea.h b/fs/ntfs/ea.h
-> index 8f144fa4f9bb..3ad20431877b 100644
-> --- a/fs/ntfs/ea.h
-> +++ b/fs/ntfs/ea.h
-> @@ -11,8 +11,10 @@
->   #define NTFS_LINUXFLAGS_IMMUTABLE	BIT(0)
->   #define NTFS_LINUXFLAGS_APPEND	BIT(1)
->   #define NTFS_LINUXFLAGS_NODUMP	BIT(2)
-> +#define NTFS_LINUXFLAGS_NOATIME	BIT(3)
->   #define NTFS_LINUXFLAGS_MASK	(NTFS_LINUXFLAGS_IMMUTABLE | \
-> -				 NTFS_LINUXFLAGS_APPEND | NTFS_LINUXFLAGS_NODUMP)
-> +				 NTFS_LINUXFLAGS_APPEND | NTFS_LINUXFLAGS_NODUMP | \
-> +				 NTFS_LINUXFLAGS_NOATIME)
->   
->   extern const struct xattr_handler *const ntfs_xattr_handlers[];
->   
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index 58aad7f5c6c5..2cbe780758e3 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -167,6 +167,8 @@ int ntfs_fileattr_get(struct dentry *dentry, struct file_kattr *fa)
->   		flags |= FS_IMMUTABLE_FL;
->   	if (vi->i_flags & S_APPEND)
->   		flags |= FS_APPEND_FL;
-> +	if (vi->i_flags & S_NOATIME)
-> +		flags |= FS_NOATIME_FL;
->   	if (ni->linuxflags & NTFS_LINUXFLAGS_NODUMP)
->   		flags |= FS_NODUMP_FL;
->   	if (!NVolCaseSensitive(ni->vol))
-> @@ -200,7 +202,8 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
->   {
->   	struct inode *vi = d_inode(dentry);
->   	struct ntfs_inode *ni = NTFS_I(vi);
-> -	u32 allowed = FS_IMMUTABLE_FL | FS_APPEND_FL | FS_NODUMP_FL;
-> +	u32 allowed = FS_IMMUTABLE_FL | FS_APPEND_FL | FS_NODUMP_FL |
-> +		      FS_NOATIME_FL;
->   	u32 readonly = 0;
->   	u32 linuxflags = ni->linuxflags & ~NTFS_LINUXFLAGS_MASK;
->   	unsigned int new_fl = 0;
-> @@ -245,6 +248,10 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
->   	}
->   	if (fa->flags & FS_NODUMP_FL)
->   		linuxflags |= NTFS_LINUXFLAGS_NODUMP;
-> +	if (fa->flags & FS_NOATIME_FL) {
-> +		new_fl |= S_NOATIME;
-> +		linuxflags |= NTFS_LINUXFLAGS_NOATIME;
-> +	}
->   
->   	mutex_lock(&ni->mrec_lock);
->   	err = ntfs_ea_set_linuxflags(vi, linuxflags);
-> @@ -252,7 +259,7 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
->   	if (err)
->   		return err;
->   
-> -	inode_set_flags(vi, new_fl, S_IMMUTABLE | S_APPEND);
-> +	inode_set_flags(vi, new_fl, S_IMMUTABLE | S_APPEND | S_NOATIME);
->   	inode_set_ctime_current(vi);
->   	mark_inode_dirty(vi);
->   	return 0;
-
-
-Looks good to me.
-
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+base-commit: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
+-- 
+2.54.0
 
