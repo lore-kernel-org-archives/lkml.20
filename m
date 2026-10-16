@@ -1,105 +1,97 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101374BFE9E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:16:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164672E266C
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:17:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792156586; cv=none; b=KSuOPKCG01wL4gs2QrgHRBidFBfTpDqhThZCgxFUCO5ejcXk61TBZovkJAUK8S7Zo7GPN+UE67Q/WGsaGLi3xWhDPcRbOauTPFh5DpZmzZ8J+DzK1eEDM11ob4uFhV1Ss3yHv6ci5CCN61Rgzzchh4/kSie2GDVZkKvO8uyVZ/0=
+	t=1792156627; cv=none; b=WBj33fUbe4GqQCjXD1axBa77EKDD4aPnqMPQ3hZFiPvbexowTYxdWq+Qq88RubaLxmhN9T27MytOw8HfGpNfWfgqaXa5qJwEn1pEiI/29XlEnTcd1QsHGOQDHSyh/f1Oz8valnPKRkzbiKn/wr1KkUpZIdPQHPSI/2Z2/87w4e0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792156586; c=relaxed/simple;
-	bh=+Kn129w0gmug+NGjkG6FdvsaM9KLyoC8XLvmdxilZx0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aTmgrtYdEnMAbuDwuGWlh/VqCmoFWVIkmx4+FgLFGEEQM1P5uRT/M6DF7IMfqwZDf5TpSgCyWHMzrfbmknJPmLEIQGX6eW8T3L3Bjnz5iEsVDsP6Aob5dsFnz05xuT4BhCm7OqQvzYlpoTOWJgFFJBiYx1EvN/KlSHpull37umc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JFqb+wHH; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1792156627; c=relaxed/simple;
+	bh=ADFLpxJTy6WuqekBYcH8+chW3TrBLyByLSZYI4f+yyQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ad9QIqG7QJRjKXN0/rLcsRKBr9zslw7oQtbVx+YsI75yhz1rWN476+tnXypjan/FIwghus8ivQ82zaDvKxaNjCLhO1BakmvXO/R9GZJRwDn6v7SKh1c7E3J+c7G4tFkw9oLkJ+gJ9mkSrl/MOYQxuZOO41ZuDOi2lccw1w8VcQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es; spf=pass smtp.mailfrom=hsal.es; dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b=m1mbA0Jy; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JFqb+wHH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792156585; x=1823692585;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=+Kn129w0gmug+NGjkG6FdvsaM9KLyoC8XLvmdxilZx0=;
-  b=JFqb+wHHF41rgKDw2DY6DG2IzqaJdKVJ0KG4L9H7I4gDsoinMLSuR1Tv
-   TJEZP+zoDucK+SLeOHOwQsXn+BDLKb/7mgiapUOX0W/rmT2b9QRH2c57P
-   41qBamkCZkOuf6SKUKIgLJNjet5skrDyLq7rEs0MpPaSfsUtXPRZxMGe+
-   ZldaFI6mdCPqBZ3gmOeeJfdZpUBMZywNpu6R0TIngS3k8NjXPmrQESm3s
-   I35vbQuk5fT+eiiMI2y39CtwKXHpJwx3R2OkWAaH4wSSikL0BiMSFvoTe
-   +wrkdb6bCh9fm3Cy0fByJicbg30tSBrWrgwKrDZM3OpueoLnbKt3cpz0F
-   g==;
-X-CSE-ConnectionGUID: 47+OeOa4SHycydnhTKbHdg==
-X-CSE-MsgGUID: z5Y6UUZtRB2JnPTVNeKZRQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="935474"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="935474"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 06:16:25 -0700
-X-CSE-ConnectionGUID: NjexObzuRUCICpXasVX4gw==
-X-CSE-MsgGUID: ds7mVd5QQ3GEKxBw4FvQ6A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="1844290"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.35])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 06:16:23 -0700
-Date: Fri, 16 Oct 2026 16:16:20 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Navon John Lukose <navonjohnlukose@gmail.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC] mfd: intel-lpss: Set d3hot_delay to 0
-Message-ID: <atIjpJn1Y0GPmQbP@ashevche-desk.local>
-References: <20261016114347.23633-1-navonjohnlukose@gmail.com>
+	dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b="m1mbA0Jy"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j5lpH1wq9zKmT6;
+	Fri, 16 Oct 2026 15:16:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+	t=1792156615;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ADFLpxJTy6WuqekBYcH8+chW3TrBLyByLSZYI4f+yyQ=;
+	b=m1mbA0Jyczbb4IFU891R/y3QKmCITbeDLYUk9RwKS0JyYHyNzKR4hsHVnlnOIz4KhxURip
+	ZIB1xuqrao8Y+WsFBZcgC+Oaa7tF9crSy9WtM2SO02w7NGXh/SczGlfckyP/zxRdOhLJoj
+	33yO9y34MnB47Mx8pjN/p0s7N5yKwjiVbvBtOMXlnDS9rhWrX6yIhNH82IQ5l9XAyd0vDI
+	wi/Xo/1FO6qEwUATjXmazi8Gtm82FyvgvntAOsTBuCdacjrTZuOrXyE0cK0/5lcotrZE6r
+	FbG6chdTV41+fUXckIQHoVqp6o3/s2ZkBYrK+XNIpDiZGqz8jAOG5r/dJIo+YQ==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	jfalempe@redhat.com,
+	javierm@redhat.com
+Subject: Re: [PATCH 0/2] drm/client: Keep larger modes in connector->modes on fbdev hotplug
+Date: Fri, 16 Oct 2026 14:16:52 +0100
+Message-ID: <20261016131652.483525-1-hugo@hsal.es>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <atIYd0dd6ynXulwQ@intel.com>
+References: <20261015212545.1989962-1-hugo@hsal.es> <atIYd0dd6ynXulwQ@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016114347.23633-1-navonjohnlukose@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4j5lpH1wq9zKmT6
 
-On Fri, Oct 16, 2026 at 05:13:47PM +0530, Navon John Lukose wrote:
-> intel-lpss-pci already clears d3cold_delay, but every runtime resume of an
-> LPSS controller still sleeps the default 10 ms d3hot_delay in
-> pci_power_up().
-> 
-> On Arrow Lake-H (Lenovo Yoga Pro 7 14IAH10) the delay costs 8-16 ms per
-> resume of the touchpad's I2C controller, which lands on the first
-> touchpad report after each 1 s autosuspend. With d3hot_delay set to 0 the
-> power-up takes 64-256 us and the I2C transfers that follow complete
-> without errors.
+On Fri, Oct 16, 2026 at 03:28:39PM +0300, Ville Syrjälä wrote:
+> On Thu, Oct 15, 2026 at 10:25:43PM +0100, Hugo Sales wrote:
+> > On an ASUS ROG Flow X13 with a 3840x2400 eDP panel, booted with
+> > video=eDP-1:1920x1200@60, an HDMI hotplug makes fbdev reprobe every
+> > connector with its 1920x1200 framebuffer as the limit. connector->modes
+> > loses the panel's 3840x2400 mode, and after suspend/resume amdgpu drives
+> > the panel with the 1920x1200 timing. The image ends up squeezed into the
+> > top-left corner. Details are in
+> > https://gitlab.freedesktop.org/drm/amd/-/issues/5983
+>
+> Sounds like an amdgpu bug.
 
-So, do you state that this patch fixes some bad touchpad behaviour? If so,
-please, provide some logs.
+Agreed, the resume bug is in amdgpu. It looks up the eDP native mode in
+connector->modes, which fbdev's hotplug probe can trim. This series
+fixes it there:
+https://lore.kernel.org/r/20261014223041.171317-1-hugo@hsal.es
 
-> Commit 815b4448198f ("i3c: mipi-i3c-hci-pci: Set d3hot_delay to 0 for Intel
-> controllers") does the same for the Intel I3C controllers.
+I sent this one for the shared list itself because after a hotplug,
+connector->modes depends on fbdev's framebuffer size, while initial
+setup, drm_log and GETCONNECTOR probe with the device's limits. Until
+something reprobes, the sysfs modes file and any driver that reads the
+list see the trimmed version
 
-Okay, it means they were tested.
+amdgpu isn't the only driver that reads it. stm/lvds and
+shmob_drm_encoder_mode_fixup() take the first entry of connector->modes
+as the panel mode, so they may hit the same thing with a video= mode
+smaller than the panel. I haven't tested those, because I don't have
+the hardware. Fixing it in the core covers them without each driver
+keeping its own copy of the native mode
 
-...
-
-> Notes:
->     RFC because I could only test Arrow Lake-H, and this applies to every LPSS
->     generation the driver handles, back to Sunrise Point. Andy, do any of the
->     older ones need the D3hot->D0 delay? If so I can limit it to newer IDs
->     through the driver data.
-
-AFAIK 10 ms for D3hot delay is in accordance with PCI specification.
-Yes, we use quirk_remove_d3hot_delay() for very old Intel Atom SoCs,
-but I have no idea about Skylake line of products.
-
-Mika, Ilpo, do you have any ideas or comments on this?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Hugo
