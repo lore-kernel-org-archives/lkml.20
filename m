@@ -1,51 +1,45 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-186.mta1.migadu.com [95.215.58.186])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5531E36215F;
-	Fri, 16 Oct 2026 21:02:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF128402B8C
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:02:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.186
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792184548; cv=none; b=LBm1k3tWU/yN/CkvAa8V4ZdPLSzj60iTqcB/hoLguadt81sGw/hPrk1u0ttBhwU8Ae+lpMWS+g8bq8RtTPYUTNoBlxQc17l6xJ2l/mOYyJ+2LpYW9fKMAApmpnhG5AvmUddYjXPMFhMuBWO1XJ2QgZ6q0ggdShRe0yb8XXNxUmY=
+	t=1792184582; cv=none; b=Py7PBJMWGIFIz1b+84DGX1/UOSsC+a9HoYkM/IHfkPR1RtcVn3RwsAS/BBmuCAvjnrXSP20m0AtXPLcIPjymAAgnLhZiXkSUIU9Ybk/S4dJwUrt5r6KMpOVudHxGw4B7evQSvj89ROg717zwSmyvah0VSqH6gz17q8HGsYfmX+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792184548; c=relaxed/simple;
-	bh=BsB5dVBBbTUqF1SgLFU07VClvGySbZppOTm8ooenev8=;
+	s=arc-20240116; t=1792184582; c=relaxed/simple;
+	bh=28ylzu+o5fZiKT36o+HUSHzro3k5S/9mBS+q1EJsaZM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V6/gimy0ulgG61rJXdZY0miGDkqKJ/wikaqSFsrXE2jexCbZ0tjUEtyVLuyZh+2koW0aVsM4iovf9hW5m/kVjyt4SXlp6DH7QAk7gMZ8WQ0NaXVgC80UG8YyJHwZmCVKvod+eu6VWYv9k0wZ6jsQmu4UzQuEGP76GWGZxujkOPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=4kZXtyNZ; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=VZ2cE3pfAMcSCGGteNCR7FrqBu8+KzUMSD/n0a+t9KkzG0fs2Z4/32wFfsBoiGipr2Lhm/eucKTSgan3JOV2HyONIfROtCa7h0JtLahBcvK2Irhcn5gNrxB9JjIT/degCsegT9p8StythGOA1Yj5OK3vt1s0xr/jd+TdWjjhlIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=scbzIcyY; arc=none smtp.client-ip=95.215.58.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="4kZXtyNZ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=8Zd+3BcJq9wM1lwqpTFXrmASNhXTBOIJ3TZjQBUIVa0=; b=4kZXtyNZ6FBLVI+lvThyNL2EWi
-	141iNllT9KOx+xRJyv7D3YCrZ8g8olRUqvkO0QxTTvEk/k7lfSnVNv7akoN0Gz1M6RfRfj9edn2Bp
-	+PAb8BQ23fEes5QI7bSGlGMJdgHN2qNSzwPKStWpaVvJFf8ORNeknKmFirmkBb0pxNPM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xHp49-00BDzz-Uq; Fri, 16 Oct 2026 23:02:13 +0200
-Date: Fri, 16 Oct 2026 23:02:13 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jacky Chou <jacky_chou@aspeedtech.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Po-Yu Chuang <ratbert@faraday-tech.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v3 4/6] net: ftgmac100: Require phy-mode for
- AST2700
-Message-ID: <8087213a-8cb2-41cd-a6f0-16da1e49bf6c@lunn.ch>
-References: <20261015-support_ast2700-v3-0-8d7999171ac4@aspeedtech.com>
- <20261015-support_ast2700-v3-4-8d7999171ac4@aspeedtech.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="scbzIcyY"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=28ylzu+o5fZiKT36o+HUSHzro3k5S/9mBS+q1EJsaZM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792184577; v=1; x=1792789377;
+ b=scbzIcyY+L+NtDZielEU4Uq2X12ngiXj436+zmJI64+lvbHzCRgdR4NXymOCV2T69qlpcauX
+ 2ahKMunQg6fcNq4lW2E1xaxrzwsGsNKchtDeJH6OXuVDe4YDUGT+41cVwP9a0GVlZ5DSE4jaa2e
+ FmLQrAUXIT3gnTS0Nu+vOAdc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id dad739c8675871cd;
+	Fri, 16 Oct 2026 21:02:57 +0000
+X-Mizu-Trace-ID: dad739c8675871cd
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 16 Oct 2026 14:02:56 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Tejun Heo <tj@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Christian Brauner <christian@brauner.io>, Meta kernel team <kernel-team@meta.com>, 
+	linux-fsdevel@vger.kernel.org, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] kernfs: allocate inodes and dentry outside
+ kernfs_rwsem
+Message-ID: <atKQcFFeKG76LkLQ@linux.dev>
+References: <20261016164345.31618-1-shakeel.butt@linux.dev>
+ <06b62af1faefaddcb9d5d09cbaf7a2ad@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,19 +48,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015-support_ast2700-v3-4-8d7999171ac4@aspeedtech.com>
+In-Reply-To: <06b62af1faefaddcb9d5d09cbaf7a2ad@kernel.org>
 
-On Thu, Oct 15, 2026 at 02:46:56PM +0800, Jacky Chou wrote:
-> The driver currently defaults to RGMII when the "phy-mode" property
-> is missing from the device tree. This default is no longer valid for
-> AST2700, which also supports RMII via FTGMAC100_QUIRK_RMII_ENABLE.
+On Fri, Oct 16, 2026 at 10:33:20AM -1000, Tejun Heo wrote:
+> Hello, Shakeel.
 > 
-> Make "phy-mode" a required property for AST2700 and fail probe with
-> an error message if it is not specified, instead of silently
-> defaulting to RGMII.
+> On Fri, Oct 16, 2026 at 09:43:45AM -0700, Shakeel Butt wrote:
+> > Allocate the inode with the lock dropped.  kernfs_iget() first looks for
+> > an existing inode.  If there is none, it pins the node, drops the lock,
+> > allocates, takes the lock again, and adds the inode only if the node is
+> > still active.  So __kernfs_remove() still finds every inode it must
+> > clear i_nlink on, as commit dc1a0cc95737 ("kernfs: don't lose
+> > IN_DELETE_SELF when decoding a file handle") needs.
 > 
-> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
+> Would it be simpler to allocate the inode before taking kernfs_rwsem and
+> free it if it ends up unused, as 8b64f32fee95 ("kernfs: allocate the new
+> name outside kernfs_rwsem") and 5ad03af18434 ("kernfs: allocate the open
+> node outside the open file mutex") do? Then the lock doesn't have to be
+> dropped, and there's no need for the pin and the active recheck. The
+> unused cases (negative lookups, inactive nodes, nodes which already have
+> an inode) are exceptions, and an inode alloc and free isn't expensive.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Thanks for taking a look and yes, it is much better and simpler.
 
-    Andrew
+> 
+> The helper would then just run under kernfs_rwsem. Maybe
+> kernfs_get_inode_locked() would be a better name for it?
+
+Ack
+
+> 
+> kernfs_fill_super() can preallocate the same way, which gets rid of the
+> last inode allocation under kernfs_rwsem.
+
+Ack
+
+> cgroup_may_write() allocates
+> the inode under cgroup_mutex and could allocate before grabbing the
+> mutex too.
+
+Let me send this one as a separate patch.
+
+> 
+> > kernfs_get_parent_dentry() also held the lock across d_obtain_alias(),
+> > which allocates a dentry.  Hold it only around kernfs_iget(), as
+> > __kernfs_fh_to_dentry() already does.
+> 
+> This also adds the active test to ->get_parent. A parent which is being
+> removed and has no inode now gets -ESTALE instead of a new inode with
+> i_nlink 1, which closes the window dc1a0cc95737 ("kernfs: don't lose
+> IN_DELETE_SELF when decoding a file handle") left open. Can you mention
+> it in the description?
+
+Yes, I will do.
+
+Thanks again for the review.
