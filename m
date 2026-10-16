@@ -1,191 +1,167 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFE603E3DB1;
-	Fri, 16 Oct 2026 09:10:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871C3446BEA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141829; cv=none; b=uiMRCAQgqlyw1phzSVphrXrj328bcI0M+pIMp89d2XzgACPWbVbAVtiOCFFN8hAvFCozNUarJlPmWshpzMfU4KP7mm1IiRlwhm1g/ydqWGbgbja8da/l757DQLHsnO+ZsaqjKaZa44JzqwsnA9YZio1owfT+eEWP4xxFc9pW9YU=
+	t=1792141829; cv=none; b=rotQXkC26YYjRIFX2HTpoBLuHcEBJo0yUGQJEVGAMm4Fql02HZUoBYTYmQYSESLZbLQ40Dz3Ne+Q18xkOeLJhTs3nrZ2YXXzfjfpSVk33HqD/4T0YEfc2YA5FpkieTl7v9TJHTkeImi6dDnGbY2DQHIz5TDC/41Wt6ZcgMWis4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792141829; c=relaxed/simple;
-	bh=IcqZ76rfSDpcQwiD9DxB/mRMqJ9LDWG0ojtAogXJl9E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UFgqmxlzibjYxSwRSZuZuyZIDo/FD6PilgkAHaFakwKVi1GRJnp6Tnw3cb2fTddH0ctWNjv+oFi5TYxR13SRKGNYpJKVd7aI29QTj9mwqgSlxdfjt/Hzpk2ReAp9EpIG1pIzQ+eUhrTlk2uhqReFydWj9Q39iYQ5ZdRcKPys/pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DV9zFSaz; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	bh=FknUXR2V50SRgDJQCdH6IzolRKWGlrnF1TNNVowTK5M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NIKUJ9PSKn5aPyhDZS3uaI4iaKLGJVV14cTOg14GGJead+U7OtXyEEnhGyZ9WGOSZBGPrUhic7Tq2iYVQ2QmkdqU6S5ClTVVk0cFcVWf1rJK1xvVfM6ZcvDjo3gzwrtu13APv75eRq4i+te5rTaMePVYs70VyeNhFehXDPgiwpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mRoFUeIg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=S4POjRTn; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DV9zFSaz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792141828; x=1823677828;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=IcqZ76rfSDpcQwiD9DxB/mRMqJ9LDWG0ojtAogXJl9E=;
-  b=DV9zFSazw7xpG6Wz+/GyyiPjfK9wR+0grvew4JE9An3oma2vUugh/1c5
-   daDBgMfREd+MTBaJlMK4cBQTFRqL8GG/EVHhiEuTB99RkGAIr+ZFSsI3f
-   cT5lL3Am+Azyd9OPEHpJnt1oI1dY07OYfYNer1kZrRu1Q+faNWo2agUr2
-   rz6e73NSFhiRKXoFf5+Ba5JTeIxKwbSgGcd/p0oClyDrjstygCAP+c7lY
-   +85tkERCH2PV4GTygHuXLMFtoq3YowBcl6dlxEz1QNFpHa8V+TgvZmCvz
-   m6rVy8JPG87idR865Fry5HRwSEKuEd5/ezfkzBNoVlyXlfNspQW4hjhPP
-   g==;
-X-CSE-ConnectionGUID: 6OAXGE5yQDScylHyBRUUcQ==
-X-CSE-MsgGUID: AF5aVkmOQG6hO3DgUfzxeA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="927110"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="927110"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 02:10:27 -0700
-X-CSE-ConnectionGUID: f0ZxwHqcQzezsx9jeKD9wQ==
-X-CSE-MsgGUID: Dmx66YQHQDeMGJg02dnCpg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="1812539"
-Received: from litbin-desktop.sh.intel.com ([10.239.57.15])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 02:10:24 -0700
-From: Binbin Wu <binbin.wu@linux.intel.com>
-To: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Cc: seanjc@google.com,
-	pbonzini@redhat.com,
-	dave.hansen@linux.intel.com,
-	andrew.cooper3@citrix.com,
-	nik.borisov@suse.com,
-	kas@kernel.org,
-	rick.p.edgecombe@intel.com,
-	xiaoyao.li@intel.com,
-	chao.gao@intel.com,
-	tony.lindgren@linux.intel.com,
-	kishen.maloor@intel.com,
-	dedekind1@gmail.com,
-	adrian.hunter@intel.com,
-	binbin.wu@linux.intel.com
-Subject: [PATCH v5 0/5] KVM: TDX: Validate directly configurable CPUID bits
-Date: Fri, 16 Oct 2026 17:14:17 +0800
-Message-ID: <20261016091422.3182216-1-binbin.wu@linux.intel.com>
-X-Mailer: git-send-email 2.46.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mRoFUeIg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="S4POjRTn"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G8lJJ7303532
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:10:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Qdw1IMSJPlaVw9V5/5RUUe24WWrftggVUgg+EtKpg0A=; b=mRoFUeIghvPRrNcW
+	M1dseKIVbsc6Zw7kDzvhwk/T6GanfkjAQPcFxTlvBmyc3lXlUWl9DFyn/OwIVrdI
+	t0xvlXFxbO0f0Wr8+YQsf2C3miZXKmQvUYPEpEuDX6nEGuLnJcEwmQ4l6bMzvHVO
+	VoSY6UUOKqQK99xlofpB9GUFgnIGSMg3RyXWw1QSR6qnI8A8zcADcHmiLLc3wqyo
+	QKy5o4RGcKWBwN4h72+sm1xxIiK7b+g77n0O5ZFkKzGHiFTjGg10LuCwDH/6VNlG
+	K0nAoUIxzhalXSvBCbZUG/SFZddQGeYs11p/g0NE1ccSIfuDitTw30F3hoYJ+xPw
+	mOzvEg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbcjt939j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:10:27 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5362ce9df1eso1098411cf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:10:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792141827; x=1792746627; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qdw1IMSJPlaVw9V5/5RUUe24WWrftggVUgg+EtKpg0A=;
+        b=S4POjRTnt0uFhrPPAzKgqqjhBSQY3w3Cp2+R7fkjllzwqyvfkkt/hSlyyHZ9irJEQh
+         NtJIrpfcwl12tgasI6d9i9zHqEx+hGRUMf1la56FFDDBPXDIUvQrRXlmQPqZbpWyXgwo
+         GXlgbJxSJgnrJcEAE9nuURiJr82wFdp0BqbnpEELWsAAz7Z5rBF6+qTfMyR1wm1P0Unk
+         eAGyucQ+D2jg6RztU4muTPKaKu9byaINbIS2G9foVX30AEHudMwBlaJYQQ6KRnVM7Nkm
+         zkUqg4cwXBzFwrhkzsxLiDq1FSV14demsvaT+lswkuEgg58fBiKbQAqFF6JxFkJpmNkW
+         olSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792141827; x=1792746627;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qdw1IMSJPlaVw9V5/5RUUe24WWrftggVUgg+EtKpg0A=;
+        b=cP7o+4+W06zDqiZD/tnQx6K1EICrri34DasLbW/Yyb0TUlLW1j30RvddgUWQM5cz7q
+         meRSNNWBZ5aFNVDsJcI7E0q2Z/ZREISiRvYZ8nftnY7wb00A3oT9k0gNcVlOHR+gE0VY
+         R/6qyHYkdijBb0BGr+ToXeusaU1udd+HQH3wCBUXro1VvxAv15Xnm4fGa/XXSovoJMwA
+         ovM1dCiy7bOxrLxnBwrAFx7Exr46O2gIMSWM3BpotLzDqO1Cx1pqGC76/QQqSuI8qfQC
+         lq4mDpZjfrQUH5GRbW9qzxFFKupMyBE+NMois/3UEv8QPAEnJsnFFcRpalbtLfkC+Xrn
+         Z0VA==
+X-Forwarded-Encrypted: i=1; AKwUvBy7kmsgi/CPQFyY28BT0g4lN6qguUcHtpAOsD8xKiv1NxoEJlMV4H/e12wiZYU5QJ8RDSCiq8kN2OWHiAw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzx+tTYHwIFfz1yVeVS8YiCNlhPgg2MgxXO6fFnrEs3dUHdRNf
+	k2SUV1EKZGFnx3yMeWWr2GSMgdkg6g2eqtvYpv/R8oURSv6gvKSg+FYNnjikwf7spfjc6SZcuqa
+	y47Dkj8MA/+0qzwRKM+OJ6KYbOiU39aLND2GtoD7jQMAEX/FMeDOEeO6+3RsBF9FX7ZY=
+X-Gm-Gg: AYBFou0bjySkeI4RN5k6Gu1u/zz+Fo4+i0EEigAHT3CsVGtepEsBByMhfslRYO0277z
+	K22Zyq0pRXr0rmkjSNUxZZeAbDeoFHufXgdW0ZWPUwDIMJT67aFU1Yrw04K3aaxC6Bpj3SsIa29
+	z3sksiLGYG5/tjp+nlndw9OaZpqsuP9tpuWPAVj2YrmCPqIM4bIx+z/L6YXlDSnrm48GRmVPXW7
+	rCR6Sh8rbosPLjjmahWbkRS+RDAqrhkoFNQ79nNU2hyTVOX+gDPlsan5gczHZnBYKtaSMTeMhb+
+	OjSKdxGnpJtbzyDn80JSgDW7smuJSdkv43R+035Mdle5/YUjCeA1t24ZIeGIaQv1G/asSPCfx9I
+	2rfDgbg3oiqjjGcbOtG7nPA==
+X-Received: by 2002:a05:620a:a43:b0:93f:211f:7ba4 with SMTP id af79cd13be357-93f211f7e97mr73036285a.5.1792141826669;
+        Fri, 16 Oct 2026 02:10:26 -0700 (PDT)
+X-Received: by 2002:a05:620a:a43:b0:93f:211f:7ba4 with SMTP id af79cd13be357-93f211f7e97mr73032885a.5.1792141826093;
+        Fri, 16 Oct 2026 02:10:26 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c409239b3a1sm52586266b.85.2026.10.16.02.10.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 02:10:25 -0700 (PDT)
+Message-ID: <3866c346-ddeb-4c9d-9f4d-3e09e3854bbb@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 11:10:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/5] arm64: dts: qcom: kaanapali-mtp: Enable USB
+ headset and Type-C accessory mode
+To: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Kuogee Hsieh <quic_khsieh@quicinc.com>,
+        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+        Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261015-kaanapali_dp-v2-0-c15cb83d9140@oss.qualcomm.com>
+ <20261015-kaanapali_dp-v2-4-c15cb83d9140@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261015-kaanapali_dp-v2-4-c15cb83d9140@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfX9xlg4FOM5g2G
+ tljP3wUYqinqnebGYIWmDYARlLI/7YG1ZaJ/K4JUf9kJFCHRnojcIXdhW6jZJ6fv+vV28fZ4Uzt
+ RcqnXCiPOaQ7ELqV2wYJ7YJH1tQorMlTs7xFr5NyZbU2JA0jwfcCD4aLqrPQg+JfBdkfPpLxbRE
+ goflFJCM70bMde5GJxr6eIyN2PXIkFpVC0O5davHMohX7Zjxi2+PJa1gHZsvAW9BMJ9ErGmFKEC
+ 3EqCEIn9cdvGBkaj01MBln+IPu6EEHUUPevXZxaPHtYXXV14vsS2i8iUc7yX7bVCvsmUthEp9OK
+ 5jodlO6IxPOL+D7P44R4RBD4aNGQWj+UHibmvArPXBXvPPbtftEr7XA8Cv9Ec5A+jGtEa40ozxW
+ yaBoMcX53LRl01eo1Z921eh+rnmSink+hWmFuWRP7WXL6SgFdQmhqi5gmz6/x0tm1bKWETN/iHw
+ vNkDSqSBvWuFzSwKHdg==
+X-Proofpoint-ORIG-GUID: E6u2p99HzL6kpeHPTtHY1FfXrpgh-rJQ
+X-Proofpoint-GUID: E6u2p99HzL6kpeHPTtHY1FfXrpgh-rJQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfX3pS4mJBTeH8l
+ Oq9H+AJVv2t96IUh1xelSlBwRPw85ruMbk5T4TGHjrhk5hGY4/fgFXRxuL5OqO+zZLpJ39AVF7b
+ aEumC0m6oqVcOulQx9Fki4nyMWqjbuM=
+X-Authority-Analysis: v=2.4 cv=VpS2kO2n c=1 sm=1 tr=0 ts=6ad1ea03 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=ENyogFyUuOtWwiBkGF8A:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 adultscore=0 phishscore=0 clxscore=1015
+ malwarescore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610160036
 
-The TDX module reports a set of CPUID bits that the VMM can directly
-configure for a TD, but KVM cannot blindly expose all module-supported
-bits to userspace.  Certain features imply additional architectural state
-(such as one or more MSRs) that KVM must explicitly manage across
-host/guest transitions to prevent host state corruption.
+On 10/15/26 11:54 AM, Balaji Kalkonda wrote:
+> MTP does not have audio jack connected and relies on USB mux (WCD9395).
+> Add necessary nodes for proper audio headset support along with USB
+> Type-C accessory mode and orientation.
+> 
+> Set the I2C bus clock frequency to 100 kHz for the WCD9395 USBSS mux.
+> 
+> Signed-off-by: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
+> ---
 
-Today, KVM hardcodes a denylist to filter out host state clobbering
-features that KVM doesn't support.  However, a denylist doesn't scale as
-the TDX module evolves, i.e. host state clobbering features added by a
-future TDX module are not covered by the denylist, and userspace could
-enable a feature that KVM doesn't support.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-This series builds an allowlist for directly configurable CPUID bits, and
-filters and validates userspace input against it, so that newly introduced
-TDX directly configurable CPUID feature bits can only be enabled by
-userspace after KVM explicitly opts in.  Except for a few fixed-1 bits
-required for basic TDX support, host state clobbering features are either
-directly configurable or gated by TD ATTRIBUTES/XFAM.  KVM already
-validates ATTRIBUTES/XFAM, so the allowlist only needs to cover directly
-configurable bits.
-
-Patch 1 is a standalone fix for the existing denylist check, which uses
-the index of the matched userspace entry instead of the subleaf reported
-by the TDX module, i.e. userspace can bypass the HLE/RTM/WAITPKG check.
-It is tagged for stable so that it can be backported independently of
-the rest of the series.
-
-Patches 2-5 build the allowlist, add CORE_CAPABILITIES to it, filter
-KVM_TDX_CAPABILITIES, and validate the CPUID input of KVM_TDX_INIT_VM.
-The last two patches are user-visible changes, which are now called out
-in their changelogs, along with why existing userspace and guests are not
-expected to be affected.
-
-For this version, I'm hoping to continue to collect some RBs and Acks.
-The key discussions from v3/v4 [1] are summarized below.  Note, FRED KVM
-support is in progress upstream [2], and no TDX module with FRED support
-exists yet, so there is no immediate issue.  But it would be nice to get
-this series merged sooner rather than later.
-
-Discussions from v3/v4:
-- Rick asked whether the assumption that the reserved bits in
-  CPUID.0x1.EAX, CPUID.{0x4,0x18,0x1F} and CPUID.0x80000008.EAX won't be
-  used to enumerate features can be confirmed by the x86 architects [3].
-  Confirmation is still pending.  Per the SDM/APM, these leaves/registers
-  are defined for specific information (version, cache/TLB parameters,
-  topology, and address sizes), so the reserved bits are expected to be
-  used to extend the existing information rather than to enumerate
-  features.  Allowing these registers in full is a best guess, but it's
-  still far better than the existing denylist-based check.
-
-- Whether to restrict the TDX feature bits to kvm_cpu_caps[].
-  The conclusion from the discussions is to construct the allowlist based
-  on kvm_cpu_caps[], plus a few bits that KVM can support for TDs
-  independently of kvm_cpu_caps[].  If TDX feature enabling turns out to
-  be consistently blocked by non-TDX VM enabling, a solution can be worked
-  out then.
-
-- New opt-in interface vs. backporting.
-  There are two options for old KVM versions that don't do the filtering
-  and validation:
-  1) Add a new opt-in interface to expose features newly introduced by the
-     TDX module.
-  2) Backport this series to LTS/stable branches.
-
-  The opt-in design vs. backport decision is deferred, since this series
-  is correct and an improvement either way.
-
-- Potential backward compatibility issue when an effective fixed-1 bit
-  becomes directly configurable due to x86 feature deprecation.
-  This is left for the future, i.e. it can be addressed if and when such a
-  deprecation actually happens, e.g. by adding an opt-in interface to let
-  users/admins choose between migration flexibility and backwards
-  compatibility on old platforms.
-
-Changes since v4 [1]:
-- Split the CPUID entry index check out into a standalone fix, which
-  allows it to be backported to stable independently of the rest of the
-  series.
-- Exclude XTPR from the allowlist, as neither TDX nor KVM actually
-  virtualizes the feature and guests don't need it. (Xiaoyao, Rick)
-- Rename TDX_CFG_EXTRA_F() to TDX_CFG_INDEPENDENT_F(). (Xiaoyao)
-- Fix AMX_COMPLEX to be added for CPUID_7_1_EDX instead of CPUID_1E_1_EAX.
-- Drop the descriptions in the TDX documentation and the uapi header, as
-  the ioctl interfaces for KVM_TDX_CAPABILITIES and KVM_TDX_INIT_VM are
-  unchanged by this patch series.
-- Improve changelogs and comments. (Xiaoyao, Rick)
-
-The series follows the CSV version of the CPUID virtualization document
-from "Intel TDX Module ABI Definitions" [4], updated in June 2026.
-
-AI tools were used to:
-- Polish the cover letter and commit messages.
-- Do code review.
-
-[1] v4: https://lore.kernel.org/all/20260917072548.2314491-1-binbin.wu@linux.intel.com
-    v3: https://lore.kernel.org/all/20260827031837.2863609-1-binbin.wu@linux.intel.com
-    v2: https://lore.kernel.org/all/20260604023314.3907511-1-binbin.wu@linux.intel.com
-    v1: https://lore.kernel.org/all/20260417073610.3246316-1-binbin.wu@linux.intel.com
-[2] https://lore.kernel.org/all/20260911213659.2025974-1-sohil.mehta@intel.com
-[3] https://lore.kernel.org/all/e7182b3c03a0e39cb60392b4d75111255418d6cf.camel@intel.com
-[4] https://cdrdv2.intel.com/v1/dl/getContent/795381
-
-Binbin Wu (5):
-  KVM: TDX: Check unsupported CPUID bits against the TDX module's
-    subleaf
-  KVM: TDX: Track configurable CPUID bits allowed by KVM
-  KVM: TDX: Add CORE_CAPABILITIES to the allowlist
-  KVM: TDX: Report only KVM-allowed CPUIDs in KVM_TDX_CAPABILITIES
-  KVM: TDX: Validate userspace CPUID input for KVM_TDX_INIT_VM
-
- arch/x86/kvm/vmx/tdx.c | 258 ++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 231 insertions(+), 27 deletions(-)
-
-
-base-commit: dea4f6380f4ec96e8f3b0aaf2343764bd0d25ef4
--- 
-2.46.0
-
+Konrad
