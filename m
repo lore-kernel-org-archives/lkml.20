@@ -1,247 +1,402 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazolkn19013087.outbound.protection.outlook.com [52.103.35.87])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0101D34750F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.35.87
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792172527; cv=fail; b=m8ilM4bVRuOwIOU+zFHRg09/JuXchk5wKKqxSwaOQZ3uya8o/qz8bKDC4xKHn7Qwcfb/p3bPCOpuuWby5yXy2AaMjVerb0znc61AC/I91aKZ/dxz5uwQbA88TIgABpcNy7ERS/VUSHuZd4Q2gqJGVBACTQDQJmVb1cnNyvOKtyM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792172527; c=relaxed/simple;
-	bh=4uPLiFEDak7l3KC196i8EUpqzl05LCNMoNsQWhilA/4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=MdXNJ7lQZcRcWEcRfLAWfELdH9nh8dfcUykq8hO9RVPWNfvrh0F0r4JSS+B5EMOyDiI6dDjNgYTjW57Q+Q669gtYGdCWMEf8rJ7md023tO4R8sfM59cZXEky7CjwKhpR/E40UQGwLvsdJz1QOJnPWKkDdaZ/oqlnmvvcA/qoUmU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=FAy5ZWoo; arc=fail smtp.client-ip=52.103.35.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6BE6355D882;
+	Fri, 16 Oct 2026 17:43:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792172582; cv=none; b=p6iWOWLxELQfga3Xt8LwHbunJQjKzAWB+Tyi7dctueuACJOnoQ+XdlunpdemVAgKarkEY7/WbxDo5VcDBYNgzZCol6PrE73aaOijtKwwghopB62Nd99CfbOCI8qgRx+5SMnlNp9Qg8qgYXTUrmEpGYligxNMGGQk4s9MDEe7LBk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792172582; c=relaxed/simple;
+	bh=NAZHyT2atFiJYBiJAFfmnJeLnvjFVgLahATNzx2m8Lc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=We7opMcesb/VdVvEPWmdX09AgKQvEC/jOd60pBAwcjShQvuinjgGGW7OQaGTyheVubt6o3KHx0v5DDiwQsArtxwozc1sKtiV3dmSaMmCr14K+ext1pod3fFIAmUn78k+t+25jT4s4t4QJ3a1HHxCVcvbkrJAUxow6T2dNhNCKNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bmJtleZ2; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="FAy5ZWoo"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DjKgBsZQfLjFb7sdxk8+1mxvIL2h9BWAT+0JlEVYjyqF+Og2DYOSSUC6RlY3Yw+lyE/IcRdlzabWsv97hRA4WOqUtjtpI9Z7abRYiX2T8L9NoaWPRC9CNN8M+AKDLPUO96VXGPexSGxUVtzN+mk0CsjlWdpwSCz+aX6mOqzMEgjYWWRDDdjK433+sirCcrHVa+HWTTSgvThcpuRpqXr0OWdirQ9w26g6FA/NrnPRE8Zbnpy5AUHet0B67F2HhAWtJLOWSFseezxxOV5bI+8DhhOzr5f77aleMZNTG30QRoqOZ6R0TqChGepD90XgT2JNCMQxZ/q800+wH+fzwCPXAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Evwl+5NQHxk//KyO0zIhrywe0skRjuwPp5+iWl8+vqs=;
- b=aBJ5LoM4583ZzAe/w7Ckou6LN9+OY8rYDcvDZDgW9a2qapNenMfNCMjMMGWyja40P9sxKTNQnZQE9OKbsZ31QGQgT6DIoCescoidnYKtUAIcL8A+N99fAN211eJZUfNGSCHMUiNWTgWlQO3SM8yIcX2QI39+wdXg084x0YsAitLbNUEDWlGyWb+TQ78yDstb2Alqn2vnlbNmpuDr8MYEtY0aWl+jFE+zgWrj950hYfSn1yEg44zAYtvhLYFpU6LtyKNFG7LJ5KU//RHaAtLB6ncBg2XP24ffv/Wx+Q9wVWrl8n9+ZDe7tJjFZAOg75woQkd3YX7LmCNCjZwQMG8pug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Evwl+5NQHxk//KyO0zIhrywe0skRjuwPp5+iWl8+vqs=;
- b=FAy5ZWooKhRw2C1+krQoT3j5sydhEknATy9eyD7KrTVGHVCb9OwUlV7GyUORDpq5ncE5Qb9y41YZ28j7wY/lGiLiZLG9BvzLJsK/vVXGIabPt/qtGvLL6ixMDv2GIFR3bkfTp4luVD1IqJyGzKs//+OPFcaPTMLMPR6E4BISPVwOqFRs2hJ+PvbCEULS63oQn3BpBeLZl85q6e7hhVJ/cpDfo2tiW+vfh/+niPqSgZP1/ohpI3IVKvYJi4627YndrOHc4UbIIE8g96HYC2DeNS7YbAPXgxvtk3CLxTv91H9VD/7XsFTwuzGPs9Nw7iOsTRdv0hTfknrYb84DMy9ECQ==
-Received: from DB9PR03MB7388.eurprd03.prod.outlook.com (2603:10a6:10:223::18)
- by AS8PR03MB7781.eurprd03.prod.outlook.com (2603:10a6:20b:405::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Fri, 16 Oct
- 2026 17:42:01 +0000
-Received: from DB9PR03MB7388.eurprd03.prod.outlook.com
- ([fe80::2ce4:f394:cc5e:6d48]) by DB9PR03MB7388.eurprd03.prod.outlook.com
- ([fe80::2ce4:f394:cc5e:6d48%4]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 17:42:01 +0000
-From: Arthur Liberman <arthur_liberman@hotmail.com>
-To: Alex Hung <alex.hung@amd.com>, "amd-gfx@lists.freedesktop.org"
-	<amd-gfx@lists.freedesktop.org>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"harry.wentland@amd.com" <harry.wentland@amd.com>, "sunpeng.li@amd.com"
-	<sunpeng.li@amd.com>, "siqueira@igalia.com" <siqueira@igalia.com>,
-	"alexander.deucher@amd.com" <alexander.deucher@amd.com>,
-	"christian.koenig@amd.com" <christian.koenig@amd.com>, "airlied@gmail.com"
-	<airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
-Subject: Re: [PATCH] drm/amd/display: fix NULL deref when opening a closed DDC
-Thread-Topic: [PATCH] drm/amd/display: fix NULL deref when opening a closed
- DDC
-Thread-Index: AQHdVoN3m8ngRWIFC0yB4TViupGfHrcAbKoAgAAOvLQ=
-Date: Fri, 16 Oct 2026 17:42:01 +0000
-Message-ID:
- <DB9PR03MB73885E0CE92C33AEC9E31A7E8A9B2@DB9PR03MB7388.eurprd03.prod.outlook.com>
-References:
- <DB9PR03MB73881C96FE86D964037ABEDB8A942@DB9PR03MB7388.eurprd03.prod.outlook.com>
- <38cc515d-ae4b-4031-a061-224d492826e1@amd.com>
-In-Reply-To: <38cc515d-ae4b-4031-a061-224d492826e1@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB9PR03MB7388:EE_|AS8PR03MB7781:EE_
-x-ms-office365-filtering-correlation-id: c2d7c433-8870-4273-a201-08df2bacc8b9
-x-microsoft-antispam:
- BCL:0;ARA:14566002|24021099003|8062599012|31061999003|8060799015|12121999013|25010399006|41001999006|19110799012|37011999003|51005399006|15080799012|15030799006|40105399003|102099032|440099028|3412199025;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?E2mREqKlSSSaCiYJ8FIWNLmo76IZSNcr119lagmAOyJ+A2I1+85OC3Eld6?=
- =?iso-8859-1?Q?qSHFn2KVmRH0D6YIi20r3KvFrTOhjtcNYUeHzuzXMVUxBubg1ay7f5Z3fj?=
- =?iso-8859-1?Q?GZieV/sace4SKzrlTquOX6nfCGYU1BQRp0CP11bPgW9vdudOtNmqdwDj8v?=
- =?iso-8859-1?Q?ZtposKnDp3+AvSRnB/+HGLfw76h8PVREBGuUt0Qb1n8SYIagyNSxvtJDfv?=
- =?iso-8859-1?Q?eXx3iWtupUveA/WhrE7D0CY0Ys9as6GfdI3kbt03rWddg7zhKNbGuUeZFe?=
- =?iso-8859-1?Q?6e0VQuMQgMKj6GmZSDeeaZUkZB6q6sZtH5AaeadLhw2nAHUFuBjIJCeZaD?=
- =?iso-8859-1?Q?iBP83aBtlJcNSyyKmfs64ZnqJ8aoxAqGXbdhJL4lm01HbgnQN3qzQdvNJA?=
- =?iso-8859-1?Q?iJ55ciDomRz0RNgC0kspbLe2vvQZIcT0ZChT/HXd5d5XYtgDatgdc2xYhm?=
- =?iso-8859-1?Q?QBi2VvXbE9OAhfcCN5kI1wc6vmmAPbKelwtIgW1CTX9M3trGNcgz6R63+a?=
- =?iso-8859-1?Q?bu9GWfm2Uk24xKFO/PTqma/OUY8AB5pPN2wgJDij9YNQCRJjZ/Cc5/hf5G?=
- =?iso-8859-1?Q?zlgRkecRgWjCr3t0Ih1yLx1XJwPD5zTf2fPdocNaYXtP1eCTyMT09hJ8Rc?=
- =?iso-8859-1?Q?Bf0og9nNc7vL14cl2PSk/EX5jrCUOxXnYdEYZ7nQNRzQkRMYWnUCzlKy6y?=
- =?iso-8859-1?Q?lOdlp4ujMJsB4i43a4IVUvjypK3UE0q8eZE1b0DwrCeMpGMeB5Xw9PuCdy?=
- =?iso-8859-1?Q?kwoTwlP8+NRSnBoo275LnhgMlsBRQy1Mpcf3EHrDwfmiNpWra+jSWXVHp/?=
- =?iso-8859-1?Q?1DxZZI61f6KVNTsWihluHd7i/Sp//QdmeG9eLtJv5qww32OIHA/7CAKAJI?=
- =?iso-8859-1?Q?Plfe4H+8L8TyhV6J1maVz76zeAdzmFOdnSrWEOz2p9xbBvmw4ti6r/5W6X?=
- =?iso-8859-1?Q?FfDuNxg+WJb7fqDh/B0iQaUHmzlAYF65RmGeQCAxVgvuNObNces4p448tW?=
- =?iso-8859-1?Q?Fg6LH1YUG6Ijc6og9ZzAGcGCPlfP+B3VkYh3r5vAByZCCNG+d3v2/C7mYS?=
- =?iso-8859-1?Q?qsMdUYpdeg2fRXVbvoynDY1iffMCwf3rF5soyks0MFVz?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?h3a3MpsqbOXqVw11xTz/DgIsYO8JYYs+pm6Wu3OO46vSfpnyQGMEgMIckM?=
- =?iso-8859-1?Q?URP94RGHkfZGphj2iAzNpcbubbFEo5sfEmRm0z9HamBnKwuEVDdArmn+lt?=
- =?iso-8859-1?Q?3x8MbrHhaIV0Pzqz2nfzeJeBXU+Upp1vqx2Dpnc6fFJN/47Buvfiq3+XQV?=
- =?iso-8859-1?Q?Ou+M+x8OSVw/uB3dGsRCVifsmm4AhAr5g5BSt9hVMkErow0clyHXK0imtr?=
- =?iso-8859-1?Q?f7QW4UrdwB4rOrgFi8BRWF95j2cQ6k5/Kep9pe0leEAKv5lVKsszrinrgp?=
- =?iso-8859-1?Q?5vB3HRywe9c1eDPX9GmoM9JusMZxfZbCPAXHWPtHGB8pJt7PvQvI2BvQFx?=
- =?iso-8859-1?Q?/SyT5AfhLLgu6Lt+Vewf+s/OMYfjjmM9uFXBVU4CucCEJ+cyNolpIaG0/h?=
- =?iso-8859-1?Q?RRVobdXZZBQsLA6dvGsw/SyMvFW3DgiKaFPegjbolMuSkP+CfG5Lhz/sTN?=
- =?iso-8859-1?Q?nmM8XzOsnOwBoYtEV62/Dpz8A0FnWxvofGO40kbXcPAC3tJb9SZ6X/AOMS?=
- =?iso-8859-1?Q?LWVRJr0UkpG4K/+0TssKaqNvarcb0oxLhlh5XIZHHXgCbpjTCSwTyXVEiS?=
- =?iso-8859-1?Q?R1Qmqun4ECYQGJ4yI+/1GDIH2tQ50BHDNBi/Gur6vsD3VWsMhlYa//RC+3?=
- =?iso-8859-1?Q?rN9ja4MGaFkphpbO5uONbDJWgCuX9fj9xWP6h6VZmk43RDDvkAB2JsIQHJ?=
- =?iso-8859-1?Q?N1Z7kOlwe2YlyltMMZFGcXEEVNw8GfsMrU52BBWQIcIeBmKGt9rEnlZYnE?=
- =?iso-8859-1?Q?3h+yttZWn156DYad0ZD66hMfmXUBY2rGFeYBniG68P0bw7pPNw8s5L3mJw?=
- =?iso-8859-1?Q?kFjWbYvCNLRbMFueWNE+2RRSpJpmj9lfJ6vgr8cHE4vY1+Vk0n2H5iaJZs?=
- =?iso-8859-1?Q?+yyGbFEIHFAL30niIHjpdTVfZxvf4fhGLaMdiu243W+PVdPYr23ECydtMk?=
- =?iso-8859-1?Q?/Ljswv8lQ8QOXWxmpXjcdJ/CakbyvqiIN5d9uCy5opVJJledMq6PRCVCeN?=
- =?iso-8859-1?Q?DglIJGo9GvisS5kBprxgNhR0Dl+HA6vnvlYc4xSaLD20ek6qj+mTpStp3I?=
- =?iso-8859-1?Q?hRnNqN9gvdB8tZWsYpnIsZPlVwSsqg5OTkOJYGg4IScpZ3pVdoRkvlgUOQ?=
- =?iso-8859-1?Q?6LOqaZtab3WREWACSX/ctTLQAJAwmN43xpkWx4l2QLYaGnWUAIjRObC+YQ?=
- =?iso-8859-1?Q?/S+ThTHna1aR3zzcqUl6zcuXsvlfHaKrt70hJYL1X+Rt/jNC/fBGMfJy5B?=
- =?iso-8859-1?Q?V7NKkSwVbzRBs1qxcDztgjreuXtMJ54KMCD8Z9ePHtHcTtGBazQGO4cGgj?=
- =?iso-8859-1?Q?1flmFpP8j2bTwuGx/3d/1Tbn7OJMvbYOLqKeWunGelvAktXCGTSPtIQ6P7?=
- =?iso-8859-1?Q?oDjcFClZjS4zC/eGvJ9LF7naaOAGSwwZmEEmTkU9OynHyQQrSHrwNPEVMW?=
- =?iso-8859-1?Q?dARqrKN9CSDQ2T2R?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bmJtleZ2"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 848FB1477;
+	Fri, 16 Oct 2026 10:42:56 -0700 (PDT)
+Received: from [10.33.8.90] (e142021.arm.com [10.33.8.90])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 620213F673;
+	Fri, 16 Oct 2026 10:42:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792172579; bh=NAZHyT2atFiJYBiJAFfmnJeLnvjFVgLahATNzx2m8Lc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=bmJtleZ2Qqx4dX3KEutj1VVY/gr2KR3zvcSvZ2FofnRLoWpOrmpDyLSJcC8e3e8K0
+	 /ES4oLL+oH13EMK0zsErcYli/00SZXMrG376kYBopDP743Y/MvzVazAjn08tZzyHCW
+	 S7ARiUVj75xm72hnb5cCsk/HbIHSmb8eAhOlKrCM=
+Message-ID: <cf0ccb1c-42fd-409e-ba77-3837d5c905d4@arm.com>
+Date: Fri, 16 Oct 2026 18:42:52 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: sct-15-20-9412-6-msonline-outlook-24844.templateTenant
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7388.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2d7c433-8870-4273-a201-08df2bacc8b9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2026 17:42:01.1742
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB7781
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/8] firmware: smccc: Add support for Live Firmware
+ Activation (LFA)
+To: Mark Rutland <mark.rutland@arm.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Sudeep Holla <sudeep.holla@kernel.org>, Salman Nabi <salman.nabi@arm.com>,
+ Vedashree Vidwans <vvidwans@nvidia.com>,
+ Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+ Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
+ Varun Wadekar <vwadekar@nvidia.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20260918141112.2115555-1-andre.przywara@arm.com>
+ <20260918141112.2115555-3-andre.przywara@arm.com>
+ <aq1XmaBemuGybxp2@J2N7QTR9R3> <0c2c5cec-3e16-49a4-b304-ddd75de4cb19@arm.com>
+ <as5EvNM9IUkGe6Lk@J2N7QTR9R3.cambridge.arm.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <as5EvNM9IUkGe6Lk@J2N7QTR9R3.cambridge.arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Alex,=0A=
-=0A=
-I've only had this problem happen once so far, when I turned on my monitor =
-after it was off for a day.=0A=
-Unfortunately, I don't have a reliable way of reproducing this problem to s=
-ee if your proposed patch fixes the issue.=0A=
-I'm not sure whether this helps, but here's my setup:=0A=
-Ryzen 9 9950X on a X870 board, no dedicated GPU.=0A=
-Using the on-board USB-C output in DP alt-mode to connect my Dell UP2516D, =
-daisy chaining a second display to it.=0A=
-This setup has had a few other amdgpu related issues, for which I submitted=
- patches, they also appear to be additional guards.=0A=
-=0A=
-- Arthur=0A=
-=0A=
-=0A=
-=0A=
-=0A=
-=0A=
-=0A=
-=0A=
-=0A=
-=0A=
-________________________________________=0A=
-From: Alex Hung <alex.hung@amd.com>=0A=
-Sent: Friday, October 16, 2026 7:39 PM=0A=
-To: Arthur Liberman; amd-gfx@lists.freedesktop.org=0A=
-Cc: dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; harry.we=
-ntland@amd.com; sunpeng.li@amd.com; siqueira@igalia.com; alexander.deucher@=
-amd.com; christian.koenig@amd.com; airlied@gmail.com; simona@ffwll.ch=0A=
-Subject: Re: [PATCH] drm/amd/display: fix NULL deref when opening a closed =
-DDC=0A=
-=0A=
-Hi Arthur,=0A=
-=0A=
-When AUX already holds the DDC, dal_ddc_open() fails with=0A=
-GPIO_RESULT_ALREADY_OPENED, and the HPD path then calls dal_ddc_close()=0A=
-on pins it does not own.=0A=
-=0A=
-Please try whether the following solution fix your KWin issue?=0A=
-=0A=
-=0A=
-diff --git=0A=
-drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c=0A=
-drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c=0A=
-index ad1a499b0d9d..1f53b33fc875 100644=0A=
---- drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c=0A=
-+++ drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c=0A=
-@@ -2604,8 +2604,6 @@ bool dp_is_sink_present(struct dc_link *link)=0A=
-=0A=
-        if (dal_ddc_open(ddc, GPIO_MODE_INPUT,=0A=
-                         GPIO_DDC_CONFIG_TYPE_MODE_I2C) !=3D GPIO_RESULT_OK=
-) {=0A=
--               dal_ddc_close(ddc);=0A=
--=0A=
-                return present;=0A=
-        }=0A=
-=0A=
-=0A=
-=0A=
-On 10/7/26 11:47, Arthur Liberman wrote:=0A=
-> dal_ddc_open() uses gpio->pin after dal_gpio_service_open() installs=0A=
-> it. Close clears that pointer. HPD sink detection and a KWin atomic=0A=
-> check can both open the same DDC: the check reads DPCD for DSC while=0A=
-> the HPD worker closes the pin. The load of hw_gpio.store.en then=0A=
-> oopses at offset 0x28 and kwin_wayland exits with IRQs disabled.=0A=
->=0A=
-> If either pin is gone after open, close what this call holds and=0A=
-> return GPIO_RESULT_NULL_HANDLE so the AUX transfer fails instead.=0A=
-> This does not serialize the two threads.=0A=
->=0A=
-> Cc: stable@vger.kernel.org=0A=
-> Assisted-by: Cursor:xai-grok-4.7=0A=
-> Signed-off-by: Arthur Liberman <arthur_liberman@hotmail.com>=0A=
-> ---=0A=
->   drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c | 11 +++++++++++=0A=
->   1 file changed, 11 insertions(+)=0A=
->=0A=
-> diff --git a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c b/drivers=
-/gpu/drm/amd/display/dc/gpio/gpio_service.c=0A=
-> index 95f8b7c7d657..a3145cd82d8b 100644=0A=
-> --- a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c=0A=
-> +++ b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c=0A=
-> @@ -577,6 +577,17 @@ enum gpio_result dal_ddc_open(=0A=
->               goto failure;=0A=
->       }=0A=
->=0A=
-> +     /*=0A=
-> +      * dal_gpio_service_open() installs gpio->pin, and close clears it.=
-=0A=
-> +      * MST bring-up can AUX-read for DSC while HPD teardown closes the=
-=0A=
-> +      * same DDC. pin is NULL again in that window; do not dereference i=
-t.=0A=
-> +      */=0A=
-> +     if (!ddc->pin_data->pin || !ddc->pin_clock->pin) {=0A=
-> +             dal_gpio_close(ddc->pin_clock);=0A=
-> +             dal_gpio_close(ddc->pin_data);=0A=
-> +             return GPIO_RESULT_NULL_HANDLE;=0A=
-> +     }=0A=
-> +=0A=
->       /* DDC clock and data pins should belong=0A=
->        * to the same DDC block id,=0A=
->        * we use the data pin to set the pad mode. */=0A=
->=0A=
-> base-commit: 41505ac433cc4c5179deee8860d197b04f6d1c1d=0A=
-=0A=
+Hi Mark,
+
+thanks for the reply, your input is much appreciated!
+
+On 10/13/26 16:48, Mark Rutland wrote:
+> On Mon, Sep 21, 2026 at 05:25:25PM +0200, Andre Przywara wrote:
+>> On 9/18/26 17:24, Mark Rutland wrote:
+>>> On Fri, Sep 18, 2026 at 04:11:05PM +0200, Andre Przywara wrote:
+>>>> From: Salman Nabi <salman.nabi@arm.com>
+>>>>
+>>>> The Arm Live Firmware Activation (LFA) is a specification [1] to describe
+>>>> activating firmware components without a reboot. Those components
+>>>> (like TF-A's BL31, EDK-II, TF-RMM, secure paylods) would be updated the
+>>>> usual way: via fwupd, FF-A or other secure storage methods, or via some
+>>>> IMPDEF Out-Of-Bound method. The user can then activate this new firmware,
+>>>> at system runtime, without requiring a reboot.
+>>>> The specification covers the SMCCC interface to list and query available
+>>>> components and eventually trigger the activation.
+>>>
+>>> It'd be helpful to have a few basic concepts covered here or in the
+>>> code. For example, I have no idea what a "rendezvous" is, and it's not
+>>> at all obvious from the code.
+>>
+>> OK, I can give a brief summary of the concepts, but I guess doing this a top
+>> comment in the source file is more useful than here in the commit message?
+> 
+>  From my PoV, even placing that in the cover letter would be fine. The
+> key thing is just to get enough context to be able to review this
+> without having to ingest the entire LFA spec.
+> 
+> In particular with "rendezvous", I have no idea why the admin should
+> have any choice at all, and without some context I can't tell if there's
+> some sensible use-case I'm missing.
+
+The admin should indeed not have a say, and if the firmware component 
+requires rendezvous, it will always be used.
+But for firmware that claims to not need any rendezvous, we default to 
+using it anyway, because it's the safest way to guarantee continuity for 
+the kernel. We don't know which firmware services might be affected, and 
+if they respond with something like -EAGAIN or just block for a longer 
+period during the activation. The kernel seems to rely on the firmware 
+services (TRNG, SoC-ID, SCMI, ...) replying, once they have been 
+initialised, so them suddenly returning an (even transient) error will 
+probably confuse the drivers.
+So the safe way to do this is to send all cores into the firmware 
+regardless, there they cannot do any harm.
+
+Now as users asked for it on the list, if the admin knows exactly that 
+this firmware component does not provide any services to the kernel (say 
+some fan controller), they can override this policy and allow a single 
+CPU to trigger the activation. This was meant as a compromise to keep 
+the kernel side sane, but still allow less disruptive updates. The idea 
+would be that some user space component sets this attribute at boot 
+time, if it matches some UUID that is known to be safe.
+
+ > [...]>
+>>>> +static const char *get_image_name(const struct fw_image *image)
+>>>> +{
+>>>> +	if (image->image_name && image->image_name[0] != '\0')
+>>>> +		return image->image_name;
+>>>> +
+>>>> +	return kobject_name(&image->kobj);
+>>>> +}
+>>>
+>>> As before, please just use the UUID.
+>>>
+>>> I *assume* that we cannot have more than one image for a given
+>>> component, and hence we cannot have two entries for the same UUID? Is
+>>> that mandated by the LFA spec?
+>>
+>> The LFA spec speaks about "firmware components" as its area of interest, by
+>> design all the real firmware *image* related parts, for instance how the
+>> firmware update image lands on the system, is left implementation defined.
+>> So yes, each firmware component, identified by its UUID, appears only once
+>> in the system, by design.
+> 
+> Ok; does the spec *clearly* mandate that?
+
+Well, there is only one logical bit (somewhat confusingly named 
+"activation pending") to say whether an update image has been provided 
+for a specific component or not. If someone pushes another image, it 
+would replace the already "pending" one (depending on firmware policy).
+
+> 
+>> So I guess using "image" everywhere is a bit imprecise, but I am bit
+>> reluctant to change all identifiers now. Not even sure "firmware component"
+>> is a well recognised term in the first place.
+>>
+>> Let me know what you think about that.
+> 
+> Using "component" sounds fine by me. Then we can clearly describe
+> loading an image *for* a component.
+> 
+> ... unless I'm still misunderstanding the terminology here? I assume
+> "component" is a logical entity, and "image" is a specific binary blob.
+
+Yes, that's correct.
+
+> 
+> [...]
+> 
+>>>> +static int activate_fw_image(struct fw_image *image)
+>>>> +{
+>>>> +	int ret;
+>>>> +
+>>>> +retry:
+>>>> +	/*
+>>>> +	 * cpu_rendezvous_forced is set by the administrator, via sysfs,
+>>>> +	 * cpu_rendezvous is dictated by each firmware component.
+>>>> +	 */
+>>>> +	image->use_cpu_rendezvous = image->cpu_rendezvous_forced ||
+>>>> +				    image->cpu_rendezvous;
+>>>> +	if (image->use_cpu_rendezvous)
+>>>> +		ret = stop_machine(call_lfa_activate, image, cpu_online_mask);
+>>>
+>>> What prevents cpu_online_mask changing under your feet here?
+>>
+>> Right, I see. Is cpus_read_lock() safe to hold around stop_machine()?
+> 
+> Looking at the core code, the locking is handled within stop_machine(),
+> and since cpu_online_mask is a pointer, we can safely pass that around
+> without extra locking.
+> 
+> So this is fine as-is. Sorry for the noise.
+> 
+> [...]
+> 
+>>> This looks odd given call_lfa_activate() doesn't seem to distinguish
+>>> secondaries from one another. Does LFA expect all callers to pass the
+>>> exact same arguments for a "rendezvous"?
+>>
+>> Yes, even though the spec doesn't explicitly mention this. But there aren't
+>> many arguments to deviate anyway: the FID and sequence ID are naturally the
+>> same, and the flags just indicate whether we skip the rendezvous, so that
+>> doesn't really apply here (and inconsistencies are checked and handled by
+>> TF-A).
+>> The LFA agent (the firmware side) just elects one primary core doing the
+>> work, I think in TF-A it's the first one doing the SMC. The others just wait
+>> in EL3, to not mess with the update process.
+> 
+> I think i'd be worth describing this somewhere. Even if just the level
+> of detail above, with a reference ot the relevant part of the spec.
+
+OK, I added a sentence to that effect.
+And btw: TF-A uses the last core to call in to do the activation, but 
+this is an implementation detail.
+
+> 
+> [...]
+> 
+>> We had it like this originally in v1, I don't remember why we changed that,
+>> and it wasn't mentioned in any of the reply emails.
+>> Maybe I thought it looked neater to explicitly mark this as a retry, as we
+>> don't expect this to happen, normally.
+>> Will try to change it back and see what happens ;-)
+>>
+>>>> +
+>>>> +	lfa_cancel(image);
+>>>> +
+>>>> +	pr_err("LFA_ACTIVATE for image %s failed\n", get_image_name(image));
+>>>> +
+>>>> +	return ret;
+>>>> +}
+>>>> +
+>>>> +static int prime_fw_image(struct fw_image *image)
+>>>> +{
+>>>> +	struct arm_smccc_1_2_regs reg = { 0 }, res;
+>>>
+>>> Do you need separate input and output strutctures?
+>>
+>> As mentioned above: in this case yes, since we call LFA_PRIME potentially
+>> multiple times, and then the function ID would be overwritten by the error
+>> return code, at least.
+> 
+> Ok, but you reinitialise 'a1' every time round the loop, so can you just
+> reinitialise the few registers you need each time around?
+> 
+> See below for a more concrete example.
+> 
+>>>
+>>>> +	int ret;
+>>>> +
+>>>> +	if (image->may_reset_cpu) {
+>>>> +		pr_err("CPU reset not supported by kernel driver\n");
+>>>> +
+>>>> +		return -EINVAL;
+>>>> +	}
+>>>
+>>> Unnecessary newline again.
+>>>
+>>>> +
+>>>> +	reg.a0 = ARM_SMCCC_LFA_PRIME;
+>>>> +retry:
+>>>> +	/*
+>>>> +	 * LFA_PRIME will return 1 in reg.a1 if the firmware priming
+>>>> +	 * is still in progress. In that case LFA_PRIME will need to
+>>>> +	 * be called again.
+>>>> +	 * reg.a1 will become 0 once the prime process completes.
+>>>> +	 */
+>>>> +	reg.a1 = image->fw_seq_id;
+>>>> +	arm_smccc_1_2_invoke(&reg, &res);
+>>>> +	if ((long)res.a0 < 0) {
+>>>> +		pr_err("LFA_PRIME for image %s failed: %s\n",
+>>>> +		       get_image_name(image),
+>>>> +		       lfa_error_string((long)res.a0));
+>>>> +
+>>>> +		return lfa_to_linux_errno((long)res.a0);
+>>>> +	}
+>>>> +
+>>>> +	if (res.a1 & LFA_PRIME_CALL_AGAIN)
+>>>> +		goto retry;
+>>>
+>>> Should this be a loop?
+> 
+> 
+> As above, if this were a loop you could do something like:
+> 
+> 	bool retry;
+> 
+> 	do {
+> 		struct arm_smccc_1_2_regs regs = {
+> 			.a0 = ARM_SMCCC_LFA_PRIME,
+> 			.a1 = image->fw_seq_id,
+> 		};
+> 
+> 		arm_smccc_1_2_invoke(&regs, &regs);
+> 
+> 		if ((long)args.a0 < 0) {
+> 			...
+> 		}
+> 		
+> 		retry = res.a1 & LFA_PRIME_CALL_AGAIN;
+> 	} while (retry)
+> 
+> ... and the initialization of the registers isn't a special case.
+
+OK, I had the loop quite similar to this meanwhile, but can add the regs 
+declaration inside, to avoid the "res" variable.
+
+> [...]
+> 
+>>>> +static ssize_t pending_version_show(struct kobject *kobj,
+>>>> +				    struct kobj_attribute *attr, char *buf)
+>>>> +{
+>>>> +	struct fw_image *image = kobj_to_fw_image(kobj);
+>>>> +	struct arm_smccc_1_2_regs reg = { 0 };
+>>>> +
+>>>> +	/*
+>>>> +	 * Similar to activation pending, this value can change following an
+>>>> +	 * update, we need to retrieve fresh info instead of stale information.
+>>>> +	 */
+>>>> +	reg.a0 = ARM_SMCCC_LFA_GET_INVENTORY;
+>>>> +	reg.a1 = image->fw_seq_id;
+>>>> +	arm_smccc_1_2_invoke(&reg, &reg);
+>>>> +	if (reg.a0 == LFA_SUCCESS) {
+>>>> +		if (reg.a5 != 0 && image->activation_pending) {
+>>>> +			u32 maj, min;
+>>>> +
+>>>> +			image->pending_version = reg.a5;
+>>>> +			maj = reg.a5 >> 32;
+>>>> +			min = reg.a5 & 0xffffffff;
+>>>
+>>> You could use upper_32_bits() and lower_32_bits() here.
+>>>
+>>>> +
+>>>> +			return sysfs_emit(buf, "%u.%u\n", maj, min);
+>>>> +		}
+>>>> +	}
+>>>> +
+>>>> +	return sysfs_emit(buf, "N/A\n");
+>>>
+>>> Why a string rather than an error code?
+>>
+>> This value is somewhat optional, it's only valid if there is an "activation
+>> pending" (read: an update image has been provided and waits for its
+>> activation).
+> 
+> I'm confused. This function is called pending_version_show(); is that a
+> different thing that's "pending"?
+
+I meant that there is naturally no *update* version number to report 
+until an update image has been provided. Maybe the confusion is about 
+the word "pending" here, which is a bit of an overloaded term, I think.
+
+>> But it's not really the firmware's or the user's fault here if
+>> that's the case (in fact it's the common case), so I am not sure if an error
+>> return is appropriate, since in the current state the value is simply not
+>> applicable. And the "cat" command returning with an error looks ugly. Since
+>> it's a string, it's easy to distinguish from any actual version number from
+>> userland, in scripts.
+>>
+>> Any suggestion how to handle this otherwise? Just return -ENXIO?
+> 
+> If this is a legitimate state, returning a string is fine so long as it
+> is clearly documented.
+
+I chose to return 0 from this function, as in: zero bytes read. This 
+should be distinguishable for userland from a real error or any other 
+version string. Hope that's fine, if not, feel free to comment on v5.
+
+> 
+>>> [...]
+>>>
+>>>> +static int lfa_smccc_probe(struct arm_smccc_device *sdev)
+>>>> +{
+> 
+>>>> +}
+>>>
+>>> There was an interrupt in the binding, not detected or used here. What's
+>>> going on?
+>>
+>> That's implemented in patch 6/8.
+>> That patch here is already quite large, also different parts (ACPI, timeout,
+>> DT, locking) were contributed by different authors, so I kept them as
+>> separate patches, to give credit and simplify review.
+>> I can of course squash them all in one patch, maybe it's time to do this
+>> now, but this makes attribution a bit fuzzy.
+> 
+>  From my perspsecitve, if the interrupt is expected, it's odd to add the
+
+The interrupt is completely optional, and really only useful if you do 
+out-of-band provisioning of the update image. And the automatic 
+activation feature comes in a separate patch anyway.
+
+> probing support later. At this stage inthe series, the LFA driver will
+> probe even without an interrupt, but then suddenly stops later in the
+> series.
+
+Well, this would only be the case if the interrupt would be wrongly 
+configured, not sure that is something that it that critical from a 
+regression point of view, especially if we really only talk about like 
+four patches in between?
+
+I would rather keep at least the ACPI patch separate, and be it for 
+given Vedashree her commit.
+
+Cheers,
+Andre
+
+> 
+> Mark.
+
