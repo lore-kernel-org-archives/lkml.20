@@ -1,944 +1,429 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from sonic312-25.consmr.mail.ne1.yahoo.com (sonic312-25.consmr.mail.ne1.yahoo.com [66.163.191.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CD4322C88
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:05:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949282D8385
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:06:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.191.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792112712; cv=none; b=H9C7OfBD+9Wyvp31ZjiGZkpgmAhLueYdVlFhufe3/Dsgd+rM6dx4URPR0Dh4/kyGHnJ8YSJyKMqxnOxlBB4ilIvFq4pmCwyRmc0pL6DK9OtGeJZgjmPE+e18olO0GhZjau5hMfcPKQjlctBuyOBZaX9RB/ZU1FilPWOD2OMNg+c=
+	t=1792112812; cv=none; b=fZrE5QwrlKaArGR65Hc5smUh8IK3B1/dqexSetHWPSq7U8KfN++ayXTbj8gNMhTUP8g/jsBerkZgO4fWi9P5w/vebo8gHciZBy77MjnsBhe7tDqFVhT9HBwlzFMhoxTYYijiWuLgBU08GjNNu6GPTu1ScXq4vJpFyBfXwF0pojA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792112712; c=relaxed/simple;
-	bh=UPrREf9/fn+4PFmqwltIbz9T370hPz/LqGInhzJ4/cw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hKPz69TpNNAf519IE/dLyaeitpSCkv2Gfm2chWuOKTNVnlZcn5pSysi8mndBs5JtO1qBeFtc1DU2VIqOBsQSjXjT0BMg3zfWPsWYN67rZqc7ajkYPv3+YPuFo7jw8/7pUzWZE9UowJq9D9jmmBO49EpDlBzA6KEZ1VTLThAqq40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JNdbQ4W4; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792112812; c=relaxed/simple;
+	bh=nIrisqExa3+LKVrsQQHBoAmFRYsnyusTTyU3+EuI/tk=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=ZhinwzJygh3LnDSUY7I4Db0UThdKIwaqnobq4xPn7rw9sxsNv4/dc5G5K8NBoMTytTgYQi//bC5xbMU5Og8PgExueCNm6HJ4s089gxXvxiQU/mPyTAjpRcOP5AOGdt5PRFHpx90n/nwh2xtDgM88DBQQtWadeq8bhEN4RBFZQHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=bw+1aBY0; arc=none smtp.client-ip=66.163.191.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JNdbQ4W4"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-892734ce7e6so1176340b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:05:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792112708; x=1792717508; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xSV1RidUhWdjAlwEGGR9d1Ctk0KX7kEtMuGSFnfKci4=;
-        b=JNdbQ4W4sEKCbBd1yb9NVC7zmCoRMNoVhZnLLvkFbK7nS8Uy4+LG6RcQl4K2QM9DYc
-         gvazrpUe9Pn+Whwf8XQCthF876B2nCuqsTZt11ffqroRWUcw3uDCS98+TW+fcJUKMF9x
-         /u41x8VI/zy+Ie855sRh/kPE2DNdQSjlTv+2F2ZGe1m48AO8Pp1pxeTNQyGnwwa2afQQ
-         GuUN6fB10kCENjWdUUKHOPWQZVv3NTWUhfXpZcRQzxzj6DZLjNK9bMNa33ZGTlFzn9Dk
-         JhY1g7L5IZ9evW2cZe3kntNQQPnTmqfPrtuJuAg4s+d9iB5/IYWrqFpqg/r6p4F32nJ0
-         sHuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792112708; x=1792717508;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xSV1RidUhWdjAlwEGGR9d1Ctk0KX7kEtMuGSFnfKci4=;
-        b=ZaeZw7fgqFEAvcHcz9ln5Cr3kHb92rUxsORy/hMXlR+8kqdj8kUuIcOIHZKSvBVSnz
-         uhmZmzJJ6hFr/AwfsU+dN8H5CYzeVz367nE6squlCwZLD9MbSvm7ryp0P4tSxyYRkhNb
-         +LwwGWbzkzR4+4xuXSKbJftSEJs+feVtKgUUjthpwB9d801SAP2DOLje6NT48VEqfvuh
-         yJQ0k5ABw+DZgtxyzpphKOLrLqIbgYREfurO8Lqp25WL+jfdWcqp3OAUUxVfsZUexgBn
-         CdtBYV3H3hxDsRwtb2EjJk4A4sT9Sv4RfEER9vvCcKqfCNU0oU2pAYS4tLsFawOHXaa/
-         8CsA==
-X-Forwarded-Encrypted: i=1; AKwUvBzlzOdP929R9q1+jy1VokSVCaW7AkPf5HGiazaIG2NeOSV1k9zkzKikqyiYWHb8Azq/rmbfmq6gEWnRKZw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPYJGB0vYlNN2e2j4OKShS8aMFrWGwTtOE0nyhMeY0hkF6MeTV
-	MTtxRe8TQKNi2O59yY9SV+WmO+GISu+zGL4r2mVwU8FJyKKY/dZIe7KU
-X-Gm-Gg: AYBFou2yOx8P5VzunkIgYDd/ZJb3lO2we7zHL4uVJluRTuP7r7Ncc+4SK8jvHcH0KzI
-	xvkMFkIz4ocXgWv0BL4lDmdFEDaiDcTlOQgRdPoxuNmSRueh7etTwdt3rtQrNj1l9lW+PzgBSCO
-	h84+1FmheH4IbguG8zq+kGY2J/IkO0LxrsNzyjUCg6I4kk6W1sLUWFBDBDO0GBEEcQPmq/tNje9
-	lo/LucLAO7xDJ34a3vONwxqQdpe6iwnaBUOMthh/5Q+lpC6Nk0wgHlPLVzZARFjDppFjMzFxoo4
-	3aTRF+rtLRP+pQBC9DLGww5SmbTecPzZbiDjzjvHkzgg+BV4dbkyl08lu2VJkdjVUoTvbzsOHL1
-	BXoFMdRpCPxlB/hs0NNr0yHI6b10WPplUyIbEWA8wJFiqTqGxKzGYEVgNKSr4PNkv1c8nnk29OW
-	atG/yuF9MeRXFNwqz/PVY8U0gdiP4a9TesVe5OacBZ1ZyOY20olIHJsHGlk9N1nf8ZWkggxIopq
-	GitgxTFCIejFukAYePKertEym3KiqVmkze4oc9Q82vfTnMOKePcddWlZPLtNKDHv1s=
-X-Received: by 2002:a05:6a00:178e:b0:897:4932:5098 with SMTP id d2e1a72fcca58-897c6e1b741mr18585889b3a.27.1792112708159;
-        Thu, 15 Oct 2026 18:05:08 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f5735e513sm302821b3a.27.2026.10.15.18.05.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 18:05:07 -0700 (PDT)
-From: Zi-Yu Chen <zychennvt@gmail.com>
-To: Andi Shyti <andi.shyti@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Zi-Yu Chen <zychennvt@gmail.com>
-Subject: [PATCH v12 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
-Date: Fri, 16 Oct 2026 09:04:47 +0800
-Message-Id: <20261016010448.324856-3-zychennvt@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261016010448.324856-1-zychennvt@gmail.com>
-References: <20261016010448.324856-1-zychennvt@gmail.com>
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="bw+1aBY0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792112804; bh=XInlDiNU/bYj2EXXO3/+dnTal+L8DGJHibVbUEbyr+8=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=bw+1aBY0syBe7+euL+OPMiGoiQ9mCPzfj9VRfynEaeLa5Kp9L6DpMq6IBrOOcH7yLVvdHc724guBOyM/fCK1mZbAqW1Vc2f5djSSH4G1DwnQZ8JogYk3G5cchpPudH9F8bnttjcwTOVVTA1GflpS9Ahhq9SqhBUwBeqmUmnaYYdVpLsCMHBi0ufBGdqVMZttGixU+Aww/aAiwV/onx2NHIMEGuZH4bh487HYD6xEXmB2ETH2lGilxRgIEM97+91DiEikm47Lkp2nX+TmsQpy3uobecVIfmBcwpoBs44ufjx2aRLFn0or1wZudUaJXgPQED+EEww9sPE/6DHA5P4Dmg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792112804; bh=IVq4vDod6ImicfqYBl3i313KMdjeBN90gj3kWK6Xu1y=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=uUspsi5Dz3+5NYpstyYOedNDpSTP55OkALBNyOQ1SYVWl7aWKsv4Ekh/K2F9WTKhFGPDru3eDjfC3v8ozhmZzz5NeF2Rv3zdYssNXJumpamyO+FnhvEqC+6k1JN2BrY7wH1214puh/I0AyWgPqk6iZXpnX+zmbHp3hPuP+DRB8zndTXeGcIxkoCzJTuQRI+AmkSGVBDzIA8XAigpElW6ZbeTegnNeZSIEDlmbxzDozi1pSP+1ZQ7vYudDnJyfchEUUM/jApQEbNXwP0yzWM5YsNI7L3g81aSlve9T83mQZmuZWJkbQQ+hJzOE2L8jfZWu3V8HQ0X4KHY9XMjQcO5Bg==
+X-YMail-OSG: Qexm6foVM1ljD6Qc6haZj0I5nIwgPPad61ZhQBkLiqfdQyMuf3A46vmLwUv1dd8
+ YUwu3CfYPkc5vKp65hExFpl0Jc6VhLbsoel33uTgmpyFM3O9c7ze95lf2xadmFXydr8ZacKke_a7
+ dfl85RuQwFdtVX0rfR4sqraLAPqSbo7lw9YeDl2TXq2sXLfMRgTFh4_7mODFfGzCpzqVwiiSGOPR
+ f9aavA6AWTV8ONF8c8hWrPtKj68wM4s1C3UQ5MtMIfrKXGpiWsLxMfZx7KI9crmbmAZhcfgDlWjZ
+ SROeoVvG2EgVuVrZrcZ4WwxMIoq0UFQ.L3.at1Vy7mWODa2C4OutIJzaHuOKwv9sKeHkF0K8Xwmb
+ He..twnL9UhLkvldXsCwEK_dC3AC3v7qpWbQZ1pHlikeQrp7oFSpQgqSIHDjavvVVqgeR7rSn7ul
+ IVmneA3V5yAyOk2Lfwo6yjcX2LEtpVBsH9kBBaX.RXRXsH8Sjxk3TX8RERgyiimRPTqXHJjaRL6k
+ wKqrjftdalZtskZ3MDpYokAGWi0y6n8LRjyR8.2lpqEVmjX87eVmNFkt9dqTF3HwNNlfMHo1qAcm
+ HHAGJGK4GMaET5KHI9cc7LQndTMSO8Fox2vACcnv0x6ZkqT2k9DBbvroaznH9QZBoLarwQutFfrJ
+ f9D3_eQwHH7TS7oCAuvFsODgwWfm4fK8F24hqrESmkn2ALfgZsBTWdwcLDgVXMET61aqxi2GzvlT
+ X0nceVPNA5k9Fjp.8nZzhEDa9zSvuDx4DKpNHwg.qdLYSDPLp5KuEMNoxulV3VMJm2k9_5I5.qPd
+ wDjFNUtr.6m.au3gMcgayr29_esEIhRRkk_B9romQOPLkGIoicNvpX1W7OaX03NyS0SAkDrUT4O9
+ QhxLNDmhS5HpisyFIUtN0NYcdOBZAK36a6NYdKX.enBqiklwjd69W5mDJ6bQ_5mtyXLabI_Avkys
+ GgPMT7xgFgEmxfY10LF3R2VjEMGmZuf6JtYyKqNka7GXBggXMq.XhJXF_FB1V2yjV_HqtfAfjkIK
+ notZ8jAjJ9zQfulw5HzgSYvYs6IgFFBvWfp0ChQtzzWmXkp89n7imWIxQX0BkDFdLl14B9VVlioD
+ jlbYGyeosyun5JcUAhzAWP3vIF83EmMGxOE7ceNp8OURjbZuIoujL.2pY6m0gZs14DSvvhZNqRHC
+ K0.VX6_m3EIKe7izPeEcttx8BeOsWNaXFtge7HRDkiy.jnlECPqz73XxD0wljvJiCX05NS.uryBj
+ QdsBEn4FnK9dv2FccEEow_TYHcPV4V_e0ssdgjySDJg_VKnBViVxrA2ghEJLY6ED0LtauNrvjqJP
+ EMWD3c39piS4Ty8d8Q7NYsY6.bLo.xZEnWVrS2TeKFm8t5mkmum3VgEtIoOfNgpX7C7U9dIVk1mL
+ qICeSpq9aglf81SGRwyuybCQg28mtPVfkZWt444wbQboyl3FI8EXOJRAGqw52lpaCaUFVgsroqsy
+ dYy189iFQwvzLkcx6KHMiM.qBM12kXnk4r7XtdCKGPSA0vWm2tL7IyQAn8nF_UqHN_KhymV6HZ6b
+ d77_FPlULo5U_Rw0Lt04XILcgqZAGDWzT5RqXM8F7uCzniy3ZeHJxDJYYZTpCLygpmQdXb4k6mqn
+ nyM2Xdkew1RQZy2ZXIMVVya4pjMSv4Ty0FRW.9RveAZg95gpxYy46p3iWPiaBs6yEhdeg6GkdpoC
+ ArqeerqkB2sy5d3fkM49Blc4PsGekXvakSas1dgOhN2C3870TNQBNWA288CVD6wtPllXU8cvAeH3
+ fLPy22PciwAJaGIUttUeoz8mdkpuhKOhcuwsQATEH9iBXgKajCrDx13CkZdw5wLn1LlIFrfl5pXq
+ Sj_wNxV1I1oQqTpUWO5mIhmqktnuXl2QxBAQ3EEdUP.KkbSuqnpeMg5Li4YT_q8n2cNKmlCHqePn
+ Ik2iHTR0xQbvQbWRX4G3P3ijNooRPEP1huj9oxCbJrfkoC7X0HEnhAJuOgYz2.h_eBKu2O2BieGe
+ zsVMtGsJl53xOajTCOBeCsCOwewnw5NYg39DHWYj1u.Ahlq51sn1j1oe1VsRrOqELUW8T7pSKoQq
+ fyuQ8tpCVviV8KkxHsH93a4Uae.XZV774TqF5febCUkS5Y3mTACFLeU7cF6IA2YcnvRqStKeI1j5
+ dluF3Z_6OGmyvDSlG4cFYwhZvPBUF3rrGf4CSGbr5_aMFzT2PEfFpR93Wma_u7XD4QKr4AjpZiPZ
+ eZFpQ5hPHKxXpJJRTlNaey8kOa1TZnJW7d8f3FEOGvqsCI84X0Q2uAUyyACkgCZXNxh4cXy2ndTV
+ hR9ZY_z2bZqOp2y1lUPFyDgz2iH2Xq0nlpPuz
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: a898e371-11dd-43d2-8adf-b242fcd60286
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic312.consmr.mail.ne1.yahoo.com with HTTP; Fri, 16 Oct 2026 01:06:44 +0000
+Received: by hermes--production-ir2-5dd9bf4598-zlkml (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 2691edfc3e71f6adf25ccc4112c7cd0e;
+          Fri, 16 Oct 2026 01:06:40 +0000 (UTC)
+Message-ID: <4a8fe6f9-bf6f-48b4-b4ce-d9a1d773dafe@yahoo.com>
+Date: Fri, 16 Oct 2026 03:06:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH net-next v6 6/9] net: dsa: realtek: rtl8365mb: use raw VID for
+ PVID on family D
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
+Content-Language: pl
+In-Reply-To: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26740 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-Add I2C support for Nuvoton MA35D1 SoC.
-The controller supports standard, fast and fast-plus modes,
-and provides controller/target functionality.
+Family D has no working VLAN member config (MC) table. Its PVID is a
+raw 12-bit VID in a per-port register at 0x0700 + port, whereas family C
+stores a 5-bit MC table index, two ports per register, at
+0x0700 + (port >> 1).
 
-Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
+Running the family C code on family D therefore reads an MC table that
+does not exist, and writes an MC index into the VID register of port
+(port >> 1) instead of the one of the port being configured.
+
+Read the PVID straight from its register in
+rtl8365mb_vlan_port_get_pvid(), and make rtl8365mb_vlan_pvid_port_set()
+and rtl8365mb_vlan_pvid_port_clear() use direct-VID variants on family D
+that skip the MC table. They keep the family C frame filter handling and
+rollback on error.
+
+Also clear the family D PVID registers when the VLAN support is set up.
+Unlike on family C, where VLANMC index 0 is the neutral PVID, the
+register holds a raw VID, and after a reset it keeps its hardware (or
+EEPROM) default. Without clearing it an unconfigured port could report
+a stale PVID from rtl8365mb_vlan_port_get_pvid(), and
+rtl8365mb_port_vlan_filtering() would accept untagged frames into it.
+
+No functional change for family C.
+
+Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
 ---
- drivers/i2c/busses/Kconfig      |  13 +
- drivers/i2c/busses/Makefile     |   1 +
- drivers/i2c/busses/i2c-ma35d1.c | 800 ++++++++++++++++++++++++++++++++
- 3 files changed, 814 insertions(+)
- create mode 100644 drivers/i2c/busses/i2c-ma35d1.c
+ drivers/net/dsa/realtek/rtl8365mb_main.c |   9 +
+ drivers/net/dsa/realtek/rtl8365mb_vlan.c | 205 ++++++++++++++++++++++-
+ drivers/net/dsa/realtek/rtl8365mb_vlan.h |   1 +
+ 3 files changed, 210 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
-index d7b89508311f..e69120d46977 100644
---- a/drivers/i2c/busses/Kconfig
-+++ b/drivers/i2c/busses/Kconfig
-@@ -1602,4 +1602,17 @@ config I2C_VIRTIO
-           This driver can also be built as a module. If so, the module
-           will be called i2c-virtio.
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+index f00c1c2..f8063d2 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_main.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+@@ -2356,6 +2356,15 @@ static int rtl8365mb_vlan_setup(struct dsa_switch *ds)
+ 	int ret;
  
-+config I2C_MA35D1
-+	tristate "Nuvoton MA35D1 I2C driver"
-+	depends on ARCH_MA35 || COMPILE_TEST
-+	select I2C_SLAVE
-+	help
-+	  If you say yes to this option, support will be included for the
-+	  I2C controller in the Nuvoton MA35D1 SoC. This driver
-+	  supports the standard I2C bus protocols, including master and
-+	  slave modes.
-+
-+	  This driver can also be built as a module. If so, the module
-+	  will be called i2c-ma35d1.
-+
- endmenu
-diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
-index 3755c54b3d82..ca75dae4955c 100644
---- a/drivers/i2c/busses/Makefile
-+++ b/drivers/i2c/busses/Makefile
-@@ -131,6 +131,7 @@ obj-$(CONFIG_I2C_XILINX)	+= i2c-xiic.o
- obj-$(CONFIG_I2C_XLP9XX)	+= i2c-xlp9xx.o
- obj-$(CONFIG_I2C_RCAR)		+= i2c-rcar.o
- obj-$(CONFIG_I2C_GXP)		+= i2c-gxp.o
-+obj-$(CONFIG_I2C_MA35D1)	+= i2c-ma35d1.o
- 
- # External I2C/SMBus adapter drivers
- obj-$(CONFIG_I2C_DIOLAN_U2C)	+= i2c-diolan-u2c.o
-diff --git a/drivers/i2c/busses/i2c-ma35d1.c b/drivers/i2c/busses/i2c-ma35d1.c
-new file mode 100644
-index 000000000000..29bed9eb28f6
---- /dev/null
-+++ b/drivers/i2c/busses/i2c-ma35d1.c
-@@ -0,0 +1,800 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2026 Nuvoton technology corporation.
-+ *
-+ * Author: Zi-Yu Chen <zychennvt@gmail.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/errno.h>
-+#include <linux/i2c.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/property.h>
-+#include <linux/reset.h>
-+#include <linux/units.h>
-+
-+/* MA35D1 I2C registers offset */
-+#define MA35_CTL0		0x00
-+#define MA35_ADDR0		0x04
-+#define MA35_DAT		0x08
-+#define MA35_STATUS0	0x0c
-+#define MA35_CLKDIV		0x10
-+#define MA35_TOCTL		0x14
-+#define MA35_ADDR1		0x18
-+#define MA35_ADDR2		0x1c
-+#define MA35_ADDR3		0x20
-+#define MA35_ADDRMSK0	0x24
-+#define MA35_ADDRMSK1	0x28
-+#define MA35_ADDRMSK2	0x2c
-+#define MA35_ADDRMSK3	0x30
-+#define MA35_WKCTL		0x3c
-+#define MA35_WKSTS		0x40
-+#define MA35_CTL1		0x44
-+#define MA35_STATUS1	0x48
-+#define MA35_TMCTL		0x4c
-+#define MA35_BUSCTL		0x50
-+#define MA35_BUSTCTL	0x54
-+#define MA35_BUSSTS		0x58
-+#define MA35_PKTSIZE	0x5c
-+#define MA35_PKTCRC		0x60
-+#define MA35_BUSTOUT	0x64
-+#define MA35_CLKTOUT	0x68
-+#define MA35_AUTOCNT	0x78
-+
-+/* MA35D1 I2C Status */
-+/* Controller */
-+#define MA35_M_START				0x08	/* Start */
-+#define MA35_M_REPEAT_START			0x10	/* Controller Repeat Start */
-+#define MA35_M_TRAN_ADDR_ACK		0x18	/* Controller Transmit Address ACK */
-+#define MA35_M_TRAN_ADDR_NACK		0x20	/* Controller Transmit Address NACK */
-+#define MA35_M_TRAN_DATA_ACK		0x28	/* Controller Transmit Data ACK */
-+#define MA35_M_TRAN_DATA_NACK		0x30	/* Controller Transmit Data NACK */
-+#define MA35_M_ARB_LOST				0x38	/* Controller Arbitration Lost */
-+#define MA35_M_RECE_ADDR_ACK		0x40	/* Controller Receive Address ACK */
-+#define MA35_M_RECE_ADDR_NACK		0x48	/* Controller Receive Address NACK */
-+#define MA35_M_RECE_DATA_ACK		0x50	/* Controller Receive Data ACK */
-+#define MA35_M_RECE_DATA_NACK		0x58	/* Controller Receive Data NACK */
-+#define MA35_BUS_ERROR				0x00	/* Bus error */
-+
-+/*  Target */
-+#define MA35_S_REPEAT_START_STOP	0xa0	/* Target Transmit Repeat Start or Stop */
-+#define MA35_S_TRAN_ADDR_ACK		0xa8	/* Target Transmit Address ACK */
-+#define MA35_S_TRAN_DATA_ACK		0xb8	/* Target Transmit Data ACK */
-+#define MA35_S_TRAN_DATA_NACK		0xc0	/* Target Transmit Data NACK */
-+#define MA35_S_TRAN_LAST_DATA_ACK	0xc8	/* Target Transmit Last Data ACK */
-+#define MA35_S_RECE_ADDR_ACK		0x60	/* Target Receive Address ACK */
-+#define MA35_S_RECE_ARB_LOST		0x68	/* Target Receive Arbitration Lost */
-+#define MA35_S_RECE_DATA_ACK		0x80	/* Target Receive Data ACK */
-+#define MA35_S_RECE_DATA_NACK		0x88	/* Target Receive Data NACK */
-+
-+/* Other */
-+#define MA35_ADDR_TRAN_ARB_LOST		0xb0	/* Address Transmit Arbitration Lost */
-+#define MA35_BUS_RELEASED			0xf8	/* Bus Released */
-+
-+/*  I2C_CTL constant definitions. */
-+#define MA35_CTL_AA			BIT(2)
-+#define MA35_CTL_SI			BIT(3)
-+#define MA35_CTL_STO		BIT(4)
-+#define MA35_CTL_STA		BIT(5)
-+#define MA35_CTL_I2CEN		BIT(6)
-+#define MA35_CTL_INTEN		BIT(7)
-+#define MA35_CTL_SI_AA		(MA35_CTL_SI | MA35_CTL_AA)
-+#define MA35_CTL_STO_SI		(MA35_CTL_STO | MA35_CTL_SI)
-+#define MA35_CTL_STA_SI		(MA35_CTL_STA | MA35_CTL_SI)
-+
-+/* Constants */
-+#define MA35_CLKDIV_MSK		GENMASK(9, 0)
-+#define MA35_I2C_PM_TIMEOUT_MS	5000
-+#define MA35_STOP_TIMEOUT_MS	50
-+
-+struct ma35d1_i2c {
-+	spinlock_t lock;
-+	wait_queue_head_t wait;
-+	struct i2c_msg *msg;
-+	unsigned int msg_num;
-+	unsigned int msg_idx;
-+	unsigned int msg_ptr;
-+	int err;
-+	int irq;
-+	void __iomem *regs;
-+	struct clk *clk;
-+	struct device *dev;
-+	struct i2c_adapter adap;
-+	struct i2c_client *target;
-+	struct reset_control *rst;
-+	bool target_reject;
-+};
-+
-+static inline bool ma35d1_is_controller_status(unsigned int status)
-+{
-+	return status >= MA35_M_START && status <= MA35_M_RECE_DATA_NACK;
-+}
-+
-+/*
-+ * ma35d1_i2c_write_ctl - Update the I2C control register
-+ * @i2c: Pointer to the ma35d1 i2c instance
-+ * @ctl: Control bits to set (e.g., MA35_CTL_STA, SI, AA)
-+ *
-+ * Read-modify-write the CTL0 register while preserving unrelated bits.
-+ */
-+static void ma35d1_i2c_write_ctl(struct ma35d1_i2c *i2c, unsigned int ctl)
-+{
-+	unsigned int val;
-+
-+	guard(spinlock_irqsave)(&i2c->lock);
-+	val = readl(i2c->regs + MA35_CTL0);
-+	val &= ~(MA35_CTL_SI_AA);
-+	val |= ctl;
-+	writel(val, i2c->regs + MA35_CTL0);
-+}
-+
-+static void ma35d1_i2c_set_addr(struct ma35d1_i2c *i2c)
-+{
-+	unsigned int rw = i2c->msg->flags & I2C_M_RD;
-+
-+	writel(((i2c->msg->addr & 0x7f) << 1) | rw, i2c->regs + MA35_DAT);
-+}
-+
-+static void ma35d1_i2c_controller_complete(struct ma35d1_i2c *i2c)
-+{
-+	i2c->msg_ptr = 0;
-+	i2c->msg = NULL;
-+	i2c->msg_idx++;
-+	i2c->msg_num = 0;
-+
-+	wake_up(&i2c->wait);
-+}
-+
-+static void ma35d1_i2c_reset(struct ma35d1_i2c *i2c)
-+{
-+	unsigned int clkdiv, slvaddr;
-+
-+	clkdiv = readl(i2c->regs + MA35_CLKDIV);
-+	slvaddr = readl(i2c->regs + MA35_ADDR0);
-+
-+	disable_irq(i2c->irq);
-+	i2c->msg = NULL;
-+	reset_control_assert(i2c->rst);
-+	usleep_range(10, 20);
-+	reset_control_deassert(i2c->rst);
-+	enable_irq(i2c->irq);
-+
-+	writel(clkdiv, (i2c->regs + MA35_CLKDIV));
-+	ma35d1_i2c_write_ctl(i2c, MA35_CTL_I2CEN | MA35_CTL_INTEN);
-+
-+	if (i2c->target)
-+		writel(slvaddr, i2c->regs + MA35_ADDR0);
-+}
-+
-+static void ma35d1_i2c_stop(struct ma35d1_i2c *i2c, int ret)
-+{
-+	ma35d1_i2c_write_ctl(i2c, MA35_CTL_STO_SI);
-+
-+	if (ret)
-+		i2c->err = ret;
-+
-+	ma35d1_i2c_controller_complete(i2c);
-+}
-+
-+/*
-+ * ma35d1_i2c_restore_idle - restore controller state to idle
-+ * @i2c: Pointer to the ma35d1 i2c instance
-+ *
-+ * Restore the controller to an idle state after an unexpected event.
-+ * Abort an active controller transfer, otherwise re-arm target mode
-+ * if enabled.
-+ */
-+static void ma35d1_i2c_restore_idle(struct ma35d1_i2c *i2c)
-+{
-+	if (i2c->msg) {
-+		ma35d1_i2c_stop(i2c, -EIO);
-+	} else if (i2c->target) {
-+		i2c->target_reject = false;
-+		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI_AA);
-+	} else {
-+		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-+	}
-+}
-+
-+/* Check if this is the last message in the set */
-+static inline bool is_last_msg(struct ma35d1_i2c *i2c)
-+{
-+	return i2c->msg_idx >= (i2c->msg_num - 1);
-+}
-+
-+/* Check if this is the last byte in the current message */
-+static inline bool is_last_byte(struct ma35d1_i2c *i2c)
-+{
-+	return i2c->msg_ptr == i2c->msg->len - 1;
-+}
-+
-+/* Check if reached the end of the current message */
-+static inline bool is_msgend(struct ma35d1_i2c *i2c)
-+{
-+	return i2c->msg_ptr >= i2c->msg->len;
-+}
-+
-+/*
-+ * ma35d1_i2c_irq_target_trx - I2C Target state machine handler
-+ * @i2c: ma35d1 i2c instance
-+ * @i2c_status: hardware status code from MA35_STATUS0
-+ */
-+static irqreturn_t ma35d1_i2c_irq_target_trx(struct ma35d1_i2c *i2c,
-+					     unsigned long i2c_status)
-+{
-+	unsigned char byte = 0;
-+	int ret;
-+
-+	switch (i2c_status) {
-+	case MA35_S_RECE_ARB_LOST:
-+		/*
-+		 * Arbitration lost during address transmission phase.
-+		 * The hardware switches to Target Transmitter mode when
-+		 * our own SLA+W is detected on the bus.
-+		 */
-+		i2c->err = -EAGAIN;
-+		ma35d1_i2c_controller_complete(i2c);
-+		ret = i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_REQUESTED,
-+				      &byte);
-+		if (ret)
-+			i2c->target_reject = true;
-+		break;
-+
-+	case MA35_S_RECE_ADDR_ACK:
-+		/* Own SLA+W has been receive; ACK has been return */
-+		ret = i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_REQUESTED,
-+				      &byte);
-+		if (ret)
-+			i2c->target_reject = true;
-+		break;
-+
-+	case MA35_S_TRAN_DATA_NACK:
-+	case MA35_S_RECE_DATA_NACK:
-+		/*
-+		 * Data byte or last data in I2CDAT has been transmitted and NACK received,
-+		 * or previously addressed with own SLA address and NACK returned.
-+		 */
-+		i2c->target_reject = false;
-+		break;
-+
-+	case MA35_S_RECE_DATA_ACK:
-+		/*
-+		 * Previously address with own SLA address Data has been received;
-+		 * ACK has been returned
-+		 */
-+		byte = readb(i2c->regs + MA35_DAT);
-+		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_RECEIVED, &byte);
-+		break;
-+
-+	case MA35_ADDR_TRAN_ARB_LOST:
-+		/*
-+		 * Arbitration lost during address transmission phase.
-+		 * The hardware switches to Target Receiver mode when
-+		 * our own SLA+R is detected on the bus.
-+		 */
-+		i2c->err = -EAGAIN;
-+		ma35d1_i2c_controller_complete(i2c);
-+		i2c_slave_event(i2c->target, I2C_SLAVE_READ_REQUESTED, &byte);
-+		writel(byte, i2c->regs + MA35_DAT);
-+		break;
-+
-+	case MA35_S_TRAN_ADDR_ACK:
-+		/* Own SLA+R has been receive; ACK has been return */
-+		i2c_slave_event(i2c->target, I2C_SLAVE_READ_REQUESTED, &byte);
-+		writel(byte, i2c->regs + MA35_DAT);
-+		break;
-+
-+	case MA35_S_TRAN_DATA_ACK:
-+		i2c_slave_event(i2c->target, I2C_SLAVE_READ_PROCESSED, &byte);
-+		writel(byte, i2c->regs + MA35_DAT);
-+		break;
-+
-+	case MA35_S_REPEAT_START_STOP:
-+	/*
-+	 *  A STOP or repeated START has been received
-+	 *  while still addressed as Target/Receiver
-+	 */
-+		i2c_slave_event(i2c->target, I2C_SLAVE_STOP, &byte);
-+		i2c->target_reject = false;
-+		break;
-+
-+	default:
-+		dev_err(i2c->dev, "Status 0x%02lx is NOT processed\n",
-+			i2c_status);
-+		ma35d1_i2c_restore_idle(i2c);
-+		return IRQ_NONE;
-+	}
-+	if (i2c->target_reject)
-+		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-+	else
-+		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI_AA);
-+	return IRQ_HANDLED;
-+}
-+
-+/*
-+ * ma35d1_i2c_irq_controller_trx - I2C Controller state machine handler
-+ * @i2c: ma35d1 i2c instance
-+ * @i2c_status: hardware status code from MA35_STATUS0
-+ */
-+static irqreturn_t ma35d1_i2c_irq_controller_trx(struct ma35d1_i2c *i2c,
-+						 unsigned long i2c_status)
-+{
-+	unsigned char byte;
-+
-+	/* Ensuring messages are absolutely valid in Controller mode. */
-+	if (unlikely(!i2c->msg)) {
-+		dev_err(i2c->dev, "Spurious controller interrupt (status: 0x%02lx)\n", i2c_status);
-+		ma35d1_i2c_restore_idle(i2c);
-+		return IRQ_HANDLED;
-+	}
-+
-+	switch (i2c_status) {
-+	case MA35_M_START:
-+	case MA35_M_REPEAT_START:
-+		ma35d1_i2c_set_addr(i2c);
-+		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-+		break;
-+
-+	case MA35_M_TRAN_ADDR_ACK:
-+	case MA35_M_TRAN_DATA_ACK:
-+		/* SLA+W has been transmitted and ACK has been received */
-+		if (i2c_status == MA35_M_TRAN_ADDR_ACK) {
-+			if (is_last_msg(i2c) && i2c->msg->len == 0) {
-+				ma35d1_i2c_stop(i2c, 0);
-+				return IRQ_HANDLED;
-+			}
-+		}
-+
-+		if (!is_msgend(i2c)) {
-+			byte = i2c->msg->buf[i2c->msg_ptr++];
-+			writel(byte, i2c->regs + MA35_DAT);
-+			ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-+		} else if (!is_last_msg(i2c)) {
-+			dev_dbg(i2c->dev, "WRITE: Next Message\n");
-+
-+			i2c->msg_ptr = 0;
-+			i2c->msg_idx++;
-+			i2c->msg++;
-+
-+			ma35d1_i2c_write_ctl(i2c, MA35_CTL_STA | MA35_CTL_SI);
-+		} else {
-+			ma35d1_i2c_stop(i2c, 0);
-+		}
-+		break;
-+
-+	case MA35_M_TRAN_DATA_NACK:
-+		ma35d1_i2c_stop(i2c, -EIO);
-+		break;
-+
-+	case MA35_M_TRAN_ADDR_NACK:
-+	case MA35_M_RECE_ADDR_NACK:
-+		/*
-+		 * Controller Transmit Address NACK
-+		 * 0x20: SLA+W has been transmitted and NACK has been received
-+		 * 0x48: SLA+R has been transmitted and NACK has been received
-+		 */
-+		dev_dbg(i2c->dev, "\n i2c: ack was not received\n");
-+		ma35d1_i2c_stop(i2c, -ENXIO);
-+		break;
-+
-+	case MA35_M_RECE_ADDR_ACK:
-+		if (is_msgend(i2c)) {
-+			if (is_last_msg(i2c)) {
-+				ma35d1_i2c_stop(i2c, 0);
-+			} else {
-+				dev_dbg(i2c->dev, "READ: Next Transfer\n");
-+
-+				i2c->msg_ptr = 0;
-+				i2c->msg_idx++;
-+				i2c->msg++;
-+
-+				ma35d1_i2c_write_ctl(i2c, MA35_CTL_STA_SI);
-+			}
-+		} else if (i2c->msg->len == 1) {
-+			ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-+		} else {
-+			ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI_AA);
-+		}
-+		break;
-+
-+	case MA35_M_RECE_DATA_ACK:
-+	case MA35_M_RECE_DATA_NACK:
-+		/* DATA has been received and ACK/NACK has been received */
-+		byte = readb(i2c->regs + MA35_DAT);
-+		i2c->msg->buf[i2c->msg_ptr++] = byte;
-+
-+		if (is_last_byte(i2c)) {
-+			ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-+		} else if (is_msgend(i2c)) {
-+			if (is_last_msg(i2c)) {
-+				dev_dbg(i2c->dev, "READ: Send Stop\n");
-+
-+				ma35d1_i2c_stop(i2c, 0);
-+			} else {
-+				dev_dbg(i2c->dev, "READ: Next Transfer\n");
-+
-+				i2c->msg_ptr = 0;
-+				i2c->msg_idx++;
-+				i2c->msg++;
-+
-+				ma35d1_i2c_write_ctl(i2c, MA35_CTL_STA_SI);
-+			}
-+		} else {
-+			ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI_AA);
-+		}
-+		break;
-+
-+	case MA35_M_ARB_LOST:
-+		/* Arbitration Lost */
-+		i2c->err = -EAGAIN;
-+		ma35d1_i2c_controller_complete(i2c);
-+		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-+		break;
-+
-+	default:
-+		dev_err(i2c->dev, "Status 0x%02lx is NOT processed\n",
-+			i2c_status);
-+		ma35d1_i2c_restore_idle(i2c);
-+		return IRQ_NONE;
-+	}
-+	return IRQ_HANDLED;
-+}
-+
-+static irqreturn_t ma35d1_i2c_irq(int irqno, void *dev_id)
-+{
-+	struct ma35d1_i2c *i2c = dev_id;
-+	unsigned long status;
-+
-+	status = readl(i2c->regs + MA35_STATUS0);
-+
-+	if (status == MA35_BUS_ERROR) {
-+		dev_err(i2c->dev, "bus error\n");
-+		ma35d1_i2c_restore_idle(i2c);
-+		return IRQ_HANDLED;
-+	}
-+
-+	if (ma35d1_is_controller_status(status))
-+		return ma35d1_i2c_irq_controller_trx(i2c, status);
-+	else
-+		return ma35d1_i2c_irq_target_trx(i2c, status);
-+}
-+
-+static int ma35d1_i2c_doxfer(struct ma35d1_i2c *i2c, struct i2c_msg *msgs,
-+			     int num)
-+{
-+	unsigned long timeout;
-+	unsigned int val;
-+	int ret, err;
-+
-+	disable_irq(i2c->irq);
-+	i2c->msg = msgs;
-+	i2c->msg_num = num;
-+	i2c->msg_ptr = 0;
-+	i2c->msg_idx = 0;
-+	i2c->err = 0;
-+
-+	ma35d1_i2c_write_ctl(i2c, MA35_CTL_STA);
-+	enable_irq(i2c->irq);
-+
-+	timeout = wait_event_timeout(i2c->wait, i2c->msg_num == 0, HZ * 5);
-+	ret = i2c->msg_idx;
-+
-+	if (timeout == 0) {
-+		dev_dbg(i2c->dev, "xfer timeout\n");
-+		ret = -ETIMEDOUT;
-+		goto reset;
-+	}
-+
-+	err = readl_poll_timeout(i2c->regs + MA35_CTL0, val,
-+				 !(val & MA35_CTL_STO), 100,
-+				 MA35_STOP_TIMEOUT_MS * 1000);
-+	if (err) {
-+		dev_err(i2c->dev, "bus idle timeout\n");
-+		ret = -EBUSY;
-+		goto reset;
-+	} else if (i2c->err) {
-+		dev_dbg(i2c->dev, "xfer error %d\n", i2c->err);
-+		ret = i2c->err;
-+	}
-+	return ret;
-+
-+reset:
-+	ma35d1_i2c_reset(i2c);
-+	return ret;
-+}
-+
-+static int ma35d1_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
-+			   int num)
-+{
-+	struct ma35d1_i2c *i2c = i2c_get_adapdata(adap);
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(i2c->dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = ma35d1_i2c_doxfer(i2c, msgs, num);
-+
-+	if (i2c->target)
-+		ma35d1_i2c_write_ctl(i2c, MA35_CTL_AA);
-+	pm_runtime_put_autosuspend(i2c->dev);
-+
-+	return ret;
-+}
-+
-+static int ma35d1_reg_target(struct i2c_client *target)
-+{
-+	struct ma35d1_i2c *i2c = i2c_get_adapdata(target->adapter);
-+	unsigned int slvaddr;
-+	int ret;
-+
-+	if (i2c->target)
-+		return -EBUSY;
-+
-+	if (target->flags & I2C_CLIENT_TEN)
-+		return -EAFNOSUPPORT;
-+
-+	/* Keep device active for target mode listening. */
-+	ret = pm_runtime_resume_and_get(i2c->dev);
-+	if (ret) {
-+		dev_err(i2c->dev, "failed to resume i2c controller\n");
-+		return ret;
-+	}
-+
-+	i2c->target = target;
-+
-+	slvaddr = target->addr << 1;
-+	writel(slvaddr, i2c->regs + MA35_ADDR0);
-+
-+	/* I2C enter SLV mode */
-+	ma35d1_i2c_write_ctl(i2c, MA35_CTL_AA);
-+
-+	return 0;
-+}
-+
-+static int ma35d1_unreg_target(struct i2c_client *target)
-+{
-+	struct ma35d1_i2c *i2c = i2c_get_adapdata(target->adapter);
-+	int ret;
-+
-+	if (!i2c->target)
-+		return -EINVAL;
-+
-+	writel(0, i2c->regs + MA35_ADDR0);
-+	/* Clear AA bit */
-+	ma35d1_i2c_write_ctl(i2c, 0);
-+
-+	synchronize_irq(i2c->irq);
-+	i2c->target = NULL;
-+
-+	ret = pm_runtime_put_sync(i2c->dev);
-+	if (ret < 0)
-+		dev_err(i2c->dev, "failed to suspend i2c controller");
-+
-+	return 0;
-+}
-+
-+/* Declare Our I2C Functionality */
-+static u32 ma35d1_i2c_func(struct i2c_adapter *adap)
-+{
-+	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL;
-+}
-+
-+/* I2C Bus Registration Info */
-+static const struct i2c_algorithm ma35d1_i2c_algorithm = {
-+	.xfer = ma35d1_i2c_xfer,
-+	.functionality = ma35d1_i2c_func,
-+	.reg_target = ma35d1_reg_target,
-+	.unreg_target = ma35d1_unreg_target,
-+};
-+
-+static const struct i2c_adapter_quirks ma35d1_i2c_quirks = {
-+	.flags = I2C_AQ_NO_ZERO_LEN_READ,
-+};
-+
-+static int ma35d1_i2c_suspend(struct device *dev)
-+{
-+	struct ma35d1_i2c *i2c = dev_get_drvdata(dev);
-+	unsigned int val;
-+	int ret;
-+
-+	/* Prepare for wake-up from I2C events if target mode is active */
-+	if (i2c->target) {
-+		ma35d1_i2c_write_ctl(i2c, MA35_CTL_AA);
-+
-+		/* Setup wake-up control */
-+		writel(0x1, i2c->regs + MA35_WKCTL);
-+
-+		/* Clear pending wake-up flags */
-+		val = readl(i2c->regs + MA35_WKSTS);
-+		writel(val, i2c->regs + MA35_WKSTS);
-+
-+		ret = enable_irq_wake(i2c->irq);
+ 	dsa_switch_for_each_available_port(dp, ds) {
++		/* Start every port with the neutral PVID */
++		ret = rtl8365mb_vlan_port_reset_pvid(priv, dp->index);
 +		if (ret) {
-+			writel(0, i2c->regs + MA35_WKCTL);
++			dev_err(priv->dev,
++				"Failed to reset PVID on port %d\n",
++				dp->index);
 +			return ret;
 +		}
-+		return 0;
++
+ 		/* Disable vlan-filtering for all ports */
+ 		ret = rtl8365mb_port_vlan_filtering(ds, dp->index, false, NULL);
+ 		if (ret) {
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.c b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
+index 36f0d2a..f44d7ec 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_vlan.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
+@@ -44,6 +44,10 @@
+  *
+  * VLANMC index 0 is reserved as a neutral PVID, used for standalone ports.
+  *
++ * Everything above describes chips that have a VLAN membership configuration
++ * table. RTL8365MB_FAMILY_D chips do not have one: their PVID is a raw 12-bit
++ * VID in a per-port register, and no VLANMC entries are allocated.
++ *
+  */
+ 
+ #include "rtl8365mb_vlan.h"
+@@ -120,6 +124,11 @@
+ #define   RTL8365MB_VLAN_PVID_CTRL_PORT_MCIDX_MASK(_p) \
+ 		(0x1F << RTL8365MB_VLAN_PVID_CTRL_PORT_MCIDX_OFFSET(_p))
+ 
++#define RTL8365MB_D_VLAN_PVID_CTRL_BASE			0x0700
++#define RTL8365MB_D_VLAN_PVID_CTRL_REG(port) \
++	(RTL8365MB_D_VLAN_PVID_CTRL_BASE + (port))
++#define RTL8365MB_D_VLAN_PVID_CTRL_MASK			GENMASK(11, 0)
++
+ /* Frame type filtering registers */
+ #define RTL8365MB_VLAN_ACCEPT_FRAME_TYPE_BASE	0x07aa
+ #define RTL8365MB_VLAN_ACCEPT_FRAME_TYPE_REG(port) \
+@@ -171,7 +180,7 @@ struct rtl8365mb_vlan4k {
+  * This structure is used to get/set entries in the VLAN membership
+  * configuration database. This feature is largely vestigial, but
+  * still needed for at least the following features:
+- *   - PVID configuration
++ *   - PVID configuration (family C only, family D has no VLAN MC table)
+  *   - ACL configuration
+  *   - selection of VLAN by the CPU tag when VSEL=1, although the switch
+  *     can also select VLAN based on the VLAN tag if VSEL=0
+@@ -740,14 +749,51 @@ int rtl8365mb_vlan_port_get_pvid(struct realtek_priv *priv, int port, u16 *pvid)
+ 	u8 vlanmc_idx;
+ 	int ret;
+ 
+-	ret = rtl8365mb_vlan_get_pvid_mc(priv, port, &vlanmc_idx, &vlanmc);
+-	if (ret)
+-		return ret;
++	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D) {
++		u32 data;
++
++		ret = regmap_read(priv->map,
++				  RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
++				  &data);
++		if (ret)
++			return ret;
++
++		*pvid = data & RTL8365MB_D_VLAN_PVID_CTRL_MASK;
++	} else {
++		ret = rtl8365mb_vlan_get_pvid_mc(priv, port, &vlanmc_idx,
++						 &vlanmc);
++		if (ret)
++			return ret;
++
++		*pvid = vlanmc.evid;
 +	}
-+	return pm_runtime_force_suspend(dev);
-+}
-+
-+static int ma35d1_i2c_resume(struct device *dev)
+ 
+-	*pvid = vlanmc.evid;
+ 	return 0;
+ }
+ 
++/**
++ * rtl8365mb_vlan_port_reset_pvid() - Put a port's PVID in its neutral state
++ * @priv: realtek_priv pointer
++ * @port: the port number
++ *
++ * On family C the neutral PVID is VLANMC index 0, which is the reset value, so
++ * there is nothing to do. On family D the PVID is a raw VID in a per-port
++ * register whose value after reset is not defined by the driver (it may come
++ * from the hardware default or from an EEPROM), so clear it to 0.
++ *
++ * Context: Can sleep.
++ * Return: 0 on success, or a negative error code on failure.
++ */
++int rtl8365mb_vlan_port_reset_pvid(struct realtek_priv *priv, int port)
 +{
-+	struct ma35d1_i2c *i2c = dev_get_drvdata(dev);
-+	unsigned int val;
-+
-+	if (i2c->target) {
-+		/* Disable wake-up */
-+		writel(0x0, i2c->regs + MA35_WKCTL);
-+
-+		/* Clear pending wake-up flags */
-+		val = readl(i2c->regs + MA35_WKSTS);
-+		writel(val, i2c->regs + MA35_WKSTS);
-+
-+		disable_irq_wake(i2c->irq);
++	if (rtl8365mb_get_family(priv) != RTL8365MB_FAMILY_D)
 +		return 0;
-+	}
-+	return pm_runtime_force_resume(dev);
++
++	return regmap_update_bits(priv->map,
++				  RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
++				  RTL8365MB_D_VLAN_PVID_CTRL_MASK, 0);
 +}
 +
-+static int ma35d1_i2c_runtime_suspend(struct device *dev)
+ /*
+  * rtl8365mb_vlan_port_get_framefilter() - Get the ingress frame filtering mode
+  * for a port
+@@ -809,6 +855,68 @@ rtl8365mb_vlan_port_set_framefilter(struct realtek_priv *priv,
+ 				  val);
+ }
+ 
++/*
++ * rtl8365mb_vlan_pvid_port_set_direct() - Configure a port's PVID as a raw
++ * VID written to its dedicated register, for chip families without a
++ * working VLAN MC table (RTL8365MB_FAMILY_D)
++ *
++ * Reads back the previous PVID and frame filter first so both can be
++ * restored if enabling the new PVID fails partway through, matching
++ * the rollback behavior of the family-C implementation below.
++ *
++ * Context: Can sleep. Must be called with &priv->vlan_lock held.
++ * Return: 0 on success, or a negative error code on failure.
++ */
++static int rtl8365mb_vlan_pvid_port_set_direct(struct realtek_priv *priv,
++					       int port, u16 vid)
 +{
-+	struct ma35d1_i2c *i2c = dev_get_drvdata(dev);
-+
-+	clk_disable(i2c->clk);
-+
-+	return 0;
-+}
-+
-+static int ma35d1_i2c_runtime_resume(struct device *dev)
-+{
-+	struct ma35d1_i2c *i2c = dev_get_drvdata(dev);
++	enum rtl8365mb_frame_ingress prev_accepted_frame;
++	u32 prev_pvid;
 +	int ret;
 +
-+	ret = clk_enable(i2c->clk);
++	ret = regmap_read(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
++			  &prev_pvid);
 +	if (ret) {
-+		dev_err(dev, "failed to enable clock in resume\n");
++		dev_err(priv->dev, "Failed to read current PVID\n");
++		return ret;
++	}
++	prev_pvid &= RTL8365MB_D_VLAN_PVID_CTRL_MASK;
++
++	ret = rtl8365mb_vlan_port_get_framefilter(priv, port,
++						  &prev_accepted_frame);
++	if (ret) {
++		dev_err(priv->dev, "Failed to get current framefilter\n");
 +		return ret;
 +	}
 +
-+	return 0;
-+}
-+
-+static void ma35d1_i2c_pm_cleanup(void *data)
-+{
-+	struct device *dev = data;
-+
-+	pm_runtime_get_sync(dev);
-+	pm_runtime_disable(dev);
-+	pm_runtime_put_noidle(dev);
-+}
-+
-+static int ma35d1_i2c_probe(struct platform_device *pdev)
-+{
-+	unsigned int busfreq = I2C_MAX_STANDARD_MODE_FREQ;
-+	struct device *dev = &pdev->dev;
-+	struct ma35d1_i2c *i2c;
-+	struct resource *res;
-+	int ret, clkdiv;
-+	u32 val;
-+
-+	i2c = devm_kzalloc(dev, sizeof(*i2c), GFP_KERNEL);
-+	if (!i2c)
-+		return -ENOMEM;
-+
-+	init_waitqueue_head(&i2c->wait);
-+	spin_lock_init(&i2c->lock);
-+
-+	i2c->dev = dev;
-+
-+	i2c->clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(i2c->clk))
-+		return dev_err_probe(dev, PTR_ERR(i2c->clk),
-+				     "failed to get core clk\n");
-+
-+	i2c->regs = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-+	if (IS_ERR(i2c->regs))
-+		return dev_err_probe(dev, PTR_ERR(i2c->regs),
-+				     "can't get IO memory\n");
-+
-+	i2c->rst = devm_reset_control_get_exclusive(&pdev->dev, NULL);
-+	if (IS_ERR(i2c->rst))
-+		return dev_err_probe(dev, PTR_ERR(i2c->rst),
-+				     "failed to get reset control\n");
-+
-+	ret = reset_control_deassert(i2c->rst);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to deassert reset line\n");
-+
-+	/* Setup info block for the I2C core */
-+	strscpy(i2c->adap.name, "ma35d1-i2c", sizeof(i2c->adap.name));
-+	i2c->adap.owner = THIS_MODULE;
-+	i2c->adap.algo = &ma35d1_i2c_algorithm;
-+	i2c->adap.quirks = &ma35d1_i2c_quirks;
-+	i2c->adap.retries = 2;
-+	i2c->adap.algo_data = i2c;
-+	i2c->adap.dev.parent = &pdev->dev;
-+	i2c->adap.dev.of_node = pdev->dev.of_node;
-+	i2c_set_adapdata(&i2c->adap, i2c);
-+
-+	if (!device_property_read_u32(dev, "clock-frequency", &val)) {
-+		if (val != 0 && val <= MEGA)
-+			busfreq = val;
++	ret = regmap_update_bits(priv->map,
++				 RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
++				 RTL8365MB_D_VLAN_PVID_CTRL_MASK,
++				 vid & RTL8365MB_D_VLAN_PVID_CTRL_MASK);
++	if (ret) {
++		dev_err(priv->dev, "Failed to set port PVID\n");
++		return ret;
 +	}
-+	/* Calculate divider based on the current peripheral clock rate */
-+	clkdiv = DIV_ROUND_CLOSEST(clk_get_rate(i2c->clk), busfreq * 4) - 1;
-+	if (clkdiv < 0 || clkdiv > 0x3ff)
-+		return dev_err_probe(dev, -EINVAL, "invalid clkdiv value: %d\n",
-+				     clkdiv);
 +
-+	i2c->irq = platform_get_irq(pdev, 0);
-+	if (i2c->irq < 0)
-+		return dev_err_probe(dev, i2c->irq, "failed to get irq\n");
++	/* Changing accept frame is what enables PVID (if not enabled before) */
++	ret = rtl8365mb_vlan_port_set_framefilter(priv, port,
++						  RTL8365MB_FRAME_TYPE_ANY_FRAME);
++	if (ret) {
++		dev_err(priv->dev, "Failed to set port frame filter\n");
++		goto undo_pvid_write;
++	}
 +
-+	platform_set_drvdata(pdev, i2c);
-+
-+	pm_runtime_set_autosuspend_delay(dev, MA35_I2C_PM_TIMEOUT_MS);
-+	pm_runtime_use_autosuspend(dev);
-+	pm_runtime_set_active(dev);
-+	pm_runtime_enable(dev);
-+
-+	ret = devm_add_action_or_reset(dev, ma35d1_i2c_pm_cleanup, dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to add pm cleanup action\n");
-+
-+	writel(MA35_CTL_I2CEN | MA35_CTL_INTEN, i2c->regs + MA35_CTL0);
-+	writel(FIELD_PREP(MA35_CLKDIV_MSK, clkdiv), i2c->regs + MA35_CLKDIV);
-+
-+	ret = devm_request_irq(dev, i2c->irq, ma35d1_i2c_irq, 0, dev_name(dev),
-+			       i2c);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "cannot claim IRQ %d\n",
-+				     i2c->irq);
-+
-+	ret = devm_i2c_add_adapter(dev, &i2c->adap);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to add bus to i2c core\n");
-+
-+	dev_info(&i2c->adap.dev, "%pa MA35D1 I2C adapter registered\n",
-+		 &res->start);
 +	return 0;
++
++undo_pvid_write:
++	(void)regmap_update_bits(priv->map,
++				 RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
++				 RTL8365MB_D_VLAN_PVID_CTRL_MASK, prev_pvid);
++	(void)rtl8365mb_vlan_port_set_framefilter(priv, port,
++						  prev_accepted_frame);
++	return ret;
 +}
 +
-+static const struct dev_pm_ops ma35d1_i2c_pmops = {
-+	SYSTEM_SLEEP_PM_OPS(ma35d1_i2c_suspend, ma35d1_i2c_resume)
-+		RUNTIME_PM_OPS(ma35d1_i2c_runtime_suspend,
-+			       ma35d1_i2c_runtime_resume, NULL)
-+};
+ /*
+  * rtl8365mb_vlan_pvid_port_set() - Configure a port's PVID and associated
+  * VLANMC entry
+@@ -821,6 +929,9 @@ rtl8365mb_vlan_port_set_framefilter(struct realtek_priv *priv,
+  * PVID. Gracefully unwinds and restores previous configuration if a hardware
+  * write operation fails during execution.
+  *
++ * On RTL8365MB_FAMILY_D there is no VLANMC table: the VID is written directly
++ * to the port's PVID register and no VLANMC entry is allocated.
++ *
+  * Context: Can sleep. Must be called with &priv->vlan_lock held.
+  * Takes and releases &priv->map_lock.
+  * Return: 0 on success, or a negative error code on failure.
+@@ -838,6 +949,13 @@ int rtl8365mb_vlan_pvid_port_set(struct dsa_switch *ds, int port, u16 vid,
+ 
+ 	lockdep_assert_held(&priv->vlan_lock);
+ 
++	/* This chip family has no VLAN MC table - PVID is a raw VID in a
++	 * dedicated per-port register, and there is no separate membership
++	 * table entry to allocate/track.
++	 */
++	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D)
++		return rtl8365mb_vlan_pvid_port_set_direct(priv, port, vid);
 +
-+static const struct of_device_id ma35d1_i2c_of_match[] = {
-+	{ .compatible = "nuvoton,ma35d1-i2c" },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, ma35d1_i2c_of_match);
+ 	/* Read the old PVID exclusively to undo in case of error */
+ 	ret = rtl8365mb_vlan_get_pvid_mc(priv, port, &prev_vlanmc_idx,
+ 					 &prev_vlanmc);
+@@ -917,6 +1035,77 @@ undo_vlan_mc_port_set:
+ 	return ret;
+ }
+ 
++/*
++ * rtl8365mb_vlan_pvid_port_clear_direct() - Remove a port's raw-VID PVID
++ * configuration, for chip families without a working VLAN MC table
++ * (RTL8365MB_FAMILY_D)
++ *
++ * Reads back the previous frame filter first so it can be restored if
++ * clearing the PVID register fails.
++ *
++ * Context: Can sleep. Must be called with &priv->vlan_lock held.
++ * Return: 0 on success, or a negative error code on failure.
++ */
++static int rtl8365mb_vlan_pvid_port_clear_direct(struct dsa_switch *ds,
++						 int port, u16 vid)
++{
++	enum rtl8365mb_frame_ingress prev_accepted_frame =
++		RTL8365MB_FRAME_TYPE_ANY_FRAME;
++	struct realtek_priv *priv = ds->priv;
++	bool filtering;
++	u32 cur_pvid;
++	int ret;
 +
-+static struct platform_driver ma35d1_i2c_driver = {
-+	.probe      = ma35d1_i2c_probe,
-+	.driver     = {
-+		.name   = "ma35d1-i2c",
-+		.of_match_table = ma35d1_i2c_of_match,
-+		.pm = pm_ptr(&ma35d1_i2c_pmops),
-+	},
-+};
-+module_platform_driver(ma35d1_i2c_driver);
++	ret = regmap_read(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
++			  &cur_pvid);
++	if (ret) {
++		dev_err(priv->dev, "Failed to read current PVID\n");
++		return ret;
++	}
 +
-+MODULE_AUTHOR("Zi-Yu Chen <zychennvt@gmail.com>");
-+MODULE_DESCRIPTION("MA35D1 I2C Bus Driver");
-+MODULE_LICENSE("GPL");
++	/* Port is not using this VID as PVID. Nothing to remove. */
++	if ((cur_pvid & RTL8365MB_D_VLAN_PVID_CTRL_MASK) != vid)
++		return 0;
++
++	filtering = dsa_port_is_vlan_filtering(dsa_to_port(ds, port));
++
++	/* Changing accept frame is what really removes PVID. But only do
++	 * that if VLAN filtering is enabled.
++	 */
++	if (filtering) {
++		ret = rtl8365mb_vlan_port_get_framefilter(priv, port,
++							  &prev_accepted_frame);
++		if (ret) {
++			dev_err(priv->dev,
++				"Failed to get current framefilter\n");
++			return ret;
++		}
++
++		ret = rtl8365mb_vlan_port_set_framefilter(
++			priv, port, RTL8365MB_FRAME_TYPE_TAGGED_ONLY);
++		if (ret) {
++			dev_err(priv->dev, "Failed to set port frame filter\n");
++			return ret;
++		}
++	}
++
++	ret = regmap_update_bits(priv->map,
++				 RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
++				 RTL8365MB_D_VLAN_PVID_CTRL_MASK, 0);
++	if (ret) {
++		dev_err(priv->dev, "Failed to set port PVID to 0\n");
++		goto undo_set_framefilter;
++	}
++
++	return 0;
++
++undo_set_framefilter:
++	if (filtering)
++		(void)rtl8365mb_vlan_port_set_framefilter(priv, port,
++							  prev_accepted_frame);
++	return ret;
++}
++
+ /*
+  * rtl8365mb_vlan_pvid_port_clear() - Remove a port's PVID configuration
+  * @ds: dsa switch instance
+@@ -926,6 +1115,9 @@ undo_vlan_mc_port_set:
+  * Resets the target port's hardware PVID allocation to 0. Cleans up and frees
+  * the associated VLANMC entry if no other ports are referencing it.
+  *
++ * On RTL8365MB_FAMILY_D the port's PVID register is reset to 0 directly; there
++ * is no VLANMC entry to free.
++ *
+  * Context: Can sleep. Must be called with &priv->vlan_lock held.
+  * Takes and releases &priv->map_lock.
+  * Return: 0 on success, or a negative error code on failure.
+@@ -940,6 +1132,9 @@ int rtl8365mb_vlan_pvid_port_clear(struct dsa_switch *ds, int port, u16 vid)
+ 
+ 	lockdep_assert_held(&priv->vlan_lock);
+ 
++	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D)
++		return rtl8365mb_vlan_pvid_port_clear_direct(ds, port, vid);
++
+ 	ret = rtl8365mb_vlan_get_pvid_mc(priv, port, &vlanmc_idx,
+ 					 &vlanmc);
+ 	if (ret) {
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.h b/drivers/net/dsa/realtek/rtl8365mb_vlan.h
+index 27a526b..9971fb6 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_vlan.h
++++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.h
+@@ -20,6 +20,7 @@ enum rtl8365mb_frame_ingress {
+ 
+ int rtl8365mb_vlan_port_get_pvid(struct realtek_priv *priv, int port,
+ 				 u16 *pvid);
++int rtl8365mb_vlan_port_reset_pvid(struct realtek_priv *priv, int port);
+ int
+ rtl8365mb_vlan_port_get_framefilter(struct realtek_priv *priv,
+ 				    int port,
 -- 
-2.34.1
+2.53.0
 
