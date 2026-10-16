@@ -1,38 +1,39 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2158C48DB37;
-	Fri, 16 Oct 2026 18:54:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CECC49BB4E;
+	Fri, 16 Oct 2026 18:55:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792176875; cv=none; b=LJM4QfxH3+txRJRXTpfPF6i9vvzsMjIb2+ZCvMNyt1MgfEUmEpIl/2p4tBFMSRzZ9iO/gViddL0npZBieO+LijVgDW/lg/Uo/7OwQrblZCELCiYlbqQebbeSgi7ZPDnoyfhw4j04qxYtCK0srOTHZaTb6fgfg17c2qKJLsuX+u0=
+	t=1792176908; cv=none; b=MvjimQy/+G1uTc6WCLtFkoPt+d6upOOgPGw323zeKhk9oQ5VIepWwZCML/QOczIJ7prv6NTE5X+jcTWh3967qdQgyaMajLJMw7RystSi+mpxM0Kwc8Y9DqciK70BNpxEJ1IuLJU8Z+oc2UfSL3QUtI3b31aR1V1vXnswBgtoKm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792176875; c=relaxed/simple;
-	bh=ciyEfyhA6spBQY6ZMuVToaA676XbfoSfWUx5vMgli0Y=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=MGF9SkXjJnr4DwB6ZwAuXiFgmBLpf95ZY7ngtZQyyKQjdn/0GZeQOt0eCyVWQ3jFFmrDS3jLDoiRrtzhGNamwC56SoWE51HQqheJaActlkt/5xRwFwOblygJvzQi90M8Mk7JDWF1X0DSfBV4y/L53Cohtb0MAneWDg9uF9TeTBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=o7PeBeyR; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1792176908; c=relaxed/simple;
+	bh=t0omOA4J4Sy1V1uFhDZ7myYH+em1KXa3+Iu4jgoGr3g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=H0UfMArLYiWHyiNktoh8HxittlTKHu8uHN+wjTR1X4yjsAwqX4mFBmQmWECwliaupnlONFtuWJi81bsPQvY8MxJOw+AYDUdqQ908Ox+iLGLmqWc4KksCo3J/uH3EH14YZt3R0pEXHQCJW3CkSKbNjaldVzudmEPiG5JtDivaRyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=OjqalnuE; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="o7PeBeyR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=wBOZAxky3H4/ko7byjZlChAKL7qFnViXPqU4ciUaKoU=; b=o7PeBeyROM7/RNFkgjwNE3lmdU
-	A5UAFpk3OKnyyauc2duZWpWlqltbOoDCziJoxUqj62NeoYF07ko7QHzGtqh/QWzBXRg1wj5bopJlW
-	u7C7ssTwd2Qf40RAG8lWvmUzxpcL3OypdQTUEd3ZFE6essGFMlyhqrTQiV5XIXNvmGwmFiA+GguHe
-	HQMDBfISnX/kWgm7DzMVQQuFiQ1nikXFJiciVsKEmzYpoxsOB3jegcwavvym9ITjLPPaU77bUdmu+
-	sPUTFZ7y2XIRTiEIYp5CfiwcZ3En3pny89ZRhuC3K3PYt/3KnVRZaqBdYwRAdM3NbwsXB+ekZsXPr
-	5v4wg7WQ==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1xHmVn-00000007n8U-3SSW;
-	Fri, 16 Oct 2026 12:18:37 -0600
-Message-ID: <006effed-576f-4aed-b3ac-c335d8d51106@deltatee.com>
-Date: Fri, 16 Oct 2026 12:18:20 -0600
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="OjqalnuE"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 76D7B5340818;
+	Fri, 16 Oct 2026 20:55:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1792176904;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=TTXOyh0JDj7vREwVTOovWc/4Nz19Ir19Iwwl3eTjcfo=;
+	b=OjqalnuE3hYTTOn1LJMVwQ2muGmNAc4mfJ8WE7ls7Xgoc3c1nBjFThFcMPeTv6dND/iSNb
+	4jt77Y+HZ33IvgLhRVdwn3uL5wUtn4N6lSOjyKhBHTHKRFirJm+OipjhLWvP3RpghZAqF3
+	ODF+oKRUSqHbRZ0gHJyVjDq0dLeSzms=
+Message-ID: <b1a538e7-6ce5-48d2-9854-298432257db5@ixit.cz>
+Date: Fri, 16 Oct 2026 20:55:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,86 +41,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: "Popov, Pavel E" <pavel.e.popov@intel.com>,
- Bjorn Helgaas <helgaas@kernel.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Jim Chow <jim.chow@broadcom.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Radu Rugina <radu.rugina@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>, Wei Liu
- <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>,
- Lukas Wunner <lukas@wunner.de>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
- "bcm-kernel-feedback-list@broadcom.com"
- <bcm-kernel-feedback-list@broadcom.com>,
- "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20261009184923.GE11438@unreal>
- <LV2PR11MB60707DAD12BFBEAB681463B7B2922@LV2PR11MB6070.namprd11.prod.outlook.com>
- <20261011054700.GF11438@unreal>
- <LV2PR11MB60708F76EB7D6E5A40E82853B29F2@LV2PR11MB6070.namprd11.prod.outlook.com>
- <20261012162410.GH219304@unreal>
- <DS7PR11MB6064DA61339B9AB0F52EBED4B29F2@DS7PR11MB6064.namprd11.prod.outlook.com>
- <20261012182120.GJ219304@unreal>
- <DS7PR11MB60647FA80C6BE1029982222DB29F2@DS7PR11MB6064.namprd11.prod.outlook.com>
- <20261013122002.GN219304@unreal>
- <LV2PR11MB60704D89055FBC471FF81B31B29B2@LV2PR11MB6070.namprd11.prod.outlook.com>
- <20261016153147.GC219304@unreal>
- <LV2PR11MB6070D328D5E6A538DB6370B2B29B2@LV2PR11MB6070.namprd11.prod.outlook.com>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <LV2PR11MB6070D328D5E6A538DB6370B2B29B2@LV2PR11MB6070.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: add Xiaomi Mi 8 (dipper)
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260915-dipper-v2-0-cbade54919ee@ixit.cz>
+ <20260915-dipper-v2-2-cbade54919ee@ixit.cz>
+ <1a7d0385-db7c-4c44-9f26-74afa62c9109@oss.qualcomm.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <1a7d0385-db7c-4c44-9f26-74afa62c9109@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: pavel.e.popov@intel.com, helgaas@kernel.org, leon@kernel.org, jim.chow@broadcom.com, bhelgaas@google.com, radu.rugina@broadcom.com, alexey.makhalov@broadcom.com, wei.liu@kernel.org, mhklinux@outlook.com, lukas@wunner.de, rafael@kernel.org, nathan.d.ciobanu@linux.intel.com, bcm-kernel-feedback-list@broadcom.com, virtualization@lists.linux.dev, linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH 0/2] PCI/P2PDMA: Allow P2PDMA in VMware and Hyper-V guests
- on Intel hosts
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
 
 
-On 2026-10-16 10:05, Popov, Pavel E wrote:
-> Bjorn, Logan,
+On 15/10/2026 11:47, Konrad Dybcio wrote:
+> On 9/15/26 4:32 PM, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> Initial submission for one member of the prime Xiaomi Mi 8 family.
+>> Mi 8 Pro (equuleus) and Mi 8 Explorer (ursa) are nearly identical.
 > 
-> Leon's position is clear: "NAK to anything that does not fix the
-> hypervisor first". No concrete failure was described, and no change in
-> this series can address it. That leaves the decision with you. Two
-> facts: AMD guests get P2PDMA today and Intel guests do not, and HMAT
-> does not exist in Linux yet.
+> [...]
+> 
+>> + * Xiaomi Mi 8 family common device tree source.
+>> + * Covers Mi 8 Explorer Edition (equuleus), Mi 8 (dipper), Mi 8 Pro (urza).
+> 
+> 								"ursa"? ^
+> [...]
+> 
+>> +	reserved-memory {
+>> +		/*
+>> +		 * It seems like reserving the old rmtfs_mem region is
+>> +		 * also needed to prevent random crashes
+> 
+> Have you verified that with e.g. memtest=1?
+> 
+>> +		 */
+>> +		old-rmtfs@88f00000 {
+>> +			reg = <0 0x88f00000 0 0x200000>;
+> 
+> 0 -> 0x0, please
 
-Yikes, ok, I've followed some of that long discussion.
+Isn't this a bit overkill? We just +2 chars for no gain here..
 
-My first thought was this didn't seem as big an issue as it seemed
-because if someone explicitly tries to do a P2PDMA transaction inside a
-VM and it fails because the IOMMU blocks it, then they just get a noisy
-error and they shouldn't enable P2PDMA. Except...
+> 
+> [...]
+> 
+>> +&tlmm {
+>> +	gpio-reserved-ranges = < 0 4>, /* SPI (Goodix Fingerprint) */
+> 
+> drop the leading space inside the value
 
-It looks like the dma-buf paths will enable P2PDMA unconditionally if
-the test in question allows it, without anything the user needs to do to
-enable it. I think that was probably a huge mistake but I guess we have
-to live with that now. It means enabling new hardware with rules like
-this is risky. It means even adding a global rule for Intel like AMD is
-risky too. (Although, *maybe* eight years after I first added this code,
- we can say that the vast majority of Intel CPUs support it, in which
-case the dangers here are overblown -- but can we say that? What about
-atoms and the like? Would the rule need to be complicated by a big model
-list? These questions are why this has never happened.)
+dropped, but added space before the comment so it aligns for better readability..
 
-So I'm inclined to agree with Leon now that accepting this patch as is
-may introduce some problematic risks. For now, maybe we need a kernel
-command line argument that can explicitly enable an endpoint or
-something like that so users that want to try it on VMware or wherever
-can do so without needing to build a custom patched kernel.
+David
 
-I wish we could revisit the decision for dma-buf to use it without any
-users explicitly asking for it. But I don't know what the correct path
-forward is. If we can agree on a bulk rule for enabling Intel CPUs that
-might be a good compromise, but I'm uncertain if that is even possible.
-
-Logan
-
+> 
+> Konrad
 
