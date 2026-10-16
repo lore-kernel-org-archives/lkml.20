@@ -1,227 +1,143 @@
-Received: from mta1.migadu.com (out-253.mta1.migadu.com [95.215.58.253])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD99D1FF5E3
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:30:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.253
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE68B29BDBF;
+	Fri, 16 Oct 2026 03:31:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792121461; cv=none; b=ccgDfpnjjO6vlJW8qmawnsGcnFSPSMz3UvrmXITR/JgnjLtYlA85DJVATalsRY0lUS85a47Kkh9ko2Py5Dwfc1jGpSN/EqXaEhkkamB6G7L6wG1xOZAMqSqcoNzyXtJJOD5zXqKgi5PBe3cRI/D2wQ17c6qYjRa/U4cyNU7DeF0=
+	t=1792121498; cv=none; b=YsTB4GmIF0ogp/wSEfmPpfB+2e4CLdvK78pTwtVNV3Hq9TUAsKsq3WAQmcUQ6y16GKBTC5/PDGLm41CXpQzRKnukBXU+eHmHdpzT40Y/ojyWscg+wl766D9eHHlhvMwRZkRl9ywBBEE/K7k6HtRKvoPcIiR7aaBIlNPeO/sTHeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792121461; c=relaxed/simple;
-	bh=UuPBc3LRsWbAd4egcVpTfpxrv4fiEWFXnS5VgV5rga8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NobTbxJuuZHeELypcintefaCFSbSZ6ROBTTH5uieFb9TL3Usz/Qgk9AIQpG8Y2+utv7X5HgNGC2oii+Q13I4Ps0dWgaJCsHqZHOl/pMRWI1sK1gW7mC/hpZtdWm383Vuzv+IAIWrgk+cO3JFK9Ix3GIR8QTcWYI84suYvKHmjSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tUsYPxz1; arc=none smtp.client-ip=95.215.58.253
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792121498; c=relaxed/simple;
+	bh=6Pnkji9+C3LHn1Eo3bFDJpcSdQKou14K0FEREsN4rXk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=o3MotAy3/w6L9nlWYVBbbxdFQJw1XliB4Srga28vZjivlda6m+S58ldwU8OuIBh3JkXqO4MoB8KL/vvInaSlllzZKDS+EQhVe4X3z/RONlKxmXApy6Dxn3905DUKFktHFKnBjqZdCa76hjLSJ0dSystB5Y6bS6Wo2LhzhmiIj2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H6ij9QUk; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tUsYPxz1"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=UuPBc3LRsWbAd4egcVpTfpxrv4fiEWFXnS5VgV5rga8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792121457; v=1; x=1792726257;
- b=tUsYPxz1taAWGICGaHkh76UH6SsAIJC+Jbb/cGOr0LfnC7pQ62P2k48Ngu5N+Ueq4hgxmWFT
- bTzi2E+/23dOy/wTI7yx4IhJPv5fuRGduU+2iiP4lEtvq4E/RZjjvzkra+G8ZqdbQKGvKGf6iNF
- b5ipZ8iturK3zdJe9GrXOIns=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 665f0c2d48d1a662;
-	Fri, 16 Oct 2026 03:30:57 +0000
-X-Mizu-Trace-ID: 665f0c2d48d1a662
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <497db854-17ba-47ae-a9e0-8f1dacb0b205@linux.dev>
-Date: Fri, 16 Oct 2026 11:30:47 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H6ij9QUk"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 86C13C2BD00;
+	Fri, 16 Oct 2026 03:31:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792121498;
+	bh=6Pnkji9+C3LHn1Eo3bFDJpcSdQKou14K0FEREsN4rXk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=H6ij9QUk1EZSg+MO/cCTArfVkhAOFQwNuVFgYmaw0T0aWxUy5zakdHZgYo4NeqIW2
+	 BTFS2Ixu+3qmnvsQ2Eyds40j29XK6eZLLZCL2ALrutkx1GmoCMZhyXcdCqy8cr8VfK
+	 8VgM00JX33BpzDPB5mLvLf441dWeKI2gYu+NYCkGZKCFIU9sUygFd4d1QyQsy+Ci18
+	 ckgZdjsXZfV5vE9DOYSB9q5lHOIBt2v6YoHPTm0d7KsUchusjCiThbfbmzowU8SkH9
+	 4cqaBOF62ZcIyTqs7Zi0Azor7fv9JY7dv04r0nITuas8amXfrL3RyHHiO40mVz/ypw
+	 9Xs7v8EeQlQ6Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6ADCECCA46C;
+	Fri, 16 Oct 2026 03:31:38 +0000 (UTC)
+From: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>
+Date: Thu, 15 Oct 2026 20:31:37 -0700
+Subject: [PATCH net-next v4 2/2] net: annotate lockless writes to
+ sk->sk_err
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v3 6/9] cgroup/cpuset: Don't allow a child root
- partition under an isolated parent
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Randy Dunlap <rdunlap@infradead.org>
-Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Hui Peng <benquike@gmail.com>
-References: <20261014140548.575122-1-longman@redhat.com>
- <20261014140548.575122-7-longman@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261014140548.575122-7-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-tls-fix-sk-kcsan-err-v4-2-391d788327f3@proton.me>
+References: <20261015-tls-fix-sk-kcsan-err-v4-0-391d788327f3@proton.me>
+In-Reply-To: <20261015-tls-fix-sk-kcsan-err-v4-0-391d788327f3@proton.me>
+To: John Fastabend <john.fastabend@gmail.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Jakub Sitnicki <jakub@cloudflare.com>, 
+ Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792121497; l=2452;
+ i=quanyeyang@proton.me; s=20260801; h=from:subject:message-id;
+ bh=xhyr/APrQP/DN3UvFtImVGyApw1ErZ/6ymmTvs2y5mo=;
+ b=CXBCdVyhtyWn/0xpLp3zsnaOxdBxRg2WPxaEYq6Vk+ZZoX/BNlI9IBijWfcr6oI63qPVIj6j4
+ ybX52q7LCWQBwrYh1cFLgnUbkD0bZeBINaQUmoOtvACXVyHT+lvduD0
+X-Developer-Key: i=quanyeyang@proton.me; a=ed25519;
+ pk=9L9FrcvzMgxPaBRU6XV0EnqTgjDqVO596rQKSZ9qZoY=
+X-Endpoint-Received: by B4 Relay for quanyeyang@proton.me/20260801 with
+ auth_id=963
+X-Original-From: Quanye Yang <quanyeyang@proton.me>
+Reply-To: quanyeyang@proton.me
 
+From: Quanye Yang <quanyeyang@proton.me>
 
+do_recvmmsg() and getsockopt(SO_ERROR) clear sk_err with xchg()
+without the socket lock. TCP, MPTCP and kTLS already peek the same
+field with READ_ONCE() or consume it via sock_error().
 
-在 2026/10/14 22:05, Waiman Long 写道:
-> Although it is not typical for real users to create a complicated nested
-> partition hierarchy, it is currently allowed to create nested root and
-> isolated partitions. In addition, disabling or invalidating a partition
-> should always be allowed especially when the cpuset is being deleted.
-> 
-> With a nested root and isolated partition hierarchy, it is possible
-> that all active housekeeping CPUs can be exhausted when disabling or
-> invalidating a root partition and returning its CPUs to the isolated
-> parent.
-> 
-> One way to avoid this problem is to disallow the creation of a root
-> partition under an isolated parent. It is indeed a new limitation imposed
-> on the existing cpuset partition functionality. However an isolated
-> partition is usually a left node where scheduling and some other kernel
-> noises are disabled. It doesn't make much sense to create a child root
-> partition under an isolated parent and remove some CPUs from the set
-> of isolated CPUs again. Creation of a child isolated partition under a
-> root or isolated parent is still allowed.
-> 
-> The cgroup-v2 documentation is also updated to reflect this new
-> limitation. New test cases are added to test_cpuset_prs.sh to verify
-> this new behavior. Some existing test cases are also updated accordingly.
-> 
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->  Documentation/admin-guide/cgroup-v2.rst           |  4 +++-
->  kernel/cgroup/cpuset-internal.h                   |  1 +
->  kernel/cgroup/cpuset.c                            | 13 +++++++++++++
->  tools/testing/selftests/cgroup/test_cpuset_prs.sh | 14 ++++++++------
->  4 files changed, 25 insertions(+), 7 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-> index bd8c80f3bbc9..2c445829e24d 100644
-> --- a/Documentation/admin-guide/cgroup-v2.rst
-> +++ b/Documentation/admin-guide/cgroup-v2.rst
-> @@ -2767,7 +2767,9 @@ Cpuset Interface Files
->  	be retained, but behaves more like a "member".
->  
->  	All possible state transitions among "member", "root" and
-> -	"isolated" are allowed.
-> +	"isolated" are allowed with the exception that a local child
-> +	"root" partition is not allowed to be created under an "isolated"
-> +	parent partition.
->  
->  	On read, the "cpuset.cpus.partition" file can show the following
->  	values.
-> diff --git a/kernel/cgroup/cpuset-internal.h b/kernel/cgroup/cpuset-internal.h
-> index 5da9c91295b0..2e44dc8634dc 100644
-> --- a/kernel/cgroup/cpuset-internal.h
-> +++ b/kernel/cgroup/cpuset-internal.h
-> @@ -35,6 +35,7 @@ enum prs_errcode {
->  	PERR_HKEEPING,
->  	PERR_ACCESS,
->  	PERR_REMOTE,
-> +	PERR_ISOPARENT,
->  };
->  
->  /* bits in struct cpuset flags field */
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 40c004386af0..681701ba46e1 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -60,6 +60,7 @@ static const char * const perr_strings[] = {
->  	[PERR_HKEEPING]  = "partition config conflicts with housekeeping setup",
->  	[PERR_ACCESS]    = "Enable partition not permitted",
->  	[PERR_REMOTE]    = "Have remote partition underneath",
-> +	[PERR_ISOPARENT] = "Root partition is not allowed with isolated parent",
->  };
->  
->  /*
-> @@ -2865,6 +2866,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->  	int err = PERR_NONE, old_prs = cs->partition_root_state;
->  	struct cpuset *parent = parent_cs(cs);
->  	struct tmpmasks tmpmask;
-> +	int parent_prs = parent->partition_root_state;
->  	bool isolcpus_updated = false;
->  	bool disable_partition = false;
->  
-> @@ -2910,6 +2912,14 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->  			enum partition_cmd cmd = (new_prs == PRS_ROOT)
->  					       ? partcmd_enable : partcmd_enablei;
->  
-> +			/*
-> +			 * It is not allowed to create a root partition under
-> +			 * an isolated parent partition.
-> +			 */
-> +			if ((new_prs == PRS_ROOT) && (parent_prs == PRS_ISOLATED)) {
-> +				err = PERR_ISOPARENT;
-> +				goto out;
-> +			}
+sock_dequeue_err_skb() still uses plain stores. tcp_recvmsg() can
+call it via MSG_ERRQUEUE before lock_sock(), so those writes race
+with the annotated readers and with sock_error(). The same unmarked
+stores exist in strp_abort_strp() and sk_psock_report_error(), which
+run on the TCP/TLS socket.
 
-I tested the following case. Writing root initially leaves C invalid, but
-updating its cpuset.cpus makes it valid again.
+Annotate those writers with WRITE_ONCE(). No extra ordering is
+needed; this does not change who wins when ICMP error-queue entries
+overwrite sk_err.
 
-CPUs 0-15 are online, with nohz_full=2-15 and no isolcpus:
+Link: https://lore.kernel.org/netdev/3d9d442f-f168-43da-87b0-010ad5a78365@redhat.com/
+Signed-off-by: Quanye Yang <quanyeyang@proton.me>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+---
+ include/linux/skmsg.h     | 2 +-
+ net/core/skbuff.c         | 5 +++--
+ net/strparser/strparser.c | 2 +-
+ 3 files changed, 5 insertions(+), 4 deletions(-)
 
-    # cd /sys/fs/cgroup
-    # echo +cpuset > cgroup.subtree_control
-    # mkdir A
-    # echo 1-2 > A/cpuset.cpus
-    # echo isolated > A/cpuset.cpus.partition
-    # echo +cpuset > A/cgroup.subtree_control
-    # mkdir A/C
-    # echo 1 > A/C/cpuset.cpus
-    # echo root > A/C/cpuset.cpus.partition
-    # cat A/C/cpuset.cpus.partition
-    root invalid (Root partition is not allowed with isolated parent)
-    # echo 1-2 > A/C/cpuset.cpus
-    # cat A/C/cpuset.cpus.partition
-    root
+diff --git a/include/linux/skmsg.h b/include/linux/skmsg.h
+index d5e35f24738d..52ce45f25f5a 100644
+--- a/include/linux/skmsg.h
++++ b/include/linux/skmsg.h
+@@ -429,7 +429,7 @@ static inline void sk_psock_report_error(struct sk_psock *psock, int err)
+ {
+ 	struct sock *sk = psock->sk;
+ 
+-	sk->sk_err = err;
++	WRITE_ONCE(sk->sk_err, err);
+ 	sk_error_report(sk);
+ }
+ 
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index d56f4f0102f7..a6c9cf57bc3b 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -5539,12 +5539,13 @@ struct sk_buff *sock_dequeue_err_skb(struct sock *sk)
+ 	if (skb && (skb_next = skb_peek(q))) {
+ 		icmp_next = is_icmp_err_skb(skb_next);
+ 		if (icmp_next)
+-			sk->sk_err = SKB_EXT_ERR(skb_next)->ee.ee_errno;
++			WRITE_ONCE(sk->sk_err,
++				   SKB_EXT_ERR(skb_next)->ee.ee_errno);
+ 	}
+ 	spin_unlock_irqrestore(&q->lock, flags);
+ 
+ 	if (is_icmp_err_skb(skb) && !icmp_next)
+-		sk->sk_err = 0;
++		WRITE_ONCE(sk->sk_err, 0);
+ 
+ 	if (skb_next)
+ 		sk_error_report(sk);
+diff --git a/net/strparser/strparser.c b/net/strparser/strparser.c
+index 9c1559d7923f..5f1da32b152f 100644
+--- a/net/strparser/strparser.c
++++ b/net/strparser/strparser.c
+@@ -56,7 +56,7 @@ static void strp_abort_strp(struct strparser *strp, int err)
+ 	strp->need_bytes = 0;
+ 
+ 	/* Report an error on the lower socket */
+-	sk->sk_err = -err;
++	WRITE_ONCE(sk->sk_err, -err);
+ 	sk_error_report(sk);
+ }
+ 
 
-C becomes a valid root partition.
+-- 
+2.55.0
 
-Thanks,
-Guopeng
-
->  			err = update_parent_effective_cpumask(cs, cmd, NULL, &tmpmask);
->  		} else {
->  			err = remote_partition_enable(cs, new_prs, &tmpmask);
-> @@ -2922,6 +2932,9 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->  		if (prstate_housekeeping_conflict(new_prs, cs->effective_xcpus)) {
->  			disable_partition = true;
->  			err = PERR_HKEEPING;
-> +		} else if (parent_prs == PRS_ISOLATED) {
-> +			disable_partition = true;
-> +			err = PERR_ISOPARENT;
->  		} else {
->  			isolcpus_updated = true;
->  		}
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index 874a8a161236..85a4f87840b4 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -288,16 +288,12 @@ TEST_MATRIX=(
->  								       A1:P0|A2:P1|A3:P0|B1:P1"
->  	"   C0-3    C1-3   C3     C4    X2-3  X2-3:P1   P2     P1    0 A1:0-1|A2:2|A3:3|B1:4 \
->  								       A1:P0|A2:P1|A3:P2|B1:P1 2-4|3"
-> -	"   C0-4    C1-4  C2-4     .    X2-4  X2-4:P2  X4:P1    .    0 A1:0-1|A2:2-3|A3:4 \
-> -								       A1:P0|A2:P2|A3:P1 2-4|2-3"
-> -	"   C0-4    C1-4  C2-4     .    X2-4  X2-4:P2 X3-4:P1   .    0 A1:0-1|A2:2|A3:3-4 \
-> -								       A1:P0|A2:P2|A3:P1 2"
->  	" C0-4:X2-4 C1-4:X2-4:P1 C2-4:X4:P2 \
->  				   .      .      X5      .      .    0 A1:0-4|A2:1-4|A3:2-4 \
->  								       A1:P0|A2:P-1|A3:P-2 ."
-> -	" C0-4:X2-4 C1-4:X2-4:P2 C2-4:X4:P1 \
-> +	" C0-4:X2-4 C1-4:X2-4:P1 C2-4:X4:P2 \
->  				   .      .      .      X1      .    0 A1:0-1|A2:2-4|A3:2-4 \
-> -								       A1:P0|A2:P2|A3:P-1 2-4"
-> +								       A1:P0|A2:P1|A3:P-2 ."
->  	" CX1-3:P1 CX1-3  CX1-3    .      .      .      P1      .    0 A1:1-3|A2:1-3|A3:1-3 \
->  								       A1:P1|A2:P0|A3:P-1"
->  
-> @@ -430,6 +426,12 @@ TEST_MATRIX=(
->  	# cpuset.cpus can become empty with task in it as it inherits parent's effective CPUs
->  	"   C1-3    C2      .      .       .    T:C     .      .     0 A1:1-3|A2:1-3"
->  
-> +	# Creation of root partition under an isolated partition is not allowed
-> +	"  C1-3:P2  C2      .      .       .     P1     .      .     0 A1:1-3|A2:2 A1:P2|A2:P-1 1-3"
-> +	"  C1-3:P2  C2      .      .       .     P2     .      .     0 A1:1,3|A2:2 A1:P2|A2:P2  1-3"
-> +	"  C1-3:P2 C2:P2    .      .       .     P1     .      .     0 A1:1-3|A2:2 A1:P2|A2:P-1 1-3"
-> +
-> +	#
->  	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
->  	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
->  	# Failure cases:
 
