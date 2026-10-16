@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A92351C22;
-	Fri, 16 Oct 2026 17:49:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54AE6595753;
+	Fri, 16 Oct 2026 17:49:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792172996; cv=none; b=CPE0o9pbJBCvXkCOmfJtUEKXlgPU+u4c9IiLRzLHwNG1xcUiyYJJbI/pXv7jlNr8bsYHondFBljv015wuZFuoh0RjLv+G2Rx6t5zRO0TSj3/byQxaHJ9x/DPoRSxF9Dc4qbPECXoClt1et65YxNsQGRVnTQztVPUnEWr0SRw16o=
+	t=1792172998; cv=none; b=NdULRdsQsDbXbSc66zT2Kp0PsBdnHIWfP6jnsd64m96VA4uQUElPYkf1y03WmYeI1XuMOdTKn2CZCHA0O8GiWhdW5EgQm2JjSiTeILT4R5E938JE6pDCAnXvEwSI+GGDpUzyEf37GFLHgioEJBptmUNVt3jlNIkAXpfIo2YQcDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792172996; c=relaxed/simple;
-	bh=pSjLH/yCCSHdG0Q0bwai3AqjRZ9jkiTSV8uBDnc3gXI=;
+	s=arc-20240116; t=1792172998; c=relaxed/simple;
+	bh=TCWVUYgdfhbIPGqiAJQj4pVR70VsU88wzgjT23wv86c=;
 	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Jc7D1rTkgPQlGXOvWYkycXESEDUEwVmmKdze6B5z8eMi657gBwVf96LUN9kHdWb606L0cSUbuib3Pau6lE6jVtFnJrFIWrv3nqD4gA+LytYcR1csO3T13xbX17V6nz3WTIo8aeIJijAviCNBlyGWYVlDVwT55hBC/4nZ3Fbnhfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ASrX+V+r; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=sY4y3gS0QYS2kuVopmClBLOejMIEkeMDpFEkfEU+AFaWBtYz/YKM5jceuYENovC2hqrLe6e9h49d1pEQBAI7LtQtAWSqWoXPydgFzMeM8k/WsnYoCt1s8E6E2TZHWbQ/jfrEJB39770rA6oXfGP7WYoD0roqNWPAuQ99QtgShxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bLI/OXrx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ASrX+V+r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1C061F000C4;
-	Fri, 16 Oct 2026 17:49:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bLI/OXrx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53581F000C4;
+	Fri, 16 Oct 2026 17:49:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792172995;
-	bh=Scc1AGhB29157GeRJcHiefY3d5MyZEp2mObT10hnnsA=;
+	s=k20260515; t=1792172997;
+	bh=B4PeTj6Q0POYPtLt1HzphkMNewcTU33h3r/eSaBZD/4=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ASrX+V+rmd6/XwyA84tCS5FlqWwc+hXVrD0Huu63PmGOXLxfDhjt68L0/blD2xPUd
-	 5qasWlLgw1w5Xu3PJuXIcMZSFKUP5t73C06itsOC1WNl2p0bEyj8Gh+tLcx70nC78B
-	 mkFf8F6d+p0kDh61iyIyPcOJY5wgPzQ/TzivAE4nNABVBbhVG0tunc8RfpmsjkCJTq
-	 agdV4BjDLZCmleYeB0cSghOxWpfLi9GJWci+SyBc3fzdb7BFloZu7tqOwvf3LBezeL
-	 8sW2FrbkAa6M5wWoTeMySDLdDVTuT28bU0L4squl+zwituJQRnbopLtXSFfjNiw6JJ
-	 hKBB+6aEPmC9Q==
-Date: Fri, 16 Oct 2026 07:49:54 -1000
-Message-ID: <20e2b2a51fd97292add8d8e527b14a45@kernel.org>
+	b=bLI/OXrx0Izfx9V+ePEEkOXECvkM+38aGifuQhkC/VDidNJpo4e1h720dIXeWGX0c
+	 gobz+OGX8YJmx6VkvS/mtXG0PD1AsAN6AOFd8fFo3UaIA/qxLoaQHQr5cPZY5twgKH
+	 vV9nISidLZg9vb9DtN8iAFEZPzawqdjfwMjjxOZg1K/sAwii0m3F0OCIXzyTW8xW8m
+	 Ex1GCQXwALB7S43zT2BzBBo4sznoUloG/3DjDaun/FUUQisMt9WmwYokbkEKF69pmb
+	 Jk1NFfnT2qvSmnndiWCgFgz2kFu9tBsR90BAGp7FAoVxJ0uzmL3yfSRUuSQxLdzwGo
+	 e1vFPFvChfZJw==
+Date: Fri, 16 Oct 2026 07:49:56 -1000
+Message-ID: <47611e3e8a2bfbdce1dfd9a1fe2c5019@kernel.org>
 From: Tejun Heo <tj@kernel.org>
 To: Tao Cui <cui.tao@linux.dev>
 Cc: josef@toxicopanda.com, axboe@kernel.dk, cgroups@vger.kernel.org,
@@ -36,10 +36,10 @@ Cc: josef@toxicopanda.com, axboe@kernel.dk, cgroups@vger.kernel.org,
  daniel@iogearbox.net, linux-kselftest@vger.kernel.org,
  Tao Cui <cuitao@kylinos.cn>, ameryhung@gmail.com,
  alexei.starovoitov@gmail.com
-Subject: Re: [RFC PATCH v10 0/4] blk-iocost: add BPF struct_ops cost model support
-In-Reply-To: <a3dfbc2d-8580-478c-8189-3794d49aee11@linux.dev>
+Subject: Re: [RFC PATCH v10 2/4] selftests/bpf: add iocost cost model test
+In-Reply-To: <20261003124045.1289305-3-cui.tao@linux.dev>
 References: <20261003124045.1289305-1-cui.tao@linux.dev>
- <a3dfbc2d-8580-478c-8189-3794d49aee11@linux.dev>
+ <20261003124045.1289305-3-cui.tao@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,28 +51,47 @@ Content-Transfer-Encoding: 7bit
 
 Hello, Tao.
 
-On Thu, 15 Oct 2026 20:00:20 +0800, Tao Cui wrote:
-> When you have a chance, could you take a look at this series? I'd
-> appreciate your thoughts on whether the implementation still matches
-> what we discussed, or whether it has drifted somewhere along the way.
+On Sat, 03 Oct 2026 20:40:43 +0800, Tao Cui wrote:
+> +	dev = getenv("IOCOST_TEST_DEV");
 
-The behavior matches what was discussed, but the implementation needs a
-lot of cleanup, and there are bugs in the detach path and the
-iocg_init()/iocg_free() pairing. Details are in the replies to the
-patches.
+Nothing in the tree sets IOCOST_TEST_DEV, so both tests always skip in CI.
+The null_blk instance the v11 removal test creates could serve these two
+as well.
 
-> Sashiko flagged a possible ABBA between the BPF paths and
-> ioc_cost_model_write(): attach/detach take the queue freeze before
-> q->rq_qos_mutex, while the cost-model write holds rq_qos_mutex across
-> its freeze. That is indeed the current ordering, but I don't think this
-> can deadlock because the queue freeze is a depth counter
+> +		if (ASSERT_OK(err, "readback"))
+> +			ASSERT_EQ(strcmp(model, "bpf"), 0, "model_bpf");
 
-The attach and detach order matches ioc_qos_write(). The reverse order in
-ioc_cost_model_write() predates this series and is better fixed
-separately. An earlier attempt to convert it ran into blk_iocost_init()'s
-percpu allocation under the freeze:
+ASSERT_STREQ() prints both strings on failure.
 
-  https://lore.kernel.org/all/aV5OwAvw1sRF1IW1@fedora/
+> +		bpf_link__destroy(skel->links.iocost_2x);
+> +		/* cleared, or the skeleton destroy below detaches again */
+> +		skel->links.iocost_2x = NULL;
+
+Without clearing, the skeleton destroy would call bpf_link__destroy() on
+the freed link. It wouldn't detach again.
+
+> + * The cursor handling follows the builtin: a zero cursor means "no
+> + * previous IO", and the cursor is advanced for bios the builtin
+> + * prices (READ/WRITE with a non-zero size; the builtin skips the
+> + * whole update when the cost is zero), so flushes and discards
+> + * leave it alone and long merged streams do not drift past the
+> + * 16MB seek threshold.
+
+The model advances the cursor for every merged READ or WRITE bio.
+ioc_rqos_merge() only moves it on a back merge into the request ending at
+the cursor, so a front merge leaves the builtin's cursor alone and moves
+the model's.
+
+> +	} else {
+> +		base = randio;
+> +		for (i = 1; i < NSLOTS; i++) {
+> +			if (s->stamp[i] < s->stamp[victim])
+> +				victim = i;
+> +		}
+
+A merged bio which matches no slot, e.g. a front merge or a merge into
+another stream's request, takes the LRU slot and can evict a live stream.
+Maybe skip the slot replacement for IOCOST_COST_F_MERGE?
 
 Thanks.
 
