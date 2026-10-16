@@ -1,118 +1,612 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB62443C32;
-	Fri, 16 Oct 2026 07:55:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE1D427A04
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:56:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792137352; cv=none; b=tV5Kii1kbRPMq7hCqOJufArcuKVAGDmAeiXwiX8OfbKVLwIUU9/e9yHdb86oEB5ZIN4qxRzjZE36Zmt+WRBtOUoztoqEdO+sA8JcddljM6+3fNyeM0nw9BSrhloUn/sWya37pP6EcEIZJCXR3Rtc8r+rhbrYjoGjjwdueUffCHc=
+	t=1792137367; cv=none; b=YOPnH1uypo0sW5oTGGAQFmf9SmEevCbcNd3kbb15WRQ39TFCjclANEF5pYcp7DvoAOfJHrJaX051Q7zwesb0HNgC/K6cKBiRWobIyeo/8erlPX4CtzHpqXTjqqM7V3Z8LWXfsiCj2Nj97piRISV4op1P4SfhqrLjmUNGGTEobxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792137352; c=relaxed/simple;
-	bh=bbXnBjOMLoUFMUW/PbmA12pnO04WnrRGpNpDsUHGWE8=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=Bw18H+I/8w+2UQpBMMFoQu1WlynroDU67ZySjSGgYQBzrj9Qg4/UwMiHtsgQwFviKFlXhmIqf87+dp6CZ6BQ/SlyHKdgsMb5rDlULJKulG+TwZCJYS017LXIuch2V4QpIozgBbVJkzEU/xCKxQMsF12X5DIeqo2SNiPrd9xN4gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NwrH0AcT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792137367; c=relaxed/simple;
+	bh=YY02RYmzlctWYbi8Z98FXbCufHs9ncKLGVjQzT6f/sg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QQJEexz4T49/hZvaVfnAIqtcdZtCj33jm41Aw8Hi2ggltEkBBuJzU2vFzeTUz3yxJLLqFPYNejrU2dPOtOcOSFanrDn++8pHvaAKSnd3ym4jLiX/it9wbunkKez8w/dsJWggmeFZ+8W9QG/cYw9rFD3sc14Rio2LhADw/6p7P/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nFjg8lDy; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NwrH0AcT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 092881F000C5;
-	Fri, 16 Oct 2026 07:55:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792137349;
-	bh=KCKGc1h3JuJ4XsRCss0FTfTKjcZRv6QTRQ+XtcBdPNA=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=NwrH0AcTPiVX5vUvCVczRIw4WfrsxvozuDI0Gn5OuBTjM6wESPqJg50kAL5Gz41w1
-	 VFzhaNnMpy6zfPMqtjQv0s9oRcC3XMJb6dNMOz0DD8ANIHkHo5PNJsS+iuScc3WXip
-	 5OqkowMfjyzWwYnPtstJGHF2wizwg70s/TxL4/PmlhCPwsn5JTY7P5JMuGTmfq1UUc
-	 dqg/iXoubZlla1oO8/wXpWKPv6FRMjVnqKAGaxDcs2/i16m6RWbd5tzvdx1is5n/Hr
-	 K8OAqkjkjtNG6epXDHiEgYcTfas0jtMxseJF1J1v7+Wdb1oJTzgMs4wKlmcLinWuis
-	 Ny869A5cn941w==
-Content-Type: multipart/mixed; boundary="===============8960242286083874251=="
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nFjg8lDy"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38759bcd877so3893529a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:56:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792137364; x=1792742164; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WHoKEPSgyjuENflT+gbuIW/qC9fxu2f2Qkt2GoXBoJs=;
+        b=nFjg8lDyKyxo3ljzK94jvxiEc1r7Cpm9EWs5KaPWpDRn4DaVaSk8Nh+c2WGivk7tZU
+         TiK5uiWMWNtlX7hCe4LcqZlRj+o8BPRfA9p78t5q8S1dRmmsHKdnYBLBp4IuYf0Iv60I
+         t6/58xIoZodVA0GTUE1o7i9H4xd2umDVDN1WQhLnAIqAYYcjkGzGl86avZSRVP5ZgG82
+         ICs9OyM9f6SMxA+Rkr0caEI8xVnWowqSA/drLW7KxfaLPFSoBCJQRXmNYEp9AV6hHKMq
+         lmrq7E9jCnP232n3uTC/ZxiX9z8gpo/qh0Tr8OOFFAiUyZVkTApMmwV1YMwR9OaJBSlG
+         sM2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792137364; x=1792742164;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WHoKEPSgyjuENflT+gbuIW/qC9fxu2f2Qkt2GoXBoJs=;
+        b=zJQF1HOcj9Nb6mbVbjohJPtIfnuC9VoZIhW+WqcEHdhbGxojeRpGatvM7p+93FZnJd
+         6w+IPzE1CxSljzPCc/7jewbURUd0i/msKks49btsyEZiEOnx9swEYerWyDCMSbsa38Gv
+         JWLJ5g+58L5SaAZWxneteOFb6CEj5dcFg8jaEtiFlo08UKo+jNEChyM1MrVFg0cdap19
+         RJKlOZohr4Y25yi/MHYoMpsm84c9H4tDtP/MiEBwoAoKJ6drQZdSh6BgykSWA1ZTE8P6
+         01YFNU2bPV3FJOTSMcQQYYE6TeNOD7MmDkAXMEk2eWzb/HYys3akOeFvObCw6ynCBMM3
+         T9rA==
+X-Forwarded-Encrypted: i=1; AKwUvBxiQYpffgI9yljKzxdMVuSJcZU5ZpW6p5hOef+VnbeQNlUS54cTJ92+iVpFGkZHwA0btQ0gr6pNIvPAYQM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL6D4JxmMVLdn9e5PAzwOBfKbvkKmExXOSZcwzASuyBZAvQ6pyG
+	cU9agu4YY9MSX9FYWkJYI8EVSTLNsXTNxf+b6kKIwApR5z26scP082Z1
+X-Gm-Gg: AYBFou2hJ+xUdEKm83NK2sT/3mD+xcvj5+y/GBuY4y1vdFwoLQ5Ot2q9Zztkrj2VpG5
+	6NHdOQxrrnQAYtmtGJx31YDn/QwnsSCKFLtb76mbbUM46zLc6+eyf7Px3IbIbY2KXikjjODgnAU
+	3fg/n6S+Pkty1MkelMB5o7fIlIfZDkTwYr3e5DduaC2DtNwY78UmGnBtGI6w4VO21o7qxlDo4dc
+	0nYKJ6KaHnLCQW7caR9jhMdxYsS2zt6cre+Fl+6y1IZLy/flHJEHaTgM1ypT4f6ICTZSt3XP93F
+	utOk0cQoVGLySHQm3OxPM0IMjJuYTTAw6xzMJYj/Mu8CQCXw4pn4IGwKYV9n6N7FOxiMqQaM6Ma
+	PJe0PVDDbQTUjOpiWl2DZN0n/+UvlJYoGJ1swow3UvpntXYvyQL3oqZ+cSAInZ11XFpU3GYrZnw
+	ob0PAt24XozHF0WRo9lKLb+6+s7Wr9XpnkRhCVCnzJhVKbk15FM2VdckKoh9BmnH81mAITnkeSp
+	CFdUA==
+X-Received: by 2002:a17:90a:c2c8:b0:3ac:a11a:7c84 with SMTP id 98e67ed59e1d1-3aca11a7d98mr3745447a91.65.1792137363931;
+        Fri, 16 Oct 2026 00:56:03 -0700 (PDT)
+Received: from morefine ([14.137.238.143])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549fb561sm703847a12.23.2026.10.16.00.55.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 00:56:03 -0700 (PDT)
+From: Changbin Du <changbin.du@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	David Laight <david.laight.linux@gmail.com>,
+	Changbin Du <changbin.du@gmail.com>
+Subject: [PATCH v5] perf bench: Add atomic operations benchmark
+Date: Fri, 16 Oct 2026 15:55:52 +0800
+Message-ID: <20261016075552.1759260-1-changbin.du@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <1b0e8ca62af5ba9b15ad83c3f4a2e78f0c50e17adf28cb7979a4c8f8ad6294a8@mail.kernel.org>
-In-Reply-To: <20261016070837.440748-2-ankur.a.arora@oracle.com>
-References: <20261016070837.440748-2-ankur.a.arora@oracle.com>
-Subject: Re: [PATCH v16 01/16] asm-generic: barrier: Add smp_cond_load_relaxed_timeout()
-From: bot+bpf-ci@kernel.org
-To: ankur.a.arora@oracle.com,linux-kernel@vger.kernel.org,linux-arch@vger.kernel.org,linux-arm-kernel@lists.infradead.org,linux-pm@vger.kernel.org,bpf@vger.kernel.org
-Cc: arnd@arndb.de,catalin.marinas@arm.com,will@kernel.org,peterz@infradead.org,akpm@linux-foundation.org,mark.rutland@arm.com,harisokn@amazon.com,cl@gentwo.org,ast@kernel.org,rafael@kernel.org,daniel.lezcano@kernel.org,memxor@gmail.com,zhenglifeng1@huawei.com,xueshuai@linux.alibaba.com,rdunlap@infradead.org,david.laight.linux@gmail.com,broonie@kernel.org,boris.ostrovsky@oracle.com,ashok.bhat@arm.com,ankur.a.arora@oracle.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri, 16 Oct 2026 07:55:46 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============8960242286083874251==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Add a new 'atomic' collection to perf bench for benchmarking
+atomic read-modify-write operations with multi-threaded
+contention testing. It provides two subcommands:
 
-> asm-generic: barrier: Add smp_cond_load_relaxed_timeout()
+  - atomic cas: contended compare-and-swap operations
+    (__atomic_compare_exchange_n)
+  - atomic inc: contended fetch-add operations (__atomic_fetch_add)
 
-TL;DR: Nit only: the kernel-doc comment in asm-generic/barrier.h binds to the
-internal __smp_cond_load_relaxed_timeout() helper, causing a new kernel-doc
-warning; it should move above the public macro.
+Both support a configurable thread count and runtime to measure
+atomic contention effects.
 
-> diff --git a/include/asm-generic/barrier.h b/include/asm-generic/barrier.h
-> index b99cb57dfccc..ac0a8b5e0ffe 100644
-> --- a/include/asm-generic/barrier.h
-> +++ b/include/asm-generic/barrier.h
+Why this benchmark is needed:
+- Atomic read-modify-write operations are fundamental to lock-free
+  algorithms and data structures. Understanding their performance
+  characteristics under contention is critical for designing
+  high-performance concurrent applications.
+- The benchmark helps identify atomic operation latency and
+  scalability issues across different thread counts, revealing
+  contention patterns that are not visible in single-threaded tests.
+- Useful for evaluating atomic implementation quality on different
+  architectures and for regression testing after changes to atomic
+  primitives or memory ordering.
 
-[ ... ]
+Measurement methodology:
+- By default two threads contend for the counter, enough to expose
+  the contention effect; use -t to scale the count.
+- Each thread starts a private timer (clock_gettime CLOCK_MONOTONIC)
+  after synchronizing on a pthread_barrier, ensuring all threads
+  begin simultaneously.
+- Each thread performs a hot loop of the selected atomic operation
+  (compare-and-swap or fetch-add) on a shared unsigned long counter
+  for a fixed runtime. It counts its own completed operations in a
+  local variable, and the loop runs in batches so the termination
+  flag is only polled between batches.
+- The main thread sleeps for the runtime and then sets the flag; the
+  throughput of a repeat is the total operation count divided by the
+  measured wall time (the max per-thread runtime).
+- The shared counter is cache-line aligned (64 bytes) to isolate
+  contention to the target cache line and avoid false sharing.
+- The per-thread operation counts of the last repeat show whether
+  any thread failed to make progress under contention.
+- The first repeat is excluded from statistics as a warmup phase
+  to avoid cache-cold effects.
 
-> @@ -273,6 +274,115 @@ do {									\
->  })
->  #endif
->
+Example usage:
+  $ perf bench atomic all
+  # Running atomic/cas benchmark...
+    Threads: 2, runtime: 2 sec, repeats: 10 (warmup: 1)
+    Avg throughput: 68,599,954 ops/sec (+- 0.13%)
+    Per-thread ops (last repeat):
+      fastest:  74,842,112 ops
+      slowest:  63,176,704 ops
+      avg:      69,009,408 ops
 
-[ ... ]
+  # Running atomic/inc benchmark...
+    Threads: 2, runtime: 2 sec, repeats: 10 (warmup: 1)
+    Avg throughput: 128,428,772 ops/sec (+- 0.54%)
+    Per-thread ops (last repeat):
+      fastest:  146,230,272 ops
+      slowest:  112,825,344 ops
+      avg:      129,527,808 ops
 
-> +/**
-> + * smp_cond_load_relaxed_timeout() - (Spin) wait for cond with no ordering
-> + * guarantees until a timeout expires.
-> + * @ptr: pointer to the variable to wait on.
-> + * @cond_expr: boolean expression to wait for.
+Output fields explained:
+- Threads: number of contending threads
+- runtime: seconds each thread runs per repeat
+- repeats: number of test runs (first is warmup)
+- Avg throughput: mean aggregate ops/sec across repeats
+- +- %: relative standard error of the mean throughput across repeats
+- Per-thread ops: fastest/slowest/avg operations per thread in the
+  last repeat (shows scheduling imbalance and lack of progress)
 
-[ ... ]
-
-> + * dependent ways.
-> + */
-> +#ifndef smp_cond_load_relaxed_timeout
-> +#define __smp_cond_load_relaxed_timeout(ptr, cond_expr,			\
-> +				      time_expr_ns, timeout_ns)		\
-> +({									\
-
-[ ... ]
-
-> +#define smp_cond_load_relaxed_timeout(ptr, cond_expr,			\
-> +				      time_expr_ns, timeout_ns)		\
-> +({									\
-
-[ ... ]
-
-Does the kernel-doc comment above attach to the right macro?  It sits
-directly above "#ifndef smp_cond_load_relaxed_timeout" followed by the
-"#define __smp_cond_load_relaxed_timeout(" helper, so kernel-doc skips the
-#ifndef and binds the comment to the internal helper:
-
-  $ tools/docs/kernel-doc -none include/asm-generic/barrier.h
-  Warning: include/asm-generic/barrier.h expecting prototype for
-  smp_cond_load_relaxed_timeout(). Prototype was for
-  __smp_cond_load_relaxed_timeout() instead
-
-The parent commit produces no kernel-doc warnings for this header, and the
-warning is still present at the end of the series, so no later patch
-addresses it.  The public smp_cond_load_relaxed_timeout() macro ends up
-with no kernel-doc.
-
-Could the /** block be moved down so it sits directly above
-"#define smp_cond_load_relaxed_timeout(", with the
-__smp_cond_load_relaxed_timeout() helper getting a plain /* comment?
-
-
+Assisted-by: opencode:DeepSeek-V4-Pro
+Signed-off-by: Changbin Du <changbin.du@gmail.com>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+Changes in v5:
+- Use -T/--threads and -R/--runtime so the subcommand options do not
+  shadow perf bench's -r/--repeat option.
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/38867477666
---===============8960242286083874251==--
+Changes in v4:
+- Default to 2 threads (1 on a single-CPU machine).
+- Replace the iteration count with a fixed runtime per repeat.
+- Report per-thread operation counts to show lack of progress.
+
+Changes in v3:
+- Use native word size (unsigned long) for the shared counter instead
+  of u64 to avoid libatomic on 32-bit targets.
+- Include <stdint.h> explicitly for UINT64_MAX.
+
+Changes in v2:
+- Add an 'atomic inc' subcommand for contended __atomic_fetch_add.
+- Hoist the load out of the CAS retry loop; the failed
+  __atomic_compare_exchange_n already returns the current value.
+- Cast the seconds delta to u64 before multiplying by NSEC_PER_SEC to
+  avoid 32-bit overflow.
+---
+ tools/perf/Documentation/perf-bench.txt |  38 +++
+ tools/perf/bench/Build                  |   1 +
+ tools/perf/bench/atomic.c               | 299 ++++++++++++++++++++++++
+ tools/perf/bench/bench.h                |   2 +
+ tools/perf/builtin-bench.c              |   9 +
+ 5 files changed, 349 insertions(+)
+ create mode 100644 tools/perf/bench/atomic.c
+
+diff --git a/tools/perf/Documentation/perf-bench.txt b/tools/perf/Documentation/perf-bench.txt
+index c5913cf59c98..7f820f69740f 100644
+--- a/tools/perf/Documentation/perf-bench.txt
++++ b/tools/perf/Documentation/perf-bench.txt
+@@ -58,6 +58,9 @@ SUBSYSTEM
+ 'numa'::
+ 	NUMA scheduling and MM benchmarks.
+ 
++'atomic'::
++	Atomic operation benchmarks.
++
+ 'futex'::
+ 	Futex stressing benchmarks.
+ 
+@@ -283,6 +286,41 @@ SUITES FOR 'numa'
+ *mem*::
+ Suite for evaluating NUMA workloads.
+ 
++SUITES FOR 'atomic'
++~~~~~~~~~~~~~~~~~~~
++*cas*::
++Suite for evaluating compare-and-swap (CAS) atomic operations under
++multi-threaded contention.
++
++*inc*::
++Suite for evaluating atomic fetch-add (increment) operations under
++multi-threaded contention.
++
++Options of *cas* and *inc*
++^^^^^^^^^^^^^^^^^^^^^^^^^^
++-T::
++--threads=::
++Number of threads contending for the shared counter (default: 2, or
++1 on a single-CPU machine).
++
++-R::
++--runtime=::
++Runtime of each repeat in seconds (default: 2).
++
++The per-thread fastest/slowest/avg ops summary is only printed when
++running with more than one thread.
++
++The average throughput is annotated with its relative deviation
++("+- x%"), i.e. the standard error of the mean over the measured
++repeats. A small value means the average is reproducible; it does not
++reflect per-thread fairness, which the per-thread ops summary shows.
++
++Note that the cas benchmark counts successful compare-and-swap
++operations only; retries and the loads between them are additional
++atomic instructions not included in the ops/sec count, so cas and
++inc throughputs are not directly comparable at the instruction
++level.
++
+ SUITES FOR 'futex'
+ ~~~~~~~~~~~~~~~~~~
+ *hash*::
+diff --git a/tools/perf/bench/Build b/tools/perf/bench/Build
+index 67b76fe20ba6..c64c52468d3d 100644
+--- a/tools/perf/bench/Build
++++ b/tools/perf/bench/Build
+@@ -3,6 +3,7 @@ perf-bench-y += sched-pipe.o
+ perf-bench-y += sched-seccomp-notify.o
+ perf-bench-y += syscall.o
+ perf-bench-y += mem-functions.o
++perf-bench-y += atomic.o
+ perf-bench-y += futex.o
+ perf-bench-y += futex-hash.o
+ perf-bench-y += futex-wake.o
+diff --git a/tools/perf/bench/atomic.c b/tools/perf/bench/atomic.c
+new file mode 100644
+index 000000000000..8cad20c7e802
+--- /dev/null
++++ b/tools/perf/bench/atomic.c
+@@ -0,0 +1,299 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 Changbin Du <changbin.du@gmail.com>
++ *
++ * Benchmarks for atomic read-modify-write operations.
++ *
++ * Measures throughput (ops/sec) of contended atomic operations on a
++ * single shared counter across multiple threads. Each thread performs
++ * a hot loop of the selected operation -- compare-and-swap (cas) or
++ * fetch-add (inc) -- competing with all other threads for the same
++ * cache line. Threads run for a fixed runtime, so a system that
++ * cannot make progress under heavy contention reports a low (or
++ * zero) throughput instead of hanging.
++ */
++#include "bench.h"
++#include <linux/compiler.h>
++#include "../util/debug.h"
++
++#ifndef HAVE_PTHREAD_BARRIER
++int bench_atomic_cas(int argc __maybe_unused, const char **argv __maybe_unused)
++{
++	pr_err("%s: pthread_barrier_t unavailable, disabling this test...\n", __func__);
++	return 0;
++}
++
++int bench_atomic_inc(int argc __maybe_unused, const char **argv __maybe_unused)
++{
++	pr_err("%s: pthread_barrier_t unavailable, disabling this test...\n", __func__);
++	return 0;
++}
++#else /* HAVE_PTHREAD_BARRIER */
++#include <stdlib.h>
++#include <stdio.h>
++#include <stdbool.h>
++#include <stdint.h>
++#include <unistd.h>
++#include <pthread.h>
++#include <time.h>
++#include <inttypes.h>
++#include <err.h>
++#include <linux/types.h>
++#include <linux/kernel.h>
++#include <linux/time64.h>
++#include <perf/cpumap.h>
++#include <subcmd/parse-options.h>
++#include "../util/stat.h"
++
++static unsigned int threads;		/* 0: default to min(2, online CPUs) */
++static unsigned int runtime	= 2;	/* seconds per repeat */
++
++static const struct option options[] = {
++	OPT_UINTEGER('T', "threads", &threads,
++		     "Number of contending threads (default: 2, or 1 on single CPU)"),
++	OPT_UINTEGER('R', "runtime", &runtime,
++		     "Runtime of each repeat in seconds (default: 2)"),
++	OPT_END()
++};
++
++static const char * const cas_usage[] = {
++	"perf bench atomic cas <options>",
++	NULL
++};
++
++static const char * const inc_usage[] = {
++	"perf bench atomic inc <options>",
++	NULL
++};
++
++enum atomic_op {
++	OP_CAS,
++	OP_INC,
++};
++
++static int bench_op = OP_CAS;
++
++/*
++ * The termination flag is polled between batches only, so that the
++ * check does not perturb the measured loop.
++ */
++#define BATCH_OPS	1024
++
++static unsigned long shared_counter __aligned(64);
++static pthread_barrier_t start_barrier __aligned(64);
++static bool done;
++
++struct worker_stats {
++	u64	runtime_ns;
++	u64	ops;
++};
++
++static void cas_batch(void)
++{
++	unsigned long i;
++
++	/*
++	 * Each iteration counts as one successful compare-and-swap;
++	 * retries and the loads between them are not counted.
++	 */
++	for (i = 0; i < BATCH_OPS; i++) {
++		unsigned long old_val, new_val;
++
++		old_val = __atomic_load_n(&shared_counter, __ATOMIC_RELAXED);
++		do {
++			new_val = old_val + 1;
++		} while (!__atomic_compare_exchange_n(&shared_counter, &old_val,
++						      new_val, false,
++						      __ATOMIC_RELAXED,
++						      __ATOMIC_RELAXED));
++	}
++}
++
++static void inc_batch(void)
++{
++	unsigned long i;
++
++	for (i = 0; i < BATCH_OPS; i++)
++		__atomic_fetch_add(&shared_counter, 1, __ATOMIC_RELAXED);
++}
++
++static void *worker(void *arg)
++{
++	struct worker_stats *ws = (struct worker_stats *)arg;
++	struct timespec tstart, tend;
++	u64 ops = 0;
++
++	pthread_barrier_wait(&start_barrier);
++
++	clock_gettime(CLOCK_MONOTONIC, &tstart);
++	while (!__atomic_load_n(&done, __ATOMIC_RELAXED)) {
++		switch (bench_op) {
++		case OP_CAS:
++			cas_batch();
++			break;
++		case OP_INC:
++			inc_batch();
++			break;
++		default:
++			BUG_ON(1);
++			break;
++		}
++		ops += BATCH_OPS;
++	}
++	clock_gettime(CLOCK_MONOTONIC, &tend);
++
++	ws->runtime_ns	= (u64)(tend.tv_sec - tstart.tv_sec) * NSEC_PER_SEC +
++			  (tend.tv_nsec - tstart.tv_nsec);
++	ws->ops		= ops;
++
++	return NULL;
++}
++
++static void print_default_format(struct worker_stats *wstats,
++				 struct stats *throughput_stats)
++{
++	double thru_avg, thru_stddev;
++
++	printf("  Threads: %u, runtime: %u sec, repeats: %u (warmup: 1)\n",
++	       threads, runtime, bench_repeat);
++
++	thru_avg    = avg_stats(throughput_stats);
++	thru_stddev = stddev_stats(throughput_stats);
++
++	printf("  Avg throughput: %'.0f ops/sec (+- %.2f%%)\n",
++	       thru_avg, rel_stddev_stats(thru_stddev, thru_avg));
++
++	/*
++	 * Per-thread operation counts from the last measured repeat show
++	 * whether any thread failed to make progress under contention.
++	 */
++	if (threads > 1) {
++		u64 min_ops = UINT64_MAX, max_ops = 0, total_ops = 0;
++
++		for (unsigned int t = 0; t < threads; t++) {
++			if (wstats[t].ops < min_ops)
++				min_ops = wstats[t].ops;
++			if (wstats[t].ops > max_ops)
++				max_ops = wstats[t].ops;
++			total_ops += wstats[t].ops;
++		}
++
++		printf("  Per-thread ops (last repeat):\n");
++		printf("    fastest:  %'" PRIu64 " ops\n", max_ops);
++		printf("    slowest:  %'" PRIu64 " ops\n", min_ops);
++		printf("    avg:      %'" PRIu64 " ops\n", total_ops / threads);
++	}
++}
++
++static int run_benchmark(void)
++{
++	pthread_t *thread_ids;
++	struct worker_stats *wstats;
++	struct stats throughput_stats;
++	unsigned int r, t;
++
++	thread_ids = calloc(threads, sizeof(pthread_t));
++	if (!thread_ids)
++		err(EXIT_FAILURE, "calloc");
++
++	wstats = calloc(threads, sizeof(struct worker_stats));
++	if (!wstats)
++		err(EXIT_FAILURE, "calloc");
++
++	init_stats(&throughput_stats);
++
++	for (r = 0; r < bench_repeat + 1; r++) {
++		u64 max_runtime_ns = 0, total_ops = 0;
++		double throughput;
++
++		shared_counter = 0;
++		__atomic_store_n(&done, false, __ATOMIC_RELAXED);
++		pthread_barrier_init(&start_barrier, NULL, threads);
++
++		for (t = 0; t < threads; t++) {
++			if (pthread_create(&thread_ids[t], NULL,
++					   worker, &wstats[t]))
++				err(EXIT_FAILURE, "pthread_create");
++		}
++
++		sleep(runtime);
++		__atomic_store_n(&done, true, __ATOMIC_RELAXED);
++
++		for (t = 0; t < threads; t++)
++			pthread_join(thread_ids[t], NULL);
++
++		pthread_barrier_destroy(&start_barrier);
++
++		for (t = 0; t < threads; t++) {
++			total_ops += wstats[t].ops;
++			if (wstats[t].runtime_ns > max_runtime_ns)
++				max_runtime_ns = wstats[t].runtime_ns;
++		}
++
++		/*
++		 * Exclude the first repeat (warmup) from statistics so
++		 * that cache-cold and lazy-init effects are not counted.
++		 */
++		if (r > 0 && max_runtime_ns) {
++			throughput = (double)total_ops /
++				     ((double)max_runtime_ns / NSEC_PER_SEC);
++			update_stats(&throughput_stats, (u64)throughput);
++		}
++	}
++
++	switch (bench_format) {
++	case BENCH_FORMAT_DEFAULT:
++		print_default_format(wstats, &throughput_stats);
++		break;
++
++	case BENCH_FORMAT_SIMPLE:
++		printf("%.0f\n", avg_stats(&throughput_stats));
++		break;
++
++	default:
++		fprintf(stderr, "Unknown format: %d\n", bench_format);
++		exit(EXIT_FAILURE);
++	}
++
++	free(thread_ids);
++	free(wstats);
++
++	return 0;
++}
++
++static int run_atomic_bench(int argc, const char **argv,
++			    const char * const *usage)
++{
++	struct perf_cpu_map *cpu;
++
++	if (parse_options(argc, argv, options, usage, 0)) {
++		usage_with_options(usage, options);
++		exit(EXIT_FAILURE);
++	}
++
++	if (!threads) {	/* default to 2 threads (1 on a single-CPU machine) */
++		cpu = perf_cpu_map__new_online_cpus();
++		threads = (cpu && perf_cpu_map__nr(cpu) > 1) ? 2 : 1;
++		perf_cpu_map__put(cpu);
++	}
++
++	if (runtime < 1) {
++		fprintf(stderr, "Invalid runtime: %u\n", runtime);
++		return 1;
++	}
++
++	return run_benchmark();
++}
++
++int bench_atomic_cas(int argc, const char **argv)
++{
++	bench_op = OP_CAS;
++	return run_atomic_bench(argc, argv, cas_usage);
++}
++
++int bench_atomic_inc(int argc, const char **argv)
++{
++	bench_op = OP_INC;
++	return run_atomic_bench(argc, argv, inc_usage);
++}
++#endif /* HAVE_PTHREAD_BARRIER */
+diff --git a/tools/perf/bench/bench.h b/tools/perf/bench/bench.h
+index 8519eb5a42fa..85e3ac471875 100644
+--- a/tools/perf/bench/bench.h
++++ b/tools/perf/bench/bench.h
+@@ -30,6 +30,8 @@ int bench_mem_memcpy(int argc, const char **argv);
+ int bench_mem_memset(int argc, const char **argv);
+ int bench_mem_mmap(int argc, const char **argv);
+ int bench_mem_find_bit(int argc, const char **argv);
++int bench_atomic_cas(int argc, const char **argv);
++int bench_atomic_inc(int argc, const char **argv);
+ int bench_futex_hash(int argc, const char **argv);
+ int bench_futex_wake(int argc, const char **argv);
+ int bench_futex_wake_parallel(int argc, const char **argv);
+diff --git a/tools/perf/builtin-bench.c b/tools/perf/builtin-bench.c
+index 02d47913cc6a..62bebdedd3b8 100644
+--- a/tools/perf/builtin-bench.c
++++ b/tools/perf/builtin-bench.c
+@@ -14,6 +14,7 @@
+  *  syscall ... System call performance
+  *  mem   ... memory access performance
+  *  numa  ... NUMA scheduling and MM performance
++ *  atomic ... Atomic operation performance
+  *  futex ... Futex performance
+  *  epoll ... Event poll performance
+  */
+@@ -115,6 +116,13 @@ static const struct bench uprobe_benchmarks[] = {
+ 	{ NULL,	NULL, NULL },
+ };
+ 
++static const struct bench atomic_benchmarks[] = {
++	{ "cas",	"Benchmark CAS (compare-and-swap) operations",	bench_atomic_cas	},
++	{ "inc",	"Benchmark atomic fetch-add operations",	bench_atomic_inc	},
++	{ "all",	"Run all atomic benchmarks",			NULL			},
++	{ NULL,		NULL,						NULL			}
++};
++
+ struct collection {
+ 	const char		*name;
+ 	const char		*summary;
+@@ -128,6 +136,7 @@ static const struct collection collections[] = {
+ #ifdef HAVE_LIBNUMA_SUPPORT
+ 	{ "numa",	"NUMA scheduling and MM benchmarks",		numa_benchmarks		},
+ #endif
++	{ "atomic",	"Atomic operation benchmarks",			atomic_benchmarks	},
+ 	{"futex",       "Futex stressing benchmarks",                   futex_benchmarks        },
+ #ifdef HAVE_EVENTFD_SUPPORT
+ 	{"epoll",       "Epoll stressing benchmarks",                   epoll_benchmarks        },
+-- 
+2.53.0
+
