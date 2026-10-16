@@ -1,98 +1,158 @@
-Received: from www62.your-server.de (www62.your-server.de [213.133.104.62])
+Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA7B73E40E3;
-	Fri, 16 Oct 2026 10:25:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.62
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD39449B23
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:25:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146331; cv=none; b=cYYao7CSAJLBaHOUnjTzvWkNlG4ReiS+gldvyzJd1Y3LUCP4YXsxyvH/EAQZdJrWishmbxA3AhuesuEdDhVw8dxYmKt7OwT8Am4LuiN923SbPONbEs3/5ABB+2ezVkFFnT8M77TYhLpI8eU7pm+AndusYZGdanpU/jVg0I5YhA8=
+	t=1792146333; cv=none; b=k1Qo33Kti2EcbYnkRkG5FfVsx4a2zVKdyjCIX2ZTmNfnXcIFQIOnkY03fhU8g4TFPTgSmXL5wBVs9nC6p3CzKofgpItwtdTkYL0Wk2ip87JuSALTgiXn+HDrEaaL+XCCVhIvAz9k3M9RmIdqB3eCRTADe+xWiRVpWAv2b2lStoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146331; c=relaxed/simple;
-	bh=fjOAV6aOjxvcvXLXicN3XlwbhPGhh9bSPP0818d/eXY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IWH31F6aSU/R7akiwRO5MTae5qCKRbLUkZDUjHnXWrjV3FbSCWigB3eyrXvUhZGjNEHR9Lfs2FMvLTHa6ajGdkC4TmEtuOAvUrD7x3etxY0+wC/6FNfNDByAbg/24ndo5GxtYGvHL8Q0RiPwsN/CMXMSwl/fP9cclPd6JmY0W8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net; spf=pass smtp.mailfrom=iogearbox.net; dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b=a8oIbztX; arc=none smtp.client-ip=213.133.104.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iogearbox.net
+	s=arc-20240116; t=1792146333; c=relaxed/simple;
+	bh=+y5F4sNDPjHftsUFjQz9re9KbKNpidBYCZ04/lZzvlM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j9KyZuy5y+rFOjNrqYL6NmHErSecYuCpqh5K+3v6ao7D2fbNDj3otER4LRvm9sW86KLugUFlmsPDtPgEXXmx40H+hwhXgQpkuVb+HAgdjmOLIffXzqEIBgZjT/KP2FVPaLs1g5Latps5dhAz9xpekmwgcma7MvjdFmL0PAILzqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=karaolidis.com; spf=pass smtp.mailfrom=karaolidis.com; dkim=pass (2048-bit key) header.d=karaolidis.com header.i=@karaolidis.com header.b=T7r9Bx03; arc=none smtp.client-ip=185.70.43.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=karaolidis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=karaolidis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b="a8oIbztX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=iogearbox.net; s=default2302; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=dAFssueGI2YeIn7DG4ltEAeRdn0r+4XXsyyQqEkAn/g=; b=a8oIbztXMQRxtNoFzBq3M8hLTR
-	Rx+4oeCIgL71DQRpYzHXS8WYUSb28Kxr+TDnwlCgdpTJuB4GhJFG5cY/pU8I1Mujc8FOi3fQwY3aD
-	gG2g9TtzQcihrW+HMKPPAR0//76FM8PS6kmCqXALP8nTmndQkNAI5sJcqIaG7yvZqg3bIPIX9gqGr
-	ncovpKGnQFIIQbmCKlEqvn2ie1JQ5rSrSJwC/Y2Nrvpy0dWsJQXfXe4gx4BKnlhqPG9JhpuuU5L7P
-	+JVOVK5PdDdZDoyvskwfC8YX0/30ySH8E4NDNKQsf1ywcqhOcdeQ8/3DATnaVGjnVkNNKk+S89r4V
-	I+eOjbOQ==;
-Received: from sslproxy07.your-server.de ([78.47.199.104])
-	by www62.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <daniel@iogearbox.net>)
-	id 1xHf7t-000Bjb-16;
-	Fri, 16 Oct 2026 12:25:25 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <daniel@iogearbox.net>)
-	id 1xHf7s-0000JL-1G;
-	Fri, 16 Oct 2026 12:25:24 +0200
-Message-ID: <bc6ba1a7-8a96-4f0c-86a9-51a6e397f4ee@iogearbox.net>
-Date: Fri, 16 Oct 2026 12:25:23 +0200
+	dkim=pass (2048-bit key) header.d=karaolidis.com header.i=@karaolidis.com header.b="T7r9Bx03"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=karaolidis.com;
+	s=protonmail3; t=1792146321; x=1792405521;
+	bh=b04DOe8vmbq+QEfUbmjT3IlS1rtxforJbJCVtR4UErk=;
+	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=T7r9Bx03kZ1obL008QSpYAKFDmkSk37XBbQHx4AvZCIaA9xbTeoEXhc/cB3SMlI57
+	 MezU9GsTh0X2puV8/EOcBKYReV9Q0Si//bRYSnPbL1TcjaRYoTjnNgeVCaWCY1cVuK
+	 i0NDQkC539QboKy9GsknWUco5yAc/uayQ+OUsRMiUt4AiZlP5C9ARhF+WYL/nmv81S
+	 ZxQB5w17SwmyKQ1rAO3+8EVTWuE8LSrLytrXUjkwV3tKsFbCUSs8BIla7JbG1YM4+R
+	 d4C2VMC8QarJWifr87HQrFiLP5Coy2SvrrGakMNysf0RdIurfMPUjvoU/kLVO04JQM
+	 6rwEEXp/bHUpQ==
+X-Pm-Submission-Id: 4j5h0F5p8Zz1DDKp
+From: Nikolaos Karaolidis <nick@karaolidis.com>
+To: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Jan Kara <jack@suse.cz>,
+	Zhihao Cheng <chengzhihao1@huawei.com>,
+	Mateusz Guzik <mjguzik@gmail.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Nikolaos Karaolidis <nick@karaolidis.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] fs: rotate inodes whose page cache could not be dropped
+Date: Fri, 16 Oct 2026 10:25:15 +0000
+Message-ID: <20261016102515.111285-1-nick@karaolidis.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2] selftests/bpf: Record only the test ICMP echo
- in tc8 of tc_netkit_scrub
-To: Qiliang Yuan <odys.yuan@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai
- <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>,
- Nikolay Aleksandrov <razor@blackwall.org>
-Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261016-selftests-bpf-tc-netkit-scrub-v2-1-b484a7ce2a63@gmail.com>
-Content-Language: en-US
-From: Daniel Borkmann <daniel@iogearbox.net>
-In-Reply-To: <20261016-selftests-bpf-tc-netkit-scrub-v2-1-b484a7ce2a63@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28155/Fri Oct 16 08:24:17 2026)
+Content-Transfer-Encoding: 8bit
 
-On 10/16/26 5:25 AM, Qiliang Yuan wrote:
-> tc_netkit_scrub attaches tc8 to the primary netkit device, sends an ICMP
-> echo with a mark and a priority through it, and checks the mark and the
-> priority that tc8 saw against what the scrub mode lets through.
-> 
-> tc8 records the mark and priority of every packet it sees, and the
-> device also carries what the system sends on its own once the device
-> is up, like IPv6 neighbor discovery or the mDNS of avahi-daemon. When
-> such a packet goes out after the echo, it overwrites what tc8 recorded,
-> and the test finds a mark and a priority of 0.
-> 
-> Record only IPv4 ICMP packets in tc8.
-> 
-> tc_netkit_scrub run 100 times on a bpf-next kernel with KASAN enabled,
-> x86_64 VM with 32 vCPUs and avahi-daemon running, before and after this
-> patch:
-> 
->              before                                after
->    outcome   2 of 100 failed (mark and priority 0)   0 of 100 failed
-> 
-> Fixes: 716fa7dadf11 ("selftests/bpf: Extend netkit tests to validate skb meta data")
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-> ---
-> V1 -> V2:
-> - Check the packet in tc8 the way tc1 and tc7 do, with
->    __bpf_constant_htons() and a goto out for each check (Daniel)
-> - Add before/after data
-Looks good, took this into bpf-next, thanks!
+When inode_lru_isolate() drops the page cache of an unused inode, it
+has to unlock the list, so it returns LRU_RETRY and the walk restarts
+at the head of the list, where the inode still is. If
+invalidate_mapping_pages() could not empty the mapping, the restarted
+walk strips the same inode again, and so on until nr_to_walk runs out.
+Every walk of that list then ends on this inode, and nothing behind it
+is reclaimed for as long as its cache stays.
+
+Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode lru
+traversing context") the walker pinned the inode with a reference, and
+dropping it in iput_final() set I_REFERENCED, so the restarted walk
+rotated the inode to the tail. Set I_REFERENCED again when the mapping
+is still populated after the invalidation, in the same i_lock section
+that clears I_LRU_ISOLATING. inode_unpin_lru_isolating() now expects
+i_lock to be held, like inode_pin_lru_isolating().
+
+On CONFIG_HIGHMEM kernels this can happen to any unused inode: a folio
+is left behind if it is locked, under writeback, spliced into a pipe,
+or still in another CPU's LRU-add batch after being read. Without
+HIGHMEM it happens to DAX inodes whose only entry is at index 0, which
+mapping_shrinkable() lets onto the LRU and invalidate_mapping_pages()
+never removes.
+
+Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
+---
+
+Found while working on reclaim of inodes pinned by page cache in
+ZONE_MOVABLE.
+
+Tested in QEMU/KVM on master af32da41b032 (v7.3-rc6-232), with lockdep
+and KASAN enabled. A small init program makes one unused inode whose
+page can't be invalidated, lets it reach the head of the inode LRU,
+opens 2000 other files, does one "echo 2 > /proc/sys/vm/drop_caches"
+and counts the inodes left via umount; kprobes count the
+invalidate_mapping_pages() calls:
+
+                              without patch           with patch
+  i386 HIGHMEM, file read     2000 of 2000 left,      none left,
+  on another CPU              10300 strips, 1 inode   4 strips
+  i386 HIGHMEM, page          same                    same
+  spliced into a pipe
+  x86_64, ext4 -o dax,        same                    same
+  file mmap()ed
+  controls (no leftover,      none left               none left
+  shadow entry at index 0)
+
+2a0629834cd8^ behaves like the patched kernel, 2a0629834cd8 like
+master. On 5.15.y x86_64, where every unused inode with page cache is
+on the LRU, the read-on-another-CPU case blocks the walk as well.
+
+With "echo 64M > /sys/fs/cgroup/memory.reclaim" instead of
+drop_caches, the i386 pipe case does 262450 strips and frees nothing
+without the patch, 40 strips and frees everything with it. In the DAX
+case that write takes ~400ms with the patch instead of ~4ms:
+invalidate_mapping_pages() counts the DAX entry it leaves behind as
+reclaimed, so unpatched, the 64M are "reclaimed" by re-stripping one
+inode in a tight loop while nothing is freed.
+
+The reproducer is a single C file; I can post it.
+
+An LLM was used to check the analysis against the code, write the
+reproducer and draft the changelog; I have reviewed all of it.
+
+ fs/inode.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/fs/inode.c b/fs/inode.c
+index a9d37be390a1..1614a97ce953 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -593,12 +593,11 @@ static void inode_pin_lru_isolating(struct inode *inode)
+ 
+ static void inode_unpin_lru_isolating(struct inode *inode)
+ {
+-	spin_lock(&inode->i_lock);
++	lockdep_assert_held(&inode->i_lock);
+ 	WARN_ON(!(inode_state_read(inode) & I_LRU_ISOLATING));
+ 	inode_state_clear(inode, I_LRU_ISOLATING);
+ 	/* Called with inode->i_lock which ensures memory ordering. */
+ 	inode_wake_up_bit(inode, __I_LRU_ISOLATING);
+-	spin_unlock(&inode->i_lock);
+ }
+ 
+ static void inode_wait_for_lru_isolating(struct inode *inode)
+@@ -981,7 +980,13 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+ 		else
+ 			__count_vm_events(PGINODESTEAL, reap);
+ 		mm_account_reclaimed_pages(reap);
++
++		spin_lock(&inode->i_lock);
++		/* The walk restarts here: don't retry leftovers right away */
++		if (!mapping_empty(&inode->i_data))
++			inode_state_set(inode, I_REFERENCED);
+ 		inode_unpin_lru_isolating(inode);
++		spin_unlock(&inode->i_lock);
+ 		return LRU_RETRY;
+ 	}
+ 
+
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+-- 
+2.55.0
+
