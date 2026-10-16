@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087B7190462;
-	Fri, 16 Oct 2026 03:34:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18289337BB8;
+	Fri, 16 Oct 2026 03:34:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792121695; cv=none; b=M3HOb8f6FCt04/GWPpleQDkh4/LAu3XQQ7/Y0r1znUzhoaxl1p2TjYvjjeBaVWrkKTvZRFt7XeskQhqtCluoKgGcJM29wq8dFdM6ktlvXFBwi0JtrlSpasZ2P8n93xWd0YBdrihtn6GhVDprt7YSnAcNd3gn416rSyweagJR6W4=
+	t=1792121696; cv=none; b=tpOvUQ4cDNXFQomdD+8+bBvdObJ5AfeodNCqaix7u2btIsXeeQU3eEE3Y2X6h23Pp4w3bvbhQc2++HKGcPzlDFqL+VLsXPx2Fd0wh/NuMjNK/lUcJwH05Un897s7TyHleSoy8acPvTtRnX6HS300Av4g+d+l4cRBwqtDum9GFPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792121695; c=relaxed/simple;
-	bh=vAHxlKValuzrf7fHdjJyLINvsVocAWsyJuxqCU924rs=;
+	s=arc-20240116; t=1792121696; c=relaxed/simple;
+	bh=aTBgj/qqRbiEoknT5s0KfQQFS32CjzSCQqD9z/wl4g8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f70YjrYE374IPm40+hfwu4M9y7ZJSYMDHFvj6tHWunU22Fz2CjN3GRt/5o6/txExmsc2J5FuyU1PoaMh/esy3bSxmaBUHPt4IiIXpKmnH3ZNpbfmRuCV8chKCyPHHtmsZc79TdajubNc0qeke8u9GFKtGFX/2vsHtaz9sCYECc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=g6Q6tq9r; arc=none smtp.client-ip=220.197.31.2
+	 MIME-Version; b=JxTDFOiYD8LH5BWXOXc+cFHcwU8QaXC/C4Su2VBnT9/gbjnxpjV6qZvAzsUjqzveBHuQ+NorG+MMzbVQIdiligM7ptm+HXdv/HhQ1JhtO7NoMlNRoRttRfOu/4DZPGvX9cg3GhZ5jEo+W4f7/ORn8biJcKvWXNaTnmxtsbDsHAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=qe90ePNm; arc=none smtp.client-ip=220.197.31.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="g6Q6tq9r"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="qe90ePNm"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=wV
-	g6dh31gWOkXJkdICl6ryGnaGtJLOBkftSZV8P268Y=; b=g6Q6tq9raSWShaYMfH
-	cewNIfycktr89QMwHfCUu4XvTrs0OFkhlIxyHVKr0bWjfnyiDKVThKTHxG+W3amt
-	mtmixD6utL8plCfwqpZb92qEVuNLW49ZwUj7a03IOsVQC3Tt0wgpqLWjeY7ZSYkp
-	fRjVhUgYd2/636JfvVgH9weUs=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=S1
+	92iv37xZv1No/VXB5PzJd+ztp1SUFQRotMCe455p8=; b=qe90ePNmn8fRzNmwm5
+	FWDG9R+JREzxJ2X6S+KPfXbmXBoWWxeiJJj8nRgoGX3BjRZwAlul0CnjwEnR4Xn8
+	dYia24pLnHoALQInHamsL7nYv5wIcsOA9QkYc0pTu3g0ySHJi1Bon20XMz6HqUvT
+	QcRgDiCKxcylsSPnoQIxX7jws=
 Received: from czl-pc (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgDnU5c7m9Fqw1V+AA--.15038S5;
-	Fri, 16 Oct 2026 11:34:22 +0800 (CST)
+	by gzsmtp4 (Coremail) with SMTP id PygvCgDnU5c7m9Fqw1V+AA--.15038S9;
+	Fri, 16 Oct 2026 11:34:23 +0800 (CST)
 From: Chi Zhiling <chizhiling@163.com>
 To: linux-kernel@vger.kernel.org,
 	linux-xfs@vger.kernel.org,
@@ -37,9 +37,9 @@ Cc: Namjae Jeon <linkinjeon@kernel.org>,
 	"Darrick J. Wong" <djwong@kernel.org>,
 	Christoph Hellwig <hch@lst.de>,
 	Chi Zhiling <chizhiling@kylinos.cn>
-Subject: [PATCH v3 3/8] exfat: advance valid_size under the folio lock for buffered writes
-Date: Fri, 16 Oct 2026 11:33:44 +0800
-Message-ID: <20261016033349.3104509-4-chizhiling@163.com>
+Subject: [PATCH v3 7/8] exfat: complete direct writes synchronously when they update metadata
+Date: Fri, 16 Oct 2026 11:33:48 +0800
+Message-ID: <20261016033349.3104509-8-chizhiling@163.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261016033349.3104509-1-chizhiling@163.com>
 References: <20261016033349.3104509-1-chizhiling@163.com>
@@ -50,85 +50,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgDnU5c7m9Fqw1V+AA--.15038S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Cw47tF45KF4kXFW8AF18Krg_yoW5JFW5p3
-	98Kay5GrZ7Xay3Wr1DGFy5X34Y9a4fWr4fCr98GanxZFnIyw1IkF18KFy2kFW5Jwn8GF1F
-	qFs09348XFnrCw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jgF4_UUUUU=
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC3B4FomrRmz4mkAAA3N
+X-CM-TRANSID:PygvCgDnU5c7m9Fqw1V+AA--.15038S9
+X-Coremail-Antispam: 1Uf129KBjvJXoW7KFyxGr47AF17Jw18ZrWrXwb_yoW8Arykp3
+	98Ga13GFZrJ347Wrn7tr48ua4fuayrGFW7JFWFg3W5Zrn0yw1S9F48tFyYka15J397Jw1j
+	gF4vkryUGFnFk3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jetCwUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC2x8FomrRmz+AuAAA3E
 
 From: Chi Zhiling <chizhiling@kylinos.cn>
 
-Buffered writes currently advance valid_size in
-exfat_write_iomap_end(), which runs after the folio has been unlocked.
-As a result, a folio beyond valid_size can become uptodate and dirty,
-and be observed by writeback or reclaim while valid_size still points
-to an earlier position.
+The inode metadata for a direct write is updated in ->end_io().  That
+handler runs without holding i_rwsem whenever the I/O completes
+asynchronously.  As a result, the i_size update can race with other
+operations.
 
-If reclaim drops such a folio before valid_size covers its range, a
-subsequent read treats the range as unwritten and zero-fills it without
-reading from disk. When this zero-filled page is later written back,
-the zeros overwrite the data that was just written, silently losing
-the write even if valid_size has since been advanced.
+Whenever a write extends beyond the current valid_size, that is,
+whenever ->end_io() will have metadata to update, pass
+IOMAP_DIO_FORCE_WAIT to iomap_dio_rw().  This guarantees that the
+metadata update happens under the inode lock held across the write.
 
-Advance valid_size from the buffered write path via an iomap
-put_folio callback while the folio is still locked. This ensures
-valid_size is updated before the folio becomes visible to writeback,
-preventing the written data from being lost. Mark the inode dirty
-whenever valid_size advances.
+Note that this forces extending O_DIRECT writes, the common append case
+for AIO and io_uring, to complete synchronously.  Pure overwrites still
+complete asynchronously because ->end_io() has nothing to publish for
+them.
 
-Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
+Fixes: 867b9c96dc83 ("exfat: add iomap direct I/O support")
 Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
 ---
- fs/exfat/file.c  |  3 +++
- fs/exfat/iomap.c | 13 +++++++++++++
- 2 files changed, 16 insertions(+)
+ fs/exfat/file.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/fs/exfat/file.c b/fs/exfat/file.c
-index aa0e1e47e3d1..49c63364f747 100644
+index 23b8a36acaf7..27050f0358ee 100644
 --- a/fs/exfat/file.c
 +++ b/fs/exfat/file.c
-@@ -929,6 +929,9 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
- 	if (ret < 0)
- 		goto unlock;
+@@ -857,10 +857,16 @@ static ssize_t exfat_fallback_buffered_write(struct kiocb *iocb,
  
-+	if (exfat_get_valid_size(ei) > valid_size)
-+		mark_inode_dirty(inode);
+ static ssize_t exfat_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ {
++	struct inode *inode = file_inode(iocb->ki_filp);
++	loff_t end = iocb->ki_pos + iov_iter_count(from);
++	unsigned int dio_flags = 0;
+ 	ssize_t ret;
+ 
++	if (end > exfat_get_valid_size(EXFAT_I(inode)))
++		dio_flags |= IOMAP_DIO_FORCE_WAIT;
 +
- 	inode_unlock(inode);
- 
- 	if (iocb->ki_pos > pos) {
-diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
-index 32ca90b61b1a..10416335e8ee 100644
---- a/fs/exfat/iomap.c
-+++ b/fs/exfat/iomap.c
-@@ -232,6 +232,18 @@ const struct iomap_ops exfat_write_iomap_ops = {
- 	.iomap_next	= exfat_write_iomap_next,
- };
- 
-+static void exfat_iomap_put_folio(struct inode *inode, loff_t pos,
-+		unsigned int copied, struct folio *folio)
-+{
-+	struct exfat_inode_info *ei = EXFAT_I(inode);
-+
-+	if (copied)
-+		exfat_advance_valid_size(ei, pos + copied);
-+
-+	folio_unlock(folio);
-+	folio_put(folio);
-+}
-+
- /*
-  * exfat_iomap_read_folio_range - Read a block range during a buffered write
-  *
-@@ -261,6 +273,7 @@ static int exfat_iomap_read_folio_range(const struct iomap_iter *iter,
- }
- 
- const struct iomap_write_ops exfat_iomap_write_ops = {
-+	.put_folio	= exfat_iomap_put_folio,
- 	.read_folio_range = exfat_iomap_read_folio_range,
- };
- 
+ 	ret = iomap_dio_rw(iocb, from, &exfat_write_iomap_ops,
+-			&exfat_write_dio_ops, 0, NULL, 0);
++			&exfat_write_dio_ops, dio_flags, NULL, 0);
+ 	if (ret == -ENOTBLK)
+ 		ret = 0;
+ 	else if (ret < 0)
 -- 
 2.53.0
 
