@@ -1,158 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176E536B909;
-	Fri, 16 Oct 2026 14:43:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E8784D09FB
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161830; cv=none; b=Bq4y+gs3T+Or7rgDrtoAMAhK9scpBqg7wAt27IL2CvYgZ09fHe/4/YDBwlrmz8pZCAbS6Yc7uvNwSVlbFGspqxEWRO9Wa0FpcgX0ScUwiEy8lKB9YOCnmzKVDZ08U8ccyGVw9QCJz9sN8m6gM9WqlWKia8QKVCFUis9noTjXbak=
+	t=1792161837; cv=none; b=uSOoLWmbXL5aRaIxjdQsYIN1sY46O2/YGszhBe3CCStnSRSJovZM9cVU+k2/uzrLNZNTGQeCR4Nw/QvRlfss1R8rNFE6/ziw9h3+24MwKQThh3EL9KiKSlRM67dZbZujRKSP2HxwgJMj4xDBmSXWFvA2Ie9eyNeyrWJM/DO4Os4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161830; c=relaxed/simple;
-	bh=IWDhpwO8T5XdBFtIM0r0GmIxS3m1LCBKjHgIzvYQ3JI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SEt8ZaZRsRvoGBGf4+VV/DkhZYI89NtfA9NkMK81WX3riMSZNS0owsR0b/Vtvsx/3lK+Fn+G8I79JcF27vUfWvx+FZf74cy0CWGdvrqgjObi2M0Zo5dBuRlq7LGcKLG0KEthpqYbdbUUbOvvMN8sWnZLhSFQdMXVEpt4iEhmlY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/k1yiOd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792161837; c=relaxed/simple;
+	bh=J1Q/Q1Mrwkgw985kLpbw6VKpHRGgH5RqKq6L9vMk7i8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qraVsFuutx/SQcBDwewcW56Izrf5fBeieyiLgxMzPYBQ/abLY691RNLyJ2Lr/ERWamGqKtjsScC6Z5qGYxq2Y2yPvRix1Qg0KGHiylclckTjqpOFI72li6xakAvJuFnc78qgL1hftZdRW3PoAnkmzA4/fznUMq1kyhaS72wPjd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Hmj3b3PA; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/k1yiOd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C36F1F000C5;
-	Fri, 16 Oct 2026 14:43:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792161828;
-	bh=wau/q72ALP0InLnitZWqmqti3x9g8kQoq78sQZw2it4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=g/k1yiOdG0cvI/ATBJ/PvZ89eOxUFU+Os9Va1Bhb7DIBPcJI46gmL78JlK282f+fO
-	 mzmYBqJUquM6tj7/gZPX1IIsfAQGqD5kcyTBmaUQLqLgr6A/5ihplMyP/4jpRXUuQJ
-	 MUTG2pndfGmdAZkZVfckkrxxHKXJ5Z16l8UJ5f15qxamAaE9jm4SHv0Q33HCKOr6cL
-	 OhotK8ofZ8LSiAKxpVViBLogMOGa3ARODqN/7cVNudULSS3qaIP0LHf5AisBRUCeQl
-	 U0FOi2eP6xZ+gRK4amFojhBNrFP4JIuS4aMFmB8omYTty1VAB3WBRp5eP5Nxe/UDMv
-	 URW2uiFF1G0EQ==
-Message-ID: <af011ab8-b9ab-49d1-b9fe-4e87b3979bbd@kernel.org>
-Date: Fri, 16 Oct 2026 16:43:42 +0200
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Hmj3b3PA"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso272655e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:43:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1792161834; x=1792766634; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IOETA3nf19cAe1QBHzeVrm7+5HNM5ud+Puz+h2+j2BI=;
+        b=Hmj3b3PAO6T7T6zHkHAxigoCYDruGhtVPWsNgxR2a9lGucRwBELi07e7ZMYEE++SY1
+         DM6l9hdVB5yVQ9uoI3qLwVldp2UOz1XavRiKFo6GTNrITTRndb2ln3XRpHGjYPUHxk75
+         +W+7EBa8KUVjRVs1WDi241AbshNGIn/8fF7riCNbhVJkPPF9lqhkQcpTasunE5w785/I
+         STD4r0MN+CNq2cgR2eJGUMsKLMOuX8Ko7mCTRm67Bbb1A63SKp7hcZHTTkIlIbOAEAqu
+         psdxydELHLQ5K4138dgWBGaJojZ4DjqaoYnTubNZsO7hdpA4oD8HVAC08B6r9lt0oADJ
+         E9Fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792161834; x=1792766634;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IOETA3nf19cAe1QBHzeVrm7+5HNM5ud+Puz+h2+j2BI=;
+        b=CLATWmUhemb7dfPDv2zV+Kod1gBZmEa8z7O3sADrijw1i3QGNMaHjWEnjUheZwZ9lD
+         BFRpHmgKxXsEVe+Gwcw2hT52cCJWBT3tZ9n8E32r7+MY3o9MDcCJ+IfK2QORDEI6H7JG
+         eXdli8oPY3e6Ri+EjJFBmIap7XyxkskM7in8Q/rac7etJI5eqjTzpYGik0KMswvlGXNk
+         n9w0gG2jFJ1eh8vSOZis2J5BKKcB6op0HKbIY2iaPvyJe85UZk5rX9nJ2jaRHwZR/xoI
+         TOxfgfH8679DMFnKEOAP9c/TgxeIgAPfp4KI28VKo1Y62DKJgPSqSp5mJAzT0EyPYf49
+         8J7w==
+X-Forwarded-Encrypted: i=1; AKwUvBwcONZqbibxjTm0Avbk6w/nIkys8UvC4a39R4c9oaIEMEp3eAu5WVLKb0fN+MisSUoM1XIrMw2c1nZB0gI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLl9I33LfuvmG8/UTZiisrGVGhRjM2JJIShel45IGyhhSBgsaXm
+	k13euv7NXwO57BIfjsNQAaZIqWYnF388Gs84HY9EQobHMWDl3pZCMOn/p91TC7KtmOrFPqj9tgc
+	CpzsPIyY=
+X-Gm-Gg: AYBFou0pHRjQ0SO5MN7AX5b+vPPTHyOkwOVyq08sRFbeFbzyoxOByQ4m0U/B+sxAoio
+	yro01GHdWpsADQZm3aC13OiX/nvfipxCFdvTSfPdSWMiH/SQvWLum7tbOdnWshK5Gu5bvSw1mbx
+	zYC8bT8Eew6DYIWuGMxlbK0JZNgv/wTnGTrAK+/0S7kErJBMgLq27uhOp1VEZQ4BQsMjZR8FIc7
+	D8m/9pWARHLH/Au4CYuMU5dYF0iaaB6peUhk6hH3WdcQulul0nO/W4H04UhsN2928w8Hj6nH6iT
+	HbkP2wntK20xfrVLnwdaZ4GcWO4SenEzkaym8uThc0x65fJL/XfujG7VRtO3b+AflX/n6/6+6cb
+	nB+KzzigF5Kz3WtV7MceS8GPAF2lO9n0zjHaz9RAXvZO3GXahEE0EYScKVNkjHA8G6yFyNYPwZm
+	/S+u8I3bjwQSIFvKK1xqIDo7UyddvlVmbo63PR6l714ttDFyAbrswpl2e6aijgBdBPG0k31xUe
+X-Received: by 2002:a05:600c:6215:b0:4a1:688d:a41c with SMTP id 5b1f17b1804b1-4a1d760e4b0mr190735e9.25.1792161834386;
+        Fri, 16 Oct 2026 07:43:54 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d30d778bsm28934835e9.9.2026.10.16.07.43.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 07:43:54 -0700 (PDT)
+Date: Fri, 16 Oct 2026 16:43:47 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Derek Barbosa <debarbos@redhat.com>, linux-kernel@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>
+Subject: Re: [PATCH printk v2] printk: Postpone kthread startup
+Message-ID: <atI4IyP7LtxsTzIF@pathway.suse.cz>
+References: <20261016085441.857695-1-john.ogness@linutronix.de>
+ <87ik31iz4x.fsf@jogness.linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: iio: light: Add AMS TCS3472 and TCS3400
-To: mocker-mug-unwoven@duck.com, Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Arka Mondal
- <arka@arkamondal.net>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261016-tcs3400-v1-0-3d79d2a7f449@duck.com>
- <20261016-tcs3400-v1-1-3d79d2a7f449@duck.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261016-tcs3400-v1-1-3d79d2a7f449@duck.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87ik31iz4x.fsf@jogness.linutronix.de>
 
-On 16/10/2026 10:15, HuskerMinion via B4 Relay wrote:
-> From: HuskerMinion <mocker-mug-unwoven@duck.com>
+On Fri 2026-10-16 15:00:54, John Ogness wrote:
+> On 2026-10-16, sashiko.dev wrote:
+> >> diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
+> >> index 0ed86b5e8b160..9a205f94bfac7 100644
+> >> --- a/kernel/printk/printk.c
+> >> +++ b/kernel/printk/printk.c
+> >> @@ -3864,7 +3864,7 @@ static int __init printk_set_kthreads_ready(void)
+> >>
+> >>  	return 0;
+> >>  }
+> >> -early_initcall(printk_set_kthreads_ready);
+> >> +subsys_initcall(printk_set_kthreads_ready);
+> >
+> > Can this delay expose a regression where a use-after-free occurs
+> > during failure paths?
+> >
+> > If nbcon_kthread_create(con) fails, it calls
+> > unregister_console_locked(con).  This unregisters the console and
+> > recursively calls printk_kthreads_check_locked().
+> >
+> > The recursive call restarts iterating over console_list and may
+> > unregister subsequent consoles, including the tmp node held by the
+> > outer loop:
+> >
+> > kernel/printk/printk.c:printk_kthreads_check_locked() {
+> > 	hlist_for_each_entry_safe(con, tmp, &console_list, node) {
+> >		if (!(con->flags & CON_NBCON))
+> >			continue;
+> >
+> >		if (!nbcon_kthread_create(con))
+> >			unregister_console_locked(con);
+> >	}
+> > }
+> >
+> > kernel/printk/printk.c:unregister_console_locked() {
+> >	...
+> >	/* Changed console list, may require printer threads to start/stop. */
+> >	printk_kthreads_check_locked();
+> >	...
+> > }
+> >
+> > Because hlist_for_each_entry_safe relies on the tmp pointer, the outer
+> > loop will later process the already unregistered tmp console and call
+> > nbcon_kthread_create(tmp) on it.
+
+Heh, I have missed this recursion. It is obviously problematic.
+
+> > If this succeeds on the retry, it spawns a zombie kthread for a
+> > detached console. If the detached console is dynamically allocated and
+> > freed by its driver's exit routine, the kthread and the outer loop
+> > will dereference freed memory.
+> >
+> > Can the loop in printk_kthreads_check_locked() handle the recursive
+> > unregistration of the tmp pointer safely without resulting in a
+> > use-after-free?
 > 
-> The tcs3472 driver has no binding yet. It matches DT nodes only through
-> its I2C device ID.
+> The case Sashiko presents is possible (even if unlikely). I would not
+> associate it with this patch though. It is a pre-existing
+> condition. Probably the cleanest fix is to pull
+> printk_kthreads_check_locked() out of
+> unregister_console_locked(). Something like this:
+
+Breaking the regression is an obvious solution.
+
+Alternative solution might be to split printk_kthreads_check_locked()
+into two similar functions. One for creating kthreads and 2nd for
+removing them. We need to combine creating+removing only when
+a kthread can't be created. The removal part should not need
+recursion in principle. But it might require duplication of
+the various checks.
+
+Your proposal looks easier.
+
+> diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
+> index 0ed86b5e8b160..0a87f49b3908a 100644
+> --- a/kernel/printk/printk.c
+> +++ b/kernel/printk/printk.c
+> @@ -4322,9 +4322,6 @@ static int unregister_console_locked(struct console *console)
+>  	if (console->exit)
+>  		res = console->exit(console);
+>  
+> -	/* Changed console list, may require printer threads to start/stop. */
+> -	printk_kthreads_check_locked();
+> -
+>  	return res;
+>  }
+>  
+> @@ -4333,7 +4330,12 @@ int unregister_console(struct console *console)
+>  	int res;
+>  
+>  	console_list_lock();
+> +
+>  	res = unregister_console_locked(console);
+> +
+> +	/* Changed console list, may require printer threads to start/stop. */
+
+It might make sense to warn about the potential recursion. Otherwise,
+someone might try to optimize it back. And the problem is far from
+obvious. We should not rely on Sashiko...
+
+Something like:
+
+	/*
+	 * Changed console list, may require printer threads to	start/stop.
+	 * Do this outside of unregister_console_locked() to avoid regression.
+	 */
+
+Or we could add a comment above printk_kthreads_check_locked(). But it
+would be easier to overlook.
+
+> +	printk_kthreads_check_locked();
+> +
+>  	console_list_unlock();
+>  	return res;
+>  }
+> @@ -4471,6 +4473,9 @@ static int __init printk_late_init(void)
+>  		}
+>  
+>  		unregister_console_locked(con);
+> +
+> +		/* Changed console list, may require printer threads to start/stop. */
+
+Same here.
+
+> +		printk_kthreads_check_locked();
+>  	}
+>  	console_list_unlock();
 > 
-> Document the TCS3472 family and the AMS TCS3400 family, which the next
-> patch adds to the driver. Both are I2C color sensors with one threshold
-> interrupt and a VDD supply.
-> 
-> Signed-off-by: HuskerMinion <mocker-mug-unwoven@duck.com>
+> I can submit an official patch after the 7.4 merge window.
 
-Please read submitting patches how to properly attribute the work with
-your real and known identity
+That would be great. Thanks in advance.
 
-
-> ---
->  .../devicetree/bindings/iio/light/ams,tcs3472.yaml | 57 ++++++++++++++++++++++
->  1 file changed, 57 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/light/ams,tcs3472.yaml b/Documentation/devicetree/bindings/iio/light/ams,tcs3472.yaml
-> new file mode 100644
-> index 000000000..cd4a0516e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/light/ams,tcs3472.yaml
-> @@ -0,0 +1,57 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/light/ams,tcs3472.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: AMS TCS3472 and TCS3400 color light-to-digital converters
-> +
-> +maintainers:
-> +  - HuskerMinion <mocker-mug-unwoven@duck.com>
-> +
-> +description: |
-> +  Color light sensors with 16-bit clear, red, green and blue channels, an
-> +  I2C interface and a threshold interrupt.
-> +
-> +  The TCS3472 family covers the TCS34721, TCS34723, TCS34725 and TCS34727.
-> +  The TCS3400 family covers the TCS34001, TCS34003, TCS34005 and TCS34007.
-
-We do not take families, but actual devices. TCS3400 seems to be a real
-device, so I don't get why you call it a family.
-
-
-> +  The variants differ in I2C address and interface voltage.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ams,tcs3400
-> +      - ams,tcs3472
-
-Your driver cod suggests these are compatible, so it should be expressed.
-
-
-Best regards,
-Krzysztof
+Best Regards,
+Petr
