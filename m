@@ -1,132 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB77B45D5F6
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:13:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0366146D547;
+	Fri, 16 Oct 2026 09:13:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792142022; cv=none; b=lovpbt8ROJbrV0EYqAhVlRRnj8AP5DqNFvdtT73x8iq5yOWateT2Ss4sQyM+KOTYNYYmrUJbh67t5WXoXJ7YhflfaVa+uWFoEOYQmvtVd1I0QVbFvVP/3BxMk2Zz/wxP5pLfdwGgtWQZoQT/o1Vd0SDsmDLQtn92vzrzOXp6Ui0=
+	t=1792142021; cv=none; b=U6ZaLCk+j53+UTK4C5FXA0yyvMW8jewzjT6Tqp1yDiF0VtP+y1xUDYg99eFQfXjGXMg+xEPOIQ1embAJqyRUhnInUm30m6iIdkx4dLZr1uizDKvCZODDybiS/Bu+Wo8bANSqJZujAA7LWTtRAHD970zGYsL4wymfVxbSGVTVcwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792142022; c=relaxed/simple;
-	bh=n3KdobETTVuz7fcHeH4lrKwLcMcsgWk3U6bQYdigMGk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lW1CzM/fuGA50BKWw8Jx1I88oJWNoik2FHbeaDfTD8KHiYwwTRlsagkZBsfBokzCmU+2FZrTWFGOAmRY0dSFnJou/yBFjiOBPx2yBXHb3SZ9nBu079sosek4oojhQ7le/LUUQVWt61HQ02qyYm9skwNg3RuugwofPcj1YaX41vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ylc4MP6s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792142021; c=relaxed/simple;
+	bh=LVDS0HnD/QnD6zawSDbzNLWAnl5Fnm7/XjXBFyRWCMk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S0SuedPiRbODaMIw4uy6uCjTHmrVoEazPkih+dU2VfhtAUQniib4RC3RNLcxapf6NgzLgF5UUcUtZ64l/X/4wd1obUAhkzeY7b3wimDKSTS5fgIy/ELfRRWpBpmK8fwxC31BwMekw+N/c02QvebulgGBtCg5Lss/3yanj6BZih4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=cQGXqaHE; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ylc4MP6s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9921F000CC
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:13:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792142021;
-	bh=5i6MhlYke8rnqKO/tS98g5fBrnPRxzSkJ1XspPZU0EE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Ylc4MP6shCeSJV4WrGsrfrjjA/Fz8tO0A+VDlxgExXH9rrTOXeyGrHARmllzf3Zr8
-	 T2H+Bkd5SvDMAreRqiewzPCByEFzDEo4EEdDfAWEmGey38Owg9KqeUXmUbpgbSad66
-	 OzT2ZyWl/NuZVjnKm8EHBlUtD8/+ygkrIKh0soevDAva5qxApnwYfgG3kNkdX1VJzy
-	 Vo4VU/Z7rKdETYzdpEAJio8clCXfAID1Vu92GR2vKVV6Cp3FeR+Bjvsh3nhwLxxTjr
-	 hI9qRrtEZuxR6/QrneYK4bWvw+NFhXP3yWeWgwwjsQxvac2bJQDfF69YgEyoHZevIc
-	 IU0nC4ulTDzVA==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5b2b92065ffso3422377e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:13:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxuJIQ6ZJNvCpbIxI1hBIlIVjrm287UUB2GyJY+vEfxFPnXrGNIixsEpWI84m6HqUaijKIPPNzQ3brM4ro=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/hRykiktINZoREtN2FdI7l5d/BlGs3xEGUtfcD7k1a4etRs+3
-	gHz17Fan4oBB8O1ABDHF9Qkm8vmLbKUb3FOJb4e/SWAw4epYSXCzU9RuoD3aZjTYPc0wu9gzcbq
-	HB4ZtAF91m9ytnGR4AbcOAz9FZ7bYy54=
-X-Received: by 2002:a05:6512:2251:b0:5be:323a:358f with SMTP id
- 2adb3069b0e04-5be323a362bmr3949389e87.24.1792142020304; Fri, 16 Oct 2026
- 02:13:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="cQGXqaHE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=CejfQ7Xzl26VOk+jZ6vebpBL0jzLsbbVNEnQ7lsVEgY=; 
+	b=cQGXqaHExzLpVXXNIbtaido2iealZxfQ09rbjfTsZf4Yk0ysn09Do+dUteIXMeAhl5zKxOrlHPA
+	Dl8j4IFG14zmek0oo04j8kTvzGPFNQkRWfklgiW2+tJSLQa5Lp5o5xmfsLFfpUVwSWEi6jee3wP9s
+	ZLU+z/1Jhl5zMi+MC8DDHd0mBP7nZiLJnaaXEbdYa7EwbkyaASYW6PoC8BY8WQkIdy4v54zOkG43h
+	pQWtAcepIFE1zuRgQRhS+bcIGQxi1E6y6bHB9jIRaCU8mnAdrj2wgxZ9fEf73LxekwbKt7EjQVyLp
+	B84yREHtJQkD/wNNKbM6UOPl14GILZPbnXqw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xHe0I-00000004U7u-0dLc;
+	Fri, 16 Oct 2026 17:13:31 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 16 Oct 2026 20:13:30 +1100
+Date: Fri, 16 Oct 2026 20:13:30 +1100
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Ralf Lici <ralf@mandelbit.com>
+Cc: linux-crypto@vger.kernel.org, Antoine Tenart <atenart@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH crypto 2/2] crypto: safexcel - Map AEAD buffers with
+ accurate DMA directions
+Message-ID: <atHquk_AUj2Ys7Su@gondor.apana.org.au>
+References: <cover.1789469436.git.ralf@mandelbit.com>
+ <7bd0c89dd32e9712d7d08393842498698148064b.1789469436.git.ralf@mandelbit.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com>
- <20261011-gpio-mxc-cleanup-v6-7-cb47ce2ad758@nxp.com> <CAD++jLnDxTAz2=ge5RgvO02mp+BJyLBV0zR8xqsm8LSsSEcRYQ@mail.gmail.com>
- <as8+sqlBEuhfdtZ8@shlinux89>
-In-Reply-To: <as8+sqlBEuhfdtZ8@shlinux89>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 16 Oct 2026 11:13:28 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=tKnT0qr5chD-fhxgTM-f9kcdFRsKVBbbqionBp9iTyw@mail.gmail.com>
-X-Gm-Features: AclHuK-rmknBFrbVZQXIDXh4F4e2O13GZgGSgm2vgJ2GpZVzPlYS8PS1UAie0Ck
-Message-ID: <CAD++jL=tKnT0qr5chD-fhxgTM-f9kcdFRsKVBbbqionBp9iTyw@mail.gmail.com>
-Subject: Re: [PATCH v6 07/13] gpio: mxc: convert pad wakeup compatible checks
- to hwdata flags
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
-	Andy Shevchenko <andy.shevchenko@gmail.com>, linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Peng Fan <peng.fan@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7bd0c89dd32e9712d7d08393842498698148064b.1789469436.git.ralf@mandelbit.com>
 
-On Wed, Oct 14, 2026 at 10:30=E2=80=AFAM Peng Fan <peng.fan@oss.nxp.com> wr=
-ote:
-> On Wed, Oct 14, 2026 at 01:10:48AM +0200, Linus Walleij wrote:
-
-> >Hi Peng,
-> >
-> >On Sun, Oct 11, 2026 at 1:51=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp=
-.com> wrote:
-> >
-> >>  static bool mxc_gpio_generic_config(struct mxc_gpio_port *port,
-> >>                 unsigned int offset, unsigned long conf)
-> >>  {
-> >> -       struct device_node *np =3D port->dev->of_node;
-> >> +       int ret;
-> >> +
-> >> +       if (!mxc_gpio_has_pad_wakeup(port))
-> >> +               return false;
-> >
-> >Why is the entire call to mxc_gpio_generic_config()
-> >bailing out here if the port does not have pad wakeup?
-> >
-> >> -       if (of_device_is_compatible(np, "fsl,imx8dxl-gpio") ||
-> >> -           of_device_is_compatible(np, "fsl,imx8qxp-gpio") ||
-> >> -           of_device_is_compatible(np, "fsl,imx8qm-gpio"))
-> >> -               return (gpiochip_generic_config(&port->gen_gc.gc,
-> >> -                                               offset, conf) =3D=3D 0=
-);
-> >> +       ret =3D gpiochip_generic_config(&port->gen_gc.gc, offset, conf=
-);
-> >> +       if (ret)
-> >> +               return false;
-> >
-> >Then no generic config can happen.
-> >
-> >This looks weird, isn't it just some of the configs that
-> >don't work?
+On Tue, Sep 15, 2026 at 01:32:12PM +0200, Ralf Lici wrote:
 >
-> The early return is correct and matches the original behavior - only
-> i.MX8 SoCs with SCU have pad wakeup hardware.
->
-> gpiochip_generic_config() here calls into the pinctrl backend's
-> pin_config_set(), which on i.MX8 programs the SCU firmware with the
-> PAD wakeup source type.  Non-i.MX8 SoCs don't have an SCU pinctrl backend=
-.
->
-> The function name is misleading - its only caller is mxc_gpio_set_pad_wak=
-eup().
+> @@ -748,8 +833,17 @@ static int safexcel_send_req(struct crypto_async_request *base, int ring,
+>  			return -EINVAL;
+>  		}
+>  		if (sreq->nr_src > 0) {
+> -			src_mapped = dma_map_sg(priv->dev, src, sreq->nr_src,
+> -						DMA_BIDIRECTIONAL);
+> +			if (ctx->aead)
+> +				src_mapped =
+> +					safexcel_map_aead(priv->dev, src,
+> +							  sreq->nr_src,
+> +							  sreq->output_offset,
+> +							  sreq->output_len,
+> +							  true);
+> +			else
+> +				src_mapped = dma_map_sg(priv->dev, src,
+> +							sreq->nr_src,
+> +							DMA_BIDIRECTIONAL);
 
-This is just a big hack and I want it removed.
+This path doesn't actualy matter because BIDIRECTIONAL is safe
+even if you use it unnecessarily.
 
-Implicit in this reasoning is: the only config we support on
-the pinctrl back-end is wakeups so let's gate the entire function
-call if we don't support wakeup.
+> @@ -775,8 +869,17 @@ static int safexcel_send_req(struct crypto_async_request *base, int ring,
+>  		}
+>  
+>  		if (sreq->nr_dst > 0) {
+> -			dst_mapped = dma_map_sg(priv->dev, dst, sreq->nr_dst,
+> -						DMA_FROM_DEVICE);
 
-This is a *generic* back-end like the function says:
-gpiochip_generic_config() so the GPIO driver can't make
-assumptions about what the pinctrl backend can and
-cannot do. In a new SoC using the same driver the
-pinctrl back-end could be something different.
+So this is the really buggy path.  Why don't you just change it to
+BIDRECTIONAL, perhaps with a comment referring to the assoc data?
 
-So this is breaking modularization and encapsulation.
-
-It is better to let the pin controller return -ENOTSUPP
-or whatever is appropriate instead of gating the
-call like this,
-
-Yours,
-Linus Walleij
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
