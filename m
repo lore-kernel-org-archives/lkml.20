@@ -1,156 +1,111 @@
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2011F3939A9;
-	Fri, 16 Oct 2026 02:11:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792116668; cv=none; b=rRBRgMvplTzkHI03+OoYIkCo3ClCY9053XmgsaOn8Rb04D4lJSx1jnE8O5fVkMxE8DkGwMuMc/7TX7KggYjXxGkTZ7WU4wDNB8GSjpV3Vih6P1Geqb5Q/gZbJd6W4xyXzUGMgJ+7VhHcfH16PuCyheciX0JVepWdHn0K5iKMcDI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792116668; c=relaxed/simple;
-	bh=hl8pKbwVlYBx6OrPid0iwr1adSPzZWVHUwkOaviPQgk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kIYDmCwshMhZUv6IEXcTUPXl/NUA4iMabDZOIyRfdtYr6UyZVw5ynrHyLdbk3Sz6jYO8S7BjqtoRZXqUv18HTLVKXDvu0J35ppC25zlvRodx2Yb35in4uxTLk+N1bIk5ksBSmFFq6M27ef0ZT9OkUM4biYeniJjrWKHbP9M2xYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=E32CjZ8r; arc=none smtp.client-ip=18.194.254.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFAC11B4138
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:12:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792116731; cv=pass; b=GTKFgbkCm6PCbbaoZRMEPKJMiSBWXa/EsmreKttSDRdxhWLiClndlw4NAvQ/l6g5WyJldbzDbHhslUFa5bd0FVV0EiqKy0pJhqNNlYrFliHId+pxUkUM0kS982WrCuugfviTYJuAux+tTPjv0S8sdQGwEwM0cd0lnWr/cjBeIA0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792116731; c=relaxed/simple;
+	bh=qU9eFHuBSKzHpCrHgsV1YmKp00u+14wepzaC757ifcM=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=DN8fmRa+RY1tXiJZcllJ0r4yG7n3Cv/u+lqHvLRTA1ocU5RBv5IyZUZz7Jg2b4V4kuydnQRuDdX+Q1zJMJ9bbVycl+vTd2WJrkYQVl65qIHnflVyTxyNnZjMcFMe8W9Rl5IFu903/3hxpJ/8x7q/bg1mqGvob9kExq2scIVFk5E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hTShg4xO; arc=pass smtp.client-ip=74.125.224.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="E32CjZ8r"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1792116613;
-	bh=8osGWg0ilv6J76JQLDUU7vDPE8TuX7X5EONtGKZSgfo=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=E32CjZ8rUpUoYox5gwdJGjMoCY3rfiOzK/2qexQmQyODOifnsB4e+bkX6DImz5Pmp
-	 ulPcYkURcMenqyR8pZqwNigcpIk5cVcFMGvQ4U2rWq9oLjr1TRZ0p+g4lZ4oKbkv9S
-	 AyHgpczE27AJLujqFImk2U+ASwzDzdLExi2/FZMU=
-X-QQ-mid: esmtpsz11t1792116608teb5753b9
-X-QQ-Originating-IP: fqo+3tqnzUYbhVA9m5C2DPTLYD5YFKe9t0LCHV7tYoI=
-Received: from [10.10.7.69] ( [1.202.39.170])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 16 Oct 2026 10:10:06 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 14748860426757089161
-EX-QQ-RecipientCnt: 9
-From: ZhaoJinming <zhaojinming@uniontech.com>
-Date: Fri, 16 Oct 2026 10:09:44 +0800
-Subject: [PATCH 2/3] crypto: qce - fix memory leak of the CCM AAD buffer
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hTShg4xO"
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-66d176f0569so663462d50.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:12:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792116729; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TG37f2arafOusWgQwkA5EYYxPob+/r/60YsY31TFuOSnlT1dZCJq2eKUJXwPrYIUJ3
+         dlj6fRC6+qpPlNVOkQ7ILKfRdSyrz/MZ4k6/yNHPYdDe9YmBZ1pLDQ1M6HvtC/Wj2wAU
+         tn5bSj6HDabjNUBSDUk0SdcxSIfCPI7MFFKuSkfGe8EARg0odibrABVOMEA09cDUzk+l
+         qDqGXItgn/l0ekw8cKxAL3AeZtNHtmWzK1nqmupKRr7zLWoRDOMSTrAj8tWQUb6Nr8iH
+         c90GrrWBWNTuVyxzab6HHG/VzrkfZsdOx8EFGlchet2v/fYi1zX/Cb3u5kbiE/Jfkiij
+         wxFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=yqTCNDtnip1f6x/X6fRxNszH5Gy+3+wzW4YU/97IeGA=;
+        fh=5NuXpi5Xkjhwgm/513weK1JUl/RMFd3/5dJsk/sUbRA=;
+        b=R8wmJccu5jcl7I9+4nCpLm/T2QIIaiOODI+XycW3EZ9yhIUpUHgFQVW17JUasu+FXh
+         zekLgmPM4p8b9Zip/M3TbjsKamtR7XiGlnkr1DfeFqyOY8a2+5NILVA94a5FW21AEWkc
+         satBgaWrn4JDN6ffBFmubdLRCKJuDIxGaZi62HOqy63YAqZ/GWTjWJUC/K/OuRA1Mxp/
+         tesaRXQX9cljXkIP9bF9JaiHVaOn0vgMka5XV+a9B3Yb8q82HIHhi7WwCLqIHaEuG1ZT
+         fJ4C0EQCTy3b0MsJtTQ+Tn5ExfzPlerkJKd46gU1jWJe6M/e06bHAX0WTuvaK1WYCRiS
+         HV0Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792116729; x=1792721529; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=yqTCNDtnip1f6x/X6fRxNszH5Gy+3+wzW4YU/97IeGA=;
+        b=hTShg4xOjAQrMvs7yIs+PAtGiI7ve/Vc6Tk/n0xh/ylOnVFUn45o3nVKt2U2xb7YDs
+         opC4t8pFYaTbPzkwj4yTl3oKmaQp/vTRydjmfHm7bf9l0j/8SiRniglSc/z7RknjnibB
+         JqMxhOWhT7dceRcWvx+f0Yeu93I4McWEUH5d7x4OsjepIofiM4bcrTVJomWCICNFcWwc
+         5PCdsBEx7mrqOO4HJImSfX9f69JAp9NM8dyj5yYTdf2xdKgxTidJa+UOsRKO7p7JWy6Y
+         7I9Cmq/WbeAsDvT7onwfuBhs+edzmlN30YyXPW0FaLJMCPlH3tnZUQ4g2lMIfBvCJEax
+         VunA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792116729; x=1792721529;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yqTCNDtnip1f6x/X6fRxNszH5Gy+3+wzW4YU/97IeGA=;
+        b=V3YgGDk993duqk/ZSY25W6CGG4sb5yiaQo7Lpg8zhIZWohQ7mX6YYf3s6P3jIkqRgY
+         9CtspqFanPm+r966+VTAiBCuVaF+vQkQhVM3bTRbaFHMwm+tadkGzsmwJOM5l+T1Gv5y
+         Ie4seBJInUZLT9bZNSbN4Yjx1FmKkTNVIm/uQeWoJmd2gEcfCvPjtu4SUJy1ql9K/wEE
+         AUwNbZ+1dsoaUAIqJFgNFVgTVm3bfUFfn2dbwL0a+GNA5m8AleVBqcXinMXapNI89/UZ
+         H10KJyjU9Em0N5DftcAyFJ0AC9RYPpJ0Qcn8AztJHhKo68wIj8gwJ7bOiiP+jmOiLCk1
+         l8Qg==
+X-Forwarded-Encrypted: i=1; AKwUvBzRSXlkQGPNyHg6+Pv+Tv2y2uJEsn35+Jt624oYNWmOQw4NnD+/gksVCxyZdi5sfE81+QJqNpvDxeWscHQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/yq+l7bS2zitDVqL5Y9uk9eAbj7334mIMFJlTvwrKSb7THXbM
+	u2+3L98N7k17CIIV5ZPp9nJVxz9xLXFWympWDqSmWbsonG2QdY0PjYW+XifLjbVaGYg4nL3AA7X
+	xMGBeO2LO279nHSevtsH27rqmT81BcbNrmH0LX3bGdQ==
+X-Gm-Gg: AYBFou2lqV3OX2awludqO32/O4wsEki9C0WWsbd7sF/a7k3wqsAnxblyBT5ZLC5gXGO
+	qTlSb41jsmZWnJ5yictnBhHYLGKS/pqU1VFwCLUx6oTRDzpoi9afHMxiULQm7TgmoUyLAvprmzg
+	rv9MK1W1HESsdZQyMo8uBK/wqhfGvEotyqin4xG3SW1Gbhja2x4pdBHTD6Hy/VXlmQRs8JGc+EO
+	Zhdo3sR8EKE3uliUj1emAMZ67qaCad9F5C9QGNlEc7WNctSN5BCv9rxD/DPUPDtSFDCx15CMLab
+	mJ/EuAfYT3IIhWFO7UkwhM969resI9kbb6evx98/f9nJyprfA2yfmlPg9+8nSX8A0AeZgt1VPOq
+	9JX5mSFTUsTVmS/lOPyGdKI3uUeyfYOLiZx/MjyZKWGeJ83cXY4WQz3porzd0ITLwRIEU5g==
+X-Received: by 2002:a05:690e:1309:b0:679:3765:f01d with SMTP id
+ 956f58d0204a3-679376605f2mr11650522d50.4.1792116728632; Thu, 15 Oct 2026
+ 19:12:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-fix-qce-ccm-adata-leak-v1-2-f54a82af2de0@uniontech.com>
-References: <20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0@uniontech.com>
-In-Reply-To: <20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0@uniontech.com>
-To: Bartosz Golaszewski <brgl@kernel.org>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>, 
- Thara Gopinath <thara.gopinath@linaro.org>
-Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, ZhaoJinming <zhaojinming@uniontech.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: Ngk7ShESHkQuzwvKvtmkDqfWZAnM6gpFmiELiunz53qJPTvd3eU+lvKY
-	V1StRKaE7ulnFwzSggndfzmwvGaTOfUjg39LOZm1iIovCg/GEjb9aAZp3SJubebkjswvhAY
-	erTVDGfV66JvW72LD6GcpDdIRPWhujlLtpJoGv0ZjxDnkR/zVzGEqtFSMh+kz0T3BEjYP0P
-	GlXTNqaVdRbqAZDsdjbcjnSCbOb27yILt14gv897b9Ue0I+pP4Lm8xy9p6bOCskFncKl6HF
-	0P3c4AX+oMAF+vsif6cfQ0YsJaOGlC3RTXkgaAag126K+l8mWJ2EGW41a1NlquheT7N/dnf
-	/gp49yCXMEfK19yQSl44KE5Y5FIRWdiSJVocPQ1f58dCUL6vssMrjQZzmLteIXBK2/+NMQx
-	+hEFXu4PCbI9CRcVYhG3uCvVnTCf7ckV4DBMYhJ1/5Duba5FEtWR4jN6iGqU6LP9KfggngY
-	peVYTIBOeg9TpysE9vqwv+Nau6WihQGvjrG6KEUR+IEeYbmL2LpkCd10DSKae2ghxD3zPEF
-	zyqmiCdmYbvKGXnkjMeVe01Vvj9U8qnIWTUKh9dUwHCidFytYQdv2qI8MSo/p+nw4SFRbGu
-	qvgKRxBtaJdmKsLQOFnZ90AD7oYPnyRYh4f7egJCehuJeTR3embs/hP6k+HTq/xcO4S7cWp
-	tRXiRYuEHW3bGFd3KmWDA6GT7nm8ofraPaK/Y4ZY9iozujQ1mOfTBiiKe21qG2WteZd5PHI
-	m9Hh8zndJ3AnGbwXaTKSzzjvpATsHctFyDUk2fXY4tUdx4vfOfpO52xf5hE6FJS88G0r+fE
-	8GQCvSf8UfgZLDHoC/iYTjYIw7OWdLVEOUL9Fbzrmce7L4BVxJuA2bJsmuA7+IuSQISDHLl
-	rR+67PmCCDNS3tzODPtdCOmLKvWZaOiko2Tcf5ZMKLI8oAl84vklgsnMCfc5/0uSLwpzTG5
-	ub71CNdKUl7U1LQOInrGAvLP9Bb/aiM/wBHgrW5TDF5wcH9QWAq5um7ZjcC1EbZz6StQUM5
-	41dpkO+mD0bSeQwTfoJPS+q8bxUu99CHMzg0Bob0DXfKwxpvRn
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+From: Reid D <skibletz@gmail.com>
+Date: Thu, 15 Oct 2026 22:11:57 -0400
+X-Gm-Features: AclHuK9osQiWniGHpbG4Ve0gko3Z_iWaB2dskCMVirr_QbHk7UbV_rzUGzJvXC4
+Message-ID: <CAGNJ+_2p_qyY2xx0b7wgHg+PJWLSQzYmfRqk3UCpue2f6GchVQ@mail.gmail.com>
+Subject: [PATCH] xfs: fix bs_xflags copied from wrong compat field
+To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-qce_aead_ccm_prepare_buf_assoclen() allocates rctx->adata with kzalloc()
-for every CCM request that carries associated data, but the buffer is
-never freed: qce_aead_done() releases only the scatterlist tables, and
-none of the error paths release it either.  Every such request therefore
-leaks a small allocation.
+From: Reid Downing (b1nv0id) <skibletz@gmail.com>
+Subject: [PATCH] xfs: fix bs_xflags copied from wrong compat field
 
-Free rctx->adata in the completion handler and on all error paths: the
-sg_copy_to_buffer() and sg_alloc_table() failures in
-qce_aead_ccm_prepare_buf_assoclen() (through the new err_free_adata
-label) and the error cleanup of qce_aead_async_req_handle().
+Read bs_xflags from the correct compat field in
+xfs_ioctl32_bstat_copyin().
 
-The buffer is referenced by a scatterlist that is DMA-mapped, so it is
-freed only after dma_unmap_sg() has run.  The frees are guarded the same
-way as the surrounding sg_free_table() calls, so no path frees the
-buffer twice or frees a stale pointer.
-
-Fixes: 9363efb4181c ("crypto: qce - Add support for AEAD algorithms")
-Cc: stable@vger.kernel.org
-Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
+Signed-off-by: Reid Downing (b1nv0id) <skibletz@gmail.com>
 ---
- drivers/crypto/qce/aead.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ fs/xfs/xfs_ioctl32.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/crypto/qce/aead.c b/drivers/crypto/qce/aead.c
-index f8e6054ff15d..5bf59cb9ae9a 100644
---- a/drivers/crypto/qce/aead.c
-+++ b/drivers/crypto/qce/aead.c
-@@ -53,6 +53,7 @@ static void qce_aead_done(void *data)
- 			sg_free_table(&rctx->src_tbl);
- 			if (diff_dst)
- 				sg_free_table(&rctx->dst_tbl);
-+			kfree(rctx->adata);
- 		} else {
- 			if (!(IS_DECRYPT(rctx->flags) && !diff_dst))
- 				sg_free_table(&rctx->dst_tbl);
-@@ -220,8 +221,10 @@ qce_aead_ccm_prepare_buf_assoclen(struct aead_request *req)
- 	/* Copy the associated data */
- 	if (sg_copy_to_buffer(req->src, sg_nents_for_len(req->src, assoclen),
- 			      rctx->adata + adata_header_len,
--			      assoclen) != assoclen)
--		return -EINVAL;
-+			      assoclen) != assoclen) {
-+		ret = -EINVAL;
-+		goto err_free_adata;
-+	}
- 
- 	/* Pad associated data to block size */
- 	rctx->assoclen = ALIGN(assoclen + adata_header_len, 16);
-@@ -236,7 +239,7 @@ qce_aead_ccm_prepare_buf_assoclen(struct aead_request *req)
- 	gfp = (req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP) ? GFP_KERNEL : GFP_ATOMIC;
- 	ret = sg_alloc_table(&rctx->src_tbl, rctx->src_nents, gfp);
- 	if (ret)
--		return ret;
-+		goto err_free_adata;
- 
- 	/* Associated Data */
- 	sg_init_one(&rctx->adata_sg, rctx->adata, rctx->assoclen);
-@@ -288,6 +291,9 @@ qce_aead_ccm_prepare_buf_assoclen(struct aead_request *req)
- 	return 0;
- err_free:
- 	sg_free_table(&rctx->src_tbl);
-+err_free_adata:
-+	kfree(rctx->adata);
-+	rctx->adata = NULL;
- 	return ret;
- }
- 
-@@ -486,6 +492,7 @@ qce_aead_async_req_handle(struct crypto_async_request *async_req)
- 		sg_free_table(&rctx->src_tbl);
- 		if (diff_dst)
- 			sg_free_table(&rctx->dst_tbl);
-+		kfree(rctx->adata);
- 	} else {
- 		sg_free_table(&rctx->dst_tbl);
- 	}
-
--- 
-2.50.1
-
+--- a/fs/xfs/xfs_ioctl32.c
++++ b/fs/xfs/xfs_ioctl32.c
+@@ -124,7 +124,7 @@
+            xfs_ioctl32_bstime_copyin(&bstat->bs_mtime, &bstat32->bs_mtime) ||
+            xfs_ioctl32_bstime_copyin(&bstat->bs_ctime, &bstat32->bs_ctime) ||
+            get_user(bstat->bs_blocks,  &bstat32->bs_size)      ||
+-           get_user(bstat->bs_xflags,  &bstat32->bs_size)      ||
++           get_user(bstat->bs_xflags,  &bstat32->bs_xflags)    ||
+            get_user(bstat->bs_extsize, &bstat32->bs_extsize)   ||
+            get_user(bstat->bs_extents, &bstat32->bs_extents)   ||
+            get_user(bstat->bs_gen,     &bstat32->bs_gen)       ||
