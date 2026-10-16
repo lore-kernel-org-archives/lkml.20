@@ -1,96 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA1C4AB1CA;
-	Fri, 16 Oct 2026 17:15:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B20F255C1D9;
+	Fri, 16 Oct 2026 17:16:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792170959; cv=none; b=gz5OUqnznKLIcuAjlD/GMA+g4Pz7gRqKmszwERamOJiyqanMPBB0ypul19QOEtc1zQ4tWyKe+2PNKXgh/9JiLrMIns7yTnY1goPFXCCzcVa1MABqa1OjznvD8/v6b0BexxINLm9bqdDSwtz/LgpuMq/fGF9XtAixDlNR83w2XHA=
+	t=1792170992; cv=none; b=ZlJsHtaG70WsbnB+TzTaQLjMAE3/RCn1fAUCRmriK5vO97btbIcktyuNcCgyW5yIT/WEenH0xkRILctctP53W4SsmOKZ5eCXnXmq4DB9xWAD+CMHtmBM1IvijxzfcVDXQnf9fRB0+IRbrAfSy9IqdkcGrFsDQWQdKBokcKSx1lM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792170959; c=relaxed/simple;
-	bh=BOw5miibhYa6y5iW7K3MQzzhkYfcdzxmYu3wZGKeALU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=kluTXF/SOBojNEKH4pCBV4X1cHmkPGw4x5uss8mPKRf/24IVtZXeH5HJFi1l2yRojhPdViOprXeIbSWHesNi4Q6rSO9mIHEKx16p5QzNc8t37fuA61Qsp9tGjtLhFj4z+ITjV0oW/dy31Bc2sSbSU3LPqEgzwFqb4iN3mgAGMr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ic4+wB9I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792170992; c=relaxed/simple;
+	bh=HeA/TRrIMzSLPZEJEe2gUXhaeg76MD88XR5/4eL4VzU=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=WU85ejvM34KTnT2UL4Qie+gvbQbWIr67h3ML78tUIJRmU61Pc+5nqu6sGWNYwCysiL79SFORBRgWmpGky2Vy3QkmbnE+iOvD+FQrOFv4oO/I0lI7lV0h/2aIt+r4jLaK2GqND8WSIJw9tpgc5PBX4yV7irXI9kfgy5sDj9J9XrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=lr+bokTD; arc=none smtp.client-ip=162.243.120.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ic4+wB9I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FBA41F000C6;
-	Fri, 16 Oct 2026 17:15:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792170957;
-	bh=1ygOFDw20tv57eftFx/OywoOkXdBvhlYV4RYTr2N/+o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=Ic4+wB9IWzVX8uH9KV2wLu82B4IwhbxYEnPcaxWIcyQh2pkhBPqZ69OTkqmWkTM9F
-	 0+WzsUDQCg+9jRBuBeedECNK3t8qy5h0uA4pxefvIM9DP6gEqBoIXnirzauo9Dn2n/
-	 3T2/7xCilcDWTEirxGDDauRN2SeM7g/Kin4DvxWczQhAsO44aptfxTlc18naah0tu9
-	 TPTiDN13o/973/Z0HQDNF2qQWdMZ0vkRnPJkkRmDhPcF4MQCmAYuMWu1vWDl3q6aq2
-	 /gvinCcOGjREHZE+AKsGe5aeTrxoSh0MgXCOyxY895GXc5bbpZ4puov2EltTTREkT6
-	 8uB1aVU3WvLZg==
-Date: Fri, 16 Oct 2026 12:15:56 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Alexander Gruhlke <gruhlke@mailbox.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
-	Alex Williamson <alex@shazbot.org>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev
-Subject: Re: [PATCH] PCI: Ignore Immediate Readiness on Samsung 990 EVO Plus
- NVMe
-Message-ID: <20261016171556.GA1880496@bhelgaas>
+	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="lr+bokTD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
+	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
+	To:From:Date:subject:date:message-id:reply-to;
+	bh=dKQ62B/68glF3VJQl3TwnzQ09ixoOo9aoTa47BHK5rg=; b=lr+bokTDzJ+s+ioETGpBVlCIxj
+	KWS1zr5+gCEXjzc4fwVwvQQ12wlJvQg9pX34AuWejVkS7CfuQWTNWVCyHa9Yjst5M08WNJEK3T02H
+	wqcGY7WUHkSIv1E6UGzHLtS8yj7rvUSbE9fsBRkVa64lkd//g7TEppVJ/KQJCPBpIBOk=;
+Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
+	by mail.hugovil.com with esmtpa (Exim 4.98.2)
+	(envelope-from <hugo@hugovil.com>)
+	id 1xHlXf-000000006af-2Iq4;
+	Fri, 16 Oct 2026 13:16:25 -0400
+Date: Fri, 16 Oct 2026 13:16:24 -0400
+From: Hugo Villeneuve <hugo@hugovil.com>
+To: "Arnd Bergmann" <arnd@arndb.de>
+Cc: "Arnd Bergmann" <arnd@kernel.org>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Jiri Slaby" <jirislaby@kernel.org>,
+ "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>, Uwe
+ =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+ "Hugo Villeneuve" <hvilleneuve@dimonoff.com>, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ imx@lists.linux.dev
+Subject: Re: [PATCH 1/2] tty: serial: remove hub6 multiport support
+Message-Id: <20261016131624.0fda5a185bf5c5ae67f09112@hugovil.com>
+In-Reply-To: <aace8c7a-61ab-4b54-8563-3e1ab0f99e56@app.fastmail.com>
+References: <20261016130328.1037616-1-arnd@kernel.org>
+	<20261016124839.0d5564f7d7e036ee782a0486@hugovil.com>
+	<aace8c7a-61ab-4b54-8563-3e1ab0f99e56@app.fastmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016102042.641801-1-gruhlke@mailbox.org>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Spam_score: -2.0
+X-Spam_bar: --
 
-On Fri, Oct 16, 2026 at 12:20:42PM +0200, Alexander Gruhlke wrote:
-> Like the 990 PRO, the Samsung 990 EVO Plus [144d:a80d] advertises
-> Immediate Readiness, and VFIO passthrough of it fails since commit
-> 10baa9b4df40 ("PCI: Drop unnecessary retries when restoring BARs").
-> Using a bus reset instead of FLR works around it, and the latest
-> firmware, 2B2QKXG7, is still affected.
-> 
-> Ignore Immediate Readiness on this device, too.
-> 
-> Fixes: 10baa9b4df40 ("PCI: Drop unnecessary retries when restoring BARs")
-> Link: https://bbs.archlinux.org/viewtopic.php?pid=2312085#p2312085
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Alexander Gruhlke <gruhlke@mailbox.org>
+On Fri, 16 Oct 2026 19:12:19 +0200
+"Arnd Bergmann" <arnd@arndb.de> wrote:
 
-Squashed in, thanks!
+> On Fri, Oct 16, 2026, at 18:48, Hugo Villeneuve wrote:
+> > On Fri, 16 Oct 2026 14:59:47 +0200
+> 
+> >> -			scnprintf(buf, size, " I/O:0x%lx, offset 0x%x", port->iobase, port->hub6);
+> >> +		scnprintf(buf, size, " I/O:0x%lx", port->iobase);
+> >>  	}
+> >
+> > With this simplification, you can now remove the {} braces...
+> 
+> Done
+> 
+> >> diff --git a/drivers/tty/serial/sunsu.c b/drivers/tty/serial/sunsu.c
+> >> index 4ff3e5c41dab..f43b802add12 100644
+> >> --- a/drivers/tty/serial/sunsu.c
+> >> +++ b/drivers/tty/serial/sunsu.c
+> >> @@ -106,10 +106,6 @@ static unsigned int serial_in(struct uart_sunsu_port *up, int offset)
+> >>  	offset <<= up->port.regshift;
+> >>  
+> >>  	switch (up->port.iotype) {
+> >> -	case UPIO_HUB6:
+> >> -		outb(up->port.hub6 - 1 + offset, up->port.iobase);
+> >> -		return inb(up->port.iobase + 1);
+> >> -
+> >>  	case UPIO_MEM:
+> >>  		return readb(up->port.membase + offset);
+> >
+> > Maybe change to a simple if/else?
+> >
+> > 	if (up->port.iotype == UPIO_MEM)
+> > 		return readb(up->port.membase + offset);
+> > 	else
+> > 		return inb(up->port.iobase + offset);
+> >
+> 
+> I think I'd rather not change sunsu.c any more than necessary.
 
-> ---
-> This adds the 990 EVO Plus to e6111fbf0c ("PCI: Ignore Immediate
-> Readiness on Samsung 990 PRO NVMe") in pci/for-linus, and could also
-> be folded into it.  I couldn't test it on this drive; the reporter
-> confirmed Status 0x0011 and that reset_method=bus fixes it.
-> 
->  drivers/pci/quirks.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> index 15f083b6b1..0d8c47a46c 100644
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -5623,7 +5623,7 @@ static void quirk_no_flr_snet(struct pci_dev *dev)
->  }
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_SOLIDRUN, 0x1000, quirk_no_flr_snet);
->  
-> -/* Samsung 990 PRO advertises Immediate Readiness, but isn't ready after FLR */
-> +/* Some Samsung SSDs advertise Immediate Readiness but aren't ready after FLR */
->  static void quirk_no_imm_ready(struct pci_dev *dev)
->  {
->  	if (!dev->imm_ready)
-> @@ -5633,6 +5633,7 @@ static void quirk_no_imm_ready(struct pci_dev *dev)
->  	dev->imm_ready = 0;
->  }
->  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_SAMSUNG, 0xa80c, quirk_no_imm_ready);
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_SAMSUNG, 0xa80d, quirk_no_imm_ready);
->  
->  static void quirk_no_ext_tags(struct pci_dev *pdev)
->  {
-> -- 
-> 2.56.0
-> 
+Ok
+
+
+-- 
+Hugo Villeneuve
