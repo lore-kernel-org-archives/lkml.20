@@ -1,61 +1,63 @@
 Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F3B27281E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:34:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329ED59B56
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:34:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792110853; cv=none; b=rb2PW8dvv0Q/To+Bq2Atzu3sBmGhiNv5EScFxwpUzyqDBKKBH5l4gluA5qEhERsuu/6ATDRPzYgFWxCF+nGr5YpwyvD5QgCE3ePYWfYPnR9OnddMChVjeHRvTW8qM7lEP4buJJM+Y96b8Hbv497iLgubygnoMerdK2YGLVbM07g=
+	t=1792110867; cv=none; b=i4MvQqD3rQpquRaQoNke2NOOjNJcKMTUAJZQCvRHCy4vTvQUyfhp4TJWEd7/yL9TkhTrvHzR/5NAwPdk4fuJeOWEtxiBhCA3AgimW7wHfnHDWFoUXyPJ+0cBNS5ZhM3WB1Sq/C0YMY8GokbqRCl482WC0Py+wmchyP2/39C2Eh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792110853; c=relaxed/simple;
-	bh=O5J0vYzDS7A+/iIa4EdklVFws50tlMNiHPs02QGGc3Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z1ZQ2IbE+iL45XwID1p1B1Jy+nCh2HbvZArQJPtL8Tce+dafDxp5RhjSaA/x7vRyotgBlvhqOBYzQVadabN2dG6S168CLOfcu6fVA6cTt0/ZhkeZMc3DGlFLTQucoGcVFJuL5R1gWw99X4KnmCOX1K/3jF+e514TgZwtvPxktvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IT7oxRAZ; arc=none smtp.client-ip=209.85.128.177
+	s=arc-20240116; t=1792110867; c=relaxed/simple;
+	bh=dWUTo2n72i8a4kUxv+Yn3ug90GBl82qfhnZXKOVF2Fs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QQ8EFsKXMF87gL+t6qq1Lvzq+cpAkG6ocah+aQXBn9WdOAwsZbaj+igm6JQ/t5HxCsW0WdQ9frrl8Y5eBOw89q5IBjMYyEFPXx1L5FAomQPSqK6WcBPr71ecWqt2MRTDAFQ+rA9VWeCZSv+HwkbncxuB9ojkv4Ry9XOflkHv5Do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YTl6TUJe; arc=none smtp.client-ip=209.85.128.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IT7oxRAZ"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8ac4806e210so43566397b3.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:34:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YTl6TUJe"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8aca68653e3so12408997b3.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:34:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792110851; x=1792715651; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gfgwBh8XWxGCsSck4UIs9y6r8K229wZcXz7rxtjthGQ=;
-        b=IT7oxRAZGPvMteQEIJvLCQeq42tHPkMiDpnamv+hvBZL0spXtpHKbh5aSGfwvb1IA0
-         uGGE/POaj3gf+xzNP2vSDteSp4hwuHlUeG+NkmPjrN+W8JPN36L3CGsL68v3L96NC9ML
-         ifjJD1FEVXKWvuJfx5yJvQG914R7dROmH24rJzY0JfThcv3Hxrlwk7PSoR2fECt9N8w7
-         Ko6AfRMyB8M42IbkKliGYm6ZB8oEjANkpGx5YeWoKz4cBoRlcvvaGSbHII6r2PvDSyt6
-         yJHaZAO9p3wp3SOhKRILq5heO1IZROOdiGFh8IC/rl8Y62Wc1O+ef/xdlqr42QF0Et/e
-         ULFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792110851; x=1792715651;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792110864; x=1792715664; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gfgwBh8XWxGCsSck4UIs9y6r8K229wZcXz7rxtjthGQ=;
-        b=Zew7ogUDUQYWwZzjD9donY/AhpcUYXydpA3sLENex2A458gDvWJvWKsSpzmR4NTnpo
-         b1MkPfPSJRLfwL0Krg8brIQB6Ry41viJA0zZX1Amog6EaeLRnhSxKCPTP750eMfLofgR
-         wFj21mOLmcdqdIsZyXRI9zj4kl3/jm12kBFhoc6MJevCL/dfvvg/A1RMd7lRp0nmsxGa
-         uA3dKgmeDQqS90NbivGbW+nft4qjVTEfj+MNirWPMNCJyVZNZuEOP5yTXeQJE/JlCR6x
-         n1sKW/mT8KGpiOUAGh8i+RFP0fzIlB2pcV72nSNZgJE4hcbAsLLouqAjv9q3rBDfKHcO
-         RQNw==
-X-Forwarded-Encrypted: i=1; AKwUvBwF/A1gaqnd+Xt2GN/Scf9L3Lp7nE6Ie5LNKpv11bVAlT6Tal0hQpI1wZv5Zt0rsSG3xredixTuntqtfMw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfEYe1gBRS6peRpE1pHWAGH2ezB7wO76v7lcs7MwJfuOOiWwrU
-	MhXI4rkvYj0SOfdSlXH9V5TnnbazPzYnAHOgAU7BBaUlotzsqityi3gd
-X-Gm-Gg: AYBFou2r2HHU6bsIsew7C2cMm7MD9PqXlms8mLUkidyPSk8miqdjG8LXyVXBrRY6Bw3
-	06GK9BJhCjbYqm2ypSoEfVFULA0a66ybY8WSOQ5lCu7Bfcq1YEMJQgLTpyQU9pQsrfC4tuzv0s/
-	Xtxuzc3VbOybxXm5IMonewTBMg4SrEZPzY5loOQ7MJYHW8G3KeZz6/XxXsYxiAUpMr+zcyTCx0V
-	u+yecPuhEi/rHvaBSdLIaxFapHqQVILXzgQrx1O3lxr96FjrIGeP+WHd2C1qpgU26Bdbcbw/qfJ
-	C77gEyM8OsMN6cjdARpGjyzkGJgTduMfFX/wI5m0fPB1zLvazCEdJfNjR0NYaM/9NoRaCBMcN5H
-	rhUOIS2r7FcScuKVu93BShJd2Do1B/fQZbKmMhVLWRh/s/8YAjhiA+Z60BdFDRlOVNSNc4+KMxN
-	W6Hpuehw4dDAUwJwOx0lpoH7LMlph8Y7n9tqxxOAq5Ec95LvshX4Q=
-X-Received: by 2002:a05:690c:39d:b0:873:5c0f:283 with SMTP id 00721157ae682-8b07eda095bmr83218097b3.45.1792110850855;
-        Thu, 15 Oct 2026 17:34:10 -0700 (PDT)
+        bh=naVPTdLBkGW0uis0AnktX+NhPTF71p9vdwxuj5+66Gs=;
+        b=YTl6TUJeJJ2Sm1ndSjgMnjqpkZOgvWOIrGoKJ9vMWyJGxa4YQZIyjvwwlrcT9a6jRm
+         vD0DbeKce4lUbs4OMKJ8jhjFwCSLzMMo9FtHea0Cc+xvX1kLBBIshp3kK/ezsmjWES2+
+         FFLlEuN60u3xuN4R3ih9+Ir6L+xVldtteU/gZVocYnweJGl9H5dew7SBnU4eqY7dG9h6
+         7B/S1JF/fmiDb2aDaCnU6Dy5PDoHMN3A3t6lHh7T5hL8xZIQTIWzSD3PpuvtobHKEkRw
+         TOSVWC8ro+G4IMM/ZR11SjlXW/kj70EBqT+JUcn6ja9aH37wJoKDsrMIhZzCi0DbIrcf
+         81ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792110864; x=1792715664;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=naVPTdLBkGW0uis0AnktX+NhPTF71p9vdwxuj5+66Gs=;
+        b=Ke05R44USDpPh39cmQGeLm3mMHakeoYlQUCPiUDs39IDRykWYPniDMC3wRXZ8pSZfg
+         bOUZEHWZnT+ZMW5mvZkDiay9s3reb9WRXW0S0wg6wAcS0IvozM0s2kkucyGxfrJwBr2U
+         sEy5In52xw9pCWe4tM5fwP/LceUsAbt45NnDKRMtaoU34qH9u3DrHafWGmc7xTKMJKCH
+         tkL0ZNdFS3C7pHDXAil37+KYVXeld8qRlZoWuggFRFDAKO4yuw9RLspyk2fsm65VXdiF
+         B+0lWS+xbf29rZdPt20pCSnYn/7TLgDa769v+J9VNF6FBpwpaW1y98ZosRarGbqG9SaF
+         9DlA==
+X-Forwarded-Encrypted: i=1; AKwUvBy2UMz8nb6KG3B6XSPSNZWi4pCr2yXEA1Ysng+JXzEN86b15VxIVuayJVb1rzU6CIZO+tNMcqt31kW07lk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUisN5RKOtW6N3MzCF3LrAKetjEMLnM4D/ar32mUv3j/ALXXAz
+	IF45kDNVuGDu2WRCHWPM5ffiutGUO8Y1VNH1hInJL26NJYEwL7wTH3qQ
+X-Gm-Gg: AYBFou00dQWXMOWy4JYETGUBqVBWC6qb/JhYubq8pyLL/qc3OQml9rb5CbYqatXMc7z
+	ADqzCGakltdiQsYExLLL4r0/VnIBd9rkzmrlK93iuombqr8gCzyuPp/+q3O4G+Vpcof1hqTz+Kc
+	Op4RZI63Osqvcd0iUwjwJcsK0uV640lQUddGX30KS/Dcwvn+rACd5agCE1YMx3v1RQNgDiHbqq1
+	93m3SoqsKZNhyMlD/yVkVPobqcj+vhqt/C5GOrevQnQ6c8MLWax/i9Nb1ZnuDELvXc9Tpt3gJ/8
+	uDX00PSWv0Dr5u+iMDHAQbMPU1heatZQcEuQgY/t7utAx6posxD/XTTUj/Al/6Y7FFh2Ce+jB/z
+	yclaU2fR9G533IB01+28pOhnP7v7Hcz6r6WD5Y8OdeVtVIhrBI6T2azNn0sAWFptpDGkh/THCVi
+	bGLdwEsPqJyWveO5TbaVcw2sQjMpEODN+bDDJ+v64aAVQkbcT4cOg=
+X-Received: by 2002:a05:690c:fd4:b0:8b0:e385:edc3 with SMTP id 00721157ae682-8b0e385f62amr6595847b3.33.1792110863971;
+        Thu, 15 Oct 2026 17:34:23 -0700 (PDT)
 Received: from corey ([2600:1702:5081:b900::49])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e58892cfsm2982937b3.10.2026.10.15.17.34.08
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e58892cfsm2982937b3.10.2026.10.15.17.34.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 17:34:09 -0700 (PDT)
+        Thu, 15 Oct 2026 17:34:23 -0700 (PDT)
 From: Igor Malovitsa <igor.malovitsa@gmail.com>
 To: bpf@vger.kernel.org
 Cc: ast@kernel.org,
@@ -69,10 +71,12 @@ Cc: ast@kernel.org,
 	memxor@gmail.com,
 	linux-kernel@vger.kernel.org,
 	Igor Malovitsa <igor.malovitsa@gmail.com>
-Subject: [PATCH bpf 0/2] bpf: Fix ring buffer checks on 32-bit position wrap
-Date: Fri, 16 Oct 2026 00:33:16 +0000
-Message-ID: <20261016003318.529860-1-igor.malovitsa@gmail.com>
+Subject: [PATCH bpf 1/2] bpf: Load ringbuf consumer_pos under the spinlock
+Date: Fri, 16 Oct 2026 00:33:17 +0000
+Message-ID: <20261016003318.529860-2-igor.malovitsa@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016003318.529860-1-igor.malovitsa@gmail.com>
+References: <20261016003318.529860-1-igor.malovitsa@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,97 +85,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Two more places where ring buffer positions are compared in a way that
-breaks once they wrap on a 32-bit kernel. Two earlier fixes of the same
-kind are commit 6ff5b56a50c5
-("bpf: Fix pending_pos walk on 32-bit ring position wrap") and
-commit 3f611e9b820e
-("bpf: Fix available-data accounting on 32-bit wrap in overwrite mode").
-The remaining two:
+__bpf_ringbuf_reserve() loads consumer_pos before taking the spinlock.
+Nothing bounds how stale that value is when the lock is finally taken:
+other producers may have reserved, and the consumer consumed, any
+amount of data meanwhile. bpf_ringbuf_has_space() compares
+new_prod_pos - cons_pos as unsigned long, so on 32-bit, once positions
+wrap, a value close to 2^32 bytes stale passes the check and the new
+record is written over records the consumer has not read yet.
 
-- __bpf_ringbuf_reserve() reads consumer_pos before taking the lock, so
-  a reservation that stalls long enough can pass the space check with a
-  value about 2^32 bytes stale and overwrite records the consumer has
-  not read.
+Load consumer_pos after taking the lock. producer_pos cannot move while
+the lock is held and the consumer never passes producer_pos, so the
+value is less than a ring behind and the difference is exact.
 
-- __bpf_user_ringbuf_peek() widens the positions to u64 and compares
-  them, so once producer_pos wraps and consumer_pos has not, the ring
-  reads as empty from then on and the user-space producer gets -ENOSPC.
+This needs a reservation to stall for about 4 GiB of traffic on a
+32-bit kernel; it was found with a formal model of the protocol,
+and reproduced using late_initcall.
 
-Both need about 4 GiB of ring traffic on a 32-bit kernel. Neither
-changes anything on 64-bit.
+Fixes: 457f44363a88 ("bpf: Implement BPF ring buffer and verifier support for it")
+Assisted-by: LLM
+Signed-off-by: Igor Malovitsa <igor.malovitsa@gmail.com>
+---
+ kernel/bpf/ringbuf.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-How they were found and tested: a formal model of the ring buffer
-protocol, written in Lean on the ORC11 memory model with the help of an
-LLM coding assistant, showed both executions. Each was then confirmed on
-32-bit QEMU guests (i386, arm and riscv32) by a test-only initcall (not
-part of this series) that puts the positions in the wrapped state and
-calls the real __bpf_ringbuf_reserve() and __bpf_user_ringbuf_peek():
-without the patches it reports both bugs, with them both cases behave
-correctly. With each patch, kernel/bpf/ringbuf.c builds without warnings
-with W=1 on x86_64 and i386.
-
-No selftest is added: reaching the states needs about 4 GiB of traffic
-or instrumentation that only a test build can have.
-
-The ring buffer selftests pass with the series applied on x86_64,
-aarch64 and riscv64 (vmtest.sh, test_progs -t ringbuf: ringbuf,
-ringbuf_multi, user_ringbuf and verifier_ringbuf, 33 subtests), and on
-x86_64 without it. On riscv64 QEMU ran with -cpu max: the cross-compiled
-test_progs uses Zbb/Zcb instructions that the CPU vmtest.sh picks lacks.
-
-Reproducer (test-only, not for merging): a late_initcall in ringbuf.c,
-built for i386 (tinyconfig), arm and riscv32 (their defconfigs), each
-with BPF_SYSCALL, and booted in QEMU. For the first bug, a hook between
-the consumer_pos load and the lock in __bpf_ringbuf_reserve() stands in
-for the stalled reservation: it moves the positions to where 4 GiB of
-traffic would leave them, so the load before the lock still holds the
-old 0. Condensed, without the message prefix:
-
-  /* hook, called just before raw_res_spin_lock_irqsave() */
-  WRITE_ONCE(rb->consumer_pos, ULONG_MAX - PAGE_SIZE + 1);
-  WRITE_ONCE(rb->producer_pos, ULONG_MAX - 7);
-  WRITE_ONCE(rb->pending_pos, ULONG_MAX - 7);
-
-  /* initcall: the ring is full, so the reservation must fail */
-  rb = bpf_ringbuf_alloc(PAGE_SIZE, NUMA_NO_NODE, false);
-  if (__bpf_ringbuf_reserve(rb, 0))
-      pr_emerg("cons-under-lock: BUG reproduced (reservation accepted)\n");
-  else
-      pr_emerg("cons-under-lock: fixed (reservation rejected)\n");
-
-  /* one empty sample at consumer_pos, producer_pos just past the wrap */
-  rb = bpf_ringbuf_alloc(PAGE_SIZE, NUMA_NO_NODE, false);
-  rb->consumer_pos = ULONG_MAX - 7;
-  rb->producer_pos = 0;
-  hdr = (void *)rb->data + (rb->consumer_pos & rb->mask);
-  hdr->len = 0;
-  hdr->pg_off = 0;
-  err = __bpf_user_ringbuf_peek(rb, &sample, &size);
-  if (err == -ENODATA)
-      pr_emerg("user-ringbuf-wrap: BUG reproduced (false empty)\n");
-  else if (!err && size == 0)
-      pr_emerg("user-ringbuf-wrap: fixed (sample found)\n");
-
-Output without this series:
-
-  BPF_RINGBUF_REPRO: cons-under-lock: BUG reproduced (reservation accepted)
-  BPF_RINGBUF_REPRO: user-ringbuf-wrap: BUG reproduced (false empty)
-
-and with it:
-
-  BPF_RINGBUF_REPRO: cons-under-lock: fixed (reservation rejected)
-  BPF_RINGBUF_REPRO: user-ringbuf-wrap: fixed (sample found)
-
-Igor Malovitsa (2):
-  bpf: Load ringbuf consumer_pos under the spinlock
-  bpf: Fix user ringbuf empty check on 32-bit position wrap
-
- kernel/bpf/ringbuf.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
-
-
-base-commit: ff47652a4b66c067c765a7ad464d930b5a9367cc
+diff --git a/kernel/bpf/ringbuf.c b/kernel/bpf/ringbuf.c
+index 3f1013d80544..6b86c4db5108 100644
+--- a/kernel/bpf/ringbuf.c
++++ b/kernel/bpf/ringbuf.c
+@@ -473,11 +473,12 @@ static void *__bpf_ringbuf_reserve(struct bpf_ringbuf *rb, u64 size)
+ 	if (len > ringbuf_total_data_sz(rb))
+ 		return NULL;
+ 
+-	cons_pos = smp_load_acquire(&rb->consumer_pos);
+-
+ 	if (raw_res_spin_lock_irqsave(&rb->spinlock, flags))
+ 		return NULL;
+ 
++	/* Under the lock, so at most one ring behind producer_pos. */
++	cons_pos = smp_load_acquire(&rb->consumer_pos);
++
+ 	pend_pos = rb->pending_pos;
+ 	prod_pos = rb->producer_pos;
+ 	new_prod_pos = prod_pos + len;
 -- 
 2.53.0
 
