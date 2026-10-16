@@ -1,96 +1,292 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F0C84CEE4D;
-	Fri, 16 Oct 2026 13:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F8CC4D09FB;
+	Fri, 16 Oct 2026 13:32:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157540; cv=none; b=YeC1oZ1DpIJnr5JZJ2kLmWFbgkXKFjqPrmd9ljvl4ker6LdKPTOswlc7xbxou5RpEiwwdBt4++iPUxFXKvZsKKD3tWoEHjBApvstkX8wTQLKahHmceh2PLxCcQ6EtoHlApMa11SG7/8n2mGhZXRcIAjLFIk5FLfVJ7ktcs/QaJs=
+	t=1792157540; cv=none; b=AADb0k0m5ITMh6ibsvUJgie4REJb6GRcjNhkm3oSYtaIXljPPzDJA5qGwuE37LtXti/R2ZMIZB1oIbfdGhEsfUnLoFpr0LpGQc3KYoEJJIczpZXRdTPx7lQy9Mn3LwvRIogwSJ+cxYzBrvfb1j9LFqzAiKC3PrOii9GV38vxCp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792157540; c=relaxed/simple;
-	bh=4tww+20O5RpFk7JwnGATK7P/ns2O8SLs2ij/rA77nLQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qo/ARt5jQk8Nfw8c63Wtx9a0z3r1Hy+jBSWJDNvKScmUJBku3YNVLtKSTmM3C6jclUAX8k/cgFUR5Zx9ytYi89hXXbFHaT0b1r0+XcIIPUFtYgoTNvN5cuoYSFlYwI+AamrK4CxUWw9DAaPZ1324i2AeLxeEGvZzLac7RfkI5/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E5Lc81/i; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	bh=Ks0USjugD7SuRhWKVfn4U8BL6MvP82+P9txCurG7QKs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=r0ArJp47Rj9RtBT1JsvD+aMfu5F2xUejhln0xEn4CKsN4qmcEUziCutscFaRUeRSsEA9Ly0JufHUm7wnPY9oxVSlGePgqtatLnMs9v3UwOTDpDLXQ0HAgyhf7IXZvchJ6kveLVWPvY7cf4Oo60SaXUXsOkFWfCFvrKwG06wyIvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZE1wwLUL; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E5Lc81/i"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792157539; x=1823693539;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4tww+20O5RpFk7JwnGATK7P/ns2O8SLs2ij/rA77nLQ=;
-  b=E5Lc81/iL0aEidFkxFagpCZPRxmBM3fxETztnED8BLc17E1c1lzdvT51
-   0MMNLntGy36vy6TLu/Nzt+J5S3uYu3L28XLxEFso/9Atjdam5Yeq4555h
-   vlBPDhtyf0XvUz5CLeH5LE/utd8ukdflSHtvNnr/kJFdy3m9U47GPyVsW
-   MQxQfy2BLE42F2QL3gWYi88DGzfsS+je2qsj7GMVBbOKDV/55gn8qjIZ+
-   CScvisVwkppkVnnnKsjF2wazy1/N2FIXV1OwQb3PpFZVEIf86Jq9i0MOu
-   1lTkIZ0S6G/ytpzm+XbKOEpnw1quHDBYyJzvbuU9Dd6CDdBum638sMflL
-   Q==;
-X-CSE-ConnectionGUID: YYwTmP7FRSKmAt6U//tM2A==
-X-CSE-MsgGUID: hNy5S0p8SKOZjNwtRD0Y5g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="842672"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="842672"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 06:32:19 -0700
-X-CSE-ConnectionGUID: NVBJKEN4SGaQqu0Yi8G49w==
-X-CSE-MsgGUID: F+NQ+lOaROKub8UktRSdOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="3695412"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.35])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 06:32:16 -0700
-Date: Fri, 16 Oct 2026 16:32:13 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev
-Subject: Re: [PATCH 1/2] tty: serial: remove hub6 multiport support
-Message-ID: <atInXRlI1L9JXjMd@ashevche-desk.local>
-References: <20261016130328.1037616-1-arnd@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZE1wwLUL"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C67E814BF;
+	Fri, 16 Oct 2026 06:32:13 -0700 (PDT)
+Received: from [10.57.84.235] (unknown [10.57.84.235])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 703DF3F673;
+	Fri, 16 Oct 2026 06:32:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792157537; bh=Ks0USjugD7SuRhWKVfn4U8BL6MvP82+P9txCurG7QKs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ZE1wwLULw9k3L5q79FDNXYmyFkwf/21565zyniXsKaWTLWKLZuECGqu6QX7WnTj4j
+	 IVtSodNs3104ey4DzsHBOLdIB06rq8Ok5t2kNs4TtgCHQu2pKMLo7ytc429se6Ns3k
+	 Uk46SgTROoJdkDuBtsI38UfswX9i6ZnN4xns+g8k=
+Message-ID: <81963d52-0d49-4fb5-b9c8-e1199999aeb4@arm.com>
+Date: Fri, 16 Oct 2026 14:32:13 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016130328.1037616-1-arnd@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC] cpuidle: runtime exit latency prediction and timer
+ compensation
+To: Cong Zhang <cong.zhang@oss.qualcomm.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "Aiqun Yu (Maria)" <aiqun.yu@oss.qualcomm.com>, kernel@oss.qualcomm.com,
+ trilok.soni@oss.qualcomm.com
+References: <2a5dd3fd-a03f-4ffb-827c-2937bf664c75@oss.qualcomm.com>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <2a5dd3fd-a03f-4ffb-827c-2937bf664c75@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 02:59:47PM +0200, Arnd Bergmann wrote:
-
-> hub6 support was added in linux-0.99 and the hardware was already old at
-> the time, being discontinued in 1990. The code for it has always been a
-> mess since it adds another dimension to the I/O addressing in the driver
-> that has leaked into many individual files.
+On 10/16/26 11:41, Cong Zhang wrote:
+> Hi all,
 > 
-> Hugo and Uwe have attempted several times this year alone to isolate
-> the hub6 handling into the 8250_hub6.c file, but I feel that none of
-> this has been a real improvement over the original standalone loadable
-> module support.
+> 1. Abstract
+> -----------
 > 
-> Any machine that would have used this ISA card in practice is likely
-> 30 to 40 years old, and with i486 support now removed, it is clearly
-> safe to just kill this all off. The only bit that has to remain
-> is the ioctl interface, to ensure the serial_struct field is always
-> zero.
+> This RFC proposes a way to measure and predict CPU idle exit latency at run
+> time in the kernel. It also discusses how to use the prediction to reduce the
+> delay between the expected hrtimer expiry time, called hrtimer rooster timer
+> solution.
+> 
+> This idea was presented at the 2026 Linux Plumbers Conference [1]:
+> [1]https://lpc.events/event/20/contributions/2595/
+> We would like to continue the discussion of this approach here in this RFC.
+> 
+> 2. Background
+> ------------
+> 
+> An hrtimer callback can run later than hrtimer next event, the expected expiry
+> time. This is a known behavior in the kernel. Hrtimer expiry only means that
+> the IRQ will be generated at the corresponding time. The callback still waits
+> for wakeup, resume, and the rest of the timer IRQ handling path. This can
+> delay its execution.
+> 
+> When an hrtimer expires while a CPU is idle, the timer IRQ starts waking the
+> CPU. The hardware resumes first. The firmware resumes next. The kernel can
+> start running after that. We call the period start from receiving the IRQ to
+> the entry of kernel execution as idle exit latency. Different CPU
+> architectures and platforms have this kind of idle exit latency.
+> 
+> The kernel currently uses a static idle exit latency from the device tree.
+> This value describes the worst case. It does not directly show the idle exit
+> latency under current conditions. A more accurate idle exit latency estimation
+> will cause less confusion and less power impact in real use cases. A similar
+> upstream discussion also points out that using a static worst-case value to
+> estimate typical latency can cause errors [2]:
+> [2]https://lore.kernel.org/all/44c4ee5a-34ec-4b23-b06b-05bd0fda6585@arm.com/
+> 
+> Other related upstream discussions cover genpd CPU latency QoS [3]:
+> [3]https://lore.kernel.org/all/20250709-pmdomain_qos-v2-1-976b12257899@oss.qualcomm.com/
+> and IRQ timing infrastructure removal [4]:
+> [4]https://lore.kernel.org/all/20251210082242.360936-2-maz@kernel.org/
+> 
+> This RFC therefore discusses how to measure and predict idle exit latency in
+> the Kernel context, and how the prediction may be used for hrtimer handle
+> latency accommodation and other kernel Decisions needed to consider the idle
+> exit latency.
+> 
+> 3. Runtime measurement and prediction
+> -------------------------------------
+> 
+> Different than other interrupts, timer interrupts will have the info of
+> expected time to be triggered. So, We assume the hrtimer expire time and it’s
+> handle latency can be used for specific idle exit latency runtime measurement.
+> We identify the cpu idle level, different cpu, cluster idle level is the key
+> difference of the idle exit latency variation. This section describes how the
+> kernel collects runtime samples and gets a typical exit latency under current
+> conditions. The collection step records valid samples. Prediction uses a
+> sample window to make a dynamic estimate for each condition.
+> 
+> 3.1 CPU sample collection
+> -------------------------
+> 
+> When the CPU enters idle, record the CPU idle level it actually enters and the
+> current programmed hrtimer next event. The idle exit path records when the CPU
+> is awake and running again. This point is before any IRQ handler or hrtimer
+> handler.
+> 
+> In this RFC, observed exit latency is defined as the time when the CPU is exit
+> from idle in kernel idle driver minus the programmed hrtimer expire time:
+> 
+>     cpu idle exit time stamp - programmed hrtimer expired time
+> 
+> Keep separate records for each CPU ID and idle level.
+> 
+> There is much noise that will affect this period, for example other
+> unpredicted interrupt coming at the same time. We only take the measured and
+> expected time into consideration. A sample is valid only when all these
+> conditions are held:
+> 
+>   - The target CPU entered the target idle level.
+>   - The target hrtimer has expired.
+>   - The target CPU had only the target timer IRQ pending.
+> 
+> These conditions make sure that the recorded resume time belongs to the target
+> hrtimer, not to an early wakeup caused by another interrupt. Samples that fail
+> these conditions are marked invalid and excluded from exit latency statistics.
+> 
+> 3.2 Cluster exit latency
+> ------------------------
+> 
+> A single CPU chooses the CPU idle level, while multiple CPUs choose the
+> cluster idle level together. When the first CPU wakes, the resume process
+> includes the resume time for the whole cluster. We use the exit latency of the
+> first woken CPU as the cluster exit latency.
+> 
+> The cluster case uses the same measurement method as the CPU case. The last
+> CPU that makes the cluster enter sleep records the cluster ID and cluster idle
+> level for this entry. At exit, the first CPU in the cluster resumes after
+> wakeup represents the sample.
+> 
+> The validity conditions for a cluster sample are similar to those for a CPU
+> sample:
+> 
+>   - The cluster entered the recorded idle level.
+>   - The target hrtimer has expired.
+>   - The target CPU had only the target timer IRQ pending.
+>   - Other CPUs in the cluster had no pending IRQ except timer IRQ.
+> 
+> Mark samples that fail these conditions as invalid. Exclude them from cluster
+> exit latency statistics and prediction.
+> 
+> 3.3 Why measure in the kernel
+> -----------------------------
+> 
+> A user-space program can use a periodic timer to measure the time from hrtimer
+> next event until the thread runs again. This time does not accurately
+> represent CPU exit latency for these reasons:
+> 
+>   - The time when the thread runs again includes scheduler and user-space path
+>     overhead. It cannot show the exact time when the CPU resumed after wakeup.
+>   - User space usually does not know which CPU idle level the CPU entered, or
+>     which cluster idle level the whole cluster entered.
+>   - User space cannot reliably tell whether the target hrtimer, an IPI, a
+>     device
+>     IRQ, or another pending interrupt woke the CPU.
+>   - To send test results back to the kernel in real time, user space would
+>     need
+>     an extra user-to-kernel interface. The results cannot then be sent
+>     directly and continuously to a running cpuidle governor, or used directly
+>     for hardware timer programming and compensation.
+> 
+> 3.4 Prediction from historical samples
+> ---------------------------------------
+> 
+> For current experiment, we use a simple way to do the prediction to the valid
+> history samples. The predictor keeps a separate fixed-length window of recent
+> samples for every CPU and idle level. It keeps another window for every
+> cluster and cluster idle level. The current prediction is the average of the
+> samples in the window.
+> 
+> 4. Possible use cases
+> --------------------
+> The “more accurate” idle exit latency can be used in different areas. It can
+> replace the current static idle exit latency used in current kernel
+> components. And One another possible use is hrtimer compensation. We will take
+> this as a specific example.
+> 
+> 4.1 hrtimer compensation
+> ------------------------
+> 
+> Idle Exit latency is one important part of the delay before an hrtimer
+> callback. When cpu is about to go to idle, we can predict the possible current
+> idle exit latency and do compensate. the prediction can set the hardware
+> wakeup time before hrtimer next event. This can compensate for the delay
+> caused by idle exit latency.
+> 
+> We call this early wakeup interrupt Rooster IRQ. Its lead time covers the time
+> needed for hardware and firmware to resume. Rooster IRQ fires before the
+> original hrtimer expiry time, so the CPU can resume close to the expected
+> time. It does not change the software hrtimer expiry time or run the hrtimer
+> callback early.
+> 
+> Rooster IRQ only adds a new hardware timer used for wakeup. This can use The
+> cpu local arch timer and a global/broadcast timer. The rooster timer is set
+> before hrtimer next expire time.
+> 
+> In the CPU case, use the prediction for the CPU and idle level to set that
+> CPU's Local timer. The local timer wakes the CPU early.
+> 
+> In the cluster case, a platform may have several global timer frames. A
+> separate frame can be assigned to each cluster that needs an early wakeup. The
+> last CPU that makes the cluster enter sleep sets a rooster cluser timer. It
+> uses the prediction for the cluster idle level to set the rooster wakeup time.
+> The rooster cluster timer directly wakes the first CPU in the target cluster
+> that needs to resume.
+> 
+> If the platform has only one global timer, or if the local timer stops at the
+> target idle level, a global/broadcast timer can wake an intermediate CPU
+> first. That CPU then sends the wakeup interrupt to the target CPU through an
+> IPI. The rooster timer lead time must cover the exit latency of the
+> intermediate CPU's cluster and the target CPU or cluster.
+> 
+> 5. Prototype status and results
+> ------------------------------
+> 
+> The measurement and prediction mechanism has been validated with real hardware
+> on Qualcomm's platform.
+> 
+> The LPC slides show sample results over a period. The sampled exit latency
+> stays fairly stable during that period. A prediction based on recent sample
+> averages also follows changes in the samples reasonably well.
+> 
+> On device, we enabled compensation with one global timer and broadcast. We
+> measured the difference between the actual CPU resume time and the expected
+> hrtimer expiry time. t1 is the time when the CPU resumes kernel execution. t0
+> is the original hrtimer expiry time. In the table, "Before compensation" is
+> the reference with the same definition. "After compensation" is the result
+> with this compensation path enabled. The unit is us:
+> 
+>     Metric: mean absolute value of t1 - t0, us
+>     State               | CPU C4 | Cluster CL4 | Cluster CL5
+>     -------------------+--------+-------------+------------
+>     Before compensation | 19.824 | 61.991      | 1929.767
+>     After compensation  |  0.073 |  0.191      |   10.738
+> 
+> 6. Discussion
+> -------------
+> 
+> The prototype code is still being cleaned up. We would like to discuss the
+> design and get community feedback before we finalize the code. The feedback
+> will guide the next implementation direction.
+> 
 
-After reading patch 2/2 I noticed also a SERIAL_IO_HUB6 leftover. Most likely
-it should stay as is until the user space gets rid of the use.
+So a few thoughts that are still in my head from the LPC talk:
 
--- 
-With Best Regards,
-Andy Shevchenko
+1. Existing hardware mitigations.
+For example Intel accomplishes this with a hardware feature called
+C-state pre-wake, how will these co-exist?
 
+2. What about platforms without OS-coordinated cluster states?
+What about the platform influencing idle states more generally?
+(In particular with platform-coordinated cluster-off you should
+see two range of latencies, one which was true cluster-off and
+the other was unrealised cluster-off that is really just CPU off).
 
+3. Does any workload actually care? What's the performance improvement?
+How does it affect power? Especially w.r.t existing latency constaints
+
+I have a bunch of methodological questions about the sampling, but
+presumably they would all be answered by the code.
+(Are we still sampling while the mitigation is applied? If so how is
+exit latency observed distinguished from prediction error? What if the
+first waking CPU is not the cluster-wake-initiating? What if the
+CPU wakes up too early because of the mitigation? (if this enters the
+idle loop again, this influences the governor massively of course).)
+
+Also if "replace the current static idle exit latency" actually means
+for the QoS constaints too, then I think we shouldn't do this, it's
+deliberately a worst-case.
