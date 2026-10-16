@@ -1,93 +1,133 @@
-Received: from mta1.migadu.com (out-85.mta1.migadu.com [95.215.58.85])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086492D9EED
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:18:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.85
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B0E421EF8;
+	Fri, 16 Oct 2026 07:18:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135125; cv=none; b=s4+MxpbAVYIgaP2NCfMID0vMyF5ZeOSX9q3QPAoWLqzEp7mXuPD3KJmVWUJ7qKfyMxvIxuU4pOB8KNG2nVLUqWDaIdednLwg85em8ZIBu9ODYrnO3S5DVXeSDXWwK3ncx0fQQbgizPB2q3zoJOyu5TpZgkIjvfCSbizZdGWwffc=
+	t=1792135129; cv=none; b=KzbJEsjS+/6cnaIjg3oJgEB8Kt9BBQzzsWm05QEaApoqjNrSaH407d23LQtm+h3X7rVsNgQAy7nA4mHlBCHxeKVYjQvYBc1MLCj7djHqXJ3rEznEW138L6Jlq2ZUWWEEwlLpWeU+vn+WDKB6HXH/mA0VxnZvYogXyEgQ0cfCY7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135125; c=relaxed/simple;
-	bh=6EH9Q+NY8085/trt7WRYQhIUKmAyNfguuH/JmIdbxLM=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=BJIPbq8WY2W/1RvCrqgOM9NLowx6E7j36CzwLhtIv8SUtUpKBRQOBDfooliQAHllCmkmWBefUafF0EDt8GscoVHUoygtZvYAgp2TzsYCrc4/1BWdCiOwYZ6wdn6JBjmQjRYXNaW12Dyqv4tTtJKWto/cohyd4Lhe5n7XnVSVsng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FWur2hR/; arc=none smtp.client-ip=95.215.58.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792135129; c=relaxed/simple;
+	bh=fx08jF1lGfBNxGHEObrn2q0urJVBldjrOMSeT87Twr4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M29D7n84roA28fTtm2+VcZyBu17qwBMW91zeC/XMRwbqboBhhHebwX0DIhodw9NdkRhbptOzNe+yWoG5zHxpZ6KAtAx+PZvfMPVzNURbAkieioxjh/oIy+rdr/R+Ouajc8AIyzmSQyosilCxGiYYUeTg7D2HnX0csT6rZSKXUOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UeyY4PYD; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FWur2hR/"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6EH9Q+NY8085/trt7WRYQhIUKmAyNfguuH/JmIdbxLM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792135119; v=1; x=1792739919;
- b=FWur2hR/Sys1Ij2jDNya4lxwxZ1f1O9AxnsY8LPGpQVE8/op5gein9OQzniCYz+dC79eBW+L
- QpmBSECh8CbYjG8MOSezh8rmET8Zu37vgS3qrLllzK5xya/XkZrb7MK7HTXiZEhZmB4YSnmy5Fd
- 0Avx6K3H8UJ8p8Kp201mtP2k=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 986970ad1353ee4d;
-	Fri, 16 Oct 2026 07:18:39 +0000
-X-Mizu-Trace-ID: 986970ad1353ee4d
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UeyY4PYD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=JP
+	QpWeMISzrIunZ01qWhJTq/db8MK1NfPuxvC7OhWBo=; b=UeyY4PYDwnv6JCDgC1
+	0kVwaZxiIA1QKKcYpxJc29SBQmAwoLzzXVUAT57wOPO24u514YiAP2RRxlveUAdF
+	oe0QamVdR6Rw2JzalM4asbKQ7TMN+RGaKJkBGln5iE8rPwAw9KJzXKlqVZERbYKQ
+	T3TYwCp9h2koLFriKxCzYpRic=
+Received: from nec8-i7 (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3jyaFz9FqVrDQAQ--.5020S2;
+	Fri, 16 Oct 2026 15:17:29 +0800 (CST)
+From: chenyuan_fl@163.com
+To: bpf@vger.kernel.org
+Cc: Yuan Chen <chenyuan@kylinos.cn>,
+	Quentin Monnet <qmo@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Mykyta Yatsenko <yatsenko@meta.com>,
+	Menglong Dong <menglong8.dong@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH bpf-next] bpftool: Print verified instruction count in prog show
+Date: Fri, 16 Oct 2026 15:16:57 +0800
+Message-ID: <20261016071700.280539-1-chenyuan_fl@163.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 03/10] mm/hugetlb: fix use-after-free in
- hugetlb_mfill_atomic_pte()
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261015-urgent_fixes-v1-3-42796911043b@kernel.org>
-Date: Fri, 16 Oct 2026 15:18:21 +0800
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>,
- Oscar Salvador <osalvador@suse.de>,
- Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Adam Litke <agl@us.ibm.com>,
- Mel Gorman <mel@csn.ul.ie>,
- Rik van Riel <riel@surriel.com>,
- Peter Xu <peterx@redhat.com>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Josef Bacik <josef@toxicpanda.com>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <921D5002-91A9-4FA1-83DD-A7D2D061628C@linux.dev>
-References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
- <20261015-urgent_fixes-v1-3-42796911043b@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3jyaFz9FqVrDQAQ--.5020S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF48WrW8KFyDurWrtw4rGrg_yoW5Gry3pa
+	15JF97C3yUXw1rGw1kCFs5ZrW3Ga1Igwn7JF4xArW8XFn5Jrsaqry3KF4FvFn8XF1fta4r
+	Z3yS9rW5tF1xZw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jShFxUUUUU=
+X-CM-SenderInfo: xfkh05pxdqswro6rljoofrz/xtbDAgkl4mrRz4kQFQAA30
 
+From: Yuan Chen <chenyuan@kylinos.cn>
 
+The number of instructions processed by the verifier is available
+through bpf_prog_info::verified_insns and the program's fdinfo since
+commit aba64c7da983 ("bpf: Add verified_insns to bpf_prog_info and
+fdinfo"), but bpftool does not display it, leaving no convenient way
+to check a program's verifier cost.
 
-> On Oct 16, 2026, at 00:07, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> Let's fix another instance where we use a folio after dropping the =
-PTL,
-> where someone else could e.g., MADV_DONTNEED it once we drop the PTL,
-> making us trigger a use-after-free on the folio.
->=20
-> Fixes: cb6acd01e2e4 ("hugetlbfs: fix races and page leaks during =
-migration")
-> Fixes: 1c9e8def43a3 ("userfaultfd: hugetlbfs: add UFFDIO_COPY support =
-for shared mappings")
-> Cc: stable@vger.kernel.org
-> Reported-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Print the count in the plain and JSON output of bpftool prog show,
+following the convention of the other conditional stats
+(run_time_ns, run_cnt, recursion_misses): kernels that do not fill
+the field leave it zeroed and nothing is printed.
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+Signed-off-by: Yuan Chen <chenyuan@kylinos.cn>
+---
+ tools/bpf/bpftool/Documentation/bpftool-prog.rst | 3 ++-
+ tools/bpf/bpftool/prog.c                         | 4 ++++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-Thanks.
+diff --git a/tools/bpf/bpftool/Documentation/bpftool-prog.rst b/tools/bpf/bpftool/Documentation/bpftool-prog.rst
+index 8dbd34ef3d8b..d4a94e0737a9 100644
+--- a/tools/bpf/bpftool/Documentation/bpftool-prog.rst
++++ b/tools/bpf/bpftool/Documentation/bpftool-prog.rst
+@@ -285,7 +285,7 @@ EXAMPLES
+ 
+ ::
+ 
+-    10: xdp  name some_prog  tag 005a3d2123620c8b  gpl run_time_ns 81632 run_cnt 10
++    10: xdp  name some_prog  tag 005a3d2123620c8b  gpl run_time_ns 81632 run_cnt 10 verified_insns 528
+             loaded_at 2017-09-29T20:11:00+0000  uid 0
+             xlated 528B  jited 370B  memlock 4096B  map_ids 10
+             pids systemd(1)
+@@ -301,6 +301,7 @@ EXAMPLES
+             "gpl_compatible": true,
+             "run_time_ns": 81632,
+             "run_cnt": 10,
++            "verified_insns": 528,
+             "loaded_at": 1506715860,
+             "uid": 0,
+             "bytes_xlated": 528,
+diff --git a/tools/bpf/bpftool/prog.c b/tools/bpf/bpftool/prog.c
+index eb077236d2ea..c77e871b8859 100644
+--- a/tools/bpf/bpftool/prog.c
++++ b/tools/bpf/bpftool/prog.c
+@@ -441,6 +441,8 @@ static void print_prog_header_json(struct bpf_prog_info *info, int fd)
+ 	}
+ 	if (info->recursion_misses)
+ 		jsonw_uint_field(json_wtr, "recursion_misses", info->recursion_misses);
++	if (info->verified_insns)
++		jsonw_uint_field(json_wtr, "verified_insns", info->verified_insns);
+ }
+ 
+ static void print_prog_json(struct bpf_prog_info *info, int fd, bool orphaned)
+@@ -526,6 +528,8 @@ static void print_prog_header_plain(struct bpf_prog_info *info, int fd)
+ 		       info->run_time_ns, info->run_cnt);
+ 	if (info->recursion_misses)
+ 		printf(" recursion_misses %llu", info->recursion_misses);
++	if (info->verified_insns)
++		printf(" verified_insns %u", info->verified_insns);
+ 	printf("\n");
+ }
+ 
+-- 
+2.54.0
 
