@@ -1,143 +1,84 @@
-Received: from mail-pz2-f8.google.com (mail-pz2-f8.google.com [74.125.228.8])
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D606B3B05AB
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:17:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5477E39B97F
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:18:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792131467; cv=none; b=UsGki/TeAYliPBOE4g1ZmkadPn+qj9blo6fFaO/wfOvQJoCnYOzktGvg87nlwPvc9UbS6zA2KkhCAiyF63lkv/9x54Zsn+91ZZ/oQsI4oJqkffkLA35/AMSDlpprMHA/LCAXDUak7dPMuHrns8YSbANc8I06G+on51NjrolHybA=
+	t=1792131519; cv=none; b=S6hggKZxX8FGdbJwtNyHEYRVA1VCevnL4wnxd72bbruVRw2EHHG2idkvMaRF6Y10lvu4kCe2XdMmqJ0NOmNEopiPpmfT8kPwxc6AcDMXDSDhwwwOliBAC8DOP0k6m2dlVz8ELgSE4+IxAKkjYW/fR6O2CR1uRS2TPoZZfCQ8nbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792131467; c=relaxed/simple;
-	bh=euWXYByltiCr6eLT3Uvt/s/e9D4RAaciKKJ13Szz3HY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ruCQUp4R35qKFRfJxr38l7iu8vwDFDTWBhICYzM5bsGZmEF/oEE/LN8t4rtJejse+A1hxnpnkf9zaS8mRUAkZrxT2Nr1+3dY0Fuia1o1LM7bA08Ir4XToYrTpaD8O3/mwQdNuGw9zJnGCFcsd65NhOzMoywLZ4CPfjrj3Kr93uU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rCus1n00; arc=none smtp.client-ip=74.125.228.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792131519; c=relaxed/simple;
+	bh=T3TaAmFgphpIJVeaERp7JPN/N3mG7s9sCVeOmyIk2UI=;
+	h=Cc:To:Date:Message-Id:In-Reply-To:From:Mime-Version:Content-Type:
+	 References:Subject; b=XI6DdTR16L7yRgrNSoup9EggY5fFehZ/7SYoo9MelURapTeiBM6NDCsr53bd6PfFuRthgnPF9XMjUwtNja3LCxiwlxp0rNQFt3NWwq6D/TCPDfaN3lfC5sH79F3HiXKr85rTLn+1tD+ivOw4X03l1EfdmLNcbKkixIvr8ACzOGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=PEU+PT0H; arc=none smtp.client-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rCus1n00"
-Received: by mail-pz2-f8.google.com with SMTP id 41be03b00d2f7-ccb794ce92fso507627a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:17:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792131465; x=1792736265; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oKmXp2d3TpfvxuGqVqHnwKm3WEcWPeyk8O3QNAPgerw=;
-        b=rCus1n00JlnitjfimZydf+oRVJfN/AUR5mdxYSbNezwChoMj5dn7hp8TQ14xH2TIMj
-         yVP8dabKAI6sowQhV8LBRLkzdvZrMe/GobgCiwqh/ZBTBdwQb8sSkGbZPb+My03onvlU
-         V3iZbunP2zIquiLJbxSiGnsN5ve2fw9CjyYp8vNA1J1NNCmUhhtKEwV6xX+XE5U5r9RB
-         xr7ZEXU7M++U9+FL/RQX23wA7KeViFtc+ckM2h+3WIVHifCR7+Y3PdUJhfBNLUTsdyFX
-         HVy0HTGqFZ3T8Mx2CMSlNjTSIsQutOZXXG2ixoRjnbFN31sdwsUYNE3f0HqdyTjbwmP8
-         y1dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792131465; x=1792736265;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oKmXp2d3TpfvxuGqVqHnwKm3WEcWPeyk8O3QNAPgerw=;
-        b=QkXZEh1gTLClanCc9RVilSOae/FyMNxx1uGzJCTklE8shgvzKpoXWgwERI5gdL9SrJ
-         nxh9Ex04HJBMF/TBK/ny4napcqjuVR9Uk4BuJg2sQANvIMtu5tqbPhEfWgWl3doBTLoV
-         FQkxJ0xOctiW7jiEn71GU/2I51IKdyTEXpw4XQQ+PdhzWF/OKg2QzILJWDxOF2Xjm4CC
-         lSy/vsrQ3S3WCsPj+EuFkKJEMqlxHo92EQER4VvWe4su70GSXigVmnwIbXmJo3msqIFG
-         4OywMnSvIeQ1k7moSAiwfzxIybWa1cXJPU6VE64fy7sYsDY6Bjp1xDPjmlTKp+D6kIpP
-         ++7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy4OU0jgG7T6IQIxpVVvnYk9nLhs/w9Nzb5Rty9gWO+gCpd5LqdkRElTf+zUvhNtfXRn4sfVY2RNcVSNJw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsG2Nhe8eyFRmce6Je2HHhSp0/7H23EG1+XdMuLXgF8kFB4lb4
-	bpPhMtlcR1fPu1B4QnqvWL5UYo8l1tjkqkVKb/KSVjz5+/5/Vwb88WW6
-X-Gm-Gg: AYBFou3iE2yLoKiVbtwQc9fEDCBr+ZkISo1fFBq4cQvYsdmhO3w43lKZigikhtvyeUQ
-	xC3Wu4ehYVl42se4yM7VjascY6FLYVMXHSSP8tj0fTm+6pKQf7W0oUoXC5WyzbB6uLNvUuGNle+
-	Y9+QSKcGI92euAFSjC/KD2ybQtciS47hm+gmq/YNEeZ2VeA4FFJYC8kRFOXCx7/5CWxew/N+iGi
-	t4deh0pKeaHZ4pIW9mhY0zBvYThKCi5DqFidEOJv02PwgF8WPQzXN+FkjS9D5OthPB0qgNRIMyW
-	DH3yCYcWVQdd7gGMPV0bdJRfe2f8feC5xhNfLrWiNE3RsCjja9Z7hxFaqUF6TrY9kMcJgOywy3U
-	Wl4SlmsOQGUi20ioIVWQ1yVOsy8KsJeIdJiK6e7MmzlVpR3qDiso9GxVS1RBDBqxWwMUTSupZWJ
-	DKH8+gWk5t6+22tLrmag9c718Pt8EHWvmXLi/kmc59bb2JXfqSrATKHHd1i8FKTeWCQfJHfC3if
-	4SIwg18hBDzxQjfivuabQ==
-X-Received: by 2002:aa7:88c2:0:b0:886:cae0:fb64 with SMTP id d2e1a72fcca58-897c700e74emr16786375b3a.31.1792131465299;
-        Thu, 15 Oct 2026 23:17:45 -0700 (PDT)
-Received: from intel.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f57b334e6sm586375b3a.42.2026.10.15.23.17.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 23:17:44 -0700 (PDT)
-From: Wandun Chen <chenwandun1@gmail.com>
-To: robh@kernel.org,
-	baoquan.he@linux.dev,
-	rppt@kernel.org,
-	m.szyprowski@samsung.com
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	mark.rutland@arm.com,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	saravanak@kernel.org,
-	akpm@linux-foundation.org,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	ruirui.yang@linux.dev,
-	robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	iommu@lists.linux.dev
-Subject: [RESEND PATCH v8 8/8] crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF header
-Date: Fri, 16 Oct 2026 14:15:49 +0800
-Message-ID: <20261016061549.4181390-9-chenwandun1@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261016061549.4181390-1-chenwandun1@gmail.com>
-References: <20261016061549.4181390-1-chenwandun1@gmail.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="PEU+PT0H"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792131511; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=CfbTlnpulMZSnkTZ0v/+czU1W90GNJRnt5mWzrYoJog=;
+ b=PEU+PT0HYC+D9Wexd7ivowvxB5PD8hbFpiYGbh1DaGdlVLuvmeJkn5RZsx74J7Rmc26PuJ
+ zhOH6LJ2iqUbsoRofh4/iK5Z1HdGz+jn+LS9OtvEDXYT8lxC+XXRXZvZGgaA/ddlm4xUrb
+ kpnCZttysDRN0Qc10wXI9W10Qrtq60kn5XWHwKAzmC/hAnSlPHicHOaEYcxuvyTGaB0/fm
+ 8s08mtrMK0jcY7sjq/JHZPt2iL4dhLUyGtEtYdI1A1QVicsuXwNrI3scnmt34Gv1FXU6Ox
+ FGQ7Mo7otS2EYcpDeWD3ofr8XgDKiYk8QCIgtU1pvoKM/c5d+M9MWiWbpd52Fg==
+Cc: <will@kernel.org>, <mark.rutland@arm.com>, <ardb@kernel.org>, 
+	<song@kernel.org>, <dylanbhatch@google.com>, 
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>
+X-Lms-Return-Path: <lba+26ad1c1b5+11c666+vger.kernel.org+qirui.001@bytedance.com>
+Content-Transfer-Encoding: 7bit
+To: "Catalin Marinas" <catalin.marinas@arm.com>
+Date: Fri, 16 Oct 2026 14:18:13 +0800
+Message-Id: <e8020121-d771-4a23-80bb-aff20b21efe4@bytedance.com>
+User-Agent: Mozilla Thunderbird
+In-Reply-To: <atEGBsR3eI3cXKay@arm.com>
+From: "Rui Qi" <qirui.001@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Original-From: Rui Qi <qirui.001@bytedance.com>
+References: <20261010084721.2197683-1-qirui.001@bytedance.com> <20261010085055.2200241-1-qirui.001@bytedance.com> <atEGBsR3eI3cXKay@arm.com>
+Subject: Re: [PATCH 2/3] arm64: patching: Fix instruction byte order in aarch64_insn_set()
 
-From: Wandun Chen <chenwandun@lixiang.com>
+On 10/16/26 12:57 AM, Catalin Marinas wrote:
+> On Sat, Oct 10, 2026 at 04:50:54PM +0800, Rui Qi wrote:
+>> aarch64_insn_set() passes the host-endian u32 instruction straight to
+>> text_poke_memset(), which memset32()'s it into memory in host byte order.
+>> AArch64 instructions must be little-endian in memory, so on a big-endian
+>> kernel the written bytes are reversed and the CPU takes an UNDEFINED
+>> instruction exception when fetching them.  The sibling aarch64_insn_write()
+>> already converts with cpu_to_le32(); aarch64_insn_set() does not.
+>>
+>> This is reachable in-tree: bpf_arch_text_invalidate() fills freed JIT
+>> regions with AARCH64_BREAK_FAULT through aarch64_insn_set(), and arm64
+>> selects HAVE_EBPF_JIT without a big-endian guard, so the path is taken on
+>> BE kernels with BPF JIT.  The direct-fill loop in the same file already
+>> cpu_to_le32()'s the constant, confirming the expected byte order.
+>>
+>> Convert the instruction to little-endian before the memset, mirroring
+>> aarch64_insn_write().  On LE the conversion is a no-op, so behaviour is
+>> unchanged.
+> 
+> We are just about to remove big-endian support (in 7.4).
+> 
 
-Reserve regions (for GPU, DSP, ...) carry no data useful for crash
-analysis. Exclude MEMBLOCK_NODUMP regions from the vmcore ELF header to
-reduce vmcore size and capture time. crash_should_skip_region() now also
-returns true for MEMBLOCK_NODUMP.
+Thanks for the heads-up.
 
-Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-Acked-by: Baoquan He <baoquan.he@linux.dev>
----
- kernel/crash_core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+I'm fine with dropping the big-endian-specific patches for mainline if
+arm64 BE support is going away.  The remaining patch, however, is not
+related to BE: patch 3/3 fixes late PLT/veneer emission into a ROX
+module .plt section in the livepatch/module relocation path.
 
-diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-index e161c8b65e00..0e2ddc933b22 100644
---- a/kernel/crash_core.c
-+++ b/kernel/crash_core.c
-@@ -283,10 +283,10 @@ static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
- }
- 
- #ifdef CONFIG_ARCH_KEEP_MEMBLOCK
--/* Exclude NOMAP regions from the vmcore. */
-+/* Exclude NOMAP and NODUMP regions from the vmcore. */
- static bool crash_should_skip_region(struct memblock_region *reg)
- {
--	return memblock_is_nomap(reg);
-+	return memblock_is_nomap(reg) || memblock_is_nodump(reg);
- }
- 
- unsigned int __weak arch_get_system_nr_ranges(void)
--- 
-2.43.0
+Could you please review that one separately?
 
+Thanks,
+Rui
