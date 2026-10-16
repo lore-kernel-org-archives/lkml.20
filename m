@@ -1,112 +1,202 @@
-Received: from smtp10.goneo.de (smtp10.goneo.de [85.220.189.106])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010024.outbound.protection.outlook.com [52.101.85.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7EBE257845;
-	Fri, 16 Oct 2026 15:50:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.220.189.106
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792165837; cv=none; b=KXQy9KKWBnFkzeF3vpiUAvEIcD6zpLt1iipnGSSZ5ZR9Bc6Dm7qI3XPGpXFzoYASqx7Hl8Zn3rOA1N1RHZaw1GHIUdJkHwD0Y4Ifq/i6F2OnKsVX3UvBPMaBoTFeENwEwDWFnR7CnNR8szYNyQ9z6A7vBHfz8ccNx4sKKav1NFE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792165837; c=relaxed/simple;
-	bh=EQRmU6Sr5j4REVMWye23mnyXQcCCUDct+ihHbCHqm80=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=c+aDFcXSU+vX/ATQZ6I9zd/8RPiGbPEU1z4itodS7CtzvDxoWMQJSLelGhcruLUPYKGwX8Ka+EEbDLamZJHgAymCTozGz29dLrBQZcH5eF8LfSK3Z4kOzAoe2NwNFmxB8A7x51RAP30Q784PR7Xu6XURsMj1ip0naIsDCzJ8mN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de; spf=pass smtp.mailfrom=tk154.de; dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b=F+c7Ty5M; arc=none smtp.client-ip=85.220.189.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE552931C0
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:50:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792165849; cv=fail; b=YYd5ZOoAGNMl/ZLZ3QSj/rS0i81bK9X4/dlSMkXZZVCV1gyp9xYajaM0b9ZOqfM+TF2AkK+9RbdrHpIeKLEmK16dCTgYSwEg56YamknUxEcirBQ6cATyPHjw318MDcc7y7GXQXvZFNskRAbQ/sfhZkPGbJptLymcy1nHeaf1ALI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792165849; c=relaxed/simple;
+	bh=BDzi2d67zm2y0EE4YZ/IdpWvSTm+jgkALp46rrmgjS0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=IAgfwEAqo6TKf9kvIvWCLFGQIZvQJ4wyIpEn6LbPbUcfNgIJCBAilTM2e/epEFSe49Umw1+Q55XLdT7XyAUL/1VO1es2VsbGRt4L4lvgJEZ24UrVEKt8YJ1eW0y4IVmynUFnKVoNTrO5FMFGJpdMvn2Kj8vshVS2FnY0RXFR37s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=aTsNYcUF; arc=fail smtp.client-ip=52.101.85.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b="F+c7Ty5M"
-Received: from hub1.goneo.de (hub1.goneo.de [85.220.129.52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by smtp10.goneo.de (Postfix) with ESMTPS id 811F32404D2;
-	Fri, 16 Oct 2026 17:50:30 +0200 (CEST)
-Received: from hub1.goneo.de (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by hub1.goneo.de (Postfix) with ESMTPS id 46D052407E1;
-	Fri, 16 Oct 2026 17:50:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
-	t=1792165828;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=d8YCP5jGBgTmgTQAyniXagzF04gSlvO3R6wmBiiY5pM=;
-	b=F+c7Ty5MHDd0atKwWzhDfKWcJntgAtNzQsV77d0FIqrMPpMEUlNoPio5SEyFjS5eG6BwL3
-	hgVggcRgjThz3bFX5nV0bRGYNIYYKOyq2kZ0B2+8jvzWULCzIGRMx1PdIEPYUKsVEp1IR/
-	ZJ7vgR6uAgNl0dNDhjw5Bzrj2XrpbkkfQzOfmjw90+lbixQzPLUxtP9jp5Ju+MqaEzKAXp
-	i2U3kCPtyjbDJmv3AkhdeuONzShZLu3TRJ9Ui9HO+bszoB/LOa53oXNG40wFF0sRq4DzYP
-	fugPIrPWNadO3CLvWlGgyXaTDDpMLY3d5J5RwH7bzB7gM0Rc2E2JGvpDwElZLg==
-Received: from [10.35.35.107] (unknown [195.37.88.189])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hub1.goneo.de (Postfix) with ESMTPSA id 7066E2404EF;
-	Fri, 16 Oct 2026 17:50:25 +0200 (CEST)
-Message-ID: <892399f9-0fcf-47e6-b07e-434410afc694@tk154.de>
-Date: Fri, 16 Oct 2026 17:50:25 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="aTsNYcUF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lYgmGTyK3bN4SX3HfmU8vwz+WdxaXMLeDt7hnGmKXi8x3LuK1DTAjTykWhapsXW8ilucVBJU82pZwF4Hst4b0t9AnbTFcObid+D02VIv7gzIt2jKA0cN7l3IU2xV+WU6KZaERjAiu0fPD7/dgK5b4izggatsqWdmT6N5c0shQTN8I5O+/IFtoa+M5CEemdMlg5UopFL87cwyPPsp4el07FnDgBFMh58Cn2hTaLgRm5MJm7iqClIVs+bGJFRy5cQIwQchlElX9BHv65txLZSsgZOv4VkCfOppL3FnxXU9G51lDsFaEIuF1WYkrNQ2g4MMki1CfamIQfTgvu9xImB9sQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d4Go7PBfe2IP7mVDxKWo3ia16BRD/Qkb/51aga624YI=;
+ b=SQD7puGVzQkJJZaU4rIBFTADb0QbTyzcwt8wWVBFG9boZEUS3GK/1UvdgKyo+4Nga9yhdCmNSz6tXQ8f8FYfIn/tnxLCP3HRslfpXRz26GkD/JkDOlC/317O3VbeMLMEenQqpsyMuf+rMDDIqH/nynpCZbjO/kiM3kUL0mENvedD/4GWeYVUGD3F4qmlWL8GwgrojgR6OHJUXi6aie17HRGgxmF14wZgUPjmJJlx3RE45PCd0gtYzj8e3AHKRcnOjMa6fH55CEw+09lRhmig3natlwWC+pAyIQlBZOsw9Fa1JN+kMzBOSfnaQMmogDYC5I7xQJU+Bv94bAidGhcpYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d4Go7PBfe2IP7mVDxKWo3ia16BRD/Qkb/51aga624YI=;
+ b=aTsNYcUFqpw3CfT+FZ4hcTZvZ4DacSE+39fPgtYduHmzxRFHltBykPoct5y24TG1tqIMo9p339FWqB0TbalHz1zPNMf/H8bxAz5+U3vpJfVT8vVR/qHEzSeA+H/RIYM8ntLiGilhAM1s8HYqt8I5gicf4YcjE8gFrW+FH+AWoy0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by MN2PR12MB4208.namprd12.prod.outlook.com (2603:10b6:208:1d0::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
+ 2026 15:50:46 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
+ 15:50:45 +0000
+Message-ID: <f4dcee55-8cc6-4287-a25a-1ace385f092b@amd.com>
+Date: Fri, 16 Oct 2026 09:50:44 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Use separate iterator for preferred mode
+ lookup
+To: Yibiao Li <biaobiao2233@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel test robot <lkp@intel.com>
+References: <CAG1agfwtnjmb8RVLmZvY9W-zrR1onhK6urJA3Lqai82tAXn2Cg@mail.gmail.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <CAG1agfwtnjmb8RVLmZvY9W-zrR1onhK6urJA3Lqai82tAXn2Cg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR04CA0045.namprd04.prod.outlook.com
+ (2603:10b6:303:6a::20) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 0/2] net: ethernet: qualcomm: ppe: Fix queue access
- and port validation
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, jie.luo@oss.qualcomm.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, linux-kernel@vger.kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, quic_leiwei@quicinc.com,
- quic_suruchia@quicinc.com, quic_pavir@quicinc.com,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20261016150140.929729-1-mail@tk154.de>
- <179216336717.408196.3512649985663407159@kernel.org>
-Content-Language: en-US, de-DE
-From: Til Kaiser <mail@tk154.de>
-In-Reply-To: <179216336717.408196.3512649985663407159@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Rspamd-UID: 88f7fa
-X-Rspamd-UID: 6224de
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|MN2PR12MB4208:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0e89447-7272-4c44-16ac-08df2b9d3dc9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|6133799003|22082099003|18002099003|10067099003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	ikLJhdSdfjTKGFKw/TV2cZ5fGuqZRNASphhFnHHS3zkIU6zhNzG6DJVQH6ntYFdfk4xfA/8k4UL9Q7zHx1sd5vduYuaLvu1YNm14z/bmoyg4MzEy86/DBlU8mwbTPROHW3eOEXSypIfpxUjosCRq5zh5Cr7pnWLd4TsJzgFpZy2V+pcFv+V6nFzrZlwBdqQqKUyslt6Tzv6FXZaEEonmAVUbiBE+uCIrXpb+EnLZYEpktNSsXq0P8aS5+D/1ldB6iTjH+jqQoTmD6n9gS6VfmiUjo6J+oWuASjGJFSoDUpm05AARyyfIuBa/DPk195rHCUw6lOa4qgOv1sxwOpd/ic6syIy3YXN6WBS+ZjEExMOLqpR02f0KTC/WKQzT3/BcuHpRlk4BFHFRb8u6KNKSSLmRjDNTZNdhpXbjObRsvywrSPmmPTWrHhtyzBRSylwMzPxl5vwYJF0h4FFDlQXbHz3FgFJwBcK/U24Vj3oDVlxqp8MVoC8+r6REtoweXYU86IQNdFiBjF3KUeUAjPv+1RW+Nq+9qc8Z866OUD4kfIE3BL24xII7UnX/6GrdID72zYnCC8CN+F12B7utneazKY3/1mEf2JQa3UoMdqScYpY5N3pEDgO94oYq007wUtpL
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8476.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(6133799003)(22082099003)(18002099003)(10067099003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TEdWNmw2SnZiK2wrMXNwR0NzR0svcTZmbVdtTW9RSjZPdDJ3TWZKaFBUUSti?=
+ =?utf-8?B?YWt3SGtmbkpleG5XWmFvTURaSWx6bnlxaDZ3RVIrYW0vMXJhYXdCY0hQSlZz?=
+ =?utf-8?B?NERnVlRTQkUyZGFFTFdqc3VMQ3FXeExRUXdTaGlNSlU2YWtZNUNIbHF3a1Uv?=
+ =?utf-8?B?ckQ5YjArYWh0VEk5UVVtejZqNHYzcG40YlU0ZUVvQTJENVhQdERFVzZtN0N5?=
+ =?utf-8?B?RUpMTnUwZk82SytnWlUvT2pxS2hlYkEyTThMODBnTU96RjJXUVBVSS9NbkZS?=
+ =?utf-8?B?RGJjWTRTTG56bUtxdkxST0lRZ05CczNwNEQ0RkpVWC9UcmdybjFpT3MzMWND?=
+ =?utf-8?B?TlVFTFNWRmIyc2VHQnpKbm1qYWNkZWZIZXVTalVjNHdGUjYyR3VMb3ZaY2tU?=
+ =?utf-8?B?SVRyOVAreWloOHBEZTF0T0ZJMWJPMTBBNDJnOHJUaFU5Ty9Ib0twRkx3ZjhF?=
+ =?utf-8?B?azlyTEZsRGRKRUhkR2dKRHZCakJXcjhoelhFNFZidlhPYkpleUttVTBnM1kz?=
+ =?utf-8?B?bmR6TUYxT2s2Z2dIK05EK1VKMDVLbjJ2SnVjc1B1N3RvbFlxM2Y4L1pURmxU?=
+ =?utf-8?B?SUwyUEpLaHBRcmFpWGNJOUNETktBVGVzSWlacTBIc3YxdDM3YTR5aXdZK3BU?=
+ =?utf-8?B?WUdCRHYxa3BSd1NUK2g2bXkrTFRLajF0a0V3Y1RzcTNaMUxaYTZMbFRFVU9M?=
+ =?utf-8?B?WnlWSFhBV2JZc2FSR2ZxMGxhREVxb1c1TWl6VHZGQWdSUVQ4bk1rVGt4Ykhj?=
+ =?utf-8?B?b0thanlobVdJdER2c01xem5DTCtaZkpxQlpSdnljZFZTUFB4UUoySFZ6dGZD?=
+ =?utf-8?B?b0YxN1J1NVorRkxjNk1iYndNSkRuQldvZzVETWNnbFRNdWE4QXcrclJ1elRw?=
+ =?utf-8?B?WHdVZER2dHRzRFlwZDBadjZ0djJad2MrRUMvdlhlZ1YrM0lzbjlZaGtCTHJq?=
+ =?utf-8?B?RGE2MEdsVHJUcFdTSXVxUjA5T0lBYWxGNXZSZ1hJUWgwaHBVMnJ0WWtaZDVQ?=
+ =?utf-8?B?dEM3dnZPcHBEUU0zSXRoR0V0MHJ5OFZ5dWFOTmJBNml5KzdxbnZFam40MERU?=
+ =?utf-8?B?SDJhWUJZMFd1WE1qdkFuaTgzSmkyamZYRFY2THBlRkQwbFZGdTBGUUZDYVpQ?=
+ =?utf-8?B?UnZtbVF4UklRVHhob1NaSjIvOVQvcDZkbks5NE5GR1RITXZhWitLbklXempj?=
+ =?utf-8?B?Tk8xS3NoY2poYnpWbkhOTEcvbXgvWWFkNC9mNkM5b1VablNnckFrZ0V2eVpt?=
+ =?utf-8?B?TnZ0blk0OUduK1VyR3dFWEVQaU5HanRiVHZyUWV4ZUwrRVpETnhTbUpvZWxE?=
+ =?utf-8?B?MXBtRmxrNHl6ZGZnVXg5L205V0dLaW5ZZ1RkcU1GRng0MVY1bm1CU0hQT0Zj?=
+ =?utf-8?B?cFRpYlVvdk5SVGRNbVBWK043b0FCWUIyNEZ4VTRhWnB5SjNVTDV5bzNWSWNH?=
+ =?utf-8?B?RVZDdVVhZ3VMQWlqUVlndHVHalo4NDhZUGxuaFFqcmNDSEw2WWFkMW4xRkxt?=
+ =?utf-8?B?eThIOXVLbm9qcFlBTVdtcG90Zm5KcVI3aFovNEpEalhGaEdwVWtoWGxSSENV?=
+ =?utf-8?B?MWgxaXNyOVdDbDJjVXhWTWVheWZyQlZ1aERmSkVDWHpTek43aTZ2TVVRN3Fv?=
+ =?utf-8?B?K3BXdmZGUnNVSithbi84T3dlYk0zN3dKeDlwT0RXYkY0R3ozMTVvd2QwZWFR?=
+ =?utf-8?B?SDFCNVp4bTY0amhoZnF2VEJMZUxkRC9JSFhuTXU3N0ExS1hjM2VjQUdHakJp?=
+ =?utf-8?B?cDRiaDM3YXlrUjQzQVkwMW8zd0E1UWZCazQ0SkxKK1VFbGFaSUtGdDI5c1g1?=
+ =?utf-8?B?QTNtUGtxQzZTUDJ0NFJZa3dpQjlVbC96cEs0aUhkMkNVTDA2ZUxJbldnUnZU?=
+ =?utf-8?B?T2ZhVXRZTG5lYXZpdi9Kem93Z1JjbjlscWgrUTNoc2o0TEpwaFlnZ2ZrdlZz?=
+ =?utf-8?B?cXFuK2o3WUszZWYxVEl4Sjh2WUxOeWs0aEFUb2hieVZ6MjBJTVpqK2x2aUpl?=
+ =?utf-8?B?UlZVa2xvbjR3dlpMSVRDUXNqekFzcDNHbnJYRjRSWFg5R0w2ZFY0UUR5T01P?=
+ =?utf-8?B?OXJrOHc1aE83aWtHZkIxRmdpajRhTHBnRU05b09UaWRxd3FHUDM3cmVuL3BC?=
+ =?utf-8?B?TVp0L0x1MHZLUTgzaGpncy84VlBldDliNDZOQzhiMmlrc256WEZ5bzZnUXR2?=
+ =?utf-8?B?dFZDTEEwbStWNG92eVdYOHI3bElhaFZ5SlNOMVBIdUZRWmtmZE5JbXRlS1NV?=
+ =?utf-8?B?djI2WDFPdjgxR0ZUdGI4QXFtVXdIczNjQ0xobGhJM2liRG1tdFBFdjZuRFph?=
+ =?utf-8?Q?00an9bbHqIWD+0mtMX?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0e89447-7272-4c44-16ac-08df2b9d3dc9
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 15:50:45.8471
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hN6XHtTYJ9An+I1Z1j42v9Cm6B0YnMpw5CcbLAUx9sLSU07HIAu6T6yqDfnaM4rqg/JPAFO2Ak092Y3Ih8B4kw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4208
 
-On 10/16/26 5:09 PM, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
-> 
->  - What hardware the change was tested on. For driver fixes please
->    mention the device (and if relevant firmware version) used for
->    testing, or say that the change was not tested on real hardware.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-Hi,
+On 10/7/26 23:17, Yibiao Li wrote:
+> [Some people who received this message don't often get email from biaobiao2233@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> From: Yibiao Li <biaobiao2233@gmail.com>
+> 
+> create_stream_for_sink() uses preferred_mode both as the list iterator
+> and as the selected mode. This triggers a false positive from
+> scripts/coccinelle/iterators/use_after_iter.cocci: native_mode_found
+> already ensures that an exhausted iterator is replaced before use.
+> 
+> Use a separate iterator and assign preferred_mode only when a preferred
+> entry is found. This keeps the selected mode separate from the iterator
+> state and makes native_mode_found unnecessary. Preserve the fallback to
+> the first entry, or NULL when the list is empty.
+> 
+> No functional change intended.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Link: https://lore.kernel.org/oe-kbuild-all/202609190901.yKTzhsGz-lkp@intel.com/
+> Assisted-by: LLM coccinelle
+> Signed-off-by: Yibiao Li <biaobiao2233@gmail.com>
+> ---
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 10 +++++-----
+>   1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index d386bb1475..ceea8fe481 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -1453,12 +1453,12 @@ create_stream_for_sink(struct drm_connector *connector,
+>          struct drm_device *dev = connector->dev;
+>          struct amdgpu_dm_connector *aconnector = NULL;
+>          struct drm_display_mode *preferred_mode = NULL;
+> +       struct drm_display_mode *connector_mode;
+>          const struct drm_connector_state *con_state = &dm_state->base;
+>          struct dc_stream_state *stream = NULL;
+>          struct drm_display_mode mode;
+>          struct drm_display_mode saved_mode;
+>          struct drm_display_mode *freesync_mode = NULL;
+> -       bool native_mode_found = false;
+>          bool recalculate_timing = false;
+>          bool scale = dm_state->scaling != RMX_OFF;
+>          int mode_refresh;
+> @@ -1509,14 +1509,14 @@ create_stream_for_sink(struct drm_connector *connector,
+>          stream->timing.flags.LTE_340MCSC_SCRAMBLE =
+>                  connector->display_info.hdmi.scdc.scrambling.low_rates;
+> 
+> -       list_for_each_entry(preferred_mode, &connector->modes, head) {
+> +       list_for_each_entry(connector_mode, &connector->modes, head) {
+>                  /* Search for preferred mode */
+> -               if (preferred_mode->type & DRM_MODE_TYPE_PREFERRED) {
+> -                       native_mode_found = true;
+> +               if (connector_mode->type & DRM_MODE_TYPE_PREFERRED) {
+> +                       preferred_mode = connector_mode;
+>                          break;
+>                  }
+>          }
+> -       if (!native_mode_found)
+> +       if (!preferred_mode)
+>                  preferred_mode = list_first_entry_or_null(
+>                                  &connector->modes,
+>                                  struct drm_display_mode,
+> --
+> 2.43.0
 
-The multicast indexing issue was reported by Sashiko. The oversized
-bulk access was found during follow-up code inspection. These issues
-were identified through review, rather than an observed hardware
-failure. The register layout was checked against Qualcomm’s QSDK.
-
-The binding issue was reproduced with compiled example DTBs and
-dt-validate. I tested the fixes on the Ubiquiti UniFi 7 Pro XGS
-access point (IPQ5332).
-
-Thanks,
-Til
