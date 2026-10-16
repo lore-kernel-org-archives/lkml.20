@@ -1,131 +1,252 @@
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010036.outbound.protection.outlook.com [52.101.61.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07E0F4F7CCC
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:20:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D194FD781;
+	Fri, 16 Oct 2026 16:20:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.36
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792167620; cv=pass; b=t4MAMPRWGw0AzeWpJBYE6q9yddQ2qJDbpnruw006tlRVtTocXUnb7kVmz8dXE9uhJeO3J1HsxE89gec5p8BRpKXozZdfAmusxGhL/bukwYRcjyLFmvivy4G88sLhfuYj/260HNzolyQtlhBAOYUwvSM87DLtNGNdmYLzipM4a9M=
+	t=1792167625; cv=fail; b=BEmG8JkFCvg01Cg/GzN8eYvPxUuApgV/ihcKmoM3orSn+/b8wUruCmLP2B945dLqjcZ5/QWQYLqVSD9orwPqPZBDEK86Rt0qh5bNsnXSOkIcUy5nmzPh11MmQt7NamFRwiLIngCqHoYnqoWnJVg5RUcRXFptCNtP7tzuRiAYjlQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792167620; c=relaxed/simple;
-	bh=dEEJDO6upsApIlynAXY0pxgK3Zhhec2ID4o/+nkiUwU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jLDVEiGQt2kmjxC3PcNgTqvKXAOx+r2fhXnl0sF8N0YDQA/FpXs9vk0AKkDBtozf+1tn5gg7z+h0SCt/xYzBk2EDuCtHA6LrD4pCWMNeZUYbDcOa5dJJvoHO9/e+p+z91veYDYqE+E+Sm0qOFRcXKtyGCKdC3Zqo2IsYH1INO4M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=GrvBr/uR; arc=pass smtp.client-ip=209.85.167.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1792167625; c=relaxed/simple;
+	bh=OuPnnyn71UIv452rke/D0eYxxJIueFbFSj8bdV8QGqM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VkNVnWqOcLd1IIst3SP2DY8rqqVDda5aKmBs/6D7H9TrN5tRAhwVZQ3MlaObfHMWxTSRLY/wmpAI2JQ1RG/Koi4a00NG9AOgS6kiO6Gj1mrGiSNql6HPOxuJ0a9inz2EH9+LcdKEhh1P4YDRkg3e/7eRmBuemDDzAHSYgGXnhOQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lNmoHx6f; arc=fail smtp.client-ip=52.101.61.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="GrvBr/uR"
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5bce4e278baso204545e87.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:20:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792167610; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jcJSRsHDaHXW8QfD61roGaiTuGPABqaTl0Yx45UXZUErL9ivI0vu07RBRhhbGCb3um
-         De6dpQLHrB3Xoc9M4ekGALhfSPrdZZgXMbN4iX7Ev7RYwMku5dXTgvW6RkChP2ykjW+d
-         bLDbpYfYjqC3yklv7qrYB3P+n7wgVpUgrPO+Jwen0mzOz46G6EaLrCOH/a4A6/lyXQtt
-         5wgZ5LAf+W/BEmGTkZiRtWLfMEUD/pDggYpQrlYPJdMP3LfwaWib6iNHLFBaIrW345px
-         HyaUa9h9td9XUG20usZgwHp4t3oqFIJ87AXKGpJYEpvlWvHxBWKhUQTXvShJwfQBKrhf
-         MMZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=POqCnkGfFNrRq4TGpvHNnBx0NSfDfSdKzp7qlGWA5Pg=;
-        fh=rTegZYQw5WJ7WPjpno245A1anP+ThUmHnuc6MC2swWg=;
-        b=so0L2cbp9PAEm7bbXxkz8k1D0tOcmKDyzzpLZiaDdNnQZUW+xMXYFjlHQSOh9Dndw4
-         IT2z3Q+V2Zqir9u3R+GdHohsu31SfX3Zte2mKQ+aUU8WFVigW2yv6lo8TLJ8J9lBRnfk
-         C2yF1x0eufGQon3fDBCfrZjOAr/e6xYRuvzOtHTI1TTXOJo9xGKkB15KQGWhj0e57mc1
-         VnPxSJQmc4HNGfvJGca0mQbD9iL0p0VCIaSe+CUhhUdZXQ2d75PJTYaCTy8eJ36pw7pw
-         8I2h3QLs1Fsc5ynnY5yGxeZw0hf+8ji2AgCya31KEf+vCoOEyrr67HIm3ZzGP7sq/n6z
-         uoOw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792167610; x=1792772410; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=POqCnkGfFNrRq4TGpvHNnBx0NSfDfSdKzp7qlGWA5Pg=;
-        b=GrvBr/uRiS5pyKICRHS58RSM7jceqVwgF16pWS3MQ0BcbicEZSka5aKFf+vomrxRyG
-         KRHRYvQHbtqgeA7tX1ClJMKsL2NyekusLyAO3Oa9Z2s3EiKUwabSYLFhZin8c8R8Jdh2
-         LsUQDzwm+MV5BcSyXDEL1inD7uVGLPdU8FBiKYtDu2HLrpEfsEjIGkNAFNd6BpdzQGAf
-         l6qPIOM6tUnzgJU4RQJayEIdV+xlZPd2xHp48mOqPIW9wt1Bwa26M5KxGa2cqaLjnOlZ
-         j458TUGGH9hiWZtflVcRClrI1IcdrXXcYNV/chi80r7ib8xT1q7SRZafhZ1cU3d+62uA
-         izog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792167610; x=1792772410;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=POqCnkGfFNrRq4TGpvHNnBx0NSfDfSdKzp7qlGWA5Pg=;
-        b=vwg7pOBkTDp/MlHTycd6Ct2CBJnIhRbqwxcpd8KLz/TasHN9FDpaxSV1vZcrIeIBks
-         G1zFyUZzrII37OoCbZC28ozPFpjeHUYTyCUjBOf970adDQtyJb6NTQ++JjbErspJm9un
-         tTCWC+Z9tYQeoWwWLH2U0MC4eXsVbwIpbMw4NhyhsI+Ba2Zb/nGvjT16gyGrkDvXeI6H
-         6ky+ySQrAgKGa3Zn2gkldfsJ5c2uel4qVMuyFh6N2p4fxZ3bjowhYZsMK7NOunYVbRB9
-         sRK89vKiI38d0d9owYFpkc7Nc9c5uTjNCvjsXcL6j6bzTMJMJUbvTwwtVZ5v+JYZoCJN
-         /c3w==
-X-Gm-Message-State: AFq9FYKKiT3HigrFSctgWtWdC1Pw0axx0ZUZw3+gTaCIIr1xgeovl8NG
-	t9gzeMD5+u9Z9ddMtEw8oCpvlAC/6fH5g/GuavO/fVLCBMbzQigGLS0+dnw4LsHQjBah4DLzTCv
-	osgi6ewf9bJZrs+xc7Cdqb5jZEnJcHDzMzrAP3TQVBA==
-X-Gm-Gg: AYBFou0jNLcfKS9PoyrGC7WX4jW3gOitEOuW1f5i13Pwcxczp268Tsoht8eLP9ixvFD
-	bV17Ei3H1zumCM4tN0mJ05nPKOrEn+GnMAbIP27luNalfB98eOHnZ8iqedLvCOs3b7a4qX3EOep
-	1b4ZgpkM9j6hGz8tRhZ7qDtinErttzxheauBR9Ihyru5IAUVJwPVyLcuZbdSo2USVkVJIlrGQsc
-	MeyC9n8p23zuVcdBr3C0vMFY/Tqire4mnjoNZ8x0lg75wlnUEz2znD3dDzsJHzFT8UnaprvhrE6
-	mA6klGmy9OFdXlDDNn+pzX2KKbMBNNkxuDm1hA/RX6EmTAQBEVDHN44xONv/3FPZRwKDxKqdG0X
-	ZZ2gDr7yepJVS
-X-Received: by 2002:a05:6512:110b:b0:5b8:e8ba:d15 with SMTP id
- 2adb3069b0e04-5be50a7cb4dmr16162e87.27.1792167609933; Fri, 16 Oct 2026
- 09:20:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lNmoHx6f"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FAL5ybZb4Yo8OcM4eU2JatBnKbiDOgZ51I6D/1HbplFemgOzwc1PAW28ZMsnwKhubErxJNzrVFcVyYptFSHMP3ZegOLOlNbYfz1t+/Uo3FS/r01dzj2+jefWWrcYAiXUipzyO4tljDRrfaXPRiJoyZz8i8ltB0o6QYpT/NTZGZfQqAtP3hYs43uCaRHAJpDnCyfEq4fgW210rHadrqY9XfClWwDk9RQyuTx3NsgPXVxAh7bK+vtrCpNLlaU46xe1Rk4dhDZVuUNMcSSCHUsHO5qeNdzTXVeqWRcR2MkRCpwXZuX9TN1To2YNnvMDBeGY9hb3IisMiykwMB/bqciawg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mWt0IXCxnS1gaF27mgb2swzk+1YnvZLjKelVHShHeX8=;
+ b=G6V9bbqHxNTaWyaG8opXbyeD4z9pHuecBKJq+tebJPg7KgnKM6qRnWoGCBxhU4pn/ySbPhCkJI/7OV0gwXS6X5ZFnsXZAQRCgtMUmIC51et68LRGZX/nZr4SzGvZZJ887EoM4qG+8Zgq7DzqCDnh1bVXyWYo7BV8zbuOl3/ukekqIWX+xubdNIa/Y+y8zId/L3jz+oJ2w7PY5deGG5/PywpoYWZmf4gvr5OztYMagPxd9GGgZu9TgIlaoYkQrrY8KrI15CZ4MVGEiuNne31fndHUdZ2cu+djji4DX9XTU+8/G3IfBL+i1fO1F50GzLlm+s3KlJx0vSImRF904iw3SQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=shazbot.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mWt0IXCxnS1gaF27mgb2swzk+1YnvZLjKelVHShHeX8=;
+ b=lNmoHx6fHGWEEjxTM9BsOYO4cBRA0wcgBnHsxk3JMt2CWPdvppdo1bqMLH+xA1M/2xoL42U6p4Q0I5Gu2Sy0Y1n8r0X2DmoDl+N/rZoVNwJt+kt2CFk3HGMkAt/vBapMV2l/+giY/p9nnXvL6I0ZdrCR/EXDBmokrrmTUTfx7gUT9SsKlblGHueu/4YxbW8Xbyu3b/6R2RnpupZz1dJNih9nMaHVJ9uhdJLiPkVt0y/Ez+9Ka5GVNVPTZhJhpVcZhFK/x3Kigu9180XYmWQy5JjPk/1du3GuC4mvCGrjvXKFTVSZH0k6PSsJELtj0IzGcFdVCi2CGcyL5/lb0cfLbw==
+Received: from CH2PR18CA0027.namprd18.prod.outlook.com (2603:10b6:610:4f::37)
+ by MW3PR12MB4396.namprd12.prod.outlook.com (2603:10b6:303:59::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
+ 2026 16:19:43 +0000
+Received: from CH01EPF000BE948.namprd02.prod.outlook.com
+ (2603:10b6:610:4f:cafe::10) by CH2PR18CA0027.outlook.office365.com
+ (2603:10b6:610:4f::37) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
+ Oct 2026 16:19:43 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CH01EPF000BE948.mail.protection.outlook.com (10.167.244.196) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 16:19:43 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 16 Oct
+ 2026 09:19:22 -0700
+Received: from nvidia-4028GR-scsim.nvidia.com (10.126.230.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 16 Oct 2026 09:19:13 -0700
+From: <mhonap@nvidia.com>
+To: <alex@shazbot.org>, <jgg@ziepe.ca>, <ankita@nvidia.com>,
+	<jic23@kernel.org>, <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
+	<smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+	<dave@stgolabs.net>, <alison.schofield@intel.com>,
+	<vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
+	<yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
+	<bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
+	<gustavoars@kernel.org>
+CC: <cjia@nvidia.com>, <kjaju@nvidia.com>, <vsethi@nvidia.com>,
+	<zhiw@nvidia.com>, <mhonap@nvidia.com>, <linux-doc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
+	<linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>
+Subject: [PATCH v6 02/31] cxl/regs: Let a BAR-owning driver own the component register block
+Date: Fri, 16 Oct 2026 21:48:09 +0530
+Message-ID: <20261016161839.2765592-3-mhonap@nvidia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016161839.2765592-1-mhonap@nvidia.com>
+References: <20261016161839.2765592-1-mhonap@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015140148.231126-1-marco.crivellari@suse.com>
- <20261015140148.231126-2-marco.crivellari@suse.com> <atI8hifJ8K4BAIPg@gmail.com>
- <CAAofZF43y3_R-0rifCPkxydJ9SH9rWFHyWE3o86Aka_BLDU-DQ@mail.gmail.com>
-In-Reply-To: <CAAofZF43y3_R-0rifCPkxydJ9SH9rWFHyWE3o86Aka_BLDU-DQ@mail.gmail.com>
-From: Marco Crivellari <marco.crivellari@suse.com>
-Date: Fri, 16 Oct 2026 18:19:58 +0200
-X-Gm-Features: AclHuK_eExq-7QQMPcYU6OgwCQGmTZGxr7JirKVsmj0IKCW2212yh1JHILnEGlc
-Message-ID: <CAAofZF5vbNgtqPAsD0a5CcHJhyrKjX8OeQWn26ao7m0Od+3J_g@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] workqueue: Make alloc_workqueue() unbound by default
-To: Breno Leitao <leitao@debian.org>
-Cc: linux-kernel@vger.kernel.org, Tejun Heo <tj@kernel.org>, 
-	Lai Jiangshan <jiangshanlai@gmail.com>, Frederic Weisbecker <frederic@kernel.org>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Michal Hocko <mhocko@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH01EPF000BE948:EE_|MW3PR12MB4396:EE_
+X-MS-Office365-Filtering-Correlation-Id: b182d77e-9164-46ef-a44f-08df2ba149b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|36860700016|7416014|82310400026|921020|56012099006|11063799006|261009223027099003|18002099003|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	5tw8V7B6d2vWFFy5ebfoeJCHxmYtxm2IYXqbPGRLNT7UmKWEM80K1zqCx7q9mXqmw4PPHne77qmNwoyp4MdhD+dGWAPUrYHBuk19PilUfzUTd+2kr09llMxyW0vqLE3z8GAxfAALWRByEwewhFAlGd9ZK4DodJdgFaNpF/fFe3/YWXUH47vR3bkWFNffnB+yl3kqQruuHsfNMyeInQzW060cewazb0446lRxcDE6aIh1Phj5Vi9YJfXANtxjZ8kDAgGhuDNnTZGruloXvM3Avq8G3u/qboTQGgWZgJ9Ptdpp606SmBrbty60kgDy71E7Ho1+WeVHAxZeLz9Do7LbOnCVlJCT2K1Kg2ZslCeLIfjkn9xlXsl4B8TabG1G6v/uIVz+zTpeMnDD6dmSYPo3abvIo2lUhMUuHp9zPzTKezzvbEuD8lMBskX78AVYH2YI6P6v86oOt6bj+X+HLQMoFbcTSobclqXqUjnYtV8D8mCvMKiywNxxW3YcnjJHQ2v7qVYayjW98kHhGmaMenibuzTrqjhJwum0myQRTBB1PCvpCTuH2DgBYCsSYeMFRxt2l/T5DMkw41GDFeACEoJv41JIsT5KN0HTYpY7vgpPoylcstYJe3xc2Aa/aRrzNmYTeQXOwD/2MW/c/pLnQkdXJCO303HlPk4Y3kh9SoIPTM54qISD3twB0qe+Q4V3FTwsqmKZ2TP5IWMbHWEnMiq5P69BCDRQeYKxKiXprNsaY/+5kSwl2Co1iD/DTF9HuM8D
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(7416014)(82310400026)(921020)(56012099006)(11063799006)(261009223027099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	G7iVXF+L+sW677vTeDOr+qifE7XqOXxM3pb5GtC1nXMv0nh9/K6IGvZQsIRNvOcyNWVt5To3wcPlmKsqMAu8MtDrgJL3CixRDrCcBbeFME0+6/4AMtct/avyG5rWVu8E/eJXIeFZ4PW/rM5f23vyJBK4lfUQIedMZUNWLtILFrAJ0uTJx9f+9HNzy6ryuS9cRmtHS6phlDRMrXquZHxaiBVfcuWd/dJ3/+nWPeHUA1euMhPWdtLICNPmIw5VB+fCWG2CAJ/AWN33ng/bbHlfPCYH3DMl3jmrfZ3VOdNaRSGKKOHWXVyM5P+5ys0gFx9LlCMuCoMpBV1AcWW9PWv4Yn9pCkAgOqkEUlTUSnbh1Xd/ff40dnUUl9aPv1JgBlNAztzxcGhg/4Alv0HCWyWzRR3tcK98+b5/mXo9orORS7e8Kockw4Ilpw6CgByzPy9s
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 16:19:43.4933
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b182d77e-9164-46ef-a44f-08df2ba149b8
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH01EPF000BE948.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4396
 
-On Fri, Oct 16, 2026 at 6:18=E2=80=AFPM Marco Crivellari
-<marco.crivellari@suse.com> wrote:
->
-> On Fri, Oct 16, 2026 at 5:54=E2=80=AFPM Breno Leitao <leitao@debian.org> =
-wrote:
-> > [...]
-> > > @@ -5895,12 +5895,33 @@ static struct workqueue_struct *__alloc_workq=
-ueue(const char *fmt,
-> > >       struct workqueue_struct *wq;
-> > >       size_t wq_size;
-> > >       int name_len;
-> > > +     bool wq_unbound_by_default =3D false;
-> > > +     bool wq_dropped_percpu =3D false;
-> >
-> > Nit: I think these declarations would look better in reverse xmas tree
-> > order. I know Tejun doesn't feel strongly about it, so it's just a nit.
-> >
-> > --breno
->
-> Cool, thanks for the hint, I will change this along with the removal
-> of pr_warn_once().
->
+From: Manish Honap <mhonap@nvidia.com>
 
-Oh wait: only one of the bool, the other is going away with the
-removal of the pr_warn_once().
+cxl_map_component_regs() claims each mapped sub-block with
+devm_request_mem_region(). A driver that requests the whole component
+register BAR itself, such as vfio-cxl, would then collide with that
+claim and fail to map the HDM decoder and RAS blocks.
 
---=20
+Add cxl_reg_map_set_owned_resource() so such a driver records the
+resource it already owns, the whole component register BAR, on the
+register map.
 
-Marco Crivellari
+Skip the sub-block request for a block inside that resource, and fail with
+-ENXIO for a block outside it.
 
-SUSE Labs
+Assisted-by: LLM
+Signed-off-by: Manish Honap <mhonap@nvidia.com>
+---
+ drivers/cxl/core/regs.c | 46 +++++++++++++++++++++++++++++++++++++++--
+ include/cxl/cxl.h       |  2 ++
+ include/cxl/pci.h       |  3 +++
+ 3 files changed, 49 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/cxl/core/regs.c b/drivers/cxl/core/regs.c
+index 9235520b2f4e..c3df99de92c3 100644
+--- a/drivers/cxl/core/regs.c
++++ b/drivers/cxl/core/regs.c
+@@ -216,6 +216,39 @@ void __iomem *devm_cxl_iomap_block(struct device *dev, resource_size_t addr,
+ }
+ EXPORT_SYMBOL_NS_GPL(devm_cxl_iomap_block, "CXL");
+ 
++/**
++ * cxl_reg_map_set_owned_resource() - record the BAR a driver owns
++ * @map: register map of the component register block
++ * @res: resource of the whole component register BAR, which the caller
++ *	requests itself, before or after this call
++ *
++ * A driver that requests the whole component register BAR itself, such as
++ * vfio-cxl, records that BAR here. cxl_map_component_regs() then maps the
++ * blocks inside @res without requesting them again and refuses any block
++ * outside it. A register map has at most one owned resource.
++ *
++ * Call this after cxl_pci_setup_regs() has filled @map: enumeration rewrites
++ * the whole map and drops a previously recorded owned resource.
++ *
++ * Return: 0 on success, -EBUSY if an owned resource is already set, or
++ * -EINVAL if @map has not been set up or its block lies outside @res.
++ */
++int cxl_reg_map_set_owned_resource(struct cxl_register_map *map,
++				   struct resource *res)
++{
++	struct resource block = DEFINE_RES_MEM(map->resource, map->max_size);
++
++	if (WARN_ON_ONCE(map->owned))
++		return -EBUSY;
++	if (WARN_ON_ONCE(map->resource == CXL_RESOURCE_NONE ||
++			 !resource_contains(res, &block)))
++		return -EINVAL;
++
++	map->owned = res;
++	return 0;
++}
++EXPORT_SYMBOL_NS_GPL(cxl_reg_map_set_owned_resource, "CXL");
++
+ int cxl_map_component_regs(const struct cxl_register_map *map,
+ 			   struct cxl_component_regs *regs,
+ 			   unsigned long map_mask)
+@@ -234,6 +267,7 @@ int cxl_map_component_regs(const struct cxl_register_map *map,
+ 		struct mapinfo *mi = &mapinfo[i];
+ 		resource_size_t addr;
+ 		resource_size_t length;
++		struct resource res;
+ 
+ 		if (!mi->rmap->valid)
+ 			continue;
+@@ -241,8 +275,16 @@ int cxl_map_component_regs(const struct cxl_register_map *map,
+ 			continue;
+ 		addr = map->resource + mi->rmap->offset;
+ 		length = mi->rmap->size;
+-		*(mi->addr) = devm_cxl_iomap_block(host, addr, length);
+-		if (!*(mi->addr))
++		res = DEFINE_RES_MEM(addr, length);
++
++		if (map->owned) {
++			if (!resource_contains(map->owned, &res))
++				return -ENXIO;
++			*mi->addr = devm_cxl_ioremap_block(host, addr, length);
++		} else {
++			*mi->addr = devm_cxl_iomap_block(host, addr, length);
++		}
++		if (!*mi->addr)
+ 			return -ENOMEM;
+ 	}
+ 
+diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
+index 3e70f74685b6..4bd0fec4951f 100644
+--- a/include/cxl/cxl.h
++++ b/include/cxl/cxl.h
+@@ -153,6 +153,7 @@ struct cxl_pmu_reg_map {
+  * @bar: PCI BAR containing the register block
+  * @bar_offset: register block offset relative to @bar
+  * @reg_type: see enum cxl_regloc_type
++ * @owned: driver-owned resource whose sub-blocks are mapped without re-requesting
+  * @component_map: cxl_reg_map for component registers
+  * @device_map: cxl_reg_maps for device registers
+  * @pmu_map: cxl_reg_maps for CXL Performance Monitoring Units
+@@ -165,6 +166,7 @@ struct cxl_register_map {
+ 	int bar;
+ 	resource_size_t bar_offset;
+ 	u8 reg_type;
++	struct resource *owned;
+ 	union {
+ 		struct cxl_component_reg_map component_map;
+ 		struct cxl_device_reg_map device_map;
+diff --git a/include/cxl/pci.h b/include/cxl/pci.h
+index b15d7e415e27..0b74819fea6d 100644
+--- a/include/cxl/pci.h
++++ b/include/cxl/pci.h
+@@ -18,9 +18,12 @@ enum cxl_regloc_type {
+ 
+ struct cxl_register_map;
+ struct pci_dev;
++struct resource;
+ 
+ int cxl_pci_setup_regs(struct pci_dev *pdev, enum cxl_regloc_type type,
+ 		       struct cxl_register_map *map);
++int cxl_reg_map_set_owned_resource(struct cxl_register_map *map,
++				   struct resource *res);
+ int cxl_find_regblock(struct pci_dev *pdev, enum cxl_regloc_type type,
+ 		      struct cxl_register_map *map);
+ int cxl_setup_regs(struct cxl_register_map *map);
+-- 
+2.53.0
+
