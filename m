@@ -1,180 +1,141 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010033.outbound.protection.outlook.com [52.101.84.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FFC2EEE69;
-	Fri, 16 Oct 2026 16:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792167333; cv=fail; b=MrFmj/1CNKNFAXx7BXops5BnmjE47wzbWEZ+It1brA/468N4LHk10mYA32bbRVz9dtnAALDhUMKIdBlMDJ18UVk/hnvXMQFrAOK11VrKULKDtgEx0H84ZMBWnunnjeNfXwX3sYROlssaNhTCSbxjun3q6lD4KD2ITO7O3Lwra/M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792167333; c=relaxed/simple;
-	bh=Ovmi6/NaqYRKjsDBzh5/84QAQ4fd8ADR/chKAG8oRE4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=IK4hPPlQiDgD02UEfBDDwR1u+ADZh53iibZMP9ZUDBnSGDq2GoYyoYspmdX62VbkUl7mCq/UmjlEDoAFw/tuKkvjAXW3XfhyWuQhZ2cdj9n0Va03JKHM7OgidEW7YJH07qmqI2BSiNnp7FYBhgx6O5MfRHqRkTNn+/aBt3ORtUg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=uULXGInj; arc=fail smtp.client-ip=52.101.84.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5430A4EE868
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:15:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792167338; cv=none; b=tz0XKtJ1hWC89kLo4Su755SgtVyLbqmi3DgTauv1wcUmLDvjumjHfwGoUC7+Tg38c1eCNVN+kF76S5QpHW4gcIW+XXk8Jt00QJMYqN3Losu56wX0s+UJVBoR/aNSi0KCXkI3dRb1443pFXzSX2C26XUGsYG2GWwaYoaJFJeZKJU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792167338; c=relaxed/simple;
+	bh=xIVIqXqeXMZHo7WcZNa0at4HEMt/ghEEI2/pB73QgfM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f8buFHB+RR5tUlFZufRbqIdwTfdkEJbKm0BiOK2kGoO+N2bUBRpXa6ECgH9Gz3aEIV1B+4ttDuhofDtMesOBTmoYINrBDQh3ffC7ydgJV3ofPuv4w5iw+qJn+tpf7YDnsQHaxtXQCYrOnSVI9CORrVbdPyqCmiPN+02PsR8Oo2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lsl3HZL5; arc=none smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="uULXGInj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T48weDy+CLG8Lmhs4ehysHLyyhcSOhTvpKdRtK1knQQl+LAulE+jeBSasohqZqzvpe1JOdSmPqa7BsJKCVWRGRa4k2hHrgPAJxK+vsnj/QV+aUcdnT1UMasLI4O+PVEP4Q+aHmsJyozNxbsP8IvI5dwUWTMsuQVldq94uBByGLaOTkkWrKmblLVMaIQqr9zmN66vqarzt8d1XLpYtmB3oPxzFz1VG4ZXzP4rW+9jyPpK/j4GiBFg8SfJIBHE8SKONXD3s9Kx20WiXpKK1HRDmAckr0bE2ZmJunvhQgq2Tokh2tk/haLcwQGeDBg+eb0JB/u70ZzUEKzFJh0cHoBOUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H7GiyUuRfxgmpGA1x90tVgsiZ5q1mojpREeK64iq37E=;
- b=BloVDNhDsJv6OLM7Q3C7fZR7T2MRKZgb7Bt5Aj9RhTx3GlQdhzSGBnDKOIIafIhRAQ5rhh/m4U6pbbAcBO5Z4+2JKf3cjWw2WOpEucjHKqnxIBpDZfth+wvvBu44/FtPFiQ/rVYn7/HKyu/JnmRy0I+f3yJo3MnjE7L9se2sDyTcOvMIJoXvbJ/nM1TQujGL+1y5B78X4WA0vFQJWda1RqTboI76CuTh0AhnQcCwf0UqJkBHxkk3VIGSEjEYJLfc/ief8Gqf7PB8Bis0aspmceBqU7GjkhAWMbpXWVtCJ68mKMmj7xtTaDu5Fw8a1kBY48DLSsRn/5AEqk4a+ss8JQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H7GiyUuRfxgmpGA1x90tVgsiZ5q1mojpREeK64iq37E=;
- b=uULXGInj+euCMjpx74YfwYzZvkhc+Izr9RxEGGb/NX9mT7kFN6Z9rpius+z5GPQUNNEdyqFEkxKLCq3VnmtH3DekzBV5idVIIL1hBPeL8An/a8bteBECc/a2greLYLLe5HFdHayT/SQfmCQaobctTFcefyEOpu6o5d8WQNk7vjZN5RAN1BbQh8R8EuDGkh6WavomDb5w8V7T0oryvIdi/yk38Xt+VTf21F6vKHfg5HWL3Ub4gi9NVME3esF5O63kJXHuCMw6z4HX3MZ1R0VEXxDWB0/su+cXPvtEox0f5tUzvDZ+jF3AG2qhFRQCVIQQs3Fddm7Kp5PE37rlpjzlcQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GV4PR04MB11751.eurprd04.prod.outlook.com (2603:10a6:150:2d8::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
- 2026 16:15:27 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 16:15:27 +0000
-Date: Fri, 16 Oct 2026 12:15:19 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Chandana Kishori Chiluveru <chandana.chiluveru@oss.qualcomm.com>
-Cc: konrad.dybcio@oss.qualcomm.com, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, bjorn.andersson@oss.qualcomm.com,
-	praveen.talari@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	mukesh.savaliya@oss.qualcomm.com
-Subject: Re: [PATCH v2] dmaengine: qcom: gpi: Fix SE ID and SE Protocol
- fields widths in SCRATCH_0
-Message-ID: <atJNlzZlA7illyMj@lizhi-Precision-Tower-5810>
-References: <20260721-fix_se_id_and_se_protocol_fields-v2-1-ee1d63d6c549@oss.qualcomm.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260721-fix_se_id_and_se_protocol_fields-v2-1-ee1d63d6c549@oss.qualcomm.com>
-X-ClientProxiedBy: PH8PR22CA0006.namprd22.prod.outlook.com
- (2603:10b6:510:2d1::10) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lsl3HZL5"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33fb4680717so60813eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:15:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792167331; x=1792772131; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0j3Ic2XiSkpUSuqw2KaX3WIQgC+OMSs64+mNG8M5Cqo=;
+        b=Lsl3HZL5YK0LSZmUzq1zw3VlfyHBIGrEgAOcgnFbfs0hujm4w+kRDvadrx2hhQqZmQ
+         x6RWxnxFEv41QN2lRV2zNE3O78V4CvuiOVajY743ISwR7Ydc4gUCq0tzFghhtkoHFl2v
+         AloOlXqciMEDV+wM1bDraznk8md/o8QcNs10jLXXVgQr6hCEer7HKnpsfeiG1EmqaoYd
+         tqnYWk4zJ4mJTImpkaasSgzEz4wPjCOC92dafzv4XyFwyVfw/3VBgcosH9QV3YAwpx/5
+         ur/O3X4+L3+cF6AqBDKtGKG+EPrhaqGGRAfsy04/ceVffDr7i6XSvHUmW3GTCeefZtD5
+         HIAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792167331; x=1792772131;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0j3Ic2XiSkpUSuqw2KaX3WIQgC+OMSs64+mNG8M5Cqo=;
+        b=iG5vTUpr/dz1gKQgtO9bHqV4LP1yJ9kUmiAzq/6e5O7eEZ4kfX7nK2u5YSDAcnC0M8
+         ao5nhyaPNFL/9CXvG0NLWQgUys0zykGLqwea+iGLHrf9OtaJ/oFuJx7C/d8C53zGHSpa
+         O2sDdW3Qvdvg3EaQk9KCNXHmWDAfwcYIR7XuXOxAwZyyqnQ4AXXRVFfh+ERcMs7+Zu9N
+         6R+BEW4oHp3TEwoi8ZDC9rE23MUaBKMK1t6Ofcvy1Msz0BJHxidD8A4eU3+RAr14KnMB
+         FUHOqpaJ76Nxns91HmJVQfJcv7BGRoJ3Axidjunj/MEF1PO/o+eUtbtjAPTNfWJ1jmdE
+         +d5g==
+X-Forwarded-Encrypted: i=1; AKwUvBxSKVNWKQVFNvGw6OaweJ82cKnmYuLdenNBUFh6MvhfBkjtnxIgTJky7WJLE1A+bzqRlZ3LSllQu9Usff0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJf/X3bel9NbL+F0mD+GjhnpuTfNPYe/S7UC7tw1pzF+X+rc7KC
+	f0Jd2/KYjYU0lzrShpmAUwphtyE9UCOsIdTVdMdSWaOdzxGsu18TSRwS
+X-Gm-Gg: AYBFou3y6todmkAsgXx94ZjLvyC76QFmgESqzzwv1n4ziMM8/8otmAwCTG/c1CSvLLU
+	2DTxBw5wUO23tNj0JyZ+sLu7uVL7/OfV0RAN5TzkQQhGuZS758TvOy9JXwVzvZa8y/lZ6IPI+bI
+	ZB+xa83Ml825Pa0iZeMesvRR6nWR/TXDXkpqtcCiExaiEGd2b31ZcfiSz7CH/l1xBPmNDsCwWaF
+	DIl4gaYgx+679QP24nQOybu6CZIMvemz6rf4dug9R76Oycsa+JOpbV0+tfPtGHlabrL3MXes/5t
+	+E7W4xiTUKJmxBYiJ43GBhqNKwLQw1vyLf5YpDZ2Dn3wO5n6Vn0pp1xeKH5HVN97oceTFq6QYU1
+	D1DdNFJWfis7BOITg7T25/A03+AOEos91PgJuPHl4cXA7Plf7n6ojWYh+Y81HSsgwh1d1x/HVpj
+	34W/gU8OYqpA3VtkOO6fU1L65/rofql37CDDIxSNIopfyqFQAxU6YJALJ59mNQ7rWssdLdIitL
+X-Received: by 2002:a05:7301:a02:b0:360:8596:657d with SMTP id 5a478bee46e88-361a3128fdamr255027eec.32.1792167331133;
+        Fri, 16 Oct 2026 09:15:31 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac5:d45a:16dc::247:b8])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082a7b33bsm15192394eec.24.2026.10.16.09.15.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 09:15:30 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Allison Henderson <achender@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
+	linux-kernel@vger.kernel.org,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	syzbot+c3741bb338b5c6d6a4aa@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] net/rds: ib: don't enable IRQs in rds_ib_conn_free()
+Date: Fri, 16 Oct 2026 23:15:25 +0700
+Message-ID: <20261016161525.146537-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV4PR04MB11751:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5786c356-092e-4820-c1b9-08df2ba0b11d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|19092799006|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	JguflDuNizRvlcjJBk6kT6sYsREUQVSpRAcV4xo4NUdDsHcUD+qdQWVQiDglO9ban3MebwsqQtdRm71Pxbdj0XfpXq33RXuu8DQOCsZINRegWfaPsrFL23YmZBgeMD7ypqrhGY4++4tOiT9Pxb69Wfxvsn1nX4lCpkBh2PBeYjSeG6KNAz8Hd1w7tP6f0xw5Mc8iNwulkJkY2IjvdmbfEoI/n0GpHYcW7mjG47FRCKdmdMn/h2WW1e3ZQLCmIZrvXKgpNKhozxasnvf8ZtWQtHQMpBfGE8nvv4zVuuILezYIFBlyGVHHc4ajYznncI0Ytzer0HUaj4larvPKS1GUzU5uHHns5yAFDg19M1+uCqNl2VV/KanuJtJtFy1ZUrCX2qOPWPaxbm0OqdwtYZQOtWl8Xt7t+zzku/j9/X6jJfKtNDUB247WHkhx0ph8e+uCmuO/78hsfvT9lIQpP30a0q+2hchKSRI6dZILVD0pG15sVMKbXCrXB8WgsST6xRW56ddMWgUfYswGYVOqCN1q1WIksCO3tzvWBJ9V7QDROQC+TB/etL81TDFSJNx60URjZPrzhtreSXv2Ev8G50mZR4no8dpSxQuXI9OejZKB3TLqm3AAPQoD3Sqs21Lu0+ik
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(19092799006)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Whaexh6pbUsYizkPXwNB+AnwJzYTFzLQYgc8fRM5YAApeAn7LoojE0v/d6F0?=
- =?us-ascii?Q?+EixLDFxowM1x/PB1XsiqigZpDyXsVN3g/BenETbIE+p2mEyykaEa++ggYRk?=
- =?us-ascii?Q?DwKCC8QqeE4xbH+mKUxik5evLSjhWrTW1CskN4Rqhp+0qwfLV2eS8xf2gMtt?=
- =?us-ascii?Q?tTkso7rdIem7k0DW4R615TpYets3PBSi4wWkiEcUJ7getDkYlXg21yC9ax+Z?=
- =?us-ascii?Q?gRh3zlPy6udeSXlsUFwNCjfZwj69ToRqEUWPYdMIzYFzHb0HMrU8rqAnncLW?=
- =?us-ascii?Q?ArhNfbTAVJ0CtsVOAP7XqTYk4YEycUBkwbXWfAu9M9NWqBnYGakx9jdZi4Ky?=
- =?us-ascii?Q?F0tklAN7Hy/3mmXAkZ+/AuxKtXPEQ+HmY7rlvhfUG64C4cjY+31jAVSGvs22?=
- =?us-ascii?Q?O4QkR93XEsDM2MlSJWq7uqKcAZlou0E52gX/cfxRpyUSOWFiaHxijy7fXidu?=
- =?us-ascii?Q?ve4OeOMXO7vJA4uUtn7aSqew1URDbCJQIf1eQ8BTz7r2jkQzHsmXEwqQTJX3?=
- =?us-ascii?Q?BsMF0r1pdiam9yjwE3s2YJf+2PZRN+oTDhSATMmt6M2EJbDpSfMdvFMyk3E7?=
- =?us-ascii?Q?52X6X/4h+VHvsQllZwRGKCE73/tc1OeCBAYpEzCE56wf/RODALyyL9a/InLY?=
- =?us-ascii?Q?IItihIelyevHfG4lpTfxyqv4NMdLdCycgMLDtYDPNrT6tjOuWRQJGTIxLIMi?=
- =?us-ascii?Q?i0YJXGoXeJJRJyNy036BYBKKoIv8E+T99HamgA96ABKVDC2XUZNgL9/viia5?=
- =?us-ascii?Q?jopwFgiA2FYYY8D6loMWZoeUuMSU0oxl+rdZ9KD9V9CCG4S3IEsEa/2X+vLe?=
- =?us-ascii?Q?LPPgrH1UESit/F1OI3zP2RTU1uwGuMaCFCxauTTEBbZf+yZ+SuavSO+Apff3?=
- =?us-ascii?Q?xAcvjIDLEmFaqhXVayW422UTZDPbKRTtGA2rR4dsxbkNA280Sln6zpwQd3rf?=
- =?us-ascii?Q?Fqe7YpNq+2qLZB/yLaSFQJ4NMrRnZ/+J0G6NR0raCD7XAvAd9Poi15y/gQkh?=
- =?us-ascii?Q?RNHy00ejFeIaDYEbdir9tpoP8Ib5onnb9ZXfURvxGCpbqZa+8xZHEzX1ngp4?=
- =?us-ascii?Q?ZJajrcp1FH677kHNVM0FiyUQmi27GVATMrSOl7iE3Ylv+QPFg6J+vlhWshMi?=
- =?us-ascii?Q?MwUvW/YGlTqZcTLsxhg2ijMYk+8EoKWZurOmJPt5/dVnQ5XZih0oO9+HBk2j?=
- =?us-ascii?Q?cGhPgYdZJfpV3/6ZKDoeSIGlC68CKv5Ago5qHgQCVKFNT/tT7FZxmjj40Ic7?=
- =?us-ascii?Q?c7xWVWQ9YV4vwMuSliZbr8321fJ2XtAQ4iYd6phn9szzMK66OJBWweekyrI9?=
- =?us-ascii?Q?W90RyDi7cwsQONURvXorNtJW7nCyjxNcURXXkLn8PR+6EQg5MflLVc8i/PkB?=
- =?us-ascii?Q?3i5vMrMhdNJee2gxV4mFRcTp4dsnNvdNRkWf5sZ7WCSQAYA3XyBMgmQftenf?=
- =?us-ascii?Q?iECkOyQF77hENTLPzHi9Jv4FsZ+v1fPAW4uLdcVG72pjEY6oR/IOelTHx9Ex?=
- =?us-ascii?Q?9AHjm8NE8EvHL5CaHPd2aqx77V7Xn9E/XYLfy7tkfKEIC54sdU0pj82ryjwr?=
- =?us-ascii?Q?BIKoKhYY+4hTsstTMO+4GtYrkTSBFnf8j/6hHNDJTn0Bi1BKzOfX++NOrpmI?=
- =?us-ascii?Q?clpPyardOvkrGgu37sm/O6tyvMATGqB8czSO83OfTem54tbr42pRcJMwiOPb?=
- =?us-ascii?Q?3tXFJubfuOiYBOIyv+Yg87CpLyZ7VHCFif0wWU03hyoDJVropa5aB11RHK+H?=
- =?us-ascii?Q?spGnIItCOGc9ENP+PZH/jHNspT97yPkKarNNR4zl9jTdAYFm9Taw?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5786c356-092e-4820-c1b9-08df2ba0b11d
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 16:15:27.8004
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LJBVhg/qiyigmtfvY6f6vHPTP96BfeLf7apSi5j4wWGuhF2wehWXTE5GpLseR0gHxNbAFKDri47tsmzhcP6unnEM6aaBFMpHGiyog6LrUG6AgKvICQxWiuISwuRT23w6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB11751
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 21, 2026 at 04:15:46AM -0700, Chandana Kishori Chiluveru wrote:
-> GPII_n_CH_k_SCRATCH_0_SEID is currently defined as GENMASK(2, 0), only
-> 3 bits wide. Serial engine indices >= 8 get silently truncated by
-> FIELD_PREP()/u32_encode_bits() when written into the scratch register,
-> causing the GPI channel to bind to the wrong serial engine. The
-> channel allocate command still succeeds (it doesn't require the
-> target SE to respond), but the subsequent channel start command times
-> out waiting for hardware to complete the handoff to the (incorrectly
-> bound) SE, and gpi_send_cmd() returns -EIO leading to GSI usecase failures
-> for SE8 and SE9 serial engines.
->
-> Older documentation, such as the SDM845 hardware programming guide,
-> describes the SE ID field as bits [2:0]. More recent QUP hardware
-> documentation defines the field as bits [3:0]. Use the wider definition
-> to match current hardware documentation while remaining compatible with
-> existing platforms and enabling serial engine IDs greater than 7.
->
-> Also update the SE Protocol field definition to match the documented
-> register layout and keep both fields correctly packed.
->
-> Fixes: 5d0c3533a19f ("dmaengine: qcom: Add GPI dma driver")
-> Signed-off-by: Chandana Kishori Chiluveru <chandana.chiluveru@oss.qualcomm.com>
-> ---
+__rds_conn_create() calls trans->conn_free() with rds_conn_lock held
+and IRQs disabled when it loses the race to insert a connection.
+rds_ib_conn_free() takes the device list lock with spin_lock_irq() and
+releases it with spin_unlock_irq(), so IRQs are turned on while
+rds_conn_lock is still held:
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+  raw_local_irq_restore() called with IRQs enabled
+  WARNING: kernel/locking/irqflag-debug.c:10 at warn_bogus_irq_restore+0xc/0x20
+   _raw_spin_unlock_irqrestore+0x67/0x80
+   __rds_conn_create+0x1de5/0x2290
+   rds_conn_create_outgoing+0x43/0x60
+   rds_sendmsg+0xfca/0x20e0
+   __sys_sendto+0x408/0x5a0
 
-> Changes in v2:
-> - Updated the protocol field value properly
-> - Link to v1: https://patch.msgid.link/20260720-fix_se_id_and_se_protocol_fields-v1-1-e41dbb107d97@oss.qualcomm.com
-> ---
->  drivers/dma/qcom/gpi.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/dma/qcom/gpi.c b/drivers/dma/qcom/gpi.c
-> index a5055a6273af..fc12cf9122f9 100644
-> --- a/drivers/dma/qcom/gpi.c
-> +++ b/drivers/dma/qcom/gpi.c
-> @@ -207,8 +207,8 @@ enum CNTXT_OFFS {
->
->  /* Scratch registers */
->  #define GPII_n_CH_k_SCRATCH_0_OFFS(n, k)	(0x20060 + (0x4000 * (n)) + (0x80 * (k)))
-> -#define GPII_n_CH_k_SCRATCH_0_SEID		GENMASK(2, 0)
-> -#define GPII_n_CH_k_SCRATCH_0_PROTO		GENMASK(7, 4)
-> +#define GPII_n_CH_k_SCRATCH_0_SEID		GENMASK(3, 0)
-> +#define GPII_n_CH_k_SCRATCH_0_PROTO		GENMASK(8, 4)
->  #define GPII_n_CH_k_SCRATCH_0_PAIR		GENMASK(20, 16)
->  #define GPII_n_CH_k_SCRATCH_0(pair, proto, seid)		\
->  			     (FIELD_PREP(GPII_n_CH_k_SCRATCH_0_PAIR, pair)	| \
->
-> ---
-> base-commit: 34cf6dafc47441dfb6b356a095b89c3585a93714
-> change-id: 20260710-fix_se_id_and_se_protocol_fields-d7f0fe616596
->
-> Best regards,
-> --
-> Chandana Kishori Chiluveru <chandana.chiluveru@oss.qualcomm.com>
->
+It needs an RDS socket bound to an address on an RDMA device (e.g. rxe)
+and two concurrent sendto() calls to the same new destination.
+
+The TCP and loopback ->conn_free() callbacks already use irqsave, so
+do the same here.
+
+Fixes: 745cbccac3fe ("RDS: Rewrite connection cleanup, fixing oops on rmmod")
+Reported-by: syzbot+c3741bb338b5c6d6a4aa@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c3741bb338b5c6d6a4aa
+Cc: stable@vger.kernel.org
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+ net/rds/ib_cm.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/net/rds/ib_cm.c b/net/rds/ib_cm.c
+index 6e3110a04ae6..5c717120eab5 100644
+--- a/net/rds/ib_cm.c
++++ b/net/rds/ib_cm.c
+@@ -1271,6 +1271,7 @@ void rds_ib_conn_free(void *arg)
+ {
+ 	struct rds_ib_connection *ic = arg;
+ 	spinlock_t	*lock_ptr;
++	unsigned long flags;
+ 
+ 	rdsdebug("ic %p\n", ic);
+ 
+@@ -1281,9 +1282,10 @@ void rds_ib_conn_free(void *arg)
+ 	 */
+ 	lock_ptr = ic->rds_ibdev ? &ic->rds_ibdev->spinlock : &ib_nodev_conns_lock;
+ 
+-	spin_lock_irq(lock_ptr);
++	/* May be called with IRQs already disabled (see __rds_conn_create()) */
++	spin_lock_irqsave(lock_ptr, flags);
+ 	list_del(&ic->ib_node);
+-	spin_unlock_irq(lock_ptr);
++	spin_unlock_irqrestore(lock_ptr, flags);
+ 
+ 	rds_ib_recv_free_caches(ic);
+ 
+-- 
+2.43.0
+
