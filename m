@@ -1,140 +1,90 @@
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D3F44BC92;
-	Fri, 16 Oct 2026 08:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6151934250E
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:55:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792140890; cv=none; b=XJ6zg5M8sAlQL1wxMRJYaGPOUygbm6/5UTrBKAKikci+H0lkVz0m0IfMu2Ws8HCULRf/s4DPGktC1F6pf0j9RaBOHc3UUSIud72lxKHfPPIU/u+rqtb46qjOrFdF3TEH6i3efIAalTQE94gZNREevPUDE7gcvNsOhT6UcoJLXp0=
+	t=1792140959; cv=none; b=Rm0GyWt+03WM79eIrXTZzBpxkYAI8p3IRmAlWsAoLRjEzFYJl5kpNRzQ5nkVFmN13bnvkPHFLfd4pLyizmo6FtEfGow/iO5kjjMzjAiyuMOxjRRNc6jNv9Ke1oFnGWqwUEy8LW4I1tCd2DapHK96HNr2vkfZsfRJ5aFYp4P8STA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792140890; c=relaxed/simple;
-	bh=P0RTLIbVU2S4X/eL+eds+/vYVZud713p6vOZsXOqWLg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=QanEnBIVVsl6aJjoUradMz7dcOBoXM76YOCMDYzhzK8LA63IVD6waQX2elCZ8l9C2XCSJzbRLuPtRbhk8cpzIC1A8lHxxYON4WAlRfzrR3WgrUX5sdHpOoHfQVP0rB4Et5v4bbrViy0hg5nE9u9hkDreevJPygymisCwiBa08uU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Fri, 16 Oct
- 2026 16:54:36 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Fri, 16 Oct 2026 16:54:36 +0800
-From: Joe Wang <joe_wang@aspeedtech.com>
-Date: Fri, 16 Oct 2026 16:53:07 +0800
-Subject: [PATCH] usb: ehci: Quiesce ASPEED EHCI before halting it on
- shutdown
+	s=arc-20240116; t=1792140959; c=relaxed/simple;
+	bh=ZT/sWpmVZ48A0UV1NDljoImwkaY+rB5RM0fdLed9wk8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=KdkF7/1b4qL6VyyR49LBA5Qxlv0/Jm5D3AsPzBgeOkF0znnmPgDC5tRWHwkwHSagmQNx6hhy34SZyXAxsatPD3ScQVtdin6tB+lGIK4ojSZ2fKj2gMuhLLXwxOfQp+7RlKVcoX8GZAGzvqYtIwyUev3oUMF7OqMI/IOL7At/V8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BEtx/5et; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BEtx/5et"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 58AC21A1235;
+	Fri, 16 Oct 2026 08:55:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 29A726075D;
+	Fri, 16 Oct 2026 08:55:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DB4AD10328B9B;
+	Fri, 16 Oct 2026 10:55:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792140952; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ZT/sWpmVZ48A0UV1NDljoImwkaY+rB5RM0fdLed9wk8=;
+	b=BEtx/5etcejUtTY5MTUNcRWY/zuaQF4HOE5w+eoWKzFGhMri+rIsxGQ35KauvM5TCdNPVN
+	/x/Dl3eKK8stSz3LgVTC9F7xZpXMorpV0A7D8sI9WkcdYFJwoi1nAo0hWB4LJwudLVXZ6c
+	gSm1jgBmzRa+kGJBBrtctfPA0ZNOaHRYfcXMqoikgSqNWwHTwzq1EnD6WPTEYKy8Hd14tk
+	EgXMwfRxsvSkABA9bKuQovl5JNXQCHTOqyYseDyQ9WGAum5Dc47hfqOBB+lltQuqTzjxrP
+	Uts1BaA7t8hXpzD8qenXED+qUsaBUeuzHkWC/3mtvQwnbi+F4xspo7mx9muBXw==
+Message-ID: <d6490c5d09075a152909c2be00c2a6f23256c61d.camel@bootlin.com>
+Subject: Re: [PATCH v3 6/7] spi: cadence-xspi: Add support for panic writes
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
+  Takahiro Kuwano <takahiro.kuwano@infineon.com>, Miquel Raynal
+ <miquel.raynal@bootlin.com>, Richard Weinberger	 <richard@nod.at>, Vignesh
+ Raghavendra <vigneshr@ti.com>, Thomas Petazzoni	
+ <thomas.petazzoni@bootlin.com>, Kees Cook <kees@kernel.org>, Tony Luck	
+ <tony.luck@intel.com>, "Guilherme G . Piccoli" <gpiccoli@igalia.com>, 
+	linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-spi@vger.kernel.org, Bharat Bhushan <bbhushan2@marvell.com>, Sunil
+ Kovvuri Goutham <sgoutham@marvell.com>, Tanmay Jagdale <tanmay@marvell.com>
+Date: Fri, 16 Oct 2026 10:55:43 +0200
+In-Reply-To: <f6008943-c4cb-43ae-a791-31965f374ffd@sirena.org.uk>
+References: <20261014154301.157755-1-paul.cercueil@bootlin.com>
+	 <20261014154301.157755-7-paul.cercueil@bootlin.com>
+	 <f6008943-c4cb-43ae-a791-31965f374ffd@sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261016-upstream_ehci_aspeed_shutdown-v1-1-8440c13b5652@aspeedtech.com>
-X-B4-Tracking: v=1; b=H4sIAPLl0WoC/x3MQQrDIBAF0KuEWVeILgLpVUoRO37rLGrESZpCy
- N0rWb7NO0jRBEr34aCGr6gspcPeBuIcyhtGYje50U12tJPZqq4N4eORWXzQCkSveVvjshczM6e
- E+HLBMvWjNiT5Xf/jeZ5/j16YK28AAAA=
-X-Change-ID: 20261016-upstream_ehci_aspeed_shutdown-9ccffedb2a1c
-To: Alan Stern <stern@rowland.harvard.edu>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>
-CC: <linux-aspeed@lists.ozlabs.org>, <linux-usb@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Joe Wang <joe_wang@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792140876; l=3618;
- i=joe_wang@aspeedtech.com; s=20261016; h=from:subject:message-id;
- bh=P0RTLIbVU2S4X/eL+eds+/vYVZud713p6vOZsXOqWLg=;
- b=ytseTYJOGcUaMaTjhvzjh/sLZZoaaDqml/aubWyh5Rn6i7kNjgDFKTB5J2VAR0+j+8/4D9rS/
- BYj8P930+UGApMDhwcN1aIoRLqUeK3056b608/8tW2bhIiN++B0YNJ2
-X-Developer-Key: i=joe_wang@aspeedtech.com; a=ed25519;
- pk=veYVypCO3h8GrodKXAGdE/+hudGfq/xO12Y1lhyRIV0=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On ASPEED EHCI controllers, clearing USBCMD.RS while both the periodic
-and asynchronous schedules are enabled may leave the controller unable
-to halt. If an asynchronous transaction is in progress when RS is
-cleared, it may run past the end of the micro-frame. The controller then
-clears its internal schedule buffer at the start of the next micro-frame
-while it is already walking the periodic schedule, issues a DMA read
-from address 0x0 and never sets USBSTS.HCHalted.
+Hi Mark,
 
-ehci_shutdown() calls ehci_silence_controller(), which halts the
-controller without first turning off the schedules. For ASPEED
-controllers, call ehci_quiesce() first to clear CMD_ASE/CMD_PSE and
-wait for STS_ASS/STS_PSS to clear, as ehci_stop() and
-ehci_bus_suspend() already do before halting. This is also the stop
-sequence recommended by ASPEED.
+Le jeudi 15 octobre 2026 =C3=A0 13:09 +0100, Mark Brown a =C3=A9crit=C2=A0:
+> On Wed, Oct 14, 2026 at 05:43:00PM +0200, Paul Cercueil wrote:
+> > From: Tanmay Jagdale <tanmay@marvell.com>
+> >=20
+> > Advertise support for panic writes. When a memory op is received with
+> > the 'panic' flag set, the driver will then work without relying on
+> > interrupts and without sleeping.
+>=20
+> We check device properties in cdns_xspi_supports_op() if the kernel is
+> built with ACPI support, that ends up using of_find_property() which
+> takes the devtree lock which means there's a possibility that we might
+> deadlock (eg, if we took a NMI or the CPU fell over at the wrong
+> moment).=C2=A0 This is probably thin enough it's not worth stopping the
+> entire series over, it could be fixed incrementally by storing the
+> values during probe.
 
-Quiesce the controller after setting rh_state to EHCI_RH_STOPPING.
-The asynchronous and periodic schedule-enable paths require
-EHCI_RH_RUNNING, so this ordering prevents them from restarting the
-schedules while the controller is being shut down.
+ACK.
 
-Allow ehci_quiesce() to operate in EHCI_RH_STOPPING as well as
-EHCI_RH_RUNNING. As documented for enum ehci_rh_state, both states
-indicate that the controller may still be performing DMA, while
-lower states indicate that it is not.
+I have an extra set of cleanups in my queue for spi-cadence-xspi so I'll ch=
+ange
+it there.
 
-The controller-death path in ehci_irq() also sets EHCI_RH_STOPPING
-and clears CMD_RUN, CMD_ASE and CMD_PSE. A quiesce call in that
-state writes the command register with these bits still cleared
-and polls the schedule status bits using the existing timeout
-limits, without re-enabling the controller or its schedules.
-
-Signed-off-by: Joe Wang <joe_wang@aspeedtech.com>
----
-This issue was observed on a customer host platform using the AST2700
-PCIe EHCI (ehci-pci), and the root cause was confirmed by the ASPEED
-hardware team in RTL simulation. The stop sequence used here (clear
-PSE/ASE, wait for PSS/ASS to clear, then clear RS) is their
-recommended workaround and was confirmed to resolve the issue on that
-platform. All ASPEED EHCI controllers share the same design, so the
-workaround applies to every controller with is_aspeed set.
-
-The quiesce is limited to ASPEED controllers to keep the change
-minimal for other platforms.
-
-Tested on AST2700 (ehci-platform): ehci_shutdown() and unbind/bind
-(ehci_stop()) with a hub and USB mass storage under load, no
-regressions.
----
- drivers/usb/host/ehci-hcd.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/host/ehci-hcd.c b/drivers/usb/host/ehci-hcd.c
-index 3c46bb18c7f3..d984987c8691 100644
---- a/drivers/usb/host/ehci-hcd.c
-+++ b/drivers/usb/host/ehci-hcd.c
-@@ -274,7 +274,7 @@ static void ehci_quiesce (struct ehci_hcd *ehci)
- {
- 	u32	temp;
- 
--	if (ehci->rh_state != EHCI_RH_RUNNING)
-+	if (ehci->rh_state < EHCI_RH_RUNNING)
- 		return;
- 
- 	/* wait for any schedule enables/disables to take effect */
-@@ -372,6 +372,14 @@ static void ehci_shutdown(struct usb_hcd *hcd)
- 	ehci->enabled_hrtimer_events = 0;
- 	spin_unlock_irq(&ehci->lock);
- 
-+	/*
-+	 * ASPEED EHCI may never halt if RS is cleared while both schedules
-+	 * are enabled, so turn them off first. rh_state is STOPPING at this
-+	 * point, which keeps them from being re-enabled.
-+	 */
-+	if (ehci->is_aspeed)
-+		ehci_quiesce(ehci);
-+
- 	ehci_silence_controller(ehci);
- 
- 	hrtimer_cancel(&ehci->hrtimer);
-
----
-base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
-change-id: 20261016-upstream_ehci_aspeed_shutdown-9ccffedb2a1c
-
-Best regards,
--- 
-Joe Wang <joe_wang@aspeedtech.com>
-
+Cheers,
+-Paul
