@@ -1,291 +1,153 @@
-Received: from mta1.migadu.com (out-55.mta1.migadu.com [95.215.58.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013018.outbound.protection.outlook.com [40.107.201.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0CB34E8E18
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:43:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169040; cv=none; b=cAJBv7oIz81fN/xQufCxnDjlZZxX2TiIMMFMIs9zswHsaQ0b5moYTpdM+k/MLbPXbwxdSFUYMShQRYW3V2Zw8D3B00q9p5N+QM/K5ssfE8I7ij0uFHJt/X2YDpBLdye5iiBokjVx0YpB2+ro1mzM43Trf1/fDki5+pzGPq+2Rrg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169040; c=relaxed/simple;
-	bh=ibFpth8wAFXUrM8GxlJIYQOA9JU+8ZJEHvofbY7B4qw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iIFALHRUeJsnoIEaamtJoBLqJ0ZzjW/JOppXG0r4jgoIJOnQTjkdiKD+fJB0WszOGJN4teAF0hZVlEUuHlDlvPdXMKNL5xyOU11F8edvQQXGTZHffrdGHncjKVUsZtDBjd1wRZ0xMal08uWlzrmCi06meDb8eMrXu14UjsvtCo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wA1KoVTh; arc=none smtp.client-ip=95.215.58.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5704ED199
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:44:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792169061; cv=fail; b=jj6+m74FUmbIa+iKdrewwAbxf+ORANOoT7XMrNWfixNnC/IbkOiWVe8tXxHPYAgPxwTD1Buu+PkBEbB6LJgd/NL4ADO0gmSVpALYtHbwMpN9117DE/N576xWCaIFV4s6AU/tVmAUL4EdqZQvXtnA4l/JRBlRDEumArBdgLkxf3U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792169061; c=relaxed/simple;
+	bh=n1iZdUVyyZDkr2nkhuQz6mWGVV5/7HV86kJizrdR+CQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=XLyT2zWS39hq74+ukZiOu1njl066Nci8UDvEZdvtc3LwOIzINPhRRh3SVblYE8mkgnMWIkm2nm/8iuXuFAA+LIZd4JZNouAPPlwPpYHtlv7pky1aCtK4/kJwGZXE6LowugWUo2Yk3ljuIFPaszGWLAAymfUg+BTtTsPsmrcZw4U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=bMMdeudy; arc=fail smtp.client-ip=40.107.201.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wA1KoVTh"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ibFpth8wAFXUrM8GxlJIYQOA9JU+8ZJEHvofbY7B4qw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792169035; v=1; x=1792773835;
- b=wA1KoVThwZwANpLSglG1xln8yZqaaCmlio7fvwINb1cyEBkpfqvlYKZFtTmq4JskLt2RqgD7
- bCxE2xecDMf+cYU+iQ37mQuP+6lIBgREmkETCZMdz5T8+0qKU9DLAFGE1UX+om0Y0aY3VgBJIOf
- xDqss8UTm15BaVmkjvZHaonQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f4f175d3aae833e2;
-	Fri, 16 Oct 2026 16:43:54 +0000
-X-Mizu-Trace-ID: f4f175d3aae833e2
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christian Brauner <christian@brauner.io>
-Cc: Meta kernel team <kernel-team@meta.com>,
-	linux-fsdevel@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] kernfs: allocate inodes and dentry outside kernfs_rwsem
-Date: Fri, 16 Oct 2026 09:43:45 -0700
-Message-ID: <20261016164345.31618-1-shakeel.butt@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="bMMdeudy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xvff6/Apeee7XkKWyNGXreox7ofHiTWM4Uk8SrsNXKyzPS/zkmkGK3QEmLFP727NBXvajRFkJTlq1MrRxqxvHBvhh4xQrzhI7K9xximNBfbHReiX3iDZqhoVhXJzEo9ZF0V/xdC3TkLpQgvVUZoelDcjy1hW0A88tLLaJUhu5uR3+bGIvdOBlxphWmk6L59Qe0KGDkMSowhhlnonDp27o1sY1bDAvvLrPPxkfqxRqEbASpua9wmsF3IjmhBL8g5pWcq2zbrO78CbGBMfydp4zaBKEHle+wdcG8ErlRgVZyJD0nhx1k98cT5ITZX7jG4NLV5rQh0y8tFdEoAY8c2nzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FLtGLtNKyXZHh8JGumqYyiz0x9M03j7wwKoQnuxR0jU=;
+ b=wWkyy3aZrtJxO3xO3ssF8DszN9duTCb8T1hEAUUNstfZKaf1WBrxE1OfTLlhVf5X+/qyjIks/59xmbkLRPa92vguZktayhiHtTyIoOGE/Dhb/eqoXl/bhpKQVyHk5DirLP7HoCobLxCH/gZbaCJ1Xmc/GKajN4gQMiyL2ST+56JpE/h5XeStJkeoooe+Wwhqcx7+76Rgaoae6pM6hu6dC0vcc7NlbrdveC1YF6EvRyEJo8FgBls2TX6Qu7XXNAUJVDzqrXN7NN7rrtpgKDjE/bsvVi4mmlc9gf2lWmyBnUkaY3jDrUTnDe92rPvKT9zzMqKDujXy/kMcEkGwIcwiBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linutronix.de smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FLtGLtNKyXZHh8JGumqYyiz0x9M03j7wwKoQnuxR0jU=;
+ b=bMMdeudyd8gtv0GdzwjerRj+jgeg78xnhQGXRJCt3JisOWeY49VYkO1NxFEk/KkUYNU3oqodslkltONOPsJoywJf33PPI+RoAasRWRZc4ASa50oft2AGjH9WCZFShR5flRoGZTvEGOftyVtrfpFfyaUrw8191Zb8EHtxnB2WDYw=
+Received: from BN8PR04CA0063.namprd04.prod.outlook.com (2603:10b6:408:d4::37)
+ by DS0PR12MB8443.namprd12.prod.outlook.com (2603:10b6:8:126::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
+ 2026 16:44:16 +0000
+Received: from BN1PEPF00006003.namprd05.prod.outlook.com
+ (2603:10b6:408:d4:cafe::7) by BN8PR04CA0063.outlook.office365.com
+ (2603:10b6:408:d4::37) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
+ Oct 2026 16:44:15 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00006003.mail.protection.outlook.com (10.167.243.235) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 16:44:15 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 16 Oct
+ 2026 11:44:08 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 16 Oct
+ 2026 11:44:08 -0500
+Received: from [192.168.1.205] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Fri, 16 Oct 2026 11:44:07 -0500
+Message-ID: <4c9b533f-251a-4569-bc78-fd7af664c831@amd.com>
+Date: Fri, 16 Oct 2026 11:44:07 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Reply-To: <tanmay.shah@amd.com>
+Subject: Re: [Q] zynqmp-ipi-mailbox and SGI interrupts
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, <tanmay.shah@amd.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	Jassi Brar <jassisinghbrar@gmail.com>, Michal Simek <michal.simek@amd.com>,
+	Harini T <harini.t@amd.com>, Saeed Nowshadi <saeed.nowshadi@amd.com>
+References: <20261015083937.8SDbdK8P@linutronix.de>
+ <1ee3f542-e0b2-41d4-bf6a-b103dabf50cd@amd.com>
+ <20261016162356.m2X9jbCa@linutronix.de>
+Content-Language: en-US
+From: "Shah, Tanmay" <tanmays@amd.com>
+In-Reply-To: <20261016162356.m2X9jbCa@linutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006003:EE_|DS0PR12MB8443:EE_
+X-MS-Office365-Filtering-Correlation-Id: a1ef21bd-5232-42df-e139-08df2ba4b6cb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|6133799003|22082099003|18002099003|10067099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	4KJVx8gnk70oRAdA5DK0qACG4tyjjk6jAYMwz2cyPCenB+xEgRmDud3o+8daCHd0HH9MsZJ5GD6qOtGsDEb9pS+Ce1LutT6wYmivD3se9beV/khBPOR9AG8b6hQUzEkzI4n0R7m+54qcnpacUT+yoT5zRMxJOwLKf/42BBUf2wAQCcXX8jLHzadju9/ZOs2q07uuyc99AeA+gahdHbLz/4ow/DUjEVnryzo9UIiG06B5sEVrFz/P/ojQLyK/LshNmkR6A4zaHkwYdiCkTjeVCQjHtoyhWzElkFvjqJj/eOQVbIFFwyyqc5LjcHBsrPt9b4Mti3XHinG027wbVr1mrAt9XDP0ZCnku5FUnNJ8yOcggI/hSwDcjA1uxrvwQgQr4G/cVjhs9IlwlX2NiElJEOsNlcxM0xsmz1Ctacjyb4IpWd6mvln+vNokqYIxxhlCAxUaQBsl8UtvCaG2mWmr0WzxZu+hT3ssBn+Pe7MGzKbMDlgf+ru8/4VGiQazwXHMlNJpqKdFyhpK8p28aTRIbZdkYRHTpMxceOA1h9CYZ7PsKRxHaY4oyKyZ+oA8IP5AUr2WgoBBrwkRqLGQSD7/ESv1iIbF2b6AJ6iTTTL6AUmssv4mmWQKHUSBBulrO19GcAswdziyKE02AP00ioDLOo39sqKxkmrTq02Cd0LlDY+MDMRGxhpUZrY70RvmMdV9JeBZhUBJPQbtInRQJdADnw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(6133799003)(22082099003)(18002099003)(10067099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pG8l0HiM/3dUMKVuTI7pvEQ2gR6wS2nGQ4fqCNyx7kijnClfuQZzylckkPyKBa0e0LeOK1UcUc/2dpsy1zCGMB4OfwxISzyYRZHU5pLYsi6OmUN/WxkcMTyT6B+PgLBHiRyp5d7hmTKU3uLQXFhugHBbw0PvPDikPxSOQc/LRvui75Q0rDavidKyDTWSZ/vmMj+SZSDzdpP3NrrVvyTsiifn6Nd0a5CfynUqHIQdjUA8QshHgOS0mF2J/bJZq9BW4L7C7/CKBXUBbI+MqaO3wumtHJuyP0uO3Z5NN3FJ1DsBhc31Ss6svgMAP4cD2nH/sdajndXWoTMtjOshsENcqxpp4YVX8n6OBQmglEuyQBE9HTgG+JOa8skL3G6vdkirLvV+U5ypkQhEyOrLDXx1cgMz+g1Vpvhm/OnDQRkRUmS+NPATMFylAeHYbrQ5MDX5
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 16:44:15.0895
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1ef21bd-5232-42df-e139-08df2ba4b6cb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00006003.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8443
 
-In the Meta fleet, on 6.16 with the kernfs changes queued for 7.4
-backported, we still see long cgroupfs stalls:
 
-- oomd and below waited 72 seconds in kernfs_fop_readdir() while an out
-  of memory container created cgroups.  They resumed when the kernel OOM
-  killer killed the container's workload.
 
-- oomd waited 15 minutes in kernfs_iop_lookup().  PID 1 waited for
-  kernfs_rwsem in cgroup_rmdir() while holding cgroup_mutex.
+On 10/16/2026 11:23 AM, Sebastian Andrzej Siewior wrote:
+> On 2026-10-16 11:10:29 [-0500], Shah, Tanmay wrote:
+>> Hello,
+> Hello,
+> 
+>> Thank you for your email, please find my response below:
+> 
+> Thank you for your email, too.
+> 
+>>> So is this SGI-IPI a thing or not?
+>>>
+>>
+>> Yes it is. Ideally, TF-A and Linux can share the IPI. If the IPI
+>> interrupt is used by the TF-A and the expectation is that Linux mailbox
+>> work on the same IPI (because all other IPIs are busy) then the work
+>> around is, TF-A will generate SGI for the linux mbox driver, and the
+>> mbox driver will use that SGI via device-tree.
+>>
+>> It is a vendor specific use case. So the dt-node for this use case, may
+>> not be available in the usptream kernel, but can be enabled if correct
+>> SGI is configured via the device-tree.
+> 
+> And it has to be a per-CPU interrupt? It can't become a regular
+> interrupt which is not per-CPU? Does the driver at some point access
+> per-CPU registers?
+> 
 
-- A lock profiler sampling part of the fleet saw kernfs_iop_lookup()
-  hold kernfs_rwsem across memcg reclaim on 26 hosts in 29 days, for up
-  to 625 ms.
+As per my understanding, it has to be a per-CPU interrupt.
 
-The profiler shows where these stalls come from.  kernfs_iop_lookup()
-and the export ops allocate a new inode while holding kernfs_rwsem for
-read.  The inode is charged to the caller's memcg.  If that memcg is at
-memory.max, the allocation can stay in reclaim for a long time,
-sometimes until an OOM kill.  A writer then queues on the lock and every
-new reader queues behind it.  On cgroup2 this blocks every cgroupfs user
-on the machine.
+Driver access those registers via percpu APIs, for example:
+xlnx_mbox_cpuhp_start() uses enable_percpu_irq(). It is called for each CPU.
 
-Such lookups are common in a memcg that is out of memory.  Its reclaim
-drops its kernfs dentries fast, and the files of a new cgroup have no
-inodes yet.
-
-Allocate the inode with the lock dropped.  kernfs_iget() first looks for
-an existing inode.  If there is none, it pins the node, drops the lock,
-allocates, takes the lock again, and adds the inode only if the node is
-still active.  So __kernfs_remove() still finds every inode it must
-clear i_nlink on, as commit dc1a0cc95737 ("kernfs: don't lose
-IN_DELETE_SELF when decoding a file handle") needs.
-
-kernfs_get_parent_dentry() also held the lock across d_obtain_alias(),
-which allocates a dentry.  Hold it only around kernfs_iget(), as
-__kernfs_fh_to_dentry() already does.
-
-Tested on a 176-CPU machine.  A task in a full 256 MB memcg with slow
-swap looks up the files of new cgroups.  Worst waits in 60 seconds:
-
-                                  before    after
-  oomd, for kernfs_rwsem          577 ms   0.7 ms
-  below, for kernfs_rwsem         412 ms   1.0 ms
-  systemd, for kernfs_rwsem       449 ms    17 us
-  readdir of another directory   1154 ms   3.2 ms
-
-The lookup itself is still slow.  The VFS still holds its directory's
-lock, so other work in that one directory still waits.  Cold sysfs and
-cgroupfs walks are not slower.
-
-kernfs_fill_super() still allocates the root inode under the lock.  It
-runs once per superblock.
-
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
----
-Changes since v1:
-- dentry allocation outside kernfs_rwsem (Sashiko).
-- Couple of comments updated.
-
- fs/kernfs/dir.c             | 11 +++---
- fs/kernfs/inode.c           | 69 +++++++++++++++++++++++++++++++++++++
- fs/kernfs/kernfs-internal.h |  2 ++
- fs/kernfs/mount.c           | 18 +++++-----
- 4 files changed, 88 insertions(+), 12 deletions(-)
-
-diff --git a/fs/kernfs/dir.c b/fs/kernfs/dir.c
-index 7e65854a09e4..70c114911063 100644
---- a/fs/kernfs/dir.c
-+++ b/fs/kernfs/dir.c
-@@ -37,7 +37,7 @@ static bool __kernfs_active(struct kernfs_node *kn)
- 	return atomic_read(&kn->active) >= 0;
- }
- 
--static bool kernfs_active(struct kernfs_node *kn)
-+bool kernfs_active(struct kernfs_node *kn)
- {
- 	lockdep_assert_held(&kernfs_root(kn)->kernfs_rwsem);
- 	return __kernfs_active(kn);
-@@ -1269,9 +1269,12 @@ static struct dentry *kernfs_iop_lookup(struct inode *dir,
- 			up_read(&root->kernfs_rwsem);
- 			return NULL;
- 		}
--		inode = kernfs_get_inode(dir->i_sb, kn);
--		if (!inode)
--			inode = ERR_PTR(-ENOMEM);
-+		inode = kernfs_iget(dir->i_sb, kn);
-+		if (!inode) {
-+			/* deactivated while kernfs_iget() dropped the lock */
-+			up_read(&root->kernfs_rwsem);
-+			return NULL;
-+		}
- 	}
- 	/*
- 	 * Needed for negative dentry validation.
-diff --git a/fs/kernfs/inode.c b/fs/kernfs/inode.c
-index 237dcdd73fc2..6c64bff0fc9f 100644
---- a/fs/kernfs/inode.c
-+++ b/fs/kernfs/inode.c
-@@ -256,6 +256,75 @@ struct inode *kernfs_get_inode(struct super_block *sb, struct kernfs_node *kn)
- 	return inode;
- }
- 
-+static int kernfs_iget_test(struct inode *inode, void *data)
-+{
-+	return inode->i_ino == *(u64 *)data;
-+}
-+
-+static int kernfs_iget_set(struct inode *inode, void *data)
-+{
-+	inode->i_ino = *(u64 *)data;
-+	return 0;
-+}
-+
-+/**
-+ * kernfs_iget - get the inode of @kn, allocating it outside kernfs_rwsem
-+ * @sb: super block
-+ * @kn: kernfs_node to get the inode for
-+ *
-+ * Unlike kernfs_get_inode(), this never allocates with kernfs_rwsem held.
-+ * If @kn has no inode yet, the lock is dropped while allocating one, as
-+ * the allocation can stall in memcg reclaim.  The new inode is added only
-+ * if @kn is still active when the lock is taken again, so
-+ * __kernfs_remove() always finds it to clear i_nlink.
-+ *
-+ * Only @kn is pinned while the lock is dropped.  Its name and parent can
-+ * change in that time.
-+ *
-+ * Context: May sleep.  Called with kernfs_rwsem held for read.  Returns
-+ * with it held, but may have dropped and retaken it.
-+ *
-+ * Return: the inode, %NULL if @kn is inactive or became inactive while
-+ * the lock was dropped, or ERR_PTR(-ENOMEM).
-+ */
-+struct inode *kernfs_iget(struct super_block *sb, struct kernfs_node *kn)
-+{
-+	struct kernfs_root *root = kernfs_root(kn);
-+	u64 ino = kernfs_ino(kn);
-+	struct inode *inode, *new;
-+
-+	lockdep_assert_held_read(&root->kernfs_rwsem);
-+
-+	inode = ilookup(sb, ino);
-+	if (inode || !kernfs_active(kn))
-+		return inode;
-+
-+	kernfs_get(kn);
-+	up_read(&root->kernfs_rwsem);
-+	new = new_inode(sb);
-+	down_read(&root->kernfs_rwsem);
-+
-+	if (!new) {
-+		inode = ERR_PTR(-ENOMEM);
-+	} else if (!kernfs_active(kn)) {
-+		inode = NULL;
-+	} else {
-+		inode = inode_insert5(new, ino, kernfs_iget_test,
-+				      kernfs_iget_set, &ino);
-+		if (inode == new) {
-+			kernfs_init_inode(kn, inode);
-+			new = NULL;
-+		} else if (!inode) {
-+			inode = ERR_PTR(-ENOMEM);
-+		}
-+	}
-+
-+	kernfs_put(kn);
-+	if (new)
-+		iput(new);
-+	return inode;
-+}
-+
- /*
-  * The kernfs_node serves as both an inode and a directory entry for
-  * kernfs.  To prevent the kernfs inode numbers from being freed
-diff --git a/fs/kernfs/kernfs-internal.h b/fs/kernfs/kernfs-internal.h
-index 1609c1519698..6cc19c9ef47b 100644
---- a/fs/kernfs/kernfs-internal.h
-+++ b/fs/kernfs/kernfs-internal.h
-@@ -186,6 +186,7 @@ int kernfs_iop_getattr(struct mnt_idmap *idmap,
- 		       u32 request_mask, unsigned int query_flags);
- ssize_t kernfs_iop_listxattr(struct dentry *dentry, char *buf, size_t size);
- int __kernfs_setattr(struct kernfs_node *kn, const struct iattr *iattr);
-+struct inode *kernfs_iget(struct super_block *sb, struct kernfs_node *kn);
- 
- /*
-  * dir.c
-@@ -194,6 +195,7 @@ extern const struct dentry_operations kernfs_dops;
- extern const struct file_operations kernfs_dir_fops;
- extern const struct inode_operations kernfs_dir_iops;
- 
-+bool kernfs_active(struct kernfs_node *kn);
- struct kernfs_node *kernfs_get_active(struct kernfs_node *kn);
- void kernfs_put_active(struct kernfs_node *kn);
- int kernfs_add_one(struct kernfs_node *kn);
-diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
-index c15ba6357162..ccb7dc575c7c 100644
---- a/fs/kernfs/mount.c
-+++ b/fs/kernfs/mount.c
-@@ -125,11 +125,9 @@ static struct dentry *__kernfs_fh_to_dentry(struct super_block *sb,
- 	}
- 
- 	/*
--	 * Hold kernfs_rwsem across the lookup as well as kernfs_get_inode().
--	 * __kernfs_remove() deactivates the subtree and clears i_nlink on its
--	 * inodes under the write lock, so under the read lock either
--	 * kernfs_find_and_get_node_by_id() refuses the node, or the inode is
--	 * in the inode hash before the ilookup() pass goes looking for it.
-+	 * Hold kernfs_rwsem from the lookup through kernfs_iget().  Then
-+	 * __kernfs_remove() either finds the inode to clear i_nlink, or the
-+	 * node is already inactive and no inode is created.
- 	 */
- 	scoped_guard(rwsem_read, &info->root->kernfs_rwsem) {
- 		kn = kernfs_find_and_get_node_by_id(info->root, id);
-@@ -146,7 +144,7 @@ static struct dentry *__kernfs_fh_to_dentry(struct super_block *sb,
- 				return ERR_PTR(-ESTALE);
- 		}
- 
--		inode = kernfs_get_inode(sb, kn);
-+		inode = kernfs_iget(sb, kn);
- 		kernfs_put(kn);
- 	}
- 
-@@ -171,9 +169,13 @@ static struct dentry *kernfs_get_parent_dentry(struct dentry *child)
- {
- 	struct kernfs_node *kn = kernfs_dentry_node(child);
- 	struct kernfs_root *root = kernfs_root(kn);
-+	struct inode *inode;
-+
-+	scoped_guard(rwsem_read, &root->kernfs_rwsem) {
-+		inode = kernfs_iget(child->d_sb, kernfs_parent(kn));
-+	}
- 
--	guard(rwsem_read)(&root->kernfs_rwsem);
--	return d_obtain_alias(kernfs_get_inode(child->d_sb, kernfs_parent(kn)));
-+	return d_obtain_alias(inode);
- }
- 
- static const struct export_operations kernfs_export_ops = {
--- 
-2.53.0-Meta
+>> Thank you,
+>> Tanmay
+>>
+> Sebastian
 
