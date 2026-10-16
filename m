@@ -1,134 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4777B3B8921;
-	Fri, 16 Oct 2026 19:37:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8545274FE3
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:38:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792179464; cv=none; b=pYWwlzO40+9aMqoCJVxwgDPj+ZfXJIolsqA8IGsFJ+3WP07xXNSsf6QxmAECZ8yr6mBM24b7pNDHGJoM24NXAz1dzrVJCAw4zaJgZkHT5EeR+1tAEKBn19dTc1XxkMXF2LVLX+G5zeXlfrRrdsAzhCNXsZ7N8o4WedasML7ZrTQ=
+	t=1792179515; cv=none; b=DhPJ7vrmCp/n+Zw9YU62bWZuTxx4buwQRLO7wjuOjGhxApUxDkm9m2yjpFtaWwrrv58kjeHCYYnU+tmDa2YA6+Xjl8b4mwTFXEFFvl4UwmDdOUlFk9yTmklHd3uuV+RMnZdaUr56tkQO5vbPflOQrZtdh4rcfItlMn5pNr5C5dc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792179464; c=relaxed/simple;
-	bh=BUwsHumKybWCq/wn91B8jFTYl49CuWl9sag841KH7Ic=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=bTh9xPW07QPqpb+ek9cgQ9xGpDKEsuB/fYQdTmAI7UzCopBFSCpkK4kJHysxnoGy662zJmvxlpHWsK9DZ9KvJG7XgEm8COAbU7V05QmDoQ9CkpWK81d9oY6tFoUtWnkVhrSDY8G77BB+Gw6cczEimAY55G9NW4W1zQr+piSY0Hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VzMeA3N0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792179515; c=relaxed/simple;
+	bh=369BcXlwouHKov14aSY209TKJH58jvqib+z/yvVhBgc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZLYw3/bA5gRHlz8XgaAlOj4z6Eq+wPW4wBkgGh2fH2Xni7cdC4N1cydmCmVzzhnFFP+qx5NZ8+bKynABpBe4MQxr8HZYKbKDlB+eXgMtibQBqgSA4kTwSIsluQDe0xARVOLflC+/duTRdhIWUvE3txNGwcVSrTLVIZ9dCAvZ8f0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d2BVoisP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R7BrVbjT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VzMeA3N0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EE961F000C4;
-	Fri, 16 Oct 2026 19:37:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792179461;
-	bh=WfKgb3D9f7fpa4OP90c2QmPT32pLI59VaWxTPr/HY7M=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=VzMeA3N0oe4svZjrvu/LDCuO0fcjWviKbDNMmdYK8a61KjuT+3VTpkAe8/lRgORaj
-	 iwBohgY8s6ykFdQ70nvfE3R7+Mu+YxrQcT6BbhkDoBuED83b6zd3aLwWfXIip7bx1D
-	 lBHBaZ7PDmTPG6wk63hqPzycyTIoXYZRDR7NM0TypiXPe5aoa8UV7daaK99jKkyJce
-	 ZnPckX8VlwtIHLw6C6SovdLMiaGkWMWGeMfan95Kd/MZi/5myG36LXbplsWnVgoJt9
-	 uHyTkhxk/+BULGiqhiw9TwO1kwOBzquQQfh9cLauEkJ9BBiAM6JFnjnY8oidk4BTP4
-	 OiD8POSVUq6+A==
-Date: Fri, 16 Oct 2026 09:37:40 -1000
-Message-ID: <f010daaee76c0fe812d0b86d341fab14@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Andrea Righi <arighi@nvidia.com>, David Vernet <void@manifault.com>,
- Changwoo Min <changwoo@igalia.com>
-Cc: John Stultz <jstultz@google.com>, sched-ext@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH sched_ext/for-7.4] sched_ext: Keep proxy donors local through core-sched retries
-In-Reply-To: <20261015101935.2844323-1-arighi@nvidia.com>
-References: <20261015101935.2844323-1-arighi@nvidia.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d2BVoisP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R7BrVbjT"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GE5rGj1450559
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:38:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=saxkIlCiRm98oCdv5a136rITpS+jtk+TC4p
+	NKPpq7zU=; b=d2BVoisPlOZmnH6iLwLwxW7VAC7W3ceH0VXWd4e69HaMaMRqp2I
+	mx5V5RNM0BPiaesoWwMd8/Uew4tqIe1UNKiVVu7VNLjNPw8PPHWtENow6ei7hSXU
+	VFOaZoJMQl0DfRsndwgZKr/Gp1mdU1vPPZws/taJ434nK/N683EPHIJGQ8ejQnj5
+	xigJNhQVaTDzTj3io9yLMvU8azSrDwba+occTC5CuvdiAsq4+EA4VCiKclLu2e65
+	U3tpFn1SKwHbfOcjnkdHmQ1aLn0lleOcimoN6CgUXaZIXx1kcseRwoJtPD61206C
+	e+SNhZUhBZ9az3hdB9QyCsrfkxbyyPmsgJQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbhur23k2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:38:28 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso322194eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:38:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792179507; x=1792784307; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=saxkIlCiRm98oCdv5a136rITpS+jtk+TC4pNKPpq7zU=;
+        b=R7BrVbjTpNRJZFe5dFtVahY92NkoP1RM5Gqx8aglDw9mQXSAYXGkuwmf7aPFgnQD1C
+         WigmSWOBU5IJr1+2949BqUx3Ab8vIR8XfG3AaayAWnxAhGBP9ErR60z6OSn01v4zKUkC
+         yV0DfFo6wQ2AovBf8oBZlG81eDZZr0zTVygReaAaNNCqfBcLokbHIo+833BwNj1YHhcp
+         PvlINt+R3GuJAN+Lw343RIJOnTrZ69xmKh0KwUVFCKo8AfTduMw+wflafYn61R//v6/D
+         iQMNYf/+asJ71x3VH225rrE24Ln+0yYvYB4UxQ1RW1qtVmL1qFl3BvncrVfvySPG9GYd
+         g9pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792179507; x=1792784307;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=saxkIlCiRm98oCdv5a136rITpS+jtk+TC4pNKPpq7zU=;
+        b=WEn+0LoRikFb5hDnkDqiD7ancDV9OrzL28I/zXRLI140weXLLv7vzsO1WScG5/Fxeh
+         rC0AhHJl4bMLE8y49KfgCz4PKH5dEWeR9hKDiadc4uC8TqMIRMAFNJR7mD+1xsB4k3jt
+         dzvuaK4rVN+2TfJalDLBrTDa/iMBBCtjrpaN53zrYkA5QLqycsxxfr0cvJEf1ZU+UC3h
+         M+qzfjXv9qOhGOdVwl08JuIfq8OM40sAZS0yNMRWdo3Sz6MqBlurPxtIM8AV7qhEeKm4
+         lOj/FGs7ituSbmak3LknU+kE0H5vpeXRYYak9O3rWCImreVtu0a64/fuWktjZplfOTDA
+         fppA==
+X-Forwarded-Encrypted: i=1; AKwUvBz4Vn1KpZ9h+L+GYIYLFHbXoYbRx359IymuMVnNcvHbFIuOVpJFZOaTwy7DEmDVI+NRG5uqOI8snYMxlJA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2dIyoaZItYNTrZKCd1vUM/EzPp5MaqtB12hlPwlr8NaO4uvVO
+	YtD1B6Bn7emS+0WglaEvcde4vSRtIgFCbVGxugkUL1ks1nrIIgFCLxBSPFwZEqcjtMvg25wiBLV
+	L0a9FLit7b2fjGO0yMutozEL+zpKNSgxeHnyxKvjQGsAUIuNCEA+m36CM+aO89+/uOf8=
+X-Gm-Gg: AYBFou0Q/NpBQ0N9UQVMToGWTGOhzXaTNdg4QgeAyosIXHOlMzE7Y++QQVulf9oQtpv
+	7o8/V6qaTudE4jffvsaKprpW83hNptG2C3F3c3u+skBqGoDx4SlLO9wcT+UymDki+Igvf8PUOIj
+	RpaK5oIUBTxbBvHoz4avVL4EdHo9H45Ms6fxtx+7c4P7UUofE6zjGPLd7WYFjmLEPRVFrJ3LEPr
+	HuLz92KPi9Jqc4+Sxup1M2F9sPBPpoa1Nu/Yc6gKGQFeK8A9YHF40jzySweoz/PBp360ZPMHRnO
+	Q12iWCgpOeBXMzf4qPzo0148F7QMcnuHzOffpMEqg35Yq9GAfdd2REd92Iv0p225hx9QNAeZzkk
+	XZPbpCMLIRChBhCPdGT+MwkyiwStHHo/Yj5m6vTZE9Xcw0h6xYjEnYa1cHggMhKY=
+X-Received: by 2002:a05:693c:6311:b0:35c:9631:f389 with SMTP id 5a478bee46e88-361a136acadmr995295eec.17.1792179507174;
+        Fri, 16 Oct 2026 12:38:27 -0700 (PDT)
+X-Received: by 2002:a05:693c:6311:b0:35c:9631:f389 with SMTP id 5a478bee46e88-361a136acadmr995136eec.17.1792179504724;
+        Fri, 16 Oct 2026 12:38:24 -0700 (PDT)
+Received: from hu-scheluve-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0d391sm8960205eec.4.2026.10.16.12.38.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 12:38:24 -0700 (PDT)
+From: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
+To: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+        mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, j.raczynski@samsung.com,
+        k.domagalski@samsung.com, k.tegowski@samsung.com,
+        cs0617.lee@samsung.com, abhishek.chauhan@oss.qualcomm.com,
+        lorenzo.bianconi@oss.qualcomm.com, sarosh.hasan@oss.qualcomm.com,
+        hongmei.xu@oss.qualcomm.com,
+        Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
+Subject: [PATCH net-next] net/stmmac/dwxgmac: Extend MTL/DMA support to 16 queues
+Date: Fri, 16 Oct 2026 12:38:23 -0700
+Message-Id: <20261016193823.2711773-1-sagar.cheluvegowda@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA3OCBTYWx0ZWRfX7Po/SRvW+RrY
+ LqGDUkvU6mPxPbJPTg0397Cq1wPmrEDwJiGHwQX+OuIId1+8wIseHEsKbI5mjYPHB0o2aD9OR7h
+ mbdQCzsV5vq6e2F7Fl48gz6lteUmmT+SsObHN6t+NZ0vBKcOgLyhVRe6dHWMAEeZXyJrZ3yHgun
+ bSOLhq3ZxHzTd25q1f+U5SLCbaCvM5Kmezf1sATTGYA407JkJEoMDGYiKgFd/Mf0OsEfLkG39VL
+ eJFQqccLhNihXA2viX9okum5NcD21VpYQuSAhn6/U2MYflI+aaZaarrg91COLM9Yn+CDmHzYHh0
+ VBElZAGQs8IRyWBDws3RiJFsJ5mNpPaHEjyKHG/PiL/UWIV/KgS/AmL7c2QJGRJqlFgKlIckfEH
+ hxVddfEzvpjqygnDHZbUDbJ+tGxPFtcN01pNsD1gFrNZsO1of5xrJ/1WlNvDGW3l8ym2iPzXaCj
+ YlwEanaiE3nQ78MKSUA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA3OCBTYWx0ZWRfX3uOLQCnRQKCP
+ Mfdi7FF0uqqUTBFrwnAw8fLWlk8rTyxo+cyiEFO5Uk9/BZKErrnfq3nkB9cmQ51+pCaP434i3qN
+ bVyBCJ4xBwt++tCj7Jq1bAAZpavy6eU=
+X-Authority-Analysis: v=2.4 cv=PqsG/AM3 c=1 sm=1 tr=0 ts=6ad27d34 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
+ a=hD80L64hAAAA:8 a=EUspDBNiAAAA:8 a=x3-vh77kN9uJXWvyjNsA:9
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-ORIG-GUID: xqIdBW6tyU3zOjeDkMnruuBxg7dEfXgD
+X-Proofpoint-GUID: xqIdBW6tyU3zOjeDkMnruuBxg7dEfXgD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-16_02,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
+ phishscore=0 clxscore=1015 malwarescore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160078
 
-Hello, Andrea.
+From: Jakub Raczynski <j.raczynski@samsung.com>
 
-The following is a Claude-generated review.
+New datasheets for XGMAC (3.20a and 3.40a, depending on product)
+support up to 16 MTL/DMA queues. Before we increase max amount
+through macro, prepare dwxgmac functions to handle that.
 
-Everything below is from reading the code and nothing has been
-reproduced.
+Queue numbers above 15 are not valid for this hardware. Callers are
+expected to bound them, so reaching the default case is a programming
+error rather than a runtime condition. Use WARN_ON() for it instead
+of a netdev_err() message: the callback has no net_device of its own,
+and a message-only failure in a void callback is easy to miss, while a
+warning with a backtrace points straight at the offending caller.
 
-On Thu, Oct 15, 2026 at 12:19:35PM +0200, Andrea Righi wrote:
-> Fixes: 7ab553756463 ("sched_ext: Keep proxy donors with slice left on the local DSQ")
+Co-developed-by: Chang-Sub Lee <cs0617.lee@samsung.com>
+Signed-off-by: Chang-Sub Lee <cs0617.lee@samsung.com>
+Signed-off-by: Jakub Raczynski <j.raczynski@samsung.com>
+Co-developed-by: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
+Signed-off-by: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
+---
+Patch 2/3 of Jakub's v2 series:
+https://lore.kernel.org/netdev/20260601162537.553512-3-j.raczynski@samsung.com/
 
-This commit doesn't exist. The parent landed in sched_ext/for-7.4 as
-67d0d8d018f3.
+Jakub has confirmed he will not be continuing this series, so we are
+posting this patch on its own. We need it for Qualcomm Nord, a
+25GMAC-based SoC that implements 12 MTL/DMA queues. Jakub's authorship
+and sign-offs are kept.
 
-> +	if (rq->donor == rq->idle) {
-> +		struct task_struct *first;
-> +
-> +		first = list_first_entry_or_null(&rq->scx.local_dsq.list,
-> +						 struct task_struct, scx.dsq_list.node);
-> +		if (first && (first->scx.dsq_flags & SCX_TASK_DSQ_PROXY_IDLE) &&
-> +		    sched_cpu_cookie_match(rq, first))
-> +			return true;
-> +	}
+Changes vs v2 2/3:
+- Replace the netdev_err() + return in the default case with
+  WARN_ON() + return, following the review feedback on 1/3 against
+  message-only failures in void callbacks.
 
-Does this need the mark? With rq->donor == rq->idle and next_class at
-ext, the next pick takes the local DSQ head no matter how it got there.
-Non-proxy IMMED tasks hit the same spurious reenq today. For example,
-two IMMED wakeups land on an idle CPU. The first insert sees the rq open
-and rq_owned_post_enq() raises next_class to ext. The second makes nr 2
-and schedules a reenq, which task_woken_scx() runs. reenq_local() then
-sees the rq closed and sends the first task back to BPF even though it's
-at the head.
+Tested on Qualcomm Nord with 12 queues: the MAP0..MAP2 registers were
+checked to hold the expected RX queue to DMA channel mapping. The MAP3
+register (queues 12-15) is carried over unchanged from v2 and is not
+exercised on that hardware.
 
-Testing just the head's cookie while the donor is idle would cover both,
-and SCX_TASK_DSQ_PROXY_IDLE with its set and clear could go away.
+This is needed for XGMAC-based hardware with more than 8 MTL/DMA
+queues (Qualcomm Nord has 12).
 
-Also, first_local_task() is the same lookup if moved up. As the block
-only runs with next_class at ext, maybe it belongs below the "@rq is
-either picking, in transition to, or running an SCX task." comment?
+ .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  2 ++
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   | 21 +++++++++++++++++--
+ 2 files changed, 21 insertions(+), 2 deletions(-)
 
-> +/*
-> + * A proxy retry can bypass pick_task_scx() and leave PROXY_PENDING set.
-> + * A cookie mismatch means core scheduling forced this CPU idle, not that
-> + * proxy resolution put a selected donor through idle.
-> + */
->  static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
->  			      struct task_struct *next)
->  {
->  	struct scx_sched *sch = scx_task_sched(p);
->  	bool proxy_put = p->is_blocked && next == rq->idle &&
-> -			 (rq->scx.flags & SCX_RQ_PROXY_PENDING);
-> +			 (rq->scx.flags & SCX_RQ_PROXY_PENDING) &&
-> +			 sched_cpu_cookie_match(rq, p);
-
-A forced idle can also happen with a matching cookie. If the core-wide
-max is untagged, core_cookie is 0 and pick_next_task() forces a
-mismatching rq idle without trying sched_core_find(), so an untagged
-donor still passes sched_cpu_cookie_match(). For example, with CFS
-bandwidth control:
-
-1. A tagged fair task H on this rq is throttled. A sibling's core-wide
-   pick selects the untagged blocked donor D for this rq under an
-   untagged max.
-
-2. H is unthrottled. The unthrottle re-enqueues H with
-   enqueue_task_fair(), which doesn't bump core_task_seq, so this rq
-   still takes the core_pick fastpath and set_next_task_scx() sets
-   SCX_RQ_PROXY_PENDING for D.
-
-3. find_proxy_task() abandons the pick without a put and __schedule()
-   goes to pick_again.
-
-4. H wins pick_task() on this rq, so pick_task_scx() doesn't run. The
-   sibling's untagged task is still the max, core_cookie is 0 and this
-   rq is forced idle.
-
-5. put_prev_task_scx() sees the stale flag and a matching cookie and
-   parks D as a proxy put.
-
-Maybe clear SCX_RQ_PROXY_PENDING where find_proxy_task() abandons the
-pick instead? None of the existing hooks fit the pick_again site, so
-it'd need a small new one, but the flag then can't go stale and the
-cookie test isn't needed.
-
-And maybe retitle? The reproduced bug is an SCX wakeup during the proxy
-idle rather than a core-sched retry, and "retries" reads like
-SCX_RQ_PROXY_RETRY.
-
-Thanks.
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+index f8ab347f7b5b..6d4affbd34a1 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+@@ -257,6 +257,8 @@
+ #define XGMAC_MTL_INT_STATUS		0x00001020
+ #define XGMAC_MTL_RXQ_DMA_MAP0		0x00001030
+ #define XGMAC_MTL_RXQ_DMA_MAP1		0x00001034
++#define XGMAC_MTL_RXQ_DMA_MAP2		0x00001038
++#define XGMAC_MTL_RXQ_DMA_MAP3		0x0000103c
+ #define XGMAC_QxMDMACH(x)		GENMASK((x) * 8 + 7, (x) * 8)
+ #define XGMAC_QxMDMACH_SHIFT(x)		((x) * 8)
+ #define XGMAC_QDDMACH			BIT(7)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index 1a88cbaed70c..563d29d72543 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -257,9 +257,26 @@ static void dwxgmac2_map_mtl_to_dma(struct mac_device_info *hw, u32 queue,
+ 	void __iomem *ioaddr = hw->pcsr;
+ 	u32 value, reg;
+ 
+-	reg = (queue < 4) ? XGMAC_MTL_RXQ_DMA_MAP0 : XGMAC_MTL_RXQ_DMA_MAP1;
+-	if (queue >= 4)
++	switch (queue) {
++	case 0 ... 3:
++		reg = XGMAC_MTL_RXQ_DMA_MAP0;
++		break;
++	case 4 ... 7:
++		reg = XGMAC_MTL_RXQ_DMA_MAP1;
+ 		queue -= 4;
++		break;
++	case 8 ... 11:
++		reg = XGMAC_MTL_RXQ_DMA_MAP2;
++		queue -= 8;
++		break;
++	case 12 ... 15:
++		reg = XGMAC_MTL_RXQ_DMA_MAP3;
++		queue -= 12;
++		break;
++	default:
++		WARN_ON(1);
++		return;
++	}
+ 
+ 	value = readl(ioaddr + reg);
+ 	value &= ~XGMAC_QxMDMACH(queue);
 -- 
-tejun
+2.34.1
+
