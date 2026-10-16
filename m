@@ -1,98 +1,146 @@
-Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3E63D0919;
-	Fri, 16 Oct 2026 22:14:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.37
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 33AF942AD9F;
+	Fri, 16 Oct 2026 22:14:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792188855; cv=none; b=fsFS1y+ZrVr47kQGzkubiL9CimE0oiJfT6/XyrtrvkKTwlQuS6ogGOQ/B7yWrM1Co1R2UJBD/ULWTv5scLBk3ry9Kfo/C4eE7HNoGbYT/ipkWf56Etg32M+8WAXfR54M6hW76KprBmIRLoZZAiJ7243kVvBoE/J4JlN6n8DN7ms=
+	t=1792188867; cv=none; b=otewwmj3C92bgR6rJFJJjGVRoXVAfBHLw3qKJwdIi2ZW/+BrRNB03ntOLzVUlV5zapyIrv2rusq3MjwENAW38tkxnc1cyEKucfCWQFb2ScnrExki/q6ns8eEWJcQ3hJdyflSQRTv8AmQFA34agc5/EONzPvPlk+JPNEp5Dfl99Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792188855; c=relaxed/simple;
-	bh=VjnOgRf/vzS0Qw2W1u4f4sJ7ki0rNAEg6xtHGo3pg8o=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=X41iY9ItogNt79+jCqIykNlA0kYEsTAPWyDpeN2lKAIu2KooNj3hgHQWg1YgedDTL+aNX4qfp+DWZhXqGDkr5eiSpyg8PetVj3PqqFvUtq2IrJLhASBQAeEBEOjeL5sXkSf6V7xxzEXpS+nbAx+CbP7GdVFwjYudsqlF/zmg90c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co; spf=pass smtp.mailfrom=rbox.co; dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b=V+X/WUVL; arc=none smtp.client-ip=185.226.149.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
+	s=arc-20240116; t=1792188867; c=relaxed/simple;
+	bh=Ct0rfElsXuXbVu5RGEkOwbi0cqFOfgPzwLRlM6cKa1E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YXDSlX/9QpdtT5/NkmPGUIE4xc/mV2EmMdr8WSwya4VqcB3TJ3dx/wHcE5ta+gsuQEaBoq31I6AEQ57ceduYHVfRBhnNFg157XnvRc8aMTs+zisio2I3vp/Rf3tmopqSR/fktuYSNd+QsbE0rLZZkKFdnjzZQne2SMa7dUsdBik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=r6K4A0Hl; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b="V+X/WUVL"
-Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
-	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <mhal@rbox.co>)
-	id 1xHpC3-00Csi4-LW; Fri, 16 Oct 2026 23:10:23 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
-	s=selector1; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
-	Message-Id:Date:Subject:From; bh=l459rReme3m9xUy/xeunU376dytq1eQbs4qJt+fMUNo=
-	; b=V+X/WUVL7ay13PKg8cQaYK/rhEHpBstkjOvqmuu6AeAZL1LWXdXdqUK6NZA2Owt/S1EXrhjVM
-	XJKeRkXOrX3n0sV0Wen1p25Fa1pZOapQXzLuvKG1odOXDqEtPUOfvwUB5fGNdE6bc7+8lGhPFSpP/
-	mmKZzN4l7gREas6zua2aH7BqgZLJCMIFhX0ai6plugVbFEsLMAQLKvpSqliTRbyO47MH99vSzlfAc
-	wo5Gt+VuEPI3Oyw2Wsk5+16cOS9CKc+KpL52P5j3AKo1xhkfy5pV4DdF8PU3uqeRnBFqNDZ9KSNL7
-	b5cKLpTme5BFbcYnfu3hqRmnRsUDeB+txyVsbQ==;
-Received: from [10.9.9.72] (helo=submission01.runbox)
-	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
-	(envelope-from <mhal@rbox.co>)
-	id 1xHpC0-0000vk-Qv; Fri, 16 Oct 2026 23:10:20 +0200
-Received: by submission01.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.95)
-	id 1xHpBm-00G3o2-Nm;
-	Fri, 16 Oct 2026 23:10:06 +0200
-From: Michal Luczaj <mhal@rbox.co>
-Subject: [PATCH bpf-next 0/3] bpf, sockmap: Restrict iter-context sockmap
- updates to sockmap iterators
-Date: Fri, 16 Oct 2026 23:09:12 +0200
-Message-Id: <20261016-sockmap-update-limit-iter-v1-0-23fa946db59e@rbox.co>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="r6K4A0Hl"
+Received: from jeffbarnes-ThinkPad-P14s-Gen-2i.lan (unknown [52.167.115.14])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 83BCA20B7168;
+	Fri, 16 Oct 2026 15:14:18 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 83BCA20B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1792188860;
+	bh=CvrkmxGTYn+g48GnaUrhS3mqY4MzePPX6sNKOzeS5H8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=r6K4A0Hl1qMulqDce5bA2d33KMcsCQARgHppwxcojSSG8Y6cWDOGRoxLLX+i9eaIb
+	 MA2+I8VbKbkpMmsjnpwNCHnnIAUK5AvnOvK/kV1F38aD9jDONpNifUyB1MPzu33XKO
+	 hOdP5gVGI1mhrhH0DtyPtby76qZOPaIu6aYM2+jI=
+From: Jeff Barnes <jeffbarnes@linux.microsoft.com>
+To: stephane.debusne@cynove.com
+Cc: herbert@gondor.apana.org.au,
+	lukas@wunner.de,
+	changwei.zou@canonical.com,
+	ignat@cloudflare.com,
+	davem@davemloft.net,
+	horia.geanta@nxp.com,
+	pankaj.gupta@nxp.com,
+	gaurav.jain@nxp.com,
+	sahil.malhotra@nxp.com,
+	sahil.malhotra@oss.nxp.com,
+	martin.kepplinger-novakovic@ginzinger.com,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] crypto: fix RSA results corrupted by non-coherent DMA
+Date: Fri, 16 Oct 2026 18:14:14 -0400
+Message-ID: <20261016221414.4139377-1-jeffbarnes@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261016090333.2247764-1-stephane.debusne@cynove.com>
+References: <20261016090333.2247764-1-stephane.debusne@cynove.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCMBAAv1L27EIaqVW/Ih7SZKOrNg3ZrRRK/
- 27U4zDMrCBUmATOzQqF3iw8pQrtrgF/d+lGyKEyWGMPrTFHlMk/R5dxzsEp4YtHVmSlgsHsydk
- unvq+g9rnQpGX3/sCQ46YaFG4/o3Mw4O8ftewbR8J/8YphwAAAA==
-X-Change-ID: 20261008-sockmap-update-limit-iter-d03ea25f9775
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Lorenz Bauer <lmb@cloudflare.com>
-Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Michal Luczaj <mhal@rbox.co>, 
- Sashiko <sashiko-bot@kernel.org>, Jakub Sitnicki <jakub@cloudflare.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Follow-up to Sashiko's report [1] and the decision to restrict which
-iterator may perform sockmap updates [2].
+Hi Stephane,
 
-Three-patch set: remove about-to-be-stale test, restrict updates, add a
-negative test.
+Thanks for posting this. While investigating CAAM RSA on another arm64
+non-coherent system, I found a separate DMA issue affecting the same
+in-place request shape.
 
-[1]: https://msgid.link/20260626205814.BAC3C1F000E9@smtp.kernel.org
-[2]: https://msgid.link/87echn2fhd.fsf@cloudflare.com
+Your patches move the synchronous-helper and RSASSA-PKCS1 buffers into
+separate allocations, while intentionally retaining src == dst. That
+addresses cache-line sharing between the payload and mutable request
+context. The issue I observed is in rsa-caam's ownership of that
+exact-alias SG.
 
-Signed-off-by: Michal Luczaj <mhal@rbox.co>
----
-Michal Luczaj (3):
-      selftests/bpf: Remove sockmap update from bpf_iter_unix
-      bpf, sockmap: Restrict iter-context sockmap updates to iter/sockmap
-      selftests/bpf: Add negative test for sockmap update from non-sockmap iter
+On an NXP LX2160A with CAAM Era 10 behind an ARM SMMUv2 translated DMA
+domain, rsa-caam mapped the same effective SG twice:
 
- kernel/bpf/verifier.c                                      |  8 +++++++-
- tools/testing/selftests/bpf/progs/bpf_iter_unix.c          | 10 ----------
- .../testing/selftests/bpf/progs/verifier_sockmap_mutate.c  | 14 ++++++++++++++
- 3 files changed, 21 insertions(+), 11 deletions(-)
----
-base-commit: 645f5fcf7a5582f5d6ed2322f41cb34076c63b2c
-change-id: 20261008-sockmap-update-limit-iter-d03ea25f9775
+- first with DMA_TO_DEVICE, producing mapping A;
+- then with DMA_FROM_DEVICE, producing a different mapping B.
 
-Best regards,
---  
-Michal Luczaj <mhal@rbox.co>
+Because dma_map_sg() writes DMA metadata into the SG, the second map
+replaced the metadata describing A. Completion subsequently unmapped B
+as the destination and then consumed the same overwritten metadata when
+unmapping the source. The second teardown attempted to remove B again,
+while the SG no longer retained the metadata needed to release A.
 
+The public completion warning included:
+
+    __arm_lpae_unmap
+    arm_lpae_unmap_pages
+    arm_smmu_unmap_pages
+    __iommu_unmap
+    iommu_unmap_fast
+    __iommu_dma_unmap
+    iommu_dma_unmap_sg
+    dma_unmap_sg_attrs
+    rsa_io_unmap
+    rsa_pub_done
+    caam_jr_dequeue
+
+A corresponding private RSA case reached rsa_io_unmap() through
+rsa_priv_f_done(). Certificate verification reproduced the public path
+with a 512-byte operand.
+
+I tested a narrow downstream prototype that, after source normalization,
+maps an exact effective-head alias once with DMA_BIDIRECTIONAL over the
+larger of the source and destination extents. The observed public 256/256
+and certificate-verification 512/512 requests each had one original SG
+entry and returned one DMA segment. They then used one BIDIRECTIONAL map
+and one matching unmap with the original entry count.
+
+With that prototype, the system booted successfully and the tested logs
+contained no matches for __arm_lpae_unmap, __arm_lpae_map,
+__iommu_dma_unmap, RSA algorithm failures, invalid output, RSA self-test
+failures, or rsa-caam failures. These are downstream results for the
+observed one-entry mappings, not validation of arbitrary multi-entry
+exact aliases or a current upstream patch.
+
+Changwei's pending unaligned-destination bounce-buffer patch appears
+complementary:
+
+https://lore.kernel.org/linux-crypto/20261004210200.290119-3-changwei.zou@canonical.com/
+
+For an unaligned destination, bounce substitution would make the
+effective source and destination distinct, allowing separate TO/FROM
+ownership. For an aligned exact alias, the original SG would remain
+shared and would still need one BIDIRECTIONAL mapping. If combined,
+destination substitution appears to need to happen before effective-head
+alias classification.
+
+The unresolved case is a shared mapping that returns more than one DMA
+segment. Using the union mapping's returned count for both logical
+hardware views can change existing SEC4 source-table selection,
+particularly for a shorter source. I do not yet have hardware evidence
+for that case.
+
+Would the preferred direction be:
+
+1. an initial narrowly bounded CAAM RFC demonstrating the one-owner
+   BIDIRECTIONAL correction and explicitly rejecting unresolved
+   multi-segment aliases;
+2. coordination with the pending destination-bounce work for problematic
+   aliases; or
+3. constructing separately bounded source and destination SEC4 views
+   over one shared mapping?
+
+I wanted to raise this here before posting a separate RFC because your
+series confirms that exact-alias requests remain intentional, and the two
+DMA issues are independent but affect the same callers.
+
+Thanks,
+Jeff
