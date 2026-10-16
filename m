@@ -1,110 +1,114 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F74B42AD8B
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:24:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A65239F184
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:25:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792175058; cv=none; b=kMy0Vv35DXiijekVWz5Kl4ffgeq8ecWxuyW0mw+ompyBddujomorZWkTRKqUsC19TQZiv5D9gEYImMlF84BERWV8UvCHDzLCr3anYr9tbFhpxcKtnL9t+X1JNbhFLtflHkLaFwbAYDdQIWWan7DLW1hPlKh1F9F3XY2NzIc5GpQ=
+	t=1792175129; cv=none; b=Df3lzpeDgZB6V67bp2jdo6hXQH29S86+qFTumV3y1pfKSklVDNn+/1U03/R3jD2CcCKkcC/eMobX4vjbNdBDp4elLLBXXeS7OK9Le+Nsq3HwEYwSJi+YDdOQm0HOfdS3RwZfisenZ2PaHAkJoWwUpvV22hbh21+Et+GB3q0YXR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792175058; c=relaxed/simple;
-	bh=bIepsGyPsDjDb0Ip+H9KtkM7Sr8wz3KXlJWJMjG+7aI=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:MIME-Version; b=JMGrG6IUdkUTOLTaJ5bxWLWPKFG/s+vHtmOVB8pZt/9upju5YZbZGqFN6zvKcu/8+tMf0BjirBKLrsWRnuKABdlONVWrQ5+Qn0Vttj6nTu45CMZXNGxAo/44y2qNxkEiZpYCneNwMKYWb03e8TYuRtpm9Ql/xEJRG6zb1msxV3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b5l55XuL; arc=none smtp.client-ip=209.85.210.177
+	s=arc-20240116; t=1792175129; c=relaxed/simple;
+	bh=uDGg55LD46cTFdPoXEOdJ2MR484iJBAu2IBTGxWegTk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gC8WhGMx3HbAEbO6zCskZDjQ3PFD45Euv5ASwxZiu2nxqCNbRC1WzcxfNplE4JmAaLviUu3nDk56L88ZDycnznaU5QGnAbePZ+e/t/CeCPSsGQFV98ZOsVX8VbXwz8AZPyA8RUFB1Umnl+jjJf7SAfdXYqw5eCnaCZteN8P8MVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kVG64ARv; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b5l55XuL"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-89a595332c7so142829b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:24:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kVG64ARv"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49e73611928so8417025e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:25:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792175057; x=1792779857; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792175126; x=1792779926; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=bIepsGyPsDjDb0Ip+H9KtkM7Sr8wz3KXlJWJMjG+7aI=;
-        b=b5l55XuLf4CP3BRvUqG+XkMBAHbn4cXQ/jQVbkSRkBEkPv4QIN/8I4DuigTBnZ0cs3
-         klUirn4hyw3Jh0auzmAHtsqQoeS1tlU2YD1kVL6CRw9RghaU6lLmWuL/PCIyy4/+NQEx
-         0haL5wH3moPytqEENOkCe415nZUpbJ17TR+DV8A8EDbyqEj+gRQMBtfR8ipiruRbb5a5
-         KUHtJiXaHT3/evZVSCiAoYQ9UoTaGudRW0MsAHJd/+ixtTOZJgiQUWWTe+OsNhvqgWcZ
-         Q4CgjWz8Us7UP39g5MQTE15sioUUDj+rS5d82PMNvQgzF/UEAEG//CwwxOCcVvKkAuYJ
-         VKfQ==
+        bh=GK9YWjb0YESC/KuQ90FSzRiNg/DjXyJN/7JSahcZ0z4=;
+        b=kVG64ARvibBMP1oOz8cj2LxhfmYc90EKEWQp364daS8Tus0Vqxn1aN/rKxPz8O/7jQ
+         zgnzf5eZh39gkX+CuhGxIJmPqtZvv2yQHCIg5IOVQ7iWjuAJXGg4epkPcJFyLbVa1cbq
+         VZJGSWApsMGxMnXzpK0G0O9CbWyFqXuWsWeHY+HW+Y7aymNz580d7yRRNTNGrMiYE24g
+         M3ACg9Bv8ja/CRGwdjWfZmqekJRm+rd/d8b3S6Hr6x2pOAkQ08Euvb9aI1FWM6xXtWyi
+         rXK7I6aTmLFHKo1/YqGZJbSMrPwtWppHUFJqLIeBf+6g2psKC7y8lZAb8MZLldV7VzxT
+         FjBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792175057; x=1792779857;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
+        d=1e100.net; s=20260707; t=1792175126; x=1792779926;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bIepsGyPsDjDb0Ip+H9KtkM7Sr8wz3KXlJWJMjG+7aI=;
-        b=ngkP12NzFrkWJwpkQu5NF3Y5TvM6pm/Wc4QsWyumBPmtfcK6huO0zA/Ppe2xGB6oUQ
-         BzSYuGy7pJLS1kML7e2EwXQGij2ppcCB3qxkhNT5+ogpRF8H4wh1skcNZa2rLKFfXVek
-         x43Qm6WoyZwVGdr5+WWEmNTVoVx1QZDuSfrYn40O1T5wLxXDt6kzJgRyRj5GdgLvvBx2
-         KQemOD9Ln+rVyRtvvOxOv5P2S59zQyH8fgYi9+OQvovr/O9HuK3TtK23Y2eYbQ2CNLTt
-         3doTEKowjfwZ1Tqq6qMBuE+MOxdZRRRIq6Q633cTmbhas62f90KIyZdOjxBmiMbzq8D5
-         GWhg==
-X-Forwarded-Encrypted: i=1; AKwUvBxqH9mfEcljTlrQwR983imHDSR5lfRuo2ol+/2Fqw0xQHByCz7PfIq6e6IQOGRs/oP4e+2PnHxkNbUnwzk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvZuvEMwj4X4ewZ33iRZDbk/jtrcNIF4ASDi7b/xrMpyyHgEei
-	YNassAPC0WWeeJ6/EkeRa2w3cgDEqZawswR97njtLF9ff0hCoMEdR6Pp
-X-Gm-Gg: AYBFou2afwpG5uBQ8e7JEbBukIS61Hnb/3YMKy7dmNyrZKY9UyfCD+T4lWMMP3fDSWc
-	tLnhQV65mYi1EO4wlbzEJrPfSbl5XuB91JvScyZgkhbcAle0DtbRd6/dvyl2rS0jHjMMLIeABzh
-	JmBlpA+TebMzaU5LAtrUxWHy0ZzedxtTsqFGNMHYRcz49K6ezhQ1TLodUXZehngCz+uDJ1ZmHFa
-	aSMMkCSQx2Y+Oe+91LcLyiD134ra0yIHVNGZRr3rN3ZCcCy6RNnZNnDToT0uzbTwkaG/PmHK/zM
-	fyDYush+5OMswhcfLHtJwOVLNIFC992Y3TA9qvHC7aBsQ7mLCp98psYDGx/O+hnehIVeM1HW8o8
-	dCkc1mpOl3nbeajW55o/8qfsrUjccvUTEUm4LSWPktMJnmhJKhffJkpRXu8AvnRpQ4M6bl39Ilu
-	mzh1ArZKbuSFxXRwBfQL5WCTnw24kWd9rM3e2BkAvsaKuCgJuLlTfSkcJ/2m30Vw6+7wcq84IAv
-	DcPq5VYCNAjUYOfnEmBs75jk3tRTBkUGdtak9FG7eIjfsFUtYRgpR+zaSBHCwLZ2kYdwOqj8IHa
-	vlg=
-X-Received: by 2002:a05:6a00:4106:b0:87d:dc3c:1b5e with SMTP id d2e1a72fcca58-8a04ba2601bmr396865b3a.26.1792175056503;
-        Fri, 16 Oct 2026 11:24:16 -0700 (PDT)
-Received: from localhost ([153.61.198.248])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f56c8cf81sm1506688b3a.16.2026.10.16.11.24.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 11:24:16 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 16 Oct 2026 18:24:13 +0000
-Message-Id: <DM6H19P1797J.2QYZAQAOI9FTN@gmail.com>
-Cc: <workflows@vger.kernel.org>, <ksummit@lists.linux.dev>,
- <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Jonathan
- Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
- Dunlap" <rdunlap@infradead.org>, "Mark Brown" <broonie@kernel.org>,
- "Theodore Ts'o" <tytso@mit.edu>, "Laurent Pinchart"
- <laurent.pinchart@ideasonboard.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Leon Romanovsky" <leon@kernel.org>,
- "Konstantin Ryabitsev" <konstantin@linuxfoundation.org>, "Thorsten
- Leemhuis" <linux@leemhuis.info>, "Michael S . Tsirkin" <mst@redhat.com>
-Subject: Re: [PATCH v2 4/5] agents: add a skill to find other instances of a
- fixed bug
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Sasha Levin" <sashal@kernel.org>
-In-Reply-To: <atJnq_ssIAGK-OSZ@laps>
-References: <20261012213452.1863248-1-sashal@kernel.org> <20261012213452.1863248-5-sashal@kernel.org> <DM6DXZJSMPO3.J5PONDJ3HWNP@gmail.com> <atJnq_ssIAGK-OSZ@laps>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+        bh=GK9YWjb0YESC/KuQ90FSzRiNg/DjXyJN/7JSahcZ0z4=;
+        b=L486px2TO5oB2a7te3+RXJuHjPe+M4Y0AXnuI1xUY0UjLdwEAEhkYxc7ICdI3eK5rn
+         tig2udEpk1Wla0i4hrR/LXskmtG1LTQcb1+3X6GUecEE3UClYNQG9wc9+zYO0XRzNJGK
+         CqXmp739ti4chSFslrzeaq5B/fUorw23bsazwCdGZerJ9m3OBIXRExng9u4fdtqLbOE+
+         du6po//nfvVA/lAJUBMsiYK5IiuaiqLMhbu8YCdFfEYWdrGC2x+LCyWbfKexOglSoFcW
+         IZl155qEnzxUpeRQS0vBhFXoRY/oeYmatUMXnA4w0KGxvtV42ruQX3c6aSNcBMyDITLv
+         YcNQ==
+X-Forwarded-Encrypted: i=1; AKwUvByTcaiMApxunW4enQjMQCjjaiYxCI8EvcGimSEHct0eMXxh2S21EPgXg6YZaHiDOzDwSQdhWcx6ELMhNaY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJDTVUq3dJodriJQKyiL3WVtHKsC4fKXhJZw2ECwkTGGMMG8RtM
+	8WJCii+TVzNV3O7K2/0wNpgDRiCb0R22dHiQJ0w7yakROHKMZr6LVf/M
+X-Gm-Gg: AYBFou2GHKux6q0wQ6AhYIBX/r2gtzCvZa6brrNS7yuwzaFgaoCyZxqPD64cjCKKym3
+	XrFMudeoVjmSlPHajMDzYvRQMS+f0beQ0t2Q0/vP+9etplw3qfVfxowSH6v2iCupqNtc7JpEPeI
+	CzAq41aDZwxT0nLN6ug+6TOkffuFraVSXtfYtLfA2skLjE5ldMUyNAjiwVhfUwBaNdr4eiZy1nK
+	RPt6zy6nwKUgm8L21HYMWBmSDJfWqhkTSjfhtnHL6r8Drs06mkT/qc7pjerT/wSD2u881BYYt09
+	AZHlUK/oL6NAuw55sYmGajRgAIKpvNiI51/YNAK6n+a22sTd3Ag+A3nFNlPxd8EDSLZ9rrSoWe8
+	Xj7K2iooeX0Ot/0lnaXWmMIF+1K+f1EXXFo2XoN7VjmSbXB287STV+LRW0muIdSubD0qNngfmgg
+	Dgg1M8SzdtKP8+ux9pkpxZg915hAu9wJIY/6EOn0Rg0z2fYfiSqd/RmJnSvLg7uyIlc8zFv/tDm
+	BCT2hLp5CDMyxtZjKcWsebJMbwjYSm4Bgm/on+x8zkPzgF+8eLNmpvBCLXTpnvL6tOCGxfKw75n
+	3IofEnCo5yhzskCHQUx8nw5MJ7OVAY7qJZJ7olvdKsugydPK9DZfwyt1e+3U5l7AtXWzQaPZRGj
+	OTjMWtZgWzSndDI5LrV2SwE3hLEJAhQ0=
+X-Received: by 2002:a05:600c:3f0d:b0:4a1:c27d:e1a8 with SMTP id 5b1f17b1804b1-4a1d75fe72dmr14360435e9.10.1792175126161;
+        Fri, 16 Oct 2026 11:25:26 -0700 (PDT)
+Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ae6d2esm77507835e9.6.2026.10.16.11.25.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 11:25:26 -0700 (PDT)
+Date: Fri, 16 Oct 2026 20:25:24 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH] iio: proximity: hx9023s: Allocate trigger before
+ requesting IRQ
+Message-ID: <20261016202524.6193abcd@systembl0wer>
+In-Reply-To: <20261016024735.3667060-1-mhun512@gmail.com>
+References: <20261016024735.3667060-1-mhun512@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 16, 2026 at 02:06 PM Sasha Levin <sashal@kernel.org> wrote:
-> What I had in mind was the kind of bug our scripts/coccinelle/ rules look for.
+On Thu, 15 Oct 2026 22:47:35 -0400
+Myeonghun Pak <mhun512@gmail.com> wrote:
 
-For kfree_mismatch.cocci kind, yes. Each site is its own bug.
-But the other example in the guide is "a missing put when leaving a loop".
-That's iterators/for_each_child.cocci. It was fixed one driver at a time
-for years until for_each_child_of_node_scoped() made the put automatic.
+> An IRQ handler that already read trigger_enabled can poll data->trig
+> after buffer disable. Detaching the virtual IRQ does not join this
+> physical IRQ, and trigger deselection can drop the consumer reference.
+> Devres may then free the trigger before joining the handler.
+> 
+> Allocate the trigger before requesting the IRQ so devres joins the
+> handler before dropping the allocation reference.
+> 
+> This issue was identified as part of our ongoing research while
+> reviewing kernel code.
+> 
+> Fixes: 60df548277b7 ("iio: proximity: Add driver support for TYHX's HX9023S capacitive proximity sensor")
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
 
-> I agree that fixing the interface is better, but do we want to push all these
-> agents there?
+LGTM.
 
-To report it, yes. The skill is read-only anyway.
-Whether to change the interface is for the human to decide.
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
-> So I think it should be a balance. When the skill finds the same defect
-> in several places, it should also ask whether the interface invites the
-> mistake, and if so report that the fix belongs there instead of handing
-> back a list for N maintainers
-
-Makes sense to me.
+-- 
+Kind regards,
+Joshua Crofts
