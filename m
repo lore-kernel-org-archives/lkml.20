@@ -1,117 +1,116 @@
-Received: from mx1.zhaoxin.com (MX1.ZHAOXIN.COM [210.0.225.12])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E7973F1054;
-	Fri, 16 Oct 2026 10:10:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.0.225.12
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0813FFF9D;
+	Fri, 16 Oct 2026 10:10:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145428; cv=none; b=jMXHk3MtdEgGiXaNFStNpVQC9jpXEZ694pBDyaovzERzjprVT6yg9zBICs9WdoWHkuntAJDZsIaCw6IjsDwTENm53Vap6enorrkaHpVecsiOyXuQqNhlTCu0Ug3NMnICvpvmBwyRu4tMeYGXA7sdWiFEFyXNzSE9GEpmOByHu24=
+	t=1792145433; cv=none; b=nPMh+r4CuWsvSWTARBPtfBah/unfaDJxaVnHUvFJTBK1X8BYqCsZqCVe5ytwTgrrpseUyVgxase5fz6isISTdngstPnNPYxQ/AKpXJJl+buoHvUPk83sOtOh/gLQC1OauUJBEiIlFda4AiEuP06Tg+bUVmmnaOh+LQqzUNczVRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145428; c=relaxed/simple;
-	bh=5fLqioD0ao+XA2PssWwErpeR94sUcN5aFx0YSu5l8Js=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oH1HvZ+ZKBCByV+rMILt0Y+nXWTmlr0as3YXBZikQOUUbQoim5iTXxx0XuxipEZ9DHS8Dqfv1LQ5YVQRvLLcwoavlvUrAy2nskWfQ6n9eAzyAwl3fozZ1pB2m8TPVfwlPkmP+X/F40sLYZ6eZDYYWjV43mx5CMTt5C6D7Jp4fKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com; spf=pass smtp.mailfrom=zhaoxin.com; arc=none smtp.client-ip=210.0.225.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
-Received: from zhaoxin.com (unknown [127.0.0.1])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4j5gfz5nCdzb0pbZ;
-	Fri, 16 Oct 2026 18:10:19 +0800 (CST)
-Received: from zhaoxin.com (unknown [10.28.140.201])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4j5gfy1DSbzb0pbZ;
-	Fri, 16 Oct 2026 18:10:18 +0800 (CST)
-Received: from l440.zhaoxin.com (l440.zhaoxin.com [10.29.8.13])
-	by zhaoxin.com (8.30) with ESMTPa3933d93ac6a63e0e34370cbc9f75106
-	Fri, 16 Oct 2026 18:10:17 +0800
-X-Eyou-Smtpauth: weitaowangoc@zhaoxin.com
-X-Eyou-EnvelopeSender: WeitaoWang-oc@zhaoxin.com
-X-Eyou-From: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
-From: "=?UTF-8?B?V2VpdGFvV2FuZy1vYw==?=" <WeitaoWang-oc@zhaoxin.com>
-To: tglx@linutronix.de,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	den@valinux.co.jp,
-	linux-kernel@vger.kernel.org,
-	WeitaoWang@zhaoxin.com,
-	wwt8723@163.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH v3] x86/apic/msi: Fix MSI interrupt affinity configuration
-Date: Sat, 17 Oct 2026 02:10:16 +0800
-Message-Id: <20261016181016.3850-1-WeitaoWang-oc@zhaoxin.com>
-X-Mailer: git-send-email 2.32.0
+	s=arc-20240116; t=1792145433; c=relaxed/simple;
+	bh=aZUN3Ejaq62Bdo0IPChTj5v5o1bSTJ7szt3m8E/Y9qI=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=c3JLpMZEpVWUKS/uutR0JvqT7DIcsHW2rDc6JwqynQ5qWKjjiXmog8Uu/XgkDO9ZBIyO7JFSFCU/37IwV4NhwxbeD5uBLK1Kl+LMCWuhUs3KY/gWMLTq+gZ7siwOfpBhziPNJgUmqw5ntyjwI50qAYZ1JAVuwKr/jv0MdP7lLYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PCkV+VjP; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PCkV+VjP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9831F000C4;
+	Fri, 16 Oct 2026 10:10:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792145431;
+	bh=8lC+3QuyhSeSDfWPg49wFSQP1WWmXzv+SO1bTfVf9QQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PCkV+VjPEAbPVnwsmhUyCGHvwkW9is05IsSldUUc0jyYvVlhvfueTj7fa8oB2keil
+	 xAzKBOW7NtS/qJyh1VEZSe8eHpzwBlo/GTt2WfF0TI49xl37eMTM3sxJ2sPOSxP6vv
+	 +ONFn+3vDxPlE2dqlmwmp7VWkFeIfLCtQ9DpvFpaqoZRoNhDzb8gyS4N5zLQJsiiqj
+	 d547wc0OYXsILmkfaG/RbPg2RxHCBNXk5hRLogXTDMuRAweLjS16vt1Sev4BDT69bT
+	 rtZNhWB80fByfnfn6bW8o9bk1db6ubyJ6kcDL9vynE3Bz9LIzMNqDhCQZsxAfm3OPZ
+	 KSJMQ0FE9lQjw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xHetQ-00000003hIw-3TGV;
+	Fri, 16 Oct 2026 10:10:28 +0000
+Date: Fri, 16 Oct 2026 11:10:28 +0100
+Message-ID: <86cxta0xd7.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KVM: arm64: Set HCR_EL2.BSU to Inner Shareable for guests
+In-Reply-To: <20261016081558.805411-1-fuad.tabba@linux.dev>
+References: <20261016081558.805411-1-fuad.tabba@linux.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Eyou-Sender: <weitaowang-oc@zhaoxin.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, joey.gouly@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, seiden@linux.ibm.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, tabba@google.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-The two step update sequence in msi_set_affinity() is required for MSI
-interrupts which cannot be migrated atomically, i.e. devices which do not
-provide MSI masking. The MSI message update writes address and data
-registers separately, so such a device can raise an interrupt in between,
-which results in a message built from half updated state: A stray
-interrupt on a stale vector and a possibly lost device interrupt.
+On Fri, 16 Oct 2026 09:15:58 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> 
+> KVM sets HCR_EL2.BSU to Inner Shareable for guests, so that a guest's
+> barriers cover the TLB and I-cache invalidations that HCR_EL2.FB
+> broadcasts. However, since HCR_BSU_IS became an alias of the generated
+> HCR_EL2_BSU_IS, it is the unshifted field value 0b01, which sets bit
+> 0 (VM, already set) and leaves BSU at 0b00. A guest's DSB NSH is then
+> not required to wait for a broadcast TLBI to complete on other CPUs.
+> 
+> Build the field with SYS_FIELD_PREP_ENUM().
+> 
+> Fixes: d0f39259eff4 ("arm64: sysreg: Add layout for HCR_EL2")
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+> Found while testing Marc's HCR cleanup [1]. Its patch 1 carries this
+> line over as HCR_EL2_BSU_IS, so on top of this fix that hunk would
+> keep SYS_FIELD_PREP_ENUM() instead. I can also rebase this on top of
+> the series if that's easier.
+> 
+> [1] https://lore.kernel.org/r/20261015173605.1072963-1-maz@kernel.org
+> 
+>  arch/arm64/include/asm/kvm_arm.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_arm.h b/arch/arm64/include/asm/kvm_arm.h
+> index 4bfbd827c5aa7..b3e9dd302730e 100644
+> --- a/arch/arm64/include/asm/kvm_arm.h
+> +++ b/arch/arm64/include/asm/kvm_arm.h
+> @@ -98,7 +98,7 @@
+>   * TID1:	Trap REVIDR_EL1, AIDR_EL1, and SMIDR_EL1
+>   */
+>  #define HCR_GUEST_FLAGS (HCR_TSC | HCR_TSW | HCR_TWE | HCR_TWI | HCR_VM | \
+> -			 HCR_BSU_IS | HCR_FB | HCR_TACR | \
+> +			 SYS_FIELD_PREP_ENUM(HCR_EL2, BSU, IS) | HCR_EL2_FB | HCR_EL2_TACR | \
+>  			 HCR_AMO | HCR_SWIO | HCR_TIDCP | HCR_RW | HCR_TLOR | \
+>  			 HCR_FMO | HCR_IMO | HCR_PTW | HCR_TID3 | HCR_TID1)
+>  #define HCR_HOST_NVHE_FLAGS (HCR_RW | HCR_API | HCR_APK)
 
-The update sequence is selected by a per interrupt quirk flag, which is
-set for interrupts which cannot use reservation mode. Reservation mode is
-only enabled for maskable interrupts, i.e. devices which provide MSI-X or
-mask support, so the quirk flag is the inverse of the reservation mode
-bit.
+Huh. That's a bad one. I've added a Cc: stable to that, and queued it
+as a prefix of the cleanup series.
 
-The removal of the quirk flag replaced the flag check with a reservation
-mode check, but dropped the negation of the removed condition:
+Thanks,
 
-    - if (!irqd_msi_nomask_quirk(irqd) || ...)
-    + if (!irqd_can_reserve(irqd) || ...)
+	M.
 
-As the quirk flag is the inverse of the reservation mode bit, the
-replacement inverted the condition and selects the wrong update path for
-every interrupt: Non-maskable interrupts take the direct update path
-again, which reopens the race, while maskable interrupts needlessly go
-through the two step update.
-
-Restore the original condition so that the direct update path is selected
-when reservation mode is enabled, which also matches the comment above the
-check: Direct update is possible when the MSI is maskable, which is the
-case when the reservation mode bit is set.
-
-Fixes: b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI quirk")
-Signed-off-by: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
-Reviewed-by: Koichiro Den <den@valinux.co.jp>
-Cc: <stable@vger.kernel.org> # v6.1+
----
-Changes in v3:
- - Rework the changelog as requested by Thomas:
-   https://lore.kernel.org/all/87jynid352.ffs@fw13/
-
-Changes in v2:
- - Change the Fixes tag to b56ebe7c896d ("x86/apic/msi: Fix misconfigured
-   non-maskable MSI quirk")
- - Update commit messages for clarity
-
- - Link to v1: https://lore.kernel.org/all/20260928164839.6381-1-WeitaoWang-oc@zhaoxin.com/
- - Link to v2: https://lore.kernel.org/all/20260930155213.4380-1-WeitaoWang-oc@zhaoxin.com/
-
- arch/x86/kernel/apic/msi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/x86/kernel/apic/msi.c b/arch/x86/kernel/apic/msi.c
-index 66bc5d3e79db..da5f44a80313 100644
---- a/arch/x86/kernel/apic/msi.c
-+++ b/arch/x86/kernel/apic/msi.c
-@@ -62,7 +62,7 @@ msi_set_affinity(struct irq_data *irqd, const struct cpumask *mask, bool force)
- 	 * - The interrupt is not yet started up
- 	 * - The new destination CPU is the same as the old destination CPU
- 	 */
--	if (!irqd_can_reserve(irqd) ||
-+	if (irqd_can_reserve(irqd) ||
- 	    cfg->vector == old_cfg.vector ||
- 	    old_cfg.vector == MANAGED_IRQ_SHUTDOWN_VECTOR ||
- 	    !irqd_is_started(irqd) ||
 -- 
-2.32.0
-
-
+Without deviation from the norm, progress is not possible.
