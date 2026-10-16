@@ -1,118 +1,235 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010041.outbound.protection.outlook.com [52.101.56.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1481A3876A0
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:54:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162487; cv=none; b=i04LQsptCkgKUBT9ADEyPhzHySZXTmXihnrHLi7/aK5WKKnpoT0dzejcU8q7KEXGO1RhQ+D9ARDsdZ+cLB2uZneZhj6V258FqpuByKu081WtwcRSynXViRDXOtPFAhQAt3C8EF6+33XR3fhI0fdJpWHJ6ERGw3XnD4PQxNTQhDo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162487; c=relaxed/simple;
-	bh=C24Y8pYzO/aPrLA9AMl8TvcQHVpbwYHJDkWQ8XX3CzE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f3CgkHzuRuANHnRBnynBKdAUVZay3f4XwDVpVy0/IEPVw+xtdlL7Fr6xe+xRDQQGECEpPjBHMY7YlAAvJv4H1yILLTCmgazX/1Xe5nXy0my6tAxgVMnciUYaZeueqFoHDKHGy5fWNavpqBoeKCJHEH118nfnxekhx9xVi/qIzV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i2Ftfp5J; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE1438A72C;
+	Fri, 16 Oct 2026 14:54:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792162500; cv=fail; b=XctEh/cxgNk5qUld5AZrosDVvn2+BXlSHGfheRpZkXsJ3+nigcFx07SsIx2e2UAaggy79FH7wYkTBaQdpc3W8ZRoS0dqZKxTTM7qyR/Jg44kxnUFl/iejge2ogqKl85NBpMC7KCy85w+ZVj4PnguaTX65WQAW1eN8sT2klVuUUM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792162500; c=relaxed/simple;
+	bh=G+bPIv5R2L1shNDAeY1Vs+mC6hBpxU1LyfzFJRKsvYo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ngOmtTsj9WG130OowBSe7jCLtJ9X/EcKJ+kAfQJg7JXwjPdQ8v62OX5UV86ynez0o1vMwo4+XSCwTue0P5/xWEtZhpH1NMXpD35J//vIIZT7RAxWDgXzZCsqLakEQNjSh2JH1gYZ7N64I8wF+a+aDajgSWONsSWbp2g+jJdhef4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=SzxrV0OC; arc=fail smtp.client-ip=52.101.56.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i2Ftfp5J"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b09c273caso1015028f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:54:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792162484; x=1792767284; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8hZGPnwDEfX+nqOzBQskZPmMNJTIRqNPt8gbd4kOL/U=;
-        b=i2Ftfp5JcX3Ok7EEeo+AU5BbuhXJs/sdV5zRXlENELgCFXkWhMaFm1wY6GsuL3YDEX
-         A006cAW1cY8diJj08KNFzY88NVhhFbMs9LEmLhv9GSqF8xudFxWovM29tV+KiNstx88e
-         sck7UqVpq/6n8wCWm+3nsA7/ifiFXdX5HnimGXivO4sZIEqbjHx4CGje29iIH+7QDf9h
-         6lD7m405LKGfp8rShNGBPblhz8nffET0KL6JbDV+SjL239VvEzVlpoVjPPIX7iZU41X+
-         4Y459Gjq1iXqCqZkW7Q8XllGh5G8I5AQiFQUT2KXZ257Af3/uZb0BSoFGvBD/Qw7TPul
-         aDOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792162484; x=1792767284;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8hZGPnwDEfX+nqOzBQskZPmMNJTIRqNPt8gbd4kOL/U=;
-        b=IRES7u5MhuqGYNphyhCq93OOgHbccmRdHOmERaoJnTDLqyHHKMcmlTvs5n8siu0OR1
-         OEA7RO8aMt3yOeCH2t23Wry95hNvRivtNnO9bAR5RnyCci449mZNcaeUK+dIUzQQLMtb
-         pU1Zb1rQorkSxBgcGb3baayEqZ3HIB/9NxkcX0AeoXPgREfD0AxCYOxEB0p6Aho1xIx3
-         rBWOPET1GPKrAMEvpLNWPRuVj7gX3bBOfex5rrlUzjKBNvFLUA+lJArjZAp7DOvW0uR1
-         csWscwjmxESSVNVvusUiXI5ZnVnC7HFx8wU+AT0XxDOQoHqBY87cw3/9ry9bsdClwNMF
-         jq/A==
-X-Forwarded-Encrypted: i=1; AKwUvBw6zs2d4btYtsk88lqstqmtlJVTYPcPINGEOYJQaocDkjBiZLMVa9j7iKm8fSN6BgjN7Dd4lK8n7QixiLo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI071wNR3UOvbLS41BPAw/I3SbmWdBR4Pn0S1/8vs+ifA3ASWQn
-	1BKcPnvH9fZEudaWEWD16bC0gGPaKNQifLatwGq29mz9REdLe46emDks
-X-Gm-Gg: AYBFou2vdUEdlowkCtu9xPiRlwReS2CfPFTofdXpbBjG7rgy2egp8T2s+mjl6+rjRNL
-	oQIWBJWJFKfEvCojX14PrdntsCbua2PCUspgsU/UdE7knvNCfVPmvM7YeOaBFrK/wJNJFTfcGNS
-	iEE1RDXX14rYkqsb4G3+T5g5tZBJnVf6AJo6QOyRIQF3TARptOcS5XRVEnUTxsy14iRaahNLk0I
-	q5wBvym8RuziIssv5U5GSPeTOgAvDrmx2sW7Vej1mJgYWrbwPVuZ7gy/Du1InWmRvDl5PFW/0Ry
-	LgUa7xu29jL6a1Jw4n9WfY50uGG53behjm+BmIP0RxXD1ThfwdZbu0GSw/0qe2MMHvCpOiv0DPO
-	TI0RWxDSPCPS0zXSNDuVnA/7w33ZtsdyN8zU1QrxYftNXMsKw0b0a2TN0uji//KQko50CJXVh6j
-	HeAsk9faE+8B1vDwhia9VzOV5ucF1nuixjaBQsuYmAVTaztCreyAE4WzfBgcH73sPTOQvm8ZzMN
-	qR+bf12sGKR8dCdcsXxF/SxEbm3ArsD94gXXN0DIHQPK6gEl4kDphOG27kM+CVUUmM=
-X-Received: by 2002:a05:600c:37cf:b0:4a1:7dcf:be1f with SMTP id 5b1f17b1804b1-4a1d75dd618mr1120995e9.1.1792162484113;
-        Fri, 16 Oct 2026 07:54:44 -0700 (PDT)
-Received: from thomas-precision3591.paris.inria.fr (wifi-pro-83-149.paris.inria.fr. [128.93.83.149])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1c8a9ea3bsm50046305e9.0.2026.10.16.07.54.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 07:54:43 -0700 (PDT)
-From: Thomas Fourier <fourier.thomas@gmail.com>
-To: 
-Cc: Thomas Fourier <fourier.thomas@gmail.com>,
-	Adaptec OEM Raid Solutions <aacraid@microsemi.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	David Carroll <David.Carroll@microsemi.com>,
-	Raghava Aditya Renukunta <RaghavaAditya.Renukunta@microsemi.com>,
-	Johannes Thumshirn <jthumshirn@suse.de>,
-	linux-scsi@vger.kernel.org (open list:AACRAID SCSI RAID DRIVER),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] scsi: aacraid: fix dma_free_coherent() size
-Date: Fri, 16 Oct 2026 16:54:12 +0200
-Message-ID: <20261016145420.50870-2-fourier.thomas@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="SzxrV0OC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=W4aQZZLN6ip4wJcA4MiCYcLKBmpgn/DGj6DJvSnendM3I/vJIGz35l5zEFpJstl+OvooyeFebGdzQ4deGOJsZim55h/u6McPV4m5sjI4VmdxXv8fpJCoAEUBcqIOe+ITlrolNAhn4Bo9I2ot1oEaL1MINGrcJql8Kiadby64KQr5ZrQZD0G5G6HIv+IAq8clj2azzSclt+UcRZp6Xr83Ib8ytgiO6h/kGB1N24iE8c0GrkrxfV7v7gBOG8pP8gl5Qz3MDT0DQr0xCfwYFaDsnTiRfbAl327+gLPJRVmCgVbY3udY+C0Pfnas7PIxBegekkphO15WerJEhb/449mkBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=e6LSxNlWAru9Xau3l1LiOwRsA+K0x1DXr0VLtPzrlLM=;
+ b=RVDC70XJ7+Na8faTrPbOf8XD423JiB9zWdWe0YLkk7Y2WhF4Nbs/dceWPDvhN1eKs+mmOMKNepP8KUpaaPT1fu/OhHB060iBbqJDPQJRgqL8sVPTmrY4K47W9TCysNabXk1yomFUsak2D/+C956qJZ8yHJ1XyAXgyT0/120n46QripCggl3u0wcRmxxCeF4uRzUQXDt/eGu6yAx3VkcbvU1SDRmW5zbLqsjwAiN8vMIUv7Y7H9Z5s9QxIBzcqnXw0I/s74FQarLxCvzFYTpdB4lguMfYCK6MTNmJKRW2kw0pik01maDCeIiNi/lXUYKEdev2fgXlZJ6Hrtdj39yT2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e6LSxNlWAru9Xau3l1LiOwRsA+K0x1DXr0VLtPzrlLM=;
+ b=SzxrV0OCjVvBlYT5xVwYmVB4oYCxOGRrcor/REsMdJ4LjfKKfU1hmsemvHtV9PX5l4UN5D0ejENVb6V3TgAwm6os4eQltvjwCkVNTEk/f8kalBdyMqovDH4Z12orM6KZ+ZkDV9qw3iQ7b8sCyZ4EYudwPVJkLuIb0NOedRd2+7M=
+Received: from SJ0PR05CA0204.namprd05.prod.outlook.com (2603:10b6:a03:330::29)
+ by IA0PR12MB8326.namprd12.prod.outlook.com (2603:10b6:208:40d::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Fri, 16 Oct
+ 2026 14:54:52 +0000
+Received: from PH7PEPF0000000A.namprd04.prod.outlook.com
+ (2603:10b6:a03:330:cafe::4c) by SJ0PR05CA0204.outlook.office365.com
+ (2603:10b6:a03:330::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
+ Oct 2026 14:54:51 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ PH7PEPF0000000A.mail.protection.outlook.com (10.167.243.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 14:54:51 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 16 Oct
+ 2026 09:54:44 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 16 Oct
+ 2026 09:54:44 -0500
+Received: from [192.168.1.205] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Fri, 16 Oct 2026 09:54:43 -0500
+Message-ID: <0ad96f34-97d6-4998-9cf3-4b09ab6c94a2@amd.com>
+Date: Fri, 16 Oct 2026 09:54:37 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Reply-To: <tanmay.shah@amd.com>
+Subject: Re: [PATCH 4/6] mailbox: Add AMD PL Mailbox soft IP controller
+To: Krzysztof Kozlowski <krzk@kernel.org>, Ben Levinsky <ben.levinsky@amd.com>
+CC: <jassisinghbrar@gmail.com>, <andersson@kernel.org>,
+	<mathieu.poirier@linaro.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <michal.simek@amd.com>,
+	<linux-remoteproc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<tanmay.shah@amd.com>
+References: <20261014213426.2957480-1-ben.levinsky@amd.com>
+ <20261014213426.2957480-5-ben.levinsky@amd.com>
+ <20261015-aromatic-ibex-of-opposition-dafb43@quoll>
+Content-Language: en-US
+From: "Shah, Tanmay" <tanmays@amd.com>
+In-Reply-To: <20261015-aromatic-ibex-of-opposition-dafb43@quoll>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PEPF0000000A:EE_|IA0PR12MB8326:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d52b61d-e491-4559-fbeb-08df2b956e8f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|82310400026|23010399003|36860700016|13003099007|11063799006|56012099006|10067099003|261009223027099003|18002099003|22082099003|4143699003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	nHqkaEh4r10zH7E2VwrvGzg5mUexWzTGottt+mDiXfzMvBknOgA7EZIJnCgHUK6xT5PezXKbVP8b6VW7jU2k6P2Gb4hmR7yJw/Q4pReKH3RLPxhbmQbNY66aCYhjvb7gjbcpaZ2DaufhyVpFOC5bq/QMv0vWWDvbomV6KErvbT77YZjgqsP0ZyOdaWMDhcDYb+sLe6MmiNTNAGros/OQaHTP7JLieQvQt4d+kCWWV+KXC8awwQFLXEk6WdXqS6FbHnLDwy15Z6Ef3BxAvQXAa2EnGjekVuhH4wDcFBNMwVFv8dm+Ftcl3ZdvAElTtJJ54c99JWoHX2eS8RO1jnwqpBPRhscD4JAtHvAl0c0DHQlNNLJcJ/deYgqLK/5kul1MScKm5LMlYbx3Nqediapvi7plk/PX8+SgsALTTbnY8Jl9j6YYDQhcrRKRts1gb376DlQ2zocWDW1yuSW0pL8+hmLuewuHYwmA7y4xF+KXUWeFjr41cl0a49BIUdkMBsdJVhaOtzl8h6ebUR2z7sIBLjOKS4kS7YZIAKjOfu2UaLioIvrRAL0cqCZdXp2/F5VLatqVCbuvBalmvx1vWiHbCBGmxlk8g0/AdNjZVR9psfCoK3jE2Ntdpr2DmwWofPW0z6zrbNaVPNqSFW709Bapsg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(82310400026)(23010399003)(36860700016)(13003099007)(11063799006)(56012099006)(10067099003)(261009223027099003)(18002099003)(22082099003)(4143699003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	RwxIVHxTf7XIdBwFQ0YVRrCwdXc1SmJYsY8vpzF4L/a6OOCOIN/Bw2kh96r+oNzH6mHFB3Q3t5wDzdLvaBuW4iulhaArNaR1xgAlSZevWwa6FEpC2IqSRNEFoK89w50K54J6YsFWmhnCvgMtW33InrTZiOFscEs7E09rz3wan7L+uGqzH1YcyeCNhLMQOVfjGcpleILk4q99g7Yo3MLE0tKrGmPoDqk9mN55hURsgOC33DzXT1OBqZ7V5THkrjCXmFYa659zqtF7MlB4NRpB0B7EgVJRgzMhF2EsQnQSkOeGjzRdjLNq5nWarcIcyCp07xWFc8I06daYWaxsYfI5jsOCaSlmpOis0fvjuLj2s/iwVo0taKK/ATJYuC8t3QXcpWLh+rOocQ0JxxiWTKZDTPqP3SqqNxlnw8PDQ55dLgZ/wEsD4cYhN/H0s2tA7sH7
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 14:54:51.3821
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d52b61d-e491-4559-fbeb-08df2b956e8f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	PH7PEPF0000000A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8326
 
-In fib_map_alloc(), dev->hw_fib_va is allocated with
-dma_alloc_coherent() with size
-    (dev->max_cmd_size + sizeof(struct aac_fib_xporthdr))
-    * (dev->scsi_host_ptr->can_queue + AAC_NUM_MGT_FIB) + (ALIGN32 - 1)
-but in aac_fib_map_free(), the same buffer is freed with size
-    (dev->max_fib_size + sizeof(struct aac_fib_xporthdr))
-    * (dev->scsi_host_ptr->can_queue + AAC_NUM_MGT_FIB) + (ALIGN32 - 1)
 
-This could leave parts of the freed memory mapped to the device.
 
-Change the dma_free_coherent() size to match the unmap.
+On 10/15/2026 4:48 AM, Krzysztof Kozlowski wrote:
+> On Wed, Oct 14, 2026 at 02:34:24PM -0700, Ben Levinsky wrote:
+>> Add a mailbox-framework controller for the AMD programmable-logic
+>> Mailbox soft IP. Expose separate transmit and receive FIFO channels.
+>>
+>> Enable the interface clock only while a channel is started, before any
+>> register access, and disable it last when the channel shuts down. Keep
+>> provider probe free of register accesses and leave the IRQ disabled until
+>> a client starts the receive channel. Initialize each FIFO when its channel
+>> starts, use receive-threshold interrupts for incoming words, and poll the
+>> send-threshold status for transmit completion. Stop that polling from
+>> accessing registers once the transmit channel begins to shut down.
+>>
+>> Carry mailbox payloads in struct zynqmp_ipi_message, limited to the FIFO
+>> depth given by the device tree. The FIFO transfers 32-bit words and the
+>> hardware conveys neither a byte count nor the FIFO occupancy, so a
+>> transmit length that is not a multiple of four is zero-padded to a whole
+>> word.
+>>
+>> On a receive-threshold interrupt, read up to one FIFO depth of words and
+>> deliver them as one message, then acknowledge the interrupt. The event
+>> latches only when the FIFO goes from empty to nonempty, so a word that
+>> arrives between the drain and the acknowledge, or words left by the
+>> bounded drain, raise no new event. If the FIFO is nonempty after the
+>> acknowledge, toggle the threshold to latch a new event for them.
+>>
+>> Assisted-by: LLM sparse
+>> Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
+>> ---
+>>  MAINTAINERS                      |   7 +
+>>  drivers/mailbox/Kconfig          |  10 +
+>>  drivers/mailbox/Makefile         |   1 +
+>>  drivers/mailbox/amd-pl-mailbox.c | 369 +++++++++++++++++++++++++++++++
+>>  4 files changed, 387 insertions(+)
+>>  create mode 100644 drivers/mailbox/amd-pl-mailbox.c
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index f53047aa8d3c..4e28e0c311c0 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -1287,6 +1287,13 @@ S:	Supported
+>>  T:	git https://gitlab.freedesktop.org/agd5f/linux.git
+>>  F:	drivers/gpu/drm/amd/pm/
+>>  
+>> +AMD PROGRAMMABLE LOGIC MAILBOX DRIVER
+>> +M:	Ben Levinsky <ben.levinsky@amd.com>
+>> +L:	linux-kernel@vger.kernel.org
+>> +S:	Maintained
+>> +F:	Documentation/devicetree/bindings/mailbox/amd,zynqmp-pl-mbox-2.1.yaml
+>> +F:	drivers/mailbox/amd-pl-mailbox.c
+>> +
+>>  AMD PSTATE DRIVER
+>>  M:	Huang Rui <ray.huang@amd.com>
+>>  M:	Mario Limonciello <mario.limonciello@amd.com>
+>> diff --git a/drivers/mailbox/Kconfig b/drivers/mailbox/Kconfig
+>> index ab869769e278..3c3f262c903c 100644
+>> --- a/drivers/mailbox/Kconfig
+>> +++ b/drivers/mailbox/Kconfig
+>> @@ -8,6 +8,16 @@ menuconfig MAILBOX
+>>  
+>>  if MAILBOX
+>>  
+>> +config AMD_PL_MAILBOX
+>> +	tristate "AMD PL Mailbox soft IP controller"
+> 
+> Missing depends on Zynq/Xilinx.
+> 
+>> +	depends on HAS_IOMEM
+>> +	depends on OF
+>> +	help
+>> +	  Mailbox controller for the AMD Programmable Logic Mailbox soft IP.
+>> +	  The controller exposes transmit and receive FIFO channels to mailbox
+>> +	  clients. It supports interrupt-driven receive notification and
+>> +	  polling-based transmit completion through the common mailbox framework.
+> 
+> ...
+> 
+>> +	mb->controller.dev = dev;
+>> +	mb->controller.ops = &amd_pl_mbox_ops;
+>> +	mb->controller.chans = mb->chans;
+>> +	mb->controller.num_chans = AMD_PL_MBOX_NUM_CHANS;
+>> +	mb->controller.txdone_poll = true;
+>> +	mb->controller.txpoll_period = 1;
+>> +	mb->controller.of_xlate = amd_pl_mbox_xlate;
+>> +
+>> +	ret = devm_request_irq(dev, mb->irq, amd_pl_mbox_irq,
+>> +			       IRQF_NO_AUTOEN,
+>> +			       dev_name(dev), mb);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	return devm_mbox_controller_register(dev, &mb->controller);
+>> +}
+>> +
+>> +static const struct of_device_id amd_pl_mbox_of_match[] = {
+>> +	{ .compatible = "amd,zynqmp-pl-mbox-2.1" },
+>> +	{ .compatible = "amd,versal-pl-mbox-2.1" },
+>> +	{ .compatible = "amd,versal-net-pl-mbox-2.1" },
+>> +	{ .compatible = "amd,versal2-pl-mbox-2.1" },
+> 
+> So all of them are compatible? Then why do you need all this?
+> 
 
-This was found with static analysis and only compile tested.
+Hi Krzysztof,
 
-Fixes: 1bff5abca65d ("scsi: aacraid: Fix memory leak in fib init path")
-Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
----
- drivers/scsi/aacraid/commsup.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This block will be used on 4 SoC - zynqmp, versal, versal-net & versal2.
+IIRC we should list each SoC where the device/hw block is available.
+That is why we listed all 4 of them. I am not sure if the compatible
+property in the YAML is presenting this correctly, but here I think it
+is good. Please suggest if there is a better way.
 
-diff --git a/drivers/scsi/aacraid/commsup.c b/drivers/scsi/aacraid/commsup.c
-index c4485629f792..cf0ae251e43b 100644
---- a/drivers/scsi/aacraid/commsup.c
-+++ b/drivers/scsi/aacraid/commsup.c
-@@ -81,7 +81,7 @@ void aac_fib_map_free(struct aac_dev *dev)
- 		return;
- 
- 	num_fibs = dev->scsi_host_ptr->can_queue + AAC_NUM_MGT_FIB;
--	fib_size = dev->max_fib_size + sizeof(struct aac_fib_xporthdr);
-+	fib_size = dev->max_cmd_size + sizeof(struct aac_fib_xporthdr);
- 	alloc_size = fib_size * num_fibs + ALIGN32 - 1;
- 
- 	dma_free_coherent(&dev->pdev->dev, alloc_size, dev->hw_fib_va,
--- 
-2.53.0
+Thank You.
+
+> Best regards,
+> Krzysztof
 
