@@ -1,95 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20FB4A5ED0;
-	Fri, 16 Oct 2026 13:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C214A482A;
+	Fri, 16 Oct 2026 13:34:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157643; cv=none; b=EUT593h/ae++x4p1CjupyIoJLU9DJohuLO2YaTvutPgkJb6EPLNS0fFouTb1w7d70cmpXvQ6y3ekyhOmLXJAMNLQrkJACn5eHAcwNXWjhdj/Uy8vqL2tRPKQuQB/AJDc5mtzl2abEYmH4RA8I73+sLuCIIVlaKFqya32xp/t1jM=
+	t=1792157659; cv=none; b=a7lJdBgmNj67opHAm5khsfN7daWtGac/z+Uzug9Oiw9fvgzbym297zpD3qbqbDyt72hMNUubvVqBDIITeP6018HuguZhSSurReePjXz9bVaDLYKsO504Dp1+NX1Sz1Wh0svicL/NpyaxlgxlZW0j+3n9TjT6KYSDOmhZfIWHMXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157643; c=relaxed/simple;
-	bh=cppukj+e14o6hDJof5FUuIWGdycDArei4ahBv0cAlBw=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=SJVFchxaaO4MirDWL69VvO7wz/CdRcfwSye9rTeOKZ1k4DwwdHwuaFGQZFIBEBX6UUuZY2GItnkpwVzOIn/oR0ccuaVFkXXYkQfkE9jn1qVPR/9n1TLnE12N0cbP9WZ4QLrbOlyhzct/H3rETSaojuhWf/maGEQqWXzuWAMfj30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RSp0DMBs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792157659; c=relaxed/simple;
+	bh=v0S7OMtfIQMRk7b2oIxSR2ytHrZYdcAZ++SvR3brDG8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aOrsQWjZO3zq2QoJtZ2giJmtofV1Eu8IssJkTpZewWzmxIP6q0dNgsu7TwIyaTSKQO6PACYRtFF2tmi6DluMTCj9nLa5Mduw1ZRe8T8IT4eGQ+FbO4W/I4EgmbnUsSkyBKiZY9xEwpXPOUUftKig3ZLD/0urigXbx8uAzktDynE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=HaRVlNAc; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RSp0DMBs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE5091F000C4;
-	Fri, 16 Oct 2026 13:33:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792157642;
-	bh=acG3c8C8tYtd1Vdd8mBCHAX5G/JVl9rS4yJU55g+HEk=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=RSp0DMBsbCCkDPKSaD2MnjUsFOD5c3t6bBeOiWzoX6Nb6zg2jlSGRyGUzPrwYGCKo
-	 qO6WEJqTw7v2Q/bJUli9GZ1HE7ugx0G0YZ2R1LqBB/ls9wEtzCbDZGxh8+LIlfjLKV
-	 KLdNhfLODTb0e4glkJQfvmbspTqPhInKUBMGuXHEmDP8+eLMerBIQ4C97a+jRgUhHy
-	 9rGJtow+zBRWOPvh5PXn8K4CN7wUc1NSuJAISUdlPDSxm+E38aCXtfPYvug7u42b9y
-	 sqFkMoHAs0aH1mgUKMzZr5rJeVeOux+Rx79crb6LQ+arMv9zZ799vbGY+YLl9cY5bG
-	 dvFsssPp9L7Gw==
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="HaRVlNAc"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 7611F53409C5;
+	Fri, 16 Oct 2026 15:34:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1792157655;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=qz0uIt0JoDi/U/kIDMlrnV9+4lj5sArbrddXLpcGclM=;
+	b=HaRVlNAcbOPiCVn0q6SO9KEdqt6DKRZzafkIeiQs6u3wkCqYjGdIn0P53JhMDAPZtq2amR
+	I9P+BJYvfEDNmv8DTdA4slFPkBiSTktkS5kLWLRcebsHS9Lp1hN7kfHGQd8jtaA6y18pUN
+	IZ45rAhjHcCe+gsPosBLlYn7emykwRU=
+Message-ID: <da8b6a26-334d-461d-b0a6-8c38161e5e12@ixit.cz>
+Date: Fri, 16 Oct 2026 15:34:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] media: venus: vdec: signal EOS with a real buffer
+To: bod@kernel.org
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260928-venus-vdec-eos-v1-0-6e9eb3ce9849@ixit.cz>
+ <20260928-venus-vdec-eos-v1-1-6e9eb3ce9849@ixit.cz>
+ <179153733762.2596899.11570084120645960007.b4-reply@b4>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <179153733762.2596899.11570084120645960007.b4-reply@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 0/9] HID: Hardening report validation and unnumbered
- report handling
-From: bentiss@kernel.org
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- David Rheinsberg <david@readahead.eu>, 
- Frank Praznik <frank.praznik@oh.rr.com>, Jiri Kosina <jikos@kernel.org>, 
- Benjamin Tissoires <bentiss@kernel.org>, Even Xu <even.xu@intel.com>, 
- Xinpeng Sun <xinpeng.sun@intel.com>, 
- Roderick Colenbrander <roderick.colenbrander@sony.com>, 
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-input@vger.kernel.org, Shashikirana H K <shashikiranah@chromium.org>
-In-Reply-To: <20261012-hid-core-report-validation-v1-0-e0dd5cb60b2e@gmail.com>
-References: <20261012-hid-core-report-validation-v1-0-e0dd5cb60b2e@gmail.com>
-Date: Fri, 16 Oct 2026 15:33:55 +0200
-Message-Id: <179215763590.1109876.9153659846218614238.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792157639; l=1247;
- i=bentiss@kernel.org; s=20230215; h=from:subject:message-id;
- bh=cppukj+e14o6hDJof5FUuIWGdycDArei4ahBv0cAlBw=;
- b=YLWrMRK1Vt2C1RbRF9OGMARRido3qPVIsY0TybF9KUkWmr5sTu11NMp0/TSFEN1rvH9qetXpO
- NeEwJup2xLjApgqFwFZmwXlrbSwN26Jp5Tk9V+XdDTitBRayMyt6Q7V
-X-Developer-Key: i=bentiss@kernel.org; a=ed25519;
- pk=7D1DyAVh6ajCkuUTudt/chMuXWIJHlv2qCsRkIizvFw=
 
-> This series improves validation and consistency across HID core,
-> transport drivers, and individual device drivers for numbered and
-> unnumbered reports.
+On 09/10/2026 11:15, bod@kernel.org wrote:
+> On 2026-09-28 23:40 +0200, David Heidelberg wrote:
+>> The decoder tells the firmware about the end of the stream with an empty
+>> buffer command whose address is a dummy (0xdeadb000), because the host
+>> has no input buffer to name. The SDM845 (Venus v4) firmware validates
+>> that address and rejects it:
+>>
+>>    IsBufferProtected(1087): VenusCoreCtrl: CP_UNKNOWN, buffer straddles
+>>    CP & non-CP regions
+>>    vDec_EmptyBuffer(1932): Invalidate buffer in ETB
+>>
+>> and raises HFI_ERR_SESSION_FATAL, reported by the driver as
+>>
+>>    qcom-venus aa00000.video-codec: session error: event id:1001 (deadb000)
+>>
+>> Both queues are then put into an error state, so the drain never
+>> completes and every V4L2_DEC_CMD_STOP ends the stream with an error:
+>> GStreamer's poll() fails at end of file, ffmpeg aborts.
+>>
+>> Allocate a small buffer the first time a decoder instance is drained and
+>> use its device address for the EOS command, so the firmware gets an
+>> address that is mapped and outside the protected regions. The firmware
+>> then drains normally: all frames are returned and the last capture
+>> buffer carries V4L2_BUF_FLAG_LAST. The NULL address used by old IRIS2
+>> firmware is left alone.
+>>
+>> Assisted-by: LLM
+>> Fixes: beac82904a87 ("media: venus: make decoder compliant with stateful codec API")
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
 > 
-> Bluetooth HIDP and HID core report retrieval handling are updated to
-> properly respect the kernel convention where raw report request buffers
-> reserve the first byte for the report ID, using 0 for unnumbered
-> reports.
+> The logic stacks up as I read it but, I want to see this a) work on sdm845
+> and b) not break on sm8250 before applying.
+
+On sdm845 it works great (tested multiple sdm845 phones with `livi --demo-h264` 
+and loop enabled. I don't have sm8250, thus that's up to someone with the device :)
+
+David
+
 > 
-> Report descriptors mixing numbered and unnumbered reports within the
-> same report enumeration are rejected in accordance with the HID
-> specification.
 > 
-> Report ID verification for successful report retrieval transfers is
-> centralized in the HID core, with a new device quirk to accommodate
-> buggy firmware (such as the ASUS ROG Flow Z13 touchpad). Redundant
-> report ID checks are removed across the I2C-HID, Goodix SPI, Intel
-> QuickI2C, multitouch, and PlayStation drivers.
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+> bod
 > 
 
-Hi Dmitry,
-
-I'm fine with the series. Sashiko has valid concerns on all patches it
-replied to except the first one, which is a pre-existing issue.
-
-Could you fix the uhid case (by making the internal API similar to what
-you did in hidp), and address the other Sashiko remarks?
-
-Cheers,
-Benjamin
-
--- 
-Benjamin Tissoires <bentiss@kernel.org>
