@@ -1,206 +1,152 @@
-Received: from mta1.migadu.com (out-36.mta1.migadu.com [95.215.58.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E9D381EB9
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:43:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC534EA37F
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792165437; cv=none; b=bHFNvqDG+PiK78faCZyiubmlO8J7zUl9NXW+U/GhAS4gBuSjB9t8Aql0Cx1B85NwqFtB8JkI0rqPggGjh96YchGTYpYQ6ruQSqXc49ILykI3OwICU3p5Kp3ViUF9S8UMJfg/gJJLMJP64oN5w/STN9YkXkjLHTmFJAqCi4RVtRY=
+	t=1792165448; cv=none; b=XzLG+RHwURQWznAIpDJicPn2t8/trVh22FUlim14Ezi2Jj16wBiL0IbxemG6vYe5Flh+leEacHmq/bJ7H5Ed8SOZO/3Ka6VrqhYoGNxuGHktrp9EFt0hYqcgh95y9KeLqzgU643hYl0og0zQ859gUBZFBe6ct1pokvDl5V6e8Qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792165437; c=relaxed/simple;
-	bh=74rKIlxgrRlJgR/t85SrsshrUgXIRHxay9Odnbdgk5Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hUSg0E1KuMU+T5Ki1bVrVxBhvobZHwPTXv+l5cWqVm5e9RGmEYD0JaPnqqU+9bawrqfD2DymLksrHOmL7rUpsD2wKzFC5TW5myqghbSV6hmAWtJ37AV5N+FBUr3+JrxVi3hkDE1Ujz6gG0Jkf7PuAYQ0FykZzQVTjLdcezLo2iY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vxnDC9zU; arc=none smtp.client-ip=95.215.58.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792165448; c=relaxed/simple;
+	bh=Zz8i0lUTzRkuZgBP2+V7pWig14l8N8fd7W2Q0Mi/UCw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dmbShe2isrTmWCvntzGp7Gc8+yZFFE1fLc5Rz5UShd+dLpZw1GUMXKdhIaf/IknK21C4mMs28Dsob8QipTqZnJOfrkzacLkiwvScDTuCKZYV/YugqeqVw+6pgdFJZslpwYw4F51pcNxrwqpgO7VcmsqQYNLXQvB4HanZCavgj8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NWl7COJF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vxnDC9zU"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=74rKIlxgrRlJgR/t85SrsshrUgXIRHxay9Odnbdgk5Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792165430; v=1; x=1792770230;
- b=vxnDC9zUUKPiBmAOIM0L+miPOrd+53bTqqQl4vMZfV6uML9mlJFKqqMkSpZj2w5cqPxhX6Iv
- iM56fiUM5AWOJsalqf+MUL7ktKZqBN4XJrHfHV9Pl+Mo5S6yXDFLen71WwwMl9f6NPOBnemeevt
- K6HAfcIvgfnqxkMLSGSqturI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 988393ee6a1b987b;
-	Fri, 16 Oct 2026 15:43:50 +0000
-X-Mizu-Trace-ID: 988393ee6a1b987b
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: baolin.wang@linux.alibaba.com,
-	pfalcato@suse.de
-Cc: lance.yang@linux.dev,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ziy@nvidia.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	jack@suse.cz,
-	djwong@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	hch@lst.de,
-	syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
-	ngocthang2710.1999@gmail.com,
-	willy@infradead.org,
-	rppt@kernel.org,
-	ljs@kernel.org
-Subject: Re: [PATCH v3 1/1] khugepaged: fix readahead lock inversion in collapse_file()
-Date: Fri, 16 Oct 2026 23:43:42 +0800
-Message-ID: <20261016154342.31940-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <27e5aadc-2d68-428f-a958-308e4a75c058@linux.alibaba.com>
-References: <27e5aadc-2d68-428f-a958-308e4a75c058@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NWl7COJF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF1451F000CA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:44:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792165446;
+	bh=x4BlVnBkdABSzxNkd7xtQc1KrHevTV+nHJUmN1WOF50=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NWl7COJFN7Hf2rYjR08s5lUnWdyU60zFI9qWzWql2nZLxLwFDrOUuWaPtlZlEJCXf
+	 k8HQ2guCGgRB450IeMTOxyhWfFQhO05ODS6uVNvGrehUbFykMXgPbVAwTDeiX6Xvf1
+	 +sXx/gEJeltqf0VDI3BwB08CXxKGzx2LHRPe4qPXP+NoRKR0j0Cgj4YpApDJ9AdrLc
+	 o+p29XbXvdplq512JPyDc7qGFzWLTorWk3hXmOdCW1MKV2cElO27KeSH5l39+z++5n
+	 Zv50sIRji7pMPoHHTsw6CJkqOZ1/FXpBL26ojt3RPb0YMo9zvKdTqcTLzwfS4AXcgf
+	 l7JQpzxGgEt1g==
+Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-53c156ba662so85681b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:44:06 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByVFnjrWwXyxtW5Ykcfsy7kakgPSJKcn5IWLLmFcmME+LxLUnnlG16Un+QBuJC2EHXKNaeadLJG9gQr3yQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL53pEfgfo4Mv9GGamXva+Uq63vOCJ9QpYnRYDLrAvxXeZG0Sag
+	mZTjMXR1J40nw6fawP326jzNftB2rtwMTEqPUNVGX+dFaWUKlU5wVeYYpSiF4MSmB/w1xAXYza9
+	cXOYLlHQ/GMNBDTWKyXpXNKR1b0vUSVE=
+X-Received: by 2002:a05:6808:6f8f:b0:4ea:686e:fe86 with SMTP id
+ 5614622812f47-50c5b464a7emr20203589b6e.63.1792165446007; Fri, 16 Oct 2026
+ 08:44:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261016-bug-veth-init-queues-before-register-v1-1-f48eb2bb25a0@gmail.com>
+In-Reply-To: <20261016-bug-veth-init-queues-before-register-v1-1-f48eb2bb25a0@gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Fri, 16 Oct 2026 17:43:54 +0200
+X-Gmail-Original-Message-ID: <CAL4WiipGJT316aRQSMtyHo9s0qGoWGeZLxqnksyQTO9mioidQA@mail.gmail.com>
+X-Gm-Features: AclHuK-vfqoap1s0w_q-N6yPL7qX4SBSAmBMtMa8Gsw7Q-KmBm3I-033Cj2xIhU
+Message-ID: <CAL4WiipGJT316aRQSMtyHo9s0qGoWGeZLxqnksyQTO9mioidQA@mail.gmail.com>
+Subject: Re: [PATCH net-next] veth: set the real number of queues before
+ registering the devices
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-+Cc: Pedro
-
-On Fri, Oct 16, 2026 at 05:57:48PM +0800, Baolin Wang wrote:
+Le ven. 16 oct. 2026 =C3=A0 08:51, Qiliang Yuan <odys.yuan@gmail.com> a =C3=
+=A9crit :
 >
+> Since commit 9d3684c24a52 ("veth: create by default nr_possible_cpus
+> queues"), each veth device is allocated with one rx and one tx queue
+> per possible CPU, and veth_newlink() reduces the real number of queues
+> to one unless the user asked for a number.
 >
->On 10/16/26 2:59 PM, Lance Yang wrote:
->> collapse_file() can end up calling page_cache_sync_readahead() with
->> source folios from earlier in the range still locked. If truncate already
->> holds mapping->invalidate_lock exclusively and is waiting for one of
->> those folios, readahead blocks on the same invalidate_lock and neither
->> side can make progress.
->> 
->> Do readahead in a separate pass before we start holding source folios
->> locked for collapse. Keep page_cache_sync_readahead() and its existing
->> policy, and drop each folio's lock and reference after checking that it
->> is uptodate. If truncate or reclaim removes a folio between the two
->> passes, roll back instead of doing readahead again with source folios
->> locked.
->> 
->> Shmem handles swapin and fallocated folios through shmem_get_folio()
->> without taking mapping->invalidate_lock, so it isn't affected by this
->> lock inversion.
->> 
->> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
->> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
->> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
->> Signed-off-by: Lance Yang <lance.yang@linux.dev>
->> ---
+> Both devices are already registered at that point, so
+> netif_set_real_num_tx_queues() and netif_set_real_num_rx_queues()
+> remove the sysfs objects of every extra queue that register_netdevice()
+> has just created, each one emitting an add and a remove uevent, and the
+> tx side also waits for an expedited RCU grace period. This happens with
+> RTNL held, twice per pair, and grows with the number of possible CPUs:
+> with 240 of them a veth pair emits about 1900 uevents, and udev
+> processing them slows down later sysfs work such as deleting devices.
 >
->Thanks for the fix.
-
-Cheers!
-
->> Thanks to Nguyen Ngoc Thang for v2. David asked for volunteers, so I'm
->> happy to take this over.
->> 
->> Some older stable trees lack the folio infrastructure used here, and the
->> code will differ for each stable tree, so each backport will need quite a
->> bit of rework and its own review. I'm not sure whether to Cc stable here.
->> Once we agree on the fix, I'll send a separate backport for each maintained
->> stable tree except 5.10, which isn't affected.
->> 
->> v2 -> v3:
->>   - Replace the scan-wide invalidate_lock and page_cache_ra_unbounded() with
->>     a preparation pass using page_cache_sync_readahead().
->>   - Roll back on a new page cache miss during collapse.
->>   - https://lore.kernel.org/all/20260913163644.122133-1-ngocthang2710.1999@gmail.com/
->> 
->>   mm/khugepaged.c | 42 +++++++++++++++++++++++++++++++-----------
->>   1 file changed, 31 insertions(+), 11 deletions(-)
->> 
->> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
->> index ef5cd6fda34f..b3f67617caf0 100644
->> --- a/mm/khugepaged.c
->> +++ b/mm/khugepaged.c
->> @@ -2262,6 +2262,34 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
->>   	new_folio->index = start;
->>   	new_folio->mapping = mapping;
->>   
->> +	if (!is_shmem) {
->> +		/*
->> +		 * Populate the range before accumulating locked source folios:
->> +		 * readahead may block on invalidate_lock.
->> +		 */
->> +		for (index = start; index < end;) {
+> Set the number of queues before registering each device. For a device
+> that is not registered yet this only updates the counters, so the extra
+> queues never appear in sysfs, and the error paths that undid a
+> registration are no longer needed.
 >
->why drop xas_unlock_irq()?
-
-Hmm ... we haven't taken the lock here yet, so there's just nothing to
-unlock, no?
-
->> +			folio = filemap_lock_folio(mapping, index);
->> +			if (IS_ERR(folio)) {
->> +				page_cache_sync_readahead(mapping, &file->f_ra,
->> +							  file, index, end - index);
->> +				folio = filemap_lock_folio(mapping, index);
->> +				if (IS_ERR(folio)) {
->> +					result = SCAN_FAIL;
->> +					goto rollback;
->> +				}
->> +			}
->> +			if (!folio_test_uptodate(folio))
->> +				result = SCAN_FAIL;
+> Creating and then deleting 500 veth pairs, one ip -batch each, in a 16
+> vCPU guest, median of 3 runs, per pair:
 >
->Do we need to check PG_uptodate after locking the folio? If we 
->successfully lock the folio, doesn't that mean the read I/O has 
->completed? The following code also checks the writeback flag, so the 
->uptodate check seems unnecessary to me.
-
-IIRC, the folio gets unlocked even if the read fails. I just wanted to
-catch read errors early. And yeah, we already check uptodate later,
-so this one can go, thanks!
-
->> +			index = folio_next_index(folio);
->> +			folio_unlock(folio);
->> +			folio_put(folio);
->> +			if (result != SCAN_SUCCEED)
->> +				goto rollback;
->> +		}
->> +		/* drain lru cache to help folio_isolate_lru() */
->> +		lru_add_drain();
->> +	}
+>                                    before      after
+>   16 possible CPUs    create      1644 us     520 us
+>                       delete     11822 us    9750 us
+>   240 possible CPUs   create     17253 us    1339 us
+>                       delete     17082 us    9941 us
+>                       uevents        1918          6
 >
->Could we factor this code out into a small helper?
-
-Okay, let me play with it a bit :) Might pull it out if it reads cleaner.
-
-Thanks, Lance
-
->> +
->>   	/*
->>   	 * Ensure we have slots for all the pages in the range.  This is
->>   	 * almost certainly a no-op because most of the pages must be present
->> @@ -2320,17 +2348,9 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
->>   			}
->>   		} else {	/* !is_shmem */
->>   			if (!folio || xa_is_value(folio)) {
->> -				xas_unlock_irq(&xas);
->> -				page_cache_sync_readahead(mapping, &file->f_ra,
->> -							  file, index,
->> -							  end - index);
->> -				/* drain lru cache to help folio_isolate_lru() */
->> -				lru_add_drain();
->> -				folio = filemap_lock_folio(mapping, index);
->> -				if (IS_ERR(folio)) {
->> -					result = SCAN_FAIL;
->> -					goto xa_unlocked;
->> -				}
->> +				/* The range changed after the preparation pass. */
->> +				result = SCAN_PAGE_LOCK;
->> +				goto xa_locked;
->>   			} else if (folio_test_dirty(folio)) {
->>   				/*
->>   				 * This page is dirty because it hasn't
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+> ---
+>  drivers/net/veth.c | 20 ++++++++------------
+>  1 file changed, 8 insertions(+), 12 deletions(-)
 >
+> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+> index 38f263d4f06b4..92ad064567327 100644
+> --- a/drivers/net/veth.c
+> +++ b/drivers/net/veth.c
+> @@ -1875,6 +1875,10 @@ static int veth_newlink(struct net_device *dev,
 >
+>         netif_inherit_tso_max(peer, dev);
+>
+> +       err =3D veth_init_queues(peer, tb);
+> +       if (err)
+> +               goto err_register_peer;
+> +
+>         err =3D register_netdevice(peer);
+>         if (err < 0)
+>                 goto err_register_peer;
+> @@ -1904,6 +1908,10 @@ static int veth_newlink(struct net_device *dev,
+>         else
+>                 snprintf(dev->name, IFNAMSIZ, DRV_NAME "%%d");
+>
+> +       err =3D veth_init_queues(dev, tb);
+> +       if (err)
+> +               goto err_register_dev;
+> +
+>         err =3D register_netdevice(dev);
+>         if (err < 0)
+>                 goto err_register_dev;
+> @@ -1917,16 +1925,10 @@ static int veth_newlink(struct net_device *dev,
+>         priv =3D netdev_priv(dev);
+>         rcu_assign_pointer(priv->peer, peer);
+>         netdev_hold(peer, &priv->peer_tracker, GFP_KERNEL);
+> -       err =3D veth_init_queues(dev, tb);
+> -       if (err)
+> -               goto err_queues;
+>
+>         priv =3D netdev_priv(peer);
+>         rcu_assign_pointer(priv->peer, dev);
+>         netdev_hold(dev, &priv->peer_tracker, GFP_KERNEL);
+> -       err =3D veth_init_queues(peer, tb);
+
+Orthogonal to your patch, but here we should have used @tbp instead of @tb.
+
+# ip link add va type veth peer vb numtxqueues 4
+
+-> vb has 4 tx queues, but only 1 real tx queue, which is quite unexpected.
+
+# ip -d link sh vb
+13: vb@va: <BROADCAST,MULTICAST,M-DOWN> mtu 1500 qdisc noop state DOWN
+mode DEFAULT group default qlen 1000
+    link/ether e2:53:93:f3:f4:f8 brd ff:ff:ff:ff:ff:ff promiscuity 0
+allmulti 0 minmtu 68 maxmtu 65535
+    veth addrgenmode eui64 numtxqueues 4 numrxqueues 8 gso_max_size
+65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535
+gro_max_size 65536 gso_ipv4_max_size 65536 gro_ipv4_max_size 65536
+
+# ls /sys/class/net/vb/queues/
+rx-0  tx-0
