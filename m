@@ -1,74 +1,71 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6C24447A0B5;
-	Fri, 16 Oct 2026 10:05:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698BF471CE0;
+	Fri, 16 Oct 2026 10:05:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145145; cv=none; b=QZIpGRck18rQ1EpokHQIySi079KMQBnBFDVK/nzmLJczzKxnfiNYZ8Kz3rJUEJGxuSppKEgc1Z4ctvOBNpVa/LMZDQCSQGNTR84gv/qmA1zgKi/OUt74KOzeNLGpSiMncjdy6eaAyl0u6/tl19LKiB9Clq2Re/mh/P0rbDOXBV8=
+	t=1792145151; cv=none; b=kB1x7BJsAUAjeiCnWw7gqffgWVauOhmaS3+baCA4/zshU2qpjsLOEx4i0JLzzFYiDsJdYO1t5Jgl7Wqu2F/qVu1HokIysrfvKMqyQd+7csr/meA/VkCJjCXAo7OZfkh0INxzbrpissyG9KkKM3vhmt1Uf5SkT/VFRidR2NMk1JA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145145; c=relaxed/simple;
-	bh=Lr4z80TttA9CAj46C7TTaxQIkqHJjPbuCEYVhj/R2RE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eeyM1TtjqwqXIVeX/199wlPa826BqW+T2jeBsQfMEGGscfjgOPyjf/j+fhzwwLdDjy8Uv7TjSpYjB6/Z+m/12ZuPFOMp62AbvebHuGbuQNpB2m3Iub5uB1c1XbvSbkRNaM0xQTAOiZkKQcBsAS0mXpETZI1z91wGYhY87vjRh2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lIBC6cNj; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792145151; c=relaxed/simple;
+	bh=I0tA1GmRBeMKbGhGvVcrGI33rN8E+MZQodbKIVQF3+Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fD5Th78j7Xw4efgZo+IF94MniAlmTgG6sTXV5WFurBvVJcmf3HJZdhQTg5rUPP3n/VC+nf+p5hjTurfs1Wq/gKpzvuaiYbWIh7BMFJ0a/WmQW844/+SCBLmpD9W18RCnyoGCrXjjIdRpz8o0u0o1F66F1/Zq038OeKVbrX07TIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=T3HL+19E; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lIBC6cNj"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4A56614BF;
-	Fri, 16 Oct 2026 03:05:39 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D9E7D3F871;
-	Fri, 16 Oct 2026 03:05:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792145142; bh=Lr4z80TttA9CAj46C7TTaxQIkqHJjPbuCEYVhj/R2RE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lIBC6cNjFrf2xJ3onlfJxxXZJso7mCRvMSP5GGPQHeVUbtaYLIBKPoOsOZ8fQMWCt
-	 WPNzABduNKk3UA8BO3A7cMpnYyKSwCRjqtydQrHkcSWAKt6kvQiz5SW0mVLA19OFfw
-	 YoJHrsnBJWxKR2yAZQrq5H9sOkVv7nE904yPJ4ls=
-Date: Fri, 16 Oct 2026 11:05:38 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: Johnny Fan <johnny.fan@cixtech.com>
-Cc: Marc Zyngier <maz@kernel.org>, will@kernel.org, mark.rutland@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	james.clark@linaro.org, jeremy.linton@arm.com,
-	cix-kernel-upstream@cixtech.com, bob.zhang@cixtech.com,
-	jie.fu@cixtech.com, Fugang Duan <fugang.duan@cixtech.com>
-Subject: Re: [PATCH] perf: arm_spe: Support heterogeneous ACPI systems
-Message-ID: <20261016100538.GE26205@e132581.arm.com>
-References: <20261015062908.3565761-1-johnny.fan@cixtech.com>
- <86mrsf1bnv.wl-maz@kernel.org>
- <20261015141926.GC26205@e132581.arm.com>
- <atGY5+kzQggCZboX@JohnnyFan>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="T3HL+19E"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=AG
+	/G2jTHLJL3HM12FlhdzuebFvon4l4oP56M8P9835E=; b=T3HL+19EgOqXkImTJU
+	p0UD6YeWQqAs7991MJ6hLf6cnZqrrUHwIxuDgttNO4PkvKQpZtXjubIjiZKeoxa0
+	e1VJ1FAE/CckAgcLtHbRUmeMc/utryRAh1AJpU4HU5O1EFBxj5sekH6e6TYolV8F
+	6KT+i9eii4SyZ10cMxVOcLJIQ=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD332+29tFqQfLjAA--.14422S2;
+	Fri, 16 Oct 2026 18:04:39 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Matthias Fend <matthias.fend@emfend.at>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH 0/2] leds: freeze delayed hardware access during suspend
+Date: Fri, 16 Oct 2026 18:04:33 +0800
+Message-Id: <20261016100435.2581303-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atGY5+kzQggCZboX@JohnnyFan>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD332+29tFqQfLjAA--.14422S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKw4fZryDJryDJrW3KFy3Arb_yoW3Wwc_ur
+	97Cr97K3yqgFWqga1IyF10vFWrCa4j93y8Xan0vry7trWxZrWrXFZxXrWUA3yDXFWjywn3
+	WFs0g3ySywsFkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sR_oGQ5UUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhf5NGrR9rfgnwAA3R
 
-On Fri, Oct 16, 2026 at 11:24:23AM +0800, Johnny Fan wrote:
-> On Thu, Oct 15, 2026 at 03:19:26PM +0100, Leo Yan wrote:
-> > The SPE driver probes its capabilities on one CPU selected by
-> > smp_call_function_any(), then performs local setup on every CPU in
-> > supported_cpus. It therefore relies on that mask being accurate;
-> > including a CPU without SPE could lead to accesses to unimplemented
-> > SPE system registers.
-> 
-> Right. On ACPI the driver gets no affinity information for this
-> device, so supported_cpus falls back to cpu_possible_mask. That only
-> works today because registration is limited to homogeneous systems.
-> The PMSVer trimming in this patch works around the heterogeneous case;
-> with the mask taken from the MADT walk, both go away.
+The TPS6131x torch watchdog refresh and CR0014114 firmware recount
+callbacks perform bus transfers from delayed work. Both callbacks use the
+non-freezable system workqueue and can run after their I2C or SPI controller
+has been suspended.
 
-SPE driver supports heterogeneous systems. If firmware creates proper
-devices based on CPU topology, the driver can probe multiple instances.
+Queue both callbacks on system_freezable_wq. This freezes their hardware
+access before device suspend and resumes it after devices become available
+again. Each patch is independent and can be applied separately.
 
-So "registration is limited to homogeneous systems" is not quite right.
+Jiale Yao (2):
+  leds: tps6131x: queue torch refresh work on freezable workqueue
+  leds: cr0014114: queue recount work on freezable workqueue
 
-Thanks,
-Leo
+ drivers/leds/flash/leds-tps6131x.c | 11 +++++++----
+ drivers/leds/leds-cr0014114.c      |  6 ++++--
+ 2 files changed, 11 insertions(+), 6 deletions(-)
+
+-- 
+2.34.1
+
