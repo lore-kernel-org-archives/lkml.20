@@ -1,39 +1,75 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2898E377A80;
-	Fri, 16 Oct 2026 14:28:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142CF379C5A
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:28:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792160894; cv=none; b=ZOZ4tZm9Fwz1BsfP/X1YpDQ4aRzysygRavDg3bWRYccOvhTaMAgMgsU+YA7bnmfcJjOpzAu2VWYmbe/e26klQae6r+X3QqOhOf9WWIK17P0m0HC2mbkDX33S9HWlx0pxoXlnBcTNZp3ax5dYBtIH8X6u8N33w/tcAPYdZS1zKdQ=
+	t=1792160895; cv=none; b=r5nPccsxi8IOir0oLDY8EuS2v7eGnfjHwNryqH29kuvDj9kDZUdpXvN8Z9yJDq1FvTLqiC/LiU64cCamL2l2ifNLsy8K6YyH3n3CH0rxTlhrU7WyblfjqJRGCZwj7upKMAb7OFX46u4zVabCBZe0Cbi+2syyuqsyayhZun0N/Do=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792160894; c=relaxed/simple;
-	bh=kVyx/+Bh2SFTIx1Ta0Uqf9Fq/v7iXSp1BkyJr8yCWHM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZnjibVncZg22/XvGoZTe4eZU0ZpUWbdx/G7/riv8tb/IUGJxRpCwVm9F1wt7/5TjeL5TXcH8feExyt5opnIEZHQfS3nBK6Fwpp/aTM2UcOxL8/PmzakMVseHQiOIT+llFFhhkBvwW07Ef/WN852GqeFvoW5odg2+7no8UV07KVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=Pg/4cYhx; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1792160895; c=relaxed/simple;
+	bh=GKozz/tp+bIJFpaOUq0zh72SepGChCeoHpNrT2chlz8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=r7RW/T6qphBv70RqniDRbdGAtBX2b82OFlnw0jZ4p6ll4bc16fAKs00wCw8FPTMDxSpV/Yuh+BZrH3D9+f+x/NdtL8ZkMxcxzvSvRqajjx1zo9munfuitoAj4XSxIJMDq0sT4qq56umbJE6iSq84ozY9adycVPNoKtqCAQA8UlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=lPVO/ncz; arc=none smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="Pg/4cYhx"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=xfVgpkKhA8IGQwvRbtPLD/w1VN4ZPrmkO+OUdeP8qGU=; b=Pg/4cYhxCrWkjlt+4wGME3yARL
-	yUyJHPawCMnF33N5DP/njQrHMEzsiWLZUKn05xM8VTjE0Ds6ySWfPfU3H63Fpt8qws6GkkoNTyUg9
-	GfahqO2uyfW3a7PdXUV6TEDDb6shi38CndIGp73ZN+DBmBcAv8XpBFlwBXEssrEkRQp6LSfB2qBA/
-	i/lL1TW4adPgcHPLrXt9AhXOvJTm9ZkCFz/xxgocBO+V5aFLdKs2UG7cN/LgfhEKFhtr6Tg5cbLGY
-	pwOlKf/8Mol0DPegxtMZNxLjdSDDyLTZGsqJMh8DQPxEL3Iv5kh92Ik5w/tIUT8jWVZYgks8Gw0cm
-	Rx7qa3pQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xHiuh-0061vO-2m;
-	Fri, 16 Oct 2026 14:28:04 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 16 Oct 2026 07:27:58 -0700
-Subject: [PATCH] init: do_mounts: free the ramfs info of the boot rootfs
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="lPVO/ncz"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-30b6dad2382so15792495eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:28:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792160893; x=1792765693; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=43txGlXvjyVAOxBJD3LVtjY+Cbo0l8Mor35q0LNFkb0=;
+        b=lPVO/nczy2fUjgL8kAqdKTL186bWK5fY2ekFwMoseo3TzQbFgqhDdeLqS58K7qsv2H
+         oA9hejzY6jtaQx0P9XZ81tSrtFu8J/YtXef+iYK80cYNbmLR9XDAsmhColXme7H/KYZH
+         kJGbCCrWjNO0AL0OFapWYwFfgiVZIred4FhO4L0S9omIIhcu3PN1D4DXk+E3cVzXqPHu
+         FG3801z5zWlj8eiQRu+H8XIyQgaUpeQSokt76//uhF/i5dJQWr31E7ze+7uztCx8zKaR
+         dtu9AAB6RtXM1jRHNXwR62qxW1adp3apwrGU1FWowGd0GiPVUH9KNAr5h96bNbZMcW7I
+         rufQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792160893; x=1792765693;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=43txGlXvjyVAOxBJD3LVtjY+Cbo0l8Mor35q0LNFkb0=;
+        b=SXrFwh/ET7i7kDSKx82dbynCA9hPGFvUx4Op1TEJ7AxM1CL4Zh/ZwV0raU0yQ2pk5K
+         susyCevoZa2sdPaefC2LS4HJf8hZTpafr9hug2b+wKZmlMatBMwzFGiw6V6CFkSaMtm7
+         Uhkyx3M7MCaM8V5RZnzr7luA2qc133oAy1kCYxokUzpeQLNiLBSD5N0/7z6/DUj/sSEo
+         d6Mu7D95ZlDTxzUQKhnPTV5pSOqm45/D35gjmEnSWaf++upk/2H3yBXy5u/nk4Pk3UnU
+         W0tbYfTuRlnrodsLKo12kGNrpWkzD9vzCSlqBYSItVJdnkqU460pqkeYVjh/NrzsSBNc
+         49/w==
+X-Forwarded-Encrypted: i=1; AKwUvBxyikFjtglrpFV0Rb3ctR8Wthej9QiIZSt3ArkEAPln/SOxj/2IyHwgv2m/77MMpHAPh6Ubc2z2NaXw/Z4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJrbe9CicXZOqHIxr/TXjt57xB0Q2l9qm/vdB1Aa5ghOS7jit1N
+	bDv1jBopC50yv5Z4qBFs43FKtGqh8FgGi2DhLB25vr3VyDarDyPbQCMtxfmwdVdIkg4=
+X-Gm-Gg: AYBFou1EIUJXdPKNlh6o2D+VkS1ME+We93+0pupow1dStBhiKlWIWhqfu1B/49lRM03
+	MDtXIcjKatN/tbo7X+gXYnpDdpcM8jQi/ZAyzlJf2p1m5NWZRHo72eJyVG6FlPb1gZX/J72P4aC
+	0A8DzzXtXpjxhojel8yDtu3KGYWspvnrYSceQC098dh3c7BtRwc83TalWXu2DXeJb7FuFQPGd8r
+	G1nrDEU7WzYPuI0cD/8eLYb150dN/SNrYpNvPDSVKAwU4o7MNJ3bPoIVLr83HZnmBZy8ONIfKJf
+	4p8mHo1AH2Z3esa3IlHkOljMXDBbDKzEtCGRULYAOb36HIoqeHbMqfG8TvTy2WrH4OVJ6EruQ8S
+	H9XkEnC0wbl1DpxIW5YqkLGF9zDALIPm6AvdBkn4HXpkp3hEYKF3okYI5u0unygEZIaJaZQZafj
+	j/pZZR83znF5bd+68boppmmtMLQgeNSzqAbFkHjJ6ASV3SFWWGFP1T0HinU/GWUhrEQNAmDBghc
+	/z3SYx/Oaqj1C4UOUaDAC0QNnibSoeFGzNjTaenIqwvIJh4+sScyefc6w==
+X-Received: by 2002:a05:693c:88d5:10b0:35e:5ca:e0df with SMTP id 5a478bee46e88-35e05cae713mr11058517eec.35.1792160892526;
+        Fri, 16 Oct 2026 07:28:12 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081bafa7asm7150945eec.14.2026.10.16.07.28.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 07:28:11 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: tj@kernel.org, josef@toxicpanda.com, hch@infradead.org, 
+ Tao Cui <cui.tao@linux.dev>
+Cc: cgroups@vger.kernel.org, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, cuitao@kylinos.cn
+In-Reply-To: <20260922043856.2020116-1-cui.tao@linux.dev>
+References: <20260922043856.2020116-1-cui.tao@linux.dev>
+Subject: Re: [PATCH v4 0/4] blk-iocost: charge flushes and zone appends
+Message-Id: <179216089150.2070939.9793392159431285905.b4-ty@b4>
+Date: Fri, 16 Oct 2026 08:28:11 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,98 +78,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-rootfs-kill-sb-v1-1-7631af3ba35f@debian.org>
-X-B4-Tracking: v=1; b=H4sIAG400moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDA0Mz3aL8/JK0Yt3szJwc3eIkXZM0wyRTS/OUxCQjEyWgpoKi1LTMCrC
- B0bEQfnFpUlZqcgnIFKXaWgBCawqQcgAAAA==
-X-Change-ID: 20261016-rootfs-kill-sb-4f1b597dab24
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Shuah Khan <shuah@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- catalin.marinas@arm.com, linux-kselftest@vger.kernel.org, 
- kernel-team@meta.com, Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2017; i=leitao@debian.org;
- h=from:subject:message-id; bh=kVyx/+Bh2SFTIx1Ta0Uqf9Fq/v7iXSp1BkyJr8yCWHM=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq0jRwJ+ECn+ZMqUHjGx71LeWT36HyEyPiU58cE
- UKp92v8xwaJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCatI0cAAKCRA1o5Of/Hh3
- bREgEACn1dErxZ5ZyIqIE+DfVl8L3mZpBMkH8ojYr99RXRd1Rwm6ogub3CYYEFPeiwFx0MIHAqD
- KG+9lLZ/eWwsRnhfNLSWNu/C5q3Mf9N5sYPiksnr1iSHeZ4givovY2cKb1SFMGxeH9paFZ2ySPk
- qr3DhsXB1+h9wz7Ezn/ELbRSvchkKZmB0sDufWtRiKF6hFM1NsfAfB3vf/QFbZvOVsvbqJryxni
- N9LTUeCvTHLz+fg98gmNDjFgH+1TgG51T6z77AI676VqNvuXqaN6ShPL64Sq3+sh1s078JrIxpr
- cM1LSsRR3oAoH/9V63v4fq0CYv4oauERqeOnmxhTJB/8OatuWnunWOCGSOgt3Hrli2fUMTtviOj
- jjKDziX0P3cYaGJofFS7Rf2CD4nJLFkhwcgAkqEQ4zYkxxkgWpYtOv/MwUW266RSZylgXF/DVxr
- aQf/8DJPU9Rh6N6mbA7EtfBji3e9Bg9Z2AVmgAM+fIgmm+Kxd/yZsl/XsDxtJmmLUg0ue8YTpR7
- uhqNNN1SpbtLckkC/s3yXTBHCipjgFOHOeupwDu6vaOY0t4+j/qgpYMmc2CohblToxqyDXOXLd1
- UAeceeDtw0yYIHOeKNcwgT0DSi8RkylgdYjs+p+ddZb4A+AFaCqmdcpyqsnXtDd61ncvaPQTyi0
- uhwydr8arU5sS3w==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+X-Mailer: b4 0.15.2
 
-Kmemleak is reporting the following leak in ramfs_init_fs_context:
 
-  unreferenced object 0xffff000080302480 (size 8):
-    comm "swapper/0", pid 0, jiffies 4294667306
-    hex dump (first 8 bytes):
-      ed 01 00 00 00 00 00 00                          ........
-    backtrace (crc bea23b04):
-      __kmalloc_cache_noprof+0x28c/0x5a0
-      ramfs_init_fs_context+0x5c/0xf8
-      rootfs_init_fs_context+0x30/0x40
-      alloc_fs_context+0x4c0/0x6a8
-      fs_context_for_mount+0x28/0x40
-      vfs_kern_mount+0x40/0x220
-      init_mount_tree+0x80/0x440
-      mnt_init+0x138/0x170
-      vfs_caches_init+0x2c/0x48
-      start_kernel+0x350/0x3f8
+On Tue, 22 Sep 2026 12:38:52 +0800, Tao Cui wrote:
+> While testing iocost's weight-based throttling under concurrent IO, we
+> observed that a cgroup limited to 1% weight could issue an unbounded
+> number of flushes without being throttled: an fsync loop produced ~510k
+> flushes in 12s with cost.usage staying at zero the entire time.  The
+> device was monopolized while iocost reported no activity.  Zone appends
+> were in the same position: the builtin linear cost model defines
+> coefficients only for READ and WRITE, so REQ_OP_ZONE_APPEND is priced
+> at zero and excluded from the latency statistics as well.
+> 
+> [...]
 
-When init pivot_root()s away from a ramfs-backed boot rootfs and
-unmounts it, the rootfs superblock is killed with kill_anon_super() and
-the struct ramfs_fs_info allocated by ramfs_init_fs_context() is never
-freed.
+Applied, thanks!
 
-Kill a ramfs-backed rootfs with ramfs_kill_sb(). A tmpfs-backed one keeps
-kill_anon_super(), as shmem frees its info in ->put_super.
-
-Fixes: 576ee5dfd459 ("fs: add immutable rootfs")
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- init/do_mounts.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/init/do_mounts.c b/init/do_mounts.c
-index 95e0b3a0f711bd..b088021b1546d8 100644
---- a/init/do_mounts.c
-+++ b/init/do_mounts.c
-@@ -503,10 +503,18 @@ static int rootfs_init_fs_context(struct fs_context *fc)
- 	return ramfs_init_fs_context(fc);
- }
- 
-+static void rootfs_kill_sb(struct super_block *sb)
-+{
-+	if (IS_ENABLED(CONFIG_TMPFS) && is_tmpfs)
-+		kill_anon_super(sb);
-+	else
-+		ramfs_kill_sb(sb);
-+}
-+
- struct file_system_type rootfs_fs_type = {
- 	.name		= "rootfs",
- 	.init_fs_context = rootfs_init_fs_context,
--	.kill_sb	= kill_anon_super,
-+	.kill_sb	= rootfs_kill_sb,
- };
- 
- void __init init_rootfs(void)
-
----
-base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
-change-id: 20261016-rootfs-kill-sb-4f1b597dab24
+[1/4] blk-iocost: add flush cost support with the flushiops model parameter
+      commit: f8bc5c74d9eccc87d2e27767f92b8c11b3315d72
+[2/4] blk-iocost: charge zone appends as writes
+      commit: febdbf5682fa7e8f325b07a2c115e7632c4252bd
+[3/4] blk-iocost: account zone append completions in latency stats
+      commit: c38975c427cc3d3f6eb66a36143893be5cdf4ebd
+[4/4] blk-iocost: fix stale comment in ioc_rqos_throttle()
+      commit: 40607f9a6a5eaa071797481bd0ba5ea3ef1eb405
 
 Best regards,
---  
-Breno Leitao <leitao@debian.org>
+-- 
+Jens Axboe
+
+
 
