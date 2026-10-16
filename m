@@ -1,64 +1,48 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 551264C52FB;
-	Fri, 16 Oct 2026 18:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B4B4BF376;
+	Fri, 16 Oct 2026 18:58:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792177114; cv=none; b=AM4kqjDYXeDQk2JyV4hY4XapZ7Rcc+pmdkkx2ba12G11pDhsHr5entYxtjiu/XADbc76KDs3RNnMDmUTl7Qpw+6tbZvSIf+zcv4Dt+DX9z54aXwJKIttjXVCPPMbzgqvfSoZX3bmGuvq1qIKH7LIks9+el+uET7EXo/gFfOtZVw=
+	t=1792177117; cv=none; b=Yk3AzhVXQk+a3uJD3xZ7nuv19RzOQjNamX+Z4UvgTj8ft5h0+DonSgr1PssiQKEI4ctelFOGQTAkVOvh1eRhnyi20j1226Pv3hgj+FL+XSgzn4Clp7prpylFp9LbO+CyLHjmrptMSOJtnLN6KIRvrYzuYcOpvFEkD+Afy41KDzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792177114; c=relaxed/simple;
-	bh=HvrwDjFUCGDGozuhF5grkKDEqksK7YpEmWAGOSF1nvs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F/v/kIwT8r2IUeB2D9N2oXk8rniYpkrQrbqeO1NhcceulkXNb/K+UJLDSvOMDfgOdLEng15QzoFMIftJrJDHdQo6/hODJd/WT7d5y7DrvvDsA9QN+oLvS0nDlQnWVmGaJ6YSLD0OI0KEgr9usHz2VYHhK8HzDDlvv8iaSHqm+uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DfVo+NRT; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792177117; c=relaxed/simple;
+	bh=c07PDig+LSsE24sQR4HQwR8JnWSTzX5sad8ADiutG3M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=thCfUKV3Bo7A91u6j8siybHZYuV0JCY/kAKkezXqTCVN8ecswlZouw8aN3hidk1coBTbVkI5HrXuniwVLqMRMy0m09NODyfwRaiRRqddvhcemgiluoRW+Uhbz5oWv/jDXojsjhFRUD+JzEFLnKxb1eG/QklMH9gyjBm28sqs7po=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=iCcXohur; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DfVo+NRT"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3562A14BF;
-	Fri, 16 Oct 2026 11:58:25 -0700 (PDT)
-Received: from pluto.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BA49D3F7B4;
-	Fri, 16 Oct 2026 11:58:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792177108; bh=HvrwDjFUCGDGozuhF5grkKDEqksK7YpEmWAGOSF1nvs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=DfVo+NRTFhpk0X4A9S8b/aQcx047MnQy9iB6F7NQV4JCYrtC8H3fQ+c4CKYtCz90d
-	 KhowUDYrKpF5OcHZynYW/QWXj3xPwnuzaJeEop+GuIS9W5AJm/FwNDYomwPDdNpUyq
-	 0gUPUGFUoIDvFMh/MUhKp1l5GXrUHkODlc08nDMs=
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Cc: sudeep.holla@kernel.org,
-	james.quinlan@broadcom.com,
-	f.fainelli@gmail.com,
-	vincent.guittot@linaro.org,
-	etienne.carriere@st.com,
-	peng.fan@oss.nxp.com,
-	michal.simek@amd.com,
-	d-gole@ti.com,
-	jonathan.cameron@oss.qualcomm.com,
-	elif.topuz@arm.com,
-	lukasz.luba@arm.com,
-	philip.radford@arm.com,
-	david@kernel.org,
-	souvik.chakravarty@arm.com,
-	leitao@kernel.org,
-	kas@kernel.org,
-	puranjay@kernel.org,
-	usama.arif@linux.dev,
-	kernel-team@meta.com,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: [PATCH v14 30/32] [RFC] Documentation: Add SCMI System Telemetry documentation
-Date: Fri, 16 Oct 2026 19:55:51 +0100
-Message-ID: <20261016185553.2794459-31-cristian.marussi@arm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261016185553.2794459-1-cristian.marussi@arm.com>
-References: <20261016185553.2794459-1-cristian.marussi@arm.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="iCcXohur"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id ACFAD1060F1;
+	Fri, 16 Oct 2026 20:58:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1792177101; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=3M3kA3GZbcaM6eIdFleDuwMC14PtsMd6qtqktQqPFSE=;
+	b=iCcXohurxm6O4ru4PCCQYfFl8lWcLu3E5FNfUVcPdNZMvhsNr0TKrPil/ppnwj+RkLboq1
+	GRvstPf8HGuxz+F0bisaB5nI+lGtTqLG4V2C5+9x+9IJdgph+7F2S+g4j4eb3vyeonuPL/
+	ABjwt7anNn417szKlzGabfKAmOFY3RCvNgzbqTFScmrv+9SNGINaSyO7LGJkXQemqaEb70
+	AvqG4x4teMftB6XJthjPMjj3YsDYBqO1gWKI7QUt7ZGN3zjxFuaOskzeAoPoplRFpXBQpP
+	U5MFIwupId91Q+SwA4sH2AaMgglVcPXuTAqRJ0IDq+h6r5kTwSH5xJ8T4Clymg==
+From: Marek Vasut <marex@nabladev.com>
+To: netdev@vger.kernel.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Clark Wang <xiaoning.wang@nxp.com>,
+	Claudiu Manoil <claudiu.manoil@nxp.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Wei Fang <wei.fang@nxp.com>,
+	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [net,PATCH] Revert "enetc: Increase eMDIO MDC rate to 2.5 MHz"
+Date: Fri, 16 Oct 2026 20:57:38 +0200
+Message-ID: <20261016185817.54096-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,208 +50,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Document ARM SCMI Telemetry IOCTLs interface.
+This reverts commit 587acb86d6465efdc03f6d8524461e6e725597b7.
 
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-doc@vger.kernel.org
-Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+While the i.MX95 MDIO MDC clock is improved by the commit
+587acb86d646 ("enetc: Increase eMDIO MDC rate to 2.5 MHz"),
+other SoCs use different base clock for their MDIO and the
+MDC clock on those SoCs is set out of specification by the
+aforementioned commit. The fix for the i.MX95 MDIO MDC has
+to be done differently, and will be done so in a follow up
+change. Until that is done, revert the commit to fix the
+other SoCs.
+
+Fixes: 587acb86d646 ("enetc: Increase eMDIO MDC rate to 2.5 MHz")
+Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
-RFC since it still needs more extensive examples
-
-v12 --> v13
- - added to MAINTAINERS files
-v6 --> v7
- - removed useless top '..stlm' reference
- - added new IOCTLs, fixed a few grammatical errors
-v5 --> v6
- - fixed typos
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: Clark Wang <xiaoning.wang@nxp.com>
+Cc: Claudiu Manoil <claudiu.manoil@nxp.com>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: Wei Fang <wei.fang@nxp.com>
+Cc: imx@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org
+Cc: netdev@vger.kernel.org
 ---
- Documentation/userspace-api/index.rst |   1 +
- Documentation/userspace-api/stlm.rst  | 148 ++++++++++++++++++++++++++
- MAINTAINERS                           |   1 +
- 3 files changed, 150 insertions(+)
- create mode 100644 Documentation/userspace-api/stlm.rst
+NOTE: This is for v7.4
+---
+ drivers/net/ethernet/freescale/enetc/enetc_mdio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/userspace-api/index.rst b/Documentation/userspace-api/index.rst
-index a68b1bea57a8..22daa7ebf78e 100644
---- a/Documentation/userspace-api/index.rst
-+++ b/Documentation/userspace-api/index.rst
-@@ -54,6 +54,7 @@ Devices and I/O
-    dcdbas
-    vduse
-    isapnp
-+   stlm
+diff --git a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
+index a90a04a47befd..998aaa394e9c4 100644
+--- a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
++++ b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
+@@ -24,7 +24,7 @@
  
- Everything else
- ===============
-diff --git a/Documentation/userspace-api/stlm.rst b/Documentation/userspace-api/stlm.rst
-new file mode 100644
-index 000000000000..e30b1d1d19bd
---- /dev/null
-+++ b/Documentation/userspace-api/stlm.rst
-@@ -0,0 +1,148 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+=======================================
-+STLM - ARM SCMI Telemetry Userspace API
-+=======================================
-+
-+.. contents::
-+
-+Overview
-+========
-+
-+ARM SCMI is a System and Configuration Management protocol, based on a
-+client-server model, that defines a number of messages that allows a
-+client/agent like Linux to discover, configure and make use of services
-+provided by the server/platform firmware.
-+
-+SCMI v4.0 [1] introduced support for System Telemetry, through which an
-+agent can dynamically enumerate, configure and collect Telemetry Data
-+Events (DE) exposed by the platform.
-+
-+The SCMI System Telemetry driver exposes one or more dedicated devices,
-+named as tlm_<N>, grouped under /dev/scmi/, one for each discovered SCMI
-+instance.
-+
-+An IOCTL based interface is defined in order to enumerate, configure and
-+read telemetry data, as succinctly described in the following.
-+
-+For more details on the uAPI, please see include/uapi/linux/scmi.h
-+
-+Resources Enumeration
-+=====================
-+
-+ - SCMI_TLM_GET_ABI_INFO: Gather ABI versioning detail and basic SCMI
-+   Telemetry features like number of resources and supported features.
-+
-+ - SCMI_TLM_GET_INTRVS: Enumerate available update intervals.
-+
-+ - SCMI_TLM_GET_DE_INFO: Retrieve DataEvent description.
-+
-+ - SCMI_TLM_GET_DE_LIST: Retrieve the list of all the existent DataEvent
-+   descriptors.
-+
-+ - SCMI_TLM_GET_GRP_LIST: Gather a list of descriptors for all defined Groups.
-+
-+ - SCMI_TLM_GET_GRP_INFO: Gather information for a specific Group.
-+
-+ - SCMI_TLM_GET_GRP_DESC: Gather detailed group composition information for
-+   the specified Group.
-+
-+ - SCMI_TLM_GET_UUID_LIST: Gather a list of descriptors for all the SCMI
-+   Telemetry UUIDs defined on this system.
-+
-+Configuration
-+=============
-+
-+ - SCMI_TLM_GET_CFG / SCMI_TLM_SET_CFG: Get or set the whole instance, or a
-+   specific group, configuration.
-+
-+ - SCMI_TLM_GET_DE_CFG / SCMI_TLM_SET_DE_CFG: Get or set the configuration
-+   of a specific DataEvent.
-+
-+ - SCMI_TLM_GET_ALL_CFG / SCMI_TLM_SET_ALL_CFG: Get or set the cumulative
-+   configuration of ALL the DataEvents defined on the platform.
-+
-+ - SCMI_TLM_RESET: Reset the whole Telemetry configuration server side.
-+
-+ - SCMI_TLM_EVENT_SUBSCRIBE: Subscribe/unsubscribe to a Telemetry event.
-+
-+Data Collection
-+===============
-+
-+ - SCMI_TLM_DE_READ: Report the last updated sample for the specified
-+   DataEvent.
-+
-+ - SCMI_TLM_BULK_READ: Report the last samples for all the currently enabled
-+   DataEvents.
-+
-+ - SCMI_TLM_BATCH_READ: Report the last samples for the DataEvents IDs
-+   specified within the samples input params.
-+
-+ - SCMI_TLM_SINGLE_READ: Trigger an immediate platform-side DataEvent
-+   update and report the collected samples.
-+
-+Memory Mapped Raw Access
-+------------------------
-+
-+ - SCMI_TLM_GET_SHMTI_LIST: Gather a list of open file descriptors, one for
-+   each SHMTI memory area defined for this instance, that can be used to
-+   memory-map such areas in the calling process address space so as to be
-+   able to directly access the SCMI Telemetry SHMTI areas shared by the
-+   platform firmware, and parse the TDCF format.
-+   The SCMI Telemetry TDCF format is defined in the specification at [1].
-+
-+
-+Example
-+=======
-+
-+.. code-block:: c
-+
-+	int main(int argc, char **argv)
-+	{
-+		struct scmi_tlm_de_config des_cfg = {};
-+		struct scmi_tlm_config cfg = {};
-+		struct scmi_tlm_de_sample samples[3] = {};
-+		struct scmi_tlm_data_read data = {};
-+		int fd, ret;
-+
-+		fd = open("/dev/scmi/tlm_0", O_RDWR);
-+		if (fd < 0)
-+			return fd;
-+
-+		/* Enable ALL Data Events with timestamps*/
-+		des_cfg.enable = 1;
-+		des_cfg.t_enable = 1;
-+		ret = ioctl(fd, SCMI_TLM_SET_ALL_CFG, &des_cfg);
-+		if (ret)
-+			return ret;
-+
-+		/* Enable Telemetry as a whole, set a 400ms update interval */
-+		cfg.enable = 1;
-+		cfg.active.secs = 400;
-+		cfg.active.exp = -3;
-+
-+		ret = ioctl(fd, SCMI_TLM_SET_CFG, &cfg);
-+		if (ret)
-+			return ret;
-+
-+		/* Read a selection of DEs */
-+		samples[0].id = 0xA001;
-+		samples[1].id = 0x0002;
-+		samples[2].id = 0x1010;
-+		data.num_samples = 3;
-+		data.samples = (unsigned long)samples;
-+
-+		ret = ioctl(fd, SCMI_TLM_BATCH_READ, &data);
-+		if (ret)
-+			return ret;
-+
-+		for (int i = 0; i < 3; i++)
-+			fprintf(stdout, "%llu: 0x%08X -> %llu\n",
-+					samples[i].tstamp, samples[i].id, samples[i].val);
-+
-+		return 0;
-+	}
-+
-+References
-+==========
-+[1]: https://developer.arm.com/documentation/den0056/latest/
-diff --git a/MAINTAINERS b/MAINTAINERS
-index b336521ae4ce..1b614c35731b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26617,6 +26617,7 @@ L:	arm-scmi@vger.kernel.org
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
- S:	Maintained
- F:	Documentation/devicetree/bindings/firmware/arm,sc[mp]i.yaml
-+F	Documentation/userspace-api/stlm.rst
- F:	drivers/clk/clk-sc[mp]i.c
- F:	drivers/cpufreq/sc[mp]i-cpufreq.c
- F:	drivers/firmware/arm_scmi/
+ #define ENETC_EMDIO_CFG \
+ 	(MDIO_CFG_HOLD(2) | \
+-	 MDIO_CFG_CLKDIV(66) | \
++	 MDIO_CFG_CLKDIV(258) | \
+ 	 MDIO_CFG_NEG)
+ 
+ #define MDIO_CTL_DEV_ADDR(x)	((x) & 0x1f)
 -- 
-2.54.0
+2.53.0
 
