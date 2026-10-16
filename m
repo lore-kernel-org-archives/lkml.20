@@ -1,172 +1,138 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010017.outbound.protection.outlook.com [52.101.56.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF4630F55B;
-	Fri, 16 Oct 2026 07:45:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792136748; cv=fail; b=LWm79gspMsCbFoN/IWwP2rjzYL86TM3+Nkwl+MbwQsm3xOklOv9y4GOL6apo/wea2wnx6jOo+LIPgYmTWe1vqOAos3SCKQukyhuDXA3CBSShc2MWq5OkHKkT79j/DNL1cgyZhp/Fubo4ZBacjHvd3BFVdG418kGewKm/MQfgzt8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792136748; c=relaxed/simple;
-	bh=1eb7eK/z8KmhspKevlsijMN8IX/ghszjICF62VNabWA=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ltx9qIdLRZqgJWDw5o26vu0X70ttvAE601ma6YvXi7iDRmWgNubNkdxvMyr4+kptmg8Vie16CikKx/FIsuZ+0CT4pNZISiJfr4J4ZO+uRU5ROP/6J4Z1FxX+XCf1IqUJGp57EeM927Pq7ZnIXpdkBcugTufvV2jo4vkIelaPbkM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=tdNzk38L; arc=fail smtp.client-ip=52.101.56.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EBA036F8EB;
+	Fri, 16 Oct 2026 07:46:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792136780; cv=none; b=fFwMo3wl6QXEWl4Et2tP3pEzduJ2sORO4Jpb06kLGOpQhT4T92EKKmX29+iXlwuMH6QNjlBl1iu/1gIjF2Qln7AUBUbnSJDXdAXRwLvsvPfCsdRoPeAhEDPrhwwty2tVUxwQIfC+av0TsFEXXVbKP5a3gdevlYAqKkrRgxrJPWQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792136780; c=relaxed/simple;
+	bh=hB8KjEjJqEGoRfy52QJFVriNE7pxU3C1rT3WZyPM0sg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N5+G+QpzqhEPtXOihATbUm/E6GbAaDNzaiIglBikh2pa0gLaPp9FoQuCfoG6HZPsrP0x++6bLQTgKQAMK9NvB64hc4UjcbEs6OcKJaCQ2Rr0GtXjb8mKpvqvZX3XivJob4N4qyZaEnQ1ZhUGfJjVaFqeY7eyfpZ+di8xPAw+uO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WJ/WoHq+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="tdNzk38L"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sRtRIAPN9umxGmBZtYoShzkYTsPymI9YmZdUVE6z2AGPoIzQMbQxZiJfIDmvDmSc7baO2+jNmq35MeYi2o7V/jWyu7ncEHvLZDPDXG1ahKxRg2BPL9CtSZZSqYbryQ9GVab1GVP7c7puhSecK8LiJpbx/4fDem6DxzsYzei9y5KYokooj59TXplC/nAKJyRhFHf0JFSXx/gsN5sWwZQX7xJ5oz9AZwnybFLMuDSg5UziWs39YOrdSQK42bIaU1vvGfSqEp+OcPwm/9YXVCJPce7RbTQAwWcK0xpUsytiRpey1aweOKEPQqqIb6armdUp8F+gnh3JaCM9DZLG3YdJmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vSZJp3pmGfT8sGd3uBrAmgVmEQ9345NY9yP+SQc4lrM=;
- b=Chv611IO4uXvBKUK6JlZYge//l5QPxMywlzAlWc7iiZrZlKglEm1MxEvGGyXC+y/UQ9FBt+0h6+VbDckgD1dR6dWOSFwdbMShuu3YuiBHXRUfMgkaCZ5dUNEUMdsicyB16Q3Ku+1foiSmkuMNkTNzyR3hf5fq9YQyBL5BIkJm0CuvmvgQS1P4/4jecybhvocKtABf84+RqLLp38L8yy5X71DZNz/iDY6hsnIQxQ8/7aiOCwMIXREuuG/1yzq2f9nLBUSvLetWQR1+swX/uhveRQyS6QhOZZ4puyCIuvTTA78ELVAOBbVB1OLdZ8V9MzhntFyTbeLxZw7PPHf5GnwYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vSZJp3pmGfT8sGd3uBrAmgVmEQ9345NY9yP+SQc4lrM=;
- b=tdNzk38LiPlU6F1uVz7RpachlED9c45E3vZz1au5lYqtwnFQeFOZ+pL4YZptIBbZhGhz9HNRVlQXEQaoNHZHNuTXlIRwojkgrLrVcJ7YlWoJkQzDZs4ev+3cGvp0MGoa2FdxDI3vHua7ue5uRoxd6bljoenhqbEC4PjIu0FSOTrtZBWPzWucUZXu/xqbb22pU3HLRNSQcPo08weeO+EdPJos/WOkHCy7T+Q+n7XpTiHUDElDgSaff7r1ayx4sBvKpHhLz3dOF5yFyMVEPIoZmRJAK56DFFbcE9zQ7aqRcxD/n+ovG1knRh+GMRHwhEJyqFVetCmds3dgyM28hexReg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB8245.namprd12.prod.outlook.com (2603:10b6:8:f2::16) by
- SJ2PR12MB8978.namprd12.prod.outlook.com (2603:10b6:a03:545::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.13; Fri, 16 Oct 2026 07:45:42 +0000
-Received: from DS0PR12MB8245.namprd12.prod.outlook.com
- ([fe80::e7c5:cfca:a597:7fa4]) by DS0PR12MB8245.namprd12.prod.outlook.com
- ([fe80::e7c5:cfca:a597:7fa4%3]) with mapi id 15.21.0522.016; Fri, 16 Oct 2026
- 07:45:42 +0000
-Message-ID: <cc413ec5-3d69-4fee-9bad-1e6c152b789f@nvidia.com>
-Date: Fri, 16 Oct 2026 13:15:33 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] PCI: dwc: Clean up RAS-DES and register field
- handling
-To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>, Manivannan Sadhasivam
- <mani@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Krzysztof Wilczynski <kwilczynski@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- Rob Herring <robh@kernel.org>, Thierry Reding <thierry.reding@kernel.org>,
- Jon Hunter <jonathanh@nvidia.com>, Vidya Sagar <vidyas@nvidia.com>,
- Niklas Cassel <cassel@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
-References: <20260923071706.1134320-1-mmaddireddy@nvidia.com>
- <179198416084.63727.13083524527951291207.b4-review@b4>
-Content-Language: en-US
-X-Nvconfidentiality: public
-From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-In-Reply-To: <179198416084.63727.13083524527951291207.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0120.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:96::15) To DS0PR12MB8245.namprd12.prod.outlook.com
- (2603:10b6:8:f2::16)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WJ/WoHq+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9901F000C4;
+	Fri, 16 Oct 2026 07:46:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792136778;
+	bh=/5cfg4kcZ+247ukxIkzBDbMpFjAapYr13Xc1y3GaQfY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WJ/WoHq+G5+/VU7Kyyrai5GRSG6o0JrxOP7WCJ8mNdYN3IKCeHPjzRU/g/Sq+rK/b
+	 WU0dWDjdXQglO3oBvt/xna8WCZ7GkvVPBAei43hYv2SsTetD0NoGJZRHVvBVcsbKiZ
+	 ftxmS0e9zXm+rotYpp+9YkhA1HFqCd74p5uF4jWkFqbjqMQm4p2WprJoUoAcZecHwx
+	 YzUIJ5w3YFFdk3aV7piDjzx5BvYKu5qdLCnlCA1c8qzL9kx7ENvMQYwa8txxakaBpt
+	 BUO4zi7Kw1YCF6udev9Kx3Yn8rsPvcoDV1a/VsJ5zafV0GOE7UQTQn1dK/PuPgclUn
+	 snZi6t0oPrvvg==
+Message-ID: <1d850e66-2c8b-4912-829c-ab620de833e5@kernel.org>
+Date: Fri, 16 Oct 2026 09:46:13 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB8245:EE_|SJ2PR12MB8978:EE_
-X-MS-Office365-Filtering-Correlation-Id: a0918519-6ab2-404c-60d2-08df2b597add
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|56012099006|11063799006|4143699003|261009223027099003|22082099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Onhyov0ET5XJmcxHoSxcZwXn/Zw/+D/AXCChhsV46bmX5n7jWmEJ5S+lV4B26hlDo4LhfA0TfT/DFlLgpZirbwL7sALvVAjBdyTUoEt4J5kaElZb2SvEtEFkM++JzmiWD5dICSfg1xpI7HyO2s+W27/5KbL24qtTdPgnBG2HITdStP1mwBq97hKOQ3IBVHEeMqnRA9jRDfk+PcounPh9LqqgrQ2wJHCOQ70U3+0d1y8IJwaibHOCGfE/oEoWZiIKB0UKzFmX1UVsdEx97HY/KtsRBNOrjed/AmmhuCLgiwEdquhHmMQxcKOLwD22Gds+0eLuPgF5X9jXzl+j4FzW/Hm60c/nppclHB0RDrEn/f5NsHFbYV1wmEq/sNOWCI5vBEfBc7uAqc+a8JCnRzPzA66xypAkkBg6LBTOEaiGO9Dl8tiTFuoFe9sWhQt/Lj4tzb9SEYuJxLQV+GMtJojxCDPCO1yQ1Nwnzu0jVwR4izkFqtcydtCv9gGiE+vziZByNqzXlMhUoOmBH22PamX1iHUW5aR7PaIREw0waSEAu8Qox05JIyN8KgvIyGOXtx4CLauKFPg+ZGtrXxeQT/l3BEw9BigGUZWZQaSAq/g1Hgi9slYAxmFFQKYsEOic1au5b4Go1+pM9fMhF946+Mn1ZLhR0Sr8Gxvd+RFD8FOp2vE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB8245.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(56012099006)(11063799006)(4143699003)(261009223027099003)(22082099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eDczNDVLME90bXp6eGFsYkh1bGM1NzJGbHpWSkFSMzg0YVhXT1ZlMHAxdDN6?=
- =?utf-8?B?RXQ1aHFXTjBHcC83VVJyeWRnZFFuNS9EbzZpSGtzcnJxS0I3NGZTWkk2Qk9O?=
- =?utf-8?B?T3JmUlpndm9KWFdKY3pNR0xBenJCWklvTkJnSHNUeTFVSWxiMmdsVEx4NnFk?=
- =?utf-8?B?eURSZHd2Mlp1N2tLb25HSDRZMlptUmtpSlZ4TjkwTk9IQnZSVmRnWldjUm51?=
- =?utf-8?B?RkpFK09DZERCWEFZaHZuQnY2WjdaOXVEQThwTUJ1RUgxSW43SzJ3ajlzbDFP?=
- =?utf-8?B?L3Y4Y1hjTk5yT1IzNUJROENZK1BtRXZWZUpNMzgzTVVCazA1VldNVDB4eUxj?=
- =?utf-8?B?REx3M1pMdkZMQU5PZCtTVTdqV3F6V3AzUTB6NGtyS2grOVVpdWNTcGdMUjly?=
- =?utf-8?B?L3V4KzVWcXptU3BwNWNaemdkRE80clBhL283eEYzUDBOQkRTUkxOcHI4V2xX?=
- =?utf-8?B?bVM4YWt2N0FhR1JWRStQUTdrRFNuS3ZobUFlQmRxZWtZckw1czhYQXlOLzgv?=
- =?utf-8?B?RGgvMnB6dmszekk1UlVaZzlCRUg4U3JRSkMxajVxd1BHb0RlVW1iMmNOTlBV?=
- =?utf-8?B?ZlZQeGxDMTRJUmJmWFZwdWlGanhBME5UWlZnU0lFMlV6VlZ5TDI3N2FucHNH?=
- =?utf-8?B?QU1RVFNzYW9YNWJ2b2lPNlBLUkhkeU5BdGwxb2tWNTRoSE5vbEVlL05mRHor?=
- =?utf-8?B?czV4bHVEOWVVOTJOaVJBQjAzVEp1dTgzVVV6RzJZUnprQk9uWVV1MWFUb2hu?=
- =?utf-8?B?TEdDbkN5d0k2bVFOOVRqTDFMdzVTdDE1UGRSQzFEWlk4blNCUEJXanE1akJP?=
- =?utf-8?B?b2NyOVVnYzd0enVScVhxMHlQRnl1Y05TQVYyR3JBdERyWjViMWFhMkNzbnVD?=
- =?utf-8?B?Yll3OXJqNjl5NitzejNvSU04UnhWUWtpdjZMYUthOGprUW8vTDBDdWtHbFQw?=
- =?utf-8?B?WjBJVVFKdDBuUGpKeXZNM1dhMFZYMzZnZ1I5dWNxKzJwc2hlbEx3cC80bTZy?=
- =?utf-8?B?Z1NYZHFMcEU3UDVWNkZ5ZUZwaUhPR3FZTy80eDF5OFpMeks1OVo3Z1pPNzZu?=
- =?utf-8?B?YVhDcy9HbnovYjU4VE4zcXRNZVYvVVJ4VkRLRDIvUzEzcVlkVXd5elZwZll2?=
- =?utf-8?B?eTNaazBLdXlub1dhdGFsTklldFQ1QlFqZ29FbjNxZFBMaWZDYSsxYU0xU010?=
- =?utf-8?B?ZHduSTNWanJTYkRodTFySUlpeVlUR1I5Mnp3bmd6Z0dBOG56WFNHOVVBS1JC?=
- =?utf-8?B?OG9TWVUzeDdQQlZJTWtoODRhOXEyZUUya1NnN1JZWjJ3ek16dWtMMEp0aVp4?=
- =?utf-8?B?dllzKzhVWjdKOFUzemVaK05rNzZvS285alFFSEt0TjMwVkwvWTd0YTNZRXlu?=
- =?utf-8?B?b2RxNUxmUkJRSlZSWlFXN29qdzRNQ2F3REt0WUN6VkZJOUVpRTU4Y1psYXls?=
- =?utf-8?B?c3VYdVRGNllSV2RKSGtudmNjRWx2d2tzMlRENEdxZHlJNzNlMjdkY3NWZk15?=
- =?utf-8?B?RUttbFY3ZG5qdEhYUHlqdHl6YXBxcFdtcEZIdENZUUp3MmNrbGx0MmlWWDBE?=
- =?utf-8?B?ZDJmcUpyOExKaStKbk0vRXcvbVV6b2laNG50S1RiYlhKb2k5bFVNdGxKK0hL?=
- =?utf-8?B?ZHNQdDJuNEpFUU9aVXkvK1BJaFk1Wk9WNkFxRi9ER1MzdTBWdEY5Y2VqMmpD?=
- =?utf-8?B?TFJic1lTcTgvRXBxSUFiUUErT3BMMWUwdnA3cU82TVdON1laWDNoV2ZCN3VY?=
- =?utf-8?B?UlFDaTZ0ckFJTDNCRVFnQlZwL3drRVRGMkFXSytIc2pFVG1jeU1NbEMrN3dZ?=
- =?utf-8?B?NjBmQzczUHd6TCtkbUpjVnJyUDc1OXFmR1JPYkVSNTVuU1ZDUDZqMlUzQ0U2?=
- =?utf-8?B?RUcrUldSVWZzREpTd0RYNEg0K0prNGcrSVd2UVZsWEgwRDlWL0w5RGFzZWRX?=
- =?utf-8?B?RzRBQllkbEV2L045Uk5RUmpYaEJ4M0o1aXJBckl0MldMVXVnRVVKVFVOUjl2?=
- =?utf-8?B?Z29ZT0QzSS9WdDcxaGhGSm9KMnFpd2NwNUp0RTB3L09PL3JYNGh2MHU5ZXZF?=
- =?utf-8?B?NjlkcGNZS1Y0WGZJeTNGTFBlb1RocmxER3hhVFUwekhnYWIxRVNtWklET3Rv?=
- =?utf-8?B?eS9vMDg0blZ6VnlCT1NoVHNuTVlYMW4wZ2F6NllLdENVcmNxeXhueW5pbHZp?=
- =?utf-8?B?WFEzbzRUa1VwM0hyYkU4S05oU0ZSbEZ1Wk1PSjNVWExGcG1tZXJJYVZWL2N5?=
- =?utf-8?B?NGliSVdGaURITmVpejIrYml5WWhHajhqRmtoZXFaOFdlU2ExVjA5dmR0ZVM3?=
- =?utf-8?B?Y2MzUWtVclhRL25OVlFnSTBzZ1ZoTE5INkEwMkhscmtSREIzenFuUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0918519-6ab2-404c-60d2-08df2b597add
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB8245.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 07:45:42.5001
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QkSsPLEeZ3GyTXd08re9ndXQZFyMmRDYRmEKg1Rl34eMnHdfbWEBOmEzQBaRvVGwZS+TWpdqK91mWAjckmqgnA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8978
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/page_vma_mapped: continue past nonmatching huge PMDs
+To: Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Rik van Riel <riel@surriel.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>,
+ Lance Yang <lance.yang@linux.dev>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261016011549.61146-1-kylebot@openai.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261016011549.61146-1-kylebot@openai.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-
-On 14/10/26 6:52 pm, Manivannan Sadhasivam wrote:
->> This series addresses review feedback around register field handling in the
->> DWC PCIe code and the Tegra194 PCIe driver.
->>
->> The first patches add shared masks for the RAS-DES event counter fields,
->> convert Tegra194 register programming to FIELD_PREP()/FIELD_MODIFY(), and
->> drop shift macros that become unused after the conversion.  The final
->> patches make Tegra194 use the common RAS-DES selector definitions and
->> consolidate the event counter field definitions in the DWC header.
->>
->> There should be no functional change intended beyond making the
->> bitfield programming explicit and keeping the shared RAS-DES definitions in
->> one place.
->>
+On 10/16/26 03:15, Kyle Zeng wrote:
+> A PTE-mapped large folio can straddle PMD boundaries after an unaligned
+> mremap().  If the first part is discarded and replaced with an unrelated
+> huge PMD, page_vma_mapped_walk() stops instead of looking for the rest
+> of the folio in subsequent PMDs.
 > 
-> Series LGTM! Please rebase on top of pci/controller/dwc branch and resend.
+> This also affects migration entries.  A walk that stops at an unrelated
+> huge PMD can leave migration PTEs behind when migration or an anonymous
+> folio split restores the mappings.  Those entries do not hold mapping
+> references and can outlive the source folio.
+> > Skip the current PMD rather than ending the walk on a flag or PFN
+> mismatch.  Do the same if the PMD became nonpresent before the locked
+> recheck.  Release the PMD lock, clear the per-PMD state and advance with
+> step_forward(), so the existing range limit controls termination.
+> This covers present, migration and device-private huge PMDs while
+> preserving the matching-PMD and split-to-PTE paths.
 > 
-> - Mani
-> 
+> Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
 
-Thank you for reviewing the changes.
+THP migration was added in
 
-I rebased the changes and posted V2 at 
-https://patchwork.kernel.org/project/linux-pci/list/?series=1187061
+616b8371539 ("mm: thp: enable thp migration in generic path")
 
-- Manikanta
+which was a couple (3?) of release after ace71a19cec5. Doesn't really make a
+difference for backporting, so we can just keep the Fixes as is (it's the
+obvious right thing to do :) ).
+
+> Cc: <stable@vger.kernel.org>
+> Assisted-by: LLM
+
+We can drop these now.
+
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> ---
+Thanks!
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
-nvpublic
+Cheers,
 
+David
