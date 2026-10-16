@@ -1,150 +1,214 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21FED2E1EE0
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:37:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792165048; cv=none; b=snH1yLVwMm0nFuG37ffjaRwX35rm1HD6jpRcDUqcxZXLbO1kZcpVYgE2mjZCfaV+9zX9OWORsgr+qYY3fETHdYLPbNWMQnFt/4AbumJTVljcPNK8Md17jIIbXVKnnxErGBmhJOaznJnc4bGypy2KuvLNjhvvQpu6KBWeuWAin6A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792165048; c=relaxed/simple;
-	bh=BJljsUnJkQPM+3MvegPkrzhVCtf8iEAM8qv3cJIBz6g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jpdgvePE6WeTP7oPi+FzaYe/YN0hKjjYPLvDXlG+4fzpdIstu/slk3YAr/hhu70KnNB+/jw0x9wAJEZoj2P4BcSs3u+YFoUbKmuH1zsBIl7VLBpSYH6HV5DirBY3UGMTSqGtVfIbd1+iWgb7unEWZyuOII+foRl9IoXfCO4/rE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kqWIGIif; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C8F431499
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:37:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792165065; cv=pass; b=dQCZu+A39QooNUEpGbWqR7BgRGjVRKbckZnpvxj5elmUya80fvFjM0uqVfRr6Og06Qc4lwkI7Ny239ZP01idpmtFwKUPi/vI3YodIGc4ftgNQ7KH/P0RM3bkhKNOJ76Cxsx2LAZTELqbVWeyJy4ZNR5nL6q5SBk5B2EFGXNGxDM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792165065; c=relaxed/simple;
+	bh=Qo77gaAgVQTP0Wo7RjceELd5Xbc+Xpcpp+2uNGjS++w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NgY2SxeivcPji1meWt6TiH1lPLTx0BV0/+iqsDEfmBbZ/sQjoHP9ErGDXmg2LPDyG1/ctDs16bAyzJ+4CQUFOqWGXxAAQbvhmrqfhGKLmipWmdqUB0QbGaMjqD709M1rE6k1cFhOD9pFBNRQUZbri7vkwyh0BY9dFYrhhx8XEfE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SRTdXlBC; arc=pass smtp.client-ip=209.85.210.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kqWIGIif"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a16aaf1f90so38345e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:37:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SRTdXlBC"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-89ff475a152so17275b3a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:37:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792165064; cv=none;
+        d=google.com; s=arc-20260327;
+        b=p0+od3m3UQjoVqGGorWP5Ce2IGzrF3prMMwqbhDvnm+OxEXHJHrqzQNK2XZbo7Dykw
+         1SmdtpVG9zg6TP0mzmxNhsGVZalRE2ULwmKbLGMsFaNl5eDLUxJ7pZIp9zFSTuu/O5qX
+         jplVevwkwPlqh3ksWr8yVloOdC5YPWNlc6zjSrYVvPJDXeDhu6/xKgQ8vRROSYpuo28c
+         jeAe1Jp9iQB8Nsjof0Qzu6WGLXrabw5gE2y5rfTWAA+j4kyW+WE1s5mI7VyCFjVKw6oW
+         fTicLb+5c5WKVgzUvE0Sgg+C7h264KEwwykchHbmo5f4/yLwN0iGP7aIkAUrYzsKqCPB
+         mesg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IYVNPQuFkI4o7N7mZVUWjjX+AiySaZaN5/dMXjnZrJU=;
+        fh=hT2xHl3CwSOGJza7U0isdlkNiF8X6CpRU/lJTeBU88E=;
+        b=bSzIzU6q4xvYQB+YGuYuEKR0geCOfM1ZKYrkIk4E+h3Z+UQgtWwBc+IOsrFqL0VDus
+         mw+6rRuObMmnAhgIkbzVb79sGrMy+4uHVHSJBaG77gk6AIpPTH2mDWtRI1Dd173aA26s
+         +IFZ/7tUp4PVE+2n22AoJ3xGPL9O8DcnCQ20T+Q1zmsyyUOaEPtE1D64knssSbqTLGdZ
+         I9BuVtqgQgXfvLd9JW2V6tIvPmEl0kNDLNJWIiJ8aem2uEwBudJFuAgrEXGJvrJSQ0yB
+         OPYPx58PTmpY/lIsPy8ex32esjBNzwWIent0yBUvv6d8XIl4gAmPAk0P22/7FPqnTyFo
+         SCaw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792165045; x=1792769845; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zFUIOg51HqJDlG6OjR8blFoL3tMPaN2H3D9y20x5MRc=;
-        b=kqWIGIifkRV/VZyhgGc2rOLABdSmnzo5vZ2YS3LT0zy7jWffgovHG5Y62UpsGZIz6S
-         SzrrgHktncRbmAhmNDvL5HlOaCxCPyZNyUD6br8qmVTE1SSrd/PD/3zGyvsyeq/JcwYT
-         Uz67kXHMZwCMgA9TH/lEFeRd9S6ZcgkZZjYmCwAEfIBSbGkxQC9GoQsIj91HncaQkin9
-         G5cL/f0Sm1IclLUQL4gOGuZFNJSbTpaYNHpgzVw6Qy9VtptlyN/Kd8Kfv0p0prkrbhyu
-         AKCu8BXZMPZBMU/Rsro01XV/8N8I7W7oWmA5IwsX9XGwZY7d+zWNHy+2VWs0qGWbW634
-         QGNw==
+        d=gmail.com; s=20251104; t=1792165064; x=1792769864; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IYVNPQuFkI4o7N7mZVUWjjX+AiySaZaN5/dMXjnZrJU=;
+        b=SRTdXlBCvekoW5PINPfdV49NohxYPgGQRBZm5FnfVUnxNnuA5BuD9mdSpi/TIOqEOR
+         fgKMn7C/WWoHD5qgRmYQT0LpiUN7yh7lCQgsbVQFtXrqj3sBe2UxFw9uXnqK34Nuoa8O
+         Mhzz3hJug7hyo/3lxJB261gd43bsgiVl68BasPR5ovDk6bcw1gaODWlVwbd0Qup7pyXe
+         MwSco7WjEDOQpZyYVDW9KU7zT+ai9JcSwgARCYMW5n36/nwnT1v3kto00alV9ErloH1Y
+         ReGPSWhDj9t54Yl9u3M4jsAJ+YNBaINUBE4BGyhdT7w+6VNtZGqXNxoRHdQWqiDLprNc
+         etcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792165045; x=1792769845;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zFUIOg51HqJDlG6OjR8blFoL3tMPaN2H3D9y20x5MRc=;
-        b=YPNZiSZ8klZBlGd3PLxLRm3/HLJJpHU6tPg/AMtLDG2/4MtgibadV+ptPp0LU2BWsp
-         VSu3lTdiHy9/dq1LfKREcnR9jMi3Xafcr14tKIfKtJTj/j5gyjwbl2oSSEfVzX1aF0B8
-         4pLsUivQQ6h483HrJhBeBwS8z3xXnlEOsVv1CDOADZ/3Lx3lYFPNbTu6iOFIpd2bwO6x
-         pG7vm9G2o0AelA7eYmIdP3KJLfv6qpPA1D/qMyAtLGhtoKBrQ6KKBn5sIuglR3Qlsvtv
-         wmRphPiVr8iM4Dl2IgBiBOs1ZLWFXaRmnlwNRWkMUIWskhcvSPLXc+HvJJ0IEjaImm2x
-         X6qQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxSqiIx9O6977UJLgpYILAqy/B1AjyaBOHiiPWdx0IScXgA6QNOxkc9H1HRCSlxUS81F14qaenhYpdMcA0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3GgmQ6tiljazIPT1DlMilzwjHtQJMYx7nek7onurrVUSc7KYg
-	JbW9OJqMLCtlCwRq9o3cAQJjPdXgeoYanQmAJtkKtEzdcnAsvEfbjTU3
-X-Gm-Gg: AYBFou2geRlvXurNA0jGse4AxmgARSPT/GvRz+g+PhsJ23qvMWN9Wm4tnKd+2PuQTPs
-	5a+XPszDMnNg1XKFNdtXlhkQPI5vNxobe+Kyofk0G0hoZISsuK4yybh1T4y6PezJKo4qXnQcSXj
-	MZNsAQ9bgBbOa6+ie6E5Ov1ZEjdSZjDpl5I+DHnShl+i6ksXMLrzbKc6UIkX1cYVyM05ir7Su2g
-	MEI71aAGmH1Iq9GLCgfFi7AyEBHT4kdm2izfVjQKtSFmViHZq8YPTYXTciUF/NOImShjUMULFid
-	9EYE8YnmP0yK77IQSRBa0spJMkgw8VNUXamK1bPI6x3vY+bbn+ZWJFZ6EHmfLEeSmmIGYY8z+tH
-	2eb/iFBdOGcj6a0zhzASTYdFsJyEzffSbV8Iwpz7y7kps7dkLZnRkF+PNJ8l+LyTumgl9mcbZ/F
-	mKz/3l7PSzlgkviKlHYXTDTET4QJJ36Y4kXmcUVz5mjAXvakTGXWmPfFJVaYKc+N0GlYHR0dGNJ
-	SpDPFmfznGcRQLtypUM
-X-Received: by 2002:a05:600c:4e11:b0:4a1:8dc1:7a4e with SMTP id 5b1f17b1804b1-4a1d75e3dd9mr3891085e9.2.1792165045261;
-        Fri, 16 Oct 2026 08:37:25 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f9c41sm6154082f8f.38.2026.10.16.08.37.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 08:37:24 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: peterz@infradead.org,
-	vincent.guittot@linaro.org,
-	Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: christian.loehle@arm.com,
-	elif.topuz@arm.com,
-	linux-kernel@vger.kernel.org,
-	mingo@kernel.org,
-	sh@gentwo.org,
-	Kayra Cizmeci <kayracizmeci@gmail.com>
-Subject: [PATCH v5] sched/eevdf: Fix vprot across reweighting
-Date: Fri, 16 Oct 2026 18:37:20 +0300
-Message-ID: <20261016153721.7843-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1792165064; x=1792769864;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IYVNPQuFkI4o7N7mZVUWjjX+AiySaZaN5/dMXjnZrJU=;
+        b=MeihnDd1597I5aJn3r5eXPpn/meLkpnAbAiLqVE59IpKwRPiv2gkG8t8/DeBVpKHwk
+         2NeoVmtJXWMRCU6Xps56PmpCRXFI6sPRbVIGJUDp/5bIWzflv1ZE3XO+BfGgkb0/Q79h
+         35Qm0mXqO9iAgLp5jsri4VRu8BAXlb+tVo8P11kK4pQeiDhnbtzVc21JUeklSR/XE1qo
+         Zsq8hO7brlx143K5DPbqcw+eJQJIX1YBOoYNmvbQzCdr9P/+5LXsomPJDWPVdAyPAxHg
+         FHXVLK2jgp9n8GX8EucOALrQZ1O7XkMXWMfBbjDAAqGNwa5dGAOsPIZKT28v/kPRlJ1r
+         fNlw==
+X-Forwarded-Encrypted: i=1; AKwUvBz47BlFs7jRX4VstGQVj7OgYd0Lvs1HSJ3OYyRbHd0ZUf0pqdit6WQYEecKb5DEB48UrbDJq4HzJoAjbUU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/CMzN1Mclry+bxS3LzXw8/JP51Zm4L+Ku/7FX5GGcIn73/VgH
+	RNXHXEowaA4s49hQ4tuRD66B3gSfuQMnKJzkZqrfWwCS7kEAEy9hYRPqbq6UzIHriTwVIm1GD+V
+	rwHq4D9jGTU1U3FrwM9z8TSDgnB4M5kA=
+X-Gm-Gg: AYBFou2tP9TpIcYaCx4JxtoUk41pmjuum+WrXygAviBctQG+PnEEgsQf8epKaUMTunm
+	9fnmSojSjkEoe4bzrc6dapqN4nvbUKLgnVFVf7AxXGArjZ/Z6fo+/di5l5WszxAnaPeiGppfmoz
+	Bspyd0LdVDxJw0gGtis+cvM09EHwkYFGVl/lk4bfcv+0oqa7hkhFdx75cJiSMGpM83UqJrllPrm
+	8uMDXsQ3blqByOynRKO26efwmmw29x3x2hMIec/8js8G9pvIPB11qDpOHn21P6AgrSNA3RLbfF7
+	poBIC9sRsXY7SEGeNMPx4ToRB+AWPstvt/xH3OvVx9qZlZ2Rtv8sYcWT
+X-Received: by 2002:a05:6a00:4b42:b0:888:4f06:903f with SMTP id
+ d2e1a72fcca58-897c78d5fe8mr18023757b3a.38.1792165063703; Fri, 16 Oct 2026
+ 08:37:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1788222001.git.mradityadash@gmail.com>
+In-Reply-To: <cover.1788222001.git.mradityadash@gmail.com>
+From: Derek John Clark <derekjohn.clark@gmail.com>
+Date: Fri, 16 Oct 2026 08:37:32 -0700
+X-Gm-Features: AclHuK-sUJKTjgoZIBWIIHtbP1GEijbCkJsUj_4hV98hycsPoEpLJOyCwEPUX-4
+Message-ID: <CAFqHKTkStExZHvFKP0Kh8USQaGfx0jXO5QmvY4vNhT0eB6ENSw@mail.gmail.com>
+Subject: Re: [PATCH v3 0/7] HID: hid-lenovo-go: fix controller configuration
+To: Aditya Dash <mradityadash@gmail.com>
+Cc: Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
+	Mark Pearson <mpearson-lenovo@squebb.ca>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Currently in reweighting, while a tasks vruntime changes dead protection
-could go alive, or alive protection could decrease, increase and go dead.
-Fix it in reweight_eevdf(), and just cancel it in the sched_change_end()
-path.
+On Mon, Aug 31, 2026 at 11:36=E2=80=AFPM Aditya Dash <mradityadash@gmail.co=
+m> wrote:
+>
+> This series fixes several issues in the controller configuration and
+> calibration paths in hid-lenovo-go.
+>
+> 1/7 fixes the calibration attributes, where the command and sub-command
+> are swapped. 2/7 fixes two right-controller attributes: imu_enabled
+> selects the bypass feature, and reset targets the left controller.
+>
+> The configuration interface initializes its command completion after the
+> HID hardware starts and opens. 3/7 moves that initialization before both
+> hardware operations.
+>
+> Before 4/7, any decoded configuration reply completes the shared
+> completion. The driver then ignores the result of the wait, so an
+> unrelated reply, a firmware error, an interrupted wait, or a timeout can
+> still be reported as success.
+>
+> 4/7 tracks one pending request in the driver data and matches replies by
+> command ID, command, sub-command, and device. It initializes the new
+> completion and spinlock at the pre-hardware point established by 3/7. It
+> also returns request errors to the caller.
+>
+> The firmware has no sequence number, so a late reply with the same tuple
+> can still match a newer request.
+>
+> The remaining patches fix calibration status handling.
+>
+> The calibration status table defines 0x00 as unknown, 0x01 as success,
+> and 0x02 as failure. A Legion Go 1 returned 0x08 after a Stop was sent
+> while no calibration was active. The driver stores the raw value as a
+> status-text index, so a later read returns -EINVAL.
+>
+> 5/7 preserves the defined values and maps larger status values to
+> failure.
+>
+> 6/7 rejects 'unknown' as an action. The action table contains it at index
+> zero, but the options attribute advertises only 'start' and 'stop'.
+>
+> A previous result can also hide a new calibration attempt:
+>
+> failure -> start -> failure
+>
+> The status appears unchanged for the whole operation. 7/7 clears the
+> selected status to unknown before submitting a Start. Stop leaves the
+> status unchanged.
+>
+> I built every patch against kernel 7.2.1-ogc3.1.fc44.x86_64 with
+> W=3D1 and KCFLAGS=3D-Werror. I tested the exact final module on an Origin=
+al
+> Legion Go. The configuration interface bound without a kernel fault.
+> An idle Stop result of 0x08 was reported as failure. Writing 'unknown'
+> returned -EINVAL without an output report or status change. A later Start
+> produced failure -> unknown -> failure; the final report contained result
+> 0x02 and error 0x0007. The five unselected statuses stayed unchanged.
 
-Fixes: 80390ead2080 ("sched/fair: Separate se->vlag from se->vprot")
-Fixes: bcd74b2ffdd0 ("sched/fair: Only set slice protection at pick time")
-Suggested-by: Vincent Guittot <vincent.guittot@linaro.org>
-Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
-Signed-off-by: Kayra Cizmeci <kayracizmeci@gmail.com>
----
-Changes v4->v5:
-* Use Vincent's comment
-* Grab Tags
+For the series:
+Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
+Tested-by: Derek J. Clark <derekjohn.clark@gmail.com>
 
-v4: https://lore.kernel.org/lkml/20261016150402.6952-1-kayracizmeci@gmail.com/
+Jiri,
+Aditya didn't tag stable in Cc for the fixes tags, do you mind adding
+that when you pull?
 
-Not tested.
+Thanks,
+Derek
 
- kernel/sched/fair.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 0feec172fd37..fd8902813c9f 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -4892,12 +4892,15 @@ static void reweight_eevdf(struct cfs_rq *cfs_rq, struct sched_entity *se,
- 	update_load_set(&se->h_load, weight);
- 
- 	if (on_rq) {
--		if (rel_vprot)
--			se->vprot += avruntime;
- 		se->deadline += avruntime;
- 		se->rel_deadline = 0;
- 		se->vruntime = avruntime - se->vlag;
- 
-+		if (rel_vprot)
-+			se->vprot += avruntime;
-+		else if (curr)
-+			se->vprot = se->vruntime;
-+
- 		if (!curr)
- 			__enqueue_entity(cfs_rq, se);
- 		cfs_rq->h_nr_queued++;
-@@ -8202,6 +8205,14 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
- 	if (!curr) {
- 		reweight_eevdf(cfs_rq, se, weight, false);
- 		place_entity(cfs_rq, se, flags | ENQUEUE_QUEUED);
-+		/*
-+		 * During a sched_change pattern, current is dequeued and
-+		 * cfs_rq->curr becomes NULL while rq->donor == p. As all
-+		 * properties can change, cancel slice protection which is
-+		 * not reliable anymore.
-+		 */
-+		if (task_current_donor(rq, p))
-+			cancel_protect_slice(se);
- 		__enqueue_entity(cfs_rq, se);
- 	}
- 
--- 
-2.53.0
-
+> ---
+> Changes in v3:
+> - Initialize command completion state before hid_hw_start() and
+>   hid_hw_open().
+> - Remove the unreachable zero-length calibration action path after
+>   rejecting 'unknown'.
+>
+> v2 review:
+> https://lore.kernel.org/all/CAFqHKTnQiTQc6joz-Y6tmjR=3DC5giF-MuHeBwu3rw+b=
+mFVMQtqw@mail.gmail.com/
+>
+> v2:
+> https://lore.kernel.org/all/cover.1788096666.git.mradityadash@gmail.com/
+>
+> Changes in v2:
+> - Drop the FPS DPI patch; the existing request is correct.
+> - Drop the v1 Boolean calibration-result mapping. Preserve values 0x00
+>   through 0x02 and map only larger failure values.
+> - Move the existing pending command state into the driver data and
+>   initialize it in cfg_probe().
+> - Use scoped IRQ-save guards and validate the report size and ID together=
+.
+> - Drop the v1 no-wait calibration path. Correct requests receive their
+>   matching SET replies within the existing 50 ms timeout.
+> - Reject 'unknown' and clear only the selected status on Start.
+>
+> v1:
+> https://lore.kernel.org/all/20260821214810.87826-1-mradityadash@gmail.com=
+/
+>
+>
+> Aditya Dash (7):
+>   HID: hid-lenovo-go: use the correct calibration commands
+>   HID: hid-lenovo-go: use the right controller selectors
+>   HID: hid-lenovo-go: initialize command completion before hardware
+>   HID: hid-lenovo-go: return configuration request errors
+>   HID: hid-lenovo-go: normalize calibration failure status
+>   HID: hid-lenovo-go: reject unknown calibration action
+>   HID: hid-lenovo-go: clear calibration status on start
+>
+>  drivers/hid/hid-lenovo-go.c | 191 +++++++++++++++++++++++++++---------
+>  1 file changed, 142 insertions(+), 49 deletions(-)
+>
+>
+> base-commit: 1292bca0f8d835d2ad96d309595b2e97f3106d3d
+> --
+> 2.55.0
+>
