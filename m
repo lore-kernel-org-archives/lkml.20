@@ -1,99 +1,111 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3B034750F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:45:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA1AB24DCF9;
+	Fri, 16 Oct 2026 02:45:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792118701; cv=none; b=ooHLn5vFZ1raJGfATJ07Ee29hWMgZ8zGdxLBZY/1sh53RiD/8l4ciZpTTDcKeRyCGcHL0f0g+tiEwO1IKuYC3rT87k481N7f9AHfwPhSBaipAEOcWZ2ujkQk8WMnpGCE9C7JYROpyjTsmfzO3XjX9bt/NN2RghPIm6dEJl/r0/4=
+	t=1792118719; cv=none; b=p7SqTFKRTUpREuRRaXWgtWoqZnJUAMHuFWV4TTKW4RYRWH9xKqo+IB4sdvN9vgX6MzLLb9ECJBEIKxkUyX4BYi264i4oXEyuPxLDUEx+IRVYO1KOABc7QCGbk+DWqvqOFURSCiShPOVcAPtS8I1v8hOP6zQsT6or9nJsFv41e9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792118701; c=relaxed/simple;
-	bh=0Vxm4VZCZ8jpZLCSVg0ggNJMQhCWNG8XahSTGZ9xNlg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jt95MSzzfdB1VVqzvJjTPGRb2Lt3/2FL2yOt35YrWwLegCeAw9g5Wn6YTG4pZIEYYCHs4wCRC11GJ2SvnWQzDXjZCJ8ydngft9489cJw2u7DA9kozkHj5mSqmfppNchoN/g8+b7CSO6MSzIQDQ5XtlJbFRduU0ylKHtdIyTEhNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g0/xjsdw; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792118719; c=relaxed/simple;
+	bh=I7+ilmraSUzrcNxZh6aozdurxXD2/t/E4qtyy+eo2ZA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MSpJAeSnPuCysP2YipVMpDnO76UDmnNeWT+YskLH1xgxqVXTdH3dGtikFHCu+U9ZC3imWllrKrVp/3IsMWRsC8EsQj6tmRcn9CkmU3Q+CHOvI0D47SItpJCrMrZzujSYtzP/cXaPi/twcAJcTNRc6Nc3pMJWnNFTFHkGuTY38Ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tl89BIlt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g0/xjsdw"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2dd9cbb661bso43406085ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:45:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792118700; x=1792723500; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bhQu6i5bnomJdqlUlby+n7UCmgHRVsFKdREdnXuUkFg=;
-        b=g0/xjsdwYah8Qb5dh7lkmite/VXew6BEbd1hvCLTn/1Yx08UtcS6BOw2365TdjI2JV
-         wJMACAcM+SGvoZC2C4xRu8JgXr6th25nQNOPVEx3UbC2S9R9mJh72y17MNaTQkFBVFyK
-         qnIeADbUIUUa4GyaSeOYoKwRE9ZKtnX3kXwf0ePhkxiPo6DZgcwl3mb9ZRRbJYk1VtxS
-         GffZ4E29zxTpMHuCt2L+7DDgFQquI0/r7ONAiAjcssQrYhHg59PDnACtq5HsOXIGldzQ
-         CWUfC6bGiHJ3fFKq1yn4UOtLvKUW/QkFCpe5o5C9pUMOFcJQ/pvMK5nzne/od1Qwga/Y
-         IwJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792118700; x=1792723500;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bhQu6i5bnomJdqlUlby+n7UCmgHRVsFKdREdnXuUkFg=;
-        b=qYDFiLEQh5Dhb5rb+2n9T9G2gFUVV0Zv8A1tnJYilv7/PGgo55/oIvyHNIcsQX3jeT
-         YIkQzVv9DMYLS518LnxZHnliuXatHQuiCrfGqQBbWnBM8nuSxYH2W5eccGwnrs5vlyob
-         99bYYhNhV4nifJ3EL9hIwWJpRCvek/tFfbw0ZmBLl9hQxMYG9X4tmFYEZs95JtiNOf8W
-         9uafmnCTt+sr/ASQqjRB24bRBIwWgr/kTIn/r/0vNqNYOupyFxYnHxQ/uEY4Xi71TSWy
-         7ihteucBLbkXiyRQYvfQs9ie9rbyEeraLhYGP6D58/AeVEi+YyJL8lBKNFuhUX81BpQr
-         onGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwWE6SZ72m8+Lp24U7XcNjjWgjtCvpCfHUYa+P7Sr6IpXCbWS/Gc3FGnWM8E1nUcilxfcIfpK7IOu48x/g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLLALP5zx+4Efe1qFKO7RrMFVTmA/OJYQnqxeJplVpF8x3Dx41j
-	ZrqI3mg4GarYA9Yh4RJa4nzBMCdQWxCdy0PF0E9dtKTVLxLRtSbEUiDj
-X-Gm-Gg: AYBFou0MoGgut3u0+hF6VSSfsKdzfe19oJ93csJi+626Q61e94IUMISLnkgdAegrBTa
-	d7p3YC1a5iZzbjoysiR33dj9EK/GXgLlAKCtxH/FlmwEu9Uld6BzFLf3RyUnLOo76B+/7lTaaSG
-	Tx3oyunkd7qLk/UuDR95Zlu1eFW4j389aZGgxuxQDdp3OLgSkshKaj+5RhbFBbZMJdUuAWpS1r/
-	4XSWdAqZ+j5eNi00VL7e4x0p0IsCkZjUqSlNxoXOVPMkXSMshv5/MJUnnFowZFU1DoBUjmNvWJP
-	QG9CZdvsGtN/rYGTCYTe2kYXSFMFH/c+BRZbpilCK18GxwLeNVzNEm0HRpbny1Y15dThKHJMQrn
-	RTErK+Kc42wHQJ7egcbFY5YKZVexN6RLocor09IESrHnB1GOE0CH7/SYJkT8bvn4TDITeyiJp7C
-	NSAcW+8oy3dUBP2KBUQuYVr8EZ/7c5T9+YzhoVNJGyVmBmg2oBtoE+u85exml9OAklmZBA9p2T8
-	Y9DVG4HLCQ=
-X-Received: by 2002:a17:90a:b90:b0:3ab:be66:ddb7 with SMTP id 98e67ed59e1d1-3abbe66df61mr9344941a91.47.1792118699948;
-        Thu, 15 Oct 2026 19:44:59 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc48f4cadsm1769353a91.12.2026.10.15.19.44.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 19:44:59 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jens Axboe <axboe@kernel.dk>,
-	Keith Busch <kbusch@kernel.org>,
-	Hannes Reinecke <hare@kernel.org>,
-	linux-block@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iov_iter: validate extracted segment for bvec alignment
-Date: Fri, 16 Oct 2026 11:44:37 +0900
-Message-ID: <20261016024439.4069212-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261015181702.21329d323eb40d145a6d0c9d@linux-foundation.org>
-References: <20261015061907.2713943-1-4ncienth@gmail.com> <20261015181702.21329d323eb40d145a6d0c9d@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tl89BIlt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1575B1F000C4;
+	Fri, 16 Oct 2026 02:45:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792118718;
+	bh=BlIAy6HWo/kXDgbJZFG7yiw+GQkZq+GDaDT/QL7WkBc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Tl89BIltyTTokDGzdufyAZ6ob3g3JEU0o48X8/1H668RQXcWWw7OyRyyFBGX9KKmP
+	 CB0g0F7rY0BdBYqGSSVNQ0edFTZVri+fs5HG5A29Q+MGETD88WePbAp43yNZ1YYtrm
+	 xFwBOW+dErAYs7zf89loNyvCHLzTsqky9GyIrhHtRG874k9RbroVxl/uzoOZj2Cp2U
+	 /rHTmN0fZiq/y8+Rvq/fuPNdqpHRy2KWcE2ISDosSi2wZx9a7CvXQy92Jxrz4y1Yl7
+	 4Ekl6DvhUxkCNbgOWwQ2jkBa0DhXhOR1I2gh4qczpQ9lk0Kla0a3dVmrGT2DTDEEjY
+	 Y4gnHIBvLxR1g==
+Date: Thu, 15 Oct 2026 22:45:16 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas@t-8ch.de>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+	linux-kbuild@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 4/6] tools: build kernel selftests in tools_build
+Message-ID: <atGPvKj_8pq2VPzh@laps>
+References: <20261011233647.2454648-1-sashal@kernel.org>
+ <20261011233647.2454648-5-sashal@kernel.org>
+ <8ee33f00-bd8f-4cf2-90c4-2961f443af60@t-8ch.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <8ee33f00-bd8f-4cf2-90c4-2961f443af60@t-8ch.de>
 
-Yes for bio-based drivers, but not necessarily for blk-mq hardware drivers.
+On Tue, Oct 13, 2026 at 10:41:00PM +0200, Thomas Weißschuh wrote:
+>On 2026-10-11 19:36:43-0400, Sasha Levin wrote:
+>> Add a "Kernel selftests" sub-menu with one entry per selftests directory
+>> that builds with only a C library and does not write into the source
+>> tree. Each is built as "make kselftest-all" builds it, with KHDR_INCLUDES
+>> pointing at the UAPI headers installed in the object tree, but by its own
+>> make, so the selected ones build in parallel. Selftests whose Makefile
+>> does not use KHDR_INCLUDES still build against the C library's copy of
+>> the UAPI headers.
+>>
+>> The selftests do not track header dependencies, so a selftest is built
+>> again from scratch when its own directory, a header or makefile any
+>> selftest may share, or a kernel source it includes directly (the vDSO
+>> test includes the architecture's vDSO code) is newer than its last
+>> build.
+>>
+>> Selftests that need libraries beyond the C library, a vmlinux with BTF,
+>> or a sanitizer runtime are left out for now.
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: Sasha Levin <sashal@kernel.org>
+>> ---
+>>  tools/Kconfig         | 239 ++++++++++++++++++++++++++++++++++++++++++
+>>  tools/Makefile.kbuild | 100 ++++++++++++++++++
+>>  2 files changed, 339 insertions(+)
+>
+>(...)
+>
+>> diff --git a/tools/Makefile.kbuild b/tools/Makefile.kbuild
+>> index 62fd494253eca..c31347258d0a9 100644
+>> --- a/tools/Makefile.kbuild
+>> +++ b/tools/Makefile.kbuild
+>> @@ -92,6 +92,106 @@ PHONY += perf
+>>  perf: FORCE
+>>  	$(call build,$(outdir)/perf,-C $(toolsdir)/perf -f Makefile.perf O=$(outdir)/perf $(perf-flags) $(perf-flags-y),,TOOLS_BUILD_PERF)
+>
+>(...)
+>
+>> +# Unlike tools/build, the selftests do not track header dependencies. A
+>> +# selftest is built again from scratch when its own directory, a header or
+>> +# makefile any selftest may share, or a kernel source it includes directly
+>> +# is newer than its last build.
+>> +selftest-shared := $(outdir)/selftests/.shared
+>> +selftest-extra-vDSO := $(abs_srctree)/arch/$(SRCARCH)
+>
+>Can we not fix the selftests to properly track header dependencies?
+>That has been an annoyance of mine for quite some time.
+>It would also get rid of a whole bunch of hackery here.
 
-The worst effect I have confirmed is an alignment-contract bypass.  An
-unprivileged O_DIRECT preadv() produced bvecs with offset/length pairs
-(1, 4095) and (0, 1).  The bio reached brd_submit_bio(), and the read
-completed 4096 bytes instead of failing with -EINVAL.
+Ugh... I suppose? The current check is also incomplete: it misses headers
+outside the paths it watches, such as include/linux/annotate.h, which the vDSO
+test pulls in, or tools/arch/x86/include/uapi, used by ir and proc.
 
-I have not demonstrated harmful behavior on real DMA hardware.  For a
-normal blk-mq target, blk_mq_submit_bio() calls __bio_split_to_limits(),
-where bio_split_io_at() rejects the misaligned bvec before queue_rq().
-Virtio-blk and loop both returned -EINVAL in my controls.
+I'll see if I can fix it up... 
 
-So a bio-based driver can receive a bvec which violates its advertised
-dma_alignment, but any further effect is driver-specific.  I have not
-reproduced memory corruption or a crash on real hardware.
+-- 
+Thanks,
+Sasha
