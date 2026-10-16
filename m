@@ -1,133 +1,224 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98387399D0C
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:59:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAD529BDBF;
+	Fri, 16 Oct 2026 05:01:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792126767; cv=none; b=iF7K4Fzr5fdeunQ0pqcuSkju5Q/rBzDCbyWLZKpnBpK5IR2V7ETmx38q6BCpAB6eEjPEfBIJojFYZo5hzEoJ2XTZSqrLMZy6S+mIDA1I2SMEVHH+CLrZizdLF+9c9h8Q59PyosSAV0j80t9+wkfK4BoD7kzMDx83wN2Bj/TXmVU=
+	t=1792126904; cv=none; b=PAeEan4NtCueC67809xhOe9rYrY+ZTNdT7f7MrDHrEer81UN2IDiIPAlAXtRqQXs4pYkhitEevYnUdFgHLt/GKWrD1N+9uFvQBNYRyxdAg0sbwKUQpkXuzUt4PRVknpkPt38wgJEqOve8fzSsdDvWWO8T6czsPOLv05BB2uvEUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792126767; c=relaxed/simple;
-	bh=IO4m2zMuyhW0KS0Jvv/07DF2IaAt20vkVzoV253KRQo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mD25i6VyI3QzKDLjO9Z6zV+ePKK50MlTG4aqUS3DTiWDOLxmob0cNq5TUp3rkkPk+kaTz8ezdAx7rb6+J3bs15GORETqEPRPlJGvcQz2w6hv5++Eg56bVLVT3/FJXC8qUz46yNM0YhRXrq3ysTd0AgJ1fWE8Qxn6eOK43YOuza0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iyof34RX; arc=none smtp.client-ip=209.85.222.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792126904; c=relaxed/simple;
+	bh=cp/8ZH70V0YhpApmeacsEDAWX/CjCq97e5vSV5J0w84=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=HV8X2SQDaIPGnXunQjIduRYOcf19pjhZlnIQzdsHHfu4amLP0+Eusp55OvfRPshiK/kKXBm+JD3AEiZXGJ2RmJuLI39PZ3b7ENwgKjMUm7g/B9rQaUntKejmM7aYkIsbTfuHbGTw9vaFvbMJ5K5E7hhW9THfRrvbR7EF76HdE04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=INUpwWrh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iyof34RX"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93e706a6ba9so763584485a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:59:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792126765; x=1792731565; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KkExTl4ImtT/SqRzjGR9HGgwzVDT2pgqDXXqm237AHQ=;
-        b=iyof34RXGtg4l5AjvSLE7DmExggufR7Eol7Tyd7AsCfGHJUO/TlwZmhcoP7UM2XW9s
-         tO4zj6MUVuJsWKLWqFy3TrN2ZLLYz/0v/zDaLYKO/vYzXS5UkD+IikbKtH7nMEGti17o
-         6Betkzsvm2MPxU4O+E7cg4iUKbIijt98rhAKKGDQnVf+aQpDC8sR1ezcVrXMjZCFGaGF
-         bIVoNdnT/xbCGWYZB+TeO8fj1aozO+aqYcQ4QEeJ9OSlIC8wYOAuXF46EFDCZqOsyQ6j
-         bXa3Ed/wxZ4CEQlAQUgUMQNjGjV6h+ycW+sC3pU0T2j3s7i8HLNLlmnLw3VLx6k/uHi0
-         9iTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792126765; x=1792731565;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KkExTl4ImtT/SqRzjGR9HGgwzVDT2pgqDXXqm237AHQ=;
-        b=xhOHectEwP+MOS7Up0J0EFWdU3bZBJ8wq0tKkrneCBVfOaSfC8t2vh+2EHyRfnOJIy
-         sI8wk/Ae5PUHjhslMJXArqU2qOukFdk8TPqm0UkoOBuWkGTmZkr07qduoluj8T5jHAc3
-         fcfceTG03T3YbV3WnYTs97s81RGHsl0ZBuQxpegO+7Ml3ujYnBddjdLEI+AmAigOD6FM
-         F91fAKMrggD0FUVevm6sUhMZ+DYj8nALuRYUoHfDdxTVyDeBLUhF9VNOrktIox3YjGHu
-         qopKRGqowEiiRBRxm/YVTFHdaC+f2jY5fPvkWi1Vax8Ywppze9+Js9K+Kt2mMd6fkMZG
-         rxYw==
-X-Forwarded-Encrypted: i=1; AKwUvBwtLJlZxypr6WWwTPNDiNo/KMks5T8rkMc99WSkO78GePa1WbcuptMtgP+MFWKLkzKw9PZD7N1OYjmny1U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbthO+r5PA0wwgI/VXb7mMIfWudMyiUpd6fEPNsESbdP/Z8Dpn
-	8stKVmzclhVciWYBtAOqaREV4CDQy8lzQ55C5fMxx3VQp6CEMuXiDOMS
-X-Gm-Gg: AYBFou05qC1QwsDJHKY529MtAQA0rkP4vKhHLE+O1Aou0t4KBHXkLdcjSR38vXvtNkf
-	lhDrgN3m9PuZguYKZO74QpFGKrlu1dyxYOq+qa9/5Y7ngsyqK1ZpMOhjPNgD4WaMeEg8L2lxd5x
-	QT8FFl0doR7/UKjbs230+SBrwGjLzXvuMQq9Na6ZI6WLwFN9Lt6f+13ngzIW51rFp/V6GFAvmsb
-	H9c4RdImeRBtXQ3pX9Bk51g1xxqqQuushV6VRsw3mWKCcPgxSCokZHps7K1rGZOalXYoXIphr+T
-	mwXvXIZEnMjMgi2Zu+Aq7njJK//xPUU9JRjMQEz93ElPQe25tlOVN132LLVAAYa4mCl+8So2SJv
-	MsSoGrlLtN7pBnY5Nd7RJStBKO2D3XXr1hwPcG67c8nd2pkjZ7UjnjU752hkAbNd+/Z0Mus/YzN
-	qoN/NQk691hnu/AdyA+rxWVKeYw2iFIaMlexxck2QKI7bvmIy3Zj26AjPvF95Ir38KlcK14nfKX
-	tcmw4gwqCY6ZGDaKMuuroo=
-X-Received: by 2002:a05:620a:2911:b0:93e:6100:6c1e with SMTP id af79cd13be357-93ebd2448d3mr3640455885a.30.1792126765586;
-        Thu, 15 Oct 2026 21:59:25 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a198372sm118038685a.27.2026.10.15.21.59.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 21:59:24 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Saeed Mahameed <saeedm@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Mark Bloch <mbloch@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Ariel Levkovich <lariel@nvidia.com>,
-	Jianbo Liu <jianbol@nvidia.com>,
-	Alex Vesker <valex@nvidia.com>,
-	Yevgeny Kliteynik <kliteyn@nvidia.com>,
-	Itamar Gozlan <igozlan@nvidia.com>,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH net-next v1 4/4] net/mlx5: HWS, Don't free the send ring CQ buffer if destroying the CQ fails
-Date: Fri, 16 Oct 2026 00:57:49 -0400
-Message-ID: <20261016045849.813696-10-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261016045849.813696-6-oss.patchbox@gmail.com>
-References: <20261016045849.813696-6-oss.patchbox@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="INUpwWrh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7065C1F000C4;
+	Fri, 16 Oct 2026 05:01:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792126900;
+	bh=wBHVgRNlDXmJ9HUEA20sbn0bEvYmP0JVoW+8PHQ8V0M=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=INUpwWrhrdPP3yOkkwrjvoJ14JWbj9S/C7pMLAUyqdr81RnC/fnNT6V7VqZuwp00C
+	 IdxXfSDGp7VejD925Uf9QQt3QzkXrtLup5VU2fmyKWXjD1AIJng8KZr7dMoD/iPC+i
+	 7AaSDOluPGyWTSGkxbXNzr/mBLRO3YESiOa0e1BZBSWhMH9We0RFIDqDzsqDe5uwv5
+	 hRChSRwiuN0lJ86puV2gehsIobiAFpmDQ6RYCiwFCVDlCuf2cgv1AyhAfsgx7T7GEI
+	 HjhMycz89L0BKAx3DCG2KCPw5ZlhKymbe33Yc3uh9+H0L0ixWNfQ5KLP8xBpkRxJHr
+	 cTu7qJ/mShIkg==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Ackerley Tng <ackerleytng@google.com>, linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Alex Williamson <alex@shazbot.org>,
+	David Woodhouse <dwmw2@infradead.org>,
+	David Hildenbrand <david@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Will Deacon <will@kernel.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Fred Griffoul <griffoul@gmail.com>, iommu@lists.linux.dev,
+	kvm@vger.kernel.org, john.starks@microsoft.com,
+	jacob.pan@linux.microsoft.com, gourry@gourry.net,
+	vannapurve@google.com, fvdl@google.com, tabba@google.com,
+	dave.jiang@intel.com
+Subject: Re: [RFC PATCH v1 0/6] KVM/VFIO: guest_memfd support for device
+ MMIO resources
+In-Reply-To: <CAEvNRgGfjHhVCxHhew8AMKhXrX6XDrbrw5zpQM9LaODhJHRYYg@mail.gmail.com>
+References: <20261010072504.536230-1-aneesh.kumar@kernel.org>
+ <CAEvNRgFC6U4er0QhcwVOqWyz657WWWtidkNu0hKS5go4A3cP4g@mail.gmail.com>
+ <yq5a7bjky8wj.fsf@kernel.org>
+ <CAEvNRgGfjHhVCxHhew8AMKhXrX6XDrbrw5zpQM9LaODhJHRYYg@mail.gmail.com>
+Date: Fri, 16 Oct 2026 10:31:27 +0530
+Message-ID: <yq5a1p9qxmqg.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-hws_send_ring_close_cq() ignores the result of mlx5_core_destroy_cq()
-and frees the CQ buffer and doorbell record with mlx5_wq_destroy()
-anyway. If DESTROY_CQ fails, the CQ may still exist in firmware and
-retain access to that memory after it has been returned to the
-allocator.
+Ackerley Tng <ackerleytng@google.com> writes:
 
-Leak the buffer instead when the CQ cannot be destroyed. A device in
-internal error is not affected, since the mlx5 core reports success for
-DESTROY_CQ in that state.
+> Aneesh Kumar K.V <aneesh.kumar@kernel.org> writes:
+>
+>> Ackerley Tng <ackerleytng@google.com> writes:
+>>
+>>> "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> writes:
+>>>
 
-Fixes: 2ca62599aa0b ("net/mlx5: HWS, added send engine and context handling")
-Assisted-by: LLM
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-This was found with a static analysis tool from ongoing, not yet
-published research, and confirmed by code inspection. It has not been
-reproduced on hardware.
+ [ ... 65 lines skipped ... ] 
 
- drivers/net/ethernet/mellanox/mlx5/core/steering/hws/send.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+>
+>>>
+>>>> and GUEST_MEMFD_FLAG_INIT_SHARED. Eligible BAR
+>>>> intervals are registered as guest_memfd memslots. File offsets use the
+>>>> existing VFIO region-offset namespace, allowing one guest_memfd to cover
+>>>> multiple BAR intervals. Device-backed guest_memfd rejects mmap and
+>>>> fallocate; shared guest faults obtain bare BAR PFNs from the provider
+>>>> instead of resolving the memslot HVA or allocating folios.
+>>>>
+>>>
+>>> The model I have in mind is kind of opposite from above. Instead of the
+>>> guest_memfd rejecting mmap(), I'm thinking that the VFIO fd should be
+>>> the one that rejects mmap(), read() and write() once guest_memfd
+>>> attaches to it.
+>>>
+>>> If userspace needed to mmap() the VFIO fd, it should instead mmap() the
+>>> guest_memfd fd. guest_memfd doesn't support read() and write() now, but
+>>> support can be added. The read/write for guest_memfd just forwards to
+>>> vfio if the offset range is shared and blocks if the range is
+>>> private.
+>>>
+>>> For mmap(), for regular memory, mmap() is always allowed, but faulting
+>>> dependsd on shared/private status. It would be nice if the same logic
+>>> could apply to guest_memfds that wrap VFIO.
+>>>
+>>> I prefer the userspace accesses to go through guest_memfd to VFIO so
+>>> that the shared/private-ness can be enforced from guest_memfd.
+>>>
+>>
+>> Sure, I can implement this. I guess read(), write(), and ioeventfd will
+>> continue to go through the VFIO fd?
+>>
+>
+> If you agree to having mmap() go through guest_memfd, then read() and
+> write() should also go through guest_memfd imo. I think it makes sense
+> since guest_memfd gates accesses based on shared/private status.
+>
+> guest_memfd already had plans to support write() [4], so I think
+> supporting read() should be fine too.
+>
+> [4] https://lore.kernel.org/all/20251020161352.69257-1-kalyazin@amazon.com/
+>
+>
+> I'm not super familiar with ioeventfd, let me know if this makes sense:
+> ioeventfd is a kind of config, like mmap() is a config, but faulting is
+> where the actual access can happen.
+>
+> guest_memfd always allows mmap(), but only allows faults on shared
+> offset ranges.
+>
+> If userspace sets up some link between a private range and some eventfd,
+> I think that's ok, since it's not actually doing accesses. When the
+> signalling actually happens, then guest_memfd needs to gate that.
+>
+> Going by that, I think if the ioeventfd ioctls are just setting up
+> links/mapping, then it can go through the VFIO fd.
+>
+> Between going via the VFIO fd and guest_memfd, I think if "everything is
+> wrapped by guest_memfd" a simpler mental model to go with, then maybe we
+> could just go with swapping the entire f_ops with guest_memfd's
+> intercepted version?
+>
+>
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/send.c b/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/send.c
-index df3b93499eebb..21e2d0a26e88a 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/send.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/send.c
-@@ -1005,7 +1005,9 @@ static int hws_send_ring_open_cq(struct mlx5_core_dev *mdev,
+I omitted the rest of the email so that we can focus on the above. While
+implementing mmap redirection through guest_memfd, I found that it
+results in code duplication in both the VMM and the kernel. The VMM
+already uses the VFIO fd for these operations. I think we should allow
+it to continue using the existing flow, with additional checks to ensure
+that it accesses only shared regions. Requiring the VMM to use
+guest_memfd as the file descriptor for accessing CoCo guest resources
+introduces unnecessary duplication.
+
+We cannot move all provider fd ioctls to guest_memfd. Providers may have
+different ioctls that access shared regions, and supporting all of them
+through guest_memfd would not be practical. VFIO_DEVICE_IOEVENTFD is one
+example. If ioctls cannot be moved, the provider code will need access
+checks anyway. For example, for VFIO I do:
+
+modified   drivers/vfio/pci/vfio_pci_rdwr.c
+@@ -44,7 +44,9 @@ int vfio_pci_core_iowrite##size(struct vfio_pci_core_device *vdev,	\
+ {									\
+ 	if (test_mem) {							\
+ 		down_read(&vdev->memory_lock);				\
+-		if (!__vfio_pci_memory_enabled(vdev)) {			\
++		if (!__vfio_pci_memory_enabled(vdev) ||			\
++		    !vfio_pci_gmem_io_access_allowed(vdev, io,		\
++						     sizeof(u##size))) {	\
+ 			up_read(&vdev->memory_lock);			\
+ 			return -EIO;					\
+ 		}							\
+@@ -70,7 +72,9 @@ int vfio_pci_core_ioread##size(struct vfio_pci_core_device *vdev,	\
+ {									\
+ 	if (test_mem) {							\
+ 		down_read(&vdev->memory_lock);				\
+-		if (!__vfio_pci_memory_enabled(vdev)) {			\
++		if (!__vfio_pci_memory_enabled(vdev) ||			\
++		    !vfio_pci_gmem_io_access_allowed(vdev, io,		\
++						     sizeof(u##size))) {	\
+ 			up_read(&vdev->memory_lock);			\
+ 			return -EIO;					\
+ 		}							\
+@@ -380,7 +384,10 @@ static int vfio_pci_ioeventfd_handler(void *opaque, void *unused)
+ 	if (ioeventfd->test_mem) {
+ 		if (!down_read_trylock(&vdev->memory_lock))
+ 			return 1; /* Lock contended, use thread */
+-		if (!__vfio_pci_memory_enabled(vdev)) {
++		if (!__vfio_pci_memory_enabled(vdev) ||
++		    !vfio_pci_gmem_access_allowed(vdev,
++				VFIO_PCI_INDEX_TO_OFFSET(ioeventfd->bar) +
++				ioeventfd->pos, ioeventfd->count)) {
+ 			up_read(&vdev->memory_lock);
+ 			return 0;
+ 		}
+
+
+If we are going to do this, it should also be OK to perform the check on
+the fault path. For VFIO, that is much simpler.
+
+@@ -1766,6 +1764,14 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
+ 	if (vdev->pm_runtime_engaged || !__vfio_pci_memory_enabled(vdev))
+ 		return VM_FAULT_SIGBUS;
  
- static void hws_send_ring_close_cq(struct mlx5hws_send_ring_cq *cq)
- {
--	mlx5_core_destroy_cq(cq->mdev, &cq->mcq);
-+	/* A CQ that was not destroyed can still access its buffer, leak it */
-+	if (mlx5_core_destroy_cq(cq->mdev, &cq->mcq))
-+		return;
- 	mlx5_wq_destroy(&cq->wq_ctrl);
- }
++	/* Check each page separately while guest_memfd controls BAR access. */
++	if (order && vdev->gmem)
++		return VM_FAULT_FALLBACK;
++	/* memory_lock keeps revocation from racing admission and PTE insertion. */
++	if (!vfio_pci_gmem_access_allowed(vdev,
++				(u64)vmf->pgoff << PAGE_SHIFT, PAGE_SIZE))
++		return VM_FAULT_SIGBUS;
++
+ 	if (!order)
+ 		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
  
--- 
-2.43.0
 
+Given the above, it seems much simpler to allow mmap(), read(), write(),
+and ioctls through the VFIO fd. Attach should require
+GUEST_MEMFD_FLAG_MMAP, and mmap() on the VFIO fd should be allowed only
+when that flag is set.
+
+I can post a series demonstrating the implementation duplication if that
+would help.
+
+-aneesh
