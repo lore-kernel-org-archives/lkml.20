@@ -1,178 +1,113 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714192D73B9
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:49:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19B330B514
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:49:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792115391; cv=none; b=TYj/hxhO0HETe85HSl1JSty75etmGXwxSuwsXYQlBE+PL000cgo9qbJX5J/SVsh/rp83hf+tojOTxdSkm1akID8fFxh2twRTum1gFZSIt1WzphHmg/Zu8JA8lKwgX61FmVLToq3T/JKqX+uc8cSUFAzOZe+2BT6oPoVATYNGDCI=
+	t=1792115396; cv=none; b=drFmfJtbYdYy0GqLaeFJLTIi9d37vWCaAqNWpFE/1wJMyeeqiT5n4pmVJp8lP4nNuBalvvNOtrnHklmDZlEpF5djYSEomPoJpj4PuBIIqnmxPi55EZlzr8fduxs5YqKYcArsrCzdxfJuXojScjr6HwGIXONAScmtzD85IUWBu8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792115391; c=relaxed/simple;
-	bh=vHQMynQAsQVRQK8pdrAkY10aqxVPqAzaOxtEB6Poo0k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aI3YwoUbr7MNDHxh7VdNXr/DMUWqsvrbgmFI9VYxbUcZcrkoS5jVKf5VHWFOwSHtNTRltUL3rOCosc0S9Ezh0wCp5OlPu28P9gEcqmKeXqVMrGKChsIE5bEjFvcaqUrLoTRUzHGzegft/h50nKXla/NdCOtiub6H7mBeHXCypOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=TfF16FCD; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1792115396; c=relaxed/simple;
+	bh=Eqwb9cwDQQev6ft8+cembLEHTPbJBIkKYvHZIrXXN5M=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=bonVVDYnmhAsukoMUCayBFxfxYAWii3nKE2/EwoYEXhLMdBOPTf0JmfqDm7G9hbFAL/mtzs84JC8jzcTnmFw/7hvmJmKo3ksaAa1JQLT4kBhMO9I+SDzYlpoQxP/hNBLgxaTqbcqN6w9PpWNHpg1VTq5cB5hmhhnAP60kstsVAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=my1JHfRW; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="TfF16FCD"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so4861744a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:49:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="my1JHfRW"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd5ca3840c5so7233744a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:49:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792115388; x=1792720188; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dPwVl4c1uwtawzWgRvw8g4lYEeVJN5sxbD4YoVW5ucs=;
-        b=TfF16FCDYJt9EvJmkrUpsF+Ru4kEsgZTuuD0a6bck5pebxS4Duli95eF1OPFoM/3lL
-         MB8Fn2WEZ0CRngrVdzmnSlJ6QiDBjAZPwMJJbOETgsbtF/7nrBxncADYTDR9f+iOAoFT
-         6NJDROllO/AgTqw86i8yZu5YqTLiR+W2acYhtDOaFrAXPf3oh4sr5EJ94ntzm+0UnlaK
-         pjfVx5FOZTMIedsUMfImpipXjXxORI9djmSXkCD408rkaGSkzajF37AhPfLZgUO8uSdM
-         a0JJ7waNzSfV3QXmJLhG81w7Z+a/MEaUXCx1r6KxAc69eQMmh1ccbYDNJBujtqg4CE3Q
-         lOaQ==
+        d=google.com; s=20251104; t=1792115394; x=1792720194; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ux01STCnGtDsKdixMlXVkH5njmEmFXWxx+GxqnnoxD4=;
+        b=my1JHfRWj+EB8IK/26eLU+ZYBkHBj1DMvdVEUYurPj4bCJFC6XRB+E3xCFuXtjabgs
+         VYZV71Q+cacQlRGib0n7l1cXSeQPRhwXQAZ8WxSXcgizr/hlPER4WvOcMuqgWJM7DG/5
+         9nzHMECpV9wVI3SO0L/1dxwmJsqq8vKC14M6qQDnhyhqEF4M9tblppYbOqmFx5BbBAr/
+         RVSH3S2sVTKqH8goHgwBoR3iFkDkszJFBnGflfll7kY30+QkP27CHQzwmbRRwnN16v07
+         Jea9hen9Rhg0SqKHNDLBf5RP5LZtHRgswUu9pJF0cKE5i7yUTezuZpj4zpWtUbJmXh2Q
+         8h6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792115388; x=1792720188;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792115394; x=1792720194;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dPwVl4c1uwtawzWgRvw8g4lYEeVJN5sxbD4YoVW5ucs=;
-        b=nwoIVMfsj26ziO1gY+X6P7ni6tGeSZO1p8HUniOnPlz7aUDMxbrD5UR8XyPMD1JAMk
-         zXFNGs5VMkc1nbJ2qWRLDG8s4qk9DDrtZHO4UYaWaYTGHVs1bqf0P0gzcUb+7vxg9C7C
-         MnDuI19VLrxAxhBEa7HGX9oNe96kJ3JKlhD6i0ju38Bcirwqbfc0LHV/zHGw1UWBIz6W
-         HpHQRw5RTc+Ka4saAibxcwJwj/mArrKPcnWzGgnC10YX8za/A6vvirsTai4FPoYhaUya
-         qCdWcblvN26cojsM2NBrUv5J+BvGc7g5H7BuNUaDQiVcXLaQWVXsZk7TRNmlIPCvPS70
-         xlXA==
-X-Forwarded-Encrypted: i=1; AKwUvBymQst6xcFxoGbeGPX3SL1gyUmsqmkwbOYFhonLsrbCE4jCwgyTneSgLYd1H+U6SbSTzk6B5v2iqmsoe/4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9S2e4dyuja/DHgxO5lPmWXQ/aCWAisHK1CnZS2RHdBuZ53kUW
-	aFWjync5ATCCDKutzOAV7FnMFymq12ZwWa4JZuez1PgJ06ri/KAggpMGsPe4zk3ZIBLaSbaR35Z
-	lQChL
-X-Gm-Gg: AYBFou1Tggz1+mZ1yoA0exRPlwftWVTIyUS5kK2y/fBQxY6ecu3n8ZNux0Y7ExomsNP
-	vJy3C3Dw+XzqVxcAbmN+7XxQZpD/lezqRYFHGGeavLJ8yIfZdXwRGYjQyIxILDQHyaIJ8DTQBGa
-	NTcgcOSV2d0WB69r08JsOeEFhRz5SiHcJqSCOyLkJaXbNwoH8vZuX/oWoDUtXQBaT3gVfQMO/7y
-	SrOu+JZ3qo5waW5DxwOhB0MWXTyJs4Q8aAIA01yeqUV2E7iZVHWmzpcSxhrbHqlPN/L8R0Bcodp
-	Divqm3Q38culrVkA8vIFAFB54w+xAOvEyT0EiGXLTiNCjEhECM+nrC+NLgSKbuDzg5O2USfW88T
-	HQMnZmx+uREh9zO9C+++ZSkVNblsBg9oeof0frcpWgA3NJItJweVBlSctO25KwdNtXiE0npLPJ3
-	60Zh9WS5SqVdadpt7KvqGq1BIMWwpFp+efOyJy2se2zJuNcO05+V1BmlzwOYH0vTGNoLvEtqtRi
-	9hofw==
-X-Received: by 2002:a17:90b:57cd:b0:3ac:9d14:fe9f with SMTP id 98e67ed59e1d1-3ac9d1501d1mr3636662a91.31.1792115387985;
-        Thu, 15 Oct 2026 18:49:47 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3b798d3sm236472a91.3.2026.10.15.18.49.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 18:49:47 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Jeff Chen <jeff.chen_1@nxp.com>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH] wifi: nxpwifi: bound the TLV lengths in the 11AX_CFG response
-Date: Fri, 16 Oct 2026 10:49:27 +0900
-Message-ID: <20261016014927.434473-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+        bh=ux01STCnGtDsKdixMlXVkH5njmEmFXWxx+GxqnnoxD4=;
+        b=ak1aBLd+bsZUomoPhxlDIFeMabrTdHkaFV0HiraeqDC/eMpfIOlPvetl97SkchAh0z
+         GDRcWN1WfXLYV2WZk+GXdvazFXRDvz7NaHAWoD5ey40o404GzSkPq/MeA9QgMFjtO1+e
+         lhbCth5w4RTSGi/o7ucStlW0J4AFc5J+03KtccdE4b+LnON4LaNPOeo5HctXhfvPLjTz
+         sQNuH/lbdECBmKWK7B5RETX4NdA37HoZWqLtS78OOktOdKUKCQm+RRXNnuo886iNsto0
+         RveoRy8zVN5XfcHp7XlHvJxAqfgnUJ6cyAtrWJin7+a6RPx3xwZgs7vv94D40MofMPeu
+         jP/g==
+X-Forwarded-Encrypted: i=1; AKwUvBzoNjy7BB+UWcgxfLrYxHkwlE692nE3o2BXTETUsRamOAgLKolzimEvFG6CqdtSkJZvAzPTNG+Czp4wY84=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIcyaa/iv3aS9QxlEp+U0HUYliurQLF4/h1l3wQXiD/2ibD1fpN
+	S/KbyfE9cr/8FyjEeUgyO864PLqGMHz4JmsdBn/oCWIgiggh1H5CyCSqs5NtUrNDqt1bvmM8d4r
+	IjtTV9w==
+X-Received: from pglk7-n1.prod.google.com ([2002:a05:6a02:6b87:10b0:cc7:cb66:8df9])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:5681:b0:3e0:f4a9:3615
+ with SMTP id adf61e73a8af0-3e16beb288dmr17279273637.54.1792115393764; Thu, 15
+ Oct 2026 18:49:53 -0700 (PDT)
+Date: Thu, 15 Oct 2026 18:49:50 -0700
+In-Reply-To: <cover.1791280439.git.ritesh.list@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <cover.1791280439.git.ritesh.list@gmail.com>
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
+Message-ID: <179211526968.809012.4905747914183363587.b4-ty@b4>
+Subject: Re: [PATCH v7 0/8] KVM: selftests: add powerpc support
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, linuxppc-dev@lists.ozlabs.org, 
+	Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, 
+	Anushree Mathur <anushree.mathur@linux.ibm.com>, 
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
-nxpwifi_ret_11ax_cfg() walks the TLVs the firmware returns for
-HOST_CMD_11AX_CFG and copies one of them into two fixed-size
-destinations. Nothing bounds any of the three lengths involved.
+On Tue, 06 Oct 2026 15:58:34 +0530, Ritesh Harjani (IBM) wrote:
+> Patch v5 -> v7:
+> ================
+> (Suggestions from Sean):
+> 1. Added kvm_is_ppc_pseries_lpar() helper in kvm_util.h to avoid sprinkling
+>    multiple #ifdef __powerpc64__ checks.
+> 2. Enable all tests via TEST_GEN_PROGS_COMMON for powerpc
+> 3. Enable hardware_disable_test and skip when running on powerpc pseries LPAR
+>    (nested).
+> 4. Re-arranged the fixes in appropriate order.
+> 
+> [...]
 
-The walk length comes straight out of the response:
+Applied to kvm-x86 ppc_selftests.  I swapped the order of 5 and 6 so that there
+wouldn't ever be a window where the kvm_create_max_vcpus test could fail on LPAR
+setups.  I also massaged the shortlog+changelog for 7 and 8, to explicitly call
+state the tests are being enabled (saying only "skip on LPAR" suggests the tests
+were already enabled, which they were not).
 
-	left_len = le16_to_cpu(resp->size) - sizeof(*he_cfg) - S_DS_GEN;
+[1/8] KVM: selftests: Don't limit LE dirty-bitmap bitops to s390x
+      https://github.com/kvm-x86/linux/commit/ab1d40006720
+[2/8] KVM: selftests: Move memslot_perf_test off the 256M ELF load address
+      https://github.com/kvm-x86/linux/commit/f51639c0ee7a
+[3/8] KVM: selftests: Skip the max vCPU ID test when KVM_CAP_PPC_SMT is set
+      https://github.com/kvm-x86/linux/commit/2bc2c4a8105f
+[4/8] KVM: selftests: Add helper for checking if running on powerpc pseries LPAR
+      https://github.com/kvm-x86/linux/commit/5527310b4d19
+[5/8] KVM: selftests: Skip kvm_create_max_vcpus on powerpc pseries LPAR
+      https://github.com/kvm-x86/linux/commit/9de211597e81
+[6/8] KVM: PPC: selftests: add support for powerpc
+      https://github.com/kvm-x86/linux/commit/1b53b581d4e8
+[7/8] KVM: selftests: Enable access tracking perf test for PPC (with LPAR clause)
+      https://github.com/kvm-x86/linux/commit/e5983ef19a6a
+[8/8] KVM: selftests: Enable hardware disable test PPC (without pSeries LPAR)
+      https://github.com/kvm-x86/linux/commit/23140d6e54ac
 
-left_len is a u16 and the two sizes add up to 11, so a response claiming
-fewer than 11 bytes makes the subtraction wrap instead of ending the
-walk, and the loop condition is only "left_len > sizeof(*header)".
-
-Inside the loop, header->len is used as a memcpy length twice without
-being compared to what is left or to what the destinations hold:
-
-	memcpy((u8 *)&he_cap->ext_id,
-	       (u8 *)header + sizeof(*header) + 1,
-	       tlv_len);
-	memcpy(priv->user_he_cap, (u8 *)header, sizeof(*header) + tlv_len);
-
-The first destination runs from ext_id to the end of struct
-nxpwifi_11ax_he_cap_cfg, which is 50 bytes; the second is
-priv->user_he_cap[HE_CAP_MAX_SIZE], which is 54. header->len is 16 bits.
-nxpwifi_set_11ax_status() declares the struct nxpwifi_11ax_he_cfg this
-writes into on the stack and issues the command synchronously, so the
-frame is still live when the response is parsed.
-
-Do what the driver already does elsewhere. nxpwifi_ret_get_hw_spec()
-checks that the response is longer than its fixed part before
-subtracting, and nxpwifi_update_vs_ie() rejects a token longer than the
-bytes remaining. Add the matching three checks here: refuse a response
-that cannot hold the fixed part, refuse a TLV that claims more than the
-remaining length, and refuse an HE-capability TLV that does not fit
-either destination. A TLV whose length is within those bounds is copied
-exactly as before, including one that fills both destinations completely.
-
-This is not a claim of a reachable out-of-bounds write. The lengths come
-from the device firmware, and whether it can emit these values is not
-something the tree answers. The arithmetic reaches past both
-destinations, the idiom is already in the driver, and the checks are
-cheap.
-
-The driver has not appeared in a released kernel, so there is nothing to
-backport to and no stable tag.
-
-Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/net/wireless/nxp/nxpwifi/11ax.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/wireless/nxp/nxpwifi/11ax.c b/drivers/net/wireless/nxp/nxpwifi/11ax.c
-index 96540914f3cf6..7e05dd5ccaa81 100644
---- a/drivers/net/wireless/nxp/nxpwifi/11ax.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/11ax.c
-@@ -204,20 +204,36 @@ int nxpwifi_ret_11ax_cfg(struct nxpwifi_private *priv,
- {
- 	struct host_cmd_11ax_cfg *he_cfg = &resp->params.ax_cfg;
- 	struct nxpwifi_ie_types_header *header;
--	u16 left_len, tlv_type, tlv_len;
-+	u16 resp_size, left_len, tlv_type, tlv_len;
- 	u8 ext_id;
- 	struct nxpwifi_11ax_he_cap_cfg *he_cap = &ax_cfg->he_cap_cfg;
- 
--	left_len = le16_to_cpu(resp->size) - sizeof(*he_cfg) - S_DS_GEN;
-+	resp_size = le16_to_cpu(resp->size);
-+	if (resp_size < S_DS_GEN + sizeof(*he_cfg))
-+		return -EINVAL;
-+
-+	left_len = resp_size - S_DS_GEN - sizeof(*he_cfg);
- 	header = (struct nxpwifi_ie_types_header *)he_cfg->tlv;
- 
- 	while (left_len > sizeof(*header)) {
- 		tlv_type = le16_to_cpu(header->type);
- 		tlv_len = le16_to_cpu(header->len);
- 
-+		if (sizeof(*header) + tlv_len > left_len)
-+			return -EINVAL;
-+
- 		if (tlv_type == TLV_TYPE_EXTENSION_ID) {
- 			ext_id = *((u8 *)header + sizeof(*header) + 1);
- 			if (ext_id == WLAN_EID_EXT_HE_CAPABILITY) {
-+				if (tlv_len > sizeof(*he_cap) -
-+				    offsetof(struct nxpwifi_11ax_he_cap_cfg,
-+					     ext_id) ||
-+				    sizeof(*header) + tlv_len >
-+				    sizeof(priv->user_he_cap) ||
-+				    sizeof(*header) + tlv_len >
-+				    sizeof(priv->user_2g_he_cap))
-+					return -EINVAL;
-+
- 				he_cap->id = tlv_type;
- 				he_cap->len = tlv_len;
- 				memcpy((u8 *)&he_cap->ext_id,
-
-base-commit: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
--- 
-2.43.0
-
+--
+https://github.com/kvm-x86/linux/tree/next
