@@ -1,282 +1,195 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.184])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C57A38DC64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05513783C5
 	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:37:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161424; cv=pass; b=KoFWBnGaO2/ZpMyr1bx24voKZjbu8rfB/27Ydrsw6yFFYHcwn3HA/av1nC405R3mZzQSe85+M353ISUaAN236j5lg3fXC1yEJIqLXpzr0ADiVAc4aV5Nq0ap7+wUj0FKVi2CKBqzhDW30xd5/WkQ7GxVJ2yEQomXrrOxrjBgHe0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161424; c=relaxed/simple;
-	bh=ujUlbqFARVRrU24S9SzrsDHpBHq1dC3J5fiG/A2DQgA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Nub+A5OviUZMIRV6Pi5JDqjj/FsTUzXJ4ts1qoeCz10JAiYVsGvqFgAR9HH0GLDEK5BzXUj5K0MtATJ+Hs9m3tAsGQT2C0cuheB6+wSpxVbAWToRiUTAjz/e+Q5/+/YdmqPgRhAM137NLJscJ5lQeteHx4pGbv7YpNAVj0xH2Qs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lyeWsXrT; arc=pass smtp.client-ip=209.85.218.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.184
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792161425; cv=none; b=CK9CpNItCJKI/xoUz8TdWATbIdqEZvvJL/kzSMN5w+JyZXuaIMf77c4yC9Yzfb5oUhaoFA25gQXhNzeQ5+TW/Im3ig25VWH5+l3bjhaVq+KuBQu9pBcH6HDoIvRtwjd1bo5wQfTfkuwBNP9+5z7RZrrik88Q1B0a7tPQv9qV65Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792161425; c=relaxed/simple;
+	bh=fQpMUwg3CntePyNnKFLJefuYnAPAVnHwpx2iy3c4qA8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tOmjBg0blM5EoX91sPVWNG8YeRFlltooA+2sTwRAlSFHk3s7YiUX9Ysx/qQpaowIr3dxqVS+UcyJ2hmHETtGcnxA6HFBCaseuqM4ya9wYisCfFN7eKQ220wHyQTLC3oQAvFPbTtUDpWED66gcm+uu1OfgdlwqzG/IYEyFqBcdtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=Z79SESvh; arc=none smtp.client-ip=195.121.94.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lyeWsXrT"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c20ce3c118aso15089466b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:37:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792161420; cv=none;
-        d=google.com; s=arc-20260327;
-        b=G8aETBBk326semdRYLL4LXO5WoEuysbVMDMyL22Gs407gmXBVTzqQQFNNJCahI7uRH
-         JzQTD/B+p4Oq0IP2nLLTMkZyaKcfExJqY4NyZ+57djoI4GxCaZh3LW+8KsGdODsZf1MR
-         vuRoA1X4VpWQgjBZXmuFhzy2KhBu0G0K9ZG0EAiiUNkT18sglU9VvI3COrBamUAT2vKp
-         GRkUkpW2RqoyN5EkMUx6XrWgCvJ4ZteqOHxbfxsKrrjMQpY/5YHBLQyCYJCWc+fKtPXD
-         f4V9l74C6Xh1yik24iaTxjSCE9l0rD/Ko6PNujeyxsJdU38u7ICTXNNwp/v6UvV2k+2Y
-         OzWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QMeLdmNeSzRqBCMCA6wOfSozo6Kjzdsl/j6ahgF1qGA=;
-        fh=RL1GAvUAINYhJ38ds5LmOvkr5GCY+YIPATdkYAqK4ys=;
-        b=fo0oxv5qVi5DGW6l6LHogM+Xy2A/i3DWcnAVsZZAl3/0OSUzzpb52Wg+KMMHs6Pczf
-         SErQpNfHBzPNiJvEmE7YqJjWmjouMUqhAp28NmriuhiJm0I0r80YJ45CMIiv34AEu/Lc
-         lUsxfeE18IsXrK6qA4yWd5bfnidImDqf2O8q24gqbtsHROa1jLfn1hT7XEUZgc20i23N
-         cLQTKJVjJCrHAMVXzY1zcXxiGmqnUseLwJXXhSP/9Ww8L/fMvsUPC5sWYXp0Wm49p/H1
-         Ggd+RafQhLaPbTU0Vnji9cG6cjeSm7ATpdURnCu4Zf15SUWxnJN/4CpMpxVi/UBGKSpc
-         HllA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="Z79SESvh"
+X-KPN-MessageId: 06c9700e-c96f-11f1-a5a4-005056994fde
+Received: from smtp.kpnmail.nl (unknown [10.31.155.5])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id 06c9700e-c96f-11f1-a5a4-005056994fde;
+	Fri, 16 Oct 2026 16:36:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792161420; x=1792766220; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QMeLdmNeSzRqBCMCA6wOfSozo6Kjzdsl/j6ahgF1qGA=;
-        b=lyeWsXrTfPPAcFbwE1fz7s1C1laC9oY3bWOj/B3v318IfjuKZW1iEn8YvigB3KB1jo
-         3H3/QMZy71emFuv7HUOHXk+c58D7DzMRMCurA4sVkzpvSOlKOguCCNRBHO2GCFpzN76J
-         A0N/SyAsjGFPfBjAI50HqWJPgVyYbSS6g1IP8NjoR4g6wWAuGtWz600yXYxbw4PNt3+d
-         SWC7K1eZrvB1ZTrbWeWvx5TCPZ9R15XiWUZGXVtjqo8C8UfVojFrXETgixKgLLbr1CZD
-         42iddg6MbRummAkK2HgFCw02akRcGPm6YF/gxqvZFj5mfFoFB+vUtPJzVihNwz7X8iBU
-         wNtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792161420; x=1792766220;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QMeLdmNeSzRqBCMCA6wOfSozo6Kjzdsl/j6ahgF1qGA=;
-        b=lvntHWeep1A8gMgZgCknA/BMFkM1hjYKCvAuPg/pgOVaIR7kdSPn+O6dbe5bo4cxXE
-         0VNokVBPOuj4QtvZkXaIlYdZN52bp1q18fRviupZaPP+gJwuJMX3zUxlzI14Cqml02uW
-         lUWdvgCFRimrfn8kU64naakqphzGFyTjL3VeLUWm2FsRLWaLoChnDm279xsREADNwt9V
-         dYCP9abSsh8mGdw8alhXuL7/y8nDEZ3TTHgw+2q4SaP4IaLSfqUwr9FrC7jrtlyNNGIf
-         DN9/3jFia8n47ULTv3IssxcCPLxYwko2XgarIWfvH6C+HMJ4qco/xx/5RyyTfEY3xEPI
-         T7JQ==
-X-Forwarded-Encrypted: i=1; AKwUvByYrtU7+d6RHCpTVOVSnNQR6TO8ho8F5cmDYhVq/bOKZ1KzLdZ1eAcRg68yzeF0IoR5Hmy/dxp5SwBAtQc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgl6yiJy220byDoE+LHnHoR/5FYTM7fAdIuQ65vu2YqITVL4tu
-	o+DCHbkxEP6YzBVlYT+ei7fjM63KozQtPIwWvhV8rhfD7rfAdtp8o+We6tmLa2FTnAodkDYTDV8
-	1mW9S3yCgUJ/7lPfeC/X7nOkqzaxPebEfhZ4dPsrs1w==
-X-Gm-Gg: AYBFou0fh4ZjqbhkjgY+BgYpe/O/dwjiYSmy6vdn9jZaQvFWiw0KjF0JRubeFtYVXbN
-	T17fz2rJBGftW6IKyJVO1oMmeIJbHS/AfPqg0rynFCFIMDvyIag+r+I9cDiJjDecncyIIN2nTVl
-	FcOhz+fMgWMKWZSdwzbltDiUb9iJagV2MXCC/GqkvPD38f66AP8jdNgzdVoS/9CMA9hq1F12map
-	41YYzGkJtCwtzprb+VnmQdNhsWcuxZG9O7pKzNV47ppkGnzTDELjvjEzns9ZVg/0UJJghzhZZbN
-	4ZimTdlaPfVQwQVVKULpZevX+rG2DiRmPngy9wS4Fwh3YFh0NOsci2RCyVhA/6d0OjjpBdRBMde
-	9NMIeB+EKTbw0
-X-Received: by 2002:a17:907:d641:b0:c2d:c80e:8366 with SMTP id
- a640c23a62f3a-c41965a9d64mr9703266b.0.1792161420225; Fri, 16 Oct 2026
- 07:37:00 -0700 (PDT)
+	d=xs4all.nl; s=xs4all01;
+	h=mime-version:message-id:date:subject:to:from;
+	bh=bwfehsBPhkePwvekbdwvHcr+iTN8RsYJUW8NxaKmk3E=;
+	b=Z79SESvhcmnlY5MFgnc+lLng5eVN6iawQ1DeBkDyrfd/urcyr90VnvD60UOnwi+maGIcN2Glw0L4b
+	 7+rbB1PRUZzdKy1Xl+lPFjQLxdKU+KQb8KkP8TOkmJ6e68r6mvl1ZmzjDGltYlLoD5e/U8kZkyvkvw
+	 luWTKBxx2TTECKFOMsR7+G8SnkITxPjevww3Bu0llj+9pqHIsWJNJdhQeqvJe6NbRzXqsbFdrXiEnB
+	 nRBFNXT/XafsXgZcbo1IXy9L93nRqV1a5IpRfNEm4w13cgbu5QyAVJEV3hASW5WCNNnJbRqPOiYF+7
+	 aVWhhcdEsIPNVaNOztYUoqlhaPol04w==
+X-KPN-MID: 33|Vj7saAE2gcYCJ8UQYdVxo2bV/swd72e5QC28SFWPIPi6kBIR7j6pbB9jTsgSwyi
+ g+78DJtdGNk0F8qPr5D0+eyGfF4hJ8U04qWakKe+S4iA=
+X-KPN-VerifiedSender: Yes
+X-CMASSUN: 33|AQIM97InwttOrgBEqQpyFV1pOxMV5q9+CzvZPXxn+bi6Ygf9uL7Sjee0trt8zcc
+ nplN5hUeHNPPkjjh1c1Hf/g==
+Received: from daedalus.home (unknown [178.228.137.172])
+	by smtp.xs4all.nl (Halon) with ESMTPSA
+	id 04081c76-c96f-11f1-a202-00505699b758;
+	Fri, 16 Oct 2026 16:36:51 +0200 (CEST)
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Aleksa Sarai <cyphar@cyphar.com>,
+	Jori Koolstra <jkoolstra@xs4all.nl>
+Subject: [PATCH v7 00/12] vfs: add O_CREAT|O_DIRECTORY to open*(2)
+Date: Fri, 16 Oct 2026 16:37:54 +0200
+Message-ID: <20261016143806.2946578-1-jkoolstra@xs4all.nl>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261016084604.17999-1-kayracizmeci@gmail.com>
- <CAKfTPtBYSdrLe09hp3R0V1AgV_FY65mGaLxHUdLVhpZqU6KpKw@mail.gmail.com>
- <atHwIzHeWaw1kXXm@scheduler.schedules> <atH8BI9jCf2gqjTb@vingu-cube>
- <atH-Rf-yL7ewRTgD@scheduler.schedules> <CAKfTPtBW2RymeCLdRr2OraqX=e0RFzM3fuoTP65oG=5x_5opVw@mail.gmail.com>
- <atIxeVCdZufhlnYZ@scheduler.schedules>
-In-Reply-To: <atIxeVCdZufhlnYZ@scheduler.schedules>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Fri, 16 Oct 2026 16:36:48 +0200
-X-Gm-Features: AclHuK9jl0Te1lPaE8F5Y9jVKJtLIw6amT0lTL87qrRQeiW7Vu6jhMMZETC2zUQ
-Message-ID: <CAKfTPtCTK9=8-+F-i=6qX2Wc+J04JKm5Maq1XoZ6jwwhBAZRjA@mail.gmail.com>
-Subject: Re: [PATCH v3] sched/eevdf: Fix vprot across reweighting
-To: Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: peterz@infradead.org, Ingo Molnar <mingo@redhat.com>, 
-	Juri Lelli <juri.lelli@redhat.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, christian.loehle@arm.com, 
-	elif.topuz@arm.com, linux-kernel@vger.kernel.org, mingo@kernel.org, 
-	sh@gentwo.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, 16 Oct 2026 at 16:22, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
->
-> On Fri, Oct 16, 2026 at 04:06:47PM +0200, Vincent Guittot wrote:
-> > On Fri, 16 Oct 2026 at 12:51, Kayra Cizmeci <kayracizmeci@gmail.com> wr=
-ote:
-> > >
-> > > On Fri, Oct 16, 2026 at 12:27:16PM +0200, Vincent Guittot wrote:
-> > > > Le vendredi 16 oct. 2026 =C3=A0 12:45:45 (+0300), Kayra Cizmeci a =
-=C3=A9crit :
-> > >
-> > >
-> > > > > >  se !=3D curr so why is this needed?
-> > > > >
-> > > > > sched_change_begin() sets .running as task_current_donor(), then =
-if
-> > > > > .running is true calls put_prev_task(). put_prev_task_fair() sets
-> > > > > cfs_rq->curr to NULL. While the task still is the donor. Then we =
-enter
-> > > > > sched_change_end(), we call enqueue_task() with cfs_rq->curr =3D=
-=3D NULL but
-> > > > > the donor is still p. There is set_next_task() call afterwards, b=
-ut it
-> > > > > does not sets protection since its called with SNT_NORMAL.
-> > > >
-> > > > okay, but we don't want to spread this all over the code.
-> > > > reweight_eevdf/scale_entity is  doing this already.
-> > > >
-> > > > The below should do the stuff while keeping the computation in rewe=
-ight_eevdf:
-> > > >
-> > > > ---
-> > > >  kernel/sched/fair.c | 26 ++++++++++++++++++--------
-> > > >  1 file changed, 18 insertions(+), 8 deletions(-)
-> > > >
-> > > > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> > > > index 0feec172fd37..c212c6aa9691 100644
-> > > > --- a/kernel/sched/fair.c
-> > > > +++ b/kernel/sched/fair.c
-> > > > @@ -4863,10 +4863,11 @@ rescale_entity(struct sched_entity *se, uns=
-igned long weight, bool rel_vprot)
-> > > >  }
-> > > >
-> > > >  static void reweight_eevdf(struct cfs_rq *cfs_rq, struct sched_ent=
-ity *se,
-> > > > -                        unsigned long weight, bool on_rq)
-> > > > +                        unsigned long weight, bool update_vprot)
-> > > >  {
-> > > >       bool curr =3D cfs_rq->curr =3D=3D se;
-> > > >       bool rel_vprot =3D false;
-> > > > +     bool on_rq =3D se->on_rq;
-> > > >       u64 avruntime =3D 0;
-> > > >
-> > > >       if (se->h_load.weight =3D=3D weight)
-> > > > @@ -4878,22 +4879,25 @@ static void reweight_eevdf(struct cfs_rq *c=
-fs_rq, struct sched_entity *se,
-> > > >               se->deadline -=3D avruntime;
-> > > >               se->rel_deadline =3D 1;
-> > > >               if (curr && protect_slice(se)) {
-> > > > -                     se->vprot -=3D avruntime;
-> > > >                       rel_vprot =3D true;
-> > > >               }
-> > > >
-> > > >               cfs_rq->h_nr_queued--;
-> > > >               if (!curr)
-> > > >                       __dequeue_entity(cfs_rq, se);
-> > > > +     } else if (update_vprot) {
-> > > > +             avruntime =3D se->vruntime;
-> > > > +             rel_vprot =3D true;
-> > > >       }
-> > > >
-> > > > +     if (rel_vprot)
-> > > > +             se->vprot -=3D avruntime;
-> > > > +
-> > > >       rescale_entity(se, weight, rel_vprot);
-> > > >
-> > > >       update_load_set(&se->h_load, weight);
-> > > >
-> > > >       if (on_rq) {
-> > > > -             if (rel_vprot)
-> > > > -                     se->vprot +=3D avruntime;
-> > > >               se->deadline +=3D avruntime;
-> > > >               se->rel_deadline =3D 0;
-> > > >               se->vruntime =3D avruntime - se->vlag;
-> > > > @@ -4902,6 +4906,12 @@ static void reweight_eevdf(struct cfs_rq *cf=
-s_rq, struct sched_entity *se,
-> > > >                       __enqueue_entity(cfs_rq, se);
-> > > >               cfs_rq->h_nr_queued++;
-> > > >       }
-> > > > +
-> > > > +     if (rel_vprot)
-> > > > +             se->vprot +=3D avruntime;
-> > > > +     else if (curr || update_vprot)
-> > > > +             se->vprot =3D se->vruntime;
-> > > > +
-> > > >  }
-> > > >
-> > > >  static void reweight_entity(struct cfs_rq *cfs_rq, struct sched_en=
-tity *se,
-> > > > @@ -4965,7 +4975,7 @@ static void reweight_task_fair(struct rq *rq,=
- struct task_struct *p,
-> > > >       for_each_sched_entity(se)
-> > > >               weight =3D __calc_prop_weight(cfs_rq_of(se), se, weig=
-ht);
-> > > >
-> > > > -     reweight_eevdf(&rq->cfs, &p->se, weight, p->se.on_rq);
-> > > > +     reweight_eevdf(&rq->cfs, &p->se, weight, false);
-> > > >  }
-> > > >
-> > > >  static inline int throttled_hierarchy(struct cfs_rq *cfs_rq);
-> > > > @@ -8200,7 +8210,7 @@ enqueue_task_fair(struct rq *rq, struct task_=
-struct *p, int flags)
-> > > >       weight =3D enqueue_hierarchy(p, flags);
-> > > >
-> > > >       if (!curr) {
-> > > > -             reweight_eevdf(cfs_rq, se, weight, false);
-> > > > +             reweight_eevdf(cfs_rq, se, weight, task_current_donor=
-(rq, p));
-> > > >               place_entity(cfs_rq, se, flags | ENQUEUE_QUEUED);
-> > > >               __enqueue_entity(cfs_rq, se);
-> > > >       }
-> > >
-> > > On the old code on_rq was always false. But because enqueue_hierarchy=
-(),
-> > > se->on_rq is always true. So this just goes to the other path in
-> > > reweight_eevdf().
-> >
-> > I changed the interface and the last arg is no more on_rq but force
-> > the update of vprot
-> >
-> > >
-> > > Also, vruntime can move in place_entity() too.
-> >
-> > But still, this is horrible...
->
-> Yeah. There is really no clean way of fixing vprot in all the ways.
-> Just a cleaner way than the other.
->
-> >
-> > Also, after more thinking, I don't think trying to keep vprot correct
-> > in all cases is worth the effort, nor is it achievable without cost.
-> > When one changes the prio and/or the slice of the running task, that
-> > task might no longer be the best one to pick anyway. We should just do
-> > our best effort like other places where we only decrease or cancel
-> > protection to ensure it will not have an extended protection slice.
->
-> So something like below for !curr path?
->
->         if (!curr) {
->                 reweight_eevdf(cfs_rq, se, weight, false);
->                 place_entity(cfs_rq, se, flags | ENQUEUE_QUEUED);
->                 if (task_current_donor(rq, p))
->                         cancel_protect_slice(se);
->                 __enqueue_entity(cfs_rq, se);
->         }
->
-> Does this work for you? And keeping the reweight_eevdf() part as is?
+This series implements new semantics for the O_CREAT|O_DIRECTORY flag
+combination for open*(2): perform a mkdir and open the resulting
+directory; return a pinning fd (which mkdir does not).
 
-yes, looks good for me
+The v6 was found by Brauner to contain a bug because ->mkdir
+implementations may leave the dentry negative, and do_open() cannot deal
+with that (NULL pointer deref.) This behavior occurs in kernfs and
+tracefs at least. Since atomic mkdir is wanted for cgroupfs (as per
+Brauner at LPC26), kernfs is changed to return the new kernfs_node from
+the kernfs_syscall_ops ->mkdir() callbacks and splicing its inode.
 
-> BTW, I didn't typed a comment right now, so if you say 'yes' I'll add a c=
-omment
-> above how even task_current_donor() can return true on the !curr path.
+Filesystems that do not support O_CREAT|O_DIRECTORY set
+SB_I_NO_ATOMIC_MKDIR, and lookup_open() refuses the open with EOPNOTSUPP
+for them before doing any lookup. These are all ->atomic_open()
+filesystems, which cannot create directories without protocol
+extensions, and tracefs, whose ->mkdir() drops the parent's i_rwsem so
+that the directory at the name may not be the one created by the call
+(or at least it has to be verified that this plays well with the
+atomicity guarantee that O_CREAT|O_DIRECTORY attempts to provide.) For
+ecryptfs and apparmorfs there are similar concerns and hence they are
+also blocked for now.
 
-Thanks
-Vincent
+Most of the work happens in "vfs: add O_CREAT|O_DIRECTORY to open*(2),"
+as may be expected. Before that there is some clean-up work and
+preparation. The "vfs: short-circuit MAY_WRITE access for O_DIRECTORY
+opens" patch is also worth paying extra attention to as it
+short-circuits doomed opening of directories as writable. This check (to
+prevent one from opening directories as writable) is currently done very
+late in do_open(), after an inode has been obtained. However, when
+introducing O_CREAT|O_DIRECTORY this is unacceptable as it would create
+the directory and then still fail. This patch does however change some
+user visible error codes.
 
->
-> Thanks!
->
-> Kayra
->
->
-> >
-> > >
-> > > Thanks!
-> > > Kayra
+Moreover, "vfs: change ->create/->mkdir operations unavailable errno"
+also changes the ->create and ->mkdir unavailable errnos to -EOPNOTSUPP.
+A previous attempt to do this more widely stranded before.[1] However,
+that regression was only for vfat and does seem specific to changing the
+return code from vfs_symlink(). We can drop this patch if needed, but it
+would be _really_ ugly.
+
+Changes from vn to v(n+1):
+v6: https://lore.kernel.org/linux-fsdevel/20260913185016.523376-1-jkoolstra@xs4all.nl/
+   - Change kernfs to instantiate ->mkdir dentry.
+   - Fix kernfs locking when initializing a new inode to hold
+     kernfs_iattr_rwsem.
+   - Add flag SB_I_NO_ATOMIC_MKDIR to disable O_CREAT|O_DIRECTORY on
+     unsupported filesystems (instead of only looking at ->atomic_open.)
+   - Add tests to verify behavior of O_CREAT|O_DIRECTORY on cgroupfs and
+     tracefs.
+v5: https://lore.kernel.org/linux-fsdevel/20260823160706.358293-1-jkoolstra@xs4all.nl/
+   - Uniformize ->create and ->mkdir unavailable errnos to -EOPNOTSUPP.
+   - Return -EOPNOTSUPP instead of -ENOENT when O_CREAT|O_DIRECTORY is
+     not supported by a ->atomic_open filesystem.
+   - Added test cases for dangling symlink and sticky directory
+     behaviour, and a test that verifies O_TMPFILE|O_CREAT is still
+     -EINVAL.
+   - Split off "vfs: lookup_open(): lock the parent as I_MUTEX_PARENT"
+     as a separate patch.
+   - Fixed the issues pointed out by Brauner in v5.
+v4: https://lore.kernel.org/linux-fsdevel/20260712175539.1565444-1-jkoolstra@xs4all.nl/
+   - rebased on 7.2, which includes my changes to auditing in
+     lookup_open() as well as Neil Brown's changes to the same function
+     for the implementation of vfs_lookup_open().
+v3: https://lore.kernel.org/linux-fsdevel/20260704164149.3480051-1-jkoolstra@xs4all.nl/
+   - address the inconsistency in calling audit_inode_child() in
+     lookup_open() versus vfs_create() in a separate series.
+   - fclog.c selftest header fix moved to separate patch.
+   - add a "with trailing slash test" success test to the included
+     selftests. 
+   - pass struct qstr by pointer to trailing_slashes() and add a comment
+     on what it does
+   - changed commit message of "vfs: add O_CREAT|O_DIRECTORY to
+     open*(2)" to address comments of Brauner
+
+[1]: https://lore.kernel.org/linux-fsdevel/90228c39-04e7-41ef-ad91-84a8bb866650@sirena.org.uk/
+
+
+Jori Koolstra (12):
+  fs/namei.c: use trailing_slashes()
+  vfs: prepare vfs_creat|mkdir_no_perm for reuse in lookup_open()
+  vfs: lookup_open(): move setting FMODE_CREATED down
+  vfs: move ->create check in lookup_open() to before try_break_deleg()
+  vfs: lookup_open(): use vfs_create_no_perm()
+  vfs: lookup_open(): lock the parent as I_MUTEX_PARENT
+  kernfs: hold kernfs_iattr_rwsem when initializing a new inode
+  vfs: add O_CREAT|O_DIRECTORY to open*(2)
+  vfs: use finish_lookup() helper in __lookup_slow() and lookup_open()
+  vfs: short-circuit MAY_WRITE access for O_DIRECTORY opens
+  vfs: change ->create/->mkdir operations unavailable errno
+  selftest: add tests for open*(O_CREAT|O_DIRECTORY)
+
+ arch/alpha/include/uapi/asm/errno.h           |   2 +-
+ arch/mips/include/uapi/asm/errno.h            |   2 +-
+ arch/parisc/include/uapi/asm/errno.h          |   2 +-
+ arch/sparc/include/uapi/asm/errno.h           |   2 +-
+ fs/9p/vfs_super.c                             |   1 +
+ fs/ceph/super.c                               |   1 +
+ fs/ecryptfs/main.c                            |   1 +
+ fs/fuse/inode.c                               |   1 +
+ fs/gfs2/ops_fstype.c                          |   1 +
+ fs/kernfs/dir.c                               |  30 +-
+ fs/kernfs/inode.c                             |  37 +-
+ fs/kernfs/kernfs-internal.h                   |   2 +
+ fs/kernfs/mount.c                             |   3 -
+ fs/namei.c                                    | 275 +++++++++-----
+ fs/nfs/super.c                                |   1 +
+ fs/open.c                                     |  42 ++-
+ fs/resctrl/rdtgroup.c                         |  35 +-
+ fs/smb/client/cifsfs.c                        |   1 +
+ fs/tracefs/inode.c                            |   1 +
+ fs/vboxsf/super.c                             |   1 +
+ include/linux/fcntl.h                         |   6 +
+ include/linux/fs/super_types.h                |   1 +
+ include/linux/kernfs.h                        |   7 +-
+ include/uapi/asm-generic/errno.h              |   2 +-
+ kernel/cgroup/cgroup-internal.h               |   3 +-
+ kernel/cgroup/cgroup.c                        |  16 +-
+ security/apparmor/apparmorfs.c                |   1 +
+ .../testing/selftests/filesystems/.gitignore  |   1 +
+ tools/testing/selftests/filesystems/Makefile  |   2 +-
+ .../filesystems/open_o_creat_o_dir.c          | 346 ++++++++++++++++++
+ .../testing/selftests/filesystems/wrappers.h  |  11 +
+ 31 files changed, 691 insertions(+), 146 deletions(-)
+ create mode 100644 tools/testing/selftests/filesystems/open_o_creat_o_dir.c
+
+
+base-commit: 90201351a862182bdabfc1ad1c97b1e1b6ed5931
+-- 
+2.56.0
+
