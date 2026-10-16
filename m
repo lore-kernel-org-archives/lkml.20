@@ -1,207 +1,138 @@
-Received: from business190-3.web-hosting.com (business190-3.web-hosting.com [66.29.153.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6AD9302767;
-	Fri, 16 Oct 2026 08:28:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.29.153.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18FF3D1CB5
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:28:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792139299; cv=none; b=F++uw5CxzPimti+oy2nno+w0UbogKcll2ZxJGzQFhK3+AjdHggLkjMeYSSIWRF1w6nE5Zwl207TLwNbpC/8RMp0y6QPZKrrm/Wf/evltTrVerEyq06vVBg0vmt2r0vuO3/LHkNk+3FmVuB0HuT7r+PRDMRF6e1MJGrM/1kKBFZU=
+	t=1792139313; cv=none; b=rrGPEoc86iYJbxwMwgPPtoXQTbb0yl/+IULV6tyZax1x9H8gFHQMPP9unaKag0Y3pXs2Qm6b25rWMgmqG40Wj9sKLzGI9xxo1QdcffMMxDFOGdUIHrYW5pCPKmEK2tC2GqfKR39WvgSbEqLQZZXq3KP9PMhKkdnMK/q9lu+lmYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792139299; c=relaxed/simple;
-	bh=6LV9wLOnGQtumPmVokzYVkAPy2/Dg57Wk2EpoYUlbTo=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=bQCWr/Z+hn+KJ3Dyqs4RAKtCDUiv5udEsmCXMK+5aRU8LRuEu5qpxU0oTZ31sqObL8y9kdTAp1r/+dlqG2jkRMUarP9NiLuWKaLJ40wvphz7wcpdK6U349ZBShn5NvXPBhCOl3WgDxAyxLFyWgKQeZlOUGWbw6v7F/dGC6u86Xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mathgraph.org; spf=pass smtp.mailfrom=mathgraph.org; dkim=pass (2048-bit key) header.d=mathgraph.org header.i=@mathgraph.org header.b=FhUv+qHp; arc=none smtp.client-ip=66.29.153.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mathgraph.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mathgraph.org
+	s=arc-20240116; t=1792139313; c=relaxed/simple;
+	bh=vUD/VtXc8LvpGGNYrkLmiyoc+tB0xhGq5Xw/a49h3Kk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LQ/2oL/KqL7shiHQyydZdU4QOatA8bvU6OZlFq7IUCCuiDYC6BSZ/rjFVkTnI0+RhE22zx4/CkQ/RA5XUL+Fqd+zjVUyNdGRowY+rHYZ2WalN8sw0oaRgp2u534RprADO0SraEN1FBHVU4o8U5AkLIT87XfMBdzkyRouJ83k7Lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=LBOTHCSu; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mathgraph.org header.i=@mathgraph.org header.b="FhUv+qHp"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=mathgraph.org; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=Kx2v3a8EiiKPqdJGZPX5lUJcVkR1MUr1WjyMhou2L0s=; b=FhUv+qHpa4e5
-	qbHf0z3/Nwf39FGvLLQ81MNxo9BoRxx4/+FmpISTvPyOHougl4Ohgo6U+zt3/oEQYAPBFlpcUdKmA
-	ewUVnMbyQwIQFfjmeytrejA+wydqT/eiULpnYKeFkU/PtDE+UzjWdSs6u50BIxoG3L9l7bnayPc0W
-	01WfW+Rtq1/4zp+59saUwzgfCdcUQZcO3kSxDOoCkuGEABRW8bzxUCAC/ObtuKn8ZqzhMECZ2EhnU
-	3KSxMklKJBurYYUg7mKCvv7PbdWcwAk0zl9/NmlzTOKPzCLEVmD+cT9wKqm/CFhJv2g8qlIqdw+0I
-	7XSwoh0Ob1oNOY/E6IAHng==;
-Received: from [::1] (port=47094 helo=business190.web-hosting.com)
-	by business190.web-hosting.com with esmtpa (Exim 4.100.1)
-	(envelope-from <heath@mathgraph.org>)
-	id 1xHdIN-0000000Fozb-0sqk;
-	Fri, 16 Oct 2026 04:28:07 -0400
-Received: from cgn-ote149-19-21-226.as55850.net ([149.19.21.226])
- via cgn-ote149-19-21-226.as55850.net ([149.19.21.226])
- by business190.web-hosting.com
- with HTTP (HTTP/1.1 POST); Fri, 16 Oct 2026 04:28:06 -0400
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="LBOTHCSu"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc502d509c0so1357558a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:28:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792139309; x=1792744109; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rkLQQcE2uJE3UhEZB2zlpp3KdaEDgDInSe3fSPmJbzs=;
+        b=LBOTHCSuEWrtqhydmFmJjtV1vWrswCmUgkypiZ2pPgeZAGAIp2+PwAXyHdarhkNpAm
+         NG7O3tzpXrnCpfr87K5oos0ra9Jck3rS6Wmp3I5jAGOVfYbHPAPFZlKEjS0PXFn1xIhT
+         M2AwSgl84N61tCcTQrTrt5SF2ms23omi536gYbzGfNAC3NDkhDn/8+IA1U97XQz/fR3v
+         4jBW65kMlsBupxtzVe+leowomLjMwDynfitbvosXpu9lDjmffzDAz76payLxzbMOQhCg
+         RnVp65Ho/oVvCq6egx8qWNVZDZCTCxvFIKvhLLLdDCXrqovw98Ot5F7OZzNeLO376pY9
+         JTzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792139309; x=1792744109;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rkLQQcE2uJE3UhEZB2zlpp3KdaEDgDInSe3fSPmJbzs=;
+        b=gqOXK6JB294nZRkQINN3BN79wL3xF2W61wxydpVZ1z/6hk0gPJ0fV1sn7v+Ab571G3
+         01HNmCuLAIc7Mx6bQ2Qf5Fw7j0fcP4194Vq5H16pFok2OWe0I+B2QvV8Edr2xXpl06fn
+         C9JGcz9VhCFWqup27NZwfOZ3Q7OB9DXMVDRTppXOAuMxR0e3/vNxLlKVrtbxBeR6KvKP
+         RKadh+rGXYslgRbF+gas1YtvmattQBRxPFf1NjCOo4eWL+8cBfc4/bXuxm8+odVk31Hm
+         u+3PSZivFVGlbO3DVOzL0/53/532weDLUNy4M2I+LRCP753Cps9GiHShjDMiDjtp0Umd
+         UfXA==
+X-Forwarded-Encrypted: i=1; AKwUvByGJp+Oy48yMvEov9iZMhvJcF6//I6cDaqQbeTGZYkqGjETo23z2J+fCHyPVc2SRAinxMIHtiuOb+lAEzg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAVGZrY+6JTi56DS6rAbX61UO3WZ5kPHtPOCF9CY15NFJ0dVTw
+	j9XguU76zOX2q5zKQIaHihkfn3oA845fLRu3yzu0Gbp3wW4U0Ou1LX4Mn/3bDKO5CAo=
+X-Gm-Gg: AYBFou1ERSyksm1UOiXVn2yxqnDve58UI/YsqgoSC0fDJ4lHWG1lGiTPIyvrZyk2fHt
+	FugcKzM/Z9GlOIzw1J58fQ93JPJ+FJpFuqyGg+95oLMGSv4baeOn/On3byTHnBgnSQssBcDKLIF
+	23Vc/hQomg5IAbL2JgB7ro3rIkR0Pd0OwR4Ku1Z2+J7ovrD8W5XExkPNpCdWIEAPB7ZgTjTb+NK
+	xl+qL8qdJ6pjr7igQhcwu9RsikJHdFBOOtmJK72guy4DGOmFZM9iLjE3qiBd/CLDg2mEHo/wMaC
+	ApJhxV3jBVrl2I3dBmvqDeeX+8Xd/2B7uvpcz46G/k1i3KcbvFkGECiKJrZmbECYzjlN7F9e+gB
+	mF636/oW/wL+0NYjciNG1JQFVipoNgMeYODODmmmHUpcabaTegEoVJpHjzbZ7N/Rv3WQkYzAMv6
+	N9GH25cJjxiVmPEOwdsaqt/dtqIPdEKISv/3BYIxIvsGnwqFjsWlE5oILI6Y5Q/ko8wv+nEpgR2
+	jv3hS3FffAyLSTP
+X-Received: by 2002:a17:90b:2f4b:b0:3ac:a7ee:6772 with SMTP id 98e67ed59e1d1-3aca7ef2df5mr3692992a91.63.1792139308776;
+        Fri, 16 Oct 2026 01:28:28 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc48f19d9sm3088933a91.11.2026.10.16.01.28.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 01:28:28 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v4 0/3] scsi: bfa: bound the unsolicited frame receive path
+Date: Fri, 16 Oct 2026 17:28:15 +0900
+Message-ID: <20261016082818.1237059-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 16 Oct 2026 04:28:06 -0400
-From: heath@mathgraph.org
-To: Gabriele Monaco <gmonaco@redhat.com>
-Cc: rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] verification/rvgen: reject ambiguous state/event
- transitions
-In-Reply-To: <9fc2d6a03fabc2c756bfa696bc907ef23dcc175a.camel@redhat.com>
-References: <11d37dced04f512153c023b8b7361309@mathgraph.org>
- <9fc2d6a03fabc2c756bfa696bc907ef23dcc175a.camel@redhat.com>
-User-Agent: Roundcube Webmail/1.6.19
-Message-ID: <f8a773ce204c7dfe5b15bdefe21131b1@mathgraph.org>
-X-Sender: heath@mathgraph.org
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - business190.web-hosting.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - mathgraph.org
-X-Get-Message-Sender-Via: business190.web-hosting.com: authenticated_id: heath@mathgraph.org
-X-Authenticated-Sender: business190.web-hosting.com: heath@mathgraph.org
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-From-Rewrite: unmodified, already matched
 
-Thanks, Gabriele! Really appreciate you taking the patch and the 
-clarification on LLM disclosures.
+Three fixes in the bfa unsolicited frame receive path. Together they close
+the length the path trusts, from where it enters to where it is used.
 
-One small question- this work is part of MathGraph, developed at 
-Metalogic Labs. Is there a conventional way to acknowledge that 
-affiliation in the commit? No worries at all if not — I wouldn’t want to 
-complicate or delay the patch.
+ 1  uf_recv() takes the received length straight from the firmware's
+    completion message and only warns if it is below sizeof(struct
+    fchs_s). It is a 16-bit field and nothing caps it at the buffer that
+    was posted, so every consumer below can be handed a length larger
+    than the frame. The worst of them is bfa_fcs_lport_echo(), which uses
+    it as a memcpy size into the fcxp request payload buffer, so that one
+    is an out-of-bounds write and not just a read. Cap the length at the
+    buffer that was posted.
+ 2  bfa_fcs_uf_recv() steps over a virtual fabric tagging header without
+    checking that the frame is long enough to hold it. The length is a
+    u16, so a frame too short for its own VFT header wraps it. Drop such
+    a frame, the way the block above it drops a frame with an unknown
+    virtual fabric id.
+ 3  bfa_fcs_lport_scn_process_rscn() is handed that length and ignores it,
+    taking the number of RSCN events to walk from the peer's payload
+    length field alone. Bound the walk by the received frame length, and
+    reject a payload length below the RSCN header it is measured from.
 
-Thanks again!
+Patch 1 is the source and patches 2 and 3 are two of the sinks; each
+stands on its own, and 1 is first because it is the one that makes the
+length the others use meaningful.
 
-Heath Sanchez
-Metalogic Labs | MathGraph
-https://mathgraph.org
+None of this is tested on hardware; I have no Brocade adapter. All three
+were driven through a KUnit harness on a KASAN kernel that injects a frame
+completion into uf_recv(), a frame into bfa_fcs_uf_recv(), and frames into
+the RSCN and ECHO handlers directly. Without patch 1 a reported length of
+2400 reaches bfa_fcs_lport_echo() and its memcpy runs 72 bytes past the
+2304-byte request buffer; with it the length is capped at the posted
+buffer and a normal frame of FC_MAX_PDUSZ passes through untouched.
+Without patch 2 a six-byte VFT-tagged frame hands the FCS a length of
+65534. Without patch 3 an RSCN whose payload length exceeds the frame
+reads past the frame buffer. With all three, a legitimate RSCN, including
+one that fills the frame exactly, parses unchanged.
 
-On 2026-10-16 03:55, Gabriele Monaco wrote:
-> On Tue, 2026-10-13 at 15:51 -0400, heath@mathgraph.org wrote:
->> The rvgen generator builds a transition table indexed by source state
->> and event. A DOT specification with different destinations for the 
->> same
->> key is currently accepted, and the selected destination depends on the
->> iteration order of parsed transitions.
->> 
->> Reject duplicate state/event keys after sorting the transitions, 
->> before
->> generating the monitor. This prevents silently selecting an arbitrary
->> destination without changing valid automata.
->> 
->> OpenAI GPT-6 assisted in finding the issue, developing the fix and
->> tests,
->> and drafting the changelog. I reviewed the changes and take
->> responsibility
->> for this contribution.
->> 
->> Fixes: cad252db78a9 ("verification/rvgen: Switch __create_matrix() to
->> Lark")
->> Assisted-by: LLM
->> Signed-off-by: Heath Sanchez <heath@mathgraph.org>
-> 
-> Thanks for the quick V2. I'm going to take this.
-> 
-> As a side note, I just read ([1], subscription required) that the 
-> Maintainers
-> decided at the 2026 Summit that models used and other LLM details are 
-> no longer
-> to be included in the changelog.
-> 
-> You don't need to send a V3, I'm trimming that paragraph. Anyway this 
-> kind of
-> transparency is largely appreciated, so feel free to include it after 
-> the --- on
-> your next contributions.
-> 
-> Thanks,
-> Gabriele
-> 
-> [1] - https://lwn.net/Articles/1099594
-> 
->> ---
->> Changes in v2:
->> - Drop the redundant hybrid-automaton regression fixture and test.
->> - Match the full traceback prefix in the negative assertion.
->> - Move detailed qualification results outside the permanent changelog.
->> 
->> Verification: original rvgen suite 30/30; revised suite 31/31;
->> 64 deterministic/hybrid hash-seed replays rejected malformed models.
->> https://github.com/metalogiclabs/mathgraph/actions/runs/38452477359
->> 
->> diff --git a/tools/verification/rvgen/rvgen/automata.py
->> b/tools/verification/rvgen/rvgen/automata.py
->> index fd37ce3..1f9a56a 100644
->> --- a/tools/verification/rvgen/rvgen/automata.py
->> +++ b/tools/verification/rvgen/rvgen/automata.py
->> @@ -418,6 +418,13 @@ class Automata:
->>                   transitions.append(Transition(src, dst, event, 
->> reset,
->> rule))
->> 
->>           transitions.sort(key=lambda t : (t.src, t.event))
->> +        previous_key = None
->> +        for transition in transitions:
->> +            key = (transition.src, transition.event)
->> +            if key == previous_key:
->> +                raise AutomataError(
->> +                    f"Duplicate transition for event 
->> {transition.event}
->> in state {transition.src}")
->> +            previous_key = key
->>           return transitions
->> 
->>       def __parse_states(self):
->> diff --git a/tools/verification/rvgen/tests/rvgen_monitor.t
->> b/tools/verification/rvgen/tests/rvgen_monitor.t
->> index 5f25626..8d635fc 100644
->> --- a/tools/verification/rvgen/tests/rvgen_monitor.t
->> +++ b/tools/verification/rvgen/tests/rvgen_monitor.t
->> @@ -84,4 +84,9 @@ check "invalid ltl file syntax" \
->>   	"$RVGEN monitor -c ltl -s tests/specs/test_invalid.ltl -t per_task" 
->> 1
->> \
->>   	"No terminal matches 'i'" "Traceback (most recent call last)"
->> 
->> +# Reject ambiguous source state/event pairs.
->> +check "reject conflicting deterministic automaton transitions" \
->> +	"$RVGEN monitor -c da -s tests/specs/test_nondeterministic_da.dot -t
->> per_cpu" 1 \
->> +	"Duplicate transition for event event_2 in state state_a" "Traceback
->> (most recent call last)"
->> +
->>   test_end
->> diff --git
->> a/tools/verification/rvgen/tests/specs/test_nondeterministic_da.dot
->> b/tools/verification/rvgen/tests/specs/test_nondeterministic_da.dot
->> new file mode 100644
->> index 0000000..1b63b5d
->> --- /dev/null
->> +++ 
->> b/tools/verification/rvgen/tests/specs/test_nondeterministic_da.dot
->> @@ -0,0 +1,16 @@
->> +digraph state_automaton {
->> +	{node [shape = circle] "state_b"};
->> +	{node [shape = plaintext, style=invis, label=""] "__init_state_a"};
->> +	{node [shape = doublecircle] "state_a"};
->> +	{node [shape = circle] "state_a"};
->> +	"__init_state_a" -> "state_a";
->> +	"state_a" [label = "state_a"];
->> +	"state_a" -> "state_a" [ label = "event_2" ];
->> +	"state_a" -> "state_b" [ label = "event_2" ];
->> +	"state_b" [label = "state_b"];
->> +	"state_b" -> "state_a" [ label = "event_2" ];
->> +	{ rank = min ;
->> +		"__init_state_a";
->> +		"state_a";
->> +	}
->> +}
+v4: adds the missing cap on the frame length itself in uf_recv(); v3
+    bounded the RSCN walk and the VFT underflow but still trusted a
+    firmware-reported length that bfa_fcs_lport_echo() uses to drive an
+    out-of-bounds memcpy.
+v3: added the VFT-header length underflow guard.
+v2: bound the RSCN walk by the received frame length only (dropped a
+    buffer-capacity term that did not account for the VFT header offset);
+    reject payloads shorter than the RSCN header.
+
+Yehyeong Lee (3):
+  scsi: bfa: clamp the received unsolicited frame length to the buffer
+  scsi: bfa: drop unsolicited frames shorter than their VFT header
+  scsi: bfa: bound the RSCN event list by the received frame length
+
+ drivers/scsi/bfa/bfa_fcs.c       |  5 +++++
+ drivers/scsi/bfa/bfa_fcs_lport.c | 19 +++++++++++++++----
+ drivers/scsi/bfa/bfa_svc.c       |  2 +-
+ 3 files changed, 21 insertions(+), 5 deletions(-)
+
+
+base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
+-- 
+2.43.0
+
