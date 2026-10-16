@@ -1,173 +1,107 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369193909A3;
-	Fri, 16 Oct 2026 14:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C21732B132;
+	Fri, 16 Oct 2026 14:40:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161534; cv=none; b=FFMKo/zBDDETFfeKyAOr+0+/jX501Lk/LHXqoiA8peHyiQe2U9k9/m7YN7P9mkpKz/oqlb25oXUXe8KCuxRol2zBrun/eyK+dXt1gVh/xSYa4mdl9QiCBhTSP8V9fP/o3oW3jcBvU45gAuDNTzEg8cjEbSrz3F7E+MVWLeCt9J4=
+	t=1792161607; cv=none; b=kLpV652lE0EFtx//CRL9AytvTIHgPkvD9+G95aLbCJy1AC+E24vH/CSz2QB1UV2ZgIHkIo8Aaqu3osB1mu3yS9kQ/R7ZnPWwhVbeF2W/Swddu+14znhozeEQPxsB23xXGWJOvgDCfU/2czxODWBrK/Z08hmGh8dBDXkSJHvBZWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161534; c=relaxed/simple;
-	bh=8k0UBO+r0UbnTEG7E+sdwi6m67kFSQ9aEiSFEaiNiEo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HjM5UlRBVbevbgxsfMnB0iGI1OFttfFu/R3t4V+Bk1wgTEW9E/8md2PtQYsGqQSQmOCzD8YJr+ng9/pT/uJ5B1hDWGOwGVkP9tykSaaCH7b+sCKe3/SJ8T6qmBbqnd/2K1y2ixBLQY9t7Jk4aajeksU+KxBOU+FFH2UdfsyWVfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=hlv+CWMc; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1792161607; c=relaxed/simple;
+	bh=5rWXlSacB3ZK6lYF8y/F6URMgitlO2bJ/xBhk7KZqnk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aa7tKPW3As2y5EHq2XDhbj5EXVIwAnZTO8a8H4Oqjrg+Q2IJltd8KE7sLVeSnw9kNF1ff7Yt0IWUS0U9tnoCzhw4pmmIENFPOFU5p+ZHQ78Zu98JvLwmfb+MFR1DJzgQadZt2iFedDmVvqEIiADCrr1T+IA6cSQflp0hvyGptTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3GpZBmN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="hlv+CWMc"
-Received: from omf10.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id CC06F1C397F;
-	Fri, 16 Oct 2026 14:38:49 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf10.hostedemail.com (Postfix) with ESMTPA id 37C7035;
-	Fri, 16 Oct 2026 14:38:47 +0000 (UTC)
-Date: Fri, 16 Oct 2026 10:38:46 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Masami
- Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Jisheng Zhang <jszhang@kernel.org>, Radim
- =?UTF-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] riscv: mm: Trace TLB flush requests
-Message-ID: <20261016103846.73ff2980@gandalf.local.home>
-In-Reply-To: <20261015-tlb_tracepoint-v4-1-f238a2bd8f7e@gmail.com>
-References: <20261015-tlb_tracepoint-v4-1-f238a2bd8f7e@gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3GpZBmN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7911F000C5;
+	Fri, 16 Oct 2026 14:40:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792161606;
+	bh=5iR/n5TxdTxz+OUopmkuWFQB0Je/YmkpDFf1jsLtlHA=;
+	h=From:Date:Subject:To:Cc;
+	b=W3GpZBmNGxqsX8cYOIrZ/SKyhdgYcw8UGd/S0hNsR2gVBY/bkKXwDchx/ljRRy70p
+	 VrYxlx9+9Vtr3tHMJXiKDGK5deP2T4RZ3F0EIeUwB1UDSIXwJilaxLSsJ+V6yvhZPB
+	 Urd0Za7Eei8jEIkjElv5uuabZVMto91Lq2WPJv7yNGCblqEXM9Np8RUOisNv/W91gR
+	 KuyQC5OogY8JVZznKkG0FXTiUjgUMMm4Cu3SufAUBFKvAEhBoameIrKwa9tVjBgbXg
+	 Gi61c+4DMaOPTiJd/bMFWkwaHx8S2gRjhwFvLFgK2U1UNWfLnwoK0ytXCZtT6G/pei
+	 nLmFnEnEgqlYQ==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Fri, 16 Oct 2026 16:40:01 +0200
+Subject: [PATCH] kbuild: dtbinst: Create destination directories before
+ installing
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 388ttyz9j18eu81uansk1ay3xiofhhfo
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: 37C7035
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+wYhXqGOF54CpdWPBi823eLacg6whUIdM=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=qC/TeNUXTBfnuw2B/KG7fIdMtKSx1rKA9Cvtcg6sjII=; b=hlv+CWMcyj3OB8DEYWzmB/LiN+sSRkkzbZ6hpI9XBmWNB4m2RYIAK9NvNoM09L/zohVfnios5SWLrc56tnb3guo/iQWKh2tgGAvXZ1p0ft//GNFvOWJ0+rKPGYsfsUW73HNUlHDU93/m5uT4SVlWYQLImar5RlopPN2K/O122Pg=
-X-HE-Tag: 1792161527-868062
-X-HE-Meta: U2FsdGVkX19/FZ1mNatLjECUo1AHFo5/rBna+klv4FkoAJnZCQ3gVIakjDYSSuF2hKoWvgSzJIeD4L8/iqxXinNAxX5bhYAnLc9baMwt186RBZq1Dgvnl291AabGUTyqrBhBz1pUnSfBFS2gA/KKay0MtdW4vhAH/bb4lg/bsP4FGVoOXStCsySo/ACHXdYUhtPFTy+MfhMvNtXzFkMiKl62qjMOCKU8t16YwaDOEueLxuj6V61Fp3n+wD9Z8dZnNUrTZDXvFxdwz3hh37Pex2Ub2uTNy/JaqHeqLPF+Vfs/It6EVxYBe+h1Gee8FkvX2zeC0h6HLjIlppqCSUa8du2xxempQn4QBBfA/vsAJ9/tPojf+jkaMuArT9kicMHT
+Message-Id: <20261016-topic-dtbs_install_fix-v1-1-8cf50b642cba@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrDIBCF4auEWVdQF4bmKqWEqGM6Iag4tgRC7
+ h7TLL8H79+BsRAyDN0OBX/ElGKDenTgPlOcUZBvBi21UVIZUVMmJ3y1PFLkOq3rGGgTvZP+GbQ
+ 0wVto51ywzf/w632bv3ZBV68aHMcJb0+2+noAAAA=
+X-Change-ID: 20261016-topic-dtbs_install_fix-7c0d9f206fdb
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Masahiro Yamada <masahiroy@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792161603; l=1700;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=dBPuCTPAMlqIZYz7kulxNy3CUJrPvnUckNPDp4MTzrc=;
+ b=U84/ah1Tcd1c8PeUaJg+mUmoaomm7vc/JVLwoJaZKpHV5ooAAR/7J8s0a0TG6avbSU0VCG1uS
+ 9nLsGYFglLJDiiSWeXdRheFuQbhDDAIDquqcn/Exn08L7JmohpU7x4E
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-[
-  I realized I replied to v2 and not v4 as the thread of v2 pushed that to
-  the top. I'll repeat my statement here too.
-]
+dtbs_install installs each DTB with 'install -D', which creates the
+parent directory of the destination on demand. With a parallel build,
+two DTBs that share a not yet existing directory are installed
+concurrently and both try to create it. The loser fails, which aborts
+the whole build:
 
-On Thu, 15 Oct 2026 19:32:34 +0200
-Roman 'Hedin' Storozhenko <romeusmeister@gmail.com> wrote:
+  install: cannot create directory 'debian/linux-image-7.1.0/usr/lib/linux-image-7.1.0/arm'
+  make[6]: *** [scripts/Makefile.dtbinst:23: .../arm/foundation-v8-gicv3.dtb] Error 1
 
-> diff --git a/include/trace/events/riscv_tlb.h b/include/trace/events/riscv_tlb.h
+The failure depends on job scheduling, so it shows up as a build that
+fails for no apparent reason and passes when re-run.
 
-Please do not put architecture specific events in include/trace.
+Create all destination directories up front, the same way
+scripts/Makefile.modinst does for modules, so the install rules no
+longer race.
 
-They belong in the architecture.
+Fixes: aefd80307a05 ("kbuild: refactor Makefile.dtbinst more")
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+ scripts/Makefile.dtbinst | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-See the example code in samples/trace_events/trace-events-sample.[ch]
-as well as the Makefile there on how to put trace events in directories
-outside of include/trace/
+diff --git a/scripts/Makefile.dtbinst b/scripts/Makefile.dtbinst
+index 9d920419a62c..a55f2a7acbc2 100644
+--- a/scripts/Makefile.dtbinst
++++ b/scripts/Makefile.dtbinst
+@@ -37,6 +37,10 @@ dtbs := $(notdir $(dtbs))
+ 
+ endif # CONFIG_ARCH_WANT_FLAT_DTB_INSTALL
+ 
++# Create destination directories up front: with parallel make, concurrent
++# 'install -D' calls race on creating the same parent directory.
++$(foreach dir, $(sort $(dir $(addprefix $(dst)/, $(dtbs)))), $(shell mkdir -p $(dir)))
++
+ __dtbs_install: $(addprefix $(dst)/, $(dtbs))
+ 	@:
+ 
 
-Thanks,
+---
+base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+change-id: 20261016-topic-dtbs_install_fix-7c0d9f206fdb
 
--- Steve
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> new file mode 100644
-> index 000000000000..f289480a2c0e
-> --- /dev/null
-> +++ b/include/trace/events/riscv_tlb.h
-> @@ -0,0 +1,90 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#undef TRACE_SYSTEM
-> +#define TRACE_SYSTEM riscv_tlb
-> +
-> +#if !defined(_TRACE_RISCV_TLB_H) || defined(TRACE_HEADER_MULTI_READ)
-> +#define _TRACE_RISCV_TLB_H
-> +
-> +#include <linux/cpumask.h>
-> +#include <linux/tracepoint.h>
-> +
-> +#ifndef _TRACE_RISCV_TLB_ENUMS
-> +#define _TRACE_RISCV_TLB_ENUMS
-> +
-> +enum riscv_tlb_flush_scope {
-> +	RISCV_TLB_FLUSH_SCOPE_SINGLE,
-> +	RISCV_TLB_FLUSH_SCOPE_RANGE,
-> +	RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE,
-> +	RISCV_TLB_FLUSH_SCOPE_ALL,
-> +};
-> +
-> +#endif /* _TRACE_RISCV_TLB_ENUMS */
-> +
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_SINGLE);
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_RANGE);
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE);
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_ALL);
-> +
-> +#define show_riscv_tlb_flush_scope(scope) \
-> +	__print_symbolic(scope, \
-> +		{ RISCV_TLB_FLUSH_SCOPE_SINGLE,        "single" }, \
-> +		{ RISCV_TLB_FLUSH_SCOPE_RANGE,         "range" }, \
-> +		{ RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE, "address-space" }, \
-> +		{ RISCV_TLB_FLUSH_SCOPE_ALL,           "all" })
-> +
-> +/*
-> + * Record the invalidation request received by the RISC-V architecture code
-> + *
-> + * The target CPU mask represents the CPUs Linux intends to cover for the
-> + * request. It can be correlated with per-CPU activity, but does not describe
-> + * which harts ultimately performed an invalidation.
-> + *
-> + * The ASID is hardware-visible and may be reused. It must not be treated as a
-> + * persistent identifier for an mm.
-> + *
-> + * The stride describes the invalidation granularity supplied to the RISC-V
-> + * implementation.
-> + *
-> + * The event records the invalidation request before it is dispatched. It does
-> + * not describe the mechanism used to execute the request.
-> + *
-> + */
-> +TRACE_EVENT(riscv_tlb_flush_request,
-> +	    TP_PROTO(unsigned long start, unsigned long size,
-> +		     unsigned long stride, unsigned long asid, bool has_mm,
-> +		     const struct cpumask *cmask,
-> +		     enum riscv_tlb_flush_scope scope),
-> +
-> +	TP_ARGS(start, size, stride, asid, has_mm, cmask, scope),
-> +
-> +	TP_STRUCT__entry(__field(unsigned long, start)
-> +		__field(unsigned long, size)
-> +		__field(unsigned long, stride)
-> +		__field(unsigned long, asid)
-> +		__field(bool, has_mm)
-> +		__field(unsigned int, target_mask_weight)
-> +		__cpumask(target_cpus)
-> +		__field(u8, scope)
-> +	),
-> +
-> +	TP_fast_assign(__entry->start = start;
-> +		__entry->size = size;
-> +		__entry->stride = stride;
-> +		__entry->asid = asid;
-> +		__entry->has_mm = has_mm;
-> +		__entry->target_mask_weight = cpumask_weight(cmask);
-> +		__assign_cpumask(target_cpus, cpumask_bits(cmask));
-> +		__entry->scope = scope;
-> +	),
-> +
-> +	TP_printk("start=%#lx size=%#lx stride=%#lx asid=%#lx has_mm=%d target_mask_weight=%u target_cpus=%s scope=%s",
-> +		  __entry->start, __entry->size, __entry->stride,
-> +		  __entry->asid, __entry->has_mm,
-> +		  __entry->target_mask_weight, __get_cpumask(target_cpus),
-> +		  show_riscv_tlb_flush_scope(__entry->scope))
-> +);
-> +
-> +#endif /* _TRACE_RISCV_TLB_H */
-> +
-> +/* This part must be outside protection. */
-> +#include <trace/define_trace.h>
