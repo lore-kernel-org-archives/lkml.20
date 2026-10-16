@@ -1,130 +1,95 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C17C1EB1AA
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:46:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0A741DDF0
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792151175; cv=none; b=olrVdbcwKprPbWddfgi/UpNLJ0pOfAYyRQZv8NPom7lD649hgXClmDiPUU1yhDTrp6YvQkJZEMSsuIBW7IDkxyOrHC9ViMCKqu9IIqCcU6radNpD/ElyQ4AAHp+7Ls6NcCfq2J/3fKVCUsVlhlFjETQWMxoo75L1Z/qmj8NhlgU=
+	t=1792151183; cv=none; b=EHgSPjWMGlK3Uf4UvhllBufNJP0WeP8cQ5MB/SL2KxO/klo0nIaHsMiJ+Vr1N2LnUMZrR5XRPo4j374Wkqeh/0Z298W2XFeugT1tt90NATI6a0uZWZQQ3B4EmnMe6rXYOp5cYkSv0c00c3fiLYvnqERBhV/LWD4XNWBiwUEwslc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792151175; c=relaxed/simple;
-	bh=wu2UeKTAXm3fQ9OLi+D1lQ6DTKkBUPeE+9k4alE4tTA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UeF5MDn+v1JWIODKS7xQdwuCSGswDBLEXC57DspKN7g+OD7I6Bp+ONi5vsb/theCvi7ztq2oPHAWYFUx2IeaAnXxRMMOf11PINAWKQRws66yIDBeHIxTLNEc9KJGd9ZPQSMV7ftSyfJcxa7ZjhMeeDt7jiai22CSGOB5+7H7jpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=wwlo6iHZ; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1792151183; c=relaxed/simple;
+	bh=XfgWy3OdAosQabJUNE32QEs/auUSjFc3Dhf5jJyET4s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JHcSLPxwecF/wjXRU5eVmpLTslNx6uzyqa1NamJMHuthL9OpzXbdTze/1usx6qlGiJsbENypXCHmV0z0ehAsvUAmatZiUpy5uK0SwHBJlpFsBntYAQ5KvB/1k4FQVpaBYi5AL6EpPcjqX2nimqt51AMABMYwty36FLc3dfbfZXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VHKSsPx+; arc=none smtp.client-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="wwlo6iHZ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=0xf9aqDEB2ABb/PUaNcWQ+D8Pgss+XS8jNScelABQvc=; b=wwlo6iHZCJAUeOFDpzHHQ37CHT
-	utNFt53Nbnz0vB2LQNSwuV/fzBTLIPmlwPr27mVmZtCgNk7RFhO0D04ecYNRAm4kzay40ZdjONpWT
-	dmczjPfCoRQyFOgQOAjBKBvLS1rfmbGDeNBoCKDdXO1gpKgJi37q10cwwDM+PbdTpCUu2t0ZBc88d
-	UFEVQH2YhPy6Bh5NiHTKoYk2HYdfMpLozrAewFwbOIrP1AOih195/PUXsiX/MJxkQWV06igSTa0o5
-	eVkaYULwETuyawXTNcJx8nErl6dbn1xtJBjy+kmj97tO9cA+gKq7URZWaEPjtjP6UV/Z2uvowyXt/
-	KtMysznQ==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Huseyin BIYIK <boogiepop@gmx.com>, Johan Jonker <jbx6244@yandex.com>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] drm: devm_drm_bridge_alloc() conversion and cleanup
-Date: Fri, 16 Oct 2026 13:45:22 +0200
-Message-ID: <2372538.iZASKD2KPV@diego>
-In-Reply-To: <d1f0369c-ff43-4b76-9092-5c638b132f15@yandex.com>
-References:
- <20261001-bridge-alloc-conv-v1-0-f0a1fe040a86@collabora.com>
- <179213353665.3058528.14437637653539699061.b4-ty@b4>
- <d1f0369c-ff43-4b76-9092-5c638b132f15@yandex.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VHKSsPx+"
+Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-35eaf84cc66so2239485eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:46:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792151182; x=1792755982; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o2GBgJDeRRDTohR0y6CO9y/p1qH+zLQzeNlu49sshfs=;
+        b=VHKSsPx+Eptqu6e0tD/px2AF39I2pXNl8E9L7pZDMpeDFXOmp+KuY6Pxu4XLSzZiDC
+         I0YBlgsVZPtb6l4CLryEJ4U3UaCTqpISy7rJAQnriQjOQSZYEdgGNYmd11VFU0/bDTQt
+         6KvkZWzm8v24VHhg/pkMUaIhjFrBviWqlgWaELaJZHRuLljWaRpVt9oz7dwrmP++Qhy3
+         MjMrA2gHeFAyPfQNTpIUteO1V6jIATuXLZzWZ1EN1p0whVPHZWwP14j5gd5OhV6u026t
+         u/WCjHDYyB1twVaDzucYkIgwBiiYT6lr1+WRdgMGvMGtKGX9jsfkzti8IXVMIQJ0rVbZ
+         u81g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792151182; x=1792755982;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o2GBgJDeRRDTohR0y6CO9y/p1qH+zLQzeNlu49sshfs=;
+        b=RnsRnnoQ8PyMQXGSqHZrTILm0T8CY/DBlekq5cUyl1SvW9A3SiRcP0MLNCnna5k65D
+         OgjzYx4aL71/rNwd32h3h/sCgf6BC97Hjdz+wcWsMoJDbdIjqtqB47uE+ALPfpLTGMV8
+         Z1CYF5cJVbTSs3Fgu05w9Gta4tsLPPHoGHZuVBvEkn/G7wlteR2lW3BhECtt+RwVb+wL
+         F4TQXv3B8xs+qCWBZTPtpV8wjvg+ZvUqXQJIxUdsq1z+GD2cstWCaYFLOcU2nkyiSXqy
+         V5diNSAVuBEC+5F0M6bMg2Mmxg0JKWQRTpNZIPi5AD+FT2II+dfyZKdzGND5DOCVt1ux
+         WlbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzq77AgcHBuxxrgj33Pl6h1WY8OGH3w3bfE/NfdGvok32SWW0A0YXhxxGulSK6mMFUq5EydhKcLrF24mWc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkwVUavDhRzP+C4iIhn+QbsVEBdlCJhXL8RZOQybkKfC8AtsDy
+	IfTYSYImJJK2JnRYPaD7ij//0iGI1omxqgB0A1j9op5J6PbVOvglDrbz
+X-Gm-Gg: AYBFou1wAqMCDgwp5Hep2rI7u1AiVTwNysE5INGSjyFjkVXp2LNDnYnADczceuokiaM
+	FBIElHFP2JBf4xhRNDMFiKBplIArIkYCReLsXlTADzC0t4EJeB9NiqqSGfO5EIDDQpKpy7gLosN
+	eR51gjclDWTLjsT+1gCXF5r4o5bi3UsarRxYs3K7HpzntnS+k78xyUCdtByvQl6OcQgaIGhZ2TV
+	DA6OtbdGqHYJZNJkEzJCzDLQ6KXM3+zotEaMmLTYj6gFH5FTdKUs3Ap/fU69rEyMwNyhWJ553Gb
+	b7+bZfMNT1zCkI1/KwQ5KetweHoUIxTlt1mISM4OoMVL5j952tIAky4sxTXBuyYZfO/FKaGoLqU
+	W7onbvfHju/rMeFRbNgzdnvmYa8CTAgMLCEg5wlWnQ3ejeb8hPmSJGpuD0838NkAPPZfAEanFeB
+	BezRTKn25cFH8x6g2NdqK6RzhMQI9lwqeif08Gvm2MQ3yMbKbpkDGk6umbIRTfYAZBpFWs
+X-Received: by 2002:a05:7300:fd03:b0:351:4866:255c with SMTP id 5a478bee46e88-3537e058277mr38968653eec.32.1792151181599;
+        Fri, 16 Oct 2026 04:46:21 -0700 (PDT)
+Received: from fedora ([117.134.210.71])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b63e1sm7330259eec.8.2026.10.16.04.46.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 04:46:21 -0700 (PDT)
+From: Shehryar Ahmad <shehryar.amd@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shehryar Ahmad <shehryar.amd@gmail.com>
+Subject: [PATCH 0/2] iio: accel: adis16209: add missing SPI and OF matching table
+Date: Fri, 16 Oct 2026 16:45:25 +0500
+Message-ID: <20261016114527.128364-1-shehryar.amd@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Johan,
+Replaced old manual matching via MODULE_ALIAS to modern SPI matching
+table.  Also added missing OF match table for DT based probe. Compatible
+adi,adis16209 is already enumerated in
+Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
 
-Am Freitag, 16. Oktober 2026, 10:11:19 Mitteleurop=C3=A4ische Sommerzeit sc=
-hrieb Johan Jonker:
-> If any decency or Code of Conduct left in the DRM group then also credit =
-the original author.
-> Also remove driver_private.
+Shehryar Ahmad (2):
+  iio: accel: adis16209: add SPI device ID table
+  iio: accel: adis16209: Add OF device ID table
 
-after letting that stew in my mind over a lunch break:
+ drivers/iio/accel/adis16209.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-=2D yes, your patch was earlier
-=2D yes, I should've gotten around to it earlier - I am sorry about that
-=2D so yes, this got mishandled
-
-Nevertheless, this in no way justifies attacking the "drm-group", which
-consists of a big number of individuals (most of which had no contact with
-either variant of the patch at all) on a personal level :-( .
-
-The change itself of moving to devm_drm_bridge_alloc, also is somewhat
-straight-forward  that two different people could easily just create the
-same change separately, as we saw here.
-
-
-Heiko
-
-
-> =3D=3D=3D
->=20
-> [PATCH v3] drm/rockchip: rk3066_hdmi: convert to devm_drm_bridge_alloc() =
-API
-> https://lore.kernel.org/linux-rockchip/20260904-drm-v3-1-5b36532a3b72@gma=
-il.com/ =20
->=20
-> [PATCH v2] drm/rockchip: rk3066_hdmi: convert to devm_drm_bridge_alloc() =
-API
-> https://lore.kernel.org/linux-rockchip/20260824-drm-v2-1-7f9273c6020b@gma=
-il.com/
->=20
-> https://lore.kernel.org/linux-rockchip/dea8a038-577b-45da-bff3-703e9099b7=
-e1@gmail.com/
-> [PATCH v1] drm/rockchip: rk3066_hdmi: convert to devm_drm_bridge_alloc() =
-API
->=20
-> On 10/16/26 08:52, Luca Ceresoli wrote:
-> >=20
-> > On Thu, 01 Oct 2026 11:25:10 +0300, Cristian Ciocaltea wrote:
-> >> Bridge drivers are expected to allocate their private data via
-> >> devm_drm_bridge_alloc(), which also initializes the embedded struct
-> >> drm_bridge, including its funcs pointer.  Most drivers were converted =
-by
-> >> commit 9c399719cfb9 ("drm: convert many bridge drivers from
-> >> devm_kzalloc() to devm_drm_bridge_alloc() API"), but a couple of
-> >> leftovers remain.
-> >>
-> >> [...]
-> >=20
-> > Applied, thanks!
-> >=20
-> > [1/2] drm/rockchip: rk3066_hdmi: Convert to devm_drm_bridge_alloc() API
-> >       commit: 5c0cdbee4fa4a621f871d6dc825e759db08a1a4a
-> > [2/2] drm/bridge: lontium-lt8713sx: Drop redundant bridge funcs assignm=
-ent
-> >       commit: 382c1e8ba409d1611cd256dccebdfa828c832bb1
-> >=20
-> > Best regards,
->=20
->=20
-
-
-
+-- 
+2.56.0
 
