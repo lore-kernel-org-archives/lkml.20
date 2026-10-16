@@ -1,76 +1,77 @@
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8F732B110
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:58:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B071C5499
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:00:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792123138; cv=none; b=NDeYjwFekIpUfAZFCSy+djTGa+JKsJHlFfFLopcWDd0EM5DGriyqpkvQf16SpVAqTHHfH6+EQT6I3ehw8Bn3Qq76LAs4AUpqh/fHKSEWRk+Ln2AQNk4umJyD/v4ANS9Jwydbwqev3FqcRuK7/JI1QU0ZwUht4oJFbL9QGrlYSMs=
+	t=1792123225; cv=none; b=eOYb3KMYGAhtUsYuKScZPrXTHiSxGa5bPU9m9Jn7ZIggBuQXFN+1Q8BqiEibUzqDjB60URy1uZeredlvhN3R+Do6uYibPz9f9zbV3COYPqCWqoeQnQWI0vf4JV5BDB0yrNFKoNNp5FrgXxGozB7wqo7PWDZmWH3ApCJadnG0ZDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792123138; c=relaxed/simple;
-	bh=N+A6ai/vFvUwNv/kA2P3kWyIElTpe7zizyMn2yDiULc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h+Wy7GVv20E7Z6EHXpdLm7vZMBmqsmhLN0Vo8uWKR21ex43FFMQD0oyGg3XAk8TCqzQKkiemey0/EKutkD/1KLXTKnkv3ZCTXhZ94d8r9xup5JKu/ZBpS0LXlESDrU2JwteJIGnjjdfFnQyNd+zj6LhdlZkH1a3DyMv45v8MJNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AiZrihbh; arc=none smtp.client-ip=209.85.222.179
+	s=arc-20240116; t=1792123225; c=relaxed/simple;
+	bh=R1f53fZVOQpXpGpCi4RklZRTZOgEf4RFVZqHIV1IEjY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kRevOutoXIp0I0obwVXtGfBW8mm2Nilb1iNLhG3VIBuZTiK4YD0X5hoMO+J9vlW8UaleGrf2lDpWElMRWnQxW29nrDSfx4m0NnXMq3zstkSzxROspsVnjVUfe/H8sAzwS6lE91gq00Tw908m6CIG4kHVUuM8OUgUF2p0WUGl6GA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LZIn4Nb8; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AiZrihbh"
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93e63ee7b4cso504636585a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:58:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LZIn4Nb8"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so458308a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:00:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792123136; x=1792727936; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792123222; x=1792728022; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a4/QUaf0CkV4SNeRpp+SHFXjQfr9ekLh8jCWnPK82ew=;
-        b=AiZrihbhz17fkCqivi44u6cJLaz8drkBYV0gpxlLNtTXhf+Pcusaj7HmTeFIaFof0c
-         RR58BgG/K86YTTHxLh/qltdvuVX/wUmRxocstHJ6Dq3UauTKpvNUHET+WrOJwdnXri9P
-         EWy4Jck32eAto4hM/QaiVXvkfLKG1iqxOpy2eF5bGd2Nc5kiGOkC/3pOotC52c2mKAy6
-         dHEnriMEjY7mT6mR3K0GTxAmxKk3VkqbPg3zTizgfdUriukTUaUOfZZBRs3RcQBsOQyl
-         e1VjvPT17t91mcYfeJ1uDtvHRIIuStjhdxGJGHXnotziJTYKK4rT0RBsKLUkyBELLn8W
-         Ey2A==
+        bh=g9IQw/iWHXUIP0xYQGBwa0OfUNbaaj14Fj4E0JqM4sE=;
+        b=LZIn4Nb86Im+eJt/C2Z8tvysgraS2xt11OqHgABFEDtbc4L9UzgX+rkAmvCaf3qWpZ
+         YrRQ/G9DWEHcA3jaEQVGVLgo1w6xS4ttOxTDJiarb9APKyqPBovADl9C/WFYx5gjuNIp
+         NYxK934bVsZnzU4025+/660RdteqDSkEOjjCLYBYpp75chpAug5MlTcNHiCFHauNf5ee
+         xnPfvK2P7k2P9q/jSGzTildbi5YZA/ZMctd1x+Sw+aJdu1TmqCj/gJ7+qoxkkdY/d6XH
+         x6jcETDeUjBSd72vBER9PuBgP61DzxNIUd1eDYK4dOCXVpCQ5fk4AbXVPxL3+XP5BECO
+         5llw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792123136; x=1792727936;
+        d=1e100.net; s=20260707; t=1792123222; x=1792728022;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=a4/QUaf0CkV4SNeRpp+SHFXjQfr9ekLh8jCWnPK82ew=;
-        b=QrMBOzGagMS6PVWdbcTnxBeOMdPmn6X4faPTcuDKgrZ+Z9w0LLd/HnxWnmTbqH+l9g
-         Vi68rJ8PfARhy+m1S1N/SyT7+lYuEkWSw5Xc+JCiczGgbpbUZ4/IOtUMHSegXn59HrH8
-         GFFBkI+V69frpzakF6ERiZ6q/RBfQ6DLOtBSL0U/PXAS/LCaD/qzL2hOkiseZR491xVT
-         a6AvfsGdnDw/atKGtuiDASoo4eBZHQEAx8XQttLpLSNPOvwmovNKLgMTH1pYK42EaIq0
-         DN5UfEvXrB1o7bSdKocLJ5bmriWrvTPJmlRHJWe4DtP/FEECtjJHTPFq7WAzgWp2/NNI
-         DhoA==
-X-Forwarded-Encrypted: i=1; AKwUvBzFlhmpgLBRH2+W+fvHaJABNOzygNwgaAeQOgmo5A+o182mYT1KE9VBQJJu37kEcy0p1Qd0tzXOwBCksjE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrL0zqfIAGgbPfYOGjdJEotRPGboNcgPpOuJxGU9lTIgbDQ0rN
-	oBHzemNkHvSOZexv7oF8741P3zsa3aG/fE/M/F63E3MbikyVM8qx18xX
-X-Gm-Gg: AYBFou3iHf81/vus/9qE9CXO9D/ctgU5EJpqFm1JFivmMymmKAHNNAPkCBCpkYQpWAm
-	XDP8HIjaM6fxhL9b3vF3Yr/GwuZw+yDAVuwD5cxRwj1vMMi9cjbMPKfdlcaXDpC/D5S8AWR0UxK
-	VldcEasE1Wk8KhcfD/17LLeRCxqPYZ9Y3s55ESXv5Kv5SZ6rpw6adVh3HB6nEtRDV63a8c6b0vc
-	TeURaCG/yDXRBkGrX4Drfdq1IX5X0pe7cApYzC+YQbqyMpE5m2/wrL40nRG6ZSFKGVLrdnIQvX3
-	WOujQPihsAVc9QnDDZ6oX8hiO48thD7+rmHVYrRQvwnE7ApElGRKc57FySKQpJbuqc8VmcOfBJM
-	5xkIGUBwbW10HJ0NksIaUCBdjbLdiJmO1QPHpGsBKuHWD6bEwDEb92sHQaFK9MSx552yEPFcskT
-	A2TOsXW+Chzv8CgPUcdgSg9ojffSEYfMvkqKHPZkUw0Km4MN0w7CA0vU/laWqtNSA/RISrZ+BsV
-	r2jIROuJovJ0vFSQOkz7QbQx8IKXd8A
-X-Received: by 2002:a05:620a:17a3:b0:93c:89a0:bf82 with SMTP id af79cd13be357-93ebd209171mr3554739485a.43.1792123136506;
-        Thu, 15 Oct 2026 20:58:56 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a1c1d29sm105968985a.43.2026.10.15.20.58.55
+        bh=g9IQw/iWHXUIP0xYQGBwa0OfUNbaaj14Fj4E0JqM4sE=;
+        b=xv/BY5k6peuXFKBXFuaVYdNoOBpncnrvsH9LdIPhUSfKAa64itDvmmz2tXOeZ4wciv
+         /RCym4cqFn0/aQehI8WY0NSb+O4iCeKmlqBCpAA/T5tfvSHG3n/A4Brm5nimvXbfI8AV
+         NHWrABq+rBtYn4QbYfm7fY0KxsFNqvJxVqPTtVGvU5t5pRE0+/pvwsSlnpWoQJRByNrj
+         vtLxlrzR2gGebadvZFMMDu8i1zOBtdiKxoau/ZSn0cNC3bzSFB2DVgsq0VxZ2VVUx/fy
+         MTyXlm3wkgvqx/YliKvQ9OhxLUAYMLinsJ96lOoZnXDscTytJ+O7mKY5xB1of+lnf/lI
+         sSKA==
+X-Forwarded-Encrypted: i=1; AKwUvByL/rKXtGrjczECBZZadJptqhM8PHt/VawHlIX8hFJPsl1/AH27QwKptNaUUX/WPsMQBsYYCSpj/5llplY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBXeDufEhMc6OBHXxWO23XNqxwta5r7kQRr9C51tbSifCxie67
+	JQ+2R7pBUQohBsLYLdDOxfpsTPtUq4+t5+ul1BZZyhBIT6EP7irqpRKb
+X-Gm-Gg: AYBFou3+MOp0RP+InSVQmo1fKx55B2n5LFibaHgtTYOcXyC92+DJgd2/Eh4fvoqjk2Z
+	ecY5FMTL4ojmkCsf25Xi6Q6bCR8vTstnlvogh6Ly8roRMZ/5qjbCcXy1/gqcbtAn6EN8cZmjLj6
+	TaWGKi75PG0b9B67hlP0Ch/sugKxdTJkRYqDEo+6wLbnkg3FMVwKaQ3QTTGDyFcIuZkZIK5HXkS
+	S+k5e+1lBELRC4TPMGKlfqdZscdZsvkkKxEBJjuKAW0gd8/+L7elIQN0EPpaomEkJoSwkwW4y6u
+	rQVbLamhyfwTPiTNbPwHMZcJHvhwl8reg3GODxfKdvwBWp2VT0YwHA3Ue7E3EImo2bgXDTuZhyP
+	GN/w5tXBihp2sF8yDTaGPlu+fwL7k+jtA477y6KjXYA1vvt+6/HCEAbj6MAUVy9bYCQ+yI4trHw
+	yW9bNxFKoiGLOC/qlqDsE2ckfMGfz5mQGacdXq6LfbN5NEBt6ULRO/dMIFT6CdotAEEhdRysUQK
+	TsgEehUJmk=
+X-Received: by 2002:a17:90b:3e89:b0:3aa:412f:b0a7 with SMTP id 98e67ed59e1d1-3acbb689d36mr1258321a91.5.1792123221974;
+        Thu, 15 Oct 2026 21:00:21 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94627250sm7017040a91.8.2026.10.15.21.00.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 20:58:56 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Dragos Tatulea <dtatulea@nvidia.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	virtualization@lists.linux.dev,
+        Thu, 15 Oct 2026 21:00:20 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: David Howells <dhowells@redhat.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>,
+	"Jason A . Donenfeld" <Jason@zx2c4.com>,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v1 RESEND] vdpa/mlx5: Don't free QP buffers if destroying the QP fails
-Date: Thu, 15 Oct 2026 23:58:28 -0400
-Message-ID: <20261016035851.771496-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH] keys: big_key: Reserve the final quota before destroying the payload
+Date: Fri, 16 Oct 2026 13:00:04 +0900
+Message-ID: <20261016040004.324286-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,51 +80,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-qp_destroy() only warns when DESTROY_QP fails and then frees the RQ
-buffer and doorbell record of the driver-owned QP anyway. The QP still
-exists in firmware, so the device can keep reading WQEs and the doorbell
-record from memory that has been returned to the allocator. This is
-reachable from teardown_vq(), which destroys the QPs even when
-destroy_virtqueue() fails and the virtqueue still uses them.
+A big_key is charged a fixed 16 bytes of key quota, regardless of the
+actual payload size.  big_key_update() currently reserves the actual new
+payload length before destroying the old payload, while the subsequent
+generic_key_instantiate() reserves the fixed quota length.
 
-Return after the warning, as cq_destroy() does, and leak the buffers
-instead. A device in internal error is not affected, since the mlx5 core
-reports success for DESTROY_QP in that state.
+For an update to a payload shorter than 16 bytes, the first reservation
+temporarily returns quota.  Another key operation by the same user can
+consume that quota before generic_key_instantiate() tries to reserve it
+again.  If that second reservation fails, the key remains instantiated but
+its old big_key payload has already been destroyed.  Reading a
+buffer-backed key or revoking a shmem-backed key then dereferences a NULL
+payload pointer.
 
-Fixes: 1a86b377aa21 ("vdpa/mlx5: Add VDPA driver for supported mlx5 devices")
+On a KASAN build, reading a buffer-backed key reports:
+
+  BUG: KASAN: null-ptr-deref in big_key_read+0x110/0x310
+  Read of size 64 at addr 0000000000000000
+  ...
+  big_key_read+0x110/0x310
+  keyctl_read_key+0x2da/0x550
+
+Revoking a shmem-backed key reports, with oops=panic:
+
+  Oops: general protection fault
+  KASAN: null-ptr-deref in range [0x68-0x6f]
+  RIP: vfs_truncate+0xa2/0x730
+  big_key_revoke+0xbd/0xe0
+  key_revoke+0xc0/0x1a0
+  Kernel panic - not syncing: Fatal exception
+
+Reserve the final fixed quota length before destroying the old payload.
+The reservation in generic_key_instantiate() then has no quota delta and
+cannot fail for this reason after the destructive step.
+
+Fixes: b6f61c314649 ("keys: Implement update for the big_key type")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
 ---
-No code changes, only added Cc: stable. Resending as the original posting
-got no comments:
-https://lore.kernel.org/all/20260926215632.1343807-1-oss.patchbox@gmail.com/
+ security/keys/big_key.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This was found with a static analysis tool from ongoing, not yet
-published research, and confirmed by code inspection. It has not been
-reproduced on hardware.
-
- drivers/vdpa/mlx5/net/mlx5_vnet.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/vdpa/mlx5/net/mlx5_vnet.c b/drivers/vdpa/mlx5/net/mlx5_vnet.c
-index 8563fec2855d..a01cd890bb58 100644
---- a/drivers/vdpa/mlx5/net/mlx5_vnet.c
-+++ b/drivers/vdpa/mlx5/net/mlx5_vnet.c
-@@ -483,8 +483,11 @@ static void qp_destroy(struct mlx5_vdpa_net *ndev, struct mlx5_vdpa_qp *vqp)
- 	MLX5_SET(destroy_qp_in, in, opcode, MLX5_CMD_OP_DESTROY_QP);
- 	MLX5_SET(destroy_qp_in, in, qpn, vqp->mqp.qpn);
- 	MLX5_SET(destroy_qp_in, in, uid, ndev->mvdev.res.uid);
--	if (mlx5_cmd_exec_in(ndev->mvdev.mdev, destroy_qp, in))
-+	if (mlx5_cmd_exec_in(ndev->mvdev.mdev, destroy_qp, in)) {
-+		/* The QP still owns its buffers */
- 		mlx5_vdpa_warn(&ndev->mvdev, "destroy qp 0x%x\n", vqp->mqp.qpn);
-+		return;
-+	}
- 	if (!vqp->fw) {
- 		mlx5_db_free(ndev->mvdev.mdev, &vqp->db);
- 		rq_buf_free(ndev, vqp);
-
-base-commit: fd179f8a05be3ccae366b9b96e176b51fbe54aab
+diff --git a/security/keys/big_key.c b/security/keys/big_key.c
+index 268f702df380e..6aff1a73c7b38 100644
+--- a/security/keys/big_key.c
++++ b/security/keys/big_key.c
+@@ -195,7 +195,7 @@ int big_key_update(struct key *key, struct key_preparsed_payload *prep)
+ {
+ 	int ret;
+ 
+-	ret = key_payload_reserve(key, prep->datalen);
++	ret = key_payload_reserve(key, prep->quotalen);
+ 	if (ret < 0)
+ 		return ret;
+ 
 -- 
-2.43.0
+2.55.0
 
