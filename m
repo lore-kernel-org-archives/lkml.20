@@ -1,299 +1,123 @@
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8BB3822B1
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:01:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4FC538D7A
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:03:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792170122; cv=none; b=I0meRL4UeGVHx6p08T5VnW6keZeRhisO+MtzwdizKwWQpRa9SK08Rk+VvHw07jT3v6e5tZLi1Im5iT7p067klM0zY7sNk4sQOI2EfVnhRtY1B38EEjyEhUvYlB73a4BESzo0fzW7Ezz7n6fnG1QqLmgKQ7H+kte4OSerX7pHOi8=
+	t=1792170230; cv=none; b=HEUrKEuIsWr1VyQQXlTwWjia9Iw7PiHX1w5Nvz9a/xMd2xkZF7wI3yCmXb97LZEtpHXj0Be09uIpV0/lyeaEWHUUb2rjro4myAQHUpLgrwQcsRQZ8+fZgrfIrOhasumgy1ypjSyCfF+fMktfSdGtIiIz2APsrO+xfU/vvg3c9kk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792170122; c=relaxed/simple;
-	bh=RIgAITDV10bwuGVzOepFntdtCOFmtwmPcCIM01eQ6hQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=WrPzxpnVBfcXVYlP6Epd6BPsRrOOUOAtjNHgwqDQ8SnDkp3ntjv2gNeALizRoggFK+cbN9iV3XIuxkWkOJgN2eIJuz6CUh5GqljI2NOK5VGIoRKzsuLROWbZRQBTlBy7MsQsTQI0vKqfvtQCAN7n1a+5DJ4mYAXb0TZUS8r+HHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=pjcsGI9j; arc=none smtp.client-ip=185.70.43.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1792170230; c=relaxed/simple;
+	bh=EFCs/t5NZCKL85wyMYHIYg1c+baJsqxbMSrz9KygYjE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qDQNRzs4RmstfGeA6Zo8TKv6g7q41ViMSe9rmbMxCuRunxIm1Bawj5QKsLvq+fPlymHZ0UE/JZ5fwTzXynoIrX/vJ/fUnNJiHjaUWbLwIbAuxJZ9JyBFmpvx+V+kqPpSzObV2ZffcU9gLI2BsvBQWdvhsn2yuVQCqTliZ5w5eDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GXQKRn7m; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="pjcsGI9j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1792170105; x=1792429305;
-	bh=4cDh1GFBsgXPcb/IB8HyY5KM78MLBu5fXw6Ngm1w9oI=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=pjcsGI9jsrBq6ISfO86wSxyYL8PE9CaUxLWliPR1XRVrlTPwABEb+aShnUUTzE3s0
-	 2UVekvp2nL9ydViW6z1198LiNk50S4QBBpoW8JVzAlLeemZ9nATw+WLv9y5WcB5En9
-	 f+t1BnEn1H6W4OAVwYeNG3M/u5ev/7CQHn9mlM9q7svkf3HnLMQF7HVJo+3Jg5mMlM
-	 SSiduzbuuX2dKA/qNuJyTCKa8eW0+DKVLWcmHXX3OekCA5lO0JFx8Gze8ixUdmbsEc
-	 i9Ni6f0i4uAqfVzIkKMFPRZAjy5m/yx/yylMikfDUPasy5DgdJk9Rucm7rhgf4oB8x
-	 wwImsKffmK4Ww==
-Date: Fri, 16 Oct 2026 17:01:38 +0000
-To: linux-bluetooth@vger.kernel.org
-From: Kyle Pepper <cochcoder@proton.me>
-Cc: luiz.dentz@gmail.com, marcel@holtmann.org, sean.wang@mediatek.com, linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] Bluetooth: request LE data length for affected MT7922 firmware
-Message-ID: <20261016170122.27119-1-cochcoder@proton.me>
-Feedback-ID: 97716137:user:proton
-X-Pm-Message-ID: 3de2cc44725577df6b868d79478d9177a50d5b5d
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GXQKRn7m"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a17baef589so1546685e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:03:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792170225; x=1792775025; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ARaK25Q0RvNaVHGLi0NUl1nvj8h/slmPHHRftuSOT6c=;
+        b=GXQKRn7mk/+sRKiJm4MLPZY4jflJ5VVE9tCA8pdF77HIg68iYxmO7X+hO2O2SLoBI/
+         zC5K1YNSrOr8r3/NK1uEdqTeQfM1qmKbpY47e083AcnBoHX4jUTt3skZxuLI80hc1UDP
+         LW8T9NcAirgRRoUbMujwjsAgkdIfQTImIEKWoYfAjZjDQ/dVfZAizAgAbEhS2TsLzyfr
+         eVKBJfLtL+h6h/GYmBbobDLaxOCS1qERkFPJIUxvIXd6URpWH1dSAsiCV2uwD6HqcBrF
+         SW6R/GCcuaZ+FvFOI/z/QZBaVEt2/a2BXTl5pOD6YaF0QBTyqP1helMdBwd9S5206HHv
+         nrMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792170225; x=1792775025;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ARaK25Q0RvNaVHGLi0NUl1nvj8h/slmPHHRftuSOT6c=;
+        b=lMNHhUSCVRQt/iPfYTtWx3RoEoBIHXIfzH/9PeTKn3uILB+qlD9s1RpOSSifKPgs9g
+         3gxDEsY9zWUhAHx6padvjxodbz4P8KW0PGP9vWmfXLsGVyrBIYAfgcrhTcDKnFwtbDZa
+         bS+qbee+ipziJgUTnmV++ay/UM0VaFTrVjwaXKx8gbedeI7NCZsfulnCRKSccTmeezcy
+         F9JdpgMxgrhVF+Hh779DQ47Y59r8B2KOSrqhC03pYBWntyIMypRIaBIC3yGGhVXA++Tq
+         kwJXUTE26MP4zOcs4e49798CjJIy18mAtfUE1XicOlKk+gTWzVpJxnA3QXAsJzez7aIt
+         RZrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBylO9zirR11Qg56hEyTFDyE4o1Xjb2r/8tez84HtGy2vFHLTVkq/LspXfFdGGOyvdWgAzu3mOvOYKSPNX4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJDCqCwOrWGLf6+pk7WBTCXsrPKpKg3gO6AVKhDTvT98cjYUsqw
+	DKXe+yr7NCj4FhR5xSPm77B6fVRsdZrrDIMH1jfbbIh8YpZfL3FMvLnw
+X-Gm-Gg: AYBFou0PDc2VSv4YMOVdj5EqKUEDvUSzm/kGsxpjr3DtBGysFCTZGEqCM/0C8ZPCWjg
+	5xJqW4T8HSfMup1RN4Co74qEw2OPJcsW4ITmTz9GTUisbqAxu3KEBgrD7FtVUlN1pi64Ote18qR
+	zSU2D8MujaklMojNq3Wl1lbhgyO+pDelAds9zLK8xSQK1oFJCUPMRXaxmVT1ynGowBz0t/rl/zG
+	GVfYN/Jt1Pw2PNPsTiZW3DlfKOmhaUiYYbnyQ55jljNdoAcckatvOgvLvspDkhHrKl9bE4PdJZb
+	DhRuYAXTUYGtkTaylIQSYSbPhS8rC+z/0KYNbthGW9SXRsmXlw8AMAq08NCuace8L1UEWB0FsO7
+	fl7PFfS0oVQpZx26vgMKkMc4+4XVPNOlq6aPYqPHSC0K6wMWhuJbti2g/5pGoRMF5SwZ0NVYQv0
+	u/zD6mV+eY2XTYqGCRaVDHGb1Ci0g6ZA2N5SM43KW7esPC2tOQhshha4zhRdu1PRp6rEZlcp/ve
+	zDXg1pyt+ovOCM2S/k9dLUTN/xwTME2GtEBpNP3CL13GOJktJiqjekGiUESPOtfWtb09Pbf/Xa9
+	PcdUMVr5MgAjUIz0MztKdDGpuQPb6g==
+X-Received: by 2002:a05:600c:4e14:b0:4a1:d307:b526 with SMTP id 5b1f17b1804b1-4a1d7464034mr10105175e9.0.1792170220437;
+        Fri, 16 Oct 2026 10:03:40 -0700 (PDT)
+Received: from Lord-Beerus.station ([93.66.71.207])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b8ebdsm186598225e9.10.2026.10.16.10.03.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 10:03:39 -0700 (PDT)
+Date: Fri, 16 Oct 2026 19:03:36 +0200
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH v1 1/1] arm64: dts: imx8mm-var-dart-sonata: Add OV5640
+ camera support
+Message-ID: <atJY6DzjmAeq7U8q@Lord-Beerus.station>
+References: <20261015162301.63838-1-stefano.r@variscite.com>
+ <atEci_KwxUdvAekv@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atEci_KwxUdvAekv@SMW015318>
 
-On an ASUS G614PR, the MT7922 USB controller 0489:e0f6 accepts maximum
-LE suggested default data lengths, but ASHA playback remains severely
-choppy until the host sends an explicit LE Set Data Length request.
+On Thu, Oct 15, 2026 at 01:33:47PM -0500, Frank Li wrote:
+> On Thu, Oct 15, 2026 at 06:23:01PM +0200, Stefano Radaelli wrote:
+> > From: Stefano Radaelli <stefano.r@variscite.com>
+> >
+> > Add support for the OV5640 camera connected to the Sonata carrier
+> > board's first MIPI CSI port.
+> 
+> Does this board only support ov5640 camera? Suppose ov5640 module also use
+> for other boards.
+> 
+> Can you refer https://lore.kernel.org/imx/20261011-expulsion-frivolous-690de090cf9d@spud/
+> to define connectors?
+> 
+> Frank
+> 
 
-With the firmware image dated 2026-07-24 14:38:15, a request on the same
-Cochlear Nucleus 8 connection produces a Data Length Change event with
-TX 251 octets/2120 us. Delivery rises from 21.5 to 50 audio SDUs/s and
-the peak outstanding packet count falls from 32 to 3. Wi-Fi power save
-remains enabled. Playback also works with the automatic request in the
-local 7.2.9 kernel build.
+Hi Frank,
 
-Keep the existing suggested-default initialization and add a driver-set
-quirk for the tested USB ID, chip and firmware image only. After a
-successful remote feature exchange, queue a request using the current
-host defaults if the central-role link and controller support DLE and
-the controller advertises LE Set Data Length.
+Thanks for your feedback! I looked at the Toradex approach you linked.
 
-Hold a connection reference while queued and recheck its membership,
-state, role and capabilities before constructing the command. Release
-the reference on completion, cancellation or queue failure. Failure of
-this optional request must not reject connection setup. Other controller
-matches, PHY fallback and suggested defaults are unchanged.
+In our case, the same connector can also accommodate Basler cameras and
+potentially other camera modules in the future, while some of our other
+carrier boards use different connectors.
 
-Assisted-by: OpenCode:gpt-6.1-sol
-Signed-off-by: Kyle Pepper <cochcoder@proton.me>
----
-This is the first submission of this MediaTek-specific fix. It follows
-Luiz's suggestion, in review of a separate generic DLE RFC on October 13,
-to use a driver-set quirk if a controller needs explicit DLE. It is not
-a revision or resend of that generic request.
+Given these differences, I would prefer to keep the classic approach proposed
+in this patch, describing the camera directly in the carrier board DTS.
+Do you think we should still use connector bindings in our case?
+If so, how would you suggest handling these differences?
 
-Differences from the separate generic RFC:
-- Require the exact tested USB ID, chip and firmware image build.
-- Keep the existing suggested-default write unchanged.
-- Require a central-role link, local/peer DLE and command support.
-- Use current host defaults, not hard-coded transmit limits.
-- Keep referenced queued work, cancellation and locked revalidation.
-
-Tested on ASUS G614PR with MT7922 and a Cochlear Nucleus 8:
-- Manual same-connection request: 21.5 -> 50 SDUs/s, peak queue 32 -> 3.
-- Automatic request: local 7.2.9-arch1-2-asha-mediatek boots and playback
-  is reported working; the matching firmware and quirk log are present.
-  This local kernel/userspace stack has other ASHA patches. This is not
-  a vanilla upstream-kernel hardware test or a post-boot throughput trace.
-- Broader suspend/resume, battery, other-profile and native concurrency
-  coverage is not claimed. An earlier brief quality drop is not assigned
-  a cause or declared independently resolved.
-
-Validation on Bluetooth upstream base 185c11232d5f:
-- Four native Bluetooth objects compile with W=3D1 on an x86_64 diagnostic
-  configuration (Rust disabled); this is not a full upstream kernel build.
-- 37 source-extracted ASan/UBSan controls pass, with unpatched baseline
-  and negative controls. These are not in-kernel concurrency tests.
-- Equivalent backports pass the same controls on pinned 7.2.y, 6.18.y
-  and 6.12.y snapshots. The 6.18.y and 6.12.y variants also compile the
-  four native objects with W=3D1. No older-kernel hardware boot is claimed.
-
-The firmware gate uses the selected image header. If setup reuses an
-already-resident image, this is not an independent read of that image's
-identity; the observed boot log matches the tested image. Please review
-this limitation before widening the match to other firmware or devices.
-
-Stable consideration: this fixes a real firmware interoperability issue,
-but the change exceeds the usual 100-line-with-context stable guideline.
-Please assess stable suitability after upstream review. No introducing
-kernel commit has been established, so no speculative Fixes tag is added.
-The 6.18.y backport uses the older connection-feature layout. The 6.12.y
-backport also uses scalar quirks and checks queued duplicates before
-taking a reference, since queue_once() there returns zero for duplicates.
-Backport application/API differences and checks are documented locally;
-no stable acceptance, older-kernel hardware test or public issue closure
-is claimed. Please do not queue an unreviewed backport directly.
-
- drivers/bluetooth/btmtk.c        | 29 ++++++++++++++++
- include/net/bluetooth/hci.h      |  6 ++++
- include/net/bluetooth/hci_sync.h |  1 +
- net/bluetooth/hci_event.c        |  8 +++++
- net/bluetooth/hci_sync.c         | 58 ++++++++++++++++++++++++++++++++
- 5 files changed, 102 insertions(+)
-
-diff --git a/drivers/bluetooth/btmtk.c b/drivers/bluetooth/btmtk.c
-index 75483d823..cab5c4c36 100644
---- a/drivers/bluetooth/btmtk.c
-+++ b/drivers/bluetooth/btmtk.c
-@@ -47,6 +47,24 @@ struct btmtk_global_desc {
- =09__le32 section_num;
- } __packed;
-=20
-+static bool btmtk_needs_manual_dle(struct hci_dev *hdev, u32 dev_id,
-+=09=09=09=09   const struct btmtk_patch_header *hdr)
-+{
-+=09static const u8 affected_build[16] =3D "20260724143815";
-+=09struct btmtk_data *data;
-+
-+=09if (hdev->bus !=3D HCI_USB || dev_id !=3D 0x7922)
-+=09=09return false;
-+
-+=09data =3D hci_get_priv(hdev);
-+=09if (!data->udev)
-+=09=09return false;
-+
-+=09return le16_to_cpu(data->udev->descriptor.idVendor) =3D=3D 0x0489 &&
-+=09       le16_to_cpu(data->udev->descriptor.idProduct) =3D=3D 0xe0f6 &&
-+=09       !memcmp(hdr->datetime, affected_build, sizeof(affected_build));
-+}
-+
- struct btmtk_section_map {
- =09__le32 sectype;
- =09__le32 secoffset;
-@@ -219,6 +237,9 @@ int btmtk_setup_firmware_79xx(struct hci_dev *hdev, con=
-st char *fwname,
- =09u32 section_num, dl_size, section_offset;
- =09u8 cmd[64];
-=20
-+=09/* Re-evaluate the firmware-specific workaround on every setup. */
-+=09hci_clear_quirk(hdev, HCI_QUIRK_NEEDS_LE_SET_DATA_LEN);
-+
- =09err =3D request_firmware(&fw, fwname, &hdev->dev);
- =09if (err < 0) {
- =09=09bt_dev_err(hdev, "Failed to load firmware file (%d)", err);
-@@ -347,6 +368,14 @@ int btmtk_setup_firmware_79xx(struct hci_dev *hdev, co=
-nst char *fwname,
- =09/* Wait a few moments for firmware activation done */
- =09usleep_range(100000, 120000);
-=20
-+=09/* This firmware accepts maximum suggested defaults but needs an
-+=09 * explicit per-link request to negotiate a larger TX data length.
-+=09 */
-+=09if (btmtk_needs_manual_dle(hdev, dev_id, hdr)) {
-+=09=09hci_set_quirk(hdev, HCI_QUIRK_NEEDS_LE_SET_DATA_LEN);
-+=09=09bt_dev_info(hdev, "Using explicit LE data length requests");
-+=09}
-+
- err_release_fw:
- =09release_firmware(fw);
-=20
-diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
-index 1c992e875..513ca226d 100644
---- a/include/net/bluetooth/hci.h
-+++ b/include/net/bluetooth/hci.h
-@@ -340,6 +340,12 @@ enum {
- =09 */
- =09HCI_QUIRK_BROKEN_LE_CODED,
-=20
-+=09/* The controller needs an explicit LE Set Data Length request for
-+=09 * each central-role connection despite accepting suggested defaults.
-+=09 * Set during the vendor setup callback for affected firmware only.
-+=09 */
-+=09HCI_QUIRK_NEEDS_LE_SET_DATA_LEN,
-+
- =09/*
- =09 * When this quirk is set, the HCI_OP_READ_ENC_KEY_SIZE command is
- =09 * skipped during an HCI_EV_ENCRYPT_CHANGE event. This is required
-diff --git a/include/net/bluetooth/hci_sync.h b/include/net/bluetooth/hci_s=
-ync.h
-index 59cb918d1..5a37d3e50 100644
---- a/include/net/bluetooth/hci_sync.h
-+++ b/include/net/bluetooth/hci_sync.h
-@@ -194,3 +194,4 @@ int hci_le_read_remote_features(struct hci_conn *conn);
-=20
- int hci_acl_change_pkt_type(struct hci_conn *conn, u16 pkt_type);
- int hci_le_set_phy(struct hci_conn *conn, u8 tx_phys, u8 rx_phys);
-+int hci_le_set_data_len(struct hci_conn *conn);
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index 56ad10ab9..d78f330e3 100644
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -6875,6 +6875,14 @@ static void hci_le_remote_feat_complete_evt(struct h=
-ci_dev *hdev, void *data,
- =09=09=09=09conn->le_tx_def_phys &=3D ~HCI_LE_SET_PHY_CODED;
- =09=09=09=09conn->le_rx_def_phys &=3D ~HCI_LE_SET_PHY_CODED;
- =09=09=09}
-+
-+=09=09=09if (hci_test_quirk(hdev, HCI_QUIRK_NEEDS_LE_SET_DATA_LEN) &&
-+=09=09=09    conn->role =3D=3D HCI_ROLE_MASTER &&
-+=09=09=09    (hdev->commands[33] & BIT(6)) &&
-+=09=09=09    (hdev->le_features[0] & HCI_LE_DATA_LEN_EXT) &&
-+=09=09=09    (conn->le_features[0] & HCI_LE_DATA_LEN_EXT) &&
-+=09=09=09    hdev->le_def_tx_len > 27)
-+=09=09=09=09hci_le_set_data_len(conn);
- =09=09}
-=20
- =09=09if (conn->state =3D=3D BT_CONFIG) {
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 7ac26daba..f919249e9 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -8152,3 +8152,61 @@ int hci_le_set_phy(struct hci_conn *conn, u8 tx_phys=
-, u8 rx_phys)
-=20
- =09return (err =3D=3D -EEXIST) ? 0 : err;
- }
-+
-+static void le_set_data_len_complete(struct hci_dev *hdev, void *data, int=
- err)
-+{
-+=09struct hci_conn *conn =3D data;
-+
-+=09bt_dev_dbg(hdev, "err %d", err);
-+=09if (err && err !=3D -ECANCELED && err !=3D -ENODEV)
-+=09=09bt_dev_warn(hdev, "Failed to set LE data length (%d)", err);
-+=09hci_conn_put(conn);
-+}
-+
-+static int hci_le_set_data_len_sync(struct hci_dev *hdev, void *data)
-+{
-+=09struct hci_conn *conn =3D data;
-+=09struct hci_cp_le_set_data_len cp;
-+
-+=09hci_dev_lock(hdev);
-+
-+=09if (!hci_conn_valid(hdev, conn) || conn->type !=3D LE_LINK ||
-+=09    conn->role !=3D HCI_ROLE_MASTER ||
-+=09    (conn->state !=3D BT_CONNECTED && conn->state !=3D BT_CONFIG)) {
-+=09=09hci_dev_unlock(hdev);
-+=09=09return -ECANCELED;
-+=09}
-+
-+=09/* Use the current suggested defaults, including later host changes. */
-+=09if (!hci_test_quirk(hdev, HCI_QUIRK_NEEDS_LE_SET_DATA_LEN) ||
-+=09    !(hdev->commands[33] & BIT(6)) ||
-+=09    !(hdev->le_features[0] & HCI_LE_DATA_LEN_EXT) ||
-+=09    !(conn->le_features[0] & HCI_LE_DATA_LEN_EXT) ||
-+=09    hdev->le_def_tx_len <=3D 27) {
-+=09=09hci_dev_unlock(hdev);
-+=09=09return 0;
-+=09}
-+
-+=09cp.handle =3D cpu_to_le16(conn->handle);
-+=09cp.tx_len =3D cpu_to_le16(hdev->le_def_tx_len);
-+=09cp.tx_time =3D cpu_to_le16(hdev->le_def_tx_time);
-+
-+=09hci_dev_unlock(hdev);
-+
-+=09return __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_DATA_LEN,
-+=09=09=09=09     sizeof(cp), &cp, HCI_CMD_TIMEOUT);
-+}
-+
-+int hci_le_set_data_len(struct hci_conn *conn)
-+{
-+=09struct hci_dev *hdev =3D conn->hdev;
-+=09int err;
-+
-+=09err =3D hci_cmd_sync_queue_once(hdev, hci_le_set_data_len_sync,
-+=09=09=09=09      hci_conn_get(conn),
-+=09=09=09=09      le_set_data_len_complete);
-+=09if (err)
-+=09=09hci_conn_put(conn);
-+
-+=09return (err =3D=3D -EEXIST) ? 0 : err;
-+}
-
-base-commit: 185c11232d5f586489bb3b74e6bcc7a6560ddd40
-
+Thanks,
+Best Regards,
+Stefano
