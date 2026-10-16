@@ -1,124 +1,134 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE12F312825
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:30:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157452; cv=pass; b=YZqJ9Z2xy02YYBpBWN8seDCpUGvLK8L56NfqWEU8aWsgOQUA+622Jx5ZDWWsHPB+OfIFP2P4QYeAUawcv1P89nBbyF8seDfY38zh24HR8NZOl8M1edwYe9bTNQ3o1Sg6ho/DHHl37Jf6Bti+RevmYUZB5uejNmkGPZYpD12lwFQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157452; c=relaxed/simple;
-	bh=Tg8osBMlJW2gUg24u+geNatqsk8I0c48ehEw/o0APJ4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nvt8EWFNQ+sm/dznju20W7sOjV0AOCQ2iy44SbN8aSkaIaNkRtVeIW0IYfvRvlu5o2XxjQ7NPcWnXl3z5GA+MK3nIRf6CGf6ANGIWPPcW95ByPkBHaGJlGz57rd+zK4qLYumGBw+xMzZeCoo4MCc65Lv0xzTbuNSsUZc3CFBei8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=drEAeZ4I; arc=pass smtp.client-ip=209.85.128.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2044C9E1A
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792157460; cv=none; b=r42AThsyRydEqk5V/uTIM8yTZftRxaCLttqekFaXvEseHlzJyVTmSr54JZ58RCLT57HQwgJxPmlVzAa2vdsFYjVIqDy8ZaUrwtaARJbl4wuphoKFR+zvdczck56P6fpV+ukNOZ7CrDx5gNMXrDDspCXroarydVtwmChruq6N5e8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792157460; c=relaxed/simple;
+	bh=FoawsJ+Jr3o0i73fWcswOJpI48/6PChdwPWdkyAtoTE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DuA6s+l8cGWmnyyhKP13qom/uO5Afm0ClwF7M75D8fXm1m9Xrr10iYBm7bSkErHhfbftujAPr90yEhIlf0cfBYRmy7GMNcmvcDv+dyi4V01p92GovCowuwyXSlY/KSJGCx/MqLlrQwW1D4k9zG5o1TViWG5frLUqKiI9tyTI/nU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=CXvi4NOQ; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="drEAeZ4I"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-888cbacf70eso70518287b3.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:30:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792157448; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZpbManafe5dp6R22mWoBnw+xg2qvilXbRvDdNoOV55mdhIqBnNX2OujJscmK5i2ia0
-         e2XOljAs3w+tJqvgfVh++4DbQ/xpi++AD6mxbs9MrTE/AnOq/HdfMi6fDDpUhkb5SS2c
-         WLVwEZ8R1v086jGHyO39riuFVX/P7JegdSxfrELV1202PeBAnzg9FBllMnoodhaoZaKA
-         37WVK2hQx2qewLzHuMXrDqhH1R+S7qFL3wQvl/xM0CKKosaoepZNuAnFBJVPWjUPo22C
-         npnhy+q1fcjFq4zZhCOIKrbNbse9U0+YST3hpTK1q8Ei3xuqh9/7DqAabUokXkXNy97u
-         I/aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rIm59MgkRPMNvXfj/Jkes4vvlVAq1JGQG1mz/QlOwQo=;
-        fh=OdjtqekM8hv91G1sjMdIh2qgUTu0x2fUJOf5QyevEbw=;
-        b=DdY8ojgp/fIPjUJIMhmJEwe1AgZ4e9zd7cWYbL8eCkIvxf1u7OtG5dmmtADyIraLUk
-         MJAVijJwFzMJFwhdMTCKQ+cICyaOpAeib/fh9quVd/3ZeFh/5ra/dwjh4iuW61OPCOF6
-         Q0UI5w/ZK3DjSqgwS1yhAo9l+cW6g5IkAft8TWRchKQMz5qIUCRSSduuKrPqaJiASKrM
-         nbB4OHDX272KTZoQchVCtchqVp3fxs6TulSwgF2w7oDHzNK0dVPQ/xfBLM10UdJ+fB8I
-         QGPoC+2amJuWOGjWmVRlOokwki33GBRp+VcPg3DKSacYSZaliO05OJdnojCssDP+jChx
-         Ejdw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="CXvi4NOQ"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso60336665e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:30:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792157448; x=1792762248; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rIm59MgkRPMNvXfj/Jkes4vvlVAq1JGQG1mz/QlOwQo=;
-        b=drEAeZ4Is2P5qjLVtmTBn+HFfFgR4BV+4prbSVsy6JLOuS4BGHjO4PFOPmIA0KLGHg
-         L4NI1XiPtQRCnJHavS2o3aEWXxuh0BfJJ/2QtpJdGCv841wWJCb10mJTSl5IpxYiQAuJ
-         4OngJdPXGmgpdBKl3Si6Vceep5jQadSpHtPsqEPIzipMyhjT8uwTyio7d/Qh10hX9Pv+
-         5eKO86JQ89huoEKcCwSwCihFNc4fNu2f1Ccqpzx8mihXZjwzsNN85xwQaOI8eM5NIqpe
-         bER78hba6NXXXmw32BnzR9JHo8wWr4Hwc12Ny82TE+Dk3nSR3wgqZZe/lbfvtcd9kw1y
-         MeCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792157448; x=1792762248;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1792157446; x=1792762246; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rIm59MgkRPMNvXfj/Jkes4vvlVAq1JGQG1mz/QlOwQo=;
-        b=fWcj8Z+YwWmGgNVY3wE6tQqOeNUOX+FtIi9WDg42tzf48cN/gt80PnL4NlhE6jfqtr
-         QIQ19gJgKMf/qjFWrWWR/yChe1kk/7wXRgXdZTjii1g5SJzJBH79DG40XImIai7SY6bL
-         Z0N+bkrssTbLozo5dIWFGzgvZX5NkhH10iwo0os4Nz9GbqSiEIijPkHmGsz389Ov9OMM
-         Hadm9bYoLB5/MVrSTx+CHVYg7HKNIhpP+a2+uuEzraABpCbr2LV+nkCXeFYE5PLdcwIM
-         /EO31P3zlNW8IaeB8zOT1hoRQjKl4HnJkTXcYFvNYH6JDAwWuUA2BJicwquEkDhCIV4R
-         EaDA==
-X-Forwarded-Encrypted: i=1; AKwUvBzmszFSCRlf9ehUbAzUv0e7JCPyJxxaLBHo7foDKG04yzGwCb24QSc7b+zpd+j6s/1jXVhxOxE5H4eoLHY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYITq3ITRXa+F+3xtAMFyxYF3ND9NvzZoXeEvzW/uXrpPA3z/Jjn
-	Gsbd0s0vHZJnYhOVwNV6ZOtoz8khsQ0By6c+zHJY88WOLu1FTBwr9rDPkEv4JWW9g7aqKc9pSvI
-	McZJZUaNbYofRbiBrDikXNwgTO0XJEeg=
-X-Gm-Gg: AYBFou3P/KxNL1ClNX+fY/sw2OASxsqO1QiENI7fdHlHfYDFbuw+AsoJehrCwISCMbN
-	g/GFZR1jAtSZfIwhf1b+2YEoVosEDAjsdLtioOxv5+sp4VKBlASLLT+4xjr1fo0x9M1tPGP/5vM
-	/fmkVU5mGu/8LuCxz0Vsf1Dx8k4bXL5wg2s7Ppa4QaIAj7/3BrLXfezdREPNB35ZrXzODgamOMV
-	dmg0EDSqdIkdn991UnZ2Wgrcj69Bw0h8JhGYM4j1eBP4aQeVmQRHjBUj7nb0bFleaqdRbXnS+o1
-	v+pxsPiQqLN1PFSNXOMzsHyIIEp/QyAop7ilXVJoHvJiBQqCIQDpn/y+SJNBTjnMtOFEcT7+lW+
-	ZLLqY1Xbd/Q==
-X-Received: by 2002:a05:690c:350d:b0:8ab:4b1b:fb27 with SMTP id
- 00721157ae682-8b07ed90e31mr80020807b3.23.1792157448333; Fri, 16 Oct 2026
- 06:30:48 -0700 (PDT)
+        bh=apXFfUjY7v6M2DPDE8emOTN5c6EUenT2ynsNF+r1xeQ=;
+        b=CXvi4NOQPbkI0A441IkHgixYw8DtfdD3oVtEmDWNY5VwjroGW6KU20B3bl9YcyBFZ8
+         sHslnoeFyvwlwYPzHXtbwVltH/pEwA05V601w1NL/G5dRGeVJX7SUTk5rSKJ+o7iOPMI
+         cJVWly4JOQjbNq2gLkY5hG7wNxXKsAn+Jss4B3h5mHQME3nH/ZZmV0b+6eW6mwVDpI26
+         UL2kOSb/HZOamdcaehAaYNvKgr7H2qhk93pcI+90cTWjTweO1jhxwLBqZheL7n5TiSh9
+         hOCGj24YjwB9Ksqw9xJwGAetNKbtmXV5NFvUjz+zMEH01UiLy1XGrUrnOTF4XNKOtNQ6
+         TETw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792157446; x=1792762246;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=apXFfUjY7v6M2DPDE8emOTN5c6EUenT2ynsNF+r1xeQ=;
+        b=cukH/dgsa24V2m8Bty+FUTGjVJUyb2CZXVYP+x7Ab67XX+82R7ZF7Qf5cH0n7BjlUH
+         ila62aa3fWwuW2E42Jb6L1v9FN05yTvzaIFdlqSC4LIivtw2/Aljf+OxFX8Oazvzn+Rr
+         sB5Cpddn5wA92sJLJcOXqTdJtho9Nxucp97AOaZ7LiVzYvHcz/jZGj0xa2NyP3CV6ui+
+         kp6HnN6ErJWC7zXKD6Hp8UchQgPBiHRuwrzKlXLPNo13G7cWgOM5uH6HppGAdjsBRyQX
+         N++OoVbzIHcmLUF9NuwxyCeETLKRzUwf/uxiIOjrM+8EMgQ4qA9li3ivCnrsn/ejyPVE
+         SlCw==
+X-Forwarded-Encrypted: i=1; AKwUvBzYUKvAt5txvll8k8ECG2CeFD7NU2cMczz0Jj6r5kHxu46mxZrrOzSYivXGsRfoWIl8SOdsjCsbPnIE9U0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUHUR+qAjJF2QWyFq3bBP/64ffcNtoB7iiIha7WZuMiHpF9ymE
+	YbgH5US8XWah54XsO1YLIXv4PLMAtBhBdGuGLptI5Btn0nvsnY4aWsIZFtplEub25XM=
+X-Gm-Gg: AYBFou3I4UIxLix1w+YLWmR7bcqF7t6HtrRWIbUpFncP5HkDkVEQzzxgtLFn1xdXcUS
+	K0CjBt3ckiOtsqypZTRdKcrppNk/2989h6l9Y1TahSKQAsORLdwguAd3U8I19QGYvDNIGLwyGg4
+	WrSQIjLakkLGNfRSxPW0l6XUGtckiuCwpLSIWNa4UiCUpZktfQJs09/hakq1mMz8j9A+TLWXVxt
+	SpqSt0/UhzpNTY+Ecq2ru3X7mIqD5ZZ5zyvL7IbIy1nU9FI24Y7vb81bjm4GpeMCa0ERIF6pW+L
+	Ej34OVllaXAFhPtC2YbGxdUEhrN/9PMR43V2JqwhRzy5FvGNrPb9fDXzsABl72yEfa9lvS5Zegl
+	HVXYygpFe7dN5cO2MoZbZ438JsfYp1K86w1Xv2D2FQavTg042deteyOsBuN5FdV6Qhy6fASqLM5
+	H7Yne7xj0/SwSIeFlXUHNxdHNQjsLHuEf7tngB98ITruQ39ZIKtWrLV9duQPvzbM2bmDrmpB8pY
+	qHxnSSRpGV1MJTxnD1MYguP67JBsWKM0g2J16nuFW2Sfx8lbsmDgZ+9J2R3eCvEVuJOkWt/yhbp
+	GF7jPA==
+X-Received: by 2002:a05:600c:83c7:b0:4a1:d456:dda9 with SMTP id 5b1f17b1804b1-4a1d456e0a2mr15854635e9.9.1792157443112;
+        Fri, 16 Oct 2026 06:30:43 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ae6d2esm60109555e9.6.2026.10.16.06.30.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 06:30:42 -0700 (PDT)
+Message-ID: <ad5f5981-7133-431e-ac8d-8ac064a97f02@linaro.org>
+Date: Fri, 16 Oct 2026 14:30:41 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <pm-pmb-0f2e227b93626e3c7554-v2-0b7a6296bbea01ae57e8@gmail.com>
- <87ik316gq4.wl-tiwai@suse.de> <CAFRLqsVH=Xkeoh2icgSftWCnk3uEUGPst=N3qeGoZ7Zy9+W6WA@mail.gmail.com>
- <87cxt9u74s.wl-tiwai@suse.de>
-In-Reply-To: <87cxt9u74s.wl-tiwai@suse.de>
-From: Cen Zhang <zzzccc427@gmail.com>
-Date: Fri, 16 Oct 2026 21:30:36 +0800
-X-Gm-Features: AclHuK_-8NTVn4hstDmRuq6xyfPlF3KXeqTSQtUBU9lQ4ZX21sfTb7zarC3sCB4
-Message-ID: <CAFRLqsWCmGOf6HfEN=NY9JJQBLEXi58ccUr5cijSDPM_ARcc1g@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: jack: Protect debugfs setup against control removal
-To: Takashi Iwai <tiwai@suse.de>
-Cc: perex@perex.cz, tiwai@suse.com, phucduc.bui@gmail.com, kees@kernel.org, 
-	blum@kernel.org, hui.wang@canonical.com, kai.vehmanen@linux.intel.com, 
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	baijiaju1990@gmail.com, jjzuming@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/25] perf/core: Export output copy helpers for CoreSight
+To: Leo Yan <leo.yan@arm.com>
+Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Yeoreum Yun <yeoreum.yun@arm.com>, Jonathan Corbet <corbet@lwn.net>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+References: <20260915-arm_cs_support_aux_sample-v1-0-35cf6f297d20@arm.com>
+ <20260915-arm_cs_support_aux_sample-v1-3-35cf6f297d20@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20260915-arm_cs_support_aux_sample-v1-3-35cf6f297d20@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Takashi,
 
-Takashi Iwai <tiwai@suse.de> =E4=BA=8E2026=E5=B9=B410=E6=9C=8816=E6=97=A5=
-=E5=91=A8=E4=BA=94 21:06=E5=86=99=E9=81=93=EF=BC=9A
->
-> OK.  Meanwhile, I think we should work on the jack driver code a bit
-> more regarding the debugfs: namely, the debugfs is exposed already at
-> the creation of kctls, so they are accessible before other interface
-> registration via snd_card_register().  The debugfs addition should be
-> rather moved to the register phase for avoiding the unexpected access
-> via debugfs, instead.  I'm going to submit a patch later.
->
->
-> thanks,
->
-> Takashi
 
-It seems that this problem does indeed exist. Once you send this patch,
-I=E2=80=99ll be happy to help review it. Thank you very much.
+On 15/09/2026 16:48, Leo Yan wrote:
+> CoreSight AUX sampling needs perf_output_copy_aux() to copy trace data
+> into samples and perf_output_copy() to prepend zero bytes when the
+> available trace is shorter than the requested snapshot.
+> 
+> Export both helpers so the CoreSight snapshot_aux() callback can use
+> them when CONFIG_CORESIGHT=m.
+> 
+> Assisted-by: Codex:gpt-6
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>   kernel/events/ring_buffer.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/kernel/events/ring_buffer.c b/kernel/events/ring_buffer.c
+> index 1b1ffe0533e58a9d976d0eb0fc23e09d5936da2b..e69ea5b077a5e94b5b6bb1f4c6f0ca5b8a94a6cc 100644
+> --- a/kernel/events/ring_buffer.c
+> +++ b/kernel/events/ring_buffer.c
+> @@ -298,6 +298,7 @@ unsigned int perf_output_copy(struct perf_output_handle *handle,
+>   {
+>   	return __output_copy(handle, buf, len);
+>   }
+> +EXPORT_SYMBOL_GPL(perf_output_copy);
+>   
+>   unsigned int perf_output_skip(struct perf_output_handle *handle,
+>   			      unsigned int len)
+> @@ -617,6 +618,7 @@ long perf_output_copy_aux(struct perf_output_handle *aux_handle,
+>   
+>   	return len;
+>   }
+> +EXPORT_SYMBOL_GPL(perf_output_copy_aux);
+>   
+>   #define PERF_AUX_GFP	(GFP_KERNEL | __GFP_ZERO | __GFP_NOWARN | __GFP_NORETRY)
+>   
+> 
 
-Best regards,
-Cen Zhang
+Reviewed-by: James Clark <james.clark@linaro.org>
+
