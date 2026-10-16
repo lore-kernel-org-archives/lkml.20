@@ -1,175 +1,217 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013017.outbound.protection.outlook.com [52.101.72.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB93B4CCDE9;
-	Fri, 16 Oct 2026 15:30:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792164619; cv=fail; b=lBjEy6FCzdZ/vTPod/OjOfnyXjzuvsDces0QAFaGrRh+COVCBdoSXafmWowi5mybKPBhg66AzwAGoiYtMfzRzDYygGVT3Nr9jthBNIjMle689eINmUKI1j1ew0d8cuEjBA/EFJIko5YR8FPEFUntRMCrF+US8dlXJZb0i1SulZc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792164619; c=relaxed/simple;
-	bh=ujasRA8DbEZtcucKMnd4Ap5vi9pPN7BBD/8QiqgJGVY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=oDP69UWzwiMngRW6bwyC9MLEPUSUDoGpFjV9Vfxlv3PyNkG+lHFOGvvfWqHuffuQ/Ij4mRwz/mABAyIuPxpUcj71KJokiKk4IDs2hpoIdmhD/URWz0jOOXPrV1JcUSGXIP+K5eW10N3jmjCWQrX5DhJLX8/RraTIUhSSD0yplmQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Tgpd+G34; arc=fail smtp.client-ip=52.101.72.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E264EBAD0
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:30:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792164621; cv=none; b=CXYdHnkiCuWxttqCFxy646Q7YIX6f0z2zQMhJsMz/1Lq0KRkoFgaoGOzErVdY4E6z7BEjdxRO34xVb3KJD0+NQC20vJPr52pWtOk9fmP0dQU5YFQVNsuvvmM8+WsbwwnGYCf2j6JGQUH61sDl+yZEMvY6O/rmOtNPPricKQhKKo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792164621; c=relaxed/simple;
+	bh=IMgRqh7P9bFjG3FfvNoeXAv6Y2588Kxr8DTOqxdoKgw=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=nlpIGCo0sndsCzLawH3ma61/NBIzxPW5MMOAXy13TEAmEVDekAjmU4teT3IBD/paPkYAnukPXTM/7iu9SJRRe4vNs8mz6YlaxYkWhJyJTcspDm0rrt4hVkm24zvtzvusp57W+SmDNpAd+uceV8qKXbsWX0uvmDe1CDH5d195Rh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KHcDDe3T; arc=none smtp.client-ip=209.85.217.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Tgpd+G34"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j0F3s76ZvhajfpbgjL4Fb1jsK31WTqGb0vghAERtbU2uJ4fsOveeYPw7jXjLqiOu2E44js4GcPyUJivwSvGhUBlTNf6Bj+rR6XifJ8nT3tTbXIbQQK9sntvXw6Io2yUG4eUDDGZeTeBBmUD6ktRox9/CrMHyqyYuR50+ChZ5MFFktpPeazsrIhbo4GcO4PZbJpuplg6fd7SNvuztGZxexo5ihWzcWEBlEWgPZDEkEL915X6GEp0gq2F5hPhwM/fq0hFOnYKd08TUnGTIry7PUizY1WcNyzl8Hv30OowXQEa+6k8s/FODX0LD8XJM5F+ugRGBz35PU/tJmt2x8yuGAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EQ7uTMeijXCxDdY/1yllz9RDgrjIqiu5NYCZiY6kAhA=;
- b=Acz5LOVkqRFMuUY+dSA0Rz7KiuJj0zfl5WSIRtyhWQFZ8tAAXYR+foZKh1zjsafUvFemOEtWGTOuwt5z1HT0NMB3O56d4EEYv7oQWyGxKTELfjzkyVAIy1bezfTTF1H1bjHp9Jk48ny/ty+jAPepENmHb1hKeeZ9y5u8F3GeECQsd1y/IomOPc6+XNoNe5AakJV/nA7LnMNj8o5TzjskhR6qpDH2K+S1xBFaqmD5Fk9UCTUfMxWtA/Zp/vizuLVKGvvlnLM/7KPci4NtXpgZ91MjpRNCf5UMu5Pf4yfa4Imz1B3rt/fvXNG8mZUV3cpGJqdUYNTBB/U9hA1Koj7emQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EQ7uTMeijXCxDdY/1yllz9RDgrjIqiu5NYCZiY6kAhA=;
- b=Tgpd+G34DeOlhSyoQVb3TW/Ni7gpzKtrHB5LIHx+fPksG84akBs4Kx/uO2ImwxzTGCnAnbTQzFRen6C+p93rdCirlqhRZqMTe+vVrJq1RSMQoY2B0yv07AZgo63S0cs9jFrUfM9oOXhvRbT3cd5QmQ8u2YHm8/mfs9FhihExWZ08To3r+JbeOYsrO/GecnCSxgqPlydGkyONnGwj6748zWsehObLKbblvwPbOsaHzFVf4Pfk9IOhQ1Ai1AjX39KBWQLq6Bo1Xr3mbJW/dTuzXR3ySp5W5UMA8Eyusep1HjRXOEreHOaEyc96Yg3zX2ihs9tpJrYNozDwBIFfFgl5iQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM7PR04MB7061.eurprd04.prod.outlook.com (2603:10a6:20b:114::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Fri, 16 Oct
- 2026 15:30:11 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 15:30:10 +0000
-Date: Fri, 16 Oct 2026 11:30:02 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
-Subject: Re: [PATCH v1 1/1] dmaengine: acpi: Free resource list at
- appropriate time
-Message-ID: <atJC-sD9Kk2N3e8l@lizhi-Precision-Tower-5810>
-References: <20260617091421.2649071-1-andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617091421.2649071-1-andriy.shevchenko@linux.intel.com>
-X-ClientProxiedBy: PH7P222CA0028.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:510:33a::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KHcDDe3T"
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7c337cd6614so3609056137.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:30:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792164619; x=1792769419; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=EzgDhar5zkz19hBJENwPklhUs01SGYbuNfu08NDtMCg=;
+        b=KHcDDe3TiZHqPdrRSG1PuehEC3fud6vLfAYiRm5TT3GDi3zkDvf6KoV5YT+OK5B20x
+         piaQ2+hRNyy7xWEF48DyfIv1AIpiMeGFMF0s8fbLNy8x5kc+FLiYyLOe3BAposIrH/Pg
+         GOPIYGO/y/lWgppiHaknIzgJOzLIQDecBgK8eW6Pmr2/DKeQk6P9YYWV0Coxuo3ykfY0
+         ycNph4bc11HWb2ddYSS803JPu7nIkMJMFQVCOWdXb6/4isbWfeU5SezjIlLjs+9foQvo
+         ePAFFkOAlPLScxddFDbVRWosIXe/vWKuxC8VsI6rU+Y3p8A2er+A+O77EyIs6X7bUOEP
+         GYsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792164619; x=1792769419;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EzgDhar5zkz19hBJENwPklhUs01SGYbuNfu08NDtMCg=;
+        b=2lzYTviEtxmrMzPPNNPLE7hhm9kZkoTtLyKQUDxPRW2+yc3OJR7+rkzGoKsu3oHmG4
+         yVAlBNKg5GkrvDuKo+n8xfv1vm9+2hmPWi0hVvbqVFsnnocqblX7gW6aHFoxOyBtq9MM
+         ldDIWFv6gWVND1z9F6r0AXH1ACzUhN5jahcrxJz5JjbWAiixioV/5Km0YmFtL7bvWkLr
+         Ipv/Tw3U2/lYH3H0fapYFF2Zgq2fdK1IF74nXmo46So8RiI1jOsU1gQzmDXF87TrgQNR
+         0GUwezByx4jXYyJSIQmOtr99av/TmV6Fue5WRVXMt4cWE/VAToxribGhzcl+sVOYqpIP
+         0Rpw==
+X-Gm-Message-State: AFq9FYJt/Cc7GsbhVgwsxi1yXxXlQDUCKtQP0dSYWk72snQ+QdOk/Y9r
+	pQDrWPifw8zgvXgLiUA/Z0JLw/jWLl5QMai7mVVDDInztNkf7g0FbvnW
+X-Gm-Gg: AYBFou2P0txeq7NdON5NjS6Kn1/elfZwiThbn8GwUuTOYJsrxOYLE5bfUEQOoR36kD/
+	3EL/hBixrQ2Lk7lvlhLvz1RHubq8CXdoJdhyGL6Rfn1iB1LxVj9AEivH5Goi5Z3WLntKQhB8Qdp
+	vrnqoIIE0uVu4iOP9w1p7BRKjzP3ELhtsLyzkVJnOKtfpg+lg2lAQKw+yWa/F26de/SBQKJVM11
+	6F/ftF0rMfuwQ/L/mseOYXePZQQkRLqb6C9pLLJInPzXBYZLl0CG/geg9foSle0PLWiDCs/C8eo
+	Ob48tjZETREG6GGzbEqe9E49hc+iYZw8EE0hHySW1T3mCZ1c5Om3JVWUezXe1Pv2V2T0moCEDg+
+	vUM+wyXLCIkvVegncDKnJQxcMqskyLh3Ky5ekdGHtdWCzVynZqtqguWcVAMunjRAtGgssJapOw9
+	BiCxqG+PyHNEp7Yzb/wAX1OswNRR2mgRwjm8L9SlBijyj8iH7qSdnDL0U6kmyQUzTXI1jzwbCKx
+	hWPLGLnWLeTQ6uBdAl4WxwNLmjTTZdeP/HrNGQGSInDocKFHox5PJTqZDZGpzC1f9V+icK1MS4P
+	npDYD66u+Hah8RdZm1WNi6XXbROAO9lGdwpKjg==
+X-Received: by 2002:a05:6102:94a:b0:7cc:1ace:fd14 with SMTP id ada2fe7eead31-7cc1acf084bmr1323389137.33.1792164618748;
+        Fri, 16 Oct 2026 08:30:18 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990833c2c2dsm1836983241.2.2026.10.16.08.30.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 08:30:17 -0700 (PDT)
+Date: Fri, 16 Oct 2026 11:30:17 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: linux-kernel@vger.kernel.org, 
+ Jason Wang <jasowangio@gmail.com>, 
+ =?UTF-8?B?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ netdev@vger.kernel.org, 
+ virtualization@lists.linux.dev, 
+ Rusty Russell <rusty@rustcorp.com.au>, 
+ Max Krasnyansky <maxk@qualcomm.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Simon Horman <horms@kernel.org>, 
+ linux-doc@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.1d7ce6b64753a@gmail.com>
+In-Reply-To: <20261016051827-mutt-send-email-mst@kernel.org>
+References: <cover.1792067836.git.mst@redhat.com>
+ <ad05a40681719a579691a1da6413f0dd7064f2a0.1792067836.git.mst@redhat.com>
+ <willemdebruijn.kernel.3a7d04e1c306e@gmail.com>
+ <20261016051827-mutt-send-email-mst@kernel.org>
+Subject: Re: [PATCH net-next v2 5/7] net: add a sysctl to opt out of virtio
+ net hdr checksum validation
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM7PR04MB7061:EE_
-X-MS-Office365-Filtering-Correlation-Id: ddb23c17-b8f7-4a9e-c368-08df2b9a5d46
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|19092799006|56012099006|261009223027099003|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	AMV7rfBe8WM6n02i/Ul8xL84hUTUzAiB5qr7rHzbdl46H7mlytbxDncP2qI9STs68oe7rbg21tvUqSa2d5d8dxLcF/hsDGQFk4Qr/JST85iRdwbDdjOdlNBnnijmgEk2huxG+ZA17BT4+KuM17fLAY31KhJNmx45tCXt3rk1uvAgfWeBXTRoNuMfnnDm2mfNQ9GzSdQggzaCFyOUQUTEDhVB5wMMLI3YS+rMXoD9JHjT/o2cAz+5prlmmnv2nmfQlW86Eqyuoza2qb92le9mCxUrwEL2PQFm6TiEV68DnScNZgXxN3jV6gOVFnRa6TGW2XYxwgMlgjzrtbCxbbJnlGQ2sOeckMKR3N1fI0PkOZtt8AoMgxIGCeeo7+kQ3H+gQXy6ckagVgnnqyG+YwN56kS5hUbCNIcHcck/O0S2Lta+kdH/DGcHVz79tO9UTCkyS5MRiWY3IBAIzQBwr5/wbgZWPDMWV2Vqcz48H5PblAwExV3ZRjFREwoTEA2KE2x/C/NYCyFCxnSwJtZ1y0Bc/4FsiZyTFlTvQ2LwheIue9Nj2xBnq2avKR1li3v/3uvr2I1TyYGxIpMVGxUD0WpLT745BaCkajH00EAnXfz9uHlQLu4x/a0aEQOCMH6rXya+tHZrF4AkyV3FYvvtNOrdgZ46B3ONRYNENl3Zn1Q7hPg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(19092799006)(56012099006)(261009223027099003)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?M7oDImNTrvL6AaLCRII8G5F7TghHRTOOdEQy10wyNRYtpoBMO9iKDD+baSYB?=
- =?us-ascii?Q?vxdBzZIE36MmLl6Q96jSs9gHJsdJ8Tal6UNYJQ+AxnyOhPdVCzjv0ilgTXaS?=
- =?us-ascii?Q?znD81UvrEAoheJOYaDauHEOpnLl/xIOxjUHAObXOjNCYq5rk4h6VOYKwz3Mw?=
- =?us-ascii?Q?XAjH0IlHg05BCScfvyDJYGLoPFhUryXkTPjUX3Ss6DJrybzRGRBZe1KTBg95?=
- =?us-ascii?Q?U+pD04bi5OC0ywd6mHYq4DVYoi2M8FNk04pN+PJ964oR7KZXgY09oKdFTrIb?=
- =?us-ascii?Q?m6fcrZIz9YwU4gf2abDdn2FQknCjZwrpX7Y4rQV069VeC9g5Rsr+h92BgBUM?=
- =?us-ascii?Q?fPHJ9mzC9zW+ztXoloI7t8teDLobes9pfOORVuclns9ZhXUiXK/HBksPaYAg?=
- =?us-ascii?Q?nZS9H+GhfG+BfwvBaGsmgaGosWvUArxsfJOha+N3lmTbxkmsvZpCEWrIeWbf?=
- =?us-ascii?Q?dYnP1W50n79ZjAwxcTaBYlPRsWa+sDrFZThpW5r2qRDGuBJaYY+1CPUnCS0Q?=
- =?us-ascii?Q?m5Z6TAsfNt+iYLfqC5p13oFhhascPeOA4Q2agzuS4bcrpvGn0cggacir/CGX?=
- =?us-ascii?Q?GWzG4QMsQFAdn9bhPpyAMffdXxG0iZIXPNbwGZT07TF5lCAxnACl79SA696o?=
- =?us-ascii?Q?Eg4EpCOmSYyuh3O7byfhtPrF0hdvYsBQ0SJ794qFRlYR10EgtIhrMZJbYL5D?=
- =?us-ascii?Q?hKoa2gOySQDKH+JHguHY3iHgUlBre7ogL2ZXgbzLSqdrn0rRKPqXOq+LrQHs?=
- =?us-ascii?Q?6KPcJWXeKdrJ54jyMRlMJ457ZgtsA2d8yJjPllUKjnRSicuZsY3H19lVUGXg?=
- =?us-ascii?Q?YkLwvc8ultMDQRM3ZFuFPNGpvm6Iaqjblugtkf3EJ1T0jGim0i3gJcc4Gbz7?=
- =?us-ascii?Q?3txZGu0G5YIFdBtwfDxOrcOqWTg/vvk7dSPNmx6nvN5ET/THCcjJo9qFgFgG?=
- =?us-ascii?Q?N6iOcgXq2ikTZVuCcMaoCc6k8hVxk1JA3xYUIkLGji1TOAcWTUSqsrGH9h7Y?=
- =?us-ascii?Q?/Q/U4as3aKfVjn//KoKWcutIZQNXcimSyIj4o7N/vUdXHbQ18Lp8wxKTVxC3?=
- =?us-ascii?Q?oIClv+F2Z6LdXY+4Yc2Ddk/9dk3ESexa1SBX2DgNDVDFCr1KKZti7Qjzbiqs?=
- =?us-ascii?Q?OdXz+vZIEQG0YMdJcCyPyEYflcv/iBBh3IX0DkDGZjaIaeh37OEewOJay4if?=
- =?us-ascii?Q?VsdqZWbcsbDlZ9h+9OxQsGYM7XlWLHRUBVTbzWbUJ1CngN4Eosw6SR04Pjt5?=
- =?us-ascii?Q?a7ZmuIijXoLxBxzt0ihM1nJrbt42pZp+n0TWR7VfF1xHszuzDiJpKNmKUBkI?=
- =?us-ascii?Q?qE8Ec5Qz+DAltS+AMcmUNBzMWMr/Y3vGG/+pII8YZPfD1cfPKBzWgr/V6Iw5?=
- =?us-ascii?Q?/Et6adpE+jn0SNcfEf8jveDJMktYHFWwkdTCbkiyYX/cCZS28bNZC1382wUJ?=
- =?us-ascii?Q?yvyFu8Xrf50YqeF9Am9MB+q3oMfU06dBYw7x5H9wcf/QcU7t0qzgBuYAxXm7?=
- =?us-ascii?Q?UWgaHRX/RKmpeY7g800EtsfKkpFSGWBHoeCOltEUWcBgBrvrqxkIDVHl7JXH?=
- =?us-ascii?Q?VzWQTrItia/FcAo1bSmJI2qloxoX18c/10Sm/Stjg5LPFRN9zDmRuJQsQhEp?=
- =?us-ascii?Q?QTwQ0ebeFMRrVHWnt3n3vz0zFZBauGs962NlEpB9M90TjJlgIILJNPfmt3Qt?=
- =?us-ascii?Q?hXqEWwMQM283AQaDNYWTrRS9+WXXASMWpJSyssUKSwKlGKFLpA/uuczsStua?=
- =?us-ascii?Q?qP3JS1venR9Jq6h0zIMS0XhtQ/tZH1xjyKY9ISulIOPXd5NYh8AF?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ddb23c17-b8f7-4a9e-c368-08df2b9a5d46
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 15:30:10.1446
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: K6/fFXEDu0pi/nskiqdcLsf9GoAVx4UXjl4A7vux8QPf5TlcbqSCYrGcaf1g81Y2CHQkINsCJZDFv2apD1FPfKD7UFxaU7tt4hJTH9j0yDDDNTL35PK67Ewy5TrTeSlq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7061
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jun 17, 2026 at 11:14:21AM +0200, Andy Shevchenko wrote:
-> In one case we don't free resources when formally should, and
-> in the other we do unneeded "double free" (emptying an empty
-> list).
->
-> Both are not critical issues at all, they just make code robust
-> against any possible future changes in the flow.
+Michael S. Tsirkin wrote:
+> On Thu, Oct 15, 2026 at 01:50:54PM -0400, Willem de Bruijn wrote:
+> > Michael S. Tsirkin wrote:
+> > > The ingress validation as implemented by the previous
+> > > patch is stricter than what it replaced: GSO
+> > > packets whose checksum metadata matches no transport header are
+> > > dropped, and non-GSO ones get their checksum completed in place.
+> > > Such packets used to pass with the metadata unvalidated,
+> > > and with no overhead.
+> > > 
+> > > I judge that this should not affect any deployments, but there is still
+> > > some risk that it does.  In case a deployment depends on them anyway,
+> > > provide a per-netns switch to get the old behavior back:
+> > > 
+> > > echo 0 > /proc/sys/net/core/virtio_net_hdr_csum_check
+> > > 
+> > > The default is validating.
+> > > 
+> > > Assisted-by: LLM
+> > > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> > > ---
+> > >  Documentation/admin-guide/sysctl/net.rst | 15 +++++++
+> > >  include/linux/virtio_net.h               | 23 ++++++++++
+> > >  include/net/netns/core.h                 |  1 +
+> > >  net/core/dev.c                           |  6 +++
+> > >  net/core/net_namespace.c                 |  1 +
+> > >  net/core/sysctl_net_core.c               | 54 ++++++++++++++++++++++++
+> > >  6 files changed, 100 insertions(+)
+> > > 
+> > > diff --git a/Documentation/admin-guide/sysctl/net.rst b/Documentation/admin-guide/sysctl/net.rst
+> > > index e586e17fc7a5..7f230929c37e 100644
+> > > --- a/Documentation/admin-guide/sysctl/net.rst
+> > > +++ b/Documentation/admin-guide/sysctl/net.rst
+> > > @@ -246,6 +246,21 @@ processes are dropped unless socket option SOF_TIMESTAMPING_OPT_TSONLY is set.
+> > >  Default: 1 (on)
+> > >  
+> > >  
+> > > +virtio_net_hdr_csum_check
+> > > +-------------------------
+> > 
+> > Make more generic, virtio_net_hdr_validate?
+> > 
+> > In case we add more validation in the future (as we have in the past),
+> > without having to introduce multiple such knobs.
+> 
+> But it's uapi, are you sure we'll be able to change the meaning
+> of an existing knob, even if we keep the name vague?
+> 
+> > > +
+> > > +When processing packets with a virtio net header (through tun, tap, a
+> > > +packet socket or a virtio network device) that request checksum offload
+> > > +(VIRTIO_NET_HDR_F_NEEDS_CSUM), validate the packet: complete the checksum
+> > > +in software, or drop the packet where the header does not match it.
+> > > +
+> > > +When disabled, the header is trusted not to corrupt the packet, and the
+> > > +checksum is offloaded to hardware (or not verified if it never reaches
+> > > +hardware). This is only safe if no protocol is processing the packets.
+> > > +
+> > > +Default: 1 (on)
+> > > +
+> > > +
+> > >  wmem_default
+> > >  ------------
+> > >  
+> > > diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+> > > index 357115ff0ec2..aa2f8ac4657c 100644
+> > > --- a/include/linux/virtio_net.h
+> > > +++ b/include/linux/virtio_net.h
+> > > @@ -5,6 +5,7 @@
+> > >  #include <linux/if_vlan.h>
+> > >  #include <linux/ip.h>
+> > >  #include <linux/ipv6.h>
+> > > +#include <linux/jump_label.h>
+> > >  #include <linux/netdevice.h>
+> > >  #include <linux/udp.h>
+> > >  #include <net/gso.h>
+> > > @@ -78,6 +79,19 @@ static inline struct iphdr *virtio_net_ip4_parse(struct sk_buff *skb,
+> > >  	*thoff = nhoff + iph->ihl * sizeof(u32);
+> > >  	return iph;
+> > >  }
+> > > +/* Defined in net/core/dev.c, enabled while any network namespace
+> > > + * has net.core.virtio_net_hdr_csum_check set to 0.
+> > > + */
+> > 
+> > Should this be a global sysctl, rather than per netns?
+> 
+> 
+> For customers I work with, it would be much less useful.
 
-Can you rephrase commit message
+Third option: make it an integer rather than a boolean.
 
-In acpi_dma_parse_resource_group(), change the return condition from
-"ret <= 0" to "ret < 0" so that when acpi_dev_get_resources() returns 0
-(no resources), acpi_dev_free_resource_list() is still called to free
-the empty list instead of returning early.
+0: no validation
+1: current level of validation
+2 and beyond: if we have to extend it later
 
-In acpi_dma_request_slave_chan_by_index(), move acpi_dev_free_resource_list()
-to after the error check so that on the error return path the resource
-list is properly freed.
+Not pretty, I'll admit. So fine to keep as is too if you prefer.
+But I do foresee more changes in this area, if history is a guide.
+ 
+> 
+> > Even if per-netns, most likely do not want it writable by netns root
+> > with user namespaces.
+> >
+> > That is the equivalent of ns_capable(CAP_NET_RAW), which is the cause
+> > of many crashes due to bad packets ingested by, e.g., a packet socket.
+> 
+> Hmm, yes i get that. Two knobs? a. verify b. the per netns value ro? Both
+> on by default?
 
-Frank
->
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
->  drivers/dma/acpi-dma.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/dma/acpi-dma.c b/drivers/dma/acpi-dma.c
-> index be73021ecbd6..b053a7f96f85 100644
-> --- a/drivers/dma/acpi-dma.c
-> +++ b/drivers/dma/acpi-dma.c
-> @@ -55,7 +55,7 @@ static int acpi_dma_parse_resource_group(const struct acpi_csrt_group *grp,
->
->  	INIT_LIST_HEAD(&resource_list);
->  	ret = acpi_dev_get_resources(adev, &resource_list, NULL, NULL);
-> -	if (ret <= 0)
-> +	if (ret < 0)
->  		return 0;
->
->  	list_for_each_entry(rentry, &resource_list, node) {
-> @@ -370,10 +370,11 @@ struct dma_chan *acpi_dma_request_slave_chan_by_index(struct device *dev,
->  	INIT_LIST_HEAD(&resource_list);
->  	ret = acpi_dev_get_resources(adev, &resource_list,
->  				     acpi_dma_parse_fixed_dma, &pdata);
-> -	acpi_dev_free_resource_list(&resource_list);
->  	if (ret < 0)
->  		return ERR_PTR(ret);
->
-> +	acpi_dev_free_resource_list(&resource_list);
-> +
->  	if (dma_spec->slave_id < 0 || dma_spec->chan_id < 0)
->  		return ERR_PTR(-ENODEV);
->
-> --
-> 2.50.1
->
+A single system wide field is simplest.
+
+Is there a benefit to making this configurable on a per netns basis?
+
+If so, that's fine too. As long as root-in-namespace cannot modify it,
+so readonly indeed.
+
