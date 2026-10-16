@@ -1,123 +1,156 @@
-Received: from mta0.migadu.com (out-80.mta0.migadu.com [91.218.175.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1C934D3B0
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:10:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2011F3939A9;
+	Fri, 16 Oct 2026 02:11:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792116655; cv=none; b=WjTGT0p/RGT0py4V6nb1cZfBTbsAmlrH8TKYFL0n81SFgGalLK7CTFEyTN9cteO2XOAgDvDDgcLvDFVaabu038p2sFfaHx+PpD1dzt3jrl1aev+ocUfnGjBCHG3L2/Zc/1JN+kWfm1uRZxLpPp3q0MdeVKcsgqMpE7JsajwaMcI=
+	t=1792116668; cv=none; b=rRBRgMvplTzkHI03+OoYIkCo3ClCY9053XmgsaOn8Rb04D4lJSx1jnE8O5fVkMxE8DkGwMuMc/7TX7KggYjXxGkTZ7WU4wDNB8GSjpV3Vih6P1Geqb5Q/gZbJd6W4xyXzUGMgJ+7VhHcfH16PuCyheciX0JVepWdHn0K5iKMcDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792116655; c=relaxed/simple;
-	bh=De18uuNLtNRyygl8Fw06uyfstZGsdRdC2bQXbHUzJrQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JB6lE0/BV45FVUpODGOPY9Rp8QBydgsa3vfLjX+MoxdKCxjdK0qRACoj55rHBJswRp9bZxgmYhMAYAGYKq3NfeqoCYwhLRykmni3AAr57qBn/T8xBAUO8/aKkO0RDp5MWqc0Ah7AktuZhk4jI98CECxWQVkfDHXU1FWWMAf1UFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=S8CockI/; arc=none smtp.client-ip=91.218.175.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792116668; c=relaxed/simple;
+	bh=hl8pKbwVlYBx6OrPid0iwr1adSPzZWVHUwkOaviPQgk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=kIYDmCwshMhZUv6IEXcTUPXl/NUA4iMabDZOIyRfdtYr6UyZVw5ynrHyLdbk3Sz6jYO8S7BjqtoRZXqUv18HTLVKXDvu0J35ppC25zlvRodx2Yb35in4uxTLk+N1bIk5ksBSmFFq6M27ef0ZT9OkUM4biYeniJjrWKHbP9M2xYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=E32CjZ8r; arc=none smtp.client-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="S8CockI/"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=De18uuNLtNRyygl8Fw06uyfstZGsdRdC2bQXbHUzJrQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792116650; v=1; x=1792721450;
- b=S8CockI/a+kHaAvNBTFLvWLJUPAqb5i5hsiaSbkuogaM77hjr/twkg28EMXNpCoAtrOVlQVM
- vad/wCj9u9MP01d3nQ56cbgPxC5hJsFQqutkeGRbalkoLVLdk7QXEYMwIvYiJIr9Q/dlj1hNksK
- 68YGXg0g4yWn42JeQW7Y1cKw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d85f21d1232013b6;
-	Fri, 16 Oct 2026 02:10:50 +0000
-X-Mizu-Trace-ID: d85f21d1232013b6
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b2f925b6-93e6-4b44-bc18-c94a34b381eb@linux.dev>
-Date: Fri, 16 Oct 2026 10:10:44 +0800
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="E32CjZ8r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1792116613;
+	bh=8osGWg0ilv6J76JQLDUU7vDPE8TuX7X5EONtGKZSgfo=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=E32CjZ8rUpUoYox5gwdJGjMoCY3rfiOzK/2qexQmQyODOifnsB4e+bkX6DImz5Pmp
+	 ulPcYkURcMenqyR8pZqwNigcpIk5cVcFMGvQ4U2rWq9oLjr1TRZ0p+g4lZ4oKbkv9S
+	 AyHgpczE27AJLujqFImk2U+ASwzDzdLExi2/FZMU=
+X-QQ-mid: esmtpsz11t1792116608teb5753b9
+X-QQ-Originating-IP: fqo+3tqnzUYbhVA9m5C2DPTLYD5YFKe9t0LCHV7tYoI=
+Received: from [10.10.7.69] ( [1.202.39.170])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 16 Oct 2026 10:10:06 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 14748860426757089161
+EX-QQ-RecipientCnt: 9
+From: ZhaoJinming <zhaojinming@uniontech.com>
+Date: Fri, 16 Oct 2026 10:09:44 +0800
+Subject: [PATCH 2/3] crypto: qce - fix memory leak of the CCM AAD buffer
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/swap: fix swap_cache_get_folio() returning a folio
- that left the swap cache
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org, Jiayuan Chen <jiayuan.chen@shopee.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- Youngjun Park <youngjun.park@lge.com>, linux-kernel@vger.kernel.org
-References: <20261015060528.302634-1-jiayuan.chen@linux.dev>
- <20261015184014.715dcdd3a25e18fd4df49e95@linux-foundation.org>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20261015184014.715dcdd3a25e18fd4df49e95@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-fix-qce-ccm-adata-leak-v1-2-f54a82af2de0@uniontech.com>
+References: <20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0@uniontech.com>
+In-Reply-To: <20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0@uniontech.com>
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Thara Gopinath <thara.gopinath@linaro.org>
+Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, ZhaoJinming <zhaojinming@uniontech.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: Ngk7ShESHkQuzwvKvtmkDqfWZAnM6gpFmiELiunz53qJPTvd3eU+lvKY
+	V1StRKaE7ulnFwzSggndfzmwvGaTOfUjg39LOZm1iIovCg/GEjb9aAZp3SJubebkjswvhAY
+	erTVDGfV66JvW72LD6GcpDdIRPWhujlLtpJoGv0ZjxDnkR/zVzGEqtFSMh+kz0T3BEjYP0P
+	GlXTNqaVdRbqAZDsdjbcjnSCbOb27yILt14gv897b9Ue0I+pP4Lm8xy9p6bOCskFncKl6HF
+	0P3c4AX+oMAF+vsif6cfQ0YsJaOGlC3RTXkgaAag126K+l8mWJ2EGW41a1NlquheT7N/dnf
+	/gp49yCXMEfK19yQSl44KE5Y5FIRWdiSJVocPQ1f58dCUL6vssMrjQZzmLteIXBK2/+NMQx
+	+hEFXu4PCbI9CRcVYhG3uCvVnTCf7ckV4DBMYhJ1/5Duba5FEtWR4jN6iGqU6LP9KfggngY
+	peVYTIBOeg9TpysE9vqwv+Nau6WihQGvjrG6KEUR+IEeYbmL2LpkCd10DSKae2ghxD3zPEF
+	zyqmiCdmYbvKGXnkjMeVe01Vvj9U8qnIWTUKh9dUwHCidFytYQdv2qI8MSo/p+nw4SFRbGu
+	qvgKRxBtaJdmKsLQOFnZ90AD7oYPnyRYh4f7egJCehuJeTR3embs/hP6k+HTq/xcO4S7cWp
+	tRXiRYuEHW3bGFd3KmWDA6GT7nm8ofraPaK/Y4ZY9iozujQ1mOfTBiiKe21qG2WteZd5PHI
+	m9Hh8zndJ3AnGbwXaTKSzzjvpATsHctFyDUk2fXY4tUdx4vfOfpO52xf5hE6FJS88G0r+fE
+	8GQCvSf8UfgZLDHoC/iYTjYIw7OWdLVEOUL9Fbzrmce7L4BVxJuA2bJsmuA7+IuSQISDHLl
+	rR+67PmCCDNS3tzODPtdCOmLKvWZaOiko2Tcf5ZMKLI8oAl84vklgsnMCfc5/0uSLwpzTG5
+	ub71CNdKUl7U1LQOInrGAvLP9Bb/aiM/wBHgrW5TDF5wcH9QWAq5um7ZjcC1EbZz6StQUM5
+	41dpkO+mD0bSeQwTfoJPS+q8bxUu99CHMzg0Bob0DXfKwxpvRn
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-Hi Andrew,
+qce_aead_ccm_prepare_buf_assoclen() allocates rctx->adata with kzalloc()
+for every CCM request that carries associated data, but the buffer is
+never freed: qce_aead_done() releases only the scatterlist tables, and
+none of the error paths release it either.  Every such request therefore
+leaks a small allocation.
 
-On 10/16/26 9:40 AM, Andrew Morton wrote:
-> On Thu, 15 Oct 2026 14:05:27 +0800 Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
->
-[...]
->
-> So CPU 0 writes to a folio it doesn't own: it may clear PG_readahead and
-> takes the folio lock of someone else's page, before
-> folio_matches_swap_entry() finds out the folio is not ours.
->
-> Recheck the slot after folio_try_get() and retry if it no longer holds
-> this folio.
-> Thanks.
->
-> As always, when fixing a bug please fully describe the worst-case
-> userspace-visible runtime effects of that bug.
->
-> I asked $LLM for this and was told
->
-> : When the race occurs, a swap fault can acquire a reference to a
-> : physical page that has been freed and reused for an unrelated purpose,
-> : potentially by another process.  The fault handler may then clear that
-> : page's PG_readahead/PG_reclaim flag, wait on or acquire its folio lock,
-> : and potentially attempt to remove it from an unrelated swap cache.
-> :
-> : These operations can interfere with unrelated workloads and may cause
-> : unexpected stalls, impaired reclaim or writeback, and potentially
-> : system hangs.  The subsequent swap-entry validation normally prevents
+Free rctx->adata in the completion handler and on all error paths: the
+sg_copy_to_buffer() and sg_alloc_table() failures in
+qce_aead_ccm_prepare_buf_assoclen() (through the new err_free_adata
+label) and the error cleanup of qce_aead_async_req_handle().
 
+The buffer is referenced by a scatterlist that is DMA-mapped, so it is
+freed only after dma_unmap_sg() has run.  The frees are guarded the same
+way as the surrounding sg_free_table() calls, so no path frees the
+buffer twice or frees a stale pointer.
 
-I don't see a way to a system hang: the folio lock waiter is woken when
-the real owner unlocks, so the worst case is a stall. I suggest
-dropping "and potentially system hangs".
+Fixes: 9363efb4181c ("crypto: qce - Add support for AEAD algorithms")
+Cc: stable@vger.kernel.org
+Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
+---
+ drivers/crypto/qce/aead.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/crypto/qce/aead.c b/drivers/crypto/qce/aead.c
+index f8e6054ff15d..5bf59cb9ae9a 100644
+--- a/drivers/crypto/qce/aead.c
++++ b/drivers/crypto/qce/aead.c
+@@ -53,6 +53,7 @@ static void qce_aead_done(void *data)
+ 			sg_free_table(&rctx->src_tbl);
+ 			if (diff_dst)
+ 				sg_free_table(&rctx->dst_tbl);
++			kfree(rctx->adata);
+ 		} else {
+ 			if (!(IS_DECRYPT(rctx->flags) && !diff_dst))
+ 				sg_free_table(&rctx->dst_tbl);
+@@ -220,8 +221,10 @@ qce_aead_ccm_prepare_buf_assoclen(struct aead_request *req)
+ 	/* Copy the associated data */
+ 	if (sg_copy_to_buffer(req->src, sg_nents_for_len(req->src, assoclen),
+ 			      rctx->adata + adata_header_len,
+-			      assoclen) != assoclen)
+-		return -EINVAL;
++			      assoclen) != assoclen) {
++		ret = -EINVAL;
++		goto err_free_adata;
++	}
+ 
+ 	/* Pad associated data to block size */
+ 	rctx->assoclen = ALIGN(assoclen + adata_header_len, 16);
+@@ -236,7 +239,7 @@ qce_aead_ccm_prepare_buf_assoclen(struct aead_request *req)
+ 	gfp = (req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP) ? GFP_KERNEL : GFP_ATOMIC;
+ 	ret = sg_alloc_table(&rctx->src_tbl, rctx->src_nents, gfp);
+ 	if (ret)
+-		return ret;
++		goto err_free_adata;
+ 
+ 	/* Associated Data */
+ 	sg_init_one(&rctx->adata_sg, rctx->adata, rctx->assoclen);
+@@ -288,6 +291,9 @@ qce_aead_ccm_prepare_buf_assoclen(struct aead_request *req)
+ 	return 0;
+ err_free:
+ 	sg_free_table(&rctx->src_tbl);
++err_free_adata:
++	kfree(rctx->adata);
++	rctx->adata = NULL;
+ 	return ret;
+ }
+ 
+@@ -486,6 +492,7 @@ qce_aead_async_req_handle(struct crypto_async_request *async_req)
+ 		sg_free_table(&rctx->src_tbl);
+ 		if (diff_dst)
+ 			sg_free_table(&rctx->dst_tbl);
++		kfree(rctx->adata);
+ 	} else {
+ 		sg_free_table(&rctx->dst_tbl);
+ 	}
 
-Writeback itself is not affected, only the PG_reclaim hint on where to
-put the folio after writeback. So "impaired reclaim or writeback" ->
-"impaired reclaim".
-
-So I'd suggest:
-
-   : When the race occurs, a swap fault can acquire a reference to a
-   : physical page that has been freed and reused for an unrelated purpose,
-   : potentially by another process.  The fault handler may then clear that
-   : page's PG_readahead/PG_reclaim flag, wait on or acquire its folio lock,
-   : and potentially attempt to remove it from an unrelated swap cache.
-   :
-   : These operations can interfere with unrelated workloads and may cause
-   : unexpected stalls and impaired reclaim.  The subsequent swap-entry
-   : validation normally prevents the wrong folio from being mapped into
-   : the faulting process, and neither data corruption nor a kernel crash
-   : has been demonstrated.
-
-
-> : the wrong folio from being mapped into the faulting process, and
-> : neither data corruption nor a kernel crash has been demonstrated.
->
-> Do you agree with this?  OK with me adding this to your changelog?
->
->> Fixes: 8578e0c00dcf ("mm, swap: use the swap table for the swap cache and switch API")
-> Given the above, I suggest adding cc:stable.
->
-> Do you and maintainers agree?
-
-
-Agreed for me.
+-- 
+2.50.1
 
