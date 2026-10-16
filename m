@@ -1,263 +1,141 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9098A282F05;
-	Fri, 16 Oct 2026 05:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792129672; cv=fail; b=TOIPG9fZ+jDYAYFUx+JkFOdEAoX1b6mECli3hebj+qyKmvy8weRLqleeYH/9BIbijE62IGXXnSvN12ZXnX65gx5bu2lj3C4g1b/ii1/FvQXDSedLu3J+geowJfBjmQo3rTbW8w0BR6YtqyUcfCbyhByvQZOrtnJHBzjWkSntNuY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792129672; c=relaxed/simple;
-	bh=sSmjAcHgMRVXAB2cFw2pvCmhc2AE9+R6bM2sKmnJGZ8=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=eXiDB0GCtj0Lap6J2I/OYOUovCcr1Y79fF1/bAsxUlXQcy9J8NqfgewjQNprlbIYm2bnsNp0MOKlmhC69hHC0rtv/ZRdiqNHfLPF4LtD6oH5MaqFfQ0ZXzXDzy54WbaTWnY3IDYyrczGGAxwPu9HJBgDo/CbgTus3hFbLx/01zY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jeH6f+KM; arc=fail smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BB0E346E51
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:49:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792129764; cv=none; b=n+PJuvP5FITKAy0MzrXr/0/72OashAesYJ5L9WKP1XdOxi/6GH1N89gW0mlp5kGBTYdGTq8Amjwih1/iCGUoDIJeWVZJ1aOyjPFkhuQeVdIrTkPAe9IXtAKeoe1XTfrtQwB/cpPLTjp4Wzd8ovv58TJ1DIx7XnexytwS5m+Lccg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792129764; c=relaxed/simple;
+	bh=rCTBXZWsA+DFjYHLb8u5Oa7Bvqyi+ouM5tudHnnjwtA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=foeUxTF/u/z1Nrq8YtaaeAYpJkhvMuzp1y+lPpXiqIIXkxNaaCtHpUGc2NAJOE/N0RhJp/GGaUjauE+WREm2dn8JejQneyQot0G+HBwt2/8nbD6cbMva7X899H5eEtd8RgdM64f1hXQGMViSOlnFcYz6bwUrQ+XPlwzBkn40p2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=d2XQTzi9; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jeH6f+KM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792129671; x=1823665671;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=sSmjAcHgMRVXAB2cFw2pvCmhc2AE9+R6bM2sKmnJGZ8=;
-  b=jeH6f+KMm96odMkmXUL3qLeUDBDlyj/38UAjVavjLsq4+C7QCZL3P+QX
-   5lELz+jdOpD8JAvfaISD21tFAC3q3UiZB8OcUtjhAFH5UJGbYJ+n3AZp0
-   9KZHynRnSCzXnF9+QTLvSMqhnADAt1vYaFDqoRmMhm9dyMurw8v4oe57z
-   sfK7MLwz5ny8+PscrWyJJbiu3ck6OnOUl143pxsdonWbr0guAKXcnZgiS
-   KCHxpzii35UmLQ8xPKkh+QLWCJ6hqNvEfPLO6IfZpSaD4voxaIner/ilK
-   wALYyfPXWeyK/wBtc4oFYCo1oa7fXOJSVzpIBxtItYFKbFLj0gsXfbl9E
-   Q==;
-X-CSE-ConnectionGUID: J0XAKdKMTBajeysP8Lk5VQ==
-X-CSE-MsgGUID: 1hrY+QAQQc+4AFxpoDqbyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="808039"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="808039"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 22:47:49 -0700
-X-CSE-ConnectionGUID: kUifMKpeT3e6hV5VOSSClA==
-X-CSE-MsgGUID: oHBVe0bNRvGVOIslQ0/MsQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="3655395"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa013.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 22:47:49 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 15 Oct 2026 22:47:48 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 15 Oct 2026 22:47:48 -0700
-Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.41) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 15 Oct 2026 22:47:48 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SpFvttjpwjA+ywMJuoY+mi+XuRcoTWfEqId63cCxTzaqY7unvsWLnLXTvROBmid0EK6HdGtfyheNZncOwZRLmmYC74mqaAvoDBHyWqDPl8WotwnJPKpk3+/3In9S7w2BjPPapv1elQALJb/ITkM24EHWCVGOuwTQkhfKq6we8PZEPIgGtEI56UO/6Nt82CfpFg3TIRPOcwFRC9EXllCYIQ2ynUCRPaWWn+tvN8abhHV+PnVcLlTh4jYT8TkDHeVd/BCCBYXvE3TzbVxtGRXkbMMMbS8+e9njG5DLD35FKK55GCecQFURjj3FmsR5Anv9uAuYCQgmpS8270fSs35jEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i7qJZrogEOSt+qQMO6DxEcCTVkNtHsSenFZ7hWXCPIk=;
- b=mjvpzCMdpqf3LJIBwETQv48+x5AHEPI6jciOFueod1curieguMRzTUOMRQcR2YWtJiyiunYhbqik+Rz8HKdQ9kAsuD9l/MaNL+Ii6Q0W8qRO9+wjhwrYi5YUyayhM+Siq3BKdvj17H1BdtICT1SO3lFZoempugcxsT/DagmLug7lJoGilEjGlr7zEsXay9fb0qFts7zA8T0XGIep8+77Dz1DyyMFwST51iuJzK351br7waBgbnO0NO/6uQFZ9hquDa33YEx+vMbrhmcrJsnIRgWi4Kyw9s3Rip99xYpQPwXsAHOURUG+nInLLNScZTwQnGgzX1DNVQypwK1v7F3fUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SA2PR11MB5035.namprd11.prod.outlook.com (2603:10b6:806:116::21)
- by BN9PR11MB5308.namprd11.prod.outlook.com (2603:10b6:408:119::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 05:47:46 +0000
-Received: from SA2PR11MB5035.namprd11.prod.outlook.com
- ([fe80::9418:cd60:8ece:69c3]) by SA2PR11MB5035.namprd11.prod.outlook.com
- ([fe80::9418:cd60:8ece:69c3%5]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 05:47:46 +0000
-Message-ID: <3d3bdd7b-f849-47d3-a5bb-1e5a68d4edea@intel.com>
-Date: Fri, 16 Oct 2026 11:17:36 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] ovl: provide private lockdep class for
- dentry->dep_map
-To: NeilBrown <neil@brown.name>, Miklos Szeredi <miklos@szeredi.hu>, "Amir
- Goldstein" <amir73il@gmail.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-CC: Jeff Layton <jlayton@kernel.org>, Jan Kara <jack@suse.cz>,
-	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-unionfs@vger.kernel.org>
-References: <20261002223746.3248726-1-neilb@ownmail.net>
- <20261002223746.3248726-4-neilb@ownmail.net>
-Content-Language: en-GB
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20261002223746.3248726-4-neilb@ownmail.net>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0050.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d3::14) To SA2PR11MB5035.namprd11.prod.outlook.com
- (2603:10b6:806:116::21)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="d2XQTzi9"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e8fe8e343fso25922785ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:49:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1792129762; x=1792734562; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z5sNEdkVrvo7sH9ZJvBOJJZb8XmvxfiMz5rU6UHY+Ek=;
+        b=d2XQTzi94gWL5bPrnej0TQLZ6cSFRh/+4KyRVkXIZpmehGuKz8TLkxYAApU8LFHGo9
+         04OkzblTr02VxpRoNrYBpB3T2KrcfTgCQqenwMklyuZwSCk2KoClphHhk6w/SN/2K5FJ
+         O5GN7D4mSX/z00OYGk8LIRM7Dt59P4JM7ifQBxOQUF6HcyEPFIM3ffQh0qlOq5pHH2Ri
+         RgUVkPkIgcy1oVlIIFuVSRvKzdYUDIeQXWSCtLZSlMjrbUT3AEMT3lLbMJ5YV5qJUJoL
+         iMUc+JVh8p1IsJWpZl3qqqv0TP7QJ6HV0RwGbYxdZjVwr7fAR2wKVjQOwALpDUxwy783
+         a8EA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792129762; x=1792734562;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z5sNEdkVrvo7sH9ZJvBOJJZb8XmvxfiMz5rU6UHY+Ek=;
+        b=Os4v3y3WV/L4eOy2YWqy6xXLb9aoXeMC+3wQYaPXxXweU53e7p2Fr8H4+3ffaJjdYK
+         UBd4c//YQ3nkQWoriaUSAgU5GeYaK22So90zhXWI0MvMJrp+729oARzfFMES9mxmqiL5
+         xG2ZqtosOYuCmrLyLr09/XSG1IhCLTTWxLf75irRb48tiL/5HoJRHk5gM7JRTKCFcE46
+         MgYrpvA8y5T0UgqIRcLqmp4W3yU/uqzv2JE+nZtocDGcDUIoLPJHrlRGekwFjoORQU0T
+         Wg9+jt0oZurKzDfksfeHgUOsPoDeRBn14bIL6bxyL5Qrm5tlIdTxYLxr52AoSSwac5KI
+         89yA==
+X-Forwarded-Encrypted: i=1; AKwUvBxeTt3whgQJ/TyncNdyVx0KmWktkVdI/O186tNDbT3vjqkfauTJ7+ta3sNUFfp4hQHP2nSpLI/kfR/HRq8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK55EPDC6uOfnnMtyI829GCBklQipEQZsxbEpZb8lysQT4ycybO
+	ZU8vHb538w7HHkDaOlVG7qAeRmICzX1amAW5j0dIKJknUOinfrjEpKjwYLCXguLvQbU=
+X-Gm-Gg: AYBFou1WpILouFfnkxl9V0r28viNl9u8gLJSOsEipyXjvRbmgajWLCQwDidYUfm1hmU
+	df1UiQsbLDoDaWSo6b6VwUJVFiFBCXQtU8Jc/uFwFpQGzABlleWiVeShYF+B8HajlyJ5R5FhM2+
+	2Qftdq10rVpK0RKds9J4r88fkmc0gzbNlCXkrWuxERr177j09tMox2qAmkDaqQHu6KVI2L14Nmu
+	WwTe1TIEuApPtmNPGeV2FOT/CXs11pCNFI9uKHA1J5iHLScwDvd/Rhl82FXBylpVxcBoxVsMBdq
+	jILa8fBVsPONCTADx+5mrSwOI68K1LDBJjl7/nf8OPoHl1HHjy6xgpdh+JHsZD0M2nO48Au+wjK
+	Y5pD8uiwaMHBI6D2dK85ZuJfce6kd8rdAb2SIiCLYhqNpxHhzdSsqkry1KyTwaE7qADN703k+1j
+	WNtgfq03mb43w+rORhwUxJ1POTtqoKiVhpiwdl4YlHljesCctIkMCdmho9x7bu2odgL+dVEjSnH
+	ztwoUgWxJ594Q7nmdw=
+X-Received: by 2002:a17:903:1b4f:b0:2e9:7ff5:544c with SMTP id d9443c01a7336-2e97ff55897mr13235965ad.25.1792129762374;
+        Thu, 15 Oct 2026 22:49:22 -0700 (PDT)
+Received: from n232-176-004.byted.org ([36.110.163.99])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e804d7csm4697445ad.15.2026.10.15.22.49.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 22:49:21 -0700 (PDT)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Dan Williams <djbw@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Joao Martins <joao.m.martins@oracle.com>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	stable@vger.kernel.org,
+	nvdimm@lists.linux.dev,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Muchun Song <songmuchun@bytedance.com>
+Subject: [PATCH] dax/pmem: fix unaligned compound devmap initialization
+Date: Fri, 16 Oct 2026 13:49:14 +0800
+Message-ID: <20261016054914.2601510-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PR11MB5035:EE_|BN9PR11MB5308:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1c1db20-b79d-4e53-5526-08df2b4900c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|261009223027099003|56012099006|11063799006|4143699003|22082099003|10067099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: XzBqIq9beG+7QCwCH9g71LPwcY0R/Ik7NtucHWm1pHLzwnXk6n9uVlREVHdZ4RJVsUK6T3tLqnsuDxh4sitq/iMGYtZxgLiGaAKuwcPP9ORVEkKf3LiMAwv2cTHWD89Kj9JwtMM9CjEOyA9bKOb2ot06JVhM4DQbDGbGsjOYeQNLVfiwZGUMnCS2QuRAJD2pjwQc7Te0YfBwImP4nx98O2oUaNvNBvbqe/zdgjHCFeHHuLYsH+ldCm5bTwpjxdZHUab45P0pk9HYIkROaSDItjlidok4Zjeaw+7wRyRVM7G08oSMpHp/INoIOAj4tF4+2J2iLdm/wW+/nE+X0bPBBb4iN3HwkofoMHG0lzcZHSmnFcaBqsV/9gFMzfD32N2aAyhZPhRTMre9zh0sNDngm6HTmn3qcD0yiwz74nI+U+F+PZ88nD7W+5qHPmAsjsd6DcRM6p2yYOBYp5mGYD01JXFrQwUpRWQkxjrn7c4cOZ88BZN7Gm3kD7DdVy4rqqxjOqd7E5Y2ZVAX1HnnsZ2RfA9MxWpSByK2g5xmWert4P/RMAmlNXT0hyXed3p0aGnt2ENkgDUFK9LmdNoEsMz6zHWFRgYSiZBhioHXjhPdMwwupgPBNojHZC7cWGcGzxGB
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA2PR11MB5035.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(261009223027099003)(56012099006)(11063799006)(4143699003)(22082099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cjBoeU9oUmYwVTEvbWh2SWZGUDBLRXNZdm1CejYybnFNOVlXWE51ZGFkckx5?=
- =?utf-8?B?dGZ1NDN3eTNNUkZWVzk0K2FCbFAyUkd6TXdzV05KdWUxRWhyL0JMSDhSTzJt?=
- =?utf-8?B?UUhnQ1p4QmVnNkJGc04rbVJTNnRUR2t1alNZSXIyTWJMdzcvb1NoaGRyUkM3?=
- =?utf-8?B?RWV2NjZpNzQzVm1LeTRLcjdDOHJtbCtNUmphQWR5aWg4WDZ3Si9XMDdYY3lp?=
- =?utf-8?B?YTBKQWxTWUJSS3ZuQTREeDdLenhicnJNVHMvVDVWSEJGa2xHWCtjb1BrU1g5?=
- =?utf-8?B?QVNVRWRTL0lsb015V1NubkIyb0QzdnZmZWRsRXdYVDgrcFAwRDFoeUxQRXMz?=
- =?utf-8?B?alJJVkhESDlGMWt1d0M1OVAxdTlHOU9jVHdLdWY2eFlXWHJudis1dUFJbkV0?=
- =?utf-8?B?VjArUWZyUjRpalhKeS85VUpHMHJmcWRlcUVFZGl0Sk0zWG8yR2VhejNIRnYy?=
- =?utf-8?B?R1N1UldCQ0lDdHdKTmFaRVlSbDN3aWZMWlFrQnc5NDVMRTBaZDVsaTZuZlo1?=
- =?utf-8?B?R2twUi9tNEl4VjludHZPcGN4eUpHNHJIVm9UMWNIVTl5R3BycVl0UDlUTS9O?=
- =?utf-8?B?ekJoWjRvdytGbEJ5VDlUcWdKcEw3amc1WHhERmh5Q0VWTGV3amxzUzlDS3M0?=
- =?utf-8?B?U1E4T1k5bFhac2JCQWxRaDNpWUUxc25lbWhhMVNjTXljNnNObHh2bmhNQzhT?=
- =?utf-8?B?TmJSNmZiWkhWSXVxNmRRMXpRcnVaaUp2aGVqU0h0SXo3UE1FRm1Tc1RtS212?=
- =?utf-8?B?akR5c3hMT2tJeXZOaGltdUFYcXNpek42TkJmVWtaanRMbklUdUpKYTFhL0pI?=
- =?utf-8?B?NXB6anRoNWNTaWdSWitPUGNEVU5PNjNlV0U0MHNFRTRoR3gwNEpiSDdSUmx5?=
- =?utf-8?B?NzFRWTk2WHpyOW9DN1Z4bzdZbWJteDE5cnlZNVAwK0w2WkRpSjBJV3NxaW44?=
- =?utf-8?B?MjFOM1VMVWc5OTJZVGZpLzd6UmIrdmdxcjN6TkZYU1ZLWkwyY0FMaktKRlFz?=
- =?utf-8?B?N1l2T3NLemZ2Z1JpWnVLVTJHdVhGUXg5ZGdGZ09aWmcwUWlzYVVLellUeFFQ?=
- =?utf-8?B?anZybFdYVE1GSm9GekUrN1BtdG1wYy9vYTdYK29HRm0xYm56T0hBdXgvNlJw?=
- =?utf-8?B?TjlFUGgyZHdVeng0N3ZYTkJ6TzNibGtramhaWWEweTkwaEZCek1aWHNYMmww?=
- =?utf-8?B?RWY0NUp5V1QyR0FuUzhuaTN5dnpCL2h5QVF2R0RkQ01iZE5xaG5FeVRoVTN4?=
- =?utf-8?B?UGlSWVI3M0kvSFBuNDhPMVZGQ3FrYVRkRlBRbzFoa1ZiZVIrR25UVVhFelAw?=
- =?utf-8?B?alAvejBBQkFhaEM3aERDSldJREZJMmZLZWp6cWhvbEIwTXMrUjNFRlVJWERJ?=
- =?utf-8?B?UWhSUDMvY3RBV0poY0dHdnFxbXVDbzR1OFJPUDg0dlMrZUZnZ3NoRVZjOElW?=
- =?utf-8?B?czdXTnRCcHFUTWNKUmdQZjk0aE01OHJCUzd1RDUzNm9tUlQxRmhWQlR0WTRY?=
- =?utf-8?B?SXhNNCtDckZxSDh5dG9QcUpkdG5YK3hoZmNzb3VOdSttQnFlczJXcjhXTjZ5?=
- =?utf-8?B?cG10T1FUZW1hamtYOThUMk8xTWg1bGRxNjltT2xhOU81ZTlNUDJhR2F3MFI0?=
- =?utf-8?B?MDFDM2NLWmNtakRCRmxPU0RrelMzaUdrMFhlQ014a0hDNDFHU05Wb3JXeE5m?=
- =?utf-8?B?bmk4dFU0Z2MzbWZobzdNVFd6OHZMS01PT3V0MGFJVVVuOEtxcVl1YUtrOEd3?=
- =?utf-8?B?UXRuK2RDbVdMNDNJdFEwcHhFNW4vWEtVNEVvbkRpalMrK2NUa3ljbzFnY3dP?=
- =?utf-8?B?WFNWRFNuSVhWOUU4dEovZXNFV2NJT0M2YkIrZ2l1ekl2aUMycnVTN1A0d2Qw?=
- =?utf-8?B?QWpjTnVoM0VjN1FONWc4ZEkyQlM5S0VQT2N0N0VtQW5GWWhMWCtxTVFlZzJK?=
- =?utf-8?B?OStwcFM5OEFPV2J4MWMzZU50T2hxNUZIUTF6enVWL2FmQUlYQXJuWGVaTnRK?=
- =?utf-8?B?bXJ0SjFqdGpaYldXdkFJREhGZjJ6cG5MZFJIQ1BjNXhINkVUUHFhNG5aR3dV?=
- =?utf-8?B?NGFvSGt2V1BabnJyL1k0OXBJeS9ocnlnNHZ2VGtUenlTdW0zaDF1VzhyaXl4?=
- =?utf-8?B?S2xSajdLQkpYRGt6cXcvU2g5OXhXR294OHVZWFI2NmtodnNhWkhzMXpPTFoy?=
- =?utf-8?B?K2t0MWpLUEtESXlGOFFhYkVvYURMM01GVmp5MGU2Z1RydjBjMS83L2F5TFBR?=
- =?utf-8?B?dVZjaXNtS2NxZExHbkl2ODJtcjBDL01ndGorZ3F6MFZ1UFovNU5YVGRzUTZa?=
- =?utf-8?B?TTkyVjZhOHZReVNRMGRhU0hwcmpGQXpvN0I0elRyRWprWkpQdWdRbjQ3VXZi?=
- =?utf-8?Q?lWMT4gFUNRNwy6wU=3D?=
-X-Exchange-RoutingPolicyChecked: F2447Ssv5gnRiWNyDMGdD3hGSCXIuuODb7intbjy8kOv/ACOHtTS9OlFzIH7Ps9bDwU3CXQga/13iqL7GCwRiK64lmvkLc/CujMdvr3TyJ7nDz6TcnSeN0pi+9rBeWi0dBF8cZsywGgX4QaBZmeofra7QqrgbtAi1B/Zoj3o/RWoeNcVAV9LahWd9UR/C8suLSWHtXrTml+O1fHNzp5+mZHIOUz4kVHtBf+W1C93vHUQckc0htVvnyuzXeF4BOYXgQeBQ2CbTgAwC84AjRWU0dAhdIFtUxTkjkjRLbB7FrzufQUtsIRQ9wIhvjQWC4bK/Kvo06ByxxTOOuP3ZRGapA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1c1db20-b79d-4e53-5526-08df2b4900c6
-X-MS-Exchange-CrossTenant-AuthSource: SA2PR11MB5035.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 05:47:46.0152
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DL/eKjYWZ9qMP6hcHmkItnSmHBo9dzg1KJelMksYkuvkV9yBcUoTrv67VHTIUIIuN1V/sacc/dkU03h7DY4VXkxVntioLbek2LluL8uGZwM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR11MB5308
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-Hello Neil,
+Static pmem Device DAX namespaces reserve space for namespace metadata
+before the user-visible data range, and may also include padding needed
+to satisfy the Device DAX alignment. __dax_pmem_probe() adjusts the
+dax_region range to start at the data range, but the dev_pagemap range
+still starts at the beginning of the namespace.
 
-On 10/3/2026 4:05 AM, NeilBrown wrote:
-> From: NeilBrown <neil@brown.name>
-> 
-> Now that d_alloc_parallel() locking is tracked by lockdep, ovl needs to
-> take care that it doesn't trigger on deliberate recursion into
-> subordinate filesystems.  As ovl can stack over itself, the use
-> of the per-file_system_type d_lookup_key is not enough.
-> 
-> So provide a .d_init() function to update the map as it already done for
-> i_rwsem and ovl_inode.lock.
-> 
+That is not valid for compound devmap mappings whose memmap is stored in
+system RAM. Compound page initialization requires the start PFN to be
+naturally aligned to the compound page size, because the head and tail
+struct pages are initialized according to that geometry. If the pgmap
+starts before the aligned data range, memmap_init_zone_device() can build
+compound page metadata from an unaligned PFN.
 
-Thank you for the patch. Any idea when this lands in linux-next?
+The resulting struct page layout is inconsistent with the Device DAX
+mapping. A later mmap fault can then resolve the user-visible PFN through
+invalid compound page metadata and hit a kernel panic while inserting the
+DAX folio.
 
-==
-Chaitanya
+Fix this by advancing the pgmap start to the aligned Device DAX data
+range for non-altmap compound mappings. Leave base-page namespaces
+unchanged, and leave the altmap path unchanged because
+memmap_init_zone_device() already skips the altmap reservation itself.
 
-> Reported-and-tested-by: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-> Link: https://lore.kernel.org/all/e3772a51-eabc-4c31-b73d-f3187bf1b3b2@intel.com/
-> Fixes: 59492f9991dc ("VFS: add lockdep monitoring of DCACHE_PAR_LOOKUP lock.")
-> Signed-off-by: NeilBrown <neil@brown.name>
-> ---
->   fs/overlayfs/inode.c     |  1 -
->   fs/overlayfs/overlayfs.h |  2 ++
->   fs/overlayfs/super.c     | 19 +++++++++++++++++++
->   3 files changed, 21 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
-> index 401cb8c75520..bf40198c8b8a 100644
-> --- a/fs/overlayfs/inode.c
-> +++ b/fs/overlayfs/inode.c
-> @@ -816,7 +816,6 @@ static const struct address_space_operations ovl_aops = {
->    * - OVL_I(inode)->lock			(ovl_inode_lock[1])
->    * - upper_mnt->mnt_sb->s_writers	(ovl_want_write[0])
->    */
-> -#define OVL_MAX_NESTING FILESYSTEM_MAX_STACK_DEPTH
->   
->   static inline void ovl_lockdep_annotate_inode_mutex_key(struct inode *inode)
->   {
-> diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-> index e0d8c6152e9f..64cbe4c4bd3e 100644
-> --- a/fs/overlayfs/overlayfs.h
-> +++ b/fs/overlayfs/overlayfs.h
-> @@ -16,6 +16,8 @@
->   #undef pr_fmt
->   #define pr_fmt(fmt) "overlayfs: " fmt
->   
-> +#define OVL_MAX_NESTING FILESYSTEM_MAX_STACK_DEPTH
-> +
->   enum ovl_path_type {
->   	__OVL_PATH_UPPER	= (1 << 0),
->   	__OVL_PATH_MERGE	= (1 << 1),
-> diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-> index e487597337e8..08147799e47c 100644
-> --- a/fs/overlayfs/super.c
-> +++ b/fs/overlayfs/super.c
-> @@ -163,10 +163,28 @@ static int ovl_dentry_weak_revalidate(struct dentry *dentry, unsigned int flags)
->   	return ovl_dentry_revalidate_common(dentry, flags, true);
->   }
->   
-> +#ifdef CONFIG_LOCKDEP
-> +static int ovl_dentry_init(struct dentry *dentry)
-> +{
-> +	static struct lock_class_key ovl_d_lock_key[OVL_MAX_NESTING];
-> +	int depth = dentry->d_sb->s_stack_depth - 1;
-> +
-> +	if (WARN_ON_ONCE(depth < 0 || depth >= OVL_MAX_NESTING))
-> +		depth = 0;
-> +
-> +	lockdep_set_class(dentry, &ovl_d_lock_key[depth]);
-> +
-> +	return 0;
-> +}
-> +#else
-> +#define ovl_dentry_init NULL
-> +#endif
-> +
->   static const struct dentry_operations ovl_dentry_operations = {
->   	.d_real = ovl_d_real,
->   	.d_revalidate = ovl_dentry_revalidate,
->   	.d_weak_revalidate = ovl_dentry_weak_revalidate,
-> +	.d_init = ovl_dentry_init,
->   };
->   
->   #if IS_ENABLED(CONFIG_UNICODE)
-> @@ -176,6 +194,7 @@ static const struct dentry_operations ovl_dentry_ci_operations = {
->   	.d_weak_revalidate = ovl_dentry_weak_revalidate,
->   	.d_hash = generic_ci_d_hash,
->   	.d_compare = generic_ci_d_compare,
-> +	.d_init = ovl_dentry_init,
->   };
->   #endif
->   
+Fixes: 14606001efb4 ("device-dax: compound devmap support")
+Cc: <stable@vger.kernel.org>
+Reported-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Closes: https://lore.kernel.org/r/wlrkqqvg.ritesh.list@gmail.com
+Assisted-by: LLM
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+---
+ drivers/dax/pmem.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/dax/pmem.c b/drivers/dax/pmem.c
+index bee93066a849..d3a9b85107b0 100644
+--- a/drivers/dax/pmem.c
++++ b/drivers/dax/pmem.c
+@@ -51,6 +51,13 @@ static struct dev_dax *__dax_pmem_probe(struct device *dev)
+ 	/* adjust the dax_region range to the start of data */
+ 	range = pgmap.range;
+ 	range.start += offset;
++	/*
++	 * When the memmap is stored in RAM, exclude metadata and alignment
++	 * padding from compound page initialization.  Otherwise, the pgmap
++	 * may start before the naturally aligned Device DAX data range.
++	 */
++	if (!pgmap_altmap(&pgmap) && le32_to_cpu(pfn_sb->align) > PAGE_SIZE)
++		pgmap.range.start = range.start;
+ 	dax_region = alloc_dax_region(dev, region_id, &range,
+ 			nd_region->target_node, le32_to_cpu(pfn_sb->align),
+ 			IORESOURCE_DAX_STATIC);
+
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+-- 
+2.54.0
 
