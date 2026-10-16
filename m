@@ -1,338 +1,164 @@
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3887748E0DC
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792155121; cv=pass; b=spGFsFJw/C8dV3mqTRIJaS0oxv9c3aVPySF2mz7ZIImuWK4l//9f6a9NR8O3GCdC02JerFfrVaKOMLV8ix+cY3/zHjehD9RDw3sc+rr1gi2mhUQJg00dD1ddcQ8fUtAcGpySRE/jRHydN1wWcYM3UEvzjyFQhGdjoSX4/8MW5W4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792155121; c=relaxed/simple;
-	bh=hKICZWLA5RsMjLO8UXLqtxxIkVmz51Vlt7o8QcZtuUw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MKSD2IUsNlUcVsChvzRmuR3+eAsC1xfThbqrI0995nUdd7Kz+PAt1TWX1YJraTOOMvPo2eHHUNGXP6a5H8VPpHShPO6EkHrjOLj6Hzyg1esuUppcUr+EOgfidYUAlmFis1qa3sqiWd/TJ6yIIXwF6wceFMzFU47gIzKWgAZ2PvM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rEONZ0Nz; arc=pass smtp.client-ip=74.125.224.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C42442FDF
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:52:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792155154; cv=none; b=LQl7fAVLoRw/MEpd4oJsobyHtSdcBfRC5cAoEjpjj3sCaJEEOg48njhT9Yei+h6EPJ0ioTVzjgRAwFD+3DhPXJIXc1iN/GTaCtvBlk5WtyTjyeWuXYE82fdkvhcRTNyWcdTK1f/dlUenUkya6jPQOzIOkC/YFga/t2sf7X6CjMU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792155154; c=relaxed/simple;
+	bh=QGqaZ7i9dKEfrVnbt6JGQYBUklOVHj32bMfbdLDrZn8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ifN2agx1G/YYJIMbzfaFROuMSsZ1VIIM1u5DR/L3SQYR26CfF6VFx1wh+8FiqJCgVdPgh6IK8HJSEpDbVdvpcywGrBfNZto1/NJwpZvwv2ow1sU65Z99oqjUiCLqy+e3WGdMUOKOh5KNsDZAnNaGT6P6Z2vFX1W3TTDGbX6IpSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BiCdtCix; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DQnl8jUn; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rEONZ0Nz"
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-6798eb0d190so2410217d50.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:51:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792155117; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aAz/GwZoBAEd6lXe8nOEawi0UpJ67vmMFHp0BuWbhNl/vvT4QOzh0yXz5WUH+qW5IW
-         EgMJXvqFp6knKfp2sPjwMNVrdfnumYr+jysWk3Hh4wct9hWLUTVsoDIKcZvLYqdUNY6D
-         zT91L0SlKRdHmm8i6NzUXjvtz1Gx7qjXE7GU/Oef4S0f/Dg+LK0Tkbmbfepqr+4bUiYW
-         oIxxZ6HdIdNF/jQPBatAbSMEfCH1aUAiskqkuIAqeWniAm6oNBN0GmQQcXj2S1Yie+JA
-         RlOo4YUPc3WXR74R48cCkMQDsKxIK/dHb3dtuGvntdXDlSeARfGeNr9O3gQFEkAX5GVL
-         86cQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6l+1/7krsFZpRBFydVqob7OkjMRdjcgUOwpkkb3EGec=;
-        fh=rNSxxJhOCBXbQAXrGprcdCRisSjUyoxL6KGQa5Dpo/8=;
-        b=r4JQJ0d6pZcSws/5Y2gfnDERUH1QS6Xq1GTNfUh5+p/PKqCVf/cveHAQGqiuISo0TU
-         Nbv5lfIcQeJO73LKUAq+L2BaxlHBS2M9wb2Ttj534jtpq5F6SB6vq1hYSEMnsVt7RFUa
-         53mq4K+hkM/82I6KAUT0o2ef5VKJtT9VzM7/yBuHuYqL1HjkaazaexaohxSdaVAP4TFw
-         2aHT2ITO9pYwFoYFVEqzyhve29ZV5G6A+HUMgQTPw1C+1sUpUobpEjBrltEz7E4I1B1i
-         a463KkxPWNL/+gmWj7WcBlhqU57rJxKQ7orjyJ1rNuctCKjs3Zw5z/S+Hn6HejqxMSTE
-         tVAw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BiCdtCix";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DQnl8jUn"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAA2ge942606
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:52:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	l5p8F5gLdJ5GtjeEk2HF7/oDkM2Pu19Oyu1v/XHNad0=; b=BiCdtCixAewQFR4R
+	vpWjzHDOou7cC31j3b5syQk6RhdCJ2MhpgMPjPQdl+TtlShBREQ0z7e0zJFyS3Jg
+	IoXTjERN0ElN1okwlwXibUYmGXOh7N4lV6zyGdzMtyn1ie23bLxA5RNWQ4x7cmdx
+	wjTMUZB1H8yyuuRbwUwIHBLB6jstTIrmF4q7zXZjbQXivlhvSIlrI69Y30L0C4DA
+	ScYkLJYNAa2OZ9HXaJOTuPtcaOhP5uBdvgSEtsFwOUNDd7xgh2+DB29wWX5bvCPi
+	nkcEBtHcxhvxd3s9e8cxIY1QGE0gjnyaVTivUBx8kV0ZPUnf6m9yIB7t2gcXn5qM
+	kM+InA==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbhur0j4e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:52:32 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3552883bd19so14652042eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:52:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792155117; x=1792759917; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6l+1/7krsFZpRBFydVqob7OkjMRdjcgUOwpkkb3EGec=;
-        b=rEONZ0NzrSGIBPneXDHULbu3hv+dFUmS9zxSIvhguENiKwlIXYl+c7edgcCVqFrR7B
-         fjOlwgIvfyA4MitOkPFdlhgV7754MIJKKC8YD2fHPIU44yTlS3u0e1cRG0APTG9kmx+4
-         W0fIzIDkAFCU6qBXU//yaBmzJqkLKTYCZTYgifBVp88U+6OxaXU8wA+O3/6b2FKkHJS2
-         VJW72ZxL6rkDnHq20GfImDjJmbpX9XKQwwOi2m6CipGy4H1lO+ac3LSekVLD43nGB3cl
-         k2yN0CmXy/pEdAdCe+YKq3Toor3Ozv8Aul4npZw56cbUWKeaPCffwQFHLxGp4bFX6JLK
-         N1JQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792155117; x=1792759917;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792155151; x=1792759951; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6l+1/7krsFZpRBFydVqob7OkjMRdjcgUOwpkkb3EGec=;
-        b=IIDoCYy4EYwvZ1gFxZCiFrJrKicgFwBhf6zvMWowVH/PIWrpA7bI15dS120LTc1l5U
-         B35ObPqhYwZRC22K3Z+gHPYCKOU+uYX1Z4+eGn9e4/pvE3Qs34FHfnzz/x8HXw+QdxLX
-         7hWjpInIndmSdr6b7/pqUpcNgpvK3AXTLlXuqihji41neO3MrMW6CByevv5tMuL9h+Lr
-         QGR0FW7SxxXfneyEywZbKixheBThlI8BghUuAfr2QvslHYmGmffjYo7PvPZbpsD/KylE
-         6Gz8ifKWHcewmUaEVGhKpE9T1NIvQ3BzaXsJ7YHr/j7XhpVpHOpsz9QhG1OPsCheMvD3
-         zcxA==
-X-Forwarded-Encrypted: i=1; AKwUvBzIA3QF4nl9QZ8MqBU6Yi0EdqBAYfhtifLWHVaAltmtQCKfZrdfWnkQ7tn6IvTCSvyhn7STnu5m0OPHydE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKKjDAmxhyjuVdVrm4L8IDFVR6RBD7Z62XKIE2U41KwDXSU3p4
-	jYPZJCKZ5VM0jM8xLObvKzMr60PvNka8q+uzmlt3P1A4nk5eBkG4NQHdCMTSh75C//jZEMiTEXA
-	rnuE/CVINoXhOBp4emkUzWgbCDdNNaUk=
-X-Gm-Gg: AYBFou0hOqsNEMue5kFzbDr+infAS88kC6K3/yWGSxxQL2R4AgkeBXGDkUvbgwo+nju
-	NGkpK9RKISnC8fMBWkiEpRgAxDvA6xnx/BKRBSD8R86/qcqUZu+XrypnMkUEQt5/RZ48Fm4OLkC
-	8UZ56o70vQa0xtxbTVqmaE3sbiT+lv+efSMAA+OCHcHanceNStLqBCwqlIiDjtQ/Z8/V+v8X6qv
-	AEOhukyq9XSNlNiaWT0Z0z7Day5/JOuIAuq1YgpqmYC/SRPskewkt2AVhtfPdJ+wm7uvQ7Atrc3
-	T3svxXbiWNiK7ZkzhRX/nhle4ZgtocVnUnZcfAc3PWKvfN/3uWISIVoFsOecZfguYmw/qcg8fhK
-	P9khBFtyRJw==
-X-Received: by 2002:a05:690c:dc6:b0:8ae:b617:7113 with SMTP id
- 00721157ae682-8b07ebf4cd1mr79810017b3.6.1792155116960; Fri, 16 Oct 2026
- 05:51:56 -0700 (PDT)
+        bh=l5p8F5gLdJ5GtjeEk2HF7/oDkM2Pu19Oyu1v/XHNad0=;
+        b=DQnl8jUnn6gQge69SPfCwsAB0pWRbkqDzAOkpFwWxFA9SBrNqMYspkX5/tvyLGG6to
+         vcPEHf1gwJKLTzz4RYiypA72MKa0Aw9Q+iVl+ajrRXIkEOl+hcTYAO/pGEopbikpGPl0
+         LgpmdG0P36ONRKF2XeGEKBv9V8xz8JkmpGlaiynsyf0pAITsMsV9iEo22OPQQ4w7mwt7
+         LfE76TA04kWzNJ0tZAr3IrMzv6fBJybKFEtT47gQc1/DraHqC2Pv7gUYdBQIlhF9r0v1
+         euAmZgkOkJMCtSkd9Xaq98vgZ4Ws6ssJ7QDd+e7ZTGih80miEz6KbfkBw6H1Y+Q/EEXE
+         7USA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792155151; x=1792759951;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l5p8F5gLdJ5GtjeEk2HF7/oDkM2Pu19Oyu1v/XHNad0=;
+        b=t0n3af8FLgTZ3hEFg4HJgzlr1I2EYyxoBdQC1GbDBGzTdI6tKHC/zuzVCloc0kxC2K
+         kWjVpkkB30qCy7+wszobWiH8jp7JXdwrBoqOrkM1MQmzcDhhOzYjuMT1gUKA7Z7JAxvV
+         LlpY3P70a/DNcKaoTHRItOyiqsqG7A2t4zyHWVxIAnfUS2oXzIYTXlZB5z86ra7M1ZxK
+         3tjNomkMRGRjBVh9QlZu+xw1GFD/BrsEte1W928LlOmbMltmJSncXKhcnTEf6WmO7IRK
+         4XA60TLo2rcQn3q2WuiHWAagKN4DvFcGGaWGDboRCAspOvaI/K37qNUm0WlhfDtWVp+b
+         RTGw==
+X-Forwarded-Encrypted: i=1; AKwUvBwNTSIzibHuUdkupaxrAUfPHDSvcGMALk3pDpyVUkZ2W576xpA1mKOpb3hT8lhNxP9W8dwTMG9tMdFmMlA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnr9hvEVtvW+GR0A+Scy59cuzl3RuG4/KhisfsTWMVZUlpnRSf
+	W+JQL9Sb1nplv3N80iXMbR0z8r6ePqEkYpLhBxphBYvizXf/eqUMlUgTYPySZELKw19wMMaSPI1
+	3SMCJf/TfOWYIZziwSYBW0iY/Fp2tXZehNwPCdRz0pfWF0DV+fF+a1UXxV8z2rkD6Pzw=
+X-Gm-Gg: AYBFou3FwRj7zw/UdkjiF/6h+nLnGj6ygDMa1TQYdaSZTNwW0wMPmueHyMsWKmktA9W
+	a0g0NQzd+i5FOQyy/xAuJgCT7/OZpw2dUP9Fg0h3iYznq156rjU+EKkMBS9H77PXc/HIhsZn6Nw
+	Gbu4KnK4spmD/0ETgMq3ukvpQ/rZ7BsnyYwH1Izm9zdSpcCWRDwDIlHSxPgA+nueK1POjmJHoLj
+	EHqHiEHeAQCkMKxy7Xkq/MNcK0zsj5EEAH6DzW1gvrHYVkono8xADMUbsxMB5stG14itxxZVQWM
+	gBmCj5U17z6thcs/qMNZQeKd1VRROeZvgLms9nKxVTk21ddiuZxGFxr/uFYACu3bIKI5q8uicQk
+	KM6leJjd00ShIm2wxyam7M5JIrGW4sDQ=
+X-Received: by 2002:a05:7301:1929:b0:351:7ec0:daa3 with SMTP id 5a478bee46e88-3537e04eeb2mr30724465eec.31.1792155151020;
+        Fri, 16 Oct 2026 05:52:31 -0700 (PDT)
+X-Received: by 2002:a05:7301:1929:b0:351:7ec0:daa3 with SMTP id 5a478bee46e88-3537e04eeb2mr30724421eec.31.1792155150391;
+        Fri, 16 Oct 2026 05:52:30 -0700 (PDT)
+Received: from [10.218.31.125] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081ab80f9sm11558273eec.12.2026.10.16.05.52.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 05:52:29 -0700 (PDT)
+Message-ID: <1a11724b-3f2e-4c4d-a8e4-eb9c0dc3c18a@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 18:22:23 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <pm-pmb-0d5be4c3f73a268b6e4e-v2-33b37cf9980d74d33ee3@gmail.com>
-In-Reply-To: <pm-pmb-0d5be4c3f73a268b6e4e-v2-33b37cf9980d74d33ee3@gmail.com>
-From: Cen Zhang <zzzccc427@gmail.com>
-Date: Fri, 16 Oct 2026 20:51:43 +0800
-X-Gm-Features: AclHuK-X737h9BghQqlTouYKUNNXRdml9Jq7Tf4Jd8ELwTClBZxo4ttj7f0oXvw
-Message-ID: <CAFRLqsXG8xb_1=UsCR-Myh-THrWLBF9JPP01AYmR19SjE-vAPQ@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: dummy: Revalidate CD Volume before updating its access
-To: perex@perex.cz, tiwai@suse.com, thomas.weissschuh@linutronix.de, 
-	sammiee5311@gmail.com, tglx@kernel.org, phucduc.bui@gmail.com, 
-	kees@kernel.org, clemens@ladisch.de
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	baijiaju1990@gmail.com, jjzuming@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: shikra: Correct QCE node
+ configuration
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Wenjia Zhang <wenjia.zhang@oss.qualcomm.com>
+References: <20261006-shikra_qce_fix-v1-0-8ac54d81edb4@oss.qualcomm.com>
+ <20261006-shikra_qce_fix-v1-2-8ac54d81edb4@oss.qualcomm.com>
+ <18d6a6ce-afc6-4590-ac26-0aca6dfafae7@oss.qualcomm.com>
+Content-Language: en-US
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+In-Reply-To: <18d6a6ce-afc6-4590-ac26-0aca6dfafae7@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA1MSBTYWx0ZWRfX9HpYbSQfl9xc
+ D1hnULNNwOTLbCtV8M1LpHhRgTI0xGs86iQ+NH/MbbGON+PGAX7wssItJCcRVjMzQjCpwrSy//g
+ bBEjIEBahTLPq9V8MJJyLgeaHm8aOfGr0yb8iT/QKRNcxXtiZAODMPz/XlqZjF71dWUXAwmmWa2
+ wT7YiBD6wkEtmxvW7xcycnh21VR8+uy5ApOlFwDKXDLGzrXpUNBUXJNS/yV1WTV84DyJibwV0zR
+ LXbVUJAXEvU0O4XZ6GV6i3YRZEkQPDUrRkZhPSOHHlDNvaWhU+w1ivOKtZeRwo2MUKIn6DL3Owz
+ fSCoY3FbQh7sI86j5yTBJDL0gkzPXsFdAdkIWIG/8TMnucamFfALXfVfYohv9Ic/2F+0nVrR1vP
+ RGARm3nEmZSNPj1OHDpjS24Tx+eS0f4jJvAWonV08aWoqGb2HEmHC2nAbcjMyQuabZgMIbXptMo
+ UZj7yqhgYlPHFRFWdQA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA1MSBTYWx0ZWRfXx/f0voQwSjk+
+ AoTcZtsJ/UnBz1MJLXMtaAhyy7nLUW8Ydv7nmVS0HF1Mcwd3KV9+kjuOPblZ3aCf4Nm9sWs+vYG
+ I2t65tEefcTCLCSUmyGp8E+W5NepTuo=
+X-Authority-Analysis: v=2.4 cv=PqsG/AM3 c=1 sm=1 tr=0 ts=6ad21e10 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=9GsNmjbEMOpVDnpVqTcA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-ORIG-GUID: 1ZW8EDzlgK0AU_wsQubCfrQdpPHpQGZZ
+X-Proofpoint-GUID: 1ZW8EDzlgK0AU_wsQubCfrQdpPHpQGZZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
+ phishscore=0 clxscore=1015 malwarescore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160051
 
-Hi all,
+On 16-10-2026 18:01, Konrad Dybcio wrote:
+> On 10/6/26 1:14 PM, Kuldeep Singh wrote:
+>> Shikra is derived from Agatti and uses the same QCE integration.
+> 
+> This is useful, but..
+> 
+>> Update the QCE node to match the underlying hardware implementation by
+>> adjusting the fallback compatible and related properties, including
+>> clocks and clock-names.
+> 
+> because the compatible you switch to says ipq4019 and not "agatti" or
+> "qcm2290", the argument falls apart.
 
-Cen Zhang <zzzccc427@gmail.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=8816=E6=97=
-=A5=E5=91=A8=E4=BA=94 10:17=E5=86=99=E9=81=93=EF=BC=9A
->
-> The CD Volume control must remain live while snd_dummy_iobox_put()
-> updates its access flags and sends an INFO notification. The mixer
-> constructor caches a raw pointer to that control, but removing it does
-> not invalidate the cached pointer.
->
-> This can happen when a kernel client removes CD Volume through
-> snd_ctl_remove_id() while the dummy card remains connected and External
-> I/O Box is still present. Userspace ELEM_REMOVE rejects this driver
-> control, so a kernel control-removal caller is required. With I/O Box
-> initially set to 1, the following ordering is possible:
->
->   1. The kernel client takes controls_rwsem for write in
->      snd_ctl_remove_id(). __snd_ctl_remove() unlinks CD Volume, sends
->      REMOVE notifications and frees it through snd_ctl_free_one(). The
->      semaphore is released and removal returns.
->   2. After removal returns, a native ELEM_WRITE changes External I/O Box
->      from 1 to 0. snd_ctl_elem_write() takes controls_rwsem for write
->      and calls snd_dummy_iobox_put(), which follows the cached CD Volume
->      pointer to update vd[0].access.
->
-> The access update starts with a use-after-free read. The subsequent
-> write and notification ID access also use the freed allocation. The
-> semaphore serializes removal and the callback, but does not preserve a
-> control removed before callback entry.
->
-> Save the control ID after successful addition and look it up again
-> inside snd_dummy_iobox_put(). The existing control-write semaphore keeps
-> a found control live through the access update and INFO notification.
-> Skip those operations when the lookup fails, preserving the I/O Box
-> value change and the surviving control's update.
->
-> KASAN report as below:
->
->     BUG: KASAN: slab-use-after-free in snd_dummy_iobox_put+0x391/0x440 [s=
-nd_dummy]
->     Read of size 4 at addr ffff88810d8b4c98 by task alsa-trigger/415
->
->     CPU: 0 UID: 0 PID: 415 Comm: alsa-trigger Tainted: G           O     =
-   7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
->     Tainted: [O]=3DOOT_MODULE
->     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,=
- 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->     Call Trace:
->      <TASK>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      ? snd_dummy_iobox_put+0x391/0x440 [snd_dummy]
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __virt_addr_valid+0x20d/0x410
->      ? snd_dummy_iobox_put+0x391/0x440 [snd_dummy]
->      kasan_report+0xe0/0x110
->      ? snd_dummy_iobox_put+0x391/0x440 [snd_dummy]
->      snd_dummy_iobox_put+0x391/0x440 [snd_dummy]
->      snd_ctl_elem_write+0x376/0x5a0
->      snd_ctl_ioctl+0x997/0xdd0
->      ? __pfx_snd_ctl_ioctl+0x10/0x10
->      ? __pfx_do_sys_openat2+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? selinux_file_ioctl+0xaa/0x280
->      ? __pfx_snd_ctl_ioctl+0x10/0x10
->      __x64_sys_ioctl+0x163/0x1d0
->      do_syscall_64+0x115/0x6a0
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     RIP: 0033:0x7fc9c21a991b
->     Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 =
-89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 0=
-0 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
->     RSP: 002b:00007ffc08d51f80 EFLAGS: 00000246 ORIG_RAX: 000000000000001=
-0
->     RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007fc9c21a991b
->     RDX: 00007ffc08d51fe0 RSI: 00000000c4c85513 RDI: 0000000000000003
->     RBP: 0000000000000004 R08: 0000000000000000 R09: 0000000000000000
->     R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
->     R13: 00007ffc08d52600 R14: 00007fc9c22d8000 R15: 00005578bae81d58
->      </TASK>
->
->     Allocated by task 415:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_kmalloc+0xaa/0xb0
->      __kmalloc_noprof+0x2d7/0x770
->      snd_ctl_new+0x51/0x190
->      snd_ctl_new1+0x13c/0x650
->      snd_dummy_probe+0xba5/0x1240 [snd_dummy]
->      platform_probe+0xbe/0x1d0
->      really_probe+0x21f/0xa90
->      __driver_probe_device+0x1ec/0x490
->      driver_probe_device+0x4f/0x130
->      __device_attach_driver+0x1d2/0x2e0
->      bus_for_each_drv+0x155/0x1d0
->      __device_attach+0x1c3/0x490
->      device_initial_probe+0x96/0xb0
->      bus_probe_device+0x69/0x160
->      device_add+0xfff/0x1700
->      platform_device_add+0x318/0x7b0
->      platform_device_register_full+0x596/0x7b0
->      pmbd_remove_cd_exit+0x12a/0xf90 [remove_cd]
->      do_one_initcall+0xf3/0x4e0
->      do_init_module+0x281/0x8e0
->      load_module+0x658c/0x7cc0
->      init_module_from_file+0x15b/0x180
->      idempotent_init_module+0x22d/0x770
->      __x64_sys_finit_module+0xd2/0x160
->      do_syscall_64+0x115/0x6a0
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
->     Freed by task 415:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kfree+0x307/0x580
->      snd_ctl_free_one+0x6b/0x110
->      __snd_ctl_remove+0x26f/0x360
->      snd_ctl_remove_id+0x4f/0x70
->      0xffffffffc04060c9
->      do_one_initcall+0xf3/0x4e0
->      do_init_module+0x281/0x8e0
->      load_module+0x658c/0x7cc0
->      init_module_from_file+0x15b/0x180
->      idempotent_init_module+0x22d/0x770
->      __x64_sys_finit_module+0xd2/0x160
->      do_syscall_64+0x115/0x6a0
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
->     The buggy address belongs to the object at ffff88810d8b4c00
->      which belongs to the cache kmalloc-192 of size 192
->     The buggy address is located 152 bytes inside of
->      freed 192-byte region [ffff88810d8b4c00, ffff88810d8b4cc0)
->
->     The buggy address belongs to the physical page:
->     page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x=
-10d8b4
->     flags: 0x200000000000000(node=3D0|zone=3D2)
->     page_type: f5(slab)
->     raw: 0200000000000000 ffff8881000423c0 dead000000000122 0000000000000=
-000
->     raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000=
-000
->     page dumped because: kasan: bad access detected
->
->     Memory state around the buggy address:
->      ffff88810d8b4b80: 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc fc
->      ffff88810d8b4c00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->     >ffff88810d8b4c80: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
->                                 ^
->      ffff88810d8b4d00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->      ffff88810d8b4d80: 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc fc
->     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> Fixes: 16e434670e95 ("ALSA: dummy: allow disabling mixer controls")
-> Assisted-by: LLM
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> ---
->
-> diff --git a/sound/drivers/dummy.c b/sound/drivers/dummy.c
-> index 6b0a06e5c87638264e5d22deda1fe4bc028febe7..d422fb3fa25d1279df2e971e0=
-f5546a329db4049 100644
-> --- a/sound/drivers/dummy.c
-> +++ b/sound/drivers/dummy.c
-> @@ -134,7 +134,7 @@ struct snd_dummy {
->         int mixer_volume[MIXER_ADDR_LAST+1][2];
->         int capture_source[MIXER_ADDR_LAST+1][2];
->         int iobox;
-> -       struct snd_kcontrol *cd_volume_ctl;
-> +       struct snd_ctl_elem_id cd_volume_id;
->         struct snd_kcontrol *cd_switch_ctl;
->  };
->
-> @@ -836,6 +836,7 @@ static int snd_dummy_iobox_put(struct snd_kcontrol *k=
-control,
->                                struct snd_ctl_elem_value *value)
->  {
->         struct snd_dummy *dummy =3D snd_kcontrol_chip(kcontrol);
-> +       struct snd_kcontrol *cd_volume_ctl;
->         int changed;
->
->         if (value->value.enumerated.item[0] > 1)
-> @@ -845,20 +846,27 @@ static int snd_dummy_iobox_put(struct snd_kcontrol =
-*kcontrol,
->         if (changed) {
->                 dummy->iobox =3D value->value.enumerated.item[0];
->
-> +               /* The control-write path holds controls_rwsem. */
-> +               cd_volume_ctl =3D snd_ctl_find_id(dummy->card,
-> +                                               &dummy->cd_volume_id);
->                 if (dummy->iobox) {
-> -                       dummy->cd_volume_ctl->vd[0].access &=3D
-> -                               ~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
-> +                       if (cd_volume_ctl)
-> +                               cd_volume_ctl->vd[0].access &=3D
-> +                                       ~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
->                         dummy->cd_switch_ctl->vd[0].access &=3D
->                                 ~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
->                 } else {
-> -                       dummy->cd_volume_ctl->vd[0].access |=3D
-> -                               SNDRV_CTL_ELEM_ACCESS_INACTIVE;
-> +                       if (cd_volume_ctl)
-> +                               cd_volume_ctl->vd[0].access |=3D
-> +                                       SNDRV_CTL_ELEM_ACCESS_INACTIVE;
->                         dummy->cd_switch_ctl->vd[0].access |=3D
->                                 SNDRV_CTL_ELEM_ACCESS_INACTIVE;
->                 }
->
-> -               snd_ctl_notify(dummy->card, SNDRV_CTL_EVENT_MASK_INFO,
-> -                              &dummy->cd_volume_ctl->id);
-> +               if (cd_volume_ctl)
-> +                       snd_ctl_notify(dummy->card,
-> +                                      SNDRV_CTL_EVENT_MASK_INFO,
-> +                                      &cd_volume_ctl->id);
->                 snd_ctl_notify(dummy->card, SNDRV_CTL_EVENT_MASK_INFO,
->                                &dummy->cd_switch_ctl->id);
->         }
-> @@ -903,7 +911,7 @@ static int snd_card_dummy_new_mixer(struct snd_dummy =
-*dummy)
->                 if (err < 0)
->                         return err;
->                 if (!strcmp(kcontrol->id.name, "CD Volume"))
-> -                       dummy->cd_volume_ctl =3D kcontrol;
-> +                       dummy->cd_volume_id =3D kcontrol->id;
->                 else if (!strcmp(kcontrol->id.name, "CD Capture Switch"))
->                         dummy->cd_switch_ctl =3D kcontrol;
->
+Ok, then I'll update the commit message and avoid adding agatti context
+for shikra changes.
 
-This is AI obfuscation. I'm very, very sorry for this noise. It is all my f=
-ault.
+-- 
+Regards
+Kuldeep
 
-Sorry for this again :(
-
-Best regards,
-Cen Zhang
