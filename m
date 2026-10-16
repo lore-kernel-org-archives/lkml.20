@@ -1,145 +1,121 @@
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1ADE45C709
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:07:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDAE4657CD
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:08:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141631; cv=none; b=r8JKFJ8s7ERv9XCZbjFY7yWajvKesYbnwdYXbP64hLFcTwVWUvzf+5iOVrLz3igy7lVLmYDT6V8JcE82n2mi5Feh/9Nc8yMqoLLHnPB1zmH+HF7W714hBRLvBhxb/ShnnOvwhDIiNUmMFZmvXPXe4hPLkdtsrL/L+ls24/tuqXY=
+	t=1792141684; cv=none; b=TDPLSwfY3VNm48D742MusitotDhRVSFdcegZFto4/7YDQGVQyggrpq643GGtakHesKSbwC6VPOPxJZqzy60UTHKP8Tufi7jflgkeM6JTfPSNHj93mDzoo+Ane45ACi283C1lgF5y7qZ1CaZ8V4KMuU/9o9I5bWqm5brBYCj9mUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141631; c=relaxed/simple;
-	bh=vskP+/VjFJbpd/SHB0/S8yYPgH1R4r61pmY5+tzVuQg=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=inWGDwY7REG4aZCqDHVN0GjgE16pmBPIFUJh1AesAw5RxfDku06i1I+h6HOe3GsxypsqXgRNGqW4Ii7Mczkwaf78a1wQTwChTKLx2mlQdEoMYXq0y1on7jnfg3mFxpuEuwasXFOzshlGGcVQ1W9l2KGM7LW7n6Fr0+uCHsOMNMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr; spf=pass smtp.mailfrom=alex-min.fr; dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b=fD/lcTYs; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=diKm8IcX; arc=none smtp.client-ip=103.168.172.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alex-min.fr
+	s=arc-20240116; t=1792141684; c=relaxed/simple;
+	bh=v6VhmAqiuQLUgRnQxS36m60xQRI7RTl+HbKGrHmYVX8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JSRq4i4vML+FRVSwot+Bpzpg+v8/PddtALEOQroLWzqwNUuGe/715g52PhZnW99dQQHlHy9fxkyFvjrGPk/V3VhqNUvku6nlxfc3TOIyiJ0wJYYl0O4O2xS9J2JWdhKgUdIQVRzBUe0EGXaGuIA7oZcspOsE/moWOZImjrWKdro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qz8DpAU/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b="fD/lcTYs";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="diKm8IcX"
-Received: from ams-compute-01.internal (ams-compute-01.internal [10.64.2.61])
-	by mailfout.phl.internal (Postfix) with ESMTP id 098C6EC0178
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:07:07 -0400 (EDT)
-Received: from ams-imap-13 ([10.64.2.33])
-  by ams-compute-01.internal (MEProxy); Fri, 16 Oct 2026 05:07:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alex-min.fr; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792141620;
-	 x=1792228020; bh=OTaAd/4maKewG2ggdGudQ6CmCKW+hc4cP+G0dOFsHIA=; b=
-	fD/lcTYsve1upT9OBn42bgRNawp3ybdmmj1CXs9RwmkY+PEiHUwWMhm/60p/Lj2T
-	1e01c+wEb/jFPmRrhOx/LWzbgwm6qIERG2hg943FaIbq+FMEo5McMg+EmcQS+HLJ
-	lf4aNxu3h4i7/OYhf153DcC2fUzLoHu2fOVxV2Ld3nvMceS89fiCZ7f5Puop3UcM
-	XpB0r1gt2t/OqYoeFNpkzuSmM/61hY/B5pE92tW1goH9+D1r7VqqCmwHlB0f1xbP
-	5Xse+lA15IeiHo/if2oLB6LS6TdpW0aHmrWwIGKQJd7M1AwKZIYSOQL3OCvNRqrY
-	/eIDOW0TY6llF8HzDdGqUA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792141620; x=
-	1792228020; bh=OTaAd/4maKewG2ggdGudQ6CmCKW+hc4cP+G0dOFsHIA=; b=d
-	iKm8IcXqmlcGL1SpIAOtDsi+zMyU5B8GsySZz4c9EcMdfnyRz6tMKGUmYojc4efk
-	He8RznwyzOgNt6wxOmjJ/zqq7SISuX771UEf4D7csmPiQ0xTT/RLTlGEVdzNJ506
-	BpEIP191Mqs0VhHRUj6n4DgOZnxmFKb25e8zqjYAPYhtkcYJAxF+MSMORDhQaKDi
-	+G2EvQhhcw+P0HmtIGD63tvBPDr8O2KZO9OJ1mU7dSLTS3LsdCIcTuxdQYnanYP3
-	gKYMvesxup/8TN/BJCuLPQhbpOech+r+3nGI8cJuk7bsTTpBZ7N0xtYUSmCgkhwT
-	+HMq79QA1pdMswsXriGBg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=alex-min.fr a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792141620; d=alex-min.fr;
-	mf=PGNvbnRhY3RAYWxleC1taW4uZnI+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:OnqmhXHRlrYwd/zxrHn7ytfMBjjUfsP/svQZwoEGjeVE48S
-	8zGwuzVzdxGxHEAVfZTEsX0gvX8di12p3AH/Px59PRuq110pc9G+x5u60Vko+o3m
-	gRVS+ebhQ432PR5s7Ti+oaf/oBSNkg9Yk3WVwusyMqhve4gNBZFPHcE6y2rHg3wm
-	mXLe81bbf8lfS65Y4BR/9FrE3cyAI3wBmkyFJWgRhibgotlYVD+ajXkDQuSqaz8/
-	B2zDVbtybGaG0ZPDOJn2PTJe/oqK/SIh0scaa6HR+w+b7gD4ezpzmszmj6kuTKu9
-	6iffe+SPAlL7J0gU4rbYGTAhtoZREU1Lhg2s+OQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:QP8ECK81WgLv6+NFiwneUkRJp27m2+W5M9yH+ZYlZmc=:vskP+/VjFJbpd/SHB0/S8yYPgH1R4r61pmY5+tzVuQg=;
-X-ME-Sender: <xms:LunRavd_9WyLanQAvRz1Mauo54nnF9DTgptr0vG7BFiIhyLhAYFk5g>
-    <xme:LunRagA6wvomMxKzoEyi_SGBk2pmQM1dqZ1pSZRRi4pp6Jyfzml6giC4PTH0QT3qe
-    Dgwj4tTtJljbb8ZG_GW1lUaBgFaJeWo27JZNuuUdilCQKvFUuJJNjA>
-X-ME-Proxy-Cause: dmFkZTELavOtQ9FpUxHAzPLKum9t8lHe5U9i/1vYWhRUkD0TGlEObtWIOXGixw6x/W3aNy
-    P7NNTMQ3gdKVc3Vms8ZutNL/4NTrGyKy8kCepGiWj6WLzYbsnbfIS81B0VdL7R9irerZiV
-    0r5mHIWaSMcFThFdupRn3Y1ddrRUdMB42g5NUEumlEpYZpAxnXzHokEDU7uiJWIAxGwcZf
-    /AQlc5kGuNojctJJysXfFcgBHJ/H2v/+nPQefbYzfuPvVsBHOppHNzdnTL0fcGDNspSNqk
-    jQGMDOtwK4+TidFQeQvHuI1t3F5jW9oqXjAhJdW/YTqMNRS8HhlBaHVJbZ+qNj6akSp6tw
-    TUMvk246ur4qVSPCr+hMcTxhlJcBz3Ltjd28m/JmeZOHebqpBrSEYpYNc9BA7UL5WF2q4w
-    j20YosnoJWqFrS02F37wFt/m6bGHftdWdG0WlL0Zozln7jF44u1+5rKAUAa34yKlrUcgtu
-    4vhar7nV12ZIHv7GVmE8BnN50UwBdsULEOoKTjTwoBBn1C/lO10kZ8tQTG108uYWlaMPDZ
-    R9n0OZhyRE++TPet8PEwBP6GXiZpr5LV9UzftYlwT+Pl3NUTe4PzoB7bSX6lK8EKAoS2GM
-    SgPPMTwXrGXq8RJmXHAyo8Y2MIN0472cvVuhhEJuRaewvnEroI1ZAiPewvDg
-X-ME-Proxy: <xmx:MenRajJmHrDodbSucl-sDUBgoMYCm821U9EHnYjR5EznxYF_RVNUIw>
-    <xmx:MenRalqtYL7hPLYcgaWqQIzzC-76rcXHzOE8PUDAoyorBCjjERBFdw>
-    <xmx:MenRaijH3DvTlUTQVji7pdKwXJejpyuL8LO15H_AqYIFADNr9nXY8Q>
-    <xmx:MenRasYHNfLVehVTPgFoZth9BRGw5mwOZrnY_AM3mCjbRx5l7AM53w>
-    <xmx:NOnRaqqiLuNUY2yUx5GINR9D_mji4HC3w7ak7NSd01pwPuC_9f-wAxEy>
-Feedback-ID: i72694427:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 65D1AF80094; Fri, 16 Oct 2026 05:06:54 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qz8DpAU/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A02A71F000C8
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:08:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792141681;
+	bh=/C6fWWUSV15Z2XahiLhodLd1FusftW6HVqjIbYlKS54=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Qz8DpAU/W8clG9FDfnfdKXyOO7YyHNVMQ3oA8muzF6m69TBQ6/0uIrxNCw6cRaBSF
+	 5d0O6jgsiscK1BO+ISB1y4hRfpV/caLpzSC62+jPk7+7FQxkWathiZ2UPKIeaf6XzT
+	 i+y1/ccj+GUUkK3nqS5HApsjvCadW2f8wpKuV35mgfFOPBHDA9ss+u4nkxvq6oTdHT
+	 n0UO/PlUPZhGZa+I8hvvGW6gOaX1ijyhm8prAJBQDCMtx58tZg6IDsWKgcjWnHGBBr
+	 A/OmrIEb9QpjmqBjcOu2WwJudIHPlORTeu+ESYYYEmWdDyowntpwV7epI0SiM4x+7D
+	 T/NFZL+4rDuQQ==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5be3d5927ceso1387591e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:08:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzRMHwEGEjQDU2eSiJPLgJl81YIF1s4u5VxmEDkndtzKiMG9yjpyYVzgg4PefB2p0PjeOBWsY4q1QBcafM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIv+aI4EH/m6j7Wzm66PG4Hh9cYce2g2VXgKFe3ca7G2gbBDCbn
+	TSJdB1Mrt6RQzTn8i84vJwj0OfS2gZgCr9ucJzK41IzAOoNFmOW/rbI+IubbRPslNBkt2zYOqDj
+	8jANTHurcrijNJOiXdpDzjwIjBzep2Ew=
+X-Received: by 2002:a05:6512:1054:b0:5bc:b4d0:df9b with SMTP id
+ 2adb3069b0e04-5bcde6c97a4mr8515990e87.25.1792141680365; Fri, 16 Oct 2026
+ 02:08:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: APbt_9TFhOUJ
-Date: Fri, 16 Oct 2026 11:06:09 +0200
-From: "MINETTE Alexandre" <contact@alex-min.fr>
-To: me@samcday.com, "Rob Clark" <robin.clark@oss.qualcomm.com>,
- "Sean Paul" <sean@poorly.run>, "Konrad Dybcio" <konradybcio@kernel.org>,
- "Akhil P Oommen" <akhilpo@oss.qualcomm.com>,
- "Dmitry Baryshkov" <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>,
- "Jessica Zhang" <jesszhan0024@gmail.com>,
- "Marijn Suijten" <marijn.suijten@somainline.org>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Message-Id: <a9eede13-f9f2-40bb-ba17-76eca6b9757b@app.fastmail.com>
-In-Reply-To: <20260926-a306-vbif-mask-v1-1-2bae5e81c05a@samcday.com>
-References: <20260926-a306-vbif-mask-v1-1-2bae5e81c05a@samcday.com>
-Subject: Re: [PATCH] drm/msm/a3xx: fix VBIF halt mask for A306/A306A
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+References: <20261010130024.177503-1-ghahramani.navid@gmail.com>
+ <20261010130024.177503-10-ghahramani.navid@gmail.com> <aV_PM_GzRW6aLmK6NF7ttw@gmail.com>
+In-Reply-To: <aV_PM_GzRW6aLmK6NF7ttw@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 16 Oct 2026 11:07:48 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=TeOkPDq+xwGdUHdvJx31VtvGR9X53wJS0r0J9s2yLqw@mail.gmail.com>
+X-Gm-Features: AclHuK_5noOpKkEBY1kNxBuxnUvrwxeiNqLeHpNvpG3o-TRMB7o13R_Nlzy6JOs
+Message-ID: <CAD++jL=TeOkPDq+xwGdUHdvJx31VtvGR9X53wJS0r0J9s2yLqw@mail.gmail.com>
+Subject: Re: [PATCH 09/24] gpio: Add ZTE ZX279128S GPIO driver
+To: =?UTF-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, 
+	Navid Ghahremani <ghahramani.navid@gmail.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, arnd@arndb.de, linux@armlinux.org.uk, 
+	robh@kernel.org, krzk@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Tested on the Samsung Galaxy S4, codename jflte with GPU Adreno A320.
+On Sun, Oct 11, 2026 at 2:13=E2=80=AFPM Stefan D=C3=B6singer
+<stefandoesinger@gmail.com> wrote:
+> Am Samstag, 10. Oktober 2026, 14:59:47 Mitteleurop=C3=A4ische Sommerzeit =
+schrieben
+> Sie:
+> > +/*
+> > + * Each bank has 16 lines, one bit per line in each register. The regi=
+sters
+> > + * at 0x04-0x10 and 0x28-0x34 control the interrupts, which are not
+> > supported + * yet.
+> > + */
+> > +#define ZX279128S_GPIO_DIR   0x00    /* 1: output */
+> > +#define ZX279128S_GPIO_DATA  0x14    /* line level */
+> > +#define ZX279128S_GPIO_SET   0x18    /* write 1: drive high */
+> > +#define ZX279128S_GPIO_CLEAR 0x1c    /* write 1: drive low */
+>
+> This looks identical to mine, which itself matches the old zx29 GPIO driv=
+er
+> with IRQ support etc that was removed in 89d4f98ae90d ("ARM: remove zte  =
+zx
+> platform"). This old driver had support for IRQs.
+>
+> My hardware has the same register layout, but no IRQ support (related
+> registers are always 0). So I wasn't planning on reviving the old driver =
+and
+> just using regmap-gpio like you do here. If your hardware has indeed work=
+ing
+> GPIO IRQs it would make sense to revive the old driver.
 
-No regressions seen for the A320 on my side, thanks for fixing A306.
+It does sounds a bit like churn if we remove a driver from the kernel
+and then add it back after some years...
 
-Tested-by: Alexandre MINETTE <contact@alex-min.fr>
--- 
-  MINETTE Alexandre
-  contact@alex-min.fr
+However if this is using GENERIC_GPIO (regmap is something else)
+this is a better base.
 
-On 9/26/26 8:17 AM, Sam Day via B4 Relay wrote:
-> From: Sam Day <me@samcday.com>
->
-> A306 and A306A implement only three VBIF XIN halt request bits.
-> Consequently, waiting for the full 6-bit A3xx mask times out and
-> prevents runtime suspend.
->
-> This issue was reproduced on a DragonBoard 410c: the request reads back
-> as 0x7 and the acknowledgment as 0x00070007 - the poll eventually
-> returns -ETIMEDOUT, and a3xx_pm_suspend fails with -EBUSY.
->
-> The downstream kgsl driver corroborates this (see link). Since the
-> single-character difference between A3XX_VBIF_XIN_HALT_CTRL0_MASK and
-> A30X_VBIF_XIN_HALT_CTRL0_MASK could be confusing to read, the narrowed
-> GENMASK is instead defined inline in a3xx_vbif_halt().
->
-> Fixes: be0e82b8e0c9 ("drm/msm/a3xx: Drain VBIF before GPU suspend")
-> Link: 
-> https://android.googlesource.com/kernel/msm/+/c90c7feeca2f5839ad6824f816c0bd207602a2f4/drivers/gpu/msm/adreno_a3xx.c#637
-> Assisted-by: LLM
-> Signed-off-by: Sam Day <me@samcday.com>
-> ---
+I think it's easy for an LLM to port over the IRQ support from the
+old driver to this new one, given the code is already there and
+this way keep the best of both worlds?
+
+> My hardware has one annoyance: There is one GPIO line (not one block of 1=
+6,
+> just one single line) that has an inverted direction bit - and this line =
+is
+> necessary to run the routers on battery. I don't yet know what the nicest=
+ way
+> to deal with this is. If we have a good reason to have our own zx gpio dr=
+iver
+> then life would be easier :-)
+
+I don't believe that the hardware block inside the SoC actually
+has a single inverted direction bit. Prove it :D
+
+This sounds much more like someone using open drain to drive
+the line high when setting it to input mode and has hacked
+their way around that behaviour instead of just asking the
+GPIOlib core to do the right thing:
+
+gpios =3D <&gpio 0 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+
+Yours,
+Linus Walleij
