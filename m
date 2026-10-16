@@ -1,160 +1,237 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E39A443311;
-	Fri, 16 Oct 2026 07:55:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EEC241DEF4
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:55:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792137350; cv=none; b=iZWAPS+lE3v1wf6MYfiIn+kwwHtG84Ye2MtohRu6ft/BLwMK3Ev78yBf32RR39/BT/GBlT00UkFaCjFPZQGajgMhXkE/TXDAjMxl4Bl6P46cewcB3fY06EfNspFWizXsK8mImtJ964DEFdDPAleLCNER4TH/g/5T0iGWa28HSuw=
+	t=1792137351; cv=none; b=WGQUu63OBMiRPqqE81ahM30H8EsZWoxFOOuymCleaATFm/Q7mVPzKU0/h9N9/SYNkPgejI96sw2ihE0yCvDJwbU6rPfUV60uc2oFikmdIAJ/5GPIvtl6BgQjODNgRZiXZ7+UiDw/7uzpw4SoJ3dukkWb44+MpWDkjPnJ/3EAUFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792137350; c=relaxed/simple;
-	bh=nyDo1fz7KIxbMVB6J4llHppN7fEw28mEz2XD1d0nBZQ=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=QJ4YlFWmYNrpPFLuH/nXyCCvOy7wqxSrV3zd1CVhEvIc1Ia3zQFayJuPjXAIKRd4bmMzewViKrY7kqTzH3aZYmM7bepbxvuM49m7pfA0rsrDzXFlK4Y1BKLWfuWl1XBj9ZpF2t4Q484SBS8/3sPcc7do/s/ugV4PirQaXWU+PF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Q9yzE9Nf; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=uE6GJ1Yi; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792137351; c=relaxed/simple;
+	bh=UlpHP7Z60Nf7v2h4dGXiTKjBnnXmOjaKLaPUWurPnB4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=rfYvAyIWd1V8PnS0TwOCyCVbr7fhYAXaS+hfBvemDZL0R7R5/0B8T3yz6b4NzaBMUPXssd0+aZkb9rX+OcTH4DDnGy0icMdFhV1jFih+WSN9pckO1KhXsrRVu5s5AqnHMAMqct5R2JT9VjJI2d816xxuP0nvzQxXA5fNbgTWAaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YozeBrWE; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=I6iRZZfF; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Q9yzE9Nf";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="uE6GJ1Yi"
-Date: Fri, 16 Oct 2026 07:55:42 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792137343;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YozeBrWE";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="I6iRZZfF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792137344;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l7AhbFTQvuq3e3GKt4BzhHvZftzKvjV0A7Rghyr4Tyo=;
-	b=Q9yzE9Nf2UeibYDAz0ENHQWuJlmoB1ubh0EJLVxnBwsysCBJ43XO2EqTKWwDpqhEatxLiK
-	Xz720pTfjDbTF12dMvW2isciqe3Ka4GlaXGlSc6Ue5A9NZotkNZbJEbDn19rBE7pGcLq46
-	svOq1ctkBddcImK9SLB3divmzfdwCr0iRoYBHt4q/XdgYGRf/WjOyneSFmKmqdPT0G328/
-	BIsIsXyVg1Jm35NgJ3dMA+Iloli+ppl1KbedPCNagMQQ9peqfQ3LuQ2oh+VYuGhLHtcpOm
-	iN95gPI17cusYidfd1aPfOp/SUeSKSFrQJdapTdEUNwEZzwVu4JSktVGBGAq2w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792137343;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l7AhbFTQvuq3e3GKt4BzhHvZftzKvjV0A7Rghyr4Tyo=;
-	b=uE6GJ1YiEkqFScF/coftRrGK57OvHqKnxPCBS3m3IikALUM/bfayV+oxEYlaFIXwewNDsi
-	IFl3oJRL24riYiBw==
-From: "tip-bot2 for Hui Su" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/urgent] sched/fair: Avoid overflow in place_entity()
-Cc: Hui Su <sh_def@163.com>, "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260928124754.1692077-1-sh_def@163.com>
-References: <20260928124754.1692077-1-sh_def@163.com>
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=K4A98+Ja2PbDshcI2GUMvWoRwGyHcotmF1kYvCzQUdM=;
+	b=YozeBrWEBqQfpGYAljna01HavoBWW5RvDnSWlhVspWGncdeMoFcBVOg51H1xetG2tOcQo2
+	+jrFksfyiTjJ0tSyFJjE1qZYsqdNE6mGjDFyTmCPVfsXiQFUbXC0jUIcxNIQ54vvtXCJOI
+	cl3eGC1AgZugp6yz/JfW9XGDNgcebQQ=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-307-WSsOOurjP8eQBOWSkYhwHg-1; Fri, 16 Oct 2026 07:55:41 +0000
+X-MC-Unique: WSsOOurjP8eQBOWSkYhwHg-1
+X-Mimecast-MFC-AGG-ID: WSsOOurjP8eQBOWSkYhwHg_1792137340
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a0284121c6so21678545e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:55:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792137340; x=1792742140; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K4A98+Ja2PbDshcI2GUMvWoRwGyHcotmF1kYvCzQUdM=;
+        b=I6iRZZfFl3ZbhmS4n1zYdG+Xk8SuF39qJsp35DeHgoN4yGyc+lXK/vRvi3PDOce5ON
+         9l07/NzIiB3jKKdEO2OS0IhQdjcXAWH5AicGWA85bbywD/g+bEVQwdH9R8Zo2g/41TzB
+         0EbWvgF/a64AYTnpwbgWn03Pmf8bgxTQ53j8KxDg/GXTnvVP520GhYZEYPhTT75j1Hcm
+         mTAcqapTwFemoB+dIy/CpRGLb4oOomjHNvunBL45BptUfUW/yDIwvPR3Qdvdo4EQpleB
+         8tKGY5hKpHL8uBWfj/MhAVhof78Gf03dM2Z02DnVRuq2SHsxcc3qCZMqykG1mqULH+LZ
+         A5Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792137340; x=1792742140;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=K4A98+Ja2PbDshcI2GUMvWoRwGyHcotmF1kYvCzQUdM=;
+        b=oL4aDfFawQUlC42SgbrqvbnMJ3rIbMuZ2/TWLvYdePRM4X7IRoBRlRriIDUUEELvpA
+         MRvmCmPcK2Dy6fWNDiHJZgs71Rj07QDIQ+bUStux7kacjwGFf0c/X0FjKMNJvOcHtdrb
+         MXHO7vc294Y6lqHeN19ClUGf1Qn71Zh3j7LON7o6Rkc2xpaHQ/xjB8CYpAisPWVZobHR
+         1PKmhBagBYzapxxIeF5Rvvyo3EAwMiN+wtPldIgrf3U5AvlE6Vsmv+7wB1gLjeUlGz/d
+         bnEVIYhrWEbFpwbU6AfddNQW/kDwVZNEI+oaYpVyPb76MyT0upRmTU+ilXj3+1WJyvSM
+         xSRw==
+X-Forwarded-Encrypted: i=1; AKwUvBzBbFQLavfBejCua84J7Ahtn/Zlh5Vhke75Z/9BMD6cEeyThDODlVb7iyf4rdU5qi+sBe+IwgAQ+Rql7no=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/OmHE+vR6dK1513twp9e8jPuNKpJmOmQjP9a1O/HGkoHHRhiI
+	MO37Ds3upfDLVIo0HBPWzAOkjVu/bUKyrthBUGjcP0nsCFuXJWF7QWBOd3O4QIcU/hCPULBL/b4
+	iIBUTChZ2wy3t4Nut3Y62VLb6WqsZZLhJbFkK9SSH/RP/N7TQGosjTjN5KFz4yndJQQ==
+X-Gm-Gg: AYBFou2ltr+yFuzr0zDLnCK9DA76G2uawp9Yzf+VyyqX4ncV4NVY0hj2xzc93sInuhF
+	mJt5ovyfuczsH0fBdJBr7sMvqUWkPZZGKHThdL2KEZMTd8jbQLkBENrW4VrS6pRgQswT7QNqZFX
+	5CrjYKXW48M79j3CovTa7T/+REFZqSInfb+BR3QmWARo9p4krA1fhEL9tRLjs9Wnn68X3jNzr6f
+	FKsjrfUR2Ji6ylKyPReqD5sfDT+4hgeBujJTikCtPgUuligOTiG3Okwln45l/hFG6ZFk9baRa17
+	N227PFqwrIyPRpW+LmZAHwBr3dlL1BRPyAK9hJeWPVTxbd5ngScmPylCOAw4I232fxEsOSjlo9z
+	8xnfz/ti4HwD8pdjphhM6xcaD1fqT
+X-Received: by 2002:a05:600c:620f:b0:49f:dc71:e609 with SMTP id 5b1f17b1804b1-4a18e499874mr410207665e9.20.1792137340046;
+        Fri, 16 Oct 2026 00:55:40 -0700 (PDT)
+X-Received: by 2002:a05:600c:620f:b0:49f:dc71:e609 with SMTP id 5b1f17b1804b1-4a18e499874mr410206735e9.20.1792137337796;
+        Fri, 16 Oct 2026 00:55:37 -0700 (PDT)
+Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.135.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8af2fcesm41176545e9.8.2026.10.16.00.55.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 00:55:37 -0700 (PDT)
+Message-ID: <9fc2d6a03fabc2c756bfa696bc907ef23dcc175a.camel@redhat.com>
+Subject: Re: [PATCH v2] verification/rvgen: reject ambiguous state/event
+ transitions
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: heath@mathgraph.org, rostedt@goodmis.org
+Cc: linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Fri, 16 Oct 2026 09:55:35 +0200
+In-Reply-To: <11d37dced04f512153c023b8b7361309@mathgraph.org>
+References: <11d37dced04f512153c023b8b7361309@mathgraph.org>
+Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
+ 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
+ Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
+ Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
+ cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
+ T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
+ eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
+ 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179213734207.2666988.8900131874393139062.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the sched/urgent branch of tip:
+On Tue, 2026-10-13 at 15:51 -0400, heath@mathgraph.org wrote:
+> The rvgen generator builds a transition table indexed by source state
+> and event. A DOT specification with different destinations for the same
+> key is currently accepted, and the selected destination depends on the
+> iteration order of parsed transitions.
+>=20
+> Reject duplicate state/event keys after sorting the transitions, before
+> generating the monitor. This prevents silently selecting an arbitrary
+> destination without changing valid automata.
+>=20
+> OpenAI GPT-6 assisted in finding the issue, developing the fix and=20
+> tests,
+> and drafting the changelog. I reviewed the changes and take=20
+> responsibility
+> for this contribution.
+>=20
+> Fixes: cad252db78a9 ("verification/rvgen: Switch __create_matrix() to=20
+> Lark")
+> Assisted-by: LLM
+> Signed-off-by: Heath Sanchez <heath@mathgraph.org>
 
-Commit-ID:     2f93bcb3f9aaf6ceee1aec0a97d4fe386d48e781
-Gitweb:        https://git.kernel.org/tip/2f93bcb3f9aaf6ceee1aec0a97d4fe386d4=
-8e781
-Author:        Hui Su <sh_def@163.com>
-AuthorDate:    Mon, 28 Sep 2026 21:47:54 +09:00
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Fri, 16 Oct 2026 09:49:00 +02:00
+Thanks for the quick V2. I'm going to take this.
 
-sched/fair: Avoid overflow in place_entity()
+As a side note, I just read ([1], subscription required) that the Maintaine=
+rs
+decided at the 2026 Summit that models used and other LLM details are no lo=
+nger
+to be included in the changelog.
 
-place_entity() inflates an entity's virtual lag with
+You don't need to send a V3, I'm trimming that paragraph. Anyway this kind =
+of
+transparency is largely appreciated, so feel free to include it after the -=
+-- on
+your next contributions.
 
-    lag * (load + weight) / load
+Thanks,
+Gabriele
 
-Commit 4823725d9d1d ("sched/fair: Increase weight bits for avg_vruntime")
-replaced the scaled-down weights used in this calculation with
-avg_vruntime_weight(), removing the arithmetic headroom provided by
-scale_load_down().
+[1] - https://lwn.net/Articles/1099594
 
-The multiplication can overflow s64 before the division even when the
-final quotient is representable. A task's hierarchical effective weight
-can be as small as 2 after avg_vruntime_weight() scaling under group
-scheduling, while entity_lag() bounds |vlag| by
-
-    calc_delta_fair(cfs_rq_max_slice(cfs_rq) + TICK_NSEC, se)
-
-For example, with HZ=3D1000, NICE_0_LOAD=3D1048576, and the minimum scaled
-hierarchical weight scale_load(2)=3D2048, this bound is 891289600. With 114
-maximum-weight entities, the runqueue load is 10361604096. The
-intermediate product is:
-
-    891289600 * (10361604096 + 2)
-        =3D 9235189971864780800
-        > S64_MAX
-
-The signed overflow corrupts the entity's placement.
-
-Rewrite
-
-    lag * (load + weight) / load
-
-as
-
-    lag + lag * weight / load
-
-The two expressions are equivalent, but the latter avoids multiplying the
-virtual lag by the total runqueue weight. entity_lag() bounds vlag against
-the entity's effective weight, so the remaining lag * weight product stays
-bounded. rescale_entity() preserves this scale across h_load changes and
-already relies on the same product when rescaling vlag.
-
-Keep the original zero-load warning semantics by multiplying lag by weight
-after replacing the divisor with one.
-
-Fixes: 4823725d9d1d ("sched/fair: Increase weight bits for avg_vruntime")
-Signed-off-by: Hui Su <sh_def@163.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260928124754.1692077-1-sh_def@163.com
----
- kernel/sched/fair.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 57360f5..0f23644 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -6463,12 +6463,20 @@ place_entity(struct cfs_rq *cfs_rq, struct sched_enti=
-ty *se, int flags)
- 		load =3D cfs_rq->sum_weight;
- 		if (curr && curr->on_rq)
- 			load +=3D avg_vruntime_weight(cfs_rq, curr->h_load.weight);
--
--		weight =3D avg_vruntime_weight(cfs_rq, se->h_load.weight);
--		lag *=3D load + weight;
- 		if (WARN_ON_ONCE(!load))
- 			load =3D 1;
--		lag =3D div64_long(lag, load);
-+
-+		weight =3D avg_vruntime_weight(cfs_rq, se->h_load.weight);
-+
-+		/*
-+		 * Rewrite, because the product (W + w_i)*vl'_i might
-+		 * overflow s64:
-+		 *
-+		 *   vl_i =3D (W + w_i)*vl'_i / W
-+		 *        =3D (W*vl'_i + w_i*vl'_i) / W
-+		 *        =3D vl'_i + w_i*vl'_i/W
-+		 */
-+		lag +=3D div64_long(lag * weight, load);
+> ---
+> Changes in v2:
+> - Drop the redundant hybrid-automaton regression fixture and test.
+> - Match the full traceback prefix in the negative assertion.
+> - Move detailed qualification results outside the permanent changelog.
+>=20
+> Verification: original rvgen suite 30/30; revised suite 31/31;
+> 64 deterministic/hybrid hash-seed replays rejected malformed models.
+> https://github.com/metalogiclabs/mathgraph/actions/runs/38452477359
+>=20
+> diff --git a/tools/verification/rvgen/rvgen/automata.py=20
+> b/tools/verification/rvgen/rvgen/automata.py
+> index fd37ce3..1f9a56a 100644
+> --- a/tools/verification/rvgen/rvgen/automata.py
+> +++ b/tools/verification/rvgen/rvgen/automata.py
+> @@ -418,6 +418,13 @@ class Automata:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 transitions.append(Transition(src, dst, even=
+t, reset,=20
+> rule))
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 transitions.sort(k=
+ey=3Dlambda t : (t.src, t.event))
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 previous_key =3D None
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for transition in transitions=
+:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 key =
+=3D (transition.src, transition.event)
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ke=
+y =3D=3D previous_key:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 raise AutomataError(
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 f"Duplicate transition for event=
+ {transition.event}=20
+> in state {transition.src}")
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 previ=
+ous_key =3D key
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return transitions
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 def __parse_states(self):
+> diff --git a/tools/verification/rvgen/tests/rvgen_monitor.t=20
+> b/tools/verification/rvgen/tests/rvgen_monitor.t
+> index 5f25626..8d635fc 100644
+> --- a/tools/verification/rvgen/tests/rvgen_monitor.t
+> +++ b/tools/verification/rvgen/tests/rvgen_monitor.t
+> @@ -84,4 +84,9 @@ check "invalid ltl file syntax" \
+> =C2=A0=C2=A0	"$RVGEN monitor -c ltl -s tests/specs/test_invalid.ltl -t pe=
+r_task" 1
+> \
+> =C2=A0=C2=A0	"No terminal matches 'i'" "Traceback (most recent call last)=
+"
+>=20
+> +# Reject ambiguous source state/event pairs.
+> +check "reject conflicting deterministic automaton transitions" \
+> +	"$RVGEN monitor -c da -s tests/specs/test_nondeterministic_da.dot -t=
 =20
- 		/*
- 		 * A heavy entity (relative to the tree) will pull the
+> per_cpu" 1 \
+> +	"Duplicate transition for event event_2 in state state_a" "Traceback=
+=20
+> (most recent call last)"
+> +
+> =C2=A0 test_end
+> diff --git=20
+> a/tools/verification/rvgen/tests/specs/test_nondeterministic_da.dot=20
+> b/tools/verification/rvgen/tests/specs/test_nondeterministic_da.dot
+> new file mode 100644
+> index 0000000..1b63b5d
+> --- /dev/null
+> +++ b/tools/verification/rvgen/tests/specs/test_nondeterministic_da.dot
+> @@ -0,0 +1,16 @@
+> +digraph state_automaton {
+> +	{node [shape =3D circle] "state_b"};
+> +	{node [shape =3D plaintext, style=3Dinvis, label=3D""] "__init_state_a"=
+};
+> +	{node [shape =3D doublecircle] "state_a"};
+> +	{node [shape =3D circle] "state_a"};
+> +	"__init_state_a" -> "state_a";
+> +	"state_a" [label =3D "state_a"];
+> +	"state_a" -> "state_a" [ label =3D "event_2" ];
+> +	"state_a" -> "state_b" [ label =3D "event_2" ];
+> +	"state_b" [label =3D "state_b"];
+> +	"state_b" -> "state_a" [ label =3D "event_2" ];
+> +	{ rank =3D min ;
+> +		"__init_state_a";
+> +		"state_a";
+> +	}
+> +}
+
