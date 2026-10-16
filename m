@@ -1,125 +1,133 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 492A1423E9E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DCA34C8FE5;
+	Fri, 16 Oct 2026 13:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157243; cv=none; b=jBxT+vA6LqsabQap2oI3x2gQbp4FNFZ6LUNsjYq8vr/0aqtaWloRzzGBP/uhfNg6IZY9oTbAbmMsG23+0snyIvvHzb5drXDJBEqwGVXdi5eebRHb0Rsaot2z2HLuEQCJ6ycPQjA5ot3VoOgYlX30XzNYPJaOQ0wLraftIHkDt98=
+	t=1792157245; cv=none; b=l8yZAoVYFvYk3oVNzsAFOmSYZ3DVVLVcWCztaANU4mvzyXBSAajaausaS/8366klmRQGY/jSIOCAXzpiC5/6grkuw6u8ZrBz17TFsnO8X8BsbmC5P2UFE1K3U8lq3asCWPvZyMt0ZzgbxosGI0LBpIHog/ZVLA4iBEo41dGWOHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157243; c=relaxed/simple;
-	bh=6494+ZvYu8FHV5Xw+CZy5G3PfZ+nMzT4PcwZU8DlDjU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W3pjd6tbFaIXAM1Xq/f7B8qrDm3IR0SfP01FEvJ5lyH5VlbBPB65H8lzpiOD8k3opOx4iIVReU2AywPGPH6I1YUlJ8IQO/6AYvGji7wDpE/2YKIxzjPtdRfLK/lSEBA44cYYoQvGQt81zC4362w0UMgx0laNmtugTbTiG75xNOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oGcr0Fyy; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792157245; c=relaxed/simple;
+	bh=jKIHXyVwttZczWlAiYdpxNmFMklTjgNf1zjTRdmxpXQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZWuKCUXm+TZyzSGNmybvxszn8MvPvbLIbOva1k9G2uPtqeB/13dvcg0Vf0Ynn1p/o2ZBKln4hDQP9Y7fpW4OCkZ+SHnBXq4/4uOjITk36Xkmn2FrzuzmprCOuSBkrqsS3CBUL0nJTE5/h2mOEY2XSH7WTPrMWfmKydjJdXkMA+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F4i0ex4S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oGcr0Fyy"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso12101755e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:27:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792157240; x=1792762040; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ifcJs/P3/5U0EMJlqsFCLeJP9WV/BCVB8uVBDkA2xCw=;
-        b=oGcr0FyypDKRrk4goPdjTXylt2pA89T0288SKfBD9bqxhnqR7rHZUinK8IDlJK3QJy
-         WV/ZgBjtMgg+Dbq64FzDf2WE77W3e2KdcF7GGCehsnQDvgcQsDDY6+iGuHbgP7tW1MLQ
-         AVOFJvkhno8DmTereMvuSsvdgKnVc6q9L6FMw0YeYsYHpnH7yjyy8122jTtUXjfWjTKR
-         Z6NHHj+TYbXky6aRZI9loYHVercW/gPk6xT7RLRHVyrf3FJ3mz0Gr56H2LLWxyTWCZJH
-         WIr90l6MKfn2cHIJ+7TsHzoto5cVRgSiUPD/WXtXdRFOzunVZeUB97iwxHtDJmBtYQcw
-         zWJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792157240; x=1792762040;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ifcJs/P3/5U0EMJlqsFCLeJP9WV/BCVB8uVBDkA2xCw=;
-        b=TjevwF3Xu6kGyCyAKFe0aM9im4oSmwihWj5nR7vm9vcY2KcQUR7Hh52tj/NgecnSb8
-         rODB8mQoabBt5NnnV95toSoBksOcPcCw9zjiyrhfgczVxLk0zNJFQhMzI+w7f+7tTs1q
-         jru8/GjF4XDGQRgPM0drcx1r6Xgnd/PWdecWNXaj2XiOdgQdtiwlnlIQyMxxF1kh4yK0
-         Svd01B3hp3Ln5qK8iPYhmTmZMYaBN+6Fksb5NwAOLJ0cdDbTQs1NkXAlvm8zwMRU1dbS
-         23OeMJW34QjhKWxho59bx9P72WvgnQYCIlI9q2UD/X2t92y/L+P5cGLX0w73E5KgpQDM
-         eo2w==
-X-Forwarded-Encrypted: i=1; AKwUvBz4WiFZJj3YIsHGt/r7Z4NLWn/qNEcQWo0ridBZlUj+Q6QVLKtNK4xEjlye7wQT1qN2AOb4foo9ie+pIXY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMaKlaU9brA4fqWLFdiO5nUWvzWfo/GikdcgdNqpsqzgECBM+Q
-	VS5/EguDgNtcZjnE0ZDp1QtTcroz+Dlnoa8pRT4hWLN2KatsIvo+xCdh
-X-Gm-Gg: AYBFou1k9iuqWnupOwKLNXRTUtZAz9Fbivnx0BxW3BJYcVrfU3omWQG/MWwg2j10IYU
-	EfdPsJQvz73Em3aCQJVzZnfysDdV51hrRAZkGzqk0n2wz+557kvX8hjpCNE9pILUU/KIQmscYFI
-	QIhoFu9icO47eQq0yEaXXKbaFBhicq30g2MEWKUK99oDrN3M3xlyNOx3AGaPbfvdJGiGZcwwV4I
-	7ZxbqgMBLeE2Tmae90nUFb24kgllddy5UCEp8aIAz0tD4cCffQWC09QKodXRZrUaC1mS6CYh2GM
-	EYJuHl6XokQFFiP1krdEYvwiyFGLbGBBwyUg0ANpWvUU4CSBjlG/+4tXiBVhDiTA2xRN0BdpOsv
-	NEZcNdyKtJcIjFDyAAyvOAmJ2SISzaji3OsxI2+Fbrc61K/Qlr74MMLvifi/ta3m98RFtzABFVd
-	vnLf513X+DKHvPpW8uhmUeI3zB5sLMTXtwO/UYTpnsvkVLbkUoLISB2MyqFwBYzLN68YDPeKNNY
-	LeV9B96y6eWC9au1AG14X4ClJoYM2fe+FlMXcl90bNiRS5ALxhswji169M=
-X-Received: by 2002:a05:600c:1f86:b0:4a1:c27d:e1a8 with SMTP id 5b1f17b1804b1-4a1c6672f2emr64239555e9.10.1792157240153;
-        Fri, 16 Oct 2026 06:27:20 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8de7230sm58114275e9.14.2026.10.16.06.27.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 06:27:19 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: netdev@vger.kernel.org
-Cc: sgarzare@redhat.com,
-	bobbyeshleman@gmail.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>
-Subject: [PATCH net-next v3 0/3] vsock: SO_INQ for stream sockets
-Date: Fri, 16 Oct 2026 14:27:13 +0100
-Message-ID: <20261016132716.272018-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F4i0ex4S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C8181F000C4;
+	Fri, 16 Oct 2026 13:27:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792157243;
+	bh=fkSJhxtqd71SFB6hN49wuPV1zjUWLVEdw52APBQu8wI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=F4i0ex4SX5rWthcTJgWrIsOLCbClJY4XiiBsr+GPiS6ZEdRQ6DpfRJ2LDL1DEu/ra
+	 UrN/v01JUQMuUI4T0SK2ypaTzFXvtxcSeI5AYSEmgGTwNYB9v3EJ0E2lYbmbhCFy4H
+	 rEnyPp8r/24Tx8FDOL1tUY5rzfMjhKFPErRMdFh65cznbZpJ2c3/lL5r3KyWboMpzx
+	 uW94LH/FY0e+ef2dAtI03arMOK28OnIUSw55U4/b9iiaOcXLxttvFq4jfRl9A3Mkwi
+	 JvNFD3qx78bHiNzFHjHU331ASkx4pC6XjU09bLqvIvKeWPdvmtv+cGSlGJ0nuvmMw9
+	 8QuX5COQav/hg==
+Message-ID: <efe328a8-83d7-48bc-bf45-90f3535e2657@kernel.org>
+Date: Fri, 16 Oct 2026 14:27:18 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 0/4] phy: qcom-mipi-csi2: C-PHY for X1E80100
+To: George Neacsu <geocausa@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, David Heidelberg <david@ixit.cz>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+ Suresh Vankadara <svankada@qti.qualcomm.com>, tjose@qti.qualcomm.com,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261016-x1e-cphy-rfc-v2-0-377654253193@gmail.com>
+ <b96649d9-5c1c-4fc0-a77d-d0076cf80b86@kernel.org>
+ <5LajfcHTU4Ykd6OYnVY0YsyxzZqIAvCVUadkjyZs9TbNTC1C7wfOYrGrHVE5GYP0BsEcZodGzMTW0uRXFMi6sg==@protonmail.internalid>
+ <20261016113259.40819-1-geocausa@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261016113259.40819-1-geocausa@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-This is the follow-up announced in the receive queue hint series [1]:
-SO_INQ and SCM_INQ for AF_VSOCK stream sockets, as AF_UNIX has.
+On 16/10/2026 12:32, George Neacsu wrote:
+>>> The kernel was 7.1.5, with linux-next's CAMSS and CSI2 PHY built as
+>>> modules; the test build needed shims only for API differences.
+>> What's this ?
+>>
+>> "It builds" I can verify myself, "it works" is the thing. Just slow down
+>> and get something you can test on hardware.
+> Fair point. The frames in the cover letter were captured on the
+> hardware, but the kernel underneath was the 7.1.5 one this machine runs
+> day to day, with linux-next's CAMSS and CSI2 PHY sources built as modules
+> for it. That is not the same as running linux-next. Before v3 I will
+> boot an actual linux-next kernel on the Surface Pro 11, retest both
+> cameras there, and say exactly what was run.
+> 
+> For 4/4 I will also move the fsleep() change into its own patch with the
+> reasoning, and put the lanes_enable() decomposition in a precursor
+> patch, as you asked. Thanks for the reviews of 2/4 and 3/4.
+> 
+> Thanks,
+> George
 
-Patch 1 moves the SOL_SOCKET option handling to a helper without
-functional change, patch 2 adds SO_INQ and patch 3 covers it in
-vsock_test.
+The bit I'm a bit alarmed about is "stuff was stubbed" which makes me 
+wonder if what lands in -next can then said to be actually verified 
+meaningfully.
 
-The value is the one SIOCINQ returns, so on Hyper-V it covers the
-current packet only. Accepted sockets inherit the flag from the
-listener, and the sockmap receive path does not report it.
+Could you git rebase linux-stable/master for your 7.1.5 tree maybe ?
 
-Tested over loopback with vsock_test and vsock_uring_test.
-
-v3:
- - split the SOL_SOCKET refactor out of the SO_INQ patch (Stefano)
- - rename vsock_custom_sockopt() to vsock_sol_socket_custom() (Stefano)
- - parse the value in vsock_sol_socket_get_bool() after the per option
-   checks, so SO_INQ on SOCK_SEQPACKET always fails with ENOPROTOOPT
-   (Stefano)
- - reflow the comment to 80 columns (Stefano)
- - carry Reviewed-by and Acked-by on the test patch; Bobby's Acked-by
-   on the v2 kernel patch is dropped since it was split and reworked
-v2: https://lore.kernel.org/netdev/20261015154334.3217358-1-devnexen@gmail.com/
-v1: https://lore.kernel.org/netdev/20261012235524.41468-1-devnexen@gmail.com/
-
-[1] https://lore.kernel.org/netdev/20260923184008.153541-1-devnexen@gmail.com/
-
-David Carlier (3):
-  vsock: move SOL_SOCKET options to vsock_sol_socket_setsockopt()
-  vsock: support SO_INQ on stream sockets
-  vsock/test: cover SO_INQ
-
- include/net/af_vsock.h           |   1 +
- net/vmw_vsock/af_vsock.c         | 125 ++++++++++----
- tools/testing/vsock/vsock_test.c | 279 +++++++++++++++++++++++++++++++
- 3 files changed, 377 insertions(+), 28 deletions(-)
-
-
-base-commit: a4057f51efc2b74ddf46721e83f45e9efb13649d
--- 
-2.55.0
-
+---
+bod
