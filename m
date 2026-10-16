@@ -1,93 +1,115 @@
-Received: from mta1.migadu.com (out-69.mta1.migadu.com [95.215.58.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A5747CA69
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24E047F2CA;
+	Fri, 16 Oct 2026 12:18:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792153051; cv=none; b=gCZn5JsDZ5sc8nrl9QtTbQXs1KzC1zUNeHI4dZNCR+B0IXhfYbyGQdilo6Wz/CPW8F5CHC7APZx3NHXBf+VGhK6Y/cFWzVYV52Pos2GhQUHq9eWjWhGtUHFHmr+3xWVUu+6iPnCKB+xfT312XXvHj8IoEm0nXjT0LmbkicRuLCY=
+	t=1792153084; cv=none; b=RuefdlYnkTAvJXBZJrr1dYhnle2D0sxo0zRz+uXeAhRjX/paG/pxXIkqcUQnJASsBVrhrMSXDrJeIzwtwqiqGEbu630sx6HkIoH2UyMuJ+pGjle/ddeBBlLPTmX1r/jDy6S1sxmP7B1hZA7IMdm/gt8PtSUOo4xIBS2AwgmuF20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792153051; c=relaxed/simple;
-	bh=DAem93gFc4FtDkc44LklFXhKCt1vx53adKVHzsaWu54=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j/0ODNBRLSeywXSWusArHc0J68PeS/LRBmtqay0hiHqztushUq0tgneDCvb9/exXbYvSiAqMimGGWAAxl8wm8CO9pZJM7nEPrtCUrLLtFdjkPCD3hSzLViXUGxberpSPWCYf0H5enyDz1cWQ8ADavj8VRQUvZ9K3caCx/qVGc9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PZJvz83r; arc=none smtp.client-ip=95.215.58.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792153084; c=relaxed/simple;
+	bh=8bve0J8qBl7msxr6VN3bEfAfnn18MRXNNNL4kJoSZg8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=G/6a1xUL2Q8zXS1WpJIvBKEoYcKQtXdw81GIG5awIpT9PnH/SuQ4dN/3+7YZLmPP8yXeTEpcFGACtIB8rWp4vqm1vPMmPvwWqQsIEybF7JVLuz/ImsWI6NjlEopzs5qYdfYeA/lUMyo4SyrI4mo//fcNuZJ0Gyz1JvbCmUy2rIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3VNJpao; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PZJvz83r"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DAem93gFc4FtDkc44LklFXhKCt1vx53adKVHzsaWu54=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792153045; v=1; x=1792757845;
- b=PZJvz83r2V3YeZ/o4oAdHShzAHJPBcjDDefi1NVu3SDBl0G0sTRI/18ZqtZ0B+pLj1DKMgPQ
- 5LFhwMUu4SpCqQCbLw/ZUngkz+31kQBobHXT8/S26xCmjGMcSYZoDxsCE3KroGWpCReRcjxnWok
- 5FjAV0GO3NUfJI81B8fwGJuc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d90c56671d5fcd56;
-	Fri, 16 Oct 2026 12:17:24 +0000
-X-Mizu-Trace-ID: d90c56671d5fcd56
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4a0d6901-0099-4d49-b9a2-97b09cd6418a@linux.dev>
-Date: Fri, 16 Oct 2026 13:17:20 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3VNJpao"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EB5D1F000C4;
+	Fri, 16 Oct 2026 12:18:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792153082;
+	bh=scmmiHmloNp0QeKx28eTFfiWE13pWpJ8+0kBe/f75yc=;
+	h=Date:From:To:Cc:Subject;
+	b=W3VNJpaorKUp3fmQosGYIp1RYxtN+DpgRPmEAnETEBVIhajIInhqwhcshDwd5ijpI
+	 Sxb3KkDK5qndLzIix03ToiZ8MDswj8G0q+ZBR/ONNzglv/ZecuEzKTt9Uv0bRwYrEY
+	 qaUc6Ex+W8usdjr86L/qmiwO+A/n0H1nmbM29ncQGozpoZMrEKlVcVyeH0p25pmvLR
+	 PsSV38lDc3wSImktp4OvFrzeJshjJj9C79m1LLN/kD+bDdyz/0hWRl0BkpB8pcHFCC
+	 CQo1l+avh2IRK8mQfs9akrgjMa8ImNNeIPYukPOvPL1kXJRmU+kQvfdRkOtOgawav3
+	 XgVqm2yDMOPQw==
+Date: Fri, 16 Oct 2026 13:17:58 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+	Nikolas Koesling <nikolas@koesling.info>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the hid tree
+Message-ID: <atIV9kBYjdaxLov3@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net/mlx5e: Fix NULL deref in PTP TX timestamp
- recovery warn
-To: Tariq Toukan <tariqt@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>
-Cc: Alex Lazar <alazar@nvidia.com>, Carolina Jubran <cjubran@nvidia.com>,
- Cosmin Ratiu <cratiu@nvidia.com>, Dragos Tatulea <dtatulea@nvidia.com>,
- Gal Pressman <gal@nvidia.com>, Kees Cook <kees@kernel.org>,
- Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Saeed Mahameed <saeedm@nvidia.com>, Shahar Shitrit <shshitrit@nvidia.com>
-References: <20261015080218.1102172-1-tariqt@nvidia.com>
-Content-Language: en-US
-From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-In-Reply-To: <20261015080218.1102172-1-tariqt@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="FgVeoX98tE4dsFZl"
+Content-Disposition: inline
 
-On 15/10/2026 09:02, Tariq Toukan wrote:
-> From: Carolina Jubran <cjubran@nvidia.com>
-> 
-> PTP SQs are allocated via mlx5e_ptp_alloc_txqsq(), which never sets
-> sq->channel. The excessive port timestamp delta recovery path
-> incorrectly used sq->channel->netdev for netdev_warn(), causing a NULL
-> pointer dereference. Use sq->netdev instead.
-> 
-> Fixes: 391dad2e686f ("net/mlx5e: Recover SQ on excessive PTP TX timestamp delta")
-> Signed-off-by: Carolina Jubran <cjubran@nvidia.com>
-> Reviewed-by: Alex Lazar <alazar@nvidia.com>
-> Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
-> ---
->   drivers/net/ethernet/mellanox/mlx5/core/en/ptp.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/ptp.c b/drivers/net/ethernet/mellanox/mlx5/core/en/ptp.c
-> index 723f66a6bd63..2e1c3bb5a959 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en/ptp.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en/ptp.c
-> @@ -98,7 +98,7 @@ static void mlx5e_skb_cb_hwtstamp_tx(struct sk_buff *skb,
->   		ptpsq->cq_stats->abort_abs_diff_ns += diff;
->   		if (diff > (NSEC_PER_SEC >> 1) &&
->   		    !test_and_set_bit(MLX5E_SQ_STATE_RECOVERING, &sq->state)) {
-> -			netdev_warn(sq->channel->netdev,
-> +			netdev_warn(sq->netdev,
->   				    "PTP TX timestamp difference between CQE and port exceeds threshold: %lld ns, recovering SQ %u\n",
->   				    (s64)diff, sq->sqn);
->   			queue_work(sq->priv->wq, &ptpsq->report_unhealthy_work);
-> 
-> base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
 
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+--FgVeoX98tE4dsFZl
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi all,
+
+After merging the hid tree, today's linux-next build (x86_64 allmodconfig)
+failed like this:
+
+/tmp/next/build/drivers/hid/hid-pulsar.c:742:4: error: expected '}'
+  742 |           .driver_data = TYPE_KYSONA },
+      |           ^
+/tmp/next/build/drivers/hid/hid-pulsar.c:730:52: note: to match this '{'
+  730 | static const struct hid_device_id pulsar_table[] = {
+      |                                                    ^
+/tmp/next/build/drivers/hid/hid-pulsar.c:742:32: error: expected ';' at end of declaration
+  742 |           .driver_data = TYPE_KYSONA },
+      |                                       ^
+      |                                       ;
+/tmp/next/build/drivers/hid/hid-pulsar.c:743:2: error: expected identifier or '('
+  743 |         { HID_USB_DEVICE(USB_VENDOR_ID_ATK, USB_DEVICE_ID_ATK_VXE_R1_SE_WIRED),
+      |         ^
+/tmp/next/build/drivers/hid/hid-pulsar.c:752:1: error: extraneous closing brace ('}')
+  752 | };
+      | ^
+/tmp/next/build/drivers/hid/hid-pulsar.c:767:1: error: definition of variable with array type needs an explicit size or an initializer
+  767 | MODULE_DEVICE_TABLE(hid, pulsar_table);
+      | ^
+/tmp/next/build/include/linux/module.h:256:21: note: expanded from macro 'MODULE_DEVICE_TABLE'
+  256 | static typeof(name) __mod_device_table(type, name)                      \
+      |                     ^
+/tmp/next/build/include/linux/module.h:247:2: note: expanded from macro '__mod_device_table'
+  247 |         __PASTE(__mod_device_table__,   \
+      |         ^
+/tmp/next/build/include/linux/compiler_types.h:16:23: note: expanded from macro '__PASTE'
+   16 | #define __PASTE(a, b) ___PASTE(a, b)
+      |                       ^
+/tmp/next/build/include/linux/compiler_types.h:15:24: note: expanded from macro '___PASTE'
+   15 | #define ___PASTE(a, b) a##b
+      |                        ^
+<scratch space>:37:1: note: expanded from here
+   37 | __mod_device_table__kmod_hid_pulsar__hid__pulsar_table
+      | ^
+5 errors generated.
+
+Caused by commit
+
+   e55cf379e822b (HID: pulsar: add driver for Pulsar gaming mice)
+
+I have used the tree from next-20261015 instead.
+
+--FgVeoX98tE4dsFZl
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrSFfUACgkQJNaLcl1U
+h9DuKgf9HfFQemLTyQ/6pO1IxkxWaTAt2JC8eqzy8xokA7AwvL4xEdFND4Ss7tIB
+hAag6uNa/mbjMJ9MBFwuXhG3DWm6I08QYNwE6TfwB0yHPTkOexnwBcv2gLwnZkU9
+JX89o2uuJ59f1bUO21sigr1/qFgCDeaMK1DAYua4E4l7TfeSG4WE52R4E03muIvr
+tOqlYBFmrVKdrtazM48EhEKW8WAHuzfZc7qOi2D1/cIBglUxtp4Is2LPXTBAWg/f
+fc3chVEjNF7aP4+W33Fe+IB20IN84eV+2BCEVdcdD0lRDDiIfg5kqVJqJxai5D6A
+/AFfdP2SmWXsBfkc7ttwPir3g30YMw==
+=WjYy
+-----END PGP SIGNATURE-----
+
+--FgVeoX98tE4dsFZl--
