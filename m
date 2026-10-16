@@ -1,228 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46EF3A1686;
-	Fri, 16 Oct 2026 19:41:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792179671; cv=none; b=nZQRGogIMYQPFQPo3v1zt3x4dWW3aeRAMKW0FGlxhOeQxeDA+Bj9RYeK3iMj67W7GCL4u03ziPIg3RzHOjRko45pDvU+X04sYhItqdroc99M9PWzn5rH9bIfvpLlfgiHgrSGhM5IRvcaJNdG7rsZMMhdnc3gfJckOxyaugl9A/M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792179671; c=relaxed/simple;
-	bh=d+OTnrc88PzEEzO/MJrVSNR+emog6i7NC0B66fW0sLY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=I+mX+xLq84eFYytc/QvvmtfheZDwcSg6s9GOUt3j739AxRvoLW2eo4M5W4DT38JRKm9+u+8Ohef34h3NjFSxHgUIY1EAeN9N5f12gKYjU35dkghSa6MyzexFVun5M6y+fd1+MQKxQQWODUmS1MX5d3vDblbtwO3YjYAzx/XIKv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LiO3GSwp; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6063BB673
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:41:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792179697; cv=pass; b=Hm7FTqgAmvj9SCgkmxuDbPLEMI1iBQfARnybtDXBuMytiSfBk6ssljdDPw3seNzeukajomxFL1AlBUmz7oK9lx5iYLuJjEftoNmX+IK2g+WBbeAfLJsDI5akxpDQGho5ZZlOhowM/Y0GovGmBoMV3RisGa2UmkGPqdmRN8zxxmc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792179697; c=relaxed/simple;
+	bh=S7u97F0mKuHEaXlleeG6ov/Y3VkqNsMCwMjqHsihwxw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lWjp1pd6BAjKEVaBkHx+Okn1M+gX+BPeiz4I4MgcIuSp6ujL1d0OwW4B3Qdu9k9TaV0SUcQeJWDdIsOMpInLNerf67dcQGbsR0MBoH22HLOQuG0kJwETzfgo2WhF7jQ20jS/ka9f0ysIiboK9a/NL96IFNz8nN7tTHHIs5ArUy0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oQ4WZRH/; arc=pass smtp.client-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LiO3GSwp"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4239DC2BCF4;
-	Fri, 16 Oct 2026 19:41:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792179671;
-	bh=d+OTnrc88PzEEzO/MJrVSNR+emog6i7NC0B66fW0sLY=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=LiO3GSwpv0QtC6I1JrN0wVK+pc6AXfaHicJi26n61QePE2DVXfyJiuv+RMsBx2H6Q
-	 SpMUWkI9t6OvnpWYtGaDWxhSTNyHghKqrvfbMVnCKadTOraBKPbYZ9QXaWwerdMyn4
-	 sorMGhRQSx3b1AScYbNKd/gNpI/MVXyx5Jr/DoIBFUcKjAY01E5YmPzAsLzVG+QuGR
-	 5dHRI9cur5UGHHmjdPceRPT/VrjvrmYqY8iLGMKJ61IOOuYa+WFmcA4gLbzO9/BNeb
-	 +XEqxQ/m6u14RNVMtW8CB5rcW+gKu6A9tIgZhDe+S4D1KB5JoVn5Z7kbDQkhOCSDDC
-	 legwS7W398PPg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DAECCCF2C2;
-	Fri, 16 Oct 2026 19:41:11 +0000 (UTC)
-From: alex todadze via B4 Relay <devnull+todadzealexi19.proton.me@kernel.org>
-Date: Fri, 16 Oct 2026 19:40:28 +0000
-Subject: [PATCH net] net: stmmac: fix rx checksum offload with extended
- descriptors
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oQ4WZRH/"
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-535f598d126so2271cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:41:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792179695; cv=none;
+        d=google.com; s=arc-20260327;
+        b=R9HNLQHUdPiAuyimQO29oMS6ux8sC5oJJFOZabDE1hOfUuGVcA0S8CuTWE56kAs3W3
+         2cBdIxb3/Oexl6/FIlEaRZ5pupfcFBHra6fhtyWFLyZyJ2LdBXtJ1Y9/LzYAlShOWDq2
+         MWPF50/41XYNAlxs/Kf55usX596PHSiVFcvAaWuSD5YgoWAeooHRIa9xfDkNtA5vknUi
+         DxXj1TNqBL9KcqIpy+tG7t8pE6rRJTeHYcB+7UQBToiAdeiIh+syolCbtIhqdHL0XXON
+         ZyCIzDynQ3KN4F2ceLQ3lZT6I8E/XAipGtSG4B4DL187YHzNRAXwOQ7QwsistPTOS1HC
+         4dxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7I6WLMkKR2BgKIxGRcqSFhqIpV9v6f9mjoXxwWLiuPk=;
+        fh=FnKohEiYH51FFZq5kxIt/iPUaO201UJKa4f1/uWq+qw=;
+        b=OCXhH3WcxgFcRdvQOhYwxJrvpW8WipUhraTAxlh/zsvEDyslQTMxVgPAqcd+RmOcld
+         v8axue5e6SqrGMaiBOjiA4HIws+M24qLRsy/Lvy5YT4NmmsMjJTpVYu9+icyZUILcxRo
+         KPbZDJyXi2DxYxziQOfOZ98A311+vS8RnwI56AW3oYoiJIJhgOqyrEVT9XsJwtO3FRQZ
+         70NstMxYgeKfOnPa/LazGJcl245K1EKVb5MXQZ8VYoxmluOjPZNzyPk78LjwA2/7a16X
+         EKzP0KK7HSFuWZkDtOdf5+1Vxa8/NiZo06P+iknhMJKDdz4+OuRLNClGpqAkMnUKept7
+         +uqg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792179695; x=1792784495; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7I6WLMkKR2BgKIxGRcqSFhqIpV9v6f9mjoXxwWLiuPk=;
+        b=oQ4WZRH/s4OlqMsSt1YCy+GDPxLQD8NKDV3kNsjiU4D/ngxoJmU5b6qr2TuhbHxLh3
+         KQcR1ogam8OZBBoG3NNM+ABOG6d4HWcms3gs5NHs5NFgySsjLxheDPE75gNHKGefi1sp
+         Jc7oudV06kCUrL5iLnrxgGBAtGU2YqfMHZb1NHGIsdCmvgFnkhccnQMheDDgMjeJvypI
+         XvBz3aI/05Xdaf6d2pgrydkbSAhEs79Rl/oLVwM1qo7379T38fGoBKRwq2LUXtYrOR8G
+         Zza/PUdosEaWkeX6C8JXb1FPddosj+2fQCTPz4MFkRfE9+pDcTJt8CY/RBCCAnhFF08g
+         N2bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792179695; x=1792784495;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7I6WLMkKR2BgKIxGRcqSFhqIpV9v6f9mjoXxwWLiuPk=;
+        b=uWUFGb6yX5MG6iZIy0otHCSIYHcD0hQX5g9VT+P++zTIEjRcv8MHju2zgIf+68K7p8
+         U+8lZlYkBKjy3lBfW2lrfN3NQR/abOHaK7SsSDQcGylNBoC+YbZwuMFy9QblD9LpMsUT
+         fYUaqHWNiGoXSBb+cibl6GWM3s+hLM49/vny98SS/RL0CE7GS9dIrzEMTikDTF2IbS5r
+         nluhdQ0J+YzG0xDfmV1/6X0d6XjNeFszbxzHPdz+8E0J6AUXNOyiUkDjhtb4FD9wQtD/
+         +cjpnBF/fIRSjuLyy9O0uUQQQI69jrEkO5xcWRoeAh0mhjjrnHY6pQBU97sv+kZ41tnt
+         iEBg==
+X-Forwarded-Encrypted: i=1; AKwUvByutDOH4JC9kVNcA3+80+hTJCDOO2dalEmmDm0DvT2Pd+NfV1JzzCxN9CnsXiz52jWm6o3i2Ykp9NuZxII=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEj93MEbao30dNdnVOSt9kC03/BguEwTRKxap3NRiQd8P1Cd36
+	HkxFDNp4VfOA74v8HvMIM2mj3qkV/xlTTGl1N75TuyJPfCU9DNNN9/Ufk1dEy0DoUx0SicZHB/l
+	gly0nIAn0GZ2vTtEnzL+oXN5D2T45C7qjKc7xuWsF
+X-Gm-Gg: AYBFou2GANcmSmOUZyA4rghHrAFYTm8RBcTCh4GmLSquxe8k/jQBQ2//br14n+1TV0J
+	gQNQX3gGShqK05RvvQrDjkheV/aLnnAh2BaiGuv2dPsFIZMAqJC4ZUXxQPZLXVCFW/SLyq8CB00
+	oU/jtNhl19K8vQueEm84tQcvggA5aFWgkfamdMhsDw2I5y9q5VMgHlzwCsol/z5g7EuAdcoid4Q
+	k1LGZmG5Jxe5LANIL1jX16Eq4NZiOmZAhRQF10lu31aHrnW28yI+pVexgQW1kY5uBVLQMHlTK/o
+	9rBALWMYgV3u1MPn/MQb6eq87JB4D8j2HJk2y5H1SGDubHRzh4qMpqk=
+X-Received: by 2002:ac8:5ace:0:b0:534:b7b2:634f with SMTP id
+ d75a77b69052e-53646227b1amr1807741cf.8.1792179694296; Fri, 16 Oct 2026
+ 12:41:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-stmmac-rx-csum-v1-1-986342ec40df@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQrCMBAFf6W8cxeaBqP4K9JDjFtdIalk01Io/
- XdTPc7AzAblLKy4NhsyL6IypQqmbRBePj2Z5FEZfdc70xlHWmL0gfJKQedIzjpv7Xg5ndmjRp/
- Mo6y/4Q2JC4a/1Pn+5lCOFfb9C3s5FfR3AAAA
-X-Change-ID: 20261016-stmmac-rx-csum-636a33f857ea
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- alex todadze <todadzealexi19@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792179669; l=6604;
- i=todadzealexi19@proton.me; s=20261016; h=from:subject:message-id;
- bh=14jA977WtCT5IUsuAjwlQ5pv0h0Z3gG4xUUw3unqDZs=;
- b=eCaOR4JAjZ4DQofNJSQF0/MPYnV6II0DsWU2qs66Huum1f5zQ264OMo409LaOYvUnCIxthZix
- odHHUE2SqDPDE5qyjHrujQCpOEGphVbFIXt3d+FouUA1peEjZENwcps
-X-Developer-Key: i=todadzealexi19@proton.me; a=ed25519;
- pk=j+Ld51xwndyrS6RE9s1B4vZjwvTeSSbcKp/mOdWy9PE=
-X-Endpoint-Received: by B4 Relay for todadzealexi19@proton.me/20261016 with
- auth_id=1216
-X-Original-From: alex todadze <todadzealexi19@proton.me>
-Reply-To: todadzealexi19@proton.me
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-25-yosry@kernel.org>
+ <CALMp9eRb3ExsQ0g24YQyo85sV1fnHZadh33hBChUY=ZGUaT7jA@mail.gmail.com>
+ <CAO9r8zMt5ZNwr3Y+NfFcAW5Cf4JaerCScSsLxcvsvHYR=DoYBw@mail.gmail.com> <atF1lByf9w3Pvzyt@google.com>
+In-Reply-To: <atF1lByf9w3Pvzyt@google.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Fri, 16 Oct 2026 12:41:20 -0700
+X-Gm-Features: AclHuK_lmx3knEDpq2O9cX91zu7wMSJRiSiXRo3aJT1GBy87KnfcOtvuGmB_cxE
+Message-ID: <CALMp9eQ0j9mpaRFgGSgSzbpLZJL3hmQEY9Ey2VEMuqST0uRTsg@mail.gmail.com>
+Subject: Re: [PATCH v3 24/27] KVM: nSVM: Flush L2's ASID when emulating INVLPGA
+To: Sean Christopherson <seanjc@google.com>
+Cc: Yosry Ahmed <yosry@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: alex todadze <todadzealexi19@proton.me>
+On Thu, Oct 15, 2026 at 5:53=E2=80=AFPM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> On Thu, Oct 15, 2026, Yosry Ahmed wrote:
+> > On Thu, Oct 15, 2026 at 4:37=E2=80=AFPM Jim Mattson <jmattson@google.co=
+m> wrote:
+> > > > diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+> > > > index 8f2542357e78d..436d13f106369 100644
+> > > > --- a/arch/x86/kvm/svm/svm.c
+> > > > +++ b/arch/x86/kvm/svm/svm.c
+> > > > @@ -2468,17 +2468,61 @@ static int clgi_interception(struct kvm_vcp=
+u *vcpu)
+> > > >
+> > > >  static int invlpga_interception(struct kvm_vcpu *vcpu)
+> > > >  {
+> > > > +       struct vcpu_svm *svm =3D to_svm(vcpu);
+> > > >         /* FIXME: Handle an address size prefix. */
+> > > >         gva_t gva =3D kvm_rax_read(vcpu);
+> > > >         u32 asid =3D kvm_ecx_read(vcpu);
+> > > > +       int cpu;
+> > > >
+> > > >         if (nested_svm_check_permissions(vcpu))
+> > > >                 return 1;
+> > > >
+> > > >         trace_kvm_invlpga(to_svm(vcpu)->vmcb->save.rip, asid, gva);
+> > > >
+> > > > -       /* Let's treat INVLPGA the same as INVLPG (can be optimized=
+!) */
+> > > > -       kvm_mmu_invlpg(vcpu, gva);
+> > > > +       /*
+> > > > +        * INVLPG on a non-canonical address is a NOP according to =
+the SDM,
+> > > > +        * assume the same behavior from INVLPGA since the APM does=
+n't specify.
+> > > > +        */
+> > > > +       if (is_noncanonical_invlpg_address(gva, vcpu))
+> > > > +               return kvm_skip_emulated_instruction(vcpu);
+> > >
+> > > If L1 is in 32-bit mode with junk in RAX[63:32] (e.g. bits left over
+> > > from long mode), the full 64-bit value may not be canonical. Should
+> > > the kvm_rax_read(vcpu) above be kvm_register_read(vcpu,
+> > > VCPU_REGS_RAX)?
+> >
+> > Doesn't kvm_rax_read() already use kvm_reg_mode_mask() as per
+> > __BUILD_KVM_GPR_ACCESSORS()?
+>
+> Yes, Jim's probably thinking of older kernels before fc40b1254c32 ("KVM: =
+x86: Add
+> mode-aware versions of kvm_<reg>_{read,write}() helpers").
 
-With extended descriptors, bit 0 of RDES0 is the Extended Status
-Available flag. enh_desc_get_rx_status() still reads it as the payload
-checksum error bit of the checksum offload table, so every IP frame that
-has extended status is reported as csum_none and its checksum is
-verified again in software.
-
-When extended status is available, take the result from RDES4 instead.
-A TCP, UDP or ICMP payload with no IP header error, no payload error and
-no checksum bypass is a good frame. Everything else keeps the status
-from RDES0. While at it, fix the IP payload type mask, which covered
-bits 6:2 instead of 2:0 and had no users.
-
-Tested on a Siflower SF19A2890 (GMAC 3.70) with the board as the iperf3
-endpoint. TCP receive goes from 326 to 378 Mbit/s with one stream and
-from 259 to 329 Mbit/s with four, and CPU use while receiving 200 Mbit/s
-drops from 26.6% to 21.5%. Frames with a bad TCP, UDP or ICMP checksum,
-over IPv4 and IPv6 and including fragmented UDP, are still dropped.
-
-Fixes: c24602ef8664 ("stmmac: support extend descriptors")
-Signed-off-by: alex todadze <todadzealexi19@proton.me>
----
- drivers/net/ethernet/stmicro/stmmac/descs.h       |  6 +++++-
- drivers/net/ethernet/stmicro/stmmac/enh_desc.c    | 26 +++++++++++++++++++++--
- drivers/net/ethernet/stmicro/stmmac/hwif.h        |  6 +++---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c |  9 +++++---
- 4 files changed, 38 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/descs.h b/drivers/net/ethernet/stmicro/stmmac/descs.h
-index 846007cc2..0af819a98 100644
---- a/drivers/net/ethernet/stmicro/stmmac/descs.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/descs.h
-@@ -116,7 +116,7 @@
- #define	ETDES1_BUFFER2_SIZE_MASK	GENMASK(28, 16)
- 
- /* Extended Receive descriptor definitions */
--#define	ERDES4_IP_PAYLOAD_TYPE_MASK	GENMASK(6, 2)
-+#define	ERDES4_IP_PAYLOAD_TYPE_MASK	GENMASK(2, 0)
- #define	ERDES4_IP_HDR_ERR		BIT(3)
- #define	ERDES4_IP_PAYLOAD_ERR		BIT(4)
- #define	ERDES4_IP_CSUM_BYPASSED		BIT(5)
-@@ -147,6 +147,10 @@
- #define RDES_PTP_SIGNALING		0xa
- #define RDES_PTP_PKT_RESERVED_TYPE	0xf
- 
-+#define RDES_EXT_PAYLOAD_UDP		0x1
-+#define RDES_EXT_PAYLOAD_TCP		0x2
-+#define RDES_EXT_PAYLOAD_ICMP		0x3
-+
- /* Basic descriptor structure for normal and alternate descriptors */
- struct dma_desc {
- 	__le32 des0;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-index 051253601..7620246f6 100644
---- a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-@@ -109,8 +109,26 @@ static int enh_desc_coe_rdes0(int ipc_err, int type, int payload_err)
- 	return ret;
- }
- 
--static void enh_desc_get_ext_status(struct stmmac_extra_stats *x,
--				    struct dma_extended_desc *p)
-+static int enh_desc_ext_rx_csum(u32 rdes0, u32 rdes4, int status)
-+{
-+	u32 type = FIELD_GET(ERDES4_IP_PAYLOAD_TYPE_MASK, rdes4);
-+
-+	if (status != csum_none || !(rdes0 & RDES0_FRAME_TYPE) ||
-+	    (rdes0 & RDES0_IPC_CSUM_ERROR))
-+		return status;
-+	if (!(rdes4 & (ERDES4_IPV4_PKT_RCVD | ERDES4_IPV6_PKT_RCVD)) ||
-+	    (rdes4 & (ERDES4_IP_HDR_ERR | ERDES4_IP_PAYLOAD_ERR |
-+		      ERDES4_IP_CSUM_BYPASSED)))
-+		return status;
-+	if (type != RDES_EXT_PAYLOAD_UDP && type != RDES_EXT_PAYLOAD_TCP &&
-+	    type != RDES_EXT_PAYLOAD_ICMP)
-+		return status;
-+
-+	return good_frame;
-+}
-+
-+static int enh_desc_get_ext_status(struct stmmac_extra_stats *x,
-+				   struct dma_extended_desc *p, int status)
- {
- 	u32 rdes0 = le32_to_cpu(p->basic.des0);
- 	u32 rdes4 = le32_to_cpu(p->des4);
-@@ -170,7 +188,11 @@ static void enh_desc_get_ext_status(struct stmmac_extra_stats *x,
- 			x->l4_filter_match++;
- 		if (rdes4 & ERDES4_L3_L4_FILT_NO_MATCH_MASK)
- 			x->l3_l4_filter_no_match++;
-+
-+		status = enh_desc_ext_rx_csum(rdes0, rdes4, status);
- 	}
-+
-+	return status;
- }
- 
- static int enh_desc_get_rx_status(struct stmmac_extra_stats *x,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-index 5e2654c91..9925b789b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-@@ -70,8 +70,8 @@ struct stmmac_desc_ops {
- 	/* Return the reception status looking at the RDES1 */
- 	int (*rx_status)(struct stmmac_extra_stats *x,
- 			 struct dma_desc *p);
--	void (*rx_extended_status)(struct stmmac_extra_stats *x,
--				   struct dma_extended_desc *p);
-+	int (*rx_extended_status)(struct stmmac_extra_stats *x,
-+				  struct dma_extended_desc *p, int status);
- 	/* Set tx timestamp enable bit */
- 	void (*enable_tx_timestamp) (struct dma_desc *p);
- 	/* get tx timestamp status */
-@@ -128,7 +128,7 @@ struct stmmac_desc_ops {
- #define stmmac_rx_status(__priv, __args...) \
- 	stmmac_do_callback(__priv, desc, rx_status, __args)
- #define stmmac_rx_extended_status(__priv, __args...) \
--	stmmac_do_void_callback(__priv, desc, rx_extended_status, __args)
-+	stmmac_do_callback(__priv, desc, rx_extended_status, __args)
- #define stmmac_enable_tx_timestamp(__priv, __args...) \
- 	stmmac_do_void_callback(__priv, desc, enable_tx_timestamp, __args)
- #define stmmac_get_tx_timestamp_status(__priv, __args...) \
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index b837e8e27..efedd0504 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -5605,8 +5605,9 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
- 			break;
- 
- 		if (priv->extend_desc)
--			stmmac_rx_extended_status(priv, &priv->xstats,
--						  rx_q->dma_erx + entry);
-+			status = stmmac_rx_extended_status(priv, &priv->xstats,
-+							   rx_q->dma_erx + entry,
-+							   status);
- 		if (unlikely(status == discard_frame)) {
- 			xsk_buff_free(buf->xdp);
- 			buf->xdp = NULL;
-@@ -5788,7 +5789,9 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 		prefetch(np);
- 
- 		if (priv->extend_desc)
--			stmmac_rx_extended_status(priv, &priv->xstats, rx_q->dma_erx + entry);
-+			status = stmmac_rx_extended_status(priv, &priv->xstats,
-+							   rx_q->dma_erx + entry,
-+							   status);
- 		if (unlikely(status == discard_frame)) {
- 			page_pool_put_page(rx_q->page_pool, buf->page, 0, true);
- 			buf->page = NULL;
-
----
-base-commit: 191aa41548b2d2b6af534a6d5cf84a552435c74c
-change-id: 20261016-stmmac-rx-csum-636a33f857ea
-
-Best regards,
---  
-alex todadze <todadzealexi19@proton.me>
-
-
+Doh! My bad.
