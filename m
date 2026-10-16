@@ -1,334 +1,111 @@
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C54BD47A0DE;
-	Fri, 16 Oct 2026 11:13:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31BA74756D8
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:15:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792149237; cv=none; b=b0jvDafXgiC4VbmRQOIxPwrcjFxe9hMmjHmSLGlFU7M7o0LrPj5CWr4fIULFy9oGv8xJO5rH47djgZHREnEYnZQeYfvye/omwthuL8Y4lDkLU5NJQrqqBbRSNM9+TIbTgM5Qr6oo37GQUzz34GclzsTyExKEgOXcmYHVhCGoJqM=
+	t=1792149325; cv=none; b=nw3kgpE4TgZCxlfsZlwJptlooxhDSL7EClKumTlOWYx7WP2zjJdpC3t9LpD28P6BfPWjgRvIXPK4U2yi+FoOlYUtmJ3ydvtfWN4hBxPsRYuSnPvZFwZXRSSKW2J2qZen1LsLtFjlqyoa/0wdICsrjOXDzaTRW1ov2kJ7xmcjFAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792149237; c=relaxed/simple;
-	bh=DFqllPAc2ZAi2VgKd8xHiCXbo/n+tXDzn8eqnLl/Ug4=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bbRKhjsBBaxLAm0yf5Xohio1lCr2/fJp0t+mC5vb9qL+yy8AL6FDPWYFTYkdJCF8yn7ykfgPG3gnUVIIyfo9SqHvej+FxSA6OwITIrdIQiyQ6nyGo9QnyR8k/EE2n2HpanMwmeLuJPtSnxHHc7LlVvDFIsinEmFJu+qs5iUvu9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=3F+MpN/U; arc=none smtp.client-ip=113.46.200.224
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1792149325; c=relaxed/simple;
+	bh=lHE4sUTVgDDW55gWzB8XJw6yDKJtXI8Pr3q8CA2c93U=;
+	h=From:To:Cc:Subject:Date:Content-Type:MIME-Version:Message-Id; b=daPYPAmYVBpzwoZA1bBmsHgDUmpa9fhCVtwU3gNxSQE+PJ06hvVKuLkHfrSltxL4/tz/82NucQJSiwCKVzT2m/FdM8SmIX2JZr+8iehiz2L52vHsznnaIGO9mNw6fx3FPIklOQ2WzNuuhbiiemCdeFlnx8te2oZ8BKZvba5YCd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iiX7H9W5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="3F+MpN/U"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=y1cnJ16h8oqvKFSfJyK/2Ij2aNElfubC4xVor4zE8Oc=;
-	b=3F+MpN/Uato/4rd+qvMP2Y+LEegOVkaNTD0cJoq4YVQ9LmuWxNwR3lc0qzyDJGtHiWkVWpU1D
-	2Bl4WuCXfmXL3N9Q+sAfZOFW2eNoWlxCHNpscjrZSDrUDa4Rzo6gp05bvrsvmpvXNCtjVyaKeIM
-	wCt9fsIomx7wmuJhMACvV/o=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4j5hq76w9Xz1cyR3;
-	Fri, 16 Oct 2026 19:02:27 +0800 (CST)
-Received: from kwepemf100013.china.huawei.com (unknown [7.202.181.12])
-	by mail.maildlp.com (Postfix) with ESMTPS id 92DC840563;
-	Fri, 16 Oct 2026 19:13:44 +0800 (CST)
-Received: from DESKTOP-62GVMTR.china.huawei.com (10.174.189.38) by
- kwepemf100013.china.huawei.com (7.202.181.12) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 16 Oct 2026 19:13:43 +0800
-From: Fan Gong <gongfan1@huawei.com>
-To: Fan Gong <gongfan1@huawei.com>, Wu Di <wudi234@huawei.com>, Teng Peisen
-	<tengpeisen@huawei.com>, <netdev@vger.kernel.org>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
-	<horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, Ioana Ciornei
-	<ioana.ciornei@nxp.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Mohsin Bashir <mohsin.bashr@gmail.com>, Dimitri Daskalakis
-	<dimitri.daskalakis1@gmail.com>, Harshitha Ramamurthy
-	<hramamurthy@google.com>, Larysa Zaremba <larysa.zaremba@intel.com>, Vadim
- Fedorenko <vadim.fedorenko@linux.dev>
-CC: <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>, Zhou Shuai
-	<zhoushuai28@huawei.com>, Wu Like <wulike1@huawei.com>
-Subject: [PATCH net-next v16 0/2] net: hinic3: Support ethtool ops
-Date: Fri, 16 Oct 2026 19:13:37 +0800
-Message-ID: <cover.1792149958.git.gongfan1@huawei.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iiX7H9W5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B59A1F000C4;
+	Fri, 16 Oct 2026 11:15:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792149323;
+	bh=4tdBIl/6prCw3gXURtrP3n7yBrltZqqZgVtgR0aXPIk=;
+	h=From:To:Cc:Subject:Date;
+	b=iiX7H9W5lKNO32D3nliPOl2Dtz/ZPIau7CcDRF4VkrJdrcAJzg2FYKa35K2DLxK6J
+	 eqyBYtGJ81YHIU5oAbsx9ZC1uLaqLBdhU9OGxIiMs9q633FQxvjBePoiKpJNyGijGG
+	 jm6jjTjuvh77IqNr2a4ukw4YPOolSxmy0vr0PvNoeoFbxGruRl4nxvZLsW4xfqakAH
+	 9ngy11a57sxMtaAjRDKcbokJceHLvrO4LzNF+wdru8G8iGQq85B/hAxsT5U1z5pUP7
+	 wZyufeMJLwCA4xrsYfTUjvMyK3iqyJtQOdpPIVLBnY9rhNaoBnTE0tVYP4pRnRCRQo
+	 w2QtGQaB0SP5w==
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Martin Kaiser <martin@kaiser.cx>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] probes: Fixes for v7.3-rc7
+Date: Fri, 16 Oct 2026 20:15:17 +0900
+X-Mailer: UndineD 0.1
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemf100013.china.huawei.com (7.202.181.12)
+Message-Id: <20261016111521.6B59A1F000C4@smtp.kernel.org>
 
-This is [3/3] part of hinic3 Ethernet driver second submission.
-With this patch hinic3 becomes a complete Ethernet driver.
+Hi Linus,
 
-These patch-set will include all ethtool interfaces for hinic3. To facilitate
-review, this interfaces will be Split into multiple submissions, with each
-commit limited to approximately 1000 lines of code.
+Probes fixes for v7.3-rc7:
 
-Add:
-    .get_strings
-    .get_sset_count
-    .get_ethtool_stats
-    .get_eth_phy_stats
-    .get_eth_mac_stats
-    .get_eth_ctrl_stats
-    .get_rmon_stats
-    .get_pause_stats
-
-Changes:
-
-PATCH 03 V01: https://lore.kernel.org/netdev/cover.1773387649.git.zhuyikai1@h-partners.com/
-* Add rmon/pause/phy/mac/ctrl stats (Ioana Ciornei)
-
-PATCH 03 V02: https://lore.kernel.org/netdev/cover.1774684571.git.zhuyikai1@h-partners.com/
-* Remove OutOfRangeLengthField, FrameToolong and InRangeLengthErrors (Ioana Ciornei)
-* Remove redundant mtu commit (Maxime Chevallier)
-* Modify "return -EINVAL" intension problem (AI Review)
-* Use le16_to_cpu for rss_indir pair.out->buf (AI Review)
-* Use u32 instead of int in coalesce_limits to avoid overflow (AI Review)
-* Remove redundant u64_stats_update_begin/end when reading stats without
-  concurrent reader (AI Review)
-* Modify nic_dev->stats.syncp logic (AI Review)
-* Complete rxq/txq stats stats fileds in hinic3_rx/txq_get_stats (AI Review)
-* Remove statistics values in rtnl_link_stats64 from ethtool statistics
-  values (AI Review)
-* Add channel_cfg_lock & channel_res_lock to protect resources access (AI Review)
-
-PATCH 03 V03: https://lore.kernel.org/netdev/cover.1774940117.git.zhuyikai1@h-partners.com/
-* Change unnedd to unneeded (AI Review)
-* Remove packets,bytes,errors and dropped in hinic3_rx/tx_queue_stats (AI Review)
-* Remove duplicated entried in hinic3_port_stats[] (AI Review)
-* change stats_info.head.status to ps->head.status (AI Review)
-
-PATCH 03 V04: https://lore.kernel.org/netdev/cover.1775618797.git.zhuyikai1@h-partners.com/
-* Use old_q_param to store old config and use it in error handling (Mohsin Bashir)
-* Add netdev_info to inform the user that depth is trimmed (Mohsin Bashir)
-* Remove const in hinic3_get_qp_stats_strings parameters (Mohsin Bashir)
-* Change EOPNOTSUPP to ERANGE in is_coalesce_exceed_limit (Mohsin Bashir)
-* Update nic_dev->rss_type after hinic3_set_rss_type (Mohsin Bashir)
-* Modify MGMT_STATUS_CMD_UNSUPPORTED to EOPNOTSUPP for complying with the
-  error code specifications (Mohsin Bashir)
-* Remove restore_drop_sge in hinic3_rx_queue_stats (AI Review)
-* Remove hinic3_nic_stats (AI Review)
-
-PATCH 03 V05: https://lore.kernel.org/netdev/cover.1775711066.git.zhuyikai1@h-partners.com/
-* As tx and rx share interrupts, we only use ETHTOOL_COALESCE_RX_USECS for
-  user setting to avoid user misunderstanding. So we do not add
-  ETHTOOL_COALESCE_TX_USECS. (Mohsin Bashir & AI Review)
-* Clear HINIC3_CHANGE_RES_INVALID bit in error handling (AI Review)
-* Use low >= high to avoid low=high in is_coalesce_legal (AI Review)
-
-PATCH 03 V06: https://lore.kernel.org/netdev/cover.1779867397.git.zhuyikai1@h-partners.com/
-* Remove redundant rx_jumbo_pending and rx_mini_pending judgement (Jakub Kicinski)
-* Remove redundant max tx_pending judgement when .get_ringparam already got the
-   max value (Jakub Kicinski)
-* Use extack instead of netdev_err/netdev_info/netdev_warning (Jakub Kicinski)
-* Remove HINIC3_CHANNEL_RES_VALID and only use HINIC3_CHANGE_RES_INVALID
-  bit (Jakub Kicinski)
-* Deference freed pointers in hinic3_change_channel_settings error
-  handling (Jakub Kicinski)
-* Modify hinic3_open_channel (Jakub Kicinski)
-
-PATCH 03 V07: https://lore.kernel.org/netdev/cover.1779940072.git.zhuyikai1@h-partners.com/
-* Remove the trailing '\n' in NL_SET_ERR_MSG* (Jakub Kicinski)
-
-PATCH 03 V08: https://lore.kernel.org/netdev/cover.1780907605.git.wudi234@huawei.com/
-* Update patch commit to be more accurate for change information (AI Review)
-* Modify <net/devlink.h> to <linux/netlink.h> (AI Review)
-* Use sq/rq_depth instead of rx/txqs[0].q_depth (AI Review)
-* hinic3_change_channel_settings() runs under change_res_mutex
-  to protect dynamic channel updates (AI Review)
-* hinic3_close() serializes close and channel reconfiguration paths (AI Review)
-* Remove useless u64_stats_init in hinic3_get_drv_queue_stats() (AI Review)
-* hinic3_get_drv_queue_stats() fills rxq stats at correct idx
-  when txq is null (AI Review)
-* Remove unnecessary semicolons after the closing bracket of
-  static inline functions (AI Review)
-* Disable preemption in hinic3_rx_fill_buffers() (AI Review)
-* Add spinlock to protect per-queue coalesce parameters from
-  concurrent access (AI Review)
-* Reject static coalesce config when adaptive RX coalesce is
-  enabled (AI Review)
-* Validate interface state and queue ID before modifying coalesce
-  parameters (AI Review)
-* Differentiate get_coalesce output for adaptive/static modes and
-  zero-fill the struct (AI Review)
-* Return -ERANGE for invalid coalesce frame limits and simplify
-  error message (AI Review)
-* Remove unused watchdog timeout definition and assignment (AI Review)
-* Return -EOPNOTSUPP when RSS type query is unsupported by firmware (AI Review)
-* Reject L4 hash bits for pure L3 flow types (AI Review)
-* Split RSS type conversion to correctly handle L3-only flows (AI Review)
-* Reprogram RSS indir table and HW parameters after channel count
-  changes (AI Review)
-* Propagate exact error code from channel parameter validation (AI Review)
-* Update SW RSS indir copy only after HW programming succeeds (AI Review)
-* Program RSS hash type to HW before updating SW state to prevent
-  inconsistency (AI Review)
-
-PATCH 03 V09: https://lore.kernel.org/netdev/cover.1781062575.git.wudi234@huawei.com/
-* Remove useless messages in hinic3_set_ringparam() (Jakub Kicinski)
-* Solve the big-endian and little-endian issue (Jakub Kicinski)
-
-PATCH 03 V10: https://lore.kernel.org/netdev/cover.1782718232.git.wudi234@huawei.com/
-* Unify 3 mutex in struct hinic3_nic_dev: port_state_mutex, change_res_mutex,
-  coal_lock.(Simon Horman)
-* Use rxq->q_mask instead of rxq->q_depth - 1 in hinic3_configure_rxqs()
-  (Dimitri Daskalakis)
-* Implement dedicated get_rx_ring_count ethtool operation (Dimitri Daskalakis)
-* Correct copy-paste error in hinic3_get_ringparam() (AI Review and
-  Harshitha Ramamurthy)
-* Clarify extack error message in hinic3_check_ringparam_valid()
-  (Harshitha Ramamurthy)
-* Use rounddown_pow_of_two() instead of 1U << ilog2() in hinic3_set_ringparam()
-  for readability. (Harshitha Ramamurthy)
-* hinic3_set_interrupt_moder() now compare q_id and num_qps inside mutex lock
-  (AI Review)
-* Error branches in hinic3_link_status_change() goto unlock mutex before return
-  (AI Review)
-* In hinic3_change_channel_settings(), hinic3_config_num_qps() and
-  hinic3_alloc_channel_resources() now run inside mutex lock. (AI Review)
-* Call hinic3_free_qp_ctxts() in error paths of hinic3_open_channel(),
-  thus hinic3_change_channel_settings() don't call it in error path (AI Review)
-* Unset HINIC3_INTF_UP during close and reopen in hinic3_change_channel_settings
-* hinic3_change_channel_settings() restore previous resources before freeing
-  new_qp_params (AI Review)
-* Delete unused macro HINIC3_LRO_PKT_HDR_LEN (AI Review)
-* Drop packets when skb_checksum_help() return error (AI Review)
-* Protect interrupt coalesce parameter reads with state_lock to prevent data
-  races(AI Review)
-* Restore previous coalesce parameters on HW configuration failure (AI Review)
-* Always report all coalesce parameters regardless of adaptive mode (AI Review)
-* Safely stop DIM work when disabling adaptive RX coalescing (AI Review)
-* Change coalesce disabled message from extack error to info log (AI Review)
-* Pass new RSS hash type to HW instead of the old one (AI Review)
-* Initialize default RSS indirection table before HW programming when not
-  user-configured(AI Review)
-* Revert queue count on RSS reprogramming failure (AI Review)
-* Use sizeof for RSS indirection table copy to prevent size mismatch (AI Review)
-
-PATCH 03 V11: https://lore.kernel.org/all/cover.1784538912.git.root@localhost.localdomain/
-* Remove state_lock in hinic3_set_interrupt_moder() and
-  hinic3_link_status_change() (Andrew Lunn and AI Review)
-* In hinic3_change_channel_settings(), cur_trxq_params is read after taking lock,
-  and get symmetrically restored when alloc resources failed. (AI Review)
-* Remove preempt_disable()/preempt_enable() pairs in hinic3_rx_fill_buffers().
-  (AI Review)
-* Add a comment about csum_err, and rewrite its judgement in hinic3_rx_csum().
-  (AI Review)
-* Rollback hash function type to previous state if setting RSS indirection
-  table or key fails (AI Review)
-* Allow users to disable L3 hashing for IPV4/IPV6 flows by properly handling
-  empty hash tuple in ethtool (AI Review)
-* Update software queue coalesce state only after successful hardware
-  configuration to avoid manual rollback (AI Review)
-* Use READ_ONCE and WRITE_ONCE for adaptive_rx_coal to ensure safe
-  concurrent memory access (AI Review)
-* Reset RX queue DIM state to DIM_START_MEASURE when canceling
-  adaptive RX coalescing work (AI Review)
-* Remove unnecessary state_lock mutexes when reading queue coalesce
-  parameters in IRQ and update paths (AI Review)
-* Rename is_coalesce_legal to hinic3_validate_coalesce for better code
-  readability and naming consistency (AI Review)
-
-PATCH 03 V12: https://lore.kernel.org/all/cover.1785120952.git.root@localhost.localdomain/
-* Remove get_val_of_ptr() which is unnecessary (Dimitri Daskalakis)
-* Split the monolithic patch into multiple patches (Mohsin Bashir)
-* Fix MSI-X leak and defer q_params publication and add error-path
-  rollback to prevent regressions (AI Review)
-* Rfactor hinic3_update_hash_func_type() (AI Review)
-* Guard irq_cfg traversal with INTF_UP check to prevent NULL dereference
-  and fully reinitialize DIM state on adaptive re-enable (AI Review)
-* Snapshot per-queue coalesce configs before applying and rollback via
-  backup array on partial failure to ensure atomic set_coalesce (AI Review)
-
-PATCH 03 V13: https://lore.kernel.org/netdev/cover.1786774752.git.tengpeisen@huawei.com/
-* Split previous version into 3 parts. The first 2 patches were sent to
-  net tree, patch #5, #6 and #8 stayes in this series, and others will be sent
-  in the future. (Larysa Zaremba and Jakub Kicinski)
-* Remove dead size field from struct hinic3_stats and add
-  HINIC3_STAT_SIZE_CHECK() with BUILD_BUG_ON_ZERO to enforce
-  per-entry compile-time verification that all stats members are u64. (AI Review)
-* Remove never-incremented frag_len_overflow and frag_size_err from
-  hinic3_txq_stats, hinic3_txq_clean_stats(), hinic3_txq_get_stats()
-  and the hinic3_tx_queue_stats ethtool table. (AI Review)
-* Add missing txq_stats.busy increment in hinic3_send_one_skb() when
-  returning NETDEV_TX_BUSY due to insufficient WQEBBs. (AI Review)
-* Add missing txq_stats.offload_cow_skb_err increment when offload
-  type is invalid in hinic3_send_one_skb(). (AI Review)
-* Remove mac_tx_good_oct_num and mac_rx_good_oct_num from the
-  hinic3_port_stats private table as they are already reported through
-  the get_eth_mac_stats standard interface. (AI Review)
-* Fix OctetsTransmittedOK/ReceivedOK mapping in
-  hinic3_get_eth_mac_stats() to use mac_tx/rx_good_oct_num instead
-  of mac_tx/rx_total_oct_num per RFC 2863 (error-free frames only). (AI Review)
-* Add HINIC3_IS_VF guard to hinic3_get_eth_phy_stats() to prevent
-  VF from reading physical port stats, consistent with the ethtool
-  -S path which already gates hinic3_port_stats on PF-only. (AI Review)
-* Use u64_stats_update_begin_irqsave/end_irqrestore in
-  hinic3_rx_fill_buffers() where the function can be called from
-  preemptible process context via hinic3_configure_rxqs(), avoiding
-  seqcount deadlock on 32-bit systems. (AI Review)
-* Expand state_lock protection scope in hinic3_get_coalesce() and
-  hinic3_set_coalesce() to cover intr_coalesce array accesses. (AI Review)
-* Use standard net_dim_work_cancel() in hinic3_set_coalesce() to cancel
-  DIM work instead of manually clearing struct fields, ensuring safe DIM
-  state reset and simplifying error rollback. (AI Review)
-
-PATCH 03 V14: https://lore.kernel.org/netdev/cover.1791858167.git.gongfan1@huawei.com/
-* Remove if (!nic_dev->txqs) & if (!nic_dev->rxqs). (Vadim Fedorenko)
-* All comments regarding this submission have been documented and will be
-  addressed incrementally in subsequent patch-set.
-
-PATCH 03 V15: https://lore.kernel.org/netdev/cover.1792053295.git.gongfan1@huawei.com/
-* Break get_ethtool_stats into the standard statistic groups.
-  Only retain the counters which are not part of standard groups.
-  (Andrew Lunn and AI Review)
-* Netdev netlink qstats (struct netdev_stat_ops) does not be implemented
-  by hinic3, it will be implemented in future. So the per-queue stats of
-  rxq%d_csum_errors etc. will be retained in ethtool -S.(AI Review)
-* Change netdev_err to netdev_err_once and dev_err to dev_err_once.
-  (AI Review)
-* The stall of hinic3_rx_fill_buffers() and LRO in extreme condition will
-  go in a separate patch.(AI Review)
-* Use the same algorithms for calculating the number of bytes and packets
-  in the TSO and LRO statistics.(AI Review)
-* Replace skb_inner_transport_header() with skb_inner_tcp_all_headers()
-  will go in a separate patch.(AI Review)
-* Drops taken in hinic3_xmit_frame() are counted.(AI Review)
-* u64_stats_update_begin() in hinic3_rxq_clean_stats() and
-  hinic3_txq_clean_stats() will go in a separate patch.(AI Review)
-* get_pauseparam callback will go in a separate patch.(AI Review)
-
-PATCH 03 V16:
-* Change lro_packets = 1 to lro_packets++.(Mohsin Bashir)
-* Init txq at the correct place.(Mohsin Bashir)
-* Statistics in hinic3_function_stats and rtnl_link_stats64 originate from
-  different sources: the chip records the former, while the driver records
-  the latter. Chip statistics are readable via ethtool -S, and driver
-  statistics are returned via rtnl_link_stats64.(AI Review)
-* Change u64 to __le64 in l2nic_vport_stats and mag_cmd_port_stats.(AI Review)
-* Reset lro_packets and gso_packets.(AI Review)
-
-Fan Gong (2):
-  hinic3: Add ethtool statistic ops part1
-  hinic3: Add ethtool statistic ops part2
-
- .../ethernet/huawei/hinic3/hinic3_ethtool.c   | 484 ++++++++++++++++++
- .../ethernet/huawei/hinic3/hinic3_hw_intf.h   |  11 +
- .../huawei/hinic3/hinic3_mgmt_interface.h     |  37 ++
- .../ethernet/huawei/hinic3/hinic3_nic_cfg.c   |  64 +++
- .../ethernet/huawei/hinic3/hinic3_nic_cfg.h   | 108 ++++
- .../net/ethernet/huawei/hinic3/hinic3_rx.c    |  64 ++-
- .../net/ethernet/huawei/hinic3/hinic3_rx.h    |   8 +-
- .../net/ethernet/huawei/hinic3/hinic3_tx.c    |  70 ++-
- .../net/ethernet/huawei/hinic3/hinic3_tx.h    |   5 +-
- 9 files changed, 839 insertions(+), 12 deletions(-)
+- tracing: probes: error if BTF is required but unavailable
+  Fix to return an error instead of NULL if BTF is not available when
+  user specify '$args*' meta fetch argument for probe events.
 
 
-base-commit: 73022f605c447f31610b94ed4a983d2b4bf2c721
--- 
-2.43.0
+Please pull the latest probes-fixes-v7.3-rc7 tree, which can be found at:
 
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
+probes-fixes-v7.3-rc7
+
+Tag SHA1: c66008d494387045766f3bf87c3feecdc3fc0423
+Head SHA1: 66c658033d842bb75f81f20aaa4a378fe47be1a1
+
+
+Martin Kaiser (1):
+      tracing: probes: error if BTF is required but unavailable
+
+----
+ kernel/trace/trace_probe.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+---------------------------
+commit 66c658033d842bb75f81f20aaa4a378fe47be1a1
+Author: Martin Kaiser <martin@kaiser.cx>
+Date:   Wed Oct 14 10:37:40 2026 +0200
+
+    tracing: probes: error if BTF is required but unavailable
+    
+    traceprobe_expand_meta_args expands probe arguments based on BTF info.
+    
+    Return an error if we have arguments that need expanding but BTF is not
+    supported.
+    
+    The params variable is now unused, it can be removed.
+    
+    Link: https://lore.kernel.org/all/20261014083838.31020-1-martin@kaiser.cx/
+    
+    Fixes: d157d7694460 ("tracing/probes: Support BTF field access from $retval")
+    Signed-off-by: Martin Kaiser <martin@kaiser.cx>
+    Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+    Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+
+diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
+index 804442b2f7d2..88518c5322a5 100644
+--- a/kernel/trace/trace_probe.c
++++ b/kernel/trace/trace_probe.c
+@@ -2287,7 +2287,6 @@ const char **traceprobe_expand_meta_args(int argc, const char *argv[],
+ 					 int *new_argc, char *buf, int bufsize,
+ 					 struct traceprobe_parse_context *ctx)
+ {
+-	const struct btf_param *params = NULL;
+ 	int i, j, n, used, ret, args_idx = -1;
+ 	const char **new_argv __free(kfree) = NULL;
+ 
+@@ -2305,7 +2304,7 @@ const char **traceprobe_expand_meta_args(int argc, const char *argv[],
+ 		if (args_idx != -1) {
+ 			/* $arg* requires BTF info */
+ 			trace_probe_log_err(0, NOSUP_BTFARG);
+-			return (const char **)params;
++			return ERR_PTR(-EOPNOTSUPP);
+ 		}
+ 		*new_argc = argc;
+ 		return NULL;
