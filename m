@@ -1,87 +1,72 @@
-Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D63C835CB6B;
-	Fri, 16 Oct 2026 11:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.62.254.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F1C83CF68E
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:29:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792150118; cv=none; b=C3u8U30v1qgWQEumDXteH7UhGInkxZiNyN1qcrWRb7oeriI/lrp1iz38QF/4H2octpH6qJKRGFjHSYp/gJL6sTA9CdIDaT+0XszpvZDmKFXWfjl6dUvP3LXodV5qG9bdBgQ7YelctvQzHMQa7yHzVstQ7keujLoYvTMGZ4s2d6o=
+	t=1792150144; cv=none; b=Y/exhte3D6ZOT1BFjhTOSTiPME48iJn3HQFScbG2F9MYlrYr/31v6CfMCSWGg+7h4c/wWZwYB6BL5NZvnxQfh4Lmgw1/KxZJYJA2xMvR6DratTwI2A0xUobFq0U5dSQWOVhXNeeHwmJ7X0CiGo5Fw6SkbNrP+dmjIm35bnMDUmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792150118; c=relaxed/simple;
-	bh=Ur1oPaD8LRczsarB1wT8feo/Dghof+BJ3vmBEhzAEl8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mWczBb+sZUeuGpIku9HjKDMruqCo0IFjKtMMxIVZAXq1dXfhpfQRsH2K3zZ0sRVvjRHTYFH4165/FlVZAKt5guGQ9rKA9TwFCdheZ9158Ia2gRSrnZAVX1yhtONCl+FrPHimRp0jQ3WOiM33sNnau4+ntHVclc9eaTwD4SRBGRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com; spf=pass smtp.mailfrom=ilvokhin.com; dkim=pass (1024-bit key) header.d=ilvokhin.com header.i=@ilvokhin.com header.b=EYCUaFKo; arc=none smtp.client-ip=178.62.254.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ilvokhin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ilvokhin.com header.i=@ilvokhin.com header.b="EYCUaFKo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
-	s=mail; t=1792149662;
-	bh=eBxHgvw1bnsluoyWzXeY/eOCvQ6gAdG+35WYGC0Ze7c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EYCUaFKoTMp0TvU3zfDhqCONxeK7m9S/MlyX0epIq2OOvQUuqldhSECiLInTGmnX7
-	 Jt0mSNTy4PhFUezlKwW/EmUSnCJNMsfQnmPa/KxrDdqnd7vv8vsvl2QGat2He0Pl7+
-	 /DJ7VCnt78xxH4A97H2Ge0fzyMx758GtZSk4ozP4=
-Received: from shell.ilvokhin.com (shell.ilvokhin.com [138.68.190.75])
-	(Authenticated sender: d@ilvokhin.com)
-	by mail.ilvokhin.com (Postfix) with ESMTPSA id 9B7E5FB63C;
-	Fri, 16 Oct 2026 11:21:02 +0000 (UTC)
-Date: Fri, 16 Oct 2026 11:20:58 +0000
-From: Dmitry Ilvokhin <d@ilvokhin.com>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH v2] perf c2c: Fix memory leaks on output fields
-Message-ID: <atIImjxxXKUO2os8@shell.ilvokhin.com>
-References: <20261015233237.542258-1-namhyung@kernel.org>
+	s=arc-20240116; t=1792150144; c=relaxed/simple;
+	bh=INk8St2b6EIjrLp7Ws5f6WlhDVHD4oeCagUwkpEowFY=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Cygw07NBOcWbiUWOxYaTX6aIvzau7+cpOBHlWAY6KIh006sQyP8S74BToYMTAbde6yB1+xIzXrlxN83FkqPaTrRXZGXyKOIe7sfALrC3O1quSf2wMUzZDFktPpKe0bikSDpWU6QaMRBR6kGFG4SwHltd0OK6d7+ITy1O9sgUddU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b28dbf4197so3499960b6e.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:29:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792150142; x=1792754942;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/0jVS+CPRA8cqMcaCfHlktMUogYTGxgM3PWJF8LyPhM=;
+        b=ciCezL6JknEmXD/BWgljBOxhzycErJFngCWbOrxovhhiCfqzFbNk9cj5/4T9yQLoIg
+         2tjTEEZBVtmTKBXLlRWBDW4TF1JivVXWBwv5CQoKVZcI8oO9gL5tfqXhAYR0jRRDWb3b
+         8Sc38RsMMwXV1w9nWKpAbs5U7IsHUJNcVQmOtf0CODmG3YNA6PM2Exbn9OhMj06chJeh
+         eKZJKePMJpvU7WGU+vJwH3OyUIQqJxdDwY6seE7PPn/m3dGwB1A6AN42eo++9/EqggWI
+         PotMUktfdNS3ufsQJKC5xsPE2tcJggdfboCfTLjLo9J0zPFalVjABDWb3tAxgR8IfNiQ
+         wKXA==
+X-Forwarded-Encrypted: i=1; AKwUvBza/XcGlpwn3tRAaF0RQUgtP+eLqTmmfP0MqNSU+y2wUm0rWFHNN9JCiEeSHd1TYUYXiw6/3Vd+xGqovlE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKiXnjYCZkPMlga9y4PWkwacspckdYMrwD/3s4nt4J9FOWOCFFL
+	sJB54JWs+rqb0TmtihwHLEwKGQb6YdZC6RW0grYsFo7bKEs4jkSPx0M1BwckrsIaha9kPk7oPfl
+	9/VU3HEf3QZ8sOOpbFNsK/86e4cQu7HALHwvUvWagpJiXq6IT5gqx0dWI5Q0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015233237.542258-1-namhyung@kernel.org>
+X-Received: by 2002:a05:6808:13ce:b0:4d6:9293:9b56 with SMTP id
+ 5614622812f47-50c5b4736a0mr17365474b6e.62.1792150142442; Fri, 16 Oct 2026
+ 04:29:02 -0700 (PDT)
+Date: Fri, 16 Oct 2026 04:29:02 -0700
+In-Reply-To: <8a82e241-55bc-46c2-a3e3-f34871ca1e66@yandex.ru>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad20a7e.7952420f.283480.023b.GAE@google.com>
+Subject: Re: [syzbot] [input?] [usb?] KASAN: slab-use-after-free Read in roccat_disconnect
+From: syzbot <syzbot+c492a9e154f81127551f@syzkaller.appspotmail.com>
+To: dmantipov@yandex.ru, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 15, 2026 at 04:32:37PM -0700, Namhyung Kim wrote:
-> The perf_hpp_list was not freed after use.  Let's add it for the main
-> c2c hists list in perf c2c report and a local list in print_pareto().
-> 
-> Previously it was detected by ASAN like below.
-> 
->   =================================================================
->   ==42183==ERROR: LeakSanitizer: detected memory leaks
-> 
->   Indirect leak of 1064 byte(s) in 7 object(s) allocated from:
->       #0 0x7f17334ef24f in calloc (/lib64/libasan.so.8+0xef24f) (BuildId: 61e8165ca90f7a4f06b73f064a938c76deaae079)
->       #1 0x0000005fa099 in zalloc  ../../lib/zalloc.c:8
->       #2 0x0000004faf6d in get_format  tools/perf/builtin-c2c.c:1978
->       #3 0x0000004fb45e in c2c_hists__init_output  tools/perf/builtin-c2c.c:2004
->       #4 0x0000004fb7de in __hpp_list__parse  tools/perf/builtin-c2c.c:2047
->       #5 0x0000004fbae9 in hpp_list__parse  tools/perf/builtin-c2c.c:2085
->       #6 0x0000004fee13 in print_pareto  tools/perf/builtin-c2c.c:2563
->       #7 0x0000004ffcd7 in perf_c2c__hists_fprintf  tools/perf/builtin-c2c.c:2708
->       #8 0x000000500ab5 in perf_c2c_display  tools/perf/builtin-c2c.c:2949
->       #9 0x0000005045c3 in perf_c2c__report  tools/perf/builtin-c2c.c:3522
->       #10 0x000000505caa in cmd_c2c  tools/perf/builtin-c2c.c:3676
->       #11 0x0000005df50e in run_builtin  tools/perf/perf.c:383
->       #12 0x0000005df9b1 in handle_internal_command  tools/perf/perf.c:436
->       #13 0x0000005dfd7f in run_argv  tools/perf/perf.c:480
->       #14 0x0000005e02d6 in main  tools/perf/perf.c:581
->       #15 0x7f1729450680 in __libc_start_call_main (/lib64/libc.so.6+0x3680) (BuildId: 85075e2ae2e13352a1413d41c327dacf6461526c)
->       #16 0x7f1729450797 in __libc_start_main@GLIBC_2.2.5 (/lib64/libc.so.6+0x3797) (BuildId: 85075e2ae2e13352a1413d41c327dacf6461526c)
->       #17 0x000000409c34 in _start (tools/perf/perf+0x409c34) (BuildId: 36a64600776d92e4ab7dfd5ca20c92280d72a645)
-> 
->   SUMMARY: AddressSanitizer: 1064 byte(s) leaked in 7 allocation(s).
-> 
-> Fixes: c75540e3160f ("perf c2c report: Add dimension support")
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+Hello,
 
-Reviewed-by: Dmitry Ilvokhin <d@ilvokhin.com>
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+
+Reported-by: syzbot+c492a9e154f81127551f@syzkaller.appspotmail.com
+Tested-by: syzbot+c492a9e154f81127551f@syzkaller.appspotmail.com
+
+Tested on:
+
+commit:         b0a42af4 HID: roccat: fix device access in roccat_rele..
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git for-7.4/roccat
+console output: https://syzkaller.appspot.com/x/log.txt?x=13120031580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=bb0b3468a2190916
+dashboard link: https://syzkaller.appspot.com/bug?extid=c492a9e154f81127551f
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=103a1621580000
+
+Note: testing is done by a robot and is best-effort only.
