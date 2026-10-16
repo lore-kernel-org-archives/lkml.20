@@ -1,47 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3644CF491;
-	Fri, 16 Oct 2026 19:03:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F3E94CF487
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:03:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792177422; cv=none; b=OWosytsTxoLYfBntc72m4o6EYu0urZq+Ga6Xhl4zV65pzAjQ82ZlPkEMBRBc7DVx5fFKFyNlgspOH58N1OhfIIefVyabd1MmiYT0J66sxmfezeOnl1u3kjwbXLW4eWSO5mIAGkb3qSN7z+Ag8N1gd74LyTfNCzurfrcQtXvT0C8=
+	t=1792177441; cv=none; b=E/JPCqOEpqAuEOPwup8ZNpPsoKEsZB5x+tx2bR79MZBq6CNtI82TnR3PuZGQrnr1WczrZ0Zsb/A0J8SAGW+bTeus3447pAKymLZmDYm1ZY8RLJrLBPFGr6YlhcZJK17MVv2d1UVOydYXQ6OI0bYH5fBOa0jwXggqRm7wGo0ppNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792177422; c=relaxed/simple;
-	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BSQmMF0xfJPhPVqZhRqtrmLo+QMmnJ9GNUvu3UgDnQuxnkfYNJ5Okfm8oqZ/KH3Wzbc3bJR+DqTTO6+jl3TkZvJXNPKXsQ7sr9amisyA3sL0Gq9bhCbli3xpa9dTrDvrvgNxl9+1NaomSqNJazGFXlbGUPEIcyD6gt+3+8LESMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l1MPcn7w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792177441; c=relaxed/simple;
+	bh=CNR3UIQNxlqmvX5B65WR7uFjGzYQQxpXAke8nIZwQF0=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:In-Reply-To:
+	 References:MIME-Version; b=gdDt8yZ4EUIL/Uc3a1ZyVjtSCWsNcq1Ws/GAdEBodCr7KKbCBJXQJxPhRkw8Td3toQgOehUBrp56nHE8nOZTtBGHera/2lmYyczSR8WDdQOCThlywow4GofSmVkbCTaS0fbgTJR4deQmnQXTmF7l+sR+sg0BVqhdTt7Vp3J9EB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P11FUoJ/; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l1MPcn7w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADD9E1F000C4;
-	Fri, 16 Oct 2026 19:03:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792177421;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l1MPcn7wUKA11mOSJL22YnTaEa/FxCCDODmgLCSStH+eJ96lzxGK9WTi5p1Eli7dJ
-	 HxGA676nimrjAwcCVEq8q38nrTOrausAuDgmsAtvtUCzNDu0UQQpzSmJaDp+GjVMUy
-	 MljQin400Mh9OhtO+7hi3FQ5OHoHRNXq20c/1HlpjvrEYc3AY7icHre+kKzhSRUoVG
-	 ry3+joGHnkhiIHX4briX28rBYQZVcSHqZL+Qqzq/pFeNjplP6KE3ha2LD8yHmrMWWK
-	 yscNk1uflZ79XybqDi/YuX5D8wiFaqae5rXvJ7gQIvxmlfK6qA6WPRqBtLfK62puTv
-	 4h9IRsTtCOStw==
-From: netdev-bot+sinfo@kernel.org
-To: Marek Vasut <marex@nabladev.com>
-Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Clark Wang <xiaoning.wang@nxp.com>,
- Claudiu Manoil <claudiu.manoil@nxp.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>, Wei Fang <wei.fang@nxp.com>,
- imx@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [net,PATCH] Revert "enetc: Increase eMDIO MDC rate to 2.5 MHz"
-Date: Fri, 16 Oct 2026 19:03:40 +0000
-Message-ID: <179217742020.408196.3167550560236175089@kernel.org>
-In-Reply-To: <20261016185817.54096-1-marex@nabladev.com>
-References: <20261016185817.54096-1-marex@nabladev.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P11FUoJ/"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so335699a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:03:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792177438; x=1792782238; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
+         :from:subject:message-id:date:content-type:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0eg4NAgHBFZjYuL0of6d/pCxaYmTsYg3jXuuUjSTZD8=;
+        b=P11FUoJ/RqdTlVsf1umgC2H+cXJNwJqCDJ3wiL+Nk3x8C6G7J30z88ptYMVEATrqS1
+         pstatL7tklG9IPYQPzcMJHGUBmmWIq5vkmzqu4aFt33ZZEWsiVwCtZRVcZ0k+eSN4UiJ
+         WdViIpPSpnJD+4O+K08rLkaQCga+pVM56h7rEYVab4bmO3HclMHl1bD+eh2TEHaPcPS7
+         qG16A2+opvIZlf1pe40c2KyI/nswbZxodaEgqlll7KbAgpr+jY7zMPrOULaB7b/LgwPC
+         9GxYtqOQ3vAVR2eeMg4goQozrjjPKxzlT1LmUK7LGMnJcDJngE7lY0E4XQhoKa3/Mkz1
+         cGng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792177438; x=1792782238;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
+         :from:subject:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0eg4NAgHBFZjYuL0of6d/pCxaYmTsYg3jXuuUjSTZD8=;
+        b=WRMrhcNo6zhP8FL7zomiiEj7j6loq1xmsrP9g9DPKYmzzTQSmwU0DS3pX0FAya2boD
+         yFzGB5hz9hLpA3CNv4BTEOf3+VDIF3DxTKixSYEeWDxYt5SuixBZ37dHzemKI0gz7pkS
+         hLiB37k8roiun5ZxCN+lW/pfBzfinRgIbLF1i5d6R9OwTy5DmkkqX40ZpEPJYruspVqd
+         M/RfbmwTDbsONcUn2lRo+jUDuKdYdcAqx0h8cwfT0sD27Qc9m3Jdfk/NU9vlGxvjSffz
+         RBcNJynpKZQVaofIHtRPkldy9hMefr3q2kgmCnbGSbF6X4xvmp1qk/IVPZXz2N7M6zik
+         3NYw==
+X-Forwarded-Encrypted: i=1; AKwUvBzPlPF9DyzFiuUmfx0GG3KPkrVn8GLlKVNCj0xGtfonuDhExULYCg8lApNZ4ejwQHojLe8IFNID950c9Ns=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbboYIuUNW18GHsLGc0SmL6LXN+22Au0BrouQX2hDlh5BJ+9zs
+	IjKy6brtiCdG5H/+nsQ+DTQ0GrVsEP1X39nbCLr3Xmg20StQJDfI9kS6
+X-Gm-Gg: AYBFou0ietASP2EQaraK+zpAw0Yu26r63FA0tjAOKfD0rKg+UoPixSU/ggYaY5Axicd
+	Zq/BkczCpvXdfQtcaWHoB/Kw9BiOQQ+LStpEMjghQ/+pas9X69YMeu/pGR2pFBA2BJXDlRmwEim
+	MZKHAJnTfuv0rUeviCg+3JjSEUoX48hVLw3TJjrWFKTCvGJ4hQFTIQAz/FgK/nw8N8Bw7leaJDj
+	PmPXUJx+bZnJo+z6LBk8aka17S3xLa1/U4FyiPsggrGlj3T8Gd30qmlcRcpNhEKCA997PoppXA4
+	YL/tAgyY98JbJgySq5czir6c8Z1/IAU2Xv35ZIXZLo13RAKA+VByLwjAUXJX2ecWDOYFMN3QA6U
+	w5ofQbRyjKiX5MdtN3pk1vXbk6w4VK4zqGltV5TVmw6TNXvsyA6VKGQ+GNq09YnTEeV5KyUBJ+I
+	hfTgd3Nd1jMizxJSx/e/THJKjISu/zPbuHdVge/XffLJkgtUYJW5zuqk4JVCNf2vw20otmOCE6b
+	DLUiUBo3w3oou4LiVweH2erNVy5dMIYGaSavCuvey8M8PebhPbWE5iF55/okkfzkegCvN6V2XaN
+	hEc=
+X-Received: by 2002:a17:90b:4ac6:b0:3ac:9e76:aa97 with SMTP id 98e67ed59e1d1-3acee277119mr717398a91.6.1792177437264;
+        Fri, 16 Oct 2026 12:03:57 -0700 (PDT)
+Received: from localhost ([153.61.198.255])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3b16c2asm2137914a91.2.2026.10.16.12.03.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 12:03:56 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 16 Oct 2026 19:03:55 +0000
+Message-Id: <DM6HVNSP3USV.AJSWS289Z3I9@gmail.com>
+Subject: Re: [PATCH bpf-next 0/5] bpf: Expose pinned arenas as sized bpffs
+ files
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Andrea Righi" <arighi@nvidia.com>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
+ Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>
+Cc: "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>,
+ "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>,
+ "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, "John Fastabend" <john.fastabend@gmail.com>,
+ "Josh Don" <joshdon@google.com>, "Vineeth Pillai" <vineethrp@google.com>,
+ "Balbir Singh" <balbirs@nvidia.com>, "Shameer Kolothum"
+ <skolothumtho@nvidia.com>, "Himadri Chhaya-Shailesh"
+ <himadrics@protonmail.com>, "NchangRoy" <royfru44@gmail.com>,
+ <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+In-Reply-To: <20261010224902.1232178-1-arighi@nvidia.com>
+References: <20261010224902.1232178-1-arighi@nvidia.com>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,28 +91,408 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Hi!
+On Sun, Oct 11, 2026 at 12:45 AM Andrea Righi <arighi@nvidia.com> wrote:
+> The guest scheduler can create its own arena and allocate pages from
+> that NUMA node. Those guest physical pages are backed by the host arena,
+> so host and guest BPF programs can access the same memory through their
+> respective arenas.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+in addition to what Josh said...
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+That node is ordinary RAM for the guest.
+When the guest scheduler exits arena_map_free() does __free_page() and
+the page goes back to the guest's buddy allocator. Nobody tells the host.
+The host prog keeps writing at that offset into whatever the guest
+allocates there next.
+NO_FREE in the guest doesn't help. It covers the kfunc only.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Patch 5 needs a 16M node (256M on ppc) to get one page into the guest
+arena. Arena is 4G at most and it's one arena per prog, so that's
+256 guests per host scheduler.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+The NUMA node is a way to avoid teaching arena to use pages that it
+didn't allocate. I think that's the missing piece in either model:
+host allocates -> guest arena is populated from a BAR,
+guest allocates -> host arena is populated from pinned guest pages.
+As Josh said the BAR is needed for the doorbell anyway.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+If arena can do that, can the host side take the pages from memfd
+with memfd_pin_folios() like udmabuf does ?
+VMM can map memfd at any address and offset already.
+Then no need for NO_FREE, EXPORT, sized file in bpffs, 2nd kind of vma
+in arena, etc.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+The loader does memfd_create() or opens a file in tmpfs, calls
+bpf_arena_import_memfd(&arena, addr, cnt, fd, off) from a syscall prog
+and gives the same file to QEMU the way patch 5 does with the pin.
+The imported pages stay until the arena is freed, so it's NO_FREE for
+the shared part only. libarena keeps working in the rest of the arena.
+arena_map_ext_pages() is what a BAR in the guest or pinned guest pages
+in the pvsched model would call.
+What is missing: user space has to mmap the memfd to see these pages.
+The arena vma gives SIGBUS there.
+Something like this (compile tested only):
+
+diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
+index 0ff707707da0..3a231e3e3073 100644
+--- a/kernel/bpf/arena.c
++++ b/kernel/bpf/arena.c
+@@ -4,6 +4,8 @@
+ #include <linux/btf.h>
+ #include <linux/cacheflush.h>
+ #include <linux/err.h>
++#include <linux/file.h>
++#include <linux/memfd.h>
+ #include <linux/irq_work.h>
+ #include "linux/filter.h"
+ #include <linux/llist.h>
+@@ -55,12 +57,15 @@ struct bpf_arena {
+ 	struct vm_struct *kern_vm;
+ 	struct page *scratch_page;
+ 	struct range_tree rt;
+-	/* protects rt and nr_pages */
++	/* set where the arena owns the pages, clear where they came from outside */
++	struct range_tree rt_own;
++	/* protects rt, rt_own and nr_pages */
+ 	rqspinlock_t spinlock;
+ 	/* number of pages currently populated in the arena */
+ 	u64 nr_pages;
+ 	struct list_head vma_list;
+-	/* protects vma_list */
++	struct list_head imports;
++	/* protects vma_list and imports */
+ 	struct mutex lock;
+ 	u64 zap_gen;
+ 	struct mutex zap_mutex;
+@@ -72,6 +77,13 @@ struct bpf_arena {
+ static void arena_free_worker(struct work_struct *work);
+ static void arena_free_irq(struct irq_work *iw);
+ 
++/* folios pinned by one bpf_arena_import_memfd() */
++struct arena_import {
++	struct list_head head;
++	struct folio **folios;
++	long nr_folios;
++};
++
+ struct arena_free_span {
+ 	struct llist_node node;
+ 	unsigned long uaddr;
+@@ -147,6 +159,8 @@ static long compute_pgoff(struct bpf_arena *arena, long uaddr)
+ struct apply_range_data {
+ 	struct bpf_arena *arena;
+ 	struct llist_head *pages;
++	/* pages that are on LRU cannot be linked via pcp_llist */
++	struct page **ext_pages;
+ 	int i;
+ };
+ 
+@@ -158,17 +172,21 @@ struct clear_range_data {
+ static int apply_range_set_cb(pte_t *pte, unsigned long addr, void *data)
+ {
+ 	struct apply_range_data *d = data;
+-	struct llist_node *node;
++	struct llist_node *node = NULL;
+ 	struct page *page;
+ 	pte_t pteval;
+ 
+ 	if (!data)
+ 		return 0;
+ 
+-	node = READ_ONCE(d->pages->first);
+-	if (WARN_ON_ONCE(!node))
+-		return -EINVAL;
+-	page = llist_entry(node, struct page, pcp_llist);
++	if (d->ext_pages) {
++		page = d->ext_pages[d->i];
++	} else {
++		node = READ_ONCE(d->pages->first);
++		if (WARN_ON_ONCE(!node))
++			return -EINVAL;
++		page = llist_entry(node, struct page, pcp_llist);
++	}
+ 	/* paranoia, similar to vmap_pages_pte_range() */
+ 	if (WARN_ON_ONCE(!pfn_valid(page_to_pfn(page))))
+ 		return -EINVAL;
+@@ -201,7 +219,8 @@ static int apply_range_set_cb(pte_t *pte, unsigned long addr, void *data)
+ 		return -EBUSY;
+ 	set_pte_at(&init_mm, addr, pte, pteval);
+ #endif
+-	WARN_ON_ONCE(llist_del_first(d->pages) != node);
++	if (node)
++		WARN_ON_ONCE(llist_del_first(d->pages) != node);
+ 	d->i++;
+ 	WRITE_ONCE(d->arena->nr_pages, d->arena->nr_pages + 1);
+ 	return 0;
+@@ -312,6 +331,7 @@ static struct bpf_map *arena_map_alloc(union bpf_attr *attr)
+ 		arena->user_vm_end = arena->user_vm_start + vm_range;
+ 
+ 	INIT_LIST_HEAD(&arena->vma_list);
++	INIT_LIST_HEAD(&arena->imports);
+ 	init_llist_head(&arena->free_spans);
+ 	init_irq_work(&arena->free_irq, arena_free_irq);
+ 	INIT_WORK(&arena->free_work, arena_free_worker);
+@@ -322,9 +342,12 @@ static struct bpf_map *arena_map_alloc(union bpf_attr *attr)
+ 		goto err_free_arena;
+ 
+ 	range_tree_init(&arena->rt);
++	range_tree_init(&arena->rt_own);
+ 	err = range_tree_set(&arena->rt, 0, attr->max_entries);
++	if (!err)
++		err = range_tree_set(&arena->rt_own, 0, attr->max_entries);
+ 	if (err)
+-		goto err_free_scratch;
++		goto err_destroy_rt;
+ 	mutex_init(&arena->lock);
+ 	mutex_init(&arena->zap_mutex);
+ 	raw_res_spin_lock_init(&arena->spinlock);
+@@ -336,7 +359,7 @@ static struct bpf_map *arena_map_alloc(union bpf_attr *attr)
+ 
+ err_destroy_rt:
+ 	range_tree_destroy(&arena->rt);
+-err_free_scratch:
++	range_tree_destroy(&arena->rt_own);
+ 	__free_page(arena->scratch_page);
+ err_free_arena:
+ 	bpf_map_area_free(arena);
+@@ -361,6 +384,10 @@ static int existing_page_cb(pte_t *ptep, unsigned long addr, void *data)
+ 	 */
+ 	if (page == arena->scratch_page)
+ 		return 0;
++	/* Not ours. arena_map_free() unpins them. */
++	if (is_range_tree_set(&arena->rt_own,
++			      compute_pgoff(arena, addr - bpf_arena_get_kern_vm_start(arena)), 1))
++		return 0;
+ 	/*
+ 	 * We do not update pte here:
+ 	 * 1. Nobody should be accessing bpf_arena's range outside of a kernel bug
+@@ -375,6 +402,7 @@ static int existing_page_cb(pte_t *ptep, unsigned long addr, void *data)
+ static void arena_map_free(struct bpf_map *map)
+ {
+ 	struct bpf_arena *arena = container_of(map, struct bpf_arena, map);
++	struct arena_import *imp, *tmp;
+ 
+ 	/*
+ 	 * Check that user vma-s are not around when bpf map is freed.
+@@ -398,7 +426,13 @@ static void arena_map_free(struct bpf_map *map)
+ 	apply_to_existing_page_range(&init_mm, bpf_arena_get_kern_vm_start(arena),
+ 				     SZ_4G + GUARD_SZ / 2, existing_page_cb, arena);
+ 	free_vm_area(arena->kern_vm);
++	list_for_each_entry_safe(imp, tmp, &arena->imports, head) {
++		unpin_folios(imp->folios, imp->nr_folios);
++		kvfree(imp->folios);
++		kfree(imp);
++	}
+ 	range_tree_destroy(&arena->rt);
++	range_tree_destroy(&arena->rt_own);
+ 	__free_page(arena->scratch_page);
+ 	bpf_map_area_free(arena);
+ }
+@@ -488,7 +522,7 @@ static vm_fault_t arena_vm_fault(struct vm_fault *vmf)
+ 	struct mem_cgroup *new_memcg, *old_memcg;
+ 	LLIST_HEAD(pages);
+ 	struct page *page, *new_page = NULL;
+-	struct apply_range_data data;
++	struct apply_range_data data = {};
+ 	vm_fault_t fault_ret;
+ 	long kbase, kaddr;
+ 	unsigned long flags;
+@@ -530,6 +564,14 @@ static vm_fault_t arena_vm_fault(struct vm_fault *vmf)
+ 				    ? VM_FAULT_SIGSEGV : VM_FAULT_SIGBUS;
+ 			goto out_err_locked;
+ 		}
++		if (is_range_tree_set(&arena->rt_own, vmf->pgoff, 1)) {
++			/*
++			 * It's a page cache page of another file. Its rmap won't
++			 * find this vma. User space has to mmap that file.
++			 */
++			fault_ret = VM_FAULT_SIGBUS;
++			goto out_err_locked;
++		}
+ 		/* already have a page vmap-ed */
+ 		goto out;
+ 	}
+@@ -745,7 +787,7 @@ static long arena_alloc_pages(struct bpf_arena *arena, long uaddr, long page_cnt
+ 	long page_cnt_max = (arena->user_vm_end - arena->user_vm_start) >> PAGE_SHIFT;
+ 	u64 kern_vm_start = bpf_arena_get_kern_vm_start(arena);
+ 	struct mem_cgroup *new_memcg, *old_memcg;
+-	struct apply_range_data data;
++	struct apply_range_data data = {};
+ 	LLIST_HEAD(pages);
+ 	long mapped = 0;
+ 	unsigned long flags;
+@@ -928,6 +970,13 @@ static void arena_free_pages(struct bpf_arena *arena, long uaddr, long page_cnt,
+ 	if (ret)
+ 		goto defer;
+ 
++	/* Imported pages stay where they are until the arena is freed */
++	if (is_range_tree_set(&arena->rt_own, pgoff, page_cnt)) {
++		raw_res_spin_unlock_irqrestore(&arena->spinlock, flags);
++		bpf_map_memcg_exit(old_memcg, new_memcg);
++		return;
++	}
++
+ 	range_tree_set(&arena->rt, pgoff, page_cnt);
+ 
+ 	init_llist_head(&free_pages);
+@@ -1017,6 +1066,104 @@ static int arena_reserve_pages(struct bpf_arena *arena, long uaddr, u32 page_cnt
+ 	return ret;
+ }
+ 
++/*
++ * Map pages that the arena didn't allocate at uaddr. The caller keeps them alive
++ * until arena_map_free(). A memfd is the first supplier. Pages of a guest pinned
++ * by the host or a BAR with struct pages in the guest can be the next.
++ */
++static int arena_map_ext_pages(struct bpf_arena *arena, long uaddr, struct page **pages,
++			       long page_cnt)
++{
++	long page_cnt_max = (arena->user_vm_end - arena->user_vm_start) >> PAGE_SHIFT;
++	struct apply_range_data data = { .arena = arena, .ext_pages = pages };
++	struct mem_cgroup *new_memcg, *old_memcg;
++	unsigned long flags;
++	long kaddr, pgoff;
++	int ret;
++
++	if (!uaddr || (uaddr & ~PAGE_MASK) || page_cnt > page_cnt_max)
++		return -EINVAL;
++	pgoff = compute_pgoff(arena, uaddr);
++	if (pgoff > page_cnt_max - page_cnt)
++		return -EINVAL;
++	kaddr = bpf_arena_get_kern_vm_start(arena) + (u32)uaddr;
++
++	if (raw_res_spin_lock_irqsave(&arena->spinlock, flags))
++		return -EBUSY;
++	bpf_map_memcg_enter(&arena->map, &old_memcg, &new_memcg);
++	ret = arena_adjust_tree(arena, uaddr, page_cnt, &pgoff);
++	if (ret)
++		goto out;
++	ret = range_tree_clear(&arena->rt_own, pgoff, page_cnt);
++	if (ret) {
++		range_tree_set(&arena->rt, pgoff, page_cnt);
++		goto out;
++	}
++	/* Page tables are there. It cannot fail in a range that was free. */
++	WARN_ON_ONCE(apply_to_page_range(&init_mm, kaddr, page_cnt << PAGE_SHIFT,
++					 apply_range_set_cb, &data));
++	flush_vmap_cache(kaddr, page_cnt << PAGE_SHIFT);
++out:
++	bpf_map_memcg_exit(old_memcg, new_memcg);
++	raw_res_spin_unlock_irqrestore(&arena->spinlock, flags);
++	return ret;
++}
++
++static int arena_import_memfd(struct bpf_arena *arena, long uaddr, u32 page_cnt, int fd, u64 off)
++{
++	struct page **pages = NULL;
++	struct arena_import *imp;
++	long i, cnt = 0;
++	pgoff_t pgoff;
++	int seals, ret = -ENOMEM;
++
++	CLASS(fd, f)(fd);
++	if (fd_empty(f))
++		return -EBADF;
++	/* bpf progs are going to write into it */
++	seals = memfd_get_seals(fd_file(f));
++	if (!(fd_file(f)->f_mode & FMODE_WRITE) ||
++	    (seals > 0 && (seals & (F_SEAL_WRITE | F_SEAL_FUTURE_WRITE))))
++		return -EPERM;
++	if (off & ~PAGE_MASK)
++		return -EINVAL;
++
++	imp = kzalloc_obj(*imp, GFP_KERNEL_ACCOUNT);
++	if (!imp)
++		return -ENOMEM;
++	imp->folios = kvmalloc_objs(*imp->folios, page_cnt, GFP_KERNEL_ACCOUNT);
++	pages = kvmalloc_objs(*pages, page_cnt, GFP_KERNEL);
++	if (!imp->folios || !pages)
++		goto err;
++
++	/* takes shmem and hugetlb files only, allocates what is not there yet */
++	imp->nr_folios = memfd_pin_folios(fd_file(f), off, off + ((u64)page_cnt << PAGE_SHIFT) - 1,
++					  imp->folios, page_cnt, &pgoff);
++	if (imp->nr_folios <= 0) {
++		ret = imp->nr_folios ?: -EINVAL;
++		goto err;
++	}
++	for (i = 0; i < imp->nr_folios; i++, pgoff = 0)
++		for (; pgoff < folio_size(imp->folios[i]) && cnt < page_cnt; pgoff += PAGE_SIZE)
++			pages[cnt++] = folio_page(imp->folios[i], pgoff >> PAGE_SHIFT);
++
++	ret = cnt == page_cnt ? arena_map_ext_pages(arena, uaddr, pages, page_cnt) : -EINVAL;
++	if (ret) {
++		unpin_folios(imp->folios, imp->nr_folios);
++		goto err;
++	}
++	mutex_lock(&arena->lock);
++	list_add(&imp->head, &arena->imports);
++	mutex_unlock(&arena->lock);
++	kvfree(pages);
++	return 0;
++err:
++	kvfree(pages);
++	kvfree(imp->folios);
++	kfree(imp);
++	return ret;
++}
++
+ static void arena_free_worker(struct work_struct *work)
+ {
+ 	struct bpf_arena *arena = container_of(work, struct bpf_arena, free_work);
+@@ -1051,6 +1198,9 @@ static void arena_free_worker(struct work_struct *work)
+ 		kaddr = arena_vm_start + s->uaddr;
+ 		pgoff = compute_pgoff(arena, s->uaddr);
+ 
++		if (is_range_tree_set(&arena->rt_own, pgoff, page_cnt))
++			continue;
++
+ 		/* clear ptes and collect pages in free_pages llist */
+ 		apply_to_existing_page_range(&init_mm, kaddr, page_cnt << PAGE_SHIFT,
+ 					     apply_range_clear_cb, &cdata);
+@@ -1162,6 +1312,22 @@ __bpf_kfunc int bpf_arena_reserve_pages(void *p__map, void *ptr__ign, u32 page_c
+ 
+ 	return arena_reserve_pages(arena, (long)ptr__ign, page_cnt);
+ }
++
++/*
++ * Back page_cnt pages of the arena at addr with the pages of a memfd or a file
++ * in tmpfs starting at off. 'fd' belongs to the task that does BPF_PROG_RUN.
++ */
++__bpf_kfunc int bpf_arena_import_memfd(void *p__map, void *addr__ign, u32 page_cnt,
++				       int fd, u64 off)
++{
++	struct bpf_map *map = p__map;
++	struct bpf_arena *arena = container_of(map, struct bpf_arena, map);
++
++	if (map->map_type != BPF_MAP_TYPE_ARENA || !page_cnt || page_cnt > map->max_entries)
++		return -EINVAL;
++
++	return arena_import_memfd(arena, (long)addr__ign, page_cnt, fd, off);
++}
+ __bpf_kfunc_end_defs();
+ 
+ BTF_KFUNCS_START(arena_kfuncs)
+@@ -1175,9 +1341,19 @@ static const struct btf_kfunc_id_set common_kfunc_set = {
+ 	.set   = &arena_kfuncs,
+ };
+ 
++BTF_KFUNCS_START(arena_syscall_kfuncs)
++BTF_ID_FLAGS(func, bpf_arena_import_memfd, KF_ARENA_ARG2 | KF_SLEEPABLE)
++BTF_KFUNCS_END(arena_syscall_kfuncs)
++
++static const struct btf_kfunc_id_set syscall_kfunc_set = {
++	.owner = THIS_MODULE,
++	.set   = &arena_syscall_kfuncs,
++};
++
+ static int __init kfunc_init(void)
+ {
+-	return register_btf_kfunc_id_set(BPF_PROG_TYPE_UNSPEC, &common_kfunc_set);
++	return register_btf_kfunc_id_set(BPF_PROG_TYPE_UNSPEC, &common_kfunc_set) ?:
++	       register_btf_kfunc_id_set(BPF_PROG_TYPE_SYSCALL, &syscall_kfunc_set);
+ }
+ late_initcall(kfunc_init);
+ 
+---
+pw-bot: cr
