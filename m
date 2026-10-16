@@ -1,105 +1,300 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECD8558206
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:57:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 75D185A0AB7;
+	Fri, 16 Oct 2026 18:57:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792177077; cv=none; b=c/ZdfKio7q+W3tSFP/7iyw8DV0oYzjPuB7YGVGNO9zP0cxbKLZna1CHJBxSBsyGfQ0fCbnTgvHHCWDUasri7rxrKuxiHI+W2XXZYcJ6V3rMC4K1D+wnlO9ZN8p0ktsQiRZnfjoxDJb4wYmOE3EeX6S0QMBp2vJlWO+MNO4BaW+Y=
+	t=1792177075; cv=none; b=pBQ6cGbPj9pDMAfX1lhc15wh7mKqULG/IrFlb1afvyMyA/FoEJDMUWP4Ywg7sx/U/OH2Fu0mNzEQ5sW3U0aR145AQvDKyiaI/A512xqc1FvgSaPxtd0ANnS81gNq3a9WzsZv0cdqRnkBFPMrEjDJlPfZ1a2MMKBU77iUYc9RFl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792177077; c=relaxed/simple;
-	bh=yjGvkbjtlQ8T3eF3lK7dFpTqZrAVoRa/Y8faWedXed0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=latY+JinvDt7TYdNvt2p0loupjbpHevkWdNf0KLz26KUDwFyBV70wG4lXFlUvDA/xP4z5bEfDoz2+kA3lvVeKTFJL0SMxzwMu9ESGtNKa3QTTZI8ODyDgOojW9ufKHeAIxbFnqvu/PkQT2ovBebUK5KzjknL7pRf7wuCT7GLE7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZPmk7Gti; arc=none smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792177075; c=relaxed/simple;
+	bh=zT/gw61UN81fR20JvQfP/Z9nqeijSK11XU5k06tftKQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=j/+ohCCBYxNEA616xcxsxBYCsuxJuhtbad+mhk+TkIol9YXgprMkKkmQCymknOp37F0EfgCRi6fuzFAprLMdCQV0sjMhcAQnmE7QzMWZYkVzTGPni7cd3THB0mtDUIxEpDPYi6jMYHPSIu0b4KuLWXFCN5k+TKXsuDF/4GYjn9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=b/iv22GE; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZPmk7Gti"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-30b6dad2382so645652eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:57:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792177074; x=1792781874; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1gNBlH02GoDpR2nYp3eqisK0Fq8pIiVS9sm1oFPVE4k=;
-        b=ZPmk7GtiUu7Xe5ew3KZSPAeotVwjbV4pb3gFM2DqU/wwE1pgrqEtDGEpOCYIYhwYUJ
-         ZOLvjNHuj+MPawHn9adML7f8OGFyOW55OPG7vHoPcaibLqCzUFVmIMIH5d81Qr3QKzuM
-         LQXU4rERPt/+4vxpaT/ZkD3IZeSVR5j7MFmiPIzu97HrYfL4swZnZiHUHDRUtTVSAj5L
-         QGIEKn/Pt5bshaezzowvozHnIMMtef7zD0m70hV3e0ByfReG+62UCmb/V0pz4bAhVzpI
-         zdXAmuabmd9Gwbj8LblYwQgJnzhd6P39YGC2gO8PbH4RUzPA9U9oSh/WVtdeCUPRZw27
-         /+dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792177074; x=1792781874;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1gNBlH02GoDpR2nYp3eqisK0Fq8pIiVS9sm1oFPVE4k=;
-        b=yehaR7Ez9UsZkFClSeJgJL8VC+Ui9eINwgrnnhPABTvEU1BtxPWxFLP1o2mmj6lFnj
-         DsBTpdiA2/tpcC9FOETT7MvVCiR/Uv3TRUbZxosZz2x9F8xxPPs0Mw96E1UENn0I9Q57
-         ei9nj8YAyqUOX5DvwOs8j7NJ5pBLpwpI+oIspftK9WWrWbHPLnPFpnHkov8kWPxV3i63
-         z43VZ1cM74aNU3mNy3HRhCl5iFPK9MYtjWjT2ZfKzct0p9dkOAcZsDvkctqrW/vFKcXU
-         sbKdkEOyx6Dp2kk6zlpboGEZPTR+9PMbk0aiiaXZ/9MtKf4RB1uE4tKAfvSAzznwN3RF
-         TedQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxyxutc/dukrOV6q0X0Wa1mc2cVVnfEX+/fdM4pxHMNA4TPyWpKx3mZ+wCCu2Ph4Cy/fUymrWVKMYrx7PY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQKd1Vphk+okXzojyN/kjvQ6jyH258ufMa6j+ULwdVDwwzMTbx
-	CSVbhe4DltrFltur35GO2dqlYD8vQa4f5/v+niFrmL0wf4768hH4CbDQ
-X-Gm-Gg: AYBFou01GcqtSLGlx9hgR2vkRIwdUCQs4DfdzTMePEYTs3pqsgxD0URgwN/u9dXqMEj
-	kq8LVyAQfaKHqMjDQfsmSBKSNXg9+lyRlHEFUH6UzSNIE++gkj2kkkNl5EDvXYdttQBr/+tyXZ1
-	JIWHhTSGPAZC0fUtEgt8oqVu1SR/+ClzrTsF9kjPs3ZuAFr1SgNwiPfmOsRTrnFf2HmzF0nOAdI
-	frxIOzr4nZjBv6GYVLT/MEJcZdNNhIh5XKZV80Ha0lAHG4P3+2YSQ2/vEhuT5TDAu9T0hZl/o5P
-	lFVT5y+AU7vtkyCnWeW8Pvk6GIsquzmpRvRDefeWD/82ZPxHzhr2d9JhvPzZRWJi5bOh4uvY+sO
-	Z0uMNb0Vl30DpiGIaRcHls7ifNzP/c7pkXsU1B6o3uRtx2nke2yhsRCnAuD6tYqNasnEqGs/rBL
-	yYglcNk4gL0cyM+QcBwX1i8w8exFNPgncklO7f7vOHBZT2C32aVZs6f2jfbl4dRRVu31x2ss9hT
-	RNgHQXkO/bOA2EETMUYIKQkpq5hVM4HKPp3ns1/
-X-Received: by 2002:a05:7300:d404:b0:351:1e72:7470 with SMTP id 5a478bee46e88-361a0b98466mr826776eec.13.1792177073308;
-        Fri, 16 Oct 2026 11:57:53 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:e6ab:aea2:fd2a:caf4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b63e1sm9431144eec.8.2026.10.16.11.57.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 11:57:52 -0700 (PDT)
-Date: Fri, 16 Oct 2026 11:57:49 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: patches@opensource.cirrus.com, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH] Input: wm831x-on - free the mapped IRQ on removal
-Message-ID: <atJycIEnUZKVdTjW@google.com>
-References: <20261016024300.3660850-1-mhun512@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="b/iv22GE"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 856D41762;
+	Fri, 16 Oct 2026 11:57:47 -0700 (PDT)
+Received: from pluto.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 840403F7B4;
+	Fri, 16 Oct 2026 11:57:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792177070; bh=zT/gw61UN81fR20JvQfP/Z9nqeijSK11XU5k06tftKQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=b/iv22GEvr3tAB18eV2WHnAR5HH4aQ9FLchflY1v4bzCuGlLX6d3//BkZoLL7kIQC
+	 DHHUshk6MYmz/0/fRWUvpWOzoXg3jjlg1BfErL6odeWQMLAwlqor6FUeHdnApPvoce
+	 WH1JtCFIaf4ZSNDie9u0XtNeXiYUEeX7636CRigI=
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Cc: sudeep.holla@kernel.org,
+	james.quinlan@broadcom.com,
+	f.fainelli@gmail.com,
+	vincent.guittot@linaro.org,
+	etienne.carriere@st.com,
+	peng.fan@oss.nxp.com,
+	michal.simek@amd.com,
+	d-gole@ti.com,
+	jonathan.cameron@oss.qualcomm.com,
+	elif.topuz@arm.com,
+	lukasz.luba@arm.com,
+	philip.radford@arm.com,
+	david@kernel.org,
+	souvik.chakravarty@arm.com,
+	leitao@kernel.org,
+	kas@kernel.org,
+	puranjay@kernel.org,
+	usama.arif@linux.dev,
+	kernel-team@meta.com,
+	Cristian Marussi <cristian.marussi@arm.com>
+Subject: [PATCH v14 20/32] firmware: arm-scmi: Add Telemetry generic event support
+Date: Fri, 16 Oct 2026 19:55:41 +0100
+Message-ID: <20261016185553.2794459-21-cristian.marussi@arm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261016185553.2794459-1-cristian.marussi@arm.com>
+References: <20261016185553.2794459-1-cristian.marussi@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016024300.3660850-1-mhun512@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Myeonghun,
+Add support to allow SCMI driver users to subscribe/unsubscribe to specific
+Telemetry  abstract (non protocol) events.
 
-On Thu, Oct 15, 2026 at 10:43:00PM -0400, Myeonghun Pak wrote:
-> Probe requests the Linux IRQ returned by wm831x_irq(), but remove
-> passes the untransformed MFD IRQ resource to free_irq(). The two numbers
-> are not guaranteed to match. If they differ, the ON handler remains
-> registered and can queue polling work after the input device and driver
-> data have been released.
-> 
-> Store the requested IRQ and free it before cancelling polling work on
-> removal. Also cancel already queued work after free_irq() when input
-> registration fails; free_irq() waits for the handler but does not cancel
-> its work.
+This enables SCMI drivers to subscribe to available events by registering
+an eventfd context that the core SCMI stack will use as a signalling
+mechanisms.
 
-Why don't we switch to devm_delayed_work_autocancel() and
-devm_request_irq() (or maybe use devm_request_threaded_itq() and get rid
-of the delayed work)?
+Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+---
+v12 --> v13
+ - refacto resources cleanup
+v11 --> v12
+ - dropped eventfd_ctx_put on external ref
+v10 --> v11
+ - move events cleanup into resource_free
+v8 --> v9
+ - add a TLM_EVT_DUMMY placeholder (waiting for more events later on..)
+---
+ drivers/firmware/arm_scmi/telemetry.c | 96 +++++++++++++++++++++++++++
+ include/linux/scmi_protocol.h         | 16 +++++
+ 2 files changed, 112 insertions(+)
 
-Also we need to get rid of wm831_irq() and make MFD give us already
-mapped interrupt.
-
-Thanks.
-
+diff --git a/drivers/firmware/arm_scmi/telemetry.c b/drivers/firmware/arm_scmi/telemetry.c
+index 08250372a282..b1e3f986919e 100644
+--- a/drivers/firmware/arm_scmi/telemetry.c
++++ b/drivers/firmware/arm_scmi/telemetry.c
+@@ -12,6 +12,7 @@
+ #include <linux/delay.h>
+ #include <linux/device.h>
+ #include <linux/err.h>
++#include <linux/eventfd.h>
+ #include <linux/hash.h>
+ #include <linux/io.h>
+ #include <linux/limits.h>
+@@ -497,6 +498,11 @@ enum de_state {
+ 	ENA_MAX
+ };
+ 
++struct telemetry_event {
++	struct eventfd_ctx *ctx;
++	struct list_head item;
++};
++
+ struct telemetry_info {
+ 	bool streaming_mode;
+ 	unsigned int num_shmti;
+@@ -525,6 +531,9 @@ struct telemetry_info {
+ 	/* Protect global and per-group configuration data */
+ 	struct mutex config_mtx;
+ 	struct scmi_telemetry_info info;
++	/* Mutex to protect access to @events */
++	struct mutex events_mtx;
++	struct list_head events[SCMI_TLM_EVT_MAX];
+ 	struct notifier_block telemetry_nb;
+ 	atomic_t rinfo_initializing;
+ 	struct completion rinfo_initdone;
+@@ -552,6 +561,21 @@ struct mutex *lock_for_payld(struct mutex *locks, struct payload __iomem *payld)
+ 	return &locks[hash_long((__force unsigned long)payld, PAYLD_HASH_BITS)];
+ }
+ 
++static int scmi_telemetry_event_signal(struct telemetry_info *ti,
++				       enum scmi_telemetry_event type)
++{
++	struct telemetry_event *evt;
++
++	if (type >= SCMI_TLM_EVT_MAX)
++		return -EINVAL;
++
++	guard(mutex)(&ti->events_mtx);
++	list_for_each_entry(evt, &ti->events[type], item)
++		eventfd_signal(evt->ctx);
++
++	return 0;
++}
++
+ static inline void
+ scmi_telemetry_de_state_update(struct telemetry_info *ti, enum de_state state,
+ 			       bool *current_state, const bool next_state)
+@@ -3691,6 +3715,54 @@ static int scmi_telemetry_reset(const struct scmi_protocol_handle *ph)
+ 	return ret;
+ }
+ 
++static int scmi_telemetry_event_subscribe(const struct scmi_protocol_handle *ph,
++					  enum scmi_telemetry_event type,
++					  struct eventfd_ctx *ctx)
++{
++	struct telemetry_info *ti = ph->get_priv(ph);
++	struct telemetry_event *evt;
++
++	if (type >= SCMI_TLM_EVT_MAX)
++		return -EINVAL;
++
++	evt = kzalloc_obj(*evt);
++	if (!evt)
++		return -ENOMEM;
++
++	evt->ctx = ctx;
++	guard(mutex)(&ti->events_mtx);
++	list_add(&evt->item, &ti->events[type]);
++
++	trace_scmi_tlm_access(0, "TLM_EVT_SUBS", 0, 0);
++
++	return 0;
++}
++
++static int scmi_telemetry_event_unsubscribe(const struct scmi_protocol_handle *ph,
++					    enum scmi_telemetry_event type,
++					    struct eventfd_ctx *ctx)
++{
++	struct telemetry_info *ti = ph->get_priv(ph);
++	struct telemetry_event *evt, *n;
++
++	if (type >= SCMI_TLM_EVT_MAX)
++		return -EINVAL;
++
++	guard(mutex)(&ti->events_mtx);
++	list_for_each_entry_safe(evt, n, &ti->events[type], item) {
++		if (evt->ctx == ctx) {
++			list_del(&evt->item);
++			kfree(evt);
++
++			trace_scmi_tlm_access(0, "TLM_EVT_UNSUBS", 0, 0);
++
++			break;
++		}
++	}
++
++	return 0;
++}
++
+ static const struct scmi_telemetry_proto_ops tlm_proto_ops = {
+ 	.info_get = scmi_telemetry_info_get,
+ 	.de_lookup = scmi_telemetry_de_lookup,
+@@ -3702,6 +3774,8 @@ static const struct scmi_telemetry_proto_ops tlm_proto_ops = {
+ 	.des_bulk_read = scmi_telemetry_des_bulk_read,
+ 	.des_sample_get = scmi_telemetry_des_sample_get,
+ 	.reset = scmi_telemetry_reset,
++	.event_subscribe = scmi_telemetry_event_subscribe,
++	.event_unsubscribe = scmi_telemetry_event_unsubscribe,
+ };
+ 
+ static bool
+@@ -4020,10 +4094,28 @@ static void scmi_telemetry_groups_free(struct scmi_telemetry_res_info *rinfo)
+ 	}
+ }
+ 
++static void scmi_telemetry_event_cleanup(struct telemetry_info *ti)
++{
++	guard(mutex)(&ti->events_mtx);
++	/* Clear any residual events */
++	for (int type = 0; type < SCMI_TLM_EVT_MAX; type++) {
++		struct telemetry_event *evt, *n;
++
++		list_for_each_entry_safe(evt, n, &ti->events[type], item) {
++			dev_warn(ti->ph->dev,
++				 "Found UN-SUBSCRIBED event type %d!\n", type);
++			list_del(&evt->item);
++			kfree(evt);
++		}
++	}
++}
++
+ static void scmi_telemetry_instance_cleanup(void *arg)
+ {
+ 	struct telemetry_info *ti = arg;
+ 
++	/* Cleanup any still registered event */
++	scmi_telemetry_event_cleanup(ti);
+ 	scmi_telemetry_groups_free(ti->rinfo);
+ 	scmi_telemetry_tdes_cleanup(ti);
+ 	scmi_telemetry_uuids_cleanup(ti);
+@@ -4185,6 +4277,10 @@ static int scmi_telemetry_instance_init(struct telemetry_info *ti)
+ 		return ret;
+ 	}
+ 
++	for (int i = 0; i < SCMI_TLM_EVT_MAX; i++)
++		INIT_LIST_HEAD(&ti->events[i]);
++	mutex_init(&ti->events_mtx);
++
+ 	atomic_set(&ti->des_enabled[ENA_STATE], 0);
+ 	atomic_set(&ti->des_enabled[ENA_TSTAMP], 0);
+ 	mutex_init(&ti->des_enabled_mtx);
+diff --git a/include/linux/scmi_protocol.h b/include/linux/scmi_protocol.h
+index 8328ba9b592b..8ca6803df60a 100644
+--- a/include/linux/scmi_protocol.h
++++ b/include/linux/scmi_protocol.h
+@@ -11,6 +11,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/bitops.h>
+ #include <linux/device.h>
++#include <linux/eventfd.h>
+ #include <linux/notifier.h>
+ #include <linux/types.h>
+ #include <linux/uuid.h>
+@@ -994,6 +995,11 @@ struct scmi_telemetry_de_sample {
+ 	unsigned long long val;
+ };
+ 
++enum scmi_telemetry_event {
++	SCMI_TLM_EVT_DUMMY,
++	SCMI_TLM_EVT_MAX,
++};
++
+ /**
+  * struct scmi_telemetry_proto_ops - represents the various operations provided
+  *	by SCMI Telemetry Protocol
+@@ -1017,6 +1023,10 @@ struct scmi_telemetry_de_sample {
+  *		    This causes an immediate update platform-side of all the
+  *		    enabled DEs.
+  * @reset: reset configuration and telemetry data.
++ * @event_subscribe: subscribe to the specified event @type using the provided
++ *		     @eventfd_ctx.
++ * @event_unsubscribe: unsubscribe to the specified event @type the previously
++ *		       registered @eventfd_ctx.
+  */
+ struct scmi_telemetry_proto_ops {
+ 	const struct scmi_telemetry_info __must_check *(*info_get)
+@@ -1044,6 +1054,12 @@ struct scmi_telemetry_proto_ops {
+ 	int __must_check (*des_sample_get)(const struct scmi_protocol_handle *ph,
+ 					   int grp_id, int *num_samples,
+ 					   struct scmi_telemetry_de_sample *samples);
++	int (*event_subscribe)(const struct scmi_protocol_handle *ph,
++			       enum scmi_telemetry_event type,
++			       struct eventfd_ctx *ctx);
++	int (*event_unsubscribe)(const struct scmi_protocol_handle *ph,
++				 enum scmi_telemetry_event type,
++				 struct eventfd_ctx *ctx);
+ 	int (*reset)(const struct scmi_protocol_handle *ph);
+ };
+ 
 -- 
-Dmitry
+2.54.0
+
