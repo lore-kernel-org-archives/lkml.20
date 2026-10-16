@@ -1,177 +1,113 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+Received: from www62.your-server.de (www62.your-server.de [213.133.104.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8A44CF472;
-	Fri, 16 Oct 2026 18:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61FC34CF462;
+	Fri, 16 Oct 2026 19:01:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792177176; cv=none; b=X61i4IrGs3tCRfQXnvp185d8RVmMmzZabncqejpVbeOQzxiBvI4cqwtWWijaBK2MFgIVDghHnuWoFhxUxyhFZAlTZa1K0Zyb+nyatuxqJVS9tA1sxdwqJzen0zEDVIAbvLaAvZFFQAaZES2DhWPbRP4RdMzQegQCZON+FaKPSjs=
+	t=1792177273; cv=none; b=nOj5B7mRL0526gzFtFztjv5w5jv6XnsLkEzPatjDEryiC3Prf1VBu7di7Ytb5n+meL1sekjATGtv6WGGbgo+QJUkV1IBguu2KYX3IYJiC08o7wJV9OEsCjhUJTsuzwiFmtXM7gUH4eGstAD8dNvW0sehhg4d6b0PpPqKJ2ZiOkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792177176; c=relaxed/simple;
-	bh=SE82WtkxD3iMdt4TLzkrPp58zTT3Uoo24ydLK7unotc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rIoXgClcU92Ogi1oKjXPBq+sjIqk208UypZeFlL2ng37L74j7JH+AuV0EPO38A8H/k/HoaS7Frrcvct/5foT1wZ8najcefmDUqX6Kpy8i1kaMsVnMr7HuCdZ3d/iuOJAVTbz1Bzn+CPvOVuaM4oVO5WKWM/uWQSY2kvGX8LzxUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=CZBAcBoy; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1792177273; c=relaxed/simple;
+	bh=y/Tka1nU8/Q78MTF3y1OR8RQ5+1zMlPLmR72fIp6atg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t/2FvRyO01wUZyTukJK4MfuxC9YhvWF9PjEkREaCyp47cUbO6KKe/4T1enDc1LAfA9d4GgG2GFrQ2QbyRt6NIeH9aeNLjIfkq2FwM0KsZiNWg/2QvIZdvD0GxS9hmY0oSweyef/+zsqgJb9U2pmwbjzRlAAHKmJnUtyYqhiOnlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net; spf=pass smtp.mailfrom=iogearbox.net; dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b=qpZAlarf; arc=none smtp.client-ip=213.133.104.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iogearbox.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="CZBAcBoy"
-Received: from omf09.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay02.hostedemail.com (Postfix) with ESMTP id 30267120586;
-	Fri, 16 Oct 2026 18:59:32 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf09.hostedemail.com (Postfix) with ESMTPA id F257E20028;
-	Fri, 16 Oct 2026 18:59:29 +0000 (UTC)
-Date: Fri, 16 Oct 2026 14:59:28 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Bill Wendling <morbo@google.com>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, Andy
- Shevchenko <andriy.shevchenko@linux.intel.com>, David Gow
- <david@davidgow.net>, Petr Mladek <pmladek@suse.com>, Shuvam Pandey
- <shuvampandey1@gmail.com>, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v5 06/12] seq_buf: Add seq_buf_strlen()
-Message-ID: <20261016145928.16eddc9a@gandalf.local.home>
-In-Reply-To: <20261005155708.1471260-6-kees@kernel.org>
-References: <20261005155653.late.426-kees@kernel.org>
-	<20261005155708.1471260-6-kees@kernel.org>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b="qpZAlarf"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=iogearbox.net; s=default2302; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=sKQfbbu2a1i//FLpsUtsi4Xzn/bWTFUH9/zyd4KERFQ=; b=qpZAlarfALa+dQcNhp9LxR3rp6
+	t1pUYvejwZupTuFnfRHWeOZBRc85nMdkAAy5IwgZ8spT23Blb2M9hhUW3xv6ugQaz4GxovAi8sRW2
+	92ed5fy9f09pdIR7jUQNGWX8r6Evsybd6jvdnrlCbjJcNCwjDPYDUsuofB71UeyJwIpG43cynRHoL
+	2DtD2KfFL7zUdjRuTtZD6gcKlq1OPO7HnOusvTOOkGwyVpGHw6ITT9DY4m9+x4hZo9OwHoGZmDg2M
+	VcIl2PrRL58gcacP8Ufc2PSQLP2u7aCZ3E9dTH0wB4vLfIs2QXoaUo0KJ9hdkz3UiP+/mV1avMLou
+	jCMrB8vg==;
+Received: from sslproxy01.your-server.de ([78.46.139.224])
+	by www62.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1xHnAz-000OdO-00;
+	Fri, 16 Oct 2026 21:01:09 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy01.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1xHnAx-000O4J-21;
+	Fri, 16 Oct 2026 21:01:07 +0200
+Message-ID: <a8f2f84e-7dc0-473d-afb1-af710d621f69@iogearbox.net>
+Date: Fri, 16 Oct 2026 21:01:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: F257E20028
-X-Stat-Signature: pn89tsdk89oswkg9hhfch9dzzz9efmqc
-X-Rspamd-Server: rspamout01
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19rM5BHcFbIDbfBveOEFcLCv0s8HJ12Psg=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=1dTGUFc0EtUl6CNZDkfh979idcveQZZ2w972/BGTg9o=; b=CZBAcBoyDEL+RCdPjPB8LTyEpnojqVlqJqE+sUmr440ixuLEDvM0u9y3lLAAdquDiT4Epc5XBANEEybXGl5a+dF22u6wRFYCcEan/ulw1DSG73VFFDiKjq/niZRG8KX0Q0OeKJ6Vtb4NkVl/WMPf0UnhCfzkTi6PNCiF+sbNRWA=
-X-HE-Tag: 1792177169-774896
-X-HE-Meta: U2FsdGVkX1+hs7lnJJHpMaq0WD/JvacbezNNRBX2KjBKdPbzNlxpfKUuVZysSmN729MJqDlw1dXF27PQTgBhQ7UX/IAldjOqkDuN1iFuE3mqWw/KRMw608J5NeRSbftuknunEBo72NtmwwraGa7A4dldNfNpCuQpVhFgb8nniUgQHedpp7i/v2m4R9uYFHmo8/UP1XXwSahH5T241g+Gn6v3K8QCYWaeNvrGXE3r7UarV3mWD60bhMOiSzgLTa4V/tP9VdtE3brJ4gpVW7ylYfnZw4c6JrOaT6lHbf+CTNU1IOxxTYpvV5wx431bGN8oyGid/stTbLy0qZRnAOmyvUNbQxZXTCZv
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC net-next 0/6] net: configurable extra TX headroom for local
+ egress
+To: Dragos Tatulea <dtatulea@nvidia.com>,
+ David Woodhouse <dwmw2@infradead.org>, David Keogh <dkeogh@amazon.com>,
+ netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@kernel.org>,
+ Alasdair McWilliam <alasdair@mcwilliam.dev>,
+ "open list:BPF [RINGBUF]" <bpf@vger.kernel.org>
+Cc: Nimrod Oren <noren@nvidia.com>, nh-open-source@amazon.com,
+ linux-kernel@vger.kernel.org
+References: <20261015235335.4162993-1-dkeogh@amazon.com>
+ <b8914a523b4a6b80424c5001d3d8012c6a98fd04.camel@infradead.org>
+ <bba453eb-769e-458b-88f7-8cc9bcafc1db@nvidia.com>
+Content-Language: en-US
+From: Daniel Borkmann <daniel@iogearbox.net>
+In-Reply-To: <bba453eb-769e-458b-88f7-8cc9bcafc1db@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28155/Fri Oct 16 08:24:17 2026)
 
-On Mon,  5 Oct 2026 08:56:56 -0700
-Kees Cook <kees@kernel.org> wrote:
+On 10/16/26 8:48 PM, Dragos Tatulea wrote:
+> On 16.10.26 10:02, David Woodhouse wrote:
+>> On Thu, 2026-10-15 at 23:53 +0000, David Keogh wrote:
+>>>
+>>> Measurements (net-next at commit 05b5019b0, veth, 500000 UDP datagrams, a
+>>> 20-byte ip-in-ip push attached at TC egress, only tx_extra_headroom varied):
+>>>
+>>>    tx_extra_headroom   pskb_expand_head reallocs / 500k
+>>>    0 (off)             500003   (~1 per packet)
+>>>    64                  4        (background)
+>>>    128                 2        (background)
+>>
+>> I remember frowning at this years ago, in the context of PPPoE.
+>>
+>> I have the same question I had back then: why, if *every* packet ends
+>> up having to call pskb_expand_head() because it didn't have enough
+>> headroom, does our kernel need to be *told* by userspace that it needs
+>> to expand the allocations?
+>>
+>> We gained dev->needed_headroom and ip_tunnel_adj_headroom() since then,
+>> and the kernel doesn't actually need to be told.
+>>
+>> You explained why you don't want to use dev->needed_headroom; I don't
+>> have much of an opinion on that front. But if you do want to introduce
+>> a new tx_extra_headroom, could we try really hard to have it auto-
+>> tuning?
+> For TC-BPF I suppose only the BPF program knows how much extra
+> headroom is needed.
+> 
+> Maybe this tx_extra_headroom could be declared as a BTF decl tag
+> in the program. If this is the only usecase there's no need for a
+> rtnetlink uAPI.
+Fwiw, there was some work in this area here in the past ...
 
-> +/*
-> + * NUL-terminate the buffer in @s: directly after the data when there is
-> + * room for it, otherwise in the last byte of the buffer. @s->size must not
-> + * be zero.
-> + *
-> + * Returns: the offset of the NUL.
-> + */
-> +static inline size_t __seq_buf_terminate(struct seq_buf *s)
-> +{
-> +	size_t end;
-> +
-> +	if (seq_buf_buffer_left(s))
-> +		end = s->len;
-> +	else
-> +		end = s->size - 1;
-> +
-> +	s->buffer[end] = 0;
+   - b9ed315d3c4c ("netkit: Allow for configuring needed_{head,tail}room")
+   - b73b8146d7ff ("rtnetlink: add needed_{head,tail}room attributes")
 
-Hmm, I just realized that this could inadvertently overflow the buffer. If
-len == size, it may not be overflowed. If using seq_buf_putmem() and
-filling the entire buffer, calling this would force an overflow as we just
-truncated the last byte.
+... which we've integrated into Cilium which orchestrates the K8s
+Pods + BPF progs, so it can calc needed headroom for the Pod's netdev
+based on the config/needs in the hostns (e.g. tunneling).
 
-> +
-> +	return end;
-> +}
-> +
->  /**
->   * seq_buf_str - get NUL-terminated C string from seq_buf
->   * @s: the seq_buf handle
-> @@ -98,7 +119,14 @@ static inline unsigned int seq_buf_used(struct seq_buf *s)
->   *
->   * Note, if this is called when the buffer has overflowed, then
->   * the last byte of the buffer is zeroed, and the len will still
-> - * point passed it.
-> + * point passed it. The same happens when the buffer is exactly
-> + * full: the NUL takes the place of the last byte written, which is
-> + * lost, though seq_buf_used() still counts it.
-> + *
-> + * A zero-sized seq_buf has nowhere to put a NUL, so the empty string
-> + * is returned instead of writing to @s->buffer. Any other seq_buf
-> + * returns @s->buffer, even when it holds an empty string, so callers
-> + * always get their own buffer back.
->   *
->   * After this function is called, s->buffer is safe to use
->   * in string operations.
-> @@ -107,17 +135,44 @@ static inline unsigned int seq_buf_used(struct seq_buf *s)
->   */
->  static inline const char *seq_buf_str(struct seq_buf *s)
->  {
-> -	if (WARN_ON(s->size == 0))
-> +	if (s->size == 0)
->  		return "";
->  
-> -	if (seq_buf_buffer_left(s))
-> -		s->buffer[s->len] = 0;
-> -	else
-> -		s->buffer[s->size - 1] = 0;
-> +	__seq_buf_terminate(s);
->  
->  	return s->buffer;
->  }
->  
-> +/**
-> + * seq_buf_strlen - get the length of the NUL-terminated C string in seq_buf
-
-Hmm,
-
-I don't really like the way this modifies the string, as the request is
-just to return the string length.
-
-Just like the above, this could cause an inadvertent overflow.
-
-I could envision a use case where we want to use the entire buffer and do
-not expect it to be nul terminated. And this function could be used to get
-the length to print. That is, it may want to use the entire length.
-
-Having "strlen()" modify the string just seems wrong to me.
-
-Is it really needed? If the user wants to make sure the string is
-terminated, it should use the next patch's "seq_buf_terminate()".
-
-And we need to update it so that if seq_buf_terminate() causes a
-truncation, it needs to set that it overflowed.
-
--- Steve
-
-
-> + * @s: the seq_buf handle
-> + *
-> + * This makes sure that the buffer in @s is NUL-terminated, exactly as
-> + * seq_buf_str() does, and returns the length of the resulting string
-> + * without walking it. Unlike seq_buf_used(), this does not count the byte
-> + * given up to the NUL when the buffer is full or has overflowed. When the
-> + * buffer is exactly full, that byte is the last one written, and calling
-> + * either function loses it.
-> + *
-> + * A zero-sized seq_buf holds no string, so 0 is returned without writing
-> + * to @s->buffer, matching what seq_buf_str() returns for one.
-> + *
-> + * After this function is called, s->buffer is safe to use
-> + * in string operations.
-> + *
-> + * Returns: the offset of the NUL that terminates @s->buffer. That is the
-> + * length of the string unless an earlier NUL is in the way, either one the
-> + * data written to @s carried itself, or one seq_buf_set_overflow() left
-> + * behind when it cleared what no writer had claimed.
-> + */
-> +static inline size_t seq_buf_strlen(struct seq_buf *s)
-> +{
-> +	if (s->size == 0)
-> +		return 0;
-> +
-> +	return __seq_buf_terminate(s);
-> +}
-> +
->  /**
->   * seq_buf_get_buf - get buffer to write arbitrary data to
->   * @s: the seq_buf handle
+Cheers,
+Daniel
