@@ -1,173 +1,238 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768D04EFFC3;
-	Fri, 16 Oct 2026 16:05:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166720; cv=none; b=nkyOMrbc0KmYpYC7wWyb8o2r2Leqwsw+TLlmi8cQMFHEVJgnYGAkWN26RqBSYRIT6DJ8mPgrvmWcJMyAVasPU+4kwHdDIL9GvNssqhSqBPXx9EDsYES1Fp8+MfIRFgCq/Jy6ofmCjlvQmvTcjwZoF3vGa3z8Yu+sxgzgD561z7w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166720; c=relaxed/simple;
-	bh=NUft4pH7f3JIjyQBKOEWfBoZDwmWN2kTTtQYfVs85Sc=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=UimZ6iqs27MCgTmGJ7dmGUoaVBUBt5A28gQayz7ADgITg+91WB+50s2OJQGS3TEO9sHKSghCw0RN99Iwjb+Fevzm8GkyFIm12M23VP6c33bniB/td+BZRpxLHwuowI4zdqH/+sBs/Htfa6sVJ+S37Fo8YpeU3u+vZKbdH5hH6eE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
-Date: Fri, 16 Oct 2026 17:04:47 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: sashal@kernel.org
-CC: broonie@kernel.org, corbet@lwn.net, error27@gmail.com, geert@linux-m68k.org,
- gregkh@linuxfoundation.org, kees@kernel.org, konstantin@linuxfoundation.org,
- ksummit@lists.linux.dev, laurent.pinchart@ideasonboard.com, leon@kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux@leemhuis.info,
- mst@redhat.com, ojeda@kernel.org, rdunlap@infradead.org,
- skhan@linuxfoundation.org, tytso@mit.edu, workflows@vger.kernel.org
-Subject: Re: [PATCH v3 5/7] agents: add a skill to determine stable tags
-In-Reply-To: <20261016152828.3765695-6-sashal@kernel.org>
-Message-ID: <E8B4AB04-80A1-421C-B5F8-C33743BCF484@mainlining.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47924EDCB6;
+	Fri, 16 Oct 2026 16:05:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792166728; cv=fail; b=ts+UMk+1I0XcUpEoCYWeqX+U/JCWVBNXhhTeMkp+r0ON/fou6fU3cIwlbqjFpFUU/542KUAmVZVjG6ky+NUzCZyouoOTm5o8zH0I+VhwSZbTbuQIhQmBorGx5BeEsOC4f13ob2ff8nO/bArePEzdfDU/pIBBtFXlfPpJTAgcpuI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792166728; c=relaxed/simple;
+	bh=8miDWs0Fq/fTDt7lCA6OosC8dIzPJjLNdi6kxR9+itU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=b/0TCONHbB/YHDeXasnHUYvHd+5jhin/PzeNJeykXl7UeSzjlR2/88lwM/Io5i7AysUVHKMI+djJhOUGl+qvM4vXKrE8fF9/jzf/wID6eKcP07ZvEJN9+S+fZ6irj7eqxLjm7X2dJ6gDB5u1z+ug7jH2FWf+E1De+q/NTyfAVn8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=ZsCIvJWu; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=kDL0lfgA; arc=fail smtp.client-ip=67.231.152.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="ZsCIvJWu";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="kDL0lfgA"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GEuw303577707;
+	Fri, 16 Oct 2026 11:05:12 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	PODMain02222019; bh=Rw/86lsJoB+gupMDrcGBEEnS5kOnAzYtDLGQwlGoWVU=; b=
+	ZsCIvJWuz0IZLenCs7NfalboJ2r8Wq6Jl1hj9JnB6iKMobY+HI7JhGQRRF3P2t4W
+	IA77yFNNgk2pOliPMiISfcHQwSba5DNEEXfcNfV/oRaf3hJm4vcdajykYzwxAaVX
+	KMZjqQYXUCnalluEMhtb9+o03jT/gJx6vmo9UrAwMSbo3QfD6kkQ7rh2Xs9LSwan
+	mxnGWNUiYJL2qb28sVLhIzS630vp9WiZQDpsYdv7KafOCVuSzkHzPK+dSZ1rZkre
+	RlD6FriRV9DTXqCU1Z2AOODjx2Rz7THQ8FVCXegdYJhyDjNFWHxavY8MvTSUxthM
+	eVfsXTg+kKg9Lk+ywLVIdA==
+Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11022139.outbound.protection.outlook.com [40.107.209.139])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4hayq6j4vc-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 16 Oct 2026 11:05:12 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t1PBQ6M4hdxHdjqnfF8yUvuTf20LiWUWeEC9ybiA8/v1JbAvIU6UKipvM1fSNDRL8thl3l/UyCcQrp8OxdWyUqqkakVOlWeoVWx6hfl8o78N1lnsnHi006GKeX2oxoXIELyw5UvBIQHLIKQO5s+E57MI6bZaEoJ9adp4jopWv0C9hd4jOOlg6NRLdcPHtl6b93DPbnAgTG/9Nbs2Am3PvlhaZ3YIL7Bt1fJ4gSih30uwvRQCc1Gfn85KVNik3a0toYT08ZhDmRufQo8sdP1j+R0hc9g42ZoRj+XzLZT5aCwWk2ib9r1N29n8Jm0GS/t5gr2/MjGg73M9TMtaYBOMng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Rw/86lsJoB+gupMDrcGBEEnS5kOnAzYtDLGQwlGoWVU=;
+ b=v1qzyUSXBb0IhFmTSiyVY7VrSc0pr00kjoeJXYLm7OoA+RNSvMNIZ9ZI4ZQVbyt+KgjqYxF2hpiP442+uMFBTgnuI/gO2QrA0clsYVsDJCvY7lZ2b6espI5Q4CfImAxy6ZC343F8Jq43ZLGl+4VsrUEhowaQ9YdeLS6RBtuR+SNfkffghY75w1U1PU1bkzfJa5SGm0XxVgiQ1p6krUyMmB9Qcf82E0KUo5nsAeBOU9h1jF7gkm8zXW8nzacfRfWtTVUwhEHVWgim1ZpD0AR8Weod0H4dt+NgqI+JfcEBP4IG2E5mYOqu5oco8GlcHMoYixmPjpVyd12ZzAkqtgnPoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Rw/86lsJoB+gupMDrcGBEEnS5kOnAzYtDLGQwlGoWVU=;
+ b=kDL0lfgAu+L+IGBt/v7sHcfusTFhQH3Sb55LLgadoEHb0Z6h/KKLs+Kn92ZcUwmOgTdMvGCrRk7HB88nQGHMZ4UwMzN3uot8cYm2ochACukzVCk+MB44ofZ5xWNiW/x3sv6t7UgrW/K6VmAfWd4c+a8THF7XvG1yoLfn/fV+zrQ=
+Received: from BY5PR04CA0027.namprd04.prod.outlook.com (2603:10b6:a03:1d0::37)
+ by DM3PPFC6ECF8BCF.namprd19.prod.outlook.com (2603:10b6:f:fc00::759) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Fri, 16 Oct
+ 2026 16:05:07 +0000
+Received: from SJ1PEPF00002326.namprd03.prod.outlook.com
+ (2603:10b6:a03:1d0:cafe::76) by BY5PR04CA0027.outlook.office365.com
+ (2603:10b6:a03:1d0::37) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Fri,
+ 16 Oct 2026 16:05:07 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
+ IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
+ not signed) header.d=none;dmarc=fail action=oreject
+ header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ SJ1PEPF00002326.mail.protection.outlook.com (10.167.242.89) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.6
+ via Frontend Transport; Fri, 16 Oct 2026 16:05:07 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 42BF7406541;
+	Fri, 16 Oct 2026 16:05:05 +0000 (UTC)
+Received: from [198.61.68.159] (LONNCK4V044.ad.cirrus.com [198.61.68.159])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 01CC382024B;
+	Fri, 16 Oct 2026 16:05:04 +0000 (UTC)
+Message-ID: <4bf37d45-3909-489f-807b-46fa0b39f1d7@opensource.cirrus.com>
+Date: Fri, 16 Oct 2026 17:05:04 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] ALSA: hda: cs35l41: Enable VSPK on UX3405CA when ACPI
+ leaves GPIO1 unused
+To: Gemayel Lira <gemayellira@gmail.com>, linux-sound@vger.kernel.org,
+        Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: patches@opensource.cirrus.com, linux-kernel@vger.kernel.org
+References: <CAD96ZT+SnRnGr4Xd+NJkkVNpj8XrzL3Ete=pRgz05mqxAzbU2w@mail.gmail.com>
+ <CAD96ZTJzEwiNwJm4ujLS4+X_KChi4+_sD0j-m+aE+_9i+eUGcA@mail.gmail.com>
+ <000301dd2e36$f0cc5ea0$d2651be0$@opensource.cirrus.com>
+ <CAD96ZTJFD5pWcZqk1FRRsFS6tmMMiOGduxK+4SGb45jeZvp1OQ@mail.gmail.com>
+Content-Language: en-US
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+In-Reply-To: <CAD96ZTJFD5pWcZqk1FRRsFS6tmMMiOGduxK+4SGb45jeZvp1OQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002326:EE_|DM3PPFC6ECF8BCF:EE_
+X-MS-Office365-Filtering-Correlation-Id: 152963c3-68ba-46d5-27c5-08df2b9f3f67
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|376014|61400799027|22082099003|16102099003|18002099003|10067099003|13003099007|3023799007|4143699003|261009221227099003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	CNFI/OR7PmU9G9mos+gKeGOI8Br/i8G24qgKAdEr9TY1Larc2qSDjv4ut8AgiNXeYwXhWGpPQ9fCHJoQZRYhrl2g87Uh0dnxPo0IVbGdIVVmijCC5EEWuWr5rJsKKjhyyZtJ+DbVKgww2qNtqxa7LrDvp+Ztj+8FMwH5zFGiOSvKgdQW2FVTHWrWn1dPBIT3M/zWtSiUU90dbOB5w9v57cMo2aYRXCjhhky0oC8OXWDUGiGkz61jxqoy/dZJk1IcdpiGROhUA16PoBxbURskzshzkx8SzL3xYRk0yxUalUD3RzecOPZpGNuScD6bPnXksBQooPdRtTJWc+D7cs+IaHmz5MnPut6rzPHJztpJ9e5MpTIA3w0LqGR2mc6itRsrTPtzcl+minKQ41rfMeey06/G6q9wIHYv1GiFLmt8C/jvnmTDE8NEFqSMxxH64eSydkRCCuBCHz0JliNXwo3a18DLtsUXxkKLTCicVEncy3PVQnwMTEIE/VjVuW4SJ0jS8JDBe5S6NDHFwsYObG90XwWdxc/v8s41o+2spJZNIJiB1Nyo1tPszgCbCh1nTDIsxU3TTivGaj0/JweqEJGcGXiIrXp770vyc8h7kRU9K81JPRM6huGyqyawFX5cI6NA7GrdkCPl6xiXYImMTcwsmQ==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(61400799027)(22082099003)(16102099003)(18002099003)(10067099003)(13003099007)(3023799007)(4143699003)(261009221227099003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	PfnhbroER2JJbs+x156raolEq5l3enP/2l1vO0Pb5P97WTgCH6VYXejc8UEhRooSfWq7lK5H0tymIhsGL5uz1NxW1KNRXEXBK2mOt7YH2Ps7dule9lZFH5gcrV0DeVRcHwsSnvtUlU2eIQiZn1VDxaNGR2Q0qv6gCh3LxK1VibrvTqMD9/C/i6S3sI7BF+vifeI19sGIB1lAlcViickjb9DXUwr4SSM7GRgRW56ObX9O1uSsR625oK7mYm4A1ii6hISSvIxW2yWY9CMbUwlEpuLdl3jOepPzq/2j+apSQ16VQWWAaZiXiN7Ae59efl+7+ocdsvJstPNWYPwAH5rSDBCh7AH0Vov7+uRfD5Yb9WMe+ohc59LnnfPBJlfIxtTLQIdyf3C5tq/WZZhILrtByFbb213gNw8YneZxmLCyqgmEpvrWWHxCYnljkYLyi8Z2
+X-Exchange-RoutingPolicyChecked:
+	SOsFM9p1Qb2HvDQGpnLigTRgFqqL3zMkFooav1tdjslfTUZd9wbyCih19v9Lw8UptUcjfbFjgCyNq3yUSbs6iiqIeZkZkJtM/FCF3wcwUIsFeuPx1bIBY+5jvboos1QUXNMSwe5exVb2vjayLBTBufdLp5KldX7+SYu2kwfHoR0puQCB3hCshatHPAHLZmmqgC1m5k+fUqzU7L/9myEPcCLwF9SaVpLTd3qDqo8dg/S947MkrLrplb0PHftA1Gry8UpsR6WBYkawgFUvl1Uh1ZacK/V4djnZiM/jGY7IyBZlFHmqRVgHgfdq5feFR6QxLmhYwBcYmIg17XASQgkziA==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 16:05:07.0256
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 152963c3-68ba-46d5-27c5-08df2b9f3f67
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SJ1PEPF00002326.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPFC6ECF8BCF
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA2MyBTYWx0ZWRfXzDY+OKai8MVG
+ b5J0w2uWWpTZZIKbmcS+NMncT6AwLc8iwDfBs5MxX86TSI1xQ6anumhPLruDZ7L84lM4ikzaZMy
+ I0jG8aA+D6MQAc9k1sSRhh9W/M3SdMw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA2MyBTYWx0ZWRfX4T5Z6datqDJp
+ WHr14eq4cszCPHXi3H3ZAAkoMSf9rMgo2/pqLz2RkkB2JlyYTTLMveWoGr2uGcrnTk9wt1PsGTp
+ 5+wfVtvS3U4DvjIL2ftbDBycjab37aMWgYh+e5aeQ+uFkP/T0tNNNYXUVuzIAjA9nh1wef5QrbU
+ y3YD/1tcigVA+HQZ+T2dnayc1wLUAOeQVA6cvBeeP90rR1t7dQR3uNWfnAWjfIw3jAK7hZZ1DJS
+ cUGv6k6dfBX3syvwOkD4gzueHP/qzN8CvjebKFXSYZx70oz1i4DI7+jm52CQFatYzSeYD7epuEE
+ kexCtf1Fl31IJiKXQB0lixicBMj0/olCt0Rug66NwUkQgb/HaIvHI3zaC6EnyAeEczqMSPsworh
+ mWd9EkcJMRXQSdifNHb18m4WzK9ybiuO7PZZJJWLJguexro/j4VC9X2YWLaReDoa/jETkYv3GUa
+ ZUwu8IM/IW6UKIyMAEw==
+X-Proofpoint-GUID: luhQD_jxqasJN9oXWcOdUZlP4uSU3i7Y
+X-Proofpoint-ORIG-GUID: luhQD_jxqasJN9oXWcOdUZlP4uSU3i7Y
+X-Authority-Analysis: v=2.4 cv=UuX2pOwB c=1 sm=1 tr=0 ts=6ad24b38 cx=c_pps
+ a=A91p8pFdSY8iZOlwlHItIA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=xtJbGv0cBxC2DlfsxckA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Reason: safe
 
-On 16 October 2026 16:28:25 BST, Sasha Levin <sashal@kernel.org> wrote:
->Whether a fix needs a stable tag, and which releases it should reach, is
->decided by hand and is often missed or left too broad. Add a skill that
->sends the agent to stable-kernel-rules.rst for the decision and the tag
->format, lists the kinds of changes the stable trees take and leave out
->in practice, and adds the checks agents tend to get wrong: finding the
->first release that contains each introducing commit, checking that the
->fix applies to the oldest affected release, giving every stable tag the
->same version, and following the subsystem's stable policy.
+I'm not sure why this change is needed?
+
+The issue with this particular laptop is related to missing Calibration, rather 
+than any issue in the driver or ACPI.
+
+I don't think disabling VSPK for one of the amps would be required for anything.
+By default the GPIOs on both amps will get enabled during playback, which will
+in turn enable External Boost on the Amps.
+
+Thanks,
+
+Stefan
+
+On 15/10/2026 23:29, Gemayel Lira wrote:
+> The ASUS Zenbook 14 UX3405CA (SSID 1043:1A63) already has a valid _DSD
+> and uses missing_speaker_id_gpio2. ACPI sets cirrus,gpio1-func to VSPK
+> on the left amplifier and unused on the right, so the right channel
+> binds with VSPK: 0 and volume drops shortly after playback starts.
 >
->If the decision cannot be made, the skill returns no tag. Point the
->bug-fix procedure in coding-assistants.rst at the skill.
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
-
+> After parsing ACPI, enable VSPK on GPIO1 when it was left unused.
 >
->Assisted-by: LLM
->Signed-off-by: Sasha Levin <sashal@kernel.org>
->---
-> Documentation/process/coding-assistants.rst |  7 +-
-> agents/skills/stable-tag/SKILL.md           | 72 +++++++++++++++++++++
-> 2 files changed, 77 insertions(+), 2 deletions(-)
-> create mode 100644 agents/skills/stable-tag/SKILL.md
+> Signed-off-by: Gemayel Lira <gemayellira@gmail.com>
+> ---
+> Changes in v3:
+> - Rebased onto tiwai/sound for-next. missing_speaker_id_gpio2 is still
+>   used only by SSID 10431A63, so the GPIO1 change does not touch other
+>   laptops.
+> - No functional change from v2. Still no generic_dsd_config and no
+>   internal-boost override.
+> - Test kernel is now Ubuntu 7.0.0-38-generic. The running proof is the
+>   out-of-tree module of this hunk (srcversion 955693DEB4FC9A01D9EF0EC):
+>   both amps VSPK: 1, SPKID: 1, firmware
+>   spk-prot-10431a63-spkid1-{l,r}0.bin. No PM -110 or SPI -16 with that
+>   module. One earlier S3 on 7.0.0-27 reloaded both amps with no resume
+>   error. Not a multi-cycle S3 claim.
 >
->diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
->index ddff951856dce..fc4e98fd96e11 100644
->--- a/Documentation/process/coding-assistants.rst
->+++ b/Documentation/process/coding-assistants.rst
->@@ -37,6 +37,8 @@ The following skills are available:
-> 
-> * agents/skills/find-fixes/SKILL.md determines the Fixes tag of a bug
-> fix, or
->   checks an existing one.
->+* agents/skills/stable-tag/SKILL.md decides whether a fix goes to stable and
->+  returns its stable tag, or checks an existing one.
-> 
-> Licensing and Legal Requirements
-> ================================
->@@ -101,8 +103,9 @@ these steps:
->    another one. The fix must not add build warnings and must pass the
->    checkpatch.pl checks (see submitting-patches.rst).
-> 6. Commit the working fix with a detailed message describing the problem,
-> the
->-   solution and a Fixes tag determined with the find-fixes skill. Do not add a
->-   Signed-off-by tag, and add an Assisted-by tag, as described above.
->+   solution, a Fixes tag determined with the find-fixes skill, and a stable tag
->+   if the stable-tag skill calls for one. Do not add a Signed-off-by tag, and
->+   add an Assisted-by tag, as described above.
-> 7. Identify the maintainers and lists using scripts/get_maintainer.pl.
->    Documentation/process/security-bugs.rst shows how to do that.
-> 8. Indicate what could not be done. If the fix could not be built or
-> tested, or
->diff --git a/agents/skills/stable-tag/SKILL.md b/agents/skills/stable-tag/SKILL.md
->new file mode 100644
->index 0000000000000..d87bcc95089d3
->--- /dev/null
->+++ b/agents/skills/stable-tag/SKILL.md
->@@ -0,0 +1,72 @@
->+---
->+# SPDX-License-Identifier: GPL-2.0-only
->+name: stable-tag
->+description: >-
->+  Decide whether a Linux kernel fix should be backported to stable kernels
->+  and return verified Cc: stable tag lines. Use when preparing or reviewing
->+  bug-fix patches, drafting their commit messages, or checking an existing
->+  stable tag.
->+---
->+
->+# Determine a stable tag
->+
->+Read Documentation/process/stable-kernel-rules.rst. It says which changes go
->+to stable and how to write the tag, its prerequisites and its version. Follow
->+the rules for skills in Documentation/process/coding-assistants.rst.
->+
->+Judge a change by what it does, not by how its description labels it: a
->+"cleanup" that releases a resource on an error path fixes a leak. In practice,
->+the stable trees take:
->+
->+- Fixes for crashes, oopses, BUG and WARN splats, hangs, lockups, RCU stalls,
->+  deadlocks, data corruption and security issues.
->+- Fixes for use-after-free, double free, NULL pointer dereferences,
->+  out-of-bounds accesses, integer overflows, uninitialized data, reference
->+  counting errors, and memory or resource leaks.
->+- Fixes for races, including data races.
->+- Fixes for incorrect behavior, such as wrong results, wrong hardware
->+  programming, or endianness and type errors.
->+- Fixes for problems reported by syzbot, other fuzzers, or the KASAN, KMSAN,
->+  KCSAN and UBSAN sanitizers.
->+- New device IDs and quirks for drivers that exist in the stable trees, device
->+  tree fixes, and device tree additions for hardware that existing drivers
->+  support.
->+- Corrections to documentation that is wrong.
->+- Performance fixes that prevent lockups, stalls or hangs.
->+- Reverts of commits that are in a released kernel.
->+- Fixes for bugs introduced by commits that were backported to stable.
->+
->+They do not take the following, unless a fix that is taken depends on it:
->+
->+- New features, new user-visible interfaces or behavior, new drivers, and new
->+  module parameters or sysfs attributes.
->+- Refactoring, code movement and other preparation patches.
->+- Optimizations that do not prevent lockups, stalls or hangs.
->+- Cleanups that do not change behavior, such as style, renames and comment
->+  changes.
->+
->+Then work out which releases need the fix:
->+
->+- Determine the Fixes tags with the find-fixes skill first. A change with no
->+  introducing commit, such as a new device ID, a quirk or a build fix, or a
->+  bug older than the available history, affects every release that contains
->+  the code it changes. Otherwise, if the Fixes tags are unresolved, so is the
->+  stable decision.
->+- For each Fixes tag, find the first release that contains the commit, not the
->+  release it was based on. If no release contains it, check whether the
->+  commit was itself backported to stable.
->+- Check that everything the fix uses exists in the oldest affected release.
->+  If something is missing, list the commit that added it as a prerequisite
->+  if it is small and fit for stable, or start the tag at the first release
->+  that has it.
->+- Give every stable tag in a commit the same version: a tag without a version
->+  asks for every stable tree and overrides the versions in the other tags.
->+  The stable tooling reads the first version number in a tag comment as the
->+  version, so describe what older trees need in the commit message.
->+- Follow the stable tag policy in the maintainer profiles, the `P:` entries in
->+  MAINTAINERS, for the changed files.
->+- Ask the caller whether the fix addresses an unpublished vulnerability, as
->+  described in Documentation/process/threat-model.rst.
->+
->+Return the tag lines with the reasons for them, or the reasons for no tag. If
->+the decision cannot be made, return no tag and say what is missing.
+> v2 discussion:
+> Stefan Binding replied that enabling GPIO1 on the second amp should not
+> have an effect and asked for a bugzilla:
+> https://bugzilla.kernel.org/show_bug.cgi?id=221896
+> On 2026-09-25 (comment #15) he wrote that this unit has no
+> CirrusSmartAmpCalibrationData EFI variable and that missing calibration
+> is not something the driver can supply; contact the laptop vendor.
+> This patch does not invent calibration data. It only sets GPIO1 to
+> VSPK_SWITCH when ACPI left the function unused, which is what stops the
+> right channel binding with VSPK: 0.
 >
-
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+> v1: Message-ID:
+> <CAD96ZT+SnRnGr4Xd+NJkkVNpj8XrzL3Ete=pRgz05mqxAzbU2w@mail.gmail.com>
+> v2: Message-ID:
+> <CAD96ZTJzEwiNwJm4ujLS4+X_KChi4+_sD0j-m+aE+_9i+eUGcA@mail.gmail.com>
+>
+>  .../hda/codecs/side-codecs/cs35l41_hda_property.c | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
+>
+> diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
+> b/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
+> index 272421d1b..002771848 100644
+> --- a/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
+> +++ b/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
+> @@ -479,7 +479,20 @@ static int missing_speaker_id_gpio2(struct
+> cs35l41_hda *cs35l41, struct device *
+>  		return ret;
+>  	}
+>
+> -	return cs35l41_hda_parse_acpi(cs35l41, physdev, id);
+> +	ret = cs35l41_hda_parse_acpi(cs35l41, physdev, id);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * ACPI on 10431A63 sets gpio1 to VSPK on the left amp and unused
+> +	 * on the right, so the right channel binds with VSPK: 0.
+> +	 */
+> +	if (cs35l41->hw_cfg.gpio1.func == CS35L41_NOT_USED) {
+> +		cs35l41->hw_cfg.gpio1.func = CS35l41_VSPK_SWITCH;
+> +		cs35l41->hw_cfg.gpio1.valid = true;
+> +	}
+> +
+> +	return 0;
+>  }
+>
+>  struct cs35l41_prop_model {
+>
+> base-commit: 7f21312381fee99f58b383fa07374da3c614aec4
