@@ -1,205 +1,182 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012026.outbound.protection.outlook.com [40.107.200.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA17377566
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:39:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792168747; cv=fail; b=cVfTB5Pdmqf2qg6jZ+ybGRTm3YBuZnQ9FxIPRjimFWGy6eqOHa/QBi0TOdVXi8FkV1CQHyqb9beMLLnDsA1Mi8SD/u6cRgiJJwZPP2C5AcYXUJdvEMrJHA1nOz2jOowFIonNgvA7c6LiIxHgqvETYu8taJQbqr9aMq5m4jjGr4E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792168747; c=relaxed/simple;
-	bh=Um7V3NlmopkGOVMhkCxVbG1eQOWSOwycyCgRWkdZ//c=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=POgKm1or07zJzQCOTuv3z/ahEAwvaz47aShu4X2S/dnG8UQ2vhlxqW36pY4JVxn6D4YcjPTslqy/5kqjWby2JFpxicxEh+rnAmDs8SzUYVoRk5anegZg2viCZlGVzsGbecZT9fmdfe4eZtaaMZD0yaqR3cgZLfE2fJzo6jcPIZg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=nUVV365P; arc=fail smtp.client-ip=40.107.200.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41BF94E56C2
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:39:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792168754; cv=none; b=PGbet9H8nLG1RU2Y3DIb6Fy6zJWzcLMiN5ksP3eDgG+sNC2jdQ90M3iKXmN+MvXX9ZoSVl6VR7Us8EmzgCkLJ3fjalSujhMwkNpg0jJnMxt0vAFAGN1ME044WFnWn2hir6VVxNwWtZEwQDnTaSPAmphssrvBB8EKU5hvD4X5UN0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792168754; c=relaxed/simple;
+	bh=epQt/E98GTYEskX4PyjS7jICG/eZycLiTH28xa0X2N4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MckgYDS+lQwme3j5aNR1NgfQK+GeAeKN5X4sweF/Agmyolo5lv2VzhuzZtSHamBZ9+BmV/HeMZOuP2aDDpPV2Bcsdh+WWnOUj00j9FRRY55rO5g2HMrfMsytsduzJNnSUHK3XuYVrS0xQXvY6ILyd8dLzeKwRAK/qOnlInbYd/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iyr+cnhg; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="nUVV365P"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nri9RkFL/aAA8f1o3dPcJwutUOyN5+3ggYCwMavC6wTvPzkbdbpiTZ9TaUqR9ZMYGLFNoh6MivYl5bKU7fvFn8+71orUyzZPo4aQxYUDiJF7JDSGk0RbOXTNLnxpBg92v32qM5vAWLGqEo1SuwBi7Iw8K+ZpqSzn6PfbkrxNnd1f7bu1c5t2nJGlhScqDOw8I512rLfB21RJ88nHlv6t/ltbx9wNdeH/tXgv7E2e/5uf3nLiNgzCPN0m5wNBbPnXzJrlSTGlKxPur6Wbt43A9h/AN/dyIBspUvR8hVKp2StwZt/OqS6SxCf0DM6lzz0YCBWZmc3s6PtIRo98AQL7Mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oGtqHPPKPE2byPtogaBl7v1hbXijvaMcZqT6mdOMOEw=;
- b=dNIabEvzD3+FX8FqsdE1LwBi/w6IR+MF3m6ZSmf9Q6CQXTnLOV1wjeIYrPr8jGoU9BUQMr15xid2Jk4Unp+HIeO5i0jRl6PXKqvmGAB9wKMQKK5VMMtsK5H1shHSEi/UXUtJe9nw2Zwe//HJQeWce6C9NbGhhjFF/lW19jZmVHlXqpDKUnIOnLHu4qyLxZlYITKt8rI8xy/uHrZ/FPpPxi3zPDl0HlGqVQ2H6VEZClA0nqIASHjHbtxT0TyA2qEHMDe4G+0sgwBGOpfv59nBKbjLQ8nWqL9XXTKU4DyWOVPVYhsoYsRjXA5UDjmOXRSPzqUuOLy5bF1Uqq9JI+htMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oGtqHPPKPE2byPtogaBl7v1hbXijvaMcZqT6mdOMOEw=;
- b=nUVV365PXAdY/gASD6JH/l34B5gLvoNoMmP1i/Z2/xlhmWGeO6ldno2F+h7uSPOcu7ijdMlvxabYAj9+UFGu1x+elJcP/ikslgTiO2XSOFrDpg7ERAvUnUIhrSw5bcbzf7RnV5woskgnHI1hEH1nNMFAg0gdnZDpcp20AVyzxkw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Fri, 16 Oct
- 2026 16:39:02 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 16:39:02 +0000
-Message-ID: <38cc515d-ae4b-4031-a061-224d492826e1@amd.com>
-Date: Fri, 16 Oct 2026 10:39:00 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: fix NULL deref when opening a closed DDC
-To: Arthur Liberman <arthur_liberman@hotmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
- "siqueira@igalia.com" <siqueira@igalia.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
-References: <DB9PR03MB73881C96FE86D964037ABEDB8A942@DB9PR03MB7388.eurprd03.prod.outlook.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <DB9PR03MB73881C96FE86D964037ABEDB8A942@DB9PR03MB7388.eurprd03.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0156.namprd03.prod.outlook.com
- (2603:10b6:303:8d::11) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iyr+cnhg"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc7d154ec4fso92912a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:39:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792168751; x=1792773551; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iJWlli0kiLSD2GIUGWe0mxltnuBg0ha7PrEGOS3Fz9U=;
+        b=iyr+cnhgLwHyHUrRFkiyQj+tr+cEUaBVwtZEX285zRTLOsOECmy1BydPRwr/UbPOer
+         vQLW50jObhv4qCyq7EvXc+Dvz4650tLcwP6Po8wAXPrLS5Su6o5wj7eylFxH6GMSWhLP
+         o3ypHl/8PCFxwhk6S1K0N4m3LxpoowgqLJJvej6dPu7cjd7ac57zZ7eZeImTd2g5NYyR
+         AXwO45+kQOnFXMBcZED6GIaLQlZP1iMXe05hTASmZ2jC2yG7xWgwtf38aiM7DGmZvKZi
+         OgumhdAFiNi3selojvWyskpv+rGUo/k15Kw3MkLAKhrhEMDRT6mxOCxxt1hcctIvgLi+
+         /4GQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792168751; x=1792773551;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iJWlli0kiLSD2GIUGWe0mxltnuBg0ha7PrEGOS3Fz9U=;
+        b=0PbFuFeiXZ8Vt5FJgs7N/kry5Ot1MLrAJJqAFRtYwKb0zrYACD7SqnvCvfxr2St0JI
+         t+cMqhHBNYmPbnd8KLKDyD24RrNv9FlGEt1bT3bux7+wG6oDWyLRcHs//sftdDKxy/Xw
+         84BM9GSjpP8lICJtYihf8M2ylE7gtgMjyuOtP24xCbVXaIgyPbvhi2ckhqowr0AgLhui
+         cziHb/TONGS5p1sVOVbkH5RAd/qbp/CTqJPkq4eViYRLo66m8eqLsNDt5nccht1z/8pP
+         mtXt5203DOFt2q19pNuSBKaWIu9rrpvS9QPa/N+SHel6ZUyvIoM/LKTzjqje8LkKFHBM
+         o4Pw==
+X-Forwarded-Encrypted: i=1; AKwUvBwrh5s80jH5xyuNYzZThPHGtz4lmE5gC8ojISwUfArPXvuySKRvMndXTZuqsBVW+BDcaN7/eIWU5TuZrZc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKS9Rd3rhCU30FUlOYUpVfVArgR/DOkMXFcDoBW5NhCP1jf/YDR
+	JJeL875cJh7EjsrZ/oFas4grpFVUJXGjCnrcfggCZ1Fi5IyMgo1izp7m
+X-Gm-Gg: AYBFou11kWk7/aNKvLV/JEl1cD+ZlWmwWl6OZFQYZzZ8hy2XXxGuFo++umcAU1QcE5V
+	a+3tzuvte2+grgjktmXHIh66DKw6SHcafZu7Xn7fULMkj+oKW9jFuUCKKrJb6drDPRCQwO3t1B3
+	ZuHu4kVKF7ejjoNQRU5H2UO/J8gVLdgq3cv7kmuQ7BlgxGEWE9HwXqmxEFQWsNYPpBff/Y2ookl
+	zfgZxNsljyMtTHykEg8bnr5feLK7JKBk9CUozViq22JUyIfWWJFwKnpI/rlLF+V8diIerWcfVns
+	YD1vaIjqDuIv0EA5vYWyBiu+CRJHtkzT3D4kPmL7zWIR6rE/HT5LoTcLLEA36k6h+a5vYDIaQfa
+	DNXfOTRDL0Wlaq6Tj8zm66cklsmdctWKuo78592iFMdORQOOtSSbrhBuxdDSMXKKPntD9agAcxG
+	K/uSicoPemNCLVdrzCCUZq8OSWToPldT0eeBkWLNXEVh6DUfo9KMiVFvhrRl+zHCHXXKM=
+X-Received: by 2002:a17:90a:fc48:b0:3aa:fdad:7d6e with SMTP id 98e67ed59e1d1-3acef1042aemr403629a91.10.1792168751457;
+        Fri, 16 Oct 2026 09:39:11 -0700 (PDT)
+Received: from wyb-ms7e59 ([38.55.195.146])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc46ecd32sm4899797a91.3.2026.10.16.09.39.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 09:39:11 -0700 (PDT)
+From: wyibo6109@gmail.com
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yibo Wang <wyibo6109@gmail.com>
+Subject: [PATCH v6 0/2] Input: add support for OnePlus/OPPO Pad pogo-pin keyboards
+Date: Fri, 16 Oct 2026 11:38:57 -0500
+Message-ID: <20261016163859.1070138-1-wyibo6109@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DSVPR12MB999171:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff057e37-ebee-4e50-9ff3-08df2ba3fc08
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|56012099006|11063799006|261009223027099003|10067099003|22082099003|18092099006|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	Dl/8P5ECA76f+aNMxvJ9DBs34NUC8eZ6z6BG2Oc8yKIhpHdx5roW02SJ2Se+Ozg9j4QPYlhN6zqwNW3vNN7ZP7hUKcDF3m8r9rU1xGX6xKEWnxPYcyNFE7Uh+gDqJ4NJs2sl2ordYBLOey14e4kGC7GlKc9ngk7ALBL1yTdWo2Z7P5gY3yeV4Vu+MSqXVYRZUbM26/4h8XnVTrP4uHQs1dJw5uQ4JhcquBQLsDpkQM9v0GslClxuSiIj6xfvRJyTB4dzfIBPgb8tAo61NicFpQfqaTr1GKLst0nPGpT7uvwG4fvzdXTpGYfpUbNE71qtDwhfv7KSnw66IrfuWrfNImJ6vA2YG/9laDJAWfGQgtXou7vj9cDrqdhK+jmZJqFu+HuRdzaTYIQ1bHZpXE+xa8lqshaudKtRGJiGz2BQdNccBIigeTsyY/IavBX8Oy8KLFsTHA77kz1HM174Lt18oQarIAueIhpe5mcrqOi8kvTCbeWeIOdVy9CStbE+9446EV3zMT/ONNB51amQGZPyobUYJz7CgocC4iVpJS8l16ftMQNayrC1ks6gsmXjI8BDsV0uhweX2ZEDn/YZ+/CzRhNGTm0dEIIwGDsyT8PzbT/dQyCcTt4ReU+6JemFzS/l8l4gYQNoyAXHcSi3SyAGrIlmHGmvgrcVsCTsFBOdRz8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8476.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18092099006)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RnFBa2x2MW5aOHlRTG53bHRteS9zaFFIU3VoMFpGZnRGU1h0WGJ2M2x2YkRW?=
- =?utf-8?B?Nkw1dkk1ZCtVMjh0VktRa0VLMG0wK2x1a29LV0h1Z3l0OWdTRXNvZ0NGLzZS?=
- =?utf-8?B?SDVNcDlEYUwyTnppRU5kM2I2TmtjOWY4TWt3OTh0VDZaRzh3Z3BYQjlXYzZk?=
- =?utf-8?B?NUlNcnlhd1B5eFhXcDNncklqdkd1NXNGSkJoSWE3Vm1sUVd6SGtjUkNuWktZ?=
- =?utf-8?B?YmtERnlDQ3BlL0dTaHFWd0hGNGFtYkt0NG5wWkkrN01sUzRqbnZEa21zZCty?=
- =?utf-8?B?Rk1pVnFHdEVadXQ2OWZ4dnJFUUNEVlZ5akxpZVJlaHZwQkJtQlRlbm0vWXZM?=
- =?utf-8?B?SGlvekhnaTFSMU1vcDZJWTFNWHY1WWFzb0thSXV6MXRMS3h4ZmEwL1ZmWnNv?=
- =?utf-8?B?bmM0RGtHbXdqdGFaS0sxbU1NN2pOVlF0VndCSXRxZGxyUXVPSitOT2tPM3Zn?=
- =?utf-8?B?VUJGdU0xbGgxbHRoK2syWEhjN2I0bThobmVHV2FzMUcwekEvUE9JbnpWc1Fy?=
- =?utf-8?B?bkV0RS9FV3hnZmZXcXJ6MGFDVTBrcG9DUjZzMWNSNmUxbEFibkpTUDRKbnpG?=
- =?utf-8?B?dCtYZy9KeXc5M0xRNmtGaXp1VUJhb0Iyb2Yvc29TYnQwT3I2cWRiVWtma1Ro?=
- =?utf-8?B?SEFqcDhsbm1LZVEwRXZWVXJjQ2xZaVgzRDlqVlVmQXZ5TUxNNjZjb2ZQMU9Y?=
- =?utf-8?B?L3c1ZHlnR25PY3lqZE9obWRoZzdkaDg5RDhoY3JZMm9BM3Zacm9vcTc1enF0?=
- =?utf-8?B?bzBnaHczdFduUm9VaXJQeG1pMEVwM0hJRWFuSFpxRjRFZGJpc1pvNlNOTG1D?=
- =?utf-8?B?dW95QmsxWFMxR0NsVStOS0pQcGNXNER0bU5tRVVMeVd0ZlVHNm9IVzVHTkRs?=
- =?utf-8?B?c3pDRTY0ZkRWd01IVlN5LzVvcFhUZ0VGRWFKc0pBVktXQmhzQXBBZ3MvSjNL?=
- =?utf-8?B?WXVnYXJOTDB2U0ZQTitObm1MZUM5MHNwNzJWdDdDMDMweWRFYjlTUnZYNG1o?=
- =?utf-8?B?Tzh3ckprS3NlMkhwWlU1NVZZckdWZmtUNjAwVGdXdDlNdVN4QVBpN3p0QmxM?=
- =?utf-8?B?SWtNWGhTWTY1STNSTUVMNUx0K2FjSk9MTGMwZ004dE0wR04xbTlVZm5JZ3d2?=
- =?utf-8?B?UjZZT3RUTWxRSDN0dlgrODFjZ05yZGV1bDJkTSs1ZkhmMXVGT2lZTDdZdWtq?=
- =?utf-8?B?bCtHdGkzS0F5dlJkdzdhV09NclUybkpFdHRmNE91R2hidC9SL080a1lwMnhl?=
- =?utf-8?B?M2tVRGRpSndMRlZqTktZUmNPdHdEZ0lSVWRQVEVWd1c5eTRHUVVxYVY4T0hw?=
- =?utf-8?B?QWg4bmE4ZG5FdjlOcU1HU25ESjQ0OXNaK2pCakZ3Z3RxK05YaWxySUN3clNj?=
- =?utf-8?B?dDU1L2V1djlOSHkraXBQV1BzekN6cGFCRDJNVWdubVNOSE9qSmsrMHF0d3BY?=
- =?utf-8?B?cmZBdU1ZSFdROTc2N0V6Q0FWODUydG5TSmZ2aExJWjhQOHFacisrTWQzMVNt?=
- =?utf-8?B?MUpzL2Y1YVRndEQ3dCt1cEFZekhVUGQ1MFQ3YXRCV09tZ0tLREJibXB6aCta?=
- =?utf-8?B?T25OMVVXMHBNU3Y2VWJCYnk1WVBRYnpxSjFUY2FtYXRLTkF1VE54aDFsUGdn?=
- =?utf-8?B?VUZnTGZid3JXcFBNRTFaMWJyZC9YMWdVTUp0eldhOVdPOFl0ZUEvVkxaTkhk?=
- =?utf-8?B?MWUyUjAxS1ZkS2tMOGxrK3RoSUVadGRRQ1hWQmgrTmNuS3lIbE5FS3MzbzRM?=
- =?utf-8?B?TG90VW5qenpuekhhSEZnTG9ERGQvU3NyY3RLTDZ3RTBrMDBHRDl5NTNxVUgw?=
- =?utf-8?B?TUsvTitWOTFPdFNCVVZHNWxVcU1iTGZnMU5jcjJCd0NXOFlJUHhIMndNTXEx?=
- =?utf-8?B?TjM3alZGVWwvYWFySm05RWhMUVlkTWUyYzVWWkJBN0VuNWMvRDIvMGRWbTZi?=
- =?utf-8?B?Zm0yak9EL1NEU0owZThZWGNzWWMyZ2o3SmZ4NG0zaGtpb3NFcWFrUjZDNStV?=
- =?utf-8?B?ODZpQi91K25uVVlXSk5YTXhiNlhSSDFOdzFjNzJlWlphYkFmVWxxMDRnZ2la?=
- =?utf-8?B?MVMyTTVMNTZqUWUvNHI0QnVwTGg5UnpxSWdzeXJSektZcDJFZ0xHaXQ1c01s?=
- =?utf-8?B?K0k0ZGVBcVAyU0J5SEs2OFdEbUZHb2UxY1RSTHozZ3lTcDNBOS80bHhpNnh6?=
- =?utf-8?B?Wmt5T2F1eldpZlR4K2F2UHZ4N0JFOVNUMyt6aDJYTkN5NFJ4ZHFkVUZwV3Ju?=
- =?utf-8?B?akZUUVFML3RMbmdJM2FnUGRSS1JQcVRFN1ZsVXJOaGxsdS9DQjMraktZYmtL?=
- =?utf-8?Q?9ftKB95uEH5+EnuyXm?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff057e37-ebee-4e50-9ff3-08df2ba3fc08
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 16:39:02.0163
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TTtNwrGZ7ehLUYoGoMELa3r93KHq3sE727/5QxdN0/Zo17hwR3jp4fkUlbdRTRdSI5aEDrwgODfg4gWUW+WHXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999171
+Content-Transfer-Encoding: 8bit
 
-Hi Arthur,
+From: Yibo Wang <wyibo6109@gmail.com>
 
-When AUX already holds the DDC, dal_ddc_open() fails with
-GPIO_RESULT_ALREADY_OPENED, and the HPD path then calls dal_ddc_close()
-on pins it does not own.
+This series adds support for the magnetic pogo-pin smart keyboards of
+the OnePlus Pad 3 Pro / Pad 4 and the OPPO Pad 5 Pro.  The keyboard is
+built around a Tinno MCU attached to a tablet UART.  Both sides share a
+single data wire, so the host gates its transmission onto the bus with a
+PMIC GPIO for the duration of a frame, and every host frame is echoed
+back on RX.
 
-Please try whether the following solution fix your KWin issue?
+The MCU speaks a framed "one wire bus" protocol over the half-duplex
+921600 8N1 UART: 8x 0x55 preamble, 0xF1, src/dst addresses, command,
+length, payload, CRC16-IBM (poly 0x8005, init 0xC596), 0xFE and 4x 0xAA.
+The protocol was reverse engineered from the vendor kernel driver; this
+is a clean-room serdev reimplementation that replaces the downstream
+platform driver, which depends on a private msm_geni_serial callback and
+a user-space held tty fd.
 
+The core protocol (framing, keys, touchpad, sync/heartbeat) has been
+carried unchanged across four SoC generations of these keyboards, from
+the sm8550 era to the sm8850 ones covered here; only the 0x3A general
+sub-commands grew over time.  Patch 1 adds the DT binding, patch 2 the
+driver.
 
-diff --git 
-drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c 
-drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index ad1a499b0d9d..1f53b33fc875 100644
---- drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -2604,8 +2604,6 @@ bool dp_is_sink_present(struct dc_link *link)
+Changes in v6:
 
-  	if (dal_ddc_open(ddc, GPIO_MODE_INPUT,
-  			 GPIO_DDC_CONFIG_TYPE_MODE_I2C) != GPIO_RESULT_OK) {
--		dal_ddc_close(ddc);
--
-  		return present;
-  	}
+- disclose the AI assistance in preparing the binding documentation
+  with an Assisted-by trailer; no functional change.
 
+Changes in v5, addressing Rob Herring's comments on the binding:
 
+- dropped the block scalar from the top-level description;
 
-On 10/7/26 11:47, Arthur Liberman wrote:
-> dal_ddc_open() uses gpio->pin after dal_gpio_service_open() installs
-> it. Close clears that pointer. HPD sink detection and a KWin atomic
-> check can both open the same DDC: the check reads DPCD for DSC while
-> the HPD worker closes the pin. The load of hw_gpio.store.en then
-> oopses at offset 0x28 and kwin_wayland exits with IRQs disabled.
-> 
-> If either pin is gone after open, close what this call holds and
-> return GPIO_RESULT_NULL_HANDLE so the AUX transfer fails instead.
-> This does not serialize the two threads.
-> 
-> Cc: stable@vger.kernel.org
-> Assisted-by: Cursor:xai-grok-4.7
-> Signed-off-by: Arthur Liberman <arthur_liberman@hotmail.com>
-> ---
->   drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c | 11 +++++++++++
->   1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
-> index 95f8b7c7d657..a3145cd82d8b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
-> +++ b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
-> @@ -577,6 +577,17 @@ enum gpio_result dal_ddc_open(
->   		goto failure;
->   	}
->   
-> +	/*
-> +	 * dal_gpio_service_open() installs gpio->pin, and close clears it.
-> +	 * MST bring-up can AUX-read for DSC while HPD teardown closes the
-> +	 * same DDC. pin is NULL again in that window; do not dereference it.
-> +	 */
-> +	if (!ddc->pin_data->pin || !ddc->pin_clock->pin) {
-> +		dal_gpio_close(ddc->pin_clock);
-> +		dal_gpio_close(ddc->pin_data);
-> +		return GPIO_RESULT_NULL_HANDLE;
-> +	}
-> +
->   	/* DDC clock and data pins should belong
->   	 * to the same DDC block id,
->   	 * we use the data pin to set the pad mode. */
-> 
-> base-commit: 41505ac433cc4c5179deee8860d197b04f6d1c1d
+- rewrapped the descriptions to stay within 75 columns;
+
+- restored the serial parent node in the example.
+
+Changes in v4, after Krzysztof Kozlowski's comment that the binding
+describes the keyboard rather than the MCU (wording only, no functional
+change):
+
+- the binding description and the commit messages now describe the
+  keyboard (built around the Tinno MCU) instead of the MCU itself, and
+  spell out that a keyboard is a fixed physical device, so the touchpad
+  geometry and the product names are per-compatible constants in the
+  driver.
+
+Changes in v3:
+
+- the compatible names the tablet project the pogo port belongs to
+  (oneplus,caihong- / erhai- / iceland-pogo-keyboard, the codenames
+  used by the vendor trees), and the driver carries a per-project
+  description in the OF match data: feature flags gate each 0x3A
+  general sub-command (caihong, sm8650 era, has no wake notification
+  and no backlight; erhai, sm8750 era, adds the wake notification;
+  iceland, sm8850 era, adds the keyboard backlight), while the touchpad
+  geometry and the per-brand product names are per-project constants -
+  the wake notification is skipped and the backlight LED only
+  registered where supported;
+
+- the touchpad geometry and product names are no longer DT properties:
+  they are fixed per project and live in the driver; the common
+  touchscreen properties (touchscreen-size-x/y, touchscreen-x-mm/y-mm)
+  remain as an optional override, parsed with
+  touchscreen_parse_properties(), for the unlikely case of a variant.
+
+Changes in v2:
+
+- dropped the redundant "binding" from the dt-bindings subject;
+
+- replaced the custom oneplus,touchpad-xy-max/-resolution properties
+  with the common touchscreen properties;
+
+- dropped the serial wrapper node from the binding example;
+
+- the MAINTAINERS entry added with the binding references only the
+  binding file; the driver F: line is added together with the driver
+  patch.
+
+Tested on the OnePlus Pad 4 (iceland) running Linux 7.2.0-sm8850
+(v7.2-based iceland tree).
+
+The binding documentation was prepared with the assistance of an AI
+agent; the technical content was reviewed, adjusted and validated by
+the author.
+
+Assisted-by: Z.ai:GLM-5.3
+
+Yibo Wang (2):
+  dt-bindings: input: add OnePlus pogo-pin keyboard
+  Input: add OnePlus/OPPO Pad pogo-pin keyboard serdev driver
+
+ .../bindings/input/oneplus,pogo-keyboard.yaml |   76 +
+ MAINTAINERS                                   |    7 +
+ drivers/input/keyboard/Kconfig                |   13 +
+ drivers/input/keyboard/Makefile               |    1 +
+ drivers/input/keyboard/oneplus-pogo-kbd.c     | 1263 +++++++++++++++++
+ 5 files changed, 1360 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+ create mode 100644 drivers/input/keyboard/oneplus-pogo-kbd.c
+
+-- 
+2.53.0
 
