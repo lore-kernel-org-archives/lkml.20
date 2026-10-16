@@ -1,194 +1,102 @@
-Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E6E46A5F2;
-	Fri, 16 Oct 2026 09:25:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.82.148
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792142734; cv=none; b=hO0k/VpsLqZF+Q7wZx3Tt62utOEGyipejSnzsgJRQvdicCwcSAJFrkupzWFNGXJdljGX09t1AkP7MLrQSGejuv3cIcSoTjFydC32m2dGs/0F17Re0s+ep2ROUfq+jw5FYNYqzKF0r8gzj29ap04Cg/AcD9QcQFMN4vJ3hhf5WW8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792142734; c=relaxed/simple;
-	bh=CdGqR/CPgTmzueiHF/jTYAn2Xbt4dYm9NhCQwTt99mo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=poallTJ4f58QpGzX6pCVJ9k8BYYFb7PwrXxnwdH6dPEFpaPV9mgrq4K7Cofl6kawrqi2+QIq1OO2xkBG76vw6nO3syqvCSZVYx3b5ktwOY7cghh/oOh0rFcwsZnT+RxcnSqJuKXV8b2Qqm1VtwmlOp8OvaO2qnmUpZninelnMek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org; spf=pass smtp.mailfrom=samba.org; dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b=eIuIMDVj; arc=none smtp.client-ip=144.76.82.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D183C09EC
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:26:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792142775; cv=pass; b=RXWvCtW3DjmmGLm1djJ9x8J1kD33JEjBury80Wt0AmoRYNKelrJZ6YmbVKVeUKU1VdcD5j3vE74OlbfX0X5DDYPgYzH2sUo2sKbNTm1Gy7uVo1ub7cFlMH61EaIkUgCUs/r2R5++ACfco/JaBvWlUddWlcSpvnlvOM6wuH6N61Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792142775; c=relaxed/simple;
+	bh=HGoCw8arpCvJPsqHUcXcqUYXTcaAYS9oUg/iWN4NGJE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HUd3NySetYgJsb5Eu8ENTusQdYUS7FA4z1/vZpwnTorV/75lskkRc3wyoA0/gLxynuGnDEZbKvyI0f60eilbtWd7yzQ+E8u4p1M3BtBkgyOg56kYUd37FtYsTD9X7y0Wnq5SiumShwpc4nxYvdoCb0QuRPl9x+mGHmRJIJH2ESo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=mNMbzA1+; arc=pass smtp.client-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b="eIuIMDVj"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
-	s=42; h=From:Cc:To:Date:Message-ID;
-	bh=PDojlLCVuBUweMTHHqbhfCIgU/dCgFlQCc4LCljaO18=; b=eIuIMDVjH4CtokX230CGJ4NHsm
-	TcWEC9B58Z0t7sbtI50mMSVfirFgCflWMGKITkvSERg+nMTe9UMyo9+VrRHPN1qIqO/cvKAT+C9kS
-	wAE1LhErVQBbNquHUXKb/5X6Ca/u21QTKXIIj/SivYgv6CMu5xogyqFdwYjACqwIxP9YzK3OguHph
-	MAkPw8PqDTK305/yqnvp0oRZybb9yaE27cxD6IepnE0pIQmHMYXjQNdiJINRV+5gf4aaO0AqF1IV0
-	CNdQ7COmXZ29Bkfwlsh4p1LDbOdQS91FBKcBEuUc9cPXIAISAcQY/i/9eDuTQd4AIPz0MxFoABNpd
-	VThvFjV6F//uCFpeEVnHCKVeeHx4vVCoTPXmfMXlwivg6eXE9RO3g7Zq36ppXDySHQ2sMWpjUGYgO
-	ygkJwJwzWimNMckIWhrufvl7s1zdjFFX+ydlTbRDqNaRVaSs+HnkZs//J7AzqOt1Qw7LVq7iPfSlk
-	cecxSa/FUxLnMVqg8s6aFoxT;
-Received: from [127.0.0.2] (localhost [127.0.0.1])
-	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
-	(Exim)
-	id 1xHeBq-00000002Ypa-3fKM;
-	Fri, 16 Oct 2026 09:25:27 +0000
-Message-ID: <473d9515-b951-4cff-a553-b8ed471d0112@samba.org>
-Date: Fri, 16 Oct 2026 11:25:26 +0200
+	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="mNMbzA1+"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3514b90bb89so5436227eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:26:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792142773; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Hv8jr4jSkB0UjRvw2GpBKdAiz6rf9xYJYXe/OZ3C2ECqYmLrLpK+9MRMgub64IKjsU
+         cZQWl/p+58YhJd2ZFh3HSJE8hsmyWKmRbHDPrZLfbgq+YjmCG5g0aJyQnZBliLp+V7sz
+         AV62cEfvvcvopGrF+PhcMZ86ErWbCxgeZMXJII/RU4IIGbHwOPruj0Lxemalj2wfhjSk
+         pcH8+qqKXOn33kCA9wVOpAP3LEbinwciIz+1YxGQXJk0BnDQvlhJN3mi4ISsAzyoLECq
+         mUB8Lj9GU6nwO3DXK2WAvsUnfjmHmWFuHbVS7YTw4QeUmQXyGlZfA3YBcCv4gqowJBj0
+         2IlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=HGoCw8arpCvJPsqHUcXcqUYXTcaAYS9oUg/iWN4NGJE=;
+        fh=vcvhlH6w56az34tpL+gAgPAvY7c+hWFzEzVJq8TTxRI=;
+        b=N469k7OeSZhxT3yc4a53COGDfArKRh3bP3NFDcRkAoEowBMfSE8calss5reCIUa9DO
+         nvNHfKgC7KkkJdKvsQUBAuCo2UUZV0uyBSt7AckgXfztZCby29bHSqr7fb03kgLRJ/gP
+         VYVnPoMjCfiNO0bVfbo6fuTE4hukeCr4UJmYcvGSVwMG04npXMIOkgi8iZ+9CZMaZLCA
+         N+VF9BNIEL3eUxp/TClaB6C95oQFjgTOdNMFCIvh9xOnHkkhO5NstltTsAjVNtyxhzBn
+         lyzjxAGl9r+Su5cTBbh0YLDSgWdWpTCtrCh0RwAyX2BuAQIrvDBdMQaHK5qJ3XE97yLS
+         joYQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=szeredi.hu; s=google; t=1792142773; x=1792747573; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HGoCw8arpCvJPsqHUcXcqUYXTcaAYS9oUg/iWN4NGJE=;
+        b=mNMbzA1+Zqvbf0u9roN/Yql+EP71awnfD0ZjHdj/ylYHcVuwu9zvVv/ELGkVutRBof
+         MkgCJnDF5AAJVxFClHgd1r1ANoz8ihZ5w8N6FuhZZwqTvELpBqxBKX4epa1uVEs3u7HF
+         8nmR109FHCw9cPQAEO3Qp+S6kfu6fnAHGx+V8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792142773; x=1792747573;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HGoCw8arpCvJPsqHUcXcqUYXTcaAYS9oUg/iWN4NGJE=;
+        b=AruKp1wvKyR7roAZvW5zksYa3auQWZnP2T8E9QMCtaqUjquVVNb5CztizZI6NkvG+/
+         OzmPDu6xdOOX1QAKgulcvHB8fGKzPc8ajzqjatcTdWyOGLTUygRdPnjWPR8dufkiXJW2
+         yF0t2bDvdCGQ8LBYjz3rZ+TDFdNqJoIRXweJ8ML2uFZQnbhxbv4vh/P8TvHvDk53ChM1
+         NVBx1Wf7N43y2SX+YoQrO0BqQZKl030kZ95XTnpleMJKiJpi5VwxHoIQknlfqpjfNhpO
+         hPB0cixk3NE1H6oZUeNzXfRxT8l3zIQcI2ZEsL66PEnTrHv/A41STA7a8brZyIFNiNdv
+         qi8w==
+X-Forwarded-Encrypted: i=1; AKwUvBxWsuvheKEFWpNctYdUzcfDe/UPV8Q8l4tK6rJT9p1ztTsnz1n+wxpllfi7tqlpsG3nsVeUH6ste4hNb+M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHBNv0IED1Uh5ZH5tz6EiQdt/sole4OVUshPCFhfijdomzll6p
+	qW9E4pxdyHaev28Zf2gQpraQC8jaHQDp7gE9FkuT/6LFvz3k9DL4LsC2WyUiVZ/DRc0XrDLk/Hj
+	VAYU4oYVlUDn/ddQaHiPy0A5QdzG+UL1a7pnUQ2/kQg==
+X-Gm-Gg: AYBFou1EQrM3vtYlyae8CeTpVE7Ibvfm3RD8YHZTikszdAKFNz+Hjw9TCXckbkfGnSd
+	vaPOAHQTmhRmvoXYYphAlrugPu2YDxBGhIvzFbf1DefMbaDuICy296QilFBQG8clOKlyH//J9uM
+	dgyS1SQdw6jIunCu7og1WTUdq6tnW0DC3hSoZc6ZFuMnVr4nNWVTPUuURT39ffHjxaBTv73hj3i
+	EDdkWIjG/fuuUjMQcGyTvyeD+R/9W/oqrtFmvPJ789fufFWd4bVP3C4n16HtKakiLeizKQDmqv6
+	9U4kbZUBvDa32KFusER9emZpUwVUpRLx5pPknMCw1FJjTe5MzTpoYayW1GXob0n2sPGPIZ/2cVx
+	Zdm4tdYg=
+X-Received: by 2002:a05:7300:b2a0:b0:35d:a0cd:d51f with SMTP id
+ 5a478bee46e88-35da0cde46bmr10124814eec.23.1792142773386; Fri, 16 Oct 2026
+ 02:26:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] RDMA/iwcm: allow aborting an active connect awaiting
- CONNECT_REPLY
-To: Bernard Metzler <bernard.metzler@linux.dev>,
- Leon Romanovsky <leon@kernel.org>, Yunseong Kim <yunseong.kim@est.tech>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Jacob Moroni <jmoroni@google.com>,
- Bart Van Assche <bvanassche@acm.org>, Namjae Jeon <linkinjeon@kernel.org>,
- Tom Talpey <tom@talpey.com>, Yunseong Kim <yunseong.kim@ericsson.com>,
- linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
- linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org
-References: <20260805000159.321645-2-yunseong.kim@est.tech>
- <20260901124103.GL24140@unreal>
- <47142579-3af7-453b-875c-ff6d610f26a7@samba.org>
- <46f83a1c-02ed-4c64-9eeb-2fc435fdfb24@linux.dev>
-Content-Language: en-US
-From: Stefan Metzmacher <metze@samba.org>
-In-Reply-To: <46f83a1c-02ed-4c64-9eeb-2fc435fdfb24@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260919221733.3707924-1-benquike@gmail.com>
+In-Reply-To: <20260919221733.3707924-1-benquike@gmail.com>
+From: Miklos Szeredi <miklos@szeredi.hu>
+Date: Fri, 16 Oct 2026 11:26:01 +0200
+X-Gm-Features: AclHuK9BVEm1WCw4p4aCLcE6cjhyBLWI44El__CmqYM8k7kFJfihMOcJPeFeM9E
+Message-ID: <CAJfpegt-XzXMkvVQZAYGc4KvL5pTFNBya5mzmLPfTGxBYBn+jA@mail.gmail.com>
+Subject: Re: [PATCH] fuse: validate folio state before pipe_buf_try_steal() in fuse_try_move_folio()
+To: Hui Peng <benquike@gmail.com>
+Cc: fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Am 03.09.26 um 12:42 schrieb Bernard Metzler:
-> On 01.09.2026 18:50, Stefan Metzmacher wrote:
->> Hi Leon,
->>
->>> On Wed, Aug 05, 2026 at 02:02:00AM +0200, Yunseong Kim wrote:
->>>> After a successful connect downcall, iw_cm_connect() returns with
->>>> IWCM_F_CONNECT_WAIT still set and the cm_id in IW_CM_STATE_CONN_SENT.
->>>> The only thing that clears the flag is the provider delivering
->>>> IW_CM_EVENT_CONNECT_REPLY (cm_conn_rep_handler()).  Until that event
->>>> arrives, iw_cm_disconnect() and destroy_cm_id() sleep uninterruptibly
->>>> in
->>>>
->>>>     wait_event(cm_id_priv->connect_wait,
->>>>            !test_bit(IWCM_F_CONNECT_WAIT, &cm_id_priv->flags));
->>>>
->>>> and both state machines treat IW_CM_STATE_CONN_SENT as BUG(), so the
->>>> API has no way to cancel a pending active connect.  If the provider
->>>> never generates the reply, because the peer died in the middle of
->>>> connection setup or because of a provider bug, every teardown path
->>>> (rdma_disconnect(), rdma_destroy_id()) blocks in D state forever and
->>>> the ULP cannot recover: there is no way to disconnect after
->>>> rdma_connect() was called without risking an unbounded hang.
->>>>
->>>> This class of problem is not theoretical.  The pending smbdirect
->>>> change "smb: smbdirect: bound the disconnect wait in destroy_sync" [1]
->>>> had to work around it on the ULP side:
->>>> smbdirect_socket_destroy_sync() waited unbounded for the socket to
->>>> reach SMBDIRECT_SOCKET_DISCONNECTED, a transition that depends on an
->>>> asynchronous RDMA CM disconnect event, and when the peer died abruptly
->>>> (a killed client, or Soft-RoCE/RXE where no graceful disconnect
->>>> completes) that event never arrived.  The destroy ran on the single
->>>> ksmbd-conn-release workqueue, every later connection release queued
->>>> behind it in D state, and the whole server wedged until hung_task
->>>> fired.  That change bounded the wait and drove the socket state
->>>> machine to DISCONNECTED locally on timeout; ULPs should not have to
->>>> resort to that, the CM should offer a teardown they can rely on.
->>>>
->>>> IWCM_F_CONNECT_WAIT currently guards two different windows:
->>>>
->>>>   * the connect/accept downcall into the provider being in progress;
->>>>     teardown must keep waiting for that, it is short and bounded;
->>>>
->>>>   * an issued active connect waiting for CONNECT_REPLY, which is
->>>>     potentially unbounded.
->>>>
->>>> Mark the second window with a new flag, IWCM_F_CONNECT_SENT: set by
->>>> iw_cm_connect() once the downcall has returned successfully, cleared
->>>> by cm_conn_rep_handler().  The teardown waits now complete when either
->>>> the downcall has finished (!IWCM_F_CONNECT_WAIT, as before) or the
->>>> pending-reply window has been entered (IWCM_F_CONNECT_SENT), and the
->>>> previously BUG() CONN_SENT cases become:
->>>>
->>>>   * iw_cm_disconnect(): return -ENOTCONN; there is no established
->>>>     connection to disconnect, aborting is the destroy path's job;
->>>>
->>>>   * destroy_cm_id(): abort the pending connect locally by moving to
->>>>     DESTROYING and putting the QP into error so the provider tears the
->>>>     connection attempt down.
->>>>
->>>> A CONNECT_REPLY that arrives after the abort is dropped: either
->>>> cm_work_handler() sees IWCM_F_DROP_EVENTS, or cm_conn_rep_handler()
->>>> now recognizes IW_CM_STATE_DESTROYING (the abort and the reply
->>>> serialize on cm_id_priv->lock) and frees the event without touching
->>>> the QP that destroy_cm_id() already released.  The cm_id memory stays
->>>> valid for such a late reply because the provider holds its own
->>>> reference (cm_id->add_ref) for as long as it can deliver events.
->>>>
->>>> The passive side has a sibling gap, where after a successful accept
->>>> downcall the flag stays set until the provider's ESTABLISHED event
->>>> arrives, which this patch deliberately does not change.
->>>>
->>>> [1] https://github.com/smfrench/smb3-kernel/commit/26d0f82a02c8a9c9c8cdfc138acb7ed0bf8e01a9
->>>>
->>>> Suggested-by: Stefan Metzmacher <metze@samba.org>
->>>> Signed-off-by: Yunseong Kim <yunseong.kim@est.tech>
->>>> ---
->>>>   drivers/infiniband/core/iwcm.c | 76 +++++++++++++++++++++++++++++-----
->>>>   drivers/infiniband/core/iwcm.h |  1 +
->>>>   2 files changed, 67 insertions(+), 10 deletions(-)
->>>
->>> I'm not sure what to do with this patch, as the iWARP folks have
->>> remained silent.
->>>
->>> Stefan,
->>>
->>> Do you still need this patch? Have you tested it?
->>
->> I'll test it soon.
->>
->> But the problem is real and I hit it very often in the past and the only option
->> was a reboot.
->>
->> I added Bernard explicitly...
->>
->> metze
->>
-> I follow Yunseong's and Stefan's argumentation.
-It actually still hangs in here:
+On Sun, 20 Sept 2026 at 00:17, Hui Peng <benquike@gmail.com> wrote:
+>
+> In fuse_try_move_folio(), check that the pipe buffer's folio is not
+> hugetlb, swap-backed, or already mapped/anon before attempting
+> pipe_buf_try_steal() and inserting it into the FUSE inode's page cache,
+> preventing VM_BUG_ON_FOLIO() and page cache state corruption.
 
-     For an active iWarp connect that is still waiting for the MPA reply
-     (e.g. the peer accepted the TCP connection, but never answers the
-     MPA request), irdma doesn't flush the marker before the pending
-     connect is aborted, which only happens in rdma_destroy_id().
-     smbdirect_socket_destroy_sync() calls ib_drain_qp() before that, so
-     it waits forever:
+Applied, thanks.
 
-       __ib_drain_sq+0x139/0x1b0 [ib_core]
-       ib_drain_sq+0x7f/0x90 [ib_core]
-       ib_drain_qp+0x16/0x40 [ib_core]
-       smbdirect_socket_destroy_sync+0x2bd/0xa90 [smbdirect]
-       smbdirect_socket_release+0x61/0xb0 [smbdirect]
-       smbd_get_connection+0x22c/0x280 [cifs]
-
-
-Here's my work in progress branch to fix these problems:
-https://git.samba.org/?p=metze/linux/wip.git;a=shortlog;h=refs/heads/for-7.3/rdma-backport-testing
-There I'm able to eliminate all hangs I was able to reproduce with siw, rxe, iw_cxgb4, irdma, mlx5_ib.
-I tested the following situations:
-- server iptables drop (port 5445 and 4791)
-- server nc -lk 5445 (tcp connection accepted by no responses)
-- ip address del (on the client)
-- ip link down (on the client)
-
-It likely takes a while until I rechecked all commits
-and submit them in small chunks, but it's good to see
-that it's possible to avoid deadlocks or very large timeouts.
-
-So at least that patch doesn't solve all problems.
-
-metze
-
-
-
+Miklos
