@@ -1,151 +1,203 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92276377A83
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:35:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A23224D957E;
+	Fri, 16 Oct 2026 14:35:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161320; cv=none; b=jwCDNpn1M4m1RnduwYJxzz3WgChjNS5Viq5Z3sSIYZhCfKW2PteeXWd5rjzxsoQX88MQoxfUnko6lx9L05h+IdYq/e/CZfi00H6MCUhIROBCrbItONdfjNNLVpVX7ZlaMEvH+o72JjDMQTMBAoGuUchtc0l5LIyU4eFcu5g+gD4=
+	t=1792161324; cv=none; b=R4VBkKL81rFqA970gt4k4hLFjVcjhHkQtE/dLrl0AdD4iTxv5iM6KeUPxhZhPdSdpBHUDTz2bslyePAsjmOGqpukT/xxBAtEJBDEE0AG+E1uM5DwU2c9JS9XN7bWUOlo2Ynj+QCNR52/S76b8+6ztqFnzFc3u0z6HYZT0Xi4EDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161320; c=relaxed/simple;
-	bh=lTVEVyvxqPMEhLqNV+zfwjKh2AGmd5+/Os21Q0iXP9g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=V7c8oD0NzSb2xV1s6TUyiHKcBCb9KOtf871WBhdZNk2cW6Vs+KT2sgA0jFb2v7GZJbJAp45PsIfzB0CIcYLM+E/7a/jv1XNBQf3zjbwDsmvlP2lvv+/f54N1GMVW4EYIYLf74x7BbOKlEC15WW0DeL9j0nzxajZhBCJA5dqcOYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SfAw1sbB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BHtYRXiZ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792161324; c=relaxed/simple;
+	bh=j6KCEVumfcOPoJKthiY0VvennBzGTDjKegocjAp2ulc=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pkMrfg/fnJbP+mFuoDGVfT2ialLQ4wPslx7LUqxr0Q389sHxkcE2nIqkt23bWY3QwnD+uXUIAmSWrIguDQXyJVDjod1UKYJW8iVM0YLsFdev5a1MODytnBE/CfmPNz0tpAte50p36pLqASzuUJTyk7m6uJ+wZ3mxq2812u9HUUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=HaPR83Du; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=UD8EToKL; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=HaPR83Du; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=UD8EToKL; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SfAw1sbB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BHtYRXiZ"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GE5lSx3506174
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:35:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	cIPFe0GbHM98hVhSZtxVKSxAcZVf/6T6nyXYDstJUcc=; b=SfAw1sbBMmBWkIqz
-	7zB4256mNHB4FyBO/QoBTiqXiGlf74lFUBwtHgEhfCuNRMn+OzHYFvMpWpznAzxN
-	BwkaWjonr8YLPTvck8wTngWI+cwf6NmDkrjsTlHxr/wLfk25gi1cwebMrNQyVIvR
-	O14Glegsbh1xIncjfZMlalWSLw4lrxtLR3t9kLeH66wnvc5pArpbXnAellaKhwye
-	LLnU+JL2VmFKl5ZiPMs1iXmI3ZQJPKifTYP5jaJznEO7v+iOV0KO+HLZMlpfphHL
-	Sq0r18edjAVxXqDDQUUWkERaB7n9LBwntzEHwCOmz4lDMi3nORl72lw9kWXmK2m4
-	d8pyyQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb8r130gs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:35:18 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cc50fb0d2so310885a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:35:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792161318; x=1792766118; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cIPFe0GbHM98hVhSZtxVKSxAcZVf/6T6nyXYDstJUcc=;
-        b=BHtYRXiZbiqCIZa5RHgSS3CG8kS4p3GDC/qyNz3G+nTyyqDxaCNwAtspWUXB5OoE4r
-         VkSkEZFSio1xWzalZeVo95/8NmFHmMIjwRk8nk/csbdUDl//e8WjrN47GzGu2qFgvVV+
-         1GgXjy741kkq9WRCYX+v/FmqO0ECAvrOq4pUrl24aXhaex1sSMfYw1Pajm5eHjQPamt5
-         MQI3nyH3uATl4vYYtO8WpZXWfLZDvbpHZN3Ebt6MJIEOvMUkExJMMrJ+0h8pegDiwoq7
-         lh5gt/wenXZXCvT774fJNQO36NUq9HCIOYj3jY2F46W0QW8g3qtb03zqUxcaDVAtVFoz
-         68aA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792161318; x=1792766118;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cIPFe0GbHM98hVhSZtxVKSxAcZVf/6T6nyXYDstJUcc=;
-        b=PM02EOTArjNaqFpQvfZ6IeIudbjwln4wWdb89YMbzRPY15gFFjKZ8INvMkFg8WQf16
-         d/aOnRtvdtIo4uEyfVmWEGxAh5z6bZMX1Hyj2OSzw622Nljx1umdVjW1L271yp0+V32v
-         DNqk7nHUmN47OpZWPV2cmAscdYT92TQWruv7CdFrT6h7v8kjQFZVwb63GTHpaE6jOtU0
-         mPlR2y8qX2SZ98rO/gxGnF8sXqPjcUxUDu/85Yu9Ocw6exp2C9IXy67qmCXLj8Hgd+So
-         py6XOlzsj+8L4GV9cysI+D17ubrETHFQghrv+kMdbAzhwkvTcGos7/FpE5HhBu1xrCq4
-         0H5Q==
-X-Forwarded-Encrypted: i=1; AKwUvByzF/GFA7wdTVyNV83KqiQ2El/vYZe1xOBQZGeZVHeibpVH5ChOWoJ3JxqFvu4O8sDqGOOoV/4mS1TynVo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQLcIuv9ezQTFcvfZp8HcepyBGyws9eHuBLzHRcq/uX124hxWn
-	94rP+KPPRFDIwySHTgFDxQrcZXKXCqXQ8A1EZi/Ru6npSkUGwSveEad3BEgc6OZ9W9n7if3OB/l
-	XR1Tay4lg1535auzssI/pA676JOiW7U4oYLwGf28Am0h68piUXzxmphbDIISZgK+6NJ8=
-X-Gm-Gg: AYBFou0e8/fgfSv6w9M6N+UbUZxoYgVAEBNUf5gQ+L2BpIXVQfi0pF9L2Abdq4UOett
-	FDZYFLsk8bGss0HeraJEw01LWSZdZFi92ecJLQhi99Lmq/A+PkNpkxLrMjJqaTAnjY44yjSOBtZ
-	vqS9ustglKXLFjTULrBDrMRNawPxD+0uVzfHUS+0NK+lY2aE+yfMnOhTeP2Ug7f+g0yooX5I18b
-	QTHsH5zfpy+MqfjvkyIbq2Epo6shlafyE4Kw0WUg9fE1gehVXfHfCNHd1vomRzbzeSaR8RNVRlc
-	uNYrYO4Rp5tDzpYg7cpritdQUVbQJ16lwnHga7HcQybpFBE/EzjLHwGSWaZRVne5W/P58OV3tEm
-	XkcLzEVoOMsxCvybht0H9jQ==
-X-Received: by 2002:a05:620a:3711:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93f29c95919mr3896985a.3.1792161317857;
-        Fri, 16 Oct 2026 07:35:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:3711:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93f29c95919mr3887985a.3.1792161317042;
-        Fri, 16 Oct 2026 07:35:17 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ab16e8ca47sm5556891fa.25.2026.10.16.07.35.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 07:35:16 -0700 (PDT)
-Message-ID: <3cb5c835-cdc2-4e36-9c0b-ff61ce3d768d@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 16:35:13 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HaPR83Du";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UD8EToKL";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HaPR83Du";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UD8EToKL"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id AF6451F456;
+	Fri, 16 Oct 2026 14:35:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792161319; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5E93OwKE40qyDdwFKgNKcqO0FbUR/pPxJNB7vT4rn1Y=;
+	b=HaPR83Dur3FlESWysi8KoBF79+MWkFbVzuDEZK2UTuOzLaWSfO4y+YH1yD3e3Ap05MKZRy
+	KMlAp0a4ypgn/amUrMwnlStUTSxeLA67Q56s2yV92+FLt45WVlzdnNwC5b4Lx4NIoGCpbo
+	vRlB9X0JO4jdGelAB37oB15dp9NQh8U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792161319;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5E93OwKE40qyDdwFKgNKcqO0FbUR/pPxJNB7vT4rn1Y=;
+	b=UD8EToKLsSp4wDlW106XiUW8ozm8a9OOrbYWxRoE0T9Oczgxrm4xCMldaWXnjB468Qte4/
+	EsCJuC8au2hcbiBg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HaPR83Du;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=UD8EToKL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792161319; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5E93OwKE40qyDdwFKgNKcqO0FbUR/pPxJNB7vT4rn1Y=;
+	b=HaPR83Dur3FlESWysi8KoBF79+MWkFbVzuDEZK2UTuOzLaWSfO4y+YH1yD3e3Ap05MKZRy
+	KMlAp0a4ypgn/amUrMwnlStUTSxeLA67Q56s2yV92+FLt45WVlzdnNwC5b4Lx4NIoGCpbo
+	vRlB9X0JO4jdGelAB37oB15dp9NQh8U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792161319;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5E93OwKE40qyDdwFKgNKcqO0FbUR/pPxJNB7vT4rn1Y=;
+	b=UD8EToKLsSp4wDlW106XiUW8ozm8a9OOrbYWxRoE0T9Oczgxrm4xCMldaWXnjB468Qte4/
+	EsCJuC8au2hcbiBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5151A1378C;
+	Fri, 16 Oct 2026 14:35:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Q0oNCic20mocJQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 16 Oct 2026 14:35:19 +0000
+Date: Fri, 16 Oct 2026 16:35:18 +0200
+Message-ID: <877bjh3e8p.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Joonho Lee <mynameisjune111@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	virtualization@lists.linux.dev,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Matias Ezequiel Vara Larsen <mvaralar@redhat.com>,
+	Eugenio Perez <eperezma@redhat.com>
+Subject: Re: [PATCH v3 0/5] ALSA: virtio: Fix request lifetime and error recovery
+In-Reply-To: <cover.1791881787.git.mynameisjune111@gmail.com>
+References: <cover.1791881787.git.mynameisjune111@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] arm64: dts: qcom: ipq5332: add the IMEM node
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-References: <20261002-imem_restart_reason-v2-0-61703c6362e3@oss.qualcomm.com>
- <20261002-imem_restart_reason-v2-3-61703c6362e3@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261002-imem_restart_reason-v2-3-61703c6362e3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: TIW7gfVFLkr4y66ww7Cs462YvXvDyKr5
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA1OCBTYWx0ZWRfX5bT5go+fUqjk
- qa6IYc7sLy/5c3rAIesVzNztbIpbTJzhycfpw0JyTLI+ErZSDMBmCMV2XXOUOl6fwv4wITzSDxB
- T62cQoX82XkurNB5g+X4qmcm6/bu7ZQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA1OCBTYWx0ZWRfX5uK36ewja0j6
- lWxfVKCy1wEn02CVn6vLB8UpvMhUiaPT09JKWsKZN6gsTc0TZyKGGbDjQuMgK+pgCefDC1h6CAo
- ymA1K5oH3oWpADtHWteypDgAgvEVixfa1DeMU7bcjDPG2LWjzcHDnG5YkGKJVOtcN7F+Gy0vHUr
- FQYF7EM+qU4+PFOd0NJ6eo7h5Bpi4mx+efTT/FHDog5B0Fx+jFXc5iEzI76cTdG9qa5q9Xva3Pa
- +42CWrKSpulM1gD8fD5N1jm1zjzRvdVaWMG7fvvUr2eMIDF1OaQmgnN++GxajGGqX0wrnVTpFBY
- gKvm+y8zOlycQoAqBvwivwK/jVN5ZcSemZTMFIOqgFj7xmq+ua2FNz5eob5PbZHLLmoz4FSlY2C
- VG9CF23vNAoNKpr6PPvk51UD7nxt1+PbdyRFcl3dvkafoS44yYsqWxrTv0MvT0E9hCEQC8P5mUJ
- +py3d5WoUV5H2QfbD5w==
-X-Proofpoint-GUID: TIW7gfVFLkr4y66ww7Cs462YvXvDyKr5
-X-Authority-Analysis: v=2.4 cv=L/CI0OT8 c=1 sm=1 tr=0 ts=6ad23626 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=owAxAYLDMf__z6yt7SIA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_02,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501
- lowpriorityscore=0 impostorscore=0 phishscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160058
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: AF6451F456
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -3.51
 
-On 10/2/26 3:03 PM, Kathiravan Thirumoorthy wrote:
-> Add the IMEM node to the device tree to extract debugging information
-> like system restart reason, which is populated via IMEM. Define the
-> IMEM region to enable this functionality.
+On Tue, 13 Oct 2026 10:57:47 +0200,
+Joonho Lee wrote:
 > 
-> As described, overall IMEM region is 80KB but only initial 4KB is
-> accessible by all masters in the SoC.
+> A failed PCM start or a timed-out request can leave virtio-snd messages
+> owned by the device after the caller returns. Retrying can then reuse
+> pending messages, and freeing ALSA or control buffers can leave their
+> addresses in a virtqueue.
 > 
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-> ---
+> This series fixes enqueue-error recovery and keeps the memory referenced
+> by outstanding requests alive until completion or device reset. Reset
+> also detaches unused descriptors before deleting the queues, releasing
+> their DMA mappings and cancelling PCM messages without reporting them
+> as completed audio.
+> 
+> Changes since v2, following the Sashiko AI review:
+> - Patch 2 protects all stopped-state accesses with vss->lock, including
+>   hw_params, prepare, open, STOP and sync_stop completion. The RELEASE
+>   decision and stopped=true transition now share a critical section.
+>   Sleeping operations remain outside the spinlock.
+> - Patch 5 aligns every DMA region for both cache maintenance and typed
+>   CPU accesses, and removes the initial +1 offset. This handles coherent
+>   systems where dma_get_cache_alignment() returns 1, as well as odd
+>   region lengths that could otherwise misalign later payloads.
+> - Patches 1, 3 and 4 are unchanged.
+> 
+> Validation of the final v3 source:
+> - ARM64 W=1 module build and ARM32 CONFIG_MMU=n driver object build.
+> - Source-extracted ASan/UBSan PCM, control, reset, ACK and DMA lifetime
+>   regressions on macOS arm64. The v2 control allocator produces UBSan
+>   misalignment diagnostics; the v3 allocator passes typed header and
+>   request/response integer64 accesses with DMA alignments 1, 2, 4, 8,
+>   32, 64 and 128.
+> - Deterministic stopped-state lock instrumentation catches unlocked v2
+>   accesses and passes 73 lifecycle assertions for v3. It covers ACK
+>   failure, RELEASE failure/retry and ACK during RELEASE, and checks that
+>   blocking operations do not run with the spinlock held.
+> 
+> The stopped-state test instruments extracted source; it is not KCSAN or
+> an actual threaded kernel race test. NOMMU was compiled, not booted.
+> Physical non-coherent DMA hardware and host microphone behavior were
+> not tested by these regressions. The QEMU ARM64 KASAN fault/recovery runs
+> reported in v2 have not been rerun for these v3 changes.
+> 
+> Reproducer source and instructions:
+> https://github.com/whatisyourname0/virtio-snd-reproducer/tree/3ee5c7c1e864dae50a127b0a25cd122532daa6de
+> 
+> Based on sound.git for-next commit
+> 8d70e364e866bdfca81eee24d0688fac9472cfb9.
+> 
+> AI assistance was used for code changes, tests, review and patch text.
+> Assisted-by trailers are included. Sashiko's findings were checked against
+> the driver and covered by regressions before incorporating the fixes.
+> 
+> Previous series Message-ID:
+> <cover.1791877396.git.mynameisjune111@gmail.com>
+> 
+> Joonho Lee (5):
+>   ALSA: virtio: Propagate PCM send failures through ACK
+>   ALSA: virtio: Recover PCM state after a failed start
+>   ALSA: virtio: Retain queued messages through device reset
+>   ALSA: virtio: Keep PCM DMA buffers alive through device ownership
+>   ALSA: virtio: Keep control payloads alive through DMA completion
 
-This patch alone fails schema validation. Squash it with the later one.
-Keep the per-platform split.
+Through a quick glance, the patches look OK, but they are a bit too
+heavy changes at this very late stage for the next merge window.
+I can take those for 7.4-rc1 if the virtio maintainer gives an ack,
+but otherwise postponed for 7.5.
 
-Konrad
+Or, if you have some more urgent fixes to address some known issues,
+please cook a smaller patch that can be more easily digested.
+
+
+thanks,
+
+Takashi
