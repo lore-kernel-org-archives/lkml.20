@@ -1,115 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24E047F2CA;
-	Fri, 16 Oct 2026 12:18:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AB80C47FB17;
+	Fri, 16 Oct 2026 12:18:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792153084; cv=none; b=RuefdlYnkTAvJXBZJrr1dYhnle2D0sxo0zRz+uXeAhRjX/paG/pxXIkqcUQnJASsBVrhrMSXDrJeIzwtwqiqGEbu630sx6HkIoH2UyMuJ+pGjle/ddeBBlLPTmX1r/jDy6S1sxmP7B1hZA7IMdm/gt8PtSUOo4xIBS2AwgmuF20=
+	t=1792153086; cv=none; b=uOOkyBc3F7nCcCNzaGhuf45t6mUdhn9X+1ZNp68AGpstmo24CVDvbvASdR+efohXus8D0DcQhMVivjQHjyC5jm0zyUY1Ur6m0vyYDY5KpygZhVkTF6rv5ti8g0YwRpMtXCzEOpqE0S+P8ope7+unpWVI9oRZ+ya4JkJOWZiXXFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792153084; c=relaxed/simple;
-	bh=8bve0J8qBl7msxr6VN3bEfAfnn18MRXNNNL4kJoSZg8=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=G/6a1xUL2Q8zXS1WpJIvBKEoYcKQtXdw81GIG5awIpT9PnH/SuQ4dN/3+7YZLmPP8yXeTEpcFGACtIB8rWp4vqm1vPMmPvwWqQsIEybF7JVLuz/ImsWI6NjlEopzs5qYdfYeA/lUMyo4SyrI4mo//fcNuZJ0Gyz1JvbCmUy2rIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3VNJpao; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792153086; c=relaxed/simple;
+	bh=Xy8QFx0pIXL4ldv8r+Coyw+l10AZN2VdWJ1iwbxurkY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RCgSH1NKdFB6TKpLJoykUmYgqVNJxxCRC4Ggf60m/Hx6u9PBZ4nQIFy2ZgslbBYDvULE6PB+kRaTVr0EiigusJYkono/7HIq61r9DfPFziNlshUlVzlegNvlcevSrLprSjbOqAFPXDqTTBG2tvV4mT8Oe3YiiCQ1c5+U2yeWgxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fmqSEu8/; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3VNJpao"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EB5D1F000C4;
-	Fri, 16 Oct 2026 12:18:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792153082;
-	bh=scmmiHmloNp0QeKx28eTFfiWE13pWpJ8+0kBe/f75yc=;
-	h=Date:From:To:Cc:Subject;
-	b=W3VNJpaorKUp3fmQosGYIp1RYxtN+DpgRPmEAnETEBVIhajIInhqwhcshDwd5ijpI
-	 Sxb3KkDK5qndLzIix03ToiZ8MDswj8G0q+ZBR/ONNzglv/ZecuEzKTt9Uv0bRwYrEY
-	 qaUc6Ex+W8usdjr86L/qmiwO+A/n0H1nmbM29ncQGozpoZMrEKlVcVyeH0p25pmvLR
-	 PsSV38lDc3wSImktp4OvFrzeJshjJj9C79m1LLN/kD+bDdyz/0hWRl0BkpB8pcHFCC
-	 CQo1l+avh2IRK8mQfs9akrgjMa8ImNNeIPYukPOvPL1kXJRmU+kQvfdRkOtOgawav3
-	 XgVqm2yDMOPQw==
-Date: Fri, 16 Oct 2026 13:17:58 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	Nikolas Koesling <nikolas@koesling.info>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: build failure after merge of the hid tree
-Message-ID: <atIV9kBYjdaxLov3@sirena.org.uk>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fmqSEu8/"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A170414BF;
+	Fri, 16 Oct 2026 05:18:00 -0700 (PDT)
+Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 591853F871;
+	Fri, 16 Oct 2026 05:18:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792153083; bh=Xy8QFx0pIXL4ldv8r+Coyw+l10AZN2VdWJ1iwbxurkY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=fmqSEu8/7BGE35IAOlnvU9aPOhwvcym+dmE0vNJzMFe17rZUeyZoXiVtNNPcHe4Cv
+	 OCVWlMF+ah71unR8czVXVlK2jyc+DjB6p0C1LWHHht63Yze6mlaK4lnMFjCzVf7g19
+	 69pFRHHiM6se11dgZ3QLoOuGQZVK7sHvVbZIckJQ=
+Message-ID: <73c55ce6-67a5-471d-811c-facf712b2fe9@arm.com>
+Date: Fri, 16 Oct 2026 17:47:57 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FgVeoX98tE4dsFZl"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/8] selftests/mm: check MADV_COLD and MADV_PAGEOUT range
+ handling
+To: "Gregory Price (Meta)" <gourry@gourry.net>,
+ linux-kselftest@vger.kernel.org, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, shuah@kernel.org
+References: <20261014175756.2035176-1-gourry@gourry.net>
+ <20261014175756.2035176-4-gourry@gourry.net>
+Content-Language: en-US
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+In-Reply-To: <20261014175756.2035176-4-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+Hi Gregory!
 
---FgVeoX98tE4dsFZl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 10/14/26 11:27 PM, Gregory Price (Meta) wrote:
+> madvise(2) accepts a zero-length range, rejects an unaligned start, and
+> reports an unmapped gap in the range with ENOMEM while still applying the
+> advice to the mapped pages on either side.
+> 
+> Check each of these for both hints. Around the gap, only MADV_PAGEOUT has
+> an effect the test can observe, so only MADV_PAGEOUT is checked for
+> paging out both neighbours, after a control page shows that swap works.
+> 
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
 
-Hi all,
+[...]
 
-After merging the hid tree, today's linux-next build (x86_64 allmodconfig)
-failed like this:
+> +/*
+> + * An unmapped gap in the range makes either hint fail with ENOMEM, after
+> + * advising the mapped pages on both sides of the gap. Only MADV_PAGEOUT has
+> + * an effect on those pages that the test can observe.
+> + */
+> +TEST_F(madvise, unmapped_gap_fails_after_advising)
+> +{
+> +	char *mapping, *control;
+> +	bool swapped = false;
+> +	int retry;
+> +
+> +	pin_to_current_cpu(_metadata);
+> +
+> +	/* Make sure MADV_PAGEOUT can swap at all before relying on it. */
+> +	control = mmap(NULL, page_size, PROT_READ | PROT_WRITE,
+> +		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+> +	ASSERT_NE(control, MAP_FAILED);
+> +	control[0] = 1;
+> +	if (!pageout_until_swapped(_metadata, control, page_size,
+> +				   self->pagemap_fd))
+> +		SKIP(return, "MADV_PAGEOUT did not swap the page");
 
-/tmp/next/build/drivers/hid/hid-pulsar.c:742:4: error: expected '}'
-  742 |           .driver_data = TYPE_KYSONA },
-      |           ^
-/tmp/next/build/drivers/hid/hid-pulsar.c:730:52: note: to match this '{'
-  730 | static const struct hid_device_id pulsar_table[] = {
-      |                                                    ^
-/tmp/next/build/drivers/hid/hid-pulsar.c:742:32: error: expected ';' at end of declaration
-  742 |           .driver_data = TYPE_KYSONA },
-      |                                       ^
-      |                                       ;
-/tmp/next/build/drivers/hid/hid-pulsar.c:743:2: error: expected identifier or '('
-  743 |         { HID_USB_DEVICE(USB_VENDOR_ID_ATK, USB_DEVICE_ID_ATK_VXE_R1_SE_WIRED),
-      |         ^
-/tmp/next/build/drivers/hid/hid-pulsar.c:752:1: error: extraneous closing brace ('}')
-  752 | };
-      | ^
-/tmp/next/build/drivers/hid/hid-pulsar.c:767:1: error: definition of variable with array type needs an explicit size or an initializer
-  767 | MODULE_DEVICE_TABLE(hid, pulsar_table);
-      | ^
-/tmp/next/build/include/linux/module.h:256:21: note: expanded from macro 'MODULE_DEVICE_TABLE'
-  256 | static typeof(name) __mod_device_table(type, name)                      \
-      |                     ^
-/tmp/next/build/include/linux/module.h:247:2: note: expanded from macro '__mod_device_table'
-  247 |         __PASTE(__mod_device_table__,   \
-      |         ^
-/tmp/next/build/include/linux/compiler_types.h:16:23: note: expanded from macro '__PASTE'
-   16 | #define __PASTE(a, b) ___PASTE(a, b)
-      |                       ^
-/tmp/next/build/include/linux/compiler_types.h:15:24: note: expanded from macro '___PASTE'
-   15 | #define ___PASTE(a, b) a##b
-      |                        ^
-<scratch space>:37:1: note: expanded from here
-   37 | __mod_device_table__kmod_hid_pulsar__hid__pulsar_table
-      | ^
-5 errors generated.
+This test is checking for both MADV_COLD and MADV_PAGEOUT. So if we skip
+here because we couldn't pageout, then we don't test for MADV_COLD
+behaviour at all. Do we want it this way, or should the tests for both
+of these be separate?
 
-Caused by commit
+> +
+> +	mapping = mmap(NULL, 3 * page_size, PROT_READ | PROT_WRITE,
+> +		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+> +	ASSERT_NE(mapping, MAP_FAILED);
+> +	mapping[0] = 1;
+> +	mapping[2 * page_size] = 1;
+> +	ASSERT_EQ(munmap(mapping + page_size, page_size), 0);
+> +
+> +	ASSERT_EQ(madvise(mapping, 3 * page_size, MADV_COLD), -1);
+> +	ASSERT_EQ(errno, ENOMEM);
+> +	ASSERT_EQ(mapping[0], 1);
+> +	ASSERT_EQ(mapping[2 * page_size], 1);
+> +
+> +	for (retry = 0; retry < PAGEOUT_RETRIES && !swapped; retry++) {
+> +		ASSERT_EQ(madvise(mapping, 3 * page_size, MADV_PAGEOUT), -1);
+> +		ASSERT_EQ(errno, ENOMEM);
+> +		swapped = pagemap_is_swapped(self->pagemap_fd, mapping) &&
+> +			  pagemap_is_swapped(self->pagemap_fd,
+> +					     mapping + 2 * page_size);
+> +		if (!swapped)
+> +			usleep(10000);
+> +	}
+> +	ASSERT_TRUE(swapped)
+> +		TH_LOG("MADV_PAGEOUT did not page out both sides of the gap");
+> +	ASSERT_EQ(mapping[0], 1);
+> +	ASSERT_EQ(mapping[2 * page_size], 1);
+> +
+> +	ASSERT_EQ(munmap(mapping, page_size), 0);
+> +	ASSERT_EQ(munmap(mapping + 2 * page_size, page_size), 0);
+> +	ASSERT_EQ(munmap(control, page_size), 0);
+> +}
+> +
+>  /* Neither hint may fault a swapped page back in. */
+>  static void check_skips_swapped_pte(struct __test_metadata *_metadata,
+>  				    int pagemap_fd, int advice)
 
-   e55cf379e822b (HID: pulsar: add driver for Pulsar gaming mice)
-
-I have used the tree from next-20261015 instead.
-
---FgVeoX98tE4dsFZl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrSFfUACgkQJNaLcl1U
-h9DuKgf9HfFQemLTyQ/6pO1IxkxWaTAt2JC8eqzy8xokA7AwvL4xEdFND4Ss7tIB
-hAag6uNa/mbjMJ9MBFwuXhG3DWm6I08QYNwE6TfwB0yHPTkOexnwBcv2gLwnZkU9
-JX89o2uuJ59f1bUO21sigr1/qFgCDeaMK1DAYua4E4l7TfeSG4WE52R4E03muIvr
-tOqlYBFmrVKdrtazM48EhEKW8WAHuzfZc7qOi2D1/cIBglUxtp4Is2LPXTBAWg/f
-fc3chVEjNF7aP4+W33Fe+IB20IN84eV+2BCEVdcdD0lRDDiIfg5kqVJqJxai5D6A
-/AFfdP2SmWXsBfkc7ttwPir3g30YMw==
-=WjYy
------END PGP SIGNATURE-----
-
---FgVeoX98tE4dsFZl--
