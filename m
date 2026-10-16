@@ -1,76 +1,67 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011026.outbound.protection.outlook.com [52.101.70.26])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011015.outbound.protection.outlook.com [52.101.52.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1184CF477;
-	Fri, 16 Oct 2026 19:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 617B43815F3;
+	Fri, 16 Oct 2026 20:02:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792180798; cv=fail; b=WPN4OOpYe44dPnD4A2J1WtK63WC3iod5et0mz+thsM3GrjdeUSlWvnzNpl4s5R7UIKmWXqDhKGYxUSgZO5sUr48dyYgKwFS4GGAc5AcsgyzZJxmTG3mFcyfLBwP/VfSS8ZNNCLPwJNTf+AzUJBdyWHrd2IPHYVjFvo1dKoc8NPY=
+	t=1792180933; cv=fail; b=QtbkoxWGGabqEqkNzR9HiEyYYVVQxmrSpPKnYSZPjH0fbw389QxgUO3HaDwV+7ocTPyKkdYxO5X/Z+0ZZ+8tVeMMjGjfD1W32Y48pOxBa8ARH6UQxGxUdx6yUcK8Eo5si9LZho0FjyRhToPnCXfAwHatYCqM+RtogkhvRE4Xiwo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792180798; c=relaxed/simple;
-	bh=Zmq8TyEFWppfD0Jl3SO1Q8RlzHMz87qkY8+DxrqIuKg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=IwJYWH6xQOt0zJklK5Fie83Z38xvkuaS/ljZ1YdAn932cy9HKaFzQC6R8tpXYaoWJ7ljiBGgA+meN7IfCNx8oUIEv9EoriG9dslpBM4YAmeEthdKvoJBp08Ti18jRAeGSdsZ44m8qeOOyVu/QMvUPu3Fifyw6Ymoj3GY5ROxpuk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ch7VwI7f; arc=fail smtp.client-ip=52.101.70.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1792180933; c=relaxed/simple;
+	bh=V3ZrujkJ44TnLSadLN9sdsHX0UqBx7MoRD6ER7GsOVw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=qaK/24GCqA2kcVYgW59WcJwEHkvclcNp4NTfkC07erJ3wBV7snNhgSFqXGj2ju4ogU2dS8aqezcl9eRduafw6OeC2rMeQAUyUAA2CkhqSijv2t4OKOpuTNIBR+F3RH1nvFiyPkbUmbA6saiV2ZpS4a9OVa4enBT6KYUax2snfoo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=hou7cFKp; arc=fail smtp.client-ip=52.101.52.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ch7VwI7f"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="hou7cFKp"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lx7KohWuMluhcL7KHp3hNGoh7WIfHvOQko5yQbMZy/0Lq5boRUXej0R7p4KXPu923J4Ihi0j1auPImbjfUy89J99RKq4Wa1k6UTyqx76Af2SZy6qfLKbEr4MhNwxmZsqoujDTg2KPAIplyAMps9Z5TCjnX5VC+oU3WFY7LfV2Xslv0+6zdAMBXpbjdK9BT4YKxrpEAKlCgcznLUk8YSGn6JLPkwbyVYFXEi3ua78fxUCn8ZhrhDFXE4qiI2OCmr9fPvLvYNiUiW4Fy/BB+3aBnvALcGpLIR9Fv4q3XM5WH3dFfl9a2EANNQvOjhAcsX9JdskQJKjtx3qrsUdMgDCgQ==
+ b=FiQuUMT3VCqvNwT2qmNLOLmrpI2cfOIuLSvGkeUi/BNAOPOmsZXsy1LniB1oG3+jX4I3AtNHd0LFaPC8g3+snGkPO1f0WA3bizGa24StozIq31yLMq32kd2QbdUkcMNgha+jpMXJMn+8TxusBzO+MoD9aHBHLmv1U4j91CSrPN8dGPko7nKzTJQQ3mC6q/uc6U2+YIVLeLjHit8ShK9/syUxQwc1YT4ZliOnLGotbGN8Kiss+D+u6Is44RM3Lk2K7JMfvd7XmLB/2bWX1b5WRVmFEbAw7HdWZck/iuZnkV1w64B4l85GHAG9QOQdUnd9Pit/OORSFtkyvj9JCKhGvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C18b9HSGMPw0L46fNtigi+g7MMS8VXgK6KifXzqgpOk=;
- b=oZNopwHYSgCYCbNOvIei9jn5xepd36dvdAVEPv7wjPmMbuSVxFAF8avw2ob83gdC9y87PW4SpyrxRDizwlXwvWq4lr2y3adkvVgiKpXkxzwlcHbV7cNHP6IRaoKLxPLWs6sR8SeoznsNp2AMyy31yd4DZZDAbN+h8f26R40KB2psNKaE8ofwdTQARuoV/4/S1XvwYfAIjG7TBeVkTc+1EEeIuxxcLHiTgFgmscK2yIeA1HFcxS7BoPCfC3WJRamxSKqEnzsnNAMFhaaGCYMPEwAYs8nv0HJaROiNqX0HlnRiGmXrGFH+LmY4m+4ehgKU0F4Kjs8CGhyz1rjDihP6VQ==
+ bh=8pYf0ZvwtWM88hfbJ+5slFC/S5xnE/laWPu8Nv4TKLs=;
+ b=xpLxzpwqNAhPvsdMnJWwcaHz5vH+QADdHy5PUTMT7Wjxwe1dFDOnSpkgCWZq6kjF0BvaM95sUcwo11X9wskh01EWXefJ1wwPsceO7Od66NKysPNafW4ZbN2+Qf9KYjDyYZtLU7VB1DV07BORCXvzs26fOMbjXBmIm21gr90PHm9Txzbt5C4otFi51c1OME25yGP/7DsY8T1MN7wTvxvvTUmCi26s+mvilt+xkgEdEcvSK0Pf5PgqJ6vaCaZmvQIvxOBIiJSitMuaXXI9p/aRFYWgUf5GuGInP1CWK32Ntd7fsi6UqH19NotOwn81pMEKKA5D78cQPEOJ8hn5ZJpR6A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C18b9HSGMPw0L46fNtigi+g7MMS8VXgK6KifXzqgpOk=;
- b=ch7VwI7fSqYtBDTG/o8IXpO5eihU9AtVtBuXiIfU6f6zGhicFvAmkq16oo2uNsbDMqI0+oiHhPGj5Xj9NXE6665Mg7qOeAOx4WBwXO0cyQ64XGdp+Ah69HmqxqkSHqPuFxvZlRpm/NBGVxJXJR9kSsmlEg45aHnKMpq5MLaXCdnXE9vUIxqyY+fccETabk1O03j6n4tfXG00xkVwXqxuCJIvV9E9a3vEa/DpYNNOYh3xL3hWFq21lpHwgiA2De+vbsnejT5fUDmEowweMb1YHMkjL8mYz/K1A6u/IPK62R0LhUrdkGcwgj9ZNYjr34/3y802knHQ6XJ2OLdADujn1g==
+ bh=8pYf0ZvwtWM88hfbJ+5slFC/S5xnE/laWPu8Nv4TKLs=;
+ b=hou7cFKp7FdCFZVXusTSpf9zzd5xyuHTeLmppb1E2YNkM/Q/rxZa9OoG5RDN59resvrHUkwpzOHpmDO7k0N1bgO7jokMNBSATjZXRsnGcW5Slj6JHwda4J4fKKsbk2ZAvdf4xb/r6qLItpBHouw0hvdGobU3gRh234+GGYaxbng=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM7PR04MB7190.eurprd04.prod.outlook.com (2603:10a6:20b:115::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
- 2026 19:59:53 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 19:59:53 +0000
-Date: Fri, 16 Oct 2026 14:59:42 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Marek Vasut <marex@nabladev.com>
-Cc: netdev@vger.kernel.org,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Clark Wang <xiaoning.wang@nxp.com>,
-	Claudiu Manoil <claudiu.manoil@nxp.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-	UNGLinuxDriver@microchip.com,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Wei Fang <wei.fang@nxp.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [net-next,PATCH 1/2] dt-bindings: net: enetc-mdio: Document
- optional MDC clock
-Message-ID: <atKCLsgM2V4_RxyY@SMW015318>
-References: <20261016193344.115518-1-marex@nabladev.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016193344.115518-1-marex@nabladev.com>
-X-ClientProxiedBy: PH0P220CA0016.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:d3::19) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ (2603:10b6:f:fc00::655) by CC6PR12MB259526.namprd12.prod.outlook.com
+ (2603:10b6:170:209::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.15; Fri, 16 Oct
+ 2026 20:02:08 +0000
+Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ ([fe80::23fd:d049:8f53:2054]) by DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ ([fe80::23fd:d049:8f53:2054%6]) with mapi id 15.21.0522.012; Fri, 16 Oct 2026
+ 20:02:08 +0000
+Message-ID: <48db6848-50a9-42f1-81cb-fd4c7e726671@amd.com>
+Date: Fri, 16 Oct 2026 16:02:06 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: disable SVM when the GPUVM cannot cover CPU
+ addresses
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Huang <danielhu@amd.com>, alexander.deucher@amd.com
+Cc: alex.sierra@amd.com, Philip.Yang@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261016145129.69645-1-danielhu@amd.com>
+ <8a0a2d4b-ee31-48f6-8a44-d5a7d4af579b@amd.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <8a0a2d4b-ee31-48f6-8a44-d5a7d4af579b@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0327.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10a::12) To DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ (2603:10b6:f:fc00::655)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,113 +69,230 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM7PR04MB7190:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b4bcf05-4a5d-4798-e446-08df2bc00ad9
+X-MS-TrafficTypeDiagnostic: DS5PPF78FC67EBA:EE_|CC6PR12MB259526:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0ed6357-9e35-418b-af06-08df2bc05b98
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|19092799006|376014|7416014|366016|22082099003|18002099003|10067099003|261009223027099003|11063799006|56012099006;
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|6133799003|22082099003|10067099003|3023799007|18002099003|4143699003|11063799006|56012099006|261009223027099003;
 X-Microsoft-Antispam-Message-Info:
-	0BHFqfblMdqrkODqWu7m0DxP7uyzQXz4EENWq3VR9vwP2/PhP0DQZDB5FEEmZDTVg/k6TEbyCTfE/+d6a78LM4qRP5DgFwkk7MVCmyeamRCcKNLdpZFntjYBNRk72rYElPwCXJ7G+wmB5l7WFEMiyf3rb3Hkp0LoluM9ycLk/5+eeNOAB41fGsBRCP5Dq6zdK0mplUwUCj43lQ6HlCjdVseNYALPFjIcf/7wIOlzP+MK0n99jEPOZX+RR+zsr8cOlkVq4n4UEHnKqG57mPMLKEI6W+G1FjLEtm38yyLWXpr0ahXLVXAeQZvpDp2TY6AENNNCAFe94VU/ghCs4tk4064mUTQNiyqjxi4xkF/gs8GKIKELlwT9K8b17bFdgebv218NR8N1/xgVLBnDIxMzk5XRzjmQNUJLzODscDwJ6IPLfnhZ/fV/VR0I62PbnRknH+3rzhnObWF9ZmMUyen/xG54PJWYktiQ25s/qS6YwGI0ZuU+vbjsYb3F/blWVDK5kltHjjyu3QpC/g4HdgZLZbrroX60QnskNW0dTuwrCJ2Pvobp9LFAstXTakPaJYHYZ6s9Ecr3JU+gjlzC7bZoNfP5jJpBcPIQxjI0MEzWVJH1Ip8htWCg5E8yZYyWcXPgSeCKUjpUI5EbpKpYOJoTY2odUQq5e9IbFGxqyIuSkwY=
+	E4jlNeM8cKEtw8kvr153q7GwZlcv2YYQsUsNMMmZEKHgBJpierlUFSozwsQZ4sLkJsn3+lhF80NFbTm0j61k+1l52w/yK00WS4oIdj5EBjetz46C9xsIlK9Vrhib6XN42gw5+PoXjlfvG+3sIWmT9U+RyFg3Ij/0VH4F6Cw5nYIfm3kZgti9dFoBZ0cq7wVCARnChjNBDafnlQNfKwPZEETPX7X9Xq9Sq8jZo+fTGvrXyTX9vWAareVOviDwt+WQnW3o5VbKX0pIh7YDf+9+WwizAWDDnYvXsYNMmEBE+DVTTMozz0W0gA736mUycZ//J3/28enrzx+kI/Dh1MCzVSHKu3hhEZOGkwe7SaTT46w7UCulhfblE/xRCit+iqW0Qc67cLPGZLTtd3Fii41QiAv93YSZ4se50rvtpK3C7Qj2a00qnCS8R9h91Wp0QoGhxATXVez57jiJ3hQRyHYfIMHwrdUfYse4YOqTf5k8CIB/VDdkje5gEUwqOxuwMV/CWmsiiYOh6Ui927GAxN+mliWUivJHfeu4ghZ2OnZ3RrSF7lQFDq519pIDmsXJcupHdyw0APlMRNgneeeSpmWOxCCQIA8911C8ncIzdt4In5sQiI4TyJQP9BHh/nafgdiw
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(19092799006)(376014)(7416014)(366016)(22082099003)(18002099003)(10067099003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS5PPF78FC67EBA.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(6133799003)(22082099003)(10067099003)(3023799007)(18002099003)(4143699003)(11063799006)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?AjgF99lN488KpWYj+Dzgfi2FQcMQhDNd8tMbYrFln+8MYFQ2Aa0YMVm2YfO4?=
- =?us-ascii?Q?s1Sp7xxDUDY1E+9d75fgcZ0MmHFfvLYqJwmK5OYTsgS0zL/ZvtcDD+Rnq9vr?=
- =?us-ascii?Q?L0kom2UqNzEDymnGBMJlgSoxRuobXtL5xzvcBfokKzFHZLpakeYt0iK2Y2eb?=
- =?us-ascii?Q?pXW0ofK629Y4QW240SXsDr8ggV63KpIzPzrMR8mCkFr7L6RFfgKj/3+5JQW8?=
- =?us-ascii?Q?3ZLJz+VJxRX3Sgg63/eeNNqimrr5/20pg2YiGFux/lKev6Nf1suVgDCwk1VO?=
- =?us-ascii?Q?D7U2BmH4sexJftoEfgOB4tUEJ0a6jgqjI/RXLoAaNcVcUeZ8xuz5mmRg/oW1?=
- =?us-ascii?Q?a1wWIq+EY1c1kaTU6SBqB3mzWA5N7EiiiezezmmU2vdT1RSXao3/zmTxKY5C?=
- =?us-ascii?Q?laMG6/O58Iua0tuL453zcnAcfEW0IKNNWwi+8H6ZIYxQ5qZak4t0NG8xMnEw?=
- =?us-ascii?Q?ZGDaA4RHNPQFtfWjwSmmpnSeiCBZmU1iA64zNPNIgX1ha7P/PCCdRDkRYmw1?=
- =?us-ascii?Q?8nYWAScOVaq+mu6S3lveGYd3BT6G8okKEHhJZdKVI+5W7c31m5ByZolCeO9/?=
- =?us-ascii?Q?ccbL5kUp/FH4nCB+7xTETDuXQfcDgp403Jiwq6WWnUw/4qUHrj3SIuHX+8rF?=
- =?us-ascii?Q?C74mnQkiDNTCuOusnAP+I4hlHxDGyvYXIufq9dTPrLSsgMypiJbmRfsHD5XO?=
- =?us-ascii?Q?QWGL089GPO32+0sf+hvgcWzg1meU0Nfx0s8dABGwKOAj3p0tex/nhAvpN1/h?=
- =?us-ascii?Q?RG8maCZu3CaHPYPI3HZq/3MSzINAXDiKuJoZzfJKFdprO1TaoRFcc3qPcETv?=
- =?us-ascii?Q?McLkTtY5+dbjkG427yr12oqZhf4bVufcsx+MVNBb1CQ1EQeKKJqAo0nao/1i?=
- =?us-ascii?Q?u1O+rjcQOKvPeJiRmCzMkL8mMjq9d3ut612phH+Xat8uzuk2JemjlWoO16SR?=
- =?us-ascii?Q?3QCbQE7YlKpzcd+rI4Lczk9sE6JEaozYcX2rBzu+Y/DMvMZDZ2qqg+P+BFqe?=
- =?us-ascii?Q?wsvWo1FHnuswo4/xwjw00mezWmip6xlTQ5Tlya4Q1Sfza6/LV0Ipx1s00cs2?=
- =?us-ascii?Q?JClNdPmTSRwtd0CC6Qg1TkyUCPKVnGgpxUg3hgvdoJr3WB6vWh+1UICl6xG9?=
- =?us-ascii?Q?dQoIkOEq/IofY1VM1dAChX7lg8NM5wBtIONPsTq8QH9ZDlnoNLCdiYRSWMUP?=
- =?us-ascii?Q?zYwlRY/jT7YOTy14ykIwgKppDWizp95C/gEp+1b7MLcjM1LoLKm9bxXhc9qQ?=
- =?us-ascii?Q?BASzp+SO3nJctE+1ss1OrxEzFb0jJNxq4pQWCmZ4nhNtdptoUZSQK6SP2zPa?=
- =?us-ascii?Q?lgfuG56bpGNSyDBVR4nqPAg7zVvD0HGBfNZkLmChx0YwvjcqsMfZHyrG2dKr?=
- =?us-ascii?Q?wWrcpX6NvkqpukreOgASTOUPI6ZtsMwGyruHq6t/PtqlZVhRGMHMtGbj0n/K?=
- =?us-ascii?Q?PsPV5Pk0C3l/ytMQUyeksJ3M/2RXuQUUw2uh/0c73K0kFLZRC7KGJgtc1b/h?=
- =?us-ascii?Q?qc3zJmWGrcoe8eO1H/5O3sUDpyxvQ94eZ8Bh35EmQCicwhVM+YGmp/3nRxwl?=
- =?us-ascii?Q?xTFe/2CkX1K4ur7j3/2TtuxRLYuHX6qGzevsArMJ6/GfIarU6C855tgVfomu?=
- =?us-ascii?Q?d2UbNAwJ8jII/FktqqMdetcahWwzbfMHCtqqeouYjbo2cp81yVYd9mtbyaeA?=
- =?us-ascii?Q?dtZXb70yP7rtMbgGjnxwAwmyJjW6m9MB1Hdd0xdavWa9EM+nqnVqVSd4aw1a?=
- =?us-ascii?Q?NNlZ+DatXYqd2ZpqpwmmnkUv8+XyBsON/q2z9Wya/9dwHEPrc1Hc?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b4bcf05-4a5d-4798-e446-08df2bc00ad9
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+	=?utf-8?B?MjBzUXlROXNsVTdFNTJzWTVBczdELzBsV1VLV3N1UW8rYUdzY3NZYkVjemwy?=
+ =?utf-8?B?UnU2VFNxMWhxdG4zV2t1a3F1c096dVU2TXE5ZlN4KzcxZWtyek9ybHcrMlht?=
+ =?utf-8?B?OWRIZVNrbE9vWExCSUM1WmVKdkhnYjJ5cVFRaHVMYjU4YnJkb2h5eFJGdFor?=
+ =?utf-8?B?Y0VwOXB2c1JGSFJVZmQyL09LZnVQbUUxN3l6MG1IdlpyaTVjUEQvWE1GVVJK?=
+ =?utf-8?B?M2J2NG1XNkcrb2k5K01kRWVldzgzMWpjY2pRUGVxbHZhc0QyWlViZEN3VHRB?=
+ =?utf-8?B?NXRWeVlnVExPZ1Vjd2w4YVlmc0ROL2pwelpOZ2V6UE9PaWpjRUJOT1VKUmFh?=
+ =?utf-8?B?VDNreTcxWXNKbERoUTh6TnJTSXBNSnlCaDU0aGxUUUI4cTBrNTdmSkM4Qmw1?=
+ =?utf-8?B?amxxZlYwUGExVXBiMFJ6eUJrSk85NmVtK24yVzZGcW1FeTl2YTBwOEJlNWpL?=
+ =?utf-8?B?SWQ4aUNsM3N1bkdjQnEvaW0ycUJ2STBTbk5IdzN2ZlRXWmFDMG9QcjZ2a1Vy?=
+ =?utf-8?B?QUJyVWJtdHFwWVVoR1dOTGIwRzErNCtRUnV4M204YWxNdnRQUDY4T2xobERp?=
+ =?utf-8?B?V1d5dnhBZ2NaRFNZK09HNzlQOXZSWUpaU1gvZVJSRjJEaHcySE94alNMaUJ2?=
+ =?utf-8?B?eXRjL3d1YkhNUkhLTXNod1Nub3BLOCswTm8zVTZFN2R2aHZOVHkxRml1WHN0?=
+ =?utf-8?B?dXlNalNDdWxBazlNUk1rTFppZ2xpTndGZ3VBRW4yNEVJRFBRVWVBTHpTLy93?=
+ =?utf-8?B?S0J3SHlhQ3I0OWg4YlNETVUrY3IwcGgyTGtXaC9YMlprYkltTi9meTZhWEFP?=
+ =?utf-8?B?Q1gwcmIzNmlZY0lLSW9xcnM2cWlZZGgyNi95ZWpqTnFlZ1JmTXpabVk3S1VQ?=
+ =?utf-8?B?Z1lrQ0o5djhnNXlIbmw3Z01HRm5ybDc5MG9WL1I3SlBXNmY4L01HemllU1JS?=
+ =?utf-8?B?UkdndFRlWmNwdGRMaVE1VXBSUmt5L0s5RmcyemM1aldiRm1FYkFNbHBDZ2h1?=
+ =?utf-8?B?MElrTUZPazV2c1BzSmlpU3owcHFRL2ZuL2hiaFVhcGtObVBlMHI1TDc1UElL?=
+ =?utf-8?B?T2lnZS9DWUZ4eENoNmNxMEowaEhOWEJVdHJXZmJsYWxncllpcXhqSnFvaURm?=
+ =?utf-8?B?VHh0c3lya2VybjdWTGZmeXhNR0JvcmRxVGlQb1pLVitqaGFXOGduRmpxdVFE?=
+ =?utf-8?B?MW9odldXYXIzUHFUSk5QSERJR3RmSmpKak9GZzBkenQ2STlzV0FsRmVIRG9W?=
+ =?utf-8?B?eUZuanBGNndkSHI0RWFZQktRL2graUJINFVmbS9ZWXpkalJ1ajA2ejhXVENW?=
+ =?utf-8?B?aXBUa0txY1hteDB4V2NJc0p6dW0yM2dURDcvcnhQUCtBQjhYZ0MvKzNJMDBV?=
+ =?utf-8?B?LzArSVo5Ylp5MGkzc0dVeUx3Uk5CdnJYWWFpOFk3UTRvSWUybXFxZWs1bUxD?=
+ =?utf-8?B?UnlKRGk1bmMxQnl5aktNMUR3ZXo0azNsT2NnY3ZGa1FqeFdQd0ZPMk9jamNo?=
+ =?utf-8?B?V0tRZTM3RHdOTE1RWG9iKzl5Y094MTliWTA0bWlDWW0wMlFVekZxVzBmTWdx?=
+ =?utf-8?B?VlFnbGRpekNpUjZ4OGFMOWhCbU1LWE1GWDRXTTJpSG5Sc0lmZ3BiVVA4YU5B?=
+ =?utf-8?B?SWgrdEIrc1Y4VlEreS9wckhyRnBtNG1kRFRkMjRwOXBwNGUrZklZcXFVdmlK?=
+ =?utf-8?B?L0dOcVVnUHZzaFpxN0NXOTV1Z2dYZXphaVk3dFFPcVl1WWRoWGFBWkp2a2pt?=
+ =?utf-8?B?NE1RdEphYW5XKzRmNkk2UzBPdlZaV24vdEJUTGVWQmxmLzcyR2dOZ0M5NU1o?=
+ =?utf-8?B?SU96ZmlUV04wc1NaVUNnSDdPL1VsdjhoOXhBajhCNW5xNEFiUzErVWhuK1dO?=
+ =?utf-8?B?eWdBQ0FIdjA1ckhKcEFRTUl4L1pVdkQvdlZHRVc3NkwzVzdKK2VZWU8yMlhj?=
+ =?utf-8?B?Y3JQMHhteHBIdlExN2Z5a0RRbnZSYzJja2F1aXVQZEZhL09KVTlhaWF3S3Zn?=
+ =?utf-8?B?MkVCc29jSEc1cVo5dUU1UlhSVXhuMkd0S1RvYTI4L1pXNkZUTFgvZU4rclQ5?=
+ =?utf-8?B?MWhyaXFLeWNJLzV6WkZ5OFdRQmV3eG1Md1Boeis0RnJ2Y2IvQk5QVmJDQjhE?=
+ =?utf-8?B?VVdQUU9XTzYvZnJLUjVjOExBeTBNa2RLa01ldFZDaDBWb0RyVkM1bHVyTWp6?=
+ =?utf-8?B?aDlraFNmL3c5all6djFrbk16cmQydzNMWUxEYXdWMjRvemt0NHR1WHJ2VklU?=
+ =?utf-8?B?VUJDQ1EwaDd0Y2l2bXM4MjNwSlFBVmpVbUNRSmZNZzNZQnlXVzIvbFNIRjUx?=
+ =?utf-8?B?cmcrenB1WjdTYVpGUmtSbWNYQmtlNGtyUEIvTk1lNzBBWXVnQzZaQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0ed6357-9e35-418b-af06-08df2bc05b98
+X-MS-Exchange-CrossTenant-AuthSource: DS5PPF78FC67EBA.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 19:59:52.8859
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 20:02:08.2982
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dzw1JHNonSmOp+yh0uQHa28ctVuUJJZROsTJT4/L6dyr8buzYFdTl6t1eiPH2nCuX4H6z+dPlaoAwKuWXKSQ0xTZ8hnmodtGl5xhIRwPI+RpoNUXf7G3iRsLXVeoDQ/j
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7190
+X-MS-Exchange-CrossTenant-UserPrincipalName: 24oLlB8x+BoaCRwlMVNhWy8uKkkcy74OIFC+VjRxtHlr0U23LXxibxejqLNm7Dz1txWdyp/+8Lqk5bNXtjctzA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CC6PR12MB259526
 
-On Fri, Oct 16, 2026 at 09:32:00PM +0200, Marek Vasut wrote:
-> Document clock from which the MDIO MDC clock are derived from.
-> While those clock are always present in every SoC, they are not
-> described in legacy DTs, make them optional. The clock-frequency
-> DT property is not described here, it is already part of mdio.yaml .
+On 2026-10-16 05:09, Christian König wrote:
+> On 10/16/26 16:51, Daniel Huang wrote:
+>> KFD SVM maps memory in GPUVM at the same virtual address used by
+>> the CPU. However, svm_range_map_to_gpu() passes the corresponding
+>> PFNs to amdgpu_vm_update_range() without checking them against
+>> vm_manager.max_pfn.
+>>
+>> If the GPUVM address range is smaller than the CPU address range,
+>> the page-table walker can index beyond the allocated root page-table
+>> entries. Unlike the SVM path, the BO mapping path validates the
+>> address range through amdgpu_vm_verify_parameters().
+>>
+>> An explicit amdgpu.vm_size override can trigger this condition by
+>> configuring a smaller GPUVM than the driver would normally select.
+>>
+>> Reproduced on a Radeon 780M (gfx1103) with amdgpu.vm_size=64.
+>> Repeated hipMallocManaged() allocations attempted to map CPU
+>> address 0x74bd48000000, well beyond the 64 GiB GPUVM limit.
+>> The out-of-bounds root entry contained SLUB poison with
+>> slub_debug=FZPU and recycled heap data without it, resulting in
+>> a general protection fault:
+>>
+>>    RIP: 0010:amdgpu_vm_cpu_update+0x2f/0x140 [amdgpu]
+>>     amdgpu_vm_pte_update_flags+0xfa/0x1e0 [amdgpu]
+>>     amdgpu_vm_ptes_update+0x38b/0xa00 [amdgpu]
+>>     amdgpu_vm_update_range+0x279/0x930 [amdgpu]
+>>     svm_range_map_to_gpu+0x13d/0x400 [amdgpu]
+>>     svm_range_validate_and_map+0x8d3/0xaa0 [amdgpu]
+>>     svm_ioctl+0x66/0x80 [amdgpu]
+>>     kfd_ioctl+0x40a/0x650 [amdgpu]
+>>
+>> As discussed in [1], rejecting out-of-range PFNs in
+>> amdgpu_vm_update_range() is too late. SVM must not be initialized
+>> when the GPUVM cannot represent the required CPU addresses.
+>>
+>> Prevent this by disabling KFD SVM support when the GPUVM address
+>> range is smaller than AMDGPU_GMC_HOLE_START. This prevents
+>> affected devices from advertising SVM support and excludes them
+>> from SVM mappings. Warn from kfd_update_svm_support_properties(),
+>> which runs after the device memory pgmap is registered, so that
+>> only devices that would otherwise have advertised SVM report the
+>> loss of the capability.
+>>
+>> [1] https://lore.kernel.org/amd-gfx/da43b0e3-5bd9-4aa1-86d3-b733f3bad108@amd.com/
+>>
+>> Fixes: f80fe9d3c114 ("drm/amdkfd: map svm range to GPUs")
+>> Closes: https://github.com/ROCm/legacy-rocm-build/issues/6691
+>> Cc: stable@vger.kernel.org
+> I think we should drop the Fixes and CC stable tag, that is not really a bug fix.
 >
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> ---
+>> Signed-off-by: Daniel Huang <danielhu@amd.com>
+>> ---
+>>
+>> Tested on a Radeon 780M (gfx1103, PCI 1002:15bf), kernel
+>> 7.0.0-38-generic, and ROCm 7.13.0-2.
+>>
+>> The reproducer performs 24 iterations of hipMallocManaged(1 GiB),
+>> hipMemset(), and hipFree() per run, with 40 runs per attempt.
+>>
+>> With amdgpu.vm_size=64:
+>> - Stock module: kernel Oops within approximately 2 seconds on
+>>    every attempt.
+>> - Patched module: completed 40/40 runs in two attempts, with
+>>    stock and patched modules tested alternately on the same kernel.
+>>
+>> With the default GPUVM size, the patched module preserved SVM
+>> support, emitted no warning, and completed the same test.
+>>
+>> Two questions for maintainers:
+>>
+>> 1. I interpreted "SVM must fail to initialize" as disabling
+>>     the SVM capability for affected devices rather than failing
+>>     KFD initialization or rejecting the vm_size override.
+>>     Would a different approach be preferable?
+> I think that this is ok.
+>
+> The amdgpu.vm_size override is only for driver testing and not something end users are supposed to change in any way.
+>
+> So that here is actually a really minor issue.
+>
+>> 2. This check also affects GMC v6/v7/v8, whose GPUVM address
+>>     ranges cannot reach AMDGPU_GMC_HOLE_START. Although these
+>>     devices do not register device-private memory, an APU with
+>>     apu_prefer_gtt can currently advertise SVM support.
+>>
+>>     Should the check apply to these devices as well, or should
+>>     it be limited to explicitly configured amdgpu.vm_size
+>>     overrides?
+> So we still support GMC v6/v7/v8 with KFD? I think we have dropped that a while ago.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+KFD SVM is not (and never was)  supported on GPUs before GFXv9.
 
-> Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-> Cc: Clark Wang <xiaoning.wang@nxp.com>
-> Cc: Claudiu Manoil <claudiu.manoil@nxp.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Eric Dumazet <edumazet@kernel.org>
-> Cc: Frank Li <Frank.Li@nxp.com>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Paolo Abeni <pabeni@redhat.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: UNGLinuxDriver@microchip.com
-> Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
-> Cc: Wei Fang <wei.fang@nxp.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: imx@lists.linux.dev
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linuxppc-dev@lists.ozlabs.org
-> Cc: netdev@vger.kernel.org
-> ---
->  Documentation/devicetree/bindings/net/fsl,enetc-mdio.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
+Regards,
+   Felix
+
+
 >
-> diff --git a/Documentation/devicetree/bindings/net/fsl,enetc-mdio.yaml b/Documentation/devicetree/bindings/net/fsl,enetc-mdio.yaml
-> index 71c43ece82954..708d410187baa 100644
-> --- a/Documentation/devicetree/bindings/net/fsl,enetc-mdio.yaml
-> +++ b/Documentation/devicetree/bindings/net/fsl,enetc-mdio.yaml
-> @@ -31,6 +31,11 @@ properties:
->    reg:
->      maxItems: 1
+> If we still support this then that would indeed be problematic.
 >
-> +  clocks:
-> +    items:
-> +      - description: A reference to the input clock of the controller
-> +          from which the MDC frequency is derived.
-> +
->  required:
->    - compatible
->    - reg
-> --
-> 2.53.0
+> Regards,
+> Christian.
 >
->
+>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.h      | 18 ++++++++++++++++--
+>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 14 +++++++++++++-
+>>   2 files changed, 29 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+>> index c7d7adae4476..6235ce0f988e 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+>> @@ -203,11 +203,25 @@ struct kfd_process_device *
+>>   svm_range_get_pdd_by_node(struct svm_range *prange, struct kfd_node *node);
+>>   void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_struct *mm);
+>>   
+>> +/*
+>> + * SVM uses CPU virtual addresses for GPU mappings. Disable SVM if the GPUVM
+>> + * address range cannot cover the required CPU address range.
+>> + *
+>> + * The parameter must be named adev since AMDGPU_GMC_HOLE_START references
+>> + * adev->vm_manager.max_level.
+>> + */
+>> +static inline bool kfd_svm_vm_covers_user_va(struct amdgpu_device *adev)
+>> +{
+>> +	return (adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT) >=
+>> +		AMDGPU_GMC_HOLE_START;
+>> +}
+>> +
+>>   /* SVM API and HMM page migration work together, device memory type
+>>    * is initialized to not 0 when page migration register device memory.
+>>    */
+>> -#define KFD_IS_SVM_API_SUPPORTED(adev) ((adev)->kfd.pgmap.type != 0 ||\
+>> -					((adev)->apu_prefer_gtt))
+>> +#define KFD_IS_SVM_API_SUPPORTED(adev)					\
+>> +	(((adev)->kfd.pgmap.type != 0 || (adev)->apu_prefer_gtt) &&	\
+>> +	 kfd_svm_vm_covers_user_va(adev))
+>>   
+>>   void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
+>>   
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> index 35b3abe57b80..5de19fa27d12 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> @@ -2471,8 +2471,20 @@ void kfd_update_svm_support_properties(struct amdgpu_device *adev)
+>>   				sys_props.generation_count++;
+>>   			else
+>>   				dev_err(adev->dev, "Failed to update SVM support properties. ret=%d\n", ret);
+>> -		} else
+>> +		} else {
+>> +#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
+>> +			/* Report it rather than letting the capability
+>> +			 * silently vanish from the KFD topology.
+>> +			 */
+>> +			if ((adev->kfd.pgmap.type || adev->apu_prefer_gtt) &&
+>> +			    !kfd_svm_vm_covers_user_va(adev))
+>> +				dev_warn_once(adev->dev,
+>> +					      "GPUVM size 0x%llx is too small for KFD SVM; SVM disabled (amdgpu.vm_size=%d)\n",
+>> +					      adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT,
+>> +					      amdgpu_vm_size);
+>> +#endif
+>>   			dev->node_props.capability &= ~HSA_CAP_SVMAPI_SUPPORTED;
+>> +		}
+>>   	}
+>>   	up_write(&topology_lock);
+>>   }
