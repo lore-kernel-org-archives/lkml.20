@@ -1,63 +1,64 @@
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 145903CAE7F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:46:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC9639795B
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792179980; cv=none; b=ckxh1LA6M/OaXYCN/QlZYkY5iOsMurgOuWiN8qgNdbLQ6+UUC5w9AkEySoBv78rkAZijzBQitz+wAZWGOermTz1vZ6jRVHsrXvavfZ+EoEFsAmB+TrZlUIVBYTwoG/ir9d0F9dCv2n1qYCbEVZpc56XJnG6cK6vkFBbuC0RT/ss=
+	t=1792179987; cv=none; b=qq+CbKYqODO+vtu51IKCuKOsaan33I84CUF5/cJVgcv4C9J1WkMWOzUClFG3OQiPCDUmPpF7dc73sdylxzQhJc6yGgnJTe0QkueIpdPASTB56AqSsEaHTieJBfx0oZ82D72Ya60RVyWBDjIlWeKxPhiaJ+L8JFwm8QBBMe5sU/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792179980; c=relaxed/simple;
-	bh=EVazFA0csJsZIo3f4B6QUACEMBA2ndyJfDDy8qymyLk=;
+	s=arc-20240116; t=1792179987; c=relaxed/simple;
+	bh=UKHfm3hib73pa55eKddhtXLxTqC68GbL0KmbqqEd5N8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bPancmUahX+CDwTMf0bgBoMrPffQUeK8i6lT12Vjl5No3N34GJ9r29kTWfDsKHLdQ+qno9Tf1NnJBlopAn0Muio+0JjZqdTn8Ya0HqMB6ZUio1j7rq0uWLkWgsBY4F0CFzLhRCexmFWh5PmPqkCkvRxUHBodOBFMf01N83lJJxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CRp5wEGg; arc=none smtp.client-ip=74.125.82.175
+	 MIME-Version:Content-Type; b=LU0QpMhtWyG/ivCeGbKXy5evpa07sQjYJbvjtDV1haY6SGORz/FMqn9fbC0BdHhHJ90hWbRdxauo43VHy3qeZ4IypVMH/utyElYVbZGX8yVaWLGxTVSLGAez2/Fh3MnsK+Em6NFCFo2YMFtaebvXB/id/QC8UnOfIQOoLJKzb0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HxWzW2es; arc=none smtp.client-ip=74.125.82.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CRp5wEGg"
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-30b6dad2382so774842eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:46:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HxWzW2es"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35ef6b49813so481037eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:46:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792179978; x=1792784778; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792179985; x=1792784785; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=RiRo02OA1IxHJkhQCnHi5URLw0bi6CvLtMWBM69Y8xM=;
-        b=CRp5wEGgJakPSigX9Y3ogxQymTOTvKjy0ti445e9jZigMGpHnm+PVRDTdoI4wW2y/q
-         tffh1S74qOGIrWNdpV+q2H3AbHNhuF6bceWw1k51pZLQPbkY8Xj0y+bBqiTBDNhBugNQ
-         XVFQ9V82xpmDKcKEbhSqzkqw62oeAKJ+7/PuVfT5D8CSk7L13Esp39Mu7SDRKVZL8QXy
-         NTCoa3MSHPPVpMiFjNOfwq07JmyJD3ZUKX0UY2Hg9pHAVyqNObSrT047gssrkxlPv2GX
-         bfpbqCMsEGhP/yyeWBpW14tyIMCW6AxIbe6K08QCECpxC+t/D/YOG38V8G60Hm1JKMgi
-         gUUA==
+        bh=mzEjDaJTDISex2ZPOiizRCuwngZ28JcDGHKte0m6HrM=;
+        b=HxWzW2esgtZm1ryn5BNufXdKutdKZI3lAbTKQqmMFjJixbLB4IIr7lBpKPBgmJ/ceL
+         SSzgzLnNdNqsYJZoy8qijie/5TC0csi0Ps2m8VtelH869ZGh0xLJ5cIHT+04Sek2TEU9
+         lxKa6LGhnVeADv/DNlZGEr4wBSgAPjxPbedffvhkb0spn+Ck0T0rVQV6OmvgKeA5uR/r
+         GIQ8s97TEedxC2cE/9H12sJ1FdgWh9ckbJip4LxdVak6DL8Zo0+4ytvFjylgBYHcyLcV
+         GKX13kq2swhqprDUmXDVS5vsy7AyXyjOkJJMOyjee5JgzEBWYogYQFHHH+r4Ds0wuu+/
+         NT7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792179978; x=1792784778;
+        d=1e100.net; s=20260707; t=1792179985; x=1792784785;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RiRo02OA1IxHJkhQCnHi5URLw0bi6CvLtMWBM69Y8xM=;
-        b=ISUsPk16kQEl+QauFdt7znznaQaZ5bbm1EmeHrjAmcrxlx9ghQLhpsn8G7k7AsXYfL
-         2nxc9zsTenaraK52FS/pT3FMtH41y83ZZNgZ0tojEn07egPQPRLDTZs6IMvk2UjU07KY
-         CeY0xTkU1gTB+7uI0iQCn8PmDKZLeg5TSJcP2cJgO0/ng6agkfOSFAB4cSVLkkGBLH9Y
-         Y+w8JKMeOAnibOmtaN28e/D9NsuRLC/6xp07O2UXSR59u2xkMVgRHAsPSxEEFXhyTbSB
-         iEJLOf5+lCHB7NTfobN2KSNnNmZ3IejyQEUvxrfEWrBiZk5y6ObBnQVcSpTQbbjqPrPM
-         /6WA==
-X-Gm-Message-State: AFq9FYKJcrHuxUwS35E0dd6YNayGn3fiSsu1UHKzWWh2W37jn2+ih4KX
-	fLWawP6GZ2Xxe/TnBYZ3Eqhyh8ZAbahEwn3eYO1BpQFiGz0oTpkqJ3vQ
-X-Gm-Gg: AYBFou18CGUHjBR9I3WenlLMeREMGa6lWeYY89/QDe5pbdXFUyQ3DJVqZwIZmvbu1RK
-	4rq3oQSsjbdXQHtIacP5K7LEvt2hPYnjE9G/HYEA+UHaffRYdtl0KHLbVUCOpJFtSL5XDxkeWfR
-	HzvQt86ZFiHtdB4hIxQWHB0D2u2vhLYBTf0q3NOSFTPY22Ujfg6YYHpegqyLbVIU+HyU8QXrp8P
-	KL/lLe7+CXilq9jSlenkLbpQhv08S4A5IrjwNuE2gnaG6M5BJ2jHyR33ZSk3iYIgyxbdkPUd9Hm
-	DIq3TQcYXDcqEqL0D92W/bjZN5YP7lJyBQAATpD3nxO3CA8BItvoLVJCpiwzq7/gvQAvdb5UVoO
-	1etAaBEY8JZB49aGKddUMnoZepz9lKRHSbMouY3K2VQhBtPz0Y4NVmDhfwR1AWUWb6P1XrZbFnw
-	qgA/ffBdz9/9d4mOF//3CRfy2Qh5vTWoxDQg9VjYQcF66WKnUxMaH6uto4HiobuBTP
-X-Received: by 2002:a05:701b:2712:b0:151:ece6:b16b with SMTP id a92af1059eb24-18512c38159mr1013993c88.7.1792179977759;
-        Fri, 16 Oct 2026 12:46:17 -0700 (PDT)
+        bh=mzEjDaJTDISex2ZPOiizRCuwngZ28JcDGHKte0m6HrM=;
+        b=IXT6hgZXmMKvPdybukVnxpS5GvrcIq99+vXvzeFXqf2Vva2BPl8upf8Eoxkhb5F0Ny
+         XinO0ipmWw0JUXJAZ4GtYm7hc65Uq9NJK6FU+K69huVRPYHt3M5M88N5CsFgX+JFFxTD
+         87yIgj6fvBrzhDHbgzI90bp3Hiup+Wd3lxG2ZuIa6eMLJEcpnJH6+J9Js8Pk2vyVfA0K
+         G/pRIIuVMP1PpsD5eJ8ClYeiCZCymabd3T+xuol0m1p6ErgxnevXHXoiPxeIlOh1e5Nq
+         un345kUhR59JvEatYjum0rxgOS155j5ui15orWniZX3s/WL4eV5KCXurK1uS0hDzn47Z
+         vFSQ==
+X-Gm-Message-State: AFq9FYI5BPRR3QaKExY7IgZCSDAW1RUyVsdonooTvn/R+6v9zBK/SAcv
+	oUE6exIvW0dQe4HYCDtoiuNGtoVa0HGznLpJ3tegJdWDhGxNHcCOESXi
+X-Gm-Gg: AYBFou2uCijsQop8qfDyWBlmsmCfnNnHhVxFhIXPfWfSGQb/n+DfChuFMOF5dLL1j+c
+	OCkv86eZSJobuEuuYhG6LLVanQwXUj7/vi+IR/0gQbjkzqI9FzMbxUId7m6JVFzX09tfNxfX8Bm
+	DoWeOKUX9MTEaRhJXX6HVzmCxVi/d2WpkfNuYwgHX5zf/JCtgrTC/QQpHnbzvKo6Y3RR0G72yp+
+	TZhCXfc/aQNcU54c8JCqLWvtJAcWd73fgVl3Qw7xeI1by9A/tflrhot29zxUpMucbC5it34Sdz9
+	RA6k/fMM6jXnOJ0C61pmkJK3HejB2zoZOXTtXz59PE1SDs4l4aBKK7QnCXzKaTNnsjjbhYZ9dBK
+	VS4z3RCLS7rHbwlNQcRoBB2K0MbQp38pj66FGKTmUEZrFgz5aWKbUlDro0N3IOpKo2cIVryH8Im
+	U183QiJZKfWVH5fihSxZ/xHcKvjFdgjXSJumKI5UBSdKXsslaaZitpKo/jcpS6C9tmvJ+ckzA0w
+	z0=
+X-Received: by 2002:a05:7022:f90e:b0:168:3243:c937 with SMTP id a92af1059eb24-185119e3cfamr1015727c88.16.1792179983649;
+        Fri, 16 Oct 2026 12:46:23 -0700 (PDT)
 Received: from unix.. ([181.229.23.179])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm11008321c88.16.2026.10.16.12.46.11
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm11008321c88.16.2026.10.16.12.46.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 12:46:16 -0700 (PDT)
+        Fri, 16 Oct 2026 12:46:22 -0700 (PDT)
 From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
 To: Catalin Marinas <catalin.marinas@arm.com>,
 	Will Deacon <will@kernel.org>,
@@ -84,9 +85,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Zishun Yi <vulab@iscas.ac.cn>,
 	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/4] arm64/gcs: release GCS on failed fork
-Date: Fri, 16 Oct 2026 16:46:00 -0300
-Message-ID: <2539f61f79a6053e2a33a1d1ae9df09013c04bd8.1792179433.git.ivanrwcm25@gmail.com>
+Subject: [PATCH 2/4] riscv/shstk: release shadow stack on failed fork
+Date: Fri, 16 Oct 2026 16:46:01 -0300
+Message-ID: <75e29a5db0166247c407bd51f184864b398a2ee6.1792179433.git.ivanrwcm25@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1792179433.git.ivanrwcm25@gmail.com>
 References: <cover.1792179433.git.ivanrwcm25@gmail.com>
@@ -99,96 +100,94 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-copy_thread() maps a GCS for a CLONE_VM child and can still return
-0. A later copy_process() failure then goes through
-bad_fork_cleanup_thread, which calls exit_thread(). The hole this
-series hits is clone3(CLONE_VM|CLONE_PIDFD) when put_user() of the
-pidfd fails after that mapping. arm64 did not implement
-exit_thread(). deactivate_mm() is what normally calls gcs_free(),
-and it does not run on this path. Each rejected clone leaves one
-GCS VMA in the parent's mm until the mm dies.
+copy_thread() maps a shadow stack for a CLONE_VM child and can still
+return 0. A later copy_process() failure, including clone3()
+CLONE_PIDFD when put_user() fails, goes through
+bad_fork_cleanup_thread and exit_thread(). riscv did not select
+HAVE_EXIT_THREAD, so that free was a no-op. shstk_release() already
+documents this call; deactivate_mm() is the only path that actually
+reached it.
 
-Select HAVE_EXIT_THREAD and free the child's GCS from
-exit_thread(). gcs_free() already ignores a cleared base and a
-different mm, so the usual exit path (deactivate_mm() then this) is
-a no-op the second time. copy_thread_gcs() zeros the inherited
-tracking before a user-thread allocation, so an allocation error
-still skips exit_thread() with nothing to unmap.
+Select HAVE_EXIT_THREAD and call shstk_release() from
+exit_thread(). The helper already refuses a different mm and a
+cleared base, so CLONE_VFORK, !CLONE_VM, and a second call after
+deactivate_mm() stay no-ops.
 
-A kthread copies the caller's GCS fields via arch_dup_task_struct().
+Do not free when shstk_alloc_thread_stack() fails. That error
+returns from copy_thread() with the inherited parent base still in
+place, and copy_process() skips exit_thread() on that path.
+
+A kthread copies the caller's tracking via arch_dup_task_struct().
 kernel_thread() uses CLONE_VM, so during a failed copy_process()
-the child still shares the caller's mm and gcs_free()'s mm check
-does not save us. Clear the inherited tracking as part of kthread
-setup.
+the child still shares the caller's mm and shstk_release()'s mm
+check does not save us. Clear the inherited tracking as part of
+kthread setup.
 
-Tested with CONFIG_ARM64_GCS on QEMU 11.1.2 -machine virt -cpu max.
-Sixteen clone3() calls with CLONE_VM|CLONE_PIDFD and an unwritable
-pidfd pointer leaked 16 GCS VMAs without the fix. With it, the VMA
-count was unchanged and call/return on the parent still used the
-original GCS. A successful clone3 child exit with the same flags
-runs deactivate_mm() and then exit_thread().
-
-Fixes: 506496bcbb42 ("arm64/gcs: Ensure that new threads have a GCS")
+Fixes: fd44a4a85516 ("riscv/shstk: If needed allocate a new shadow stack on clone")
 Cc: stable@vger.kernel.org
-Cc: Mark Brown <broonie@kernel.org>
+Cc: Deepak Gupta <debug@rivosinc.com>
 Assisted-by: LLM
 Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
 ---
- arch/arm64/Kconfig          |  1 +
- arch/arm64/kernel/process.c | 21 +++++++++++++++++++++
- 2 files changed, 22 insertions(+)
+ arch/riscv/Kconfig          |  1 +
+ arch/riscv/kernel/process.c | 18 ++++++++++++++++++
+ 2 files changed, 19 insertions(+)
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index cab741a695f5..c7fc79409f98 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -177,6 +177,7 @@ config ARM64
- 	select HAVE_ARM_SMCCC
- 	select HAVE_ASM_MODVERSIONS
- 	select HAVE_EBPF_JIT
+diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+index 5874ca30f4f6..7635f8cb0397 100644
+--- a/arch/riscv/Kconfig
++++ b/arch/riscv/Kconfig
+@@ -169,6 +169,7 @@ config RISCV
+ 	select HAVE_FUNCTION_GRAPH_FREGS
+ 	select HAVE_FUNCTION_TRACER if HAVE_DYNAMIC_FTRACE
+ 	select HAVE_EBPF_JIT if MMU
 +	select HAVE_EXIT_THREAD
- 	select HAVE_C_RECORDMCOUNT
- 	select HAVE_CMPXCHG_DOUBLE
- 	select HAVE_CMPXCHG_LOCAL
-diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index 581f80e9b9b7..eb5314b4b42b 100644
---- a/arch/arm64/kernel/process.c
-+++ b/arch/arm64/kernel/process.c
-@@ -341,6 +341,16 @@ void flush_thread(void)
- 	flush_gcs();
+ 	select HAVE_GENERIC_TIF_BITS
+ 	select HAVE_GUP_FAST if MMU
+ 	select HAVE_FUNCTION_ARG_ACCESS_API
+diff --git a/arch/riscv/kernel/process.c b/arch/riscv/kernel/process.c
+index 7cc5a6a5c020..def1f520d9ef 100644
+--- a/arch/riscv/kernel/process.c
++++ b/arch/riscv/kernel/process.c
+@@ -12,6 +12,7 @@
+ #include <linux/kernel.h>
+ #include <linux/sched.h>
+ #include <linux/sched/debug.h>
++#include <linux/sched/task.h>
+ #include <linux/sched/task_stack.h>
+ #include <linux/tick.h>
+ #include <linux/ptrace.h>
+@@ -213,6 +214,16 @@ void arch_release_task_struct(struct task_struct *tsk)
+ 		riscv_v_thread_free(tsk);
  }
  
 +void exit_thread(struct task_struct *tsk)
 +{
 +	/*
-+	 * copy_process() calls this after copy_thread() returns 0.
-+	 * deactivate_mm() does not run on that failure path.
-+	 * gcs_free() is a no-op once gcs_base is cleared.
++	 * shstk_release() documents this call for a failed CLONE_VM
++	 * clone. copy_process() reaches it only after copy_thread()
++	 * returns 0; deactivate_mm() does not run on that path.
 +	 */
-+	gcs_free(tsk);
++	shstk_release(tsk);
 +}
 +
- void arch_release_task_struct(struct task_struct *tsk)
+ int arch_dup_task_struct(struct task_struct *dst, struct task_struct *src)
  {
- 	fpsimd_release_task(tsk);
-@@ -503,6 +513,17 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
- 
- 		p->thread.cpu_context.x19 = (unsigned long)args->fn;
- 		p->thread.cpu_context.x20 = (unsigned long)args->fn_arg;
-+#ifdef CONFIG_ARM64_GCS
+ 	fstate_save(src, task_pt_regs(src));
+@@ -261,6 +272,13 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
+ 		p->thread.s[0] = (unsigned long)args->fn;
+ 		p->thread.s[1] = (unsigned long)args->fn_arg;
+ 		p->thread.ra = (unsigned long)ret_from_fork_kernel_asm;
 +		/*
 +		 * kernel_thread() uses CLONE_VM, so a failed
 +		 * copy_process() still shares the caller's mm.
-+		 * Inherited GCS tracking would then look like a
-+		 * child mapping to gcs_free().
++		 * Inherited tracking would then look like a child
++		 * mapping to shstk_release().
 +		 */
-+		p->thread.gcs_base = 0;
-+		p->thread.gcs_size = 0;
-+		p->thread.gcspr_el0 = 0;
-+#endif
- 
- 		if (system_supports_poe())
- 			p->thread.por_el0 = POR_EL0_INIT;
++		set_shstk_base(p, 0, 0);
+ 	} else {
+ 		/* allocate new shadow stack if needed. In case of CLONE_VM we have to */
+ 		ssp = shstk_alloc_thread_stack(p, args);
 -- 
 2.43.0
 
