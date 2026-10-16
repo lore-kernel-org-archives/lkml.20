@@ -1,84 +1,37 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1740048FF73
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:25:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9623413796;
+	Fri, 16 Oct 2026 22:27:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792189525; cv=none; b=M7mKVmFwuaExfcy+59cEsqL52bmXbMxxEhPTXMemwD4UvWOprFjIAMfIDH5AcmMtCBfDklx6iSC5+ssjCx/VCuXN8S4Z5y4xQ1vDdWu93kfFnaQrnJVGD3ceU1PANmfEx3OFAGe7rLyhXixibBb9bAy2eafWIN4nyJFvTu1lWo4=
+	t=1792189655; cv=none; b=ASbUv2mvLC7FdWoQWe7nAAObA9ZkJym/maaSxTafapaZLk853/epyi8eojIDIbHXUi0dCfioOgLHMHbK0KDbXOV3on1+TqAyYHOViflUFUBThSeThN1rJ4LNnDmbYTAQgLLrrqzBIVIJHxTMh/gX+Bs7zGaab0LzIuGXOaZLojI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792189525; c=relaxed/simple;
-	bh=HGsrAtc0dxK/Dg7F5pK3YyUAMin6RMPY0jRmrJMCC1s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QlbIKFVgOC/hzsnMQUnE/6JtC8VDvdj3z33PIksZBpxQDH+rdTvR/df60ZS5rqHmLNQLoT8OJLaXpEvvKJ1ilEyFMm7NKUJy+RWqRMASf04NsSsH5IlfUU90KgQsCsOAUsKMZ1q48CtKggMQeEFUHPLFCv40dXsOvILiAtH7gyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I5aAAyjJ; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I5aAAyjJ"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48de6a62a4cso232558f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:25:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792189521; x=1792794321; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EsJugF+V4C177v7yT925TOFVlw+I1rckddRVMpj3ZdA=;
-        b=I5aAAyjJ2lTJ01sTxnFGqhq+4qKrt4GO59Lg8rcbUKN2vfw6eHOSAuzHSpyBbmOjjq
-         1uQxOF2hSsmkqdEFHLZzJub/GbXA/BiKUeAunTLgAkuH1UZU0XbgJO98Y2ZVr6Q3J37q
-         H+pPRsRsM1MCHTVuYo8Lb1pgW/AHAYSAO5AeuC8WE4+1c+Ac5IpsXGI+nPXSqFk5ocgh
-         gPXCo/HOCHBepjWMZNIWUy38f1V5ZxFUM8MzS1/rqbVjjPqaE4pqUWn/V6oK4ip8aWWc
-         aWipcpWOlWpkDbNzadcLXwSIslVGEsxl/BRh83Vcddh+CCjU95+/JM92HnJYGl6WDQig
-         MJpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792189521; x=1792794321;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EsJugF+V4C177v7yT925TOFVlw+I1rckddRVMpj3ZdA=;
-        b=FMRv72hTjRmzeJ9H5Ndl3OfYSrXR3MexzNHZLkGMg2vKfd0h0aejVOZnKQbY8lq5yq
-         ITROW1YJfv1p/NJhDaI0uDX8mNq4BI7cw9TiFskHTpRm6IkzeUUM/mZ3jCmOPN2gTM2c
-         7hHPVW3ua7ND81MDpfhqcBtTESA04pvNxUNjpjNCpLN1Ku5ONJL2vB/Oyu4oX7jE87o1
-         HjCyXsTwwLv80tUiGIN530tQk/0KnPIDcBfOIetZPNKVanfp3+aCpPCBrc6nqhxYp+LN
-         YXE6ECWNhE3qAbW2Y2nl3EKmdWroFTPypzJQsmmhuwm6eogtHacWJD7S4X4YZHkQPG4n
-         XQPA==
-X-Forwarded-Encrypted: i=1; AKwUvBx66SoPusPNCdt8WLI8g1RK9kP67kFBNulILfoJbGKsxWOSpcwCVwDkrMr+NS1yV4GcaKblFoq4DER7B5U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7QRPfQWGqVCBpD1rXvFj87mGtmE7JUe99PVkMCdPsFw2qxnDg
-	ACmEY0H+qIINykkM96zFn4f2QTnbGrcqqRuUGHCnl8p48OKx5Jaq1WKjEarls29G
-X-Gm-Gg: AYBFou3GgmtbrllvlUhrH9RLo9Om8VhA4Nfu4PihtkfjxOZEHW7FGQPHNVi7VeNYvae
-	cIWMUH5jSMLXBXGqQrMqCOXmBd4RRnCVJFMvdqQFDvlQrq+FYERWzou4EzA+AfZRlZ+rUiHdsej
-	WoNjQ54SpSnhIRbTnhFt0/ISrJm7V+gei6h8Dljp9ZXLwfj1vqe8YvHs/RnrsQ5hkN4qMqkMExk
-	wtnHju8WWHOo6pX6GMBr1k+iFmPx1CMdGP+oTwIVdArxeulXrOr9Vg0lctEgWcibROj+SPkLM4x
-	YsEdzQDhewn6AW9/Tzf1KJ0h1XmfvNdjJjN5NwAo7nxre84g0v2lhd8FtYk+yW/lPvXsgisKNy+
-	4pB45VNfUZTAiAjiyXmrZ1C0D9ALCFP1LdhznP/FVTWqnzWpOisQvhTiZkTfYWo5FmOljmfmKZs
-	eynhWgtCd+7moXkS4Rg6m+nCmfxXMGBGrwDFWi7TweL/NKDDP4P+TVq8ZghepWB3wf1F6z/4J3a
-	TwCU1x3Rq9sxy4j7XqFFdHk+SGh4CImPz3kqQJflZ2spaloZtVl82VgM5aJ2P8Xc5tCItNE
-X-Received: by 2002:a05:6000:2611:b0:48d:ef93:67a0 with SMTP id ffacd0b85a97d-48e07fa8300mr1816606f8f.50.1792189521095;
-        Fri, 16 Oct 2026 15:25:21 -0700 (PDT)
-Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4c5957sm7280051f8f.9.2026.10.16.15.25.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 15:25:20 -0700 (PDT)
-From: George Neacsu <geocausa@gmail.com>
-To: Sergey Lebedev <lsa.uz@pm.me>,
-	Bryan O'Donoghue <bod@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	German Pablo Lindo <germanpapulindez@gmail.com>,
-	Simon Kruse <simon0x+git@proton.me>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: i2c: ov13858: Add device tree support
-Date: Fri, 16 Oct 2026 23:25:17 +0100
-Message-ID: <20261016222517.23525-1-geocausa@gmail.com>
+	s=arc-20240116; t=1792189655; c=relaxed/simple;
+	bh=kPXvKt0orUQqunHtCI5ML1l1hWHKV0qCJkhbt78Unkg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TgBdrVcTFmoj/dHfofehCrrCVypIWyWs+NnxhfHubZB1bazJJ/d7l1vEJ0yWFssa/C5GJDCsUpuV5jqVEluWKfFrJEQFVNa88mL9DUIenAv1wLVcPqECIO0v9BhfSsq56SacdXJdsS55rrNyQ+GNNF3DXTmMQstsSnfB3btRNDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xHqOX-00GiQ4-G4;
+	Fri, 16 Oct 2026 18:27:21 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Matthew Wilcox <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Brian Foster <bfoster@redhat.com>,
+	Theodore Ts'o <tytso@mit.edu>,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] mm/truncate: fix the zeroing end of pagecache_isize_extended()
+Date: Fri, 16 Oct 2026 18:27:21 -0400
+Message-ID: <20261016222721.791785-1-nickolai@csail.mit.edu>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016210802.60605-1-lsa.uz@pm.me>
-References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com> <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com> <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org> <20261016161618.209290-1-geocausa@gmail.com> <711e8518-5054-49ab-8432-346049a86cd1@kernel.org> <20261016210802.60605-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,23 +40,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Bryan, Sergey,
+A process that extends a file by 4 GiB or more past a dirty folio, on a
+file system whose block size is smaller than the page size (ext4 with 1k
+blocks), reads back the bytes it wrote through a shared mapping beyond
+the old end of file instead of zeroes, and a later write into that block
+carries them to the disk. With the example of commit 52aecaee1c26 ("mm:
+zero range of eof folio exposed by inode size extension") and the
+truncate taken 4 GiB further (pwrite 2k at 0, mmap the first page and
+write 'X' over [2k, 4k), truncate(2) to 4 GiB + 2k), the read of
+[2k, 4k) returns the 2048 'X' bytes, and a pwrite of 16 bytes at 3k
+followed by fsync() and a remount leaves 1008 'X' bytes on the disk in
+[3k+16, 4k). No privilege is needed, and every size extension of 4 GiB
+or more reaches it: truncate(2)/ftruncate(2) through truncate_setsize(),
+writes beyond the end of file through generic_write_end(), ext4, iomap,
+btrfs, exfat, ntfs, afs and orangefs. Affected since v6.13.
 
-The runtime PM test I promised, on the Surface Pro 11 (X1E80100) booted
-into linux-next with the PHY series, CAMSS and this series:
+pagecache_isize_extended() zeroes the part of the dirty folio straddling
+the old end of file that the size extension exposes, from the old size
+to the new size or the end of the folio, whichever comes first:
 
-- 20 cycles of open, stream 30 frames, close on the rear OV13858: the
-  sensor was runtime suspended before and after every cycle and
-  streamed every time; three further cycles that saved the frames got
-  all of them (3 x 4224x3136 RAW10 each);
-- the regulator summary shows avdd, dovdd and dvdd of 3-0010 enabled
-  (use count 1) while streaming and at use count 0 between sessions.
-  The supplies are real PM8010 LDOs (avdd l5m, dovdd l6m, dvdd l1m) as
-  described by my out-of-tree SP11 board DT, not dummy regulators.
+	end = min_t(unsigned int, to - folio_pos(folio), folio_size(folio));
 
-That run used Sergey's v3. Its power on and power off callbacks are the
-same in v4, which only drops the system sleep handlers. The next
-version will be rebased on v4.
+min_t() converts both operands to unsigned int before comparing, so the
+loff_t difference to - folio_pos(folio) is reduced modulo 2^32 first.
+When the file grows by 4 GiB or more past the folio, end is that residue
+instead of folio_size(folio): below offset nothing is zeroed, above it
+only [offset, end) is. The bytes beyond the old end of file stay in the
+dirty folio and, now inside i_size, are file data.
 
-Thanks,
-George
+Compare in loff_t; the result is at most folio_size(folio) and fits end.
+
+Found while formally verifying pagecache_isize_extended() against the
+kernel binary.
+
+Fixes: 52aecaee1c26 ("mm: zero range of eof folio exposed by inode size extension")
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
+
+Notes:
+    Tested on a 64 MiB ext4 image made with mkfs.ext4 -b 1024 and mounted in
+    a QEMU guest, with the program below followed by umount, mount and a
+    read of [3k+16, 4k). Unpatched 70dd4ee72eb2 (x86_64 and riscv64
+    defconfig): 2048 of 2048 bytes non-zero ('X') after the truncate and
+    1008 of 1008 'X' bytes on the disk after the remount. Patched: 0 and 0.
+    The same sequence with a truncate to 8k reads zeroes on both kernels,
+    which is the case commit 52aecaee1c26 fixed.
+    
+    The 32-bit conversion is visible in the riscv64 binary as a subw on the
+    loff_t difference before the compare; with the patch it is a sub.
+    
+    Reproducer (ext4 with 1k blocks, mkfs.ext4 -b 1024):
+    
+    truncate -s 64M img && mkfs.ext4 -q -F -b 1024 img && mount -o loop img /mnt
+    gcc -O2 -o isize_extended isize_extended.c
+    ./isize_extended /mnt/f    # exit 1 and a non-zero count on an unpatched kernel
+    
+    /*
+     * Stale post-EOF data after a size extension of 4 GiB or more on a file
+     * system with a block size below the page size (ext4 -b 1024): [2k, 4k)
+     * must read as zeroes after the truncate.  Exit status 1 when it does not.
+     */
+    #include <fcntl.h>
+    #include <stdio.h>
+    #include <string.h>
+    #include <sys/mman.h>
+    #include <unistd.h>
+    
+    int main(int argc, char **argv)
+    {
+    	const char *path = argc > 1 ? argv[1] : "/mnt/f";
+    	unsigned char buf[4096];
+    	unsigned int i, nz = 0;
+    	char *map;
+    	int fd;
+    
+    	fd = open(path, O_RDWR | O_CREAT | O_TRUNC, 0644);
+    	memset(buf, 'A', 2048);
+    	if (fd < 0 || pwrite(fd, buf, 2048, 0) != 2048) {
+    		perror("open/pwrite");
+    		return 2;
+    	}
+    	/* 'X' beyond EOF, inside the first page; the folio stays dirty */
+    	map = mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    	if (map == MAP_FAILED) {
+    		perror("mmap");
+    		return 2;
+    	}
+    	memset(map + 2048, 'X', 2048);
+    	munmap(map, 4096);
+    	/* 4 GiB or more past the folio: to - folio_pos(folio) >= 2^32 */
+    	if (ftruncate(fd, 4294967296LL + 2048)) {
+    		perror("ftruncate");
+    		return 2;
+    	}
+    	if (pread(fd, buf, 2048, 2048) != 2048) {
+    		perror("pread");
+    		return 2;
+    	}
+    	for (i = 0; i < 2048; i++)
+    		nz += buf[i] != 0;
+    	printf("[2k,4k) after truncate to 4 GiB + 2k: %u non-zero bytes of 2048\n", nz);
+    	/* allocate block [3k, 4k): [3k+16, 4k) shows what reaches the disk */
+    	memset(buf, 'B', 16);
+    	if (pwrite(fd, buf, 16, 3072) != 16 || fsync(fd)) {
+    		perror("pwrite/fsync");
+    		return 2;
+    	}
+    	return nz ? 1 : 0;
+    }
+
+ mm/truncate.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/mm/truncate.c b/mm/truncate.c
+index b58ba940be47..5c444812f37a 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -878,8 +878,7 @@ void pagecache_isize_extended(struct inode *inode, loff_t from, loff_t to)
+ 		unsigned int offset, end;
+ 
+ 		offset = from - folio_pos(folio);
+-		end = min_t(unsigned int, to - folio_pos(folio),
+-			    folio_size(folio));
++		end = min_t(loff_t, to - folio_pos(folio), folio_size(folio));
+ 		folio_zero_segment(folio, offset, end);
+ 	}
+ 
+
+base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
+-- 
+2.53.0
+
