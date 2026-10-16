@@ -1,49 +1,74 @@
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8B5270545
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:48:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714192D73B9
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:49:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792115301; cv=none; b=TNoDMiEGl+30e/jPYxBJAuSz1MtW52Y4qK9FteAbAiJ6u6vcKBLIs8zZaCkBQTcuxWPjuXakxw7See5sawrj3RSVH9PcqwNlKeCbDoawYQsxSOeJ7/TpliF6a9l26TEG2UOpQCzhQR0mWSNXHc5ujQ92f3oiRgdbhFWM6EbcPhc=
+	t=1792115391; cv=none; b=TYj/hxhO0HETe85HSl1JSty75etmGXwxSuwsXYQlBE+PL000cgo9qbJX5J/SVsh/rp83hf+tojOTxdSkm1akID8fFxh2twRTum1gFZSIt1WzphHmg/Zu8JA8lKwgX61FmVLToq3T/JKqX+uc8cSUFAzOZe+2BT6oPoVATYNGDCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792115301; c=relaxed/simple;
-	bh=4mmDxENpUaK5JFohj5F9kWL6iGUx1ZsyLvSU7WI8Wp0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YxNHOB26j68J+6AyW9wBaeW2dGcJ2lYKMBdX/5bYYH+vlGXbBP5+X8+J2ioKF9jRaJy80DkD4JlG9viWnmp2RQ7zl4CPPe9eoZcjVZGtvn83NGpJiQuvqNNP7OUJZokWpBNxqhWLccCtFNMM8P+/yH+2U9AsOKWRL4PqROXPHdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=D04xR8eN; arc=none smtp.client-ip=115.124.30.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1792115391; c=relaxed/simple;
+	bh=vHQMynQAsQVRQK8pdrAkY10aqxVPqAzaOxtEB6Poo0k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aI3YwoUbr7MNDHxh7VdNXr/DMUWqsvrbgmFI9VYxbUcZcrkoS5jVKf5VHWFOwSHtNTRltUL3rOCosc0S9Ezh0wCp5OlPu28P9gEcqmKeXqVMrGKChsIE5bEjFvcaqUrLoTRUzHGzegft/h50nKXla/NdCOtiub6H7mBeHXCypOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=TfF16FCD; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="D04xR8eN"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792115296; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=LLaEFGzjefQlmmxbLZnWE7wdh2FWfwhycK6l3OIcEbM=;
-	b=D04xR8eNJ1k8rmrjtkLqpnzWNvNXIwB1XRiahRAcRv1Eqr26als41XUH/wveiBRG+3HDP4ZDt/HdnqbAjMOTl3n1IZXiJZeTdJ79cLsQrIqbBcJOMWIjUein6aibkaGKCTR7iFTKBbhNdTyGRQTXdIM00xCnZfpgbafI0uXrzMQ=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R811e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XCsyeaM_1792115294;
-Received: from localhost(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCsyeaM_1792115294 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 16 Oct 2026 09:48:15 +0800
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-To: akpm@linux-foundation.org,
-	david@kernel.org
-Cc: ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	qi.zheng@linux.dev,
-	jack@suse.cz,
-	pfalcato@suse.de,
-	ayushr@modal.com,
-	baolin.wang@linux.alibaba.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] mm: memory: fix truncation removing mapped folios
-Date: Fri, 16 Oct 2026 09:48:08 +0800
-Message-ID: <e2f76ed117b0c22a26b7688fd46a38c9d035336e.1792114445.git.baolin.wang@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.5
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="TfF16FCD"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so4861744a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:49:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792115388; x=1792720188; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dPwVl4c1uwtawzWgRvw8g4lYEeVJN5sxbD4YoVW5ucs=;
+        b=TfF16FCDYJt9EvJmkrUpsF+Ru4kEsgZTuuD0a6bck5pebxS4Duli95eF1OPFoM/3lL
+         MB8Fn2WEZ0CRngrVdzmnSlJ6QiDBjAZPwMJJbOETgsbtF/7nrBxncADYTDR9f+iOAoFT
+         6NJDROllO/AgTqw86i8yZu5YqTLiR+W2acYhtDOaFrAXPf3oh4sr5EJ94ntzm+0UnlaK
+         pjfVx5FOZTMIedsUMfImpipXjXxORI9djmSXkCD408rkaGSkzajF37AhPfLZgUO8uSdM
+         a0JJ7waNzSfV3QXmJLhG81w7Z+a/MEaUXCx1r6KxAc69eQMmh1ccbYDNJBujtqg4CE3Q
+         lOaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792115388; x=1792720188;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dPwVl4c1uwtawzWgRvw8g4lYEeVJN5sxbD4YoVW5ucs=;
+        b=nwoIVMfsj26ziO1gY+X6P7ni6tGeSZO1p8HUniOnPlz7aUDMxbrD5UR8XyPMD1JAMk
+         zXFNGs5VMkc1nbJ2qWRLDG8s4qk9DDrtZHO4UYaWaYTGHVs1bqf0P0gzcUb+7vxg9C7C
+         MnDuI19VLrxAxhBEa7HGX9oNe96kJ3JKlhD6i0ju38Bcirwqbfc0LHV/zHGw1UWBIz6W
+         HpHQRw5RTc+Ka4saAibxcwJwj/mArrKPcnWzGgnC10YX8za/A6vvirsTai4FPoYhaUya
+         qCdWcblvN26cojsM2NBrUv5J+BvGc7g5H7BuNUaDQiVcXLaQWVXsZk7TRNmlIPCvPS70
+         xlXA==
+X-Forwarded-Encrypted: i=1; AKwUvBymQst6xcFxoGbeGPX3SL1gyUmsqmkwbOYFhonLsrbCE4jCwgyTneSgLYd1H+U6SbSTzk6B5v2iqmsoe/4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9S2e4dyuja/DHgxO5lPmWXQ/aCWAisHK1CnZS2RHdBuZ53kUW
+	aFWjync5ATCCDKutzOAV7FnMFymq12ZwWa4JZuez1PgJ06ri/KAggpMGsPe4zk3ZIBLaSbaR35Z
+	lQChL
+X-Gm-Gg: AYBFou1Tggz1+mZ1yoA0exRPlwftWVTIyUS5kK2y/fBQxY6ecu3n8ZNux0Y7ExomsNP
+	vJy3C3Dw+XzqVxcAbmN+7XxQZpD/lezqRYFHGGeavLJ8yIfZdXwRGYjQyIxILDQHyaIJ8DTQBGa
+	NTcgcOSV2d0WB69r08JsOeEFhRz5SiHcJqSCOyLkJaXbNwoH8vZuX/oWoDUtXQBaT3gVfQMO/7y
+	SrOu+JZ3qo5waW5DxwOhB0MWXTyJs4Q8aAIA01yeqUV2E7iZVHWmzpcSxhrbHqlPN/L8R0Bcodp
+	Divqm3Q38culrVkA8vIFAFB54w+xAOvEyT0EiGXLTiNCjEhECM+nrC+NLgSKbuDzg5O2USfW88T
+	HQMnZmx+uREh9zO9C+++ZSkVNblsBg9oeof0frcpWgA3NJItJweVBlSctO25KwdNtXiE0npLPJ3
+	60Zh9WS5SqVdadpt7KvqGq1BIMWwpFp+efOyJy2se2zJuNcO05+V1BmlzwOYH0vTGNoLvEtqtRi
+	9hofw==
+X-Received: by 2002:a17:90b:57cd:b0:3ac:9d14:fe9f with SMTP id 98e67ed59e1d1-3ac9d1501d1mr3636662a91.31.1792115387985;
+        Thu, 15 Oct 2026 18:49:47 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3b798d3sm236472a91.3.2026.10.15.18.49.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 18:49:47 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Jeff Chen <jeff.chen_1@nxp.com>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH] wifi: nxpwifi: bound the TLV lengths in the 11AX_CFG response
+Date: Fri, 16 Oct 2026 10:49:27 +0900
+Message-ID: <20261016014927.434473-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,165 +77,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Ayush reported an issue that shmem/tmpfs folios are still mapped when
-truncating them on production:
-"
-BUG: Bad page cache in process ...  pfn:...
-page dumped because: still mapped when deleted
-"
+nxpwifi_ret_11ax_cfg() walks the TLVs the firmware returns for
+HOST_CMD_11AX_CFG and copies one of them into two fixed-size
+destinations. Nothing bounds any of the three lengths involved.
 
-I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
-branch, and I got the following crash info. From the dump message, we can
-see that truncate_inode_folio() is really trying to remove mapped folios,
-which is incorrect.
+The walk length comes straight out of the response:
 
-"
-[  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
-index:0x3880 pfn:0x191647
-[  189.171995] memcg:ffff0000cc073d40
-[  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
-[  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
-workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
-.......
-[  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
-[  189.172026] ------------[ cut here ]------------
-[  189.172027] kernel BUG at mm/filemap.c:155!
-[  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
-.......
-[  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
-7.3.0-rc4+ #277 PREEMPT(lazy)
-.......
-[  189.183986] Call trace:
-[  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
-[  189.184391]  __filemap_remove_folio+0x34/0x160
-[  189.184633]  filemap_remove_folio+0x4c/0xb0
-[  189.184859]  truncate_inode_folio+0x34/0x58
-[  189.185087]  shmem_undo_range+0x220/0x658
-[  189.185308]  shmem_fallocate+0x2f0/0x470
-[  189.185527]  vfs_fallocate+0x128/0x328
-......
-[  189.187078]  el0t_64_sync+0x184/0x188
-"
+	left_len = le16_to_cpu(resp->size) - sizeof(*he_cfg) - S_DS_GEN;
 
-After analysis, I believe the race exists between truncation and MADV_DONTNEED,
-and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
-MADV_DONTNEED synchronously releases the pagetable page before calling
-tlb_flush_rmaps(), this could cause another thread's truncation to skip
-zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
-as non-zero. A possible race scenario is as follows:
+left_len is a u16 and the two sizes add up to 11, so a response claiming
+fewer than 11 bytes makes the subtraction wrap instead of ending the
+walk, and the loop condition is only "left_len > sizeof(*header)".
 
-CPU 0                           CPU 1
-shmem_fallocate                 madvise_dontneed_single_vma
-  unmap_mapping_range            .......
-  ......
-  (filemap_map_pages() remap folios)
-				  zap_pte_range
-  truncate_inode_folio		    zap_empty_pte_table(pmd clear)
-    unmap_mapping_folio
-    ......
-      zap_pmd_range (saw pmd none, skip)
+Inside the loop, header->len is used as a memcpy length twice without
+being compared to what is left or to what the destinations hold:
 
-  filemap_remove_folio
-    BUG_ON(folio_mapped)
-                                    tlb_flush_rmaps(remove rmaps)
+	memcpy((u8 *)&he_cap->ext_id,
+	       (u8 *)header + sizeof(*header) + 1,
+	       tlv_len);
+	memcpy(priv->user_he_cap, (u8 *)header, sizeof(*header) + tlv_len);
 
-To fix this issue, we should move the pmd clear operation (via zap_empty_pte_table())
-to after tlb_flush_rmaps() and use sync_with_folio_pmd_zap() to sync with
-concurrent zapping, so that when we find a pmd_none() while unmapping a folio
-without holding the PTL, the folio's mappings are guaranteed to have been
-removed via tlb_flush_rmaps().
+The first destination runs from ext_id to the end of struct
+nxpwifi_11ax_he_cap_cfg, which is 50 bytes; the second is
+priv->user_he_cap[HE_CAP_MAX_SIZE], which is 54. header->len is 16 bits.
+nxpwifi_set_11ax_status() declares the struct nxpwifi_11ax_he_cfg this
+writes into on the stack and issues the command synchronously, so the
+frame is still live when the response is parsed.
 
-[1] https://lore.kernel.org/all/20260925065013.3682431-1-ayushr@modal.com/
-Reported-by: Ayush Ranjan <ayushr@modal.com>
-Closes: https://lore.kernel.org/all/20260924061708.1645968-1-ayushr@modal.com/
-Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
-Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Do what the driver already does elsewhere. nxpwifi_ret_get_hw_spec()
+checks that the response is longer than its fixed part before
+subtracting, and nxpwifi_update_vs_ie() rejects a token longer than the
+bytes remaining. Add the matching three checks here: refuse a response
+that cannot hold the fixed part, refuse a TLV that claims more than the
+remaining length, and refuse an HE-capability TLV that does not fit
+either destination. A TLV whose length is within those bounds is copied
+exactly as before, including one that fills both destinations completely.
+
+This is not a claim of a reachable out-of-bounds write. The lengths come
+from the device firmware, and whether it can emit these values is not
+something the tree answers. The arithmetic reaches past both
+destinations, the idiom is already in the driver, and the checks are
+cheap.
+
+The driver has not appeared in a released kernel, so there is nothing to
+backport to and no stable tag.
+
+Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
-Changes from v2:
- - Use use sync_with_folio_pmd_zap() to sync with concurrent zapping (Per David).
-Changes from v1:
- - Add an smp_rmb() to pair with the smp_wmb() (Per Lorenzo and Pedro).
----
- mm/internal.h |  9 +++++----
- mm/memory.c   | 25 ++++++++++++-------------
- 2 files changed, 17 insertions(+), 17 deletions(-)
+ drivers/net/wireless/nxp/nxpwifi/11ax.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/mm/internal.h b/mm/internal.h
-index 0434dfcfc36f..6d8f494296a4 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -585,14 +585,15 @@ void free_pgtables(struct mmu_gather *tlb, struct unmap_desc *desc);
- void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+diff --git a/drivers/net/wireless/nxp/nxpwifi/11ax.c b/drivers/net/wireless/nxp/nxpwifi/11ax.c
+index 96540914f3cf6..7e05dd5ccaa81 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/11ax.c
++++ b/drivers/net/wireless/nxp/nxpwifi/11ax.c
+@@ -204,20 +204,36 @@ int nxpwifi_ret_11ax_cfg(struct nxpwifi_private *priv,
+ {
+ 	struct host_cmd_11ax_cfg *he_cfg = &resp->params.ax_cfg;
+ 	struct nxpwifi_ie_types_header *header;
+-	u16 left_len, tlv_type, tlv_len;
++	u16 resp_size, left_len, tlv_type, tlv_len;
+ 	u8 ext_id;
+ 	struct nxpwifi_11ax_he_cap_cfg *he_cap = &ax_cfg->he_cap_cfg;
  
- /**
-- * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
-+ * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
-  * @mm: The mm_struct.
-  * @pmdp: Pointer to the pmd that was found to be pmd_none().
-  *
-  * When we find a pmd_none() while unmapping a folio without holding the PTL,
-- * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
-- * indicate that it's unmapped. Skipping the PMD without synchronization could
-- * make folio unmapping code assume that unmapping failed.
-+ * zap_huge_pmd() or zap_empty_pte_table() may have cleared the PMD but not
-+ * yet modified the mapped folios to indicate they are unmapped. Skipping the
-+ * PMD without synchronization could make folio unmapping code assume that
-+ * unmapping failed.
-  *
-  * Wait for concurrent zapping to complete by grabbing the PTL.
-  */
-diff --git a/mm/memory.c b/mm/memory.c
-index 6a8e7772b8d6..8f7ba427371b 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
- 		}
- 	} while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
+-	left_len = le16_to_cpu(resp->size) - sizeof(*he_cfg) - S_DS_GEN;
++	resp_size = le16_to_cpu(resp->size);
++	if (resp_size < S_DS_GEN + sizeof(*he_cfg))
++		return -EINVAL;
++
++	left_len = resp_size - S_DS_GEN - sizeof(*he_cfg);
+ 	header = (struct nxpwifi_ie_types_header *)he_cfg->tlv;
  
-+	add_mm_rss_vec(mm, rss);
-+	lazy_mmu_mode_disable();
-+
-+	/* Do the actual TLB flush before dropping ptl */
-+	if (force_flush) {
-+		tlb_flush_mmu_tlbonly(tlb);
-+		tlb_flush_rmaps(tlb, vma);
-+	}
-+
- 	/*
- 	 * Fast path: try to hold the pmd lock and unmap the PTE page.
- 	 *
-@@ -2046,15 +2055,6 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
- 	 */
- 	if (can_reclaim_pt && direct_reclaim && addr == end)
- 		direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
--
--	add_mm_rss_vec(mm, rss);
--	lazy_mmu_mode_disable();
--
--	/* Do the actual TLB flush before dropping ptl */
--	if (force_flush) {
--		tlb_flush_mmu_tlbonly(tlb);
--		tlb_flush_rmaps(tlb, vma);
--	}
- 	pte_unmap_unlock(start_pte, ptl);
+ 	while (left_len > sizeof(*header)) {
+ 		tlv_type = le16_to_cpu(header->type);
+ 		tlv_len = le16_to_cpu(header->len);
  
- 	/*
-@@ -2102,12 +2102,11 @@ static inline unsigned long zap_pmd_range(struct mmu_gather *tlb,
- 				continue;
- 			}
- 			/* fall through */
--		} else if (details && details->single_folio &&
--			   folio_test_pmd_mappable(details->single_folio) &&
--			   next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
--			sync_with_folio_pmd_zap(tlb->mm, pmd);
- 		}
++		if (sizeof(*header) + tlv_len > left_len)
++			return -EINVAL;
 +
- 		if (pmd_none(*pmd)) {
-+			if (details && details->single_folio)
-+				sync_with_folio_pmd_zap(tlb->mm, pmd);
- 			addr = next;
- 			continue;
- 		}
+ 		if (tlv_type == TLV_TYPE_EXTENSION_ID) {
+ 			ext_id = *((u8 *)header + sizeof(*header) + 1);
+ 			if (ext_id == WLAN_EID_EXT_HE_CAPABILITY) {
++				if (tlv_len > sizeof(*he_cap) -
++				    offsetof(struct nxpwifi_11ax_he_cap_cfg,
++					     ext_id) ||
++				    sizeof(*header) + tlv_len >
++				    sizeof(priv->user_he_cap) ||
++				    sizeof(*header) + tlv_len >
++				    sizeof(priv->user_2g_he_cap))
++					return -EINVAL;
++
+ 				he_cap->id = tlv_type;
+ 				he_cap->len = tlv_len;
+ 				memcpy((u8 *)&he_cap->ext_id,
+
+base-commit: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
 -- 
-2.47.3
+2.43.0
 
