@@ -1,123 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 6.mo583.mail-out.ovh.net (6.mo583.mail-out.ovh.net [178.32.119.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1BD2D3A7C;
-	Fri, 16 Oct 2026 09:04:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19863F4859
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:03:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.32.119.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141451; cv=none; b=iHEMOORam6zK+Qccuir6wkIGvmYlblfKmZiNiRpCxWqCgWWPN5BXxDGhbOb5nPimsR2Adi+R/UWx7fnSCxNuSgsn/5UFRfj7croOU5RTsW5t1iGNhgHeUfgahAGXfpm98sY7vfOmCXjmyQ1RBmn8RZ+w7KWKrRjzcFcuvV2VeEc=
+	t=1792141445; cv=none; b=EEZ1r3HGj9WwaAU1GTWG3lyuvwrfGFuFNVnjbGc8Finl656OFCsspAw+3f/cSWpm6+i2y7X7yo74dxaN5UnRBusSj2HbPpP2QkAGufnbewfQSpS3Fazfo81B6BD0x+nZr9Ew8wGm5+RebkZLV/av2pn8R3Fq+9pOkRM+6fdMW1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141451; c=relaxed/simple;
-	bh=tlpTuFAVzicUA7VVx+4eb1I7J+SIaMC4Zc5xzo1cOc0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=sK/XIxnbzGWaAgb+PIJKqnaWyQcV5jpMnAKjzCwjPMGL9kMM+uojkrPZfWl8DuybYvquBOsO58ephwklxXK/FXgZYUQKofRi2MZGKDY3VWIUFLYAkJX3wmsjR1UZWP685QBcVdu4vz8fDgeppeTr4H6vSnZ8rmsU2Euf4Gf3dSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iVkXHhKA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792141445; c=relaxed/simple;
+	bh=Q0ET48T5kgmvhDWW6V1583s0V4siUNHdEUiqObL6GsY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mYk6Zl7BvufIbuP3fI8VA8YzshJrBWdoXJx1AOpC4gLE3Ib1beP72d9tWB5b7t2UW2gRonbKmS9F/AjvN9Qy5JNaOkUrV0tLedYjJn5VKA7wynLe3xW+Ad1SXtRuuDCP/ZYp401Mu7rDOh5UC4y/lnarYxpd3AAhLK9hJezbVeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com; spf=pass smtp.mailfrom=cynove.com; dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b=RViDwafa; arc=none smtp.client-ip=178.32.119.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cynove.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iVkXHhKA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFD831F000C4;
-	Fri, 16 Oct 2026 09:04:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792141450;
-	bh=9Y6wSV7NpmoX7U6K1+n8oGfIJGsJhi/squ4DH6Ju00k=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=iVkXHhKAMB3Dw0vQL/O99AzlSPxw56YY/QRec/Bl+jepScD02HRHl0QbwryR4RySp
-	 Jas+j0kLtzsgmBilGXXpDrGQO5CQSDJ2sEqmJ8RZ53Bgk/Q68+vlVslS/Hqa+ROU2O
-	 Bm/l9vji04W6XolqyYULrp1tyxKtvf6K661at7r4V0x/OwSvN92bxNOZ6y8V3oTOwo
-	 lLnsWlXf8hNHXaLmS4gvGb25FwkSuNwq2z4APtlXzDUgZwDiTjjpT5eDLsfFX5NGGN
-	 vWK4FXgLrDWqGqQAxLgzr7RXRqNLlG9lm0/AYVk3b3NfH9jJINNaQ2l1OpSJi/jmIc
-	 ADZSY2ywlqj/w==
-Date: Fri, 16 Oct 2026 11:04:07 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: =?ISO-8859-15?Q?M=E9ven_Car?= <meven29@gmail.com>
-cc: Benjamin Tissoires <bentiss@kernel.org>, 
-    =?ISO-8859-15?Q?Filipe_La=EDns?= <lains@riseup.net>, 
-    linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] HID: logitech-headset: add a battery driver for the
- PRO X 2
-In-Reply-To: <20261011124110.62621-1-meven@kde.org>
-Message-ID: <217o9262-51s4-4r93-o651-27124010q4s5@xreary.bet>
-References: <20261011124110.62621-1-meven@kde.org>
+	dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b="RViDwafa"
+Received: from director3.ghost.mail-out.ovh.net (unknown [10.110.0.14])
+	by mo583.mail-out.ovh.net (Postfix) with ESMTP id 4j5fBH6kS2z60dM
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:03:51 +0000 (UTC)
+Received: from ghost-submission-7ccd8bbbb6-4kjr4 (unknown [10.111.174.188])
+	by director3.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 46763C0D11;
+	Fri, 16 Oct 2026 09:03:51 +0000 (UTC)
+Received: from cynove.com ([37.59.142.97])
+	by ghost-submission-7ccd8bbbb6-4kjr4 with ESMTPSA
+	id fClPE3Xo0WpZ/AEAmtFogg:T2
+	(envelope-from <stephane.debusne@cynove.com>); Fri, 16 Oct 2026 09:03:51 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-97G002356f9ba6-d7b5-4ce0-a9a4-835329139dfb,
+                    49BC7871EA8B080B249AF49F55FA702C3B4DE52D) smtp.auth=Stephane.Debusne@cynove.com
+X-OVh-ClientIp:176.150.47.247
+From: Stephane Debusne <stephane.debusne@cynove.com>
+To: herbert@gondor.apana.org.au,
+	lukas@wunner.de
+Cc: ignat@cloudflare.com,
+	davem@davemloft.net,
+	horia.geanta@nxp.com,
+	pankaj.gupta@nxp.com,
+	gaurav.jain@nxp.com,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stephane Debusne <stephane.debusne@cynove.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] crypto: akcipher - use a separate buffer in the sync helpers
+Date: Fri, 16 Oct 2026 11:03:32 +0200
+Message-ID: <20261016090333.2247764-2-stephane.debusne@cynove.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261016090333.2247764-1-stephane.debusne@cynove.com>
+References: <20261016090333.2247764-1-stephane.debusne@cynove.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 16750857340520291099
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: dmFkZTGD4nW62LQB9KssNcZQuK5kWrFQh+w6Vz+V+RAD8MnUAde72M/FLWE8ieu2/logkQIvP3h+HxkwhNQElJPI8dksBAWHsBdG4nOBhE97wdBgSrq7i9Dr7HTzEIPNJ9r0nStZP+4SxoAOI00vFHP+uMc2VAR7sYwcGJsPfO6GsKeTbDbZqUoT/dClNmsHiZliUHARqZfNmZpbXqR+OyK7tCsyhTiGvjmRA5ZoJHO4AiXlGsWEh0ULl2YyjVayzCXrjJyQQpi+DCuYI7TAzwqHsddO0+B9C81cyWecg6aiOCtYZJ4PPYAinicFtLLV81oPd4bQfiHnVg0dZa0FsvCqAOufRZpYRuKghK1Zowr7LqzE6h4rAzbbQS7XDqKR9My14ZlQ+WyADO3iZDM9Ie1CsQxJiJpAOeyuvwNzb+5R76oDPZeWKv/2f0bU2BzE25pMPJyfQSAEJ0LP40ldSORMLLv9aZYFDv12NoBpknW+GyK1opSDG6/1DkEkmRgDDRAdWzJ7sjDPibaxiiRtn8KXx84vjXoRkNTccpMQNaax4iQI6LbmxKTGrH79JXW5Sn0cAP0d9V+2Ytui0cqFzoyr6IwgUKSMg6NUyy+EycIh11wpg7ed+eTkZeAtjXKU2XKNPDJRSxwYMN7CFcAAAOGdt8a5mhguhHIaZhAe3hGp7w4YLw
+DKIM-Signature: a=rsa-sha256; bh=1+xUyMr4KllGTv9LUAcboLMXAuFRnwjR1tKUjAHdUr0=;
+ c=relaxed/relaxed; d=cynove.com; h=From; s=ovhmo4616632-selector1;
+ t=1792141432; v=1;
+ b=RViDwafaWZvbkymGTsEFVsp0D/sA2VLkQ5yXMVPU+0ab2DjdkjZ7ArW9HpdowsIlMrKBWuIc
+ N4BuszVt6vpR5fkg4kO10RQ03Xlxj8IqxozHFMtPozNgu4ALHB65M1yUeTdG66jjaBWdDdm1PtM
+ xg44ltqu2USgQva6QzALqWx79qm9xGrbSKVtIIdHWa9LuI0FQGqLRN3ATsMjdDsJvMj6ZzM8C3l
+ uZ0/lDfLjqFSSKDbV8N8bFPt9VgCn642kp7qJwJWvNz5IrcQg0pGuGruyoW5UxCyog7tIpf5yAd
+ SMmy7MqZSX+oBoxaolDqW35KtGKlokxnBOwA3xQiGHyNA==
 
-On Sun, 11 Oct 2026, M=C3=A9ven Car wrote:
+crypto_akcipher_sync_prep() places the data buffer right after the
+request context, in the same allocation, and passes it to the driver
+in place (src == dst).
 
-> The PRO X 2 LIGHTSPEED receiver does not speak HID++, so
-> hid-logitech-hidpp cannot read its battery. Its report descriptor has a
-> consumer collection for the media keys and two vendor collections, and
-> no report 0x10 or 0x11.
->=20
-> The battery answers on usage page 0xffa0. A single 64 byte frame on
-> report 0x51 asks for it, with no handshake, and the reply gives the
-> level and whether the headset is charging. The driver asks every 120
-> seconds. It also reads the power frames that the headset sends on its
-> own. A switch-off frame marks the headset absent at once, and a
-> switch-on frame moves the next request to one second later, so the level
-> appears without waiting for the poll.
->=20
-> hid-generic sets HID_QUIRK_INPUT_PER_APP, so this receiver had one input
-> device per application collection, among them the Consumer Control node
-> for the media keys. A driver does not inherit that quirk, so probe sets
-> it and the input devices stay as they were.
->=20
-> The power supply is registered with POWER_SUPPLY_SCOPE_DEVICE. The
-> headset is present from a reply until the next switch-off frame, and
-> capacity returns -ENODATA while it is absent, so a headset that is off
-> when the driver binds reports no level.
->=20
-> The G522 LIGHTSPEED uses the same vendor protocol with a different frame
-> layout. That device is left out until someone can test it.
->=20
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: M=C3=A9ven Car <meven@kde.org>
-> ---
-> Changes in v3:
-> - Request the battery level one second after a power-on frame, so the
->   level appears without waiting for the 120 second poll.
-> - Report the headset as absent until the first battery reply, and return
->   -ENODATA for capacity while it is absent.
-> - Queue the poll on system_dfl_wq instead of the system_wq.
->=20
->  drivers/hid/Kconfig                |  11 +
->  drivers/hid/Makefile               |   1 +
->  drivers/hid/hid-ids.h              |   1 +
->  drivers/hid/hid-logitech-headset.c | 319 +++++++++++++++++++++++++++++
->  4 files changed, 332 insertions(+)
->  create mode 100644 drivers/hid/hid-logitech-headset.c
->=20
-> diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-> index 48934c4f3..5c845b1b8 100644
-> --- a/drivers/hid/Kconfig
-> +++ b/drivers/hid/Kconfig
-> @@ -670,6 +670,17 @@ config HID_LOGITECH_DJ
->  =09generic USB_HID driver and all incoming events will be multiplexed
->  =09into a single mouse and a single keyboard device.
-> =20
-> +config HID_LOGITECH_HEADSET
-> +=09tristate "Logitech wireless headset battery"
-> +=09depends on USB_HID
-> +=09select POWER_SUPPLY
-> +=09help
-> +=09Support for the battery of Logitech wireless gaming headsets that
-> +=09report it over a vendor collection instead of HID++.
+On non-coherent DMA, the start of this buffer may share a cache line
+with the end of the request context. A DMA-based driver such as the
+CAAM (caampkc) writes req_ctx->edesc and req_ctx->akcipher_op_done
+after dma_map_sg() of the destination, which dirties that line. On
+arm64, dma_unmap_sg(DMA_FROM_DEVICE) cleans and invalidates partial
+lines (dc civac), so the stale CPU copy is written back over the result
+written by the device.
 
-Thanks a lot for the patch.
+crypto_akcipher_sync_encrypt() and crypto_akcipher_sync_decrypt() are
+used by rsassa_pkcs1_sign() and by software_key_eds_op() (keyctl
+pkey_encrypt and pkey_decrypt), so RSA signing and encryption through
+rsa-caam are affected.
 
-One question though -- is it really practical to have this as a user=20
-selectable option?
-I think it'd make sense to have just selected by HID_LOGITECH_DJ the same=
-=20
-way as it selects HID_LOGITECH_HIDPP. What do you think?
+On i.MX8M Mini (CAAM era 9, rsa-caam, 6.18), the buffer starts at
+offset 40 of a 64-byte line shared with the end of the request context,
+and crypto_akcipher_sync_encrypt() returns a result whose first 24
+bytes still hold the input in 199 of 200 calls.
 
-Thanks,
+Allocate the data buffer separately, so that it is DMA-safe like any
+kmalloc() buffer.
 
---=20
-Jiri Kosina
-SUSE Labs
+Fixes: addde1f2c966 ("crypto: akcipher - Add sync interface without SG lists")
+Cc: stable@vger.kernel.org
+Signed-off-by: Stephane Debusne <stephane.debusne@cynove.com>
+---
+ crypto/akcipher.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
+
+diff --git a/crypto/akcipher.c b/crypto/akcipher.c
+index 630bb1973..2381ed43b 100644
+--- a/crypto/akcipher.c
++++ b/crypto/akcipher.c
+@@ -170,23 +170,29 @@ static int crypto_akcipher_sync_prep(struct crypto_akcipher_sync_data *data)
+ 	struct akcipher_request *req;
+ 	struct scatterlist *sg;
+ 	unsigned int mlen;
+-	unsigned int len;
+ 	u8 *buf;
+ 
+ 	mlen = max(data->slen, data->dlen);
+ 
+-	len = sizeof(*req) + reqsize + mlen;
+-	if (len < mlen)
+-		return -EOVERFLOW;
+-
+-	req = kzalloc(len, GFP_KERNEL);
++	req = kzalloc(sizeof(*req) + reqsize, GFP_KERNEL);
+ 	if (!req)
+ 		return -ENOMEM;
+ 
++	/*
++	 * The data buffer is mapped for DMA by hardware drivers. Keep it in
++	 * its own allocation: placed right after the request context, it
++	 * may share a cache line with fields the driver writes while the
++	 * buffer is mapped, which corrupts the result on non-coherent DMA.
++	 */
++	buf = kzalloc(mlen, GFP_KERNEL);
++	if (!buf) {
++		kfree(req);
++		return -ENOMEM;
++	}
++
+ 	data->req = req;
+ 	akcipher_request_set_tfm(req, data->tfm);
+ 
+-	buf = (u8 *)(req + 1) + reqsize;
+ 	data->buf = buf;
+ 	memcpy(buf, data->src, data->slen);
+ 
+@@ -207,6 +213,7 @@ static int crypto_akcipher_sync_post(struct crypto_akcipher_sync_data *data,
+ 	err = crypto_wait_req(err, &data->cwait);
+ 	memcpy(data->dst, data->buf, data->dlen);
+ 	data->dlen = data->req->dst_len;
++	kfree_sensitive(data->buf);
+ 	kfree_sensitive(data->req);
+ 	return err;
+ }
+-- 
+2.43.0
 
