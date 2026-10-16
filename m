@@ -1,205 +1,143 @@
-Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16DB8397B02
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:39:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D9C4219E9;
+	Fri, 16 Oct 2026 07:40:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792136377; cv=none; b=Hpl+zOmJ+dRhgnH9ayQfzIYVF7t+Pgn+5I4A+6pKxM6o+Zz+Qs1FVYC1Hhf40Utq+HMSjOtNutNbDYIYEsXmVfGvOChuwh4KmN4sPU/CvodHVz1UYltk8y4T+YU5n2rj5GcI1Pxwr/zePfj2imhBBE3XWZTV5hE/nVg9oU0v9Vo=
+	t=1792136427; cv=none; b=kjnxXzxQ6mAUQ8qAP5A/wg680gU/fyQt99fdS7aC5ACFI1u2o6Bk6XDsf9CtntyRRlnmXcI/sMQcK2V9BVjv6evZ/9smeUjkiUHWTL+EpTFW69cj6vywqkAMUY3AInGkJEOD1POMq3Vp3XrPAqLg3T+Q7d6YP8AdgnXOJluiD1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792136377; c=relaxed/simple;
-	bh=6YVTjiJF+OeTm2+YCUwsxkxG2HWYadWFd9Pc3CWTYq8=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=JBE9iVRqvgd2ZDdUi/Wz+YFHGgLWoHu71y4ocXSElT0Z0/COfU3zd2gSB5E5hf3ZYTh/eRKLarWAoA3fOjCmBFxKojK1W5X1n57rMW7ftB/YsjDx/4zsJAM3+dNlMganmMiLzkDKI7HcF6E3YaeYpzag/5/AlxJ1r9K7bLzeAeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Zaqj6NRP; arc=none smtp.client-ip=95.215.58.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792136427; c=relaxed/simple;
+	bh=mofmNipM2hWNiXPFaH0c8qRsysHiI60VRYo4uMGBz40=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sr7KG3Uf88VACDRxL+TVbuKzQBbVUzuDlcBl1yCpOyc7z6lEYp1b0xqQXfPZbIOjlUGmR69uedUwk/+wy1x5HGTKWAhaUViKSu84Dsn/U/rOyaG+kWPyXORV9hrNs1wpTWA9wtcGqX4kIdBWJrm/63j/Ff/PzvOwkBGvGSvkj/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SyaFapeX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Zaqj6NRP"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6YVTjiJF+OeTm2+YCUwsxkxG2HWYadWFd9Pc3CWTYq8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792136373; v=1; x=1792741173;
- b=Zaqj6NRPahbMwE2W/Dg0RHnTABrhQEH61rAUyPUfU58BjPb3zeNrASKWMf9gPh0XDk9u8gle
- SSs7tT1k9c3ZJS8aGHNYpi8kqUiXkLFwWh7nfLW6wJcoSuHFg+sphxIAHPWctUGLzvb8VlXhPZj
- 4dGNpVAJ6PZ3zbZ23jsjlCn4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 139e1e22f2624819;
-	Fri, 16 Oct 2026 07:39:32 +0000
-X-Mizu-Trace-ID: 139e1e22f2624819
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SyaFapeX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97F231F000C4;
+	Fri, 16 Oct 2026 07:40:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792136424;
+	bh=0pz30Arm3iXS3Q4cxaVxmL7XUFi944ujcvdwlwsKw8g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SyaFapeXtzdEUqy3FqVnI0LIHeSv0YjGBcQpFcVTeDZARn/2Fc2p8NQj4ynUgVLua
+	 7txCYI363gs516E6zngozBd30l3VtDvvgtuBHsi0hZ5Eo28hEyA9kEzct050FIs0LS
+	 Kp8mp8RDsCwJLAUVU/e+i0Ji6Tm/VK6rGooiEYMDvtL0XXdEGCkCRmwgn7smZ8FxrJ
+	 7unCgxsu6DrdjmCB3+r7i+kKSyCfoJNzlIWpoE6mxzJ0t0UgPPxzYKcWt7HBvFL3U+
+	 7b/q4GsQR6kQgRi5wVDRyTTUVc9moaSIShG/Q1K6hHNRg5Hk1Xdf6Z1kgodSUjMqXT
+	 MFpzm5BM+RMSw==
+Date: Fri, 16 Oct 2026 08:40:19 +0100
+From: Lee Jones <lee@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: mfd@lists.linux.dev, Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	OMAP2+ SUPPORT <linux-omap@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] mfd: twl-core: Allocate modules with twl_private
+Message-ID: <20261016074019.GB2093461@google.com>
+References: <20260926013325.75073-1-rosenp@gmail.com>
+ <179198497618.839288.9266863610003754798@kernel.org>
+ <CAKxU2N_b-wxOuugVm7wzgh4RN9oUCNf1jnHYkKN0--MxHHA_tQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v4 03/17] mm/memcg: add folio-based lruvec live helper
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261016-mglru-fg-v4-3-2106750c0bfa@tencent.com>
-Date: Fri, 16 Oct 2026 15:39:10 +0800
-Cc: linux-mm@kvack.org,
- "Liam R. Howlett" <liam@infradead.org>,
- SJ Park <sj@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Qi Zheng <qi.zheng@linux.dev>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Chris Li <chrisl@kernel.org>,
- Baoquan He <baoquan.he@linux.dev>,
- Nico Pache <nico.pache@linux.dev>,
- Usama Arif <usama.arif@linux.dev>,
- Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>,
- Vlastimil Babka <vbabka@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>,
- Youngjun Park <youngjun.park@lge.com>,
- Zi Yan <ziy@nvidia.com>,
- Gregory Price <gourry@gourry.net>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>,
- Lance Yang <lance.yang@linux.dev>,
- Hugh Dickins <hughd@google.com>,
- David Rientjes <rientjes@google.com>,
- Yu Zhao <yuzhao@google.com>,
- Vernon Yang <vernon2gm@gmail.com>,
- Zicheng Wang <wangzicheng@honor.com>,
- Chen Ridong <chenridong@xiaomi.com>,
- Tal Zussman <tz2294@columbia.edu>,
- Kairui Song <ryncsn@gmail.com>,
- Xiang Liu <liuxiang.277@bytedance.com>,
- Ehab Ababneh <ehab.ababneh@intel.com>,
- zhaozhengzhuo <zhaozhengzhuo@uniontech.com>,
- Lian Wang <lianux.mm@gmail.com>,
- Kunwu Chan <kunwu.chan@gmail.com>,
- linux-kernel@vger.kernel.org,
- cgroups@vger.kernel.org,
- damon@lists.linux.dev
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <342E57E7-9B7F-4193-805E-D1EBB41299FF@linux.dev>
-References: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com>
- <20261016-mglru-fg-v4-3-2106750c0bfa@tencent.com>
-To: kasong@tencent.com
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKxU2N_b-wxOuugVm7wzgh4RN9oUCNf1jnHYkKN0--MxHHA_tQ@mail.gmail.com>
 
+--- checkpatch.pl (3 issues) ---
+Line 4: ERROR: Invalid commit separator - some tools may have problems applying this
+Line 32: WARNING: please, no spaces at the start of a line
+Line 41: WARNING: please, no spaces at the start of a line
+----------------------------------
 
+--- checkpatch.pl (2 issues) ---
+Line 27: WARNING: please, no spaces at the start of a line
+Line 36: WARNING: please, no spaces at the start of a line
+----------------------------------
 
-> On Oct 16, 2026, at 02:15, Kairui Song via B4 Relay =
-<devnull+kasong.tencent.com@kernel.org> wrote:
->=20
-> From: Kairui Song <kasong@tencent.com>
->=20
-> Add a helper that resolves a stable lruvec for a folio under RCU
-> without taking the lruvec lock.  It takes a folio directly so the
-> lruvec lookup happens inside the RCU read-side critical section,
-> which a lruvec-based interface cannot guarantee.
->=20
-> No functional change.
->=20
-> Tested-by: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
-> Signed-off-by: Kairui Song <kasong@tencent.com>
-> ---
-> include/linux/memcontrol.h | 39 =
-+++++++++++++++++++++++++++++++++++++++
-> 1 file changed, 39 insertions(+)
->=20
-> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> index 74110a324f9e..829ab776ab44 100644
-> --- a/include/linux/memcontrol.h
-> +++ b/include/linux/memcontrol.h
-> @@ -1535,6 +1535,45 @@ static inline void lruvec_lock_irq(struct =
-lruvec *lruvec)
-> spin_lock_irq(&lruvec->lru_lock);
-> }
->=20
-> +/**
-> + * folio_lruvec_live_get - get a live lruvec for a folio under RCU
-> + * @folio: the folio
-> + *
-> + * Computes @folio's lruvec and walks up to the nearest live ancestor
-> + * if the folio's memcg is dying.  Paired with =
-folio_lruvec_live_put().
-> + * The result may be stale: RCU keeps it alive but does not pin =
-@folio
-> + * to it.  That is fine as the counters are fixed up on reparenting.
-> + *
-> + * Return: the live lruvec, with rcu_read_lock held.
-> + */
-> +static inline struct lruvec *folio_lruvec_live_get(struct folio =
-*folio)
-> +{
-> +#ifdef CONFIG_MEMCG
-> + 	struct lruvec *lruvec;
-> + 	struct pglist_data *pgdat;
-> + 	struct mem_cgroup *memcg;
-> +
-> + 	rcu_read_lock();
-> + 	lruvec =3D folio_lruvec(folio);
-> + 	pgdat =3D lruvec_pgdat(lruvec);
-> + 	memcg =3D lruvec_memcg(lruvec);
-> + 	while (unlikely(memcg && css_is_dying(&memcg->css))) {
-> + 		memcg =3D parent_mem_cgroup(memcg);
-> + 		lruvec =3D mem_cgroup_lruvec(memcg, pgdat);
-> + 	}
-> + 	return lruvec;
+On Thu, 15 Oct 2026, Rosen Penev wrote:
 
-Hi Kairui,
+> On Thu, Oct 15, 2026 at 5:05 AM Lee Jones <lee@kernel.org> wrote:
+> >
+> > On Fri, 25 Sep 2026, Rosen Penev wrote:
+> >
+> > > Use a flexible array member to allocate the twl_client array together
+> > > with struct twl_private. This removes a separate devm_kcalloc() and
+> > > keeps the module data tied to the main private structure.
+> > >
+> > > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > > ---
+> > >  v3: Capitalize Allocate.
+> > >  v2: don't use twl_get_num_slaves().
+> > >  drivers/mfd/twl-core.c | 16 ++++------------
+> > >  1 file changed, 4 insertions(+), 12 deletions(-)
+> > >
+> > > diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
+> > > index f86df356d658..0b78fe30e047 100644
+> > > --- a/drivers/mfd/twl-core.c
+> > > +++ b/drivers/mfd/twl-core.c
+> > > @@ -159,7 +159,7 @@ struct twl_private {
+> > >       unsigned int twl_id;
+> > >
+> > >       struct twl_mapping *twl_map;
+> > > -     struct twl_client *twl_modules;
+> > > +     struct twl_client twl_modules[];
+> > >  };
+> > >
+> > >  static struct twl_private *twl_priv;
+> > > @@ -770,7 +770,9 @@ twl_probe(struct i2c_client *client)
+> > >               goto out;
+> > >       }
+> > >
+> > > -     twl_priv = devm_kzalloc(&client->dev, sizeof(struct twl_private),
+> > > +     num_slaves = (id->driver_data & TWL6030_CLASS) ? 3 : 4;
+> >
+> > What's wrong with twl_get_num_slaves()?
+> It relies on twl_priv already being allocated.
 
-Actually, we don't have any means to guarantee that the memcg
-to which the returned lruvec belongs will not become dying
-after the return, right?
+IMHO, this is too much hoop jumping to save on one pointer.  Code
+cleanliness remains much more important here.  And don't even get me
+started on that mess in include/linux/mfd/twl.h !
 
-> +#else
-> + 	return folio_lruvec(folio);
+Just define TWL_MAX_SLAVES as 4 and have done:
 
-Then, I'm wondering why folio_lruvec() doesn't apply to the
-memcg scenario.
+        struct twl_client twl_modules[TWL_MAX_SLAVES];
 
-Internally, folio_lruvec() obtains the memcg through
-obj_cgroup_memcg(). So when the memcg becomes dying, it should
-be reparented to the parent memcg within a short time.
+> > > +     twl_priv = devm_kzalloc(&client->dev,
+> > > +                             struct_size(twl_priv, twl_modules, num_slaves),
+> > >                               GFP_KERNEL);
+> > >       if (!twl_priv) {
+> > >               status = -ENOMEM;
+> > > @@ -787,16 +789,6 @@ twl_probe(struct i2c_client *client)
+> > >               twl_regmap_config = twl4030_regmap_config;
+> > >       }
+> > >
+> > > -     num_slaves = twl_get_num_slaves();
+> > > -     twl_priv->twl_modules = devm_kcalloc(&client->dev,
+> > > -                                      num_slaves,
+> > > -                                      sizeof(struct twl_client),
+> > > -                                      GFP_KERNEL);
+> > > -     if (!twl_priv->twl_modules) {
+> > > -             status = -ENOMEM;
+> > > -             goto out;
+> > > -     }
+> > > -
+> > >       for (i = 0; i < num_slaves; i++) {
+> > >               struct twl_client *twl = &twl_priv->twl_modules[i];
+> > >
+> > > --
+> > > 2.55.0
+> > >
+> >
+> > --
+> > Lee Jones
 
-Likewise, folio_lruvec() may also return an lruvec whose memcg
-may also be in a short-lived dying state.
-
-Since the results of the two are similar, why not just use
-folio_lruvec() directly? Or is there something I misunderstood?
-
-Thanks,
-Muchun
-
-
-> +#endif
-> +}
-> +
-> +static inline void folio_lruvec_live_put(struct lruvec *lruvec)
-> +{
-> +#ifdef CONFIG_MEMCG
-> + 	rcu_read_unlock();
-> +#endif
-> +}
-> +
-> static inline struct lruvec *lruvec_live_lock_irq(struct lruvec =
-*lruvec)
-> {
-> #ifdef CONFIG_MEMCG
->=20
-> --=20
-> 2.56.0
->=20
->=20
-
+-- 
+Lee Jones
