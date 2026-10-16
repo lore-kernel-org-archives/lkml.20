@@ -1,152 +1,77 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEDA1E260C;
-	Fri, 16 Oct 2026 05:52:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2101E260C
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792129971; cv=none; b=jMZdSOJlIHmgmCIkCwsVBq7uNyAVH7lj2GmqsW2YVVDdmBVlYLDqOIpmuv1ErpvTPPr61J71YczVn3SYoda6VXM8JSI7PR5RVhlafCyttLJaLamb1UwKe/9pmQbmElLquzehH/AsaVUKjbLy3lry7MMcsEd+ZRzS8EiAnYy+wR4=
+	t=1792130020; cv=none; b=W+m413LArgp6Ziv1fd4owSvFrw4xOkdT3a9aZ+2whgv5WsBjEj2cjGNZzm57A8u6BZcB8Fsby/ukIKq982TPsCGPW0NNoqC7HN5UjRxwed4yYSazAw6PbTVRyOtd4iSbBn/0zSR8Eww14XMSdaqM8RnEvCQy5LF8W0C6A19d9Rc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792129971; c=relaxed/simple;
-	bh=NADZTaYXyQNPpcWo5h/7WJa/jrNFw/QeJt5uX3c9SAU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=KQymGWcdKssF4+C4Xi3uw++aoSz9m0DFBXTFnKNJIKpSM5jyx+4hpsM0PgVRrrGONS5WQvQEM58Z7tZUOp126XqH0NuGwSn8It59QLOwneEau2tkaqWJnRy1QKMvMhm8elNrU836icL1B/vVjdpdk6kcUeEa40QFppN3Ry4gjQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=h8cyG2G3; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1792130020; c=relaxed/simple;
+	bh=gxxJ7t8PmHmqWd0Zl5m8j55pw8ZjQSvr1vPwKZmXGhE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=KPgSBezJhshGxIWi+Mj47NFJv+y5OfmLdJdoZovHD5gsZkxq4sbmkADjvfja5IVzVZcbjBiZdFN15RMTrn8CfysH7CCBuddfUgU2ieV/jy7i5bm+48SCOwgPxeopf9b1xtKPxQeXD1w7uVjiNll4QY/YQF7y9DufBuMimXSMvq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=mst5Lq8I; arc=none smtp.client-ip=117.135.210.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="h8cyG2G3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1792129924;
-	bh=04uaEat7Rr9Fh2I5vVv7mmMDg23ieCg9+MlV7gYX9Hk=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=h8cyG2G3v3vkRH9Y6L7nxZGaRVCGovRDobwT3LSscZtaM5IqDD56cWArZArXGMm06
-	 on5Vj2RXLpnbeVflJ7q64JmEN+bF6mgDq8qqsFREOZgTpaGMaoFjaXCxSDAwtmaJ0M
-	 ALIO9L3ZmVLXtOXG27YbK8wxGvu0W2J9/FPS01sg=
-X-QQ-mid: zesmtpip4t1792129900tca8e34c7
-X-QQ-Originating-IP: zPMoIHAwRxYqDbLfIG4E73d8/iPU3SU/e4u7IJwVImk=
-Received: from localhost.localdomain ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 16 Oct 2026 13:51:38 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 1068374382040432612
-EX-QQ-RecipientCnt: 9
-From: Wentao Guan <guanwentao@uniontech.com>
-To: kprateek.nayak@amd.com
-Cc: guanwentao@uniontech.com,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	ray.huang@amd.com,
-	ronforever@outlook.com,
-	scardracs@disroot.org,
-	stable@vger.kernel.org,
-	superm1@kernel.org
-Subject: Re: [PATCH v3] cpufreq/amd-pstate: Skip auto_sel write when it already matches the mode
-Date: Fri, 16 Oct 2026 13:51:36 +0800
-Message-Id: <20261016055136.286138-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260918090909.86544-1-guanwentao@uniontech.com>
-References: <20260918090909.86544-1-guanwentao@uniontech.com>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="mst5Lq8I"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=gxxJ7t8PmHmqWd0Zl5m8j55pw8ZjQSvr1vPwKZmXGhE=; b=m
+	st5Lq8IvndQW9xdfHyEs2JAK34IG5zslFY/Y9w5nIJWqhL04SITsDt9idWa7bBad
+	7SBJi2frhnqpX+bjTN6UzNGdYUu2NWbMFzn+edONYuVcu9BMrsTnvw1ir10GTW1o
+	ubINAw90l/EhGF2zOW6zsTFH5l+OiZONnyw7joyZn0=
+Date: Fri, 16 Oct 2026 13:52:48 +0800 (CST)
+From: "Nanzhe Zhao" <nzzhao@126.com>
+To: "Chao Yu" <chao@kernel.org>
+Cc: "Nanzhe Zhao" <nzzhao.sigma@gmail.com>,
+	linux-f2fs-devel@lists.sourceforge.net,
+	"Jaegeuk Kim" <jaegeuk@kernel.org>, "Barry Song" <baohua@kernel.org>,
+	"Nanzhe Zhao" <zhaonanzhe@xiaomi.com>,
+	"Juan Yescas" <jyescas@google.com>,
+	"Daeho Jeong" <daehojeong@google.com>, "Dev Jain" <Dev.Jain@arm.com>,
+	"David Hildenbrand" <David.Hildenbrand@arm.com>,
+	linux-kernel@vger.kernel.org, "Bo Zhang" <zhangbo56@xiaomi.com>,
+	"Kalesh Singh" <kaleshsingh@google.com>,
+	"Pengfei Li" <lipengfei28@xiaomi.com>,
+	"Ryan Roberts" <Ryan.Roberts@arm.com>
+Subject: Re:Re: [PATCH v5 03/16] f2fs: support regular file buffered writes
+ on large folios
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 126com
+In-Reply-To: <1349f52e-af6d-48ab-b06a-4c8f5b3f7e68@kernel.org>
+References: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
+ <20261014064445.2835813-4-zhaonanzhe@xiaomi.com>
+ <1349f52e-af6d-48ab-b06a-4c8f5b3f7e68@kernel.org>
+X-NTES-SC: AL_Qu2SAP2ZtkEt7iaRYukdmEoVj+o8Xsaxs/8g2YJSc80OnBD3wjIGZFNdN3b84eyRCCG3vRavXhpezMdoeLh5/no9kIvx6gZOH46EorBpHQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: Mr5D3cXX4TfKS5Ud28CIOpDrNTNhokKRjd6UvOqkZ+Ff428Ur5wwXahD
-	hToEbrwevxIiOSSJg1fPuia5kp2IP2BDHKBxuNs8NggCI29lfjjfLr8P7jweomQEtVNNNwf
-	463wF4diL+bDCEB62lTHxPDcDDlgWyPYXKla/BOjpt58o72nzzbzvf3lQupKNlxy7/+KVxF
-	C7SNqYhh8gsnQfMezZX+iXWRh9oZHYzZoItUQz9iNqyqgQrjnpD+fm29IPwX7z452xYB6i2
-	/6iLdaTV2bO88WJ6thSZCWv/loSohxd0NHYFbG5uBKhf9CIgJ6o36ZeCY62TqjLySFQ4ETg
-	17JPLUUaPPUBXfE3/k7jIXpJmFNwcwgB4SOtNqRsScqzhebO66eRsnV3db3VT2V+3Q/bYD4
-	ztPmckKfdlJX/cNHIUBJGy+EjplXVx4PaPnX4vDw6xhFeVQffxFajeutiMq4q0F7txpBPlx
-	LGXVeZ8tVlRQg3DK/xD1/2hbkD6jDUvOiwiSi58bxHduz16Oyo1eehXibKt7RET/Pk7CM3H
-	Ez5uLytspRiDrLoSSoQqNtPh82McI2rSFIpdrlRajUWdSyoxR++EoKIZ+D6nZiTa/0IaTlO
-	wKHbBUGidiwImf1QqJznlk19/Hag9abX2m1ogxxvdiXdHu3yX+m39aIA0knyXBy+dTMWPva
-	FJ1O1uG58k6nNbaUDHSkz27TjU2nUgkYLmCAThg2Z/vI0x5twq+7fTHlIoF7slAONKAutwe
-	0cDuQIJ7yr9DvXq93e803LAU5PZ+FfEoavvaZ0tZ6Zmh24SYqXzlPun0/qE9XFTxHXaqXZZ
-	hGEuznr2fJePQ12Cv1Ljf3LKxEUd9wr5Fo+ks+sxY51Alk3eDbRuYPADa4thk+fhtzSJ9UZ
-	8j9c+ju0vL4HG2AeaEp7uZddDjI1WGEJSNgsCX8GD8TLOVnVYiV/bEPlAe6DwIsPXVTjYF2
-	PEoU6GaiYoTnaoNx2FD9z0D6+xYqgpi4DYs8oDEydoQR9pZPnVSE+Ml+hpCWQjysMi7oQiD
-	QDacGUEhZM9BiTF7rfHGV2QxL7c59MsX9BYo93/RTR8g7Vypb/V8yVRyxBZB6i334SQtzTW
-	b39dZPUEnMM
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+Message-ID: <7ce0ac29.3f00.1a143452a3e.Coremail.nzzhao@126.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:cykvCgCXf3ewu9Fq5apQAA--.31231W
+X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBoxAq+WrRu7Bx9wAA3W
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Hi,
-
-> Since commit 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active
-> mode on shared memory systems"), shmem_init_perf() programs
-> AUTONOMOUS_SELECTION_ENABLE unconditionally, including in active mode.
-> 
-> Platforms that exclusively support autonomous selection report this field
-> as an Integer of 1, as required by the ACPI specification, instead of as a
-> register descriptor.  cppc_get_reg_val() reads such a field back
-> successfully, but cppc_set_reg_val() rejects the write with -EOPNOTSUPP
-> because the entry is not an ACPI_TYPE_BUFFER.
-> 
-> shmem_init_perf() propagates that error, so every amd_pstate_epp_cpu_init()
-> fails, cpufreq_register_driver() ends up with an empty policy list and
-> returns -ENODEV, and amd-pstate refuses to load at all:
-> 
->   amd_pstate: failed to set auto_sel, ret: -95
->   amd_pstate: Failed to initialize CPU 0: -95
->   ...
->   amd_pstate: failed to register with return -19
-> 
-> Skip the write when the register already holds the value the requested mode
-> needs.  Active and guided mode are fixed on these platforms, which report
-> auto_sel as 1, while passive mode still fails to load on a platform that
-> cannot disable autonomous selection, exactly as it did before the
-> offending commit.
-> 
-> Fixes: 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active mode on shared memory systems")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
-> Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
-> Tested-by: LFRon <ronforever@outlook.com>
-> Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
-> ---
-> changelog v3:
-> Include the K Prateek Nayak reviews to remove that ternary op base on current
-> condition now have.
-> 
-> v2 link:
-> https://lore.kernel.org/stable/c3eb86bd-70a6-4bb2-8eff-b2a3c0817514@amd.com/#R
-> changelog v2:
-> Accecpt and tested the K Prateek Nayak reviews.
-> v1 link:
-> https://lore.kernel.org/stable/20260918054808.48999-1-guanwentao@uniontech.com/#R
-> ---
-> ---
-> drivers/cpufreq/amd-pstate.c | 6 ++++--
-> 1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-> index 80d99ba1902c9..2d1f5292d1738 100644
-> --- a/drivers/cpufreq/amd-pstate.c
-> +++ b/drivers/cpufreq/amd-pstate.c
-> @@ -532,8 +532,10 @@ static int shmem_init_perf(struct amd_cpudata *cpudata)
->  		return 0;
->  	}
-> 
-> -	ret = cppc_set_auto_sel(cpudata->cpu,
-> -			(cppc_state == AMD_PSTATE_PASSIVE) ? 0 : 1);
-> +	if ((cppc_state != AMD_PSTATE_PASSIVE) == auto_sel)
-> +		return 0;
-> +
-> +	ret = cppc_set_auto_sel(cpudata->cpu, !auto_sel);
-> 
->  	if (ret)
->  		pr_warn("failed to set auto_sel, ret: %d\n", ret);
-> --
-> 2.30.2
-
-Ping? Nearly a month passed, anything update?
-
-BRs
-Wentao Guan
+Cgo+PiArCWYyZnNfc3VibWl0X3BhZ2VfcmVhZChpbm9kZSwgTlVMTCwgZm9saW8sIGluZGV4LCBi
+bGthZGRyLAo+PiArCQkJICAgICAgUkVRX09QX1JFQUQsIGZhbHNlKTsKPgo+QGZvcl93cml0ZTog
+dHJ1ZT8gbGlrZSB3ZSBkaWQgaW4gZjJmc193cml0ZV9iZWdpbiAtPiBmMmZzX3N1Ym1pdF9wYWdl
+X3JlYWQoLi4sIHRydWUpLgo+T3RoZXJ3aXNlLCBpdCBjYW4gcnVuIGludG8gbW0gcmVjbGFpbSBh
+ZnRlciBob2xkaW5nIGZvbGlvIGxvY2ssIGNhdXNpbmcgZGVhZGxvY2sgaXNzdWUKPnBvdGVudGlh
+bGx5Lgo+Cj5UaGFua3MsCj4KPj4gKwpJbiBmYWN0IFNhc2hpa28gYWxzbyByZXBvcnRlZCB0aGlz
+IGlzc3VlLCBJJ3ZlIGdvdCBhIGJpdCBoZXNpdGF0ZWQgdG8gY2hhbmcgQGZvcl93cml0ZSB0byB0
+cnVlCnRob3VnaCwgYmVjYXVzZSBJIGtub3cgdGhhdCB3ZSBhbHJlYWR5IHJlbW92ZSBHRlBfTk9G
+UyBpbiBmb2xpbyBhbGxvY2F0aW9uLiBBbmQgSSBhbHNvCmNoZWNrIHNocmlua19mb2xpb19saXN0
+IGFuZCBzdHVkeSBzaHJpbmtfc2xhYiBhbmQgc3dhcGZpbGUgaW4gbm93YWRheXMgbWFpbmxpbmUg
+YW5kIGRpZG4ndApmaW5kIGEgZGVhZGxvY2sgaXNzdWUuIEJ1dCBJIGRvIG1pc3MgdG8gdGFrZSBw
+b3J0aW5nIGxhcmdlIGZvbGlvIG9uIG9sZGVyIGtlcm5lbCBsaWtlIDYuMTIgaW50bwpjb25zaWRl
+cmF0aW9uLiBBbnl3YXksIEkgZGlkbid0IHJlY2VpdmUgcmVwb3J0IG9yIHRlc3QgZGF0YSBvbiBk
+aXJlY3QgcmVjbGFpbSBjYXN1c2UgYnkgYmlvIGFsbG9jYXRpb24Kd2l0aCBHRlBfTk9JTywgc28g
+SSdsbCBjaGFuZ2UgQGZvcl93cml0ZSB0byB0cnVlIGluIHY2LgoKCgo=
