@@ -1,122 +1,110 @@
-Received: from 11.mo584.mail-out.ovh.net (11.mo584.mail-out.ovh.net [46.105.34.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392AF30CD81
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:39:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.34.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792143559; cv=none; b=qeHhk8izLUVB3iFoSkA8qaiwGIryhSs919QrAVnAHwiufGLZW0G5ahUUlfnbkYCJunC1laEiK2kiRjvCcX7/AY7ZEkXxyc0rn+KKQwyHcdQyb7tiSBrz5xuKo7cdUgeA5Hy64MsaERu2eVCJvj6Q9sZvzPs0iZJAVztI3b0AyDU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792143559; c=relaxed/simple;
-	bh=GoWEVXuz3SV+0QV9W0MsYJgQqCZkJcUhEIBaJR097YY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eSheYHPddgOwKFxs0jH+IZVWYtMhl/9jOyd4db3M5NmcbNGWR8U31zlRS7rcp7iOw4UcOkr4APXZq8nhz9g9sGiFWRPzhJ+LrFNAiOKEnR+aBXRG1MwHreG52aWBXgbxaJubCsV576/rmmAgcvCheCry3ht4ajfxwgA6Ap5caF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com; spf=pass smtp.mailfrom=cynove.com; dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b=A+nEdGPV; arc=none smtp.client-ip=46.105.34.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cynove.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9171D3E7BCC
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:39:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792143574; cv=pass; b=qQ3vp3yOnkCrEaT6oBcQn6d+K7DzoYf9Go4XO0t1yGEhpfdkk1uTcO84PFJuif3/7QLYoM7T4x0Ru/xgDkJaQ6Oio9YgLfIq4x6Et1ORMdwXuViUCRYUbXraDGrH4BiL7Umqz03Lb3SGinzz4ptNER5iMav1dFzvPtB5/PlsqDw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792143574; c=relaxed/simple;
+	bh=ZjCCv2vHBwi9IOWqvGjy/7XdqWbDo0x6Omk32EfPwq4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KBPLjPUTePssm7ZitHOXHptx/Lqknz9Egiy2cZ2BE3gIYwd2TqzE1w/AgS7PCttN4h6b5bHWNMd0AvGxg4g5JElqHck1ThvTB3wEy3mh4ciWvTcZL9nFsrSoAM5k1Np3CmQRlsiz707LLKKzUBwezifQhgLrrsb7wcEJWUt+Kjo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=pG4nQDv1; arc=pass smtp.client-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b="A+nEdGPV"
-Received: from director3.ghost.mail-out.ovh.net (unknown [10.110.43.241])
-	by mo584.mail-out.ovh.net (Postfix) with ESMTP id 4j5fBH1Stjz8WB9
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:03:51 +0000 (UTC)
-Received: from ghost-submission-7ccd8bbbb6-4kjr4 (unknown [10.111.174.188])
-	by director3.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 12AEEC04D3;
-	Fri, 16 Oct 2026 09:03:49 +0000 (UTC)
-Received: from cynove.com ([37.59.142.97])
-	by ghost-submission-7ccd8bbbb6-4kjr4 with ESMTPSA
-	id fClPE3Xo0WpZ/AEAmtFogg
-	(envelope-from <stephane.debusne@cynove.com>); Fri, 16 Oct 2026 09:03:49 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-97G002c379f266-6ab0-44a4-95a2-c2dc528ae5e8,
-                    49BC7871EA8B080B249AF49F55FA702C3B4DE52D) smtp.auth=Stephane.Debusne@cynove.com
-X-OVh-ClientIp:176.150.47.247
-From: Stephane Debusne <stephane.debusne@cynove.com>
-To: herbert@gondor.apana.org.au,
-	lukas@wunner.de
-Cc: ignat@cloudflare.com,
-	davem@davemloft.net,
-	horia.geanta@nxp.com,
-	pankaj.gupta@nxp.com,
-	gaurav.jain@nxp.com,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Stephane Debusne <stephane.debusne@cynove.com>
-Subject: [PATCH 0/2] crypto: fix RSA results corrupted by non-coherent DMA
-Date: Fri, 16 Oct 2026 11:03:31 +0200
-Message-ID: <20261016090333.2247764-1-stephane.debusne@cynove.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="pG4nQDv1"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35f036b17easo2179340eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:39:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792143573; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AtdL3WEzsiyUoaa87j9BC7J28KPZwi3Z9G+qc6IJ6QHeC6oJlXTwPEm3a0zJJb35LD
+         Idn/LJH9VREPFh5g2J+OkLSXbIwtHVJ0aydXkIM9hpcP2tW/jNcHM01+0RXHQ6YXGb1i
+         R2UdPMVcv3rYRuCWrsPPQetJjm3xMdGIj1IDV0XGSiUilaS+9sn9zfkQhbL7XFyO3NvE
+         cy2YI8SBIGGvnTlom6h6HHljKC6EBOQbOT309EPA+2+PrkTBmzRDTJ9faMzyzR5BDAWt
+         8a3h5dHn7e6GtmiY99uTnupZxEeevKcf0BcBWBzDvqpLk4D3PJHJUWlcKEcaOiuqnOnz
+         mCAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=j3B/54ttrXHpvRKJzNCedyWQvahtZ3m41HUn5RlCMIg=;
+        fh=jVyehuuyFAjx1Mg3YaDEwvj8R1DFAcZ4ejHWt3bbDN4=;
+        b=QJ7EzR6YiiNZJTcSbp9SA/up5uROok3BXv/yeVl3nMEJrwqSF+wFDAyAlBpUIAqsnS
+         kLOmiqpZ6u5HhYd+nemx7+005ttW1yVglbys/tU5i/LqTSkTS/ydAH6o1Naiw5fNN7KO
+         rHDEA1j0NYVcGgI7RIJRSBABmjaWVdq6zwygqJ2awTzNR/VA3M42I0c1ibla2vHWUzDf
+         PAcWL4GLtPf4olE3xKCs/r0IEoGxCfnB4ZIiqyQKWdFHiYUwj41pEj54fBW7TUyGKbSS
+         0Em2T8BN9NpI7djPpI+/16YPy2zldVOdi5Lhkl1+8x5h8DmBAWm4FM4e6LnbkmgGpUX/
+         OECA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=szeredi.hu; s=google; t=1792143573; x=1792748373; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j3B/54ttrXHpvRKJzNCedyWQvahtZ3m41HUn5RlCMIg=;
+        b=pG4nQDv12EahyCrQYEQrDkAydQxgNrSRZfZj5+myHy3cwyK7yYSfto51Jw9r2He6Ed
+         38fNDs8UC6D++3SZ7Ubj2N3ZnRSvGEb7iex+k81vQw65I5fRmR79oZUQcz3gj6iq/cqd
+         Wd67T/dEanOU/JUfa0G0Vj5yOzfmeoRFMs+z4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792143573; x=1792748373;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=j3B/54ttrXHpvRKJzNCedyWQvahtZ3m41HUn5RlCMIg=;
+        b=j5mZdf4tDVIrbQXcUx6N0UShfVDvgg+wU0DKBUOy/2Tyox0UcYb6Y88Q6cI7BABu9a
+         oCsimD/0pI9tvCe4p6edRs2rmjZ1csF9ZGwtLOWXePyxeEfa6izeAlnm7u6DvFIX4XXu
+         INxQjOr1+hQ29dM9eCBL4+rRDCgBkvGeAGSKI9azsdDr3hH0xuNi10wyL2WHZ/v57THE
+         xOzD4tGiVYO+giexYUHT/hgNM2Us8lTH54aTlSxLWINHXftqRwSGoS2h3n5QIe266asb
+         QXcGpU5bqkkz0m44hU4GfSXWaB2t81hGgRsM1I/MunRsE8uLQuhVGOhCnPkjCQcGsU6q
+         jnyg==
+X-Forwarded-Encrypted: i=1; AKwUvByJpNXXc5wClH2rI/LMi+whTlSvQI6WFl0yjW5UN7XWls2RaiG13EbJLQH567+qXWo7ysjReSqHq3vzD6Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJBIJ3Z3YJNfcPOgL6LcklzKw5u+2jS1tlc1Bwyl84FihVsgjak
+	bmNE1JBRPXJZRwMZ4GgDOR1korEgaqPZ5nuHKL343w1zTzF097nV/Yq2SOLhGjVqoS/9oA4CmjA
+	dbkp4iq9WJqATDBn5nRv/EiuWysGu46irCsu1CmSLrg==
+X-Gm-Gg: AYBFou3ebiPGRW/9DoePtmPBTPKJUcmAKjAqgN+PeIML29BirTTU5iMuVlBaO1G6UIZ
+	EQCtJ79F7e4/OlskdRVesAyTGL08Jq4uYUuracASuyUMUp4tfCZ1PbRyG27HnrYCSvX74RyRR3e
+	fWuqCRUfovYm3N4oUmZkH2pk40qAm0HUb0J6QJAt5rHqBcluU0cS96FaoF5NnHpstroL2xLKtr1
+	ztAYb/yZHuSRNj/7hvxqtSjnAxETbnypIjc7KY02n7i3ZkoiKgGWN/jQ2UfvSbkxLu5QrKNcn8t
+	Vw5+IsO7YDyeAd5o7uCxe63/PSIGpeuLhwRpr3HPOiuLtG+GLF+lpPRsAgKEyqIqTzwLTfTwBIW
+	aCeBw/Ic=
+X-Received: by 2002:a05:7300:55a5:b0:35a:29b6:b466 with SMTP id
+ 5a478bee46e88-35a29b6c486mr18778429eec.30.1792143571660; Fri, 16 Oct 2026
+ 02:39:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 16750857342188313563
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: dmFkZTGL3rmz5cC2p8+9bAmZzWxEtdmhtw9UvlBsC3FFBHLEsgbGJeL3cAw2ZsUQrXWNZcUijzcE9vqPk8wGFgBDxCoAbFG5UUKTwCbbnreesoLHHLZpWOjJQc1vxr73GbbpWFEp+e4I9zZDjhBynB9N/C1ZT6erUIbHDq6PQYxAxRSbwHKqMcmS2UBkv+Q1tr0HMBKS1TTih/I620EkY38MTkp9IePZPfnRNzlk7WwULdCXIHAemvGoU7Mie10uWnxMqbyR7MP5nNq8hSXUNTy8QSrFtJlqYeR70UI0BAoFIxDMSb00eJAhRZnZSxAYHSOBspR+EXu0L2Fzpw3e1wX0hdIAEp/CA2WFwz7nwY9ks13XgL3wO8Ro0k0InsGeMUhpy/+/ZZeyxHbwKCmhNxnyacBgF6hqHsKY9EoQ2zS7ndcjRbOqVYmCRs6SWjzsTsOmj3AleycHuxBbUpDseRkYARASIDDm/kg/rFjrz3IeJKx/Xmuyz8PPvoxMLWq6DzXguCyCkzeCV9GAAotatG4BkXn7zwlkQx77J4v+qvz+3UVx3LJBsHlmM4+DOi8w0ZSbCIQ1oiNIUKILBX7JHr/wEJD7HN5EkA2bUspAQ53p/dRfiV3GebU8RnSCtRupf4R7QVv50Lw201QHbgT6GT0XDZAoQNiCWjxcWz9Ddwmm8oxHOw
-DKIM-Signature: a=rsa-sha256; bh=edf/xAgFCHK0tt5B2Dt64h3lDrjvSXV1WHSKZFxFQ/g=;
- c=relaxed/relaxed; d=cynove.com; h=From; s=ovhmo4616632-selector1;
- t=1792141431; v=1;
- b=A+nEdGPVPnL9IQ4tUB7NPZC299CcYNgFOzRqHaSNvX3PZu5q43FPjHS+6kEs6T5BU/6Ahx+f
- afE/1JaoVAXLk6vT5WdUo/a0RDwyZAJqKOAk6lbAsRqhvm+Pb1dBvRCYpaWYBW9gcbi/4bAUtv2
- nFNZukjMzrDnX/5ludRcb2z8eyO1HOyp/DMPOiygAAlXHokbgUB+5taH0bzKiHfZkEVb3geOvzS
- nPJwJ4DiPNg9kIz1WL2q4IOPYPvdHrSmWs3XhzxnOuAF5m55vy4fBniq+9Y6YCimYC0El4V8kB7
- wiYoGoDUJbUcN6LddVrTCzk6eR0TcM/zVi02hgqySkLhg==
+References: <20260929032927.1451259-1-neilb@ownmail.net> <20260929032927.1451259-3-neilb@ownmail.net>
+In-Reply-To: <20260929032927.1451259-3-neilb@ownmail.net>
+From: Miklos Szeredi <miklos@szeredi.hu>
+Date: Fri, 16 Oct 2026 11:39:19 +0200
+X-Gm-Features: AclHuK_HY98FdVFdI2B8_Xyq2_mR-0nCvi6kN-LGNYhpYxSjTYAUSIadCJthF2I
+Message-ID: <CAJfpegtG2NGxbUjR-bifU4aWmswocYwZaxpvTSFooQ=F-dcWBQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] fuse: Use d_alloc_trylock() in fuse_direntplus_link()
+To: NeilBrown <neil@brown.name>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
+	Jeff Layton <jlayton@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On i.MX8M Mini with the CAAM (rsa-caam, caam_jr loaded), PKCS#1 v1.5
-signature verification fails almost every time: cfg80211 rejects
-regulatory.db ("loaded regulatory.db is malformed or signature is
-missing/invalid"), and a valid self-signed X.509 certificate cannot be
-added to a keyring (EINVAL). Seen with the NXP BSP lf-6.18.37 and stable
-updates up to 6.18.57; the code involved is identical in mainline.
+On Tue, 29 Sept 2026 at 05:29, NeilBrown <neilb@ownmail.net> wrote:
+>
+> From: NeilBrown <neil@brown.name>
+>
+> fuse uses the results of readdir to prime the dcache.  Using
+> d_alloc_parallel() can block if there is a concurrent lookup.  Blocking
+> in that case is pointless as the lookup will add info to the dcache and
+> there is no value in the readdir waiting to see if it should add the
+> info too.
 
-crypto_akcipher_sync_prep() and rsassa_pkcs1_verify() place the data
-buffer right after the request context, in the same allocation. caampkc
-writes req_ctx->edesc and req_ctx->akcipher_op_done after mapping the
-destination, so the cache line shared by the end of the context and the
-start of the buffer is dirty while the device writes the result. On
-arm64, dma_unmap_sg(DMA_FROM_DEVICE) cleans and invalidates that partial
-line, and the stale CPU copy overwrites the first bytes of the result.
-The self-tests pass because testmgr uses separate buffers.
+Need to send FORGET in that case.   See this sashiko review:
 
-A test module comparing rsa-caam with rsa-generic (2048-bit key, 200
-public-key operations per case, CAAM era 9, non-coherent DMA) gives:
+https://sashiko.dev/#/patchset/20260929032927.1451259-1-neilb%40ownmail.net
 
-  destination buffer                        wrong results
-  separate kmalloc() buffers                0/200
-  in place, own kmalloc() buffer            0/200
-  separate source, dst after req. context   200/200
-  in place, after req. context (rsassa)     200/200
-  crypto_akcipher_sync_encrypt()            199/200 (patch 1: 0/200)
-  pkcs1(rsa-caam,sha256) verification       398/400 (patch 2: 0/200)
-
-In the wrong results reported, bytes 0 to 23 always hold the previous
-content of the buffer: the buffer starts 168 bytes into the allocation,
-at offset 40 of the 64-byte line that also holds edesc and
-akcipher_op_done. The rare correct results are consistent with that
-line being evicted before the device writes.
-
-Both patches give the data buffer its own allocation, as rsa-pkcs1pad
-did before 6.13. The driver could instead avoid writing its request
-context while the buffers are mapped, but any DMA-based akcipher on a
-non-coherent platform could hit the same problem, so fixing the callers
-seemed more robust. rsassa_pkcs1_verify() could also use the fixed sync
-helper instead of its own allocation; I kept the change minimal, and
-will gladly rework the series in either direction.
-
-Tested on i.MX8M Mini with 6.18.57: with caam_jr loaded, regulatory.db
-loads again, and the test module reports no wrong result through the
-sync helper and the pkcs1 template. The test module is available if
-useful.
-
-Stephane Debusne (2):
-  crypto: akcipher - use a separate buffer in the sync helpers
-  crypto: rsassa-pkcs1 - use a separate buffer for the RSA output
-
- crypto/akcipher.c     | 21 ++++++++++++++-------
- crypto/rsassa-pkcs1.c | 16 +++++++++++++---
- 2 files changed, 27 insertions(+), 10 deletions(-)
-
--- 
-2.43.0
-
+Thanks,
+Miklos
