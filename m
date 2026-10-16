@@ -1,87 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388453A5E7D
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:53:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792137203; cv=none; b=ZsupDA0w4YTA59omHdGU7uUdIz9SQ9K7N30B0yOyWPcIEsF4ZrLAtkFRabvOGUmKWLLrruQBL643tUJfqNuoDnwrnJYKnO+/jR3d3jBf8CnLiCTvm45BwjUMU9CQzPimTo5Fgat+a2qFE4MrYIpz7S9/FxlAgOBMKFNbI3PAnFg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792137203; c=relaxed/simple;
-	bh=B4IzSxY5F+HMjumQYpLQgv1VgHUd/a3qHH2cQv2H0rc=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MSVOSoeNWiJLwqAoTo2Jv7sXtV3G32ZZCfxAeNtYl28x8vGUUnYGEhUCzC7Zum70N8ThXvtDQ1QHVkqbe77xOa2RxtlMzcCN+hFKe2wXf5epZj5BCmmTMBlzgC1S8KL2/eePbPtEuUC4XPLx3YEaO77PJBiiV8Tt9ypFnX4zmtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dT5tTDMV; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FD237F8DD
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:54:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792137256; cv=pass; b=J+BA5jzVld86BPNm2qCiOhRur7TC0WRXYTkqmov+rT9W6K5BtBlXECGZtEldVZqu4JOrel8ShhxwU7PfrpKIViry8cIxZtmW/QNiFOjT+3nVHc7b3MuuLLYBw/7Qv58BbFHZaywpzunMvW9J8zUWSW3bHHgwLB1h4N6JBrgGVeE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792137256; c=relaxed/simple;
+	bh=KLwhpQm2UjBGZ/IU6JuN7xThtHaXDHsHEC+uZW/NhEQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tj40rJUiDMWe9tmi9erhbzQ7b7DLmnd2O3l1V9d63XsAonbas/9GgFOI3VBt5+jPMSPeQ3VbrYUQwbzkWYMvhIFz3rhhOkfuibDUcbX2LFwDB/E9wEU8VMJq5JMNy3qber5Ux/BhtkqGa6wbcGbHT4NzKeucBBLdRMeOFISBaM0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=weOufLrx; arc=pass smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dT5tTDMV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB4081F000CC
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:53:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792137201;
-	bh=B4IzSxY5F+HMjumQYpLQgv1VgHUd/a3qHH2cQv2H0rc=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=dT5tTDMVwARRICgF/BJtr/AAl0dIOaT24SeXD5WFiEgDpxXdnXhjnBVsg3GZLDih2
-	 Z6CPE9XFxQmC7TaQjQGhJUJwPMR39f6/UZh5pKalCqhaRZz2IFMXKEjeLUfOhgemmy
-	 mJxSF57AAHR3yeSudCXeaeufm5LomhHETaK77JWwFYpfMoTbGNCWptuzjT6ZHA1S/e
-	 Stqe+TUw6gfJm47IcgWoW69FRg/zeyO9GTOQQbcRQezTFXn4M2GmTIg1BD6G8o2cs/
-	 sdc1LZzU3KLFdP2AlS8bdZD85bXP3zluUnCfCRgP6/8Yp8fcb4G6UqanZpqYwkQNt7
-	 REUgWELe6y61w==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5ba3fba0080so4398403e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:53:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz844APaulpOEFdIfiZpecwu0bop5eCA9Wgtv4PCi803AVHLwxOaAuUkWYu9qoEV56UTRQd/qyOIkkgzM8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLxdzKgFOY99J411jYO6HI8FeV8PbTX+5vQ7JiZQJFEZ873adY
-	lFQuBBxde9c+9KgIhi4E/T7dxi4yT3m2WJHFS9DwbqsLY+SqW/5wWm3MP6YgjMnjYwFv8UXPFqD
-	TGcfVjRJ2/MEpAUTY9GrB9QrAG8jBkWBuv+VXQRla1A==
-X-Received: by 2002:a05:6512:2399:b0:5b8:f9b0:5779 with SMTP id
- 2adb3069b0e04-5bcde35b9f5mr7386749e87.8.1792137200300; Fri, 16 Oct 2026
- 00:53:20 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 16 Oct 2026 03:53:19 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 16 Oct 2026 03:53:19 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <atGIRTRuhFILV9pz@gondor.apana.org.au>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="weOufLrx"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35f036b17easo1938705eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:54:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792137254; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MWEZRmO9T0Z2BZTKWzE7uP1hINpHICc5K0kaif62thXk7ZT6Kn6MMoHYQYLLsL+eQ0
+         VfTBT0Fg/SLWRLV1jKVmykcwd2R67Dm3dzDQZp5DweRMIxG6WDyOJKShCh/MFBq+nLIe
+         QcVuN98KVh1ed9C/dVlj/q4ldf+9Dnfid1gfU8mpnYFoXB8NP7Lqs8ZjNbjc3Gc/ci6s
+         cs8gLLIRyI80v7z7dHEAUdXVrailsHrB6vKaZXUgI9/JjF35GUQ1QBhaILLuzyjOephq
+         H+Ts6yafctqqb7xAiqC98zkpFbndW7kxwyHSSDDbGaov1w5XaWpZC9MzT+R9ZjpNRddM
+         SSHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KLwhpQm2UjBGZ/IU6JuN7xThtHaXDHsHEC+uZW/NhEQ=;
+        fh=QnRosBfvOpK8UHt9s6XFQbpV3UdT3gJx+jFfPNiwhKc=;
+        b=HH14CEGst8vmtfJ9pMxjjJQq3R3zsSj8aknYUw1oeH1QsGJ8WzBQehtEFBTl0mAH5l
+         LQL7llrLNkdfJkUlsN7xyokrvf4c/ndyVXoin26UcKcdwWa0JMBme+Z/MToPYB4kznyZ
+         wDvKOP5Dz9LUqrRt5AbZc237dmBIQ84gUzkxkBFwVQctUJfx8LsgFT4YH2ZmCf7x4iro
+         SdFoLio0holL6ZOVffCxNy1Qd85+niaEdg+3eKHD7c/SN1fo/Na2dIwqP2sJRCOI7T1o
+         +7z45jpmU+kdGaDs0tqzapl7ZOcm7du0oEoM09Ei/F6syv1h4upcnqVZ79/2Yu9AtYrA
+         4y8g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792137254; x=1792742054; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KLwhpQm2UjBGZ/IU6JuN7xThtHaXDHsHEC+uZW/NhEQ=;
+        b=weOufLrxmXvntHLb6aF9ExyGYiZIKUoo/wDEnuwclKkgTxCAGctFjtSmJnXOS72Ofc
+         qZqnR3IbGTjlvL1FnptfQqgOTN973+u6UXJ9zdgnALbBjg+uqkQchzrbOV1dhocS0hyw
+         uiDYJcSljRap9nMVOV5hEPLDefUO5KIt3eR9xoSTS4xCWPojXifLN/F9ofzDC2QVyN7z
+         b4i3UOnks6IZa2Y6GpdDRL2zfzDgNh/Pv5KxZtkIg/UtnekGCrc7bAyUUzXwD35Vy/6H
+         oQ9cWw9bFOC23EeU/454+2xR2JmYSlRXkTiZnln9xaq5kMlVMLIHdzcfhxxcE886xcE9
+         P+CQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792137254; x=1792742054;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KLwhpQm2UjBGZ/IU6JuN7xThtHaXDHsHEC+uZW/NhEQ=;
+        b=1RGe87aCmTN1s5z7PWEn1nXDSwKI0A2QntpIq9fTBlYFGYL9NehShneTPQYdJj/rlu
+         WGSQ2cBcjh472Ga6EIZNTkII5Emg9wV1XNG17mkWoL2x9g+LPy6UQAq3rh2/Q21DKNkg
+         iAk4G+8EIFvj8dbIv31Qqtnxr18GkJ7882WIiU8s+/TCgdsnZ76Odtrxjay4IDjr7Eie
+         KZYPho3Ffaa0+0cxb/M0MuTNKu7/OoUxhD9O3jksErKZZ98x4tXNv+LNZb1JlSbGl+sQ
+         KZv/+sYmfv1qLSh/cIw5N/hKeWnptscMnebGj53kLK9Wc6Jrv8h69crHu2kxhszocwl7
+         pdcw==
+X-Forwarded-Encrypted: i=1; AKwUvBxC2KEzf7jCb3sjJz9PeMZbM2QGrwEpfQcC7T6DCIp+YX2H8Vz9AumE820KKJv4KhGVdtfY218XcKArXm8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLlPqa96eg3zj9WxSlPLs4CHgSqHkoSJ0KAqFVGYQCh0BThQ6Dr
+	HWVu4wXQXQAYAAA/X6EL66v03xNM2XoGFcZVggsELWUedDe2NlPuWgzWChVRYtStp3Z9FBrl8Zj
+	MLqPJvzX9PvDmRkYP6L5vcyaSZowMZxO8NsdXoE9I
+X-Gm-Gg: AYBFou0tKHhwmSfX9JtwyldStwSn1oDLm2+2dTgAmhqbCT5OJtuoij8rMtu0yjDlJhb
+	zBn/sqNi6u35wwlCoVSkL1SAbA/VIAEAOSiD7aH+ZkA5FCjpq5twBzbnxptMO4EzXb+hzGLXp1l
+	L2HGRgBJWTueYJzfcXvraTx6LMuKiB4gigrRMs3YFBUqiJ98MTt8KGrClR4b6xZdiVH/m0d2LnX
+	H6qlQEa52SYY4qRObq567xEoSpfmRwdVvdlxsUHIaw6ukg9OUD8aQACa31YAA+2nEnp9A8ZlUCA
+	r1XBJ4YSRlH8xyufsq0+HW0uZbM2C7VhQNlT19wUwIlfh76vc7ZYLqnS6oh/Ow69C8WeswZ/o0x
+	64nC2p4bR1l4iGpBVq7VUmet6xT/Lg1kOmcQNJpoIzX8xblnSA6mSmSIfzHIht14jITU=
+X-Received: by 2002:a05:7022:ea86:b0:153:7a27:b7d with SMTP id
+ a92af1059eb24-16a626f6e93mr26850863c88.20.1792137253208; Fri, 16 Oct 2026
+ 00:54:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013-qce-fix-self-tests-v10-0-57162a38a554@oss.qualcomm.com>
- <CAMRc=MejhYpC6QNXwK_cG_NuJs5XpOviK2NPsEwtnK0RxDi61Q@mail.gmail.com> <atGIRTRuhFILV9pz@gondor.apana.org.au>
-Date: Fri, 16 Oct 2026 03:53:19 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MeNk8RSRPvd7u6ZsrTk=yT6nWiEGuB8ARb_mV8tDdpWHQ@mail.gmail.com>
-X-Gm-Features: AclHuK8gYInkzaF2IUtMPvsqDxyb_UtfI2wLBn_4ZvR4nTK7V8zh1xtSkrWeKJc
-Message-ID: <CAMRc=MeNk8RSRPvd7u6ZsrTk=yT6nWiEGuB8ARb_mV8tDdpWHQ@mail.gmail.com>
-Subject: Re: [PATCH v10 00/14] crypto: qce - Fix crypto self-test failures
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, linux-crypto@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Thara Gopinath <thara.gopinath@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Stanimir Varbanov <svarbanov@mm-sol.com>, 
-	Eneas U de Queiroz <cotequeiroz@gmail.com>, Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, 
-	Eric Biggers <ebiggers@kernel.org>, Demi Marie Obenour <demiobenour@gmail.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Russell King <linux@armlinux.org.uk>, Abel Vesa <abelvesa@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>
+References: <20261015073736.2944215-1-tavip@google.com> <20261015073736.2944215-3-tavip@google.com>
+In-Reply-To: <20261015073736.2944215-3-tavip@google.com>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Fri, 16 Oct 2026 00:54:01 -0700
+X-Gm-Features: AclHuK-X0MEqM-qiZR_C1C8OlSnnVfLtG_uH9dpCSScAmzQL4uL378qfzqDiPp8
+Message-ID: <CAAVpQUCpFC-7J=uEgBfh37hFb5BCJvhJQZx7_YKEDCtvbGrGWw@mail.gmail.com>
+Subject: Re: [PATCH net 2/2] selftests: net: packetdrill: add test for
+ negative sk_forward_alloc in tcp_wmem_schedule()
+To: Octavian Purdila <tavip@google.com>
+Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
+	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, Soheil Hassas Yeganeh <soheil@google.com>, Wei Wang <weiwan@google.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, netdev@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 16 Oct 2026 04:13:25 +0200, Herbert Xu
-<herbert@gondor.apana.org.au> said:
-> On Thu, Oct 15, 2026 at 10:49:37AM -0400, Bartosz Golaszewski wrote:
->>
->> It came back with some more issues. And seems I have a build failure midway
->> in the series so that needs fixing too.
+On Thu, Oct 15, 2026 at 12:37=E2=80=AFAM Octavian Purdila <tavip@google.com=
+> wrote:
 >
-> How about breaking the large series into smaller chunks?
+> Add a packetdrill test that drives sk->sk_forward_alloc negative via
+> tcp_collapse() on the receive queue while sk->sk_wmem_queued exceeds
+> sysctl_tcp_wmem[0], and verifies that a subsequent non-blocking write()
+> under TCP memory pressure fails with EAGAIN rather than returning a
+> negative copy length from tcp_wmem_schedule() and failing with EFAULT.
 >
-> Just make sure that each fix is independent and makes an
-> improvement without regressing.
->
+> Assisted-by: LLM
+> Signed-off-by: Octavian Purdila <tavip@google.com>
 
-Yeah, makes sense and likely will get the changes upstream faster.
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
 
-Thanks,
-Bartosz
+Thanks !
