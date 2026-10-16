@@ -1,379 +1,291 @@
-Received: from mta0.migadu.com (out-2.mta0.migadu.com [91.218.175.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DEC82F7F01
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:13:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3204471422;
+	Fri, 16 Oct 2026 11:13:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792149230; cv=none; b=sqWCysuU1FOMxjvSmSNiJp/Rw/13vPtSm6rQtmcUW77qkVD7o/IzM2ITZcSLXx5+UlHcyePHh4xn3Eh0xg/CyeGATGdLjYSigEVVnU4I7syX42FacLaQatQO3kdcYXWR8OcAKkggappjLET842YT26pjz5UaITAMgYTUhvaz79A=
+	t=1792149234; cv=none; b=Vtxy2lpSOpo2HTStzdirXN1ugRWl4TrvlGUU+WhLq/bW8+UHiWEm8tEIjZKLZ7nEt9KWYolFqJSUAG2Oj8Q/gGcbirO/Y6Dxb6JssyEh/U5F6ialA596Wk0UJuBPZ4Pdp2xCfvah8AsT0813jX7p8GV8FMDKBMLXfupcwOcb/xQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792149230; c=relaxed/simple;
-	bh=X58SwrkFFp3ztvH2Noq/jUoS6DiX16w1TaBG2g1bFV0=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Dyu+D7A2KQLsawDeSMb+GCA6PcmWpiedgTvWehdAgICukJb3iP+c0wXBtN4LBw12icq6U4gOtSQ3CW6iBpMj8qmztuGb175hMVyjfuu1CYWTKltOd9cT183fJdSycuj26sqZgNjnk/NxO0fb0cbH5riwhnGENfJo0T1wwuE4hKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=j8l9DZUL; arc=none smtp.client-ip=91.218.175.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792149234; c=relaxed/simple;
+	bh=KumbjjhRhvbelR/N4IolFhaQ76TIPd78Ib+6pWww08c=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=M26zwht6mn5JKz63uKpJPAinWTgptbbEHLq/ej6yN2EHmYEeDr7ry4s7brZ2h49ArxeVYxLVwvwyKkfkmNxJsemFKjD+lzmyv/wrufv0spFPnY9CaBeW2vgpK00rFI2lnYneH9viOXXjo+UjMlfxt1kqv/GNj//9wjHtWob8JUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=AHzsDach; arc=none smtp.client-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="j8l9DZUL"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=X58SwrkFFp3ztvH2Noq/jUoS6DiX16w1TaBG2g1bFV0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792149224; v=1; x=1792754024;
- b=j8l9DZULwB9djeur/I1AmPN0ZBwnWFxfou4ObN88P7CH5PQvqCaeGVLDmS2ISKDPckMn6JIX
- HfstcaKBYqURkxu7rviasODD9dpFtsUIO37qU9FyhOy8YuUqcHrQ1cS2KAFDGZ4ALd3FdIMkg1W
- hm02yQY5ganOJMV2oETgvIis=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2a6eecbfcbc4b948;
-	Fri, 16 Oct 2026 11:13:44 +0000
-X-Mizu-Trace-ID: 2a6eecbfcbc4b948
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <81f61871-6852-4d30-b68a-bb08e56881f2@linux.dev>
-Date: Fri, 16 Oct 2026 19:13:36 +0800
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="AHzsDach"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=6Y+gN4hNQb73l+yWZdAkAgqsnCwkubFwJsWi9Jc9Bvw=;
+	b=AHzsDachi/raX9ZHqxZ9rePkujH+ksrL8Gxz4vlq+DxdmOFWw0oNpagGnH0369mH0YBZYYZNL
+	xmboz0KcUR8Hc31PzpbfXKQW8TIDke7wjdXcGHgZfM7fjHBTWPKE585jPj5oZvmS1bp3t4WGmAX
+	jBTtaAVKyJC36uE3CEScMhs=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4j5hnz1l6yz1prLV;
+	Fri, 16 Oct 2026 19:01:27 +0800 (CST)
+Received: from kwepemf100013.china.huawei.com (unknown [7.202.181.12])
+	by mail.maildlp.com (Postfix) with ESMTPS id 3044340579;
+	Fri, 16 Oct 2026 19:13:48 +0800 (CST)
+Received: from DESKTOP-62GVMTR.china.huawei.com (10.174.189.38) by
+ kwepemf100013.china.huawei.com (7.202.181.12) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 16 Oct 2026 19:13:47 +0800
+From: Fan Gong <gongfan1@huawei.com>
+To: Fan Gong <gongfan1@huawei.com>, Wu Di <wudi234@huawei.com>, Teng Peisen
+	<tengpeisen@huawei.com>, <netdev@vger.kernel.org>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, Ioana Ciornei
+	<ioana.ciornei@nxp.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>, Dimitri Daskalakis
+	<dimitri.daskalakis1@gmail.com>, Harshitha Ramamurthy
+	<hramamurthy@google.com>, Larysa Zaremba <larysa.zaremba@intel.com>, Vadim
+ Fedorenko <vadim.fedorenko@linux.dev>
+CC: <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>, Zhou Shuai
+	<zhoushuai28@huawei.com>, Wu Like <wulike1@huawei.com>
+Subject: [PATCH net-next v16 2/2] hinic3: Add ethtool statistic ops part2
+Date: Fri, 16 Oct 2026 19:13:39 +0800
+Message-ID: <de2b1696f3af7d172ec25bc3a0a5ad6589f2dbaf.1792149958.git.gongfan1@huawei.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <cover.1792149958.git.gongfan1@huawei.com>
+References: <cover.1792149958.git.gongfan1@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, axboe@kernel.dk, josef@toxicpanda.com, yukuai@fygo.io,
- cgroups@vger.kernel.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, rostedt@goodmis.org, mhiramat@kernel.org,
- mathieu.desnoyers@efficios.com, linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH] blk-iocost: publish hweights as one atomic value
-To: Kunhai Dai <daikunhai@didiglobal.com>, tj@kernel.org
-References: <20261015135919.210740-1-daikunhai@didiglobal.com>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20261015135919.210740-1-daikunhai@didiglobal.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemf100013.china.huawei.com (7.202.181.12)
 
-Hello，Kunhai
+This commit adds five standard ethtool statistics callbacks to the hinic3
+driver: get_eth_phy_stats, get_eth_mac_stats, get_eth_ctrl_stats,
+get_rmon_stats and get_pause_stats. Each callback reads the physical port
+counters from firmware via hinic3_get_phy_port_stats() and copies them
+into the standard ethtool structures.
 
-在 2026/10/15 21:59, Kunhai Dai 写道:
-> current_hweight() uses separate plain stores for the cache generation and
-> both weights. The compiler can publish the generation before the weights,
-> letting an interrupt accept stale weights as current. Multiple refreshers
-> can also interleave their stores. Invalid donation budgets may then lead
-> to a divide error in transfer_surpluses().
-> 
-> Pack the generation and both weights into a single atomic64_t. Hierarchical
-> weights are in [1, 65536], so storing each weight minus one preserves its
-> full range in 16 bits and leaves 32 bits for the generation. Readers copy
-> one complete entry, and refreshers publish one complete entry. Return the
-> local snapshot instead of rereading fields another refresher can modify.
-> 
-> Keep the existing lockless refresh and cache reuse behavior. A late
-> refresh may replace a newer entry, but carries its own generation so the
-> next reader can detect the mismatch. Preserve the existing barrier paired
-> with commit_weights() and the allowance for approximate hierarchy reads.
-> 
-> Keep the old weight fields solely as donation workspace. Update cache
-> initialization, activation invalidation, tracepoints and the drgn monitor
-> accordingly. Tracepoints decode one cached snapshot without recalculating
-> or refreshing weights. Stop invalid donation calculations before applying
-> leaf adjustments, and check donating before subtracting one.
-> 
-> Validated against commit 24a19b953e2a ("Linux 7.3-rc7"):
-> - clean application, whitespace and strict checkpatch checks;
-> - W=1 compilation of blk-iocost.o with the existing x86-64 configuration
->   and PREEMPT_RT plus PROVE_LOCKING;
-> - extracted production-function checks covering all weight values,
->   generation high bits, publication interleavings, donation cleanup and
->   400000 concurrent refresh calls using C11 atomic test stubs;
-> - Python syntax and actual monitor-decoder checks;
-> - x86-64 disassembly confirms a single 64-bit cache load and store.
-> 
-> Runtime kprobe injection on an x86-64 VM with 32 vCPUs completed three
-> rounds without WARN or panic. With a 30 ms publication delay, the probe
-> reported 23102 publication-point holds, 3234 cache-change observations
-> within those windows and 72 matching-generation reader observations. The
-> unpatched baseline panicked under the corresponding reproduction load.
-> 
-> The runtime build predates this revision's tracepoint-only simplification;
-> the packed-cache and donation logic are unchanged. The current tracepoint
-> change has passed normal and PREEMPT_RT compilation, but has not been
-> rerun in the runtime injection test. Performance regression testing has
-> not been performed.
-> 
+Co-developed-by: Wu Di <wudi234@huawei.com>
+Signed-off-by: Wu Di <wudi234@huawei.com>
+Co-developed-by: Teng Peisen <tengpeisen@huawei.com>
+Signed-off-by: Teng Peisen <tengpeisen@huawei.com>
+Signed-off-by: Fan Gong <gongfan1@huawei.com>
+---
+ .../ethernet/huawei/hinic3/hinic3_ethtool.c   | 190 ++++++++++++++++++
+ 1 file changed, 190 insertions(+)
 
-Thanks for the thorough patch. We tried your injection protocol on our side
-(linux-next 20261014, clang 17, qemu/KVM, nullb0, the rt/s1..C topology with
-1 <-> 10000 weight alternation, a 30ms kprobe hold at the publication
-stores). The patched kernel came through cleanly -- no WARN or oops even
-with a hold on every refresh, and the tracepoint decode of the final
-revision worked in all runs, which nicely covers the gap you disclosed in
-the commit message. We could not reproduce the divide error on the baseline,
-likely because our clang build orders the stores gen-last, so the direct
-window from your step 4 does not exist in our binary -- your repro's
-precondition is indeed toolchain-dependent.
-
-Two small observations:
-
-1. The goto out in transfer_surpluses() skips the donation tail for all
-   donors, so while a degenerate weight configuration persists, donation is
-   given up every period (and inuse_transfer tracepoints go quiet). Strictly
-   better than the old panic, but it might be worth a sentence in the commit
-   message.
-
-2. after == 0 may not be race-only: a boundary rounding in the over_hwa
-   rescale can also floor a small over-donor's after value to zero. So the
-   guard has some value even independent of the race.
-
-Along the same lines, would you consider splitting the patch? A small
-[1/2] with just the div0 guard (Fixes: e08d02aa5fc9, Cc: stable) would
-backport easily, while the packed hweight_cache plus tracepoint/monitor
-changes could go as [2/2] (Fixes: 7caa47151ab2). Also, the patch is
-currently missing Fixes: entirely.
-
-Thanks，
-Tao
-
-> Developed with assistance from OpenAI Codex.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Kunhai Dai <daikunhai@didiglobal.com>
-> 
-> ---
-> Reproduction outline (x86-64, cgroup v2):
-> 1. Enable BLK_CGROUP_IOCOST and KPROBES. Enable the io controller at each
->    parent, and configure io.cost.qos and io.cost.model for the test device.
-> 2. Create four leaves: rt/s1, rt/K/s2, rt/K/P/s3 and rt/K/P/C. Run continuous
->    direct 1 MiB writes in the first three; issue four direct 4 KiB writes
->    every 200 ms in C, keeping it active with low utilization.
-> 3. Every 300 ms, alternate the K/P/C chain weights between 1 and 10000,
->    with the sibling leaves s1/s2/s3 taking the opposite weights. This
->    repeatedly makes C's hierarchical share fall to the minimum of 1.
-> 4. On the unpatched build, confirm that the compiler placed the cached
->    generation store before the weight stores. Insert a kprobe delay of
->    30 ms after that generation store and before the weight stores.
->    Derive the instruction offset from the binary being tested.
-> 5. On the packed-cache build, delay just before the atomic cache store
->    instead: there is no separate generation-publication window. This
->    stresses concurrent refresh completion and late cache overwrites.
-> 
-> Unpatched baseline, abbreviated crash and stack excerpt:
-> 
->   iocg: invalid donation weights in /rt/K/P:
->         active=1 donating=1 after=0
->   Oops: divide error: 0000 [#1] SMP PTI
->   RIP: 0010:transfer_surpluses+0x43e/0x6b0
->   RAX: ffffffffffffffff  RCX: 0000000000000000
->    <IRQ>
->    ioc_timer_fn+0x1158/0x13b0
->    call_timer_fn+0x1e/0x100
->    __run_timer_base.part.36+0x1f0/0x220
->    [...]
->    handle_softirqs+0xa9/0x2a0
->    irq_exit_rcu+0x48/0xe0
->    sysvec_apic_timer_interrupt+0x6b/0x80
->    </IRQ>
->    [...]
->    win_pre+0x44/0x70 [repro_iocost]
->    [...]
->    ? current_hweight+0xc1/0x110
->    ? adjust_inuse_and_calc_cost+0x44/0x290
->    ? ioc_rqos_throttle+0x13e/0x590
->   Kernel panic - not syncing: Fatal exception in interrupt
-> 
->  block/blk-iocost.c             | 65 ++++++++++++++++++++++++++++--------------
->  include/trace/events/iocost.h  |  6 ++--
->  tools/cgroup/iocost_monitor.py |  7 +++--
->  3 files changed, 53 insertions(+), 25 deletions(-)
-> 
-> diff --git a/block/blk-iocost.c b/block/blk-iocost.c
-> index 2745bffcd..fcc7ae866 100644
-> --- a/block/blk-iocost.c
-> +++ b/block/blk-iocost.c
-> @@ -472,8 +472,8 @@ struct ioc_gq {
->  	 *
->  	 * When an idle cgroup becomes active its `active` goes from 0 to
->  	 * `weight`.  `inuse` is the surplus adjusted active weight.
-> -	 * `active` and `inuse` are used to calculate `hweight_active` and
-> -	 * `hweight_inuse`.
-> +	 * `active` and `inuse` determine the hierarchical weights cached in
-> +	 * `hweight_cache`.
->  	 *
->  	 * `last_inuse` remembers `inuse` while an iocg is idle to persist
->  	 * surplus adjustments.
-> @@ -520,7 +520,9 @@ struct ioc_gq {
->  	u64				child_active_sum;
->  	u64				child_inuse_sum;
->  	u64				child_adjusted_sum;
-> -	int				hweight_gen;
-> +	/* Generation in bits 63:32; active - 1 and inuse - 1 in 31:16/15:0. */
-> +	atomic64_t			hweight_cache;
-> +	/* Donation workspace, protected by ioc->lock. */
->  	u32				hweight_active;
->  	u32				hweight_inuse;
->  	u32				hweight_donating;
-> @@ -1154,13 +1156,17 @@ static void current_hweight(struct ioc_gq *iocg, u32 *hw_activep, u32 *hw_inusep
->  {
->  	struct ioc *ioc = iocg->ioc;
->  	int lvl;
-> -	u32 hwa, hwi;
-> -	int ioc_gen;
-> -
-> -	/* hot path - if uptodate, use cached */
-> -	ioc_gen = atomic_read(&ioc->hweight_gen);
-> -	if (ioc_gen == iocg->hweight_gen)
-> +	u32 hwa, hwi, ioc_gen;
-> +	u64 cache;
-> +
-> +	/* Read the generation and both weights as one atomic snapshot. */
-> +	ioc_gen = (u32)atomic_read(&ioc->hweight_gen);
-> +	cache = (u64)atomic64_read(&iocg->hweight_cache);
-> +	if ((u32)(cache >> 32) == ioc_gen) {
-> +		hwa = ((cache >> 16) & (WEIGHT_ONE - 1)) + 1;
-> +		hwi = (cache & (WEIGHT_ONE - 1)) + 1;
->  		goto out;
-> +	}
->  
->  	/*
->  	 * Paired with wmb in commit_weights(). If we saw the updated
-> @@ -1194,14 +1200,22 @@ static void current_hweight(struct ioc_gq *iocg, u32 *hw_activep, u32 *hw_inusep
->  		hwi = div64_u64((u64)hwi * inuse, inuse_sum);
->  	}
->  
-> -	iocg->hweight_active = max_t(u32, hwa, 1);
-> -	iocg->hweight_inuse = max_t(u32, hwi, 1);
-> -	iocg->hweight_gen = ioc_gen;
-> +	hwa = max_t(u32, hwa, 1);
-> +	hwi = max_t(u32, hwi, 1);
-> +	/*
-> +	 * Each weight is in [1, WEIGHT_ONE]. Subtracting one preserves its
-> +	 * full range in 16 bits, leaving 32 bits for the generation. An
-> +	 * interrupt or another CPU can only observe a complete snapshot.
-> +	 * A late refresher may overwrite a newer cache, but its generation
-> +	 * stays paired with its own weights and forces a future refresh.
-> +	 */
-> +	cache = ((u64)ioc_gen << 32) | ((u64)(hwa - 1) << 16) | (hwi - 1);
-> +	atomic64_set(&iocg->hweight_cache, (s64)cache);
->  out:
->  	if (hw_activep)
-> -		*hw_activep = iocg->hweight_active;
-> +		*hw_activep = hwa;
->  	if (hw_inusep)
-> -		*hw_inusep = iocg->hweight_inuse;
-> +		*hw_inusep = hwi;
->  }
->  
->  /*
-> @@ -1300,10 +1314,12 @@ static bool iocg_activate(struct ioc_gq *iocg, struct ioc_now *now)
->  
->  	/*
->  	 * Activate, propagate weight and start period timer if not
-> -	 * running.  Reset hweight_gen to avoid accidental match from
-> -	 * wrapping.
-> +	 * running. Invalidate the cached generation to avoid accidental match
-> +	 * from wrapping.
->  	 */
-> -	iocg->hweight_gen = atomic_read(&ioc->hweight_gen) - 1;
-> +	atomic64_set(&iocg->hweight_cache,
-> +		     ((u64)(u32)(atomic_read(&ioc->hweight_gen) - 1) << 32) |
-> +		     (u32)atomic64_read(&iocg->hweight_cache));
->  	list_add(&iocg->active_list, &ioc->active_iocgs);
->  
->  	propagate_weights(iocg, iocg->weight,
-> @@ -1863,7 +1879,7 @@ static void transfer_surpluses(struct list_head *surpluses, struct ioc_now *now)
->  	list_for_each_entry(iocg, surpluses, surplus_list) {
->  		u32 hwa;
->  
-> -		current_hweight(iocg, &hwa, NULL);
-> +		current_hweight(iocg, &hwa, &iocg->hweight_inuse);
->  		after_sum += iocg->hweight_after_donation;
->  
->  		if (iocg->hweight_after_donation > hwa) {
-> @@ -1946,8 +1962,10 @@ static void transfer_surpluses(struct list_head *surpluses, struct ioc_now *now)
->  
->  		iocg->hweight_donating = min(iocg->hweight_donating,
->  					     iocg->hweight_active);
-> -		iocg->hweight_after_donation = min(iocg->hweight_after_donation,
-> -						   iocg->hweight_donating - 1);
-> +		if (iocg->hweight_donating > 1)
-> +			iocg->hweight_after_donation =
-> +				min(iocg->hweight_after_donation,
-> +				    iocg->hweight_donating - 1);
->  		if (WARN_ON_ONCE(iocg->hweight_active <= 1 ||
->  				 iocg->hweight_donating <= 1 ||
->  				 iocg->hweight_after_donation == 0)) {
-> @@ -1956,6 +1974,7 @@ static void transfer_surpluses(struct list_head *surpluses, struct ioc_now *now)
->  			pr_cont(": active=%u donating=%u after=%u\n",
->  				iocg->hweight_active, iocg->hweight_donating,
->  				iocg->hweight_after_donation);
-> +			goto out;
->  		}
->  	}
->  
-> @@ -2054,6 +2073,7 @@ static void transfer_surpluses(struct list_head *surpluses, struct ioc_now *now)
->  		__propagate_weights(iocg, iocg->active, inuse, true, now);
->  	}
->  
-> +out:
->  	/* walk list should be dissolved after use */
->  	list_for_each_entry_safe(iocg, tiocg, &inner_walk, walk_list)
->  		list_del_init(&iocg->walk_list);
-> @@ -2360,7 +2380,7 @@ static void ioc_timer_fn(struct timer_list *timer)
->  				 */
->  				TRACE_IOCG_PATH(inuse_shortage, iocg, &now,
->  						iocg->inuse, iocg->active,
-> -						iocg->hweight_inuse, new_hwi);
-> +						old_hwi, new_hwi);
->  
->  				__propagate_weights(iocg, iocg->active,
->  						    iocg->active, true, &now);
-> @@ -3032,6 +3052,9 @@ static void ioc_pd_init(struct blkg_policy_data *pd)
->  	INIT_LIST_HEAD(&iocg->active_list);
->  	INIT_LIST_HEAD(&iocg->walk_list);
->  	INIT_LIST_HEAD(&iocg->surplus_list);
-> +	atomic64_set(&iocg->hweight_cache,
-> +		     ((u64)(u32)(atomic_read(&ioc->hweight_gen) - 1) << 32) |
-> +		     U32_MAX);
->  	iocg->hweight_active = WEIGHT_ONE;
->  	iocg->hweight_inuse = WEIGHT_ONE;
->  
-> diff --git a/include/trace/events/iocost.h b/include/trace/events/iocost.h
-> index e772b1bc6..aac25edaa 100644
-> --- a/include/trace/events/iocost.h
-> +++ b/include/trace/events/iocost.h
-> @@ -34,6 +34,8 @@ DECLARE_EVENT_CLASS(iocost_iocg_state,
->  	),
->  
->  	TP_fast_assign(
-> +		u64 cache = (u64)atomic64_read(&iocg->hweight_cache);
-> +
->  		__assign_str(devname);
->  		__assign_str(cgroup);
->  		__entry->now = now->now;
-> @@ -44,8 +46,8 @@ DECLARE_EVENT_CLASS(iocost_iocg_state,
->  		__entry->vtime = vtime;
->  		__entry->weight = iocg->weight;
->  		__entry->inuse = iocg->inuse;
-> -		__entry->hweight_active = iocg->hweight_active;
-> -		__entry->hweight_inuse = iocg->hweight_inuse;
-> +		__entry->hweight_active = ((cache >> 16) & (WEIGHT_ONE - 1)) + 1;
-> +		__entry->hweight_inuse = (cache & (WEIGHT_ONE - 1)) + 1;
->  	),
->  
->  	TP_printk("[%s:%s] now=%llu:%llu vrate=%llu "
-> diff --git a/tools/cgroup/iocost_monitor.py b/tools/cgroup/iocost_monitor.py
-> index bdd78ba27..8a4f844c9 100644
-> --- a/tools/cgroup/iocost_monitor.py
-> +++ b/tools/cgroup/iocost_monitor.py
-> @@ -149,8 +149,11 @@ class IocgStat:
->          self.weight = iocg.weight.value_() / WEIGHT_ONE
->          self.active = iocg.active.value_() / WEIGHT_ONE
->          self.inuse = iocg.inuse.value_() / WEIGHT_ONE
-> -        self.hwa_pct = iocg.hweight_active.value_() * 100 / WEIGHT_ONE
-> -        self.hwi_pct = iocg.hweight_inuse.value_() * 100 / WEIGHT_ONE
-> +        hweight_cache = iocg.hweight_cache.counter.value_()
-> +        hwa = ((hweight_cache >> 16) & (WEIGHT_ONE - 1)) + 1
-> +        hwi = (hweight_cache & (WEIGHT_ONE - 1)) + 1
-> +        self.hwa_pct = hwa * 100 / WEIGHT_ONE
-> +        self.hwi_pct = hwi * 100 / WEIGHT_ONE
->          self.address = iocg.value_()
->  
->          vdone = iocg.done_vtime.counter.value_()
+diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c b/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
+index bb6094d61196..09693bdc4554 100644
+--- a/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
++++ b/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
+@@ -700,6 +700,191 @@ static void hinic3_get_ethtool_stats(struct net_device *netdev,
+ 	hinic3_get_drv_queue_stats(netdev, data + i);
+ }
+ 
++static void hinic3_get_eth_phy_stats(struct net_device *netdev,
++				     struct ethtool_eth_phy_stats *phy_stats)
++{
++	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
++	struct mag_cmd_port_stats *ps;
++	int err;
++
++	if (HINIC3_IS_VF(nic_dev->hwdev))
++		return;
++
++	ps = kmalloc_obj(*ps);
++	if (!ps)
++		return;
++
++	err = hinic3_get_phy_port_stats(nic_dev->hwdev, ps);
++	if (err) {
++		kfree(ps);
++		netdev_err(netdev, "Failed to get eth phy stats from fw\n");
++		return;
++	}
++
++	phy_stats->SymbolErrorDuringCarrier = ps->mac_rx_sym_err_pkt_num;
++
++	kfree(ps);
++}
++
++static void hinic3_get_eth_mac_stats(struct net_device *netdev,
++				     struct ethtool_eth_mac_stats *mac_stats)
++{
++	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
++	struct mag_cmd_port_stats *ps;
++	int err;
++
++	if (HINIC3_IS_VF(nic_dev->hwdev))
++		return;
++
++	ps = kmalloc_obj(*ps);
++	if (!ps)
++		return;
++
++	err = hinic3_get_phy_port_stats(nic_dev->hwdev, ps);
++	if (err) {
++		kfree(ps);
++		netdev_err(netdev, "Failed to get eth mac stats from fw\n");
++		return;
++	}
++
++	mac_stats->FramesTransmittedOK = ps->mac_tx_good_pkt_num;
++	mac_stats->FramesReceivedOK = ps->mac_rx_good_pkt_num;
++	mac_stats->FrameCheckSequenceErrors = ps->mac_rx_fcs_err_pkt_num;
++	mac_stats->OctetsTransmittedOK = ps->mac_tx_good_oct_num;
++	mac_stats->OctetsReceivedOK = ps->mac_rx_good_oct_num;
++	mac_stats->MulticastFramesXmittedOK = ps->mac_tx_multi_pkt_num;
++	mac_stats->BroadcastFramesXmittedOK = ps->mac_tx_broad_pkt_num;
++	mac_stats->MulticastFramesReceivedOK = ps->mac_rx_multi_pkt_num;
++	mac_stats->BroadcastFramesReceivedOK = ps->mac_rx_broad_pkt_num;
++
++	kfree(ps);
++}
++
++static void hinic3_get_eth_ctrl_stats(struct net_device *netdev,
++				      struct ethtool_eth_ctrl_stats *ctrl_stats)
++{
++	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
++	struct mag_cmd_port_stats *ps;
++	int err;
++
++	if (HINIC3_IS_VF(nic_dev->hwdev))
++		return;
++
++	ps = kmalloc_obj(*ps);
++	if (!ps)
++		return;
++
++	err = hinic3_get_phy_port_stats(nic_dev->hwdev, ps);
++	if (err) {
++		kfree(ps);
++		netdev_err(netdev, "Failed to get eth ctrl stats from fw\n");
++		return;
++	}
++
++	ctrl_stats->MACControlFramesTransmitted = ps->mac_tx_control_pkt_num;
++	ctrl_stats->MACControlFramesReceived = ps->mac_rx_control_pkt_num;
++
++	kfree(ps);
++}
++
++static const struct ethtool_rmon_hist_range hinic3_rmon_ranges[] = {
++	{     0,    64 },
++	{    65,   127 },
++	{   128,   255 },
++	{   256,   511 },
++	{   512,  1023 },
++	{  1024,  1518 },
++	{  1519,  2047 },
++	{  2048,  4095 },
++	{  4096,  8191 },
++	{  8192,  9216 },
++	{  9217, 12287 },
++	{}
++};
++
++static void hinic3_get_rmon_stats(struct net_device *netdev,
++				  struct ethtool_rmon_stats *rmon_stats,
++				  const struct ethtool_rmon_hist_range **ranges)
++{
++	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
++	struct mag_cmd_port_stats *ps;
++	int err;
++
++	if (HINIC3_IS_VF(nic_dev->hwdev))
++		return;
++
++	ps = kmalloc_obj(*ps);
++	if (!ps)
++		return;
++
++	err = hinic3_get_phy_port_stats(nic_dev->hwdev, ps);
++	if (err) {
++		kfree(ps);
++		netdev_err(netdev, "Failed to get eth rmon stats from fw\n");
++		return;
++	}
++
++	rmon_stats->undersize_pkts	= ps->mac_rx_undersize_pkt_num;
++	rmon_stats->oversize_pkts	= ps->mac_rx_oversize_pkt_num;
++	rmon_stats->fragments		= ps->mac_rx_fragment_pkt_num;
++	rmon_stats->jabbers		= ps->mac_rx_jabber_pkt_num;
++
++	rmon_stats->hist[0]		= ps->mac_rx_64_oct_pkt_num;
++	rmon_stats->hist[1]		= ps->mac_rx_65_127_oct_pkt_num;
++	rmon_stats->hist[2]		= ps->mac_rx_128_255_oct_pkt_num;
++	rmon_stats->hist[3]		= ps->mac_rx_256_511_oct_pkt_num;
++	rmon_stats->hist[4]		= ps->mac_rx_512_1023_oct_pkt_num;
++	rmon_stats->hist[5]		= ps->mac_rx_1024_1518_oct_pkt_num;
++	rmon_stats->hist[6]		= ps->mac_rx_1519_2047_oct_pkt_num;
++	rmon_stats->hist[7]		= ps->mac_rx_2048_4095_oct_pkt_num;
++	rmon_stats->hist[8]		= ps->mac_rx_4096_8191_oct_pkt_num;
++	rmon_stats->hist[9]		= ps->mac_rx_8192_9216_oct_pkt_num;
++	rmon_stats->hist[10]		= ps->mac_rx_9217_12287_oct_pkt_num;
++
++	rmon_stats->hist_tx[0]		= ps->mac_tx_64_oct_pkt_num;
++	rmon_stats->hist_tx[1]		= ps->mac_tx_65_127_oct_pkt_num;
++	rmon_stats->hist_tx[2]		= ps->mac_tx_128_255_oct_pkt_num;
++	rmon_stats->hist_tx[3]		= ps->mac_tx_256_511_oct_pkt_num;
++	rmon_stats->hist_tx[4]		= ps->mac_tx_512_1023_oct_pkt_num;
++	rmon_stats->hist_tx[5]		= ps->mac_tx_1024_1518_oct_pkt_num;
++	rmon_stats->hist_tx[6]		= ps->mac_tx_1519_2047_oct_pkt_num;
++	rmon_stats->hist_tx[7]		= ps->mac_tx_2048_4095_oct_pkt_num;
++	rmon_stats->hist_tx[8]		= ps->mac_tx_4096_8191_oct_pkt_num;
++	rmon_stats->hist_tx[9]		= ps->mac_tx_8192_9216_oct_pkt_num;
++	rmon_stats->hist_tx[10]		= ps->mac_tx_9217_12287_oct_pkt_num;
++
++	*ranges = hinic3_rmon_ranges;
++
++	kfree(ps);
++}
++
++static void hinic3_get_pause_stats(struct net_device *netdev,
++				   struct ethtool_pause_stats *pause_stats)
++{
++	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
++	struct mag_cmd_port_stats *ps;
++	int err;
++
++	if (HINIC3_IS_VF(nic_dev->hwdev))
++		return;
++
++	ps = kmalloc_obj(*ps);
++	if (!ps)
++		return;
++
++	err = hinic3_get_phy_port_stats(nic_dev->hwdev, ps);
++	if (err) {
++		kfree(ps);
++		netdev_err(netdev, "Failed to get eth pause stats from fw\n");
++		return;
++	}
++
++	pause_stats->tx_pause_frames = ps->mac_tx_pause_num;
++	pause_stats->rx_pause_frames = ps->mac_rx_pause_num;
++
++	kfree(ps);
++}
++
+ static const struct ethtool_ops hinic3_ethtool_ops = {
+ 	.supported_coalesce_params      = ETHTOOL_COALESCE_USECS |
+ 					  ETHTOOL_COALESCE_PKT_RATE_RX_USECS,
+@@ -711,6 +896,11 @@ static const struct ethtool_ops hinic3_ethtool_ops = {
+ 	.get_strings                    = hinic3_get_strings,
+ 	.get_sset_count                 = hinic3_get_sset_count,
+ 	.get_ethtool_stats              = hinic3_get_ethtool_stats,
++	.get_eth_phy_stats              = hinic3_get_eth_phy_stats,
++	.get_eth_mac_stats              = hinic3_get_eth_mac_stats,
++	.get_eth_ctrl_stats             = hinic3_get_eth_ctrl_stats,
++	.get_rmon_stats                 = hinic3_get_rmon_stats,
++	.get_pause_stats                = hinic3_get_pause_stats,
+ };
+ 
+ void hinic3_set_ethtool_ops(struct net_device *netdev)
+-- 
+2.43.0
 
