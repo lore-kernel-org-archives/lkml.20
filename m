@@ -1,45 +1,39 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F16A53E308;
-	Fri, 16 Oct 2026 17:00:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8BB3822B1
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:01:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792170014; cv=none; b=X1EqzUW/dIZI9zIdlM/p7b7b3ua+6JZ0rpLflyPhFtYbxn2eS+e7KQH0iWTbqri4wk3FWcmKKTI292MKHtXwlUPLW6NgcDQkipTL+r7GpwpzPlmiSj/YI4Mk6g8vo91m27zQaiqOcZl3N3eY4g1WxPLBWsWQId+tX3flFonNnNU=
+	t=1792170122; cv=none; b=I0meRL4UeGVHx6p08T5VnW6keZeRhisO+MtzwdizKwWQpRa9SK08Rk+VvHw07jT3v6e5tZLi1Im5iT7p067klM0zY7sNk4sQOI2EfVnhRtY1B38EEjyEhUvYlB73a4BESzo0fzW7Ezz7n6fnG1QqLmgKQ7H+kte4OSerX7pHOi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792170014; c=relaxed/simple;
-	bh=/ak6vK17bkaE86rZ7vaBahm6omxqFSWgpPC/T5JNeO0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VW2f20u70ZJyVcUvlVobevhBNZGQ5YZ1p109IxftwIPkBhZGpXwH6SAvNkwCEfxJR3lHbDFvEfWVhgJt/MO/OD9k69c3ZhXTocgz39JWF7w99oyGYDbkwFHarEkDsKHTs/eDKQTStmwXklmNG1UpbhLDMjevfn4JaDfNX3F8AzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DbfQ7R3x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792170122; c=relaxed/simple;
+	bh=RIgAITDV10bwuGVzOepFntdtCOFmtwmPcCIM01eQ6hQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=WrPzxpnVBfcXVYlP6Epd6BPsRrOOUOAtjNHgwqDQ8SnDkp3ntjv2gNeALizRoggFK+cbN9iV3XIuxkWkOJgN2eIJuz6CUh5GqljI2NOK5VGIoRKzsuLROWbZRQBTlBy7MsQsTQI0vKqfvtQCAN7n1a+5DJ4mYAXb0TZUS8r+HHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=pjcsGI9j; arc=none smtp.client-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DbfQ7R3x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E60A21F000C7;
-	Fri, 16 Oct 2026 17:00:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792170011;
-	bh=/qqXVe5p9S/gEhsn3j6mqdXqY8DCRG0YIMtV/BtA0xI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DbfQ7R3x4eXk03s9KoSQ8p0KsSDNXroXPf4bLuws/D8JglWenQ6ui+rGNKaEaIOa6
-	 ozosD9yP8WNd+MjrnbXCvVb52YEOGl3AOKP88lpq/weNsCD/BEMbzAJojOMoiSm3At
-	 XV9/Ysw+pR0yrrhnOXfJrg698TVF3HM0WPZ0rBKugCln3YJixosf0OGNr19zBF+s4k
-	 VsLZy6lxCbE6GyID39w7Vdf7/EsnHVlTXb7KyB+JAmlYlX6HwTX7KmzzD/KbiaWxCm
-	 MoFD/JzY+fC+AGdyq3dpgCRysn9UYS2A7b1JxPodibMIegCgrumpaWtofgezBWdTNT
-	 upg4xJOPSU7DA==
-Date: Fri, 16 Oct 2026 18:00:07 +0100
-From: Simon Horman <horms@kernel.org>
-To: Henry Martin <bsdhenrymartin@gmail.com>
-Cc: Vladimir Oltean <vladimir.oltean@nxp.com>,
-	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] ipconfig: fix use-after-free of device list after
- ic_close_devs()
-Message-ID: <20261016170007.GH363352@horms.kernel.org>
-References: <20261010085003.3261587-1-bsdhenrymartin@gmail.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="pjcsGI9j"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1792170105; x=1792429305;
+	bh=4cDh1GFBsgXPcb/IB8HyY5KM78MLBu5fXw6Ngm1w9oI=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=pjcsGI9jsrBq6ISfO86wSxyYL8PE9CaUxLWliPR1XRVrlTPwABEb+aShnUUTzE3s0
+	 2UVekvp2nL9ydViW6z1198LiNk50S4QBBpoW8JVzAlLeemZ9nATw+WLv9y5WcB5En9
+	 f+t1BnEn1H6W4OAVwYeNG3M/u5ev/7CQHn9mlM9q7svkf3HnLMQF7HVJo+3Jg5mMlM
+	 SSiduzbuuX2dKA/qNuJyTCKa8eW0+DKVLWcmHXX3OekCA5lO0JFx8Gze8ixUdmbsEc
+	 i9Ni6f0i4uAqfVzIkKMFPRZAjy5m/yx/yylMikfDUPasy5DgdJk9Rucm7rhgf4oB8x
+	 wwImsKffmK4Ww==
+Date: Fri, 16 Oct 2026 17:01:38 +0000
+To: linux-bluetooth@vger.kernel.org
+From: Kyle Pepper <cochcoder@proton.me>
+Cc: luiz.dentz@gmail.com, marcel@holtmann.org, sean.wang@mediatek.com, linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] Bluetooth: request LE data length for affected MT7922 firmware
+Message-ID: <20261016170122.27119-1-cochcoder@proton.me>
+Feedback-ID: 97716137:user:proton
+X-Pm-Message-ID: 3de2cc44725577df6b868d79478d9177a50d5b5d
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,47 +41,259 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261010085003.3261587-1-bsdhenrymartin@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 10, 2026 at 04:49:58PM +0800, Henry Martin wrote:
-> ic_close_devs() kfree()s every ic_device node but leaves the static
-> ic_first_dev and ic_dev pointers dangling behind.  When a DHCP
-> negotiation gets an OFFER but never the matching ACK, ic_bootp_recv()
-> accepts the OFFER and records ic_dev = <list node>, the round times
-> out and ic_close_devs() frees the whole list — node included.  The
-> next failed retry round runs ic_close_devs() once more, evaluating
-> 
->     selected_dev = ic_dev ? ic_dev->dev : NULL;
-> 
-> against the freed ic_device — an 8-byte use-after-free read.
-> 
-> KASAN confirms:
-> 
->   BUG: KASAN: slab-use-after-free in ic_close_devs+0x214/0x220
->   Read of size 8
->     ic_close_devs    <- ip_auto_config
->   Allocated by: ip_auto_config (ic_open_devs)
->   Freed by:      ic_close_devs <- ip_auto_config
-> 
-> NULL both pointers after the free loop so retry rounds take the
-> clean empty-list path.
-> 
-> This memory-safety issue was discovered by Tencent CodeBuddy Security.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 46acf7bdbc72 ("Revert "net: ipv4: handle DSA enabled master network devices"")
-> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-> ---
-> Changes in v2:
->  - Fixes: tag corrected to the commit that introduced the ic_dev->dev
->    dereference that makes this a UAF (46acf7bdbc72); in 2.6.12 ic_dev
->    was a struct net_device * that was only compared, never dereferenced.
->  - Code comment in ic_close_devs() dropped per review.
->  - Message reduced to the memory-safety mechanism (no vulnerability
->    framing).
+On an ASUS G614PR, the MT7922 USB controller 0489:e0f6 accepts maximum
+LE suggested default data lengths, but ASHA playback remains severely
+choppy until the host sends an explicit LE Set Data Length request.
 
-Thanks for the updates.
+With the firmware image dated 2026-07-24 14:38:15, a request on the same
+Cochlear Nucleus 8 connection produces a Data Length Change event with
+TX 251 octets/2120 us. Delivery rises from 21.5 to 50 audio SDUs/s and
+the peak outstanding packet count falls from 32 to 3. Wi-Fi power save
+remains enabled. Playback also works with the automatic request in the
+local 7.2.9 kernel build.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Keep the existing suggested-default initialization and add a driver-set
+quirk for the tested USB ID, chip and firmware image only. After a
+successful remote feature exchange, queue a request using the current
+host defaults if the central-role link and controller support DLE and
+the controller advertises LE Set Data Length.
+
+Hold a connection reference while queued and recheck its membership,
+state, role and capabilities before constructing the command. Release
+the reference on completion, cancellation or queue failure. Failure of
+this optional request must not reject connection setup. Other controller
+matches, PHY fallback and suggested defaults are unchanged.
+
+Assisted-by: OpenCode:gpt-6.1-sol
+Signed-off-by: Kyle Pepper <cochcoder@proton.me>
+---
+This is the first submission of this MediaTek-specific fix. It follows
+Luiz's suggestion, in review of a separate generic DLE RFC on October 13,
+to use a driver-set quirk if a controller needs explicit DLE. It is not
+a revision or resend of that generic request.
+
+Differences from the separate generic RFC:
+- Require the exact tested USB ID, chip and firmware image build.
+- Keep the existing suggested-default write unchanged.
+- Require a central-role link, local/peer DLE and command support.
+- Use current host defaults, not hard-coded transmit limits.
+- Keep referenced queued work, cancellation and locked revalidation.
+
+Tested on ASUS G614PR with MT7922 and a Cochlear Nucleus 8:
+- Manual same-connection request: 21.5 -> 50 SDUs/s, peak queue 32 -> 3.
+- Automatic request: local 7.2.9-arch1-2-asha-mediatek boots and playback
+  is reported working; the matching firmware and quirk log are present.
+  This local kernel/userspace stack has other ASHA patches. This is not
+  a vanilla upstream-kernel hardware test or a post-boot throughput trace.
+- Broader suspend/resume, battery, other-profile and native concurrency
+  coverage is not claimed. An earlier brief quality drop is not assigned
+  a cause or declared independently resolved.
+
+Validation on Bluetooth upstream base 185c11232d5f:
+- Four native Bluetooth objects compile with W=3D1 on an x86_64 diagnostic
+  configuration (Rust disabled); this is not a full upstream kernel build.
+- 37 source-extracted ASan/UBSan controls pass, with unpatched baseline
+  and negative controls. These are not in-kernel concurrency tests.
+- Equivalent backports pass the same controls on pinned 7.2.y, 6.18.y
+  and 6.12.y snapshots. The 6.18.y and 6.12.y variants also compile the
+  four native objects with W=3D1. No older-kernel hardware boot is claimed.
+
+The firmware gate uses the selected image header. If setup reuses an
+already-resident image, this is not an independent read of that image's
+identity; the observed boot log matches the tested image. Please review
+this limitation before widening the match to other firmware or devices.
+
+Stable consideration: this fixes a real firmware interoperability issue,
+but the change exceeds the usual 100-line-with-context stable guideline.
+Please assess stable suitability after upstream review. No introducing
+kernel commit has been established, so no speculative Fixes tag is added.
+The 6.18.y backport uses the older connection-feature layout. The 6.12.y
+backport also uses scalar quirks and checks queued duplicates before
+taking a reference, since queue_once() there returns zero for duplicates.
+Backport application/API differences and checks are documented locally;
+no stable acceptance, older-kernel hardware test or public issue closure
+is claimed. Please do not queue an unreviewed backport directly.
+
+ drivers/bluetooth/btmtk.c        | 29 ++++++++++++++++
+ include/net/bluetooth/hci.h      |  6 ++++
+ include/net/bluetooth/hci_sync.h |  1 +
+ net/bluetooth/hci_event.c        |  8 +++++
+ net/bluetooth/hci_sync.c         | 58 ++++++++++++++++++++++++++++++++
+ 5 files changed, 102 insertions(+)
+
+diff --git a/drivers/bluetooth/btmtk.c b/drivers/bluetooth/btmtk.c
+index 75483d823..cab5c4c36 100644
+--- a/drivers/bluetooth/btmtk.c
++++ b/drivers/bluetooth/btmtk.c
+@@ -47,6 +47,24 @@ struct btmtk_global_desc {
+ =09__le32 section_num;
+ } __packed;
+=20
++static bool btmtk_needs_manual_dle(struct hci_dev *hdev, u32 dev_id,
++=09=09=09=09   const struct btmtk_patch_header *hdr)
++{
++=09static const u8 affected_build[16] =3D "20260724143815";
++=09struct btmtk_data *data;
++
++=09if (hdev->bus !=3D HCI_USB || dev_id !=3D 0x7922)
++=09=09return false;
++
++=09data =3D hci_get_priv(hdev);
++=09if (!data->udev)
++=09=09return false;
++
++=09return le16_to_cpu(data->udev->descriptor.idVendor) =3D=3D 0x0489 &&
++=09       le16_to_cpu(data->udev->descriptor.idProduct) =3D=3D 0xe0f6 &&
++=09       !memcmp(hdr->datetime, affected_build, sizeof(affected_build));
++}
++
+ struct btmtk_section_map {
+ =09__le32 sectype;
+ =09__le32 secoffset;
+@@ -219,6 +237,9 @@ int btmtk_setup_firmware_79xx(struct hci_dev *hdev, con=
+st char *fwname,
+ =09u32 section_num, dl_size, section_offset;
+ =09u8 cmd[64];
+=20
++=09/* Re-evaluate the firmware-specific workaround on every setup. */
++=09hci_clear_quirk(hdev, HCI_QUIRK_NEEDS_LE_SET_DATA_LEN);
++
+ =09err =3D request_firmware(&fw, fwname, &hdev->dev);
+ =09if (err < 0) {
+ =09=09bt_dev_err(hdev, "Failed to load firmware file (%d)", err);
+@@ -347,6 +368,14 @@ int btmtk_setup_firmware_79xx(struct hci_dev *hdev, co=
+nst char *fwname,
+ =09/* Wait a few moments for firmware activation done */
+ =09usleep_range(100000, 120000);
+=20
++=09/* This firmware accepts maximum suggested defaults but needs an
++=09 * explicit per-link request to negotiate a larger TX data length.
++=09 */
++=09if (btmtk_needs_manual_dle(hdev, dev_id, hdr)) {
++=09=09hci_set_quirk(hdev, HCI_QUIRK_NEEDS_LE_SET_DATA_LEN);
++=09=09bt_dev_info(hdev, "Using explicit LE data length requests");
++=09}
++
+ err_release_fw:
+ =09release_firmware(fw);
+=20
+diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
+index 1c992e875..513ca226d 100644
+--- a/include/net/bluetooth/hci.h
++++ b/include/net/bluetooth/hci.h
+@@ -340,6 +340,12 @@ enum {
+ =09 */
+ =09HCI_QUIRK_BROKEN_LE_CODED,
+=20
++=09/* The controller needs an explicit LE Set Data Length request for
++=09 * each central-role connection despite accepting suggested defaults.
++=09 * Set during the vendor setup callback for affected firmware only.
++=09 */
++=09HCI_QUIRK_NEEDS_LE_SET_DATA_LEN,
++
+ =09/*
+ =09 * When this quirk is set, the HCI_OP_READ_ENC_KEY_SIZE command is
+ =09 * skipped during an HCI_EV_ENCRYPT_CHANGE event. This is required
+diff --git a/include/net/bluetooth/hci_sync.h b/include/net/bluetooth/hci_s=
+ync.h
+index 59cb918d1..5a37d3e50 100644
+--- a/include/net/bluetooth/hci_sync.h
++++ b/include/net/bluetooth/hci_sync.h
+@@ -194,3 +194,4 @@ int hci_le_read_remote_features(struct hci_conn *conn);
+=20
+ int hci_acl_change_pkt_type(struct hci_conn *conn, u16 pkt_type);
+ int hci_le_set_phy(struct hci_conn *conn, u8 tx_phys, u8 rx_phys);
++int hci_le_set_data_len(struct hci_conn *conn);
+diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
+index 56ad10ab9..d78f330e3 100644
+--- a/net/bluetooth/hci_event.c
++++ b/net/bluetooth/hci_event.c
+@@ -6875,6 +6875,14 @@ static void hci_le_remote_feat_complete_evt(struct h=
+ci_dev *hdev, void *data,
+ =09=09=09=09conn->le_tx_def_phys &=3D ~HCI_LE_SET_PHY_CODED;
+ =09=09=09=09conn->le_rx_def_phys &=3D ~HCI_LE_SET_PHY_CODED;
+ =09=09=09}
++
++=09=09=09if (hci_test_quirk(hdev, HCI_QUIRK_NEEDS_LE_SET_DATA_LEN) &&
++=09=09=09    conn->role =3D=3D HCI_ROLE_MASTER &&
++=09=09=09    (hdev->commands[33] & BIT(6)) &&
++=09=09=09    (hdev->le_features[0] & HCI_LE_DATA_LEN_EXT) &&
++=09=09=09    (conn->le_features[0] & HCI_LE_DATA_LEN_EXT) &&
++=09=09=09    hdev->le_def_tx_len > 27)
++=09=09=09=09hci_le_set_data_len(conn);
+ =09=09}
+=20
+ =09=09if (conn->state =3D=3D BT_CONFIG) {
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 7ac26daba..f919249e9 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -8152,3 +8152,61 @@ int hci_le_set_phy(struct hci_conn *conn, u8 tx_phys=
+, u8 rx_phys)
+=20
+ =09return (err =3D=3D -EEXIST) ? 0 : err;
+ }
++
++static void le_set_data_len_complete(struct hci_dev *hdev, void *data, int=
+ err)
++{
++=09struct hci_conn *conn =3D data;
++
++=09bt_dev_dbg(hdev, "err %d", err);
++=09if (err && err !=3D -ECANCELED && err !=3D -ENODEV)
++=09=09bt_dev_warn(hdev, "Failed to set LE data length (%d)", err);
++=09hci_conn_put(conn);
++}
++
++static int hci_le_set_data_len_sync(struct hci_dev *hdev, void *data)
++{
++=09struct hci_conn *conn =3D data;
++=09struct hci_cp_le_set_data_len cp;
++
++=09hci_dev_lock(hdev);
++
++=09if (!hci_conn_valid(hdev, conn) || conn->type !=3D LE_LINK ||
++=09    conn->role !=3D HCI_ROLE_MASTER ||
++=09    (conn->state !=3D BT_CONNECTED && conn->state !=3D BT_CONFIG)) {
++=09=09hci_dev_unlock(hdev);
++=09=09return -ECANCELED;
++=09}
++
++=09/* Use the current suggested defaults, including later host changes. */
++=09if (!hci_test_quirk(hdev, HCI_QUIRK_NEEDS_LE_SET_DATA_LEN) ||
++=09    !(hdev->commands[33] & BIT(6)) ||
++=09    !(hdev->le_features[0] & HCI_LE_DATA_LEN_EXT) ||
++=09    !(conn->le_features[0] & HCI_LE_DATA_LEN_EXT) ||
++=09    hdev->le_def_tx_len <=3D 27) {
++=09=09hci_dev_unlock(hdev);
++=09=09return 0;
++=09}
++
++=09cp.handle =3D cpu_to_le16(conn->handle);
++=09cp.tx_len =3D cpu_to_le16(hdev->le_def_tx_len);
++=09cp.tx_time =3D cpu_to_le16(hdev->le_def_tx_time);
++
++=09hci_dev_unlock(hdev);
++
++=09return __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_DATA_LEN,
++=09=09=09=09     sizeof(cp), &cp, HCI_CMD_TIMEOUT);
++}
++
++int hci_le_set_data_len(struct hci_conn *conn)
++{
++=09struct hci_dev *hdev =3D conn->hdev;
++=09int err;
++
++=09err =3D hci_cmd_sync_queue_once(hdev, hci_le_set_data_len_sync,
++=09=09=09=09      hci_conn_get(conn),
++=09=09=09=09      le_set_data_len_complete);
++=09if (err)
++=09=09hci_conn_put(conn);
++
++=09return (err =3D=3D -EEXIST) ? 0 : err;
++}
+
+base-commit: 185c11232d5f586489bb3b74e6bcc7a6560ddd40
+
