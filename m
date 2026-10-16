@@ -1,209 +1,109 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D959C2931C0
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:00:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DE940BCB2;
+	Fri, 16 Oct 2026 11:00:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792148434; cv=none; b=pnaNnxLU9qQo3wH7Nxp5X+hkGoYrQ0n3Ey/WjIGtcKWiS4a5lyahHGahqHPGacMYiMy4hCtagz106e73+YWpv/6J4yZnmLqCIpeNRxM0MeMWVUADf0mSiLeZWKOSkXCup3Nzy35XVckMDhzxRWBYI2f5I7KMdyZ53V46+yF0w6U=
+	t=1792148441; cv=none; b=g29EdMtiOw06P1ru+shu8chUFmxIgP+eJN32nY6EyngW5GLPj4Zgh/D/5J5/ITAzWveGQhBZ6K8GjIoBrmXpGtKxbUwiXJdOe9NbkGMaVeehaiDjrezzOMKirI9VCa7eZ1vVwrQxbf/nBA5W3GLq7UhUN34P1mujwvXHtl53cRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792148434; c=relaxed/simple;
-	bh=3MEHsReXxE/ut93hZhp55vaenBO8wr5rIZhPjvA5J2k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KV3ubxQMLCKc0Lp2lN2+cjTDI6IThR3lw1uTCD+YwZ9jskNzKxIKHqHpf2j6+MxnZuEgyd8l2uPBp4VE504R9vI893Fj8PalymeHWJdEWBaKj4TW+z0tnGj7/xI18nZHQdY1FIZ3k/mHKxIZCERuHH/mZmst7bZ1PEaGKZHtz/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=HlfgIFpV; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=pCUbozxk; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=HlfgIFpV; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=pCUbozxk; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1792148441; c=relaxed/simple;
+	bh=A5vzqO97WgNgrRSuAFaMNoJdjRf2NsEvaKC2UjsFRLM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KAo7F6fxfyxGuymAorxZqlHWpESHeRSe9ZunRZG/LeHH4kPCi6CffS77bPjG10AV3E3BM8C77z7z+YX6Gn5/hTDdwvVckxIZysmuy90jT/NkwfLsZoiIL9jWh5AFX5s4gdFkEwBbH9qW4iMhs1wgEW97SVwN5YIO+k6HKQ+1BCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lSrDood8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HlfgIFpV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pCUbozxk";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HlfgIFpV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pCUbozxk"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 83B371F6E6;
-	Fri, 16 Oct 2026 11:00:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792148424; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U6PCfMbuGmCfwpBRIO+Gy0QoX6CF8bLNNX4OEjsspNk=;
-	b=HlfgIFpVZerIa3PRw5aH9wctXjLl+pHxZ1YxDQZgHTRdh1tT5StwwFycExRTzAx09uLRIi
-	r+mxgt1rAEhpZEeODve3P5tZ0WdwgTveeunGKQtptuMWQtYToMbgO5kYpbgYP3yYKJyYkE
-	fw8r3wk3AI7jDA9IVPxXimKhYFZUXdo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792148424;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U6PCfMbuGmCfwpBRIO+Gy0QoX6CF8bLNNX4OEjsspNk=;
-	b=pCUbozxkHy0zzFI/y9WTaw0Xlkr1l0Ch1x2JhC7D6AKJ+R0TqivttfhO7x4yrK4AZM/32N
-	9o91Q9ovvbBTWBDA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792148424; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U6PCfMbuGmCfwpBRIO+Gy0QoX6CF8bLNNX4OEjsspNk=;
-	b=HlfgIFpVZerIa3PRw5aH9wctXjLl+pHxZ1YxDQZgHTRdh1tT5StwwFycExRTzAx09uLRIi
-	r+mxgt1rAEhpZEeODve3P5tZ0WdwgTveeunGKQtptuMWQtYToMbgO5kYpbgYP3yYKJyYkE
-	fw8r3wk3AI7jDA9IVPxXimKhYFZUXdo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792148424;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U6PCfMbuGmCfwpBRIO+Gy0QoX6CF8bLNNX4OEjsspNk=;
-	b=pCUbozxkHy0zzFI/y9WTaw0Xlkr1l0Ch1x2JhC7D6AKJ+R0TqivttfhO7x4yrK4AZM/32N
-	9o91Q9ovvbBTWBDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 048A81339F;
-	Fri, 16 Oct 2026 11:00:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id S0+JMMYD0mrLcwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Fri, 16 Oct 2026 11:00:22 +0000
-Date: Fri, 16 Oct 2026 12:00:21 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Lance Yang <lance.yang@linux.dev>, akpm@linux-foundation.org, 
-	david@kernel.org, ziy@nvidia.com, liam@infradead.org, nico.pache@linux.dev, 
-	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, 
-	kas@kernel.org, jack@suse.cz, djwong@kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, hch@lst.de, 
-	syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com, ngocthang2710.1999@gmail.com, willy@infradead.org, 
-	rppt@kernel.org, ljs@kernel.org
-Subject: Re: [PATCH v3 1/1] khugepaged: fix readahead lock inversion in
- collapse_file()
-Message-ID: <atICp2NL8j2z7UFM@pedro-suse.tail5790ac.ts.net>
-References: <20261016065920.4153-1-lance.yang@linux.dev>
- <27e5aadc-2d68-428f-a958-308e4a75c058@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lSrDood8"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B2CDAC2BCFA;
+	Fri, 16 Oct 2026 11:00:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792148440;
+	bh=A5vzqO97WgNgrRSuAFaMNoJdjRf2NsEvaKC2UjsFRLM=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=lSrDood8FrYKE2qrBZPbVIIwBUuTmfY80LHxX3LLFDwxBFXrbBE4XfXQqFarySAjK
+	 xlrPwYIzuthTl3EONWqLvvS07shSYasN1Zhf8XXL7Dd84eqQZ2CsTgeKnLDy2yQpvD
+	 wIWqm/7Kl2FjBnNFUI0aGW+5mHzeN8JeBV1nIBgcCRpY3tZrWmwFXdI7eI+PxdAza0
+	 +dMZwF2s2bLywpnbvmrPPh3+JVZMGVFHKc4Sb32+Ktm+q5j2Lrm0PVvikT4IDuuBs3
+	 r7UNwk7pzej2pQQzsrJcawyNpBmfFISRM/K1cmv8vVRHe69mY58iFi8aY3p0ZwGLNh
+	 rn79NkkHEn+2g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0494CCA464;
+	Fri, 16 Oct 2026 11:00:40 +0000 (UTC)
+From: Andrea Amer via B4 Relay <devnull+and.amer.gmail.com@kernel.org>
+Date: Fri, 16 Oct 2026 13:00:20 +0200
+Subject: [PATCH v2] iio: afe: rescale: always expose offset
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <27e5aadc-2d68-428f-a958-308e4a75c058@linux.alibaba.com>
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[16bf7cd0ebeb1de93aa5];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[22];
-	MISSING_XM_UA(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux.dev,linux-foundation.org,kernel.org,nvidia.com,infradead.org,arm.com,suse.cz,kvack.org,vger.kernel.org,lst.de,syzkaller.appspotmail.com,gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[appspotmail.com:email,linux.dev:email,imap1.dmz-prg2.suse.org:helo,syzkaller.appspot.com:url]
-X-Spam-Score: -2.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-iio-rescale-offset-v2-1-02c825967139@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAMMD0moC/32NQQqDMBBFryKzbooTY4pd9R7FRZpMdECNJCItk
+ rs39QDlr96H//4BiSJTgnt1QKSdE4elgLxUYEezDCTYFQZZS401SsEcRKRkzUQieJ9oEwplq0z
+ TvLTTUIZrJM/vU/rsC4+cthA/58eOv/avbkdRoshh29067+VjmA1PVxtm6HPOX08tp+S0AAAA
+X-Change-ID: 20261012-iio-rescale-offset-41254a33b6d6
+To: Peter Rosin <peda@lysator.liu.se>, Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Liam Beguin <liambeguin@gmail.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jonathan Cameron <jic23@kernel.org>, Andrea Amer <and.amer@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792148437; l=1534;
+ i=and.amer@gmail.com; s=20261012; h=from:subject:message-id;
+ bh=smDOZf3s0TRH8qOItOidEFI5I1QOKi3ZjzCMwcFZDI8=;
+ b=UR/i6E6rwteZ0Erdlwc7kK0TfnZAzzWBdHcBVSiQNaCkKvutisIOPQoqdlDbpXTGqKVvuXrua
+ 8hVFvwQCq4KCzhsirlUCUM73+FI3tMml7m9wjmB4yKv3FiF/pmCQ/7Z
+X-Developer-Key: i=and.amer@gmail.com; a=ed25519;
+ pk=TiMK202FvcPM+yKGkAI4hsAZA7QkwyEgru97PAFa4pg=
+X-Endpoint-Received: by B4 Relay for and.amer@gmail.com/20261012 with
+ auth_id=1165
+X-Original-From: Andrea Amer <and.amer@gmail.com>
+Reply-To: and.amer@gmail.com
 
-On Fri, Oct 16, 2026 at 05:57:48PM +0800, Baolin Wang wrote:
-> 
-> 
-> On 10/16/26 2:59 PM, Lance Yang wrote:
-> > collapse_file() can end up calling page_cache_sync_readahead() with
-> > source folios from earlier in the range still locked. If truncate already
-> > holds mapping->invalidate_lock exclusively and is waiting for one of
-> > those folios, readahead blocks on the same invalidate_lock and neither
-> > side can make progress.
-> > 
-> > Do readahead in a separate pass before we start holding source folios
-> > locked for collapse. Keep page_cache_sync_readahead() and its existing
-> > policy, and drop each folio's lock and reference after checking that it
-> > is uptodate. If truncate or reclaim removes a folio between the two
-> > passes, roll back instead of doing readahead again with source folios
-> > locked.
-> > 
-> > Shmem handles swapin and fallocated folios through shmem_get_folio()
-> > without taking mapping->invalidate_lock, so it isn't affected by this
-> > lock inversion.
-> > 
-> > Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
-> > Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
-> > Signed-off-by: Lance Yang <lance.yang@linux.dev>
-> > ---
-> 
-> Thanks for the fix.
-> 
-> > Thanks to Nguyen Ngoc Thang for v2. David asked for volunteers, so I'm
-> > happy to take this over.
-> > 
-> > Some older stable trees lack the folio infrastructure used here, and the
-> > code will differ for each stable tree, so each backport will need quite a
-> > bit of rework and its own review. I'm not sure whether to Cc stable here.
-> > Once we agree on the fix, I'll send a separate backport for each maintained
-> > stable tree except 5.10, which isn't affected.
-> > 
-> > v2 -> v3:
-> >   - Replace the scan-wide invalidate_lock and page_cache_ra_unbounded() with
-> >     a preparation pass using page_cache_sync_readahead().
-> >   - Roll back on a new page cache miss during collapse.
-> >   - https://lore.kernel.org/all/20260913163644.122133-1-ngocthang2710.1999@gmail.com/
-> > 
-> >   mm/khugepaged.c | 42 +++++++++++++++++++++++++++++++-----------
-> >   1 file changed, 31 insertions(+), 11 deletions(-)
-> > 
-> > diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> > index ef5cd6fda34f..b3f67617caf0 100644
-> > --- a/mm/khugepaged.c
-> > +++ b/mm/khugepaged.c
-> > @@ -2262,6 +2262,34 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
-> >   	new_folio->index = start;
-> >   	new_folio->mapping = mapping;
-> > +	if (!is_shmem) {
-> > +		/*
-> > +		 * Populate the range before accumulating locked source folios:
-> > +		 * readahead may block on invalidate_lock.
-> > +		 */
-> > +		for (index = start; index < end;) {
-> 
-> why drop xas_unlock_irq()?
-> 
-> > +			folio = filemap_lock_folio(mapping, index);
-> > +			if (IS_ERR(folio)) {
-> > +				page_cache_sync_readahead(mapping, &file->f_ra,
-> > +							  file, index, end - index);
-> > +				folio = filemap_lock_folio(mapping, index);
-> > +				if (IS_ERR(folio)) {
-> > +					result = SCAN_FAIL;
-> > +					goto rollback;
-> > +				}
-> > +			}
-> > +			if (!folio_test_uptodate(folio))
-> > +				result = SCAN_FAIL;
-> 
-> Do we need to check PG_uptodate after locking the folio? If we successfully
-> lock the folio, doesn't that mean the read I/O has completed? The following
+From: Andrea Amer <and.amer@gmail.com>
 
-Yes, you do; a read can "complete" without the IO having completed successfully,
-and in those cases PG_uptodate is not set, but the folio is unlocked.
+A rescale channel advertises IIO_CHAN_INFO_OFFSET only when its own
+offset is non-zero. A child rescale therefore hides a source offset,
+and consumers apply raw * scale and drop it. rescale_read_raw() already
+folds the source offset in, so expose the attribute in every case.
 
-Either way, why are we checking for uptodate here? We only care for starting readahead.
-Anyway, I would possibly recommend we do this as post-processing, not pre-processing.
-The current loop is a little overhead-happy.
+Fixes: a29c3283653b ("iio: afe: rescale: add offset support")
+Signed-off-by: Andrea Amer <and.amer@gmail.com>
+---
+Changes in v2:
+- Keep the IIO_CHAN_INFO_SCALE line unchanged (Andy Shevchenko)
+- Link to v1: https://lore.kernel.org/r/20261012-iio-rescale-offset-v1-1-14ed15979ff2@gmail.com
+---
+ drivers/iio/afe/iio-rescale.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
+diff --git a/drivers/iio/afe/iio-rescale.c b/drivers/iio/afe/iio-rescale.c
+index 3a6a09ffa5267ddfd5131fbd04a5df928836589d..4639a67ea462bf5c29603783a6f230d769fb02b0 100644
+--- a/drivers/iio/afe/iio-rescale.c
++++ b/drivers/iio/afe/iio-rescale.c
+@@ -301,11 +301,9 @@ static int rescale_configure_channel(struct device *dev,
+ 	}
+ 
+ 	chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
++		BIT(IIO_CHAN_INFO_OFFSET) |
+ 		BIT(IIO_CHAN_INFO_SCALE);
+ 
+-	if (rescale->offset)
+-		chan->info_mask_separate |= BIT(IIO_CHAN_INFO_OFFSET);
+-
+ 	/*
+ 	 * Using .read_avail() is fringe to begin with and makes no sense
+ 	 * whatsoever for processed channels, so we make sure that this cannot
+
+---
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+change-id: 20261012-iio-rescale-offset-41254a33b6d6
+
+Best regards,
 -- 
-Pedro
+Andrea Amer <and.amer@gmail.com>
+
+
