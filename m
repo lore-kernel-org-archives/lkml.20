@@ -1,342 +1,380 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-71.mta1.migadu.com [95.215.58.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3ADF447805;
-	Fri, 16 Oct 2026 21:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835543A9616
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792187757; cv=none; b=nTwHUKdo+G+GD5SIAy2vSDJNK0/vOTWNJWHHfQrm5M7LxyYQSQ2AcUwFibh1uIWWfsfBbepzR2vOgP4KJ2ww15AfAlIHf2qoirqW6uRERvoRuQU9OQZ4bw2oPWcMkrLTNRewXlB5JPXTfW5cCCs7lNgQOUYCow2F9ltQxR8wUww=
+	t=1792188046; cv=none; b=S2C3s+n2gxYXOfj33sPvkXCedFkYoRYOevOCoJHs63oCo2i1Tpk0ReT3gu/5uO721eJiHM1bshpF6HqhIInE7p0pd8kiLn4IBZdxG8xsyTlxTj+db7L5ZnV29uDSutYkxOA7p/Gnhzkks7f9GaJMMd1dEZJhB4sTHnJNrsfWkaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792187757; c=relaxed/simple;
-	bh=VOu6W9Kebb8d6sC/awAZMDagwJeVdQXL2KG1GZRFWuw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WN4raAGbgCbCzXiIyFbciWPzMbrYyvCChVgWOWCQpNKPa5djlX7YvPTWmi2rpd+TRABn9V6Xii42AAYSMBODeQqlYYtC1TNSj0IcGXB57Yt0vj4XJZ/6WNDLtcxJXpdQ0axs/Bf038jI8fdgiMs4lDv5RBZKIxy7U28nar6UgCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JtwqICHl; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1792188046; c=relaxed/simple;
+	bh=JwDcDgorQOdE6hk/wjUXJYNi7rSP5hrp0hVElYvEOGU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=exT3e1Tm/3pX8/Ryivq3y3d6mJNZrkZ28WsCG/BABEizjC4GBgMJG+i7Y8rICnsBJ30Arn+aHcWBCEa1YwtpMN5hBUZskvAP+AnUfRVcF0CxfgDkfIJFqwhJKGNqxWUQj78/t2EVb0jYmpSBCZYNiFCjxKWW7svBzN6fOCrk/z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=O0DMgwsh; arc=none smtp.client-ip=95.215.58.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JtwqICHl"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GJiVwm490437;
-	Fri, 16 Oct 2026 21:55:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=0BADyP
-	uttV1npo1QJ/U5gqBi08d6l31PT4PbdQjqd1U=; b=JtwqICHlaB7B/VfYkd8oBQ
-	MuCmOOkU71MNmo+grW8DzYRVKYCmvDaZQ89e7sJiPfbWFIGLZsSFXVfMRGPuSCx9
-	oZaH7+5QjRDlaiYiDTG3505DJrQhRaydSIKjnCOGwJMasDQJoSY1Q7X7nZyTzoF+
-	lo3GvI5Npoc+bn3hMZhlTIPIwZleaHsLDhLT/idvFC6Jj7fV2kzX6KsoeGiC4HEX
-	SPoo/K1Cqq5ukrAcOgLMiQK+gTGPbrhhBCKibRt1p8SJBwDqELRHdk54Bsgi5t8k
-	CY4z7fXQIxu0RgnSq3J9Nbzmu6JkS9e7y9KcOhnplAqQoGDOdQdMVe/Z9jUHEzwA
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv41nne-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 21:55:30 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69GJnv5S022322;
-	Fri, 16 Oct 2026 21:55:29 GMT
-Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hawqwxqth-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 21:55:29 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com [10.39.53.228])
-	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69GLtRK96161298
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 16 Oct 2026 21:55:28 GMT
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CCDED58063;
-	Fri, 16 Oct 2026 21:55:27 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 19AA558059;
-	Fri, 16 Oct 2026 21:55:25 +0000 (GMT)
-Received: from [9.67.103.235] (unknown [9.67.103.235])
-	by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 16 Oct 2026 21:55:24 +0000 (GMT)
-Message-ID: <3ae9b5c4-424f-4048-b78b-5f9bd36fef48@linux.ibm.com>
-Date: Fri, 16 Oct 2026 14:55:24 -0700
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="O0DMgwsh"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=JwDcDgorQOdE6hk/wjUXJYNi7rSP5hrp0hVElYvEOGU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792188041; v=1; x=1792792841;
+ b=O0DMgwshiLekKLUcOAadbbpjAnmsrWnYCTyd/rwWRWU1uwsPlItxVf/5CGl2hhi8sgJj6Dof
+ VVA1ECXUXEOy9Hp0F0eghDluhSID+0xAPlFCPxQf3p8drUmJ8+ZC4mkD2vvK8IlbfgeJl5NkhEx
+ Pxs+hHuhWQvOtJ8WSVjPcd1Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2fdf9c283b908f9b;
+	Fri, 16 Oct 2026 22:00:41 +0000
+X-Mizu-Trace-ID: 2fdf9c283b908f9b
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christian Brauner <christian@brauner.io>
+Cc: Meta kernel team <kernel-team@meta.com>,
+	linux-fsdevel@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] kernfs: allocate inodes and dentry outside kernfs_rwsem
+Date: Fri, 16 Oct 2026 15:00:29 -0700
+Message-ID: <20261016220029.3276154-1-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: ibmvnic: defer close from reset allocation
- failure
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>, Haren Myneni <haren@linux.ibm.com>,
-        Rick Lindsley <ricklind@linux.ibm.com>,
-        Nick Child <nnac123@linux.ibm.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Christophe Leroy <chleroy@kernel.org>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S . Miller" <davem@davemloft.net>,
-        Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>
-Cc: linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Jianhao Xu <jianhao.xu@seu.edu.cn>
-References: <20261004103131.1205618-1-runyu.xiao@seu.edu.cn>
-Content-Language: en-US
-From: mingming cao <mmc@linux.ibm.com>
-In-Reply-To: <20261004103131.1205618-1-runyu.xiao@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: iqUmtBv8nkL_E4y1V0qYb60OLHwY1X3j
-X-Proofpoint-ORIG-GUID: qI2N-qs_PpX8yC6_fbPQnY7MKWLLxEqX
-X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6ad29d53 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=ELaMOE5r3NirCJLtdPEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA4NiBTYWx0ZWRfX97FDx2fshrwb
- ywbBh28/Z85Tg5UZXAtx/FV5zdU2ee0EvxInTOv5MrcxuRjbt8K6TijFV5Mgo9BoEnrPM2nqQqK
- ZqMhqQKP+j7hb0VqUoQUtttMdrQLjFs=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA4NiBTYWx0ZWRfX/6gU/g8cLloY
- bFLluykvjATMODFwhhRyuP1vzKH3B54SuKeTjVSARVemBJxG10FC+zTQ0dD37OkBeuyPDN9hk2r
- R7R9vmfiHYDxwTwCGfMLO1Ei6O3NmrCbwKrintppSr+gDgnxD5HOEFZZIITd9KZDwD9D2SsoFXi
- dUZn6NTSlec22D7cqObRhZmP70/MCboqngj9vO5BKGgi/E/30+IytXPnzRNG1iC1ACIq3dHMO1d
- mbTYUWwY8AxKuFmgvmzEATfBAjKoveoHDC3xQn5lqNdB2/qhnCA2w5uSZQgh7D88ldiN6lxz6te
- hVAMALgApN+sHEKsInN7IzpRoeWEia7CxvK7+aKHOUmCqPeMany65xWc7VuDX0Y48dCx4K/7yzt
- GHos50eRJ89+uAkWsMOKgH97O70UmXPLRbMc2xNOvGkAUu3r+fRfC+/cC3EbN+BJdKWvneufBR9
- ZsUCQ8xjEp3wuXauUew==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_03,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1011 spamscore=0 malwarescore=0 suspectscore=0
- bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610160086
 
+In the Meta fleet, on 6.16 with the kernfs changes queued for 7.4
+backported, we still see long cgroupfs stalls:
 
-On 10/4/26 3:31 AM, Runyu Xiao wrote:
-> ibmvnic_reset() can be called by the CRQ tasklet. If allocating the
-> reset work item fails, it currently calls ibmvnic_close() after
-> dropping rwi_lock, but ibmvnic_close() reaches napi_disable() and
-> other sleepable teardown paths.
->
-> Defer the close to a work item and keep the work within the adapter
-> lifetime. Track removal separately from the visible adapter state so
-> ibmvnic_close() cannot make removal look active again after remove()
-> has begun. Check that monotonic flag while scheduling reset and
-> delayed reset work, and drain all work before releasing the adapter.
->
-> Use complete_all() for probe_done because the reset and close workers
-> may wait for probe completion concurrently.
->
-> The issue was identified by code inspection. No runtime reproduction or
-> real hardware testing is available.
->
-> Fixes: ed651a10875f ("ibmvnic: Updated reset handling")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->   drivers/net/ethernet/ibm/ibmvnic.c | 54 ++++++++++++++++++++++++------
->   drivers/net/ethernet/ibm/ibmvnic.h |  2 ++
->   2 files changed, 45 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/net/ethernet/ibm/ibmvnic.c b/drivers/net/ethernet/ibm/ibmvnic.c
-> index 5a510eed33..4da3fd7ce0 100644
-> --- a/drivers/net/ethernet/ibm/ibmvnic.c
-> +++ b/drivers/net/ethernet/ibm/ibmvnic.c
-> @@ -2152,6 +2152,26 @@ static int ibmvnic_close(struct net_device *netdev)
->   	return rc;
->   }
->   
-> +static void ibmvnic_close_work(struct work_struct *work)
-> +{
-> +	struct ibmvnic_adapter *adapter = container_of(work,
-> +							struct ibmvnic_adapter,
-> +							ibmvnic_close_work);
-> +	unsigned long flags;
-> +	bool removing;
-> +
-> +	/* The close path can sleep, so run it outside the CRQ tasklet. */
-> +	wait_for_completion(&adapter->probe_done);
-> +	rtnl_lock();
-> +	spin_lock_irqsave(&adapter->rwi_lock, flags);
-> +	removing = adapter->removing;
-> +	spin_unlock_irqrestore(&adapter->rwi_lock, flags);
-> +
-> +	if (!removing)
-> +		ibmvnic_close(adapter->netdev);
-> +	rtnl_unlock();
-> +}
-> +
->   /**
->    * get_hdr_lens - fills list of L2/L3/L4 hdr lens
->    * @hdr_field: bitfield determining needed headers
-> @@ -3229,9 +3249,12 @@ static void __ibmvnic_reset(struct work_struct *work)
->   	if (adapter->state == VNIC_PROBING &&
->   	    !wait_for_completion_timeout(&adapter->probe_done, timeout)) {
->   		dev_err(dev, "Reset thread timed out on probe");
-> -		queue_delayed_work(system_long_wq,
-> -				   &adapter->ibmvnic_delayed_reset,
-> -				   IBMVNIC_RESET_DELAY);
-> +		spin_lock_irqsave(&adapter->rwi_lock, flags);
-> +		if (!adapter->removing)
-> +			queue_delayed_work(system_long_wq,
-> +					   &adapter->ibmvnic_delayed_reset,
-> +					   IBMVNIC_RESET_DELAY);
-> +		spin_unlock_irqrestore(&adapter->rwi_lock, flags);
->   		return;
->   	}
->   
-> @@ -3265,7 +3288,7 @@ static void __ibmvnic_reset(struct work_struct *work)
->   	 */
->   	need_reset = false;
->   	spin_lock(&adapter->rwi_lock);
-> -	if (!list_empty(&adapter->rwi_list)) {
-> +	if (!adapter->removing && !list_empty(&adapter->rwi_list)) {
->   		if (test_and_set_bit_lock(0, &adapter->resetting)) {
->   			queue_delayed_work(system_long_wq,
->   					   &adapter->ibmvnic_delayed_reset,
-> @@ -3422,7 +3445,8 @@ static int ibmvnic_reset(struct ibmvnic_adapter *adapter,
->   	 * a failover reset scheduled, we will detect and drop the
->   	 * duplicate reset when walking the ->rwi_list below.
->   	 */
-> -	if (adapter->state == VNIC_REMOVING ||
-> +	if (adapter->removing ||
-> +	    adapter->state == VNIC_REMOVING ||
->   	    adapter->state == VNIC_REMOVED ||
->   	    (adapter->failover_pending && reason != VNIC_RESET_FAILOVER)) {
->   		ret = EBUSY;
-> @@ -3458,11 +3482,11 @@ static int ibmvnic_reset(struct ibmvnic_adapter *adapter,
->   
->   	ret = 0;
->   err:
-> -	/* ibmvnic_close() below can block, so drop the lock first */
-> -	spin_unlock_irqrestore(&adapter->rwi_lock, flags);
-> -
->   	if (ret == ENOMEM)
-> -		ibmvnic_close(netdev);
-> +		queue_work(system_long_wq, &adapter->ibmvnic_close_work);
-> +
-> +	/* ibmvnic_close() can block, so defer it out of atomic context. */
-> +	spin_unlock_irqrestore(&adapter->rwi_lock, flags);
->   
->   	return -ret;
->   }
-> @@ -6466,6 +6490,7 @@ static int ibmvnic_probe(struct vio_dev *dev, const struct vio_device_id *id)
->   	SET_NETDEV_DEV(netdev, &dev->dev);
->   
->   	INIT_WORK(&adapter->ibmvnic_reset, __ibmvnic_reset);
-> +	INIT_WORK(&adapter->ibmvnic_close_work, ibmvnic_close_work);
->   	INIT_DELAYED_WORK(&adapter->ibmvnic_delayed_reset,
->   			  __ibmvnic_delayed_reset);
->   	INIT_LIST_HEAD(&adapter->rwi_list);
-> @@ -6568,7 +6593,8 @@ static int ibmvnic_probe(struct vio_dev *dev, const struct vio_device_id *id)
->   		goto cpu_notif_add_failed;
->   	}
->   
-> -	complete(&adapter->probe_done);
-> +	complete_all(&adapter->probe_done);
-> +	flush_work(&adapter->ibmvnic_close_work);
->   
->   	return 0;
->   
-> @@ -6591,10 +6617,14 @@ static int ibmvnic_probe(struct vio_dev *dev, const struct vio_device_id *id)
->   	/* cleanup worker thread after releasing CRQ so we don't get
->   	 * transport events (i.e new work items for the worker thread).
->   	 */
-> +	spin_lock_irqsave(&adapter->rwi_lock, flags);
-> +	adapter->removing = true;
->   	adapter->state = VNIC_REMOVING;
-> -	complete(&adapter->probe_done);
-> +	spin_unlock_irqrestore(&adapter->rwi_lock, flags);
-> +	complete_all(&adapter->probe_done);
->   	flush_work(&adapter->ibmvnic_reset);
->   	flush_delayed_work(&adapter->ibmvnic_delayed_reset);
-> +	flush_work(&adapter->ibmvnic_close_work);
->   
->   	flush_reset_queue(adapter);
->   
-> @@ -6620,6 +6650,7 @@ static void ibmvnic_remove(struct vio_dev *dev)
->   	 * from the flush_work() below, can make progress.
->   	 */
->   	spin_lock(&adapter->rwi_lock);
-> +	adapter->removing = true;
->   	adapter->state = VNIC_REMOVING;
->   	spin_unlock(&adapter->rwi_lock);
->   
-> @@ -6629,6 +6660,7 @@ static void ibmvnic_remove(struct vio_dev *dev)
->   
->   	flush_work(&adapter->ibmvnic_reset);
->   	flush_delayed_work(&adapter->ibmvnic_delayed_reset);
-> +	flush_work(&adapter->ibmvnic_close_work);
->   
->   	rtnl_lock();
->   	unregister_netdevice(netdev);
-> diff --git a/drivers/net/ethernet/ibm/ibmvnic.h b/drivers/net/ethernet/ibm/ibmvnic.h
-> index 480dc58707..d8c8a6d230 100644
-> --- a/drivers/net/ethernet/ibm/ibmvnic.h
-> +++ b/drivers/net/ethernet/ibm/ibmvnic.h
-> @@ -1045,6 +1045,7 @@ struct ibmvnic_adapter {
->   
->   	struct tasklet_struct tasklet;
->   	enum vnic_state state;
-> +	bool removing;
->   	/* Used for serialization of state field. When taking both state
->   	 * and rwi locks, take state lock first.
->   	 */
-> @@ -1056,6 +1057,7 @@ struct ibmvnic_adapter {
->   	 */
->   	spinlock_t rwi_lock;
->   	struct work_struct ibmvnic_reset;
-> +	struct work_struct ibmvnic_close_work;
->   	struct delayed_work ibmvnic_delayed_reset;
->   	unsigned long resetting;
->   	/* last device reset time */
+- oomd and below waited 72 seconds in kernfs_fop_readdir() while an out
+  of memory container created cgroups.  They resumed when the kernel OOM
+  killer killed the container's workload.
 
-Thanks for looking at this. The bug is real — deferring close out of
-the CRQ tasklet is the right direction.
+- oomd waited 15 minutes in kernfs_iop_lookup().  PID 1 waited for
+  kernfs_rwsem in cgroup_rmdir() while holding cgroup_mutex.
 
-I walked ibmvnic_close_work() against the probe success path. Can a
-probe-time ENOMEM leave the adapter in VNIC_CLOSED with no
-init_resources()?
+- A lock profiler sampling part of the fleet saw kernfs_iop_lookup()
+  hold kernfs_rwsem across memcg reclaim on 26 hosts in 29 days, for up
+  to 625 ms.
 
-ibmvnic_reset() does not reject VNIC_PROBING, and the CRQ tasklet can
-reach it during probe (e.g. CRQ_INIT -> VNIC_RESET_FAILOVER when state
-is not VNIC_DOWN, or an XPORT_EVENT -> FATAL/MOBILITY). On GFP_ATOMIC
-failure your worker waits on probe_done, then:
+The profiler shows where these stalls come from.  kernfs_iop_lookup()
+and the export ops allocate a new inode while holding kernfs_rwsem for
+read.  The inode is charged to the caller's memcg.  If that memcg is at
+memory.max, the allocation can stay in reclaim for a long time,
+sometimes until an OOM kill.  A writer then queues on the lock and every
+new reader queues behind it.  On cgroup2 this blocks every cgroupfs user
+on the machine.
 
-probe sets VNIC_PROBED / VNIC_DOWN, register_netdev()
-   -> complete_all() + flush_work(close_work)
-   -> ibmvnic_close() sets VNIC_CLOSED
-next open sees state == VNIC_CLOSED, skips login/init_resources()
-   -> ibmvnic_napi_enable() uses adapter->napi[i] while napi is
-      still NULL (allocated only in init_napi() via init_resources())
+Such lookups are common in a memcg that is out of memory.  Its reclaim
+drops its kernfs dentries fast, and the files of a new cgroup have no
+inodes yet.
 
-Previously the inline close ran under VNIC_PROBING and probe overwrote
-the final state afterwards. flush_work() after complete_all() reverses
-that.
+Allocate the inode before taking kernfs_rwsem, and free it if it is not
+used, as commit 8b64f32fee95 ("kernfs: allocate the new name outside
+kernfs_rwsem") and commit 5ad03af18434 ("kernfs: allocate the open node
+outside the open file mutex") do.  Everything else still runs under the
+lock, so a new inode is added only for an active node, and
+__kernfs_remove() still finds every inode it must clear i_nlink on, as
+commit dc1a0cc95737 ("kernfs: don't lose IN_DELETE_SELF when decoding a
+file handle") needs.
 
-Should the worker only close when the iface was actually running
-(netif_running() / state == VNIC_OPEN)?
+The inode goes unused when the name does not exist, the node is
+inactive, or it already has an inode.  In a VM, a lookup of a missing
+name takes about 0.35 us longer, 1.65 us instead of 1.3 us on
+cgroupfs.  Cold lookups of existing sysfs and cgroupfs files are not
+slower.
 
-While you are here: would dev_close() be better than calling
-ibmvnic_close() directly? A bare ndo_stop leaves IFF_UP set when the
-device was up (same as the old inline ENOMEM path). Keep rtnl_lock() in
-the worker — dev_close() only takes the ops lock; __dev_close_many()
-still expects rtnl. And netif_close() is a no-op when !(flags & IFF_UP),
-which also avoids this post-probe VNIC_CLOSED case.
+kernfs_get_parent_dentry() also held the lock across d_obtain_alias(),
+which allocates a dentry.  Hold it only around the inode lookup, as
+__kernfs_fh_to_dentry() already does.  This also gives ->get_parent the
+active test that the IN_DELETE_SELF fix left out: a parent that is
+being removed and has no inode now gets -ESTALE instead of a new inode
+with i_nlink 1.
 
-Minor on adapter->removing: the commit message is a bit stronger than
-what a snapshot under rwi_lock can guarantee vs ibmvnic_remove(). Fine
-to simplify in v2 if you prefer guarding VNIC_REMOVING in
-__ibmvnic_close() instead of a new bool.
+kernfs_fill_super() preallocates the root inode the same way, so no
+inode is allocated under kernfs_rwsem any more.
 
-Happy to look at v2.
+Tested on a 316-CPU machine.  A task in a full 256 MB memcg with slow
+swap looks up the files of new cgroups.  Worst waits in 60 seconds:
 
-Thanks,
+                                  before    after
+  oomd, for kernfs_rwsem          236 ms   0.1 ms
+  below, for kernfs_rwsem         356 ms   0.8 ms
+  systemd, for kernfs_rwsem       160 ms    37 us
+  readdir of another directory    530 ms   3.9 ms
 
-Mingming
+The lookup itself is still slow.  The VFS still holds its directory's
+lock, so other work in that one directory still waits.
+
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Suggested-by: Tejun Heo <tj@kernel.org>
+---
+Changes since v2:
+- Allocate the inode before taking kernfs_rwsem and free it if unused,
+  instead of dropping and retaking the lock.  kernfs_iget() becomes
+  kernfs_get_inode_locked() (Tejun).
+- Do the same in kernfs_fill_super() (Tejun).
+- Describe the ->get_parent active test (Tejun).
+- Retested on another machine, numbers updated.
+
+v2: https://lore.kernel.org/20261016164345.31618-1-shakeel.butt@linux.dev
+
+Changes since v1:
+- dentry allocation outside kernfs_rwsem (Sashiko).
+- Couple of comments updated.
+
+v1: https://lore.kernel.org/20261015221110.3183461-1-shakeel.butt@linux.dev
+
+ fs/kernfs/dir.c             | 13 +++++----
+ fs/kernfs/inode.c           | 56 +++++++++++++++++++++++++++++++++++++
+ fs/kernfs/kernfs-internal.h |  4 +++
+ fs/kernfs/mount.c           | 46 +++++++++++++++++-------------
+ 4 files changed, 94 insertions(+), 25 deletions(-)
+
+diff --git a/fs/kernfs/dir.c b/fs/kernfs/dir.c
+index 7e65854a09e4..f3aaa89ad0f5 100644
+--- a/fs/kernfs/dir.c
++++ b/fs/kernfs/dir.c
+@@ -37,7 +37,7 @@ static bool __kernfs_active(struct kernfs_node *kn)
+ 	return atomic_read(&kn->active) >= 0;
+ }
+ 
+-static bool kernfs_active(struct kernfs_node *kn)
++bool kernfs_active(struct kernfs_node *kn)
+ {
+ 	lockdep_assert_held(&kernfs_root(kn)->kernfs_rwsem);
+ 	return __kernfs_active(kn);
+@@ -1251,9 +1251,12 @@ static struct dentry *kernfs_iop_lookup(struct inode *dir,
+ 	struct kernfs_node *parent = dir->i_private;
+ 	struct kernfs_node *kn;
+ 	struct kernfs_root *root;
+-	struct inode *inode = NULL;
++	struct inode *inode = NULL, *new;
+ 	const struct ns_common *ns = NULL;
+ 
++	/* allocate outside kernfs_rwsem, see kernfs_get_inode_locked() */
++	new = new_inode(dir->i_sb);
++
+ 	root = kernfs_root(parent);
+ 	down_read(&root->kernfs_rwsem);
+ 	if (kernfs_ns_enabled(parent))
+@@ -1267,11 +1270,10 @@ static struct dentry *kernfs_iop_lookup(struct inode *dir,
+ 		 */
+ 		if (!kernfs_active(kn)) {
+ 			up_read(&root->kernfs_rwsem);
++			iput(new);
+ 			return NULL;
+ 		}
+-		inode = kernfs_get_inode(dir->i_sb, kn);
+-		if (!inode)
+-			inode = ERR_PTR(-ENOMEM);
++		inode = kernfs_get_inode_locked(dir->i_sb, kn, &new);
+ 	}
+ 	/*
+ 	 * Needed for negative dentry validation.
+@@ -1282,6 +1284,7 @@ static struct dentry *kernfs_iop_lookup(struct inode *dir,
+ 	if (!IS_ERR(inode))
+ 		kernfs_set_rev(parent, dentry);
+ 	up_read(&root->kernfs_rwsem);
++	iput(new);
+ 
+ 	/* instantiate and hash (possibly negative) dentry */
+ 	return d_splice_alias(inode, dentry);
+diff --git a/fs/kernfs/inode.c b/fs/kernfs/inode.c
+index 237dcdd73fc2..030302185933 100644
+--- a/fs/kernfs/inode.c
++++ b/fs/kernfs/inode.c
+@@ -256,6 +256,62 @@ struct inode *kernfs_get_inode(struct super_block *sb, struct kernfs_node *kn)
+ 	return inode;
+ }
+ 
++static int kernfs_inode_test(struct inode *inode, void *data)
++{
++	return inode->i_ino == *(u64 *)data;
++}
++
++static int kernfs_inode_set(struct inode *inode, void *data)
++{
++	inode->i_ino = *(u64 *)data;
++	return 0;
++}
++
++/**
++ * kernfs_get_inode_locked - get the inode of @kn under kernfs_rwsem
++ * @sb: super block
++ * @kn: kernfs_node to get the inode for
++ * @new: points to an inode from new_inode(@sb), or to %NULL if that failed
++ *
++ * The caller allocates *@new before taking kernfs_rwsem, as the allocation
++ * can stall in memcg reclaim.  If @kn needs a new inode, *@new is used and
++ * set to %NULL.  Otherwise the caller frees it with iput() after dropping
++ * the lock.
++ *
++ * A new inode is added only with kernfs_rwsem held and @kn active, so
++ * __kernfs_remove() always finds it to clear i_nlink.
++ *
++ * Context: kernfs_rwsem held for read.
++ *
++ * Return: the inode, %NULL if @kn is inactive and has no inode, or
++ * ERR_PTR(-ENOMEM) if @kn needs an inode and *@new is %NULL.
++ */
++struct inode *kernfs_get_inode_locked(struct super_block *sb,
++				      struct kernfs_node *kn,
++				      struct inode **new)
++{
++	u64 ino = kernfs_ino(kn);
++	struct inode *inode;
++
++	lockdep_assert_held_read(&kernfs_root(kn)->kernfs_rwsem);
++
++	inode = ilookup(sb, ino);
++	if (inode || !kernfs_active(kn))
++		return inode;
++	if (!*new)
++		return ERR_PTR(-ENOMEM);
++
++	inode = inode_insert5(*new, ino, kernfs_inode_test, kernfs_inode_set,
++			      &ino);
++	if (inode == *new) {
++		kernfs_init_inode(kn, inode);
++		*new = NULL;
++	} else if (!inode) {
++		inode = ERR_PTR(-ENOMEM);
++	}
++	return inode;
++}
++
+ /*
+  * The kernfs_node serves as both an inode and a directory entry for
+  * kernfs.  To prevent the kernfs inode numbers from being freed
+diff --git a/fs/kernfs/kernfs-internal.h b/fs/kernfs/kernfs-internal.h
+index 1609c1519698..bf8752434b34 100644
+--- a/fs/kernfs/kernfs-internal.h
++++ b/fs/kernfs/kernfs-internal.h
+@@ -186,6 +186,9 @@ int kernfs_iop_getattr(struct mnt_idmap *idmap,
+ 		       u32 request_mask, unsigned int query_flags);
+ ssize_t kernfs_iop_listxattr(struct dentry *dentry, char *buf, size_t size);
+ int __kernfs_setattr(struct kernfs_node *kn, const struct iattr *iattr);
++struct inode *kernfs_get_inode_locked(struct super_block *sb,
++				      struct kernfs_node *kn,
++				      struct inode **new);
+ 
+ /*
+  * dir.c
+@@ -194,6 +197,7 @@ extern const struct dentry_operations kernfs_dops;
+ extern const struct file_operations kernfs_dir_fops;
+ extern const struct inode_operations kernfs_dir_iops;
+ 
++bool kernfs_active(struct kernfs_node *kn);
+ struct kernfs_node *kernfs_get_active(struct kernfs_node *kn);
+ void kernfs_put_active(struct kernfs_node *kn);
+ int kernfs_add_one(struct kernfs_node *kn);
+diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
+index c15ba6357162..3633cf3b6bef 100644
+--- a/fs/kernfs/mount.c
++++ b/fs/kernfs/mount.c
+@@ -99,8 +99,8 @@ static struct dentry *__kernfs_fh_to_dentry(struct super_block *sb,
+ 					    int fh_type, bool get_parent)
+ {
+ 	struct kernfs_super_info *info = kernfs_info(sb);
++	struct inode *inode = ERR_PTR(-ESTALE), *new;
+ 	struct kernfs_node *kn;
+-	struct inode *inode;
+ 	u64 id;
+ 
+ 	if (fh_len < 2)
+@@ -124,32 +124,29 @@ static struct dentry *__kernfs_fh_to_dentry(struct super_block *sb,
+ 		return NULL;
+ 	}
+ 
++	new = new_inode(sb);
++
+ 	/*
+-	 * Hold kernfs_rwsem across the lookup as well as kernfs_get_inode().
+-	 * __kernfs_remove() deactivates the subtree and clears i_nlink on its
+-	 * inodes under the write lock, so under the read lock either
+-	 * kernfs_find_and_get_node_by_id() refuses the node, or the inode is
+-	 * in the inode hash before the ilookup() pass goes looking for it.
++	 * Hold kernfs_rwsem from the lookup through kernfs_get_inode_locked().
++	 * Then __kernfs_remove() either finds the inode to clear i_nlink, or
++	 * the node is already inactive and no inode is created.
+ 	 */
+ 	scoped_guard(rwsem_read, &info->root->kernfs_rwsem) {
+ 		kn = kernfs_find_and_get_node_by_id(info->root, id);
+-		if (!kn)
+-			return ERR_PTR(-ESTALE);
+-
+-		if (get_parent) {
++		if (kn && get_parent) {
+ 			struct kernfs_node *parent;
+ 
+ 			parent = kernfs_get_parent(kn);
+ 			kernfs_put(kn);
+ 			kn = parent;
+-			if (!kn)
+-				return ERR_PTR(-ESTALE);
+ 		}
+-
+-		inode = kernfs_get_inode(sb, kn);
+-		kernfs_put(kn);
++		if (kn) {
++			inode = kernfs_get_inode_locked(sb, kn, &new);
++			kernfs_put(kn);
++		}
+ 	}
+ 
++	iput(new);
+ 	return d_obtain_alias(inode);
+ }
+ 
+@@ -171,9 +168,16 @@ static struct dentry *kernfs_get_parent_dentry(struct dentry *child)
+ {
+ 	struct kernfs_node *kn = kernfs_dentry_node(child);
+ 	struct kernfs_root *root = kernfs_root(kn);
++	struct inode *inode, *new;
++
++	new = new_inode(child->d_sb);
++	scoped_guard(rwsem_read, &root->kernfs_rwsem) {
++		inode = kernfs_get_inode_locked(child->d_sb, kernfs_parent(kn),
++						&new);
++	}
+ 
+-	guard(rwsem_read)(&root->kernfs_rwsem);
+-	return d_obtain_alias(kernfs_get_inode(child->d_sb, kernfs_parent(kn)));
++	iput(new);
++	return d_obtain_alias(inode);
+ }
+ 
+ static const struct export_operations kernfs_export_ops = {
+@@ -294,7 +298,7 @@ static int kernfs_fill_super(struct super_block *sb, struct kernfs_fs_context *k
+ {
+ 	struct kernfs_super_info *info = kernfs_info(sb);
+ 	struct kernfs_root *kf_root = kfc->root;
+-	struct inode *inode;
++	struct inode *inode, *new;
+ 	struct dentry *root;
+ 
+ 	info->sb = sb;
+@@ -314,10 +318,12 @@ static int kernfs_fill_super(struct super_block *sb, struct kernfs_fs_context *k
+ 	sb->s_shrink->seeks = 0;
+ 
+ 	/* get root inode, initialize and unlock it */
++	new = new_inode(sb);
+ 	down_read(&kf_root->kernfs_rwsem);
+-	inode = kernfs_get_inode(sb, info->root->kn);
++	inode = kernfs_get_inode_locked(sb, info->root->kn, &new);
+ 	up_read(&kf_root->kernfs_rwsem);
+-	if (!inode) {
++	iput(new);
++	if (IS_ERR_OR_NULL(inode)) {
+ 		pr_debug("kernfs: could not get root inode\n");
+ 		return -ENOMEM;
+ 	}
+-- 
+2.53.0-Meta
 
