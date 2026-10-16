@@ -1,468 +1,169 @@
-Received: from mta0.migadu.com (out-76.mta0.migadu.com [91.218.175.76])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A80F5304BA
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:53:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627AC5304D4;
+	Fri, 16 Oct 2026 16:54:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169612; cv=none; b=AP3Kg6N52hrklgMlqtcB5bXLpnnNbfSwsPCMIoWMj9muVoraKvV2pcwlV8369ug9fApfmZDmltFsLtBXMGq9F0uBs3G/3FXYHosCpfWrx+LdGRi4ALuw5Rbu2mGLJNgZoWmMKR7jiJmYiFaPxKMtDCmEJuh+0ezD7Hvw1erNSt0=
+	t=1792169651; cv=none; b=epuY51YzvEoCv54uhfmE53+QH1hHO/GZSQ5E4rXIMUw1t/areUW/t8vn6MM70xZYd0YC4kmjQNOBdQ01YUX0jVrGCFlQuGmqJzbiONTC6CYlKUbvlu2x7//bzMG3yh6b1vBhKCTGhyG1jlFd71ZlRVXEVcCPyDRB6Tc+nCzI2s0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169612; c=relaxed/simple;
-	bh=qdVvrno0uI6CmoB+pvpdOaOp6KsQhRzcZl1P6TGfLpQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eztYNGlp3vBym11arvt8ID5B9vUpH4RUOA/bXl8SBdltO4UHSBJ7zQEfO27na95V8uI666pfZGIv3DysbFu/oqjQISAW3PBSz3bL9DNEsI6GiypG6LMitbwcfyanDzSHbRYz9tNDTYdxt8l8XbBez1886fSsHEqs5iaYz4fo5Bk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=yZ5DC/k/; arc=none smtp.client-ip=91.218.175.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	s=arc-20240116; t=1792169651; c=relaxed/simple;
+	bh=kkFs0VVbr9mEriiGEWjJfyONEqPkYQBMumheJTOXXcc=;
+	h=Date:Message-ID:From:To:Cc:Subject:MIME-Version:Content-Type; b=YHxpuIMOhDnEv9Jv+pg9jFd1TTjNGXCrAfK/qDJmUo06kwJj45hU+RNAvwI1xvgiUmAf0rC8wx6w6gBzRek75M7V7YnduLctAT24TMeC2oB4Bk9URtL6aJHji7oGV5Kw1+CnFEcVGH83wPIobtvDpb60tcPjJJpdM2h/F+si/t8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=hMRAVzeM; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=gGdorgk/; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=hMRAVzeM; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=gGdorgk/; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="yZ5DC/k/"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qdVvrno0uI6CmoB+pvpdOaOp6KsQhRzcZl1P6TGfLpQ=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792169600; v=1; x=1792774400;
- b=yZ5DC/k/fqTJoLJqxnxv3vTHgsoROBINQShd7oJiMWLPRXJzJvaDZnWpRAr1r5QKLfzzbRF+
- SL96WDckqsTPynVR70APyFe7SXoUhYJdsrfu8kwo3zqMJ3YdO9MNq1KctqsR12KxZvnW/bXBY7h
- KGIiuoL2SI1frfnCuB8XTvKvM+DzuGLVUN7UrEYw2PAYTL3WhvGVHSfXMUs2veh71k7pEvCLYgp
- 6v/vtZdr8a/WumEbWAM63oZX+bS1g4u710S3Stct0aZGm50CmvFqRRfH1e42RxnYHfoETkQqbBR
- AGckm5GkiTTDTapg8k6tLpwvtsBQ7w+pfKRWlRfUg2FGg==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 21c67759e4b3a518;
-	Fri, 16 Oct 2026 16:53:20 +0000
-X-Mizu-Trace-ID: 21c67759e4b3a518
-X-Migadu-Flow: FLOW_OUT
-From: Weijie Yuan <wy@wyuan.org>
-To: Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	2023002089@link.tyut.edu.cn,
-	alex.shi@linux.alibaba.com,
-	baikefan@leap-io-kernel.com,
-	bailu.lin@vivo.com,
-	benx.guo@gmail.com,
-	bernard@vivo.com,
-	bobwxc@email.cn,
-	bryan.wu@analog.com,
-	businiaoanka@anka1.top,
-	chenfeiyang@loongson.cn,
-	chenhuacai@loongson.cn,
-	chenqi@beyondsoft.com,
-	chris.wei.cui@gmail.com,
-	doehyunbaek@gmail.com,
-	doubled@leap-io-kernel.com,
-	e12051@motorola.com,
-	eugeneteo@kernel.sg,
-	fan.yu9@zte.com.cn,
-	gaochao49@huawei.com,
-	greg@kroah.com,
-	harryxiyou@gmail.com,
-	he.peilin@zte.com.cn,
-	hidave.darkstar@gmail.com,
-	huang.junhua@zte.com.cn,
-	huangjianghui@uniontech.com,
-	kezijie@leap-io-kernel.com,
-	leoyang.li@nxp.com,
-	linyongting@gmail.com,
-	liu.hailong6@zte.com.cn,
-	longjin@dragonos.org,
-	luochucheng@vivo.com,
-	maoyuxian@cqsoftware.com.cn,
-	martin.petersen@oracle.com,
-	me@lirui.org,
-	qiu.yutan@zte.com.cn,
-	r0bertz@gentoo.org,
-	realpuyuwang@gmail.com,
-	rockrush@rockwork.org,
-	shao.mingyin@zte.com.cn,
-	siyanteng@loongson.cn,
-	sun.yuxi@zte.com.cn,
-	synmyth@gmail.com,
-	tangyeechou@gmail.com,
-	theandy.deng@gmail.com,
-	tttturtleruss@hust.edu.cn,
-	wang.longjie1@zte.com.cn,
-	wang.yaxin@zte.com.cn,
-	wangqing@vivo.com,
-	wangxiaochen0@gmail.com,
-	wangyuli@uniontech.com,
-	wanjiabing@vivo.com,
-	wenhu.wang@vivo.com,
-	wodemia@linux.alibaba.com,
-	wy@wyuan.org,
-	xiyou.wangcong@gmail.com,
-	xu.xin16@zte.com.cn,
-	xxx.phy@gmail.com,
-	yang.tao172@zte.com.cn,
-	yang.yang29@zte.com.cn,
-	yaxinsn@163.com,
-	yjzhang@leap-io-kernel.com,
-	zangleigang@hisilicon.com,
-	zhangwei@cqsoftware.com.cn,
-	zhaoshuo@cqsoftware.com.cn,
-	zhaoyuehui@cqsoftware.com.cn,
-	zhoubinbin@loongson.cn,
-	zhuyan2015@qq.com,
-	zpenya1314@gmail.com
-Subject: [PATCH 0/2] docs/zh_CN: cleanup headers and fix minor issues
-Date: Sat, 17 Oct 2026 00:52:31 +0800
-Message-ID: <cover.1792167855.git.wy@wyuan.org>
-X-Mailer: git-send-email 2.56.0.379.gc618271300
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hMRAVzeM";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gGdorgk/";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hMRAVzeM";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gGdorgk/"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 4447E21C70;
+	Fri, 16 Oct 2026 16:54:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792169647; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type;
+	bh=IYE4ZbVFSzp3eowApnNd8w/suhWnGdjNnQbB0iMW2A0=;
+	b=hMRAVzeMZEqZOjER2A6bTtO15B3YxkMmq2iZlooLWM/mmHIoqaJmyE72pF2x5+2DmleKhi
+	9+591Bu3q9ofjgDfdw5NSQWFgEPhm1Rl6KQrc63ur63g812+dFKQ5UXYBIWXLoqpA/ZiNb
+	aC60YEkxxuYPOvQd8Zo7B4Qob1T/Uug=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792169647;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type;
+	bh=IYE4ZbVFSzp3eowApnNd8w/suhWnGdjNnQbB0iMW2A0=;
+	b=gGdorgk/uIJjuXFzEHm/SoGWsvRwvNTz2C1K8Mg15c6dpepHwLG4VdkAXw/JfsGLvYs6eM
+	BuFj9fgAR3K+3qCw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=hMRAVzeM;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="gGdorgk/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792169647; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type;
+	bh=IYE4ZbVFSzp3eowApnNd8w/suhWnGdjNnQbB0iMW2A0=;
+	b=hMRAVzeMZEqZOjER2A6bTtO15B3YxkMmq2iZlooLWM/mmHIoqaJmyE72pF2x5+2DmleKhi
+	9+591Bu3q9ofjgDfdw5NSQWFgEPhm1Rl6KQrc63ur63g812+dFKQ5UXYBIWXLoqpA/ZiNb
+	aC60YEkxxuYPOvQd8Zo7B4Qob1T/Uug=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792169647;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type;
+	bh=IYE4ZbVFSzp3eowApnNd8w/suhWnGdjNnQbB0iMW2A0=;
+	b=gGdorgk/uIJjuXFzEHm/SoGWsvRwvNTz2C1K8Mg15c6dpepHwLG4VdkAXw/JfsGLvYs6eM
+	BuFj9fgAR3K+3qCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EF9FB139B7;
+	Fri, 16 Oct 2026 16:54:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id TlUIMa5W0mpSQwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 16 Oct 2026 16:54:06 +0000
+Date: Fri, 16 Oct 2026 18:54:06 +0200
+Message-ID: <87y0bx1t8x.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Linux Sound Mailing List <linux-sound@vger.kernel.org>, Linux Kernel
+ Mailing List <linux-kernel@vger.kernel.org>
+Subject: [GIT PULL] sound fixes for 7.3-final
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Action: no action
+X-Spam-Score: -3.51
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_DN_ALL(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[kernel.org,gmail.com,vger.kernel.org];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 4447E21C70
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-As discussed in [1], the Translator field (and related ones) is
-repetitive, redundant and difficult to maintain.
+Linus,
 
-Let's remove them to make our source clean.
+please pull sound fixes for v7.3 from:
 
-[1] https://lore.kernel.org/linux-doc/87o6cvrs27.fsf@trenco.lwn.net/
+  git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git tags/sound-7.3
 
- [1/2] docs/zh_CN: remove translator-related headers
- [2/2] docs/zh_CN: remove Translator field in header template
+The topmost commit is 8e8cd9a4c6dc006e9bd51b8ad0079fb4576b48d3
 
- Documentation/translations/zh_CN/PCI/acpi-info.rst |  7 -------
- Documentation/translations/zh_CN/PCI/index.rst     |  7 -------
- Documentation/translations/zh_CN/PCI/msi-howto.rst |  8 --------
- .../translations/zh_CN/PCI/pci-iov-howto.rst       | 10 ----------
- Documentation/translations/zh_CN/PCI/pci.rst       | 10 ----------
- .../translations/zh_CN/PCI/pciebus-howto.rst       | 10 ----------
- Documentation/translations/zh_CN/PCI/sysfs-pci.rst |  8 --------
- .../zh_CN/accounting/delay-accounting.rst          |  2 --
- .../translations/zh_CN/accounting/index.rst        |  4 ----
- .../translations/zh_CN/accounting/psi.rst          |  4 ----
- .../translations/zh_CN/accounting/taskstats.rst    |  2 --
- .../translations/zh_CN/admin-guide/README.rst      |  4 ----
- .../translations/zh_CN/admin-guide/bootconfig.rst  |  2 --
- .../translations/zh_CN/admin-guide/bug-bisect.rst  |  4 ----
- .../translations/zh_CN/admin-guide/bug-hunting.rst |  4 ----
- .../translations/zh_CN/admin-guide/cputopology.rst |  4 ----
- .../translations/zh_CN/admin-guide/index.rst       |  7 -------
- .../translations/zh_CN/admin-guide/init.rst        |  4 ----
- .../zh_CN/admin-guide/lockup-watchdogs.rst         |  4 ----
- .../zh_CN/admin-guide/mm/damon/index.rst           |  6 ------
- .../zh_CN/admin-guide/mm/damon/lru_sort.rst        |  6 ------
- .../zh_CN/admin-guide/mm/damon/reclaim.rst         |  6 ------
- .../zh_CN/admin-guide/mm/damon/start.rst           |  6 ------
- .../zh_CN/admin-guide/mm/damon/stat.rst            |  4 ----
- .../zh_CN/admin-guide/mm/damon/usage.rst           |  6 ------
- .../translations/zh_CN/admin-guide/mm/index.rst    |  5 -----
- .../translations/zh_CN/admin-guide/mm/ksm.rst      |  5 -----
- .../zh_CN/admin-guide/module-signing.rst           |  3 ---
- .../translations/zh_CN/admin-guide/numastat.rst    |  2 --
- .../zh_CN/admin-guide/reporting-issues.rst         |  5 -----
- .../zh_CN/admin-guide/reporting-regressions.rst    |  5 -----
- .../translations/zh_CN/admin-guide/sysrq.rst       | 10 ----------
- .../zh_CN/admin-guide/tainted-kernels.rst          |  4 ----
- .../translations/zh_CN/admin-guide/unicode.rst     |  4 ----
- .../translations/zh_CN/arch/arm64/amu.rst          |  2 --
- .../translations/zh_CN/arch/arm64/elf_hwcaps.rst   |  2 --
- .../translations/zh_CN/arch/arm64/hugetlbpage.rst  |  2 --
- .../translations/zh_CN/arch/arm64/index.rst        |  4 ----
- .../translations/zh_CN/arch/arm64/perf.rst         |  2 --
- .../translations/zh_CN/arch/loongarch/booting.rst  |  4 ----
- .../translations/zh_CN/arch/loongarch/features.rst |  1 -
- .../translations/zh_CN/arch/loongarch/index.rst    |  1 -
- .../zh_CN/arch/loongarch/introduction.rst          |  1 -
- .../zh_CN/arch/loongarch/irq-chip-model.rst        |  1 -
- .../translations/zh_CN/arch/mips/booting.rst       |  6 ------
- .../translations/zh_CN/arch/mips/features.rst      |  6 ------
- .../translations/zh_CN/arch/mips/index.rst         |  4 ----
- .../translations/zh_CN/arch/mips/ingenic-tcu.rst   |  6 ------
- .../translations/zh_CN/arch/openrisc/index.rst     |  6 ------
- .../zh_CN/arch/openrisc/openrisc_port.rst          |  6 ------
- .../translations/zh_CN/arch/openrisc/todo.rst      |  6 ------
- .../translations/zh_CN/arch/parisc/debugging.rst   |  6 ------
- .../translations/zh_CN/arch/parisc/index.rst       |  6 ------
- .../translations/zh_CN/arch/parisc/registers.rst   |  6 ------
- .../zh_CN/arch/riscv/boot-image-header.rst         |  6 ------
- .../translations/zh_CN/arch/riscv/boot.rst         |  4 ----
- .../translations/zh_CN/arch/riscv/index.rst        |  6 ------
- .../zh_CN/arch/riscv/patch-acceptance.rst          |  6 ------
- .../translations/zh_CN/arch/riscv/vm-layout.rst    |  5 -----
- Documentation/translations/zh_CN/block/blk-mq.rst  | 10 +---------
- .../translations/zh_CN/block/data-integrity.rst    |  8 +-------
- Documentation/translations/zh_CN/block/index.rst   |  6 ------
- .../translations/zh_CN/core-api/assoc_array.rst    | 10 ----------
- .../translations/zh_CN/core-api/boot-time-mm.rst   | 10 ----------
- .../translations/zh_CN/core-api/cachetlb.rst       | 11 -----------
- .../zh_CN/core-api/circular-buffers.rst            | 10 ----------
- .../translations/zh_CN/core-api/cpu_hotplug.rst    | 10 ----------
- .../translations/zh_CN/core-api/errseq.rst         |  8 --------
- .../translations/zh_CN/core-api/genalloc.rst       | 10 ----------
- .../zh_CN/core-api/generic-radix-tree.rst          |  4 ----
- .../translations/zh_CN/core-api/genericirq.rst     | 10 ----------
- .../zh_CN/core-api/gfp_mask-from-fs-io.rst         | 10 ----------
- Documentation/translations/zh_CN/core-api/idr.rst  | 10 ----------
- .../translations/zh_CN/core-api/index.rst          |  6 ------
- .../translations/zh_CN/core-api/irq/concepts.rst   |  6 ------
- .../translations/zh_CN/core-api/irq/index.rst      |  7 -------
- .../zh_CN/core-api/irq/irq-affinity.rst            |  6 ------
- .../translations/zh_CN/core-api/irq/irq-domain.rst |  7 -------
- .../zh_CN/core-api/irq/irqflags-tracing.rst        |  6 ------
- .../translations/zh_CN/core-api/kernel-api.rst     |  7 -------
- .../translations/zh_CN/core-api/kobject.rst        |  6 ------
- Documentation/translations/zh_CN/core-api/kref.rst | 10 ----------
- .../translations/zh_CN/core-api/local_ops.rst      |  6 ------
- .../zh_CN/core-api/memory-allocation.rst           | 10 ----------
- .../translations/zh_CN/core-api/memory-hotplug.rst | 10 ----------
- .../translations/zh_CN/core-api/mm-api.rst         | 11 -----------
- .../translations/zh_CN/core-api/packing.rst        | 10 ----------
- .../translations/zh_CN/core-api/padata.rst         |  6 ------
- .../translations/zh_CN/core-api/printk-basics.rst  |  7 -------
- .../translations/zh_CN/core-api/printk-formats.rst |  7 -------
- .../zh_CN/core-api/protection-keys.rst             | 10 ----------
- .../translations/zh_CN/core-api/rbtree.rst         |  4 ----
- .../zh_CN/core-api/refcount-vs-atomic.rst          |  6 ------
- .../zh_CN/core-api/symbol-namespaces.rst           |  6 ------
- .../translations/zh_CN/core-api/this_cpu_ops.rst   |  8 --------
- .../zh_CN/core-api/unaligned-memory-access.rst     | 10 ----------
- .../translations/zh_CN/core-api/watch_queue.rst    | 10 ----------
- .../translations/zh_CN/core-api/workqueue.rst      |  8 --------
- .../translations/zh_CN/core-api/xarray.rst         | 11 -----------
- Documentation/translations/zh_CN/cpu-freq/core.rst |  8 --------
- .../translations/zh_CN/cpu-freq/cpu-drivers.rst    |  8 --------
- .../translations/zh_CN/cpu-freq/cpufreq-stats.rst  |  8 --------
- .../translations/zh_CN/cpu-freq/index.rst          |  6 ------
- .../translations/zh_CN/dev-tools/gcov.rst          |  1 -
- .../zh_CN/dev-tools/gdb-kernel-debugging.rst       |  1 -
- .../translations/zh_CN/dev-tools/index.rst         |  1 -
- .../translations/zh_CN/dev-tools/kasan.rst         |  1 -
- .../translations/zh_CN/dev-tools/kcov.rst          |  1 -
- .../translations/zh_CN/dev-tools/kcsan.rst         |  1 -
- .../translations/zh_CN/dev-tools/kmemleak.rst      |  1 -
- .../translations/zh_CN/dev-tools/kmsan.rst         |  1 -
- .../translations/zh_CN/dev-tools/sparse.rst        | 14 ++------------
- .../zh_CN/dev-tools/testing-overview.rst           |  1 -
- .../translations/zh_CN/dev-tools/ubsan.rst         |  8 --------
- .../translations/zh_CN/devicetree/changesets.rst   |  7 -------
- .../zh_CN/devicetree/dynamic-resolution-notes.rst  |  6 ------
- .../translations/zh_CN/devicetree/index.rst        |  7 -------
- .../translations/zh_CN/devicetree/kernel-api.rst   |  7 -------
- .../translations/zh_CN/devicetree/of_unittest.rst  |  6 ------
- .../zh_CN/devicetree/overlay-notes.rst             |  6 ------
- .../translations/zh_CN/devicetree/usage-model.rst  |  7 -------
- .../zh_CN/doc-guide/checktransupdate.rst           |  2 --
- .../translations/zh_CN/doc-guide/contributing.rst  |  2 --
- .../translations/zh_CN/doc-guide/index.rst         |  2 --
- .../translations/zh_CN/doc-guide/kernel-doc.rst    |  2 --
- .../zh_CN/doc-guide/maintainer-profile.rst         |  2 --
- .../translations/zh_CN/doc-guide/parse-headers.rst |  2 --
- .../translations/zh_CN/doc-guide/sphinx.rst        |  2 --
- .../translations/zh_CN/driver-api/gpio/index.rst   |  6 ------
- .../translations/zh_CN/driver-api/index.rst        |  6 ------
- .../translations/zh_CN/driver-api/io_ordering.rst  |  7 -------
- .../translations/zh_CN/driver-api/phy/phy.rst      |  4 ----
- .../translations/zh_CN/filesystems/debugfs.rst     | 11 -----------
- .../translations/zh_CN/filesystems/dnotify.rst     |  4 ----
- .../translations/zh_CN/filesystems/gfs2-glocks.rst |  8 --------
- .../zh_CN/filesystems/gfs2-uevents.rst             |  8 --------
- .../translations/zh_CN/filesystems/gfs2.rst        |  8 --------
- .../translations/zh_CN/filesystems/index.rst       |  3 ---
- .../translations/zh_CN/filesystems/inotify.rst     |  4 ----
- .../translations/zh_CN/filesystems/tmpfs.rst       |  2 --
- .../zh_CN/filesystems/ubifs-authentication.rst     |  8 --------
- .../translations/zh_CN/filesystems/ubifs.rst       |  8 --------
- .../translations/zh_CN/filesystems/virtiofs.rst    |  7 -------
- Documentation/translations/zh_CN/how-to.rst        |  4 ----
- .../translations/zh_CN/iio/ep93xx_adc.rst          |  6 ------
- .../translations/zh_CN/iio/iio_configfs.rst        |  6 ------
- Documentation/translations/zh_CN/iio/index.rst     |  6 ------
- .../translations/zh_CN/infiniband/core_locking.rst | 11 -----------
- .../translations/zh_CN/infiniband/index.rst        | 11 -----------
- .../translations/zh_CN/infiniband/ipoib.rst        | 11 -----------
- .../translations/zh_CN/infiniband/sysfs.rst        | 11 -----------
- .../translations/zh_CN/infiniband/tag_matching.rst | 11 -----------
- .../translations/zh_CN/infiniband/user_mad.rst     | 11 -----------
- .../translations/zh_CN/infiniband/user_verbs.rst   | 11 -----------
- .../translations/zh_CN/kbuild/gcc-plugins.rst      |  1 -
- .../translations/zh_CN/kbuild/headers_install.rst  |  1 -
- Documentation/translations/zh_CN/kbuild/index.rst  |  1 -
- Documentation/translations/zh_CN/kbuild/kbuild.rst |  1 -
- .../translations/zh_CN/kbuild/kconfig.rst          |  1 -
- Documentation/translations/zh_CN/kbuild/llvm.rst   |  1 -
- .../zh_CN/kbuild/reproducible-builds.rst           |  2 --
- .../translations/zh_CN/kernel-hacking/hacking.rst  |  4 ----
- .../translations/zh_CN/kernel-hacking/index.rst    |  4 ----
- Documentation/translations/zh_CN/locking/index.rst |  4 ----
- .../translations/zh_CN/locking/mutex-design.rst    |  4 ----
- .../translations/zh_CN/locking/spinlocks.rst       |  4 ----
- .../zh_CN/maintainer/configure-git.rst             |  4 ----
- .../zh_CN/maintainer/maintainer-entry-profile.rst  |  4 ----
- .../zh_CN/maintainer/modifying-patches.rst         |  4 ----
- .../zh_CN/maintainer/pull-requests.rst             |  4 ----
- .../zh_CN/maintainer/rebasing-and-merging.rst      |  4 ----
- Documentation/translations/zh_CN/mm/active_mm.rst  |  7 -------
- Documentation/translations/zh_CN/mm/balance.rst    |  7 -------
- Documentation/translations/zh_CN/mm/damon/api.rst  |  7 -------
- .../translations/zh_CN/mm/damon/design.rst         |  7 -------
- Documentation/translations/zh_CN/mm/damon/faq.rst  |  7 -------
- .../translations/zh_CN/mm/damon/index.rst          |  7 -------
- .../translations/zh_CN/mm/free_page_reporting.rst  |  6 ------
- Documentation/translations/zh_CN/mm/highmem.rst    |  6 ------
- Documentation/translations/zh_CN/mm/hmm.rst        |  6 ------
- .../translations/zh_CN/mm/hugetlbfs_reserv.rst     |  6 ------
- Documentation/translations/zh_CN/mm/hwpoison.rst   |  7 -------
- Documentation/translations/zh_CN/mm/index.rst      |  6 ------
- Documentation/translations/zh_CN/mm/ksm.rst        |  4 ----
- .../translations/zh_CN/mm/memory-model.rst         |  7 -------
- .../translations/zh_CN/mm/mmu_notifier.rst         |  8 --------
- Documentation/translations/zh_CN/mm/numa.rst       |  7 -------
- .../zh_CN/mm/overcommit-accounting.rst             |  8 --------
- Documentation/translations/zh_CN/mm/page_frags.rst |  7 -------
- .../translations/zh_CN/mm/page_migration.rst       |  6 ------
- Documentation/translations/zh_CN/mm/page_owner.rst |  7 -------
- .../translations/zh_CN/mm/page_table_check.rst     |  7 -------
- .../translations/zh_CN/mm/page_tables.rst          |  6 ------
- .../translations/zh_CN/mm/physical_memory.rst      |  4 ----
- .../translations/zh_CN/mm/remap_file_pages.rst     |  7 -------
- .../zh_CN/mm/split_page_table_lock.rst             |  7 -------
- .../zh_CN/mm/vmalloced-kernel-stacks.rst           |  6 ------
- Documentation/translations/zh_CN/mm/zsmalloc.rst   |  6 ------
- .../translations/zh_CN/networking/alias.rst        |  6 ------
- .../translations/zh_CN/networking/driver.rst       |  4 ----
- .../translations/zh_CN/networking/generic-hdlc.rst |  4 ----
- .../translations/zh_CN/networking/index.rst        |  6 ------
- .../translations/zh_CN/networking/ipv6.rst         |  4 ----
- .../translations/zh_CN/networking/mptcp-sysctl.rst |  4 ----
- .../translations/zh_CN/networking/msg_zerocopy.rst |  9 ---------
- .../translations/zh_CN/networking/napi.rst         |  4 ----
- .../translations/zh_CN/networking/netif-msg.rst    |  4 ----
- .../translations/zh_CN/networking/netmem.rst       |  4 ----
- .../translations/zh_CN/networking/secid.rst        |  4 ----
- .../translations/zh_CN/networking/sriov.rst        |  4 ----
- .../translations/zh_CN/networking/team.rst         |  4 ----
- .../translations/zh_CN/networking/timestamping.rst |  4 ----
- .../translations/zh_CN/networking/vxlan.rst        |  9 ---------
- .../translations/zh_CN/networking/xfrm_proc.rst    |  4 ----
- Documentation/translations/zh_CN/peci/index.rst    |  6 ------
- Documentation/translations/zh_CN/peci/peci.rst     |  6 ------
- .../translations/zh_CN/power/energy-model.rst      |  4 ----
- Documentation/translations/zh_CN/power/index.rst   |  4 ----
- Documentation/translations/zh_CN/power/opp.rst     |  4 ----
- .../translations/zh_CN/process/1.Intro.rst         | 10 ----------
- .../translations/zh_CN/process/2.Process.rst       |  8 --------
- .../translations/zh_CN/process/3.Early-stage.rst   |  8 --------
- .../translations/zh_CN/process/4.Coding.rst        |  8 --------
- .../translations/zh_CN/process/5.Posting.rst       |  8 --------
- .../translations/zh_CN/process/6.Followthrough.rst |  8 --------
- .../zh_CN/process/7.AdvancedTopics.rst             |  8 --------
- .../translations/zh_CN/process/8.Conclusion.rst    |  7 -------
- .../zh_CN/process/applying-patches.rst             |  4 ----
- .../process/code-of-conduct-interpretation.rst     |  1 -
- .../translations/zh_CN/process/code-of-conduct.rst |  1 -
- .../translations/zh_CN/process/coding-style.rst    |  5 -----
- Documentation/translations/zh_CN/process/cve.rst   |  1 -
- .../zh_CN/process/development-process.rst          |  3 ---
- .../translations/zh_CN/process/email-clients.rst   | 10 ----------
- .../zh_CN/process/embargoed-hardware-issues.rst    |  1 -
- Documentation/translations/zh_CN/process/howto.rst | 13 +------------
- Documentation/translations/zh_CN/process/index.rst |  4 ----
- .../zh_CN/process/kernel-driver-statement.rst      |  3 ---
- .../zh_CN/process/kernel-enforcement-statement.rst |  5 +----
- .../translations/zh_CN/process/license-rules.rst   |  1 -
- .../translations/zh_CN/process/magic-number.rst    |  8 --------
- .../zh_CN/process/maintainer-pgp-guide.rst         |  7 -------
- .../zh_CN/process/management-style.rst             |  1 -
- .../zh_CN/process/programming-language.rst         |  1 -
- .../zh_CN/process/researcher-guidelines.rst        |  5 -----
- .../translations/zh_CN/process/security-bugs.rst   |  5 -----
- .../zh_CN/process/stable-api-nonsense.rst          |  6 ------
- .../zh_CN/process/stable-kernel-rules.rst          | 12 ------------
- .../zh_CN/process/submit-checklist.rst             |  3 ---
- .../zh_CN/process/submitting-patches.rst           | 10 ----------
- .../zh_CN/process/volatile-considered-harmful.rst  | 13 -------------
- .../translations/zh_CN/rust/arch-support.rst       |  4 ----
- .../translations/zh_CN/rust/coding-guidelines.rst  |  4 ----
- .../zh_CN/rust/general-information.rst             |  5 -----
- Documentation/translations/zh_CN/rust/index.rst    |  4 ----
- .../translations/zh_CN/rust/quick-start.rst        |  5 -----
- Documentation/translations/zh_CN/rust/testing.rst  |  4 ----
- .../translations/zh_CN/scheduler/completion.rst    |  8 --------
- .../translations/zh_CN/scheduler/index.rst         |  9 ---------
- .../translations/zh_CN/scheduler/sched-arch.rst    |  8 --------
- .../translations/zh_CN/scheduler/sched-bwc.rst     |  8 --------
- .../zh_CN/scheduler/sched-capacity.rst             |  8 --------
- .../translations/zh_CN/scheduler/sched-debug.rst   |  4 ----
- .../zh_CN/scheduler/sched-design-CFS.rst           |  4 ----
- .../translations/zh_CN/scheduler/sched-domains.rst |  8 --------
- .../translations/zh_CN/scheduler/sched-energy.rst  |  4 ----
- .../zh_CN/scheduler/sched-nice-design.rst          |  4 ----
- .../translations/zh_CN/scheduler/sched-stats.rst   |  4 ----
- .../translations/zh_CN/scheduler/schedutil.rst     |  4 ----
- Documentation/translations/zh_CN/scsi/index.rst    |  8 --------
- Documentation/translations/zh_CN/scsi/libsas.rst   |  6 ------
- .../zh_CN/scsi/link_power_management_policy.rst    |  8 --------
- .../translations/zh_CN/scsi/scsi-parameters.rst    |  8 --------
- Documentation/translations/zh_CN/scsi/scsi.rst     |  8 --------
- Documentation/translations/zh_CN/scsi/scsi_eh.rst  |  7 -------
- .../translations/zh_CN/scsi/scsi_mid_low_api.rst   |  8 --------
- .../translations/zh_CN/scsi/sd-parameters.rst      |  8 --------
- Documentation/translations/zh_CN/scsi/wd719x.rst   |  6 ------
- .../translations/zh_CN/security/IMA-templates.rst  |  3 ---
- Documentation/translations/zh_CN/security/SCTP.rst |  3 ---
- .../translations/zh_CN/security/credentials.rst    |  3 ---
- .../translations/zh_CN/security/digsig.rst         |  3 ---
- .../translations/zh_CN/security/index.rst          |  4 ----
- Documentation/translations/zh_CN/security/ipe.rst  |  3 ---
- .../translations/zh_CN/security/keys/index.rst     |  3 ---
- .../translations/zh_CN/security/landlock.rst       |  4 ----
- .../zh_CN/security/lsm-development.rst             |  3 ---
- Documentation/translations/zh_CN/security/lsm.rst  |  4 ----
- Documentation/translations/zh_CN/security/sak.rst  |  4 ----
- .../translations/zh_CN/security/secrets/coco.rst   |  4 ----
- .../translations/zh_CN/security/secrets/index.rst  |  2 --
- .../zh_CN/security/self-protection.rst             |  4 ----
- .../translations/zh_CN/security/siphash.rst        |  4 ----
- .../zh_CN/security/snp-tdx-threat-model.rst        |  4 ----
- .../translations/zh_CN/security/tpm/index.rst      |  3 ---
- .../zh_CN/security/tpm/tpm-security.rst            |  3 ---
- .../zh_CN/security/tpm/tpm_event_log.rst           |  3 ---
- .../zh_CN/security/tpm/tpm_ftpm_tee.rst            |  3 ---
- .../translations/zh_CN/security/tpm/tpm_tis.rst    |  3 ---
- .../zh_CN/security/tpm/tpm_vtpm_proxy.rst          |  3 ---
- .../zh_CN/security/tpm/xen-tpmfront.rst            |  3 ---
- .../translations/zh_CN/sound/hd-audio/controls.rst |  2 --
- .../translations/zh_CN/sound/hd-audio/index.rst    |  2 --
- Documentation/translations/zh_CN/sound/index.rst   |  2 --
- Documentation/translations/zh_CN/staging/index.rst |  4 ----
- .../translations/zh_CN/staging/speculation.rst     |  4 ----
- Documentation/translations/zh_CN/staging/xz.rst    |  4 ----
- .../translations/zh_CN/subsystem-apis.rst          |  4 ----
- Documentation/translations/zh_CN/usb/CREDITS       |  7 -------
- Documentation/translations/zh_CN/usb/acm.rst       |  7 -------
- .../translations/zh_CN/usb/authorization.rst       |  7 -------
- Documentation/translations/zh_CN/usb/chipidea.rst  |  7 -------
- Documentation/translations/zh_CN/usb/dwc3.rst      |  7 -------
- Documentation/translations/zh_CN/usb/ehci.rst      |  7 -------
- Documentation/translations/zh_CN/usb/index.rst     |  7 -------
- Documentation/translations/zh_CN/usb/usbmon.rst    |  7 -------
- .../zh_CN/userspace-api/accelerators/ocxl.rst      |  4 ----
- .../zh_CN/userspace-api/ebpf/index.rst             |  4 ----
- .../zh_CN/userspace-api/ebpf/syscall.rst           |  4 ----
- .../translations/zh_CN/userspace-api/futex2.rst    |  4 ----
- .../translations/zh_CN/userspace-api/index.rst     |  4 ----
- .../zh_CN/userspace-api/no_new_privs.rst           |  4 ----
- .../zh_CN/userspace-api/seccomp_filter.rst         |  4 ----
- .../zh_CN/userspace-api/sysfs-platform_profile.rst |  4 ----
- .../translations/zh_CN/virt/acrn/cpuid.rst         | 10 ----------
- .../translations/zh_CN/virt/acrn/index.rst         | 10 ----------
- .../translations/zh_CN/virt/acrn/introduction.rst  | 10 ----------
- .../translations/zh_CN/virt/acrn/io-request.rst    | 10 ----------
- .../translations/zh_CN/virt/guest-halt-polling.rst | 10 ----------
- Documentation/translations/zh_CN/virt/index.rst    | 10 ----------
- .../translations/zh_CN/virt/ne_overview.rst        | 10 ----------
- .../translations/zh_CN/virt/paravirt_ops.rst       | 11 -----------
- 332 files changed, 6 insertions(+), 1870 deletions(-)
+----------------------------------------------------------------
 
--- 
-2.56.0.379.gc618271300
+sound fixes for 7.3
+
+Here are the (hopefully) last bits for 7.3.
+At this time, all changes are small and device-specific ASoC fixes.
+Not super-urgent, but should be fairly safe to take.
+
+----------------------------------------------------------------
+
+Avi Weiss (1):
+      ASoC: stm32: spdifrx: fix synchronization state check
+
+HyeongJun An (6):
+      ASoC: cs42l56: Put the Limiter Cushion control on the limiter register
+      ASoC: cs42l52: Fix the NG Type Switch bit
+      ASoC: pcm3168a: Fix the DAC zero flag polarity bit
+      ASoC: max98371: Fix the Speaker DHT Min Volume bits
+      ASoC: wm8978: Fix the 128x oversampling switch bits
+      ASoC: nau8822: Fix the 128x oversampling switch bits
+
+Mario Limonciello (1):
+      ASoC: amd: yc: disable MSI on resume
+
+Peter Ujfalusi (2):
+      ASoC: SOF: ipc4-topology: Fix shift-out-of-bounds for aggregated ALH capture
+      ASoC: SOF: sof-client: Use event-handler mutex consistently
+
+Sergey Tiraspolsky (1):
+      ASoC: Intel: avs: Reset the stream unless it is already prepared
+
+---
+ sound/soc/amd/yc/pci-acp6x.c  | 38 ++++++++++++++++++++++++++++++++++++--
+ sound/soc/codecs/cs42l52.c    |  2 +-
+ sound/soc/codecs/cs42l56.c    |  2 +-
+ sound/soc/codecs/max98371.c   |  2 +-
+ sound/soc/codecs/nau8822.c    |  4 ++--
+ sound/soc/codecs/pcm3168a.c   |  2 +-
+ sound/soc/codecs/wm8978.c     |  4 ++--
+ sound/soc/intel/avs/pcm.c     |  2 +-
+ sound/soc/sof/ipc4-topology.c |  9 ++++++---
+ sound/soc/sof/sof-client.c    |  6 +++---
+ sound/soc/stm/stm32_spdifrx.c |  2 +-
+ 11 files changed, 55 insertions(+), 18 deletions(-)
 
