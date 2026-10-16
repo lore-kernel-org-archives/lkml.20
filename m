@@ -1,155 +1,186 @@
-Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF2C47A88E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:35:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7CD44AB64
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:35:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792154116; cv=none; b=YrXVgepnUYZMfEPBnlYYgTttK4I2g5AMNopLYN7HM9x94FFNrwUL0Xb4R+anCEHAwzm2TCsvQNWRlkB0Xi1cc+YmmJ75zqhsHlTuhHKcSqOtF05RYbc/efjvE/qr12IxygE3Qlo8jvm3S4XkOzGaYHo8j77ngzbspYTdQ36Be+c=
+	t=1792154135; cv=none; b=fWJFM5o7KPi3Q0azmNJraNO9X8PGjC+ex7XP60lUgE7wEdU34RZONZHULDwc+bDOTSUEnb5QXvG1FDO+JBO2pFYE+80YZjj+FvQyidKVMMNhdMaJ/m7D7KNtmr2zXE6nvi+MaQO4naH1sJQu9nIRJdjnMxa7kGnk+nQ05fEts04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792154116; c=relaxed/simple;
-	bh=cXn/JAAY5QHO7gSOwDgZG/1D2SkKrfxhPsylIeP28zI=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=PXAV2udyFxYNRYDEPvIlLa7XRb2N+oa9z7ohb9j2f199eLZFQv3tabxX2tw0IjJuc8B4fO653cp3y09+YGXA4on+BW0CB9QLBEyATwRGAeAkMmgUWgmjU9co/ilN7nMEWtBksOyET+xr+n37diBlZLju/KFC6aIxqzm7C5vosHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f9G5zY/b; arc=none smtp.client-ip=74.125.228.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792154135; c=relaxed/simple;
+	bh=aSu4fPkvdgD69XVSSJdgQhQsUOzXL9ufWnahhnOOFfs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MxLWftemhb7mcrdR7ockzE204yUG0Fv4jFDkMVHJ0QfMPLnFijqNqtdxxnZe6Asy9iQoFu/bKbyomed1p466PjPi+m+s3hAwkecBeBlxy1fgpROQlna+9Qy7BnCcthzC8rnGiuxHRroXV2iR7q4sOp1dhMAIpZ2ScJvocz5ItgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=LS7uMZsC; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f9G5zY/b"
-Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cd6035e2789so267277a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:35:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="LS7uMZsC"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a061a13884so52101025e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:35:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792154115; x=1792758915; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HVfYgQsMCF8Qw1/e6sPegSr7q8k8sKUP9Wx/2uIXt/8=;
-        b=f9G5zY/bZFP2eE6g2Tl8on9Hwt3NcGuFrF8gmIKzEga+k2NqrGWrWR8EfZ97pXJ7yL
-         aM4OADqGRO5zcUvj976hqF6M/vZZ2yhFmyIF+iEDVL8awcF3t4CUm7EQjtB0CMNk8AUx
-         VVwh+5BTgrlf9tC4sp4+BP3EhQoa51b2fcjz3G2M/ZBoKXpyL3eq+DTJ8OtriTah6lod
-         XXwQfgMakEywqCzVtuZReAbYadssWK5p3toXTeK60WGa90vcPzLJXd5t9pI/e2xu9+w/
-         LpL3EiZh3bAhYkpf8Plzedt7ALDnJSfmrQ7W8SuU9Q1Z9aH6DCPgDvNXrABdug+XZRGE
-         JwrQ==
+        d=suse.com; s=google; t=1792154131; x=1792758931; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Oaxw1ojTm33dUVZ3YmdLAwJF+qVMH14EEkliPunBjow=;
+        b=LS7uMZsCWzoGBSjI/KzRbrH7GOvwnvOdl0Mx4RNXWVsISnfctBZMR2CHsdWMH/Hf5i
+         iqVwIMuGmTSQOF97TxKX2cgEL+BTAsqsCINnUbnoDx8K2JvkfsHJPfSgUgfoBe9DAqTq
+         Nh8r6Xf8LUaROaPAps78xk95B8rGRxRw91b1DBhxleIx51rufx+aopXgazMbXMll61La
+         SMVXpXoNzcSd9vTARbEygIVFUHGIzjMlYqZDMSQUaqu5aTF9aYSLUN1Ah/g99Jqe1L6e
+         v4O26TqeUeUwtSjwC/vAD/NFg6smWAMMson008OxFPFT7XYRCIFGEsHkjZV0nAbi1GhB
+         BkGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792154115; x=1792758915;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HVfYgQsMCF8Qw1/e6sPegSr7q8k8sKUP9Wx/2uIXt/8=;
-        b=ULKTkkyQltlunhBpl+UdfefK/t+ImCQHiOlI2GYMUSIv6i5/cVYS9jXjgOc8CsYcJg
-         ha6kKpnFErbs/szZm5732W6uypKuLuqMHX+l36zBMuXTuehX6XEVLEUC7sRQZSVJHQqN
-         gNjuZjnWs7YopBXN6tZluRVs+NZv698vzYgK0eFKeUg1ilmSR6cj1LluEGR/NBzUAEA7
-         Usw+dHNq6FVW6i9zPdYyR9MO1T27nFXvE7Jjrn2C/wx2lrCG/DyJxWcfZP+tXpjhAo7P
-         Nekyoeoub34mMYyDyuONytFkV9vJTKl7RndwrSjy4OIqPHFEfLONFnmDKCrl2duPieXg
-         9p5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxZWkhDtm4yHSTKBYB5RD0KS9ruuIUWqcqbk2oKY52IO4zWBMgNkQiS5i0p3QvhnvcH1eVKERjBcSWvE6M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLV5PHMq8lLVaQlUfD5pG8OnAVSBqsRFjyjeR49/fhASeME18FY
-	ejCeE8Rhi/SpODHaDU1V1hhbrQi6/IrJb4CpQlcD7zZwdjn4wVVPftzVCG0P9o5huSU=
-X-Gm-Gg: AYBFou2K07otkquyRSHKw2xwL7wJvdJAufUj3h9huWlDbS6osD4AisAG5rpEa3AC3Z9
-	3xFUeXezHJa2UWNGEuruT+5sE/Ma4b1iWaCDlL1leHM5cLR8IAZVhLKEFfaDoxWxwNYEHhw4zFA
-	Cs/6hDxTt627zhyyjr1WyYFuVXzMmOW9edoeY9LdqJ2e3FQUp/I3HPj8/39cVCn0ZmT1H6aI4zY
-	xh2TSVOnt78NA7aj4BUX0vAkcHMKx3SZCFij4udnAZfTqSSJTQJOkSqj1Pc5EsV1Sj9WIDqXs8w
-	zasG+iE7/PegOCNeVZ4S3VTUdOeE7DfKhAMt0lNEQ7AhPYnIr1uThTyB+cfIztnhdbvRobBwFIK
-	6YuJZTccDgqiEB3hlvUqXLKmsoDJmQC1z+BSAFinNNY4d25m/2p3/cwKVEgq8PqtAsh/qcnTKkZ
-	CNxTR+oCgtIgkVzd3aEygQvIKsGnbphGPoVEp276p8N9Finec5yvh6ZN0q/hhyNBeqlYUjEGcfM
-	LqZDJ/jIb8lnv2o9ku171Pfp2YxwlKJXT3jSALriNQt2h6kvWgWQAsohLZl401mohfaNkkBdQKz
-	3Q==
-X-Received: by 2002:a17:90b:4d8e:b0:3a8:786a:cfed with SMTP id 98e67ed59e1d1-3acbb8bf8cfmr2230412a91.37.1792154114934;
-        Fri, 16 Oct 2026 05:35:14 -0700 (PDT)
-Received: from [172.20.10.4] (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc4972fe6sm4162850a91.15.2026.10.16.05.34.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 05:35:14 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792154131; x=1792758931;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Oaxw1ojTm33dUVZ3YmdLAwJF+qVMH14EEkliPunBjow=;
+        b=T9+B1APvAmTEgRNHCBZjZmrxJb7moh68+api1+ELGfTNwMLTqqfyF2jEXaRrc+kylC
+         t1s+GFdQHpCacQhCodGb6Pnl+pKCOsCCsLiqtEts9SSC/vmOOrMmnTPJXsenxtaffDf2
+         cVVyBg2ZOKfU5L0lVqQ2QRyBEbJbEzZBIHSDrFM/RQt6JVv8jJfiwRTucNL3NnlDhbBB
+         kMBwPfEOQaDFQk/C4j7oYvOfkhOUONsI+l4ULkutCXWrtJ+BLgL7CtDOUI2UxgLmmFOA
+         IFBQWVKNTzU6BxzWxWoHHxyFgG8oM6sjvnn6PJzcfuHwDB2tRg0tgPP7nkivoIoTZTMY
+         jqHw==
+X-Forwarded-Encrypted: i=1; AKwUvByQfW5ohlgUpvgyiSEJ4mVKxxZs5z0XcDLZs4KhTTaOqzeyDYCjnfGl4sqFR5OTLZd6lCbrX+gVQ2TVlG8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+y8xOD+uGuVpW5F4GYplNYnJX8PIXuVVCGWmosufVxojfnVUc
+	OTt8mCElu/jE/2LWbtV/057z6m/sEAvRIEUEjTfioc6I/mMKk+Sfof+LpJZ8KdekcLA=
+X-Gm-Gg: AYBFou2GDBwlOWa7hfFfTMeMAOPgZ1yBj6JpfP2y/d5E8a3TUxryeCaxo1mW/mCE0G0
+	zQX9fZsK5sAoPSC+jBjq0gC78HKinjy3pHi5XMcGIooGOkGScX0hG+BSpFPK6ZqQF1EdUlbE0ID
+	jPGErAy1IYNPR7FrXdDnZUk4QD/w0Yaw+o2YfUcHe19bWVGZVxMGXq0b6NXGWNn8sxuBYBhLSTx
+	+IJjRQy8sJGSWGrXW3GDHH8+kJu9zWRxKJGq9yEwRCf75Dz7x1D5CzMw58+vPPBK88guJcisC1y
+	S31YrJQGeRr895qZArKkv0axN3gH1MqKmxuWfzAwcKTe4LYfwI0yerYPaTevUZd8b+nNsiHlzAk
+	QIitgBCOpWjDMi1Y4JVD2EGEuu75o6yoPeVKy95FnWRgjlWxpzWe3QfEawcqWvo2y75Y5HxgIcz
+	MPLJgDBkFPpgeZUzrtCsQrOwNsOLFHmwdC2kAnH3MpezqF4qqRHN1MA+Fy61wY849hkUthXz/UO
+	dIgfxTmhtvllRON71Sy/WIW
+X-Received: by 2002:a05:600c:3f18:b0:49f:fbad:29c1 with SMTP id 5b1f17b1804b1-4a18e4cedfcmr420105305e9.33.1792154130780;
+        Fri, 16 Oct 2026 05:35:30 -0700 (PDT)
+Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b35a6sm140099685e9.6.2026.10.16.05.35.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 05:35:30 -0700 (PDT)
+Message-ID: <230ba855-0a7a-4187-aee4-ac551c1cac76@suse.com>
+Date: Fri, 16 Oct 2026 15:35:28 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] mm/damon/reclaim: improve grammar and style
-From: Aveline Noir <jm5905938@gmail.com>
-To: Manuel Ebner <manuelebnerli@mailbox.org>
-Cc: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, damon@lists.linux.dev, 
- linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261015080623.808458-2-manuelebnerli@mailbox.org>
-References: <20261015080623.808458-2-manuelebnerli@mailbox.org>
-Date: Fri, 16 Oct 2026 20:34:51 +0800
-Message-Id: <179215409165.864368.11903228864381211337.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openssh-sha256; t=1792154097; l=2627;
- i=jm5905938@gmail.com; h=from:subject:message-id;
- bh=cXn/JAAY5QHO7gSOwDgZG/1D2SkKrfxhPsylIeP28zI=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgboJ0y2WZIrQV0H4HJI1WEQ5sxS6pM
- Nc/XEYGLW8ee6wAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QLmlhrl3kquPOrFE+xeC/g7LLIxZBSwDp24vLbGOb7+M1Qt1DRDethJgmuvu9LttDVtPsNydeRW
- aZIKr2ijYEAE=
-X-Developer-Key: i=jm5905938@gmail.com; a=openssh;
- fpr=SHA256:oSxqik6Pl1M8EjQW1QXKHoylm1jy0sguOWFFJlA9zf0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/4] PCI/TSM: Create MMIO descriptors via TDISP Report
+To: Xu Yilun <yilun.xu@linux.intel.com>
+Cc: Ankit Agrawal <ankita@nvidia.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, dave@stgolabs.net,
+ jic23@kernel.org, dave.jiang@intel.com, alison.schofield@intel.com,
+ vishal.l.verma@intel.com, jgg@nvidia.com, aneesh.kumar@kernel.org,
+ aik@amd.com, iweiny@kernel.org, ming.li@zohomail.com, icheng@nvidia.com,
+ bhelgaas@google.com, smadhavan@nvidia.com, ilpo.jarvinen@linux.intel.com,
+ Smita.KoralahalliChannabasappa@amd.com, andriy.shevchenko@linux.intel.com,
+ linux-coco@lists.linux.dev
+References: <20261005070252.84810-1-ankita@nvidia.com>
+ <20261005070252.84810-2-ankita@nvidia.com>
+ <7605d698-b08c-4fcb-b86b-3f79927fb0d5@suse.com>
+ <atIRRUO/t/Fj4VX6@yilunxu-OptiPlex-7050>
+From: Nikolay Borisov <nik.borisov@suse.com>
+Content-Language: en-US
+Autocrypt: addr=nik.borisov@suse.com; keydata=
+ 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
+In-Reply-To: <atIRRUO/t/Fj4VX6@yilunxu-OptiPlex-7050>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Manuel,
 
-A few suggestions from my view for you here :)
 
-On Thu, 15 Oct 2026 10:06:23 +0200, Manuel Ebner wrote:
+On 16.10.26 г. 14:57 ч., Xu Yilun wrote:
+>>> +int pci_tsm_mmio_setup(struct pci_dev *pdev, struct pci_tsm_mmio *mmio)
+>>> +{
+>>> +	int i;
+>>> +
+>>> +	device_lock_assert(&pdev->dev);
+>>> +	if (pdev->dev.driver)
+>>> +		return -EBUSY;
+>>> +
+>>> +	for (i = 0; i < mmio->nr; i++) {
+>>> +		struct resource *res = pci_tsm_mmio_resource(mmio, i);
+>>> +		int j;
+>>> +
+>>> +		if (resource_size(res) == 0 || !(res->flags & IORESOURCE_MEM))
+>>> +			break;
+>>> +
+>>> +		/* Only require the caller to set the range, init remainder */
+>>> +		*res = DEFINE_RES_NAMED_DESC(res->start, resource_size(res),
+>>> +					     pci_name(pdev), IORESOURCE_MEM,
+>>> +					     IORES_DESC_ENCRYPTED);
+>>> +
+>>> +		for (j = 0; j < PCI_NUM_RESOURCES; j++)
+>>> +			if (resource_contains(pci_resource_n(pdev, j), res))
+>>> +				break;
+>>> +
+>>> +		/* Request is outside of device MMIO */
+>>> +		if (j >= PCI_NUM_RESOURCES)
+>>> +			break;
+>>> +
+>>> +		if (insert_resource(&encrypted_iomem_resource, res) != 0)
+>>> +			break;
+>>> +	}
+>>> +
+>>> +	if (i >= mmio->nr)
+>>> +		return 0;
+>>
+>> Shouldn't this check be if (i == mmio->nr -1 ) i.e all descriptors have been
+>> initialized, given the for loop condition i can ever be at most mmio->nr - 1
+>> i.e the actual index of a descriptor?
+> 
+> The original if (i >= mmio->nr) check is correct. Valid i is at most mmio->nr -1,
+> but you need an invalid i to finish the loop.
 
-> @@ -30,12 +30,12 @@ guests could mitigate this problem.
-> -DAMON_RECLAIM finds memory regions that didn't accessed for specific time
-> +DAMON_RECLAIM finds memory regions that weren't accessed for specific time
->  duration and page out. To avoid it consuming too much CPU for the paging out
 
-"weren't accessed" fixes the grammar, but "page out" still doesn't
-agree with the subject. How about "DAMON_RECLAIM identifies memory
-regions that have not been accessed for a specified period and
-attempts to reclaim their pages.".
+Shouldn't the check strictly check for i  == mmio->nr the loop 
+terminating condition, which means "we've initialized ALL mmio 
+resources" otherwise perform the cleanup, that '>' can never be true.
 
->  operation, a speed limit can be configured. Under the speed limit, it pages
-> -out memory regions that didn't accessed longer time first. System
-> +out memory regions that weren't accessed longer time first. System
->  administrators can also configure under what situation this scheme should
-
-"weren't accessed longer time first" sounds a little strange to me.
-Maybe "Within the configured speed limit, it prioritizes regions
-that have been idle longer for reclamation." would read better?
-
-> @@ -88,11 +88,11 @@ identifies the region as cold, and reclaims it.
->  sampling and aggregation intervals. The auto-tuning aims to capture meaningful
->  amount of access events in each DAMON-snapshot, while keeping the sampling
-> -interval 5 milliseconds in minimum, and 10 seconds in maximum. Setting this as
-> -``N`` disables the auto-tuning.
-> +interval to 5 milliseconds in minimum, and to 10 seconds in maximum. Setting this
-> +to ``N`` disables the auto-tuning.
-
-Maybe "between 5 milliseconds and 10 seconds" would read more
-naturally here.
-
-> @@ -113,8 +113,8 @@ quota_sz
->  Limit of size of memory for the reclamation in bytes.
->
-> -DAMON_RECLAIM charges amount of memory which it tried to reclaim within a time
-> -window (quota_reset_interval_ms) and makes no more than this limit is tried.
-> +DAMON_RECLAIM recordes the amount of memory which it tried to reclaim within a time
-> +window (quota_reset_interval_ms) and stops when this memory limit is reached.
-
-Agree with SJ that "charges" fits better here, since this is quota
-accounting. 
-
-> -While keeping the caps that set by other quotas, DAMON_RECLAIM automatically
-> +While keeping the caps set by other quotas, DAMON_RECLAIM automatically
->  increases and decreases the effective level of the quota aiming this level of
->  memory pressure is incurred.
-
-Maybe "While respecting the limits imposed by other quotas," would
-be another option I think.
-
-Thanks,
-Aveline
-
+  While not wrong per-se having a strict check would be far clearer, no?
