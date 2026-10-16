@@ -1,175 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01853B9D8B;
-	Fri, 16 Oct 2026 10:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37A1827144B
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:24:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146217; cv=none; b=ALTIylRu/bvuTf2GyvSbCTVIMPL1H81/2r/DM44EI1RTAS+lvcgLAZ/gla7o+7c0TJewGOCrWtkj8I8AXNOGdp40e45KcdQr8Q546Rv7zVhAI/oOWOqCAQagKKk+TQZfaUsggqgxmx4tYAEVCho/Fhp7QfvRqIMZJa4YfYfGZmM=
+	t=1792146251; cv=none; b=G7K4Qm+IOE50NlZhxptJi+DjhJIugHry2gQuh4sy8X0zHBowDIKnFbMjGZJdo85Zw192jXTUuAzIMpgoeqb1nhCQ+Y3bwCQDXxatWYj2JqMp6uuif/JWUcEOk2UTl9hNpguzobMsIy+VwLjYus4wgtta+goZKWITihgOcUKXnu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146217; c=relaxed/simple;
-	bh=vUNY9rPt+nrilGeNstizbyc8m9RcsK3/spGwEHkD8xs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ahKCX0oRxeXVAaHy6mn2wzxOlQIeLry28XeyxlbEEu4ciOMkPmGLx+1g/aiJ65a0pfE5+w+OmTwaT93NO9wSkU4cH4qxCtOxstbnx8sgbiBTH79znAU+kMV2aV2ySgG0OxG7RFyqLo5Yfk2sjknpWAF53zhNNrnofQ9u7xvES/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ImWTq0tV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792146251; c=relaxed/simple;
+	bh=Eqos+6EzBeXZQ5+tnoQmAKmgx7KCoLgeANRlrALMAUk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Xa/3cg67BVWxvlYv/uu6OQ1EEOVI0SHaSuwb0V9Qr/ZtNKM4jSK4d6HdBiz9NvFI5DuQxxrt0VCF5Lp8PXQmMJGCepkL7MvuzeRx9WNw7x8Uh22LxkW0lzeih/TnmKmPPvMxBEVmuGotaCSrClE5+WJkA391ioVaQmaQwCGmwPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dpAG9BKx; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ImWTq0tV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F2FF1F000C4;
-	Fri, 16 Oct 2026 10:23:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792146216;
-	bh=DYYXr+iyYcEMmoFCZizmOeOBia2hri+7LdwScKOEP1g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ImWTq0tVLqAfua0k1m+IiZEade/ivBFdo9ZHOkGvUpJ2AHlq4sFdqZUukmKP1Up+a
-	 UFQ47ZEjKAWiDk/EgRA03aYBdR8JV2ifZq1hdT7yH8NRkW2Mepn0gHE+ug3l9RhS6g
-	 TDcoSuKps19ya9hWELCPKKvd9S60W5zQhn8F2l+3epDprJQwfL/TowJe1s9BoKmfpg
-	 so9xXWokfYXDwJaqpAgy8pErLQPNHT1KZ75KFIzHl4kGgsghIrcBm7kiLRKlJumnEX
-	 wbi4pvbdS265dq/RkK9qATkfxqG6awPygYU5PW1A6en6NCal+kauQjaAbQ6vqBavs5
-	 HOGc1DSK8kiUA==
-From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL 13/19 for v7.4] vfs lookup
-Date: Fri, 16 Oct 2026 12:22:42 +0200
-Message-ID: <20261016-vfs-7.4-rc1.lookup-89a07517ed9e@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016-vfs-v74-41eaf6c4712c@brauner>
-References: <20261016-vfs-v74-41eaf6c4712c@brauner>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dpAG9BKx"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso29085745e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:24:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792146247; x=1792751047; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:from:references:cc:to:subject:reply-to
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sOTw9soIxM/8+OWR+CjCT6SmOaW7X99m/wAQp60lr9k=;
+        b=dpAG9BKx0waZYpAN/E00JugXlQcSBvLsQYUt2sc8StXhjrDIHeZTdrL3ZW1my1U+5Y
+         9ZLG/YzbE7wh6j1ImABg2V8lWWBObL/vn8lVy29DHdBEIzXNzu8vj5wP/iGs81fUl5+U
+         yp+AYNRyyHbpNIckaNWK6uOSoSZJjVMiFRDlvmMJx+/T1NEURlhCUjo8vyTUsflMghzn
+         KSc1b+ovgjJOAwgGU9WjTDL+zW/9s+G5O1JzZUogCy45sK4H+dojsMgg/5N2PaHdbF1c
+         ewJg/qYiNFTdPDV2PSyoMBZF4Nc7G+WyD4KUFBjMx4Azz5vAd+uF4CLTiTDAiZrr0lKu
+         7+mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792146247; x=1792751047;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:from:references:cc:to:subject:reply-to
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sOTw9soIxM/8+OWR+CjCT6SmOaW7X99m/wAQp60lr9k=;
+        b=XJkhHSWlwVlBESy0VvS+1129wsU6vwDmj5SkzG8bn5mCISpqU7GOHQRscUtuL/j1B9
+         dkOk81pC78TbIkY/B7jHaYyOflOz9LAjiHjLPQC4Dh0Pd+dFsftJ6Z8CTZftzAyIcCgN
+         62OVWreexZXwfqAkQE3gjST4XyJI1h4q4A8WjaD89JsMf80cdl246qh/1vF5M1TUmpQ0
+         GgyFm4TrEexhtD8AJLNGV9xwKWDvQ7ICeo+jE9wEPWjUrtCEfZ1KDyQi4sErE7xD9C3z
+         AIMqLJjE8MGXLiMxwM/7bZGO418DqlzZMzB4p+d0ma1+tEDcbti+KPmSGRwXChffeYFZ
+         X2zA==
+X-Forwarded-Encrypted: i=1; AKwUvBzcNdtDSFntmiWeNqpJMQCacpmh/JpEvdUPWsGv/e44TQAlgZ8wA+y7DAJL0tpfntbg0Jbq5Uh3spQv8Q0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhBS2uUG5CMY3TLzVLD6tP6vCtRh3N7cErMqlgWxcMIbfj0fhA
+	EZWOFFQZXOB2FqWeKY7oocYcg1gou+Twwrl6scJY9INfmg/ol4h2TiZs7IygR/Pbq/EihKM8vl2
+	6EuWS
+X-Gm-Gg: AYBFou2J76DwhnU31SW5fSsOa5/8DaxqR6yb/NKoXRUKU0F5W/C1MXRhV5StBxFoSS+
+	rYbftPlYmzCbdIhF72TPQ+on9VI/9ZlUI+EdZBqi9PuoOn41V6Qhc2ewfbt9ePliIBxiKFBLohB
+	7V8Z5CediZFo3v21/cIDb67IuXsHSsyty42r/1HdYq4XbCXFeic3dX0GzvkTstLey7RRagdsnFd
+	uf/nfm9UXBgjspBpJ5xShWs/LM3+uLRqA4IVaBSbe2GpCeDgqxIVqjPElvjoJJmfZTEuMyWST0r
+	Kclq8cuix3QuH4CshdBui7PsFGCQAjLjkVdG2om0DEO78o6U9MFybo6OfxtWtRe6NZTbbQZqik/
+	3uE8K85bnlujWdKeEDuNtECaWE3bE/ZYgSpmXWetkNm3fmM7GQGd34Abg0RjA4hPqoSZz/U7pAF
+	bLL4IPFNrhdTwey4Ux/7wEmZmzhxwZFEUIV94TbLLI3k8riXICdo4etgCGbDGOvbbRaiJzcM7bF
+	6xxv4M7k3kMSUxAoZkEv43dBzcDmWfYa+y5tL5t3iNx871mkwRwk8Y=
+X-Received: by 2002:a05:600c:154c:b0:49e:74b6:740f with SMTP id 5b1f17b1804b1-4a18e4aa310mr439047655e9.17.1792146247126;
+        Fri, 16 Oct 2026 03:24:07 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:3de7:deff:62ea:d0f8? ([2a01:e0a:106d:1080:3de7:deff:62ea:d0f8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cbedb6f7sm47064765e9.2.2026.10.16.03.24.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 03:24:06 -0700 (PDT)
+Message-ID: <d709693e-b9ad-4d53-a368-67fbb0cbd601@linaro.org>
+Date: Fri, 16 Oct 2026 12:24:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5155; i=brauner@kernel.org; h=from:subject:message-id; bh=vUNY9rPt+nrilGeNstizbyc8m9RcsK3/spGwEHkD8xs=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRd/C0t8jv86Za2koBt9ze8WqGYUPVfqUdgwu2MSXJSP yasSfcO6ShlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZjI5fUMf6XY9ymrPuReLB// blX7+sWb7IJEb+zb5Ps432Fj36rUns8Mf4VOvJxvfP9fcqxB085Tj6cuKD/MMfX3pLSPUZXH1i5 pf8MNAA==
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] PCI: qcom: Advertise hotplug with no command completion
+ support
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260314-hotplug-v1-1-96ac87d93867@oss.qualcomm.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260314-hotplug-v1-1-96ac87d93867@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hey Linus,
+Hi,
 
-/* Summary */
+On 3/14/26 02:56, Krishna Chaitanya Chundru wrote:
+> QCOM PCIe controller advertise hotplug capability in hardware but do not
+> support hotplug command completion. As a result, the PCI core registers
+> the pciehp service and issues hotplug commands that never gets completions,
+> leading to repeated timeout warnings and multi-second delays during boot
+> and suspend/resume.
+> 
+> Commit a54db86ddc153 ("PCI: qcom: Do not advertise hotplug capability for
+> IPs v2.7.0 and v1.9.0") avoided these timeouts by clearing the Hot-Plug
+> Capability bit entirely, which also disabled all hotplug functionality.
+> 
+> Instead of disabling hotplug, mark these controllers as not supporting
+> command completion by setting the No Command Completed Support (NCCS) bit
+> in the Slot Capabilities register. This prevents the PCI hotplug driver
+> from waiting for commands completion while still allowing hotplug-related
+> functionality such as Data Link Layer state change events.
 
-This prepares for Neil's changes to directory locking. The goal is for
-the VFS to lock the dentry and not the parent directory and to push the
-i_rwsem parent locking down into the filesystems where it can be kept,
-removed or adjusted as each filesystem sees fit.
+I'm a little late to the party, but marking the RC as Hotplus means the bridge
+is marked as is_pciehp and pci_bridge_d3_possible() returns false.
 
-The next step in that is to swap the lock order of d_alloc_parallel()
-and i_rwsem so code can wait on i_rwsem while holding an in-lookup
-dentry. Two things have to change before that can happen. Nobody may
-call d_alloc_parallel() while holding i_rwsem, and nobody may d_drop()
-a dentry while it is being worked on since that effectively unlocks an
-in-lookup dentry and lets another one be allocated too early.
+This means this breaks D3Cold support completely since in __pci_host_common_d3cold_possible()
+we now check all PCI devices, including bridges, and the RC is not set in D3Hot anymore.
 
-So d_splice_alias() learns to handle hashed dentries in addition to
-unhashed and in-lookup ones, which is what ->atomic_open() needs and
-removes the reason filesystems d_drop() first. d_alloc_trylock() is a
-non-blocking d_alloc_parallel() for the filesystems that prime the
-dcache from readdir, smb, nfs, fuse and ceph, where waiting for a
-concurrent lookup is pointless. d_duplicate() creates an in-lookup
-dentry with the name of an existing one for silly-rename and whiteouts.
-LOOKUP_SHARED tells ->lookup() how the parent is locked so it can drop
-and retake it. DCACHE_PAR_LOOKUP is tracked by lockdep now with a per
-filesystem type key, and overlayfs gets its own class since it stacks
-over itself. And a d_flags bit is reserved for filesystem private use.
+The only way to enable D3Cold is to pass pcie_port_pm=force to allow D3 on all
+Hotplug bridges. Which may be wrong on TB bridges.
 
-Also included is Mateusz's fix for the spurious dentry reference cycle
-on open. __legitimize_path() grabs a reference, do_dentry_open() grabs
-another and terminate_walk() drops the first. do_dentry_open() consumes
-the held reference now. Opening the same file read-only on a 20-core VM
-goes from 4043375 to 5629378 ops/s in will-it-scale.
+Neil
 
-/* Testing */
+> 
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> ---
+>   drivers/pci/controller/dwc/pcie-qcom.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
+> index 67a16af69ddc75fca1b123e70715e692a91a9135..a2924610f3625f2456a491473c135840e31bafb9 100644
+> --- a/drivers/pci/controller/dwc/pcie-qcom.c
+> +++ b/drivers/pci/controller/dwc/pcie-qcom.c
+> @@ -358,7 +358,7 @@ static void qcom_pcie_clear_hpc(struct dw_pcie *pci)
+>   	dw_pcie_dbi_ro_wr_en(pci);
+>   
+>   	val = readl(pci->dbi_base + offset + PCI_EXP_SLTCAP);
+> -	val &= ~PCI_EXP_SLTCAP_HPC;
+> +	val |= PCI_EXP_SLTCAP_NCCS;
+>   	writel(val, pci->dbi_base + offset + PCI_EXP_SLTCAP);
+>   
+>   	dw_pcie_dbi_ro_wr_dis(pci);
+> 
+> ---
+> base-commit: 0257f64bdac7fdca30fa3cae0df8b9ecbec7733a
+> change-id: 20260313-hotplug-4c296595b5b8
+> 
+> Best regards,
 
-No build failures or warnings were observed.
-
-/* Conflicts */
-
-Merge conflicts with mainline
-=============================
-
-This conflicts with the vfs-7.4-rc1.idmap tag in fs/namei.c between
-commit 025756ee7b476 ("fs: port mnt_idmap() and file_mnt_idmap() to
-const mnt_idmap") from that tag and commit 161ce1e692d01 ("fs: avoid
-spurious dentry ref/unref cycle on open") from this tag. The idmap tag
-is merged before this one:
-
-diff --cc fs/namei.c
-index 3fc7572e917a,d4b2e5883cba..000000000000
---- a/fs/namei.c
-+++ b/fs/namei.c
-@@@ -4788,7 -4791,8 +4790,8 @@@ finish_lookup
-  static int do_open(struct nameidata *nd,
-  		   struct file *file, const struct open_flags *op)
-  {
-+ 	struct vfsmount *mnt;
- -	struct mnt_idmap *idmap;
- +	const struct mnt_idmap *idmap;
-  	int open_flag = op->open_flag;
-  	bool do_truncate;
-  	int acc_mode;
-
-Merge conflicts with other trees
-================================
-
-No known conflicts.
-
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
-
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.4-rc1.lookup
-
-for you to fetch changes up to 31fbbc8bb1ca256f3d27d1172ad3493d46d29c73:
-
-  VFS: d_duplicate: repair comments to avoid kernel-doc warnings (2026-10-16 11:14:51 +0200)
-
-----------------------------------------------------------------
-vfs-7.4-rc1.lookup
-
-Please consider pulling these changes from the signed vfs-7.4-rc1.lookup tag.
-
-Thanks!
-Christian
-
-----------------------------------------------------------------
-Christian Brauner (2):
-      Merge patch series "VFS: prepare for changes to directory locking"
-      Merge patch series "Fixes for dentry lockdep tracking on stacking filesystems"
-
-Mateusz Guzik (1):
-      fs: avoid spurious dentry ref/unref cycle on open
-
-NeilBrown (10):
-      VFS: fix various typos in documentation for start_creating start_removing etc
-      VFS: enhance d_splice_alias() to handle hashed dentries
-      VFS: introduce d_alloc_trylock()
-      VFS: add d_duplicate()
-      VFS: Add LOOKUP_SHARED flag.
-      VFS: add lockdep monitoring of DCACHE_PAR_LOOKUP lock.
-      VFS: reserve a d_flags bit for fs-specific usage
-      VFS: per-fs-type lockdep key for dentry in-lookup locking
-      VFS: rename lookup_map to dep_map
-      ovl: provide private lockdep class for dentry->dep_map
-
-Randy Dunlap (1):
-      VFS: d_duplicate: repair comments to avoid kernel-doc warnings
-
- Documentation/filesystems/porting.rst |  10 +-
- Documentation/filesystems/vfs.rst     |   4 +-
- fs/dcache.c                           | 177 ++++++++++++++++++++++++++++++----
- fs/internal.h                         |   1 +
- fs/namei.c                            |  69 +++++++------
- fs/nfs/unlink.c                       |   3 +
- fs/open.c                             |  27 +++++-
- fs/overlayfs/inode.c                  |   1 -
- fs/overlayfs/overlayfs.h              |   2 +
- fs/overlayfs/super.c                  |  19 ++++
- include/linux/dcache.h                |  38 +++++++-
- include/linux/fs.h                    |   2 +
- include/linux/namei.h                 |   3 +-
- 13 files changed, 296 insertions(+), 60 deletions(-)
