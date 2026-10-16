@@ -1,42 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10452AD0C;
-	Sun, 18 Oct 2026 17:47:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C184B3DB632;
+	Sun, 18 Oct 2026 17:48:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792345643; cv=none; b=INVe9HhUJtG7Cao+zvRrFPL/YrG6Fo603T2BNQn3T3Xfw9KLdMazaXWm0QaNfQdwTCFK1qMEwqOfBHRSyrcGsCn/8argEB0b2K81TWyupVYYWCDYYsUEb8VczGUoOn7R2sHq2HB1eGTNsZZgoLYPoMmgBHcl8NK0Ar50V3//NpI=
+	t=1792345694; cv=none; b=qaDKVNduG2u9CMmbXNItyHze0CJH7qFoLN72Vr1i6ywIasiklHDVV9VJuNIhaf0wGnJAFon/vrw0Y4l/OTBb4UkPj8lMjDO3maFXbr3B0Ye9lCVO0hFTYZMSelJQpjaSPYGfwrnPwjt91lYTNsD9oRAiKnPVSi+yaBb6/mm06q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792345643; c=relaxed/simple;
-	bh=0GaUDWNHboICjjntSAfmKBuvkrmebSUBPg7VWN/KRnM=;
+	s=arc-20240116; t=1792345694; c=relaxed/simple;
+	bh=QWq3i3vzm1mSRgoW4PRUGVCNPZiytoi3lzMyn9N9VfE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Mq0/Tvo/G2bsunOhSx1d8DS2Z7XPqLsm5KfBWwhRj9BCejYVdaYh2GcxZRdNiTmG21DobP5kAIFCcMCInEesGES/5pOK2JtLZ7/VxZUbmNCbEA0apNnsY7ZU//alb172gT/f8mzOGucXfbE171+Vbj0KK0I0kEw+ZJuvEwQsBuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=es0ULFOT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=NFjfcAPlsXsLSa2HnXxTct/E4/vA9cC4zvqCo8gvWrQze5FBqQf17SMjo1c5HTrvGYI0VjktmOkDxeCefrnWIBn3mafoW5PlZVgnOccy6W/P8KRgbxB1j31wFMYeSNLCzC/Y+xSmZGvMoaABr0WAz3X7J5qi/hbhjCSWrxFZh7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WmMsRKJX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="es0ULFOT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CE2F1F000C4;
-	Sun, 18 Oct 2026 17:47:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WmMsRKJX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831251F000C4;
+	Sun, 18 Oct 2026 17:47:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792345641;
-	bh=3PWg4wFyY/5JtUeMyFYwYokLNsNA3wvyEJlGxTodazY=;
+	s=k20260515; t=1792345691;
+	bh=dY2M5OxJo8HeSyHYgOk8jaF2BQkfRQ9MFiTg1z74do8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=es0ULFOTibsky7FRB8ZberxpwkM+Xch4mX+W2Od3KkZwRDYcn/DLA1C85O5Kdbc1k
-	 78Aje5RzYs45YMMaH7kVM7M0fRzjNxFsh/Xt6FcrsYTpv9UYpdaU5ugfUBv/FgobXg
-	 JNhJ39VT9yl2S4y1zTwckLWudiLpo54j5pP498ryDzinTLSgu4bMKCSA5LR53JaHSy
-	 dDFAeu61hYh7r0QJ9jVH/EI8nCEIOTwbEThgazkUyOXKGemHbyrL9f+E0j7etmEx/b
-	 SdRIv74xcyXcQFmTDNFYFw8I8C5UDF8prAWIzxBN42jVZY5Q3FMJXOVterfJA/zSd1
-	 4nXo9uPzgkgnQ==
+	b=WmMsRKJXRHA7kPl/KchgJmnzSCOk7/+AC+7m/LM0me8m9EDoyPAcPxzuBhYDus1Km
+	 zWbojCUpK18UhP3qRdL892hvkftGS4bxpMycE0ee/k+gptg+4P3hSHAuuUzTG/p1As
+	 54GX7SH6OudgfWflcFNGP4tsQSeVKdwpKyEg45qLjNj8n9tuECQ69gts09fcFByRXc
+	 hmtoM0NETvSt6Wr4Sn1NvZ+wemUmxcV0qNQyCpDMGi0exdaQ3m9ECEZpgJNVkdEWma
+	 qJSjO/hV5zpUoxxpsxOell4pJwwp7y+RLR0CTEA+6Ngh6Zk5ypQTwMjq8o4O1FFGkE
+	 Ttx+6MC2wKGLg==
 From: Mark Brown <broonie@kernel.org>
-To: HyeongJun An <sammiee5311@gmail.com>
-Cc: lgirdwood@gmail.com, support.opensource@diasemi.com, 
- shenghao-ding@ti.com, kevin-lu@ti.com, baojun.xu@ti.com, sen@ti.com, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <cover.1792135144.git.sammiee5311@gmail.com>
-References: <cover.1792135144.git.sammiee5311@gmail.com>
-Subject: Re: [PATCH 0/4] ASoC: codecs: Fix control definitions that write
- another control's register
-Message-Id: <179218524120.3162228.17240342868117542010.b4-ty@b4>
-Date: Fri, 16 Oct 2026 22:14:01 +0100
+To: Val Packett <val@packett.cool>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, ~postmarketos/upstreaming@lists.sr.ht, 
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261016073157.611956-1-val@packett.cool>
+References: <20261016073157.611956-1-val@packett.cool>
+Subject: Re: (subset) [PATCH 0/5] Enable soundcard on Motorola Edge 30
+Message-Id: <179218647657.3162228.4284806308774013026.b4-ty@b4>
+Date: Fri, 16 Oct 2026 22:34:36 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,22 +50,22 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1832; i=broonie@kernel.org;
- h=from:subject:message-id; bh=0GaUDWNHboICjjntSAfmKBuvkrmebSUBPg7VWN/KRnM=;
- b=kA0DAAoWL+9zsLPQOIkByyZiAGrVBhOiKqU1aBijXDCXfIPaTIyq0QF/KiyeKp6xlRLEp1VCw
- 4h1BAAWCgAdFiEEXmoL6X9066wOwaGGL+9zsLPQOIkFAmrVBhMACgkQL+9zsLPQOIk6XwD7Bznw
- cc71VQRQsJ72C5XF7uFPiytFNEN2PjTMBXn0muwBAKFQxpICG+P/uGPK09x+JxPkkJRS8Pt4jBJ
- tZoZGQoAH
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1766; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=QWq3i3vzm1mSRgoW4PRUGVCNPZiytoi3lzMyn9N9VfE=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLKusjnsvXlOalPSOZVfXa8bu/+I8OkxWf7w8jAqFpoSy
+ Prz5FfRjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEyk/gwjw8zn6WtWG1dc15Wp
+ 0V5uN3veliU7/bv4ZY/ZWDjIsS209mH4K6D/WvhS66x3x/XOFOqIcstM+Pr2/T21BemvF0Wc+JK
+ lzA0A
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, 16 Oct 2026 16:25:15 +0900, HyeongJun An wrote:
-> ASoC: codecs: Fix control definitions that write another control's register
+On Fri, 16 Oct 2026 04:31:48 -0300, Val Packett wrote:
+> Enable soundcard on Motorola Edge 30
 > 
-> These are more fixes found by the overlap scan from the first series
-> [1]. In each driver a control writes the register of another control.
-> 
-> [1] https://lore.kernel.org/all/20261008130953.2446692-1-sammiee5311@gmail.com/
+> This series enables sound support on motorola-dubai, at least the
+> speakers.. The WCD that handles microphones and analog USB-C sound
+> is left out because it would first need:
+> https://lore.kernel.org/all/20260522-kodiak-elite-macros-v1-1-487661ac1270@fairphone.com/
 > 
 > [...]
 
@@ -71,14 +75,14 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: codecs: da732x: Fix definition of ADC2 EQ Overall Volume control
-      https://git.kernel.org/broonie/sound/c/ebef9212cb46
-[2/4] ASoC: codecs: tlv320adc3xxx: Fix definition of AGC Target Level control
-      https://git.kernel.org/broonie/sound/c/0a9efcb663b5
-[3/4] ASoC: codecs: sta32x: Fix definition of Ch2 and Ch3 Volume Bypass controls
-      https://git.kernel.org/broonie/sound/c/ea53ab9003d8
-[4/4] ASoC: codecs: sta350: Fix definition of Ch2 and Ch3 Volume Bypass controls
-      https://git.kernel.org/broonie/sound/c/7308ce7c8459
+[1/5] ASoC: qcom: qdsp6: q6routing: add Senary MI2S ports
+      https://git.kernel.org/broonie/sound/c/2b20c976bb63
+[2/5] ASoC: qcom: sm8250: add Senary MI2S RX support
+      https://git.kernel.org/broonie/sound/c/41c6eb15291f
+[3/5] ASoC: dt-bindings: qcom,sm8250: Add Motorola Edge 30 sound card
+      https://git.kernel.org/broonie/sound/c/a0f1887655af
+[4/5] ASoC: qcom: sm8250: Add motorola-dubai soundcard compatible
+      https://git.kernel.org/broonie/sound/c/32c9d661dab0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
