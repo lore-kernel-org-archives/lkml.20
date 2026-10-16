@@ -1,37 +1,37 @@
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A45C747DD64;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42FC449B17;
 	Fri, 16 Oct 2026 14:56:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162612; cv=none; b=q98cRk3ZejueSROlT0PsH+V/mWlQxjVfCA5aOlOKjGx+RcjnlSmYYwgr7QOy6LTAlxdpTATrqNgDb9JCbYtIr0pBwUAWP5wwDRGM/DxuMeccTxXH/cEzn9ddZizbJO4ygxkJdr6+n8mhdYppjpiA0KKwOsI5V/2Ahc5DC/mef8U=
+	t=1792162613; cv=none; b=BxTac1oTDGMK8+Ec0GJcl++wWjNyoW7/mxcllKsFSy5dHuKOu4mn1aKSSrYgp2sr8NgoeKct9JBhPVSmzryYCJ5SGk3NplclYULttK+apc/qz0hiNcrT//gd8JP3MMbbw47E3TL3GFsP499TEBqcC26yG0h/YbFBIdhnK7+oRg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162612; c=relaxed/simple;
-	bh=V07lK0KROqQLDGedanoAsWZ9sB/6YvE/A+gIh8BR92k=;
+	s=arc-20240116; t=1792162613; c=relaxed/simple;
+	bh=JIQYfSl4FHO7RBWGs+X9PTpxL/QlAOxSwIT/tiEcNng=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KvDR0HKQ/jGX+JYKcuzuSYqKoLP/zngltfpL5MtkDPxMVNzmNmsbZeMZU1WVOKoOG/D3LbPRRufnDTEGD2SwMkmXmeBj6qP97cWT/2OUhwi/vZwSui5II3nbgv/084Y645G8KyYborKKII3MqgPF+v9R/3J8vsQiaXsI/e2aBkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=SQvB+tes; arc=none smtp.client-ip=90.155.50.34
+	 MIME-Version:Content-Type; b=L64luund1KV/FfiIkcnvMWjW3AxXVAgj8aETipKwemuuZhspaZqtaUrGxJTJgYfHtNB2Fon0xjvlPUWuhxZ+Vhn6xaGI1CSTCC0r8ZTsHkzTNZqRSm0eDuk9/c2bEO/bdUOZd2WilV5B6maqP9EN3jWUja/FNPxFHq1PW69QPwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=pLZYPxVB; arc=none smtp.client-ip=90.155.50.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="SQvB+tes"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="pLZYPxVB"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
 	To:From:Reply-To:Content-ID:Content-Description;
-	bh=T2gI/ppzqpwnJM/45A5En1gm5GPaRm6veIkEs/RtEBU=; b=SQvB+tesnFMGk8pPUfLNhHI3qa
-	3GUa7xoTT0E68rIkde2zQVq5FrZ7aAE9DX8exASZuehwVwYSubfqnNgtLN2DK85nBGbN0Rut947Ew
-	zapwWQe57CPsO61mczWQuDia45j/EG5MF95ZtKapWTqutmlWuKEX5yBke80EvViYwxaAcYsdP21KT
-	rEoPxBVQx6jPf5GkAOhksRK0j32i3hGr43VQomFWXOyJwMb1c5Z2CQ0THD1VB4yd2XuremSBzENU6
-	QNMr1RETsIvt4t6IcA+Qavx+CLXckFB3mRC56AJ10cPRRbMIw3lRRtdqFbzNOggNeZ2YbboBz8jTN
-	ksf9TMDg==;
+	bh=Fqo6lpO9UQiTdCHFymA7Pg1AUf+HpjLRc+2WggDizO8=; b=pLZYPxVBKsPxncRs75eaYS9Uyw
+	qGfjoJTkAvxObc6sJ8sudyaFCYGtTLr9KrD8acDMPJTdMQ2K7Bz+8A5VWDr6TxNiTVrPNBj03VtKk
+	PSSO6DApjiopIQnZFF39O7i4emE1+2YWz85WKs23hblEHtPE7pNtaETDi9iaT8YGFvTfoYvWK1jzJ
+	W4fUxlg4PyfCkUtsI1asBwH8cYpKfptP9UOdf5gnxTi45YgPqhGqAWB43thFdvjkle3ddGvQi4ti5
+	vLgX+13JzQbnoMQh5hnhjFb+v6KEI6v2oHBgHLK5TvLYQ+Vbl4+BFjykhdhOGBD7+jCOwcxLttGcZ
+	gXmfQtwA==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xHjMU-00000004QIp-46Pe;
+	id 1xHjMV-00000004QIt-0kqr;
 	Fri, 16 Oct 2026 14:56:47 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xHjMU-00000002QjA-3Fuf;
+	id 1xHjMU-00000002QjQ-43AQ;
 	Fri, 16 Oct 2026 15:56:46 +0100
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
@@ -43,9 +43,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Vitaly Kuznetsov <vkuznets@redhat.com>,
 	Fred Griffoul <fgriffo@amazon.co.uk>,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v3 06/11] KVM: x86/xen: Extract delivery of event to vCPU into a separate helper
-Date: Fri, 16 Oct 2026 15:56:40 +0100
-Message-ID: <20261016145646.579369-7-dwmw2@infradead.org>
+Subject: [PATCH v3 10/11] KVM: selftests: Add Xen evtchn vs memslot-update race test
+Date: Fri, 16 Oct 2026 15:56:44 +0100
+Message-ID: <20261016145646.579369-11-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261016145646.579369-1-dwmw2@infradead.org>
 References: <20261016145646.579369-1-dwmw2@infradead.org>
@@ -60,242 +60,220 @@ Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-From: Sean Christopherson <seanjc@google.com>
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-Move the marking of an event as pending in the target vCPU's vcpu_info
-into a separate helper, __kvm_xen_set_evtchn_fast(), invoked after the
-shared_info processing is complete and its RCU read-side critical
-section has been exited. This makes both halves easier to read.
+Race a guest EVTCHNOP_send loop against a host thread which deletes
+and recreates the shared_info memslot. Delivery which hits the update
+window now returns -EAGAIN and the hypercall is re-executed; if KVM
+instead waited in the vCPU's exit-handling context — under vcpu_run's
+kvm->srcu read section — it would deadlock against
+kvm_swap_active_memslots() waiting out that reader, and this test
+livelocks within seconds.
 
-No functional change intended.
-
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-[dwmw2: rebased onto the -EAGAIN series. Sean's series first
- converted the GPC locks to read_trylock(), which this series does
- not carry, so the helper takes the plain read lock and the
- original's trylock failure path does not apply. The caller's
- kvm->srcu section extends across the helper call, since
- kvm_gpc_check() on the vcpu_info cache consults the memslot
- generation and the irqfd path enters holding only irq_srcu; in
- Sean's series that was covered by a guard(srcu) spanning the whole
- function.]
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 Assisted-by: LLM
 ---
- arch/x86/kvm/xen.c | 158 ++++++++++++++++++++++++++++-----------------
- 1 file changed, 97 insertions(+), 61 deletions(-)
+ tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+ .../kvm/x86/xen_evtchn_memslot_race_test.c    | 178 ++++++++++++++++++
+ 2 files changed, 179 insertions(+)
+ create mode 100644 tools/testing/selftests/kvm/x86/xen_evtchn_memslot_race_test.c
 
-diff --git a/arch/x86/kvm/xen.c b/arch/x86/kvm/xen.c
-index 6b7532b0e26a..cc96719159d3 100644
---- a/arch/x86/kvm/xen.c
-+++ b/arch/x86/kvm/xen.c
-@@ -1938,6 +1938,89 @@ static void kvm_xen_check_poller(struct kvm_vcpu *vcpu, int port)
- 	}
- }
- 
-+static void __kvm_xen_set_evtchn_fast(struct kvm_vcpu *vcpu, int port_word_bit,
-+				      bool has_64bit_shinfo)
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 96bab7002d39..e7e17d19d6cb 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -144,6 +144,7 @@ TEST_GEN_PROGS_x86 += x86/xss_msr_test
+ TEST_GEN_PROGS_x86 += x86/debug_regs
+ TEST_GEN_PROGS_x86 += x86/tsc_msrs_test
+ TEST_GEN_PROGS_x86 += x86/vmx_pmu_caps_test
++TEST_GEN_PROGS_x86 += x86/xen_evtchn_memslot_race_test
+ TEST_GEN_PROGS_x86 += x86/xen_shinfo_test
+ TEST_GEN_PROGS_x86 += x86/xen_vmcall_test
+ TEST_GEN_PROGS_x86 += x86/sev_dbg_test
+diff --git a/tools/testing/selftests/kvm/x86/xen_evtchn_memslot_race_test.c b/tools/testing/selftests/kvm/x86/xen_evtchn_memslot_race_test.c
+new file mode 100644
+index 000000000000..2b6974d3d464
+--- /dev/null
++++ b/tools/testing/selftests/kvm/x86/xen_evtchn_memslot_race_test.c
+@@ -0,0 +1,178 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * xen_evtchn_memslot_race_test
++ *
++ * A guest EVTCHNOP_send whose delivery races a DELETE/re-CREATE of the
++ * memslot holding the shared_info page. The delivery path runs in the
++ * vCPU's exit-handling context, under vcpu_run's kvm->srcu read
++ * section; if it waits there for the memslot update to complete, it
++ * deadlocks against kvm_swap_active_memslots()'s
++ * synchronize_srcu_expedited() waiting out that very read section.
++ * Regression test for that deadlock: KVM must defer the delivery to
++ * the next guest entry rather than spin in exit context.
++ *
++ * The guest sends events in a tight loop; a host thread deletes and
++ * recreates the shared_info slot in a tight loop. On a broken host
++ * this livelocks within a second or two (the test then dies by
++ * timeout); on a fixed host every send eventually delivers and the
++ * test completes N iterations.
++ */
++#include <pthread.h>
++#include <stdatomic.h>
++
++#include "test_util.h"
++#include "kvm_util.h"
++#include "processor.h"
++
++#include <stdint.h>
++
++#define SHINFO_REGION_GPA	0xc0000000ULL
++#define SHINFO_REGION_SLOT	10
++
++#define EVTCHN_PORT		15
++#define TEST_ITERATIONS		4000
++
++#define EVTCHNOP_send		4
++#define __HYPERVISOR_event_channel_op	32
++
++#define XEN_HYPERCALL_MSR	0x40000000
++
++#define EVTCHNSTAT_ipi		5
++
++struct evtchn_send {
++	uint32_t port;
++};
++
++static void guest_code(void)
 +{
-+	struct gfn_to_pfn_cache *gpc = &vcpu->arch.xen.vcpu_info_cache;
-+	unsigned long vi_pending_sel_ofs;
-+	bool inject_upcall = false;
-+	bool kick_vcpu = false;
-+	unsigned long flags;
-+	bool old;
++	struct evtchn_send s = { .port = EVTCHN_PORT };
++	int i;
 +
-+	vi_pending_sel_ofs = has_64bit_shinfo ?
-+		offsetof(struct vcpu_info, evtchn_pending_sel) :
-+		offsetof(struct compat_vcpu_info, evtchn_pending_sel);
-+
-+	/* Now switch to the vCPU's vcpu_info to set the index and pending_sel */
-+	read_lock_irqsave(&gpc->lock, flags);
-+	if (!kvm_gpc_check(gpc, sizeof(struct vcpu_info))) {
++	for (i = 0; i < TEST_ITERATIONS; i++) {
 +		/*
-+		 * Could not access the vcpu_info. Set the bit in-kernel and
-+		 * prod the vCPU to deliver it for itself. Note that an MSI is
-+		 * *not* an acceptable substitute here even if the vCPU has an
-+		 * upcall vector: the pending bit only exists in
-+		 * evtchn_pending_sel so far, and the vCPU has to be forced
-+		 * out of the guest so that kvm_xen_inject_pending_events()
-+		 * can refresh the cache and propagate it to the guest.
++		 * The delivery may legitimately fail while the shared_info
++		 * slot is mid-churn (between DELETE and re-CREATE there is
++		 * no slot at all, which is -EFAULT, not a transient). The
++		 * failure mode under test is the vCPU never coming back at
++		 * all (deadlock -> timeout), not the hypercall rc.
 +		 */
-+		if (!test_and_set_bit(port_word_bit, &vcpu->arch.xen.evtchn_pending_sel))
-+			kick_vcpu = true;
-+		goto out_unlock;
-+	}
-+	inject_upcall = true;
-+
-+	/*
-+	 * Explicitly use a 32-bit btsl instead of test_and_set_bit(), which
-+	 * would use btsq on x86-64. The vcpu_info is guest-controlled and only
-+	 * required to be 32-bit aligned, so a 64-bit access could generate a
-+	 * split-lock #AC.
-+	 *
-+	 * Note, this does not apply to the test_and_set_bit() on pending_bits
-+	 * in the caller: that is in the per-VM shared_info, which is page
-+	 * aligned, so the access is guaranteed to be 64-bit aligned.
-+	 */
-+	old = GEN_BINARY_RMWcc(LOCK_PREFIX "btsl",
-+			       *(u32 *)(gpc->khva + vi_pending_sel_ofs),
-+			       c, "Ir", port_word_bit);
-+	if (!old) {
-+		struct vcpu_info *vi = gpc->khva;
-+
-+		/* No need for compat handling */
-+		BUILD_BUG_ON(offsetof(struct vcpu_info, evtchn_upcall_pending) !=
-+			     offsetof(struct compat_vcpu_info, evtchn_upcall_pending));
-+
-+		WRITE_ONCE(vi->evtchn_upcall_pending, 1);
-+		kick_vcpu = true;
++		__xen_hypercall(__HYPERVISOR_event_channel_op, EVTCHNOP_send, &s);
++		GUEST_SYNC(i);
 +	}
 +
-+out_unlock:
-+	read_unlock_irqrestore(&gpc->lock, flags);
-+
-+	/*
-+	 * Deliver the upcall or kick the vCPU only after dropping the GPC
-+	 * read lock. Both paths end up in kvm_vcpu_kick(), and the MSI
-+	 * delivery also walks the APIC map and takes APIC locks; none of
-+	 * that wants to be nested inside the GPC read lock, which a
-+	 * concurrent invalidation may be waiting to take for write.
-+	 */
-+	if (!kick_vcpu)
-+		return;
-+
-+	/*
-+	 * For the per-vCPU lapic vector, deliver it as MSI — but only if the
-+	 * vcpu_info was actually updated above. If it wasn't, the vCPU must
-+	 * be kicked instead (see above).
-+	 */
-+	if (inject_upcall && vcpu->arch.xen.upcall_vector) {
-+		kvm_xen_inject_vcpu_vector(vcpu);
-+		return;
-+	}
-+
-+	kvm_make_request(KVM_REQ_UNBLOCK, vcpu);
-+	kvm_vcpu_kick(vcpu);
++	GUEST_DONE();
 +}
 +
- /*
-  * The return value from this function is propagated to kvm_set_irq() API,
-  * so it returns:
-@@ -1952,11 +2035,10 @@ int kvm_xen_set_evtchn_fast(struct kvm_xen_evtchn *xe, struct kvm *kvm)
- {
- 	struct gfn_to_pfn_cache *gpc = &kvm->arch.xen.shinfo_cache;
- 	bool has_64bit_shinfo = kvm_xen_has_64bit_shinfo(kvm);
--	unsigned long *pending_bits, *mask_bits, vi_pending_sel_ofs;
-+	unsigned long *pending_bits, *mask_bits;
- 	struct kvm_vcpu *vcpu;
- 	unsigned long flags;
- 	int port_word_bit;
--	bool kick_vcpu = false;
- 	int vcpu_idx, idx, rc;
- 
- 	vcpu_idx = READ_ONCE(xe->vcpu_idx);
-@@ -1978,23 +2060,19 @@ int kvm_xen_set_evtchn_fast(struct kvm_xen_evtchn *xe, struct kvm *kvm)
- 
- 	read_lock_irqsave(&gpc->lock, flags);
- 	if (!kvm_gpc_check(gpc, PAGE_SIZE))
--		goto out_rcu;
-+		goto out_unlock;
- 
- 	if (has_64bit_shinfo) {
- 		struct shared_info *shinfo = gpc->khva;
- 		pending_bits = (unsigned long *)&shinfo->evtchn_pending;
- 		mask_bits = (unsigned long *)&shinfo->evtchn_mask;
- 		port_word_bit = xe->port / 64;
--
--		vi_pending_sel_ofs = offsetof(struct vcpu_info, evtchn_pending_sel);
- 	} else {
- 		struct compat_shared_info *shinfo = gpc->khva;
- 		pending_bits = (unsigned long *)&shinfo->evtchn_pending;
- 		mask_bits = (unsigned long *)&shinfo->evtchn_mask;
- 		port_word_bit = xe->port / 32;
- 
--		vi_pending_sel_ofs = offsetof(struct compat_vcpu_info, evtchn_pending_sel);
--
- 		/* test_and_set_bit() needs 64-bit alignment, but that's OK */
- 		BUILD_BUG_ON(offsetof(struct compat_shared_info, evtchn_pending) & 7);
- 	}
-@@ -2010,66 +2088,24 @@ int kvm_xen_set_evtchn_fast(struct kvm_xen_evtchn *xe, struct kvm *kvm)
- 		rc = 0; /* It was already raised */
- 	} else if (test_bit(xe->port, mask_bits)) {
- 		rc = -ENOTCONN; /* Masked */
--		kvm_xen_check_poller(vcpu, xe->port);
- 	} else {
--		bool old;
--
- 		rc = 1; /* Delivered to the bitmap in shared_info. */
--		/* Now switch to the vCPU's vcpu_info to set the index and pending_sel */
--		read_unlock_irqrestore(&gpc->lock, flags);
--		gpc = &vcpu->arch.xen.vcpu_info_cache;
--
--		read_lock_irqsave(&gpc->lock, flags);
--		if (!kvm_gpc_check(gpc, sizeof(struct vcpu_info))) {
--			/*
--			 * Could not access the vcpu_info. Set the bit in-kernel
--			 * and prod the vCPU to deliver it for itself.
--			 */
--			if (!test_and_set_bit(port_word_bit, &vcpu->arch.xen.evtchn_pending_sel))
--				kick_vcpu = true;
--			goto out_rcu;
--		}
--
--		/*
--		 * Explicitly use a 32-bit btsl instead of test_and_set_bit(),
--		 * which would use btsq on x86-64. The vcpu_info is guest-
--		 * controlled and only required to be 32-bit aligned, so a
--		 * 64-bit access could generate a split-lock #AC.
--		 *
--		 * Note, this does not apply to the test_and_set_bit() on
--		 * pending_bits above: that is in the per-VM shared_info, which
--		 * is page aligned, so the access is guaranteed to be 64-bit
--		 * aligned.
--		 */
--		old = GEN_BINARY_RMWcc(LOCK_PREFIX "btsl",
--				       *(u32 *)(gpc->khva + vi_pending_sel_ofs),
--				       c, "Ir", port_word_bit);
--		if (!old) {
--			struct vcpu_info *vi = gpc->khva;
--
--			/* No need for compat handling */
--			BUILD_BUG_ON(offsetof(struct vcpu_info, evtchn_upcall_pending) !=
--				     offsetof(struct compat_vcpu_info, evtchn_upcall_pending));
--
--			WRITE_ONCE(vi->evtchn_upcall_pending, 1);
--			kick_vcpu = true;
--		}
--
--		/* For the per-vCPU lapic vector, deliver it as MSI. */
--		if (kick_vcpu && vcpu->arch.xen.upcall_vector) {
--			kvm_xen_inject_vcpu_vector(vcpu);
--			kick_vcpu = false;
--		}
- 	}
- 
-- out_rcu:
-+ out_unlock:
- 	read_unlock_irqrestore(&gpc->lock, flags);
--	srcu_read_unlock(&kvm->srcu, idx);
- 
--	if (kick_vcpu) {
--		kvm_make_request(KVM_REQ_UNBLOCK, vcpu);
--		kvm_vcpu_kick(vcpu);
--	}
-+	/*
-+	 * Both of these can kick the vCPU, so keep them outside the GPC
-+	 * read lock; an invalidation may be waiting to take it for write.
-+	 */
-+	if (rc == -ENOTCONN)
-+		kvm_xen_check_poller(vcpu, xe->port);
-+	else if (rc == 1)
-+		__kvm_xen_set_evtchn_fast(vcpu, port_word_bit,
-+					  has_64bit_shinfo);
++static atomic_bool churn_stop;
 +
-+	srcu_read_unlock(&kvm->srcu, idx);
- 
- 	return rc;
- }
++static void *memslot_churn(void *arg)
++{
++	struct kvm_vm *vm = arg;
++
++	while (!atomic_load(&churn_stop)) {
++		vm_mem_region_delete(vm, SHINFO_REGION_SLOT);
++		vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS,
++					    SHINFO_REGION_GPA,
++					    SHINFO_REGION_SLOT, 2, 0);
++	}
++	return NULL;
++}
++
++int main(int argc, char *argv[])
++{
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm;
++	pthread_t thread;
++	struct ucall uc;
++	int done = 0;
++	int r;
++
++	int xen_caps = kvm_check_cap(KVM_CAP_XEN_HVM);
++
++	TEST_REQUIRE(xen_caps & KVM_XEN_HVM_CONFIG_SHARED_INFO);
++	TEST_REQUIRE(xen_caps & KVM_XEN_HVM_CONFIG_EVTCHN_SEND);
++
++	vm = vm_create_with_one_vcpu(&vcpu, guest_code);
++
++	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS,
++				    SHINFO_REGION_GPA, SHINFO_REGION_SLOT, 2, 0);
++
++	struct kvm_xen_hvm_config hvmc = {
++		.flags = KVM_XEN_HVM_CONFIG_INTERCEPT_HCALL |
++			 KVM_XEN_HVM_CONFIG_EVTCHN_SEND,
++		.msr = XEN_HYPERCALL_MSR,
++	};
++	vm_ioctl(vm, KVM_XEN_HVM_CONFIG, &hvmc);
++
++	struct kvm_xen_hvm_attr lm = {
++		.type = KVM_XEN_ATTR_TYPE_LONG_MODE,
++		.u.long_mode = 1,
++	};
++	vm_ioctl(vm, KVM_XEN_HVM_SET_ATTR, &lm);
++
++	struct kvm_xen_hvm_attr ha = {
++		.type = KVM_XEN_ATTR_TYPE_SHARED_INFO,
++		.u.shared_info.gfn = SHINFO_REGION_GPA / PAGE_SIZE,
++	};
++	vm_ioctl(vm, KVM_XEN_HVM_SET_ATTR, &ha);
++
++	struct kvm_xen_vcpu_attr vi = {
++		.type = KVM_XEN_VCPU_ATTR_TYPE_VCPU_INFO,
++		.u.gpa = SHINFO_REGION_GPA + 0x40,
++	};
++	vcpu_ioctl(vcpu, KVM_XEN_VCPU_SET_ATTR, &vi);
++
++	/* Loop the port back to this vCPU as an IPI. */
++	struct kvm_xen_hvm_attr evt = {
++		.type = KVM_XEN_ATTR_TYPE_EVTCHN,
++		.u.evtchn.send_port = EVTCHN_PORT,
++		.u.evtchn.type = EVTCHNSTAT_ipi,
++		.u.evtchn.flags = 0,
++		.u.evtchn.deliver.port.port = EVTCHN_PORT,
++		.u.evtchn.deliver.port.vcpu = vcpu->id,
++		.u.evtchn.deliver.port.priority = KVM_IRQ_ROUTING_XEN_EVTCHN_PRIO_2LEVEL,
++	};
++	vm_ioctl(vm, KVM_XEN_HVM_SET_ATTR, &evt);
++
++	r = pthread_create(&thread, NULL, memslot_churn, vm);
++	TEST_ASSERT(!r, "pthread_create() failed: %d", r);
++
++	while (!done) {
++		vcpu_run(vcpu);
++
++		/*
++		 * In the window where the shared_info slot is fully deleted
++		 * (between the churn thread's DELETE and re-CREATE), the
++		 * delivery fails with -EFAULT and the hypercall bounces to
++		 * userspace as KVM_EXIT_XEN. Complete it with an error
++		 * result and keep going; the failure mode under test is
++		 * the vCPU never coming back (deadlock -> timeout), not
++		 * the hypercall rc.
++		 */
++		if (vcpu->run->exit_reason == KVM_EXIT_XEN &&
++		    vcpu->run->xen.type == KVM_EXIT_XEN_HCALL) {
++			vcpu->run->xen.u.hcall.result = -EFAULT;
++			continue;
++		}
++
++		TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
++
++		switch (get_ucall(vcpu, &uc)) {
++		case UCALL_SYNC:
++			break;
++		case UCALL_DONE:
++			done = 1;
++			break;
++		case UCALL_ABORT:
++			REPORT_GUEST_ASSERT(uc);
++		default:
++			TEST_FAIL("Unexpected ucall %lu", uc.cmd);
++		}
++	}
++
++	atomic_store(&churn_stop, true);
++	pthread_join(thread, NULL);
++
++	kvm_vm_free(vm);
++	return 0;
++}
 -- 
 2.43.0
 
