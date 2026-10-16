@@ -1,130 +1,234 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44FB4DAFB2
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:07:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4976D4FC8E9;
+	Fri, 16 Oct 2026 16:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166850; cv=none; b=K0JI5ZUlpr4M6GAdmhTR3LCbcgz3IPoNSxN6UEGbB52xru0mFwz/Khrg/D0kbxuLSwnbixLEh13LlmlA0ENq0b3JZUkbq2gtGbp6vQygI6M09SXPPKfBs0zWynAAascdEm2L5Pv0G/Co/QPr5smMXDUQFtd6CKxWOgF6Ot8yqJY=
+	t=1792166932; cv=none; b=pC4Mo817thYUGIRYf07n8w3UvPQVm3hs5TLUdJ+MtKUSofOmshurB+HUWp4fmo+apmqfA3p6QZMfKe1W1A/p/11pfGIrKO8ga/UroMVS82/J6hEuS7bgfrmemXSJbbuecXYLz1FXIC0ZPMWpC3KpnfKZNbGW5C1MTeXEAHBYzJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166850; c=relaxed/simple;
-	bh=qOx4VPiE2Aa6FkdmjctOyjkNaye8rTr81qvDw40+nBA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WJGr3k3BQhwI2XKQ8KsPP+4Ex01ORgVKXhk8GvC+x7owUu5j3UyQdch5GPOKmcq22co0jSDBame/RWtDOki4+zc4tWRo+brMhs8rxMgznpGb+eclpS7mEFiEu5JBUQXMFHmYbRF9A62vo84rhwWcD2G4Djuh1o3VeveSsct+nyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ADV5wSmT; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792166932; c=relaxed/simple;
+	bh=TFrbtsw4/NWtxnrV40DvdCowWXBoBbsoKgaf+ovSJ/g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YBrpfxP6Pztqs9xb3eRHmUVOjUfY1D7jK5ntH00KacYpB1WClAfhKkwvZ0LjEBQ9Oad9d5cjnl5JQLDFBjkdm9/RBTLaTOuSrnKCL5OnoOog97PdmF1pDRk05hFU+a3w5W2Arg/8mrEC9CER8l08v1Durt3NqNZ1rmKi91KAwnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LaVgmzB8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ADV5wSmT"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2dd1dcdcf95so1133725ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:07:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792166848; x=1792771648; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zfoHK1ZIKQ1TgR5QFK+lCQM9pR1G/aWYu6gXDDq4ISc=;
-        b=ADV5wSmTZEOWKQbnj1nDMmsSCizSIRQFPQiTUh/VpypPqJIx01ELSL1U5Fakaw/7J/
-         RlB6NVPKEscuR7BnH4nn/2HcX1o3X8wsvaGkx1hL9dvQoRays2xiNE4aomrrXboh2ccY
-         AXCs6deNryl2fJ+MhpXitHvGJuBw3qJ/dkmliVOxg5UuzLx9pKAA0/fnA1Hu7xaEUI9W
-         Ls1ww3jGkKOPG1l3ViTHg3xMyrW/N3fkyGNpCUWjWBeEMz3oGQQC+5X9VN+B5GNNI7/4
-         rDi136hiQhPnFmHbhKXuuHzXv/PDr4e9GmpAt41r9XHzOYz40hUPEl4Q7v1sqvmTcdcP
-         kKlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792166848; x=1792771648;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zfoHK1ZIKQ1TgR5QFK+lCQM9pR1G/aWYu6gXDDq4ISc=;
-        b=rK2bZMQTGMq/Vm1h2yfSortXu+jWpzt9jjiOUu+ZztuFVD50XGsHZ9WW9JkGn3y7fM
-         cwREVsyTCiYITndebuAUiqoxEs695/qfivQmORHYgyKSVrjcBLvqDseDcENfN4Gw7lN8
-         YvQnrXy8IMTfTFG3MC6Xn8tLMhReTAi6ynqg703445oc9GWSCd6YONCsMKegqBqTMSEg
-         Gqf8w7kelA4s7RqnqSRXaGsIHyzxCcnWcM1Q3M+/qGeqViM8vyLKATXH6qpzy5dVd3Rv
-         C86U/YsHjwI7ejoBwYDijsdcWGvPNnoRxNenJRRH8bnysOXhWV2+KOd8H1X4XzxHv/ti
-         blxw==
-X-Forwarded-Encrypted: i=1; AKwUvBz9iIjIwhJRk0hMxbBB+EX8/u7e1sDTcSFh52vgk8/9i8XaRxKomLZpIFS4PAs9Ci9nO0VJ2GWBUDUGVGQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXlMqgLPabQcSv+ifAoPX28jD1wFrJe4xhVpjO6OgLlxoevE67
-	8McaRlTqHsJ0j1CYvYmMVc2bEGb9sN13Gl2OqHCJEkYOLHRJf1JEXqQQ
-X-Gm-Gg: AYBFou3W82wPOg84UjYOotwvuzP6wGJLAgGs9Z1dGXLla1vBoG5o9qHnxJOtbEOwxjy
-	rVuNtIUa6fS/F1dHHnJOfRqHIuEBNAm8Q9edcrrHAieSt5b0HfEfb1FROt/L1J1Z6Z37CimNwSe
-	KD8ehpxASLcPghpFXeiMzVwhpwgYc8NL88IACoGF6XzL+RaB6ZKnhAtjxqk2j/Ig7AWcPAph8X8
-	zyB16CbfgQm5x0j+iwDtvxAEjbZuatQbwJa3ajYkCE6jq38lfP9ERMWZExNFllINX8JkCVivtHD
-	p0s61Bjkg2Y7US5u8x1IGmvH4cuxnQGNBg5uYtKlkOfQJpinepyf1SY35s8HUuFvdvOuEquLB5B
-	SBqgSg5fQNfRLtG/Fx1p71B0eEw4kPV8AZ4XY0IPq2DF+OS9oRXaMqpCx5Hxi5s53ib3jErYvRW
-	++Cms7XpiraRq+cXI4R2KnAJ0+5+THre+RFxgulnf+LKYQ0Fb8qzn1HBZFVBPXlWP2QrEY0oNMZ
-	LHlkEVywZu/qB0AX4m9L/cyq6vU7iOHMIGouYh2PkYLdd9bszI=
-X-Received: by 2002:a17:903:2b04:b0:2e9:7770:cc35 with SMTP id d9443c01a7336-2e9a6a07297mr2933355ad.17.1792166847953;
-        Fri, 16 Oct 2026 09:07:27 -0700 (PDT)
-Received: from casta ([2401:d800:20b:1196:6a2:5930:14e3:f74b])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e8b1f0asm12294325ad.68.2026.10.16.09.07.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 09:07:26 -0700 (PDT)
-From: Nguyen Duy Nhat Anh <neganhat@gmail.com>
-To: paul.ely@broadcom.com
-Cc: nareshgottumukkala83@gmail.com,
-	hch@lst.de,
-	sagi@grimberg.me,
-	kch@nvidia.com,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Nguyen Duy Nhat Anh <neganhat@gmail.com>,
-	syzbot+be62d4b375542ecebd17@syzkaller.appspotmail.com
-Subject: [PATCH v3] nvmet-fc: skip port entry rebinding if already bound to a target port
-Date: Fri, 16 Oct 2026 23:07:00 +0700
-Message-ID: <20261016160700.12021-1-neganhat@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LaVgmzB8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A1B91F000C4;
+	Fri, 16 Oct 2026 16:08:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792166931;
+	bh=CvxbrF9+7kJSGUOwpuxXUeWuwLElfWufjL06nR8gAR4=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=LaVgmzB8RYqIljRwSEaqwHjFKIrreMWVzrkmgJ4yoRYwmbFa8bm0RruErKOO01CUx
+	 53NZfv4dRYK5fzdJezSXAHPOssQxUfwVMmqPFsmD2dHOLj3svB6LPUw2kNuvl++wBk
+	 FYwrn8vyAdJHzgrR0Sxkal8IeAxvcWb0grcmOXApFyFmdAjHwodGAXFfdkhrJ86We2
+	 w5ubbABzVDjKB39yIcOeKeOTmboW2f2SAvLk1df+IYS1+yrpcNodGSykhvJdHNv387
+	 R3hLaoEQZcWF+cGxvTN/2x3yG1MvZsPSLM+zqP6X5S23UiFtdbUskVsFg+bWmLUyM3
+	 fo/TZLABCP/LA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id C8192CE0854; Fri, 16 Oct 2026 09:08:50 -0700 (PDT)
+Date: Fri, 16 Oct 2026 09:08:50 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: K Prateek Nayak <kprateek.nayak@amd.com>,
+	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	kernel-team@meta.com
+Subject: Re: Mapping from preempted task to running task on same CPU
+Message-ID: <974da9b7-4168-4345-8f04-ec18b32ac7df@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <e8b6b372-d16b-4939-aa7a-755b7149e0fb@paulmck-laptop>
+ <a92f4a71-614f-44e4-b4f1-38e92deffae2@amd.com>
+ <20261016072500.GX4120091@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016072500.GX4120091@noisy.programming.kicks-ass.net>
 
-In nvmet_fc_portentry_rebind_tgt(), nvmet_fc_tgtlock serializes access to
-nvmet_fc_portentry_list, but does not prevent multiple concurrent or
-duplicate target port registrations from attempting to rebind to an
-already-assigned port entry.
+On Fri, Oct 16, 2026 at 09:25:00AM +0200, Peter Zijlstra wrote:
+> On Fri, Oct 16, 2026 at 10:14:27AM +0530, K Prateek Nayak wrote:
+> 
+> > > @@ -372,17 +381,24 @@ static int rcu_print_task_stall(struct rcu_node *rnp, unsigned long flags)
+> > >  	raw_spin_unlock_irqrestore_rcu_node(rnp, flags);
+> > >  	while (i) {
+> > >  		t = ts[--i];
+> > > -		if (task_call_func(t, check_slow_task, &rscr))
+> > > +		if (task_call_func(t, check_slow_task, &rscr)) {
+> > >  			pr_cont(" P%d", t->pid);
+> > > -		else
+> > > -			pr_cont(" P%d/%d:%c%c%c%c%c%c",
+> > > +		} else {
+> > > +			tc = rscr.rcu_rdr_cpu_task;
+> > > +			pr_cont(" P%d/%d:%c%c%c%c%c%c CPU %d%s %s (%d)%s",
+> > >  				t->pid, rscr.nesting,
+> > >  				".b"[rscr.rs.b.blocked],
+> > >  				".q"[rscr.rs.b.need_qs],
+> > >  				".e"[rscr.rs.b.exp_hint],
+> > >  				".l"[rscr.on_blkd_list],
+> > >  				".R"[rscr.rcu_rdr_running],
+> > > -				".B?"[rscr.rcu_rdr_boosted]);
+> > > +				".B?"[rscr.rcu_rdr_boosted],
+> > > +				rscr.rcu_rdr_cpu,
+> > > +				rscr.rcu_rdr_cpu_offline ? "!" : "",
+> > > +				tc ? tc->comm : "???",
+> > > +				tc ? tc->pid : -1,
+> > > +				tc ? (is_idle_task(tc) ? " (idle!)" : "") : " (no task)");
+> > > +		}
+> > >  		lockdep_assert_irqs_disabled();
+> > 
+> > ... since you are IRQs disabled, it should be fine to use it here.
+> > 
+> > If you don't want to take the overhead of rq_lock() + barrier,
+> > you can perhaps define a cpu_curr_snapshot_rcu() like:
+> > 
+> >     struct task_struct *cpu_curr_snapshot_rcu(int cpu)
+> >     {
+> >         return rcu_dereference_all(cpu_curr(cpu));
+> >     }
+> > 
+> > in kernel/sched/core.c and expose it similar to
+> > cpu_curr_snapshot().
+> > 
+> > I'll let Peter comment if he hates it or not ;-)
+> 
+> I would much rather do this than expose rq_lock().
 
-When pe->tgtport is non-NULL, WARN_ON() is triggered and pe->tgtport is
-overwritten, leading to kernel warnings and leaking the reference count
-acquired by nvmet_fc_tgtport_get().
+Thank you both!  Like this?
 
-Fix this by checking if pe->tgtport is already set before acquiring a
-reference count and rebinding. If it is bound, skip the entry to prevent
-clobbering existing bindings.
+							Thanx, Paul
 
-Reported-by: syzbot+be62d4b375542ecebd17@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=be62d4b375542ecebd17
-Signed-off-by: Nguyen Duy Nhat Anh <neganhat@gmail.com>
+------------------------------------------------------------------------
 
----
-v2 -> v3:
-- Correctly place pe->tgtport check before nvmet_fc_tgtport_get() to avoid refcount leak.
-v1 -> v2:
-- Move pe->tgtport check before nvmet_fc_tgtport_get() to avoid refcount leak.
----
----
- drivers/nvme/target/fc.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+commit 1468f6acb32add422b8f4dcebc0d75e7fd4b95aa
+Author: Paul E. McKenney <paulmck@kernel.org>
+Date:   Mon Sep 28 13:35:01 2026 -0700
 
-diff --git a/drivers/nvme/target/fc.c b/drivers/nvme/target/fc.c
-index 1b557775e033..43c5202a82b6 100644
---- a/drivers/nvme/target/fc.c
-+++ b/drivers/nvme/target/fc.c
-@@ -1321,10 +1321,13 @@ nvmet_fc_portentry_rebind_tgt(struct nvmet_fc_tgtport *tgtport)
- 	list_for_each_entry(pe, &nvmet_fc_portentry_list, pe_list) {
- 		if (tgtport->fc_target_port.node_name == pe->node_name &&
- 		    tgtport->fc_target_port.port_name == pe->port_name) {
-+
-+			if (pe->tgtport)
-+				continue;
-+
- 			if (!nvmet_fc_tgtport_get(tgtport))
- 				continue;
+    rcu: Print CPU that preempted stalled reader wants to run on
+    
+    This commit uses the dirty trick of defining an rcu_cpu_curr() within
+    kernel/sched/core.c in order to allow the RCU CPU stall warning call out
+    the CPU that a task preempted within an RCU reader would like to run on.
+    In addition, print out the task (if any) currently running on that CPU,
+    and add an exclamation mark ("!") after the CPU number if that CPU is
+    currently offline.
+    
+    This is a potential step towards allowing people (or LLMs, for that
+    matter) to locate any tasks that might be preventing the preempted RCU
+    reader task from running.
+    
+    [ paulmck: Apply feedback from K Prateek Nayak and Peter Zijlstra. ]
+    
+    Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 8b3d47a325cca..3606e5a2cec32 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -2532,3 +2532,5 @@ extern void migrate_enable(void);
+ DEFINE_LOCK_GUARD_0(migrate, migrate_disable(), migrate_enable())
  
--			WARN_ON(pe->tgtport);
- 			tgtport->pe = pe;
- 			pe->tgtport = tgtport;
- 			break;
--- 
-2.55.0
-
+ #endif
++
++struct task_struct *cpu_curr_snapshot_rcu(int cpu);
+diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
+index 803a56af3259f..33e953bb40b33 100644
+--- a/kernel/rcu/tree_stall.h
++++ b/kernel/rcu/tree_stall.h
+@@ -309,6 +309,9 @@ struct rcu_stall_chk_rdr {
+ 	bool on_blkd_list;
+ 	bool rcu_rdr_running;
+ 	int rcu_rdr_boosted;
++	int rcu_rdr_cpu;
++	int rcu_rdr_cpu_offline;
++	struct task_struct *rcu_rdr_cpu_task;
+ };
+ 
+ /*
+@@ -317,8 +320,10 @@ struct rcu_stall_chk_rdr {
+  */
+ static int check_slow_task(struct task_struct *t, void *arg)
+ {
++	int cpu;
+ 	struct rcu_node *rnp;
+ 	struct rcu_stall_chk_rdr *rscrp = arg;
++	struct task_struct *th;
+ 
+ 	if (task_curr(t))
+ 		return -EBUSY; // It is running, so decline to inspect it.
+@@ -327,6 +332,10 @@ static int check_slow_task(struct task_struct *t, void *arg)
+ 	rscrp->on_blkd_list = !list_empty(&t->rcu_node_entry);
+ 	rscrp->rcu_rdr_running = task_curr(t);
+ 	rscrp->rcu_rdr_boosted = 0;
++	rscrp->rcu_rdr_cpu = cpu = task_cpu(t);
++	rscrp->rcu_rdr_cpu_offline = cpu_is_offline(cpu);
++	// Interrupt are disabled for RCU read-side critical section. 
++	rscrp->rcu_rdr_cpu_task = th = cpu_curr_snapshot_rcu(cpu);
+ 	if (rscrp->on_blkd_list) {
+ 		rnp = READ_ONCE(t->rcu_blocked_node);
+ 		raw_spin_lock_rcu_node(rnp); /* irqs already disabled. */
+@@ -352,6 +361,7 @@ static int rcu_print_task_stall(struct rcu_node *rnp, unsigned long flags)
+ 	int ndetected = 0;
+ 	struct rcu_stall_chk_rdr rscr;
+ 	struct task_struct *t;
++	struct task_struct *tc;
+ 	struct task_struct *ts[8];
+ 
+ 	lockdep_assert_irqs_disabled();
+@@ -372,17 +382,24 @@ static int rcu_print_task_stall(struct rcu_node *rnp, unsigned long flags)
+ 	raw_spin_unlock_irqrestore_rcu_node(rnp, flags);
+ 	while (i) {
+ 		t = ts[--i];
+-		if (task_call_func(t, check_slow_task, &rscr))
++		if (task_call_func(t, check_slow_task, &rscr)) {
+ 			pr_cont(" P%d", t->pid);
+-		else
+-			pr_cont(" P%d/%d:%c%c%c%c%c%c",
++		} else {
++			tc = rscr.rcu_rdr_cpu_task;
++			pr_cont(" P%d/%d:%c%c%c%c%c%c CPU %d%s %s (%d)%s",
+ 				t->pid, rscr.nesting,
+ 				".b"[rscr.rs.b.blocked],
+ 				".q"[rscr.rs.b.need_qs],
+ 				".e"[rscr.rs.b.exp_hint],
+ 				".l"[rscr.on_blkd_list],
+ 				".R"[rscr.rcu_rdr_running],
+-				".B?"[rscr.rcu_rdr_boosted]);
++				".B?"[rscr.rcu_rdr_boosted],
++				rscr.rcu_rdr_cpu,
++				rscr.rcu_rdr_cpu_offline ? "!" : "",
++				tc ? tc->comm : "???",
++				tc ? tc->pid : -1,
++				tc ? (is_idle_task(tc) ? " (idle!)" : "") : " (no task)");
++		}
+ 		lockdep_assert_irqs_disabled();
+ 		put_task_struct(t);
+ 		ndetected++;
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 559735f71b5dd..1fa63eee528c2 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -11320,3 +11320,10 @@ void sched_change_end(struct sched_change_ctx *ctx)
+ 		p->sched_class->prio_changed(rq, p, ctx->prio);
+ 	}
+ }
++
++// Not for mainline, but hopefully someone has a trick that gets this
++// job done.
++struct task_struct *cpu_curr_snapshot_rcu(int cpu)
++{
++	return rcu_dereference_all(cpu_curr(cpu));
++}
