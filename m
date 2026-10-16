@@ -1,396 +1,218 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B52C36F908
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:16:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35BA23BFACE
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:18:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792188994; cv=none; b=Nz+vt4x9smuEy/rjj3H21eBO+66sE5x1pQVHmo1hIHIeygMGS7XDCWapwPcq51liRdjZtB6RZ3fHFE8Ci7KjpucPAzCnvBw7v3JEddZUgf5YW0mIfOFrUwhX2GvleeiROTnC8TsCDC8BPH3MBas7L1KKnJD41FfTmM7DvHLzKh0=
+	t=1792189093; cv=none; b=i/DuCA3O902BpnyrhLZXTbltO+AJIuH3GPhfndIPnNjMYowTZvJhsLxF7i7On9tTeCapmYoDlabPNZQsp5NypmW9AaGlYqFeJ///8lO6eniljpAeN1NBXjp91mLeQJEQYrs5Y4LJi65QHMfZfT5yWdfeh/Tl79Gw4u/rwT4Ge6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792188994; c=relaxed/simple;
-	bh=Ihax8ouPm6jYDszAWDnb4X7VuBDRzd+0uEin8+gse3c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kgwY331jLsz/PVJRbB6SxDdUE+btjJIeOwCeBHEjgnJsJaEu6COiwL0sQ6p5p7PQ7MmQl7L+zL6V78k2wJHT+X3l1IW7ZsUpEy/ciof3HU6BNmuof25dshMH8JnM1aARccasecNgIOxE3BHVFvehEsK8ULRnHkSE81KFGaTBTvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cMEu8q7b; arc=none smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792189093; c=relaxed/simple;
+	bh=TSC8xct7CPjCdOh2QAKkGMk09bdyMNvmRPtbKR70ipM=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=jeEdHYg/0T7wc9CFQk7fYwWf3TcP4VE0QvjeDRZvYDmuiI9NuPCFjEZx/6+CK1Gon4XNRv3gf+ecrdZOCj9JCS4oscnVTCUZjgeyztUyo5CxGiK1S2opF7P9Tvo+ynPkVAK+n/2h+55WSHeHUJftYt2jyn05bOKPuDGmQbfjvp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AL3p3rPR; arc=none smtp.client-ip=74.125.82.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cMEu8q7b"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35f1f76ea84so589408eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:16:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AL3p3rPR"
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1383723dfddso763939c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:18:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792188992; x=1792793792; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9PlKRPHckVEX+8lY9jy8A17B4anyFnGx3e97aiFPbmw=;
-        b=cMEu8q7bfstO8I8aYBDSUINcxIvRQPXE7auSaVDIaTfBZFo2sVY4UWCUDYnSBphTq/
-         XAXmdNg7A6msxD4ZXSAiLQXyVbWbGbpY0Rm3dzeHd4D7KlPQHHnDNkTPo5qog+SWb/zw
-         v6O7NZVrGwXyD/ux4ERzOBDl7VQLmV/ijOkRzAjmxB6iRr8cbRXGlNZzI7UwRNhl/yz8
-         m+W5MimWI0OrppjhyCnKK6SKzsAAeCNISjzNplQvOx3drmcTcD2HjKaNbkV60UJVJbmY
-         AJXGx+w6o/w0HE34rDsPOCOu8X/njnisNINU/7X7nKoIVoK3eC4Wjlbk8rX7vmD6f/tw
-         UpSg==
+        d=google.com; s=20251104; t=1792189090; x=1792793890; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qlO3NbwHdj3PU8c4bbM/MsYGnPzoh+/o0HZvALykYYs=;
+        b=AL3p3rPRrWZevKx/2+UKfPR78vLGP5Q8RVShjc+kysmL2vSmZTvRalNJUaw2v8oDWD
+         d4Tt7fqxaTNM8hsBAMzyLN4J4VnkzSlkrmg0rRSSHD8elsi7tHZphKE0xjSt4qTjZMt5
+         nTjtzscoQfn3V7IsOkCJgA0G9B/dOMctomnbvUdEkZnILsu9WgxKvScCtEixb93fgksX
+         WUZPLA0osEyd4pzT2xQ2fb/VSY+7N8heR15VfpFgbksj8EQF1ApWeF3FIWfydvDJThDQ
+         0oODg25sxVw4aSAynFskQJRo5tOYSEtyQPkdKXcIXQq5i+5aRdFq1BxQY8UyY1Za8MXk
+         ut7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792188992; x=1792793792;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9PlKRPHckVEX+8lY9jy8A17B4anyFnGx3e97aiFPbmw=;
-        b=Fxit6v6zPE7nFpmYqTVVi0CIix03c51Mdsu31nh5nVuRmM8d1zzShxNdSXh0b/gGTw
-         hhBob1vFNLGVvZIqM1RRzx1el+0IN+CmNDk7eLLuD3CMogiBclm6+O9N26Ws1VU7fvDD
-         Sbw9xGcQPEmPhzwwWOLXagXSufIcWUEUgImqnKV6TgHmEur5Gb8WcdA7A2d4A3nqS+ca
-         y45shIy4zejy+EH/QdfWBYXxR0ROFx6MF6o02+kY4UKIkf13kMaoDP7w8/X/mGXtH171
-         +UDp/Q2tNpXQyAwkfprSbDLtzP8c4zuEboR5RoiiFQsYUs+O//56r1q1dPD3zZAveYW/
-         Va5g==
-X-Forwarded-Encrypted: i=1; AKwUvBzYyKqzF33Axukoy6APEVxMryvOs0nDhhi/rJ07egDsuO3yDS9sAYmi20AODg3kPFXWLLknnibGrryE9hI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3p/lgp2v9S/7uGT9r0xqlpANvF/ynLtgv4wFdxz9JYjT+LYb/
-	r/Sv48waQ9JFnpEiAp9RsDGNMIKxJHZzp63BcExFod9W+j/OZKZiu/Rg
-X-Gm-Gg: AYBFou1wrikokfIi5FgvecV+H1YT0bbbFP3Og+5qNYwqhdmHkzVQTLI2B061vpMuzoH
-	CnVuCCgtm5xmV+sYLIiukH2PMNIYa7iSJMLBIAYPQm7a4lhF0e5As9/0+D/H4AH/D9RONM//7vy
-	6E2ndVQNm8V7CVPazOCsxUaD+RPACa+5gRir3EUKM6gGFV+ZTni9Xp2rMgmzfTqKiU3WvUHufHf
-	EBJGIG8SJqGYd38Af16NQQ3XD6WuAZ1IOOm96U11ewTTEo5IdfSw4TftkGlDrBN1HvELFg4HAgz
-	ienLAsUBLQd5MDlFr+8Sr1ECLfNz9VJv6uhnAdUAkwBz983nSZ6pFCj74WXREWBAsrUE+/N3bi8
-	r0pQ0ftDtZ8hWNrwBeUb35P4lGGIxRgmjLDIy4Vk36gJBqPnH0V0xzWlpMIVj+gjUSc51gxBeTo
-	Qyfra/BXo8KdmO5derKNlW+ub0DEkJdzL8mFLtcctqoRSiPuSONZZisgxSrCLZiB2pPGuKtzD9w
-	vlwHOcX
-X-Received: by 2002:a05:7022:fe0c:b0:14b:1e78:a19f with SMTP id a92af1059eb24-1850c223833mr1912662c88.6.1792188992196;
-        Fri, 16 Oct 2026 15:16:32 -0700 (PDT)
-Received: from eldorado ([2600:8802:b00:1f84:d294:66ff:fe95:a98e])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831919fc14sm10480863c88.6.2026.10.16.15.16.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 15:16:30 -0700 (PDT)
-From: Florian Fainelli <f.fainelli@gmail.com>
-To: linux-mips@vger.kernel.org
-Cc: Florian Fainelli <f.fainelli@gmail.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
-	Robert Marko <robert.marko@sartura.hr>,
-	linux-watchdog@vger.kernel.org (open list:WATCHDOG DEVICE DRIVERS),
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-kernel@vger.kernel.org (open list),
-	manuel.lauss@gmail.com
-Subject: [PATCH 5/5] watchdog: Remove the MTX-1 watchdog driver
-Date: Fri, 16 Oct 2026 15:16:17 -0700
-Message-ID: <20261016221617.2223004-6-f.fainelli@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016221617.2223004-1-f.fainelli@gmail.com>
-References: <20261016221617.2223004-1-f.fainelli@gmail.com>
+        d=1e100.net; s=20260707; t=1792189090; x=1792793890;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qlO3NbwHdj3PU8c4bbM/MsYGnPzoh+/o0HZvALykYYs=;
+        b=bi1WmbGLROB1EhcdzYDUG6YG2bjRJ0JMvKk5dqL4KSQ3fjnjIvjctXt2MWSdMEXIBX
+         btONoTvGs6PdgQ5WZ7I/eMGaEi4qY3mgUsPKE7Yd/hKxmwOowLnpY0mkUrHf4SpMQVOn
+         VJ5b35oGmOSyWtei+6mW2uqXPfGfVr6cikfkfmnN9O5VQaK39pgc6DNZlVpFJx8570DC
+         201H7ykZOmuHdNLlbNsy7ZG4rKh7CAHM0CmPGMQmS/rqjrKW4G4BVpr2UBDjjBjX+XDD
+         WVsAvIOp00S9OIyLXiSPsxBLkJkwpWo7hTOQrY8ToGDi+5IiUz1531ro42jYNUiKyCVR
+         vZ6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzSExh8VeO5DjT67IiiuUBYkkwfuUxmrQBA6G/ctttQjrXFwOM/kf1tyXA5Q0jmjfPXS8BXG00h3F7h0EA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmBhujo1MnDWxPufaZdReQDCSC8A5HjIrXn4LSUwBZl7SAfazH
+	Z9scmm3h+9j3be3wwLHo9pwBuiP49X+XlL+hr4o5z5C3OXFLbeQ8BKXBXJzxjM7zo7Gp5nSSYKq
+	1nX+rtFkHAQ==
+X-Received: from dlbrl9.prod.google.com ([2002:a05:7022:f509:b0:166:1a44:a89])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:1706:b0:16a:f5cd:365
+ with SMTP id a92af1059eb24-1850d087fd9mr1394614c88.5.1792189089758; Fri, 16
+ Oct 2026 15:18:09 -0700 (PDT)
+Date: Fri, 16 Oct 2026 15:16:43 -0700
+In-Reply-To: <20261016173106.679725-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261016173106.679725-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261016221700.1282659-1-irogers@google.com>
+Subject: [PATCH v4 00/17] tools/perf: Adopt kernel compiler-context-analysis.h annotations
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
+	justinstitt@google.com, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, ljs@kernel.org, llvm@lists.linux.dev, 
+	mingo@redhat.com, morbo@google.com, nathan@kernel.org, 
+	ndesaulniers@google.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-MTX-1 now uses the generic GPIO watchdog driver with board properties
-describing its GPIO and heartbeat constraints. Remove the unused custom
-driver and its Kconfig and Makefile entries.
+The perf tool previously added Clang thread-safety annotations in
+tools/perf/util/mutex.h (GUARDED_BY, LOCKABLE, EXCLUSIVE_LOCK_FUNCTION,
+UNLOCK_FUNCTION, etc.). Since then, the Linux kernel has adopted a
+unified set of static context analysis macros and attributes in
+include/linux/compiler-context-analysis.h (context_lock_struct,
+__guarded_by, __acquires, __releases, __must_hold, etc.).
 
-The watchdog core now supplies the character device, keepalive scheduling,
-timeout handling and close semantics previously implemented by this driver.
+This series makes tools/include/linux/compiler-context-analysis.h
+functional by synchronizing it and the required compiler_types.h helpers
+with the kernel headers, converts tools/perf from its custom mutex.h
+macros to the kernel-style compiler-context-analysis.h annotations, and
+expands context analysis coverage across comm, dso/dsos, thread/threads,
+config, intel-tpebs, env, and maps. Along the way, separate preparatory
+patches fix an unlocked __dsos__add() call and TOCTOU race in
+__machine__addnew_vdso(), avoid dropping _dso__data_open_lock in
+dso__list_del() under REFCNT_CHECKING, switch dso__data_open_lock and
+tpebs_mtx to DEFINE_MUTEX(), add a read-lock fast path to
+dsos__findnew_id(), fix an unlocked read of tpebs_reader_thread and
+double-close of tpebs_cmd.out in intel-tpebs, and avoid a potential
+read-to-write deadlock in maps__load_first() and out-of-bounds access in
+__maps__remove().
 
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
----
- drivers/watchdog/Kconfig     |   7 -
- drivers/watchdog/Makefile    |   1 -
- drivers/watchdog/mtx-1_wdt.c | 245 -----------------------------------
- 3 files changed, 253 deletions(-)
- delete mode 100644 drivers/watchdog/mtx-1_wdt.c
+This series was developed and reviewed with assistance from an AI coding
+agent (Gemini 3.1 Pro) and reviewed with Sashiko.
 
-diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-index f50709c635e5..c884f86be4e3 100644
---- a/drivers/watchdog/Kconfig
-+++ b/drivers/watchdog/Kconfig
-@@ -1865,13 +1865,6 @@ config JZ4740_WDT
- 	help
- 	  Hardware driver for the built-in watchdog timer on Ingenic jz4740 SoCs.
- 
--config WDT_MTX1
--	tristate "MTX-1 Hardware Watchdog"
--	depends on MIPS_MTX1 || (MIPS && COMPILE_TEST)
--	help
--	  Hardware driver for the MTX-1 boards. This is a watchdog timer that
--	  will reboot the machine after a 100 seconds timer expired.
--
- config SIBYTE_WDOG
- 	tristate "Sibyte SoC hardware watchdog"
- 	depends on CPU_SB1
-diff --git a/drivers/watchdog/Makefile b/drivers/watchdog/Makefile
-index 9ac406677aba..19cb25f51624 100644
---- a/drivers/watchdog/Makefile
-+++ b/drivers/watchdog/Makefile
-@@ -172,7 +172,6 @@ obj-$(CONFIG_BCM47XX_WDT) += bcm47xx_wdt.o
- obj-$(CONFIG_RC32434_WDT) += rc32434_wdt.o
- obj-$(CONFIG_INDYDOG) += indydog.o
- obj-$(CONFIG_JZ4740_WDT) += jz4740_wdt.o
--obj-$(CONFIG_WDT_MTX1) += mtx-1_wdt.o
- obj-$(CONFIG_SIBYTE_WDOG) += sb_wdog.o
- obj-$(CONFIG_TXX9_WDT) += txx9wdt.o
- obj-$(CONFIG_OCTEON_WDT) += octeon-wdt.o
-diff --git a/drivers/watchdog/mtx-1_wdt.c b/drivers/watchdog/mtx-1_wdt.c
-deleted file mode 100644
-index f75426cfa425..000000000000
---- a/drivers/watchdog/mtx-1_wdt.c
-+++ /dev/null
-@@ -1,245 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0+
--/*
-- *      Driver for the MTX-1 Watchdog.
-- *
-- *      (C) Copyright 2005 4G Systems <info@4g-systems.biz>,
-- *							All Rights Reserved.
-- *                              http://www.4g-systems.biz
-- *
-- *	(C) Copyright 2007 OpenWrt.org, Florian Fainelli <florian@openwrt.org>
-- *      (c) Copyright 2005    4G Systems <info@4g-systems.biz>
-- *
-- *      Release 0.01.
-- *      Author: Michael Stickel  michael.stickel@4g-systems.biz
-- *
-- *      Release 0.02.
-- *	Author: Florian Fainelli florian@openwrt.org
-- *		use the Linux watchdog/timer APIs
-- *
-- *      The Watchdog is configured to reset the MTX-1
-- *      if it is not triggered for 100 seconds.
-- *      It should not be triggered more often than 1.6 seconds.
-- *
-- *      A timer triggers the watchdog every 5 seconds, until
-- *      it is opened for the first time. After the first open
-- *      it MUST be triggered every 2..95 seconds.
-- */
--
--#include <linux/module.h>
--#include <linux/moduleparam.h>
--#include <linux/types.h>
--#include <linux/errno.h>
--#include <linux/miscdevice.h>
--#include <linux/fs.h>
--#include <linux/ioport.h>
--#include <linux/timer.h>
--#include <linux/completion.h>
--#include <linux/jiffies.h>
--#include <linux/watchdog.h>
--#include <linux/platform_device.h>
--#include <linux/io.h>
--#include <linux/uaccess.h>
--#include <linux/gpio/consumer.h>
--
--#define MTX1_WDT_INTERVAL	(5 * HZ)
--
--static int ticks = 100 * HZ;
--
--static struct {
--	struct completion stop;
--	spinlock_t lock;
--	int running;
--	struct timer_list timer;
--	int queue;
--	int default_ticks;
--	unsigned long inuse;
--	struct gpio_desc *gpiod;
--	unsigned int gstate;
--} mtx1_wdt_device;
--
--static void mtx1_wdt_trigger(struct timer_list *unused)
--{
--	spin_lock(&mtx1_wdt_device.lock);
--	if (mtx1_wdt_device.running)
--		ticks--;
--
--	/* toggle wdt gpio */
--	mtx1_wdt_device.gstate = !mtx1_wdt_device.gstate;
--	gpiod_set_value(mtx1_wdt_device.gpiod, mtx1_wdt_device.gstate);
--
--	if (mtx1_wdt_device.queue && ticks)
--		mod_timer(&mtx1_wdt_device.timer, jiffies + MTX1_WDT_INTERVAL);
--	else
--		complete(&mtx1_wdt_device.stop);
--	spin_unlock(&mtx1_wdt_device.lock);
--}
--
--static void mtx1_wdt_reset(void)
--{
--	ticks = mtx1_wdt_device.default_ticks;
--}
--
--
--static void mtx1_wdt_start(void)
--{
--	unsigned long flags;
--
--	spin_lock_irqsave(&mtx1_wdt_device.lock, flags);
--	if (!mtx1_wdt_device.queue) {
--		mtx1_wdt_device.queue = 1;
--		mtx1_wdt_device.gstate = 1;
--		gpiod_set_value(mtx1_wdt_device.gpiod, 1);
--		mod_timer(&mtx1_wdt_device.timer, jiffies + MTX1_WDT_INTERVAL);
--	}
--	mtx1_wdt_device.running++;
--	spin_unlock_irqrestore(&mtx1_wdt_device.lock, flags);
--}
--
--static int mtx1_wdt_stop(void)
--{
--	unsigned long flags;
--
--	spin_lock_irqsave(&mtx1_wdt_device.lock, flags);
--	if (mtx1_wdt_device.queue) {
--		mtx1_wdt_device.queue = 0;
--		mtx1_wdt_device.gstate = 0;
--		gpiod_set_value(mtx1_wdt_device.gpiod, 0);
--	}
--	ticks = mtx1_wdt_device.default_ticks;
--	spin_unlock_irqrestore(&mtx1_wdt_device.lock, flags);
--	return 0;
--}
--
--/* Filesystem functions */
--
--static int mtx1_wdt_open(struct inode *inode, struct file *file)
--{
--	if (test_and_set_bit(0, &mtx1_wdt_device.inuse))
--		return -EBUSY;
--	return stream_open(inode, file);
--}
--
--
--static int mtx1_wdt_release(struct inode *inode, struct file *file)
--{
--	clear_bit(0, &mtx1_wdt_device.inuse);
--	return 0;
--}
--
--static long mtx1_wdt_ioctl(struct file *file, unsigned int cmd,
--							unsigned long arg)
--{
--	void __user *argp = (void __user *)arg;
--	int __user *p = (int __user *)argp;
--	unsigned int value;
--	static const struct watchdog_info ident = {
--		.options = WDIOF_CARDRESET,
--		.identity = "MTX-1 WDT",
--	};
--
--	switch (cmd) {
--	case WDIOC_GETSUPPORT:
--		if (copy_to_user(argp, &ident, sizeof(ident)))
--			return -EFAULT;
--		break;
--	case WDIOC_GETSTATUS:
--	case WDIOC_GETBOOTSTATUS:
--		put_user(0, p);
--		break;
--	case WDIOC_SETOPTIONS:
--		if (get_user(value, p))
--			return -EFAULT;
--		if (value & WDIOS_ENABLECARD)
--			mtx1_wdt_start();
--		else if (value & WDIOS_DISABLECARD)
--			mtx1_wdt_stop();
--		else
--			return -EINVAL;
--		return 0;
--	case WDIOC_KEEPALIVE:
--		mtx1_wdt_reset();
--		break;
--	default:
--		return -ENOTTY;
--	}
--	return 0;
--}
--
--
--static ssize_t mtx1_wdt_write(struct file *file, const char *buf,
--						size_t count, loff_t *ppos)
--{
--	if (!count)
--		return -EIO;
--	mtx1_wdt_reset();
--	return count;
--}
--
--static const struct file_operations mtx1_wdt_fops = {
--	.owner		= THIS_MODULE,
--	.unlocked_ioctl	= mtx1_wdt_ioctl,
--	.compat_ioctl	= compat_ptr_ioctl,
--	.open		= mtx1_wdt_open,
--	.write		= mtx1_wdt_write,
--	.release	= mtx1_wdt_release,
--};
--
--
--static struct miscdevice mtx1_wdt_misc = {
--	.minor	= WATCHDOG_MINOR,
--	.name	= "watchdog",
--	.fops	= &mtx1_wdt_fops,
--};
--
--
--static int mtx1_wdt_probe(struct platform_device *pdev)
--{
--	int ret;
--
--	mtx1_wdt_device.gpiod = devm_gpiod_get(&pdev->dev,
--					       NULL, GPIOD_OUT_HIGH);
--	if (IS_ERR(mtx1_wdt_device.gpiod)) {
--		dev_err(&pdev->dev, "failed to request gpio");
--		return PTR_ERR(mtx1_wdt_device.gpiod);
--	}
--
--	spin_lock_init(&mtx1_wdt_device.lock);
--	init_completion(&mtx1_wdt_device.stop);
--	mtx1_wdt_device.queue = 0;
--	clear_bit(0, &mtx1_wdt_device.inuse);
--	timer_setup(&mtx1_wdt_device.timer, mtx1_wdt_trigger, 0);
--	mtx1_wdt_device.default_ticks = ticks;
--
--	ret = misc_register(&mtx1_wdt_misc);
--	if (ret < 0) {
--		dev_err(&pdev->dev, "failed to register\n");
--		return ret;
--	}
--	mtx1_wdt_start();
--	dev_info(&pdev->dev, "MTX-1 Watchdog driver\n");
--	return 0;
--}
--
--static void mtx1_wdt_remove(struct platform_device *pdev)
--{
--	/* FIXME: do we need to lock this test ? */
--	if (mtx1_wdt_device.queue) {
--		mtx1_wdt_device.queue = 0;
--		wait_for_completion(&mtx1_wdt_device.stop);
--	}
--
--	misc_deregister(&mtx1_wdt_misc);
--}
--
--static struct platform_driver mtx1_wdt_driver = {
--	.probe = mtx1_wdt_probe,
--	.remove = mtx1_wdt_remove,
--	.driver.name = "mtx1-wdt",
--};
--
--module_platform_driver(mtx1_wdt_driver);
--
--MODULE_AUTHOR("Michael Stickel, Florian Fainelli");
--MODULE_DESCRIPTION("Driver for the MTX-1 watchdog");
--MODULE_LICENSE("GPL");
--MODULE_ALIAS("platform:mtx1-wdt");
+v4:
+  - Place the DSO loaded in addr_filter__resolve_syms() into a dsos
+    collection so dso__dsos(dso) is populated (patch 8).
+  - Join tpebs_reader_thread on error in evsel__tpebs_open(), document
+    why tpebs_cmd.pid is cleared before pthread_join() in tpebs_stop(),
+    and include <pthread.h> and <signal.h> in util/intel-tpebs.c
+    (patch 13).
+  - Include <string.h> in util/maps.c (patch 16).
+
+v3:
+  - Rebase onto perf-tools-next (converting the newly added
+    dso__find_binary_type() lock annotations in util/dso.c).
+  - Separate bug fixes, DEFINE_MUTEX() cleanups, and improvements (vdso,
+    dso_data, dso__data_open_lock, dsos__findnew_id, intel-tpebs,
+    tpebs_mtx, maps) from the annotation patches.
+  - Move AI coding assistant attribution to the cover letter and drop
+    per-commit Assisted-by tags per linux-next
+    Documentation/process/coding-assistants.rst.
+  - Add Marco Elver's Reviewed-by to patch 1.
+  - Define __diag_clang_23() and Clang ASM_INPUT_G/ASM_INPUT_RM/
+    ASM_OUTPUT_RM overrides in tools/include/linux/compiler-gcc.h
+    (patch 2).
+  - Probe for -Wthread-safety-pointer/-Wthread-safety-beta in
+    Makefile.config (patch 5).
+  - Pass write_locked to __dsos__find() (patch 7).
+  - Pass struct dso_data * to close_data_fd() and dso__list_del() to
+    remove the REFCNT_CHECKING dso pointer from struct dso_data and
+    avoid dropping dso__data_open_lock in dso__list_del(), and include
+    <assert.h> in util/dso.c (patch 8).
+  - Re-validate DSO lookup under the write lock in dsos__findnew_id()
+    via __dsos__findnew_id(), and handle NULL dso_id in
+    dso__needs_improve_id(), __dso__improve_id(), and dso_id__cmp()
+    (patch 10).
+  - Reset tpebs_cmd.out = -1 if start_command() fails and include
+    <stdint.h>, <stdlib.h>, <string.h>, and <unistd.h> in
+    util/intel-tpebs.c (patch 13).
+  - Bounds-check the index in __maps__remove() (freeing maps_by_name if
+    out of bounds) (patch 16).
+
+v2:
+  - Use -c rather than -E when probing for
+    -fexperimental-late-parse-attributes in Makefile.config to avoid
+    -Werror,-Wunused-command-line-argument.
+  - Acquire machine->dsos.lock in write mode across duplicate checking,
+    dso__set_long_name(), and __dsos__add() in __machine__addnew_vdso().
+  - Avoid dropping dso__data_open_lock in dso__list_del() under
+    REFCNT_CHECKING.
+  - Pass tpebs_cmd.out directly to __sample_reader() and set
+    tpebs_cmd.out = -1 in evsel__tpebs_open() to avoid a double-close in
+    tpebs_stop(), and clarify the config_set_mutex comment.
+  - Drop maps__lock before calling map__load() in maps__load_first() to
+    avoid a read-to-write self-deadlock when loading kernel maps inserts
+    additional trampoline maps.
+
+Ian Rogers (17):
+  compiler-context-analysis: Avoid unused parameter warning in
+    _context_unsafe_alias()
+  tools headers compiler: Synchronize compiler_types.h with the kernel
+    sources
+  tools headers: Synchronize linux/compiler-context-analysis.h with the
+    kernel sources
+  perf mutex: Use kernel style compiler-context-analysis.h annotations
+  perf build: Enable additional Clang thread-safety flags
+  perf comm: Add __guarded_by annotations to struct comm_strs
+  perf vdso: Fix unlocked __dsos__add() and race in
+    __machine__addnew_vdso()
+  perf dso: Pass dso_data to close_data_fd() and dso__list_del()
+  perf dso: Use DEFINE_MUTEX for dso__data_open_lock
+  perf dsos: Use read lock fast path in dsos__findnew_id()
+  perf dso: Expand context analysis annotations
+  perf thread: Expand context analysis annotations to threads and
+    namespaces_lock
+  perf intel-tpebs: Fix race in tpebs_stop() and tpebs_cmd.out fd
+    handling
+  perf intel-tpebs: Use DEFINE_MUTEX for tpebs_mtx
+  perf config, intel-tpebs, env: Add __guarded_by and __must_hold
+    annotations
+  perf maps: Fix lock inversion in maps__load_first() and bounds check
+    in __maps__remove()
+  perf maps: Add context analysis annotations
+
+ include/linux/compiler-context-analysis.h     |   2 +-
+ .../include/linux/compiler-context-analysis.h | 518 ++++++++++++++++--
+ tools/include/linux/compiler-gcc.h            |  72 ++-
+ tools/include/linux/compiler.h                |  50 +-
+ tools/include/linux/compiler_types.h          | 206 ++++++-
+ tools/perf/Makefile.config                    |   8 +-
+ tools/perf/builtin-sched.c                    |  16 +-
+ tools/perf/builtin-top.c                      |   4 +-
+ tools/perf/check-headers.sh                   |   1 +
+ tools/perf/tests/dso-data.c                   |   4 +
+ tools/perf/util/annotate.c                    |   4 +-
+ tools/perf/util/annotate.h                    |   8 +-
+ tools/perf/util/auxtrace.c                    |  16 +-
+ tools/perf/util/bpf-event.h                   |   5 +-
+ tools/perf/util/comm.c                        |  10 +-
+ tools/perf/util/config.c                      |  43 +-
+ tools/perf/util/dso.c                         | 140 +++--
+ tools/perf/util/dso.h                         |  15 +-
+ tools/perf/util/dsos.c                        |  31 +-
+ tools/perf/util/dsos.h                        |  12 +-
+ tools/perf/util/env.c                         |   1 +
+ tools/perf/util/env.h                         |  19 +-
+ tools/perf/util/intel-tpebs.c                 | 128 +++--
+ tools/perf/util/libbfd.c                      |   4 +-
+ tools/perf/util/maps.c                        | 148 +++--
+ tools/perf/util/mutex.c                       |   4 +-
+ tools/perf/util/mutex.h                       |  90 +--
+ tools/perf/util/rwsem.c                       |   8 +-
+ tools/perf/util/rwsem.h                       |  10 +-
+ tools/perf/util/thread.c                      |  10 +-
+ tools/perf/util/thread.h                      |  30 +-
+ tools/perf/util/threads.c                     |   4 +
+ tools/perf/util/threads.h                     |   6 +-
+ tools/perf/util/vdso.c                        |  17 +-
+ 34 files changed, 1181 insertions(+), 463 deletions(-)
+
 -- 
-2.53.0
+2.56.0.212.g129ede20d9-goog
 
