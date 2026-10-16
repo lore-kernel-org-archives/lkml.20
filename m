@@ -1,97 +1,135 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164672E266C
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6370C4C653E
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792156627; cv=none; b=WBj33fUbe4GqQCjXD1axBa77EKDD4aPnqMPQ3hZFiPvbexowTYxdWq+Qq88RubaLxmhN9T27MytOw8HfGpNfWfgqaXa5qJwEn1pEiI/29XlEnTcd1QsHGOQDHSyh/f1Oz8valnPKRkzbiKn/wr1KkUpZIdPQHPSI/2Z2/87w4e0=
+	t=1792156655; cv=none; b=cDV/CPAuBz28i9Lo+ifiqcRdH7ojgnyLJDRigQ/euydpFb3R7Qpenj72197LAXv1r23RZnRW16uYol5GltGlVc7Bo7iGNfgn4JnzMM4B9g85weXfd2jsnRu84JyDanPsZS9VBATzpur5Z4qP9jXhn7qRQWj95rPdOch8hIr7qfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792156627; c=relaxed/simple;
-	bh=ADFLpxJTy6WuqekBYcH8+chW3TrBLyByLSZYI4f+yyQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ad9QIqG7QJRjKXN0/rLcsRKBr9zslw7oQtbVx+YsI75yhz1rWN476+tnXypjan/FIwghus8ivQ82zaDvKxaNjCLhO1BakmvXO/R9GZJRwDn6v7SKh1c7E3J+c7G4tFkw9oLkJ+gJ9mkSrl/MOYQxuZOO41ZuDOi2lccw1w8VcQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es; spf=pass smtp.mailfrom=hsal.es; dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b=m1mbA0Jy; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
+	s=arc-20240116; t=1792156655; c=relaxed/simple;
+	bh=972BnS86W6QOavz34L61+TBk0DmhvqVC2zFod9PkusY=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=gwPd/gXtxtHWOW+IQlZHEygQQwfh9pMDeNgW9bcBNeHuHDgn3l4xdPSb0SFB64ZKFXFe2Ll/1PMdkVhiiIdHfcfEbDHWhDwVyBblbcP63Tk2XbHgVDbmdfaer7+WHEH2R/XcTwktmXNs+M3iQXgl6lWs47axZXMAwMxN31mCFeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Zl/DdgPP; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ccvG3SZp; arc=none smtp.client-ip=103.168.172.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b="m1mbA0Jy"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j5lpH1wq9zKmT6;
-	Fri, 16 Oct 2026 15:16:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1792156615;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ADFLpxJTy6WuqekBYcH8+chW3TrBLyByLSZYI4f+yyQ=;
-	b=m1mbA0Jyczbb4IFU891R/y3QKmCITbeDLYUk9RwKS0JyYHyNzKR4hsHVnlnOIz4KhxURip
-	ZIB1xuqrao8Y+WsFBZcgC+Oaa7tF9crSy9WtM2SO02w7NGXh/SczGlfckyP/zxRdOhLJoj
-	33yO9y34MnB47Mx8pjN/p0s7N5yKwjiVbvBtOMXlnDS9rhWrX6yIhNH82IQ5l9XAyd0vDI
-	wi/Xo/1FO6qEwUATjXmazi8Gtm82FyvgvntAOsTBuCdacjrTZuOrXyE0cK0/5lcotrZE6r
-	FbG6chdTV41+fUXckIQHoVqp6o3/s2ZkBYrK+XNIpDiZGqz8jAOG5r/dJIo+YQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	jfalempe@redhat.com,
-	javierm@redhat.com
-Subject: Re: [PATCH 0/2] drm/client: Keep larger modes in connector->modes on fbdev hotplug
-Date: Fri, 16 Oct 2026 14:16:52 +0100
-Message-ID: <20261016131652.483525-1-hugo@hsal.es>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <atIYd0dd6ynXulwQ@intel.com>
-References: <20261015212545.1989962-1-hugo@hsal.es> <atIYd0dd6ynXulwQ@intel.com>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Zl/DdgPP";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ccvG3SZp"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 42626140010D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:17:32 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Fri, 16 Oct 2026 09:17:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792156648;
+	 x=1792243048; bh=W68fWyUt0RqgzohdtV/Be5eCqN0axXdNamgwFcm1kWg=; b=
+	Zl/DdgPPJEHSBxcFPz4ZC06k6gpE4Gcuq/B5qE+9f+8l076MhCKuRRJwgMkf1QMI
+	Z0yy1TfzIHZmvRxQ1zuuyqowLV7GkLDQlgSbx1MLiz21V7UlnbIQ4whj8oO3lhN/
+	YkXdkrNw82didVE8loVmbS2GC6R49YuE84fdrYdGzEtUgpYqT1PkiA0x8pJUq0aP
+	kMxdAaSc++E2QSPIdTaUajnAc/fSK3vTBCywJWisDIiQsK0S541/0foYCgYxqU6K
+	XA+cM0/9Xj5FXPPS/+hkaFtEHtRArh/Ga0SQ8hEy9L6A8JUxFcBBLV3Nyeqj3BEW
+	g5+WthFjmdk8B4rV01Smvg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792156648; x=
+	1792243048; bh=W68fWyUt0RqgzohdtV/Be5eCqN0axXdNamgwFcm1kWg=; b=c
+	cvG3SZpHtQxs4NT5HMWUR31SOzXLYX86IAo8Y9R6fgMQQ8IpLrQTUqttPjqMV4Hu
+	AYTo8ifTMO5F6B2UUkp7UOKAteJaou9CdfYA3+8a7FRXdecM4SIg+cNgt0PuDTQh
+	Q7/IlxxTm5bYJXPoplSinKJWxf/3dyCq3tzlk7Vcp0IQrTwBukQfJK8pK6VHW4vn
+	eZj4mMeaa7KSwihWipBRT4fxwRuNHLEGhJA/GgGVBqQFI1kRtC2+jXImgnlMfIoN
+	zJoMYiMfDWdErEjB74eCfsD98G4tgFkywMOiHOWYDaRLZRj6HxMpzTId1zTiqo6/
+	MdZDPCB6e2H4+DSkajp9A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792156648; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:ZtG4A8F7s8s/nbuioloC6x4ps+JqvVEc02Pr6KYP8qGZCo6
+	RsX7Lb3YeNe5e9bZKkb9uzXdQxxP2tFdZssKhDwLK+FDhjn8mBR8fr02Aqyp0igu
+	LwfGicLBRPahCShvLMFmE5QZ8lRA05fVL4QBuModQedH0u72ZhZhv0JUnzKExqCj
+	3z4m0XP4sXvYgWxCFItog0ABq/0GqElYAshRUIOJnnj8zUYl1GdqPShosrDnkVvM
+	QlX2t4weuDK8yfRUqcrnGiMVg+zATpWdoWBmRuuY9/g7+rt3qowx8b9ZsMrOD9E3
+	KDv9bIIxuRebbVgbDtvx2rYsnFqp9sIRrJzpC9g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:GJg7u/ORzO4WgLlQXUweuEi2kkGgedegRGXMGcZssAg=:972BnS86W6QOavz34L61+TBk0DmhvqVC2zFod9PkusY=;
+X-ME-Sender: <xms:4yPSauoiu4jENIqFZ-abIR6-tkOQWHHD1gvMLv5Q7R-7eYzFjBPYvA>
+    <xme:4yPSanftUlBSEMlSLvifhnBOpdJelZ8fi6pj_-eDnRpmPNWtlys3K9_K-d6MlX6mV
+    c8b950iS2QzGNjS_MPhc8oZ7YAhAj4ILgGA7271oemlC0JvUx0bWLo3>
+X-ME-Proxy-Cause: dmFkZTGPmXvGMY0yIONbWQUWjnk+A+PreQlAAykNq5ZIAcOQxkwSM5UmMl3pv0nTtKClj+
+    Emxqw5/hrqYNd+5+UzkdOL3q7KEKQHioxgqCo4dN4+0WuCrUNvZvzn1sMTXw1pJ7cMiQ5t
+    02gUayOCdQM+CjoVj1UUWaMI6GrUK/qt5YD7pcTjLCL65ieF3MitObr5YkcTPmamJlIfyf
+    0Sn7+OLVegmgwivxqtTiJoRD3euOb5q48xVrUIOSmaB+q13akV2DpPLKv0JdJdueToanMq
+    MRXQxBVezouhVc/OR/Q6JgbfhPUSm3/9tmrt1oFtQo9J74ztHCT4yS1Jd72v6fY8FsN3DJ
+    AfMKWEzwORYKI5ZvJxRldZ/F6zjEiF87SBOcljLZ6tv3f/UVAWlBUJbwOQ3+SBGa/9oQhX
+    VZLz/CLJgh5EFqyjK61lOB1VyVEF7mG0XLrGXKvkZ+4C3Eak/MZj8ajky6Q2aAfZTBapO1
+    f3zI7gvv5VsHd66WFuMbTZvAvavI4y0PK5ajgkOzxIDGg/Y2rghER3zqLsO8HHdr4ZmGGr
+    iroT9I53X1aQn8U14NPpSZqwKY1Yr1BB2J2nxlPcvLsO2HOEy2J97xUiGYSN8u0DCypfnn
+    4apYg8VoEnV+ou9tOE6G7UTD1FCZRxCf0vkYQ6n+Np4sOe7LDiRu9Vsufp6g
+X-ME-Proxy: <xmx:5SPSau1TAi1iCv3D22MRhB1fFr79mAcrte93UnkbdkXq3X0eW1W0kA>
+    <xmx:5SPSavUvWYhNO57jV0FKTRztemXAqG3Om2yGjE5uP5Wu28mhEh8gog>
+    <xmx:5SPSagPNOdJV4DCMVqqqKmKxVKUzBDwE44OqwqFvSVUL8Grlpp2IqA>
+    <xmx:5SPSai3PdQDthJO1rR213LIHaje5f_6yvKraBlQkjyze4cfwL8aYFg>
+    <xmx:6CPSaltb81-tFSENaVCMTFkfkMCKpS7-Iybc8SFjMcUL6moLhn_OyUEI>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 85D0332A008F; Fri, 16 Oct 2026 09:17:23 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4j5lpH1wq9zKmT6
+X-ThreadId: A0hUf3a_Z_uw
+Date: Fri, 16 Oct 2026 15:14:54 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Arnd Bergmann" <arnd@kernel.org>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Jiri Slaby" <jirislaby@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+ "Andy Shevchenko" <andriy.shevchenko@intel.com>,
+ "Hugo Villeneuve" <hvilleneuve@dimonoff.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Message-Id: <033a1d9f-f8cd-4097-a8f6-da01494eff34@app.fastmail.com>
+In-Reply-To: <20261016130328.1037616-2-arnd@kernel.org>
+References: <20261016130328.1037616-1-arnd@kernel.org>
+ <20261016130328.1037616-2-arnd@kernel.org>
+Subject: Re: [PATCH 2/2] [v2] serial: 8250: remove obsolete and broken PORT_RSA support
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 16, 2026 at 03:28:39PM +0300, Ville Syrjälä wrote:
-> On Thu, Oct 15, 2026 at 10:25:43PM +0100, Hugo Sales wrote:
-> > On an ASUS ROG Flow X13 with a 3840x2400 eDP panel, booted with
-> > video=eDP-1:1920x1200@60, an HDMI hotplug makes fbdev reprobe every
-> > connector with its 1920x1200 framebuffer as the limit. connector->modes
-> > loses the panel's 3840x2400 mode, and after suspend/resume amdgpu drives
-> > the panel with the 1920x1200 timing. The image ends up squeezed into the
-> > top-left corner. Details are in
-> > https://gitlab.freedesktop.org/drm/amd/-/issues/5983
->
-> Sounds like an amdgpu bug.
+On Fri, Oct 16, 2026, at 14:59, Arnd Bergmann wrote:
+> Link: 
+> http://translate.google.com/translate?hl=en&sl=ja&u=http://www.iodata.jp/products/network/rsadv2s.htm
+> Link: 
+> https://lore.kernel.org/all/1309211120-2803-6-git-send-email-arnd@arndb.de/
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+> v2: rebased my own patch after 15 years
+> ---
+>  drivers/tty/serial/8250/8250.h          |  17 --
+>  drivers/tty/serial/8250/8250_core.c     |   6 -
+>  drivers/tty/serial/8250/8250_platform.c |   4 -
+>  drivers/tty/serial/8250/8250_port.c     |   8 -
+>  drivers/tty/serial/8250/8250_rsa.c      | 209 ------------------------
+>  drivers/tty/serial/8250/Kconfig         |  11 --
+>  include/uapi/linux/serial_reg.h         |  51 ------
 
-Agreed, the resume bug is in amdgpu. It looks up the eDP native mode in
-connector->modes, which fbdev's hotplug probe can trim. This series
-fixes it there:
-https://lore.kernel.org/r/20261014223041.171317-1-hugo@hsal.es
+I had this one in my testing tree for several years but it
+looks like I lost the necessary Makefile change, and
+the corresponding change to drivers/tty/serial/sunsu.c.
 
-I sent this one for the shared list itself because after a hotplug,
-connector->modes depends on fbdev's framebuffer size, while initial
-setup, drm_log and GETCONNECTOR probe with the device's limits. Until
-something reprobes, the sysfs modes file and any driver that reads the
-list see the trimmed version
-
-amdgpu isn't the only driver that reads it. stm/lvds and
-shmob_drm_encoder_mode_fixup() take the first entry of connector->modes
-as the panel mode, so they may hit the same thing with a video= mode
-smaller than the panel. I haven't tested those, because I don't have
-the hardware. Fixing it in the core covers them without each driver
-keeping its own copy of the native mode
-
-Hugo
+    Arnd
