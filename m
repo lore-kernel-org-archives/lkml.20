@@ -1,130 +1,190 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F4F2C21ED
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:38:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D7E3A5430;
+	Fri, 16 Oct 2026 10:39:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792147093; cv=none; b=tKoxmlf40PHMd/XMcP+ze/+uOcfsfS4tVW2UYhAqrO3nCegz8gYxRmGVboERPfYow6x29z3okqRRzuW9xOMxaLER8kGUKEzkXaoLoq+bsMAQRnuU/HtHIdwbPx8I9B+mqcJhM6lbGtY0JGwxoks7N8DsnX0y/yZGt2nKlIlPox8=
+	t=1792147147; cv=none; b=hnkGV+twUK4KIvIomfPmdKz1iASBYHocI3RXpQG+dccGSt47bhNBBVu6l5IgcnbwmEf57DwaxCFQfEAy8HivQfnhnM208Y1QJ27aLL9X6ppcGDYVyxO2yGLvniePn7pzl5kefECcPZZuqdO7TGWG30GFmjZWzFd1OPTLd2qvV5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792147093; c=relaxed/simple;
-	bh=K9mC195kTGkDqe576lBOFyGmxBtljNyscPxIuA9C7CY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pyJ1ZRLOSLNZe/M1XyE2mvNlrqfj8EBpYZWblkuGvOTOwkeNSDApViUY1oM2iBgQ9+BzIfL3/HDDYBMzR/9/gOy53oghmaCNiAL7PPRqevVOM7Ee98LCQXV+D9gF9P7pkkvdWkRfJMacqzY9NPgUIisjQa5JO7fTVaZu2re0j6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SQj4jr0b; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1792147147; c=relaxed/simple;
+	bh=dgPyojKrklW2/ydEPGCV2gH9I4AT3YqSs/zddDCl9bg=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=g1l5kwc+3IRQsGviq4WIsdmEp6UB3Uzo+iy7DEkT6uxiPiGWOhCIeufrAfifQXGxHMY/pqwyQIeXRqWWesuZ4BN//F0/FX2ahF5kcFfdwNm0PPPGh+yJw6gJg5guieT9Z3dCUIcl8dsGAyJNiamROibhcZDqNpzx2FRDqesHIao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=2C6nLOlH; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SQj4jr0b"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a02667ccebso46582975e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:38:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792147089; x=1792751889; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6nGmaW43TFsY8203dyOJ+Nrc5EUvdzx8Ca6xsjCPHmQ=;
-        b=SQj4jr0b+A613FC6vNIBdD0mqbr7aBlY8+Ytl512zUnY5muA/Vh8R7ppco/GQxcUbt
-         ZuwJx88IbqEQlmNQ4zZrLCYjTRbj3eaQQev9OZjuyweiCdfM6MHSNg8GV3kjLKiPRLMJ
-         I/EmeIgUq6IgnmGJFCKAZEnx5nsipyxSBLhx4wHr6hC+vWhi0E2rdM+ZNSC4wrZWN+g+
-         mi0uzhP4WmJ0qj9h4adeWtG8VQvjGn+mHvQBcPnc4KBVW2Mf0o2SzPuzc+6h/9r4GaAc
-         2bC2ewGTOpQEFTCdFU7Pz2ci12qoa0f2T5kigAp9DL2AxTDg77MsbtMAs6a1kuk0/efy
-         DEAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792147089; x=1792751889;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6nGmaW43TFsY8203dyOJ+Nrc5EUvdzx8Ca6xsjCPHmQ=;
-        b=unkk8QVPYkUyHBBnDmQUjgEH2zDVSDgij9RrBq9Iq3eOMHeEue8I4yMt9Qd6SM0nRH
-         vZWSb9k4bDHos6uFdBG6eK7I5R9RM/6NuS+dmOtK3LMx35Bwym15c2j+czIzx3nFXZTN
-         XD41Zd5uMlTpyXik5dKs2BNZH7jtZ/c6X9ccQuDyzYrz6uBc1j3duUTz+sQK5f/63FGS
-         mRS0jTZX5tvQWCQczOPszSaWtykwGWe9s/xQE05pdjyFZoSosz2Z5s2vNS8Pvc/G0T3t
-         2jtthaJpLzBUUG6Kcci4dm6PtKgWEBxJTfkCvvTWbWJ7FGfq9ApCAtXDKhC8EYPrGvbj
-         GzaA==
-X-Forwarded-Encrypted: i=1; AKwUvByRN/mFRR0+vkSaoPgE+uG5jJtshaU5IizxE/8TtWmJxUE1I/fGPID5T0A/+u3tdGyc84AhlAchDX1tFgc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCTZwtLOClUqa46i7sGcLUZXmF5r/+u2PV0YdgQUzDz+6HvuTW
-	XfRmM8OVd+axEsosQtcYZ7/WITSepEI1bp7wQFYknfzfqo0bFZ+baUs9lsfZk/4U/ivyHMVyRKH
-	D1Q0E
-X-Gm-Gg: AYBFou2UqKU89h3RnOKPJZFD6MXyCRuYyUsaV1Qin7KwB3Yi3/DUSNku4zBPk7UPIEp
-	VM0KB0loGPUZRS2TK7tWtFndOeJl2b1iqIdkVE0PRZDMrbpQRXWS/NQKm5fidiJf1UpLHw4rgrW
-	C1+JOv/LipclBCQmbP4Tv7Co0w2x2rEmvOM44dVVtbBNQfI4g+DMNjULIQg2mQTvVBU4SbrBLdP
-	qKhRQ1cKYWiwz2LmhsL+688wH+H7n8mTj4V4igw0uvRR5LxZUlj176gnNN6bxnv0Wv3AdJy/un1
-	TxsF9JzfUec2WeSy8Z2W89YD04ORTaql2g6it6HOK7l/glGVQ4YqCAmCXygVzHe86SYdJbvS8AK
-	4Lv3FUwwsZGBkM3joVjMhrftBC4Zt9/D6McBoLHoTjfxXerk/+XmmI2pESLTWopETh14jq6YYSK
-	V/myzaZ9tQVUQ3VDk1f96Qgk7l2n+bXu63PXz7LcfB+S3nJRjzn/cGk5hWRZfJ5uH3UXOk05+Qq
-	0TTFcI2DCU=
-X-Received: by 2002:a05:600c:1c23:b0:4a1:cef3:fb3a with SMTP id 5b1f17b1804b1-4a1cef3fd00mr28299025e9.9.1792147089174;
-        Fri, 16 Oct 2026 03:38:09 -0700 (PDT)
-Received: from [192.168.0.167] ([109.78.92.136])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ce02d619sm26430935e9.3.2026.10.16.03.38.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 03:38:08 -0700 (PDT)
-Message-ID: <b4a76677-0929-44bb-9c94-7ceb09952168@linaro.org>
-Date: Fri, 16 Oct 2026 11:38:06 +0100
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="2C6nLOlH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1792147141; x=1823683141;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=dgPyojKrklW2/ydEPGCV2gH9I4AT3YqSs/zddDCl9bg=;
+  b=2C6nLOlHiz8Y/R7kFsf51qi8UGAYksvjsLqLFaUFFgQBsRWfd8F6Y6XK
+   CuLQ2qhAlHJale8eIsYxubeiDltT52UAwCKGKpz9K5aWi1sNX5vxptW4S
+   6jll/wHVcqF1NOIZ3JA1JF0z2uySlWksxGS5ZwX+YMNbnzb631WN2uJn0
+   Pzw/96t1WVOABqO4JSZUvVOTUNG2Z67pMnf7vtyFUr5yaxJXTaFNr3YU9
+   1b7g1QUw50+cLaWWpEXCFs6A/RF20PEFB59mwexax19/cXiKk8QNe7wST
+   VOzQhbxx5x38BiYEt2g39M0U7eh4MLRj2l0pBlQkWYmnXV3BkIpaiacdD
+   Q==;
+X-CSE-ConnectionGUID: n/wAGzuIRsihiIuVm98YmA==
+X-CSE-MsgGUID: 6doiG0+yTYeGdsWNhpqRbw==
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="296557701"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 16 Oct 2026 03:39:00 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Fri, 16 Oct 2026 03:38:58 -0700
+Received: from che-ll-i67131.microchip.com (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Fri, 16 Oct 2026 03:38:48 -0700
+From: Manikandan Muralidharan <manikandan.m@microchip.com>
+To: <pratyush@kernel.org>, <mwalle@kernel.org>,
+	<takahiro.kuwano@infineon.com>, <miquel.raynal@bootlin.com>,
+	<richard@nod.at>, <vigneshr@ti.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <srini@kernel.org>, <nicolas.ferre@microchip.com>,
+	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
+	<linux@armlinux.org.uk>, <richardcochran@gmail.com>, <linusw@kernel.org>,
+	<arnd@arndb.de>, <pengpeng@iscas.ac.cn>, <gregkh@linuxfoundation.org>,
+	<mathieu.dubois-briand@bootlin.com>, <michael@walle.cc>,
+	<linux-mtd@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<netdev@vger.kernel.org>
+CC: <manikandan.m@microchip.com>
+Subject: [PATCH v9 0/8] Read MAC address from SST vendor specific SFDP region
+Date: Fri, 16 Oct 2026 16:08:28 +0530
+Message-ID: <cover.1792145382.git.manikandan.m@microchip.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/8] dt-bindings: phy: Add PHY_DIRECTION_TX/RX
- definitions
-To: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Guochun Huang <hero.huang@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Michael Riesch <michael.riesch@collabora.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
- <20261016-dcphy-rx-v1-v5-1-e63b49eabe2d@gmail.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261016-dcphy-rx-v1-v5-1-e63b49eabe2d@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 16/10/2026 09:56, Jason Yang wrote:
-> A MIPI D-PHY or C-PHY can be a transmitter or a receiver. Some PHY
-> blocks have one of each and can use them at the same time, so one PHY
-> node offers two PHYs. The existing cell, PHY_TYPE_DPHY or
-> PHY_TYPE_CPHY, selects the mode of the whole block, not one of the two
-> PHYs.
-> 
-> Add PHY_DIRECTION_TX and PHY_DIRECTION_RX for a cell that selects the
-> transmitter or the receiver. The first user is the Rockchip RK3588 MIPI
-> DC-PHY, where the transmitter serves a DSI host and the receiver a CSI-2
-> host.
-> 
-> Suggested-by: Michael Riesch <michael.riesch@collabora.com>
-> Link: https://lore.kernel.org/r/7425ac83-f6d8-4443-a26e-a47f9306aa24@collabora.com
-> Signed-off-by: Jason Yang <jason98166@gmail.com>
-> ---
->   include/dt-bindings/phy/phy.h | 3 +++
->   1 file changed, 3 insertions(+)
-> 
-> diff --git a/include/dt-bindings/phy/phy.h b/include/dt-bindings/phy/phy.h
-> index 979b5dfd8353..9ead74d9a172 100644
-> --- a/include/dt-bindings/phy/phy.h
-> +++ b/include/dt-bindings/phy/phy.h
-> @@ -29,4 +29,7 @@
->   #define PHY_POL_INVERT		1
->   #define PHY_POL_AUTO		2
->   
-> +#define PHY_DIRECTION_TX	0
-> +#define PHY_DIRECTION_RX	1
-> +
->   #endif /* _DT_BINDINGS_PHY */
-> 
+Some Microchip/SST QSPI flashes (e.g. the SST26VF064BEUI) are factory
+programmed with globally unique, write-protected EUI-48 and EUI-64
+identifiers stored in a vendor-specific SFDP parameter table. On boards
+that have no on-board EEPROM (sama5d27_wlsom1, sama5d29 curiosity,
+sam9x75 curiosity) this is a reliable source for an Ethernet MAC address,
+instead of relying on a U-Boot-provided or random address.
 
-This looks like a neat solution to your problem.
+The series exposes the SFDP as a generic NVMEM framework with no vendor
+code in the SPI NOR core:
+ - The SPI NOR core exposes the entire SFDP as a generic read-only NVMEM
+   device, rooted at a new "sfdp" child node of the flash.
+ - A new NVMEM layout driver (drivers/nvmem/layouts/) locates the
+   Microchip vendor parameter table at runtime and presents the EUI-48 as
+   a "mac-address" cell.
+ - Arbitrary parameters can be read with a standard fixed-layout
+   (known offset) or with an nvmem-layout parser (location discovered at runtime).
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Changes in v9:
+ - 3/8 - Add Reviewed-by: Miquel Raynal, Reviewed-by: Michael Walle.
+ - 4/8 - Add Reviewed-by: Miquel Raynal, Reviewed-by: Michael Walle.
+         Drop the early return after of_get_compatible_child(). Updated the
+		 comments and commit message to match.
+ - 5/8 - Move the Makefile entry for sst26vf-sfdp-eui.o to the end.
+         Move the ETH_ALEN check to the top of sfdp_eui_read_post_process()
+		 and bail out early.
+		 Compute nph as hdr.nph+1 and loop for the 0-based parameter-header count.
+         Cosmetic fixes.
+
+Changes in v8:
+ - New 3/8 - nvmem: core: take a reference on dev.of_node in
+             nvmem_register(). v7's 3/8 (now 4/8) called of_node_put() right
+			 after devm_nvmem_register(), which left nvmem->dev.of_node backed by
+			 no reference at all once the caller's own reference was dropped.
+			 Fixing it at the nvmem_register() by taking  its own of_node_get()
+			 when assigning nvmem->dev.of_node and released in nvmem_release().
+ - 6/8 - drop the #address-cells/#size-cells from the qspi1_flash node.
+
+Changes in v7:
+ - 1/7 - Add blank lines in the "sfdp" schema per review;
+ 		 Add Reviewed-by: Rob Herring.
+ - 2/7 - Add Reviewed-by: Rob Herring.
+ - 3/7 - Drop the spi_nor_sfdp_nvmem_put_np() helper and
+ 		 call of_node_put() right after devm_nvmem_register().
+ - 6/7 - Note in the commit message that the sama5d27_wlsom1 SoM ships the
+         factory-programmed SST26VF064BEUI, so the EUI-48 "mac-address"
+         cell is always present.
+
+Changes in v6:
+ - 3/7 - Move the SFDP NVMEM registration from sfdp.c into core.c, since
+         sfdp.c is only for parsing the tables;use of_get_compatible_child()
+		 instead of the open-coded child-node lookup.
+ - 2/7, 6/7, 7/7 - Add Reviewed-by: Linus Walleij.
+
+Changes in v5:
+ - 1/7 and 5/7 - Add R-b tags
+ - 3/7- Rework the comments, function name and commit message.Check all the nodes
+        (for_each_available_child) for the right compatible "jedec,sfdp" instead
+		of node name.
+
+Changes in v4:
+ - Rework per v3 review: remove the vendor-specific SFDP handling from the
+   SPI NOR core; expose the whole SFDP as a generic read-only NVMEM device
+   and move the EUI extraction into an nvmem-layout driver.
+ - Introduce a new nvmem-layout driver to discover the vendor-table location
+   at runtime; no offset hardcoded in the device tree.
+ - Describe the SFDP via a dedicated "sfdp" subnode (compatible
+   "jedec,sfdp"), which also resolves the v3 dtbs_check "Unevaluated
+   properties ('nvmem-layout')" warning.
+ - Reverse the stored EUI bytes into canonical MAC order.
+ - Enable the layout in sama5_defconfig.
+
+Changes in v3:
+ - 2/3 - add support to update the QSPI partition into 'fixed-partition'
+   binding in sama5d27_wlsom1
+ - 3/3 - add nvmem-layout in qspi node for EUI48 MAC Address and nvmem cell
+   properties for macb node in sama5d27_wlsom1
+
+Changes in v2:
+ - 1/3 - parse the SST vendor table, read and store the addresses
+  into a resource - managed space. Register the addresses
+  into NVMEM framework
+ - 2/3 - add support to update the QSPI partition into 'fixed-partition'
+  binding
+
+v8: https://lore.kernel.org/all/cover.1790847519.git.manikandan.m@microchip.com/
+v7: https://lore.kernel.org/all/20260812104955.485667-1-manikandan.m@microchip.com/
+
+Manikandan Muralidharan (8):
+  dt-bindings: mtd: jedec,spi-nor: allow the SFDP to be exposed via
+    NVMEM
+  dt-bindings: nvmem: layouts: add Microchip/SST SFDP EUI layout
+  nvmem: core: take a reference on dev.of_node in nvmem_register()
+  mtd: spi-nor: sfdp: expose the SFDP as a read-only NVMEM device
+  nvmem: layouts: add Microchip/SST SFDP EUI layout driver
+  ARM: dts: microchip: sama5d27_wlsom1: use fixed-partitions for QSPI
+    flash
+  ARM: dts: microchip: sama5d27_wlsom1: read MAC address from QSPI SFDP
+  ARM: configs: sama5: enable Microchip/SST SFDP EUI NVMEM layout
+
+ .../bindings/mtd/jedec,spi-nor.yaml           |  20 ++
+ .../layouts/microchip,sst26vf-sfdp-eui.yaml   |  60 ++++++
+ .../bindings/nvmem/layouts/nvmem-layout.yaml  |   1 +
+ MAINTAINERS                                   |   6 +
+ .../dts/microchip/at91-sama5d27_wlsom1.dtsi   |  63 +++---
+ .../dts/microchip/at91-sama5d27_wlsom1_ek.dts |   2 +
+ arch/arm/configs/sama5_defconfig              |   1 +
+ drivers/mtd/spi-nor/core.c                    |  75 ++++++++
+ drivers/nvmem/core.c                          |   5 +-
+ drivers/nvmem/layouts/Kconfig                 |  10 +
+ drivers/nvmem/layouts/Makefile                |   1 +
+ drivers/nvmem/layouts/sst26vf-sfdp-eui.c      | 181 ++++++++++++++++++
+ 12 files changed, 399 insertions(+), 26 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/nvmem/layouts/microchip,sst26vf-sfdp-eui.yaml
+ create mode 100644 drivers/nvmem/layouts/sst26vf-sfdp-eui.c
+
+
+base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
+--
+2.43.0
+
