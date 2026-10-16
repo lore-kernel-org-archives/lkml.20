@@ -1,132 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B624EF152;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F83D3563FA;
 	Fri, 16 Oct 2026 16:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166791; cv=none; b=TpQ16YTEIVBuaUMjG0SW4okK+n8W/83n615fKkpV1v32NOJTyPPablIDS2DxKoRPkpqtMO6nnGe0uo0sl9GNC21Oqc21h6bnIDaqT5gdNC5lw/6r03xB+iPLVqxSb/xVOGxOg6mbekoZmKD8yVAwDti86HuOzytDRXMUiyXv03A=
+	t=1792166793; cv=none; b=KL7Db1G8+wPN2e/UhF/0FdyA9tgvn99cTAiki8xwLTKrbN1OctP9OcKS2RDyPXz2BguESoIgnZGYKz9ZiGh8GMJXWUtgiTo5I+a/TvtHElz1jGuS31BFjmBrqr3SjXuuhakE0J7DdIMyOAUObvsrDXrgGmoga5gPhaQ9U9WRzGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166791; c=relaxed/simple;
-	bh=xGAH/cBFGhXa7Lo7BHAcXeIsp2PMt608yLehmEm2dVg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J1+CqmZxqxqwBOyIQ6j1RrMZevZgvzp+9i70RYnAzAjWU7qUZn05d1Ei4D1E7i4+5dImvnFfd8562WehGKvA4qXNpi/utN/E3VsTMqssGhOgiBS///4xusvZ2whelPkTPsmVFGjlDap2jXv2rVWRpb6cB+7ZG3DaPjGspyJYMXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f+2IcMch; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f+2IcMch"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A9A61F000C4;
-	Fri, 16 Oct 2026 16:06:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792166787;
-	bh=eV5kQsVdLEe1z5kkE8u0zgGSCke4UboN4QIxLDplCdQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=f+2IcMchxGrh7hS3ThU9LLLZ9FZrSPqq/uCsdJM/HfJZu582ZheF4CosqLgJVuwpw
-	 5IEorjD4p74ztBkk7Aaq9AIb6lMTuyTyCIwp0GUTSVr42npOf6IeEkfeYuwzdcN3Zx
-	 ypLkcv1u4+UcHJylPNKpdRmzSHFYLSU9iPOrLg48WcCvXubK+aqP/6iD2rkKV/i9B4
-	 EVZzwp+2Su2BBOLwmbF0zJ6/OaOhouOgDC9/w6ewG2uiHTfF4djn/SSkgUv3JD39OM
-	 4wd5KqAbcvJcZhoCHkuWcmUFt5H5+FuIZD0iO/RvdDvSAtQrmWzZn/kMQSwLuWIwCK
-	 4nEoVV72ecmTg==
-Message-ID: <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org>
-Date: Fri, 16 Oct 2026 17:06:23 +0100
+	s=arc-20240116; t=1792166793; c=relaxed/simple;
+	bh=IBtZzXwQvWYyPp9KNt7r3i29P6yOlwAcjg5n5lOQ0TI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Khw++JUcVg9TAmALQPCqmoeerpf34UeJidZ88TJdOf+pXoTGZvf50KgkTN+PQfqZXGafYkPMrf6IGlPYGJTb7D/QYxJh+FB/Sps6s34iNPHCFg5j5DZVc5l5fr6J//tCynqb1yKu5jXzXFl5N0ccwm6TiqWgtomgwO6HcKnYa6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xHkRd-0000000085t-2pQA;
+	Fri, 16 Oct 2026 16:06:09 +0000
+Date: Fri, 16 Oct 2026 17:06:06 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Paul Elder <paul.elder@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Dafna Hirschfeld <dafna@fastmail.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, michael.riesch@collabora.com,
+	stefan.klug@ideasonboard.com, mehdi.djait@linux.intel.com,
+	xuhf@rock-chips.com, zyc@rock-chips.com, dalong.deng@rock-chips.com,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 0/5] media: rockchip: rkisp2: Add driver for ISP on
+ Rk3588
+Message-ID: <atJLbtG3cGDOWMSx@makrotopia.org>
+References: <20260827-rkisp2-v3-0-e91ff0a604d6@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] media: i2c: ov13858: Add device tree support
-To: geocausa@gmail.com, Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>,
- German Pablo Lindo <germanpapulindez@gmail.com>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
- <H_YflrQ_O6i59HAUsnzTG5J8wp_NNMC_tndzgzlbVRUtakJahIzRBeAoMDmm5Uunqwb63UcX4TgUrnSN-rMJOg==@protonmail.internalid>
- <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827-rkisp2-v3-0-e91ff0a604d6@ideasonboard.com>
 
-On 15/10/2026 22:48, George Neacsu via B4 Relay wrote:
-> From: George Neacsu <geocausa@gmail.com>
-> 
-> The rear camera of the Surface Pro 11 with a Snapdragon X Elite is an
-> OV13858 on a four-lane D-PHY link, described in the device tree. Add an
-> OF match table.
-> 
-> Parse the endpoint as other sensor drivers that serve both ACPI and DT
-> do. Wait for the endpoint if a bridge driver has not created it yet,
-> require four data lanes, and require both link frequencies, since the
-> modes switch between 540 and 270 MHz. The IPU bridge entry for OVTID858
-> lists both, so an ACPI machine with that entry probes as before. Without
-> the entry the sensor now waits for the bridge instead of probing into an
-> empty graph.
-> 
-> Tested on the Surface Pro 11 (X1E80100), with an out-of-tree CAMSS
-> capturing raw frames over CSIPHY1, CSID0 and an RDI interface:
-> 4224x3136 at 29.95 fps at 540 MHz, the colour-bar test pattern intact,
-> and a scene captures.
-> 
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: George Neacsu <geocausa@gmail.com>
-This is a weird change.
+On Thu, Aug 27, 2026 at 07:48:29PM +0900, Paul Elder wrote:
+> Hello everyone!
+>
+> This patch series adds a new rkisp2 driver that aims to support all
+> Rockchip 2.x and 3.x series ISPs. Here we add support for the version on
+> the RK3588, which as far as I'm aware is a 3.0.
+[...]
 
-You describe regulators, clocks and resets in the yaml file which then 
-don't appear to be supported in this result code ?
+Hi Paul,
 
-- regulator_bulk_;
-- clock_bulk_
-- reset gpio optional
+I have been running this series on the RV1126, whose ISP is a 2.0, with
+an IMX415 at 1920x1080 and 30 fps, through libcamera (your rkisp2
+pipeline handler with a few changes) and through the raw readback path
+fed from the VICAP driver. Most of the series works there as it is.
+Below is a summary of the comments I sent on the individual patches,
+followed by the list of changes the 2.0 needed, so that you can see
+which of them are differences between the ISP versions and which may
+affect the RK3588 as well. I have no RK3588, so every statement about
+the 3.0 is by code inspection.
 
-I don't think this driver would survive suspend/resume.
+Summary of the per-patch comments
+---------------------------------
 
----
-bod
+Patch 1, driver:
+- The ISP is not started when a raw readback node is started before
+  the main or self path: pipe.start_count counts the readback nodes.
+- The CR plane base address is never written, so the three-plane
+  formats write their third plane to an unprogrammed address.
+- The 4:2:0 capture formats name YUYV8_1_5X8 as media bus code, which
+  the ISP source pads do not offer, so link validation fails for them.
+- The MPFBC_CTRL format list has NV21M twice and lacks NV12M and
+  YUV420.
+- V4L2_ISP is not selected although patches 2 and 3 need it;
+  V4L2_FWNODE and GENERIC_PHY_MIPI_DPHY are selected without a user.
+- A full quantization range accepted on the source pad is never
+  applied to the hardware (CSM_Y_FULL_ENA and CSM_C_FULL_ENA).
+- The raw readback stop path releases the buffers without waiting for
+  the read in progress.
+- RKISP1_V30 is added to the rkisp1 uapi without a user, plus a few
+  small items.
+
+Patch 2, params:
+- The params buffer consumed at stream start is never returned to user
+  space.
+- The resizer bypass test compares the luma size only, so an unscaled
+  4:2:0 output gets one chroma row per luma row.
+- The GOC handler tests mode against the segments enum.
+- The resizer is left unprogrammed when the first params buffer has no
+  CROP block, and the default crop without a params buffer is the
+  top-left window of the frame.
+- A missing cleanup on a registration failure and an undefined label
+  in the documentation.
+
+Patch 3, stats:
+- The stats block table lists HIST_BIG1 twice, so HIST_BIG2 is lost.
+- The AE lite and AWB blocks go out with stale payload and done flag
+  when their status bit is not set.
+- Smaller items, and a question about the 3A interrupt line.
+
+Patch 5, dts:
+- The isp0 node has three interrupts while the binding allows two.
+
+Changes needed for the RV1126
+-----------------------------
+Full (draft-quality) tree at
+
+https://github.com/dangowrt/linux/tree/rk-isp2-rv1126
+
+These are commits on top of your v3. "2.0" below means what I observed
+on the RV1126; where I know whether the 3.0 shares it, I say so.
+
+1. Model description for the RV1126: three clocks, a third interrupt
+   line for the CSI-2 receiver and raw read status (the handler only
+   counts the receiver errors), 4416x3312 as maximum input size, plus
+   the binding and dts entries. RV1126 specific.
+
+2. SWS_CFG: keep the reset value and add only the frame drop disable
+   bit; ACK_FRM_PRO_DIS is not defined on the 2.0. Whether the 3.0
+   holds anything in that register that the current write clears I
+   do not know (asked in patch 1).
+
+3. Extra readback lines: the 2.0 does not finish the last lines of a
+   frame it converts from Bayer to YUV out of memory unless the
+   readback presents 24 lines more than the frame has. The lines are
+   added to the readback buffer and picture size and to the ISP
+   acquisition and output height, and cut off by the dual crop, which
+   stays enabled for the YUV paths when the crop covers the frame.
+   The vendor driver does this for the 2.0 only.
+
+4. No image stabiliser on the 2.0: rkisp2_config_ism() is skipped by
+   a model flag. The RK3588 keeps it, as your comment there says.
+
+5. Bus priority and hurry bits in the upper part of ISP_CTRL, set on
+   the 2.0 as the vendor driver does; without them the readback
+   competes with the camera interface on equal terms. 2.0 specific as
+   far as I know.
+
+6. The word swap of the unpacked readback samples (LE_ALIGN) is made
+   a model property: the RV1126 camera interface writes the samples in
+   the order the 2.0 readback expects, and with the swap the chroma
+   comes out as noise. Strictly this depends on what produced the
+   buffer rather than on the ISP version.
+
+7. VI_ISP_CLK_CTRL: rkisp2_config_clk() writes the register with the
+   ISP1 bit names (ISP_3A | ISP_RAW). The 2.0 layout differs, and its
+   bits 21 and 22 gate the memory read and raw read engines; left
+   clear, the readback delivers exactly one frame after a reset and
+   nothing afterwards. The vendor 2.0 driver writes 0x7fe009. I do not
+   know the 3.0 layout.
+
+8. The readback buffer is handed back from the ISP frame complete
+   interrupt instead of the main or self path frame end: on the 2.0
+   the main path frame end arrives about 10 ms before the readback
+   engine has finished the frame, so the buffer went back to user
+   space and the next base address was written while the frame was
+   still being read. I do not know where the 3.0 finishes the read
+   relative to the MI frame end.
+
+9. Readback trigger ordering: on the 2.0 the CSI2RX_CTRL0 write that
+   switches SW_IBUF_OP_MODE away from the reset value and sets
+   SW_CSI2RX_EN at the same time loses its trigger in about 7 % of
+   the stream starts (the mode is latched, the enable is dropped, no
+   V_START follows). Writing the op mode with the enable clear before
+   the MI configuration update that rkisp2_cap_stream_enable() issues,
+   and starting the first buffer like every later one (base write,
+   then the enable write), fixed it: 120 of 120 starts. I do not know
+   whether the 3.0 shares this.
+
+10. Resizer chroma subsampling for 4:2:0 output (patch 2 comment).
+
+11. AWB measurement on the 2.0: its RAWAWB block does not have the
+    weight RAM and the count RAM at the addresses the driver uses
+    (the RAM read zeros in every mode I tried), so the AWB stats block
+    stays empty. The 2.0 still has the white balance measurement of
+    the ISP core, the rkisp1 style block, so I program that from the
+    AWB_MEAS parameters (window spanning the 15x15 grid, RGB mode,
+    the maximum limits as thresholds) and report its count and means
+    in a new AWB_MEAN stats block. 2.0 specific.
+
+12. CSM output range from the pad quantization (patch 1 comment).
+
+13. CSC defaults: when user space sets only the colorspace with
+    SET_CSC (libcamera does that for sYCC), I filled the other fields
+    from the colorspace defaults. Re-reading subdev-formats.rst, a
+    DEFAULT field keeps the received value by definition, so your
+    code is right here and this is a libcamera matter.
+
+14. 3A status at frame end (patch 3 question): leaving ISP3A_IMSC
+    clear and reading ISP3A_RIS in rkisp2_stats_isr_eof() brought the
+    ISP interrupt count from about 1400 per frame down to two.
+
+15. Default crop covering the whole frame (patch 2 comment).
+
+16. vb2_dma_contig_set_max_seg_size(dev, DMA_BIT_MASK(32)) in probe:
+    the arm32 IOMMU DMA ops map an imported dmabuf in segments of the
+    device's maximum segment size with separate IOVA allocations, so
+    importing the readback buffers into the main path failed as not
+    contiguous. Harmless on arm64; rkvdec does the same.
+
+17. ISP reset on stop: on the 2.0 the IRCL ISP and MIPI reset pulse in
+    rkisp2_isp_stop() does not clear the raw readback front end, and
+    the next stream starts with the previous CSI2RX state and misses
+    its first frame. The "isp" and "isp-rx-p" reset lines are
+    asserted instead, as the vendor driver does in its stop path.
+    RV1126 specific.
+
+18. HIST_BIG2 stats table entry (patch 3 comment).
+
+19. VICAP (rkcif) side: the unpacked raw output is written MSB
+    aligned as the readback expects, the MIPI interrupts are masked
+    while the receiver is powered, and a larger sizeimage is accepted
+    so that the buffers carry the extra lines of item 3. The frames
+    are handed to the readback inside the kernel through a small
+    consumer interface of the rkcif driver, selected when the readback
+    node's link to the ISP is disabled; this replaces the user space
+    copy of every raw frame into the readback node that I started
+    with. It is the RV1126 counterpart of the inline mode pad you
+    reserved, except that the frames still go through memory.
+
+Tested configuration: RV1126 with an IMX415 at 1920x1080 and 30 fps.
+libcamera with cam and with GStreamer (libcamerasrc into the hantro
+JPEG encoder), AE and AWB converging, two minutes at a constant 30 fps;
+the readback path alone, 1974 frames in 66 s; 120 of 120 stream starts
+delivering frames. The self path, 4K and raw output I have not tested.
+
+Once the series has settled I can post the remainder of the above as
+follow-up patches on top of it, if that suits you. The libcamera side
+(VICAP entities taken from the media graph, start order, colour space
+propagation, IMX415 tuning) is on a branch here as well and I can send
+it to libcamera-devel.
+
+Best regards,
+Daniel
