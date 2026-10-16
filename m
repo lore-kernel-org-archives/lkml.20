@@ -1,168 +1,201 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010046.outbound.protection.outlook.com [52.101.56.46])
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4594B3C90;
-	Fri, 16 Oct 2026 18:48:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792176501; cv=fail; b=bp1cpsGcYDkL/HQwDgBapLiemFA2gth41tFkv1ya5aikFsLfwfVkdTQalA4rj8QTlV19Kj6BYRKa0NvlBdoadNLGpI7ENpLiNLILEHwi1YCBpvTy2jVvFQcm7pu0hn0MlqdMPznsF8tnPu7FGcN9eMX2oGjwaTqI2KPLtonemYM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792176501; c=relaxed/simple;
-	bh=DsJqrQH4NpgEcPYgR88CaPL5E6189+icLpW0ncGRZT8=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ipDKRiyGEvpZf6Bvt9DuoF78Edb1eIKgeqYPVFnbJhSizA4I+S9bpjVm1cSjwX7HjUY+sStah4puT5vCtt2z9TicxHc0E2ODesrcnYKSMUWGVCn3cP9UowATyzFrXfTSJR0dQ/JcJ3WivJoSRmU0bt+bfaiRg8EFigBrFu1O7Bo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=FF8PUHqp; arc=fail smtp.client-ip=52.101.56.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8377E48DB2C
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:52:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792176762; cv=none; b=q/AVyTBTVIrMOZBbHWbHVtqMvO9jh6UGRrYVM4k2FatdJ91WtxK7nDz/9zeJHJxLmWiS+737xkV96WqXsTTX1BzFUwU5hsPkPLvI8tfbOX8fecsSwtby0OVRlhaJUJRQJ2wwKQx4A7JCx8m9Q56Z6XyYEoR3rcSChGhLblUjBcY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792176762; c=relaxed/simple;
+	bh=CrHa0q2pgEdRtT6Hq9NbFYzjNU5uxFbQpRpzp53Lxmo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d6ZUaUH28f8Qo1MtHMC9ROLY/I2lmPzu4l37fC5SHzzrvzfiw3H77FvxnunYdAnHOKggwcrxXr5L5mwAvXzl6E1rdfcoBQSTAXQGZ4kSlTGkKb7P7iCG7I0QtucAgYaUF0nLq86TiixOZvHTGDFnnj11NAGVYqnsEWY/msdOD8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=hdqcWmWo; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=fkD4kS6P; arc=none smtp.client-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="FF8PUHqp"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bN3NmXGAR5ExsiA3bt2euvz4LW5ygFrqK4SU2KFgu6WvC8BW30gIX/TAJNAKPrOUHvSZGe6KAw1Xo2BHUfoMZP91cHcC00j30DRzT8Zb/fA9c4mRQXkMnYJwLf+LKdjbSSjpVSwPn2TX01GZQ1sMz18eo0nQASlRy6KgV4W0alBnpk8lkXxrzOCSk402zVDNvBfiIi33eq8TQxnX4UbGdMWE2JnDliYM5nqyYvCbdx4D3uoi8PvvbJiWmqdLhfsdvK8AbAsUImExqq1kVHo9McQXr1iVwDXdZDOC4BKOQdV7//AGlvTfADhVLq1ToFfPAzTeBWYVXvuA6mN/CwzbPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SRYmd4DXh17peRDfizZxXJ8LPGd0hWtGAFftYZEH1E0=;
- b=Fza03TXGMvKYDM+0hgkSR0FrthYnQGOyEz9Eqvm2JYeq1/4u19xL0eZQAc/LqxVlFgRDsGhTrJOO0ACnmmCEcRPQO0a6cbEXny7cM1lQPdQE1Xg6UKqsB/nSLCuTmWirmyyEgXmaAsYpI+p9tGIqj7JNKV0rravqvujMznm+3fUhNKvINhmZb0b+XN7kJCe0/Zsq+Il+56q4mjmcvG9RmdU7SBNt5l2P3wiGKqq5GKC7iz+NZl9CsWZc41nsW+ZX462tzu9J7Q8CftnCg58fgTibXTdO9JNqu3kj4bohYYQza9VadB5GCf8jXSLOeps5qHZoGlmVXXOmWgB9FV8ggQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SRYmd4DXh17peRDfizZxXJ8LPGd0hWtGAFftYZEH1E0=;
- b=FF8PUHqp6DcVby4F4oKTqzgUdSMP0PIDCDJfT8Iq42Hh7A5YNFY2KybJSiQazL4YY7XVS/FGxa6DNRGzY1bBnrChrQ/T9Punv93PHKimzUeuuqAzt/1f3wUAlrFqCqqz0AH+Tc3eFafrr5tEHwdOIQY+SJSYEetz9EUh9UUDv9aLIMxtTJT5giOnnaDm28//dvD3oME8dLSz83XtsL0zNRs7TuMCo2vu7kb6yjGU9NKAjSg8sXkwkvyMfZpg6GB1LA36PUc8jNwJ624wP9v9WEkz10L0AnIdr33va7VhmHg3JIo7sxZkVYdqxM9CWJRHysLIQkGCuuQtB83i9Iq7tQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHAPR12MB999248.namprd12.prod.outlook.com
- (2603:10b6:610:2ff::22) by CH3PR12MB8546.namprd12.prod.outlook.com
- (2603:10b6:610:15f::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 18:48:13 +0000
-Received: from CHAPR12MB999248.namprd12.prod.outlook.com
- ([fe80::4972:8062:d74e:b205]) by CHAPR12MB999248.namprd12.prod.outlook.com
- ([fe80::4972:8062:d74e:b205%6]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 18:48:13 +0000
-Message-ID: <bba453eb-769e-458b-88f7-8cc9bcafc1db@nvidia.com>
-Date: Fri, 16 Oct 2026 20:48:09 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC net-next 0/6] net: configurable extra TX headroom for local
- egress
-To: David Woodhouse <dwmw2@infradead.org>, David Keogh <dkeogh@amazon.com>,
- netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@kernel.org>
-Cc: Nimrod Oren <noren@nvidia.com>, nh-open-source@amazon.com,
- linux-kernel@vger.kernel.org
-References: <20261015235335.4162993-1-dkeogh@amazon.com>
- <b8914a523b4a6b80424c5001d3d8012c6a98fd04.camel@infradead.org>
-Content-Language: en-US
-From: Dragos Tatulea <dtatulea@nvidia.com>
-In-Reply-To: <b8914a523b4a6b80424c5001d3d8012c6a98fd04.camel@infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0117.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:bb::6) To CHAPR12MB999248.namprd12.prod.outlook.com
- (2603:10b6:610:2ff::22)
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="hdqcWmWo";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="fkD4kS6P"
+Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GIbwRj1415238
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:52:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=HLzc
+	yOFA9B8jdMdzXfvMlEdd0KokvuoLnoCqr8l8IU8=; b=hdqcWmWotaXDPyTKxiHc
+	aMTrp6nTieLLfPR/BF662ZzoXdrigD8AB6UXqjHbHI6dhuyYt+QK71wM31C1eCPa
+	1k0tgrk3a/0rI99rRs9pzW4cxy8nRc6MPL5vJBItEzH5DNxTd8lwYMme+5mGPTjo
+	hdRx5uY3aTEfBtpF2mCTEs0rhJBJeA7YJbfnibO0g697YTHNIJsADjda0HEzQJvd
+	VwTKGatk8xMAx/MTFWJaqLLIVBeaM7akJfVV4xpCVldKkR4G0yxetLVZMoxfRx47
+	5pHE9EENxilUozZmMi81rCqa4xdvwegcH/ceUNOWrUR3miyZ6q1hgwkc5SARa0hA
+	iw==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hbbmrd350-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:52:40 -0400 (EDT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-917baea8e5dso5075746d6.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:52:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1792176760; x=1792781560; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HLzcyOFA9B8jdMdzXfvMlEdd0KokvuoLnoCqr8l8IU8=;
+        b=fkD4kS6PUGYLEwhyNjLfEsbP124XqTy+ANYWvNoDRpXKXhFzV1ATxCnreAyS4Etawm
+         YxNfH/vvvct0zTbh4Gt0Uh2F7K+WmGNmC0u+g/qph/gmyFNx0Djcq01HupgWIpFkTKvK
+         ZrruC6J40EPeENyIldySP36LZnylcr6rzo7mfO+X456oNCCQ4FbvHqt6pxnBaAhX8pAL
+         IGxTgzAL9iCUf3QoabjxlN0FEj5dGv83kNyzxRcLd62QVe0UomUriUiGCwkS0AQwM6Xn
+         WVKuQPzqXoxLBVTVbgiQZKHKL1GhDMEDDjbeqwMHnPBHz1ezYYeHNFrAuxQpVc3NF5Zq
+         DOpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792176760; x=1792781560;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HLzcyOFA9B8jdMdzXfvMlEdd0KokvuoLnoCqr8l8IU8=;
+        b=vbGhNEb04G7/ifdBGE9Lnh/7RhWkIb2jqqVo3j86fwyL+MB/+W3ThfT0RMiF2Ohgz/
+         tCr0Z5OV5I4nKH2xCUJqlFCGiPNebo/GJTmkDXlQB/kSbc1e2gGfI47rSMJY4unJqH/g
+         1rK6h02D/DlMiYrtuABn6NR28gEfJdo0CLtBhbQ+rl9KpKWa7Nq8pFP3H5ttEKUy1YVQ
+         j1pLg3g0r/8FDGfr29SvYKpdOwdjn/8crLqrmYDzkzN5e5BeqaeoOOAYt1reyc8JWNQz
+         5VSaoQypLmjZqPuaO+1Nw1Ru6IeF760CzNAmbnb7tEMz2q59kgH5gXQJw6NyxK2xOttc
+         zOXA==
+X-Forwarded-Encrypted: i=1; AKwUvBxgVF/sAXhVfH61trNgGyE7qrEAI+XufFxdEW1XRwpte2GB3MVR0VYDpywXaoe/jjPVxNMRrgNVXOY9O+E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISzYrGK2hj1eajHWFiNF2/5JHPMcAY2+BkbZdC0Z3cAJ18sbWx
+	rzmupzBfCZVVKc+V3P7QuskjHTHqQSaExs1vlz1p+fO+S3LIoS6BMVdOWqsXJBIigWFNUOhSwHz
+	L61Pl0Ifl/VFL0ILzFhNvnO8TSfTBb9XEHEyfHVy/KpG+dm+f+8ZpOkV0REOl3Q==
+X-Gm-Gg: AYBFou2liKkUcCOMqVwHPD6FjET39zFnDGcpwNs7GtoQFYmlOClHw9sDLlcdJw7vHr5
+	c8dvUCed0EVX2U8tw8HkunfNwo1Rz30RWbZj9bigo0hjBL1zelGwV1fTErW4bAQ9PJRiOFGfwWN
+	Orhuk9Yvw0EstlZRRx2cmYWjtVB0U4Q8ltUJPrjhb4YhBjdyR6JD1pmDW2RhtmOFrGHZn/+KUCA
+	9zgx0c/vt9Lqd8KeAqSOEfpkYbJnLg5rCWGTUdEgqwI6jK7V3aD10aFMX7nEDku4VVcluyOkrPJ
+	Drwyg5xLOY4NY8f340WlZH1QWx8es2AefTZ3CgRkMeHTcG78Dy9UcBqkyl82YBZdKmWkUPkMRlC
+	1gQq96DxGiYFSMXGCL3qfoEwoFMaeQwPG/WS/UTcoXoKmTL72
+X-Received: by 2002:a05:620a:4515:b0:93c:72d2:ccc0 with SMTP id af79cd13be357-93f29ceee70mr133495585a.17.1792176759719;
+        Fri, 16 Oct 2026 11:52:39 -0700 (PDT)
+X-Received: by 2002:a05:620a:4515:b0:93c:72d2:ccc0 with SMTP id af79cd13be357-93f29ceee70mr133492585a.17.1792176759158;
+        Fri, 16 Oct 2026 11:52:39 -0700 (PDT)
+Received: from [10.207.9.0] (nat-128-59-178-241.net.columbia.edu. [128.59.178.241])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a198853sm281236285a.28.2026.10.16.11.52.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 11:52:38 -0700 (PDT)
+Message-ID: <9ca9dba7-ca5c-4920-a807-4c60b5f089b4@columbia.edu>
+Date: Fri, 16 Oct 2026 14:52:38 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHAPR12MB999248:EE_|CH3PR12MB8546:EE_
-X-MS-Office365-Filtering-Correlation-Id: 632917fc-7dc1-46d4-9f4e-08df2bb60846
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	1vI8ed3pwsq/48DwcNf+YJDZAN0FlQxgbZ5y0UBR4mk3shJyYGSoxVk/RjzeiZph+d6K+buas0iGHShmGp1Ks9QyYHVWPhEcqyxRge5R4fBwuhjRneis/RAqCxsVOA4bNs+u1kE/dY/Dbs13+CtNjC9uihl5mU44P+Vn4c7JIEFBCqMMxTWHBs+Nq4/KE6tlmdGkM4EAevEn1wDP2Hmio1hR3MCOur1O6y77PXzXiIjH0bjdONmjl8V8AQVaxZNnZ4XBJSqU8sPAUSPo16wyH84fGHzq/oQUyQSWGKxWR+VXcP5qsSWiqqrf4TsP9IDiiU8PFiIyIs/UqE4YU9wiv17WB8G6wbhuuGWzD3kBGDyOk8387izZ7P4Eo+VU1sdaJwfHEfcY8OUKyt/dWPbPUs1rgjo77xz3tIrQqx4RX7uH1CrVe5moFnPGQfsuZt9x36uvnKxOPAsH+ndYyuSnypSBguXMdIGkobr+9edI9AhZbuBLDQvTlVBXU5GcBCG31JZWjLzwR1mlDet1atp9vAh2Z1VjL0TTl+Lg7OirlPSYuB1HBuhlJxxKRDb7cDD+Suic8CaEJvKvk5OEezneFAgs0kivZckPZUccuseiYQX9j2aMMYGXeYbFqWJqdTWUQoXJQhiWbqAfhujjRLcmxIs/QDFBfKTZc/F/tFarw+I=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHAPR12MB999248.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YkVxQ0MwMEF5Nml5SlJuZ2NTanhUOVpJN01DamNTSjl2M3BmMzg2Zno1bkti?=
- =?utf-8?B?RVZrQ3lLY3VBaXUyNVpDczRZTXFJbzhSMUcrdHRBdnVLaENMZnU1bUYySjRl?=
- =?utf-8?B?SHdhSUVPUzkvSUhSZDVmcVVQbExKRUs2QlA5Z3M2blR1eFhUZXlRU0dnbGVs?=
- =?utf-8?B?OUhGTXB2NHB5QmtOdGo1Y05WVDhQdktsUFJqS2Zzc2RnakhPUkxpQU1Jb0dV?=
- =?utf-8?B?a3lMOWl6ei91ZnRsVm5PTGVnNi9oUkg3c3BhT0pWaDd5MHFvRUh1UGZWZldJ?=
- =?utf-8?B?ZnZhMUpqRTlwdDhmNktOaU9JMU1OM1F5UXNUUHhzS0p4R2hEaFQvTXV5RGRs?=
- =?utf-8?B?bmd0ZUVIWGRRaUl2eWlZaVJ1UERic0JPZjJVbkx2ako1enBaWWM1VlBDS2Ny?=
- =?utf-8?B?MHJsdGplZFIwU1k4N0ZKR205YlcwWGd6TWx1UWRZQmZlb2wxdHU2MWhaaHlM?=
- =?utf-8?B?cHNOTGFNbFRNdEExRTNWOGhCMDAvb0FsQ3VnZmNqUUQ0WDRUcTlqKytRTFRo?=
- =?utf-8?B?eFcxSW54UkIrZlhtd1V2emRPOFFRR3NLdmczYytpbjQrU0NtNWhDOU1GNHRC?=
- =?utf-8?B?aVI5U2xGRHV4clJLbnFsWXBwR2lFbS9QKzVDem5jb05UaWtzdWkzQ0NsenI4?=
- =?utf-8?B?bldrNXNkcEh3Z0wvbmxFWHJVZzY0dDFidzZBVzhrcFM5c1NBT1RETmxiL01W?=
- =?utf-8?B?VUJ3SUpUakhPUmJaZndXRnJNSkdteXdodm9Wd3U2VXErSUpNKzlVczlpd0ZD?=
- =?utf-8?B?a0dpWHVXaUQvcDRSYzQ0Nnc5NitUbWVCeE52dTRoN09BdExHY0pPRk1iU1hh?=
- =?utf-8?B?Mk1UdC9wdzQ2TmZlYkVvRTd0a1dZcVJXSWF4ZE5odzlTeEZlais5MEwwREFQ?=
- =?utf-8?B?cG83aGU1Q3psMWRHOXJVVThLNy93WFdzZU40dzlOUTd0a2p3aHFKKzRXU2VW?=
- =?utf-8?B?Vm5GRHhFSHBCczVQc3BwTVFoQWdNNHZIcFhteFZEYVhweGcva3lUZlZVR1JS?=
- =?utf-8?B?ditqU1VQT0dxdmxWREFIRFlNNEpqUW15bThXN1B3K0NVRHAxZGNGNUprcFQx?=
- =?utf-8?B?Y0V0aXJvTDA1a0Fra29zb29WcDZOR1hTVjE4RlRwR1o2OXpoUTJ0VTcrUkwv?=
- =?utf-8?B?RWxFN2hFMnZ4WHJDQnF1WVVKcHA5c2YvRTV0a01vMTRUaEZzOWVidlMvbXIy?=
- =?utf-8?B?dDdSdFBUbEwvZ3R6ZXZWREVhN1A1TUNsaDNyc05ZeHFwVTRPd1RsOHYrUDFG?=
- =?utf-8?B?cW5uV3l6cVBVTC9yR1VpKzV2Vnp4blNaNFd1OXM3TEcrSmpPbTE0UGhWL1RU?=
- =?utf-8?B?MnBaOG1tcG9udkJFMzFJb3dBYUU3UDlkN1lFOGVTV1ZOM2gxZnF2WHVCYU1n?=
- =?utf-8?B?R1FWQ2t5QUwvUmlNb2RuSjhSeEFqbmI4cUNFTVhzUmlCb2xIODYzM3YxYURN?=
- =?utf-8?B?ZUJTdDRhOVFjWjFlY093ODZ2Qm1BNmVpZld5ZmJsU005Wnh1WFFraWNYdktC?=
- =?utf-8?B?ZWwraE1uWmFjY0tFUjgwUVlmY1BGTnUwd1lyV1c3ZUVoUHBNWWdOM2kzTGcw?=
- =?utf-8?B?MldqSWJIVDRzMGdwUXVnU0Z5VmtBUkhXTksyZlZtMVZyelkyL2ZhaW01MG1v?=
- =?utf-8?B?Z21OS2ZDVFd3WUlYVi83ZXRSQTBrUU5qcXRTdUdIWmxDV2VxVndJVUJuTVh1?=
- =?utf-8?B?LzhXbDByNllMZ0dGVEFFQ1IxczVBMStURzBIVjBnSXBJUDdCVnhhWlJYMVhQ?=
- =?utf-8?B?VHUrKzFwRVJSZkxieFk3Tk1oT2wwNFNoMDdBNDdzMVVOS2h0aDhmNStVUTg4?=
- =?utf-8?B?L25IL2JValA4MlcxL1k1WnFtcG1VRWYvSEsyeHNIazBsLzBQWUc2TzQ1ZXlt?=
- =?utf-8?B?M3pnU1N3T2xuK1FYVDgxdS84S0RUY0hKTk81ZjF5TzFZZDFJWGtlUjhSVXRQ?=
- =?utf-8?B?eHAwZmFYa2FOZU8vR1JyTUlVZExUcVM0K1gwMnVrWmkvVlp0SEhjZFU4QUhq?=
- =?utf-8?B?dE9iSmlHakhCdUd5NTh0eUwvVFRZOXFrNW9Ld1J1Z0tLRUp3OU9LajJxUlIw?=
- =?utf-8?B?UXB6WW9HeVlOZnBKY3VHL2ZUSjBCZkpGVnVHSG84ZzVNQ0czVXRnQUptSXpj?=
- =?utf-8?B?OGN6RVIweEk1M1Mxb2pmK3JMUGxaR0dZVW5wSGRuZ0R5c1JQcmpIcElaMU9M?=
- =?utf-8?B?aklUczBhWDl0NlZvMEhoejQrQm5QTXlacUtNRUxlYzdhOUk3MnZ2RWtuZ0FV?=
- =?utf-8?B?UXZ2YklTU0g1bTFidFpteU1ZTUNSYVI3UFpPRmYvL1F3QWtFcVRGbW56WE9k?=
- =?utf-8?B?TEkyYzBvazlYNnNMUEZPdTF5MGVvakM1eHVOaFRpN2lLRFl2TVJ6dz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 632917fc-7dc1-46d4-9f4e-08df2bb60846
-X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999248.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 18:48:13.4779
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OqHZQJfX5SEmZBQ9lJCH2MmwHkpZUha42P0nwaA5PKJKiQ/iGTM5eLKhfbTiL7O46C4W4eB9L9+uPX/NI0Dwvw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8546
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] mtd: block2mtd: convert to folios
+To: =?UTF-8?Q?J=C3=B6rn_Engel?= <joern@barelysecure.org>
+Cc: Joern Engel <joern@lazybastard.org>,
+        Miquel Raynal <miquel.raynal@bootlin.com>,
+        Richard Weinberger <richard@nod.at>,
+        Vignesh Raghavendra <vigneshr@ti.com>,
+        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261014-block2mtd-folio-v1-0-19d24ae676ee@columbia.edu>
+ <atEd1rbZ_TCXpqXd@cashel.logfs.org>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <atEd1rbZ_TCXpqXd@cashel.logfs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=TMzQ2Fla c=1 sm=1 tr=0 ts=6ad27278 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=4lNGE6/ihKpdiDSMgFMHRw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
+ a=1Hu-8JeRPXiKkjeNRBkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA3NSBTYWx0ZWRfX5RgHmuhTg3gK
+ Oi66kEHLcYgmcS0cM5BwG2qfwc2bmgIIzFnUy6VUWHxrgnPvyitZKVhjW5lfnTpiibJpMTzv08T
+ Dcz/BNllQ4Xsfz4dmFKMb6xKcfulNS4jhjMjW9oKF5yYZ22Ql7nc1enIQtjeF7NDEGmVsypGKet
+ kWZIIdZ9IAau+mLu+4VdP3amb5d3+f7oech0pSLguIe1JufWlD96xnVQRHjO4ADmaUnoWFwMEOJ
+ TIF+1WYrFllnEjpXenxivdZ09kI4QzgcLZYAt87qbJoJNNDOtdbvJp0lHOfQibyUplTFFDZ3N4x
+ CX3QVQy7YwOcoCUscfz8zMpo7cb6qrwTK7dN6ZaW3v5BBpOn6X99dNcCtvhwRsDPeS60A0jDs4p
+ tzv85sDqEMMoEHQcozTgY+W1ci9l8D9n5xkFANLo7+3cFMg3jERWgYJHN0VOMKWUL58tNOSifvT
+ wGAjzFb1Hmv9anhMuIA==
+X-Proofpoint-GUID: Vy_LLjwYDEu7IeUqED8V4wOvGwwNVNYi
+X-Proofpoint-ORIG-GUID: Vy_LLjwYDEu7IeUqED8V4wOvGwwNVNYi
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA3NSBTYWx0ZWRfX+PXcfThVWF9o
+ gBj30KeTj1znOFre9jtYmrxGcOjZR1vnYUPKOvwi1fT2v1oSnvgrvNRlk8GHGzyUK4AD0nrLT43
+ RpXUSuClLdcC2YSnyzeQHG8ge2g9bNfE1hjFtGfypOIxECBlYr1q
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11937
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=10 phishscore=0 priorityscore=1501 malwarescore=0 impostorscore=10
+ adultscore=0 lowpriorityscore=10 spamscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160075
 
-On 16.10.26 10:02, David Woodhouse wrote:
-> On Thu, 2026-10-15 at 23:53 +0000, David Keogh wrote:
->>
->> Measurements (net-next at commit 05b5019b0, veth, 500000 UDP datagrams, a
->> 20-byte ip-in-ip push attached at TC egress, only tx_extra_headroom varied):
->>
->>   tx_extra_headroom   pskb_expand_head reallocs / 500k
->>   0 (off)             500003   (~1 per packet)
->>   64                  4        (background)
->>   128                 2        (background)
+On 10/15/26 2:39 PM, Jörn Engel wrote:
+> On Wed, Oct 14, 2026 at 11:34:53PM -0400, Tal Zussman wrote:
+>> 
+>> The numbers below are from mtd_speedtest, in MiB/s, by folio size,
+>> except the last row, which is from the MEMERASE ioctl:
+>> 
+>> +------------------------------+-------+--------+---------+---------+
+>> | Test                         | Folio |   Base | Patched |  Change |
+>> +------------------------------+-------+--------+---------+---------+
+>> | Eraseblock read (128 KiB)    |   4K  |  12545 |   12863 |   +2.5% |
+>> |                              |  16K  |  12998 |   17229 |  +32.6% |
+>> |                              |  64K  |  13009 |   19135 |  +47.1% |
+>> +------------------------------+-------+--------+---------+---------+
 > 
-> I remember frowning at this years ago, in the context of PPPoE.
+> Thank you!  Code size goes down, code seems subjectively easier to read
+> and performance goes up.  Good stuff!
 > 
-> I have the same question I had back then: why, if *every* packet ends
-> up having to call pskb_expand_head() because it didn't have enough
-> headroom, does our kernel need to be *told* by userspace that it needs
-> to expand the allocations?
+> The one pet complaint I have is that benchmarks should measure badness,
+> not goodness.  Humans tend to prioritize the big numbers.  If you
+> measure the bad thing (time in this case), they focus on the worst areas
+> where most time is spent.  If you measure the good thing, they tend to
+> improve things that are already too good to worry about even further.
 > 
-> We gained dev->needed_headroom and ip_tunnel_adj_headroom() since then,
-> and the kernel doesn't actually need to be told.
-> 
-> You explained why you don't want to use dev->needed_headroom; I don't
-> have much of an opinion on that front. But if you do want to introduce
-> a new tx_extra_headroom, could we try really hard to have it auto-
-> tuning?
-For TC-BPF I suppose only the BPF program knows how much extra
-headroom is needed.
+> Maybe you are immune to such psychological effects, but I am not and
+> measuring time instead of throughput makes a difference to my mind.
+Understandable :) I just used the output of mtd_speedtest, which
+doesn't directly report time at the moment, but with some tweaks...
+Results are the time in ms that mtd_speedtest takes for one pass over
+a 256 MiB device.
 
-Maybe this tx_extra_headroom could be declared as a BTF decl tag
-in the program. If this is the only usecase there's no need for a
-rtnetlink uAPI.
++------------------------------+-------+--------+---------+---------+
+| Test                         | Folio |   Base | Patched |  Change |
++------------------------------+-------+--------+---------+---------+
+| Eraseblock read (128 KiB)    |   4K  |  20.25 |   19.55 |   -3.4% |
+|                              |  16K  |  20.19 |   14.55 |  -27.9% |
+|                              |  64K  |  20.21 |   13.24 |  -34.5% |
++------------------------------+-------+--------+---------+---------+
+| Eraseblock write (128 KiB)   |   4K  |  26.37 |   25.01 |   -5.1% |
+|                              |  16K  |  26.10 |   17.62 |  -32.5% |
+|                              |  64K  |  25.69 |   15.45 |  -39.8% |
++------------------------------+-------+--------+---------+---------+
+| Page read (512 B)            |   4K  |  75.70 |   72.02 |   -4.9% |
+|                              |  16K  |  76.50 |   73.00 |   -4.6% |
+|                              |  64K  |  76.44 |   72.96 |   -4.5% |
++------------------------------+-------+--------+---------+---------+
+| Page write (512 B)           |   4K  | 113.57 |  109.59 |   -3.5% |
+|                              |  16K  | 114.42 |  109.73 |   -4.1% |
+|                              |  64K  | 114.39 |  109.57 |   -4.2% |
++------------------------------+-------+--------+---------+---------+
+| 2-page read (1 KiB)          |   4K  |  48.42 |   46.40 |   -4.2% |
+|                              |  16K  |  48.96 |   47.07 |   -3.9% |
+|                              |  64K  |  48.59 |   47.07 |   -3.1% |
++------------------------------+-------+--------+---------+---------+
+| 2-page write (1 KiB)         |   4K  |  63.61 |   61.28 |   -3.7% |
+|                              |  16K  |  63.96 |   61.20 |   -4.3% |
+|                              |  64K  |  63.82 |   60.85 |   -4.6% |
++------------------------------+-------+--------+---------+---------+
+| Erase, blocks hold data      |   4K  |  15.40 |   14.13 |   -8.3% |
+| (mtd_speedtest)              |  16K  |  15.28 |   10.48 |  -31.4% |
+|                              |  64K  |  15.22 |   10.13 |  -33.4% |
++------------------------------+-------+--------+---------+---------+
+| Erase, already erased        |   4K  |  23.86 |   15.11 |  -36.7% |
+| (2x multi-block)             |  16K  |  24.14 |   11.46 |  -52.5% |
+|                              |  64K  |  23.63 |   10.53 |  -55.5% |
++------------------------------+-------+--------+---------+---------+
 
 Thanks,
-Dragos
+Tal
