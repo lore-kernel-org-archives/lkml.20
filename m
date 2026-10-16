@@ -1,235 +1,94 @@
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12185312815
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:18:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0B04DD3AA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:18:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792163921; cv=none; b=bC6KlpELivg1Og8mma+WeTE2hXQMkc97+tU3qgYYQMTmBjws3o8hgTHTEHjlo/f0hKD70uamdFKZtQCzFXeIy2Ql5ji8mCq+vl0xRgvqnWwX2qDZu7KZmjWkdmJ4fWaNDzDN4rui5HRvbgDTew+Kn0NlUpW86Vcff657MqUNgkQ=
+	t=1792163924; cv=none; b=MvxsUDHitWzGgS1Hz+lXUGHgkj1lccMoXX4LEDzidbMvUOTuEAmeIoYFqdq58DFvgKDIPAYXOfRLt2u5UZlchB4hj+R9GhLnDP9EEEMVDLw9hK6QmRSygicY+6fsz7G2snvpR/athtzSObEGTaj3iHNoPCVuC4TwnFcaQaMESDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792163921; c=relaxed/simple;
-	bh=RyJ5HXL3mAHT1xRWj6+mLJelygFuE8PFN4h6GZEP+2E=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=NC33PTnCdtx+ZOuJ6dipMTCdnZ+ACzh4VtgM1H0Qc/j26IZ7hX/DcgAy0+qHS35bmruNTPgUPINHsY6FktNCKT2RGb4uWMPRjNt7q5Pj5AuiOTesN+8BiAw5GGhZ3/g8BPY5FCtedQrGC6j9PIQ91cFgIw1oZkYd0VqYNWRy+3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eBTqhP5K; arc=none smtp.client-ip=209.85.218.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com
+	s=arc-20240116; t=1792163924; c=relaxed/simple;
+	bh=gTsOfT7qc4+y/R1b+Q3dOr5vhFSgpJC8pEs2pNorJ7A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oaeOPui5aLMbda99rUD/+247Ek5Dlp5SKo85xRCLClrQQ5UPnfOnYbY8tkYV+cqig8rR34MUbxofU3PoAQgTEu2/1Ut11/vfVu32BYZViX83CCuTIFvGBmGuXKYCcrtWqF4efHBPpP2i36svzjNnRtSMZ8HdVVzVB3p8h/jXPoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=I8paqOTn; arc=none smtp.client-ip=209.85.219.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eBTqhP5K"
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c40420222a0so1270766b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:18:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="I8paqOTn"
+Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-917a707f37eso1323586d6.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:18:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792163917; x=1792768717; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DdrT9/bm6JcU3yKappBYHRJ/j1CG7LkhSy2cx3C2M6k=;
-        b=eBTqhP5KPe28/ti2A8FC7xKjGsr3H/ALHumVl/sRKtZtFdvYGMpEuqChsAFqBYSpAh
-         SVtCQ15M++DaO6jpVGnnYur6hoEF6R8Te/gZiMQFudN7BqHrFokMhGmC7wN2F+M024GE
-         XCc1Y5KyiOb+Hg15cGkyP9RLR4TGQdj2OJxyXrMoAF9ZMT2NrlJtZ/YAldkzuUEamldR
-         ef6WKgs8mGGpq8D2kNqJmi0wyRz7QiniXZx+y7zxTI+MqD3u3OMsaXcdCeT7IQP/5RTe
-         f9v8pZ2RQUbGGys/CFOZJQ/yZf/24yLQ/JqaRIW0laBdWyI5FsjSzoEqMxPNghytTury
-         F0kw==
+        d=gourry.net; s=google; t=1792163922; x=1792768722; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gTsOfT7qc4+y/R1b+Q3dOr5vhFSgpJC8pEs2pNorJ7A=;
+        b=I8paqOTnnBFl4CkOn5U2tiES1BNMEhJ9AhGndoNW6nis4nPUdDSdPf+KFX41YXHqEX
+         PHEu+27JD5JaY2CtLXAlUvIL7At5OVKogRdkeOqcQqIAuuYTxulfUoLUU148ys8nEvHv
+         zh6rZ2bLk+Z78gGyJPZPfDXTrL1vgSl9dr+zFSLToUp9FpCdsJueLcMMsmdy3K438/wx
+         06jj+HxmusbDb/dflHBzRuXq6HWFKD7jdSs+dMWn/qCSsxoi5N3IaTqIScZdbw4Fvj5T
+         qCbeT443JGf+uDJJZrMd2nBB7hFJY9b7F9QO6muUFZLVU7g6YPPLoGvlLSMQKdyVREgG
+         DjsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792163917; x=1792768717;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
+        d=1e100.net; s=20260707; t=1792163922; x=1792768722;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DdrT9/bm6JcU3yKappBYHRJ/j1CG7LkhSy2cx3C2M6k=;
-        b=tXrxb4SfZErVPLh04dC70FsKPAfKdnsy5c5WLyHKG/uEl5Y4vaQfKPLonUBdrQ3zkQ
-         ConvBx8TioCl8T/4vJ8S47ePi/UG9j3h9JAb0980BJmbF+4NoxZRuZ/vRM7kEonNgDt9
-         6++XwfC6wp+e1FGxYpIorP1HECzjvcI+CNO4Vs0xqYE3l5vsB3aoRgQ/lLLnYlfn6nED
-         5uKlBGMdmG+sAcbU+paqp/mQwtit7I7kpEsZViw7oajMGCK4oC9RozJOapo6QykJ2BTa
-         npOlezUawBcfME8khp0GzblfOC0gkcYoepDJoQggMIJ7ETe923l2q9VFsXkQDopGtuW6
-         Q2xA==
-X-Forwarded-Encrypted: i=1; AKwUvBzr/16jfJfvpfPTLM2brgMfPDWR5gMPY+V2xLz6wj4+JAHuUp3DPLa4d7LcV8x9jBTDLbBn5ndc4m+lV4k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKY0qzRghTanreZKhSsttiVasvMz6v9+GHv9FjQOrdvgWX6SGeI
-	c5zT1vS0MWw0/iRmP25XNwlJwlwnBEH4HhrDEXqqzt0vm2FWRxok7ca0zPe7vqQiXliUFURPWZR
-	nRfcWzQ==
-X-Received: from ejcb24.prod.google.com ([2002:a17:906:36d8:b0:c3f:7f5a:30f9])
- (user=lrizzo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:9713:b0:c2e:856:2a08
- with SMTP id a640c23a62f3a-c419a942d66mr15910266b.1.1792163916834; Fri, 16
- Oct 2026 08:18:36 -0700 (PDT)
-Date: Fri, 16 Oct 2026 15:18:35 +0000
+        bh=gTsOfT7qc4+y/R1b+Q3dOr5vhFSgpJC8pEs2pNorJ7A=;
+        b=ubISfIUR/x4B0j5Jna6vaAsnt7Tq1C53Rk5gBUjQnyC8KG6bOl28eOt5MK5uOpDyUh
+         7zg4faw1YcRWTaWWXs5rWuZIo1kBTpMr2gHPQPBKf2nGD8wugDP/XIvZUGd9Dwb7Heso
+         oNqfY4GNVIAygngtHH/n+AJ9ktft323OW13qSghH+YdmZt8nKyfsu37i8E8VK9wyC8L+
+         rHYfRDJ4RgmMdNogIGLn3T3435g0h7iJDYj5Rojo3/+/K+31+euPcxP0nrQfgWvOFlVC
+         VZlunF+a8/G7K7ZpklPb31x/UTjI7vLNq1grWLc59ZIwn4h60hmTgxXsSpt0fmWU5P25
+         XBFA==
+X-Gm-Message-State: AFq9FYJV5UMtbDRfzfAo31WWtG+yOkSOg6XUl051jdcd5lAwQnOaQJ0g
+	+vljXexhIf6S0gGXE/Xt0xneGjwnyJyoLhXvUDixaNrDskHyXG38mWvMwlYHtrPVAnU=
+X-Gm-Gg: AYBFou3CIZzE7H1/te0krCh6rZ0avDuwZejDHw+oGswkHkf56y/ms4yrkZifI5WGv1T
+	YeUFNE2pFIghgub3QaAbRXzEWhfCxZ73OPxBkGkUK/f/fO6AWX9+TSKLLXEXdFHb7dQS0FA1hQK
+	xVcgL3Ypyz9dU9i19kjW8tPUZRQLaOof7iPUbSu+lusTid5Y0qI6s6imFZEVyCjkE3+H0LdpaC3
+	4Rz1mzc/yfk9Iu+CPwj3eu/1hM7lAuwb+4SpjKB4333DrhY88ILjDQHQ0tAQzT4VTdjvhjV6k7w
+	eNKmDwhmpxUVHouf3Cp4sZOUyThLRrTPTNREq249dfRfHGAeP5VYOqg0nsd/FoJowqURgKU4nwd
+	5kRqTFz0JDEhtq4cU77usaRgW1r4/ElK1NWrvM37RD6DreL88ckU1um06W47XnCii/+1HDYenFk
+	zrU+j8Bn1Gci7YTOzaP3zjtfxMKuDrEDvNqeDMzJbU0lucgYrLc8v27fm15Wkle20IFJ/cE2wPB
+	/Z8NnGLlS7eUnWp+LUei07KSkvmmWWWJlY4Kf+17LdpO45ktPgoy+E=
+X-Received: by 2002:a05:6214:202c:b0:90c:b843:d679 with SMTP id 6a1803df08f44-91bdf063686mr5556436d6.29.1792163921793;
+        Fri, 16 Oct 2026 08:18:41 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbade61csm24949136d6.26.2026.10.16.08.18.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 08:18:41 -0700 (PDT)
+Date: Fri, 16 Oct 2026 11:18:39 -0400
+From: Gregory Price <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, vbabka@kernel.org, surenb@google.com, mhocko@suse.com, 
+	brendan.jackman@linux.dev, hannes@cmpxchg.org, ziy@nvidia.com, mgorman@techsingularity.net, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/page_alloc: validate zonelist slots against
+ concurrent rebuilds
+Message-ID: <atJAIfZ55x68Ft8p@gourry-fedora-PF4VCD3F>
+References: <20261015210539.3243563-1-gourry@gourry.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-Message-ID: <20261016151835.2500807-1-lrizzo@google.com>
-Subject: [PATCH iwl-next] libeth, idpf: use GFP_KERNEL for the initial Rx ring fill
-From: Luigi Rizzo <lrizzo@google.com>
-To: intel-wired-lan@lists.osuosl.org
-Cc: netdev@vger.kernel.org, Tony Nguyen <anthony.l.nguyen@intel.com>, 
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
-	Alexander Lobakin <aleksander.lobakin@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Luigi Rizzo <rizzo.unipi@gmail.com>, Brian Vazquez <brianvv@google.com>, 
-	Joshua Hay <joshua.a.hay@intel.com>, Larysa Zaremba <larysa.zaremba@intel.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015210539.3243563-1-gourry@gourry.net>
 
-libeth_rx_alloc() always allocates with GFP_ATOMIC, including when idpf
-fills its Rx rings at open or on queue reconfiguration. That fill runs
-in process context, right after page_pool_create() and before the
-queues' NAPI is enabled, so it may sleep, and GFP_ATOMIC is needlessly
-restrictive there: it can neither reclaim nor compact, while the initial
-fill can allocate tens of thousands of buffers across all queues.
+On Thu, Oct 15, 2026 at 05:05:39PM -0400, Gregory Price (Meta) wrote:
+> Onlining the first block of a zone (e.g. via virtio-mem or a DIMM)
+> rebuilds every node's zonelists in place. An allocation in flight can
+> then be served from a zone it never asked for: a GFP_KERNEL allocation
+> can get a page from ZONE_MOVABLE.
+>
 
-Add libeth_rx_alloc_gfp(), which takes the allocation flags, and make
-libeth_rx_alloc() its GFP_ATOMIC wrapper. Use GFP_KERNEL for the initial
-fill in idpf.
+Sashiko pointed out some other race conditions (related, different),
+i'm going to repackage this one with those fixes because they're likely
+to conflict and they'll all want to be backported together.
 
-Signed-off-by: Luigi Rizzo <lrizzo@google.com>
----
- .../ethernet/intel/idpf/idpf_singleq_txrx.c   |  7 +++---
- drivers/net/ethernet/intel/idpf/idpf_txrx.c   |  9 +++++---
- drivers/net/ethernet/intel/idpf/idpf_txrx.h   |  2 +-
- include/net/libeth/rx.h                       | 23 +++++++++++++++----
- 4 files changed, 30 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_singleq_txrx.c b/drivers/net/ethernet/intel/idpf/idpf_singleq_txrx.c
-index e3ddf18dcbf51..d623e4ab8511f 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_singleq_txrx.c
-+++ b/drivers/net/ethernet/intel/idpf/idpf_singleq_txrx.c
-@@ -885,11 +885,12 @@ static void idpf_rx_buf_hw_update(struct idpf_rx_queue *rxq, u32 val)
-  * idpf_rx_singleq_buf_hw_alloc_all - Replace used receive buffers
-  * @rx_q: queue for which the hw buffers are allocated
-  * @cleaned_count: number of buffers to replace
-+ * @gfp: GFP_KERNEL for the initial fill, GFP_ATOMIC from NAPI
-  *
-  * Returns false if all allocations were successful, true if any fail
-  */
- bool idpf_rx_singleq_buf_hw_alloc_all(struct idpf_rx_queue *rx_q,
--				      u16 cleaned_count)
-+				      u16 cleaned_count, gfp_t gfp)
- {
- 	struct virtchnl2_singleq_rx_buf_desc *desc;
- 	const struct libeth_fq_fp fq = {
-@@ -908,7 +909,7 @@ bool idpf_rx_singleq_buf_hw_alloc_all(struct idpf_rx_queue *rx_q,
- 	do {
- 		dma_addr_t addr;
- 
--		addr = libeth_rx_alloc(&fq, nta);
-+		addr = libeth_rx_alloc_gfp(&fq, nta, gfp);
- 		if (addr == DMA_MAPPING_ERROR)
- 			break;
- 
-@@ -1095,7 +1096,7 @@ static int idpf_rx_singleq_clean(struct idpf_rx_queue *rx_q, int budget)
- 
- 	page_pool_nid_changed(rx_q->pp, numa_mem_id());
- 	if (cleaned_count)
--		idpf_rx_singleq_buf_hw_alloc_all(rx_q, cleaned_count);
-+		idpf_rx_singleq_buf_hw_alloc_all(rx_q, cleaned_count, GFP_ATOMIC);
- 
- 	u64_stats_update_begin(&rx_q->stats_sync);
- 	u64_stats_add(&rx_q->q_stats.packets, rs.packets);
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_txrx.c b/drivers/net/ethernet/intel/idpf/idpf_txrx.c
-index 4311ffa30bb18..b1127ab48ef3f 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_txrx.c
-+++ b/drivers/net/ethernet/intel/idpf/idpf_txrx.c
-@@ -600,6 +600,9 @@ static void idpf_post_buf_refill(struct idpf_sw_queue *refillq, u16 buf_id)
-  * @bufq: buffer queue to post to
-  * @buf_id: buffer id to post
-  *
-+ * Only used for the initial fill, from process context, so it allocates
-+ * with GFP_KERNEL.
-+ *
-  * Return: %false if buffer could not be allocated, %true otherwise.
-  */
- static bool idpf_rx_post_buf_desc(struct idpf_buf_queue *bufq, u16 buf_id)
-@@ -618,7 +621,7 @@ static bool idpf_rx_post_buf_desc(struct idpf_buf_queue *bufq, u16 buf_id)
- 		fq.fqes = bufq->hdr_buf;
- 		fq.truesize = bufq->hdr_truesize;
- 
--		addr = libeth_rx_alloc(&fq, buf_id);
-+		addr = libeth_rx_alloc_gfp(&fq, buf_id, GFP_KERNEL);
- 		if (addr == DMA_MAPPING_ERROR)
- 			return false;
- 
-@@ -629,7 +632,7 @@ static bool idpf_rx_post_buf_desc(struct idpf_buf_queue *bufq, u16 buf_id)
- 	fq.fqes = bufq->buf;
- 	fq.truesize = bufq->truesize;
- 
--	addr = libeth_rx_alloc(&fq, buf_id);
-+	addr = libeth_rx_alloc_gfp(&fq, buf_id, GFP_KERNEL);
- 	if (addr == DMA_MAPPING_ERROR)
- 		return false;
- 
-@@ -675,7 +678,7 @@ static bool idpf_rx_post_init_bufs(struct idpf_buf_queue *bufq,
-  */
- static int idpf_rx_buf_alloc_singleq(struct idpf_rx_queue *rxq)
- {
--	if (idpf_rx_singleq_buf_hw_alloc_all(rxq, rxq->desc_count - 1))
-+	if (idpf_rx_singleq_buf_hw_alloc_all(rxq, rxq->desc_count - 1, GFP_KERNEL))
- 		goto err;
- 
- 	return 0;
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_txrx.h b/drivers/net/ethernet/intel/idpf/idpf_txrx.h
-index 93547597efd2a..e27438c78ec79 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_txrx.h
-+++ b/drivers/net/ethernet/intel/idpf/idpf_txrx.h
-@@ -1123,7 +1123,7 @@ netdev_tx_t idpf_tx_singleq_frame(struct sk_buff *skb,
- 				  struct idpf_tx_queue *tx_q);
- netdev_tx_t idpf_tx_start(struct sk_buff *skb, struct net_device *netdev);
- bool idpf_rx_singleq_buf_hw_alloc_all(struct idpf_rx_queue *rxq,
--				      u16 cleaned_count);
-+				      u16 cleaned_count, gfp_t gfp);
- bool idpf_rx_process_skb_fields(struct sk_buff *skb,
- 				const struct libeth_xdp_buff *xdp,
- 				struct libeth_rq_napi_stats *rs);
-diff --git a/include/net/libeth/rx.h b/include/net/libeth/rx.h
-index 0e736846c5e8a..14a528ea8a075 100644
---- a/include/net/libeth/rx.h
-+++ b/include/net/libeth/rx.h
-@@ -96,20 +96,23 @@ int libeth_rx_fq_create(struct libeth_fq *fq, void *napi_dev);
- void libeth_rx_fq_destroy(struct libeth_fq *fq);
- 
- /**
-- * libeth_rx_alloc - allocate a new Rx buffer
-+ * libeth_rx_alloc_gfp - allocate a new Rx buffer
-  * @fq: fill queue to allocate for
-  * @i: index of the buffer within the queue
-+ * @gfp: allocation flags: GFP_KERNEL where the caller may sleep (e.g. the
-+ *	 initial fill of the ring), GFP_ATOMIC from NAPI
-  *
-  * Return: DMA address to be passed to HW for Rx on successful allocation,
-  * ```DMA_MAPPING_ERROR``` otherwise.
-  */
--static inline dma_addr_t libeth_rx_alloc(const struct libeth_fq_fp *fq, u32 i)
-+static inline dma_addr_t libeth_rx_alloc_gfp(const struct libeth_fq_fp *fq,
-+					     u32 i, gfp_t gfp)
- {
- 	struct libeth_fqe *buf = &fq->fqes[i];
- 
- 	buf->truesize = fq->truesize;
--	buf->netmem = page_pool_dev_alloc_netmem(fq->pp, &buf->offset,
--						 &buf->truesize);
-+	buf->netmem = page_pool_alloc_netmem(fq->pp, &buf->offset,
-+					     &buf->truesize, gfp | __GFP_NOWARN);
- 	if (unlikely(!buf->netmem))
- 		return DMA_MAPPING_ERROR;
- 
-@@ -117,6 +120,18 @@ static inline dma_addr_t libeth_rx_alloc(const struct libeth_fq_fp *fq, u32 i)
- 	       fq->pp->p.offset;
- }
- 
-+/**
-+ * libeth_rx_alloc - allocate a new Rx buffer from NAPI context
-+ * @fq: fill queue to allocate for
-+ * @i: index of the buffer within the queue
-+ *
-+ * Return: as libeth_rx_alloc_gfp().
-+ */
-+static inline dma_addr_t libeth_rx_alloc(const struct libeth_fq_fp *fq, u32 i)
-+{
-+	return libeth_rx_alloc_gfp(fq, i, GFP_ATOMIC);
-+}
-+
- void libeth_rx_recycle_slow(netmem_ref netmem);
- 
- /**
--- 
-2.56.0.176.g3575e65682-goog
-
+~Gregory
