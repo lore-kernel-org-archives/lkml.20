@@ -1,115 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D29A445AE7
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912C744AB62
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135973; cv=none; b=nEcgIV8zDc7ieGAaqEjm7jzEa3cgt4MHqMrVhs21Ub8UudwwiYF5v0WUnGUptEp1t+BrCGAAic7xH+nxzpPDYGV5gS4KdUEJy7y8Q/xvgK+vC9D639VBFXhj8Ka6kEpYPVoczjiiLC7ToBYSjCMTQbl8JglZHBGPglYBz00SU8g=
+	t=1792135974; cv=none; b=Ke+l5Fu0q0+qB+J3f7JmO8cXTtQpdwhUZUpeUqJTWI3DnPMvP6EXjqsoRL70iq7AQP+CKm76VsItDFZ9KrxilmGU0ADQrPQyGr7FDyfpm7D/NW9u4Jx3CPoDypM6ePWVFxJtZ147qtjZZdHSQO6/2DfmG40Tt7xzKWcImmMwNV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135973; c=relaxed/simple;
-	bh=IJ+5u7srEk6nIaU0cmJ8MAIsRra4lgyOsCM5Ol4qCpg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=buYbcuveuaeOpFf/+siOlZneXQrh93gKe8T4FLoLp01vkb75WIlT8V3dYyyKjRYvoy86umtRbebUTmo555R+O+QiTHu4lkTJWyYUYIIVd3qWlSRUgSj5/s5NaC3f/rNCEGwQ3lxhQei1ETusynIyUe6QF39cXxX3uvBDNTquiec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WG7ptaQx; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WG7ptaQx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29B911F000C4;
-	Fri, 16 Oct 2026 07:32:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792135969;
-	bh=1v2ntwu8Em8B5OdazZkfPG61sIQaYLlgT9DtGFP4HNY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=WG7ptaQxvhJShJBNpdEZTV8T4Ff3H3ud960vZ4LjnauWUvtqu6ls16RowkTLeZFBg
-	 8vz0cNeme2i3hJHugTe5ydbgYAE+fv+egfJJBGhXXU/+UsX+jYvWmTgXRmsDorSri+
-	 Ub+iWD8o1+CQ1rKUVk2Ku7D8ITf2dTP4XvA8vUrjlQcsKVfs9uNYY7vsM6jucFMsVC
-	 Z5NZQiS7fiEsor3IT1PddNF98eLessuxoEdqEj6y6mwwrGLlnzFPYVhyEJA3TMo0y1
-	 hrNjKK9vCtmIRmmaUDMJSFPUVlcBQP0OJLrsN4LvQZolaWoY5C+roUAGIBTDBhuMEH
-	 4T9fxEwCpoTTw==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 16 Oct 2026 09:31:45 +0200
-Subject: [PATCH v5 13/14] drm/vkms: Switch container_of helpers to
- container_of_const
+	s=arc-20240116; t=1792135974; c=relaxed/simple;
+	bh=0lqg0zig61PhYIVpk8JV6/dZoMgln3ExA6zGv3cfk+w=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=KPv48r1sscDeDsy7jaFRiqYjggkvqgdhkImpe9WLnRIJFvYzMAYv/7Q/hxAgqCsRkhRwpG0Z5we99UTyHdWT1ecCVrj23hX3WAMd8jxlSUds1cDystmlrE/QU+wUwiqCDOnRAC1SV8s3bv1cQ8hyC+QtCHJ5nujmFkrm9aaqMUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ea4c979030so10786337b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:32:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792135969; x=1792740769;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D8SkBXaAciW9b0ju2efjjoDka8elPLR9VCB9wPB/O2o=;
+        b=T5o4uuU5CSv99CkMgsKOLnbN0Y2D9AOUhj490hfMHDNJFavnNRuzskuPZVhtRa+rMM
+         OVaY2gy9edVMJ9pQrv6m7WbtJIkVvT3wihv9FX4fIalzHnUoIRx9bmQxWs5woqxRlEw4
+         SbRnUJw86FHsd1IoLs1iRCImUVYieTV1vSrM3UjbS/KysXc24H00NLL6HJ63QsIoVnaV
+         rRaQs73wa3f/6Sl+F2jDLQGhY2d9KGXckdcJJ+w2SvjMa5wE+5Vxk5HMjLcgLqElk2sR
+         C4+UHczz98awadwJlSN/hfjnzPBcJ0vyR2E1QuC2ZC7YSwgTMLD5Kpzv8jxnTmuueIpk
+         uJAw==
+X-Forwarded-Encrypted: i=1; AKwUvBx3Aw1q1I7yVkCCYkpppSk3r5k36jyZv1+jY9Y6NCTteUUMaQuqtyvd5g321KuZifi49SNi1vU5HrZP1rM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLE6roXNOCboITrzY2TOsCD3/S3YcSbzNSWZQ+UDSnagEIrq2Vz
+	nGLfyrHSYIIEpc+pYpHZgqenXP7OHoOA375sFf05ynZd11IvfOImYksITpKfUOTpwSOu/pYzCkq
+	L5jU35/H78IqBPNiczgCYvqtmzXp8wHsV7Dz7JP5tgI/NgD3l8Tr/3sUNbnM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-drm-reset-state-flag-v5-13-dad2d64b693b@kernel.org>
-References: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
-In-Reply-To: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1708; i=mripard@kernel.org;
- h=from:subject:message-id; bh=IJ+5u7srEk6nIaU0cmJ8MAIsRra4lgyOsCM5Ol4qCpg=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkXLz3reHdzo94V5s6Qr9FvjXY/OWURfe2/Vf/CuTukL
- q2qXuHI0zGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAm8uQEY50124dF+7cL2rPs
- XFLA8yuFyarlVE/kfeszzSs2RIpO+H/pwKG8tZE7bmvzHTv0Kbk/KIuxTrX0fuC86d4aTGpra62
- feaUaz7vkw6MrOW2T/tGny7RfnYhYeZ371MbrDltkD73TmMbXCAA=
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+X-Received: by 2002:a05:6808:4f4b:b0:4e8:2150:2a1 with SMTP id
+ 5614622812f47-50c57c62debmr22950300b6e.68.1792135968946; Fri, 16 Oct 2026
+ 00:32:48 -0700 (PDT)
+Date: Fri, 16 Oct 2026 00:32:48 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad1d320.a6d1a155.34a93f.0000.GAE@google.com>
+Subject: [syzbot] [fs?] WARNING in minix_rmdir (2)
+From: syzbot <syzbot+8420e667af06b1709c00@syzkaller.appspotmail.com>
+To: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-The vkms container_of helpers use container_of() which discards the
-const qualifier from the input pointer. This prevents passing a const
-state pointer to to_vkms_plane_state() without a cast, for instance
-in atomic_get_property which receives a const drm_plane_state.
+Hello,
 
-Switch all four helpers to container_of_const() so the const qualifier
-is properly propagated to the result type.
+syzbot found the following issue on:
 
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
+HEAD commit:    b88c841d1164 Merge tag 'input-for-v7.3-rc6' of git://git.k..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=14db50a5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=7d1b274ca9837366
+dashboard link: https://syzkaller.appspot.com/bug?extid=8420e667af06b1709c00
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17ba149c580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=114291d1580000
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-b88c841d.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/c64cd81f2bae/vmlinux-b88c841d.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/605b0408da7b/bzImage-b88c841d.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/3ed2a0024dcf/mount_0.gz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+8420e667af06b1709c00@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+inode->i_nlink == 0
+WARNING: fs/inode.c:408 at drop_nlink+0xc5/0x110 fs/inode.c:408, CPU#0: syz-executor/5454
+Modules linked in:
+CPU: 0 UID: 0 PID: 5454 Comm: syz-executor Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:drop_nlink+0xc5/0x110 fs/inode.c:408
+Code: a8 07 00 00 be 08 00 00 00 e8 f7 68 e4 ff f0 48 ff 83 a8 07 00 00 5b 41 5c 41 5e 41 5f 5d e9 52 90 97 09 cc e8 0c e7 71 ff 90 <0f> 0b 90 eb 81 44 89 f1 80 e1 07 80 c1 03 38 c1 0f 8c 5b ff ff ff
+RSP: 0018:ffffc900033b7d10 EFLAGS: 00010293
+RAX: ffffffff82563a14 RBX: ffff8880439c30b0 RCX: ffff888013d0cb00
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: ffffffff917a977f R09: 1ffffffff22f52ef
+R10: dffffc0000000000 R11: fffffbfff22f52f0 R12: 1ffff1100873861f
+R13: dffffc0000000000 R14: ffff8880439c30f8 R15: dffffc0000000000
+FS:  000055555e111500(0000) GS:ffff88808b0b4000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000556e57c72048 CR3: 0000000013446000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ inode_dec_link_count include/linux/fs.h:2269 [inline]
+ minix_rmdir+0xfc/0x140 fs/minix/namei.c:183
+ vfs_rmdir+0x3e6/0x6a0 fs/namei.c:5544
+ filename_rmdir+0x292/0x520 fs/namei.c:5601
+ __do_sys_unlinkat fs/namei.c:5776 [inline]
+ __se_sys_unlinkat+0x71/0x1a0 fs/namei.c:5769
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f819279d2f7
+Code: 77 01 c3 48 c7 c2 e8 ff ff ff f7 d8 64 89 02 b8 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 b8 07 01 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffef5481018 EFLAGS: 00000207 ORIG_RAX: 0000000000000107
+RAX: ffffffffffffffda RBX: 0000000000000065 RCX: 00007f819279d2f7
+RDX: 0000000000000200 RSI: 00007ffef54821c0 RDI: 00000000ffffff9c
+RBP: 00007f8192834ccb R08: 0000000000018560 R09: 0000000000000001
+R10: 0000000000000000 R11: 0000000000000207 R12: 00007ffef54821c0
+R13: 00007f8192834ccb R14: 0000000000028576 R15: 00007ffef5484380
+ </TASK>
+
+
 ---
- drivers/gpu/drm/vkms/vkms_drv.h | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index 381483aa4fb0..dea6cad3f1b9 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -248,20 +248,20 @@ struct vkms_device {
- /*
-  * The following helpers are used to convert a member of a struct into its parent.
-  */
- 
- #define drm_crtc_to_vkms_output(target) \
--	container_of(target, struct vkms_output, crtc)
-+	container_of_const(target, struct vkms_output, crtc)
- 
- #define drm_device_to_vkms_device(target) \
--	container_of(target, struct vkms_device, drm)
-+	container_of_const(target, struct vkms_device, drm)
- 
- #define to_vkms_crtc_state(target)\
--	container_of(target, struct vkms_crtc_state, base)
-+	container_of_const(target, struct vkms_crtc_state, base)
- 
- #define to_vkms_plane_state(target)\
--	container_of(target, struct vkms_plane_state, base.base)
-+	container_of_const(target, struct vkms_plane_state, base.base)
- 
- /**
-  * vkms_create() - Create a device from a configuration
-  * @config: Config used to configure the new device
-  *
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
--- 
-2.55.0
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
