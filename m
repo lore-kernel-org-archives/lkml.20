@@ -1,81 +1,69 @@
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from skyblue.cherry.relay.mailchannels.net (skyblue.cherry.relay.mailchannels.net [23.83.223.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D2648DB32
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D08E48DB53
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:30:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.223.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792182587; cv=none; b=qwT2CmJeHQ/ARQhtFxOOR7TUt//5KfLMj39XeAuxyyCcLtO5nQsjALuw2CDFyBuvW2K3Jc2b7gj6DHkKsIBQzZLKgggT1U7U64SlM1Bd69k8/bhEpvrOe5zxt/kkXw0xhe5DyBN8uAXvx1vuC2yIbvxN7+5SsAw28aMcHy40UQc=
+	t=1792182632; cv=none; b=Tx1x43mbd+ByBHSttGJKCESOUCn6uoKvrVKf/clvB4LRCaKIwrdqMKkgwtXyeRAIbd24p84YU4lMcrICQUCJZGss4BJv8WqTgSHTn7puHIRC5wC+IOuHqn5UW3QFdQ6WFV5izTrhj+7gZ/YUgNfNcikw6pS/C+CVInd+hd3xV2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792182587; c=relaxed/simple;
-	bh=zuqsIDr02iUaNUf24uD9AuyNgKxsfF+SdmXBLhWQafI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MOVWuYi5dbPTc5Im+qUZhG5d8pM1uj/m0w3BbgdpQ+VE0H4lgLmVkMmnG8pV5l1799il+K8IW433l/EFlGCmkJg4XXxlQcQAsvaO1/zlRKvs9hjpwqWsNOK8fqGf5qa3dwXPyh2s+ipTo8QCE2fXxTEDEzFKYfPL8Uh/0IF7G6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co; spf=pass smtp.mailfrom=x6u.co; dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b=MOtCKBtU; arc=none smtp.client-ip=209.85.221.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
+	s=arc-20240116; t=1792182632; c=relaxed/simple;
+	bh=Z0uwyNCl4fIEwx7YerFwrVneVzTxcC+eWGEiBfXUULo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=e+m1rEHG5zcPtiue8FYBNvFEDDXMw6ihwfY4Q1K87yjGT9f+HkK8c7eb59vowFdmYyilP8SMh8acPYTtxb4vxu3+mETnCYRUROWjmKceDqT+lybJkU5WicghRhvRWyVbDeP59syEtnhYYcqjT200So0jflJzccVC8g/oPhgzwws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=S53ktaIt; arc=none smtp.client-ip=23.83.223.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b="MOtCKBtU"
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5e519c39196so103385e0c.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:29:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=x6u.co; s=google; t=1792182581; x=1792787381; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6gBm4eYWH8ADZOqk+02ZWT3WvoW2g25kohhyi8mFq8M=;
-        b=MOtCKBtUyER/Gy+BEes9e1MsDQfrVlI6qkmpT6mBiv5CTpBEg8TELlmGpPZ9rJsi1j
-         UIUr1orKWr0O79W1nstZ2H9cCRosIkULXa6lMCQo8w5DMMmgfG0UP+Bc8mWGjeHzFZsH
-         yq1aIjsSK6mNPXbcFNyTkoQMIpBfF6cRx8Bgamuf9iI3EKxqSFXjHB1hmvuBxTEKe0tb
-         C+xpcCYH+yPhPynNwz/crnvZO/mQZu8BO+ebPOboNaVDmm5t3dnfYl+3t/kB9G7HX4Xy
-         b2LA7zy+oC6odicCe5UEBnKZwIXuVoVFauW0BxNVKTKW7Ab98A+jp/JUBoLBwm8fSkht
-         jY0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792182581; x=1792787381;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6gBm4eYWH8ADZOqk+02ZWT3WvoW2g25kohhyi8mFq8M=;
-        b=UeU1/IdXE1oSROP4ZCQF/1XpTd1fuOS08/nklE1FrwdLP4P1G3CWkcnlA8RR5wStDr
-         /LxSioUQQd4IxqrS4o+mnvbGYGnnPXKHhMsRnlhgZjhsgMdwtwiQ5qIs9GVxAO6jkYsa
-         q3qkHBoYy8L77I5nBxEfwrxmUkmr+oUsXgqhHZbF9YKLKax25moasiQjD+dtE3XBeaG1
-         oF0h2tWi25ZsfwoD4KyudajTXGEXU2PEr4Sk7QkoHTlzXEkpu5oMk8TmXvJObrHsY/km
-         xwnOyHVcVu3V03tmY6aPFwVIAuuTqQ2cBr4C6/Cl/Lqcm9483WRFjfLEOcijQN6Z+YZa
-         BjpA==
-X-Forwarded-Encrypted: i=1; AKwUvBxsLrg+38Z0XT78KxzY1BQeFc5x7S5x0Prdfym1p1KKxobx2F02AR5ip3P3Dpr7mPzx3sdjG8j95FDFaAM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLlApQDoQjhI1MuKey0oTSZM+vyMhkzCexQPAKKOjcpsSkPm4KS
-	BYhE3Q78cedmZjQoznQ/BJQVyOazPw2afLD8SqWoMfGy/3aUP/YpLu6RssOZRDsSD2DL
-X-Gm-Gg: AYBFou3tzHoFgRPdPUuaqTiIHdmpUuD+aNo80bbv8+AyJX7rdz34FS7pFAGxkYl271o
-	VLHVvKYSCW2a8mCvJ96CMFRrGBQxOxbDECD1Qm2+P2AXV9KioXvoQr9pJd3sq+yQf2kt+x4BBX1
-	up8RtmjIHPGGsSNu0bW6RzZkC1KG7Xou8/Y8kbjzTRd9zlJWWYRvS8C/4C+3Bs746Ud2msQpNM5
-	/Iw1ydIP6yXqnEM4DGRj0dy2QLS9RNYrRKk8E8VfEY6+FlAaFlQC4JZ/x6F1Y7ja0+ji46m04SA
-	xThzP1k+vCoEz0O875Uo9G/xvPZYVEpbpGpRc4qwxtlqm1SjaukG+7FkzynKpB7Me66iQi/iwAg
-	6i8+/etCFLcDyYgs91tN3iSVlXMIex1QaSS5BbRNzoCUcSu03Le/TYQP2C1BOsMMpP2AP+NVtlE
-	z1eQYsib3JisoQT6REVlyi1Bbqwz+5yn1vwlb35/vjfZTPtZTZCu0swRSFYhK3LDNWJPLtseVD/
-	QI2TjxKL+IgBogmMapTOCvgv67yKmDggJ7mAfjN7lJ7tiSZzvrNyP+YvCxI4k+1G0/dkNQcfCVd
-	B2Gwc5uZtQ==
-X-Received: by 2002:a05:6122:c1c4:b0:5c9:e022:f642 with SMTP id 71dfb90a1353d-5eaa9ecd066mr465972e0c.0.1792182580691;
-        Fri, 16 Oct 2026 13:29:40 -0700 (PDT)
-Received: from worldpeace10.c.googlers.com.com (119.20.221.35.bc.googleusercontent.com. [35.221.20.119])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b5201b1sm2588281e0c.12.2026.10.16.13.29.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 13:29:40 -0700 (PDT)
-From: David Hu <dhu@x6u.co>
-To: Mustafa Ismail <mustafa.ismail@intel.com>,
-	Shiraz Saleem <shiraz.saleem@intel.com>,
-	Tatyana Nikolova <tatyana.e.nikolova@intel.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="S53ktaIt"
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 5EE2C4031B9;
+	Fri, 16 Oct 2026 20:30:22 +0000 (UTC)
+Received: from pdx1-sub0-mail-a243.dreamhost.com (100-96-22-126.trex-nlb.outbound.svc.cluster.local [100.96.22.126])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id ED3484036DB;
+	Fri, 16 Oct 2026 20:30:21 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
+X-MailChannels-Auth-Id: dreamhost
+X-Illustrious-Cellar: 1395b1046176cde7_1792182622177_1942717813
+X-MC-Loop-Signature: 1792182622177:120948357
+X-MC-Ingress-Time: 1792182622177
+Received: from pdx1-sub0-mail-a243.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.96.22.126 (trex/8.0.2);
+	Fri, 16 Oct 2026 20:30:22 +0000
+Received: from offworld.tailf5af7a.ts.net (unknown [76.167.199.67])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dave@stgolabs.net)
+	by pdx1-sub0-mail-a243.dreamhost.com (Postfix) with ESMTPSA id 4j5xQP2XTNzymT;
+	Fri, 16 Oct 2026 13:30:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
+	s=dreamhost; t=1792182621;
+	bh=PcS3jqGw1d0uKoVz55H1H+E/WB5a/xueLvnn+JMoeSA=;
+	h=From:To:Cc:Subject:Date:Content-Transfer-Encoding;
+	b=S53ktaItaGQ/MfiIZn31sgp5A1GXOEl36B4yumnJZgUD2x76zV6iS0FIDqqKAUnJp
+	 RNqEj1TaI22g1i3V2jzNz7DPkDo3fhN+gZhajhSHjcUw7ZsN/Ra5l8GBMoq+YFR3Wr
+	 4hkwfbwynxbji7eyGPRh1/+rzS13gbnkte9Rk5KnHOR5nG1X0i4okSeR6H2DS+wQyK
+	 d8ope8Soi39MPGN0U1OuNMWV0x38Way5K90KE5CFdjJ0xYbjeEfrbi8keBoUxSBfXf
+	 h72PaUlxUhJaZOarOXOOny5SSoF0E0Dqec9g0/WjdAj/3q/qrZGwHQHJg4lUGxwoym
+	 TMnYMSPhcd3gw==
+From: Davidlohr Bueso <dave@stgolabs.net>
+To: pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu
+Cc: oleg@redhat.com,
 	linux-kernel@vger.kernel.org,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	David Hu <xuehaohu@google.com>
-Subject: [PATCH rdma-next v3 6/6] RDMA/irdma: Support UMEM attribute for SRQ creation
-Date: Fri, 16 Oct 2026 20:29:09 +0000
-Message-ID: <20261016202909.1289496-7-dhu@x6u.co>
-X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-In-Reply-To: <20261016202909.1289496-1-dhu@x6u.co>
-References: <20261016202909.1289496-1-dhu@x6u.co>
+	linux-riscv@lists.infradead.org,
+	dave@stgolabs.net
+Subject: [PATCH] riscv: uprobes: Avoid redundant icache flushes for the XOL slot
+Date: Fri, 16 Oct 2026 13:30:09 -0700
+Message-Id: <20261016203009.745042-1-dave@stgolabs.net>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,127 +72,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Hu <xuehaohu@google.com>
+arch_uprobe_copy_ixol() unconditionally calls flush_icache_range(),
+which has no range form on riscv and is a flush_icache_all(). It
+runs once per single-step, as the generic code allocates and frees
+an out-of-line slot around each one.
 
-Support the standard 1-step queue buffer creation for SRQ by
-`UVERBS_ATTR_CREATE_SRQ_BUF_UMEM` via `ib_umem_get_attr()`.
+The allocator hands out the lowest free slot and the free path leaves
+the slot contents alone, so a hot probe keeps getting the same slot
+back holding the instruction it already wrote there. Rewriting it
+costs a broadcast for nothing.
 
-Set up hardware pble directly from the pinned SRQ umem via
-`irdma_setup_q_pbl_from_umem()`.
+Return early when the slot already holds this instruction and its
+breakpoint, similar to commit bdf94836c22a ("arm64: uprobes: Optimize
+cache flushes for xol slot"). arm64 can compare against the source,
+but riscv appends an ebreak after the opcode, so compare the
+instruction and that breakpoint word instead.
 
-Proper umem and pble cleanup, and error unwind are added into existing
-`irdma_srq_free_rsrc()` upon SRQ destruction.
+Measured with the selftests/bpf bench on a SiFive P550, with one
+producer pinned to a hart:
 
-We maintain backward compatibility for the legacy 2-step registration if
-the UMEM attribute is not provided.
+                            before       after
+  trig-uprobe-nop           0.075 M/s    0.514 M/s    6.9x
+  trig-uprobe-push          0.079 M/s    0.425 M/s    5.4x
+  trig-uprobe-ret           0.075 M/s    0.514 M/s    6.9x
+  trig-uprobe-multi-nop     0.079 M/s    0.548 M/s    6.9x
+  trig-uprobe-multi-push    0.078 M/s    0.545 M/s    7.0x
+  trig-uprobe-multi-ret     0.081 M/s    0.549 M/s    6.8x
 
-Signed-off-by: David Hu <xuehaohu@google.com>
+The uretprobe variants gain 4.8x to 6.0x.
+
+Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
 ---
- drivers/infiniband/hw/irdma/verbs.c | 68 ++++++++++++++++++++++++-----
- 1 file changed, 58 insertions(+), 10 deletions(-)
+ arch/riscv/kernel/probes/uprobes.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/hw/irdma/verbs.c
-index 02ed7ab99e48..d8f4358e5486 100644
---- a/drivers/infiniband/hw/irdma/verbs.c
-+++ b/drivers/infiniband/hw/irdma/verbs.c
-@@ -1996,9 +1996,16 @@ static void irdma_srq_free_rsrc(struct irdma_pci_f *rf, struct irdma_srq *iwsrq)
- 		iwsrq->kmem.va = NULL;
- 	} else {
- 		/* Not called in any failure path, so iwpbl is valid. */
--		struct irdma_mr *iwmr = iwsrq->iwpbl->iwmr;
-+		if (iwsrq->iwpbl) {
-+			struct irdma_mr *iwmr = iwsrq->iwpbl->iwmr;
- 
--		refcount_dec(&iwmr->user_ring_refs);
-+			if (iwmr && refcount_dec_and_test(&iwmr->user_ring_refs)) {
-+				ib_umem_release(iwmr->region);
-+				if (iwsrq->iwpbl->pbl_allocated)
-+					irdma_free_pble(rf->pble_rsrc, &iwsrq->iwpbl->pble_alloc);
-+				kfree(iwmr);
-+			}
-+		}
- 	}
- 
- 	irdma_free_rsrc(rf, rf->allocated_srqs, srq->srq_uk.srq_id);
-@@ -2425,6 +2432,7 @@ static int irdma_setup_umode_srq(struct irdma_device *iwdev,
- 				 struct ib_udata *udata,
- 				 struct uverbs_attr_bundle *attrs)
- {
-+	struct irdma_srq_uk_init_info *ukinfo = &info->srq_uk_init_info;
- 	struct irdma_create_srq_req req = {};
- 	struct irdma_ucontext *ucontext;
- 	struct irdma_srq_mr *srqmr;
-@@ -2440,14 +2448,49 @@ static int irdma_setup_umode_srq(struct irdma_device *iwdev,
- 	if (ret)
- 		return ret;
- 
--	spin_lock_irqsave(&ucontext->srq_reg_mem_list_lock, flags);
--	iwpbl = irdma_get_pbl((unsigned long)req.user_srq_buf,
--			      &ucontext->srq_reg_mem_list);
--	spin_unlock_irqrestore(&ucontext->srq_reg_mem_list_lock, flags);
--	if (!iwpbl)
--		return -EPROTO;
-+	if (attrs && uverbs_attr_is_valid(attrs, UVERBS_ATTR_CREATE_SRQ_BUF_UMEM)) {
-+		struct irdma_mem_reg_req srq_req = {};
-+		struct ib_umem *umem;
-+		u32 total;
-+		u8 shift;
- 
--	iwsrq->iwpbl = iwpbl;
-+		irdma_get_wqe_shift(ukinfo->uk_attrs, ukinfo->max_srq_frag_cnt, 0, &shift);
-+		srq_req.rq_pages =
-+			DIV_ROUND_UP((ukinfo->srq_size << shift) * IRDMA_QP_WQE_MIN_SIZE,
-+				     IRDMA_HW_PAGE_SIZE);
-+		total = srq_req.rq_pages + IRDMA_SHADOW_PGCNT;
+diff --git a/arch/riscv/kernel/probes/uprobes.c b/arch/riscv/kernel/probes/uprobes.c
+index eb177d0ce8ab..44e566f6b75b 100644
+--- a/arch/riscv/kernel/probes/uprobes.c
++++ b/arch/riscv/kernel/probes/uprobes.c
+@@ -168,15 +168,26 @@ void arch_uprobe_copy_ixol(struct page *page, unsigned long vaddr,
+ 	void *kaddr = kmap_local_page(page);
+ 	void *dst = kaddr + (vaddr & ~PAGE_MASK);
+ 	unsigned long start = (unsigned long)dst;
++	unsigned long insn_len;
 +
-+		umem = ib_umem_get_attr(&iwdev->ibdev, attrs,
-+					UVERBS_ATTR_CREATE_SRQ_BUF_UMEM,
-+					total << IRDMA_HW_PAGE_SHIFT,
-+					IB_ACCESS_LOCAL_WRITE);
-+		if (IS_ERR(umem))
-+			return PTR_ERR(umem);
++	insn_len = vaddr ? GET_INSN_LENGTH(*(probe_opcode_t *)src) : len;
 +
-+		iwsrq->iwpbl = irdma_setup_q_pbl_from_umem(iwdev, umem,
-+							   iwsrq->ibsrq.pd,
-+							   IRDMA_MEMREG_TYPE_SRQ,
-+							   &srq_req);
-+		if (IS_ERR(iwsrq->iwpbl)) {
-+			ret = PTR_ERR(iwsrq->iwpbl);
-+			iwsrq->iwpbl = NULL;
-+			ib_umem_release(umem);
-+			return ret;
-+		}
-+		iwpbl = iwsrq->iwpbl;
-+	} else {
-+		if (!req.user_srq_buf)
-+			return -EINVAL;
-+
-+		spin_lock_irqsave(&ucontext->srq_reg_mem_list_lock, flags);
-+		iwpbl = irdma_get_pbl((unsigned long)req.user_srq_buf,
-+				      &ucontext->srq_reg_mem_list);
-+		spin_unlock_irqrestore(&ucontext->srq_reg_mem_list_lock, flags);
-+		if (!iwpbl)
-+			return -EPROTO;
-+
-+		iwsrq->iwpbl = iwpbl;
-+	}
- 	srqmr = &iwpbl->srq_mr;
++	/*
++	 * Slots are reused without being cleared, so a hot probe usually gets
++	 * one back already holding this instruction and its breakpoint. Skip
++	 * the rewrite and the flush then.
++	 */
++	if (!memcmp(dst, src, insn_len) &&
++	    (!vaddr || *(uprobe_opcode_t *)(dst + insn_len) == __BUG_INSN_32))
++		goto done;
  
- 	if (iwpbl->pbl_allocated) {
-@@ -2615,7 +2658,12 @@ static int irdma_create_srq(struct ib_srq *ibsrq,
- 	if (iwsrq->user_mode && iwsrq->iwpbl) {
- 		struct irdma_mr *iwmr = iwsrq->iwpbl->iwmr;
+ 	memcpy(dst, src, len);
  
--		refcount_dec(&iwmr->user_ring_refs);
-+		if (iwmr && refcount_dec_and_test(&iwmr->user_ring_refs)) {
-+			ib_umem_release(iwmr->region);
-+			if (iwsrq->iwpbl->pbl_allocated)
-+				irdma_free_pble(rf->pble_rsrc, &iwsrq->iwpbl->pble_alloc);
-+			kfree(iwmr);
-+		}
- 	}
- 	irdma_free_rsrc(rf, rf->allocated_srqs, iwsrq->srq_num);
- 	return err_code;
+ 	/* Add ebreak behind opcode to simulate singlestep */
+-	if (vaddr) {
+-		dst += GET_INSN_LENGTH(*(probe_opcode_t *)src);
+-		*(uprobe_opcode_t *)dst = __BUG_INSN_32;
+-	}
++	if (vaddr)
++		*(uprobe_opcode_t *)(dst + insn_len) = __BUG_INSN_32;
+ 
+ 	flush_icache_range(start, start + len);
++done:
+ 	kunmap_local(kaddr);
+ }
 -- 
-2.56.0.176.g3575e65682-goog
+2.39.5
 
