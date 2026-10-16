@@ -1,160 +1,224 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F2933D9048
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:20:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9945D30D3FE;
+	Fri, 16 Oct 2026 07:22:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135220; cv=none; b=t7AfCmH12b4PHKuGiDYJUSbgsXp4Qowjxw0/WfDbYi0N0A1IqYpbnyYYDJFWpdgraUBJ0Gs4VYZiALJSlT/8v5eUoARD8mJgRePbCk9OB1++tptHwPDHjMPTZf0MSZfSMwb7LRR0Tzt5mPicgCpmDXljNeZOBlyDIdEz2sADJws=
+	t=1792135352; cv=none; b=NIXwzk52wnYQvpfprPPyXoxqTBYOGM8niat5OL23PiIkMEd2tRFAIJ8wPU0TBgfPtx8tSSFk7HlsyyWgNJizvk9amHYo0s9AaKK1FkDPhj6i3ICbs1Yqen5NtZcbxu3Kxn57prc1hEJi/Ti6E72O0JPNWh1R4xq9oVMtA6COgws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135220; c=relaxed/simple;
-	bh=rRdkht83PecwdZYGF4/EuY654Yjjl+PVaSprnxYvdgs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kjLdV+oycqhkIeycQynj1ytZqv91ooLvB5l1TCyZ/ZUBfzHghN4dl9DSQfwKvgvdR58BcU+aMC5KEsBMVA364cKKndBOz76+jRZYIY0pA7kNY8CMLhphTTmb81FOL29gJXzvsE0+g+7Hadkl0Y3Mdf2acx0HZwV3x71HK6tulfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R03smCan; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792135352; c=relaxed/simple;
+	bh=BA8ioDZ776ZuU05ezDWHSDCIRfQ76U4v4Hl9KK1fOfw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EMh3zdwQOgpWRNveXd6HfwyEz6jAOZ5XANvaMYyUnpvO3RGNOVKBjQyd52yWwoJS8uA5xvzA7ux1xkVHIBLLMLan4U1Ew6cv7ASPI1qqRNe6Vc+UHUKr+yC7p21a9mJfGzlfWBcnzGUBkwnqEXJ6Q3rQNNrgQkHV5dktPW+nf78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=E2KN0p+B; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R03smCan"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48de6a62a4cso3074259f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:20:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792135217; x=1792740017; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rRdkht83PecwdZYGF4/EuY654Yjjl+PVaSprnxYvdgs=;
-        b=R03smCang4x83xzy/BOGVSX8QIqyFcS4aAHVCNy3TaKehbO7CxobX/Fz1bEdt2hJQF
-         aVTkf+xNEg6IWpWXd9nKsXHbigN6LR64kdUVnmauILeBllZdC+8RwRhmrSR32MF77C9m
-         KOT4qyJISzVHaeQ9yxopPDO71YfH2vBD8zcnKtYzo/NIjFZf9PoL96+tPyvvFzNuQEFJ
-         xRnuzS2sFfAiHFoSm2ks3CaLSet8HWa4YAsG/ck7P/O/kdBw2P/Kc5sEOBbnLP/uwewT
-         dokhPmW4HopPxeJMBCSxAj2IXOtrJ7FMo+na1+GlRnqFAHOPb6+hsRjguxvu88FxPZ3V
-         IyKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792135217; x=1792740017;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rRdkht83PecwdZYGF4/EuY654Yjjl+PVaSprnxYvdgs=;
-        b=qwn26uNi0pptDUhQhHwhf/0xvbcfW9F8LrpqzKS8LUXk5LZxLBiZWzioEbcTeBqZ5A
-         mq/OmfHnmdfAjl89cnqClLCkkgqS9X76cddiEmuJ2jcjgcuuChwvcA5UR8ryRD3uLjMX
-         AKxYOIE9n2wiWevtEdwWKiUESGJYW5eCSPzI9q1/iNDOd8btTfpCO6EYadSEBpjWE2oa
-         r4Gw7yWFA1ZEBf7C5htUxMmOd6EpTOnITVjf5MCWThUmmmNtyf7U2TdZ4oTMHefCGS9l
-         FNzo/DarjqfgQLP0SPwNqXf2OVHMItheuUE4lAazG3hlnjT6MLesuRcG43gS5W47KD2O
-         stCA==
-X-Forwarded-Encrypted: i=1; AKwUvBxuKKCAuenn8ue4einbtK0xUwjHVT+/+RSt9whQqRBc7u2RK4u5N03aj+eN7U4YJv0ccw+5eSg6Np/nls0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCs6eYoRvOv8b2XsFgwJp8uA2Vt310UMRgJL1JvQiM5kzOAlf/
-	+iCUbTS9+9OksY1jR+f54H+pNB6vBSMeHN3YwW0GC4raN96KyEx1P5vc
-X-Gm-Gg: AYBFou3EOlFOGnGdLrqg8TDmnxfchnXcPhSBip+S1lai6WqMxXCh+zifj+sAcEvYEG/
-	UlvFdQLDkX0Q0iKZjPECrNM0tlbXMaFq5064LK6ffDi6rjeI7OPmrsgQo2IfZVwf3aVcmSD+jFn
-	erNNz/CHtyf3VrPy2Og42Uk9nztP3bKMIAmQ2pgLjJcd/DZo2XC6pkGfGZ3BicCH7Vm5yCsmFuj
-	OxdbevXrdKHtv2/tkX14mCav+kGu5ftbsSlfw7UxZfRwdmRqur8/oXU7TXN6Vg5HkXC0zPoTNAx
-	dZcVmyt0Agc0piXMZYGMjP8jwD5vjT06xgh6FjeXMyQIXdhs98qgM9q7XOWhg20mBq+DkNO5cPh
-	grErPKLaMG+HIPvjbwncpYeF1Qbj3dqX2NJAh0e4yUlfpxMwMKTblaOefNfKkGoiEj2r0x2aTQu
-	YpLiK/FYAKhlCx+BeMRjUJKs+iQ7QEd0BYqPc6rSvpk0ayjaoc9As8Pl1y0YmjpmhVWUibKIToJ
-	xxqLzS9Ut4ltdFl4vb5KXbOvrpSUWefaEkubNn3NJ1N2ZayR95B0Nr9
-X-Received: by 2002:adf:e194:0:b0:48d:db77:d124 with SMTP id ffacd0b85a97d-48ddb77d4ccmr30168211f8f.6.1792135216962;
-        Fri, 16 Oct 2026 00:20:16 -0700 (PDT)
-Received: from silicon.doe.home (194-118-146-41.hdsl.highway.telekom.at. [194.118.146.41])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8d12sm3220071f8f.36.2026.10.16.00.20.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 00:20:15 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Brian Masney <bmasney@redhat.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Russell King <linux@armlinux.org.uk>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
- mfd@lists.linux.dev
-Subject:
- Re: [PATCH v13 04/13] mfd: zx297520v3: Add a clock and reset MFD driver
-Date: Fri, 16 Oct 2026 09:20:09 +0200
-Message-ID: <D_WXy70pRh6G3mLeAQ5LsQ@gmail.com>
-In-Reply-To: <179198492486.839288.18023026004912443161@kernel.org>
-References:
- <20260927-zx29clk-v13-0-70d8f673386c@gmail.com>
- <20260927-zx29clk-v13-4-70d8f673386c@gmail.com>
- <179198492486.839288.18023026004912443161@kernel.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="E2KN0p+B"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FJ11LI531930;
+	Fri, 16 Oct 2026 07:21:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=0PpE94ar8OrMZztp76vISiUaAXnWdK
+	1GRR6U58uClO4=; b=E2KN0p+BDg7MCcU/FrkuhAPgbpC3ab9sZ4eAKSz0a/Fdry
+	biKYELVVpZXjJNhLQpW9yq3oA8yu08Wy1y6TXwzZfqTEktYATQy+sWqNlvTOIw2+
+	6P2sWvWggWMuMt3q9HqCV+O/gjUPbw3Y/vWdwBiprJRtdkxyqakePnbVR/YqGddy
+	LvbnWuL3GZGMmmPiO4ZrDsJlZIrlNAxv+o7raHD2lEN6FU4vhzDmo71g4pZfIj08
+	KqHm7Q0SivuIK0gs+sGiMAKJKGUA8PIfkYsw/HeldGZV5o67KS8a92mQaAzYpKWL
+	CMcWC5FkzTVM3sj0RJWNzIZlYLJCwTqDX2S34/Dw==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv3x0w6-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 16 Oct 2026 07:21:51 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69G49KNI709720;
+	Fri, 16 Oct 2026 07:21:50 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h9wvgartt-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 16 Oct 2026 07:21:50 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69G7Lmel52494820
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 16 Oct 2026 07:21:48 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BC0CC2004E;
+	Fri, 16 Oct 2026 07:21:48 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6550F20040;
+	Fri, 16 Oct 2026 07:21:43 +0000 (GMT)
+Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.39.31.170])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri, 16 Oct 2026 07:21:43 +0000 (GMT)
+Date: Fri, 16 Oct 2026 12:52:43 +0530
+From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+To: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
+Cc: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org,
+        "Darrick J . Wong" <djwong@kernel.org>,
+        Carlos Maiolino <cem@kernel.org>,
+        Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+        Matthew Wilcox <willy@infradead.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
+        Christoph Hellwig <hch@lst.de>, Dave Chinner <dchinner@redhat.com>,
+        Daniel Gomez <da.gomez@kernel.org>, Theodore Tso <tytso@mit.edu>,
+        linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-mm@kvack.org, Andres Freund <andres@anarazel.de>,
+        Dave Chinner <dgc@kernel.org>
+Subject: Re: [RFC PATCH v4 05/12] iomap: Add initial support for buffered
+ RWF_WRITETHROUGH
+Message-ID: <atHQw76Z5nichi49@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+References: <cover.1790596383.git.ojaswin@linux.ibm.com>
+ <c76f9babf1b00f4574e37db156621edc6c078969.1790596383.git.ojaswin@linux.ibm.com>
+ <as-BQAbk7U43vkqs@quentin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartSBEYK6dqR3etXguuqPrywA";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as-BQAbk7U43vkqs@quentin>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: YahtI-1taUiiLjeZbfw0cpbMfmngRFck
+X-Proofpoint-ORIG-GUID: KY__C4R_eJD0-I7OogprQ5kFmB7DQ2vM
+X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6ad1d090 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=FPz6nIrhhYSRGt34OqEA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAyOCBTYWx0ZWRfX+e2F7yPlOJ6+
+ b3jrdrSLQhykQnj4TSd6+/SrsO6/LeG6S91YVo4sCn2YXh/QnZ81mZlC2reX1KbkbXz4GTMCwu3
+ iJmpGnHLs5Dcg0gnyA/IxuFuyN/35lc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAyOCBTYWx0ZWRfX531dxSqiuPSe
+ 6oFlbfBQvhx4KwiuEb7mxct/cjeuH+eHdussa7mNEH6KImPOV12dO4wGo4C5WSc16WTDqFif6hC
+ rVpAzAFg+yDSd3h9OFKTgZLVk6jTweYsZvHWzoFdWGC1EfhwBntK1x9dkoA63mDPFvoSYBx7qi9
+ zEPOYAq1XO+ytoezclhjZqqfAjInJOJ9QZlxzyNpw6P9r6bgMHVRcnhNAto3c48j/AUBnznZpWz
+ NwzgJYrkKIfpzR0aI0DJTJr0NvNLtWE1C+8BfTXH1u0heuZzOuYabweP8QDowxr6mh3w1aqiXrm
+ J/OIDW/bsp0oz++k99oSyG+ABS1HWyWtIoIdIOmYoN+HQa6HW8e9kcfhwzKzbSpnjCy5WeSl7R9
+ GnRN/phMyX8hgmu/3ZuwcuLZ320E4AZMzmE8ftL/IWukw5UVLazQzMhhJRNglgr8i5BMU/z/jk4
+ GbnxIcmK0+RGvBUbQqA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610160028
 
---nextPartSBEYK6dqR3etXguuqPrywA
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Date: Fri, 16 Oct 2026 09:20:09 +0200
-Message-ID: <D_WXy70pRh6G3mLeAQ5LsQ@gmail.com>
-In-Reply-To: <179198492486.839288.18023026004912443161@kernel.org>
-MIME-Version: 1.0
+On Thu, Oct 15, 2026 at 04:09:50PM +0200, Pankaj Raghav (Samsung) wrote:
+> Hi Ojaswin,
+> 
+> I was comparing normal buffered IO scenario and writethrough.
+> 
+> In a normal buffered IO scenario, for unwritten extents or CoW extents,
+> we first convert them before ending the writeback on the folio.
+> xfs_end_io calls xfs_end_ioend_write().
+> 
+> static void
+> xfs_end_ioend_write(
+>         struct iomap_ioend      *ioend)
+> {
+> <snip>
+>        /*
+>          * Success: commit the COW or unwritten blocks if needed.
+>          */
+>         if (is_zoned)
+>                 error = xfs_zoned_end_io(ip, offset, size, ioend->io_sector,
+>                                 ioend->io_private, NULLFSBLOCK);
+>         else if (ioend->io_flags & IOMAP_IOEND_SHARED)
+>                 error = xfs_reflink_end_cow(ip, offset, size);
+>         else if (ioend->io_flags & IOMAP_IOEND_UNWRITTEN)
+>                 error = xfs_iomap_write_unwritten(ip, offset, size, false);
+> 
+>         if (!error &&
+>             !(ioend->io_flags & IOMAP_IOEND_DIRECT) &&
+>             xfs_ioend_is_append(ioend))
+>                 error = xfs_setfilesize(ip, offset, size);
+> done:
+>         if (is_zoned)
+>                 xfs_ioend_put_open_zones(ioend);
+>         iomap_finish_ioends(ioend, error); // #1
+>         memalloc_nofs_restore(nofs_flag);
+> }
+> 
+> #1
+> iomap_finish_ioends()
+>   iomap_finish_ioend_buffered_write()
+>     iomap_finish_folio_write()
+>       folio_end_writeback()
+> 
+> 
+> On Mon, Sep 28, 2026 at 05:33:06PM +0530, Ojaswin Mujoo wrote:
+> > @@ -1185,6 +1186,384 @@ static bool iomap_write_end(struct iomap_iter *iter, size_t len, size_t copied,
+> >  	return __iomap_write_end(iter->inode, pos, len, copied, folio);
+> >  }
+> >  
+> > +static ssize_t iomap_writethrough_complete(struct iomap_writethrough_ctx *wt_ctx)
+> > +{
+> > +	struct kiocb *iocb	= wt_ctx->iocb;
+> > +	struct inode *inode	= wt_ctx->inode;
+> > +	ssize_t ret		= wt_ctx->error;
+> > +
+> > +	if (wt_ctx->end_io) {
+> > +		int err = wt_ctx->end_io(wt_ctx, wt_ctx->written,
+> > +					 wt_ctx->error,
+> > +					 wt_ctx->flags);
+> > +		if (err)
+> > +			ret = err;
+> > +	}
+> > +
+> 
+> <snip>
+> 
+> > +static void iomap_writethrough_bio_end_io(struct bio *bio)
+> > +{
+> > +	struct iomap_writethrough_ctx *wt_ctx = bio->bi_private;
+> > +	struct folio_iter fi;
+> > +
+> > +	if (bio->bi_status)
+> > +		cmpxchg(&wt_ctx->error, 0,
+> > +			blk_status_to_errno(bio->bi_status));
+> > +	bio_for_each_folio_all(fi, bio)
+> > +		folio_end_writeback(fi.folio);
+> > +
+> > +	bio_put(bio);
+> > +	if (atomic_dec_and_test(&wt_ctx->ref))
+> > +		iomap_writethrough_done(wt_ctx);
+> > +}
+> > +
+> 
+> But in the writethrough patches, we first end the writeback on the folio
+> and then call xfs_dio_write_end_io(), which converts unwritten or CoW
+> extents.
+> 
+> Is there a race possible as we are doing the other way? What if folios
+> are reclaimed between ending the writeback and conversion? A new read in
+> that area will return zero filled folios as XFS still sees IOMAP_UNWRITTEN?
+> 
+> I don't have a reproducer, but my hunch says we can run into this if we
+> have a lot of AIO as the end_io will be run via a workqueue?
+> 
+> Do we do something similar to buffered IO where we do
+> folio_end_writeback after extents conversion?
 
-Am Donnerstag, 15. Oktober 2026, 17:34:06 Mitteleurop=C3=A4ische Sommerzeit=
- schrieb=20
-Lee Jones:
-> --- checkpatch.pl (3 issues) ---
-> Line 227: WARNING: DT compatible string "zte,zx297520v3-topcrm" appears
-> un-documented -- check ./Documentation/devicetree/bindings/ Line 228:
-> WARNING: DT compatible string "zte,zx297520v3-matrixcrm" appears
-> un-documented -- check ./Documentation/devicetree/bindings/ Line 229:
-> WARNING: DT compatible string "zte,zx297520v3-lspcrm" appears un-document=
-ed
-> -- check ./Documentation/devicetree/bindings/
-> ----------------------------------
->=20
-> Is Checkpatch right?
+Hey Pankaj, thanks for pointing this out. I agree that this can open up
+some races like you mentioned. I believe the right things will be to
+have an buffered endio like flow however we will need to store the
+folios somewhere till the whole conversion is done, like buffered endio
+does in struct ioend->io_bio. Hmm I think it would be ideal if we could
+somehow reuse some of the logic there. I'll see if its possible.
 
-No and yes - the bindings were the first 3 patches of my series. Since you =
-are=20
-cherry-picking the mfd patch only, the bindings will obviously be missing.
-
-The bindings got merged into the clk tree and made their way into Linux-nex=
-t=20
-already. I guess we can either ignore checkpatch and the issue will resolve=
-=20
-itself when the trees are merged together or I resubmit the mfd patch when =
-the=20
-bindings made their way into kernel/git/lee/mfd.git . At that point I can a=
-lso=20
-re-add the MAINTAINERS change and it should apply without conflict.
-
-I am still fairly new to this - is there an option or issue I missed?
-
---nextPartSBEYK6dqR3etXguuqPrywA
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmrR0CkbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoivEIP/0vSfR3/njgy0m1LUgVO
-q+5cFYUtXHEkTjMCC9Q+aMIgABBs0SuqM6RR5Rl3VJe5Mv7oqMFg9y8bAu+8+fxn
-wc20CEh9mqrONVRIpI9XleietOAuGLQiOEA7TMLpBJUZcGgAbmmrWR5RFIbff7AX
-xTD2LumJqjHDxvFgzTpZCotBjcRdXbz9OdGDZktoolRSX7ytW0EpCMIbtMxHgjVp
-kXQs03o4E6LjFU5d72FpIFR2wKLMRah37age3BllAZt/34RtVjPb/KZtARSMAOGZ
-rpvXE6CjYhZ336gPYfcqEOFGcrix7X4krLw9HDCukXILHtMIcDAy/9d+42yL3gXf
-yqcQ9w9o8BBNpWoLM5FttbLXu+YgkAkdd4nLCnrZDRseJ+EeBRYM38ARM09q5yie
-GorF56gygRU5iua1+FzC/cPOsynDoXErJVeqf7uF5kmLjEDkW0HnWRTd4hMJ7GMI
-lb61VJSbCft1qkWXgwRbkOKAfjcW8F3oTWfKJmNJV/e/rTlfgiNAxoKjtfQ+SDNG
-BYcy06GCOI3ec0pSeGp6wJDr5/+/ULQr04Vm9t0CGvZXXhCy+r+jVa9gpT82iRbZ
-f9RTyjHnhjnsH4PZVOyqWQvE2zvimN7AwLp9LjFZosE5vyNOUHSaopJBzLy2En7T
-3XFhbOb1zyS57Sj8yBtDKIF2
-=pb5+
------END PGP SIGNATURE-----
-
---nextPartSBEYK6dqR3etXguuqPrywA--
+Thanks,
+ojaswin
 
 
-
+> 
+> --
+> Pankaj
