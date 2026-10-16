@@ -1,148 +1,284 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from prod-mta-13-01.swg-srv.net (prod-mta-13-01.swg-srv.net [185.255.28.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8424D9F69;
-	Fri, 16 Oct 2026 14:16:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22EA53346A6
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:16:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.255.28.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792160184; cv=none; b=AnykgFogK6sZ60UzGmpFHx2KAbFYD70Ti1vrGc4e8a7I7bo2cDr8DQ6y2+hKXXxPMnSH7N0+c8/s7rn1Lb15cF6rqSsqNQrUlUwttVrnoYiD2sc4k3oCMf87dLzI3p3A/xDbP+LAewrgBLQTccCSTsfp4Aw58y1k9gBmHHDLV48=
+	t=1792160177; cv=none; b=a12Rq2bxysQXSEs9Ju+JNXHf3SRttELDm5caZS+kb3UzGN6HsaNdTmnoZ9sLNoR1pTmSeelEkVGvFbxHIOMRLFtAZ81Bug417WVdCFZAwYE1hnL52VWSSQ5C0pMhpq1Ue6AStOGfQ6ZtmMTevHtNDfevo+YztkDwnVNeiwFBNss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792160184; c=relaxed/simple;
-	bh=OyxBcEjtPs6DLKLa2OuIVYahLlFdqMCkKR8/VwBA7gw=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Jg1VO3IuHqa2tP17d0TPcqN9l8jcZKyS40kXp/JfH++pdKO0LCCGBKOjG/yaujjSvYjPtfietn4jLBPqrInwlnLVQfW37i39dU8jH9XLIvxA3YKIRRKZUdNJpC4SE54IYSR31tktWlboE8NljqpOSEkW5SDidYXH0K8kPO71YrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Asb2qjWs; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=eCk9u4Bw; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Asb2qjWs; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=eCk9u4Bw; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1792160177; c=relaxed/simple;
+	bh=gBJkUV5ho5fw9C9x3CT9PH8UUlBJRTOg9GkKx559eHg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AhpJYhQIZz5rLACB2LkU1+NVjSUOcbzdiLdeaFZ/CT3ZrX1Ns+V1twCRd0ExHS9fXKv9T8kAQSDzLuOqLuORiEvliLhj+NkiNXxXqLjlO6LhuZMeAx0Ho5tpXLZE6VcwgriV1hwWjRrzps4qAWjATZkLn4rDskfPkLMbeYeWsDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vates.tech; spf=pass smtp.mailfrom=swg.vates.tech; dkim=pass (2048-bit key) header.d=vates.tech header.i=@vates.tech header.b=WWRszufg; arc=none smtp.client-ip=185.255.28.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vates.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swg.vates.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Asb2qjWs";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eCk9u4Bw";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Asb2qjWs";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eCk9u4Bw"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3EEAC1F385;
-	Fri, 16 Oct 2026 14:16:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792160177; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LWxpqNzZIEQ0WFtCKfWjRTGsr/OLdS9s3M9UqgLWM4w=;
-	b=Asb2qjWsldM5rTdB/T3nGEU36tWOsPn31TNLDu1qpUR9xa2ooaLN+OWU2cThAIvjEd8eEz
-	bgWBeY3wufK/tDf/W3LZQSlRyFA3Jr9yVL+5PTGC+vw4drZn/l8kYPiwjkKqtzV5GZQV4Y
-	FLM00kfjd573cJKPbCOX84P+qoaZV2o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792160177;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LWxpqNzZIEQ0WFtCKfWjRTGsr/OLdS9s3M9UqgLWM4w=;
-	b=eCk9u4Bw6NJejDmKBqX17Jdkht731gYI8SqYqugVBC/0q2NB8Z6JEB7hI/8sEbKYIHQd+x
-	iZjLx1+GDFkcrYCA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792160177; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LWxpqNzZIEQ0WFtCKfWjRTGsr/OLdS9s3M9UqgLWM4w=;
-	b=Asb2qjWsldM5rTdB/T3nGEU36tWOsPn31TNLDu1qpUR9xa2ooaLN+OWU2cThAIvjEd8eEz
-	bgWBeY3wufK/tDf/W3LZQSlRyFA3Jr9yVL+5PTGC+vw4drZn/l8kYPiwjkKqtzV5GZQV4Y
-	FLM00kfjd573cJKPbCOX84P+qoaZV2o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792160177;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LWxpqNzZIEQ0WFtCKfWjRTGsr/OLdS9s3M9UqgLWM4w=;
-	b=eCk9u4Bw6NJejDmKBqX17Jdkht731gYI8SqYqugVBC/0q2NB8Z6JEB7hI/8sEbKYIHQd+x
-	iZjLx1+GDFkcrYCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D6B1F1339F;
-	Fri, 16 Oct 2026 14:16:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id LXT5KrAx0mq9EQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 16 Oct 2026 14:16:16 +0000
-Date: Fri, 16 Oct 2026 16:16:16 +0200
-Message-ID: <87a4od3f4f.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jon Harrison <jonerickharrison@gmail.com>
-Cc: skbotnl@disroot.org,
-	david.rhodes@cirrus.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	perex@perex.cz,
-	rf@opensource.cirrus.com,
-	tiwai@suse.com
-Subject: Re: [PATCH v2] ALSA: hda: cs35l41: Support HP OmniBook 7 Laptop 16-bh0xxx
-In-Reply-To: <CAEG=48+jRv7wHgd-yPTHEf9YFO++XusKQgT+WJz60hgCE8pGww@mail.gmail.com>
-References: <CAEG=48+jRv7wHgd-yPTHEf9YFO++XusKQgT+WJz60hgCE8pGww@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=vates.tech header.i=@vates.tech header.b="WWRszufg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=gBJkUV5ho5fw9C9x3CT9PH8UUlBJRTOg9GkKx559eHg=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=WWRszufgCW90dF9wiQ1k16j0A3/3zzq+6OUs6dEAVEUwdXinf9dx5xzkTLvbCzQF1aZ+c1AOL
+ IR26Mb3VaBDXq9/3i5UXupVy7DCPSVcuBJQpSy8ibi1uFGA/OfJNasb/njFwi0fc9TiBF+vwXhU
+ S8MvBXF0VTHdDyplDEI11FfsIuKdgNXd0B6iMJkbQ+T+JVsYGTvW1RO+owIZ73GdSJM+hgeSzPV
+ AcJUWKxxhJcpMtgz8+kYTEfzTC0FLLVT5S1sfliNEDjyEyu9sKNXsTsQF/U3j+v+rSSBzl8/2Ro
+ /pxgzVdke38xFkpXXn0+KJuTH3iR6b1mezV440//U+zA==
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender: 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13-01.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id 1a1450d15800008425.009
+ for <linux-kernel@vger.kernel.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Fri, 16 Oct 2026 14:10:47 +0000
+X-Zone-Loop: 2bf3aa9e7859ed2383dcf511ce7ef827f6d61b7eb296
+x-campaign-type: default
+x-transaction-id: cfabd6ee-908c-4149-b5e5-7751808589e7
+x-swg-uid: 01-cb491713-d56f-456b-bb9a-05c47928850a
+X-Mailer: Sweego
+Message-ID:
+ <1792159847.8631fc262581453bbf619ec5b2062170.1a1450d15800008425@vates.tech>
+x-swg-bid: 1792159847.8631fc262581453bbf619ec5b2062170.1a1450d15800008425
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+Received: from [192.168.1.18] (88-188-240-210.subs.proxad.net [88.188.240.210])
+	(Authenticated sender: teddy.astie)
+	by mail2.vates.fr (Postfix) with ESMTPSA id F3D9D82A40;
+	Fri, 16 Oct 2026 16:10:46 +0200 (CEST)
+Date: Fri, 16 Oct 2026 16:10:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen: Use VCPUOP_register_{runstate,vcpu_time}_phys_area
+ when available
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ David Woodhouse <dwmw2@infradead.org>, George Dunlap <gwd@xenproject.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+References: <1792146192.8631fc262581453bbf619ec5b2062170.1a1443cb7e90008425@vates.tech>
+ <9a8b0ae0-ec49-4af0-8e5d-1378319f2857@citrix.com>
+Content-Language: en-US
+From: Teddy Astie <teddy.astie@vates.tech>
+Autocrypt: addr=teddy.astie@vates.tech; keydata=
+ xsDNBGn5sK8BDACuzSrrTjpVf4ay06OYB6yY0J1PqKffihoNMtrQRZjAHxoAPC7LTBVHV/XO
+ Zw5HJc+9R71z1JV+iYg6z3jPziGKzX8Fj3ZXlzJPmpf1PuETH3KdbvtJT4ny+OGntnJntUoR
+ KRPhTirr6yNeBk/637O3CQXjtqFUPZnko8OI/o1yawIBhJJAWicutjkkUgd28Bh6HV9EIumH
+ tCBgn5/1A/fpm9624MMgYLsA8qjC4XsoovQvFCaO8HEhvfzrrTZHjn/nPeB9SigxIxXW8YaT
+ VqMdqul07o72m3eA2mf+LMu9a04FX/d4wbxBLtELm+1jIrbtyaFZEMOLv/haSiS/Lj3btJH/
+ EoucejoZ5SH49ksmVAmKOLktOaTQ8b2gEvP7iaKiIiszCCtOSRohr+2GvDsDeLvVZnlR3I+S
+ PhHar7TPKjFz0G3DPNolyjXywNqOAMpomSPi8lSwjAFsxOtQbcck/qRGRSNk4DAmH70pA+89
+ MXfQXZ3qt1Q01B1+sU0I8xsAEQEAAc0kVGVkZHkgQXN0aWUgPHRlZGR5LmFzdGllQHZhdGVz
+ LnRlY2g+wsENBBMBCAA3FiEEGAIew9LzHY3pdrqtZg+p0QLLz9AFAmn5sK8FCQWjmoACGwME
+ CwkIBwUVCAkKCwUWAgMBAAAKCRBmD6nRAsvP0ID6DACGOktArFbLKHNzuyOVCskwfUZPla6Z
+ pd3GZ8r61SrAKePIr2BnpgPkd0hV3bSRkRLIrgjzR2NRCzfp0x0HfuhcYfAYPR46XHTvjaJE
+ v99sT/vGUG1BZguYDOScSEpgSNaNlYum3RKZbMuROxdK8G+YHccJY8PvWSq2K2yiae2KGiAv
+ 1yjnZxug9/PtDfX8vQFUSg2w1ukRDf50wvDohN1zUQfFtofOP2xCRsDZiHAlQ0pF+aUjXQhP
+ eP3IdpfWc8cyRLXF06Rk46YMYCytweGtGdHcqAfrVthl84129ZPN422k/voW0sm14gjYlGcT
+ UwgnYlFRk2FLq0QeKEDcS0aj3o3EVAQCrayoGzi1pnlIKE3PRGUcUzjGVvzQ/po24gOjwba9
+ Egr/Wmu3MQlx/7A8zT5QBzF/n+RYdLNQ0Eu6YnUwf0Z1uieqNaon+olyIRFiLb/hCZHO6ekN
+ f5vrm2clHUbQAYaPQebknujoKBo6ZLHg0WM1gZS01Gz+aUpKsUfOwM0EafmwsAEMAKiQiZa3
+ yQMmc/h3sDbfVHPSiBA4IMI/NAB7IotzPHq1GzCpsoVILAhF/INbWjxJ3DbVf+en3/FvdVZg
+ 2S38xtnth0njNdlVKpyxm054phKjbdoFDwaknWolS4hrddTmetSG5/52AjtmPFtlXAk0NmLv
+ fJnW3seXVQbgM7sW/MNXPP5UKDpkGnLhnvej+GU0s3109sJeXT5ImVdphFs9cvyZyBT9t1Pb
+ Rowv58EgV0zE4hbAeVkULAbxFV5b/ExTjjGVHoX7CVhWxvCiTqCUoXZRkUE9C3FnkzEFRkKb
+ Yu6NCfiHfEyB3Xyg9hfdrRgjMRq907zCof+nDtWxGz1MSEuvTj1g9GZ049Bennqzjc/Q+0ov
+ XoK4jm+Py0FiUGUaA6yhexficjH+kCR/xDbVnWrMhSLB4AuTBT9HjfZI6gk3uYLhoT8Pig4/
+ eVtR2Q1wZIJsFToR6ofGuyECwFcs+PUXN7fmGRSiPXgjAr/zIUBdW0VWCE3OGPNqtRk2E5s6
+ IQARAQABwsD8BBgBCAAmFiEEGAIew9LzHY3pdrqtZg+p0QLLz9AFAmn5sLAFCQWjmoACGwwA
+ CgkQZg+p0QLLz9DncQwAg76IehTemLIfrB8T9WIBZrI4kUV7G7a4rjiVoUiHYN5QwhnbZnsa
+ JDlt+Ezoqy/510eo2bCSzvW5xXYPgyjcuOPwgQo1Qp764QxyX6rld2f2RcWkDuBHun55ZWXj
+ by8o21ginPRwruBVYY5rVf3DV1iBu4NurUeHtyFk/dS0XTOQi2wVUb17sW/+ybCEokdVacZG
+ zOqP/OmwHrF8ylXlXnhQq6e3r+J+T8fuoGJelm/CJiMwyP6cEWE8sxVqX/iqwjwUYkuOCpE+
+ lOWSvdNHgoEkWR0RXBPQjnGmLKbfTl/QDXLk6NP2/r9uxm2HL6Ei3QJKSEdrp+XZaVnk/Off
+ O485NOTKwGOxyWb006cTMh53xPkAJFQu4Tvdj+odsHz88jqw5wfPG0BYWx0I/FspYj7N9kZR
+ 8ULR9nX0LvpzJ/kB4NgHIUt8YtIL6ZSfM2dbF7fKzvx1UqFfvozJZwFzfEieJLXa4nlGgR6D
+ x9fhaZEsniw8/bYgC3igkk5YJiOa
+In-Reply-To: <9a8b0ae0-ec49-4af0-8e5d-1378319f2857@citrix.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------kvPZisEqGAMPA1eCbW4lX2b8"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1792159847216
 
-On Fri, 16 Oct 2026 00:15:24 +0200,
-Jon Harrison wrote:
-> 
-> On Mon, 24 Aug 2026, Stefan Binding wrote:
-> > We are currently awaiting confirmation of the correct settings before we do
-> > so.
-> 
-> I have another HP OmniBook 7 Laptop 16-bh0xxx, SKU D2KR6UA#ABA,
-> BIOS F.12, subsystem 103c:8e60, running Linux 7.2.5. Both CS35L41
-> amplifiers still fail to probe:
-> 
->   cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: Failed property
-> cirrus,dev-index: -22
->   cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: error -EINVAL: Platform
-> not supported
-> 
-> The speakers only play through the Realtek fallback and are very quiet.
-> Has that settings confirmation arrived, and is there an expected time
-> for the quirk?
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------kvPZisEqGAMPA1eCbW4lX2b8
+Content-Type: multipart/mixed; boundary="------------zmNGkw5uthoDjqekfFGWrB6s";
+ protected-headers="v1"; hp="clear"
+Message-ID: <9ccd658a-e483-4b99-98c2-d90a30cf955c@vates.tech>
+Date: Fri, 16 Oct 2026 16:10:46 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen: Use VCPUOP_register_{runstate,vcpu_time}_phys_area
+ when available
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ David Woodhouse <dwmw2@infradead.org>, George Dunlap <gwd@xenproject.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+References: <1792146192.8631fc262581453bbf619ec5b2062170.1a1443cb7e90008425@vates.tech>
+ <9a8b0ae0-ec49-4af0-8e5d-1378319f2857@citrix.com>
+Content-Language: en-US
+From: Teddy Astie <teddy.astie@vates.tech>
+Autocrypt: addr=teddy.astie@vates.tech; keydata=
+ xsDNBGn5sK8BDACuzSrrTjpVf4ay06OYB6yY0J1PqKffihoNMtrQRZjAHxoAPC7LTBVHV/XO
+ Zw5HJc+9R71z1JV+iYg6z3jPziGKzX8Fj3ZXlzJPmpf1PuETH3KdbvtJT4ny+OGntnJntUoR
+ KRPhTirr6yNeBk/637O3CQXjtqFUPZnko8OI/o1yawIBhJJAWicutjkkUgd28Bh6HV9EIumH
+ tCBgn5/1A/fpm9624MMgYLsA8qjC4XsoovQvFCaO8HEhvfzrrTZHjn/nPeB9SigxIxXW8YaT
+ VqMdqul07o72m3eA2mf+LMu9a04FX/d4wbxBLtELm+1jIrbtyaFZEMOLv/haSiS/Lj3btJH/
+ EoucejoZ5SH49ksmVAmKOLktOaTQ8b2gEvP7iaKiIiszCCtOSRohr+2GvDsDeLvVZnlR3I+S
+ PhHar7TPKjFz0G3DPNolyjXywNqOAMpomSPi8lSwjAFsxOtQbcck/qRGRSNk4DAmH70pA+89
+ MXfQXZ3qt1Q01B1+sU0I8xsAEQEAAc0kVGVkZHkgQXN0aWUgPHRlZGR5LmFzdGllQHZhdGVz
+ LnRlY2g+wsENBBMBCAA3FiEEGAIew9LzHY3pdrqtZg+p0QLLz9AFAmn5sK8FCQWjmoACGwME
+ CwkIBwUVCAkKCwUWAgMBAAAKCRBmD6nRAsvP0ID6DACGOktArFbLKHNzuyOVCskwfUZPla6Z
+ pd3GZ8r61SrAKePIr2BnpgPkd0hV3bSRkRLIrgjzR2NRCzfp0x0HfuhcYfAYPR46XHTvjaJE
+ v99sT/vGUG1BZguYDOScSEpgSNaNlYum3RKZbMuROxdK8G+YHccJY8PvWSq2K2yiae2KGiAv
+ 1yjnZxug9/PtDfX8vQFUSg2w1ukRDf50wvDohN1zUQfFtofOP2xCRsDZiHAlQ0pF+aUjXQhP
+ eP3IdpfWc8cyRLXF06Rk46YMYCytweGtGdHcqAfrVthl84129ZPN422k/voW0sm14gjYlGcT
+ UwgnYlFRk2FLq0QeKEDcS0aj3o3EVAQCrayoGzi1pnlIKE3PRGUcUzjGVvzQ/po24gOjwba9
+ Egr/Wmu3MQlx/7A8zT5QBzF/n+RYdLNQ0Eu6YnUwf0Z1uieqNaon+olyIRFiLb/hCZHO6ekN
+ f5vrm2clHUbQAYaPQebknujoKBo6ZLHg0WM1gZS01Gz+aUpKsUfOwM0EafmwsAEMAKiQiZa3
+ yQMmc/h3sDbfVHPSiBA4IMI/NAB7IotzPHq1GzCpsoVILAhF/INbWjxJ3DbVf+en3/FvdVZg
+ 2S38xtnth0njNdlVKpyxm054phKjbdoFDwaknWolS4hrddTmetSG5/52AjtmPFtlXAk0NmLv
+ fJnW3seXVQbgM7sW/MNXPP5UKDpkGnLhnvej+GU0s3109sJeXT5ImVdphFs9cvyZyBT9t1Pb
+ Rowv58EgV0zE4hbAeVkULAbxFV5b/ExTjjGVHoX7CVhWxvCiTqCUoXZRkUE9C3FnkzEFRkKb
+ Yu6NCfiHfEyB3Xyg9hfdrRgjMRq907zCof+nDtWxGz1MSEuvTj1g9GZ049Bennqzjc/Q+0ov
+ XoK4jm+Py0FiUGUaA6yhexficjH+kCR/xDbVnWrMhSLB4AuTBT9HjfZI6gk3uYLhoT8Pig4/
+ eVtR2Q1wZIJsFToR6ofGuyECwFcs+PUXN7fmGRSiPXgjAr/zIUBdW0VWCE3OGPNqtRk2E5s6
+ IQARAQABwsD8BBgBCAAmFiEEGAIew9LzHY3pdrqtZg+p0QLLz9AFAmn5sLAFCQWjmoACGwwA
+ CgkQZg+p0QLLz9DncQwAg76IehTemLIfrB8T9WIBZrI4kUV7G7a4rjiVoUiHYN5QwhnbZnsa
+ JDlt+Ezoqy/510eo2bCSzvW5xXYPgyjcuOPwgQo1Qp764QxyX6rld2f2RcWkDuBHun55ZWXj
+ by8o21ginPRwruBVYY5rVf3DV1iBu4NurUeHtyFk/dS0XTOQi2wVUb17sW/+ybCEokdVacZG
+ zOqP/OmwHrF8ylXlXnhQq6e3r+J+T8fuoGJelm/CJiMwyP6cEWE8sxVqX/iqwjwUYkuOCpE+
+ lOWSvdNHgoEkWR0RXBPQjnGmLKbfTl/QDXLk6NP2/r9uxm2HL6Ei3QJKSEdrp+XZaVnk/Off
+ O485NOTKwGOxyWb006cTMh53xPkAJFQu4Tvdj+odsHz88jqw5wfPG0BYWx0I/FspYj7N9kZR
+ 8ULR9nX0LvpzJ/kB4NgHIUt8YtIL6ZSfM2dbF7fKzvx1UqFfvozJZwFzfEieJLXa4nlGgR6D
+ x9fhaZEsniw8/bYgC3igkk5YJiOa
+In-Reply-To: <9a8b0ae0-ec49-4af0-8e5d-1378319f2857@citrix.com>
 
-OK, we've waited enough long, so I take the patch to for-next branch
-now (for 7.4-rc1).
+--------------zmNGkw5uthoDjqekfFGWrB6s
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-If this is really breaking something, let me know.  We'll fix up again
-before 7.4 release.
+TGUgMTYvMTAvMjAyNiDDoCAxMzoyMCwgQW5kcmV3IENvb3BlciBhIMOpY3JpdMKgOg0KPiBP
+biAxNi8xMC8yMDI2IDExOjIyIGFtLCBUZWRkeSBBc3RpZSB3cm90ZToNCj4+IFVwZGF0aW5n
+IHRoZXNlIGFyZWEgY2FuIGJlIGV4cGVuc2l2ZSB3aGVuIGRvbmUgdGhyb3VnaCB2aXJ0dWFs
+IGFkZHJlc3Nlcw0KPj4gKGVzcGVjaWFsbHkgZm9yIHJ1bnN0YXRlIG9uZSksIGluIHBhcnRp
+Y3VsYXIgZm9yIEhWTS9QVkggZ3Vlc3RzLg0KPj4gWGVuIDQuMTggaW50cm9kdWNlZCBwaHlz
+aWNhbCBhZGRyZXNzIGFsdGVybmF0aXZlcyB0byBhZGRyZXNzIHRob3NlDQo+PiBzaG9ydC1j
+b21taW5ncywgYnV0IHRoZXkgYXJlbid0IHVzZWQgY3VycmVudGx5Lg0KPj4NCj4+IEZpeCBp
+dCBieSB1c2luZyB0aGVzZSBhbHRlcm5hdGl2ZXMgd2hlbiBhdmFpbGFibGUgKHdoZW4gcmVw
+b3J0ZWQgaW4NCj4+IFhFTkZFQVRfe3J1bnN0YXRlLHZjcHVfdGltZX1fcGh5c19hcmVhLCBi
+dXQga2VlcCB0aGUgY3VycmVudCBsb2dpYw0KPj4gaW4gdGhlIFBWIGNhc2UuDQo+Pg0KPj4g
+QXNzaXN0ZWQtYnk6IExMTQ0KPj4gW2d1aWRhbmNlIGFuZCB0ZXN0aW5nXQ0KPj4gU2lnbmVk
+LW9mZi1ieTogVGVkZHkgQXN0aWUgPHRlZGR5LmFzdGllQHZhdGVzLnRlY2g+DQo+PiAtLS0N
+Cj4+IFdoZW4gdXNpbmcgcGh5c19hcmVhIEFCSSwgdGhlIHN0cnVjdCBpcyBub3QgYWxsb3dl
+ZCB0byBjcm9zcyBhIHBhZ2UNCj4+IGJvdW5kYXJ5IGFueW1vcmUsIGhlbmNlIHdlIG5lZWQg
+dG8gYmUgY2FyZWZ1bCB3aXRoIHBlci1jcHUgc3RydWN0DQo+PiBhbGlnbm1lbnQuDQo+Pg0K
+Pj4gSSd2ZSBkZWxpYmVyYXRlbHkgcHV0IHRoZSBQViBkb21haW4gKCFYRU5GRUFUX2F1dG9f
+dHJhbnNsYXRlZF9waHlzbWFwKQ0KPj4gY2FzZSBhc2lkZSBhcyBpdCBwcm9maXRzIGxlc3Mg
+ZnJvbSB0aGUgcGh5c2ljYWwgYWRkcmVzcyBBQkksIGFuZCBpdA0KPj4gd291bGQgbWFrZSB0
+aGluZ3MgbW9yZSBjb21wbGljYXRlZCBhcyAicGh5c2ljYWwgYWRkcmVzcyIgZG9lc24ndCBo
+YXZlDQo+PiBhIG9idmlvdXMgbWVhbmluZyB0aGVyZS4NCj4gDQo+IEl0IHNob3VsZCBhbHdh
+eXMgaGF2ZSBiZWVuIGEgZ3Vlc3QgcGh5c2ljYWwgcmVnaXN0cmF0aW9uLCBldmVuIGZvciBQ
+Vg0KPiBndWVzdHMuDQo+IA0KPiBUaGUgdmlydHVhbCBhZGRyZXNzIHJlZ2lzdGVyZWQgd2l0
+aCBYZW4gZG9lc24ndCBleGlzdCBpbiB0aGUgdXNlcg0KPiBwYWdldGFibGVzLCBhbmQgdGhl
+IHdheSB3ZSBkaXNjb3ZlciB0aGF0IGlzIHRha2luZyBhIHBhZ2VmYXVsdCBpbiBYZW4gYXQN
+Cj4gdGhlIHBvaW50IHdlIG5lZWQgdG8gdXBkYXRlIHRoaW5ncy4NCj4gDQoNCkkgd2Fzbid0
+IGF3YXJlIG9mIHRoYXQgc3BlY2lmaWMgY2FzZS4gV2lsbCB0cnkgdG8gbWFrZSB0aGUgY29k
+ZSANCmNvbXBhdGlibGUgd2l0aCBQViBndWVzdHMuDQoNCj4+IGRpZmYgLS1naXQgYS9hcmNo
+L3g4Ni94ZW4vdGltZS5jIGIvYXJjaC94ODYveGVuL3RpbWUuYw0KPj4gaW5kZXggNWM3ODIy
+MjU0YTAxLi4xOWFjZTFiNzhhZTQgMTAwNjQ0DQo+PiAtLS0gYS9hcmNoL3g4Ni94ZW4vdGlt
+ZS5jDQo+PiArKysgYi9hcmNoL3g4Ni94ZW4vdGltZS5jDQo+PiBAQCAtMzcsNiArMzcsMjIg
+QEANCj4+ICAgDQo+PiAgIHN0YXRpYyB1NjQgeGVuX3NjaGVkX2Nsb2NrX29mZnNldCBfX3Jl
+YWRfbW9zdGx5Ow0KPj4gICANCj4+ICtzdGF0aWMgaW50IHhlbl9yZWdpc3Rlcl90aW1lX2Fy
+ZWEoc3RydWN0IHB2Y2xvY2tfdmNwdV90aW1lX2luZm8gKnB2dGkpDQo+IA0KPiBUaGlzIG5l
+ZWRzIGEgY29tbWVudCBleHBsYWluaW5nIHdoYXQncyBnb2luZyBvbiAoYnkgR1BBLCBmYWxs
+aW5nIGJhY2sgdG8NCj4gVkEpLCBpbmNsdWRpbmcgdGhhdCBwYXNzaW5nIE5VTEwgbWVhbnMg
+dW5yZWdpc3Rlci4NCj4gDQoNCldpbGwgYWRkLCBJIGd1ZXNzIHdlIGFsc28gd2FudCB0byBt
+ZW50aW9uIHRoYXQgdGhpcyBkb2VzIHN0dWZmIG9uIHZDUFUgMC4NCg0KPj4gK3sNCj4+ICsJ
+c3RydWN0IHZjcHVfcmVnaXN0ZXJfdGltZV9tZW1vcnlfYXJlYSB0Ow0KPj4gKwlib29sIHBo
+eXMgPSB4ZW5fZmVhdHVyZShYRU5GRUFUX3ZjcHVfdGltZV9waHlzX2FyZWEpICYmDQo+PiAr
+CQkgICAgeGVuX2ZlYXR1cmUoWEVORkVBVF9hdXRvX3RyYW5zbGF0ZWRfcGh5c21hcCk7DQo+
+IA0KPiBOb3QgcmVsYXRlZCB0byB5b3VyIHBhdGNoLCBidXQgdGhlIHhlbl9mZWF0dXJlKCkg
+aW5mcmFzdHJ1Y3R1cmUgaXMgaWRpb3RpYy4NCj4gDQo+IEl0IHRha2VzIGEgYml0bWFwIGZy
+b20gWGVuLCBhbmQgdHJhbnNmb3JtcyBpdCBpbnRvIGEgdTggYXJyYXkgb2YgMSdzIG9yIDAn
+cy4NCj4gDQo+IEl0IHdhbnRzIHN0b3JpbmcgYXMgYSBwcm9wZXIgTGludXggYml0bWFwLCB3
+aXRoIHhlbl9mZWF0dXJlKCkgYmVpbmcgYQ0KPiB0cml2aWFsIHdyYXBwZXIgYXJvdW5kIHRl
+c3RfYml0KCksIGF0IHdoaWNoIHBvaW50IHRoZSBjb21waWxlciB3aWxsIGFibGUNCj4gdG8g
+Y29sbGFwc2UgZXhwcmVzc2lvbnMgc3VjaCBhcyB0aGUgb25lIGFib3ZlIGludG8gYSBzaW5n
+bGUgb3BlcmF0aW9uLg0KPiAoZXhjZXB0LCB5b3UgbmVlZCB0byByZW1vdmUgdGhlIFhFTkZF
+QVRfYXV0b190cmFuc2xhdGVkX3BoeXNtYXAgYXNwZWN0DQo+IHRvIGluY2x1ZGUgUFYgZ3Vl
+c3RzLikNCj4gDQoNCkxvb2tzIGdvb2QgdG8gbWUuDQoNCj4+ICsJaW50IG9wID0gcGh5cyA/
+IFZDUFVPUF9yZWdpc3Rlcl92Y3B1X3RpbWVfcGh5c19hcmVhDQo+PiArCQkgICAgICA6IFZD
+UFVPUF9yZWdpc3Rlcl92Y3B1X3RpbWVfbWVtb3J5X2FyZWE7DQo+PiArDQo+PiArCWlmIChw
+aHlzKQ0KPj4gKwkJdC5hZGRyLnAgPSBwdnRpID8gdmlydF90b19waHlzKHB2dGkpIDogfjBM
+TFU7DQo+PiArCWVsc2UNCj4+ICsJCXQuYWRkci52ID0gcHZ0aTsNCj4+ICsNCj4+ICsJcmV0
+dXJuIEhZUEVSVklTT1JfdmNwdV9vcChvcCwgMCwgJnQpOw0KPj4gK30NCj4+ICsNCj4+ICAg
+LyogR2V0IHRoZSBUU0Mgc3BlZWQgZnJvbSBYZW4gKi8NCj4+ICAgc3RhdGljIHVuc2lnbmVk
+IGxvbmcgeGVuX3RzY19raHoodm9pZCkNCj4+ICAgew0KPj4gQEAgLTM5NSw3ICs0MTEsNiBA
+QCBzdGF0aWMgdTY0IHhlbl9jbG9ja192YWx1ZV9zYXZlZDsNCj4+ICAgDQo+PiAgIHZvaWQg
+eGVuX3NhdmVfdGltZV9tZW1vcnlfYXJlYSh2b2lkKQ0KPj4gICB7DQo+PiAtCXN0cnVjdCB2
+Y3B1X3JlZ2lzdGVyX3RpbWVfbWVtb3J5X2FyZWEgdDsNCj4+ICAgCWludCByZXQ7DQo+PiAg
+IA0KPj4gICAJeGVuX2Nsb2NrX3ZhbHVlX3NhdmVkID0geGVuX2Nsb2Nrc291cmNlX3JlYWQo
+KSAtIHhlbl9zY2hlZF9jbG9ja19vZmZzZXQ7DQo+PiBAQCAtNDAzLDkgKzQxOCw3IEBAIHZv
+aWQgeGVuX3NhdmVfdGltZV9tZW1vcnlfYXJlYSh2b2lkKQ0KPj4gICAJaWYgKCF4ZW5fY2xv
+Y2spDQo+PiAgIAkJcmV0dXJuOw0KPj4gICANCj4+IC0JdC5hZGRyLnYgPSBOVUxMOw0KPj4g
+LQ0KPj4gLQlyZXQgPSBIWVBFUlZJU09SX3ZjcHVfb3AoVkNQVU9QX3JlZ2lzdGVyX3ZjcHVf
+dGltZV9tZW1vcnlfYXJlYSwgMCwgJnQpOw0KPj4gKwlyZXQgPSB4ZW5fcmVnaXN0ZXJfdGlt
+ZV9hcmVhKE5VTEwpOw0KPj4gICAJaWYgKHJldCAhPSAwKQ0KPj4gICAJCXByX25vdGljZSgi
+Q2Fubm90IHNhdmUgc2Vjb25kYXJ5IHZjcHVfdGltZV9pbmZvIChlcnIgJWQpIiwNCj4+ICAg
+CQkJICByZXQpOw0KPiANCj4gSG93IGRvZXMgdGhpcyB3b3JrP8KgIEFuc3dlciBpcyBpdCBk
+b2Vzbid0LCBiZWNhdXNlIHRoZSBwcmludCBtZXNzYWdlIGlzDQo+IGJvZ3VzLsKgIFRoaXMg
+aXMgYSBmYWlsdXJlIHRvIHVucmVnaXN0ZXIgdGhlIHRpbWUgYXJlYSwgbm90IGEgZmFpbHVy
+ZSB0bw0KPiBzYXZlIHRoZSB0aW1lIHZhbHVlLg0KPiANCj4gQXQgbGVzdCB0aGUgZXJyb3Ig
+bWVzc2FnZSB3YW50cyBmaXhpbmcsIGFuZCBpbiBhIHByZXAgcGF0Y2guDQo+IA0KDQpZZXMu
+DQoNCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3hlbi90aW1lLmMgYi9kcml2ZXJzL3hlbi90
+aW1lLmMNCj4+IGluZGV4IGEyYmUwYTRkNDViMC4uNmI2ZGRjN2E1ODIyIDEwMDY0NA0KPj4g
+LS0tIGEvZHJpdmVycy94ZW4vdGltZS5jDQo+PiArKysgYi9kcml2ZXJzL3hlbi90aW1lLmMN
+Cj4+IEBAIC0xNTIsMTEgKzE1NiwyMSBAQCB1NjQgeGVuX3N0ZWFsX2Nsb2NrKGludCBjcHUp
+DQo+PiAgIHZvaWQgeGVuX3NldHVwX3J1bnN0YXRlX2luZm8oaW50IGNwdSkNCj4+ICAgew0K
+Pj4gICAJc3RydWN0IHZjcHVfcmVnaXN0ZXJfcnVuc3RhdGVfbWVtb3J5X2FyZWEgYXJlYTsN
+Cj4+ICsJdW5zaWduZWQgaW50IG9wOw0KPj4gICANCj4+IC0JYXJlYS5hZGRyLnYgPSAmcGVy
+X2NwdSh4ZW5fcnVuc3RhdGUsIGNwdSk7DQo+PiArCWlmICh4ZW5fZmVhdHVyZShYRU5GRUFU
+X3J1bnN0YXRlX3BoeXNfYXJlYSkgJiYNCj4+ICsJICAgIHhlbl9mZWF0dXJlKFhFTkZFQVRf
+YXV0b190cmFuc2xhdGVkX3BoeXNtYXApKQ0KPiANCj4gQWdhaW4sIFBWIGd1ZXN0cyB3YW50
+IHRvIHVzZSBwaHlzIHdoZW4gYXZhaWxhYmxlLg0KPiANCj4+ICsJew0KPj4gKwkJb3AgPSBW
+Q1BVT1BfcmVnaXN0ZXJfcnVuc3RhdGVfcGh5c19hcmVhOw0KPj4gKwkJYXJlYS5hZGRyLnAg
+PSBwZXJfY3B1X3B0cl90b19waHlzKCZwZXJfY3B1KHhlbl9ydW5zdGF0ZSwgY3B1KSk7DQo+
+PiArCX0NCj4+ICsJZWxzZQ0KPj4gKwl7DQo+PiArCQlvcCA9IFZDUFVPUF9yZWdpc3Rlcl9y
+dW5zdGF0ZV9tZW1vcnlfYXJlYTsNCj4+ICsJCWFyZWEuYWRkci52ID0gJnBlcl9jcHUoeGVu
+X3J1bnN0YXRlLCBjcHUpOw0KPiANCj4gSSdkIHN1Z2dlc3QgZmFjdG9yaW5nIG91dCB0aGUg
+JnBlcl9jcHUoeGVuX3J1bnN0YXRlLCBjcHUpIGNhbGN1bGF0aW9uLg0KPiBJdCdzIG5vdCBm
+cmVlLCBhbmQgY2FuJ3QgYmUgaG9pc3RlZCBieSB0aGUgY29tcGlsZXIuDQo+IA0KDQpEb25l
+IGxvY2FsbHkgZm9yIGJvdGguDQoNCj4gfkFuZHJldw0KDQpUZWRkeQ0K
 
+--------------zmNGkw5uthoDjqekfFGWrB6s--
 
-thanks,
+--------------kvPZisEqGAMPA1eCbW4lX2b8
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-Takashi
+-----BEGIN PGP SIGNATURE-----
+
+wsD5BAABCAAjFiEEGAIew9LzHY3pdrqtZg+p0QLLz9AFAmrSMGYFAwAAAAAACgkQZg+p0QLLz9B6
+Tgv+Owt7ffCxc/SWUjpf1eCga0IvVSkdu2/BBvXBYuul285DMg1u0pasZXnG+rausaMgnqCNGEsZ
+zTRFi5FkxD8nCalUXcSQ1kOp68BnOemCG11SuEffyVSPXNuBgbCcVjAGpJUymtG/n0jqto38MLWZ
+5ulyKN7yWOSg5KdKvesXuAjGRzYmDS+YtF1NM91OFBAtpWLmD6IMov3DxScQtvNpIzbu+sR+dV7m
+kEkueC3U5VNs4vSCmQRJsb2mTZAm/uNAF70lHJczCVt+lA3m5WuC+/Tz3Jsjepbhv7dRIFQoePsS
+P5R9O8qOJvRSJhdmoTYPcrw3Eq/xSImoSAV1AqScWzeRqN9+3gdHdvg4TBzzwi3HjRI1KP0InbR0
+8U+50pP3Lxbu8KngDWyd3bChWjxH6hppposyCgm5cA6X3WQpdwmUYP01/6SwG9OQS87HnG7uCObi
+t5ZAXZO4rAFNrJuQ16IZo0URJVplChVRnVtr+klEyZXwhvE2IthFIpHp2Zjy
+=VbRu
+-----END PGP SIGNATURE-----
+
+--------------kvPZisEqGAMPA1eCbW4lX2b8--
