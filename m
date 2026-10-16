@@ -1,107 +1,88 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B20D2EB874
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:25:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 019802D780C;
+	Fri, 16 Oct 2026 01:26:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792113904; cv=none; b=rTOWBQe/krGFeDniEbATMmDg2ngF4eyfq30vxPze5FxdKY9VOkMvCaVYU29s3oDsw0X3O+K+FdgceCU8w4Cm2kFcVJhD0ec4fwiHsFseVIlIudJ42VgY2ty82ZjFswJFpLJXkupMCyHN8HZV5FtBIVqMf+qWR3LGBxI00l1sc3A=
+	t=1792113990; cv=none; b=LUGNjIcTJuHBO3420rm0NootwIL3cVvJI0D2cX9/2MyS8EHC55CDUhVfW2I4pM5YArBF95Cezh/6NORGtXV3hwPz8ahNuDfydmmLuTUFjk8BG589ntLINj2RCllJT5vn/KXXY4UFSvfRcb+s8P7C1ZmfgEsSHKqH0acFmjlpT+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792113904; c=relaxed/simple;
-	bh=CatLO2z6PdpthGcnB7pFn6c3nDckDPAhg3UryOB/W/k=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=KJje1tVT1UtzVGWR+aaNn2Jn9rCjJM6hKICSiTJjgGXgnknZooXsgzi3Ag05OHuhPDecvXroEuRUNduOo0wh7hUoYRHRhavzzSvqFKDcbmg7bB1G3Y3un3nSW6e2+yyR2SozJmnZRjtfHXq+v+luPxzHaSC/brltQzxysurclBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4j5S0q4mfvz8XrrJ;
-	Fri, 16 Oct 2026 09:24:59 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 69G1OrPZ066351;
-	Fri, 16 Oct 2026 09:24:53 +0800 (+08)
-	(envelope-from hu.shengming@zte.com.cn)
-Received: from mapi (xaxapp01[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 16 Oct 2026 09:24:54 +0800 (CST)
-X-Zmail-TransId: 2af96ad17ce6809-7b4dc
-X-Mailer: Zmail v1.0
-Message-ID: <20261016092454394HJ4ACd4Qd8oKYogL2CB7H@zte.com.cn>
-In-Reply-To: <20261010203906.93156-1-kmehltretter@gmail.com>
-References: 20261010203906.93156-1-kmehltretter@gmail.com
-Date: Fri, 16 Oct 2026 09:24:54 +0800 (CST)
+	s=arc-20240116; t=1792113990; c=relaxed/simple;
+	bh=tqwpMGzINRmAeZbAKYGaiBm15TKrFsD/xJ/32gvfLXQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mY5WyYi3idwGQQsvEQjlqEkSkBysFKdfTyCua5QyfR2lDTdm3o1mVSnHgZsUEX7OPcS9cvKcUW/mD15373IFUKxBg4N8RVgy34Dyy9Ms5c6cQkXcYGRHy6IBqvhnZYWCCpjnYilSNZIgLDPgqoeTIbRFJ7a3qL8daoC4cmwkguQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PN2TqF7m; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PN2TqF7m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B86F1F000C4;
+	Fri, 16 Oct 2026 01:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792113989;
+	bh=3bd81Hi/rmFImpkTrd3Z6omZvXbyOiJ0Rex3nfosaXM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PN2TqF7mywsldtZ/1r+qhAFjnHWy5d5K9e9jGU+IoYRUIj3HuzIEbmujFw4NtvAAa
+	 9zB7ARDDYylKUH0hna69orBn5qin2E/UaDci7PATib5CfeZcdiPX4C1ouP8gmEzgiZ
+	 bEL0fMJ62GXrGkiViEihf9T3EI7WIYlJxOVM1kq6vzdO+4Xhz4lwxsf6Z5/CP+xkBb
+	 w6Xo3K06b0bw2A69f73unc7GtDhOwaVjBAtr72KCU3Whxo2JS3ddEKscgQyBJlxgLe
+	 9M0aQErBMRi4faekAGL8Sl+w0xi7yfXmzw8nsf+dbNyAhxd15oXYDDlR7mi/FEKZhX
+	 eBfh0Wm+LGOXg==
+From: SJ Park <sj@kernel.org>
+To: Aveline Noir <jm5905938@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [BUG] DAMON sysfs: failed update clears tried_regions snapshot
+Date: Thu, 15 Oct 2026 18:26:21 -0700
+Message-ID: <20261016012622.114496-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CANOyQmHhCJEbHpHUZ2P0hui+We7wxWkEde-Vh4k2rRXWovRYrQ@mail.gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <hu.shengming@zte.com.cn>
-To: <kmehltretter@gmail.com>
-Cc: <vbabka@kernel.org>, <harry@kernel.org>, <akpm@linux-foundation.org>,
-        <kmehltretter@gmail.com>, <hao.li@linux.dev>, <cl@gentwo.org>,
-        <rientjes@google.com>, <roman.gushchin@linux.dev>,
-        <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSF0gbW0vc2x1YjogaW5pdGlhbGl6ZSB0aGUgZnJlZSBwb2ludGVyIG9mIHRoZSBib290c3RyYXAga21lbV9jYWNoZV9ub2Rl?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 69G1OrPZ066351
-X-TLS: YES
-X-ENVELOPE-SENDER: hu.shengming@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Fri, 16 Oct 2026 09:24:59 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AD17CEB.000/4j5S0q4mfvz8XrrJ
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-kmehltretter@gmail.com wrote:
-> With slub_debug=FZPU, validating kmem_cache_node reports
-> 
->   BUG kmem_cache_node (Not tainted): Freepointer corrupt
->   Object 0xffff888000140040 @offset=64 fp=0x5a5a5a5a5a5a5a5a
-> 
-> and taints the kernel. Poisoning places the bootstrap object's free
-> pointer outside the object, where check_object() checks it even while
-> allocated.
-> 
-> early_kmem_cache_node_alloc() previously took this object from a
-> freelist with an initialized pointer. It now takes it from the slab
-> iterator and builds the freelist only for the remaining objects,
-> leaving its pointer filled with POISON_INUSE.
-> 
-> Initialize the bootstrap object's free pointer to NULL.
-> 
-> Fixes: dc795d4c0282 ("mm/slub: defer freelist construction until after bulk allocation from a new slab")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Hi Aveline,
 
-Thanks for the patch, LGTM!
-Reviewed-by: Shengming Hu <hu.shengming@zte.com.cn>
 
---
-With Best Regards,
-Shengming
+Please do not "top-post" [1].
 
-> ---
-> QEMU x86_64 and custom QEMU SH7785LCR model, slub_debug=FZPU:
-> validation reports "Freepointer corrupt" before the fix, clean after.
+On Thu, 15 Oct 2026 10:17:05 -0500 Aveline Noir <jm5905938@gmail.com> wrote:
+
+> Hi SJ,
 > 
->  mm/slub.c | 1 +
->  1 file changed, 1 insertion(+)
+> I haven't seen this affect a real workload. I found it while testing
+> the DAMON sysfs interface.
+
+You shared 4 bug reports in very short time.  Three of those are from 32 bit.
+Could you disclose the purpose of the testing and how you are doing the
+testing, finding bugs, and reporting those?
+
 > 
-> diff --git a/mm/slub.c b/mm/slub.c
-> index 54ec125033571..9a20aa820bb0f 100644
-> --- a/mm/slub.c
-> +++ b/mm/slub.c
-> @@ -7777,6 +7777,7 @@ static void early_kmem_cache_node_alloc(int node)
->  
->      n = next_slab_obj(kmem_cache_node, &iter);
->      BUG_ON(!n);
-> +    set_freepointer(kmem_cache_node, n, NULL);
->  
->      slab->inuse = 1;
->      build_slab_freelist(kmem_cache_node, slab, &iter);
-> -- 
-> 2.53.0
+> If a tool tries to refresh after monitoring stops, the failed request
+> can delete the last snapshot. The tool then has no previous result to
+> fall back to.
+
+Why would the tool tries to refresh the regions after the monitoring is
+stopped?
+
+> 
+> I built and tested 66178e4ec30a and its parent cce0b334c310 with the
+> same config and reproducer. In three runs each, the parent kept the
+> 4 MiB snapshot after rejecting the refresh; 66178e4ec30a cleared it.
+> Both returned -EINVAL.
+
+Is this an answer to my bisection question?
+
+[1] https://subspace.kernel.org/etiquette.html#do-not-top-post-when-replying
+
+
+Thanks,
+SJ
+
+[...]
