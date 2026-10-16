@@ -1,64 +1,62 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2BE535E955
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:25:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F5D3A9DA1
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792124757; cv=none; b=qIUv3+mhktpl2wJLsIHg2rcMQz+tG4kbXRFKlPTiVmwQgUkh6gz7kyb7TH1dSALc6BMV+GVw2fiSv2cwkINAuXmPjT3x7ykdOGK3l7Gx3b46Fqe+zoDEKOUXFTisMFfgAC8L2pnen1rEOmICIBeyoxGTPoAXygcy9zTBIKN/MRk=
+	t=1792124756; cv=none; b=jjIgxjRvies6terCWCbVDfrPYuo/R/vohkYpD8mztd+bZN8zOc40e9VrkaZ4VViLNQzajuZy5OD8eV0sRV79ruEW1WZo/qEv3BUIV6BO4X8s/jWrueU7q+itHEYcJ66emKBV4PBtJBlM4KEYCbE03B1Ic7XLLXxzH7TzKk2pO3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792124757; c=relaxed/simple;
-	bh=p0x3i7T/RxJVoGuThfamGRwD7CghCOEP9gza4S5L3y4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qFw13jsz/VFduudzhWjd74vTdG8BCeRxvwsVYYA41uRWGndR0CQ0II0nYAnzipJLtTj17+bbpSHB4tdy8DpbpCoywdExeynaJ4oUWnY2barptJLcmq4i1VdW5jaRBwe6INBoLi4O0DK0nqzHKEDZVDStkz+g0MKmboUpTTdH+ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=Toefbp1C; arc=none smtp.client-ip=209.85.216.45
+	s=arc-20240116; t=1792124756; c=relaxed/simple;
+	bh=DHeNoO/T/AedM5+MDKeWnkgv51M5pAI0hBkOhLePtRY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A0J0sO16Po1ya7uX+LK9p0fDvTQAU/t0Q4PpAdW2dahvpgtXMUCvCTFn7j5DMuRSZwJ5UtR1gHLHQW8sTCH3I2lIYYqK8skI/JXbR+g0HVVNnGhVgthPhvLCV7tpN6vlfx8xxfbZjoLY2DnO9igdUwPNsZVHKlA2GGZSKDIlobo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=DfysOqb6; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="Toefbp1C"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3a813079a55so447756a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:25:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="DfysOqb6"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso26903015ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:25:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792124755; x=1792729555; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7NjascJlmAL/rXDM10mAvnCXgy0lONG3ZAo9QK6lWOM=;
-        b=Toefbp1CczGg27b4WQ3RSa0cWLW0g4jIndM2HFQewqxGYKOB3OaRprdXynJC5n8TWo
-         13TYM6swIN5OYCXwt1yC0OVENSxinXkFr10agmmqUsnQf3yL/mnJAzkxjZMrcZwUlMT+
-         gRAzNA5EKBbz1xEo4kfWZnMiXfUb48kdCOwM2Tq92hVtMnT1HsnLqggPRAldg/SZpV/O
-         K57Qpyoqhy7XFUHnJGZi4AYBeABZGUjBEuI9tkif6g5aXQGTM3KjkslUvu+Q+2fEUYfc
-         Amj0toRDwtB7zg1kEuattJlbxjS2hxFxS0GMO7vgtMMZwASZhSzz4GlCfz7D9D0nPXzU
-         40rA==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792124753; x=1792729553; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HHVH+QuSmPSNDBRz9CAlQPe0vcztVPFNpVzUOQzNMfE=;
+        b=DfysOqb6lJWHTQ3/O3d3aYvH7U8C6fgbBiM6i2e5QPliew2YhzgiOx4PdKuGsRlwuX
+         JeN2W1hqLa6nmwM8qgM7gWQAkIz24z9bYu7z+Z6Dyg7Cr4rPUDolnfeMKPS16+e7/33M
+         1zga/0Jqb5Z3Fu5iu5zYSD+fesOcXa4PdeC5KnipbYW4dNMxHjYknWeVRBRNYSlTbLMj
+         OwsgZOBXutfv8spd9fUgSzWC8OE3pYib0sljvXVixScJEqlQVJ2Pg9t3EacWGtJibYa0
+         WBem/1fq5DVVSf+7LxRGtzb7X9IW8Xhk2OWQH70STLWuuI/gY5JH8SOcHEEv2eKuJsag
+         6Lrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792124755; x=1792729555;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7NjascJlmAL/rXDM10mAvnCXgy0lONG3ZAo9QK6lWOM=;
-        b=ebDh0qK+MOVhpRIfmD3xqVKCbmJK77u2yuUZ3HT9bJinCRdP8dTud9DOitM1iLPl/r
-         KN33uCRB3bTcxprXLpyYXUGw2Wpx4ZWv6RrpIbPbeS+BhBLp5zgqnvxuRUHb8VEn0FhN
-         +nn9d79MV4jacHZfJ9BXr/S1t2T6zRzuOlYDQ2WOE9hf4tIaoAUJX/TmB6YMRdnjNCB/
-         wW78SAMRz8+D0ZYBZ7Z9/plsr49uN9fn+Yp0N1obmttPoUgSoGivD1C8GfGavL51af9Z
-         jTvq76ktvYmtBRJs7JC+3nJJscN6XJnTbT1DGEmq3RsCgZ1RNThWgT7eMzNWHdG8IWMi
-         WHKA==
-X-Forwarded-Encrypted: i=1; AKwUvBzm5ylAZaH/sjl4fYBo4NefbYWUqqEd26bs6Z3ubBjeXtQXy6MbQm0PEMVnBo03mL8PLSdoVOs+knFeyFo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK2V5HBLl38iSlu9KWzjooGzXMn/r5SpL54gi1udCErndXnhE5i
-	Q3hK0tnotxKAac42/37caAHUqrwHEJhh9xBjhNMKDcJWNRcZkBqpfcSZwYmNSV1MRBU=
-X-Gm-Gg: AYBFou18qn8wHBZRUwJRiRcMeJjY25Z/aSvQrh9p253x6Rcqkmg5rFN2a0BH27kgy9k
-	li9yX/WCvxi3i5p0Cj7PQKbMoHWYI1v1EqF2I9YvElHEKmBr0piMm3klch/Bg9TpEvwfnWYYasg
-	UKn2MDi/ALGBGQWoDhuZeY0SUZM7H3tRbXoNFbTw1Smy2q7H+VZpaG2IRnJPJLJzQwhoTWsJBM9
-	md1G8p4ncyiKkWo2gDQjKkYb5V0FMVaZ+FgcCVbszvwEXOEiWsLjz7J8NHpDwj2sxnjPfUyPEBs
-	WL+cALfh6UNo0Fdhr/wtSANjEocJYqK9qt3XxORJk0nxCisaxEQ6q/brnLU/SMMsNS4h02DEOtH
-	WNEkwjjj5Sr75hzx2klks5umeZnQFy03QQarw3qKbEUf98jnIsxNRxddCgRYEPZgGG3X7cDcabQ
-	TSZ9uEZSWGvcxIDUrjJlvb5YNm33v9Qlnwsdmnz7ODtvxZGzCHQuFoZdqG8ApwR3rHd9lq8iXhj
-	OWqvQ==
-X-Received: by 2002:a17:90b:3146:b0:3a4:9416:a2f8 with SMTP id 98e67ed59e1d1-3acbb879edcmr1595043a91.9.1792124754870;
-        Thu, 15 Oct 2026 21:25:54 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792124753; x=1792729553;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HHVH+QuSmPSNDBRz9CAlQPe0vcztVPFNpVzUOQzNMfE=;
+        b=WjyfiHe4sCkaHd9QYmmRJaJzBvFmlCOcEqpwkn6FoNlDuXnYOExaT4zhL696X4nzK1
+         wQd235nIFwbMF6L1eJoASnR/RpcHaJONmQEtopCka6TSVSrmoUrlwYXeYshQy69CrxGT
+         OkD37RVgptf1HB1DjPxzoUdX652UaR0gp74zN3jY4gHlxuYAukGKzChcRg+LCAaTMhJ1
+         yPd7DC9DhuzNud3NOfl0mZPdpJgpK/TYXPqSG4XUO5/xdOFimJqY2WDqJ66kmui6/Bz9
+         cTdLoJzFOhsnTfbyw+c90UKSWFXSi0PryQvch0yLTK7260OS70XgKScSmQwjgQl+WJvj
+         Mmjw==
+X-Forwarded-Encrypted: i=1; AKwUvBwxuEQ4Qmb4BN/D1Uine6EUeyrwe9zXIt2J39SjNqon2FXWVQ19pmulMiT0XXWEK7lpbkgen0Z1UJ7EH2A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOPTurtbfbIQRbMmt8nHnACPVzswi5gB+4nmACUkGMmcqhzFdr
+	1HUGv8rOU1hi52xT8kSBtQ5EFoFfzAvzIT0YYzNs9EUXbuh2uskhqw55nFIaGf/qri4=
+X-Gm-Gg: AYBFou19CuPlCs4OpNGP+f6Xe5oQgyjxw8HSvWyqz4qY8Sqw1UtXHzRBzrEayeuJRm0
+	uJ2QQiS3waMCZbdOv8D7/EFmJhCAmaSDwleJjkXeDihPCSJDVtXx1j+mEszFLnqpcwYbQ8WWI5Q
+	kGFKhSYX5VLDpaa+L7XNIncpUc0l2ah/WB1QgaD6DIVrd/IEdIIlffAU9WXGUyqu6ut+x80EVox
+	BN3NbIq+bHPtB93ARcPa9zV3SLoCf7bFoPDAzjxVZkTjmEWCw0m9wddfBTLpkR6Pch1pCk9XI6/
+	CDgMRqrwibubdxcfXgpJIwrp9ONifBiaWUEyJnnhOHDkhd7mGLPd/iSfB7/ojkrYzqtoDVGShfe
+	BpxvMwooZQmtr/NZbcOM6GsJemtChhn4t74DZJgJuWz+tjxC+9l0mbROp4KshQ4WXR7p7wQJc1N
+	7I154Vmxap6P0XTXVMEBJW7HcVbOXOl6GOrpEOQX51LPsn96FNVN8CwKkIKrENQe6RdtCa7UDCf
+	cIBZTG0lL9p+Y4oAQ==
+X-Received: by 2002:a17:903:1965:b0:2e9:87a1:98b5 with SMTP id d9443c01a7336-2e987a19c92mr7925075ad.14.1792124752750;
+        Thu, 15 Oct 2026 21:25:52 -0700 (PDT)
 Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549b761bsm424443a12.15.2026.10.15.21.25.53
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549b761bsm424443a12.15.2026.10.15.21.25.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 21:25:54 -0700 (PDT)
+        Thu, 15 Oct 2026 21:25:52 -0700 (PDT)
 From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 To: Jeff Chen <jeff.chen_1@nxp.com>,
 	Francesco Dolcini <francesco@dolcini.it>,
@@ -66,12 +64,10 @@ To: Jeff Chen <jeff.chen_1@nxp.com>,
 Cc: linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v3 1/3] wifi: nxpwifi: guard the 11ax response handlers against a detached command buffer
-Date: Fri, 16 Oct 2026 13:25:40 +0900
-Message-ID: <20261016042542.773945-2-yhlee@isslab.korea.ac.kr>
+Subject: [PATCH v3 0/3] wifi: nxpwifi: fix the 11AX_CFG response handler
+Date: Fri, 16 Oct 2026 13:25:39 +0900
+Message-ID: <20261016042542.773945-1-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261016042542.773945-1-yhlee@isslab.korea.ac.kr>
-References: <20261016042542.773945-1-yhlee@isslab.korea.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,90 +76,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nxpwifi_wait_queue_complete() detaches the caller-owned data buffer from
-the still-current command when the wait is interrupted or times out:
+This supersedes both
 
-	spin_lock_bh(&adapter->nxpwifi_cmd_lock);
-	if (adapter->curr_cmd == cmd_queued)
-		adapter->curr_cmd->data_buf = NULL;
-	spin_unlock_bh(&adapter->nxpwifi_cmd_lock);
+  [PATCH] wifi: nxpwifi: bound the TLV lengths in the 11AX_CFG response
+  <20261016014927.434473-1-yhlee@isslab.korea.ac.kr>
 
-nxpwifi_cancel_all_pending_cmd() keeps the current command -- "no
-recycle probably wait for response" -- so a late response still reaches
-nxpwifi_process_cmdresp(), which passes that now-NULL pointer to the
-command's cmd_resp callback.
+  [PATCH v2 0/2] wifi: nxpwifi: bound the 11AX_CFG response handler
+  <20261016030251.690780-1-yhlee@isslab.korea.ac.kr>
 
-Commit 068986fd6f2a5 ("wifi: nxpwifi: detach sync command buffer on
-interrupted wait") introduced that detached state and swept the response
-handlers that dereference the buffer unconditionally, adding a "return
-0" to nxpwifi_ret_sta_get_chan_info(), nxpwifi_ret_sta_hs_wakeup_reason()
-and nxpwifi_ret_sta_robust_coex(). The sweep did not cover 11ax.c.
-mwifiex, which the detachment was ported from, has no 11ax or TWT
-support, so there was no counterpart there to compare against.
+which should both be dropped.
 
-All three handlers in 11ax.c dereference the buffer with no check:
+Review of v2 found a second defect in the same function: the parser reads
+a TLV's extension ID one byte past where it is, so v3 is three patches
+and the order matters.
 
-  nxpwifi_ret_11ax_cfg() takes &ax_cfg->he_cap_cfg and stores through it
-  at "he_cap->id = tlv_type". nxpwifi_set_11ax_status() declares the
-  struct nxpwifi_11ax_he_cfg on the stack and issues HOST_CMD_11AX_CFG
-  synchronously while bringing an AP up, so this one is reachable.
+ 1  nxpwifi_wait_queue_complete() detaches data_buf when a synchronous
+    command is interrupted. nxpwifi_process_cmdresp() hands the field to
+    the response handler as it finds it, and all three handlers in 11ax.c
+    store through it without looking. Commit 068986fd6f2a5 ("wifi:
+    nxpwifi: detach sync command buffer on interrupted wait"), which
+    introduced the detached state, swept the handlers in sta_cmd.c but not
+    these.
+ 2  the extension ID is the first payload byte of a TLV, which is what
+    the send side of this command writes and what every struct in the
+    driver says, but the response parser reads the byte after it. The
+    HE-capability test is made on the wrong byte, the copy lands one byte
+    off, and it reads one byte past the payload the response declared.
+ 3  the TLV walk takes its length from the response and bounds neither
+    the walk nor the two copies, so a short response wraps the u16 length
+    and an oversized header->len runs past both destinations. This is v2's
+    patch 2, unchanged, rebased.
 
-  nxpwifi_ret_twt_cfg() stores at "twt_cfg->sub_id = ...". The twt_setup,
-  twt_teardown, twt_report and twt_information debugfs files each pass a
-  stack struct nxpwifi_twt_cfg to a synchronous HOST_CMD_TWT_CFG, so this
-  one is reachable too.
+Patch 1 has to come before patch 2. On the base the extension ID is read
+at the wrong offset, so a correctly formatted capability TLV is never
+recognised and the unguarded store is never reached; correcting the
+offset is what makes it reachable. Measured, not assumed -- see below.
 
-  nxpwifi_ret_11ax_cmd() stores at "ax_cmd->sub_id = ...". Nothing in the
-  tree sends HOST_CMD_11AX_CMD, so this one is guarded for symmetry only.
+The driver has not appeared in a released kernel, so no patch has a
+stable tag.
 
-Return 0 and drop the response, the way the three handlers the original
-sweep covered already do.
+Still open, and not addressed here
+==================================
 
-Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/net/wireless/nxp/nxpwifi/11ax.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+Patch 1 closes one of two windows, and I would rather say so than let it
+look like a fix for the race.
 
-diff --git a/drivers/net/wireless/nxp/nxpwifi/11ax.c b/drivers/net/wireless/nxp/nxpwifi/11ax.c
-index 96540914f3cf6..d15495a85d2ba 100644
---- a/drivers/net/wireless/nxp/nxpwifi/11ax.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/11ax.c
-@@ -205,9 +205,13 @@ int nxpwifi_ret_11ax_cfg(struct nxpwifi_private *priv,
- 	struct host_cmd_11ax_cfg *he_cfg = &resp->params.ax_cfg;
- 	struct nxpwifi_ie_types_header *header;
- 	u16 left_len, tlv_type, tlv_len;
-+	struct nxpwifi_11ax_he_cap_cfg *he_cap;
- 	u8 ext_id;
--	struct nxpwifi_11ax_he_cap_cfg *he_cap = &ax_cfg->he_cap_cfg;
- 
-+	if (!ax_cfg)
-+		return 0;
-+
-+	he_cap = &ax_cfg->he_cap_cfg;
- 	left_len = le16_to_cpu(resp->size) - sizeof(*he_cfg) - S_DS_GEN;
- 	header = (struct nxpwifi_ie_types_header *)he_cfg->tlv;
- 
-@@ -346,6 +350,9 @@ int nxpwifi_ret_11ax_cmd(struct nxpwifi_private *priv,
- 	struct host_cmd_11ax_cmd *he_cmd = &resp->params.ax_cmd;
- 	struct nxpwifi_ie_types_data *tlv;
- 
-+	if (!ax_cmd)
-+		return 0;
-+
- 	ax_cmd->sub_id = le16_to_cpu(he_cmd->sub_id);
- 
- 	switch (ax_cmd->sub_command) {
-@@ -582,6 +589,9 @@ int nxpwifi_ret_twt_cfg(struct nxpwifi_private *priv,
- 	struct host_cmd_twt_cfg *twt_cfg_cmd = &resp->params.twt_cfg;
- 	u16 action;
- 
-+	if (!twt_cfg)
-+		return 0;
-+
- 	action = le16_to_cpu(twt_cfg_cmd->action);
- 	twt_cfg->sub_id = le16_to_cpu(twt_cfg_cmd->sub_id);
- 
+When a synchronous command's wait is interrupted,
+nxpwifi_cancel_all_pending_cmd() keeps the current command on purpose --
+"no recycle probably wait for response" -- and the caller returns, which
+ends the lifetime of a stack-allocated data_buf.
+nxpwifi_wait_queue_complete() then clears the field under
+nxpwifi_cmd_lock. But nxpwifi_process_cmdresp() reads it without that
+lock:
+
+	if (adapter->curr_cmd->cmd_resp) {
+		void *data_buf = adapter->curr_cmd->data_buf;
+
+		ret = adapter->curr_cmd->cmd_resp(priv, resp,
+						  cmdresp_no,
+						  data_buf);
+	}
+
+and calls the handler outside it. So the clear only helps if the response
+path reads the field after it. If the response path read it first, it is
+already holding a valid pointer in a local, the clear changes nothing,
+and the waiter returns and reuses the frame while the handler is writing
+through it. A NULL check in the handler, here or in the
+three handlers that commit covered, cannot see that case.
+
+mwifiex is in the same position. Its detachment, commit ef06882c7d8a
+("wifi: mwifiex: Detach sync cmd buffer on interrupted wait"), is marked
+for stable and was motivated by an observed stack-protector panic, and
+mwifiex_process_sta_cmdresp() reads the field the same way:
+
+	void *data_buf = adapter->curr_cmd->data_buf;
+
+I looked at the contained fixes and none of them works:
+
+  - reading data_buf under nxpwifi_cmd_lock only orders the read. The
+    handler still runs outside the lock and the frame can still go away
+    under it.
+  - holding nxpwifi_cmd_lock across the handler call is not possible.
+    nxpwifi_ret_sta_802_11_scan() reaches nxpwifi_scan_networks(), which
+    calls nxpwifi_wait_queue_complete() directly -- that would take the
+    same spinlock again -- and allocates with GFP_KERNEL on the way;
+    nxpwifi_ret_sta_11n_delba() and the two addba handlers reach
+    flush_workqueue() in nxpwifi_del_rx_reorder_entry(); and
+    nxpwifi_ret_sta_802_11_deauthenticate() reaches
+    cfg80211_disconnected(..., GFP_KERNEL).
+  - recycling the current command on an interrupted wait drops the
+    pointer, but it also puts the node back on cmd_free_q while a
+    response is still in flight, which is what the comment above is
+    guarding against. nxpwifi_cancel_pending_ioctl() does recycle it and
+    says it is only safe there "because only cmd_timeout calls this path
+    and no response is expected at that point". The curr_cmd test at the
+    top of nxpwifi_process_cmdresp() is itself unlocked, so a recycle
+    races the node as well as the buffer.
+  - giving the callers a buffer that outlives them works, but 27 of the
+    71 synchronous nxpwifi_send_cmd() call sites pass the address of a
+    local, so doing it for 11ax alone fixes two of them.
+
+That leaves the lifetime contract between a cancelled command and a late
+response, which is the command-completion core rather than this driver's
+11ax code, and mwifiex would want the same change. I am not sending a
+patch for it; I would rather it be looked at by the people who own that
+code than guessed at by me.
+
+Testing
+=======
+
+I have no IW61x hardware. Everything below is a KUnit harness injecting a
+fabricated command response into nxpwifi_ret_11ax_cfg() on a KASAN
+kernel, with the TLVs laid down in the wire format the send side of this
+command produces. It says nothing about what the firmware emits. Each
+case ran in its own boot so that each KASAN report belongs to one case.
+
+Three arms, base 2f2f7eeef8b0a:
+
+  A0  base
+  A2  base + patches 1 and 2
+  B   base + patches 1, 2 and 3
+
+A correctly formatted capability TLV, extension ID at payload[0], 25
+bytes:
+
+  A0  not recognised: he_cap.len 0, user_he_cap_len 0
+  A2  recognised: he_cap.len 25, he_cap.ext_id 35, user_he_cap_len 29,
+      and all 25 payload bytes plus the 4 header bytes byte for byte
+  B   same as A2
+
+A zero-length extension TLV followed by another header:
+
+  A0  accepted, he_cap.id 0x00ff and user_he_cap_len 4, from a byte that
+      belongs to the next TLV's type
+  A2  skipped
+  B   skipped
+
+Lengths that reach past the destinations, and the two walk cases:
+
+  A2  5 of 10 cases report, each one its own boot: a 60-byte and a
+      120-byte copy 6 bytes into the 56-byte struct nxpwifi_11ax_he_cfg
+      on the slab and on the stack, and two reads past the response
+      buffer from the wrapped and the over-long walk
+  B   0 reports, 10 of 10 cases pass, including a TLV that fills both
+      destinations exactly
+
+Patch 1's case is only run on the arms that have it: with data_buf NULL
+it returns 0 and writes nothing. The unguarded store is not run, because
+it would take the test kernel down; on the base it is not reached at all,
+for the reason in the note above patch 1.
+
+v2 -> v3:
+- new patch 2: the extension ID offset, and require a payload before
+  reading one out of it.
+- patch 1 covers nxpwifi_ret_twt_cfg() and nxpwifi_ret_11ax_cmd() as well,
+  not just nxpwifi_ret_11ax_cfg(), and returns 0 rather than -EINVAL, to
+  match the three handlers the detachment commit already covered.
+- patch 3 is v2's patch 2 with no change, rebased.
+- the cover letter says what patch 1 does not fix.
+
+v1 -> v2:
+- new patch: reject a NULL command buffer before using it.
+- the bounds patch unchanged, rebased onto it.
+
+Yehyeong Lee (3):
+  wifi: nxpwifi: guard the 11ax response handlers against a detached
+    command buffer
+  wifi: nxpwifi: read the 11AX_CFG extension ID at the right offset
+  wifi: nxpwifi: bound the TLV lengths in the 11AX_CFG response
+
+ drivers/net/wireless/nxp/nxpwifi/11ax.c | 38 +++++++++++++++++++++----
+ 1 file changed, 32 insertions(+), 6 deletions(-)
+
+
+base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
 -- 
 2.43.0
 
