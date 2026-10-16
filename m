@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC424C9E01;
-	Fri, 16 Oct 2026 15:28:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C97D4DF4AD;
+	Fri, 16 Oct 2026 15:28:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792164514; cv=none; b=os4oSNstPm6wZW+mgWOWq9Pr9vq/E9018y0SlLZka/QM6Bkgrn9xs97Vmsw8Md1KOSgm3WDzLoK0P23nnxvprYIXZAu4QTP3U8zABGoF8Z1sRpxjPikQ8eH1T3wHDj/6xtxArWTocIvK18tr4dMKX0TXvUuaZ7DEIgiuML2Io40=
+	t=1792164516; cv=none; b=oArW58KHRGv3a2CTl1VoYafWFMy6S2L/80l8uaBwTpB5JbhiMkmUmMDwO0SsTa8QG7xK/ds6DKMy6SpgJOyKR5Cy61urjMHXExCwpdZz/Q2GuLYd7+MCZDh2fNoA8va47c0u5cEKwHIZEJgMAHrAI4qI7KDmIOLSSfA50hRRm8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792164514; c=relaxed/simple;
-	bh=KBpvABpvYRL1KrCHjx8irXtk/Nzs9idsNs4hE49fj6g=;
+	s=arc-20240116; t=1792164516; c=relaxed/simple;
+	bh=WGu2F8QF0jZjU6H0LBVtrOh2QmgSdS16U4Epc8xzr74=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b4RHA5LiORY9wCK/VSjTNiTQhQygwMyzsGu67ztHtzEmVeflNL8WPbThwrgYpdPBDR47r3U7Agb3+PT1uHd9V8RG0SoR8PPxQM3GNfv66tmNKGWfNcOZxfswPgKJ/+DB0MQ4n6q61K3tt9BqJwG6fMwSnIiFZj3hZn2b3SaTlbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XS2GHoUx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DPJEHwXfT0O/zH+EBiw7sdlbM1SkIEqujyE5bxeltrxeuLx8F1o/pJKYOVqckZUKbJ/W4DnuqSRenfzkmv5yrmPO4LkYRz2Fq+iKvOtQFatdZ+IvL+a3LxdknrXu16FWK1NUDltxvroDw7/KewnI9EouwEQsxxkEi5gaMSJYiyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YSy94puY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XS2GHoUx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F1691F000C5;
-	Fri, 16 Oct 2026 15:28:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YSy94puY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C441F000C7;
+	Fri, 16 Oct 2026 15:28:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792164513;
-	bh=MpptuEn13n0psYqhF3sSyJGxe3uLahgHjrvCjoi8h1U=;
+	s=k20260515; t=1792164515;
+	bh=cQn2UKC/cvtGyJioDWFwZ+6MUYfp3oMbYe5HA7mAwE4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XS2GHoUxu6ubvWdX3AFCa3rBydQPGRZvpI1c8jn50JMc8JZddaesgVTv3UkxiHc05
-	 rZ+V23j6+BsFhqmWWMaFk+LuLWJHs6vT7nyH2izaDpopNF/A14KkLvTXuGkvzg6rY1
-	 rWrEWP0ptAD2pDZB2ZqlYTBpP4spV3E7aeQPgSVL96b69eAkopqAKLLsPuBpva8Pma
-	 x2gLtbYVxIGtjeJ4d/1/qGHo6Ony0Df2AfbJhOX9WRW4PF3+o+oSLWqSXCevAlnZzX
-	 rXKM5OK4g5jKzucQJ5QuTQv6+l7xO7gOeBq+aZqKp2yxvxVp6hTtdEwMm91pBpNgqs
-	 sCOGMUH64FLyQ==
+	b=YSy94puYdrEYPlzqwr352BS5gcF0fNMfAuQS2r7TWG3G9Xb6dvgis3D+imsrLSS4c
+	 I6BR08uJ/Mc5cr+J/Ro9i5zGdls/1DKiXTURIHvt1nVKC0QTQ3teCGaOYLatA9rHEQ
+	 pmZYWlFVNePcy9AybqS8uFv21xCaK444+wshE91eQmdZ9CNI9ckXN+DJdfxPfBwOUN
+	 F9QEcdWQbuTXhs6p3hxY+G4f1Irp6pZtiO1kxWXu2nQ7J5M8FL/jjf0/f7WA2cpAhc
+	 PBGE4FEAfhNWyni91q/Zrb9nUdIyo+KPtd/ZT5CbOC1NT+AiP0dX/bT/8Y/45gXtFy
+	 S1x4bMfmqmZLw==
 From: Sasha Levin <sashal@kernel.org>
 To: workflows@vger.kernel.org,
 	ksummit@lists.linux.dev
@@ -47,9 +47,9 @@ Cc: linux-doc@vger.kernel.org,
 	Dan Carpenter <error27@gmail.com>,
 	Miguel Ojeda <ojeda@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH v3 1/7] agents: add infrastructure for agent resources
-Date: Fri, 16 Oct 2026 11:28:21 -0400
-Message-ID: <20261016152828.3765695-2-sashal@kernel.org>
+Subject: [PATCH v3 2/7] docs: submitting-patches: say which commit a Fixes tag names
+Date: Fri, 16 Oct 2026 11:28:22 -0400
+Message-ID: <20261016152828.3765695-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261016152828.3765695-1-sashal@kernel.org>
 References: <20261016152828.3765695-1-sashal@kernel.org>
@@ -61,60 +61,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add agents/ as a home for skills and other resources for
-coding assistants. Describe the skill layout in coding-assistants.rst,
-together with the rule that skills only inspect and report, and add a
-MAINTAINERS entry covering the directory.
+The description of the Fixes: tag does not say which commit to name when
+a later commit made an older bug reachable, or when more than one commit
+introduced the same bug, and both questions come up regularly. The
+commit that blame points at is also often one that only moved the code.
 
+Say that the tag names the commit that introduced the bug, that the
+commit that exposed it may get a second tag, and that each commit that
+introduced the bug gets its own tag. Say that the tags tell the stable
+team which trees need the fix, and that trees without any of the tagged
+commits do not.
+
+Link: https://lore.kernel.org/r/c3ce794d-1ac2-4ef3-9e5c-1e171bd77a89@leemhuis.info
+Link: https://lore.kernel.org/r/20261013003535-mutt-send-email-mst@kernel.org
+Link: https://lore.kernel.org/r/atCI4q2HvqVXOag1@stanley.mountain
 Assisted-by: LLM
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/process/coding-assistants.rst | 14 ++++++++++++++
- MAINTAINERS                                 |  6 ++++++
- 2 files changed, 20 insertions(+)
+ Documentation/process/submitting-patches.rst | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
-index 051f0d819f68e..1efc7b08f09f8 100644
---- a/Documentation/process/coding-assistants.rst
-+++ b/Documentation/process/coding-assistants.rst
-@@ -19,6 +19,20 @@ For guidelines on content generated by AI coding assistants see:
+diff --git a/Documentation/process/submitting-patches.rst b/Documentation/process/submitting-patches.rst
+index 7ae79452e1b46..7c4e3c8272d2a 100644
+--- a/Documentation/process/submitting-patches.rst
++++ b/Documentation/process/submitting-patches.rst
+@@ -608,6 +608,15 @@ which stable kernel versions should receive your fix. This is the preferred
+ method for indicating a bug fixed by the patch. See :ref:`describe_changes`
+ for more details.
  
- * Documentation/process/generated-content.rst
- 
-+Agent resources
-+===============
++Name the commit that introduced the bug. ``git blame`` and ``git bisect`` can
++point at a commit that only moved the code, or that made an older bug
++reachable. If a later commit made an older bug reachable, name the commit that
++introduced the bug; a second Fixes: tag for the later commit is fine. If the
++same bug was introduced separately by more than one commit, add a Fixes: tag
++for each, but do not add tags for commits that are only suspected. The Fixes:
++tags tell the stable team which trees need the fix: those that contain one of
++the tagged commits. Trees that contain none of them do not need it.
 +
-+Skills for coding assistants live under ``agents/skills/``, one directory per
-+skill with a ``SKILL.md`` entry point in the `Agent Skills format
-+<https://agentskills.io/specification>`_. Each skill points at the process
-+documents that apply to its task and adds only what assistants tend to get
-+wrong.
-+
-+Skills inspect and report. They do not change files, create commits or tags,
-+or send mail. A skill returns its result with the evidence for it, or says what
-+is missing. Do not fill a missing result with a guess or a placeholder, and do
-+not finalize the work until it is resolved.
-+
- Licensing and Legal Requirements
- ================================
- 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8d3c1..9e522cda56f1b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -713,6 +713,12 @@ F:	Documentation/filesystems/afs.rst
- F:	fs/afs/
- F:	include/trace/events/afs.h
- 
-+AGENT RESOURCES
-+M:	Sasha Levin <sashal@kernel.org>
-+L:	workflows@vger.kernel.org
-+S:	Maintained
-+F:	agents/
-+
- AGPGART DRIVER
- M:	David Airlie <airlied@redhat.com>
- L:	dri-devel@lists.freedesktop.org
+ Note: Attaching a Fixes: tag does not subvert the stable kernel rules
+ process nor the requirement to Cc: stable@vger.kernel.org on all stable
+ patch candidates. For more information, please read
 -- 
 2.53.0
 
