@@ -1,146 +1,98 @@
-Received: from mail-ej2-f7.google.com (mail-ej2-f7.google.com [74.125.228.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www62.your-server.de (www62.your-server.de [213.133.104.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20176481AA4
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:52:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 573CF41DDF0;
+	Fri, 16 Oct 2026 12:53:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792155166; cv=none; b=XRApV8PCLQ+s29IAAPdfcVsbKj0WW370TxUrX5er1jooFSkQ1sQKpmnQ/9OW3WWnqXqqmNWOoYtu1p8KkuYCaHVJv6+ZzBkx74/UR4udwTk25ycqwdLR7VFUOXtxdX3lta44xZ2DVm/moXUyJG3X55vxwsfD6qpUtuMBaU3UpOo=
+	t=1792155186; cv=none; b=mJ0TTBq28pPySqIdQ5d8fCe0KgLEeeaoIrelsAwdvoBVWnkr9xZ5/lLfMyZVXWDUUzAiqpon+ivb+wZafVe+IXdn5uMoFXHGWd3/ry0HKmAl+mw3s/ijXMZ1QHFYAyRukw1sp46ETs+upPombJptE9yxqtLzyMeKeRuqCOKzNcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792155166; c=relaxed/simple;
-	bh=B1VEVRlqikpPTMkVjpNttb8IvaJtjlL1JxMWlv+FinU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TrpVQj3pfnF65rIXz+KcRmv/GvOki2KLEoUvC/Cq9pOX2D8ZTZiCUg+ZRYsGwjfBNvemghNs4XiSrOnxCjHFYY1dfXVJp48Avqtmh3+Oy4StOcU18BqyC6cKBqKypWmDGwSKQSQkX3wmLDZp4MIbV9d1mYgqBIo8fIrLDqgs4D0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j5LdNN11; arc=none smtp.client-ip=74.125.228.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792155186; c=relaxed/simple;
+	bh=p5phTgyJAy4x6Y0ZYrc7ihJGiwnNB0nlCFH4bMB+PBI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HF6XK2Vd6JTk2nTgtq+oJpQ5wG5Zof1WlG0cu9Xl/q2CRxvKEsU3XYDM+hdRhTHJ6d6PGCGbvz42wXow8Z6odXJgMGKP6YO4sOJCnZYD8pfPS9ct0rhMCz8JH2BsMddxgHWqOTYOBJMJf9kSAcSEo4typKr9zbnBdUUxUvhl6n8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net; spf=pass smtp.mailfrom=iogearbox.net; dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b=YTfArEgo; arc=none smtp.client-ip=213.133.104.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iogearbox.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j5LdNN11"
-Received: by mail-ej2-f7.google.com with SMTP id a640c23a62f3a-c40ce98584aso9905866b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:52:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792155163; x=1792759963; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RdOHOeZUKsNxNoi/BkPDgmePe7PcCdsdpCL+vRvFalY=;
-        b=j5LdNN11rjLwtpDyp3LeXExTmiGDfDKyv2DwfctVKW88VShDVO2c4hAsi2PVwhxwFe
-         HMthaf7qXZJ5bz30TsaLEBM5fVaIp268fZbBo/8cvsK6znvmdnJSYKOfMxtFVP4UkT2v
-         sAAUj0JzfFD/vS9JjeTb90xC2rxWGktRRE8e/iRuGQbgzbObVjB0kFic2430MOEtGbQG
-         NovpUbrXxvoYT/TFmLVbW0c3B+Nn5pNLJi6CWqJxHsiNE0HPTpUJ45xyMm3G7VLja02m
-         lQQI6FiOMbD201lHxvK3cG1sFGqHb2BUldQGPWsQvZ7s0J6stXvIlJUX2ksAoFHY2Ewh
-         zLMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792155163; x=1792759963;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RdOHOeZUKsNxNoi/BkPDgmePe7PcCdsdpCL+vRvFalY=;
-        b=bgSgGBNIa1ieZ4d1xr/d2Px/AJpTA4edMRXkTis2aZbqobF/H0Z+YgWckJYJLr/G3M
-         t+7UubIzddGg1oWvzF2JXPRAzr/dJVZgqxhpD6oxZfHjg2I4excSBiQEqy9IW6NNlr0w
-         4hOBuFRT7W5lvFqbno/9fcpskBOmD6cDvWR32haw2CZbptiPA+Cicl+Z18ADPEad2R15
-         biJtGbP3GzW7ClljBbv2Sc0QPuTnALx/gsHNpR6mOI0ZsJ2rFwnYSbNATTnfJBLYkilw
-         15deMYR8TfFrjvzu2ncZVVaci6Lsa+6iNTexfbMbCqnsZ6M5i+ncjbN+jf3yvvhkWsYI
-         QWRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwxcGvTBjMC/LcjNbubHy0KpSvHXhuKiBMamMHWrER9+QLnVnWuP7qlNbPYo8UF3DxHMkqsBH1QrDOfkR8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkWbDQm5WgBIXYj46pN3nd/KarI0fSSNMtvXuvdLBGi/UxZKKY
-	tdI1JFo5vFrXurhLBVCpHAew8njyxpzlv0GyNlOOTZgUdDwFimP8h76eqbUmVjHN
-X-Gm-Gg: AYBFou2givmYmGGo2HKnAf20lIsnGQILD4k3SvwDSHgW/Kobx//Qtj3Ocr/XG796tia
-	JqhgNAG8huBrXQBxjubrB4FdHlIEJG5luBEhC+LDGw0GjaKTvHCbKjO5BOYsambeJMgf4B4L3KT
-	6YHbYgQBKSPki0dozl6CpjvEH68NEkYx3BNFEvFUjcRJnaU+6pjIfsTxc2DowafKpwlkaUnDtUb
-	VG0nqpsTklB1bHt1+Xe2Vuan+8fFTziFgT8dPHQ3rFzoPzcX8zpF8Iud5HOsAE5xXiNGM+AHNVk
-	xbXfyqnOq+WgVP6wWchHssRrthqODiOcSsdknL7BG3MWRpcWgCvxLf0mlXVXa7UfrnaeZIxmg9x
-	IqDP0vkk4uAS24UE3by44D3/jFFpb5VyHNqMmnNUVWPGoEbhCdiN5Z2oIXYGR9tiX5C7iTJklVj
-	5keqIi4GrF89OjpncmtIxdmfzn5Tb6Q/P7giPSRJxP1ZnoKLD5fVIUnlzRPCJfC9KYzm/mPWGF1
-	pfo7CQtwe+bgLS3ZOQ4nCqV2iNkDltBEaVjEJ8lfmq2urhz1CeR+q13aSzTg5dpajeQbPIw0Jgl
-	s8UDUYLoZA3DxkGNVrlLafePCg==
-X-Received: by 2002:a17:907:97ce:b0:c25:f7db:4bec with SMTP id a640c23a62f3a-c40205fb322mr271162166b.18.1792155163197;
-        Fri, 16 Oct 2026 05:52:43 -0700 (PDT)
-Received: from thi-server.fritz.box (dslb-092-076-089-226.092.076.pools.vodafone-ip.de. [92.76.89.226])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32876asm69433966b.10.2026.10.16.05.52.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 05:52:42 -0700 (PDT)
-From: Thilo Zirnstein <thi.zirnstein@gmail.com>
-To: michal.simek@amd.com,
-	andi.shyti@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thilo Zirnstein <thi.zirnstein@gmail.com>
-Subject: [PATCH v3 2/2] i2c: i2c-xiic: fix waiting/clearing while atomic
-Date: Fri, 16 Oct 2026 14:52:29 +0200
-Message-ID: <20261016125229.1798791-3-thi.zirnstein@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261016125229.1798791-1-thi.zirnstein@gmail.com>
-References: <20261016125229.1798791-1-thi.zirnstein@gmail.com>
+	dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b="YTfArEgo"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=iogearbox.net; s=default2302; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=SVO7i3/Ny73slpjewLG09xplK0/4WWpT2rzBA73OteQ=; b=YTfArEgoGjqQWrVldiJhedd/lR
+	CumQBCw0R0dXctcZrKOStF5r1JQBVB+E/wEO9CZfLxk0gzzGRaa0uyMDCIZdSP+TV/706Flzywn0N
+	Q2HfI8JKNkZKa0bG1wjFc6BJX4slTSeZYmlg01AdVJtsFBgxwg5qB7xWFLrLT4Xp/hTCCVumO3zk0
+	BLzDsNIbnwWtAqLRo9dMl9eyYrbHGr7l+4amh+ZcFhgvIgsPVZFip6MgIHBgQYJMZxwrdBwQG0vfg
+	Taek0o+cgRFJNpIfpt30lCJN4kRCAfKEHaa0XyRj3WE1wXwjomj5F8nR8cQLSnICC4DIUXXBEQFHM
+	Vtpdio4g==;
+Received: from sslproxy05.your-server.de ([78.46.172.2])
+	by www62.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1xHhQJ-000KNw-1q;
+	Fri, 16 Oct 2026 14:52:35 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy05.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <daniel@iogearbox.net>)
+	id 1xHhQI-000Min-1v;
+	Fri, 16 Oct 2026 14:52:34 +0200
+Message-ID: <61f7315e-c835-425e-a99b-d2470ba9a875@iogearbox.net>
+Date: Fri, 16 Oct 2026 14:52:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf] bpf: Fix packet length loads into X in bpf_dbg
+To: yanxia <yanxia@cmss.chinamobile.com>, bpf@vger.kernel.org
+Cc: ast@kernel.org, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
+ martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261015135702.352284-1-yanxia@cmss.chinamobile.com>
+Content-Language: en-US
+From: Daniel Borkmann <daniel@iogearbox.net>
+In-Reply-To: <20261015135702.352284-1-yanxia@cmss.chinamobile.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28155/Fri Oct 16 08:24:17 2026)
 
-Use non jiffies based waiting functions,
-if in atomic context.
+On 10/15/26 3:57 PM, yanxia wrote:
+> bpf_single_step() handles BPF_LDX | BPF_W | BPF_LEN by assigning the
+> packet length to A instead of X. This leaves X unchanged and clobbers A,
+> so bpf_dbg can report the opposite verdict from the kernel for a valid
+> classic BPF filter.
+> 
+> For example, load the following filter and run it on a nonempty pcap:
+> 
+>    load bpf 3,0 0 0 0,129 0 0 0,22 0 0 0
+> 
+> The filter initializes A to zero, loads the packet length into X and
+> returns A. The kernel rejects the packet, but bpf_dbg reports it as
+> passing because the length load overwrites A.
+> 
+> Write the length to X, as required by the instruction, preserving A.
+> 
+> The issue was found by reviewing the load cases in bpf_single_step()
+> and comparing them with bpf_convert_filter(). Tested the complete
+> bpf_dbg executable before and after the fix with GCC 12.3.1 on x86-64
+> Linux 6.6. The fixed tool agrees with SO_ATTACH_FILTER on 21 cases
+> covering X updates, preservation of A, and LD LEN, LDX IMM and LDX MEM
+> controls, including a truncated capture with a larger original length.
+> The original tool disagrees on 12 cases; the nine controls pass with
+> both versions.
+> 
+> Fixes: fd981e3c321a ("filter: bpf_dbg: add minimal bpf debugger")
+> Signed-off-by: yanxia <yanxia@cmss.chinamobile.com>
+I don't think anybody uses this anymore. At this point, we should just
+remove bpf_asm.c, bpf_dbg.c, bpf_exp.l, bpf_exp.y, bpf_jit_disasm.c
+from the tree. Only bpftool and resolve_btfids is needed. Could you
+respin with that?
 
-Suggested-by: Andi Shyti <andi.shyti@kernel.org>
-Signed-off-by: Thilo Zirnstein <thi.zirnstein@gmail.com>
----
- drivers/i2c/busses/i2c-xiic.c | 28 +++++++++++++++++++++++-----
- 1 file changed, 23 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.c
-index e68e17bdf0ba..fc9a0628cb67 100644
---- a/drivers/i2c/busses/i2c-xiic.c
-+++ b/drivers/i2c/busses/i2c-xiic.c
-@@ -359,16 +359,28 @@ static inline void xiic_irq_clr_en(struct xiic_i2c *i2c, u32 mask)
- 	xiic_irq_en(i2c, mask);
- }
-
-+static int xiic_poll_rx_empty(struct xiic_i2c *i2c)
-+{
-+	if (xiic_getreg8(i2c, XIIC_SR_REG_OFFSET) &
-+	    XIIC_SR_RX_FIFO_EMPTY_MASK)
-+		return 1;
-+
-+	xiic_getreg8(i2c, XIIC_DRR_REG_OFFSET);
-+	return 0;
-+}
-+
- static int xiic_clear_rx_fifo(struct xiic_i2c *i2c)
- {
--	u8 sr;
-+	int rx_empty;
- 	unsigned long timeout;
-
-+	if (i2c->atomic)
-+		return read_poll_timeout_atomic(xiic_poll_rx_empty,
-+				rx_empty, rx_empty, 10, XIIC_I2C_TIMEOUT,
-+				0, i2c);
-+
- 	timeout = jiffies + XIIC_I2C_TIMEOUT;
--	for (sr = xiic_getreg8(i2c, XIIC_SR_REG_OFFSET);
--		!(sr & XIIC_SR_RX_FIFO_EMPTY_MASK);
--		sr = xiic_getreg8(i2c, XIIC_SR_REG_OFFSET)) {
--		xiic_getreg8(i2c, XIIC_DRR_REG_OFFSET);
-+	while (!xiic_poll_rx_empty(i2c)) {
- 		if (time_after(jiffies, timeout)) {
- 			dev_err(i2c->dev, "Failed to clear rx fifo\n");
- 			return -ETIMEDOUT;
-@@ -383,6 +395,12 @@ static int xiic_wait_tx_empty(struct xiic_i2c *i2c)
- 	u8 isr;
- 	unsigned long timeout;
-
-+	if (i2c->atomic)
-+		return read_poll_timeout_atomic(xiic_getreg32, isr,
-+				isr & XIIC_INTR_TX_EMPTY_MASK, 10,
-+				XIIC_I2C_TIMEOUT, 0, i2c,
-+				XIIC_IISR_OFFSET);
-+
- 	timeout = jiffies + XIIC_I2C_TIMEOUT;
- 	for (isr = xiic_getreg32(i2c, XIIC_IISR_OFFSET);
- 		!(isr & XIIC_INTR_TX_EMPTY_MASK);
---
-2.43.0
-
+Thanks,
+Daniel
