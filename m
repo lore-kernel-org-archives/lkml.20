@@ -1,76 +1,54 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E03C41DDF0
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:50:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 78D36470EA0;
+	Fri, 16 Oct 2026 11:50:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792151424; cv=none; b=BmspPUCJUaCUnNBGagW61rnApdv2buq11GkJKejv1EqOCFb812ij9lo71IIXfZBjhgOBueTqjjAJFsbJyiRptLqRaTL8aceqdu9/GvCl6Owdi6D6BgKJAJr8TLuxF/AUS/wWQzmMcsVcphhGxCrUF2cYz45xu5g2Uw1t+NV4VYQ=
+	t=1792151434; cv=none; b=siThiF8ZK7q1so3XciEYcwb6Zw7bt/squipIdZdRYVLKAjsCcg8PwWWFTL9KVUJkUVarIvUi5ZJLawDsSONjls5WBMEHg0c3mJFeC4swbe5lwcheaJFjt3YA0Z8ZWkpwd543zksCaPXVwbzRFYr3vyAmRfgQyjrQznL0PjWeK4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792151424; c=relaxed/simple;
-	bh=1a9MCT8Cm/A1hVksA6LjcTFs8zA/cgY41rAIEPY2FME=;
+	s=arc-20240116; t=1792151434; c=relaxed/simple;
+	bh=7eDJICq300beGRALQlJrXpadKotDns99R6Gkf0Dn3K0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rabit+PdS4yCq7EeYP3lq8r42qbFGRrWbSiouPFQyvbD3Svp4XZhtBDqTNzD9bXycbuyKEMqKDIHalLFH6amxjaqpTGCKlbZfix111iSO9W83VgS1buBIbwoP3arcKjmIsoM9gTMYdbZBQOrpLRbnhXm/7S+/bisKKLiIbHPWaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QzMDMbGZ; arc=none smtp.client-ip=209.85.215.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=oF2haVkhZemKPi2ZhDdT7es1zrFOv46dJgyoOz06omeGvMG+5HwBWPhLxf7WmzcjN7JfLNeaJaBvLRgUEnc5bH/MtnwMHrLHIokHvsar/wOEYLHsdWoPrmw5cr7dTtVo3SiefudbPKdl9N845Ivi3/WxcB7gCMxLoPFGPsFskyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=b6aCiRzy; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QzMDMbGZ"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc4ca696de6so3575218a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:50:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792151422; x=1792756222; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wVeL1rPVZJdsXQDna6VLNmnPhET76Llh1vUPBWe1Z9s=;
-        b=QzMDMbGZzNQBwIroZ9kYSi/8q4oxSO/jpglNnkat/gE1clOSQ6xhjuUHo3J8tDOmYZ
-         WpbM2h3mwEtthXh4ugaiexAtyPUenj7q9QW6CbM09jIzJyUvfxcJvAgmPelYN1q6Sl98
-         OH6463EuFy9p1u7ZRYfngP/TjvyjUsbKaLzas70KRmY1XMQKd2VgUxascld/Ylu94OsM
-         wUQlyg9KlYSE0bIHqr7P1ztV3rFEMUBfQ31VSowFkiXz4kcjNAyQEpL27Z4jdp3nkv8y
-         YyHOJqsUIONEaQcGyCf7JpZSYB0knfdR6PN1X6T+DXmvcVv+8jecvVN//Q6PEycylefX
-         V1og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792151422; x=1792756222;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wVeL1rPVZJdsXQDna6VLNmnPhET76Llh1vUPBWe1Z9s=;
-        b=DIfNPshbCGrp0T/EbNE9edAUiNlYuOKy00uAaMQYeupDfefab4Kv2IjBeu3+qtKRjy
-         Rx0hQtfHQ+MOZhGg/e44ln4KtWewXjHmdcDDPrQtIuJrcNkDr+KezvYbDKPiyx+HpYW2
-         FGOKdo75bZ1xHKUKBcdOQiN28Z+E+RjKOXRQ9fj9hGqFvmQVtZI2+njzN+MuaCOOAyfF
-         3cQ+/Z4OGTzd3txcDJ5Mc9t+DPHn/QgnplW8tq95YvTvBIuBC6P+tpjd3gBWqTxwkcQg
-         wSZ9XOe791pCa3wj7HbHgbysMxa61a9q9TmT1FuB3DfwEq5TnhfBWZYUaOD3wdMdqTwa
-         ddGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzJURj9LjkZ75tdAftnkXy6PPUym232HWOppfaazNjTVOg4aoUdkzufmr+L5vXuGPE6nnyZrfRv7ucoRZ0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1RZzLprSEqSgVNNylNMsqPP8/JMpXA6ygMqSo2uN3WJqTSvQz
-	MpDWG1yh9nxuEZrdxyxjTqsEQFR4abl0Y2dGnJzFDH6GfxlQjYJbJ2ru
-X-Gm-Gg: AYBFou0AyEDi8gRBuENpdNeqXlWF8tbEUeV7+7l6RAWRqBLoeKRcTTDox9LEUWbeU44
-	Gxtuq+gkMXxzpubnlmNGjN2YTk1m4qXPyX3ySrgBz//SqezJ0aW4ibokDAW706WFiDQ0DHUcY5g
-	RjqWL4j8aMVHED1v3xL+ZrjJ4kFiizR1xs+BGjNQYWtxmM42gRTyNBEYuYUcsqwXb8RcSuUIoAb
-	e91H2VkGMKFsLZSxhUrE1a2uPW1R1yc1vwZq41L1A2f6/ce/5QyX13ydduvfi56sCc8uws/dL3o
-	N8VN3vy2B6kZo2MeCgxIWak83ykL+3YF9lkE7cBcgOFP5Z52E6HEwGCcpXiMGUiFjGaiqwCzNdI
-	8MwyzqalFqp2hQi/iNtdpXRYn58zlrYrXVZN8AiOoTjzlj47YH5PfwKxK6ULISA9drPkqvKycAb
-	E4upPt4oGO3OSKcD4rrzXsuMAc1iDJmYEtRKws4EldXDU5aKq5pP7PAQ222VaB+4obQOExrffTt
-	BgI9vI+VOj6Qjws4w==
-X-Received: by 2002:a05:6a21:9192:b0:3e0:e60f:2e5b with SMTP id adf61e73a8af0-3e16bde9731mr22875105637.30.1792151422443;
-        Fri, 16 Oct 2026 04:50:22 -0700 (PDT)
-Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f579479f8sm980090b3a.38.2026.10.16.04.50.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 04:50:21 -0700 (PDT)
-Date: Fri, 16 Oct 2026 19:50:09 +0800
-From: Kent Gibson <warthog618@gmail.com>
-To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] gpiolib: cdev: don't set GPIOD_FLAG_IS_OUT
-Message-ID: <20261016115009.GA111978@rigel>
-References: <20261016-gpiolib-cdev-direction-v2-1-aambrozewicz@nvidia.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="b6aCiRzy"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 143D814BF;
+	Fri, 16 Oct 2026 04:50:27 -0700 (PDT)
+Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 11CB43F673;
+	Fri, 16 Oct 2026 04:50:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792151430; bh=7eDJICq300beGRALQlJrXpadKotDns99R6Gkf0Dn3K0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=b6aCiRzyo8Ricc4Cu/UQrCIx5RdmoRJA/N8urMfg+lfcww7o1ATQzA3vnzny9Vd/i
+	 hrA3iQrIfOQolHhNl9JwGaP9OkclDKp64NhP5DggjXbIY6GSq+HFlhxbrD9Q3AHUjU
+	 9sPBj8fWR3ig8Cr3FOOmD7yCEQUB1lrFmjLZrJ+E=
+Date: Fri, 16 Oct 2026 12:50:17 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Tomohiro Misono <misono.tomohiro@fujitsu.com>,
+	Marc Zyngier <maz@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Kohei Enju <enju.kohei@fujitsu.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Subject: Re: [PATCH v2 2/4] arm64: tlb: Add tlbi workaround for
+ FUJITSU-MONAKA Erratum E#030001
+Message-ID: <atIPeT7SLSLjQIcl@J2N7QTR9R3.cambridge.arm.com>
+References: <20261016-monaka-fix-for-upstream-v2-0-fc7ede7f9f48@fujitsu.com>
+ <20261016-monaka-fix-for-upstream-v2-2-fc7ede7f9f48@fujitsu.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,100 +57,292 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261016-gpiolib-cdev-direction-v2-1-aambrozewicz@nvidia.com>
+In-Reply-To: <20261016-monaka-fix-for-upstream-v2-2-fc7ede7f9f48@fujitsu.com>
 
-On Fri, Oct 16, 2026 at 12:22:58PM +0300, Adrian Ambrozewicz wrote:
-> When a line is requested or reconfigured through the v2 uAPI,
-> gpio_v2_line_config_flags_to_desc_flags() copies the requested
-> configuration into the descriptor flags, GPIOD_FLAG_IS_OUT included,
-> before gpiod_direction_input_nonotify() or
-> gpiod_direction_output_nonotify() asks the driver for the direction.
-> If the driver refuses, for instance with -EOPNOTSUPP from
-> .direction_input() for a line that can only be an output, the ioctl
-> fails but the flag keeps the refused direction. gpiod_free_commit()
-> does not touch GPIOD_FLAG_IS_OUT, so this outlives the failed request,
-> and GPIO_V2_GET_LINEINFO_IOCTL reports the line as an input while the
-> hardware still drives it, until a request without direction flags
-> makes gpiod_request_commit() read the direction back from the driver:
+On Fri, Oct 16, 2026 at 07:00:46PM +0900, Tomohiro Misono wrote:
+> FUJITSU-MONAKA Erratum E#030001 affects FUJITSU-MONAKA CPU
+> when using TLBI range operations.
 > 
->   GPIO_V2_GET_LINE_IOCTL, line 0, input:         -EOPNOTSUPP
->   GPIO_V2_GET_LINEINFO_IOCTL, line 0:            input
->   GPIO_V2_GET_LINE_IOCTL, line 0, no direction:  ok
->   GPIO_V2_GET_LINEINFO_IOCTL, line 0:            output
+> On affected FUJITSU-MONAKA CPUs, range-based TLBI operations
+> targeting a VA or IPA may fail to invalidate TLB entries when
+> addr[34:29] == all 1 && addr[28:0] == 0 for 512MB mappings.
+> The affected instructions are:
+>   RVA[L]E{1,2,3}*, RVAA[L]E1*, and RIPAS2[L]E1*.
 > 
-> GPIO_V2_LINE_SET_CONFIG_IOCTL updates the flags in the same order.
-> There the line stays requested, and since commit 92ac7de3175e
-> ("gpiolib: don't allow setting values on input lines")
-> GPIO_V2_LINE_SET_VALUES_IOCTL on it then fails with -EPERM, though the
-> line is still an output. A line whose driver refuses to make it an
-> output is likewise reported as one.
+> Work around the erratum by issuing additional non-range
+> TLBI instructions corresponding to the affected VA or IPA
+> range-based TLBI operations.
 > 
-> gpiod_direction_input_nonotify() and gpiod_direction_output_nonotify()
-> set or clear GPIOD_FLAG_IS_OUT themselves once the driver has accepted
-> the direction, emulated open drain and open source included, and
-> nothing between the copy and those calls reads the flag. Leave it to
-> them, as the v1 uAPI already does.
-> 
-> The other flags that the helper copies stay as they are. Active low,
-> drive and bias are what gpiod_direction_*() applies, drive and bias
-> possibly before the driver refuses the direction; edges and event
-> clock are the character device's own. None of them is read back from
-> the driver, so there is no earlier state that is more accurate to go
-> back to. A failed request releases the line, which clears them, and a
-> failed reconfiguration leaves the line, like the lines before it, with
-> what was applied up to the failure.
-> 
-> Reproduced under QEMU with a test GPIO chip whose line 0 refuses input
-> and line 1 refuses output: both refused requests and both refused
-> reconfigurations leave the line info with the refused direction, and
-> setting the value of the reconfigured output fails with -EPERM. With
-> this change the line info shows the direction of the hardware in all
-> four cases and setting the value works. First seen on real hardware
-> with v6.12.
-> 
-> Fixes: 3c0d9c635ae2 ("gpiolib: cdev: support GPIO_V2_GET_LINE_IOCTL and GPIO_V2_LINE_GET_VALUES_IOCTL")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+> Signed-off-by: Tomohiro Misono <misono.tomohiro@fujitsu.com>
 
-That is an incredibly verbose commit comment, particularly the
-discussion of error rollback behaviour, or lack thereof.
-This probably isn't the place for it, but I'll leave that for others to judge.
+As Will and I suggested last time, we'd prefer to disable range
+operations on these parts (and ensure that the relevant ID field is
+hidden from KVM guests).
 
-I'm definitely ok with the code change.
+Regardless of whether eventually accept the approach you propose here,
+we first need something simple to backport to stable trees (as I assume
+you'll want to run standard Linux distributions on this hardware). The
+TLB invalidation code has changed a lot over time, and I don't think
+it's practical or sensible to backport this patch.
 
-Reviewed-by: Kent Gibson <warthog618@gmail.com>
+As a first step, I think we should simply disable the use of range
+operations on these parts, and ensure that KVM hides the relevant ID
+field. After that, we can consider optimizing the workaround, as you
+propose here.
 
+Marc, does that align with your expectations? Is there an existing
+pattern to follow for hiding the ID field?
 
+Mark.
+
+> 
 > ---
 > Changes in v2:
-> - Subject says what the patch does: cdev no longer sets
->   GPIOD_FLAG_IS_OUT (Kent).
-> - Comment dropped (Kent).
-> - Assisted-by tag.
-> - Link to v1: https://lore.kernel.org/r/20261012-gpiolib-cdev-direction-v1-1-aambrozewicz@nvidia.com
+>  - remove page size restrictions as this errata affects both S1 and S2 tables
+>  - use __always_inline instead of inline
+>  - call workaround from NV TLBI operations too (comment by sashiko)
+>   - TODO: test using NV
+> ---
+> ---
+>  Documentation/arch/arm64/silicon-errata.rst |  2 ++
+>  arch/arm64/Kconfig                          | 19 +++++++++++++
+>  arch/arm64/include/asm/cpucaps.h            |  2 ++
+>  arch/arm64/include/asm/tlbflush.h           | 35 +++++++++++++++++++++++
+>  arch/arm64/kernel/cpu_errata.c              | 10 +++++++
+>  arch/arm64/kvm/hyp/vhe/tlb.c                | 44 +++++++++++++++++++++++++++++
+>  arch/arm64/tools/cpucaps                    |  1 +
+>  7 files changed, 113 insertions(+)
 > 
->  drivers/gpio/gpiolib-cdev.c | 5 -----
->  1 file changed, 5 deletions(-)
-> 
-> diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
-> index 5d53bfcdf726..f4d78113ade2 100644
-> --- a/drivers/gpio/gpiolib-cdev.c
-> +++ b/drivers/gpio/gpiolib-cdev.c
-> @@ -1229,11 +1229,6 @@ static void gpio_v2_line_config_flags_to_desc_flags(u64 lflags,
->  	assign_bit(GPIOD_FLAG_ACTIVE_LOW, &flags,
->  		   lflags & GPIO_V2_LINE_FLAG_ACTIVE_LOW);
+> diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
+> index 99a1eb4b833dd..527af20b26468 100644
+> --- a/Documentation/arch/arm64/silicon-errata.rst
+> +++ b/Documentation/arch/arm64/silicon-errata.rst
+> @@ -375,6 +375,8 @@ stable kernels.
+>  +----------------+-----------------+-----------------+-----------------------------+
+>  | Fujitsu        | A64FX           | E#010001        | FUJITSU_ERRATUM_010001      |
+>  +----------------+-----------------+-----------------+-----------------------------+
+> +| Fujitsu        | MONAKA          | E#030001        | FUJITSU_ERRATUM_030001      |
+> ++----------------+-----------------+-----------------+-----------------------------+
+>  +----------------+-----------------+-----------------+-----------------------------+
+>  | ASR            | ASR8601         | #8601001        | N/A                         |
+>  +----------------+-----------------+-----------------+-----------------------------+
+> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+> index cab741a695f52..5d1a17ab0f593 100644
+> --- a/arch/arm64/Kconfig
+> +++ b/arch/arm64/Kconfig
+> @@ -1342,6 +1342,25 @@ config FUJITSU_ERRATUM_010001
 >  
-> -	if (lflags & GPIO_V2_LINE_FLAG_OUTPUT)
-> -		set_bit(GPIOD_FLAG_IS_OUT, &flags);
-> -	else if (lflags & GPIO_V2_LINE_FLAG_INPUT)
-> -		clear_bit(GPIOD_FLAG_IS_OUT, &flags);
-> -
->  	assign_bit(GPIOD_FLAG_EDGE_RISING, &flags,
->  		   lflags & GPIO_V2_LINE_FLAG_EDGE_RISING);
->  	assign_bit(GPIOD_FLAG_EDGE_FALLING, &flags,
+>  	  If unsure, say Y.
+>  
+> +config FUJITSU_ERRATUM_030001
+> +	bool "FUJITSU-MONAKA erratum E#030001: Range TLBI may fail to invalidate some entries"
+> +	default y
+> +	help
+> +	  This option adds a workaround for FUJITSU-MONAKA erratum E#030001.
+> +	  On affected FUJITSU-MONAKA CPUs, range-based TLBI operation
+> +	  targeting a VA or IPA may fail to invalidate some TLB entries
+> +	  when hugepage is used in a certain condition. The affected
+> +	  instructions are RVA[L]E{1,2,3}*, RVAA[L]E1*, and RIPAS2[L]E1*
+> +	  and this affects on both S1 and S2 tables.
+> +
+> +	  Work around the erratum by issuing additional non-range TLBI
+> +	  instructions corresponding to the affected VA or IPA range-based
+> +	  TLBI operations.
+> +
+> +	  The erratum only affects the FUJITSU-MONAKA.
+> +
+> +	  If unsure, say Y.
+> +
+>  config HISILICON_ERRATUM_161600802
+>  	bool "Hip07 161600802: Erroneous redistributor VLPI base"
+>  	default y
+> diff --git a/arch/arm64/include/asm/cpucaps.h b/arch/arm64/include/asm/cpucaps.h
+> index 76350b38f0d7a..9220b917ec207 100644
+> --- a/arch/arm64/include/asm/cpucaps.h
+> +++ b/arch/arm64/include/asm/cpucaps.h
+> @@ -66,6 +66,8 @@ cpucap_is_possible(const unsigned int cap)
+>  		return IS_ENABLED(CONFIG_ARM64_ERRATUM_3194386);
+>  	case ARM64_WORKAROUND_4193714:
+>  		return IS_ENABLED(CONFIG_ARM64_ERRATUM_4193714);
+> +	case ARM64_WORKAROUND_FUJITSU_030001:
+> +		return IS_ENABLED(CONFIG_FUJITSU_ERRATUM_030001);
+>  	case ARM64_MPAM:
+>  		/*
+>  		 * KVM MPAM support doesn't rely on the host kernel supporting MPAM.
+> diff --git a/arch/arm64/include/asm/tlbflush.h b/arch/arm64/include/asm/tlbflush.h
+> index 14a78ac0f8009..2636c273b8111 100644
+> --- a/arch/arm64/include/asm/tlbflush.h
+> +++ b/arch/arm64/include/asm/tlbflush.h
+> @@ -487,6 +487,39 @@ static __always_inline void __tlbi_range(tlbi_op op, u64 addr,
+>  	op(arg);
+>  }
+>  
+> +#ifdef CONFIG_FUJITSU_ERRATUM_030001
+> +static __always_inline void fujitsu_erratum_wa(tlbi_op lop, u64 start, u64 end, u16 asid)
+> +{
+> +	u64 addr;
+> +
+> +	if (!alternative_has_cap_unlikely(ARM64_WORKAROUND_FUJITSU_030001))
+> +		return;
+> +
+> +	/*
+> +	 * The erratum fails to invalidate TLBI entries in the range when
+> +	 * addr[34:29] == all 1 && addr[28:0] == all 0 for 512M hugepage.
+> +	 * This affects both on S1 and S2 tables and 4k guest may be affected
+> +	 * if host uses 64k page size. Therefore it cannot be determined
+> +	 * reliably if the target entry is affected or not here. So, always
+> +	 * assume hugepage is used.
+> +	 * The workaround is to issue extra non-range TLBI ops corresponding
+> +	 * to the affected VA or IPA range-based ops in the range.
+> +	 */
+> +	addr = (start & GENMASK_ULL(63, 35)) | GENMASK_ULL(34, 29);
+> +	while (addr < end) {
+> +		__tlbi_level_asid(lop, addr, TLBI_TTL_UNKNOWN, asid);
+> +		if (addr + BIT_ULL(35) < addr)
+> +			/* overflow */
+> +			break;
+> +		addr += BIT_ULL(35);
+> +	}
+> +}
+> +#else
+> +static __always_inline void fujitsu_erratum_wa(tlbi_op lop, u64 start, u64 end, u16 asid)
+> +{
+> +}
+> +#endif /* CONFIG_FUJITSU_ERRATUM_030001 */
+> +
+>  static __always_inline void __flush_tlb_range_op(tlbi_op lop, tlbi_op rop,
+>  						 u64 start, size_t pages,
+>  						 u64 stride, u16 asid,
+> @@ -518,6 +551,8 @@ static __always_inline void __flush_tlb_range_op(tlbi_op lop, tlbi_op rop,
+>  		__tlbi_level_asid(lop, addr, level, asid);
+>  		addr += stride;
+>  	}
+> +
+> +	fujitsu_erratum_wa(lop, start, end, asid);
+>  }
+>  
+>  #define __flush_s1_tlb_range_op(op, start, pages, stride, asid, tlb_level) \
+> diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+> index e0c09402540ce..a11135f83e858 100644
+> --- a/arch/arm64/kernel/cpu_errata.c
+> +++ b/arch/arm64/kernel/cpu_errata.c
+> @@ -1039,6 +1039,16 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
+>  		.matches = has_impdef_pmuv3,
+>  		.cpu_enable = cpu_enable_impdef_pmuv3_traps,
+>  	},
+> +#ifdef CONFIG_FUJITSU_ERRATUM_030001
+> +	{
+> +		.desc = "FUJITSU-MONAKA Erratum E#030001",
+> +		.capability = ARM64_WORKAROUND_FUJITSU_030001,
+> +		ERRATA_MIDR_RANGE_LIST(((const struct midr_range[]) {
+> +					MIDR_ALL_VERSIONS(MIDR_FUJITSU_MONAKA),
+> +					{}
+> +				})),
+> +	},
+> +#endif
+>  	{
+>  		.desc = "Known broken GICv3 SEIS implementation",
+>  		.capability = ARM64_WORKAROUND_GICv3_BROKEN_SEIS,
+> diff --git a/arch/arm64/kvm/hyp/vhe/tlb.c b/arch/arm64/kvm/hyp/vhe/tlb.c
+> index c386d9f1c1016..2f1a7fab5eb97 100644
+> --- a/arch/arm64/kvm/hyp/vhe/tlb.c
+> +++ b/arch/arm64/kvm/hyp/vhe/tlb.c
+> @@ -8,6 +8,7 @@
+>  
+>  #include <asm/kvm_hyp.h>
+>  #include <asm/kvm_mmu.h>
+> +#include <asm/kvm_nested.h>
+>  #include <asm/tlbflush.h>
+>  
+>  struct tlb_inv_context {
+> @@ -218,6 +219,45 @@ void __kvm_flush_vm_context(void)
+>  	__tlbi_sync_s1ish_hyp();
+>  }
+>  
+> +#ifdef CONFIG_FUJITSU_ERRATUM_030001
+> +static __always_inline void __vae1is(u64 arg)
+> +{
+> +	__tlbi(vae1is, arg);
+> +}
+> +static __always_inline void __vale1is(u64 arg)
+> +{
+> +	__tlbi(vale1is, arg);
+> +}
+> +static __always_inline void __vaae1is(u64 arg)
+> +{
+> +	__tlbi(vaae1is, arg);
+> +}
+> +static __always_inline void __fujitsu_erratum_wa(tlbi_op op, u64 va)
+> +{
+> +	u64 start, size;
+> +	u16 asid;
+> +
+> +	if (!alternative_has_cap_unlikely(ARM64_WORKAROUND_FUJITSU_030001))
+> +		return;
+> +
+> +	start = decode_range_tlbi(va, &size, &asid);
+> +	fujitsu_erratum_wa(op, start, start + size, asid);
+> +}
+> +#else
+> +static __always_inline void __vae1is(u64 arg)
+> +{
+> +}
+> +static __always_inline void __vale1is(u64 arg)
+> +{
+> +}
+> +static __always_inline void __vaae1is(u64 arg)
+> +{
+> +}
+> +static __always_inline void __fujitsu_erratum_wa(tlbi_op op, u64 va)
+> +{
+> +}
+> +#endif
+> +
+>  /*
+>   * TLB invalidation emulation for NV. For any given instruction, we
+>   * perform the following transformtions:
+> @@ -322,6 +362,7 @@ int __kvm_tlbi_s1e2(struct kvm_s2_mmu *mmu, u64 va, u64 sys_encoding)
+>  	case OP_TLBI_RVAE1ISNXS:
+>  	case OP_TLBI_RVAE1OSNXS:
+>  		__tlbi(rvae1is, va);
+> +		__fujitsu_erratum_wa(__vae1is, va);
+>  		break;
+>  	case OP_TLBI_RVALE2:
+>  	case OP_TLBI_RVALE2IS:
+> @@ -336,6 +377,7 @@ int __kvm_tlbi_s1e2(struct kvm_s2_mmu *mmu, u64 va, u64 sys_encoding)
+>  	case OP_TLBI_RVALE1ISNXS:
+>  	case OP_TLBI_RVALE1OSNXS:
+>  		__tlbi(rvale1is, va);
+> +		__fujitsu_erratum_wa(__vale1is, va);
+>  		break;
+>  	case OP_TLBI_RVAAE1:
+>  	case OP_TLBI_RVAAE1IS:
+> @@ -344,6 +386,7 @@ int __kvm_tlbi_s1e2(struct kvm_s2_mmu *mmu, u64 va, u64 sys_encoding)
+>  	case OP_TLBI_RVAAE1ISNXS:
+>  	case OP_TLBI_RVAAE1OSNXS:
+>  		__tlbi(rvaae1is, va);
+> +		__fujitsu_erratum_wa(__vaae1is, va);
+>  		break;
+>  	case OP_TLBI_RVAALE1:
+>  	case OP_TLBI_RVAALE1IS:
+> @@ -352,6 +395,7 @@ int __kvm_tlbi_s1e2(struct kvm_s2_mmu *mmu, u64 va, u64 sys_encoding)
+>  	case OP_TLBI_RVAALE1ISNXS:
+>  	case OP_TLBI_RVAALE1OSNXS:
+>  		__tlbi(rvaale1is, va);
+> +		__fujitsu_erratum_wa(vaale1is, va);
+>  		break;
+>  	default:
+>  		ret = -EINVAL;
+> diff --git a/arch/arm64/tools/cpucaps b/arch/arm64/tools/cpucaps
+> index 58b6c084f9f25..1e57a0105395b 100644
+> --- a/arch/arm64/tools/cpucaps
+> +++ b/arch/arm64/tools/cpucaps
+> @@ -132,3 +132,4 @@ WORKAROUND_SPECULATIVE_AT
+>  WORKAROUND_SPECULATIVE_SSBS
+>  WORKAROUND_SPECULATIVE_UNPRIV_LOAD
+>  WORKAROUND_BROKEN_AMU_CONSTCNT
+> +WORKAROUND_FUJITSU_030001
 > 
-> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 > -- 
 > 2.43.0
 > 
