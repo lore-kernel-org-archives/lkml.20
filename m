@@ -1,106 +1,138 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DACF29B8E1
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:55:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1983EFD24
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:55:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792187713; cv=none; b=kM4vw3Ch6BKCnofLdX6K1ZetdvkuvumAaVePgbcLpyFSPhuqOWxdP1Iuc8Cx1k4S1JEs7zw37+fsGH4v0Vdox7yf4xrZtBiju+GkUPaTw+xyZHnprDgTzz02EIAkbWFV2V50UQ6c2JCs3NgvTMvZ0P4HMi4/tGAZYgEHs873F8E=
+	t=1792187757; cv=none; b=cSBzC14RNpyJbSbFg7VkBHybAcyRfo6pAlRvsbfxi2Ett84MLIc0vldwU2KYnwJHXFBzF+xOKZ2mGtLJZF3YlXgge7p8xd9yhj4N16ChF/p0+3Y7/0PDeBEhJikiR1tfoCJ7ahZ4IEa5AEYnqgsGDurojVGzb9pThUpT8h0y4lQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792187713; c=relaxed/simple;
-	bh=DbWYDczqzUeYS/iImepGHyLmo7iPgL1SfHmAnsTEBkU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V5nL4fBsXt7c/x1S04T6hAOkRkG/+mqnLEqYOC/LIdSFpZZpvW4b6AtblOTvXsPqKuioNbwRSetYN4Fp5b2wsaMp5pyV/ySv9jzZwrqHzcXs0U0CVeKOSVcFa0fzk5n7i/dIcC9MT7xfZAX5FQk8hGMHHcBdV7pfMMYUeYuLupI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=SaVUMa4U; arc=none smtp.client-ip=74.125.224.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	s=arc-20240116; t=1792187757; c=relaxed/simple;
+	bh=6PlFPl5yyg+7VyuqK7O9sVNkpaIz69EVRd4L3Av4NYk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qMjmLpMm1tnpz8FFWgwy3j2yW+hi3zUWGoMKl2fAKvCzSUh0yv8CXhRXQAzG0bHIfkihko9wO5szEWVNA29Qd5IKWpRmrAi7EdO7u1OJA2PRdeOG/1YI3yMgRvmfiYXUg5OQ9qQWrk7aqs+UgpTJq8Gt35XXvHBMM2dmAZlQmek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SoRCLT1C; arc=none smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="SaVUMa4U"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67999045530so553229d50.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:55:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SoRCLT1C"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35b2c599f43so710035eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:55:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1792187711; x=1792792511; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kRdKsMnoUYDjl4OXqzoURv6V5579I0uPGZbnGd93awc=;
-        b=SaVUMa4U/r5OsEXiL0s0qvrDdz5XF1mOhsmOK0lsQ0KAOfR8ioWi2rRKBRT+1BXOrE
-         2/wugTzxFyHoGGvZMZ1YxIp8ERSi2eKCxf2cUV0KlFFvDcPBQ05onoHD9B0s8LWGnmNh
-         FdKKO7/Cp12wCa8lVYwPuXiYxGVIBooRLFXnRvWoPkxpldhzLsyUZjHFXLblF6RjNyII
-         58fNRdyMqERie0hxGmrz27S+KwKui+HN8om3oBoC0DU18OW0XAclnbkN7Pz9/5iJ9NBZ
-         srLhyR6KqnzIQWueW2DipfY+sWAe8XxF1S2xRg+7yN3eCYI2pSofg0SUZvtFdeLK2kjw
-         iBBg==
+        d=gmail.com; s=20251104; t=1792187753; x=1792792553; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LEYeqJ4N4i7YjnqQCG2LK1nS6owgSqR6t1k2WUrMsnw=;
+        b=SoRCLT1CKgL3vDityzJ3U6ecYc16qj0hQ2nhepLOMNuXtnLZ+mqEYX5w5G97VYFrr9
+         BOmYKmV5EDsmBsKxii4OtcUG7HAoDDEPn7cX1r80sPHfKRkCVe+W6I6K1exlkAc0e2kS
+         LkNiOtY2AafxWGGwxzlhAcX9Vi8K1xNzQBjsGYHqoHxTK7eWhyhAV6/p7VCK/n/UIfn7
+         +rY6z5XPFSKtJZbPJf9xkuDrELD0sEOL7tEB8oieWtGRevS6L5gAqmR3zHQBZQ6SW7pf
+         +PTnsYwIesisTyOZgzVhLpNUF/CcUDWhFtOccjnNJjVDoRODUy5s5GGJDeMNRWyGyur6
+         0TJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792187711; x=1792792511;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=kRdKsMnoUYDjl4OXqzoURv6V5579I0uPGZbnGd93awc=;
-        b=a1Fh1CkbU3woHW/AJuMNAQJTQ4YmxHlcygCbPb+JCliGryh0ixYzrWHyNmZw7+3I+Q
-         hwl8BRVQJCFZNW5OHFAV00xB2sFeP2HZgYHV1hOBuzAobzpl25pxwK2MbPB30y8SemHp
-         GaEnDhgQCDAsWk4dvJCcSaG7OU9D2SfZomae+bQGWVFO0IR8pnxRmGVxVsKiOakb58OV
-         31oQDifetQJ2IJzrUYvgcos1XZNSNPaOZ5LRctxSWsr4H3DbqMa8I3Xp7cOn7lhlJZUv
-         6cwMRUgTRmhh60gLFgzmiK5XT14WAM0UMZY//Jopp+PNlO5Fl6QNf2SogomxhdU2OgjT
-         STgA==
-X-Forwarded-Encrypted: i=1; AKwUvBxQ71HcxbDvSH7Gm0E7gFlheMhwVDFDaflXez7u2i/PtN8KnNObPIaGAQB6JBd+UkH0PzrBB6Cgp4GnJRA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMOESaDwA7lQvHWXJaiDQrY2LdRUXZ7eeoWnZyXFvyGUXObfmp
-	R96vrulVxdRnNs09RmeFL0Kv5K/JTK5mqwJxAr241F4yf9Qjs3YOT0CCku5PUgh05ZY=
-X-Gm-Gg: AYBFou1F7kANLQzFu6PijDe6Vur6M/bR66PU3xAO+tgZ/ZhlUW+FZRsf4xWPBbGcwl5
-	y3IjJnQLPSWEkf9AOM8nLhvqOGXn7kPH3Tc1985Dzs1Z/fOz6rJyEeqnAUrLzwhlfUc/h32DoXE
-	75tTOpvQytAHkijRSHY7CjyitgrBhmjsUqjZBzogJWp6BrOraFlFujqkv4+aeXvMNUd/9ld5dJ9
-	j/rxGenT2h4ggQ3yHVnq8NlZbi/Kil4viI2fvNPqj8PudHiifgLb8126lWsq0LvlyGpmn9Ao0tL
-	kOfEuFl6OsMruBrnsgVSKC7ZBrXYog41ly4XLlC0p2lIl1s8qQsusCkIMBAySBZEACPFRK1Zkbw
-	hM3OxLB6WVx0Zn3Ov9ln3JQzUiqlroy5RGy9nfG8DQm7M7nzbQOOjnOgpU4mQ+Ux5zOkl4taamF
-	LFfVgwuZhSaZ5xrCrDfU6cge8EveEBcIPpCB/ICGOHoVDm/sKDRuGjP8X16cRhi4DALtbUvNqLT
-	MZV+f6e4QIIlxpvRcBB
-X-Received: by 2002:a05:690e:bc6:b0:679:980d:9968 with SMTP id 956f58d0204a3-679ca7f7235mr217435d50.60.1792187711142;
-        Fri, 16 Oct 2026 14:55:11 -0700 (PDT)
-Received: from localhost ([2600:1700:220:5c80:6dfb:85d9:d6b:fdcb])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679b1f29ddfsm1626136d50.23.2026.10.16.14.55.09
+        d=1e100.net; s=20260707; t=1792187753; x=1792792553;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LEYeqJ4N4i7YjnqQCG2LK1nS6owgSqR6t1k2WUrMsnw=;
+        b=OJuTuEsbl6fyjFRYzmt4CuHHpCWOoWp7VH8w3l4C7S+ZHhFurmqHQpBEUBK0D9ihjd
+         Z+N+lTGtopy6JJ298AY6fMTgxO3JkG6ysQqbpdNLcwNI63eS1HQB5IfE0a61UgGDUDXv
+         DoYQr97SWHX+FVgTBWj2Qq+kvgtYa2/23T/fXkaXU0PhBNwxMv2sO35ZxHLfe3z1qCQH
+         JiOolNU7HHoPwNlHyh3H5Xl9PJ+UFc7oP4Qi0JZ0cEzvPanRlT7aX3OKYMEcWsUvq8kv
+         aZa1RFk9NeQH2qZngjS+uq9JD4GJL8g5+DcR0NIyz9Jwh/3O7zW8gz3F7IADCtH7q7XT
+         gq8g==
+X-Forwarded-Encrypted: i=1; AKwUvBy9ia75+FUNcdMr4V1zaWigugRotbI5LecPmf241WgRsSEDaVREKLScF2dnvF82yG+n+xVUdePYoB0mi14=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIvGl0FLh51JBOAydP8ex1XkZgyORcvDYoczEaMEb0fHYcblbnt
+	0mO/blxYeD9rGspO0esktEsbt0C8De6VOjxBz5qje4L2+cmWr3DN8FZU
+X-Gm-Gg: AYBFou2fngoRysuJbjpQmlc5FMchTzqLL8usCdFTI+CbEJTaS98KwUKtqwza3n46db8
+	zdhZgX4MTxIhFUMjpK3Glb2qEKC4K1A92WSQGiPTy6aFV4aa6yG16cM7fv+xLX/KBqdG2lbhSDC
+	S0/fn+kLAzhrQmyg+sYqOcrAQZPBy9liphgbta1r3w6VhikCDuZH50X3oxdVDhALHQzs/b0Urz2
+	4pdr8vHwprVxDEigXvEm1/ruaj6xvWE71i6eHy6CauibTKvbLYhXQJ3FPmrTt9lwKcHQI8lIfh+
+	6q7Sa+1kV+S6/0SMfFy6Fp8Nn4X0hKNXYeMKerc8uHsPcPDuJw0umUDNz5H/1+6QfCEKN+4FGW3
+	XjHGcKtjNBv2g1W3POSyvsTHE1+EgoKP8Fm1G8T2Dm5Cv46Xq79cgI/wNHN83d08D8l7fMgq0Ek
+	+zHO/DqxLE8qqQA6lwkd+/GbVyOKkplfgvxAdG79DeBI8/XP3mzdnh8dQCkWU9dIcC0dXSuv5cQ
+	MLr7riL+g==
+X-Received: by 2002:a05:7301:52c7:b0:35d:d671:933a with SMTP id 5a478bee46e88-361a185eff6mr1110380eec.15.1792187752437;
+        Fri, 16 Oct 2026 14:55:52 -0700 (PDT)
+Received: from FredPC ([2600:381:b915:8f8d:c200:c442:48e:8bde])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6791sm10537981eec.6.2026.10.16.14.55.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 14:55:10 -0700 (PDT)
-Date: Fri, 16 Oct 2026 16:55:09 -0500
-From: Andy Chiu <tchiu@tenstorrent.com>
-To: Radim =?iso-8859-1?Q?Krcm=E1r?= <radim.krcmar@oss.qualcomm.com>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Andy Chiu <andybnac@gmail.com>, Guodong Xu <guodong@riscstar.com>,
-	Zong Li <zong.li@sifive.com>,
-	Charlie Jenkins <thecharlesjenkins@gmail.com>
-Subject: Re: [PATCH 6/6] riscv: hwprobe: Report SiFive vector extensions only
- when available
-Message-ID: <atKdPZFu0j86WtTS@Tao-Chiu's-Mac>
-References: <20261006075303.205216-1-radim.krcmar@oss.qualcomm.com>
- <20261006075303.205216-7-radim.krcmar@oss.qualcomm.com>
+        Fri, 16 Oct 2026 14:55:52 -0700 (PDT)
+From: Fredric Cover <fredric.cover.lkernel@gmail.com>
+To: Paulo Alcantara <pc@manguebit.org>,
+	David Howells <dhowells@redhat.com>
+Cc: Jeff Layton <jlayton@kernel.org>,
+	netfs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fredric Cover <fredric.cover.lkernel@gmail.com>
+Subject: [PATCH v2] netfs: Fix off-by-one in the flush range in netfs_page_mkwrite()
+Date: Fri, 16 Oct 2026 14:55:17 -0700
+Message-ID: <20261016215517.33292-1-fredric.cover.lkernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261006075303.205216-7-radim.krcmar@oss.qualcomm.com>
 
-On Tue, Oct 06, 2026 at 09:53:03AM +0200, Radim Krcmár wrote:
-> User-mode use of the SiFive vector extensions requires non-Off
-> sstatus.VS, which we set only when has_vector() (CONFIG_RISCV_ISA_V and
-> Zve32x on all harts).  Xsfvfnrclipxfqf and Xsfvfwmaccqqq also execute
-> floating-point instructions, which additionally require non-Off
-> sstatus.FS and hence has_fpu().  hwprobe reports the extensions from the
-> per-hart vendor ISA bitmaps alone, so it can advertise extensions that
-> are always disabled in user-mode.
-> 
-> Report correct environment to user-mode.
-> 
-> Fixes: 1a6274f03534 ("riscv: hwprobe: Add SiFive vendor extension support and probe for xsfqmaccdod and xsfqmaccqoq")
-> Fixes: 1d91224394c9 ("riscv: hwprobe: Add SiFive xsfvfnrclipxfqf vendor extension")
-> Fixes: d9669e33c8fa ("riscv: hwprobe: Add SiFive xsfvfwmaccqqq vendor extension")
-> Signed-off-by: Radim Krcmár <radim.krcmar@oss.qualcomm.com>
+When a page fault wants to make a folio writable but the folio belongs
+to a different netfs group (e.g. a ceph snap context) than the one the
+write is being made under, netfs_page_mkwrite() flushes the folio and
+retries the fault.  It does so with:
 
-Reviewed-by: Andy Chiu <tchiu@tenstorrent.com>
+	filemap_fdatawrite_range(mapping,
+				 folio_pos(folio),
+				 folio_next_pos(folio));
+
+filemap_fdatawrite_range() takes an inclusive end offset, but
+folio_next_pos() is the position of the first byte of the following
+folio.  The range therefore covers one byte too many, and writeback is
+also run on whichever folio contains that byte.
+
+filemap_fdatawrite_range() is a WB_SYNC_ALL operation documented as
+waiting upon dirty or in-writeback pages in the range, so the faulting
+task can stall behind I/O on a neighbouring folio that has nothing to
+do with the fault, and a neighbouring dirty folio is written out early.
+
+The off-by-one dates from the original implementation, which passed
+folio_pos(folio) + folio_size(folio) as the end of a
+filemap_fdatawait_range() call, which also takes an inclusive end.  It
+was carried over when the call was changed to
+filemap_fdatawrite_range().
+
+The flush of the faulting folio itself is unaffected, so this does not
+cause data loss or incorrect results, only unneeded writeback and
+latency.
+
+Fix it by passing folio_next_pos(folio) - 1, as the flush_content path
+in netfs_perform_write() already does with fpos + flen - 1.
+
+Assisted-by: LLM
+Fixes: 102a7e2c598c ("netfs: Allow buffered shared-writeable mmap through netfs_page_mkwrite()")
+Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+
+---
+Changes since v1:
+ - Correctly CC netfs@lists.linux.dev
+---
+ fs/netfs/buffered_write.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
+index ecf119b4f9166..b398c3bef6f3c 100644
+--- a/fs/netfs/buffered_write.c
++++ b/fs/netfs/buffered_write.c
+@@ -579,7 +579,7 @@ vm_fault_t netfs_page_mkwrite(struct vm_fault *vmf, struct netfs_group *netfs_gr
+ 		folio_unlock(folio);
+ 		err = filemap_fdatawrite_range(mapping,
+ 					       folio_pos(folio),
+-					       folio_next_pos(folio));
++					       folio_next_pos(folio) - 1);
+ 		switch (err) {
+ 		case 0:
+ 			ret = VM_FAULT_RETRY;
+-- 
+2.53.0
 
