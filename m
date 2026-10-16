@@ -1,199 +1,316 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC2A4CB8C8
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:51:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158667; cv=none; b=aC+WhabsYrdtE1Jx+isOYhVbmRBphSgrU4YrbFLFq/RY+OdtFzYcHDCTg8CrtNT5mEn6zDrtRNsnyFT8kEvP15OoXkRThJFq/XjqPnWL0vMSzFmkmQ0yNl+pstkSxYJJQJEv4Ai7yVx8k1X3BHN+QmQZxuNJyi88yWgD6R0SHEQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158667; c=relaxed/simple;
-	bh=Cg7Wzu6dZp3KYVFnjaN6WmNCUV7dQ8wSyfbkDpoovas=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ts40MHqsOduzTzySBgBR0nG/GBsBiFaNMKNQKkbPOsIWQ7eOZqsrWyOqEUSOtESB1GStkP6P036gGyhmJe6QxnsNGy+oCVB3M6SK3dfdtYcl/XrG636SPecafIkEU5dDS9qSn8tXmSbpZ2LShFnnRS7t8myuku+UajCZX+r9OyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ONpnz0ol; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 185A54CE663
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:51:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792158669; cv=pass; b=Xvkf9guh4rpFNnvtnJD5brjJQmtpTcsb0kwgM9whhXApFH7pZVa48FUFZyW+ULBWSL/CSaUQUF1RZYNa5Ei7snDUwu5dyxYL4jW+3QuS0hnAaqPKsP4lePCsZWACJBuXNBiTd9/gLQoi6j8wM8qsfkaap/H64g3H1y0JKTl5znM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792158669; c=relaxed/simple;
+	bh=l735HQ+KIvF/w85z+XR45K1w2Il5/7/MhqFAZ9axQOU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gVDUeSM2eNPfkBdTnHmIBMaGaiKFbZm2aoLIhfYnr54EjlxNqa2uJpb3G7kQPBlBg7qAseNCbC/VRfQwo0x8IVoNwAzWJEPHwRqYdhBrT6WSB2bUHt3MnBs6R9O3b3fjmm9TE6uYdHMDPWHldMXIOoq8N58pU0DbpnVeIf/DTb4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MJNCQJBY; arc=pass smtp.client-ip=209.85.208.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ONpnz0ol"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1cef0439aso6459755e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:51:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MJNCQJBY"
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3ab01c46697so13609141fa.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:51:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792158666; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sIdCpdN4QnSs3AW/SIwpIQ5Nhjb0d9AO0riHtTx1bPLmpQkOKFtwblgOA4/nxiRN7i
+         RbLTinlNIfJlOmW2XrGXEoh+xdBanueGe4NoqmRr+wRru/TAphzuE7S+D/tJPRzxW6JS
+         98G3OWIaG389Wn5DIBCd00jomykXCromUI0ehKsJ5hdu/xBwH0JsnBL585qsU9L96obF
+         UT24vzfl+FzezCOrcizDdN8k8RAunMTljCcsJiTspqf4pz5qIDyZDpHV8zS/lDcHRdXt
+         aMNckR1x59VjdZRefPHBHJWjXKm+HBx4YfvrE6Yh4Eh+h9RJmiTBBQVecM8Tfm09/1SW
+         KPTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MhSOLDu9e0H9P6bIO+k82DvZ/zSAtG35D1+0jxFK13Q=;
+        fh=rrjjRicKEgny+lvW/IuXpWmsJkVkbJFxrINV5Ie3/Ls=;
+        b=FuAgrFHA239izhpA3FqZUMWUI6XdQnehGgv+pkpd54IqxpVZqbXHdC2cQDadf2VCh3
+         4IZJ84nvdzd4Y8wBMvb71we4Fc/jVB6LYbM2djv9W+Yi5ITOcl3R4fjfKTh37Svbv+oi
+         iZSGm26E/RDxHLQoMQFmglBpUSYbx75hMjRfjFi3eo2GAR2/TfC3zmWf4H0PRtOGEgkF
+         J+nk36gjhGoTDfF39uXUU7S4aev8G1VXbqeTMFI8uAhm4PL7Di85HJwgKlxekZP/uuXu
+         8gTnFf609frYTKqQq5+928TEfp1igprzHuRwEWN783+sDU4yIqaNFpXbIrNa9DpQf5jA
+         Rm1Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792158663; x=1792763463; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q1Ejug8D4zQ8KB1tRStJYJdlaIVOQFSEH869zeCaYNA=;
-        b=ONpnz0olmW9FJI4tI/btYaN8+/FqVvQoZcuzmaPMBEHraltVvvqtFad5768YlDMR5I
-         FIOyssclrYXQJaLKbKxEzWgjk0wTECvCmV4P2f78O4PJtguoN1hwEzdfVuLIh11Qtg7U
-         4U7Z16pAEr26Gi5lERpj+O7yMSdaxyf9tHMaV3n77rQ6anBBYAXFwINxnftkuATNEXbG
-         aFocyyaB4Oc5igUQxJmaP0fMIY/ze1QQLbk20yzGmi9GI45+SXq9+FiXAU4RtzM0lAmy
-         8L4Y+lfUyv6SCqSRWOs+fz62Me09JenpwYAbvzbKfRF8GZxm16WOpXbv5jgpqgiFLzyH
-         IBvw==
+        d=gmail.com; s=20251104; t=1792158666; x=1792763466; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MhSOLDu9e0H9P6bIO+k82DvZ/zSAtG35D1+0jxFK13Q=;
+        b=MJNCQJBYBNzO6mLDlfMhXdOcGNkAnEkLDrdQ9jDsAVH3YTnigllwAtXhsrdQCfezkW
+         c/gtWn4LGRD4aBn7Ac8fWHwkuFthnDAWnqH0gpk/2L10kQrBPu74q80ekyn48j46vxHN
+         C+6peQ60FPm5DQ4MPE8wyACk49oYOU4MLwa2yX1WoNG9SR39Qzpok32jBwQ47ZImh/X4
+         RzqRmef1sXVEgWTs6QO30UETyLF7xfSKEuOinXWnkFtvPGR+zzvO7m7OaFMBhPcttf5T
+         GPehCfe5cZZJ2zizwHvbir4oGb7ifcZB1BOspJqTdfZGQt3OvCicMhK40DniFVTatkR/
+         sYCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792158663; x=1792763463;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q1Ejug8D4zQ8KB1tRStJYJdlaIVOQFSEH869zeCaYNA=;
-        b=JMyYcCfBPoqTSbOCT8Xwfj0o+hFWIa9m/ma/V+tGiSc1pYcO/TiQlL3g94flrY928Q
-         wxTyEE58N+SzCBC4GE/hAgLnCX9xvzxHAMCQmIv45N11VxvGgwcb75LlYNHWmULO83yz
-         YteBKEugkyyWMyQplZScyQuINGq29/279Z7VI6Q+r2TaewCVh6sKu/Z/b8fVcWIYW7fT
-         hoF15BaZyis1RG9N1+qEvt5o4p9CONBmjAlegDVXg2LKu5b0BUvmyDhmSKCqE+BXCo7r
-         25d1Ao1smfcVgOPox4qa83O873no+MFXC8hjnZ3f8FJuMYjzh1jZK06EJjL99fNGxJLY
-         pwPw==
-X-Forwarded-Encrypted: i=1; AKwUvBxhqVn/mKR1qiRzqR9iPpDBfMyuDpKSSNJLfVMLR2hyNr9mmuNkmDvbjPYji7ysHMTkXBj0r7ihz8UDBQU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIfQA+LutrbBfYsgl1CDXpGsZVkPmPUC4qQoFLOEXWFhBTl5EX
-	lwU7w+lJRA+OXOKnxeK0W1A1KpDBgaTF0DkHfl+uS3utZTbGvOSx5pjv
-X-Gm-Gg: AYBFou3H86nP/TDz3C70Rw9q1JnAU6VLdI4I2Tr2MUeKXDhWHFqE5MYGM+ouyj9kQlD
-	X7NWzAHVnAuTeZaOjGzfRH99vjpt7VxOvipVn3Pxz28HPj6hXt4Dm0tlJlzpS2zVGWGIcnwweAn
-	am4123gipimrOA5iDSXG44PTTANtf0yut9aYuToaBt5Sf6MGiloQgQd3idDmMazmGISOTTtHkWM
-	zhLztrwSjxOlp47InML4iZO0mM1vD209xu4x/6drzJ0xAiV1iVxmu/Jjf5saef4DoIAQE5S9cv1
-	PT5U/Tg6kPNRoVD2UjNqCZPX1PPcmPAANuiNLtBz/bbgUGEY0C/1Q+j2v2C4rER3ZI7DzVwZ729
-	6943uK+BK2zu42VI8i/VHpkZCe+2gLYKYU+ro7a0UM79H23WkGecy0FgkNusyTL6hcKG15G0EDw
-	WOpfMDLm4vCiVZuY/7tq2knTf1R4NCncwW7EfYDBizOdLM6f/425+2NJo3u5Abag5gXTUyVWA94
-	PYLuYh7qVq+UIoKor/NvJk=
-X-Received: by 2002:a05:600d:82e4:b0:4a1:a49e:a925 with SMTP id 5b1f17b1804b1-4a1a49ea94bmr310744565e9.35.1792158662480;
-        Fri, 16 Oct 2026 06:51:02 -0700 (PDT)
-Received: from localhost.localdomain ([2001:818:dc1d:c500:21cd:8ec9:48da:59ee])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d2e93a01sm27190725e9.0.2026.10.16.06.51.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 06:51:01 -0700 (PDT)
-From: Diogo Sousa <diogogsousa@gmail.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org
-Cc: Diogo Sousa <diogogsousa@gmail.com>,
-	Mario Limonciello <superm1@kernel.org>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	David Glushkov <david.glushkov@sntiq.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] PCI: Disable async suspend for AMD rev 0x62 ACP and HD Audio
-Date: Fri, 16 Oct 2026 14:50:35 +0100
-Message-ID: <20261016135042.44914-1-diogogsousa@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1792158666; x=1792763466;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MhSOLDu9e0H9P6bIO+k82DvZ/zSAtG35D1+0jxFK13Q=;
+        b=Xudb2uHf8uGmKP4isD9xkw77BZZhJVdAecrOWdnMg+U0cF4nEeYLrp7wyLiYV6PKqh
+         nWu3v65KUJBv74z2v3dU8ndqtd9//fRiyGRPPn3z8ALQ5a+KYa8Xr21po6HnSNc2Otba
+         pavMRT4WOvyDF6ZIGcogKUXL5ONXPyy4GJGLm3mjlieIXdBe4Yi7O1DkzeQ33HQWv+Rx
+         rvo3lIinPP/MiiFDCSPQtiCneXDJAscfSZXjCt372xKsnPvTjTHAx/R++s8fLgIrLGXH
+         Ypx4B6OqUlt76WHRxPpTuJEQPgfS2/WVtNtMuWc1tj8pDh+RyP94/sg4c5LYTBENDCvD
+         GKUg==
+X-Forwarded-Encrypted: i=1; AKwUvBzlMzCcJZZdm0LzypfKxaBX56qY1T+vYf8tpmQ9BAaTD+s97sFJdo/dII2llOePq9kAQRlr3NKUBT7n2G8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuJSZkIoei1DkD8+77Ao3TWLYMLbPJdR6qVpa3P6dGW2r/K0IT
+	kkOI4iBOnaPdGD06Aus+5KLN5nMGvrCkfftAkA2Hcmm6nDwnVbL8xi8TuzvwfI5IduccxPJ4k8D
+	hsbUCOi3a1fPOVt/A4PaDpMhW6pIutgs=
+X-Gm-Gg: AYBFou1len/PV4Xvwx41g0UhAlcsxnCRmKMN2VyhbZ9i8xy8sBdnw0Cw0sm1YYPiCgh
+	GdDTPixssYze7WRyu62y8pT1Q53oP9KrpQqof83FdzsW3fSsmpS7VJvvHuxJq4sEv7OMcB4occg
+	2ogWYLQEI6sH/SGZmkRzmpgXhzJo1gdnauAnEjMSsijw77nH7rrtEumDJHtBU+vIMPIrai12dFx
+	Ry1hg8u0TKEA8D7cTwnIhWReVXBhW34NqZQ5NbgCHqQWxmcWQiO/puICne8HOcYm/vKodOzGBLP
+	Ku8/4NPDiicW4QK+SF0PiCvRqhf1ku0JMtvhhJ6NoNhHLTr5Euxi+BhCfrZDCBi/EF/qWX6k8hN
+	p2uM9uEfTMA62xaEGWy2l33agCGgu2WdpZWDRAYIL+8cW
+X-Received: by 2002:a2e:a9a3:0:b0:3a2:f233:5c6e with SMTP id
+ 38308e7fff4ca-3a9c515d16dmr53790271fa.6.1792158665553; Fri, 16 Oct 2026
+ 06:51:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1792116883.git.qiwenjie@xiaomi.com> <226abf7d629d7345f450753a42e924b436c99ec0.1792116883.git.qiwenjie@xiaomi.com>
+In-Reply-To: <226abf7d629d7345f450753a42e924b436c99ec0.1792116883.git.qiwenjie@xiaomi.com>
+From: Daeho Jeong <daeho43@gmail.com>
+Date: Fri, 16 Oct 2026 06:50:51 -0700
+X-Gm-Features: AclHuK8vpgAnY9xHHeD4VkceCLXKMKMXp9Gw8FXUKb93oc0cPZDjjzKkDWi3A1c
+Message-ID: <CACOAw_wvwY93mFW4ksF0m8XDf7opykefeDNg7NCnE8OkpxN0_g@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] f2fs: refresh pinned allocation boundary after resize
+To: Wenjie Qi <qwjhust@gmail.com>
+Cc: jaegeuk@kernel.org, chao@kernel.org, daehojeong@google.com, 
+	sunqiuyang@huawei.com, linux-f2fs-devel@lists.sourceforge.net, 
+	linux-kernel@vger.kernel.org, qiwenjie@xiaomi.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On AMD platforms with a revision 0x62 ACP, such as Dragon Range and Fire
-Range laptops, the HD Audio controller usually stops responding after
-resume from suspend:
+On Thu, Oct 15, 2026 at 10:44=E2=80=AFPM Wenjie Qi <qwjhust@gmail.com> wrot=
+e:
+>
+> Online shrink updates MAIN_SECS() but leaves resizable_tail_secno and
+> pinned_area_max_secno unchanged. The pinned allocation limit can exceed
+> the new main area when shrinking beyond the reserved tail.
+>
+> Consume the reserved tail by the number of removed sections, clamping
+> it to zero, before refreshing the shared pinned allocation boundary.
+> This preserves the boundary while shrinking within the reservation and
+> limits it to the new main area otherwise, retaining the zoned limit.
+>
+> Save the old tail count and restore it before rolling back the geometry
+> if the final checkpoint fails.
+>
+> Also bound pinned section allocation by the current MAIN_SECS(). Range
+> evacuation temporarily reduces it before moving cursegs, while the
+> cached pinned boundary still describes the old geometry. Otherwise, a
+> pinned curseg can be reallocated into the range being removed.
+>
+> Fixes: c966d29e01bb ("f2fs: support resizable tail section and unify pinn=
+ed allocation")
+> Suggested-by: Daeho Jeong <daehojeong@google.com>
+> Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+> ---
+> Changes in v4 (since v3):
+> - Bound pinned section allocation by the current MAIN_SECS().
+>
+> Changes in v3 (since v2):
+> - Consume the tail reservation instead of keeping its old size.
+> - Restore the saved tail before geometry and boundary rollback.
+> - Document the remaining-reservation semantics.
+>
+> Changes in v2 (since v1):
+> - Simplify tail validation and improve rejection diagnostics.
+> - Validate before taking the mount write reference and recheck
+>   after freeze for concurrent remounts.
+>
+> v1:
+> - Refresh the pinned boundary on geometry changes and rollback.
+> - Check the tail against the requested shrink geometry.
+>
+>  Documentation/filesystems/f2fs.rst |  3 ++-
+>  fs/f2fs/gc.c                       |  6 +++++-
+>  fs/f2fs/segment.c                  |  2 +-
+>  fs/f2fs/segment.h                  | 11 +++++++++++
+>  fs/f2fs/super.c                    | 15 ++-------------
+>  5 files changed, 21 insertions(+), 16 deletions(-)
+>
+> diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesyste=
+ms/f2fs.rst
+> index 771216f45207a..55798421f2c45 100644
+> --- a/Documentation/filesystems/f2fs.rst
+> +++ b/Documentation/filesystems/f2fs.rst
+> @@ -421,7 +421,8 @@ resizable_tail_secno=3D%u  Control the number of sect=
+ions at the tail of the
+>                          (MAIN_SECS - resizable_tail_secno) - 1. If set t=
+o 0
+>                          (default), there is no tail restriction unless r=
+unning
+>                          on a zoned block device where conventional zones=
+ are
+> -                        used.
+> +                        used. Online shrink consumes this reservation, r=
+educing
+> +                        the value by the number of removed sections, dow=
+n to zero.
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+ =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+>  Debugfs Entries
+> diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+> index 926e6976bc22a..540769ad58acc 100644
+> --- a/fs/f2fs/gc.c
+> +++ b/fs/f2fs/gc.c
+> @@ -2342,6 +2342,7 @@ static void update_fs_metadata(struct f2fs_sb_info =
+*sbi, int secs)
+>         SM_I(sbi)->segment_count =3D (int)SM_I(sbi)->segment_count + segs=
+;
+>         MAIN_SEGS(sbi) =3D (int)MAIN_SEGS(sbi) + segs;
+>         MAIN_SECS(sbi) +=3D secs;
+> +       f2fs_adjust_pinned_area_boundary(sbi);
+>         if (sbi->allocate_section_hint > MAIN_SECS(sbi))
+>                 sbi->allocate_section_hint =3D MAIN_SECS(sbi);
+>         FREE_I(sbi)->free_sections =3D (int)FREE_I(sbi)->free_sections + =
+secs;
+> @@ -2373,7 +2374,7 @@ int f2fs_resize_fs(struct file *filp, __u64 block_c=
+ount)
+>         struct f2fs_lock_context lc;
+>         struct f2fs_lock_context glc;
+>         struct f2fs_lock_context clc;
+> -       unsigned int secs;
+> +       unsigned int secs, old_tail;
+>         int err =3D 0;
+>         __u32 rem;
+>
+> @@ -2482,6 +2483,8 @@ int f2fs_resize_fs(struct file *filp, __u64 block_c=
+ount)
+>                 goto recover_out;
+>         }
+>
+> +       old_tail =3D F2FS_OPTION(sbi).resizable_tail_secno;
+> +       F2FS_OPTION(sbi).resizable_tail_secno -=3D min(old_tail, secs);
+>         update_fs_metadata(sbi, -secs);
+>         clear_sbi_flag(sbi, SBI_IS_RESIZEFS);
+>         set_sbi_flag(sbi, SBI_IS_DIRTY);
+> @@ -2489,6 +2492,7 @@ int f2fs_resize_fs(struct file *filp, __u64 block_c=
+ount)
+>         stat_inc_cp_call_count(sbi, TOTAL_CALL);
+>         err =3D f2fs_write_checkpoint(sbi, &cpc);
+>         if (err) {
+> +               F2FS_OPTION(sbi).resizable_tail_secno =3D old_tail;
+>                 update_fs_metadata(sbi, secs);
+>                 update_sb_metadata(sbi, secs);
+>                 f2fs_commit_super(sbi, false);
+> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+> index bf8d07fcce331..f6e1cb1c0b71d 100644
+> --- a/fs/f2fs/segment.c
+> +++ b/fs/f2fs/segment.c
+> @@ -2983,7 +2983,7 @@ static int get_new_segment(struct f2fs_sb_info *sbi=
+,
+>                 alloc_hint =3D MAIN_SECS(sbi);
+>
+>         if (pinning) {
+> -               max_secno =3D sbi->pinned_area_max_secno;
+> +               max_secno =3D min(sbi->pinned_area_max_secno, MAIN_SECS(s=
+bi));
+>                 hint =3D 0;
+>         } else if (alloc_policy =3D=3D ALLOCATE_FORWARD_FROM_HINT &&
+>                 hint < alloc_hint) {
+> diff --git a/fs/f2fs/segment.h b/fs/f2fs/segment.h
+> index 526764ba31ae5..918bc4452ad09 100644
+> --- a/fs/f2fs/segment.h
+> +++ b/fs/f2fs/segment.h
+> @@ -91,6 +91,17 @@ static inline void sanity_check_seg_type(struct f2fs_s=
+b_info *sbi,
+>  #define GET_ZONE_FROM_SEG(sbi, segno)                          \
+>         GET_ZONE_FROM_SEC(sbi, GET_SEC_FROM_SEG(sbi, segno))
+>
+> +static inline void f2fs_adjust_pinned_area_boundary(struct f2fs_sb_info =
+*sbi)
+> +{
+> +       sbi->pinned_area_max_secno =3D MAIN_SECS(sbi);
+> +       if (f2fs_sb_has_blkzoned(sbi) && sbi->first_seq_zone_segno !=3D N=
+ULL_SEGNO)
+> +               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
+ecno,
+> +                               GET_SEC_FROM_SEG(sbi, sbi->first_seq_zone=
+_segno));
+> +       if (F2FS_OPTION(sbi).resizable_tail_secno)
+> +               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
+ecno,
+> +                               MAIN_SECS(sbi) - F2FS_OPTION(sbi).resizab=
+le_tail_secno);
+> +}
+> +
+>  #define GET_SUM_BLOCK(sbi, segno)      \
+>         (SM_I(sbi)->ssa_blkaddr + (segno / (sbi)->sums_per_block))
+>  #define GET_SUM_BLKOFF(sbi, segno) (segno % (sbi)->sums_per_block)
+> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+> index 773b12ea29c0c..f323d9705aebe 100644
+> --- a/fs/f2fs/super.c
+> +++ b/fs/f2fs/super.c
+> @@ -554,17 +554,6 @@ static inline void adjust_unusable_cap_perc(struct f=
+2fs_sb_info *sbi)
+>                         F2FS_OPTION(sbi).unusable_cap_perc);
+>  }
+>
+> -static inline void adjust_pinned_area_boundary(struct f2fs_sb_info *sbi)
+> -{
+> -       sbi->pinned_area_max_secno =3D MAIN_SECS(sbi);
+> -       if (f2fs_sb_has_blkzoned(sbi) && sbi->first_seq_zone_segno !=3D N=
+ULL_SEGNO)
+> -               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
+ecno,
+> -                               GET_SEC_FROM_SEG(sbi, sbi->first_seq_zone=
+_segno));
+> -       if (F2FS_OPTION(sbi).resizable_tail_secno)
+> -               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
+ecno,
+> -                               MAIN_SECS(sbi) - F2FS_OPTION(sbi).resizab=
+le_tail_secno);
+> -}
+> -
+>  static void init_once(void *foo)
+>  {
+>         struct f2fs_inode_info *fi =3D (struct f2fs_inode_info *) foo;
+> @@ -3103,7 +3092,7 @@ static int __f2fs_remount(struct fs_context *fc, st=
+ruct super_block *sb)
+>         sb->s_flags =3D (sb->s_flags & ~SB_POSIXACL) |
+>                 (test_opt(sbi, POSIX_ACL) ? SB_POSIXACL : 0);
+>
+> -       adjust_pinned_area_boundary(sbi);
+> +       f2fs_adjust_pinned_area_boundary(sbi);
+>         limit_reserve_root(sbi);
+>         fc->sb_flags =3D (flags & ~SB_LAZYTIME) | (sb->s_flags & SB_LAZYT=
+IME);
+>
+> @@ -5440,7 +5429,7 @@ static int f2fs_fill_super(struct super_block *sb, =
+struct fs_context *fc)
+>         /* get segno of first zoned block device */
+>         sbi->first_seq_zone_segno =3D get_first_seq_zone_segno(sbi);
+>
+> -       adjust_pinned_area_boundary(sbi);
+> +       f2fs_adjust_pinned_area_boundary(sbi);
+>
+>         sbi->reserved_pin_section =3D f2fs_sb_has_blkzoned(sbi) ?
+>                         ZONED_PIN_SEC_REQUIRED_COUNT :
+> --
+> 2.43.0
+>
 
-  snd_hda_intel 0000:69:00.6: CORB reset timeout#2, CORBRP = 65535
+Reviewed-by: Daeho Jeong <daehojeong@google.com>
 
-Audio playback then stalls.
-
-The ACP (function 5) and the HD Audio controller (function 6) share an
-audio block whose power is gated by the firmware.  In the AMD CPMACPV4
-SSDT, the _PS0 method of each function marks the function as present
-and then calls a common method that powers the block up only if exactly
-one function is present:
-
-  Method (_PS0, 0, NotSerialized)  // ACP; AZAL sets M279 instead
-  {
-      M278 = One
-      M276 ()
-  }
-
-  Method (M276, 0, Serialized)
-  {
-      Acquire (M27E, 0xFFFF)
-      If (!(M278 ^ M279))
-      {
-          Release (M27E)
-          Return (Zero)
-      }
-
-      // Power up the audio block.
-      ...
-  }
-
-The presence flags are set outside the lock, and M276 calls a debug
-print method before the check, during which the AML interpreter can run
-other threads.  So when the PM core resumes both functions in parallel,
-both flags can be set before either _PS0 reaches the check.  Both _PS0
-methods then skip the power up, each assuming that the other function
-did it.  An ACPICA trace of a failing resume shows exactly that: the
-M276 call of the ACP sees both flags set and returns early.
-
-Disable async suspend for both functions, so that the PM core never
-suspends or resumes them at the same time.
-
-This started with v7.1, which moved these ACPs from the RPL driver to
-the YC driver.  With the ACP bound to the RPL driver, test resumes
-worked, but it isn't clear why the YC driver makes the race so much
-more likely.
-
-Fixes: df4148a5a3cf ("ASoC: Add DMIC support for the AMD RPL platform")
-Link: https://github.com/CachyOS/linux-cachyos/issues/950
-Assisted-by: LLM
-Signed-off-by: Diogo Sousa <diogogsousa@gmail.com>
----
-Tested on an ASUS ROG Strix G16 G614FR (Ryzen 9 9955HX3D, BIOS G614FR.317):
-without this patch (v7.2.9), every resume from s2idle broke audio; with it,
-on top of v7.3-rc7, three resumes in a row worked.
-
-This also covers the MSI Raider A18 HX A9WJG, for which a quirk matching its
-subsystem ID was posted:
-https://lore.kernel.org/r/20260606204547.11945-1-david.glushkov@sntiq.com
-
- drivers/pci/quirks.c | 32 ++++++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
-
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index de9bbccda21f..d4e4ab3c332e 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -1901,12 +1901,44 @@ static void quirk_jmicron_async_suspend(struct pci_dev *dev)
- }
- DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_JMICRON, PCI_ANY_ID, PCI_CLASS_STORAGE_IDE, 8, quirk_jmicron_async_suspend);
- DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_JMICRON, PCI_ANY_ID, PCI_CLASS_STORAGE_SATA_AHCI, 0, quirk_jmicron_async_suspend);
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_JMICRON, 0x2362, quirk_jmicron_async_suspend);
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_JMICRON, 0x236f, quirk_jmicron_async_suspend);
- 
-+/*
-+ * On AMD platforms with the revision 0x62 ACP (e.g. Dragon Range and Fire
-+ * Range), the firmware power gates the ACP (function 5) and HD Audio
-+ * (function 6) together.  The _PS0 method of each function marks it as
-+ * present and then powers up the shared audio hardware only if the other
-+ * function isn't present yet.  The marking isn't done under the lock that
-+ * serializes the power up, so if both _PS0 methods run concurrently, they can
-+ * both conclude that the hardware is already powered up.  The HD Audio
-+ * controller is then left unpowered, with all its registers reading ~0.
-+ *
-+ * Suspend and resume both functions synchronously, so that the PM core never
-+ * transitions them at the same time.
-+ */
-+static void quirk_amd_acp_hda_async_suspend(struct pci_dev *pdev)
-+{
-+	struct pci_dev *acp;
-+
-+	acp = pci_get_slot(pdev->bus, PCI_DEVFN(PCI_SLOT(pdev->devfn), 5));
-+	if (!acp)
-+		return;
-+
-+	if (acp->vendor == PCI_VENDOR_ID_AMD && acp->device == 0x15e2 &&
-+	    acp->revision == 0x62) {
-+		device_disable_async_suspend(&pdev->dev);
-+		pci_info(pdev, "async suspend disabled to avoid ACP/HD Audio power up race\n");
-+	}
-+
-+	pci_dev_put(acp);
-+}
-+DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x15e2, quirk_amd_acp_hda_async_suspend);
-+DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x15e3, quirk_amd_acp_hda_async_suspend);
-+
- #ifdef CONFIG_X86_IO_APIC
- static void quirk_alder_ioapic(struct pci_dev *pdev)
- {
- 	int i;
- 
- 	if ((pdev->class >> 8) != 0xff00)
-
-base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
--- 
-2.56.0
-
+Thanks,
