@@ -1,33 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C472E481247;
-	Fri, 16 Oct 2026 13:59:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE204CEE5B
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:59:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792159157; cv=none; b=uEJ5LxUcLIyrQMapsoMf3IXwI1g49WjjtsvjtYO55pottinxO0QYfKgqIGsCDnr1zUP938UWoKVmWZrXoDbSkz1IExJwS5AU/uYnflp58ICAuqAWwpmcm7jFO3izEAIY0ltF7JU8j/EuzaKEsSt9MkFPvbgCVR1gVKMspZLCnOo=
+	t=1792159164; cv=none; b=HGqSbKOjv1fAFD0QqzqY+JqG/Hejtk+uHugJTW1WZhuLzq/e1eVTikwI5awIFFkBfpSkhdlKwFElOCBvD02pAtpETF7Q8XuXk9ymc21AbhBCYSVA25EtJLLl5toV/+50SaAAh2Vli84ZfqMrTjgguD6aHaqJOCFHvp4Q3mPsYPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792159157; c=relaxed/simple;
-	bh=eZPqeJfpi3ovuHOluOXJ5mxMfpcbJmMz0/xRVbNrIxw=;
+	s=arc-20240116; t=1792159164; c=relaxed/simple;
+	bh=HlxxOX9hc1IcZ7vS0lzEwAlAmQp50vCCaoHbS431348=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ArcMc71jKcpip762vtVvZAs8oGybVL00f/VbyGGF1TJ8CgDvI8ABrhX9bzYhy4yO7nKc/pWiLxMBsO9es5860hqlHwmBF+kBduv9SeWbTUaSsfS6Yc5yM1JHWa+jlgXSSfH64r8plh9UMbm1QITJswzUMFiMPLMe1drR7aA12PE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W1WXb2fT; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=OSNUh1kx65rv7BD3UgVqsOcnzwVUOgo9HMaEyGxx0mAYCmvzDSIOuZheujCi6Z8v6vO17AU4AHKirN7LxFv327v3mZimECE9un7g1sDmcJ9qrW/P+51VEbC6B5AMHIDQ5vP28wuwrismQe2lFEGB+zriZHZT7ZVMbVa9D6WAUms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=WAbEK4fb; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W1WXb2fT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AED81F000C4;
-	Fri, 16 Oct 2026 13:59:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792159156;
-	bh=XudIlMQarFNL2FAQqpi5gXL30E9A2qim7k2VgfG8EnQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=W1WXb2fTmVR3zVJNx7GxIYboMlWYP5bbxA91PRZU+92wg4hu56LPpwe0hOQzDpRqP
-	 Z0YTuzWo0zcambD7i3qrpKjR6CnD7cl//UVJpS6AxdMeENA+gKVizlM3uBEQAt2k4H
-	 6ZFn9Rk+fLZO+5ABk7UjrYof+iYkc8ktGOs+5jpzyDq5E35wrn6QUnDJ5ltLczVqFD
-	 W3VDzv+lMCavA/Ek9bz09RbW9GLb45pIzyuNEVa17OBnVAp36fHcjS9pq8Qx5sTlqD
-	 Z/KypTUG3LzjTMwRjXr9XyTW1GcWZ3U/LNchdm0QV45DEPpV2aOUBO4SImm5xFJ8aA
-	 zFrvFhG45SWvw==
-Message-ID: <cbd2e370-c8f1-46c1-87a8-fa25fdf6ea97@kernel.org>
-Date: Fri, 16 Oct 2026 15:59:10 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="WAbEK4fb"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48c45111bebso4160618f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:59:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792159161; x=1792763961; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kZ7aNbjQZUrQzNKHssers5+AZqgNNYh0ssOAYLIZWvc=;
+        b=WAbEK4fbM2OLOIDmTSsQde5j74EB0KJCUymGGjE2s08OXXpAI1vX4j5VKvXVFvn6iW
+         6hK1ElX0WWWuXtgjKRQBz7HlK035F+Spprg1O40zu4LpdNpZH4v3AmSxmgUr82/BW/B3
+         MPCgEHBp5lGUGYnTGFI8oRtUaoGgpwjlAokjFZKyFC/nDYjnDoUw03I/nImeQnKq7mIc
+         ETLeBpjgQfoos/qjopbXvMCinlsEn4C9FEWnBPUVz7U9mgPt7P/L6dCgyM/6afncodlI
+         7EL4mj5McxrbK1cccX4t1U2SJmUtaYLcl/5SLb7XIilxCzhhOnkSzZIZWmzsGl8dRj5P
+         7eUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792159161; x=1792763961;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kZ7aNbjQZUrQzNKHssers5+AZqgNNYh0ssOAYLIZWvc=;
+        b=kOiBmom4KFqzR8jAX2IVpO+NdHsWMpTh8sWtXtDGcivybOvupjFzfa4vgLo/rUIHeG
+         SFjNb23IlcJ2svu1rgYtc/+JoAWm8awK1EPH0/5iqHg7YlNh3u9DBKuoT/DE8HgPRpI7
+         PwOHTaR87v2uPgVQmqe7eyLA4PywRwOiB6HQm45D9rlWSlPWDfDLzCG/lilCR0uuVpH9
+         T6WCWfWJjHo+bGPbPNao+pkxtL8hW93HyUpl9Hu9pLQcXM/tWOqyyeryxiYdr4gclEPs
+         wepzK6f7gLD5+tkrswWlneu2vJtZzV7EYCmufNvpmV/sQavQ5QQS5WoJFx1sLr3Lc6+p
+         IDrg==
+X-Forwarded-Encrypted: i=1; AKwUvBxQo5+U8DJx9ciyq+exHzr9vBzzwIzaR9KhemURAilUdjVIQG9xSjhbCy1VRAGQDG06vUBlkMe4s7EbzFM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIert2aJWm78eL/jZEhwQTYADkBELzSVQZTAxu63yYvq6UE+5fp
+	N0a6Q/ilp0p7pUckmeUK2vpOgFGDSbHi1Kq5Ba8uoG9i7g3V20wZl3wbQWeHQrG6evc=
+X-Gm-Gg: AYBFou0vtPsZIfmHILlI/lZpR702HwyuQoSgKPavFIEsSO05kgiNshzpQJB84xp+KJs
+	TsXcEzA1eE3i8e8gxtkJeW4fSaPAwdqHrwaJyen9qN4FPpLHP6+jeIsrjeywtft5Y5C7Sy2jmt8
+	pD1OAH96W7dma4SCXDwnGlkGRlIGX/o4Xg2sjmG6k9HooY7hGHzRy0P/iEQscSyZjJNIXsLHKfN
+	WgDv/rnCjn6LVrdNdcURbqQrr/YPS1iI5L7q1I063L4LJv4+2M1K7gl8GDbJUt7fMI9PwF+qVpA
+	pc59BhGwmmKYFCpIzut1IwCMEKW+aONBhi+As2YN/R7+mZtjkNV9xN3HxOxAKRrhNN7PyxeG+Xo
+	tTma89KR88qej7unAmRgwgAU770JTQeWPb25sgZvXXEnuVoUKNnzTQ/epQLtydfZOS+wtUzLxLC
+	hTGZkLEusK4+XDKxZ52nRzcvl84M6vG4WAmDPamGdFjKSQ1w3Nnlqjp7t5+Q/EUoYBIH3Gxjq/v
+	FWtzNiGQEYJCBy8uwgxp4/yt175cRrjGMXw8zO3qGmN2GxfhBVuJckRt3PDCA==
+X-Received: by 2002:a5d:5f82:0:b0:48d:ff0b:9b52 with SMTP id ffacd0b85a97d-48dff0b9cf2mr4016547f8f.19.1792159160653;
+        Fri, 16 Oct 2026 06:59:20 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd500e75sm5181686f8f.42.2026.10.16.06.59.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 06:59:20 -0700 (PDT)
+Message-ID: <73a053af-9c07-4d09-be30-66778b5f433d@linaro.org>
+Date: Fri, 16 Oct 2026 14:59:18 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,93 +70,129 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] dt-bindings: mailbox: Add AMD PL Mailbox IP
-To: tanmay.shah@amd.com, Ben Levinsky <blevinsk@amd.com>
-Cc: "jassisinghbrar@gmail.com" <jassisinghbrar@gmail.com>,
- "andersson@kernel.org" <andersson@kernel.org>,
- "mathieu.poirier@linaro.org" <mathieu.poirier@linaro.org>,
- "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
- <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "Simek, Michal" <michal.simek@amd.com>,
- "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "Levinsky, Ben" <ben.levinsky@amd.com>
-References: <20261014213426.2957480-1-ben.levinsky@amd.com>
- <20261014213426.2957480-4-ben.levinsky@amd.com>
- <20261015-humble-eager-mushroom-9db4aa@quoll>
- <DM4PR12MB644859F1CA3A936684A3338B839C2@DM4PR12MB6448.namprd12.prod.outlook.com>
- <7067e343-24b9-4e3e-8e5e-42c98239ccae@amd.com>
- <0df4bfd4-2bcc-42fd-a22d-e704e4b41d5f@amd.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH 06/25] coresight: perf: Simplify flow for CPUs without a
+ path
+To: Leo Yan <leo.yan@arm.com>
+Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Yeoreum Yun <yeoreum.yun@arm.com>, Jonathan Corbet <corbet@lwn.net>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+References: <20260915-arm_cs_support_aux_sample-v1-0-35cf6f297d20@arm.com>
+ <20260915-arm_cs_support_aux_sample-v1-6-35cf6f297d20@arm.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <0df4bfd4-2bcc-42fd-a22d-e704e4b41d5f@amd.com>
-Content-Type: text/plain; charset=UTF-8
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20260915-arm_cs_support_aux_sample-v1-6-35cf6f297d20@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 15/10/2026 17:31, Shah, Tanmay wrote:
-> We use 'amd' vendor prefix for all new drivers & bindings. Also, there
-> is dedicated IPI hardware which can be used as mailbox too, and we
-> should distinguish it with this PL mailbox. So I that is included in the
-> compatible string. (pl-mbox).
-> 
-> If we are also to include SOC name as well (per compatible property
-> guideline), then we should include one of the SOC name as well:
-> 
-> So, I think 'amd,zynqmp-pl-mbox-2.1' is good.
-> 
-> Krzysztof, are you okay with above name? The 2.1 is FPGA IP design
-> version number and not the SOC version number. So in future let's say
-> that FPGA IP design is improved then the name (pl-mbox) will remain
-> same, but only version number will be updated i.e. (from 2.1 to 3.0). Is
-> it okay if we explicitly mention this in the binding description?
 
-So you will release the same SoC with different versions of the block?
 
-Best regards,
-Krzysztof
+On 15/09/2026 16:48, Leo Yan wrote:
+> etm_setup_aux() removes a CPU from the event mask when it cannot build a
+> path from that CPU's ETM to the selected sink. The start nevertheless
+> allocates buffer handle and keeps event data active until the
+> corresponding stop callback.
+> 
+> End the newly acquired handle immediately when the current CPU is not in
+> the mask, and do not publish event data in the per-CPU context. The
+> event remains logically active so that a task event can trace after
+> migrating to an eligible CPU. A stop on the unsupported CPU then has no
+> CoreSight modules to disable or trace data to synchronize. Mark its
+> hardware state stopped and up to date.
+> 
+> Assisted-by: Codex:gpt-6
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-etm-perf.c | 38 +++++++++++-------------
+>   1 file changed, 17 insertions(+), 21 deletions(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
+> index 13d865ca86f1161b2e21174f096473c4829afc8c..afd22fd4a851e600ab69fd5b6883e6f8518b2cab 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm-perf.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
+> @@ -572,13 +572,15 @@ static void etm_event_start(struct perf_event *event, int flags)
+>   	 * the sink was specified or hinted to the driver. For
+>   	 * now, simply don't record anything on this ETM.
+>   	 *
+> -	 * As such we pretend that everything is fine, and let
+> -	 * it continue without actually tracing. The event could
+> -	 * continue tracing when it moves to a CPU where it is
+> -	 * reachable to a sink.
+> +	 * In that case, leave the event logically active but stop AUX
+> +	 * output on this CPU. The event could continue tracing when
+> +	 * it moves to a CPU where it is reachable to a sink.
+>   	 */
+> -	if (!cpumask_test_cpu(cpu, &event_data->mask))
+> -		goto out;
+> +	if (!cpumask_test_cpu(cpu, &event_data->mask)) {
+> +		perf_aux_output_end(handle, 0);
+> +		event->hw.state = 0;
+> +		return;
+> +	}
+>   
+>   	path = etm_event_cpu_path(event_data, cpu);
+>   	path->handle = handle;
+> @@ -613,7 +615,6 @@ static void etm_event_start(struct perf_event *event, int flags)
+>   		perf_report_aux_output_id(event, hw_id);
+>   	}
+>   
+> -out:
+>   	/* Tell the perf core the event is alive */
+>   	event->hw.state = 0;
+>   	/* Save the event_data for this ETM */
+> @@ -709,7 +710,6 @@ static void etm_event_pause(struct coresight_path *path,
+>   
+>   static void etm_event_stop(struct perf_event *event, int mode)
+>   {
+> -	int cpu = smp_processor_id();
+>   	struct coresight_device *source, *sink;
+>   	struct etm_ctxt *ctxt = this_cpu_ptr(&etm_ctxt);
+>   	struct perf_output_handle *handle = &ctxt->handle;
+> @@ -719,6 +719,15 @@ static void etm_event_stop(struct perf_event *event, int mode)
+>   	if (mode & PERF_EF_PAUSE)
+>   		return etm_event_pause(path, event, ctxt);
+>   
+> +	/*
+> +	 * With no path enabled, there is no hardware to stop or trace data
+> +	 * to synchronize. Mark the event stopped and up to date.
+> +	 */
+> +	if (!path) {
+> +		event->hw.state = PERF_HES_STOPPED | PERF_HES_UPTODATE;
+> +		return;
+> +	}
+> +
+>   	/*
+>   	 * If we still have access to the event_data via handle,
+>   	 * confirm that we haven't messed up the tracking.
+> @@ -738,19 +747,6 @@ static void etm_event_stop(struct perf_event *event, int mode)
+>   	if (WARN_ON(!event_data))
+>   		return;
+>   
+> -	/*
+> -	 * Check if this ETM was allowed to trace, as decided at
+> -	 * etm_setup_aux(). If it wasn't allowed to trace, then
+> -	 * nothing needs to be torn down other than outputting a
+> -	 * zero sized record.
+> -	 */
+> -	if (handle->event && (mode & PERF_EF_UPDATE) &&
+> -	    !cpumask_test_cpu(cpu, &event_data->mask)) {
+> -		event->hw.state = PERF_HES_STOPPED;
+> -		perf_aux_output_end(handle, 0);
+> -		return;
+> -	}
+> -
+>   	source = coresight_get_source(path);
+>   	sink = coresight_get_sink(path);
+>   	if (!source || !sink)
+> 
+
+Reviewed-by: James Clark <james.clark@linaro.org>
+
+
