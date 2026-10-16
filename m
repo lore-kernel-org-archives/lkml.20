@@ -1,241 +1,160 @@
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8EA3148B4
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:42:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792114967; cv=pass; b=OIuE1fisIO1Vj96LNRzs0EeIz5CPNJtaSPzIUvScCFHrqq6j2xoH9TtRGkGPy2yk/kZCHwKm0Zv+EWuUqcU46XjYccArvzE5JnR7cKVhaLLpDClwLqmLHf3UrRDMw5/MOZdMmih1u3uUsq3B59bLh5GvKP7HGKkDb8vR0jZPT6c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792114967; c=relaxed/simple;
-	bh=6i0WeLMlEghQpb8uyJNW0pyE1aTfMio3zAYz4uekepw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GYAS6B4XHjAr81iS+ya7Q7YHBuRaE+kh3R0mu8XKwjFIhRHfgVJihQhD1FrCZddighg0wurK6eExlw29FafHQl9fZV4VXyLh7REoh7/tjaDwX4GtvUeMJXhnMBrjHDuxZ6ENCYK0B4nm6utjwvEZnS83PvXc/lr6JGBsovDR0+k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=dHwUKkxt; arc=pass smtp.client-ip=209.85.217.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55DDB23C8AE
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792115035; cv=none; b=q0cYSf9/Fx/dSUuXNkooQzxE9O486ypj9txo0/t4x3x8AKCo9GK3s6XABYuRrr1KLwppgFYx5kx1abzpglfvFhE5mCthNwuSHtmp/jYJve9j9Dd4sqMYbgza8K4hRk/a5bPVNnIbXUamtR1DX80ett4q0I9cgG4nGn71BRqqaJY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792115035; c=relaxed/simple;
+	bh=kQkjlsIrQcHp2Nsx17GlvS9gPFBsPnNLRmimpEElKy0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mMhqwxnVv+mr93ErpXJg99IleJGARdQYT3w+iCzj9dXDazq/WQZ+lx7HcjsCK8Lap7UWQK416nXBo4wvp4m6XuHIfs2NRZhRTBAMVywfAC8JPzahKp0c96RnwZQjwAgMEmUoUpmQjOt8cKQKZ1ocMDPrH0XRQTADvn6gNJRGxFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QL6IvYB9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bO9pe9MR; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="dHwUKkxt"
-Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7c03744ef27so694436137.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:42:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792114964; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WYqybf0h0hN9WN4BAmej1umySxfzfbX+4eFo0eBJD9ppxLhFrugrytn5bkkckp6g9e
-         Edtoj/BxduReEerH22e+SfxAZnB4tNZ1B0wVnJW9OOQkuKC8DSFYSpCAgTyd1uy1w3dZ
-         cgyHrcxF/Iidv9GMyKbgZVIHQDc0VUAaYhDsW2yE7GG+lyU1Qt3Lnf1rtklurPlZmMjD
-         JNOJFvLBQKhvl38Sfjm4pQpHIB1JoB4sW7AUxZ0ELtjR069D702V+NRZpC1fH/xgaCXP
-         d4jtU2B/fFrLvln6WcypVCYKUI7qSTISXBmI++pSqjPINnmlyrQ3gKraPeC4+oQR7/1w
-         Rrhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vVZmsIf6HaIgsl+foEZt+wGwwAVohSj5QpggFF4Hfm0=;
-        fh=lnpihNFwMncLXDJTnT8twfuVyFhdQT4O1cbqC1olgTQ=;
-        b=inhZ1clppWivHPKX4P28BwMDlVf4UIgSTzjtR/Jikd1f6DAq+0+A5WexgHRe6nFtFo
-         vCXYo2N0OR5HMLnEmJMSchCK1XbmwWet+h7y4t5HDI+0VIMd+xl/w/KVHjiBFelUn/cm
-         d8L8+79pFDNDSHRuCj0gsAsKA4RwBZ8gIwOdZbtXxe5UzLzlaIejtFzbfInr54WIuR1n
-         15HJiokHt0EgzaGCQWgC9TeLMyXPDnhAP9Yfz7aL++vm6C1F/O+c3idGyw7RXj5y+fKS
-         PJgp6Sz/gOqjkZ5GBwpAvKG5HlKPDrJRRGjcUoBj4IRo2YvDLdIE1BqgGnYzL20LAX4x
-         OXiA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QL6IvYB9";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bO9pe9MR"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FNg9VB1635468
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:43:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	d2AdVVW/1VpGBm6jZek+loZ/L/qPi3e0KDm+GCFxSGY=; b=QL6IvYB9Pb1vVLzF
+	IXjkvxRV9jcqbQQ/dczG8OCsZqgZTtLmqPFKo7MEEsmtIYUS5mxCwuAZM6UbOUD6
+	JlPCHhp0piwaz07IGMiohubcoMP8VkWm1sDmT+lEchO1PzoR0L+J2lzKgKYa1wtw
+	zFUbRUPuJfoKFVtbd7brLJnWKDx6RiGrwl597g11T+YwCUqHu9DKuCKVo33bg1wb
+	Nx5ymk383xgIYrsCTX84a+IledBVnWqd+GApJ6MtDVcTurcd+lK7Mxe9EEIqWWVI
+	y6WezmyliYkzcpF0fyum8d70JNnAoE1LcevN5/LUNqLQr8w02x/yChdaIRp6BZK2
+	NsJCRQ==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb8r10a8f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:43:53 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-89f2846ab57so656720b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:43:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1792114964; x=1792719764; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vVZmsIf6HaIgsl+foEZt+wGwwAVohSj5QpggFF4Hfm0=;
-        b=dHwUKkxtT9v4HUYv2Lld2UBpMEcFf3QrincCRGO7nxo0C2NCt+rLHbMsRVi0CTdbXC
-         CAOa/ulY+xcyzRp7Lsx1CZV8jwOF9L0fK47LvHAp2V7k/52bZxoi9dXBS+N59qc5RwBi
-         LcvRfeO3yfDVTHbW3F/6EdQBtBszkeCvXPAn1/7wu1S/7KdWESV8fJFbXSuXnI8dKOw6
-         6fWENLEA5WfJOeikjeARsP1G5yJg98Kl+xgJUCQY4CQ8tcdG5BjJ52R+ZlZCEqSa1rAj
-         UV7aPcRqw1thDiWWUtrWSnXuqVNRO+QF/0dJr2YQjEoUxf3tgzQsQwrWmo1g0biXT9bK
-         LNeA==
+        d=oss.qualcomm.com; s=google; t=1792115033; x=1792719833; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=d2AdVVW/1VpGBm6jZek+loZ/L/qPi3e0KDm+GCFxSGY=;
+        b=bO9pe9MRUhbqpltc0Th8nBQBavQam+KsdfIpBY8Tb+jiJCvYodDFLUgoqfAmW4WZNW
+         JO+7Q0jMRpIZKcsUzQuwwS4uofsSZYkdv3PXbT1eWURdmK6Ed4SvuykDcBjvu0EjXIbK
+         7tG+gb4J9KnEpcsRv3gw67WNOUwqd1bVURkFECH5kqEB05hjrCCSlXCKmJYC46Kigg/n
+         3vTs/vaMcm6ZBpIHTQBtt9AA8qLVUij244ED2caMdT27XXOUr+KAW8oAGoM4BKt4gR3O
+         9Taefjd04kxAgZlqFuVy+karRHLn8fFFzCp/XVIvAAgD7duN2QTINVq7/yNzRskpdQF6
+         3IYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792114964; x=1792719764;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vVZmsIf6HaIgsl+foEZt+wGwwAVohSj5QpggFF4Hfm0=;
-        b=Hu2l4/8TWbDuiJqieRM5g5oiMe6dbfj/KmKJhffWrZ7NhiL8lK0Wn4AwK59iZDSent
-         Zu/sQNrgOtzlPHROLLB7sghSfYVRudzo5WW1/Rxsp60FB/bIn1ptUaHMYe1TGYJDZ4Lj
-         f+ZTems436Am979EvhtUtxeTYgUKkWnd2vhXbw8uhT1Ht+H0EYXzhlPqiv56eo1DG11L
-         cnpr8+3M+ZjRPtZACRd8rq6y5P/3RtKEbOkUb1qCoreOeREFFJrfOAJvg6+JBE2r+K3g
-         DoXO62PHQMfW14lqxKycuoX1bN9ysPQ5HtRuKNYzSDrNgyZmWdIH0idijWBMbRapvzF2
-         jYQw==
-X-Forwarded-Encrypted: i=1; AKwUvBxvfqczR4t3yNf4KybAzDuEKUPxQzpcS+HbIR/UKearIdnhnL2SSH+De//GlBJ+78XX0kGivxJjbboxhYg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRIlxQjRA/msyZJXyP+gd7ZB5LueDpHipA/p/rFiyTB0PuvMpO
-	kjg8dLctq1x9n5fETP2WALhbY5MG8T648TCbRzDwYM9n7shbOr2NsysrABm5wmo4eWdtPTH4ZhR
-	h8xLAXG2/7mBkWlo/m9Vx32WxDgfsuBC0sGvW3l7o8w==
-X-Gm-Gg: AYBFou1oFJ+W35QmrQ2BfyW5qFX6A8jney1DkfBLTZcAo3xXvwqPxGyBBhM6TExnT9U
-	Ylg8CZPQ4/Uj6u+7OR2Q6FfUswmY2ZrJNp3/LyRWK+3603+GdiDwF0O6j1e0cUHM7cpatZqmUOh
-	MagsqBG4wyGhptwvzqnTkOiDABKtPY21x5R8zudzVLaFI8pOPlHQKxKANL54M+evMmsxPGIvxpt
-	nhXf4MPIgqXBJpo3cbLNtYrTwh3WbtayYvBB8Oo5GDcGGM2EiaTCC/tDgNXEqE3XET33hNERq5h
-	aF8Q5SnBdE/FELcgYNub2mJ/lrbWwGfmKWOPaUVovYPksS5DsBkeJO/xury37Wu0w0djzoKbDkD
-	2M+l+HD6UsJ9jr+Xom6ycEpKOv24vrXXZSwhA3jePtSbRsdaGF7l3pUghh449/STEaRjmqnTDDC
-	yHG3dFpVUoDJ6PUKz74WEWXCENvSUVeexIM/q8kpQ=
-X-Received: by 2002:a05:6102:1624:b0:7b4:740b:9b6 with SMTP id
- ada2fe7eead31-7cb373de30cmr5338155137.26.1792114964042; Thu, 15 Oct 2026
- 18:42:44 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792115033; x=1792719833;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=d2AdVVW/1VpGBm6jZek+loZ/L/qPi3e0KDm+GCFxSGY=;
+        b=GxeH+knzYxJZg2/XF4xo3Poqh+9LRNMv84pvYPPJw4ySf3XZyeXqye5s4UdIThyjRL
+         rEmhFhgT3A8yMdMWYJKnn7vtG5BllTSXleRaRCciM8uB3aRr0f2zTMTAyY4hb7jHkqUK
+         w0EHC2gWVdg9HHLf6AfJJ8vvUs0e972KItAQb7V2uXPfouK6ncHEUwMKjZjkAkpC/owU
+         TSB1HK/txJI1PSIsSLowPIgrUjW9i/zPhg2msRmAK1+w7OVl1JbxeqxtCqPV32CgNIIn
+         BywkLTUXEibn5WuNWYbkxHzRG5qJ2Xr2T/cQGcMC7myQVPq7bac3SYhux3Hb5bTv55tz
+         7r7g==
+X-Forwarded-Encrypted: i=1; AKwUvBzACRvcgVPaYDTjUD/ALXi4g+FQNA4D4tvMnTDcX9DpHXujqRz590ifljog0U3Oq3t07bS+tfyd+vjh0Hw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5nadmI5OD+/719ULsgjTnlZAXuBEUpeDDrFaDsCdEK3PwiG32
+	GN9iHUJcqZ+TTjQNTKaPq4TSbWuBTem/Afxut23cMY7imXegJ5Kd1n6F9NlnVmGtiBmB8vNfAyP
+	l0qJ7e8WaLytYgLYAYarmpuLfjiOh7PPqblRZ0rqwbiD1zw6V30FlEd7pZh7d5pFch6JUKbsbhd
+	M=
+X-Gm-Gg: AYBFou0ElLCIPNBIokkJJJZVaJbrRaJJbxSICLzUoY+aycqXVQfbgLy07hJ8iVHCNK0
+	PKY0u1gkkdLmLRckJoWipB4OZo07oel8jrnmfWzp0M/btZAiBQqNueEcCE+fQzMJVxsv+zsgEav
+	f42Q78FoYJbzpV3T8HWyidjvt+N1cgO7FtemJtwvAst5Q1U141YIv4mFRsFrOeL6bcEgkg2XpD4
+	mLZPWte1omgRu4mT2dOnoVQX0JJbCS9qI7qVlq6Sl2l64Q65Omavn6AiIzxYQW3zJtkGFSaSVLe
+	Lsv4b5FH6T858bocmbyWuTzdB0fYEBr5/otrMQ0skD62Gu5r0l09abOi9/vxy1pW3GUm7UawmvN
+	Fej8AbhxO/M881ruREJ+vSE1CHT37riLEDXIjTA+g3PctFUBfTwthE9lzKiuv+u2j/9afrsM=
+X-Received: by 2002:a05:6a00:2c85:b0:887:17f3:94f7 with SMTP id d2e1a72fcca58-897c3ef90dcmr17799427b3a.1.1792115032724;
+        Thu, 15 Oct 2026 18:43:52 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2c85:b0:887:17f3:94f7 with SMTP id d2e1a72fcca58-897c3ef90dcmr17799413b3a.1.1792115032341;
+        Thu, 15 Oct 2026 18:43:52 -0700 (PDT)
+Received: from [10.133.33.32] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f579456a1sm326500b3a.35.2026.10.15.18.43.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 18:43:52 -0700 (PDT)
+Message-ID: <55cd74fd-cab2-497d-83c2-82e485b1dae5@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 09:43:48 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013033920.2069285-1-rjethwani@purestorage.com> <179195063165.434549.13463545924832836566@kernel.org>
-In-Reply-To: <179195063165.434549.13463545924832836566@kernel.org>
-From: Rishikesh Jethwani <rjethwani@everpuredata.com>
-Date: Thu, 15 Oct 2026 18:42:32 -0700
-X-Gm-Features: AclHuK8N27mGc1KdN4KK4gKo4gYl82sgI4zi_aMkVLpv1hbhFdnlLIxftdE1ahY
-Message-ID: <CAKaoeS1Bvpm2OQ_yrfqe6gJRMdY5UZ2P9oNc-d4CEqTMSUmuyg@mail.gmail.com>
-Subject: Re: [PATCH net] kcm: defer receive parsing when the lower socket's
- read_sock may sleep
-To: netdev-bot+sashiko@kernel.org
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, leitao@debian.org, zirajs7@gmail.com, 
-	runyu.xiao@seu.edu.cn, jiayuan.chen@shopee.com, brauner@kernel.org, 
-	sagi@grimberg.me, hare@suse.de, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH ath-current] wifi: ath12k: Fix failure to create
+ ath12k_dp_peer on MLO reconnect
+To: Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>, jjohnson@kernel.org
+Cc: ath12k@lists.infradead.org, linux-wireless@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260915080053.918500-1-miaoqing.pan@oss.qualcomm.com>
+From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260915080053.918500-1-miaoqing.pan@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: yy8PgaMEmorURz8IirqBsUhxdmEr7dN5
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAwNiBTYWx0ZWRfX6/AsnSqU1DUc
+ NRsUn8GPntvcl9PsBqvaW4qXSPiYLIDnTukU2DS76t+493XnqwMgXw6CXeAmNSiT/0qy4Rg8l7L
+ CY4sT7KIxXqW3QyK9yyC4O8dOQ4iHIQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAwNiBTYWx0ZWRfX00p/Tn4Gdv+m
+ RyGyza6zIbGET7pxBYeZLXx7/4S3xRESA80/IlB3D3jPlOEdmYPBVjMIfz/tFvxq/98/0K5ljKw
+ dDC1Y3XzrdLBlg4Y+867+6EnKF73G2wFaylU3H5VeED025Rh77ou/muWYPTb9sgrG44R+GbcTRf
+ 5prHXEH6zsa7dO4eE/DUd5PMCCrvQY03sDk9272iZIwqQFF5RIEmH6/bAW6v9KRHoycOzifBvlv
+ sdNOcUizQglg97E2/Map6Y3NFI8yhboTT3RDtnGD4jkmevBNSb8zp1YE+JBe1VBTd627DAtd7bd
+ cQ66hq9yAruN9akRyFNLwAAWhS7R/sK2hyvPOz3ffxl1YbvGAQRAVkWPGhacmJWMnUxKJBI5M6c
+ bfkSQGuijKsMClzRWzxCuVGr0OLzvtIhLOeQXLryvzEOEGZBHDEMMBDbj4OLxkyCxlseEuGcsGm
+ 1MATmZ/kDenxmuz5jYw==
+X-Proofpoint-GUID: yy8PgaMEmorURz8IirqBsUhxdmEr7dN5
+X-Authority-Analysis: v=2.4 cv=L/CI0OT8 c=1 sm=1 tr=0 ts=6ad18159 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=FeBjiSnNOcrKIJN5QMIA:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 impostorscore=0 phishscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160006
 
-On Tue, Oct 13, 2026 at 9:03=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] In net/kcm/kcmsock.c, psock_data_ready() now passes every
->   data_ready event on a non-tcp_read_sock lower socket (for example, a=E2=
-=80=A6
->
-> --
->
-> kcm: defer receive parsing when the lower socket's read_sock may sleep
->
-> This commit changes psock_data_ready() so that strp_data_ready() runs
-> inline only when the lower socket's read_sock is tcp_read_sock(). Any
-> other read_sock, such as kTLS's tls_sw_read_sock(), is now deferred to
-> the strparser work via strp_check_rcv(). The goal is to avoid sleeping
-> in softirq context.
->
-> > diff --git a/net/kcm/kcmsock.c b/net/kcm/kcmsock.c
-> > index 71af69d442f21..381a8f0b792e3 100644
-> > --- a/net/kcm/kcmsock.c
-> > +++ b/net/kcm/kcmsock.c
->
-> [ ... ]
->
-> > @@ -358,8 +359,19 @@ static void psock_data_ready(struct sock *sk)
-> >       read_lock_bh(&sk->sk_callback_lock);
-> >
-> >       psock =3D (struct kcm_psock *)sk->sk_user_data;
-> > -     if (likely(psock))
-> > -             strp_data_ready(&psock->strp);
-> > +     if (likely(psock)) {
-> > +             struct socket *sock =3D sk->sk_socket;
-> > +
-> > +             /* strp_data_ready() calls sock->ops->read_sock() inline =
-from
-> > +              * this softirq callback. A ULP's read_sock, such as kTLS=
-'s
-> > +              * tls_sw_read_sock(), may sleep, so hand anything other =
-than
-> > +              * TCP's own to the parser work, which runs under lock_so=
-ck().
-> > +              */
-> > +             if (likely(sock && sock->ops->read_sock =3D=3D tcp_read_s=
-ock))
-> > +                     strp_data_ready(&psock->strp);
-> > +             else
-> > +                     strp_check_rcv(&psock->strp);
->
-> [Severity: Medium]
-> Will this serialize all KCM-over-kTLS receive processing on a single
-> system-wide worker?
->
-> strp_check_rcv() only does queue_work(strp_wq, &strp->work). strp_wq is
-> created in strp_dev_init() as an ordered workqueue:
->
-> net/strparser/strparser.c:strp_dev_init() {
->     ...
->         strp_wq =3D create_singlethread_workqueue("kstrp");
->     ...
-> }
->
-> So only one strparser work item can run at a time across the whole
-> system. KCM psocks, the sockmap strparser in net/core/skmsg.c and
-> espintcp in net/xfrm/espintcp.c all share this queue.
->
-> With this change, every data_ready event on a kTLS-backed psock ends up
-> in this path:
->
-> strp_work()
->   do_strp_work()
->     lock_sock()
->     strp_read_sock()
->       tls_sw_read_sock()
->         tls_rx_one_record()   /* sync AEAD decrypt or crypto_wait_req() *=
-/
->         tls_read_flush_backlog()
->
-> While one psock is decrypting or waiting there, do_strp_work() for every
-> other strparser instance waits behind it on kstrp.
->
-> Before this patch, the common case ran inline in softirq on the
-> receiving CPU, so several sockets could be processed in parallel. kstrp
-> was only used for the sock_owned_by_user() and -ENOMEM fallbacks.
->
-> Could this add receive latency for unrelated KCM, sockmap and espintcp
-> users? Each individual wait is bounded, but a local user who controls
-> KCM+kTLS sockets could keep the shared worker busy. Would a per-psock or
-> unbound workqueue for this deferred path be a better fit?
->
-> > +     }
-> >
-> >       read_unlock_bh(&sk->sk_callback_lock);
-> >  }
 
-Thanks, the point about kstrp being ordered is correct, and it goes further
-than this patch.
 
-kstrp has been create_singlethread_workqueue() since strparser was
-introduced, and the serialization already bites today. strp_work() takes
-cb.lock, which is lock_sock() for every in-tree user (KCM, sockmap,
-espintcp, ovpn), so the single kstrp worker already stalls for as long as
-any process holds the socket lock of any strparser-attached socket. That
-wait has no bound and is a bigger hazard than one AEAD decrypt. KCM
-over plain TCP already queues to kstrp on attach and under receive-buffer
-backpressure (kcm_rcv_ready() -> strp_check_rcv()), and strparser itself
-queues there when the socket is owned or on -ENOMEM. This patch makes the
-deferred path more common for KCM-over-kTLS, which currently sleeps in
-atomic context. It changes nothing for plain TCP psocks.
-
-Nothing in strparser relies on kstrp being ordered. The workqueue core
-never runs one work item on two workers at once; strp_work() and
-strp_msg_timeout() both run under cb.lock; strp_done() uses the
-cancel_*_sync() variants; and separate strparsers were never ordered
-against each other, since the common strp_data_ready() path runs inline in
-softirq on whichever CPU received the data.
-
-So rather than a per-psock workqueue, which would need a new strparser
-API, v2 adds a follow-up patch that allocates kstrp with
-alloc_workqueue("kstrp", WQ_PERCPU | WQ_MEM_RECLAIM, 0), per-CPU and
-WQ_MEM_RECLAIM like kTLS's tls-strp. That removes the system-wide
-serialization for all strparser users, so a slow or lock-blocked psock only
-delays its own work item. v2 also reads sock->ops with READ_ONCE(), since
-kTLS can replace it with WRITE_ONCE() after the socket is attached to KCM.
-
-pw-bot: cr
+On 9/15/2026 4:00 PM, Miaoqing Pan wrote:
+> In ath12k_mac_op_sta_state(), when transitioning an MLO station from
+> IEEE80211_STA_NOTEXIST to IEEE80211_STA_NONE, after ath12k_dp_peer_create()
+> succeeds, on is_sta_assoc_link verification failure, it takes the
+> 'goto exit' path instead of 'goto peer_delete', leaving a stale dp_peer on
+> the dp_peers_list.
+> 
+> On the next connection attempt, ath12k_dp_peer_create() finds the stale
+> entry and returns -EEXIST (-17):
+> 
+>     wlP4p1s0: failed to insert STA entry for the AP (error -17)
+> 
+> Fix it by changing 'goto exit' to 'goto free_unassign_link'.
+> 
+> Also, there is another error path in ath12k_mac_op_sta_state() that
+> jumps to peer_delete after ath12k_mac_assign_link_sta() succeeds, without
+> undoing the assignment through ath12k_mac_free_unassign_link_sta().
+> As a result, the link RCU pointer remains assigned and a stale bit is
+> left in ahsta->links_map, which can trigger the same -EEXIST failure
+> on subsequent reconnect attempts. Fix this by redirecting that error
+> path to free_unassign_link instead.
+> 
+> Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+> 
+> Fixes: 0cd46d1f36ce ("wifi: ath12k: identify assoc link vif in station mode")
+> Fixes: ee16dcf573d5 ("wifi: ath12k: Define ath12k_dp_peer structure & APIs for create & delete")
+> Signed-off-by: Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>
+Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
