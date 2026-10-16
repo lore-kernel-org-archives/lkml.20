@@ -1,92 +1,181 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FAC12B94
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:52:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817E03A718D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:54:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792133553; cv=none; b=oAK61U4Xz9brXLgXJ6kSm/EtSjW42T4AGaP62J/vSqXIEbugvPJ620IH1XpGJCR5m7Yb/FrZbhzlRTsd+rJ1VefX18wZcsVy8b9qrLoQETDTSX5DfWViuYkwzBfQAdZ5j0ieDkMzSDwBMKXn6kKOa56nqshL80x3qTmmeKuRFbo=
+	t=1792133701; cv=none; b=V/r5/UEkqyVP2h0rQ30+Yb/Uyx0PsHkJsvDvvZB5FN8Xwb4mEf5bVu3+HqhJcWIikRjvakEnCETlNG31Dw4rIRH6cle0nKbnuJITSMCog0Ct5OBFefC4qj3QX8gedB6YyPFy7XAcqCciN6QV9aU1uzdGEf/FxFazrZov+m9cgkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792133553; c=relaxed/simple;
-	bh=KisVbqPUntzABYy9mOnymfxJe29vSb9aRoxLvpZIzbE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=QgieK7uyzTV6NTGLvZmBLY/Z7wy3bhwTUMlAXWfoglFDfEwmwkYTyLR/1INscPlBbxpQzf3YpFEE8jIjHXcCTpbx6AGrFgOOGshF/lecE+tnw3UaEFhyK5aeA+FzViXleO0mmePvNxxeb08+4IFgYUAaZ6d0wDfumWFU0wz0fLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=MmHOg1dx; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792133701; c=relaxed/simple;
+	bh=351ElCUMniIjiuY5v6ejBqhzssHserQBP/iVWSvo8Tc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=snNFsMLasjmTwfS1lGEMkdIh0mul9F/UzfV3XSK11y6Q56eB7+1qTteEHNHjkL/05iWcN7cAqXYphYkkroFjL0hZIFrnwCTXORA2kEbM6yfvB7r66bOgZxkBP28cCHAmenCC0dWdReSIIHY6zeskK9a+N2kAiokANe1oZ/tGwYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=fXHsTmv3; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="MmHOg1dx"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 9F9E51A1250;
-	Fri, 16 Oct 2026 06:52:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6FC8E6075D;
-	Fri, 16 Oct 2026 06:52:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A223710328C6D;
-	Fri, 16 Oct 2026 08:52:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792133545; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=WlHkJSy/ba8HvsmnfL4B23mq4zTFKgnNgEDVV0rE7SQ=;
-	b=MmHOg1dxGfArn2jR4L+4z8N69tqpP0MmBy4sJp2si7LmksA8mvQGFkkq7FnBXFMzwVNRfY
-	61RAPOkOfKFPSN8kXzWbAFLaK8DSItnbpMvT2nYKPNBaA9In3XZ1MJa1xiTGKZOwsmnpTo
-	RwG5fjDdQ41hdpSJ26d7UxkYhqpeCT0+6r9bq0WNajqFtq3xZuQ2t+D0Jy3TLIOvNztrqk
-	WOOLef/mwNkpOT0OIT/iQCYdxkWGEhAZivYtWilhTFOxrBXbvAhyFzeBiZ7KpeBQLppTrc
-	vX0CU1whmU+hccR/PLhek5yNVtm0R4FAC9chMmopkn24+iGIXocbkvMbH/BuZQ==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261001-bridge-alloc-conv-v1-0-f0a1fe040a86@collabora.com>
-References: <20261001-bridge-alloc-conv-v1-0-f0a1fe040a86@collabora.com>
-Subject: Re: [PATCH 0/2] drm: devm_drm_bridge_alloc() conversion and
- cleanup
-Message-Id: <179213353665.3058528.14437637653539699061.b4-ty@b4>
-Date: Fri, 16 Oct 2026 08:52:16 +0200
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="fXHsTmv3"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48df54150dfso886140f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:54:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1792133698; x=1792738498; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=F4FUcPRLKbuW4HkGF1Z/uZ9MIZyrAfZgEtA7+269nGA=;
+        b=fXHsTmv3mn5/XUwqFLuLfMUoDyPhs/awRoKnFZ14tUv4vbtvAxceM+lVkHyygE+dCu
+         x5TjnQPgspSvl+163qFh4ICcxRBhfaXeWvZJ+LiJydHfeh9k9712AcUXYr7/DvCB8rad
+         yrv+GN5OlbWx0fjYWyGGXOt2ARMbNkUb9ujcwizB40Lsa6Yr9jyZeKp8nTOBQD2lGlEP
+         ezSwKjeE2kYDKWV2nErf1GjPby4wEyj+nZQ5yhW6qssaVjyqP0ff5xjOIUz4wYROBduR
+         J5maHM/vEPDykeLEeXeyvW9/WiKV9NWe9kHSWSwaqkyNdOR6R61nJfaECWkZidoAyQBR
+         NJDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792133698; x=1792738498;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F4FUcPRLKbuW4HkGF1Z/uZ9MIZyrAfZgEtA7+269nGA=;
+        b=x82l0S8hEtiRxKXdB0KrCLhadyr8km8P1g0wVO9wHMBAqQ4wfIml8tIr1iD3ssYC2I
+         0eB7ALmz4amZn1132BYPGDfGFwaJMRoMoKMEVy7zxpy/Fi2115WfcfPj6h46jj/h6hPt
+         bArGAG4wWKpcTZWDS2JNDNSJPl3JMmZuuGqfynthH0226IZyUpuOvnmiyoGsw5AKtCxp
+         oEia67nPl3sb8M7bMQxBDmMyzNPAI30ENyAmnoan5PPAuyplEg/ckiPs/Mo5Js6H9wcb
+         nCAq5iNUPL6Zo1fj31eD9DRJrQabhwbdJPFC98S1/O6WhJvFQiIJQydiCuadxpL3mqV/
+         FE/g==
+X-Forwarded-Encrypted: i=1; AKwUvBwZJWZePz7alNGBvbiHuegzdZWZMieiyDJ45HpEjJLWs1qCiHgHMOeA39OMCG0zVTKHmpYds6ulGQlXtT0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgCE8WW7yRhlSm0f2CIqEzpbjliHu2iPVMUwrgYokgzPUxo7nP
+	W9O8J3y2CgpPDyiD306qd7lFXuZGynRfHbIpHLTITyVa1Yvl5CQPgkL4cZbSvZZKh9M=
+X-Gm-Gg: AYBFou1LKeaQo/8xiBAsNPtFYV6R6/N3JDQiJhL194Dmbo+qf1FFd/Z2LpG775LiqM2
+	9PjBZsP2A8CN0JLbRH0hFxbnzPag3h4w+8EjFEbnNJdQi6upBY4kcekG+J2+dPvv/NQt8YtUN34
+	PAUcWrTeoI6+q0y18HBOsQ43Aji75vfdhx9hNnF267nnqtphnrS8ySBkx3SlQG9Fr0EzAI9gAN4
+	PqfSEi+lWOkBO/DitkYKBs7ITvEbM/U0ieZg0nYwZj3GDw0hTECMkqWEXlhhIDVVyuuHgoko3WZ
+	ADmhdXQ72JwdR23tCgE2OGhPnYy8v5HFuk2SlQN/fLMxkjSoTA9iWpiY+Norote1Ygojn/FuOZ0
+	bEvMhC+LdIvan8B8QbvGdkCG2zsp1VtO+pYLWezWFwPDl04UF79fe8b0+MZFZSa6HP2B9o7k3iA
+	pNTMTWVIy8nEm+kytFgMan/ZaYBmtTZE1MMjE3X3wKJOvY3KryNx0kCZjW8dqHJ8jus/ZmaN8qX
+	2IyLROdFBBa
+X-Received: by 2002:a05:6000:3106:b0:488:8bc1:a2eb with SMTP id ffacd0b85a97d-48dca34316amr34701413f8f.39.1792133697666;
+        Thu, 15 Oct 2026 23:54:57 -0700 (PDT)
+Received: from localhost (109-81-30-108.rct.o2.cz. [109.81.30.108])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd50d080sm3121319f8f.53.2026.10.15.23.54.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 23:54:57 -0700 (PDT)
+Date: Fri, 16 Oct 2026 08:54:56 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Alexis Bouzigues <BouziguesAlexis@johndeere.com>
+Cc: "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+	"liam@infradead.org" <liam@infradead.org>,
+	"ljs@kernel.org" <ljs@kernel.org>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] mm: nommu: set MMF_OOM_SKIP in exit_mmap()
+Message-ID: <atHKQFi0ckwxLa-P@tiehlicka>
+References: <20261013-fix-nommu-exit-mmap-oom-skip-v1-1-cb957cdbfcc3@JohnDeere.com>
+ <as80Rpm-VHhP14aK@tiehlicka>
+ <BY3PR05MB82607AF910C023253C48CD26A09D2@BY3PR05MB8260.namprd05.prod.outlook.com>
+ <atB63fzpLyfWpzPn@tiehlicka>
+ <BY3PR05MB826006B6F1E2D97E247104BFA09B2@BY3PR05MB8260.namprd05.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <BY3PR05MB826006B6F1E2D97E247104BFA09B2@BY3PR05MB8260.namprd05.prod.outlook.com>
 
-
-On Thu, 01 Oct 2026 11:25:10 +0300, Cristian Ciocaltea wrote:
-> Bridge drivers are expected to allocate their private data via
-> devm_drm_bridge_alloc(), which also initializes the embedded struct
-> drm_bridge, including its funcs pointer.  Most drivers were converted by
-> commit 9c399719cfb9 ("drm: convert many bridge drivers from
-> devm_kzalloc() to devm_drm_bridge_alloc() API"), but a couple of
-> leftovers remain.
+On Fri 16-10-26 00:42:39, Alexis Bouzigues wrote:
+> On Thu, Oct 15, 2026 at 09:03:57AM +0200, Michal Hocko wrote:
+> > Are you really looking into the code or just relying on an LLM?
+> > Go and check to learn that the oom reaper is only compiled in with
+> > CONFIG_MMU=y
 > 
-> [...]
+> Hello,
+> 
+> Sorry about that, my earlier message used "reap" in the sense of
+> cleaning up the exited child in zombie state (waitpid), not in the sense
+> of oom-reaper.
 
-Applied, thanks!
+OK, this is what confused me indeed. Especially along with the changelog
+explicitly mentioning coordination with the oom reaper
+: Fixes: 212925802454 ("mm: oom: let oom_reap_task and exit_mmap run concurrently")
 
-[1/2] drm/rockchip: rk3066_hdmi: Convert to devm_drm_bridge_alloc() API
-      commit: 5c0cdbee4fa4a621f871d6dc825e759db08a1a4a
-[2/2] drm/bridge: lontium-lt8713sx: Drop redundant bridge funcs assignment
-      commit: 382c1e8ba409d1611cd256dccebdfa828c832bb1
+The whole oom reaper chnages should have no impact on the nommu OOM
+workflow.
 
-Best regards,
+> I also went through the code in detail today manually using a 
+> backtrace from the reproducer. I set a breakpoint at oom_evaluate_task 
+> (containing the MMF_OOM_SKIP check) ran the reproducer on v7.3-rc7
+> through qemu-system-arm with gdb. I iterated to confirm the
+> breakpoint keeps getting hit.
+> 
+> Here is a backtrace of the reproducer when the parent PID is livelocked:
+> 
+>     oom_evaluate_task                  mm/oom_kill.c:354
+>     select_bad_process                 mm/oom_kill.c:373
+>     out_of_memory                      mm/oom_kill.c:1155
+>     __alloc_pages_may_oom              mm/page_alloc.c:4113
+>     __alloc_pages_slowpath             mm/page_alloc.c:5030
+>     __alloc_frozen_pages_noprof        mm/page_alloc.c:5449
+>     __alloc_pages_noprof               mm/page_alloc.c:5471
+>     alloc_pages_node_noprof            mm/page_alloc.c:5485
+>     alloc_pages_noprof                 include/linux/gfp.h:284
+>     get_free_pages_noprof              mm/page_alloc.c:5507
+>     alloc_pages_exact_noprof           mm/page_alloc.c:5641
+>     do_mmap_private                    mm/nommu.c:959
+>     do_mmap                            mm/nommu.c:1182
+>     vm_mmap_pgoff                      mm/util.c:581
+>     ksys_mmap_pgoff                    mm/nommu.c:1287
+> 
+> 
+> Inside oom_evaluate_task(), when the task is the zombie child pid
+> victim, without MMF_OOM_SKIP it aborts the loop from select_bad_process()
+> and sets oc->chosen to -1, preventing the oom killer from calling
+> oom_kill_process on oc->chosen
+
+Correc.
+
+> Since oc->chosen is not NULL, it does not hit the deadlock branch in
+> out_of_memory instead it returns !!oc->chosen (1).
+> 
+> Returning to __alloc_pages_may_oom(), out_of_memory(&oc) evaluates
+> non-zero, so did_some_progress from __alloc_pages_slowpath gets set
+> to 1.
+> 
+> Then in __alloc_pages_slowpath(), since did_some_progress was set
+> to 1, it jumps to the retry label
+> 
+> As long as the system is out of memory, __alloc_pages_may_oom and 
+> out_of_memory will get called, meaning that oom killer does not make
+> progress and that the parent PID busy spins in the allocation.
+
+Correct. The question is why killing the child, which has passed
+exit_mmap stage sucessfully didn't help.
+
+> If the MMF_OOM_SKIP bit were to be set for the child zombie process, then
+> oom_evaluate_task would not abort and would select the parent, meaning the
+> oom killer can now call oom_kill_process on oc->chosen and progress.
+> 
+> So setting MMF_OOM_SKIP as soon as its memory gets freed (in exit_mmap)
+> would guard against the parent's mmap stalling oom killer, since
+> oom_evaluate_task would rule the child out and proceed.
+
+right MMF_OOM_SKIP will help to hide the killed child process. The
+question is whether this is just working around a propblem or it is a
+correct solution/workaround. There is absolutely no guarantee of a
+forward progress for nommu (due to missing oom_reaper) and overall
+nommu OOM handling is rather fragile and there is an implicit assumption
+that memory usage in this platform is very carefully scrutinized to make
+sure this doesn't really happen.
+
+So the main question you should focus on to explain is whether your
+specific example is  
+	a) a corner case of a valid nommu application or  this is 
+	   a theoretical problem
+	b) why this doesn't break otherwise very fragile nommu oom
+	   handling
+Thanks!
 -- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
-
+Michal Hocko
+SUSE Labs
