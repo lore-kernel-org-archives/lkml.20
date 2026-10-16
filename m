@@ -1,214 +1,194 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E9F48A2A0
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:34:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DBFF48A2D8
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:34:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792154049; cv=none; b=rDQ06NfF1eu+FUmTxyVAs/Al+UM+4u5AAs+e2dgXlc9J1iAOZn+ofTOP2+X6+Grt0PXCXtaalDcVeZfpAZ4ZRbnsy6ZHT4xpKy8eRvRXuEag+Zf/lfexeyaoPc0fq3/YbDvC0tQjvSzWZiW+f6wKBREppiNolbZ/gPQUPtOlTPs=
+	t=1792154049; cv=none; b=ulqgx3x5KYO6Qhkbh3tySk5wWb8nc0YPDHpaJR9T7H4L3/UNuo5dXlLXNFNbM4WmocBlrYb1y7AWqyuHQ9oYedS/hN6fY22p5/RqNlbV8X7R07E+Ftc47r5fl1aRkTtNow5lKNddS1/DJ9GEBCH6h2sRwIvHMM40tQlOIyh0YB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792154049; c=relaxed/simple;
-	bh=SZWhmf9C6mUSFMD4aeE/X1ERq6k9DBMOexQWgtsKUZM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uisMzz5MgPifhhCNtEHJ9f2P19EIvBzVjqJ/MfBeUYx8YDe7FK0XZU5cGPz+axJtyiU+9mrOOnL2O3/Fc+vfrXSv4JWkC9/yrW9KAYFvbfswbQdzoLbMHbxaxvnmHKRXPbO0f/moiedIxF7z0rXwYNs6jYqJp8GZpPg5sCMSHBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E0ZwRQo+; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=hehiMMplNuH1ASVIZKS7JNCOTwicSdsvGPoc5cURypQ=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=BF/LU3bXgvnEDUMcEWtIvxS5p2675gUCwsHMyCDC5U66uu9ecHGYFNQH3OCcLDdLrUeyORKRDlR44UnuVb3dIp2aDdG635Mydg++mMXhxYAvdXm8roDKPFXcwdt73/PPqbML15FQ6QUN/8FZP+u9AMwOj1tjv/KI1ugZz/9WFmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=rMkvsB+U; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E0ZwRQo+"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e940d5d2beso11877225ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:34:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="rMkvsB+U"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so57551125e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:34:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792154047; x=1792758847; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1792154046; x=1792758846; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DiYYlyF1lIbTm6X3s4KBJvrBiAMqzqKJoaNU1Rv1Vt4=;
-        b=E0ZwRQo+1QdMNc7Wk0B8Gk1KlpcRNE1FYgokmKCdgwH69Ufy/mPGio1WnKrH5a9Iod
-         6Y2GKOmGvu4KzPYRghKAltIy+pz9VngDbn+I9mGFos7EUWiHpYPf3+YxGejWvt+kly75
-         QCeciYZ7X4oeevs67F0Xzz0rLNy5hQQn3MLN7iRKeJj4mXtdICYGxsGUdQelOVpvwzA2
-         j0B+TH7tAP4EAaS9UtBPZmuAhR3ce3797be3rryautWgOMUn8PhSRfYkBfswLwEh804G
-         YEmFRQdsNQTDU3oXBoaPcmv7AqC19fds2Eot11SMWcMnlBCUz0IIfY6qIcweTn6x3hdq
-         7CZg==
+        bh=ZIpyq+qJUC7i4cP+JzTAwJd0/DwOmvkqZRCfLBzvRJc=;
+        b=rMkvsB+UIzB2KQ00cNXqaxW8hYzJPBkqYUn/tn3zdeyCfPUkl3V0qEvMsbtR1h6z55
+         YBaUC3LDyIJ5wDnZCk2A5uCa4mrqp+ponQ/e4FoHluTXgmpVMz6dOvGrmSGX2zVSqkz4
+         Hu4CPzHd9BlDHCeN9QIArFRxW7p8vTPJf84X6gJS+Lvnx9tT4JEGum/p4JvH6GLZaNi9
+         lNIe5xVrGHEr7niRJGQEZSB+fGtgF1czLyLoGzkQPfKGdloyl/BsjIOeaYefV8IcdjZQ
+         guZL5qo3KSRKnXoMZy8xTsrElD2tuF6Xy+7NVQLnw28qKXPrbaj1Q14CPrIawA/+zkwv
+         VomA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792154047; x=1792758847;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DiYYlyF1lIbTm6X3s4KBJvrBiAMqzqKJoaNU1Rv1Vt4=;
-        b=rxCOYH2NOmO94wSXGyUAssVq1XIYRrbGns9CsBy0/cCGjYl1qdIt+PeNHi/7CmE1Sz
-         dos0QiGFre1y2Zzdc//hmwrJxH0ELjF+2UzEyG3qs6BT7Xhj5kabZs9EssP4Go1zp60F
-         kDj8e5Mot3Menbdw6xY+6B0btGpXRoDSIdKJgWHrOmRfIUQBsKQNrQ39uTsDIIwK0lh3
-         pLGgA8kzi1Ss6rXI0YNnJaZBRRMQBl6vB7lwAxdJYTjHOI48ucGf5ZJYkwNABmZCmPw3
-         icDvMP7efRK0TGbO50cZfG/71bcm3RB/DjS6eoYQqBruHgbZuzEwXGa+aDM83iyYsIMA
-         ayng==
-X-Forwarded-Encrypted: i=1; AKwUvBxQtZM7zYtu16uLrtmlbwhP1BzUbrDl2VfJ0NRb71/itL9SvM/FQAhM8nbfSHcM4jeApFrLPEU07ZhiGgM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbxn1hu7xz2TKXpGz51zr9q+NUfGI3371XIpLny5uEr5lxEOFY
-	YkhAZ+0dM7YDVtd+eWm5KPLit3iDivA7iRun+r4NjM+THrOSm97VS3Wa
-X-Gm-Gg: AYBFou2ymfaoFORJmt6EGrpoBAlXrQCJ6YXWz+WppATR7TWq+lNquOZnAg13o7QVtIt
-	fguRDvkZEwaPjrSkoqt1u4wruUMKMKu8XfinE7z5YED9LWLcr2KBq3dUrLkGgNCJmlJUyXKy0UI
-	db0nxcHwVvwlN7UFVoBQYzllptsBuhSagRMkqd6qXjHdEsQx3L4zfZNMm/z1fpW3j4vc/CjzkHZ
-	23Xq+b2oRhFn01HcnBKjomveoxa7t7hLyQpHhjSamvlqRAsCfVNFtXZkLsBw02cIw8SyPTtotUI
-	wQ27av+yeUZYSSU7tsjASJ+567Aro8xWdYuKqsm6NeBHygXkYEQMDC5F2rJA9rfv6xPHzZVoCqc
-	wlHl0j8WVRh31chCvn7OxYiTtNIX9FllHDEosah3QaU5D/tedH6itzE9ln3SUtoGYr58kHpk5a5
-	iP+xsrKFwz/KTYPLxLS89bVVDtfOOFnmY7YV02lHKvCO/Bwz+uPKHYoogzprZ/6XCPebHtIqdyZ
-	/Rbug==
-X-Received: by 2002:a17:903:124c:b0:2e8:e17d:c8b8 with SMTP id d9443c01a7336-2e8e17dedffmr131533275ad.63.1792154047009;
-        Fri, 16 Oct 2026 05:34:07 -0700 (PDT)
-Received: from wyb-ms7e59 ([38.55.195.146])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e87993esm9286735ad.59.2026.10.16.05.34.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        d=1e100.net; s=20260707; t=1792154046; x=1792758846;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZIpyq+qJUC7i4cP+JzTAwJd0/DwOmvkqZRCfLBzvRJc=;
+        b=PMzLOD7V0bdI0f2BK6UiSaLqpFd+zjoHZguvUV0oCZeIU9Hs461+n1Ko49Fl68QbTr
+         J6TxQHTWeIr4hgevi+AlFaNkbEbHf8Y+RhDEZRoBUOYdpfjwGbWg5Gf5+tw8j+kgOEwc
+         mOlC/QQ7uf9ZgwYiRfsD6aoueiUJa9THWwQzYaV3SrGn30+juhhwluKdqPqOwfPRSqMg
+         DhCZmrB/qXTF9Qxd355q/jkXteKpEhhyQJUcD677PhTVq03dzDyjBNF7XcarweRN1Y1X
+         HQzsDEawHwACAcAdkSWgMbB49W96b4c8cWDhdwydsNsPIeumIdFYL6o01Oyqzwf/lQca
+         sbBw==
+X-Forwarded-Encrypted: i=1; AKwUvBxnRkn0nSxjsfvR7CfwKByJnH1AaiOPPRPsD19pxHio3SZBhFVG/POwMizoMHYtSmO8fInuR8KRw4hVVgA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPoRXoYWIFJX+Ytuc/WO+llVYW3qqWqP/cgSGJDrYyNcwNl5mq
+	9pOGTFRbdCjNBOvZT2bPOkZ9+Fgalnt2dL02BcoB5uNvzcoCKYLcB2A/9wfnnm9pBWI=
+X-Gm-Gg: AYBFou3dTFQz1h2XCuhGV9o6lWF/TTnrbJxUarj5hrSPvKZYQ1f4mUDdYSAC+MKRQlT
+	GFh0XsSLYB9tDMIxPvomsLWIWviofQ3GIF+eEHXyYWHpM0Gr8G/8OgFpltT6cxu2D/xAtYoGPg8
+	wZEXZqqksN0eWw2BVdTqXRA0KyPymUa3Q+lFQvjDj9RUeDu2vT19uDjoP3GEXPIlaXemXu/ChGu
+	HwNEn6iK0EmiRPIXE8G/lG4NEbcxkzKHD8NRPzyzugFg6z7X/Dmh8ieVqojJA+ukcGxAw2I7ezv
+	fCRhhA7fFm6w/mkAUhxuNwHD11I4DxFmQCIrIAAdHjSFtLBU2D35O8E/GifUI7Dw/UwubwTudEK
+	TZgcHbvOPb3wLlYrgV0cOPd3vt3TkcW1ZoZwlaC4SiHpC5J+5aCmo71knNsQMp0/NO9w1dCWe5D
+	XLZKofNJaIXow50/BBt+60ANJLHGCra+NWuGk1lPHBITmrVtAuybYjmvHF6OaP7Mhts10KJHrN2
+	aN5l1hu1GudpdUjqq0LgSTOXNguhxRZxvSotlV01imnolVxBB6jBA==
+X-Received: by 2002:a05:600c:3494:b0:49c:fa20:cc00 with SMTP id 5b1f17b1804b1-4a18e4c3f24mr492255685e9.23.1792154046355;
         Fri, 16 Oct 2026 05:34:06 -0700 (PDT)
-From: wyibo6109@gmail.com
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yibo Wang <wyibo6109@gmail.com>
-Subject: [PATCH v5 1/2] dt-bindings: input: add OnePlus pogo-pin keyboard
-Date: Fri, 16 Oct 2026 07:33:33 -0500
-Message-ID: <20261016123334.1019257-2-wyibo6109@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016123334.1019257-1-wyibo6109@gmail.com>
-References: <20261015110859.203989-1-wyibo6109@gmail.com>
- <20261016123334.1019257-1-wyibo6109@gmail.com>
+Received: from ?IPV6:2a01:e0a:106d:1080:9e08:19eb:ca8a:9b73? ([2a01:e0a:106d:1080:9e08:19eb:ca8a:9b73])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd5128f1sm4861952f8f.59.2026.10.16.05.34.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 05:34:05 -0700 (PDT)
+Message-ID: <c622efa2-df8b-44de-9552-d2b16159a661@linaro.org>
+Date: Fri, 16 Oct 2026 14:34:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] PCI: qcom: Advertise hotplug with no command completion
+ support
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260314-hotplug-v1-1-96ac87d93867@oss.qualcomm.com>
+ <d709693e-b9ad-4d53-a368-67fbb0cbd601@linaro.org>
+ <1ae8d4f0-1c32-4dbd-a18e-7a2ce2627efc@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <1ae8d4f0-1c32-4dbd-a18e-7a2ce2627efc@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Yibo Wang <wyibo6109@gmail.com>
+Hi,
 
-Binding for the OnePlus Pad 3 Pro / Pad 4 and OPPO Pad 5 Pro pogo-pin
-smart keyboards, built around a Tinno keyboard MCU and attached to a
-tablet UART.  Describes the supply, TX-gate and wake GPIOs, with a
-MAINTAINERS entry.
+On 10/16/26 13:08, Krishna Chaitanya Chundru wrote:
+> 
+> 
+> On 10/16/2026 3:54 PM, Neil Armstrong wrote:
+>> Hi,
+>>
+>> On 3/14/26 02:56, Krishna Chaitanya Chundru wrote:
+>>> QCOM PCIe controller advertise hotplug capability in hardware but do not
+>>> support hotplug command completion. As a result, the PCI core registers
+>>> the pciehp service and issues hotplug commands that never gets completions,
+>>> leading to repeated timeout warnings and multi-second delays during boot
+>>> and suspend/resume.
+>>>
+>>> Commit a54db86ddc153 ("PCI: qcom: Do not advertise hotplug capability for
+>>> IPs v2.7.0 and v1.9.0") avoided these timeouts by clearing the Hot-Plug
+>>> Capability bit entirely, which also disabled all hotplug functionality.
+>>>
+>>> Instead of disabling hotplug, mark these controllers as not supporting
+>>> command completion by setting the No Command Completed Support (NCCS) bit
+>>> in the Slot Capabilities register. This prevents the PCI hotplug driver
+>>> from waiting for commands completion while still allowing hotplug-related
+>>> functionality such as Data Link Layer state change events.
+>>
+>> I'm a little late to the party, but marking the RC as Hotplus means the bridge
+>> is marked as is_pciehp and pci_bridge_d3_possible() returns false.
+>>
+>> This means this breaks D3Cold support completely since in
+>> __pci_host_common_d3cold_possible()
+>> we now check all PCI devices, including bridges, and the RC is not set in
+>> D3Hot anymore.
+>>
+>> The only way to enable D3Cold is to pass pcie_port_pm=force to allow D3 on all
+>> Hotplug bridges. Which may be wrong on TB bridges.
+>>
+> Hi Neil,
+> can you enable hotplug driver and use this patch [1], that should solve the issue.
+> 
+> [1]
+> https://patch.msgid.link/20260729165005.896725-1-manivannan.sadhasivam@oss.qualcomm.com
 
-The compatible names the tablet project the pogo port belongs to
-(caihong, erhai or iceland), which pins the keyboard generation and
-with it the protocol extensions the host may use: the 0x3A general
-sub-commands grew over time, from the caihong (sm8650 era) keyboards
-with neither wake notification nor backlight, through erhai (sm8750
-era, wake notification) to iceland (sm8850 era, keyboard backlight).
+Thanks this fixes the issue,
 
-The keyboard is a fixed physical device, so the touchpad geometry and
-the product names are per-project constants and live in the driver;
-the common touchscreen properties (touchscreen-size-x/y,
-touchscreen-x-mm/y-mm) remain as an optional override if a variant
-ever needs one.
+Neil
 
-Signed-off-by: Yibo Wang <wyibo6109@gmail.com>
----
- .../bindings/input/oneplus,pogo-keyboard.yaml | 76 +++++++++++++++++++
- MAINTAINERS                                   |  6 ++
- 2 files changed, 82 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-
-diff --git a/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-new file mode 100644
-index 000000000..78d398912
---- /dev/null
-+++ b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-@@ -0,0 +1,76 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright (c) 2026 Yibo Wang <wyibo6109@gmail.com>
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/input/oneplus,pogo-keyboard.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: OnePlus / OPPO Pad pogo-pin smart keyboard
-+
-+maintainers:
-+  - Yibo Wang <wyibo6109@gmail.com>
-+
-+description:
-+  The OnePlus Pad 3 Pro / Pad 4 and OPPO Pad 5 Pro pogo-pin smart
-+  keyboards, built around a Tinno keyboard MCU.  The keyboard is
-+  attached to a tablet UART and speaks a framed half-duplex protocol
-+  over a shared single wire; host transmission is gated onto the wire
-+  by a PMIC GPIO for the duration of a frame.  It provides a keyboard
-+  matrix, a touchpad and a keyboard backlight.
-+
-+allOf:
-+  - $ref: /schemas/serial/serial-peripheral-props.yaml#
-+  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
-+
-+properties:
-+  compatible:
-+    description: |
-+      Names the tablet project the pogo port belongs to, which pins the
-+      keyboard generation and the protocol extensions the host may
-+      use: caihong (sm8650 era) supports neither the wake notification
-+      nor a backlight, erhai (sm8750 era) adds the wake notification,
-+      iceland (sm8850 era) adds the keyboard backlight.
-+    enum:
-+      - oneplus,caihong-pogo-keyboard
-+      - oneplus,erhai-pogo-keyboard
-+      - oneplus,iceland-pogo-keyboard
-+
-+  power-gpios:
-+    description:
-+      GPIO enabling the keyboard supply, held high while attached.
-+    maxItems: 1
-+
-+  tx-enable-gpios:
-+    description: GPIO gating host TX onto the shared one-wire bus.
-+    maxItems: 1
-+
-+  wake-gpios:
-+    description: GPIO signalling attach/detach, also used as the wake line.
-+    maxItems: 1
-+
-+  touchscreen-size-x: true
-+  touchscreen-size-y: true
-+  touchscreen-x-mm: true
-+  touchscreen-y-mm: true
-+
-+required:
-+  - compatible
-+  - power-gpios
-+  - tx-enable-gpios
-+  - wake-gpios
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    serial {
-+        keyboard {
-+            compatible = "oneplus,iceland-pogo-keyboard";
-+            power-gpios = <&pmic_gpios 12 GPIO_ACTIVE_HIGH>;
-+            tx-enable-gpios = <&pmic2_gpios 6 GPIO_ACTIVE_HIGH>;
-+            wake-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 8014b9f82..9c29eb961 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20156,6 +20156,12 @@ S:	Maintained
- F:	Documentation/ABI/testing/sysfs-bus-platform-onboard-usb-dev
- F:	drivers/usb/misc/onboard_usb_dev.c
- 
-+ONEPLUS POGO-PIN KEYBOARD DRIVER
-+M:	Yibo Wang <wyibo6109@gmail.com>
-+L:	linux-input@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-+
- ONENAND FLASH DRIVER
- M:	Kyungmin Park <kyungmin.park@samsung.com>
- L:	linux-mtd@lists.infradead.org
--- 
-2.53.0
+> 
+>> Neil
+>>
+>>>
+>>> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+>>> ---
+>>>    drivers/pci/controller/dwc/pcie-qcom.c | 2 +-
+>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/pci/controller/dwc/pcie-qcom.c
+>>> b/drivers/pci/controller/dwc/pcie-qcom.c
+>>> index
+>>> 67a16af69ddc75fca1b123e70715e692a91a9135..a2924610f3625f2456a491473c135840e31bafb9
+>>> 100644
+>>> --- a/drivers/pci/controller/dwc/pcie-qcom.c
+>>> +++ b/drivers/pci/controller/dwc/pcie-qcom.c
+>>> @@ -358,7 +358,7 @@ static void qcom_pcie_clear_hpc(struct dw_pcie *pci)
+>>>        dw_pcie_dbi_ro_wr_en(pci);
+>>>          val = readl(pci->dbi_base + offset + PCI_EXP_SLTCAP);
+>>> -    val &= ~PCI_EXP_SLTCAP_HPC;
+>>> +    val |= PCI_EXP_SLTCAP_NCCS;
+>>>        writel(val, pci->dbi_base + offset + PCI_EXP_SLTCAP);
+>>>          dw_pcie_dbi_ro_wr_dis(pci);
+>>>
+>>> ---
+>>> base-commit: 0257f64bdac7fdca30fa3cae0df8b9ecbec7733a
+>>> change-id: 20260313-hotplug-4c296595b5b8
+>>>
+>>> Best regards,
+>>
+> 
 
