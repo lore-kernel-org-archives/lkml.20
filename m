@@ -1,111 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56A71AA1F4;
-	Fri, 16 Oct 2026 20:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A6E3812DB
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:52:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792183762; cv=none; b=C5s+B519YcME6mXfqC2quffKJ4BiFLgeCMKmYHpAbomt5MPq27B58xh+t5pw1pJF9TpaRLAYcRNOCh5Crlg/tjeDIrriS6HOumhxP9O9f0bXs0Dbl9MvsJHWE41o95wdqO8vNGDN9UYliEhF7gYCIzMTNS/BV//w0M/oACRk3lU=
+	t=1792183966; cv=none; b=S/DDWoS9AEnYlGJCRQTEvowGUtx3Q6p/rAmcNkClQ4vilD5HUHmWukvbVslPr7mvJhMpZWUdBMXvl87jvwkGE8/ez95hLS3sBtlqS6AcCjlS+6ISEMpCB+D92hXyBKom+80yrh8evtZFWo5cL1EQDnRI9u9iJ/MGbGlIupYcZiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792183762; c=relaxed/simple;
-	bh=F1YwocGuB5wBG/+T9FgM/ZWNUxNhaSBy6/kicqGxaYs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VZYCNYGwGHnFCe9PvFglu3PumRq1eulfTLu268qRmaZB9W7BJj+il/WyGL57eF+OzuNyxsyR0ozoSfVLVsmyMt3AldtwgYqlMuvcqg+7d8ajh9kf2lCHT8FB6bJRxu8wmgb7Mg6bFhv1VoLOdRHkRHOWgQJQoMI4kURo9ezEISk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ovh0gvhL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792183966; c=relaxed/simple;
+	bh=FkuzvAMchkaQH44NJto28j+gBNxCgfy/fDlzZOBPlmg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lQz5op8vryNXtWXtDgeZDZdKXauA1HKFuLaBmaSqfpaAnykUPSOXleQovX8AE8ylzybz4KU3kGo9Gb3yZpoogb6mO0emnLtsoj9KUb56Ij1q8HlvFPcPLhiHLK+mDyLy9/FEcEHqVDC5owOoTVgq7kCCEQYhRjR5DI7ZFu7RJhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JvaQkHYw; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ovh0gvhL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735151F000C4;
-	Fri, 16 Oct 2026 20:49:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792183761;
-	bh=r4J0Jzg7N3u7C0+ED/NwcN1PIj5f66Ln1oWcN4Vza+k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ovh0gvhL3qxeKhuyycOjLHcdQQz7A0m2LCRpdUEl+4chPm3CNyHavohKSzvjia8WO
-	 LhFK+Xen9mblMKuPQp/RBa2hQMor5nUa3JSK3sCbExlnaOeAkiaegEzBnaWJm+utrO
-	 S6Z636g60fBl588UUPK7zM6avTRmXh0xtGRUe/jgaDZ1ZW6XG6hor/J+68VzYH2czA
-	 OGC008TxHc96R016RhL89A8qSNiJpdzzGsTVByOOJBX/CkAFPSJqlXMvLu/0O0dhyV
-	 NCOzM1I278C9+tlxqep2O8Su+6g+ub6kmN7FileiwOjXPJcxnn2q3r54ZvP7LddIdh
-	 TuULDFx9CI4Hg==
-Message-ID: <4359bff8-edb2-486a-8d41-38bd315a4430@kernel.org>
-Date: Fri, 16 Oct 2026 21:49:16 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JvaQkHYw"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-35f1f76ea84so499298eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:52:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792183964; x=1792788764; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pL4I5GTbfGzy7AcdZoTCof/41Zcw3NVIXltEeJBzdLc=;
+        b=JvaQkHYwrvuNgieB+AhPEwVZvEN9ND5J2Cx0Z1Y+0Zn+44K7sLPkKsfwiZxry7oz5A
+         Jm/IAQl7/FGVp9mD3UlJmxw14uHeEZfYPr3xJX4n/GJujeIl1OQwYfq9ZP3DLSyt4wI/
+         V7F7C/Rgvd0tUMPHLgj6w5vwtQCRMdQqXeRe1L3UK+A2n1Otsd8XKqDUu+q6P0zgW6sQ
+         FcTw+Y2/xpWY0YdEqUl2U2oGMxJu10QJX2YdCSpmRSMbzN74XnEXU0jpvdt71TLIuQJL
+         z1apYbfCAmJY0FhidvWkp3xWWvl/P0F5l5IlI3WkmT6xMKynZR1mVZRW8EThjeA+CoY5
+         7K2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792183964; x=1792788764;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pL4I5GTbfGzy7AcdZoTCof/41Zcw3NVIXltEeJBzdLc=;
+        b=hl2lNkM3mFvvlvJmph++DOnzP9KfcjZK7UL+X6VmKnSn1uM2xxICs8MXvJHvzzPao1
+         rAp0TCQRMAFMVTyDZM1sK5dgHSPLAm03FCa/rMOzYBKhErDdngCguncqAVQyjM47cZR+
+         F5FAZz2f2AvCVy42l2eRGr52bajKSRAnGZ4/Ia95axEIQ8rAJltvad5kXS9x95pMX889
+         CemYibInxaptdDqE4wRASLAWVKr8/Rn87576dplxg3FZNyIvbQ/vTd19/yNSlZLQraR+
+         JdjeKWd4gnsY1CAUi5BIjjXhO8Fj0XDjBUVelCn02nTtjf+CpArc+tk07zk6uE9P93ta
+         2udw==
+X-Forwarded-Encrypted: i=1; AKwUvBz78vK6TBapBxNqMrT1Rcw39pkgSYag3OJKRhHlr2kf2ZgERCeoJpfy6f4xsRbKGP7LquacYz/Y6ZHTLTk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHQRJNj8tbbUVj0/ISay+1DTtWhm0Kv3fMt8p6fbkd2oOwtBFP
+	dEvD9FULQ0nJ+kFTDCVbxAxFBVLvszQiYkZ/2wX7V+xR8WOWgenHaGJh
+X-Gm-Gg: AYBFou0dWhYACX14H56CfWsFv/BC3yS6s/JqnbEKXj5mWCSzrV92/34fRCvuV2eM2He
+	fBT/+We5AkBof/i8rbSLajK2X7qqo1CoUk+szn/l9Es0g3lLGWkQhBZXDiFOSZta4ufF3HJ74XH
+	k2A8qXVsizgW2o5ZM2kVZtG3CpkSIlhlUmODOAg29CiWq4z6rJEXBc8ILcgEJDfDvgODxCOf39y
+	WuxC9jaD/d5S+UTNCFMUleuMxl64K2qt4BP01UTambPVWzOa2AGllUsLHBdg9sOvYJitFS1DWkF
+	ONVW4m6wELWzqvkBv97TgIRkayx+ta34P9lKtj9qiZ/ziFO8JwKUQnh2gvkR9yEhG/ODp/iQQ9D
+	b+xsWrIqEpgqkxz/DJYXcOYKKTmEo8O0GUE6I3sn+QLvvS5KFqdp330/aZMlNHyCdHeKmLHXZlH
+	BU0vX/We/YvY9YYAdkWXaQJcpqn1ODkf0Yh2AlwcUi4sP6Zft6c+V0NjB2a2z5O5Vp5NZRbKiRC
+	puBwpsntWHgne3FxZGKLENBdg5dfkWN7FP1Twq2bLSWs5OGmgxkKlj5ldUkdgS1D4+oTvtS/g==
+X-Received: by 2002:a05:701b:4546:20b0:16a:8ffd:4977 with SMTP id a92af1059eb24-185136cd2e2mr1206833c88.17.1792183959586;
+        Fri, 16 Oct 2026 13:52:39 -0700 (PDT)
+Received: from kanishka-Inspiron-15-3530.kiet.edu ([59.145.191.142])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75ac0fsm8054828c88.15.2026.10.16.13.52.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 13:52:39 -0700 (PDT)
+From: Kanishka Solanki <kanishkasolanki456s@gmail.com>
+To: akpm@linux-foundation.org,
+	vbabka@kernel.org
+Cc: Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Zi Yan <ziy@nvidia.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC] mm/page_owner: Use per-CPU temporal storage for saving stack trace
+Date: Sat, 17 Oct 2026 02:21:33 +0530
+Message-ID: <20261016205134.54436-1-kanishkasolanki456s@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: Add OmniVision OV13858
-To: geocausa@gmail.com, Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>,
- German Pablo Lindo <germanpapulindez@gmail.com>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
- <Tb0AcYbDPldfaB1S1ypqTPp6iFwxJVF_1Dh_7FJdavARv0U5KErpuPTQn6FNDYBoK206hZlqZHDsasGYmQx4zg==@protonmail.internalid>
- <20261015-ov13858-x1e-v1-1-acdd918f4fb6@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261015-ov13858-x1e-v1-1-acdd918f4fb6@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15/10/2026 22:48, George Neacsu via B4 Relay wrote:
-> +  - clocks
-> +  - avdd-supply
-> +  - dovdd-supply
-> +  - dvdd-supply
+Hi,
 
-The clocks, supplies and resets should all be optional as nothing says 
-Linux must control any of those on every system.
+I am looking into resolving the following TODO comment in mm/page_owner.c:
 
-i.e. you might have a co-processor or CPLD which owns the reset, 
-power-rails and the clock might not come from the SoC.
+/*
+ * TODO: teach PAGE_OWNER_STACK_DEPTH (__dump_page_owner and save_stack)
+ * to use off stack temporal storage
+ */
 
----
-bod
+Currently, save_stack() allocates a local array on the thread stack to temporarily hold instruction pointers before passing them to Stack Depot:
+
+unsigned long entries[PAGE_OWNER_STACK_DEPTH];
+
+Keeping this array on the kernel thread stack risks stack exhaustion.
+
+To move this scratchpad off the thread stack, I am considering using a per-CPU buffer, similar to how kernel/trace/trace.c manages ftrace_stacks:
+
+struct page_owner_stack {
+	unsigned long entries[PAGE_OWNER_STACK_DEPTH];
+};
+static DEFINE_PER_CPU(struct page_owner_stack, page_owner_stacks);
+
+Is a per-CPU scratchpad the preferred design for this off stack storage in page_owner?
+
+Thanks,
+Kanishka
