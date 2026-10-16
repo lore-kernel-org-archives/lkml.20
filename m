@@ -1,88 +1,261 @@
-Received: from mta0.migadu.com (out-97.mta0.migadu.com [91.218.175.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB3243CE56
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC2F430CDD
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135955; cv=none; b=bAXnvB9qqPXiVU0c8rBnfN3rk8T2kimu95Kzx+xi5i1uG6mkPOA2vvzOt/zghDnx9a3LuLWN8Fk19jAz7RDJBeVrh17XhNevdRDO30KIiLGLi4ZiqLpovjf+SWYXCQPVS4aOMHQwKIlE0fQjx1P7wVKsdNS/aby8M6eFEvm1d00=
+	t=1792135958; cv=none; b=HQPtq3943KuaRq4fF6ZgkuQza1ItUzOoiCtWro6mroriQfyxJZ9wQrnnHas/H1GafQCDyMGMSvf3lFF8qDgjGxBV/mOE0wdg8QcYf31IpCsGFc1tn2q96b/kCqjyrNbJEUATG9CIia+UUYm5HsFQGApcRXDRluZhh9pNy2YxXLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135955; c=relaxed/simple;
-	bh=ax8mYEcyGBEatxsgbOEhQQNyrXq7UJvv30A7+qt8/ds=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DuMzdbaA7DugHTDQ8SaoH0pAXr7p7Tf4YngFDE3/m99VUGh9dRKgGxQuwwI/EHUeHzpwL+jjqU+4YqeFyDNlldIg0wuNsIRdOBzFgwxISvYuRwaHMMkdr5vcS+b9gdua0eKlq8WZRnePA7pYoTESXnXoE+t0BaLT9Qj8JaNrpIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=doVN9Upk; arc=none smtp.client-ip=91.218.175.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	s=arc-20240116; t=1792135958; c=relaxed/simple;
+	bh=PwkJEHE0pYv8LWBIfsdV9NHZd4/nKqv2JI+1+hNx5wQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SihP5BCuoDrBVGvIyWKH9WABzrMAYB0lIZqPwHo0LI+hqRMzxqzN8KF+I4Y0pgHXNsqm0AyoN91d9JP1QpbIfBR523SDCjeeAtKNx9F6XPuuxSQxbYLykF2CDuWCqi9ztshGLlkHld+rrWyrySouEOZqNaokOw+5vytwm+1L0zU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PpQx5PzY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="doVN9Upk"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ax8mYEcyGBEatxsgbOEhQQNyrXq7UJvv30A7+qt8/ds=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792135952; v=1; x=1792740752;
- b=doVN9Upk+sLwAfcx7OGC6e4zZ4Mylj8Hjrpdhq5CDBj+yOoD3dz2oRI/3D+B7NaaJPWE+/Qm
- NsbmbIJVqtU6+243wrSKTfvu0gG1+9KKP2QskmGKblwSEkrnL8jZ39M5SywWwYD15m6EyJnypoA
- 4Qf9VhfklkZe1B7qvLo+Oz2DxgpzPj2Bh+i2uAlU7jcIMdWV/x6OzxYf8F5HPmZEGxudOvxVAw1
- KdIlfcNfYkmLAk3m5A2LZYejKl6vsNsD3yp3tBYOfJPGQefRh2kHwy+7/uenGT2fl3vIFtyJfWj
- pQeO8zCqVVtOqELeDTY/qKJeBg3KMhELgSDORhMc90J3A==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eab751fbddc727e5;
-	Fri, 16 Oct 2026 07:32:31 +0000
-X-Mizu-Trace-ID: eab751fbddc727e5
-X-Migadu-Flow: FLOW_OUT
-From: Val Packett <val@packett.cool>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Val Packett <val@packett.cool>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org
-Subject: [PATCH 3/5] ASoC: dt-bindings: qcom,sm8250: Add Motorola Edge 30 sound card
-Date: Fri, 16 Oct 2026 04:31:51 -0300
-Message-ID: <20261016073157.611956-4-val@packett.cool>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261016073157.611956-1-val@packett.cool>
-References: <20261016073157.611956-1-val@packett.cool>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PpQx5PzY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EF4D1F000C4;
+	Fri, 16 Oct 2026 07:32:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792135956;
+	bh=PWppxs2lE1LP+ZzP94k2HetLY5T21hjsNEYLY9Ugk/0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=PpQx5PzYt+U5NRs6iZpFGV33GDY5QFdz1eqtdqOoVDErB4ST0re9fiHCDRR1l5xhd
+	 QOSdLl9fW3E7aBf9SiDIxWinCub+E3YLVUEXQSeEf4fED8o7vap7Hgj06gOiAea1Mx
+	 b83pveaD71nG+TioY2qYk1w4PB1oRj70bEN5TNxd2pDEyt/yfk4qbV+ncawsjjrqng
+	 cW94VtbLB0w5f4INHc738cQifIgbss9Mo6/lm0qofxh0KtfbKAna/uPA+P7K8lQ8WM
+	 JUk7fUG31nRujfrc0tyZsywRa0onsYYsYvIfIGQlZA6hu4Rev7RhcYz4PZieE/fSPV
+	 KOp+XKk/cRVvg==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Fri, 16 Oct 2026 09:31:42 +0200
+Subject: [PATCH v5 10/14] drm/atomic: Allow filling a commit with pristine
+ object states
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-drm-reset-state-flag-v5-10-dad2d64b693b@kernel.org>
+References: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
+In-Reply-To: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6588; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=PwkJEHE0pYv8LWBIfsdV9NHZd4/nKqv2JI+1+hNx5wQ=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkXLz1d8Un6VfjHTvuNT8Jyj1n15N/NUW5beWtnm8R1l
+ WW8rYeedExlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJvH7BWCvHLcfcW5il+mH2
+ xW4+n5eM01MvndggMc8wVqeZOVj/j+XhP/OP2Vx87nFvV3J4ceWJKsY6u4OSweEaB5h/eWmbH7l
+ a7fp85pPHh+9GLWv7mKP2dKKNuvOuE3+PrmT+es96no97JZsRAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-Document the bindings for the sound card on motorola-dubai which uses the
-Elite DSP architecture.
+The upcoming DRM_MODE_ATOMIC_RESET flag will need to create an atomic
+commit that brings the entire device back to a pristine state, as if
+no configuration had ever been applied.
 
-Signed-off-by: Val Packett <val@packett.cool>
+Create drm_atomic_commit_fill_with_defaults() which iterates over all
+CRTCs, planes, connectors, and color operations in the device and
+inserts a fresh default state for each one into the commit. This uses
+the atomic_create_state() hooks rather than atomic_duplicate_state(),
+since atomic_create_state() provides exactly this pristine state on a
+per-object basis.
+
+Reviewed-by: Daniel Stone <daniels@collabora.com>
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/drm_atomic.c | 123 +++++++++++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/drm_ioctl.c  |   1 +
+ include/drm/drm_atomic.h     |   1 +
+ 3 files changed, 125 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-index fc7bccdace0f..c76c9c670bc1 100644
---- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-@@ -36,6 +36,7 @@ properties:
-           - ayaneo,pocket-s2-sndcard
-           - fairphone,fp4-sndcard
-           - fairphone,fp5-sndcard
-+          - motorola,dubai-sndcard
-           - qcom,apq8096-sndcard
-           - qcom,glymur-sndcard
-           - qcom,qcm6490-idp-sndcard
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 7a77051096c9..b65116e97e39 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -1647,10 +1647,133 @@ bool drm_atomic_implements_create_state(struct drm_device *dev)
+ 
+ 	return true;
+ }
+ EXPORT_SYMBOL(drm_atomic_implements_create_state);
+ 
++/**
++ * drm_atomic_commit_fill_with_defaults - populate a commit with pristine states
++ * @commit: atomic commit to fill
++ *
++ * Iterate over all CRTCs, planes, connectors, and color operations in
++ * the device and insert a freshly created default state for each one
++ * into @commit. The states are created through the atomic_create_state()
++ * hooks, producing the same initial state the driver starts with rather
++ * than a copy of the current hardware state.
++ *
++ * In the default state, all objects are disabled: CRTCs are inactive,
++ * planes are disabled, and connectors are unbound. Driver-specific
++ * properties such as color pipeline settings or max_bpc may carry
++ * non-zero defaults appropriate for basic display output.
++ *
++ * This is meant to be used with the %DRM_MODE_ATOMIC_RESET flag, which
++ * needs to bring the device back to a known baseline before applying
++ * userspace property changes on top.
++ *
++ * Returns:
++ * 0 on success, or a negative error code on failure.
++ */
++int drm_atomic_commit_fill_with_defaults(struct drm_atomic_commit *commit)
++{
++	struct drm_device *dev = commit->dev;
++	struct drm_mode_config *config = &dev->mode_config;
++	struct drm_crtc *crtc;
++	struct drm_plane *plane;
++	struct drm_connector *connector;
++	struct drm_connector_list_iter conn_iter;
++	struct drm_colorop *colorop;
++	int ret;
++
++	drm_WARN_ON(dev, !commit->acquire_ctx);
++
++	/*
++	 * Private objects are ignored because none have userspace
++	 * properties we might want to reset. atomic_check
++	 * implementations will derive or infer their private obj state
++	 * from the state that will end up being committed anyway.
++	 */
++	drm_for_each_colorop(colorop, dev) {
++		struct drm_colorop_state *colorop_state;
++
++		ret = drm_modeset_lock(&colorop->plane->mutex, commit->acquire_ctx);
++		if (ret)
++			return ret;
++
++		colorop_state = drm_atomic_helper_colorop_create_state(colorop);
++		if (IS_ERR(colorop_state))
++			return PTR_ERR(colorop_state);
++
++		drm_atomic_commit_set_colorop_state(commit, colorop, colorop_state);
++	}
++
++	drm_for_each_plane(plane, dev) {
++		struct drm_plane_state *plane_state;
++
++		ret = drm_modeset_lock(&plane->mutex, commit->acquire_ctx);
++		if (ret)
++			return ret;
++
++		plane_state = plane->funcs->atomic_create_state(plane);
++		if (IS_ERR(plane_state))
++			return PTR_ERR(plane_state);
++
++		drm_atomic_commit_set_plane_state(commit, plane, plane_state);
++	}
++
++	drm_for_each_crtc(crtc, dev) {
++		struct drm_crtc_state *crtc_state;
++
++		ret = drm_modeset_lock(&crtc->mutex, commit->acquire_ctx);
++		if (ret)
++			return ret;
++
++		crtc_state = crtc->funcs->atomic_create_state(crtc);
++		if (IS_ERR(crtc_state))
++			return PTR_ERR(crtc_state);
++
++		drm_atomic_commit_set_crtc_state(commit, crtc, crtc_state);
++	}
++
++	drm_connector_list_iter_begin(dev, &conn_iter);
++	drm_for_each_connector_iter(connector, &conn_iter) {
++		struct drm_connector_state *connector_state;
++
++		ret = drm_modeset_lock(&config->connection_mutex, commit->acquire_ctx);
++		if (ret) {
++			drm_connector_list_iter_end(&conn_iter);
++			return ret;
++		}
++
++		/*
++		 * drm_atomic_implements_create_state() already checked
++		 * this, but connectors can be hotplugged between that
++		 * lockless check and the iteration here.
++		 */
++		if (!connector->funcs->atomic_create_state) {
++			drm_connector_list_iter_end(&conn_iter);
++			return -EOPNOTSUPP;
++		}
++
++		connector_state = connector->funcs->atomic_create_state(connector);
++		if (IS_ERR(connector_state)) {
++			drm_connector_list_iter_end(&conn_iter);
++			ret = PTR_ERR(connector_state);
++			return ret;
++		}
++
++		ret = drm_atomic_commit_set_connector_state(commit, connector, connector_state);
++		if (ret) {
++			connector->funcs->atomic_destroy_state(connector, connector_state);
++			drm_connector_list_iter_end(&conn_iter);
++			return ret;
++		}
++	}
++	drm_connector_list_iter_end(&conn_iter);
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_atomic_commit_fill_with_defaults);
++
+ /**
+  * drm_atomic_add_encoder_bridges - add bridges attached to an encoder
+  * @state: atomic state
+  * @encoder: DRM encoder
+  *
+diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+index 9039a39c4324..0dbf04d4aa9e 100644
+--- a/drivers/gpu/drm/drm_ioctl.c
++++ b/drivers/gpu/drm/drm_ioctl.c
+@@ -31,10 +31,11 @@
+ #include <linux/export.h>
+ #include <linux/nospec.h>
+ #include <linux/pci.h>
+ #include <linux/uaccess.h>
+ 
++#include <drm/drm_atomic.h>
+ #include <drm/drm_auth.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_ioctl.h>
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index 72c3d420f40c..841a11ee2fda 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -701,10 +701,11 @@ int drm_crtc_commit_wait(struct drm_crtc_commit *commit);
+ struct drm_atomic_commit * __must_check
+ drm_atomic_commit_alloc(struct drm_device *dev);
+ void drm_atomic_commit_clear(struct drm_atomic_commit *state);
+ 
+ bool drm_atomic_implements_create_state(struct drm_device *dev);
++int drm_atomic_commit_fill_with_defaults(struct drm_atomic_commit *commit);
+ 
+ /**
+  * drm_atomic_commit_get - acquire a reference to the atomic state
+  * @state: The atomic state
+  *
+
 -- 
 2.55.0
 
