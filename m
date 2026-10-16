@@ -1,316 +1,136 @@
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 185A54CE663
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:51:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158669; cv=pass; b=Xvkf9guh4rpFNnvtnJD5brjJQmtpTcsb0kwgM9whhXApFH7pZVa48FUFZyW+ULBWSL/CSaUQUF1RZYNa5Ei7snDUwu5dyxYL4jW+3QuS0hnAaqPKsP4lePCsZWACJBuXNBiTd9/gLQoi6j8wM8qsfkaap/H64g3H1y0JKTl5znM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158669; c=relaxed/simple;
-	bh=l735HQ+KIvF/w85z+XR45K1w2Il5/7/MhqFAZ9axQOU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gVDUeSM2eNPfkBdTnHmIBMaGaiKFbZm2aoLIhfYnr54EjlxNqa2uJpb3G7kQPBlBg7qAseNCbC/VRfQwo0x8IVoNwAzWJEPHwRqYdhBrT6WSB2bUHt3MnBs6R9O3b3fjmm9TE6uYdHMDPWHldMXIOoq8N58pU0DbpnVeIf/DTb4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MJNCQJBY; arc=pass smtp.client-ip=209.85.208.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD9B4CE66D;
+	Fri, 16 Oct 2026 13:51:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792158689; cv=none; b=oTG1Wra+S/l4FOLW40qHcDbLkj+KEOBfPKoIEAxk60y2PfmgfDGme1c0h9IRstIwtkmVuAisrqsYap0TQrSy5ii97FCcs4m8idcoHqPvWw789rgN8M1Uwg39j5w1N2nsIiHi2xhXcpzZBXEAk/GERC0UfCmHCXGye+8QO8R9o4k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792158689; c=relaxed/simple;
+	bh=bArGSagg8zg5oLDo4mUHBJwpxYPXAFOoamTvqRjQrTE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=H1XNqULOf4488m58JcKnw7/AL+tXfSm1TOx4bm2zvFlDDKnUFkC+32ndUfcIIP2IY9rGt1nQn3REhdh2k53jMrtchP5AJ637kmw1LBdM/z64SgzqoPx5QTi0rPuJuPGQAIzjaprYBrUw+xA6a7cOwNixSo3/XcfoGOpnCCVyS10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RGtXN8cm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MJNCQJBY"
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3ab01c46697so13609141fa.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:51:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792158666; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sIdCpdN4QnSs3AW/SIwpIQ5Nhjb0d9AO0riHtTx1bPLmpQkOKFtwblgOA4/nxiRN7i
-         RbLTinlNIfJlOmW2XrGXEoh+xdBanueGe4NoqmRr+wRru/TAphzuE7S+D/tJPRzxW6JS
-         98G3OWIaG389Wn5DIBCd00jomykXCromUI0ehKsJ5hdu/xBwH0JsnBL585qsU9L96obF
-         UT24vzfl+FzezCOrcizDdN8k8RAunMTljCcsJiTspqf4pz5qIDyZDpHV8zS/lDcHRdXt
-         aMNckR1x59VjdZRefPHBHJWjXKm+HBx4YfvrE6Yh4Eh+h9RJmiTBBQVecM8Tfm09/1SW
-         KPTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MhSOLDu9e0H9P6bIO+k82DvZ/zSAtG35D1+0jxFK13Q=;
-        fh=rrjjRicKEgny+lvW/IuXpWmsJkVkbJFxrINV5Ie3/Ls=;
-        b=FuAgrFHA239izhpA3FqZUMWUI6XdQnehGgv+pkpd54IqxpVZqbXHdC2cQDadf2VCh3
-         4IZJ84nvdzd4Y8wBMvb71we4Fc/jVB6LYbM2djv9W+Yi5ITOcl3R4fjfKTh37Svbv+oi
-         iZSGm26E/RDxHLQoMQFmglBpUSYbx75hMjRfjFi3eo2GAR2/TfC3zmWf4H0PRtOGEgkF
-         J+nk36gjhGoTDfF39uXUU7S4aev8G1VXbqeTMFI8uAhm4PL7Di85HJwgKlxekZP/uuXu
-         8gTnFf609frYTKqQq5+928TEfp1igprzHuRwEWN783+sDU4yIqaNFpXbIrNa9DpQf5jA
-         Rm1Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792158666; x=1792763466; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MhSOLDu9e0H9P6bIO+k82DvZ/zSAtG35D1+0jxFK13Q=;
-        b=MJNCQJBYBNzO6mLDlfMhXdOcGNkAnEkLDrdQ9jDsAVH3YTnigllwAtXhsrdQCfezkW
-         c/gtWn4LGRD4aBn7Ac8fWHwkuFthnDAWnqH0gpk/2L10kQrBPu74q80ekyn48j46vxHN
-         C+6peQ60FPm5DQ4MPE8wyACk49oYOU4MLwa2yX1WoNG9SR39Qzpok32jBwQ47ZImh/X4
-         RzqRmef1sXVEgWTs6QO30UETyLF7xfSKEuOinXWnkFtvPGR+zzvO7m7OaFMBhPcttf5T
-         GPehCfe5cZZJ2zizwHvbir4oGb7ifcZB1BOspJqTdfZGQt3OvCicMhK40DniFVTatkR/
-         sYCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792158666; x=1792763466;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MhSOLDu9e0H9P6bIO+k82DvZ/zSAtG35D1+0jxFK13Q=;
-        b=Xudb2uHf8uGmKP4isD9xkw77BZZhJVdAecrOWdnMg+U0cF4nEeYLrp7wyLiYV6PKqh
-         nWu3v65KUJBv74z2v3dU8ndqtd9//fRiyGRPPn3z8ALQ5a+KYa8Xr21po6HnSNc2Otba
-         pavMRT4WOvyDF6ZIGcogKUXL5ONXPyy4GJGLm3mjlieIXdBe4Yi7O1DkzeQ33HQWv+Rx
-         rvo3lIinPP/MiiFDCSPQtiCneXDJAscfSZXjCt372xKsnPvTjTHAx/R++s8fLgIrLGXH
-         Ypx4B6OqUlt76WHRxPpTuJEQPgfS2/WVtNtMuWc1tj8pDh+RyP94/sg4c5LYTBENDCvD
-         GKUg==
-X-Forwarded-Encrypted: i=1; AKwUvBzlMzCcJZZdm0LzypfKxaBX56qY1T+vYf8tpmQ9BAaTD+s97sFJdo/dII2llOePq9kAQRlr3NKUBT7n2G8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLuJSZkIoei1DkD8+77Ao3TWLYMLbPJdR6qVpa3P6dGW2r/K0IT
-	kkOI4iBOnaPdGD06Aus+5KLN5nMGvrCkfftAkA2Hcmm6nDwnVbL8xi8TuzvwfI5IduccxPJ4k8D
-	hsbUCOi3a1fPOVt/A4PaDpMhW6pIutgs=
-X-Gm-Gg: AYBFou1len/PV4Xvwx41g0UhAlcsxnCRmKMN2VyhbZ9i8xy8sBdnw0Cw0sm1YYPiCgh
-	GdDTPixssYze7WRyu62y8pT1Q53oP9KrpQqof83FdzsW3fSsmpS7VJvvHuxJq4sEv7OMcB4occg
-	2ogWYLQEI6sH/SGZmkRzmpgXhzJo1gdnauAnEjMSsijw77nH7rrtEumDJHtBU+vIMPIrai12dFx
-	Ry1hg8u0TKEA8D7cTwnIhWReVXBhW34NqZQ5NbgCHqQWxmcWQiO/puICne8HOcYm/vKodOzGBLP
-	Ku8/4NPDiicW4QK+SF0PiCvRqhf1ku0JMtvhhJ6NoNhHLTr5Euxi+BhCfrZDCBi/EF/qWX6k8hN
-	p2uM9uEfTMA62xaEGWy2l33agCGgu2WdpZWDRAYIL+8cW
-X-Received: by 2002:a2e:a9a3:0:b0:3a2:f233:5c6e with SMTP id
- 38308e7fff4ca-3a9c515d16dmr53790271fa.6.1792158665553; Fri, 16 Oct 2026
- 06:51:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RGtXN8cm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0812F1F000C4;
+	Fri, 16 Oct 2026 13:51:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792158686;
+	bh=ZR3x3W3E9r6FCDS3yKsSqKbf5/D9BDqe7v453N1pelc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RGtXN8cmbHtmiCUnUv1aZ32MQTu1FzDDUg3uJUpRJKALM6G/Eln8WZamr9Dq4bIiC
+	 lePmQ8+L31p5loHQt5RyBybrZTdPRL0F1V8e97f6Q7SMAfs6fBM557tkXsdcV895NE
+	 +2k8D9KaU11FAC601Mfmg9xcR5FhPhQv1i/ruo28ewrmn61r2xAyIcg738VAOdgyF7
+	 /2z8mi8B3UySKwCZpVW41rYJrwsACBYWruLJfcg6B48pg2GMzMkz6ptDQHAEhDegBg
+	 Czm46nxUSviK6382CgkSPVpb6PziKuyKDhOP618WKlKxieWyBfoAeOcZ0bE0ByY/zP
+	 6OM9Hj+y08G2A==
+Message-ID: <cd256380-fdfd-4359-8611-0901045f66df@kernel.org>
+Date: Fri, 16 Oct 2026 15:51:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1792116883.git.qiwenjie@xiaomi.com> <226abf7d629d7345f450753a42e924b436c99ec0.1792116883.git.qiwenjie@xiaomi.com>
-In-Reply-To: <226abf7d629d7345f450753a42e924b436c99ec0.1792116883.git.qiwenjie@xiaomi.com>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Fri, 16 Oct 2026 06:50:51 -0700
-X-Gm-Features: AclHuK8vpgAnY9xHHeD4VkceCLXKMKMXp9Gw8FXUKb93oc0cPZDjjzKkDWi3A1c
-Message-ID: <CACOAw_wvwY93mFW4ksF0m8XDf7opykefeDNg7NCnE8OkpxN0_g@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] f2fs: refresh pinned allocation boundary after resize
-To: Wenjie Qi <qwjhust@gmail.com>
-Cc: jaegeuk@kernel.org, chao@kernel.org, daehojeong@google.com, 
-	sunqiuyang@huawei.com, linux-f2fs-devel@lists.sourceforge.net, 
-	linux-kernel@vger.kernel.org, qiwenjie@xiaomi.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 6/9] ASoC: dt-bindings: qcom: Add Hawi LPASS macro
+ codecs
+To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+ Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261014-add_shikra_support_v5-v5-0-fb9f0667e613@oss.qualcomm.com>
+ <20261014-add_shikra_support_v5-v5-6-fb9f0667e613@oss.qualcomm.com>
+ <20261015-grumpy-salmon-of-holiness-b6e9f4@quoll>
+ <9a12fc9c-e766-45d3-a6f8-eb6ff3332434@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <9a12fc9c-e766-45d3-a6f8-eb6ff3332434@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 15, 2026 at 10:44=E2=80=AFPM Wenjie Qi <qwjhust@gmail.com> wrot=
-e:
->
-> Online shrink updates MAIN_SECS() but leaves resizable_tail_secno and
-> pinned_area_max_secno unchanged. The pinned allocation limit can exceed
-> the new main area when shrinking beyond the reserved tail.
->
-> Consume the reserved tail by the number of removed sections, clamping
-> it to zero, before refreshing the shared pinned allocation boundary.
-> This preserves the boundary while shrinking within the reservation and
-> limits it to the new main area otherwise, retaining the zoned limit.
->
-> Save the old tail count and restore it before rolling back the geometry
-> if the final checkpoint fails.
->
-> Also bound pinned section allocation by the current MAIN_SECS(). Range
-> evacuation temporarily reduces it before moving cursegs, while the
-> cached pinned boundary still describes the old geometry. Otherwise, a
-> pinned curseg can be reallocated into the range being removed.
->
-> Fixes: c966d29e01bb ("f2fs: support resizable tail section and unify pinn=
-ed allocation")
-> Suggested-by: Daeho Jeong <daehojeong@google.com>
-> Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
-> ---
-> Changes in v4 (since v3):
-> - Bound pinned section allocation by the current MAIN_SECS().
->
-> Changes in v3 (since v2):
-> - Consume the tail reservation instead of keeping its old size.
-> - Restore the saved tail before geometry and boundary rollback.
-> - Document the remaining-reservation semantics.
->
-> Changes in v2 (since v1):
-> - Simplify tail validation and improve rejection diagnostics.
-> - Validate before taking the mount write reference and recheck
->   after freeze for concurrent remounts.
->
-> v1:
-> - Refresh the pinned boundary on geometry changes and rollback.
-> - Check the tail against the requested shrink geometry.
->
->  Documentation/filesystems/f2fs.rst |  3 ++-
->  fs/f2fs/gc.c                       |  6 +++++-
->  fs/f2fs/segment.c                  |  2 +-
->  fs/f2fs/segment.h                  | 11 +++++++++++
->  fs/f2fs/super.c                    | 15 ++-------------
->  5 files changed, 21 insertions(+), 16 deletions(-)
->
-> diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesyste=
-ms/f2fs.rst
-> index 771216f45207a..55798421f2c45 100644
-> --- a/Documentation/filesystems/f2fs.rst
-> +++ b/Documentation/filesystems/f2fs.rst
-> @@ -421,7 +421,8 @@ resizable_tail_secno=3D%u  Control the number of sect=
-ions at the tail of the
->                          (MAIN_SECS - resizable_tail_secno) - 1. If set t=
-o 0
->                          (default), there is no tail restriction unless r=
-unning
->                          on a zoned block device where conventional zones=
- are
-> -                        used.
-> +                        used. Online shrink consumes this reservation, r=
-educing
-> +                        the value by the number of removed sections, dow=
-n to zero.
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
- =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
->  Debugfs Entries
-> diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-> index 926e6976bc22a..540769ad58acc 100644
-> --- a/fs/f2fs/gc.c
-> +++ b/fs/f2fs/gc.c
-> @@ -2342,6 +2342,7 @@ static void update_fs_metadata(struct f2fs_sb_info =
-*sbi, int secs)
->         SM_I(sbi)->segment_count =3D (int)SM_I(sbi)->segment_count + segs=
-;
->         MAIN_SEGS(sbi) =3D (int)MAIN_SEGS(sbi) + segs;
->         MAIN_SECS(sbi) +=3D secs;
-> +       f2fs_adjust_pinned_area_boundary(sbi);
->         if (sbi->allocate_section_hint > MAIN_SECS(sbi))
->                 sbi->allocate_section_hint =3D MAIN_SECS(sbi);
->         FREE_I(sbi)->free_sections =3D (int)FREE_I(sbi)->free_sections + =
-secs;
-> @@ -2373,7 +2374,7 @@ int f2fs_resize_fs(struct file *filp, __u64 block_c=
-ount)
->         struct f2fs_lock_context lc;
->         struct f2fs_lock_context glc;
->         struct f2fs_lock_context clc;
-> -       unsigned int secs;
-> +       unsigned int secs, old_tail;
->         int err =3D 0;
->         __u32 rem;
->
-> @@ -2482,6 +2483,8 @@ int f2fs_resize_fs(struct file *filp, __u64 block_c=
-ount)
->                 goto recover_out;
->         }
->
-> +       old_tail =3D F2FS_OPTION(sbi).resizable_tail_secno;
-> +       F2FS_OPTION(sbi).resizable_tail_secno -=3D min(old_tail, secs);
->         update_fs_metadata(sbi, -secs);
->         clear_sbi_flag(sbi, SBI_IS_RESIZEFS);
->         set_sbi_flag(sbi, SBI_IS_DIRTY);
-> @@ -2489,6 +2492,7 @@ int f2fs_resize_fs(struct file *filp, __u64 block_c=
-ount)
->         stat_inc_cp_call_count(sbi, TOTAL_CALL);
->         err =3D f2fs_write_checkpoint(sbi, &cpc);
->         if (err) {
-> +               F2FS_OPTION(sbi).resizable_tail_secno =3D old_tail;
->                 update_fs_metadata(sbi, secs);
->                 update_sb_metadata(sbi, secs);
->                 f2fs_commit_super(sbi, false);
-> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-> index bf8d07fcce331..f6e1cb1c0b71d 100644
-> --- a/fs/f2fs/segment.c
-> +++ b/fs/f2fs/segment.c
-> @@ -2983,7 +2983,7 @@ static int get_new_segment(struct f2fs_sb_info *sbi=
-,
->                 alloc_hint =3D MAIN_SECS(sbi);
->
->         if (pinning) {
-> -               max_secno =3D sbi->pinned_area_max_secno;
-> +               max_secno =3D min(sbi->pinned_area_max_secno, MAIN_SECS(s=
-bi));
->                 hint =3D 0;
->         } else if (alloc_policy =3D=3D ALLOCATE_FORWARD_FROM_HINT &&
->                 hint < alloc_hint) {
-> diff --git a/fs/f2fs/segment.h b/fs/f2fs/segment.h
-> index 526764ba31ae5..918bc4452ad09 100644
-> --- a/fs/f2fs/segment.h
-> +++ b/fs/f2fs/segment.h
-> @@ -91,6 +91,17 @@ static inline void sanity_check_seg_type(struct f2fs_s=
-b_info *sbi,
->  #define GET_ZONE_FROM_SEG(sbi, segno)                          \
->         GET_ZONE_FROM_SEC(sbi, GET_SEC_FROM_SEG(sbi, segno))
->
-> +static inline void f2fs_adjust_pinned_area_boundary(struct f2fs_sb_info =
-*sbi)
-> +{
-> +       sbi->pinned_area_max_secno =3D MAIN_SECS(sbi);
-> +       if (f2fs_sb_has_blkzoned(sbi) && sbi->first_seq_zone_segno !=3D N=
-ULL_SEGNO)
-> +               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
-ecno,
-> +                               GET_SEC_FROM_SEG(sbi, sbi->first_seq_zone=
-_segno));
-> +       if (F2FS_OPTION(sbi).resizable_tail_secno)
-> +               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
-ecno,
-> +                               MAIN_SECS(sbi) - F2FS_OPTION(sbi).resizab=
-le_tail_secno);
-> +}
-> +
->  #define GET_SUM_BLOCK(sbi, segno)      \
->         (SM_I(sbi)->ssa_blkaddr + (segno / (sbi)->sums_per_block))
->  #define GET_SUM_BLKOFF(sbi, segno) (segno % (sbi)->sums_per_block)
-> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-> index 773b12ea29c0c..f323d9705aebe 100644
-> --- a/fs/f2fs/super.c
-> +++ b/fs/f2fs/super.c
-> @@ -554,17 +554,6 @@ static inline void adjust_unusable_cap_perc(struct f=
-2fs_sb_info *sbi)
->                         F2FS_OPTION(sbi).unusable_cap_perc);
->  }
->
-> -static inline void adjust_pinned_area_boundary(struct f2fs_sb_info *sbi)
-> -{
-> -       sbi->pinned_area_max_secno =3D MAIN_SECS(sbi);
-> -       if (f2fs_sb_has_blkzoned(sbi) && sbi->first_seq_zone_segno !=3D N=
-ULL_SEGNO)
-> -               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
-ecno,
-> -                               GET_SEC_FROM_SEG(sbi, sbi->first_seq_zone=
-_segno));
-> -       if (F2FS_OPTION(sbi).resizable_tail_secno)
-> -               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
-ecno,
-> -                               MAIN_SECS(sbi) - F2FS_OPTION(sbi).resizab=
-le_tail_secno);
-> -}
-> -
->  static void init_once(void *foo)
->  {
->         struct f2fs_inode_info *fi =3D (struct f2fs_inode_info *) foo;
-> @@ -3103,7 +3092,7 @@ static int __f2fs_remount(struct fs_context *fc, st=
-ruct super_block *sb)
->         sb->s_flags =3D (sb->s_flags & ~SB_POSIXACL) |
->                 (test_opt(sbi, POSIX_ACL) ? SB_POSIXACL : 0);
->
-> -       adjust_pinned_area_boundary(sbi);
-> +       f2fs_adjust_pinned_area_boundary(sbi);
->         limit_reserve_root(sbi);
->         fc->sb_flags =3D (flags & ~SB_LAZYTIME) | (sb->s_flags & SB_LAZYT=
-IME);
->
-> @@ -5440,7 +5429,7 @@ static int f2fs_fill_super(struct super_block *sb, =
-struct fs_context *fc)
->         /* get segno of first zoned block device */
->         sbi->first_seq_zone_segno =3D get_first_seq_zone_segno(sbi);
->
-> -       adjust_pinned_area_boundary(sbi);
-> +       f2fs_adjust_pinned_area_boundary(sbi);
->
->         sbi->reserved_pin_section =3D f2fs_sb_has_blkzoned(sbi) ?
->                         ZONED_PIN_SEC_REQUIRED_COUNT :
-> --
-> 2.43.0
->
+On 16/10/2026 10:14, Prasad Kumpatla wrote:
+> 
+> On 10/15/2026 3:08 PM, Krzysztof Kozlowski wrote:
+>> Are you sure you are not using source clock names?
+> 
+> On Hawi this RX input is sourced from the LPR vote (LPASS_HW_LPR_VOTE)
 
-Reviewed-by: Daeho Jeong <daehojeong@google.com>
+That the source clock name. Look, where LPASS_HW_LPR_VOTE is used:
 
-Thanks,
+> instead of the MACRO vote used on sm8550:
+> 
+>      clocks = <&q6prmcc LPASS_CLK_ID_RX_CORE_TX_MCLK ...>,
+>               <&q6prmcc*LPASS_HW_LPR_VOTE* ...>,
+
+Here.  LPASS_HW_LPR_VOTE is the name in q6prmcc.
+
+>               <&q6prmcc LPASS_HW_DCODEC_VOTE ...>,
+>               <&lpass_vamacro>;
+>      clock-names = "mclk",*"lpr"*, "dcodec", "fsgen";
+> 
+> "lpr" is the same style of name as the existing "macro"/"dcodec" entries,
+
+That's the same vote as here, no? Vote for main block (macro)?
+
+> not a parent/source name. An sm8550 fallback can't be used here because it
+> pins input #2 to "macro", which no longer matches the LPR source on Hawi;
+> the other three inputs are unchanged, so RX gets its own clock-names.
+> 
+> Thanks,
+> Prasad
+> 
+
+
+Best regards,
+Krzysztof
