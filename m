@@ -1,87 +1,94 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0788D2E266C
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:50:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206E44BB5C7;
+	Fri, 16 Oct 2026 13:50:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158611; cv=none; b=JoHFutNRa8pBVOSYH5co5kFONae3pFlXnDCW1Y3cA0T9//aC5ZgrQR0GegNpTKFbC0se20mOPzGvZUCLvIJBTtiRT9vUDd4D21wUtdCdqKjBomvNSyddIvye0KBrNvBbeLPsF8Vujpmfyl0cvQrQNfacBlDzuaz9fISl0gE8MaU=
+	t=1792158622; cv=none; b=P7OpyCC/lT/mISu1ZVPUW/tes1CAis4IZENcLVJZpWrgk9TYW9mk6iRjVhggFw3DkXvNWjlRftSoKGCzTo5IxVgk3O8Pei19vdlvypF0+aSxZteS9rBQEWF2crvIxtZ+slkPdRv5Yyo7BIdsGn6UBtttSJe2lWudoGC2/MPt08A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158611; c=relaxed/simple;
-	bh=g7n5KSyB9dHuwa9DCb0qOHcMvX3fr1aRdEPuf9O8HZw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KX13hvAASDkDdCJw/8e1gBolrE/FZojgQ1BU3nW7aHzVitRIzRSHlztyOOje5+9A6pgs7yWRkMqOEhoO0TL0lITRAAYPSBpRNauyh4dUi/3rtgjsad3ztFLntg9GMdnQ0yUlNYhBJK1oF06EL13AojOoqSC0uHZ8vTG11iXtnSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sCZPubhC; arc=none smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792158622; c=relaxed/simple;
+	bh=9zwwUGWCjaNsK1GdJ4D3fl8irBgBHgn9e4EUA10snOA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=gSCD+B+owX6s2OPQPvnNGwgWX8E7cZpVDj9cRQpELq3HTL3MFGNO2DRT8XZv+QI3aJin2BU3Zm/Yll21KFMshxe7d3BxxfQPamg4algHmxd3MvbUR/WgOhr5DHnxeJ7UTgB8jBjHHV0qUx/+MUVatiAriRzamI50BTDSblRtHJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=ueE7oYO+; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=1mxH9raS; arc=none smtp.client-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sCZPubhC"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cd623dfe420so2507886a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:50:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792158609; x=1792763409; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g7n5KSyB9dHuwa9DCb0qOHcMvX3fr1aRdEPuf9O8HZw=;
-        b=sCZPubhCeOlv/2DS7gdZSmF21zPP7UFQ/DWzqGypU/ZJc6n4MNrLVK+MbKMC7AEVB0
-         lfirfod0qavHSpmCh8V2DIJ2LLpl0o6Xke8rBdnnNpbnk3Hq9/jfa5593wmGsjlk+u3F
-         36ckpoFeIWLj8Z1CMv+QmvoXGWAlxgLvUXBFn1ngFsoDKMWcJr11szevXa5nqsIG6HfZ
-         avIw8ehCmjeMOnUb7Cx6nxc3f2xZh0reYpDYU24Hbc9kjF8460tv0uQ7A6GkCmVVeFqR
-         nPoeFkEnRyIZgJ9e/v9OzTEyJj558iHHGdivOmekOrvXvpLTpFNcoBfEErqruObIrFaq
-         4DbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792158609; x=1792763409;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g7n5KSyB9dHuwa9DCb0qOHcMvX3fr1aRdEPuf9O8HZw=;
-        b=qmjflyHu/sMzuRzbsrBbjbVYVepo+AXgzltr2wV2YY2C5koljrsc49K6Z5aDsAri5B
-         /FpukCU+meNVUM7C9Rx8LZ868Di0G+F/+1mA4vEOIeAMRDPmyZ9zYzgrA7XH8NfJU+H0
-         jvIW9etV5v7d0JqaZ2/7m09Ze+0PrGIhqjW/3Sr7aKbP4qtKIPRQZbfTPTJDysadT/xh
-         ETqlQYL1/XFJYzVM3ogsy24rYZK3WhEqdC/FoFNTJP/7TMHu9hEQreM6LHZn28cFC60M
-         aDeCvrWKzlt1ZOwrFDlrvMKq8AYj2A/HAyL1nMfEKCWQyLgxu90QX3zBsQoCp48SKwbS
-         pRog==
-X-Forwarded-Encrypted: i=1; AKwUvBwkAMdQyatpUarE0zjYrRAl19MpBv+cmPqwjrlH+oilfmbgwRg0EsGfB1ewfhwRYBNsUX++rDZ/IJrtHJU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjo6pNF5O//ksWqqUh/IrhG4KGhvhkmVEzozSuY2IBu1Yzjbyj
-	afbyBWi7IepRWjZiJRVUvyvE+zbPkp5m7YjOxKP9l4QyMDDQ+NQTz9H9
-X-Gm-Gg: AYBFou2O+FG2imtL/jhlh+Lkpgs9v9WiI8fGuKQiQYmUBeRFkET1LrFXjXzhAO20bKd
-	p+/MqYQpEAKb4D8V3fIVhDlUSHweh2mBFwgNLB4m6590mtPEOUXEtGTd70zAtr+AGHldAj4Usbv
-	YArbCQ+uspnavHsd8OaV1goqVEa7vy58tW5VXo+/mFS0HrW15/lNSDGMClSn1CNpuhkPs4hHpAU
-	94voQuZ4AfS40IPg6o1+jsFZDviNw7enJQxlqpKSWXxjhTyouwNo/P3gUcX6j6OOUsPyPk1nFLZ
-	4ntn4iOuduPcy9a+iJnZOmUImzdiFwBDH3qnH9QF1jCBBedeC1+MaDPM5lKXm71uV1w2X7FvSWM
-	DbilsursR8ij13ex9e4YWeXBKE42XMi0zODSdll3t7rvTpvLzGYZNjcXvyJ4gB5PucZU80P9SO6
-	xaTDkbrKUv/eAH/QtpLvW4BfI3aEPAtc2wFFZhqjPltKVNgrhMPvsxq0h1xu2p3g8x8QO4+mM98
-	/F4T3UeZpJbb5d4rWwAAl+GMm72YImUP+xzjLvT84SESOoolUw6PhSqmfXla285emIpe8Tu
-X-Received: by 2002:a05:6a21:7d0c:b0:3e2:ea7:618 with SMTP id adf61e73a8af0-3e20ea744ebmr1597797637.18.1792158609291;
-        Fri, 16 Oct 2026 06:50:09 -0700 (PDT)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:1467:1666:71b7:b993])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd65484fe24sm1161715a12.3.2026.10.16.06.50.07
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 16 Oct 2026 06:50:08 -0700 (PDT)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] power: supply: sgm41542: Use secs_to_jiffies()
-Date: Fri, 16 Oct 2026 19:19:42 +0530
-Message-ID: <20261016135002.35172-1-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20261016101521.14140-1-sinha.aryan03@gmail.com>
-References: <20261016101521.14140-1-sinha.aryan03@gmail.com>
+	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="ueE7oYO+";
+	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="1mxH9raS"
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id 7FBED26F7667;
+	Fri, 16 Oct 2026 22:50:16 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1792158616;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jwDIJ0+Alc1iUuZG14DuE+UHUc9nflA7dy8tOISQqLg=;
+	b=ueE7oYO+W1uhIauf5LG/YdsKGeL6DfYDn7NLakNr0wDYtYtbtwA2P6ualqVUji2ta0bIZb
+	a4PhoB240uRdV9iuGqvV8VN63r990EdRUCjtYsTlfDZAWGS4PAaHSFcQ4tr1XfCVEEl6Sm
+	oECteZDkBOLiMaeeSc/6vsuUXVFgwSnNlReGPW4458X4z60Js+jzB5ZLy547lxmQmMLXM/
+	myrc8EAI3Ugc8hSqQmRQUkz0EG9kiqW+HaIWQby9KdfjDJkTHNz2/1EHrT44X5dUchY/gm
+	wfcpnOI9OGfVJX8EzyDNLphtGLroizUnPUPGU7pxRn4WOjHaPG7Y6i2+/fbIQQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1792158616;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jwDIJ0+Alc1iUuZG14DuE+UHUc9nflA7dy8tOISQqLg=;
+	b=1mxH9raSOZey7otCY1kfGEJqdYDupqrynew/e/xt1BSy2vDkjBIVnBqss/xOV8VJ9nA53t
+	/EOwr4xs7xdJUCAw==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id BAF69E00144;
+	Fri, 16 Oct 2026 22:50:15 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id B094B22000BD; Fri, 16 Oct 2026 22:50:15 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Cc: linux-kernel@vger.kernel.org,  linux-fsdevel@vger.kernel.org,
+  syzbot+b0aebd03565f5774f7f8@syzkaller.appspotmail.com
+Subject: Re: [PATCH v3] fat: make rename recovery safe after metadata write
+ errors
+In-Reply-To: <55a1f016-a7a2-469f-b481-37223d695f29@gmail.com>
+References: <6aa82300.a211d2ce.1a5198.0295.GAE@google.com>
+	<20260929090029.742579-1-krystianmkaniewski@gmail.com>
+	<87ld8j4161.fsf@mail.parknet.co.jp>
+	<1f18819d20c92960b8b2d6ccc8bc4506d346150e.1790779353.git.krystianmkaniewski@gmail.com>
+	<87bj90m6dq.fsf@mail.parknet.co.jp>
+	<20261014082315.190262-1-krystianmkaniewski@gmail.com>
+	<87qzhqvloo.fsf@mail.parknet.co.jp>
+	<55a1f016-a7a2-469f-b481-37223d695f29@gmail.com>
+Date: Fri, 16 Oct 2026 22:50:15 +0900
+Message-ID: <87cxt921rc.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-This is an accidental resend of a patch I already posted on 12 Oct, with
-nothing changed between the two:
+Krystian Kaniewski <krystianmkaniewski@gmail.com> writes:
 
-https://lore.kernel.org/all/20261012154614.42203-1-sinha.aryan03@gmail.com/
+> On 10/15/26 20:54, OGAWA Hirofumi wrote:
+>
+>>> +	} else if (!rollback_err) {
+>>> +		/* Read the entry block again if a failed write invalidated it. */
+>>> +		rollback_err = bh_read(sinfo.bh, 0);
+>> 
+>> Why do this read the bh from on disk?
+>> 
+>
+> The bh_read(sinfo.bh, 0) is needed because a failed inode-position write clears BH_Uptodate. fat_remove_entries() modifies and dirties that retained buffer directly, which otherwise triggers the warning. Reading it first refreshes the whole block. If the read fails, the buffer is left untouched.
+>
+> The same reasoning applies to both the VFAT and MS-DOS paths.
 
-Please drop this copy and use the original. Sorry for the duplication.
+If sinfo.bh is required to read because of failure of I/O error, I guess
+the bh will fail to write again. I think we should give up to rollback
+in that case.
 
-Aryan
+Thanks.
+-- 
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
