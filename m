@@ -1,160 +1,320 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5FA43801B
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DDB384CD8
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:14:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792138477; cv=none; b=Mf1DLdDu2S11utynCbbrnU2q+1/X/k2qYFWQEyxjVwoB0t4D9tPEDHrYGeMmqFbl/rizl9jRB5syPzR6x8w4eL/UZp3bbZPSQL83sqFH3gRsbDbY/lwxJiXY16uGzdsXJHK7D0UE6ZxRgTAlSIjk8VVgW/RIZxEWd2+hcXN3erU=
+	t=1792138487; cv=none; b=Sq8mLCF+jpSY/nlkxhnei7TCBhjVTj8cHKnrw3VbVAlyOQsWeulTJ9gHAnX6AXayiLpCB5D1ltXzJok3sjc6a5U1UM1l630aI4ck4rdXCgqr98TC/tHVm+fFgW3BSk4GAvyhVkDTPYu9mZNIcG5GZmiSTxxLuhG8Hf5ah5k4Yuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792138477; c=relaxed/simple;
-	bh=ewweEl0ILmlFEynfdw37i+tzRtA4GALlKRycg76XvTw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z/0uqaZMlWTxV8FZ+89puEN7CBEwVRe68ILkeO4uFCElKJtrA9OyBtMz5AOtsxKMLKYuK4bW8MMPB04xNx1Lo1E9OMMNJ57voVHmEbHiu/YnwxHYtWbX6TvId+5mCkPsN20MtKTi/cTaGWHbt2MiAWkXfVTg7xuft4jmrn/+7Rs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eX4LkD9Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kEx6you0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792138487; c=relaxed/simple;
+	bh=6URY0D6oYme6xz01rwrlqB2zCECHzV8y7FzNmRlu6EY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PemFL8D/6cUWZcsRV+qYWECGbKFQDdKckNRZv8yj1Cm1Tdv/SVEbWHKIx+ToQ4orqxazARnw8mZ2sPSwPl2lJ6TY4MZHxT3cXe6KD2sF2nTwjAK3c31X6ACv20f9h7kBcU9fFg+xWatwNVnpRU4vtJhC11TT9EUcNo3gAYc8yls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=M5piqYmh; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Lzc/A7Ga; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eX4LkD9Q";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kEx6you0"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G89uu41675912
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:14:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rUpPh65ghh2SzJa+5Dba6n2zsetNR6ZekjY3hSaL+Kw=; b=eX4LkD9QphhegX3G
-	fJSC8i9CtvbMoISkCJqJj4tLN83yck3czz7esLSkPR/JWEMMHZkGzJigNb4qDoqF
-	uOx79DkjoiaCpRxgvkHYJfoN3sBekrGG+NF76SBzOnx9xrn1uVPW5qaxoJiLBFM9
-	pRjhVIWxE0hCPaBIrrONitdxgY2G6TC1zYyKY2b2yuLl+rhUYuJaK3uabdmWn6ko
-	U/TRGHysUeKbImfIiYzJjR0Db+wOTlAu75tiBLSJnx9mKhJb5Q1pUIPkWopvZiEQ
-	wUskhBdZHFf2DNKOWElvGkYf96aDAF5+NXwODb5LY1Y2Un/J1cQBifjOC1L1WaXO
-	NME7eQ==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbg5yr0ky-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:14:35 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35a4d2e39acso7030008eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:14:35 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="M5piqYmh";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Lzc/A7Ga"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792138484;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=56RICpgwGhNm6LSWh8AoomM8aDXtuq7tL8RIbQGojuE=;
+	b=M5piqYmh/ljmPlI/iQu4YfRZBvRXdMRXb4nFhe+g3fWv3GnyhZqwoCKkQyCeogLKyLlEeQ
+	+4Iqa2UVfJdC9On0rd3swGsNOsWJvIQuxgB/yj5vY2DlZf+Y53SL6m74l+wZ2LkfaBBUee
+	eFfIo8Xh6IEZKtOIQzmuHiuQ1Jwou24=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-504-a0SC3R1NOPexmTu2YHiRiw-1; Fri, 16 Oct 2026 08:14:42 +0000
+X-MC-Unique: a0SC3R1NOPexmTu2YHiRiw-1
+X-Mimecast-MFC-AGG-ID: a0SC3R1NOPexmTu2YHiRiw_1792138481
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a01b112fa2so40565005e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:14:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792138474; x=1792743274; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rUpPh65ghh2SzJa+5Dba6n2zsetNR6ZekjY3hSaL+Kw=;
-        b=kEx6you0GSNfuMzahDdi8RhnoNxyyWfxzq7yHyXVs2dSZrxbxrAzTCnimK/kmvx6sq
-         btjNJrs+4hbPECdhzZrQYjbHMga/jwrocxsV4H462lrjikFmk6ZlkZO2QLmQbYFyqP30
-         odXjRGEytl9YVfsHjfJxRVBf8Lh06X/BrgeisysELHNp/AO44rekuQItCD7wM5xvAW3m
-         qR3kVvBP0dU+EHTdUldaZqh8ljiQnaA7yidDBlwNsLC2JeHmDYwQp6c8pcp3GMaVar1U
-         qsRcoYCTEzynFdO+h9uRUbiz8oPjSHEx+2YZJlZDKvk7od9qjLL2I9jYV9BJ4XzscM8V
-         fDXg==
+        d=redhat.com; s=google; t=1792138481; x=1792743281; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=56RICpgwGhNm6LSWh8AoomM8aDXtuq7tL8RIbQGojuE=;
+        b=Lzc/A7Gamz+gQPJhr4UEKRx2WeSl3HpfGfE3m2fkB5kNU2Si/Q1+3tNYW2cUBaJZ15
+         dfK+eIU0Ut9JdMoBR2fy/d2D1tovzOMLnPftfh+42Yd0SBHTjG+wnX/JYqjSavCfqV+C
+         5htEfdRGJ96STAmEY2GshKIjiX5jXdR5M7G+OGjHd17Xy3omGYxFYj+ZkyOX3M/4JsHT
+         SWQsTMuq4tfWzW5dD/5shyKKfTsFxVT8RXa9sE3hJ0jM3Rijs97ZPWekGuYOeiMfkrs8
+         0LmWgDOwB06H8VvDeFc1b24hvCLPPTGujNSGzkeVrVViL/r8zz+Ror4N+BjrRNPPSap8
+         Ktwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792138474; x=1792743274;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rUpPh65ghh2SzJa+5Dba6n2zsetNR6ZekjY3hSaL+Kw=;
-        b=O5FPYrOlzTDijIqUcG7livjfVuRzF+DaTxi1qk0LD8mwAXcBUG7X9ybvZraGhCMJSr
-         liOONUDV8V8Y37SxXA8JKo9B+vMMYxK8agpnnSAzBWx37jA9dykMH25//9CyjZLhPS7u
-         8dACMhKMqoVuJPnOSGGJaeQp6+kokdlqBlianUI+etBGkEjrh8brm3E/PUN2y8zqTthc
-         zMju3+Ih8E0lRURuw6vmsBzT/siQ8PN87B+Wt8kaVmuxV1yXACXw9UOn0i77FHEjPdYB
-         iMmxg/eD686d415U0gLKl2bq9+Mziem6hBPV2SUjSyqxUxa8i67glL9iWEesyU5tASla
-         pv8A==
-X-Forwarded-Encrypted: i=1; AKwUvBxOUZqxm0IRqMfPEkqsMoVtO+9Acsa2XNkTJtlz7K8wlG5+RpsscQcgMa8CqE99I2Wgg+Hu7i93et0VleM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK23mhAoCiL6yMCfVZ2Y1ELYZD416qxp7cB6ab1fuN8SQVWpL8S
-	krRUsVcqYzaMx/mIjkcSBIflG4VriZPk8Vvf76jXSeAhowQQ8HNoV+BkdO1tB8mSVdCOIeTzkin
-	n95nDC4wf+A5Anx8t6GXpsUzocaezmtEeC4LFmbB5BIMHsuv4TysEK5qGrFmhq+gF2B4vss4u3b
-	k=
-X-Gm-Gg: AYBFou3FUcMmHomTv5lAbEIfNCmSzHGoP6TVsAKDptwLU74aJ+8VdxVlpiYoBHsJCTi
-	rnioJPuenNH4HYHfFq8TFGl+ZUR/lhZ4zWEWT04Zq2h1G73d/UPt9s0l6SrNBFAkLYV894ouHvx
-	eDsObnWacMG82iHvUVxowxHfl68Fb4AY0uGLOn+8CLSV+lAFRBpMYPrWo4bwX+ygpuqxyRQFW47
-	yimaM6vLNE8t/ZE+oa9JTqidVzFE801PPIZUJDfKUdCQe6ozlKGSvd1+LsyYlfVzouWCoNPM4k3
-	tXORKSCnvdywFSroqJfmVIL4xauNG++r5OCluXGPxByxWaA4Su5AazohjLKOuekxZ58q9zkALHS
-	2rMjJyDqBP1Xn/jP+LwoP/kV8XoAGVh42K7Y=
-X-Received: by 2002:a05:7300:6cac:b0:339:7b3b:236d with SMTP id 5a478bee46e88-3537dfc8fd8mr41404495eec.15.1792138474351;
-        Fri, 16 Oct 2026 01:14:34 -0700 (PDT)
-X-Received: by 2002:a05:7300:6cac:b0:339:7b3b:236d with SMTP id 5a478bee46e88-3537dfc8fd8mr41404461eec.15.1792138473880;
-        Fri, 16 Oct 2026 01:14:33 -0700 (PDT)
-Received: from [192.168.0.106] ([124.123.197.75])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0e5e6sm4528052eec.1.2026.10.16.01.14.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 01:14:33 -0700 (PDT)
-Message-ID: <9a12fc9c-e766-45d3-a6f8-eb6ff3332434@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 13:44:26 +0530
+        d=1e100.net; s=20260707; t=1792138481; x=1792743281;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=56RICpgwGhNm6LSWh8AoomM8aDXtuq7tL8RIbQGojuE=;
+        b=bhlrg0BAlYKr32rdfi7rGEpQIWJhy6gUuBAi/AsSTMTjSoIWjWYn6UNbdrwbF985QG
+         sOJCfLVlQCo9ioadtMVqqcHj1kpIXghn9dQTxMHEVumZYn4fwIbl3k0SSyGA8dgbkleb
+         lrhFQjcFkaAmmXkWeQR2y/jnLQtGEADX9GwncGFv2cnd0jRyNmf2ieQPJjbSw5/AYrhc
+         +R0gxNwK5Exvc6aAdE18fvJCBCzUrapaGAPtbI1SVHAl/hY3jie1OfR22FGHNUOu14qj
+         5JHv7KkmhTMxrAqxp2TP7nWoZwcAcqI9Gpy29pXxUnHa3Kdq63K98yE4VmulObFZ+hV2
+         DBhQ==
+X-Forwarded-Encrypted: i=1; AKwUvByHOwL00fbFbV4EodZ7TEAC7i+dFZxkEJ7/gSE8AzslyFRiM9dAqf0ZvJmOvwAZi5NNoTF64u0G7nIhFYA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5w/zyroMSllJJ74mp4T+7R3ydUflpHFege9u0CL6u70qD9hYi
+	oUQYNdKkD0ZwRA0tbX+vs+2CN3NQhR0ud+Ef8EPz3ADE+EOBXgzPnjjF54WRubfu3P06lbIWDgs
+	IvDE+9Z/p0W6muCRm5RBp9UMYpGI3GMgtx9HVMU3A97djbzkeGbpPmbGS3dbycA1dGg==
+X-Gm-Gg: AYBFou392Msh7bu0yqIygJ60JtpqoydtMgJyDzPwjq+LYOPVj+jixjoHik+TVOM8bbD
+	b+QFINkfnsFXpIMhVEXA6wlSAEI56PVJZcZMil1YvAdFC7QPwXlDPFUcB54+HBVMcPrYgt8YxHQ
+	syUfGYWLqDLCIxqtK7CHdAELBArAp6KKr5J5+CviGi/ysWnfkLB9wVIV1E2PluHHtfDjiy5BAQK
+	rTZBV9Uj6/whmwDNtQTx0JvdrnC+7lePeJj45z697FZhC+yhKACMPe30QOCcHNml0e/RDWwtaWk
+	pHPHH8bkISBcB7LY/vqji4fOhTt6m03Tjms9cK63Haqem5aN1dkTkmXQ8xNhTT84eJyyfsrwtNq
+	YqqoQ
+X-Received: by 2002:a05:600c:19cf:b0:4a0:168f:d962 with SMTP id 5b1f17b1804b1-4a18e44363dmr423676135e9.3.1792138481284;
+        Fri, 16 Oct 2026 01:14:41 -0700 (PDT)
+X-Received: by 2002:a05:600c:19cf:b0:4a0:168f:d962 with SMTP id 5b1f17b1804b1-4a18e44363dmr423675585e9.3.1792138480725;
+        Fri, 16 Oct 2026 01:14:40 -0700 (PDT)
+Received: from sgarzare-redhat ([80.116.137.133])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd47104csm3835450f8f.8.2026.10.16.01.14.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 01:14:39 -0700 (PDT)
+Date: Fri, 16 Oct 2026 10:14:37 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: netdev@vger.kernel.org, bobbyeshleman@gmail.com, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 1/2] vsock: support SO_INQ on stream sockets
+Message-ID: <atHT4vOo39HBEBva@sgarzare-redhat>
+References: <20261015154334.3217358-1-devnexen@gmail.com>
+ <20261015154334.3217358-2-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 6/9] ASoC: dt-bindings: qcom: Add Hawi LPASS macro
- codecs
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org,
-        linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261014-add_shikra_support_v5-v5-0-fb9f0667e613@oss.qualcomm.com>
- <20261014-add_shikra_support_v5-v5-6-fb9f0667e613@oss.qualcomm.com>
- <20261015-grumpy-salmon-of-holiness-b6e9f4@quoll>
-Content-Language: en-US
-From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-In-Reply-To: <20261015-grumpy-salmon-of-holiness-b6e9f4@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: krBCJ_YZDvS4KImVzeUPbJFgQBGl6mYt
-X-Authority-Analysis: v=2.4 cv=M+HYuCws c=1 sm=1 tr=0 ts=6ad1dceb cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=Z7qWu28e8E/v29kk1A4VTw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=qLKQgrqcCyXtwMQRFB0A:9 a=QEXdDO2ut3YA:10 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzMiBTYWx0ZWRfXyqdJXeMpTaeL
- b3sER/A0R3dM/w/X0qqOFphUv1C5mJUFkAUTpSfGbtZFDipFwpVei9UBPA5XdrN388pA6n0USk6
- mAbhCGI1hlRQbZrV49NrrGl5bI1QHVk=
-X-Proofpoint-GUID: krBCJ_YZDvS4KImVzeUPbJFgQBGl6mYt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzMiBTYWx0ZWRfX4FGHFbcrkNLn
- tSUqf3nX+5C902tuJVDOiMhqDrqsIiA9u7d+jlcj7xRWcOhpI0w05evjpOFAKyTWBmdlOw3v56h
- j7GkQNnIjuAbGTlw49CADDw2+E0M2W42dhBW++NonS+chdTJF5u/jgZB4EgR3dvvNmOh8CBjztj
- xce/UZj9Wquau5YiNi2XBI9MLaudCh3WTgwMjpvq6lI8kZqiwHqvWIM10gFaFsnZeQximxWwVaG
- rSkNL9CeOmgl1GYjOsS1QZ03vdKK783I9/0x6/BZqidTOdEpkjnW4tj5UXf8motuhGyaoXaFn6f
- u79wNiy2CN4VqEGd7rXCK/7PbWSqCemImVX00AE4vDpyNodvqP0X6E2He5SlUTf9qRRsDToiAPV
- Si3iHZhhE8ZVUO/2OCMkrlMnS519MwbT4zk7HzKDDtQyej8WQbpqyNVZr/MBHdx/Cnr6xVLUZpj
- WosxC0lEKYKV3/OKkTQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1015
- priorityscore=1501 adultscore=0 impostorscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160032
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261015154334.3217358-2-devnexen@gmail.com>
 
+On Thu, Oct 15, 2026 at 04:43:33PM +0100, David Carlier wrote:
+>SO_INQ makes recvmsg() return the bytes left in the receive queue in an
+>SCM_INQ cmsg, saving a SIOCINQ call per receive. AF_UNIX stream sockets
+>support it, AF_VSOCK fails with ENOPROTOOPT.
+>
+>Add it for SOCK_STREAM, reusing the hint already computed for io_uring.
+>As with TCP_INQ, 1 is reported once the stream is finished so the caller
+>reads again and sees EOF, and accepted sockets inherit the setting from
+>the listener. No cmsg is sent when the transport cannot report the queue
+>length.
+>
+>SOCK_SEQPACKET is refused, as on AF_UNIX: its transport callback counts
+>messages, not bytes.
+>
+>Signed-off-by: David Carlier <devnexen@gmail.com>
+>---
+> include/net/af_vsock.h   |   1 +
+> net/vmw_vsock/af_vsock.c | 111 +++++++++++++++++++++++++++++----------
+> 2 files changed, 84 insertions(+), 28 deletions(-)
+>
+>diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
+>index 5549298c1ec6..e8481f12312e 100644
+>--- a/include/net/af_vsock.h
+>+++ b/include/net/af_vsock.h
+>@@ -68,6 +68,7 @@ struct vsock_sock {
+> 	u64 buffer_size;
+> 	u64 buffer_min_size;
+> 	u64 buffer_max_size;
+>+	bool recvmsg_inq;
+>
+> 	/* Private to transport. */
+> 	void *trans;
+>diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+>index 1c2d1cea67f4..186ed57fd797 100644
+>--- a/net/vmw_vsock/af_vsock.c
+>+++ b/net/vmw_vsock/af_vsock.c
+>@@ -984,6 +984,7 @@ static struct sock *__vsock_create(struct net *net,
+> 		vsk->buffer_size = psk->buffer_size;
+> 		vsk->buffer_min_size = psk->buffer_min_size;
+> 		vsk->buffer_max_size = psk->buffer_max_size;
+>+		vsk->recvmsg_inq = psk->recvmsg_inq;
+> 		security_sk_clone(parent, sk);
+> 	} else {
+> 		vsk->trusted = ns_capable_noaudit(&init_user_ns, CAP_NET_ADMIN);
+>@@ -2014,6 +2015,66 @@ static void vsock_update_buffer_size(struct vsock_sock *vsk,
+> 	vsk->buffer_size = val;
+> }
+>
+>+static bool vsock_custom_sockopt(int optname)
 
-On 10/15/2026 3:08 PM, Krzysztof Kozlowski wrote:
-> Are you sure you are not using source clock names?
+Looking at the other function, what about vsock_sol_socket_custom()?
 
-On Hawi this RX input is sourced from the LPR vote (LPASS_HW_LPR_VOTE)
-instead of the MACRO vote used on sm8550:
+>+{
+>+	switch (optname) {
+>+	case SO_ZEROCOPY:
+>+	case SO_INQ:
+>+		return true;
+>+	default:
+>+		return false;
+>+	}
+>+}
+>+
+>+static int vsock_sol_socket_setsockopt(struct sock *sk, int optname,
+>+				       sockptr_t optval, unsigned int optlen)
+>+{
+>+	struct vsock_sock *vsk = vsock_sk(sk);
+>+	int err = 0;
+>+	int val;
+>+
+>+	/* Use 'int' type here, because variable to
 
-     clocks = <&q6prmcc LPASS_CLK_ID_RX_CORE_TX_MCLK ...>,
-              <&q6prmcc*LPASS_HW_LPR_VOTE* ...>,
-              <&q6prmcc LPASS_HW_DCODEC_VOTE ...>,
-              <&lpass_vamacro>;
-     clock-names = "mclk",*"lpr"*, "dcodec", "fsgen";
+nit: why not using at least 80 columns for this comment?
 
-"lpr" is the same style of name as the existing "macro"/"dcodec" entries,
-not a parent/source name. An sm8550 fallback can't be used here because it
-pins input #2 to "macro", which no longer matches the LPR source on Hawi;
-the other three inputs are unchanged, so RX gets its own clock-names.
+>+	 * set these options usually has this type.
+>+	 */
+>+	if (optlen < sizeof(val))
+>+		return -EINVAL;
+>+
+>+	if (copy_from_sockptr(&val, optval, sizeof(val)))
+>+		return -EFAULT;
+>+
+>+	if (val < 0 || val > 1)
+>+		return -EINVAL;
 
-Thanks,
-Prasad
+What about adding an helper with this code, and call it after checks for 
+each SO_, in this way using SO_INQ on sock_dgram with 2 will return 
+-ENOPROTOOPT.
+
+Oh wait, we can use COPY_IN and duplicate the check in each place or add 
+an helper just for that.
+
+>+
+>+	lock_sock(sk);
+>+
+>+	switch (optname) {
+>+	case SO_ZEROCOPY:
+>+		if (vsk->transport && !vsock_msgzerocopy_allow(vsk->transport)) {
+>+			err = -EOPNOTSUPP;
+>+			break;
+>+		}
+>+
+>+		sock_valbool_flag(sk, SOCK_ZEROCOPY, val);
+>+		break;
+>+
+>+	case SO_INQ:
+>+		if (sk->sk_type != SOCK_STREAM) {
+>+			err = -ENOPROTOOPT;
+>+			break;
+>+		}
+>+
+>+		vsk->recvmsg_inq = val;
+>+		break;
+>+
+>+	default:
+>+		err = -ENOPROTOOPT;
+>+		break;
+>+	}
+>+
+>+	release_sock(sk);
+>+	return err;
+>+}
+
+Now it's much better, but we should not mix a refactoring with a new 
+feature, so please split this patch in 2 patches, first one introducing 
+vsock_sol_socket_setsockopt() just for SO_ZEROCOPY, second one 
+introducing SO_INQ handling.
+
+In this way, if we have to backport a fix to SO_ZEROCOPY handling in a 
+stable branch, we can do it easily.
+
+The rest LGTM,
+Stefano
+
+>+
+> static int vsock_connectible_setsockopt(struct socket *sock,
+> 					int level,
+> 					int optname,
+>@@ -2045,36 +2106,16 @@ static int vsock_connectible_setsockopt(struct socket *sock,
+> 	sk = sock->sk;
+> 	vsk = vsock_sk(sk);
+>
+>-	lock_sock(sk);
+>-
+>-	transport = vsk->transport;
+>-
+> 	if (level == SOL_SOCKET) {
+>-		int zerocopy;
+>-
+>-		if (optname != SO_ZEROCOPY) {
+>-			release_sock(sk);
+>+		if (!vsock_custom_sockopt(optname))
+> 			return sock_setsockopt(sock, level, optname, optval, optlen);
+>-		}
+>-
+>-		/* Use 'int' type here, because variable to
+>-		 * set this option usually has this type.
+>-		 */
+>-		COPY_IN(zerocopy);
+>
+>-		if (zerocopy < 0 || zerocopy > 1) {
+>-			err = -EINVAL;
+>-			goto exit;
+>-		}
+>+		return vsock_sol_socket_setsockopt(sk, optname, optval, optlen);
+>+	}
+>
+>-		if (transport && !vsock_msgzerocopy_allow(transport)) {
+>-			err = -EOPNOTSUPP;
+>-			goto exit;
+>-		}
+>+	lock_sock(sk);
+>
+>-		sock_valbool_flag(sk, SOCK_ZEROCOPY, zerocopy);
+>-		goto exit;
+>-	}
+>+	transport = vsk->transport;
+>
+> 	switch (optname) {
+> 	case SO_VM_SOCKETS_BUFFER_SIZE:
+>@@ -2581,6 +2622,7 @@ __vsock_connectible_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
+> 	struct sock *sk;
+> 	struct vsock_sock *vsk;
+> 	const struct vsock_transport *transport;
+>+	bool do_cmsg = false;
+> 	int err;
+>
+> 	sk = sock->sk;
+>@@ -2637,13 +2679,26 @@ __vsock_connectible_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
+> 		err = __vsock_seqpacket_recvmsg(sk, msg, len, flags);
+>
+> out:
+>-	/* Seqpacket has_data counts messages, while io_uring treats msg_inq as
+>-	 * a byte length when sizing retries, so only streams report a hint.
+>+	/* Seqpacket has_data counts messages, while SCM_INQ reports bytes and
+>+	 * io_uring treats msg_inq as a byte length when sizing retries, so
+>+	 * only streams report it.
+> 	 */
+>-	if (msg->msg_get_inq && err >= 0 && sk->sk_type == SOCK_STREAM)
+>+	if ((vsk->recvmsg_inq || msg->msg_get_inq) && err >= 0 &&
+>+	    sk->sk_type == SOCK_STREAM) {
+> 		msg->msg_inq = vsock_stream_inq_hint(sk);
+>
+>+		/* A negative hint means the transport could not tell. SCM_INQ
+>+		 * has no encoding for that, so report nothing.
+>+		 */
+>+		do_cmsg = vsk->recvmsg_inq && msg->msg_inq >= 0;
+>+	}
+>+
+> 	release_sock(sk);
+>+
+>+	if (do_cmsg)
+>+		put_cmsg(msg, SOL_SOCKET, SCM_INQ, sizeof(msg->msg_inq),
+>+			 &msg->msg_inq);
+>+
+> 	return err;
+> }
+>
+>-- 
+>2.55.0
+>
 
