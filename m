@@ -1,172 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D57466B75;
-	Fri, 16 Oct 2026 09:12:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277AB46DFFC
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:13:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141980; cv=none; b=GII0as2LoigkeiFIYS8wvVNyoWXiucGWMlOO4YFQnqNE1X9S5p/qDVEEGD68qx4fn1OOw1OBx876MAnjPiqLqqw/lqv36NII3ngAccO8I9R6GgUreivn9O964KhKJrJR4N/pW/CuqxjNvm27WuapxcLBMl+OzeDiPHKGLzDed2g=
+	t=1792141984; cv=none; b=ZZNPKLz/aMZQu+nRxTu7tmfsl+oyyVobfk4eZLBAGLI4uIItN3PrrxTCqPMq1UU7lYqaW+CU7IRCEVkgXgb7YIZCVYcizfwWW2bom0q30EhnGX0hSNyNl1ywqnT1OQz475whZ/EywRsfhUhFa4OcRFe4lTlZ8/qyBYrXIrBI350=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141980; c=relaxed/simple;
-	bh=tIkUz86ONiXurGzEfoccU/KpLb0S8j0MPoniAWV3O6g=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=GnVkQeEEB/p/+LvubBv9QBasF5gmHpD6H4ahByto5LJV85+G+Irj+LIyeij3Rct5dyB6CUKQhezQf+oNloLPO/wHY/nSiwQlFHEK/msudYr0iCU8aJPY+xttO4Ri4qzO+R68O/C0fpAUbZiwYWtwh23dEwduv+MaRuIOY4yJK6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LYZgl/L4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792141984; c=relaxed/simple;
+	bh=ef7Fw6tWRmoS7SAlJ88r6e3K75+WCUkomH/n+4D5raw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hgL9Lv4i2n5Dtg0d8yRuv6thk8URPmUOxtevP3qYorXrGtQkrKIXHFocIjH6mTxhwD+26K11a7FgokJizwO3AF6b0jnzVELEuaiJShIQ+yyNXVkHu+guqvQw3zRI2XMx9GQUbvizgnvfFoOf7JdPVFG8Tm3C4i4k1VjAH3FrutI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kFjVZs3h; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LYZgl/L4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 521BE1F000C4;
-	Fri, 16 Oct 2026 09:12:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792141979;
-	bh=mQH+kXpKSTymGia/uumXbgT78aV2agpPTvM0izIRqhE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=LYZgl/L47fPO8Aq+OVvp5UAIfE6hgsH5zIh9oJrQPyGOyzlbTMZ+sEC6Ba2iivygG
-	 TkPuULqc5Ixpat8F42Z/hB853dD7BfPLHituatCT9QtBtX37bYoB2UITBUScGPZJTv
-	 /usSd5kkvMwdNHq8GlE8NVjVR68AUrk8rBGTbLTczFneKEc+Vlra2BuBzIxoldvSJD
-	 5k/PrxNtsyWoMGyB7jwmq/3ALOfJ2jyscwflYFHeck2tVFD/wKAmWKx5Sd0GuFkzRm
-	 5Nais/Vmmp4nMWPIYN3Q5NTbSyK91tqJb4EB8JS7BrO04489Jub9pYLLW9dhx6IUPi
-	 ELIJk5iqbinsA==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Fred Griffoul <griffoul@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <shuah@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Cc: David Woodhouse <dwmw2@infradead.org>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev, linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [RFC PATCH v2 00/11] mm: Memory providers for guest_memfd and
- iommufd
-In-Reply-To: <20261014093733.90312-1-griffoul@gmail.com>
-References: <20261014093733.90312-1-griffoul@gmail.com>
-Date: Fri, 16 Oct 2026 14:42:40 +0530
-Message-ID: <yq5a4iem57qv.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kFjVZs3h"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ab41538192so4427660a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:13:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792141982; x=1792746782; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3K54IdL4RZByTjgnEb8ZCDinU/s/KfGgM+FAnEVJz+c=;
+        b=kFjVZs3haVxGgGO9dYMeooCWmPexNk6tlYx+KZp3MZQWNKAhDVL34iyIa3cca4dDsm
+         vLjWrvIqqcRh1WtYXK91Cj8dIvBHAx82fIRkHJNsmlXhv9m0881Wsk15H+h9/L14xnld
+         etbo5YNFLDQWJT3IRdpDGGHgqJx3XBCEEPpgrHOofBiaeWFTp1vcSn0gihgg1tb60BUN
+         ZM1R5fCdkAVNxLHoQdggpPdm0KDvy2QhAGqzlQ04u8e6duu0U4J7ohh/dEFL3EeEbGpi
+         hkEYeyZdf+MwqjcDf5h4thgpj+y2C/vuF4OjOWmiDrhhhKFlo9cjfc4nfuJkznPexc/5
+         unLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792141982; x=1792746782;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3K54IdL4RZByTjgnEb8ZCDinU/s/KfGgM+FAnEVJz+c=;
+        b=dFX34k4OfUf3dUB5AGQjm3C0A6HCQniZATq3MabgPd1HY2hQNeBaJ1iqaYJnYHb6y4
+         YBkXfRivhjgRNLHr4VKdgDLz0b85TED4sZStnlVmsWzfqwJ07GTnYwXq1A1MU3I7aUAb
+         VnrQvh1WwSbwqU1ntrtvw5nU23rKAkgzIwVnC4oNBotL3xWnPRZZYbIOYIne5yap8ArD
+         5w5inJ0x4xcZney0izfjeMU1ubk4GIVruBJ1rXro1abNXsNRD2kuuW8eZqAsNk7gbJyG
+         mGIvVMQzPcTIFv0KrJo2GBJDbyRF6sFm6hcx6g5EhxJquob2M+w5thMBs/02DLXwgcRE
+         eqDg==
+X-Forwarded-Encrypted: i=1; AKwUvByNb2/LBRcIJbOULSzK9mEcPwoLsHZnBaZQJXEH5gKX5ZZVtXoUUuysgoO/fyS4dyixr9Q/M39FpOrBcTM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKUZrCcioconj+It/TbRR4VqPhWdWRtPxT7swkWqnc3D1DzhxFm
+	/Yx0NHtkSHQlAKpQr81m2VbYSkihKk6r0S5iYR0Wfk5knON6WWC+ZiHE
+X-Gm-Gg: AYBFou2Ivpv34TlVbRH7o8VTuLvgGom+x2S8/C3HUk4SKzvHdHFo14p5Q2Ru36XV/BS
+	MsuEfY5JiAhkEUAPfOjmFOpbGFZkL8t8wkE7U4z6saB7LLjb0/Exqbmjq0Y7TRc9IMy0wMszWkP
+	2yyiNDa8N5zznlD65C6h3MpdPK/iBOilu/zXyc29nQAHB/v/KOlmD1Uspf3+L3vkNzO4+QWSfZq
+	sf0SJ42h8S2/r6DlEe+4MtdPq15sO/QrkJQg3WBYPepEyiepF+Huhq1kClvr7bjM9QU5ZjItkVv
+	Dt+Fj4I3nrF8nrBBoQ7etRbGH9y7Nwh00LkcW7jWzIH+vv03tjn+v2Pl4IwMunFObVlhJnQxYFR
+	jubct5V2F9dcvu+Lv9AZ8XWxtv1tnKub+3peY9q8R7TtFb54rvwEz9ldYTjqeyJkCLEmyEgD86n
+	Muq2JPSpnqPyjniYUu07kHYCMzNLUVgPN4uYQyCKljqy/vXTDt0lsI9+ExIBGMuhHz+/evM5GLg
+	pjakKEPzHfkS1V5zU93N35Q9/VOW8T2Q1ym+BEx0w7CuXZH3Q==
+X-Received: by 2002:a17:90b:4d10:b0:3ab:e789:ce84 with SMTP id 98e67ed59e1d1-3abe789df31mr14032439a91.65.1792141982237;
+        Fri, 16 Oct 2026 02:13:02 -0700 (PDT)
+Received: from DESKTOP-VNSSJ2S.localdomain (59-127-145-64.hinet-ip.hinet.net. [59.127.145.64])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd65497e28esm767274a12.7.2026.10.16.02.12.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 02:13:01 -0700 (PDT)
+From: Zhi-Jun You <hujy652@gmail.com>
+Date: Fri, 16 Oct 2026 17:12:34 +0800
+Subject: [PATCH net v5 2/5] net: ethernet: mtk_wed: fix reset condition for
+ rx wdma
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-wedfix-v5-2-8b02e78fd34f@gmail.com>
+References: <20261016-wedfix-v5-0-8b02e78fd34f@gmail.com>
+In-Reply-To: <20261016-wedfix-v5-0-8b02e78fd34f@gmail.com>
+To: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Sujuan Chen <sujuan.chen@mediatek.com>, Rex Lu <rex.lu@mediatek.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Zhi-Jun You <hujy652@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792141973; l=911;
+ i=hujy652@gmail.com; s=20261016; h=from:subject:message-id;
+ bh=ef7Fw6tWRmoS7SAlJ88r6e3K75+WCUkomH/n+4D5raw=;
+ b=+PQFTR5s+TTWwx7Z6oJWtXxCv8fvB1yIrErU3O65A0x/ZCM9asxgNMV5LpBxXawCXZOXvZ+QF
+ sEZym+shfFOBc3c8pjPDBrbFSHIHqiTE/3NTqOrXjEhY1KjtJmVMjZJ
+X-Developer-Key: i=hujy652@gmail.com; a=ed25519;
+ pk=AYHrGhtLNb9z7JIsGOOYWmKKIoVPH7ZZgT+CLIDMuEM=
 
-Fred Griffoul <griffoul@gmail.com> writes:
+In mtk_wdma_rx_reset, only the wdma rings that weren't allocated are
+reset which is wrong.
 
-> From: Fred Griffoul <fgriffo@amazon.co.uk>
->
+Fix this by inverting the reset condition so allocated rings will be
+reset.
 
- [ ... 24 lines skipped ... ] 
+Fixes: 4c5de09eb0d0 ("net: ethernet: mtk_wed: add configure wed wo support")
+Signed-off-by: Zhi-Jun You <hujy652@gmail.com>
+---
+ drivers/net/ethernet/mediatek/mtk_wed.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->
-> Why a new interface
-> ===================
->
-> kvm_gmem_ops gives KVM a way in. For devices, the only option today is
-> a dma-buf plus a private call that iommufd looks up with symbol_get(),
-> which is how vfio-pci works. Each new owner would need another such
-> lookup, and iommufd would end up knowing each owner by name. With a
-> common interface, a provider module only calls into mm, and nothing
-> needs symbol_get().
->
-> It also means the provider revokes a range once. The VMM hands the
-> same file to KVM and to iommufd; on a revoke the core forwards it to
-> every consumer, so KVM clears the range from stage-2, iommufd from the
-> IOMMU page tables, and guest_memfd from the VMM's own mapping, all
-> before the revoke returns.
->
+diff --git a/drivers/net/ethernet/mediatek/mtk_wed.c b/drivers/net/ethernet/mediatek/mtk_wed.c
+index d55042ccaff1..3f0be70c3f14 100644
+--- a/drivers/net/ethernet/mediatek/mtk_wed.c
++++ b/drivers/net/ethernet/mediatek/mtk_wed.c
+@@ -257,7 +257,7 @@ mtk_wdma_rx_reset(struct mtk_wed_device *dev)
+ 	wdma_w32(dev, MTK_WDMA_RESET_IDX, 0);
+ 
+ 	for (i = 0; i < ARRAY_SIZE(dev->rx_wdma); i++) {
+-		if (dev->rx_wdma[i].desc)
++		if (!dev->rx_wdma[i].desc)
+ 			continue;
+ 
+ 		wdma_w32(dev,
 
-What confused me was the introduction of memory providers as a subsystem
-in their own. What we really need is the ability to map PFNs from
-other subsystems into KVM stage-2 and into subsystems such as iommufd?.
+-- 
+2.47.3
 
-Restricting the scope to the above, at least initially, would make this
-much easier to reason about.
-
-For my use case, the VFIO fd becomes the backing provider (referred to
-as backend below). We can create a guest_memfd using that
-resource_fd, allowing MMIO BAR ranges to be mapped into KVM stage-2.
-
-Another feature provided by this series is the ability to map the same
-range into iommufd. We probably want to restrict this to shared ranges.
-It may be simpler for guest_memfd to drive this. The resulting
-relationship would be:
-
-+-----------------------+
-| VFIO PCI BAR backing  |
-+-----------------------+
-            |
-            | guest_memfd_backing_ops
-            | Supplies BAR PFNs
-            v
-+------------------------------------------+
-| guest_memfd                              |
-|                                          |
-| Controls shared/private state            |
-| Exports shared, accessible PFNs          |
-| Revokes consumer mappings when needed    |
-+------------------------------------------+
-            |
-            | mem_provider_ops
-            | IOAS_MAP_FILE(fd = guest_memfd)
-            v
-+-----------------------+
-| IOMMUFD               |
-|                       |
-| Creates and refreshes |
-| IOMMU DMA mappings    |
-+-----------------------+
-            |
-            v
-      Device DMA access
-
-
-Another capability the memory-provider interface could provide is
-kernel-initiated IOAS mapping, for example by allowing a guest_memfd fd
-to be used with IOAS_MAP_FILE.
-
-Currently, a private-to-shared conversion causes a VM exit, followed by
-an IOAS_MAP for the newly shared range. Could using guest_memfd with
-IOAS_MAP_FILE avoid this?
-
-Perhaps the series could be rearranged as follows:
-
-- Allow a guest_memfd fd to be used with IOAS_MAP_FILE.
-- Add a VFIO or other backend for guest_memfd, without calling it a provider.
-- Add support for guest_memfd to provide guest PFNs to other subsystems
-  through its file descriptor.
-
-Would this work?
-
--aneesh
