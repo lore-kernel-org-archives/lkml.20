@@ -1,185 +1,170 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458DF23E342
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:01:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB41D254B03;
+	Fri, 16 Oct 2026 04:02:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792123276; cv=none; b=U9mwadmUx2j1ebI0J8hxDd+0py+1ymgxvnb4ekdSE+C7mft1zPpDMMEPf+4dVF+YRnsNo9yUFZ5Zujz2DfJ+/j4MKuyJoTjVk75rijInpLMTwRBO79on6hdgHqesw7Wh2VNSDKd+yWYul1thgEgm/Urv7m6fxpDl/VuF5Zy3tao=
+	t=1792123354; cv=none; b=pulgGG4B4Y8XGrrsw3EAnQR00i9k4q79+nCtEWlS4731YuDruwBWXZ2DdJ2XcUxhxjFoU+UcRNxhgChVWBrYS7daGdW2025W7PDF2RV602LP2XZoRXhL+DJK1Wo+jwMS/eHT+gs0KYC8LN4G3GczJwSPmpO+OqMJIu3GLFaIz3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792123276; c=relaxed/simple;
-	bh=kz6hWgoXjwzN/plzsOuupJpm8SEQMOhxfOMvvFLoLo4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UH1dw2xQbny+0uCdZ0FY73oW62W0oy9pIzQqALxylKLVULHED+SHL13/S/4s0m7yakeMXQLiQ5ONYYpPIr8ye2WCNrqPjX/oZ9B9SV+XvPaWj3fO9OlVGwUqx7fOb6hgIRDBDsuIVc7zG1Qh2UqeGYe6niW9GP0vuAJe98Alulg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YiU6kWI3; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792123354; c=relaxed/simple;
+	bh=D/7WZn96n/4VQB8L8pTjKKxOtCun2ZxLUzSvWC0YHM8=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=sqYzbpKLinrSE6LFvS/lg8dA1WMAsLcYGRf1ujXVAjtVbkBqWaTxvYkIwb7GhmzZeyNeUNt62uKWwWt/jchaNKfeQibBsh/wa4i/hYyGz8hblqR03vUOyJCakCgbbxkmoSjHAxiL7bcdDhpEDVHGaYfYnUJh0m5+ZwwikYS61ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OedRXRla; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YiU6kWI3"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e987b4a710so1115215ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:01:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792123274; x=1792728074; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5Qhe5E4dgThyJhSYyDtuQ9hNBBoGOWOTPXhOMe7iZzE=;
-        b=YiU6kWI38o7n8Ng0a9H5qDIsVqCAnrHCHj1sdVAJsUntfAoVin71Cn3xhsDnYP/Exn
-         pcZYJ/86txoykL0YK/CjwFnX6J9y+wBaG5FO1sKU/6/amBr78Qs8jXJHi1FiptgiM9+M
-         ILBrXV3rcdDaEZinW8tA7y+yGf/RIEj+VDMQm89ey18mr6j+yvxpibG8qGgxaFPvQO6F
-         svObyTy2lSHy+sgyySDEspbm9DJqRqkL0Ce5lJD2BcNfUQSSIiKo3ums+6bpcfBem/Tp
-         IhnWn8kdo1BAmkQMg8YDJlLcmiXHpTpCqqmiZXzE2FFE2Jf4pL6WBF+BjGLoGmoQYu2k
-         Spmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792123274; x=1792728074;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5Qhe5E4dgThyJhSYyDtuQ9hNBBoGOWOTPXhOMe7iZzE=;
-        b=LLkn/ujKED/Fn2RjmXQZytIU39QQmje1n2dyyFDxnaSVRnfBnPQE/f5Rrjh98X0Nxc
-         QZkF4eBshwasUBeaNDGTbIpDM4Wb3BhkSIjzNavGV9uU9uNiEt401CodWYckZ7+9mY4O
-         h5kKRNYaiA9ZGj8/GtZTgLRTJnANnt7YiHtYj2jnMgt32arLNddXqThcM/IGdZEXuiBv
-         2gorhk76fSLBgSqDZSny22nNM0xyHUj9X+ZNCzAbCBDf9KvzQ6mU58DLhwqIE2CE2JK5
-         8qyvUVLc5LZydRa5hJF/9Wtx2Y+8oL3K8DPwyiFUDDaox/R2e3UEfW8mgK8c2bfUTjhy
-         P1Nw==
-X-Forwarded-Encrypted: i=1; AKwUvBzM1pWDWdqvJAWo1LIGl8WzZHFyhDesIU6jIZACULt7Ijl8dtXz9K8P3KSYYUJgEKqlc0kqSxkusCQQI+A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRyhC6nDTdf88LH/Pq1j7VmkQDhGdV931+3r6umXwclPjZjlWP
-	peoGR5Ay2fZtA8bhvtmlSTqyeoir6v8JMRHu0j5GMdUdbf2hiM232keD
-X-Gm-Gg: AYBFou1IsOx6N9dKEqGy1YVneGtnEl6TPdbiMXsyi10upYexYa9xs0ggHvzxqNpJR2E
-	qX/CMf9b2AxhFkrNDiUNQke8aA8JGxcwaQ7G7c5Kyqvw3Nz4wdH9ttt9MoRFCSsRmcBAuA8s4fa
-	LJB+z/4ZU0qguBXeTqARpBJGddr7vQDU0+DwQq1/g+HsZRGOYorON9Z7gwSxjDQqocM/PMbbS3F
-	6idtUqX4KBqhB57SERmE6A7JzrJXL6E8IR5b1PHgk4NZPejpa/s6zqTXuPRjpV4cOenaxuix11j
-	+G8TN72pH7RysDdKkHpaZ8FgKBorHwXF+DMOLMljOakzBpmMeitZ/Bg5UvM2aqRJHH04Gcqhnp1
-	JnOrOOViPQvAYCxqYgToCmAY4Ph3547rfZ2RpDT1f604wNZiocft2qaqi9dn9I8VXm4nZjhS+Jq
-	U8wpVL+UBkMHDdd3uRWNqfFC80q7EKtVgDuX5AacVFXy1x89yJDzegOUgk143QwtJ4IuJyhFdCH
-	I4kTrzescXigDanVEwMh+rzh1f1Cue2TZJbfu4vDAncl4gsm+FUTI4FystiShwDj4WV9iG64Xpm
-	QivWrJ9gXillazE=
-X-Received: by 2002:a17:90b:39a4:b0:3ac:b764:8521 with SMTP id 98e67ed59e1d1-3acbb9255ccmr1718768a91.38.1792123274359;
-        Thu, 15 Oct 2026 21:01:14 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc4872861sm2304450a91.7.2026.10.15.21.01.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 21:01:13 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	povik+lin@cutebit.org,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Andrei Simion <andrei.simion@microchip.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Kees Cook <kees@kernel.org>,
-	Syed Saba Kareem <syed.sabakareem@amd.com>,
-	wangdicheng <wangdicheng@kylinos.cn>,
-	Chris Bainbridge <chris.bainbridge@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Neo Chang <YLCHANG2@nuvoton.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	u.kleine-koenig@baylibre.com,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Hemanth Selam <hemanth.selam@gmail.com>,
-	Md Shofiqul Islam <shofiqtest@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Zain Aboobacker <zainaboobacker33@gmail.com>,
-	Sang-Heon Jeon <ekffu200098@gmail.com>,
-	Bo Shen <voice.shen@atmel.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	linux-sound@vger.kernel.org,
-	asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	patches@opensource.cirrus.com,
-	linuxppc-dev@lists.ozlabs.org,
-	imx@lists.linux.dev,
-	linux-rockchip@lists.infradead.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 25/25] ASoC: rockchip: rockchip_max98090: Mark the link as started on success
-Date: Fri, 16 Oct 2026 11:00:48 +0700
-Message-ID: <20261016040048.506531-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015014324.5569-1-phucduc.bui@gmail.com>
-References: <20261015014324.5569-1-phucduc.bui@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OedRXRla"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 888A51F000C4;
+	Fri, 16 Oct 2026 04:02:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792123353;
+	bh=NYhYtY6NNxHVhaTXOhMMsowXI57SxMv7/T8lMzWMVN8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OedRXRlapUce4ZGThtU3JvUeqJMCsQv8lMObcrwmI61z2UHc0QWOmhzVm6DNtGp5L
+	 chuK0oubaBpriDQSOUC8YCT3+0bYTaYmJesqyIFDUFXPiVs2uJkBZRe/L+XkEwKFjT
+	 nzznNLTeqj1Oxh0o6qE/hhhJwD08qBFwFLHuiT13uZHKBqpPwX+ILWkoG3wpp6EWn+
+	 T1lCbXIkIiNszSfWuOrKJea2GE81s8ziROlv/8rt2hhCw+VWcUe66InWcMy5H7foSX
+	 B7kl+vxTppAGGpUpuiux4aQVIazKdM4oSgS83hJkmkr2AWLYmx9BA4VC1nAmp/FQwZ
+	 9zYP3GWUDPrkA==
+Message-ID: <sashiko-outbox-173724@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 17/17] mtd: rawnand: sunxi: support the Allwinner
+ randomized OOB format
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "James Hilliard" <james.hilliard1@gmail.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard
+ Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Sebastian
+ Andrzej Siewior" <bigeasy@linutronix.de>, "Clark Williams" <clrkwllms@kernel.org>, "Steven
+ Rostedt" <rostedt@goodmis.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
+Cc: "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Samuel
+ Holland" <samuel@sholland.org>, "Maxime Ripard" <mripard@kernel.org>, "Richard
+ Genoud" <richard.genoud@bootlin.com>, "Boris Brezillon" <bbrezillon@kernel.org>, "Masahiro
+ Yamada" <yamada.masahiro@socionext.com>, "Brian Norris" <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-17-8ba4881fbee8@gmail.com>
+References: <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-0-8ba4881fbee8@gmail.com>
+ <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-17-8ba4881fbee8@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 04:02:32 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] mtd: rawnand: sunxi: Missing bounds check on ecc->steps against ma=
+x_ecc_steps
+--
 
-snd_pcm_hw_constraint_minmax() may return 1, which is then returned
-from rk_aif1_startup(). ASoC only marks the DAI link as started
-when .startup() returns 0.
+commit a2ae1cf95bb52a1850e6dc239c873b74d175805e
+Author: James Hilliard <james.hilliard1@gmail.com>
 
-This currently has no functional impact, as there is no .shutdown()
-callback in the relevant snd_soc_ops. Still, return 0 explicitly on
-success to match what ASoC expects and ensure the DAI link is correctly
-marked as started.
+    mtd: rawnand: sunxi: support the Allwinner randomized OOB format
+   =20
+    Normal hardware-ECC reads also decode protected OOB, including the
+    bad-block marker and metadata used in bad-block-table scans. Allwinner
+    firmware leaves the marker in the randomizer stream, but the existing
+    driver compensates it to keep a plain physical marker. On H6/H616,
+    firmware also packs protected user data before the first parity region
+    rather than maximizing its allocation across the page. Those mismatches
+    prevent normal ECC reads from interpreting firmware-formatted pages and
+    their markers.
 
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- sound/soc/rockchip/rockchip_max98090.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+> diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sun=
+xi_nand.c
+> index 56594bb411933..0e2ff1c59120f 100644
+> --- a/drivers/mtd/nand/raw/sunxi_nand.c
+> +++ b/drivers/mtd/nand/raw/sunxi_nand.c
 
-diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
-index 426506a8e18e..de392b420ebd 100644
---- a/sound/soc/rockchip/rockchip_max98090.c
-+++ b/sound/soc/rockchip/rockchip_max98090.c
-@@ -191,12 +191,23 @@ static int rk_aif1_hw_params(struct snd_pcm_substream *substream,
- 
- static int rk_aif1_startup(struct snd_pcm_substream *substream)
- {
-+	int ret;
- 	/*
- 	 * Set period size to 240 because pl330 has issue
- 	 * dealing with larger period in stress testing.
- 	 */
--	return snd_pcm_hw_constraint_minmax(substream->runtime,
--			SNDRV_PCM_HW_PARAM_PERIOD_SIZE, 240, 240);
-+	ret = snd_pcm_hw_constraint_minmax(substream->runtime,
-+					   SNDRV_PCM_HW_PARAM_PERIOD_SIZE,
-+					   240, 240);
-+	if (ret < 0)
-+		return ret;
-+
-+	/*
-+	 * ASoC only marks the DAI link as started when .startup() returns 0.
-+	 * Since snd_pcm_hw_constraint_minmax() may return 1, explicitly
-+	 * return 0 to ensure the DAI link is correctly marked as started.
-+	 */
-+	return 0;
- }
- 
- static const struct snd_soc_ops rk_aif1_ops = {
--- 
-2.43.0
+[ ... ]
 
+> @@ -2342,6 +2353,299 @@ static const struct sunxi_nfc_oob_ops sunxi_nfc_s=
+crambled_plain_bbm_oob_ops =3D {
+>  	.finish_read =3D sunxi_nfc_oob_finish_read,
+>  };
+> =20
+> +/* Allwinner randomized-OOB format, selected only by allwinner,randomize=
+d-oob. */
+> +#define SUNXI_NFC_H6_ALLWINNER_OOB_MAX_USER_DATA_SZ 16
+> +
+> +static void sunxi_nfc_randomize_buf(u16 state, u8 *buf, unsigned int len)
+> +{
+> +	while (len--) {
+> +		*buf++ ^=3D state;
+> +		state =3D sunxi_nfc_randomizer_step(state, 8);
+> +	}
+> +}
+> +
+> +static void
+> +sunxi_nfc_allwinner_oob_record_status(struct nand_chip *nand,
+> +				      struct sunxi_nfc_allwinner_oob_status *result,
+> +				      int logical_step, int hw_step,
+> +				      struct sunxi_nfc_ecc_snapshot *snapshot)
+> +{
+> +	u32 count;
+> +
+> +	if ((snapshot->pattern_found & BIT(hw_step)) &&
+> +	    !(snapshot->pattern_id & BIT(hw_step)))
+> +		result->zero_steps |=3D BIT(logical_step);
+
+[Severity: High]
+Does this code invoke undefined behavior if logical_step exceeds the bit-wi=
+dth?
+
+The number of ECC steps is derived directly from the NAND page size in
+sunxi_nand_hw_ecc_ctrl_init():
+
+	nsectors =3D mtd->writesize / ecc->size;
+	ret =3D sunxi_nand->oob_ops->init_user_data(nand, nsectors);
+
+It doesn't appear that nsectors is validated against the controller's
+max_ecc_steps limit. If a NAND flash with a large page size is used,
+ecc->steps (and thus logical_step) can exceed the hardware limit (e.g.,
+16 or 32). On 32-bit platforms, this could cause the BIT(logical_step)
+shift to overflow.
+
+Additionally, this could lead to out-of-bounds MMIO reads in
+sunxi_nfc_hw_ecc_get_prot_oob_bytes() when iterating over ecc->steps,
+as reg_index might exceed the supported hardware registers for user data.
+
+[ ... ]
+
+> +static int sunxi_nfc_allwinner_oob_finish_read(struct nand_chip *nand,
+> +					       struct sunxi_nfc_ecc_read *read,
+> +					       int *cur_off)
+> +{
+> +	struct sunxi_nfc_allwinner_oob_status *result =3D &read->allwinner_oob;
+> +	u8 *buf =3D read->buf;
+> +	bool oob_required =3D read->oob_required;
+> +	bool dma =3D read->dma;
+> +	int page =3D read->page;
+> +	struct mtd_info *mtd =3D nand_to_mtd(nand);
+> +	struct nand_ecc_ctrl *ecc =3D &nand->ecc;
+> +	int ret;
+> +
+> +	/*
+> +	 * Allwinner firmware treats an all-zero physical page as bad, even wit=
+hout
+> +	 * ECC errors. This takes precedence over the spare-byte heuristic.
+> +	 */
+> +	if (result->zero_steps =3D=3D GENMASK(ecc->steps - 1, 0)) {
+
+[Severity: High]
+Can GENMASK() invoke undefined behavior here if ecc->steps exceeds the
+architecture's bit-width?
+
+Similar to the BIT() shift above, since ecc->steps isn't bounded by
+max_ecc_steps, a large page size could cause this range to exceed 32 bits,
+leading to an overflow.
+
+> +		memset(buf, 0, mtd->writesize);
+> +		memset(nand->oob_poi, 0, mtd->oobsize);
+> +		mtd->ecc_stats.failed +=3D ecc->steps;
+> +		return 0;
+> +	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-submit-sun=
+xi-nand-vendor-oob-layout-v1-v8-0-8ba4881fbee8@gmail.com?part=3D17
