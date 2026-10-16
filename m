@@ -1,165 +1,221 @@
-Received: from mta1.migadu.com (out-249.mta1.migadu.com [95.215.58.249])
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0703CF030
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:23:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852C43CF030
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:24:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792193002; cv=none; b=Exw81JftNFy+LC1rs4LpnTGZ7lORlI0A8ginAmuHj4OqO3L4xLzzfaB8qH1nTzVD/Q8SncoWvguG+W8LrbC3AlTVbsBw+IXP7FWaXGS4SMyb396KuJa1/mFgzLhvNRPs8fxL9+ryz7BlXcfxBY1zmtZbKJJEiO4InMNI5Sec37U=
+	t=1792193058; cv=none; b=qwI6j02xqDIozD0Zt0rtdyyOkR9tJbhtzvaByA5AeYOezxF5sSUsFg1oISoTQnLKN/Iw3pOcnQpdutCkkq+/7qB+hrvEzdUitU202ANSreYCWetT3qomNmeaYwyNAnCtH9MOiLiaDLWne0IXXE29QqfbYHyZQ+HX88/O21SY5sw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792193002; c=relaxed/simple;
-	bh=0+E3T1/LognaqAEqD3vtOpnBDpCq4wDNO/h4ZlKIs3g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=feJOjC8zarb7T89cw0t5J3PfY+Is5N8CJ7aMNg6LMwD03Vtmvn2Xxei7W6xNtrtBEe5vY0orvvY+zGWAjbeti5km2guWMh83QTHsff8ykfH5YcvhPWhvNAHOwIoC/OmK7NZvZYpt+frTDmFJJGBq4alzu3vHOgn9OuoeFB/M9S0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PrHY8A4Q; arc=none smtp.client-ip=95.215.58.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792193058; c=relaxed/simple;
+	bh=YuCSu0KUlA61RKonog/8G3904xdj5d5wzDThguAvb4s=;
+	h=Message-ID:Subject:From:To:Cc:Date:Content-Type:MIME-Version; b=oVaoiKu48OKAnsGw1cFvN1EYsGCT4yKY+yJHTuWnRAxlo6OpJ4oBGd+ggigQeEbim2ftoFLuGF2gkO/2iBU9D+Bbi4258GRNkOTMteJUXdqOLSQKp4lKsJ4H2/xMiKZur1zEoHK89ctxDGAJnccsAgszaRye1pR1iYEIOu7DQqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=QZ08b8cG; arc=none smtp.client-ip=209.85.128.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PrHY8A4Q"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0+E3T1/LognaqAEqD3vtOpnBDpCq4wDNO/h4ZlKIs3g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792192996; v=1; x=1792797796;
- b=PrHY8A4QK0dgBMCHasJO5JqAbqBeclaErIsTf2r9RzfCdus+AwVWXbDQ4Vwhs64MkYlvOnsO
- 0f5LXQIKD9sdMuDUjZtH/B/S5Sg0XEdKnrWU5UsCZs4GICwE/n6jHSLab3AhMv33pF4m/W2WH+f
- 0+ed+D7bUxG9o8VqTh8+kcTQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5722531e999b4a13;
-	Fri, 16 Oct 2026 23:23:16 +0000
-X-Mizu-Trace-ID: 5722531e999b4a13
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d521710d-85e1-4205-a904-3823325fa90f@linux.dev>
-Date: Fri, 16 Oct 2026 16:23:13 -0700
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="QZ08b8cG"
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b0f59a5fdaso847827b3.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:24:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1792193055; x=1792797855; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8P9DrTPplGvyRcmS1s0MMPyOw0+R+/2HpDpl+9Qh+MI=;
+        b=QZ08b8cGVGMhbSI/wdInjjIXcaKSpxFdkJibYBDabxSAk5LQI9lrrGRG5pN6YhxXq2
+         pZpf4+L0tzYUOPGG5ekv/PE3Ohbw7MEEvjRWoTsn8FscI1wncKbbVjVcqHHoFN4vqBBK
+         owcVTSlAI0CBUbDoWsaJzkQRWq8Gd/SS4kZhCqaojlCFrSW/vTaFvroxP/hxreynJ+cj
+         jpzhWcol/GH+O9O9JELHgPysTAliTOzlsWeTmRnFPYxTZlhQ9TEIenRTIbUNPgkWTe5f
+         Av6lAMD99WZKxJIkFhkSEDgdnM8cDtMXVQDwJwpiaQ9/w5Ub3AMrKsUcVhPmrhYZaNbE
+         qQbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792193055; x=1792797855;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8P9DrTPplGvyRcmS1s0MMPyOw0+R+/2HpDpl+9Qh+MI=;
+        b=ivYUDpfaT2JBUkyjgliKxSEDBnjDbAaTix6qZXsPK22iLDQkHBw8pla0zxWrLP46zY
+         WrPdtJJVhkbj7P592wXrDiuJUY4vTAxK/F5jtv5KrKt68XV5CB3fRYqeb8EY+aK7enZf
+         ZnlAc6md8ZNwXUNQuZ5YfSTEHxU23byriuPKuuenXBjIdnma8QVGjteFPjMC4V5lbxuW
+         R03s39ghz1Firips0ZgEvzgBV6LY64ygabG1lIq5MbnkYfLqpMLFyrYF0F4CNE34zWID
+         KaDiSwOFBKjHwimoebeHU8Casd9lZz14csGEFifqJ64vQEo8FAckIe+8jkV+zYQ/wPNA
+         6Wjg==
+X-Forwarded-Encrypted: i=1; AKwUvBz2J6DZQke30GGw9Aq56X0eOdQHikfqy0yo13EZlUh1/I8a182GeIXuKYIsQbY1T0PuqJLPGy27Ijbk0c8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJFz86fpiIqgghZlL0oMJ+hsHMVOoV22dbiM0BMENMqRHu4/Zd
+	hdF01fUzOujvYfxENP9vjxQqqNhDNS5NYeVx5VRL7nYjRGQpZ3CFB54LdzcqaXSbAWI=
+X-Gm-Gg: AYBFou3dPsbM2z0Bqlfgh4T9gaaE+tSobc5Y/VKSXuZKQp1p/sF4yuHRp4frHmjC4YN
+	h0Hb7vwd3mWXet+URif1PiRiBvZvpiWarLO9NAh9rHcUEm2zML90OYBagUZzVU3quXtXk31BJqz
+	lzOsIQO3qrxFc3MHuUwdHiP1vSO2n+DfO+1+ePsFLkStW8t8+dkqRuD7H0I+g0vgE9lHdvHXUOD
+	aYAoPXriH2WeZWS1ZwvGoshDwIhE5bhx2u+bCcU5u/ctfZ+HNyXupbVsHoZoieBB8iCfP2XPv3n
+	miZzWqMpDNHgERirjcaNrZqSaNeFZx2xopDKhcADDK6llSKZJ/b+lYHaTeSH52/IeNnP459oEIJ
+	659QHtEmw7Ebv0j5eD/7tgLDBqOlnYssH+V4Ns9kfb4dCeqSSBekffTZRSCtVkGaSQxLnh2zo4i
+	22VRuM9aPjG+RxUFclwEB2vLg5Mf+7ftmmedtnFAl1/IU5iC0yn90FBp1fNv+TpslDXaOD3j+Tl
+	3q8jG/kl8F7zDN0Gu0U4zYyDo5KSKpTS1N2ywGt5TKpz7b/OMCrXseJ/PRoIx12CrTtJ4Wri9fo
+	u4xWv/A/OYz3H1znZkMT7DjGgDUBc1GO+0YOfh2RwOgZvsCtb2kVaZiHnkm5JDEW
+X-Received: by 2002:a05:690c:5310:b0:8b0:f1c0:60a7 with SMTP id 00721157ae682-8b0f205b35cmr4777487b3.6.1792193054670;
+        Fri, 16 Oct 2026 16:24:14 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:73b8:7067:c087:bc97? ([2600:1700:6476:1430:73b8:7067:c087:bc97])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e58dc156sm14773577b3.25.2026.10.16.16.24.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 16:24:13 -0700 (PDT)
+Message-ID: <db285527bb969bdd9388a84523979ddff36e86cd.camel@dubeyko.com>
+Subject: [GIT PULL] hfs/hfsplus changes for 7.4-rc1
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: torvalds@linux-foundation.org
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	glaubitz@physik.fu-berlin.de, frank.li@vivo.com, vdubeyko@coreweave.com, 
+	bruno.produit@trailofbits.com, davyfelipe34@gmail.com
+Date: Fri, 16 Oct 2026 16:24:11 -0700
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RDMA/rxe: Clear pkt->qp before the early drop exits in
- rxe_rcv()
-To: Zhiwei Zhang <202275009@qq.com>, Zhu Yanjun <zyjzyj2000@gmail.com>,
- "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <tencent_1BF6EE2B5853D22DD4A2F3EBADE737905209@qq.com>
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <tencent_1BF6EE2B5853D22DD4A2F3EBADE737905209@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-在 2026/10/15 19:08, Zhiwei Zhang 写道:
-> rxe_rcv() puts pkt->qp at its drop label, but leaves pkt->qp
-> uninitialized on the two paths that take an early goto:
-> 
-> 	if (unlikely(skb->len < RXE_BTH_BYTES))
-> 		goto drop;
-> 
-> 	if (rxe_chk_dgid(rxe, skb) < 0)
-> 		goto drop;
-> 
-> 	pkt->opcode = bth_opcode(pkt);
-> 	pkt->psn = bth_psn(pkt);
-> 	pkt->qp = NULL;		<- too late for the gotos above
-> 	...
-> drop:
-> 	if (pkt->qp)
-> 		rxe_put(pkt->qp);
-> 
-> pkt points into skb->cb, which rxe does not own at this point: the
-> network stack has used that space for its own state.  For IPv6,
-> ip6_rcv_core() memsets inet6_skb_parm and then writes
-> 
-> 	IP6CB(skb)->nhoff = offsetof(struct ipv6hdr, nexthdr);
-> 
-> at offset 14, so the qword at cb + 8, which is where pkt->qp lives,
-> reads back as 0x0006000000000000 for every IPv6 packet.
-> 
-> Any IPv6 datagram to port 4791 whose payload is shorter than the BTH
-> takes the first goto and reaches the drop label with that value, so
-> rxe_put() runs refcount_dec_and_test() on 0x0006000000000150 and the
-> kernel faults, in softirq, on a non-canonical address:
-> 
-> 	general protection fault, probably for non-canonical address
-> 	0x0006000000000150: 0000 [#1] PREEMPT SMP
-> 	RIP: 0010:__rxe_put+0x.../...
-> 	Call Trace:
-> 	 <IRQ>
-> 	 rxe_rcv+0x.../... [rdma_rxe]
-> 	 rxe_udp_encap_recv+0x.../... [rdma_rxe]
-> 	 udp_queue_rcv_one_skb
-> 	 ...
-> 	Kernel panic - not syncing: Fatal exception in interrupt
-> 
-> The fault happens in softirq, so it panics even with panic_on_oops=0,
-> and with panic=0 the machine hangs until it is power cycled.  A remote
-> sender only needs to send an empty UDP datagram to port 4791; no RDMA
-> connection, GID or other state is involved and the rxe socket is bound
-> in init_net.
-> 
-> IPv4 is not affected: ip_rcv_core() memsets the whole inet_skb_parm, so
-> the pkt->qp slot is zero there.
-> 
-> Fix by clearing pkt->qp before the first early exit.  pkt->qp is only
-> ever assigned a reference-owning value by hdr_check() and
-> rxe_rcv_mcast_pkt(), both of which run after this point, so the put at
-> the drop label stays balanced.
-> 
-> The ordering has been unsafe since the driver was merged: the two early
-> gotos have preceded pkt->qp = NULL in every version since 8700e3e7c485.
-> 
-> Testing done: the driver was built and run on a 6.2 vendor tree that
-> carries this code, where a single 0-byte IPv6 datagram to port 4791
-> reproduced the panic above (that tree does not pull the UDP header in
-> rxe_udp_encap_recv(), so payloads of 0..3 bytes reach the first goto
-> there, versus 0..11 on mainline).  With this change, the same packets
-> are dropped as intended and tracing the drop label shows pkt->qp is 0
-> on every path that reaches it.  Not done: the mainline tree was not
-> built in the environment used to prepare this, and the reproducer is
-> left out of this message on purpose - both are available on request.
-> 
-> Fixes: 8700e3e7c485 ("Soft RoCE driver")
+Hello Linus,
 
-If AI helps this problem, please add
-Assist-by tag.
+Bruno Produit has fixed issue in {hfs,hfsplus}_btree_close()
+method. B-tree nodes with a zero reference count remain in
+the node hash until folio reclaim or tree teardown frees them.
+The folio release callbacks remove nodes while holding hash_lock,
+but hfs_btree_close() walks and frees the same hash without
+that lock.  Reclaim can therefore unhash and free a node after
+close has loaded its pointer, causing a use-after-free or
+double-free. Detach each node with hfs_bnode_unhash() while
+holding hash_lock before inspecting and freeing it.
+Drop the lock before hfs_bnode_free() so a large tree is not
+freed while holding a spinlock.
 
-Thanks a lot.
-Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+Davy Felipe has fixed issues in hfs_inode_setattr() and
+hfs_brec_insert():
+- hfs_inode_setattr() rejects unsupported UID, GID and mode
+  changes, but returns the value stored in error when
+  the filesystem is not mounted with the quiet option.
+  At this point error is zero, as execution has already passed a
+  successful setattr_prepare() call. As a result, unsupported attribute
+  changes are incorrectly reported to userspace as successful even
+  though the inode remains unchanged. Return -EPERM for these
+  operations while preserving the existing behavior for quiet mounts.
+- hfs_brec_insert() may fail while inserting a new extent record, but
+  __hfs_ext_write_extent() currently ignores its return value and
+  clears HFS_FLG_EXT_DIRTY and HFS_FLG_EXT_NEW as if the insertion had
+  succeeded. Use a reusable B-tree node range helper that takes
+  the find data and the expected record size. The helper validates
+  the bnode and tree pointers, entry offset and entry length, and
+  ensures that the write range fits within the node.
 
-Zhu Yanjun
+Viacheslav Dubeyko has fixed the failure in xfstests generic/339
+case. The xfstests generic/339 leaves an HFS+ volume corrupted and,
+as a result, fsck.hfsplus reports a long run of "Illegal name".
+The root cause is that fs/hfsplus/unicode.c's decomposition table
+(Apple Technote #1150) decomposes each source character entirely on
+its own and never does anything further with the result. Real fsck_hfs
+has carried a permanent "FixDecomps" fixup in CatalogCheck.c for
+exactly what that leaves unhandled. Fix makes hfsplus store, hash and
+compare names the same way current macOS does.
 
-> Signed-off-by: Zhiwei Zhang <202275009@qq.com>
-> ---
->   drivers/infiniband/sw/rxe/rxe_recv.c | 9 ++++++++-
->   1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/infiniband/sw/rxe/rxe_recv.c b/drivers/infiniband/sw/rxe/rxe_recv.c
-> index 2c90387aa126..e1d90633f085 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_recv.c
-> +++ b/drivers/infiniband/sw/rxe/rxe_recv.c
-> @@ -320,6 +320,14 @@ void rxe_rcv(struct sk_buff *skb)
->   	struct rxe_dev *rxe = pkt->rxe;
->   	unsigned int skblen = skb->len - skb_network_offset(skb);
->   
-> +	/*
-> +	 * pkt lives in skb->cb, which the network stack has already used
-> +	 * for its own state: for IPv6 the qword holding pkt->qp holds
-> +	 * inet6_skb_parm.nhoff.  The drop label puts pkt->qp, so clear
-> +	 * it before the first early exit.
-> +	 */
-> +	pkt->qp = NULL;
-> +
->   	if (unlikely(skb->len < RXE_BTH_BYTES))
->   		goto drop;
->   
-> @@ -328,7 +336,6 @@ void rxe_rcv(struct sk_buff *skb)
->   
->   	pkt->opcode = bth_opcode(pkt);
->   	pkt->psn = bth_psn(pkt);
-> -	pkt->qp = NULL;
->   	pkt->mask |= rxe_opcode[pkt->opcode].mask;
->   
->   	/*
+The following changes since commit
+cee9395acd8043be0644b25c34bfa86623f2b935:
 
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/vdubeyko/hfs.git
+tags/hfs-v7.4-tag1
+
+for you to fetch changes up to
+f278d04be3acfd3a9eccf045b9eb180007cceccc:
+
+  hfs: handle extent B-tree write errors (2026-09-30 11:11:14 -0700)
+
+----------------------------------------------------------------
+hfs/hfsplus updates for v7.4
+
+- hfs: handle extent B-tree write errors
+- hfsplus: add KUnit coverage for canonical reordering and legacy
+fixups
+- hfsplus: canonicalize decomposed catalog names like fsck_hfs expects
+- hfsplus: add Unicode combining-class and legacy decomposition data
+- hfs/hfsplus: serialize B-tree close against folio release
+- hfs: return -EPERM for unsupported setattr changes
+
+----------------------------------------------------------------
+Bruno Produit (1):
+      hfs/hfsplus: serialize B-tree close against folio release
+
+Davy Felipe (2):
+      hfs: return -EPERM for unsupported setattr changes
+      hfs: handle extent B-tree write errors
+
+Viacheslav Dubeyko (3):
+      hfsplus: add Unicode combining-class and legacy decomposition
+data
+      hfsplus: canonicalize decomposed catalog names like fsck_hfs
+expects
+      hfsplus: add KUnit coverage for canonical reordering and legacy
+fixups
+
+ fs/hfs/btree.c            |   7 +-
+ fs/hfs/btree.h            |  19 ++
+ fs/hfs/extent.c           |  10 +-
+ fs/hfs/inode.c            |   2 +-
+ fs/hfsplus/btree.c        |   7 +-
+ fs/hfsplus/hfsplus_fs.h   |   6 +-
+ fs/hfsplus/tables.c       | 496
+++++++++++++++++++++++++++++++++++++++++++++++
+ fs/hfsplus/unicode.c      | 390 ++++++++++++++++++++++++------------
+ fs/hfsplus/unicode.h      |  63 ++++++
+ fs/hfsplus/unicode_test.c | 309 +++++++++++++++++++++++++++++
+ 10 files changed, 1165 insertions(+), 144 deletions(-)
+ create mode 100644 fs/hfsplus/unicode.h
