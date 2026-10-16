@@ -1,182 +1,194 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013055.outbound.protection.outlook.com [40.93.201.55])
+Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 172343B71C6;
-	Fri, 16 Oct 2026 09:25:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792142722; cv=fail; b=oWbWWxgYrwC4TKYcNKg5QXHgYRUQmXHMbyqH2wa4T4FA1wpAIUWVLP2AulG64QXLXw9GVzPQjwi8XSPDKL8w2Qdcck6aJwbOyzroOxtfjpRg/zbv+a2nOOhrboZDSCn26AlxPG4V8vfX6mPA66/Xo4t4cYwcf7STrIvCMPex98w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792142722; c=relaxed/simple;
-	bh=EAkzeXHY0UWR6XZzdMVV6SiVk2n07uoFnx6JYI0/iUs=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=iBYzSZ1Ahcd2uKcNNSTiWp5sZg4H/zi7woJuZwsgivJ/SaOurGKrpVsMsUKRcU2RhyKIqR0qsK7BX9uFk7NRXkDG2CHo8ueln+7QARYhD1Hk1sZgY6Rl1ir+rvaSBIg26yrBDaiB01OVlROqyxmhiElJLCRqG6pOl9F202Wryp0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PLPV/r+8; arc=fail smtp.client-ip=40.93.201.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E6E46A5F2;
+	Fri, 16 Oct 2026 09:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.82.148
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792142734; cv=none; b=hO0k/VpsLqZF+Q7wZx3Tt62utOEGyipejSnzsgJRQvdicCwcSAJFrkupzWFNGXJdljGX09t1AkP7MLrQSGejuv3cIcSoTjFydC32m2dGs/0F17Re0s+ep2ROUfq+jw5FYNYqzKF0r8gzj29ap04Cg/AcD9QcQFMN4vJ3hhf5WW8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792142734; c=relaxed/simple;
+	bh=CdGqR/CPgTmzueiHF/jTYAn2Xbt4dYm9NhCQwTt99mo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=poallTJ4f58QpGzX6pCVJ9k8BYYFb7PwrXxnwdH6dPEFpaPV9mgrq4K7Cofl6kawrqi2+QIq1OO2xkBG76vw6nO3syqvCSZVYx3b5ktwOY7cghh/oOh0rFcwsZnT+RxcnSqJuKXV8b2Qqm1VtwmlOp8OvaO2qnmUpZninelnMek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org; spf=pass smtp.mailfrom=samba.org; dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b=eIuIMDVj; arc=none smtp.client-ip=144.76.82.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PLPV/r+8"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K6T20+OrBlERBTTj0KUgpz/IeGtz0bO2tqEq4e4wGSGnsJLR71ATsXz8R1AYP1afd8FIagFwZhN/XNAKI3jas4VwnbuEx+UqiBFWBi+r5W7/kkxj0G0ik9eTcIlLFlAzJxRcSl11OaStDrWwIMYMv5HY2r2A55Z2TIEnRwnBCEoDK1ebE7B/NusyaX5pjFkrKbpUj8laaM0ZPo2AxldcwLDNsT/XaKcGzBWlhpm+LsMQbg9b9dTWzWddOBGEabiBqAQ9eFaHWBUZ6H7wJ8mh62ryC8eUa1rj0Kk1UJcT9PSiHmua7swaVOeg6OfvpLvFJzHupFTAVuASzAGh8hN0/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hyw4+K8SNDewTBDDIv7B5MZ51Yw20OKeccQv12GOcz8=;
- b=sf4tsPHYNHoZ36pJF3I8P3xGnXXHPvS5IubfAvCSkdDxv+GTjMLngLGDSrFKrt8jopy2U5bVJv0ncn3Ozi5AQ4s82/G+ycyQI5X8QmtAk0SH/zmS7jS2BGDzD2xuRbC3Cs/bX61//O1ziBoOjB+m0ADmdiuELVxEbNy/6tqx/39tviNxMH3rabIX7r3dsWqzvjdUnNDuDzivqfj4/JPGjz5wN55YkGtrXNI4SmMuyHkYGGQgYRau1k5ICkSU3MVIniBymjFfQcn3kUT5Dt0gWxOm/TBJTSQQiD/tofzZqzi/eEC1deIsbnZVkdQ8tW+gykeYm2mxigRPEhlS5HNy1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hyw4+K8SNDewTBDDIv7B5MZ51Yw20OKeccQv12GOcz8=;
- b=PLPV/r+8CiVILriKAPYBalR4U3CGkP5krxBsQLU6jyd0qxcoYY/aicMjsxMPAYePL9VS+fVi+i28l3G6QPMB4CSgMTH5+CH5+vLQCRY3XT9Y15Cz44bErO7wa5Qo588v4+esZSETUxdNPE6G0nkyI9Z1gupYuG/m762x/ps4CLRGX92kHa8BVFUJE3dgzq8QFzl3CHygKrH8Gmlja2cbVLq7k4qFALMzzBGnN8eYntktcS7YZ/4RvbZasLj5MYgld0GJxsqyh5e+eEOo7UAO3kXu6sCOzo6sWhriCo6Q6KeEYog9SmWpmCkcup3YjzhsC0nhsEI6yamaR94Y9EsDFA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB8245.namprd12.prod.outlook.com (2603:10b6:8:f2::16) by
- MN2PR12MB4389.namprd12.prod.outlook.com (2603:10b6:208:262::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.15; Fri, 16 Oct
- 2026 09:25:18 +0000
-Received: from DS0PR12MB8245.namprd12.prod.outlook.com
- ([fe80::e7c5:cfca:a597:7fa4]) by DS0PR12MB8245.namprd12.prod.outlook.com
- ([fe80::e7c5:cfca:a597:7fa4%3]) with mapi id 15.21.0522.016; Fri, 16 Oct 2026
- 09:25:17 +0000
-Message-ID: <e580f300-627f-4187-8cf2-e87ff9199488@nvidia.com>
-Date: Fri, 16 Oct 2026 14:55:08 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/11] PCI: tegra194: Fix Endpoint PERST# IRQ suspend race
-To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Krzysztof Wilczynski <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas
- <bhelgaas@google.com>, "linux-pci@vger.kernel.org"
- <linux-pci@vger.kernel.org>, Rob Herring <robh@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>, Jon Hunter
- <jonathanh@nvidia.com>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Frank Li <Frank.Li@kernel.org>, Vidya Sagar <vidyas@nvidia.com>,
- Niklas Cassel <cassel@kernel.org>, Koichiro Den <den@valinux.co.jp>,
- Marco Crivellari <marco.crivellari@suse.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260923072237.1139013-1-mmaddireddy@nvidia.com>
- <20260923072237.1139013-4-mmaddireddy@nvidia.com>
- <179198724650.63727.14078621188562557208.b4-reply@b4>
-Content-Language: en-US
-X-Nvconfidentiality: public
-From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-In-Reply-To: <179198724650.63727.14078621188562557208.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0213.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:ea::7) To DS0PR12MB8245.namprd12.prod.outlook.com
- (2603:10b6:8:f2::16)
+	dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b="eIuIMDVj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
+	s=42; h=From:Cc:To:Date:Message-ID;
+	bh=PDojlLCVuBUweMTHHqbhfCIgU/dCgFlQCc4LCljaO18=; b=eIuIMDVjH4CtokX230CGJ4NHsm
+	TcWEC9B58Z0t7sbtI50mMSVfirFgCflWMGKITkvSERg+nMTe9UMyo9+VrRHPN1qIqO/cvKAT+C9kS
+	wAE1LhErVQBbNquHUXKb/5X6Ca/u21QTKXIIj/SivYgv6CMu5xogyqFdwYjACqwIxP9YzK3OguHph
+	MAkPw8PqDTK305/yqnvp0oRZybb9yaE27cxD6IepnE0pIQmHMYXjQNdiJINRV+5gf4aaO0AqF1IV0
+	CNdQ7COmXZ29Bkfwlsh4p1LDbOdQS91FBKcBEuUc9cPXIAISAcQY/i/9eDuTQd4AIPz0MxFoABNpd
+	VThvFjV6F//uCFpeEVnHCKVeeHx4vVCoTPXmfMXlwivg6eXE9RO3g7Zq36ppXDySHQ2sMWpjUGYgO
+	ygkJwJwzWimNMckIWhrufvl7s1zdjFFX+ydlTbRDqNaRVaSs+HnkZs//J7AzqOt1Qw7LVq7iPfSlk
+	cecxSa/FUxLnMVqg8s6aFoxT;
+Received: from [127.0.0.2] (localhost [127.0.0.1])
+	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
+	(Exim)
+	id 1xHeBq-00000002Ypa-3fKM;
+	Fri, 16 Oct 2026 09:25:27 +0000
+Message-ID: <473d9515-b951-4cff-a553-b8ed471d0112@samba.org>
+Date: Fri, 16 Oct 2026 11:25:26 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB8245:EE_|MN2PR12MB4389:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87a9f676-1437-4a78-9cbb-08df2b676451
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|6133799003|10067099003|22082099003|18002099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	ztZh2QAvsvn9Gh9w+/J5npAYkcwlzr4PTIZ4PwRsmmCzuVF0mgk3WaGcE58mMK9qsqVC0TThWr7J4Iyp1rwCB8crqSe/CZXdHtWC074KAyoGXMZSb9TlwqkSZEVGUvS8D+1qsgi3jK49uc2MidvdYtOs24I6ZJ2w1QYiUXXBpVn4MVu1VPXl+5ymqqYGBH4XaS4ATm3h/4YNc5+blC22ugm+RmIAdEyGcLpclJ4ASJ6AbaEbqMLlECMiO97WW9QzkCGyxMshQ/GasJKwewGSc3s4CIwAobB3916jdKgbrWn2hLryQD2P66NgxhtTlAAS9a8fQU8sg6Ods9CoHE4/g2N5QzUHwpGju1lZsKyVP1hPVv4YXge6sWudilXi0G0SPaljFlgFWDKZeBLHUNWv7lCr6zRBvkAkIyUwKXHZZ7P+q/SWrS/Goqof2G5Qxwum8yhsDxcB0inqN2mvkQMHRpx5SbKSCK98y1O2BZI0kfMDKDm3Veg5F9J83VsIQ7eeAdJq99XHS4ll+qt1+u+YDnDYIsi3OjiebodYIza87S9pJkGfabrXOVd2peHLwLVicGxLyJ/t42bLwfmYGaP0bUrSB+DFVkgWsto7PfAYy8/BU+ke7pEsxlHPRCrIn10oTaBLaSaHZ9luejVb8rJH8ugfsFZdWN0JWiYrhl2v4R0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB8245.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(6133799003)(10067099003)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y01ILzdDQXVvd3JHU3pTK1hTSWVtaUlkQ0syOTNBcmtTUGpMSWxxM1F1bnhR?=
- =?utf-8?B?cklLSGMrL1VCek1waHJtR0dsdGtFSWlTRUM0aFp1NVEzRVJ2UmZnck91d0N0?=
- =?utf-8?B?NktlL09qdmZHMGp5RjZEcXRka0l5NzRrRyt3eTlXTnVGN2M1NVdCc0JpWith?=
- =?utf-8?B?WmI4SEFxLzRIc2hCWVI4K0xZRkVXbHpheUUxOGVjbDVibkVDVjJSalJXeHhK?=
- =?utf-8?B?ZG8wd3NnQThOWlBmWkNYa2l1bEJLQnZ2T3d4cWhQSzUrOVEwT0I5YXBXOUVl?=
- =?utf-8?B?STZQaENkaXJZaVhCbWJWTEcrV2RBVDhBaloyV1NhbnNUNUhoVzZWdlNTbld5?=
- =?utf-8?B?alZ2TStVT3dUYVYyQzJ4c1AxN0V5bTlSRkozbHZ5aERIRDlnS3BneUtkUUsr?=
- =?utf-8?B?dWVSa1hYRm5RR3VqYVo3WnQzazhTZndQYlZaVzJKeDZHaXI5WEQ0b2hHQ25D?=
- =?utf-8?B?WFNla0p2dlFvcnN2RzU3VXpGNUlKYTQ0Z3czUW5nTnpFZDJLWXQrd1ZaZDlC?=
- =?utf-8?B?TXRnOElOMDlsVW5pYzR2Rm8zaHlwMzUzQmV3N2toWGN6ZlRNWnRaekZjS0VY?=
- =?utf-8?B?Qk04Y2hFenNyMUZTek9zN0t0QlRxWG9objJkNWFlVCsrUjlibmp4eTJoL2dH?=
- =?utf-8?B?QVRZQXVZMk1lY0ZQTkpuL0taM3FscXJXN2xzWTBuQUJvNndGRjRuQWYzVGdn?=
- =?utf-8?B?NzFKMzJlVjY0ZTVGQmFvNUIzdk5ZKzZEZDVWanhlZVNIQ0ZsOXQ0VzJZQ1ZM?=
- =?utf-8?B?ZEtVTXdDV3UyRVMyQlNoSG9PcGg5dFhnUjAxcUJFQjBqamVkTDhXaEtjSHNG?=
- =?utf-8?B?aDd5STNBbkFWSVZmcFJ1MzdWNTZIY3EwMkZ4Umt3ZUlJdGN4NXdkL3BiTnF3?=
- =?utf-8?B?cmdWb2dZcDVnZjlXd2hXblNZeWNPRFdDbE5ROVdYUXphVjIwT3drK0VFQ2VR?=
- =?utf-8?B?Y1h1SHl3TnJUZUJFMTBheVBOcEZnekxaSkRzNTNweE03QlRaaGNxUW5ISncr?=
- =?utf-8?B?TnhpTy91cFpLbncrQzU5Ukd2azVyZFRwYmR6OEdtOWNlWVY3MTJtSkFTUHFV?=
- =?utf-8?B?NFlMZThRMHorK2MxbWlaaDN5ejlmTWhWckQwajRRTlJ6UTNBaEVUbE85cC9S?=
- =?utf-8?B?bHMrWEVscjJaTFZnVTA4akM1TzRwc2VGMWlNUjJzK3NkMU00Qk84Nm1IKzlw?=
- =?utf-8?B?REpWZFY3ZGNNdGk0OWUwQUZHbFZ5U044bHJLYUZUb1hhYTlqejhzcEZvcVJZ?=
- =?utf-8?B?U2lIQ3VFR3lvQzlEaGEza2pYWXhGbG9DejV6NUVWblRSWjZzNVNiRlBQM0lo?=
- =?utf-8?B?MmZKWTd2MDhqNVJKdlBCTm9zNEdaZjFidXh4TXlRbTdyU0JRK21xTWdGbEdI?=
- =?utf-8?B?SGpzVG1UV0hYa0JjV0VJWkk1WHpmVFYvZTNRRTRyTG1yM3dGQnVjVTdPeVJB?=
- =?utf-8?B?S0Rid0JtKzl2amVCRkczV3BLYWZ6U0NYMGJEckM1ZGoyVDVqaUhlYi9BUFFu?=
- =?utf-8?B?UVdYK05QdzgyRUlCU1dXZXZSK2g4NHFkdkI1cWRzMnhFTFZpeEthNGx0NUxW?=
- =?utf-8?B?NlM3ZEdxbEFOUzRKRmNkYVpDU2x6WjJZek1qVG1EVjREVXpvNCtPOWhFcGFH?=
- =?utf-8?B?TVpUMmFFMGlRY2cyNUZ4NjZsSm5xWDl0SExUU2g4T25PMkQwdmQyRUZqODZj?=
- =?utf-8?B?UnZSSk9CajYrL1dqNllwNXM2cGtZOHFMc01sVXNIZTd0ME42b2NneFh2YUZX?=
- =?utf-8?B?dU8yWGpwYit3SXpEUkhlMDAvTy9qL0ZxaHdMVmphMnhvNzJObnpEMy83MThX?=
- =?utf-8?B?TDY5eER1amVHZVRuK0RYZjZpMEp0SGgvTFFZd2pCSlJpbTFCUWtyanluV2tV?=
- =?utf-8?B?OG50NUVnSzFzaGE5WTRrcmYwNWs5eVVtNXlEUWsycURmbDJUQTVkcmtKaTVp?=
- =?utf-8?B?TExrTWF5S1hsMnFLMzR3eW42RXIxalRqa1NkREFDQ2pLQUlxUjFDa3lHRlky?=
- =?utf-8?B?eitPTGNNV3lCYmJ1WjBSTUw0VkxSZ3Q1U2ZjVi9rTTNpSC9kbEt6bzNNWGdX?=
- =?utf-8?B?YmxoeXZLZktnRi9LRi9qcGFEQXBXTlhUVnFHeXo4V05QeENTT2s0cGtQRm1V?=
- =?utf-8?B?enB4U1Y4cDFyZGJIc2FVUEFQSEVTaXlEWWFNU3M1NGo2S3djd2s1SjJFVy9H?=
- =?utf-8?B?aEFjTG00ZWgyaVR2bVkwaXBVbWw5T3lNSGYweWlzbEN5ekZmc2dFVXZPMDds?=
- =?utf-8?B?UGNaZkFUc3VDdHFLUXFSZDlWNHR2dTJlanBmNnVxcE9IU3ZSSXF1Vy95NlNB?=
- =?utf-8?B?UVZSVHFISmNkYm9pNEI2TG51OE5DenR3djRjbXZkdzF3c2drS2ovQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87a9f676-1437-4a78-9cbb-08df2b676451
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB8245.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 09:25:17.8223
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aBtagBcUJBp7BRWR5C1SyQGP02PnazltCwbQyVt1VMCtHFWPUntpYusHP0wDQ4eCR5a7aPq70fH3jhWQvhLKRw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4389
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] RDMA/iwcm: allow aborting an active connect awaiting
+ CONNECT_REPLY
+To: Bernard Metzler <bernard.metzler@linux.dev>,
+ Leon Romanovsky <leon@kernel.org>, Yunseong Kim <yunseong.kim@est.tech>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Jacob Moroni <jmoroni@google.com>,
+ Bart Van Assche <bvanassche@acm.org>, Namjae Jeon <linkinjeon@kernel.org>,
+ Tom Talpey <tom@talpey.com>, Yunseong Kim <yunseong.kim@ericsson.com>,
+ linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org
+References: <20260805000159.321645-2-yunseong.kim@est.tech>
+ <20260901124103.GL24140@unreal>
+ <47142579-3af7-453b-875c-ff6d610f26a7@samba.org>
+ <46f83a1c-02ed-4c64-9eeb-2fc435fdfb24@linux.dev>
+Content-Language: en-US
+From: Stefan Metzmacher <metze@samba.org>
+In-Reply-To: <46f83a1c-02ed-4c64-9eeb-2fc435fdfb24@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-
-
-On 14/10/26 7:44 pm, Manivannan Sadhasivam wrote:
-> On 2026-09-23 12:52 +0530, Manikanta Maddireddy wrote:
->> Endpoint mode disables the PERST# IRQ during system suspend when the
->> link is down.  The old code checked ep_state before disabling the IRQ,
->> so the host could deassert PERST# in that window and the IRQ thread
->> could move the endpoint to EP_STATE_ENABLED after the suspend check had
->> already passed.
+Am 03.09.26 um 12:42 schrieb Bernard Metzler:
+> On 01.09.2026 18:50, Stefan Metzmacher wrote:
+>> Hi Leon,
 >>
-> 
-> What is the issue in this scenario?
+>>> On Wed, Aug 05, 2026 at 02:02:00AM +0200, Yunseong Kim wrote:
+>>>> After a successful connect downcall, iw_cm_connect() returns with
+>>>> IWCM_F_CONNECT_WAIT still set and the cm_id in IW_CM_STATE_CONN_SENT.
+>>>> The only thing that clears the flag is the provider delivering
+>>>> IW_CM_EVENT_CONNECT_REPLY (cm_conn_rep_handler()).  Until that event
+>>>> arrives, iw_cm_disconnect() and destroy_cm_id() sleep uninterruptibly
+>>>> in
+>>>>
+>>>>     wait_event(cm_id_priv->connect_wait,
+>>>>            !test_bit(IWCM_F_CONNECT_WAIT, &cm_id_priv->flags));
+>>>>
+>>>> and both state machines treat IW_CM_STATE_CONN_SENT as BUG(), so the
+>>>> API has no way to cancel a pending active connect.  If the provider
+>>>> never generates the reply, because the peer died in the middle of
+>>>> connection setup or because of a provider bug, every teardown path
+>>>> (rdma_disconnect(), rdma_destroy_id()) blocks in D state forever and
+>>>> the ULP cannot recover: there is no way to disconnect after
+>>>> rdma_connect() was called without risking an unbounded hang.
+>>>>
+>>>> This class of problem is not theoretical.  The pending smbdirect
+>>>> change "smb: smbdirect: bound the disconnect wait in destroy_sync" [1]
+>>>> had to work around it on the ULP side:
+>>>> smbdirect_socket_destroy_sync() waited unbounded for the socket to
+>>>> reach SMBDIRECT_SOCKET_DISCONNECTED, a transition that depends on an
+>>>> asynchronous RDMA CM disconnect event, and when the peer died abruptly
+>>>> (a killed client, or Soft-RoCE/RXE where no graceful disconnect
+>>>> completes) that event never arrived.  The destroy ran on the single
+>>>> ksmbd-conn-release workqueue, every later connection release queued
+>>>> behind it in D state, and the whole server wedged until hung_task
+>>>> fired.  That change bounded the wait and drove the socket state
+>>>> machine to DISCONNECTED locally on timeout; ULPs should not have to
+>>>> resort to that, the CM should offer a teardown they can rely on.
+>>>>
+>>>> IWCM_F_CONNECT_WAIT currently guards two different windows:
+>>>>
+>>>>   * the connect/accept downcall into the provider being in progress;
+>>>>     teardown must keep waiting for that, it is short and bounded;
+>>>>
+>>>>   * an issued active connect waiting for CONNECT_REPLY, which is
+>>>>     potentially unbounded.
+>>>>
+>>>> Mark the second window with a new flag, IWCM_F_CONNECT_SENT: set by
+>>>> iw_cm_connect() once the downcall has returned successfully, cleared
+>>>> by cm_conn_rep_handler().  The teardown waits now complete when either
+>>>> the downcall has finished (!IWCM_F_CONNECT_WAIT, as before) or the
+>>>> pending-reply window has been entered (IWCM_F_CONNECT_SENT), and the
+>>>> previously BUG() CONN_SENT cases become:
+>>>>
+>>>>   * iw_cm_disconnect(): return -ENOTCONN; there is no established
+>>>>     connection to disconnect, aborting is the destroy path's job;
+>>>>
+>>>>   * destroy_cm_id(): abort the pending connect locally by moving to
+>>>>     DESTROYING and putting the QP into error so the provider tears the
+>>>>     connection attempt down.
+>>>>
+>>>> A CONNECT_REPLY that arrives after the abort is dropped: either
+>>>> cm_work_handler() sees IWCM_F_DROP_EVENTS, or cm_conn_rep_handler()
+>>>> now recognizes IW_CM_STATE_DESTROYING (the abort and the reply
+>>>> serialize on cm_id_priv->lock) and frees the event without touching
+>>>> the QP that destroy_cm_id() already released.  The cm_id memory stays
+>>>> valid for such a late reply because the provider holds its own
+>>>> reference (cm_id->add_ref) for as long as it can deliver events.
+>>>>
+>>>> The passive side has a sibling gap, where after a successful accept
+>>>> downcall the flag stays set until the provider's ESTABLISHED event
+>>>> arrives, which this patch deliberately does not change.
+>>>>
+>>>> [1] https://github.com/smfrench/smb3-kernel/commit/26d0f82a02c8a9c9c8cdfc138acb7ed0bf8e01a9
+>>>>
+>>>> Suggested-by: Stefan Metzmacher <metze@samba.org>
+>>>> Signed-off-by: Yunseong Kim <yunseong.kim@est.tech>
+>>>> ---
+>>>>   drivers/infiniband/core/iwcm.c | 76 +++++++++++++++++++++++++++++-----
+>>>>   drivers/infiniband/core/iwcm.h |  1 +
+>>>>   2 files changed, 67 insertions(+), 10 deletions(-)
+>>>
+>>> I'm not sure what to do with this patch, as the iWARP folks have
+>>> remained silent.
+>>>
+>>> Stefan,
+>>>
+>>> Do you still need this patch? Have you tested it?
+>>
+>> I'll test it soon.
+>>
+>> But the problem is real and I hit it very often in the past and the only option
+>> was a reboot.
+>>
+>> I added Bernard explicitly...
+>>
+>> metze
+>>
+> I follow Yunseong's and Stefan's argumentation.
+It actually still hangs in here:
 
-Scenario is,
-1) Tegra suspend to RAM initiated
-2) PCIe suspend is executing
-3) EP state is in disabled when "pcie->ep_state == EP_STATE_ENABLED" 
-check is done.
-4) EP PERST# deassert interrupt is received before pex_rst_irq is disabled.
-5) Now suspend and PERST# deassert sequence is racing.>
->> Disable the PERST# IRQ before checking ep_state and re-enable it
->> immediately when suspend is rejected.
-> 
-> So EP will still miss the PERST# deassertion anyway. Overall, I see this PERST#
-> handling logic in suspend as fragile. Since PERST# is asynchronous, it will be
-> racy if you try to check the state and make any decision.
-> 
-> - Mani
+     For an active iWarp connect that is still waiting for the MPA reply
+     (e.g. the peer accepted the TCP connection, but never answers the
+     MPA request), irdma doesn't flush the marker before the pending
+     connect is aborted, which only happens in rdma_destroy_id().
+     smbdirect_socket_destroy_sync() calls ib_drain_qp() before that, so
+     it waits forever:
 
-Agree, once PCIe suspend is done, Tegra will not receive PERST# 
-assert/deassert, this is expected.
-I am trying solve SW race where suspend and EP PERST# executes in parallel.
+       __ib_drain_sq+0x139/0x1b0 [ib_core]
+       ib_drain_sq+0x7f/0x90 [ib_core]
+       ib_drain_qp+0x16/0x40 [ib_core]
+       smbdirect_socket_destroy_sync+0x2bd/0xa90 [smbdirect]
+       smbdirect_socket_release+0x61/0xb0 [smbdirect]
+       smbd_get_connection+0x22c/0x280 [cifs]
 
-- Manikanta
 
--- 
-nvpublic
+Here's my work in progress branch to fix these problems:
+https://git.samba.org/?p=metze/linux/wip.git;a=shortlog;h=refs/heads/for-7.3/rdma-backport-testing
+There I'm able to eliminate all hangs I was able to reproduce with siw, rxe, iw_cxgb4, irdma, mlx5_ib.
+I tested the following situations:
+- server iptables drop (port 5445 and 4791)
+- server nc -lk 5445 (tcp connection accepted by no responses)
+- ip address del (on the client)
+- ip link down (on the client)
+
+It likely takes a while until I rechecked all commits
+and submit them in small chunks, but it's good to see
+that it's possible to avoid deadlocks or very large timeouts.
+
+So at least that patch doesn't solve all problems.
+
+metze
+
+
 
