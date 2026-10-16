@@ -1,112 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01EAE494299;
-	Fri, 16 Oct 2026 18:54:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2158C48DB37;
+	Fri, 16 Oct 2026 18:54:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792176854; cv=none; b=pF2D3U1NmnSeAFLunQP59MYo3ef1Dg0sP6G1JyZjuRLzqpavkl9Len4F1m1ueZYn611R+41w/ghjcBCFkIFXxk4f+x5e7AiJzY/AvzX/RY+1SEBmSVBC+2p0MPdclKPywOceKWUjZs9407wXA1i0KUWqjyEEdSvlE2yOB1of2pA=
+	t=1792176875; cv=none; b=LJM4QfxH3+txRJRXTpfPF6i9vvzsMjIb2+ZCvMNyt1MgfEUmEpIl/2p4tBFMSRzZ9iO/gViddL0npZBieO+LijVgDW/lg/Uo/7OwQrblZCELCiYlbqQebbeSgi7ZPDnoyfhw4j04qxYtCK0srOTHZaTb6fgfg17c2qKJLsuX+u0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792176854; c=relaxed/simple;
-	bh=0EzCt/NyI7mlVl/+OVjffa6iQXOu1ou/HhA/87/h59E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Y3DJpQfma7xJKbHfAkliGe6tRiNv7bxyAmAqIdbwHiQdrb8eFIdFfzDrsH9vzrR22V8peIJflhpfjD4kfW8eRJ55Ra5PIY2Pq/ZIYCo2fM7iCbW/B3VnVOS6FuUHIxsNylZiPe6H8IibRf4r74aQXQLVTqjmGMncXYIH/S8wA/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J4Oa1RM9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792176875; c=relaxed/simple;
+	bh=ciyEfyhA6spBQY6ZMuVToaA676XbfoSfWUx5vMgli0Y=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=MGF9SkXjJnr4DwB6ZwAuXiFgmBLpf95ZY7ngtZQyyKQjdn/0GZeQOt0eCyVWQ3jFFmrDS3jLDoiRrtzhGNamwC56SoWE51HQqheJaActlkt/5xRwFwOblygJvzQi90M8Mk7JDWF1X0DSfBV4y/L53Cohtb0MAneWDg9uF9TeTBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=o7PeBeyR; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J4Oa1RM9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FDF11F000C5;
-	Fri, 16 Oct 2026 18:54:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792176852;
-	bh=WOU0Y/cF0NuTN/Kd5hnldCn0LnO0sk5D6dj6YPllLvI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=J4Oa1RM9HLZjQfdoYuApSJQiYssc0u5H1Z0veAWa5ZNvcHz1sJ+EGroX30vb91nyw
-	 Dt+93SkSfun2aQvPh0RBv/Hx2vxE16EvbJ2poDjJKDBUTLvPiUXmRd/NbF6ZsPQBau
-	 T2zV+Y24MJW90i+ecVGOgzrKcKWOH3baavJwudyXuTvyDuf83rsPdPJOXfsgOHFYkz
-	 FhSa12qwaR6Gpc44SqWSWNYt0HnYQD0LwUhlJQjebWeQYLqIGg78LigmNciAxrHqgk
-	 g4oYw9nqlczQzlMoE1nX/6SC+BLRlBe0r3WBYTAs1/s5/rQvjRzbbZ/bTxGPGatV/V
-	 Y2BPYPoL18Jcw==
-Date: Fri, 16 Oct 2026 20:54:08 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Jakub Kicinski <kuba@kernel.org>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] docs: kerneldoc.py: preserve headings in kernel-doc
- output
-Message-ID: <20261016205408.5285c26a@foz.lan>
-In-Reply-To: <87bj8toh7w.fsf@trenco.lwn.net>
-References: <20261002230114.39651-1-kmehltretter@gmail.com>
-	<8733u8w6p4.fsf@trenco.lwn.net>
-	<20261014233956.605e0960@foz.lan>
-	<atIw3EWamd4KN4VP@gmail.com>
-	<87bj8toh7w.fsf@trenco.lwn.net>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="o7PeBeyR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=wBOZAxky3H4/ko7byjZlChAKL7qFnViXPqU4ciUaKoU=; b=o7PeBeyROM7/RNFkgjwNE3lmdU
+	A5UAFpk3OKnyyauc2duZWpWlqltbOoDCziJoxUqj62NeoYF07ko7QHzGtqh/QWzBXRg1wj5bopJlW
+	u7C7ssTwd2Qf40RAG8lWvmUzxpcL3OypdQTUEd3ZFE6essGFMlyhqrTQiV5XIXNvmGwmFiA+GguHe
+	HQMDBfISnX/kWgm7DzMVQQuFiQ1nikXFJiciVsKEmzYpoxsOB3jegcwavvym9ITjLPPaU77bUdmu+
+	sPUTFZ7y2XIRTiEIYp5CfiwcZ3En3pny89ZRhuC3K3PYt/3KnVRZaqBdYwRAdM3NbwsXB+ekZsXPr
+	5v4wg7WQ==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1xHmVn-00000007n8U-3SSW;
+	Fri, 16 Oct 2026 12:18:37 -0600
+Message-ID: <006effed-576f-4aed-b3ac-c335d8d51106@deltatee.com>
+Date: Fri, 16 Oct 2026 12:18:20 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+To: "Popov, Pavel E" <pavel.e.popov@intel.com>,
+ Bjorn Helgaas <helgaas@kernel.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Jim Chow <jim.chow@broadcom.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Radu Rugina <radu.rugina@broadcom.com>,
+ Alexey Makhalov <alexey.makhalov@broadcom.com>, Wei Liu
+ <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>,
+ Lukas Wunner <lukas@wunner.de>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
+ "bcm-kernel-feedback-list@broadcom.com"
+ <bcm-kernel-feedback-list@broadcom.com>,
+ "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20261009184923.GE11438@unreal>
+ <LV2PR11MB60707DAD12BFBEAB681463B7B2922@LV2PR11MB6070.namprd11.prod.outlook.com>
+ <20261011054700.GF11438@unreal>
+ <LV2PR11MB60708F76EB7D6E5A40E82853B29F2@LV2PR11MB6070.namprd11.prod.outlook.com>
+ <20261012162410.GH219304@unreal>
+ <DS7PR11MB6064DA61339B9AB0F52EBED4B29F2@DS7PR11MB6064.namprd11.prod.outlook.com>
+ <20261012182120.GJ219304@unreal>
+ <DS7PR11MB60647FA80C6BE1029982222DB29F2@DS7PR11MB6064.namprd11.prod.outlook.com>
+ <20261013122002.GN219304@unreal>
+ <LV2PR11MB60704D89055FBC471FF81B31B29B2@LV2PR11MB6070.namprd11.prod.outlook.com>
+ <20261016153147.GC219304@unreal>
+ <LV2PR11MB6070D328D5E6A538DB6370B2B29B2@LV2PR11MB6070.namprd11.prod.outlook.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <LV2PR11MB6070D328D5E6A538DB6370B2B29B2@LV2PR11MB6070.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: pavel.e.popov@intel.com, helgaas@kernel.org, leon@kernel.org, jim.chow@broadcom.com, bhelgaas@google.com, radu.rugina@broadcom.com, alexey.makhalov@broadcom.com, wei.liu@kernel.org, mhklinux@outlook.com, lukas@wunner.de, rafael@kernel.org, nathan.d.ciobanu@linux.intel.com, bcm-kernel-feedback-list@broadcom.com, virtualization@lists.linux.dev, linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH 0/2] PCI/P2PDMA: Allow P2PDMA in VMware and Hyper-V guests
+ on Intel hosts
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-On Fri, 16 Oct 2026 08:25:23 -0600
-Jonathan Corbet <corbet@lwn.net> wrote:
 
-> Karl Mehltretter <kmehltretter@gmail.com> writes:
+
+On 2026-10-16 10:05, Popov, Pavel E wrote:
+> Bjorn, Logan,
 > 
-> > On Wed, Oct 14, 2026 at 11:46:13PM +0100, Mauro Carvalho Chehab wrote:  
-> >> On Wed, 14 Oct 2026 11:08:39 -0600
-> >> Jonathan Corbet <corbet@lwn.net> wrote:
-> >>   
-> >> > Which versions of Sphinx and docutils have you tested this with?  I
-> >> > needs to work across the full range of supported versions...  
-> >> 
-> >> The minimal docutils supported is 0.16, and the minimal Sphinx
-> >> supported version is 3.4.4.
-> >> 
-> >> You can use /tools/docs/test_doc_build.py to double check if your change
-> >> is compatible with the minimal supported Sphinx/docutils versions.
-> >>   
-> >
-> > I completed the A/B matrix using tools/docs/test_doc_build.py -f. The
-> > full matrix shows the improvement without a regression. 
-> >
-> > I also tested Sphinx 9.0.0, 9.0.4, and 9.1.0, plus the previously
-> > discussed Sphinx 9.1.0 / Docutils 0.21.2 pair.
-> >
-> > In total, this covered 32 combinations and 64 full htmldocs builds: A
-> > unpatched and B patched.
-> >
-> > Successful, with identical A/B output and normalized diagnostics (26):
-> >
-> >   Docutils  Sphinx
-> >   --------  --------------------------------------------------------
-> >   0.16      3.4.3, 3.5.0, 4.0.0
-> >   0.17      4.1.0, 4.3.0, 4.4.0
-> >   0.17.1    4.5.0, 5.0.0, 5.1.0
-> >   0.18      5.2.0
-> >   0.18.1    5.3.0, 6.0.0, 6.1.0, 6.1.1, 6.2.0, 7.0.0, 7.1.0
-> >   0.20      7.2.6, 7.3.0
-> >   0.20.1    7.4.0, 7.4.7
-> >   0.21      8.0.0
-> >   0.21.1    8.1.0, 8.1.3
-> >   0.21.2    8.2.0, 9.1.0  
-> 
-> That seems exhaustive, thanks :)
-> 
-> I have buttoned things up for the first 7.4 pull, but will consider this
-> for later in the merge window.
+> Leon's position is clear: "NAK to anything that does not fix the
+> hypervisor first". No concrete failure was described, and no change in
+> this series can address it. That leaves the decision with you. Two
+> facts: AMD guests get P2PDMA today and Intel guests do not, and HMAT
+> does not exist in Linux yet.
 
-Heh, likely took hours, as version 6.x and 7.x are really time consuming
-;-)
+Yikes, ok, I've followed some of that long discussion.
 
-Thanks for doing that.
+My first thought was this didn't seem as big an issue as it seemed
+because if someone explicitly tries to do a P2PDMA transaction inside a
+VM and it fails because the IOMMU blocks it, then they just get a noisy
+error and they shouldn't enable P2PDMA. Except...
 
-Reviewed-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+It looks like the dma-buf paths will enable P2PDMA unconditionally if
+the test in question allows it, without anything the user needs to do to
+enable it. I think that was probably a huge mistake but I guess we have
+to live with that now. It means enabling new hardware with rules like
+this is risky. It means even adding a global rule for Intel like AMD is
+risky too. (Although, *maybe* eight years after I first added this code,
+ we can say that the vast majority of Intel CPUs support it, in which
+case the dangers here are overblown -- but can we say that? What about
+atoms and the like? Would the rule need to be complicated by a big model
+list? These questions are why this has never happened.)
+
+So I'm inclined to agree with Leon now that accepting this patch as is
+may introduce some problematic risks. For now, maybe we need a kernel
+command line argument that can explicitly enable an endpoint or
+something like that so users that want to try it on VMware or wherever
+can do so without needing to build a custom patched kernel.
+
+I wish we could revisit the decision for dma-buf to use it without any
+users explicitly asking for it. But I don't know what the correct path
+forward is. If we can agree on a bulk rule for enabling Intel CPUs that
+might be a good compromise, but I'm uncertain if that is even possible.
+
+Logan
 
 
-Thanks,
-Mauro
