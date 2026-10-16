@@ -1,112 +1,130 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C567741930F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357D22BEFF6;
+	Fri, 16 Oct 2026 07:03:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792134185; cv=none; b=LpNpOAj0COFn9SsPvpcTpg1KipETmMWVUatbMKzqmKb3WE+v6S8TOGAQHFH9Vcjgp6qm5ldfPJZeBGy0TUbunkTxeFcmbnEMF0144P2FmuWsYSKLMv/aumiy/HbrQBe0iVc8gvt0E7KvbZF4CeBXX0E8ijGc9jV+ETpKCuZQ/WU=
+	t=1792134211; cv=none; b=nhImU/6V6J27LYAPfCXRni+MpoKh1wvWV4g/+kWjJqpGpr0Irr0WcXSGPJAhyE/OewK9f/RQ+VR09eNyafBSUKkElwyGu1LQjKJoFp+RlS+tYXtRPXoPI3/OnSCUJiaVProWloHh/q6o2ey8mcKWlvRivO6NdanAbhW/pInSZXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792134185; c=relaxed/simple;
-	bh=l7ixmSx2DBQFSzy/TM6rDTUYrvkCKYbQUoHkCMBcAJM=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=hmRi5ywUzlDDUTp8b6F3DIEquhhby1w5i9epQZUDFdJI+W8lA8uD4FSvjtD3mDUhDa4/iB/2FKAtaejOGmt1irES8KyR4bd/wAojOSbNejXaOS6xbnHrPD14oirsoe8htw6GbTgvmfHxbR59Bv3KDl2xfsXAnmgqk6hX4qTH+N4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bjr38vO/; arc=none smtp.client-ip=74.125.82.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792134211; c=relaxed/simple;
+	bh=0amuKCd5T4PSq5JE2PNjiw40J8GZ6GUSKmj40QX3MHA=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=MRsKSLuQ2i1xTa6WpPXME73gj1ZFxDWId4ZI/3xjIQ0NOJdpsNt8cawyMP0X8s/TrK8MAbb7zVTCO2q595ZcZLKmBqsU9jlEk2ER/Rf0d6xDd8XfFjXR7PLv78OANJ6KVxce7PAFVXndyLOop2UIt/URcNLy9ZFUQy6t4sOURN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ngHFwzYj; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bjr38vO/"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35943f55c06so919220eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:03:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792134183; x=1792738983; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DITAd8sokIpEZqxKzLD6oRYcPlhY2SkHYx/2OjgX5aU=;
-        b=bjr38vO/hfCFeKCaB0HilSjQUjLx3fUihkrN4DdPNBq8Gw4hIM8F1wG39Yg1SzKOMi
-         aN16XQeqS2GsnaylwTcnStHH+CQrEEpa+r84XYMu2LGH6q5KHjb4Ol7vnIIpEL7OpX6+
-         HxiClF6U6nas80bMUrKPi9VpdVpQ8TjtdAZk0pfA8fRYAPEuIrwQFqjWQ04Sf2eI5Um8
-         Z9CeiLzuRgIcDz2GU1avjfityJ2ZZ0lipKD/4J1ll8p2qCs0mBtsT7jcwR+6HgqZDObu
-         sNPU67n9XK273hmRQGy4NHYikGxxgoWz6HLRpGCV9Zok2la/oe5V4ssqhy3Ct08BJ2VX
-         +3nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792134183; x=1792738983;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DITAd8sokIpEZqxKzLD6oRYcPlhY2SkHYx/2OjgX5aU=;
-        b=pFynSo6+/4vERvwwcymhxGNfZ0f4gsJtNPTifTjpaDrVCFNMrG9q32ZRvb7TfYDKW4
-         2We5WyGz+RPtyxyKkl9j16AyAP0B5rqPi/7yfxcWmDbHNDJav2nIJ3unT6VIUhqj5pDn
-         aTggGAAZuGqL4pJwMM0NDI3ntPdH3L68XKYPms9ODx0y9Q3HwsoShwOdw32rosdUfoyS
-         eRMaA88SIkj+9hhuC4x0GYLlHAsKCln0MfIU6icJcRPUezuKc7zvbVgl2UOfABqqVEp7
-         pCpo+tmDB0NmB8SCFcoz7dhtIqUvAl5uM04zvIm2PQvFixuUvYkqK60ZotR0kYgMzDzN
-         itJw==
-X-Forwarded-Encrypted: i=1; AKwUvBz4rFbUgAA+iVE7PxkUUgYEXDitsmbCiNCfMlxSFHuQv0uNj2KVVNGkEb8Hcm36IJL9ik49ZDiHLf5yOZw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRbYJ06hTHWSEGcpssnYkH7MmimcaZNQoeg/RWNPAIu1fHzle7
-	DuWPEETRT4VJBReUOzL6z366dDH9bbvW1fitpGlhfbZD4U06pi55869Q
-X-Gm-Gg: AYBFou0BZiJCDpTt0VtcjhqHFSRwvi6lPPFVwI0hCoK4bbSZnWtYBo6QqAeBsCwe5Wt
-	GgEigUsfot20A3LLJiGE4ViQZe/cyMVxSzgR/3rzoEfM/PFnp8lcQSUP5LsNcvu5VG9A/P1g/Dh
-	2SuNwhEJBnNSCts4u6enGg/NX+OD9Jba1iRETkPrAZjIbFs2OFhBDR7VUZj+DWE4UPGZtz14DEI
-	b96QQ9OrIr5dvHU/TgNfy0P4kZGa66VQDg/dSvz+bpaJxtEG0hnclU0Ln7CNnm1nTLipL1ry/m+
-	vZbfzbcxhIwcgK/iec/AF+kSVeeAZZWeti68xTPJ6S4KbmPzDPraje7aY6rjJ/iHaymz8lLQVzu
-	Q4lSrnjhz82vSMIhpQGVgR4U7seUJUP0ieHw3JiwbONpAmseq+KOBiu0+wTB45wbIJd/N4Ib1PE
-	Hrkpr6WfiCn0VTIxzBwehzWKZMkcLwsgWYnCCS7ZBl407mPFrVmf5Xvza1+nFX0lm7Dbw6AiQgD
-	VfR+Vyxno7OsuzIFnkdcVv46Pl4AsQxTtG8IL03U3Y8DYo=
-X-Received: by 2002:a05:7300:fb17:b0:341:c383:9afb with SMTP id 5a478bee46e88-3602ef82f4emr3051628eec.20.1792134182616;
-        Fri, 16 Oct 2026 00:03:02 -0700 (PDT)
-Received: from [192.168.10.146] ([67.174.242.98])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6791sm4668641eec.6.2026.10.16.00.03.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 00:03:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ngHFwzYj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792134210; x=1823670210;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=0amuKCd5T4PSq5JE2PNjiw40J8GZ6GUSKmj40QX3MHA=;
+  b=ngHFwzYjSKN65lS4M2eubkOi8xy2RZa3IhVJSEgb6TBPOCkBq4mT8A6N
+   OfRTl6ofZHuSqTgD/+3aHdtz/GMnI3st15zEu876VE6etU+Wps4S1uzb8
+   pp9TwBHtJFci5+04lYx7P6zuisPqYuAGwNnreLjlX69AggQoeO4RuX852
+   zcnVRfGUxMnmh1E6ugGWr2cJznLDH+EC4PyERlnnC/KX8dCSuJUdca4Ku
+   GWkM+f00h7eCzDdHALYyz91UNCNl60WjVDDS4HOCQKOWyqshqCcEmpPMY
+   +ngKEX+KXCjE1UbqcB0lR3yk/vvDndX270CXT9nKjAZkWtColW47eS+Py
+   g==;
+X-CSE-ConnectionGUID: DjNwHOr+Que2bFqAEt+LIA==
+X-CSE-MsgGUID: xbeDRT6KTGWLFYoD99WndA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="925934"
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="925934"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 00:03:30 -0700
+X-CSE-ConnectionGUID: 8Zwup8+BS/ikkviipDeQnw==
+X-CSE-MsgGUID: cRb/PgvVQQWTQiIGhVxr5Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="3628357"
+Received: from unknown (HELO [10.238.0.90]) ([10.238.0.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 00:03:25 -0700
+Message-ID: <5ca5f1c4-4c3c-47f1-b79c-c1fe06b20ee4@linux.intel.com>
+Date: Fri, 16 Oct 2026 15:03:23 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, iommu@lists.linux.dev, x86@kernel.org,
+ linux-coco@lists.linux.dev, kvm@vger.kernel.org,
+ Kevin Tian <kevin.tian@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, xiaoyao.li@intel.com,
+ Chao Gao <chao.gao@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] coco/tdx-host: Initialize trusted DMA on all
+ capable IOMMUs
+To: Jason Gunthorpe <jgg@ziepe.ca>, Xu Yilun <yilun.xu@linux.intel.com>
+References: <20261015010705.1973284-1-baolu.lu@linux.intel.com>
+ <20261015010705.1973284-5-baolu.lu@linux.intel.com>
+ <atCPY6LzHd4y0Ywh@yilunxu-OptiPlex-7050> <20261015173707.GV14213@ziepe.ca>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <20261015173707.GV14213@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/2] riscv: traps_misaligned: Avoid redundant unaligned
- access speed probe
-From: Charlie Jenkins <thecharlesjenkins@gmail.com>
-To: Nam Cao <namcao@linutronix.de>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- =?utf-8?q?Cl=C3=A9ment_L=C3=A9ger?= <cleger@rivosinc.com>, 
- Andrew Jones <ajones@ventanamicro.com>, 
- Charlie Jenkins <thecharlesjenkins@gmail.com>, 
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <aa5755142537d462a9e3d2074d82ad4eef6774ba.1780002199.git.namcao@linutronix.de>
-References: <cover.1780002199.git.namcao@linutronix.de>
- <aa5755142537d462a9e3d2074d82ad4eef6774ba.1780002199.git.namcao@linutronix.de>
-Date: Fri, 16 Oct 2026 00:02:57 -0700
-Message-Id: <179213417713.1857356.17322425034198785818.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792134179; l=614;
- i=thecharlesjenkins@gmail.com; s=20260605; h=from:subject:message-id;
- bh=l7ixmSx2DBQFSzy/TM6rDTUYrvkCKYbQUoHkCMBcAJM=;
- b=cQTyZ7Ys4LFHfVIZ6SP4v+tT90fnia8py/XU77akat7vRmrGMf2vevh5WFJNvWKEWTuEss4A7
- 7SmfXUvRg8bAhVwhLrHj7w68dMvCfg2ieECT+0UndKI7Y64rs6qjwfu
-X-Developer-Key: i=thecharlesjenkins@gmail.com; a=ed25519;
- pk=ajnnRQ98PIdwKp4HeMkq9U32okYbnh6Zb4G3o5XXvkg=
 
-On Thu, 28 May 2026 23:12:31 +0200, Nam Cao <namcao@linutronix.de> wrote:
-> When a CPU is taken offline and then is brought back online, unaligned
-> access speed probe always runs even though the unaligned access speed is
-> already known, wasting CPU cycles.
+On 10/16/2026 1:37 AM, Jason Gunthorpe wrote:
+> On Thu, Oct 15, 2026 at 04:31:31PM +0800, Xu Yilun wrote:
 > 
-> This is because when a CPU becomes online, the following happen:
+>> An alternative could be, bringing up one IOMMU when an associated
+>> device requests link encryption. Then a no-tdx-support iommu fails the
+>> encryption request naturally.
+> That is what ARM is planning to do. I think it is reasonable to
+> trigger creation of the secure iommu when the TSM is connected to TDX.
 > 
->   1. check_unaligned_access_emulated() is called, which clears
->      misaligned_access_speed if there is no emulation.
-> 
-> [...]
+> Fail connect if the iommu could not be created.
 
-Reviewed-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
-Tested-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
+Yes, agreed. The Intel iommu driver could use per-device interfaces,
+just as ARM is planning. There are some differences, though.
 
--- 
-- Charlie
+ARM's interaction with the iommu driver in viommu_init() appears to
+consist of two steps:
 
+  - arm_smmu_get_realm_params(dev, &params): get and validate the
+    physical iommu information from the arm-smmu-v3 driver;
+  - cca_psmmu_get(&params): activate the physical smmu for Realm use.
+
+Intel differs in two ways:
+
+  - ARM queries the physical iommu information from the iommu driver
+    in the viommu_init() path. On Intel, the secure iommu must be set
+    up during TSM connect, because it is part of establishing PCIe
+    link encryption.
+
+  - The TDX Connect architecture places requirements on the host
+    iommu driver while the secure IOMMU is being set up. For example,
+    the host iommu driver must block the enhanced command (ECMD)
+    interface while the TDH.IOMMU.SETUP SEAMCALL runs, and it must
+    reserve the upper half of the domain ID space. These steps have
+    to happen atomically under the iommu driver's own locks. As a
+    result, the Intel iommu driver needs to merge the two steps above
+    into one.
+
+So the Intel iommu driver will probably end up with interfaces like:
+
+  - dmar_tdxcs_iommu_init(struct device *dev, ...);
+  - dmar_tdxcs_iommu_release(struct device *dev, ...);
+
+These would be called from the connect and disconnect callbacks of
+the TDX link ops:
+
+static struct pci_tsm_ops tdx_tsm_link_ops = {
+         .owner = THIS_MODULE,
+         .probe = tdx_tsm_link_probe,
+         .remove = tdx_tsm_link_remove,
+         .connect = tdx_tsm_link_connect,
+         .disconnect = tdx_tsm_link_disconnect,
+...
+};
+
+Any thoughts?
+
+Thanks,
+baolu
