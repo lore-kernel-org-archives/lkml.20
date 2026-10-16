@@ -1,151 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-73.mta0.migadu.com [91.218.175.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583573E558F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B722C21ED
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135943; cv=none; b=qST/2y5Z7dD1x3sTmkXYgGKp5VqICS+Pj8mT9XZMDStAZQt5xXBfjW6Atcp/8nFUm+hcIPOuMSxkm4pozrwc1q+lcUqeawA0c0bx5irq6hCQgak/owrWskLsFq73CZy032ydaoj+4LvyecAq3RFfeuruljVIR/bMdHcuBYdh+YY=
+	t=1792135939; cv=none; b=pPKyaIubMjUJ4E7+7llLFnMUl/teC355sZBu4Ouod+Wg8/4HGluXzF85jchAFKoTY4MEmkME+S9FiNy0NcdVJZwxrdWA1il7gl2RZ8S34cWLfaCHdkGElISBLsLwGktfGGU3IE2vu3b0Nvkc/iJycygbSikpGN2uG0vqICZMB1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135943; c=relaxed/simple;
-	bh=zNcs7+qm9vBMoxymLjhKYQQ7h6RxRbv20qwl0ST1XsA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gz1zMq14JcpieykJ9GyoooJZF1UfkrtC4bhpRC58lG2y3EgEU25d11RH9VA1+Pqq+ajDWH8LIqGsKvfFsWaGpVFfAKigBijYmIrPMFn3G+adIFLnT6PWULdwzAXXSe4zTJppVHVQ9JIPFV8n2ubzPamjmWsotLnR4eV9djzhBe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q2uo5AqA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792135939; c=relaxed/simple;
+	bh=WNkfQ+EP1iSij9r9WOR31d6WGPgu40X/elCm3CkyIfU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NnzptI+LQHKnWZeuUFcVzdcw0H//dmvaQFuoU1kut4gmsPsyWSaj0DtHrcsGN08akML/BmnygbQ9GKEKe5dUVwflkenfDXf+iHYG9owTZ7G7jGEE0pVx7RBoe+PLumC1jsx1/qZf4poSFhxWaV9FBUh1bW23xJFlJhUqE+EWD+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=xQx4/7KJ; arc=none smtp.client-ip=91.218.175.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q2uo5AqA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EAC21F000C4;
-	Fri, 16 Oct 2026 07:32:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792135941;
-	bh=TFxcbguLUVDbJo+3W9hN+xXu1muwi+d7iaXkEhvopfA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Q2uo5AqAhUw7P4um/AeAjJL3mijGH12ez1TBECMtypTswIjszAzFKzmqVzRv5+twp
-	 FAhzgPdRF8Fh0Himc87jXLM/+US07MmSWcKXem9pQX1SCdRuhj8NuuRSNnEQsIEd1B
-	 OgCS9bBGU4SBIfcrlbdLRX1Oehof5RmupO4iLBWI7EiLEhqpphGDFz7dvQIoNq5l39
-	 fv0SUwhO67ofrogSQKb6itjv07NPy30pLgvE9SLoCfrBgI/aWJ10nxlzZztBQtW95/
-	 qh3ZGP7d9GenjmW2QuSzRTOb0pKpHxbnLf7+/Oct58XYvrzt9KlunDOWy+4hbLuPHw
-	 LuaNSXBx2elhw==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 16 Oct 2026 09:31:38 +0200
-Subject: [PATCH v5 06/14] drm/atomic: Create function to insert colorop
- state into a commit
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="xQx4/7KJ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=WNkfQ+EP1iSij9r9WOR31d6WGPgu40X/elCm3CkyIfU=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792135935; v=1; x=1792740735;
+ b=xQx4/7KJBvmCpByme1/qFFmZo4f9GUT3zTUmCKVNYq7HtaloBhEyLnkK5uJUNde2XEGz5yy3
+ 5Fn/5ChBcWzSXvLUe0OY2CApgNLU5k/QWNlHKRvSZr5KOMGJTZ3f3gnqN9AiQ4XZjDzJn9lNZtm
+ BxzpzzgaFjo4VJI01mT1ccme7B3XnySa7GevgIfZL7xKt0Fn4zVpRYESVGl+9KA7pZNQ2XPB8GL
+ oYKdpgnkYLaGReraJJkyrTQycHfDKlocB2D0ON8AnMFpSGj/q6vTHGZIrEUrHDrcr50d0VKZrzT
+ v9461dbiOBHVOqHysAZVg6UoUFW4FQY6Dn4DqEaLI6Rwg==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0af673897db864f8;
+	Fri, 16 Oct 2026 07:32:15 +0000
+X-Mizu-Trace-ID: 0af673897db864f8
+X-Migadu-Flow: FLOW_OUT
+From: Val Packett <val@packett.cool>
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Val Packett <val@packett.cool>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org
+Subject: [PATCH 1/5] ASoC: qcom: qdsp6: q6routing: add Senary MI2S ports
+Date: Fri, 16 Oct 2026 04:31:49 -0300
+Message-ID: <20261016073157.611956-2-val@packett.cool>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261016073157.611956-1-val@packett.cool>
+References: <20261016073157.611956-1-val@packett.cool>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-drm-reset-state-flag-v5-6-dad2d64b693b@kernel.org>
-References: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
-In-Reply-To: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2932; i=mripard@kernel.org;
- h=from:subject:message-id; bh=zNcs7+qm9vBMoxymLjhKYQQ7h6RxRbv20qwl0ST1XsA=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkXLz2OWh4utGffI5P9H+O/v3+jaaHWlDO5P0OD/wVHl
- EY6s/vfjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRNFvGho0PM/W2WX1ddfWV
- nc2dWf6cLAr6jgprD6/kO1Of+uLMPEG3qoDb8xY6OAhuMbHPLq9/ytjQ5PbjVTSrHJvJvc+Pfc3
- W87aZa0k61BU/W1WpFiS/MDmHY9b+rIXHTs/acUBYumOrQgEA
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Transfer-Encoding: 8bit
 
-drm_atomic_get_colorop_state() allocates a new colorop state by
-duplicating the current one and inserts it into the atomic commit as
-a single operation.
+This commit adds support for senary MI2S mixers.
 
-However, a later change will need to insert a colorop state into a
-commit without going through the full allocation and duplication path
-in drm_atomic_get_colorop_state().
-
-Extract the state insertion logic into a new static
-drm_atomic_commit_set_colorop_state() helper, and convert
-drm_atomic_get_colorop_state() to use it.
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Signed-off-by: Val Packett <val@packett.cool>
 ---
- drivers/gpu/drm/drm_atomic.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
+ sound/soc/qcom/qdsp6/q6routing.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index b26458ee98d8..807b575ecc54 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -702,10 +702,25 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
+diff --git a/sound/soc/qcom/qdsp6/q6routing.c b/sound/soc/qcom/qdsp6/q6routing.c
+index d076c99f197f..ea511200c8d7 100644
+--- a/sound/soc/qcom/qdsp6/q6routing.c
++++ b/sound/soc/qcom/qdsp6/q6routing.c
+@@ -68,6 +68,7 @@
+ 	{ mix_name, "SEC_MI2S_TX", "SEC_MI2S_TX" },	\
+ 	{ mix_name, "QUAT_MI2S_TX", "QUAT_MI2S_TX" },	\
+ 	{ mix_name, "QUIN_MI2S_TX", "QUIN_MI2S_TX" },	\
++	{ mix_name, "SEN_MI2S_TX", "SEN_MI2S_TX" },	\
+ 	{ mix_name, "TERT_MI2S_TX", "TERT_MI2S_TX" },		\
+ 	{ mix_name, "SLIMBUS_0_TX", "SLIMBUS_0_TX" },		\
+ 	{ mix_name, "SLIMBUS_1_TX", "SLIMBUS_1_TX" },		\
+@@ -152,6 +153,9 @@
+ 	SOC_SINGLE_EXT("QUIN_MI2S_TX", QUINARY_MI2S_TX,			\
+ 		id, 1, 0, msm_routing_get_audio_mixer,			\
+ 		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("SEN_MI2S_TX", SENARY_MI2S_TX,			\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
+ 	SOC_SINGLE_EXT("SLIMBUS_0_TX", SLIMBUS_0_TX,			\
+ 		id, 1, 0, msm_routing_get_audio_mixer,			\
+ 		msm_routing_put_audio_mixer),				\
+@@ -563,6 +567,9 @@ static const struct snd_kcontrol_new quaternary_mi2s_rx_mixer_controls[] = {
+ static const struct snd_kcontrol_new quinary_mi2s_rx_mixer_controls[] = {
+ 	Q6ROUTING_RX_MIXERS(QUINARY_MI2S_RX) };
  
- 	return plane_state;
- }
- EXPORT_SYMBOL(drm_atomic_get_plane_state);
- 
-+static void drm_atomic_commit_set_colorop_state(struct drm_atomic_commit *commit,
-+						struct drm_colorop *colorop,
-+						struct drm_colorop_state *colorop_state)
-+{
-+	int index = drm_colorop_index(colorop);
++static const struct snd_kcontrol_new senary_mi2s_rx_mixer_controls[] = {
++	Q6ROUTING_RX_MIXERS(SENARY_MI2S_RX) };
 +
-+	drm_modeset_lock_assert_held(&colorop->plane->mutex);
-+
-+	commit->colorops[index].state_to_destroy = colorop_state;
-+	commit->colorops[index].old_state = colorop->state;
-+	commit->colorops[index].new_state = colorop_state;
-+	commit->colorops[index].ptr = colorop;
-+	colorop_state->state = commit;
-+}
-+
- /**
-  * drm_atomic_get_colorop_state - get colorop state
-  * @state: global atomic state object
-  * @colorop: colorop to get state object for
-  *
-@@ -721,11 +736,11 @@ EXPORT_SYMBOL(drm_atomic_get_plane_state);
-  */
- struct drm_colorop_state *
- drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
- 			     struct drm_colorop *colorop)
- {
--	int ret, index = drm_colorop_index(colorop);
-+	int ret;
- 	struct drm_colorop_state *colorop_state;
+ static const struct snd_kcontrol_new tertiary_mi2s_rx_mixer_controls[] = {
+ 	Q6ROUTING_RX_MIXERS(TERTIARY_MI2S_RX) };
  
- 	WARN_ON(!state->acquire_ctx);
- 
- 	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
-@@ -738,15 +753,11 @@ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
- 
- 	colorop_state = drm_atomic_helper_colorop_duplicate_state(colorop);
- 	if (!colorop_state)
- 		return ERR_PTR(-ENOMEM);
- 
--	state->colorops[index].state_to_destroy = colorop_state;
--	state->colorops[index].ptr = colorop;
--	state->colorops[index].old_state = colorop->state;
--	state->colorops[index].new_state = colorop_state;
--	colorop_state->state = state;
-+	drm_atomic_commit_set_colorop_state(state, colorop, colorop_state);
- 
- 	drm_dbg_atomic(colorop->dev, "Added [COLOROP:%d:%d] %p state to %p\n",
- 		       colorop->base.id, colorop->type, colorop_state, state);
- 
- 	return colorop_state;
-
+@@ -825,6 +832,9 @@ static const struct snd_soc_dapm_widget msm_qdsp6_widgets[] = {
+ 	SND_SOC_DAPM_MIXER("QUIN_MI2S_RX Audio Mixer", SND_SOC_NOPM, 0, 0,
+ 			   quinary_mi2s_rx_mixer_controls,
+ 			   ARRAY_SIZE(quinary_mi2s_rx_mixer_controls)),
++	SND_SOC_DAPM_MIXER("SEN_MI2S_RX Audio Mixer", SND_SOC_NOPM, 0, 0,
++			   senary_mi2s_rx_mixer_controls,
++			   ARRAY_SIZE(senary_mi2s_rx_mixer_controls)),
+ 	SND_SOC_DAPM_MIXER("TERT_MI2S_RX Audio Mixer", SND_SOC_NOPM, 0, 0,
+ 			   tertiary_mi2s_rx_mixer_controls,
+ 			   ARRAY_SIZE(tertiary_mi2s_rx_mixer_controls)),
+@@ -1038,6 +1048,7 @@ static const struct snd_soc_dapm_route intercon[] = {
+ 	Q6ROUTING_RX_DAPM_ROUTE("SLIMBUS_6_RX Audio Mixer", "SLIMBUS_6_RX"),
+ 	Q6ROUTING_RX_DAPM_ROUTE("QUAT_MI2S_RX Audio Mixer", "QUAT_MI2S_RX"),
+ 	Q6ROUTING_RX_DAPM_ROUTE("QUIN_MI2S_RX Audio Mixer", "QUIN_MI2S_RX"),
++	Q6ROUTING_RX_DAPM_ROUTE("SEN_MI2S_RX Audio Mixer", "SEN_MI2S_RX"),
+ 	Q6ROUTING_RX_DAPM_ROUTE("TERT_MI2S_RX Audio Mixer", "TERT_MI2S_RX"),
+ 	Q6ROUTING_RX_DAPM_ROUTE("SEC_MI2S_RX Audio Mixer", "SEC_MI2S_RX"),
+ 	Q6ROUTING_RX_DAPM_ROUTE("PRI_MI2S_RX Audio Mixer", "PRI_MI2S_RX"),
 -- 
 2.55.0
 
