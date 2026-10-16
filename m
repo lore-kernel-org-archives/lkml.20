@@ -1,106 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F1B20B80B;
-	Fri, 16 Oct 2026 03:00:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0F4372EFF
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:00:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792119625; cv=none; b=CvjF2UScQpFXGqt3JC21dNV1AQcJ4fgiXh0gVJcg3QID3+NjJuW+skQ+B+W19UUAanbFAqvHFN1ImGe5g7lH6tLF9Sgv9wPL3C8cp+JCJ74I2HoscYTwVPKhmaQd/q7ooe6sobBc4s1EfQjKalj+tLTavxVQRVANPHO39n+/weA=
+	t=1792119626; cv=none; b=oHewXAvXOjMgMFePeVJEHYFAI/kCgyXTho33wDvLpjQPdP0f+ENL7WJpd5a5hLuG1qd9nOLdzzBADDMsgQexp60C8OmyYpKGoSUNTna1ZEobqyhtbmVfF9qBahufMy/j5mUgkJ3hJadvQjzLKG18ZiDnPeT/k2UKMQzBcQrLHoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792119625; c=relaxed/simple;
-	bh=mGydzSGvhJpw6HwBSJr8ANj9qRn92a98piESbh9Ntus=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=O4hBlMRAhkVU5gUpqVmXTCaUNhj3+KAAG5kzlykdNxE0p9f1UFFILe7qoQLLGXSkl4lIkEvKNUQg7S0+dD6xeIS7klpuZkvHB+ug7jih0Q3XGPWw3sJgDXCqPvn/0fevYymQ2MQ0mMLCivnQnjyHDyDtU3sln/Kvs6akxRgqLyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mSJaC6xi; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792119626; c=relaxed/simple;
+	bh=Dr+29JqiloCb4O8SP9GbOa//C4ch2HbwiK2FOF7OIJg=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=JxfCSZkHhULgDVXpOH/P36D+MX1dj4MI/WqS1Q5bCxf1uDa+vcdMOyJKHK+GowlAHXvuR/auPmPkYpfdFpC6Pi2RtTora+X67QIdTUWmuq2cNHn5zNHnPZFfnQiMgFY72X79ofhRoIkfWWQznkJ2jjUq83IfzTy+pDRpal7r/Gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=dUFq5q6m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mSJaC6xi"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 58161C2BCF5;
-	Fri, 16 Oct 2026 03:00:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792119625;
-	bh=mGydzSGvhJpw6HwBSJr8ANj9qRn92a98piESbh9Ntus=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=mSJaC6xiAw1na3gObLHjPnwIlDoeQHwA4xFqza7Z/ImSzkHO/7LYOJHUBTwnrNzmF
-	 QB8ISP6O68MMitae9GYsSuBHfivK7Hum0POK5DKEyrQrX1ujoK2UAF9Usv8ZEtLZZ1
-	 Sn+y+voLp6XiYym6aHoL2x4QGeXQyCtUAsTULObuDd1b5/Mys8pb+2NfwYKi6vi4uw
-	 t2KRpOctlyQrXAL+SZEkwWEsd12LDA41r3aKBVHVLTA4skq5DlGonn9Y3RrvVV6trZ
-	 jmy7yel+3Gu4gLyzuDr0Fl9PXuejPWhSrr2lPhGZ3rtollac/CIBvteioS6TNP2E4l
-	 bpgKgJTCbCx4g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D38BCCA463;
-	Fri, 16 Oct 2026 03:00:25 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Fri, 16 Oct 2026 03:00:17 +0000
-Subject: [PATCH] dmaengine: amlogic: Fix regmap error check issue
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="dUFq5q6m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF8741F000C4;
+	Fri, 16 Oct 2026 03:00:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792119624;
+	bh=9GkQXqNuCXyuXNoJMzMidl3PLgLW9/DoYWi7RsIGJVc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=dUFq5q6mtNryr/WDRuojfUOLSENM4RFeSK9Dof4XhD7rt9BLpHW2NVYyerHAid1qW
+	 UqAymulNpZ+2lPmdD2YgL4iOOQYj7Blv8GicM/+0VG5wPj8QsWuOTEy8vIofhHEvND
+	 IX7kVUMEOBi/7tH1fUhEBrQ6b42PralDlPbkmKKA=
+Date: Thu, 15 Oct 2026 20:00:23 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Kairui Song <ryncsn@gmail.com>
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>, linux-mm@kvack.org, Jiayuan Chen
+ <jiayuan.chen@shopee.com>, Chris Li <chrisl@kernel.org>, Kemeng Shi
+ <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He
+ <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, Youngjun Park
+ <youngjun.park@lge.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/swap: fix swap_cache_get_folio() returning a folio
+ that left the swap cache
+Message-Id: <20261015200023.49685b4cba9d514d1f3ac374@linux-foundation.org>
+In-Reply-To: <CAMgjq7AGRP3B0UZ9-wJKtz8D-ayivhV0gn2WxsrJ1Q=Qm4TVWQ@mail.gmail.com>
+References: <20261015060528.302634-1-jiayuan.chen@linux.dev>
+	<20261015184014.715dcdd3a25e18fd4df49e95@linux-foundation.org>
+	<b2f925b6-93e6-4b44-bc18-c94a34b381eb@linux.dev>
+	<CAMgjq7AGRP3B0UZ9-wJKtz8D-ayivhV0gn2WxsrJ1Q=Qm4TVWQ@mail.gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-fix-a9-dma-complier-v1-1-024421d5b3c8@amlogic.com>
-X-B4-Tracking: v=1; b=H4sIAECT0WoC/x2MQQqAIBAAvxJ7biELNu0r0cFyq4VKUYgg/HvSc
- WBmXkgchRMM1QuRb0nirwKqrmDZ7bUxiisMbdOSahThKg9ag+60uPgzHMIRVa9nYqLe6A5KGSI
- X7b+OU84f8l1hJWUAAAA=
-X-Change-ID: 20261016-fix-a9-dma-complier-178b6e667983
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, dmaengine@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>, 
- Dan Carpenter <error27@gmail.com>, Xianwei Zhao <xianwei.zhao@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792119618; l=1413;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=q70ArngI8F9kaZ0a86j08SCXsqeF7k11fJnEBCve2NM=;
- b=b8gfpJGQQxHZblcSRlbmR0x8knLQCBnlci0XZWs2RwdViFJw9m3CKpHz1TgeXXp0l32aEMgXU
- OP7Nu80bFXUCx/LJjuNHlrhQbpiIIcJgZoXLxE1W51B5c/WyZhuq40T
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+On Fri, 16 Oct 2026 10:22:20 +0800 Kairui Song <ryncsn@gmail.com> wrote:
 
-The func devm_regmap_init_mmio() only returns an error pointer on failure,
-Use IS_ERR() instead to make the intent clearer. And Fix the following
-compilation issue at the same time.
+> On Fri, Oct 16, 2026 at 10:16 AM Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
+> >
+> > Hi Andrew,
+> >
+> > On 10/16/26 9:40 AM, Andrew Morton wrote:
+> > > On Thu, 15 Oct 2026 14:05:27 +0800 Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
+> > >
+> > [...]
+> 
+> Hi all,
+> 
+> > >
+> > > So CPU 0 writes to a folio it doesn't own: it may clear PG_readahead and
+> > > takes the folio lock of someone else's page, before
+> > > folio_matches_swap_entry() finds out the folio is not ours.
+> > >
+> > > Recheck the slot after folio_try_get() and retry if it no longer holds
+> > > this folio.
+> > > Thanks.
+> > >
+> > > As always, when fixing a bug please fully describe the worst-case
+> > > userspace-visible runtime effects of that bug.
+> > >
+> > > I asked $LLM for this and was told
+> > >
+> > > : When the race occurs, a swap fault can acquire a reference to a
+> > > : physical page that has been freed and reused for an unrelated purpose,
+> > > : potentially by another process.  The fault handler may then clear that
+> > > : page's PG_readahead/PG_reclaim flag, wait on or acquire its folio lock,
+> > > : and potentially attempt to remove it from an unrelated swap cache.
+> > > :
+> > > : These operations can interfere with unrelated workloads and may cause
+> > > : unexpected stalls, impaired reclaim or writeback, and potentially
+> > > : system hangs.  The subsequent swap-entry validation normally prevents
+> >
+> >
+> > I don't see a way to a system hang: the folio lock waiter is woken when
+> > the real owner unlocks, so the worst case is a stall. I suggest
+> > dropping "and potentially system hangs".
 
-Smatch warnings:
-drivers/dma/amlogic-dma.c:636 aml_dma_probe() warn: passing zero to 'PTR_ERR'
+Yes, I think it's assuming the other-owned folio never gets unlocked.
 
-Fixes: b84b5197e344 ("dmaengine: amlogic: Add general DMA driver for A9")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/r/202610080953.C5TYlCaA-lkp@intel.com/
-Reported-by: Dan Carpenter <error27@gmail.com>
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
----
-Fix regmap error check issue.
----
- drivers/dma/amlogic-dma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > Writeback itself is not affected, only the PG_reclaim hint on where to
+> > put the folio after writeback. So "impaired reclaim or writeback" ->
+> > "impaired reclaim".
+> >
+> > So I'd suggest:
+> >
+> >    : When the race occurs, a swap fault can acquire a reference to a
+> >    : physical page that has been freed and reused for an unrelated purpose,
+> >    : potentially by another process.  The fault handler may then clear that
+> >    : page's PG_readahead/PG_reclaim flag, wait on or acquire its folio lock,
+> >    : and potentially attempt to remove it from an unrelated swap cache.
+> >    :
+> >    : These operations can interfere with unrelated workloads and may cause
+> >    : unexpected stalls and impaired reclaim.  The subsequent swap-entry
+> >    : validation normally prevents the wrong folio from being mapped into
+> 
+> It's documented that caller always double checks the folio so this
+> part is harmless from the aspect of data corruption or crash.
 
-diff --git a/drivers/dma/amlogic-dma.c b/drivers/dma/amlogic-dma.c
-index 78ee2337ae71..684121d13fca 100644
---- a/drivers/dma/amlogic-dma.c
-+++ b/drivers/dma/amlogic-dma.c
-@@ -632,7 +632,7 @@ static int aml_dma_probe(struct platform_device *pdev)
- 
- 	aml_dma->regmap = devm_regmap_init_mmio(&pdev->dev, aml_dma->base,
- 						&aml_regmap_config);
--	if (IS_ERR_OR_NULL(aml_dma->regmap))
-+	if (IS_ERR(aml_dma->regmap))
- 		return PTR_ERR(aml_dma->regmap);
- 
- 	aml_dma->clk = devm_clk_get_enabled(&pdev->dev, NULL);
+OK, thanks, adjustment made.
 
----
-base-commit: 42c31fec1ca76b8b5f7759def122d418dff2cd4b
-change-id: 20261016-fix-a9-dma-complier-178b6e667983
+> > >> Fixes: 8578e0c00dcf ("mm, swap: use the swap table for the swap cache and switch API")
+> > > Given the above, I suggest adding cc:stable.
+> > >
+> > > Do you and maintainers agree?
+> >
+> > Agreed for me.
+> >
+> 
+> This is more like a optimization than a bug fix, but it's clean and
+> easy to follow, Cc'ing stable is fine to me.
 
-Best regards,
--- 
-Xianwei Zhao <xianwei.zhao@amlogic.com>
+Was that an ack ;)
 
+
+Here's what I now have:
+
+: swap_cache_get_folio() reads the folio from the swap table and takes a
+: reference with folio_try_get(), without any lock.  If the folio is removed
+: from the swap cache and freed in between, and its memory gets reused,
+: folio_try_get() still succeeds and we return a page that has nothing to do
+: with the swap entry:
+: 
+:   CPU 0                                  CPU 1
+:   do_swap_page()
+:     swap_cache_get_folio()
+:       swp_tb = swap_table_get()
+:       folio = swp_tb_to_folio(swp_tb)
+:                                          madvise(MADV_DONTNEED)
+:                                            zap_nonpresent_ptes()
+:                                              swap_put_entries_direct()
+:                                                swap_put_entries_cluster()
+:                                                  __try_to_reclaim_swap()
+:                                                    swap_cache_del_folio()
+:                                                    folio_put()   <- freed
+:                                          page reused, e.g. as an anon
+:                                          folio of another task
+:       folio_try_get(folio)               <- succeeds
+:       return folio
+:     swap_update_readahead()              <- may clear PG_readahead on it
+:     folio_lock_or_retry()                <- locks it
+:     folio_matches_swap_entry() fails, unlock and put
+: 
+: filemap_get_entry() does the same lockless lookup for the page cache, and
+: after folio_try_get() it rechecks the xarray, because the folio may have
+: been freed and reused in between.  swap_cache_get_folio() lost that
+: recheck when the swap cache moved to the swap table.
+: 
+: So CPU 0 writes to a folio it doesn't own: it may clear PG_readahead and
+: takes the folio lock of someone else's page, before
+: folio_matches_swap_entry() finds out the folio is not ours.
+: 
+: When the race occurs, a swap fault can acquire a reference to a
+: physical page that has been freed and reused for an unrelated purpose,
+: potentially by another process.  The fault handler may then clear that
+: page's PG_readahead/PG_reclaim flag, wait on or acquire its folio lock,
+: and potentially attempt to remove it from an unrelated swap cache.
+: 
+: These operations can interfere with unrelated workloads and may cause
+: unexpected stalls and impaired reclaim.  The subsequent swap-entry
+: validation normally prevents the wrong folio from being mapped into the
+: faulting process.
+: 
+: It's documented that caller always double checks the folio so this part
+: is harmless from the aspect of data corruption or crash.
+: 
+: Recheck the slot after folio_try_get() and retry if it no longer holds
+: this folio.
 
