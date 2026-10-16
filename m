@@ -1,112 +1,107 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FFC74C6D
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:15:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0C2313E31;
+	Fri, 16 Oct 2026 08:15:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792138541; cv=none; b=mCwF0NPo38tAz1ySQGe5cczrxU0G/pbitNwmwxQddj3PRlCBsGflFFcid8+DAK+RxhJrruyUo/WMiA8o9Bbyu1I2mq6Vi09S4avFoFqf6AiVxmqGXRYvya34T0SoIw5yvwSGhUeRL5jJoldBM5kPDBIEVehrL89B7USTCiW1VqY=
+	t=1792138544; cv=none; b=PoXXOvmqTxeF54av0wxn0YFf58vuXQEH5q1mSURuOXrtL/+Mv+BU1UhIbWY4MdWYi31wOMQraVHvtUKKPWsAaOPvdMX248flNjE8JT/5K8zzldvlDq8Qqw4tKpli8c86xnlVaSb7G1g0ry8YRPl+pWBUts5nleI3elKwiC2MFNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792138541; c=relaxed/simple;
-	bh=Y549rUx82KGZkIt3qwDBp9IS8fAoR7mGvTJsFiDdNL0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NmQYsfE1/yew74yIHdPOhJBcQlFNLMBMeWprGuiU6FYzzZtiKVBOe3+WbSptja/kwj+INlTb9M1sGlnlxcM1EsghJxG0UahtWuheFvrlU1pfaiSfAAFkPv8lcebCwM6uYbw45htMjP5WIeTtN5BS1WnrBGJP6zWUs06nXhHjjGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TahC5Cqf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=A9rkJ+tS; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792138544; c=relaxed/simple;
+	bh=5PXqI2wvHJ33gaVZwqw9mkgCl7xLEsI377R7OfghUec=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=u17IjcE/oen/8Jq3C1lbaD7nx8lb6uEN1lWchFOAD404vFeOOvEbtxjuRvUA/6DErSik0rKNrdJ+mE5WvP7Mjw774X+J74WUgxKfBjf1c54h2KG2Wpegp/2h2OR5cGbos2l9hiK8JSAY9G7vOe+mBDSZ3eoEcdHu5WedUsuXY6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iNdwgHug; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TahC5Cqf";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="A9rkJ+tS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792138535;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Y549rUx82KGZkIt3qwDBp9IS8fAoR7mGvTJsFiDdNL0=;
-	b=TahC5Cqf9xrXKFqeJMaPvV9SRptx5BEvfCluqaVb356mLfcJ33ZblYBPEdGuM8CIUPOIU1
-	98za6Y089QZhKnGfwxKH1T5ttbtiAOOCi7UDjuDdyzqZ19cQm2XO3BpljEazPbt8SScWo3
-	vBdjKavseSe2kl5pnhe+/lh8zSixo48=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-568-TZM9SaAnOzuzsSq5hDJ-Ug-1; Fri, 16 Oct 2026 08:15:32 +0000
-X-MC-Unique: TZM9SaAnOzuzsSq5hDJ-Ug-1
-X-Mimecast-MFC-AGG-ID: TZM9SaAnOzuzsSq5hDJ-Ug_1792138531
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48e00f3929bso131613f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:15:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792138531; x=1792743331; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Y549rUx82KGZkIt3qwDBp9IS8fAoR7mGvTJsFiDdNL0=;
-        b=A9rkJ+tSYKGpUFvPNTmhlzORUFAlukNM0r8SR7NtoSYCBe8+5LLOPnrLix4Id536va
-         NrS9dGQCMVQW3E+upW2sK39arNviDa6RAFCP9tQg9XLfwTiOi62VvPs2dTCYf50ksNqy
-         lZArJqDz24yWhIeOxBAQQOWNosNdV4hCQXdkyaDW1JUNQr09gskSSr+IxELu1869ekJF
-         ajeYWW9Z8M2VfawKLFIDlRHBEvYVZpRGCUuK+liJRisSj/5MhWfnsXwkRAu0nkb3CqP9
-         mmWrsu/6orC8+RPVbDF0epYU4xgzyIXPTtUYddC3wsk/klKXcXovUJDA1It6uuAHMnhm
-         NODQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792138531; x=1792743331;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y549rUx82KGZkIt3qwDBp9IS8fAoR7mGvTJsFiDdNL0=;
-        b=Ctr95F0PXT+WJqF7ZHelQIfRCVzvJXKpBPeY/R3ZZpt7do0zPyd6uPicC90G0qLdtR
-         z3/kt/hmbeUDDtWWqmdi9QaiIFjvjbv+fBkbQ6wm1VRVGIgWhKPfsj6Y4AtFdHnrtflL
-         a95IcWZgVyl22nvXh4qhaj8KTyHkY8yguRB3HZkDJcYk1g6IIMRdiBHA8eLqagitLc1D
-         k4ez7awBk6bho4JKqWzO4/YNy7EUi13h0ShYYMDRhcGhrNxfyIka3d5xz7UfPktJFGoc
-         YQBkF5xspdKihhV1u1JzHDGs7HXBTMXfUUxtGXqBy7mV7IuCQsOmD1E85ChA/5WY38NX
-         bMlA==
-X-Forwarded-Encrypted: i=1; AKwUvByH4wI2z3ykSnQ+e3kqiwxhPxSNR4b9wEiAVlMD/GmXPBAMEfTNjW0tttDGlx9EpEaCdrO6XYz5MBG56AM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKk8Td7PuCn1t6O2CaqMZDAlqLo6+reG0cmHB/FtEOJWr7znPCm
-	v/lIj9KHxpz4A7ONwj44XMjZQK0bvIbfdm/1jyXs/l+P7CKpELMPteYVVIs+TaSnwuCg92CrDCV
-	12f2/D1gdWNKc4mQFQsfPgyypb7Zx2V3YDhev4fIF4CEsxLHvQoc5vrxtCBTgCTat0w==
-X-Gm-Gg: AYBFou0nbz5F1tckh63xHLVdI1KeAfp+PRaoxeIlCUbdTQag+65KEGHj8uMFReGf1Y0
-	fgrD74DxSUpM+z+7K90o++nbt+DYQgO2bAvbxSA6ApCr++7o5wDROLlvVkDHVPgDY8OJvtEl/E8
-	xGn6YglhwBouPKz7sxigJlQAOtIPh8wZkSjOhn/CGkmVt9bogqCdbxj3DpMBzzx2sz33ri7kEJ2
-	5VdDhBoU3qmihDRzyACKMf3ygkoboCeSc7C5LsjVsxk8DCpgeM/Dqmx/cYKhfekoDh37C9TqxQm
-	boDz0wa9h3H6k22FT45shoks+rby4ioL2E9f/zDI1IOi7WgVu7XoJMafy/OKyfHEXIzUESKgasG
-	zF/WM
-X-Received: by 2002:a05:6000:4549:b0:48d:ed0e:6bb4 with SMTP id ffacd0b85a97d-48dfadf34c1mr4227588f8f.4.1792138531285;
-        Fri, 16 Oct 2026 01:15:31 -0700 (PDT)
-X-Received: by 2002:a05:6000:4549:b0:48d:ed0e:6bb4 with SMTP id ffacd0b85a97d-48dfadf34c1mr4227528f8f.4.1792138530803;
-        Fri, 16 Oct 2026 01:15:30 -0700 (PDT)
-Received: from sgarzare-redhat ([80.116.137.133])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4c0894sm3190609f8f.12.2026.10.16.01.15.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 01:15:29 -0700 (PDT)
-Date: Fri, 16 Oct 2026 10:15:27 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: netdev@vger.kernel.org, bobbyeshleman@gmail.com, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 2/2] vsock/test: cover SO_INQ
-Message-ID: <atHdAlIdUqNIoDNn@sgarzare-redhat>
-References: <20261015154334.3217358-1-devnexen@gmail.com>
- <20261015154334.3217358-3-devnexen@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iNdwgHug"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 42E73C2BCF4;
+	Fri, 16 Oct 2026 08:15:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792138544;
+	bh=5PXqI2wvHJ33gaVZwqw9mkgCl7xLEsI377R7OfghUec=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=iNdwgHugE1WmhZhCSCt4PRWOvsmBccxvtPel2uGAOkXqrdM3z44qYaLr7WZgvgO2Z
+	 6QJ0UmQIqZdK3EpmzlafJC38Ou8K5bm0ugfBbexp1+PoUje01KCB1BNHNC+UiSe7YW
+	 BcqZDpefjO52/Vz7Loqofppj5nLekgO7OK/xZ0drVYmWsILrXG+zISHpAlbxs/Cd87
+	 F6qzMG60s1pwlwfQ2eApS7dMjOC1mWTvDw7abOMlaqIA57YEGhQ7y5ItO0s8SGS7u9
+	 MnUFo/tX11I3mfpVMMr5N38m4JhspmjWZKGBmnxvHMIPTp8uJJqAaBqFIUmZsWAnPC
+	 7x5fdzpauQolw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C45DCCA464;
+	Fri, 16 Oct 2026 08:15:44 +0000 (UTC)
+From: HuskerMinion via B4 Relay <devnull+mocker-mug-unwoven.duck.com@kernel.org>
+Subject: [PATCH 0/2] iio: light: tcs3472: Add TCS3400 support
+Date: Fri, 16 Oct 2026 02:15:40 -0600
+Message-Id: <20261016-tcs3400-v1-0-3d79d2a7f449@duck.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261015154334.3217358-3-devnexen@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACzd0WoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA0NT3ZLkYmMTAwPdVKNUU9NU80QTSwsDJaDqgqLUtMwKsEnRsRB+cWl
+ SVmpyCUi7Um0tAH5knnNrAAAA
+X-Change-ID: 20261015-tcs3400-e2e55e7a4980
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, 
+ Arka Mondal <arka@arkamondal.net>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ HuskerMinion <mocker-mug-unwoven@duck.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792138543; l=1468;
+ i=mocker-mug-unwoven@duck.com; s=20261016; h=from:subject:message-id;
+ bh=5PXqI2wvHJ33gaVZwqw9mkgCl7xLEsI377R7OfghUec=;
+ b=Nhc4hw5+szeJCF+P/ywM7I1pAQOJ8DAOvTHsLYyTVh2Y7J/gZB/Kg8eQVDjTC6n7t6bcVhbR4
+ SwIFQ2X57jqB1xVWAWCIzWNwk+mTw7v9q85gpayCUd6jQqRzoNsHZ+v
+X-Developer-Key: i=mocker-mug-unwoven@duck.com; a=ed25519;
+ pk=Q7l9BnP4XnFimCK28K+NVowcECqTaJNXicdBAInot0k=
+X-Endpoint-Received: by B4 Relay for mocker-mug-unwoven@duck.com/20261016
+ with auth_id=1206
+X-Original-From: HuskerMinion <mocker-mug-unwoven@duck.com>
+Reply-To: mocker-mug-unwoven@duck.com
 
-On Thu, Oct 15, 2026 at 04:43:34PM +0100, David Carlier wrote:
->Check the SCM_INQ value after a partial receive, after draining the
->queue and at EOF, that no cmsg is sent while the option is off, that
->accepted sockets inherit it from the listener, and that out of range
->values and SOCK_SEQPACKET are rejected.
->
->Signed-off-by: David Carlier <devnexen@gmail.com>
->---
-> tools/testing/vsock/vsock_test.c | 279 +++++++++++++++++++++++++++++++
-> 1 file changed, 279 insertions(+)
+This series adds the AMS TCS3400 to the tcs3472 driver. The TCS3400 is
+the ambient light sensor in the Amazon Echo Show 8 (2nd gen). I added
+it while bringing up mainline Linux on that device.
 
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
+The TCS3400 has the TCS3472 register map, but no command type field,
+other gains, a 2.78 ms time step and its own interrupt clear register.
+The driver picks the variant from the ID register, so nothing changes
+for the TCS3472.
+
+Patch 1 adds a binding. The TCS3472 had none, so it covers both
+families. I listed myself as its maintainer, since the driver has no
+MAINTAINERS entry.
+
+Patch 2 adds the driver support.
+
+On the device, raw reads follow the light. I tested that on a 6.18
+based kernel. The sampling frequency code that is new in togreg now
+uses the 2.78 ms step for WTIME and the init time as well. That part
+and the threshold interrupt are only build tested on the TCS3400.
+
+---
+HuskerMinion (2):
+      dt-bindings: iio: light: Add AMS TCS3472 and TCS3400
+      iio: light: tcs3472: Add TCS3400 support
+
+ .../devicetree/bindings/iio/light/ams,tcs3472.yaml |  57 ++++++++
+ drivers/iio/light/Kconfig                          |   7 +-
+ drivers/iio/light/tcs3472.c                        | 162 ++++++++++++++++-----
+ 3 files changed, 189 insertions(+), 37 deletions(-)
+---
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+change-id: 20261015-tcs3400-e2e55e7a4980
+
+Best regards,
+--  
+HuskerMinion <mocker-mug-unwoven@duck.com>
+
 
