@@ -1,187 +1,179 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D433D300E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:52:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792180374; cv=pass; b=brZwaGkpAozhD6NhZfMbQuNzeBw0X+Pst21nffqQBZvjDS/9jZLliyRM+x5C4yd8U/+KQUH/zQO6VzHb7AcanjlfK3AdrOZWl2a03F54hMb+y1Eg16TCgp/VwqLNRvM4Kg2nTNkgnFMG4NH6OOMyWocldP4umOZnkc/2BR4LIyI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792180374; c=relaxed/simple;
-	bh=aKy0WhmuZ0KSTA2scN/gWrfv9TWutXxLU9SljZLRv3c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pRWaVbuUuZ1jz7tVnAlzPSUh/feVCqsfPHeUltj0y9t+G9bZcfn9g+iaavqV7iiPBaUIuarr7Hl+qdMUnZs7uyAAJZqVUv80duCOOTo342IzVC2ANBiNrgXfBdFhmkYzPvZBLsobgR9PTHIhiEATbnBJ4bRVNWfiOOcSkd9iGgM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZugPm/VX; arc=pass smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF133C1D6E;
+	Fri, 16 Oct 2026 19:54:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792180449; cv=none; b=bLUhcDpbrQYqvp+cz5ytqsZJM3x0bvx20oUG93NKauI+JfC+h2HnCOj6A8kokhKb5NXTP78nEYPi/b09hlUFRXhDj+OCEeNENOzs+m37x3P4tJ1Kivu2RvjmRwfwjzRurJpT+itWuRP1SS4NFIW73CsviB3nr9HbRSP3C7E2t10=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792180449; c=relaxed/simple;
+	bh=CbB7gk7woWckBGJxjC/itGv5QbaRbne6C33zMxrW59o=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=NQ1nrS0RsMbHFGodMtqOG6ONobF6H9w8cxjsZI5GITEJzVArw1P9fOAeDG9wtzFhQrP6vqX0J9+/vpTIokxraKDzCQWGF6zZX///ezKv5C1PAdA576bN3lbCDeM1fbvtCiC3xxFDeAAw+nZ9xddMw57FJ9pBzq5C2qi7PsVCUV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=M1k1aDO8; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZugPm/VX"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ac5b090d16so275403a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:52:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792180371; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OdBZWnBRRrpRsrev6Ryp02OuY3q+zRF/JnMm4cGWzkUeYrahFf4s6nDgYScm06I56D
-         QEPTBKb576tmnriorwpqxP0PJxZXxJwuS6aYzgZYglZTSao4fCCDFlw76sEFhXPF/ul8
-         +IMqhOt9le/d7bC4GlIIfHxPxeGS2VO368ZYRErzdVpaQvQhyee90gPHvfU5Ha2IHHwC
-         NUjb8Vm4RAZUPmgDqHhKYilRdZKrid1XNd1f3e/S8ZiqoAqh73BRQy+Cq+yduCO00Bk4
-         EJL+ra/oXVu6Ii6Nn+wClIsmtnKg77/IHlBK1IKtPibw8KAulWF2FQ8usTVSyjjcUdAT
-         0w6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=aKy0WhmuZ0KSTA2scN/gWrfv9TWutXxLU9SljZLRv3c=;
-        fh=i/cFU5IUIcjVmwRr1f8+Ubed1RFfmEkHFbnP7sENxOc=;
-        b=Km7IFeRi9+l21xs6zYscU8KX+h/JIFzCRnKUHnglPd/bA8TZZLb4BvV7T8KVheAxCx
-         BeeYmYgGB+25QIkhT9OlMCyGsf2JAHFec9875hPtnVbnh2v65jYZRsM92PkYxfGNEhGi
-         7Hnnz/aa5CVFnMCvANeVlRQid5gL4Oa/8F4ilwQOrl6Hi+7lLeifl2b1YxOFu/B6d2Ri
-         CTa00gdZlIwabekrpzik7x0Ked0ZwrvcqIxkvbHtPnMrAfESiuJj2fgBvlwlLeeMl7+Q
-         2eTSJ5KzkAn1yFwy5ln/Ur8Dymkp0aznr/OCerCsv3x07iTdu8/QXwGzBAPW6TacKHRR
-         aP+w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792180371; x=1792785171; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aKy0WhmuZ0KSTA2scN/gWrfv9TWutXxLU9SljZLRv3c=;
-        b=ZugPm/VXd59lSpe2cfl0srkX1DsKn/fdwvToZIlIMp8oIs+fZSrQHHhCs5ukCSIMDF
-         8GSe/dE+fos7ltNXPE1C9hwszMEN0HvjkKw8TSmvv4bkIACGpdVNBzPppUfBDqA34PBs
-         kdqIlAKc2BaJ3VCYw+xkGWRVKZ/4YW7RPb2G/tHV4hTblCBiXxsXnAwrnD8RH22nwCZk
-         DYHxwzQoRwpQ5fk+N3zrf6HYrqtB4Ox7MlTHfaBvZaclYMw1f1wYxsUL3HSmHrfeIFZK
-         9aPIzF+FOV3kA0IWaxcQlFUpMNouG6MFmQssGEJI15bL4yfG+HxBS3HVzoP/5ToQmoDb
-         5ToA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792180371; x=1792785171;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aKy0WhmuZ0KSTA2scN/gWrfv9TWutXxLU9SljZLRv3c=;
-        b=WGvYon7aLlPE7GpjJoBvCRKDETVCBdBGNmvGBRaOY6UQ9QRLFqshDhsOXao7dvXmjN
-         QPl3MYnfmA5p9CQtY5C3V67QbuDG4ybJBJe6K6p9ZmUwdC7K1ZPh5jGej2nPFOO/wIt4
-         CquH/mL4RT+p9cdShDLmmGvntRIEaNG6GBfBOxrqwbFO+NHfuKVjOAzalhTgKPf4hXmL
-         7XIDsRWfgbIDbItGQLPhgRc2m1ivbuiT4kRrk5j/JlfVPD9yG1+N7iIyNzi4M5BPeVv/
-         b+M+tadx+FJF+Za2mvK0RaZBygFM8ZtZrvKYTxlfojHlMRGn3u9D3J4tqryxVW4kpy/N
-         TKiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxeAEbIfJUeFOhrp0ggwPgrihrY4q3XNx8PP13LsaDx4JfXdAigZQKUH04sbu4ePj/EH5cQ2F5tD2mPrAI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYITifnKD7tVuGHdpKX3Vg7swnyvxKhbnr7zIAduq7KmEbgGTJEL
-	L06NjQUo5dg5dq4hvJB9DlcLsNhP/i2bgoH7C15vukQwdeUqYEhZZuUEIVXTKpFtLf6kI/VJ5+w
-	WFAUCL/4BSAstmQuayn9c0P/wz/hMuvc=
-X-Gm-Gg: AYBFou1rjDhUsxfV+MUHOxm3fHPuHDcEE09HDctFXLFI/jOUVdZWosJkM67rBKRNKlT
-	j8eIuv/PXVfH66M8/ne5KS2FOIkfEDO5+SK1+KPdt3Wwbrf2xpWo4NZJru9xsrxFDc8sRKR9ycj
-	QSvFhy7AiMM30bJ4XrVphoQ48kHt8QqQcJxKl5MthtbV9H6A4ZVLvH5OvFrRZJcQVvunUNRGlPe
-	aH6nNAlE9dZfzT5XyYZzr/1tNdOUmge2vG4uQyu+6MjMh7SuUDELAenS88gW5wvZSqxt9IW7qqh
-	hlnhnyo7PLnl0JrxuRcEHaiiFwqf1aNcfe9hvJuUQ49ZXK7jBDm/lfcq4GLoeOSX4zqHK0XTTBA
-	HKMCxRn7JtHNfpasIRfE6xrMh4GCI2Bqh0n91RLhvRkCImsl9I5W+bXo9Cieg/Dspiw9tUroBJM
-	782YkGAom0mS5dIsHGc67f3nUTTVIDc+PBwQaZuXs=
-X-Received: by 2002:a17:90b:3a4f:b0:3a0:2900:f55e with SMTP id
- 98e67ed59e1d1-3acef3e9905mr462690a91.29.1792180371201; Fri, 16 Oct 2026
- 12:52:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="M1k1aDO8"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GJiMfa620810;
+	Fri, 16 Oct 2026 19:53:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=RFBShW
+	KoniR0gJjL5m62pm4yyuITX5L4tvbyqJwkNsI=; b=M1k1aDO8Cv2L7zX2Qdye0G
+	x8Sx1P1MDVl87YZflXltfBkb2thqbTmL+HA4B751OVZWNWHBOYShF1d6Rv1jQN/k
+	Yrffjf2nk6OiEJ9zxn09BHqLoX9T6Yj25htMhHNyOOs+KPPl6H6ut60DWt4WVz8s
+	V9MZMzeQWy28ZO8nPuX5fjNcuRHY9H12m7oyjEVtwbcWRKtJoQXTxoo3ZVcsispk
+	o/lYAe0Nb6J1SuIWQq+MeTmMO8BfILLAMPeqBB5cFLY7EqT1QH5UpIuF8THf+Kf/
+	8OCQ9M1mz8wOUak0wu9XmaHrCLiGkx+xUwTOYGGdpsbAK0Z7m38BiYwmAd5nNXQw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7duh19ew-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 16 Oct 2026 19:53:15 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69GJo1Nx4137896;
+	Fri, 16 Oct 2026 19:53:14 GMT
+Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hb34mn1ps-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 16 Oct 2026 19:53:14 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
+	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69GJrD4N13042210
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 16 Oct 2026 19:53:13 GMT
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CFD0D58056;
+	Fri, 16 Oct 2026 19:53:13 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 66CD358052;
+	Fri, 16 Oct 2026 19:53:13 +0000 (GMT)
+Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.29.48])
+	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 16 Oct 2026 19:53:13 +0000 (GMT)
+Message-ID: <3d3fc94b377125df87c02b6a73ef664b35fa37c1.camel@linux.ibm.com>
+Subject: Re: [PATCH] ima: reject modsig if detached data cannot be supplied
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: =?ISO-8859-1?Q?J=E9r=E9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>,
+        Roberto Sassu <roberto.sassu@huawei.com>,
+        Dmitry Kasatkin
+ <dmitry.kasatkin@gmail.com>
+Cc: linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+In-Reply-To: <0aed6bb22776b2bf9e9e11edd18dd559f71e5186.camel@linux.ibm.com>
+References: <20260822082434.489470-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	 <0aed6bb22776b2bf9e9e11edd18dd559f71e5186.camel@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 15:53:13 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261010224902.1232178-1-arighi@nvidia.com> <DM6HVNSP3USV.AJSWS289Z3I9@gmail.com>
-In-Reply-To: <DM6HVNSP3USV.AJSWS289Z3I9@gmail.com>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Fri, 16 Oct 2026 12:52:38 -0700
-X-Gm-Features: AclHuK92INr4JCwk1GxOJAxDUUIr236c_xuz0zXWx3fjiZTY4wmHwQ-mmYgfdw8
-Message-ID: <CAEf4BzZZRrD86ZswsB2r-swqNi7D1p52Vs=fQ9MXSgGATN31Jg@mail.gmail.com>
-Subject: Re: [PATCH bpf-next 0/5] bpf: Expose pinned arenas as sized bpffs files
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Andrea Righi <arighi@nvidia.com>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	John Fastabend <john.fastabend@gmail.com>, Josh Don <joshdon@google.com>, 
-	Vineeth Pillai <vineethrp@google.com>, Balbir Singh <balbirs@nvidia.com>, 
-	Shameer Kolothum <skolothumtho@nvidia.com>, 
-	Himadri Chhaya-Shailesh <himadrics@protonmail.com>, NchangRoy <royfru44@gmail.com>, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=Cr0q4X4D c=1 sm=1 tr=0 ts=6ad280ac cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=QIHSJJ-3zAWbNeOQCx0A:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: xXoM4z8W5eH9G0W5Do3OE8AvzScVC5G8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA3OCBTYWx0ZWRfXyAUTBCwsRoCz
+ K5KZ0c8mc8so9YEHhTQhflF/DjpRDFI2KZHewkTLGhbPLKjjQSjgdVI2nGUiCcjtvoN7L7xtpoi
+ nmdH5bsQcg2BYUeN6lp4t8OlEc6zDZlWKVI4D8yOO7+bKaLN1Zn8mhHPIHsFLX520r3SwCXEHWe
+ i0dPC/W2xd3g13sDkkzW++7Pe6EQqIlQPkPvKeoVN2dcbCGVjb+5k9bfGgDdVHgyzrnNpUHk/nl
+ ZSnoB/f5WIwHiWzFT88bOVyLLtMb+DxuQWOLWSbM4qWBpMzOYuyvkytfm3Dvhs2jn0+8kAfAlBR
+ FJ1e6bT54JTC+MppY7X17kNQnTq1xlLjr7UxSB8KVL5crjqxIeTMY+VKnYs8cu/PJyhHtjfLI6D
+ 8cDflznYBxNktpdAh4+/gKVF/xT2ZoODdXa0Q0ZH2h+CZ6Y8HrQTHgHKbcCfHfKp1TcuV4ioVJ6
+ VbOMKhIVMh+7kHN321A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA3OCBTYWx0ZWRfX7NI+mJgR/h9G
+ C/cf0NT51L1HnwY9mE1TXXm29lXA5zY3b2CORXJeLtIgDAo4e1YOwLm4kNfAcpMxf3Q2C9GdWLC
+ +V71qXLSAFkCHl+xZ+NXdW0Ga5dJjHQ=
+X-Proofpoint-ORIG-GUID: qBbL1uEwXR67GjR4B0gC-Kkig0cIT0bK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-16_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160078
 
-On Fri, Oct 16, 2026 at 12:03=E2=80=AFPM Alexei Starovoitov
-<alexei.starovoitov@gmail.com> wrote:
->
-> On Sun, Oct 11, 2026 at 12:45 AM Andrea Righi <arighi@nvidia.com> wrote:
-> > The guest scheduler can create its own arena and allocate pages from
-> > that NUMA node. Those guest physical pages are backed by the host arena=
-,
-> > so host and guest BPF programs can access the same memory through their
-> > respective arenas.
->
-> in addition to what Josh said...
->
-> That node is ordinary RAM for the guest.
-> When the guest scheduler exits arena_map_free() does __free_page() and
-> the page goes back to the guest's buddy allocator. Nobody tells the host.
-> The host prog keeps writing at that offset into whatever the guest
-> allocates there next.
-> NO_FREE in the guest doesn't help. It covers the kfunc only.
->
-> Patch 5 needs a 16M node (256M on ppc) to get one page into the guest
-> arena. Arena is 4G at most and it's one arena per prog, so that's
-> 256 guests per host scheduler.
->
-> The NUMA node is a way to avoid teaching arena to use pages that it
-> didn't allocate. I think that's the missing piece in either model:
-> host allocates -> guest arena is populated from a BAR,
-> guest allocates -> host arena is populated from pinned guest pages.
-> As Josh said the BAR is needed for the doorbell anyway.
->
-> If arena can do that, can the host side take the pages from memfd
-> with memfd_pin_folios() like udmabuf does ?
-> VMM can map memfd at any address and offset already.
-> Then no need for NO_FREE, EXPORT, sized file in bpffs, 2nd kind of vma
-> in arena, etc.
->
-> The loader does memfd_create() or opens a file in tmpfs, calls
-> bpf_arena_import_memfd(&arena, addr, cnt, fd, off) from a syscall prog
-
-As briefly discussed at LPC, I have nothing against adding support
-like this to the arena.
-
-But as I was reading Josh's reply and thinking about multiple VMs and
-multiple vCPUs (that can also come and go), I kept thinking that it
-sounds like a pretty good fit of map-of-maps and ARRAY maps, where key
-for map-of-maps would be either entire VM or vCPU, whichever is more
-convenient. What is missing here is the ability to create an ARRAY map
-from memory that was already allocated before, instead of asking the
-kernel to do that. But once we have the ability to create ARRAY from a
-bunch of pre-existing memory (e.g., from memfd), this can be used both
-in a guest and in the host, and both models, guest allocates or host
-allocates, could be supported with the same model.
-
-(regardless of this particular use case, I think it would be great to
-be able to create ARRAY from memfd for some other potential use cases)
-
-One disadvantage of ARRAY that was mentioned before is the need to
-bounds check/limit access for PTR_TO_MAP_VALUE. I agree that's
-annoying, but what if we teach verifier to just automatically add
-bounds limiting sequence (e.g., masking if value size is power of two,
-slightly slower sequence for non-power-of-two, of course) for all such
-PTR_TO_MAP_VALUE accesses (e.g., if map is marked with some BPF_F_xxx
-flag).
-
-Is it doable? It would be great, if so. Arena's singleton nature and
-4GB limitation might not be the right fit for all cases, so it would
-be good to have an ARRAY-based solution available as well, IMO.
-
-Thoughts?
-
-> and gives the same file to QEMU the way patch 5 does with the pin.
-> The imported pages stay until the arena is freed, so it's NO_FREE for
-> the shared part only. libarena keeps working in the rest of the arena.
-> arena_map_ext_pages() is what a BAR in the guest or pinned guest pages
-> in the pvsched model would call.
-> What is missing: user space has to mmap the memfd to see these pages.
-> The arena vma gives SIGBUS there.
-> Something like this (compile tested only):
->
+On Mon, 2026-08-24 at 12:00 -0400, Mimi Zohar wrote:
+> On Sat, 2026-08-22 at 08:24 +0000, J=C3=A9r=C3=A9my Jean wrote:
+> > ima_collect_modsig() binds the file being appraised to the parsed PKCS#=
+7
+> > message with pkcs7_supply_detached_data().  If the message already cont=
+ains
+> > embedded data, the helper returns -EINVAL.  However, ima_collect_modsig=
+()
+> > silently returns because its return type is void.
+> >=20
+> > ima_modsig_verify() subsequently calls verify_pkcs7_message_sig() with =
+a
+> > NULL data pointer.  That verifies the embedded PKCS#7 data instead of t=
+he
+> > file being appraised.  An attacker can therefore take a valid
+> > detached signature, insert the original signed bytes as embedded conten=
+t
+> > without the private key, and append the resulting message to an unrelat=
+ed
+> > file.  IMA accepts the unrelated file.
+> >=20
+> > This bypasses the module authenticity boundary when an IMA modsig appra=
+isal
+> > rule is enforced while CONFIG_MODULE_SIG is disabled.
+> >=20
+> > Return detached-data binding errors and stop measurement collection whe=
+n
+> > binding fails.  Keep digest extraction optional because algorithms such=
+ as
+> > ML-DSA can verify the message directly.  Appraisal then rejects the fil=
+e
+> > rather than reaching verification with embedded content active.
+> >=20
+> > Fixes: 15588227e086 ("ima: Collect modsig")
+> > Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> > Assisted-by: Codex:gpt-5
+> > ---
 
 [...]
+=20
+> >  static inline int ima_get_modsig_digest(const struct modsig *modsig,
+> > diff --git a/security/integrity/ima/ima_api.c b/security/integrity/ima/=
+ima_api.c
+> > index 122d127e108d..e2b167f24778 100644
+> > --- a/security/integrity/ima/ima_api.c
+> > +++ b/security/integrity/ima/ima_api.c
+> > @@ -262,8 +262,11 @@ int ima_collect_measurement(struct ima_iint_cache =
+*iint, struct file *file,
+> >  	 * the file digest without collecting the modsig in a previous
+> >  	 * measurement rule.
+> >  	 */
+> > -	if (modsig)
+> > -		ima_collect_modsig(modsig, buf, size);
+> > +	if (modsig) {
+> > +		result =3D ima_collect_modsig(modsig, buf, size);
+> > +		if (result)
+> > +			goto out;
+> > +=09
+>=20
+> The normal processing of getting the xattr needs to continue even if the
+> appended signatures doesn't exist.  Exiting here is too early. Consider s=
+aving
+> the result as a different variable and returning an error later, if neede=
+d.
+
+By going to "out", the file will not be properly measured, nor would the fi=
+le be
+appraised based on security.ima xattr.  A better solution would be to free
+modsig and continue as if there wasn't an appended signature.
+
+thanks,
+
+Mimi
