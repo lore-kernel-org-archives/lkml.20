@@ -1,317 +1,172 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 75A35190462;
-	Fri, 16 Oct 2026 03:27:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DCB81D432D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792121270; cv=none; b=TfzOWXjnyBuIkkA2hnsAQNoC90zC0zqFn3DlV4LET6tbduFl1t8pN0gEvG30y0GfTM+IMqCCua3KpG+H4oKRA3hzjmy9uHn6bF3nK4X0K/PeHu9GL4ENHK2OiEIsKRFlyaU4pcc9MJfQ431BDKtLHf+LMHfqFWOVgJjv9nN9KP4=
+	t=1792121293; cv=none; b=B1Vb+2OuGDNVLPVV4L9lZRJvVlKmMtHWFmvNa1UR0ftyOQk5KcfAOQZQXSYrUpZFjQB9fg1vAMKGZvA2h2/27KTX0z7RAp7ftgBVdG82Aq2bVzcL4fSftpY7Gx2esnKWu2lHu9LwNaJQ6RPVfsr1SePO2Hk+oTGqOnAi4tDDNzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792121270; c=relaxed/simple;
-	bh=o2TjI++KBz4fSZ0VIw+tIna100ahCs3r5inIPvffBCw=;
-	h=Subject:From:To:Cc:References:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=fAOMYFCUTf/ZSfiwEpCe8Ab7VDAKPYGYXhqjbor9Wsrn7auU0xIvwOT5kzk9oj6NOIwMM0esOk6bVLUh6KVzbBQj4RN6cqpxOh/9H2yaxKcAm6hML1a0s+XAYSqKOrYLvXrt6P/YAYkZuFuKlAi1K1E8pbawa7U4779GcBMtWZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8Ax29GymdFqnGAWAA--.65494S3;
-	Fri, 16 Oct 2026 11:27:46 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJAx1cyxmdFqcvosAA--.698S2;
-	Fri, 16 Oct 2026 11:27:45 +0800 (CST)
-Subject: Re: [PATCH] LoongArch: KVM: Add hypercall crash support
-From: Bibo Mao <maobibo@loongson.cn>
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>, kvm@vger.kernel.org,
- loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260909085350.2046788-1-maobibo@loongson.cn>
- <CAAhV-H5uz3SM=tYG02Lz3WiN9stJocY7MQJFSKmVbNrNnz+9Gw@mail.gmail.com>
- <82f2c59a-59f5-8e49-f0c5-dc6feb4070df@loongson.cn>
- <CAAhV-H4U_-u-Tb1Hn69ahmS3gstDVswrmjby2QfHYvPtLo5cXQ@mail.gmail.com>
- <f86ec356-898b-1ff5-c2d3-182d3eaed14f@loongson.cn>
- <CAAhV-H51k23-1Bd+70kmmrF+OiLA=8x=z7PoKLzsz+ebhn4uEA@mail.gmail.com>
- <654d03ff-1690-a1bd-f126-f9d339c71e99@loongson.cn>
-Message-ID: <1374103b-931d-d068-8a9f-6f1fdc1ab1c1@loongson.cn>
-Date: Fri, 16 Oct 2026 11:29:06 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1792121293; c=relaxed/simple;
+	bh=XSSPdOCNAc5WWi5tUc5olPewciaW+9RyoAozlFhXOiM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IrWr3+JHZK/hSJmWEyhMMgbZWt9FqEJ640wFXIfFD59QTWsL7vDOtlC3x91ghY7sa74uj0iK1FF1tNYZxf/h+Syz3HXWfwe1pnm0VhsD7xXZmqtmQTBNcgONrlDed04LOYbWMtO3+0ZB3uK9AqndPloBwVKjtEt3//DCF/KDht0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f0JFIXSf; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f0JFIXSf"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e5fb79ce82so34429665ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:28:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792121291; x=1792726091; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=57IwzSravw3Iqow3SrotqKeFlKBEhaoHY1IKJqGvUEA=;
+        b=f0JFIXSfuzsPUJL1qjcRIc1Lr50f0NSEgnZYWbxu+P2x4vL6juoaQV2p33mYhpDxW3
+         i2iQBUyptC49for8BqemK7oft5sEdHcwwU/phFFaSpqpqfFXUcfyan/D5LgnJYegjdk/
+         yhlFHdKi4nRMDwDG7droc1l0TXTku8IYeSJSu/mKniDbB4bh8S1WTxD7vLWSoW68aHcJ
+         Y6YnfnW4g3ZuD9VLdObEleDgk1AM6akLdGesgw30amaRqwNPumwDiS7MZhyXa/q7Te2t
+         moRF5CwfrWHrIPVQy1dk2q5IOcMFKq1aFmqIB+mEG81HIs5VPSgoe/O8MVG41/wCVOqM
+         2i3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792121291; x=1792726091;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=57IwzSravw3Iqow3SrotqKeFlKBEhaoHY1IKJqGvUEA=;
+        b=vyBVYb3FRc10upCmUFGA4I47+ojsFkXnAuydpLRbcfXNzFO7idpjA/4hBZNUCddwgl
+         EOjFtfVopRXry4RmnbAID4M6NWVDoi4g90vLDC3mDs/Urc9AHNxXnoVFicDRWdLgp+5M
+         THq5RxLZNrItpBSsb759Nxn/X7gPF5dP0d+dG6JoZINtemwBtRi2rWfJ3HBfOouoXtaN
+         LLoev2aUImk3NK/sEmewNEQYErsgq6LVgMAj+hB/3FBS6B8nxIl2DysM6LUtaRmP8n2Q
+         SaqNtWnnZjMYCwK0TsTsZsTew7lEtwc+Ubta0+R4AodwQHLGzboLaZ9WjLPY69uDH5Qe
+         TU5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzl7jjqgu0KmmOInnciGw6/ell6c+D693AqrTDa4KoJv42qLSADVK2wiOV7ss7JJetEEV/JUPPLUQraLQ8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKWNCBFtHtauNaF50XG8GVz0ed/L6u12uKp6HgP1UzlY5ysmsl
+	6npRBB3XE+QhpdqdqugYbe7Njf45KSmJ2mcKItJCipYwimNTI8UNsHXz
+X-Gm-Gg: AYBFou1I5T4drwICZ/KeTIdoS6SKJRFzi1M/bzUZaI4eCIu0q/EuKGp0UNMCh3Vh7Si
+	OKgWyWLIxlh6y6DlgFmN54aClURAW+h1E0r42RwBvWMQQKCccGspwBjAOkCibFfsMZGaQz3vnZ0
+	Nsph4UN1GvucOVTi0q0JhMsPh63IrnttNmPLtoVN33Ha+9a66qmsaZE7PfTe9EyrpDbQ++lByNm
+	z3epSNSbTXrQ+M1nl1ACO6p1KUyho+rfNQi1pdWstJgNWdKtPg0pOpq0xoS7ULEnyrIgdEf8HxC
+	DegmqLUagIWRTN0y5fjzeWSCrr5zBHPNkLW9SzkHNANyAVxGc6hhq7mYGGxk5wpBQkAys/1ekql
+	S5u7o42d5PG41FstkOqpvKces1Cwu9DdFtfECGHXYuIdjWijBOftMbMdSUXHO8oYp2asa9Acco7
+	R3GxXDHxGFfykF+Ebjf3ENAHtb+WXqpYt80CjV7A0OFTdby5Aprbup/DK6L2t//0UIh7qeAVZjn
+	Zz3suDcPnRzax6dmkVgCVI=
+X-Received: by 2002:a17:902:ce12:b0:2e2:aa17:477f with SMTP id d9443c01a7336-2e842f11b4bmr193459365ad.58.1792121291215;
+        Thu, 15 Oct 2026 20:28:11 -0700 (PDT)
+Received: from localhost.localdomain ([202.8.105.115])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e834ef9sm3672935ad.42.2026.10.15.20.28.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 15 Oct 2026 20:28:10 -0700 (PDT)
+From: Jemmy Wong <jemmywong512@gmail.com>
+To: mingo@redhat.com,
+	peterz@infradead.org,
+	tim.c.chen@linux.intel.com,
+	kprateek.nayak@amd.com,
+	yu.c.chen@intel.com
+Cc: chen.yu@linux.dev,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jemmy Wong <jemmywong512@gmail.com>
+Subject: [PATCH v3] sched/cache: Avoid publishing partial LLC utilization
+Date: Fri, 16 Oct 2026 11:27:59 +0800
+Message-ID: <20261016032759.45279-1-jemmywong512@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <654d03ff-1690-a1bd-f126-f9d339c71e99@loongson.cn>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAx1cyxmdFqcvosAA--.698S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoWfJFyDur13Zr4UCrW7Gw48GrX_yoWkXFyxpr
-	1kAF1DJrW5Jr18Ar1Utr1UtryUtr1UJw1jqr1UJF18Jrsrtr1jqr10qr1q9F1UJw48JF1U
-	Xr15Jr17ZF1UJwbCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
-	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE
-	14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCYjI0SjxkI62AI1c
-	AE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
-	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtw
-	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
-	67AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
-	0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8HS
-	oJUUUUU==
 
+update_sg_lb_stats() sums utilization over the CPUs in both
+sched_group_span(group) and env->cpus, but takes capacity from
+group->sgc->capacity for the whole group. record_sg_llc_stats()
+publishes both.
 
+Rejecting an all-affinity-pinned source runqueue removes that CPU from
+env->cpus and retries group selection. The retry can publish the
+partial utilization with the full capacity.
 
-On 2026/10/16 上午9:06, Bibo Mao wrote:
-> 
-> 
-> On 2026/10/14 下午12:30, Huacai Chen wrote:
->> On Mon, Oct 12, 2026 at 8:55 AM Bibo Mao <maobibo@loongson.cn> wrote:
->>>
->>>
->>>
->>> On 2026/10/11 下午10:06, Huacai Chen wrote:
->>>> On Thu, Oct 8, 2026 at 9:50 AM Bibo Mao <maobibo@loongson.cn> wrote:
->>>>>
->>>>>
->>>>>
->>>>> On 2026/10/3 下午12:02, Huacai Chen wrote:
->>>>>> Hi, Bibo,
->>>>>>
->>>>>> On Wed, Sep 9, 2026 at 5:01 PM Bibo Mao <maobibo@loongson.cn> wrote:
->>>>>>>
->>>>>>> Now generic pvpanic is supported in Linux kernel which will 
->>>>>>> notify VMM
->>>>>>> with VM crash event. There is some limitations with pvpanic, such 
->>>>>>> as it
->>>>>>> requires good kernel stack or CPU hardware context and panic() C 
->>>>>>> function
->>>>>>> is in health state.
->>>>>>>
->>>>>>> Sometimes CPU hardware context or kernel/irq stack is corrupted. 
->>>>>>> Hypercall
->>>>>>> code is more direct and low-level crash method, which is useful in
->>>>>>> exception entry with assmble language, here add one hypercall 
->>>>>>> code to
->>>>>>> support VM crash function, so that VMM can capture CPU crash context
->>>>>>> in time.
->>>>>>>
->>>>>>> Signed-off-by: Bibo Mao <maobibo@loongson.cn>
->>>>>>> ---
->>>>>>>     arch/loongarch/include/asm/kvm_host.h      |  1 +
->>>>>>>     arch/loongarch/include/asm/kvm_para.h      | 15 +++++++++++++++
->>>>>>>     arch/loongarch/include/uapi/asm/kvm.h      |  1 +
->>>>>>>     arch/loongarch/include/uapi/asm/kvm_para.h |  1 +
->>>>>>>     arch/loongarch/kvm/exit.c                  | 11 +++++++++++
->>>>>>>     arch/loongarch/kvm/vm.c                    |  3 ++-
->>>>>>>     6 files changed, 31 insertions(+), 1 deletion(-)
->>>>>>>
->>>>>>> diff --git a/arch/loongarch/include/asm/kvm_host.h 
->>>>>>> b/arch/loongarch/include/asm/kvm_host.h
->>>>>>> index 65d91c3ce313..96f9f1317cad 100644
->>>>>>> --- a/arch/loongarch/include/asm/kvm_host.h
->>>>>>> +++ b/arch/loongarch/include/asm/kvm_host.h
->>>>>>> @@ -168,6 +168,7 @@ enum emulation_result {
->>>>>>>     #define LOONGARCH_PV_FEAT_MASK         (BIT(KVM_FEATURE_IPI) 
->>>>>>> |         \
->>>>>>>                                             
->>>>>>> BIT(KVM_FEATURE_PREEMPT) |     \
->>>>>>>                                             
->>>>>>> BIT(KVM_FEATURE_STEAL_TIME) |  \
->>>>>>> +                                        BIT(KVM_FEATURE_CRASH) 
->>>>>>> |       \
->>>>>>>                                             
->>>>>>> BIT(KVM_FEATURE_USER_HCALL) |  \
->>>>>>>                                             
->>>>>>> BIT(KVM_FEATURE_VIRT_EXTIOI))
->>>>>>>
->>>>>>> diff --git a/arch/loongarch/include/asm/kvm_para.h 
->>>>>>> b/arch/loongarch/include/asm/kvm_para.h
->>>>>>> index fb17ba0fa101..3b183bb1aaa8 100644
->>>>>>> --- a/arch/loongarch/include/asm/kvm_para.h
->>>>>>> +++ b/arch/loongarch/include/asm/kvm_para.h
->>>>>>> @@ -14,6 +14,7 @@
->>>>>>>     #define KVM_HCALL_CODE_SERVICE         0
->>>>>>>     #define KVM_HCALL_CODE_SWDBG           1
->>>>>>>     #define KVM_HCALL_CODE_USER_SERVICE    2
->>>>>>> +#define KVM_HCALL_CODE_CRASH           3
->>>>>>>
->>>>>>>     #define KVM_HCALL_SERVICE              
->>>>>>> HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_SERVICE)
->>>>>>>     #define  KVM_HCALL_FUNC_IPI            1
->>>>>>> @@ -22,6 +23,7 @@
->>>>>>>     #define KVM_HCALL_SWDBG                        
->>>>>>> HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_SWDBG)
->>>>>>>
->>>>>>>     #define KVM_HCALL_USER_SERVICE         
->>>>>>> HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_USER_SERVICE)
->>>>>>> +#define KVM_HCALL_CRASH                        
->>>>>>> HYPERCALL_ENCODE(HYPERVISOR_KVM, KVM_HCALL_CODE_CRASH)
->>>>>>>
->>>>>>>     /*
->>>>>>>      * LoongArch hypercall return code
->>>>>>> @@ -161,6 +163,19 @@ static __always_inline long 
->>>>>>> kvm_hypercall5(u64 fid,
->>>>>>>            return ret;
->>>>>>>     }
->>>>>>>
->>>>>>> +static __always_inline long kvm_hypercall_crash(void)
->>>>>>> +{
->>>>>>> +       register long ret asm("a0");
->>>>>>> +
->>>>>>> +       __asm__ __volatile__(
->>>>>>> +               "hvcl "__stringify(KVM_HCALL_CRASH)
->>>>>>> +               : "=r" (ret)
->>>>>>> +               : : "memory"
->>>>>>> +               );
->>>>>>> +
->>>>>>> +       return ret;
->>>>>>> +}
->>>>>> Why this function has no caller?
->>>>> Currently we directly modify guest kernel and hard-code the hypercall
->>>>> instruction to debug. This inline function is only example for howto
->>>>> usage, the normal usage such as checking KVM_FEATURE_USER_HCALL 
->>>>> feature
->>>>> + kvm_hypercall_crash() is too complicated in exception entry assemble
->>>>> language.
->>>> There are no examples for KVM_HCALL_SWDBG and KVM_HCALL_USER_SERVICE,
->>>> I think KVM_HCALL_CRASH is no special.
->>>>
->>>> So if you agree, I will remove this example when applying.
->>> Removinge the example usage with KVM_HCALL_CRASH is fine to me.
->> Now all KVM patches for 7.4 is merged to loongarch-kvm. You can test
->> it if you want.
-> Thanks. there is no problem from the code side, will test this in 7.4- 
-> rc1 version.
-My bad. There is problem which is pointed out by sashiko-bot. I had 
-thought I have sent v2 version already. Will send v2 soon.
+can_migrate_llc() then treats a busy preferred LLC as having spare
+capacity. More tasks can aggregate into it, migrations out can be
+blocked, and two busy LLCs may not fall back to generic balancing.
+This increases CPU contention and task latency. Found by inspection.
 
-diff --git a/arch/loongarch/kvm/vm.c b/arch/loongarch/kvm/vm.c
-index e5d10ceb5e67..9bf4b3bb8f25 100644
---- a/arch/loongarch/kvm/vm.c
-+++ b/arch/loongarch/kvm/vm.c
-@@ -164,6 +164,7 @@ static int kvm_vm_feature_has_attr(struct kvm *kvm, 
-struct kvm_device_attr *attr
-         case KVM_LOONGARCH_VM_FEAT_PV_IPI:
-         case KVM_LOONGARCH_VM_FEAT_PV_PREEMPT:
-         case KVM_LOONGARCH_VM_FEAT_PV_STEALTIME:
-+       case KVM_LOONGARCH_VM_FEAT_CRASH:
-                 if (kvm_vm_support(&kvm->arch, attr->attr))
-                         return 0;
-                 return -ENXIO;
+Skip publication on affinity retries using LBF_ALL_PINNED, retaining
+the first-pass snapshots and avoiding repeated cpumask checks. On the
+first pass, publish either shared LLC statistic only when env->cpus
+covers the whole group. Load balancing still uses the affinity-filtered
+statistics.
 
-Regards
-Bibo Mao
-> 
-> Regards
-> bibo
->>
->>
->> Huacai
->>
->>>
->>> Regards
->>> Bibo Mao
->>>>
->>>>
->>>> Huacai
->>>>
->>>>>
->>>>> Regards
->>>>> Bibo Mao
->>>>>>
->>>>>>
->>>>>> Huacai
->>>>>>
->>>>>>> +
->>>>>>>     #ifdef CONFIG_PARAVIRT
->>>>>>>     bool kvm_para_available(void);
->>>>>>>     unsigned int kvm_arch_para_features(void);
->>>>>>> diff --git a/arch/loongarch/include/uapi/asm/kvm.h 
->>>>>>> b/arch/loongarch/include/uapi/asm/kvm.h
->>>>>>> index cd0b5c11ca9c..b222bfc48042 100644
->>>>>>> --- a/arch/loongarch/include/uapi/asm/kvm.h
->>>>>>> +++ b/arch/loongarch/include/uapi/asm/kvm.h
->>>>>>> @@ -106,6 +106,7 @@ struct kvm_fpu {
->>>>>>>     #define  KVM_LOONGARCH_VM_FEAT_PTW             8
->>>>>>>     #define  KVM_LOONGARCH_VM_FEAT_MSGINT          9
->>>>>>>     #define  KVM_LOONGARCH_VM_FEAT_PV_PREEMPT      10
->>>>>>> +#define  KVM_LOONGARCH_VM_FEAT_CRASH           11
->>>>>>>
->>>>>>>     /* Device Control API on vcpu fd */
->>>>>>>     #define KVM_LOONGARCH_VCPU_CPUCFG      0
->>>>>>> diff --git a/arch/loongarch/include/uapi/asm/kvm_para.h 
->>>>>>> b/arch/loongarch/include/uapi/asm/kvm_para.h
->>>>>>> index d28cbcadd276..bf1a0c826ca6 100644
->>>>>>> --- a/arch/loongarch/include/uapi/asm/kvm_para.h
->>>>>>> +++ b/arch/loongarch/include/uapi/asm/kvm_para.h
->>>>>>> @@ -16,6 +16,7 @@
->>>>>>>     #define  KVM_FEATURE_IPI               1
->>>>>>>     #define  KVM_FEATURE_STEAL_TIME                2
->>>>>>>     #define  KVM_FEATURE_PREEMPT           3
->>>>>>> +#define  KVM_FEATURE_CRASH             4
->>>>>>>     /* BIT 24 - 31 are features configurable by user space vmm */
->>>>>>>     #define  KVM_FEATURE_VIRT_EXTIOI       24
->>>>>>>     #define  KVM_FEATURE_USER_HCALL                25
->>>>>>> diff --git a/arch/loongarch/kvm/exit.c b/arch/loongarch/kvm/exit.c
->>>>>>> index 4f58e6e2cf86..3b6daa946c76 100644
->>>>>>> --- a/arch/loongarch/kvm/exit.c
->>>>>>> +++ b/arch/loongarch/kvm/exit.c
->>>>>>> @@ -911,6 +911,17 @@ static int kvm_handle_hypercall(struct 
->>>>>>> kvm_vcpu *vcpu, int ecode)
->>>>>>>                    vcpu->run->hypercall.ret = 
->>>>>>> KVM_HCALL_INVALID_CODE;
->>>>>>>                    ret = RESUME_HOST;
->>>>>>>                    break;
->>>>>>> +       case KVM_HCALL_CRASH:
->>>>>>> +               if (!kvm_guest_has_pv_feature(vcpu, 
->>>>>>> KVM_FEATURE_CRASH)) {
->>>>>>> +                       kvm_write_reg(vcpu, LOONGARCH_GPR_A0, 
->>>>>>> KVM_HCALL_INVALID_CODE);
->>>>>>> +                       break;
->>>>>>> +               }
->>>>>>> +
->>>>>>> +               vcpu->run->exit_reason = KVM_EXIT_SYSTEM_EVENT;
->>>>>>> +               vcpu->run->system_event.type = 
->>>>>>> KVM_SYSTEM_EVENT_CRASH;
->>>>>>> +               vcpu->run->system_event.ndata = 0;
->>>>>>> +               ret = RESUME_HOST;
->>>>>>> +               break;
->>>>>>>            case KVM_HCALL_SWDBG:
->>>>>>>                    /* KVM_HCALL_SWDBG only in effective when 
->>>>>>> SW_BP is enabled */
->>>>>>>                    if (vcpu->guest_debug & 
->>>>>>> KVM_GUESTDBG_SW_BP_MASK) {
->>>>>>> diff --git a/arch/loongarch/kvm/vm.c b/arch/loongarch/kvm/vm.c
->>>>>>> index 6dabb227a732..e5d10ceb5e67 100644
->>>>>>> --- a/arch/loongarch/kvm/vm.c
->>>>>>> +++ b/arch/loongarch/kvm/vm.c
->>>>>>> @@ -49,8 +49,9 @@ static void kvm_vm_init_features(struct kvm *kvm)
->>>>>>>                    kvm->arch.kvm_features |= 
->>>>>>> BIT(KVM_LOONGARCH_VM_FEAT_PMU);
->>>>>>>
->>>>>>>            /* Enable all PV features by default */
->>>>>>> -       kvm->arch.pv_features |= BIT(KVM_FEATURE_IPI);
->>>>>>> +       kvm->arch.pv_features |= BIT(KVM_FEATURE_IPI) | 
->>>>>>> BIT(KVM_FEATURE_CRASH);
->>>>>>>            kvm->arch.kvm_features |= 
->>>>>>> BIT(KVM_LOONGARCH_VM_FEAT_PV_IPI);
->>>>>>> +       kvm->arch.kvm_features |= BIT(KVM_LOONGARCH_VM_FEAT_CRASH);
->>>>>>>            if (kvm_pvtime_supported()) {
->>>>>>>                    kvm->arch.pv_features |= 
->>>>>>> BIT(KVM_FEATURE_PREEMPT);
->>>>>>>                    kvm->arch.pv_features |= 
->>>>>>> BIT(KVM_FEATURE_STEAL_TIME);
->>>>>>>
->>>>>>> base-commit: df2908090cda368b01ff43709f51890076c56157
->>>>>>> -- 
->>>>>>> 2.39.3
->>>>>>>
->>>>>>>
->>>>>
->>>
+The same window exists during CPU hotplug. env->cpus drops a CPU at
+set_cpu_active(false), but the group span and sgc->capacity still
+include it until cpuset_cpu_inactive() rebuilds the domains. Keeping
+the previous snapshot avoids the mismatched publish. After the rebuild,
+the next periodic balance records both statistics again.
+
+Suggested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Suggested-by: Tim Chen <tim.c.chen@linux.intel.com>
+Fixes: f025ef275388 ("sched/cache: Record per LLC utilization to guide cache aware scheduling decisions")
+Cc: stable@vger.kernel.org # 7.2.x
+Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
+Reviewed-by: Chen Yu <yu.c.chen@intel.com>
+Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
+
+---
+
+v2: https://lore.kernel.org/r/20261013084338.55100-1-jemmywong512@gmail.com/
+v1: https://lore.kernel.org/r/20261010113425.34829-1-jemmywong512@gmail.com/
+
+Changes since v2:
+- Clarify that LBF_ALL_PINNED identifies affinity redos here and that
+  retaining the recent first-pass snapshot avoids publishing partial
+  utilization against full capacity, as suggested by Chen Yu.
+- Add Cc: stable@vger.kernel.org # 7.2.x, as suggested by Tim.
+- Add Reviewed-by tags from Tim Chen and Chen Yu.
+- No functional changes.
+
+Changes since v1:
+- Skip publication on affinity retries using LBF_ALL_PINNED, retaining
+  first-pass snapshots and avoiding repeated cpumask checks, as suggested
+  by Prateek and Tim. Keep cpumask_subset() for partial group coverage
+  during CPU hotplug on the first pass.
+- Update the comment and commit message to explain the retry behavior.
+- Add Fixes and Suggested-by tags.
+
+ kernel/sched/fair.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 57360f5cdde4..7df5b5d2dce1 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -12111,6 +12111,16 @@ static void record_sg_llc_stats(struct lb_env *env,
+ 	if (env->sd->child != rcu_dereference_all(per_cpu(sd_llc, env->dst_cpu)))
+ 		return;
+
++	/*
++	 * Here, LBF_ALL_PINNED is set only on affinity redos. Keep the recent
++	 * first-pass snapshot, since env->cpus may now be incomplete.
++	 * Hotplug can also leave env->cpus incomplete on the first pass;
++	 * do not publish partial utilization against the full group capacity.
++	 */
++	if ((env->flags & LBF_ALL_PINNED) ||
++	    !cpumask_subset(sched_group_span(group), env->cpus))
++		return;
++
+ 	/*
+ 	 * At this point we know this group spans a LLC domain.
+ 	 * Record the statistic of this group in its corresponding
+
+base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
+--
+2.25.1
 
