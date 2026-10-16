@@ -1,76 +1,142 @@
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F611264612;
-	Fri, 16 Oct 2026 00:22:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792110136; cv=pass; b=QTHL2B9uRrn0G0wV2lK7Zv6/5ntrCQbr0ETFBzsIuU9jQpUNabpzkT1P50iC5yyogMuK2pjbTkXQqf/FByRg1mY7BVLEOcuQFcExBk/4O/t5RqePQK0f3mEY6q2xxp7Q1nDm2f7KLbqHi/jPTQ1Bm3q2AHLwNQuXvdswOTq545A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792110136; c=relaxed/simple;
-	bh=bP+KVYVAqjLheb6EGd540JgwAFSAWbX/yPhhJ8pICGw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=FGoJIFc9KNvlaVwEasiA3QFVDrUBs9dDLqy6UYMAuNAaL9yj6Wsm33fagwZw2lbXup1HPLgZ112dzrqOaSZmPS/u8MgSyyZnQQBaErF/sqhRD9qtJ3A14zsmd/+DiFocD2q4cX21tE0Ft1eA3tn6gQIfDyALSZNkGWcrKiLmQWU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv; spf=pass smtp.mailfrom=iav.lv; dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b=XHXnt2sz; arc=pass smtp.client-ip=136.143.169.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b="XHXnt2sz"
-ARC-Seal: i=1; a=rsa-sha256; t=1792110110; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=fraCKwKX0fzN5fIIcWea1PgSkWDBUI8OyAjCzt7eKbksO8lpjZJBQ6Ctzk0YsGQjaYpsF0pIgkDoEHjbF3G+xAtfSus19YCuhSmzJRBHpTPTmMf9vKivKk8X1XKENOgAc/1bku+z/Yq4t87A7ntjpCwHyPD8ThLT2jYXChmKunI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1792110110; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=q/KULuIQAtVhjOrq/I9pow3roLZGV4T+euRV0IgVIXA=; 
-	b=NT0LSbcnrdnwcnUdPKnGTczpqXGj2EoPl9sDZs774SGcdP6Aaicb+ZQ7cgpIWOHP56BaD2SPOOfcVvLU9Wd1Iu2cylCXP7ChBZ2aXVA5eJgMWbRa9FlAO65Ao+sHAUrJAOR+xoQYe6au1gKYr50oINwOrtc7rQq/JMgsZT2keII=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792110110;
-	s=zoho; d=iav.lv; i=iav@iav.lv;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:In-Reply-To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=q/KULuIQAtVhjOrq/I9pow3roLZGV4T+euRV0IgVIXA=;
-	b=XHXnt2szDmIb1ZtOxhXdd6InOuBLO0IBNrPCTcyDXEtqhCSC5paP3qei6krP0kof
-	UIY4p0kGXAdMv30d6vkqoS8ZaZKr2vyJ4WgqoA7clpfuqHSUhLadjSwkXARn2U94K7V
-	IN8fl3X4veU40Fm7GAEj2F3QbFhI/lgUeeMZGYK8=
-Received: by smtp.zoho.eu with SMTPS id 1792110108025344.3056124488576;
-	Fri, 16 Oct 2026 02:21:48 +0200 (CEST)
-Date: Fri, 16 Oct 2026 03:21:44 +0300
-From: Igor Velkov <iav@iav.lv>
-To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: =?utf-8?q?Enrique_Hern=C3=A1ndez_Bello?= <ehbello@gmail.com>, shawn.lin@rock-chips.com, lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, bhelgaas@google.com, robh@kernel.org, heiko@sntech.de, dlemoal@kernel.org, linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Igor Velkov <iav@iav.lv>
-Subject: Re: [PATCH v2] PCI: rockchip: Skip the Tpvperl wait when power is already valid
-In-Reply-To: <179196286749.38040.5597453767131590054.b4-reply@b4>
-References: <20260911211559.207990-1-ehbello@gmail.com> <179196286749.38040.5597453767131590054.b4-reply@b4>
-Message-ID: <20261016-h64-pcie-resume-tpvperl@iav.lv>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6191923E330
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:22:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792110149; cv=none; b=R2SZICNz3RD8KgdvzZqJC2jGTz9661y1p6iDZY/nlO3YzKD87Jbgyf8AcYZ1+kpA3wXb9a0W06oqMtOahN43Yeqc990j71rCc2v4RnKB/cL71NnTrZCxNOd+UJinJMuss2/POLytpqRowsvNKOArKFvBKBLm2Agoi3IOLMage5A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792110149; c=relaxed/simple;
+	bh=vtukoT/IVvUoyOeSXGYXiBdEdEU8VVbif8eyTKnzLLM=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=JMYhj8+IzoTeVCMqKLAm7TdFEh+5uh+7cUZMijNvUWdRF6TMkGjxl5BGVutPdCp8vGeaAAjUsSmm07O4EoLxjBMMl/T3yThiHu2W7rJs+vnvVm1gg7UzYZhMXUCj5Qh5jB/m5Lm5NW4xygP9WyED3R5vgWlsutOx9mzPOhfNbCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b37620eb73so11837276b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:22:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792110147; x=1792714947;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z7Xg/RJKdIEXw8q8/kyiWA1ldTx+K5OVKImU2864UHM=;
+        b=boAZOH/XhkQFNnjgu+S7dZJJ6rA9h/gv9wnpGZK0itrkTFwFvDZXm2L7YtYL723iir
+         +rqwqZ9PbLgqVMyJG6p48G9i7bEaD+33yfcb0beLS739nHLJWuCLYcgVpfBbF089k1RN
+         z265JMhCyzRoV7j1V7xtgEUac64F5URDkGIM5VoAEd77mhlLky7VmTLeac6NsXe45dYp
+         ZhJqyaAn1wBoMOLJjxQIfX13Pq6ocxim8i7SsZcZhtyPWnzETGEWkUItNdFE95hNVqIf
+         AWYCoHsNlvfgjU7wE3CrX8BzyeYGS6aKrFBaMujnV6cnyESsbugYnxxIE0YN9zMA+aXR
+         M3iQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxDDVTlhanLM3W5/HZLXKh7dX53+0mA0KnSRpS3ryI4RJGRHuvhKZiajee8TvBtxHa7kY5zeypm8+6Z2Pc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzqKS6s4FNkzVPwW1PmrWmSebJwaY7t1wyw/6stvSwOvGRgiwQ
+	dnGLvkh2WTA540ft/OfkU9B4+9hw4hZtlzEsW0kr+uZEQ66QT7SXKvxeU1K0tTmHSazOrd+7+QY
+	lTbwZsyliNT0EbHHkwN42CPXhjGas1wzNrJYRhpfxC9zjgCQkgBPkbXs215Y=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:bc2:b0:4e7:d54b:1208 with SMTP id
+ 5614622812f47-50c532f48a4mr19402208b6e.15.1792110147325; Thu, 15 Oct 2026
+ 17:22:27 -0700 (PDT)
+Date: Thu, 15 Oct 2026 17:22:27 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad16e43.7514cce4.1ece07.010d.GAE@google.com>
+Subject: [syzbot] [fs?] WARNING in V1_minix_truncate (2)
+From: syzbot <syzbot+e353ad4408c4f9fac965@syzkaller.appspotmail.com>
+To: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 14 Oct 2026 12:57:47 +0530, Manivannan Sadhasivam wrote:
-> I do agree that the Tpvperl delay is *redundant* if the supplies are already
-> enabled by the bootloader. But I do not agree that it causes the Endpoint to not
-> respond.
+Hello,
 
-A data point from a Kobol Helios64 (RK3399, JMB585 on pcie0, ep-gpios as in
-the mainline DTS):
+syzbot found the following issue on:
 
-- Enumeration at boot works with and without this patch.
-- Resume from s2idle fails in rockchip_pcie_resume_noirq. On plain v7.3-rc7
-  with the mainline DTB, 13 cycles pass and the 14th fails with "PCIe link
-  training gen1 timeout"; resume_noirq returns -110 and the board resets.
-  On an Armbian kernel with this patch (all supplies stay enabled across
-  suspend, so the wait is skipped on resume too) the first resume ends in a
-  synchronous external abort in rockchip_pcie_rd_conf from pci_power_up.
-- Plain v7.3-rc7 also hit an asynchronous SError during the bus scan at probe
-  in 1 of 4 boots.
+HEAD commit:    b88c841d1164 Merge tag 'input-for-v7.3-rc6' of git://git.k..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1043540d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=7d1b274ca9837366
+dashboard link: https://syzkaller.appspot.com/bug?extid=e353ad4408c4f9fac965
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1280a9c9580000
 
-So on this board the resume failure does not depend on the Tpvperl wait.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-b88c841d.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/c64cd81f2bae/vmlinux-b88c841d.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/605b0408da7b/bzImage-b88c841d.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/bf4cfcb2c7e6/mount_13.gz
 
-Igor
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e353ad4408c4f9fac965@syzkaller.appspotmail.com
+
+IO error syncing minix inode [loop0:00000008]
+------------[ cut here ]------------
+!buffer_uptodate(bh)
+WARNING: fs/buffer.c:991 at mark_buffer_dirty+0x299/0x410 fs/buffer.c:991, CPU#0: syz.0.182/5880
+Modules linked in:
+CPU: 0 UID: 0 PID: 5880 Comm: syz.0.182 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:mark_buffer_dirty+0x299/0x410 fs/buffer.c:991
+Code: 4c 89 f7 e8 d9 d5 d7 ff 49 8b 3e be 40 00 00 00 5b 41 5c 41 5e 41 5f 5d e9 34 44 fb ff e8 8f 56 65 ff eb 8c e8 88 56 65 ff 90 <0f> 0b 90 e9 a5 fd ff ff e8 7a 56 65 ff 90 0f 0b 90 e9 cf fd ff ff
+RSP: 0018:ffffc90004a979f0 EFLAGS: 00010293
+RAX: ffffffff8262ca98 RBX: ffff8880459b49a0 RCX: ffff888034650000
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000002
+RBP: ffffc90004a97b01 R08: ffff8880459b49a7 R09: 1ffff11008b36934
+R10: dffffc0000000000 R11: ffffed1008b36935 R12: ffff88800bf46596
+R13: ffff88800bf46620 R14: ffff88800bf46588 R15: 0000000000000017
+FS:  00007ff0885f46c0(0000) GS:ffff88808b0b4000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f24c7d6a000 CR3: 000000001d368000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ free_data fs/minix/itree_common.c:272 [inline]
+ truncate fs/minix/itree_common.c:321 [inline]
+ V1_minix_truncate+0x310/0x10c0 fs/minix/itree_v1.c:61
+ minix_truncate fs/minix/inode.c:750 [inline]
+ minix_evict_inode+0x1c9/0x260 fs/minix/inode.c:52
+ evict+0x624/0xb50 fs/inode.c:822
+ minix_mkdir+0xdc/0x120 fs/minix/namei.c:136
+ vfs_mkdir+0x40c/0x620 fs/namei.c:5439
+ filename_mkdirat+0x285/0x510 fs/namei.c:5472
+ __do_sys_mkdirat fs/namei.c:5493 [inline]
+ __se_sys_mkdirat+0x35/0x150 fs/namei.c:5490
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7ff08779e1d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ff0885f4028 EFLAGS: 00000246 ORIG_RAX: 0000000000000102
+RAX: ffffffffffffffda RBX: 00007ff087a25fa0 RCX: 00007ff08779e1d9
+RDX: 00000000000001c0 RSI: 0000200000000700 RDI: ffffffffffffff9c
+RBP: 00007ff087835888 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007ff087a26038 R14: 00007ff087a25fa0 R15: 00007fff1b9cc468
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
