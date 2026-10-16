@@ -1,86 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30FE93E5A2F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:02:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A07837F735
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:02:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141335; cv=none; b=Vm6rr4UxsNvuhiGioBB0jp3nsv+x9XwvmD0DG7KyDtOjeBZ9Kwk7I1apB0RhUvGlVWKy+XYWkgba+GhtCi/qUtVOJCxpG7dPj6JizJzUid+E8tCeAF0VPEY36sREhhID4cWIfjmMjtgd+JucVb+a6bHCR4u+lsl/4ql5cUsUZdk=
+	t=1792141349; cv=none; b=s41uGqGAPEtDF2v2vA7SsQVzZI+eT32nF+aL3CxKULwfSafg6w0Jnhy8VswI9F8P8yV8rbFBliL1I7pUhdG9DqAYcBPHMxRC7difM2I9vYNNLx95RwCLuzgZKuoZb8S3CqbCSt7mhvyvJYenNNjgTDNP8kfHRwvwvqnHJSI6C7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141335; c=relaxed/simple;
-	bh=eOps8TEcAjAF4fVwBR5xFTjIImrCuU78zcWSRFmuzYg=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VXr0ef+dMZb1fL8o0pUN+q1BoUkebKWeb9k9f2Rh7/5Xlb2PeagXZXJws4VdrtO40XDbLvB6N/LNF9EgYyGb+wmwsr7QI+/PXZMzqIZP7eXWwqWDaTmKRnkknO8CfnLQBwACTI+tAzkQrXz0OdSkcv4zFzmwD8CHmhLiiY2jCAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g90tNsX6; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g90tNsX6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE8BE1F000C5
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:02:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792141333;
-	bh=eOps8TEcAjAF4fVwBR5xFTjIImrCuU78zcWSRFmuzYg=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=g90tNsX6Te04keZgoa9HYbn3j5Md94xnGBO5hJe2tC7KHUKlo16Pm2OzU7ZYQT4X4
-	 YDNRyA5jgtV6nE1R31E0PFpTaCKfIkz1XG3ZTIVvV9aizby9L3AYtdr1f3qolNPkyg
-	 uihF75OfllMu89NHb/QhDFBVD2Si8cvlhFloFuF2qznWUAArexBEyLM5vYLgJTt6WN
-	 6szK62ogLF60w57ge387D6PemUfFbJI6SW1+wRA+YflGuXN8vqgRoo+63GrGbGUmhm
-	 VtRVUmUX71333WVcnS/0lvaFU71XRqzKvgzV4WqqBqq+88T5ieUcl8AXPJ48kvlyQF
-	 tsdBEFJprk8pQ==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5bccc73eea4so875909e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:02:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzL11kWG5CHOFeACH3z8QGu+ok0VbcfJwQ6tcrdTemFzCrqJgjuStQCbsGeTe/719khwjz94/bXOTQiLZY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJE/t8WbY+S8eYU3H2QmKq/vmtwXBgYLzdDBwtwnQ7k3X2p/Wp
-	J2vYioSGbiSnF+PBZHEfd/lr8bdCcDp7t3mrsaZcIAgVsKtMF27oS5WIXmxY6W0R2qtKalKwA2K
-	p3EaICxDAkRaaVc1orweVa/vTlGC/BUmYgbmlKmumrg==
-X-Received: by 2002:a05:6512:1281:b0:5bc:ec72:4edf with SMTP id
- 2adb3069b0e04-5be475c279dmr881533e87.11.1792141332643; Fri, 16 Oct 2026
- 02:02:12 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 16 Oct 2026 05:02:11 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 16 Oct 2026 05:02:11 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261016052602.GU176164@black.igk.intel.com>
+	s=arc-20240116; t=1792141349; c=relaxed/simple;
+	bh=03wvLy0zJqzb5h8XKCWjaaV3LCQE8VtzzTV3cdu3yrI=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=NDl72Zc3tCpg119Jg/T3D8maXTpynlotBeQ4hkeAnFAp9k4zpob2/5Uuivioz8DwF+QyqELsvSUsK1UhIqLeggA/9DkqMNthoede2+aENnrEedX6yniyZwS9pxRuA/40O70Pc0dm0dgSu1uBA7t9FxMqlx/xwpHOxQSBcbtZ0ZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b597558c4cso10434320b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:02:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792141347; x=1792746147;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PGC5rRKkWGHaBncrXQxSGxuRZhZw/YbcZjKWDeEG3to=;
+        b=1R6c0PsQgXyX76qAxU/RwSzsZdOsRcqwhAUgzWzwKdGrt5NHlwFziFxnZy8z6F76pM
+         M6cYhWh7M2KXyW3twnm921qNqjLQoyaPFQXTIFwKYrIzsvOY7JOic5EIUoXQwCuKYWT0
+         Gycg2z2KhZIUjuiNyAUtjxtwgXcEGkf30o9S0vubJF4XWVSwUFfrSL5TyFcSw8Dwlqr/
+         T3XvqjMHUbPNhBGWdx74EwCC3ajOe6lc43is1l6gP0F8lzzL3RYOJmHT58A1CKihau6w
+         GUdznDUiDS9k9Tqe98Lz7ptAHwX17Ydrg5wGWAFf5lvDEdq67M55WLt/VtPSJF7U8y/w
+         TE0w==
+X-Gm-Message-State: AFq9FYJAaqBIEwLSfZiokEjd1ORIEcFFiojcJSYQktHhYVezXaNuIPCR
+	qHte17nbRfTPigoZXOEV0OkSj2FkgAPEJRQYHoBdlfqiMBc6sgDmXWi7sX+p+SoWtxxMSdTNYRe
+	RYvvahi8oK3MHr6dEpXoPTGUfaO9y9rN4QVUTttEXDlJU4V/8+MtI8CuOqOE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007120944.1705014-1-abduvaliy.hbai@gmail.com> <20261016052602.GU176164@black.igk.intel.com>
-Date: Fri, 16 Oct 2026 05:02:11 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MdgwgA_h0mHzQ_Jd4hQYe0Z_zFWYE+T441Cc_kCRLFAbw@mail.gmail.com>
-X-Gm-Features: AclHuK9XlRqP8JQi1UUbszfSw3iq5yqO7rBpRtzc4klSoojWaTN54G9nP2vb4-g
-Message-ID: <CAMRc=MdgwgA_h0mHzQ_Jd4hQYe0Z_zFWYE+T441Cc_kCRLFAbw@mail.gmail.com>
-Subject: Re: [PATCH] gpiolib: acpi: Ignore GPIO 11 interrupt on Acer Nitro 16S AI
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: Mika Westerberg <westeri@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	linux-gpio@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org, 
-	Trijan Koju <trijankoju11@gmail.com>, Abduvaliy Abdulazizov <abduvaliy.hbai@gmail.com>
+X-Received: by 2002:a05:6808:1923:b0:4c3:95d:91f1 with SMTP id
+ 5614622812f47-50c408514d4mr21867600b6e.1.1792141346978; Fri, 16 Oct 2026
+ 02:02:26 -0700 (PDT)
+Date: Fri, 16 Oct 2026 02:02:26 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad1e822.7952420f.283480.0228.GAE@google.com>
+Subject: [syzbot] INFO: The task syz.NUM.NUM:LINE has been waiting for
+ writeback completion for more than NUM seconds. (2)
+From: syzbot <syzbot+e1f1982d3a90ea3e8cd6@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 16 Oct 2026 07:26:02 +0200, Mika Westerberg
-<mika.westerberg@linux.intel.com> said:
-> On Wed, Oct 07, 2026 at 05:09:44PM +0500, Abduvaliy Abdulazizov wrote:
->> The Acer Nitro 16S AI (AN16S-61) has the same problem as the Acer Nitro
->> V 16S AI: the firmware powers the internal USB camera (0408:4059)
->> through GPIO 11 of AMDI0030, but also lists that pin in _AEI. Requesting
->> it as an input cuts the power, so the camera never enumerates. On this
->> model the same rail also powers the internal microphones, so they do
->> not work either.
->>
->> Booting with gpiolib_acpi.ignore_interrupt=AMDI0030:00@11 fixes both
->> the camera and the microphones. Add a DMI quirk for this family too.
->>
->> Tested-by: Trijan Koju <trijankoju11@gmail.com>
->> Assisted-by: LLM
->> Signed-off-by: Abduvaliy Abdulazizov <abduvaliy.hbai@gmail.com>
->
-> Acked-by: Mika Westerberg <westeri@kernel.org>
->
+Hello,
 
-Andy, Mika: do you want me to queue this as well for next week's fixes PR to
-Linus?
+syzbot found the following issue on:
 
-Bartosz
+HEAD commit:    7a19f0cc94ad Merge branch 'for-next/core' into for-kernelci
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=11016fd1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=26d6221a572842ac
+dashboard link: https://syzkaller.appspot.com/bug?extid=e1f1982d3a90ea3e8cd6
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+userspace arch: arm64
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/296cd4b77dbf/disk-7a19f0cc.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/e57669ed895f/vmlinux-7a19f0cc.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/c679c1ad76d4/Image-7a19f0cc.gz.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e1f1982d3a90ea3e8cd6@syzkaller.appspotmail.com
+
+INFO: The task syz.7.17472:13261 has been waiting for writeback completion for more than 190 seconds.
+INFO: The task syz.7.17472:13261 has been waiting for writeback completion for more than 190 seconds.
+INFO: The task syz.7.17472:13261 has been waiting for writeback completion for more than 191 seconds.
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
