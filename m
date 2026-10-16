@@ -1,394 +1,199 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454B35427F3
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:58:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169930; cv=none; b=khRmSbVNgPtfkOxBxQ0AE/0U7njSEYgyjbUBHjm4D6jjhuLIlFsa3SG+iy789R0DVu9bzSM/crkS9HcmMSQEcw0FeFIlmY2Gh99XJqQrd2T+t5t3LaqRJyx5jJ8vi7OOaRIROWEurpMVW++dl1USS+mC2eUTpdARMx3bLr5QY6U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169930; c=relaxed/simple;
-	bh=V9uL86fh+01YYVaVpVoMosSW/lM8bNdP5qvuChJlfM8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oRYrPmVEChdwGWUG1yzv4zsIuAc3gqlb4H7Vz88fCudezXjO09LBCkxyHwL+RVuv3RRR6znsP/+o1LN16s+QWsp0OuzRvYBP+XuusQZeRPyhGA3wj8ZYuYilmRh7Ue4Z/0Wj/19v3yWVA2xrVedMP83wYdGmRLNybU4ukhc7jt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=2RftzPju; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B776254146E
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:58:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792169931; cv=pass; b=hV5KevS+7lQFv5ihhcFZiM902XTuzHxKOKM8xPqHU5t2J2LYYCpOoPENyV9GhdhRbQEG+GyhMj4t1S3sSQi5BEeEVgEgPc/VLOJpWR4sOmE2WLyJJjNlTljMjzLfb0XfV80t1jRo7rRwS0A5bzonGYb5ymBX3TByCI3AqX0KyDk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792169931; c=relaxed/simple;
+	bh=k61iFgS+IKJHl0EJEuWZvUQY83UqouqRdjCkl8RGuw4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fYs7wF3EyGbINcR9caeeMO5GULapeXWysRVG1R8cBoPEjsnWOSNctAh22J26P1ssHMDk15Nf0+vULwJOF3A9xNBEnLOJYZ5ia2IDC7NWQagSt24Kpi9OCjIXwXLS03VNZbl6dOb8XqeEz4nZW5q5r01Qgks5grBWgwdj7RDXKoI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CFIgFeWt; arc=pass smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="2RftzPju"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 2FF5EC62202;
-	Fri, 16 Oct 2026 16:59:42 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 49AE06075D;
-	Fri, 16 Oct 2026 16:58:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8B53010328C52;
-	Fri, 16 Oct 2026 18:58:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792169920; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=x9Rrj2JVjDaRfPgck2ssmtwiaXE9gpz16p75IAXvAZg=;
-	b=2RftzPjuRvSKFViSEDpXUP+cZROxfFQ0Kc2mPMd07/PZVsZnNrTB4nWZrTP6ITLWZx0C3q
-	ic+NneFB8CuPdfA6Uy6TqkqV14XR6Jvr2rHorFFTF7ADrpYxNuEyu/5A7k8LIdoqvVXmhN
-	FZOLZ/feuLi2ZrcnDY8NgZ9VUSKj+o9Z7gLb24Zq+Jrdi1ZS+d8yMJvs3veKWj60lJaYb1
-	+OH8w3o1d9FujqEMwRSBFaLfo1dvdqZHH6l1We67E8Hj51RtT4hc5s+10rEvIhKOtHpdpw
-	15jDNblmeupKlFdhR+Xne1fnpaRMSPSiAHYfnqFAkMTzMWz5Ay3mAmHxpFjEiA==
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Date: Fri, 16 Oct 2026 18:58:17 +0200
-Subject: [PATCH net-next v5 3/3] net: macb: distribute evenly Tx SRAM
- segments
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CFIgFeWt"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2df8c28a0b1so154535ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:58:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792169925; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hHseXkDWp81tLy5tQEfBJ14yS7DkPkh3DGsye/xPDTXVbkfqUV3vAcv6cWzd1+qGXo
+         3up+MLmonNGJHhYLuQdNuqLcHKkBcwU4AP9C6mg+iNH1Y2EwY/qnS1cf3Wgw9AAzcMbg
+         0sQd0msK9XjbkAgJLL/aZWFjM8w/t/uKiCv4Xz6+bxJncynnZGkZaez6mCPLhE7bnSf1
+         ucS0C9/gwEr79+VGN2V8V7psat65AZwrkx/tV7JNKxeqiWBqO7xGdm+J0lxI02n93tdR
+         eulNpUe4M8GHu2jvLct+/oKAvubQPxu/UUsArMJRuLKhVNCj1Gs336ql0skPB/qfx3uP
+         Ciag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JIN5PWNqxoh9H+t94mJngNpG6Duh35uUvogPeO7NlXs=;
+        fh=WtFFzigrA2uLBdPeHd07RVCE/Jiw/w6OBG7jshqPImk=;
+        b=PDRSTe2Zzx0Qk5gkHIXkFPGEOLZS/tY9/njT4+Ry15aUNwx2Sjz62XPWIgPBzmHoJM
+         RYlEsR4I56/GLx3EfFNTouOa+j8vEfNU/Y+khdMITlEiNk3uIWT7RFarvDD+tXdu223p
+         wpdGwdQQq4lsypcn0l8k/x3z2xwZf6JOuurFG3dBc1bgl7q8nwBaLbRhZejrXC42lgnW
+         qNK4UWBWaIGa9iKL4eFlZtBAyskaXINEOoDQ8KPpMj6Z/qmtRGIYx2q92JmyJvEbPnAL
+         l7tjq/Jz5v/fMVZrziuABpmeQ6crWuH39aESAHEc50JwqzUq7enN6sPiemN1Oe4P6Zpw
+         OyAg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792169925; x=1792774725; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JIN5PWNqxoh9H+t94mJngNpG6Duh35uUvogPeO7NlXs=;
+        b=CFIgFeWtZE5pkfdVrIbXLZNHpX0RQMyzFxoLRzVtvGQAF0ry4cuAf9KtPW3AfxbBWW
+         386zszQbOcB+wsirsxJ5u/ozBImHT5J2/pGij81SIrJbbn0ewFicmQscAaHzS6Ur0Fun
+         l5fGa46rgf8agTvSKMEumFCLXDte4j6gYsDnU34mFtcPgr4vUQe+qKE8BPagrsJ+bhss
+         a3LhmpRvan3qMmF20g5EoarOk62clVnMCPs/nA7A/KnRX+m06L0CwCKHBsac0ZXv09oZ
+         0citfcivUXRqApGoH7jZ4DLm3vMAcEtMpQx3kUZOLNWkWT9ITQQBHfs/PsqrCHGly2xe
+         Vc0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792169925; x=1792774725;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JIN5PWNqxoh9H+t94mJngNpG6Duh35uUvogPeO7NlXs=;
+        b=pmcHaCkZCTqF3vF098nZplMKRWE8lMJVauZqkA5ABGAUEcbBp3n4h4MWjsC9S4sN5N
+         bR8F3Xl7hj0bZQROwBxDjvJaxyXilEg7t7AGfIv34y6rKsxQr5unSx25b2irThwEV4JZ
+         QrAoziil/hNMbwiLy8i2pmHsq6AH3RW24iRd919EWeK6mKIUendP8U5EERZohzWiMKDZ
+         81QZk7SdOnBn/o6ZDetpX1Ip8x6ohjqxakO8/Gz/7iCzIheqNQh1WaGx2hfnKXP9v815
+         5Kntjq6mJn7bk2eBuGC6hkrF7j0sHLvV+ZWQxioEpdMc8L+i2jQzK5BqpIba4Dta218v
+         Y7sw==
+X-Forwarded-Encrypted: i=1; AKwUvBzlF84pgBH6ejY1twDJ4SjxhyT6hIMa1cDwBr6F6FqObGM1N1LzlLS5CRHPCjr0S1VQMUTpFU/HUNvccBI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKsVkDtMwImr0TbYj9bjhg1efSjL9arDfdyPSg+KGatvx4Vq7M
+	mx10ZK8QUiXrNpG7GMoN/Lyrj5Kuu998a3tvrJPi5vh4/wzqX+MUDfrbJ4HTqTEi0YhY7zLlxBx
+	Zsd0riL4N7l5uNDm7WnmH+52QnuD/wiejLdr9
+X-Gm-Gg: AYBFou3sTpXS8oJvuqiOk1QDvO2Unst8LvDgM9Nkg1NF2vF/WtU/d0IrygLcR2BRjWk
+	EKnu5X6K1c6kc6ai9NwS4VkAf0bBDI/xeoW/REGIE1LzGNfMaSE0TNLHaFbIA/xsWuIXSZM1tAb
+	ASq1np+rFNSb40feGSQIpbSnnAGvMDL31bXb2B/WKKxXd8Kyj0ihaQ8I3ACbGa+nOauQa9Inuom
+	pbrhTTPK3VXfRnE8PkZ858MRwIelBQem/SlDuEDRrx4LX44M5B7/4BFoLVN0KB09sFvaiOo7BJb
+	D+2Bcb3Rqk6wbVv66r7U65COUPsriupPo//EyYc/L2McTiZiYqBXias=
+X-Received: by 2002:a17:902:e74b:b0:2e5:a355:56e4 with SMTP id
+ d9443c01a7336-2e9a6c1bc25mr5321195ad.11.1792169924791; Fri, 16 Oct 2026
+ 09:58:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261016-macb-set-channels-v5-3-90ce0c0b8e75@bootlin.com>
-References: <20261016-macb-set-channels-v5-0-90ce0c0b8e75@bootlin.com>
-In-Reply-To: <20261016-macb-set-channels-v5-0-90ce0c0b8e75@bootlin.com>
-To: Conor Dooley <conor.dooley@microchip.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Nicolai Buchwitz <nb@tipi-net.de>, Paolo Valerio <pvalerio@redhat.com>, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
- Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-X-Mailer: b4 0.15-dev
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20261004123755.14642-1-adrianox@gmail.com> <as266is_fT232oMM@elm>
+In-Reply-To: <as266is_fT232oMM@elm>
+From: =?UTF-8?Q?Adriano_C=C3=B3rdova?= <adrianox@gmail.com>
+Date: Fri, 16 Oct 2026 13:58:29 -0300
+X-Gm-Features: AclHuK-gfESszHabRN0PS5BgGr5Od1_R3my1yeSujcE6rIsnwzhPm4ULckGMbVY
+Message-ID: <CAMGU2hW2Bk7k301cjYvEQQR5jqGPCV7H5MC+rbHsTtWsXA8oOg@mail.gmail.com>
+Subject: Re: [PATCH v2] ecryptfs: validate auth tok payload size
+To: Tyler Hicks <code@tyhicks.com>
+Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com, 
+	Nguyen Duy Nhat Anh <neganhat@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-GEM has registers to configure the Tx SRAM segments distribution across
-queues. The reset value is apprioriate (even spread) but we need to
-care if/when number of active queues is modified (or if we inherited
-unevenly initialised hardware from bootloader).
+El mar, 13 oct 2026 a las 2:00, Tyler Hicks (<code@tyhicks.com>) escribi=C3=
+=B3:
+>
+> On 2026-10-04 09:37:55, Adriano Cordova wrote:
+> > Validate that a key payload is large enough to hold a struct
+> > ecryptfs_auth_tok, and that the password token's
+> > session_key_encryption_key_bytes fits within
+> > session_key_encryption_key[], before the payload is dereferenced.
+>
+> Hi Adriano - Thank you for the fixes!
+>
+> >
+> > Cc: <stable@vger.kernel.org>
+> > Reported-by: syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com
+> > Reported-by: Nguyen Duy Nhat Anh <neganhat@gmail.com>
+> > Tested-by: syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com
+> > Link: https://syzkaller.appspot.com/bug?extid=3D03c68e42ce4b33f7ce9b
+>
+> Change this tag from `Link:` to `Closes:`, please.
+>
+> > Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+> > ---
+> > Changes in v2:
+> > - Add Reported-by tag.
+> >
+> >  fs/ecryptfs/ecryptfs_kernel.h | 6 ++++++
+> >  fs/ecryptfs/keystore.c        | 7 +++++++
+> >  2 files changed, 13 insertions(+)
+> >
+> > diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kerne=
+l.h
+> > index 58165928ed1e..4315c18ba1cd 100644
+> > --- a/fs/ecryptfs/ecryptfs_kernel.h
+> > +++ b/fs/ecryptfs/ecryptfs_kernel.h
+> > @@ -88,6 +88,9 @@ ecryptfs_get_encrypted_key_payload_data(struct key *k=
+ey)
+> >       if (!payload)
+> >               return ERR_PTR(-EKEYREVOKED);
+> >
+> > +     if (payload->payload_datalen < sizeof(struct ecryptfs_auth_tok))
+> > +             return ERR_PTR(-EINVAL);
+> > +
+>
+> This change should be in its own patch with the following Fixes tag:
+>
+>   Fixes: 1252cc3b232e ("eCryptfs: added support for the encrypted key typ=
+e")
+>
+> >       return (struct ecryptfs_auth_tok *)payload->payload_data;
+> >  }
+> >
+> > @@ -124,6 +127,9 @@ ecryptfs_get_key_payload_data(struct key *key)
+> >       if (!ukp)
+> >               return ERR_PTR(-EKEYREVOKED);
+> >
+> > +     if (ukp->datalen < sizeof(struct ecryptfs_auth_tok))
+> > +             return ERR_PTR(-EINVAL);
+> > +
+>
+> Nguyen Duy Nhat Anh submitted this fix prior to your v1 so it is best if
+> I take that initial patch. Please drop this change.
+>
+> >       return (struct ecryptfs_auth_tok *)ukp->data;
+> >  }
+> >
+> > diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
+> > index 51651314b7a6..7f2dbc81fcbc 100644
+> > --- a/fs/ecryptfs/keystore.c
+> > +++ b/fs/ecryptfs/keystore.c
+> > @@ -477,6 +477,13 @@ ecryptfs_verify_auth_tok_from_key(struct key *auth=
+_tok_key,
+> >               rc =3D -EINVAL;
+> >               goto out;
+> >       }
+> > +     if ((*auth_tok)->token_type =3D=3D ECRYPTFS_PASSWORD
+> > +         && (*auth_tok)->token.password.session_key_encryption_key_byt=
+es
+> > +            > ECRYPTFS_MAX_KEY_BYTES) {
+> > +             printk(KERN_ERR "Invalid password auth_tok sKEK size\n");
+> > +             rc =3D -EINVAL;
+> > +             goto out;
+> > +     }
+>
+> This change should be in its own patch with the following Fixes tag:
+>
+>   Fixes: 9c79f34f7ee7 ("eCryptfs: Filename Encryption: Tag 70 packets")
+>
+> Thanks again!
+>
+> Tyler
+>
+> >  out:
+> >       return rc;
+> >  }
+> > --
+> > 2.51.0
+> >
 
-To distribute segments, we take as input the number of queues
-(bp->num_queues) and the number of segments (found inside DCFG6).
-Its output is a number of segments for each queue, formatted as
-powers-of-two (eg 2 for queue 0 means it has 2^2=4 segments).
+Hi Tyler, thanks for the review. I will split the changes and send a v2.
 
-As the distribution logic is quite complex (at least its initial
-versions had bugs), it is kunit-tested in macb_kunit.c and the
-implementation lives in macb_utils.c. To test:
-
-⟩ env --unset=CROSS_COMPILE make ARCH=um mrproper
-⟩ env --unset=CROSS_COMPILE ./tools/testing/kunit/kunit.py run \
-        --kconfig_add CONFIG_NET=y \
-        --kconfig_add CONFIG_COMMON_CLK=y macb
-
-Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
----
- drivers/net/ethernet/cadence/Kconfig      | 12 +++++
- drivers/net/ethernet/cadence/Makefile     |  5 +-
- drivers/net/ethernet/cadence/macb.h       | 17 +++++++
- drivers/net/ethernet/cadence/macb_kunit.c | 78 +++++++++++++++++++++++++++++++
- drivers/net/ethernet/cadence/macb_main.c  | 19 +++++++-
- drivers/net/ethernet/cadence/macb_utils.c | 60 ++++++++++++++++++++++++
- 6 files changed, 188 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/cadence/Kconfig b/drivers/net/ethernet/cadence/Kconfig
-index 5b2a461dfd28..a901f74fd4ab 100644
---- a/drivers/net/ethernet/cadence/Kconfig
-+++ b/drivers/net/ethernet/cadence/Kconfig
-@@ -51,4 +51,16 @@ config MACB_PCI
- 	  To compile this driver as a module, choose M here: the module
- 	  will be called macb_pci.
- 
-+config MACB_KUNIT_TEST
-+	tristate "KUnit test for MACB" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Build KUnit tests for the MACB driver.
-+
-+	  For more information on KUnit and unit tests in general,
-+	  please refer to the KUnit documentation.
-+
-+	  If unsure, say N.
-+
- endif # NET_VENDOR_CADENCE
-diff --git a/drivers/net/ethernet/cadence/Makefile b/drivers/net/ethernet/cadence/Makefile
-index 1f33cdca9a3c..a0740da68649 100644
---- a/drivers/net/ethernet/cadence/Makefile
-+++ b/drivers/net/ethernet/cadence/Makefile
-@@ -2,7 +2,7 @@
- #
- # Makefile for the Atmel network device drivers.
- #
--macb-y	:= macb_main.o
-+macb-y	:= macb_main.o macb_utils.o
- 
- ifeq ($(CONFIG_MACB_USE_HWSTAMP),y)
- macb-y	+= macb_ptp.o
-@@ -10,3 +10,6 @@ endif
- 
- obj-$(CONFIG_MACB) += macb.o
- obj-$(CONFIG_MACB_PCI) += macb_pci.o
-+
-+obj-$(CONFIG_MACB_KUNIT_TEST) += macb_test.o
-+macb_test-y := macb_kunit.o macb_utils.o
-diff --git a/drivers/net/ethernet/cadence/macb.h b/drivers/net/ethernet/cadence/macb.h
-index 51835de0f2a1..60d61efbf3e4 100644
---- a/drivers/net/ethernet/cadence/macb.h
-+++ b/drivers/net/ethernet/cadence/macb.h
-@@ -194,6 +194,10 @@
- /* Screener Type 2 match registers */
- #define GEM_SCRT2		0x540
- 
-+/* Tx queue segment allocation */
-+#define GEM_TXQSEGALLOC_LOWER	0x05A0
-+#define GEM_TXQSEGALLOC_UPPER	0x05A4
-+
- /* EtherType registers */
- #define GEM_ETHT		0x06E0
- 
-@@ -545,6 +549,8 @@
- #define GEM_PBUF_CUTTHRU_SIZE			1
- #define GEM_DAW64_OFFSET			23
- #define GEM_DAW64_SIZE				1
-+#define GEM_SEGMENTS_BIT_SIZE_OFFSET		16
-+#define GEM_SEGMENTS_BIT_SIZE_SIZE		3
- 
- /* Bitfields in DCFG8. */
- #define GEM_T1SCR_OFFSET			24
-@@ -657,6 +663,13 @@
- #define GEM_CMPCEN_OFFSET			30 /* Compare C Enable */
- #define GEM_CMPCEN_SIZE				1
- 
-+/* Bitfields in TXQSEGALLOC (Q0 at 2:0, Q1 at 6:4, etc.) */
-+#define GEM_TXQSEGALLOC_MASK(q_) \
-+	({ \
-+		typeof(q_) q__ = (q_); \
-+		GENMASK(4 * (q__) + 2, 4 * (q__)); \
-+	})
-+
- /* Bitfields in ETHT */
- #define GEM_ETHTCMP_OFFSET			0 /* EtherType compare value */
- #define GEM_ETHTCMP_SIZE			16
-@@ -785,6 +798,7 @@
- #define MACB_CAPS_USRIO_HAS_MII			BIT(26)
- #define MACB_CAPS_USRIO_HAS_REFCLK_SOURCE	BIT(27)
- #define MACB_CAPS_USRIO_HAS_TSUCLK_SOURCE	BIT(28)
-+#define MACB_CAPS_TXQSEGALLOC			BIT(29)
- 
- /* LSO settings */
- #define MACB_LSO_UFO_ENABLE			0x01
-@@ -1511,4 +1525,7 @@ struct macb_queue_enst_config {
- 	u32 off_time_bytes;
- };
- 
-+u32 gem_sram_distribute_segments(unsigned int num_queues,
-+				 unsigned int num_segments);
-+
- #endif /* _MACB_H */
-diff --git a/drivers/net/ethernet/cadence/macb_kunit.c b/drivers/net/ethernet/cadence/macb_kunit.c
-new file mode 100644
-index 000000000000..9efafd34eeca
---- /dev/null
-+++ b/drivers/net/ethernet/cadence/macb_kunit.c
-@@ -0,0 +1,78 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include <kunit/test.h>
-+#include <linux/netdevice.h>
-+#include "macb.h"
-+
-+struct macb_sram_segments_case {
-+	unsigned int num_queues, num_segments;
-+};
-+
-+static void macb_sram_segments_test(struct kunit *test)
-+{
-+	const struct macb_sram_segments_case *p = test->param_value;
-+	u32 val = gem_sram_distribute_segments(p->num_queues, p->num_segments);
-+	unsigned int i, sum_segments = 0, max_assigned_segments;
-+	unsigned int num_queues = min(p->num_queues, p->num_segments);
-+
-+	for (i = 0; i < num_queues; i++) {
-+		unsigned int q_segments = field_get(GEM_TXQSEGALLOC_MASK(i),
-+						    val);
-+
-+		q_segments = 1U << q_segments;
-+		sum_segments += q_segments;
-+		KUNIT_ASSERT_GT_MSG(test, q_segments, 0, "queue %d, val %#x",
-+				    i, val);
-+	}
-+
-+	for (i = num_queues; i < MACB_MAX_QUEUES; i++) {
-+		unsigned int pow = field_get(GEM_TXQSEGALLOC_MASK(i), val);
-+
-+		KUNIT_ASSERT_EQ_MSG(test, pow, 0, "queue %d, val %#x", i, val);
-+	}
-+
-+	max_assigned_segments = min(p->num_segments,
-+				    MACB_MAX_QUEUES * num_queues);
-+	KUNIT_ASSERT_EQ_MSG(test, sum_segments, max_assigned_segments,
-+			    "val %#x", val);
-+}
-+
-+struct macb_sram_segments_case macb_sram_segments_cases[] = {
-+	/* num_segments can only be powers of two. */
-+	{ .num_queues = 4,  .num_segments = 2 },
-+	{ .num_queues = 1,  .num_segments = 16 },
-+	{ .num_queues = 4,  .num_segments = 16 },
-+	{ .num_queues = 5,  .num_segments = 16 },
-+	{ .num_queues = 1,  .num_segments = 128 },
-+	{ .num_queues = 8,  .num_segments = 128 },
-+};
-+
-+static void macb_sram_segments_case_desc(struct macb_sram_segments_case *t,
-+					 char *desc)
-+{
-+	u32 val = gem_sram_distribute_segments(t->num_queues, t->num_segments);
-+
-+	snprintf(desc, KUNIT_PARAM_DESC_SIZE,
-+		 "num_queues=%d num_segments=%d TXQSEGALLOC=%#x",
-+		 t->num_queues, t->num_segments, val);
-+}
-+
-+KUNIT_ARRAY_PARAM(macb_sram_segments,
-+		  macb_sram_segments_cases,
-+		  macb_sram_segments_case_desc);
-+
-+static struct kunit_case macb_test_cases[] = {
-+	KUNIT_CASE_PARAM(macb_sram_segments_test,
-+			 macb_sram_segments_gen_params),
-+	{}
-+};
-+
-+static struct kunit_suite macb_test_suite = {
-+	.name = "macb",
-+	.test_cases = macb_test_cases,
-+};
-+
-+kunit_test_suite(macb_test_suite);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("Cadence MACB/GEM Ethernet driver kunit tests");
-+MODULE_AUTHOR("Théo Lebrun");
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 2d069454795b..b70b81f51161 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -3163,6 +3163,20 @@ static void macb_init_hw(struct macb *bp)
- 	if (bp->caps & MACB_CAPS_JUMBO)
- 		bp->rx_frm_len_mask = MACB_RX_JFRMLEN_MASK;
- 
-+	/* Distribute Tx SRAM segments evenly based on active number of queues.
-+	 * TXQSEGALLOC is only documented for some GEM integrations.
-+	 */
-+	if (bp->caps & MACB_CAPS_TXQSEGALLOC) {
-+		unsigned int num_segments;
-+		u32 val;
-+
-+		num_segments = 1U << GEM_BFEXT(SEGMENTS_BIT_SIZE,
-+					       gem_readl(bp, DCFG6));
-+		val = gem_sram_distribute_segments(bp->num_queues,
-+						   num_segments);
-+		gem_writel(bp, TXQSEGALLOC_LOWER, val);
-+	}
-+
- 	macb_configure_dma(bp);
- 
- 	/* Enable RX partial store and forward and set watermark */
-@@ -5854,6 +5868,7 @@ static const struct macb_config zynqmp_config = {
- 	.caps = MACB_CAPS_GIGABIT_MODE_AVAILABLE |
- 		MACB_CAPS_JUMBO |
- 		MACB_CAPS_GEM_HAS_PTP | MACB_CAPS_BD_RD_PREFETCH |
-+		MACB_CAPS_TXQSEGALLOC |
- 		MACB_CAPS_USRIO_HAS_MII,
- 	.dma_burst_length = 16,
- 	.init = init_reset_optional,
-@@ -5906,7 +5921,7 @@ static const struct macb_config versal_config = {
- 	.caps = MACB_CAPS_GIGABIT_MODE_AVAILABLE | MACB_CAPS_JUMBO |
- 		MACB_CAPS_GEM_HAS_PTP | MACB_CAPS_BD_RD_PREFETCH |
- 		MACB_CAPS_NEED_TSUCLK | MACB_CAPS_QUEUE_DISABLE |
--		MACB_CAPS_QBV |
-+		MACB_CAPS_QBV | MACB_CAPS_TXQSEGALLOC |
- 		MACB_CAPS_USRIO_HAS_MII,
- 	.dma_burst_length = 16,
- 	.init = init_reset_optional,
-@@ -5917,7 +5932,7 @@ static const struct macb_config versal_config = {
- static const struct macb_config eyeq5_config = {
- 	.caps = MACB_CAPS_GIGABIT_MODE_AVAILABLE | MACB_CAPS_JUMBO |
- 		MACB_CAPS_GEM_HAS_PTP | MACB_CAPS_QUEUE_DISABLE |
--		MACB_CAPS_NO_LSO | MACB_CAPS_EEE,
-+		MACB_CAPS_NO_LSO | MACB_CAPS_EEE | MACB_CAPS_TXQSEGALLOC,
- 	.dma_burst_length = 16,
- 	.init = eyeq5_init,
- 	.jumbo_max_len = 10240,
-diff --git a/drivers/net/ethernet/cadence/macb_utils.c b/drivers/net/ethernet/cadence/macb_utils.c
-new file mode 100644
-index 000000000000..64ffba0c0522
---- /dev/null
-+++ b/drivers/net/ethernet/cadence/macb_utils.c
-@@ -0,0 +1,60 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include <linux/netdevice.h>
-+#include "macb.h"
-+
-+/*
-+ * Distribute evenly available segments across queues. The computation is
-+ * complex because (1) segments are counted in powers of two and (2) a queue
-+ * can only use up to 8 segments. There are four types of cases:
-+ *  - Sharing all segments equally is doable. Take num_queues=4 and
-+ *    num_segments=16. Each queue will get 2^2=4 segments.
-+ *  - Sharing all segments is doable. Take num_queues=5 and num_segments=16.
-+ *    Three queues will get 2^2=4 segments and two will get 2^1=2 segments.
-+ *  - Sharing all segments is not doable because not enough queues are
-+ *    available. Take num_queues=1 and num_segments=16; queue 0 can only have 8
-+ *    segments.
-+ *  - Sharing all segments is not doable because not enough segments are
-+ *    available. Take num_queues=4 and num_segments=2.
-+ *
-+ * We start by computing the power each queue will have. For num_queues=5 and
-+ * num_segments=16, each queue will have at least 2^1 segments. That leaves us
-+ * with remaining_segments=6. If we increase the power for a queue, we get a
-+ * delta of 2 (2^2-2^1). The first three queues will therefore be advantaged
-+ * and each have 2^2 segments. The remaining 2 queues will only have 2^1
-+ * segments.
-+ */
-+u32 gem_sram_distribute_segments(unsigned int num_queues,
-+				 unsigned int num_segments)
-+{
-+	unsigned int pow, remaining_segments, i;
-+	unsigned int num_advantaged_queues = 0;
-+	u32 val = 0;
-+
-+	/* When growing the max # of queues, make sure to return a u64 here and
-+	 * to write into GEM_TXQSEGALLOC_UPPER.
-+	 */
-+	static_assert(MACB_MAX_QUEUES == 8);
-+
-+	/* pow=0 for all queues. ilog2(0) is dangerous. */
-+	if (num_queues >= num_segments)
-+		return 0;
-+
-+	pow = min_t(unsigned int, ilog2(num_segments / num_queues), 3);
-+	remaining_segments = num_segments - num_queues * (1U << pow);
-+
-+	/* We can only distribute remaining segments if (1) there are remaining
-+	 * segments and (2) we did not reach the max segments per queue (2^3).
-+	 */
-+	if (remaining_segments != 0 && pow != 3) {
-+		unsigned int delta = (1U << (pow + 1)) - (1U << pow);
-+
-+		num_advantaged_queues = remaining_segments / delta;
-+	}
-+
-+	for (i = 0; i < num_advantaged_queues; i++)
-+		val |= field_prep(GEM_TXQSEGALLOC_MASK(i), pow + 1);
-+	for (i = num_advantaged_queues; i < num_queues; i++)
-+		val |= field_prep(GEM_TXQSEGALLOC_MASK(i), pow);
-+
-+	return val;
-+}
-
--- 
-2.56.0
-
+Adriano
