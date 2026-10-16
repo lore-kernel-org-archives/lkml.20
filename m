@@ -1,196 +1,246 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021093.outbound.protection.outlook.com [52.101.95.93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8831E346A18
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:20:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792128055; cv=none; b=j74Y97h+HZdS4/lk1zBl1u4y67UJ39MVb1wyhvUemfekOXs7n8Cv1imp1ZUiVbKk8T/VJNUcawYIBtu6tlUa7opp8BEX1EKhjcc94ZwbNRbDhcMkO0u7J3wbRM6mUsksEhbV36n345oOgYnKkSPHUYFGeN7DpJu1fEdWbStX9ek=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792128055; c=relaxed/simple;
-	bh=SPW0WdfajyH2o2xhaJ3bt7AYFELe4eSCxMl3F57P3uE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=McRhfvV0KQY4iuhmyrW49MQj9tA8Qcr0iOVBrZ1x7/i91n+uD2u+Zqu3o9b2dF4IRWSPbAUdIcjRDA4PYTrBbWgX7LLdwMesOaRXqCJa4REnrrl4DEQHBVwYCA/zWs5xC/7jW8tMz89NbLtrxP/42iUwAloCHCHnYGwqa5nKR9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I6K8tbJd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GaenQrjX; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I6K8tbJd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GaenQrjX"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G4GKFZ3462710
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:20:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=CMeOnha/3ULmpqySymnxY/
-	fHaKJfGvtA31OL5TMEwL4=; b=I6K8tbJd+V+H9u7RSiDr4lOXT9EUXsyVEYv7t1
-	YJuUuQf0/K3FnduKIAaZ4b6tVyknbMPziCNL0thh77ex6RaxHaAQ3OrVUj69+19m
-	UQIYH9kCREofi9DhG6yH5QbPkq5V2yC8DJay81aw1coz+yBGQr8V7gwkPj6mssGB
-	Ymzb4sU/XCaG12F0yN5xtNvypIbVgRl34eQihZh5tj4xazJwVzhUeud/bFl2b2N3
-	DU0btvyZU/z8m4RclOcRDoJ6StirCyaJLDdsT6cmCaVGyPaEeHfr7JGsJESIfeI3
-	X+MZpsH+tZe9gWt1k/AQZD2v3jKRORgyfTvguvV7B/9hPgcw==
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hayu6b979-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:20:53 +0000 (GMT)
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-147be78cd56so23533813c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:20:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792128052; x=1792732852; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CMeOnha/3ULmpqySymnxY/fHaKJfGvtA31OL5TMEwL4=;
-        b=GaenQrjXcnRq9yRBJT4w8hx7kI3GKeVhKYTLF1pofQQ1cNPbcLqxl/1HyyqMkHuSgY
-         lrgKjaUuUI9E19eB1ns8GoHu8hNaMGWW+6CakJ9nxW7zE/JXOml40rGPXqhmjYjp+J6q
-         gKsv7PrqC4l1gbzur7aLQs/bS+XDAaQZwmy7iUoKZnDdY3aXkJ+z3gvuJifsu2a1BfNm
-         4LfrcV3HaUQ8AhB8Aj9qYs5ou+02XDUfuY0got8p/NdkJEpEO1/RcNljyRBW/+giDXoo
-         OxaCxt6sGjRy9Oj+07uU1tg+StFnjKpB6CCNYeisc6VSDsnc7ygjeQ8aGWTzPsZ/y5Bg
-         XPsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792128052; x=1792732852;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CMeOnha/3ULmpqySymnxY/fHaKJfGvtA31OL5TMEwL4=;
-        b=olIOFrOjAqzrGD0uE9CXWUcj2+TCkdqN4yYoZcI9vr8bX4BepF+RcRzznB9rneJXJO
-         CVXTJU+33yx7V0p6daBzA4DuG+bilv9CuzEn6SkUWmErLxjozLFmRHoyjWOecOcUbVSt
-         0WpElR9l3Eu19MbpMFHU3xSwP0t8sIP4dq58GkIHMkCNjm1rJUE8T+t4Jc0GJGyx0J6A
-         hpM+ERCXc8LOu6/MxbMNaA7oYm+xvqaN3EgIi4Qr7UExsLHvyQCbxhg6piP1CrcFfGWi
-         mFdiLXZ3phOSqlnq+a+EyFQZZBTVjcnLuSMeRHtF845YcgfCa9QwbpWRD6dKCTQ38vwH
-         d+FQ==
-X-Forwarded-Encrypted: i=1; AKwUvByLupjdDPBJUST24idWaKGeF9BoHk/BwZAGKhk7zwgjJ/vm+UOM1A/Ms6utXJndYQigWpt4H1YcLJMAfpA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtp5+Lnrhi2fOZ0YcHVweqFHcy597WbpkGJZplE515PhgGrmln
-	sxjOwzrMdhZPERvK63IcqsrgjVkh5AVEoyLK0aQJnU0xPeYqT6J60bYiGX+0BjTGggModTIlQWy
-	Heqof+gTNJLJ2aYtGIA4ucVSy5cYRIMNAJggjN3qkgwX9uDWHU5OyDiP59Hndrt9VzB2UOybKVn
-	o=
-X-Gm-Gg: AYBFou0V8BT0df0BXxiHIx1JjuIS2tZF2uxPE9deMCoIu6xxoR6uZm26Zy5DIc5bJQe
-	OBiYNdWtJYQzLUPfy84Gv+4gLcg8VpA7po1CW1vovmSOnrK2XP9YDi//HVHBXmHbdPueYf5zP55
-	LqG/gaBpynbKiy8PA8i5CTollUVpc3e4ec+1GbMLfsDWUK3wgPSv32o66uOrZ8DbZNqGZQJD7Vg
-	ctO6M0Fc/1V+31F7qYJIlmuYgeaCmibBdyP9yYXJnAZheL/iDmSmyyMl1h+cMiHNyTpo0iRon2t
-	4tqZT1DX3E1Vy+gGiK0MlQPHMsGZrR5ZHbNfKprIGdW8ezjLLSmbevC5QQgnFS/ftvZLdzCyyOe
-	OP2dH7aW20QfZXdLxa6VAuaxw6GX2nSO6eA==
-X-Received: by 2002:a05:7022:b051:20b0:17b:fea8:1425 with SMTP id a92af1059eb24-17bfea8145fmr12395041c88.30.1792128052258;
-        Thu, 15 Oct 2026 22:20:52 -0700 (PDT)
-X-Received: by 2002:a05:7022:b051:20b0:17b:fea8:1425 with SMTP id a92af1059eb24-17bfea8145fmr12394998c88.30.1792128051612;
-        Thu, 15 Oct 2026 22:20:51 -0700 (PDT)
-Received: from hu-parihar-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36083283478sm2997220eec.29.2026.10.15.22.20.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 22:20:51 -0700 (PDT)
-From: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>
-To: srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org
-Cc: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>,
-        gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
-        ekansh.gupta@oss.qualcomm.com, linux-kernel@vger.kernel.org,
-        quic_chennak@quicinc.com, dri-devel@lists.freedesktop.org,
-        arnd@arndb.de
-Subject: [PATCH v1] arm64: dts: qcom: Remove FastRPC compute CB9 entries
-Date: Fri, 16 Oct 2026 10:50:42 +0530
-Message-Id: <20261016052042.3755352-1-abhinav.parihar@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32FEE231842;
+	Fri, 16 Oct 2026 05:22:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.93
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792128133; cv=fail; b=W0d+52LCV7huPsvIxwgHIpbugh34N95rfbEsoX7x4xNzWmpWrGT2onpkxJrsH6ZUFGJYnWcOu2GSbGMF6YCCt/P8W/MasZ3xI6V8RJeREx4hnDh5e+6xRBYCYWttDJ6fxM2s0KYOCXODXJgTH3usJEdl1simd7qnqKoiyAJfFeo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792128133; c=relaxed/simple;
+	bh=3P0bdV1ChZu3cbghzWNr8WuKxquRYC6y4h38BYKFHsg=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=NbmxlgI4Hh+BFFLzi4hxqDEEZ0ATouQAENfsLi24AAlIObt6w6UoKzeoT99YaLRPTltgZSI5iuJ0TlEr5VGPauLPHxf1zEqUgTcK2rqrG2vq/B6FOgPI1md+1rc15+k0VxPIKFHgzUH44tG+VC80SK7tmDdR6D1W3XISP/uews4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.95.93
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pXoCFZQkONubayyGtiz85jSub0ML38MARGp6ANS+pDDRtY9X6omAvFMXWLZwSYIqVr6jZChXBD0MTv//DMM5HSQMMs0e/rP94uK7Ax+Ir4nLPKwimtSSnfyMYvWaK2O8+h/mnM0t4EwAq55CnHf+5QjOeXRcRywg20FkamfOVht+YphTIdkkrkJWyct9cIFnpAcmKN6EeIhHuDYRC4qZDEGK+0rAOXxmnhWLqNFvZXw94jrPsFRJZwOlr1ou4CjxqaJL9veAKm37VjSx4Sr86c15WLe1hUJlljMgIjUqfpwX4zHeGSWRPHa/6gdvSuwMkn6UBa2agOSQ/UGxjvrKPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=i5XJPVHXQC5TRaKVj1mb+Ti+YsDitD6nePEV1Rk4cmY=;
+ b=qPnpnPQ3Xk5U34paliLsEhhPSbNv1MzM2ZHNXmhWByDHh8A8BNG7zq3kCDblK0Vvb+C8QAOPVrmPrKcZN1qmFWln4LtQBoLud+SuYo8UJ7FmvHCmJyCvpQNBeX/T4l7A27E7auAZeiUZ6OWw/DnnmC3iaZWDF4BPCp9fSJN9xagpl9d2hwK39T2j4lmcA6hBKq+SYGuRgmS+xj42P9T3qyQXnLsr7TeOjZ4G4PRv2xXwTaaD9YTaYqEaktU6DHWC10Gx61mJPT9pMdhowis51pt0oV5siZO9FDcO6knZLztHzGefAtZ9QsH7jT1uiHkmn6vcguQ1y9CCsED0io0VkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by CW1P123MB7541.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:1d9::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.15; Fri, 16 Oct
+ 2026 05:22:07 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
+ 05:22:07 +0000
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: axboe@kernel.dk
+Cc: tom.leiming@gmail.com,
+	hare@suse.de,
+	dwagner@suse.de,
+	frederic@kernel.org,
+	tj@kernel.org,
+	atomlin@atomlin.com,
+	sean@ashe.io,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3] blk-mq: dispatch kworker to housekeeping CPU when hctx cpumask is empty
+Date: Fri, 16 Oct 2026 01:22:03 -0400
+Message-ID: <20261016052203.489760-1-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BN9P221CA0019.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:408:10a::34) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: AB_4qujP0_L7ExjdiSR1JsCE_rf42w91
-X-Authority-Analysis: v=2.4 cv=ff04WEQF c=1 sm=1 tr=0 ts=6ad1b435 cx=c_pps
- a=SvEPeNj+VMjHSW//kvnxuw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=zYYqb8WEuwc2w2ptBsEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=Kq8ClHjjuc5pcCNDwlU0:22
-X-Proofpoint-GUID: AB_4qujP0_L7ExjdiSR1JsCE_rf42w91
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAyMSBTYWx0ZWRfX1Zzj72L27P/9
- 0aputGI3hKrk4+DkABn2wbJBNr1dzAMHZ/CiRb0koSSq56iCBD484ZzRz2o/2/LgEd5ONuKbyHU
- khKlyG3hQsIX/ipvkONeanfrMLwMrOYhziair8Ae0GLrTQVSTUT2iYfYwnxC6kOThT+P2wN1DLp
- CBP0GTYtNO7KTYusPD3wvRr1GESflh05rP2w/Bc4eLjGdiIAXgXfcZFly8J7loT/8/ch6UAVwKD
- Jfre3FHlt0UvJjSfj1QgM61G7M8GFnV47/1A52/baEQuD8wLFBdmGt0ZsCF0e6RhyWcvbBbsaIX
- y8xl0dm4W2ndASQyVqUKIC+kfJTxkgX0SYVuN/QJbOXQw2cEYxvopOWn/Gp6s+X5srUaE07s81Z
- iKWinO6jm71WHYegZ7tgGdTuXcIvW3ph95ah1h0h680KyQyRT4fGePq0OW8cP7DXhihVKq4CmaC
- u4sXxkdkwJQ9xGo7Ogw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAyMSBTYWx0ZWRfX0VQKc+iqfEEr
- NX3MFLrjCzUk5oGCDJKKilxFijjfurA053PFt5Lna6DSWigAqc+Q/A7vpB9YWDxxgFnze/1Hg6f
- L9O4GppYeRTd/QFgRK/bQY4oIdUlayo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1011 lowpriorityscore=0 malwarescore=0 spamscore=0
- phishscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160021
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CW1P123MB7541:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2010ffe8-8fbc-4464-e121-08df2b456bde
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|6133799003|18002099003|10067099003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	mTgoklNhcJSc0AaA3OiQqd7s8sfwow4u/Nvo1CHhmWiNtlYtmrYl/QM6al0SIJ6UTrQlT/i2AGNL73AQUZsAjSmpNI0Wl5TiW4yJW2LuGQ/SU6IdiU+eZUfjN44ik/WsKoTRadfvqvRAw7wbLyHY3GQqwS3EI2yhY/GJfD7IUmksij+pJkOTgrYNcVXLq+WxwsOLXj0KQIWq7pXWMuqy8sEXeZFdA0IULXRuQgogUimNfaaGO3bcXmEaTi/f1zUmHLu9wWqlqMq7cm1avRWpJOixaUDe1SNfflAFDYHgSs6ANUQtF0aHt+k8FxYXLc2V/xEyYdR/AT+EmAO+MxR76K4uZOe9cGZ/M3VZ5CSJQVbQkgfyUqEOuHjiWZmCeiT5Ix76LdZ46mg+53R1+jGEwLaEhhfX0C2MYNOrn5CModxCpuVlbYSC/7j3zRPUXdXgzzRHT2YkRlGXQKq0ZF5FuorLUgvQa9x6OLlP9wpqLU/y8Pc9ZZjoTC3w+pOXPp6FopW2uMEpE2LEmwZuKcsk3ZdIG+M2QJEx0YIJnnbt3h6fIW/rcyBYB3m1tnq3c5zr0j8/txRD9I0Ro+cEYmmBC3D47qcD1TItGCqn9g6y+/T1pedlJZ1U/Ku6CeRFoVTI
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(6133799003)(18002099003)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?QwRuUx7l/7Ng1v6wdr7YdPn+izFWOrzQr1mWhpfKDStarsON/xfuZtjVFyx0?=
+ =?us-ascii?Q?81YcvLa4F6yC5dzOT3qWyMhdTlwGFyaz5cgPt7oOnAhNhu5X6PJg3XaAOgyv?=
+ =?us-ascii?Q?Bs9CBCLPn/Lxm6yZOD3O+DeMHWxfw7XiHcLQaPGQ2jCCDBfZKceWUMMhCueO?=
+ =?us-ascii?Q?2phWuMj+0+yG15deV2sdxLfQqdmuCbHtAjZV+0OwOpJos8xDKysV8Tbu3qY+?=
+ =?us-ascii?Q?46kJ4scegQirNSzdPC216RMXAN+ral5vBuaa6EO+XhSHIzKmPJLEf4ED2nZf?=
+ =?us-ascii?Q?TQcdTZtElfKt0/KiycnT12rBQHq7o9HR2Uf7ewZloBihq6ianVEASVJyCkbU?=
+ =?us-ascii?Q?CkP3jWZSzMxem05JniBeVO8ox8MFNyEcuKvzYYXZp4VeVvKP7Ke/BkXTpqXA?=
+ =?us-ascii?Q?FTM2c4oiuQM2X4dlD7ipDInImvXxaJRS8RoDGSU4GDZcMerXMSAghemWruyg?=
+ =?us-ascii?Q?8rdjlq10YPSdh6jM1ZaOMJomVz6TT1TfdDlIOmGp6Vp9F2S+in1Dtu0HQSkt?=
+ =?us-ascii?Q?yCFeKzRFVu5OLMM5JcS5PWH4g0yaHg0B4p7YdKVj89Y6hk8u+jdZaP2oIZkx?=
+ =?us-ascii?Q?8JFYDfbjuVmWBaSnVaSLIjSHx6kXYlFueTQ5b2ISocoAKEF897bCoSe9XNK6?=
+ =?us-ascii?Q?A41Cw2Aro6c7KTFYnefS0h/eZWVNrQps8ixd2P1JzKVHvPTz4KZH5DR8syeH?=
+ =?us-ascii?Q?OCurdmwLFSDV/fGIsTB6X5krzSytC74LItcm4bgs3y/gVFFkHmLDMqsBPXBl?=
+ =?us-ascii?Q?GS+IpNH0/Bvuf8B3F+YkCw87X48jbnwPqxlBL4y9k4Lb38HWXVkpRixXvlT+?=
+ =?us-ascii?Q?KGsp+tjxC3+dw9rY/73VUbvGvTI10J/cZITVTOf+usLt9aS7M+9qBwcprgIw?=
+ =?us-ascii?Q?Vj4Ar+tKpO2UNhkmfgIb8OtRF+WdJNKIWTKGo5BjD4j2zz9P5EZJuLpXIa6P?=
+ =?us-ascii?Q?dPreHKiuSzLIsEoRKrb5mYEYmH87pBdewL0iK0vE0jxiMXu2midLpwkON0M6?=
+ =?us-ascii?Q?5ilJZY7bqbEjqsyoI+uwSjaKOaUhAiP7jAKeaQ0FQNWJv/aOOV+twZBDVMxu?=
+ =?us-ascii?Q?HwoQdAXprfbNFRqTIMt+AzctSlV7u23s4kdG2hDzIvJ1q02RInSMxTIiMbnZ?=
+ =?us-ascii?Q?7jGIVpQ/BCi4SbpJ1JtduldRCEf6o34h6SVaXxbEPBmEL0HNB/RdUK9T4gu4?=
+ =?us-ascii?Q?F3DmwmPwtsY5qdeObEySWb3YhyVOS2PrmVg8tDfAxVRvKZnWSle/Vd3iJ2BT?=
+ =?us-ascii?Q?64UH7ztTw4Xm71Dn70Ej9tckGsIQRe5Cko8D+knOU71mhFRONGu9ToR1jLqM?=
+ =?us-ascii?Q?z6js/NoZUZMDxtLBs0WZa05YhR4nSSgGKGmDV9/TBYVNNQCbgAwv0T9wx0QH?=
+ =?us-ascii?Q?u6v/XDtcMhISRV+5kcLD61JvP2KsBs/rKC2jFnpxaeNxSD/IeGUDm/AyjJN5?=
+ =?us-ascii?Q?MfKA5oV7uuppVQpr8Eobh9tyZigBSgrF5sbnUH50ec/91768EKiOldCMx4zm?=
+ =?us-ascii?Q?FBkZctdHxt/upFqGKVV4pQShECdHy03oxFP9CSAgEwB5ZnM7nvH8tmboDAgU?=
+ =?us-ascii?Q?u8ShYoiJrnLBAqTCDgoPkqTi4gRmI85ZFhalxVdbayET55eJMrJ+1B2b7ni7?=
+ =?us-ascii?Q?LyjeRJZosQprayMYQbLWNZkdy+zrutGM6PAOiMUCq5QjQpydtjk3SWoz2eHU?=
+ =?us-ascii?Q?DrBTKlUlzW+1J10ozYi5gzpuKbPYcIGTWcrjYktiJxHi01NaywhAjhO32kZo?=
+ =?us-ascii?Q?E8vw16c1Hw=3D=3D?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2010ffe8-8fbc-4464-e121-08df2b456bde
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 05:22:07.3645
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +n0Jixwl/gIXk71+9yexOLjS7Hmu6rC6C3zxPkcYah/dcDG4NUbAE+jAXgePE0H5KiYeMbLKbKCh3B+neVV5BA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P123MB7541
 
-Context bank 9 is reserved for secure use cases and must not be exposed
-as a FastRPC compute context bank for non-secure offloading.
- 
-Remove the compute-cb@9 nodes from the Lemans and Monaco device trees to
-prevent clients from selecting a secure context bank for normal FastRPC
-workloads.
+Commit a46c27026da1 ("blk-mq: don't schedule block kworker on isolated
+CPUs") excluded isolated CPUs from hctx->cpumask to prevent worker
+threads from executing block work on isolated CPUs. When all CPUs mapped
+to a hardware queue are isolated (i.e. blk_mq_hctx_empty_cpumask(hctx)
+evaluates to true), blk_mq_hctx_next_cpu() returns WORK_CPU_UNBOUND with
+the intention of offloading execution.
 
-Secure use case support is not currently implemented upstream.
+However, kblockd_workqueue is allocated as a per-CPU workqueue
+(WQ_PERCPU). When WORK_CPU_UNBOUND is queued on a per-CPU workqueue, the
+workqueue core resolves the target CPU via raw_smp_processor_id().
+Consequently, if a task executing on an isolated CPU submits I/O and
+triggers an asynchronous queue dispatch with zero delay (e.g. upon
+hardware queue congestion, tag/resource exhaustion returning
+BLK_STS_RESOURCE, or plugging), &hctx->run_work is queued directly onto
+the local isolated CPU's worker pool. This causes the local per-CPU
+high-priority kworker (e.g. "kworker/6:1H-kblockd") to be scheduled on
+the isolated CPU. In real-time environments, an active SCHED_FIFO workload
+will starve this SCHED_NORMAL worker, causing hardware dispatch to stall,
+in addition to introducing unwanted latency jitter on nohz_full cores,
+thereby defeating the original objective of commit a46c27026da1.
 
-Signed-off-by: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>
+Introduce blk_mq_hctx_unbound_cpu() to select an online housekeeping CPU
+from housekeeping_cpumask(HK_TYPE_DOMAIN) via
+cpumask_any_and_distribute() when executing on an isolated CPU, and
+otherwise fall back to WORK_CPU_UNBOUND. Use this helper across the
+unbound fallback paths in blk_mq_hctx_next_cpu()
+
+This ensures that:
+    1.  When executing on an isolated CPU, deferred queue work is
+        cleanly offloaded to an online housekeeping CPU across single-queue
+        devices, hardware queues with empty cpumasks, and offline CPU
+        fallback paths.
+
+    2.  The per-CPU high-priority kworker on the isolated CPU is not
+        scheduled, avoiding priority inversion and latency jitter.
+
+    3.  When executing on a non-isolated CPU, WORK_CPU_UNBOUND is
+        preserved, maintaining optimal local execution with zero CPU
+        bouncing.
+
+Fixes: a46c27026da1 ("blk-mq: don't schedule block kworker on isolated CPUs")
+Cc: Ming Lei <ming.lei@redhat.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: stable@vger.kernel.org
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 ---
- arch/arm64/boot/dts/qcom/lemans.dtsi | 16 ----------------
- arch/arm64/boot/dts/qcom/monaco.dtsi |  7 -------
- 2 files changed, 23 deletions(-)
+Changes since v2:
 
-diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
-index 695eae1b7256..5481dfb73454 100644
---- a/arch/arm64/boot/dts/qcom/lemans.dtsi
-+++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
-@@ -7861,14 +7861,6 @@ compute-cb@8 {
- 						dma-coherent;
- 					};
+ - Query housekeeping_cpumask(HK_TYPE_DOMAIN) instead of HK_TYPE_TIMER
+   to align with cpu_is_isolated(), workqueue affinity rules, and cpuset
+   isolated partitions
+
+ - Query the housekeeping cpumask under guard(rcu)() to safely handle
+   dynamic cpuset updates without lockdep warnings
+
+ - Validate that cpumask_any_and_distribute() returns a valid cpu ID
+   before returning, falling back cleanly to WORK_CPU_UNBOUND
+
+ - Link to v2: https://lore.kernel.org/all/20261015020225.422107-1-atomlin@atomlin.com/
+
+Changes since v1:
+
+ - Introduce the blk_mq_hctx_unbound_cpu() helper to steer deferred work
+   to an online housekeeping CPU only when executing on an isolated
+   core, preserving WORK_CPU_UNBOUND and local cache locality for
+   housekeeping cores
+
+ - Apply blk_mq_hctx_unbound_cpu() across all unbound fallback paths in
+   blk_mq_hctx_next_cpu(), comprehensively covering single-queue devices
+   (nr_hw_queues == 1), empty hardware queue cpumasks, and the offline
+   CPU fallback path.
+
+ - Elaborate in the commit log on the triggers for asynchronous queue
+   dispatch (e.g. tag exhaustion, BLK_STS_RESOURCE backpressure, and
+   plugging) and the SCHED_FIFO worker starvation hazard on isolated
+   cores
+
+ - Link to v1: https://lore.kernel.org/lkml/20261012012905.267920-1-atomlin@atomlin.com/
+---
+ block/blk-mq.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index 025a799f35b9..1a113679f15b 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -2241,6 +2241,21 @@ static bool blk_mq_hctx_empty_cpumask(struct blk_mq_hw_ctx *hctx)
+         return hctx->next_cpu >= nr_cpu_ids;
+ }
  
--					compute-cb@9 {
--						compatible = "qcom,fastrpc-compute-cb";
--						reg = <9>;
--						iommus = <&apps_smmu 0x2149 0x04a0>,
--							 <&apps_smmu 0x2189 0x0400>;
--						dma-coherent;
--					};
--
- 					compute-cb@11 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <11>;
-@@ -8000,14 +7992,6 @@ compute-cb@8 {
- 						dma-coherent;
- 					};
++static inline int blk_mq_hctx_unbound_cpu(void)
++{
++	if (cpu_is_isolated(raw_smp_processor_id())) {
++		int cpu;
++
++		guard(rcu)();
++
++		cpu = cpumask_any_and_distribute(housekeeping_cpumask(HK_TYPE_DOMAIN),
++						 cpu_online_mask);
++		if (cpu < nr_cpu_ids)
++			return cpu;
++	}
++	return WORK_CPU_UNBOUND;
++}
++
+ /*
+  * It'd be great if the workqueue API had a way to pass
+  * in a mask and had some smarts for more clever placement.
+@@ -2254,7 +2269,7 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
  
--					compute-cb@9 {
--						compatible = "qcom,fastrpc-compute-cb";
--						reg = <9>;
--						iommus = <&apps_smmu 0x2949 0x04a0>,
--							 <&apps_smmu 0x2989 0x0400>;
--						dma-coherent;
--					};
--
- 					compute-cb@10 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <10>;
-diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
-index cfe39f923224..e73a735f2f13 100644
---- a/arch/arm64/boot/dts/qcom/monaco.dtsi
-+++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
-@@ -7822,13 +7822,6 @@ compute-cb@8 {
- 						dma-coherent;
- 					};
+ 	/* Switch to unbound if no allowable CPUs in this hctx */
+ 	if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
+-		return WORK_CPU_UNBOUND;
++		return blk_mq_hctx_unbound_cpu();
  
--					compute-cb@9 {
--						compatible = "qcom,fastrpc-compute-cb";
--						reg = <9>;
--						iommus = <&apps_smmu 0x19c9 0x0400>;
--						dma-coherent;
--					};
--
- 					compute-cb@11 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <0xb>;
+ 	if (--hctx->next_cpu_batch <= 0) {
+ select_cpu:
+@@ -2281,7 +2296,7 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
+ 		 */
+ 		hctx->next_cpu = next_cpu;
+ 		hctx->next_cpu_batch = 1;
+-		return WORK_CPU_UNBOUND;
++		return blk_mq_hctx_unbound_cpu();
+ 	}
+ 
+ 	hctx->next_cpu = next_cpu;
 -- 
-2.34.1
+2.55.0
 
