@@ -1,191 +1,151 @@
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC053377A83
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:35:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92276377A83
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:35:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161316; cv=none; b=uyt70Gv9oPqINh1V/y3Q5hTfgH0TmJPlfOSGPa6OGWtGT9sGyF5yOIH4jM/I8IuJ5I1QBxPOXHXYImxu9LXeHZIXrPu3U88kCeOgI50ZU2F+DgR4LpUs4pv/JF9XMNSrhFMRs9h+9/FA603037Glpuzidsw33ZZrKnmY1kAynto=
+	t=1792161320; cv=none; b=jwCDNpn1M4m1RnduwYJxzz3WgChjNS5Viq5Z3sSIYZhCfKW2PteeXWd5rjzxsoQX88MQoxfUnko6lx9L05h+IdYq/e/CZfi00H6MCUhIROBCrbItONdfjNNLVpVX7ZlaMEvH+o72JjDMQTMBAoGuUchtc0l5LIyU4eFcu5g+gD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161316; c=relaxed/simple;
-	bh=rP+tH+1kFhQF59zEL4/vZWctLbCE+QLVPE1LtyiTpGk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Xjm4yRof7ScVzFIbgrzFjeT3kppDcCGyzyObz48ZKOyx+JKzldtd8QT4uLr9CO4Dyg04Re9oKmDy/42WCdUX1W7IDwPpca2+B8Kad5HtfdNCA2+GEJ8gKnHS9vC4R2+skHCb1qxYZzqbTW2rgyMnkvN74lruTXfU77FmTF8LMRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cCTRVrKg; arc=none smtp.client-ip=74.125.82.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792161320; c=relaxed/simple;
+	bh=lTVEVyvxqPMEhLqNV+zfwjKh2AGmd5+/Os21Q0iXP9g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V7c8oD0NzSb2xV1s6TUyiHKcBCb9KOtf871WBhdZNk2cW6Vs+KT2sgA0jFb2v7GZJbJAp45PsIfzB0CIcYLM+E/7a/jv1XNBQf3zjbwDsmvlP2lvv+/f54N1GMVW4EYIYLf74x7BbOKlEC15WW0DeL9j0nzxajZhBCJA5dqcOYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SfAw1sbB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BHtYRXiZ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cCTRVrKg"
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-354ba08cfd1so10608247eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:35:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SfAw1sbB";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BHtYRXiZ"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GE5lSx3506174
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:35:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	cIPFe0GbHM98hVhSZtxVKSxAcZVf/6T6nyXYDstJUcc=; b=SfAw1sbBMmBWkIqz
+	7zB4256mNHB4FyBO/QoBTiqXiGlf74lFUBwtHgEhfCuNRMn+OzHYFvMpWpznAzxN
+	BwkaWjonr8YLPTvck8wTngWI+cwf6NmDkrjsTlHxr/wLfk25gi1cwebMrNQyVIvR
+	O14Glegsbh1xIncjfZMlalWSLw4lrxtLR3t9kLeH66wnvc5pArpbXnAellaKhwye
+	LLnU+JL2VmFKl5ZiPMs1iXmI3ZQJPKifTYP5jaJznEO7v+iOV0KO+HLZMlpfphHL
+	Sq0r18edjAVxXqDDQUUWkERaB7n9LBwntzEHwCOmz4lDMi3nORl72lw9kWXmK2m4
+	d8pyyQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb8r130gs-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:35:18 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cc50fb0d2so310885a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:35:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792161314; x=1792766114; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=45yjWNO0nNHXei6UzhNbwOEuF+X6mrmEeZx1XWQKEss=;
-        b=cCTRVrKg8a1trQln+fmC/LIlXBk63UzAWwZ1Ad5sLssTxyTDM0LSzo8RvQNghHstzG
-         3B/0X66+HxWiETWA8vj1sik4XwG3BhF/E1hzfQX5TN/KtWOrO8/ZX43C2R2vR/oq18hj
-         4yEVHVVs/bHt5lR51i81Cscg4kBSYFzbZZIFZ7L8P1gK20ADDYGxt2YNY4BKme+0w7HO
-         EFuQ6wv7O4fSa965lWkdYkvE6rVax8L3As5tIt+6FRdZxIWhM6uq8atYZllq7xOSkY9B
-         1jZgXQWYTqjVhBXHCD+Y5ZSQunz/D/aCpgLk4sS5rIP1P2f7G9DlzX4JPI5w6QUHwsQt
-         F9oA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792161314; x=1792766114;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792161318; x=1792766118; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=45yjWNO0nNHXei6UzhNbwOEuF+X6mrmEeZx1XWQKEss=;
-        b=FLHio1unqZzlT+0YLNJxE2iD+rw4XGMdB3P2Yt8qrhJaK+xxeH5qzAfWUYvlmoVlaY
-         lr8zdYslzfZpPZCTEUgcGD2ULcUpO1b4IvHnBUGtGHJ+lHncVk3ckEJ3zC8y3xuYBJ8w
-         sd++fsrZ8rKz2XHPZU9cQ8hlfm3mxRlb7wpKv3xdzgGnAFnF7eA+hjNBEDBsk0UB3CSb
-         qM8XAznDk48xc0ZqAljR2/4ibuc9yiDDiKZ4kPvssxz7YV7wacS06H0CEksto3HIKVBt
-         xJFkrVdr/PlouS7yEVjwSd4u5yFeDS7nzbJs7e0IZIb8Gap2yWJ4E/b61m8s0v7szakn
-         Wavg==
-X-Forwarded-Encrypted: i=1; AKwUvBzWj678l529aSdLzWW78bFDKNNfw6e3X8zOrzLkgvkldoEDgXXs16DCePYUIz6BiFduU6GboA7ap8Cofss=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNVBXNXCThold68x7c+QuOTKC2Jm7aWsoUdiAI/VSV/FEAulOf
-	9nUl9K2xNWfvTO8TuLZARJRQPs9xXgWoqrGx6BWkjTET3WO2faSTwae4
-X-Gm-Gg: AYBFou100fvSUULBBgP7KNmmsWR5tkVdqCTieP1h84lK+tvG0PwdCQZsMP1shGyF99v
-	I5wMYuKDToHZPY/VAo+dLGfldWKQ3Rbfigu10n7mXJ/y3Jb9pNecf6rGQkjLn4yXha9KOOQasIB
-	3lOlXJ0M43CmNO/LjRReas3d30gh+SiC83FMqNVOvJ9GrZX6L2iMUfr6wZG5BqRP1gBb1Ui0lny
-	EMoF7/w8qWYEfqSZR8+7L7VANIRPumh7xa8hz2ZDH5sqpZz6tnscbpiPS32PTi8lpLsyO/YnJZE
-	VJJzgvzDlHn+f3gd3ge802j4bOHdgFc9XePqCwHRU3MLeyQW2pT1eM5TobuRDEDnPQ7aUsMMOp6
-	GgoXgJO80W3P+jNzOokOOMzfg14KofviuFO/yfLlfJBgrsXDNDr8VYCJg3OCXRSPRwOSij5SD9p
-	h0H4f0cXDm9hAskM3jVOm6N8Zk/JwKcwuPmoNGjDj8kadtzeSf0cbnluCwVJjltPlmEWtN0SXSH
-	3bHdr1KCOGTgpB2/CzvrStlJ3eyFrjBHKKWRnOYrSusIrVvYqc=
-X-Received: by 2002:a05:693c:2a13:b0:35c:99e1:c755 with SMTP id 5a478bee46e88-35c99f11cd8mr13996357eec.38.1792161313598;
-        Fri, 16 Oct 2026 07:35:13 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608297f4f7sm7611812eec.23.2026.10.16.07.35.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 07:35:12 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Fri, 16 Oct 2026 22:34:56 +0800
-Subject: [PATCH 1/2] mm/ksm: align smart scan skips with the scan number
+        bh=cIPFe0GbHM98hVhSZtxVKSxAcZVf/6T6nyXYDstJUcc=;
+        b=BHtYRXiZbiqCIZa5RHgSS3CG8kS4p3GDC/qyNz3G+nTyyqDxaCNwAtspWUXB5OoE4r
+         VkSkEZFSio1xWzalZeVo95/8NmFHmMIjwRk8nk/csbdUDl//e8WjrN47GzGu2qFgvVV+
+         1GgXjy741kkq9WRCYX+v/FmqO0ECAvrOq4pUrl24aXhaex1sSMfYw1Pajm5eHjQPamt5
+         MQI3nyH3uATl4vYYtO8WpZXWfLZDvbpHZN3Ebt6MJIEOvMUkExJMMrJ+0h8pegDiwoq7
+         lh5gt/wenXZXCvT774fJNQO36NUq9HCIOYj3jY2F46W0QW8g3qtb03zqUxcaDVAtVFoz
+         68aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792161318; x=1792766118;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cIPFe0GbHM98hVhSZtxVKSxAcZVf/6T6nyXYDstJUcc=;
+        b=PM02EOTArjNaqFpQvfZ6IeIudbjwln4wWdb89YMbzRPY15gFFjKZ8INvMkFg8WQf16
+         d/aOnRtvdtIo4uEyfVmWEGxAh5z6bZMX1Hyj2OSzw622Nljx1umdVjW1L271yp0+V32v
+         DNqk7nHUmN47OpZWPV2cmAscdYT92TQWruv7CdFrT6h7v8kjQFZVwb63GTHpaE6jOtU0
+         mPlR2y8qX2SZ98rO/gxGnF8sXqPjcUxUDu/85Yu9Ocw6exp2C9IXy67qmCXLj8Hgd+So
+         py6XOlzsj+8L4GV9cysI+D17ubrETHFQghrv+kMdbAzhwkvTcGos7/FpE5HhBu1xrCq4
+         0H5Q==
+X-Forwarded-Encrypted: i=1; AKwUvByzF/GFA7wdTVyNV83KqiQ2El/vYZe1xOBQZGeZVHeibpVH5ChOWoJ3JxqFvu4O8sDqGOOoV/4mS1TynVo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQLcIuv9ezQTFcvfZp8HcepyBGyws9eHuBLzHRcq/uX124hxWn
+	94rP+KPPRFDIwySHTgFDxQrcZXKXCqXQ8A1EZi/Ru6npSkUGwSveEad3BEgc6OZ9W9n7if3OB/l
+	XR1Tay4lg1535auzssI/pA676JOiW7U4oYLwGf28Am0h68piUXzxmphbDIISZgK+6NJ8=
+X-Gm-Gg: AYBFou0e8/fgfSv6w9M6N+UbUZxoYgVAEBNUf5gQ+L2BpIXVQfi0pF9L2Abdq4UOett
+	FDZYFLsk8bGss0HeraJEw01LWSZdZFi92ecJLQhi99Lmq/A+PkNpkxLrMjJqaTAnjY44yjSOBtZ
+	vqS9ustglKXLFjTULrBDrMRNawPxD+0uVzfHUS+0NK+lY2aE+yfMnOhTeP2Ug7f+g0yooX5I18b
+	QTHsH5zfpy+MqfjvkyIbq2Epo6shlafyE4Kw0WUg9fE1gehVXfHfCNHd1vomRzbzeSaR8RNVRlc
+	uNYrYO4Rp5tDzpYg7cpritdQUVbQJ16lwnHga7HcQybpFBE/EzjLHwGSWaZRVne5W/P58OV3tEm
+	XkcLzEVoOMsxCvybht0H9jQ==
+X-Received: by 2002:a05:620a:3711:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93f29c95919mr3896985a.3.1792161317857;
+        Fri, 16 Oct 2026 07:35:17 -0700 (PDT)
+X-Received: by 2002:a05:620a:3711:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93f29c95919mr3887985a.3.1792161317042;
+        Fri, 16 Oct 2026 07:35:17 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ab16e8ca47sm5556891fa.25.2026.10.16.07.35.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 07:35:16 -0700 (PDT)
+Message-ID: <3cb5c835-cdc2-4e36-9c0b-ff61ce3d768d@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 16:35:13 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] arm64: dts: qcom: ipq5332: add the IMEM node
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+References: <20261002-imem_restart_reason-v2-0-61703c6362e3@oss.qualcomm.com>
+ <20261002-imem_restart_reason-v2-3-61703c6362e3@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261002-imem_restart_reason-v2-3-61703c6362e3@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-bug-mm-ksm-smart-scan-align-skips-v1-1-2f91d76416be@gmail.com>
-References: <20261016-bug-mm-ksm-smart-scan-align-skips-v1-0-2f91d76416be@gmail.com>
-In-Reply-To: <20261016-bug-mm-ksm-smart-scan-align-skips-v1-0-2f91d76416be@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Stefan Roesch <shr@devkernel.io>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Shuah Khan <shuah@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+X-Proofpoint-ORIG-GUID: TIW7gfVFLkr4y66ww7Cs462YvXvDyKr5
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA1OCBTYWx0ZWRfX5bT5go+fUqjk
+ qa6IYc7sLy/5c3rAIesVzNztbIpbTJzhycfpw0JyTLI+ErZSDMBmCMV2XXOUOl6fwv4wITzSDxB
+ T62cQoX82XkurNB5g+X4qmcm6/bu7ZQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA1OCBTYWx0ZWRfX5uK36ewja0j6
+ lWxfVKCy1wEn02CVn6vLB8UpvMhUiaPT09JKWsKZN6gsTc0TZyKGGbDjQuMgK+pgCefDC1h6CAo
+ ymA1K5oH3oWpADtHWteypDgAgvEVixfa1DeMU7bcjDPG2LWjzcHDnG5YkGKJVOtcN7F+Gy0vHUr
+ FQYF7EM+qU4+PFOd0NJ6eo7h5Bpi4mx+efTT/FHDog5B0Fx+jFXc5iEzI76cTdG9qa5q9Xva3Pa
+ +42CWrKSpulM1gD8fD5N1jm1zjzRvdVaWMG7fvvUr2eMIDF1OaQmgnN++GxajGGqX0wrnVTpFBY
+ gKvm+y8zOlycQoAqBvwivwK/jVN5ZcSemZTMFIOqgFj7xmq+ua2FNz5eob5PbZHLLmoz4FSlY2C
+ VG9CF23vNAoNKpr6PPvk51UD7nxt1+PbdyRFcl3dvkafoS44yYsqWxrTv0MvT0E9hCEQC8P5mUJ
+ +py3d5WoUV5H2QfbD5w==
+X-Proofpoint-GUID: TIW7gfVFLkr4y66ww7Cs462YvXvDyKr5
+X-Authority-Analysis: v=2.4 cv=L/CI0OT8 c=1 sm=1 tr=0 ts=6ad23626 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=owAxAYLDMf__z6yt7SIA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-16_02,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 impostorscore=0 phishscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160058
 
-Smart scan skips pages that KSM has failed to de-duplicate for a while.
-Once a page is three scans old, its rmap_item counts down its own number
-of scans to skip, 1, 2, 4 and then 8 as it ages, so an old page is looked
-at every ninth scan.
+On 10/2/26 3:03 PM, Kathiravan Thirumoorthy wrote:
+> Add the IMEM node to the device tree to extract debugging information
+> like system restart reason, which is populated via IMEM. Define the
+> IMEM region to enable this functionality.
+> 
+> As described, overall IMEM region is 80KB but only initial 4KB is
+> accessible by all masters in the SoC.
+> 
+> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+> ---
 
-The unstable tree is rebuilt on every scan, so two identical pages that
-are not in the stable tree yet can only be merged in a scan that looks
-at both. Each countdown runs from when its own page became mergeable, so
-two pages that became mergeable at different times end up on different
-phases and, once both are old, may never be looked at in the same scan
-again. They then stay unmerged for as long as they live. Making a page
-mergeable, waiting for 0 to 20 full scans before doing the same with an
-identical page, 20 times for each wait, and checking the pair after
-another 64 full scans shows this, and so do intermittent failures of the
-ksm_tests "KSM NUMA merging" case:
+This patch alone fails schema validation. Squash it with the later one.
+Keep the per-platform split.
 
-                                      before     after
-  pairs merged                        317/420    420/420
-  ksm_tests -N -m 1 failures            3/200      0/200
-  64M of unique pages skipped           89.1%      87.5%
-  ksmd CPU time per scan              5.9 ms     6.3 ms
-
-Pick the skipped scans by the global scan number instead, with periods
-of 2, 4 and 8 scans. The periods being powers of two, every old page is
-looked at on each scan that is a multiple of 8, whatever its age, so any
-two pages meet at least every eighth scan. The longest period goes from
-nine scans to eight, which costs about 7% more ksmd time on memory that
-never merges.
-
-Fixes: 5e924ff54d08 ("mm/ksm: add "smart" page scanning mode")
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
----
- mm/ksm.c | 24 ++++++++++--------------
- 1 file changed, 10 insertions(+), 14 deletions(-)
-
-diff --git a/mm/ksm.c b/mm/ksm.c
-index dbfb8f98b1892..a97d7563c2124 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -196,7 +196,6 @@ struct ksm_stable_node {
-  * @head: pointer to stable_node heading this list in the stable tree
-  * @hlist: link into hlist of rmap_items hanging off that stable_node
-  * @age: number of scan iterations since creation (unstable node)
-- * @remaining_skips: how many scans to skip (unstable node)
-  * @linear_page_index: the original page's index before merged by KSM (stable node)
-  */
- struct ksm_rmap_item {
-@@ -213,7 +212,6 @@ struct ksm_rmap_item {
- 		struct {
- 			unsigned int oldchecksum;
- 			rmap_age_t age;
--			rmap_age_t remaining_skips;
- 		};			/* when unstable */
- 		unsigned long linear_page_index;    /* for reverse mapping, when stable */
- 	};
-@@ -2446,16 +2444,14 @@ static struct ksm_rmap_item *get_next_rmap_item(struct ksm_mm_slot *mm_slot,
- }
- 
- /*
-- * Calculate skip age for the ksm page age. The age determines how often
-- * de-duplicating has already been tried unsuccessfully. If the age is
-- * smaller, the scanning of this page is skipped for less scans.
-+ * Calculate how often a page of the given ksm page age is scanned. The age
-+ * determines how often de-duplicating has already been tried
-+ * unsuccessfully. The older the page, the fewer scans look at it.
-  *
-  * @age: rmap_item age of page
-  */
--static unsigned int skip_age(rmap_age_t age)
-+static unsigned int scan_period(rmap_age_t age)
- {
--	if (age <= 3)
--		return 1;
- 	if (age <= 5)
- 		return 2;
- 	if (age <= 8)
-@@ -2505,17 +2501,17 @@ static bool should_skip_rmap_item(struct folio *folio,
- 		return false;
- 
- 	/*
--	 * Are we still allowed to skip? If not, then don't skip it
--	 * and determine how much more often we are allowed to skip next.
-+	 * The unstable tree is rebuilt on every scan, so two identical pages
-+	 * can only be merged if both are looked at in the same scan. Pick the
-+	 * scans by the global scan number rather than per page: the periods
-+	 * are powers of two, so pages of any age meet on every scan that is a
-+	 * multiple of the longest one.
- 	 */
--	if (!rmap_item->remaining_skips) {
--		rmap_item->remaining_skips = skip_age(age);
-+	if (!(ksm_scan.seqnr & (scan_period(age) - 1)))
- 		return false;
--	}
- 
- 	/* Skip this page */
- 	ksm_pages_skipped++;
--	rmap_item->remaining_skips--;
- 	remove_rmap_item_from_tree(rmap_item);
- 	return true;
- }
-
--- 
-2.43.0
-
+Konrad
