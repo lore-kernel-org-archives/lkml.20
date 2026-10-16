@@ -1,107 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-249.mta1.migadu.com [95.215.58.249])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5534CF49E;
-	Fri, 16 Oct 2026 23:15:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0703CF030
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:23:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.249
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792192549; cv=none; b=gFcj3SIPbJkYU5k4JYg0Cnj5ucCj5lPMqmJB/IwxQ1s2QuHythEVAuGgDS+d/udwSjSbqVEDOF/rgNKINNCwPJ4mdhTcDHohFMSCNyM/06EdKh6aBvtHxuQSVU5kb+bVC7UO01fR3hN7yZaRYXChfkWCXz9qt1/MRjfV0Q7xBtA=
+	t=1792193002; cv=none; b=Exw81JftNFy+LC1rs4LpnTGZ7lORlI0A8ginAmuHj4OqO3L4xLzzfaB8qH1nTzVD/Q8SncoWvguG+W8LrbC3AlTVbsBw+IXP7FWaXGS4SMyb396KuJa1/mFgzLhvNRPs8fxL9+ryz7BlXcfxBY1zmtZbKJJEiO4InMNI5Sec37U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792192549; c=relaxed/simple;
-	bh=xx+EvyylbKDwCWbHOLoDdPPVf8JgaKxvINlKGe5txag=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=FMzwK9VQtoMysst6oTsxJw961H48jpZD7wZKcWQY8h0omz6oyoCTViKPmGspRqH9Dj36UOFAj3wZSmzsooHxFpyEp5xODiAzzv0MUHUZAbNdNjSySuUgz1ZLsNS4ZsAwPqs3zrdOGMb5hl7gKigIkGzIeUJ5s7pq4Oy92OZYU3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=xTPk+rMq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792193002; c=relaxed/simple;
+	bh=0+E3T1/LognaqAEqD3vtOpnBDpCq4wDNO/h4ZlKIs3g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=feJOjC8zarb7T89cw0t5J3PfY+Is5N8CJ7aMNg6LMwD03Vtmvn2Xxei7W6xNtrtBEe5vY0orvvY+zGWAjbeti5km2guWMh83QTHsff8ykfH5YcvhPWhvNAHOwIoC/OmK7NZvZYpt+frTDmFJJGBq4alzu3vHOgn9OuoeFB/M9S0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PrHY8A4Q; arc=none smtp.client-ip=95.215.58.249
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="xTPk+rMq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B1CE1F000C4;
-	Fri, 16 Oct 2026 23:15:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792192548;
-	bh=xD5WC0FNKWe15/BST2na89x04OYUKTeuCrOFyJdym/k=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=xTPk+rMq1VGaVLDIV+9Bb/FtmSP4yv3Mdt+/QE5S3a+9mf+s4EOAy+xAuC695hRrg
-	 gKDXfXH1GzYdo+pQzLtcpItThF005mZK4/t8A1IXm7kBY8Ypmbn6fzKkcxPdtBKyZt
-	 qRHgPZH4prVCmKv9sipyUMuIJcGoR0QrnM0eeC54=
-Date: Fri, 16 Oct 2026 16:15:47 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org, Dave Jiang
- <dave.jiang@intel.com>
-Subject: Re: [PATCH] lib/firmware_table: validate subtable bounds
-Message-Id: <20261016161547.bc418897d11f3f19924065b4@linux-foundation.org>
-In-Reply-To: <20261016144154.2818962-1-yaojiale02@163.com>
-References: <20261016144154.2818962-1-yaojiale02@163.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PrHY8A4Q"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=0+E3T1/LognaqAEqD3vtOpnBDpCq4wDNO/h4ZlKIs3g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792192996; v=1; x=1792797796;
+ b=PrHY8A4QK0dgBMCHasJO5JqAbqBeclaErIsTf2r9RzfCdus+AwVWXbDQ4Vwhs64MkYlvOnsO
+ 0f5LXQIKD9sdMuDUjZtH/B/S5Sg0XEdKnrWU5UsCZs4GICwE/n6jHSLab3AhMv33pF4m/W2WH+f
+ 0+ed+D7bUxG9o8VqTh8+kcTQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5722531e999b4a13;
+	Fri, 16 Oct 2026 23:23:16 +0000
+X-Mizu-Trace-ID: 5722531e999b4a13
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d521710d-85e1-4205-a904-3823325fa90f@linux.dev>
+Date: Fri, 16 Oct 2026 16:23:13 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] RDMA/rxe: Clear pkt->qp before the early drop exits in
+ rxe_rcv()
+To: Zhiwei Zhang <202275009@qq.com>, Zhu Yanjun <zyjzyj2000@gmail.com>,
+ "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <tencent_1BF6EE2B5853D22DD4A2F3EBADE737905209@qq.com>
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <tencent_1BF6EE2B5853D22DD4A2F3EBADE737905209@qq.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, 16 Oct 2026 22:41:54 +0800 Jiale Yao <yaojiale02@163.com> wrote:
-
-> The generic firmware table walker dispatches matching entries after only
-> checking that a generic subtable header is present. A record whose
-> declared length is shorter than its header or extends past the table can
-> therefore reach a handler before its bounds have been established.
+在 2026/10/15 19:08, Zhiwei Zhang 写道:
+> rxe_rcv() puts pkt->qp at its drop label, but leaves pkt->qp
+> uninitialized on the two paths that take an early goto:
 > 
-> Validate the complete generic header and the declared record range
-> before looking up or invoking a handler. This also rejects zero-length
-> records and prevents malformed lengths from advancing the cursor outside
-> the table.
+> 	if (unlikely(skb->len < RXE_BTH_BYTES))
+> 		goto drop;
+> 
+> 	if (rxe_chk_dgid(rxe, skb) < 0)
+> 		goto drop;
+> 
+> 	pkt->opcode = bth_opcode(pkt);
+> 	pkt->psn = bth_psn(pkt);
+> 	pkt->qp = NULL;		<- too late for the gotos above
+> 	...
+> drop:
+> 	if (pkt->qp)
+> 		rxe_put(pkt->qp);
+> 
+> pkt points into skb->cb, which rxe does not own at this point: the
+> network stack has used that space for its own state.  For IPv6,
+> ip6_rcv_core() memsets inet6_skb_parm and then writes
+> 
+> 	IP6CB(skb)->nhoff = offsetof(struct ipv6hdr, nexthdr);
+> 
+> at offset 14, so the qword at cb + 8, which is where pkt->qp lives,
+> reads back as 0x0006000000000000 for every IPv6 packet.
+> 
+> Any IPv6 datagram to port 4791 whose payload is shorter than the BTH
+> takes the first goto and reaches the drop label with that value, so
+> rxe_put() runs refcount_dec_and_test() on 0x0006000000000150 and the
+> kernel faults, in softirq, on a non-canonical address:
+> 
+> 	general protection fault, probably for non-canonical address
+> 	0x0006000000000150: 0000 [#1] PREEMPT SMP
+> 	RIP: 0010:__rxe_put+0x.../...
+> 	Call Trace:
+> 	 <IRQ>
+> 	 rxe_rcv+0x.../... [rdma_rxe]
+> 	 rxe_udp_encap_recv+0x.../... [rdma_rxe]
+> 	 udp_queue_rcv_one_skb
+> 	 ...
+> 	Kernel panic - not syncing: Fatal exception in interrupt
+> 
+> The fault happens in softirq, so it panics even with panic_on_oops=0,
+> and with panic=0 the machine hangs until it is power cycled.  A remote
+> sender only needs to send an empty UDP datagram to port 4791; no RDMA
+> connection, GID or other state is involved and the rxe socket is bound
+> in init_net.
+> 
+> IPv4 is not affected: ip_rcv_core() memsets the whole inet_skb_parm, so
+> the pkt->qp slot is zero there.
+> 
+> Fix by clearing pkt->qp before the first early exit.  pkt->qp is only
+> ever assigned a reference-owning value by hdr_check() and
+> rxe_rcv_mcast_pkt(), both of which run after this point, so the put at
+> the drop label stays balanced.
+> 
+> The ordering has been unsafe since the driver was merged: the two early
+> gotos have preceded pkt->qp = NULL in every version since 8700e3e7c485.
+> 
+> Testing done: the driver was built and run on a 6.2 vendor tree that
+> carries this code, where a single 0-byte IPv6 datagram to port 4791
+> reproduced the panic above (that tree does not pull the UDP header in
+> rxe_udp_encap_recv(), so payloads of 0..3 bytes reach the first goto
+> there, versus 0..11 on mainline).  With this change, the same packets
+> are dropped as intended and tracing the drop label shows pkt->qp is 0
+> on every path that reaches it.  Not done: the mainline tree was not
+> built in the environment used to prepare this, and the reproducer is
+> left out of this message on purpose - both are available on request.
+> 
+> Fixes: 8700e3e7c485 ("Soft RoCE driver")
 
-Thanks.
+If AI helps this problem, please add
+Assist-by tag.
 
-get_maintainer is quite unreliable with lib/ files.  Please always use
-git-blame when determining who should be cc'ed.
+Thanks a lot.
+Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
 
-Dave, can you please take a look?
+Zhu Yanjun
 
-> --- a/lib/fw_table.c
-> +++ b/lib/fw_table.c
-> @@ -172,7 +172,20 @@ acpi_parse_entries_array(char *id, unsigned long table_size,
->  	    ((unsigned long)table_header + table_size);
->  	subtable_len = acpi_get_subtable_header_length(&entry);
->  
-> -	while (((unsigned long)entry.hdr) + subtable_len < table_end) {
-> +	while ((unsigned long)entry.hdr < table_end) {
-> +		if (table_end - (unsigned long)entry.hdr < subtable_len) {
-> +			pr_err("[%4.4s] Invalid subtable header\n", id);
-> +			return -EINVAL;
-> +		}
+> Signed-off-by: Zhiwei Zhang <202275009@qq.com>
+> ---
+>   drivers/infiniband/sw/rxe/rxe_recv.c | 9 ++++++++-
+>   1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/infiniband/sw/rxe/rxe_recv.c b/drivers/infiniband/sw/rxe/rxe_recv.c
+> index 2c90387aa126..e1d90633f085 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_recv.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_recv.c
+> @@ -320,6 +320,14 @@ void rxe_rcv(struct sk_buff *skb)
+>   	struct rxe_dev *rxe = pkt->rxe;
+>   	unsigned int skblen = skb->len - skb_network_offset(skb);
+>   
+> +	/*
+> +	 * pkt lives in skb->cb, which the network stack has already used
+> +	 * for its own state: for IPv6 the qword holding pkt->qp holds
+> +	 * inet6_skb_parm.nhoff.  The drop label puts pkt->qp, so clear
+> +	 * it before the first early exit.
+> +	 */
+> +	pkt->qp = NULL;
 > +
-> +		entry_len = acpi_get_entry_length(&entry);
-> +		if (entry_len < subtable_len ||
-> +		    entry_len > table_end - (unsigned long)entry.hdr) {
-> +			pr_err("[%4.4s:0x%02lx] Invalid length %lu\n", id,
-> +			       acpi_get_entry_type(&entry), entry_len);
-> +			return -EINVAL;
-> +		}
-> +
->  		for (i = 0; i < proc_num; i++) {
->  			if (acpi_get_entry_type(&entry) != proc[i].id)
->  				continue;
-> @@ -186,16 +199,6 @@ acpi_parse_entries_array(char *id, unsigned long table_size,
->  			break;
->  		}
->  
-> -		/*
-> -		 * If entry->length is 0, break from this loop to avoid
-> -		 * infinite loop.
-> -		 */
-> -		entry_len = acpi_get_entry_length(&entry);
-> -		if (entry_len == 0) {
-> -			pr_err("[%4.4s:0x%02x] Invalid zero length\n", id, proc->id);
-> -			return -EINVAL;
-> -		}
-> -
->  		entry.hdr = (union acpi_subtable_headers *)
->  		    ((unsigned long)entry.hdr + entry_len);
->  	}
-> -- 
-> 2.34.1
+>   	if (unlikely(skb->len < RXE_BTH_BYTES))
+>   		goto drop;
+>   
+> @@ -328,7 +336,6 @@ void rxe_rcv(struct sk_buff *skb)
+>   
+>   	pkt->opcode = bth_opcode(pkt);
+>   	pkt->psn = bth_psn(pkt);
+> -	pkt->qp = NULL;
+>   	pkt->mask |= rxe_opcode[pkt->opcode].mask;
+>   
+>   	/*
+
