@@ -1,87 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BEA5498E3A;
-	Fri, 16 Oct 2026 18:06:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA2945EF49;
+	Fri, 16 Oct 2026 18:07:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792173997; cv=none; b=bV+eNPpsdcHMFOvlh+rXKFRApIKQCK4qiKkVvEk/WO8DPwWWlUBSZJB+2NOL2LS8Wj1LCb88GIa3EL8E26H+7n3pVbLbr+BciT/3Ytov4i6GllnfrmbGLk2o8T3azyWU45nszWfEC1GwbYgwaRUJhor+1tjHH11s5y8HJ7opIfY=
+	t=1792174029; cv=none; b=bUmDFsGoxhVCWvbDvyPswFsYYvF5FH44y/mZLSDn1y6/JhxYXvWxQDTXy3LKPpmody4aVG2Ue6BsUI/U0f9aNfpXtTZctx1JeqG2VvhieGMOPAmTTHxT2Ud7c3PuY3rr7jRAURRNEbv7rEatg2ocsmQrfWWndEc4ByRvy05inPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792173997; c=relaxed/simple;
-	bh=rwKq/ZCSJMl04TN1T0VCYSJS78pUuz4BQmP+tdZUY8o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fXQf3NxR9uP5tDCra/xmhP4Oy/MTja3nt1gSggHFeLm30picnZd93WUdJMUQ1Qyn/cx5oUBlB5r184rOP4GkVAFbpqpmdEG5SJ2Bf/zchPzNjss3fAavheUAXiZxZUcS3fRlIQJBCtCt6N2mG+FAnzww7lJT3Gw/RDXlzavQL2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OEKyShtG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792174029; c=relaxed/simple;
+	bh=h5MP+NM2FAbrN6/K3YPY44fR21Dl23DsBucbiIamOhc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eD7rriLkGQ9GrJtKGO6QGrxGHdI/NyPhtiSDdhdtzrHaCGrm5Si0zTn8JF2c9m26wn30VaAMXDKOs9zjkduOf7YagGaZ60kdTpxbSklmVreCNEsEBcoX91R8ozazWybNvaaozeG0KAVm4JLWQDjVPiYAEQTTmgIaWtjpeOnKsBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=CzTjeuqz; arc=none smtp.client-ip=216.40.44.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OEKyShtG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10A011F000C5;
-	Fri, 16 Oct 2026 18:06:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792173996;
-	bh=5y1KEx2GD5VxXPZX9aLZNhemglYajFbdAK4OVSP18d8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OEKyShtGYrgGKZDgNMIvGxuTF+VSoszE5U7FAXXHtuBWf9DoqBS6xWQvWU/ASlvsW
-	 RrWmDNODdBd2SjqVdZRbgo5BrDR5JWOXishy9yaG94o2LEs5cLXVXHBAJaFfTsma8V
-	 CHTQ+4T/AaTjVGoQxhY+/mYBjGa1obF5TOW9zOvbG3ED7spFAPnqUEsdP7+oqlv84n
-	 WDNSDzeWmEiHSLRHkSd88FXkn9JTKfiWQYNRSQ/rXfJABqgLOz2KA2V79er1imUPhP
-	 /zYkoZPfLkfPhilor++9+Ebe8XlZyVpC9fkL2u/GvceRxnfEqzV/Z7Tka0/CSBIR3J
-	 z3uauO5D7xs3A==
-Date: Fri, 16 Oct 2026 14:06:35 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Mark Brown <broonie@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	"Michael S . Tsirkin" <mst@redhat.com>
-Subject: Re: [PATCH v2 4/5] agents: add a skill to find other instances of a
- fixed bug
-Message-ID: <atJnq_ssIAGK-OSZ@laps>
-References: <20261012213452.1863248-1-sashal@kernel.org>
- <20261012213452.1863248-5-sashal@kernel.org>
- <DM6DXZJSMPO3.J5PONDJ3HWNP@gmail.com>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="CzTjeuqz"
+Received: from omf15.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay05.hostedemail.com (Postfix) with ESMTP id 197A740315;
+	Fri, 16 Oct 2026 18:07:05 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf15.hostedemail.com (Postfix) with ESMTPA id 3FD7A17;
+	Fri, 16 Oct 2026 18:07:03 +0000 (UTC)
+Date: Fri, 16 Oct 2026 14:07:01 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Yaxiong Tian <tianyaxiong@kylinos.cn>
+Cc: mhiramat@kernel.org, mark.rutland@arm.com,
+ mathieu.desnoyers@efficios.com, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] ftrace: speed up module enable by binary searching
+ module symbols
+Message-ID: <20261016140701.0756b893@gandalf.local.home>
+In-Reply-To: <20260916082715.320853-1-tianyaxiong@kylinos.cn>
+References: <20260916082715.320853-1-tianyaxiong@kylinos.cn>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <DM6DXZJSMPO3.J5PONDJ3HWNP@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: k56fjinkqm94ddr7xjtz6b9td75ohqxq
+X-Rspamd-Server: rspamout08
+X-Rspamd-Queue-Id: 3FD7A17
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18SeseBSLO5GSSozcy1flUClF7mQRxlaDg=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=gYXBz5ATu/ejHCOJAzVgSll7icTlWgUKxKvv+/AY2sI=; b=CzTjeuqzLkP7/uYqxzcMRgHHlhNRQPSJhmO6J/8bPuskhom2BSNSJTtwS3fq0vArkZrmhQxpUBr+OmqfDFUxiF31j46xdcGqa5mBYYd4aIpw8nrZaT77AdVoHWn2KmMQ6qBZqwvHj8Nnz3+CSJjoh7D6Fvaw2WTnaQ+Zk5HMLIk=
+X-HE-Tag: 1792174023-230851
+X-HE-Meta: U2FsdGVkX18VXk3ZG6EEGN1B7C79Kcs7ZqVxPNliV+EyEWD3pRVFqk4ORuWT/aJloPX0DXI/R1GTBuj4xz0Y+Ckk6aS8t7YksRoTztBdcASaZu98X4T3YFPXBWbvPd6SDbSenZBgEFAfFByXjCdoTXFUgniNeZiNez+BsvT/zeUQdJyFbwVapNJ4W/u7waRC3ERVnXlEzFCLF3J6/COQ9i4HxeUBUSPQvFVEbQ7tFcGYx28s6muFfPOYfI7rYeMrOwIj/Ri38VfUsVRHPQ+S6Kf9rAjpLmUXKo8JIvt/3EEpS1E/hiAi4jMAUYQpPfHt
 
-On Fri, Oct 16, 2026 at 03:58:53PM +0000, Alexei Starovoitov wrote:
->On Mon, Oct 12, 2026 at 05:34 PM Sasha Levin <sashal@kernel.org> wrote:
->> +Each confirmed site is a separate bug. It needs its own fix, and its own Fixes
->> +tag and stable decision, as described in agents/skills/find-fixes/guide.rst
->> +and agents/skills/stable-tag/guide.rst. Sites in different drivers or
->> +subsystems usually get separate patches, possibly in one series.
->
->I don't think it's a right message to send to agents and humans.
->When the same mistake is made in N places the interface is the problem.
->It should be fixed in one common place.
->This text tells the agent to produce N spot fixes for N maintainers.
->We already see this issue on bpf list, let's not amplify wrong behavior.
+On Wed, 16 Sep 2026 16:27:15 +0800
+Yaxiong Tian <tianyaxiong@kylinos.cn> wrote:
 
-What I had in mind was the kind of bug our scripts/coccinelle/ rules look for.
+Hi Yaxiong,
 
-I agree that fixing the interface is better, but do we want to push all these
-agents there?
+I've been traveling since September 14th to October 10th and my backlog is
+very long. Unfortunately, I will not be able to look at this patch until
+after the merge window. But it is not forgotten, just postponed.
 
-So I think it should be a balance. When the skill finds the same defect
-in several places, it should also ask whether the interface invites the
-mistake, and if so report that the fix belongs there instead of handing
-back a list for N maintainers
+-- Steve
 
-What do you think?
 
--- 
-Thanks,
-Sasha
+
+> Loading a module with many functions takes seconds, almost all of it in
+> ftrace_module_enable().  amdgpu modules stall for about ten seconds, and
+> disabling CONFIG_DYNAMIC_FTRACE makes the stall disappear.
+> 
+> Every record is validated by test_for_valid_rec(), which resolves its ip
+> through kallsyms_lookup(); for a module address that ends up in
+> find_kallsyms_symbol(), which walks the whole module symbol table from
+> index 1.  The core kernel instead binary searches its sorted kallsyms
+> table in get_symbol_pos().  So only modules pay, and the cost is
+> quadratic: both the record count and the symbol count grow with the
+> module.  An amdgpu.ko from this tree has 17282 records and 55332 symbol
+> table entries.
+> 
+> Fix this by collecting the addresses of a module's symbols once, sorting
+> them, and binary searching that array instead of walking the table once
+> per record; a loaded module's symbol table cannot change, so the array
+> stays valid for the whole pass.  What comes back is what the linear scan
+> returned: the same entries are skipped - SHN_UNDEF, unnamed and mapping
+> symbols - and the closest address not below the base of the record's
+> memory region is taken.  Whenever the array cannot answer, because it
+> could not be built or because no such symbol exists, the record is handed
+> to test_for_valid_rec(), so the rest of kallsyms_lookup() still has its
+> say and no verdict can change.
+> 
+> On the machine that reported the stall, modprobe of that amdgpu.ko takes
+> 12.242 s before and 2.870 s after, and the time spent inside ftrace_lock
+> drops from 9.368 s to 1.585 ms - 15.195 ms if the price of building the
+> array is included, that build being 13.6 ms, 0.15% of the 9.37 s saved.
+> The array costs O(symbols * log symbols), it does not grow with the
+> record count.  Across the 74 modules loaded at boot, total lock time
+> drops from 491 ms to 2.33 ms.
+> 
+> Signed-off-by: Yaxiong Tian <tianyaxiong@kylinos.cn>
