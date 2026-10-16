@@ -1,127 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106104.protonmail.ch (mail-106104.protonmail.ch [79.135.106.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E4AB37C91E;
-	Fri, 16 Oct 2026 09:54:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CBE3E7BCC
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:55:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792144491; cv=none; b=Q2oy+dF0Qqq4PqwbRGx3CDOju79/MFpJRxdIXhYu6m7zJOU2KjLbOUbhF5X4BMiOmZ+NcLxH6DOznt2LtSaoRkSWJTisGOz7EJ8i5KQBLhDdpVF8hnxSHTscGpqSoJhES8lxpQ02KRVkbd+fZ8qfHjqJ+e/tLCK9ON37K1az4Cw=
+	t=1792144516; cv=none; b=L6NQGQfKShf5t8baHmubJyZTqIxxgbp1t5TsJumFjWXptnfXb828abf9ajwbN+AptOHL6ySzSAYmXm+1MKtS/6/MbHO4HKuZHPCyibLFPsC1QAAdEMMY3C8HMkDQrDHnQakDmFWWTc6+NJOl/j6nQNdIRSDq4Fb7Ac/f9Np+Ypg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792144491; c=relaxed/simple;
-	bh=xT2LBJqH0V2cIi0o5HP5JsWOT+cHaNnlyZRVk11zIdw=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=hftAzYwmBmETJrLrLXOolR1lcVajN5+rv2muq5+Y48c7vUBijxacJ5WM2KUrqwHyJjQYFXoJyaD5KqkJi/8O1KRO0vzsfdFZ39FSFokC4M1xHXh8qrSCgyEMy/6KgFNpEBgG0jLSbJRQq3G8j125EhyqJpJfx68sRPYs2H7fQNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z6pKM2AR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792144516; c=relaxed/simple;
+	bh=LXz8/yILUqlXO8gHp3Bh+MclfC8vx8p4mcsNhKeHMKQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=hjhcHvdf0xRoGxUOy9Lg75ideNJT8tQiH/Bd5UByIPOZJ/rw8LZJqPQ+PA8uQYz63gp0/gegF/iQ34WHig0eBt01PmwT9hjNXrym23aKP67uET2VdNEQLwfyKZtc98hs6j+TeRRQnjMI4AYLN1CxpI38faqr+7Jt+MIvTLQrrFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=FBzB2iVo; arc=none smtp.client-ip=79.135.106.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z6pKM2AR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3FC11F000C4;
-	Fri, 16 Oct 2026 09:54:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792144490;
-	bh=1LYuAnwQxjThq0bcnWdxYRswFEC5pOuk5XOjSf0KelA=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=Z6pKM2ARhe2PmJlQQA4GjGMeEkOqi4VEg+DLSe1QyAAM1a4JO3Azw+VW5Ye7eeOM4
-	 D7guIf9gdBqFO6looMpN3jDW+KtQFD3RHXMGvAs1ZIx04Vhadn7qfBQr5mssOR7EXf
-	 /2zHkDpWl91mSTZAoTN4k/I0iFgzrw1HfUDRCiibZ3uPIsPOnk/wOPpLtTKJ8LakJt
-	 1Rc9DChinNBIs2dGjYIzEdyx2xZEbH6aFezfLRtDMvGxHxtFiEQNO6/kJqE4+zTf64
-	 hbhOSjBXZ5TzraKk9gxQRaTwu7bvRIOzukX3UhZmX8OhAnV79N4oJsgf0ela7DotNx
-	 fRvNvpVdMYLig==
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="FBzB2iVo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1792144506; x=1792403706;
+	bh=LXz8/yILUqlXO8gHp3Bh+MclfC8vx8p4mcsNhKeHMKQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=FBzB2iVoLRoDviePImk0ROKx0QHdvhTC/JviAlDU7Y6iFYDk75XoxyNnBzSRgvZmv
+	 vZl68M2tKZRclDFfl8FGwd3E44ZVKg3cHYqP2m20NGwDZWZqEmhXqBEUUql0lu0+Lx
+	 8ph/Dy9ixee7+FUQO0SgIgBRtVxqLePL9VKCvp3qH60Nmp2xATgMsTCcl4VMan9sXr
+	 JvrGpypuO8Qg4hAJ8IJz39I7+25p5TuZmpHtPN3om+9K4wt0DygsUo7CwCUizEJNRT
+	 5pMelUVmoe7LJFBRww1aYHh4fFjQiiyMYaOOVyAxxzOHNqOLMPbDLS6Nilv04wGeuv
+	 8QxS6KQ8s16HQ==
+Date: Fri, 16 Oct 2026 09:55:01 +0000
+To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+From: Turritopsis Dohrnii Teo En Ming <teo.en.ming@protonmail.com>
+Cc: "ceo@teo-en-ming-corp.com" <ceo@teo-en-ming-corp.com>
+Subject: Critical PwnEscape Linux Kernel Vulnerability Lets Guest VMs Read Host Memory
+Message-ID: <rxO2C01vBaWRrehdvSujYcBvec3oFHeVR2wqy3KyQ_2arVAGmbE-UPcVmBPKAOicRDjS9sy22KWQZ__Z3RrcqzH87VEzLOqwZ9bF8JI8o90=@protonmail.com>
+Feedback-ID: 39510961:user:proton
+X-Pm-Message-ID: 7f397198dc3c66e4ddffc0bb740839e447f7a648
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 2/5] scsi: ufs: qcom: dt-bindings: Document Glymur
- UFS controller
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- gopikrishna.garmidi@oss.qualcomm.com, jagadeesh.kona@oss.qualcomm.com, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, 
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-scsi@vger.kernel.org, nitin.rawat@oss.qualcomm.com, 
- sibi.sankar@oss.qualcomm.com, Taniya Das <taniya.das@oss.qualcomm.com>, 
- "Martin K. Petersen" <mkp@kernel.org>
-In-Reply-To: <20261009-glymur_ufs_qcb_enablement-v4-2-9a6ce83195b7@oss.qualcomm.com>
-References: <20261009-glymur_ufs_qcb_enablement-v4-0-9a6ce83195b7@oss.qualcomm.com>
- <20261009-glymur_ufs_qcb_enablement-v4-2-9a6ce83195b7@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 15:24:36 +0530
-Message-Id: <179214447679.106618.13395726363064166351.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1673; i=mani@kernel.org;
- h=from:subject:message-id; bh=xT2LBJqH0V2cIi0o5HP5JsWOT+cHaNnlyZRVk11zIdw=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq0fRfFuzHOmJ1zEbRe2NvhNARv7jbUwiBdCiyq
- YuCvgBsK7OJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCatH0XwAKCRBVnxHm/pHO
- 9cHwB/0QDxC9RpCl15j1TBsqxmClzMTtsGJfD+kWTU9TRNlMH/0c/Y1N3j6QM6dB/3aU5ACLqFW
- ElRIvVFM6Mj5oD89A2FsaVulMM0UEN7Rv+6nzmLFalEwXF1QRA8tzYyO2COE9p/n7ixKgIHPHVk
- SFZnqz7gp66mntkSCferg3fnXe3eCBOWkw3B8sWEZcVmX84YocwTOjAs++99Go+9jKFV5Kdccho
- pqoAxP4ZE8uUy0PzZ5qj8fhjyNPEPFWL/p7CnYvqfEOYxTWDBe5m37ogZbRdsr3t2WKTyFHswG9
- DaIvTdUlco01MxI6IcTI6Slr3Ch3/Cws/w72ZvUpxs3Tpkv+
-X-Developer-Key: i=mani@kernel.org; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-10-09 16:05 +0530, Pradeep P V K wrote:
-> Document UFS Host Controller on Glymur SoC. Glymur UFSHC has a
-> multi-queue command (MCQ) register range in addition to the standard
-> one. So, both reg entries are required.
-> 
-> Acked-by: Martin K. Petersen <mkp@kernel.org>
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
+Subject: Critical PwnEscape Linux Kernel Vulnerability Lets Guest VMs Read =
+Host Memory
 
-Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Good day from Singapore,
 
-- Mani
+Here is an article which I would like to share.
+
+Article: Critical PwnEscape Linux Kernel Vulnerability Lets Guest VMs Read =
+Host Memory
+Link: https://thehackernews.com/2026/10/critical-pwnescape-linux-kernel.htm=
+l?m=3D1
+Date of article: 15 Oct 2026
+
+Thank you.
+
+Regards,
+
+Mr. Turritopsis Dohrnii Teo En Ming
+Targeted Individuals Singapore
+Government-Induced Schizophrenia, Government-Induced Health and Medical Pro=
+blems, and Government-Induced Extreme Poverty for the Past 20 Years (Govern=
+ment Persecution)
+Why is the Government SOOO ADAMANT, INSISTENT AND PERSISTENT about maintain=
+ing Absolute and Total CONTROL over all of my Android (Linux) phones for th=
+e past 20 years???
+16 Oct 2026 Friday 5.55 pm Singapore Time
 
 
-> ---
->  Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml b/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml
-> index d03295806657..f132b1a9ebc2 100644
-> --- a/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml
-> +++ b/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml
-> @@ -16,6 +16,7 @@ select:
->        contains:
->          enum:
->            - qcom,eliza-ufshc
-> +          - qcom,glymur-ufshc
->            - qcom,hawi-ufshc
->            - qcom,kaanapali-ufshc
->            - qcom,maili-ufshc
-> @@ -30,6 +31,7 @@ properties:
->      items:
->        - enum:
->            - qcom,eliza-ufshc
-> +          - qcom,glymur-ufshc
->            - qcom,hawi-ufshc
->            - qcom,kaanapali-ufshc
->            - qcom,maili-ufshc
-> @@ -80,6 +82,7 @@ allOf:
->            contains:
->              enum:
->                - qcom,eliza-ufshc
-> +              - qcom,glymur-ufshc
->                - qcom,maili-ufshc
->                - qcom,nord-ufshc
->      then:
-> 
-> -- 
-> 2.34.1
-> 
-> 
+
+
 
 
