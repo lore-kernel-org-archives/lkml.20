@@ -1,48 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD484A5C42;
-	Fri, 16 Oct 2026 14:31:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C9B38B122
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:31:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161100; cv=none; b=G79tXOg7adTbL5gtZDrEl0dzqY01ogJVvdShEx2qyLCwETpUum92OI2B7xl4M126hFPu88CL3HsEiCRMe/6Wpb8GZ5QNzafWRQJogagZLSRfnHNBDXrNONjrLBqS36uSbkA0OTjmLkE1dG9MIy2QWcGIb+zVp/vskoVOvTmbc6o=
+	t=1792161100; cv=none; b=FXjIIzd2dGxr3AC0lZFPBvD63DSYVUsNgkrXHS11hgHtr/aMDA9u5Pq4104EOwbqfRlDIlzwizI4b6aT6ATfgO6zMcPYjhCoaAgAdvTKYHG/C8CcPlTl0+hkKyiSTdCBPXOoL8llFESoUInnVn0BOwatOp6EcbBCpoSibOmV+qA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792161100; c=relaxed/simple;
-	bh=fKZz8eDcPaYBOhyFt8zTVVi1XEGsCga5c41nAyFcjFE=;
+	bh=Pnp2pRuN8kXPGCaFLJw9RGXnnLyKdi6wJSNAn2hbtQU=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=IW6E7gXOL1TTBK5NE1vQS4zVTDtRky0GH6yyJpPSOA1l8l7Ah8uVI7oFi8fln+SLMpetKswW8ZLOBPIyACLUahhmxqi9bTZHjhe5mWMSAOb7t9foAzbN+pCHz2FsqvMRaQE2R/FA85QRBAGYLGfWEvNjcj7cM9DktTif4q5GGEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BzWHB/tU; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=fe1kBuVtFlvH2+wXilmhh6N4/Wq9QMtDfMGJQq1MoQ2zrSM+Mut3DgYuUmRFR/laVup8hdEbveZvLBIx/F/ULtNkgkM/E3N+CcNlkGLQGi2p5Zn336uhdkW2qKzrW4XzV/51cqYD4h9u19nQlA17OwOL62mTgMx5o+w+Udodrb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E8N8g9Qu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BzWHB/tU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 175DD1F000CB;
-	Fri, 16 Oct 2026 14:31:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E8N8g9Qu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF7901F000C8;
+	Fri, 16 Oct 2026 14:31:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792161098;
-	bh=6zHPOiiZft8qbX6TerRzYwd6JL5qMOEUciSET/TTF3w=;
+	s=k20260515; t=1792161097;
+	bh=KI8VjZN4oQRbQmO9b97IpRUBs9OIKGvri42SUQcpEhU=;
 	h=Date:From:To:Cc:Subject:References;
-	b=BzWHB/tUZEOMPtUgd77oFPJRZqhzFKqIwV74NXNkzkjT0tw7aX9NrfvWrwBM8aWMa
-	 2SYXkGj47kyMWwh7fRycRjlMboVq5ZvzHTKHDQT6s7TRPltyXiZ5YT6kOoBvp8y8B+
-	 sfr8w6yLGDIvE+gnG7tR7PE8tJ4fIhXzhxDVrMAKg64PjF7PEzKQKaiP0bFqt/VNww
-	 z5t/Xfo2fkxVjLchKVlQiTyoJcAU92vk3DaetnlF7m911m7pzhnWizaIdxARJ46jRf
-	 Wj1yYZOTr7pBXJ/vtAIrOj6VpF8FO6BV86EOAhmgJ8bqspmav3qSsfniDibp6/FH6n
-	 FDBqTqkQBy5mg==
+	b=E8N8g9QuD7Fh0aOiS0/SQl0eqq15FgKIknmSYSBTBfVn7k1idxi68+V2FKGnzoFwg
+	 NFhiN3QvMrVjzStmUpJJdzFISh/2cMVDsJEvrDUoLuMq176g0jX2j1pnPa2FLYnzPv
+	 BLhlbqKKdqKon31/mMyYr3LO0KPTJG5KiTaSpYDlLhHVFvUa3mtcwtyHbWcH15xxIC
+	 k0dyl2sLGdOYqLEQeW90oFNgPe6aj70TqmmerChBGpQ/NUcqPZw4AtZvbR0x/9uTl2
+	 tvGcqgiDdNn7jsTplvL0mG2bSiF/rA0h0LWA6P2N2RDbwsjXXunTHO1SMPnAtccsrz
+	 3wB+KiYd2kB7A==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xHiy9-00000000Xon-1Ukd;
+	id 1xHiy9-00000000XoE-0fT1;
 	Fri, 16 Oct 2026 10:31:37 -0400
-Message-ID: <20261016143137.182901087@kernel.org>
+Message-ID: <20261016143136.981392156@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 16 Oct 2026 10:31:30 -0400
+Date: Fri, 16 Oct 2026 10:31:29 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
- stable@vger.kernel.org,
- sashiko-bot@kernel.org,
  Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: [for-next][PATCH 15/18] tracing: Unregister field variable histograms when the command fails
+Subject: [for-next][PATCH 14/18] tracing: Only report the stacktrace modifier on a real field
 References: <20261016143115.392980228@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -54,89 +52,45 @@ Content-Type: text/plain; charset=UTF-8
 
 From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-An action that names a field on another event needs that field as a
-variable, so create_field_var_hist() registers a second hist trigger on
-that event to provide it, and records it in
-target_hist_data->field_var_hists[].
+get_hist_field_flags() returns "stacktrace" for any field carrying
+HIST_FIELD_FL_STACKTRACE, including the common_stacktrace pseudo-field,
+which has no ftrace_event_field behind it. parse_field() no longer takes
+the modifier there:
 
-If a later part of the same command fails, create_actions() returns an
-error and event_hist_trigger_parse() jumps to out_free. The write fails
-with -EINVAL and sched_switch gets no trigger, but:
+	if (stack_modifier &&
+	    (!field || field->filter_type != FILTER_STACKTRACE)) {
+		hist_err(tr, HIST_ERR_BAD_FIELD_MODIFIER, errpos(field_str));
 
-  # echo 'hist:keys=pid:ts0=common_timestamp.usecs' >> \
-      events/sched/sched_waking/trigger
-  # echo 'my_synth u64 lat; int a; int b' >> synthetic_events
-  # echo 'hist:keys=next_pid:wakeup_lat=common_timestamp.usecs-$ts0:\
-      onmatch(sched.sched_waking).my_synth($wakeup_lat,prio,nosuchfld)'\
-      >> events/sched/sched_switch/trigger
-  # cat events/sched/sched_waking/trigger
-  hist:keys=pid:vals=hitcount:ts0=common_timestamp.usecs:sort=hitcount:size=2048:clock=global [active]
-  hist:keys=pid:vals=hitcount:synthetic_prio=prio:sort=hitcount:size=2048 [active]
+so expr_field_str() renders "common_stacktrace.stacktrace", a spelling
+that cannot be parsed back.
 
-The second histogram is the one created for 'prio'. It is still active and
-still counting.
+Report the modifier only when there is a field to report it for.
 
-out_free reaches destroy_field_var_hists(), which frees the
-field_var_hists[] entries, but never unregister_field_var_hists(), which is
-what removes the triggers and runs only from event_hist_trigger_free(). The
-entry is freed and the trigger is left with nothing tracking it.
+hist_field_print(), the other caller of get_hist_field_flags(), excludes
+HIST_FIELD_FL_STACKTRACE before it calls, so this is confined to
+expr_field_str(), whose only key renderer arrives in the next patch.
 
-Unregister the field variable histograms in out_free as well, and record
-each one as soon as its trigger is registered rather than after the lookup
-that follows it, so no exit can leave a registered trigger untracked. The
-entry then belongs to field_var_hists[] and is released by
-destroy_field_var_hists(), so freeing it on that exit would be a double
-free.
-
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260914104036.1768529-1-donggeunyoo.kernel@gmail.com
-Fixes: 02205a6752f2 ("tracing: Add support for 'field variables'")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/all/20260913204302.DB2551F000FF@smtp.kernel.org/
+Link: https://patch.msgid.link/20260914053443.981201-4-donggeunyoo.kernel@gmail.com
+Fixes: a5e70ba87ca8 ("tracing: Fix memory corruption from the histogram stacktrace modifier")
 Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 Assisted-by: Claude:claude-fable-5
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_hist.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ kernel/trace/trace_events_hist.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index fdd097abb0d6..972804709b14 100644
+index 91a550411e8a..fdd097abb0d6 100644
 --- a/kernel/trace/trace_events_hist.c
 +++ b/kernel/trace/trace_events_hist.c
-@@ -3137,20 +3137,18 @@ create_field_var_hist(struct hist_trigger_data *target_hist_data,
+@@ -1725,7 +1725,7 @@ static const char *get_hist_field_flags(struct hist_field *hist_field)
+ 		flags_str = "percent";
+ 	else if (hist_field->flags & HIST_FIELD_FL_GRAPH)
+ 		flags_str = "graph";
+-	else if (hist_field->flags & HIST_FIELD_FL_STACKTRACE)
++	else if (hist_field->flags & HIST_FIELD_FL_STACKTRACE && hist_field->field)
+ 		flags_str = "stacktrace";
  
- 	kfree(cmd);
- 
-+	n = target_hist_data->n_field_var_hists;
-+	target_hist_data->field_var_hists[n] = var_hist;
-+	target_hist_data->n_field_var_hists++;
-+
- 	/* If we can't find the variable, something went wrong */
- 	event_var = find_synthetic_field_var(target_hist_data, subsys_name,
- 					     event_name, field_name);
- 	if (IS_ERR_OR_NULL(event_var)) {
--		kfree(var_hist->cmd);
--		kfree(var_hist);
- 		hist_err(tr, HIST_ERR_SYNTH_VAR_NOT_FOUND, errpos(field_name));
- 		return ERR_PTR(-EINVAL);
- 	}
- 
--	n = target_hist_data->n_field_var_hists;
--	target_hist_data->field_var_hists[n] = var_hist;
--	target_hist_data->n_field_var_hists++;
--
- 	return event_var;
- }
- 
-@@ -6983,6 +6981,8 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 
- 	trigger_data_free(trigger_data);
- 
-+	unregister_field_var_hists(hist_data);
-+
- 	destroy_hist_data(hist_data);
- 	goto out;
- }
+ 	return flags_str;
 -- 
 2.53.0
