@@ -1,219 +1,107 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B7F4908D3
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:34:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91518483825;
+	Fri, 16 Oct 2026 12:34:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792154069; cv=none; b=pS7N9wmO2Owv/Q+NIBayFDf6tqhQKEU4avA5+sDRa321eyq90ilEGo1rMPJkT76g2aY0G/BP3yn7tCQGoIBUWAM006Ws1M2zXgzQ3AoVUbS/bZOsoGOCqMQZOjtDU5/FHptV4lvIIvmWIFsxipMHEM7goLLpkA+mI/pKnoPFf9g=
+	t=1792154078; cv=none; b=H1MTqFG6nNqs46VYI5PksWgzFPTcjyrBBtNcqj6eRONHfCXSi0rrKFg/49aPr4tgGeABkFMLDpd+Xf18Js5SbEeX1jijbprjXue+0ix0dP7+C/DPIVqd6UEGkPi5jycrjSe0Sse/yFSaUwtMGw6tQf5oiTZ+wUwtZN3iNHHH+iU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792154069; c=relaxed/simple;
-	bh=OLNSZrzF/eaqutZvktMtyMNI2nbpbIOVNRJswO6WqSc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UYbxjg2vKRkrQ4ct7iJVKW/6hRnmQXhXTPmsKNyQuoRFGKLM+yOufzQeWLL/ZAPVcwPbWOjabM8PAdKw1arb26igonKHKT+5kIfDOj2K18zuPYmChyAiY39uGn0NcH/zb31hCn/iVvBNYcqcTvuOZNDnYcNG05lVvQZCE6zWBk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=J+OYz338; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	s=arc-20240116; t=1792154078; c=relaxed/simple;
+	bh=UIbLLDrJIIjb2CwXKb/lPXI78W8TAKpGdXU7fwKd1QA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pWYhFUi0MWx1ZRHTRv9s3BupN5C5wAchBMp2sb5TAxM1/69mZA+2OwwLXI9DVdQf4mhbPT/eiVg5+hK8OWoP5jMhGq9iqeymNCqONcFRZFB5Hc76qFyXIChHvQhPyk7gu9sptR9+Q9FN4MDwWvvDt9jyosjDXkAvgXnw8axn+m4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hW6JcTNV; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="J+OYz338"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so57555165e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:34:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1792154066; x=1792758866; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OoH3FFcfZAjONuLiIkivXi4hnxqhQZd4Qylq+O8iD0Y=;
-        b=J+OYz338UB0ysaoYk1+YzPAlv0/39/FV8AOzUTTUOvl1XEedU314cWO5jXpnn16ZZl
-         KRqQcCRkHoR7l+nXHN+00MgWsR3Xfm/dg8yd4jnqfXwqjXsox6uLN9qaRpk47k87/cJs
-         pcX+co4hJlvOg6FNIQA43Y7aOhUUK3t7twazU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792154066; x=1792758866;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OoH3FFcfZAjONuLiIkivXi4hnxqhQZd4Qylq+O8iD0Y=;
-        b=qrvxgrnYvzmH1xuvLDSvurzaxE2ar7cihdUZutbZjwxeSkXpEW8chis+sR+rAVOlqa
-         uxoFjQFSibcHoA443hbzIvs9SAf9IevwrK0owPOzajm7DpA8sd+D1/NDHEg3pG9NR4UE
-         OaLdrZNYiwvey/Yqe7cH9pz2X4TgIPSAA8XqAJvoHqhUuObt1GV28thpxBYQe4M/YzTq
-         ck4SAay43fKej+JTmjUHvIQa//mQ7Knmiq5QGRFWvw0wqhuxWh+QScgUZVlVFHqv7GZq
-         XRvdGlrU/qApg9roWztgsGrR/H9yafvqf2suKW8wVE+As3ua28rIfGBXdlwhmI9vzeW5
-         lb9g==
-X-Gm-Message-State: AFq9FYIhnaYY2GneG1R9dDXwFWh7jZCJVus7TTWriY8rm7Iy4Bd8oAmB
-	VVBNs6ugNoJ/wIbm4U2X4cmGGvn/PvUpORrz7wm+34w/X7cyWId2SgKwJSSZK3zUz0oOKrhQLId
-	D9p1J
-X-Gm-Gg: AYBFou3EkcI1IuigVJ5zticB3qwm8KLHrQ+t10g6sEKdKbAcMfQnB+zRJZUmGOt1JM+
-	i5F7Her3TzVTn/SafD3dBDLHl++DvdPV6OvBf+STmp1tlWUcKp/cIibBmjj9SmCW2SeoYuQTEF4
-	3JnKPn9ARz1aDgmSlB8BBNKFbT6nsihWSQATJCn0+elZ2t/2DCwUAzNXE/KHXoi1BL8GPzszClv
-	f50vn+KMag9tJSvwCwbY3FwYHTZHP8rPk3YQEXKCDAKbjwxDi0SFLmihnlybnEf0EJtlXAhAS+t
-	hEwFVhfQ3gv1j2eb5pVCdmBEU+bzuO1RfhGYdhOz9lN2b1jdNuvoKjnszxyNmjhmFesuVPUOrzN
-	olhm2PZZ2N+u9j2OCJvxXTLRwWTiEkv3LzhXz+0CkMPJN6U4PQqRrR4kR2N75x4RS6XrYsonfUn
-	GPmGX+EpoIaYdfcEI/u+N5Bv37pGGDMoN/1O/qSMfmdmu6770yUW46GbYKme6C69v2Z9Af2/usi
-	tBweFZ9JUqilQc=
-X-Received: by 2002:a05:600c:6990:b0:4a1:80d8:aed5 with SMTP id 5b1f17b1804b1-4a18e49c43bmr470046445e9.6.1792154065843;
-        Fri, 16 Oct 2026 05:34:25 -0700 (PDT)
-Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8a81587sm110564045e9.1.2026.10.16.05.34.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 05:34:25 -0700 (PDT)
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	dinguyen@kernel.org,
-	arnemaximilian.richter@draeger.com,
-	martynas.grybauskas@draeger.com,
-	Petko Manolov <petko.manolov@konsulko.com>
-Subject: [PATCH v12 3/3] arm: dts: altera: add Draeger M48 CPU Module
-Date: Fri, 16 Oct 2026 15:34:14 +0300
-Message-ID: <20261016123415.3272046-4-petko.manolov@konsulko.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261016123415.3272046-1-petko.manolov@konsulko.com>
-References: <20261016123415.3272046-1-petko.manolov@konsulko.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hW6JcTNV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792154076; x=1823690076;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UIbLLDrJIIjb2CwXKb/lPXI78W8TAKpGdXU7fwKd1QA=;
+  b=hW6JcTNVfQzRlnu/laPF38rW/w7mGIzzqaYMVzSg4A4OG8bTUy2ITa78
+   3q17HuAnbsGGwRhDcJP2Tpw5cphMIb2ezkiTpeNtgiyBhBXfHmpaqF1gt
+   /NiLXKiq7jnc1AODIRNBTeacOW6n7aCNwbTLYGCwPhcM2ztjGHvgmADgx
+   O0KPkyfXZfQ6pjO1j2AB1T4EvNPD4R3yrAbdPIwDysBqGvsiHLSUU8Qq8
+   X6gi8YPOWOizSO1FY6oNfBcVrwL1XycfZCV0fqLds1qBzU6PdXiOobvJh
+   fcldBeyx2dZ+PAtgpgdsTHh/UNSV34ZfUymnoIv7mWJXIZdX3BeZTwT0v
+   g==;
+X-CSE-ConnectionGUID: MfZFqX70QBSzujNVDUrNVw==
+X-CSE-MsgGUID: 5xKoQXQAT0ah1DdbiJ3TBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="819190"
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="819190"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 05:34:36 -0700
+X-CSE-ConnectionGUID: AtxgidLBRFq7zj1R/NdsSw==
+X-CSE-MsgGUID: SuVyVi3NR0WuwCHyDtnJQw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="2315671"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by fmviesa006.fm.intel.com with ESMTP; 16 Oct 2026 05:34:32 -0700
+Date: Fri, 16 Oct 2026 20:30:12 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Ankit Agrawal <ankita@nvidia.com>
+Cc: linux-cxl@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dave@stgolabs.net, jic23@kernel.org,
+	dave.jiang@intel.com, alison.schofield@intel.com,
+	vishal.l.verma@intel.com, jgg@nvidia.com, aneesh.kumar@kernel.org,
+	aik@amd.com, iweiny@kernel.org, ming.li@zohomail.com,
+	icheng@nvidia.com, bhelgaas@google.com, smadhavan@nvidia.com,
+	ilpo.jarvinen@linux.intel.com,
+	Smita.KoralahalliChannabasappa@amd.com,
+	andriy.shevchenko@linux.intel.com, linux-coco@lists.linux.dev
+Subject: Re: [RFC PATCH 1/4] PCI/TSM: Create MMIO descriptors via TDISP Report
+Message-ID: <atIY1Joa//+hCRcr@yilunxu-OptiPlex-7050>
+References: <20261005070252.84810-1-ankita@nvidia.com>
+ <20261005070252.84810-2-ankita@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005070252.84810-2-ankita@nvidia.com>
 
-M48 is a heterogeneous board made by Draeger that is based on two
-independent cpus, that are monitoring each other.  One of them is
-imx6, the other is Altera SoCFPGA Cyclone 5.  The latter is booting
-independently off qspi.
+> pci_tsm_mmio_alloc() also recovers the obfuscated starting address for
+> each encrypted MMIO range, since the VM is never disclosed the HPA
+> that correlates to the GPA of the device's MMIO. The obfuscated
+> address is BAR aligned.
 
-This one adds the DT for the Altera SoCFPGA part of M48.
+Could you help specify in the changelog how to ensure the obfuscated
+address BAR aligned. I believe this is not mandated in PCI TDISP spec,
+so we need to let all TSM vendors know about the rule.
 
-Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
----
- arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
- .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 102 ++++++++++++++++++
- 2 files changed, 103 insertions(+)
- create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+I remember it is done by TSM setting the MMIO_REPORTING_OFFSET as the
+largest BAR size on LOCK_INTERFACE_REQUEST, is it?
 
-diff --git a/arch/arm/boot/dts/intel/socfpga/Makefile b/arch/arm/boot/dts/intel/socfpga/Makefile
-index 8df0976da01c..cdcea11abdfa 100644
---- a/arch/arm/boot/dts/intel/socfpga/Makefile
-+++ b/arch/arm/boot/dts/intel/socfpga/Makefile
-@@ -11,6 +11,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
- 	socfpga_arria10_mercury_aa1_st1_emmc.dtb \
- 	socfpga_arria10_mercury_aa1_st1_qspi.dtb \
- 	socfpga_arria10_mercury_aa1_st1_sdmmc.dtb \
-+	socfpga_cyclone5_draeger_m48.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_emmc.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_qspi.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_sdmmc.dtb \
-diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-new file mode 100644
-index 000000000000..e38590c4630e
---- /dev/null
-+++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-@@ -0,0 +1,102 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ */
-+#include "socfpga_cyclone5.dtsi"
-+
-+/ {
-+	model = "Draeger M48 Cyclone V SoC";
-+	compatible = "draeger,socfpga-m48", "altr,socfpga-cyclone5", "altr,socfpga";
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@0 {
-+		device_type = "memory";
-+		reg = <0x0 0x40000000>;
-+	};
-+
-+	aliases {
-+		/* this allow the ethaddr uboot environment variable contents
-+		 * to be added to the gmac0 device tree blob.
-+		 */
-+		ethernet0 = &gmac0;
-+	};
-+};
-+
-+&gmac0 {
-+	status = "okay";
-+	phy-mode = "rgmii";
-+	phy-handle = <&ethphy>;
-+
-+	mdio0 {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		compatible = "snps,dwmac-mdio";
-+
-+		ethphy: ethernet-phy@0 {
-+			compatible = "ethernet-phy-ieee802.3-c22";
-+			reg = <0>;
-+			rxc-skew-ps  = <1860>;
-+			rxd0-skew-ps = <0>;
-+			rxd1-skew-ps = <0>;
-+			rxd2-skew-ps = <0>;
-+			rxd3-skew-ps = <0>;
-+			rxdv-skew-ps = <0>;
-+			txc-skew-ps  = <900>;
-+			txd0-skew-ps = <0>;
-+			txd1-skew-ps = <0>;
-+			txd2-skew-ps = <0>;
-+			txd3-skew-ps = <0>;
-+			txen-skew-ps = <0>;
-+		};
-+	};
-+};
-+
-+&gpio0 {
-+	status = "okay";
-+};
-+
-+&gpio1 {
-+	status = "okay";
-+};
-+
-+&gpio2 {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+	clock-frequency = <100000>;
-+
-+	eeprom_mac: eeprom@50 {
-+		compatible = "atmel,24c08";
-+		reg = <0x50>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+&mmc0 {
-+	status = "okay";
-+};
-+
-+&qspi {
-+	status = "okay";
-+
-+	flash: flash@0 {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "micron,n25q256a", "jedec,spi-nor";
-+		reg = <0>;
-+
-+		/* chip select */
-+		spi-max-frequency = <100000000>;
-+		m25p,fast-read;
-+		cdns,read-delay = <4>;
-+		cdns,tshsl-ns = <50>;
-+		cdns,tsd2d-ns = <50>;
-+		cdns,tchsh-ns = <4>;
-+		cdns,tslch-ns = <4>;
-+	};
-+};
--- 
-2.47.3
+[...]
 
+> +/**
+> + * struct pci_tsm_mmio_entry - an encrypted MMIO range
+> + * @res: MMIO address range (typically Guest Physical Address, GPA)
+> + * @tsm_offset: Host Physical Address, HPA obfuscation offset added by the TSM.
+> + *		Translates report addresses to GPA.
+> + */
+> +struct pci_tsm_mmio_entry {
+> +	struct resource res;
+> +	u64 tsm_offset;
+
+I remember Intel TDX once wanted this tsm_offset stored here. TDX
+firmware needed this field to identify which private mmio range the
+CoCo-VM want to accept.
+
+But now TDX switch to use mmio_range_index. See this link:
+
+https://lore.kernel.org/all/20260924041032.1096569-8-zhenzhong.duan@intel.com/
+
+So could you help switch to store the range index? I believe no vendor
+needs the obfuscated HPA now.
+
+> +};
