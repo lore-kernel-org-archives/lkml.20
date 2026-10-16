@@ -1,80 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2953DD532;
-	Sun, 18 Oct 2026 17:46:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10452AD0C;
+	Sun, 18 Oct 2026 17:47:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792345611; cv=none; b=aFfRdvn2ThWaoY0GgYCRdk4xBwLLWuLy8GMHHgA/fwJz0unTF8FBVCf9yX7tZgKacCBYx6tKZrmizktyndmTtVYkm9RHZDY8Spf44J+mk3DDjKTTxsSkgFnHTsXT+r0JnUelvCrC37tydrCsYEp/M/8TDibnl9q3FpoG2Xv+ZN0=
+	t=1792345643; cv=none; b=INVe9HhUJtG7Cao+zvRrFPL/YrG6Fo603T2BNQn3T3Xfw9KLdMazaXWm0QaNfQdwTCFK1qMEwqOfBHRSyrcGsCn/8argEB0b2K81TWyupVYYWCDYYsUEb8VczGUoOn7R2sHq2HB1eGTNsZZgoLYPoMmgBHcl8NK0Ar50V3//NpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792345611; c=relaxed/simple;
-	bh=IbT8SVwvSYBBCTFESIc2KDm/QvSO2/KtgP4EGXiEp2k=;
+	s=arc-20240116; t=1792345643; c=relaxed/simple;
+	bh=0GaUDWNHboICjjntSAfmKBuvkrmebSUBPg7VWN/KRnM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=cIdn2pOkiZJfE23RurXjlqq6tbQhkBemMdbZCfcwrtpwPrNXWI8A+wBdyBt0nmjzIoWJJxf7sTiu9SC6nW4s8i3xZyvWOSICGKBrUnX31bG7CPh1RDXdZnX/CCR6ev4g+PY5nJvabkKP3jQoBtCXNajNNtZVAYdbhLYgSjodHo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MgnkizFN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Mq0/Tvo/G2bsunOhSx1d8DS2Z7XPqLsm5KfBWwhRj9BCejYVdaYh2GcxZRdNiTmG21DobP5kAIFCcMCInEesGES/5pOK2JtLZ7/VxZUbmNCbEA0apNnsY7ZU//alb172gT/f8mzOGucXfbE171+Vbj0KK0I0kEw+ZJuvEwQsBuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=es0ULFOT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MgnkizFN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A623A1F000C4;
-	Sun, 18 Oct 2026 17:45:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="es0ULFOT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CE2F1F000C4;
+	Sun, 18 Oct 2026 17:47:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792345609;
-	bh=qm0bUZ3rcefAzU93QB8wx2LCgCq+YoUpSKzCmzw8aJ4=;
+	s=k20260515; t=1792345641;
+	bh=3PWg4wFyY/5JtUeMyFYwYokLNsNA3wvyEJlGxTodazY=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=MgnkizFNOowWE0evXr5Uh7vD+jPSO/gov/FeEK/pjNv61+X6+VimnKiL+gqgPhcTs
-	 /CMiac64dU9bA9cVg+BtlqJVWkEqvDLka/3h4Nm290GCXsZ/q/+R78ZTxGq5JcaRqC
-	 65QcxFTZ7f1Msa1P1CPR7L3Sg7c+AMXBDaQoDpuCYzDuE0w+sR5tWuFMPuHzyJBx3t
-	 Pf6JUV719A+lnO1EXjyeqCIr5hTwxP275HOPCfkVWguVthrbUVj4EhQE4R7UjmGg7g
-	 B7BHLbKEtecZPWwidrdGQiLbtk6ICAo/FHXjg4O8qImalzZJiNj+KBVK8fn7rZp3Ze
-	 pJocK/ZjMhiTw==
+	b=es0ULFOTibsky7FRB8ZberxpwkM+Xch4mX+W2Od3KkZwRDYcn/DLA1C85O5Kdbc1k
+	 78Aje5RzYs45YMMaH7kVM7M0fRzjNxFsh/Xt6FcrsYTpv9UYpdaU5ugfUBv/FgobXg
+	 JNhJ39VT9yl2S4y1zTwckLWudiLpo54j5pP498ryDzinTLSgu4bMKCSA5LR53JaHSy
+	 dDFAeu61hYh7r0QJ9jVH/EI8nCEIOTwbEThgazkUyOXKGemHbyrL9f+E0j7etmEx/b
+	 SdRIv74xcyXcQFmTDNFYFw8I8C5UDF8prAWIzxBN42jVZY5Q3FMJXOVterfJA/zSd1
+	 4nXo9uPzgkgnQ==
 From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, povik+lin@cutebit.org, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Andrei Simion <andrei.simion@microchip.com>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, 
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Cezary Rojewski <cezary.rojewski@intel.com>, 
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
- Bard Liao <yung-chuan.liao@linux.intel.com>, 
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
- Heiko Stuebner <heiko@sntech.de>, phucduc.bui@gmail.com
-Cc: Kees Cook <kees@kernel.org>, Syed Saba Kareem <syed.sabakareem@amd.com>, 
- wangdicheng <wangdicheng@kylinos.cn>, 
- Chris Bainbridge <chris.bainbridge@gmail.com>, 
- Linus Walleij <linusw@kernel.org>, 
- Charles Keepax <ckeepax@opensource.cirrus.com>, 
- Neo Chang <YLCHANG2@nuvoton.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- u.kleine-koenig@baylibre.com, Pengpeng Hou <pengpeng@iscas.ac.cn>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Hemanth Selam <hemanth.selam@gmail.com>, 
- Md Shofiqul Islam <shofiqtest@gmail.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Zain Aboobacker <zainaboobacker33@gmail.com>, 
- Sang-Heon Jeon <ekffu200098@gmail.com>, Bo Shen <voice.shen@atmel.com>, 
- Vinod Koul <vkoul@kernel.org>, linux-sound@vger.kernel.org, 
- asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- patches@opensource.cirrus.com, linuxppc-dev@lists.ozlabs.org, 
- imx@lists.linux.dev, linux-rockchip@lists.infradead.org, 
- linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261016040946.521195-1-phucduc.bui@gmail.com>
-References: <20261016040946.521195-1-phucduc.bui@gmail.com>
-Subject: Re: [PATCH 00/11] ASoC: Address remaining PCM constraint issues
-Message-Id: <179218517604.3162228.12724790769290148003.b4-ty@b4>
-Date: Fri, 16 Oct 2026 22:12:56 +0100
+To: HyeongJun An <sammiee5311@gmail.com>
+Cc: lgirdwood@gmail.com, support.opensource@diasemi.com, 
+ shenghao-ding@ti.com, kevin-lu@ti.com, baojun.xu@ti.com, sen@ti.com, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <cover.1792135144.git.sammiee5311@gmail.com>
+References: <cover.1792135144.git.sammiee5311@gmail.com>
+Subject: Re: [PATCH 0/4] ASoC: codecs: Fix control definitions that write
+ another control's register
+Message-Id: <179218524120.3162228.17240342868117542010.b4-ty@b4>
+Date: Fri, 16 Oct 2026 22:14:01 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,30 +46,22 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2998; i=broonie@kernel.org;
- h=from:subject:message-id; bh=IbT8SVwvSYBBCTFESIc2KDm/QvSO2/KtgP4EGXiEp2k=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLKusq6VV7j4Q+fT+tV8Vk/qHp+cEyB9TcR7+6xfMrncC
- cd6DjL87ihlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBERF8w/I/7XJ85O8xAc/Hn
- nbNu/1105pQVi4Gyd/41ga2VX2ew9MYzMjQYSM+fFbll6zJbMxubowlLrefOfC8z43y7r+I/4eA
- 5/7kA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1832; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=0GaUDWNHboICjjntSAfmKBuvkrmebSUBPg7VWN/KRnM=;
+ b=kA0DAAoWL+9zsLPQOIkByyZiAGrVBhOiKqU1aBijXDCXfIPaTIyq0QF/KiyeKp6xlRLEp1VCw
+ 4h1BAAWCgAdFiEEXmoL6X9066wOwaGGL+9zsLPQOIkFAmrVBhMACgkQL+9zsLPQOIk6XwD7Bznw
+ cc71VQRQsJ72C5XF7uFPiytFNEN2PjTMBXn0muwBAKFQxpICG+P/uGPK09x+JxPkkJRS8Pt4jBJ
+ tZoZGQoAH
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, 16 Oct 2026 11:09:35 +0700, phucduc.bui@gmail.com wrote:
-> ASoC: Address remaining PCM constraint issues
+On Fri, 16 Oct 2026 16:25:15 +0900, HyeongJun An wrote:
+> ASoC: codecs: Fix control definitions that write another control's register
 > 
-> From: bui duc phuc <phucduc.bui@gmail.com>
+> These are more fixes found by the overlap scan from the first series
+> [1]. In each driver a control writes the register of another control.
 > 
-> Hi all,
-> 
-> Since v1 has already been applied, this series provides incremental
-> changes to address the remaining items from v2:
->  - Add comments explaining why .open() and .startup() must return 0
->    on success to prevent the issue from being reintroduced.
->  - Add Reviewed-by tags from Vijendar Mukunda and Chancel Liu,
->    and Acked-by tags from Morimoto-san and Cezary.
->  - Remove redundant integer constraints already applied
->    by snd_dmaengine_pcm_open().
+> [1] https://lore.kernel.org/all/20261008130953.2446692-1-sammiee5311@gmail.com/
 > 
 > [...]
 
@@ -117,28 +71,14 @@ Applied to
 
 Thanks!
 
-[01/11] ASoC: amd: Explain component open return value handling
-        https://git.kernel.org/broonie/sound/c/1ba2cb30eeab
-[02/11] ASoC: apple: Explain DAI startup return value handling
-        https://git.kernel.org/broonie/sound/c/ec2e1434c7f7
-[03/11] ASoC: atmel: Explain component open return value handling
-        https://git.kernel.org/broonie/sound/c/1554ce7a5d99
-[04/11] ASoC: codecs: Explain DAI startup return value handling
-        https://git.kernel.org/broonie/sound/c/a6b1f3ccca48
-[05/11] ASoC: imx-pcm-rpmsg: Explain component open return value handling
-        https://git.kernel.org/broonie/sound/c/f3e3dbbbbfd6
-[06/11] ASoC: intel: atom: Explain DAI startup return value handling
-        https://git.kernel.org/broonie/sound/c/2f8d93394b7f
-[07/11] ASoC: renesas: msiof: Explain component open return value handling
-        https://git.kernel.org/broonie/sound/c/394f91bd0f7a
-[08/11] ASoC: renesas: msiof: Remove redundant period constraint
-        https://git.kernel.org/broonie/sound/c/d2f4c848d010
-[09/11] ASoC: renesas: rz-ssi: Explain component open return value handling
-        https://git.kernel.org/broonie/sound/c/65850cb2f9ce
-[10/11] ASoC: renesas: rz-ssi: Remove redundant component open callback
-        https://git.kernel.org/broonie/sound/c/a0b64de6ea7e
-[11/11] ASoC: rockchip: Explain DAI link startup return value handling
-        https://git.kernel.org/broonie/sound/c/48ed45aa30ce
+[1/4] ASoC: codecs: da732x: Fix definition of ADC2 EQ Overall Volume control
+      https://git.kernel.org/broonie/sound/c/ebef9212cb46
+[2/4] ASoC: codecs: tlv320adc3xxx: Fix definition of AGC Target Level control
+      https://git.kernel.org/broonie/sound/c/0a9efcb663b5
+[3/4] ASoC: codecs: sta32x: Fix definition of Ch2 and Ch3 Volume Bypass controls
+      https://git.kernel.org/broonie/sound/c/ea53ab9003d8
+[4/4] ASoC: codecs: sta350: Fix definition of Ch2 and Ch3 Volume Bypass controls
+      https://git.kernel.org/broonie/sound/c/7308ce7c8459
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
