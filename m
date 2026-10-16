@@ -1,165 +1,196 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE90471408;
-	Fri, 16 Oct 2026 10:50:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA612DB7B9
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:51:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792147834; cv=none; b=tlvmIU5Eu/PTo7XbReoCXXGW5W9goL1Ukvm7t/RKNrR5xmFQsNTne6faKNKaDCUYadjG99hg6aQhaBqBi4KTwO5r5FlpitUzdPJX6Sb7/wpROVVdRuf2gG3VPhnvuRle9NCkRZCS9ZyV51BwJ5cKXlE+G3vMjJmzXw7cofS7JkY=
+	t=1792147869; cv=none; b=ExzB6SuNuHm3DChv0pfR7nw7VAEzqRL4vdNWdLTfTd7wkAtW9guQxCme7gRp9HXYMcsOFj8K4c/kbiv4y4ekQUIS4XN9HBqVB4GDmbLuxvt4+9rH5OL9qKsmlVBPtEnZ/YmVHWd1Mu/IoG3eoYbrN1j1j5wrDfet8r3lVi4XWJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792147834; c=relaxed/simple;
-	bh=QuTUpXOUCaUuBOC1UbPUqse6N0EFcQRqSPKqz3NAqFs=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=o9UF5AM4TQ70PEN7VLkhdw5E2Rt+7CHpiZiKSZVQUDCvu2+w5RsM08srpkKhDCwy7ll7wf+Y7/TxvJG6/8MNfIc/ACNSbZLQKvGsw3KH3+ri76T16VLxqKQgxpT8LpFr31p1Ch83HJRS5oPa0oN2qz5bv7SHOGrTtiPYBZXH6QA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Se2sqRSe; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1792147869; c=relaxed/simple;
+	bh=lv3B1TC0Tmll07M/11lori8b61fkI2T0iPmb3HOzYwY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wn723DmHU3anunWKT0EPmM2i158Ad+NXtrcf2zsRWbBd+N9crZoiqNwb19TStaZG2qUeNHLb5e/FqA/R07tfB7c366acY3Lk5vQPTX1RjpMD36/MRzvszH1NKz6wAzV/KByZlpBq68N024l2zLFGiQBYsnURWJETvAuBCLTSHuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nx0LCpB6; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Se2sqRSe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792147832; x=1823683832;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=QuTUpXOUCaUuBOC1UbPUqse6N0EFcQRqSPKqz3NAqFs=;
-  b=Se2sqRSeb2FgWNQgLKfCR6Q1N2Zv2ZBvezWG1F3VD7YpQrVzNOzXtD0b
-   xsHK0wwXxVX3mzlre/W0WREwRhoDvDMau1OMdwb8tuJtHSuwXzoffzazP
-   0QoOnqSIiZK6wLMz8sf0i7FxiYeJPM8+3sqvNEaktF5FvvAHCcSUbBBUw
-   2g18eSwv21wIxG1b5Z4buOvArsIVFyp2akKwARqi4h965lDGphZEPsSVZ
-   N6UMfw25cnqXgXe5UW+idQz1oWa35E+Vk/tXzZpaouHfMdRjFtc2DAbDW
-   lUzWL7DJ9gR4BA19c0HdIENCt1gCG+oiebiPBkNpkz7GjW0YPe2B/q4I9
-   w==;
-X-CSE-ConnectionGUID: frXJgo58RfqbbVGv8D4peg==
-X-CSE-MsgGUID: HdbjNfjcQU+Ml49qUCZ1MA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="813144"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="813144"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:50:30 -0700
-X-CSE-ConnectionGUID: tS1l6KnoTtyw9/CX2dJCKg==
-X-CSE-MsgGUID: Okq7koC+Ti6Lzl5JCFYy8g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="1991378"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.34])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:50:26 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 16 Oct 2026 13:50:21 +0300 (EEST)
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-    Guenter Roeck <linux@roeck-us.net>, Bjorn Andersson <andersson@kernel.org>, 
-    Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
-    linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v4 2/4] platform: arm64: Add a driver for the EC found
- on ASUS Glymur machines
-In-Reply-To: <e4cec04d-2c66-4900-940c-d7d3d245cc64@oss.qualcomm.com>
-Message-ID: <f97000c4-496d-0ce1-318a-1df5c0de804b@linux.intel.com>
-References: <20261015-topic-asus_ec-v4-0-af6305ffcb10@oss.qualcomm.com> <20261015-topic-asus_ec-v4-2-af6305ffcb10@oss.qualcomm.com> <ba7830c7-9ad8-6695-f543-c4c419aa9133@linux.intel.com> <e4cec04d-2c66-4900-940c-d7d3d245cc64@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nx0LCpB6"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48afcb1e5f9so850702f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:51:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792147865; x=1792752665; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=biMd4sUcSQuV6TQOxo1V3IfADEXSO1VJZjXwSNr9OMQ=;
+        b=nx0LCpB65CLbuwG9VxKaH0YrYwZRjV6RFj2tBZg0Zqt5S4ImsaJwFcXAvt+CyQY+vr
+         loceG2fbtvNs+lLuTWjgMy/5plocHCYhkbA/Z9FK6Lt4RFfcaZxcDFqpkB97nXM2Y0pJ
+         3Jwlexu50YaRQmZoiOpujzEayipuZmvz4RVJMrFoJPtM3jAK0UmX/ZGeqHoBg3rDg/cA
+         jL85Fv7cBstx0EI2UWWGwg+1HAsa4piO9SJ3qf8ulY3xSZHAbehVTZcToQjpEd/j5wSe
+         BLJUa2+MQr/dvY2FoGVaAcKGBWXsuwlddmFgoMDBqDIGbbP+v9JXziYA3Ei+BBPrCh9e
+         uZ6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792147865; x=1792752665;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=biMd4sUcSQuV6TQOxo1V3IfADEXSO1VJZjXwSNr9OMQ=;
+        b=cPdn3q5cICeTMGDzDMKRipjuv0T4mElRFeYs8EsEQT96icF9Em9w4zJA63BMiBWPBX
+         J0C8q3ENccRpmfMLTOSq5zqE7qT1daLPQnoffUm5NnCnmPEW//0EAsyAE7QfPpZUIjDK
+         9+9G3/PlzUM2Jd0Y9a/ki0fvBsjtuoP+z9kxfw8dCBkEL4N+H+W+Z7ac01G+G11f2Drv
+         yUCb9jwBty/21BQ5d/ZwSbhPIbSrXIJZTTVsi/PxX4qXz1RLpC3tWihE1tVY9czW2YMR
+         Ug2sZsk3vluEAbzHvVCy5gKtzqa/uBnGlThLQjbt2KJco3+9vSWYnwiFHEBntnV7w8gN
+         Ekgg==
+X-Forwarded-Encrypted: i=1; AKwUvBylt63P0LqODWdmM/xI7rN/TrIR25UCw/QILBFWVfxtWaAwd3f63OX4ft3le6PyY1RK9Gpn0Z+kyGCP9Kc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPVVKx4imTZqlCf5e27cpC5c9Y/p7LU5XGBLuFOx3rxSrJ9mv7
+	4S6p1GvwaKFIOJcm+QtbXmUjVnAT9Y23B2+08jrqKKYXILatqWhTNePuGfzxpQ==
+X-Gm-Gg: AYBFou0UaKxrxxXPeikn/4esbz8sNRG7R2bLOnPOGZ1SyqcBdGMrQCWHEK/RWhLcd6f
+	+c4R27QrU4akqw+md5rooh84zpxM8tfvz8uY8Pubk87ZZWfrIRCNRkgCUDe/2GwmS2I9vrfa7O7
+	ZQpQMl0JkSj3MBmfoQWX28UBMlqHn+4ZHvdxuYJzJiGBS64uVBBpb2VUv7L8xGBc2ib8aABe4WU
+	G+1tlaBDPY1ojCYDAnpRXsmY5FOmYND+8Ofv9R8ONKTYxipoVZyquOfNpj93uEEIjeAlQ4TtiFa
+	RSXk+uDpD+d+VnPXryJfF8KBY8hDkx5fk2kqci3Ssw5xabDf/0Ti5Kq2wh4GGjFQBch5z+6UGhn
+	jRaSlaha9K+hIys3BugEByz8AQMYHl7xjynHT20tM003IKlHW21bLV885kvfRoaKcKvq1boxrek
+	BiPxhpYJFnSRe3qEyYmfgfldOMlQGjiz5BvRtuK3+nIrc2NvWkj6avW11Bm/gG0tgfNXQT8OQST
+	icqtci/OahJaDj8VQzg5L9I/w==
+X-Received: by 2002:a05:600c:3e19:b0:4a1:c7f3:218e with SMTP id 5b1f17b1804b1-4a1c7f32285mr46083635e9.1.1792147864739;
+        Fri, 16 Oct 2026 03:51:04 -0700 (PDT)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cf983b88sm33642745e9.7.2026.10.16.03.51.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 03:51:04 -0700 (PDT)
+Date: Fri, 16 Oct 2026 13:51:01 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: peterz@infradead.org, Ingo Molnar <mingo@redhat.com>, 
+	Juri Lelli <juri.lelli@redhat.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	christian.loehle@arm.com, elif.topuz@arm.com, linux-kernel@vger.kernel.org, 
+	mingo@kernel.org, sh@gentwo.org
+Subject: Re: [PATCH v3] sched/eevdf: Fix vprot across reweighting
+Message-ID: <atH-Rf-yL7ewRTgD@scheduler.schedules>
+References: <20261016084604.17999-1-kayracizmeci@gmail.com>
+ <CAKfTPtBYSdrLe09hp3R0V1AgV_FY65mGaLxHUdLVhpZqU6KpKw@mail.gmail.com>
+ <atHwIzHeWaw1kXXm@scheduler.schedules>
+ <atH8BI9jCf2gqjTb@vingu-cube>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1896846893-1792147821=:1180"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <atH8BI9jCf2gqjTb@vingu-cube>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Fri, Oct 16, 2026 at 12:27:16PM +0200, Vincent Guittot wrote:
+> Le vendredi 16 oct. 2026 à 12:45:45 (+0300), Kayra Cizmeci a écrit :
 
---8323328-1896846893-1792147821=:1180
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-On Thu, 15 Oct 2026, Konrad Dybcio wrote:
+> > >  se != curr so why is this needed?
+> > 
+> > sched_change_begin() sets .running as task_current_donor(), then if
+> > .running is true calls put_prev_task(). put_prev_task_fair() sets
+> > cfs_rq->curr to NULL. While the task still is the donor. Then we enter
+> > sched_change_end(), we call enqueue_task() with cfs_rq->curr == NULL but
+> > the donor is still p. There is set_next_task() call afterwards, but it
+> > does not sets protection since its called with SNT_NORMAL.
+> 
+> okay, but we don't want to spread this all over the code.
+> reweight_eevdf/scale_entity is  doing this already.
+> 
+> The below should do the stuff while keeping the computation in reweight_eevdf:
+> 
+> ---
+>  kernel/sched/fair.c | 26 ++++++++++++++++++--------
+>  1 file changed, 18 insertions(+), 8 deletions(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 0feec172fd37..c212c6aa9691 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -4863,10 +4863,11 @@ rescale_entity(struct sched_entity *se, unsigned long weight, bool rel_vprot)
+>  }
+>  
+>  static void reweight_eevdf(struct cfs_rq *cfs_rq, struct sched_entity *se,
+> -			   unsigned long weight, bool on_rq)
+> +			   unsigned long weight, bool update_vprot)
+>  {
+>  	bool curr = cfs_rq->curr == se;
+>  	bool rel_vprot = false;
+> +	bool on_rq = se->on_rq;
+>  	u64 avruntime = 0;
+>  
+>  	if (se->h_load.weight == weight)
+> @@ -4878,22 +4879,25 @@ static void reweight_eevdf(struct cfs_rq *cfs_rq, struct sched_entity *se,
+>  		se->deadline -= avruntime;
+>  		se->rel_deadline = 1;
+>  		if (curr && protect_slice(se)) {
+> -			se->vprot -= avruntime;
+>  			rel_vprot = true;
+>  		}
+>  
+>  		cfs_rq->h_nr_queued--;
+>  		if (!curr)
+>  			__dequeue_entity(cfs_rq, se);
+> +	} else if (update_vprot) {
+> +		avruntime = se->vruntime;
+> +		rel_vprot = true;
+>  	}
+>  
+> +	if (rel_vprot)
+> +		se->vprot -= avruntime;
+> +
+>  	rescale_entity(se, weight, rel_vprot);
+>  
+>  	update_load_set(&se->h_load, weight);
+>  
+>  	if (on_rq) {
+> -		if (rel_vprot)
+> -			se->vprot += avruntime;
+>  		se->deadline += avruntime;
+>  		se->rel_deadline = 0;
+>  		se->vruntime = avruntime - se->vlag;
+> @@ -4902,6 +4906,12 @@ static void reweight_eevdf(struct cfs_rq *cfs_rq, struct sched_entity *se,
+>  			__enqueue_entity(cfs_rq, se);
+>  		cfs_rq->h_nr_queued++;
+>  	}
+> +
+> +	if (rel_vprot)
+> +		se->vprot += avruntime;
+> +	else if (curr || update_vprot)
+> +		se->vprot = se->vruntime;
+> +
+>  }
+>  
+>  static void reweight_entity(struct cfs_rq *cfs_rq, struct sched_entity *se,
+> @@ -4965,7 +4975,7 @@ static void reweight_task_fair(struct rq *rq, struct task_struct *p,
+>  	for_each_sched_entity(se)
+>  		weight = __calc_prop_weight(cfs_rq_of(se), se, weight);
+>  
+> -	reweight_eevdf(&rq->cfs, &p->se, weight, p->se.on_rq);
+> +	reweight_eevdf(&rq->cfs, &p->se, weight, false);
+>  }
+>  
+>  static inline int throttled_hierarchy(struct cfs_rq *cfs_rq);
+> @@ -8200,7 +8210,7 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
+>  	weight = enqueue_hierarchy(p, flags);
+>  
+>  	if (!curr) {
+> -		reweight_eevdf(cfs_rq, se, weight, false);
+> +		reweight_eevdf(cfs_rq, se, weight, task_current_donor(rq, p));
+>  		place_entity(cfs_rq, se, flags | ENQUEUE_QUEUED);
+>  		__enqueue_entity(cfs_rq, se);
+>  	}
 
-> On 10/15/26 4:24 PM, Ilpo J=C3=A4rvinen wrote:
-> > On Thu, 15 Oct 2026, Konrad Dybcio wrote:
-> >=20
-> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >>
-> >> Some Qualcomm Snapdragon X2 Elite (Extreme)-based ASUS laptops (at
-> >> least the Zenbook A14 and A16) expose a custom, somewhat
-> >> Qualcomm reference-derived EC interface. Introduce a driver to
-> >> communicate with said EC, allowing for fan speed reporting, keyboard
-> >> backlight setting and receiving of a number of miscellaneous sideband
-> >> events.
->=20
-> [...]
->=20
-> >> +/* RAM addresses are sent MSB first, while returned data is LSB first=
-=2E */
-> >> +struct asus_qcom_ec_ram_request {
-> >> +=09__be16 addr;
-> >> +=09u8 count;
-> >> +=09u8 reserved[2];
-> >> +} __packed;
-> >> +
-> >> +struct asus_qcom_ec_ram_response {
-> >> +=09__le16 data;
-> >> +=09u8 unused[3];
-> >> +} __packed;
-> >=20
-> > Endianness stuff looks sane now but __packed also needs an include.
->=20
-> Some fun statistics:
->=20
-> $ rg compiler_attributes.h drivers -l | wc -l
-> 30
+On the old code on_rq was always false. But because enqueue_hierarchy(),
+se->on_rq is always true. So this just goes to the other path in
+reweight_eevdf().
 
-You didn't consider compiler.h -> compiler_types.h ->=20
-compiler_attributes.h that seems a guaranteed include path to me. The=20
-numbers would be slightly better with that.
+Also, vruntime can move in place_entity() too.
 
-> $ rg __packed drivers -l | wc -l
-> 1228
->=20
-> [...]
-
-So lets not add another mine to what is already a scary minefield. :-)
-
-The indirect include paths are a minefield if somebody ever wants to=20
-refactor a header. I know some maintainers may be more lax on this but=20
-here we try to follow include-what-you-use principle to extent that is=20
-reasonable (when the include path is guaranteed such as=20
-platform_device.h -> device.h or linux/x.h -> asm.h you can only include=20
-the former ones).
-
-> >> +static int asus_qcom_ec_read_ram(struct asus_ec *ec, u16 addr, u8 cou=
-nt, u16 *out)
-> >> +{
-> >> +=09struct asus_qcom_ec_ram_request req =3D {
-> >> +=09=09.addr =3D cpu_to_be16(addr),
-> >> +=09=09.count =3D count,
-> >> +=09=09.reserved =3D { 0 },
-> >=20
-> > 0 is the default init value so generally =3D {} should be enough but I =
-think=20
-> > it's not necessary to add the reserved member at all because the entire=
-=20
-> > struct should be initialized anyway by the surrounding construct.
-> >=20
-> > With these fixed,
-> >=20
-> > Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
->=20
-> Yeah I know. I still left it in deliberately so that in case anyone
-> wants to audit the format here and compare it to the DSDT it's more
-> obvious that this wasn't an oversight. Do you still prefer I resend
-> (or maybe you'd like to fix that up while applying, which I don't
-> mind either)?
-
-We can keep the member there but I'll change it to {}.
-
-I can try to remember to fix these while applying (I'm good in=20
-forgetting though :-)). But I at least try to check all the comments made=
-=20
-to the last version.
-
---=20
- i.
-
---8323328-1896846893-1792147821=:1180--
+Thanks!
+Kayra
