@@ -1,183 +1,157 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+Received: from mta1.migadu.com (out-200.mta1.migadu.com [95.215.58.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 140E431DDBB
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:18:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF16335067
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792117133; cv=none; b=KeUmnhamJVEO2Ix6oBO6ZAFCSsuZ8x+PfwU+lxTvHnNQDNdqc1f1Ny88KFBK7jt7eSKeBhPA2pfZoSddVotWFuzPS9OVwqrOi3N4qdYQ+4DZlHaa0vLGI/3p91FRMqYYBpf3lVKdMosX6QwOVOthYPQnWCE68i4Syl6kuyYTDEA=
+	t=1792117156; cv=none; b=oKu86IFqY4kYP0mVJ0fRzo1n9GRXIii63gHwKG5ESCKQYy0InpO2cCwJ2YrmsbjocgeOH3azpWK1uVVe4lKjrBtS3xClBiYLGMEAt1My1z2wAoT5RPPUX2bOkK88r2FCJHhIUNfFRZkcCdD6PVCRWFTOHin+iB7cPTzrDwyFdDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792117133; c=relaxed/simple;
-	bh=fS+1/YDK2c5xj53yMJr2qNGjho16cvGDrTz0OXunelg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p8yl51jtnG53O3XJv4mBODMBFNjqZE5q7UOxHpAi3+KLue4r9kAUscIj1nUd1QOIT/QyMWSourB6CDPds7PLGAev4EMG8FgQDHwCguInG1LEAf1D3Zz5QMcOiHOUZ2uFEEQjl2tocjp6+hz1l4PjQy/UdraUn/ZUAFz1Csdby/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=kDJg9C6E; arc=none smtp.client-ip=74.125.82.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1792117156; c=relaxed/simple;
+	bh=17KKcw8hwoNEkFzjNMvkidkGWg1lqcGVBB0m+8zSDac=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FywVgjn+UV0p1iCQAjIC/4rI8rvBUj3s+Ckz3Edti7dmA+B8YKcOA5cwnv0gO18xJnqOX8/quhAJy0ot1HOTKICSYUiZqKbr65QuuhX+qcRONPH7RC86sMqoaN6KnoVrA7hDbs1ucoDqeCb8O7/X0GUG3E/bgo2eBsZegbi1Ls4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=K5SXbDaE; arc=none smtp.client-ip=95.215.58.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="kDJg9C6E"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-30b6dad2382so14198846eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:18:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792117131; x=1792721931; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jc4afiZdmgjSlBTxJSupYGZTonwC9tDWBHg+soEoOIU=;
-        b=kDJg9C6E6s54SvQqum55RjuOd050HlahDc0l1d44tbN6OD/+DRTPIBPzIu9fry47bB
-         YTFQWCHTh5WylcAc7j8Kh7spJT46A4LiXlv8ZdbJFZ4k4rYU8ejyW3Xyd34gnAPUlua9
-         ygiQYsA3SEWtixKThI9KzDbv6oTEMOLKLstjA+L8j5sNIo829EHJR5c0MGIOMvPAeypP
-         SiroDSdv9CTZUg/Z4n1TlLHXYqGGD/yjsRMh6SvUV9RyNuInhD5STCXW0prvwogJsb0i
-         fu5gaNeFp2Uo8/ceh/HTfY5oOjs+K/WWLTcPfYALB2NQm1WWV7J/vF7KsSjy5T4629Xl
-         GAzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792117131; x=1792721931;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jc4afiZdmgjSlBTxJSupYGZTonwC9tDWBHg+soEoOIU=;
-        b=ewY6taEwYGK4F0bm4q9bjCtOVZe45wrzHMe5CIn0Uvy4cO2MORh31eJEcRrsEex2mG
-         5JnRGqXB7lBkqWhjeyl92NRWPfCVjvAMh2UW3HUJ/Siz6JUpCzL1NwIPFTxTK8EeFs+N
-         dlnwddzNcldFK8Hihj0oRVb1V33VRckfgqySQUMMWyG/nGiQy30XIHIk4loZ87acsPNx
-         uDd0ckmSGXE3kOGK+QvwHpMadEziMNpF2p7zL+6YcmW/G+caMCNwK2kdDaBrbNHaLni9
-         2Ej/ErvzgRB8210hbMvsmtonJPUwB/m34k5+8jo4d5sprnzCSAOm6I79/qoCs4i8WNag
-         fScA==
-X-Forwarded-Encrypted: i=1; AKwUvBwF7oAKlapMbwAQloSC8QxnM5QLkMDaZKS2pm+pXFk8rznFn8PbQH+8wUsUtnppCwnz0eg+uowxnCscd7Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKfNPQvnw4sgvrdAotKT9FxX2aqgBC5x2/475/+TmbPY2SP70z
-	QsdREKSsLT6kqW/jrvvHmgUP5QOyOmMZn4d/qsIBC6WFl07hj7b92wHoNRurY5iWIcc=
-X-Gm-Gg: AYBFou2bI9lt85jLyo6g7tTR1jdjXfW4QU94KsCUjjpU4MvVLbApS2id+osjPwvPaa1
-	YPQIBa58GMfGfP8nY9o4SZfzIjyaQLhtFZDw8toJcpus4EPgDFkJvjw10hhJEvDYMfpqr1lAjE/
-	gdhbc597SOnlKrFtcTZmRqG7JHZaGpLd2/LnI7QOVUbYIjuTQ/j7RFQ44nJgZ++P0JAulPjxfb+
-	87qptDgKVAZehq6rOwxMBZPe1MVILTX02KNrA99io9rQsaPJ9oCypCooJc03/8rkdRhMMmsKky1
-	5mwr001lU8gSeoaJKA/RbPpI0kXPBOOhEVrlDz8P+ARU/gkKMqBZhkUffPIpqCL+XkHeOqE3svx
-	fiH4db2FP0ujB5iRrhVPyErTr/GsizlfQVo0xNU3XPAXtH++T3XhCMUTGmIqxoaY/ZSGc1m0PkD
-	Zwcd/u9a8cej9XE82qB6LnPyC1lL+khmcaj5+u+hfvmAyDNuXBCN/WgYAx/bn1sdRvhLPZOyIv6
-	9rjZdkx5IiVSV6/OsPRayzw4Co9oNw6KgwA80KZem6KNVyXhBW16d2fZh7vH16zO0TQ5kL+KK89
-	yqeh
-X-Received: by 2002:a05:7300:828a:b0:34c:d1f2:b552 with SMTP id 5a478bee46e88-3537dedaa87mr26642176eec.4.1792117130878;
-        Thu, 15 Oct 2026 19:18:50 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:d66:d0e8:dae3:3257])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608219f838sm1887564eec.19.2026.10.15.19.18.49
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 15 Oct 2026 19:18:50 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: andrii@kernel.org,
-	ast@kernel.org,
-	bpf@vger.kernel.org,
-	daniel@iogearbox.net,
-	eddyz87@gmail.com,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	jolsa@kernel.org,
-	linux-kernel@vger.kernel.org,
-	martin.lau@kernel.org,
-	martin.lau@linux.dev,
-	memxor@gmail.com,
-	song@kernel.org,
-	thevlad@meta.com,
-	yonghong.song@linux.dev
-Subject: [PATCH 6.6.y] bpf: Fix kmemleak warning for percpu hashmap
-Date: Thu, 15 Oct 2026 22:18:47 -0400
-Message-ID: <20261016021847.16847-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="K5SXbDaE"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=17KKcw8hwoNEkFzjNMvkidkGWg1lqcGVBB0m+8zSDac=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792117151; v=1; x=1792721951;
+ b=K5SXbDaET/LyArJ2C9dEuB81ecVrFVauvXZTm7dejxYoy9gLFAYVMj2i40zYmbFS/7jefZPo
+ vqqjsDtFZa0IlrTyQEPC8HJe8xC7NvfjmEZEWIBDOS7RiCy1HKPRQ1ACEta7GXD+1i1o3ekQvdF
+ V+p/6S7K7b4OZ9AeJ72CcRQ8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9117b98bd5139204;
+	Fri, 16 Oct 2026 02:19:10 +0000
+X-Mizu-Trace-ID: 9117b98bd5139204
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <37f1af42-9788-4552-86a4-516299241ee8@linux.dev>
+Date: Fri, 16 Oct 2026 10:19:01 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/swap: fix swap_cache_get_folio() returning a folio
+ that left the swap cache
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, Jiayuan Chen <jiayuan.chen@shopee.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Youngjun Park <youngjun.park@lge.com>, linux-kernel@vger.kernel.org
+References: <20261015060528.302634-1-jiayuan.chen@linux.dev>
+ <20261015190619.deccb92624e356bf81084a24@linux-foundation.org>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <20261015190619.deccb92624e356bf81084a24@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Yonghong Song <yonghong.song@linux.dev>
+Hi Andrew,
 
-[ Upstream commit 11ba7ce076e5903e7bdc1fd1498979c331b3c286 ]
+On 10/16/26 10:06 AM, Andrew Morton wrote:
+> On Thu, 15 Oct 2026 14:05:27 +0800 Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
+>
+>> From: Jiayuan Chen <jiayuan.chen@shopee.com>
+>>
+>> swap_cache_get_folio() reads the folio from the swap table and takes a
+>> reference with folio_try_get(), without any lock. If the folio is
+>> removed from the swap cache and freed in between, and its memory gets
+>> reused, folio_try_get() still succeeds and we return a page that has
+>> nothing to do with the swap entry:
+>>
+>>    CPU 0                                  CPU 1
+>>    do_swap_page()
+>>      swap_cache_get_folio()
+>>        swp_tb = swap_table_get()
+>>        folio = swp_tb_to_folio(swp_tb)
+>>                                           madvise(MADV_DONTNEED)
+>>                                             zap_nonpresent_ptes()
+>>                                               swap_put_entries_direct()
+>>                                                 swap_put_entries_cluster()
+>>                                                   __try_to_reclaim_swap()
+>>                                                     swap_cache_del_folio()
+>>                                                     folio_put()   <- freed
+>>                                           page reused, e.g. as an anon
+>>                                           folio of another task
+>>        folio_try_get(folio)               <- succeeds
+>>        return folio
+>>      swap_update_readahead()              <- may clear PG_readahead on it
+>>      folio_lock_or_retry()                <- locks it
+>>      folio_matches_swap_entry() fails, unlock and put
+>>
+>> filemap_get_entry() does the same lockless lookup for the page cache,
+>> and after folio_try_get() it rechecks the xarray, because the folio may
+>> have been freed and reused in between. swap_cache_get_folio() lost
+>> that recheck when the swap cache moved to the swap table.
+>>
+>> So CPU 0 writes to a folio it doesn't own: it may clear PG_readahead and
+>> takes the folio lock of someone else's page, before
+>> folio_matches_swap_entry() finds out the folio is not ours.
+>>
+>> Recheck the slot after folio_try_get() and retry if it no longer holds
+>> this folio.
+> LLM says to me:
+>
+> : The original folio could conceivably be freed, its physical page
+> : reused, and the same PFN inserted into the same swap-table slot before
+> : the second lookup.  That would pass the check.  However, the returned
+> : reference would then belong to the newly inserted folio, and the later
+> : swap-entry validation would still be required.  I don't see that as
+> : invalidating this fix.
 
-Vlad Poenaru reported the following kmemleak issue:
 
-  unreferenced object 0x606fd7c44ac8 (size 32):
-    backtrace (crc 0):
-      pcpu_alloc_noprof+0x730/0xeb0
-      bpf_map_alloc_percpu+0x69/0xc0
-      prealloc_init+0x9d/0x1b0
-      htab_map_alloc+0x363/0x510
-      map_create+0x215/0x3a0
-      __sys_bpf+0x16b/0x3e0
-      __x64_sys_bpf+0x18/0x20
-      do_syscall_64+0x7b/0x150
-      entry_SYSCALL_64_after_hwframe+0x4b/0x53
 
-Further investigation shows the reason is due to not 8-byte aligned
-store of percpu pointer in htab_elem_set_ptr():
-  *(void __percpu **)(l->key + key_size) = pptr;
+I had the same worry at first, data corruption or something worse, but
+after thinking it through I agree. Passing the check there is fine:
+the folio we return is the one currently in the slot, which is what
+the function promises, and callers still check folio_matches_swap_entry()
+under the folio lock before using it. That's why I didn't mention it in 
+the changelog.
 
-Note that the whole htab_elem alignment is 8 (for x86_64). If the key_size
-is 4, that means pptr is stored in a location which is 4 byte aligned but
-not 8 byte aligned. In mm/kmemleak.c, scan_block() scans the memory based
-on 8 byte stride, so it won't detect above pptr, hence reporting the memory
-leak.
 
-In htab_map_alloc(), we already have
+>> --- a/mm/swap_state.c
+>> +++ b/mm/swap_state.c
+>> @@ -92,17 +92,27 @@ void show_swap_cache_info(void)
+>>    */
+>>   struct folio *swap_cache_get_folio(swp_entry_t entry)
+>>   {
+>> +	struct swap_cluster_info *ci = __swap_entry_to_cluster(entry);
+>> +	unsigned int ci_off = swp_cluster_offset(entry);
+>>   	unsigned long swp_tb;
+>>   	struct folio *folio;
+>>   
+>>   	for (;;) {
+>> -		swp_tb = swap_table_get(__swap_entry_to_cluster(entry),
+>> -					swp_cluster_offset(entry));
+>> +		swp_tb = swap_table_get(ci, ci_off);
+>>   		if (!swp_tb_is_folio(swp_tb))
+>>   			return NULL;
+>>   		folio = swp_tb_to_folio(swp_tb);
+>> -		if (likely(folio_try_get(folio)))
+>> +		if (!folio_try_get(folio))
+>> +			continue;
+>> +		/*
+>> +		 * The folio may have been freed and its memory reused before
+>> +		 * we got the reference. Make sure it is still in the slot.
+>> +		 */
+>> +		swp_tb = swap_table_get(ci, ci_off);
+>> +		if (likely(swp_tb_is_folio(swp_tb) &&
+>> +			   swp_tb_to_folio(swp_tb) == folio))
+>>   			return folio;
+>> +		folio_put(folio);
+>>   	}
+>>   
+>>   	return NULL;
+> This return is now unreachable...
 
-        htab->elem_size = sizeof(struct htab_elem) +
-                          round_up(htab->map.key_size, 8);
-        if (percpu)
-                htab->elem_size += sizeof(void *);
-        else
-                htab->elem_size += round_up(htab->map.value_size, 8);
 
-So storing pptr with 8-byte alignment won't cause any problem and can fix
-kmemleak too.
+Right, and it never was reachable, the loop has no break. It should have 
+been dropped earlier...
 
-The issue can be reproduced with bpf selftest as well:
-  1. Enable CONFIG_DEBUG_KMEMLEAK config
-  2. Add a getchar() before skel destroy in test_hash_map() in prog_tests/for_each.c.
-     The purpose is to keep map available so kmemleak can be detected.
-  3. run './test_progs -t for_each/hash_map &' and a kmemleak should be reported.
-
-Reported-by: Vlad Poenaru <thevlad@meta.com>
-Signed-off-by: Yonghong Song <yonghong.song@linux.dev>
-Acked-by: Martin KaFai Lau <martin.lau@kernel.org>
-Link: https://lore.kernel.org/r/20250224175514.2207227-1-yonghong.song@linux.dev
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Assisted-by: LLM
-[ Backport to 6.6.y: Omit the htab_percpu_map_gen_lookup() hunk;
-  this target has no corresponding helper. ]
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi,
-
-Please consider this backport of the fix for CVE-2025-37807 to 6.6.y.
-
-The code changes are identical to upstream, except the generated-lookup
-hunk was omitted because 6.6.y has no htab_percpu_map_gen_lookup(); see
-the bracketed backport note above.
-
-The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
-
-Build-tested only as part of a cumulative 6.6.y series on x86_64
-(allmodconfig, CONFIG_WERROR=y); no runtime testing.
-
-Thanks,
-Artem Dinaburg
-
- kernel/bpf/hashtab.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
-index e14a0caa07bfadf9daf7720c065aca810165e310..fb7f64c494b0e3b181cea397b79327e1585a76ed 100644
---- a/kernel/bpf/hashtab.c
-+++ b/kernel/bpf/hashtab.c
-@@ -197,12 +197,12 @@ static bool htab_is_percpu(const struct bpf_htab *htab)
- static inline void htab_elem_set_ptr(struct htab_elem *l, u32 key_size,
- 				     void __percpu *pptr)
- {
--	*(void __percpu **)(l->key + key_size) = pptr;
-+	*(void __percpu **)(l->key + roundup(key_size, 8)) = pptr;
- }
- 
- static inline void __percpu *htab_elem_get_ptr(struct htab_elem *l, u32 key_size)
- {
--	return *(void __percpu **)(l->key + key_size);
-+	return *(void __percpu **)(l->key + roundup(key_size, 8));
- }
- 
- static void *fd_htab_map_get_ptr(const struct bpf_map *map, struct htab_elem *l)
