@@ -1,226 +1,174 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19ABA463B8F;
-	Fri, 16 Oct 2026 09:07:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FA8455198
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:09:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141682; cv=none; b=CqN3CRRzZiR3D1prd4egLc/UlY1DSDUjYPmP/OmsjtpP40hht8rNY8zDvTL3SNuKwP1eRADjA/08/B0xEQmNRJFw5TRDP/uV2C+DovteRG3cSaEmggNKlOzbvnGNgqJ4ijkYGW1v8PCnPRYJqfnRDhJBttte8vpYyxFRliv2c8c=
+	t=1792141756; cv=none; b=T9n4/qEtpg16vQ4IA4ae3o24FGIa0lqlQ0/GngBCDcsV+cgs/iyDHbqdypPWcijeMTX5HtNG5R0UcPZvSeW+wiCHfZe6VM5vRtNjjjTtLQggfM5hdwMuq0lzY+AGFtVoD9rEV1IB7ueVVg14aWXWYDTaAM6QxhbmizcVvRJfx+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141682; c=relaxed/simple;
-	bh=0H+gvnNjd7wlwfeeqkdpgShi15TQoY3FiD/J02xQ/fk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JuNx3MvV+k4VJhBKzQr3O6K56loV9qk47S1WpYqutAAVTHt8Do7LpiC836ODSXzZ2VxNv9ic+POPrO8rqnMpFnn8OdUiRX7AsNbX/4g/F39td1eETiMmNANbbH6VzIou90VAGb0bD7PLsdrjwdk+KZNFnBNNZpOvZ8fTuTPojmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=fpJ6wl3X; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=y6Ru1n7b; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792141756; c=relaxed/simple;
+	bh=lyvoeq0e8iebXlLsQyQOWuo6au41u9pWEqiAdJIh9Ec=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qNSLT4//Cz+1X9KBDwrrIKTfICprG230nahw9EftzjQnFJlFaFdDp1jUlSzzLSc43W0vZlcYm39bDBw2clTGe0NWsU07Y+PVwk3p/PSNwbPV0D+rsErTTFTTQEUaNaGxYUse3D7bf764tWVNNDoIRe6xFnRzETiOyyIeVPu2E+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ARk50zr6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LUyQfzVP; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="fpJ6wl3X";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="y6Ru1n7b"
-Date: Fri, 16 Oct 2026 11:07:52 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792141677;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rxCP9S1/pf1Cm42vOzUrsyqMN5G6h6G6M+H7C2dDlRk=;
-	b=fpJ6wl3XA8tKlt2IlfKHDUiYLll445Wo+RvN1hcvcd7v/174t5ZaH7cOQQCh6A9RzsEKXT
-	yXGXBtrfzYq7XBscFi0HigCtl99UOdAveYpFEKVMSAj8lDSgbBf8c6fwEPW+Hz/selQ3WI
-	50N5JpnnjbnpDecRykWKOQvyraFmV13p2SCM/jHEF+jofphYaPZ9yOB1hSjB5z0bBcuRfU
-	euffqXpwGbD3fz2kvwnNxrdNRXgESEo9GZO9+kRlzfBBFatNYHA6GRDsI1IvIbfsXwcCwD
-	JgctqY0wyxT4vnx+SAUddSzh3Xbc4jXKA+ox+jGIHwLuHRUj+/QXSWgDxQuYLQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792141677;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rxCP9S1/pf1Cm42vOzUrsyqMN5G6h6G6M+H7C2dDlRk=;
-	b=y6Ru1n7boXExe48y2684BS01GqAmPEeps+YDkZrr81BI2iwiBRcBeH/nhs5sJxButV0fDR
-	UccxuWBEndWeBNCA==
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC] gpio: sim: access sysfs attributes as const
-Message-ID: <20261016105712-707634de-c955-4c66-957a-2bdb84bca3e4@linutronix.de>
-References: <20261016-gpio-sim-const-sysfs-attr-v1-1-5d2f832890d6@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ARk50zr6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LUyQfzVP"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G8lHTY1797611
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:09:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	I2Y61SbarNC1NRnPllqbF3Qp+uuYMSjYKhtAVsLZu3E=; b=ARk50zr6m3Ulzobk
+	Fy8URqJ1oVGMLtdbHqnYnRv84JSNMxzau0MmfzbOAkygZW9vRUd+AscGgJBO8bQl
+	+2ci70X87BY2ea2bxh9Y8ThaXS06+7xA4x0zuTlJtJBLfA17NeILaC6JokLq3AYg
+	cSKedk95t2G92JDJsOMPIstIA8C3eSfhLbAEXgUDbsHrPdu/klGgnElkogCh6JD+
+	CSM8Dd+99XGmrxq5Uitk9tvNE9e4MNauCm6Fy3Uy3a8EtNAbga9TirOKGc3r0CnT
+	viQM9o/NbaO1NWYSP+kMXEsIU2fYfa8GiA459iIgtsqrAGONl3NfvBF32zrlXZwr
+	5bMp0g==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb8a89v6t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:09:14 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f1f1f2ecfso3829785a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:09:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792141754; x=1792746554; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I2Y61SbarNC1NRnPllqbF3Qp+uuYMSjYKhtAVsLZu3E=;
+        b=LUyQfzVPtGv3ppfb8aG8Z7hn+n4EnQ1w7ZTIH5uLTBlz5+HA72azVtSt3jH0RxAdui
+         LkmkE0ec333Xd2YbGF6JZSsJ21SpoIKQkI1Q3G+58h+6fyNTaHgy81F1D1g7O/2MhyGX
+         fWF0H146Pgc1y3HUCYHSHQOwCMofUBPJZ1KHx0wLRryclC6cGL9LvUI1kmeCD964VoXB
+         mcuY7X8KSTwJhSHUhMiV8Cw6D8JjgQXAWF5G9dA4L9QX/PUQjk3rHPpXj5/IxeG+hJEN
+         wafFMgAL66qocLx/0cue9VQdGDfCZvMeayW0UnmZy7znTgklF5rw+jRQKwFzuAECY4Jd
+         qhag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792141754; x=1792746554;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I2Y61SbarNC1NRnPllqbF3Qp+uuYMSjYKhtAVsLZu3E=;
+        b=mzdKA7eo+si10As7I//JjuZXTpTbSOHM+wKWS75ykuB+pw7Zk2X/vDLPfoGtDRnWOj
+         y/Prhq33spbT6WZYrZS/z8opEXExexpSxRQPNZmJD1CE7tQRK7xJaHmMKAtBZ7YNQgUh
+         qiUWsbQA0/ZudO2z6IIIbvcUnw2Fe7F/1GGoN46zWQjf/enU91QTyiH07DxoyQH/OEFO
+         E+IYLBWrNTD6wEpUp3071Cxk5NQC65HmOqQQUv+mFvzjQ3bTEV9CuOSQB4nbmO2t5VCl
+         vast38ZxMGHsVSYo4IUvWFDIMo/KMoBGFBf5vp7AtPKtv6yd3bqsKkWdShO0yFMX8XHn
+         t6iQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx518159CGtsJCUCV5+RgSCstCmt5JsVS2dpRMoxLCjuioNUyedaA/DAc1ULCTbH0zVNbvNcMool8aylS4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3woV+q7eXpUlQtK9D98xByvULZLB1RYtMilBfVZ/TN5s336zF
+	9KWo2EVnmUtWWP+n0O41gUAKHcfb9Dlmdoe1YUnrgB36bfpL1/1b0IsTj+Z9+XdHxVNPZxsdjHL
+	n57HR50ViHObs9nJAz5GwFvKohvjkMWPGghlqpUPELqUYdyecLi9UmBA/+P8iPqsAua0=
+X-Gm-Gg: AYBFou3kwYDcEV1g/yC8ikj6+LxbWeQ1sC9mLnidEF/LumAnMetg+I+YcjDM6fxYVYa
+	S0MO4OlSQFPy+HuBMHsnjiw97YDzHWspgUVnZcoZBFkQIzfq5Wjl7dxyRqF7VNOSWS9t3pbn7/T
+	XFbSu1/d9LUihcFiZA/voKkANZZ9LPI6kU7kCwG+uz3GCZP0D/M5osk9qa0C+WfsAv+rVH9x7fd
+	pypEM9ifqc/2OKSPXIMCXJAjV0kN8VmMrlLUZGHjfYeXdGJXg46Nr9+qH5ReKq2jI57wrD0mRqK
+	sz30w3zq01klBHMw0cWfCheGjAqBwnFvz8QH+ps0XtZyUPdWr8LjmJePCyGuKszgKo/A/Xe+Is4
+	Q7gbhLGF/nwvwlVx8i3RxIQ==
+X-Received: by 2002:a05:620a:6506:b0:93e:508b:7800 with SMTP id af79cd13be357-93ebcd29970mr3675061285a.0.1792141753512;
+        Fri, 16 Oct 2026 02:09:13 -0700 (PDT)
+X-Received: by 2002:a05:620a:6506:b0:93e:508b:7800 with SMTP id af79cd13be357-93ebcd29970mr3675052785a.0.1792141752034;
+        Fri, 16 Oct 2026 02:09:12 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4091eb256csm53638266b.78.2026.10.16.02.09.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 02:09:10 -0700 (PDT)
+Message-ID: <4faab1aa-18d1-44ec-8a3f-79d732f7d0b6@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 11:09:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016-gpio-sim-const-sysfs-attr-v1-1-5d2f832890d6@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/5] arm64: dts: qcom: kaanapali-mtp: Enable
+ DisplayPort over USB
+To: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Kuogee Hsieh <quic_khsieh@quicinc.com>,
+        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+        Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261015-kaanapali_dp-v2-0-c15cb83d9140@oss.qualcomm.com>
+ <20261015-kaanapali_dp-v2-5-c15cb83d9140@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261015-kaanapali_dp-v2-5-c15cb83d9140@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfX4AiFbKAxHnIF
+ WeIskMQII/QEmv2Bd+vjR+4NJcDuIJQrTBLVSF6FdJerkw0iGQSS9yUWcFa75C8v+Q6D04VlnpE
+ jAvcR5AbtQdZwMzDWfyFsSdiu6PG/0E=
+X-Proofpoint-ORIG-GUID: bE1z6EuD5GtHjbBTG7VSvVH8yaHLfEUB
+X-Authority-Analysis: v=2.4 cv=GJadgeNK c=1 sm=1 tr=0 ts=6ad1e9ba cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=8oCPm4Ec_qhLfyN9vMMA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfX+Jnc8qgQtq5D
+ rG/WbCNUxvRDjq1AYYvI1MrKlBDf9M6pTP324/iPSaVn/Lh1whrogC8D3Q6+5sqGH00v4idFHig
+ 6/hCJEcqsSOkwxprl8J+2vvWlfZ2jy9O4V47lFkQtoi6uUMARXHk0+UUqrPc7cdZzOvbtX5kPB4
+ ivQCVVedGxmkSKoIltGnH+emLXWk50MCR9Hts8kRHAXjghoJ55P95MvIMryf2uu3kfpcmMI24VV
+ NwAV0L8ap/8r/xd+r01e4GiGPlWJjwRN8BmVkfNqb38Jmq6tE6s6wVAerFaEJZHR9tFA6QZLNFP
+ JaWd0Pir2aOzzuoi0NncMJVLxqRTG46ypDeZA9eB9G6K8Z6x7ecWsclnsDcHxBQDcODyRk0X4xn
+ GxG5EKnI0CSpdxmhugDr+XrlkbyHN1odXBSxCx43uSWkNps1jUu/PgAQK3WoB2jGn0BHXg3UA/P
+ 2idPzHXv+gzOwtTPUPA==
+X-Proofpoint-GUID: bE1z6EuD5GtHjbBTG7VSvVH8yaHLfEUB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
+ bulkscore=0 priorityscore=1501 phishscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160036
 
-Hi Bartosz!
-
-On Fri, Oct 16, 2026 at 10:13:50AM +0200, Bartosz Golaszewski wrote:
-> Use the const variant of constainer_of() to access struct
-> gpio_sim_attribute which wraps the dynamically allocated sysfs
-> attributes for value and pull of simulated GPIO lines in line with the
-> currently preferred approach.
+On 10/15/26 11:54 AM, Balaji Kalkonda wrote:
+> Hook up DisplayPort parts over Type-C USB on MTP.
 > 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
 > ---
-> Following your talk, I'm sending a patch for the GPIO simulator module
-> that attempts to constify the sysfs attributes. Please tell me if this
-> is all I need here as the attributes are part of another struct that's
-> allocated dynamically. I'm not sure if there's anything more to do here.
-> ---
->  drivers/gpio/gpio-sim.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
+>  arch/arm64/boot/dts/qcom/kaanapali-mtp.dts | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 > 
-> diff --git a/drivers/gpio/gpio-sim.c b/drivers/gpio/gpio-sim.c
-> index 0c73bec042670fc5706b4a93700e652cbaf3605e..e0ae586cd08d8adbb3c16918607074fce116654e 100644
-> --- a/drivers/gpio/gpio-sim.c
-> +++ b/drivers/gpio/gpio-sim.c
-> @@ -59,10 +59,10 @@ struct gpio_sim_attribute {
->  	unsigned int offset;
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts b/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
+> index 22eeacd7aecd..3bf7baa2bc82 100644
+> --- a/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
+> @@ -1017,6 +1017,14 @@ &mdss_dsi0_phy {
+>  	status = "okay";
 >  };
 >  
-> -static struct gpio_sim_attribute *
-> +static const struct gpio_sim_attribute *
->  to_gpio_sim_attr(struct device_attribute *dev_attr)
->  {
-> -	return container_of(dev_attr, struct gpio_sim_attribute, dev_attr);
-> +	return container_of_const(dev_attr, struct gpio_sim_attribute, dev_attr);
->  }
->  
->  static int gpio_sim_apply_pull(struct gpio_sim_chip *chip,
-> @@ -272,7 +272,7 @@ static void gpio_sim_dbg_show(struct seq_file *seq, struct gpio_chip *gc)
->  static ssize_t gpio_sim_sysfs_val_show(struct device *dev,
->  				       struct device_attribute *attr, char *buf)
->  {
-> -	struct gpio_sim_attribute *line_attr = to_gpio_sim_attr(attr);
-> +	const struct gpio_sim_attribute *line_attr = to_gpio_sim_attr(attr);
->  	struct gpio_sim_chip *chip = dev_get_drvdata(dev);
->  	int val;
->  
-> @@ -302,7 +302,7 @@ static ssize_t gpio_sim_sysfs_pull_show(struct device *dev,
->  					struct device_attribute *attr,
->  					char *buf)
->  {
-> -	struct gpio_sim_attribute *line_attr = to_gpio_sim_attr(attr);
-> +	const struct gpio_sim_attribute *line_attr = to_gpio_sim_attr(attr);
->  	struct gpio_sim_chip *chip = dev_get_drvdata(dev);
->  	int pull;
->  
-> @@ -316,7 +316,7 @@ static ssize_t gpio_sim_sysfs_pull_store(struct device *dev,
->  					 struct device_attribute *attr,
->  					 const char *buf, size_t len)
->  {
-> -	struct gpio_sim_attribute *line_attr = to_gpio_sim_attr(attr);
-> +	const struct gpio_sim_attribute *line_attr = to_gpio_sim_attr(attr);
->  	struct gpio_sim_chip *chip = dev_get_drvdata(dev);
->  	int ret, pull;
+> +&mdss_dp0 {
 
-You should also use the _const APIs for the dynamically allocated attributes.
-While does not improve security here, it makes it clearer that the callbacks
-are not supposed to change these structures and will allow us to remove the
-non-const variants later. See below:
+Please keep the nodes ordered
 
-diff --git a/drivers/gpio/gpio-sim.c b/drivers/gpio/gpio-sim.c
-index e0ae586cd08d..34b45d0d3575 100644
---- a/drivers/gpio/gpio-sim.c
-+++ b/drivers/gpio/gpio-sim.c
-@@ -60,7 +60,7 @@ struct gpio_sim_attribute {
- };
- 
- static const struct gpio_sim_attribute *
--to_gpio_sim_attr(struct device_attribute *dev_attr)
-+to_gpio_sim_attr(const struct device_attribute *dev_attr)
- {
- 	return container_of_const(dev_attr, struct gpio_sim_attribute, dev_attr);
- }
-@@ -270,7 +270,7 @@ static void gpio_sim_dbg_show(struct seq_file *seq, struct gpio_chip *gc)
- }
- 
- static ssize_t gpio_sim_sysfs_val_show(struct device *dev,
--				       struct device_attribute *attr, char *buf)
-+				       const struct device_attribute *attr, char *buf)
- {
- 	const struct gpio_sim_attribute *line_attr = to_gpio_sim_attr(attr);
- 	struct gpio_sim_chip *chip = dev_get_drvdata(dev);
-@@ -283,7 +283,7 @@ static ssize_t gpio_sim_sysfs_val_show(struct device *dev,
- }
- 
- static ssize_t gpio_sim_sysfs_val_store(struct device *dev,
--					struct device_attribute *attr,
-+					const struct device_attribute *attr,
- 					const char *buf, size_t count)
- {
- 	/*
-@@ -299,7 +299,7 @@ static const char *const gpio_sim_sysfs_pull_strings[] = {
- };
- 
- static ssize_t gpio_sim_sysfs_pull_show(struct device *dev,
--					struct device_attribute *attr,
-+					const struct device_attribute *attr,
- 					char *buf)
- {
- 	const struct gpio_sim_attribute *line_attr = to_gpio_sim_attr(attr);
-@@ -313,7 +313,7 @@ static ssize_t gpio_sim_sysfs_pull_show(struct device *dev,
- }
- 
- static ssize_t gpio_sim_sysfs_pull_store(struct device *dev,
--					 struct device_attribute *attr,
-+					 const struct device_attribute *attr,
- 					 const char *buf, size_t len)
- {
- 	const struct gpio_sim_attribute *line_attr = to_gpio_sim_attr(attr);
-@@ -361,7 +361,7 @@ static int gpio_sim_setup_sysfs(struct gpio_sim_chip *chip)
- 	unsigned int num_lines = chip->gc.ngpio;
- 	struct device *dev = chip->gc.parent;
- 	struct attribute_group *attr_group;
--	struct attribute **attrs;
-+	const struct attribute **attrs;
- 	int i, ret;
- 
- 	chip->attr_groups = devm_kcalloc(dev, sizeof(*chip->attr_groups),
-@@ -396,15 +396,15 @@ static int gpio_sim_setup_sysfs(struct gpio_sim_chip *chip)
- 
- 		val_dev_attr->attr.mode = pull_dev_attr->attr.mode = 0644;
- 
--		val_dev_attr->show = gpio_sim_sysfs_val_show;
--		val_dev_attr->store = gpio_sim_sysfs_val_store;
--		pull_dev_attr->show = gpio_sim_sysfs_pull_show;
--		pull_dev_attr->store = gpio_sim_sysfs_pull_store;
-+		val_dev_attr->show_const = gpio_sim_sysfs_val_show;
-+		val_dev_attr->store_const = gpio_sim_sysfs_val_store;
-+		pull_dev_attr->show_const = gpio_sim_sysfs_pull_show;
-+		pull_dev_attr->store_const = gpio_sim_sysfs_pull_store;
- 
- 		attrs[0] = &val_dev_attr->attr;
- 		attrs[1] = &pull_dev_attr->attr;
- 
--		attr_group->attrs = attrs;
-+		attr_group->attrs_const = attrs;
- 		chip->attr_groups[i] = attr_group;
- 	}
-
-
-As you are touching this file anyways, you could also prepare it for the
-constification of configfs attributes. See the example below, the same for the
-other instances in the file. The necessary infrastructure will be part of the
-next merge window.
-
-@@ -1505,7 +1505,7 @@ static const struct configfs_group_operations gpio_sim_bank_config_group_ops = {
- static const struct config_item_type gpio_sim_bank_config_group_type = {
-        .ct_item_ops    = &gpio_sim_bank_config_item_ops,
-        .ct_group_ops   = &gpio_sim_bank_config_group_ops,
--       .ct_attrs       = gpio_sim_bank_config_attrs,
-+       .ct_attrs_const = gpio_sim_bank_config_attrs,
-        .ct_owner       = THIS_MODULE,
- };
- 
-@@ -1154,7 +1154,7 @@ gpio_sim_bank_config_num_lines_store(struct config_item *item,
- 
- CONFIGFS_ATTR(gpio_sim_bank_config_, num_lines);
- 
--static struct configfs_attribute *gpio_sim_bank_config_attrs[] = {
-+static const struct configfs_attribute *const gpio_sim_bank_config_attrs[] = {
-        &gpio_sim_bank_config_attr_chip_name,
-        &gpio_sim_bank_config_attr_label,
-        &gpio_sim_bank_config_attr_num_lines,
+Konrad
