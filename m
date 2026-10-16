@@ -1,81 +1,32 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4561EB1AA
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:35:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DBD4730567F;
+	Fri, 16 Oct 2026 22:36:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792190152; cv=none; b=pmdEJ9vlsSBfiXOC5UES4aOKAFqFR3dC1Q4772lSxjm++A6WxmGvPU/BWEimMP9lZ8vx0TvxH2Yxe1DLy7rNQg7ehKJpOExxwJX0BDnVvxvPR5z4T9Wucw5BYYCVqCyyAegsvug0rUPmBbpW0yBi4CjG0HhylDSRfQDZrBjx9w4=
+	t=1792190191; cv=none; b=F6SYl3wuPD/hjL6aY7PGh/QQ1oCvgnoNqSfqbjY7qERldadR6OqE3Li+U2t2QXgm74r6mTxDX2ghGI9BkHKBMcyyiF+JKzHQyvyfRYymKtbOyhFge4xJ7NkBK96OB4wpt+qGlkYQ7yyjuJVRZpeiMf/Dz11Hvjlc3Rl09UBoi80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792190152; c=relaxed/simple;
-	bh=VmV7igZvuYDOPSitcydXZsjMaZjspE3F+MIYJXIO3ho=;
+	s=arc-20240116; t=1792190191; c=relaxed/simple;
+	bh=t0q+hSZVNMaGWOcr1Z56TOpJs26AA6GFdVpqKNko1Fs=;
 	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=N+5rRbkw60eIeKBywAJA96I2Bu/mPpXYoyno7N4abt0Ik/rXSIedYgGmgwMjbk26zBdKUJcGpE4BaSHREXGM83lGgMYR+ux+tw1jKBBSxKwrJuhvq1JlSZCO38c1/r+BY86D/sTmAn2uWT6x89mKavzxski8B1DwciyJCnBm8WI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BvcRh/LJ; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BvcRh/LJ"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d8fd7a3f38so8395ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:35:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792190151; x=1792794951; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w/LiGROU1CbrwlWaE/oFd62FdockjDAPnXKwkB36OcQ=;
-        b=BvcRh/LJw3DaNa9ydeJpQ+XQmeIqmnYauAfR6Gv9c6in/TXJJ8lcxOMvV/x3Q80pS4
-         ecm8z4ZjRlV9IsMJTW7C4+yo+/Nhd+L7TtjIU3IJ6cBb8UO1PxbbcgnfWEdWvqv57plc
-         RnIqlSVanSOYhkG9GCkcu6MiCoM/Le14cBDFzJAygFeexlPVa8QFZwQYDqBpibP63ibo
-         z44J1E+y6pDeEkv0peDL6/Lc1A3UuAYqSzMCPejgZPIpeHryAq/hrRtsrs1yBaQgn1Y3
-         7afj3qhh/Jv0bhS+yyzeS9UBQnGohh9RuTlgI1bbP4/LBfA4fR80DsXMD2nFEve58gln
-         WtBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792190151; x=1792794951;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w/LiGROU1CbrwlWaE/oFd62FdockjDAPnXKwkB36OcQ=;
-        b=byrtPKN/FWJxzNHLnGwcz8390Ym8rwqvsht8CDvoFYXEzOag9+CHZobwCN8kKqZ5P5
-         AdOJH6cFIcorbVGmnWAEDtCsEBWSXfEqOFEKLE87hCC+niF4LC8C68Nw8mdMv8pr6VyW
-         ZFPBigiehjMq7uMkhggFNV56hVOHZJyz8i3ehgCXGNWsui/WEje7egZb1xzX8VDJd6xV
-         PqNmkjp/+wM2pTwpLJrslZAlXRVjvWLVWKw8As/16Pl/C0JHuEPI9CbAGNr9CC39K7QK
-         yoK65Ltxutd/Q+OWea1OU2bSaKxWiZzmZ/KPHy+C1NkaQvu8xlvsAkjvZqHhp1mJ+6kT
-         TzVA==
-X-Forwarded-Encrypted: i=1; AKwUvBxByi6y311XUcp5lFeOslsl/JWQcoXrhnRwYO/XnWg1N1NSxdDeygpSFdDA2I1PkiM5xKgjdO+A/302NWc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK34J/NEnU4BaU8QhWXdzEHAVqF1A00KGeu6xsfllxLFderk9ae
-	LPfzwYO6s4iN+kfM3Ddc1g4H8mqxX5Y6IZE1CSQYUkvctt1Kn0mZY0ubXtL7o8qfPOWZIuFiW8k
-	nCZpK2Xcp
-X-Gm-Gg: AYBFou3vSwUcYSHcXoZaROFThC92NWOnkOcCyG0Vd5n7ICFqEsWBBYq5UxANG1voN2t
-	vXfxrMaAGOczCfTgFiazZo60EqDSmNC7Iz5BJV5syl4BXyh5gGJSoJU3q+4Qjas9hECueMzcGBW
-	xryoZYkP7nlbowluH96K2DmCdRi1uetNOFbe7aEFExlIoEsG39zHC7Qb41ZzzBwi23ptNS+UKTA
-	azluNhxJHK4gZMnUg0k1pq2FSkGuYHtRNZFXH/h6gjbwe/GpDeKRymlpkgV5rUFyTJg+ohXRB25
-	LgsDCI5UpXXKeaWG3bp58qvbo44FY9AQeX1D7w036KfqYN9J4vgCgZ9ILPpaAzfJq1kQoaPBFdf
-	+FY0HOadLcwt82VFKPXKNmbq7VncqNxWFbISpKbrjzBL/PSpu3f1ueK8wRevTp0gfgEOyKICNd6
-	IDWEyBF24V77DGtPmBK/hK5pbGYwm1sBpqA+jG3ml5431jDS0rBoizTWUFeBCSCE3qfleBqgd+e
-	tIqcwCs2rI/mhauxSChcc3DxIofD/7VZ9f62b7eS0sxEevO1STICsVeLE63GlBzO8mS97pLIoSV
-	9tfUcbcdkuAaZjoJ4eev/RUHe/zD1QSXOg8M6CujoT4iwzWYjM6/lOgMNHmHuVIPWyXC54okpE/
-	WD4vDtAE=
-X-Received: by 2002:a17:903:2447:b0:2e9:8c2b:979f with SMTP id d9443c01a7336-2e9b3252d32mr704095ad.8.1792190150274;
-        Fri, 16 Oct 2026 15:35:50 -0700 (PDT)
-Received: from [2a00:79e0:2eb4:9:17ee:cb47:3ad4:ee3c] ([2a00:79e0:2eb4:9:17ee:cb47:3ad4:ee3c])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc98139ccsm3148060a91.0.2026.10.16.15.35.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 15:35:49 -0700 (PDT)
-Date: Fri, 16 Oct 2026 15:35:48 -0700 (PDT)
-From: David Rientjes <rientjes@google.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
-    Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Roman Gushchin <roman.gushchin@linux.dev>, 
-    Shengming Hu <hu.shengming@zte.com.cn>, linux-mm@kvack.org, 
+	 MIME-Version:Content-Type; b=D4A8pAAW0UFO89qaB0v9sK7CVpqzCSF/G3x60VqkajVLBqgraMTo42rmXoMYjMoTeqiDRqLZyA88AjTN90XXszUKUuDOT+sZn6trth4x8gR21CWTNAh9hvph+LrNFXPZ3BbYdwI1y9Y5/7U4rfpypwKig7MWNO1sIj8go1VDppI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 16B4392009D; Sat, 17 Oct 2026 00:36:27 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 10E5C92009C;
+	Fri, 16 Oct 2026 23:36:27 +0100 (BST)
+Date: Fri, 16 Oct 2026 23:36:26 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Matt Turner <mattst88@gmail.com>
+cc: linux-alpha@vger.kernel.org, Magnus Lindholm <linmag7@gmail.com>, 
     linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/slub: initialize the free pointer of the bootstrap
- kmem_cache_node
-In-Reply-To: <20261010203906.93156-1-kmehltretter@gmail.com>
-Message-ID: <3284bb03-6c23-611c-872c-19954a7f3381@google.com>
-References: <20261010203906.93156-1-kmehltretter@gmail.com>
+Subject: Re: [PATCH 1/4] alpha: replace dead links in Kconfig help text
+In-Reply-To: <CAEdQ38FOXiV+Sz8fdPswRN=m2dKkYzgF2-9OWx3WskdsmWUGtQ@mail.gmail.com>
+Message-ID: <alpine.DEB.2.21.2610162254380.22065@angie.orcam.me.uk>
+References: <20261001165018.415526-1-mattst88@gmail.com> <alpine.DEB.2.21.2610162207360.22065@angie.orcam.me.uk> <CAEdQ38FOXiV+Sz8fdPswRN=m2dKkYzgF2-9OWx3WskdsmWUGtQ@mail.gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,26 +35,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Sat, 10 Oct 2026, Karl Mehltretter wrote:
+On Fri, 16 Oct 2026, Matt Turner wrote:
 
-> With slub_debug=FZPU, validating kmem_cache_node reports
+> >  Of course nested links may or may not work, but at least references to
+> > some information are retained.  Or has it all been already extracted and
+> > written down in the wiki?
 > 
->   BUG kmem_cache_node (Not tainted): Freepointer corrupt
->   Object 0xffff888000140040 @offset=64 fp=0x5a5a5a5a5a5a5a5a
-> 
-> and taints the kernel. Poisoning places the bootstrap object's free
-> pointer outside the object, where check_object() checks it even while
-> allocated.
-> 
-> early_kmem_cache_node_alloc() previously took this object from a
-> freelist with an initialized pointer. It now takes it from the slab
-> iterator and builds the freelist only for the remaining objects,
-> leaving its pointer filled with POISON_INUSE.
-> 
-> Initialize the bootstrap object's free pointer to NULL.
-> 
-> Fixes: dc795d4c0282 ("mm/slub: defer freelist construction until after bulk allocation from a new slab")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Did you compare any of the wiki pages and the old links?
 
-Tested-by: David Rientjes <rientjes@google.com>
+ I read through the old pages and found them reasonable.  No, I didn't 
+reach for the wiki, perhaps I should have.
+
+> I looked at all of these links via archive.org before sending the
+> patches and didn't see any useful information. The LX164 link just
+> contained the board specs and a link to the Technical Reference
+> Manual. The Rawhide link is an install guide for Red Hat 6.0. Similar
+> situation with the Ruffian page.
+> 
+> If you see any information that's missing from the wiki that I spent a
+> huge amount of time creating, point it out and I'll add it. At this
+> point, I see no reason to keep links to 1999-era articles.
+
+ Fair enough, I take your word, this was just a question.  I guess it 
+wouldn't hurt having your effort mentioned in the commit description; 
+indeed I think it would help saying that the wiki has made all the old 
+references obsolete.
+
+ And I get nervous whenever pointers to old information get removed, as it 
+makes it gradually more and more difficult to chase.  As recently as the 
+day before yesterday I have pointed someone to an archive.org copy of a 
+specification they were after and could not find for an old piece of MIPS 
+hardware, that no contemporary search engine would list and I could only 
+locate because 20+ years ago I recorded the full URL as I downloaded it.  
+
+  Maciej
