@@ -1,120 +1,196 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C026D64A8C;
-	Fri, 16 Oct 2026 01:02:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from sonic311-25.consmr.mail.ne1.yahoo.com (sonic311-25.consmr.mail.ne1.yahoo.com [66.163.188.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADAE2F0680
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:02:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.188.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792112553; cv=none; b=Q6caN+Mk4Qlqkpnv+EoTqe/KTRLxkt7wZo8UApBzVFVGbIhmcX76dCBSFP5/1lHoxfvK67yGepGAiar5L6VfHwHRcijq7iQogc5RMbYiEgqJ13957DMY87me96oqx6ImatFAbj4CzNX8oyojBYROAnIDC8KUeeIFDA09JsT24yQ=
+	t=1792112575; cv=none; b=ZESZ2SFJrX8IOqAqJeCax2Z7DH7TP/rOugA19ppNi0XlN7am6Bd/KFX/Auoeiuoyr1cjX0qeXk9NgRsW4Jez0OaYmrmJ78sGCQOPTKVXdcmO+m2hlaYoZHWCi5YWO9JZg/kDQmTwVXhE3IWqxNYHCsiAVdUdCF8y7zSG34uzBeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792112553; c=relaxed/simple;
-	bh=UJsDNsYASr7FwO+ngumIVuPF4bunFrTOPFvlyh20ewM=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=Eo9B4aJWDgDtqZickjO5Ge/e5dfvRf8WvVmtjEVd7vNt9ijDpNMNUFNxOAJ0evfwkYmRRb888DI7hzM7n5mciUSZ7TSA6pNtOu2pqXJA+nvPxXgPr8y3swXpwigbv6hOTccv8oeluX5FN4pgDqpExP6o4UmN7b56VarPsXNZIsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8DxjdKid9Fqi1QWAA--.64726S3;
-	Fri, 16 Oct 2026 09:02:26 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJDxBc2dd9FqEOssAA--.1015S2;
-	Fri, 16 Oct 2026 09:02:21 +0800 (CST)
-Subject: Re: [PATCH v4 3/3] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
-To: Tao Cui <cui.tao@linux.dev>, chenhuacai@kernel.org,
- zhaotianrui@loongson.cn
-Cc: loongarch@lists.linux.dev, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@xen0n.name,
- nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
-References: <20261015234638.1077815-1-cui.tao@linux.dev>
- <20261015234638.1077815-4-cui.tao@linux.dev>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <57a57af2-ff5b-fe6d-1ecb-3f1312358260@loongson.cn>
-Date: Fri, 16 Oct 2026 09:03:42 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1792112575; c=relaxed/simple;
+	bh=HovB5dFCWWz+oudbpLrRuV3ugyOho4lYqHwfbtTl0KQ=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=VO3WB2HhSg3BVJ7xVBeerDhR84Yu7manUaHGAfox/xUfzzxBWUCzjYDxoiFINqIpe4Zj3KSljfgpZ7nUqpYIt1ZaV21LyagQpIU7bLEJTk2kUmeQunGWYJGYEbzcBOJIxTlqbstseSPQpeh68tAu7+UFVY5VnKob69CtoWo5bLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=KNV+Biew; arc=none smtp.client-ip=66.163.188.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="KNV+Biew"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792112567; bh=cW6ATuZ0bfQlDgpqWY6vmLOsqJhUXfoecpKwzz+QlHA=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=KNV+BiewCFI+NwixeNb6NC3K9RtirLY6lTNTZi9HdQDJm9Xj47kbNyd09rZITuWSlay6NVUTr0SsTx/IZxCYURI+sygoHyd8aWWL1314+1ejAuXPipBkLTPvRvSvf00lmER6ZnUTIDRVcVhti/SNyRQf9gc8rh5Bdnz56hEov9ST/bKO/rJnnQGM+oxmbUaggaU5YldRlPce2bGNpVM2RLDbY77EIhy9epjZkUZtL9i9DHBg/nDcYoJI/DCr3VN129W/Vu9hrK94JFazI2mbH/Euh7UWDpki6UL/An3AvR7IXG92vbPcCv2H1iiAmImI4o4pQKQWCEOQDTThILmZAw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792112567; bh=iT+wyI6W2oIMR5iAnNXt6BZlAbmPNZ7lUjsregyaRt3=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=oV74GHkHrzLkOdKVS/bAC6VgbRaI7U1wXnk/7hdQIdrPM63wge91WN+nTRN9DiGp8TumWVqmvjATOf7Vbg6Vuu1mIZqibGz+irPYcTvGa+6CLlIUUkBzLd85YfeOBQd6etThUjZHMJvJf9Wayhe2+3+twJUZ/DlMSMgWOpbX7xD82DVgvDpwwuEmvVKdXUtdOZmPK5BFmW06DG8oRsGz/bI0PKGtg+IG8E0AlrvNA7I/UXxfiDxZ3rQ6VoSiN+Yu/xQb07BDWn9Woiyozm5NY/Xl3187qJhccc+GEtLPlqmqaL8yX5k2MiDyCRh+j1r2kTaHphaF+qjthLC/XYEAaw==
+X-YMail-OSG: TyBnN60VM1nOxg.iM5grDnDOnIrcNL2QNFTxMzubVErG1Q_V9XIdw6OIda5Qcc9
+ UeU3D2VOP0b9XiIefkcRCYegg2o1R4dPPaOrPFBgpUoJsevp.FVBN8QvG6bVowTSwLCFUJNOwHKN
+ IkSmtJMs5NJ.w6fEgPDQgcjI2QgTGe8HagnGqocKbMDKMiVHjwQhxeGPcVFFRgMO2FXvAaGfoDOL
+ INTg5xTxHhqihjltO33pOzR08amLUn2HBXZ.ZfbgwhmugdJWc4eYzFgPqPJW2pIxUzJsryZn6lQA
+ tr7p3lU5dPXbTr2406qhNfDypB5awC_W76L4B5EES5CWTbjG8FVJ1uvUOJnVNZIYZP1uPvntdlQu
+ S9wBBdCQqcGWXr1m5o57tQh5SEj83RiWSkBwNMkxqFxdNw4fEbHv0AImaYIhkCUTaGZYRrhcEAtn
+ FVWsUUcoGrRsCBO.k5.VBYFsML.RQ41.xtrqdo8IX1S6E1zOynE5zyOwDqxXjzqPVHRqqnr4VUms
+ aCIj6S.wwtZobXJMVJ6kPU26mV2INm6BlQcS.pJniMW57ce6ACA6Hdx26lL6jtXFwB6O8EyW4lI7
+ SDYMt2Idirls2h6LHjRnoNlIDThSyivqU901MrtfylW8L8CIUVHdnaEO6xS4P8Lw9eoaJkkVG4hI
+ bBG_3FuqKr_iqv1Hm6agP5c0Xe70eD1qtsJIlgzDgpzXBWyfQh52TpMMNRGxNNFCtzfrL3F41TSd
+ OM8ge7u.AONXrMorte8U9MpYq3s2FCq07yCZLdwqF3TzSiFLh8PBKUq14cziR_shCkIPqY80nos_
+ xrH4qEEPLnA74FJRfFAjhAgDXdMe14jUVqwGqELbbSYCm6267IzhyYV7MVa7CGStHd7zOEDDa3OZ
+ Fm8XIpw4DqicF3w7LXSncgJ3z1XDRkyl3MRFTEOa7rkaHKe5zvSvav2io.CQ6IuXqQ9O2SrNGmn5
+ M2LVbiIFpHStsDcBR2zp0ccroRnQZItfgHkvS05dkS3qWZP38HCzL4Pjwexx8huayoRs_LTABJTO
+ RQSLU8u2N5hV0EZZuD5saPkfz5q3g9HWBnJPpPPM4y6BMw2Yp.W.xQfONuADMK.pk9XZKpBqLKND
+ fbYoBni3_D45KmXC3MT2l2PGdKPqVXWjSR7UYJvMFwVQScr2JMlN1p0Y6mK2K90S0MS7n0iLpaf0
+ oR4OdlloEq4hE5gt2Vw6FsY.ii5O_6tskr9D6vb8cYtyVWplGsWUVsVkw4ytLPnD8b.QPLsHuovb
+ wZP3wu2hrjkBQybc4RYOAyn9PSdu527eG.V5yL0xD7Xefq.UGIbsMHtZvQJeGoTvXop3vg5mcRxR
+ AMUnkRN7heTcQZpubFGmBeTabFmGKx23ZArUbMw9gPdChQsNjKWSI13vjRHFKzvV2bfcfJ7X4Xop
+ LXG6W9VtTj0dDzPcSLZafS2.Uf50Izhu3IO65ib2mYCcKsCvxq4A0QQmdPm0gFCFVJuLoV4jmbnE
+ hjtM.47kO2Ijj3rZIOEa.HFdYqaEreygg_I_PFXQNoO9n_tgmZDJaY0s4mXBGEGsKciI6NY5FlCS
+ KcCEnaaN8a4icdU0obNsgwTfS0KOSMUbQND6JJAh1lNV83BPaJMsb8Sj27cEnQDI5Jq9RUO58wS2
+ CZOY3XSQb7_JMW.kvtqmwNXrtCWe7TRb3rGDk7uRvDOiVa6H19Uxkh1Z72ATImSPhcVo5deICLnM
+ aTBcANvcSpBBhqLWYrBZW9NK1Z0d0md4leMLcT5W2gwKtNYq5Lslqsy2JKGAlCd75IFlXSPtatRL
+ 2e80ImwT0p2hYHB7Efl4S4gaVfnV.EaifoVbpJOfQc2CnJpOxL6js.tKJDmlu9_IxQc3b4dpL7Ot
+ v14rCDG6uegJEsyTvD2HmTH5ViWalPOTYrVLEp_aSUpzmW.vSUzuou_LXjmxlDoUAxNZGvOEXNOs
+ iZRmV76y7ZNami5MWPdDYm_ep4reCAH3olix4p.XhoYM5zJk4OT1clN9n3CdigEhCIy9hpXnv5r6
+ _41l3b9Rex0lqQH..VulD5n0d0kMTkSg79Q_irCIWFmqNhTRpS_lCKaB4MXP8C8exjth4HFro4c0
+ KUwMH85oTGAbKOISrCDIUmRL4jRwVa0GiJ2SiKdCVPFEICu4Z8x0M1c3keQ8.JzPe1VNvwPS9dFn
+ fbxK6RcHdZer0ZjiNybtMyUu1ZEhp_jtsjqhjNMdDE7oJnyDB.ZqUiYp3MAOvMhQRDdSlvhUWnfb
+ HM7fBRkdR3Fi_RgWRhRp10n05hXzuWWlC5ppkrHHQrM7mm2Euocov4i13680Hnsq6lRKzz5Q3O9_
+ XoOxEVfl4uJ7UWP4Nw0OD6DF3.mQ1uJKuwvM-
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: ab0b9a3a-a572-4845-b16c-c699c26b994b
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic311.consmr.mail.ne1.yahoo.com with HTTP; Fri, 16 Oct 2026 01:02:47 +0000
+Received: by hermes--production-ir2-5dd9bf4598-nf4w7 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 153a889adb1dc6ddf4f6b70a98e72e09;
+          Fri, 16 Oct 2026 01:02:45 +0000 (UTC)
+Message-ID: <8a7eb315-b8af-45b8-a0a0-52814a5341de@yahoo.com>
+Date: Fri, 16 Oct 2026 03:02:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20261015234638.1077815-4-cui.tao@linux.dev>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxBc2dd9FqEOssAA--.1015S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7ZFykJr4xCFyDGr4DAF4fWFX_yoW8uw4xpr
-	Wrua90krW8Wr17uFs7Zwn7XFWxua1I9w1FgF1YyFyjkrn8tr9YqFyrta15X3WDt3y8AFyI
-	qFn8K34Fva1UAabCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUB0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
-	XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
-	k0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
-	Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
-	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
-	cVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI
-	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v2
-	6r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU4AhLUUUUU
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH net-next v6 2/9] net: dsa: realtek: rtl8365mb: add chip family
+ infrastructure
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
+Content-Language: pl
+In-Reply-To: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26740 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
+Add enum rtl8365mb_family and a family member to struct
+rtl8365mb_chip_info, together with rtl8365mb_get_family() declared in a
+new rtl8365mb.h so that the VLAN code can use it too. Tag all existing
+chips as RTL8365MB_FAMILY_C.
 
+RTL8365MB_FAMILY_D is defined here but no chip uses it yet; it is needed
+by the following patches, which add family D handling for chips whose
+register layout differs from the existing ones.
 
-On 2026/10/16 上午7:46, Tao Cui wrote:
-> From: Tao Cui <cuitao@kylinos.cn>
-> 
-> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
-> invocation: every call overwrites pch_pic_base and registers the same
-> kvm_io_device on the MMIO bus at the new address, while
-> kvm_pch_pic_destroy() unregisters only one bus range.  After a repeated
-> init, MMIO to the stale ranges computes its register offset against the
-> new base and silently reads 0 / drops writes, and the leftover bus
-> entries persist until the VM is destroyed.
-> 
-> Reject repeated initialization with -EEXIST, using the initialized
-> state of the kvm_io_device as the indicator.  The check, the MMIO base
-> update and the bus registration are serialized by slots_lock, and the
-> real registration error is propagated instead of being replaced with
-> -EFAULT.
-> 
-> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and write functions")
-> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> ---
->   arch/loongarch/kvm/intc/pch_pic.c | 11 ++++++++---
->   1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
-> index 51e4a6a39dc0..a4c35ed704be 100644
-> --- a/arch/loongarch/kvm/intc/pch_pic.c
-> +++ b/arch/loongarch/kvm/intc/pch_pic.c
-> @@ -281,16 +281,21 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
->   	struct kvm_io_device *device;
->   	struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
->   
-> -	s->pch_pic_base = addr;
->   	device = &s->device;
-> +	mutex_lock(&kvm->slots_lock);
-> +	if (s->device.ops) {
-> +		ret = -EEXIST;
-> +		goto out;
-> +	}
-> +	s->pch_pic_base = addr;
->   	/* init device by pch pic writing and reading ops */
->   	kvm_iodevice_init(device, &kvm_pch_pic_ops);
-> -	mutex_lock(&kvm->slots_lock);
->   	/* register pch pic device */
->   	ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_PIC_SIZE, device);
-> +out:
->   	mutex_unlock(&kvm->slots_lock);
->   
-> -	return (ret < 0) ? -EFAULT : 0;
-> +	return ret;
->   }
->   
->   /* used by user space to get or set pch pic registers */
-> 
-Reviewed-by: Bibo Mao <maobibo@loongson.cn>
+No functional change.
+
+Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+---
+ drivers/net/dsa/realtek/rtl8365mb.h      | 14 ++++++++++++++
+ drivers/net/dsa/realtek/rtl8365mb_main.c | 14 ++++++++++++++
+ 2 files changed, 28 insertions(+)
+ create mode 100644 drivers/net/dsa/realtek/rtl8365mb.h
+
+diff --git a/drivers/net/dsa/realtek/rtl8365mb.h b/drivers/net/dsa/realtek/rtl8365mb.h
+new file mode 100644
+index 0000000..315de4c
+--- /dev/null
++++ b/drivers/net/dsa/realtek/rtl8365mb.h
+@@ -0,0 +1,14 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _RTL8365MB_H
++#define _RTL8365MB_H
++
++#include "realtek.h"
++
++enum rtl8365mb_family {
++	RTL8365MB_FAMILY_C,
++	RTL8365MB_FAMILY_D,
++};
++
++enum rtl8365mb_family rtl8365mb_get_family(struct realtek_priv *priv);
++
++#endif /* _RTL8365MB_H */
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+index da06f95..840db5a 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_main.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+@@ -110,6 +110,7 @@
+ #include "rtl83xx.h"
+ #include "rtl8365mb_l2.h"
+ #include "rtl8365mb_vlan.h"
++#include "rtl8365mb.h"
+ 
+ /* Family-specific data and limits */
+ #define RTL8365MB_PHYADDRMAX		7
+@@ -707,6 +708,7 @@ struct rtl8365mb_extint {
+  * @name: human-readable chip name
+  * @chip_id: chip identifier
+  * @chip_ver: chip silicon revision
++ * @family: chip family
+  * @extints: available external interfaces
+  * @jam_table: chip-specific initialization jam table
+  * @jam_size: size of the chip's jam table
+@@ -719,6 +721,7 @@ struct rtl8365mb_chip_info {
+ 	const char *name;
+ 	u32 chip_id;
+ 	u32 chip_ver;
++	enum rtl8365mb_family family;
+ 	const struct rtl8365mb_extint extints[RTL8365MB_MAX_NUM_EXTINTS];
+ 	const struct rtl8365mb_jam_tbl_entry *jam_table;
+ 	size_t jam_size;
+@@ -731,6 +734,7 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
+ 		.name = "RTL8365MB-VC",
+ 		.chip_id = 0x6367,
+ 		.chip_ver = 0x0040,
++		.family = RTL8365MB_FAMILY_C,
+ 		.extints = {
+ 			{ 6, 1, PHY_INTF(MII) | PHY_INTF(TMII) |
+ 				PHY_INTF(RMII) | PHY_INTF(RGMII) },
+@@ -742,6 +746,7 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
+ 		.name = "RTL8367S",
+ 		.chip_id = 0x6367,
+ 		.chip_ver = 0x00A0,
++		.family = RTL8365MB_FAMILY_C,
+ 		.extints = {
+ 			{ 6, 1, PHY_INTF(SGMII) | PHY_INTF(HSGMII) },
+ 			{ 7, 2, PHY_INTF(MII) | PHY_INTF(TMII) |
+@@ -754,6 +759,7 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
+ 		.name = "RTL8367SB",
+ 		.chip_id = 0x6367,
+ 		.chip_ver = 0x0010,
++		.family = RTL8365MB_FAMILY_C,
+ 		.extints = {
+ 			{ 6, 1, PHY_INTF(MII) | PHY_INTF(TMII) |
+ 				PHY_INTF(RMII) | PHY_INTF(RGMII) |
+@@ -768,6 +774,7 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
+ 		.name = "RTL8367RB-VB",
+ 		.chip_id = 0x6367,
+ 		.chip_ver = 0x0020,
++		.family = RTL8365MB_FAMILY_C,
+ 		.extints = {
+ 			{ 6, 1, PHY_INTF(MII) | PHY_INTF(TMII) |
+ 				PHY_INTF(RMII) | PHY_INTF(RGMII) },
+@@ -874,6 +881,13 @@ struct rtl8365mb {
+ 
+ #define pcs_to_rtl8365mb(_pcs) container_of((_pcs), struct rtl8365mb, pcs)
+ 
++enum rtl8365mb_family rtl8365mb_get_family(struct realtek_priv *priv)
++{
++	struct rtl8365mb *mb = priv->chip_data;
++
++	return mb->chip_info->family;
++}
++
+ static int rtl8365mb_phy_poll_busy(struct realtek_priv *priv)
+ {
+ 	u32 val;
+-- 
+2.53.0
 
