@@ -1,117 +1,196 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F962FD1B3
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:45:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792111517; cv=none; b=Yo4pkiIo4H3aZxuudESPQb22L4OckESy5d07tu8IVU7ZwCc0Y0DSZmgrTLc16dabwi1ZIJnyemZknw01KmYbL9195249JQBAu2H6Wilg3lnEJoWiNg+YuDVHeqabg0ubFnHg2vbf/xCdFYxqiur4HBHxnHhY/HX/VA88rarf8Us=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792111517; c=relaxed/simple;
-	bh=hhjWCjDJiUS4wOBIl2PR4tvUuVgOu2aOIBOkR3X3z/I=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=jRRLvZXu6y9fwvWOr9lJF7uG3vTaEQIZvVFl7w3qHpZCVuP+RiBxS3Ul86scEPQ/UmtSPhRxlMIO6ZBD7ATzdv/B4xCn9HQVYYYyMvFGv/Us4J8bevp2+39lMT01yNU0jBI6LDvq5luSxcyBZnjrAmH5RYelTSMp0XQK5MxhlIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hYl1dmp9; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152432FD1B3;
+	Fri, 16 Oct 2026 00:47:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792111627; cv=fail; b=eDF7onWUx+um+/JHRU67+UVAfUJl+KcJ0IBZThKjBBNUxgkXGG4cwEKx6HDvyU4n5Oxbkn79s6XH6FwxXEX6+fK8BWHMNeSvufxbjaLedUxBEIPinhUPPacZKhvFn6XJANbU33gebtNgXHkr+Yzbf/qSXqNB3ohzEE+tgviQ37U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792111627; c=relaxed/simple;
+	bh=Ml2HKmehdeI0Wh3hRshdqMeF+3S3M+FdBDQRnrFQrhA=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=GFGMBJLO3fyVjmNswQNaYiYf9+uqPgUIUGqO7gUYL9qR7ppuuUSR6FFa9v/N5p0pr4BgfIw8z+nYs2Hhk3CipqHKZXb5E5G4dBjXfjtUS4UstnMTpLNw5mvAB7zSgsq+BjK+0O3lEjsLlP7I94o3AQM/xinsWqTu6yFCHpW3NaA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ljsQCilx; arc=fail smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hYl1dmp9"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ljsQCilx"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792111514; x=1823647514;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=hhjWCjDJiUS4wOBIl2PR4tvUuVgOu2aOIBOkR3X3z/I=;
-  b=hYl1dmp9ztbrNn9V0HqP89g1Kc5zGi83wvyzYf5vG6Pw9I0lamfxrXtj
-   3TNSFyqYHVq8J3nbF+fZh+Vy/Fq/5ko5mr/nA5g9h3d0hee9VNHwr/YEM
-   q0dfcS/VW5MAiZwE4HUTX+rnxGG3bwLGvYNSQgrnIF+CqNUL3m1E0nkDs
-   eAuZhxLTD8dmANsfV7LW/3JPPjywjM8yPyaYbI14CKWsnwQ5OFrq0i2Td
-   cIil4EFdgLftNwxNyEGE5mLxJ3iho53P0zfXVwftxVMl1LNZ9pd0evrIC
-   Iz4euuKQ7brzBydqTxNvVIk5KS6D/95/ZKsEK3NWXmznkeFOaIFSYQYG1
+  t=1792111626; x=1823647626;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=Ml2HKmehdeI0Wh3hRshdqMeF+3S3M+FdBDQRnrFQrhA=;
+  b=ljsQCilx7v/fzdILATd36s8nSxBOHKvTW6uxyO82RC6hLh92JYGVSRUG
+   DR4nZMXypw64D3GdkfB0iGhybKO4otthhDWy+CbqYld8NrqCzSBLOXf9e
+   8K5at3tgzHd4zL9rL1fsXzthZAXGxGMCYT+1gCEMz+mP81LTx64rCN68R
+   R9rxet/N7XtDwHp/X9mNQ97huFMqobyX0znZcnFM3BFyZi6wzDUvx/qxi
+   K79faMGTZj/1uuP2J5HA1NBOR0l3x7UrTn3hRKHYsKGA/6YllUak/VQ4H
+   gXYy3dPXB8LNWsAfbIWPswv5RCqPv7Mq032CAaEWY/saouKWqe6VY7m+p
    w==;
-X-CSE-ConnectionGUID: Ggr4nyCrRcKfocT5uYUvZw==
-X-CSE-MsgGUID: zhd3ufaNTjaaYxzi5i1AUw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="997939"
+X-CSE-ConnectionGUID: 6ggoM6JkSVGg2EAvZPQ7sw==
+X-CSE-MsgGUID: wmUKaawzTv2e4cWNNnbUDQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="895767"
 X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="997939"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 17:45:13 -0700
-X-CSE-ConnectionGUID: amjPhSp9S9+Na2q8ZGGn0g==
-X-CSE-MsgGUID: Fk0Ps5F9Q46/zvXp/8hVgQ==
+   d="scan'208";a="895767"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 17:47:05 -0700
+X-CSE-ConnectionGUID: HJ8K3mEOSoOzEpELVIp4oQ==
+X-CSE-MsgGUID: 5bJuI/WOTgSqYA6x3ZhV8A==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="1829041"
-Received: from unknown (HELO [10.238.0.90]) ([10.238.0.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 17:45:12 -0700
-Message-ID: <0ba4e7ba-c412-44ca-837c-13075d745843@linux.intel.com>
-Date: Fri, 16 Oct 2026 08:45:09 +0800
+   d="scan'208";a="2140390"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 17:47:06 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 15 Oct 2026 17:46:50 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Thu, 15 Oct 2026 17:46:50 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.18) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 15 Oct 2026 17:46:49 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jZjFCwQzRTsvZELIbbPQ2OeESXNKuA2HCiJ89TjofUoSufTWWmuQPcyEKYy/3Z8LVn0dxL6An5wvFLUqtf2xhrli+TQkgTe2VyT352998rlbeKk3EnkcC/nbwkEV7YAFC98cZG4KAIFWPgzhJPSE2sjUPonDGrs6TJ3fjOXpJ2jC/Z6FQEiDHk9f0Vl9Xsw6tI1f0oJdnESx382bLSDGpfRiytV3zJz7mLL3fajcx0t+q4IkT8N+2Ey4sVb9hnnleuxWfafae/h1Guz0+KVsF3y8HaoC9T0J7b1iWQmaiPeEh0acF8XiVmsFCQL9PLJXN6vhxsCXLn6AM8jC1Ni0bQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O6XYqXcOObnVjTg2mu4wqLoMcQhLo6pv2A07DkM4Npk=;
+ b=R7S/ZDC0tFTSGysL1yTrGP52rousn+ZSRdwaCuJtDmmAjPXhQB7dASVEyN+cX0tPFJaq4q2R7ndWCP5hPeQT+ZK6b37sSHaN1mVOrHjIf4bOovgl7xxvCtlDVezVhGbJw+2DFS1gd4fa4XrsdKDUQPaBW//00whlBJ/iPi6DF3Cb9Iokn1g3cQPR7KXyTvl2XQgcUeHobr775VcB47h7zlMuYK2JFaOAMbSzHnq4qjrOSWQ4dXF/bBItvR8Nxhc0ryDUPJuk63FxY/LKB6Su11+yB4incDt7weu5TQsIf40RMSucAyJdFR5RCZw0IB+Iihf+idSt6Oct70DNg7zTJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
+ by BL1PR11MB5271.namprd11.prod.outlook.com (2603:10b6:208:31a::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
+ 2026 00:46:48 +0000
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
+ 00:46:47 +0000
+Date: Thu, 15 Oct 2026 17:46:44 -0700
+From: Alison Schofield <alison.schofield@intel.com>
+To: <jianyungao89@gmail.com>
+CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Dan Williams
+	<djbw@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang
+	<dave.jiang@intel.com>, "open list:DEVICE DIRECT ACCESS (DAX)"
+	<nvdimm@lists.linux.dev>, "open list:DEVICE DIRECT ACCESS (DAX)"
+	<linux-cxl@vger.kernel.org>
+Subject: Re: [PATCH v2] dax: fix dax_core_init error return code
+Message-ID: <atFz9MI-ojTVzPPq@aschofie-mobl2.lan>
+References: <20261012151857.22534-1-jianyungao89@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261012151857.22534-1-jianyungao89@gmail.com>
+X-ClientProxiedBy: BY1P220CA0018.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:5c3::8) To DS4PPF0BAC23327.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, robin.murphy@arm.com, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iommu: intel: Apply the device scope length check to
- every device scope walk
-To: Shirong Zhao <shxzhaosr@163.com>, dwmw2@infradead.org, joro@8bytes.org,
- will@kernel.org
-References: <20261012084102.18-1-shxzhaosr@163.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <20261012084102.18-1-shxzhaosr@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|BL1PR11MB5271:EE_
+X-MS-Office365-Filtering-Correlation-Id: 60ed3e34-261d-4074-b572-08df2b1ef537
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|261009223027099003|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: ZqtIXIMpXkGeMJUCkenjLTx+iMTZZ6xYw78KqQm+xG2L7RWvgmwGpk2VSJKLKLxOt2gJoMoOtmMZZYrqY6RQhfwSdhDhjYlW1rUBDrVYL9434V830ZCrtPfCV7C4oLVk+PUlhPKi53IpYg3iZx3FqTil9/vTw/nMHDxNCP0IBn2Dn1v6fhoftWJgd428IEdI0ikLNEbpkQZ4GaZ2JS1odEIC/7ahv+I72drxPzXDEe5GfpIe5Y6WSLjM+H8AeOwY+g1UOlbiF91cNfCWSWx6yepVRcgZIYcbjtHXMjYCmBf2ESvoNkZbhaL0oHHc7HNntTIoEitkOUvtr4OC9ZN3uC7zh5Qiqj4CYFmsgo/n2zZDF3hoRElnXR4aEUetxjphCMk5tBzCQSFZM7yEJpwjgUzxk/GJHkII9XrzFPHjOV/0735o0GS4edAO6taRYEqhG0hCEBUgR6mO4bFHr7hxyGIesk/KEtvF8HNGustHBxtnMm26GMWbqdzI9Pb3BacQonzjUMvqHmWvG639mNRCxrLDhScQ5reE1lTuU8o9GBwK4+lTn9Ow5+52tHEKhyrtBlPsygwoFBxuIMZZec+jOr5RkK2Oih/ZSxvCGIXY/juP9EOquvLxAw7n472lpI1c
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(261009223027099003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?VRC5VgZYOVG275vXL4SlrvPWISQj5EQx5zrMSKoUzLDbBWJQl5KPoIuZ9QVz?=
+ =?us-ascii?Q?HC0ew7/Sdov9nmnhil0fPHWgZPN/2y0DylxnJKJys45koaPmzMlnEJuFljFh?=
+ =?us-ascii?Q?m3XnB4MrCbYW2Mhrh09ZQ6R9w8tchj/6mnO0Ce01cZj1h+TspJG3MDuBhd6O?=
+ =?us-ascii?Q?V8OKZHZf/cUXKpHcrVSpbdbhxRq3JhUB0UiH1H/iw5j+kwroB3s9VUvC9yhk?=
+ =?us-ascii?Q?Flk7IUPV7G/FLRSUAsvYEIHA1kszmV2KcmtmGvktU18kMzjGSWT+hRiP7AiF?=
+ =?us-ascii?Q?JsUcdSwZ0Kn/R7FwmaPdD0L9v6e/TmhOCoFU5qpWyE1d1VUkjxPePS291hBU?=
+ =?us-ascii?Q?OWh97KyWwfJvT0vWp0AvCLz2xywsV4uB/m2moUk7AUzW6P0q84nE+sD4CdZU?=
+ =?us-ascii?Q?CfyUcd82Mzc1N7qMRgJ7Xq/nT7BHKU3fXSSyXTXqKkW+ac5rX/gV38fPTIR6?=
+ =?us-ascii?Q?EeOtLlAy6KjDGLIclmkATEp4FkaPq1ME5ZQADQD8SzesakRyUzek9Yz99216?=
+ =?us-ascii?Q?Z7tW5RDibW4H905IpjRW0wtcbEZdOt9TfPv3z8N2tLYhjcmgLJF6eV+LcUbn?=
+ =?us-ascii?Q?5k/F4BdKviQ/xfR4+2rO/X4ygIWmVrdPPKlFw9fYYyR69ZyOOU6PLEcU8JRN?=
+ =?us-ascii?Q?vp6T/UjReqqcLsmGqJxWftJlwLJX9SMmYVbD0AyJvCcNdnXbaEQ/khJJUady?=
+ =?us-ascii?Q?AIIFVNWC3pZXPZH4f/fJTH+r9QWgqnf+kqPrXPWO87emQO7NJjAHKSFgAVBz?=
+ =?us-ascii?Q?gtKcYZfmvjnAt5aZl7JKrCK4a75hOnuattekTJLH1gC7Cxz5QvsAdQRDuKk+?=
+ =?us-ascii?Q?w4f+fkgmgnwhqXonhdH2WBzLK3aAQeRipuBcG5Mhv/JUlnvFON7O6FBaBKmX?=
+ =?us-ascii?Q?7QqX+8774ArlDzOC6j1bWCSlHleyHHHXNXIpGN9Mi3BlJx8WmjLnye/zQfkc?=
+ =?us-ascii?Q?u2y5q0H5WV/9porJSBXorIA67DmqHqtqDYCsYy+rcKscpcQ2QmysfX09YrHi?=
+ =?us-ascii?Q?5qlpp4DZIb3/A1VwN8NohG5DO3IsrvbzXYeZm9ldf7GRGiTvScs06OJySw/s?=
+ =?us-ascii?Q?O9e1jz8tD/UtrIHAGinO+n/xdJSxGKLU4h1sQMYxjLOAyhwUBO9P2yiVUyOo?=
+ =?us-ascii?Q?uGClvOayRnkBMiUStE5+/LnUqWhvgrsNWsfnKPyZyoq/EuLinYy4KZsdRQxt?=
+ =?us-ascii?Q?396zPIBFlViUYACxhGkgZ+MHXpyDnbORszuL4Fj7PJQ77iY7DZDLAtCuKuAd?=
+ =?us-ascii?Q?/GxOh4RFQl/bdFiQPzo50ReSw7+0oLGCCBMa9gRySQ8iTEVx3tYWXufbpIho?=
+ =?us-ascii?Q?bUa6zDahvInubKU9Ta6/QJLGw57QKBa5Hh/yIU7c4/Ur71jWSNWX/j6DERcL?=
+ =?us-ascii?Q?aHQkX16Gq34UokDd9lyH2ryvos42nXNbal91mCcGgoIXg1bNtoG6KubQQ2hx?=
+ =?us-ascii?Q?7RTDxIu4zoX709+SvvbF6pDN9KZohqqC+SK+X/8FmjQHyxigYLtTnv21n+qE?=
+ =?us-ascii?Q?f4PsALb6VIxbEMuz8B06kC9Z10v79KeBh0Ys90C8rDalX+H5NKSPeF0x0kPC?=
+ =?us-ascii?Q?NXDiVGOL84ZLvif/Z4d8vJkfM893DUyvAzpU3GtBgcbsRPeZyXRcKviXJBp4?=
+ =?us-ascii?Q?wMmpp6Ef240inhhaSih+0Pu3LGPJW9jb3GFVQB2mZZRdxDXtIZD/kUFOu6Tr?=
+ =?us-ascii?Q?8BFFf1HW9xZwBzurleGlRYN4AyKekzqF21zt/nc4N+JS0r4R2uegbnlVCIxl?=
+ =?us-ascii?Q?2ChxrfDkrA=3D=3D?=
+X-Exchange-RoutingPolicyChecked: EZGOEPExLE1Xp4ISg+kPDgxYMuKUPIwhJhBBR72Mqr/8wuM0LQRvk/hZ82El6WzRFPOr3qH/sLc+Wkuzb2JEO457jW6q961qA+9nU//qn5H8kPieyEOtmAeG3nJDhrQ4ZfaG2OOA62AbzpbCy+9p0hId0Wqkp3Kx+JKWzBiXHtT3hbM9pmj+jcNrnthhUzx6ZuGaSZCLp0jWIH9bDllgkQCyKTwjFbqBhUZISMIt2PwXsA7frukVfePuE8H2pPaN74e6rZ/bwnoRFdcxi4v+qaP0C3iefQVdd3BWg/3nf0k99fy8UXC7qwICwkXcFY3c5um8fLQoKD8ZFVYRSJ+IGA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60ed3e34-261d-4074-b572-08df2b1ef537
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 00:46:47.7101
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eeK9XtLbg7OcGFU2O48Ym0ErJ04U4wtorhnVVX1CI5OgxbB1smm+msS26JbhXmdH602+4ZDEt2OLz0K4UvIXzCjwN6hnAT8qnAvoxeRvJV0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB5271
+X-OriginatorOrg: intel.com
 
-On 10/12/2026 4:41 PM, Shirong Zhao wrote:
-> dmar_walk_remapping_entries() already refuses to step by a zero length:
+On Mon, Oct 12, 2026 at 11:18:57PM +0800, jianyungao89@gmail.com wrote:
+> From: Jianyun Gao <jianyungao89@gmail.com>
 > 
-> 	next = (void *)iter + iter->length;
-> 	if (iter->length == 0) {
-> 		/* Avoid looping forever on bad ACPI tables */
-> 		pr_debug(FW_BUG "Invalid 0-length structure\n");
-> 		break;
-> 	}
+> dax_core_init() mistakenly returns 0 on error paths. Change the
+> error return to use rc so the actual error code is propagated
+> to the caller.
+
+Applied to libnvdimm-for-next:
+https://git.kernel.org/nvdimm/nvdimm/c/4da700e2cad
+
+
+
 > 
-> Five walks over the same DMAR structures do not:
-> 
->    dmar_alloc_dev_scope()        - counts namespace/endpoint/bridge scopes
->    dmar_insert_dev_scope()       - attaches a scope to a PCI path
->    dmar_acpi_insert_dev_scope()  - same, by ANDD enumeration id
->    dmar_acpi_dev_scope_init()    - the ANDD entries at the end of the table
->    ir_parse_ioapic_hpet_scope()  - IOAPIC and HPET scopes
-> 
-> Each advances its cursor by a length read out of the DMAR table, and
-> nothing constrains it.  A zero length leaves the cursor where it is and
-> the walk never ends; a short one steps through table payload a byte at a
-> time, reinterpreting it as scopes.  dmar_alloc_dev_scope() and
-> dmar_acpi_dev_scope_init() run on every boot with the IOMMU enabled, and a
-> short length in the latter hands andd->device_name to acpi_get_handle().
-> 
-> Use the check dmar_walk_remapping_entries() already uses.
-> 
-> Checked against torvalds/linux at HEAD; both files are unmodified there.
-> 
-> Found by EFSM.R17, which reports a loop whose cursor advances by a step
-> memory can supply as zero while the exit condition depends on that cursor.
-> Signed-off-by: Shirong Zhao<shxzhaosr@163.com>
-> 
+> Fixes: 9567da0b408a ("device-dax: Introduce bus + driver model")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
 > ---
->   drivers/iommu/intel/dmar.c          | 16 ++++++++++++++++
->   drivers/iommu/intel/irq_remapping.c |  5 +++++
->   2 files changed, 21 insertions(+)
-
-A zero length is never valid under the VT-d spec, so such a DMAR table
-is a firmware bug.
-
-The existing check in dmar_walk_remapping_entries() already rejects a
-zero-length top-level structure before any of these walks run, and I'm
-not aware of any shipping platform with a malformed device scope.
-
-Without a real-world report, I'd rather not add more checks for this.
-Thanks for looking at this, though.
-
-Thanks,
-baolu
+> 
+> Changes in v2:
+> - Drop unnecessary goto label, keep direct return for dax_fs_init() error
+> - Add Fixes tag and Cc stable
+> 
+> Link: https://lore.kernel.org/lkml/20261011132017.31131-1-jianyungao89@gmail.com/ # v1
+> 
+>  drivers/dax/super.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dax/super.c b/drivers/dax/super.c
+> index 45f84b0eb909..210f4af479f0 100644
+> --- a/drivers/dax/super.c
+> +++ b/drivers/dax/super.c
+> @@ -738,7 +738,7 @@ static int __init dax_core_init(void)
+>  	unregister_chrdev_region(dax_devt, MINORMASK+1);
+>  err_chrdev:
+>  	dax_fs_exit();
+> -	return 0;
+> +	return rc;
+>  }
+>  
+>  static void __exit dax_core_exit(void)
+> -- 
+> 2.34.1
+> 
