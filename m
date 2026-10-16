@@ -1,91 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB3D4A8FD1;
-	Fri, 16 Oct 2026 15:08:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6934CE691;
+	Fri, 16 Oct 2026 15:08:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792163298; cv=none; b=Usql3l1zbTsD5qGaJ/U8lFAJZa22EbYkkdIHeldN5OfrP8u4WEkxb7pLaoJkftoPae0nt9nSKFZFMnbJYaBZK6Rmmv+lM+c4TvLQKWVGHogn3nxwuYbgtJbaDl83AEaLZoeaS7qyfo5r7R6oOwSPZQk6yC7rR0n0jLN/bmlWrI4=
+	t=1792163302; cv=none; b=K3ZmXuoUkwbwgcAw3g/ZS1dfsSCGnpjFlH00teaz/PP4WzJqFeNTeM6XKk/gi2Ll+AlzzTfcOvcn4o9atm8O6c2r9cjOzBN6lkkatTZBn9hTegk+sM6//+QDjaPsQUXoshwgsMlID29ACnlDFbwTbkzmdOaCohQyATpW+CbU9fA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792163298; c=relaxed/simple;
-	bh=f5nklyBFzeuSBEmK+uzl03MFDh3bWmGJVnhn9hpoSPw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TkAVBy5A7rlg9KdNck0X5o48F34salkZS7skGQKVvptqBTA4ONWISSOHj5euRH9/BI0cYdKSIHqxTOpMHVNjrHoX9jsYYz2HvxFo0gNX9c2I179hscCALDqSHFG9DcE18WEp6xQI58kji0UVuGpElf19+dGWFjby8sqSj/OnOLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bwMOGeKB; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bwMOGeKB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CA7E1F000C4;
-	Fri, 16 Oct 2026 15:08:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792163296;
-	bh=9GaGFNgl1GBFYDagkb0NG6gNUC4bplBfbJ7IM8ysGNo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bwMOGeKBmDDimGvJ6avqsU4zzJU6oWHAMnplPaUKcB5a+3D2eBDGJJHM7kcMRy0jH
-	 YStCKJccgkyStEtEmklxkcSls2oWI1cH8MRk3TBwKxeuZdAfztE6/G0kfQQvJY/w6n
-	 OOWz7ELc2KTC+Joy4OR3JHx0KEWw2Ox63TAH+TflmLFmOe7u46nzphV4K+jArOS7PR
-	 KY82tGQhzfpp0o4wZgNT12wN64DSZY6iH9uP4x8Bp7qcYhTcbLzmeJseGuGDkeI/MW
-	 oDPO77sWv/FyP3H/eTO+1EQwQSSHj2vJ/DOb7WfCe+xr+/7ZHmPZclFCaHVQqwZjgm
-	 VxZKJRhu4KoMw==
-From: SJ Park <sj@kernel.org>
-To: "Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	ahuang12@lenovo.com
-Subject: Re: [PATCH 1/1] mm/damon/core: Remove unnecessary zero-initialization in damon_new_ctx()
-Date: Fri, 16 Oct 2026 08:08:09 -0700
-Message-ID: <20261016150809.92159-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261016143733.320-1-adrianhuang0701@gmail.com>
-References: 
+	s=arc-20240116; t=1792163302; c=relaxed/simple;
+	bh=hJ6zzNPWgJJgArlrVtajt0XJz+YPMYnJvidHjQrlJQU=;
+	h=From:Subject:Date:Message-ID:To; b=KshIVWSHLs55Jwc+2MWWmZn4Qu7PjsQfmnwwho03jbX+qgiTuk0Hv9J/SH6d3xI27d+Ix3kCitBQL1aEbFMoZC2J87nqvZnfYt0KOTdfhDegSlysYxmWAOI6aGL8llFZeqonNB+vYxANlC7HZF9hLRZ6RuOo37bk93fTcD6EVo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A59A31F000C5;
+	Fri, 16 Oct 2026 15:08:20 +0000 (UTC)
+From: Clark Williams <williams@redhat.com>
+Subject: [ANNOUNCE] 6.1.190-rt70
+Date: Fri, 16 Oct 2026 15:07:33 -0000
+Message-ID: <179216325380.754447.11525819491474303706@demetrius>
+To: LKML <linux-kernel@vger.kernel.org>,linux-rt-users <linux-rt-users@vger.kernel.org>,Steven Rostedt <rostedt@goodmis.org>,Thomas Gleixner <tglx@linutronix.de>,Carsten Emde <C.Emde@osadl.org>,John Kacur <jkacur@redhat.com>,Sebastian Andrzej Siewior <bigeasy@linutronix.de>,Daniel Wagner <daniel.wagner@suse.com>,Tom Zanussi <tom.zanussi@linux.intel.com>,Clark Williams <williams@redhat.com>,Pavel Machek <pavel@denx.de>,Joseph Salisbury <joseph.salisbury@oracle.com>,Luis Claudio R. Goncalves <lgoncalv@redhat.com>,Stable RT List <stable-rt@vger.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hello Adrian,
+Hello RT-list!
 
+I'm pleased to announce the 6.1.190-rt70 stable release.
 
-Let's use lowercase for the first word of the subject (s/Remove/remove/), as
-that's the convention in mm.
+You can get this release via the git tree at:
 
-On Fri, 16 Oct 2026 22:37:33 +0800 "Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com> wrote:
+  git://git.kernel.org/pub/scm/linux/kernel/git/rt/linux-stable-rt.git
 
-> damon_new_ctx() allocates the context structure using kzalloc(),
-> which already initializes all fields to zero.
-> 
-> The explicit initialization of passed_sample_intervals,
-> next_aggregation_sis, and next_ops_update_sis is therefore redundant.
-> In addition, they are later initialized by kdamond_init_ctx() before use.
-> 
-> Remove the unnecessary assignments to simplify the code.
+  branch: v6.1-rt
+  Head SHA1: 9816d2d72ba5223bc81e3388869ef03c3f770e29
 
-Makes sense, thank you for this patch.
+Or to build 6.1.190-rt70 directly, the following patches should be applied:
 
-> 
-> Signed-off-by: Adrian Huang (Lenovo) <adrianhuang0701@gmail.com>
+  https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.1.tar.xz
 
-Reviewed-by: SJ Park <sj@kernel.org>
+  https://www.kernel.org/pub/linux/kernel/v6.x/patch-6.1.190.xz
 
-I applied  this patch to damon/next [1] tree after adjusting the subject as I
-abovely mentioned.  Let me know if you dislike the change.  We are now quite
-close to next merge window.  It may better to focus on making mm.git more
-stabilized and therefore ready for the next merge window, rather than adding
-more changes that are not really urgent.  I understand this series is not
-really urgent.  Hence, Andrew might not add this patch until next -rc1 release.
-In the case, I will request adding this to mm.git after next -rc1 release.  So,
-no action from your side is needed for now.  Let me know if you think this is
-really  urgent.
-
-[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
+  https://www.kernel.org/pub/linux/kernel/projects/rt/6.1/patch-6.1.190-rt70.patch.xz
 
 
-Thanks,
-SJ
-
-[...]
+Enjoy!
+Clark
