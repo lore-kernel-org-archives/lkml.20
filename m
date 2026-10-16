@@ -1,87 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A232C3AEB37;
-	Fri, 16 Oct 2026 03:00:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F1B20B80B;
+	Fri, 16 Oct 2026 03:00:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792119610; cv=none; b=abeSI/E2p1GrDrTBrFR7SadEqs02Z0VEpfJxFlLJgfGRYK6YTb1+QOC45urftvmiSMtBphL7TFdwZXSCw42JEJX2g5VpyWLasK0MVBjMMZnEtb8np6FCjAJVz4mqat4xLgU2nw9XvqKYawx5zQLCkEQIi/DpzNvx41s3tGczqXM=
+	t=1792119625; cv=none; b=CvjF2UScQpFXGqt3JC21dNV1AQcJ4fgiXh0gVJcg3QID3+NjJuW+skQ+B+W19UUAanbFAqvHFN1ImGe5g7lH6tLF9Sgv9wPL3C8cp+JCJ74I2HoscYTwVPKhmaQd/q7ooe6sobBc4s1EfQjKalj+tLTavxVQRVANPHO39n+/weA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792119610; c=relaxed/simple;
-	bh=ut425ZVVJYbYLpk6hgih+heGZrcRsLV0tQju9qnPK+o=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=AAbXPf6ZbiPBRdzUuRI+DnI/39f6Dd+uL2k163rbEDkYoNGRuFqoc3FA4m9dbSJFBAXeFWaGrhj+i0v3skdgKZ/C4cCyFSnqFMtXnoH5nPrU2kIZsHB9r/MSyyHVkzvctFguBTqhMB+lTNyosPW9dz+J6ZVv99/T6NFjPEKPjA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fDCUml3z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792119625; c=relaxed/simple;
+	bh=mGydzSGvhJpw6HwBSJr8ANj9qRn92a98piESbh9Ntus=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=O4hBlMRAhkVU5gUpqVmXTCaUNhj3+KAAG5kzlykdNxE0p9f1UFFILe7qoQLLGXSkl4lIkEvKNUQg7S0+dD6xeIS7klpuZkvHB+ug7jih0Q3XGPWw3sJgDXCqPvn/0fevYymQ2MQ0mMLCivnQnjyHDyDtU3sln/Kvs6akxRgqLyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mSJaC6xi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fDCUml3z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AE331F000C4;
-	Fri, 16 Oct 2026 03:00:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792119607;
-	bh=4J2mGXg6QaNtnzBgwqkwdZqr1QlBxcy++o+uklQ8lrI=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=fDCUml3zJxBe478lq79ORPQidJRuECeEwc7XJMQJixOLRNp18pz0TGEZC9o36ULZ7
-	 2ypjbLi75xkH8HbexrOyajq3cVzLjkiK2u39spDAg/ZJY8hoL/kQfjJuZwFpyXz+mU
-	 2icWPmpIM1p8r28sghzYkCurAtkJC42fZV3FwQQCumzMfYxI61ci8gg64PA7BG61IA
-	 UR1JNFujGn6l4B2SypyV4vnRabXvr2OcjhT6cWiQaPsZfufZGyl96XIr9bQpVB67vL
-	 5zIzlfzcw+F/25vaIljD242eLT4mKvrxJ2Rpjj/9VGxQ55jbAw31sq+66Qn7gga8+s
-	 d7nMvfCZdJ1VA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F143C3808209;
-	Fri, 16 Oct 2026 03:00:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mSJaC6xi"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 58161C2BCF5;
+	Fri, 16 Oct 2026 03:00:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792119625;
+	bh=mGydzSGvhJpw6HwBSJr8ANj9qRn92a98piESbh9Ntus=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=mSJaC6xiAw1na3gObLHjPnwIlDoeQHwA4xFqza7Z/ImSzkHO/7LYOJHUBTwnrNzmF
+	 QB8ISP6O68MMitae9GYsSuBHfivK7Hum0POK5DKEyrQrX1ujoK2UAF9Usv8ZEtLZZ1
+	 Sn+y+voLp6XiYym6aHoL2x4QGeXQyCtUAsTULObuDd1b5/Mys8pb+2NfwYKi6vi4uw
+	 t2KRpOctlyQrXAL+SZEkwWEsd12LDA41r3aKBVHVLTA4skq5DlGonn9Y3RrvVV6trZ
+	 jmy7yel+3Gu4gLyzuDr0Fl9PXuejPWhSrr2lPhGZ3rtollac/CIBvteioS6TNP2E4l
+	 bpgKgJTCbCx4g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D38BCCA463;
+	Fri, 16 Oct 2026 03:00:25 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Fri, 16 Oct 2026 03:00:17 +0000
+Subject: [PATCH] dmaengine: amlogic: Fix regmap error check issue
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf-next v2 0/2] selftests/bpf: Fix the bpffs handling of
- cgroup_hierarchical_stats
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179211960551.30782.10876178060857722550.git-patchwork-notify@kernel.org>
-Date: Fri, 16 Oct 2026 03:00:05 +0000
-References: 
- <20261009-selftests-bpf-cgroup-stats-bpffs-v2-0-f93a111da992@gmail.com>
-In-Reply-To: 
- <20261009-selftests-bpf-cgroup-stats-bpffs-v2-0-f93a111da992@gmail.com>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: andrii@kernel.org, eddyz87@gmail.com, ihor.solodrai@linux.dev,
- ast@kernel.org, daniel@iogearbox.net, memxor@gmail.com, martin.lau@linux.dev,
- song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
- emil@etsalapatis.com, shuah@kernel.org, yosry@kernel.org, haoluo@google.com,
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-fix-a9-dma-complier-v1-1-024421d5b3c8@amlogic.com>
+X-B4-Tracking: v=1; b=H4sIAECT0WoC/x2MQQqAIBAAvxJ7biELNu0r0cFyq4VKUYgg/HvSc
+ WBmXkgchRMM1QuRb0nirwKqrmDZ7bUxiisMbdOSahThKg9ag+60uPgzHMIRVa9nYqLe6A5KGSI
+ X7b+OU84f8l1hJWUAAAA=
+X-Change-ID: 20261016-fix-a9-dma-complier-178b6e667983
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, dmaengine@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>, 
+ Dan Carpenter <error27@gmail.com>, Xianwei Zhao <xianwei.zhao@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792119618; l=1413;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=q70ArngI8F9kaZ0a86j08SCXsqeF7k11fJnEBCve2NM=;
+ b=b8gfpJGQQxHZblcSRlbmR0x8knLQCBnlci0XZWs2RwdViFJw9m3CKpHz1TgeXXp0l32aEMgXU
+ OP7Nu80bFXUCx/LJjuNHlrhQbpiIIcJgZoXLxE1W51B5c/WyZhuq40T
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-Hello:
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-This series was applied to bpf/bpf-next.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
+The func devm_regmap_init_mmio() only returns an error pointer on failure,
+Use IS_ERR() instead to make the intent clearer. And Fix the following
+compilation issue at the same time.
 
-On Fri, 09 Oct 2026 10:04:36 +0800 you wrote:
-> cgroup_hierarchical_stats mounts a bpffs on /sys/fs/bpf to pin its
-> iterators, then moves into a private mount namespace to set up its
-> cgroups, and unmounts the bpffs in the end if it mounted it itself.
-> 
-> The bpffs lands in the mount namespace shared with the tests running
-> in parallel, on top of the one already there, and hides what they pin,
-> which makes bpftool_maps_access and bpftool_metadata fail now and then.
-> The unmount can't remove it from there, and it checks the other way
-> around whether the test mounted a bpffs anyway.
-> 
-> [...]
+Smatch warnings:
+drivers/dma/amlogic-dma.c:636 aml_dma_probe() warn: passing zero to 'PTR_ERR'
 
-Here is the summary with links:
-  - [bpf-next,v2,1/2] selftests/bpf: Keep the bpffs of cgroup_hierarchical_stats private
-    https://git.kernel.org/bpf/bpf-next/c/3c824dfd17e6
-  - [bpf-next,v2,2/2] selftests/bpf: Unmount the bpffs that cgroup_hierarchical_stats mounted
-    https://git.kernel.org/bpf/bpf-next/c/e0645cfd0e1b
+Fixes: b84b5197e344 ("dmaengine: amlogic: Add general DMA driver for A9")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/r/202610080953.C5TYlCaA-lkp@intel.com/
+Reported-by: Dan Carpenter <error27@gmail.com>
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+---
+Fix regmap error check issue.
+---
+ drivers/dma/amlogic-dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-You are awesome, thank you!
+diff --git a/drivers/dma/amlogic-dma.c b/drivers/dma/amlogic-dma.c
+index 78ee2337ae71..684121d13fca 100644
+--- a/drivers/dma/amlogic-dma.c
++++ b/drivers/dma/amlogic-dma.c
+@@ -632,7 +632,7 @@ static int aml_dma_probe(struct platform_device *pdev)
+ 
+ 	aml_dma->regmap = devm_regmap_init_mmio(&pdev->dev, aml_dma->base,
+ 						&aml_regmap_config);
+-	if (IS_ERR_OR_NULL(aml_dma->regmap))
++	if (IS_ERR(aml_dma->regmap))
+ 		return PTR_ERR(aml_dma->regmap);
+ 
+ 	aml_dma->clk = devm_clk_get_enabled(&pdev->dev, NULL);
+
+---
+base-commit: 42c31fec1ca76b8b5f7759def122d418dff2cd4b
+change-id: 20261016-fix-a9-dma-complier-178b6e667983
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Xianwei Zhao <xianwei.zhao@amlogic.com>
 
 
