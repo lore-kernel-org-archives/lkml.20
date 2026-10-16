@@ -1,240 +1,151 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B7F4DD3B5
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:14:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A8036195A
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:14:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792163644; cv=none; b=MU7piFDOs20fbhDN6sZvzEp2lDX2EF8OewGqm8ZK2wdW/sbFMVNS24LoquGMMwW6/3dnXUp/iAVH5DnxkDKzwavpM3JSiwESC0sz6ZcpgETUPGF2peeMKtcYZYw7phDlU30RDLhZjRgneeau7En7QxFSiT3z31sWzJjlP+m6Dvg=
+	t=1792163679; cv=none; b=nXWe//HlH2lbsUJvV6ZYwIgt8OcWcEnMw38uEpNNH0LlImSbTW4ZKlB35+ziB/x9NDRhdDKa8hQXuoXe2hzb23dVizWV7AfYu6iw8Dpgyv7D76+xTqKrZSL1jfiqXaRUaO3CEcGfceenrvCg5ZuDQsX58+5Cj6HzK225yIC5CgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792163644; c=relaxed/simple;
-	bh=Tfm02lrkH9VmFMESRukHB3YhrdebKxeHbFXI7GjENkc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EOmHchIn2Dic0Z6tvNxq6hHk2es3QpIwgR253bo8QNr+KVkB1EEH6AbBt5sb/BWX+en/xts/Oe7RH1u9octzUEOPYxNdo+sojyun6gObzdP0SVY6801jOWP86VQnjXfcruELasjJHykrL3MAaayg1Gn9UD0hKEPGlGp4sbxjeQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qnOXZjEK; arc=none smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792163679; c=relaxed/simple;
+	bh=92uiVq59fzFjGpCucqYXpQiP1PRGnn4Y2IaAxSLoQFY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=td4u5CVbFjJuL2MiYS+J3ALWppEZ0+6wxda2DNZ4yj0VNm3i7VumMbjoYJwwheh+LggFPAOHiN4fC8IIU/TBv2927YepbN7zS41Lq8HJJ57v8vXMD8AVDtBuq02tiBCFRa6bDRT86vqJy645MUT1BHVHOUW15pLOpyO388KElds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LE03XN4r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qnOXZjEK"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5363c8de563so144261cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:14:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792163641; x=1792768441; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4cg/NeALXrxKotAI3u5uSYzw1KdGURDQwTKLcHQsWt8=;
-        b=qnOXZjEKSXUpRA4t8c/bvp1B3XJ6uXyIZdu1jONR66thaTmL7XIKjQ87VYCSj8QvH8
-         bwHwe0VPvPVd8dinXptF4d4E5DqRcdJ4FqL5lW2f/MwxdZibyGpMQlAksz5xm8MlEZXr
-         D9goXraLQyam0bkADr9Mb8G4hUPUZmtYLNcQhIb/nmY28YztHc+lXIyEoqkIit5AJY3i
-         ot7ji6YWY6dw3d5N98RjKYFNp+emmefm5SE923xIYUzDm/KebxREvDlPtP/X4F3GrqJv
-         /zo1f/XwkAcHg6Pbi9UvY7w+VWH8RUf27CwF2KW1pqMFwpmBEKka+/SfWotY+WrvgaUK
-         AHNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792163641; x=1792768441;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4cg/NeALXrxKotAI3u5uSYzw1KdGURDQwTKLcHQsWt8=;
-        b=Li0Yh8ofcLyKdb48eSs3cPSMd28ZS21Mj5b+ESL6DlQWEd1dn6c2omil6WD+7y7JMj
-         YkC2FgG9ZWXiQD4D6z7kILFucfAbUE2Bb2TKC1OnCyZDRGC+82rmdAfRFk02ey15ubey
-         hDP/ytl5dS6jbzUakOcfw8eihYhuwcMP6qk5K9SChFG3jjd9PYHmgJ9iaDIh6utNWUt+
-         MFtzXXNrmcKhkX+Rsuv67SZIx1ieWB6wd6UMFO/I3p/1deGssFx6oPgph+MvBbRx7Pc3
-         WcBtDw3RanRfY7PqSvH6HpdJXIjOgx0Ri69k34L67wkmbk7P5rHUfsFj7l+3nPLQcq9O
-         uiuw==
-X-Forwarded-Encrypted: i=1; AKwUvBxIHRWRso8qSkaaAu9IdoLdKsUx4UOH0QayXrApPvVz+dx/EwKt1/FC9cwh0lXI7ac/HS0F+cQ72pzChmU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8nIQMJWLDlua4X2qlzaz1WcUfxsS0MzVOH8bSXKo3bfMZT9Kh
-	izD4IP+Y0rIBf1kBhdlrhBaFWix2Ic0DEsjoNH9bt3rV45zCG72PDY/K
-X-Gm-Gg: AYBFou3p2iB+M0Fw78ZOUeOGn+TBjBHou2Lb5WO7qRqPj3r5JXv0wxQDHA+wT1t5maj
-	gbYVYLHc30U8ZP0tASTWF0Ulqv/fMoaN6707I2q+Dwf7oDMLN4PsATzEjz8xGptEuSfWShoTJ9r
-	Fxw4FEkrAJCEXarX1t8tLgW3wMwp3aNiSfmrmXiuRWGCTB3JPPpGHFy81NC1kT81iilNaGPyyXe
-	wtOEXZhttLp2T1yIu6Uyuc7qCvJlhyAhVEfdG31r0bNkZNON47LpUbrMf/yKwNl5sp+rHrulV2+
-	3t8WGlwpzr3GjDOvrcUU1q/bKEHOBZ0aHAUui/eF0s3OE5KOHNy/B/nx9blQuUvNGOUHttMF43r
-	0V/pe7DfoKAmGiD13W6auTJWXCZDfHTCx2gtReQz1bQ0bcL8AUtdm2dAmhswNM0ZNuwMOOB6zm2
-	4fS99BsyhYyrIb7Am8RsjhrVFelNxgvNo8rsJXvAy5Wi6FCGhDZzlnwc0p1Uhvrxo=
-X-Received: by 2002:ac8:5d0a:0:b0:536:2fd8:a4d8 with SMTP id d75a77b69052e-5362fd8a9a2mr33325271cf.15.1792163641162;
-        Fri, 16 Oct 2026 08:14:01 -0700 (PDT)
-Received: from beelink ([187.15.139.183])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362aa59b03sm24674041cf.27.2026.10.16.08.13.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 08:14:00 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v6 2/2] HID: multitouch: fix use-after-free of haptic data on delayed input release
-Date: Fri, 16 Oct 2026 12:13:42 -0300
-Message-ID: <20261016151343.3120300-3-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016151343.3120300-1-qwe.aldo@gmail.com>
-References: <20261016135516.2957381-1-qwe.aldo@gmail.com>
- <20261016151343.3120300-1-qwe.aldo@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LE03XN4r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 895321F000C4;
+	Fri, 16 Oct 2026 15:14:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792163678;
+	bh=5v3J6WKP+bHQTvLWIIelf/Yrhn+GxWTc6CC2vGMgLRc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LE03XN4rEVcp7wnxG0PrnjlUqFydFo3JZdPbDyihq74fSLSK3hhifkR7kEAr/RDRy
+	 +dYgIf3llk1dFjn3QPsishW8AlpPi1OmuYsFxR4G2oP5tRPEwbUWCMDtJEFiNXPklb
+	 r+eSQf4ZGIFgRo3CJ5L84/TkoOvxH6/9da83AFC6+KPulonX9kkPgH2s+lR/o6HpQH
+	 AznufVTctKJgt0XqtEut1qTg3/Y+v6VkeLJg5anI/8bnmgqAHUWHUdV4iZzWvQgqgq
+	 XYEgJq1PQ+2OZxVeJDQJ7u6T/7Td2y3tNKMhml/K7NQUYyzHBw1Z152IzHe3fKOOhi
+	 2OUZps1SUKd2w==
+Message-ID: <e91e6388-633b-4ddd-b498-d03c7aa0fdb7@kernel.org>
+Date: Fri, 16 Oct 2026 17:14:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: Improve page refcount scalability
+To: Kiryl Shutsemau <kirill@shutemov.name>,
+ Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Ilya Gladyshev <ilya.gladyshev@linux.dev>,
+ Matthew Wilcox <willy@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Luis Chamberlain <mcgrof@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux-MM <linux-mm@kvack.org>, "Paul E. McKenney" <paulmck@kernel.org>
+References: <CAHk-=wjLjgfwgSZ1RDk4YdNFcV0ntosMO5AmBoHD76Zb3HFY7Q@mail.gmail.com>
+ <atI0edrmeiRuRtNQ@thinkstation>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <atI0edrmeiRuRtNQ@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-mt_probe() allocates td->haptic with devm_kzalloc() and hid_haptic_init()
-stores it in ff->private.  When the HID device is removed while an evdev
-fd is still held, devres frees td->haptic at unbind but
-hid_haptic_destroy() runs later from input_dev_release() and dereferences
-the freed pointer.  input_ff_destroy() then double-frees it via
-kfree(ff->private).
+On 10/16/26 16:40, Kiryl Shutsemau wrote:
+> On Tue, Oct 13, 2026 at 11:43:14AM -0700, Linus Torvalds wrote:
+>> Comments?
+> 
+> There's a regression: the lockless read loses on large reads from large
+> folios.
+> 
+> In a 64-vCPU guest on a Threadripper 7975WX, 1 MiB reads of a cached
+> ext4 file are 9% slower from one thread with rcu-free-v3 than without
+> it, 64K reads 4% slower.
+> 
+> The reference path looks a large folio up once and copies it in one go.
+> The lockless one walks i_pages from the root and calls
+> copy_page_to_iter() for every 4K page.
+> 
+> I've added a cutoff to the lockless path: if the folio is large and the
+> read covers more than four of its pages, leave it to the slow path,
+> where one reference covers all of them.
+> 
+> 		if (folio != prev) {
+> 			if (!filemap_read_rcu_can_copy(folio, index, *last_index))
+> 				break;
+> 			/* Many pages of a large folio: one reference is cheaper */
+> 			if (folio_test_large(folio) &&
+> 			    min_t(unsigned long, folio_next_index(folio) - index,
+> 				  DIV_ROUND_UP(offset + iov_iter_count(iter),
+> 					       PAGE_SIZE)) > 4)
+> 				break;
+> 			prev = folio;
+> 		}
+> 
+> With it, ext4 1 MiB reads match base and 64K reads are within 2%. Small
+> reads do not change. The cut is on the folio, not on the read size, so
+> files in 4K folios keep the gain on large reads: 1 MiB tmpfs reads from
+> one thread are ~30% faster than base.
+> 
+> Sounds reasonable?
+> 
+> I've pushed my tree here:
+> 
+> https://git.kernel.org/pub/scm/linux/kernel/git/kas/linux.git rcu-free/rfc-v1
+> 
+> I'm thinking of posting it as an RFC to make it easier to review.
+> Objections?
 
-Move all resource cleanup into a devm_add_action() callback so it runs
-at unbind before devres frees the struct.  hid_haptic_destroy() becomes
-ff->private = NULL plus module_put() -- keeping the module loaded until
-the FF subsystem is done with the callback.  The input device is pinned
-with input_get_device() to prevent concurrent release during the devres
-action; the workqueue is drained first while all buffers are still live.
+Yes please. I spent 6 hours today fixing all sorts of bugs after wanting to get
+something rather trivial fixed.
 
-Guard against double-init when multiple touchpad collections trigger
-hid_haptic_init() for the same haptic struct.
+I need the patch in my inbox to not get distracted by all the other stuff :)
 
-Fixes: 8d0bf7908b5a ("HID: multitouch: add haptic multitouch support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
- drivers/hid/hid-haptic.c | 74 +++++++++++++++++++++++++++++++++++-----
- 1 file changed, 66 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
-index 592b44e..6d72d9c 100644
---- a/drivers/hid/hid-haptic.c
-+++ b/drivers/hid/hid-haptic.c
-@@ -379,32 +379,61 @@ static int hid_haptic_erase(struct input_dev *dev, int effect_id)
- 
- static void hid_haptic_destroy(struct ff_device *ff)
- {
--	struct hid_haptic_device *haptic = ff->private;
--	struct hid_device *hdev = haptic->hdev;
-+	/*
-+	 * Resource cleanup is handled by hid_haptic_devm_release() at
-+	 * driver unbind.  Disconnect the FF pointer so input_ff_destroy()'s
-+	 * kfree(ff->private) becomes kfree(NULL).  Drop the module
-+	 * reference last -- it must outlive this callback.
-+	 */
-+	ff->private = NULL;
-+	module_put(THIS_MODULE);
-+}
-+
-+static void hid_haptic_devm_release(void *data)
-+{
-+	struct hid_haptic_device *haptic = data;
-+	struct input_dev *dev = haptic->input_dev;
- 	int r;
- 
--	if (hdev)
--		put_device(&hdev->dev);
-+	/*
-+	 * Drain pending work first -- handlers dereference ff->private
-+	 * through the input_dev, so the workqueue must be idle before
-+	 * we NULL that pointer or free any buffers.
-+	 */
-+	if (haptic->wq) {
-+		destroy_workqueue(haptic->wq);
-+		haptic->wq = NULL;
-+	}
-+
-+	if (dev && dev->ff && dev->ff->private == haptic)
-+		dev->ff->private = NULL;
-+
-+	if (haptic->hdev) {
-+		put_device(&haptic->hdev->dev);
-+		haptic->hdev = NULL;
-+	}
- 
- 	kfree(haptic->stop_effect.report_buf);
- 	haptic->stop_effect.report_buf = NULL;
- 
- 	if (haptic->effect) {
--		for (r = 0; r < ff->max_effects; r++)
-+		for (r = 0; r < FF_MAX_EFFECTS; r++)
- 			kfree(haptic->effect[r].report_buf);
- 		kfree(haptic->effect);
- 	}
- 	haptic->effect = NULL;
- 
--	destroy_workqueue(haptic->wq);
--	haptic->wq = NULL;
--
- 	kfree(haptic->duration_map);
- 	haptic->duration_map = NULL;
- 
- 	kfree(haptic->hid_usage_map);
- 	haptic->hid_usage_map = NULL;
- 
-+	if (dev) {
-+		input_put_device(dev);
-+		haptic->input_dev = NULL;
-+	}
-+
- 	module_put(THIS_MODULE);
- }
- 
-@@ -414,12 +443,17 @@ int hid_haptic_init(struct hid_device *hdev,
- {
- 	struct ff_device *ff;
- 	int ret = 0, r;
-+	int (*saved_flush)(struct input_dev *, struct file *);
-+	int (*saved_event)(struct input_dev *, unsigned int, unsigned int, int);
- 	struct ff_haptic_effect stop_effect = {
- 		.hid_usage = HID_HP_WAVEFORMSTOP & HID_USAGE,
- 	};
- 	const char *prefix = "hid-haptic";
- 	char *name;
- 
-+	if (haptic->wq)
-+		return 0;
-+
- 	haptic->hdev = hdev;
- 	haptic->max_waveform_id = max(2u, haptic->max_waveform_id);
- 	haptic->max_duration_id = max(2u, haptic->max_duration_id);
-@@ -511,6 +545,8 @@ int hid_haptic_init(struct hid_device *hdev,
- 		goto stop_buffer_free;
- 	}
- 
-+	saved_flush = dev->flush;
-+	saved_event = dev->event;
- 	ret = input_ff_create(dev, FF_MAX_EFFECTS);
- 	if (ret) {
- 		dev_err(&hdev->dev, "Failed to create ff device.\n");
-@@ -525,6 +561,28 @@ int hid_haptic_init(struct hid_device *hdev,
- 	ff->playback = hid_haptic_playback;
- 	ff->erase = hid_haptic_erase;
- 	ff->destroy = hid_haptic_destroy;
-+
-+	/*
-+	 * Pin the input device so it cannot be released concurrently
-+	 * with our devres cleanup, and take a second module reference
-+	 * so the module stays loaded while hid_haptic_devm_release()
-+	 * executes (the first ref is dropped by hid_haptic_destroy()
-+	 * which may run inside input_put_device() below).
-+	 */
-+	input_get_device(dev);
-+	__module_get(THIS_MODULE);
-+
-+	ret = devm_add_action(&hdev->dev, hid_haptic_devm_release, haptic);
-+	if (ret) {
-+		module_put(THIS_MODULE);
-+		input_ff_destroy(dev);
-+		dev->flush = saved_flush;
-+		dev->event = saved_event;
-+		input_put_device(dev);
-+		put_device(&hdev->dev);
-+		goto stop_buffer_free;
-+	}
-+
- 	return 0;
- 
- stop_buffer_free:
 -- 
-2.53.0
+Cheers,
 
+David
