@@ -1,95 +1,95 @@
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A760D348C6B
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:47:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9359F31326A
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:48:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792122450; cv=pass; b=V0WsYTFcnLJYke+3TL0vy76xaWFQsB0TSEOsWYKMlEY+VEDSvcFHCWnb3K+nI8fB9mKTG4QzqKuY/Sx32k1lGEIDh3EvmGq3jajRI7Fh1iT+NOZnzN9uN1WHTDHzfu/xt9si3TZ7/MIUN1vgj5hiQliriimk2FezJFs0mIN3skA=
+	t=1792122499; cv=pass; b=cx3GBy/MBkJT90bxJ4AcVUkt9R2JsGhtT8V/lpsiuTiHMhfTtgWBckmvduQComwhEkSsInp4cBqFACpiFUh/JU925U1jNMdSd3gaN9ovKo3A6uzFISVEE49jwvLVl42a72kY10CWFLTQ8fwnCY5pe5YZHjohlLvUp7Orv6Q1w8w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792122450; c=relaxed/simple;
-	bh=yIqaxTNLPE/vMy/0DU9sa+0IDVj0xY6z4OXgkTYvMWU=;
+	s=arc-20240116; t=1792122499; c=relaxed/simple;
+	bh=WDhfqi9KVGdv84+1ic9hTc/O7+GDjdOl7MkC6oMvKIM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=c8+DLxWIAXq3hiHP9CcegZIv2Gn5AkNJ4UXdqPSPBA3vRRqPzc6mvVwbHToJ8Ok8kW1Cgvmo8OknX1Or9SLOBarXYYxdnUvffatC1hiuH7m++v8WvCaKfSDNwcugyd5r9lJvxVvBp1HeYVVbCw7OJGNe7c7qoQp0wKiFgRzOlk8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WmSBu35N; arc=pass smtp.client-ip=74.125.82.43
+	 To:Cc:Content-Type; b=MlzVOTGFloYgJgkrtApsDLDiMOFmxUe1eGClNRqj4rUBXL4efYzlTR7FLHVAxfSYb6ocGtLmFlufmdRU+NNxuu9zBLEtDqpCa1D7wqEGrGhAq9/c+tfJ5W4KU54AxyIZm5tNnJst5sIFmPFu7iBRXAhArNNeYVOs/XFo5o6XQNM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MFUnJYMq; arc=pass smtp.client-ip=209.85.208.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WmSBu35N"
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-150ef97e790so3708c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:47:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792122447; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MFUnJYMq"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6afac79b3a3so3558a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:48:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792122496; cv=none;
         d=google.com; s=arc-20260327;
-        b=KjkpkyXPVPGTlpW4KUqM305UYjvWOHEgtdwoOajHpkAZf9yDsbgRLXeJ2wLdOlUBna
-         jWH5tXBqGKSt+BeV2prq5QOBsRvjp17xtJJalkpDbrtbCv3WFv5V6ChzdFAeMjRRp6gY
-         jE5Srm6awXEi7xMpSsjLvfOFCWZp7amh78+Uo6moNUx0Typ4yFHOwGs9D4SEJ9VArTyw
-         Fb9cclH6/6Nfwv5dBndUyZFeiFQz+hlctgf21BGPSqoc60lxnUZHQZBK6wxXggkiefyX
-         n/UJCw49nEqta1p6OoeBQupmNmgp7hiDyhmOMT8hu3oG6uTlFsz5DUx+lHOC67IScPO0
-         Ps9Q==
+        b=k97imCbASp//+ylNNsS3gt1LQVcANu1DIO91zvi4PizWVtFVdlsDE6iGYUHwwittd+
+         HiVoUrCoHzikncyAR9bpPJwZbaW23lMyYE08nFwhagWIjKK0s0KOWcfiyaenajBFjyPm
+         vjsz6AtCPsvULC7K/94BA7dRmalAuzfsmldi/4n5fGZZ+cgW3i1ibSCMe9JewhIVPanT
+         cD8LqRWddcCRZZktlByHaWko8J+fAj2RaFJRFLNppYnBwk26u99LnHgTGoG1u5PnsJR/
+         O2ulaLYOPRdA97LYoU/w1QvZiUPrvObWRPTj/LM8gQTW4/S0gYpLd+oYlKt+RpzUa0t+
+         Ywgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Gh+SJsV9qd4zf8kFfRpYPnxqBTL6SxzjJrawXU6GjJ0=;
-        fh=EQ/6W6vxAFopElbkgUh9cdMgPITSCEaWJ+7OHCxIPCc=;
-        b=bNKsBK+m9wKw7t+Jt/m+bqX3etFdFJ8A6rCwHzbfylP9NccbCNslmYt0eo2XfVFBH/
-         OS5MDUVjWB/Qyd05baADSn+YDSPC6dodqWEhPzUhnqc+tuhLv0vNjwT+si0nXJz+IeNK
-         bVKnUN0lixC3OtuC0Umkex1hV/4W2v7zCTRzT67YX/g1Owkdz4Ys0Mcw/tQoxtAvpoce
-         CwZGRBOtgLkvqMxgo//q2lHb8un8IOdnAbVsB3R6jvJA8Q3K8mXE5QPSCKgpDltOEqLu
-         sFRWPiZtiOmHgInMPkwAkon36L3VgQBRRq1rm9Lv1sgfWWWoEH+/lUflt2z2Fqc2JYoL
-         S3kQ==;
+        bh=cHwmVcL3Ea2QJiHo6JwLvdH2j4OcK78NhenhdrCZCWk=;
+        fh=5liBUrvpGf3Kg/HTLvBsXSRdxfs+ziOiF/00q2UO2h0=;
+        b=Idp3a5PuxYcqlwpksE+8rn3b2Dj7h3oNrDUe+vKkFmwI/TINjVeR1k46MvHf9ftViT
+         vFdMMR0704Mb7q9RHuSKapvh1W/Twfyyqa3wej8USvoF2LmPs2sqxEGcEzuPWX2YqWst
+         Q+0M5q8TfTc978b0f6FANUudSF35JY5gEsU4fNGZC3hnupi41HMoyXoMRO26UMYMVV+h
+         QghszJqq/OAMTp6bIH+HNEZmoPwgmuup52F20XXcudltIZ4U6KotGI6xRv03eqk+mrgI
+         wKnUx90iiVIvEuNwD11UOQYhZkKL8/OmKcw3ie9DUe/N3JPpWvzbq+W+ivEPY+7349tw
+         zFwA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792122447; x=1792727247; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792122496; x=1792727296; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Gh+SJsV9qd4zf8kFfRpYPnxqBTL6SxzjJrawXU6GjJ0=;
-        b=WmSBu35NVeiQu31QNlzjhikocheGgXNjWUJNOfTnocjmaa9dLJL7rjYmck7Yb1z+U+
-         7F/BcQN9418cJFFWZhiN289klcAdf7vY8RP6332r/zLY1eDQR3QDdxhuZpxo2G/g7aZa
-         v5rtZxY/E5Y21UZmGxBMeG8ox/f0nEfZpgpNvnxMR10va55ZlfCLtmjRq1avhlVq78yu
-         FDILCBHBPklvY5onHmwaR6NR/BOznHWKN7qnvyqNIBobtefQODk1/1rS3FsbRoks6qay
-         uh6HOUzTvsNyYoVU+csC8enaQ5SbuNJ0SfX1ww1FJ/D0eVCBC9tcI7/RCsBopWWAD692
-         YhYw==
+        bh=cHwmVcL3Ea2QJiHo6JwLvdH2j4OcK78NhenhdrCZCWk=;
+        b=MFUnJYMqeRN8pn5oS/fx7Cd7aYGZTuAmL2OPtbvk0h3AtusqHufhUy/9R6we1FzGNn
+         bBiaEt0IoROvODwpQgTngVSOBgbPr3GOWyKRzCSfikrMcdUKGd0EziFzmIUG00VCAETh
+         GcF95UW2KmEWCHa4jPsDafHok/nbbXBUu5l4cFYA73wuuyQl1nvwkiiyQqZngE4O17V9
+         ZTY095u1puHUkVdeCxOdqk+UQTLkUeao3SXccnbw6t2YW6/4qw8Yyc5EHtrT4/gFylU1
+         9QHOTqyYD5w+XTG1uqls1Fi7QAXNy3HD7iLDB9Nqi0L0HcPN7mWIcD2UnifQm39korJ+
+         dJlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792122447; x=1792727247;
+        d=1e100.net; s=20260707; t=1792122496; x=1792727296;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Gh+SJsV9qd4zf8kFfRpYPnxqBTL6SxzjJrawXU6GjJ0=;
-        b=1J049X/2r1dZ3x0IVon07GqxkHFYfnHV+fBZeBesk5JuDR49WZzqsc8iq4uznUEVvE
-         wYksS9SRkQXeVTVhtuNguyFfY8HDOFGMw262mWUA8qZu2PUHg4w+k6pB5XrHu16DOPEk
-         IrDiaq14a+VWQpcX5+HPNpp8wV2P+RGqpbsIfhIqgThynj8Uep/afLvc4lf6nFpsRp4Y
-         9RVK48j8e7VXQgPszuQeWmQJvKR/oUwD711Zlgs5frlb64xZGy+Omx7V5bxqMy0zoEKr
-         hMx094rEWIX7ksuW0DVjhPr6Musu/Q3aF8agOkTC3g1djQ2x2lCx3m06+AUIdt/bL986
-         Q/KA==
-X-Forwarded-Encrypted: i=1; AKwUvBxXHaK/9ypLS+BpXarRd8FGff6+Cle0qVoU9jh2DbmGCfOJpfehr/UN7/oVe4jLPKxlgbJ8t1wreWi/JMg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLFj8E6ej107UHL1zeoICiQX5SLbvQkcP1W+FrR5rZU5FtAR8bU
-	lMZCemJe6C63Oi0HRwf7wGC/tU8vjWM4RaQj9B26VlAcmaS9Wb2Nne+OcUNqu/G06NGWnGn02Xq
-	bD3BuVSOELaRsfMsVt+qRaj40ZQEFZM3vVJaWJH8U
-X-Gm-Gg: AYBFou2OhQex7JxxHCU2Os8pK3U9LSGEr39b9mk0a5uKrAAnoumPKC2pw5X325QXFxx
-	3jKvVzbmOhOC1JMuSqol++IWTDtV348wB6iLrxfWcaxnj0ncrN31K5u+ONQKa7iuAGOjLx/lFae
-	X1GKiUqNXhpAFFGnM//3fC0pMSFAjS8Cv5KLZXIJXQMBEw/UGV+UCZvmOK04stOJu1HjnYXKBb/
-	/jYQf67PGJTavouEiSQCXbVx6KeTTNPJhgQQvIyLLa/l6lLjwrWCaQP5fBvj7chWZZT7tWvUebH
-	xYNAZ2+rLKu4OnbWcnYPNEGSKcwmC6Aiejec4OXXGAAWhDMOEe1BhQ==
-X-Received: by 2002:a05:7022:170c:b0:17f:fbc9:996a with SMTP id
- a92af1059eb24-182bbde9b6amr279955c88.3.1792122446355; Thu, 15 Oct 2026
- 20:47:26 -0700 (PDT)
+        bh=cHwmVcL3Ea2QJiHo6JwLvdH2j4OcK78NhenhdrCZCWk=;
+        b=wUKerOI0AlluqtBRsqQiHrr1tifuRItH2pVrCk/EYptzoBOki1GOomv6RvQAM38BSY
+         aO75nW3RZKrFtBp5iRzplxx+0hGXW9biNUxDtyAZn4/DKkbka8L3sN4jZVEqQTy4QVdj
+         PyQ7k8iz86k4tUk26Fkimc4l+e2wzlPqnRSNXLlEdkYxRL2C6qJ/oRsGcPvCOdQob+Ho
+         xEeLjH5MpaKKl/XypGWfl5g3gkzI3bABaHmWHQn5OlIjhJk/gnec2iSnyhmbzDohS71D
+         gA+17CQlMjXm9hvNOA0UBuSEtm64XqGi2z0JuUvxfiZcPmdEikknlrpTBdy1+mTZF8c2
+         nhMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzJ7mRkNPAGh7Ft3kxazboM3Yy7F6NKb0svxBKMVuRCvd2qoOlke8UArMzQ6A/xEB9g/cm0tq82sL2bH+0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8l9WLN/T/HyscraOufyoCuiuA5QshtnePEZ5Jvjtf2JcHsQS2
+	J/s3O3Y81OH7UF0v3ImWLJhba98X1WX0VSk0En2rjq9wc+f1ZMH/LDPJrNnYCDLffW1ZKzB9e5e
+	O+YK6MYftkK9knDWvzf/lg1owjvUHur6W2fFGtT/P
+X-Gm-Gg: AYBFou3jrdRsgT9Ck3j4TDWvLltXDB9vH3DXDgzU9+q1oX+7Ke6Rd1TnsdstahvJVl1
+	3mEh+ScalfTF/wHoPUEL19YZoWiFA2yyp/RWgsM5py39bURpcLxgJMG+LCv4kfMmZsAFw/AbrT4
+	cTDTQDO1lCatKbHACpC1ZpdPXfZw3tRzfjM7W883J1d9SBJuyjhGHd/AImvgG7m6c5H7mF+09xo
+	SD+OaFmoerFUAwsNxgRI22l6zrjnSZqrB/pYRnrFmTiGpYu8MD5UR4I6jG1DKl211QGK3IuK7na
+	7V+d44GR7Ox6bPykOGj6MI/F48c9N2FC/hrhBaYvPALhK7RH8QYvaw==
+X-Received: by 2002:a05:6402:a6c6:20b0:6b1:aa31:a627 with SMTP id
+ 4fb4d7f45d1cf-6b38ba0dfd0mr16268a12.4.1792122495231; Thu, 15 Oct 2026
+ 20:48:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014173945.373295-3-almasrymina@google.com> <179209665863.434549.6637198029989888049@kernel.org>
-In-Reply-To: <179209665863.434549.6637198029989888049@kernel.org>
+References: <20261014173945.373295-4-almasrymina@google.com> <179209666051.434549.2929683677785392178@kernel.org>
+In-Reply-To: <179209666051.434549.2929683677785392178@kernel.org>
 From: Mina Almasry <almasrymina@google.com>
-Date: Thu, 15 Oct 2026 20:47:09 -0700
-X-Gm-Features: AclHuK_vtqKDxgWFbxG4BSVZCPmFFjYvhXzuIZSuzOmkSqaPQBtSf8jQ4Wou4a0
-Message-ID: <CAHS8izMnj6t5CX3THvGoorPa8krD1RvouXzKQpgZOkUMs8Bzow@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 2/6] net: skbuff: add napi_pp_get_page() and
- use it in tcp_recvmsg_dmabuf()
+Date: Thu, 15 Oct 2026 20:48:03 -0700
+X-Gm-Features: AclHuK82vYjG9iaKBiwqWzObGCIoi3MxPyudlxUnlS3qJQCEAcDwsenVdF71kak
+Message-ID: <CAHS8izPxoA6fU10fSNzKkZHFrWingOgduWOoD7ywii2058GABQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v3 3/6] net: skbuff: replace skb_page_unref() and
+ __skb_frag_unref() with skb_netmem_unref()
 To: netdev-bot+sashiko@kernel.org
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	linux-rdma@vger.kernel.org, bpf@vger.kernel.org, ayush.sawal@chelsio.com, 
@@ -113,59 +113,17 @@ se
 >
 > Low priority / nit picks for your consideration:
 >
-> - [Low] The commit message says that "no symmetric helper existed to
->   acquire" a page_pool reference, "forcing callers like=E2=80=A6
->
-> --
->
-> net: skbuff: add napi_pp_get_page() and use it in tcp_recvmsg_dmabuf()
->
-> This commit adds napi_pp_get_page(), which takes a page_pool pp_ref_count
-> reference on a netmem if it belongs to a page_pool, as the counterpart to
-> napi_pp_put_page(). It also converts tcp_recvmsg_dmabuf() to use it,
-> wrapped in WARN_ON_ONCE(), in place of the open-coded atomic_long_inc().
->
-> > While napi_pp_put_page() releases a page_pool pp_ref_count reference on
-> > a netmem, no symmetric helper existed to acquire one, forcing callers
-> > like tcp_recvmsg_dmabuf() to open-code atomic_long_inc() on
-> > niov->desc.pp_ref_count.
->
-> [Severity: Low]
-> Is this description accurate? A helper for this increment already exists
-> in include/net/page_pool/helpers.h:
->
-> static inline void page_pool_ref_netmem(netmem_ref netmem)
-> {
->         atomic_long_inc(netmem_get_pp_ref_count_ref(netmem));
-> }
->
-> io_uring/zcrx.c already calls it in a similar zero-copy rx handoff:
->
->         page_pool_ref_netmem(net_iov_to_netmem(niov));
->
-> Documentation/networking/netmem.rst also names page_pool_ref_netmem() as
-> the API for holding a page_pool reference. The new napi_pp_get_page()
-> calls it internally too.
->
-> Compared with page_pool_ref_netmem(), napi_pp_get_page() adds the
-> netmem_compound_head() lookup and a netmem_is_pp() check whose bool
-> result tells the caller whether the netmem is page_pool backed. Later
-> patches in the series seem to depend on that result, for example in
-> skb_netmem_ref(), which falls back to get_netmem() when it is false.
->
-> Could the commit message explain the page_pool membership check and
-> return value, rather than saying no helper existed? As written, it is
-> not clear why tcp_recvmsg_dmabuf() doesn't just call
-> page_pool_ref_netmem().
->
+> - [Low] This commit fixes a real refcount imbalance in
+>   mlx4_en_complete_rx_desc()=E2=80=A6
+> - [Low] The commit message describes the mlx4 RX error-path bug as
+>   "underflowing the page refcount".
+> - [Low] At this commit, the new kernel-doc in include/linux/skbuff_ref.h
+>   names ref-side counterparts that do not match the code.
 >
 
-Commit message is accurate. There is no helper that mirror
-napi_pp_put_page(), only a hepler that unconditionally increaments
-pp-ref and barfs if you give it a non-pp-page.
-
-I think we're meant to ignore low (and sometimes medium) comments,
-unless they're obviously correct?
+If it's OK with folks I'll just ignore low comments. Even if I
+reworded the commit messages, the bot will find some other complaint
+about how the commit message is worded I think.
 
 --=20
 Thanks,
