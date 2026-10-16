@@ -1,173 +1,145 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011051.outbound.protection.outlook.com [52.101.70.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87212447231;
-	Fri, 16 Oct 2026 20:21:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792182071; cv=fail; b=PRdO4DMWz2+cq9QRxSd1UI5xjT3dc8wpBDLpM8oUoZp8aZ1JCh6HF5FIqrntoP+h/WEosudI2BfwK0j6qmg4YTuplsLTzTcZCVr1GkZ90UHqNGmz1IXTYJA+xHn24iK+6MSPXL8OmKpgteWufsK5jDZEjA7I31w24qr3fyJVMpo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792182071; c=relaxed/simple;
-	bh=e5yIddnKvv7dJjypHq50zSIGrUuqSm80icRFFBP+pE8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=e8wH3BbJ+73DUzuafUUb8M6EEwiSwY63VKMjz4FHoFujW4oPwcdltA7eJY3h25z+vKTR7CeOiFf7RYoYmHoV8+Iqck8rzGImlMk7mCodRqpLrNeS8wuqwTcvKcxrz2WyJMOck2o96+EVl/SzjAizRwK3U0IbO8BraR1eCQ+OtKs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=lujio3i3; arc=fail smtp.client-ip=52.101.70.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FCF40B360
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:29:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792182569; cv=none; b=sZqNFeJlHF5tiIL0nh2ASztx8y1eFj/yhyC+a6YKFOUc38w2CTvTfpaFqIyk68M2LcyUe24dsqSr5tRxM0lItq81QXnpMO0x6flUdiKr1nKEMEJjgZUSYFhqGXUEoO1+lQ1RYF2HMnf93E6DrKOVs1sYUVr9KDlm45SBdG9veu8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792182569; c=relaxed/simple;
+	bh=K/eiPh6wdByAcPG4TnUSQON8b7aKE6ICed5QBrHg5Uk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k4qEm1kx9jTdv12PbPjHi9OgeEWl4eGzw1nFgxUGRLAxWavyY0x1q6Fi6C2AV1LtSXz8Dl+GWXdQNKLe7wr8W2xWKSuj0QdKn2hAG0THmvYND5/hkWZLpxK6KW5ojsX1Lne4ZoeR1WAEApOFGOY67Ztu+LLxSprLE55erQ+qMec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co; spf=pass smtp.mailfrom=x6u.co; dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b=Su//ULe9; arc=none smtp.client-ip=209.85.221.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="lujio3i3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=emkjPR8Wmm8QGFzsCsl6z4QrNIDHtIXQRvBfvb0dakP3YZJhTPmXJ5aHSzz59cjeKd/94PArAQ3EHijOyz+E04i0fVPsx6LkgjC1HdtZ+s6Jb5bMk5FKV4x7f11EHfMHZShm2iQTF6Fjsd31fO//7sV6qrDVfPuFdTWFtTCR3GuOmY5WhBRj0sUEDbjL29SBaVFUf6s+W8bN1f2srE4FuW7rM2meR5qLAfrT2zR8+ATBfE0QxcZY3nJyD9MkPTYngt1R1ZMQKX1PCNuoFmwZhLUhnf57LXwATV8UNbpxSCQbfAa7CFMco/h2H5zC2K9T9C23VoYDqSZuQu5M8Qjuvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KUQ1eIKJh9vjo/ubvkwTOKMV1/Rtoeos3EcYTT5lJ9A=;
- b=RONF7U+Jk2NjAAjrc9qbOSgrZ07D8n/UCg1q42S4cVcGzh3ZunEhaT6fQh4YREcw+SRPdnZ9KsGjRH1J/wHhE+jvp4Cwvkttf5vfUu7DRx+Ngm5EgpiJPjo2KLDQtPqXm6/BZLuexM65rKryqmb2cneONtSFi+I2V4cjBt8DAbNGd32MUKdPT6dWztbEV4gB6sHjIOcYmwOUq9/8woR+rRLEyu8IdJbatKL3PoiCYtQdMJhKOZx+c780vIKHT7CurvnXtcdpC8ZiHidRFWmOjFxvp0SqFaNfPsGVPQdBqIE4ph2VetvP9m75POXlp0+ck7U9BAHXWbDx+dzxwa+m1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KUQ1eIKJh9vjo/ubvkwTOKMV1/Rtoeos3EcYTT5lJ9A=;
- b=lujio3i3mmHe+N9UlrHrz/1i8kO6wqmIZYpivnu3P7gXtZkk8IwyC4rJK6GcAqcbzzIIR4AK2kyuohDy3trxnrn0P+M+CMT6jCwvPaKHkMVwTmgLcSnA5LmPFQwxmE1PvpIymfzlWgUnfmPXlhV0eMKlRCGTbJn29t0ZIXGH9KZ6K+vDHuPp6e2bgIctQajXCxA1VR5wpVi76iAMBkkp/gSEsli57lu6WFOaOkhAfT2lcEWBERiU4b8Vo81pb5U6P3huOY19KmatNkVzjHnqe/g9O0EuSRk7NTYjOjOSTHhGwOESxpIgZiz8cF199bKOsEkO9hp00iS8jeYRQhCrhg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GVXPR04MB10660.eurprd04.prod.outlook.com (2603:10a6:150:221::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 20:21:01 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 20:21:01 +0000
-Date: Fri, 16 Oct 2026 15:20:51 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Stefano Radaelli <stefano.radaelli21@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Subject: Re: [PATCH v1 1/1] arm64: dts: imx8mm-var-dart-sonata: Add OV5640
- camera support
-Message-ID: <atKHI1B0hL6q-CmY@SMW015318>
-References: <20261015162301.63838-1-stefano.r@variscite.com>
- <atEci_KwxUdvAekv@SMW015318>
- <atJY6DzjmAeq7U8q@Lord-Beerus.station>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atJY6DzjmAeq7U8q@Lord-Beerus.station>
-X-ClientProxiedBy: PH7P220CA0063.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:32c::30) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b="Su//ULe9"
+Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5e9239c772cso235253e0c.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:29:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=x6u.co; s=google; t=1792182564; x=1792787364; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Nxphn8qi8chEITJAq0WxifpclpFq8ct8M84yutQx3UY=;
+        b=Su//ULe9FM3nbKuUjRrVH6jCG6Zl3AtKQnib4G3JF6NGoszkJMuW/s+ambaz8bs+WI
+         AnRCnYUi8E2s1v52nx8QtjomnGjkcTb9OkYcb0VHmvBgMJto7yItofvOnuHwZqC6DNyy
+         ebIaL1oKpy25pzTciFPuegIHZx4IqIKq9asmmK4BTYivKlPXH/EpkNiheT+xKb2va2Ca
+         3IPwRrXfXez4MR4BUkOUu3NXkGqggzVY51YjOZhkf1UVWF0AWpEhatGVf/ujqQ9AlRQQ
+         1DVmIVUN9/Co4G9qIkUJqHb1E+pQbbdLD7r7D0Xb3ByVn4saaitlULbzlbH6XvqDfzEx
+         xNAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792182564; x=1792787364;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nxphn8qi8chEITJAq0WxifpclpFq8ct8M84yutQx3UY=;
+        b=Zd8XFpxswlJFLhUkaYeM5oaDQqZELy7zGKnKHwu06JWBC0orm1eU7awIX5GegWizpA
+         rDjuk9BUDMDfj9BYmQa20xnZ1puHEJbPJftazIMkPVjJHL43nRM0MrDQUAz/+sioqMtX
+         BbrSFC6abaysY6E+ida7fMvliIABB+XowqbzrgNQankwuBhCeRczhmjb1bkSSBToAOxc
+         LdbbvCftsTt8mvu93HZaBv3hUnl9jbGQ7bZhiV40QuUfv4qbohmzwqsIN1D1Zw4yAbuG
+         oRAxAsCfZN/rjHIupNBxgjgd1D93sxBhPYkgb0sw1bBIC/0qxJhqTVx7TKdKA/3SFcpY
+         ZRyw==
+X-Forwarded-Encrypted: i=1; AKwUvByApHEIVsHzcjolM2QEhrF/oUbIMUUH5KbtNnYhz4Ob2jOJNS30ShuX+LpJ40LR2fmMWYJ4/8dbsyRRew4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJS65LRGhioFZaN/Kw7HCeDA3lEU2g46ZxG20vXzLGTpDLBBFnv
+	jl4ScAH25D8k72svxI1uwK9cqGIDn//1eEYeC2kic8DpbJOe9XXPLaW4tiZhxBVbZK02
+X-Gm-Gg: AYBFou3cvUsjSI3PGeSS6DbOU1qklAa2SwBYwg0pOAKGqdmDP7eB+k7wgC2/iRKH64d
+	DFYt/2cAHLeLPJ5ftEsT22tgdC+suESFl3eeTUBwC7ZubYgXWNHC4TpAVzEuZ5D0OPmKuTz+3ll
+	CkXz7SPtptMsdyNA/drmy78L6PJ0xaFUxhoJEKKfcSiypCynQkI6jjMBJJ2qSkmBMVG4nnXfK5M
+	MExvb64nZPpe1YYMGn0SMdqe8vwcOYmEzH3aaEUXqswfJkJew5epljeUM8d3BYsRlLnRG29EEWq
+	jSLJZt5ECxmykK7c0kT7g51RjEyO4qwVL2r2D2mEU66S9l2XF34tWQbTBYSmlRd4Rw1EBGy/SX+
+	vUbSlT5WZJDXoIcNDTbog/eaMpSj82Nv/7M3PnUj8WFjPbBDl7uGINIlHLkADUWt3UxlBNzZ+0I
+	AR/Yh3AEMDSe5fNo1XBIeUPZ+ZvA+Hf4DKfLEM1u8tmDCyPGteufODbKcWf3ja+2KHlQTsRPUgz
+	TZJWEkVjBeDIIFyJ+Q8J70CHDXcQ75XhJwNZPYvtmgCeXCQv3jrwOHxK6FHDwYaRlU8sCoRgQvi
+	zfDDWrAxOw==
+X-Received: by 2002:a05:6122:c1c4:b0:5c9:8b3b:deb5 with SMTP id 71dfb90a1353d-5eaa9ecb28amr507582e0c.0.1792182564282;
+        Fri, 16 Oct 2026 13:29:24 -0700 (PDT)
+Received: from worldpeace10.c.googlers.com.com (119.20.221.35.bc.googleusercontent.com. [35.221.20.119])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b5201b1sm2588281e0c.12.2026.10.16.13.29.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 13:29:23 -0700 (PDT)
+From: David Hu <dhu@x6u.co>
+To: Mustafa Ismail <mustafa.ismail@intel.com>,
+	Shiraz Saleem <shiraz.saleem@intel.com>,
+	Tatyana Nikolova <tatyana.e.nikolova@intel.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	David Hu <xuehaohu@google.com>
+Subject: [PATCH rdma-next v3 0/6] RDMA/irdma: Add support for ioctl
+Date: Fri, 16 Oct 2026 20:29:03 +0000
+Message-ID: <20261016202909.1289496-1-dhu@x6u.co>
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB10660:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34f81cd5-985e-4795-37c5-08df2bc2ff0f
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|19092799006|23010399003|1800799024|366016|7416014|376014|18002099003|10067099003|22082099003|11063799006|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
- 6JxD0WenGgfeRxxnRz8HbxTkT9ukWhE+BVXZnAA+AUXnQxXho+f8z+bIQTDyxtU4BRs7TYlW25+oa1rzqSE4DmldBJEjj9iwnBm+iyZEgBK1LzHMlVqz1u3vmozqUBNTDFsw57pYNrXG76vF/dvk5wAwS7RudzzFnKMNEz5HNYqfhAcyVbXkjbr1lyRgyVLX7gyeTKMW0gLzuxEwnkePcOK9WMItqSXY7vVmjCkedE3e9L9Ol27PyvOIrhz43p1QO4SdI9LLfseZNRBhX1Qv5a1KOjpjvEJqMkl7cybvNwBqslcw3WFZRizmOWPQByNs3NuBr8rgnVY0ccUjS88Jho4vEFj9UGiFOnBtmlWeoENaAQ/x/hmtvM55lWb32r6+Hf6f7rxrve9/dfBGWpbcFX1ifWHhwSch6a44nQbNbHsyoHJHHwg9nsuSZYDmG1H+1eYRMGfpJNELm+hN6ErneGOYhPtLYEgVX56sQ9KhzAurqL/047RzLk/y+iuD5G5oAdQPr0mIS4sbXMQrvqb+ZjlkzrEQqjsI+pWNA7xTsoz7QPwArM5GxW/wVMvSu6H+bCVeINHmA2RbZjl27qG3txCfRDdOJmn8dsuMinBqbOdjb3JYaLVOLfKMHgDFu/Ck9bT+1OH2E5buwNHwptrf1L7CRBekK5O9N8VV/GK4NKM=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(366016)(7416014)(376014)(18002099003)(10067099003)(22082099003)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?qXoS3JXr/cF56BIaIlSG6eKy0fB7JFWagQZv3O2KE1NkbygiKTY10tH0GtrK?=
- =?us-ascii?Q?20BxhFfEEMEvG796e1CVKT6+Tm2L/HNLCBGSDEUqtCKUc6fc1kyOjj87COrr?=
- =?us-ascii?Q?LroKyMf7TTwJb4EvNJJo/u1clK6RkKdl40mqDmDpv5oZQiwCv2x5wAeSJXJe?=
- =?us-ascii?Q?jUO3HtGi2PAXpEB2yE1Rjo1r4KE5OBnhYfagUqYdrRVpt44W7yo1HujYChVC?=
- =?us-ascii?Q?Uz8ktQ+Lytv/mWBfQCPFxpWOqwIyfXeVnbpkSEbSDLaXldWh6qVhvWVr52CJ?=
- =?us-ascii?Q?MniHi6cIiCN7rispv3p+/+NFPvJup5CcoTZXoH72eUmSA0eZAefzux0R4IT6?=
- =?us-ascii?Q?uHqfhIMYlqbWb1vfcJEG4DEc3weULteJ1/MDdRu9HVAKaQAp/I8LfkS6WUFC?=
- =?us-ascii?Q?bEzJuQIUmqWH20NV3TzrMxIR7wIcYPugH0yzUS5PTCKjupEQ6cNsH49feGJ9?=
- =?us-ascii?Q?VHN2F+Wj73/99UnUhZAjL53e8vbk+jEdHJxpwuLE875gP/fO6nmckCOr06KR?=
- =?us-ascii?Q?1ll1Gxl03DfV7KIGMkx83NWYO2feE4XjBi6KhsaaWpIqM6govXIrRBHoJgWg?=
- =?us-ascii?Q?ta+D3fzfXXkIXdWny7g2MAcAT0oLiIwU3WLDIGnUrWKbQF6P33n7EvuAiRMG?=
- =?us-ascii?Q?MEpVuHwdwrFZgrJSIosJjQLTLGkBGn36IQQeKHZgMvrgU88meW6BWETa3CG4?=
- =?us-ascii?Q?1jQqEyiEpMz753Tk1iMCaH48YZvkr0zV+SOxXuw0WYuoVYrY0bMd7Qq+I1xa?=
- =?us-ascii?Q?A0HVY8c/pKpMSgE3A6zLoW4KNY1gQedEAiq+R9UySqtFQofYlPQkkdW9Ut3v?=
- =?us-ascii?Q?cmZ9tJVmXlGOQKEvLgzjt8mc39CuAyDGXFZLJekPGTGLerJcva0XTe5av3PJ?=
- =?us-ascii?Q?ONIRtksH76mFa6o/9KacfW9Vbao08tm5pGAySBWqgSPs1jezU9mNDdObvvjs?=
- =?us-ascii?Q?YlZZd3jYuVYc/Z3qVm5ZY2V/V4BTZ5CYl+xHwGFo3bXiUmUmUeERwEBIzEsz?=
- =?us-ascii?Q?eOVFYvKTPQj1+iS4BwAQA/Mncxkii4vA951dUUZ7a+StP0x3WX1YvZE7fCmM?=
- =?us-ascii?Q?XGAqMfwGMU/DHTkFbp6pMun8xulRorg5Yuosh59Nbu1i+WYwGVMKz67GhNb4?=
- =?us-ascii?Q?b9VqIIXxQR8Or8ElT6owHPtQgk7EoV+/SNufZBL2BbZKr4VadVfDqjdyM3gN?=
- =?us-ascii?Q?2+xAkPLqW+hOyl+646ZAlRxOkRAs8BiSsnqjz3fojdZYRLhBWEUCliJeOT0s?=
- =?us-ascii?Q?ZZgubTBPeAmcZDKGle1Dkydgz8+9GVlj8PbwUu8ca3RmtQ4X41yDxEBlp6XK?=
- =?us-ascii?Q?Z24mP21VpVxDVbvs12LCz4jnYbtCM0uTBQy3sPjs0khFMoRPsngaKqVdptiG?=
- =?us-ascii?Q?V9BwX/++14eJlS7va2o9YlrL0QXVMQ2Wxt9tGlIDKYnZYAfsEIB22j7mDjo7?=
- =?us-ascii?Q?YshF41bF+ZJGaGQ3sGC2U2woTTr87G1dZkRhweLhzjEkhlRtQRYaYDx/ir/S?=
- =?us-ascii?Q?Yq6XErwuudJsbVrt3LcFFMaEys1FL33P7qOwxLvzoxn5QU6X6MwyfNOufAN4?=
- =?us-ascii?Q?ERROda1czJXYgi1WBBcCR59MlnAAUoDQvmkXOGqX/+IbZu+81qZgmeOoWioH?=
- =?us-ascii?Q?+uPSHbABsWvv16vl8o/ecKo/iC7+MMPR596luiYRsZvliBeg1t/fCSDpHqiv?=
- =?us-ascii?Q?mb6p8amp66nV/vUdI3OqQM81om/Af8YT/pIjIrp1iLO8/UVKZEolb0N+YPKD?=
- =?us-ascii?Q?ZsEoOAukFsnjYaKNCqakZIJ5qFZDjeAtbDZsa6vYen2N/Of0AI+R?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34f81cd5-985e-4795-37c5-08df2bc2ff0f
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 20:21:01.5611
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mdgOvlOnp8WbsG6e144yCgtJnCVPL0RUwn8EWMsI8HBcaBdNUAs+HufXrpX6yHrEm7HNbvQTns26tkPrZHwg56XPv7xUPqz0O5Whdeyg6GjTgH3lwSkCglIgy6oL2r9i
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10660
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 07:03:36PM +0200, Stefano Radaelli wrote:
-> On Thu, Oct 15, 2026 at 01:33:47PM -0500, Frank Li wrote:
-> > On Thu, Oct 15, 2026 at 06:23:01PM +0200, Stefano Radaelli wrote:
-> > > From: Stefano Radaelli <stefano.r@variscite.com>
-> > >
-> > > Add support for the OV5640 camera connected to the Sonata carrier
-> > > board's first MIPI CSI port.
-> >
-> > Does this board only support ov5640 camera? Suppose ov5640 module also use
-> > for other boards.
-> >
-> > Can you refer https://lore.kernel.org/imx/20261011-expulsion-frivolous-690de090cf9d@spud/
-> > to define connectors?
-> >
-> > Frank
-> >
->
-> Hi Frank,
->
-> Thanks for your feedback! I looked at the Toradex approach you linked.
->
-> In our case, the same connector can also accommodate Basler cameras and
-> potentially other camera modules in the future, while some of our other
-> carrier boards use different connectors.
->
-> Given these differences, I would prefer to keep the classic approach proposed
-> in this patch, describing the camera directly in the carrier board DTS.
-> Do you think we should still use connector bindings in our case?
-> If so, how would you suggest handling these differences?
+From: David Hu <xuehaohu@google.com>
 
-Need understand whole board familar, basic Two problem:
+Hello,
 
- 	Does carrier board support difference kinds camera?
+This patch series introduces support for uverbs ioctl queue creation
+(QP, CQ, and SRQ) in the irdma driver. This series makes progress towards
+modernizing irdma. This enables 1-step queue creation from pinned UMEMs
+and shared dma-buf heaps (system_cc_shared), providing RDMA support for
+Confidential Computing (CoCo) guest environments where memory encryption
+otherwise prevents standard host-VA-based queues from operating.
 
-	Does carrier board or camera module reused for other boards?
+Historically, irdma relied on legacy write() commands for queue setup.
+This series modernizes irdma's queue creation path by adopting the ioctl
+infrastructure:
 
-Frank
+1. Plumbs uverbs_attr_bundle into the irdma QP and SRQ creation routines.
+2. Registers irdma's UVERBS ioctl namespace definition for QP, CQ, and SRQ.
+3. Implements 1-step queue buffer creation for QP, CQ, and SRQ using
+   UVERBS_ATTR_CREATE_*_BUF_UMEM attributes and ib_umem_get_attr(),
+   configuring hardware Page Buffer Lists (PBLs) directly from pinned umems.
+4. Split CQ creation setup logic by umode and kmode into separate
+   routines to be consistent with other queue creation logic.
+5. Adds support for driver-specific shadow area UMEM attributes during CQ
+   creation with CQ resize capability.
+6. Preserves backward compatibility with legacy 2-step write() path
+   registrations when UMEM attributes are not provided.
 
->
-> Thanks,
-> Best Regards,
-> Stefano
+User space rdma-core PR: https://github.com/linux-rdma/rdma-core/pull/1766
+
+Testing:
+Verified with rc_pingpong, srq_pingpong, and dmabuf_pingpong over irdma
+devices in Confidential VM environments.
+
+Changes in v3:
+- Improve patch 4/6 to split umode cq creation to a new callback
+  .create_user_cq() (irdma_create_user_cq) (Leon)
+- Clean up duplicate bounds and NULL checks in cq creation path (Leon)
+- Link to v2: https://lore.kernel.org/all/20261015011940.4122452-1-dhu@x6u.co/
+
+Changes in v2:
+- Add patch 4/6 to split out setup logic from irdma_create_cq() into
+  umode and kmode helpers (Leon).
+- Rewrap commit messages to ~75 characters (Leon).
+- Fix a pble/umem resource leak in irdma_resize_cq() (Sashiko).
+- Link to v1: https://lore.kernel.org/all/20261011011022.1445352-1-dhu@x6u.co/
+
+David Hu (6):
+  RDMA/irdma: Plumb uverbs_attr_bundle for QP, SRQ
+  RDMA/irdma: Register irdma UVERBS ioctl namespace
+  RDMA/irdma: Support UMEM attribute for QP creation
+  RDMA/irdma: Split CQ setup to umode and kmode
+  RDMA/irdma: Support UMEM attribute for CQ creation
+  RDMA/irdma: Support UMEM attribute for SRQ creation
+
+ drivers/infiniband/hw/irdma/utils.c |  12 +-
+ drivers/infiniband/hw/irdma/verbs.c | 756 ++++++++++++++++++++--------
+ include/uapi/rdma/irdma-abi.h       |   5 +
+ 3 files changed, 568 insertions(+), 205 deletions(-)
+
+
+base-commit: 978361dd2ccff357d4fe6aac6ce057d1bfae8312
+-- 
+2.56.0.176.g3575e65682-goog
