@@ -1,227 +1,190 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F1C58B6DF
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:47:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1FE857F73D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:48:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792172849; cv=none; b=HQZblUoQ5BfxuH9kte7W9DaGQn5fZ6jxgUOsMSNTx8CLdMpNJxLmPU0Na3g77gtBml3C71K1PI3I/vwdN3k+d7WmC5D3NVWamV31EiClFcthYNbqePyAD8bdOQyk4TF0lVXDR8PKZltyzI7cifgjXUsaYmhURm+9e0FvD76IK0c=
+	t=1792172920; cv=none; b=InOrQHQWAeWMnW974vE1SB67p5/FPVDGFar0iuCjJGVm0baNjWdkgMqV68WLgl5QcbiXuJKhWcaQ3iMTtQ6mrSYd88PcUYOyq4XnFC5bCMAN3g1TjSIP/qnn2tuZozJFH2k0+QOjxKNsuDIRdDx/PxYhBqQmshyEH976NvinwIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792172849; c=relaxed/simple;
-	bh=97wBu5DSvx9rNKNsfmvL4+FAQtdXKRZQZU6dewKD/Fs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lEb0DdGv+C6zxmZLnfQTsz7BAlJgkKELqiEvor/V7Uwg5SEuf+QMk6oqnfEu3+YSXlnnW8bVCvfgKKZKQMk781DWHzjbclE+FBWUqE+4z/FLpBmhhUFpLbqEYmx2mnwmIqqpqM0JbNNFboe0RCP/zZhQ7RX/13CInEMnm9Xwd6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hhbOPgMx; arc=none smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1792172920; c=relaxed/simple;
+	bh=XAyI1pRcJew3RGQsDwTvmspDmty2a2V9xIeyUNk5zCA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ew2XGy9Er235mCDQRFYu9NvMHpVP4AmrWf+L/Wd3bNDYURoDkwhWsLebo9mDUlIUjf3mZ9PE/DQeyxwyaAHYADAyuXS+RGD61HMbyX7lc1Ovpw/N6vvIQI+sc0QVUKLyHqC5IEdKqo6FQGur3wJXCUmvB9bH1svlwsIkR2EZ5zA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZsU096cg; arc=none smtp.client-ip=209.85.167.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hhbOPgMx"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cd632f7a4a1so146680a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:47:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZsU096cg"
+Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-53c156ba662so169410b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:48:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792172846; x=1792777646; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sKoJikkf8KNTjGtZcVhqWM6F5oLRE7WWybC2K+96Qrw=;
-        b=hhbOPgMxhZS7VrDRLmJFo+kPRJ4yM3NsdRIwzQ4YYdbfwNj2mHr/UUPsO1bo3E1zYc
-         KMLg/gCoUIhShTF1jf3V5z+JtD2QheHOba/OwrgnGbe7DScGAm/mkfTyAZLIfi52kz4D
-         Wwjht22FzWymYmMNnnTYdfG1ylLntJ1HeZC3soH1Kql7+u46sr8O+1zQTm1bnkx/Plqz
-         bEqNGRwy8bnCir1V6EkZKAFc0Ex6NaRvOBu/5mjTdT7Ssm/frNLbyJMNEG49xS7uv77X
-         HPB4qHIKrXTI6SA2BfQnnv64Gdzwnq99kJOFnUWTK7RwQpKP78wxTEm2UBCQc9P7GSMG
-         532A==
+        d=gmail.com; s=20251104; t=1792172917; x=1792777717; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1IH2nmRYbLcJJZrtxPMHJPqLJx8S+GWgBxUdUePLJH8=;
+        b=ZsU096cg72USkAKHG4sCNZURKvNc+iLJX3mSa6Q73wzA3gOuR49VJYdltvVqq8G/dn
+         f62y53lbxYkIn6KfX0/4emGW0D0Gf6SehMCNa/xfGlIzWTyZV2vrkmf89HJG/1nbyqPL
+         KC+5zBKxoKOPqxtLIZbuSmwUXAPrMF4PuR6+uOuUEOkl7ozyKQYH5o+R3sqNOH6Ydyp4
+         pia8aRLs6Req/upHP3zfFwQRSdaoiUgxeTbnzTHswr11ZNtSN0GpjmhqXaLPAtYCpLEX
+         INdNhqNWJcPc8gCmfWKmexMtDjD7WD+yu6V9nU+5kk0eVEGldHF8z8SC67jj5NqjtiKY
+         UfJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792172846; x=1792777646;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sKoJikkf8KNTjGtZcVhqWM6F5oLRE7WWybC2K+96Qrw=;
-        b=OA/7wsl0CykwpgQr5tbrTAf60GCmrM2+Ce4mLq8L2GsLpqemo95Ue7MUT6AfWrGrR5
-         FNM5TjierwShIB1Gx2SlDvslhx0T7gKN34RSQINAGSVv3OmtazciHgkZlFMKAKJYdy/k
-         djc409xTT34xF38ea3t58jM1f1Q4y5OC7vif3wd1zceS3hqxXzWQwY9rqm7slTjoQ4Ro
-         PgPH3DNB14ByF7f67Bc+l0qU0AI2J9qpsQQVo3QnCY9Jsz0hQsxY+Re0AIXsZkG6ROkr
-         LTb138UOTUFv4BcJf3B0hoqNVx9v7POxH1dPXpUnaxsl2mmPTh/pIhI7L6cdlyHU6g1A
-         3Phw==
-X-Forwarded-Encrypted: i=1; AKwUvByMLnCOfiYRfmDuuz1CYGa0ZfGuHV/1hhJQvwDqvX5ORXwB5oBa7vjXTIVoKtl7s5GMQ9ZnyDUP6+1ivFs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsTwsoPcFpR9jmBATMm5Q5jl6PLyZWqmrPXHdugFYIIqk1Pm34
-	JQLTWFRKAxrobuwWR4xbVQ6e/7zGU8Z/zUFLoTT0lYaL1DtxEamjulDb
-X-Gm-Gg: AYBFou1iwR9RoDAPnxiAA4hsYWKSlVFTwymUtWoYp+LsokZbumCwOOyTXWrGqe+FRVY
-	O+i6fCwHanmCeuuQRfkz+ne4hVEvSsAmboZhEtSnEDatRsUBWIDk+G8qbPu0xWDBrIqyrarzHEo
-	8vbNOQ2M4NNzPvCXeWVMTZil0SY7W1+0YNhiMqjbych0EExFf0kIcu15rP8W5RUGbHZDusg6Ks/
-	xcXWjW5GZT5owdAAyr+wZQI/VAdmegJo/MwEqIGa15e/5LRffI81E+scwuIF/JINRn6XnhRcHVd
-	9c94avBM+sN6eWOwLcG+10OY3swnYZoEVquQokdACBRGaFRSgW0o9g7E0pZrzopMeFHFVKDa6a3
-	5DERVtTlFnxhOBGLe/9siqH89hjkhjMJG0kkPiW/HP8c9m8vbVrIZgtCZUf2yF+D9+7nkLW7xBy
-	0PdWDUlY+NaV8RC/+4HWCN4drVhpZPAoZVbV0e04Jgk9+PblePuA03RHSMpKHXbylOySRnYSRy8
-	Tx0C750GrMkWbTzjJdqQ+aTpdZIeKbYvdvKlkUrm+7nlecJGw==
-X-Received: by 2002:a17:90b:39a4:b0:3a7:a463:54c2 with SMTP id 98e67ed59e1d1-3acef1458ffmr468430a91.35.1792172846326;
-        Fri, 16 Oct 2026 10:47:26 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549c5621sm1555161a12.17.2026.10.16.10.47.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 10:47:25 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <e0d4d61b-6cc9-4395-91a4-d8c10c9aa1ab@roeck-us.net>
-Date: Fri, 16 Oct 2026 10:47:23 -0700
+        d=1e100.net; s=20260707; t=1792172917; x=1792777717;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1IH2nmRYbLcJJZrtxPMHJPqLJx8S+GWgBxUdUePLJH8=;
+        b=dplQlP3jxlBdog+P6/qXly0eNq6CQkGy9h0Vc+nI0CN3SdAc5AR2FzkwBULnF5gKu+
+         7Jdy2tm+lwbE2TVj+QKIzZBbEZFqNGfYcp2ZbOfzKa9xUS/KuZ/zRKTRA+qgD1FdF6Jp
+         ClbjyUFG3dfR/aQyojLtet8fMPijvzM20j55bZRugv1jV5wqOmpEA/38GkD6iy+BXMy1
+         I00blVcdL0+SII3p/JovXNgSS58Th7oEMJgZSKNs8WDOCY0sWffF84kjDl7exW4UJ2Ag
+         S/ScbRe4UIzDgiTVR8z74fGUlCsxd3oynlZsAY9JzUXaYcGaLWiy/mWpV8HMkuB/7ezb
+         tT3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwaESM4TB2UGKSV3ycmVm6Q69MJMsnpmbogsM4N5mMMvpSx7K+mlZdThh7US9ZWBOZM6LXQ2O7ItbGvgWc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSnNYVyfH0m6BwrHAMX/PoTPowJmo6uVTnQwLvyUFEOLieJWty
+	dhjDQBgFdoPXIeZlSbaPrSWOJjKVl+O4Hf2+BtyDP06BbKEFT2XdoFgm
+X-Gm-Gg: AYBFou0eqOUVpyBpTUTs9NmuJ/zlMcLFEep+YZsEoHvocoHorW4Oj2jAO0S3JhgYZcN
+	T0XbD8jAYiLMK8UXrCWFbvUws7oHn2jLyHEf79/PJK8Bo1o/z+gnvCR2GIaruZxidNW56sWFGqb
+	jc/Vqgf8JsdnewuCIOmGcqoF4l05hxT37yToFRrO8sJUN2SN2ywSovKoPm0tqZ9J4IgnPwV7kBk
+	7OWfxK9bLxXUhwb41GayLaup5F94isOkBxE2v1js4ZLV4GMbv09ipdVE6UeG3XBRnyjRQ5hfEea
+	kaefRZH9amOBjNImu4VigVsevJZtfrlnxWNQj7cgzmvKEMldS+uYv5hsyOPLe3+Db/eyPr8jffx
+	fiBO/vrwlN6axEFFPhZ1yhDObtrvk00BOHgdfWBxf3R0rYpUD+18yBPoK/Rr9TweQSon6uIrauS
+	udr5yQiRUUCCOrJe81UJpnjMfPtfGbVf2IMbODhduoLDIQpyp6ARA18Brb8qDBqBYqBaeW9wqE1
+	zlWurBMs3HOvNeMCHaCGA7P7tM3
+X-Received: by 2002:a05:6808:c172:b0:53b:11c7:2da0 with SMTP id 5614622812f47-53cd1cbc1a0mr285406b6e.21.1792172917484;
+        Fri, 16 Oct 2026 10:48:37 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:4::])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-5388c1654e9sm1901878b6e.8.2026.10.16.10.48.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 10:48:36 -0700 (PDT)
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Mina Almasry <almasrymina@google.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/mm: skip hugetlb cgroup v2 tests without the needed controllers
+Date: Fri, 16 Oct 2026 10:48:34 -0700
+Message-ID: <20261016174834.804715-1-joshua.hahnjy@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016-bug-selftests-mm-hugetlb-cgroup2-skip-v1-1-7c78883a67b4@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] usb: xhci-pci: Add AMD 600 series to xhci-pci-prom21
-To: Mirko Jechow <mirko.jechow@gmx.de>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org, Stephen Horvath <linux@stevetech.au>,
- stable@vger.kernel.org, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
- Jihong Min <hurryman2212@gmail.com>
-References: <20261004002731.49927-1-mirko.jechow@gmx.de>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261004002731.49927-1-mirko.jechow@gmx.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/3/26 17:27, Mirko Jechow wrote:
-> From: Stephen Horvath <linux@stevetech.au>
-> 
-> It seems the xhci-pci-prom21 module only has IDs for the 800 series
-> chipsets. However, the 600 series chipsets also have Promontory 21
-> chips, so we should add their IDs to the list as well.
-> 
-> I have tested this on my X670 board featuring DID `0x43f7`.
-> 
-> `1022:43f7` also appears on the PCI ID database
-> (https://pci-ids.ucw.cz/read/PC/1022/43f7).
-> Device IDs `0x43f9` (B665) & `0x43fa` (A620) were suggested by Shyam.
-> 
-> Also list the new IDs in Documentation/hwmon/prom21-xhci.rst.
-> 
-> Cc: stable@vger.kernel.org # 7.2.x
-> Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-> Cc: Jihong Min <hurryman2212@gmail.com>
-> Signed-off-by: Stephen Horvath <linux@stevetech.au>
-> Tested-by: Mirko Jechow <mirko.jechow@gmx.de>
-> [mirko.jechow@gmx.de: add new IDs to prom21-xhci.rst]
-> Signed-off-by: Mirko Jechow <mirko.jechow@gmx.de>
+On Fri, 16 Oct 2026 20:54:48 +0800 Qiliang Yuan <odys.yuan@gmail.com> wrote:
 
-Acked-by: Guenter Roeck <linux@roeck-us.net>
+> With -cgroup-v2, charge_reserved_hugetlb.sh and
+> hugetlb_reparenting_test.sh mount a cgroup2 hierarchy on a temporary
+> directory when none is mounted and enable the hugetlb controller
+> (hugetlb_reparenting_test.sh also enables memory) in its
+> cgroup.subtree_control.
+> 
+> On a system that still binds these controllers to cgroup v1, they are
+> not available in the new hierarchy. Writing to cgroup.subtree_control
+> fails with ENOENT, "set -e" aborts the script, the test is reported as
+> failed, and the temporary cgroup2 mount is left behind.
+> 
+> Check cgroup.controllers first, and skip the test when a controller is
+> missing, after unmounting the hierarchy and removing the directory the
+> script created.
+> 
+> With hugetlb and memory bound to cgroup v1, per script:
+> 
+>                                 before      after
+>   result                        fail        skip
+>   cgroup2 mounts left behind       1           0
+> 
+> Fixes: 29750f71a9b4 ("hugetlb_cgroup: add hugetlb_cgroup reservation tests")
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+
+Hi Qiliang,
+
+Thanks for the fixes. I think the problem you're describing is real and
+the fix does address it. Sashiko raised a concern about failing tests
+after this and leading to leaks [1].
+
+At first I thought what Sashiko said made sense, but taking a step back
+this SKIP path can be taken when we're mounted with v1, and the new
+skip would prevent us from failing anyways so... I think it might
+actually be OK, we probably can't reach the failure case once we skip.
+
+( of course unless, I'm missing something ; -) )
+
+LGTM!
+
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+
+[1] https://fb.workplace.com/photo/?fbid=2894459417496799&set=g.190352285091763
 
 > ---
-> Changes in v3:
-> - List the new IDs on the PCI IDs line of Documentation/hwmon/prom21-xhci.rst
->    (requested by Jihong Min)
-> - Picked up from Stephen; v2 had no follow-up since 2026-08-23
-> - Link to v2: https://patch.msgid.link/20260820-xhci-pci-prom21-v2-1-638e5958fbbf@stevetech.au
+>  tools/testing/selftests/mm/charge_reserved_hugetlb.sh  |  8 ++++++++
+>  tools/testing/selftests/mm/hugetlb_reparenting_test.sh | 10 ++++++++++
+>  2 files changed, 18 insertions(+)
+> 
+> diff --git a/tools/testing/selftests/mm/charge_reserved_hugetlb.sh b/tools/testing/selftests/mm/charge_reserved_hugetlb.sh
+> index a1cfd3a349db6..65065b1377b24 100755
+> --- a/tools/testing/selftests/mm/charge_reserved_hugetlb.sh
+> +++ b/tools/testing/selftests/mm/charge_reserved_hugetlb.sh
+> @@ -39,6 +39,14 @@ if [[ $cgroup2 ]]; then
+>      mount -t cgroup2 none $cgroup_path
+>      do_umount=1
+>    fi
+> +  if ! grep -qw hugetlb $cgroup_path/cgroup.controllers; then
+> +    echo "hugetlb controller not available in cgroup v2. Skipping..."
+> +    if [[ $do_umount ]]; then
+> +      umount $cgroup_path
+> +      rmdir $cgroup_path
+> +    fi
+> +    exit $ksft_skip
+> +  fi
+>    echo "+hugetlb" >$cgroup_path/cgroup.subtree_control
+>  else
+>    cgroup_path=$(mount -t cgroup | grep ",hugetlb" | awk '{print $3}')
+> diff --git a/tools/testing/selftests/mm/hugetlb_reparenting_test.sh b/tools/testing/selftests/mm/hugetlb_reparenting_test.sh
+> index 95f517c3bd167..811912ae7d975 100755
+> --- a/tools/testing/selftests/mm/hugetlb_reparenting_test.sh
+> +++ b/tools/testing/selftests/mm/hugetlb_reparenting_test.sh
+> @@ -29,6 +29,16 @@ if [[ $cgroup2 ]]; then
+>      mount -t cgroup2 none $CGROUP_ROOT
+>      do_umount=1
+>    fi
+> +  for ctrl in hugetlb memory; do
+> +    if ! grep -qw $ctrl $CGROUP_ROOT/cgroup.controllers; then
+> +      echo "$ctrl controller not available in cgroup v2. Skipping..."
+> +      if [[ $do_umount ]]; then
+> +        umount $CGROUP_ROOT
+> +        rmdir $CGROUP_ROOT
+> +      fi
+> +      exit $ksft_skip
+> +    fi
+> +  done
+>    echo "+hugetlb +memory" >$CGROUP_ROOT/cgroup.subtree_control
+>  else
+>    CGROUP_ROOT=$(mount -t cgroup | grep ",hugetlb" | awk '{print $3}')
+> 
 > ---
->   Documentation/hwmon/prom21-xhci.rst | 2 +-
->   drivers/usb/host/xhci-pci-prom21.c  | 3 +++
->   drivers/usb/host/xhci-pci.c         | 3 +++
->   drivers/usb/host/xhci-pci.h         | 3 +++
->   4 files changed, 10 insertions(+), 1 deletion(-)
+> base-commit: 437a7e839def0f505277022622fc59a8b071d6cf
+> change-id: 20261016-bug-selftests-mm-hugetlb-cgroup2-skip-7fc0316486f2
 > 
-> diff --git a/Documentation/hwmon/prom21-xhci.rst b/Documentation/hwmon/prom21-xhci.rst
-> index 7984fb187bd8a..6c0b6e7368921 100644
-> --- a/Documentation/hwmon/prom21-xhci.rst
-> +++ b/Documentation/hwmon/prom21-xhci.rst
-> @@ -9,7 +9,7 @@ Supported chips:
->   
->       Prefix: 'prom21_xhci'
->   
-> -    PCI IDs: 1022:43fc, 1022:43fd
-> +    PCI IDs: 1022:43f7, 1022:43f9, 1022:43fa, 1022:43fc, 1022:43fd
->   
->   Author:
->   
-> diff --git a/drivers/usb/host/xhci-pci-prom21.c b/drivers/usb/host/xhci-pci-prom21.c
-> index 6486f4a093455..5f088a47d79f3 100644
-> --- a/drivers/usb/host/xhci-pci-prom21.c
-> +++ b/drivers/usb/host/xhci-pci-prom21.c
-> @@ -111,6 +111,9 @@ static void prom21_xhci_remove(struct pci_dev *dev)
->   }
->   
->   static const struct pci_device_id pci_ids[] = {
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7) },
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9) },
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA) },
->   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC) },
->   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD) },
->   	{ /* end: all zeroes */ }
-> diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-> index a8889081ae824..b407676808fca 100644
-> --- a/drivers/usb/host/xhci-pci.c
-> +++ b/drivers/usb/host/xhci-pci.c
-> @@ -701,6 +701,9 @@ static const struct pci_device_id pci_ids_renesas[] = {
->   
->   /* handled by xhci-pci-prom21 if enabled */
->   static const struct pci_device_id pci_ids_prom21[] = {
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7) },
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9) },
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA) },
->   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC) },
->   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD) },
->   	{ /* end: all zeroes */ }
-> diff --git a/drivers/usb/host/xhci-pci.h b/drivers/usb/host/xhci-pci.h
-> index 11f435f94322a..533efc7db8012 100644
-> --- a/drivers/usb/host/xhci-pci.h
-> +++ b/drivers/usb/host/xhci-pci.h
-> @@ -4,6 +4,9 @@
->   #ifndef XHCI_PCI_H
->   #define XHCI_PCI_H
->   
-> +#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7	0x43f7
-> +#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9	0x43f9
-> +#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA	0x43fa
->   #define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC	0x43fc
->   #define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD	0x43fd
->   
-> 
-> base-commit: 639df5d23876a548b86fe6526bed8b97edf64d96
-
+> Best regards,
+> -- 
+> Qiliang Yuan <odys.yuan@gmail.com>
