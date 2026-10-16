@@ -1,113 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1076753C3B3
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:59:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F16A53E308;
+	Fri, 16 Oct 2026 17:00:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169969; cv=none; b=svFhTqU62mcXh9vfi8137LIpo+JTgQRLByFAh72mPdchHLRdldh5swg8xHiXzvJpe/RbTtbzNaMY4vbfDuckHePYpF+IHNpAl/gaJB7PH4alYDmiZ6HzX5d/2L+pDJfIPHkc+Hz4pCiEag95Ta4nyb540N01QZPzBotiOKMq7Dc=
+	t=1792170014; cv=none; b=X1EqzUW/dIZI9zIdlM/p7b7b3ua+6JZ0rpLflyPhFtYbxn2eS+e7KQH0iWTbqri4wk3FWcmKKTI292MKHtXwlUPLW6NgcDQkipTL+r7GpwpzPlmiSj/YI4Mk6g8vo91m27zQaiqOcZl3N3eY4g1WxPLBWsWQId+tX3flFonNnNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169969; c=relaxed/simple;
-	bh=SXOr6/YcNmZx6SwoKJPpy0ilM17R9BH1qxVME+/Ts9w=;
+	s=arc-20240116; t=1792170014; c=relaxed/simple;
+	bh=/ak6vK17bkaE86rZ7vaBahm6omxqFSWgpPC/T5JNeO0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k6o/lPla8P8b2hkbsTIDkcr4PuzY+uRMS3hiXITEwKatJJbvLStngtGF3CfCPgmVufxoeqS+Rq38E44Zs7cL7KswYlm+zflaIfjSiEdcUbf0pfLuv6B1EG7LReGi0QY5ve8O4UHnTZFHhgMTqw30nt02HY29d7LWah4eDkkCL/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gHqKKplf; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=VW2f20u70ZJyVcUvlVobevhBNZGQ5YZ1p109IxftwIPkBhZGpXwH6SAvNkwCEfxJR3lHbDFvEfWVhgJt/MO/OD9k69c3ZhXTocgz39JWF7w99oyGYDbkwFHarEkDsKHTs/eDKQTStmwXklmNG1UpbhLDMjevfn4JaDfNX3F8AzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DbfQ7R3x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gHqKKplf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93E3B1F000C7;
-	Fri, 16 Oct 2026 16:59:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DbfQ7R3x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E60A21F000C7;
+	Fri, 16 Oct 2026 17:00:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792169965;
-	bh=ICV+tD8MUKphV2rsEaHGc3fuOS0Uaff519cMMdwXri4=;
+	s=k20260515; t=1792170011;
+	bh=/qqXVe5p9S/gEhsn3j6mqdXqY8DCRG0YIMtV/BtA0xI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gHqKKplfuAkpvA9UcIbdv+dLlAP2m/R98E2/fl12X47UwNo/kKi6d2IAs929GtV+P
-	 HZmStUJo1FnKKorXDj46giH5NVhVbNvGtKaXp0CZDCXNIJ/LnS4Hor7cNsqPtW4O0R
-	 TPKRIEF9mdQelvBfsTLGBRf7YKHUHy4oN7dXdgHxRlBWe1Ee1ZwTXye9glxH7ag5Wg
-	 4ICRD/GoayD8N9M8E1TIYyYWYkObhcvC8piZdwZiSRR/MDWVjZ+wmgdtMVHHVwN1be
-	 xCFBK0cHMPyHFeo0324h5GY+L+d+2xurBmQO8XIOA+LNJQ8kgKOvHfS2+ZHDrFbgG7
-	 AJP5rI94vAqYQ==
-Date: Fri, 16 Oct 2026 06:59:24 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Dan Williams <djbw@kernel.org>, Thierry Reding <treding@nvidia.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] resource: report a devm_request_resource() conflict
- under the lock
-Message-ID: <atJX7GgA1xnUEPSz@slm.duckdns.org>
-References: <20261016140043.790048-1-nickolai@csail.mit.edu>
+	b=DbfQ7R3x4eXk03s9KoSQ8p0KsSDNXroXPf4bLuws/D8JglWenQ6ui+rGNKaEaIOa6
+	 ozosD9yP8WNd+MjrnbXCvVb52YEOGl3AOKP88lpq/weNsCD/BEMbzAJojOMoiSm3At
+	 XV9/Ysw+pR0yrrhnOXfJrg698TVF3HM0WPZ0rBKugCln3YJixosf0OGNr19zBF+s4k
+	 VsLZy6lxCbE6GyID39w7Vdf7/EsnHVlTXb7KyB+JAmlYlX6HwTX7KmzzD/KbiaWxCm
+	 MoFD/JzY+fC+AGdyq3dpgCRysn9UYS2A7b1JxPodibMIegCgrumpaWtofgezBWdTNT
+	 upg4xJOPSU7DA==
+Date: Fri, 16 Oct 2026 18:00:07 +0100
+From: Simon Horman <horms@kernel.org>
+To: Henry Martin <bsdhenrymartin@gmail.com>
+Cc: Vladimir Oltean <vladimir.oltean@nxp.com>,
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] ipconfig: fix use-after-free of device list after
+ ic_close_devs()
+Message-ID: <20261016170007.GH363352@horms.kernel.org>
+References: <20261010085003.3261587-1-bsdhenrymartin@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261016140043.790048-1-nickolai@csail.mit.edu>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261010085003.3261587-1-bsdhenrymartin@gmail.com>
 
-On Fri, Oct 16, 2026 at 10:00:43AM -0400, Nickolai Zeldovich wrote:
-> devm_request_resource() calls request_resource_conflict(), which takes
-> resource_lock, tries to insert the new resource and returns a pointer to
-> the conflicting resource after dropping the lock.  The error message is
-> then formatted from that pointer: conflict->name and the %pR argument
-> read the name, start, end, flags and desc of a resource that nothing
-> pins any more.  The owner of the conflicting resource may call
-> release_resource() and free it the moment the lock is dropped.
+On Sat, Oct 10, 2026 at 04:49:58PM +0800, Henry Martin wrote:
+> ic_close_devs() kfree()s every ic_device node but leaves the static
+> ic_first_dev and ic_dev pointers dangling behind.  When a DHCP
+> negotiation gets an OFFER but never the matching ACK, ic_bootp_recv()
+> accepts the OFFER and records ic_dev = <list node>, the round times
+> out and ic_close_devs() frees the whole list — node included.  The
+> next failed retry round runs ic_close_devs() once more, evaluating
 > 
-> The conflicting resource normally belongs to another device.  With two
-> devices whose drivers claim overlapping regions (two PCI host bridges
-> whose "ranges" windows overlap, two instances of a controller on the
-> same aperture, or a stale claim an administrator is replacing), the
-> following interleaving reads freed memory:
+>     selected_dev = ic_dev ? ic_dev->dev : NULL;
 > 
->   CPU 0: driver B probe                  CPU 1: driver A unbind
->   devm_request_resource(devB, root, resB)
->     request_resource_conflict()
->       write_lock(&resource_lock)
->       __request_resource() -> resA
->       write_unlock(&resource_lock)
->                                          devres_release_all(devA)
->                                            devm_resource_release()
->                                              release_resource(resA)
->                                          put_device() -> kfree(resA)
->     dev_err(..., resA->name, resA)        use after free
+> against the freed ic_device — an 8-byte use-after-free read.
 > 
-> Both halves are reachable from userspace on any kernel: a write to the
-> "unbind" file of the driver that holds the region and a write to the
-> "bind" file of the driver that wants it.  One in-tree path is
-> drivers/pci/bus.c devm_request_pci_bus_resources(), called from host
-> bridge probe for every bridge window; the windows are the embedded
-> struct resource of kzalloc'ed resource_entry objects that
-> pci_free_resource_list() frees when the other bridge is released.
-> In the common case the "resource collision" message is garbled; with
-> the slab object poisoned (CONFIG_SLUB_DEBUG) or reused, formatting
-> conflict->name oopses, and KASAN reports a slab-use-after-free read in
-> devm_request_resource().  All of this happens in a probe that is
-> already failing with -EBUSY.  The window is a few hundred instructions
-> wide and exists only when two devices actually collide, so the race
-> has not been observed outside of analysis.
+> KASAN confirms:
 > 
-> Do the same here: take resource_lock, insert with __request_resource()
-> and print the diagnostic while the lock still keeps the conflicting
-> resource in the tree, then drop the lock.  The return values and the
-> devres handling are unchanged.
+>   BUG: KASAN: slab-use-after-free in ic_close_devs+0x214/0x220
+>   Read of size 8
+>     ic_close_devs    <- ip_auto_config
+>   Allocated by: ip_auto_config (ic_open_devs)
+>   Freed by:      ic_close_devs <- ip_auto_config
 > 
-> The change was built for x86_64 and RISC-V; the resource KUnit tests
-> pass on both.
+> NULL both pointers after the free loop so retry rounds take the
+> clean empty-list path.
 > 
-> Found by formal verification of kernel/resource.c against the kernel
-> binary.
+> This memory-safety issue was discovered by Tencent CodeBuddy Security.
 > 
-> Fixes: 8d38821cbcf5 ("resources: Add device-managed request/release_resource()")
-> Assisted-by: LLM
-> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+> Cc: stable@vger.kernel.org
+> Fixes: 46acf7bdbc72 ("Revert "net: ipv4: handle DSA enabled master network devices"")
+> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+> ---
+> Changes in v2:
+>  - Fixes: tag corrected to the commit that introduced the ic_dev->dev
+>    dereference that makes this a UAF (46acf7bdbc72); in 2.6.12 ic_dev
+>    was a struct net_device * that was only compared, never dereferenced.
+>  - Code comment in ic_close_devs() dropped per review.
+>  - Message reduced to the memory-safety mechanism (no vulnerability
+>    framing).
 
-Acked-by: Tejun Heo <tj@kernel.org>
+Thanks for the updates.
 
-Thanks.
-
--- 
-tejun
+Reviewed-by: Simon Horman <horms@kernel.org>
