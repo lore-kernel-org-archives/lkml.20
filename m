@@ -1,189 +1,159 @@
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF6F1C5D59;
-	Fri, 16 Oct 2026 14:36:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412813546E9
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:36:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161404; cv=none; b=DFDx+xfLY4jLLdZs05mkf75slW+YRpKYRx2JK1dgPJAxKaruy4xrMD7whbkbuKcdZ0vpoQ9jLtIYW1vxgdM4S5meiQQcSJmKqTj4FlvBIWdbva+WOwjUD4UCBwx6L8zORijN/M4nUY3QrQSxMP8tV9m4SJbcBVw1+FHWnHTCw4Q=
+	t=1792161414; cv=none; b=ieip2p3Eqd6zouwYcXsPfunv4mwaX2Noapmn6J/nefXywxgXX01M4jo+xvHYfpe7xhqqWihdjPQvCUgBVjRKmcmZE44tDz24XwRBeBkddNUl7VgAOHMh+4QwByHssNXEsCyS4626TS8ZJsDchAebBOmJdLBaxrits8wG094vthk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161404; c=relaxed/simple;
-	bh=iI4pZCXn3hv206mPzbOl0RjtlQ0hW/SDzm4rbmdcuIQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BUrYLeH+SDv9NFbqjcy9Yu3R+Ufe+eKpw5QDk4UZyQAV7GlUH5at8Smbu0EQ2ecSPwFH7snKxCWiEyB7U8sT4fpB4Gqk679mDZQG/fOg5o3aWLXebEPmCH5xnaS2ETOUJ2HARaE88quBRC48LlD2RCNI57jsHa9GOBvq+yE+oP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=CP9AL7U7; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1792161414; c=relaxed/simple;
+	bh=3pcQWRv8O1PZqdGhSiNo4olhsUP3bojkSnLBY2ntEDM=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qTTjRfnsfmJy+t6dTyceLEvk9YFe+Lfg1DH7bjyAGoSqgd6Z5D8g9ggQsjdwjqZSJ+DPQnF0cme7JByWkARLAFvKuCCl22+SZloIMx9F4iylv7Hj4T7fgtV2z3nhWtBsgCnvnfQ6XeikHn4aAu87O8fZxExDR+QOftG6p1lEw8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hHm9Yjai; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="CP9AL7U7"
-Received: from omf08.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id 07FE3A804F;
-	Fri, 16 Oct 2026 14:36:33 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf08.hostedemail.com (Postfix) with ESMTPA id 81ACC20025;
-	Fri, 16 Oct 2026 14:36:31 +0000 (UTC)
-Date: Fri, 16 Oct 2026 10:36:30 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Masami
- Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] riscv: mm: Trace TLB flush path selection
-Message-ID: <20261016103630.6e8fbaa5@gandalf.local.home>
-In-Reply-To: <20260830-tlb_tracepoint-v2-1-e3c88c24df5b@gmail.com>
-References: <20260830-tlb_tracepoint-v2-1-e3c88c24df5b@gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hHm9Yjai"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1F0D1F000C4;
+	Fri, 16 Oct 2026 14:36:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792161412;
+	bh=uflAwfv4pgBe00mPZASrj8nK8vm7+mx19rpyox+Hzkk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hHm9YjaiPam4pOBh45KFrpmp+76rcRCkKwZmdOjW9Q7QCW7vJ+GLhmIG+2LrhraQ/
+	 jYZ6jPUgTOxtyANFNfA9Hrf3jGX5dj0wo7tjWAkhedvR5D2LhzCSR4vuiPQ2KX38Wk
+	 e9ARjisbV1UnbuuCHa6RAA1BWvTgVm59XR7zYbPd7mfSC/b2HpaLhntWv7qHiVXK0J
+	 5R6cCLldRhZ/YBzPbNTQtFDnBZ3tnpefVfNXvpWC90ZnOTquajBoM0iR0RPhTAdr7X
+	 uPdm0kftJHGYwEIlc3DKpPN0jKU5MdJMFZJEO4CFKdbGWXl1c3wLf704IvnWCOuHmF
+	 Dt9H+mSZ4CeOQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xHj3C-00000003ndV-2mXh;
+	Fri, 16 Oct 2026 14:36:50 +0000
+Date: Fri, 16 Oct 2026 15:36:50 +0100
+Message-ID: <868q3x1zlp.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Jiale Yao <yaojiale02@163.com>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/6] irqchip/gic-v3: validate MADT records before use
+In-Reply-To: <20261016141357.2793046-4-yaojiale02@163.com>
+References: <20261016141357.2793046-1-yaojiale02@163.com>
+	<20261016141357.2793046-4-yaojiale02@163.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: 81ACC20025
-X-Stat-Signature: 5kd7xpmj94wom6f13a3nzhpwer9ppc4n
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18DQ2Sg28rgCm3NMcM3cSj9JxZ4shAURIU=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=XayFsB0UYYNiwlWPoYy9LvsYKkpCk01XOKeKnrFSCsM=; b=CP9AL7U7qQNiWCIKUFoEI2HdBsLLItr3LxKsiyw+u6pPPsmUZjL0T2QK0yHC46relvDFFOVAjxnRJxu9B1qZHCKUhSkTyyR1aHWDtEvWjeczBgPZDxAYaK0FczWnEbIZlDPsnuupqs6IqvYK+WdvlPVGPhMZ0ee3cALRSbWS2Oo=
-X-HE-Tag: 1792161391-659312
-X-HE-Meta: U2FsdGVkX19RkqBnA8Qs0BgcO6/2vYluHNQ46qK5m5KbevaiMSVLZ2UOeBHO/zjU6+pF8Bm7OVYUXAcwW7jQ9lv1TKaNRWV82rWAIFKevurwPGTNbz+75GjslXU4d/MY3zm5bVHnrLe/m7q0Kr8oVdlxSgSoJGzvH7/Aq7/wrpjz/40UX/t385X6QsgPrJK5/OVyACPqLqdCl/ejDMyIDsV8hjAkRh7a2GhbKshAIUMUsZ9ZiL9+iD6DOM+FaWVAb9etsFd7lnP77gS9Hu5IVPn5Ggvjm0kd6WRYvnU9QX41H0dOzo62ArdL6P3Bk0LGnx2E0dS2RkKVek+CLqaJ9D9+NcMTu7EN
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: yaojiale02@163.com, tglx@kernel.org, radu@rendec.net, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Sun, 30 Aug 2026 16:36:37 +0200
-Roman 'Hedin' Storozhenko <romeusmeister@gmail.com> wrote:
+On Fri, 16 Oct 2026 15:13:54 +0100,
+Jiale Yao <yaojiale02@163.com> wrote:
+> 
+> The GICv3 ACPI paths cast generic MADT headers to distributor,
+> redistributor, and CPU interface records before confirming that the
+> corresponding fixed-size structures are present. Truncated records can
+> therefore cause out-of-bounds field reads while probing or setting up
+> virtualization data.
+>
+> Check each typed MADT record before its first field access. Also reject
+> a short distributor record in the version validator, which runs before
+> the probe callback.
+> 
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>  drivers/irqchip/irq-gic-v3.c | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
+> 
+> diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
+> index 6e1fa5b247fc..0588d6d83b31 100644
+> --- a/drivers/irqchip/irq-gic-v3.c
+> +++ b/drivers/irqchip/irq-gic-v3.c
+> @@ -2299,6 +2299,9 @@ gic_acpi_parse_madt_redist(union acpi_subtable_headers *header,
+>  			(struct acpi_madt_generic_redistributor *)header;
+>  	void __iomem *redist_base;
+>  
+> +	if (BAD_MADT_ENTRY(redist, end))
+> +		return -EINVAL;
+> +
+>  	redist_base = ioremap(redist->base_address, redist->length);
+>  	if (!redist_base) {
+>  		pr_err("Couldn't map GICR region @%llx\n", redist->base_address);
+> @@ -2325,6 +2328,9 @@ gic_acpi_parse_madt_gicc(union acpi_subtable_headers *header,
+>  	u32 size = reg == GIC_PIDR2_ARCH_GICv4 ? SZ_64K * 4 : SZ_64K * 2;
+>  	void __iomem *redist_base;
+>  
+> +	if (BAD_MADT_ENTRY(gicc, end))
+> +		return -EINVAL;
+> +
+>  	/* Neither enabled or online capable means it doesn't exist, skip it */
+>  	if (!(gicc->flags & (ACPI_MADT_ENABLED | ACPI_MADT_GICC_ONLINE_CAPABLE)))
+>  		return 0;
+> @@ -2391,6 +2397,9 @@ static int __init gic_acpi_match_gicc(union acpi_subtable_headers *header,
+>  	struct acpi_madt_generic_interrupt *gicc =
+>  				(struct acpi_madt_generic_interrupt *)header;
+>  
+> +	if (BAD_MADT_ENTRY(gicc, end))
+> +		return -EINVAL;
+> +
+>  	/*
+>  	 * If GICC is enabled and has valid gicr base address, then it means
+>  	 * GICR base is presented via GICC. The redistributor is only known to
+> @@ -2437,6 +2446,9 @@ static bool __init acpi_validate_gic_table(struct acpi_subtable_header *header,
+>  	int count;
+>  
+>  	dist = (struct acpi_madt_generic_distributor *)header;
+> +	if (header->length < sizeof(*dist))
+> +		return false;
+> +
 
-> diff --git a/include/trace/events/riscv_tlb.h b/include/trace/events/riscv_tlb.h
+Why is this open-coded instead of using the checking macro?
 
-Please do not put architecture specific events in include/trace.
+>  	if (dist->version != ape->driver_data)
+>  		return false;
+>  
+> @@ -2457,6 +2469,9 @@ static int __init gic_acpi_parse_virt_madt_gicc(union acpi_subtable_headers *hea
+>  	int maint_irq_mode;
+>  	static int first_madt = true;
+>  
+> +	if (BAD_MADT_ENTRY(gicc, end))
+> +		return -EINVAL;
+> +
 
-They belong in the architecture.
+Why isn't this using BAD_MADT_GICC_ENTRY()?
 
-See the example code in samples/trace_events/trace-events-sample.[ch]
-as well as the Makefile there on how to put trace events in directories
-outside of include/trace/
+>  	if (!(gicc->flags &
+>  	      (ACPI_MADT_ENABLED | ACPI_MADT_GICC_ONLINE_CAPABLE)))
+>  		return 0;
+> @@ -2547,6 +2562,9 @@ gic_acpi_init(union acpi_subtable_headers *header, const unsigned long end)
+>  
+>  	/* Get distributor base address */
+>  	dist = (struct acpi_madt_generic_distributor *)header;
+> +	if (BAD_MADT_ENTRY(dist, end))
+> +		return -EINVAL;
+> +
+
+Why does this need to be re-checked if the validation phased has succeeded?
+
+>  	acpi_data.dist_base = ioremap(dist->base_address,
+>  				      ACPI_GICV3_DIST_MEM_SIZE);
+>  	if (!acpi_data.dist_base) {
 
 Thanks,
 
--- Steve
+	M.
 
-> new file mode 100644
-> index 000000000000..3eff171ec54f
-> --- /dev/null
-> +++ b/include/trace/events/riscv_tlb.h
-> @@ -0,0 +1,113 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#undef TRACE_SYSTEM
-> +#define TRACE_SYSTEM riscv_tlb
-> +
-> +#if !defined(_TRACE_RISCV_TLB_H) || defined(TRACE_HEADER_MULTI_READ)
-> +#define _TRACE_RISCV_TLB_H
-> +
-> +#include <linux/cpumask.h>
-> +#include <linux/tracepoint.h>
-> +
-> +#ifndef _TRACE_RISCV_TLB_ENUMS
-> +#define _TRACE_RISCV_TLB_ENUMS
-> +
-> +enum riscv_tlb_flush_scope {
-> +	RISCV_TLB_FLUSH_SCOPE_SINGLE,
-> +	RISCV_TLB_FLUSH_SCOPE_RANGE,
-> +	RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE,
-> +	RISCV_TLB_FLUSH_SCOPE_ALL,
-> +};
-> +
-> +enum riscv_tlb_flush_path {
-> +	RISCV_TLB_FLUSH_PATH_LOCAL,
-> +	RISCV_TLB_FLUSH_PATH_SBI_RFENCE,
-> +	RISCV_TLB_FLUSH_PATH_CROSS_CPU_CALL,
-> +};
-> +
-> +#endif /* _TRACE_RISCV_TLB_ENUMS */
-> +
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_SINGLE);
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_RANGE);
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE);
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_ALL);
-> +
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_PATH_LOCAL);
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_PATH_SBI_RFENCE);
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_PATH_CROSS_CPU_CALL);
-> +
-> +#define show_riscv_tlb_flush_scope(scope) \
-> +	__print_symbolic(scope, \
-> +		{ RISCV_TLB_FLUSH_SCOPE_SINGLE,        "single" }, \
-> +		{ RISCV_TLB_FLUSH_SCOPE_RANGE,         "range" }, \
-> +		{ RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE, "address-space" }, \
-> +		{ RISCV_TLB_FLUSH_SCOPE_ALL,           "all" })
-> +
-> +#define show_riscv_tlb_flush_path(path) \
-> +	__print_symbolic(path, \
-> +		{ RISCV_TLB_FLUSH_PATH_LOCAL,          "local" }, \
-> +		{ RISCV_TLB_FLUSH_PATH_SBI_RFENCE,     "sbi-rfence" }, \
-> +		{ RISCV_TLB_FLUSH_PATH_CROSS_CPU_CALL, "cross-cpu-call" })
-> +
-> +/*
-> + * Record the invalidation request received by the RISC-V architecture code
-> + * and the path selected by Linux.
-> + *
-> + * The target CPU mask represents the CPUs Linux intends to cover for the
-> + * request. It can be correlated with per-CPU activity, but does not describe
-> + * which harts ultimately performed an invalidation.
-> + *
-> + * The ASID is hardware-visible and may be reused. It must not be treated as a
-> + * persistent identifier for an mm.
-> + *
-> + * The stride describes the invalidation granularity supplied to the RISC-V
-> + * implementation. SBI RFENCE receives start, size and ASID, but not stride.
-> + *
-> + * The event is emitted at path selection time. For SBI RFENCE, it records
-> + * delegation of the request to firmware; firmware processing after that
-> + * point is outside the event's scope.
-> + */
-> +TRACE_EVENT(riscv_tlb_flush_path,
-> +	TP_PROTO(unsigned long start, unsigned long size,
-> +		 unsigned long stride, unsigned long asid, bool has_mm,
-> +		 const struct cpumask *cmask,
-> +		 enum riscv_tlb_flush_scope scope,
-> +		 enum riscv_tlb_flush_path path),
-> +
-> +	TP_ARGS(start, size, stride, asid, has_mm, cmask, scope, path),
-> +
-> +	TP_STRUCT__entry(
-> +		__field(unsigned long, start)
-> +		__field(unsigned long, size)
-> +		__field(unsigned long, stride)
-> +		__field(unsigned long, asid)
-> +		__field(bool, has_mm)
-> +		__field(unsigned int, target_mask_weight)
-> +		__cpumask(target_cpus)
-> +		__field(u8, scope)
-> +		__field(u8, path)
-> +	),
-> +
-> +	TP_fast_assign(
-> +		__entry->start = start;
-> +		__entry->size = size;
-> +		__entry->stride = stride;
-> +		__entry->asid = asid;
-> +		__entry->has_mm = has_mm;
-> +		__entry->target_mask_weight = cpumask_weight(cmask);
-> +		__assign_cpumask(target_cpus, cpumask_bits(cmask));
-> +		__entry->scope = scope;
-> +		__entry->path = path;
-> +	),
-> +
-> +	TP_printk("start=%#lx size=%#lx stride=%#lx asid=%#lx has_mm=%d target_mask_weight=%u target_cpus=%s scope=%s path=%s",
-> +		  __entry->start, __entry->size, __entry->stride,
-> +		  __entry->asid, __entry->has_mm,
-> +		  __entry->target_mask_weight, __get_cpumask(target_cpus),
-> +		  show_riscv_tlb_flush_scope(__entry->scope),
-> +		  show_riscv_tlb_flush_path(__entry->path))
-> +);
-> +
-> +#endif /* _TRACE_RISCV_TLB_H */
-> +
-> +/* This part must be outside protection. */
-> +#include <trace/define_trace.h>
-
+-- 
+Without deviation from the norm, progress is not possible.
