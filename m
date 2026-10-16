@@ -1,56 +1,56 @@
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A2A64A4F09
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:30:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CB54C9E1A
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:30:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157439; cv=none; b=UInkRg4rId21hTzDh8ur9SaN23vE7vDUN9dz5/Fkn+krVCWj3+gtG9jVpoBiD2ooCRwwDAdSGpuZ1lqM9dwigziB8Lt4YrIX3tjRSE0flyVjmbkb1Iuj/ZBVgMQLemRCSLrmJmo8f5c+DfcSj+SljnlNGQ++wrg3cpU/vFF+8KU=
+	t=1792157441; cv=none; b=GhzezyUAaOQuCUbEU+DZgdHid1us2NVuRHPsQBULa2qc6glM0EWa/e62RX+DxMvueXuhC5DT7HsVPnjxXwrDKQyMwf1LBJRdDjaWHc3T+sgXwDhW1Bz6wbD44lZUBrpiPgw3LFweZ/UDNOKPrFQ1UmIpJQhdgPqwwqJE5IQz1sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157439; c=relaxed/simple;
-	bh=e7El8JVzuCckJxWrAaf3VRho7SDEP+z8OekEMMCb2Po=;
+	s=arc-20240116; t=1792157441; c=relaxed/simple;
+	bh=qUrICa2fJYEZ0c4HlX4XWuz6lEudJa+Feo5dmOei8es=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=HBmxJ7Ae4uymlLYb2x7j1X+3lCAQjR+rDw44XXLfmK5TVHkEScdvirf5Zxf1qDIPSIyi9PBLAME7ZSHRaQ98CJo4xcmvftL0CC5+MZZMk8BIZLrkivm8f2uXq0Oiu0P8LpJDysY4ozE5Rs8N9MVvEboRRT/GnemsajBkaxJp4Rk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LMv0rCqL; arc=none smtp.client-ip=209.85.221.70
+	 To:Cc:Content-Type; b=VYcJUHYFR6HJ6r0eBMYfTwFvCiOXcKPKnaitR3He+9DAHifnwP79jd++3yXtXdnWfQCpV4Fs+po9tqAdk+L/RX7kHCz+WEgOrU3gCkuh9eURwuDZ2ZcUN1Y7D/TtBH/JlTdDUitCsZ5uwDloUMDMMX98sqczZ2u3KXdOlYyU0V4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mC7Zjj5j; arc=none smtp.client-ip=209.85.221.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LMv0rCqL"
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48af4a0bd0fso3639586f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:30:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mC7Zjj5j"
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48c430f0f01so2250839f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:30:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792157430; x=1792762230; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792157432; x=1792762232; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rZIpAdLqjWfhWgBtyxJ71j9kLYaSyELhA3AyKnuBJJU=;
-        b=LMv0rCqLdz1B4EAC6mVImzHSGGSv/sZZqP3GeG/Vp/8PXGEWM7GGZGztIf5KS5SJK8
-         gg70GWPxrkBUWlvKkM6efSGI9Akp/HTyxB8sVmrYxIySSD8rOo7csnJ7CmvU2JIMFDps
-         Fb+hbr+mnnUuhcM0C6T/j+5jdPdLf/Tqezoc7I6j9xA4h7NGRJ5skuQ3z86vJI4VWoWw
-         AHQ/buUNk3VyvoCrqudcWxyGp4y7CwpDHuFjIIb0/194wc5EoADSXfxSLa6DFiGpyeUd
-         PmQ5zoO0oa9AWS8IMr5r+83ZB7uE3/iHJHuIrjrnd6wEma7FCWRTr99DG92K1ar3Xfuz
-         4UlQ==
+        bh=s8wT4GCcFRppH1S0zBu7HLXtWLx9V/jDPupw6jCnXnA=;
+        b=mC7Zjj5jmyBIh/H6Mysyp1mAIYBSOT/iFhMvCQOxHkAE3QQiFNODqxKsOE2fVrephJ
+         HpeaGnG2edjw6Xvi+RuBVBptqKwaQJ0DpzjvH8ue5rPwmLTugCWLuGoTkem2NP48s/p7
+         819dlX2tsJ6Ds5jVf6zmF2coWhCBPt2w4N68yrMhuotP5xjBj1ziGf3iCopb9rLMn5oV
+         KoCsdY8ZSocgZ6gMDhCR05BS4WiJAPGF2/T+li9WFhbt8wL0kUwC5/mC0Uy8HFElp/k3
+         rkZDCxlMpY+hUYhElUDsConGekZt+MvOaMbdBf+fIldYNXEJ9kqGtGHbDjoRY+pdZkjv
+         wuCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792157430; x=1792762230;
+        d=1e100.net; s=20260707; t=1792157432; x=1792762232;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rZIpAdLqjWfhWgBtyxJ71j9kLYaSyELhA3AyKnuBJJU=;
-        b=CHOIGEk0G7aHX7dQnj35muuuKbjopA9ajW8BwSDqO8nrFiYoUtdZZtE8yp7t/L3uJb
-         GHbh1B6bpNt7Omfnt/tykGlKBzSvaSmDdlvGIYX78WCVFk5APlDl2EeK/ZJQCfJbdiy4
-         nqer2bEgwr23xFotE4RsYzvh8FTuaac8g2nrMVHtyv6eO946UnLQC4HUamj6Qp/OANui
-         KkK6aBFciLCByQJnHO9sI1tkQOvRmP91G8GZ3uuDdFombAIDId+wyId19OWUZFkh2qrB
-         WCaxOEq5C5B5Wun70RNlJc/7HXc3Se+a3td4t4a31J9sSiGLT5ix+7kLsfuUQ8fUWMwB
-         X/CQ==
-X-Forwarded-Encrypted: i=1; AKwUvByqcPOq4tfE9yGsnnTsbHIoNop0OzXpJo8DESZ8N1uvIhNNeTNN45tAvaPAtCdf8v+1OBjy1sSCoGgsrcs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpHnQID/peE9S7jJYzsbGaxyr+Kn0Od8SmCGkdgdTxOuXV5+zs
-	RZBZxxlAlbBl5PYn7nk6ax8Un7s0dS/4ke+AdUj5+zX5rzmRaJROrwbw+Grr0ekpQlvZb20GfRf
-	oJQEixVmKtJ3xvc+qKQ==
-X-Received: from wmom10.prod.google.com ([2002:a05:600c:460a:b0:4a1:d08f:5d06])
+        bh=s8wT4GCcFRppH1S0zBu7HLXtWLx9V/jDPupw6jCnXnA=;
+        b=bcechdYHA+yGfL9vnYZ2C/ro8IEvPmVh0SiLjO/eRUp2KwFTndYOHm7V4u46X035D9
+         trd1Dfts1hVT05/kUASCxFpGS9HbBl2oGzlA0Xy5flXKklL5Dl5hnAKN4O0tMaSNhSgI
+         4tytlYIl3AogNcIiTU9Ga076FJ+unNIHvtDIcUErJ5xXoE/zqXOZi2bRWyoDrZ/qU7xK
+         Vi4UGVPIT3dx3Slwf+ZQSe/ZiGWPQK/aaqrCXwVS4+9jkxLSqOZrHZI7uPyy/GzAzJ7j
+         gDd8UkYty4kQagzG5ci2rjRo6/kITdUjzNVSbuXciCuc5M1F7Aa9W3ZHo5bPC+Mxa7Lm
+         83cA==
+X-Forwarded-Encrypted: i=1; AKwUvBwae+w1Zt+N21Su/td6CcxqEVBui0hG/YOR7tdw6LGpcujyWsmdv1KoXujm7ipaIa100RndqSrUV3vGtf0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaxFhU7oTbkWkb9yaTeovg/jIkeoHVjMeXjCdCJQ0U2mZbq/Lg
+	sejxLSW+BuLyVR/2+FQctTUdmjzYz8CoSepIdaOB/7OO51M9hFrM1VGhmICL058XbexG10yZVjq
+	007qKe7ag72JgUEW9pw==
+X-Received: from wrbdw8.prod.google.com ([2002:a05:6000:dc8:b0:48a:f5c4:6e9])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:6384:b0:4a1:7741:ec43 with SMTP id 5b1f17b1804b1-4a18e4b8966mr419166625e9.26.1792157429802;
- Fri, 16 Oct 2026 06:30:29 -0700 (PDT)
-Date: Fri, 16 Oct 2026 13:30:16 +0000
+ 2002:a5d:5a08:0:b0:488:7b66:140c with SMTP id ffacd0b85a97d-48dbaae719amr32819816f8f.28.1792157431452;
+ Fri, 16 Oct 2026 06:30:31 -0700 (PDT)
+Date: Fri, 16 Oct 2026 13:30:17 +0000
 In-Reply-To: <20261016-binder-memcg-v1-0-d659b8ae088b@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,22 +60,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261016-binder-memcg-v1-0-d659b8ae088b@google.com>
 X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4127; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=e7El8JVzuCckJxWrAaf3VRho7SDEP+z8OekEMMCb2Po=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq0ibxm/pJuRR/eaxLabVg+WYFOjq8PzLjg9HGN
- Ng7jx+oXHCJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCatIm8QAKCRAEWL7uWMY5
- Rt8wD/4xV9Q8bXw1mZEz2tsam7qfZZT9L5xuUK/uWtKOZSPmrZ9L6tmK+BOCdREdBSP3X63WSiA
- JKnX7sqftIvrgPKBGh8vUyzcsXp+UEiF6ihLVo45bSVeDCyKhSBl7FKyIPNExKxAQdFDelHBe18
- n8tu7hnyH0npzscKCagq1CUJwQ/pWzrp81/wYlKVuOLHO2Vro7BePj37Kvtk9CspMezG10zZFXN
- nyCoC8Ko4gReoZ27GguonsWAWmM+iA4T3hNM6g7Fx6zwVdrISzXRrHAb49597uRD4xUltrP/Rgm
- /hfV3ydUKXoABK+qiNgXJdLgLx6Ym2s/0sG3M5x/aJm6vkmLSPyS9HppD18hnCNFXL0f3APap2x
- PXkUwa0mWKY5G1opKxqyjk4rA65T1s9lh7my0g2MCqfW7d6h0v4qpxXqnSb2fitsO0pdgKR7Ibp
- hgwB6qcwKcCvjrILG1Nf+ufsDUzI8gcLEVTwNm56SdPU1CaXMMS6+gt+AkI3tD70ghpMVFuFhF3
- jmvWPbB4MdM3HW+zNOIeFA9z0euJrjLkLBj9cPYIFcddjkQADFJbPCbBI3cAXM/LXU13UgBC82U
- slMx4quFUCar82bLqoYoGl4GJFKTJdptU5xKkLD+GYC+ukwanzPGLFQQ1SsBzSqU8HmBS+mJFpu nQ1TaHrIsOkuDEg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1798; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=qUrICa2fJYEZ0c4HlX4XWuz6lEudJa+Feo5dmOei8es=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq0ibyWL2N2fGA3+Ni+RZIZOlpvage6FEJ+K0Eu
+ 6UZFAEbPuKJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCatIm8gAKCRAEWL7uWMY5
+ RtinD/9ksgOmsOB7zF2RRAoNzyBkQ52Wl6+40EruO0uNuIhTxDs7XqrMPHmYQBfqXzOuTEneSSB
+ LeCzrC5q8vAuub/SMASW5rAeIZk8LyLBq8/0+shRJiaNEZxGZjUPpGdwpb5LQYpZ5G/9LIlztFR
+ IJ1+m+yQzdR7Cufaax4/rbTTWvsOQur3Gtz2bjDe8UsbaFXnmicKDY7h05IxpDpTSwlR33NqJr2
+ ey8kRP1uem1ZCMpY8IgLFecU5tHGXZ8Sd8c5kTroR8O3gnOiaHQcZVZdY8xMh2zw2oY65YCLE8h
+ ao/mEIh3AugucnX6paH91sCgCVy4QvIfYIxzxY0ip/7i0uYqvz7xOipWDCiJ+xAagjRRHbFVEW1
+ 9Fw4XgOkTOL1sICaLQzpwAIXSu9VNSLuyliuZJ37mlYGKhu1LiETkpPOU03WTYrd/d5FoJ1rA4E
+ J+8a+sg170GvEjxD5gcT+nxWQkANZdId5HKNNel01ejw/0jF4tRTlAjYXFSXYEZ3Qs/AjANuuJo
+ 04LzhqmA4sQB/hE9QBaPScqWa5CEV0I+pZ7ec3YBAqH8B3bbj8yQenf9gfeo/jvhwVRpkBC17oc
+ 5Y4gtixK1RsRJiWfnHXRNIMeBrBKQYNMfdF63FH9yBMBtIPF1bJcasKmUUrSCbLnookn+xyzl0L fSj4M06e6kkhK3Q==
 X-Mailer: b4 0.14.3
-Message-ID: <20261016-binder-memcg-v1-1-d659b8ae088b@google.com>
-Subject: [PATCH 1/2] rust: page: add Page::alloc_page_memcg()
+Message-ID: <20261016-binder-memcg-v1-2-d659b8ae088b@google.com>
+Subject: [PATCH 2/2] rust_binder: charge allocated pages to memcg
 From: Alice Ryhl <aliceryhl@google.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>, 
 	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
@@ -89,130 +89,47 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <ga
 	linux-kernel@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-Pages allocated on behalf of a userspace process and mapped into its
-address space should be accounted to the process's memory cgroup. Thus,
-add `Page::alloc_page_memcg()` to charge newly allocated pages using
-`mem_cgroup_charge()`, and switch `Page::drop()` from `__free_pages()`
-to `put_page()` so that charged folios are uncharged when freed.
+Pages allocated for a binder VMA are currently not charged to any memory
+cgroup. Thus, use `Page::alloc_page_memcg()` to charge them to the
+owning process's `mm_struct`.
 
+Suggested-by: T.J. Mercier <tjmercier@google.com>
 Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
- rust/helpers/page.c | 17 +++++++++++++++++
- rust/kernel/page.rs | 50 +++++++++++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 66 insertions(+), 1 deletion(-)
+ drivers/android/binder/page_range.rs | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/rust/helpers/page.c b/rust/helpers/page.c
-index f8463fbed2a2..145758a8a954 100644
---- a/rust/helpers/page.c
-+++ b/rust/helpers/page.c
-@@ -2,6 +2,7 @@
+diff --git a/drivers/android/binder/page_range.rs b/drivers/android/binder/page_range.rs
+index 52ffbf3504e7..57da47243967 100644
+--- a/drivers/android/binder/page_range.rs
++++ b/drivers/android/binder/page_range.rs
+@@ -27,7 +27,7 @@
+     ffi::{c_ulong, c_void},
+     mm::{virt, Mm, MmWithUser},
+     new_mutex, new_spinlock,
+-    page::{Page, PAGE_SHIFT, PAGE_SIZE},
++    page::{MemcgAllocError, Page, PAGE_SHIFT, PAGE_SIZE},
+     prelude::*,
+     str::CStr,
+     sync::{aref::ARef, Mutex, SpinLock},
+@@ -399,7 +399,16 @@ pub(crate) fn use_range(&self, start: usize, end: usize) -> Result<()> {
+     /// Assumes that `i` is in bounds.
+     #[cold]
+     unsafe fn use_page_slow(&self, i: usize) -> Result<()> {
+-        let new_page = Page::alloc_page(GFP_KERNEL | __GFP_HIGHMEM | __GFP_ZERO)?;
++        let new_page = Page::alloc_page_memcg(GFP_KERNEL | __GFP_HIGHMEM | __GFP_ZERO, &self.mm)
++            .inspect_err(|err| {
++                if *err == MemcgAllocError::Memcg {
++                    binder_debug!(
++                        FailedTransaction,
++                        "page allocation for message to {} was blocked by memory cgroup limits",
++                        self.pid,
++                    );
++                }
++            })?;
  
- #include <linux/gfp.h>
- #include <linux/highmem.h>
-+#include <linux/memcontrol.h>
- #include <linux/mm.h>
- 
- __rust_helper struct page *rust_helper_alloc_pages(gfp_t gfp_mask,
-@@ -10,6 +11,22 @@ __rust_helper struct page *rust_helper_alloc_pages(gfp_t gfp_mask,
- 	return alloc_pages(gfp_mask, order);
- }
- 
-+__rust_helper void rust_helper_put_page(struct page *page)
-+{
-+	put_page(page);
-+}
-+
-+__rust_helper struct folio *rust_helper_page_folio(struct page *page)
-+{
-+	return page_folio(page);
-+}
-+
-+__rust_helper int rust_helper_mem_cgroup_charge(struct folio *folio,
-+						struct mm_struct *mm, gfp_t gfp)
-+{
-+	return mem_cgroup_charge(folio, mm, gfp);
-+}
-+
- __rust_helper void *rust_helper_kmap_local_page(struct page *page)
- {
- 	return kmap_local_page(page);
-diff --git a/rust/kernel/page.rs b/rust/kernel/page.rs
-index 1c0796ea229f..7a36b7dd6c9c 100644
---- a/rust/kernel/page.rs
-+++ b/rust/kernel/page.rs
-@@ -10,8 +10,10 @@
-     bindings,
-     error::{
-         code::*,
-+        Error,
-         Result, //
-     },
-+    mm::Mm,
-     uaccess::UserSliceReader, //
- };
- use core::{
-@@ -195,6 +197,28 @@ pub fn alloc_page(flags: Flags) -> Result<Self, AllocError> {
-         Ok(Self { page })
-     }
- 
-+    /// Allocates a new page and charges it to the memory cgroup of `mm`.
-+    #[inline]
-+    pub fn alloc_page_memcg(flags: Flags, mm: &Mm) -> Result<Self, MemcgAllocError> {
-+        let page = Self::alloc_page(flags)?;
-+        // Note: Charging the folio with `mem_cgroup_charge()` only works because `Page::drop` uses
-+        // `put_page()` (which uncharges the folio before freeing it) rather than `__free_pages()`.
-+        //
-+        // SAFETY: `page` was just allocated, so we hold the only reference to it and it is not
-+        // yet charged to any memcg. `mm.as_raw()` is a valid pointer to an `mm_struct`.
-+        let ret = unsafe {
-+            bindings::mem_cgroup_charge(
-+                bindings::page_folio(page.as_ptr()),
-+                mm.as_raw(),
-+                flags.as_raw(),
-+            )
-+        };
-+        if ret != 0 {
-+            return Err(MemcgAllocError::Memcg);
-+        }
-+        Ok(page)
-+    }
-+
-     /// Returns a raw pointer to the page.
-     pub fn as_ptr(&self) -> *mut bindings::page {
-         self.page.as_ptr()
-@@ -376,7 +400,31 @@ pub unsafe fn copy_from_user_slice_raw(
- impl Drop for Page {
-     #[inline]
-     fn drop(&mut self) {
-+        // We need to use `put_page()` instead of `__free_pages()` to properly handle memcg
-+        // accounting.
-+        //
-         // SAFETY: By the type invariants, we have ownership of the page and can free it.
--        unsafe { bindings::__free_pages(self.page.as_ptr(), 0) };
-+        unsafe { bindings::put_page(self.page.as_ptr()) };
-+    }
-+}
-+
-+/// Error returned by [`Page::alloc_page_memcg`].
-+#[derive(Copy, Clone, PartialEq, Eq, Debug)]
-+pub enum MemcgAllocError {
-+    /// Allocating the page failed.
-+    Alloc,
-+    /// Charging the page to the memory cgroup failed.
-+    Memcg,
-+}
-+
-+impl From<AllocError> for MemcgAllocError {
-+    fn from(_: AllocError) -> Self {
-+        Self::Alloc
-+    }
-+}
-+
-+impl From<MemcgAllocError> for Error {
-+    fn from(_: MemcgAllocError) -> Error {
-+        ENOMEM
-     }
- }
+         let mm_mutex = self.mm_lock.lock();
+         let inner = self.lock.lock();
 
 -- 
 2.56.0.212.g129ede20d9-goog
