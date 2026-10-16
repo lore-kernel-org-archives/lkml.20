@@ -1,151 +1,113 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.systemli.org (mail1.systemli.org [93.190.126.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6063BB673
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:41:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792179697; cv=pass; b=Hm7FTqgAmvj9SCgkmxuDbPLEMI1iBQfARnybtDXBuMytiSfBk6ssljdDPw3seNzeukajomxFL1AlBUmz7oK9lx5iYLuJjEftoNmX+IK2g+WBbeAfLJsDI5akxpDQGho5ZZlOhowM/Y0GovGmBoMV3RisGa2UmkGPqdmRN8zxxmc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792179697; c=relaxed/simple;
-	bh=S7u97F0mKuHEaXlleeG6ov/Y3VkqNsMCwMjqHsihwxw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lWjp1pd6BAjKEVaBkHx+Okn1M+gX+BPeiz4I4MgcIuSp6ujL1d0OwW4B3Qdu9k9TaV0SUcQeJWDdIsOMpInLNerf67dcQGbsR0MBoH22HLOQuG0kJwETzfgo2WhF7jQ20jS/ka9f0ysIiboK9a/NL96IFNz8nN7tTHHIs5ArUy0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oQ4WZRH/; arc=pass smtp.client-ip=209.85.160.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4028E3431E3;
+	Fri, 16 Oct 2026 19:43:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.190.126.36
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792179810; cv=none; b=sZWio5Nqk0oZOiKGf4K9pv9mfk7InwdZreUPk0TnhlYr4TFTUkiLXwPHE75svMJCt3jNfbDrL8oYiqb/LdKaInBq3dBkcv1HWqoYdqWL6NA3lA6gihfz5hpsGCW7eBXkSpvVzg1Kjl6SpZ6vvBexhLHplKXmuo1kk+IsGc89aLw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792179810; c=relaxed/simple;
+	bh=PSY8/6Ht3695dETAQ+IJZfbjd4ZsJrNu+wFt2aorenY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M15YKuKm/6G2zm2p9Bw4oJoBbTkB/KTQWXwmcy4tOZa3pIxVq9960z8HQ7OgoB2XmRKVstCIj/eMbfXJbYlrbE5S2NAhOWPuvhWI/8qUOMuEwlY8lFO1ZiPNKC5uAB4/Hd0WmQoMXrblhQZXftxPwMWpZH3bRU+HcmGES/DeX9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=systemli.org; spf=pass smtp.mailfrom=systemli.org; dkim=pass (2048-bit key) header.d=systemli.org header.i=@systemli.org header.b=Yu90jTZL; arc=none smtp.client-ip=93.190.126.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=systemli.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=systemli.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oQ4WZRH/"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-535f598d126so2271cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:41:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792179695; cv=none;
-        d=google.com; s=arc-20260327;
-        b=R9HNLQHUdPiAuyimQO29oMS6ux8sC5oJJFOZabDE1hOfUuGVcA0S8CuTWE56kAs3W3
-         2cBdIxb3/Oexl6/FIlEaRZ5pupfcFBHra6fhtyWFLyZyJ2LdBXtJ1Y9/LzYAlShOWDq2
-         MWPF50/41XYNAlxs/Kf55usX596PHSiVFcvAaWuSD5YgoWAeooHRIa9xfDkNtA5vknUi
-         DxXj1TNqBL9KcqIpy+tG7t8pE6rRJTeHYcB+7UQBToiAdeiIh+syolCbtIhqdHL0XXON
-         ZyCIzDynQ3KN4F2ceLQ3lZT6I8E/XAipGtSG4B4DL187YHzNRAXwOQ7QwsistPTOS1HC
-         4dxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7I6WLMkKR2BgKIxGRcqSFhqIpV9v6f9mjoXxwWLiuPk=;
-        fh=FnKohEiYH51FFZq5kxIt/iPUaO201UJKa4f1/uWq+qw=;
-        b=OCXhH3WcxgFcRdvQOhYwxJrvpW8WipUhraTAxlh/zsvEDyslQTMxVgPAqcd+RmOcld
-         v8axue5e6SqrGMaiBOjiA4HIws+M24qLRsy/Lvy5YT4NmmsMjJTpVYu9+icyZUILcxRo
-         KPbZDJyXi2DxYxziQOfOZ98A311+vS8RnwI56AW3oYoiJIJhgOqyrEVT9XsJwtO3FRQZ
-         70NstMxYgeKfOnPa/LazGJcl245K1EKVb5MXQZ8VYoxmluOjPZNzyPk78LjwA2/7a16X
-         EKzP0KK7HSFuWZkDtOdf5+1Vxa8/NiZo06P+iknhMJKDdz4+OuRLNClGpqAkMnUKept7
-         +uqg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792179695; x=1792784495; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7I6WLMkKR2BgKIxGRcqSFhqIpV9v6f9mjoXxwWLiuPk=;
-        b=oQ4WZRH/s4OlqMsSt1YCy+GDPxLQD8NKDV3kNsjiU4D/ngxoJmU5b6qr2TuhbHxLh3
-         KQcR1ogam8OZBBoG3NNM+ABOG6d4HWcms3gs5NHs5NFgySsjLxheDPE75gNHKGefi1sp
-         Jc7oudV06kCUrL5iLnrxgGBAtGU2YqfMHZb1NHGIsdCmvgFnkhccnQMheDDgMjeJvypI
-         XvBz3aI/05Xdaf6d2pgrydkbSAhEs79Rl/oLVwM1qo7379T38fGoBKRwq2LUXtYrOR8G
-         Zza/PUdosEaWkeX6C8JXb1FPddosj+2fQCTPz4MFkRfE9+pDcTJt8CY/RBCCAnhFF08g
-         N2bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792179695; x=1792784495;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7I6WLMkKR2BgKIxGRcqSFhqIpV9v6f9mjoXxwWLiuPk=;
-        b=uWUFGb6yX5MG6iZIy0otHCSIYHcD0hQX5g9VT+P++zTIEjRcv8MHju2zgIf+68K7p8
-         U+8lZlYkBKjy3lBfW2lrfN3NQR/abOHaK7SsSDQcGylNBoC+YbZwuMFy9QblD9LpMsUT
-         fYUaqHWNiGoXSBb+cibl6GWM3s+hLM49/vny98SS/RL0CE7GS9dIrzEMTikDTF2IbS5r
-         nluhdQ0J+YzG0xDfmV1/6X0d6XjNeFszbxzHPdz+8E0J6AUXNOyiUkDjhtb4FD9wQtD/
-         +cjpnBF/fIRSjuLyy9O0uUQQQI69jrEkO5xcWRoeAh0mhjjrnHY6pQBU97sv+kZ41tnt
-         iEBg==
-X-Forwarded-Encrypted: i=1; AKwUvByutDOH4JC9kVNcA3+80+hTJCDOO2dalEmmDm0DvT2Pd+NfV1JzzCxN9CnsXiz52jWm6o3i2Ykp9NuZxII=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEj93MEbao30dNdnVOSt9kC03/BguEwTRKxap3NRiQd8P1Cd36
-	HkxFDNp4VfOA74v8HvMIM2mj3qkV/xlTTGl1N75TuyJPfCU9DNNN9/Ufk1dEy0DoUx0SicZHB/l
-	gly0nIAn0GZ2vTtEnzL+oXN5D2T45C7qjKc7xuWsF
-X-Gm-Gg: AYBFou2GANcmSmOUZyA4rghHrAFYTm8RBcTCh4GmLSquxe8k/jQBQ2//br14n+1TV0J
-	gQNQX3gGShqK05RvvQrDjkheV/aLnnAh2BaiGuv2dPsFIZMAqJC4ZUXxQPZLXVCFW/SLyq8CB00
-	oU/jtNhl19K8vQueEm84tQcvggA5aFWgkfamdMhsDw2I5y9q5VMgHlzwCsol/z5g7EuAdcoid4Q
-	k1LGZmG5Jxe5LANIL1jX16Eq4NZiOmZAhRQF10lu31aHrnW28yI+pVexgQW1kY5uBVLQMHlTK/o
-	9rBALWMYgV3u1MPn/MQb6eq87JB4D8j2HJk2y5H1SGDubHRzh4qMpqk=
-X-Received: by 2002:ac8:5ace:0:b0:534:b7b2:634f with SMTP id
- d75a77b69052e-53646227b1amr1807741cf.8.1792179694296; Fri, 16 Oct 2026
- 12:41:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=systemli.org header.i=@systemli.org header.b="Yu90jTZL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=systemli.org;
+	s=default; t=1792179794;
+	bh=/q+EF9ABPKDwT5qrXuQd3pJ9+FUswKX0Hp6vlgaMKOQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Yu90jTZL1z7/LwXNZipSwv8Nz+Up3V8rwWbNDr+pi50LxT8BjUiaAHFTU5gPsPiGp
+	 URyR/bPN3FlKIg7iXI7eAJ9rCf2J6Iw9KqMiAMSvw0hlGO6gjZbXc5rW+VCJBJB0/y
+	 deiBi0I60ve6oyaCeIpORJt67n83tGjcpDu1m4o98GU6xtBnI/v+wnWbVt3ZwNVGS8
+	 Eu4jznfvdtPfCoa4QTjFAS3wknUF9zuI3DVwN4TgLNatNS8MGoF9AQ7aWX0t+yZuDw
+	 gh5UXd9eRUrTnph4gOG8V1HG9wvH3VxNfEt8Hs0Des1f2xnXQBXfHVatBjHZr9ZNIB
+	 Mg1aow0YXuptw==
+From: Nick Hainke <vincent@systemli.org>
+To: Johannes Berg <johannes@sipsolutions.net>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+	Gregory Greenman <gregory.greenman@intel.com>,
+	Ilan Peer <ilan.peer@intel.com>
+Cc: Nick Hainke <vincent@systemli.org>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH wireless-next] wifi: cfg80211: map LE DSCP to UP 1
+Date: Fri, 16 Oct 2026 21:42:48 +0200
+Message-ID: <20261016194248.3508952-1-vincent@systemli.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-25-yosry@kernel.org>
- <CALMp9eRb3ExsQ0g24YQyo85sV1fnHZadh33hBChUY=ZGUaT7jA@mail.gmail.com>
- <CAO9r8zMt5ZNwr3Y+NfFcAW5Cf4JaerCScSsLxcvsvHYR=DoYBw@mail.gmail.com> <atF1lByf9w3Pvzyt@google.com>
-In-Reply-To: <atF1lByf9w3Pvzyt@google.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Fri, 16 Oct 2026 12:41:20 -0700
-X-Gm-Features: AclHuK_lmx3knEDpq2O9cX91zu7wMSJRiSiXRo3aJT1GBy87KnfcOtvuGmB_cxE
-Message-ID: <CALMp9eQ0j9mpaRFgGSgSzbpLZJL3hmQEY9Ey2VEMuqST0uRTsg@mail.gmail.com>
-Subject: Re: [PATCH v3 24/27] KVM: nSVM: Flush L2's ASID when emulating INVLPGA
-To: Sean Christopherson <seanjc@google.com>
-Cc: Yosry Ahmed <yosry@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Spam-Report: 
+	*  0.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+	*  0.0 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.0 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+	*      envelope-from domain
+	*  0.0 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	*  0.0 DKIM_VALID_AU Message has a valid DKIM or DK signature from author's
+	*       domain
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0000]
 
-On Thu, Oct 15, 2026 at 5:53=E2=80=AFPM Sean Christopherson <seanjc@google.=
-com> wrote:
->
-> On Thu, Oct 15, 2026, Yosry Ahmed wrote:
-> > On Thu, Oct 15, 2026 at 4:37=E2=80=AFPM Jim Mattson <jmattson@google.co=
-m> wrote:
-> > > > diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-> > > > index 8f2542357e78d..436d13f106369 100644
-> > > > --- a/arch/x86/kvm/svm/svm.c
-> > > > +++ b/arch/x86/kvm/svm/svm.c
-> > > > @@ -2468,17 +2468,61 @@ static int clgi_interception(struct kvm_vcp=
-u *vcpu)
-> > > >
-> > > >  static int invlpga_interception(struct kvm_vcpu *vcpu)
-> > > >  {
-> > > > +       struct vcpu_svm *svm =3D to_svm(vcpu);
-> > > >         /* FIXME: Handle an address size prefix. */
-> > > >         gva_t gva =3D kvm_rax_read(vcpu);
-> > > >         u32 asid =3D kvm_ecx_read(vcpu);
-> > > > +       int cpu;
-> > > >
-> > > >         if (nested_svm_check_permissions(vcpu))
-> > > >                 return 1;
-> > > >
-> > > >         trace_kvm_invlpga(to_svm(vcpu)->vmcb->save.rip, asid, gva);
-> > > >
-> > > > -       /* Let's treat INVLPGA the same as INVLPG (can be optimized=
-!) */
-> > > > -       kvm_mmu_invlpg(vcpu, gva);
-> > > > +       /*
-> > > > +        * INVLPG on a non-canonical address is a NOP according to =
-the SDM,
-> > > > +        * assume the same behavior from INVLPGA since the APM does=
-n't specify.
-> > > > +        */
-> > > > +       if (is_noncanonical_invlpg_address(gva, vcpu))
-> > > > +               return kvm_skip_emulated_instruction(vcpu);
-> > >
-> > > If L1 is in 32-bit mode with junk in RAX[63:32] (e.g. bits left over
-> > > from long mode), the full 64-bit value may not be canonical. Should
-> > > the kvm_rax_read(vcpu) above be kvm_register_read(vcpu,
-> > > VCPU_REGS_RAX)?
-> >
-> > Doesn't kvm_rax_read() already use kvm_reg_mode_mask() as per
-> > __BUILD_KVM_GPR_ACCESSORS()?
->
-> Yes, Jim's probably thinking of older kernels before fc40b1254c32 ("KVM: =
-x86: Add
-> mode-aware versions of kvm_<reg>_{read,write}() helpers").
+RFC 8622 [1] updates RFC 8325 [2] and recommends to map Low-Priority
+Data marked with the Lower Effort DSCP (LE, 000001, 1) to User
+Priority 1 and AC_BK (Background), the same as the legacy CS1 marking.
 
-Doh! My bad.
+cfg80211_classify8021d() takes the three most significant bits of the
+DSCP as User Priority and corrects some DSCP values in a switch
+statement afterwards. LE is not handled there. For LE the DS field
+without the ECN bits is 0x04, so:
+
+  ret = dscp >> 5;     /* 0x04 >> 5 = 0 */
+  switch (dscp >> 2)   /* 0x04 >> 2 = 1, no case for 1 */
+
+As a result, LE ends up in User Priority 0 and AC_BE (Best Effort)
+instead of User Priority 1 and AC_BK. Add a case for LE to the switch
+statement.
+
+OpenWrt already sets a QoS Map by default that maps LE to User
+Priority 1 [3].
+
+[1] https://www.rfc-editor.org/rfc/rfc8622#section-11
+[2] https://www.rfc-editor.org/rfc/rfc8325#section-4.2.10
+[3] https://github.com/openwrt/openwrt/commit/a5e3def18224
+
+Fixes: 6fdb8b8781d5 ("wifi: cfg80211: Update the default DSCP-to-UP mapping")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Nick Hainke <vincent@systemli.org>
+---
+ net/wireless/util.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/net/wireless/util.c b/net/wireless/util.c
+index 59912f4a93c8..3f8648b94179 100644
+--- a/net/wireless/util.c
++++ b/net/wireless/util.c
+@@ -1154,13 +1154,17 @@ unsigned int cfg80211_classify8021d(struct sk_buff *skb,
+ 	 * value. See section 4 in RFC8325. Specifically, for the following
+ 	 * Diffserv Service Classes no update is needed:
+ 	 * - Standard: DF
+-	 * - Low Priority Data: CS1
++	 * - Low Priority Data: CS1 (legacy)
+ 	 * - Multimedia Conferencing: AF41, AF42, AF43
+ 	 * - Network Control Traffic: CS7
+ 	 * - Real-Time Interactive: CS4
+ 	 * - Signaling: CS5
+ 	 */
+ 	switch (dscp >> 2) {
++	case 1:
++		/* Low Priority Data: LE, see section 11 in RFC8622 */
++		ret = 1;
++		break;
+ 	case 10:
+ 	case 12:
+ 	case 14:
+-- 
+2.56.0
+
