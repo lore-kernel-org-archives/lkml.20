@@ -1,122 +1,146 @@
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-222.mta1.migadu.com [95.215.58.222])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 983DC424646
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4063A423E9E
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:17:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135036; cv=none; b=JfqZjjmK6JAf8TQ7lW88zddWwIWiH1JvnwEywnAVbtMdqjaiKaCtSb/IAotfZO+BKjesnVzi8yjK7dubGxbTX8oLjOzl50/tMDBc8dgfI3/09YNGw4jFng1bJZs8XZuWPXPBukXnsywoHeExm7K4Ge316EIdnK3gItPJNLGNhQ8=
+	t=1792135037; cv=none; b=UlsBVhZ6uviL+XT22YDrnKETw7r8sspTFY1DFnw0buOBqCN0noY+2EXrQ2IUa7RG/FQtC7NZ1RWzOfrCHA82eJT16cCAp29w2DKMHYiGNIjWPnun6hIvEn0fJYSfrAaWwL9+YMzzObJPF8VO6BMLIsDXnhQnJK/AhnRbrAcWgP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135036; c=relaxed/simple;
-	bh=HPXyJv1nnsRYyUIjP1OoOCCsi5FbA+9VtPJjoy/xgM8=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=m8jhDhEKqjeqDjW4Nx792KuPrMZ6OuOKC8dtqqs6pKP3GvhUO2bMmTsyT3VYID3w/hRxubAqDmWJGnaGmYjpTkV26668ifby3Dsu6HNUFvE5PSqCiJhvmUlQ3aJVWPDCznQPp55ZoD3FqPHQnHIJ215qbd+C6CZ/oo5n0m1NU38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=B0sNBfhs; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VOnzLmwr; arc=none smtp.client-ip=202.12.124.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1792135037; c=relaxed/simple;
+	bh=fGHOWXbRTwGx7Yxv23lsiLlvnmkHusi5Yy0Lxv5YfdA=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=oozJ9ds9PumdO+dxWic2Ig5DwcMAbpv80FJ73xDN4uJOMNP8gwA87g708+awEZ88bL5Bc6Q5NZPjMlDtp2UG6PbYJC7OVVJpVzbVTDBFGNPBs+t9zANFCXEtek2WTN4TYU9AvvC8AFkfqRulSd+qfjbB986HbSwtM85LNA1IpiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uDmM0CGp; arc=none smtp.client-ip=95.215.58.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="B0sNBfhs";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VOnzLmwr"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id CD8331D000C5
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:17:13 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Fri, 16 Oct 2026 03:17:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792135030;
-	 x=1792221430; bh=QL0dlcySmDzSK3Z2ozZI6UneSidlB/1C/LIGQE4hSiU=; b=
-	B0sNBfhsB+jbGVd6Bw2wdUfSgVfpmjskn9XyuYyrfqMZubetdLFfu+08YxQXXDs6
-	lIXx5p0Afh4yhynh/5xXW8n0bdWC6/a+ujQ/spq+gXJypqtDt5ftycectVoPRTfY
-	Skh8FmJcB69xEqx4N213DIdrlzLwWEgRIqvfrniKxfJk7JcBe8f0hcm7rE2V844v
-	WSiA0MTyC3W0PqM9OHipFeDKPUMCbuITMVnmP4lua4W64vevuadld99x7xaqCzoB
-	Uv4Yh1+HF7xBVyFjsla3BijY4kdXOxazVkHfcYlzZ9SpsFLiIImsjDAAxYlSMOHm
-	EwAEsM4T5wMTTbmE18RmUw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792135030; x=
-	1792221430; bh=QL0dlcySmDzSK3Z2ozZI6UneSidlB/1C/LIGQE4hSiU=; b=V
-	OnzLmwrS43ljvieU2Q8ebT0CRFd5rat60+JJvyXo9g1rqzHK2xGLZeqQTX5Nxhjo
-	irK2QzRSe/5zicu5ecmJeaayG91frvlXSdv2OnTQqMcYS0Y96oMUQ6tAPiotldmP
-	N/dEJR4iMaU7zdyrcx/4lkyzc6Op1wXoS/WhXwnYQlpCeRPOhwMYlFi0toxI9/e3
-	K+tCyuyomNfpInSa7nBhzQjkyiQul9b2ceEleJuUNczs570ii6pDR2x9dBrnV8GX
-	lYCQSsAhfdX2B8fsrLOkayQ/o3Y1yQxgxuNAIn25jKFQe2lrCA11DkPiBI91JwLh
-	5vQrlLcOGAs6bUzup7r9A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792135030; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:TrmJW/Cyrwu965WQw7+osQvXT7xGR857V99QUiv8fZCODzC
-	ZyW5UPosdPp8pyug9UxdrW5bgmmnB3TZqOvB1sN11YPw7jgJd8c+DNHL+b/zJvU+
-	aB+vpCmw4aoor4pT+2updb9+n/3WKxxSYDj5yrnRfDzl+p1dHw5J0J30wBk+2yR6
-	DOh9eaD9aJnSQSohh93YZeEyBp1svOzAQo0VJE20Du8PULq+JkZ8VdzNcq5FBhyu
-	sDQLT15vJQNuZQ5EzdXRqBsAp+HmrOK6zuuY15+dbv9ZOthl8J8wZxUK4FkEfe+t
-	tE08cDGal9Zi1JXrQx2VDhNnwP7bnHgMBe3bE8w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:Xsgxf6qOO/V/TeS5oaWMxRLaNr2zI25evkF4sFizc1o=:HPXyJv1nnsRYyUIjP1OoOCCsi5FbA+9VtPJjoy/xgM8=;
-X-ME-Sender: <xms:dM_Rano0pG_DCgO8QbIPqZQgBcPswQH2GhxMBnMPQaLvJ07gjFia4w>
-    <xme:dM_RasfHFhg0neFt0VzKB9O3wal38H5wpGeu9WtBs7Dayu7qxbCR54sC1OS-Y5ETt
-    w5oo1OI_YEMer_yxqxut9qES2VnX-cvJ8YVQvJbBAkX0Qb91__JMsM>
-X-ME-Proxy-Cause: dmFkZTFpbIEowVz8WtaA6lnOpECHfMBzcdKJWew9O0jHr8qAHFtVshMJGs0Xte0eVmutYU
-    zNg6YHJV1jc7xxWz4ik6sMnqKSnnH5iehx4LVVenLsAMvEuXwd5BpvLt5uBXSHaoPK2BP9
-    RYNPHra6v+OSIpNLKK3fFRS2eAvYWNyWoFJi2tTbkp0s4UcuTtcQJOSF7/xIJH7rgJ+3/Y
-    TQ7urM9WRnUzaMrOPjSNKbdjfMyOgPHoEqOi9Vns9198nGEt75zotq0fpCVWxnKp8/nC94
-    gfQEDBFMAfl8zLT4Z6gekt9szX2Jk8fgR59hdBe8gXaRvG2vKmueATPeK1GBZVlm+O29rV
-    gtt88W3Ktr4z+to66X7PMuS+/7YeDd7NS7/XVyjHglrlJb4xN5P0bUA67HCByxTGHyXbSN
-    23COX10hJCebwXjT6Hn1cuyNjZd40pLiz5aFAJCDpPfmvATwsBAawWQsiqp5cyjHR32HOI
-    pIwKdtaHlbn+pTcW+VKXhl5RYYSDcBPcmgj9DMA7Jc9snGsLCPOmI2AneWWyqaOLJMk6h7
-    ahhYSuAUSE+YS2UzTWsW7fZ+p0I1RTVi2D+QmKvigSu+hrmrlrZVdSPNwmKnAKkPAVJ78o
-    7l+2j2EQKRMbqLjjWl99/Gc8t/uHpJ7ktcjbx9b8V1cs0UZlSe6grT7OiPQQ
-X-ME-Proxy: <xmx:dc_Rao04bpwbZ4SEn9JsiT8BqZkgyx_L9pFUn1MqDpfUFa_nb5A7sQ>
-    <xmx:dc_RasAbtQ10VlKOPzjGbPdBoya9t7gd7bM7DFuh6tkr6mH6FTFKZA>
-    <xmx:dc_RaseYRPgQheCV2W2-8tjIHuhD-rZJrz0xEIpLmjvBXF6-bIzK4Q>
-    <xmx:dc_Rah4YXbeC-u_vdtfuxaWnfqC016IUVC4RjENmq42l_Lzb1kKh-w>
-    <xmx:ds_RakPM1oN7gHwhsepIp65kxtJjfhYjiH84GpwJsr7lj-rQWr_MkTJu>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 1D42E32A008E; Fri, 16 Oct 2026 03:17:08 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uDmM0CGp"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fGHOWXbRTwGx7Yxv23lsiLlvnmkHusi5Yy0Lxv5YfdA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792135032; v=1; x=1792739832;
+ b=uDmM0CGpVpoUfiHpJnARnrntdDQdeGzhLbYbIe+gvvE7Nj0TqOkNOe9fk9AjsZl+09VXbc3e
+ VIUFeVkqHNFMxOY/1NginI4otivraK4Ox3AVpkWeeFs0ng5vREno/QlMxJ7bxfI94yiJRblTyDq
+ /lYlwN2s5O7Vyaic3HDQczcA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id b663a7f23a3f7381;
+	Fri, 16 Oct 2026 07:17:11 +0000
+X-Mizu-Trace-ID: b663a7f23a3f7381
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-ThreadId: AJ8BcjErQSfB
-Date: Fri, 16 Oct 2026 09:16:37 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Tzu-Ching Yang" <shingekinocore@gmail.com>,
- "Yury Norov" <yury.norov@gmail.com>
-Cc: "Rasmus Villemoes" <linux@rasmusvillemoes.dk>,
- Linux-Arch <linux-arch@vger.kernel.org>, linux-kernel@vger.kernel.org
-Message-Id: <dbb44e92-0bc5-449d-9e43-1f93362aa6c3@app.fastmail.com>
-In-Reply-To: <7eb58dd0-99f9-45aa-bdf4-9707a0c9e1b4@app.fastmail.com>
-References: <20261016025634.2690862-1-shingekinocore@gmail.com>
- <7eb58dd0-99f9-45aa-bdf4-9707a0c9e1b4@app.fastmail.com>
-Subject: Re: [PATCH] bitops: Share the generic ffs()/fls() binary search via UNROLL()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 02/10] mm/hugetlb: fix use-after-free of a new anon folio
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261015-urgent_fixes-v1-2-42796911043b@kernel.org>
+Date: Fri, 16 Oct 2026 15:16:54 +0800
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,
+ Oscar Salvador <osalvador@suse.de>,
+ Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Adam Litke <agl@us.ibm.com>,
+ Mel Gorman <mel@csn.ul.ie>,
+ Rik van Riel <riel@surriel.com>,
+ Peter Xu <peterx@redhat.com>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Josef Bacik <josef@toxicpanda.com>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <370ADC80-F15F-40FA-A71E-8D641D060138@linux.dev>
+References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
+ <20261015-urgent_fixes-v1-2-42796911043b@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On Fri, Oct 16, 2026, at 07:54, Arnd Bergmann wrote:
->
-> I don't understand what you are trying to do here, but I don't
-> think we want this change: I find the nested macros harder
-> to read than the open-coded version and your changelog text
-> fails to explain what the purpose is.
 
-If you are interested in creating helpful patches in this area,
-maybe you could work towards eliminating the generic versions
-of these functions in favor of using the builtin ones on targets
-where the compilers produce sensible code for them.
 
-      Arnd
+> On Oct 16, 2026, at 00:07, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> From: Josef Bacik <josef@toxicpanda.com>
+>=20
+> For a fault in a private mapping with nothing in the page cache,
+> hugetlb_no_page() allocates a folio, locks it and maps it.  The folio =
+has
+> one reference, which belongs to the page table entry from then on.  =
+After
+> dropping the page table lock the function still sets the migratable =
+flag
+> of the folio and unlocks it.
+>=20
+> Whoever zaps the entry in between frees the folio.  The fault holds =
+the
+> fault mutex and the lock of the vma.  MADV_DONTNEED and the first =
+unmap of
+> a hole punch, hugetlb_vmdelete_list(), do not take the fault mutex, =
+and a
+> private vma only has a lock if it owns a reservation map: not with
+> MAP_NORESERVE, and not in the child after fork().
+>=20
+> Then the flag is set in, and folio_unlock() is called on, a folio that =
+is
+> free or has a new owner.  A surplus page goes back to the page =
+allocator
+> while it is locked:
+>=20
+>  BUG: Bad page state in process init  pfn:108e00
+>  flags: 0x200000000000059(locked|uptodate|dirty|head|node=3D0|zone=3D2)
+>  page dumped because: PAGE_FLAGS_CHECK_AT_FREE flag(s) set
+>=20
+> A page of the pool can be given to the next user, of any file, who =
+locks
+> it and loses the lock to the late folio_unlock():
+>=20
+>  kernel BUG at mm/filemap.c:1532!
+>   hugetlb_no_page+0x111b/0x23e0
+>   hugetlb_fault+0x3a9/0x14a0
+>=20
+> An unprivileged process is enough: threads that write to a MAP_PRIVATE =
+|
+> MAP_NORESERVE hugetlb mapping, threads that call MADV_DONTNEED on it, =
+and
+> one that takes the freed pages for another file.
+>=20
+> Until commit 3a47c54f09c4 ("hugetlbfs: revert use i_mmap_rwsem for =
+more
+> pmd sharing synchronization") the fault held i_mmap_rwsem for reading,
+> which everybody who zaps takes for writing.  The lock that commit
+> bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs") =
+gave
+> to private vmas closed the window again, but only for those with a
+> reservation map.
+>=20
+> Be done with the folio before the page table lock is dropped, as
+> hugetlb_wp() is with its copy.  The function already unlocks page =
+cache
+> folios under that lock.
+>=20
+> Original fix generated by an LLM and sent in private by Josef.
+>=20
+> Fixes: 3a47c54f09c4 ("hugetlbfs: revert use i_mmap_rwsem for more pmd =
+sharing synchronization")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> [ david: simplify+move comment ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Acked-by: Muchun Song <muchun.song@linux.dev>
+
+Thanks.
+
