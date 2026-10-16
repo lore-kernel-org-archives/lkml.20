@@ -1,181 +1,132 @@
-Received: from mta0.migadu.com (out-66.mta0.migadu.com [91.218.175.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C3427144B
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:42:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AD640F724;
+	Fri, 16 Oct 2026 08:42:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792140172; cv=none; b=GVEx4LtQwv5XhnNTeTZZKCrdz096Aae9jSupEPuIYZBaFKYhylg6bV83zoIwP2T8UPTJZTaK3diWunYnlEz8lj9AyIqy5Mem5Y4v0uwmFwlmssg54yRN1FI43jnfHIj68eN1e2g61tH3O4DKIi/uwmsBMDweKrVIe49w5vnOUJk=
+	t=1792140175; cv=none; b=MdLHYQi7OTw4K4Ho8NCcjHy4QHrBFllZFWfGfP4Iclz6elBBm9QViubwuiiDCQ8Hawjh0T3eUouleRxchzLAVYGxxPm2ap8Tt6Eh4AGiFB8mSSwOv1HkQIHqHWbHnXSfxL6e8Q5ZmXYwIMrQf3rdOsLVj913RmhpcJtKu3p9gZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792140172; c=relaxed/simple;
-	bh=RaqzrXtafggiA6Vtw0Bb+3qEZqwTeX7kkg/munQcgtU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g0Qzslbmtd04adP/aEuT/rbTAsI9hYc1BfN8v9UyjB+zla+0bNEsGfnAaSKAAeovV+t/tQzpJA76TFjHYbcre7Qa8LOUdJ/11QK0pjI8lswcTQ1mIPnFDj6RdIFt/I79Nk1T1Se2BF8ozTGnrhbFoAB66qDI0XFMimLpk37gPVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lUMViyjj; arc=none smtp.client-ip=91.218.175.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792140175; c=relaxed/simple;
+	bh=3rbOJU1iFVVApKsSPtz/G7fuEZPLRtV/KP/+IGlxAIs=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=m06kyny+OU1ypDnZIEPtINAmGBJN22MEk/CsoF2sAvtjjmoXLvt+rT0psHmuAfRf27lGcX39eZUl5bTzK38KCzuIAfGsygu3Poq2/3gbkhXYk+rWVi/8xjWHlS0Ao3W7mJL/W+6sMnD0TjV2kI8PQCwP0/RfyqAPHnAjgY0pj/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=faR1OGUI; arc=none smtp.client-ip=43.163.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lUMViyjj"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RaqzrXtafggiA6Vtw0Bb+3qEZqwTeX7kkg/munQcgtU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792140167; v=1; x=1792744967;
- b=lUMViyjj7OSmbIQE/3JD2Ytjnn5qFksmgBQQcbYVoQI0aYd9N3RULVBSTODggc6HbX3E2DtF
- PY6FFkkbyFPQFtbqpagkFz+wfTdQDYevrffqv9DeVLe3XRLAMI1AcYI7Z0LdIPb+ea77fuInLrL
- UHJh/nJLSur17C3F8+d110rw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 88eda0bda127cae6;
-	Fri, 16 Oct 2026 08:42:46 +0000
-X-Mizu-Trace-ID: 88eda0bda127cae6
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <62d17959-d695-4fec-a87b-8eadaaf995a8@linux.dev>
-Date: Fri, 16 Oct 2026 16:42:40 +0800
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="faR1OGUI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792140168; bh=3rbOJU1iFVVApKsSPtz/G7fuEZPLRtV/KP/+IGlxAIs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=faR1OGUIEXqyudze+/rlXhjJOm9SouE9CAzMUCOfVVYQfrJ+HeCID4Ymx2wwJwuyc
+	 o+k4gXNkD08P9h2gFOLZ2SganIhqtwrA2DOTo+tKQhk8ucGH5IwNPlT4/Ej1lxb8ea
+	 K9W94jSj+Rq/18omhjCcXJYfPqXq/pqfWiSn+THg=
+Received: from [172.24.48.1] ([2409:8951:a22:b25:d1a1:62d3:eb69:e679])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id AAD22012; Fri, 16 Oct 2026 16:42:45 +0800
+X-QQ-mid: xmsmtpt1792140165tdx1v56y9
+Message-ID: <tencent_4F803EA6BD452898DAAF75EE74A20EF07F05@qq.com>
+X-QQ-XMAILINFO: OVFdYp27KdlJfwZITd6fr7SnRvjrd9me4hJGfU0DLueOQ9LmSLDg7GZv8O25uU
+	 XfbwJ2nYms+kEoWJEgpBC9XaxzNW5canrgt4aJ4hXBJP0ZJL6iHW9xRb/PPg29Ng+8U6luqTb9Py
+	 kTE8+OOly1DlVzfrojmzjkYOk7TtukcP3XjkRXf8ScxLQkUFG2miyWQY5/ZgH6/CL6ki9JAy7qSi
+	 Y5NOsw0l3U/xICoQACUfnwLTyCLUXIBZrJqBaNtOPBzdUWqQKq9M6+AhzAa2LqWJ6s42zM538EUh
+	 62S08zXFLmYD+nmf3/73MVoQRwEVMNnhB3UWfdEP5FV8viFrRBj/rSEkD+bAG3MsXKphOofgTE8J
+	 zOqR8auNeNNyTAKXjT+ueUstpd3V1/ctOJMhAWBGlUi9bQdf9cigac+8ZwSzdQdNssqr8Dyapgrm
+	 xLCtFGivbqKOfs+3PrAdeaXYpG89FxJCartwGYh0AWbQDZzNhb4vIYV2HPn8ba4jwATNoJRxFiFr
+	 w2yGM8vOiunNwgIdGX3SVZKvUCCcDOTEQvRdvbIfBWwLLQA9FOcVIWVEXAg6nsrABxsHpoZxzfY6
+	 Jc4j5hBAEVpmqO7d5WyPO6e3nfvK1z/9XnJuigM4HBrAO6uXf7iKCCl8DqUQChGWof1L9P2n0Ioz
+	 fBQvGkse4Js+MXPpuyvE1OnyPpht3lK/G5dnmb4XANqiZOfnfVOFYgApj7L5+BjLE7l61uv3S/NU
+	 I+1uxs0MPvGFaci0KF5XnJi96WxrwX+bHnVA2qOd7cVD2ErVXKyGDLeJ9VNXCZD65u0IsPebvHKI
+	 uoeAZle2eSi+tyTOwxAVeLtEiHXByHej68h1dOBit1xLrCvbRn2NHLJ7xJ9WoveSgP6NV31ldZp4
+	 RDtqDUgDBZ0nMXw/JbcKduNRmTMzAomEgpsQfsuMi6uIh0YxHQl33+WRVOUlCKTFZBUbXkfoQxwo
+	 iflH+sv/7qsRinDjWfRcTVMiBTjQ17M1zaKjlqvq/0jdY1iUZ15X+rOaIEjCuxp/sRaRYr9jRO0X
+	 w6NmviBKi+rItApyjqgSznb+ot8xY=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: skxby <2374604267@qq.com>
+To: Donjuanplatinum <donplat@barrensea.org>
+Cc: Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Subject:
+ Re: [PATCH 0/2] rust: hwmon: rework hwmon abstractions, add TMP108 driver
+Date: Fri, 16 Oct 2026 16:42:45 +0800
+X-OQ-MSGID: <179214016501.15268.642738678844764524@qq.com>
+In-Reply-To: <87se26dpzf.fsf@barrensea.org>
+References: <20260512155747.10136-1-donplat@barrensea.org>
+ <9c2fa543-525a-4e43-9f73-7caf13b98039@roeck-us.net>
+ <tencent_576573331343805F032731492D63C12D7E08@qq.com>
+ <87se26dpzf.fsf@barrensea.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH mm-next] mm/swap: free swap cache folios the zap path gave
- up on
-To: Kairui Song <ryncsn@gmail.com>
-Cc: linux-mm@kvack.org, Jiayuan Chen <jiayuan.chen@shopee.com>,
- Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- Youngjun Park <youngjun.park@lge.com>, linux-kernel@vger.kernel.org
-References: <20261014090821.227366-1-jiayuan.chen@linux.dev>
- <CAMgjq7D50X47JFsTnF2-jYGv7i-Nd3WhQLK-TJGy4XkhMQU4OQ@mail.gmail.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <CAMgjq7D50X47JFsTnF2-jYGv7i-Nd3WhQLK-TJGy4XkhMQU4OQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Hi Donjuanplatinum,
 
-On 10/16/26 11:05 AM, Kairui Song wrote:
-> On Wed, Oct 14, 2026 at 5:10 PM Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
->> From: Jiayuan Chen <jiayuan.chen@shopee.com>
->>
->> On our production hosts we saw swap cache only pages keep growing for days:
->> on a box with a 500 GiB swap partition, 250 GiB of RAM and 250 GiB of
->> swap slots were held by folios that no process mapped any more, charged
->> to cgroups whose workloads had long exited. The only way to get them
->> back was swapoff, and with other services actively swapping on the
->> same host that is not an option.
-> Hi, thanks for the report.
->
->> Such a slot has swap count 0 and an unmapped folio pinned in the swap
->> cache, left there after a process exited or did MADV_DONTNEED. No page
->> table holds its swap entry any more, so nothing comes back for the
->> slot; LRU reclaim drops it eventually, and the allocator only reclaims
->> such slots once swap is half full. The growth stopped exactly there:
->> at 50% of the device, where vm_swap_full() becomes true.
-> Hmm, I think this indicates a much cleaner fix is available.
-> vm_swap_full is inherited from the old allocator, we can instead just
-> let the allocator reclaim the slot if the slot have a count of 0 and
-> ignore vm_swap_full at that point.
->
-> Will this work? (Just a minimal implementation for reference, will be
-> even better if we can avoid the overhead).
->
-> diff --git a/mm/swapfile.c b/mm/swapfile.c
-> index c3288910b3e3..94670fe82f31 100644
-> --- a/mm/swapfile.c
-> +++ b/mm/swapfile.c
-> @@ -212,6 +212,9 @@ static int __try_to_reclaim_swap(struct
-> swap_info_struct *si,
->          nr_pages = folio_nr_pages(folio);
->          ret = -nr_pages;
->
-> +       if (folio_mapped(folio) && !vm_swap_full())
-> +               goto out;
-> +
->          /*
->           * We hold a folio lock here. We have to use trylock for
->           * avoiding deadlock. This is a special case and you should
-> @@ -903,8 +906,6 @@ static bool cluster_scan_range(struct swap_info_struct *si,
->                  if (swp_tb_is_null(swp_tb))
->                          continue;
->                  if (swp_tb_is_folio(swp_tb) && !__swp_tb_get_count(swp_tb)) {
-> -                       if (!vm_swap_full())
-> -                               return false;
->                          *need_reclaim = true;
->                          continue;
->                  }
->
-Hi Kairui,
+Thank you for taking the time to look at this - and for replying at all.
+Let me answer each point.
 
-I tried it on our box (224 CPUs, 931 GiB swap partition). It doesn't
-help there: after 100 rounds of the reproducer the leftover is 291 GB
-with it and 309 GB without, and both stop growing at the same place,
-488 GB, half of the device:
+1. AI involvement
 
-# cat /proc/swaps
-Filename                Type        Size        Used Priority
-/dev/nvme1n1p1                          partition    976561148 
-489006260    -1
+Fair question, and I should have stated it up front. The work was
+developed with AI assistance: I run a multi-agent setup (a scheduler
+plus several model-backed agents) that produced code drafts, ran the
+build/regression/stress-test cycles and drafted the commit messages and
+cover letter. Every patch was reviewed by me, and I built and tested
+each change myself; the two bugs we found during this round (an i2c
+client leak on the registration error path, and a missing null
+terminator in chip_config) were both found by the lifecycle stress tests
+I ran and reproduced before fixing. I signed off on the series and I
+take responsibility for it.
 
-# cat /proc/meminfo | grep Swap
-SwapCached:     489006260 kB
-SwapTotal:      976561148 kB
-SwapFree:       487554888 kB
+For v2 I will add an "Assisted-by: LLM" tag as described in
+Documentation/process/coding-assistants.html. Please tell me if you want
+the tool names listed there as well.
 
-cluster_alloc_swap_entry() picks clusters from nonfull_clusters first,
-then free_clusters; it looks at frag_clusters only when both are empty,
-and at full_clusters only when vm_swap_full(). A cluster gets onto
-nonfull_clusters in partial_free_cluster(), that is when
-__swap_cluster_free_entries() frees a slot in it; after
-alloc_swap_scan_cluster() has used it, relocate_cluster() moves it to
-frag or full.
+2. Cc Rust-for-Linux
 
-A leftover slot has count 0 and a folio, so __swap_cluster_free_entries()
-never runs for it. Once the live slots of a cluster are gone, nothing
-calls partial_free_cluster() on it again, it stays on frag or full, and
-cluster_alloc_swap_entry() doesn't pick it until the device is half
-full. That is what the swap table looked like after the run:
+Agreed - I did not Cc rust-for-linux on v1, and I should have. v2 will
+Cc rust-for-linux@vger.kernel.org.
 
-list      clusters   leftover slots
-FULL        106415       54484480   (all 512 slots leftover)
-FRAG         44822       18471614
-NONFULL          1              0
+3. "?"
 
-Making cluster_alloc_swap_entry() revisit those clusters means changing
-the list policy.
+I am not sure what this referred to - could you say a little more about
+what you were questioning there? I would rather ask than guess.
 
+4. Legal name in sign-off
 
+You are right that "skxby <2374604267@qq.com>" is not a legal name.
+The series will be re-signed with my real name and address in v2.
 
-> Or, from the LRU's side, put swap readahead folios at the tail. I'm
-> actually trying to do that and it's not very easily doable at the
-> moment but will soon be easy to do.
+5. Maintainership and interest
 
+I am not asking anyone to take this over, and I am not claiming
+maintainership. The point of posting was to have the shape of the
+abstraction and one real driver on top of it looked at, and to find out
+whether that shape is the right one at all - which your reply and the
+review have already started to do.
 
-That helps the RAM side under pressure but doesn't give the slots
-back.
+On that note: Sashiko's review of patch 1 found issues that are real,
+and I agree with the ones I have checked so far. In particular it
+flagged the missing null terminator in chip_config - which we had
+already found and fixed ourselves through stress testing, and which is a
+good sign the review is looking at the right things - and it flagged
+that chip_read/chip_write are called unconditionally in the read/write
+callbacks, which would break any driver that does not implement those
+optional methods. That second one is a genuine design flaw in the
+abstraction, not in the driver, and I am fixing it in v2 along with the
+name lifetime issue and the locking documentation.
 
+So: is there enough interest to keep going? That is exactly what I am
+trying to establish too, and your answer - either way - is the most
+useful input available. If the answer is "not yet", I would rather hear
+it now than keep posting revisions.
 
->> Options considered:
->>
->> 1. Fix it on the readahead side: after the read, check the swap count
->>     and free the slot. Covers the lock, not writeback, and the
->>     asynchronous read path unlocks in the bio completion where the slot
->>     cannot be freed. Two places to patch, neither clean.
-> In fact, readahead checks the count before starts the read. It should
-> prevent some of the problems but seems not enough.
+Thanks again for looking.
 
-
-Right, the count is still 1 at that point. The zap drops it to 0 while
-the read is in flight, after the folio is already in the swap cache.
-
-
-> And another idea, what if we just add dropbehind flag or rotate the
-> folio, if folio_try_lock failed in __try_to_reclaim_swap?
-
-
-dropbehind would work for readahead and writeback if the read
-completion honoured it too; today only folio_end_writeback() does, for
-zswap writeback folios, and swap_writeback_dropbehind_folio() expects
-the folio off the LRU. It still misses other lock holders (migration,
-split, ...). Rotating only helps under memory pressure.
+<SENDER REAL NAME>
 
