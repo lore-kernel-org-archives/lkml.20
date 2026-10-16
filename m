@@ -1,131 +1,237 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6509350298
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:19:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB07B345ED3
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:21:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792120785; cv=none; b=hF4rVKmtiLyoX+gQN6KN5EB+TeWEr3Yx3wqUQjqnN96eBScoXnRRPhBkjf52TeGK23kLaeDwPmyeDon9hKUY8j25lwRrOGBgjIZ00EayF+onjzOiCLhHnfPJc98O6L+5Lt4UeE0UanagRaSvYDgwGUNWb0/44Zq6Q0hXfRkQFA4=
+	t=1792120867; cv=none; b=DBjcaw44tE/0M1s4chUrq6vJ2Buz/uIfJNQabELPjHbrf57dyi1NumnGf71EE6dudXgom9l1llSDGiVPW/uQi/z5811mjQ/SRWRHjzPBPh0ogSURGY67mECr1FG1cVGlSLnYzyp4PWlA1yxEspfX4anMNy5m/R5k2taE+ZNRYw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792120785; c=relaxed/simple;
-	bh=LectKxnVPgl6kp2WA9jYepcXdH0Or/Oem/uGNpqc0Pk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pe9oUIYUGBREWK+G3gvvdF6+FLHpsO9ei4ZuGltPqTkDaNKILrtZMy1ARJFmkMVZ2vDp0LSO+8k1acI26GRncGnASwCIvytUFU9h6LLK7dnaRrAlPq9LUaXyiwzOOViDn9dce/5+iR0on62Oww6ZCR+Z7VoLfiFfJx4mxJomhzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kg1ajv6k; arc=none smtp.client-ip=209.85.215.177
+	s=arc-20240116; t=1792120867; c=relaxed/simple;
+	bh=T1hXkWwf1Ky3PIGLKl38skTFM/Wejn1S9poV/mkIkiY=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=h7Hcc4yAEnTwWLoOMpp2FnGiomUAqfysp21PcbCEVcDe0b6LlH7SMLYsbZf44D6k6K9vOYqZW/kcClMjcZz2sAspoQbnMRPplsRKGtnvQJ5UhlX3sXL47kL07Dd4bfR6VDuOmBkMTs4oZBtq+oKXP94vyDJcBSZ4wPYdxpJlY1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ods74m3i; arc=none smtp.client-ip=74.125.227.138
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kg1ajv6k"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so2723730a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:19:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ods74m3i"
+Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-3abe4fb64d2so2660330a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:21:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792120784; x=1792725584; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+TOjkNOOOYODKC3hy+v06oUAuoKTO3qPUXNp5ApotnM=;
-        b=Kg1ajv6kjU0Z6cZp3ZH8xseV3tBQbqf0kwH+M9ZHdiCPjZAEN6I4wLs1M7PaEZr9qm
-         kGOg8iqybHR2ijRzXVm4AkdKalva+ynnn3wMxaFUXlcF58ltcPv2ETQNRIChI/69kZax
-         gFTUD+tIpQPTa1EBY2owCxv4N/kCV1h/H61pRo/0v5ZnD6whQGXlcSaYRVj2QhrF7JMb
-         ODxa4gJbvlEGRBMYUIjWE1kefdmaElTa9G9BSztApSJ5xn37LyL6aTIwjcSDzCHfPu/C
-         jBZb3umQh2GTTFXERqqiJfSfhGY2C/Oke3I1Xo9HJyEpKJshLeLMa04Vt18OM4sxEO1o
-         Sg/w==
+        d=gmail.com; s=20251104; t=1792120865; x=1792725665; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BLv1jdYPShZUl6WRXA2OAAq/MQ9I53lb2Im743pbZNE=;
+        b=ods74m3iyJWkWu4lNHGKxbdhBEw18YNmlcdHGHrV1AfcHNdOGNzwP65X7waztvCeaZ
+         82McoEAeynVifup5M2Lp8qZDWNmvuIRu9AUJcndk9oX5lBNYDgY+gXDsCPj8XogR5xx/
+         CmuccwRRAdYQqKGpWjtIDm6ParoGEWiVew+BfW7kFcU4ysqQJFPmtItfCIPjjoh/vE6/
+         TpuxBCZf/RUC6z618x1k8+1dNtcirVxE+hFJdS7UYX3sPNakmXGvyANf9M8ZoVjG8pgr
+         Ub4A/LvIHq4BgFbfRqQg56Sfe0TdIvV2PLYuYVvZozNsv/et1Ky5edJhhPpe+dK4q1R5
+         vwDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792120784; x=1792725584;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+TOjkNOOOYODKC3hy+v06oUAuoKTO3qPUXNp5ApotnM=;
-        b=ZvoBnQy+Q3VOLTUkG4GVgzt8iLdmP8Ja8ij748QT/8VWLtcuzwFfvgU8dadza4o7a+
-         /FbCiTcm9nlf9pMm4ACl5CSPR7MlAQllHBWeUHQToWj4CduMJ8uYaE49DeXekuaj0K56
-         ZlT0/aLiJIC60HPrUEmoqEWQeYClZWrYgryCqxTTK4/idiWZDkv4tYp18aOv8ileXUp3
-         l0QA2LzPxpOYKUSYj3fh5Raf7Xee3Vx3YyMUdaN7AnivDbGMcWlKmlt1XGuw9+jqEc28
-         1DpAEXTlSbZLoHc+JUFRKLJYV03EWCsiZ6CsliNHrvrh2xCWiSmgnnPSkPLGJgDI839G
-         kPWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx2oMa0WTnmhMN7Ck6WIbIts0y0T6mF4OqIFDINeSCBaNGQY6ApvkMTEUpV8PixBerm9nAGqN1HJh0bY54=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIXfcyYaNoOvHHtbVwwtxzWOpDlBKEQWAeG64gJTZq1EbA1zCn
-	sRECc2eK4An1hCmQsscpKcyr0CSNQvQwc51HP2r7n8HnukcYEZyKziTX
-X-Gm-Gg: AYBFou0pVXUdvltgCHYmEezlYoWXvZQiohaEzNathByLU3v3Eqb68JKzEfIdMgVaGeI
-	3gGVZ5mPBXRYaCJ6Guo/E3rjpdCPr2YnjjRK192tB62f6cOuIf4xQc7ZknmW3ORTwUyeOxXn79r
-	PLwNX/fjVZvNityB5poADHtRase4Ay9JloBNQjLjuWy5+FewQ3ui60rCuJotJCdPd1z0y0Hrs3W
-	BwcAnEyR69HyfJFkWqxusqYHdrsUb32LzBIuLlaYSvp8kBI3JpCGMmHjQwgXauFpftybLU3/fU6
-	lN4oG5BzmXA/D+IeF35O9N1nxK9kQU+qIuGAwK+eyl4VbZRSKExhS74sFzwttz67nSu4PFYUzPr
-	gyHYZcUJLcV5cQGaY3cYt6UPQTpETb8acb2kn1yDZk/OFoZa6JbXw7HDqU3RWXJbSjteluqNWof
-	KVLIxX3FZ+teut6SfDVKKhuy9OQbE9ofu0FAIA+eivyCzZEaOUgpHt6kmRRCZw0kOoSKufaybEl
-	7DtsVuDL7QnXPNUQto9P5oXoZQdNLqtY0wuSdd02KiCUwqHavkcsJzuZjlzs37+bFKhz/TCErfY
-	woEn7d9/m0ZlDq9HfF7N7CNQ45Bpjn52TkI=
-X-Received: by 2002:a17:90a:d44d:b0:3aa:f4af:1e17 with SMTP id 98e67ed59e1d1-3ab3a9d6d17mr15840009a91.39.1792120783938;
-        Thu, 15 Oct 2026 20:19:43 -0700 (PDT)
-Received: from sanjays-pc.govzhome.govindz.co.nz ([139.180.93.36])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc46ebe40sm1960144a91.6.2026.10.15.20.19.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 20:19:43 -0700 (PDT)
-From: Sanjay Govind <sanjay.govind9@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] HID: santroller: add driver for Santroller controllers
-Date: Fri, 16 Oct 2026 16:19:37 +1300
-Message-ID: <20261016031937.824565-1-sanjay.govind9@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <sashiko-outbox-173648@kernel.org>
-References: <20261016025403.779635-1-sanjay.govind9@gmail.com> <sashiko-outbox-173648@kernel.org>
+        d=1e100.net; s=20260707; t=1792120865; x=1792725665;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BLv1jdYPShZUl6WRXA2OAAq/MQ9I53lb2Im743pbZNE=;
+        b=tFke/Ukspy+lQSpcxatXgSN65Hni/cYW6Y8omMx3NLJbYxump6S8bB+EmFDVWNIOzk
+         xhc/e0p5Q3LSwAqQR9pkkWXCNrGiM3k6sVX7NhwLJXUwiOFBrQJZN90z7O2xLUF+M1Om
+         lA0ILQHj9ImG0sibwEIlcj0naGLsXy+GHuRFQUKEYiwWLgBqdCB+Bl4zPQ8rgMJhayL4
+         y+kS6fNgNbAbPjfPPhbfqY0dIkJ/WNYXX46YJ2BNi3PPGy0tjzTB1XSKVh2FMzlw4+HX
+         U09lvMwe7sCdtUksp3brTIB6dzjbgIjtLhF76arDujixwH2CqCR/CWXJKwuO+6RsSLVn
+         pwKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy0+FvbN/J8wg8gt6g6NOMMHI+UJMcpQZG+glMo7a7wkOpSMqOQ5wyjmArMOWIOnQo8Nu9ZJozc3LGr82s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnPznYz1f6aE1pvYiAhVlssoqLkKOnmZbNBUwCY5O8LlI/VNOC
+	5xknpdqhMEGuSBSSaC80HaByOlarwlrQ39SgsmGB/1XC9XfMfy8je1oF
+X-Gm-Gg: AYBFou0nV5SjQoDXoqQrw0yPy2ndVknO6PHXucXy7ESwmm58ikk6Ddw0nR/C3N2Nnr7
+	RVhK7hZ1TYzeWE15IUiYprHCGsypwpXXiY0NpiUOPHEQB3JwZq0vbVFYzr2cL2QVLRwHuvOvuL3
+	6db5ryKXH1J5t/WOFPsG9QI0F8aikSjj6Es9P69f8Mfjx4Hg++69afG3I3hpQrtXzG2SOKtk46E
+	xQhcoHEEjXDIY2rWsJ37epOSCbExbEuAnq31mC0fpeIlF/3x75NmPfYLNQ4tVHkUC8/8+vdTS2w
+	Gkt35wRipoOnLDX67teMpeWh8TLl0avVAHHWdoIUtlfrDpj8al8j0E5tC3pjOzQLsUNfzNcU/Pj
+	abZcvINhx6LdRe3VU3H/VmDJj6An4ktIxhJCwcpmxeQvxB/8lfdgYG3Up8CeBuuJfuqCTkRvHcS
+	5UJr8tbE9hp7XqKoHKfwQB4fzl2Td4xyxTF9W1IOcIEBddtnlhVyfLValvmvtSbmmgojDyxctcC
+	AzUTA==
+X-Received: by 2002:a17:90b:1801:b0:3ac:a11a:7c79 with SMTP id 98e67ed59e1d1-3aca11a7d89mr3638559a91.16.1792120865028;
+        Thu, 15 Oct 2026 20:21:05 -0700 (PDT)
+Received: from [10.125.112.22] ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9474b52fsm7959974a91.9.2026.10.15.20.20.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 20:21:03 -0700 (PDT)
+Message-ID: <643bbd4c-1041-43b9-9362-17c5330fc06a@gmail.com>
+Date: Fri, 16 Oct 2026 11:20:45 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/8] kdump: reduce vmcore size and capture time
+From: Wandun <chenwandun1@gmail.com>
+To: robh@kernel.org, baoquan.he@linux.dev, rppt@kernel.org,
+ m.szyprowski@samsung.com
+Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
+ chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
+ palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
+ hpa@zytor.com, saravanak@kernel.org, akpm@linux-foundation.org,
+ pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev,
+ robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+ kexec@lists.infradead.org, linux-mm@kvack.org, iommu@lists.linux.dev
+References: <20261016030855.4062882-1-chenwandun1@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20261016030855.4062882-1-chenwandun1@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 16 Oct 2026 03:06:58 +0000, sashiko-bot@kernel.org wrote:
-> > +	for (i = 0; i < SANTROLLER_NUM_PLAYER_LEDS; i++) {
-> > +		if (sc->player_leds[i].brightness) {
-> > +			player = i;
-> > +			break;
-> > +		}
-> > +	}
-> > +
-> > +	guard(spinlock_irqsave)(&sc->lock);
-> > +
-> > +	sc->player = player;
->
-> Since the brightness array is read outside sc->lock, one thread might read a
-> stale array, get preempted, and then overwrite the hardware state with an
-> outdated player index after the other thread has updated the state. Moving
-> the array read inside the lock would prevent this.
 
-Agreed. The LED core only serialises writes to the same LED, so two
-player LEDs can be set at once. I'll move the scan under the lock in
-v2.
+Hi all,
 
-> In the driver core, dev_groups assigned to the driver structure are
-> evaluated by device_add_groups() before the driver's probe() function is
-> executed. Because hid_set_drvdata() is only called later inside
-> santroller_probe(), drvdata is strictly NULL when this visibility check
-> is performed. This causes it to return 0 and skip attribute creation.
+My SMTP server hit a temporary error (4.3.0) partway through sending
+this series, so some patches did not make it to the list. I will resend
+the whole series later. Please ignore the current incomplete set.
 
-This one is a false positive. really_probe() adds drv->dev_groups
-after call_driver_probe() returns, so drvdata is already set when
-is_visible runs. In testing the attribute is present on the gamepad
-interfaces, and hidden on the configuration interface as intended.
+Sorry for the noise.
 
-> > +	scoped_guard(spinlock_irqsave, &sc->lock)
-> > +		sc->output_enabled = true;
-> > +
-> > +	ret = hid_connect(hdev, HID_CONNECT_DEFAULT);
-> > +	if (ret) {
-> > +		hid_err(hdev, "failed to connect HID device: %d\n", ret);
-> > +		goto err_stop_output;
-> > +	}
->
-> Does this mix goto-based error handling with scope-based cleanup?
 
-The guard can't be jumped across here, but I'll move it into a
-santroller_start_output() helper in v2 so probe only uses goto.
+Best regards,
+Wandun
 
-Thanks,
-Sanjay
+
+
+On 10/16/26 11:08, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
+> 
+> On SoCs that carve out large firmware-owned reserved memory (GPU,
+> camera ISP, ...), kdump currently dumps those carveouts as part of
+> system RAM even though their contents are firmware state that is not
+> useful for kernel crash analysis.
+> 
+> ACPI systems already filter reserved memory out of the vmcore through
+> their existing path: firmware reports those carveouts as unusable in
+> the EFI memory map, they get MEMBLOCK_NOMAP set in memblock.memory
+> (is_usable_memory(), efi-init.c), and the ELF header builder has
+> always skipped nomap regions; only DT-based systems currently fail
+> to filter these regions, which is what this series addresses.
+> 
+> This series introduces a MEMBLOCK_NODUMP flag (suggested by Rob) in
+> memblock to filter reserved memory on DT-based architectures. A new
+> flag is needed because MEMBLOCK_NOMAP can only express regions without
+> a linear mapping, while MEMBLOCK_NODUMP can filter regions that are
+> linearly mapped. Reserved regions are marked MEMBLOCK_NODUMP by default
+> so kdump omits them; reusable CMA regions are different because their
+> pages are handed back to the buddy allocator and may carry crash-relevant
+> data.
+> 
+> Since the reserved memory regions are filtered out, the vmcore is
+> smaller in size and faster to produce.
+> 
+> The series is based on linux-next and is organized as follows:
+> 
+> Patches 1-3: Preparation and bugfixes: switch riscv crash_mem to
+>              memblock, fold the duplicated per-arch memblock walks
+>              into the weak defaults, and serialize crash header
+>              preparation against memory hotplug.
+> Patches 4-7: NODUMP infrastructure: switch crash_core to
+>              for_each_mem_region(), introduce the MEMBLOCK_NODUMP
+>              flag, add a dumpable flag to struct reserved_mem, and
+>              mark /reserved-memory entries with MEMBLOCK_NODUMP.
+> Patch 8:     Skip MEMBLOCK_NODUMP regions when building the vmcore
+>              ELF header.
+> 
+> v6 --> v8 (v7 mainly tried to fix the initrd issue on release in v6,
+> that approach is superseded here):
+> 
+> 1. Stop marking /memreserve/ regions with NODUMP. v6 marked
+>    /memreserve/ regions with NODUMP. But a bootloader may specify
+>    a /memreserve/ entry for memory that the kernel later frees
+>    (e.g. the initrd), and those pages would then be wrongly
+>    filtered out of the vmcore after being reused as normal memory.
+>    The v7 fix (clearing the flag in free_reserved_area()) caused
+>    a lockless runtime mutation of memblock.memory [1]. Better solutions
+>    exist but need extra preparation, so they are left out to keep
+>    this series simple in v8.
+> 
+> 2. Fix a build failure in patch 2 with both ARCH_KEEP_MEMBLOCK and
+>    MEMORY_HOTPLUG are unset. There the memblock arrays live in
+>    .init.data, and the weak defaults referencing them create section
+>    mismatches, which turn into build errors when SECTION_MISMATCH_WARN_ONLY
+>    is also unset.
+> 
+> 3. RISCV recently gained crash hotplug support, so adapt its handler
+>    like x86 in patch 3: use __crash_prepare_headers() instead of
+>    crash_prepare_headers() to avoid self-deadlock.
+> 
+> 4. Update the cover letter per review feedback: describe how ACPI
+>    systems filter reserved memory and why a new flag is needed
+>    instead of reusing NOMAP.
+> 
+> Every patch in this series now carries an Acked-by or Reviewed-by tag.
+> Patches 2 and 3 have changed since v6, but the changes (a build fix and
+> a riscv hotplug adaptation) do not alter the logic the tags were given
+> for, so their tags are kept. If any tag should not be carried, please
+> let me know and I will drop it.
+> 
+> 
+> v6 --> v7:
+> 1. Fix a stale MEMBLOCK_NODUMP flag issue [2]. Memory reserved and
+>    marked as NODUMP may later be freed (the initrd, for example),
+>    so the NODUMP flag must be cleared accordingly. Since the fix is
+>    part of the NODUMP infrastructure introduced by patch 5, it has
+>    been folded into that patch.
+> 2. Drop the "generic" related description in the cover letter.
+> 3. Collect the Acked-by and Reviewed-by tags received during the v6
+>    review (thanks to Baoquan, Mike, Rob and Marek). Patch 5 is the
+>    only one without a tag, as its Reviewed-by was dropped when the
+>    fix was folded in.
+> 4. Drop patch 1 of v6, which has been merged separately.
+> 
+> 
+> v5 --> v6:
+> 1. Serialize crash header preparation against memory hotplug to avoid
+>    out-of-bounds or use-after-free issues.
+> 2. MEMBLOCK_NODUMP marking is now done after memblock allows resizing,
+>    avoiding a panic from too few regions before resize is permitted.
+> 3. Reordered the patches, put pre-existing bugfixes earlier in the series.
+> 
+> [1] https://lore.kernel.org/lkml/20260922090252.B01541F000FF@smtp.kernel.org/
+> [2] https://sashiko.dev/#/message/20260917220750.GA4013814-robh%40kernel.org
+> 
+> v5: https://lore.kernel.org/lkml/20260806093519.2907771-1-chenwandun1@gmail.com/
+> v4: https://lore.kernel.org/lkml/20260630074715.4126796-1-chenwandun1@gmail.com/
+> 
+> 
+> Wandun Chen (8):
+>   riscv: build crash_mem ranges from memblock instead of resource tree
+>   crash_core: fold duplicated memblock arch hooks into the weak default
+>   crash_core: serialize crash header preparation against hotplug
+>   crash_core: replace for_each_mem_range() with for_each_mem_region()
+>   memblock: introduce MEMBLOCK_NODUMP flag
+>   of: reserved_mem: add dumpable flag to opt-in vmcore
+>   of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
+>   crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF
+>     header
+> 
+>  arch/arm64/kernel/machine_kexec_file.c     | 29 ------------
+>  arch/loongarch/kernel/machine_kexec_file.c | 27 -----------
+>  arch/riscv/Kconfig                         |  2 +-
+>  arch/riscv/kernel/crash.c                  |  2 +-
+>  arch/riscv/kernel/machine_kexec_file.c     | 33 --------------
+>  arch/x86/kernel/crash.c                    |  2 +-
+>  drivers/of/fdt.c                           |  1 +
+>  drivers/of/of_private.h                    |  1 +
+>  drivers/of/of_reserved_mem.c               | 15 ++++++
+>  include/linux/crash_core.h                 |  2 +
+>  include/linux/memblock.h                   |  9 ++++
+>  include/linux/of_reserved_mem.h            |  1 +
+>  kernel/crash_core.c                        | 53 +++++++++++++++++++++-
+>  kernel/dma/contiguous.c                    |  1 +
+>  mm/memblock.c                              | 16 +++++++
+>  15 files changed, 100 insertions(+), 94 deletions(-)
+> 
+
