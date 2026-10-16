@@ -1,119 +1,146 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0731944E65A
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:19:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE74C3BF68F;
+	Fri, 16 Oct 2026 22:21:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792189172; cv=none; b=SXFVDfQ2XxSlAVQuVhTEYkqpYYkow3AxFJA3cud2g6Z4hc7RQn1g8jNggJrGAAosZVxCPcR99SyQku4anrcZCI+mWuqOVXju1uf3VKeqiLwVOcjqzyhjhMqh9uBm+TIL3gArSAS4T2kX9HjAeoZmdNnkzkiPGJy877vDeYGkQ7c=
+	t=1792189274; cv=none; b=l8liQ3MwuU8KRtZAhf2baoCS823Jbz4y48lDV8aNcVpqO1PsjnYhIkOmg2Fm4R8CR+W1mV1LDevvACrR/S5R4qNNIoNec3z/nUWXLhUqHxgaRo8ID8ic/i2oCek9L36I4rDMncWjThhBPttgBPVB70KSpB/3tQxjqEc95+G0Di4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792189172; c=relaxed/simple;
-	bh=CczPsXEzRRfqJ9GyVserx+qYU8CP5SVMLNDQ8x8WOsI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZbYjPlCXrZeUG8mvBWbyNhACAr9KyO8wT3LJ5up4BRBYuPa1y/U271bBlYgpJ7OLIngXnGGTrFFTkp3OVurhC4HGSi9hiioB4v3ZLlpJnjrN9baSiA2auAmUrZz7dKqIodJklmU0j4/6uHBpUm8CGpzS1UqmaoztNB6C3tvzKMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IZJ4gV2S; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792189274; c=relaxed/simple;
+	bh=+z0PHAHEj59swJPq5Nlxstw7bKvLCyU91OGO7P0W8As=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CpGzWQ/ckksIHjA0J2NAc6cYzyr2FmTC2IODPAzpK2k9qZzXIdrTEQixw3G+aEtKPsT2zk2g5AMLqOc3x5czQkV3hhCLnxdNeURNLAkHLwGpVzNE5ENlwe0bC1/OTJITeLAibT15IOkytakBV9lyIKQaoPVPMdlooKBPLwN8oNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YLutAh9h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IZJ4gV2S"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso168483f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:19:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792189169; x=1792793969; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6OhD9xLYcSH+hZ3LcnQSTj3wOScq4AWKpIi8HmoA4vQ=;
-        b=IZJ4gV2SKYIpM+47r9EHL/k91zdJ0x0Mhkz1OxMeDhgt/jgsXghaJRErhKbcspzZ6G
-         e9mlKjoCZGc3rg2fZQisDHbI0aW8MHFBjQJkJ+OolHPry09U5HMFIyT8zuwQDhgQoE81
-         95F/IMO69lecscsMxeiq6zAKWT9WJE4UysZV8tKqZkbT6odrBkdCBenaP9+lTgsow//v
-         rhDEKtdpjQlZiKMCBOgODq17rLKknBe8AwfPR+W0e4ZULdn14AhVDFXrGD9bqDymvLjs
-         8S9Zc/9KymPiM2zoSl3ZomAyYp5QsUFWmNPbntFrhF9Gw34ewqoQTUjUfCoTP1lxvB54
-         AnmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792189169; x=1792793969;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6OhD9xLYcSH+hZ3LcnQSTj3wOScq4AWKpIi8HmoA4vQ=;
-        b=rjUKKTkk5dC1QOEiYBb/Bsj5JV6kKsL1UETNNzlEyt+VklOSXEcvRZ3i2FM7eDjhFE
-         wyQA23mu9IqunphNkDhFP0VqQjq2ZWRvsfILbSz1R3UxuGLEyNAaunnIaFrefY/JdhO1
-         p8K1sVyCEGCKnCkjB7XvETxuG7gyOMlvYWec6MOrXZKzfbMCXEh8u9/G/VFYwgY4RpOh
-         ZKORO+Cgl24+bM2oIdG/Ca3jl6Ok1LmW7Lle4SAD5g2Mg7WemmWr90L2Pk8hnkv8SyLq
-         0M4e9IUzRo39P1ohAbFO8DVGmJtIyGp7vZtydid0voBgiKCmbuRZ5PYmZzeN8t4VOZ0d
-         c7Kw==
-X-Forwarded-Encrypted: i=1; AKwUvBzPu4mCaGW9Iv1OdXzvfn2QyU/v3W1AvNpqK2KC/dYHL7SpbjQAXfBuZtztBtev1uD7wF6qRkGoHee0HXg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIeLX/AJzIQ2KXas2BbNhccw338d8RN6+ky3ZsAurChAeGybM6Y
-	sy1BR2GJ40SXYW2mf32DaNkedjjO509PcMO7OJHSEYdpdL1Pf7UB6r0Q
-X-Gm-Gg: AYBFou0rv1X6njUcTF/JCX65K2hnr20aFKstw8WbttimIuAG5P7bdamo/iCqGZXEDxi
-	T9vU1X6Je7sjWHnH5+igbFheapoxB6DjmUmLG59HZ6ZZIbgHAki0IKUx4uGBCVFtmDd1ZvpWWVC
-	LkaNdwsVJzOTKcssOOfNElBIjiWp9R5/YRBVpEUYqxkXJxpqXcdYSk6FTiAB6LuRtjQ7lZCUpg5
-	g8ifivg4GZ9FkEFI8y0fBw2nmzk9KN1othMRxnKz+KW0U3hi6yt7Fn1nYw029JOsd8q7AZGiL3q
-	fZbSuxK7CeHUlC0yaCHXJRXCzn4GHWJoNwDNvbszcuD2UVBoHxPLPrHUlp0EF1XamJmqBg13bFV
-	nObLwuPJKeQum47zMvSbLEmGmcGaMOMp+5Bo+sjIdLxYFLcdqwFXQz3H1N1nP762ji4L0dFnp8W
-	eJi3v3ux9xa1Iqk9H2ovXFP2B6uZx2IZwdh4kwTYs81A3uurExbYlHRS/r0ZtdaPoT7Qjz4QiHF
-	HX4WQ==
-X-Received: by 2002:a05:6000:469b:b0:48d:efca:5f3d with SMTP id ffacd0b85a97d-48e07f9c439mr1254947f8f.30.1792189169148;
-        Fri, 16 Oct 2026 15:19:29 -0700 (PDT)
-Received: from [192.168.1.50] ([81.196.40.70])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd471877sm6416485f8f.1.2026.10.16.15.19.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 15:19:28 -0700 (PDT)
-Message-ID: <637a1420-69bc-42bc-a1aa-df70faf769da@gmail.com>
-Date: Sat, 17 Oct 2026 01:19:26 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YLutAh9h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0B971F000C6;
+	Fri, 16 Oct 2026 22:21:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792189272;
+	bh=JbtA90jSYbvjWaAUht/ufzHaPdDcdPFD56WPRraPHlE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YLutAh9hSCOh6gtplRHRSIQlgjQ3k26KGbWzUG4uFVnvCToVBjgeiOCUZGpysnN5C
+	 +w4WXEJTJ1BNR9Vr2u6wXhbiy6Oq9ama6WongS/4PHUrwyPRWFFH/FCirjbC1heIgK
+	 /o7VsuTXuC5gSDJzRdKLq9PNqqWoa2LItHW0crT8mOIP4Y6WK/Nf34xKU73xB6UaJ+
+	 SywUNWx1sOSxrE8zMfgbCuWlZ8bwzx8IVBp4ytcApMSBmLjMmY5uB4PaFMmtqv589h
+	 J4ANggi93+r9PZAPBIIpK9dvAEjnoYbgNB1+3CPxyXsAbnX8+ksOHVZZLMVehAjeJ/
+	 RVS/DaVoujrOQ==
+Date: Fri, 16 Oct 2026 23:21:03 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>, Vishal Verma
+ <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, Miaohe Lin
+ <linmiaohe@huawei.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Breno Leitao <leitao@debian.org>, Ira
+ Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, Richard Cheng
+ <icheng@nvidia.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, Suren
+ Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Brendan
+ Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
+ Zi Yan <ziy@nvidia.com>, linux-cxl@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, David Hildenbrand
+ <david@kernel.org>, Oscar Salvador <osalvador@suse.de>, Kiryl Shutsemau
+ <kas@kernel.org>, Harry Yoo <harry@kernel.org>
+Subject: Re: [RFC PATCH 2/5] cxl/region: Factor decoder poison-list
+ retrieval
+Message-ID: <20261016232103.6497bbb2@jic23-hlaptop>
+In-Reply-To: <20261010162017.62506-3-shaikhkamal2012@gmail.com>
+References: <20261010162017.62506-1-shaikhkamal2012@gmail.com>
+	<20261010162017.62506-3-shaikhkamal2012@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH rtw-next] wifi: rtl8xxxu: isolate the USB register buffer
- from CPU state
-To: Kim Wooseok <5mghybrid@khu.ac.kr>, linux-wireless@vger.kernel.org
-Cc: Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>,
- Kalle Valo <kvalo@kernel.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261010-rtl8xxxu-usb-dma-v1-0-e670d9c08fdf@khu.ac.kr>
- <20261010-rtl8xxxu-usb-dma-v1-1-e670d9c08fdf@khu.ac.kr>
- <fd91ff33-d8a1-4ab0-83da-c15816c148cd@gmail.com>
- <CAH1Bc_w89ymu+E1Gx13M9JD7ZNmdQ3=y_zFwVvMkQMKk4m6NAA@mail.gmail.com>
-Content-Language: en-US
-From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
-In-Reply-To: <CAH1Bc_w89ymu+E1Gx13M9JD7ZNmdQ3=y_zFwVvMkQMKk4m6NAA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 16/10/2026 21:05, Kim Wooseok wrote:
-> Hi Bitterblue,
-> 
->> Perhaps it's a silly question, but doesn't this just move the problem
->> elsewhere? Or does kmalloc_obj() guarantee that nothing else will access
->> the memory near usb_buf?
-> 
-> With a separately allocated kmalloc buffer, the kernel ensures that
-> CPU accesses to other objects do not corrupt the DMA data through
-> cache-line sharing. It provides the required alignment or bounce
-> buffering, and usb_control_msg() uses this DMA mapping path.
-> 
-> The patch turns usb_buf from an embedded member into a standalone
-> kmalloc buffer so that this guarantee applies to the buffer itself.
-> 
+On Sat, 10 Oct 2026 21:50:10 +0530
+Shaikh Kamaluddin <shaikhkamal2012@gmail.com> wrote:
 
-Okay, that's good then.
+> poison_by_decoder() performs two different operations: it queries an
+> unmapped DPA gap preceding an endpoint decoder, then queries the DPA
+> resource assigned to that decoder and its region.
+> 
+> Factor the second operation into cxl_get_poison_by_decoder(). Give the
+> helper an optional snapshot so a later region-probe caller can retain
+> records from exactly one mapped decoder. Keep the existing endpoint
+> walk, skipped-DPA queries, partition-tail queries, -EFAULT handling, and
+> trace behavior unchanged.
+> 
+> Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+> ---
+>  drivers/cxl/core/region.c | 41 ++++++++++++++++++++++++++++++++++-----
+>  1 file changed, 36 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/cxl/core/region.c b/drivers/cxl/core/region.c
+> index 75b8092e6dc2..c72524923b38 100644
+> --- a/drivers/cxl/core/region.c
+> +++ b/drivers/cxl/core/region.c
+> @@ -2940,6 +2940,40 @@ static int cxl_get_poison_unmapped(struct cxl_memdev *cxlmd,
+>  	return rc;
+>  }
+>  
+> +enum cxl_poison_query_policy {
+> +	CXL_POISON_QUERY_DIAGNOSTIC,
+> +	CXL_POISON_QUERY_PREONLINE,
 
->> An allocation for every register access was not happening even before
->> this patch. I guess your LLM wrote this...
-> 
-> I did not state that the previous code allocated a buffer on every
-> register access. That sentence describes the allocation strategy for
-> the newly separate buffer: allocate it once in probe and reuse it.
-> 
-> If any part of the explanation is unclear, please point it out and I
-> will clarify it. I don't think speculation about how the text was
-> written is necessary.
-> 
-> Wooseok
+For now, perhaps focus on flags defining what you want done, not when the
+query is happening.
+
+> +};
+> +
+> +static int cxl_get_poison_by_decoder(struct cxl_endpoint_decoder *cxled,
+> +				     struct cxl_poison_snapshot *snapshot,
+> +				     enum cxl_poison_query_policy policy)
+> +{
+> +	struct cxl_memdev *cxlmd = cxled_to_memdev(cxled);
+> +	struct cxl_dev_state *cxlds = cxlmd->cxlds;
+> +	enum cxl_partition_mode mode;
+> +	u64 offset, length;
+> +	int rc;
+> +
+> +	if (!cxled->dpa_res)
+> +		return 0;
+> +
+> +	mode = cxlds->part[cxled->part].mode;
+> +	offset = cxled->dpa_res->start;
+> +	length = resource_size(cxled->dpa_res);
+> +	if (snapshot)
+> +		rc = cxl_mem_get_poison_snapshot(cxlmd, offset, length,
+> +						 cxled->cxld.region, snapshot);
+> +	else
+> +		rc = cxl_mem_get_poison(cxlmd, offset, length,
+> +					cxled->cxld.region);
+> +
+> +	if (rc == -EFAULT && mode == CXL_PARTMODE_RAM &&
+> +	    policy == CXL_POISON_QUERY_DIAGNOSTIC)
+
+This is becoming odd enough I'd add some comments saying why
+we are eating the error return.
+
+> +		rc = 0;
+> +	return rc;
+> +}
+> +
+>  static int poison_by_decoder(struct device *dev, void *arg)
+>  {
+>  	struct cxl_poison_context *ctx = arg;
+> @@ -2971,11 +3005,8 @@ static int poison_by_decoder(struct device *dev, void *arg)
+>  			return rc;
+>  	}
+>  
+> -	offset = cxled->dpa_res->start;
+> -	length = cxled->dpa_res->end - offset + 1;
+> -	rc = cxl_mem_get_poison(cxlmd, offset, length, cxled->cxld.region);
+> -	if (rc == -EFAULT && mode == CXL_PARTMODE_RAM)
+> -		rc = 0;
+> +	rc = cxl_get_poison_by_decoder(cxled, NULL,
+> +				       CXL_POISON_QUERY_DIAGNOSTIC);
+>  	if (rc)
+>  		return rc;
+>  
 
