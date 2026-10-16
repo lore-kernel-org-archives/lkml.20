@@ -1,33 +1,33 @@
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC854DA9DE;
-	Fri, 16 Oct 2026 13:33:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A484DD3AB;
+	Fri, 16 Oct 2026 13:33:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157622; cv=none; b=X2hM6UeMliJNSOtugxL5VIo2tv+eV75e7HfTZ4a1UMJM8MvbC7HKH81xE4vXhyuaTot6ZpeNASoo6EtIZ6VHsCwvAXtHhzD3LBAqbGIpINiVFm4rWDgM9jb5baTxcIKa5B0nXl/+SLG9Tzds48Zm8B8On265zPUSkTaypOdkqGk=
+	t=1792157623; cv=none; b=AIqC+vCI9NMHVSajZdeM8jvWBs+FVXjGIhUzKwOd3rCjbq1gX3jN33xuNI6kbAg4l697e/uUTkq40jma8ZyC9wBahc7fgeUavSlrnpLyhnQKuWgepF1UqRDueEx8WtNTjwuTFMPo2XCernzsXojMaASZVNh+qLGON0NwpFOb4VE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157622; c=relaxed/simple;
-	bh=6ikJ2R5JA4KlQvd7YzyTHI4nG8NwOgrmLzN7w2B13SQ=;
+	s=arc-20240116; t=1792157623; c=relaxed/simple;
+	bh=7XhgdasQXo4I5Z1Slt6o21B0yGZ3lSBatA5efeB/RPY=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=gBJnOB5vi/2BL7tHTwvLxgC2MgdfEJ8oTwInd3At06CPWFNRietdpn13c9+CWx7jyOnJfjdi+hubTrnGU82H2y8Ymdlccf7jdYrvmViP/hfN9AhWh172FMRG84RG7C4T8vThhn31ekyiv2NceuKSJfRII7+40hKzwvSXXKHkbqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=TGb6wCzQ; arc=none smtp.client-ip=158.69.130.18
+	 MIME-Version; b=Kv9YikbFYPXsb97GNEltzNN3dM5WEXZ6otvVQVP6qmZrGAVWACDbSliUw8KwXC4s5WctM4agrMdZDnETRWTt7wJ/wfLxALKh0MOZviNWX1/GYvHSZVdWYPxCiR2j4YADtaAFq64gqtjA+Rc1oCF1238gK9VYODRCAFiqdLmVw1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=u6m6yU7Z; arc=none smtp.client-ip=158.69.130.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="TGb6wCzQ"
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="u6m6yU7Z"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
 	s=smtpout1; t=1792157608;
-	bh=UpbwmKG//X6AfaMXx0hG0RX9+UjAryILC7rBWtKiUXo=;
+	bh=EBfnN3aBNJmS/ydJjB+U0gJ9z4nYexxsfw3QbAGkaXs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=TGb6wCzQJAQWJNYbipRVPv9vwu9dbq6tpFGxo5aPzHfT+M28Y88MRXKYk5j/mvZGG
-	 DNNWJfHU6BzLf8BCD9rwP7CwB1IYjiAfbcqGLTJDWPZ4j+CAZjrMMvGlpUkBRylD/i
-	 crQtX8EcVbYV2Xpi6GPMyLS5CXO2sc1w1bZJDYG5f3x02LgDZ0qIeD3a/8ciFBRLvL
-	 56tFtsQbYEO9QxEivz3+v/LteDi/Q5PGvBRaC1yU8QOCHLgWRp+a/iLHydHh+RF0Eu
-	 xDbTYOMMf9LakFSM2UVDXi9COhQu8JHqp+Kf8lSZbgJFi1igMwoRYAiiqcygvqvLPz
-	 s9z8xQ8yI0cEQ==
+	b=u6m6yU7ZgZfhar8mvP617Y+dOzz7G9yxKVN0AU3jZB4tlnV8y4xiqzV6swp/bq8/y
+	 widyrbnGjz/Bll0i7ie48FJlpyMoDi09SaTovlXFN2AylUlHW2MGu7edUVw0DQp9Py
+	 ALfbaxMW+4uk7hVQbPMhay4rSPLBW0T1+nPVbwQil8j7mlfMHfJ5kYMZsX4JA066Qg
+	 M81TLYib+YPS5bOJpkGGatwy53qE2PEyZs3V9hfGeJBZlE8FUdDf8xi1H4cg0W47ka
+	 u9po936ByRmtr/HreOiBQxvVFDk1Td9g5KcNT9pBh1oB7p96xwgN+hxdUY+wlkW/EL
+	 Jv4o+7oM5bhHw==
 Received: from thinkos.internal.efficios.com (unknown [IPv6:2606:6d00:100:4000:52b6:7728:7602:8919])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4j5m9N1nzkznrj;
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4j5m9N4tYMzmj8;
 	Fri, 16 Oct 2026 09:33:28 -0400 (EDT)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: "Paul E . McKenney" <paulmck@kernel.org>
@@ -56,9 +56,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Ingo Molnar <mingo@kernel.org>,
 	Thomas Gleixner <tglx@kernel.org>,
 	rcu@vger.kernel.org
-Subject: [RFC PATCH 07/12] Documentation/RCU: Describe RCU pseudo-transactions
-Date: Fri, 16 Oct 2026 09:33:14 -0400
-Message-Id: <20261016133319.433617-8-mathieu.desnoyers@efficios.com>
+Subject: [RFC PATCH 09/12] rcu_txn: Test a list writer against concurrent readers
+Date: Fri, 16 Oct 2026 09:33:16 -0400
+Message-Id: <20261016133319.433617-10-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261016133319.433617-1-mathieu.desnoyers@efficios.com>
 References: <20261016133319.433617-1-mathieu.desnoyers@efficios.com>
@@ -70,295 +70,382 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a page on the RCU pseudo-transactions to the RCU handbook: when they
-apply and what they cost, how a commit proceeds, what readers and
-writers call, how a transaction allocates, and the two data structures
-built on them.  It ends with the API reference extracted from the
-headers.  The overview at the top of <linux/rcu_txn.h> points to it.
+Run one writer on a key-sorted rcu_txn_list while kthreads walk it
+forward and backward.
+
+Each walk must see sorted keys.  That alone cannot catch an operation
+whose two edges are published separately, since such a list is still
+sorted in each direction taken alone.  So, during phases where the
+writer only inserts, each forward step p -> q also loads the prev of q
+and requires its key to be at least that of p.  That catches an insert
+that publishes its forward edge before its backward one, as
+list_add_rcu() does; the other order cannot be told from a completed
+insert by key.
+
+The test is marked slow.  It needs more than one CPU to exercise real
+concurrency.
 
 Assisted-by: LLM
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- Documentation/RCU/index.rst   |   1 +
- Documentation/RCU/rcu_txn.rst | 230 ++++++++++++++++++++++++++++++++++
- MAINTAINERS                   |   1 +
- include/linux/rcu_txn.h       |   2 +
- 4 files changed, 234 insertions(+)
- create mode 100644 Documentation/RCU/rcu_txn.rst
+ Documentation/RCU/rcu_txn.rst |   4 +-
+ lib/tests/rcu_txn_kunit.c     | 307 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 310 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/RCU/index.rst b/Documentation/RCU/index.rst
-index 035871687ee2..4bca16c8573b 100644
---- a/Documentation/RCU/index.rst
-+++ b/Documentation/RCU/index.rst
-@@ -18,6 +18,7 @@ RCU Handbook
-    rcu
-    rculist_nulls
-    rcuref
-+   rcu_txn
-    torture
-    stallwarn
-    listRCU
 diff --git a/Documentation/RCU/rcu_txn.rst b/Documentation/RCU/rcu_txn.rst
-new file mode 100644
-index 000000000000..6e48306ebc19
---- /dev/null
+index 7bac4bd02456..133ef1ade43e 100644
+--- a/Documentation/RCU/rcu_txn.rst
 +++ b/Documentation/RCU/rcu_txn.rst
-@@ -0,0 +1,230 @@
-+.. SPDX-License-Identifier: GPL-2.0
+@@ -212,9 +212,11 @@ Testing
+ =======
+ 
+ ``CONFIG_RCU_TXN_KUNIT_TEST`` builds the KUnit suite ``rcu_txn``, which covers
+-the engine, both data structures and the debug checks::
++the engine, both data structures and the debug checks, and runs one writer
++against concurrent readers of a list::
+ 
+ 	./tools/testing/kunit/kunit.py run --arch=x86_64 \
++		--qemu_args="-smp 4" \
+ 		--kconfig_add CONFIG_RCU_TXN_KUNIT_TEST=y \
+ 		--kconfig_add CONFIG_DEBUG_KERNEL=y \
+ 		--kconfig_add CONFIG_DEBUG_RCU_TXN=y \
+diff --git a/lib/tests/rcu_txn_kunit.c b/lib/tests/rcu_txn_kunit.c
+index 9b67caaa5db7..fa01dcb7df2b 100644
+--- a/lib/tests/rcu_txn_kunit.c
++++ b/lib/tests/rcu_txn_kunit.c
+@@ -7,11 +7,15 @@
+ 
+ #include <kunit/test.h>
+ #include <linux/bug.h>
++#include <linux/kthread.h>
++#include <linux/minmax.h>
+ #include <linux/rcu_txn.h>
+ #include <linux/rcu_txn_hlist.h>
+ #include <linux/rcu_txn_list.h>
+ #include <linux/rcupdate.h>
++#include <linux/sched.h>
+ #include <linux/sched/task.h>
++#include <linux/slab.h>
+ #include <linux/string.h>
+ 
+ #include "../rcu_txn_internal.h"	/* the steps of a commit */
+@@ -1686,6 +1690,308 @@ static void rcu_txn_test_list_debug_disjoint_compose(struct kunit *test)
+ 	list_expect(test, &head, keys, ARRAY_SIZE(keys));
+ }
+ 
++/*
++ * One writer mutating a key-sorted list while several readers iterate it
++ * forward and backward.
++ *
++ * Two invariants, because the first one alone cannot see the property this
++ * test exists for.
++ *
++ * (1) Monotonicity, per direction.  The writer keeps the list sorted by key at
++ * all times, so a forward walk must see strictly increasing keys and a reverse
++ * walk strictly decreasing ones.  Out-of-range keys and runaway walks are
++ * caught here too.
++ *
++ * What invariant (1) cannot catch is a torn two-edge publish.  Take an insert
++ * of X between P and Q publishing only its forward edge: the forward ring is
++ * P -> X -> Q, still strictly increasing, and the reverse ring is Q -> P, still
++ * strictly decreasing.  Every torn state of a two-edge operation is sorted in
++ * each direction separately.
++ *
++ * (2) Cross-direction agreement, which is where a torn publish shows.  After
++ * each forward step p -> q the reader also resolves the prev of q and requires
++ * its key to be at least p's.  A forward-only torn insert yields the
++ * predecessor that is not back-linked yet, whose key is smaller than p's.  A
++ * reverse-only torn insert is not caught: the prev of q points to X, whose key
++ * lies between p's and q's, as after a completed insert.  list_add_rcu()
++ * publishes the forward edge first, which is the tear this check is for.
++ *
++ * Invariant (2) holds only in a phase without deletes.  Under concurrent
++ * deletes it is simply false: delete p between the reader's two loads and the
++ * prev of q legitimately becomes the node before p, whose key is smaller.  With
++ * inserts alone the legal outcomes are p itself or a node inserted between p
++ * and q, both with a key at least p's.
++ *
++ * The phase change is a handshake.  The writer numbers its phases, the odd ones
++ * allowing deletes, and after publishing an odd phase waits for every reader
++ * to acknowledge that number.  A reader samples the phase at the top of an
++ * iteration and acknowledges an odd one there, so that no cross-checking walk
++ * is in flight when the writer proceeds; an acknowledgment of an earlier
++ * phase does not count.  Store-release and load-acquire order the walks and
++ * the deletes against the handshake.
++ */
 +
-+=====================================
-+Single-writer RCU pseudo-transactions
-+=====================================
++#define CONC_KEY_MAX		100		/* keys are 1..CONC_KEY_MAX */
++#define CONC_READERS		4
++#define CONC_STEP_LIMIT		(CONC_KEY_MAX + 8)	/* runaway-walk guard */
++#define CONC_INSERT_ROUNDS	20
++#define CONC_MIXED_OPS		20000
 +
-+An RCU pseudo-transaction switches a *set* of RCU-protected pointers from
-+their old values to their new values with a single store, as observed by
-+concurrent RCU readers: at any instant, every pointer of the set reads old, or
-+every pointer reads new.  A reader that follows several of them, each load
-+depending on the previous one, sees old values, then new ones, and never an
-+old value after a new one.
++struct cn {
++	struct rcu_txn_list_node node;
++	struct rcu_head rcu;
++	int key;
++};
 +
-+The implementation is in ``include/linux/rcu_txn.h`` and ``lib/rcu_txn.c``.
-+Code that uses it selects ``CONFIG_RCU_TXN``.
++struct conc {
++	struct rcu_txn_list_head head;
++	unsigned long phase;	/* odd: deletes as well as inserts */
++	struct cn *live[CONC_KEY_MAX + 1];	/* the writer's: node per key */
++};
 +
-+When to use it
-+==============
++struct conc_reader {
++	struct conc *conc;
++	struct task_struct *task;
++	long walks;
++	long violations;	/* invariant (1) */
++	long cross_checks;
++	long cross_violations;	/* invariant (2) */
++	unsigned long ack;	/* last odd phase seen: no cross-check in flight */
++};
 +
-+``rcu_assign_pointer()`` publishes one pointer atomically.  An update that
-+re-points several pointers one at a time exposes its intermediate states: a
-+reader that loads two of them may get the new value of one and then the old
-+value of the other.  Moving an object between two hash buckets is such an
-+update, and so is every insertion into or removal from a doubly-linked list.
++static int conc_reader_fn(void *arg)
++{
++	struct conc_reader *r = arg;
++	struct rcu_txn_list_head *head = &r->conc->head;
 +
-+A pseudo-transaction removes the intermediate states.  It does not replace the
-+update-side lock: the writers of a slot are excluded by the caller, and the
-+transaction neither detects nor resolves conflicts between them.  It is
-+"pseudo" in that sense: there is no read set and no abort, and readers get no
-+snapshot.
++	while (!kthread_should_stop()) {
++		/* Pairs with the writer's store-release of the phase. */
++		unsigned long phase = smp_load_acquire(&r->conc->phase);
++		bool insert_only = !(phase & 1);
++		struct rcu_txn_list_node *p;
++		int prev_key, steps;
 +
-+A pseudo-transaction is not free, on the update side above all.  The writer
-+allocates a descriptor for each transaction, with the ``gfp_t`` given to
-+``rcu_txn_init()``, and a transaction that switches two pointers or more frees
-+it with ``kfree_rcu()``, a grace period after its commit, as readers may still
-+be reading it: an allocation, which can fail, and a deferred free for every
-+update, where ``rcu_assign_pointer()`` needs neither.  The reader pays a test of
-+the low bits of every pointer it loads, which is nearly free: only while a
-+commit is in flight on that pointer does the reader also read the descriptor,
-+with three more loads, one of them an acquire.
++		if (!insert_only) {
++			/* Pairs with the writer's load-acquire of the ack. */
++			smp_store_release(&r->ack, phase);
++		}
 +
-+How it works
-+============
++		/* Forward: strictly increasing keys, bounded. */
++		rcu_read_lock();
++		prev_key = 0;
++		steps = 0;
++		rcu_txn_list_for_each_rcu(p, head) {
++			int key = container_of(p, struct cn, node)->key;
 +
-+The pointers a transaction switches are called *slots*: they are the *edges* of
-+the data structure that the update re-points.  The writer builds a *record* per
-+slot, holding the slot's old and new targets, and commits in three steps:
++			if (key < 1 || key > CONC_KEY_MAX || key <= prev_key ||
++			    ++steps > CONC_STEP_LIMIT) {
++				r->violations++;
++				break;
++			}
++			/*
++			 * Invariant (2).  Skipped for the first step, whose
++			 * predecessor is the head.
++			 */
++			if (insert_only && prev_key) {
++				struct rcu_txn_list_node *back =
++						rcu_txn_list_prev_rcu(p);
 +
-+1. *Install.*  Each slot is made to point at its record, with tag bits set that
-+   mark the value as a *proxy* rather than a target.  A reader that finds a
-+   proxy resolves it through the record, which still answers with the old
-+   target.
++				r->cross_checks++;
++				if (back != &head->node &&
++				    container_of(back, struct cn,
++						 node)->key < prev_key)
++					r->cross_violations++;
++			}
++			prev_key = key;
++		}
++		rcu_read_unlock();
 +
-+2. *Commit.*  The records of a transaction share one word, the *selector* of
-+   their *flip group*.  The writer stores 1 to it.  From then on every proxy of
-+   the transaction resolves to its new target.
++		/* Reverse: strictly decreasing keys, bounded. */
++		rcu_read_lock();
++		prev_key = CONC_KEY_MAX + 1;
++		steps = 0;
++		rcu_txn_list_for_each_reverse_rcu(p, head) {
++			int key = container_of(p, struct cn, node)->key;
 +
-+3. *Settle.*  Each slot is overwritten with its new target, and the records
-+   are freed after a grace period.
++			if (key < 1 || key > CONC_KEY_MAX || key >= prev_key ||
++			    ++steps > CONC_STEP_LIMIT) {
++				r->violations++;
++				break;
++			}
++			prev_key = key;
++		}
++		rcu_read_unlock();
 +
-+The selector is written once, from 0 to 1, so a reader that resolves several
-+slots of a transaction over time sees old targets, then new targets, and never
-+an old target after a new one, provided that each of its loads depends on the
-+previous one.  The header describes the memory ordering in detail.
++		r->walks += 2;
++		cond_resched();
++	}
++	return 0;
++}
 +
-+A transaction of a single record installs no proxy: its commit is one
-+``rcu_assign_pointer()``.
++/* Insert @key, keeping the list sorted.  Returns false if it cannot. */
++static bool conc_insert(struct conc *c, int key)
++{
++	struct rcu_txn_list_node *succ = &c->head.node;	/* default: last */
++	struct cn *n = kmalloc(sizeof(*n), GFP_KERNEL);
++	int i;
 +
-+Tags
-+====
++	if (!n)
++		return false;
++	n->key = key;
++	for (i = key + 1; i <= CONC_KEY_MAX; i++) {
++		if (c->live[i]) {
++			succ = &c->live[i]->node;
++			break;
++		}
++	}
++	if (rcu_txn_list_add_before_rcu(&n->node, succ, GFP_KERNEL)) {
++		kfree(n);
++		return false;
++	}
++	c->live[key] = n;
++	return true;
++}
 +
-+The embedder chooses the tag that marks a proxy in its slots: typically bit 0,
-+or a reserved value of a type code that its pointers already carry.  The tag
-+must be within ``RCU_TXN_TAG_MASK``, the low bits that the alignment of a
-+record leaves clear, and no value that the embedder stores in a slot may carry
-+all of the tag's bits.
++static bool conc_del(struct conc *c, int key)
++{
++	struct cn *n = c->live[key];
 +
-+Readers
-+=======
++	if (rcu_txn_list_del_rcu(&n->node, GFP_KERNEL))
++		return false;
++	c->live[key] = NULL;
++	kfree_rcu(n, rcu);
++	return true;
++}
 +
-+A reader loads a slot with ``rcu_txn_dereference()`` instead of
-+``rcu_dereference()``::
++/* Replace the node of @key by a new one of the same key: order is kept. */
++static bool conc_replace(struct conc *c, int key)
++{
++	struct cn *old = c->live[key];
++	struct cn *n = kmalloc(sizeof(*n), GFP_KERNEL);
 +
-+	rcu_read_lock();
-+	child = rcu_txn_dereference(node->left, FOO_TAG);
-+	if (child)
-+		do_something_with(child);
-+	rcu_read_unlock();
++	if (!n)
++		return false;
++	n->key = key;
++	if (rcu_txn_list_replace_rcu(&old->node, &n->node, GFP_KERNEL)) {
++		kfree(n);
++		return false;
++	}
++	c->live[key] = n;
++	kfree_rcu(old, rcu);
++	return true;
++}
 +
-+``rcu_txn_dereference()`` is ``rcu_dereference()`` followed by
-+``rcu_txn_resolve()``.  A reader that already has the loaded value, for
-+instance because it tests other bits of it, calls ``rcu_txn_resolve()``
-+itself.
++static void rcu_txn_test_list_concurrent(struct kunit *test)
++{
++	struct conc_reader *readers;
++	long walks = 0, violations = 0, cross_checks = 0, cross_violations = 0;
++	u32 rng = 2463534242u;
++	bool ok = true;
++	struct conc *c;
++	int i, key, round;
 +
-+The load and the resolution must happen in one RCU read-side critical section:
-+the record a proxy points at is freed with ``kfree_rcu()``.
++	c = kunit_kzalloc(test, sizeof(*c), GFP_KERNEL);
++	readers = kunit_kcalloc(test, CONC_READERS, sizeof(*readers),
++				GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, c);
++	KUNIT_ASSERT_NOT_NULL(test, readers);
++	rcu_txn_list_init(&c->head);
 +
-+Writers
-+=======
++	for (i = 0; i < CONC_READERS; i++) {
++		readers[i].conc = c;
++		readers[i].task = kthread_run(conc_reader_fn, &readers[i],
++					      "rcu_txn_reader/%d", i);
++		if (IS_ERR(readers[i].task)) {
++			readers[i].task = NULL;
++			ok = false;
++		}
++	}
 +
-+The writer declares a handle on its stack, records the edges of the update and
-+commits them::
++	/*
++	 * An even phase, repeated: fill the list one key at a time, with
++	 * inserts only, so that the readers cross-check against concurrent
++	 * inserts.  Then hand over to an odd phase and empty it with deletes.
++	 */
++	for (round = 0; ok && round < CONC_INSERT_ROUNDS; round++) {
++		int order[CONC_KEY_MAX], other;
 +
-+	struct rcu_txn txn;
-+	struct foo *child;
-+	int err;
++		for (i = 0; i < CONC_KEY_MAX; i++)
++			order[i] = i + 1;
++		for (i = CONC_KEY_MAX - 1; i > 0; i--) {	/* shuffle */
++			rng ^= rng << 13; rng ^= rng >> 17; rng ^= rng << 5;
++			other = rng % (i + 1);
++			swap(order[i], order[other]);
++		}
 +
-+	rcu_txn_init(&txn, GFP_KERNEL);
-+	rcu_txn_reserve(&txn, 2);
++		/* An even phase, after the deletes of the previous one. */
++		smp_store_release(&c->phase, (c->phase | 1) + 1);
 +
-+	spin_lock(&foo_lock);
-+	child = rcu_dereference_protected(a->left, lockdep_is_held(&foo_lock));
-+	rcu_txn_record(&txn, rcu_txn_slot(&a->left), child, NULL, FOO_TAG);
-+	rcu_txn_record(&txn, rcu_txn_slot(&b->right), NULL, child, FOO_TAG);
-+	err = rcu_txn_commit(&txn);
-+	spin_unlock(&foo_lock);
++		for (i = 0; ok && i < CONC_KEY_MAX; i++) {
++			ok = conc_insert(c, order[i]);
++			/*
++			 * Let the readers walk in between.  On one cpu they
++			 * only run in this phase if the writer sleeps in it.
++			 */
++			if (i == CONC_KEY_MAX / 2)
++				schedule_timeout_uninterruptible(1);
++			else
++				cond_resched();
++		}
 +
-+Here ``child`` moves from ``a->left`` to an empty ``b->right``: at any instant
-+it is in exactly one of the two places.
++		/* An odd phase: wait until no even phase walk is running. */
++		smp_store_release(&c->phase, c->phase + 1);
++		for (i = 0; i < CONC_READERS; i++) {
++			if (!readers[i].task)
++				continue;
++			/* Pairs with the reader's store-release of its ack. */
++			while (smp_load_acquire(&readers[i].ack) != c->phase)
++				schedule_timeout_uninterruptible(1);
++		}
 +
-+Slots are ``__rcu`` pointers.  ``rcu_txn_slot()`` converts the address of one,
-+of any type, to the ``void __rcu **`` the engine takes, and lets sparse check
-+the annotation.
++		for (key = 1; ok && key <= CONC_KEY_MAX; key++) {
++			if (c->live[key])
++				ok = conc_del(c, key);
++			cond_resched();
++		}
++	}
 +
-+A handle ends in ``rcu_txn_commit()`` or in ``rcu_txn_cancel()``.  Either
-+consumes it, and it must be initialized again before it is reused.
++	/* Then inserts, deletes and replaces, at random. */
++	for (i = 0; ok && i < CONC_MIXED_OPS; i++) {
++		rng ^= rng << 13; rng ^= rng >> 17; rng ^= rng << 5;
++		key = 1 + rng % CONC_KEY_MAX;
 +
-+Allocation
-+----------
++		if (!c->live[key])
++			ok = conc_insert(c, key);
++		else if (!(rng & 0x300))
++			ok = conc_replace(c, key);
++		else
++			ok = conc_del(c, key);
++		cond_resched();
++	}
 +
-+A transaction allocates a descriptor, with the ``gfp_t`` given to
-+``rcu_txn_init()``.  ``rcu_txn_reserve()`` allocates it for a given number of
-+records; otherwise the first ``rcu_txn_record()`` does, even for a single
-+record, and a later one may grow it.
++	for (i = 0; i < CONC_READERS; i++) {
++		if (readers[i].task)
++			kthread_stop(readers[i].task);
++		walks += readers[i].walks;
++		violations += readers[i].violations;
++		cross_checks += readers[i].cross_checks;
++		cross_violations += readers[i].cross_violations;
++	}
++	for (key = 1; key <= CONC_KEY_MAX; key++)
++		if (c->live[key])
++			conc_del(c, key);
 +
-+A failed allocation is sticky: later records do nothing, and
-+``rcu_txn_commit()`` publishes nothing and returns ``-ENOMEM``.  A writer may
-+therefore ignore the return values of ``rcu_txn_reserve()`` and
-+``rcu_txn_record()`` and check that of ``rcu_txn_commit()`` only, as in the
-+example above.
++	kunit_info(test, "%ld walks, %ld cross-direction checks\n", walks,
++		   cross_checks);
++	KUNIT_EXPECT_TRUE(test, ok);
++	KUNIT_EXPECT_GT(test, walks, 0);
++	/* Forward and reverse walks stayed sorted. */
++	KUNIT_EXPECT_EQ(test, violations, 0);
++	/* No two-edge publish was ever seen torn. */
++	KUNIT_EXPECT_GT(test, cross_checks, 0);
++	KUNIT_EXPECT_EQ(test, cross_violations, 0);
++}
 +
-+A writer that records under a spinlock reserves its record bound before it
-+takes the lock, as above, or initializes the handle with a non-sleeping
-+``gfp_t``.  Under a raw or a bit spinlock only the reserve will do, since
-+``PREEMPT_RT`` does not allow the allocator there.  ``rcu_txn_commit()`` and
-+``rcu_txn_cancel()`` allocate nothing, do not sleep, and may be called under
-+such a lock.
-+
-+An update that re-points a single slot needs no transaction.  Every
-+transaction settles its slots before its commit returns, and the writers of the
-+slot are excluded, so the slot holds no proxy: ``rcu_assign_pointer()``
-+publishes the update, as the ``_rcu`` operations of ``rcu_txn_hlist`` do.
-+
-+Writing a slot twice
-+--------------------
-+
-+``rcu_txn_record()`` requires the records of a transaction to target distinct
-+slots.  A writer that may write the same slot twice in one transaction reads
-+the slot with ``rcu_txn_load()``, which returns the transaction's pending value
-+for it, and records with ``rcu_txn_record_chain()``, which updates the record
-+the slot already has::
-+
-+	old = rcu_txn_load(&txn, slot, FOO_TAG);
-+	rcu_txn_record_chain(&txn, slot, old, new, FOO_TAG);
-+
-+This is what allows several operations on one data structure to be composed in
-+one transaction.  The lookup among the transaction's records is a linear scan,
-+behind a Bloom filter once the transaction holds enough of them.
-+``rcu_txn_declare_disjoint()`` turns the lookup off for a transaction whose
-+slots are known to be distinct.
-+
-+Data structures
-+===============
-+
-+Two data structures are built on the engine.  Each provides ``_prepare``
-+operations, which record into a transaction owned by the caller, and ``_rcu``
-+operations, which carry out a single operation by themselves.
-+Readers walk them with ``_rcu`` iterators.  A writer that excludes the others
-+walks them with the same iterators outside of an RCU read-side critical
-+section, if it passes them a lockdep condition for that exclusion, such as
-+``lockdep_is_held()`` of its lock, as with ``list_for_each_entry_rcu()``.
-+
-+``include/linux/rcu_txn_hlist.h``
-+	A list with a single-pointer head, like ``hlist``.  Its ``_prepare``
-+	operations compose: several nodes can be added to or removed from one
-+	or several lists atomically.  An ``_rcu`` operation publishes its
-+	update with one ``rcu_assign_pointer()`` and allocates nothing.
-+
-+``include/linux/rcu_txn_list.h``
-+	A circular doubly-linked list whose forward and backward chains are
-+	mutually coherent at every instant, which allows readers to walk it in
-+	both directions.  An insertion or a removal switches a forward and a
-+	backward edge, and a move six, the moved node's own included: each
-+	allocates a descriptor.
-+
-+Debugging
-+=========
-+
-+``CONFIG_DEBUG_RCU_TXN`` enables the checks that cost more than a test of the
-+handle's state.  It validates the tags, reports a slot recorded twice, and
-+validates the single-writer contract: it warns when a handle is driven by a
-+task other than the one that initialized it, and when a slot that a transaction
-+records, installs to or settles was changed by another writer in the meantime.
-+A task that takes over a handle which another got ready, with nothing recorded
-+yet, calls ``rcu_txn_adopt()`` first, which makes it the task the check
-+expects.
-+
-+Misuse of a handle, such as recording into one that was already committed,
-+warns in every build.
-+
-+Testing
-+=======
-+
-+``CONFIG_RCU_TXN_KUNIT_TEST`` builds the KUnit suite ``rcu_txn``, which covers
-+the engine, both data structures and the debug checks::
-+
-+	./tools/testing/kunit/kunit.py run --arch=x86_64 \
-+		--kconfig_add CONFIG_RCU_TXN_KUNIT_TEST=y \
-+		--kconfig_add CONFIG_DEBUG_KERNEL=y \
-+		--kconfig_add CONFIG_DEBUG_RCU_TXN=y \
-+		'rcu_txn*'
-+
-+API
-+===
-+
-+.. kernel-doc:: include/linux/rcu_txn.h
-+
-+.. kernel-doc:: include/linux/rcu_txn_hlist.h
-+
-+.. kernel-doc:: include/linux/rcu_txn_list.h
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5126f4ece4e7..f34040369eb4 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22857,6 +22857,7 @@ RCU PSEUDO-TRANSACTIONS
- M:	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
- L:	rcu@vger.kernel.org
- S:	Maintained
-+F:	Documentation/RCU/rcu_txn.rst
- F:	include/linux/rcu_txn*.h
- F:	lib/rcu_txn*
- F:	lib/tests/rcu_txn_kunit.c
-diff --git a/include/linux/rcu_txn.h b/include/linux/rcu_txn.h
-index b9ee242a01ce..19f1365ae8ae 100644
---- a/include/linux/rcu_txn.h
-+++ b/include/linux/rcu_txn.h
-@@ -12,6 +12,8 @@
-  * the slots, from their old to their new targets with a single store, as
-  * observed by concurrent RCU readers: at any instant, every slot of the set
-  * resolves to its old target, or every slot to its new one.
-+ * Documentation/RCU/rcu_txn.rst says when to use them, and describes the data
-+ * structures built on them.
-  *
-  * The slots are the edges of the data structure that an update re-points; the
-  * writer records each edge as its slot with the slot's old and new targets.
+ static struct kunit_case rcu_txn_test_cases[] = {
+ 	KUNIT_CASE(rcu_txn_test_single_record),
+ 	KUNIT_CASE(rcu_txn_test_multi_record),
+@@ -1744,6 +2050,7 @@ static struct kunit_case rcu_txn_test_cases[] = {
+ 	KUNIT_CASE(rcu_txn_test_list_move_phases),
+ 	KUNIT_CASE(rcu_txn_test_list_compose_moves),
+ 	KUNIT_CASE(rcu_txn_test_list_debug_disjoint_compose),
++	KUNIT_CASE_SLOW(rcu_txn_test_list_concurrent),
+ 	{}
+ };
+ 
 -- 
 2.47.3
 
