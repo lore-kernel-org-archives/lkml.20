@@ -1,93 +1,89 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D9D450917
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE5142123F
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:03:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141355; cv=none; b=hk6fiaCC3RebQhECCTsxBwScGoNidovbUStaJjvVmspMw5xrLPTvArZdRRdPJCaRIQmXyzF9v0lf/FPwoKz2/wrprY4n2Gnz7duFEzdgFts4Wjl23oEkbF7qnPpTh8viY0Gfin5c88X+Zlc3wfrE90deJLvPFtLwQINNIqU2R1Q=
+	t=1792141408; cv=none; b=TpBvYPkB1zPVq4pwiTeIwGMcDuhoK9dekItEn609AE0L/C+A1JiZnD23NFDwhrdWFipTzP7mqpLtX0mwW/+l0VR1vZbNOmTPwPxJgs06dqfaSQXm+jIwe8VZaUH+MCSakwgwRqSCN4jfK4xf20i4Y4w3fLyUNUzdFNpSffwgqc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141355; c=relaxed/simple;
-	bh=EAL0w1drlk9iRFR44y1KTfcczLiGqgrQS+sQXndKFGk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q6WNC0+UemWFbxD6DO1Kgb4GWQ9ZW5xYZRrdCVzn4XzWnQzE908mqCgXQbKR9aqSuf0uAKsrsQkW66p8uoU6SRajFoVXO1D2+c1UQ9ncUX3kiKHTmC7jr/BX6hZ9b4Fq3t7uiwFCEJsSuux1AZUIdDB5Q1BRh6nfxhE1HX7lTp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E/xS1Har; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792141408; c=relaxed/simple;
+	bh=7OgipuORHAX8ObMEfy/N367UDPgx8N7eP0GTaImetJw=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=K8vTAdiWP9+dX2ayT58cPKJSCpLyLj4uZr/V1k1lCHMtJP4eVZ2DIycpWpAgILzMhlcWRFyKZcQ9HZ5TuKbmB0oI6Hq427wor23tv9c3uAV0Y/F6Lr1in0y4BAJTPQVfBv14HxvWO/6xsScXsz1/iI4mDdTzR6ScrsvosTz2eTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kc+Bgh5z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E/xS1Har"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1cef0439aso3453415e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:02:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792141352; x=1792746152; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j0+d5JuI7cYWqs6zSvGD292VqwhHrlteYqsYUHwcriY=;
-        b=E/xS1HarJM/1VjZk6VVExV4VjrIjxI7zxPYbwTlA166+kCdMwWdyE+RYgG5UALv/xg
-         MYNmnlQdBFTEVsJxooSR21XC6p1YlIFXLWXM3403qSeLtsYazUG/be6Oy5UPqWBPTruJ
-         IgNL/6l7+IQRbnB3iRvIWLWirXgHl169CY36SbGwF4i5A+qZozIg04xePRX+t0K28LGO
-         zz0wTHPNTNGgbT40shis3KLbPOhT9vOoDv0T7fae9J4d44m40JzuPGttSmLrAsMca2E6
-         Z4ZatE8038/DQIamSWd8N4XmbQ5t/0+ooiKg7VZjLjSO74JYmeh3qXl2YDea2pzbWZ+F
-         +P2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792141352; x=1792746152;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=j0+d5JuI7cYWqs6zSvGD292VqwhHrlteYqsYUHwcriY=;
-        b=XpF9JysXXNsfdFDq0QoCuQ7jCQMzHAvdJBvuzvvis95aYt/3sZL/WRetZwPPbAq8UV
-         oh/o1WyCa0IR8l+LNmxb+1LYbUvpwnP3TTaxBBwSeh8vKj+Wrn0I1sP9SwX/z8sEkZv5
-         //uL4xzAy+sJRnAC8gboGXSuVwzbaOFBIqIKiEI0pspIXX/ZDqAomDopF+3TVxzzkDFX
-         yeVcKmFL8GXvhQRKpHYwIumTf4IR/infoMQPCtH3CdHUwVIkuXASytYPN5i9uHCgWdre
-         Nox8ydic0vLQdF95oMxiFko0xzINPhqA8oux5fAqnBbrNUDV0kdH4NlnjdPXurYWSh4d
-         5AyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy31rmRlhxI1TTcH8gOsqnMN/he1fq21UEbDqCOP9fsqCaD35+WcB/dXY1Myi0cO4q6oPpvjRXUM1lAjvw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIb20sTM1x09V94fRXzYUeDsDsoasdwTQdjcbzrEZdQflK81vTd
-	uGSi4ILL2I1aoSa8JZj53fciTUht+UQvu92iE0/ICr5IMmDZDgKViWw1
-X-Gm-Gg: AYBFou3t/Vi7hWmCeskdhgL4I/wnkxjKCHK1vIB/lb7Ny1W3viHVMK1sgB2LcRy1Nlt
-	MHS4TZFm9v/VKvzu9dTaxoqsmfUcEYa5jPl7t1DOPDouWYJIHHQEin0Fp5DUiH7tLaIRWHlSK9k
-	Hd3OdkOM85waZZCunnGdqnMCJu+Fx2jONPkpZEWWO5DJ0dd8FLhqQYW+jkU6zw11XtmEi60xM8b
-	9wP8F9KDHMLgEcathQfSnJAtTn1hnyJactEBRCV0otO8S2aRFT38i6WPrETDE/WP680MeEWVdMT
-	SstSjcg/jm5QQxhgErPxWJbJLl0+w5bioMn7p9XL7Eto5MV7xCVM8KKEGC92Rw/Ojw80PSsZ9x+
-	WP6pac4d/S7hgE1aOoF88svlfPGsnttY+72pmUi6ODq/d9GGhQZ5NiNA40M7PXzG21lz2/tBR7r
-	ActggJ9m1HRGuDOPPF0qCRLrIdW6xBKwaLYzEFcpsrS07SdJYHaEraudrYP9IAuqTiVOsyCik2K
-	1pzXhIsrL2TV5z/gBOaaiVoDZtDJWlppClBD2Yy8xK0Tg==
-X-Received: by 2002:a05:600c:46cc:b0:4a1:688d:a41c with SMTP id 5b1f17b1804b1-4a18e4c06a8mr416698625e9.25.1792141352107;
-        Fri, 16 Oct 2026 02:02:32 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([31.189.109.133])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cca30aa4sm16138995e9.2.2026.10.16.02.02.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 02:02:31 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Kevin Tian <kevin.tian@intel.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	iommu@lists.linux.dev,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iommufd/selftest: Check dmabuf MMIO mappings filled from another domain
-Date: Fri, 16 Oct 2026 11:02:24 +0200
-Message-ID: <20261016090225.3824-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261015172243.GE13920@nvidia.com>
-References: <20261008125206.11990-1-parri.andrea@gmail.com> <20261008125206.11990-3-parri.andrea@gmail.com> <179200036595.15213.9864724554843977359.b4-review@b4> <20261014211608.291608-1-parri.andrea@gmail.com> <20261015172243.GE13920@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kc+Bgh5z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D1221F000C6
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:03:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792141407;
+	bh=7OgipuORHAX8ObMEfy/N367UDPgx8N7eP0GTaImetJw=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=Kc+Bgh5zPuQ7+YkjD3Y4/Ozt5Q0Qr49vAipXjmhKEB2vv3yPNdOXJBAa+T/DdX3eq
+	 G+87v3Bl4MVEpw3+kyNOxOWmUC9ha6lXS3lUzmkfox+tSX0qd6YgcDTnjiLgY6JrGe
+	 eUIrW72DW6r0kaAX6NJlSOt1g0OX8ZLP0sAujygZDWnqCygJK1A38muIR+JcOKHYy8
+	 RG/ATLNrYfW12lqsabbnrqHjhsDBVdNkq1U4o1wZzcZrI5uPvFK4P5AzdtdS9jgLb5
+	 L4rFGCSYYGr05XxIxqdCVauKJI2CNgoWLTvAFxH2164bpNNqOAqxPMjZi6CnF1rKrg
+	 +HrBrV42GXQ6A==
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5bcb0f245e0so4960705e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:03:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwqwv7qwJVY2mv6WnhuaBK/aoUxYAcZPihypc3EITS8+w8GZsca9aFrATfB88aWtUX+RoB/VUSSmiAK1Vc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ4OaLowHhmBaU5dc2mZ3hbtVywEwBpAJ0OvhH7U5FfcevQbsGi
+	/5OcDJBn1LUKWVHUdQkNT6wccpqQCV7VXjuhOhtDxCyLCP0tq2+yTtIhfwlmMLfGCPCd8AfXYAt
+	HZ3/GgbY84uziPnpjbvCGNhNul3wGZJKx3c090Zumfg==
+X-Received: by 2002:a05:6512:1289:b0:5be:4d37:3bb4 with SMTP id
+ 2adb3069b0e04-5be4d373c38mr291512e87.61.1792141405786; Fri, 16 Oct 2026
+ 02:03:25 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 16 Oct 2026 04:03:24 -0500
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 16 Oct 2026 04:03:24 -0500
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261016074704.1860749-10-aambrozewicz@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261012-gpiolib-event-clock-v1-1-aambrozewicz@nvidia.com>
+ <sashiko-outbox-168236@kernel.org> <20261016074704.1860749-10-aambrozewicz@nvidia.com>
+Date: Fri, 16 Oct 2026 04:03:24 -0500
+X-Gmail-Original-Message-ID: <CAMRc=Mc89+8Vaxno65wepjg9MwSNeHZGtb=FQ0QVAv7rAZYLNQ@mail.gmail.com>
+X-Gm-Features: AclHuK87M9OI0S84s6vF0MyaDQrPoMPjWH_5x379Ibzo3rkIDdE-KQJiBXhPZCE
+Message-ID: <CAMRc=Mc89+8Vaxno65wepjg9MwSNeHZGtb=FQ0QVAv7rAZYLNQ@mail.gmail.com>
+Subject: Re: [PATCH] gpiolib: clear the event clock flags when a line is released
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Kent Gibson <warthog618@gmail.com>, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 15, 2026 at 02:22:43PM -0300, Jason Gunthorpe wrote:
-> This sounds better, but I don't know if we need all this code just for
-> a selftest.
+On Fri, 16 Oct 2026 09:46:57 +0200, Adrian Ambrozewicz
+<aambrozewicz@nvidia.com> said:
+> On Mon, Oct 12, 2026 at 02:05:49PM +0000, sashiko-bot@kernel.org wrote:
+>> In gpiod_free_commit(), the ownership synchronization token
+>> (GPIOD_FLAG_REQUESTED) is cleared in desc->flags via a WRITE_ONCE() before
+>> the function finishes cleaning up ancillary state (debounce_period_us) and
+>> emitting the GPIO_V2_LINE_CHANGED_RELEASED notification:
+>
+> This is real, and older than this patch: once the cleared
+> GPIOD_FLAG_REQUESTED is visible, a new request can set
+> desc->debounce_period_us in edge_detector_setup() before the old one
+> resets it to 0, and the debounce code reads the period from there.
+>
+> I'll send a fix with v2 of the chip-removal series, which touches the
+> same function: reset the period first, then write the flags with
+> release ordering, pairing with the test_and_set_bit() in
+> gpiod_request_commit(), so that a new owner sees the reset. The
+> RELEASED notification can still arrive after the new request's
+> REQUESTED one. Moving it before the flags update would report the line
+> as still requested in the RELEASED event, so the fix will describe
+> that rather than reorder it.
+>
 
-Fair enough, I'll drop the selftest.  Thanks for picking up patch 1.
+Will you resend this together with that v2? Or should I take it independently?
 
-Andrea
+Bartosz
