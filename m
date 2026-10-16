@@ -1,645 +1,598 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9876D4A4853
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:10:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D9B83CB56E;
+	Fri, 16 Oct 2026 14:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792159844; cv=none; b=f41DS1SLPNwo0jX/+akJWCeB0x/LCk8bG0IJ76APB58E0FaaNAIjvpiGrYOkhO5mD+rr7NRR0FhizxJaseHqfTpqktWmjigtZeKtw4ixtaZWbkNmiGy+XbzU1dcGaQg08Aj4u7Czwlx8etHU7H+aJQCfeKcYjWhpK6qoqylUzzg=
+	t=1792159848; cv=none; b=lSdl7/U3aUMrnN5Ib9BCxfST/ayQ0VSk2XJWFR6DCKil0PO+PSRifYgQBAG98M4NR4b6jWl5QUxrUvfHbUQQygEGTsGw3dB4yQ9i79GhGLMmcEHahfyYIFliNNiuv7KahpYSK114HBS2Lsa1XcEGeJSE6jRzFLzC1KtOTg0rdzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792159844; c=relaxed/simple;
-	bh=0r1Uwi6idlZ2zf+uybpxnfDOSZLahjPS3X6Oc7bXTkQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=qv25R+FgX7dhGSU4JIkc5YjnEjWfjyO7KVJtbyW70pIP+XfgB1PGHSwSdxLt7riB/et1XzqoqeLQa0FQ1PVeHb0c40Be29/2o9bEx6n9JiOg63faXbqhw58YDH2fO0VrsTW+LlxpEP9NEefkOa0pTE4bpzhS1w5kIyvy/IHbjsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=LDu+rnCm; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1792159848; c=relaxed/simple;
+	bh=qsrP6+nqOoihEdMQS3E/O5ne68RR0xvgHVkKjTKK4Ww=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=P5bPNKH3WMPwXSNALBnJPVjgrQENnCP6Vz5WCIELHbLKyhKsE6fVH1bx0preh5MSgzh7KBxjYDu0Huyrqe3woKa9YdIfeD4Pgnm8iZgkRYUHpUlxLA+//2SietCEOCSIB31458TD41+mW48jhlgw8L5HnvnIxyYHHK7ZydEqaBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=z5Bxu7si; arc=none smtp.client-ip=162.243.120.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="LDu+rnCm"
-Received: from omf17.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay07.hostedemail.com (Postfix) with ESMTP id 8DAC5160241;
-	Fri, 16 Oct 2026 14:10:27 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf17.hostedemail.com (Postfix) with ESMTPA id 90A0F1B;
-	Fri, 16 Oct 2026 14:10:24 +0000 (UTC)
-Date: Fri, 16 Oct 2026 10:10:22 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Amit Machhiwal <amachhiw@linux.ibm.com>, Christian Brauner
- <brauner@kernel.org>, David Carlier <devnexen@gmail.com>, Dmitry Kandybka
- <d.kandybka@gmail.com>, Donggeun Yoo <donggeunyoo.kernel@gmail.com>, Hao Ge
- <hao.ge@linux.dev>, Krystian Kaniewski <krystianmkaniewski@gmail.com>, Lee
- Jones <lee@kernel.org>, Taeyang Lee <0wn@theori.io>, Tengda Wu
- <wutengda@huaweicloud.com>, Vincent Donnefort <vdonnefort@google.com>
-Subject: [GIT PULL] tracing: Final fixes for 7.3
-Message-ID: <20261016101022.7db98574@gandalf.local.home>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="z5Bxu7si"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
+	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
+	To:From:Date:subject:date:message-id:reply-to;
+	bh=v9swT4sUtIA6jutXhZAgfW4/nQZjIXOTSKbi86UKenE=; b=z5Bxu7sisz8DNc8TAmmUsLWt46
+	ZDfQBEtFbaYvW1JTEwt1L/gKPju/dsOGX9QZVoebsvObuFcM39CQye9fNbjTghU6SJHfyBZhB4uIi
+	12vrwXqsM9MHyb6LgiO/+aOH7hjDgByyIJxFyS3wDC9ZjAf9wWNyKcuiUfw5/gTsFVNo=;
+Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
+	by mail.hugovil.com with esmtpa (Exim 4.98.2)
+	(envelope-from <hugo@hugovil.com>)
+	id 1xHidj-000000005PO-1E1P;
+	Fri, 16 Oct 2026 10:10:30 -0400
+Date: Fri, 16 Oct 2026 10:10:28 -0400
+From: Hugo Villeneuve <hugo@hugovil.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=
+ (The Capable Hub) <u.kleine-koenig@baylibre.com>, Hugo Villeneuve
+ <hvilleneuve@dimonoff.com>, Arnd Bergmann <arnd@arndb.de>,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev
+Subject: Re: [PATCH 1/2] tty: serial: remove hub6 multiport support
+Message-Id: <20261016101028.ebeb7a50fa5a6cc11558f8d8@hugovil.com>
+In-Reply-To: <20261016130328.1037616-1-arnd@kernel.org>
+References: <20261016130328.1037616-1-arnd@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout06
-X-Stat-Signature: ur6xr35ibsgwnz9h4sy4a4b76gy5akb6
-X-Rspamd-Queue-Id: 90A0F1B
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18ZutGA8oNBgWxd0ZBDsQnOuywUHqXCZ2A=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=Wm8Yu6AH217wHb2hIYKEXfLYPfIDSNwZywWVMuPeAQM=; b=LDu+rnCmxWYwklfXZwCEbE/EUFIxL6RpzhK3Zy4DO2dHCvnXICpf1Wz+VeZKf2SVdqCDytDoQhxbX+mqO+4vgJINh3uPvE/2uXc9YZ+mxkBFvkB7hAU4ANS7QALMDMgZsUcLF2DV1mN1hOb35vYIlhpqPz0jWcTYx6M/hKHFYiM=
-X-HE-Tag: 1792159824-677087
-X-HE-Meta: U2FsdGVkX19pH4T2NyMQNRwm1895VnxYk+sFQW9Mnyr3cxM53QozCanQ/qZWQS5HUbyP4epK2YpzOgUXhZo0C0uoVsWU4At0ZYZv1MwaZnSxsHZxZtoN3cqEkZzL2z74Wgh2RsoGeoqvwViygAJml9EdWHufRqZOXMemNBmSIF7emA8UpYox4+rC5PvL8ZAhm77dkwl/+QQu29WIPr1pNYWHRssNmMcG4L/uIM9sAG1x548Ij79ZsTbYICC2PccTHcCMiNONDXBJAgxdAFMP+4o5BqN80bdz5noJklFazFEN8bVW6E1HOiuxSE6GA/3VCYbkMqXcVK75Uz4vwhCKW6SoHI7A5iIN
+X-Spam_score: -2.0
+X-Spam_bar: --
+
+Hi Arnd,
+
+On Fri, 16 Oct 2026 14:59:47 +0200
+Arnd Bergmann <arnd@kernel.org> wrote:
+
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> hub6 support was added in linux-0.99 and the hardware was already old at
+> the time, being discontinued in 1990. The code for it has always been a
+> mess since it adds another dimension to the I/O addressing in the driver
+> that has leaked into many individual files.
+> 
+> Hugo and Uwe have attempted several times this year alone to isolate
+> the hub6 handling into the 8250_hub6.c file, but I feel that none of
+> this has been a real improvement over the original standalone loadable
+> module support.
+> 
+> Any machine that would have used this ISA card in practice is likely
+> 30 to 40 years old, and with i486 support now removed, it is clearly
+> safe to just kill this all off. The only bit that has to remain
+> is the ioctl interface, to ensure the serial_struct field is always
+> zero.
+> 
+> Link: https://mirrors.nycbug.org/pub/The_Unix_Archive/Unix_Usenet/comp.unix.sysv386/1990-December/007174.html
+> Fixes: a300273c458c ("serial: 8250: hub6: Add cleanup code")
+> Fixes: c526404a4a92 ("serial: 8250: Fix corner case for port matching")
+> Fixes: 7ab80d1e7243 ("serial: 8250: fix compile error with hub6_match_port() when compiled as a module")
+> Fixes: da7b5fd4e17f ("serial: 8250_hub6: add missing include for hub6_match_port()")
+> Fixes: 3d406299d882 ("serial: 8250_hub6: add hub6_match_port()")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>  drivers/tty/serial/8250/8250.h          | 15 -------
+>  drivers/tty/serial/8250/8250_core.c     |  2 -
+>  drivers/tty/serial/8250/8250_hub6.c     | 60 -------------------------
+>  drivers/tty/serial/8250/8250_platform.c | 11 +----
+>  drivers/tty/serial/8250/8250_port.c     | 23 ----------
+>  drivers/tty/serial/8250/Kconfig         | 15 ++-----
+>  drivers/tty/serial/8250/Makefile        |  1 -
+>  drivers/tty/serial/atmel_serial.c       |  2 -
+>  drivers/tty/serial/fsl_lpuart.c         |  2 -
+>  drivers/tty/serial/imx.c                |  2 -
+>  drivers/tty/serial/mpc52xx_uart.c       |  3 +-
+>  drivers/tty/serial/sa1100.c             |  2 -
+>  drivers/tty/serial/serial_core.c        | 18 +++-----
+>  drivers/tty/serial/sunsu.c              |  9 ----
+>  drivers/tty/serial/xilinx_uartps.c      |  2 -
+>  include/linux/serial_8250.h             |  2 -
+>  include/linux/serial_core.h             |  2 -
+>  17 files changed, 12 insertions(+), 159 deletions(-)
+>  delete mode 100644 drivers/tty/serial/8250/8250_hub6.c
+> 
+> diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
+> index 21ed9c41b751..75afeb8c0cef 100644
+> --- a/drivers/tty/serial/8250/8250.h
+> +++ b/drivers/tty/serial/8250/8250.h
+> @@ -323,14 +323,6 @@ static inline int serial8250_pnp_init(void) { return 0; }
+>  static inline void serial8250_pnp_exit(void) { }
+>  #endif
+>  
+> -#ifdef CONFIG_SERIAL_8250_HUB6
+> -int serial8250_hub6_init(void);
+> -void serial8250_hub6_exit(void);
+> -#else
+> -static inline int serial8250_hub6_init(void) { return 0; }
+> -static inline void serial8250_hub6_exit(void) { }
+> -#endif
+> -
+>  #ifdef CONFIG_SERIAL_8250_RSA
+>  void univ8250_rsa_support(struct uart_ops *ops, const struct uart_ops *core_ops);
+>  void rsa_enable(struct uart_8250_port *up);
+> @@ -351,13 +343,6 @@ int fintek_8250_probe(struct uart_8250_port *uart);
+>  static inline int fintek_8250_probe(struct uart_8250_port *uart) { return 0; }
+>  #endif
+>  
+> -#if IS_ENABLED(CONFIG_SERIAL_8250_HUB6)
+> -bool hub6_match_port(const struct uart_port *port1, const struct uart_port *port2);
+> -#else
+> -static inline bool hub6_match_port(const struct uart_port *port1, const struct uart_port *port2)
+> -{ return false; }
+> -#endif
+> -
+>  #ifdef CONFIG_ARCH_OMAP1
+>  #include <linux/soc/ti/omap1-soc.h>
+>  static inline int is_omap1_8250(struct uart_8250_port *pt)
+> diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/8250/8250_core.c
+> index 42319843cb5b..96c99f0ae683 100644
+> --- a/drivers/tty/serial/8250/8250_core.c
+> +++ b/drivers/tty/serial/8250/8250_core.c
+> @@ -686,8 +686,6 @@ static bool serial8250_match_port(const struct uart_port *port1,
+>  		return false;
+>  	else if (port1->iotype == UPIO_PORT)
+>  		return port1->iobase == port2->iobase;
+> -	else if (port1->iotype == UPIO_HUB6)
+> -		return hub6_match_port(port1, port2);
+>  	else if (uart_iotype_mmio(port1->iotype))
+>  		return port1->mapbase == port2->mapbase;
+>  	else
+> diff --git a/drivers/tty/serial/8250/8250_hub6.c b/drivers/tty/serial/8250/8250_hub6.c
+> deleted file mode 100644
+> index 848d9723ac56..000000000000
+> --- a/drivers/tty/serial/8250/8250_hub6.c
+> +++ /dev/null
+> @@ -1,60 +0,0 @@
+> -// SPDX-License-Identifier: GPL-2.0
+> -/*
+> - *  Copyright (C) 2005 Russell King.
+> - *  Data taken from include/asm-i386/serial.h
+> - */
+> -#include <linux/module.h>
+> -#include <linux/init.h>
+> -#include <linux/serial_8250.h>
+> -
+> -#include "8250.h"
+> -
+> -#define HUB6(card, port)						\
+> -	{								\
+> -		.iobase		= 0x302,				\
+> -		.irq		= 3,					\
+> -		.uartclk	= 1843200,				\
+> -		.iotype		= UPIO_HUB6,				\
+> -		.flags		= UPF_BOOT_AUTOCONF,			\
+> -		.hub6		= (card) << 6 | (port) << 3 | 1,	\
+> -	}
+> -
+> -static struct plat_serial8250_port hub6_data[] = {
+> -	HUB6(0, 0),
+> -	HUB6(0, 1),
+> -	HUB6(0, 2),
+> -	HUB6(0, 3),
+> -	HUB6(0, 4),
+> -	HUB6(0, 5),
+> -	HUB6(1, 0),
+> -	HUB6(1, 1),
+> -	HUB6(1, 2),
+> -	HUB6(1, 3),
+> -	HUB6(1, 4),
+> -	HUB6(1, 5),
+> -	{ },
+> -};
+> -
+> -static struct platform_device hub6_device = {
+> -	.name			= "serial8250",
+> -	.id			= PLAT8250_DEV_HUB6,
+> -	.dev			= {
+> -		.platform_data	= hub6_data,
+> -	},
+> -};
+> -
+> -bool hub6_match_port(const struct uart_port *port1, const struct uart_port *port2)
+> -{
+> -	return port1->iobase == port2->iobase && port1->hub6 == port2->hub6;
+> -}
+> -EXPORT_SYMBOL_GPL(hub6_match_port);
+> -
+> -int __init serial8250_hub6_init(void)
+> -{
+> -	return platform_device_register(&hub6_device);
+> -}
+> -
+> -void serial8250_hub6_exit(void)
+> -{
+> -	platform_device_unregister(&hub6_device);
+> -}
+> diff --git a/drivers/tty/serial/8250/8250_platform.c b/drivers/tty/serial/8250/8250_platform.c
+> index 7ce7ad295fae..8aa769085bfa 100644
+> --- a/drivers/tty/serial/8250/8250_platform.c
+> +++ b/drivers/tty/serial/8250/8250_platform.c
+> @@ -86,7 +86,6 @@ static void __init __serial8250_isa_init_ports(void)
+>  		port->irqflags = 0;
+>  		port->uartclk  = old_serial_port[i].baud_base * 16;
+>  		port->flags    = old_serial_port[i].flags;
+> -		port->hub6     = 0;
+>  		port->membase  = old_serial_port[i].iomem_base;
+>  		port->iotype   = old_serial_port[i].io_type;
+>  		port->regshift = old_serial_port[i].iomem_reg_shift;
+> @@ -169,7 +168,6 @@ static int serial8250_probe_platform(struct platform_device *dev, struct plat_se
+>  		uart->port.flags		= p->flags;
+>  		uart->port.mapbase	= p->mapbase;
+>  		uart->port.mapsize	= p->mapsize;
+> -		uart->port.hub6		= p->hub6;
+>  		uart->port.has_sysrq	= p->has_sysrq;
+>  		uart->port.private_data	= p->private_data;
+>  		uart->port.type		= p->type;
+> @@ -317,14 +315,10 @@ static int __init serial8250_init(void)
+>  	if (ret)
+>  		goto unreg_uart_drv;
+>  
+> -	ret = serial8250_hub6_init();
+> -	if (ret)
+> -		goto unreg_pnp;
+> -
+>  	serial8250_isa_devs = platform_device_alloc("serial8250", PLAT8250_DEV_LEGACY);
+>  	if (!serial8250_isa_devs) {
+>  		ret = -ENOMEM;
+> -		goto unreg_hub6;
+> +		goto unreg_pnp;
+>  	}
+>  
+>  	ret = platform_device_add(serial8250_isa_devs);
+> @@ -340,8 +334,6 @@ static int __init serial8250_init(void)
+>  	platform_device_del(serial8250_isa_devs);
+>  put_dev:
+>  	platform_device_put(serial8250_isa_devs);
+> -unreg_hub6:
+> -	serial8250_hub6_exit();
+>  unreg_pnp:
+>  	serial8250_pnp_exit();
+>  unreg_uart_drv:
+> @@ -369,7 +361,6 @@ static void __exit serial8250_exit(void)
+>  	platform_driver_unregister(&serial8250_isa_driver);
+>  	platform_device_unregister(isa_dev);
+>  
+> -	serial8250_hub6_exit();
+>  	serial8250_pnp_exit();
+>  
+>  #ifdef CONFIG_SPARC
+> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
+> index 36b2b0a2c05c..3593e7209879 100644
+> --- a/drivers/tty/serial/8250/8250_port.c
+> +++ b/drivers/tty/serial/8250/8250_port.c
+> @@ -354,22 +354,6 @@ static void default_serial_dl_write(struct uart_8250_port *up, u32 value)
+>  	serial_out(up, UART_DLM, value >> 8 & 0xff);
+>  }
+>  
+> -#ifdef CONFIG_HAS_IOPORT
+> -static u32 hub6_serial_in(struct uart_port *p, unsigned int offset)
+> -{
+> -	offset = offset << p->regshift;
+> -	outb(p->hub6 - 1 + offset, p->iobase);
+> -	return inb(p->iobase + 1);
+> -}
+> -
+> -static void hub6_serial_out(struct uart_port *p, unsigned int offset, u32 value)
+> -{
+> -	offset = offset << p->regshift;
+> -	outb(p->hub6 - 1 + offset, p->iobase);
+> -	outb(value, p->iobase + 1);
+> -}
+> -#endif /* CONFIG_HAS_IOPORT */
+> -
+>  static u32 mem_serial_in(struct uart_port *p, unsigned int offset)
+>  {
+>  	offset = offset << p->regshift;
+> @@ -450,13 +434,6 @@ static void set_io_from_upio(struct uart_port *p)
+>  	up->dl_write = default_serial_dl_write;
+>  
+>  	switch (p->iotype) {
+> -#ifdef CONFIG_HAS_IOPORT
+> -	case UPIO_HUB6:
+> -		p->serial_in = hub6_serial_in;
+> -		p->serial_out = hub6_serial_out;
+> -		break;
+> -#endif
+> -
+>  	case UPIO_MEM:
+>  		p->serial_in = mem_serial_in;
+>  		p->serial_out = mem_serial_out;
+> diff --git a/drivers/tty/serial/8250/Kconfig b/drivers/tty/serial/8250/Kconfig
+> index 82e761b8298a..9917b7e1bb26 100644
+> --- a/drivers/tty/serial/8250/Kconfig
+> +++ b/drivers/tty/serial/8250/Kconfig
+> @@ -208,9 +208,9 @@ config SERIAL_8250_EXTENDED
+>  	depends on SERIAL_8250
+>  	help
+>  	  If you wish to use any non-standard features of the standard "dumb"
+> -	  driver, say Y here. This includes HUB6 support, shared serial
+> -	  interrupts, special multiport support, support for more than the
+> -	  four COM 1/2/3/4 boards, etc.
+> +	  driver, say Y here. This includes shared serial interrupts, special
+> +	  multiport support, support for more than the four COM 1/2/3/4 boards,
+> +	  etc.
+>  
+>  	  Note that the answer to this question won't directly affect the
+>  	  kernel: saying N will just cause the configurator to skip all
+> @@ -303,15 +303,6 @@ config SERIAL_8250_EXAR_ST16C554
+>  	  To compile this driver as a module, choose M here: the module
+>  	  will be called 8250_exar_st16c554.
+>  
+> -config SERIAL_8250_HUB6
+> -	bool "Support Hub6 cards"
+> -	depends on SERIAL_8250_MANY_PORTS && ISA
+> -	help
+> -	  Say Y here if you have a HUB6 serial board.
+> -
+> -	  To compile this driver as a module, choose M here: the module
+> -	  will be called 8250_hub6.
+> -
+>  config SERIAL_8250_PCI1XXXX
+>  	tristate "Microchip 8250 based serial port"
+>  	depends on SERIAL_8250 && PCI
+> diff --git a/drivers/tty/serial/8250/Makefile b/drivers/tty/serial/8250/Makefile
+> index 5ff2ba414e13..d241ce486953 100644
+> --- a/drivers/tty/serial/8250/Makefile
+> +++ b/drivers/tty/serial/8250/Makefile
+> @@ -7,7 +7,6 @@ obj-$(CONFIG_SERIAL_8250)		+= 8250.o
+>  8250-y					:= 8250_core.o
+>  8250-y					+= 8250_platform.o
+>  8250-$(CONFIG_SERIAL_8250_PNP)		+= 8250_pnp.o
+> -8250-$(CONFIG_SERIAL_8250_HUB6)		+= 8250_hub6.o
+>  
+>  obj-$(CONFIG_SERIAL_8250)		+= 8250_base.o
+>  8250_base-y				:= 8250_port.o
+> diff --git a/drivers/tty/serial/atmel_serial.c b/drivers/tty/serial/atmel_serial.c
+> index c3880259e3bc..9c40ccee0c82 100644
+> --- a/drivers/tty/serial/atmel_serial.c
+> +++ b/drivers/tty/serial/atmel_serial.c
+> @@ -2448,8 +2448,6 @@ static int atmel_verify_port(struct uart_port *port, struct serial_struct *ser)
+>  		ret = -EINVAL;
+>  	if (port->iobase != ser->port)
+>  		ret = -EINVAL;
+> -	if (ser->hub6 != 0)
+> -		ret = -EINVAL;
+>  	return ret;
+>  }
+>  
+> diff --git a/drivers/tty/serial/fsl_lpuart.c b/drivers/tty/serial/fsl_lpuart.c
+> index c8575c965203..6e1248840022 100644
+> --- a/drivers/tty/serial/fsl_lpuart.c
+> +++ b/drivers/tty/serial/fsl_lpuart.c
+> @@ -2432,8 +2432,6 @@ static int lpuart_verify_port(struct uart_port *port, struct serial_struct *ser)
+>  		ret = -EINVAL;
+>  	if (port->iobase != ser->port)
+>  		ret = -EINVAL;
+> -	if (ser->hub6 != 0)
+> -		ret = -EINVAL;
+>  	return ret;
+>  }
+>  
+> diff --git a/drivers/tty/serial/imx.c b/drivers/tty/serial/imx.c
+> index 986fefb45c63..d89be62e3852 100644
+> --- a/drivers/tty/serial/imx.c
+> +++ b/drivers/tty/serial/imx.c
+> @@ -1936,8 +1936,6 @@ imx_uart_verify_port(struct uart_port *port, struct serial_struct *ser)
+>  		ret = -EINVAL;
+>  	if (port->iobase != ser->port)
+>  		ret = -EINVAL;
+> -	if (ser->hub6 != 0)
+> -		ret = -EINVAL;
+>  	return ret;
+>  }
+>  
+> diff --git a/drivers/tty/serial/mpc52xx_uart.c b/drivers/tty/serial/mpc52xx_uart.c
+> index 472ec39caf27..240009333fb5 100644
+> --- a/drivers/tty/serial/mpc52xx_uart.c
+> +++ b/drivers/tty/serial/mpc52xx_uart.c
+> @@ -1339,8 +1339,7 @@ mpc52xx_uart_verify_port(struct uart_port *port, struct serial_struct *ser)
+>  	if ((ser->irq != port->irq) ||
+>  	    (ser->io_type != UPIO_MEM) ||
+>  	    (ser->baud_base != port->uartclk)  ||
+> -	    (ser->iomem_base != (void *)port->mapbase) ||
+> -	    (ser->hub6 != 0))
+> +	    (ser->iomem_base != (void *)port->mapbase))
+>  		return -EINVAL;
+>  
+>  	return 0;
+> diff --git a/drivers/tty/serial/sa1100.c b/drivers/tty/serial/sa1100.c
+> index 72b1bb76415c..ee5f3960d1e4 100644
+> --- a/drivers/tty/serial/sa1100.c
+> +++ b/drivers/tty/serial/sa1100.c
+> @@ -556,8 +556,6 @@ sa1100_verify_port(struct uart_port *port, struct serial_struct *ser)
+>  		ret = -EINVAL;
+>  	if (sport->port.iobase != ser->port)
+>  		ret = -EINVAL;
+> -	if (ser->hub6 != 0)
+> -		ret = -EINVAL;
+>  	return ret;
+>  }
+>  
+> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+> index 9eea8d1a0e8a..15d8c3ed6edc 100644
+> --- a/drivers/tty/serial/serial_core.c
+> +++ b/drivers/tty/serial/serial_core.c
+> @@ -812,7 +812,7 @@ static int uart_get_info(struct tty_port *port, struct serial_struct *retinfo)
+>  				ASYNC_CLOSING_WAIT_NONE :
+>  				jiffies_to_msecs(port->closing_wait) / 10;
+>  	retinfo->custom_divisor  = uport->custom_divisor;
+> -	retinfo->hub6	    = uport->hub6;
+> +	retinfo->hub6		 = 0;
+>  	retinfo->io_type         = uport->iotype;
+>  	retinfo->iomem_reg_shift = uport->regshift;
+>  	retinfo->iomem_base      = (void *)(unsigned long)uport->mapbase;
+> @@ -834,13 +834,12 @@ static int uart_change_port(struct uart_port *uport,
+>  			    unsigned long new_port)
+>  {
+>  	unsigned long old_iobase, old_mapbase;
+> -	unsigned int old_type, old_iotype, old_hub6, old_shift;
+> +	unsigned int old_type, old_iotype, old_shift;
+>  	int retval;
+>  
+>  	old_iobase = uport->iobase;
+>  	old_mapbase = uport->mapbase;
+>  	old_type = uport->type;
+> -	old_hub6 = uport->hub6;
+>  	old_iotype = uport->iotype;
+>  	old_shift = uport->regshift;
+>  
+> @@ -849,7 +848,6 @@ static int uart_change_port(struct uart_port *uport,
+>  
+>  	uport->iobase = new_port;
+>  	uport->type = new_info->type;
+> -	uport->hub6 = new_info->hub6;
+>  	uport->iotype = new_info->io_type;
+>  	uport->regshift = new_info->iomem_reg_shift;
+>  	uport->mapbase = (unsigned long)new_info->iomem_base;
+> @@ -867,7 +865,6 @@ static int uart_change_port(struct uart_port *uport,
+>  	 */
+>  	uport->iobase = old_iobase;
+>  	uport->type = old_type;
+> -	uport->hub6 = old_hub6;
+>  	uport->iotype = old_iotype;
+>  	uport->regshift = old_shift;
+>  	uport->mapbase = old_mapbase;
+> @@ -924,7 +921,6 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
+>  	change_port = !(uport->flags & UPF_FIXED_PORT)
+>  		&& (new_port != uport->iobase ||
+>  		    (unsigned long)new_info->iomem_base != uport->mapbase ||
+> -		    new_info->hub6 != uport->hub6 ||
+>  		    new_info->io_type != uport->iotype ||
+>  		    new_info->iomem_reg_shift != uport->regshift ||
+>  		    new_info->type != uport->type);
+> @@ -954,6 +950,10 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
+>  		goto check_and_exit;
+>  	}
+>  
+> +	/* hub6 is no longer support */
+
+s/support/supported
+
+> +        if (new_info->hub6 != 0)
+> +                return -EINVAL;
+> +
+>  	if (change_irq || change_port) {
+>  		retval = security_locked_down(LOCKDOWN_TIOCSSERIAL);
+>  		if (retval)
+> @@ -2010,7 +2010,6 @@ bool uart_iotype_io(enum uart_iotype iotype)
+>  {
+>  	switch (iotype) {
+>  	case UPIO_PORT:
+> -	case UPIO_HUB6:
+>  		return true;
+>  	default:
+>  		return false;
+> @@ -2538,10 +2537,7 @@ void uart_get_ioinfos(struct uart_port *port, char *buf, size_t size)
+>  	if (uart_iotype_mmio(port->iotype)) {
+>  		scnprintf(buf, size, " MMIO%s:%pa", uart_get_mmio_width(port), &port->mapbase);
+>  	} else if (uart_iotype_io(port->iotype)) {
+> -		if (port->iotype == UPIO_PORT)
+> -			scnprintf(buf, size, " I/O:0x%lx", port->iobase);
+> -		else if (port->iotype == UPIO_HUB6)
+> -			scnprintf(buf, size, " I/O:0x%lx, offset 0x%x", port->iobase, port->hub6);
+> +		scnprintf(buf, size, " I/O:0x%lx", port->iobase);
+>  	}
+>  }
+>  EXPORT_SYMBOL(uart_get_ioinfos);
+> diff --git a/drivers/tty/serial/sunsu.c b/drivers/tty/serial/sunsu.c
+> index 4ff3e5c41dab..f43b802add12 100644
+> --- a/drivers/tty/serial/sunsu.c
+> +++ b/drivers/tty/serial/sunsu.c
+> @@ -106,10 +106,6 @@ static unsigned int serial_in(struct uart_sunsu_port *up, int offset)
+>  	offset <<= up->port.regshift;
+>  
+>  	switch (up->port.iotype) {
+> -	case UPIO_HUB6:
+> -		outb(up->port.hub6 - 1 + offset, up->port.iobase);
+> -		return inb(up->port.iobase + 1);
+> -
+>  	case UPIO_MEM:
+>  		return readb(up->port.membase + offset);
+>  
+> @@ -136,11 +132,6 @@ static void serial_out(struct uart_sunsu_port *up, int offset, int value)
+>  	offset <<= up->port.regshift;
+>  
+>  	switch (up->port.iotype) {
+> -	case UPIO_HUB6:
+> -		outb(up->port.hub6 - 1 + offset, up->port.iobase);
+> -		outb(value, up->port.iobase + 1);
+> -		break;
+> -
+>  	case UPIO_MEM:
+>  		writeb(value, up->port.membase + offset);
+>  		break;
+> diff --git a/drivers/tty/serial/xilinx_uartps.c b/drivers/tty/serial/xilinx_uartps.c
+> index a072b75dbaf2..4066cc99fe1a 100644
+> --- a/drivers/tty/serial/xilinx_uartps.c
+> +++ b/drivers/tty/serial/xilinx_uartps.c
+> @@ -1079,8 +1079,6 @@ static int cdns_uart_verify_port(struct uart_port *port,
+>  		return -EINVAL;
+>  	if (port->iobase != ser->port)
+>  		return -EINVAL;
+> -	if (ser->hub6 != 0)
+> -		return -EINVAL;
+>  	return 0;
+>  }
+>  
+> diff --git a/include/linux/serial_8250.h b/include/linux/serial_8250.h
+> index d91c0477be9d..d55bce4d4709 100644
+> --- a/include/linux/serial_8250.h
+> +++ b/include/linux/serial_8250.h
+> @@ -41,7 +41,6 @@ struct plat_serial8250_port {
+>  	void            *private_data;
+>  	unsigned char	regshift;	/* register shift */
+>  	unsigned char	iotype;		/* UPIO_* */
+> -	unsigned char	hub6;
+>  	unsigned char	has_sysrq;	/* supports magic SysRq */
+>  	unsigned int	type;		/* If UPF_FIXED_TYPE */
+>  	upf_t		flags;		/* UPF_* flags */
+> @@ -75,7 +74,6 @@ enum {
+>  	PLAT8250_DEV_ACCENT,
+>  	PLAT8250_DEV_BOCA,
+>  	PLAT8250_DEV_EXAR_ST16C554,
+> -	PLAT8250_DEV_HUB6,
+>  	PLAT8250_DEV_AU1X00,
+>  	PLAT8250_DEV_SM501,
+>  };
+> diff --git a/include/linux/serial_core.h b/include/linux/serial_core.h
+> index 4eeb8253752a..ca8d009e5c36 100644
+> --- a/include/linux/serial_core.h
+> +++ b/include/linux/serial_core.h
+> @@ -430,7 +430,6 @@ typedef unsigned int __bitwise upstat_t;
+>  enum uart_iotype {
+>  	UPIO_UNKNOWN	= -1,
+>  	UPIO_PORT	= SERIAL_IO_PORT,	/* 8b I/O port access */
+> -	UPIO_HUB6	= SERIAL_IO_HUB6,	/* Hub6 ISA card */
+>  	UPIO_MEM	= SERIAL_IO_MEM,	/* driver-specific */
+>  	UPIO_MEM32	= SERIAL_IO_MEM32,	/* 32b little endian */
+>  	UPIO_AU		= SERIAL_IO_AU,		/* Au1x00 and RT288x type IO */
+> @@ -590,7 +589,6 @@ struct uart_port {
+>  	unsigned char		has_sysrq;
+>  	unsigned char		sysrq_seq;		/* index in sysrq_toggle_seq */
+>  
+> -	unsigned char		hub6;			/* this should be in the 8250 driver */
+>  	unsigned char		suspended;
+>  	unsigned char		console_reinit;
+>  	const char		*name;			/* port name */
+> -- 
+> 2.53.0
+> 
+> 
+> 
 
 
-Linus,
-
-tracing fixes for v7.3:
-
-- Fix NULL dereference when copying histogram field variable
-
-  If event_hist_trigger_parse() creates an action that uses one of pseudo
-  fields for its keys, the hist_data field element will have a NULL for its
-  field member. When looking to match that key, the lookup uses
-  key_field->field->name which will dereference a NULL pointer.
-  Instead use the helper function that handles such cases: expr_field_str().
-
-- Take the trace_types_lock when dropping the buffer_meta reference
-
-  The tracing_buffer_meta_open() error return drops the trace_array
-  reference with __trace_array_put() instead of trace_array_put() where the
-  former doesn't take the lock and the latter does.
-
-- Fix NULL pointer dereference when reading per_cpu/cpuN/buffer_meta
-
-  These files are created for every possible CPU. But it only contains data
-  for CPUs that have come online. If one is read for a CPU that hasn't come
-  online yet, it triggers a NULL pointer dereference.
-
-  Have reading of CPUs that have not come on line yet return -ENODEV.
-
-- Fix an out-of-bounds shift in the log2 histogram modifier
-
-  Histograms can take a log2 modifier to have the buckets defined by log2
-  increments. If a shift is greater than ULONG_MAX or above 2^63, the key
-  falls into a lower order bucket.
-
-  Use order_base_2() instead of "ilog2(n - 1) + 1" to have all overflowed
-  keys go into the top bucket.
-
-- Fix the persistent ring buffer rb_meta_subbuf_idx() accounting
-
-  The algorithm for finding the index of a sub-buffer in a persistent ring
-  buffer buffer did not take into account the meta data at the beginning of
-  the buffer causing the wrong index to be returned.
-
-  As rb_subbufs_from_meta() does the proper accounting to find the first
-  sub-buffer, use that function instead of repeating the logic (incorrectly)
-  and make the calculations based off of that.
-
-- Fix the symbol name checks for the remote buffer code
-
-  The remote ring buffer has a build time check to make sure its not using
-  any code that will not be in the hypervisor. For various architectures,
-  there has been false positive reports from this checker.
-
-  Fix them.
-
-- Fix false warning in ring_buffer_map_get_reader()
-
-  There is a WARN_ON() after rb_get_reader_page() if no reader is returned.
-  But there are legitimate cases where this can happen. Remove the WARN_ON()
-  and also a check that covers one of the legitimate cases that tries to
-  exit out early. There's no need for the check if it just simply allows the
-  return of NULL from rb_get_reader_page().
-
-- Fix the ignored return value from resize_buffer_duplicate_size()
-
-  Some clean up of the code in tracing_snapshot_write() removed checking the
-  return value of resize_buffer_duplicate_size() and if that failed it would
-  not be detected.
-
-- Fix the histogram timestamps for buffered events
-
-  The histogram timestamps are taken from the events that are recorded.
-  It currently reads ring_buffer_event_time_stamp() but if the event is
-  buffered it does not read it properly. Use tracing_event_time_stamp()
-  which handles both buffered and normal events.
-
-- Do not initialize tracefs if tracing is disabled at boot
-
-  If tracing fails to allocate or some other error is detected,
-  tracing_disabled is set. Do not initialize tracefs in this case as it may
-  expect data to be initialized but is not.
-
-- Free eventfs inode after an RCU grace period
-
-  Currently eventfs_inodes are freed after a SRCU grace period as the
-  iterations in the code use SRCU. There are locations that the inode may
-  still be accessed from the VFS that uses RCU which does not have the same
-  synchronization as SRCU. Add an RCU wait before free eventfs inodes.
-
-- Do not fail persistent and remote buffers under memory pressure
-
-  As persistent and remote buffers have their own pre-allocated memory,
-  there's no reason to check how much memory is available before created
-  them. By checking the memory pressure, these buffers may fail to be
-  created even though their memory is already present.
-
-- Account for subbuffer size when checking how much memory is available
-
-  Before allocating a ring buffer, the size is checked against the current
-  memory pressure of the system. But it assumes every sub-buffer is of page
-  size. This is no longer the case. Use the actual sub-buffer size when
-  calculating how much memory will be used.
-
-- Reject non-stack fields for synthetic stacktrace fields
-
-  Stack traces are special fields and the checks currently do not do enough
-  to make sure that the fields being processed as stack traces are indeed
-  stack traces. Update the logic to properly detect what is or is not a
-  stack trace.
-
-- Fix a crash in print_graph_function_event()
-
-  When a tracer does not define static or default flags the
-  tr->current_trace_flags is set to NULL. If the ring buffer is
-  not cleared when switching tracers, the previous tracers events
-  could be read. The function_graph entries will dereference the
-  tr->current_trace_flags and cause a crash.
-
-  Set the tr->current_trace_flags to a empty set of flags to prevent
-  it from being NULL.
-
-- Separate tracing filter predicate count from allocation
-
-  The amount allocated for the predicate program is the number of predicates
-  defined plus two for adding "true" and "false" at the end. The nr_preds is
-  incremented by two to accommodate the booleans but is then used as the
-  limit check for number of predicates. This is incorrect as it is now two
-  higher than what is expected.
-
-  Use a separate variable for the size of the predicate array.
-
-- Fix the filter operator stack check
-
-  The operator stack increments the pointer and then writes the content onto
-  the stack. The check for overflow compared the current pointer to see if
-  it was greater than the stack size before doing so. This is an off by 2
-  error as the write will be at the size - 1 and the compare is done before
-  the increment. Adjust the check accordingly.
-
-
-Please pull the latest trace-v7.3-rc7 tree, which can be found at:
-
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
-trace-v7.3-rc7
-
-Tag SHA1: 04b96ae996d217f62c5f91040797d432252f85cd
-Head SHA1: c47a7b11bcb3d45e29723afcf6336866476b1d08
-
-
-Amit Machhiwal (1):
-      tracing: Do not initialize tracefs work if tracing is disabled
-
-Christian Brauner (1):
-      eventfs: Free the eventfs_inode after an rcu grace period too
-
-David Carlier (2):
-      tracing: Take trace_types_lock when dropping the buffer_meta reference
-      ring-buffer: Do not show buffer_meta for CPUs without a buffer
-
-Dmitry Kandybka (1):
-      tracing: Fix ignored return value of resize_buffer_duplicate_size()
-
-Donggeun Yoo (3):
-      tracing: Fix NULL dereference when copying keys for a field variable
-      tracing: Fix the shift out of bounds in the log2 histogram modifier
-      ring-buffer: Fix the sub-buffer array base in rb_meta_subbuf_idx()
-
-Hao Ge (1):
-      tracing: Fix crash in print_graph_function_event()
-
-Krystian Kaniewski (1):
-      ring-buffer: Fix false warning in ring_buffer_map_get_reader()
-
-Lee Jones (1):
-      tracing/histograms: Reject non-stacktrace fields for synthetic stacktrace fields
-
-Taeyang Lee (2):
-      tracing: Keep the predicate limit separate from program capacity
-      tracing: Check operator stack capacity before pushing
-
-Tengda Wu (1):
-      tracing: Fix hist trigger timestamps for buffered events
-
-Vincent Donnefort (5):
-      tracing: Fix empty symbol names in simple_ring_buffer undef check
-      tracing: Fix simple_ring_buffer undef check on parisc
-      tracing: Fix simple_ring_buffer undef check on sparc64
-      ring-buffer: Skip si_mem_available() for persistent and remote buffers
-      ring-buffer: Use subbuf_order in available memory estimation
-
-----
- fs/tracefs/event_inode.c           | 10 ++++++-
- kernel/trace/Makefile              |  5 ++--
- kernel/trace/ring_buffer.c         | 60 ++++++++++++++++++--------------------
- kernel/trace/trace.c               | 28 ++++++++++++++++--
- kernel/trace/trace_events_filter.c |  9 +++---
- kernel/trace/trace_events_hist.c   | 21 ++++++++-----
- kernel/trace/trace_snapshot.c      |  5 +++-
- kernel/trace/undefsyms_base.c      |  5 +++-
- 8 files changed, 92 insertions(+), 51 deletions(-)
----------------------------
-diff --git a/fs/tracefs/event_inode.c b/fs/tracefs/event_inode.c
-index 6e3513b13cfa..090aca946717 100644
---- a/fs/tracefs/event_inode.c
-+++ b/fs/tracefs/event_inode.c
-@@ -91,6 +91,14 @@ static void free_ei_rcu(struct rcu_head *rcu)
- 	}
- }
- 
-+/* read under eventfs_srcu and, by tracefs_d_revalidate(), in rcu pathwalk */
-+static void free_ei_srcu(struct rcu_head *rcu)
-+{
-+	struct eventfs_inode *ei = container_of(rcu, struct eventfs_inode, rcu);
-+
-+	call_rcu(&ei->rcu, free_ei_rcu);
-+}
-+
- /*
-  * eventfs_inode reference count management.
-  *
-@@ -112,7 +120,7 @@ static void release_ei(struct kref *ref)
- 			entry->release(entry->name, ei->data);
- 	}
- 
--	call_srcu(&eventfs_srcu, &ei->rcu, free_ei_rcu);
-+	call_srcu(&eventfs_srcu, &ei->rcu, free_ei_srcu);
- }
- 
- static inline void put_ei(struct eventfs_inode *ei)
-diff --git a/kernel/trace/Makefile b/kernel/trace/Makefile
-index f934ff586bd4..3860bc53a4be 100644
---- a/kernel/trace/Makefile
-+++ b/kernel/trace/Makefile
-@@ -146,11 +146,12 @@ KASAN_SANITIZE_undefsyms_base.o := y
- 
- UNDEFINED_ALLOWLIST = __asan __gcov __kasan __kcsan __hwasan __sancov __sanitizer __tsan __ubsan __msan \
- 		      __aeabi_unwind_cpp __s390_indirect_jump __x86_indirect_thunk simple_ring_buffer \
--		      $(shell $(NM) -u $(obj)/undefsyms_base.o 2>/dev/null | awk '{print $$2}')
-+		      current_thread_info_reg \
-+		      $(shell $(NM) -u $(obj)/undefsyms_base.o 2>/dev/null | awk '$$2 {print $$2}')
- 
- quiet_cmd_check_undefined = NM      $<
-       cmd_check_undefined = \
--          undefsyms=$$($(NM) -u $< | grep -v $(addprefix -e , $(UNDEFINED_ALLOWLIST)) || true); \
-+          undefsyms=$$($(NM) -u $< | awk '$$2 {print $$2}' | grep -v $(addprefix -e , $(UNDEFINED_ALLOWLIST)) || true); \
-           if [ -n "$$undefsyms" ]; then \
-               echo "Unexpected symbols in $<:" >&2; \
-               echo "$$undefsyms" >&2; \
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 04bb94c29f58..9c4e40847e43 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -2380,6 +2380,9 @@ int ring_buffer_meta_seq_init(struct file *file, struct trace_buffer *buffer, in
- 	struct seq_file *m;
- 	int ret;
- 
-+	if (!cpumask_test_cpu(cpu, buffer->cpumask))
-+		return -ENODEV;
-+
- 	ret = seq_open(file, &rb_meta_seq_ops);
- 	if (ret)
- 		return ret;
-@@ -2440,22 +2443,33 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
- 			       unsigned long nr_pages, struct list_head *pages)
- {
- 	struct trace_buffer *buffer = cpu_buffer->buffer;
-+	unsigned int subbuf_order = buffer->subbuf_order;
- 	struct ring_buffer_cpu_meta *meta = NULL;
- 	struct buffer_page *bpage, *tmp;
--	bool user_thread = current->mm != NULL;
- 	struct ring_buffer_desc *desc = NULL;
-+	bool user_thread = false;
- 	long i;
- 
--	/*
--	 * Check if the available memory is there first.
--	 * Note, si_mem_available() only gives us a rough estimate of available
--	 * memory. It may not be accurate. But we don't care, we just want
--	 * to prevent doing any allocation when it is obvious that it is
--	 * not going to succeed.
--	 */
--	i = si_mem_available();
--	if (i < nr_pages)
--		return -ENOMEM;
-+	if (buffer->range_addr_start) {
-+		meta = rb_range_meta(buffer, nr_pages, cpu_buffer->cpu);
-+	} else if (buffer->remote) {
-+		desc = ring_buffer_desc(buffer->remote->desc, cpu_buffer->cpu);
-+		if (!desc || WARN_ON(desc->nr_page_va != (nr_pages + 1)))
-+			return -EINVAL;
-+	} else {
-+		/*
-+		 * Check if the available memory is there first.
-+		 * Note, si_mem_available() only gives us a rough estimate of available
-+		 * memory. It may not be accurate. But we don't care, we just want
-+		 * to prevent doing any allocation when it is obvious that it is
-+		 * not going to succeed.
-+		 */
-+		i = si_mem_available();
-+		if (i < (nr_pages << subbuf_order))
-+			return -ENOMEM;
-+
-+		user_thread = current->mm != NULL;
-+	}
- 
- 	/*
- 	 * If a user thread allocates too much, and si_mem_available()
-@@ -2469,15 +2483,6 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
- 	if (user_thread)
- 		set_current_oom_origin();
- 
--	if (buffer->range_addr_start)
--		meta = rb_range_meta(buffer, nr_pages, cpu_buffer->cpu);
--
--	if (buffer->remote) {
--		desc = ring_buffer_desc(buffer->remote->desc, cpu_buffer->cpu);
--		if (!desc || WARN_ON(desc->nr_page_va != (nr_pages + 1)))
--			return -EINVAL;
--	}
--
- 	for (i = 0; i < nr_pages; i++) {
- 
- 		bpage = alloc_cpu_page(cpu_buffer->cpu);
-@@ -2513,12 +2518,11 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
- 			bpage->id = i + 1;
- 			cpu_buffer->subbuf_ids[i + 1] = bpage;
- 		} else {
--			bpage->page = alloc_cpu_data(cpu_buffer->cpu,
--						     cpu_buffer->buffer->subbuf_order);
-+			bpage->page = alloc_cpu_data(cpu_buffer->cpu, subbuf_order);
- 			if (!bpage->page)
- 				goto free_pages;
- 		}
--		bpage->order = cpu_buffer->buffer->subbuf_order;
-+		bpage->order = subbuf_order;
- 
- 		if (user_thread && fatal_signal_pending(current))
- 			goto free_pages;
-@@ -3627,10 +3631,8 @@ static void rb_inc_iter(struct ring_buffer_iter *iter)
- /* Return the index into the sub-buffers for a given sub-buffer */
- static int rb_meta_subbuf_idx(struct ring_buffer_cpu_meta *meta, void *subbuf)
- {
--	void *subbuf_array;
-+	void *subbuf_array = rb_subbufs_from_meta(meta);
- 
--	subbuf_array = (void *)meta + sizeof(int) * meta->nr_subbufs;
--	subbuf_array = (void *)ALIGN((unsigned long)subbuf_array, meta->subbuf_size);
- 	return (subbuf - subbuf_array) / meta->subbuf_size;
- }
- 
-@@ -7997,12 +7999,8 @@ int ring_buffer_map_get_reader(struct trace_buffer *buffer, int cpu)
- 		goto out;
- 	}
- 
--	/* Did the reader catch up with the writer? */
--	if (cpu_buffer->reader_page == cpu_buffer->commit_page)
--		goto out;
--
- 	reader = rb_get_reader_page(cpu_buffer);
--	if (WARN_ON(!reader))
-+	if (!reader)
- 		goto out;
- 
- 	/* Check if any events were dropped */
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index e4a490d3d08c..97a058623f94 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -99,6 +99,12 @@ struct tracers {
- 	struct tracer_flags	*flags;
- };
- 
-+/*
-+ * Tracers that do not define their own flags use these empty flags,
-+ * as tr->current_trace_flags must never be NULL.
-+ */
-+static struct tracer_flags no_tracer_flags;
-+
- /*
-  * To prevent the comm cache from being overwritten when no
-  * tracing is active, only save the comm when a trace event
-@@ -1318,7 +1324,12 @@ static int run_tracer_selftest(struct tracer *type)
- 	tracing_reset_online_cpus(&tr->array_buffer);
- 
- 	tr->current_trace = type;
--	tr->current_trace_flags = type->flags ? : type->default_flags;
-+	if (type->flags)
-+		tr->current_trace_flags = type->flags;
-+	else if (type->default_flags)
-+		tr->current_trace_flags = type->default_flags;
-+	else
-+		tr->current_trace_flags = &no_tracer_flags;
- 
- #ifdef CONFIG_TRACER_MAX_TRACE
- 	if (tracer_uses_snapshot(type)) {
-@@ -5089,7 +5100,12 @@ int tracing_set_tracer(struct trace_array *tr, const char *buf)
- 			return ret;
- 	}
- 
--	tr->current_trace_flags = t->flags ? : t->tracer->flags;
-+	if (t->flags)
-+		tr->current_trace_flags = t->flags;
-+	else if (t->tracer->flags)
-+		tr->current_trace_flags = t->tracer->flags;
-+	else
-+		tr->current_trace_flags = &no_tracer_flags;
- 
- 	if (trace->init) {
- 		ret = tracer_init(trace, tr);
-@@ -5881,7 +5897,7 @@ static int tracing_buffer_meta_open(struct inode *inode, struct file *filp)
- 
- 	ret = ring_buffer_meta_seq_init(filp, tr->array_buffer.buffer, cpu);
- 	if (ret < 0)
--		__trace_array_put(tr);
-+		trace_array_put(tr);
- 	return ret;
- }
- 
-@@ -9287,6 +9303,12 @@ static struct notifier_block trace_module_nb = {
- 
- static __init void tracer_init_tracefs_work_func(struct work_struct *work)
- {
-+	/*
-+	 * Do not attempt to initialize tracefs if tracing was disabled or
-+	 * failed to allocate
-+	 */
-+	if (tracing_disabled)
-+		return;
- 
- 	event_trace_init();
- 
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index 2b46ca536045..127880ebe83f 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -482,18 +482,17 @@ predicate_parse(const char *str, int nr_parens, int nr_preds,
- 	int len;
- 	int N = 0;
- 	int i;
--
--	nr_preds += 2; /* For TRUE and FALSE */
-+	int nr_preds_alloc = nr_preds + 2; /* For TRUE and FALSE */
- 
- 	op_stack = kmalloc_objs(*op_stack, nr_parens);
- 	if (!op_stack)
- 		return ERR_PTR(-ENOMEM);
--	prog_stack = kzalloc_objs(*prog_stack, nr_preds);
-+	prog_stack = kzalloc_objs(*prog_stack, nr_preds_alloc);
- 	if (!prog_stack) {
- 		parse_error(pe, -ENOMEM, 0);
- 		goto out_free;
- 	}
--	inverts = kmalloc_array(nr_preds, sizeof(*inverts), GFP_KERNEL);
-+	inverts = kmalloc_array(nr_preds_alloc, sizeof(*inverts), GFP_KERNEL);
- 	if (!inverts) {
- 		parse_error(pe, -ENOMEM, 0);
- 		goto out_free;
-@@ -512,7 +511,7 @@ predicate_parse(const char *str, int nr_parens, int nr_preds,
- 
- 		switch (*next) {
- 		case '(':					/* #2 */
--			if (top - op_stack > nr_parens) {
-+			if (top - op_stack >= nr_parens - 1) {
- 				ret = -EINVAL;
- 				goto out_free;
- 			}
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 8af97fd4ee2d..dcb5d7321095 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -289,7 +289,7 @@ static u64 hist_field_log2(struct hist_field *hist_field,
- 
- 	u64 val = hist_fn_call(operand, elt, buffer, rbe, event);
- 
--	return (u64) ilog2(roundup_pow_of_two(val));
-+	return order_base_2(val);
- }
- 
- static u64 hist_field_bucket(struct hist_field *hist_field,
-@@ -873,7 +873,7 @@ static u64 hist_field_timestamp(struct hist_field *hist_field,
- 	struct hist_trigger_data *hist_data = hist_field->hist_data;
- 	struct trace_array *tr = hist_data->event_file->tr;
- 
--	u64 ts = ring_buffer_event_time_stamp(buffer, rbe);
-+	u64 ts = tracing_event_time_stamp(buffer, rbe);
- 
- 	if (hist_data->attrs->ts_in_usecs && trace_clock_in_ns(tr))
- 		ts = ns2usecs(ts);
-@@ -2121,7 +2121,8 @@ static int init_var_ref(struct hist_field *ref_field,
- 	ref_field->size = var_field->size;
- 	ref_field->is_signed = var_field->is_signed;
- 	ref_field->flags |= var_field->flags &
--		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS);
-+		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS |
-+		 HIST_FIELD_FL_STACKTRACE);
- 
- 	if (system) {
- 		ref_field->system = kstrdup(system, GFP_KERNEL);
-@@ -3090,7 +3091,7 @@ create_field_var_hist(struct hist_trigger_data *target_hist_data,
- 		key_field = hist_data->fields[i];
- 		if (!first)
- 			seq_buf_putc(&s, ',');
--		seq_buf_puts(&s, key_field->field->name);
-+		expr_field_str(key_field, &s);
- 		first = false;
- 	}
- 
-@@ -3318,6 +3319,7 @@ static struct field_var *create_field_var(struct hist_trigger_data *hist_data,
- 		ret = PTR_ERR(var);
- 		goto err;
- 	}
-+	var->flags |= val->flags & HIST_FIELD_FL_STACKTRACE;
- 
- 	field_var = kzalloc_obj(struct field_var);
- 	if (!field_var) {
-@@ -3946,7 +3948,10 @@ static int check_synth_field(struct synth_event *event,
- 	    && field->is_dynamic)
- 		return 0;
- 
--	if (strstr(hist_field->type, "long[") && field->is_stack)
-+	if (!!(hist_field->flags & HIST_FIELD_FL_STACKTRACE) != field->is_stack)
-+		return -EINVAL;
-+
-+	if (field->is_stack)
- 		return 0;
- 
- 	if (strcmp(field->type, hist_field->type) != 0) {
-@@ -4487,7 +4492,8 @@ static int create_var_field(struct hist_trigger_data *hist_data,
- 	if (!ret && hist_data->fields[val_idx]->flags & HIST_FIELD_FL_EXECNAME)
- 		update_var_execname(hist_data->fields[val_idx]);
- 
--	if (!ret && hist_data->fields[val_idx]->flags &
-+	if (!ret && !(hist_data->fields[val_idx]->flags & HIST_FIELD_FL_ALIAS) &&
-+	    hist_data->fields[val_idx]->flags &
- 	    (HIST_FIELD_FL_STRING | HIST_FIELD_FL_STACKTRACE))
- 		hist_data->fields[val_idx]->var_str_idx = hist_data->n_var_str++;
- 
-@@ -5228,7 +5234,8 @@ static void hist_trigger_elt_update(struct hist_trigger_data *hist_data,
- 		if (hist_field->flags & HIST_FIELD_FL_VAR) {
- 			var_idx = hist_field->var.idx;
- 
--			if (hist_field->flags &
-+			if (!(hist_field->flags & HIST_FIELD_FL_ALIAS) &&
-+			    hist_field->flags &
- 			    (HIST_FIELD_FL_STRING | HIST_FIELD_FL_STACKTRACE)) {
- 				unsigned int str_start, var_str_idx, idx;
- 				char *str, *val_str;
-diff --git a/kernel/trace/trace_snapshot.c b/kernel/trace/trace_snapshot.c
-index 07b43c9863a2..4731ef7325a5 100644
---- a/kernel/trace/trace_snapshot.c
-+++ b/kernel/trace/trace_snapshot.c
-@@ -675,9 +675,12 @@ tracing_snapshot_write(struct file *filp, const char __user *ubuf, size_t cnt,
- 		if (iter->cpu_file != RING_BUFFER_ALL_CPUS)
- 			return -EINVAL;
- #endif
--		if (tr->allocated_snapshot)
-+		if (tr->allocated_snapshot) {
- 			ret = resize_buffer_duplicate_size(&tr->snapshot_buffer,
- 					&tr->array_buffer, iter->cpu_file);
-+			if (ret < 0)
-+				return ret;
-+		}
- 
- 		ret = tracing_arm_snapshot_locked(tr);
- 		if (ret)
-diff --git a/kernel/trace/undefsyms_base.c b/kernel/trace/undefsyms_base.c
-index e65baf58e6ff..37310baf706b 100644
---- a/kernel/trace/undefsyms_base.c
-+++ b/kernel/trace/undefsyms_base.c
-@@ -9,6 +9,7 @@
- 
- #include <linux/atomic.h>
- #include <linux/string.h>
-+#include <asm/local.h>
- #include <asm/page.h>
- 
- void undefsyms_base(void *p, int n);
-@@ -18,11 +19,13 @@ static char page[PAGE_SIZE] __aligned(PAGE_SIZE);
- void undefsyms_base(void *p, int n)
- {
- 	char buffer[256] = { 0 };
--
- 	u32 u = 0;
-+
- 	memset((char * volatile)page, 8, PAGE_SIZE);
- 	memset((char * volatile)buffer, 8, sizeof(buffer));
- 	memcpy((void * volatile)p, buffer, sizeof(buffer));
- 	cmpxchg((u32 * volatile)&u, 0, 8);
-+	cmpxchg((unsigned long *)p, 0, 8);
-+	local_set((local_t *)p, 8);
- 	WARN_ON(n == 0xdeadbeef);
- }
+-- 
+Hugo Villeneuve
