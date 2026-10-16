@@ -1,77 +1,74 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28546379C26
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15AA237EFFD
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:28:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792160918; cv=none; b=D4HDPqTju30jXVjOMjgosvvGngHZn0VlERRVJGQ4//CDoYEK+zEBk15KB3FAMrj+EkbVBSzVZhEY91gSPQDG4r3u4VooGZNunuRzKtZmQuPlwt18zBe3wHVFr9u12wUsBILwNtD1zgyhHB9hlML3U1jZnKoPNswbTmbvYxfni3Y=
+	t=1792160920; cv=none; b=jDv5J78qm/ATI6iOps2QXGj5FErBzbthFiUSzK+qD8KnOqzTNF007pbMdxznAiBSnkQpbIKbJ/Zg5YVu/7qZOs4QryD7b+/4OY0FbdhADZBERZKc2vbnaJPM49aMq96i5GS4zyzsayHNJ9WOqlOKBVG8Y5sq/JBrzOzZVgQXsbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792160918; c=relaxed/simple;
-	bh=HUDExN3lnnesXXgTgOZLlsoxX5V8SQadHshH92kBxYw=;
+	s=arc-20240116; t=1792160920; c=relaxed/simple;
+	bh=tCiJvvmVqkDn9bBZcYj3gCwhrS0H3F9Qtdp20m+sp5Q=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=bh5wvIa1NmtEqN7/XVsec7lPR7XcGaBVmQSO4Ss3roAK5E2zRpfLYKNuiZxWKyxTznMbrnp2iI11xRb7dJjT5f/PKCXM+6tDGkSrG2sXhuLdKAh8XbRsJLUABPu74AfXM9PV5INHClr2MvR9ibI3KfS5Kt5zyREQpJMOy/Wzo/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=eGTkRS/9; arc=none smtp.client-ip=74.125.82.172
+	 MIME-Version:Content-Type; b=f0NHdrlMpbQdk6idHNQZTVtsUZqkrWrRYEo6/BbZx1HhnV4tjXPwbQqQLex0/aBFmiVswpTqM4g/1yvT6kmI1qfasZ9QuOHOZCpHdmt1s3Opxc0C1JLOrWoV5U9HO0PgEeeUDF0e8WMJmn1rGdlr+zKNo2AWtQ1RG8ZhkzLOzbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=FHqdv+3V; arc=none smtp.client-ip=74.125.82.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="eGTkRS/9"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3550c917fd3so4352780eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:28:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="FHqdv+3V"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-354ba08cfd1so10597164eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:28:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792160916; x=1792765716; darn=vger.kernel.org;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792160918; x=1792765718; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XCmVsxrmgZ8pEfg7Qw32h+8bf370YAvLf7Ni1e9gfE8=;
-        b=eGTkRS/96QFF7yVAVOedV3E2Xi7Bg/T33N4Xux5QEx637bkhvXvByfMLP+kffeAPHX
-         COWK/tTbVleP/gsieO8fT04PAZwa8nhHdOT/Y+oF+PXmguh0VVH72xPgk+mavuMYxoJV
-         x2Txm9CcfGf/kz9lkz6pLsKE2DcHozo2paAVqNFNtE8/P19FqhxViSFNvnvZo38XEmS1
-         HHPGm6CIn/7f0u1181qMhMWlwxobF7t5xE3fjwnjHXg6d6TbgZlc5vV/oM4/IDeUPOZg
-         Q+cHFRJB/bIa+nk3QqJgsSTzXeQmTAgRb6g9NEV7lB4TLjxlPu2AY/2Wcj9Zn6FuRTFS
-         JezA==
+        bh=lZNDAA0XdcAcUqgBVAh4lShInRCyhCpm07d2o6YZC/E=;
+        b=FHqdv+3VwCIo2+J09xi+YGOLak1/q7OXSZbyRS8Vl5Oi1QMPJQiA04n3Pj6hT22CDc
+         7t3ymWfa8wbsAep8/pc2X5m7e+UwGg/xRAsOYoPhBSNwwy/QPLKf610iOHnwxfV/wc6I
+         FajLQalN0zpeqlpItO3ZtQU87+MIhplG39URNEn7F6OfSc1Z//kAthnm25gy1MGUP97+
+         MTJw6vR5eSiXGiAguaO8/wkqA3uCziRO6z9iwuhKnM/T9fpdkCTzKJT5U137bgYWc/xJ
+         vdTYVcxRhucjvsDaEnLFbiY6qIbaqkstPRk2buvy7GUosej7lIiE9hcMeVhe9gIS69LO
+         goRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792160916; x=1792765716;
+        d=1e100.net; s=20260707; t=1792160918; x=1792765718;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XCmVsxrmgZ8pEfg7Qw32h+8bf370YAvLf7Ni1e9gfE8=;
-        b=ttOY9Vucxct67OKfhr4vCuKNzIzyW5dN8t53ouRKGDjLpLmAXKClGjQKWskPB0QNFH
-         TjbE8+kqcamdbjsceuXYs7zh6ak7dE3cRjnls88qjenFDtErw2yn5ycy3xTviUuIX2C9
-         5Yt/5iRIeFO8GCa74oQbezZPpwQCr6nqwrBnWESGQAUBwYF4BTj/8cnP6mHjL+iFxVkB
-         ROym8MgprphDyTLgOcYUE2V2/3nRz9PmtBQhv2kSDa9woIehyGDkCzKrV7s2WAlOH1K+
-         8lGIkD84qcVIPXVCD/IyvYfdFB6sLw+UPy4RkovJ1liYdo15b0Z6W7l6RKrMHazIt6Yz
-         TNmA==
-X-Forwarded-Encrypted: i=1; AKwUvByDwswdEjqnuyItH9TdvHbMap61SIE3alk48Rd5i1HiF+bzALgIE2NQYgKYfGRZMmIfq2r2UZmrBuW06IA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHv343bH9nba8z7FQJgcGscSWEJkGndEgwutZux+oj3A4FYmcT
-	SeokM+gHVOdXhAJPlj8Gs1sbXa9KCUzPHDgmdseQ43m2a1MyCR0sX40/5OOa0avwRAE=
-X-Gm-Gg: AYBFou3OO/BymBhE/bhqsw8vJHYeNXywBKDFcYWDVOv5qPEBm68eKwvJ9HMoyrKdA0e
-	s9sKkXjEWa0o6Ufo6dy8BKHX/IkymPfNlsuV0n+lA7dbPr0cKS8buXNeskZ6s6S5a4uAq3nDvdU
-	Q9mrKzZNZIHsy4jLq83g+GioabrY7E/D484GRbFOuRTfgXHEBpwuMz3gtC94kEHxww/fQ+5hznb
-	a/BMwoYzi7Y6HUmn0QwA/i6G5AFJnHvM78bG7ObsxJyO3I1kQPQtznIogyA8jQVH1mo3KBOG7wO
-	S8Fn2N29axVmLNqDAB9CRad4F5ZRzWAuyh21ovTrQCSqliZZqsxYG7cHARLjoPd83+YQzXACOTz
-	ZlYBc5Au0QESEqXPrzPnuFawPkQ1lf42WwilARNwjE/kL3czzYcAVhQMxdsvEyKgRYODadXL4JU
-	rmnplemlRVgBkiOV2nudEl+EIe/zZ/LilpkK06VlAe3lAC7XeU5i4bw703d+WgVqauO1OFkC5Ro
-	iM722zXQQ2EXovxYOXLrOVRk944TnO7pgwVAtxJmoT/L8xBKIW4jF/yNQ==
-X-Received: by 2002:a05:7300:c00c:10b0:35a:22a4:12a with SMTP id 5a478bee46e88-35a22a420demr23834016eec.18.1792160900544;
-        Fri, 16 Oct 2026 07:28:20 -0700 (PDT)
+        bh=lZNDAA0XdcAcUqgBVAh4lShInRCyhCpm07d2o6YZC/E=;
+        b=mqDQdYBjXCZak3NCD5sTLU93l5BubsRn9cyYrPL46Rtk9VjxYPazoEacFEOq36Jwe9
+         eL4KPFVHXqaloN8L4mYGXFsDvMS1y8MNpdlyBEO1jet2HMTclf3HZ4S+5t2J2XgvJ9iZ
+         ZgDJT3PtSJjbEndGATB6WK1c+7EUwm8tjQd9CJTn+46s5psMM4a2e8KwHP111y+iqQ8H
+         1/lg0rGXTg4VV3xjl8KUl7RdUfD3agkrnFYVDjniz75AASw8CRyO3efqU2zsTNLU+O46
+         oPU2z3fSRFuyidB0PIkYT6DM33OQBW6RKq2ZI9kRo3R6UuA9rggrpmkNE+UL4OWRJpgi
+         bmKA==
+X-Forwarded-Encrypted: i=1; AKwUvByKt9iwx5gL3fLP0xXY3otCsMi+duuSY8NOWcWqglwy6d8yIbzls5s7880BZ7C0Afg4CZawIy66vQeUbYw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZ1Z0YHnohc7zpVZl/C/Q5mZBnGdhVCnuRaQSmGhtYPzXflStC
+	FIWHfDMm8oCHJ/Oh8HyeBali2XaCa3c3gylJf1w+emEUNIvzuqfELR49gJxuPTO09TY=
+X-Gm-Gg: AYBFou2sBpTdtcyFazWJ8LqMBlLwtMgSAD8lopeY6jICiW3ltfwuOMI+gcoAy7woiw8
+	qnLOQ/Q8vi3jv0s/dA0cAwUm2OHPO7Jq8UcHeInwtgX2gTJFutKU6b1BCwSIaDgEBej9aYANMv5
+	AEsAyJ5BAZ8SiYoGFgpQlwv4zMW3u7MWAmftO87HlLLhRSfPNlVzDFru67rc2/qbX7CfWqccFzk
+	LJdpHU49rYyP4y11psk4ekcIYv4Fyr2fxqmj1QpRGfJ2BsbtIQ1scNdDbfaD3sI1Dtfkj2GTUEK
+	QtS/2TfdnK2bqM2ePkvzo96Qe6t4XpAovJ1bJskOlfjdJxxJ3lkaKMeNNNcZBTN92tRIwP75lk2
+	Ms3sIB2iyyxARh4HHTxGJrLneDKwqpUKQ8ALG7c6mj5YSu4PriRKinBTtT6CWeGvI3hgJFEVRNM
+	o/Sus5pa3wk0SVIobw/j2yJlXg+DCBbkt4wD56ybaR2FceWE31DFcEtweyKBOvWBKmhRH3frTsb
+	tpujXIadsOcfL4uQCN1a3dVA5sQxK5M3u+FroGPuogIgiaWtOmk7BrCOv7hftiOqi04
+X-Received: by 2002:a05:7301:1706:b0:35e:6816:fa72 with SMTP id 5a478bee46e88-35e6816febdmr8708847eec.18.1792160916751;
+        Fri, 16 Oct 2026 07:28:36 -0700 (PDT)
 Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081bafa7asm7150945eec.14.2026.10.16.07.28.19
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081bafa7asm7150945eec.14.2026.10.16.07.28.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 07:28:20 -0700 (PDT)
+        Fri, 16 Oct 2026 07:28:35 -0700 (PDT)
 From: Jens Axboe <axboe@kernel.dk>
-To: Ming Lei <tom.leiming@gmail.com>, Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Yu Kuai <yukuai@fygo.io>, Hannes Reinecke <hare@suse.de>, 
- "Martin K. Petersen" <mkp@kernel.org>, 
- "Paul E. McKenney" <paulmck@kernel.org>, linux-block@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261001-bug-blk-mq-global-tags-srcu-v1-0-e8415da10d1b@gmail.com>
-References: <20261001-bug-blk-mq-global-tags-srcu-v1-0-e8415da10d1b@gmail.com>
-Subject: Re: [PATCH 0/2] blk-mq: stop waiting for an SRCU grace period when
- freeing a tag set
-Message-Id: <179216089963.2070939.15710192231611954920.b4-ty@b4>
-Date: Fri, 16 Oct 2026 08:28:19 -0600
+To: Ming Lei <tom.leiming@gmail.com>, sonotri <sono7ri@gmail.com>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261015120654.241354-1-sono7ri@gmail.com>
+References: <20261015120654.241354-1-sono7ri@gmail.com>
+Subject: Re: [PATCH] ublk: pin module while release work is pending
+Message-Id: <179216091563.2070939.8848021281402109877.b4-ty@b4>
+Date: Fri, 16 Oct 2026 08:28:35 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,22 +80,22 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15.2
 
 
-On Thu, 01 Oct 2026 17:17:49 +0800, Qiliang Yuan wrote:
-> blk_mq_free_tag_set() calls srcu_barrier() on the tag set's own
-> tags_srcu before cleaning it up. That costs a full SRCU grace period,
-> 1-3 ms, on every tag set teardown. When the free happens under a lock,
-> the cost multiplies. ublk drops its last device reference under the
-> global ublk_ctl_mutex, which caps 16-thread deletion of 4000 devices at
-> 19 s on 7.3-rc5.
+On Thu, 15 Oct 2026 21:06:54 +0900, sonotri wrote:
+> ublk_ch_release() takes a device reference and queues exit_work.  The VFS
+> module reference held through the file operations is dropped after
+> ->release() returns.  A queued work item does not acquire its own module
+> reference for the callback.
+> 
+> Consequently, normal module removal can start while exit_work is pending or
+> executing.  In addition to the worker callback itself, the final device put
+> can invoke ublk_cdev_rel(), which is also module code.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] blk-mq: share one tags_srcu instance across all tag sets
-      commit: e1c51edd6a575ba3b6fc5acb57ed2fec6951a910
-[2/2] blk-mq: drop the tag_set argument from blk_mq_free_rq_map/tags
-      commit: 5f702d4bd61be29f11d07dc1c4a6953d39b28f9f
+[1/1] ublk: pin module while release work is pending
+      commit: afc9cde716b29ce814798d649a95f9128ba42b43
 
 Best regards,
 -- 
