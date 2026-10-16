@@ -1,165 +1,149 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A59853AA9D8;
-	Fri, 16 Oct 2026 22:34:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1321A352016
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:35:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792190049; cv=none; b=YxYqJgcoFYFqzI4/FycPxeVqNGAKYu6+gfOP68R8zPzo7hg1Zyd4jjGk8hS7QInEWm/nYwcahqTzhKPlsMCdtGuXdX6sCeZ895OaoomJY97uxw2TwSG0/5+soFTIP5UHiX++6hY4MkdhzsDQEKafssBObA0hArM/w/nAfjMmqjs=
+	t=1792190106; cv=none; b=E1a+OMa1l94YH9tyykQ/zalAeQfpEhG+SLkoqO6IwRQtfCI/0W3p9MFeynAJEQ26d6UQ8U6/K86GdlAnIr3jHIBsbg4FatdXYtET85nkoHz9C0E5qdIaoJQ7aTQkzlc2llfFxlGFCKWvLw7emXx4KH9GguuXpYeU6vYqu4sHxyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792190049; c=relaxed/simple;
-	bh=xXTgKKiF8Vh29vliOCJzdcrX82neJvvVERU0Nyh0x1I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iJHL0bjGyGM6N7VTNiP8C3hmwEx1JWt/lZEor/tbBRrzkjvTKtvpm2HCoEJthU+O4wdlCoNBGB2QmMSE3LV1eZTRdBGtMyUyc7fr088dab1JQ5T4ql+e7yMptrNLcAfAqffqHAxJ6fbV80TuXMkZzBdUESmKAqx9AdLiYeDyWMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fJ0V1Mb3; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792190106; c=relaxed/simple;
+	bh=b7OGKvhsJjjfXr4q4R/UClaDBJvsU704uXuJcvC1Ai0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=aZmHXREw6chmb1rnDKuQwYRuwOVyocqsfG6IuJt7LaVO7XeQgs/F0MD0ciZMgtUk57UZ55UEv36oTFUXo5EYtLQiKfZEakpnl7W1CwM5uSggQafmQ8FpbddBsaBAIMimXwLNAfj7evtLl5zCbIs/vH8ziI222JrzGV3kpxdNFZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mA4Wf2G9; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fJ0V1Mb3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792190047; x=1823726047;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=xXTgKKiF8Vh29vliOCJzdcrX82neJvvVERU0Nyh0x1I=;
-  b=fJ0V1Mb39fwAUiKHmE0h4jvikko01SL3pZEdHOmBu9S9yavd2wtzc07p
-   LAm/RyG9c1LFR6g8fzjoRYgSMbN+Oggf4Unq+l+OswaFiuOpObA94M7YB
-   1v9XEOehF8NrQ8lX+dIEnRbYMBPlytCG4aekrH/ppDeV6GZF2SZo+TmoY
-   7RSeG7puNGoezKOp433uUBG9V/qNwkFDhZBQlDWr2OQfHCoHg5StUjhH2
-   xuCAsds9QMWiCuJ4e5VvHxK2ixJaPhI8EBSjUJcTXlJoR1MxnXhqFjxsa
-   1OLnyPEef21Zp55Y3qdPswqbeI2dsU+h4zWRihn1P4v0P+v7Q5hmiVzcA
-   g==;
-X-CSE-ConnectionGUID: 6URO2c4oSN2sJ28TOCFKlw==
-X-CSE-MsgGUID: 25bd/08bQE25HlP4XSVZhg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="990193"
-X-IronPort-AV: E=Sophos;i="6.27,162,1787036400"; 
-   d="scan'208";a="990193"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 15:34:06 -0700
-X-CSE-ConnectionGUID: kwq0Bn+xQ267JFNLPHxhHg==
-X-CSE-MsgGUID: mRY1CQsaQbe/voAv60Fnmw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,162,1787036400"; 
-   d="scan'208";a="2025034"
-Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com) ([10.3.206.11])
-  by orviesa009.jf.intel.com with ESMTP; 16 Oct 2026 15:34:04 -0700
-From: Pavel Popov <pavel.e.popov@intel.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>
-Cc: pavel.e.popov@intel.com,
-	Jim Chow <jim.chow@broadcom.com>,
-	Radu Rugina <radu.rugina@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	Leon Romanovsky <leonro@nvidia.com>,
-	Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	virtualization@lists.linux.dev,
-	linux-hyperv@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] PCI/P2PDMA: Allow P2PDMA in VMware guests on Intel hosts
-Date: Fri, 16 Oct 2026 15:34:01 -0700
-Message-ID: <20261016223402.19991-2-pavel.e.popov@intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261016223402.19991-1-pavel.e.popov@intel.com>
-References: <20261016223402.19991-1-pavel.e.popov@intel.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mA4Wf2G9"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2db33db4de9so25045ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:35:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792190104; x=1792794904; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UfiAlLwpckXLSSoGlBblxykTWKXYXbwMTB7pRP0Lj2U=;
+        b=mA4Wf2G9wqq1LDU5GVXcqk/GpwFDqCIC5r/1bJsygR5mV3LX8zAZflUoBpT6nFwh/5
+         3KvHVoQ3GByMGtHrI1uQ+nP/5ArdMLdnx69xdMGWcRKGEMkeEhse/ggirLeyOKjOd3HW
+         8e6TD41CbRVpFuC0D5xsaZ3Rl5IEbidR0qzuAXmzHL9VLN9c7jLzMm4TS8BoTMFMeEcF
+         XIzgoliO64aKjHISjjLP7pK6rHCdfRDFfaoDJw4snH0dmP+5u2kI/JPXb3tjy4ON1czu
+         +W4Z7xm7y2MeUvLtVa1DjGchLfxwBn+fX/MHJnf/lHS7KS9ltOtuI7GQdOSyoE++TPEr
+         nRsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792190104; x=1792794904;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UfiAlLwpckXLSSoGlBblxykTWKXYXbwMTB7pRP0Lj2U=;
+        b=Hp3M3DaoPwVynqHmUEGKwxzf2yKr61rTbNl7tsHwYi/TfU53/RAIKLTGkBP5B7Glyz
+         ZqyyicLe2iy0gPcQ8y7E3L17hR6F971uh3JMVKDYcnDRrUs+kAFcKpVNXZ1bdPceLuSS
+         wF8uEj03CzI1Xkm/oKcFawzMe3ihds2d28tqyKDbO53euTvs7rsoQk5vMqfHnh6nO1j6
+         NbCSJ5kOmlQVGGsY5/uZ8MuTEbTBpp7BD9uIUv0iSQvX+H6axZSsVwSWC6Gb/czqnRg8
+         1wxSbLFwaHUZ8556eRylvSLmILBPEMHKKxu7I1c2DVlKE2hqmure413v1C027kRpoFpB
+         h2AA==
+X-Forwarded-Encrypted: i=1; AKwUvByv3MVjI2uCbpYMKwDVRh5zJ1dGSpTe8SFfpTuAJdLa60GIM230zGvUYjgNLrhfTFFSyd2MYo5QssHnsPg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvKs8pOt5PZ904maYAg+Qi1sTaTKAcUMjREoKZTcpgO7Vc0eMH
+	2W9Wv+vctdN5Gy6/UWVxU6ajcaqD4lLDD1+i5vfi/PxZhUcL97GyXQuUgGA9erf+DQ==
+X-Gm-Gg: AYBFou2eOyJpjBwsIcLZ1eMQqPjSBR4RNB3cOEN0VwEmqHmWdu9hMfBTRXAiGNtfZlG
+	J29YHTSOcrd4+LloDOHecHSVmpCGza0U6j8oab1YS9T1z7rHZG6gRdHCeyImLqOSucXz89xA6S6
+	zRofnbrh/LMTyowHiuHy8Nt57n4JVjNcJmShqG44FzD0SHZUd0HmFfvFVRTbFgEStT3zNlCXByJ
+	u+6f+zhz6LoteemFPfhDw1gsVoj+UiCCG4Lj5V0aG6XKqSnKc63IYpsATEzkJE+to1hnmmUhJgY
+	drh3dAYGuf87EAYCcz5Cm4k3hLEfsLU7/0AKqCsuHRIbxM/SonqjZ32sCTY8SAOvhxMbGJfH9L2
+	O0Kgn0OlrwmAW7iwtKWW81y34R2+9k8ggeVyCXgzVHABdo1OFUSge1PtEZvtATYCyYJw36bfJLe
+	lhG6MJnzFcCcODJwFsoltA7/Z0lcjLNeEFbjWK7cypN0AtS9ukNfNCxZiotIZG5JEAUbfRDdeNU
+	hkMEzh2yawX+7+BgYVDph7n5/ZHp8YojKWkAdnHXZDi+eE9+zHl+UtBQiY5SX9TvYtG4rlY25QX
+	yBuXLV6C0T89Cs6m9hQpAP/jmnDAZNARHsbl3GNAWq9jj+/s5DdVrLAGL/NKMJADPaEpV9NTzOt
+	D6yqXoEI=
+X-Received: by 2002:a17:902:d48c:b0:2cf:9ec1:ea6e with SMTP id d9443c01a7336-2e9b31afe12mr1007515ad.8.1792190102405;
+        Fri, 16 Oct 2026 15:35:02 -0700 (PDT)
+Received: from [2a00:79e0:2eb4:9:17ee:cb47:3ad4:ee3c] ([2a00:79e0:2eb4:9:17ee:cb47:3ad4:ee3c])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f56c87e66sm1698081b3a.13.2026.10.16.15.35.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 15:35:01 -0700 (PDT)
+Date: Fri, 16 Oct 2026 15:35:00 -0700 (PDT)
+From: David Rientjes <rientjes@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+    "David Hildenbrand (Arm)" <david@kernel.org>
+cc: Christoph Lameter <cl@gentwo.org>, Vlastimil Babka <vbabka@kernel.org>, 
+    Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+    Sarthak Sharma <sarthak.sharma@arm.com>, linux-mm@kvack.org, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [patch v5] mm: vmstat_kunit: add synthetic benchmark for mm
+ stats
+In-Reply-To: <920ba123-077e-c42d-ebdf-a5effccf2073@google.com>
+Message-ID: <8b077a83-3f79-cbfa-0273-e086b0e51ae4@google.com>
+References: <920ba123-077e-c42d-ebdf-a5effccf2073@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-Peer-to-Peer DMA (P2PDMA) between two devices requires either a shared
-upstream bridge or a host bridge matching pci_p2pdma_whitelist[]. In
-VMware guests, passthrough devices appear directly on virtual root
-buses without host bridge devices. Consequently, P2PDMA checks
-evaluate endpoint Device IDs against the host bridge whitelist,
-causing P2PDMA requests to fail regardless of host support.
+On Fri, 9 Oct 2026, David Rientjes wrote:
 
-This affects discrete devices such as GPUs, NICs and NVMe drives.
+> From: Christoph Lameter <cl@gentwo.org>
+> 
+> Add a synthetic benchmark that can be used to measure performance of MM
+> statistics.  This is used to analyze any improvements or regressions in
+> functions that are frequently used in hot code paths.
+> 
+> This is the first of three tests that measure the execution times of
+> critical MM functions anticipated to be used by developers to measure the
+> impact of any core changes that would end up causing workload performance
+> issues.  Vmstats are embedded into MM hotpaths, so any regression can
+> cause performance and scalability impact for users.  Google has carried
+> these tests internally and kept them updated since Christoph posted them
+> back in 2009 for this purpose.
+> 
+> This can also be used to detect regressions over time, from kernel
+> version to kernel version, independent of development use cases.
+> 
+> The test is run by KUnit or doing modprobe vmstat_kunit directly.
+> 
+> Sample output:
+>  KTAP version 1
+>  1..1
+>  KTAP version 1
+>  # Subtest: vmstat
+>  # module: vmstat_kunit
+>       1..3
+>       # vmstat_test_inc_dec_zone_page_state: 10000 ops: inc_zone_page_state -> 8 cycles (4 ns/op), dec_zone_page_state -> 9 cycles (4 ns/op)
+>       ok 1 vmstat_test_inc_dec_zone_page_state
+>       # vmstat_test_interleaved_zone_page_state: 10000 ops: inc/dec pair -> 17 cycles (8 ns/op)
+>       ok 2 vmstat_test_interleaved_zone_page_state
+>       # vmstat_test_count_vm_event: 10000 ops: count_vm_event -> 4 cycles (2 ns/op)
+>       ok 3 vmstat_test_count_vm_event
+>  # vmstat: pass:3 fail:0 skip:0 total:3
+>  # Totals: pass:3 fail:0 skip:0 total:3
+>  ok 1 vmstat
+> 
+> Assisted-by: Gemini:gemini-3.8-flash
+> Signed-off-by: Christoph Lameter <cl@gentwo.org>
+> Signed-off-by: David Rientjes <rientjes@google.com>
+> ---
+> v5:
+>  - added dependency on CONFIG_VM_EVENT_COUNTERS
+>  - expanded commit description
+> 
+> Once we're happy with this change, I'll apply the same treatment to the
+> proposed pgalloc and slab tests.
+> 
 
-The P2PDMA host bridge check does not work in a VMware guest. Bypass it
-for host CPUs whose host bridges are in pci_p2pdma_whitelist[] without
-restrictions. The list covers the Intel Xeon server generations from
-Skylake-SP to Diamond Rapids. AMD Zen and newer are already covered by
-cpu_supports_p2pdma(), so only Intel entries are needed.
+I've added the rationale for the change to the commit description as 
+primairly being used by developers to benchmark and monitor any 
+regressions in functions that are known to be super hot and impact 
+workload performance.
 
-Tested with the Intel Level Zero P2P benchmark (ze_peer) on Arc Pro B60
-cards in a Linux guest on VMware ESXi 9.0 (Emerald Rapids host).
+This is the simplest of the three tests that Christoph provided back in 
+2009, the others are pgalloc and slab tests, see 
+https://marc.info/?l=linux-mm&m=178547194364290 and 
+https://marc.info/?l=linux-mm&m=178547193264283 for those.  Based on the 
+feedback to move to kunit, I forked this one off independently because it 
+was the simplest to address all the feedback and pave the way for the 
+other two to be upstreamed afterwards.
 
-Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
----
- drivers/pci/p2pdma.c | 38 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
-
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 9334eb314663..1b4886d4f9be 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -21,6 +21,12 @@
- #include <linux/seq_buf.h>
- #include <linux/xarray.h>
- 
-+#ifdef CONFIG_X86
-+#include <asm/cpu_device_id.h>
-+#include <asm/hypervisor.h>
-+#include <asm/intel-family.h>
-+#endif
-+
- struct pci_p2pdma {
- 	struct gen_pool *pool;
- 	bool p2pmem_published;
-@@ -532,6 +538,37 @@ static bool cpu_supports_p2pdma(void)
- 	return false;
- }
- 
-+#ifdef CONFIG_X86
-+/* CPUs whose host bridges support p2pdma, see pci_p2pdma_whitelist[] */
-+static const struct x86_cpu_id hypervisor_p2pdma_cpu_ids[] = {
-+	X86_MATCH_VFM(INTEL_SKYLAKE_X, NULL),
-+	X86_MATCH_VFM(INTEL_ICELAKE_X, NULL),
-+	X86_MATCH_VFM(INTEL_ICELAKE_D, NULL),
-+	X86_MATCH_VFM(INTEL_SAPPHIRERAPIDS_X, NULL),
-+	X86_MATCH_VFM(INTEL_EMERALDRAPIDS_X, NULL),
-+	X86_MATCH_VFM(INTEL_GRANITERAPIDS_X, NULL),
-+	X86_MATCH_VFM(INTEL_GRANITERAPIDS_D, NULL),
-+	X86_MATCH_VFM(INTEL_ATOM_CRESTMONT_X, NULL),
-+	X86_MATCH_VFM(INTEL_ATOM_DARKMONT_X, NULL),
-+	X86_MATCH_VFM(INTEL_DIAMONDRAPIDS_X, NULL),
-+	{}
-+};
-+
-+static bool hypervisor_supports_p2pdma(void)
-+{
-+	/* Hypervisor hides host topology, allow p2pdma on whitelisted CPUs */
-+	if (hypervisor_is_type(X86_HYPER_VMWARE))
-+		return x86_match_cpu(hypervisor_p2pdma_cpu_ids);
-+
-+	return false;
-+}
-+#else /* !CONFIG_X86 */
-+static bool hypervisor_supports_p2pdma(void)
-+{
-+	return false;
-+}
-+#endif /* CONFIG_X86 */
-+
- static const struct pci_p2pdma_whitelist_entry {
- 	unsigned short vendor;
- 	int device;
-@@ -781,6 +818,7 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 
- map_through_host_bridge:
- 	if (!cpu_supports_p2pdma() &&
-+	    !hypervisor_supports_p2pdma() &&
- 	    !host_bridge_whitelist(provider, client, acs_redirects)) {
- 		if (verbose)
- 			pci_warn(client, "cannot be used for peer-to-peer DMA as the client and provider (%s) do not share an upstream bridge or whitelisted host bridge\n",
--- 
-2.53.0
-
+Is this acceptable for merge?  If we're happy with this, I'll move onto 
+the pgalloc and slab variants.
