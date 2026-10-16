@@ -1,270 +1,102 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F352853FD;
-	Fri, 16 Oct 2026 03:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3F42853FD
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:13:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792120303; cv=none; b=M/t9/8No3GwJIVkqEYAiKoRnjH3HckgDqYDVz0zT1ZVNn24AGN91HRUX06EwJXicuapZrC8FpzUi8gS9hlGfCOryou2A+udHEnCPLqFCDHX7tOfAsUpgyd8F+xBo3uJWf1yGlPGtp9h2+Aaf8LJuTfUuFLN5268f/+mdxPzYkOw=
+	t=1792120397; cv=none; b=s00I9jdIeLL2DweLvhbqd5mTKjDI+Q7I/OWxNcKe8Uv4fwplwyGJ0ATRq6f4ItR5I8H9rsOlw3+HXFnxVC05xrhHI3Ok35tc2aDpsFbM3M2kHxtmr4pGZhBbAqiYSUm4Dw1rINq2pwDLWZ9WcOhsGSgWXue2FCiwN21SyzS33DQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792120303; c=relaxed/simple;
-	bh=sdnaONkbtC5AWH295B8Q1LbDEsh1f7mIxFFEsoKw9H0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bZgPoWwKeUfnSDRkW2XPaeUgZ2dtlUOWHYHdeQcxWzXlMjtg8x8D/144xTOUQ13sVRK4OMMX7Lt+9naJ9oh1Vrac1xMDlxeMfgDpc5EBCf1olyVlkFOmdn6MoQ6vH5lQAbMbDF+mkzo2mlyA6CLEOdIAZ0FmDFy7dUWT6Lvqnbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GLTtIAmx; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1792120397; c=relaxed/simple;
+	bh=xX1XNR4FUyGCNwMgFXenF0TymohhxAoMlU9N1h2TFuw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d7H+r5a/roRO/Q5zxXwyIFKuOLI7sk0e14eK+ODFf2bUSxiTk4HDIgOcvnWAtXqtjj/mCs4UmB/1AUF0i90EevAnsehrZLTBNfO9+dd9lhexBS7hL06G5G9W0IMqzhqL5sQTpy9EprcY2hoY6/Cz1az5413XXmEFGEB8YT1Ce1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=kB8VpIqd; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GLTtIAmx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792120301; x=1823656301;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=sdnaONkbtC5AWH295B8Q1LbDEsh1f7mIxFFEsoKw9H0=;
-  b=GLTtIAmxmxVTNmxVlp3kl6/2pLqidnIPORGEqNDfeweqpKQB6NcbSFIk
-   pwiVw93/YNjaR3szpGVrNcvmknzUjAwZFnn9a/n6hqAi8FRrV6sHJlXkW
-   a9t7vPbGNy93RthZdZUf+vDsZ71hJNMfdTqcoqB28aldX/RQbqQZNjNTL
-   KmjKfYPlwFF+rEMi+aNDvC9jbHCN+uQug3aym91vXv32f8/jLGZSgZx1T
-   raq6u07VQ3yMHocay3gtPgRzNukQGPyR5fA+X0OnYYnGTkrIJQ545gAum
-   6NQJqKmpQcs4Kwa0ENihq/ZHBsXWdKXPJxjWSyfIlqWIZT8gKAGQUYjbB
-   A==;
-X-CSE-ConnectionGUID: pTEwuz3NT3Cgx8ipivUIpQ==
-X-CSE-MsgGUID: jpEFTAkTQtOkJK9892qGKg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="781821"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="781821"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 20:11:40 -0700
-X-CSE-ConnectionGUID: 6ywES729QEm5/80oo1fpOw==
-X-CSE-MsgGUID: fUNJ7nYDQaqEssfFFjYzhg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="1738755"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 20:11:33 -0700
-Message-ID: <4ef25c08-ac66-4734-abd1-2d50bebcd94f@linux.intel.com>
-Date: Fri, 16 Oct 2026 11:11:30 +0800
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="kB8VpIqd"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 1B4D840E00E5;
+	Fri, 16 Oct 2026 03:13:06 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id mBnfSpkapakG; Fri, 16 Oct 2026 03:13:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1792120383; bh=j1zejq32/tNyzbLvGPeykcuEeIhlm8wIUYy4N4oErp8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kB8VpIqdOiSX5ndcGB5+uU2Je2QVle5SGwgxBhwgniqNp9KofZz18qF4uDV4wnO+T
+	 pCyhS8I+l/+1AOywZQDj3LtXIivTBSsM3EC53sEhbEnGH798zR4FFpU8hCrlz9qMVW
+	 HcfkeKAnWl646osI6j9i3arBLszg8R9ZwM7Yv28dOn8y8Hf4m+YkqFWRhgH0u+lw4s
+	 SfeIs4BdY6IEbtkJwhJze6bp4AzmLAEifPX1qCLM2iCEdCrZ2u78Qjznjqgil7MJr9
+	 5FstuCvxUuc97mEZYep78dkzCxhKIKNtV9rONqXGx6HNP3w5tklqxbaRD2n+RKJlVU
+	 6bISq/NbxwTeypI5eOHDEfPv1or030WfDf1ly9eeehXfY9IER4cnSTwmGcHkzDJ+T1
+	 4V2xcf6XRCKfLFIQYsR35IOR02kgE+oQiVJmDgPAIO+HVqgLEGgLZ+iNTT3QC7GumZ
+	 DVIvweDQ4uR5roSmA9bF9CroTe4Vw3rHt8waFgu+quLoWzueRK2uNi23M4k1DDFaa/
+	 FRGq2WXcia0qwHHeDKG0OjRYavT3/OdnZ4l8TVYRLqyUmFC3OEEPv7sfLs0esSMNaI
+	 6cRCHNI5GqjB2EDehxXN65fJ1Wv0gTObeMDfdV3KTcewuUuaQpELmCkVTQ4sTqHBd0
+	 BOzgUgp7AVq/i9IMKc6+sXjM=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6130B40E0497;
+	Fri, 16 Oct 2026 03:12:46 +0000 (UTC)
+Date: Thu, 15 Oct 2026 20:12:42 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Nikola Ciprich <nikola.ciprich@linuxbox.cz>,
+	David Laight <david.laight.linux@gmail.com>,
+	Rik van Riel <riel@surriel.com>, ljs@kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, david@kernel.org,
+	Mike Rapoport <rppt@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>,
+	luizcap@redhat.com, pbonzini@redhat.com,
+	Tal Zussman <tz2294@columbia.edu>,
+	Matt Fleming <matt@readmodwrite.com>
+Subject: Re: hunting memory corruption bug in 6.18.x
+Message-ID: <20261016031242.GDatGWKo98YSOhEOOn@fat_crate.local>
+References: <asKdhWiJb3qXeopz@pcnci.linuxbox.cz>
+ <bd8e9b01ad88cafb12da33331f32a1ce315f590b.camel@surriel.com>
+ <20261005132113.43548696@pumpkin>
+ <asP5xK4axiUk7jun@pcnci.linuxbox.cz>
+ <aseMsMGpGPT/G548@pcnci.linuxbox.cz>
+ <20261008182356.GBasffvDuTemTu1VUY@fat_crate.local>
+ <20261009090042.39ba9c06@pumpkin>
+ <aszH4vpXFAOQP1WG@pcnci.linuxbox.cz>
+ <20261014235736.GCatAW8GD0GlYumL4l@fat_crate.local>
+ <20261015172820.7961d2c0def74d41cc6c4b0c@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] perf/x86/intel/lbr: Limit branch snapshots to
- valid entries
-To: bot+bpf-ci@kernel.org, sandipan.das@amd.com,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org
-Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org,
- namhyung@kernel.org, mark.rutland@arm.com,
- alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com,
- adrian.hunter@intel.com, james.clark@linaro.org, tglx@kernel.org,
- bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
- andrii@kernel.org, song@kernel.org, ravi.bangoria@amd.com,
- ananth.narayan@amd.com, ast@kernel.org, daniel@iogearbox.net,
- martin.lau@kernel.org, eddyz87@gmail.com, yonghong.song@linux.dev,
- mason@kernel.org, ihor.solodrai@linux.dev
-References: <7f611dcd599d6d65325d8c40566a1fc35b447ea2.1792064123.git.sandipan.das@amd.com>
- <9ef8c1f496a9dca33792c7c3978e24208fe67d87688d5356b5e54e77eb009747@mail.kernel.org>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <9ef8c1f496a9dca33792c7c3978e24208fe67d87688d5356b5e54e77eb009747@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261015172820.7961d2c0def74d41cc6c4b0c@linux-foundation.org>
 
+On Thu, Oct 15, 2026 at 05:28:20PM -0700, Andrew Morton wrote:
+> fwiw, I fed a lot of tokens into $LLM and it suggests that 55780d8a1dcc
+> fixed this.
+> 
+> If that sounds sane then testing 55780d8a1dcc on that 6.18.x kernel
+> would be useful.
 
-On 10/16/2026 8:21 AM, bot+bpf-ci@kernel.org wrote:
->> perf/x86/intel/lbr: Limit branch snapshots to valid entries
-> TL;DR: Resetting cpuc->lbr_stack.nr in intel_pmu_lbr_read() may clobber an
-> in-flight adaptive PEBS sample if a BPF program calls
-> bpf_get_branch_snapshot(), possibly yielding a PERF_RECORD_SAMPLE without
-> branch records and with leftover bytes.
->
->> diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
->> index 22e2a06d5786..2fe858d99979 100644
->> --- a/arch/x86/events/intel/lbr.c
->> +++ b/arch/x86/events/intel/lbr.c
-> [ ... ]
->
->> @@ -1026,8 +1026,10 @@ void intel_pmu_lbr_read(void)
->>  	 * but this simple approach seems to work for now.
->>  	 */
->>  	if (!cpuc->lbr_users || vlbr_exclude_host() ||
->> -	    cpuc->lbr_users == cpuc->lbr_pebs_users)
->> +	    cpuc->lbr_users == cpuc->lbr_pebs_users) {
->> +		cpuc->lbr_stack.nr = 0;
->                  ^^^^
-> Can this clobber the branch stack of a PEBS sample that is still being
-> built?
->
-> Before this patch the early return had no side effects.  Now it writes to
-> cpuc->lbr_stack, which is shared with the adaptive PEBS path.
->
-> If every LBR user on the CPU is an adaptive PEBS event, then
-> cpuc->lbr_users == cpuc->lbr_pebs_users, and the PEBS drain points the
-> sample at the per-CPU stack:
->
-> setup_pebs_adaptive_sample_data()
->     intel_pmu_store_pebs_lbrs(lbr);         /* cpuc->lbr_stack.nr = N */
->     intel_pmu_lbr_save_brstack(data, cpuc, event);
->         perf_sample_save_brstack(data, event, &cpuc->lbr_stack, ...);
->             data->br_stack = brs;           /* points at cpuc->lbr_stack */
->             data->dyn_size += ... + brs->nr * sizeof(struct perf_branch_entry);
->
-> __intel_pmu_pebs_last_event() then calls perf_event_overflow(), and
-> __perf_event_overflow() runs bpf_overflow_handler() before the sample is
-> written.  A perf event BPF program attached to that event can call
-> bpf_get_branch_snapshot(), which is in bpf_base_func_proto:
+Hmm, dunno if that LLM sent you into the weeds. Because I ain't no virt guy
+but if vmcb01 and vmcb02 and "L2" in that commit message refer to nested virt,
+I don't think any of those crash dumps do nested virtualization.
 
-Yeah, it's a possible risk. After thinking twice about this issue, the
-issue seems much more complex than I ever thought.
+But hey, what do I know... :)
 
-intel_pmu_lbr_read() could be called in two paths, one is from the perf PMI
-handler, the other is from the bpf_get_branch_snapshot() bpf helper. Which
-makes the thing more complicated is that bpf_get_branch_snapshot() helper
-could be called in the PMI handler as well, where is just before the
-default event overflow handler. In this case, intel_pmu_lbr_read() could be
-called twice in PMI handler.
+Thx.
 
-So there could be 3 scenarios for the intel_pmu_lbr_read() calling.
+-- 
+Regards/Gruss,
+    Boris.
 
-1. bpf_get_branch_snapshot() is not attached to any event, then
-bpf_get_branch_snapshot() won't be called in anywhere, current LBR stack
-update in PMI handler is good for both PEBS and non-PEBS events.
-
-2. bpf_get_branch_snapshot() is attached to a software tracepoint, then
-bpf_get_branch_snapshot() is called out of PMI handler,
-the intel_pmu_lbr_read() is called to get the current LBR stack data in
-bpf_get_branch_snapshot(), it's fine as well.
-
-3. bpf_get_branch_snapshot() is attached to a perf hardware event, then
-bpf_get_branch_snapshot() is called in the PMI handler, it leads to LBR
-stack could be updated twice in the PMI handler. In this scenario, since
-perf has already read the latest LBR stack data before calling
-bpf_get_branch_snapshot() helper, bpf_get_branch_snapshot() is unnecessary
-to read the LBR stack again, and worse it could overwrite the cache PEBS
-LBR stack data if PMI is triggered by PEBS event.
-
-Roughly we could need below changes to thoroughly fix this issue.
-
-diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
-index 442be0639414..d2cbb5ade003 100644
---- a/arch/x86/events/intel/core.c
-+++ b/arch/x86/events/intel/core.c
-@@ -2869,8 +2869,8 @@ __intel_pmu_snapshot_branch_stack(struct
-perf_branch_entry *entries,
- {
-        struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
-
--       intel_pmu_lbr_read();
--       cnt = min_t(unsigned int, cnt, x86_pmu.lbr_nr);
-+       intel_pmu_lbr_read(true);
-+       cnt = min_t(unsigned int, cnt, cpuc->lbr_stack.nr);
-
-        memcpy(entries, cpuc->lbr_entries, sizeof(struct perf_branch_entry)
-* cnt);
-        intel_pmu_enable_all(0);
-@@ -4090,7 +4090,7 @@ static int intel_pmu_handle_irq(struct pt_regs *regs)
-
-        loops = 0;
- again:
--       intel_pmu_lbr_read();
-+       intel_pmu_lbr_read(false);
-        intel_pmu_ack_status(status);
-        if (++loops > 100) {
-                static bool warned;
-diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
-index 2218469be644..c651b94a893f 100644
---- a/arch/x86/events/intel/lbr.c
-+++ b/arch/x86/events/intel/lbr.c
-@@ -1008,18 +1008,31 @@ static void intel_pmu_arch_lbr_read_xsave(struct
-cpu_hw_events *cpuc)
-        intel_pmu_store_lbr(cpuc, xsave->state.lbr.entries);
- }
-
--void intel_pmu_lbr_read(void)
-+void intel_pmu_lbr_read(bool from_bpf)
- {
-        struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
-
-+       if (!cpuc->lbr_users || vlbr_exclude_host()) {
-+               /* Reset lbr_stack.nr to prevent stale data leakage. */
-+               cpuc->lbr_stack.nr = 0;
-+               return;
-+       }
-+
-        /*
-         * Don't read when all LBRs users are using adaptive PEBS.
-         *
-         * This could be smarter and actually check the event,
-         * but this simple approach seems to work for now.
-         */
--       if (!cpuc->lbr_users || vlbr_exclude_host() ||
--           cpuc->lbr_users == cpuc->lbr_pebs_users)
-+       if (cpuc->lbr_users == cpuc->lbr_pebs_users)
-+               return;
-+
-+       /*
-+        * Don't read LBRs from BPF context if we're in an PMI handler
-+        * since the LBR stack has been updated previously and new LBR
-+        * stack update could overwrite the cached PEBS LBR stack.
-+        */
-+       if (from_bpf && in_nmi())
-                return;
-
-        x86_pmu.lbr_read(cpuc);
-diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
-index 60038d329518..4738b40288a4 100644
---- a/arch/x86/events/perf_event.h
-+++ b/arch/x86/events/perf_event.h
-@@ -2006,7 +2006,7 @@ void intel_pmu_lbr_enable_all(bool pmi);
-
- void intel_pmu_lbr_disable_all(void);
-
--void intel_pmu_lbr_read(void);
-+void intel_pmu_lbr_read(bool from_bpf);
-
- void intel_pmu_lbr_read_32(struct cpu_hw_events *cpuc);
-
-Sandipan, would you mind I take this series? I need to do fully validation
-for the Intel side changes. Once the validation passes, I would send a new
-patch series to fix the issue for both AMD and Intel side. Thanks.
-
-
->
-> intel_pmu_snapshot_branch_stack()
->     __intel_pmu_snapshot_branch_stack()
->         intel_pmu_lbr_read()
->             /* lbr_users == lbr_pebs_users, early return taken */
->             cpuc->lbr_stack.nr = 0;
->
-> When the program returns, data->br_stack still points at cpuc->lbr_stack,
-> but nr is now 0.  A later bpf_read_branch_records() in the same program
-> reads ctx->data->br_stack->nr and returns 0 bytes.
->
-> perf_output_sample() then writes nr = 0 and no entries, while header.size was
-> already computed by perf_prepare_header() from data->dyn_size, which counted
-> N entries.  Doesn't that leave the PERF_RECORD_SAMPLE without its branch
-> records and followed by N * sizeof(struct perf_branch_entry) bytes of
-> leftover ring buffer content?
->
-> Before the patch, the early return left cpuc->lbr_stack untouched and this
-> sample came out intact.
->
-> Would it be better to leave cpuc->lbr_stack alone in the snapshot path, for
-> example by checking the skip condition in __intel_pmu_snapshot_branch_stack()
-> and returning 0 there, instead of resetting the shared nr inside
-> intel_pmu_lbr_read() for every caller?
->
->>  		return;
->> +	}
->>
->>  	x86_pmu.lbr_read(cpuc);
->
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
->
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/38827450009
+https://people.kernel.org/tglx/notes-about-netiquette
