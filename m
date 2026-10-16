@@ -1,96 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCA05A0ABD;
-	Fri, 16 Oct 2026 18:13:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5203B5AA69A
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:14:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792174433; cv=none; b=q/ppUaszwcUi2t2qine3OfqfYHdOEOiFTwRXAQ+/C+fh63nwXeUF72eNFer7IUGroaaD+mtsUpWYWtARNv329bONKaaJPn2orRlWfMa8UAoXPUzTOe8//pOZPrfcFneE5EIrFgusXVcvc+F5fSrMeyz0o18XFObBosp3d8i9NMI=
+	t=1792174448; cv=none; b=FfsTYSY2IRQtZf83PKQOfXepNPJbI2Ai+LIj0aOUazaMxNMFdEWlIQxp7xWJGLtCzZHbYbJZe2hxNL2F+2+QHNQ1zdn91HlFbtdTpyVccQRdpK1HBJ9CzgDZsnr+OzlEXHirRCOkTWU5tHXJMDg3nmxz2OGnpIefaOlV6OVyUeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792174433; c=relaxed/simple;
-	bh=v2PLuBmORCWcKZ8lY/MJYPYzLUpwUVFY6LOKNy4siDQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=pRLpOBSfd489yEN3yN9jI948qKt1IDS4TPi6OipXPWV+vkGPdQT7VN41Yvyteo5lFmHUXnrK7t+o957jUuYu8PeqBm/Fft/FSVZtkYyHaaipHjCJC+yG+MbJaezFnkQYVzuE0ScGYswbtTN9Pj4BdVxy1HBa6l5DApsqJywrFSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DcAc8K0f; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792174448; c=relaxed/simple;
+	bh=zk5f7rYUCgAujA4xNfzK1tOFfboCm/vc3PI6IsXp2bc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Igjwwxy+0OzDj8LlNr55/1VVrTeGpAQsUM3l+9Kc3dKUKk0VnRE/ZNnFbZVLEfO0LI54Xj4no4qePfAmU4SgghF4CqAumyox2IYKotEdzjqDH33o9KnDXibn5c04lHDf/EzfhngTgFi1ro+QFDBeSb74hw9iyStf2//ACWnewLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=og9i1Yby; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DcAc8K0f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 958DF1F000C6;
-	Fri, 16 Oct 2026 18:13:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="og9i1Yby"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3498B1F000C9
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:14:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792174432;
-	bh=k1GCRW4QcQ5+tM48RvuJm0rIBocuw1scqGWi1vf+4EQ=;
-	h=Date:From:To:Cc:Subject;
-	b=DcAc8K0ftS96U7OSE6Ii7dizKHlcWNgsgEzxkKkKYCqYELNvF7SdsUTI2yAsC/ke3
-	 tRgfPEYffl1aO6QWpBfOVsH8If30wK1F0wIqaEgOg47nPLheJ5eQw6AbRvNWs9UEXw
-	 duavEfAyrSVzkqIzKRTXeTyEWMvX4KLn6Ry0I3WYcT4VhUeuklKn/iYypr+k374JwJ
-	 dEnnz//7A+OCSl68Tz2BwsZNhRGTEyZ22Gn1mFJWuCa21qAuprq3R2Oo384AX23McN
-	 komle0EY6uIVphldVzgT7AQ+c5dxMa58I39160f4vV9etalHIlRllsdwt0cFPMjCPJ
-	 nocovq9g2TS/w==
-Date: Fri, 16 Oct 2026 13:13:51 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Alexander Gruhlke <gruhlke@mailbox.org>,
-	Lukas Wunner <lukas@wunner.de>, Hui Wang <hui.wang@canonical.com>,
-	Vitaly Chikunov <vt@altlinux.org>, Linux-Fan <info@masysma.net>,
-	Raphael Norwitz <rnorwitz@nvidia.com>,
-	Suresh Gumpula <suresh.gumpula@nutanix.com>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	Nirmal Patel <nirmal.patel@linux.intel.com>,
-	Jonathan Derrick <jonathan.derrick@linux.dev>,
-	Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
-	Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Alex Williamson <alex@shazbot.org>,
-	Kanchan Joshi <joshi.k@samsung.com>,
-	Daejun Park <daejun7.park@samsung.com>
-Subject: [GIT PULL] PCI fixes for v7.3
-Message-ID: <20261016181351.GA1880783@bhelgaas>
+	s=k20260515; t=1792174447;
+	bh=zk5f7rYUCgAujA4xNfzK1tOFfboCm/vc3PI6IsXp2bc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=og9i1YbyMvkGWE31YYjLLlCmx4TNbMU11jRMhoYA064UuP80DCTn1SgCFPDfND7dM
+	 vph7ADqxASybnVV2dd20KG5mIXXUmlQGFgazScs5eIwaJ5uzIIsHapeW0PIwP3gSAL
+	 RsDQRRwOvgktBxnMMKzW3PdXQxO14J+IcrNKoSW982fXTrT2vnVf8RnODIPy6A5lyw
+	 09vPv3CfwmHqLsDIjkRobsOrhGyuO/x1mniIBLyPLz95U2oXLWlYlzP8eFJ/H9U7tz
+	 lmkHYv+2dhx1+hvhozO8z1TBDXOpdU3hS2p4OJgcAlNS87QKvl5VpZnBOx7HyjRv0N
+	 J4HyQdkWLU4LQ==
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5bc18f54abbso205670e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:14:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByfWWAbsGYPpSa2Hx2zimtpI2beQ6H9019MWJHQSomnp64Qmr0Yb4h/JdQ5nrcS+R5OBqpUxuCj/AfLjMo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKoUt2I9Wd0QIHgb+dtzGX89mHAGT9IPohOrQFzQ+XXxPTLtiEe
+	lN6KX+uboejtmAFDvTdYkac5q8GmzcMFRzPvNy1+XwMRgoEFyQoFzk7J42IyitVLSk4XEXk4tY4
+	EW8uO7D8QYmVfmIpdzKv5qd6FtZvHr7I=
+X-Received: by 2002:a05:6512:318b:b0:5be:428e:2be7 with SMTP id
+ 2adb3069b0e04-5be50a4eedfmr94462e87.11.1792174445585; Fri, 16 Oct 2026
+ 11:14:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261001155118.1750028-1-briannorris@chromium.org>
+ <20261001085009.v4.2.I75ceea7b1afd016e08922e47b82e6eb36de144fe@changeid>
+ <CAJZ5v0hMHutu69acgSR7KsmcLs0McZK+-3OFoiqFrU5GnJzTNQ@mail.gmail.com>
+ <as_i5MEz3WfnDQmf@google.com> <CAJZ5v0i+77gt-KmMYdxxzS4uGzxFArrYGpoDnjrfknpPOkAuHg@mail.gmail.com>
+ <atE9urIHXAJZXu6k@google.com> <CAJZ5v0g56J9e9qdiR8W+BfmEbbedvpD8hop4+n9=rkFEsDG_Jw@mail.gmail.com>
+ <CAJZ5v0gNQqffxcdzWff=z3hi0BXzJBOV6WKgf6RXuOydzQJQMw@mail.gmail.com>
+In-Reply-To: <CAJZ5v0gNQqffxcdzWff=z3hi0BXzJBOV6WKgf6RXuOydzQJQMw@mail.gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 16 Oct 2026 20:11:54 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0iQ35Xm0r8UcRVYq=ZBGyPcfkp5Dtbk5etnyMsEm9wjAA@mail.gmail.com>
+X-Gm-Features: AclHuK-KnhYRgSCe8hzWRnOOPWPOm-JRlMsjeyojKk-1gcbbUhfQ7VLWB9vTpQQ
+Message-ID: <CAJZ5v0iQ35Xm0r8UcRVYq=ZBGyPcfkp5Dtbk5etnyMsEm9wjAA@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] PM: runtime: Add Example Driver Patterns section
+To: Brian Norris <briannorris@chromium.org>
+Cc: linux-doc@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Doug Anderson <dianders@chromium.org>, 
+	Ulf Hansson <ulfh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+On Fri, Oct 16, 2026 at 8:05=E2=80=AFPM Rafael J. Wysocki (Intel)
+<rafael@kernel.org> wrote:
+>
+> On Fri, Oct 16, 2026 at 7:42=E2=80=AFPM Rafael J. Wysocki (Intel)
+> <rafael@kernel.org> wrote:
+> > On Thu, Oct 15, 2026 at 10:55=E2=80=AFPM Brian Norris <briannorris@chro=
+mium.org> wrote:
+> > > On Thu, Oct 15, 2026 at 10:11:04PM +0200, Rafael J. Wysocki (Intel) w=
+rote:
+> > > > On Wed, Oct 14, 2026 at 10:15=E2=80=AFPM Brian Norris <briannorris@=
+chromium.org> wrote:
+> > > > > On Wed, Oct 14, 2026 at 09:07:54PM +0200, Rafael J. Wysocki (Inte=
+l) wrote:
+> > > > > > On Thu, Oct 1, 2026 at 5:51=E2=80=AFPM Brian Norris <briannorri=
+s@chromium.org> wrote:
+> > > > > > >
+>
+> [cut]
+>
+> > >
+> > > I kinda think the point of most of this power domain architecture is
+> > > that a typical driver just doesn't have to worry about it at all (in
+> > > probe(), and if you use runtime PM properly), so I'd prefer not
+> > > mentioning it in the Basic example. But sure.
+> >
+> > Well, your basic example needs to be put in a certain context because
+> > it may not be generally applicable everywhere.
+> >
+> > I think that you should make it clear what the driver's expectations
+> > regarding the physical state of the device at the probe time are and
+> > the general rule is that it is better to leave the device in the same
+> > state in which it is expected to be found next time.
+>
+> To be somewhat more precise, if the driver expects to find the device
+> completely off and the runtime PM callbacks are set up to make it
+> operational, runtime PM can be used to power it up in probe:
+>
+> /* Assume the runtime PM status to be "suspended". */
+> pm_runtime_enable(dev);
+> pm_runtime_get_sync(dev);
+>
+> but then in remove or on probe errors the "power off" state needs to
+> be restored manually:
+>
+> pm_runtime_disable(dev);
+> /* Allow the parent and suppliers (if any) to suspend. */
+> pm_runtime_set_suspended(dev);
+> device_specific_power_off(dev);
+>
+> However, if the driver expects to find the device operational (for
+> example, because it assumes the ACPI PM domain to be there), it may
+> just update the runtime PM status before enabling runtime PM:
+>
+> /* Assume the runtime PM status to be "suspended". */
+> pm_runtime_set_active(dev);
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+And I forgot to add
 
-are available in the Git repository at:
+pm_runtime_get_noresume(dev);
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git tags/pci-v7.3-fixes-6
+here (to prevent runtime suspend from being triggered by toggling the
+"control" sysfs attribute from "on" to "auto" at this point).
 
-for you to fetch changes up to e8df1d194c39b7a5159d570798941851f70a8668:
-
-  PCI: Don't treat ~0 as ready in pci_dev_wait() with RRS SV (2026-10-16 12:11:15 -0500)
-
-Updated this morning to add Samsung 990 EVO Plus to the Immediate Readiness
-quirk.
-
-----------------------------------------------------------------
-
-  - Ignore Immediate Readiness on Samsung 990 PRO and 990 EVO Plus NVMe,
-    which falsely advertise it; removal of unrelated delays in v7.2 caused
-    post-FLR state restoration to fail, resulting in a VFIO passthrough
-    regression (Alexander Gruhlke)
-
-  - Don't treat ~0 as 'device is ready' in pci_dev_wait(); with RRS SV, a
-    device may respond with RRS (resulting in data of 0x0001) or may not
-    respond at all (typically resulting in ~0 data).  A v6.12 change
-    treated ~0 as 'ready', resulting in a regression with Intel and Samsung
-    NVMe SSDs (Alexander Gruhlke)
-
-----------------------------------------------------------------
-Alexander Gruhlke (2):
-      PCI: Ignore Immediate Readiness on Samsung 990 PRO and 990 EVO Plus NVMe
-      PCI: Don't treat ~0 as ready in pci_dev_wait() with RRS SV
-
- drivers/pci/pci.c    | 15 +++++++++++----
- drivers/pci/quirks.c | 12 ++++++++++++
- 2 files changed, 23 insertions(+), 4 deletions(-)
+> pm_runtime_enable(dev);
+>
+> but then in remove or on probe errors it may just leave the device in
+> its current physical state (whatever it is) and assume somebody else
+> to take care of turning it off subsequently:
+>
+> pm_runtime_disable(dev);
+> /* Allow the parent and suppliers (if any) to suspend. */
+> pm_runtime_set_suspended(dev);
+>
+> These are two distinct cases that are rather hard to cover in one
+> simple example.
