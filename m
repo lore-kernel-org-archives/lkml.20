@@ -1,57 +1,64 @@
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
+Received: from mail.enpas.org (lighthouse.enpas.org [46.38.232.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0734A382F1E;
-	Fri, 16 Oct 2026 14:30:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD72369D47;
+	Fri, 16 Oct 2026 14:30:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.38.232.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161008; cv=none; b=JWuMrSLCmzyAop1v4w4s4bAaAdYpNK7wgxTF+yt4CD0Wk/f3xxId2Rj4NJrpegyW8SRiWttybMJEzMUWEgjPyfJwGmL1Ng3Izw4YILb9EL+gm6fVMXuI9uapmJQICUccoV9bgIdRoSRermEmGC34gsbovH8Z2GjcppX24uiljnw=
+	t=1792161059; cv=none; b=JJ4lD+o1K6DlsjF1h8NedLFxA/QXysjji3Ox1z3J8aI/LMZUyHqRAj75PEyyzdIAwHoerOuDeQAG6JOUoCtCK3DXhVwlxFVSeQHItv7KEOddtmrHnf876BANEJAaAMql64WgAXMEqCDb02WqVbax2UzV/BF4LsMr+ovlVC1pAyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161008; c=relaxed/simple;
-	bh=33O0YnyipeSJUmepqp5PMqMgUm6dy3niNvq40NaPLL0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZKKHwPKEbsaUIzm48urfBHyI/c0BXIf04cOefDweGMs+HXHUnrL1WRTx0nOl/MdwaksZB9Ek7SPQGZJLi0tC7z7CCTij/DwahFRWZYEeOpjoZ0JZel1m61DlSWGHw0CFk69+KxYJMPQwVhudH3AEE55e9KLJ8Vto/GwYeDDpIP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=cM9exizd; arc=none smtp.client-ip=185.70.43.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1792161059; c=relaxed/simple;
+	bh=JFPTy9V3/Al+yGNezlNHX5Lcqefw9/okxFnrMJCgA3U=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=lueR+LbpHULbNS00VOkWWNfB7pQGdULqU6sYffdmpjheLnlhUMvnz4L2Tt9U7hxPmmGgvdKItZ0l9+Q/7NN1OrtF6OO+1bcjnnG/WSsU0f/4nRypGtdJgQSgSeqo7V+KrpgVOmHscH91oljsonoWg/XjhlC4nsNIxgYXsJjE3g8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enpas.org; spf=pass smtp.mailfrom=enpas.org; dkim=pass (2048-bit key) header.d=enpas.org header.i=@enpas.org header.b=X7ZZwbt9; arc=none smtp.client-ip=46.38.232.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enpas.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enpas.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="cM9exizd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792161003; x=1792420203;
-	bh=33O0YnyipeSJUmepqp5PMqMgUm6dy3niNvq40NaPLL0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=cM9exizd2a21k9YRnKg6u48BmL08QPjXcsl32BoTW81ssK3QFekquvLX2tCFvZVdk
-	 nYKluTq66k1yCPKONaNqJ+lNTQSoQd6pSlEoGAoPPU7zz67xpw9p6wZSJHmgYz8njz
-	 UJhM9FRSpT27IJtEfWCbntqBOsPRTED9qO5TJYqvcCij/H6M7F9UrFmhdWcvhbv162
-	 59wvHgXrzAIbF1v3OwfTx3nAy7L9foK1LHFjgb7jP0YbieiOWkEXKPwGGo1DRyb0bK
-	 nWIBJPUQTfhSKoS1e0Jt8kPNR11n7kftVLAnlZ78GhxW1sgrq7Gxw1oGW6Kgjn+Jjk
-	 Fh0i0TAM7EE1Q==
-Date: Fri, 16 Oct 2026 14:29:59 +0000
-To: Hans de Goede <hansg@kernel.org>, Hao Yao <hao.yao@intel.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Dan Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Bingbu Cao <bingbu.cao@amd.com>, platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] platform/x86: int3472: Use actual clock frequency for DSM method
-Message-ID: <20261016142954.60684-1-lsa.uz@pm.me>
-In-Reply-To: <df3724fb-1ad6-403c-bea0-19856b11635f@kernel.org>
-References: <20261016112744.39905-1-lsa.uz@pm.me> <df3724fb-1ad6-403c-bea0-19856b11635f@kernel.org>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 92f3b6dc9e7235df9ec428a1e4b6136d99813635
+	dkim=pass (2048-bit key) header.d=enpas.org header.i=@enpas.org header.b="X7ZZwbt9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=enpas.org; s=mail;
+	t=1792160659; bh=JFPTy9V3/Al+yGNezlNHX5Lcqefw9/okxFnrMJCgA3U=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=X7ZZwbt9lqb+o+vkiSo2kANwRnTmdq0ocdkYRpPKYBkPa7QFS0+iXixZ1VeFS8dCB
+	 GzA5Bjt7oReQSZMN6NQ5tr/t3Mh6IMba6oFIQPrApmTdnvYMc/fTdaXpmgPX1r7Hqt
+	 +UVskA2p+RVSDMOhT0DMRHM4Qzhg0z8he8xkWsWMvfrNitltWXpnBUNnwy21Sa/mZZ
+	 y21ImwNAtwqS60VVXSZTktEtZNImzhBxnR2sr+H1qsicHkq7WlHmaz269lyj14kTmC
+	 neYNJnfoH1LHRKUjEfDfGUNWwkjRqNhOSg7Fx4pKODC/rr39MIRK0QloXHLmNvuXl8
+	 L12Flh44pESCg==
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by mail.enpas.org (Postfix) with ESMTPSA id B83B5104DD3;
+	Fri, 16 Oct 2026 14:24:18 +0000 (UTC)
+Date: Fri, 16 Oct 2026 14:10:00 +0000
+From: Max <max@enpas.org>
+To: Chaosheng Qu <chaosheng.qu.linux@gmail.com>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Marc Kleine-Budde <mkl@pengutronix.de>
+CC: Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_net-next_2/2=5D_can=3A_can327=3A_publis?=
+ =?US-ASCII?Q?h_tty-=3Edisc=5Fdata_only_after_register=5Fcandev=28=29?=
+In-Reply-To: <e02d5a1d31bb8dbc6397e3469cd0578b85d78970.1792118038.git.chaosheng.qu.linux@gmail.com>
+References: <cover.1792118038.git.chaosheng.qu.linux@gmail.com> <e02d5a1d31bb8dbc6397e3469cd0578b85d78970.1792118038.git.chaosheng.qu.linux@gmail.com>
+Message-ID: <7F7B6C68-4055-4899-89E1-5E5BB5A68099@enpas.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Hans,
+Hi Chaosheng,
 
-Thank you, noted: if I resend it, it will be based on media-committers
-next. The v2 applies to it unchanged, at d7e7bca7169, which is the tree
-I tested it on.
+Thank you for your patch=2E
 
-Sergey
+I won't have time to review this properly until the end of the month=2E
 
+If someone else feels comfortable reviewing this, please go ahead!
+
+
+Thanks,
+
+Max
