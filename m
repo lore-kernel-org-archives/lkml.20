@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1E937E5D9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0C737DABD;
 	Fri, 16 Oct 2026 06:01:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792130478; cv=none; b=FOhQvGasu1jkwtRO0O7+0Ovt0WH4wm/OU6jA3FQdvZvX9EPl+Gc/+AYhGGKf46glDADi/7minYj+aLrefBrKLXTBZRjU9pyXc5vKmu/GRzlGsLt1qsGsZMZL2Yc2nGZ7rx+q9vO3VtuwIwie0bWhWuFX3l5qiQe0xroJ3lVSTqw=
+	t=1792130478; cv=none; b=ZAvPxbss6MvF8upqcNwdxrlT+AYNltqcIAMD60/Zx2KpzufdHf/vMkqTaPK9iFbbut2O8YES6bCJC8u74epaUtzcpTU+7lXXJZ+23hrvgdnYUe5omSur9eGkiblj25wHRd4LfXyhRuqL6T7cvXHFiXx8nP5qcC93K2BqxSNUfIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792130478; c=relaxed/simple;
-	bh=5fB2HqNCtzyKCGUpXAsE9izKpk3jD6ks3XPSg5kz/2o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lASHtGj3Oz+RJ+hmygGRm9NKrsYOFEtkIRk+odSYHCQpHr+pOpt7hDq80y+mBCniDz3I5bV1uALND/KBcdvAcrZNLkqmXUGigproD8EYwjeyTSh7Pejw6HuG3c/TejKXjv0Y2N6UGuDx+wNoYFb9EcRRbGrVvZRWD5bkUnaEpiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mibMCPad; arc=none smtp.client-ip=10.30.226.201
+	bh=zaVfJ1YgBwAelENSTsicW+btJeqfXxKfuym1Z88hnF8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZSMsE7lMyC2Q8ekv2jT1RVt0E1NIMe5H21uolNX0jJw/tnXHSeiB9f5jRhEkeZXsKAdm4iDkpYB4eD95k7mg/DhRMoqn8ivfeu+JtGqQV/z0X37NxVG4OmmAj2pWp1MbVS8v/CUkf9Kj9Qh6T5u//iFcs1dVVKESMSqk90qM+mo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ifK/dnHF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mibMCPad"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8B02EC2BCFC;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ifK/dnHF"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 69BC2C2BCF5;
 	Fri, 16 Oct 2026 06:01:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1792130478;
-	bh=5fB2HqNCtzyKCGUpXAsE9izKpk3jD6ks3XPSg5kz/2o=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=mibMCPadpp8t0vKALclh5vumzjKsEAkKFp3RjQR4FoR15hdaJJnERcNlOXVUVSoc9
-	 vDjOS08y++ZuXL+KNj6eJPK3bbeytAqHZcEqIMeruULkx5Js2qwwRnJM7sU9QtPbbV
-	 77Msc8YZIWREhqcmWzTifygNX+FT2bnsC5gzjzQpcU8jDzd+yDNISZbscuxencLKq9
-	 8DA0dzy0h+x6xSoFzR4frO8RHOiIkapg00s63ib9FTkFJkHzP2pFFysNYV+qUFKLaW
-	 TwB0TOjB64eqNoLM7/rb0c51kud+K8qX1BDDtxzf2wmDRsS00ZKqII6PvzTyHJ3GuQ
-	 3j2e2Sw0EBRHA==
+	bh=zaVfJ1YgBwAelENSTsicW+btJeqfXxKfuym1Z88hnF8=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=ifK/dnHFl4N8xYKAzGyFDvBX3JdpbRAaTwB/Fqm+J3+5uhYMykB/tLD7gUD6/XMci
+	 Nw5TtER4ouJQpENn+QsAvvOYYpCZh6VZwL2KpFc148QwPWQh7QDaY/M//ALk35aJG7
+	 cETvSWk4NZAnW4TPcXJ8jIKN1jZTZBL1XU/S6BS5LGqL732cDHpy8zcFUbiG13B7la
+	 xukycOlzpe5yLgRyXD32qkh9tu2IaWke9qIvpwYPVyszf6AszwEhxJjrEbf2TpaaC1
+	 HwpZlSNQW7f4WX9E3/mvfkASk4MNzpPpZX0Z8YTCPTlOVoHDex52KwcOjADBFZCI1O
+	 vFWCXwTqxHyyg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B49CCC6B38;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 59425CCA462;
 	Fri, 16 Oct 2026 06:01:18 +0000 (UTC)
 From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
-Date: Fri, 16 Oct 2026 06:01:15 +0000
-Subject: [PATCH 1/2] arm64: dts: qcom: sm8350: Add the EPSS L3 provider
+Subject: [PATCH 0/2] arm64: dts: qcom: sm8350: Scale L3 and memory
+ bandwidth with the CPUs
+Date: Fri, 16 Oct 2026 06:01:14 +0000
+Message-Id: <20261016-sm8350-cpu-bw-v1-0-044ac6dc9565@fromdisposition.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,9 +41,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-sm8350-cpu-bw-v1-1-044ac6dc9565@fromdisposition.org>
-References: <20261016-sm8350-cpu-bw-v1-0-044ac6dc9565@fromdisposition.org>
-In-Reply-To: <20261016-sm8350-cpu-bw-v1-0-044ac6dc9565@fromdisposition.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA0Mz3eJcC2NTA93kglLdpHJd8+RU41QD87SkVONEJaCegqLUtMwKsHn
+ RsRB+cWlSVmpyCcgQpdpaAO8LuwRxAAAA
+X-Change-ID: 20261016-sm8350-cpu-bw-7ce3e07fbe3a
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -50,11 +52,11 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Demeter Barna <me@fromdisposition.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792130480; l=1532;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792130480; l=867;
  i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
- bh=/8vPgqfKiT1bODMQ7BHGvpeDWEcW7hqSYkyAN5jFK/E=;
- b=AwMtaTQ/0Ajx9T0j+KWWd4rdW+6qKGq0XlAzX6tCYmM0Jl241K6p0jinn9ygJBvI1/uM7B/K8
- +6wVBeM1rihDnQQcEw/nRwcdSkr3buxcTehOkSEd5R7GUfhqWIs0sc1
+ bh=zaVfJ1YgBwAelENSTsicW+btJeqfXxKfuym1Z88hnF8=;
+ b=ex1GhzDFwT4n0sAH6MOl8aOPrns3QazXQXvFVVWYVECkocbZgsNugkcij0KbQwSlsiA5Sz2sz
+ amHmSijzS4xDKUYUCSGqJou8qLOZM7AtYYK9oAO/VTUxxZGtXII8kEA
 X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
  pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
 X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
@@ -62,52 +64,27 @@ X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
 X-Original-From: Demeter Barna <me@fromdisposition.org>
 Reply-To: me@fromdisposition.org
 
-From: Demeter Barna <me@fromdisposition.org>
+Add the EPSS L3 provider and CPU OPP tables that vote for LLCC, DDR and
+L3 bandwidth with the CPU frequency, as on SM8550 and SM8650.
 
-Add the EPSS L3 block, already documented as qcom,sm8350-epss-l3, so
-that the CPUs can vote for the L3 frequency.
+Tested on a Razer Edge 5G, whose board support is not upstream yet:
+copy bandwidth on the A78 and X1 cores goes from 8 to 22-33 GB/s and
+DDR latency from 200 to 125 ns. Idle power with the screen off does not
+change; with the X1 busy on compute alone it rises by about 0.3 W.
 
-Unlike on SM8250, the L3 is voted through the L3_VOTE register, as the
-downstream driver for this SoC does. The generic qcom,epss-l3 fallback
-selects that, so no driver change is needed.
-
-Assisted-by: LLM
-Signed-off-by: Demeter Barna <me@fromdisposition.org>
 ---
- arch/arm64/boot/dts/qcom/sm8350.dtsi | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Demeter Barna (2):
+      arm64: dts: qcom: sm8350: Add the EPSS L3 provider
+      arm64: dts: qcom: sm8350: Add CPU OPP tables with memory bandwidth
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-index 55b32050c..52e8c2963 100644
---- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-@@ -15,6 +15,7 @@
- #include <dt-bindings/firmware/qcom,scm.h>
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/interconnect/qcom,icc.h>
-+#include <dt-bindings/interconnect/qcom,osm-l3.h>
- #include <dt-bindings/interconnect/qcom,sm8350.h>
- #include <dt-bindings/mailbox/qcom-ipcc.h>
- #include <dt-bindings/phy/phy-qcom-qmp.h>
-@@ -3798,6 +3799,16 @@ apps_bcm_voter: bcm-voter {
- 			};
- 		};
- 
-+		epss_l3: interconnect@18590000 {
-+			compatible = "qcom,sm8350-epss-l3", "qcom,epss-l3";
-+			reg = <0 0x18590000 0 0x1000>;
-+
-+			clocks = <&rpmhcc RPMH_CXO_CLK>, <&gcc GCC_GPLL0>;
-+			clock-names = "xo", "alternate";
-+
-+			#interconnect-cells = <1>;
-+		};
-+
- 		cpufreq_hw: cpufreq@18591000 {
- 			compatible = "qcom,sm8350-cpufreq-epss", "qcom,cpufreq-epss";
- 			reg = <0 0x18591000 0 0x1000>,
+ arch/arm64/boot/dts/qcom/sm8350.dtsi | 347 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 347 insertions(+)
+---
+base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
+change-id: 20261016-sm8350-cpu-bw-7ce3e07fbe3a
 
--- 
-2.53.0
+Best regards,
+--  
+Demeter Barna <me@fromdisposition.org>
 
 
