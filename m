@@ -1,77 +1,74 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A006F386561
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:36:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E96D48488D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792168579; cv=none; b=i9cOQ4cNjllvzxbZbVoWSxK52B2Mep/L/aPa9ZJ9lXoLhIk/QfCVkWwHguWZNY9+rCmXjOhypcdsKz65dRyEGolb01XdViJ1cfiYKzgFBTvhnWiIlr6ZFzuxy5qF7ki7tWtarrCmCObrLKCUtfh5P7iXxMqHzn2prMJEpcvF/gA=
+	t=1792168638; cv=none; b=esyinaBuMG/zZr+2JVF2X32G2L14PtmJjhTmSjohzuamfFi4sk69aBWrhZZYUvMDwPKa5Pe48GN8eHQCjBA5XgIWEltDtqlEzVMRQ7ImnUk0HBGU/UPcCYPVcXcKeS2p1cPsXZngxyrgX6TWxe50u8x1d2GjFbEIjwcWHPgIBc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792168579; c=relaxed/simple;
-	bh=StqHeobwjbZoCDJcYG0T9/0ZBnyql/5JqI+bM4v70Kg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=jpOyspO1otpfElQ77sLRjADyzizpswHnnMYd+oRkYX26ojmevg/uHp3j3ygnxF7YJLYfAFGSzfbC1FSZPASZEUmVFJvFyjNUgVXG1SbZXkwa1qQwIn4Oow6mYgGikWRg8ovbjjacqkXpvU0DSoH/M3xIb/YKv0rDGY1//LeOx6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kbGxzRbB; arc=none smtp.client-ip=209.85.216.53
+	s=arc-20240116; t=1792168638; c=relaxed/simple;
+	bh=ay0QhUIxWGqQW7tkXs2XfwnADTvpm/OD3c2MGP4/vpw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rNFtDKYKRyxHZUWKR+iijd7T8/K5uEu3DbrOCcP7Y1hlxgJKOM1D7KyDVh9DUWDirnCfbQ8hMwKU6lyeHkilNKSjaU+f/cP5ILX7qbpMejspTgiPNaybg+gi7PyK6mtEDJcL3uZriyzQysiN9o5dfpuqimxplM50VGnfTBS6l64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MwrPIoeG; arc=none smtp.client-ip=209.85.215.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kbGxzRbB"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ac677668a9so146259a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:36:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MwrPIoeG"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cd1006978ecso22698a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:37:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792168578; x=1792773378; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=StqHeobwjbZoCDJcYG0T9/0ZBnyql/5JqI+bM4v70Kg=;
-        b=kbGxzRbB01/HFxgSCslnEMSCvlZZRVvSOkt5CeSsr1Xg40Bp0XMcPWYIYNKca6dTB7
-         NyFvH/1Q0b0Yd7hZu55+90O5Au6jCOjeH2zWz01ut8cpyZdKwlrpbpseu4nrzANjzGXD
-         L+0YhifhKSJvwxeU5RMC0kGJUrKMX+WGEGiI10nK3mN8lmpoLzpdqObkbRhyCAsMu/0T
-         Pju0oz7bbLswpCY1nCiW3QcpKHdpti5lSzivfNT3wJOhpdB8t2JjuPE6WZqDyI/+OWP2
-         go1Hm8ATug0a43gvOxrTwJ0avIQNCky5t7Mzc3oBn0FFW80D6EKUXbDGZcnfM1vp/6Tj
-         8JlA==
+        d=gmail.com; s=20251104; t=1792168636; x=1792773436; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fE/8k1v1er6yt8K5zlufTxmneZEuI8I3OJXU6lY3dxA=;
+        b=MwrPIoeGFOy7FkZdsQzeZ/DRbDwSpkRA1Fo375X/TH7U/C69ozfBKrSWeWLBWRM5kv
+         XmL47UpYlAT0bHRJ3IZjYI5XeEU6o1nIaG5mYYxHhTdaOm5LHhvsLiYy07kNcNrNE+tI
+         m7Qjsft+9CTn3oAlN2EfTylW5hvGRJMP/JxcZA9d21eUzy7f+z+96vz0VKa5uZgDl8MW
+         nHYRev/u5MCfqGcH4E7UHfRgQ4gE6ZkBr4jSmY/xSBfkauW4x6hLaEGslWdy+3LrqDSw
+         5o0OpRDqoN2icKP/PYu4njLyaxmcCmHaXpjUJ88dAlIW81QfjWi5ft0MVKmeBJ9PsS3E
+         CUcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792168578; x=1792773378;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=StqHeobwjbZoCDJcYG0T9/0ZBnyql/5JqI+bM4v70Kg=;
-        b=dsocB0T8I42Kei/eUGnXFpzrnTcMipTu/Hc3yrdOjrVNOIKh3NEIj134rzcHx1iG+k
-         1QPQo5QYlGfVNi6hrCUo5L+GuGg7QVG3LXqhjiBW81An8uNpZi/M/WGpRiW8mnCK+fM9
-         a7ERYsEygyakMZM1di8xySU4x4eK1bCg+ragAZmVcgWErE+dva9pGOCG2nvrkUDd+TNM
-         ebYe9/URwtLT3QywX+5/YKTgHzSIh/GWNbGRVPF1Tb+6mf5G3vZfqT4Zzkx+SwReYVt2
-         2niPasrQ4yDj0A6Azbe1yUaFcoOHfpYDtuBdDxJKWh6LSXweqSuoL4K7muo5UgavAjkt
-         7xLg==
-X-Forwarded-Encrypted: i=1; AKwUvBwqdIXocCz0QJ0k/4tH/nJJRaA539NiNlm5Y/0IfzUNW7cvGiWWjsqHUlT4tAOlIZQDTumKfCHLE2efgwU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqBU/GPRQQcw0mGtAqPjr48tCx+B21IjiNSVSwUcZirRHE7278
-	YcCLs1HXItJZX8DHPWI0RqhDylIl47706ni6gkGsZMTtYxUs8JD1GOxf
-X-Gm-Gg: AYBFou2PbCSGBJby8a9Yy98931wYFHzI1xUO3ivBfo3ojdGYsWRVlRlSbvXRnqRKt69
-	s/BBOtwCyaBAx+Ypg79asWympZ5uWmF3JSfgMMdYE/lH37rA/y0rPXJVztjKS/dAM1SncXPyfvz
-	ywJ/Dm5FOwnq2PFkkzNiCxCvmFlOnzKTWovu5Z9NdjNxv4wFvz4n0AP0tSTB1pnf3yfqRFewpJD
-	DLfKw2N+g3L/GftINrCC/zNOxoV/Cua7AgfFh2Wxod8Ph6ios6eKuPKCrJwcZzEyKs+k0ZmCFFJ
-	fTQjXqo5Vg/NpgdVq90cs07IU7N6FxmXtmQeoatOIQwH6qy3rE75k3t1oVTSN9uufLF77PMNopf
-	11n2CrRiUKiKdV4jmCK5bphO1bxu6tMiumjG+oTvLq4/tfp7kAEBTmKcJ1fcKAqtBKucO6rlvhh
-	UUTG5JsrDc95EpFLk5NgPL99i/6Th8/crYTtp+XPPY4R1YbuBM3xrMPlebJHxicTVMzP5H1jWKq
-	T8=
-X-Received: by 2002:a17:90b:582f:b0:3a6:f1d2:57f3 with SMTP id 98e67ed59e1d1-3acef542fa9mr339539a91.58.1792168577746;
-        Fri, 16 Oct 2026 09:36:17 -0700 (PDT)
-Received: from arm-a100.. ([140.112.28.118])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc492fa54sm4797470a91.13.2026.10.16.09.36.15
+        d=1e100.net; s=20260707; t=1792168636; x=1792773436;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fE/8k1v1er6yt8K5zlufTxmneZEuI8I3OJXU6lY3dxA=;
+        b=BHCrxk1UWGe/gEVlRsoa6DlJZaqMjmeWEFBE/+1hMYtUC4kQgvPtuWW6CToWotTT4j
+         z6Sa94kEcGE0KNNamWyYKMsC3VFZbgwug2VGYI8pqZPB8AXmLIHpgtZ/JvkmIQJlKsF9
+         5k9phHHxsLTpH5yN9O+sw6Zs6SuHzEZ6fTifFH+PIUbU2dtY8Gdk6ekRtgEwgxsGh3Fm
+         i2L5egLUC3I2zJhZLbaFgWNXwhIdcR1aR7AZIby52EpaaJpDKUQyAZ0Wf71ea/PSscam
+         Asphu6LhKVdWSGIYcJxAd4HGLYDRUwRbNPyUGFBs43X8CSMjK8yrxCP+7ZVWxBFu8vgQ
+         PPUQ==
+X-Forwarded-Encrypted: i=1; AKwUvByTjiW7b18y3g/qHt3x1wVoAxuPTLg06yaw+JBgXIVl/oZtfsbl4dr9GqGWOJe8oM7EDTDsSQLPpP4cgSI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHL3EdzshUlDVZsByMrX32g7Qw/SgjZ2SihCqUliLQNrpHCWzP
+	oGkJJqB1VInWBs68A5vsX6fuFaudEvSfoHMjJ4kppVAZM2png7FC1IOj
+X-Gm-Gg: AYBFou222182PeI0F33QPXgUrFhZMwd5xm6qShA+4L4dAUNmWt6VwIAjAKWuIKGT0Cj
+	Brio9ScZEIK7ffXxo51vmqCCXiJsdIn+uPqJJ0Gm748YTfEejFdVIuvokT1iPFP8Xp0UlZKuPWG
+	OLXBh8XXsqFk5cxQdHUMCFK0mOQEJrsaA3hz47WsAampJ3dhCypTWysxS6SVNxDT/jdvztgBPsb
+	ExeieN2u7hB7SdNrCm3ngsqdxypHoWm9mcNhr6Wn88gKl3//KriKOb1d/IPwZ4bwtN2LikUJo5M
+	g4nvRLBdnoeqZa4naMWgNRJOR6qxbdDYaBrYqqM2LTyVnjUAfzdlJpHtNiX5andPlMGgmvs9BDK
+	a6U5vuq1daq56gxG81yK9DmWx27ZcJYT/ItgQCgRXJnCQKSdfKnkQd45oOAGprDRmtNUrwSBC1y
+	9edtXI499izKgroalKtN4Ic5qfpLx8bEVHNTtAhJrCCn/mAye6HpMNRMUZsV9NuO3/863HZct8C
+	aMMyZi9R60ojZ9CIziB968=
+X-Received: by 2002:a17:90b:4cc6:b0:3ac:9e76:aa96 with SMTP id 98e67ed59e1d1-3aceebea420mr590463a91.3.1792168635662;
+        Fri, 16 Oct 2026 09:37:15 -0700 (PDT)
+Received: from MELOKC-LAPTOP ([61.171.228.110])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9474b52fsm11154255a91.9.2026.10.16.09.37.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 09:36:17 -0700 (PDT)
-From: Tzu-Ching Yang <shingekinocore@gmail.com>
-To: Yury Norov <ynorov@nvidia.com>
-Cc: Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Arnd Bergmann <arnd@arndb.de>,
-	linux-arch@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] bitops: Share the generic ffs()/fls() binary search via UNROLL()
-Date: Sat, 17 Oct 2026 00:35:49 +0800
-Message-Id: <20261016163549.636471-1-shingekinocore@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <atJN_MOFxvqOM9h2@yury>
-References: <20261016025634.2690862-1-shingekinocore@gmail.com> <atJN_MOFxvqOM9h2@yury>
+        Fri, 16 Oct 2026 09:37:15 -0700 (PDT)
+From: Anfernee Cao <anferneemelokc5@gmail.com>
+To: Russell King <linux@armlinux.org.uk>,
+	Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Anfernee Cao <anferneemelokc5@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mmc: mmci: fix DMA channel leak when mmc_add_host() fails
+Date: Sat, 17 Oct 2026 00:37:07 +0800
+Message-ID: <20261016163707.3508-1-anferneemelokc5@gmail.com>
+X-Mailer: git-send-email 2.54.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,17 +77,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 12:17:00PM -0400, Yury Norov wrote:
-> Alright, so the basic idea is to hide the exact implementation behind
-> the macro magic. This is highly unfavorable unless it brings substantial
-> improvement i.e. in code generation. In kernel we're drifting toward the
-> exactly opposite direction: getting rid of those macro tricks folded one
-> into another in favor of the plain human-readable code.
+mmci_probe() calls mmci_dma_setup(), which acquires the RX and TX DMA
+channels via dma_request_chan(). These channels are not managed by
+devres, and are released only by mmci_dma_release().
 
-Thanks for having a look and for the pointers, understood, and sorry
-about the length of the description. I'm dropping this one and will
-follow Arnd's suggestion instead, replacing custom arch helpers with
-the builtins where that simplifies the code.
+If the following mmc_add_host() fails, probe jumps to the clk_disable
+label, which only disables the clock. As probe then fails,
+mmci_remove() is never called, so both DMA channels are leaked.
 
-Thanks,
-Tzu-Ching
+Release them by adding a dedicated unwind label, reached only after
+mmci_dma_setup().
+
+This issue was found by manual code inspection.
+
+Fixes: b38a20f29a49 ("mmc: mmci: fix return value check of mmc_add_host()")
+Cc: stable@vger.kernel.org # v6.2+
+Signed-off-by: Anfernee Cao <anferneemelokc5@gmail.com>
+---
+ drivers/mmc/host/mmci.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+index 416bdb184ed4..4db5c55b2700 100644
+--- a/drivers/mmc/host/mmci.c
++++ b/drivers/mmc/host/mmci.c
+@@ -2477,11 +2477,13 @@ static int mmci_probe(struct amba_device *dev,
+ 
+ 	ret = mmc_add_host(mmc);
+ 	if (ret)
+-		goto clk_disable;
++		goto dma_release;
+ 
+ 	pm_runtime_put(&dev->dev);
+ 	return 0;
+ 
++dma_release:
++	mmci_dma_release(host);
+  clk_disable:
+ 	clk_disable_unprepare(host->clk);
+ 	return ret;
+-- 
+2.54.0.windows.1
+
