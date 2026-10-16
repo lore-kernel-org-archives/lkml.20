@@ -1,189 +1,313 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7A33BBA0B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076FD3CF95A;
 	Fri, 16 Oct 2026 07:59:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792137581; cv=fail; b=KUiDqFl2e34XgjZGR/WjUYsEkicDW9s94HC5xgRFJ8nUJicdnnZQrd4/3K/VqkUdE/4vfkQux3p8cFT43lNM+41rbmELZe0Q9f4eIkuxSgF5Vb+o7Eci58vaa/ouwVJcNsm3+YBLycEeLfz9rCbwcl0+r/llS7zZouC6Huk7BUA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792137581; cv=none; b=HeRywQhwtLGj9p1cMtbxuUQ3YW/Cpf7fsdLo8gsKDnXRC631UjXgNHHT5Tr+dGPyNZn4/1gMoMca1+xQFHx1KZurbzG4m3XYzd7IhwMm+rG/ApN89HVBHZO82sRtFHua0pIOU7wPg8mNkdPYHMFP21/aBJDYXkf7SoHUbG3/0Uc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792137581; c=relaxed/simple;
-	bh=96xepbCHSClTrLawsYF41uYVODBUgaoYjCV2AHPX04w=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=maZ+rkG3ww6x0za6cEDTK6bycfSl1DUOlujTNvM3h5CnKQIMVEqhajraAIheu6dQYgv2A0IOwvxnFTbIbX50NwxMtKYwgztEOy9Y0WL/QKyWJNQrFP3dqpYSuWp6vefdP+9uQqwTqq/9bIuH1vb3srEKQ4V2E3fVI5k9+7FpxD0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iASWEX4P; arc=fail smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	bh=BgmtyitbBYeLmFOBqImLlgPwGZgZ74MIAtnveeHA86c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W64zPp4G8FIh+doaquFbRGl+qyv0MjRU5y4wagjwMWMqUXRBXaamjodd7D/hQNPuQ3ecjARES5u53ktBdgQn/BaGaaKtAsmrGDXLhUIQ4eUfPNH5mMfFnKigXrwhza8jI1nemEF8McjwGG53jx96FH8G16icvcVLUeo1CKsaXEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=xx+Ok6Yn; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=f+CC9yvM; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=xx+Ok6Yn; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=f+CC9yvM; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iASWEX4P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792137579; x=1823673579;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=96xepbCHSClTrLawsYF41uYVODBUgaoYjCV2AHPX04w=;
-  b=iASWEX4P2UiuHtf5sk3iuNYDlhUDYNlWHxPGFvT6VZCESt+6pC3v23Zx
-   ZNPo+ZgPR4ybRkjTKtPeCw6H6V8zEox0KJ/sWSgEZMfs0NdWupCBFpGyN
-   1O/EzFj9qo8F6/UiTvLQcd20L71kpKEHziRlGaVxATsVN8jEh6mRDhMKK
-   OMKZmX/LiQBPHv15iXU97dEf7pFnGJe3FVlMjlROIiNgDgJ2cNOfF4LYY
-   gcUv9+lEhVxWDKcD6Imutda8nEfVxIdS0q/t2hgxNCcucKAA2DEdpYIuK
-   G9TqjJmd+sNWYbaD64GwE+2DX9BkGiPrrZvA/ilObAOt931ZJbkQ1LruS
-   w==;
-X-CSE-ConnectionGUID: eTPqEM7LQVetv3hvevNglw==
-X-CSE-MsgGUID: BTuwPPfASbqy3ImgoaSkMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="796572"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="796572"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 00:59:39 -0700
-X-CSE-ConnectionGUID: HUAGD/JWSgOXKLjijfiF7A==
-X-CSE-MsgGUID: trGy8nlWSwqyuuLcXoDl/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="1958296"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 00:59:39 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 16 Oct 2026 00:59:38 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Fri, 16 Oct 2026 00:59:38 -0700
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.32) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 16 Oct 2026 00:59:38 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QQr+9iY4CaGIEnndUxmM9TGooh6RQ3TTd+mBxhnjxoH43ZjiNTxmOvDF9xg6VOHYhS7tDSvCfaqNeJcsqIu124EhiWsC+1uF7SihSMc+a/hh/8SUg/3OEKIYlNYpta0EfbmuRnS81IEHyJyi4tHUiQ0GXwDKDi7hZe6WU7dCZAE/gmCCfsG1qAzKhZ+j+Gx0aua394t8FBo6xEqKa6IMUxCRGJlVRCCxheAYG2uw4y2B9tzMEG28Vk7UuM5kzZGeimcZcj7Xqt3RBtm947GqeR/zwuBXxo62DpzwOkhBkAfZacYu+Lf9UkTVqBsVg9xfFrkfQL5ALd1kR96gUxCAJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=96xepbCHSClTrLawsYF41uYVODBUgaoYjCV2AHPX04w=;
- b=ymjo4Lp6fqUGl3hxfLqNqleHUc7kmKGy1IFUwc5rZNzJ990nD/2eH1dWqTED0n8nxti7mzHZwkKOb7ivsiB1+kVYvOZHIfi3E7f5dmzShlF+4/vSYCIVNLRo/SDtpXaYG1M9vrzdnimwvzKq8jWb9zH6HPUbE0CFf1jsTLJqiLgP4OlSQlhKJBzgsWl8X1ZrojuzsXRr6fOy9+jntCwi8gaPUh9ADTfv12/upl34NLJ2WlG/4jn8hkzuOtFmYDiP9aGx/13Fn2HNikp8mUM2JygNm8jqk+Ec29fep0GSnQ2o9DPLw7hBC4jYIyZSn+q7BDH/sL2sBwXAYpNMb4/ehQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from CO1PR11MB4836.namprd11.prod.outlook.com (2603:10b6:303:9d::22)
- by SA2PR11MB5097.namprd11.prod.outlook.com (2603:10b6:806:11a::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 07:59:30 +0000
-Received: from CO1PR11MB4836.namprd11.prod.outlook.com
- ([fe80::c8d0:9419:e0a7:5188]) by CO1PR11MB4836.namprd11.prod.outlook.com
- ([fe80::c8d0:9419:e0a7:5188%3]) with mapi id 15.21.0522.011; Fri, 16 Oct 2026
- 07:59:29 +0000
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Xu Yilun <yilun.xu@linux.intel.com>, Lu Baolu <baolu.lu@linux.intel.com>
-CC: "iommu@lists.linux.dev" <iommu@lists.linux.dev>, "x86@kernel.org"
-	<x86@kernel.org>, "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Kiryl Shutsemau <kas@kernel.org>, "Edgecombe, Rick P"
-	<rick.p.edgecombe@intel.com>, "Li, Xiaoyao" <xiaoyao.li@intel.com>, "Gao,
- Chao" <chao.gao@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2 2/4] x86/virt/tdx: Read global metadata for trusted
- IOMMU
-Thread-Topic: [PATCH v2 2/4] x86/virt/tdx: Read global metadata for trusted
- IOMMU
-Thread-Index: AQHdXENKU45Dvx+hCUirLvU6t8/et7b+KaAAgAGkipA=
-Date: Fri, 16 Oct 2026 07:59:29 +0000
-Message-ID: <CO1PR11MB48369D5931BAB99D9C11D7198C9B2@CO1PR11MB4836.namprd11.prod.outlook.com>
-References: <20261015010705.1973284-1-baolu.lu@linux.intel.com>
- <20261015010705.1973284-3-baolu.lu@linux.intel.com>
- <atB3DiLtGTlilVTN@yilunxu-OptiPlex-7050>
-In-Reply-To: <atB3DiLtGTlilVTN@yilunxu-OptiPlex-7050>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CO1PR11MB4836:EE_|SA2PR11MB5097:EE_
-x-ms-office365-filtering-correlation-id: b3791efb-70eb-4bd1-2819-08df2b5b681c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|38070700021|56012099006|11063799006|4143699003|22082099003|10067099003|18002099003|3023799007;
-x-microsoft-antispam-message-info: Wg+baSzxfWRe0lj6MID2hByHxgsTIMIV1sL6JD9mXC/gjJErWsxg6f8VshZwB8VcNHku3w1zYzq2QO6lsBqw4zvddPZaeY4mq/QA22iQMzqcacesfmdhjVi3bmelzdJvCqON6Z9PTmiY003ouNRX3MbPUmmYKYLNzYwhox0pyscHdHQWfAnE6wSm8d4ntEVQ2amMm0dosy0j0zAdPoe+KA/Du47yaEkGL9/voIcHEmbBwfx0yIGs0DSB3Rt7gHeNwpFWxGbFQUgKuPdkR7Y7AwF5A7a0/SXInLY5XnGYVZ780wk3z13WoppCbpAcELN9dklIVRY9q69Hh4a+pgbrbxP2qcNPHl502nuth0A/LTHGXHeE0+cDD4roF0bGs/1QfVK6uipzno0R7T//W876KI5E5nVBe9PBSS/GGF32YWYILzXXOkz1jtGCLZlDgu0MOBb9IayYSskWOTXUFkS5ePNSk1wNliZUqnAJQR77uP44H7Fqo+ZLkUqGy5qCQkXWjzeo35zjfNOVXBYnd/s/AGI99dr6RsPmU4xdMTUx9pY3p8eEo5e85qAg8c0HLwIfU7YIrafP4atgrwc5hoyxp/A8JgRFt3eR2HJ1wWHnIdg5Ox9YenyLhaluzLEpYnL8UR0kqYcIvHoIbNP/2xMzfrHbpbChGo2RIeWo55kB+5W5CAptZmL6R+X9dAkP2s+EDPswTqY5o8Ocfkhk1e3pnJnbNngFkoHMUf2cfYQOgRM=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4836.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(38070700021)(56012099006)(11063799006)(4143699003)(22082099003)(10067099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?VHBzmIlDN5AG6QYZKPtC5lJyAfpjeGS5k18oFohKx8T1vlUq+cTS5uG5kpBW?=
- =?us-ascii?Q?g9POQ0oI0Z4jPII0vZWnlN9P+5t8dHO569VzWm6kJoYR9ADMQfSSFPh9FHzf?=
- =?us-ascii?Q?D1fFfpGinQ1K1Sy1/oOEpfyAPjFE4tEIklTRJScf3BnAQpHiPcf5w/XMWX7g?=
- =?us-ascii?Q?NQ5eab/wCllria0BlTHAbbJiYrvicn4ftZCAYTm9fOxyL6iftgKmuegFiHGl?=
- =?us-ascii?Q?Pn2TOr9Fn7w6MpMw5Bbyotd+go31xTEfoRkeIZO1zbaGckEvlzpPWchncXOe?=
- =?us-ascii?Q?PBibYe7yNHOPB3wkAGVyZA1l7r/+mLYSp5shKqZYdIbqRw/5/skD3MC+pLgb?=
- =?us-ascii?Q?KSuGfiGD4hFgsM6oKW15wBXoBp9hr+Rxv5oGXXSgmQPxI2pPF70Jg8eb+uxS?=
- =?us-ascii?Q?EKtWpybzVBfTvnz1bkti9sFVdIrIhp73vhv6L17HlJlr9PCTs/Hzk5vULB/1?=
- =?us-ascii?Q?0GlqZWKZ26tnJPxFAUR5EmZZXbsQvInl1zm8o7rXX37Z10quidIHXBSE9WXM?=
- =?us-ascii?Q?bKIh91hSHr73nmb6xGU4lEawXiU3NIWBOVPBmbGRH1glKUe4toIIzlGPSDv4?=
- =?us-ascii?Q?Kl02JtkPWmekmmYGmriyYZvYeDsA3srQUY0GUh45CEjeMjNVSc9frhNgIXy/?=
- =?us-ascii?Q?OFAoHNBj2ELYpeaXyEYQW7ZfPo7xKKuSgbLGyl/pysGliabIzB6mniosvNNa?=
- =?us-ascii?Q?Bd2+FFCHKrLc9MTiM319gi8uNtvkAPucrwBH7zTRsOZnXI/TJjHh6iq90Xhr?=
- =?us-ascii?Q?Q2WuVY/LiFphft6rAg8dqmNYJPOC0T0d58Yl9ya0YDQ8k5ZQZmFEu3elwUmV?=
- =?us-ascii?Q?Omo5FbJ0Kh1/ILLutipQ/i4S57ciAR0CC7q/bswEfTlIPRAYMEQmL/T/qJrq?=
- =?us-ascii?Q?/xuv1freRPj0xbhQR3YSoVdSu0DpJbKoQWkpWbYvvtwPIPujxbqM4eCHZE1s?=
- =?us-ascii?Q?XZ0QDtDKyewo0iFP+W5PtnlhopwCFfVR1Op5HF0JTOqjpOLp+HW1YaJJqlnZ?=
- =?us-ascii?Q?AMLbOdZz8Kn/jhQ3X7oinPzKdC3DHnDKCCjqbXGifTqfIpjX4H2su/1UDw9J?=
- =?us-ascii?Q?FuqrCecjwjEa8AvO3KxckJjuoinPNN1GKrRciLvDIAuhzw7lJtiHMuBu+WOj?=
- =?us-ascii?Q?tg8kFrSma66Br2Xa5NXWODs9En5bp43lUmCpL/yV3JBCEkBbQZ4tiJuJjw7l?=
- =?us-ascii?Q?a1ZZdU7GukR0OdF78r5CJn25CJUYXWOgUrsAuWiIxf1iLSXDBK7sy1KYAukK?=
- =?us-ascii?Q?z0ZDqvplY6q70ZRDe0UVx0oxVJhtfPTBWxC/wQzjbX9jnsW0Kl3mESuxfS5T?=
- =?us-ascii?Q?sLZTL8NPi7mLaShDpK0+gRw6WNr7PwQTv/+47sF2e60I0Etqb5gm8I0jcUWu?=
- =?us-ascii?Q?S3yz/JY7VXebUAL271btR6Qc74LDMRMm1ifxO7cyRAg1kWb5Yvua6E6/Ialn?=
- =?us-ascii?Q?2OPRgRi8cQPPmpN22pAYhGiOfiserLc/Ru2HKIn5Lx6xFHbRHzVIyhSFUAMz?=
- =?us-ascii?Q?3GX+OVBP4DI0flkpyv25XzhqOVfkUKisra7W2cgPxDuodxxKDgJ5Y6dZrYAJ?=
- =?us-ascii?Q?JtJqzyEd4i3LBtenzec0iMTUdgw7utHqm2J2lXL4B4GYCjCFEmCHUOJ9LZz5?=
- =?us-ascii?Q?OAYWGrMw62fPKo3pRyc+HIABkwNkRTZp8iAgDaJKVd3AzZcsdOt5OpH/sfxl?=
- =?us-ascii?Q?QtEWbzpYY6Of+jEeY0avcvFncVSvLAlfYG7o9Orf+c5UIDY5?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xx+Ok6Yn";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="f+CC9yvM";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xx+Ok6Yn";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="f+CC9yvM"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 93BFB21E78;
+	Fri, 16 Oct 2026 07:59:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792137577; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=N0RmPF4u4ttHUAHkoC+0f4DoZQVaNZj5Y1YwZeY3lgg=;
+	b=xx+Ok6Yn6gATsaJT/VQTRNbo8sSv5qteghadulOBq1J5YckzyTkcG+OOMrQ32UOH5wbpW+
+	+e6b2o0J5rg5WXYdVrDBuom0a/RfB20clk4fwnR/13ovmaDIYgiP0nvaeURHV+gt0foL/P
+	lhjZ7Bic7eWiqHym2yBMSDu6+3x7cRY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792137577;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=N0RmPF4u4ttHUAHkoC+0f4DoZQVaNZj5Y1YwZeY3lgg=;
+	b=f+CC9yvMsNvhIaAGUo27xpYH3uGlaIp3WnW+23Bk7HTDo5/yqv7SQuHoH9Xv3U73YD4Sod
+	A94nrWRZ6eIf5QCA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=xx+Ok6Yn;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=f+CC9yvM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792137577; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=N0RmPF4u4ttHUAHkoC+0f4DoZQVaNZj5Y1YwZeY3lgg=;
+	b=xx+Ok6Yn6gATsaJT/VQTRNbo8sSv5qteghadulOBq1J5YckzyTkcG+OOMrQ32UOH5wbpW+
+	+e6b2o0J5rg5WXYdVrDBuom0a/RfB20clk4fwnR/13ovmaDIYgiP0nvaeURHV+gt0foL/P
+	lhjZ7Bic7eWiqHym2yBMSDu6+3x7cRY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792137577;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=N0RmPF4u4ttHUAHkoC+0f4DoZQVaNZj5Y1YwZeY3lgg=;
+	b=f+CC9yvMsNvhIaAGUo27xpYH3uGlaIp3WnW+23Bk7HTDo5/yqv7SQuHoH9Xv3U73YD4Sod
+	A94nrWRZ6eIf5QCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EC5AE1378C;
+	Fri, 16 Oct 2026 07:59:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id FgOWKmjZ0WpQPQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Fri, 16 Oct 2026 07:59:36 +0000
+Message-ID: <3382a02c-ed79-4214-99c5-dc81ee59d633@suse.de>
+Date: Fri, 16 Oct 2026 09:59:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: Ih/gmvSEohfzH6r9b6N6lYtI4OyUcAgPy+l3L5IBGXO+PjvZEtvIFIVpHLQY1o8GFBOL3wEob+n9ASAgaRKwIxjcX12HQiaTc6eCkhy6Dl6qvHDHA4D2puL9idwBoUUIkjhLWjGVcviteByWOw3NaHeI9tnX75+W+NEwYY8aQs5AVOughubwGXLpTUG9ncIxguqG5msBxOW4tUIUTprhczgDgS6WP+iy8aa7Key9U/FZLd1ETPVHr1ISJkRMqTJ8htibnfQRN8MRhJyf/2pRSXsGqufjCnTJFh3htso16sbHaw7tLIYscsgWNWqftAHBpvhCXw1IcAAuy6eCMGuP/g==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4836.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3791efb-70eb-4bd1-2819-08df2b5b681c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2026 07:59:29.8125
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JvCYnPvuxOW17q4ps3LiQ0crljAmux3l9en9oSlx1wBPn/yOK1XjnQm/vBJFoPqXdgSSwq9qfOuHgPJ6q9JuvQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB5097
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] fbcon: Rebuild rotated font buffer on font change
+To: Yao Yiqi <yyaqia@gmail.com>, deller@gmx.de, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com, stable@vger.kernel.org
+References: <20261016073023.490430-1-yyaqia@gmail.com>
+ <20261016073023.490430-3-yyaqia@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261016073023.490430-3-yyaqia@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spam-Score: -4.50
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.50 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[gmail.com,gmx.de,ffwll.ch];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,huawei.com:email,suse.com:url]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 93BFB21E78
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-> From: Xu Yilun <yilun.xu@linux.intel.com>
-> Sent: Thursday, October 15, 2026 2:48 PM
->=20
-> On Thu, Oct 15, 2026 at 09:07:03AM +0800, Lu Baolu wrote:
-> > Add support for reading the global metadata of the trusted IOMMU.
-> >
-> > The trusted IOMMU feature is optionally enumerated via TDX_FEATURES0.
->=20
-> The feature name is not trusted IOMMU, the name in the spec is
-> TDX_CONNECT, but I believe people want a name with technical meaning,
-> maybe TDX TDISP? Open question for all reviewers.
->=20
+Hi
 
-According to the TDX Connect spec:
+Am 16.10.26 um 09:30 schrieb Yao Yiqi:
+> From: Yao Yiqi <yaoyiqi3@huawei.com>
+>
+> fbcon_rotate_font() caches a rotated copy of the console font in
+> par->rotated.buf. The buffer is sized from the font's width, height
+> and charcount, and is rebuilt in fbcon_init(), fbcon_switch() and
+> fbcon_modechanged(), but not in fbcon_do_set_font().
+>
+> When the console font is changed through KDFONTOP/KD_FONT_OP_SET, the
+> new font data and geometry are installed and vc_resize() is called.
+> The redraw that follows reaches the rotated bitops while the buffer
+> still holds the old font: the rotated putcs/cursor ops index
+> par->rotated.buf with the new cell size and character codes, so a
+> stale, too-small buffer is read out of bounds.
+>
+> KASAN reports, for example:
+>
+>    BUG: KASAN: slab-out-of-bounds in soft_cursor
+>    Read of size 64 at addr ...
+>     memcpy
+>     soft_cursor
+>     cw_cursor
+>     fbcon_cursor
+>     hide_cursor
+>     redraw_screen
+>     vc_do_resize
+>     fbcon_do_set_font
+>     fbcon_set_font
+>     con_font_op
+>     vt_ioctl
+>
+> Rebuild the buffer for the visible console right after the new font
+> geometry has been installed and before any redraw. Select the
+> console's blitting state with set_blitting_type() first, as
+> fbcon_init(), fbcon_switch() and fbcon_modechanged() do before their
+> rotate_font() calls: fbcon_rotate_font() reads the source font
+> through par->p, which may otherwise still refer to another console of
+> this framebuffer. On tile-blitting hardware, the same call uploads
+> the new font's map to the text engine, which previously happened only
+> when the console was switched. Background consoles keep their rebuild
+> at fbcon_switch() time, as the buffer is shared per framebuffer and
+> must not be rebuilt for a console that is not being displayed.
+>
+> If vc_resize() fails, err_out restores the previous font. The rotated
+> buffer that was rebuilt for the new font earlier in the function
+> cannot be restored with it: font_data_rotate() has already reused or
+> freed the buffer that belonged to the old font. Select the blitting
+> type and rebuild the buffer again after the restore: the upload to
+> tile-blitting hardware and the rotated cache would otherwise keep
+> describing the rejected font, and par->rotated.fontdata would keep
+> referencing the font data whose last reference the error path drops.
+> A failing rebuild leaves par->rotated.buf NULL, so the rotated ops
+> skip drawing instead of reading a mismatched buffer; the next patch
+> retries the allocation on the following call.
+>
+> Unlike the other callers, this one does not fall back to unrotated
+> rendering on failure. The "par->rotate = FB_ROTATE_UR;
+> set_blitting_type(vc, info);" fallback they use does not actually
+> switch to unrotated rendering: set_blitting_type() calls
+> fbcon_set_rotation(), which immediately re-derives par->rotate from
+> par->p->con_rotate. Replicating that pattern here would not change
+> the outcome; repairing the fallback is left to separate work.
 
-" This document outlines the system architecture specifications for Intel(r=
-)
-TDX Connect, a TDX extension technology for secure and efficient=20
-integration with trusted I/O devices. "
+It's way too long and boring to read. Can you please try to shorten the 
+AI-generated commit description?
 
-So "trusted I/O" sounds a good fit here.
 
-Or "TEE-I/O" is also clear, based on the TDISP spec:
+>
+> Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+> ---
+> Changes in v3:
+>
+> - Also select the blitting type again in the error path of
+>    fbcon_do_set_font(). On tile-blitting hardware, set_blitting_type()
+>    uploads the font map to the text engine; without the second call, a
+>    failed vc_resize() left the engine with the rejected font (found by
+>    the Sashiko review).
 
-"Trusted Execution Environments (TEEs) that include a composition of
-resources from one or more devices and the host require mechanisms
-to establish and manage trust relationships. Here we will use the term
-TEE-I/O to refer to a conceptual framework for performing such operations."
+The problem is that rotate_font can fail as well. Handling that in the 
+error path is not possible; hence results might be worse than keeping 
+the rejected font.  Can you try to keep the original rotated font and 
+reinstall that directly?
+
+Best regards
+Thomas
+
+
+>
+> Changes in v2:
+>
+> - Rebuild the buffer again in the error path of fbcon_do_set_font().
+>    Without this, a failed vc_resize() left the rotated cache describing
+>    the rejected font while the console rendered with the restored one,
+>    and par->rotated.fontdata referenced freed font data (found by the
+>    Sashiko review).
+> - Select the console's blitting state with set_blitting_type() before
+>    rebuilding, like the other rotate_font() callers, instead of writing
+>    par->p directly.
+> - Reworded the note about the unrotated-rendering fallback, which is
+>    now left to separate work.
+> ---
+>   drivers/video/fbdev/core/fbcon.c | 23 +++++++++++++++++++++++
+>   1 file changed, 23 insertions(+)
+>
+> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+> index 01715873ea49..d90a2ad45053 100644
+> --- a/drivers/video/fbdev/core/fbcon.c
+> +++ b/drivers/video/fbdev/core/fbcon.c
+> @@ -2432,6 +2432,17 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+>   	else if (!vc->vc_hi_font_mask && charcount == 512)
+>   		set_vc_hi_font(vc, true);
+>   
+> +	/*
+> +	 * Select the console's blitting state and update par->rotated to
+> +	 * match the new font, so that the rendering below does not use a
+> +	 * cache that was built for the old font.
+> +	 */
+> +	if (con_is_visible(vc)) {
+> +		set_blitting_type(vc, info);
+> +		if (par->bitops->rotate_font)
+> +			par->bitops->rotate_font(info, vc);
+> +	}
+> +
+>   	if (resize) {
+>   		int cols, rows;
+>   
+> @@ -2466,6 +2477,18 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+>   	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
+>   		set_vc_hi_font(vc, false);
+>   
+> +	/*
+> +	 * Restore the rendering state for the old font: re-select the
+> +	 * blitting type, which re-uploads the font map on tile-blitting
+> +	 * hardware, and overwrite par->rotated with the restored font's
+> +	 * state.
+> +	 */
+> +	if (con_is_visible(vc)) {
+> +		set_blitting_type(vc, info);
+> +		if (par->bitops->rotate_font)
+> +			par->bitops->rotate_font(info, vc);
+> +	}
+> +
+>   	font_data_put(data);
+>   
+>   	return ret;
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
