@@ -1,103 +1,116 @@
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E538B42123F;
-	Fri, 16 Oct 2026 18:43:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6B54B3C94
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:47:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792176236; cv=none; b=jajeNOMVWmKIe1WSOwjn4nkkeja4NFDLAJWaK5rPpXVbWo/ZSlfgTxCQa9jvpQ1hmyUwVQFOLc8QHH28YtJlpoRvZaFzsc71SB7wAOVMjx6ix4znEPQpx6wMCwwx9cW+PnBpX6eeJu7TAg+L2I3Ud7L2LQ4lPx/8sja4m0Y5oAw=
+	t=1792176480; cv=none; b=b1c+cLvDACzLzAt6uoHwUuwgUkzCGkauF2Vt4hbitzla6H5DYIMzsSRwK1Y+pRAJdK/4m1z2i75VnEpxf7cWabg4mQRBGGDlR25aq1gdHy9DFKkhRpk6ypBYmZKDor67/eT1MPpWvfjDzUJj2NkpycbSZqjg66DR6082SSPi7tg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792176236; c=relaxed/simple;
-	bh=Ak2c5Tpl9zshnaZLyfIhBDvKkYTuKn4W4OpK6mgxa7E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YEQ/fZbUR/Em9G1+e9ajySmh1XiXBZoHgRCOBdqnJ5QlKpc42QUTyV3SYFWiZ5sTPh/RYBZX4/FxcqNKN4seKOl9lJJwRlTJvYvs20pCD7UfqmDLpiiP0L6qUIsp4XbdkV3Kkt4PXMkKYN/sXq/DKTe465CG7E/9uAQ0NqyT1Cg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=EccIHqfG; arc=none smtp.client-ip=216.40.44.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1792176480; c=relaxed/simple;
+	bh=9HaWzOKfnpaXCLuhegUHtmuWqks+3jlaF1gMhEmsKRs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fM9fmHjZeC+fBYAqLXLSQNNOFFt6ZgI2op6JcGqKIEzcKlXis0uKgMqIRgToxTP1cLIC0eLq5mDSL41TThTxaqztSs/BVD4+Ujw5fMrOgylR1DM+6kC2Oxbv3BfXXXSysisvQfbJ4OqP7KmU+QPDFSGkuiCDcR5WqoI7cdP174g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=cWiGq7hH; arc=none smtp.client-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="EccIHqfG"
-Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay08.hostedemail.com (Postfix) with ESMTP id D24E6140534;
-	Fri, 16 Oct 2026 18:43:52 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id 74F7460010;
-	Fri, 16 Oct 2026 18:43:50 +0000 (UTC)
-Date: Fri, 16 Oct 2026 14:43:49 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Kees Cook <kees@kernel.org>
-Cc: David Laight <david.laight.linux@gmail.com>, Bill Wendling
- <morbo@google.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Andrew
- Morton <akpm@linux-foundation.org>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, David Gow <david@davidgow.net>, Jiri
- Kosina <jikos@kernel.org>, Petr Mladek <pmladek@suse.com>, Shuvam Pandey
- <shuvampandey1@gmail.com>, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v5 05/12] seq_buf: Clear what a writer did not claim
- when a seq_buf overflows
-Message-ID: <20261016144349.412a4cbf@gandalf.local.home>
-In-Reply-To: <20261006212552.51e0c3-kees@kernel.org>
-References: <20261005155653.late.426-kees@kernel.org>
-	<20261005155708.1471260-5-kees@kernel.org>
-	<20261005195926.09e240d9@pumpkin>
-	<20261006212552.51e0c3-kees@kernel.org>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="cWiGq7hH"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3550c917fd3so236568eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:47:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1792176478; x=1792781278; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ic61/wqBGtfRXKsiAxz/tXXdVrm+pW2y1wsldll1w/I=;
+        b=cWiGq7hHOnIm3ZX+xWXvn1LLHgSwL29Xd8Ej38K7tW+XFEWvPMBt8bSedxyBPDhbGn
+         tisAQVd2r/5sXBgmzgVnMEhRB3GqCcLrJxQQejVt8gVehlKNcB5IFHqREwBli4DFX3J/
+         a3X8NPtVFz6YTbaXOKu9RHCcZIo4ajWIjZM1rTZb8lwGi7cUjeci3SYwdYYBR/f/Cf0T
+         eeOk6ap+0Ldgc4OTRg6m9zfoDAd7521NrH/3tNwT96ZvzOl+/piScRqRFNpe631wfG+8
+         kbDjRHsRLSKjSYlfaVafg1xM1y32bflyCrD9VMZEpNzABGZ4rjllp8TgqSCQ7VN2czXZ
+         PQaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792176478; x=1792781278;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ic61/wqBGtfRXKsiAxz/tXXdVrm+pW2y1wsldll1w/I=;
+        b=DfyI7Ony8T4+kCZSyRQ/09ovaL14bFmRbCXHUWXmM6yluZLmFJruZyQfnNc8U6xomu
+         gXY4M690MVqxkcU77slsSeKtrEJHoDt6oVEjQswxZ17B9Pa0ypxfHv396ZRe0dh47FiE
+         vfhZNqdCflCEy6Hat34ZTgFti1mCcWv3OFBHAT2ZzCzNloTJIgVDdX6WckYdD8Ef6uXi
+         SH1cg6xgqIeunuAlNCL79CwCgFmn9Pojo2Ghh9z5IYrJ5oI/TGoS1GNvKWLrgVGeMIYM
+         AWLVk4f/wmLUzBtVw2FgzYam0SgEGglBAjfr3PeC57fiWAv2wVvM5VVUrXJB+tc2Ldun
+         4oxA==
+X-Forwarded-Encrypted: i=1; AKwUvBwCApEeDTsmekrgUsGqYzFhHUVtE0mk0WuIUMsno93n6OUITjXrpF3+vmENn8XBoS7lt4rB+cfa1DkFZR0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLF0eByk8oTcyXN+WjCkYAJhsffD92Y/1RStHmo0+QKMycnVeMj
+	EgByOjITvBd9bq7SqlHrzMLTzzkrNRwx/syXSEuKvjovTDpd87KIGLvOmLFiaizxjOQLiqc0XeD
+	RIpoJY532hA==
+X-Gm-Gg: AYBFou2ZU6a00fXd3t7q8j8aEmdn3iy0itScnYSIuQKR4Szz/GFpoYcaxlbhV9asmdi
+	EZChmFZI8M/upeEbFDgcLFBwqYlQAOmCZLZK4gE/36VcDLul6DLfesDx7MmfqRwtQlchJATqh+B
+	cMJ3Z96odwoTvy0RHVmXbnEEdz1V5QhNUH5QioIbCfJ7+7qLWMntWYQI/WGzT028J8U7PeJX13r
+	X9Lxs/6exo5yP8MQOeHMJgaZld5a3XrDCkrFOUUpFJQr+hpq6nUItOATO468D4FJVOI5QKvt86m
+	hcSvVhK8tE7D6I0UveQYzALz9VxXTnVoNPVuPrMdMfl0LYiPwpyUzB4Bw6JNY5aXNvADbdOhp8a
+	1/2bDBjZrIY0qUo2YuDG+aAvOCn1jLW+jOmJHX4bgDXDf2U0YYe97zsroUjNms3bFu7+fQNxqIo
+	8fN+H8g0HLR5F+3xfutZN6So5G3YawPiyEe5qDNU1fknGUiRuBO7wBgf6SxPaNQYlk9qQXpku+K
+	tTgITlYbnftgQ3woDgDLGJMcBgo6U0qRobdAsTHNzM91R0cpc+YczEIUGvcXC4/ODUfoFq7Mazj
+	yqetZA==
+X-Received: by 2002:a05:693c:62d4:b0:35f:2349:a570 with SMTP id 5a478bee46e88-361a2a3832amr578015eec.35.1792176477713;
+        Fri, 16 Oct 2026 11:47:57 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:85ee:eb9a:5637:424d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082784ec8sm8004502eec.22.2026.10.16.11.47.56
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 16 Oct 2026 11:47:57 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: axboe@kernel.dk,
+	kbusch@kernel.org,
+	kch@nvidia.com,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.6.y 0/2] CVE-2026-64017: backport fix series
+Date: Fri, 16 Oct 2026 14:47:51 -0400
+Message-ID: <20261016184753.27189-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: jnpfudwi341r9jy6e5hrarxqqf5xmwae
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: 74F7460010
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19pW5plO3xqqKBJderVXovXcs3Dsc3Xr/Q=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=b5tZknHayHOpsUkodzmN+EEcGzSDw6BKjpwEFD9bRMc=; b=EccIHqfG2cId6XX47lGhyVdVHzOZ+OeNcgood1Yy5DsxtKUMKjcImRdbS/TtllolKpMqjExZptAN5aD8uZdDGUCFqlLNW1Y7qfaXDRIvWY85jYSe9tCLWaSmKjYOOMgkvqMcP2OZ97rZY+VP+rDrO/lgRXX3STI/ckMDp66ujpY=
-X-HE-Tag: 1792176230-109148
-X-HE-Meta: U2FsdGVkX18O0howf8PVArtPGEy/UhWoK+SxrtMgOU82uQo5ZbcSWY834ThVahJ3cAdCXAXMy8o15FE6camM3dpqc7VvVniXxDfbHPAnQOTk54PbGFOc/8elY/zmwQzbOZHiCQWw3w+wvozonF2Cc193hHCT52jXHU3g3YxusAD5hTXl/sM2I5NDdRebjQLYRJwL7dCQ6jRbEDhqh925gnKHrm31VXX1zGKze52iAX6x65yuG4I14u58M7EfusZxb1dT5hYFGaeS+bAwf85u99Uc5LQEFpMPeZHOYQ7LDsMmrEoR2F/7QFZrnLkpExsockxR4JjijvNjKKen6hYCJG+2AhOl8XMvthuBKjdYHUXURdNfNWJ22w==
+Content-Transfer-Encoding: 8bit
 
-On Tue, 6 Oct 2026 14:26:56 -0700
-Kees Cook <kees@kernel.org> wrote:
+Hi,
 
-> On Mon, Oct 05, 2026 at 07:59:26PM +0100, David Laight wrote:
-> > >  static inline void
-> > >  seq_buf_set_overflow(struct seq_buf *s)
-> > >  {
-> > > +	if (s->len < s->size)
-> > > +		memset(s->buffer + s->len, 0, s->size - s->len);  
-> >
-> > What is the performance impact of zeroing the buffer?  
-> 
-> Overflow is never a fast path: it happens at most once per seq_buf
-> (after that len > size, so the memset is skipped), and it is already a
-> failure the caller has to handle.
-> 
-> It is also usually zero bytes. printf, bprintf, puts, putmem, and putc
-> all fill to the end before overflowing, so len == size and there is
-> nothing to clear. Only a writer handed the tail by seq_buf_get_buf()
-> that then gives up leaves anything behind (seq_buf_path() with d_path(),
-> or landlock's string_escape_mem()), and then the clear covers only the
-> space that writer was given, which it may have partly filled.
+Please consider this backport series for CVE-2026-64017 to 6.6.y.
 
-Correct, overflow means we "failed" (but not critically). And when we do,
-it's just remnants that need to be zero'd; so likely to be small.
+Apply the patches in this order:
+1. blk-mq: pop cached request if it is usable (fix)
+2. blk-mq: reinsert cached request to the list (correction)
 
-> 
-> > I don't think it would be a good idea to be zeroing the buffer on entry
-> > either (I've not looked to see it that happens - but there will be PAGE_SIZE
-> > buffers (maybe 64k) that get a a small number of characters written to them).  
-> 
-> Agreed, and it doesn't: seq_buf_init() writes a single NUL.
-> 
-> > Writing a single '\0' really ought to be enough.  
-> 
-> It would be for seq_buf_str(), but once a seq_buf has overflowed,
-> seq_buf_used() reports the whole buffer, and seq_buf_print_seq() and
-> seq_buf_to_user() copy that many bytes. Whatever followed the NUL (the
-> path fragment d_path() left at the end, say) would still reach the
-> seq_file or userspace.
+Patch 1 removes a compatible request from the older cached_rq list before
+preparation and QoS throttling, then initializes it after preparation. A
+plug flush can therefore no longer reuse the request while submission is
+in progress.
 
-Agreed.
+Patch 2 returns that request to the single cached_rq list with
+rq_list_add() on each of the target's three preparation or merge exits,
+replacing upstream's shared-exit handling.
 
--- Steve
+The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
+
+Build-tested as part of a cumulative 6.6.y series on x86_64
+(allmodconfig, CONFIG_WERROR=y).
+
+This backport is considerably more involved than usual. 
+We performed runtime testing to check validity and stability,
+but would still greatly apprciate another set of eyes on it.
+
+It was runtime-tested on v6.6.158 in a QEMU/KVM guest (KASAN, lockdep,
+hung-task detection) against an unpatched baseline: blktests block
+group and fio on null_blk (none, mq-deadline, bfq), virtio-blk and
+ext4. No new blktests failures and no kernel warnings on the patched
+kernel; no small sequential write throughput drop over 5%.
+
+An LLM assisted with preparing these backports.
+
+Thanks,
+Artem Dinaburg
