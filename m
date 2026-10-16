@@ -1,103 +1,86 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.nozomi.space (mail.nozomi.space [139.162.184.125])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813CE4E1C97
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:14:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4014FE2D3;
+	Fri, 16 Oct 2026 16:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.162.184.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792167288; cv=none; b=orz4l8g3K+DRk9SvUPgOdPDSK1tcsPMPKo1jm2VdgEC+3MlYlBYt5TJRROnnTDTmP6uvq+BDS/fXWpzRzDJBU5ImXmY4IsQ23Vl5O6K4e/SrqnANgtLsV5JeK8m9I5Bs5aT1dvUg6KqZvOZHU0zCwWa7NHNgGTR7nlrYJoHBZpg=
+	t=1792167312; cv=none; b=fh1Uj5DerKXpXQqLTZ8DIC/czu6KZwSQ+q1Jt6FSCd6vpbdDBZ3bnEusEmbOYHczudt5ls8HjkNkDwvMGaq47RyBOjd58AXwJlK2xjJb0cCWGwfHo1GhA6jmtH05FyF2eF1++0Ytf8xaQxF3tjwx9Q8xCXcY2Dc7SIa3mI6Pufk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792167288; c=relaxed/simple;
-	bh=gEHy834UvFZ5FTyNJPHtHywSI+FJzQgUIJqTNI8l25M=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:MIME-Version; b=WBfw902T/AW36c9nxD2dC8IeQD7glpcDsXcPzMTJm4BkeaxRxJVkC6B2Q9pgaEocWJU7LXIHGJ4/0NHO9rhmfDi/6d0p3giv1B7M9qxnzmtAN0/I3+q2jBmqFs4LCLuFjGKWTUQjEN7kQ4AhxbsQR19iFx7Ssw8hqi/wWQgOqSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e16BeeSE; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792167312; c=relaxed/simple;
+	bh=+waw1SuLWXrPyq5l4Hyn4lERHBCZwpl+TXBqPNFZ8s8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LdYqtFNStEIwKqlFhGp56a29rj3MuE6rR3q5qgfmbZ81l3iAf8DvZp/WttoOu4Dal8A0Qb+Zk/xvq6Vd2zA53HPtot6C2ewNz7mngA+Dttm74aKX7NaQcXcEnJqbC+JVlP/IwX4L+hej+syNRkyng2J1asYAVgKM+Q1up0elozI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space; spf=pass smtp.mailfrom=nozomi.space; dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b=ZQ66W5hl; arc=none smtp.client-ip=139.162.184.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nozomi.space
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e16BeeSE"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-85377c8bc96so59507b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:14:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792167286; x=1792772086; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FqqjrcRtopgj4w6foGEIKIoT7EAlewpzNj52vuU1gDQ=;
-        b=e16BeeSEENkDZ8Wksf7J6opYzhmeRVJV8//en8mNx2GX9lXubk1dezCIPwUI3w8fIx
-         TRNwcIbE0SeBXwVAgV9A5KbS0WBnd7kWz1MHb6UraXJCsKexIe+Q0gmm9uA1nZ2sGLy+
-         UYnD3o0rreEWO8Vjj0jGetR7RzQXNuTEPzAPmjudOPHzQ1+gI7/96/9FOefRkHA7F5Rh
-         PV7bg7zW4p/hz8pmITtR+zE5VoDRxeqnxBSWHumAbH94gBC6/k9RAneReOXUrZnma9wC
-         EZaSzt1EZj1cAL7ulMd9+8tBJdGnDCA/NBhTGoy2fJPU0ZAZNteKCFPyTN/2zioaxSyR
-         ES5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792167286; x=1792772086;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FqqjrcRtopgj4w6foGEIKIoT7EAlewpzNj52vuU1gDQ=;
-        b=FEOLn7SWRZqnfoKuC3ySRE1pVnRSINq01YSjGoxClBwQSHRnP0+0phultyEMco9cJ6
-         0re99KUHG4l06ElfEPtiQooArtBAxEnoYBQHYDl2SSU90/pHC7I+bCyTg07erZY1jyFH
-         JbphujGV44rXBApDWLFD3sIZz5Lm9U2z5eCA09yov/y83+/hKdS4+itNPeyN1a5fVlMj
-         yInN0omB6jRFI2iCOh4YNm+OTOzZmZ2hXwEd+BPvAmjmezulzGRk3hudA5rjUsn8O79J
-         Le84KT3cF1yXDyCTLnb1gU72gIJh/P2gYuhY/rdJUpZVeGjRj9vtLoln0UrKdqJytBrr
-         nq5g==
-X-Forwarded-Encrypted: i=1; AKwUvBwGyk/s4v36R63esM5kdehzAEEbSL6WWz9nt7Z23pHvfst1+ljHjgR2xfJhAXoU62HLhyH01BlgKgYNUDk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKeN7TYqe5gUJYDwLGrsxPUqJulbhyqizkixejAPrWWT1o2tHtR
-	sDlZyj/PeFMIfs+GYtFsxD86F4mnmS6qJXnzbUMZvOll5ESV43pW2bbC
-X-Gm-Gg: AYBFou0Ihhlr9PgyvSG8jNwrfEbMG6RjL94lDUT0FIUbkRc+RHaZAspmg3nbS+TDnuK
-	2K5c2yX2VwSuusi/eeRd5OABX1smoSuH3fEsTm/KU4b6+uW2nQ6clTE/jYSQ7N5cF8SBdkvKZe7
-	j+9/LEJMgecif1ALE1BsOrAVT5BvjVK5LCAkRvuwuFh6ebeRuKyGay3vtGtsfQ4K8sS7aAAf9R0
-	wUdtT4Jh/NIAxh+lLKjPK8TOidLyaLtbvhv8AAUVg4tcCMSXJsSm1b2ghIRnaJV9X3MviCYNU+S
-	jM4/GJjNi/nEY/VAACZylM3zAs7yDyTVrBNX4OEQL/24tVQ5K3HYY2FopPTRthxY/Yasy5foEe+
-	3YJmD8aWlOuMqLoHEgd3ElykwT68bk7YsOxOK641Jv3aDZ0j+1HccsGbzpDE8NEgJjxuMYAxu7x
-	sYE1SDXwr5uFbnMNQD/8Mmvv9A7tn6fkpF8u+VDQNPzUxntKBtiblBH3oux5WM8tno5SMEBAj5X
-	zxIPsXk3dTNwA7MsT5obD3hzp2yZ9oW8SX1EqpHiE+LLeWvu/YOomXcy3l2Il0gMbRH8nn1UKvj
-	6XE=
-X-Received: by 2002:a05:6a00:4215:b0:89d:a947:9d58 with SMTP id d2e1a72fcca58-8a04cb1942fmr34405b3a.25.1792167285668;
-        Fri, 16 Oct 2026 09:14:45 -0700 (PDT)
-Received: from localhost ([153.61.198.245])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f54b3199dsm1415504b3a.3.2026.10.16.09.14.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 09:14:45 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 16 Oct 2026 16:14:44 +0000
-Message-Id: <DM6EA4NZEW6T.1QXD6YWB6J9JZ@gmail.com>
-Cc: <daniel@iogearbox.net>, <andrii@kernel.org>, <martin.lau@linux.dev>,
- <eddyz87@gmail.com>, <song@kernel.org>, <yonghong.song@linux.dev>,
- <jolsa@kernel.org>, <memxor@gmail.com>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf 1/2] bpf: Load ringbuf consumer_pos under the
- spinlock
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Igor Malovitsa" <igor.malovitsa@gmail.com>, <bpf@vger.kernel.org>
-In-Reply-To: <20261016003318.529860-2-igor.malovitsa@gmail.com>
-References: <20261016003318.529860-1-igor.malovitsa@gmail.com> <20261016003318.529860-2-igor.malovitsa@gmail.com>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b="ZQ66W5hl"
+From: =?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nozomi.space;
+	s=mail; t=1792167298;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=fpOnpHUlmYdOv4gPzZ2omqt3CmZEZdq9OSzIodZ303E=;
+	b=ZQ66W5hlir9wlHKTxyRZAIejQYiTE71r65GNC8e+3zI19L/8bXcCyf2/P+ugU9jHxlAbwE
+	kXKjuovaoxn13FoA8XT7wf75nF1JMiJJjE7R/5S5LecsOTD2o2le53pZOZFWkO65XissoI
+	UCrKue2X7BOEwTx9YY3fFvvy4JB/zu+mUyalrBdwX1pdU1yMiKoUmOTZGuqzEnKos3ksO2
+	lOMNdYaiF4voVLgXeYPTACJ0jb8KynTEGQS7Si/nidZygn3p1Ihz4IzQizalfiXPOsatw1
+	bCDxunfUSkMwia71YSTxc6oKTDosXMSruEvap1CAKUibwOLuTceWLZ7kpQ7VoA==
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Trevor Wu <trevor.wu@mediatek.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	=?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
+Subject: [PATCH] ASoC: mediatek: mt8188: Suspend the AFE across system sleep
+Date: Fri, 16 Oct 2026 18:14:55 +0200
+Message-ID: <20261016161455.194400-1-michal@nozomi.space>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 12:33 AM Igor Malovitsa <igor.malovitsa@gmail.com> wrote:
-> -	cons_pos = smp_load_acquire(&rb->consumer_pos);
-> -
->  	if (raw_res_spin_lock_irqsave(&rb->spinlock, flags))
->  		return NULL;
->
-> +	/* Under the lock, so at most one ring behind producer_pos. */
-> +	cons_pos = smp_load_acquire(&rb->consumer_pos);
-> +
+The AFE only has runtime PM callbacks. When a stream is open across
+system suspend, the AFE stays runtime active, so its clocks stay enabled
+and its register cache isn't marked dirty, while its power domain is
+turned off in the noirq phase. On resume, the deferred card resume work
+powers the DAPM widgets back up and writes the AFE registers, whose
+clocks are off after the domain was power cycled. The write stalls the
+bus and the system hangs.
 
-libbpf writes consumer_pos after every record, so this load is
-a cache miss most of the time.
-Today it's done before the lock. With this patch all other producers
-spin on the lock while this cpu waits for it. On 64-bit too.
-So "Neither changes anything on 64-bit" in the cover letter is not correct.
+Force the AFE into runtime suspend for system sleep, and back to its
+previous state on resume, so that the domain sidebands, the clocks and
+the register cache are restored before anything touches the AFE.
 
-imo it's not worth slowing down everyone for that.
+Fixes: bf106bf09376 ("ASoC: mediatek: mt8188: add platform driver")
+Signed-off-by: Michał Kopeć <michal@nozomi.space>
+---
+ sound/soc/mediatek/mt8188/mt8188-afe-pcm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-pw-bot: cr
+diff --git a/sound/soc/mediatek/mt8188/mt8188-afe-pcm.c b/sound/soc/mediatek/mt8188/mt8188-afe-pcm.c
+index 7b1f5d05f4d61..1710a9be2bcff 100644
+--- a/sound/soc/mediatek/mt8188/mt8188-afe-pcm.c
++++ b/sound/soc/mediatek/mt8188/mt8188-afe-pcm.c
+@@ -3379,6 +3379,7 @@ static const struct of_device_id mt8188_afe_pcm_dt_match[] = {
+ MODULE_DEVICE_TABLE(of, mt8188_afe_pcm_dt_match);
+ 
+ static const struct dev_pm_ops mt8188_afe_pm_ops = {
++	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
+ 	RUNTIME_PM_OPS(mt8188_afe_runtime_suspend,
+ 		       mt8188_afe_runtime_resume, NULL)
+ };
+-- 
+2.56.0
+
