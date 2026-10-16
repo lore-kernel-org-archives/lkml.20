@@ -1,232 +1,142 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5944349CDD
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9D34C9DFF;
+	Fri, 16 Oct 2026 13:54:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158826; cv=none; b=KioUwRYXfwvtcVsofJOwMnN0qC9qXMTR4gk0M9EFc9IIt88iyeewcPyd6L1bwPwQc0F+DuFml0t0hChZJ8DDAklaayxauo6ZifU+ym4s0F6oBc7HSIQ8nnzBZucI5mlYAtA1a4tH0c9c4nQyHCGRV+4E3lP3OVTUtl8DKeqroFw=
+	t=1792158854; cv=none; b=aqnK8PHLXUL8Jh7/CyoJxDryt81tiEE1ynoxiDaqEErK+TomSBLl+ezhIHb9fl772O1r0azuLhuAeQttNVktTpsl7OchinPbbtmezajBQ3+DYyjiEcDysUY2FcsNTpop8Q55ThNZ9JsXivb8tNsG2o7sjV9wc6Gu3ntE5+rzssw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158826; c=relaxed/simple;
-	bh=FcjT/tV1AAPZAUiYW2/NfW5PJ4IcgeHs9Y+lCEFRR9M=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=MhHDLJywYitE5JI8fIshynpq5lbvNuQeLUHNXiAplQQTSIMfcHcvhLQJsi0CsZYwPf5mtilihfFEDthmCjlheYQXmmy3i2X2wItFucWR7OVwyz5aR3A2haNQxasL5sXoMM2/s+vOB0b+ppxDXho07+ZAcjhoCJS3lNBIZuyoyI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DsIL1pag; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792158854; c=relaxed/simple;
+	bh=6kG+pF2HuQmMTYJB21gFk7rSTC3Fb6zafxp8L/YZp7Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=P0euK7U3ywsHFcEOAeUPB9VpeXoGWYocM68/t16GoMtWHMbFSvSNLCtm7sWPI0iV3VEwJFyIphIP4aJn7r+o5Kh/apS0275AgGPiQY9BgtthTosDQklSTPgJBBawMdpcYiLEXcRK9w7eUchOdLYYeMOp98QqR3g1E5052f1Z9Mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDvVlEj1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DsIL1pag"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ab41538192so23335a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:53:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792158824; x=1792763624; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t0FXTrpk84O2ALFK9ZDUuPOuQ+3rvOMAc9cRpwzYN8o=;
-        b=DsIL1pagVaFkXSG1t+OfWMw6PgQ97U4qBbhrDjtNVvsMH+WgcJPSNcMyRb3hrZSKFa
-         TErSFRXCY1ovrdD8LKNg1/+zcg7tI/onNphuwHrDJuYePJp2kxeBfOF/XSwJnZDZbg6X
-         IUcdJAIdqcCVkf/enHdWGqqqLoptUJkADximgIgCESiA3ouwgtYBGFjmkMXhIHuKLpEb
-         mZediW659h/p4G8g1uxWaQfAFbF9zpjc7NWkD7nM4BqW4Oh7q/7OIwEaToCp82ogs8r1
-         SKGtB0gPzr+ZIJ1dJ4YaZBMl77CNlAEzT4LE5AlMYb+cuzYTLRyUYOUu99oUxcAAmt8w
-         LG+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792158824; x=1792763624;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t0FXTrpk84O2ALFK9ZDUuPOuQ+3rvOMAc9cRpwzYN8o=;
-        b=Zb1w5MGDKuiqgBSQHQa5WtIlb90Kzw/4Q6/8FDtk+bYCaPRsYVGr+WFpJxguycbZxW
-         Ixmfkk2eejLvT+kuVsLny+EtoFLXMUSg1Zvdx8buUHBrZBHLtMKB1hQEBCCWZyW5mcDv
-         7pXcYdkmSjS8QkFUqcSe0Rtc6syJrt/SRwNwCUShZl5R96gJBN4d13GDzDuioccKreuZ
-         WplfQisGP0KVgeQazY0si2/ae29QcVOInh/tGd7ntqqM+y+x+Taucc/qkQ0iZnN5HpzO
-         jbD0lFv9HfQfL5mowtF+SXSd1+temdChAj4KubariDkYkkktPWjTLUGVwu1NxFFt5oB6
-         gcdA==
-X-Forwarded-Encrypted: i=1; AKwUvBwrOHOPtRaOH3Z5LQjCK+MqHRZ+Ue3FFxU4ssZZrmquyHkzXDlgd5pZLhSpcJRnFC+oS+NIoGrdMN8mcGM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKoET53t4NqWIVxHllNz86GWm+xksMoCud93Vt032FVTMz4PDWM
-	lmaTbOs2VyMiGvSPUldhGEJAEHag9NhGO2XeMxgSOumTRJ1r7LFh2S+W
-X-Gm-Gg: AYBFou3d/02p8eSxEzLDEagN52HjqqbJfY+uN2iW1C6hmDo0Zj1WdyjDAIkTOOB5N4p
-	R4kiR6E32y0ZHEuzi/ytaGP1mxD8qgMCaPyx7oNUt/HPaos1u/gXpKNDY4WUHhyeRdMvMxjj/6b
-	WZ7thcFTvTZeu45Z0/vTRWSb2lGspxsvGoGa8rG3tzGIERMszfqY9ZL9bBz2VD2zBxa5OfMsVJq
-	SbA8wJPx4qwyOC/9Ym2ulZMmjiCIO6p1zFxK8sN3C++NYCi/TafuNA6AK/IVuGnS67lHgKmknvs
-	c/DdZX9EmSFyU/0diTOYjYlGUppcKT+rZLwCkrcN0LZf/eiXk1GO7XBQY/C6COmqhDYSt3L/Pbs
-	ywsdecWiUNNxIprRGXC9WeVnzhj9Bnua4vYNYLgnAFgyARdY/BuY30VtU/R6gbdeDkW61w/R7Tv
-	eXmQPbVIRVGyEoBujZsTSbVtNrb07K5LSKXJMwwSnlEH03DF+BU0Ll3yMjLZMIh9xubW63oiA4g
-	qc=
-X-Received: by 2002:a17:90b:5343:b0:39e:6c6a:6580 with SMTP id 98e67ed59e1d1-3ab3a9d3dfdmr17699436a91.67.1792158823766;
-        Fri, 16 Oct 2026 06:53:43 -0700 (PDT)
-Received: from arm-a100.. ([140.112.28.118])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc4872861sm4831265a91.7.2026.10.16.06.53.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 06:53:43 -0700 (PDT)
-From: Tzu-Ching Yang <shingekinocore@gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	linux-arch@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] bitops: Share the generic ffs()/fls() binary search via UNROLL()
-Date: Fri, 16 Oct 2026 21:53:29 +0800
-Message-Id: <20261016135329.509250-1-shingekinocore@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <dbb44e92-0bc5-449d-9e43-1f93362aa6c3@app.fastmail.com>
-References: <20261016025634.2690862-1-shingekinocore@gmail.com> <7eb58dd0-99f9-45aa-bdf4-9707a0c9e1b4@app.fastmail.com> <dbb44e92-0bc5-449d-9e43-1f93362aa6c3@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDvVlEj1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CD051F000C4;
+	Fri, 16 Oct 2026 13:54:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792158853;
+	bh=UHZ/SHeI8w1oYO+zDsaR5bIADkRvUH7sd5yA2nNqtU8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BDvVlEj18Fklfc/VqD+6Eum/IA/ddvxz+BekUEvaIyeg4vLk93kPYxzBlPFKgYea5
+	 EqSexdKDxu+7fHF+Lyw1CYqMlzgBhzlMEE9i6uOZRVoKecxXGXIDuKtX1w1s8iXlVY
+	 DbL6IeqsY9MkmdpH+Kpg37t5I5RGJ98OAk90pyIgrjs0+jE5pm5M/xLfK4aHBRSXqr
+	 vNmh3UruVyOBPtXs88qxmzU9EP5j5OGctddYRtYD8kmNfBLHkueVTqaF92c23jgOyz
+	 DC2n8hnxZ0FKF1t8yNvipuQS6dPcgEYpXiu2KKlc3K98p3OIIkFXZsD2kEr482gJNF
+	 WjNJ149Cf70aw==
+Message-ID: <f052b1b3-87fe-48e6-aa02-df47517ef8d0@kernel.org>
+Date: Fri, 16 Oct 2026 15:54:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v23 1/2] dt-bindings: pwm: opencores: Update compatibles,
+ examples and maintainers
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: Hal Feng <hal.feng@starfivetech.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor@kernel.org>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+ Albert Ou <aou@eecs.berkeley.edu>, linux-pwm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261014110429.52762-1-hal.feng@starfivetech.com>
+ <20261014110429.52762-2-hal.feng@starfivetech.com>
+ <9c0737d8-455d-4025-8482-950b64029f35@kernel.org>
+ <atCos9UIaZoRs4N8@monoceros> <20261015-poised-modest-leech-4decf5@quoll>
+ <atH4DnTWVZPkaO2C@monoceros>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <atH4DnTWVZPkaO2C@monoceros>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026, at 09:16, Arnd Bergmann wrote:
-> If you are interested in creating helpful patches in this area,
-> maybe you could work towards eliminating the generic versions
-> of these functions in favor of using the builtin ones on targets
-> where the compilers produce sensible code for them.
+On 16/10/2026 14:55, Uwe Kleine-König wrote:
+> Hello Krzysztof,
+> 
+> On Thu, Oct 15, 2026 at 12:27:16PM +0200, Krzysztof Kozlowski wrote:
+>> On Thu, Oct 15, 2026 at 12:20:54PM +0200, Uwe Kleine-König wrote:
+>>> Hello Krzysztof,
+>>>
+>>> On Thu, Oct 15, 2026 at 11:01:29AM +0200, Krzysztof Kozlowski wrote:
+>>>> On 14/10/2026 13:04, Hal Feng wrote:
+>>>>> Remove the jh8100 compatible since the JH8100 SoC has been canceled and
+>>>>> will not be released.
+>>>>>
+>>>>> Change the register size in examples to 0x10, since an OpenCores PTC IP
+>>>>> has only 4 32-bit registers: CNTR, HRC, LRC and CTRL.
+>>>>>
+>>>>> I will maintain this pwm module in place of William.
+>>>>>
+>>>>> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+>>>>
+>>>> Drop, did not happen. Is it so tricky to respond to the one patch here,
+>>>> where the tag would be applicable, instead of replying to cover letter?
+>>>
+>>> I don't know what Maud did, but if they checked that the various dt
+>>> linters are still happy, that doesn't deserve a Tested-by:?
+>>
+>> No. Why would compilation be called testing?
+> 
+> I'd call the task of checking if anything breaks with the proposed
+> changes testing. For changes to .c files that most likely requires
+> complilation and running the resulting code on a machine. For dt binding
+> changes it means "testing" if all the existing device trees still
+> conform to the new binding because you cannot compile and run the
+> binding specifications. So in my mind this is still testing and a
+> Tested-by trailer is ok and welcome for me.
 
-Thanks, I looked into this. For each architecture variant, I put the
-kernel's current version of each function and the builtin one into a
-small userspace test file, each in a function of its own, compiled it
-at -O2 and -Os with every GCC major release from 8 to 16 and Clang 17
-to 23 that supports the target, and compared the instruction counts
-for a variable argument. Of the rows below, only hexagon (Clang only),
-powerpc and mips other than octeon could be built with Clang. A few
-GCC -Os builds did not inline the kernel's version, so those cells
-(arc ARCompact, ffs() and fls() on mips, and ffs() on microblaze) use
--O2 only.
+Running standard build process tools, like checkpatch, sparse,
+gcc/clang, dt-validate is not testing.
 
-Each cell below gives what the kernel uses today (G the generic
-version or a copy of it, A arch asm, B the builtin) and how the
-builtin compares with it:
-
-  +  inline and never more instructions, with every compiler
-  ~  as +, but only with some compilers (see below)
-  -  more instructions, with every compiler
-  x  the hardware has an instruction, but the compiler never emits it
-     (the builtin is a library call)
-
-In the "fls (clzg)" column, the code in parentheses is for fls()
-written as 32 - __builtin_clzg(x, 32), which needs GCC 14 or Clang 19
-or later, so it covers only those compilers.
-
-                     | __ffs | ffs | __fls | fls (clzg)
----------------------+-------+-----+-------+-----------
-ColdFire ISA_A+/C    | A-    | A-  | G+    | G+  (G+)
-microblaze PCMP 8.10 | G+    | G+  | G+    | G+  (G+)
-microblaze PCMP 11.0 | G~    | G~  | G~    | G~  (G+)
-hexagon              | A+    | A+  | A+    | A+  (A+)
-mips32 r2/r6         | A~    | A+  | A+    | A~  (A+)
-mips64 r2            | A~    | A+  | A+    | A~  (A~)
-mips64 r6            | G+    | A+  | G+    | A~  (A~)
-mips octeon          | A+    | A+  | A+    | A-  (A+)
-xtensa NSA           | A+    | A+  | A+    | A-  (A-)
-arc ARCompact        | A+    | A-  | A+    | A-  (A-)
-m68k 68020+          | A+    | A-  | A+    | A-  (A-)
-arc HS               | A~    | A+  | A~    | A-  (A-)
-csky                 | Ax    | Ax  | A+    | A-  (A-)
-openrisc FF1/FL1     | Ax    | Ax  | Ax    | Ax  (Ax)
-powerpc              | B     | B   | B     | A~  (A+)
-
-The ~ cells depend on the compiler: microblaze 11.0 needs GCC 14
-(older GCC compares "v11.0" and "v8.10.a" as plain strings and emits a
-library call), arc HS needs GCC 12, mips __ffs() is + only with GCC,
-mips and powerpc fls() only with Clang, and on mips64 neither fls()
-nor clzg is + with Clang 19.
-
-Not listed are the targets without a suitable instruction, where GCC
-turns the builtins into library calls, so their current code has to
-stay: alpha ev56, arm v4/v4t, ColdFire ISA_A/ISA_B, m68000, microblaze
-without PCMP or before 8.10.a, mips R3000, nios2, openrisc without
-FF1/FL1, parisc, riscv without Zbb, loongarch la32r, sh and sparc32.
-
-The G cells are the clear candidates: microblaze with PCMP (8.10.a or
-later) uses the generic versions although GCC emits clz for the
-builtins, and ColdFire ISA_A+/C still uses them for __fls() and fls(),
-while __ffs() and ffs() there already use ff1 in asm. On mips64 r6,
-__ffs() and __fls() end up in the C fallback of __fls(), a copy of the
-generic version. I confirmed this in 64r6el_defconfig builds with GCC
-16 and Clang 23: the dclz branch is used only if cpu_has_mips64 is a
-compile-time constant, and on r6 it is not, because cpu_has_mips64r6
-still tests a runtime flag. The builtins would cut both functions
-there from 34-64 instructions to 4-8; making cpu_has_mips64r6 constant
-on 64-bit r6 kernels would fix this as well.
-
-In the A cells, __ffs() and __fls() could mostly switch at no cost,
-which also lets the compiler fold constant arguments where the asm
-does not. fls() pays for the zero test that __builtin_clz() needs,
-unless the compiler knows what the instruction returns for 0: Clang
-does on hexagon, mips and powerpc, and GCC only with __builtin_clzg(),
-on mips and powerpc. That test is why powerpc keeps asm for fls() with
-non-constant arguments.
-
-If this is what you had in mind, I would send one patch per
-architecture to its maintainers, with you, Yury and Rasmus on Cc:
-first the G+ cells (microblaze, ColdFire and mips64 r6), then the A+
-cells (hexagon, mips, xtensa, arc, m68k 68020+ and csky), with fls()
-using __builtin_clzg() behind a __has_builtin() check where the table
-shows that it helps (mips and powerpc). The same change to
-builtin-fls.h would make fls() smaller with some compilers, and never
-larger, on arm, arm64, loongarch and s390 (on arm64 from 6 to 4
-instructions at -O2 with GCC 14 and later). The ~ cells would need a
-check for the compiler or its version, so I would only do those if the
-maintainers want it. Each patch would be tested with kernel builds and
-the ffs KUnit test.
-
-> On Fri, Oct 16, 2026, at 07:54, Arnd Bergmann wrote:
->> I don't understand what you are trying to do here, but I don't
->> think we want this change: I find the nested macros harder
->> to read than the open-coded version and your changelog text
->> fails to explain what the purpose is.
-
-Sorry, the changelog buried the point. This is a cleanup of the
-generic versions, which are still needed on targets without a suitable
-instruction. generic_ffs(), generic___ffs(), generic_fls() and
-generic___fls() each open-code the same binary search with their own
-hand-written masks. The copies differ in the order of the two updates
-in a step and in how the test is written, and the two unsigned long
-ones need an #if around the extra step for 64-bit words. The patch
-replaces the four copies with one shared step per direction, whose
-shift and mask are computed from the step number and the type of the
-word, so the literal masks and the #if go away (27 fewer lines
-overall).
-
-One detail that may look odd is that the patch uses UNROLL(20)
-although a 64-bit word needs only six steps. The steps are not tied to
-a particular width, so it expands all 20 that UNROLL() supports: once
-the shift reaches 0, a step does nothing and the compiler drops it
-when optimizing.
-
-generic_ffs() and generic_fls() compile to the same code as before.
-With GCC 16.2, the code in callers of generic___ffs() and
-generic___fls() mostly differs only in the order of two independent
-instructions, and vmlinux size is unchanged on most of the
-architectures I built.
-
-I agree that each step is easier to check in the open-coded version.
-The trade-off is one place to check instead of four, but since you
-find the current code easier to read, I'm happy to drop this unless
-Yury sees it differently.
-
->> If you have a specific problem with one of the platforms using
->> this, I would suggest you address that one but leave the
->> generic code unchanged.
-
-No, the patch did not come from a problem on a specific platform; it
-was meant purely as a cleanup.
-
-A few minor notes, for completeness. Because the shifts and masks are
-derived from the type of the word, the steps also work for wider words
-(I checked unsigned __int128) and could be used to build ctz/clz-style
-helpers for other unsigned types, though nothing needs that today. And
-__fls_step as posted is only correct for unsigned words, which is what
-both of its users pass; if there were a v2, it would make the steps
-work in the unsigned type of the same width as the word. Separately
-from this patch, generic_ffs() in mainline right-shifts its int
-argument; for negative values that is implementation-defined, though
-GCC and Clang shift arithmetically and the result is correct. If you
-think it is worth fixing, I can send a small patch that copies the
-argument to an unsigned int first.
-
-Thanks,
-Tzu-Ching
+Best regards,
+Krzysztof
