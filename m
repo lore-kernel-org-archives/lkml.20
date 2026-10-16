@@ -1,156 +1,150 @@
-Received: from mta1.migadu.com (out-213.mta1.migadu.com [95.215.58.213])
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93153533589
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:54:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.213
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169664; cv=none; b=ogpG6i/IY9lE7mC9ldf+5OJh2qb0bgKJVsjjoyfbw0MoatUcbNnA6VYTfmTCOq+yqrbP1OD7Yj2ovnE3ND+X/86ft0kyG61qMc6AY2GcBPXqHVhouN043J2b7K/sLckd7YSHOj6M1a+5pvD604eDD4GafYyi5GLjNdoBLLxoej0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169664; c=relaxed/simple;
-	bh=ZU8JJ4+fzvklfFdZSX6U7Yd3ZSn55WdWlpLFwkW9Yuo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=g+cTFnIM4lDcpXRHGtVpssSj3wPczmphAFAWAwLzwL4wSEn6y2EPKby/AnwkpIs1qMn7cks+6hXq7miiPdqd0ePGpS7vTnFT7b0Q8qa3kI8/+N7m1CGm+o8o6fdMwfInsAoPgVTFNsdStV8sw6VxUv8OgyoilFase6KXdr8SA2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=dkauy7V6; arc=none smtp.client-ip=95.215.58.213
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B4D54F3EA5
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:54:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792169678; cv=pass; b=ud33Jn5E3mCpc+u/tkWn7ttUqBDfR/Ma3hUmjAEbeuvcFCDbeRhHTpMWmgb/1nVnilQ6SWmmi7T39ShQMCFS4QWHu+g2mxK7dhFj0BAVBjrEhDqm1amU1K4RirUoeovWhYUzodVm2h8HYkT07F6ph1e5JIZUtsuSpNKhNKwggvg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792169678; c=relaxed/simple;
+	bh=EzdvEOTVEqn+D3H7FKcmRLjynThd1200BtlnmXo6lr0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KlKhFd3K8GxkqkIUvNpj5uamqwElC+Rc0wjqIw7HjN79K4hmqsH9WmdExUUDU6zfHvzXh0mYNmrf9hC1e0JsEJGUDGfEzFvRb6jMHrGUfvemSJnWLGSiTglvhCQBUzpY0T0E3tHx3gBar0W0Ni70YFhjDOQYIF8l18msB5O3xMQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BNl6mVVv; arc=pass smtp.client-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="dkauy7V6"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZU8JJ4+fzvklfFdZSX6U7Yd3ZSn55WdWlpLFwkW9Yuo=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792169657; v=1; x=1792774457;
- b=dkauy7V6g8KnLucXI9wLdtF27jRFqKxqi55JKaBARzd+o367CgS3F1slvVUYMvAYD52rmK/r
- 0sD2c3P/EJFKoby8tFHAiXQJhwRG4BXyHfM7/MECx45v5/307e/fjtWPZ0nDZUSduAi0sNBmuT7
- ZsE5yTqCzlB6G34GBduMWOH5inCnzZkNjeNuRdIGITUSFoBfM4rOHCiadNRabojGo5DQxHvGT+1
- iTGUBOvU/z337GhJc1A6uaqORcOC/82Z05Q4L0L2ZwtNKRm5s7VDd5zoTcD6mOroXBM552jboGF
- vtL/7cLNwNUO/M0nYxqupKo7hIl6TcaxJZ3t+9A3afl/g==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3cf7bd38daf4699e;
-	Fri, 16 Oct 2026 16:54:17 +0000
-X-Mizu-Trace-ID: 3cf7bd38daf4699e
-X-Migadu-Flow: FLOW_OUT
-From: Weijie Yuan <wy@wyuan.org>
-To: Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	2023002089@link.tyut.edu.cn,
-	alex.shi@linux.alibaba.com,
-	baikefan@leap-io-kernel.com,
-	bailu.lin@vivo.com,
-	benx.guo@gmail.com,
-	bernard@vivo.com,
-	bobwxc@email.cn,
-	bryan.wu@analog.com,
-	businiaoanka@anka1.top,
-	chenfeiyang@loongson.cn,
-	chenhuacai@loongson.cn,
-	chenqi@beyondsoft.com,
-	chris.wei.cui@gmail.com,
-	doehyunbaek@gmail.com,
-	doubled@leap-io-kernel.com,
-	e12051@motorola.com,
-	eugeneteo@kernel.sg,
-	fan.yu9@zte.com.cn,
-	gaochao49@huawei.com,
-	greg@kroah.com,
-	harryxiyou@gmail.com,
-	he.peilin@zte.com.cn,
-	hidave.darkstar@gmail.com,
-	huang.junhua@zte.com.cn,
-	huangjianghui@uniontech.com,
-	kezijie@leap-io-kernel.com,
-	leoyang.li@nxp.com,
-	linyongting@gmail.com,
-	liu.hailong6@zte.com.cn,
-	longjin@dragonos.org,
-	luochucheng@vivo.com,
-	maoyuxian@cqsoftware.com.cn,
-	martin.petersen@oracle.com,
-	me@lirui.org,
-	qiu.yutan@zte.com.cn,
-	r0bertz@gentoo.org,
-	realpuyuwang@gmail.com,
-	rockrush@rockwork.org,
-	shao.mingyin@zte.com.cn,
-	siyanteng@loongson.cn,
-	sun.yuxi@zte.com.cn,
-	synmyth@gmail.com,
-	tangyeechou@gmail.com,
-	theandy.deng@gmail.com,
-	tttturtleruss@hust.edu.cn,
-	wang.longjie1@zte.com.cn,
-	wang.yaxin@zte.com.cn,
-	wangqing@vivo.com,
-	wangxiaochen0@gmail.com,
-	wangyuli@uniontech.com,
-	wanjiabing@vivo.com,
-	wenhu.wang@vivo.com,
-	wodemia@linux.alibaba.com,
-	wy@wyuan.org,
-	xiyou.wangcong@gmail.com,
-	xu.xin16@zte.com.cn,
-	xxx.phy@gmail.com,
-	yang.tao172@zte.com.cn,
-	yang.yang29@zte.com.cn,
-	yaxinsn@163.com,
-	yjzhang@leap-io-kernel.com,
-	zangleigang@hisilicon.com,
-	zhangwei@cqsoftware.com.cn,
-	zhaoshuo@cqsoftware.com.cn,
-	zhaoyuehui@cqsoftware.com.cn,
-	zhoubinbin@loongson.cn,
-	zhuyan2015@qq.com,
-	zpenya1314@gmail.com
-Subject: [PATCH 2/2] docs/zh_CN: remove Translator field in header template
-Date: Sat, 17 Oct 2026 00:52:33 +0800
-Message-ID: <68789e7cda7133482e9eeb119f95d2fd85293413.1792167856.git.wy@wyuan.org>
-X-Mailer: git-send-email 2.56.0.379.gc618271300
-In-Reply-To: <cover.1792167855.git.wy@wyuan.org>
-References: <cover.1792167855.git.wy@wyuan.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BNl6mVVv"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so214244eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:54:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792169675; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HNnZOalPyftLNSOl9UfQWolWBsKxoMrzQC5no2yot8Vl8n7MLtUNxKck2Z4teYmuK6
+         glyAWX6gVJgEe3g/h+Ql87YNAu/umtbxhCCzFwzhIJMOVorUdWlhOcZiwn/he+0sB+Xq
+         EhEo9or2Sgnva4xdx7jAKWZwS637MkbBCnEeBQu5PTCd2RvfvSzidV3UbonoHFVPuXmi
+         lf9tUrl5ehrjLoXnNA7UjKfANavE5WVVeTOyhV8ea3zTS61xAMGHp3XVrgUfYm9lV0v+
+         6rGowuoA6q9cqogkkOrtBZmxpXdXlUKfy3kV7TarxLF/nodL4PKKujzRzSM7nopDx45E
+         XT2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=KNk+lPAYmreHNBvy4VSXM9whOEM/ui2VVdodl4iXdms=;
+        fh=2lLCClnISeqx2oI+FfbLy2BO7OwEax4TQepozcIBDMM=;
+        b=dIFALG2C72UU/h8r2jgoXAggrOKgLxtI3GyXp+0Op7+ny+CNdXQy1W1orxZVcrMSSk
+         J6HnmWwpGM6n75aImc2UkQ1u61USnq9wKFI4iweJGMUiZ11U2bdt85+DReOBTzBYQPug
+         2m8c8cR0UBtThjBmTm+pnh6jL3I7ve4xFqQvFnSO4Ykjp5Z4llrkmHfSZKnvhFe9DnMY
+         A+Mz6vLLSocgPrQHaGEoLxYwrtvKIzwaNInOrEiOxwt/1/qurvqW8mv7THztEhlpV2n2
+         c2cyenqp8aa2hQYc2OnK1uXBVEDZAGjnr/X8F9w7UVD+V728yU4p4Ker41qX2tMD0lfe
+         R/iw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792169675; x=1792774475; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KNk+lPAYmreHNBvy4VSXM9whOEM/ui2VVdodl4iXdms=;
+        b=BNl6mVVvOXNneIISMOXsr2Z+alc53DaHeWkE9FYkL/Wnk6HB61glWwm2gDNiiiX8Rs
+         96lmxqgPbX4e2P87UQFWnLnsIVZgySGlLKiiKx3AQ0B/W82vughzOjubtwSmzYyhNaM3
+         Eyy8mOhA9IPfhYF64ubhEbEYbLdiPvvdEfqxCxNa10H4tL+8Qsi3AH+ww5uqzPB4n9yV
+         ksou+vUHeIC6ySEd4nm5Z3ZCaTtO1c+WmeKcAzt4/bbKfWxR6ESCG/AktQOA2woMMJXX
+         ypRxYkIQf4Iupo0331g56XeRSVg5jhuKfFXNZ3/kICEjt1Gqt4aGBGk1iTRMexKOnR3P
+         Ib+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792169675; x=1792774475;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KNk+lPAYmreHNBvy4VSXM9whOEM/ui2VVdodl4iXdms=;
+        b=pVuGIFM4l90RB4pVBOWnzMPt2nLhFBa6ShTy7wKOrPNApZwW7XnmRen4ov5QyMYVKz
+         UscgRcXE3+AkXnrDqYx33b/EiB05u5QWw3oeWB3fHcH92Ud/hGgYA1lw812VfvWEU5Wn
+         m3qiWb4hVtAzDS+so3xtXPXPJQyG4tSYNIievzPEmydDPApdD27bxES9u6gvzfrtsILA
+         OPp1gUZnxEnglr2MrGF/l8pOcEaksvha2OrUihUZdggWeqkmH5i6GarlpzGvaSxMVGrm
+         CwpuO95sQwUQx6FShuu0NLpMrEnk66kTg0Gu+AMrCiNS44AOBl1f5jhz6cx8+ipuSIkh
+         JWXA==
+X-Forwarded-Encrypted: i=1; AKwUvBwsou3XivXS70cITEuWpIRRXVeETK71sVbxqsspVcwUQ9CsdmIXSo3nubVXstxjUJ2PggKNcUgoYh1m7gc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkUewDO7ZqIyz24DmwUt9AtOEkm2UHQBe9PnNdLd5AbCbjKYbE
+	GIp6+QxIiJGv3V8pbhV71eQKLJhu870pYDfUe8hEI9i2JMDQNtvASxsWq8J2WS0YLroXRcPGCi+
+	wQpzpWG/4OsRsASDwWLowSduD0WXyt95xB8eJlVTq
+X-Gm-Gg: AYBFou04MDbTh8y7ZJlihotaOklLOVku26FukJbXbWjNTblacrPklZhcnUSxXzgJKOp
+	LC/X+mO142Nu/Ix3BNH+dzp5z7wJEioHlyLsZbscevU0tb4CdyNSLuOBeaxXbkhmdSMVKAlpPLd
+	Ab5J3h34tW0jT5cIcAW2eAGhU5Yomn6cjf9lFrxjYvXMp+edskEbLdWq1jlfhv+0UE9/yr7Zpl2
+	o5SJ617QAC6ysxBK9O6Z+ab//W8mSt5Rm/crRf1LAsuUMX5rs2EYkKx2OTATgN1+JHNiAs2m1gl
+	7T3sU8JgxMf1cfqIJAzG/qqpbjHrgdchDHDveQw9880WdjznYkwXOZQ40GK2/KIFZh5yeq+FXlF
+	FuHKo8lfOigE=
+X-Received: by 2002:a05:7022:fa06:b0:181:8948:f017 with SMTP id
+ a92af1059eb24-18513b9aed5mr734680c88.41.1792169674334; Fri, 16 Oct 2026
+ 09:54:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com> <20260908-stackdepot-trie-v2-1-1996d5cef732@cloudflare.com>
+In-Reply-To: <20260908-stackdepot-trie-v2-1-1996d5cef732@cloudflare.com>
+From: Marco Elver <elver@google.com>
+Date: Fri, 16 Oct 2026 18:53:56 +0200
+X-Gm-Features: AclHuK_WxF5EESzu0hGJdibTwB6wHoZiUHQsU4A86X5DIragIIphY4_fzhWq1Ec
+Message-ID: <CANpmjNPGWC06f+gCu9gwjnBQfJigVyK94HOFOT=en4t3Pz2r9Q@mail.gmail.com>
+Subject: Re: [PATCH RFC v2 01/11] stackdepot: stop preallocating after the
+ final pool
+To: Caleb Kan <calebkan1106@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, 
+	Vlastimil Babka <vbabka@kernel.org>, Alexander Potapenko <glider@google.com>, 
+	Dmitry Vyukov <dvyukov@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Caleb Kan <ckan@cloudflare.com>, kernel-team@cloudflare.com
+Content-Type: text/plain; charset="UTF-8"
 
-The credits of the contributors are saved in the commit logs, thus we
-don't need to repeat these names in the main text.
+On Tue, 8 Sept 2026 at 15:13, Caleb Kan <calebkan1106@gmail.com> wrote:
+>
+> From: Caleb Kan <ckan@cloudflare.com>
+>
+> depot_init_pool() decides whether another pool is needed before it
+> increments pools_num. When it registers the last allowed pool, pools_num
+> is still one below stack_max_pools, so the existing comparison clears
+> new_pool.
+>
+> With new_pool cleared, stack_depot_save_flags() can allocate another
+> order-2 pool after a lookup miss. depot_keep_new_pool() retains its pointer
+> in the global new_pool, so the allocation is not lost. However, pools_num
+> has already reached stack_max_pools, and depot_init_pool() rejects every
+> attempt to register the pool. It remains allocated and unusable until
+> reboot. The non-NULL pointer prevents later saves from allocating more
+> spare pools.
+>
+> Account for the pool being registered in the limit check so registering
+> the final pool installs STACK_DEPOT_POISON and prevents the extra
+> allocation.
+>
+> Fixes: 31639fd6cebd ("stackdepot: use variable size records for non-evictable entries")
+> Signed-off-by: Caleb Kan <ckan@cloudflare.com>
 
-Remove the Translator template so that we will not sprinkle our names
-throughout the source for every change we make later.
+Reviewed-by: Marco Elver <elver@google.com>
 
-Suggested-by: Jonathan Corbet <corbet@lwn.net>
-Signed-off-by: Weijie Yuan <wy@wyuan.org>
-Link: https://lore.kernel.org/linux-doc/87o6cvrs27.fsf@trenco.lwn.net/
----
- Documentation/translations/zh_CN/how-to.rst | 4 ----
- 1 file changed, 4 deletions(-)
+Please send this separately.  I hope to find time next week to comment
+on the rest of the series.
 
-diff --git a/Documentation/translations/zh_CN/how-to.rst b/Documentation/translations/zh_CN/how-to.rst
-index 9ec2384e1e76..d448ae69e48c 100644
---- a/Documentation/translations/zh_CN/how-to.rst
-+++ b/Documentation/translations/zh_CN/how-to.rst
-@@ -203,10 +203,6 @@ Git 和邮箱配置
- 
- 	:Original: Documentation/xxx/xxx.rst  #替换为您翻译的英文文档路径
- 
--	:翻译:
--
--	 司延腾 Yanteng Si <si.yanteng@linux.dev> #替换为您自己的联系方式
--
- 翻译技巧
- --------
- 
--- 
-2.56.0.379.gc618271300
-
+> ---
+>  lib/stackdepot.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/lib/stackdepot.c b/lib/stackdepot.c
+> index dd2717ff94bf..90c52f2e0d3f 100644
+> --- a/lib/stackdepot.c
+> +++ b/lib/stackdepot.c
+> @@ -323,7 +323,7 @@ static bool depot_init_pool(void **prealloc)
+>          * NULL; do not reset to NULL if we have reached the maximum number of
+>          * pools.
+>          */
+> -       if (pools_num < stack_max_pools)
+> +       if (pools_num + 1 < stack_max_pools)
+>                 WRITE_ONCE(new_pool, NULL);
+>         else
+>                 WRITE_ONCE(new_pool, STACK_DEPOT_POISON);
+>
+> --
+> Git-155)
+>
