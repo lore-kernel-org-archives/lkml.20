@@ -1,334 +1,171 @@
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE3A471432
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:12:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8693443E4D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:13:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792152755; cv=none; b=icOuV8pDyi/EX9AYIqGZAnMiurkzTbdXnmyZCHzLIW56/NCgH3uywHRpYPd0P5GKVf2moDQ4BUi3tB1f1ApD/WeO0XVwAXx1bkWYMXYfQ4am8d06CU2Yad2r1HpKW/zeIxfXklE0mEP1tBw1so7TZ42gxy4htMClatBdHlbkrTY=
+	t=1792152814; cv=none; b=B2E9uHpMRAS3aJcr2xACH0qIe1kRovCHOGyo6WCMernU+8D9wHDJ1Ekanf+L4ZozjoUpDNm8fLmtuFvEIDEdmDaGjRD4eZzy8Ac+UgxHAfGLviVbKFpl8BT+HcsJAFpXD9rGrHARujCvjPDKJgPy3D+DeUx8NNAw6L4UqjAiRf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792152755; c=relaxed/simple;
-	bh=FqH0bdEQPmPJbirwxtsgL2Ei9yv+vqHf2QbfzRnaG+Q=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=KzfcaC0GaNYNjHVsvzlv39kmazigMlUmOqF2k7QSaqo6uFTUzRQshOOrJOC3uas5yHGelr0qTIi13+tN84ARdzzE1+C+lVwmw9FZWdSWNtKRb1QifMO9Yt57J7em+MQJPh6P8bQ903oEYq8/LMfgyhnRqzHtbRmFygprzUGmAeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gYudvH1x; arc=none smtp.client-ip=209.85.128.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1792152814; c=relaxed/simple;
+	bh=Hx+kasX757nKJIHFXkZ8sY5/J1mcVKzN1Gb/FSM58J4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IVlTn79iMT5EihlWbdSJVgGNEBnScD+tOG5g+ko9JK6dCPerVC7OODP8pRBEWGCMucpxc0Lm4EA9xhdvTdy09KvCTbGmnqSj0tYuP8bKBgAz/SXmwf+fg+aSA5FQKvCeglyAoZ+nUy+xxTGWPhGoFhZW+9NXNC2hUk4El54sZHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mOZBAvNq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=On+VGYgA; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gYudvH1x"
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a027f2e364so43986365e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:12:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mOZBAvNq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="On+VGYgA"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAAMO62998612
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:13:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	2ftWXraDk9QDVAMxNPvnX3+vFGzgyBKZIXYyP3mhWOg=; b=mOZBAvNqrETlTo5t
+	oLXQdt8d3iOaBaEl1nkvyHEMF4pAOblVuA/fagfV2eefOEmZsSNV3zGcfF3FyOHE
+	MQQWf6qOJ3OkhTsPhs13Q0VSwi8lTZdUGA8VTjIyIbC2dRB7MBNgLIlvTHaeSdYZ
+	oWjQCE4TImGjAQnCXRg23KtSPXJzIBxf7omIeKiWtDQFDRfaWk9KTfhLdCRVfsKL
+	fVwFCEEdvRp87bb6noRdrMXrkX/yRWR7m1WQoC6uefKkZN+OR3HukJXwEJ0C76Ol
+	GfjDngAV/FBpbQDlTtdRaxnuriCAmxLzjPsikQefDXAfB9J03TgN075A5x9S3klV
+	GYVg3A==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb8r12fdf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:13:31 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9179d9bc964so18627096d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:13:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792152752; x=1792757552; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792152811; x=1792757611; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YNQ5s//J8IJmFZANY5I3f9Gqs72fdd1AkgujEl+yjSY=;
-        b=gYudvH1xwO3ySY3u+HB8wlm8hINlJLiHVaJJCRVdeyGrpjqs3RwpSL05th1bYlsmvP
-         ps1aaycbNSXuvVpygi+LNfu/ZFa+o5k7dQfU+DsM1kbycIgfg45EcqcKYig3q/VEb21H
-         Vai/uDWFpD+N6HRqpzsyNkMHcX4NA6A3E8oWCOvB7Nd4X054lzkA6DqQSQU+W4MlYLOf
-         FhczboyXYqzxv3DQl0MOFpvfWV7ah38WHLa3Z5dwWKWFpkbQ9gon3jrYMnPJElo7l6xq
-         Hk2RAoCz6WjwJanMmCqTKl6/KsW2xUsiDOxErjQcRL1NGOoOtOyaT+GyL4iaZxFZ3rLI
-         RywQ==
+        bh=2ftWXraDk9QDVAMxNPvnX3+vFGzgyBKZIXYyP3mhWOg=;
+        b=On+VGYgAKKhbA2Ug1qo9vhrLTYUmKiLKzcB0ajp8yugEdU+2VWikVTWjAKnEbggceB
+         Qah+mjRFrn5jPHPTyPtugGiv3MMcayBsAutMCltXw61U812kV77no9FDzuc2U6ME3hcY
+         6bPgiZ8AzrXggYIvpxM9mU8xh2or0skrHGJ6Eec6fOlbtmZEUpEE2t61yDHts+aJxZjB
+         Q1BYpCkF2eWitd1NZe6qMLU07Qf/QE9PUWCLvnuLJcrFsZG0oj+Cde9wRVcfFxh1xjm9
+         Ut4y1SpFgcTcB6BE9L+KqRvozX030yi+APPloF267lfiBGxsWOT3UGSqnzykeZnT7XnC
+         eNug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792152752; x=1792757552;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792152811; x=1792757611;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YNQ5s//J8IJmFZANY5I3f9Gqs72fdd1AkgujEl+yjSY=;
-        b=oy1qCLuMcWljq180fDRR7rqNZ+BjR1Ioa47yzNsYoPEjidWDUYpY/y+DVnL9YjQSkA
-         zUEGCS4+k3KFgE2HQh7ASz3XglhKSwJExnbfbFHv2Bzl3+nf3tm2qIgVyY9n5/C9trPq
-         i6M2U7mLo6sdOx+0QAB/B9MUINOHpdkAS9Zy4pjT91BxIbM8vgOj3ZybsyY2WVGNzxhq
-         lLzP/TyEm8zN1Rarv4AaFyuoQZhXjNwxHhZ70a1PXB7GXcC5kjM303JSNleW1pd1M6p3
-         o7EtCT2ZUmRc73Fk42rUM+R8PuBPS29YmgNGa/WrBN59f8OkV+AaKikb1jBkKuV7L3Mr
-         5iVg==
-X-Forwarded-Encrypted: i=1; AKwUvByvFuHeR6XyW3P7KdgEbI0YTNuu8O3gzQh+he+XuJmYMR+KoaTmbJ/5+NTg8RFcORswMz51tDRSsbOdScg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZKnDbljaLH3nyTY0gdlsBQ75BIAA/jF2IE0RcJRSgZuxZAXfO
-	D4LP4namTPGEyGiLfPz1EVHTlgG7RpvirEia9INk4nIwnQvPmE3hjvVR+fmJrXvF8HxJtE0N8kQ
-	N8aepj5ZI8Tnsa1uKOw==
-X-Received: from wmbjr14.prod.google.com ([2002:a05:600c:560e:b0:4a1:d05f:3f13])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:3488:b0:49f:e941:d6e with SMTP id 5b1f17b1804b1-4a18e4c05d9mr443132905e9.21.1792152751449;
- Fri, 16 Oct 2026 05:12:31 -0700 (PDT)
-Date: Fri, 16 Oct 2026 12:12:29 +0000
-In-Reply-To: <20261005133857.1572243-2-beata.michalska@arm.com>
+        bh=2ftWXraDk9QDVAMxNPvnX3+vFGzgyBKZIXYyP3mhWOg=;
+        b=sFfgfpNYt/VcG/Mkc63oLkOhjdmw4fFnZ8+5AZ60UFc8Z4fGADeudPsV6Ikrg1tNC2
+         41vsYuFD0xexSxBwN1aUQfjeDujbT3iQrOTOBPWOuzAaO4nwYFO6vRWg5gCJ4lRUmKSK
+         dMtaFC4nShlYQHNMetvw8AiNBycxIwQfgQAqrPkHcKkt47de3BwwEkRg8JRPmoVUSXEV
+         6H16/nPMDIkvokx4LDZq1RsdvNbzcp29uRiFVTN23sAfBBdX6Of+4rZ8UiAeAbuaDROI
+         UdbohTmAI86g8xQkZbK5C2mMVATpcfrSBCrQZFA2ZrC4yzV1BOILE8OAMFoav807yKLt
+         Zx6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxm7ROjrfQPVqXAXCotg8GK8yyGXv16xeP7Y+Dab4Zr4n/nppYyuLRoL+LVabFdaD1/Vm65NhkXCJvS+U4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPGJuYG+2BcBISSwzCjA0IYnXV1EKtESIXLYchgBmiypgzr13n
+	Cg5Y/0iT16vXhDqCWBTvmk2r3YAArHyvFRxYGAyFnv1D2N2dYS04DqNKdITRPC6r+9s9gD9xJAX
+	1p8eWJQAqfgtm5H/NNV8Y2r+Z3BKscEenFZk7nk+1P28GDQ1fcz7tABIw9cy32SCQxLQ=
+X-Gm-Gg: AYBFou3++xD6C/8xwMloVk1sofXv04ylemNmk0heYjZ5pgIjnECVb1C3oytN9GJeQWE
+	uQjkBa27zmA/aizCbxFm22K+vojEafd0RXM8TUixsBXnTO5EHJK3yZS9Pq8hLxny9De5AcAt2ek
+	efEdYFNWMx6cfhq/1y5Fdn93MYVGNd5BOzJzVVMidaQc5cZU8OhwlEWaRJHlp6oGf2arXE41VV8
+	Usi/8hA7cumJ/l8yLinG2luk4VPkgJytjyA94a05RAn3lZrt/8eoOUBHhCxAjQdyI9ibRgsMJJ3
+	QfTCroBP/E0eq0MA2DOjK5vDwJgECayUjVsJzyBq+W1qNraKQDJdZMJYZv2BUdnzPHjqI+tRcst
+	MFzqLvJAwxQYvXN4uyd46fw==
+X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr4177425185a.2.1792152810775;
+        Fri, 16 Oct 2026 05:13:30 -0700 (PDT)
+X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr4177421185a.2.1792152810265;
+        Fri, 16 Oct 2026 05:13:30 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dcf35asm65905066b.19.2026.10.16.05.13.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 05:13:29 -0700 (PDT)
+Message-ID: <c1abd9d4-98ef-4469-b4f3-94a8dcad9d0b@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 14:13:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261005133857.1572243-1-beata.michalska@arm.com> <20261005133857.1572243-2-beata.michalska@arm.com>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261016121230.3724323-1-aliceryhl@google.com>
-Subject: Re: [PATCH v4 1/3] rust: add runtime PM support
-From: Alice Ryhl <aliceryhl@google.com>
-To: Beata Michalska <beata.michalska@arm.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, ojeda@kernel.org, dakr@kernel.org, 
-	gregkh@linuxfoundation.org, rafael@kernel.org, boqun@kernel.org, 
-	gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org, 
-	a.hindborg@kernel.org, tmgross@umich.edu, daniel.almeida@collabora.com, 
-	boris.brezillon@collabora.com, work@onurozkan.dev, samitolvanen@google.com, 
-	acourbot@nvidia.com, rust-for-linux@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] phy: qualcomm: qmp-combo: Differentiate clocks related to
+ the USB block
+To: Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-kernel@vger.kernel.org, jason.pettit@oss.qualcomm.com
+References: <20260930-qmp_phy_usb_clks_v1-v1-1-d4dccc9eb263@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260930-qmp_phy_usb_clks_v1-v1-1-d4dccc9eb263@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: rnuSMgRbKm4x0psno5NdZQdqF4_6H6qx
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA0OCBTYWx0ZWRfXzvzVJHVz6GPT
+ YNkEkgvrSCAIwE2XuWEw8CRuX6rBXU6FBpwY6UohlGOz4UXbUlEOoC06CxjIRrR9GQBTzyId6ga
+ uFSFENKPBB1KH4UZSfCMKPrldE60BG0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA0OCBTYWx0ZWRfX/tm9tl7e0Yj/
+ 19qSGiHiZdVn/a/1HcGodbb4rXg9GHBln83xuRi171/aFNaOURXYYQGvPmrcBHhX4CqbDOWcYrh
+ 0070fd9HG4i8GsEt+b1pkPexxZOy3Ux0Q3IPXhlUf7vfWi7/pOE0momY8usTKVDNsl2YrwfM+sq
+ V7aZnb7OcEB9WjbIAZ3B4Jk0YMuKDyz9Ie5kgK/FX1sN8LkolGMC/JF1fwa7kveJFcBngy9l8HD
+ MzJBGbHqDMpD2uH2mzpVsZ/9lb5PJjw9Nx2XDNDEETb89AKXSd0sGkFEGvj5lp4AbIbFc/bRls1
+ v1QunAzvXXTi1hxw6yCOMtwfLHKp1PrIbAbqc7NvDS4Qf4Y1zz4Cnn7GKV3Hu0UHtyf+tZaifUL
+ 5KVF/jpNOvn8E2dtvLoL63n9zmuKV6MDQNGjmgyhPPlHJ81uvfJnRSzf1fHixMZK1fbg/BufzPS
+ s76VNZzEvN8MIUDXSZg==
+X-Proofpoint-GUID: rnuSMgRbKm4x0psno5NdZQdqF4_6H6qx
+X-Authority-Analysis: v=2.4 cv=L/CI0OT8 c=1 sm=1 tr=0 ts=6ad214eb cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=p9KmNGLgWT_GFA4DS74A:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 impostorscore=0 phishscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160048
 
-On Mon, Oct 05, 2026 at 03:37:39PM +0200, Beata Michalska wrote:
-> diff --git a/drivers/base/base.h b/drivers/base/base.h
-> index a5b7abc10ff0..538cbb104254 100644
-> --- a/drivers/base/base.h
-> +++ b/drivers/base/base.h
-> @@ -119,6 +119,9 @@ struct device_private {
->  	const struct device_driver *async_driver;
->  	char *deferred_probe_reason;
->  	struct device *device;
-> +#ifdef CONFIG_RUST
-> +	void *rust_private;
-> +#endif
->  	u8 dead:1;
->  };
+On 10/1/26 3:16 AM, Wesley Cheng wrote:
+> The Qualcomm QMP combo PHY has a USB and Displayport block that is
+> sourced with different clocks.  In situations where the USB path is not
+> utilized, and only Displayport is active, unnecessary clocks are enabled
+> and not used.  Split the current clock list into USB specific clocks,
+> which will be enabled whenever the USB initialization routine is
+> executed.
+> 
+> In addition, move autonomous mode control specifically when USB is
+> active, as its primary purpose is to detect RX detection and LFPS
+> signals, which occurs only when USB is active.
+> 
+> Signed-off-by: Wesley Cheng <wesley.cheng@oss.qualcomm.com>
+> ---
 
-`scripts/kernel-doc -none drivers/base/base.h` warns that `rust_private` is
-not described in the kernel-doc comment for `struct device_private`.
+GPT has the following concerns:
 
-> +/// Device's runtime power management status
-> +#[repr(i32)]
-> +pub enum RuntimePMState {
-> +    /// Runtime PM has not been initialized for this device yet.
-> +    Unknown = bindings::rpm_status_RPM_INVALID,
-> +    /// The device is expected to be runtime active and in its normal operating state
-> +    Resumed = bindings::rpm_status_RPM_ACTIVE,
-> +    /// The device is expected to be suspended, unavailable for normal operations
-> +    Suspended = bindings::rpm_status_RPM_SUSPENDED,
-> +}
+[P1] Don't disable USB clocks that USB init didn't acquire
+drivers/phy/qualcomm/phy-qcom-qmp-combo.c: USB init/runtime suspend
 
-Is `RuntimePMState::Unknown` needed? The only place that takes
-`RuntimePMState` is `PMContext::enable()`, which rejects `Unknown` with
-`EINVAL`. Removing `Unknown` would avoid having to handle an invalid state in
-`enable()`.
+When USB4 is active, `qmp_combo_usb_init()` takes its early return and
+increments `usb_init_count` before the new clock-enable call. Runtime
+suspend then uses that count to disable `usb_clks`, although that path
+didn't acquire them. This can unbalance clock references; the count
+needs to reflect actual clock ownership, or the USB4 case needs
+separate handling.
 
-> +impl<'a> ResumeScope<'a> {
-...
-> +    fn release_inner(&self) -> Result {
-> +        let scope_mode = self.0.mode & !ModeFlag::Idle;
-> +
-> +        match self.0.mode {
-> +            mode if mode.contains(ModeFlag::Idle) => Request::idle(
-> +                self.0.dev,
-> +                scope_mode & (ModeFlag::Async | ModeFlag::Nowait),
-> +            ),
-> +            mode if mode.contains(ModeFlag::Auto) => {
-> +                Request::mark_last_busy(self.0.dev);
-> +                Request::suspend(self.0.dev, scope_mode)
-> +            }
-> +            _ => Request::suspend(self.0.dev, scope_mode),
-> +        }
-> +    }
-...
-> +impl<'a> AwakeScope<'a> {
-> +    fn new(dev: &'a device::Device<device::Bound>, mode: Mode) -> Result<Self> {
-> +        if !mode.contains(ModeFlag::Acquire) {
-> +            return Err(EINVAL);
-> +        }
-> +        // ModeFlag::Idle is internal so strip it off before passing further
-> +        match Request::resume(dev, mode & !ModeFlag::Idle) {
-> +            Ok(()) => {}
-> +            // For async/nowait requests, `EINPROGRESS` means the resume is in
-> +            // flight and the usage reference already keeps the device active.
-> +            Err(e) if e == EINPROGRESS && mode.contains_any(ModeFlag::Async | ModeFlag::Nowait) => {
-> +            }
-> +            Err(e) => {
-> +                Request::put_noidle(dev);
-> +                return Err(e);
-> +            }
-> +        }
-> +
-> +        Ok(Self(Scope::<Awake> {
-> +            dev,
-> +            mode,
-> +            _tag: PhantomData,
-> +        }))
-> +    }
-> +
-> +    fn release_inner(&self) -> Result {
-> +        let scope_mode = self.0.mode & !ModeFlag::Idle;
-> +        match self.0.mode {
-> +            mode if mode.contains(ModeFlag::Idle) => Request::idle(self.0.dev, scope_mode),
+=> the USB4 state machinery is a bit fragile.. but perhaps an if or
+   two will solve things
 
-In `ResumeScope::release_inner()`, the `ModeFlag::Idle` arm masks out
-`ModeFlag::Auto` (`scope_mode & (ModeFlag::Async | ModeFlag::Nowait)`),
-whereas here in `AwakeScope::release_inner()` it passes `scope_mode` unmasked.
-Should this also strip `ModeFlag::Auto`?
+[P2] Unwind clocks if USB-clock resume fails
+drivers/phy/qualcomm/phy-qcom-qmp-combo.c: runtime resume
 
-Also, in `AwakeScope::new()`, when `ModeFlag::Nowait` is set without
-`ModeFlag::Async`, `__pm_runtime_resume()` returns `-EINPROGRESS` if a
-concurrent suspend or resume is in progress without queueing an async resume.
-Swallowing `EINPROGRESS` when only `Nowait` is set means `get()` returns
-`Ok(AwakeScope)` even though the device is not resumed (and might be
-suspending). Should `EINPROGRESS` only be treated as `Ok(())` for
-`ModeFlag::Async`?
+The patch enables the common clocks and `pipe_clk` before enabling
+`usb_clks`. If the latter enable fails, it returns without disabling
+the earlier clocks, leaving them enabled after a failed resume.
 
-> +impl<'a> RetainScope<'a> {
-...
-> +    fn release_inner(&self) {
-> +        Request::put_noidle(self.0.dev);
-> +    }
-
-In the v3 discussion with Sami [1], you agreed that `RetainScope` should call
-`put` rather than `put_noidle` on release so that dropping the last reference
-triggers idle/suspend handling, looks like this was missed in v4.
-
-[1]: https://lore.kernel.org/r/apaYNvQSSUCkMTjn@arm.com
-
-> +#[cfg(not(CONFIG_PM))]
-> +impl Request {
-> +    #[inline]
-> +    fn active(_dev: &device::Device<device::Bound>) -> bool {
-> +        false
-> +    }
-
-`include/linux/pm_runtime.h` already provides `!CONFIG_PM` stub
-implementations for all of these functions. If you add `#ifndef CONFIG_PM`
-helpers in `rust/helpers/pm_runtime.c` for the functions that are `extern`
-under `CONFIG_PM` and `static inline` under `!CONFIG_PM`, you can drop the
-`#[cfg(not(CONFIG_PM))]` `Request` block and the `#[cfg(CONFIG_PM)]` guards in
-`apply_config()` altogether.
-
-> +struct PMPayload<P> {
-> +    in_flight: AtomicFlag,
-> +    inner: UnsafeCell<Option<P>>,
-> +}
-
-Thanks for removing `Option` from the public `PMOps` trait methods! You can
-still use `ManuallyDrop<P>` instead of `Option<P>` inside `PMPayload` too,
-which avoids the extra discriminant and the unreachable `None` check in
-`transition()`.
-
-> +    /// Enable runtime PM
-> +    pub fn enable(&self, state: RuntimePMState) -> Result {
-> +        self.inner.state
-> +            .cmpxchg(
-> +                PMContextState::Disabled,
-> +                PMContextState::Enabled,
-> +                ordering::Full
-> +            )
-> +            .map_err(|old| match old {
-> +                PMContextState::Dead => ENODEV,
-> +                PMContextState::Enabled => EBUSY,
-> +                _ => EINVAL, // unreachable
-> +            })?;
-> +
-> +        Self::apply_config(self.inner.dev, &self.inner.configs);
-> +
-> +        match state {
-> +            RuntimePMState::Resumed => Request::mark_active(self.inner.dev),
-> +            RuntimePMState::Suspended => Request::mark_suspended(self.inner.dev),
-> +            _ => Err(EINVAL),
-> +        }.inspect_err(|_| {
-> +            self.inner.state.store(PMContextState::Disabled, ordering::Release);
-> +        })?;
-> +
-> +        Request::runtime_enable(self.inner.dev);
-> +        Ok(())
-> +    }
-
-If `match state` fails (for instance if `mark_active()` or `mark_suspended()`
-returns an error), `Self::apply_config()` has already run and its side effects
-(such as `pm_runtime_irq_safe()` incrementing the parent's usage count or
-`pm_runtime_no_callbacks()`) are not undone. Could `mark_active()` /
-`mark_suspended()` be called before `apply_config()`?
-
-> +    /// Runs a closure while holding a `ResumeScope`.
-> +    pub fn with_resume<R>(&self, profile: PMProfile, f: impl FnOnce() -> Result<R>) -> Result<R> {
-> +        if profile.0.contains(ModeFlag::Async) {
-> +            return Err(EINVAL);
-> +        }
-> +        let _scope = self.resume(profile)?;
-> +        f()
-> +    }
-> +    /// Runs a closure while holding an `AwakeScope`.
-> +    pub fn with_get<R>(&self, profile: PMProfile, f: impl FnOnce() -> Result<R>) -> Result<R> {
-> +        if profile.0.contains_any(ModeFlag::Async | ModeFlag::Nowait) {
-> +            return Err(EINVAL);
-> +        }
-> +        let _scope = self.get(profile)?;
-> +        f()
-> +    }
-
-Should `with_resume()` also reject `ModeFlag::Nowait` like `with_get()` does?
-
-> +    fn apply_config(dev: &device::Device<device::Bound>, opts: &[PMConfig]) {
-> +        #[cfg(not(CONFIG_PM))]
-> +        let _ = opts;
-> +        let _ = dev;
-
-`let _ = dev;` is outside `#[cfg(not(CONFIG_PM))]` here (though as noted
-above, using C helpers for `!CONFIG_PM` removes the need for `#[cfg]` here
-entirely).
-
-> +#[repr(C)]
-> +#[pin_data]
-> +struct RegistrationData<'a, T: PMOps> {
-> +    #[pin]
-> +    data: PMPayload<T::RuntimePayloadType>,
-> +    _marker: PhantomData<&'a mut T>,
-> +}
-
-Does `RegistrationData` need `#[pin_data]`? `PMPayload` moves the payload in
-and out by value and doesn't use structural pinning, so a plain `KBox::new()`
-should suffice.
-
-> +impl<'a, T: PMOps> Registration<'a, T> {
-> +    /// Creates a runtime PM registration for `dev`.
-> +    ///
-> +    /// The provided profiles and configuration are stored in the associated
-> +    /// [`PMContext`]. The `payload` is stored as a Registration data
-> +    /// and is used to service PM transitions.
-> +    ///
-> +    /// The device must use the callback represented by `ops`, generated
-> +    /// for the same bus adapter and driver pair `(D, T)`.
-> +    pub fn new(
-> +        dev: &'a device::Device<device::Core<'_>>,
-> +        ops: &'static DevPMOps<T>,
-> +        profiles: Option<KVec<PMProfile>>,
-> +        configs: Option<KVec<PMConfig>>,
-> +        payload: T::RuntimePayloadType,
-> +    ) -> Result<Self> {
-...
-> +        unsafe {
-> +            let ptr = (*(*dev.as_raw()).p).rust_private;
-> +            if !ptr.is_null() {
-> +                return Err(EBUSY);
-> +            }
-> +            (*(*dev.as_raw()).p).rust_private = payload.into_foreign();
-> +        }
-> +
-> +        Ok(Self {
-> +            ctx: PMContext { inner: inner_ctx },
-> +        })
-> +    }
-
-What happens if a driver calls `core::mem::forget(pm_reg)` (which is safe in
-Rust)?
-
-If `Registration::drop` never runs when the driver unbinds:
-1. Runtime PM remains enabled on the device (and `pm_runtime_reinit()` in
-   `device_unbind_cleanup()` is a no-op while runtime PM is enabled).
-2. `rust_private` remains non-null, pointing to `RegistrationData<'a, T>`
-   after `'a` has ended and after the device has unbound from `T`.
-
-Other registrations tied to `'bound` (such as `drm::Registration::new()` and
-`irq::Registration::new()`) make `Registration::new()` an `unsafe fn` with the
-safety requirement that the caller must not `mem::forget()` the returned
-`Registration` or otherwise prevent its `Drop` implementation from running
-before `'a` ends. Doing the same here would also allow `RuntimePayloadType<'a>`
-to be non-`'static`, so drivers can hold `'bound`-scoped resources like
-`IoMem<'bound>` in the runtime PM payload.
-
-Also, there are a few leftover `#[allow(unused)]` attributes in this file (on
-`mark_active`, `mark_suspended`, `runtime_resume_callback`,
-`runtime_suspend_callback`, `DevPMOps`, and `PayloadGuard`) that can be
-removed.
-
-Alice
+Konrad
