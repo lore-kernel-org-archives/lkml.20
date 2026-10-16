@@ -1,238 +1,187 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB7A3B6BE3
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:45:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F9C3B7B7F
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:45:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792122347; cv=none; b=AnwznqRngAiMNOhnCkS7KAzTvNb6JJYWeq6n9ukKOzoSTd9enKTuEo7Nmjcr7RK0QNfNvuzvCHJ+zm2WRHKSLNeUyOv0EvFIhZWAnJbv3en4pRP67nxhkRn2lt/fvvahNCmqW0qSLLFPfI+Xutrgb/6NfdaeYvZFpQEED//YnXM=
+	t=1792122348; cv=none; b=lE3KfxJS3BQXnIt7nwwpCb74A+mk9Mc7ICI/dUjBgxi6B4psd91ngbsKBjDgXc/sOWz55XTVEzJhFr2DSteAfKLY232PHKDeeie0yAsGYQkzeySQHEo372f7eupNXRZjg9xLGRplqdsL86bfSPVLZNaVyQoMNrJrtVYskW6kW3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792122347; c=relaxed/simple;
-	bh=44SdB/unSRPSVYBoHP4dv/wWCcEp8Mtv+c+krHUUX5E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jMSxV269GbEiHa2MBkCqDX43l3fe+PamoPMsqFKJ+LRk2bhPQ7jL2dbqnHtGloq3t0Dm/JV3oh7fgoELbcak+lMiaf62o1Du8/WMhIRjI6WtI2Hp+HEyxyh22n8vf67lJxQ5yrpt3cSlEDDbvtNoNqDDCpgsMLEnz4sGSeh3KGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ePlSFbB+; arc=none smtp.client-ip=209.85.210.41
+	s=arc-20240116; t=1792122348; c=relaxed/simple;
+	bh=u5IrG70TsMGR0TeAkFBFLu/8wLCeYLQpP87CO9uxKJI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Td0YPvE3BrnDzb4acon1fcU30oFar5v1xe1RKbbe8nlQDhcl175qkTejWis1rQ0w4yb6m0retcSdC4YSgsBClJ/STjs4lssBRPTCNAlUxx010J97r7WyYh2UMJU/FrHf3q+CUYVlyiQdpYlHL5TR38btjvAwEKXoqIYjb+3uf9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BcEHJUJB; arc=none smtp.client-ip=74.125.229.6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ePlSFbB+"
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-824e6e6ed71so2262317a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:45:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BcEHJUJB"
+Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-35adc681e1aso2618970eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:45:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792122344; x=1792727144; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792122346; x=1792727146; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5/V8rc4CjnNbzKk1bJzDBVlS/8f2AkkYVi/FGYi/KHc=;
-        b=ePlSFbB+q8VlPaduva+q8m3T5Rma1KeeOiEVrzkFySNKzpcxvofyHg++cDz/hmLaXU
-         BR8f21ekpDcpIBfC3pjOr8giq+YEITI+eSsoDx5TNhm3MBqzQLRdj21YPAqxAU6dAY9v
-         44LjhZBqJYsh7H/Bm0TWZzPHFogoxIWVBs5SR4WqkFs6hunI/9bZw13pUxaRgLDDwqF4
-         dCE2o+ohrAcOQIum0N9v7L8Le8f2zV56ZciRuxxQxWY5alkQ2htMDghwOvKgoeXQIla1
-         DPmIScUiSjWvnq7yFNsheN4T9ASC0jjtubJnT9JLb2OrGXSGWVnOc5FivdiLTrFRm5A/
-         H4/A==
+        bh=R0y1dJ5AAiyMzBzdNY5zHpT5jRGPheygtScQcJ1Wvm4=;
+        b=BcEHJUJBpTvCLUk0LorQH908hXs8m6PjWOWm/atEATkkge6DfOHh/us4bS5xaAS39h
+         n9bUwYCev7dEFz1yT291t9/fgDK4Q0Aag8SmlLL/Y7dhhHGAnIVmPPFOYUqB/AAFWPwE
+         g+lRK9v7haGDdUGbB2ScdgL5Hv4Mh8fmQwTB/LctU7TZLuzJlpyPA/xn0evV14vvvGL3
+         +i/8voxh7oLxOkcsVWDgpsCeEpjewMWgvhS6odwP95Cjlxr5n6nKriiCqcdrv84orx2m
+         7r+zmUzOuqZFjcQ9HJ6x14A4dTQEqLPzz0DuUuzPZvtfQlhb2U40k0P/Zq9aqb7JfdYx
+         Oksw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792122344; x=1792727144;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5/V8rc4CjnNbzKk1bJzDBVlS/8f2AkkYVi/FGYi/KHc=;
-        b=OKdiz8x0t+I8bZSBPCfj/yLgLHykCrZbrwIgtp+GorYEFVwa6Np1Dq2PmSYZXA2XKF
-         mWX5CAl6VdgJzaysCetHjCcRId3FAC/H4Ghry0BwPU0uV7bLoGmNCb3qlrP353r51YxS
-         qHDythM2K/pdpYRPzNYJJukofzUKKbdhzzQLeYLNGHL0SsG0sHO5FgpsTmJQ1OkL7nxr
-         Uxa6RlYtjo7h5CoXGj6jIbRebPK3eo4XLeXD9GmWSoo+JAdthOMpGT42nSPfM4hElUZ6
-         F0VUl0qj21R70cWZyalr2nN12gwSMYtA26psKVAJ0tDLl2Gku0Z4aUaxb0lsMrmHtANg
-         eyLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy2GqlZH8sbHPcU9EL8OPmVyp/jOfL3dW8ioelAadWOHY3txz6TbFnpb3jutfP8w3N3pzJeg/NzAsoLU40=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLEIrpsCmoofF2XSFeMOAiVaMt9kiSPvNY/BRRfnB2FfH6sSlRY
-	iwP92PBK12sk/5Z8TwIo3J+KIO4jrpXwIfzpW7EEBmoqXUjZKbujBb3K
-X-Gm-Gg: AYBFou3OynbEv4mzvM6s9dsNCN1szztL4aZg+A3m5O7gPD6zbGbZHvx+n3wInZjuLNq
-	Yyq6OfIlkm2BlptlYtcuAIesm8/HqRJbRJRbJoQ1SWkBhEevJvX9DmyFodT8AsIwoaXNTmya0S3
-	A2leUq6rvoWcs6iNPOOLVphCucKOXJg0pFORs9SPWwzvwy1P1w1KXF4Zgof/VIWa0+or7EqonTr
-	Sz186HNEXfwRq1T0ydgfk4OT2a0ItYWyXxkozoseKcj+4uofS2mBLOz0ljR8juOCl22epN1mUUx
-	peEsK0FBdTpVhgsi4EyD+7pgM1rudhAE6Yq0zvax5Smd/gg9urGiLme2vKhACTxLHA6CxkcqOfV
-	aAU178RXqSdYVuhjdeAF4dUQzNIf4FuMgMclNzdvskIid4p1R1725VPYYxdJECrCh7jIrKCP1lf
-	2hQyJb6Y/YZdv29ZeQk31qYWF86/OjzrGeWUxgdklRjDe7DrG6guu7CC2SSDEXXQcSTDNKCttb4
-	2qBLMB5Ao2a9HOvx+dsG5RRzRtU+Ij1BaZiGGWFRiDZ7DeAZqHhCraimu8fydUb34Pu+StB0hR8
-	adVcQrFVgyFt36gnoigM124+7S45N082SCxyY0YjGGvwpjzpE+q7J93b6rHzVfatodtdMC8kSyG
-	9loMds9UsI6E72uRff+AQSg==
-X-Received: by 2002:a05:6830:6816:b0:7fa:ac4f:79d with SMTP id 46e09a7af769-83097c62d97mr22209672a34.25.1792122344353;
-        Thu, 15 Oct 2026 20:45:44 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8429b57870fsm834402a34.0.2026.10.15.20.45.42
+        d=1e100.net; s=20260707; t=1792122346; x=1792727146;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R0y1dJ5AAiyMzBzdNY5zHpT5jRGPheygtScQcJ1Wvm4=;
+        b=StK9G2+n1hqSJ6PTG4s4Bw/BrnASR+Hsm2t2nRbdknf/mVg1QLTxTjY1zkWRdOyMDv
+         sDY1jRGlMQkwstvukGO4LgHAADJsgNvk53PRAw7M2gbpYYX2sb5o5Elqhf7OEu7G7m2s
+         PvQqk7vom7EgP3Hjf7uJJMKyo6IgJCz2F7MmlkXGGTiID7vOSuQPp8QBdiui1q9cwn03
+         TwJQ3zrePGPp7Ckl0C0jLGo9qE+kMEnldFpvRl7hPETWPFO81ItAJQJr/l00OI01haQf
+         lu9PqlcReuHTN6dTllO9/utIiONBHWHhB9U/hp8Hk4/sRTq45F6qogV3CprdI8/A7aFs
+         ROcw==
+X-Forwarded-Encrypted: i=1; AKwUvBwaRTTtzgFDKpD71jWGFVY8JFXaA5ITElCnZ2fMkacxSwBu4X312LaPpMvN5G0Ed4yw2KPjGJ5r49g50l8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKwi4hF3KxY0LM242GTfxOJPBX6zR9XHzpt6Zcd2qlgDJAVki/T
+	0r7cASfe8YPtt1Hjq9+wT3va6uxJ71lJyvovW8XakkXyWkxWDK8Qbp4D
+X-Gm-Gg: AYBFou3rgTekk0gCaqi0O1syWXk/79qZHQcJGdBqTiwB4Rm4j8tno0X0nEjLvSo2n2l
+	9UuGfjOwQI8GHY3Dj+hKsdi11D3I3xE6qrMjWMJDwIfMqQSnzxgnSOQxIDa32oDYnFuUPk1QLV7
+	NZggPqJCikTsOclIvRBHeNjPaMwjqrpFlq+djLgbmgJQgqdKfn8EjJf895RRV36vjsyAYfEjTjx
+	zCKZPHXuv7NpEeKOlBDPTxDGFWUKppFRXBLb2HXiGZgLUtbOigyy5o6+rBgBfsT3Ki1uqwFY/ja
+	AtuWnggZ77HHAyTBS0Nmgu9yEJvt87tDv1lkaGGsQG/atn+dsZafhalqXvHnSzI9m5JnbvVPQNv
+	92MpU1fik3TpPDwr1cyXwneH6kOnDIxsYb/c+aV3jd5ojhR4UNHQh5mSg3IVf0u7kJWCsHVMXDg
+	YK//CxfIvPA2Tg9BbRp8xtfLCKHZELnTZGhW0Zld4IrWJP9FSvG2nyMV6jdKx+FRr6wcA+kuV4Z
+	ruT5vwxfljIG2vwWTRVtVi5nCYg4n8P+D24vpo=
+X-Received: by 2002:a05:7300:c8cb:b0:35f:f4c3:6403 with SMTP id 5a478bee46e88-35ff4d2b879mr3439491eec.36.1792122346157;
+        Thu, 15 Oct 2026 20:45:46 -0700 (PDT)
+Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com. [104.194.64.109])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608297f4f7sm2434229eec.23.2026.10.15.20.45.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 20:45:43 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 15 Oct 2026 21:45:25 -0600
-Subject: [PATCH v8 10/17] mtd: rawnand: sunxi: use page reads to reposition
- small-page NAND
+        Thu, 15 Oct 2026 20:45:45 -0700 (PDT)
+From: Yao Yiqi <yyaqia@gmail.com>
+X-Google-Original-From: Yao Yiqi <yaoyiqi3@huawei.com>
+To: deller@gmx.de,
+	tzimmermann@suse.de,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	yaoyiqi3@huawei.com,
+	Yao Yiqi <yyaqia@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] fbcon: Include font geometry in the rotated font cache
+Date: Fri, 16 Oct 2026 11:45:31 +0800
+Message-ID: <20261016034533.445862-2-yaoyiqi3@huawei.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261016034533.445862-1-yaoyiqi3@huawei.com>
+References: <20261016034533.445862-1-yaoyiqi3@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-10-8ba4881fbee8@gmail.com>
-References: <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-0-8ba4881fbee8@gmail.com>
-In-Reply-To: <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-0-8ba4881fbee8@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
- Richard Genoud <richard.genoud@bootlin.com>, 
- Boris Brezillon <bbrezillon@kernel.org>, 
- Masahiro Yamada <yamada.masahiro@socionext.com>, 
- Brian Norris <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
- devicetree@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-The hardware-ECC reader moves between main data and OOB, and rereads raw
-bytes when checking a possibly erased ECC step. It uses
-nand_change_read_column_op(), which sends large-page random-output
-commands and rejects NAND pages of 512 bytes or less. For a small-page
-geometry accepted by hardware-ECC setup, these reads therefore fail when
-they need to reposition, rather than using the small-page read commands.
+From: Yao Yiqi <yyaqia@gmail.com>
 
-Add a read-column helper that uses nand_read_page_op() on small pages.
-The core selects READ0, READ1 or READOOB for the requested column and
-sends the row address again. Pass the page number through the
-erased-check path as well, and preserve errors from the resulting
-operation. Keep the existing random-column operation for larger pages.
+From: Yao Yiqi <yaoyiqi3@huawei.com>
 
-Select PIO for small pages even when DMA is available: the DMA PAGE_OP
-sequencer uses large-page random-column commands internally.
-This corrects read-side repositioning only; the write-column helper still
-rejects small pages. Software-ECC and raw callbacks are unchanged.
+fbcon_rotate_font() caches a rotated copy of the console font in
+par->rotated.buf and skips the rebuild when the cache appears to be
+up to date. The cache is keyed on the source font's data pointer and
+the rotation alone, on the assumption that an unchanged fontdata
+pointer implies an unchanged font.
 
-This is a command-path correction found by inspection, not a claim that
-ordinary 512+16 NAND becomes supported. The existing controller-ECC
-limits still apply: it needs 512-byte ECC support and at least 28 parity
-bytes plus four user-data bytes, so 512+16 remains rejected. No
-small-page hardware validation is claimed.
+That assumption does not hold. Raw font data (font_data_t) stores no
+glyph geometry; width, height and charcount are tracked separately in
+vc->vc_font. When a font is uploaded, fbcon_set_font() deduplicates
+it against the fonts of all consoles with font_data_is_equal(), which
+compares only the byte count, the checksum and the raw bytes. Two
+uploads of the same data that declare different dimensions therefore
+end up sharing one font_data_t, and a console can install a new
+geometry while its fontdata pointer stays the same.
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+The early-out in fbcon_rotate_font() then skips the rebuild, and the
+rotated blitting routines index the stale buffer with cell sizes
+computed from the new geometry:
+
+	src = par->rotated.buf + (scr_readw(s) & charmask) * cellsize;
+
+Rotation swaps a glyph's width and height, so the size of the rotated
+cell depends on pitch rounding and differs between geometries. A 4x16
+font whose 4096 bytes are re-uploaded as 16x8 on a CW-rotated console,
+for example, grows the rotated cell size from 8 to 16 bytes, and the
+largest character then reads past the end of the 2048-byte buffer that
+was built for the 4x16 geometry.
+
+The key has never included the geometry. Its exposure was limited,
+but not eliminated, while the deduplication in fbcon_set_font() also
+compared the consoles' font widths and total byte counts: with the
+charcount restricted to 256 or 512, differing uploads could then only
+trade height against charcount (such as 4x18x256 against 4x9x512),
+and even those can change the rotated cell size. Commit 1e3c49aa03fb
+("lib/fonts: Compare font data for equality with font_data_is_equal()")
+dropped the width comparison, so identical bytes now share font data
+across arbitrary dimensions.
+
+Record the geometry that the buffer was built from and compare it in
+the early-out, so a geometry change always triggers a rebuild.
+
+Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
 ---
- drivers/mtd/nand/raw/sunxi_nand.c | 37 +++++++++++++++++++++++--------------
- 1 file changed, 23 insertions(+), 14 deletions(-)
+ drivers/video/fbdev/core/fbcon.h        | 9 ++++++---
+ drivers/video/fbdev/core/fbcon_rotate.c | 9 ++++++++-
+ 2 files changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
-index 9f03ba22b4b7..34c1c5037b11 100644
---- a/drivers/mtd/nand/raw/sunxi_nand.c
-+++ b/drivers/mtd/nand/raw/sunxi_nand.c
-@@ -1061,6 +1061,16 @@ static void sunxi_nfc_hw_ecc_update_stats(struct nand_chip *nand,
- 	}
- }
- 
-+static int sunxi_nfc_read_column(struct nand_chip *nand, int page,
-+				 unsigned int column, void *buf, unsigned int len)
-+{
-+	/* Small-page NAND needs a new READ0/READ1/READOOB and the page address. */
-+	if (nand_to_mtd(nand)->writesize <= 512)
-+		return nand_read_page_op(nand, page, column, buf, len);
-+
-+	return nand_change_read_column_op(nand, column, buf, len, false);
-+}
-+
- /*
-  * Return 1 for an erased chunk or 0 for an uncorrectable chunk, with ECC
-  * statistics updated in either case. Negative values report transport errors.
-@@ -1069,7 +1079,7 @@ static int sunxi_nfc_hw_ecc_read_error(struct nand_chip *nand,
- 				       u8 *data, int data_off,
- 				       u8 *oob, int oob_off,
- 				       unsigned int user_data_sz,
--				       unsigned int *max_bitflips)
-+				       unsigned int *max_bitflips, int page)
- {
- 	struct nand_ecc_ctrl *ecc = &nand->ecc;
- 	unsigned int oob_len = ecc->bytes + user_data_sz;
-@@ -1077,13 +1087,12 @@ static int sunxi_nfc_hw_ecc_read_error(struct nand_chip *nand,
- 
- 	/* Check the physical representation for bitflips in erased pages. */
- 	if (nand->options & NAND_NEED_SCRAMBLING) {
--		ret = nand_change_read_column_op(nand, data_off, data,
--						 ecc->size, false);
-+		ret = sunxi_nfc_read_column(nand, page, data_off, data, ecc->size);
- 		if (ret)
- 			return ret;
- 	}
- 
--	ret = nand_change_read_column_op(nand, oob_off, oob, oob_len, false);
-+	ret = sunxi_nfc_read_column(nand, page, oob_off, oob, oob_len);
- 	if (ret)
- 		return ret;
- 
-@@ -1184,8 +1193,8 @@ static int sunxi_nfc_hw_ecc_read_extra_oob(struct nand_chip *nand,
- 		return 0;
- 
- 	if (!cur_off || *cur_off != (offset + mtd->writesize)) {
--		ret = nand_change_read_column_op(nand, mtd->writesize + offset,
--						 NULL, 0, false);
-+		ret = sunxi_nfc_read_column(nand, page, mtd->writesize + offset,
-+					    NULL, 0);
- 		if (ret)
- 			return ret;
- 	}
-@@ -1250,10 +1259,9 @@ static int sunxi_nfc_oob_read_batch(struct nand_chip *nand,
- 
- 		if (read->oob_required) {
- 			/* Keep the existing PIO and DMA representations of parity. */
--			ret = nand_change_read_column_op(nand, mtd->writesize + oob_off,
--							 read->dma ? oob : NULL,
--							 read->dma ? ecc->bytes + user_data_sz : 0,
--							 false);
-+			ret = sunxi_nfc_read_column(nand, read->page, mtd->writesize + oob_off,
-+						    read->dma ? oob : NULL,
-+						    read->dma ? ecc->bytes + user_data_sz : 0);
- 			if (ret)
- 				return ret;
- 
-@@ -1289,7 +1297,7 @@ static int sunxi_nfc_oob_read_batch(struct nand_chip *nand,
- 		ret = sunxi_nfc_hw_ecc_read_error(nand, read->buf + data_off, data_off,
- 						  nand->oob_poi + oob_off,
- 						  mtd->writesize + oob_off, user_data_sz,
--						  &read->max_bitflips);
-+						  &read->max_bitflips, read->page);
- 		if (ret < 0)
- 			return ret;
- 		if (ret)
-@@ -1329,7 +1337,7 @@ static int sunxi_nfc_hw_ecc_read_chunk(struct nand_chip *nand,
+diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
+index 407d207b14f1..bfbd70f8b1cd 100644
+--- a/drivers/video/fbdev/core/fbcon.h
++++ b/drivers/video/fbdev/core/fbcon.h
+@@ -89,10 +89,13 @@ struct fbcon_par {
+ 	char  *cursor_data;
+ #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
+ 	struct {
+-		font_data_t *fontdata;  /* source font */
+-		u8 *buf;                /* rotated glyphs */
++		font_data_t *fontdata;       /* source font */
++		u8 *buf;                     /* rotated glyphs */
+ 		size_t bufsize;
+-		int buf_rotate;         /* rotation of buf */
++		int buf_rotate;              /* rotation of buf */
++		unsigned int buf_width;      /* geometry of source font */
++		unsigned int buf_height;
++		unsigned int buf_charcount;
+ 	} rotated;
+ #endif
+ 	u8    *cursor_src;
+diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
+index 6cdbc96eeca6..660a3fa81bae 100644
+--- a/drivers/video/fbdev/core/fbcon_rotate.c
++++ b/drivers/video/fbdev/core/fbcon_rotate.c
+@@ -21,11 +21,18 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
+ 	unsigned char *buf;
  	int ret;
  
- 	if (*cur_off != data_off) {
--		ret = nand_change_read_column_op(nand, data_off, NULL, 0, false);
-+		ret = sunxi_nfc_read_column(nand, page, data_off, NULL, 0);
- 		if (ret)
- 			return ret;
- 	}
-@@ -1339,7 +1347,7 @@ static int sunxi_nfc_hw_ecc_read_chunk(struct nand_chip *nand,
- 		return ret;
+-	if (par->p->fontdata == par->rotated.fontdata && par->rotate == par->rotated.buf_rotate)
++	if (par->p->fontdata == par->rotated.fontdata &&
++	    par->rotate == par->rotated.buf_rotate &&
++	    vc->vc_font.width == par->rotated.buf_width &&
++	    vc->vc_font.height == par->rotated.buf_height &&
++	    vc->vc_font.charcount == par->rotated.buf_charcount)
+ 		return 0;
  
- 	if (data_off + ecc->size != oob_off) {
--		ret = nand_change_read_column_op(nand, oob_off, NULL, 0, false);
-+		ret = sunxi_nfc_read_column(nand, page, oob_off, NULL, 0);
- 		if (ret)
- 			return ret;
- 	}
-@@ -2312,7 +2320,8 @@ static int sunxi_nand_hw_ecc_ctrl_init(struct nand_chip *nand,
- 	ecc->write_oob = sunxi_nfc_hw_ecc_write_oob;
- 	mtd_set_ooblayout(mtd, &sunxi_nand_ooblayout_ops);
+ 	par->rotated.fontdata = par->p->fontdata;
+ 	par->rotated.buf_rotate = par->rotate;
++	par->rotated.buf_width = vc->vc_font.width;
++	par->rotated.buf_height = vc->vc_font.height;
++	par->rotated.buf_charcount = vc->vc_font.charcount;
  
--	if (nfc->dmac || nfc->use_mdma) {
-+	/* The DMA page sequencer uses large-page random-column commands. */
-+	if (mtd->writesize > 512 && (nfc->dmac || nfc->use_mdma)) {
- 		ecc->read_page = sunxi_nfc_hw_ecc_read_page_dma;
- 		ecc->read_subpage = sunxi_nfc_hw_ecc_read_subpage_dma;
- 		ecc->write_page = sunxi_nfc_hw_ecc_write_page_dma;
-
+ 	if (info->fbops->fb_sync)
+ 		info->fbops->fb_sync(info);
 -- 
-2.53.0
+2.56.0
 
