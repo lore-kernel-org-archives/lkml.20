@@ -1,89 +1,121 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12CC24CA292
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:50:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57E34CA78B;
+	Fri, 16 Oct 2026 13:50:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158641; cv=none; b=WVOYm3+pw5xkFycnRQydnOZgmrcyrpo42ayxL7Xkd5lOaXlDihBUzh34vbzS4CnIh2cqCsgFPKAt82xY4TA7EFb4xTrCRn27TBxHeD012OSz8b4JHEaDh18XoHPx5LABhr7MHZxPtRRjmnFHaXJ4GmGjIgNNRfgHFNTC13/rfJ4=
+	t=1792158648; cv=none; b=ljj4qzFqhOTZkIVWVTrgw8IkNEmG3T7C6kUk/FEH9bsieA03+VKBe9Vk1mOKjaymYlW9a7HmHqjtT2GFkI4l8mNYhRk8C5hauIem0IQxqD4qI06gIdiGVbzLtaL/rwJW4Bcblz7d9KdnKDoqzcY4NWtgq9B9QObNFNtmXmLlFlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158641; c=relaxed/simple;
-	bh=JtWUgmwXdpydz6sojSijM7nIyyfqJH8FXKjubNi9ZEI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cumWLv7YuERkc9jDA7mWX8lkGBaY19wLjSxJz5zQT9LkqTEW7T0T4LQ9uwTfdP628SvgeGihNu5vzWwd0AbuvuLnCGdg6fKJkUKMiXDTcMXVrJmUdYjsYh4eLIlqB0CTvpx0K+J3aUCGtBbhreHpCSUOUZbzCD3m96RO7OT1Z+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qCFQOcdM; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792158648; c=relaxed/simple;
+	bh=n4/VRt6W4WN2nnymbTJWd/zO+oyjr+nQVB8vwqngF/I=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QDwnrfvifoaWjHZEHOE3yIMPj+EBLBgbeMiD44hYZVTgIwyAKTqDjL0abevKaoBWFHMS1GLHVlDNgR5Z6wrtMLpkV4FZXx6Iz764A3oI2Ss2QYboWWky4VsdKZN5z3jbMbP5X5Hks3s6l86397THcKwIH2l+y+pbc1AiV862itU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=Mbr1Wsx/; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qCFQOcdM"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so23003a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:50:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792158639; x=1792763439; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JtWUgmwXdpydz6sojSijM7nIyyfqJH8FXKjubNi9ZEI=;
-        b=qCFQOcdM/OUIM2ay1ToK1u5QDmNQfJS/ac0n1pwTIORQbPiLUpQZkknOdiQ2SuQlie
-         fAHqWh+JVHxcHC2aDJO4/EoaTrmXm/ooOBiyRKS1uaCTG/c1snR9FlEJXgOC4IvDrQOc
-         wgT9GW9x8oTS9UBosl2TKDjU6b9mjS0MR9CUTIBZAprPVinBP8TE6ngaUIkVZREcuE1m
-         MzS3V0ghJ+AsvQFmIvvfPevh/Pajla8nsqwoAQbXEbO2g/VY3SXbLP2iwZQanft0VCfs
-         sZI2Ncjph9i/GZLAZr6I1w0+nkBt6B1ogVx2ykeLk+PZA1Oolo8gXKPlYLEmFA4j9C8w
-         t4Zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792158639; x=1792763439;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JtWUgmwXdpydz6sojSijM7nIyyfqJH8FXKjubNi9ZEI=;
-        b=m1EAfRvIJ1I0KWPTUGoCySNqqL7jxfLDcIxdIMUwlDu8eH6fZCumXPjNrUHSRk4O0R
-         GqM9tz+/245sKRHDbuABK/hjIyutsnvlghRzydc3AOM1inGyIDFCL7FdLdMfJ0NXLMLE
-         QBTRb+5jPVKy0ffFuGVZUtjWz7l2pal7/XUXXyqLbm/Zc2qKOMwya5khuMhgQ7npYF08
-         NOk6+JVuxBAknv/KBJ3reqJzBWDFUgvecd98aopGnpk1sslcAdHfp2OkbqQdEArW6Zbz
-         q4WejIPmIqB+yj7kOJ+3/CL59CW+5w4gyXiDnsdUPkHfkJnhKJNxE/ReNqxwDFAwbmOt
-         K3sQ==
-X-Forwarded-Encrypted: i=1; AKwUvBweYnAX6wwC7wu42sADUWAL83uH5pt4Xu1g4YwUVBPqFrMh7KX6fKJLrQOIE2IDd9v+tos2zDDm2ordF0E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ165H4Y9ggWpZhVYIVPgcWIk3sIDu1alRhsjUv/FSc7mfasWwC
-	y2xbf8hCEy49HHJR+R2vfIKUgElItVuczLgjGbqA+4CBAAd4nvsRNmmN
-X-Gm-Gg: AYBFou2VfV80RrDj+3V8wtYIX2ZNzutf2IffjL9AlettcW87PK60sN1xDACkMw8y7O1
-	Ga4/Sw+HhcRyCo5CRB5pMF4cIOjkjf8YR6PvNAuoyQ3oeELBhwwafUTz9HFGis6dhoOBe68ob4s
-	K6B9tTBTYVkvGqjD4vnfF/NKcSyjEIABVj83+Al1haIb/i/6Jg/SzCdy/5pE1EbYQKZPO6IEafO
-	pbaGZ4Oymh4/Rc7oxw58YwpN9XQzZKNU4hpVzRfb9Mpde7NPAS19GqXCMIgOjOJBHepLudyhLzD
-	Qpf+PaMA8Paiv6ZXIBkjACGvR04OFADN879V4onfRZsgLGHFtjvHWbFk/TkXzVxRgfieQXPKefu
-	vCXKvvCMzaSPEjpJBA9qu2Nd5IhZZI9/E5s/BZ+1Pkcx1GI2anbRwZ4pAcGfTnQ0GeEojc8iEX7
-	avTfh2Z7d3CShuInGEx9Hyd5ZxF46k1FoPJrUBxwrx01GhaXCzK/XC/XL4Mqv4awN7YUE1tlm+H
-	I7LKR2QX1zFpQ9vVxW9J4g17sWpOUd7NNsHgZHhrIPWK4I2vn9tVAO67Y0dCbsOwTWomPVLFA==
-X-Received: by 2002:a17:90a:1101:b0:3ab:884b:65a8 with SMTP id 98e67ed59e1d1-3ab884b6b4bmr12069979a91.26.1792158639135;
-        Fri, 16 Oct 2026 06:50:39 -0700 (PDT)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:1467:1666:71b7:b993])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc487e509sm4348279a91.9.2026.10.16.06.50.36
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 16 Oct 2026 06:50:38 -0700 (PDT)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: "Derek J . Clark" <derekjohn.clark@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] HID: hid-msi: Use str_true_false() helper
-Date: Fri, 16 Oct 2026 19:20:11 +0530
-Message-ID: <20261016135031.36131-1-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20261016101506.14084-1-sinha.aryan03@gmail.com>
-References: <20261016101506.14084-1-sinha.aryan03@gmail.com>
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="Mbr1Wsx/"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=Q4UsDgRYaanQzQK3Wt/yZkiQ+b6Z8NemUZLB73f4xbU=; t=1792158644;
+	x=1792763444; b=Mbr1Wsx/mkjPj3hIcufZhig5q+yesxLDTZs79XXltKU2HXkthSHUGjQXCC3bf
+	0FlE/n7ay9wocb385gU3F//AsLztJVXd4AAOU8ICpWaGj5AJWG1do4QWOYrZQKBSV1Qri6BV6p9M5
+	88yjgWOp1bdJ3eQSD/upOwynnjetRWp2rCL3INhJLHG31FVep0thXCQE/qUdIWHCzQcozBBuTOG9h
+	Rd4UsMooR6OzmVnFCsAWrctT8081/VH1qSv9QUZ4qB0uvfkyEvTBxXuWMdnhiTlYsPw4mcmoC/xXC
+	2Q5CgDFfekaBGQtXjcv7qgCpQfhxcqiW3IXbm4cfr3IiKm1gGg==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xHiKR-00000001YOp-1y6g; Fri, 16 Oct 2026 15:50:35 +0200
+Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=[192.168.178.61])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xHiKR-00000003zsT-0zJB; Fri, 16 Oct 2026 15:50:35 +0200
+Message-ID: <f46a2ef98217b3cb6bd374b9bdf0bcb2e3227940.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH] sh: mm: fix double mmap_lock release on SIGBUS and
+ SIGSEGV faults
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Karl Mehltretter <kmehltretter@gmail.com>, Yoshinori Sato
+	 <yoshinori.sato@nifty.com>, Rich Felker <dalias@libc.org>
+Cc: Peter Xu <peterx@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
+ 	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Fri, 16 Oct 2026 15:50:34 +0200
+In-Reply-To: <atHwnaEUDihOsGUQ@gmail.com>
+References: <20260928001937.12793-1-kmehltretter@gmail.com>
+	 <atHwnaEUDihOsGUQ@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-This is an accidental resend of a patch I already posted on 12 Oct, with
-nothing changed between the two:
+Hi Karl,
 
-https://lore.kernel.org/all/20261012154537.42113-1-sinha.aryan03@gmail.com/
+On Fri, 2026-10-16 at 11:46 +0200, Karl Mehltretter wrote:
+> On Mon, Sep 28, 2026 at 02:19:37AM +0100, Karl Mehltretter wrote:
+> > A process that survives the signal keeps an mm with a corrupted
+> > mmap_lock. With CONFIG_DEBUG_RWSEMS and lockdep, stress-ng --msync
+> > (which catches SIGBUS) reports within a minute:
+> >=20
+> >   WARNING: bad unlock balance detected!
+> >   stress-ng-msync/54 is trying to release lock (&mm->mmap_lock) at:
+> >   mm_fault_error+0xd0/0x16c
+> >   ...
+> >   DEBUG_RWSEMS_WARN_ON(tmp < 0): count =3D 0xffffff00, ...
+> >=20
+> > and without them, find_vma() warns that mmap_lock is not held right
+> > after it was taken. Seen on a custom QEMU model of the SH7785LCR, in
+> > both 29-bit and 32-bit mode.
+> >=20
+> > Drop the release from do_sigbus(), whose only caller is
+> > mm_fault_error(), and use bad_area_nosemaphore() for VM_FAULT_SIGSEGV.
+> > bad_area() has no users left and goes away.
+> >=20
+> > Fixes: fb027ada051a ("sh/mm: use helper fault_signal_pending()")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> > ---
+> >=20
+> > Notes:
+> >     Tested in QEMU on a custom SH7785LCR model, not on hardware.
+> >     Reproducer: Debian sh4 stress-ng 0.22.01 --msync
+> >=20
+>=20
+> A friendly ping on this fix.
+>=20
+> I have now also reproduced it with stock QEMU 11.0.2 on the upstream
+> r2d machine (SH7751R): the unpatched kernel warns after a caught SIGBUS,
+> while the patched kernel does not.
+>=20
+> Also, the stress-ng command in the review notes is incorrect. Use:
+>=20
+>   stress-ng --msync 1 --timeout 60s
 
-Please drop this copy and use the original. Sorry for the duplication.
+I'm trying to get this reviewed in the weekend. I'm not forgetting about
+patches as I'll always check what's on patchwork and pick everything up
+that I haven't taken yet [1].
 
-Aryan
+Adrian
+
+> [1] https://patchwork.kernel.org/project/linux-sh/list/
+
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
