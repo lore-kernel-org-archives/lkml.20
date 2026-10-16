@@ -1,97 +1,75 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7EF4DD3D5
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:12:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2694C8FE5
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:12:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792159946; cv=none; b=Vbo/2PyKoBtyFB9xfDmfXpUY6cK3baIf3NVlNNyQ/qkJiTVGZ43QA1eA7KGpvsla9AlJ7NbMrNN26SqD3JuqzQYIRYfdSeL8QR1Y86Rhqg1c12mGe/qEyFw9eD7PFNoUTr7P04sSbJXrnXzjFjA6WZhvt+or4zBG8HPNbo+Xqgw=
+	t=1792159965; cv=none; b=aE09wetqsUJ+mPl5CyJqEYDbGMw03HSq3RvNiPJVYyorEDh/xeZi3ztWnk+wQ/DJhck/MWt5MRe/Q5mz3IAHPQn6rCo4Qc9G/ghRRlO0gxYBGkqLM7YPgoC3zXTwbRRBXFrowD6eGZnhtUnXMRFwFxhnVk5Ky/ZlwGESlIkhB80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792159946; c=relaxed/simple;
-	bh=rgkPiQLDuHZhgT4/G3OtHq/Z5hWpRHeWeCpWLYt4AxI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hhNx84yXwJ8kis202K4Y4ZKxCOkJfCdbu/4nKTAiBkMiRijybDdzKuBU1rdVvzSaWgwLAQL08yWCfYAvjMn/WSBHYTlCCXIx1fn9IVTW7owt8Rl2pWh26Sy/H44N99pM9atTFQEfT3az73QLSkH5YaC8ttmCE8qQGZ1Ec5o0A4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QEWhKm/W; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HLCZNsav; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792159965; c=relaxed/simple;
+	bh=P6FOblvKbXFENbU5mA1ijIZGEvT80WExO/2hxTZ2HUA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nwcrR6CNRg3PuJrlTLiwRfxxj0hL8f/L+PpzAP5cll/rOqV7SVsz1lYkwYrhPSZTDFIusSQRcNcgXLEL7CfoSzyJ++OG8CWKg1/MPQwdvN/LsGGyA8ZHEGMeemf44fqdnlh9G42es924n/ccXStfEIs/Jfl4MbvFZjKLnpxcrEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ix/XpUSt; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QEWhKm/W";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HLCZNsav"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GE5i7D1910948
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:12:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Gg6081YpwKP
-	psw+SvH8/3fphksCH2ss8wRm7fjhCQ3c=; b=QEWhKm/W4rSTaCcyhn9nHZdoMpM
-	o8jg0ISKYn+3wjWf/GwfkZczX7PGudFZzxhsgyYf6oXRHUu3i4DtzjQEuwFdaxzp
-	UpuFP0xXOgmS0726PnL0u+zmF03FMEH339f2bJkU57iqQ0waC4plzemTwvFPZzQ9
-	wSo1Z14UPRBGnrN3l45gWksGPK+d6KcVfAzGP5v3kC8QVqOPbSdIPGdImy2ELDOn
-	bn93b35qQRFjqZY7YKzeCul4pIpCGZvzJZyQcVzS8ilI0WYXUsNRSZNW3EBGhDFp
-	MRN6GcNAqF2dclVyzrkInkc01rOnUIvMSbyqwU7dCXKjEzrWDX23Nrfvjcg==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbjmf8pdy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:12:20 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35c902e0da2so1268456eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:12:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ix/XpUSt"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso1706790f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:12:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792159940; x=1792764740; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gg6081YpwKPpsw+SvH8/3fphksCH2ss8wRm7fjhCQ3c=;
-        b=HLCZNsavGiaXdpvaINF28EIs3HAi/jkXutLWGlYcJpZXObWpavSj3B6F86R4TtqeV/
-         akiOGK2eVubD7Ezp+KM0n5oHA+kDiSkVY/tIFkzuh+btMYPxNo86Opi68UYRAlW/mZmG
-         bGXC/DQjD7JZw8loqGUvxw/Zc+EI4li+ABXPA5OV3RNE1BPUIEtx+FJ8IeF6Q/mk9XP7
-         STXK7lPrNAX/yQB4w+E/teBBpl03QSlHLAq39WEQRrhbsBrMmDrpqHBSTNdcS+0N/HMS
-         ur+LdxW2MOjkcBBVUOTXa2zBB978NQdHBFdP8C/Wugx821a7284YWkQuKMyGv0cP67Vy
-         2pRw==
+        d=gmail.com; s=20251104; t=1792159960; x=1792764760; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AbBEogAxyh7+JN+OT4vw992dVZCSlpxBHlQNCIp2JxQ=;
+        b=Ix/XpUStFb/tX4/mXOEzUuvi1wDxM6w4w++fjIrNUNzPilmquwqoDM+31vAuGPUoEv
+         LTBM7UGT9uHHBBPLG5nABggGN43MOkYLibSxSUEbIqOPEObw7pTcLR7zL6beXtgn7uy8
+         J2D/VRfVE4n7RzOr9kFXG1NiC8ANVNoTvRMg70FjdqvM9BKg92hA1dm/HQbWGs96lKg+
+         xMET9TFMbinFMQJ4PG/S198ZLPibneOJ2oUVlH0mKnNi98fnOS+LjPP3OoF/PcJWE/KN
+         n2Fwe6ZCMK7oWcV9PU+0YOjBTaJIPg+DKBdPaRLN4F2RkTcU2fjgKT/HsXJGhUB/Cd/v
+         vAjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792159940; x=1792764740;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gg6081YpwKPpsw+SvH8/3fphksCH2ss8wRm7fjhCQ3c=;
-        b=hFJuMzbxR5fApV8xq6ST15wAZuyF7SFp4ZQoQsPIGeEZrT+TKk1u7MAQ1/qBjwIKRp
-         RaBKtukpp/apW2Y6dghFbMC0NtZhRaKARmtwoN+8jZ32dbFx1kLEmiZE5lXJOKQ1i7NA
-         rpjlyXwP9IDpi8/6C6zqCKTwgUhLf3jWVtRkm0J0GO/LWRqAP3LqnFfBWWMwP5PgIxkX
-         PqFgiUYm7I4ZrnUYzi3AikcEHhHVu1FAK+adpeIWXYXnso6c74yPfLqtuXIcOAizYb4j
-         ZXF1M+lLJr0PopMARIlH/BW5QF2h8zEdiBw2ObnoH0RC6GnzgWcno6ZeYST+apQOlXc1
-         KGlw==
-X-Forwarded-Encrypted: i=1; AKwUvByBrXLowVDy/wgSAn6qwcaB+6hWm7iaWeGjrFvUcmyfSQl46AoDd9OVBa7f1+rvvnQaK/y5wLmkzJda7NY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK64gMGYfBJq6bIl6PzMKK2COuPohte9SjoZUMvPp9VW9l0qQ1U
-	gXjkUA6JMyAJ7GWZuAK4UKjWpu+7kUCT2yih/CVEFP2ElFnfFyDN+yppaebseKY0perRtmsw/3r
-	wbknTbIIR6P+z3ZwiUEP4VHvtbrbsjVrE8zDumqj+R44f1sv5SpvmmHVSlCAQakZXMUs=
-X-Gm-Gg: AYBFou0O0gsJ1L2aMVMIScIA+EKjz2Jxl8d4TZkHSCZhAAPQBu/l8cmWi7cRyekmTs4
-	nKMLc06kXrjvMb6l6YOJ/W5x350CSFsRbg9KyGdESRs2cn9eN4H52MV2g8pEmC6tNA4nAQ39peJ
-	qCBqONwP+4+3VyQVcSo5Qck1JTBeJPtZc3EjmMg1Z1T49WEgVdokVF44Bwp+56sho4pNFcsy8XD
-	LdCpp9cX+RzLv0TxgVQJYdEz7RCvBPLVAF5B5VEddwP9CgMx2QWMVDj9FUBybNOBPoU/TSx4Wdj
-	nt2lfD5N0eAod42NwhbtINzwwuCECrhJgMcoFbgVpuptxt/v8J7GI6b0JXmx+9Nx5u8rzYkMxBH
-	vexWwuNEcbnzdI94Hw4oAHOZfqkn39ekmpDkhGs/yEfFiAR9PMNbYFEZ0tHM=
-X-Received: by 2002:a05:7022:913:b0:14e:61bb:ec3d with SMTP id a92af1059eb24-18511232282mr132415c88.16.1792159939842;
-        Fri, 16 Oct 2026 07:12:19 -0700 (PDT)
-X-Received: by 2002:a05:7022:913:b0:14e:61bb:ec3d with SMTP id a92af1059eb24-18511232282mr132314c88.16.1792159938892;
-        Fri, 16 Oct 2026 07:12:18 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-18314b1722asm6997682c88.1.2026.10.16.07.12.15
+        d=1e100.net; s=20260707; t=1792159960; x=1792764760;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AbBEogAxyh7+JN+OT4vw992dVZCSlpxBHlQNCIp2JxQ=;
+        b=CakKVwfwjB44VARTFmS1oduo3D8l7lmYNArlWddzzDRJWKw9v5VA54M82r5jv96Bhs
+         J5bTKrqG1ObT8c2E/tM1/FQ1q0lbxlDlW/kKjFTxN/og2/xVt7I0aouNEtMLmeMQSDNZ
+         J+KKE5sbyzMjIAKJ72L4zaDCBVmGIh2C9SuklABTHkAA2sxIDz9KIAdLuLqepRmlqQdG
+         2+DJ/uHUJ5bYAKzRVwqrMwxvs2Tpn/Nnvz1k9Hh0U4BORNE3NYBCYF00JJMFmrGiYy2c
+         56+W0oTQzVdiuhRro59Z9vxu01VWXzNYbthb5hwdVyfAMxsOeWsj21SIxjI7z5P+GktJ
+         KwlA==
+X-Forwarded-Encrypted: i=1; AKwUvBwcnn5HCnYlvewTKcius133o5bCWdli+DRY7FL4Am4eA3y+uFg/aoHPoHYclfYxg43xxkd40htNUokhZ3g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2K/Xa5x3MwaIaLIdsC2M0GAU8qsD7J28XX7OfDLpSY2okGRyC
+	0x8FzKQjO5O7ngQSnrRLgE/4Vs2tFoiih6sOET66Cz8W9P1Yzf6l+/fM
+X-Gm-Gg: AYBFou2NiRYT8iyWpandHStC34cFoJYzsPLsdQp27b3OSkM/WMsliY9EQwwJiTxrvmd
+	gIrJCJJZ8rLaF25gEwxuv6Fr8W/rxPlF5W621g12FySjsCpsteRUczTkCvhsuSz45M8ywcBuClQ
+	c7BWsDxIkD78Y8i18FngHR4oAhD8iLFlQqvDBgiDTsXsmgMZ9h6Zfo9x8WbuFreT4qxMqzTfoMH
+	dMWBycmkSw4Bwb6QsZTMxKWkhTjFHXg/Q+b54CD2Zup2+yrEUonfrLmZHdBXlHaMDb9TO/QXUmc
+	lnVrGGRbeE4eBeD6a3dTDeu9GPinMa1N0kSoldTefNK6n8a8vb/ltdGf+/Kcf8pLrKBxVpz6Iqa
+	Z8eDF4eL9Y4JPgv37UaAiqyPWwSc6BlWPULiuXxALK3LtxbqPOt8fPYDx+umf8qgdKq5xMkLXdm
+	ob5gb8HF663X6gspMJLDoJx6G3TwyGmzuFkJ/1+JDhZSv8QscyUBWdxpfYFbM0HaP0zi+sisoed
+	HJkmJzDkkN06NsFviuaC08mjI1Ay2X30Um8ZJxY2Bs0+42kagPOH458
+X-Received: by 2002:a05:600d:82c8:b0:4a1:cedc:ab51 with SMTP id 5b1f17b1804b1-4a1cedcac09mr44301305e9.35.1792159959775;
+        Fri, 16 Oct 2026 07:12:39 -0700 (PDT)
+Received: from B87454BG30364.tailfa1f09.ts.net (284035233.box.freepro.com. [82.96.134.200])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48dfdeb18f8sm4771136f8f.20.2026.10.16.07.12.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 07:12:18 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH 3/3] ASoC: qcom: q6apm: Unmap DSP buffers before removing the topology
-Date: Fri, 16 Oct 2026 22:11:53 +0800
-Message-ID: <20261016141153.1346219-4-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261016141153.1346219-1-shengchao.guo@oss.qualcomm.com>
-References: <20261016141153.1346219-1-shengchao.guo@oss.qualcomm.com>
+        Fri, 16 Oct 2026 07:12:39 -0700 (PDT)
+From: Erwan Velu <erwanaliasr1@gmail.com>
+X-Google-Original-From: Erwan Velu <e.velu@criteo.com>
+To: linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org,
+	axboe@kernel.dk,
+	hch@lst.de,
+	sagi@grimberg.me,
+	linux-kernel@vger.kernel.org,
+	Erwan Velu <e.velu@criteo.com>
+Subject: [PATCH] nvme: honor the volatile write cache enable state
+Date: Fri, 16 Oct 2026 16:12:08 +0200
+Message-ID: <20261016141208.2641974-1-e.velu@criteo.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,120 +77,198 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 6mQCwXQ5EgnwFuSsmbDmzIF0g8mS0WXK
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA1NiBTYWx0ZWRfX8qxDxH3cukgl
- /wUBsKTaEavurwW+LxAIutxoW1+GADyPw/j6AyaiLU4ssLQ1GCDVgo3WQp17cieTomKAOa43Cpc
- WaumdmPjw0hq9JF7GYbL/oD4JUffJmI=
-X-Authority-Analysis: v=2.4 cv=SrAFe/O0 c=1 sm=1 tr=0 ts=6ad230c4 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=pRitcdQJkKt4eD0iFYsA:9 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-ORIG-GUID: 6mQCwXQ5EgnwFuSsmbDmzIF0g8mS0WXK
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA1NiBTYWx0ZWRfX2OmbaGApyC4/
- e6ZUk/JzazS60xOYBCnxtOTYepVKYRmzZO340z0iF/MKBVkn9ja61WbYa4Ezw27S1BRDoqoaWgM
- oTqXwSC8sX5upRUtb4QBAWABPLlGwWx2Pq/2rStBQScMlbEVTt3lM1wcJZ9Q4r4hRQtuhbmnERg
- TEDtnZdcNnOpgRPPIyoshpHZQDtPNSgQ7loOP//Ii1lw6czS/1IQJPnu+CQuKzdXnkoSOXBD6cy
- 49212QaUwkOO/NNLQ1x7T+Yv75gAcx6hDzdTYU2SMrUUhKvVsUp/xmRntcDBzg/tpb217roiGqh
- 1lDi8rddpAYuXLFRZyoFzkK3RLmXfQA4XaKjBDygtpmKnhw0cLqGi45rtNhYuDE7SBSBVq8CkRq
- 1450/b752p44qNjMGRlCT8oM2CpCT9HHQDmGO5zby/KEV18s1qFY0k8kZb32BjbLbWzzem2aK/S
- v29Hkh07xhGdOlFwHaQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_02,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 bulkscore=0 spamscore=0 phishscore=0
- clxscore=1015 malwarescore=0 priorityscore=1501 adultscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610160056
 
-Since buffers are mapped once in pcm_new() and unmapped in pcm_free(),
-the unmap relies on the graph info still being registered. During card
-teardown, however, soc_cleanup_card_resources() removes the components
-before it frees the PCM runtimes. q6apm-audio's remove callback unloads
-the topology, which frees every audioreach_graph_info, so by the time
-q6apm_dai_pcm_free() runs the idr lookup fails and the unmap silently
-returns -ENODEV. The DSP keeps the old mapping.
+A controller with a volatile write cache present (NVME_CTRL_VWC_PRESENT)
+but disabled (Volatile Write Cache Enable cleared) is exposed in
+write-back mode, as the driver never reads the Volatile Write Cache
+feature. The block layer then issues flushes and FUA writes for
+nothing, hurting performance.
 
-When the card is bound again, for example after unbinding and binding
-any codec on it, pcm_new() maps the same buffer once more, the DSP
-rejects it and the front-end PCM is not created:
+On a Kioxia CD6-V (KCD6XVUL3T20, HPE firmware GPK8), compliant with
+NVMe 1.4.0 and reporting VWC 0x5 with WCE cleared, 4k random writes with
+an fsync after each write (fio, 30s) give, before (write back) and after
+(write through) this patch:
 
-  qcom-apm gprsvc:service:2:1: Error (1) Processing 0x0100100c cmd
-  qcom-apm gprsvc:service:2:1: DSP returned error[100100c] 1
-  q6apm-dai ...: Audio Start: Buffer Allocation failed rc = -22
-  snd-sc8280xp sound: ASoC: can't create pcm MultiMedia1 Playback :-22
+  job                   | cache   |   IOPS | fsync avg | flushes |  gain
+  ----------------------+---------+--------+-----------+---------+------
+  psync buffered, QD1   | back    |   3885 |   247.6us |  116552 |
+                        | through |  48325 |    15.7us |       0 | x12.4
+  ----------------------+---------+--------+-----------+---------+------
+  io_uring direct, QD1  | back    |   3886 |   238.2us |  116593 |
+                        | through |  41924 |     5.7us |       0 | x10.8
+  ----------------------+---------+--------+-----------+---------+------
+  io_uring direct, QD32 | back    |   5088 |  6173.5us |  117793 |
+                        | through | 140196 |   107.0us |       0 | x27.6
 
-Release the circular and position buffer mappings of all graphs in
-q6apm_audio_remove() while the graph info still exists. The unmap
-helper now takes the q6apm instance directly, since it is called from
-the APM component rather than from a q6apm-dai child device.
+From NVMe 1.4c (sections 5.21.1.6 and 6.8) up to the NVMe Base
+Specification 2.4 (sections 5.2.30.1.4 and 7.2), a Flush command has no
+effect if the volatile write cache is not enabled. The NVMe Base
+Specification 2.3 and 2.4 (sections 5.2.26.1.4 and 5.2.30.1.4) also
+state that user data written to a namespace shall be persistent if the
+volatile write cache is disabled.
 
-Fixes: 8ea6e25c8536 ("ASoC: qcom: q6apm: Add support for early buffer mapping on DSP")
-Assisted-by: LLM
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Make the driver honor the Volatile Write Cache Enable bit:
+
+- Read the feature in nvme_query_vwc_status() when the controller is
+  identified. The cache is assumed to be enabled unless the controller
+  explicitly reports it disabled, so a failure keeps the current
+  behavior.
+
+- Add the nvme_ctrl_vwc_enabled() helper so that the volatile write
+  cache state is evaluated in a single place, combining both bits,
+  instead of testing NVME_CTRL_VWC_PRESENT on its own as is done today.
+
+  The chosen logic is the following:
+
+    NVME_CTRL_VWC_PRESENT | NVME_FEAT_VWC_ENABLE | Write cache
+    ----------------------+----------------------+--------------
+              0           |     absent/0/1       | write-through
+              1           |        absent        | write-back
+              1           |          0           | write-through
+              1           |          1           | write-back
+
+  This is safe by default: a present volatile write cache is considered
+  enabled, and the namespaces are exposed in write-back mode, until the
+  controller reports the WCE bit cleared.
+
+- Refresh the state and rescan the namespaces in nvme_passthru_end()
+  after a successful Set Features for this feature, so that a change
+  made from userspace (e.g. "nvme set-feature -f 6 --value 1 /dev/nvme0")
+  is applied to the namespaces:
+
+  - if the volatile write cache is now enabled, wait for the rescan to
+    complete, so that the namespaces are back in write-back mode and
+    flushes and FUA writes are issued again before the command returns;
+  - if the volatile write cache is now disabled, do not wait, as
+    flushes sent in the meantime have no effect.
+
+The performance issue is not specific to the drive tested here: any
+controller that reports a volatile write cache with WCE cleared is
+affected, whatever its vendor or product.
+
+Assisted-by: Claude Opus 5.5
+Signed-off-by: Erwan Velu <e.velu@criteo.com>
 ---
- sound/soc/qcom/qdsp6/q6apm.c | 24 ++++++++++++++++++++----
- 1 file changed, 20 insertions(+), 4 deletions(-)
+ drivers/nvme/host/core.c | 41 +++++++++++++++++++++++++++++++++++++++-
+ drivers/nvme/host/nvme.h | 10 ++++++++++
+ include/linux/nvme.h     |  1 +
+ 3 files changed, 51 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
-index 72ccaea1feb3..bfbcf259002e 100644
---- a/sound/soc/qcom/qdsp6/q6apm.c
-+++ b/sound/soc/qcom/qdsp6/q6apm.c
-@@ -321,11 +321,10 @@ int q6apm_alloc_fragments(struct q6apm_graph *graph, unsigned int dir, phys_addr
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index 531f9bb14bab..5b03bf06b57c 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -1278,6 +1278,30 @@ u32 nvme_passthru_start(struct nvme_ctrl *ctrl, struct nvme_ns *ns, u8 opcode)
  }
- EXPORT_SYMBOL_GPL(q6apm_alloc_fragments);
+ EXPORT_SYMBOL_NS_GPL(nvme_passthru_start, "NVME_TARGET_PASSTHRU");
  
--static int __q6apm_unmap_memory_fixed_region(struct device *dev, unsigned int graph_id,
-+static int __q6apm_unmap_memory_fixed_region(struct q6apm *apm, unsigned int graph_id,
- 					     bool is_pos_buf)
- {
- 	struct apm_cmd_shared_mem_unmap_regions *cmd;
--	struct q6apm *apm = dev_get_drvdata(dev->parent);
- 	struct audioreach_graph_info *info;
- 	uint32_t mem_map_handle;
- 	uint32_t pos_mask = is_pos_buf ? APM_MMAP_TOKEN_MAP_TYPE_POS_BUF : 0;
-@@ -357,13 +356,15 @@ static int __q6apm_unmap_memory_fixed_region(struct device *dev, unsigned int gr
- 
- int q6apm_unmap_memory_fixed_region(struct device *dev, unsigned int graph_id)
- {
--	return __q6apm_unmap_memory_fixed_region(dev, graph_id, false);
-+	return __q6apm_unmap_memory_fixed_region(dev_get_drvdata(dev->parent),
-+						 graph_id, false);
- }
- EXPORT_SYMBOL_GPL(q6apm_unmap_memory_fixed_region);
- 
- int q6apm_unmap_pos_buffer(struct device *dev, unsigned int graph_id)
- {
--	return __q6apm_unmap_memory_fixed_region(dev, graph_id, true);
-+	return __q6apm_unmap_memory_fixed_region(dev_get_drvdata(dev->parent),
-+						 graph_id, true);
- }
- EXPORT_SYMBOL_GPL(q6apm_unmap_pos_buffer);
- 
-@@ -850,6 +851,21 @@ static int q6apm_audio_probe(struct snd_soc_component *component)
- 
- static void q6apm_audio_remove(struct snd_soc_component *component)
- {
-+	struct q6apm *apm = dev_get_drvdata(component->dev);
-+	struct audioreach_graph_info *info;
-+	int id;
++static void nvme_query_vwc_status(struct nvme_ctrl *ctrl)
++{
++	u32 result;
++	int ret;
 +
-+	/*
-+	 * The card core removes components before freeing the PCMs, so
-+	 * q6apm-dai's pcm_free() runs after the topology (and graph_info)
-+	 * is gone and can no longer unmap. Release the DSP mappings here,
-+	 * otherwise the next pcm_new() fails to map the same buffer again.
-+	 */
-+	idr_for_each_entry(&apm->graph_info_idr, info, id) {
-+		__q6apm_unmap_memory_fixed_region(apm, id, false);
-+		__q6apm_unmap_memory_fixed_region(apm, id, true);
++	/* Assume the volatile write cache is enabled until proven otherwise */
++	ctrl->vwc_status |= NVME_FEAT_VWC_ENABLE;
++
++	if (!(ctrl->vwc & NVME_CTRL_VWC_PRESENT))
++		return;
++
++	ret = nvme_get_features(ctrl, NVME_FEAT_VOLATILE_WC, 0, NULL, 0,
++			&result);
++	if (ret) {
++		dev_warn(ctrl->device,
++			"failed to get volatile write cache status (%d)\n",
++			ret);
++		return;
 +	}
 +
- 	/* remove topology */
- 	snd_soc_tplg_component_remove(component);
++	if (!(result & NVME_FEAT_VWC_ENABLE))
++		ctrl->vwc_status &= ~NVME_FEAT_VWC_ENABLE;
++}
++
+ u32 nvme_passthru_end(struct nvme_ctrl *ctrl, struct nvme_ns *ns, u32 effects,
+ 		       struct nvme_command *cmd, int status)
+ {
+@@ -1313,6 +1337,20 @@ u32 nvme_passthru_end(struct nvme_ctrl *ctrl, struct nvme_ns *ns, u32 effects,
+ 			if (!status)
+ 				nvme_update_keep_alive(ctrl, cmd);
+ 			break;
++		case NVME_FEAT_VOLATILE_WC:
++			/*
++			 * Refresh the volatile write cache state and revalidate
++			 * the namespaces so that flushes and FUA writes are
++			 * issued if the cache was enabled. In that case, wait
++			 * for the revalidation to complete before returning.
++			 */
++			if (!status) {
++				nvme_query_vwc_status(ctrl);
++				nvme_queue_scan(ctrl);
++				if (nvme_ctrl_vwc_enabled(ctrl))
++					flush_work(&ctrl->scan_work);
++			}
++			break;
+ 		default:
+ 			break;
+ 		}
+@@ -2478,7 +2516,7 @@ static int nvme_update_ns_info_block(struct nvme_ns *ns,
+ 				 "not enabling zoned mode");
+ 	}
+ 
+-	if ((ns->ctrl->vwc & NVME_CTRL_VWC_PRESENT) && !info->no_vwc)
++	if (nvme_ctrl_vwc_enabled(ns->ctrl) && !info->no_vwc)
+ 		lim.features |= BLK_FEAT_WRITE_CACHE | BLK_FEAT_FUA;
+ 	else
+ 		lim.features &= ~(BLK_FEAT_WRITE_CACHE | BLK_FEAT_FUA);
+@@ -3679,6 +3717,7 @@ static int nvme_init_identify(struct nvme_ctrl *ctrl)
+ 
+ 	atomic_set(&ctrl->abort_limit, id->acl + 1);
+ 	ctrl->vwc = id->vwc;
++	nvme_query_vwc_status(ctrl);
+ 	if (id->mdts)
+ 		max_hw_sectors = nvme_mps_to_sectors(ctrl, id->mdts);
+ 	else
+diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
+index a8ef62b8e34b..b993ebd457c5 100644
+--- a/drivers/nvme/host/nvme.h
++++ b/drivers/nvme/host/nvme.h
+@@ -399,6 +399,7 @@ struct nvme_ctrl {
+ 	u32 max_namespaces;
+ 	atomic_t abort_limit;
+ 	u8 vwc;
++	u32 vwc_status;
+ 	u32 vs;
+ 	u32 sgls;
+ 	u16 kas;
+@@ -1274,6 +1275,15 @@ static inline void nvme_start_request(struct request *rq)
+ 	blk_mq_start_request(rq);
  }
+ 
++/*
++ * The volatile write cache status depends on both its presence and its state.
++ */
++static inline bool nvme_ctrl_vwc_enabled(struct nvme_ctrl *ctrl)
++{
++	return (ctrl->vwc & NVME_CTRL_VWC_PRESENT) &&
++		(ctrl->vwc_status & NVME_FEAT_VWC_ENABLE);
++}
++
+ static inline bool nvme_ctrl_sgl_supported(struct nvme_ctrl *ctrl)
+ {
+ 	return ctrl->sgls & (NVME_CTRL_SGLS_BYTE_ALIGNED |
+diff --git a/include/linux/nvme.h b/include/linux/nvme.h
+index 91ce434a7e8d..c7a1fd29bda7 100644
+--- a/include/linux/nvme.h
++++ b/include/linux/nvme.h
+@@ -1402,6 +1402,7 @@ enum {
+ 	NVME_FEAT_WRITE_PROTECT	= 0x84,
+ 	NVME_FEAT_VENDOR_START	= 0xC0,
+ 	NVME_FEAT_VENDOR_END	= 0xFF,
++	NVME_FEAT_VWC_ENABLE	= 1 << 0,
+ 	NVME_LOG_SUPPORTED	= 0x00,
+ 	NVME_LOG_ERROR		= 0x01,
+ 	NVME_LOG_SMART		= 0x02,
+
+base-commit: 2e8e30b3cf9f165e1a1d079331543cb7f2ad0e0c
 -- 
-2.43.0
+2.53.0
 
