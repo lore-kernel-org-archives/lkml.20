@@ -1,220 +1,202 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B218466B04
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:09:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA4F246A61A;
+	Fri, 16 Oct 2026 09:09:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141790; cv=none; b=uHJF6EdFiur2c16rfiRUD/0IrfkoXWpKPCHA3eH66ZS5MKcp4Xa4Hhum/x3BJdSoWhN+PUMnTxGyuRRyoZWa+Q5lvMl0dXRKxpVH70MalhJk7ATxQhEDk2VwhNkKiUAHIjIzOFTCpXq0VRhP4ZSrhpFZo91iBPhovp75SYbbW70=
+	t=1792141794; cv=none; b=Y7Tf5Dl/Nv817rhMtqKx6c++qL7ypUGpo1CeJd6bQ7o2dxv1DUuDIM+z9SkPVHlsmJ61mU60jhelB27q5f+2tUuySAGNJHcYEJ15iMu1ap2TeaPWk8JE3ZdPG7YySiZjaaJs6d35lRsENgaL76W3Dz1EgjMxzv3zhvy41VFKbAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141790; c=relaxed/simple;
-	bh=ZrmwossZjTd29Ih+lCgZKFXmIOi4LDpBYUvzQdJYM1w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xrred0NuRqsu6YkvnG4whuMgoaz3rymxttyDG3S59/opfnqJeAijCrvNWSN0dM4Dp0zV0caNs4YiSqoFqSHDDZO8K99qSBHio6rA5yYQFKtw8AjkakstaN2ktuFj435r1PhxXnD3dHZwgAbWRJrnF9pAFwHPiNDWBOMSOrhOB1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S2wXoia2; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792141794; c=relaxed/simple;
+	bh=hL8SkqQEIPT67O9+eQXaSndetiK3EBlWupMka/Wk/ZI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Hcu6rpNfj3ngYT2V3eQYvln5VwX/Xe8RC2HK/XLB29Y7xAWCdP48esx574AJ/IfrmiaeO/VKbFivCW4NX5w4+B1y25jkkk2n9RkcGB7dhCIBgwWFGO8YG1kbTNOALXkAAatPqmitDvL9vTaPI4r26TLXLmpHxyUkiU78E8e2Ihs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bjvk15rw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S2wXoia2"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so5115141a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:09:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792141787; x=1792746587; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W0DxMtdmaykVRK9lF7eAJZ0u00iNP9YbBzASFb6ienQ=;
-        b=S2wXoia2lrImRlDKixjLGE1Dc2iKverQBNUM1G6ld3fRQlIRdXbm6HcIUDI3pL1qTJ
-         IsYY/xR8fghawJsJZ0xXLnGxudhxUa+BUL3ayKrlfXMYSAsLDb0eO799VBUEda6efx/8
-         u0KKOL6gG56QkXSdcwQX+yu/wbvSYTUAtrj+SIDFgoUykAzPg46LNoUx/rAEW+7hVzNs
-         qdziKgfn6B2jKwHdw7Hhco/7HljTZka6n9NqPtgYieJzAJLnc8nAEhY9I9z0hjFz+OvJ
-         wSU8Os4/2SWQwQL/jBdTM111Ym7nZiBC+Jykn3+8CRIhG9hOlGUH69k1lXVC7K1aGrdk
-         RPjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792141787; x=1792746587;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W0DxMtdmaykVRK9lF7eAJZ0u00iNP9YbBzASFb6ienQ=;
-        b=WLAr5A5ONda6O+ppN9VqubiFbESphe+eeRXvMW535rkvNR+rHpXReStMV9+Fxod2ZR
-         Nb8eYX9E/J3jCRbmdrxKvbDa4DuFpiFzcFvZTaKU4E56d67lc5Yp5iGq7pJc8SwulwCd
-         nSjooHONU8ZSdfbUIFZKNChFQ3+rPHycN80kKXQnPOgR8onxexghgprMcBp2dDakFGfq
-         LwgL9jhT9rsKk50zYRd8ZHVZNsPTDWyjzuztDC/LIBrXTQsZ2iU5GaiLHPlC0LBG9+xW
-         F6WTFb8bk33GKm/DUTZuhfdBpZ8EdlKokRMCyAgU3sHA5A9hEBR+k3izFA1YiDvCt4QZ
-         FYVA==
-X-Forwarded-Encrypted: i=1; AKwUvBw9+bKRJJoarXcGUjQx3m9onxC8SjX1TOjv+Xiz2zD1Caeo6WuwGet4AxU4ZHy/mdOakYvybyig+aip9Yc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJH7FH75DyVUsxtg4YnN491fu63b2L6Il2v5NbtcDnyF5+PnqpC
-	E4FDGWiIrGfLffRAmHrbgoEYSAnj7RkQylt/ZwdIDAwHy8EQbNUqUARR
-X-Gm-Gg: AYBFou0/akagALuUdbUGSc6q3zIrq28R46mi2t0s8wgD3RAMoPn+MQPvsauU8rK2+HG
-	/kgmYOJ8bHpPhbsho1dwoxmowAKa/RBULBSPoAo7Epx1g0RSjcpNSmIGy4s+Ms/RblkSGseaxr8
-	LsphxgxOZ04fyl+6eQ0BK77uGOjHyy7guCLVq6lv7umG67/vloOfbgIUyBtEAj+w6BpZQ2sHN3J
-	tKl+FW2r9iNgMnaoEY2KOuB2wzgrPVhHZCrGcQj3QmpCoZmlVEjSjLEM65oGCkcZcaK6Vs9X9jx
-	Ppvz8MvvqLxw8yo0kfEFlC07TrYvV4BNjAO9+sAvE7CNIEnzugRepvoWfFQwnU5XTgvMcgsrI0w
-	1+A5ldk5RNdqAUnKgBQlrtBXl74JmtMLlgEuL00ehoUvx+VsyVJU34RAuntU8h14WRk4ZYI2n+m
-	oFDb4gYsInqGg058xLhaAzHAXrbHSeOME8Z0tk8UShB0gebJJwh7ORS75VnYP1gD5q180=
-X-Received: by 2002:a17:90b:3c4b:b0:3ac:ba49:2fed with SMTP id 98e67ed59e1d1-3acba4932b4mr2594734a91.58.1792141786759;
-        Fri, 16 Oct 2026 02:09:46 -0700 (PDT)
-Received: from wyb-ms7e59 ([38.55.195.146])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc43a1981sm3269097a91.2.2026.10.16.02.09.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 02:09:46 -0700 (PDT)
-From: wyibo6109@gmail.com
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yibo Wang <wyibo6109@gmail.com>,
-	David Heidelberg <david@ixit.cz>
-Subject: [PATCH 2/2] media: i2c: dw9719: Add DW9714VA support
-Date: Fri, 16 Oct 2026 04:09:30 -0500
-Message-ID: <20261016090930.947830-2-wyibo6109@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016090930.947830-1-wyibo6109@gmail.com>
-References: <20261016090930.947830-1-wyibo6109@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bjvk15rw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E85291F000C5;
+	Fri, 16 Oct 2026 09:09:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792141792;
+	bh=jRJpfbMFIjfEU0tsH7yW/QKvARVo1QquuMxzsg0WdpE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bjvk15rwTZvV1Q5cX4++rHGhvASJtBttSkeUhg3pizMNzLOqeEdVjHq4bfxMKajVB
+	 wALXgdRPwgAToBLZwGG14tHsBGFTcO1f/Du6oW4H6YjIpoG00OBnn8Fk8a7n6Fu1pb
+	 EkL3uRgW9bjuk4JpaXcMsq1SfW+jaddLVg7AG6XPIn94hScTHM3DQAFYfUysyFj1h8
+	 SMBsPyqRUvlLwy8QGK1SD7UMCGnIGmVUL1pmQ08QGen3xMrg/hRJuKpljWcqF5XNNM
+	 H6feMr/Djq/7JQHiEKlNEAO54RGEY7xErpUm63PaTvm0inhkyiiHEcjg0gUrZII7Nf
+	 JJeZ/lwEGNDFQ==
+Message-ID: <aa5083cf-1400-476b-9e8f-b97e062dad92@kernel.org>
+Date: Fri, 16 Oct 2026 10:09:48 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 4/4] media: qcom: camss: Configure C-PHY through the
+ PHY API
+To: geocausa@gmail.com, Vinod Koul <vkoul@kernel.org>,
+ David Heidelberg <david@ixit.cz>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com>
+ <39_60e7JWzomu65UjqBRaN5wYsC-80_KwUWXiUI5xyrR4Xm1Hr1QSCLbafzYGahn5ArXl1FXM9Esj4xIBwaL7Q==@protonmail.internalid>
+ <20261015-x1e-cphy-rfc-v1-4-1f3fa9af940a@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261015-x1e-cphy-rfc-v1-4-1f3fa9af940a@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Yibo Wang <wyibo6109@gmail.com>
+On 15/10/2026 23:20, George Neacsu via B4 Relay wrote:
+> From: George Neacsu <geocausa@gmail.com>
+> 
+> With a PHY API CSIPHY, csiphy_stream_on() always asks for D-PHY. Ask for
+> C-PHY when the endpoint is C-PHY, and pass the trio count and the symbol
+> rate, which by the V4L2 convention is twice the link frequency.
+> 
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: George Neacsu <geocausa@gmail.com>
+> ---
+>   drivers/media/platform/qcom/camss/camss-csiphy.c | 35 ++++++++++++++----------
+>   1 file changed, 21 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
+> index f44f2aeb9..8e1b4335a 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csiphy.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
+> @@ -329,17 +329,15 @@ static int csiphy_stream_on(struct csiphy_device *csiphy)
+>   	u8 bpp = csiphy_get_bpp(csiphy->res->formats->formats, csiphy->res->formats->nformats,
+>   				csiphy->fmt[MSM_CSIPHY_PAD_SINK].code);
+>   	struct csiphy_lanes_cfg *lncfg = &csiphy->cfg.csi2->lane_cfg;
+> -	struct phy_configure_opts_mipi_dphy *dphy_cfg;
+> -	union phy_configure_opts dphy_opts = { 0 };
+> +	const bool cphy = lncfg->phy_cfg == V4L2_MBUS_CSI2_CPHY;
+> +	union phy_configure_opts opts = { 0 };
+>   	struct device *dev = csiphy->camss->dev;
+>   	u8 num_lanes = lncfg->num_data;
+>   	s64 link_freq;
+>   	int ret;
+> 
+> -	dphy_cfg = &dphy_opts.mipi_dphy;
+> -
+>   	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes,
+> -					csiphy->cfg.csi2->lane_cfg.phy_cfg == V4L2_MBUS_CSI2_CPHY);
+> +					cphy);
 
-The dongwoon,dw9714va compatible names the DW9714V revision found on
-the OnePlus Pad 4 ("iceland") rear camera module.  DW9714VA is a
-coined name, not an official part number; the revision shares its
-IC INFO id (0xFE) with the other DW9714V revisions.
+That's a nice reduction, yikes who let that statement into the kernel :)
 
-The part answers the DW9719 register interface in its register-mapped
-("advanced") mode: the chip responds to register-addressed transfers,
-IC INFO returns manufacturer 0xF / model 0xE (0xFE), and the reset
-value of the VCM_FREQ register (0x60) matches the DW9719/DW9800
-prescaler-in-[7:6] / SACT-in-[5:0] layout.  The SAC mode field in
-MODE is shifted by 6, like on the DW9800K.
+> 
+>   	if (link_freq <= 0) {
+>   		dev_err(dev,
+> @@ -347,23 +345,32 @@ static int csiphy_stream_on(struct csiphy_device *csiphy)
+>   		return -EINVAL;
+>   	}
+> 
+> -	ret = phy_mipi_dphy_get_default_config_for_hsclk(link_freq, num_lanes,
+> -							 dphy_cfg);
+> -	if (ret < 0) {
+> -		dev_err(dev, "Invalid config for link frequency %lld\n",
+> -			link_freq);
+> -		return ret;
+> +	if (cphy) {
+> +		/* A C-PHY link frequency is half the symbol rate. */
 
-Both the register layout and the power-on behaviour differ from the
-currently available DW9714V datasheet (Rev. 0.03G).  The datasheet
-documents an advanced mode with SAC_MODE in [3:0] of SAC_CFG and
-separate PRESC (0x07, [1:0], reset 0x03) and SACT (0x08, [6:0],
-reset 0x7F) registers, and a power-on into the normal (direct DAC)
-mode that enters the advanced mode only through an explicit
-0xED 0xAB command sequence.  The observed part follows the DW9719
-layout instead and is in the advanced mode at the first host
-access; given the revision variance it gets its own coined
-compatible, dongwoon,dw9714va.
+A comment that should live in a helper.
 
-Operation was verified on the device by sweeping the focus position
-across the full range while observing the lens: the motion is
-smooth with no ringing noise, so SAC works through the DW9800K
-write path.
+> +		opts.mipi_cphy.symbol_rate = link_freq * 2;
 
-Detect the chip through INFO and drive it through the DW9800K write
-path.
+Sounds like something which should have a helper coming from the PHY layer.
 
-The SAC parameters are module-specific: they have to match the
-mechanical resonance (tVIB) of the lens module. For the iceland rear
-module they were recovered from the vendor module firmware
-(com.qti.sensormodule.icelandmain.bin, which embeds the actuator init
-on this CamX generation): MODE 0x80 (SAC mode field 2) and FREQ 0x79
-(prescaler 1, SACT 0x39). They were verified on hardware by register
-readback (CONTROL 0x02, MODE 0x80, FREQ 0x79) and a three-frame
-capture at focus position 450 with no I2C errors. No such data
-exists for any other module with this part, so the driver carries no
-DW9714VA-specific defaults: it starts from the family defaults and
-boards are expected to provide the tuning through the existing
-dongwoon,sac-mode and dongwoon,vcm-prescale DT properties.
+The analogue for DPHY is phy_mipi_dphy_get_default_config_for_hsclk()
 
-The datasheet-conformant DW9714V and DW9714A in normal (direct DAC)
-mode are covered by the dw9714 driver; a series documenting them in
-the dongwoon,dw9714 binding by David Heidelberg is in flight:
+> +		opts.mipi_cphy.lanes = num_lanes;
+> +	} else {
+> +		ret = phy_mipi_dphy_get_default_config_for_hsclk(link_freq,
+> +								 num_lanes,
+> +								 &opts.mipi_dphy);
+> +		if (ret < 0) {
+> +			dev_err(dev, "Invalid config for link frequency %lld\n",
+> +				link_freq);
+> +			return ret;
+> +		}
+>   	}
+> 
+> -	ret = phy_set_mode(csiphy->phy, PHY_MODE_MIPI_DPHY);
+> +	ret = phy_set_mode(csiphy->phy,
+> +			   cphy ? PHY_MODE_MIPI_CPHY : PHY_MODE_MIPI_DPHY);
 
-https://lore.kernel.org/linux-media/20260729-dw9714v-v1-0-3c479b3cf8c0@ixit.cz/
+Instead of a bool if you define an int which carriers the type you can 
+still disjunct on that all you like but ultimately pass it into 
+phy_set_mode() directly - skipping at least this ternary statement.
 
-Tested on the OnePlus Pad 4 (iceland) rear camera module on a
-v7.2-based downstream tree.
+>   	if (ret) {
+>   		dev_err(dev, "Failed to set phy mode\n");
+>   		return ret;
+>   	}
+> 
+> -	ret = phy_configure(csiphy->phy, &dphy_opts);
+> +	ret = phy_configure(csiphy->phy, &opts);
+>   	if (ret) {
+> -		dev_err(dev, "failed to configure MIPI D-PHY\n");
+> +		dev_err(dev, "failed to configure MIPI %s\n",
+> +			cphy ? "C-PHY" : "D-PHY");
+>   		goto error;
+>   	}
+> 
+> 
+> --
+> 2.53.0
 
-Tested-by: Yibo Wang <wyibo6109@gmail.com>
-Cc: David Heidelberg <david@ixit.cz>
-Signed-off-by: Yibo Wang <wyibo6109@gmail.com>
 ---
- drivers/media/i2c/dw9719.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
-
-diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
-index 3b7ba88fd..2afe37361 100644
---- a/drivers/media/i2c/dw9719.c
-+++ b/drivers/media/i2c/dw9719.c
-@@ -45,6 +45,15 @@
- #define DW9719_INFO			CCI_REG8(0)
- #define DW9719_ID			0xF1
- #define DW9761_ID			0xF4
-+/*
-+ * DW9714V family id, shared by the revisions.  The DW9714VA model
-+ * names the revision found on the OnePlus Pad 4 (iceland) camera
-+ * modules, always in its register-mapped ("advanced") mode: IC INFO
-+ * reads manufacturer 0xF / model 0xE and the CONTROL/VCM/STATUS/MODE/
-+ * FREQ registers follow the DW9719 layout, not the layout the DW9714V
-+ * datasheet documents for its advanced mode.
-+ */
-+#define DW9714V_ID			0xFE
- 
- #define DW9719_CONTROL			CCI_REG8(2)
- #define DW9719_STANDBY			0x00
-@@ -75,6 +84,7 @@
- #define to_dw9719_device(x) container_of(x, struct dw9719_device, sd)
- 
- enum dw9719_model {
-+	DW9714VA,
- 	DW9718S,
- 	DW9719,
- 	DW9761,
-@@ -153,6 +163,16 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
- 			return ret;
- 
- 		switch (val) {
-+		case DW9714V_ID:
-+			dw9719->model = DW9714VA;
-+			/*
-+			 * No SAC tuning data exists for DW9714VA modules in
-+			 * general; start from the family defaults and let DT
-+			 * provide the module-specific values.
-+			 */
-+			dw9719->sac_mode = DW9719_DEFAULT_SAC;
-+			dw9719->vcm_freq = DW9719_DEFAULT_VCM_FREQ;
-+			break;
- 		case DW9719_ID:
- 			dw9719->model = DW9719;
- 			dw9719->mode_low_bits = 0x00;
-@@ -188,6 +208,7 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
- 	}
- 
- 	switch (dw9719->model) {
-+	case DW9714VA:
- 	case DW9800K:
- 		cci_write(dw9719->regmap, DW9719_CONTROL, DW9719_ENABLE_RINGING, &ret);
- 		cci_write(dw9719->regmap, DW9719_MODE,
-@@ -440,6 +461,7 @@ static void dw9719_remove(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id dw9719_id_table[] = {
-+	{ .name = "dw9714va", .driver_data = (kernel_ulong_t)DW9714VA },
- 	{ .name = "dw9718s", .driver_data = (kernel_ulong_t)DW9718S },
- 	{ .name = "dw9719", .driver_data = (kernel_ulong_t)DW9719 },
- 	{ .name = "dw9761", .driver_data = (kernel_ulong_t)DW9761 },
-@@ -449,6 +471,7 @@ static const struct i2c_device_id dw9719_id_table[] = {
- MODULE_DEVICE_TABLE(i2c, dw9719_id_table);
- 
- static const struct of_device_id dw9719_of_table[] = {
-+	{ .compatible = "dongwoon,dw9714va", .data = (const void *)DW9714VA },
- 	{ .compatible = "dongwoon,dw9718s", .data = (const void *)DW9718S },
- 	{ .compatible = "dongwoon,dw9719", .data = (const void *)DW9719 },
- 	{ .compatible = "dongwoon,dw9761", .data = (const void *)DW9761 },
--- 
-2.53.0
-
+bod
