@@ -1,92 +1,150 @@
-Received: from mta1.migadu.com (out-252.mta1.migadu.com [95.215.58.252])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356044218B6
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.252
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0044F3A9619
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135933; cv=none; b=KLF696vVcjcQ2eXCqWX58atMgFcIdmmGkDuV1JDSwm99DH4rUmRCPNmkgo6+V12TdtY6k8asmYIdZTfaPVcCibrqtPRvlZwqoZT49UkXsAIiYRkcMhvrV76TFyYyyfy6Wnv1YavIvs9dM0pjR23Tn8MJR4JbttvlxK5WOLIIDZw=
+	t=1792135939; cv=none; b=CmNfbCR9KA5vy7POBeY8GiM2lHclH0QAo8rX/+CrgmvrZTrKkUsjzbTFXVwuY8VUQiFaGctU9P7YpYQF0dd5zlgcsXCiy2QC2kvsoGDvBKCQPNH3gSMdgITH1Bow9wGn79lC2Lhhc4YRPM5nXPq2e7/m+GXqz86XO3CHVN/xR/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135933; c=relaxed/simple;
-	bh=9DtZpCIRDOliA3QoJp8RXKIGTL5jZ5YPhYQMEBLV5GY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uF6j/pr8WLqIq49HFBP6O282ZvOhwCeBfoWVzPK+VG5lOrenneYsLWFNbk6tItmXqI7eT95Wws6jozZvP8UrJrJUfVJbR/b+1MwiR8oyb2uiYsiMgYtumIp7TiinT2WTFl8yky/k2CDEqgZVeHZQPzXC1+nD/CnTxHIjzPRl1hQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=qfW4Whzp; arc=none smtp.client-ip=95.215.58.252
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	s=arc-20240116; t=1792135939; c=relaxed/simple;
+	bh=KEMrmhvprTD4/mCdsj7x0QKXOeK/+X+Jd7TGTCc1GVg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=iiocdw0U8d5N+pVIiB1d9vzUgzmX7ult8b8KcSPzilWfTWRHuXVVnUoiYlKZM7YTDOVXtZgbro4+kmOpytrO8/oCIsrmt2+Bf4TOwbXgatX1b5sGmI+I/MCZEa52qP2EtEOnncD41Mv3Sv1GbjDJEvDpaXPN1e/DqWhD0h6sJuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E0ae0fCy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="qfW4Whzp"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9DtZpCIRDOliA3QoJp8RXKIGTL5jZ5YPhYQMEBLV5GY=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792135929; v=1; x=1792740729;
- b=qfW4WhzpArFPt1zqbj5s2a+Pc57XVkwgMEMfdQBZQ1T2zX4kInSSHx6PCX5q9nP6tc3eNJ1t
- f21LeDeMhU+y1mLiXPcQYVtCfb4oNaUpD0wHcsJ1ul10nG8yRAUK7YJQa2aGvhCqDRPtwtjQPUv
- 4/baIkz4gccd1lMn8Nib22K6ixP+ZF6jVR6nq/bmOZcKdbTShLtUOvzm9IN+GGDh8UTDD403j2c
- SK+REqQkQE1xR7yylzH2Ga1o0qbdj5qJscIrJv3RuNuN/Cgu4W93BeaTxa+IHyRwXbUn/xXf2I2
- Ai+QpigaSc3uVX1ik1xcpLVtk51sb0pMtk3fPXp6cLRNA==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c249511dffadb7a4;
-	Fri, 16 Oct 2026 07:32:09 +0000
-X-Mizu-Trace-ID: c249511dffadb7a4
-X-Migadu-Flow: FLOW_OUT
-From: Val Packett <val@packett.cool>
-To: 
-Cc: Val Packett <val@packett.cool>,
-	Mark Brown <broonie@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/5] Enable soundcard on Motorola Edge 30
-Date: Fri, 16 Oct 2026 04:31:48 -0300
-Message-ID: <20261016073157.611956-1-val@packett.cool>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E0ae0fCy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B05B91F000C5;
+	Fri, 16 Oct 2026 07:32:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792135937;
+	bh=IKp8rk9wlk/oQEwtQFCQILA8QKgqHLehtlj8FulGwXw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=E0ae0fCy1tGqE26iLilceHI4c545sFsnKy2OHo3Zyd3xZv2LRnQl7h3sXoWYJrOyY
+	 SKQHewPsTMyaWvN3PduM63fPVD1MwUlJOYnwokkZiEb934DrlcsRocWqqNU6HrpUWd
+	 Copi6m70Vq454WuJAV1aeITgs1hPLhDQDbsGxfXx2+vUFXzGszuSLBpyGtktaOBQ6j
+	 Yut3IOZZa73XIKJSpxRQII36oe8h0XfDbuej24MmmBxJMN+dYnAjxcO41xFrrRepKR
+	 PTP05f99gKhDCF0UfZhdS0d2OOHau66+WvpamawUS/fmu4EdMIUrT50waxiD2rSGeY
+	 thpHWzrgquB9Q==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Fri, 16 Oct 2026 09:31:37 +0200
+Subject: [PATCH v5 05/14] drm/atomic: Create function to insert plane state
+ into a commit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-drm-reset-state-flag-v5-5-dad2d64b693b@kernel.org>
+References: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
+In-Reply-To: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2782; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=KEMrmhvprTD4/mCdsj7x0QKXOeK/+X+Jd7TGTCc1GVg=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkXLz3+JRHyf9t0IWOp6RtmFFWemtvk+/DXu8Y1e9f05
+ NX2bGZS7ZjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATOSTN2HDZyYFPcMPn4qDf
+ P/ozHHpcJpyefYWvSEB2Wq+Pamr3FwvzNe53HKzFZjMs5rnivkS4kLFOwTfGaO4C2eI5rdF8ys9
+ 2LmLZfF3w/RaVY24vZr55zS4to89vH7foWsk0BkPpKSwK+tMA
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-This series enables sound support on motorola-dubai, at least the
-speakers.. The WCD that handles microphones and analog USB-C sound
-is left out because it would first need:
-https://lore.kernel.org/all/20260522-kodiak-elite-macros-v1-1-487661ac1270@fairphone.com/
+drm_atomic_get_plane_state() allocates a new plane state by
+duplicating the current one and inserts it into the atomic commit as
+a single operation.
 
-The senary MI2S patches were previously part of:
-https://lore.kernel.org/all/20260506204142.659778-1-val@packett.cool/
+However, a later change will need to insert a plane state into a
+commit without going through the full allocation and duplication path
+in drm_atomic_get_plane_state().
 
-and that series mixed up too many things and got bogged down due to
-the TDM stuff that's not relevant to this device..
+Extract the state insertion logic into a new static
+drm_atomic_commit_set_plane_state() helper, and convert
+drm_atomic_get_plane_state() to use it.
 
-Thanks,
-~val
-
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Daniel Stone <daniels@collabora.com>
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
+ drivers/gpu/drm/drm_atomic.c | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
 
-
-Val Packett (5):
-  ASoC: qcom: qdsp6: q6routing: add Senary MI2S ports
-  ASoC: qcom: sm8250: add Senary MI2S RX support
-  ASoC: dt-bindings: qcom,sm8250: Add Motorola Edge 30 sound card
-  ASoC: qcom: sm8250: Add motorola-dubai soundcard compatible
-  arm64: dts: qcom: motorola-dubai: Add sound card with aw88261 speakers
-
- .../bindings/sound/qcom,sm8250.yaml           |   1 +
- .../qcom/sm7325-motorola-dubai-common.dtsi    | 119 ++++++++++++++++++
- sound/soc/qcom/qdsp6/q6routing.c              |  11 ++
- sound/soc/qcom/sm8250.c                       |   9 ++
- 4 files changed, 140 insertions(+)
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 178eca95d0e3..b26458ee98d8 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -628,10 +628,25 @@ static int drm_atomic_connector_check(struct drm_connector *connector,
+ 	}
+ 
+ 	return 0;
+ }
+ 
++static void drm_atomic_commit_set_plane_state(struct drm_atomic_commit *commit,
++					      struct drm_plane *plane,
++					      struct drm_plane_state *plane_state)
++{
++	int index = drm_plane_index(plane);
++
++	drm_modeset_lock_assert_held(&plane->mutex);
++
++	commit->planes[index].state_to_destroy = plane_state;
++	commit->planes[index].old_state = plane->state;
++	commit->planes[index].new_state = plane_state;
++	commit->planes[index].ptr = plane;
++	plane_state->state = commit;
++}
++
+ /**
+  * drm_atomic_get_plane_state - get plane state
+  * @state: global atomic state object
+  * @plane: plane to get state object for
+  *
+@@ -646,11 +661,11 @@ static int drm_atomic_connector_check(struct drm_connector *connector,
+  */
+ struct drm_plane_state *
+ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
+ 			  struct drm_plane *plane)
+ {
+-	int ret, index = drm_plane_index(plane);
++	int ret;
+ 	struct drm_plane_state *plane_state;
+ 
+ 	WARN_ON(!state->acquire_ctx);
+ 	drm_WARN_ON(state->dev, state->checked);
+ 
+@@ -669,15 +684,11 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
+ 
+ 	plane_state = plane->funcs->atomic_duplicate_state(plane);
+ 	if (!plane_state)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	state->planes[index].state_to_destroy = plane_state;
+-	state->planes[index].ptr = plane;
+-	state->planes[index].old_state = plane->state;
+-	state->planes[index].new_state = plane_state;
+-	plane_state->state = state;
++	drm_atomic_commit_set_plane_state(state, plane, plane_state);
+ 
+ 	drm_dbg_atomic(plane->dev, "Added [PLANE:%d:%s] %p state to %p\n",
+ 		       plane->base.id, plane->name, plane_state, state);
+ 
+ 	if (plane_state->crtc) {
 
 -- 
 2.55.0
