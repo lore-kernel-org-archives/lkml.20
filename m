@@ -1,200 +1,185 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10DC422523
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:13:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7D1471268
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:13:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792142025; cv=none; b=aa9YMxnhC2ZF9mdhw0qS12vjEvSADsrFn/1RXNGMIgovYInBtoExOF5vNZImgZFKmYbOiRBn+/yQtSSDjAJ/3j35KTKnd90ejM3uRrzdPzny5s/ZViycbv93ia8xm8xRQPygYlxUb/hq5gr+RkD8xWr7zVSauXPLgH/KT77JGfs=
+	t=1792142027; cv=none; b=H7IKtYATKtcAurQ5lCSTqxauJMCr6bXOM4mYXr6+hmpuhVcOgmoF5hFD+gcJcOtjoiIdq+48Eazw57djEN/4wd6rK4SzxzdzsbhKpa9Rin4G17cf7ohuhBoz4/IRTtTWllLaTCUQ7rWiLXCqK0mWbbwNoX2oOnDO7lNOqyiwQw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792142025; c=relaxed/simple;
-	bh=7q9agbgpzQxOyX+M44hAZTyBMqFZNk98vDVwI1A0EKk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kBxkiPcWDs91LycuFp3wYD72SKWmL4eqsIaHboAH/V/v9C47w8adNHHJSe3tnlR5ME0aGpLN8u3zj1BQ2ci8Q2f7pnSnE23Px+4h5GbQp34y4TnDI8GXR+Zhb2e2NGBgx/GnjmT2MNGHr9mLEwnatVCL5NetIh7l3M6ItQgV4k4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LLiVwYC8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LH40EfmR; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792142027; c=relaxed/simple;
+	bh=jnFEmGSygWYGhG5T2Ju2KliwYaheLg8Z/WkaH0FAMYk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u8CIuHVMxhfPC/5Zfh/yxIKz5IPZEDvbh+iu/J/OGEE2T7GnkpMZEn2rrw2qR2nGPweICAhhRH43sSwd1n7quawq+ovOvM0hexHBysLTmdtGpbFFqGO0ElVGlog/qIzE9uEniy0JgZU/MuCfdmqCq9czQ72f54cj3LNFRKVYNrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=jlsb6Lkg; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LLiVwYC8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LH40EfmR"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G8leHP1218634
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:13:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=HcVpAEASL7gGTutXPUb9lMspPQldyH8a6+z
-	fEwnScU4=; b=LLiVwYC810WoivBfVxXkpAGkJKvB4YUVUKfQOhI9naBmYJ7ieQM
-	9TODIjAzwsDKHhildK6BAw5to0HHkdzWQakdNrVwc+uzV5dU5+WvFj1iD27RhrgA
-	8CrYAwFV+sE1WB39iHLBkXtXI3YxcUvxdeC6IULm80B8EKu4rheMK5gEzBKDJgTR
-	fNTR0WUnse7qeSAlcB5iqngtoBcM1Ns8mcrcE/W7A8HXMFGt1bYONWXTO3L6bXKR
-	CDQAIs/XtNrZhPHaayBX6s7CIGIcUF+wZvhdZZDN0B0iPF/RCQurdNw/tSU6fen0
-	iG5uLb3Hh2qo1IqE2QoqJtOVjXsRJBO7qrg==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb5seagpc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:13:42 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-35a04491c56so801310eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:13:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="jlsb6Lkg"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e011d370dso219923f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:13:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792142021; x=1792746821; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HcVpAEASL7gGTutXPUb9lMspPQldyH8a6+zfEwnScU4=;
-        b=LH40EfmR2xVkgNQVDmb7p3K3qwmDMb3LtCe89bypF/NsulJ2D7d7Vu+NvgQzl11NRd
-         SqZT1iYPSNKIv12YpzfL99bM/VyDNiSwYriyD/M2Kaex2WDi109EfDjWjhwAcafJjwS8
-         5DBcxpNk5yIixImU5kJKbUlzh95f3AR0QC2eyq99IbgqPFRN2u0DUOkOmadFxoPg0DLh
-         yg82hBCPnv/M1l8jEFl9Nl166VT4fPcCFibS7ZhbnaSkrohIaCBBSKkeTGzxxPxIuIXx
-         Ehqqi3G9NIuKJ+cbqds9oZ4x3AouAtnGhsAOyfOYJzE8zoWdr++gtNHCWKTFThDQLT+1
-         q8QQ==
+        d=linaro.org; s=google; t=1792142024; x=1792746824; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1yIHWFqFvTEQhLbqkq1xydFjXcFxrGagw9+5Eh0/eio=;
+        b=jlsb6LkgAbzqqThm4dlhM4Zm2ktocAXWRcOkkXOXFkd9Cy8hya8rk3Cd+HMTSynYMU
+         1z049QVtsPBJ35s/BakG3hRLCKgnoMHDd4tkq7ICMRwLb3AflumpKi+ZMkD461NHGWV0
+         9p0ilEOAd/kXFGLudYBHosw1Ayqg7cvVOQUV+ZiZjwTj8we6v88oP9HDyBxj6mu2+WB2
+         fr6WyaBNwLym/kjZr1VgM7q+OyMl39ORzJnXe2zfHQQaz/RFt8eclHyd87MkRKaWvBY7
+         IivTqhYdvQuL3QuhKHM0xkLiBZqe2GQwFyK0atJzloD2g3ZlyC2E+hYO/GcGxWMfQ9oi
+         VA6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792142021; x=1792746821;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792142024; x=1792746824;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HcVpAEASL7gGTutXPUb9lMspPQldyH8a6+zfEwnScU4=;
-        b=09plfIaZSZ0MOe3RKJP9kCqMxw9CPzcB1ZW+GFue4UkUL64hpr5qYs3wIbpwuMnKjj
-         LTlXVWQwS5MPSt+x4cW+OX6z5pSaZD0fBh1QM0JNKvvXc+mcT/Eos6vZ7EnDTD3P6+xj
-         8oKAJS1VKJ8C5wnXG4UsiUIic4MBIDN/GEZdWQpHBIHFx+S/2iale6ymLBpSgoiZPPWG
-         bb5n/NSH+ljV9glnTUIEYcLT0d5EzDtUCUZokesnhAv6f3Q2oezC8AT4dffe756WGuu0
-         qoRyqRlpcsaaDXFfhgq0u5A6f4I0GjgmiG3e+wObH6qOJu/5ymHVtTuTfpNwTprKDVkH
-         NCOg==
-X-Forwarded-Encrypted: i=1; AKwUvBwVOkvntej2xc6tE2W7KFqlIC/vQnZDJH09VqeJYDDA9/S42fQQTJNQdpDolcJCbhMZYXL7vgBHBOHR0D8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhpWTuY8Gzao0U9jkZXoZflG+DxARHNYnygydIDuTKX9zt/Qvc
-	6RDJuXbpABt0nEf3oOAqRVsXFGxanCpQRhwEUpD2QTxN35lJXR5bDmDuhoEugscow3nV7SL8jsW
-	lRndhquYwXrm5reKqO3buaML14C4vjjSIVSfv5jE3WOivi5PULucIx8slgT6eFG6RGYw=
-X-Gm-Gg: AYBFou2njsL3MuE8pZR+UHUaoAS/TolgZCH25g4t00bhSHCWLh7Sg8gtytnTDyy4YaA
-	G+Ci/sLwJBUIf0CzS0K/7RP1Ohp2VWoA2MFiklVNDchBkj2RzFoycm0Im1rg0XOhnjhfSk14d+5
-	N7ESTNe+XzsCDh50nJDqCb6Y2z2oPhWhQ4sZhir5EUlAhz5OPeqpzLQ0G2HVO8KDb7QuNeOWs9N
-	TPc7ToAPWIqLbiyWEDNK6deRn1p+0YmdjRWH11GiXiTODvH7PXfzREB6dTqcrGAsc5Tk1+UWIMc
-	frOZUsi4hMEhtotM/Wi3vw4cFrFuzvAOm7a6kIpGPfhUjNA48HBdYtJQAxRplW0I2umvDkxqa0N
-	LqbCOhbyJxeNtZwcCYqkgphLjrkhMQ8XSVZcOgPyd54fQb7Fc
-X-Received: by 2002:a05:7301:6181:10b0:353:5d7a:cabe with SMTP id 5a478bee46e88-3602e2ac972mr3055239eec.13.1792142021148;
-        Fri, 16 Oct 2026 02:13:41 -0700 (PDT)
-X-Received: by 2002:a05:7301:6181:10b0:353:5d7a:cabe with SMTP id 5a478bee46e88-3602e2ac972mr3055186eec.13.1792142019999;
-        Fri, 16 Oct 2026 02:13:39 -0700 (PDT)
-Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cc23sm6195378eec.2.2026.10.16.02.13.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 02:13:39 -0700 (PDT)
-From: Peter Chen <peter.chen@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-        Udipto Goswami <udipto.goswami@oss.qualcomm.com>,
-        Jack Pham <jack.pham@oss.qualcomm.com>,
-        Pratham Pratap <pratham.pratap@oss.qualcomm.com>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Peter Chen <peter.chen@oss.qualcomm.com>
-Subject: [PATCH 1/1] arm64: dts: qcom: glymur: Set snps,resume-hs-terminations for USB controllers
-Date: Fri, 16 Oct 2026 02:13:36 -0700
-Message-ID: <20261016091336.2715717-1-peter.chen@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+        bh=1yIHWFqFvTEQhLbqkq1xydFjXcFxrGagw9+5Eh0/eio=;
+        b=QjiDhV8rcIX/S+8hI/UCjYE8VC9xc6apwmDWvU2puRkYR4OEnpTh19NMmz+mSfIAUx
+         b5A8GNP7HHBa2AcDGtUszazYyKRYsQGUeoYIzyb8A1EvLbGiO75gVMcKiCjLUs8mhvpU
+         NgKy+3S4KwZT7fvVHTzzsmCl5JrSqYRnpDhRCH7ApW4sOcBf/7TPRu/gUXGeXCGnLVS4
+         VWK6DS9IkqPFthpJV0MGFqVRUS0JBYsoCZRD0HF2ioeKiBgvIgFwPaa6rzh+2Pi7rB5X
+         8s6XSDqymJwz7H6ElBIQ9HpF0i49706d9TLI0rTKOkrXrqcj2muJ2J1+7jrhnWtD2B/2
+         iPlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzLuzoATG7y+uawCSRMFWEpp8KAkSXUf3yjy9Ex+RSaIjUyNB+1s2jpeCwxCayUu+XPk2pCKlxd1Iv8EaY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXuKmKOyVezMe/hKRATxQ52h7NvUB8VmNvYvD2b4f0afSSIjBU
+	MFAip8sgCQbMy6L7kLhhc/W6MPPycPLQq7M/c1klMRXhDinxg7yyd65vrlaaRml5vOU=
+X-Gm-Gg: AYBFou1EQsSIguwTQlv8gCWpcUyk2XZsnXKGZTiWP1lfFK8MWIC2E1rlPfBz/OERwwx
+	lijnDeSLrVC94sK1WZhiA5tcT92ZsaxNBHmljKEL0DXyBqzhT2Jf9ry9Xu6ec0XtblQkqENFa50
+	N2WnxFRk5BYp1wlAfEHT5L1x7AReK4TiNJwm1uBGnfTL22Nb2KjGc4P5a2VFF5vxR97ZT8sKAFR
+	SK3gwo8GKMhlNhdnMck82x3NEuaeW0nHsXU4/nFhPn+5HBT+eKOOzAGZUJSjOwDW4jmlETfm+DE
+	JdIS+pc44AZHYdwjcL8l1vo/RKzgjQdzF5WpHLcVwPPOxwcJB/jFpcRb3WwxiHnCtWSTShVff7X
+	f0GAbOJPYNX2Z3D/XIzbP3v3u2KzyAn5ClK0qoPs0+7dZVFln4bY5j7Pv/XMbvcJVme83ULf65G
+	RvF665sFlWvpdDEqbFgZAdRPRhWExzZzjWANGL7IbCm4jRwCdLtx25jwsPSOeiVUdpRT35pVNjG
+	ntcNvp8PAU=
+X-Received: by 2002:a05:6000:60b:b0:487:b28:c82a with SMTP id ffacd0b85a97d-48dbace40damr43712737f8f.47.1792142024343;
+        Fri, 16 Oct 2026 02:13:44 -0700 (PDT)
+Received: from [192.168.0.167] ([109.78.92.136])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f5177sm3626767f8f.30.2026.10.16.02.13.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 02:13:43 -0700 (PDT)
+Message-ID: <7e5d951a-6e50-4dc7-b9fa-79146ad7c773@linaro.org>
+Date: Fri, 16 Oct 2026 10:13:41 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfXyIVkmJllvQ78
- Xj0ZPHBXHXM9EKc7E0tMpoeKmRYBZHR0eIqoWTuPvECIbZxpgKTQbohvVodrKPmvZnwnVpgfIhT
- sPXmqfxs225T9+2hiqMazYP7zKvzFE8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfX5g4wie25znhL
- rmZM9GbstvL8xfCZE9ov4aoOsbdHglgYrQs1608dWOyluRsIKtf0LOfQHL60OS5I0PcT9gA3Ct+
- EF9OsLuPaX4WwJKpZXE42GE5vhG4qsKaTiyRZUP9kmZA4+hmIQvJ5OhW15u2w+aJnw0hNWP1Ekc
- 28+R4s4d5ERH+O0LU3FKbktxWqdux/TUGb2zWoyI0bHBEKhgEuZjI3AZpsixTwDd+OT8TPn3J1j
- yJjCcecQyfq3bb3X7HwO6BuFNhCiEf0hQZQc57GsBYr8GfuR/mkTTe37Lfi1eOxHs6/eJdeFZUw
- mfe0lY0I8MpdOMgqYm17kX321+COa7HB9kpFLAvjpiT6qxzFCoKnluLlnBcYSBvusf1ss4qmVi5
- VcwOaMDR4i1uBECdbclWDpV0AJPQMkCF8d4mkIV71yiwfDXs1ELFDBUJN8ZVtPhUC9Mwj9GIsnk
- Zwp/9QrAYKPqMR/MviA==
-X-Authority-Analysis: v=2.4 cv=P4yvFSAu c=1 sm=1 tr=0 ts=6ad1eac6 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=5sioUILVtsypdmoVIHwA:9 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-ORIG-GUID: bfqepRmcEamJ68_3LEZlZdscm00V0T-t
-X-Proofpoint-GUID: bfqepRmcEamJ68_3LEZlZdscm00V0T-t
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015
- malwarescore=0 impostorscore=0 bulkscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160036
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 1/4] phy: Add MIPI C-PHY mode and configuration
+ options
+To: geocausa@gmail.com, Vinod Koul <vkoul@kernel.org>,
+ David Heidelberg <david@ixit.cz>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com>
+ <PoiQ1yKIrL603-Vkg8cV-j80USThOheuNuXcG_ZhEPuSRP-KLZBYJoj9ormog-3yCjbGRt0kKRXOGrahJOpNMQ==@protonmail.internalid>
+ <20261015-x1e-cphy-rfc-v1-1-1f3fa9af940a@gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261015-x1e-cphy-rfc-v1-1-1f3fa9af940a@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The DWC3 controllers on Glymur are paired with the M31 eUSB2 PHY.
-According to HPG, host-mode USB2 L2/L1 resume with this PHY, GUCTL1[10]
-(RESUME_OPMODE_HS_HOST) must be set.
+On 15/10/2026 23:20, George Neacsu via B4 Relay wrote:
+> From: George Neacsu <geocausa@gmail.com>
+> 
+> The generic PHY framework has a mode and configuration options for MIPI
+> D-PHY but none for C-PHY, so a CSI-2 receiver has no way to ask a PHY
+> that does both for C-PHY. Add PHY_MODE_MIPI_CPHY and struct
+> phy_configure_opts_mipi_cphy. The options are the two values a receiver
+> knows: the symbol rate on each trio and the number of trios.
+> 
+> The first user is the Qualcomm CSI2 PHY, whose X1E80100 instances carry
+> the C-PHY front camera of the Surface Pro 11.
+> 
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: George Neacsu <geocausa@gmail.com>
+> ---
+>   include/linux/phy/phy-mipi-cphy.h | 27 +++++++++++++++++++++++++++
+>   include/linux/phy/phy.h           |  5 +++++
+>   2 files changed, 32 insertions(+)
+> 
+> diff --git a/include/linux/phy/phy-mipi-cphy.h b/include/linux/phy/phy-mipi-cphy.h
+> new file mode 100644
+> index 000000000..e3f0a8257
+> --- /dev/null
+> +++ b/include/linux/phy/phy-mipi-cphy.h
+> @@ -0,0 +1,27 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef __PHY_MIPI_CPHY_H_
+> +#define __PHY_MIPI_CPHY_H_
+> +
+> +/**
+> + * struct phy_configure_opts_mipi_cphy - MIPI C-PHY configuration set
+> + *
+> + * This structure is used to represent the configuration state of a
+> + * MIPI C-PHY phy.
+> + */
+> +struct phy_configure_opts_mipi_cphy {
+> +	/**
+> +	 * @symbol_rate:
+> +	 *
+> +	 * Symbol rate on each trio, in symbols per second.
+> +	 */
+> +	unsigned long		symbol_rate;
+> +
+> +	/**
+> +	 * @lanes:
+> +	 *
+> +	 * Number of active trios.
+> +	 */
+> +	unsigned char		lanes;
+> +};
+> +
+> +#endif /* __PHY_MIPI_CPHY_H_ */
+> diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+> index c480d6cb4..f12337834 100644
+> --- a/include/linux/phy/phy.h
+> +++ b/include/linux/phy/phy.h
+> @@ -19,6 +19,7 @@
+>   #include <linux/phy/phy-dp.h>
+>   #include <linux/phy/phy-hdmi.h>
+>   #include <linux/phy/phy-lvds.h>
+> +#include <linux/phy/phy-mipi-cphy.h>
+>   #include <linux/phy/phy-mipi-dphy.h>
+>   #include <linux/phy/phy-thunderbolt.h>
+> 
+> @@ -42,6 +43,7 @@ enum phy_mode {
+>   	PHY_MODE_PCIE,
+>   	PHY_MODE_ETHERNET,
+>   	PHY_MODE_MIPI_DPHY,
+> +	PHY_MODE_MIPI_CPHY,
+>   	PHY_MODE_SATA,
+>   	PHY_MODE_LVDS,
+>   	PHY_MODE_DP,
+> @@ -69,6 +71,8 @@ union phy_notify {
+>    *
+>    * @mipi_dphy:	Configuration set applicable for phys supporting
+>    *		the MIPI_DPHY phy mode.
+> + * @mipi_cphy:	Configuration set applicable for phys supporting
+> + *		the MIPI_CPHY phy mode.
+>    * @dp:		Configuration set applicable for phys supporting
+>    *		the DisplayPort protocol.
+>    * @lvds:	Configuration set applicable for phys supporting
+> @@ -78,6 +82,7 @@ union phy_notify {
+>    */
+>   union phy_configure_opts {
+>   	struct phy_configure_opts_mipi_dphy	mipi_dphy;
+> +	struct phy_configure_opts_mipi_cphy	mipi_cphy;
+>   	struct phy_configure_opts_dp		dp;
+>   	struct phy_configure_opts_lvds		lvds;
+>   	struct phy_configure_opts_hdmi		hdmi;
+> 
+> --
+> 2.53.0
 
-Without this bit setting, USB2 HS device cannot be reset after it is
-runtime resumed. For example, after:
-
-  echo on > /sys/bus/usb/devices/1-1/power/control
-
-PORTSC.PR never clears (PORTSC = 0xe11) and the hub driver fails with
-"port_wait_reset: err = -16".
-
-Set snps,resume-hs-terminations on all Glymur USB controllers. This
-makes dwc3 core set GUCTL1[10] and fixes the issue, tested on Glymur CRD.
-
-Fixes: 4eee57dd4df9 ("arm64: dts: qcom: glymur: Add USB related nodes")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Peter Chen <peter.chen@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur.dtsi | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-index e269ae6e10ea..023a8448449c 100644
---- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-@@ -5544,6 +5544,7 @@ usb_0: usb@a600000 {
- 			tx-fifo-resize;
- 			snps,dis_u2_susphy_quirk;
- 			snps,dis_enblslpm_quirk;
-+			snps,resume-hs-terminations;
- 
- 			usb-role-switch;
- 			wakeup-source;
-@@ -5620,6 +5621,7 @@ usb_1: usb@a800000 {
- 			tx-fifo-resize;
- 			snps,dis_u2_susphy_quirk;
- 			snps,dis_enblslpm_quirk;
-+			snps,resume-hs-terminations;
- 
- 			usb-role-switch;
- 			wakeup-source;
-@@ -5696,6 +5698,7 @@ usb_2: usb@a000000 {
- 			tx-fifo-resize;
- 			snps,dis_u2_susphy_quirk;
- 			snps,dis_enblslpm_quirk;
-+			snps,resume-hs-terminations;
- 
- 			usb-role-switch;
- 			wakeup-source;
-@@ -5783,6 +5786,7 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
- 			tx-fifo-resize;
- 			snps,dis_u2_susphy_quirk;
- 			snps,dis_enblslpm_quirk;
-+			snps,resume-hs-terminations;
- 
- 			maximum-speed = "high-speed";
- 
-@@ -5858,6 +5862,7 @@ usb_mp: usb@a400000 {
- 			tx-fifo-resize;
- 			snps,dis_u2_susphy_quirk;
- 			snps,dis_enblslpm_quirk;
-+			snps,resume-hs-terminations;
- 
- 			dr_mode = "host";
- 			wakeup-source;
--- 
-2.43.0
-
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
