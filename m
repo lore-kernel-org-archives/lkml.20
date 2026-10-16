@@ -1,108 +1,93 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-85.mta1.migadu.com [95.215.58.85])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834DA54704D;
-	Fri, 16 Oct 2026 07:18:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086492D9EED
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:18:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.85
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135103; cv=none; b=dfibJCd8PtF/1wQG6QYj1wW/ZKP9hgc2TUAgVdrJBx3eStmGNV0mSz3xoKaEsXicZSo7ccmBErWmDMY8HreQjns+4r5siFdYpLMdQBX1QHjrLNXxeyuIS5hWnLFqbO5ziHThRvicysM2Ez5cxKTfuKtbWKgD2s9Rq2IanSgf5SA=
+	t=1792135125; cv=none; b=s4+MxpbAVYIgaP2NCfMID0vMyF5ZeOSX9q3QPAoWLqzEp7mXuPD3KJmVWUJ7qKfyMxvIxuU4pOB8KNG2nVLUqWDaIdednLwg85em8ZIBu9ODYrnO3S5DVXeSDXWwK3ncx0fQQbgizPB2q3zoJOyu5TpZgkIjvfCSbizZdGWwffc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135103; c=relaxed/simple;
-	bh=fn7t73BAlfIek4KFsTUt+UaONcMB7s/WdoiD3ZzK6rs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a6Okxia+E/OO8/ZhXZ2Q/hgK/5IQQzKqG9iW2oxMf3sDahBn26nD5AISD99r1qoAwHgUBwQiyuFFaCtu7WZPaK+vtFepuhunpDt4XAiIT4mzNFsiCjAHfCkR4+xUTGJJqKFyZKQHPw2vA+JByGgrlqa75PkrH1KleEkyKKs6Ngk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CEaZdEGv; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792135125; c=relaxed/simple;
+	bh=6EH9Q+NY8085/trt7WRYQhIUKmAyNfguuH/JmIdbxLM=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=BJIPbq8WY2W/1RvCrqgOM9NLowx6E7j36CzwLhtIv8SUtUpKBRQOBDfooliQAHllCmkmWBefUafF0EDt8GscoVHUoygtZvYAgp2TzsYCrc4/1BWdCiOwYZ6wdn6JBjmQjRYXNaW12Dyqv4tTtJKWto/cohyd4Lhe5n7XnVSVsng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FWur2hR/; arc=none smtp.client-ip=95.215.58.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CEaZdEGv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=re
-	6vE4SzLfkyFSZUF01MKloypKa/WyfOPHKxbom6UXk=; b=CEaZdEGvQpwct1UQEU
-	/kdYWvT4Go2ttSgdydGAy9U6QC8zeDzRC6tKvcki6/W6N2Hb30xlipdGcVpRb/pe
-	Ra1NmDTk3aHBqEwEyiui4RStRVsmRAm6mtAQgQ+FgIvg7Wx5RCVX8wctNdIWfJMb
-	a3/LV+TTymOSxN4Az0FMxfhek=
-Received: from nec8-i7 (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3jyaFz9FqVrDQAQ--.5020S3;
-	Fri, 16 Oct 2026 15:17:33 +0800 (CST)
-From: chenyuan_fl@163.com
-To: bpf@vger.kernel.org
-Cc: Yuan Chen <chenyuan@kylinos.cn>,
-	Quentin Monnet <qmo@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next] bpftool: Print map_extra in map show
-Date: Fri, 16 Oct 2026 15:16:58 +0800
-Message-ID: <20261016071700.280539-2-chenyuan_fl@163.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261016071700.280539-1-chenyuan_fl@163.com>
-References: <20261016071700.280539-1-chenyuan_fl@163.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FWur2hR/"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6EH9Q+NY8085/trt7WRYQhIUKmAyNfguuH/JmIdbxLM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792135119; v=1; x=1792739919;
+ b=FWur2hR/Sys1Ij2jDNya4lxwxZ1f1O9AxnsY8LPGpQVE8/op5gein9OQzniCYz+dC79eBW+L
+ QpmBSECh8CbYjG8MOSezh8rmET8Zu37vgS3qrLllzK5xya/XkZrb7MK7HTXiZEhZmB4YSnmy5Fd
+ 0Avx6K3H8UJ8p8Kp201mtP2k=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 986970ad1353ee4d;
+	Fri, 16 Oct 2026 07:18:39 +0000
+X-Mizu-Trace-ID: 986970ad1353ee4d
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3jyaFz9FqVrDQAQ--.5020S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KFWDXr1UZrWkKr4xWw4kZwb_yoW8Aw1fpa
-	9xGFyrGr4UXr15uw4qya1rZFW5Xws7Gry3GFnxG3yUZF97Wwn2qrWYyFyI9w13WF1fJan8
-	Aa9IqF95C3WUZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jo-e5UUUUU=
-X-CM-SenderInfo: xfkh05pxdqswro6rljoofrz/xtbC5Q0m42rRz41TggAA3F
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 03/10] mm/hugetlb: fix use-after-free in
+ hugetlb_mfill_atomic_pte()
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261015-urgent_fixes-v1-3-42796911043b@kernel.org>
+Date: Fri, 16 Oct 2026 15:18:21 +0800
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,
+ Oscar Salvador <osalvador@suse.de>,
+ Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Adam Litke <agl@us.ibm.com>,
+ Mel Gorman <mel@csn.ul.ie>,
+ Rik van Riel <riel@surriel.com>,
+ Peter Xu <peterx@redhat.com>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Josef Bacik <josef@toxicpanda.com>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <921D5002-91A9-4FA1-83DD-A7D2D061628C@linux.dev>
+References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
+ <20261015-urgent_fixes-v1-3-42796911043b@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-From: Yuan Chen <chenyuan@kylinos.cn>
 
-bpf_map_info::map_extra carries per-map-type creation attributes
-(hash function count for bloom filter, VMA start for arena). The
-kernel prints it in fdinfo, but bpftool does not. Print the raw
-value in plain and JSON output when non-zero, without interpreting
-it per map type, like map_flags. The attribute is already overloaded
-per map type, and bpftool must not grow per-type knowledge of it.
 
-Example (bloom filter with 7 hash functions):
+> On Oct 16, 2026, at 00:07, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> Let's fix another instance where we use a folio after dropping the =
+PTL,
+> where someone else could e.g., MADV_DONTNEED it once we drop the PTL,
+> making us trigger a use-after-free on the folio.
+>=20
+> Fixes: cb6acd01e2e4 ("hugetlbfs: fix races and page leaks during =
+migration")
+> Fixes: 1c9e8def43a3 ("userfaultfd: hugetlbfs: add UFFDIO_COPY support =
+for shared mappings")
+> Cc: stable@vger.kernel.org
+> Reported-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-    117665: bloom_filter  name featu_bloom  flags 0x0
-            key 0B  value 8B  max_entries 128  map_extra 0x7  memlock 520B
-            pids fixture(3543054)
+Acked-by: Muchun Song <muchun.song@linux.dev>
 
-Signed-off-by: Yuan Chen <chenyuan@kylinos.cn>
----
- tools/bpf/bpftool/map.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/tools/bpf/bpftool/map.c b/tools/bpf/bpftool/map.c
-index 20d59eab09a1..62e36c7934ff 100644
---- a/tools/bpf/bpftool/map.c
-+++ b/tools/bpf/bpftool/map.c
-@@ -483,6 +483,8 @@ static int show_map_close_json(int fd, struct bpf_map_info *info)
- 	jsonw_uint_field(json_wtr, "bytes_key", info->key_size);
- 	jsonw_uint_field(json_wtr, "bytes_value", info->value_size);
- 	jsonw_uint_field(json_wtr, "max_entries", info->max_entries);
-+	if (info->map_extra)
-+		jsonw_lluint_field(json_wtr, "map_extra", info->map_extra);
- 
- 	if (memlock)
- 		jsonw_int_field(json_wtr, "bytes_memlock", atoll(memlock));
-@@ -570,6 +572,8 @@ static int show_map_close_plain(int fd, struct bpf_map_info *info)
- 	show_map_header_plain(info);
- 	printf("\tkey %uB  value %uB  max_entries %u",
- 	       info->key_size, info->value_size, info->max_entries);
-+	if (info->map_extra)
-+		printf("  map_extra %#llx", (unsigned long long)info->map_extra);
- 
- 	if (memlock)
- 		printf("  memlock %sB", memlock);
--- 
-2.54.0
+Thanks.
 
