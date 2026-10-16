@@ -1,98 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8FE4DDB5C
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:32:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90284D09F3;
+	Fri, 16 Oct 2026 13:32:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157566; cv=none; b=m7LNBD4ovOmGjm8tU4+Bqc0gJDr4zvKNuAB0K5wMiR3cm0F476jzfVcBfIPRTYTDAsrx9xOApZK7YkryttdXadRl2BYcQ+BGzCBXWfqn/4JPYoKmW0OSdvJHt+Nw8/WEF+X+xa+hDYpcY9C7R2CGTmzxgfmvcm+BhRmYW5iDL/Y=
+	t=1792157566; cv=none; b=mnu5CjaF4uNeQuZHe+cXkyZ+i0fNu5Kd+zJkyRGOmoAIRU4eH14BpjC6qnOxYLwAXAFZq5Qwdh5qISaw1AEJoZJLqPnv4W1gc1vqa1NF5HdBo0JWKYOr1ZUbRRnwVVrx50KrlAE3J6raSqEWckYsT7k6CNgapdA8FMMCNl8RFbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792157566; c=relaxed/simple;
-	bh=seqx6jrt5DmfjVjk34RPPbEpcO4BJPmMclnelFc7c4c=;
-	h=Message-ID:Date:From:To:Cc:Subject; b=ccSIHU1wKeFxsxmIs9whpMYvqw5AgplY6B85r+jrGYJsbBvN6dcbfzdGJegMUJFGYHD+SB7/EJpK7AwrWjTcmNrM7QmCei5I9+Qd5FEEofU1Q0SrqY61EC1E086nZByXjJRqt5k0Rdj1+gO7kq12SQHR7/Pf5e12cJyv6/Kglwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZfHYjIne; arc=none smtp.client-ip=100.103.45.18
+	bh=QKHd2xRjjFAOzLy7ke4Z/dj35NJ4a5Rb7JDcr24KGuI=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type; b=RtXZUP0VuONOOapMcpmst5tppnWU7ro6PpEw5Ud2itG9oKUGU1hLG8V63pQs7iMw3Cx+blYryYtYXnhjl9RjeTn8vvXnIyNgjKkFU68qTMqopWL9//4qvhaNvVuVk3voM979JLWEO+Pmmlzhss9uYH/xYkZtd9imuoFfyl9RCJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CrM+YTd+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZfHYjIne"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EED81F000C4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CrM+YTd+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA9C41F000C8;
 	Fri, 16 Oct 2026 13:32:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792157565;
-	bh=pC3oOnMfQl976IX1CIwISGmOGR1m/9YVQyK/md/wZgM=;
-	h=Date:From:To:Cc:Subject;
-	b=ZfHYjIneUUTzDkr3PbBHnIAz653bWpKFAh7KEuue21Iiphc47ybbSTM4ZXdYNL64m
-	 rfLXGHDPwj6zsszLfNqc8QOoTT415f0RmCRIVOppOKxBHHuhoKhcPaFwVG57+R8Ztg
-	 wsYZOGbgpSOkP4SdpK7a6pajxagVVTUqrCyzm2AOQ7hXxgNztUhwPCZQVLV5yGqth3
-	 hSJRVFpiuI54FjWfJsYyd/6T9a28dPdKfYJzyT1QRPNNFF4L1luPMJ6S8UMnO3PmHL
-	 7g2erfnJx7K0y8fvXe6RDXplP8cTVnzjUM3hZoajbqlpW62QLv1yNxp5F8guM8Kngi
-	 r5cQFzXIPLfTg==
+	bh=Sdv4jEo2GAMTX8hgC+kyloM7VR0ZThCwD4MNi5yQbxU=;
+	h=Date:From:To:Cc:Subject:References;
+	b=CrM+YTd+x+32FkgISyNzZ9t/0RAharXE/zhmOmAAKo6xMtiDZfxvnRom/OSW7XOU6
+	 XG3jyE1BwXhXIqMWIMrefTUyWOihM/hCbcttS8FsDsgMnq4RdTtodzCqnagioOlwU5
+	 DhmzDhE+2uO+iISYUCp4bJOKyj5OFApjJCiv+PaaYO5XT13vNbVqZ+aZ1H0FY5Los7
+	 TLrkydeAdqNxgdlPibd7XyJsDFZ3qOpuVInEZuPRZyYTZDFeVLiU5mIR67hvRBbSSo
+	 aMPQHUkIrzRqH3sO1Lccor67+pXuFffbr1xxu+PoQaxeu5JAOyBQA4Zjx4ByjqPKT/
+	 1wLNOr1FaYzpA==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xHi3A-00000000WTr-2Sxg;
-	Fri, 16 Oct 2026 09:32:44 -0400
-Message-ID: <20261016133218.800011513@kernel.org>
+	id 1xHi3B-00000000WV0-077Z;
+	Fri, 16 Oct 2026 09:32:45 -0400
+Message-ID: <20261016133244.831560323@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 16 Oct 2026 09:32:18 -0400
+Date: Fri, 16 Oct 2026 09:32:20 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
- Hao Ge <hao.ge@linux.dev>,
+ stable@vger.kernel.org,
  Taeyang Lee <0wn@theori.io>
-Subject: [for-linus][PATCH 0/3] tracing: More fixes for v7.3
+Subject: [for-linus][PATCH 2/3] tracing: Keep the predicate limit separate from program capacity
+References: <20261016133218.800011513@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 
+From: Taeyang Lee <0wn@theori.io>
 
-tracing fixes for v7.3:
+predicate_parse() adds two to nr_preds to reserve the terminal TRUE
+and FALSE entries. It also uses that increased value as the limit for
+parsed predicates. If the initial count is smaller than the number
+actually parsed, the program can fill the allocation and subsequent
+accesses can go past its end.
 
-- Fix a crash in print_graph_function_event()
+Keep nr_preds as the predicate limit and use a separate value for the
+allocation size. This leaves space for both terminal entries and a
+zeroed entry when parsing stops at the limit.
 
-  When a tracer does not define static or default flags the
-  tr->current_trace_flags is set to NULL. If the ring buffer is
-  not cleared when switching tracers, the previous tracers events
-  could be read. The function_graph entries will dereference the
-  tr->current_trace_flags and cause a crash.
+Cc: stable@vger.kernel.org
+Fixes: 39f7c41c908b ("tracing/filters: Enable filtering a cpumask field by another cpumask")
+Link: https://patch.msgid.link/atELCd1XjKVhrkFL@Taeyangs-MacBook-Pro.local
+Signed-off-by: Taeyang Lee <0wn@theori.io>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+---
+ kernel/trace/trace_events_filter.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-  Set the tr->current_trace_flags to a empty set of flags to prevent
-  it from being NULL.
-
-- Separate tracing filter predicate count from allocation
-
-  The amount allocated for the predicate program is the number of predicates
-  defined plus two for adding "true" and "false" at the end. The nr_preds is
-  incremented by two to accommodate the booleans but is then used as the
-  limit check for number of predicates. This is incorrect as it is now two
-  higher than what is expected.
-
-  Use a separate variable for the size of the predicate array.
-
-- Fix the filter operator stack check
-
-  The operator stack increments the pointer and then writes the content onto
-  the stack. The check for overflow compared the current pointer to see if
-  it was greater than the stack size before doing so. This is an off by 2
-  error as the write will be at the size - 1 and the compare is done before
-  the increment. Adjust the check accordingly.
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
-trace/fixes
-
-Head SHA1: c47a7b11bcb3d45e29723afcf6336866476b1d08
-
-
-Hao Ge (1):
-      tracing: Fix crash in print_graph_function_event()
-
-Taeyang Lee (2):
-      tracing: Keep the predicate limit separate from program capacity
-      tracing: Check operator stack capacity before pushing
-
-----
- kernel/trace/trace.c               | 20 ++++++++++++++++++--
- kernel/trace/trace_events_filter.c |  9 ++++-----
- 2 files changed, 22 insertions(+), 7 deletions(-)
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index 2b46ca536045..781416ba6bdf 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -482,18 +482,17 @@ predicate_parse(const char *str, int nr_parens, int nr_preds,
+ 	int len;
+ 	int N = 0;
+ 	int i;
+-
+-	nr_preds += 2; /* For TRUE and FALSE */
++	int nr_preds_alloc = nr_preds + 2; /* For TRUE and FALSE */
+ 
+ 	op_stack = kmalloc_objs(*op_stack, nr_parens);
+ 	if (!op_stack)
+ 		return ERR_PTR(-ENOMEM);
+-	prog_stack = kzalloc_objs(*prog_stack, nr_preds);
++	prog_stack = kzalloc_objs(*prog_stack, nr_preds_alloc);
+ 	if (!prog_stack) {
+ 		parse_error(pe, -ENOMEM, 0);
+ 		goto out_free;
+ 	}
+-	inverts = kmalloc_array(nr_preds, sizeof(*inverts), GFP_KERNEL);
++	inverts = kmalloc_array(nr_preds_alloc, sizeof(*inverts), GFP_KERNEL);
+ 	if (!inverts) {
+ 		parse_error(pe, -ENOMEM, 0);
+ 		goto out_free;
+-- 
+2.53.0
