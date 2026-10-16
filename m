@@ -1,90 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE543148D2;
-	Fri, 16 Oct 2026 10:01:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50DA456286
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:01:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792144886; cv=none; b=vBeax+bvQpBbeVVBKBOOzcmW2fGYUrh3JQlcDlYHHTse0Vz6mVZJa5Ir5w7pPo40u6b7lzK4RvZ0DeoRa3Y0bJnxJ/fiI/YG5PuMl3M8ZICkERNlXCJTrZb57EVAxx+L2ZLcnTy5ZSSLAlhNqB85k29wW9Pjsij4Ha2vS1b/7vA=
+	t=1792144909; cv=none; b=AIo4oMLA/xjXZmIdDbepXYI9l0acHLCRW55a66UhoCpXjKW5J8fG3AraWqwlBu4Adhm9mOu8TWUjyjJiemd8bdfmdcpckrPpMjDDRL2soWdSS3LJr1Iw8Jo+puyw14Rqiybhg8rtkLcfVmJdgOd+CeLrAU5xwLwohRbZa/eEubY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792144886; c=relaxed/simple;
-	bh=gkvpNoGRm7LzeGLrdVQF3lghi9vl2+UJDE3TrXHQE6c=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=METH5CKvrSpuAJnkoXEFo3Kd8Q1yZ2u+re/bwEOl2tnCqPMsT1ibgKTPGwAEVJa79IhdnSRCHzKQMwzra4DV/U+RKw/9p6+9iangS8d4Iv9BDdivReAYSupPknQapSJZ448IB47V0mQ8GqUDKgCTyZVgMl1TcvQVfEiCrmwAlAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E2McqTjH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792144909; c=relaxed/simple;
+	bh=0oQ+MUsY862yw3W6ThUw80i4Mg92NlZLEJzdN0dO65I=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
+	 References:In-Reply-To; b=HwdACwK8h6L2ZAPdt5r5Ahc+HNXSHU8aNF/TP57CT1R0HrHZzsGRjNPnuv8S1Is2wnwlckPrtnHbaIEQdR49XjGmzRjVEoP/tCiUdUGHwcePqwU7r+ppling5sGVjbwmeptN9afu62VcWBW7Bzs2HvJPP2qgrsUujCE8TyP/Zz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vyD+tY6x; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E2McqTjH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ABBC1F000C4;
-	Fri, 16 Oct 2026 10:01:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792144885;
-	bh=YH1J1euDRnwMKyDDOdpff6sULzlOsh4aRucKu7xPZ7Q=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=E2McqTjHj3SjUs9kEQBQxZx7D0XTPeb7zrsSKR7gdkf4/viYF0lO5u1TfUHzz3jcx
-	 tDcqN2m4d7TaX+ZmOoLSNbaEWxibbgxrK1wC+bbx4YTgQxlAHOPbU0ajnhGjEMyXh1
-	 xjb4iBKARRLiJ+HNjazGy1mYeZsQ/5M1XxjgUs76vlNV0zyfwTuCx1b1N0UGTAnssr
-	 sMeFTIqW0/2Uaj7Jhdc25fxARVl1ljZBUUm0gvEPUJWU0pbpNWBNmue7F2Gfyflxk5
-	 zM5OO92UylyZnc0EaMvDajPHcLYq5TlpySDUwvVVBuPmsmNvict1iQTTXXzRWbA0D7
-	 Dvz57n8pyYHhA==
-Date: Fri, 16 Oct 2026 12:01:22 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-cc: =?ISO-8859-15?Q?Filipe_La=EDns?= <lains@riseup.net>, 
-    Bastien Nocera <hadess@hadess.net>, 
-    Benjamin Tissoires <bentiss@kernel.org>, 
-    Stuart Hayhurst <stuart.a.hayhurst@gmail.com>, linux-input@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] HID: logitech-hidpp: cancel reset_hi_res_work on probe
- failure
-In-Reply-To: <20260913134044.1562697-1-lgs201920130244@gmail.com>
-Message-ID: <11qo16p4-8902-s6s1-233n-571949pss19s@xreary.bet>
-References: <20260913134044.1562697-1-lgs201920130244@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vyD+tY6x"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 7A780C6220F;
+	Fri, 16 Oct 2026 10:02:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A49E26075D;
+	Fri, 16 Oct 2026 10:01:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 48592103282F6;
+	Fri, 16 Oct 2026 12:01:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792144900; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=0oQ+MUsY862yw3W6ThUw80i4Mg92NlZLEJzdN0dO65I=;
+	b=vyD+tY6xP8Z9RwR2xkuRI3THWcN7/fM4teqUX1np32hkVH7TkufocT2ZYa6FtlaQBDdDH7
+	te3j/Gizl0ssUbuKOsSfk8OtdVDkiDyuOpWMz8/fyhCT2TxbzR10qiGtKEv7tYEmSvQS7v
+	783OU8Re4ArvppviTidEbsVnPzjqr2s4ZwnE6TqsClHC5nLI/CxQ2JwQncMYHecL5G6HjA
+	P8aUPsBy7QVIAWbhY+Nw4n8xWwSeQDEPGNDbuZeTAw25i2mrSiYwQZvquaODtICLqfSJ6q
+	lvS+LGmzfw/gafx3TI8ZfNV8jq+1B+BM3qtfPzXtW8hhG/OHFfaaXglJAKIQgA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 16 Oct 2026 12:01:25 +0200
+Message-Id: <DM66CANKPVNS.SGWB73YDX55M@bootlin.com>
+Cc: <kernel@collabora.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-rockchip@lists.infradead.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+To: "Johan Jonker" <jbx6244@yandex.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, "Sandy Huang" <hjc@rock-chips.com>,
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, "Andy Yan"
+ <andy.yan@rock-chips.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Cristian Ciocaltea"
+ <cristian.ciocaltea@collabora.com>, "Huseyin BIYIK" <boogiepop@gmx.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 0/2] drm: devm_drm_bridge_alloc() conversion and cleanup
+X-Mailer: aerc 0.22.0
+References: <20261001-bridge-alloc-conv-v1-0-f0a1fe040a86@collabora.com>
+ <179213353665.3058528.14437637653539699061.b4-ty@b4>
+ <d1f0369c-ff43-4b76-9092-5c638b132f15@yandex.com>
+In-Reply-To: <d1f0369c-ff43-4b76-9092-5c638b132f15@yandex.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, 13 Sep 2026, Guangshuo Li wrote:
+Hello Johan,
 
-> hidpp_probe() initializes reset_hi_res_work before starting the device.
-> Once device I/O is started, incoming HID++ events may schedule this work.
-> 
-> If a later probe step fails, the error path stops the hardware and
-> cancels hidpp->work, but leaves reset_hi_res_work pending. Since hidpp
-> is devm allocated, it may be freed after probe returns while the work
-> is still queued, potentially resulting in a use-after-free when the
-> work handler runs.
-> 
-> Cancel reset_hi_res_work in the probe error path, matching the cleanup
-> performed by hidpp_remove().
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: ed80cc4667ac ("HID: logitech-hidpp: Add HIDPP_QUIRK_RESET_HI_RES_SCROLL")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/hid/hid-logitech-hidpp.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-> index 1504de32b1c8..6a21b281a1df 100644
-> --- a/drivers/hid/hid-logitech-hidpp.c
-> +++ b/drivers/hid/hid-logitech-hidpp.c
-> @@ -4834,6 +4834,7 @@ static int hidpp_probe(struct hid_device *hdev, const struct hid_device_id *id)
->  hid_hw_start_fail:
->  	sysfs_remove_group(&hdev->dev.kobj, &ps_attribute_group);
->  	cancel_work_sync(&hidpp->work);
-> +	cancel_work_sync(&hidpp->reset_hi_res_work);
->  	mutex_destroy(&hidpp->send_mutex);
->  	return ret;
+On Fri Oct 16, 2026 at 10:11 AM CEST, Johan Jonker wrote:
+> Hi,
+>
+> If any decency or Code of Conduct left in the DRM group then also credit =
+the original author.
 
-Already fixed via 0be03caba6c002 in hid.git, thanks.
+I'm sorry your prior patch was not applied. I was not in Cc I just hadn't
+seen it, and no one else had reviewed or applied it so far.
 
--- 
-Jiri Kosina
-SUSE Labs
+This is a communication issue, sometimes patches just fall into the cracks
+(it happened to mine several times). This can easily happen with a complex
+development workflow and high amount of patches as DRM has. The workflow
+can be possibly improved, as well as my personal workflow perhaps.
 
+But I don't see any lack of decency here. Definitely a polite and
+respectful answer would be appreciated and would help the communication.
+
+> Also remove driver_private.
+
+Removing driver_private where it is unused would be good. Would you mind
+sending a patch doing that? I'll try to spot it, but if I'm in Cc it will
+be much easier.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
