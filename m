@@ -1,43 +1,84 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B093955EF;
-	Fri, 16 Oct 2026 10:05:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7CBC4749CB
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:06:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145159; cv=none; b=PXpmK055xJXDN9iII6uMoS1e7oaA9F/H5e5R16Mov3wrC04zH8QjqKO5xoeWNgzOzN0/CjVu+1bthHhf0TpAtBaxkz/K7IFh34w1ylbF28yXE0n90lsNzmEM8D7re26HJiFd3zFFqyQqXzTHNjqX/TmPv3by1WTl+W7lq/UqwlM=
+	t=1792145188; cv=none; b=R6/YYd3xSoPm6KV1f0hMVZ7ZTT0cU5asog2BykXM1XvVptA5avZGWzzTjaJ1i7Efcc0LuaH/Bk6/fZQNJdhwLQVi1CRijEuiHiC2gMdJcFh4Xnx9z9SbQLsQRyN+JMVGaXHqR/mOIygNd53dcfhzVMwwqe2KeTPVpLKcUwPBI98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145159; c=relaxed/simple;
-	bh=jMP9xWVP3MTXKZSoK8lHLONBBSINFKbVc9BDHQs01h0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=NpYNqMyeRsLoUQHA+J/u0ZXsD7jhP3BByRkVM0CPsHhW6BbmFJRUNlFDFuTebPia85rddH4QgkEre4ZJmQLbQHT6M5jL+zFMIusuWxfy5jqA9mJDTTfUHpNdiwak5uiUZnxtBkuSk5sGVbmstUC6c52KbH0E6wDWx08RPIuMfdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=I3S6G4wx; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792145188; c=relaxed/simple;
+	bh=HDb6dEAlQfqZ6w+pZ27i4VhJh9De9UuXiV4QYl9+3Es=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lzbcnF/iqxFOqIZQBMk6IUGuywoPKC5IpkhLWm2J5ST/Gt3oRDkmhKc8pwkS7Rt8LvJaclpLuC0u2iq3RaCFB9F3wRZII9qkAFpkLhZeVrlsuZn9Ch//+8x6JyUYDLHV54FEMZtMc3rNPnL/nC1ifwMn14FraUgj1g1RzWKEHQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BkE1d+lk; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="I3S6G4wx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Wi
-	8S1+LriFyZhbXGD1m1JtXH0VoUOQZRUBcuqbclCls=; b=I3S6G4wxUoUQwR2+jq
-	1fkhjsbuGsOjjemD/A6LDsVpvDvpvVT+EDhMO4J8oPDQW+PgbVZ/QHQhR62POWSR
-	Wd+bBWg3EmeS3gSxaLaI0QB/lI9PQ82su5+bH1ZtOEssD5gDkNerl67mxjKeWPSW
-	7LL1Fp+nu4eu8T+D1Q7BR7qNs=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD332+29tFqQfLjAA--.14422S3;
-	Fri, 16 Oct 2026 18:04:41 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Matthias Fend <matthias.fend@emfend.at>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	linux-leds@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BkE1d+lk"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49ff680331aso32810695e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:06:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792145184; x=1792749984; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kZIV8SpDryJCkEdmLv3viRxRvmm/nGJEMBGvh6BKJRw=;
+        b=BkE1d+lkOibyPPHKbYu/5LrI+PtWmFW1AKMnN+2+MCphdNXLUaU8P40SJRDLrVB1KL
+         fJjrtvB4K+WVH/gqkuOqcsJU/thpSJhGO4FVFY9gglVmAD8Io9lBcfSgmvemZqfsnApx
+         +CbBsf18hP0ctq5IhlRU0nXbp/7gbZ+eYLfvJblsG/8DeCuvhps0Z3TXtBfg/tvXjYli
+         Yto8Xrb/0Ro7RUZhQpaQP7vkPfMa9dnI42YmAw/6aVwhy9cjNiKL8nFfVAgqnu4lRVgF
+         3wWa4RXAGQI3TAbJXJaMwmuqCiiskCKzGnhpqTrzkvv7M7yyXzjQh0ik5h+r78XmmORD
+         71og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792145184; x=1792749984;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kZIV8SpDryJCkEdmLv3viRxRvmm/nGJEMBGvh6BKJRw=;
+        b=WGNhzjqk+pv+d5CyMYUhlqVpvjHAHw12O9SpOvD2kymziaRWyib7MJjD2Jwjhdqs97
+         q6sMnPV7H+wEZuSJCE20KU7xz8jyt7qXWEOZa8q+o35rzjM74indc5BzZkJ8EpzwtDsH
+         Cc5fgbVBPDGSPwWiUkIP2I3Ta8A3+Ju/7ahBNBM6S2aprJcF2zaQRw/CvMCDgSrYLekh
+         mLrCMHmGrVDCYMEUSNNvqUg+rmak+j04HgAclMzO4BDGrmGflhMBDM8QLAwyR2QtMZvP
+         u+W5nDy5LYHTFbvSdSd9uP6Xtu9Xh0HClqg34N8AGvNXW6O4OQK0PAnJHXYXA8IbUEih
+         SJjg==
+X-Forwarded-Encrypted: i=1; AKwUvBylCdvwCt8BpK7wAbpGYidkoqewiVZXYLGmjlXKIYi6+ALY94YV1OoAnA164HUSDQAQzs0YTO9f5gUuBV4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHpm5UzWGJntSJ/s1bmga0u7JgzPFMldVPoFcCcmv62PiGdHOD
+	ic01eJAQ7iUnJKqOQsPdE357ADNDO3cS+stdYqARMfhgEaIc/cVClklM
+X-Gm-Gg: AYBFou1Xr1XO++EfFk0YazFVOatLPktdPGUlmB+ZNNQSKnKznhT6xXHDCtC9XrigQYX
+	WMy1v5C5RDa1IH42iNIxLJKxv1/5lmADg8b4lT6MBaGfib4XsdtKFND2oOa093umwyMv3n+gZ6E
+	FiUTVdkU6B2P9/ZW7ZJcBQE3cEa1S3HfzN5PKtNDgHOmRExrjjLpLvJfXzrUtY61L50VkeOSWnA
+	EOUxTm5B1aIy9AvOpScPABTd/G44ZDRMKsB7BPUGuzAK1upQb4ncS16Z0d8U8ZyNsc2oi3ZeiVK
+	nCrHwEYIKhk3e/2iauCPw6Z0j3737lXrnuyZBR7MP55E0ufMKZqw+OW+1vJxkBg8oiSeaXTvtSU
+	QWRCwiihE1PIW0b65ijHyt/aa7gPqSy+m0P4mRn2QnSfT9I7LwmgkwgBRPo4FShhPYPMcRDJpEg
+	ktD2IWDuQz997cc8505e2+PYaAp4h+o2ARlf+m56Zg7IcRnMF5GwrSEwMC6INrM8UXBmEGyGd/4
+	P4/ZoQi9dL7vz2pSoENimA7Y3GJhkNw2zCbSIOrvnKOwrvbDa2beuncgq2eRFFHMSNtCiv49Mmd
+	h1rehqo=
+X-Received: by 2002:a05:600c:8208:b0:4a0:1b14:d00c with SMTP id 5b1f17b1804b1-4a18e446f55mr452412475e9.3.1792145183665;
+        Fri, 16 Oct 2026 03:06:23 -0700 (PDT)
+Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8de7230sm45403835e9.14.2026.10.16.03.06.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 03:06:23 -0700 (PDT)
+From: George Neacsu <geocausa@gmail.com>
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	David Heidelberg <david@ixit.cz>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	linux-phy@lists.infradead.org,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 1/2] leds: tps6131x: queue torch refresh work on freezable workqueue
-Date: Fri, 16 Oct 2026 18:04:34 +0800
-Message-Id: <20261016100435.2581303-2-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261016100435.2581303-1-yaojiale02@163.com>
-References: <20261016100435.2581303-1-yaojiale02@163.com>
+Subject: Re: [PATCH RFC 2/4] phy: qcom-mipi-csi2: Add C-PHY support for X1E80100
+Date: Fri, 16 Oct 2026 11:06:21 +0100
+Message-ID: <20261016100621.427612-1-geocausa@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <7aed254e-18c5-481b-a77f-576944fff1d4@kernel.org>
+References: <20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com> <20261015-x1e-cphy-rfc-v1-2-1f3fa9af940a@gmail.com> <7aed254e-18c5-481b-a77f-576944fff1d4@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,62 +86,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD332+29tFqQfLjAA--.14422S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Ar15Cw4fuw17XrWfGrWUXFb_yoW8Zry7pF
-	Z0yr4jkr4ktFZ2qa9IvF4kWryaganFy34kKr97K34UZw1rAF1FqFyrur15JF1vyrW8uw18
-	Kr4fXr97XF4Yyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEt80JUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzh-7NmrR9r-hegAA31
 
-The torch watchdog refresh work performs I2C register writes and
-reschedules itself every ten seconds while the torch is enabled. Since
-schedule_delayed_work() uses the non-freezable system workqueue, the
-callback can run after the I2C adapter has been suspended.
+Hi Bryan,
 
-Queue the refresh on system_freezable_wq so it is frozen before devices
-are suspended and resumed only after they become available again.
+Thanks for the reviews, and thanks to Loic as well.
 
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/leds/flash/leds-tps6131x.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+The series is on next-20261015. There, phy-qcom-mipi-csi2-3ph-dphy.c is
+blob 966d79c98, the same as on the media-committers next branch, so I
+think your tree has a different revision of the CSI2 PHY driver. 3/4 and
+4/4 also sit on top of David's "C-PHY configuration on Qualcomm
+platforms" v9 [1], for phy_sel and the C-PHY link frequency, which is not
+in -next yet.
 
-diff --git a/drivers/leds/flash/leds-tps6131x.c b/drivers/leds/flash/leds-tps6131x.c
-index 5c9a5af5af05..841a6538e75e 100644
---- a/drivers/leds/flash/leds-tps6131x.c
-+++ b/drivers/leds/flash/leds-tps6131x.c
-@@ -11,6 +11,7 @@
- #include <linux/leds.h>
- #include <linux/module.h>
- #include <linux/regmap.h>
-+#include <linux/workqueue.h>
- #include <media/v4l2-flash-led-class.h>
- 
- #define TPS6131X_REG_0				0x00
-@@ -307,8 +308,9 @@ static void tps6131x_torch_refresh_handler(struct work_struct *work)
- 		return;
- 	}
- 
--	schedule_delayed_work(&tps6131x->torch_refresh_work,
--			      TPS6131X_TORCH_REFRESH_INTERVAL_JIFFIES);
-+	queue_delayed_work(system_freezable_wq,
-+			   &tps6131x->torch_refresh_work,
-+			   TPS6131X_TORCH_REFRESH_INTERVAL_JIFFIES);
- }
- 
- static int tps6131x_brightness_set(struct led_classdev *cdev, enum led_brightness brightness)
-@@ -367,8 +369,9 @@ static int tps6131x_brightness_set(struct led_classdev *cdev, enum led_brightnes
- 	 * To prevent this, the mode must be refreshed within the watchdog timeout.
- 	 */
- 	if (brightness)
--		schedule_delayed_work(&tps6131x->torch_refresh_work,
--				      TPS6131X_TORCH_REFRESH_INTERVAL_JIFFIES);
-+		queue_delayed_work(system_freezable_wq,
-+				   &tps6131x->torch_refresh_work,
-+				   TPS6131X_TORCH_REFRESH_INTERVAL_JIFFIES);
- 
- 	return 0;
- }
--- 
-2.34.1
+Which base would you like v2 on? If your branch is public I will rebase
+onto it. Otherwise I will use -next plus David's series and spell the
+dependency out in the cover letter.
 
+For v2 I have:
+
+- 1/4: lanes -> trios, and a PHY-layer helper for the C-PHY symbol rate,
+  the analogue of phy_mipi_dphy_get_default_config_for_hsclk()
+- 2/4: dphy_/cphy_ naming for the init sequences, if/else instead of the
+  ternaries, the D-PHY and C-PHY lane setup split into helpers instead of
+  the goto, and the helper in configure()
+- 3/4: FIELD_PREP() with a mask for the PHY type select
+- 4/4: the helper, and an enum phy_mode variable passed straight to
+  phy_set_mode()
+
+[1] https://lore.kernel.org/all/20260617-qcom-cphy-v9-0-83da8a8e4e44@ixit.cz/
+
+Thanks,
+George
