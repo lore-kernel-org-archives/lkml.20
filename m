@@ -1,224 +1,175 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9945D30D3FE;
-	Fri, 16 Oct 2026 07:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979DF346A0C;
+	Fri, 16 Oct 2026 07:23:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135352; cv=none; b=NIXwzk52wnYQvpfprPPyXoxqTBYOGM8niat5OL23PiIkMEd2tRFAIJ8wPU0TBgfPtx8tSSFk7HlsyyWgNJizvk9amHYo0s9AaKK1FkDPhj6i3ICbs1Yqen5NtZcbxu3Kxn57prc1hEJi/Ti6E72O0JPNWh1R4xq9oVMtA6COgws=
+	t=1792135407; cv=none; b=gspP0Tp/5we5Ygf4+qqG5wsApWkSmHKVGBtVqDYmGFVWBhJmJDib4LAdzsmg0231PjxWYTJfMNLQxGtpLQ1rD3VhejoJONM90q/ueuW1azQ++3cPh8xRFWP66t2hgBecSFJWCGP190AX09PnV09UnLph45gzdNLLsmMCXGFi9lA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135352; c=relaxed/simple;
-	bh=BA8ioDZ776ZuU05ezDWHSDCIRfQ76U4v4Hl9KK1fOfw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EMh3zdwQOgpWRNveXd6HfwyEz6jAOZ5XANvaMYyUnpvO3RGNOVKBjQyd52yWwoJS8uA5xvzA7ux1xkVHIBLLMLan4U1Ew6cv7ASPI1qqRNe6Vc+UHUKr+yC7p21a9mJfGzlfWBcnzGUBkwnqEXJ6Q3rQNNrgQkHV5dktPW+nf78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=E2KN0p+B; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1792135407; c=relaxed/simple;
+	bh=Fnsui3PlbcaixNQ4vqlonQ61DbXao20gBaaEXYCb4WA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=o8lO3soXagLSgeZK1Sa+2PWarsRtoHH3lUNjfXS4bGSIBRo7B5sbmnizT8XR5YOThLtHbxk85ZmkiDSLmR3z3hCJkdEFYUPmFKsnrYzo5VBXV1mWe+TZ6DEnnwsRCSC27YN35OrS116CiFL6MYMkisJN81/WfgB9o1Dk7IX/FeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=fJLgk2Y9; arc=none smtp.client-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="E2KN0p+B"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FJ11LI531930;
-	Fri, 16 Oct 2026 07:21:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=0PpE94ar8OrMZztp76vISiUaAXnWdK
-	1GRR6U58uClO4=; b=E2KN0p+BDg7MCcU/FrkuhAPgbpC3ab9sZ4eAKSz0a/Fdry
-	biKYELVVpZXjJNhLQpW9yq3oA8yu08Wy1y6TXwzZfqTEktYATQy+sWqNlvTOIw2+
-	6P2sWvWggWMuMt3q9HqCV+O/gjUPbw3Y/vWdwBiprJRtdkxyqakePnbVR/YqGddy
-	LvbnWuL3GZGMmmPiO4ZrDsJlZIrlNAxv+o7raHD2lEN6FU4vhzDmo71g4pZfIj08
-	KqHm7Q0SivuIK0gs+sGiMAKJKGUA8PIfkYsw/HeldGZV5o67KS8a92mQaAzYpKWL
-	CMcWC5FkzTVM3sj0RJWNzIZlYLJCwTqDX2S34/Dw==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv3x0w6-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 07:21:51 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69G49KNI709720;
-	Fri, 16 Oct 2026 07:21:50 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h9wvgartt-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 07:21:50 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69G7Lmel52494820
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 16 Oct 2026 07:21:48 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BC0CC2004E;
-	Fri, 16 Oct 2026 07:21:48 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6550F20040;
-	Fri, 16 Oct 2026 07:21:43 +0000 (GMT)
-Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.39.31.170])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri, 16 Oct 2026 07:21:43 +0000 (GMT)
-Date: Fri, 16 Oct 2026 12:52:43 +0530
-From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-To: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
-Cc: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org,
-        "Darrick J . Wong" <djwong@kernel.org>,
-        Carlos Maiolino <cem@kernel.org>,
-        Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-        Matthew Wilcox <willy@infradead.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
-        Christoph Hellwig <hch@lst.de>, Dave Chinner <dchinner@redhat.com>,
-        Daniel Gomez <da.gomez@kernel.org>, Theodore Tso <tytso@mit.edu>,
-        linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-mm@kvack.org, Andres Freund <andres@anarazel.de>,
-        Dave Chinner <dgc@kernel.org>
-Subject: Re: [RFC PATCH v4 05/12] iomap: Add initial support for buffered
- RWF_WRITETHROUGH
-Message-ID: <atHQw76Z5nichi49@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
-References: <cover.1790596383.git.ojaswin@linux.ibm.com>
- <c76f9babf1b00f4574e37db156621edc6c078969.1790596383.git.ojaswin@linux.ibm.com>
- <as-BQAbk7U43vkqs@quentin>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="fJLgk2Y9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1792135361;
+	bh=idnwnnaMWLUiVW27yfjxXo4AL8hev6zUmPFBKigDCtE=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=fJLgk2Y9PwKYrzt5n4EfEjEme1AdfV++1f1MkVRvwtiNtLLz8/wyAcM8r8Jq5WkM+
+	 IoRVQS7D48W1+3027X1OofcPnd+RhzCPwiaSVQYf74J5Ja6Dnre1jeuCsMHHALFyHM
+	 nvuQniwDcoJTRY+KWDbUa3UCn5YFHP4/5iXDkLes=
+X-QQ-mid: zesmtpip2t1792135342td7ce2847
+X-QQ-Originating-IP: ZI24zA/GpPR8bf+XnsilAI7oWLs1kgHyGd914T96prc=
+Received: from localhost.localdomain ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 16 Oct 2026 15:22:19 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 9258648051972908772
+EX-QQ-RecipientCnt: 10
+From: Wentao Guan <guanwentao@uniontech.com>
+To: kprateek.nayak@amd.com
+Cc: guanwentao@uniontech.com,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	ray.huang@amd.com,
+	ronforever@outlook.com,
+	scardracs@disroot.org,
+	stable@vger.kernel.org,
+	superm1@kernel.org,
+	mario.limonciello@amd.com
+Subject: Re: [PATCH v3] cpufreq/amd-pstate: Skip auto_sel write when it already matches the mode
+Date: Fri, 16 Oct 2026 15:22:18 +0800
+Message-Id: <20261016072218.303219-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <5469c745-7b9e-4a71-8d04-8716c5af840e@amd.com>
+References: <5469c745-7b9e-4a71-8d04-8716c5af840e@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as-BQAbk7U43vkqs@quentin>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: YahtI-1taUiiLjeZbfw0cpbMfmngRFck
-X-Proofpoint-ORIG-GUID: KY__C4R_eJD0-I7OogprQ5kFmB7DQ2vM
-X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6ad1d090 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=FPz6nIrhhYSRGt34OqEA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAyOCBTYWx0ZWRfX+e2F7yPlOJ6+
- b3jrdrSLQhykQnj4TSd6+/SrsO6/LeG6S91YVo4sCn2YXh/QnZ81mZlC2reX1KbkbXz4GTMCwu3
- iJmpGnHLs5Dcg0gnyA/IxuFuyN/35lc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAyOCBTYWx0ZWRfX531dxSqiuPSe
- 6oFlbfBQvhx4KwiuEb7mxct/cjeuH+eHdussa7mNEH6KImPOV12dO4wGo4C5WSc16WTDqFif6hC
- rVpAzAFg+yDSd3h9OFKTgZLVk6jTweYsZvHWzoFdWGC1EfhwBntK1x9dkoA63mDPFvoSYBx7qi9
- zEPOYAq1XO+ytoezclhjZqqfAjInJOJ9QZlxzyNpw6P9r6bgMHVRcnhNAto3c48j/AUBnznZpWz
- NwzgJYrkKIfpzR0aI0DJTJr0NvNLtWE1C+8BfTXH1u0heuZzOuYabweP8QDowxr6mh3w1aqiXrm
- J/OIDW/bsp0oz++k99oSyG+ABS1HWyWtIoIdIOmYoN+HQa6HW8e9kcfhwzKzbSpnjCy5WeSl7R9
- GnRN/phMyX8hgmu/3ZuwcuLZ320E4AZMzmE8ftL/IWukw5UVLazQzMhhJRNglgr8i5BMU/z/jk4
- GbnxIcmK0+RGvBUbQqA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
- bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610160028
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OJqK+P4eZhTxBDMgGX/1aU+2ioZ57Z6nQV7+tGOsU2uzsgeop8Oy4hTa
+	CuD0LNsqWvNl58NSIVAFmvOpNPeZwuy03DU/uXz+DDPTspKFxP7u4Xfvme9sIq50dA0PXAJ
+	E65iH1E+USSM+p17KmUq1cJHDB7MEIY9dPTTI/+Z8EhgcAoiFqzHPdBWYOROKXdzADrWpli
+	sLZJzt+Gjvu8Pz/W/Mtx2fOoWncloqWOxN26U39LW9RkrLtsYpqhKFJeqlTK1vq2H55d7x1
+	DEFVQH36ixmeDewMG3kuxS9CzNM1yoBW67lawbgnCfgn2kqlFcrtu8hncqrSmyo7FHcJDUS
+	NSkRVs3IVf7XT8lRbRaILUDT32Xot10fH6FgirKzCAizCv4BHjnpuzgRrp+uITy6l6amJrn
+	b935LE5GoIjOS8+atseurkbJHKGsvRONMuRODJfSJqaGoF8THUE7MXLnmxa3Uf220VPiULB
+	XpaubnxM2b5o/V+RkD0p3Y0rBm8wL5PDiOEgDmxjewNs0UN2ijBfIz3mEmM02f1JDW6VK5X
+	4SDyvT4pl9wiUd0tew0d3fwMJaIemzCaTSYgpqlB3jD4RsDrazsy8XZsIluv0sUGjnOA7fQ
+	N62NjzClTVDq1NxU6cE+OlCKQeh76HYnR1rYT3IeoD9lk9uScgpv+nbFTvRv1z6N8dGOWQy
+	f10JeXNi+hP8wrUuHR+aTK7auG2xm/NfGJGj2xEKTaGF7oBZAZb3purBQBjso+rei8tbWZA
+	b/BEuOs5TpnP2Ht7ttwBjA3bAgae07reti1nO/b7IEm/j30xfN7FE8bx+t/BAm9TzSpPb1E
+	hAHcGTKt7oRT/sW8CUMt436OlFfT/AM/YDzHXkMY4XLNZ3b4fND3xW4NB+CwpRnX84I5EEt
+	SpZYC70R5W6llQIZjr+QRU/jHEkIm+4tqbQQNgsOhK37LYUVnVN8dkL+NC/Z65ynQ3HeprQ
+	UVfMyI1m7kJ+DW/iu8QLbomnz3g+r/ogjfJd1cHOD3TenGCmCpbMM3bGzvFjXfVyhuIfH40
+	akq4GOsAsZD3lEQ/P6H0/QuRt1v6gmnF0gEmAypWApjsRT6J4OC0bM1F4GvODaoaxFlmBeW
+	CURIrsTFBsxNPdwWrac+BUPwTU4NtA8LLM2cdX1esZDZuatG2QX9ZOpyMHSSZb5RE2BmPzN
+	PmKyKkIRgCY6AbE=
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-On Thu, Oct 15, 2026 at 04:09:50PM +0200, Pankaj Raghav (Samsung) wrote:
-> Hi Ojaswin,
-> 
-> I was comparing normal buffered IO scenario and writethrough.
-> 
-> In a normal buffered IO scenario, for unwritten extents or CoW extents,
-> we first convert them before ending the writeback on the folio.
-> xfs_end_io calls xfs_end_ioend_write().
-> 
-> static void
-> xfs_end_ioend_write(
->         struct iomap_ioend      *ioend)
-> {
-> <snip>
->        /*
->          * Success: commit the COW or unwritten blocks if needed.
->          */
->         if (is_zoned)
->                 error = xfs_zoned_end_io(ip, offset, size, ioend->io_sector,
->                                 ioend->io_private, NULLFSBLOCK);
->         else if (ioend->io_flags & IOMAP_IOEND_SHARED)
->                 error = xfs_reflink_end_cow(ip, offset, size);
->         else if (ioend->io_flags & IOMAP_IOEND_UNWRITTEN)
->                 error = xfs_iomap_write_unwritten(ip, offset, size, false);
-> 
->         if (!error &&
->             !(ioend->io_flags & IOMAP_IOEND_DIRECT) &&
->             xfs_ioend_is_append(ioend))
->                 error = xfs_setfilesize(ip, offset, size);
-> done:
->         if (is_zoned)
->                 xfs_ioend_put_open_zones(ioend);
->         iomap_finish_ioends(ioend, error); // #1
->         memalloc_nofs_restore(nofs_flag);
-> }
-> 
-> #1
-> iomap_finish_ioends()
->   iomap_finish_ioend_buffered_write()
->     iomap_finish_folio_write()
->       folio_end_writeback()
-> 
-> 
-> On Mon, Sep 28, 2026 at 05:33:06PM +0530, Ojaswin Mujoo wrote:
-> > @@ -1185,6 +1186,384 @@ static bool iomap_write_end(struct iomap_iter *iter, size_t len, size_t copied,
-> >  	return __iomap_write_end(iter->inode, pos, len, copied, folio);
-> >  }
-> >  
-> > +static ssize_t iomap_writethrough_complete(struct iomap_writethrough_ctx *wt_ctx)
-> > +{
-> > +	struct kiocb *iocb	= wt_ctx->iocb;
-> > +	struct inode *inode	= wt_ctx->inode;
-> > +	ssize_t ret		= wt_ctx->error;
-> > +
-> > +	if (wt_ctx->end_io) {
-> > +		int err = wt_ctx->end_io(wt_ctx, wt_ctx->written,
-> > +					 wt_ctx->error,
-> > +					 wt_ctx->flags);
-> > +		if (err)
-> > +			ret = err;
-> > +	}
-> > +
-> 
-> <snip>
-> 
-> > +static void iomap_writethrough_bio_end_io(struct bio *bio)
-> > +{
-> > +	struct iomap_writethrough_ctx *wt_ctx = bio->bi_private;
-> > +	struct folio_iter fi;
-> > +
-> > +	if (bio->bi_status)
-> > +		cmpxchg(&wt_ctx->error, 0,
-> > +			blk_status_to_errno(bio->bi_status));
-> > +	bio_for_each_folio_all(fi, bio)
-> > +		folio_end_writeback(fi.folio);
-> > +
-> > +	bio_put(bio);
-> > +	if (atomic_dec_and_test(&wt_ctx->ref))
-> > +		iomap_writethrough_done(wt_ctx);
-> > +}
-> > +
-> 
-> But in the writethrough patches, we first end the writeback on the folio
-> and then call xfs_dio_write_end_io(), which converts unwritten or CoW
-> extents.
-> 
-> Is there a race possible as we are doing the other way? What if folios
-> are reclaimed between ending the writeback and conversion? A new read in
-> that area will return zero filled folios as XFS still sees IOMAP_UNWRITTEN?
-> 
-> I don't have a reproducer, but my hunch says we can run into this if we
-> have a lot of AIO as the end_io will be run via a workqueue?
-> 
-> Do we do something similar to buffered IO where we do
-> folio_end_writeback after extents conversion?
+Hi,
 
-Hey Pankaj, thanks for pointing this out. I agree that this can open up
-some races like you mentioned. I believe the right things will be to
-have an buffered endio like flow however we will need to store the
-folios somewhere till the whole conversion is done, like buffered endio
-does in struct ioend->io_bio. Hmm I think it would be ideal if we could
-somehow reuse some of the logic there. I'll see if its possible.
+>On 10/16/2026 11:21 AM, Wentao Guan wrote:
+>> Hi,
+>> 
+>>> Since commit 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active
+>>> mode on shared memory systems"), shmem_init_perf() programs
+>>> AUTONOMOUS_SELECTION_ENABLE unconditionally, including in active mode.
+>>>
+>>> Platforms that exclusively support autonomous selection report this field
+>>> as an Integer of 1, as required by the ACPI specification, instead of as a
+>>> register descriptor.  cppc_get_reg_val() reads such a field back
+>>> successfully, but cppc_set_reg_val() rejects the write with -EOPNOTSUPP
+>>> because the entry is not an ACPI_TYPE_BUFFER.
+>>>
+>>> shmem_init_perf() propagates that error, so every amd_pstate_epp_cpu_init()
+>>> fails, cpufreq_register_driver() ends up with an empty policy list and
+>>> returns -ENODEV, and amd-pstate refuses to load at all:
+>>>
+>>>   amd_pstate: failed to set auto_sel, ret: -95
+>>>   amd_pstate: Failed to initialize CPU 0: -95
+>>>   ...
+>>>   amd_pstate: failed to register with return -19
+>>>
+>>> Skip the write when the register already holds the value the requested mode
+>>> needs.  Active and guided mode are fixed on these platforms, which report
+>>> auto_sel as 1, while passive mode still fails to load on a platform that
+>>> cannot disable autonomous selection, exactly as it did before the
+>>> offending commit.
+>>>
+>>> Fixes: 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active mode on shared memory systems")
+>>> Cc: stable@vger.kernel.org
+>>> Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+>>> Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+>>> Tested-by: LFRon <ronforever@outlook.com>
+>>> Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+>>> ---
+>>> changelog v3:
+>>> Include the K Prateek Nayak reviews to remove that ternary op base on current
+>>> condition now have.
+>>>
+>>> v2 link:
+>>> https://lore.kernel.org/stable/c3eb86bd-70a6-4bb2-8eff-b2a3c0817514@amd.com/#R
+>>> changelog v2:
+>>> Accecpt and tested the K Prateek Nayak reviews.
+>>> v1 link:
+>>> https://lore.kernel.org/stable/20260918054808.48999-1-guanwentao@uniontech.com/#R
+>>> ---
+>>> ---
+>>> drivers/cpufreq/amd-pstate.c | 6 ++++--
+>>> 1 file changed, 4 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
+>>> index 80d99ba1902c9..2d1f5292d1738 100644
+>>> --- a/drivers/cpufreq/amd-pstate.c
+>>> +++ b/drivers/cpufreq/amd-pstate.c
+>>> @@ -532,8 +532,10 @@ static int shmem_init_perf(struct amd_cpudata *cpudata)
+>>>  		return 0;
+>>>  	}
+>>>
+>>> -	ret = cppc_set_auto_sel(cpudata->cpu,
+>>> -			(cppc_state == AMD_PSTATE_PASSIVE) ? 0 : 1);
+>>> +	if ((cppc_state != AMD_PSTATE_PASSIVE) == auto_sel)
+>>> +		return 0;
+>>> +
+>>> +	ret = cppc_set_auto_sel(cpudata->cpu, !auto_sel);
+>>>
+>>>  	if (ret)
+>>>  		pr_warn("failed to set auto_sel, ret: %d\n", ret);
+>>> --
+>>> 2.30.2
+>> 
+>> Ping? Nearly a month passed, anything update?
+>
+>On a similar issue here
+>https://lore.kernel.org/all/851316da-2cfa-4a22-947c-1838532d05cf@amd.com/
+>Mario had recently pointed out that this might be a BIOS issue on
+>systems that may have MSR interface but running an old BIOS that does
+>not advertise the CPUID bit.
+Seem same issue.
 
-Thanks,
-ojaswin
+>
+>Could you please share your system details here and check if you are
+>running the latest BIOS from your vendor?
 
+Emmm, the user report that dmesg showed running on this laptop:
+DMI: METAPHYUNI MetamechBook01/MetamechBook01, BIOS AHP958_V00.01_T015A5ME1 02/22/2024
+which vendor not ship new BIOS,
+but it is verified in AMD Advantage: https://www.amd.com/en/gaming/laptops/advantage-premium.html ...
 
-> 
-> --
-> Pankaj
+He also helped me to test the kernel patch.
+
+BRs
+Wentao Guan
