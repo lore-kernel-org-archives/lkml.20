@@ -1,120 +1,227 @@
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79615349B9;
-	Fri, 16 Oct 2026 17:46:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F1C58B6DF
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:47:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792172806; cv=none; b=sd3BxHtCNIgv5ILcXHE9J+iFvSDpJ/zW0OpMQWbXKftX67PG8zEouSoJLHrPA4Jm3czvmURuWPbg1SWLkV9tkZreAeQwCAcETB4P/cuhLbly/Y3gG7tKzX/cbMnR30bI8HPSIBET7aq1hdblPNxIqJvJ2ADIvWKR7VVEXZtBqSQ=
+	t=1792172849; cv=none; b=HQZblUoQ5BfxuH9kte7W9DaGQn5fZ6jxgUOsMSNTx8CLdMpNJxLmPU0Na3g77gtBml3C71K1PI3I/vwdN3k+d7WmC5D3NVWamV31EiClFcthYNbqePyAD8bdOQyk4TF0lVXDR8PKZltyzI7cifgjXUsaYmhURm+9e0FvD76IK0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792172806; c=relaxed/simple;
-	bh=0z7gbRgtBsopxA/ZvBEPCz2t4y69N+IITVEs/sZePXk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iGIoN7P6WT51Ch8M62OASbMM7E3HthhdidBwgQJadOPFUQG1U423D5oieqr92cosX7kZg8jHiQgyKrcq9emFTjWzja01T8EvPHh+5+jHKis67IAukyLSru57W+tFBmBWTHN6y2MS7sCFKs8RtxduYU5EFh2ARo3rrA3T9qDjqH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=D/7AEwIH; arc=none smtp.client-ip=216.40.44.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1792172849; c=relaxed/simple;
+	bh=97wBu5DSvx9rNKNsfmvL4+FAQtdXKRZQZU6dewKD/Fs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lEb0DdGv+C6zxmZLnfQTsz7BAlJgkKELqiEvor/V7Uwg5SEuf+QMk6oqnfEu3+YSXlnnW8bVCvfgKKZKQMk781DWHzjbclE+FBWUqE+4z/FLpBmhhUFpLbqEYmx2mnwmIqqpqM0JbNNFboe0RCP/zZhQ7RX/13CInEMnm9Xwd6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hhbOPgMx; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="D/7AEwIH"
-Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay08.hostedemail.com (Postfix) with ESMTP id 866BC1404D4;
-	Fri, 16 Oct 2026 17:46:36 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 15A9F2002D;
-	Fri, 16 Oct 2026 17:46:34 +0000 (UTC)
-Date: Fri, 16 Oct 2026 13:46:32 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, Bill
- Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- llvm@lists.linux.dev, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, Arnd
- Bergmann <arnd@arndb.de>
-Subject: Re: `likely` not applied with Clang and
- `CONFIG_TRACE_BRANCH_PROFILING`
-Message-ID: <20261016134632.19a83a57@gandalf.local.home>
-In-Reply-To: <20261016171242.125850-1-ojeda@kernel.org>
-References: <20261016171242.125850-1-ojeda@kernel.org>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hhbOPgMx"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cd632f7a4a1so146680a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:47:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792172846; x=1792777646; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sKoJikkf8KNTjGtZcVhqWM6F5oLRE7WWybC2K+96Qrw=;
+        b=hhbOPgMxhZS7VrDRLmJFo+kPRJ4yM3NsdRIwzQ4YYdbfwNj2mHr/UUPsO1bo3E1zYc
+         KMLg/gCoUIhShTF1jf3V5z+JtD2QheHOba/OwrgnGbe7DScGAm/mkfTyAZLIfi52kz4D
+         Wwjht22FzWymYmMNnnTYdfG1ylLntJ1HeZC3soH1Kql7+u46sr8O+1zQTm1bnkx/Plqz
+         bEqNGRwy8bnCir1V6EkZKAFc0Ex6NaRvOBu/5mjTdT7Ssm/frNLbyJMNEG49xS7uv77X
+         HPB4qHIKrXTI6SA2BfQnnv64Gdzwnq99kJOFnUWTK7RwQpKP78wxTEm2UBCQc9P7GSMG
+         532A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792172846; x=1792777646;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sKoJikkf8KNTjGtZcVhqWM6F5oLRE7WWybC2K+96Qrw=;
+        b=OA/7wsl0CykwpgQr5tbrTAf60GCmrM2+Ce4mLq8L2GsLpqemo95Ue7MUT6AfWrGrR5
+         FNM5TjierwShIB1Gx2SlDvslhx0T7gKN34RSQINAGSVv3OmtazciHgkZlFMKAKJYdy/k
+         djc409xTT34xF38ea3t58jM1f1Q4y5OC7vif3wd1zceS3hqxXzWQwY9rqm7slTjoQ4Ro
+         PgPH3DNB14ByF7f67Bc+l0qU0AI2J9qpsQQVo3QnCY9Jsz0hQsxY+Re0AIXsZkG6ROkr
+         LTb138UOTUFv4BcJf3B0hoqNVx9v7POxH1dPXpUnaxsl2mmPTh/pIhI7L6cdlyHU6g1A
+         3Phw==
+X-Forwarded-Encrypted: i=1; AKwUvByMLnCOfiYRfmDuuz1CYGa0ZfGuHV/1hhJQvwDqvX5ORXwB5oBa7vjXTIVoKtl7s5GMQ9ZnyDUP6+1ivFs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsTwsoPcFpR9jmBATMm5Q5jl6PLyZWqmrPXHdugFYIIqk1Pm34
+	JQLTWFRKAxrobuwWR4xbVQ6e/7zGU8Z/zUFLoTT0lYaL1DtxEamjulDb
+X-Gm-Gg: AYBFou1iwR9RoDAPnxiAA4hsYWKSlVFTwymUtWoYp+LsokZbumCwOOyTXWrGqe+FRVY
+	O+i6fCwHanmCeuuQRfkz+ne4hVEvSsAmboZhEtSnEDatRsUBWIDk+G8qbPu0xWDBrIqyrarzHEo
+	8vbNOQ2M4NNzPvCXeWVMTZil0SY7W1+0YNhiMqjbych0EExFf0kIcu15rP8W5RUGbHZDusg6Ks/
+	xcXWjW5GZT5owdAAyr+wZQI/VAdmegJo/MwEqIGa15e/5LRffI81E+scwuIF/JINRn6XnhRcHVd
+	9c94avBM+sN6eWOwLcG+10OY3swnYZoEVquQokdACBRGaFRSgW0o9g7E0pZrzopMeFHFVKDa6a3
+	5DERVtTlFnxhOBGLe/9siqH89hjkhjMJG0kkPiW/HP8c9m8vbVrIZgtCZUf2yF+D9+7nkLW7xBy
+	0PdWDUlY+NaV8RC/+4HWCN4drVhpZPAoZVbV0e04Jgk9+PblePuA03RHSMpKHXbylOySRnYSRy8
+	Tx0C750GrMkWbTzjJdqQ+aTpdZIeKbYvdvKlkUrm+7nlecJGw==
+X-Received: by 2002:a17:90b:39a4:b0:3a7:a463:54c2 with SMTP id 98e67ed59e1d1-3acef1458ffmr468430a91.35.1792172846326;
+        Fri, 16 Oct 2026 10:47:26 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549c5621sm1555161a12.17.2026.10.16.10.47.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 10:47:25 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <e0d4d61b-6cc9-4395-91a4-d8c10c9aa1ab@roeck-us.net>
+Date: Fri, 16 Oct 2026 10:47:23 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] usb: xhci-pci: Add AMD 600 series to xhci-pci-prom21
+To: Mirko Jechow <mirko.jechow@gmx.de>,
+ Mathias Nyman <mathias.nyman@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stephen Horvath <linux@stevetech.au>,
+ stable@vger.kernel.org, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ Jihong Min <hurryman2212@gmail.com>
+References: <20261004002731.49927-1-mirko.jechow@gmx.de>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261004002731.49927-1-mirko.jechow@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout06
-X-Stat-Signature: u5ggbtuphin64xssgmd7y7cgras8y71p
-X-Rspamd-Queue-Id: 15A9F2002D
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/XzgODTCy+brdlO9f4JxWp9YdQ/TG8BXA=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=EvBP1IKRFZ6OUvYy1f1JdTFPpt2YXPTSNCIvlWythdQ=; b=D/7AEwIHdXCiCR8Jdt3/8N7TuG0fsWA9AL9ofnS2wRuhx1wuGnHFdnrsGqlIBhmLZiPI1uJg6sL5KxaUvo8g/C9tBAmhlt76fJ/cWhSHxPcm9xQmFP7MNyh4ngAsBistoFygOxYxa5tQvKg/LsCOjiLM3JxHZj1dIGK7smDod84=
-X-HE-Tag: 1792172794-501495
-X-HE-Meta: U2FsdGVkX18ws57O0OzVVJspFclHNomxlPALw5Evzc3WfAGkBqwwaocy/4G8lmYFNer9wvqTNm5/XG58WzieJ/OZ8MsSedlLGnNiEeGcrL/4VV3AH8GYEF03CptoL8Dg10A5eon8b1DHxaX4QHPAKwOC/qX7XlOPo2vSRdRQll5Wh03zZpSInWD6XlGbVZkMCdo7v2PWe2khPDEILeL//7MceEq+6pnad5XKZRubMcFqZhyXTyTLF6Sm8RH0ACCvSEybK+MrnGHZH9LxgDJ45rYwb/NWelssAiBilF8oCNMgIi3diulCHDBR/6z1gV8zKhyQUZCdIrjjGKA+/7K07jHPYKIGhD8ieHgq90psnDneG+p51LNn2J18iRckErmkSInba0gM+tsZEmRFw6vA6g==
 
-On Fri, 16 Oct 2026 19:12:42 +0200
-Miguel Ojeda <ojeda@kernel.org> wrote:
+On 10/3/26 17:27, Mirko Jechow wrote:
+> From: Stephen Horvath <linux@stevetech.au>
+> 
+> It seems the xhci-pci-prom21 module only has IDs for the 800 series
+> chipsets. However, the 600 series chipsets also have Promontory 21
+> chips, so we should add their IDs to the list as well.
+> 
+> I have tested this on my X670 board featuring DID `0x43f7`.
+> 
+> `1022:43f7` also appears on the PCI ID database
+> (https://pci-ids.ucw.cz/read/PC/1022/43f7).
+> Device IDs `0x43f9` (B665) & `0x43fa` (A620) were suggested by Shyam.
+> 
+> Also list the new IDs in Documentation/hwmon/prom21-xhci.rst.
+> 
+> Cc: stable@vger.kernel.org # 7.2.x
+> Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+> Cc: Jihong Min <hurryman2212@gmail.com>
+> Signed-off-by: Stephen Horvath <linux@stevetech.au>
+> Tested-by: Mirko Jechow <mirko.jechow@gmx.de>
+> [mirko.jechow@gmx.de: add new IDs to prom21-xhci.rst]
+> Signed-off-by: Mirko Jechow <mirko.jechow@gmx.de>
 
-> Hi Nathan, Steve, Masami, Arnd, all,
+Acked-by: Guenter Roeck <linux@roeck-us.net>
 
-Hi Miguel,
+> ---
+> Changes in v3:
+> - List the new IDs on the PCI IDs line of Documentation/hwmon/prom21-xhci.rst
+>    (requested by Jihong Min)
+> - Picked up from Stephen; v2 had no follow-up since 2026-08-23
+> - Link to v2: https://patch.msgid.link/20260820-xhci-pci-prom21-v2-1-638e5958fbbf@stevetech.au
+> ---
+>   Documentation/hwmon/prom21-xhci.rst | 2 +-
+>   drivers/usb/host/xhci-pci-prom21.c  | 3 +++
+>   drivers/usb/host/xhci-pci.c         | 3 +++
+>   drivers/usb/host/xhci-pci.h         | 3 +++
+>   4 files changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/hwmon/prom21-xhci.rst b/Documentation/hwmon/prom21-xhci.rst
+> index 7984fb187bd8a..6c0b6e7368921 100644
+> --- a/Documentation/hwmon/prom21-xhci.rst
+> +++ b/Documentation/hwmon/prom21-xhci.rst
+> @@ -9,7 +9,7 @@ Supported chips:
+>   
+>       Prefix: 'prom21_xhci'
+>   
+> -    PCI IDs: 1022:43fc, 1022:43fd
+> +    PCI IDs: 1022:43f7, 1022:43f9, 1022:43fa, 1022:43fc, 1022:43fd
+>   
+>   Author:
+>   
+> diff --git a/drivers/usb/host/xhci-pci-prom21.c b/drivers/usb/host/xhci-pci-prom21.c
+> index 6486f4a093455..5f088a47d79f3 100644
+> --- a/drivers/usb/host/xhci-pci-prom21.c
+> +++ b/drivers/usb/host/xhci-pci-prom21.c
+> @@ -111,6 +111,9 @@ static void prom21_xhci_remove(struct pci_dev *dev)
+>   }
+>   
+>   static const struct pci_device_id pci_ids[] = {
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7) },
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9) },
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA) },
+>   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC) },
+>   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD) },
+>   	{ /* end: all zeroes */ }
+> diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
+> index a8889081ae824..b407676808fca 100644
+> --- a/drivers/usb/host/xhci-pci.c
+> +++ b/drivers/usb/host/xhci-pci.c
+> @@ -701,6 +701,9 @@ static const struct pci_device_id pci_ids_renesas[] = {
+>   
+>   /* handled by xhci-pci-prom21 if enabled */
+>   static const struct pci_device_id pci_ids_prom21[] = {
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7) },
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9) },
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA) },
+>   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC) },
+>   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD) },
+>   	{ /* end: all zeroes */ }
+> diff --git a/drivers/usb/host/xhci-pci.h b/drivers/usb/host/xhci-pci.h
+> index 11f435f94322a..533efc7db8012 100644
+> --- a/drivers/usb/host/xhci-pci.h
+> +++ b/drivers/usb/host/xhci-pci.h
+> @@ -4,6 +4,9 @@
+>   #ifndef XHCI_PCI_H
+>   #define XHCI_PCI_H
+>   
+> +#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7	0x43f7
+> +#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9	0x43f9
+> +#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA	0x43fa
+>   #define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC	0x43fc
+>   #define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD	0x43fd
+>   
+> 
+> base-commit: 639df5d23876a548b86fe6526bed8b97edf64d96
 
-> 
-> I was updating my old patch to add `likely()` and friends to the Rust
-> side of the kernel [1] and I noticed something odd when comparing with
-> the C side with Clang:
-> 
->   https://godbolt.org/z/6Kendxzzd
-> 
-> Under `CONFIG_TRACE_BRANCH_PROFILING`, the way we use `__builtin_expect`
-> with a temporary variable makes Clang ignore the hint (GCC is fine).
-> 
-> So essentially:
-> 
->     #define likely(x)   __builtin_expect(!!(x), 1)
->     #define unlikely(x) __builtin_expect(!!(x), 0)
-> 
-> is fine for both compilers, but:
-> 
->     #define __branch_check__(x, expect, is_constant) ({ \
->         long ______r; \
->         ...
->         ______r = __builtin_expect(!!(x), expect); \
->         ...
->         ______r; \
->     })
-> 
->     #define likely(x)   (__branch_check__(x, 1, __builtin_constant_p(x)))
->     #define unlikely(x) (__branch_check__(x, 0, __builtin_constant_p(x)))
-> 
-> is not. Now, if we do move the `__builtin_expect` outside like:
-> 
->     #define __branch_check__(x, expect, is_constant) ({ \
->         long ______r; \
->         ...
->         ______r = !!(x); \
->         ...
->         ______r; \
->     })
-> 
->     #define likely(x)   __builtin_expect(__branch_check__(x, 1, __builtin_constant_p(x)), 1)
->     #define unlikely(x) __builtin_expect(__branch_check__(x, 0, __builtin_constant_p(x)), 0)
-> 
-> then it works with Clang again.
-> 
-> Asking an LLM to sample a few object files to see the effect, it does
-> seem like it works as expected, e.g. `kernel/signal.o` goes from 1 to
-> 125 branches carrying weights and 39 of its 355 functions change codegen
-> (675 of ~3800 across the dozen objects sampled).
-> 
-> It doesn't mean it is better of course -- I didn't benchmark it, but it
-> means it is passing the information to the compiler that we expected.
-> 
-
-If it works, I'm fine with changing it. The branch profile is *not* optimized ;-)
-
-Hmm, which reminds me, I'll be enabling it again on my server to see where
-things are wrong soon.
-
--- Steve
