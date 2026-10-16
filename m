@@ -1,174 +1,363 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FA8455198
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141756; cv=none; b=T9n4/qEtpg16vQ4IA4ae3o24FGIa0lqlQ0/GngBCDcsV+cgs/iyDHbqdypPWcijeMTX5HtNG5R0UcPZvSeW+wiCHfZe6VM5vRtNjjjTtLQggfM5hdwMuq0lzY+AGFtVoD9rEV1IB7ueVVg14aWXWYDTaAM6QxhbmizcVvRJfx+s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141756; c=relaxed/simple;
-	bh=lyvoeq0e8iebXlLsQyQOWuo6au41u9pWEqiAdJIh9Ec=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qNSLT4//Cz+1X9KBDwrrIKTfICprG230nahw9EftzjQnFJlFaFdDp1jUlSzzLSc43W0vZlcYm39bDBw2clTGe0NWsU07Y+PVwk3p/PSNwbPV0D+rsErTTFTTQEUaNaGxYUse3D7bf764tWVNNDoIRe6xFnRzETiOyyIeVPu2E+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ARk50zr6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LUyQfzVP; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C99E3BADBC;
+	Fri, 16 Oct 2026 09:09:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792141763; cv=pass; b=Qc6dp4G7MYjzRVq5n3w0WvK7a+aBMszdVempaL0dw+MjNhKNBBO8ig1INtQq7M8SMnbBi8aP+Z+9vajV/1J3OwqcGTH9EJtiN70xKhT6a+lpS79EPLjlY+TnboG5gO4yOwJlSvfMg7T+P+400OxONjESu3hjqBAj32M5Fcx6EsE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792141763; c=relaxed/simple;
+	bh=UgXnxwCLGuvqZOSsU4fy+wfie1bi2sWpkIg2c8gWxmo=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=JfuY7C8ojXrLt0jUaXt5WmLRU1MV6nFoSEm4lurr3DuQW1yuvzmLEoF87M/pyNdWDNKWdSJm1MCcyBV6eZlAWJPEmhq05afXngXlfXfvpJwjM1Tt+EjtkZ2cSTy8jIBgDrrfznvpJQLz3LTyjxqEyVPYbszKRDjOV3NqhrH3ots=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=SNfZkt1Q; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ARk50zr6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LUyQfzVP"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G8lHTY1797611
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:09:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	I2Y61SbarNC1NRnPllqbF3Qp+uuYMSjYKhtAVsLZu3E=; b=ARk50zr6m3Ulzobk
-	Fy8URqJ1oVGMLtdbHqnYnRv84JSNMxzau0MmfzbOAkygZW9vRUd+AscGgJBO8bQl
-	+2ci70X87BY2ea2bxh9Y8ThaXS06+7xA4x0zuTlJtJBLfA17NeILaC6JokLq3AYg
-	cSKedk95t2G92JDJsOMPIstIA8C3eSfhLbAEXgUDbsHrPdu/klGgnElkogCh6JD+
-	CSM8Dd+99XGmrxq5Uitk9tvNE9e4MNauCm6Fy3Uy3a8EtNAbga9TirOKGc3r0CnT
-	viQM9o/NbaO1NWYSP+kMXEsIU2fYfa8GiA459iIgtsqrAGONl3NfvBF32zrlXZwr
-	5bMp0g==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb8a89v6t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:09:14 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f1f1f2ecfso3829785a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:09:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792141754; x=1792746554; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I2Y61SbarNC1NRnPllqbF3Qp+uuYMSjYKhtAVsLZu3E=;
-        b=LUyQfzVPtGv3ppfb8aG8Z7hn+n4EnQ1w7ZTIH5uLTBlz5+HA72azVtSt3jH0RxAdui
-         LkmkE0ec333Xd2YbGF6JZSsJ21SpoIKQkI1Q3G+58h+6fyNTaHgy81F1D1g7O/2MhyGX
-         fWF0H146Pgc1y3HUCYHSHQOwCMofUBPJZ1KHx0wLRryclC6cGL9LvUI1kmeCD964VoXB
-         mcuY7X8KSTwJhSHUhMiV8Cw6D8JjgQXAWF5G9dA4L9QX/PUQjk3rHPpXj5/IxeG+hJEN
-         wafFMgAL66qocLx/0cue9VQdGDfCZvMeayW0UnmZy7znTgklF5rw+jRQKwFzuAECY4Jd
-         qhag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792141754; x=1792746554;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I2Y61SbarNC1NRnPllqbF3Qp+uuYMSjYKhtAVsLZu3E=;
-        b=mzdKA7eo+si10As7I//JjuZXTpTbSOHM+wKWS75ykuB+pw7Zk2X/vDLPfoGtDRnWOj
-         y/Prhq33spbT6WZYrZS/z8opEXExexpSxRQPNZmJD1CE7tQRK7xJaHmMKAtBZ7YNQgUh
-         qiUWsbQA0/ZudO2z6IIIbvcUnw2Fe7F/1GGoN46zWQjf/enU91QTyiH07DxoyQH/OEFO
-         E+IYLBWrNTD6wEpUp3071Cxk5NQC65HmOqQQUv+mFvzjQ3bTEV9CuOSQB4nbmO2t5VCl
-         vast38ZxMGHsVSYo4IUvWFDIMo/KMoBGFBf5vp7AtPKtv6yd3bqsKkWdShO0yFMX8XHn
-         t6iQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx518159CGtsJCUCV5+RgSCstCmt5JsVS2dpRMoxLCjuioNUyedaA/DAc1ULCTbH0zVNbvNcMool8aylS4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3woV+q7eXpUlQtK9D98xByvULZLB1RYtMilBfVZ/TN5s336zF
-	9KWo2EVnmUtWWP+n0O41gUAKHcfb9Dlmdoe1YUnrgB36bfpL1/1b0IsTj+Z9+XdHxVNPZxsdjHL
-	n57HR50ViHObs9nJAz5GwFvKohvjkMWPGghlqpUPELqUYdyecLi9UmBA/+P8iPqsAua0=
-X-Gm-Gg: AYBFou3kwYDcEV1g/yC8ikj6+LxbWeQ1sC9mLnidEF/LumAnMetg+I+YcjDM6fxYVYa
-	S0MO4OlSQFPy+HuBMHsnjiw97YDzHWspgUVnZcoZBFkQIzfq5Wjl7dxyRqF7VNOSWS9t3pbn7/T
-	XFbSu1/d9LUihcFiZA/voKkANZZ9LPI6kU7kCwG+uz3GCZP0D/M5osk9qa0C+WfsAv+rVH9x7fd
-	pypEM9ifqc/2OKSPXIMCXJAjV0kN8VmMrlLUZGHjfYeXdGJXg46Nr9+qH5ReKq2jI57wrD0mRqK
-	sz30w3zq01klBHMw0cWfCheGjAqBwnFvz8QH+ps0XtZyUPdWr8LjmJePCyGuKszgKo/A/Xe+Is4
-	Q7gbhLGF/nwvwlVx8i3RxIQ==
-X-Received: by 2002:a05:620a:6506:b0:93e:508b:7800 with SMTP id af79cd13be357-93ebcd29970mr3675061285a.0.1792141753512;
-        Fri, 16 Oct 2026 02:09:13 -0700 (PDT)
-X-Received: by 2002:a05:620a:6506:b0:93e:508b:7800 with SMTP id af79cd13be357-93ebcd29970mr3675052785a.0.1792141752034;
-        Fri, 16 Oct 2026 02:09:12 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4091eb256csm53638266b.78.2026.10.16.02.09.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 02:09:10 -0700 (PDT)
-Message-ID: <4faab1aa-18d1-44ec-8a3f-79d732f7d0b6@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 11:09:06 +0200
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="SNfZkt1Q"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0B35B20191D;
+	Fri, 16 Oct 2026 11:09:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792141758;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Gtp5NswhFEl4YgfVOTFchFoV/7fpLXSgI5GX6kOAYdE=;
+	b=SNfZkt1QfAc5uLr7EUQBfbpBaRcAbHw1Yuyt3twRw4YbszCy86yGQqxM3HvZHnboioXDqj
+	RHCtmkjRRcp+GQEc99Y0RZCfnMyzs2NwY1t6HpeGLu7wm/40t/RL8h1IHU7m5MrcwC28i1
+	kgTcDbP/ar8Av/fQmngr1kEOSfyY6U7OZd3nC8zrqXGZi1PSasfXFKpeTx6+Hw86syK7nH
+	Ge6xBpuBPqdBleK6TVR9i464/MQEeV5x8tdpLEwKIkxblwGntC9I20Cr5wkBsryBwAIYZ1
+	BqAkyEYnr6YXpUNAENetyZz9YsbPvZQSPxEaXpTfARrQVhqSESjC3YXa1GnqjQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792141758; a=rsa-sha256;
+	cv=none;
+	b=Pp66GAVX+QW8y0MtmdJzjRbQ4yxZjg84XqkiAH/MJ+a/4KB92SAXhEhvONfpNRxSON9vFK
+	3dDbSFnL7vRQ86SbKlItvIEhggrrBC5SzH8qR5y8mu/wqUAcGli0gxv1QLB7YSi06tyEeu
+	DDgSdR3nP8BlHho6ah2jNk5VMjIFywmEy5BBv2R3ot6Stv5tr1UYlETRfosrCRioMVS5mI
+	gzbjUkmqt0QErI/pqijRQ+6yZnXBzk58EBEBMedf5gemsdv6p/wYW87K8IoyVEDHWSfTSp
+	uHXsNS9cyQir0FziogMNvZi1I9OVacDPTPcyvz5DGq/APvDpq4zMD5ChmQzDKg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792141758;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Gtp5NswhFEl4YgfVOTFchFoV/7fpLXSgI5GX6kOAYdE=;
+	b=aZ7qeMtnQ1UusTO+62J7uEUX5csbh2ka8J3IOtkgFtmXtIdFxwTpUWIK0kVinOrL1ZFqjq
+	a+0/p83PZovGBsoekS0DKbOpK8d89lolwKQMICBF7epif9F+b0Cs9AgVs6y4V9ZgCIi3Ja
+	R7MHZAFRPdfl6RtM3HYqQ+KSa5hA5OfGGMSQPRVhBkWaN8LISMM5DuELxFvJ9IgHJsEajq
+	4YjeNrmx/tXjaVUd1NYxV8W+KOsP8X4hDYqP8UAWzfXRue7E0dhCfMiZspc/AZaoHH8pp3
+	N8b/5AqTdow+WACJUSlZ89bjoTCHlrV3sn7gvShjsEGpqMQox1cBtBRdXTHN0w==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xHdwD-0069xl-2z;
+	Fri, 16 Oct 2026 11:09:17 +0200
+Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id A130C5C5E94;
+	Fri, 16 Oct 2026 09:09:17 +0000 (UTC)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] arm64: dts: qcom: kaanapali-mtp: Enable
- DisplayPort over USB
-To: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>,
-        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
-        Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
-        Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261015-kaanapali_dp-v2-0-c15cb83d9140@oss.qualcomm.com>
- <20261015-kaanapali_dp-v2-5-c15cb83d9140@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261015-kaanapali_dp-v2-5-c15cb83d9140@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfX4AiFbKAxHnIF
- WeIskMQII/QEmv2Bd+vjR+4NJcDuIJQrTBLVSF6FdJerkw0iGQSS9yUWcFa75C8v+Q6D04VlnpE
- jAvcR5AbtQdZwMzDWfyFsSdiu6PG/0E=
-X-Proofpoint-ORIG-GUID: bE1z6EuD5GtHjbBTG7VSvVH8yaHLfEUB
-X-Authority-Analysis: v=2.4 cv=GJadgeNK c=1 sm=1 tr=0 ts=6ad1e9ba cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=8oCPm4Ec_qhLfyN9vMMA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfX+Jnc8qgQtq5D
- rG/WbCNUxvRDjq1AYYvI1MrKlBDf9M6pTP324/iPSaVn/Lh1whrogC8D3Q6+5sqGH00v4idFHig
- 6/hCJEcqsSOkwxprl8J+2vvWlfZ2jy9O4V47lFkQtoi6uUMARXHk0+UUqrPc7cdZzOvbtX5kPB4
- ivQCVVedGxmkSKoIltGnH+emLXWk50MCR9Hts8kRHAXjghoJ55P95MvIMryf2uu3kfpcmMI24VV
- NwAV0L8ap/8r/xd+r01e4GiGPlWJjwRN8BmVkfNqb38Jmq6tE6s6wVAerFaEJZHR9tFA6QZLNFP
- JaWd0Pir2aOzzuoi0NncMJVLxqRTG46ypDeZA9eB9G6K8Z6x7ecWsclnsDcHxBQDcODyRk0X4xn
- GxG5EKnI0CSpdxmhugDr+XrlkbyHN1odXBSxCx43uSWkNps1jUu/PgAQK3WoB2jGn0BHXg3UA/P
- 2idPzHXv+gzOwtTPUPA==
-X-Proofpoint-GUID: bE1z6EuD5GtHjbBTG7VSvVH8yaHLfEUB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- bulkscore=0 priorityscore=1501 phishscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160036
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] can: proc: reset pkg_stats atomics individually
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Oliver Hartkopp <socketcan@hartkopp.net>, 
+ Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn, stable@vger.kernel.org
+In-Reply-To: <20260512133937.21957-1-runyu.xiao@seu.edu.cn>
+References: <20260512133937.21957-1-runyu.xiao@seu.edu.cn>
+Date: Fri, 16 Oct 2026 11:09:14 +0200
+Message-Id: <179214175419.1231518.15412443291350448797.b4-reply@b4>
+X-Mailer: b4 0.17-dev-6be7c
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10686; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=UgXnxwCLGuvqZOSsU4fy+wfie1bi2sWpkIg2c8gWxmo=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsi6+HJX9pfp+/d8q1Lysur/0pR3wnkXF4uUYqzogWoWz
+ a3bMlvudpSyMIhxMciKKbIs/XFCUSDQobT3ZcIkmDmsTCBDGLg4BWAivusZGXbd9xdUVz2We7Jq
+ kZOIjxHvJOG5+4sTelPmvUj1PCg2s4+R4doDxtchi0/N3hL4aLJ7H8+V7L7LAgEzEpNlW+fu55J
+ OZgUA
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-On 10/15/26 11:54 AM, Balaji Kalkonda wrote:
-> Hook up DisplayPort parts over Type-C USB on MTP.
-> 
-> Signed-off-by: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/kaanapali-mtp.dts | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts b/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
-> index 22eeacd7aecd..3bf7baa2bc82 100644
-> --- a/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
-> +++ b/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
-> @@ -1017,6 +1017,14 @@ &mdss_dsi0_phy {
->  	status = "okay";
->  };
->  
-> +&mdss_dp0 {
+On 2026-05-12 21:39 +0800, Runyu Xiao wrote:
+> Commit 80b5f90158d1 ("can: statistics: use atomic access in hot path")
+> converted several members of struct can_pkg_stats to atomic_long_t and
+> updated the hot TX/RX and procfs read paths to use atomic_long_*()
+> helpers. However, can_init_stats() still clears the whole struct with
+> memset().
+>
+> can_init_stats() is reached from can_stat_update() in timer context and
+> also from the procfs reset path. Those paths can run while the TX/RX hot
+> paths are concurrently updating rx_frames, tx_frames, matches and their
+> *_delta counters. Hitting the whole-struct memset() in that window
+> performs plain writes to fields that otherwise follow an atomic_long_t
+> access contract, which can lose or mix live statistics updates.
+>
+> This issue was found by source-level API-misuse analysis looking for
+> whole-object resets left behind after atomic_long_t conversions, then
+> manually audited on Linux v6.18.21.
+>
+> Replace the whole-struct memset() with a helper that resets the
+> atomic_long_t counters via atomic_long_set() and clears the derived
+> scalar statistics explicitly. This preserves the existing reset
+> semantics for scalar fields while restoring atomic access discipline for
+> the live counters.
+>
+> Build-tested by compiling net/can/proc.o on x86_64 netdev/main.
+> Runtime-tested with a QEMU + vcan setup on Linux v6.18.21 by driving
+> concurrent traffic and reset_stats reads, which reproduced inconsistent
+> exported statistics before the fix.
+>
+> Fixes: 80b5f90158d1 ("can: statistics: use atomic access in hot path")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-Please keep the nodes ordered
+The netdev bot has found some issues, can you take care of them?
 
-Konrad
+regards,
+Marc
+
+--- Patch [4]: [PATCH net-next 04/37] can: proc: reset pkg_stats atomics individually ---
+commit efa392826f228e08df66ba3c5bf707d70092f478
+Author: Runyu Xiao <runyu.xiao@seu.edu.cn>
+
+can: proc: reset pkg_stats atomics individually
+
+This patch replaces the whole-struct memset() in can_init_stats() with a
+new helper, can_reset_pkg_stats(). The helper resets the atomic_long_t
+counters of struct can_pkg_stats with atomic_long_set() and clears the
+scalar derived statistics with plain stores.
+
+Link: https://patch.msgid.link/20260512133937.21957-1-runyu.xiao@seu.edu.cn
+
+> diff --git a/net/can/proc.c b/net/can/proc.c
+> index de4d05ae3459..64b3bdc2fa7e 100644
+> --- a/net/can/proc.c
+> +++ b/net/can/proc.c
+> @@ -76,16 +76,39 @@ static const char rx_list_name[][8] = {
+>   * af_can statistics stuff
+>   */
+>
+> +static void can_reset_pkg_stats(struct can_pkg_stats *pkg_stats)
+> +{
+> +	atomic_long_set(&pkg_stats->rx_frames, 0);
+> +	atomic_long_set(&pkg_stats->tx_frames, 0);
+> +	atomic_long_set(&pkg_stats->matches, 0);
+> +
+> +	pkg_stats->total_rx_rate = 0;
+> +	pkg_stats->total_tx_rate = 0;
+> +	pkg_stats->total_rx_match_ratio = 0;
+
+Discovered by: gpt-6-astra, opus-5-5, sonnet-5 · Missed by: sashiko-gemini · Called a false positive by: gpt-6-astra
+
+This isn't a bug introduced by this patch, but these scalar fields are
+still written with plain stores from timer softirq context. The writers
+are can_reset_pkg_stats(), can_init_stats() (for jiffies_init) and
+can_stat_update().
+
+Process context reads the same fields with plain loads, in
+can_stats_proc_show():
+
+	seq_printf(m, " %8ld %% total match ratio (RXMR)\n",
+			pkg_stats->total_rx_match_ratio);
+
+and in can_reset_stats_proc_show():
+
+	if (pkg_stats->jiffies_init != jiffies)
+
+Without READ_ONCE()/WRITE_ONCE() or data_race(), will KCSAN keep
+reporting data races on struct can_pkg_stats? The commit message limits
+its goal to "the live counters", so this is only an observation.
+
+> +
+> +	pkg_stats->current_rx_rate = 0;
+> +	pkg_stats->current_tx_rate = 0;
+> +	pkg_stats->current_rx_match_ratio = 0;
+> +
+> +	pkg_stats->max_rx_rate = 0;
+> +	pkg_stats->max_tx_rate = 0;
+> +	pkg_stats->max_rx_match_ratio = 0;
+> +
+> +	atomic_long_set(&pkg_stats->rx_frames_delta, 0);
+> +	atomic_long_set(&pkg_stats->tx_frames_delta, 0);
+> +	atomic_long_set(&pkg_stats->matches_delta, 0);
+> +}
+
+Discovered by: sashiko-gemini, opus-5-5 · Missed by: sonnet-5, gpt-6-astra · Confirmed by: opus-5-5 · Called a false positive by: gpt-6-astra
+This is a pre-existing issue. The commit message says plain writes in
+the reset path "can lose or mix live statistics updates", but the same
+kind of loss remains in the regular timer path after this patch.
+
+can_stat_update() runs once per second from the stats timer. It
+snapshots the delta counters at the top of the function, for example:
+
+	long rx_frames_delta = atomic_long_read(&pkg_stats->rx_frames_delta);
+
+It then derives current_tx_rate, current_rx_rate and
+current_rx_match_ratio from those locals. Only at the very end does it
+clear the counters:
+
+	atomic_long_set(&pkg_stats->rx_frames_delta, 0);
+
+While this runs, can_send() and can_receive() keep calling
+atomic_long_inc() on tx_frames_delta, rx_frames_delta and matches_delta
+from other CPUs. An increment that lands between the read and the set
+is lost. It is not in the snapshot used for this interval, and it is
+wiped before the next interval starts. Under load, the current_* rates
+and the current match ratio therefore undercount. The rx_frames,
+tx_frames and matches totals still count the frame.
+
+Switching can_reset_pkg_stats() from memset() to per-field
+atomic_long_set() avoids plain stores to the atomics. It does not turn
+the read and the clear in can_stat_update() into a single atomic step,
+so this window is unchanged by the patch.
+
+Would taking each snapshot with atomic_long_xchg() against 0 at the
+top of can_stat_update(), and dropping the trailing atomic_long_set()
+calls, close the window? Should that be folded into this fix, or sent
+as a separate patch?
+
+Discovered by: gpt-6-astra, opus-5-5 · Missed by: sonnet-5, sashiko-gemini · Called a false positive by: gpt-6-astra
+
+This is a pre-existing issue, but can_stat_update() reads the *_delta
+counters at the top and clears them at the bottom, after the
+calculations and any can_init_stats() calls:
+
+net/can/proc.c:can_stat_update() {
+	...
+	long rx_frames_delta = atomic_long_read(&pkg_stats->rx_frames_delta);
+	long tx_frames_delta = atomic_long_read(&pkg_stats->tx_frames_delta);
+	long matches_delta = atomic_long_read(&pkg_stats->matches_delta);
+	...
+	/* clear values for 'current rate' calculation */
+	atomic_long_set(&pkg_stats->tx_frames_delta, 0);
+	atomic_long_set(&pkg_stats->rx_frames_delta, 0);
+	atomic_long_set(&pkg_stats->matches_delta, 0);
+	...
+}
+
+Meanwhile can_send() and can_receive() call atomic_long_inc() on these
+deltas from other CPUs, for example:
+
+	atomic_long_inc(&pkg_stats->tx_frames_delta);
+
+Any increment between the snapshot and the clear is overwritten. It
+never shows up in current_tx_rate, current_rx_rate or
+current_rx_match_ratio, though the totals still count it.
+
+Would taking each snapshot with atomic_long_xchg(&delta, 0) close that
+window?
+
+> +
+>  static void can_init_stats(struct net *net)
+>  {
+
+[ ... ]
+
+> -	memset(pkg_stats, 0, sizeof(struct can_pkg_stats));
+> +	can_reset_pkg_stats(pkg_stats);
+
+Discovered by: gpt-6-astra, opus-5-5 · Missed by: sonnet-5, sashiko-gemini · Called a false positive by: gpt-6-astra
+
+This is a pre-existing issue, but this patch has Fixes: 80b5f90158d1.
+Should the reset in can_stat_update() be handled as well? That commit
+also changed can_stat_update() to snapshot the counters into locals
+before any of the can_init_stats() calls:
+
+net/can/proc.c:can_stat_update() {
+	long rx_frames = atomic_long_read(&pkg_stats->rx_frames);
+	long tx_frames = atomic_long_read(&pkg_stats->tx_frames);
+	long matches = atomic_long_read(&pkg_stats->matches);
+	...
+	/* restart counting in timer context on user request */
+	if (user_reset)
+		can_init_stats(net);
+	...
+	/* matches overflow - very improbable */
+	if (matches > (LONG_MAX / 100))
+		can_init_stats(net);
+
+	/* calc total values */
+	if (rx_frames)
+		pkg_stats->total_rx_match_ratio = (matches * 100) / rx_frames;
+	...
+}
+
+After can_init_stats() returns, the pre-reset locals are still used for
+total_rx_match_ratio, current_rx_match_ratio, current_tx_rate,
+current_rx_rate and the max_* fields. So the values that
+can_reset_pkg_stats() just cleared get refilled from pre-reset data.
+
+With the stats timer enabled (the default), can_reset_stats_proc_show()
+only sets user_reset = 1, so every user requested reset takes this path.
+If no more traffic arrives, total_rx_match_ratio and
+current_rx_match_ratio keep their pre-reset values indefinitely. They
+are only recomputed under if (rx_frames) and if (rx_frames_delta).
+
+The matches > (LONG_MAX / 100) guard is also defeated, because
+(matches * 100) is still computed from the stale copy after the reset.
+On 32-bit with HZ <= 100, rx_frames and matches can both pass
+LONG_MAX / 100 in the same tick. Can this multiplication then overflow a
+signed long and export a garbage ratio?
+
+Before 80b5f90158d1, these expressions read pkg_stats->... after
+can_init_stats() and so saw zeros. Given this, the commit message
+statement "This preserves the existing reset semantics for scalar
+fields" does not hold for the default timer-driven path.
+
+>  	pkg_stats->jiffies_init = jiffies;
+>
+>  	rcv_lists_stats->stats_reset++;
+
+Discovered by: gpt-6-astra, opus-5-5, sonnet-5 · Missed by: sashiko-gemini · Called a false positive by: gpt-6-astra
+
+This isn't a bug introduced by this patch, but user_reset is a single
+file-scope flag shared by every network namespace and accessed with
+plain loads and stores:
+
+static int user_reset;
+
+can_pernet_init() arms a separate can_stat_update() timer for each
+netns. A read of /proc/net/can/reset_stats in netns A sets the global
+flag. Whichever netns timer runs next resets its own stats and clears
+the flag here:
+
+	if (user_reset) {
+		user_reset = 0;
+		rcv_lists_stats->user_reset++;
+	}
+
+reset_stats is created with mode 0644. Can an unprivileged user in one
+netns therefore reset another namespace's statistics, including
+init_net's, while the reset requested for netns A never happens?
+
+Separately, with the stats timer disabled, two concurrent readers of
+reset_stats can both pass the check in can_reset_stats_proc_show():
+
+	if (pkg_stats->jiffies_init != jiffies)
+		can_init_stats(net);
+
+Could they then race on the plain stats_reset++ and user_reset++
+increments and on the user_reset test-and-clear?
+
+pw-bot: cr
+
+-- 
+Marc Kleine-Budde <mkl@pengutronix.de>
