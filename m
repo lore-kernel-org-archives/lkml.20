@@ -1,80 +1,77 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C51934AA013
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48BEF481241
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:13:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792156431; cv=none; b=MSXgFBGYniK28joulljXHCDBYPNO0MZkhbZ/E0Ps+hpHh4KFlExlKE5Gl/4cIrOSCvq3hzEiHR8PS+yvjUereK9qD5eWs7AEg3xTID6o7mQwHKg9zzMzSU7U8XR0TjI4M7qkGJYRLCgb8zopRvTpliweUMCPHJehU91GqJpLq5g=
+	t=1792156439; cv=none; b=FfimznI6Zp6tMrz+IdhqCUG9do68o0AfC5E11/q+12hX0rDXn16os+m06T24bijQOclqhDruFiTnDPUzXh5uVbAj5YTTtIm0tHJZaQDOUE+ooPoicbB5wNx33270rJSVOLyFHd+x6jX1uXj81bVZrKhC4LQhkeAYyx4Q20GyrfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792156431; c=relaxed/simple;
-	bh=L6pjBYO8pyfc74NKRJM+Aw+PuIzrtslIC2/PolNoslI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GpAuZUnd73cqOEc00TyA6qANmvRMyBkFFPq8ZqfPu7PlaUZEKbRX6kpyywtljA4twVct4+U6APxdvxLl94sCAU8HlhvG3oEB/u0/a6ahnZTrzbk5rGlEXUr1Yf646aw5P6Vw2buUmMQRPdxLVV/wUn4kAMQ7LxU4mh2MgpThh28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=a4ifBbNk; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1792156439; c=relaxed/simple;
+	bh=OtTFm0LSZUNZH63H0Uw8cqyMYSJbGUhZTDNmmpiEMWc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=XQ7+pIEysZkuEp0ap62LFG/vEfbChR3MF+gHdhAxCeGz5qsM8hDoy1xDvzBTyh9H9rLZkENh41d/M4DBgbXrhy//DAfRVYzNKECiv9FBghDoqIIhgcaB68HsVZ03/tftF7Jo7K6GUrbJJi7nC5ez7dvVWc5ezd1ew6wcS55GNbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SnL1/Ezd; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="a4ifBbNk"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cd633ef819bso1101920a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:13:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SnL1/Ezd"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1cef0439aso6028385e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:13:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1792156428; x=1792761228; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bq/LpBxXTW0ASsexzlAoQoBY+9bpCrcejtfW5Dqw6Do=;
-        b=a4ifBbNkAEawdS84V8nlEjf8ubgJBdwTaSPkF5gEhBuq/JeoDXIApGNsXddaW3Bgl1
-         KQxy/h9wWBmIz7iwPcYtLPREeUXpj/l20ICdsSYMni0oUgcCJ1JL8xDKv65TuRzi3eVT
-         UVKtbfbRkdKaIEZ2Vb+vaVoDk9806vENs95866h/qXQhrQr2eVBuPD5kvy0WN8z7VZ5q
-         CakBCNGHY3n+5OHY1vGND0NeLKBJksAjh/F39zVg0XlF8u90X59ADemQXjXbCz7q0Lcd
-         qBc8jDVSq0MYXMN7DpHKEVMox43kKGTj3AOvje0f+a3xIMX8BxDZG4Iuv1SkGl9RsmOZ
-         TJ+Q==
+        d=gmail.com; s=20251104; t=1792156436; x=1792761236; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HzgE9v7hmTq0+RYDnaatbRXXJ6uJY4tNBCa/XH5HTdk=;
+        b=SnL1/EzdYwpdGQRyMNjQPKL09cVuFfn1gnRhKjT2btpHlZJn35k+hOl3/bL8KuckEy
+         guqJauMRfF/cS7jzr/OYj+jpEMu7o24pQKUuSzF3489FKTxg4zSgoHwPG/HDszoVlSBL
+         cK6bme9ZBrDZwtdTZC7aDFvKHwqv4KbBrj8kLTy8ajLwVfE6397mSLd6Uvw8sEik4hcO
+         4Muo+VFXK618yYKD75eME9T3pVBQpABlMgwTslec6xP7zoipJUwEr4oKW8uTF9+t6Cjx
+         LJaCyn4dnyNZVLwCFSE+PXCFoUQlNEMkINSAL+mCJvYy8XR8Ej+UdAEacy0fEr7sjCRX
+         MXlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792156428; x=1792761228;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bq/LpBxXTW0ASsexzlAoQoBY+9bpCrcejtfW5Dqw6Do=;
-        b=qZutbjzHmfAkuI40K5cADQ7cg+e8wWSshMZDX66/Qt6H3wom6y/x+jgfWHVoMpo0a6
-         UwRFbJwfk5Fxvzq8/4CDw8MDoGgEqk6X6sdIbnVAFYsxOsY+9B9+mSjSpjRbXsyP+7T9
-         2iSOPlGZ9bQlJzIIlUZrmxCpKW3gX0D7oZBXm9hi09JPnh5MUU0maxPF2YDP7DIwfB7y
-         7GEV99EQqQJKSPz4FqEbvJoTsvUDMO+xSbnwB4cbLsz/nxtV6ve2oPAn386sWfPmGrSL
-         alUjEKrHuh2KB7wRp1aIIbAw4ccapVrCGGS/TnpcK9K93c5u6Ey1MtVLaB5qzfZJa0yK
-         kzQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy5RcKWTphRWNHIvKD4fOReTHzWidHocxdlVD48r8p1nYOi8SQB8k3/qqt7aEfIoh7+tDh2j9L0Gxzt/B8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJli+tAlojjkypjBLX/XfGc2AokZd/O7cZXgugfYRA1zMWzHAyJ
-	YGMPOZzInUARGN4XN7Wwoedc3SN2ijVTguwVfDrnFzNuh47bZnHgAEYczC8W1eTyXFc=
-X-Gm-Gg: AYBFou1xOvM5bX/RMQudwe/7t8bAQ1aNNr3cqz9uFCax1XJB5peuFdOLzlgJg3pCjLx
-	qgetJ5SIQNhW1GUpVOVd7JQwtus43ulOFWwKwQnxrlKUU8zm4/qiA53wY4emS0AC9kwRJXo+GJB
-	ltuv0Eh1DsJ16NFq/4iacrmJba593tsmENkek/4qOKjKKddMtXlYXUrbxGcOXUloKzsEUn4FHge
-	dc8bvRJZkg1xgUABWFPO25Zo5pGh8SDH71HgE4YS9PmLUF/A/rusZlhKhv8ixk7z19pe3ccB0le
-	TOckW5CA8jyEDIdYeN6ekCNLhWxgij8serlLDNwLJ7Cl04Wsr4hfDYdZAswfVkf5ykeJ8/2MalG
-	w18Fb4nOlZK82BzvE5dFR7AvcfDfK/fk52+nrdrkE1hc+iMIuaJvfH6W/fGZun231dJPYzYTgBc
-	b4GZRJ4lMsIx8mmCV99BKDlACBfrAI+gZ8gHYkJrI34XLbvre+8p2C0O2bUCLy4KDiH9ZXu2/fv
-	Xl2yuRhrEG4QDInpAg=
-X-Received: by 2002:a17:90b:134e:b0:3ac:9259:122c with SMTP id 98e67ed59e1d1-3ac9259151cmr5507879a91.40.1792156427018;
-        Fri, 16 Oct 2026 06:13:47 -0700 (PDT)
-Received: from n232-176-004.byted.org ([36.110.163.98])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc487cccdsm4240433a91.8.2026.10.16.06.13.41
+        d=1e100.net; s=20260707; t=1792156436; x=1792761236;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HzgE9v7hmTq0+RYDnaatbRXXJ6uJY4tNBCa/XH5HTdk=;
+        b=Bf/KkpD28+uPyzo7XCdKndzf+ADBLqp3my+paZCAFL1bBEiTjHzuBfkJjiAQiARyEI
+         vr9YoQSILMsryXULyjOeowp7G3akYuqKgReJLi8cHWrGlEziTGbmjo6Em7aqzWktLtGc
+         M1eCVxmMcQyzgUSdJqYv5m5wbGZBFQrUQd1QeiTt3u7mJGVis0L6PJ+a4RheJ7WPkG0k
+         ixod1UcxTyy+odJSgXemV2uP3iEnqDK97fpgXYeK8XMyrgxHuFbFHn9GZQaSyvB1ktXo
+         aeIPS2YAdOSzE1MJysbKeT4ZabzhUL0fCun7g0z4QUlcN3pFuUhN92+JZlsDqi1wZOit
+         vLUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwKdfQJvdX4H39OP61ZOMjgdXrHN7rCrBPvVWKDSPN0kk1iUm6OisTIkMR6T/HEhp3+Do+0oEMfE/bNSMs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzA0XGJ7ODHB2Guf4GeAq8sX44wiZYrbf9mvmRBo/tmNwqV5GW
+	iVDkZZcy9iT+y65yPhffwW+8ivYQ1K6mqppt+81hkoB3mN+sjTCflZfV
+X-Gm-Gg: AYBFou3bAsb0azkrzBzcWIjQwkPan/31Jmpcq49yWatqhX7ixgJ5EeO0keNJZlqScjr
+	vIzjgwYjQgcDMb/X92h1gJMh5EjSQtTT7bW2ONwsbjUTj0OQthgLiXPaCz4E6T3pq/fR7IHkdqY
+	DsGy/QRViTs5iyZBDQ0WUQoBULFIcIoYcHrOJvvsDSL0XBiaLU35OZ70XjaiNYioVPnu0dDcY7C
+	qX4ChkMg7pkFpDO8FplHwbIeO9dEa5ue58Av/yFavLfsZT+2z2oVz4kCpBFoVLv4HkEFfW+95gu
+	86dkr4M4NkrMlfx/l1qSH2Z2iiF80ID9UGt9x91pIkfMEzJpUjrXpGjUW+6GpMAz/djEnVl1r0g
+	qT34DI39b+sJQuK8NX7XhGd+NN000E76BEoYOwR7bU4oYHIvYMhq7yb0b8GTwIy8Bw8kx0IOFUH
+	7ftWQsUB7TwUMYhNo87MMpLvXTSX1VkQVxYZbpe2AQ5RjkxgOHonFarj/7gYDQEmdAF9PZgZo5u
+	8C8z6XOqHOkYCxFdXd/7L1THSAZGA==
+X-Received: by 2002:a05:600c:c165:b0:4a1:706f:b40d with SMTP id 5b1f17b1804b1-4a18e4988ecmr446677645e9.7.1792156436275;
+        Fri, 16 Oct 2026 06:13:56 -0700 (PDT)
+Received: from fedora ([154.183.128.82])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4c5942sm7983341f8f.16.2026.10.16.06.13.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 06:13:46 -0700 (PDT)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Mike Rapoport <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Dan Williams <djbw@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Joao Martins <joao.m.martins@oracle.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	linux-mm@kvack.org,
-	nvdimm@lists.linux.dev,
-	linux-cxl@vger.kernel.org,
+        Fri, 16 Oct 2026 06:13:55 -0700 (PDT)
+From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+To: jic23@kernel.org,
+	linux-iio@vger.kernel.org
+Cc: nuno.sa@analog.com,
+	Michael.Hennerich@analog.com,
+	dlechner@baylibre.com,
+	andy@kernel.org,
+	linux@analog.com,
 	linux-kernel@vger.kernel.org,
-	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH] mm: warn on unaligned compound zone device ranges
-Date: Fri, 16 Oct 2026 21:13:34 +0800
-Message-ID: <20261016131334.3419393-1-songmuchun@bytedance.com>
+	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>
+Subject: [PATCH v2] iio: adc: ad7606: use EXPORT_NS_GPL_SIMPLE_DEV_PM_OPS() and pm_sleep_ptr()
+Date: Fri, 16 Oct 2026 16:13:34 +0300
+Message-ID: <20261016131334.8029-1-abdelnasserhussein11@gmail.com>
 X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -82,41 +79,121 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A compound page of order N must start at a PFN aligned to 2^N pages.
-Therefore, a range used to initialize compound pages must start on a
-compound-page boundary and contain an integral number of compound pages.
+Replace SIMPLE_DEV_PM_OPS() with EXPORT_NS_GPL_SIMPLE_DEV_PM_OPS()
+and use pm_sleep_ptr() to wire up the power management operations.
 
-Two recent Device DAX bugs were caused by ranges that violated this
-invariant, but neither was detected by memmap_init_zone_device().
+This allows dropping the #ifdef CONFIG_PM_SLEEP guards, simplifying the
+code and improving compile test coverage of the suspend/resume callbacks
+while still allowing the compiler to optimize them out when
+CONFIG_PM_SLEEP is disabled.
 
-Warn if the adjusted zone-device range violates this invariant so future
-violations are reported when the compound pages are initialized.
-
-Link: https://lore.kernel.org/r/20261016053944.2579541-1-songmuchun@bytedance.com
-Link: https://lore.kernel.org/r/20261016054914.2601510-1-songmuchun@bytedance.com
-Assisted-by: LLM
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
 ---
- mm/mm_init.c | 2 ++
- 1 file changed, 2 insertions(+)
+Changes in v2:
+- Put EXPORT_NS_GPL_SIMPLE_DEV_PM_OPS() on a single line.
 
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index 4c17a892924d..01ced0553ce9 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -1142,6 +1142,8 @@ void __ref memmap_init_zone_device(struct zone *zone,
- 	if (!nr_pages)
- 		return;
+ drivers/iio/adc/ad7606.c     | 8 ++------
+ drivers/iio/adc/ad7606.h     | 5 -----
+ drivers/iio/adc/ad7606_par.c | 3 ++-
+ drivers/iio/adc/ad7606_spi.c | 3 ++-
+ 4 files changed, 6 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/iio/adc/ad7606.c b/drivers/iio/adc/ad7606.c
+index cebb8ed8dcb1..4a4a71256f8e 100644
+--- a/drivers/iio/adc/ad7606.c
++++ b/drivers/iio/adc/ad7606.c
+@@ -14,6 +14,7 @@
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
++#include <linux/pm.h>
+ #include <linux/property.h>
+ #include <linux/pwm.h>
+ #include <linux/regulator/consumer.h>
+@@ -1673,8 +1674,6 @@ int ad7606_probe(struct device *dev, int irq, void __iomem *base_address,
+ }
+ EXPORT_SYMBOL_NS_GPL(ad7606_probe, "IIO_AD7606");
  
-+	VM_WARN_ON(!IS_ALIGNED(start_pfn | nr_pages, pfns_per_compound));
-+
- 	/*
- 	 * Seed the reusable head-page template from the first real struct
- 	 * page. The normal page-init and refcount helpers must operate on
-
-base-commit: 63562804f25cb5b6f5e4f5e3a9f0d1c3c6868596
+-#ifdef CONFIG_PM_SLEEP
+-
+ static int ad7606_suspend(struct device *dev)
+ {
+ 	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+@@ -1702,10 +1701,7 @@ static int ad7606_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-SIMPLE_DEV_PM_OPS(ad7606_pm_ops, ad7606_suspend, ad7606_resume);
+-EXPORT_SYMBOL_NS_GPL(ad7606_pm_ops, "IIO_AD7606");
+-
+-#endif
++EXPORT_NS_GPL_SIMPLE_DEV_PM_OPS(ad7606_pm_ops, ad7606_suspend, ad7606_resume, IIO_AD7606);
+ 
+ MODULE_AUTHOR("Michael Hennerich <michael.hennerich@analog.com>");
+ MODULE_DESCRIPTION("Analog Devices AD7606 ADC");
+diff --git a/drivers/iio/adc/ad7606.h b/drivers/iio/adc/ad7606.h
+index 2951bb731354..c60f71a38883 100644
+--- a/drivers/iio/adc/ad7606.h
++++ b/drivers/iio/adc/ad7606.h
+@@ -241,11 +241,6 @@ extern const struct ad7606_chip_info ad7608_info;
+ extern const struct ad7606_chip_info ad7609_info;
+ extern const struct ad7606_chip_info ad7616_info;
+ 
+-#ifdef CONFIG_PM_SLEEP
+ extern const struct dev_pm_ops ad7606_pm_ops;
+-#define AD7606_PM_OPS (&ad7606_pm_ops)
+-#else
+-#define AD7606_PM_OPS NULL
+-#endif
+ 
+ #endif /* IIO_ADC_AD7606_H_ */
+diff --git a/drivers/iio/adc/ad7606_par.c b/drivers/iio/adc/ad7606_par.c
+index 5b137e947f0b..986c15db90c7 100644
+--- a/drivers/iio/adc/ad7606_par.c
++++ b/drivers/iio/adc/ad7606_par.c
+@@ -11,6 +11,7 @@
+ #include <linux/io.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
++#include <linux/pm.h>
+ #include <linux/property.h>
+ #include <linux/types.h>
+ 
+@@ -251,7 +252,7 @@ static struct platform_driver ad7606_driver = {
+ 	.id_table = ad7606_driver_ids,
+ 	.driver = {
+ 		.name = "ad7606",
+-		.pm = AD7606_PM_OPS,
++		.pm = pm_sleep_ptr(&ad7606_pm_ops),
+ 		.of_match_table = ad7606_of_match,
+ 	},
+ };
+diff --git a/drivers/iio/adc/ad7606_spi.c b/drivers/iio/adc/ad7606_spi.c
+index 8c479fa50a23..10df12311561 100644
+--- a/drivers/iio/adc/ad7606_spi.c
++++ b/drivers/iio/adc/ad7606_spi.c
+@@ -9,6 +9,7 @@
+ #include <linux/err.h>
+ #include <linux/math.h>
+ #include <linux/module.h>
++#include <linux/pm.h>
+ #include <linux/pwm.h>
+ #include <linux/spi/offload/consumer.h>
+ #include <linux/spi/offload/provider.h>
+@@ -502,7 +503,7 @@ static struct spi_driver ad7606_driver = {
+ 	.driver = {
+ 		.name = "ad7606",
+ 		.of_match_table = ad7606_of_match,
+-		.pm = AD7606_PM_OPS,
++		.pm = pm_sleep_ptr(&ad7606_pm_ops),
+ 	},
+ 	.probe = ad7606_spi_probe,
+ 	.id_table = ad7606_id_table,
 -- 
 2.54.0
 
