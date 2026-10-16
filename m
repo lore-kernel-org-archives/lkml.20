@@ -1,120 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB449419FC5
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:54:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0ACD42E8FA;
+	Fri, 16 Oct 2026 07:54:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792137271; cv=none; b=Xk8xSYDmhrqtR0V5edVJQ7JAZLlvD3VtuT6fV8AU6QZ7OUbBE75BSPDapjK+rzGD+MsF3cXs5vN3/o63M1yPP7syEzKLGA+Xg42xgPz/Ic3ThEVCoz2GDouSfAc3NivdDRUa2AIgYulbSdoiEN3LhrBjxEJx1HZwkj9I7IHxVA8=
+	t=1792137273; cv=none; b=cy/m0VOcHkcXr57VebKJXZUKdA1j/0qrhcJ9wY/fZkmhIH+1830h4Auh9OdzwTkKjp6qcLpBoOqv9VX7eJlaXA7UVafCoTCLJ4P8fMH5ahFyNfcyZO46YpQ7tqOSe7vNFtR6Yjuwsi1zWI73zG6ocCuNBjo6pE+ybrUjQlvytrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792137271; c=relaxed/simple;
-	bh=MbBfUsCilCHKERIc9E+80nmkcIhxQQObmvJ0htpNsTc=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jWfBUfbCGyb486jvmP+j6vDTVXp3P+7gZ+r83xtvizr0VBP/IevJGdUbkjV9qesViiDorOPJ+qRKhL/nETnff1KwpYIm0Ft3450ToCyJq9yZx0fb0piTGRXWBOV+jEeI766rLZTT8wdaCA1xuqS6VDS9/iyRBrKLgWc5yGabQVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A2XlDZta; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792137273; c=relaxed/simple;
+	bh=B4CPDpky7w5FgLS/onM9HRBqmo51W+e0jt3zz/rjflM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sMWau3kMI5kJgMkAxn0pbMeiAUD1kJCo5QoDtzFAeyQ8f4oOTIutHtHR6REW0ifrzl3Zy9jsCThyRB3oBLsWRNYQraWXe3sOD3y/2hHGOtyo/tOsNtFKEqrQ6F6+EkCocdySVCGcW/6Gb206xXoq1/cLV9iO8njeAIZURJRgnv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oms+Uij7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A2XlDZta"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2D4D1F000CD
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:54:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oms+Uij7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E711F000C4;
+	Fri, 16 Oct 2026 07:54:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792137270;
-	bh=N0ALKBJDFvX2lGNpLUdzy/UPPThh6/5dksoMSLXs7Eo=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=A2XlDZtaMFzI7Uo/VMGIzfXly0qw9q8Z4GA1d+z1uTro297HoMcdHIjOFKtoUtUT9
-	 +FDDMV0qJmvSGL5CKOSI/WU3t1itSs6Z2Dy8CDC+NuwVYnv2U5AtP49cYhM5ClteEb
-	 4V/kTOLJWES+hxZY9vDCQ+q/m4iaTGpxBIHCnvG6Fkl1ptGUPPP1oS+ZBrM2BMlORK
-	 Rz6qChRVSVuO1Eb53/V149I4R5eZSOvinPbo44DZSLBeQOAgWAWi1tsSUXu+Q9UWaN
-	 xgOsS5QglB+klKlEV5tYLrQ4Qq6BZWCKe5OPjG684W01Xs8sGyzdYf25CbpmH9LCh0
-	 Y4KMLLHRf4X7g==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5be47aa555cso1055198e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:54:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwqfQKI0F9J5wmcFoh16V5pjXVrX+JtrWX8jECpybNP4nMYeglKFMqLf+wdZ0TsoBrqi+0P6hqhJCMXKmw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6DZA4CIMyE/rtBNRdYOLvqHJwzZCrS12rkFKrIzwh8MdmCLZb
-	2YSN/dOLmGHBBARzrXe+nl2jm3Fj934LwYP8Q9O7cntXryFKWd1hPQ3QfUB79Zhhvywg/bNqJbl
-	Vz12xNYfRnAHaZchkvF+FNcGffQPIW51kQYsMP4HtrA==
-X-Received: by 2002:a05:6512:230c:b0:5bc:b0b9:f457 with SMTP id
- 2adb3069b0e04-5bcde8c0f28mr6852905e87.47.1792137269569; Fri, 16 Oct 2026
- 00:54:29 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 16 Oct 2026 03:54:28 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 16 Oct 2026 03:54:28 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261015-swnode-dev-notify-balance-v1-2-9e7537bd2869@oss.qualcomm.com>
+	s=k20260515; t=1792137272;
+	bh=m077PZ/8pu1RVicoq78kccvHI8Fg5iPC5XD7PenZLSk=;
+	h=From:To:Cc:Subject:Date;
+	b=oms+Uij7Gxt3w0BjsfVzzrEDj585ap07St2Y2w9Byl5eWuxB9ozjd4Uba6jWawj2Y
+	 S0jzrEDY9sxQDVk7d41eb5QfZKXL0PAjrF4YChsF2l/G5XSYy4OxDbiHAub8EAzbSR
+	 BZAsELub1SoX3IgiYq6grpVfdVcDxAuiWdEwPfUtLYHuQYIfdSSIYj6g6xhNOYG3tX
+	 n7a0aRXIkkdDeRtYCXnuVre/zYpSuBV/cPa/J9wmXpPA+lAtZYS//IGO63vg05jmhL
+	 Iud05S0mET4vw62wPCGIswsD1as9roOKEP4nGwy+bP2RLcAQFAFBPtfG7Ze54qXZ1m
+	 f2hDSaofYOxEQ==
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
+	Xi Pardee <xi.pardee@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tzungbi@kernel.org,
+	tfiga@chromium.org
+Subject: [PATCH v2] platform/x86/intel/pmc: Disable ACPI PM timer during suspend on Panther Lake
+Date: Fri, 16 Oct 2026 07:54:16 +0000
+Message-ID: <20261016075416.3139759-1-tzungbi@kernel.org>
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015-swnode-dev-notify-balance-v1-0-9e7537bd2869@oss.qualcomm.com>
- <20261015-swnode-dev-notify-balance-v1-2-9e7537bd2869@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 03:54:28 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Mes+Te83C6FLcu3dxd_Zg_6Dhse9L3NBUv3AO2y=EdgwA@mail.gmail.com>
-X-Gm-Features: AclHuK_KYi8ylvam1RpRCZqEhbR5LSYZ3D1rWNW5lTEPb3n50KFRl5fQHa0GQLs
-Message-ID: <CAMRc=Mes+Te83C6FLcu3dxd_Zg_6Dhse9L3NBUv3AO2y=EdgwA@mail.gmail.com>
-Subject: Re: [PATCH 2/3] driver core: provide new device flag - DEV_FLAG_SWNODE_NOTIFIER
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-acpi@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Eduardo Ruiz Duarte <toorandom@gmail.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 16:46:23 +0200, Bartosz Golaszewski
-<bartosz.golaszewski@oss.qualcomm.com> said:
-> Extend the set of device flags with one that indicates to driver core
-> that this device was passed as argument to software_node_notify() and
-> took a reference to this device's software node.
->
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
->  include/linux/device.h | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/include/linux/device.h b/include/linux/device.h
-> index c8de370d877f978dd4a160f0094812a1d8441078..b8f12d053cd704b12febc41035aaa44afe286351 100644
-> --- a/include/linux/device.h
-> +++ b/include/linux/device.h
-> @@ -599,6 +599,10 @@ struct device_physical_location {
->   *		ancestor device.
->   * @DEV_FLAG_OFFLINE_DISABLED: If set, the device is permanently online.
->   * @DEV_FLAG_OFFLINE: Set after successful invocation of bus type's .offline().
-> + * @DEV_FLAG_SWNODE_NOTIFIER: Set if software_node_notify() was called for this
+The ACPI PM timer is used to drive the ACPI Watchdog Action Table
+(wdat_wdt) hardware watchdog.  When the ACPI PM timer is enabled by
+firmware on Panther Lake, leaving it running during s2idle prevents the
+SoC from entering its deepest S0i2.2 substate (staying in S0i2.1).
 
-Ugh, sashiko pointed out a typo in the doc. I'll wait with resending until I
-get some reviews on this.
+Since the watchdog is stopped during system suspend, the ACPI PM timer
+does not need to remain active while suspended.  Disable the timer via
+ACPI_TMR_CTL (PWRMBASE + 0x18fc) in ptl_suspend() and re-enable it in
+ptl_resume() only if it was active prior to suspend.
 
-Bart
+Unlike commit e86c8186d03a ("platform/x86:intel/pmc: Enable the ACPI PM
+Timer to be turned off when suspended"), which was reverted in commit
+5fa607880168 because it acquired pmcdev->lock from the acpi_pm
+clocksource suspend callback inside tick_freeze() atomic context, toggle
+the register in ptl_suspend() and ptl_resume() without taking
+pmcdev->lock.
 
-> + *		device and took a reference to the device's software node.
-> + *		Indicates to software_node_notify_remove() that it should drop
-> + *		the reference.
->   * @DEV_FLAG_COUNT: Number of defined struct_device_flags.
->   */
->  enum struct_device_flags {
-> @@ -612,6 +616,7 @@ enum struct_device_flags {
->  	DEV_FLAG_OF_NODE_REUSED = 7,
->  	DEV_FLAG_OFFLINE_DISABLED = 8,
->  	DEV_FLAG_OFFLINE = 9,
-> +	DEV_FLAG_SWNODE_NOTIFIED = 10,
->
->  	DEV_FLAG_COUNT
->  };
-> @@ -833,6 +838,7 @@ __create_dev_flag_accessors(dma_coherent, DEV_FLAG_DMA_COHERENT);
->  __create_dev_flag_accessors(of_node_reused, DEV_FLAG_OF_NODE_REUSED);
->  __create_dev_flag_accessors(offline_disabled, DEV_FLAG_OFFLINE_DISABLED);
->  __create_dev_flag_accessors(offline, DEV_FLAG_OFFLINE);
-> +__create_dev_flag_accessors(swnode_notified, DEV_FLAG_SWNODE_NOTIFIED);
->
->  #undef __create_dev_flag_accessors
->
->
-> --
-> 2.47.3
->
->
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+---
+v2:
+ - Include <linux/bits.h> for BIT().
+ - Rename ptl_set_acpi_pm_timer_on_suspend() -> ptl_set_acpi_pm_timer().
+ - Update register values on separate lines.
+
+v1: https://lore.kernel.org/all/20261015035712.3604634-1-tzungbi@kernel.org
+---
+ drivers/platform/x86/intel/pmc/core.h |  2 ++
+ drivers/platform/x86/intel/pmc/ptl.c  | 40 ++++++++++++++++++++++++++-
+ 2 files changed, 41 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/platform/x86/intel/pmc/core.h b/drivers/platform/x86/intel/pmc/core.h
+index e55164e5807f..8aae69775ab3 100644
+--- a/drivers/platform/x86/intel/pmc/core.h
++++ b/drivers/platform/x86/intel/pmc/core.h
+@@ -487,6 +487,7 @@ struct pmc {
+  * @s0ix_counter:	S0ix residency (step adjusted)
+  * @suspend:		Function to perform platform specific suspend
+  * @resume:		Function to perform platform specific resume
++ * @pm_timer_enabled:	Whether the ACPI PM timer was enabled before suspend
+  *
+  * @pkgc_ltr_blocker_counters: Array of PKGC LTR blocker counters
+  * @pkgc_ltr_blocker_offset: Offset to PKGC LTR blockers in telemetry region
+@@ -506,6 +507,7 @@ struct pmc_dev {
+ 	u64 s0ix_counter;
+ 	void (*suspend)(struct pmc_dev *pmcdev);
+ 	int (*resume)(struct pmc_dev *pmcdev);
++	bool pm_timer_enabled;
+ 
+ 	u64 *pkgc_res_cnt;
+ 	u8 num_of_pkgc;
+diff --git a/drivers/platform/x86/intel/pmc/ptl.c b/drivers/platform/x86/intel/pmc/ptl.c
+index a7d5d4f77934..3cb063944007 100644
+--- a/drivers/platform/x86/intel/pmc/ptl.c
++++ b/drivers/platform/x86/intel/pmc/ptl.c
+@@ -6,6 +6,8 @@
+  * Copyright (c) 2025, Intel Corporation.
+  */
+ 
++#include <linux/bits.h>
++#include <linux/io.h>
+ #include <linux/pci.h>
+ 
+ #include "core.h"
+@@ -548,6 +550,9 @@ static const u8 ptl_pmc_list[] = {PMC_IDX_MAIN};
+ #define PTL_NPU_PCI_DEV                0xb03e
+ #define PTL_IPU_PCI_DEV                0xb05d
+ 
++#define ACPI_TMR_CTL_OFFSET            0x18fc
++#define ACPI_TIM_DIS                   BIT(1)
++
+ /*
+  * Set power state of select devices that do not have drivers to D3
+  * so that they do not block Package C entry.
+@@ -558,9 +563,42 @@ static void ptl_d3_fixup(void)
+ 	pmc_core_set_device_d3(PTL_NPU_PCI_DEV);
+ }
+ 
++static void ptl_set_acpi_pm_timer(struct pmc_dev *pmcdev, bool suspend)
++{
++	struct pmc *pmc = pmcdev->pmcs[PMC_IDX_MAIN];
++	u8 val, old_val;
++
++	if (!pmc || !pmc->regbase)
++		return;
++
++	if (!suspend && !pmcdev->pm_timer_enabled)
++		return;
++
++	val = readb(pmc->regbase + ACPI_TMR_CTL_OFFSET);
++	old_val = val;
++
++	if (suspend) {
++		pmcdev->pm_timer_enabled = !(old_val & ACPI_TIM_DIS);
++		if (pmcdev->pm_timer_enabled)
++			val |= ACPI_TIM_DIS;
++	} else {
++		val &= ~ACPI_TIM_DIS;
++	}
++
++	if (val != old_val)
++		writeb(val, pmc->regbase + ACPI_TMR_CTL_OFFSET);
++}
++
++static void ptl_suspend(struct pmc_dev *pmcdev)
++{
++	ptl_set_acpi_pm_timer(pmcdev, true);
++	cnl_suspend(pmcdev);
++}
++
+ static int ptl_resume(struct pmc_dev *pmcdev)
+ {
+ 	ptl_d3_fixup();
++	ptl_set_acpi_pm_timer(pmcdev, false);
+ 	return cnl_resume(pmcdev);
+ }
+ 
+@@ -576,7 +614,7 @@ struct pmc_dev_info ptl_pmc_dev = {
+ 	.regmap_list = ptl_pmc_info_list,
+ 	.map = &ptl_pcdp_reg_map,
+ 	.sub_req_show = &pmc_core_substate_blk_req_fops,
+-	.suspend = cnl_suspend,
++	.suspend = ptl_suspend,
+ 	.resume = ptl_resume,
+ 	.init = ptl_core_init,
+ 	.sub_req = pmc_core_pmt_get_blk_sub_req,
+-- 
+2.56.0.176.g3575e65682-goog
+
