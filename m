@@ -1,176 +1,163 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C016377566
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:06:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792119983; cv=pass; b=WVQw42IrBx79wWrHgSyv8yYlzyrnSyrHBIbWuG2YPGTAuzVjMt31kgwOkCj754IIiOQLmFpXC+NU2+CG2juV+sPUAa/xJDpKNeJTyWqfy5wytcfGBkC+F/vnYpBq87KkS0fLX4asfV8mIGKkO1drGZWXvUg86x1FOjMfhWWdks4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792119983; c=relaxed/simple;
-	bh=DkWUdIZpNQ1WbOuCWAb9UPk9QMWrcczYalIqDZLDuxg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ppMfaeDjYH9s03v1zVNkh6BcyIoiEtO2I2NFlYGdu6gjZQ5M/pjOOjNiHZqSFsSz7AEfpXe4DWbkhoB6x+ilyvpc4aaelw8HaxGUMOyotbbCsClKP049NDYROLz163sG50//AqQkniiUYbh6sNJ+xmEQ7VKH4yK1a5317H/sldM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VqRH48B0; arc=pass smtp.client-ip=209.85.218.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB585385515
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:07:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792120075; cv=none; b=VYEQQcvRPGaatxHhMoM1LNBeLDTaMYU87nwa2HKPY0N1KsE9TwFsXFCwDXe0pkDUC8Qek53GPKiK7+tJbOO76ZtVqI3jh9dPostcDCzvL57oS/qVO55zTKkoIvCKBHXSdYw3KcWO1xfaK5jjqetLixw89sa4R6nY/oF/sfU6UOo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792120075; c=relaxed/simple;
+	bh=TVzdjqsY0vYeIS7HHhx+RFa6m9nNumgd6ofEvkUhlDI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=t8CQNkHoZr3hDQ07wCnsGYxJ8GOeaxXXQNirsTo+a2aAb2d2Ho7ii9xjrHjH+ziBZNswGeBZgkoEdOsb4cxBDXWUVVhETS8WccCPs/tMdON2Ij5O5duNAh/U+HxT6Z9/ICGbexf7a6P+HweeYzpzWsk1+euJ/lgr/w8XbM/XHB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H/jjt2gm; arc=none smtp.client-ip=209.85.160.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VqRH48B0"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2e8c710847so746218566b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:06:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792119980; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TUPiGK0jc9Sfdcbdn6lOks998mVIDlAatWcaOZvgEDT351zeYxPz984rVFMyymTI0Y
-         mOUXjxLGFyYHyidMyxApozELqK1C1OX8XZLWh7CwXHEYmiaWJ56v79eMeWHOD3Ss3orf
-         IYtCKDoFikPZ2i1iHqBFBQNHcEflD1fENznwiBn0XT4wQl8xoBdollorR3SbG4l1Kf1o
-         5GJ3+8eWuikQh45e4eNxyTHVfUo8vfxHfuwLAAjCMpnToFF3R+8Q8uYmOag+K8TwY7GD
-         KMN6wfZ3oTkEz0b8VEIQAIa9Xt/ZpTYwHDyFrF3NQDCliM2Wa3608Q/cqWIzItES22Es
-         oehA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oJ5h2DXsBgi+drliVf0SasZjdtc6E51DgIAS0CDk42Q=;
-        fh=1fZo3ccnwC2jSCzxs27F620cm73WSg1gcMjc8b85bvQ=;
-        b=F962TFqwd/Bl7k6bY/TkPCtVGxNgJZSsNY7q+dpKaet4NUdYxHxGj6lyG7s74cey0u
-         ZzRqZKsq8Bv9stK73raMzBCSi1Eeuc+2KjtpZp3luCLiw1NecrkC7QDGLW5iytiNpVTH
-         YBCVj8toKYec2+9aEhLreukduCjcQgrFmiLlER982E4RY+QumCunt339fT0BLz+tRm4z
-         95wm0+Nm1EqK03sHAw573msVaHJWYdPB5/fPWlR6cUInDBosuH68SGQir2I6CCoDfkYp
-         NLO3WnEkck4L7fJLgsIF/1BzB1Q4Cttglb+Ioug83CUh2Wo63r9bNG8vi8661Jw9coVt
-         nR7Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H/jjt2gm"
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-535f9de49fcso13661801cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:07:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792119980; x=1792724780; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oJ5h2DXsBgi+drliVf0SasZjdtc6E51DgIAS0CDk42Q=;
-        b=VqRH48B0tW+12IPi5bI7zJaP8BTp8YyhqkJyVmN5/KBGg8wB3hDRdsoVsRrzp0sJau
-         3qjCg6Dt5j2OXKKZzfRz+nX51XCqZWgFdpLkx+XbWiP+q6dMyYMn/iPlwctb8RiKL9cB
-         ntDqcSR3ARTcJ0vK+gvT1SRPtkYalyvvpmUL8/l0jW9/FtJ5P1v8bckaNoaSs8vTsQO+
-         CTmLtxzNnKtC7kP4w+6Sc7i/ReOOrdw5MqSzCpf+30HKZUj8Tw4h2SP46V0AcYlHpPij
-         4rfQ2kc7ycuxl+FFNUy+9EFtOoy0HH7RGns7+tN/VU7pdcXA/+tF+TbHRAdKVjSwwnxY
-         J0/g==
+        d=gmail.com; s=20251104; t=1792120072; x=1792724872; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Si+t2hYlvfYPsnMUPj99el8itGnuSc/9LUEQeaAR/Ks=;
+        b=H/jjt2gmNb0HQITb6aV6mm0nBWpYV+GEZ7+OFFodieaARjzg+4JeFWDxSR6MQgtTFY
+         UAN63Fs/E8kSenHl1CXn4S36bZS4PwjoB/shwjOqLuvM4ozRucrYM3LjF6SMzWh1iAgF
+         UP1zwCOEJM4JOaMVIPFA/jUClv6U0QMc4+k8+XW2h5LWaOUZB8lGATobujTB6LNiQ0DQ
+         cWSYQpQeioKemiNLK1BNfDmfws87zDlmOIRHHseeIjuarJCCP6iWKQ2/TXgGvDizIATf
+         hhAYx3uk0hGRAheB7ujC7mBWiOOkzzvs0lQvUc9H3OCtLwqQ0ZhrK6iEcrwTbeAEjCrt
+         +TNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792119980; x=1792724780;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oJ5h2DXsBgi+drliVf0SasZjdtc6E51DgIAS0CDk42Q=;
-        b=1fPoWqn9jauBo/wiywTdhFSKe0qSrk0Y45oXQm7WTwM5X+PsL/mcsZNG2WggRlCPEk
-         XZu+Yl4wvFHAAl7SipbYje/0VKzOOyQkgYfhOJD+i+VtW2dlI+eyTNG/jVn+2V+ZCQFS
-         JD8mb50alljgCT0H7n8oFAb1j+furx+9Q3A975MTbFQqnjVblriAVw/vjkrQuNqXUqi/
-         154mkUU6fWJe/3TYtGdWoaXzhEbtaocit1DOMlSlbP+eVz1bKdynTnLS3SjjhXpiopHn
-         lJ+lMoWNprAoL2lizJQvfwQdgJu3Cx6AllPqHVvJzUgXp4KnkmiWCx4tDzs1a2XqjUvQ
-         IaeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzwLy0BNAPsXjIZbzfWzJ8dcOYTYxsTJEu5JxhQyMPJQaY15fWTXYr8FlDxEQudYGmmUlKvatLeGEMDg+c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIU76h4N42RxITX5X30rOzNKnHlixIBL7HljtOZxRCGJViaaTFp
-	VhhUXyx4wf1fcjg+OFeiL0sV6W8kR3MPPpxkbhxMKG1yNr+YAuLlXM+zeDD6W/nNSWmEJXdUyS/
-	IruXs/F2W4XtNoKPk7XTak24UeR+yrU8=
-X-Gm-Gg: AYBFou1D1QsyDWSrogKiH33/uH79f3FPdc5RH/D4FI4mFbdHp/h1jYUP754qqGCzkoU
-	N6eyW29a+AgOcRZHajK9lPjgPLM1jnXnSJh8a0scgl1PXdZ7ratI10UgsdJkKQ9r7wTPnTR8DR0
-	TJi2igCtPfRBcMOZ1lX/Hf/wng+flJ5WebVu8FLOip02is8M4UiPs0ZAsVsjYfnBlqZe0HcWNM2
-	yMbx9uYAlLrQE/Rn26zuZ/+5ATmST1m8TKlew9OXQnu7icVhTHgSn1qZPPBkIWa5E+VCJ6S7kUH
-	F0WKB4lSAvbWlv9S1GsAFqPrTb1K4CYE+qS/NS7OOhjOMcTxAExyzeEFRQkbwG8MYxn/EbN7mrd
-	+9HAm/9sV66Eq
-X-Received: by 2002:a17:907:9801:b0:c29:4fcb:2886 with SMTP id
- a640c23a62f3a-c31a9fd831emr1921004966b.39.1792119980088; Thu, 15 Oct 2026
- 20:06:20 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792120072; x=1792724872;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Si+t2hYlvfYPsnMUPj99el8itGnuSc/9LUEQeaAR/Ks=;
+        b=ly9hG0MkrzWvV7L5ZPxsYdPUQgIl1TdonJe1N1MjBU5jnji/mfLOIZ/QFF2b5W2pIP
+         CY7ZoeGIPBfPw4dOSnx6jXZeQwjjqjR4AgtEsj2kkNlB5yzx9CJnYq1ILoeNowuEbT7O
+         Mj3XOnN2Viy2a9dceaJQkDVT1JT3bgT9g9Z/WtP78uQ3JsvQX20ItuwMYbXb1yv1sHFV
+         mCCJLc072OzqAlztZfqXBzv/6K12Y79Lk5txldv0RUqSmbs+3p8Jxr36XXT8HIv6tMvs
+         3cn6aJ9hWhCCZuNNfk9xGSOZsGh5KgGZgh3yl5uzLwWROcWmpAJmkl0yvfDzzoEgsIjE
+         zCww==
+X-Forwarded-Encrypted: i=1; AKwUvBx3V02QaO87yEk8buGxBUX4W8ENLBgTyZw8fzFR3KxKLAAKmWlQ4nFmuMYO24bak/Do6rJ3r4HLuvGJz30=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIR25I6npBo8rs3viuEQer3xp7F0JDKxmPDEPngM7fO/xMWlt/Y
+	3u0JmmkbEVHTMIS5SXUiJZhqh3y7ZlJqg+GQheddS0BI8n/983iWVfk=
+X-Gm-Gg: AYBFou2TCX2nC8TlZdkNnnPSchvuxSwZfFwjazyiBrTxXQs9ULCaCO36fHzNqR2FQns
+	XETLzKVP8fEqwLQVaHBEKwtpQ22xVOXaNan+jF7InljYNWsOpSA4siZXIkkv/FdWFlcb4qwby2S
+	dk0cPCaKjglPXsvH0SCPQvemp7XRKWfpCcWk1m0yAyrhaL3RDPDV1Gh8D38ZjAXbTfvf3Tuvi/W
+	5uyjlf9y3I6J73u+D/yD6H8pmyUXPxMN82zZCKqY8Lz+KLwP03GRuOnFHO3nwwwe+iPOXGDHrNy
+	LRol+hZeL58yLS1ndyaDa/Q/cztFvO9dn4fTtYyeJ/Bw2VjLesNC5F64E5vXqVibrhuWkKn8Uda
+	fN4rAx4RqDvslY+ew4fCRpO9zRc3Kh5qiUPotDyHR8F4czJVRQrqUewt6c2gHhxcmjtNiBwkkIW
+	SjJSCdSiWq7ZcWaG4L+eGrsUyV5SPOKemOa7SkVSlGVCotOyNlFUFY/uMSeJOU7t0BLWsaIYRXW
+	lKSuseJyDZTmPqI4g8zXA9k0gmOHacrESbX/a38EyXhQi3IoDLdlsmqme+QaPTUbC5lS7CDKpJ9
+	G0EI/NbhV3S5+LdGz/FfvqK/3WybbKIoTeOG/g8=
+X-Received: by 2002:a05:622a:2445:b0:535:6a51:1f71 with SMTP id d75a77b69052e-5359fb86868mr339236021cf.54.1792120072257;
+        Thu, 15 Oct 2026 20:07:52 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbb1af26sm11435556d6.33.2026.10.15.20.07.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 20:07:51 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Myeonghun Pak <mhun512@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] hwmon: (sht15) Stop deferred work before releasing its resources
+Date: Thu, 15 Oct 2026 23:07:49 -0400
+Message-ID: <20261016030749.3689266-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014090821.227366-1-jiayuan.chen@linux.dev>
-In-Reply-To: <20261014090821.227366-1-jiayuan.chen@linux.dev>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Fri, 16 Oct 2026 11:05:43 +0800
-X-Gm-Features: AclHuK_e-lCNsmM0w1PY2ZD39crP8DWlyZW3Ur3Jggt8rHloT5AJAjERE4NO-1M
-Message-ID: <CAMgjq7D50X47JFsTnF2-jYGv7i-Nd3WhQLK-TJGy4XkhMQU4OQ@mail.gmail.com>
-Subject: Re: [PATCH mm-next] mm/swap: free swap cache folios the zap path gave
- up on
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: linux-mm@kvack.org, Jiayuan Chen <jiayuan.chen@shopee.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 5:10=E2=80=AFPM Jiayuan Chen <jiayuan.chen@linux.de=
-v> wrote:
->
-> From: Jiayuan Chen <jiayuan.chen@shopee.com>
->
-> On our production hosts we saw swap cache only pages keep growing for day=
-s:
-> on a box with a 500 GiB swap partition, 250 GiB of RAM and 250 GiB of
-> swap slots were held by folios that no process mapped any more, charged
-> to cgroups whose workloads had long exited. The only way to get them
-> back was swapoff, and with other services actively swapping on the
-> same host that is not an option.
+A measurement can return while read_work still accesses GPIOs or
+re-enables the IRQ. Regulator notifications can likewise leave
+update_supply_work using the regulator after it is released.
 
-Hi, thanks for the report.
+On removal and the applicable probe error paths, disable and drain
+read_work before freeing the IRQ. Unregister the regulator notifier
+before canceling update_supply_work.
 
-> Such a slot has swap count 0 and an unmapped folio pinned in the swap
-> cache, left there after a process exited or did MADV_DONTNEED. No page
-> table holds its swap entry any more, so nothing comes back for the
-> slot; LRU reclaim drops it eventually, and the allocator only reclaims
-> such slots once swap is half full. The growth stopped exactly there:
-> at 50% of the device, where vm_swap_full() becomes true.
+This issue was identified as part of our ongoing research while
+reviewing kernel code.
 
-Hmm, I think this indicates a much cleaner fix is available.
-vm_swap_full is inherited from the old allocator, we can instead just
-let the allocator reclaim the slot if the slot have a count of 0 and
-ignore vm_swap_full at that point.
+Fixes: 251eb40f5ccd ("hwmon: sht15 humidity sensor driver")
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+Compile-tested with GCC, W=1 (x86_64). No runtime testing.
 
-Will this work? (Just a minimal implementation for reference, will be
-even better if we can avoid the overhead).
+ drivers/hwmon/sht15.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index c3288910b3e3..94670fe82f31 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -212,6 +212,9 @@ static int __try_to_reclaim_swap(struct
-swap_info_struct *si,
-        nr_pages =3D folio_nr_pages(folio);
-        ret =3D -nr_pages;
-
-+       if (folio_mapped(folio) && !vm_swap_full())
-+               goto out;
+diff --git a/drivers/hwmon/sht15.c b/drivers/hwmon/sht15.c
+index 7bb2105..6c5b2a1 100644
+--- a/drivers/hwmon/sht15.c
++++ b/drivers/hwmon/sht15.c
+@@ -31,6 +31,7 @@
+ #include <linux/bitrev.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/of.h>
++#include <linux/workqueue.h>
+ 
+ /* Commands */
+ #define SHT15_MEASURE_TEMP		0x03
+@@ -986,15 +987,15 @@ static int sht15_probe(struct platform_device *pdev)
+ 	disable_irq_nosync(gpiod_to_irq(data->data));
+ 	ret = sht15_connection_reset(data);
+ 	if (ret)
+-		goto err_release_reg;
++		goto err_release_irq;
+ 	ret = sht15_soft_reset(data);
+ 	if (ret)
+-		goto err_release_reg;
++		goto err_release_irq;
+ 
+ 	ret = sysfs_create_group(&pdev->dev.kobj, &sht15_attr_group);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "sysfs create failed\n");
+-		goto err_release_reg;
++		goto err_release_irq;
+ 	}
+ 
+ 	data->hwmon_dev = hwmon_device_register(data->dev);
+@@ -1007,9 +1008,13 @@ static int sht15_probe(struct platform_device *pdev)
+ 
+ err_release_sysfs_group:
+ 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
++err_release_irq:
++	disable_work_sync(&data->read_work);
++	devm_free_irq(&pdev->dev, gpiod_to_irq(data->data), data);
+ err_release_reg:
+ 	if (!IS_ERR(data->reg)) {
+ 		regulator_unregister_notifier(data->reg, &data->nb);
++		cancel_work_sync(&data->update_supply_work);
+ 		regulator_disable(data->reg);
+ 	}
+ 	return ret;
+@@ -1023,12 +1028,17 @@ static void sht15_remove(struct platform_device *pdev)
+ 	hwmon_device_unregister(data->hwmon_dev);
+ 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
+ 
++	/* The read work can re-enable the IRQ, so stop it before freeing IRQ. */
++	disable_work_sync(&data->read_work);
++	devm_free_irq(&pdev->dev, gpiod_to_irq(data->data), data);
 +
-        /*
-         * We hold a folio lock here. We have to use trylock for
-         * avoiding deadlock. This is a special case and you should
-@@ -903,8 +906,6 @@ static bool cluster_scan_range(struct swap_info_struct =
-*si,
-                if (swp_tb_is_null(swp_tb))
-                        continue;
-                if (swp_tb_is_folio(swp_tb) && !__swp_tb_get_count(swp_tb))=
- {
--                       if (!vm_swap_full())
--                               return false;
-                        *need_reclaim =3D true;
-                        continue;
-                }
-
-
-Or, from the LRU's side, put swap readahead folios at the tail. I'm
-actually trying to do that and it's not very easily doable at the
-moment but will soon be easy to do.
-
-> Options considered:
->
-> 1. Fix it on the readahead side: after the read, check the swap count
->    and free the slot. Covers the lock, not writeback, and the
->    asynchronous read path unlocks in the bio completion where the slot
->    cannot be freed. Two places to patch, neither clean.
-
-In fact, readahead checks the count before starts the read. It should
-prevent some of the problems but seems not enough.
-
-And another idea, what if we just add dropbehind flag or rotate the
-folio, if folio_try_lock failed in __try_to_reclaim_swap?
+ 	ret = sht15_soft_reset(data);
+ 	if (ret)
+ 		dev_err(&pdev->dev, "Failed to reset device (%pe)\n", ERR_PTR(ret));
+ 
+ 	if (!IS_ERR(data->reg)) {
+ 		regulator_unregister_notifier(data->reg, &data->nb);
++		cancel_work_sync(&data->update_supply_work);
+ 		regulator_disable(data->reg);
+ 	}
+ }
