@@ -1,145 +1,193 @@
-Received: from out203-205-221-242.mail.qq.com (out203-205-221-242.mail.qq.com [203.205.221.242])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44584519A2;
-	Fri, 16 Oct 2026 09:15:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.242
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792142133; cv=none; b=E6Uibo8XP1a2xUQSVQfit3YdWrlSQ1c6mW6G0WfN8fppp/HNgDj96KFFiOaXEk5057vVGP1rynrFmrfJjn59AZ43STVvorYQ67smxfR7S9zANpS+e78YjDQedtNYI99uio1bhDJKlIiG1qP+CoaKpLy7T7Dm0vWvGBMoWjbTrds=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792142133; c=relaxed/simple;
-	bh=jFxdjNeoRfG8ftOzralff1RCNqbjsg7zyR8emO804GA=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=JmGS3PsN9kDG9+s102RzcIR4mDG1oxEbt4eT1wIadBsr32YYknRz1zzIOua9BJDGFwoq1Q66qnONamMtFDTeJk+gDVUL2SdfHiDUr+l79vEPr0Q/YQVyYFaRNEmta4w934WkPGt1R11AegDPSdGKLqT2oksxxYFaMpcy9pxqaHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=ssCfJXf8; arc=none smtp.client-ip=203.205.221.242
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2FA380FEA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:15:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792142146; cv=pass; b=mKVnb0I4WtSNOZKoae6sO95gsXxnPMCXrOo1b+Uj4b1X72VfzlewrslpoFft6LoVg09zajWacML9MLx2Geq+6lU3tqviXkxPn4DKfd4T0Gci2Q7G9fm5sAqZhhLnu8nXeY7yZPwvpooYSuXPAEWW0Kp9LZgTYMQQS0SaRRTIhMs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792142146; c=relaxed/simple;
+	bh=McCANjMXuLyuKAXhf69kzJ08Kyp5GVlk0CAKvUJSIQU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pBkvA7fDYI6DZ035A/ykhIVWGk+fO4Oy1wp0YQ5X3oUdkruhELeTBHC8sB3dmDHPJERIEwmpI5Rzk/zNQQ4Ksbuifdk74Xk/FFfHCFHK9iYSWme8KItxc2IvPrXudf0gRumVmRGfS48j5VhokgCzSLi2sZm+8ENWaArzcHGLT4c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=PyPYZads; arc=pass smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="ssCfJXf8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792142120; bh=e7pZdn+FduIIviMFIGwAG6oP+v++QMQOhZst7W5M4gY=;
-	h=From:To:Cc:Subject:Date;
-	b=ssCfJXf839Z0yaz7AtZduRsbuSfXzrBmj8xdjARsF1ZIGoeNS0vpipzcpmLZBnBAw
-	 iJ5q5HewEFzQwq6vig0JK8pwnU2KFPno/3mKs9c8ojdXNcj9NQYPoJvUaVjZbac8ze
-	 gjEjq7P4D+0fEnaFyZK+5pQcl9WvEsR27ItDwnKM=
-Received: from [172.18.4.77] ([111.31.227.58])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 3863503D; Fri, 16 Oct 2026 17:14:06 +0800
-X-QQ-mid: xmsmtpt1792142046tl54ybd4u
-Message-ID: <tencent_8EF7489193A3E97C94814F52145E2ADE3706@qq.com>
-X-QQ-XMAILINFO: MjmARJD6Rl8utq2V/UwT2c4NePRugwSD16/erS2VDcla28Tngq2UCkMp9cHhrD
-	 +JmGymMwX+BR0MxP+S+SUx8bUbzjCWkJKoP97VivmK4QuWdK9cVe5Nc0DW4ND1iTTOsDf9CRKvhy
-	 VbVHjun1YymeTYM42GTLXKPvvNfnPI07X++Nl6wkrKz0HADdlXLFdm3uoqgmlI9c/7RiCK+QL4Nw
-	 C0V4n6BUGMzjlzyKXxtZOL729A/da74MD4Zy4yeYHQApqb7HbvabS9yrxcqyjCWtNS9K3Ra+onjJ
-	 fImeEEHYg7C6AO1y67lEUpbfcI91MLydbYrHcJPz9U7u5lEZjanB4amkP0C+FmsO0B+/0XHxKMp5
-	 /7ipzJbL9Ux4oMB/GQmDYlyuArbe5csbSvOPt3AGYKuvlaudUYattiJagSctrF1xYigPXoi4vy5C
-	 NY2XZfXLGIGvokQvZT3NX7SqtfohjHzy9ANrkFKZyyukiPKHZjq5z0k8HFVzhmlqJYO387BA+Ubl
-	 Pb+o+qTk8BkOnq6O3nBafwIIkWHv31ZWvcIPZ/s7JqTRA1EbW1/heMED75SjQ+ud00RPz9mqUOAq
-	 qtGROzCC4JLmUUx3jw9Kyl/0vPonAjHzHxi/jDwIkk9/V9xhUns0P+CfusPeBij8exayWTZ9LMXh
-	 BnBtbnvCZthFl0v3JiO823dElqsWAVEyx4KL/1aj13ZgZv5HIPjmnCCoB0susSwIzFR1vhORwInF
-	 8hLfIBzV2fTtkIcbbej1qUU+mvYPGstTZk5cV/Frv7cPraCaImuEBvk2c1BcyhZYFekDW6HWFDd8
-	 ykcqoqoSlNljmSRuLgAXEvThl6GZExytSC361q6/VZdEow3TD8mGcG1e5bXbKMEFpDPtBS+avP+k
-	 Xbw20cwFTh8KHHyFlbKqr+JOpvL9GFDSn5rYwb1RRUgooN1bUDhnJlY+qkWShvTgIcqIhqNfsqBg
-	 C7wzEHIh5jeY8SyOLdG0cru2z8KG1poEWMkyyUEaIPfSGcv/64jbfMC6dtKTWaCJXr6BXnwOVYA0
-	 HwOWEarIKMAke/2toS6vA0LXwr0/uLpFkHUmw1otj7DCrUWLD9ZT2GfSye893gOBpVTm90EB6NDJ
-	 z0Aya2W0MPecgFUdSzj9qbQZYZ+b3DxmoX3Ong5jJy6ktu3UI=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: yangguikun <yangguikun19@qq.com>
-To: Dave Kleikamp <shaggy@kernel.org>
-Cc: jfs-discussion@lists.sourceforge.net,
- linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] jfs: validate external log superblock fields in lmLogInit()
-Date: Fri, 16 Oct 2026 17:14:06 +0800
-X-OQ-MSGID: <20261016171406.95376-jfs-patch-yangguikun19@qq.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="PyPYZads"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so7239818a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:15:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792142143; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mUi1QUvHJutm3H9S7Y5+YJQRDysxZDLbbFbhTjwIARKVP1Glss7zJaaKyqxciihqdy
+         1nuy0pN0Ldlwrde7pGw5oDKGZ0ZPHAvQcAxcy/dD90h0I1LbwP2PZKE5wCmbVSyrS5Hr
+         OH0hgQxeVxz6EvlFD5eRalKkLPbThmb2XxyIDMOMOmrKChmGetuPjES5VdNotLW2VPnW
+         1/MbTFj3TEKqxaHOOs7Pc235m2FpmDLjvUsH/p4OxFyquVKyNSv/4pM3/jv/FGpd4aPe
+         X5eCv8T+UaHuaMs9q8mhiX4qc+cTr1bZkmeV1fBJ7ql8D43m3LSR6et0s8Tn5HneI6XV
+         eq4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=juagPAAVwRc2TRgKj3pEIn0YvQUcJJWjzQqKzCV4PR8=;
+        fh=KpjyNBR1bC6nBAMKl6CTqFaYZt5Ap7pm13HeoSwUFOw=;
+        b=PDGZXlWQE/+ZPDoks5d+dqeDrgcw9IQeL5poSHM6iDtNb4uNtFUnYd1F/oJz6ZoLE3
+         E6qAdsSp85oXpo0t5OopR9fgrViwliPU71YFvIyTl4s0tg/wxf7aCAS1vhckfxhIMJ+c
+         enC3wuVissgt6RMseDrtZGkGdQYa8T2QvnDm9K39jklLE8wukLkB3QGdOS9h6BOe0Hrd
+         dj7R2ss7bg5RUrnxHz8wSGwySSw1x+YFauzgtcl7I6sGqYVxWpb0LaN1QcoUDpKX3Prd
+         lc38KYn1Y04FmWB7QErylHxBeUtkbDi65gFGxD5xCG//SFyg1ujhv7TnOyrqn1sHHnzo
+         PCvA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792142143; x=1792746943; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=juagPAAVwRc2TRgKj3pEIn0YvQUcJJWjzQqKzCV4PR8=;
+        b=PyPYZadsccDa4sFjKBDIg1Ll8QjJlxBFkG0bvmCOufEmN7NBtCjbC3zuRwDCDn5UNM
+         wgPiXlIKPPpuvYGGyJdJcA0sV/ZJzCGSlaEpANRgBS1rRd0pztF3OfGiUaRLPzaoT+6Z
+         PbnWcZgWbS7HKbPUxgMtxb5M6vCDVBwyCIkioe89VUgddkkwyOPOzBdBQzBtUuXINEyR
+         avdSyVo9m3HP9pptAGWlgRSq6Y28zBR0BUbzekVKzqVfp3HermhyvkLSxPOk9OQmmm/1
+         t33kBv1GCo4rtKkdEuSnh0s++kGGM5CW1CQ5KMVguWxY8oMVGJUnmktdZfFFNktq+eBX
+         HEdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792142143; x=1792746943;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=juagPAAVwRc2TRgKj3pEIn0YvQUcJJWjzQqKzCV4PR8=;
+        b=hUd05HufnOd+N7RLojLnfmNG1FBOay7HMjMLFnWjl8SlPECh8YL1pgoUvnP4tdsw8N
+         sqS4e5h9FC9yGbxR6HXM75CdH53CXX2CkaC8mgzoggQliY5r2IAGLg0OtsYmUYjRxesJ
+         Rp/yrTw3fe3K3zPBLoidcJfkco20saugKzH14L/pOD2eoMduIbQY9nxYexgNWrfH0oal
+         4xaOSQ9C0HYVo9fi0TCFhDmlOab8OcMIZmpf9Ofo43Z0NmENaeai0XXG6D5vRnhJpvR9
+         8DOztTQ5Gt1riDt7UPQ1PRWUD3vnqXwn1nnMvAHWLPOJ0YbEIRnIY++pi3WKlY7SeC70
+         UBzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzEmP+okve2phrkh8Eg4kBE2sLrGzKbljlspfWpwuEMTJs+t9QZGUkFSK+muKNmDSmaAUh4HdJR0F++Q5c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyzTwF+980a3OE0IhkpkcP/HFEe3wfjZGlBJOyyNhWaxORqD+r
+	07u/oav16Q2Gj6tNLYcvJmdgAdhHJYwtVNVRpmCmKwExJst8LIjxcnwaO1Itf4rnw890gQI7VtU
+	VoEWjDA2YkSdjjMFORF+u3qP+41vRVVSI05oJRWOM/Q==
+X-Gm-Gg: AYBFou0sb+sJXZefmQGIZrsfZcpMdi/9LPcgyCUKumkkKUvm/VIyobk8NudJDIyBn4+
+	V+PWljv3L+7EHUCOhB+J1jsA+5o9V+KDWXTMXabZj8Mbt3+LkRtgoQctdHkMBPg2F+plJO/ncx9
+	0K2zqhH8GOhNmsNr3OfRr3iba2Ok1WhCsJwBRG81wYND4EZc4Acp9RHhkv4Lv6GWj+to8m2i5p9
+	AvLaChGNkIiqLTO07Pp/Xh0sd8FemAWzdfg2+VZcqZ5onOF6I5Efj/ShM/IM1/BsTWDi/PsZ0ZD
+	Mmo4XukXiFBcUMwgwzRjqBEkKuTPedArmyHra/2B04QwjBryMPCmHZ2V1Amb2Kk7W6h67jt3h6U
+	GGGnYSbqhpmeXng0rVQNg754=
+X-Received: by 2002:a05:6402:a585:10b0:6b1:82e4:b2df with SMTP id
+ 4fb4d7f45d1cf-6b182e4bcd7mr13227779a12.29.1792142142978; Fri, 16 Oct 2026
+ 02:15:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20261016084604.17999-1-kayracizmeci@gmail.com>
+In-Reply-To: <20261016084604.17999-1-kayracizmeci@gmail.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Fri, 16 Oct 2026 11:15:31 +0200
+X-Gm-Features: AclHuK_2tPzgnoCwRzN1fPX6R7OC24OdLswc-KOLCxOOfsZEtgrgvu1RUGhh7xs
+Message-ID: <CAKfTPtBYSdrLe09hp3R0V1AgV_FY65mGaLxHUdLVhpZqU6KpKw@mail.gmail.com>
+Subject: Re: [PATCH v3] sched/eevdf: Fix vprot across reweighting
+To: Kayra Cizmeci <kayracizmeci@gmail.com>
+Cc: peterz@infradead.org, Ingo Molnar <mingo@redhat.com>, 
+	Juri Lelli <juri.lelli@redhat.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, christian.loehle@arm.com, 
+	elif.topuz@arm.com, linux-kernel@vger.kernel.org, mingo@kernel.org, 
+	sh@gentwo.org
+Content-Type: text/plain; charset="UTF-8"
 
-lmLogInit() validates only the magic, state and uuid of the on-disk log
-superblock before copying its size and l2bsize fields into the in-memory
-log structure, and it overwrites the sane l2bsize value set up for the
-external-log case a few lines earlier:
+On Fri, 16 Oct 2026 at 10:46, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
+>
+> Currently in reweighting, while a tasks vruntime changes dead protection
+> could go alive, or alive protection could decrease, increase and go dead.
+> Fix it.
+>
+> Fixes: 80390ead2080 ("sched/fair: Separate se->vlag from se->vprot")
+> Fixes: bcd74b2ffdd0 ("sched/fair: Only set slice protection at pick time")
+> Suggested-by: Vincent Guittot <vincent.guittot@linaro.org>
+> Signed-off-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+> ---
+>
+> Changes v2->v3:
+> * Rebase and move the enqueue_task_fair() block to if (!curr) block.
+>
+>
+> Not tested at all :-(. But I think
+> This should'a cover the shced_change_begin() path same,
+> since curr == NULL, so we always enter if (!curr) block.
+>
+>  kernel/sched/fair.c | 28 ++++++++++++++++++++++++----
+>  1 file changed, 24 insertions(+), 4 deletions(-)
+>
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 0feec172fd37..4593d0122d66 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -4892,12 +4892,15 @@ static void reweight_eevdf(struct cfs_rq *cfs_rq, struct sched_entity *se,
+>         update_load_set(&se->h_load, weight);
+>
+>         if (on_rq) {
+> -               if (rel_vprot)
+> -                       se->vprot += avruntime;
+>                 se->deadline += avruntime;
+>                 se->rel_deadline = 0;
+>                 se->vruntime = avruntime - se->vlag;
+>
+> +               if (rel_vprot)
+> +                       se->vprot += avruntime;
+> +               else if (curr)
+> +                       se->vprot = se->vruntime;
+> +
 
-    fs/jfs/jfs_logmgr.c:1271
-            if (!test_bit(log_INLINELOG, &log->flag))
-                    log->l2bsize = L2LOGPSIZE;
-    ...
-            } else {
-                    if (!uuid_equal(&logsuper->uuid, &log->uuid)) { ... }
-                    log->size    = le32_to_cpu(logsuper->size);
-                    log->l2bsize = le32_to_cpu(logsuper->l2bsize);
+This part looks good
 
-l2bsize is then used directly as a shift count:
+>                 if (!curr)
+>                         __enqueue_entity(cfs_rq, se);
+>                 cfs_rq->h_nr_queued++;
+> @@ -8155,8 +8158,9 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
+>         int task_new = !(flags & ENQUEUE_WAKEUP);
+>         struct sched_entity *se = &p->se;
+>         struct cfs_rq *cfs_rq = &rq->cfs;
+> -       unsigned long weight;
+> -       bool curr;
+> +       unsigned long weight, old_weight;
+> +       bool curr, live, running;
+> +       s64 dist;
+>
+>         if (task_is_throttled(p) && enqueue_throttled_task(p))
+>                 return;
+> @@ -8200,8 +8204,24 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
+>         weight = enqueue_hierarchy(p, flags);
+>
+>         if (!curr) {
+> +               running = task_current_donor(rq, p);
+> +               live = running && protect_slice(se);
 
-    fs/jfs/jfs_logmgr.c:1892
-            bp->l_blkno = log->base + (pn << (L2LOGPSIZE - log->l2bsize));
-    fs/jfs/jfs_logmgr.c:1973
-            bio->bi_iter.bi_sector = bp->l_blkno << (log->l2bsize - 9);
-    fs/jfs/jfs_logmgr.c:2018, :2088
-            log->base + (bp->l_pn << (L2LOGPSIZE - log->l2bsize));
+IMO, "protected" is a better name than "live".
 
-and size feeds log->logsize:
+ se != curr so why is this needed?
 
-    fs/jfs/jfs_logmgr.c:1385
-            log->logsize = (log->size - 2) << L2LOGPSIZE;
-
-A crafted external log with l2bsize = 13 makes "L2LOGPSIZE - l2bsize"
-negative and "l2bsize - 9" 4, so the computed block number and sector are
-garbage.  Mounting such an image panics deterministically:
-
-    UBSAN: shift-out-of-bounds in fs/jfs/jfs_logmgr.c:1892:32
-    shift exponent -1 is negative
-    UBSAN: shift-out-of-bounds in fs/jfs/jfs_logmgr.c:2018:28
-    UBSAN: shift-out-of-bounds in fs/jfs/jfs_logmgr.c:2088:28
-    BUG: KASAN: slab-use-after-free in lmLogInit+0x16dd/0x1a90
-    Read of size 8 at addr ff110000413e4218 by task mount/8208
-    ...
-    Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-    RIP: 0010:___free_pages+0x15b/0x190
-    Kernel panic - not syncing: Fatal exception
-
-Three runs on three fresh VMs, all panicked; a control image differing
-only in l2bsize = 12 mounts with no UBSAN and no KASAN report.
-
-The inline-log branch of the same function already validates its field
-(jfs_logmgr.c:1307 compares the on-disk size against the in-memory one),
-and jfs_mount() already validates sbi->l2bsize against the block size
-(jfs_mount.c:366).  The external-log branch is the only path that trusts
-the on-disk values unchecked.  Validate l2bsize against L2LOGPSIZE, which
-is what the external-log path sets it to, and reject a size too small for
-logsize to be meaningful.
-
-Found by inspection; the reproducer is a crafted image mounted through a
-loop device.
-
-Signed-off-by: yangguikun <yangguikun19@qq.com>
----
- fs/jfs/jfs_logmgr.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
---- a/fs/jfs/jfs_logmgr.c
-+++ b/fs/jfs/jfs_logmgr.c
-@@ -1316,6 +1316,17 @@
- 				rc = -EINVAL;
- 				goto errout20;
- 			}
-+			/*
-+			 * The external log must use the same block size as the
-+			 * file system.  log->l2bsize was set to L2LOGPSIZE above
-+			 * and is used as a shift count below.
-+			 */
-+			if (le32_to_cpu(logsuper->l2bsize) != L2LOGPSIZE ||
-+			    le32_to_cpu(logsuper->size) < 2) {
-+				jfs_warn("invalid log superblock");
-+				rc = -EINVAL;
-+				goto errout20;
-+			}
- 			log->size = le32_to_cpu(logsuper->size);
- 			log->l2bsize = le32_to_cpu(logsuper->l2bsize);
- 			jfs_info("lmLogInit: external log:0x%p base:0x%Lx size:0x%x",
-
+> +
+> +               if (live) {
+> +                       old_weight = se->h_load.weight;
+> +                       dist = se->vprot - se->vruntime;
+> +               }
+>                 reweight_eevdf(cfs_rq, se, weight, false);
+>                 place_entity(cfs_rq, se, flags | ENQUEUE_QUEUED);
+> +
+> +               if (live) {
+> +                       if (weight != old_weight)
+> +                               dist = div64_long(dist * old_weight, weight);
+> +                       se->vprot = se->vruntime + dist;
+> +               } else if (running) {
+> +                       cancel_protect_slice(se);
+> +               }
+> +
+>                 __enqueue_entity(cfs_rq, se);
+>         }
+>
+> --
+> 2.53.0
+>
