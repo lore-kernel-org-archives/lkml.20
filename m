@@ -1,225 +1,291 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mta1.migadu.com (out-55.mta1.migadu.com [95.215.58.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E180035201B
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:42:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0CB34E8E18
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:43:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792168962; cv=none; b=ddiy7svQrX8Vt/FdDmbvdX8HTycf14SGddgfc7kn6+zriazPwACI+uqLAV5VYLB8kvECLKaeosvoSLbD4PrBO8JMGmiO2Nu1K1g3GUXnRSHdmrTv64OQT+DGOyafQGPIVa6WtZ1WELEp9+UEYo9BuNO6tbpzKffo+tUzgyeAvkg=
+	t=1792169040; cv=none; b=cAJBv7oIz81fN/xQufCxnDjlZZxX2TiIMMFMIs9zswHsaQ0b5moYTpdM+k/MLbPXbwxdSFUYMShQRYW3V2Zw8D3B00q9p5N+QM/K5ssfE8I7ij0uFHJt/X2YDpBLdye5iiBokjVx0YpB2+ro1mzM43Trf1/fDki5+pzGPq+2Rrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792168962; c=relaxed/simple;
-	bh=6fGk/cz4lM/vcLtY4nj0S79G2e4HoMiA2Rti2eE6utc=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:MIME-Version; b=gZLOuTAtOFYz/lQFPMx+uN2PQ9leS94Fk9xETjn4zR+TtbnTLs4flXIThFOpn0Ps7KPTQJqwMF5OyP2utkZGzhTSIDBONpc12SKb2BROWTUd+FDf8uc44Xav2eWWNYywwsgSROZdVTttxjSGLlQgwp/vpyVeb9WrS80QQ+nlJU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e9Sg8swK; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792169040; c=relaxed/simple;
+	bh=ibFpth8wAFXUrM8GxlJIYQOA9JU+8ZJEHvofbY7B4qw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iIFALHRUeJsnoIEaamtJoBLqJ0ZzjW/JOppXG0r4jgoIJOnQTjkdiKD+fJB0WszOGJN4teAF0hZVlEUuHlDlvPdXMKNL5xyOU11F8edvQQXGTZHffrdGHncjKVUsZtDBjd1wRZ0xMal08uWlzrmCi06meDb8eMrXu14UjsvtCo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wA1KoVTh; arc=none smtp.client-ip=95.215.58.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e9Sg8swK"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ab868eb9cfso127300a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:42:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792168960; x=1792773760; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eCAyx7AuZ0Q0woC1cedtvhLk+r2xvJ+25iib/kChqHY=;
-        b=e9Sg8swKEvFpVmVZ+PEqqD+A4N+RWX7CA1qgVJPlhgpblgswpuPoHC/GPxmTKz18q4
-         nSKExaw0VOkwr/rdWLHh9l0WBFl63MgjUBTYVGGTGo8E/UkonCfMbKKOV/RyV0ZuM9jV
-         yGkzwD/n5XzqL659LttqMa6+6SyH56xNStFAE2vodQe0t0dJNOTAizxKwv0flRhC+FNR
-         2R61m/ZsK2iCFRl/dcXdXjT9e24KVqU/MZQjO5seTngc+bo2yJJaJNp22C8FtHSkLVVI
-         vh2kiQtYiup83XmjVTSu/lzYeZCIXTe9T38Wd/dTFs1dXgd7U2hCpQH23JHzve2d3+Xx
-         fOVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792168960; x=1792773760;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eCAyx7AuZ0Q0woC1cedtvhLk+r2xvJ+25iib/kChqHY=;
-        b=coNdB5zpxRtknrLd+0R/dREzLolfttdgWbC7NCITDefRrOE+KjMNez27ZGdUHITKdz
-         IoJoksJdW+uXXksdSaz9OhbDh4V+9i4MlifNBBho94F5jejNCaLwjxUYG8K57RNXwTYp
-         7DPE0eZM/I6MmT0iTeARpvg4Osv90gdF1A0FB2eIO6V2amEwuX1hGjYQLYNOIzN3hChC
-         Dfzox1Q71RABfgyM6QaJPLXWW4AMh2C75gpeD9nmz29Zdy8mSj/0k/QjSZHHYk9+N8/+
-         TanB4Nzjzv3H4Xo7NHLbTn9QiQStVE3KyDUyBA0ZOA01MJoGWNjBS+KZKAygH7V2vY71
-         kSlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw2BroyhmuYPqstz06w8tFOC4vK7Yva7L+s5ITjMl2vWdIhQE8E0Il21/pYSC5IV/FfSBDnUgA4rV6jLfM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsL3pFOMlDfa5urUvwk6RYzw6KCWa4HUSakPsrJgCf8x7rTZlR
-	7q6RRP8W2yFK7aHWkO3f0hcqwYlnRVyxhNLfTNcKqG0g3KBn8NOl/kfr
-X-Gm-Gg: AYBFou2aBDNDJshwHrOCCBou7N2G0gDp+HMBVIwyV2iwZKB4m8fGo/WHWG0ppFGF3nm
-	TOKdBbnSamtGN9Fam741f14lTYe9P10NX23OqC1t+9XJ3O35vIckI4dtcCiXEOf8vhL1MoRyiJ5
-	FZSJiYUgoQyXbc3JF7sE1Fyv57AbzcSv4PhHQcOqAKpXlV1hI+rfaWfJwx4FpA4ihgg/cOZTK70
-	wpmJ0xuVj2oUuJNteUqm1VpV/EHpedhEdg2QBUBiEKqso0fWQbMdZ/Kytd9o1EGWJlaib3KTMkL
-	UVC0EuntokX0DbJSRGFNsJJ/OlXnEo0NqLKBKguAoXwIMEQGpdW8yptV4Sohd/ZTylMiBrU/+Pc
-	RQdqEVDc+JO/5Ums6xeGKNRzxsG8v94QF5I+I53+irtB2YD15hh279uBPC/C3NULWAmchVGRA7y
-	g/VdDJut1ejXzXgkAlLj1sbsIJkohgKntmBIT2loxjq5TCP+0ADl2EocMLOErb54q8yQR0k6ael
-	5zSazEoFrmjL4PxIS9lj9Kn3LsJL3feVRaERewLhG7suJ37j05ZsSroChKWRn0b0WkWHK7+WMxD
-	KeY=
-X-Received: by 2002:a17:90a:d44d:b0:39e:4c80:f67b with SMTP id 98e67ed59e1d1-3acef13e596mr338758a91.26.1792168959867;
-        Fri, 16 Oct 2026 09:42:39 -0700 (PDT)
-Received: from localhost ([153.61.198.250])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac945e74bcsm10102429a91.3.2026.10.16.09.42.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 09:42:39 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 16 Oct 2026 16:42:39 +0000
-Message-Id: <DM6EVHTVM3IR.3RCFLKV9WC80J@gmail.com>
-Cc: "Amery Hung" <ameryhung@gmail.com>, "Emil Tsalapatis"
- <emil@etsalapatis.com>, "Nicholas Carlini" <npc@anthropic.com>,
- <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <kernel-team@meta.com>
-Subject: Re: [PATCH bpf-next v2 00/11] bpf: Scope callback arguments to
- their frame
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "Eduard
- Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
- <memxor@gmail.com>
-In-Reply-To: <20261009202759.50520-1-ihor.solodrai@linux.dev>
-References: <20261009202759.50520-1-ihor.solodrai@linux.dev>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wA1KoVTh"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ibFpth8wAFXUrM8GxlJIYQOA9JU+8ZJEHvofbY7B4qw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792169035; v=1; x=1792773835;
+ b=wA1KoVThwZwANpLSglG1xln8yZqaaCmlio7fvwINb1cyEBkpfqvlYKZFtTmq4JskLt2RqgD7
+ bCxE2xecDMf+cYU+iQ37mQuP+6lIBgREmkETCZMdz5T8+0qKU9DLAFGE1UX+om0Y0aY3VgBJIOf
+ xDqss8UTm15BaVmkjvZHaonQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f4f175d3aae833e2;
+	Fri, 16 Oct 2026 16:43:54 +0000
+X-Mizu-Trace-ID: f4f175d3aae833e2
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christian Brauner <christian@brauner.io>
+Cc: Meta kernel team <kernel-team@meta.com>,
+	linux-fsdevel@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] kernfs: allocate inodes and dentry outside kernfs_rwsem
+Date: Fri, 16 Oct 2026 09:43:45 -0700
+Message-ID: <20261016164345.31618-1-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 01:27 PM Ihor Solodrai <ihor.solodrai@linux.dev> wrote:
-> Introduce REF_TYPE_FRAME for this use case: a reference owned by a
-> callee frame, dropped when the frame is popped. Tie each argument to
-> this reference so callback return invalidates it and its descendants.
+In the Meta fleet, on 6.16 with the kernfs changes queued for 7.4
+backported, we still see long cgroupfs stalls:
 
-Another idea...
-The id is owned by the frame. Can we keep it in bpf_func_state
-like diag_frame_id ?
-release_reference() already takes ids that are not in refs[].
-See unmark_stack_slots_dynptr().
-Clones copy parent_id and slices hang off dynptr's id, so both are
-reached.
-All setters have callee already, so no need for patches 1-3,
-REF_TYPE_FRAME, frameno in refs[], the reg that is its own parent, etc.
-Something like this (compile tested only):
+- oomd and below waited 72 seconds in kernfs_fop_readdir() while an out
+  of memory container created cgroups.  They resumed when the kernel OOM
+  killer killed the container's workload.
 
-diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index 54144372281c..4f82b86cdfe2 100644
---- a/include/linux/bpf.h
-+++ b/include/linux/bpf.h
-@@ -3185,6 +3185,7 @@ int bpf_iter_map_fill_link_info(const struct bpf_iter_aux_info *aux,
- int map_set_for_each_callback_args(struct bpf_verifier_env *env,
- 				   struct bpf_func_state *caller,
- 				   struct bpf_func_state *callee);
-+void mark_frame_scoped_arg(struct bpf_verifier_env *env, struct bpf_func_state *callee, u32 regno);
- 
- int bpf_percpu_hash_copy(struct bpf_map *map, void *key, void *value, u64 flags);
- int bpf_percpu_array_copy(struct bpf_map *map, void *key, void *value, u64 flags);
-diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
-index 112ca1511da4..8865ece94ef4 100644
---- a/include/linux/bpf_verifier.h
-+++ b/include/linux/bpf_verifier.h
-@@ -364,6 +364,8 @@ struct bpf_func_state {
- 	 * reused after returns, while this ID is preserved across state clones.
- 	 */
- 	u32 diag_frame_id;
-+	/* parent_id of the args that are gone when this frame returns */
-+	u32 frame_id;
- 	/* subprog number == index within subprog_info
- 	 * zero == main subprog
- 	 */
-diff --git a/kernel/bpf/arraymap.c b/kernel/bpf/arraymap.c
-index 0fe9afd4a591..3376cc81e5d9 100644
---- a/kernel/bpf/arraymap.c
-+++ b/kernel/bpf/arraymap.c
-@@ -855,6 +855,16 @@ static u64 array_map_mem_usage(const struct bpf_map *map)
- 	return usage;
+- oomd waited 15 minutes in kernfs_iop_lookup().  PID 1 waited for
+  kernfs_rwsem in cgroup_rmdir() while holding cgroup_mutex.
+
+- A lock profiler sampling part of the fleet saw kernfs_iop_lookup()
+  hold kernfs_rwsem across memcg reclaim on 26 hosts in 29 days, for up
+  to 625 ms.
+
+The profiler shows where these stalls come from.  kernfs_iop_lookup()
+and the export ops allocate a new inode while holding kernfs_rwsem for
+read.  The inode is charged to the caller's memcg.  If that memcg is at
+memory.max, the allocation can stay in reclaim for a long time,
+sometimes until an OOM kill.  A writer then queues on the lock and every
+new reader queues behind it.  On cgroup2 this blocks every cgroupfs user
+on the machine.
+
+Such lookups are common in a memcg that is out of memory.  Its reclaim
+drops its kernfs dentries fast, and the files of a new cgroup have no
+inodes yet.
+
+Allocate the inode with the lock dropped.  kernfs_iget() first looks for
+an existing inode.  If there is none, it pins the node, drops the lock,
+allocates, takes the lock again, and adds the inode only if the node is
+still active.  So __kernfs_remove() still finds every inode it must
+clear i_nlink on, as commit dc1a0cc95737 ("kernfs: don't lose
+IN_DELETE_SELF when decoding a file handle") needs.
+
+kernfs_get_parent_dentry() also held the lock across d_obtain_alias(),
+which allocates a dentry.  Hold it only around kernfs_iget(), as
+__kernfs_fh_to_dentry() already does.
+
+Tested on a 176-CPU machine.  A task in a full 256 MB memcg with slow
+swap looks up the files of new cgroups.  Worst waits in 60 seconds:
+
+                                  before    after
+  oomd, for kernfs_rwsem          577 ms   0.7 ms
+  below, for kernfs_rwsem         412 ms   1.0 ms
+  systemd, for kernfs_rwsem       449 ms    17 us
+  readdir of another directory   1154 ms   3.2 ms
+
+The lookup itself is still slow.  The VFS still holds its directory's
+lock, so other work in that one directory still waits.  Cold sysfs and
+cgroupfs walks are not slower.
+
+kernfs_fill_super() still allocates the root inode under the lock.  It
+runs once per superblock.
+
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+---
+Changes since v1:
+- dentry allocation outside kernfs_rwsem (Sashiko).
+- Couple of comments updated.
+
+ fs/kernfs/dir.c             | 11 +++---
+ fs/kernfs/inode.c           | 69 +++++++++++++++++++++++++++++++++++++
+ fs/kernfs/kernfs-internal.h |  2 ++
+ fs/kernfs/mount.c           | 18 +++++-----
+ 4 files changed, 88 insertions(+), 12 deletions(-)
+
+diff --git a/fs/kernfs/dir.c b/fs/kernfs/dir.c
+index 7e65854a09e4..70c114911063 100644
+--- a/fs/kernfs/dir.c
++++ b/fs/kernfs/dir.c
+@@ -37,7 +37,7 @@ static bool __kernfs_active(struct kernfs_node *kn)
+ 	return atomic_read(&kn->active) >= 0;
  }
  
-+static int array_map_set_for_each_callback_args(struct bpf_verifier_env *env,
-+						struct bpf_func_state *caller,
-+						struct bpf_func_state *callee)
+-static bool kernfs_active(struct kernfs_node *kn)
++bool kernfs_active(struct kernfs_node *kn)
+ {
+ 	lockdep_assert_held(&kernfs_root(kn)->kernfs_rwsem);
+ 	return __kernfs_active(kn);
+@@ -1269,9 +1269,12 @@ static struct dentry *kernfs_iop_lookup(struct inode *dir,
+ 			up_read(&root->kernfs_rwsem);
+ 			return NULL;
+ 		}
+-		inode = kernfs_get_inode(dir->i_sb, kn);
+-		if (!inode)
+-			inode = ERR_PTR(-ENOMEM);
++		inode = kernfs_iget(dir->i_sb, kn);
++		if (!inode) {
++			/* deactivated while kernfs_iget() dropped the lock */
++			up_read(&root->kernfs_rwsem);
++			return NULL;
++		}
+ 	}
+ 	/*
+ 	 * Needed for negative dentry validation.
+diff --git a/fs/kernfs/inode.c b/fs/kernfs/inode.c
+index 237dcdd73fc2..6c64bff0fc9f 100644
+--- a/fs/kernfs/inode.c
++++ b/fs/kernfs/inode.c
+@@ -256,6 +256,75 @@ struct inode *kernfs_get_inode(struct super_block *sb, struct kernfs_node *kn)
+ 	return inode;
+ }
+ 
++static int kernfs_iget_test(struct inode *inode, void *data)
 +{
-+	map_set_for_each_callback_args(env, caller, callee);
-+	/* the key is on the stack of bpf_for_each_array_elem() */
-+	mark_frame_scoped_arg(env, callee, BPF_REG_2);
++	return inode->i_ino == *(u64 *)data;
++}
++
++static int kernfs_iget_set(struct inode *inode, void *data)
++{
++	inode->i_ino = *(u64 *)data;
 +	return 0;
 +}
 +
- BTF_ID_LIST_SINGLE(array_map_btf_ids, struct, bpf_array)
- const struct bpf_map_ops array_map_ops = {
- 	.map_meta_equal = array_map_meta_equal,
-@@ -875,7 +885,7 @@ const struct bpf_map_ops array_map_ops = {
- 	.map_check_btf = array_map_check_btf,
- 	.map_lookup_batch = generic_map_lookup_batch,
- 	.map_update_batch = generic_map_update_batch,
--	.map_set_for_each_callback_args = map_set_for_each_callback_args,
-+	.map_set_for_each_callback_args = array_map_set_for_each_callback_args,
- 	.map_for_each_callback = bpf_for_each_array_elem,
- 	.map_mem_usage = array_map_mem_usage,
- 	.map_btf_id = &array_map_btf_ids[0],
-@@ -900,7 +910,7 @@ const struct bpf_map_ops percpu_array_map_ops = {
- 	.map_check_btf = array_map_check_btf,
- 	.map_lookup_batch = generic_map_lookup_batch,
- 	.map_update_batch = generic_map_update_batch,
--	.map_set_for_each_callback_args = map_set_for_each_callback_args,
-+	.map_set_for_each_callback_args = array_map_set_for_each_callback_args,
- 	.map_for_each_callback = bpf_for_each_array_elem,
- 	.map_mem_usage = array_map_mem_usage,
- 	.map_btf_id = &array_map_btf_ids[0],
-diff --git a/kernel/bpf/states.c b/kernel/bpf/states.c
-index 953700822fa7..43d6682037fe 100644
---- a/kernel/bpf/states.c
-+++ b/kernel/bpf/states.c
-@@ -995,6 +995,9 @@ static bool func_states_equal(struct bpf_verifier_env *env, struct bpf_func_stat
- 	if (!old->no_stack_arg_load && cur->no_stack_arg_load)
- 		return false;
- 
-+	if (!check_ids(old->frame_id, cur->frame_id, &env->idmap_scratch))
-+		return false;
-+
- 	for (i = 0; i < MAX_BPF_REG; i++)
- 		if (((1 << i) & live_regs) &&
- 		    !regsafe(env, &old->regs[i], &cur->regs[i],
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index ec136cf377c1..bc12df55d2e2 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -11465,6 +11465,14 @@ static int check_func_callx(struct bpf_verifier_env *env, struct bpf_insn *insn,
- 	return check_static_func_call(env, subprog, insn_idx);
- }
- 
-+/* The arg points into the stack frame of the helper that calls the callback */
-+void mark_frame_scoped_arg(struct bpf_verifier_env *env, struct bpf_func_state *callee, u32 regno)
++/**
++ * kernfs_iget - get the inode of @kn, allocating it outside kernfs_rwsem
++ * @sb: super block
++ * @kn: kernfs_node to get the inode for
++ *
++ * Unlike kernfs_get_inode(), this never allocates with kernfs_rwsem held.
++ * If @kn has no inode yet, the lock is dropped while allocating one, as
++ * the allocation can stall in memcg reclaim.  The new inode is added only
++ * if @kn is still active when the lock is taken again, so
++ * __kernfs_remove() always finds it to clear i_nlink.
++ *
++ * Only @kn is pinned while the lock is dropped.  Its name and parent can
++ * change in that time.
++ *
++ * Context: May sleep.  Called with kernfs_rwsem held for read.  Returns
++ * with it held, but may have dropped and retaken it.
++ *
++ * Return: the inode, %NULL if @kn is inactive or became inactive while
++ * the lock was dropped, or ERR_PTR(-ENOMEM).
++ */
++struct inode *kernfs_iget(struct super_block *sb, struct kernfs_node *kn)
 +{
-+	if (!callee->frame_id)
-+		callee->frame_id = ++env->id_gen;
-+	callee->regs[regno].parent_id = callee->frame_id;
++	struct kernfs_root *root = kernfs_root(kn);
++	u64 ino = kernfs_ino(kn);
++	struct inode *inode, *new;
++
++	lockdep_assert_held_read(&root->kernfs_rwsem);
++
++	inode = ilookup(sb, ino);
++	if (inode || !kernfs_active(kn))
++		return inode;
++
++	kernfs_get(kn);
++	up_read(&root->kernfs_rwsem);
++	new = new_inode(sb);
++	down_read(&root->kernfs_rwsem);
++
++	if (!new) {
++		inode = ERR_PTR(-ENOMEM);
++	} else if (!kernfs_active(kn)) {
++		inode = NULL;
++	} else {
++		inode = inode_insert5(new, ino, kernfs_iget_test,
++				      kernfs_iget_set, &ino);
++		if (inode == new) {
++			kernfs_init_inode(kn, inode);
++			new = NULL;
++		} else if (!inode) {
++			inode = ERR_PTR(-ENOMEM);
++		}
++	}
++
++	kernfs_put(kn);
++	if (new)
++		iput(new);
++	return inode;
 +}
 +
- int map_set_for_each_callback_args(struct bpf_verifier_env *env,
- 				   struct bpf_func_state *caller,
- 				   struct bpf_func_state *callee)
-@@ -11631,6 +11639,7 @@ static int set_user_ringbuf_callback_state(struct bpf_verifier_env *env,
- 	 */
- 	bpf_mark_reg_not_init(env, &callee->regs[BPF_REG_0]);
- 	mark_dynptr_cb_reg(env, &callee->regs[BPF_REG_1], BPF_DYNPTR_TYPE_LOCAL);
-+	mark_frame_scoped_arg(env, callee, BPF_REG_1);
- 	callee->regs[BPF_REG_2] = caller->regs[BPF_REG_3];
+ /*
+  * The kernfs_node serves as both an inode and a directory entry for
+  * kernfs.  To prevent the kernfs inode numbers from being freed
+diff --git a/fs/kernfs/kernfs-internal.h b/fs/kernfs/kernfs-internal.h
+index 1609c1519698..6cc19c9ef47b 100644
+--- a/fs/kernfs/kernfs-internal.h
++++ b/fs/kernfs/kernfs-internal.h
+@@ -186,6 +186,7 @@ int kernfs_iop_getattr(struct mnt_idmap *idmap,
+ 		       u32 request_mask, unsigned int query_flags);
+ ssize_t kernfs_iop_listxattr(struct dentry *dentry, char *buf, size_t size);
+ int __kernfs_setattr(struct kernfs_node *kn, const struct iattr *iattr);
++struct inode *kernfs_iget(struct super_block *sb, struct kernfs_node *kn);
  
- 	/* unused */
-@@ -11885,6 +11894,11 @@ static int prepare_func_exit(struct bpf_verifier_env *env, int *insn_idx)
- 					     callee->allocated_stack / BPF_REG_SIZE - 1);
- 	if (err)
- 		return err;
-+	if (callee->frame_id) {
-+		err = release_reference(env, callee->frame_id);
-+		if (err)
-+			return err;
+ /*
+  * dir.c
+@@ -194,6 +195,7 @@ extern const struct dentry_operations kernfs_dops;
+ extern const struct file_operations kernfs_dir_fops;
+ extern const struct inode_operations kernfs_dir_iops;
+ 
++bool kernfs_active(struct kernfs_node *kn);
+ struct kernfs_node *kernfs_get_active(struct kernfs_node *kn);
+ void kernfs_put_active(struct kernfs_node *kn);
+ int kernfs_add_one(struct kernfs_node *kn);
+diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
+index c15ba6357162..ccb7dc575c7c 100644
+--- a/fs/kernfs/mount.c
++++ b/fs/kernfs/mount.c
+@@ -125,11 +125,9 @@ static struct dentry *__kernfs_fh_to_dentry(struct super_block *sb,
+ 	}
+ 
+ 	/*
+-	 * Hold kernfs_rwsem across the lookup as well as kernfs_get_inode().
+-	 * __kernfs_remove() deactivates the subtree and clears i_nlink on its
+-	 * inodes under the write lock, so under the read lock either
+-	 * kernfs_find_and_get_node_by_id() refuses the node, or the inode is
+-	 * in the inode hash before the ilookup() pass goes looking for it.
++	 * Hold kernfs_rwsem from the lookup through kernfs_iget().  Then
++	 * __kernfs_remove() either finds the inode to clear i_nlink, or the
++	 * node is already inactive and no inode is created.
+ 	 */
+ 	scoped_guard(rwsem_read, &info->root->kernfs_rwsem) {
+ 		kn = kernfs_find_and_get_node_by_id(info->root, id);
+@@ -146,7 +144,7 @@ static struct dentry *__kernfs_fh_to_dentry(struct super_block *sb,
+ 				return ERR_PTR(-ESTALE);
+ 		}
+ 
+-		inode = kernfs_get_inode(sb, kn);
++		inode = kernfs_iget(sb, kn);
+ 		kernfs_put(kn);
+ 	}
+ 
+@@ -171,9 +169,13 @@ static struct dentry *kernfs_get_parent_dentry(struct dentry *child)
+ {
+ 	struct kernfs_node *kn = kernfs_dentry_node(child);
+ 	struct kernfs_root *root = kernfs_root(kn);
++	struct inode *inode;
++
++	scoped_guard(rwsem_read, &root->kernfs_rwsem) {
++		inode = kernfs_iget(child->d_sb, kernfs_parent(kn));
 +	}
  
- 	/* for callbacks like bpf_loop or bpf_for_each_map_elem go back to callsite,
- 	 * there function call logic would reschedule callback visit. If iteration
+-	guard(rwsem_read)(&root->kernfs_rwsem);
+-	return d_obtain_alias(kernfs_get_inode(child->d_sb, kernfs_parent(kn)));
++	return d_obtain_alias(inode);
+ }
+ 
+ static const struct export_operations kernfs_export_ops = {
+-- 
+2.53.0-Meta
 
-Patches 5 and 6 are fine on their own. Pls send them separately.
-
-pw-bot: cr
