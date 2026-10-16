@@ -1,78 +1,54 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FE03D812D
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:33:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF1A63815F3;
+	Fri, 16 Oct 2026 07:34:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135985; cv=none; b=pBaZy3puiUl9yLSi3vOLitbTB6lSZFg4qOomFR4LmP6M2Lu4Olz+VY4w8nWWUjanOaO23XOr8JFDkKZdWFcwc8g6nY3vCQ5EJnrQGbWtl82s6pEelQ90Vse3bgex4R77Of/uP5pFdrFNyJWSPbaEZJbb2stdq4km2SYcILaMIdM=
+	t=1792136043; cv=none; b=cZj3efJ5znuScMJLhlQr9vf/Rf6qI5iDsT/uXQS64d0QpOnI9NQEEAkqfKjM/qAEP0CioB9b8LvhXporEXskI2qJHB5cDYkGXt4o0I3vwpA9PDAqi6gajIZEFKKsRxF4HlOrqcXv9d4Afsk+GvsNjlpBqhYHhXTzvtikHjbPNMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135985; c=relaxed/simple;
-	bh=1UFzf7BnjxuTJMMsRGNzEo600moxklhxLQ+/r4XOoOQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=I6Ixjb4PS889tp/dSbApr41ncUdrdh5xZKzs1YKqg+VELnELjDBBEdeyNQVD68m6yVnoc0smY0QEw2s5QTA6CR7sfQXKIuB98hLTvqh2WxM7dAh4xEYTq6+qhvaQBCd2/XnjROg+wi1Fjsskg+a/DFc1/L80h2ipsQ+Hs54AxZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hg8evDs5; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792136043; c=relaxed/simple;
+	bh=6msiKErk0LHa6GMnJywjOPC5MhU1OSDvhpH63EfbynI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZsEPrea8lXnwYwtfb4W5zoE5AORQqEVoWLMIA22dMGegCvP0g9mneMDFqJ+wZ8yGdDL0ypfGpiWjNhPUPNE3pIssz36uItrZ4Fy0syTi5oPEnZPpY+0EWhth+YKeFFI1ACv939o8iNrhffQ1p1l09QtPLEDMl1cLwI7TUfDbCJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Fua9vejN; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hg8evDs5"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-89e018e466eso1084280b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:33:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792135982; x=1792740782; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9lzObHIWSDCCNYCjA2Ll3fvLIHrxT5aolRRJzJ0JUnI=;
-        b=hg8evDs5f6g547/xgNERLEfhxp7+fQ9+3t5AJZ/+RRLDuGwMAOBP/2kwaagfLicWgm
-         EyPechQUjxQXZeG5W6Gi4iynlBITevVdd+T8jifEMrKERGJtvfvjhAX2m8rkn2SDo2B5
-         rpheeE7FK+xECqGtNhhvnwHzZY3qq7LqRVx6VVqV8B2LdBxE3ocImBexLUn4oTaiXQ8Y
-         PPaDE7Q1AUoPjg5gEMJZe3xr/VUkupr0HhMlvx4IhHAXiTrdGxumjQ9GLgfYlTA8MpfD
-         7ff34PEttz8rZjlfFTHmZXgjevlYS/sppgTyhMNBHAU8BoTfY9TYBeFk5Jnn9X5jEERC
-         CKlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792135982; x=1792740782;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9lzObHIWSDCCNYCjA2Ll3fvLIHrxT5aolRRJzJ0JUnI=;
-        b=luPRLgISrJeTcxOMdQmsE3PUe9AEtScP7s5s/lMIdAZh0LgIM3LY5XtAkA0uZ3vzrJ
-         8WkB2gadggS+Wh7Enpk7BzxeDzWRWsH+RyhXSKD0YhYTBB/CWbmXLdAynSEHCekvGV9T
-         83P8MYPznebYSUOdq3hIqFEOmb7HaerTHRvhZjJvpQdGEHNcRW4xh9Km87SBKcAxSNp0
-         +NR+hPFMLvdmzxf6PzVhZXjc8yvqbxGvfuCNfdHrYjgCwRo8Bbsg0KLhgeC1uU4dn9u5
-         aF4BrltotV4LXuGfCQneO2UDIEZqcj/EJknEWCLPvqK8+SKq+ZRXULsEXILGPN1HUffr
-         0kFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxhrYPLQ8mZg1dVvFd/mMdilepnpa6c0L6q20LvyO0OFX7xfEl490nMYPwLmUev+HUJSuzJ0cdZ8KqsJOE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKFtkYcdJFD75qUJHTDItQB599AH3x1GBXAqjxqF+8ya6idXj7/
-	eZvXygx14Cq9PsoTupRxOu+RliafHfipEmqeCzHcmloLuvFICutdmmE=
-X-Gm-Gg: AYBFou04/WFjrdRo3ZhYJkPyWM3NJvooeiF5xdgUKbxsh3Kz1GLirS6Nd4sDQkv3ND0
-	nLJYUSdVjyTbiYhVpDPOt9ax5lfZtXQtxgDGNk+nF17QBjBncXR0S/9Shkn+eqDUIQywTZiPzMu
-	SqH5uMjK7VsxZCC38l2XV3JvvxMAcu1z0FF52SIgFHwgXRzhTYMzBBY8jAU4Vx9t0nCIyJENpN/
-	Sbv8SyHy8kJ6O1yteSf33EwIRKy9a/JyuwAovbMMcc824HaQtVYhZm9QexQMi+D1xil/OqU3p9W
-	xIRCV5yKbLdu7hx4g6KzA6NDdXaSHhPXGrLT7n7jha+Wc1ZDPD4qlfE1hzxYNp8yhM4RIGs8ZJM
-	bbFNaa06WI8tFEZrOxk1W3nq3Po7HI724vLnV7ke/RgUIC3gw35/+EKYzH/gbsfEuXr/1gFQ+y8
-	eJlqroKvEaoia1M0LGfRYSr1i18E7DaG8Tlz/96p8DedY5jte0cQVj7C4zLa5GGjQ1u8Hy/E++3
-	VMlPe3d
-X-Received: by 2002:a05:6a00:3cca:b0:874:708d:b631 with SMTP id d2e1a72fcca58-897c79dd8c6mr18756274b3a.29.1792135980952;
-        Fri, 16 Oct 2026 00:33:00 -0700 (PDT)
-Received: from localhost.localdomain ([185.220.238.36])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f54b30ec4sm674788b3a.4.2026.10.16.00.32.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 00:32:59 -0700 (PDT)
-From: Wang Yibo <szwyb123@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>,
-	David Gow <david@davidgow.net>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	linux-block@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Fua9vejN"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9188014BF;
+	Fri, 16 Oct 2026 00:33:50 -0700 (PDT)
+Received: from e127648.arm.com (unknown [10.57.84.235])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E38003F673;
+	Fri, 16 Oct 2026 00:33:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792136033; bh=6msiKErk0LHa6GMnJywjOPC5MhU1OSDvhpH63EfbynI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Fua9vejNdTAwVxVcDvwRF688BpX829Ur6+DxJQ9TK+KBGRo6tAmnZndzm8kQutkiV
+	 +IaTMj2EGUsWkhDR2aEy9oYO19ovHb5W9LmCiH7GGSqPzkUsiZUFmPJnU6RvhsLBjR
+	 OnH2bw+MeZTu+gu5LtFTkhm/viZhaspseqdL4Ook=
+From: Christian Loehle <christian.loehle@arm.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	linux-s390@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	kunit-dev@googlegroups.com
-Subject: [PATCH v2] lib/sbitmap: add KUnit test suite
-Date: Fri, 16 Oct 2026 15:32:53 +0800
-Message-Id: <20261016073253.520971-1-szwyb123@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <d6ea208a-0b53-4da8-998f-817a0e0b7c61@davidgow.net>
-References: <d6ea208a-0b53-4da8-998f-817a0e0b7c61@davidgow.net>
+	Christian Loehle <christian.loehle@arm.com>,
+	Kayra Cizmeci <kayracizmeci@gmail.com>
+Subject: [PATCHv3] sched: Replace nr_iowait_cpu() with a bool accessor
+Date: Fri, 16 Oct 2026 08:33:40 +0100
+Message-Id: <20261016073341.575472-1-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,412 +57,205 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sbitmap is the tag allocator used by blk-mq and the I/O schedulers
-built on top of it, but the plain, synchronous part of its API has no
-test coverage at all.
+The menu governor was the last consumer of the per-CPU I/O-wait count
+that needed its magnitude, apart from nr_iowait() summing it globally.
+Commit 38f83090f515 ("cpuidle: menu: Remove iowait influence") removed
+that use. All remaining per-CPU consumers only test for zero/nonzero.
 
-Add a KUnit suite covering initialisation, allocation and exhaustion,
-deferred clears, round-robin ordering, resize, the bitmap helpers and
-sbitmap_for_each_set(), so that the behaviour is checked on every boot.
+Replace nr_iowait_cpu() with bool cpu_has_iowait() and update the generic
+and s390 idle accounting callers. Have nr_iowait() read the counters
+directly so that the global total and existing accounting are preserved.
+Replace the stale menu comment with a description of the predicate.
+Also convert the remaining open-coded idle accounting checks to use the
+predicate, as suggested by Prateek.
 
-The new file is added to the BLOCK LAYER entry in MAINTAINERS, next to
-lib/sbitmap.c, so that it does not end up without a maintainer.
+The conversion was done with coccinelle:
 
-Signed-off-by: Wang Yibo <szwyb123@gmail.com>
+@ predicate depends on patch @
+expression cpu;
+@@
+
+- nr_iowait_cpu(cpu) > 0
++ cpu_has_iowait(cpu)
+
+@ callers depends on patch @
+expression cpu;
+@@
+
+- nr_iowait_cpu(cpu)
++ cpu_has_iowait(cpu)
+
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
 ---
-v2:
- - Test sb.alloc_hint as a plain boolean: KUNIT_EXPECT_NOT_NULL() passes
-   its argument through a const void *, which a __percpu pointer cannot do
-   on architectures that keep percpu data in a separate address space, so
-   the test did not build on x86 (David Gow).
- - Use a BITS_PER_LONG-relative bit number in sbitmap_test_iterate_set().
-   The hardcoded 130 lies past the end of the test bitmap when
-   BITS_PER_LONG is 32, so that bit was never visited and the test failed;
-   assert the precondition while at it (David Gow).
+v3:
+- Also convert open-coded users (Thanks K Prateek!)
+- pick up tags
 
-Both issues were reproduced and the fixes verified:
-  - x86_64 (gcc 15.2, CONFIG_USE_X86_SEG_SUPPORT=y): v1 fails to build
-    with "comparison of pointers to disjoint address spaces" at the
-    KUNIT_EXPECT_NOT_NULL(sb.alloc_hint); v2 builds clean.
-  - i386, i.e. 32-bit (gcc): v1 fails sbitmap_test_iterate_set with
-    nr_visited == 5, as the out-of-range bit 130 is never visited;
-    v2 passes.
-  - v2 runs the whole suite green (8/8) under KUnit/QEMU on arm64,
-    i386 and x86_64.
+ arch/s390/kernel/idle.c    |  4 ++--
+ include/linux/sched/stat.h |  2 +-
+ kernel/sched/core.c        | 13 +++++--------
+ kernel/sched/cputime.c     | 20 +++++++++-----------
+ 4 files changed, 17 insertions(+), 22 deletions(-)
 
-Link: https://lore.kernel.org/r/20261014082704.33667-1-szwyb123@gmail.com
-Link: https://lore.kernel.org/r/d6ea208a-0b53-4da8-998f-817a0e0b7c61@davidgow.net
- MAINTAINERS               |   1 +
- lib/Kconfig.debug         |  13 ++
- lib/tests/Makefile        |   1 +
- lib/tests/sbitmap_kunit.c | 308 ++++++++++++++++++++++++++++++++++++++
- 4 files changed, 323 insertions(+)
- create mode 100644 lib/tests/sbitmap_kunit.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8d3c..c8510e6f1817 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4726,6 +4726,7 @@ F:	include/uapi/linux/blk*
- F:	include/uapi/linux/ioprio.h
- F:	kernel/trace/blktrace.c
- F:	lib/sbitmap.c
-+F:	lib/tests/sbitmap_kunit.c
+diff --git a/arch/s390/kernel/idle.c b/arch/s390/kernel/idle.c
+index dd12efb58201..ff9732ef494c 100644
+--- a/arch/s390/kernel/idle.c
++++ b/arch/s390/kernel/idle.c
+@@ -82,13 +82,13 @@ static u64 arch_cpu_idle_time(int cpu, enum cpu_usage_stat idx, bool compute_del
  
- BLOCK LAYER DEVICE DRIVER API [RUST]
- M:	Andreas Hindborg <a.hindborg@kernel.org>
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 6b24a2c89b84..f5fe7f5a0a4d 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2456,6 +2456,19 @@ config PRINTF_KUNIT_TEST
+ u64 arch_kcpustat_field_idle(int cpu)
+ {
+-	return arch_cpu_idle_time(cpu, CPUTIME_IDLE, !nr_iowait_cpu(cpu));
++	return arch_cpu_idle_time(cpu, CPUTIME_IDLE, !cpu_has_iowait(cpu));
+ }
+ EXPORT_SYMBOL_GPL(arch_kcpustat_field_idle);
  
- 	  If unsure, say N.
+ u64 arch_kcpustat_field_iowait(int cpu)
+ {
+-	return arch_cpu_idle_time(cpu, CPUTIME_IOWAIT, nr_iowait_cpu(cpu));
++	return arch_cpu_idle_time(cpu, CPUTIME_IOWAIT, cpu_has_iowait(cpu));
+ }
+ EXPORT_SYMBOL_GPL(arch_kcpustat_field_iowait);
  
-+config SBITMAP_KUNIT_TEST
-+	tristate "KUnit test for sbitmap" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	depends on SBITMAP
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Enable to turn on sbitmap tests, running at boot or module load time.
-+
-+	  For more information on KUnit and unit tests in general, please refer
-+	  to the KUnit documentation in Documentation/dev-tools/kunit/.
-+
-+	  If unsure, say N.
-+
- config SCANF_KUNIT_TEST
- 	tristate "KUnit test scanf() family of functions at runtime" if !KUNIT_ALL_TESTS
- 	depends on KUNIT
-diff --git a/lib/tests/Makefile b/lib/tests/Makefile
-index 3cac3b63a752..1f49555f94c3 100644
---- a/lib/tests/Makefile
-+++ b/lib/tests/Makefile
-@@ -44,6 +44,7 @@ obj-$(CONFIG_OVERFLOW_KUNIT_TEST) += overflow_kunit.o
- obj-$(CONFIG_PRANDOM_KUNIT_TEST) += random32_kunit.o
- obj-$(CONFIG_PRINTF_KUNIT_TEST) += printf_kunit.o
- obj-$(CONFIG_RANDSTRUCT_KUNIT_TEST) += randstruct_kunit.o
-+obj-$(CONFIG_SBITMAP_KUNIT_TEST) += sbitmap_kunit.o
- obj-$(CONFIG_SCANF_KUNIT_TEST) += scanf_kunit.o
- obj-$(CONFIG_SEQ_BUF_KUNIT_TEST) += seq_buf_kunit.o
- obj-$(CONFIG_SIPHASH_KUNIT_TEST) += siphash_kunit.o
-diff --git a/lib/tests/sbitmap_kunit.c b/lib/tests/sbitmap_kunit.c
-new file mode 100644
-index 000000000000..284dcb5d7188
---- /dev/null
-+++ b/lib/tests/sbitmap_kunit.c
-@@ -0,0 +1,308 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * KUnit tests for the scalable bitmap (sbitmap) implementation.
-+ *
-+ * sbitmap is the tag allocator used by blk-mq and the I/O schedulers built on
-+ * top of it, but it has no tests.  These tests pin down the observable
-+ * behaviour of the plain, synchronous parts of the API.
-+ *
-+ * Copyright (C) 2026 Wang Yibo <szwyb123@gmail.com>
-+ */
-+
-+#include <linux/bitmap.h>
-+#include <linux/gfp.h>
-+#include <linux/sbitmap.h>
-+
-+#include <kunit/test.h>
-+
-+/*
-+ * Big enough to span several words for any plausible BITS_PER_LONG, and not a
-+ * power of two so that the last word is partially used.
-+ */
-+#define SBITMAP_TEST_DEPTH	(3 * BITS_PER_LONG + 5)
-+
-+static void sbitmap_test_init(struct kunit *test)
-+{
-+	const unsigned int depth = 97;
-+	struct sbitmap sb;
-+	int ret;
-+
-+	ret = sbitmap_init_node(&sb, depth, -1, GFP_KERNEL, NUMA_NO_NODE,
-+				false, true);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, sb.depth, depth);
-+	KUNIT_EXPECT_EQ(test, sb.shift,
-+			(unsigned int)sbitmap_calculate_shift(depth));
-+	KUNIT_EXPECT_EQ(test, sb.map_nr, DIV_ROUND_UP(depth, 1U << sb.shift));
-+	KUNIT_EXPECT_FALSE(test, sb.round_robin);
-+	/*
-+	 * alloc_hint is a __percpu pointer, which the generic pointer
-+	 * assertions cannot take: on x86, where percpu data lives in
-+	 * __seg_gs, passing it through a const void * does not compile.
-+	 * Test it as a plain boolean instead.
-+	 */
-+	KUNIT_EXPECT_TRUE(test, sb.alloc_hint);
-+	KUNIT_EXPECT_FALSE(test, sbitmap_any_bit_set(&sb));
-+	KUNIT_EXPECT_EQ(test, sbitmap_weight(&sb), 0U);
-+	sbitmap_free(&sb);
-+
-+	/* An explicitly requested shift is honoured. */
-+	ret = sbitmap_init_node(&sb, depth, 3, GFP_KERNEL, NUMA_NO_NODE,
-+				false, true);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, sb.shift, 3U);
-+	KUNIT_EXPECT_EQ(test, sb.map_nr, DIV_ROUND_UP(depth, 1U << 3));
-+	sbitmap_free(&sb);
-+
-+	/* BITS_PER_LONG bits per word is the largest representable granularity. */
-+	ret = sbitmap_init_node(&sb, depth, ilog2(BITS_PER_LONG), GFP_KERNEL,
-+				NUMA_NO_NODE, false, true);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, sb.shift, (unsigned int)ilog2(BITS_PER_LONG));
-+	KUNIT_EXPECT_EQ(test, sb.map_nr, DIV_ROUND_UP(depth, BITS_PER_LONG));
-+	sbitmap_free(&sb);
-+
-+	/* Anything above that cannot be represented and must be rejected. */
-+	ret = sbitmap_init_node(&sb, depth, ilog2(BITS_PER_LONG) + 1,
-+				GFP_KERNEL, NUMA_NO_NODE, false, true);
-+	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
-+}
-+
-+static void sbitmap_test_calculate_shift(struct kunit *test)
-+{
-+	/* Maps too small to spread over several words keep the default. */
-+	KUNIT_EXPECT_EQ(test, sbitmap_calculate_shift(0), ilog2(BITS_PER_LONG));
-+	KUNIT_EXPECT_EQ(test, sbitmap_calculate_shift(1), ilog2(BITS_PER_LONG));
-+	KUNIT_EXPECT_EQ(test, sbitmap_calculate_shift(3), ilog2(BITS_PER_LONG));
-+
-+	/* Four bits map to one bit per word. */
-+	KUNIT_EXPECT_EQ(test, sbitmap_calculate_shift(4), 0);
-+
-+	/* The shift grows back as the depth increases. */
-+	KUNIT_EXPECT_EQ(test, sbitmap_calculate_shift(4 * BITS_PER_LONG - 1),
-+			ilog2(BITS_PER_LONG) - 1);
-+	KUNIT_EXPECT_EQ(test, sbitmap_calculate_shift(4 * BITS_PER_LONG),
-+			ilog2(BITS_PER_LONG));
-+}
-+
-+static void sbitmap_test_get_exhaust(struct kunit *test)
-+{
-+	DECLARE_BITMAP(seen, SBITMAP_TEST_DEPTH) = { 0 };
-+	struct sbitmap sb;
-+	unsigned int i;
-+	int bit;
-+
-+	KUNIT_ASSERT_EQ(test, sbitmap_init_node(&sb, SBITMAP_TEST_DEPTH, -1,
-+						GFP_KERNEL, NUMA_NO_NODE,
-+						false, true), 0);
-+
-+	/* Every bit is handed out exactly once, then the map is empty. */
-+	for (i = 0; i < SBITMAP_TEST_DEPTH; i++) {
-+		bit = sbitmap_get(&sb);
-+		KUNIT_ASSERT_GE(test, bit, 0);
-+		KUNIT_ASSERT_LT(test, bit, (int)SBITMAP_TEST_DEPTH);
-+		KUNIT_ASSERT_FALSE(test, test_bit(bit, seen));
-+		__set_bit(bit, seen);
-+	}
-+
-+	KUNIT_EXPECT_TRUE(test, sbitmap_any_bit_set(&sb));
-+	KUNIT_EXPECT_EQ(test, sbitmap_weight(&sb),
-+			(unsigned int)SBITMAP_TEST_DEPTH);
-+	KUNIT_EXPECT_EQ(test, sbitmap_get(&sb), -1);
-+
-+	sbitmap_free(&sb);
-+}
-+
-+static void sbitmap_test_put_reuse(struct kunit *test)
-+{
-+	struct sbitmap sb;
-+	unsigned int i;
-+	int bit;
-+
-+	KUNIT_ASSERT_EQ(test, sbitmap_init_node(&sb, BITS_PER_LONG, -1,
-+						GFP_KERNEL, NUMA_NO_NODE,
-+						true, true), 0);
-+
-+	for (i = 0; i < BITS_PER_LONG; i++)
-+		KUNIT_ASSERT_GE(test, sbitmap_get(&sb), 0);
-+
-+	KUNIT_EXPECT_EQ(test, sbitmap_weight(&sb), (unsigned int)BITS_PER_LONG);
-+	KUNIT_EXPECT_EQ(test, sbitmap_get(&sb), -1);
-+
-+	/*
-+	 * Freeing a single bit must make exactly that bit available again, no
-+	 * matter which bit it was.
-+	 */
-+	for (i = 0; i < BITS_PER_LONG; i++) {
-+		sbitmap_put(&sb, i);
-+		KUNIT_EXPECT_EQ(test, sbitmap_weight(&sb),
-+				(unsigned int)BITS_PER_LONG - 1);
-+		bit = sbitmap_get(&sb);
-+		KUNIT_EXPECT_EQ(test, bit, (int)i);
-+		KUNIT_EXPECT_EQ(test, sbitmap_weight(&sb),
-+				(unsigned int)BITS_PER_LONG);
-+		KUNIT_EXPECT_EQ(test, sbitmap_get(&sb), -1);
-+	}
-+
-+	sbitmap_free(&sb);
-+}
-+
-+static void sbitmap_test_round_robin(struct kunit *test)
-+{
-+	struct sbitmap sb;
-+	unsigned int i;
-+	int bit, prev = -1;
-+
-+	KUNIT_ASSERT_EQ(test, sbitmap_init_node(&sb, SBITMAP_TEST_DEPTH, -1,
-+						GFP_KERNEL, NUMA_NO_NODE,
-+						true, true), 0);
-+
-+	/*
-+	 * round_robin must hand out strictly increasing bit numbers while the
-+	 * map fills up from empty.
-+	 */
-+	for (i = 0; i < SBITMAP_TEST_DEPTH; i++) {
-+		bit = sbitmap_get(&sb);
-+		KUNIT_ASSERT_GE(test, bit, 0);
-+		KUNIT_ASSERT_LT(test, bit, (int)SBITMAP_TEST_DEPTH);
-+		if (prev != -1)
-+			KUNIT_ASSERT_GT(test, bit, prev);
-+		prev = bit;
-+	}
-+
-+	KUNIT_EXPECT_EQ(test, sbitmap_weight(&sb),
-+			(unsigned int)SBITMAP_TEST_DEPTH);
-+	KUNIT_EXPECT_EQ(test, sbitmap_get(&sb), -1);
-+
-+	sbitmap_free(&sb);
-+}
-+
-+static void sbitmap_test_resize(struct kunit *test)
-+{
-+	const unsigned int depth = 4 * BITS_PER_LONG;
-+	struct sbitmap sb;
-+	unsigned int i;
-+
-+	KUNIT_ASSERT_EQ(test, sbitmap_init_node(&sb, depth, -1, GFP_KERNEL,
-+						NUMA_NO_NODE, true, true), 0);
-+
-+	for (i = 0; i < depth; i++)
-+		KUNIT_ASSERT_GE(test, sbitmap_get(&sb), 0);
-+	KUNIT_EXPECT_EQ(test, sbitmap_weight(&sb), depth);
-+
-+	/* Shrinking hides the bits past the new depth. */
-+	sbitmap_resize(&sb, depth / 2);
-+	KUNIT_EXPECT_EQ(test, sb.depth, depth / 2);
-+	KUNIT_EXPECT_EQ(test, sb.map_nr,
-+			DIV_ROUND_UP(depth / 2, 1U << sb.shift));
-+	KUNIT_EXPECT_EQ(test, sbitmap_weight(&sb), depth / 2);
-+	KUNIT_EXPECT_EQ(test, sbitmap_get(&sb), -1);
-+
-+	/* Growing makes them visible again; they are still allocated. */
-+	sbitmap_resize(&sb, depth);
-+	KUNIT_EXPECT_EQ(test, sb.depth, depth);
-+	KUNIT_EXPECT_EQ(test, sbitmap_weight(&sb), depth);
-+	KUNIT_EXPECT_EQ(test, sbitmap_get(&sb), -1);
-+
-+	sbitmap_free(&sb);
-+}
-+
-+static void sbitmap_test_set_clear_bit(struct kunit *test)
-+{
-+	static const unsigned int bits[] = {
-+		0, 1, BITS_PER_LONG - 1, BITS_PER_LONG,
-+		2 * BITS_PER_LONG + 3, SBITMAP_TEST_DEPTH - 1
-+	};
-+	struct sbitmap sb;
-+	unsigned int i;
-+
-+	KUNIT_ASSERT_EQ(test, sbitmap_init_node(&sb, SBITMAP_TEST_DEPTH, -1,
-+						GFP_KERNEL, NUMA_NO_NODE,
-+						false, true), 0);
-+
-+	KUNIT_EXPECT_FALSE(test, sbitmap_any_bit_set(&sb));
-+
-+	for (i = 0; i < ARRAY_SIZE(bits); i++) {
-+		sbitmap_set_bit(&sb, bits[i]);
-+		KUNIT_EXPECT_TRUE(test, sbitmap_test_bit(&sb, bits[i]));
-+	}
-+	KUNIT_EXPECT_TRUE(test, sbitmap_any_bit_set(&sb));
-+	KUNIT_EXPECT_EQ(test, sbitmap_weight(&sb), (unsigned int)ARRAY_SIZE(bits));
-+
-+	for (i = 0; i < ARRAY_SIZE(bits); i++) {
-+		sbitmap_clear_bit(&sb, bits[i]);
-+		KUNIT_EXPECT_FALSE(test, sbitmap_test_bit(&sb, bits[i]));
-+	}
-+	KUNIT_EXPECT_FALSE(test, sbitmap_any_bit_set(&sb));
-+	KUNIT_EXPECT_EQ(test, sbitmap_weight(&sb), 0U);
-+
-+	sbitmap_free(&sb);
-+}
-+
-+struct sbitmap_iter_ctx {
-+	struct kunit *test;
-+	DECLARE_BITMAP(visited, SBITMAP_TEST_DEPTH);
-+	unsigned int nr_visited;
-+};
-+
-+static bool sbitmap_iter_collect(struct sbitmap *sb, unsigned int bitnr,
-+				 void *data)
-+{
-+	struct sbitmap_iter_ctx *ctx = data;
-+
-+	KUNIT_ASSERT_LT(ctx->test, bitnr, SBITMAP_TEST_DEPTH);
-+	__set_bit(bitnr, ctx->visited);
-+	ctx->nr_visited++;
-+
-+	return true;
-+}
-+
-+static void sbitmap_test_iterate_set(struct kunit *test)
-+{
-+	static const unsigned int bits[] = {
-+		0, 5, BITS_PER_LONG - 1, BITS_PER_LONG, 2 * BITS_PER_LONG + 3,
-+		SBITMAP_TEST_DEPTH - 1
-+	};
-+	struct sbitmap_iter_ctx ctx = { .test = test };
-+	struct sbitmap sb;
-+	unsigned int i;
-+
-+	KUNIT_ASSERT_EQ(test, sbitmap_init_node(&sb, SBITMAP_TEST_DEPTH, -1,
-+						GFP_KERNEL, NUMA_NO_NODE,
-+						false, true), 0);
-+
-+	for (i = 0; i < ARRAY_SIZE(bits); i++) {
-+		KUNIT_ASSERT_LT(test, bits[i], SBITMAP_TEST_DEPTH);
-+		sbitmap_set_bit(&sb, bits[i]);
-+	}
-+
-+	sbitmap_for_each_set(&sb, sbitmap_iter_collect, &ctx);
-+
-+	KUNIT_EXPECT_EQ(test, ctx.nr_visited, (unsigned int)ARRAY_SIZE(bits));
-+	for (i = 0; i < ARRAY_SIZE(bits); i++)
-+		KUNIT_EXPECT_TRUE(test, test_bit(bits[i], ctx.visited));
-+
-+	sbitmap_free(&sb);
-+}
-+
-+static struct kunit_case sbitmap_test_cases[] = {
-+	KUNIT_CASE(sbitmap_test_init),
-+	KUNIT_CASE(sbitmap_test_calculate_shift),
-+	KUNIT_CASE(sbitmap_test_get_exhaust),
-+	KUNIT_CASE(sbitmap_test_put_reuse),
-+	KUNIT_CASE(sbitmap_test_round_robin),
-+	KUNIT_CASE(sbitmap_test_resize),
-+	KUNIT_CASE(sbitmap_test_set_clear_bit),
-+	KUNIT_CASE(sbitmap_test_iterate_set),
-+	{}
-+};
-+
-+static struct kunit_suite sbitmap_test_suite = {
-+	.name = "sbitmap",
-+	.test_cases = sbitmap_test_cases,
-+};
-+
-+kunit_test_suite(sbitmap_test_suite);
-+
-+MODULE_DESCRIPTION("KUnit test for sbitmap");
-+MODULE_LICENSE("GPL");
-
-base-commit: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
+diff --git a/include/linux/sched/stat.h b/include/linux/sched/stat.h
+index 0108a38bb64d..4810b14d0372 100644
+--- a/include/linux/sched/stat.h
++++ b/include/linux/sched/stat.h
+@@ -20,7 +20,7 @@ extern int nr_processes(void);
+ extern unsigned int nr_running(void);
+ extern bool single_task_running(void);
+ extern unsigned int nr_iowait(void);
+-extern unsigned int nr_iowait_cpu(int cpu);
++extern bool cpu_has_iowait(int cpu);
+ 
+ static inline int sched_info_on(void)
+ {
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 1fe40de6ebe3..1bde5187dafd 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -5588,15 +5588,12 @@ unsigned long long nr_context_switches(void)
+ }
+ 
+ /*
+- * Consumers of these two interfaces, like for example the cpuidle menu
+- * governor, are using nonsensical data. Preferring shallow idle state selection
+- * for a CPU that has IO-wait which might not even end up running the task when
+- * it does become runnable.
++ * Return whether any tasks are accounted as I/O waiters on this CPU.
++ * They may wake up on a different CPU.
+  */
+-
+-unsigned int nr_iowait_cpu(int cpu)
++bool cpu_has_iowait(int cpu)
+ {
+-	return atomic_read(&cpu_rq(cpu)->nr_iowait);
++	return atomic_read(&cpu_rq(cpu)->nr_iowait) != 0;
+ }
+ 
+ /*
+@@ -5634,7 +5631,7 @@ unsigned int nr_iowait(void)
+ 	unsigned int i, sum = 0;
+ 
+ 	for_each_possible_cpu(i)
+-		sum += nr_iowait_cpu(i);
++		sum += atomic_read(&cpu_rq(i)->nr_iowait);
+ 
+ 	return sum;
+ }
+diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
+index 06bddaa738e5..b79a44b6f57d 100644
+--- a/kernel/sched/cputime.c
++++ b/kernel/sched/cputime.c
+@@ -226,9 +226,8 @@ void account_steal_time(u64 cputime)
+ void account_idle_time(u64 cputime)
+ {
+ 	u64 *cpustat = kcpustat_this_cpu->cpustat;
+-	struct rq *rq = this_rq();
+ 
+-	if (atomic_read(&rq->nr_iowait) > 0)
++	if (cpu_has_iowait(smp_processor_id()))
+ 		cpustat[CPUTIME_IOWAIT] += cputime;
+ 	else
+ 		cpustat[CPUTIME_IDLE] += cputime;
+@@ -431,7 +430,7 @@ static void kcpustat_idle_stop(struct kernel_cpustat *kc, u64 now)
+ 	if (!kc->idle_elapse)
+ 		return;
+ 
+-	iowait = nr_iowait_cpu(smp_processor_id()) > 0;
++	iowait = cpu_has_iowait(smp_processor_id());
+ 	delta = now - kc->idle_entrytime;
+ 	steal = steal_account_process_time(delta);
+ 
+@@ -544,14 +543,14 @@ static u64 kcpustat_field_dyntick(int cpu, enum cpu_usage_stat idx,
+ u64 kcpustat_field_idle(int cpu)
+ {
+ 	return kcpustat_field_dyntick(cpu, CPUTIME_IDLE,
+-				      !nr_iowait_cpu(cpu), ktime_get());
++				      !cpu_has_iowait(cpu), ktime_get());
+ }
+ EXPORT_SYMBOL_GPL(kcpustat_field_idle);
+ 
+ u64 kcpustat_field_iowait(int cpu)
+ {
+ 	return kcpustat_field_dyntick(cpu, CPUTIME_IOWAIT,
+-				      nr_iowait_cpu(cpu), ktime_get());
++				      cpu_has_iowait(cpu), ktime_get());
+ }
+ EXPORT_SYMBOL_GPL(kcpustat_field_iowait);
+ #else
+@@ -601,7 +600,7 @@ static u64 get_cpu_sleep_time_us(int cpu, enum cpu_usage_stat idx,
+ u64 get_cpu_idle_time_us(int cpu, u64 *last_update_time)
+ {
+ 	return get_cpu_sleep_time_us(cpu, CPUTIME_IDLE,
+-				     !nr_iowait_cpu(cpu), last_update_time);
++				     !cpu_has_iowait(cpu), last_update_time);
+ }
+ EXPORT_SYMBOL_GPL(get_cpu_idle_time_us);
+ 
+@@ -625,7 +624,7 @@ EXPORT_SYMBOL_GPL(get_cpu_idle_time_us);
+ u64 get_cpu_iowait_time_us(int cpu, u64 *last_update_time)
+ {
+ 	return get_cpu_sleep_time_us(cpu, CPUTIME_IOWAIT,
+-				     nr_iowait_cpu(cpu), last_update_time);
++				     cpu_has_iowait(cpu), last_update_time);
+ }
+ EXPORT_SYMBOL_GPL(get_cpu_iowait_time_us);
+ 
+@@ -1109,7 +1108,6 @@ static int kcpustat_field_vtime(u64 *cpustat,
+ 				int cpu, u64 *val)
+ {
+ 	struct vtime *vtime = &tsk->vtime;
+-	struct rq *rq = cpu_rq(cpu);
+ 	unsigned int seq;
+ 
+ 	do {
+@@ -1152,11 +1150,11 @@ static int kcpustat_field_vtime(u64 *cpustat,
+ 				*val += vtime->gtime + vtime_delta(vtime);
+ 			break;
+ 		case CPUTIME_IDLE:
+-			if (state == VTIME_IDLE && !atomic_read(&rq->nr_iowait))
++			if (state == VTIME_IDLE && !cpu_has_iowait(cpu))
+ 				*val += vtime_delta(vtime);
+ 			break;
+ 		case CPUTIME_IOWAIT:
+-			if (state == VTIME_IDLE && atomic_read(&rq->nr_iowait) > 0)
++			if (state == VTIME_IDLE && cpu_has_iowait(cpu))
+ 				*val += vtime_delta(vtime);
+ 			break;
+ 		default:
+@@ -1251,7 +1249,7 @@ static int kcpustat_cpu_fetch_vtime(struct kernel_cpustat *dst,
+ 			}
+ 			break;
+ 		case VTIME_IDLE:
+-			if (atomic_read(&cpu_rq(cpu)->nr_iowait) > 0)
++			if (cpu_has_iowait(cpu))
+ 				cpustat[CPUTIME_IOWAIT] += delta;
+ 			else
+ 				cpustat[CPUTIME_IDLE] += delta;
 -- 
-2.25.1
+2.34.1
 
