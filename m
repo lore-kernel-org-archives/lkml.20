@@ -1,137 +1,257 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912C744AB62
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A1339A04C
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135974; cv=none; b=Ke+l5Fu0q0+qB+J3f7JmO8cXTtQpdwhUZUpeUqJTWI3DnPMvP6EXjqsoRL70iq7AQP+CKm76VsItDFZ9KrxilmGU0ADQrPQyGr7FDyfpm7D/NW9u4Jx3CPoDypM6ePWVFxJtZ147qtjZZdHSQO6/2DfmG40Tt7xzKWcImmMwNV0=
+	t=1792135975; cv=none; b=VI/V/Iu7IRivdAwULOvjlpOluRr/lKKruccMtDrr8G/ayavFLmBPolv8o9fbuyTuN+KHQztLnTopcs1rofragIvCS8f/VYEt8I2E1BZJjBDReNMoWaHkxeoAjWrAi9U4AGwoP4VhifPWxa879hdTMt7Ff15zlkgP0EbGCxYjA6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135974; c=relaxed/simple;
-	bh=0lqg0zig61PhYIVpk8JV6/dZoMgln3ExA6zGv3cfk+w=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=KPv48r1sscDeDsy7jaFRiqYjggkvqgdhkImpe9WLnRIJFvYzMAYv/7Q/hxAgqCsRkhRwpG0Z5we99UTyHdWT1ecCVrj23hX3WAMd8jxlSUds1cDystmlrE/QU+wUwiqCDOnRAC1SV8s3bv1cQ8hyC+QtCHJ5nujmFkrm9aaqMUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ea4c979030so10786337b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:32:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792135969; x=1792740769;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D8SkBXaAciW9b0ju2efjjoDka8elPLR9VCB9wPB/O2o=;
-        b=T5o4uuU5CSv99CkMgsKOLnbN0Y2D9AOUhj490hfMHDNJFavnNRuzskuPZVhtRa+rMM
-         OVaY2gy9edVMJ9pQrv6m7WbtJIkVvT3wihv9FX4fIalzHnUoIRx9bmQxWs5woqxRlEw4
-         SbRnUJw86FHsd1IoLs1iRCImUVYieTV1vSrM3UjbS/KysXc24H00NLL6HJ63QsIoVnaV
-         rRaQs73wa3f/6Sl+F2jDLQGhY2d9KGXckdcJJ+w2SvjMa5wE+5Vxk5HMjLcgLqElk2sR
-         C4+UHczz98awadwJlSN/hfjnzPBcJ0vyR2E1QuC2ZC7YSwgTMLD5Kpzv8jxnTmuueIpk
-         uJAw==
-X-Forwarded-Encrypted: i=1; AKwUvBx3Aw1q1I7yVkCCYkpppSk3r5k36jyZv1+jY9Y6NCTteUUMaQuqtyvd5g321KuZifi49SNi1vU5HrZP1rM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLE6roXNOCboITrzY2TOsCD3/S3YcSbzNSWZQ+UDSnagEIrq2Vz
-	nGLfyrHSYIIEpc+pYpHZgqenXP7OHoOA375sFf05ynZd11IvfOImYksITpKfUOTpwSOu/pYzCkq
-	L5jU35/H78IqBPNiczgCYvqtmzXp8wHsV7Dz7JP5tgI/NgD3l8Tr/3sUNbnM=
+	s=arc-20240116; t=1792135975; c=relaxed/simple;
+	bh=L39bKi40Tu27ZP+CQWhjlmNnG20xbUUquvb6A7gC3fQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=PT7Kmv/S/0aL959BLJsQ0SUr7ZAQsgESZErYykmv1/Um3vkcDXz8zemm/ankg1EGoPwMuojQQ7iu61SFu7SfOPAhkwC1s0RRN5iqf8qTz6+vxzhb+hdnCKDyNtHQnBsTAskpAQG7MXm6Pbpc7QqJEfH7Pndcg7f/yvJq0cs3QYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OFeV/Ks6; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OFeV/Ks6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3AE01F000C5;
+	Fri, 16 Oct 2026 07:32:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792135973;
+	bh=2SLOW3vKqEoDipVSNNt6bUEym47+JKCsbhkUgZEliiw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=OFeV/Ks626shAtzxQOhg1t4Qn6nGE3uFKVMnQGhIaaSYq34NBSPs2fomlEZBrDc4G
+	 0Ptsl9iHt0utv52Y+NblW3Ln7QOdVtVHAma3am76zdUH7TPmYKhcr1wGh//TI5bOoX
+	 8lMUPx2SsaJpZU6kxbvqRe4ytidu770OY1GpANhQk4TdE+UzDBjdzzctHwQtnoJVN7
+	 tBX77nlP2xGFmTUmI4GUNASW0Ex+TlsahKeF8yNqHF6Ct/NZlFmpl/2q+r6W63Ni6w
+	 52BqEIb+Gu8MPIhN/bbVRvZ72W/n8GMkaWMAp2hmUoIQeTEML/XfsvtI+r5SFkkKJ+
+	 DpxLcrQRlgOLA==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Fri, 16 Oct 2026 09:31:46 +0200
+Subject: [PATCH v5 14/14] drm/vkms: Add driver-specific plane property for
+ testing
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f4b:b0:4e8:2150:2a1 with SMTP id
- 5614622812f47-50c57c62debmr22950300b6e.68.1792135968946; Fri, 16 Oct 2026
- 00:32:48 -0700 (PDT)
-Date: Fri, 16 Oct 2026 00:32:48 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad1d320.a6d1a155.34a93f.0000.GAE@google.com>
-Subject: [syzbot] [fs?] WARNING in minix_rmdir (2)
-From: syzbot <syzbot+8420e667af06b1709c00@syzkaller.appspotmail.com>
-To: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-drm-reset-state-flag-v5-14-dad2d64b693b@kernel.org>
+References: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
+In-Reply-To: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6476; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=L39bKi40Tu27ZP+CQWhjlmNnG20xbUUquvb6A7gC3fQ=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkXLz3T/L40UcgnXc3K1+viCrZkxjz9vxdLLpVsEXm64
+ 5plY/DSjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRtwyMDb25X6b22yzakjkv
+ 4GSlKtc5s59MyadlPzFfEotdWbxdyOevmJbz8hfRsvcaf3Vsk97MwVhnI1neaLh0Amff9bntbd4
+ LrtyY5b+iQlPAIuKk58nIe+Jvd+anviuq+6gXwbeuf+cnxiQA
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-Hello,
+The DRM_MODE_ATOMIC_RESET flag allows userspace to reset all object
+states to their defaults before applying new property values. Testing
+that this mechanism works correctly requires a property that the test
+can set to a non-default value and then verify is properly reset.
 
-syzbot found the following issue on:
+Using a standard property for this is problematic: compositors like
+Mutter enumerate and track all known properties, making it difficult
+to isolate the reset behavior from the compositor's own property
+management.
 
-HEAD commit:    b88c841d1164 Merge tag 'input-for-v7.3-rc6' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=14db50a5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d1b274ca9837366
-dashboard link: https://syzkaller.appspot.com/bug?extid=8420e667af06b1709c00
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17ba149c580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=114291d1580000
+Add a "vkms-test-do-not-use-in-prod" range property to vkms planes.
+The property is stored in vkms_plane_state, duplicated across state
+copies, and initialized from its registered default in
+atomic_create_state via drm_object_property_get_default_value().
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-b88c841d.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/c64cd81f2bae/vmlinux-b88c841d.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/605b0408da7b/bzImage-b88c841d.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/3ed2a0024dcf/mount_0.gz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+8420e667af06b1709c00@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-inode->i_nlink == 0
-WARNING: fs/inode.c:408 at drop_nlink+0xc5/0x110 fs/inode.c:408, CPU#0: syz-executor/5454
-Modules linked in:
-CPU: 0 UID: 0 PID: 5454 Comm: syz-executor Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:drop_nlink+0xc5/0x110 fs/inode.c:408
-Code: a8 07 00 00 be 08 00 00 00 e8 f7 68 e4 ff f0 48 ff 83 a8 07 00 00 5b 41 5c 41 5e 41 5f 5d e9 52 90 97 09 cc e8 0c e7 71 ff 90 <0f> 0b 90 eb 81 44 89 f1 80 e1 07 80 c1 03 38 c1 0f 8c 5b ff ff ff
-RSP: 0018:ffffc900033b7d10 EFLAGS: 00010293
-RAX: ffffffff82563a14 RBX: ffff8880439c30b0 RCX: ffff888013d0cb00
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: ffffffff917a977f R09: 1ffffffff22f52ef
-R10: dffffc0000000000 R11: fffffbfff22f52f0 R12: 1ffff1100873861f
-R13: dffffc0000000000 R14: ffff8880439c30f8 R15: dffffc0000000000
-FS:  000055555e111500(0000) GS:ffff88808b0b4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000556e57c72048 CR3: 0000000013446000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- inode_dec_link_count include/linux/fs.h:2269 [inline]
- minix_rmdir+0xfc/0x140 fs/minix/namei.c:183
- vfs_rmdir+0x3e6/0x6a0 fs/namei.c:5544
- filename_rmdir+0x292/0x520 fs/namei.c:5601
- __do_sys_unlinkat fs/namei.c:5776 [inline]
- __se_sys_unlinkat+0x71/0x1a0 fs/namei.c:5769
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f819279d2f7
-Code: 77 01 c3 48 c7 c2 e8 ff ff ff f7 d8 64 89 02 b8 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 b8 07 01 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffef5481018 EFLAGS: 00000207 ORIG_RAX: 0000000000000107
-RAX: ffffffffffffffda RBX: 0000000000000065 RCX: 00007f819279d2f7
-RDX: 0000000000000200 RSI: 00007ffef54821c0 RDI: 00000000ffffff9c
-RBP: 00007f8192834ccb R08: 0000000000018560 R09: 0000000000000001
-R10: 0000000000000000 R11: 0000000000000207 R12: 00007ffef54821c0
-R13: 00007f8192834ccb R14: 0000000000028576 R15: 00007ffef5484380
- </TASK>
-
-
+Reviewed-by: Daniel Stone <daniels@collabora.com>
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ drivers/gpu/drm/vkms/vkms_drv.h   |  3 ++
+ drivers/gpu/drm/vkms/vkms_plane.c | 61 +++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 62 insertions(+), 2 deletions(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
+index dea6cad3f1b9..384616095b45 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.h
++++ b/drivers/gpu/drm/vkms/vkms_drv.h
+@@ -144,20 +144,23 @@ struct conversion_matrix {
+  * @base: base plane state
+  * @frame_info: data required for composing computation
+  * @pixel_read_line: function to read a pixel line in this plane. The creator of a
+  *		     struct vkms_plane_state must ensure that this pointer is valid
+  * @conversion_matrix: matrix used for yuv formats to convert to rgb
++ * @vkms_test_do_not_use_value: driver-specific property for testing only
+  */
+ struct vkms_plane_state {
+ 	struct drm_shadow_plane_state base;
+ 	struct vkms_frame_info frame_info;
+ 	pixel_read_line_t pixel_read_line;
+ 	struct conversion_matrix conversion_matrix;
++	unsigned int vkms_test_do_not_use_value;
+ };
+ 
+ struct vkms_plane {
+ 	struct drm_plane base;
++	struct drm_property *vkms_test_do_not_use_property;
+ };
+ 
+ struct vkms_color_lut {
+ 	struct drm_color_lut *base;
+ 	size_t lut_length;
+diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
+index fd3d34dcf0fe..0ebc131c2788 100644
+--- a/drivers/gpu/drm/vkms/vkms_plane.c
++++ b/drivers/gpu/drm/vkms/vkms_plane.c
+@@ -9,14 +9,18 @@
+ #include <drm/drm_colorop.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_print.h>
++#include <drm/drm_property.h>
+ 
+ #include "vkms_drv.h"
+ #include "vkms_formats.h"
+ 
++#define to_vkms_plane(target) \
++	container_of_const(target, struct vkms_plane, base)
++
+ static const u32 vkms_formats[] = {
+ 	DRM_FORMAT_ARGB8888,
+ 	DRM_FORMAT_ABGR8888,
+ 	DRM_FORMAT_BGRA8888,
+ 	DRM_FORMAT_RGBA8888,
+@@ -52,16 +56,19 @@ static const u32 vkms_formats[] = {
+ };
+ 
+ static struct drm_plane_state *
+ vkms_plane_duplicate_state(struct drm_plane *plane)
+ {
++	struct vkms_plane_state *old_state = to_vkms_plane_state(plane->state);
+ 	struct vkms_plane_state *vkms_state;
+ 
+ 	vkms_state = kzalloc_obj(*vkms_state);
+ 	if (!vkms_state)
+ 		return NULL;
+ 
++	vkms_state->vkms_test_do_not_use_value = old_state->vkms_test_do_not_use_value;
++
+ 	__drm_gem_duplicate_shadow_plane_state(plane, &vkms_state->base);
+ 
+ 	return &vkms_state->base.base;
+ }
+ 
+@@ -83,28 +90,69 @@ static void vkms_plane_destroy_state(struct drm_plane *plane,
+ 	kfree(vkms_state);
+ }
+ 
+ static struct drm_plane_state *vkms_plane_create_state(struct drm_plane *plane)
+ {
++	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
+ 	struct vkms_plane_state *vkms_state;
++	u64 val;
+ 
+ 	vkms_state = kzalloc_obj(*vkms_state);
+ 	if (!vkms_state) {
+ 		DRM_ERROR("Cannot allocate vkms_plane_state\n");
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+ 
+ 	__drm_gem_shadow_plane_state_init(plane, &vkms_state->base);
+ 
++	if (!drm_object_property_get_default_value(&plane->base,
++						   vkms_plane->vkms_test_do_not_use_property,
++						   &val))
++		vkms_state->vkms_test_do_not_use_value = val;
++
+ 	return &(&vkms_state->base)->base;
+ }
+ 
++static int vkms_plane_atomic_set_property(struct drm_plane *plane,
++					  struct drm_plane_state *state,
++					  struct drm_property *property,
++					  uint64_t val)
++{
++	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
++	struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
++
++	if (property == vkms_plane->vkms_test_do_not_use_property) {
++		vkms_state->vkms_test_do_not_use_value = val;
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
++static int vkms_plane_atomic_get_property(struct drm_plane *plane,
++					  const struct drm_plane_state *state,
++					  struct drm_property *property,
++					  uint64_t *val)
++{
++	const struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
++	const struct vkms_plane *vkms_plane = to_vkms_plane(plane);
++
++	if (property == vkms_plane->vkms_test_do_not_use_property) {
++		*val = vkms_state->vkms_test_do_not_use_value;
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
+ static const struct drm_plane_funcs vkms_plane_funcs = {
+ 	.update_plane		= drm_atomic_helper_update_plane,
+ 	.disable_plane		= drm_atomic_helper_disable_plane,
+-	.atomic_create_state = vkms_plane_create_state,
+-	.atomic_duplicate_state = vkms_plane_duplicate_state,
++	.atomic_set_property	= vkms_plane_atomic_set_property,
++	.atomic_get_property	= vkms_plane_atomic_get_property,
++	.atomic_create_state	= vkms_plane_create_state,
++	.atomic_duplicate_state	= vkms_plane_duplicate_state,
+ 	.atomic_destroy_state	= vkms_plane_destroy_state,
+ };
+ 
+ static void vkms_plane_atomic_update(struct drm_plane *plane,
+ 				     struct drm_atomic_commit *state)
+@@ -281,10 +329,19 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
+ 					  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
+ 					  BIT(DRM_COLOR_YCBCR_FULL_RANGE),
+ 					  DRM_COLOR_YCBCR_BT601,
+ 					  DRM_COLOR_YCBCR_FULL_RANGE);
+ 
++	plane->vkms_test_do_not_use_property =
++		drm_property_create_range(dev, 0,
++					  "vkms-test-do-not-use-in-prod",
++					  0, U32_MAX);
++	if (plane->vkms_test_do_not_use_property)
++		drm_object_attach_property(&plane->base.base,
++					   plane->vkms_test_do_not_use_property,
++					   0);
++
+ 	if (vkms_config_plane_get_default_pipeline(plane_cfg))
+ 		vkms_initialize_colorops(&plane->base);
+ 
+ 	return plane;
+ }
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+-- 
+2.55.0
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
