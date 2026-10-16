@@ -1,37 +1,62 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3225208A9
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:07:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B88524B10;
+	Fri, 16 Oct 2026 16:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166838; cv=none; b=QJ++KKCvZQ/EthMBGXDwEL9Y7PoruMv8e7ysyfreAr5Olnbfg54UNPVYVyczg6EwxBk17OMc44fjEdMLSvAMRPwumOfR6PpJz2YDnLApU1hzU9sGwdn3oAGtjVlU2Q+AsKHH0g7uCmj8qicijHD/Iwq+32sMJJEiKbEdETNW1y8=
+	t=1792166839; cv=none; b=SKbbhe62+XDGEakJKScQG826YeIfrXCR8VFVMiSXR0eccaQVK5Z4mYmUA4DwJyiAk3dSFjgLCAd2Vvyq5lQ7RvJqkPh+z2nbzeZaSk9cxJHzm0k1GtawWr1W8MUhf6chEP1O7k144QfAcsATUaWhAeZqgHdLyIWdWsNda+QZIQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166838; c=relaxed/simple;
-	bh=Mua8ZBX2KzXSH95yBhDE3of9DOUBAM4dPwBlSaPK93c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J908ThGjgHsY4rcuEfMjvhI6DEX31sZWcsMps5Bu+eeWITJFLacH0ctZpx34dC0AJXnVm2FMMgd3VBoqS2ufTWRXGE/mOLZVO1107HTw8u3rGK4SeA8dQ3IhWQhF9gSsFT6DK3lBsegljetXdbQgKO7d/lbpb6Jt1nKk94MiBjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xHkSa-00FVkx-K0;
-	Fri, 16 Oct 2026 12:07:08 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>
-Cc: Alexandre Ghiti <alex@ghiti.fr>,
-	Andy Chiu <andybnac@gmail.com>,
-	Deepak Gupta <debug@rivosinc.com>,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] riscv: signal: mark the FP state clean before restoring it from the frame
-Date: Fri, 16 Oct 2026 12:07:08 -0400
-Message-ID: <20261016160708.790397-1-nickolai@csail.mit.edu>
+	s=arc-20240116; t=1792166839; c=relaxed/simple;
+	bh=o2w1O5LjB3GXJ+EaSbF+SpSj74RWd+T2NhZAdtphaZI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cic36UbHL28OMB9zvrYwuWKL8W0RYdOphRMzO+LyxVfSa8bgmqiEt6OeMt0v2N+UcG1JwOIEERqrryOfKFnqrYHylt7k9A30o+zWqj1vCf55I9+cYbVZW4KM+hkm2WSwXustnVOB1pS0oM1XuaUc9vrlK+FVLAZwBFdGQ5rNwwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o02l1/1A; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o02l1/1A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 216DC1F000C4;
+	Fri, 16 Oct 2026 16:07:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792166838;
+	bh=g0Lje6TXki26fVUnlaQHkMtbrNZrfbHvxBcQLPWLmSo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=o02l1/1AfRehMaiRM9H3RwrO3H7Om7ESvoMj3xdRz9JgsEQI+q3N12lp4BXvcpuZ+
+	 k/xLOYuhviCCBPSCM/yrB3NOn87lMFgKdkNtZ+y1eESVMFGg8cuqbXL1pcH+YhxFwC
+	 lz21pmOa2vYXKukeU7tZddy2sldgXgMSVSZ8AB9JTY+3BptYvI8m2RVTENDP0DMJxq
+	 NwNq8CpOeovapYN5D/a0O2C/7g1T+1lL4kml/u3LgQaqCYCJlib3ANzUfRppk25Xg5
+	 Fo9wAZICKWyj/B1ctF6CcvD6no6uB7Zgx3UvklT4m5YTSlSEKSbX8TmUhCR8p0+ZsI
+	 voCiXSDGylqOg==
+From: Sasha Levin <sashal@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Aaron Kling <webgeek1234@gmail.com>,
+	Diogo Ivo <diogo.ivo@bootlin.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 6/6] drm/nouveau/tegra: Keep the fuse clock enabled while the GPU is powered
+Date: Fri, 16 Oct 2026 12:06:59 -0400
+Message-ID: <20261016160700.3831336-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016160700.3831336-1-sashal@kernel.org>
+References: <20261016160700.3831336-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,237 +65,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-restore_fp_state() copies the FP image of the signal frame into
-current->thread.fstate with __copy_from_user() and then calls
-fstate_restore(), which loads thread.fstate into the FP registers when
-regs->status.FS is not Off and marks the state Clean.
+Since the GPU on the Jetson TX1 was enabled in commit d1b725476104
+("arm64: tegra: p2180: Explicitly enable GPU"), nouveau often fails to
+bring up the GM20B. Either BOOT_0 reads back garbage ("unknown chipset
+(5ffefa47)"), or PRI reads of the GPC PLL time out ("MMIO read of
+00000000 FAULT at 137000 [ TIMEOUT ]"), or the first register reads in
+nvkm_device_ctor() stall until an asynchronous SError. How often depends
+on the board; one board fails on every boot.
 
-regs->status is still the sstatus saved when the signal handler entered
-the kernel for rt_sigreturn(); restore_sigcontext() only overwrites the
-general registers. If the handler wrote any FP register, FS is Dirty.
-rt_sigreturn() runs with interrupts and preemption enabled, and the copy
-sleeps when the frame page is not resident. A context switch anywhere
-between the first store of the copy and fstate_restore() goes through
-__switch_to_fpu(), whose fstate_save() sees FS == Dirty and stores the
-live FP registers, which hold the handler's values, over the image that
-was just copied from the frame:
+nouveau powers the GPU up with the fuse clock gated: since commit
+24a15252ff04 ("soc/tegra: fuse: Add runtime PM support"), the Tegra fuse
+driver only enables that clock around its own fuse reads. NVIDIA's
+downstream nvgpu driver enables the fuse clock along with the other GPU
+clocks whenever the GPU is powered. Do the same: take an optional "fuse"
+clock and keep it enabled from before the GPU rail is turned on until
+after it is turned off. The clock is optional so that device trees that
+lack it keep working as before.
 
-  rt_sigreturn(), FS == Dirty               scheduler
-  ----------------------------------------  -----------------------------
-  restore_fp_state()
-    __copy_from_user(&thread.fstate, ...)
-      <preempted, or sleeping on a fault>
-                                            __switch_to_fpu(prev = task)
-                                              fstate_save(): FS == Dirty,
-                                                live f0-f31, fcsr ->
-                                                thread.fstate; FS = Clean
-                                            ...
-                                            __switch_to_fpu(next = task)
-                                              fstate_restore():
-                                                thread.fstate -> live
-    <copy completes>
-    fstate_restore(): thread.fstate -> live registers
+Tested on eight Jetson TX1 devkits, on mainline and on v6.18. Without
+this patch, the GPU failed to come up in 27 of 109 boots; with it, in 11
+of 291, none of them with a garbage BOOT_0. On the board that failed on
+every boot, 38 of 40 boots now succeed. The remaining failures are
+mostly a register read that stalls until an SError; wherever the console
+shows when, nouveau had already finished probing. Such stalls also occur
+without this patch and are a separate problem. The Jetson Nano, which
+shares the Tegra210 GPU node, still works (24 of 24 boots).
 
-The interrupted user code resumes with the signal handler's FP registers
-(the handler's values in the part of the image copied before the switch
-and its own in the rest) instead of the ones it had when the signal
-arrived.
-
-Any program whose signal handler executes a floating-point instruction
-is exposed: when the handler returns while a reschedule is pending, or
-when the signal frame has been paged out in the meantime, the
-interrupted code silently continues with corrupted f0-f31 and fcsr.
-With tick preemption the window is the 264-byte copy, so the corruption
-is rare and shows up as sporadic wrong floating-point results: a test
-program that loads a pattern into f0-f31, sends itself SIGUSR1 and
-compares the registers afterwards, with a busy thread on the same CPU,
-saw the handler's values in 110 of 200000 sigreturns on a CONFIG_PREEMPT
-kernel under QEMU. The corruption is deterministic when the copy sleeps:
-the same program with the frame on a userfaultfd-registered page that
-the handler drops, so that the copy faults 128 bytes into the image,
-gets the handler's values back in f0-f15 on every sigreturn.
-
-The copy-then-restore order dates from the initial port, commit
-e2c0cdfba7f6 ("RISC-V: User-facing API"), so every kernel since v4.15
-is affected. The vector state had the same problem in __restore_v_state()
-and commit c27fa53b858b ("riscv: Fix vector state restore in
-rt_sigreturn()") fixed it by marking the live vector state clean before
-the copy.
-
-Do the same for the FP state: mark it Clean before the copy when it is
-not Off. The live registers belong to the handler and are discarded by
-sigreturn anyway; fstate_save() then skips them on a context switch, and
-fstate_restore() still loads the image, both when the task is switched
-back in and at the end of restore_fp_state(). With the change the test
-program sees the correct registers in 20 of 20 userfaultfd runs and in
-200000 of 200000 preemption runs.
-
-Found while formally verifying rt_sigreturn() against the kernel binary.
-
-Fixes: e2c0cdfba7f6 ("RISC-V: User-facing API")
+Fixes: d1b725476104 ("arm64: tegra: p2180: Explicitly enable GPU")
 Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ .../gpu/drm/nouveau/include/nvkm/core/tegra.h |  1 +
+ .../drm/nouveau/nvkm/engine/device/tegra.c    | 22 ++++++++++++++-----
+ 2 files changed, 17 insertions(+), 6 deletions(-)
 
-Notes:
-    The pending "riscv: signal: protect regs->status RMW from concurrent
-    preemption" (Guobin Zhang, 2026-08-07, with follow-ups on 2026-09-25 and
-    2026-10-08) addresses a different problem in the same functions: a lost
-    update on regs->status when the read-modify-write in __fstate_clean() is
-    preempted and the scheduler writes the VS bits in between. It keeps the
-    copy-then-restore order in restore_fp_state(), so it does not cover this
-    bug. The two patches touch different hunks and apply in either order; the
-    preempt_disable() it puts around __fstate_clean() would cover the new call
-    as well.
-    
-    The guard mirrors fstate_restore(): with FS == Off nothing is restored
-    today and the patch keeps that. A context switch before the first store
-    of the copy is harmless with or without the patch, because fstate_save()
-    then runs before the image is written; the riscv scalar usercopy stores
-    in 64-byte strides, which is why the deterministic reproducer puts the
-    page boundary 128 bytes into the image.
-    
-    The deterministic reproducer, as run (exit 1 before the patch with f0-f7 and
-    f10-f15 reported, exit 0 after):
-    
-    // Reproducer: riscv64 rt_sigreturn() loses the FP state it restores when the copy of the
-    // FP image sleeps (here: a userfaultfd page fault) while the handler left sstatus.FS dirty.
-    // Build: riscv64-linux-gnu-gcc -static -O2 -pthread -o fpstate_sigreturn fpstate_sigreturn.c
-    // Run as root (userfaultfd) on a preemptible kernel with CONFIG_FPU and CONFIG_USERFAULTFD.
-    // Exit 1: FP registers corrupted after the signal; 0: clean; 2: could not set up.
-    #define _GNU_SOURCE
-    #include <fcntl.h>
-    #include <pthread.h>
-    #include <signal.h>
-    #include <stdint.h>
-    #include <stdio.h>
-    #include <string.h>
-    #include <sys/ioctl.h>
-    #include <sys/mman.h>
-    #include <sys/syscall.h>
-    #include <ucontext.h>
-    #include <unistd.h>
-    #include <linux/userfaultfd.h>
-    
-    #define PAGE	4096UL
-    #define SPLIT	128	/* page boundary this far into the 264-byte FP image */
-    #define F(op, i, r) #op " f" #i ", " #i "*8(%[" #r "])\n"
-    #define ALL(op, r) F(op, 0, r) F(op, 1, r) F(op, 2, r) F(op, 3, r) F(op, 4, r) F(op, 5, r) \
-    	F(op, 6, r) F(op, 7, r) F(op, 8, r) F(op, 9, r) F(op, 10, r) F(op, 11, r) \
-    	F(op, 12, r) F(op, 13, r) F(op, 14, r) F(op, 15, r)
-    #define CLOBBERS "memory", "ft0", "ft1", "ft2", "ft3", "ft4", "ft5", "ft6", "ft7", \
-    	"fs0", "fs1", "fa0", "fa1", "fa2", "fa3", "fa4", "fa5"
-    
-    static uint64_t pat[16], hpat[16], out[16];
-    static unsigned char saved[PAGE] __attribute__((aligned(PAGE)));
-    static volatile int placed;
-    
-    static void handler(int sig, siginfo_t *si, void *ctx)
-    {
-    	unsigned long hi = (unsigned long)&((ucontext_t *)ctx)->uc_mcontext.__fpregs + SPLIT;
-    
-    	placed = !(hi & (PAGE - 1));
-    	if (placed) {	/* drop the page holding bytes SPLIT.. of the FP image */
-    		memcpy(saved, (void *)hi, PAGE);
-    		if (madvise((void *)hi, PAGE, MADV_DONTNEED))
-    			_exit(2);
-    	}
-    	/* leave FS dirty, with the handler's values in the registers */
-    	asm volatile(ALL(fld, h) "csrw fcsr, zero\n" : : [h]"r"(hpat) : CLOBBERS);
-    }
-    
-    static void *serve(void *arg)	/* repopulate the dropped page when rt_sigreturn faults on it */
-    {
-    	struct uffdio_copy cp = { .src = (unsigned long)saved, .len = PAGE };
-    	struct uffd_msg msg;
-    	int fd = (int)(long)arg;
-    
-    	while (read(fd, &msg, sizeof(msg)) == sizeof(msg)) {
-    		cp.dst = msg.arg.pagefault.address & ~(PAGE - 1);
-    		cp.copy = 0;
-    		ioctl(fd, UFFDIO_COPY, &cp);
-    	}
-    	return NULL;
-    }
-    
-    int main(void)
-    {
-    	struct sigaction sa = { .sa_sigaction = handler, .sa_flags = SA_SIGINFO | SA_ONSTACK };
-    	struct uffdio_api api = { .api = UFFD_API };
-    	struct uffdio_register reg = { .mode = UFFDIO_REGISTER_MODE_MISSING };
-    	stack_t ss = { .ss_size = 65536 };
-    	long pid = getpid(), tid = syscall(__NR_gettid);
-    	unsigned long fcsr = 0, shift;
-    	pthread_t th;
-    	int fd, i, bad = 0;
-    
-    	for (i = 0; i < 16; i++) {
-    		pat[i] = 0x4010000000000000ULL + i;
-    		hpat[i] = 0xbff0000000000000ULL + i;
-    	}
-    	ss.ss_sp = mmap(NULL, ss.ss_size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    	memset(ss.ss_sp, 0, ss.ss_size);	/* populate: only the dropped page will fault */
-    	reg.range.start = (unsigned long)ss.ss_sp;
-    	reg.range.len = ss.ss_size;
-    	fd = syscall(__NR_userfaultfd, O_CLOEXEC);
-    	if (fd < 0 || ioctl(fd, UFFDIO_API, &api) || ioctl(fd, UFFDIO_REGISTER, &reg)) {
-    		perror("userfaultfd");
-    		return 2;
-    	}
-    	pthread_create(&th, NULL, serve, (void *)(long)fd);
-    	sigaction(SIGUSR1, &sa, NULL);
-    
-    	/* move the frame down 16 bytes at a time until the FP image crosses a page at SPLIT */
-    	for (shift = 0; shift < PAGE && !placed; shift += 16) {
-    		ss.ss_size = 65536 - shift;
-    		sigaltstack(&ss, NULL);
-    		register long a0 asm("a0") = pid, a1 asm("a1") = tid;
-    		register long a2 asm("a2") = SIGUSR1, a7 asm("a7") = __NR_tgkill;
-    		fcsr = 0x1f;
-    		/* load the pattern, send ourselves SIGUSR1, store what the sigreturn left behind */
-    		asm volatile(ALL(fld, in) "csrw fcsr, %[fc]\n ecall\n csrr %[fc], fcsr\n" ALL(fsd, o)
-    			     : "+r"(a0), [fc]"+r"(fcsr)
-    			     : "r"(a1), "r"(a2), "r"(a7), [in]"r"(pat), [o]"r"(out) : CLOBBERS);
-    	}
-    	if (!placed)
-    		return 2;
-    	for (i = 0; i < 16; i++) {	/* f8/f9 are callee-saved: the handler's epilogue reloads them */
-    		if (i == 8 || i == 9 || out[i] == pat[i])
-    			continue;
-    		printf("f%d = %016lx, expected %016lx\n", i, out[i], pat[i]);
-    		bad++;
-    	}
-    	if (fcsr != 0x1f) {
-    		printf("fcsr = %lx, expected 1f\n", fcsr);
-    		bad++;
-    	}
-    	printf("%s\n", bad ? "FAIL: FP state corrupted across rt_sigreturn" : "PASS");
-    	return bad ? 1 : 0;
-    }
-
- arch/riscv/kernel/signal.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/arch/riscv/kernel/signal.c b/arch/riscv/kernel/signal.c
-index 59784dc117e4..3058c89470e8 100644
---- a/arch/riscv/kernel/signal.c
-+++ b/arch/riscv/kernel/signal.c
-@@ -47,6 +47,13 @@ static long restore_fp_state(struct pt_regs *regs,
- 	long err;
- 	struct __riscv_d_ext_state __user *state = &sc_fpregs->d;
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/tegra.h b/drivers/gpu/drm/nouveau/include/nvkm/core/tegra.h
+index 6aaa30ef167f6..0189043382d02 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/core/tegra.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/core/tegra.h
+@@ -15,6 +15,7 @@ struct nvkm_device_tegra {
+ 	struct clk *clk;
+ 	struct clk *clk_ref;
+ 	struct clk *clk_pwr;
++	struct clk *clk_fuse;
  
-+	/*
-+	 * Mark the live FP state clean before the copy, so a context switch
-+	 * does not save the handler's registers over the restored image.
-+	 */
-+	if ((regs->status & SR_FS) != SR_FS_OFF)
-+		__fstate_clean(regs);
+ 	struct regulator *vdd;
+ 
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
+index 3c8d0878891ad..74b292659ee9a 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
+@@ -32,6 +32,10 @@ nvkm_device_tegra_power_up(struct nvkm_device_tegra *tdev)
+ {
+ 	int ret;
+ 
++	ret = clk_prepare_enable(tdev->clk_fuse);
++	if (ret)
++		return ret;
 +
- 	err = __copy_from_user(&current->thread.fstate, state, sizeof(*state));
- 	if (unlikely(err))
- 		return err;
-
-base-commit: 90201351a862182bdabfc1ad1c97b1e1b6ed5931
+ 	if (tdev->vdd) {
+ 		ret = regulator_enable(tdev->vdd);
+ 		if (ret)
+@@ -76,26 +80,26 @@ nvkm_device_tegra_power_up(struct nvkm_device_tegra *tdev)
+ 	if (tdev->vdd)
+ 		regulator_disable(tdev->vdd);
+ err_power:
++	clk_disable_unprepare(tdev->clk_fuse);
+ 	return ret;
+ }
+ 
+ static int
+ nvkm_device_tegra_power_down(struct nvkm_device_tegra *tdev)
+ {
+-	int ret;
++	int ret = 0;
+ 
+ 	clk_disable_unprepare(tdev->clk_pwr);
+ 	clk_disable_unprepare(tdev->clk_ref);
+ 	clk_disable_unprepare(tdev->clk);
+ 	udelay(10);
+ 
+-	if (tdev->vdd) {
++	if (tdev->vdd)
+ 		ret = regulator_disable(tdev->vdd);
+-		if (ret)
+-			return ret;
+-	}
+ 
+-	return 0;
++	clk_disable_unprepare(tdev->clk_fuse);
++
++	return ret;
+ }
+ 
+ static void
+@@ -308,6 +312,12 @@ nvkm_device_tegra_new(const struct nvkm_device_tegra_func *func,
+ 		goto free;
+ 	}
+ 
++	tdev->clk_fuse = devm_clk_get_optional(&pdev->dev, "fuse");
++	if (IS_ERR(tdev->clk_fuse)) {
++		ret = PTR_ERR(tdev->clk_fuse);
++		goto free;
++	}
++
+ 	tdev->pmc = devm_tegra_pmc_get(&pdev->dev);
+ 	if (IS_ERR(tdev->pmc)) {
+ 		ret = PTR_ERR(tdev->pmc);
 -- 
 2.53.0
 
