@@ -1,353 +1,657 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAEED4D9F83;
-	Fri, 16 Oct 2026 15:54:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166100; cv=none; b=MwbOy3w/NFGRDS0VEqb7m+/p+px2+IvIWKnd8tNeJx9g+2zrJaIaBUJWpkDhk1BCWrMUIolcBL0F6hDaJzP9LbYJci9ZfTq6fOHSKkLkfBXI8kJVhW8qhDuYPaEtCnBiIvw2Rbkj5Jo4DUJefaMLrRPM5t1Lr0usSrqdbvPeU0A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166100; c=relaxed/simple;
-	bh=Xdei+vcdqaJ8HgjkkCIgbya3PESJtw5kHCArCvDBoIs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=shBZI1Tk3lf4xoVDbLm95VstLrDrIJ9LRvm2WY6tvL5iRXfOsDcxNFP8UY8EVSVJllzMGAI8Sf2jd0xbSvJhBcmwnz6yXRlSZhZ9pD5XqXX5tJ96KNQaxiWo6jptY4C2+o6Q42csYCRIh9g25tlX20SDpPdpeHXHGpxGtjIoMag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g6rjFwHX; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA5C2264A9
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:54:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792166098; cv=pass; b=l8D077wLwlHQInkWKKr60DpT8srJyvgEUrv7OMEXJEv4IJcliWrWmwChA6S6QRWzUa051J7y6Cs9rfF2fGL6DIWs0Uhh9JBikBRu5mV9eC7qqkErXrBjlCvqWbAZnLdniRKM0i9xioChRfYm1ButBWE4q3tkZ6kO8JoRWrYRAQ4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792166098; c=relaxed/simple;
+	bh=OW/vwBGD8wjJMVEsE3IPodmHgbiHZd7AYptpV/tvUJs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dtAQOjmAW2jnF6EahsL8kxvGsTHErEAQQ2RCG+mAS9Apf62PL1Y7Jif3A57amyIMDpO/+sk7rzs53VQwSQZbfYyD8Em3aNdn9UqN6PpieiF3UHZxq2vHcM38FnTpnc2KmfcWQGyULG2zBriB4xPneAJYeB2EEFvWW19s/PCMLYI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aouFzqx9; arc=pass smtp.client-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g6rjFwHX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A62571F000C4;
-	Fri, 16 Oct 2026 15:54:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792166098;
-	bh=3CcBDr1EUEcBxKSEh3/DqlDcV4BFLnycNszQvEf+Xck=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=g6rjFwHXo4AT5T3atnm0595kVKnNlxPZTVjD64BBuYWAae+OkUbRPaa9F9FNoGW8l
-	 zTHk7g0coatmdjZBCf0zEiupZvFnzInql4dWLfNm1CpizKDESBPS4SqJiD0ZzqW1Kj
-	 G6i3YZHAvU1TOPUerfu5Sv+/1hefoX68Sq04odeg4ztGvzG1oAARZ1bFuwZ23wQetk
-	 OGKEhpkUj7eVG3Zzq+gDpCwoq0rk0j1XuycvR7Tou6aAff+0Lh6hgTX/uEXMR6NGdi
-	 7/3aEfAVkRwgRatMyFZlfu324PouU7IPYzWIP+KA+hejQgPDhwTbd8k2OeT/f8NtSE
-	 O9JFJ/b8zU7Jg==
-Message-ID: <11f1a19d-7d57-497f-826e-901f9f88b99b@kernel.org>
-Date: Fri, 16 Oct 2026 16:54:53 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aouFzqx9"
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bcb4f23ddeso85537e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:54:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792166094; cv=none;
+        d=google.com; s=arc-20260327;
+        b=j9/YrfqKlFvS1jb+hztYko2YebFpKKeijMTTE8cDXF1jDiG0nS8j7s3LWVKRxwF1Kz
+         c6xBhNIPqBtHemUFF0AYtxIyd/lnfErLuStx+4CW6LVec9+5sZPbdOXqLUcfsn23dPFq
+         Be3ezApNKUazR4z23zr3nrAbvuRV79IZqehjn8DZBADybhk5OpDA5nCIjyf/6kt9I6FF
+         AURsEshVGsUaPsJIMLXcipZXngIej0igIQC21idaxlGTDrY4NQOKtJrTwNGFmC4vobdb
+         Wd82uXuaZYRCm6YyQkl8vO6tK+GJ3tGYaCIgtvfW3w064XmA9l0z0fcuTtOY6HcddNMW
+         V4Mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=I1WJU/OQ2CI4IVniqKQ2vPFgqeH2y6WLVJMOBZUsld0=;
+        fh=DQFGKzxY310ciVb6YF5A7ZbgoR+tujTffl4RxMWjUx8=;
+        b=LQJ+l4o5Gj3RZm9XcmuM7jlTgAQ/z8sENQMagfW0LLqfjjA3c3AZU+wtAyFExVYW1r
+         BTHfsqbj8CR372XGicsZJwpNa0ERmy0XOn+QPCDDO0sHrjNvo0HzByAnXSC/LSyPQtqj
+         5kSO95dcW0hzKKxL/2VjXL1FzolP22E8MGRjkaq4lTZvb3n3R96TtQpl+poIRWGtXtis
+         sYTVNZvs0zuwFWAIwZenjPF/TCfXPijdKZbt8gFSV2kps1XVDrJ1mZj9oUojDputA5Kv
+         Aq5+8llpqgVJbv1Kesgh4mI4wqVJaVCG9Bdiqc9duvj/AQW37z1JiNDNTQeNgFPfPOS6
+         IAcw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792166094; x=1792770894; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=I1WJU/OQ2CI4IVniqKQ2vPFgqeH2y6WLVJMOBZUsld0=;
+        b=aouFzqx9gKbS85xGZHc4arR4BLgnddBJYrFZtgSk4jGKiGiB/P0SIJZPk8TRIBz/ji
+         KRVObK0cJh0ia+qsHcOojBgmrMmk89rec0bTBDujpyGvaQFHMm4Xl7b0XNmk7esJhyzM
+         h1twxfwzVEpsXfJkPOv2c9k5CxjzVA+65OHSlrafEvVIWq89Enp45eAxbRvLPCB9ysWE
+         tjmdtpkwClEfx2QfrOtTWi2yJzvSic8JdZPJY5kRiHLW+MPAKlLuXI+rrZn7PUYB+5bQ
+         arwen8gqbbHFQTja3O4j2nVom5/CKvlVtDr9rPBAMQoe/pptIXKJ96MqfY58f80pY0Z6
+         tYlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792166094; x=1792770894;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I1WJU/OQ2CI4IVniqKQ2vPFgqeH2y6WLVJMOBZUsld0=;
+        b=f0E0ZiingkvagohnHhgcub6FQZh3Mkr8oP4WzDJefIhVIo1Uew3QbVq1R9+x7usUD0
+         6ZXzyQqr2uWlhAwLmBULR1PP6G3Sh/oW9aK1m6ZZo1kMU9tTtoU8CmwJv9YeiwxgV5wV
+         JZZL+JEvbgFDbxuQ7HVYl0MHf1k6RTrN12FnIzuK7a9tl3eMfQUtU0kQp/wtl2zLoGpy
+         MlhZeXytDxIAjxaaGLsVMBADcMJ8iMmnfvNvC3u44egRk2PahCrKe67oXZIpG+uAuQp7
+         ZBYumKyJa/JV0NFr+cYPrVw52mKaG9W6p0C7KkZZTQFiAO+INnm75Z7v3d3bahNvfLk4
+         IPxg==
+X-Forwarded-Encrypted: i=1; AKwUvBwm6AfNUnyHt9Zgpu/XFr05v8GVVX9tXV/uO5GzGrbRZg7v/D8bG4vP5zglOJtl2jfyQ4LEzgooWo6Xgus=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJamUGZX/HeMKqRj/iLRZKCWceKo9r8lfZwU475beu5y7yTqeM
+	OXorA1e1upViNlfmxVZUf3t4XW73peMlaC2YLqUEvQTSuZ1gCJWeEqjMQBG+yDGQc6fL7IPo9uB
+	6n7HRRh8zR07nQYbvbdNBM8r6QNDtyyU=
+X-Gm-Gg: AYBFou2USzECRgL3bUjgc0nMkBUmAx+NiMjo95IG4QRwWKKOWjRqtZMIdtNPjtdW0Vb
+	N+6OD1XlRp6Iytcw7R61YFlSgGYBAS6DtyIkM0GMZQ8G5E0pjX+iEbe0DN6gOcQSZrs1ib1cRaO
+	PeK4s6wW4B+pe9zedGY6VEyHmvp69z71FYJ255YudcNFvkQNvGBGqDBbJlMDStJWMql0+FBAbo+
+	yknn9bqC6ohlu8f+tUcdJSAT+px9QTHCvBfXAMM3PJgYFIGZ/WUumnyPCrKnrOHkYu3nZV52zyk
+	V9ia9haDrQiuaiLPRry0ZceffRP8PNE5A69PNDVh5FLO0hegbdIgRZronvhKOIguuyrv+hhb3oj
+	SMkJ/7F65r+Q1duvFkwmO2yWUMNjJogvyTiqM4ycrFrVw
+X-Received: by 2002:a05:6512:2216:b0:5be:4e1b:5fa2 with SMTP id
+ 2adb3069b0e04-5be4e1b60d0mr601186e87.52.1792166093663; Fri, 16 Oct 2026
+ 08:54:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 2/2] media: i2c: imx681: Add C-PHY support
-To: geocausa@gmail.com, Sergey Lebedev <lsa.uz@pm.me>,
- Andre Gilerson <andre.gilerson@gmail.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015-imx681-x1e-v1-0-fd22f5f3b0c5@gmail.com>
- <2fcZAV3RJkKbTtYsFAPl3PHcutPs1Q0cRRgC_h5T3wGYGsXdn1HJHZ2D-pWGjaunwr2NkMKED9Nw-yELQkYTfg==@protonmail.internalid>
- <20261015-imx681-x1e-v1-2-fd22f5f3b0c5@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261015-imx681-x1e-v1-2-fd22f5f3b0c5@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260911143549.909867-1-daeho43@gmail.com> <20260911143549.909867-2-daeho43@gmail.com>
+ <3e5f2bd4-f0e6-4f79-b182-6cb8ac331580@kernel.org> <CACOAw_zJGF5GnJoxMWSAH2yXYFKBmo6mXCamdTixyN+pDp+5Hg@mail.gmail.com>
+ <ad98fde8-0480-4585-806f-31c65bb623ab@kernel.org> <CACOAw_xcio8ermirrAUOAb3AHsYJXtu13t36O3CwMntMtjgzbQ@mail.gmail.com>
+ <CACOAw_zYTiF2kPnZWDZTidAA4mg1ozZoB-emFGozJjc7f=UzcQ@mail.gmail.com>
+ <CACOAw_yvwehaFqh-7ufKcZRjfT7AGPEB+aR-ajutLXYE=EX+Jw@mail.gmail.com>
+ <0aedc5af-1273-4510-a8fa-5ddf2281b699@kernel.org> <atJHn7SZ-gMf_alX@google.com>
+In-Reply-To: <atJHn7SZ-gMf_alX@google.com>
+From: Daeho Jeong <daeho43@gmail.com>
+Date: Fri, 16 Oct 2026 08:54:39 -0700
+X-Gm-Features: AclHuK-C34_gveklf7jAFfJ3AuWyNvaUqmLXafOg8A2m8jN-tgx7sO2L-qyUv2g
+Message-ID: <CACOAw_xPgPbPYotMFUFvkQtofvs1Yz+74tk8JHmhN5LRabwTjg@mail.gmail.com>
+Subject: Re: [f2fs-dev] [PATCH v2 2/2] f2fs: introduce reserve_shrink mount
+ option for filesystem shrinkage
+To: Jaegeuk Kim <jaegeuk@kernel.org>
+Cc: Chao Yu <chao@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com, 
+	Daeho Jeong <daehojeong@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 15/10/2026 22:25, George Neacsu via B4 Relay wrote:
-> From: George Neacsu <geocausa@gmail.com>
-> 
-> The IMX681 also drives MIPI C-PHY. On the Surface Pro 11 with a
-> Snapdragon X Elite it reaches the CAMSS CSIPHY over one C-PHY trio,
-> which Windows runs at 2.4 Gsym/s.
+On Fri, Oct 16, 2026 at 8:49=E2=80=AFAM Jaegeuk Kim <jaegeuk@kernel.org> wr=
+ote:
+>
+> Are we waiting for v3 along with sysfs's feature flag, right?
 
-How do we know that ?
+Hi Jaegeuk,
 
-> Only the signalling, the lane count and the output PLL differ from the
-> two-lane D-PHY set-up of the Intel model. The read-out window and the
-> pixel array PLL stay as they are, and so does the pixel rate: Windows on
-> the Snapdragon model programs the same video timing PLL, and its line and
-> frame lengths give 720 MHz at 30 fps too.
+These two are for that.
 
-How do we know what windows does on the Snapdragon ? Has the file been 
-analysed ?
+[PATCH] f2fs: reserve space to be shrunk during resize_fs
+[PATCH] f2fs: expose resizable_tail feature via sysfs
 
-Are we inferring what Windows does or asserting what it does ?
+Thanks,
 
-  Describe each bus by those
-> three values and its link frequency, pick the one the endpoint asks for,
-> and write them after the register list:
-> 
-> - CSI_SIGNALING_MODE: 2 for D-PHY, 3 for C-PHY, as CCS numbers them;
-> - CSI_LANE_MODE: the number of lanes or trios, minus one;
-> - OP_PLL_MULTIPLIER: 303 for D-PHY as before, 375 for C-PHY, so
->    19.2 MHz / 3 * 375 = 2400 Msym/s, a 1.2 GHz link frequency by the V4L2
->    convention for C-PHY (half the symbol rate).
-> 
-> CSI_LANE_MODE was not written before. It is now written for D-PHY too,
-> with the value two lanes need.
-> 
-> Tested on the Surface Pro 11 (X1E80100), with the endpoint on one C-PHY
-> trio at 1.2 GHz and CAMSS capturing raw frames over CSIPHY2, CSID1 and an
-> RDI interface: 3844x2640 at 29.99 fps, the colour-bar test pattern
-> arrives intact, a scene captures, and VBLANK still sets the frame rate
-> (8.19 fps at 9000 lines). The D-PHY path is not tested here.
-> 
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: George Neacsu <geocausa@gmail.com>
-> ---
->   drivers/media/i2c/imx681.c | 95 +++++++++++++++++++++++++++++++++-------------
->   1 file changed, 69 insertions(+), 26 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/imx681.c b/drivers/media/i2c/imx681.c
-> index 6c8e4b3..c660f06 100644
-> --- a/drivers/media/i2c/imx681.c
-> +++ b/drivers/media/i2c/imx681.c
-> @@ -77,6 +77,9 @@
->   #define IMX681_REG_LINE_LENGTH		CCI_REG16(0x0342)
->   #define IMX681_REG_ORIENTATION		CCI_REG8(0x0101)
->   #define IMX681_REG_CSI_SIGNALING_MODE	CCI_REG8(0x0111)
-> +#define IMX681_CSI_SIGNALING_DPHY	0x02
-> +#define IMX681_CSI_SIGNALING_CPHY	0x03
 
-How do we know 0x03 means CPHY ? Could it bit 0x01 for example ?
-
-The commit log needs to elucidate that information - I guess, I tested, 
-the LLM told me so, reverse engineered the windows driver binaries - 
-whatever.
-
-I'm not concerned about the provenance of the information more its 
-correctness.
-
-> +#define IMX681_REG_CSI_LANE_MODE	CCI_REG8(0x0114)
-
-Same here. I _suspect_ the answer is opening the sensor init files on 
-the windows partition, matching the patterns and inferring the missing 
-register but, lets document that process somewhere.
-
->   #define IMX681_REG_EXTCLK_FREQ_MHZ	CCI_REG16(0x0136)
->   #define IMX681_REG_PLL_MULTIPLIER	CCI_REG16(0x0306)
->   #define IMX681_REG_OP_PRE_PLL_CLK_DIV	CCI_REG16(0x030c)
-> @@ -93,7 +96,6 @@
->   /* PLL, as the Windows traces configure it and the part reads back. */
->   #define IMX681_PLL_MULTIPLIER		225
->   #define IMX681_OP_PRE_PLL_CLK_DIV	3
-> -#define IMX681_OP_PLL_MULTIPLIER	303
-> 
->   /*
->    * Where the read-out window sits in the pixel array, and how much array
-> @@ -119,16 +121,44 @@
->   #define IMX681_FRAME_LENGTH_LINES	3177	/* 0x0C69 */
->   #define IMX681_FRAME_LENGTH_MAX		0xFFFF	/* 24-bit reg, limit to 16-bit */
-> 
-> -/* MIPI lanes */
-> -#define IMX681_NUM_LANES		2
-> -
->   /*
-> - * Link frequency derived from PLL settings in Windows trace:
-> - * EXCK=19.2MHz, PLL2_MUL=303, PLL2_PRE_DIV=3
-> - * OP output = 19.2 * 303 / 3 = 1939.2 MHz (MIPI bit rate)
-> - * Link freq = 1939.2 / 2 (DDR) = 969.6 MHz
-> + * The part drives either bus. Only the signalling, the lane count and the
-> + * output PLL differ between them: the pixel array, its PLL and the read-out
-> + * window stay as they are, so the pixel rate below holds for both.
->    */
-> -#define IMX681_LINK_FREQ		969600000LL
-> +struct imx681_bus {
-> +	enum v4l2_mbus_type type;
-> +	unsigned int lanes;
-> +	u8 signaling_mode;
-> +	u16 op_pll_multiplier;
-> +	s64 link_freq;
-> +};
-> +
-> +static const struct imx681_bus imx681_buses[] = {
-> +	/*
-> +	 * D-PHY, two lanes, as on the Surface Pro 11 for Business (Intel):
-> +	 * 19.2 MHz / 3 * 303 = 1939.2 Mbps per lane, so a 969.6 MHz link.
-> +	 */
-> +	{
-> +		.type = V4L2_MBUS_CSI2_DPHY,
-> +		.lanes = 2,
-> +		.signaling_mode = IMX681_CSI_SIGNALING_DPHY,
-> +		.op_pll_multiplier = 303,
-> +		.link_freq = 969600000,
-> +	},
-> +	/*
-> +	 * C-PHY, one trio, as on the Surface Pro 11 (Snapdragon X Elite):
-> +	 * 19.2 MHz / 3 * 375 = 2400 Msym/s, and a C-PHY link frequency is half
-> +	 * the symbol rate.
-> +	 */
-> +	{
-> +		.type = V4L2_MBUS_CSI2_CPHY,
-> +		.lanes = 1,
-> +		.signaling_mode = IMX681_CSI_SIGNALING_CPHY,
-> +		.op_pll_multiplier = 375,
-> +		.link_freq = 1200000000,
-> +	},
-> +};
-> 
->   /*
->    * The pixel rate cannot be derived from the CSI-2 link: this part runs two
-> @@ -154,21 +184,15 @@
-> 
->   #define IMAGE_PAD			0
-> 
-> -static const s64 imx681_link_frequencies[] = {
-> -	IMX681_LINK_FREQ,
-> -};
-> -
->   /*
->    * Sensor init register sequence, captured from Windows I2C traces.
->    * This configures the sensor for 3844x2640 RAW10 output at ~30fps
-> - * with 2-lane MIPI CSI-2, 19.2MHz input clock.
-> + * from a 19.2MHz input clock; imx681_start_streaming() adds the bus.
->    */
->   static const struct cci_reg_sequence imx681_init_regs[] = {
->   	{ IMX681_REG_EXTCLK_FREQ_MHZ, IMX681_XCLK_FREQ_ENC },
->   	/* Vendor specific configuration */
->   	{ CCI_REG16(0x002C), 0x0505 },
-> -	/* 0x02 is D-PHY, which is the only mode this part offers. */
-> -	{ IMX681_REG_CSI_SIGNALING_MODE, 0x02 },
->   	/* Vendor access unlock sequence */
->   	{ CCI_REG8(0x30EB),  0x05 },
->   	{ CCI_REG8(0x30EB),  0x0C },
-> @@ -197,11 +221,10 @@ static const struct cci_reg_sequence imx681_init_regs[] = {
->   	 * low byte of PLL_MULTIPLIER and 0x030d the low byte of
->   	 * OP_PRE_PLL_CLK_DIV, and each was right only while its high byte
->   	 * held the reset value. Written whole, and the part reads back
-> -	 * 225, 3 and 303 at the operating point either way.
-> +	 * 225 and 3 at the operating point either way.
->   	 */
->   	{ IMX681_REG_PLL_MULTIPLIER, IMX681_PLL_MULTIPLIER },
->   	{ IMX681_REG_OP_PRE_PLL_CLK_DIV, IMX681_OP_PRE_PLL_CLK_DIV },
-> -	{ IMX681_REG_OP_PLL_MULTIPLIER, IMX681_OP_PLL_MULTIPLIER },
->   	/* Vendor specific registers */
->   	{ CCI_REG8(0x7E9B),  0x02 },
->   	{ CCI_REG8(0x0368),  0x00 },
-> @@ -259,6 +282,7 @@ struct imx681 {
->   	struct v4l2_ctrl *hflip;
->   	struct v4l2_ctrl *vflip;
-> 
-> +	const struct imx681_bus *bus;
->   	unsigned long link_freq_bitmap;
->   };
-> 
-> @@ -508,6 +532,17 @@ static int imx681_start_streaming(struct imx681 *imx681)
->   		return ret;
->   	}
-> 
-> +	cci_write(imx681->cci, IMX681_REG_CSI_SIGNALING_MODE,
-> +		  imx681->bus->signaling_mode, &ret);
-> +	cci_write(imx681->cci, IMX681_REG_CSI_LANE_MODE,
-> +		  imx681->bus->lanes - 1, &ret);
-> +	cci_write(imx681->cci, IMX681_REG_OP_PLL_MULTIPLIER,
-> +		  imx681->bus->op_pll_multiplier, &ret);
-> +	if (ret) {
-> +		dev_err(imx681->dev, "failed to configure the bus: %d\n", ret);
-> +		return ret;
-> +	}
-> +
->   	/* Wait for sensor to stabilise after configuration */
->   	usleep_range(IMX681_INIT_DELAY_US, IMX681_INIT_DELAY_US + 1000);
-> 
-> @@ -711,7 +746,7 @@ static int imx681_init_controls(struct imx681 *imx681)
->   					   V4L2_CID_LINK_FREQ,
->   					   __fls(imx681->link_freq_bitmap),
->   					   __ffs(imx681->link_freq_bitmap),
-> -					   imx681_link_frequencies);
-> +					   &imx681->bus->link_freq);
->   	if (link_freq)
->   		link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-> 
-> @@ -814,9 +849,10 @@ static int imx681_parse_endpoint(struct imx681 *imx681)
->   {
->   	struct fwnode_handle *fwnode = dev_fwnode(imx681->dev);
->   	struct v4l2_fwnode_endpoint bus_cfg = {
-> -		.bus_type = V4L2_MBUS_CSI2_DPHY,
-> +		.bus_type = V4L2_MBUS_UNKNOWN,
->   	};
->   	struct fwnode_handle *ep;
-> +	unsigned int lanes;
->   	int ret;
-> 
->   	ep = fwnode_graph_get_endpoint_by_id(fwnode, 0, 0, 0);
-> @@ -827,19 +863,26 @@ static int imx681_parse_endpoint(struct imx681 *imx681)
->   		return dev_err_probe(imx681->dev, ret,
->   				     "failed to parse endpoint\n");
-> 
-> -	if (bus_cfg.bus.mipi_csi2.num_data_lanes != IMX681_NUM_LANES) {
-> +	/* Without a bus-type, an endpoint with data-lanes parses as D-PHY. */
-> +	lanes = bus_cfg.bus.mipi_csi2.num_data_lanes;
-> +	for (unsigned int i = 0; i < ARRAY_SIZE(imx681_buses); i++) {
-> +		if (imx681_buses[i].type == bus_cfg.bus_type &&
-> +		    imx681_buses[i].lanes == lanes)
-> +			imx681->bus = &imx681_buses[i];
-> +	}
-> +
-> +	if (!imx681->bus) {
->   		ret = dev_err_probe(imx681->dev, -EINVAL,
-> -				    "expected %d data lanes, got %d\n",
-> -				    IMX681_NUM_LANES,
-> -				    bus_cfg.bus.mipi_csi2.num_data_lanes);
-> +				    "unsupported bus: %s with %u lanes\n",
-> +				    bus_cfg.bus_type == V4L2_MBUS_CSI2_CPHY ?
-> +				    "C-PHY" : "D-PHY", lanes);
->   		goto done;
->   	}
-> 
->   	ret = v4l2_link_freq_to_bitmap(imx681->dev,
->   				       bus_cfg.link_frequencies,
->   				       bus_cfg.nr_of_link_frequencies,
-> -				       imx681_link_frequencies,
-> -				       ARRAY_SIZE(imx681_link_frequencies),
-> +				       &imx681->bus->link_freq, 1,
->   				       &imx681->link_freq_bitmap);
->   	if (ret)
->   		ret = dev_err_probe(imx681->dev, ret,
-> 
-> --
-> 2.53.0
-
+>
+> On 10/14, Chao Yu wrote:
+> > On 10/14/26 07:27, Daeho Jeong wrote:
+> > > On Tue, Oct 13, 2026 at 8:36=E2=80=AFAM Daeho Jeong <daeho43@gmail.co=
+m> wrote:
+> > >>
+> > >> On Mon, Oct 12, 2026 at 7:15=E2=80=AFPM Daeho Jeong <daeho43@gmail.c=
+om> wrote:
+> > >>>
+> > >>> On Mon, Oct 12, 2026 at 6:27=E2=80=AFPM Chao Yu <chao@kernel.org> w=
+rote:
+> > >>>>
+> > >>>> On 9/15/26 00:24, Daeho Jeong wrote:
+> > >>>>> On Mon, Sep 14, 2026 at 12:15=E2=80=AFAM Chao Yu <chao@kernel.org=
+> wrote:
+> > >>>>>>
+> > >>>>>> On 9/11/26 22:35, Daeho Jeong wrote:
+> > >>>>>>> From: Daeho Jeong <daehojeong@google.com>
+> > >>>>>>>
+> > >>>>>>> When preparing for subsequent online filesystem shrinkage (e.g.=
+, during
+> > >>>>>>> partition resizing or FOTA updates), sufficient free space must=
+ be
+> > >>>>>>> preserved so that valid data blocks can be evacuated and the fi=
+lesystem
+> > >>>>>>> can safely shrink.
+> > >>>>>>>
+> > >>>>>>> Existing reserve_root cannot prevent space exhaustion by privil=
+eged root
+> > >>>>>>> processes (such as OTA updaters, package managers, and system d=
+aemons
+> > >>>>>>> running with CAP_SYS_RESOURCE), which can allocate blocks from =
+the root
+> > >>>>>>> reserve and lead to resize failures due to lack of space. Moreo=
+ver,
+> > >>>>>>
+> > >>>>>> I'm thinking about reusing existing mount option AMAP, is there =
+any problem
+> > >>>>>> to use "reserve_root=3D" w/ 128mb+shrunk_size_mb when we execute=
+ online filesyste
+> > >>>>>> shrinkage? once it is done, recover w/ reserve_root=3D128mb.
+> > >>>>>>
+> > >>>>>>> runtime configurable reserved_blocks represents permanent GC an=
+d metadata
+> > >>>>>>> headroom that must persist after resize, which would cause doub=
+le-counting
+> > >>>>>>> if inflated for shrinkage.
+> > >>>>>>
+> > >>>>>> I didn't get it, can you please explain a bit more about this is=
+sue?
+> > >>>>>>
+> > >>>>>> Thanks,
+> > >>>>>
+> > >>>>> Hi Chao,
+> > >>>>>
+> > >>>>> There are three main reasons why reserve_root cannot be reused:
+> > >>>>>
+> > >>>>> 1. Double-counting in f2fs_resize_fs():
+> > >>>>> f2fs_resize_fs() checks:
+> > >>>>>    shrunk_blocks + valid_user_blocks + root_reserved_blocks + ...=
+ >
+> > >>>>> user_block_count
+> > >>>>> Since root_reserved_blocks must persist after
+> > >>>>> resize, inflating it by shrunk_size causes shrunk_size to be coun=
+ted twice,
+> > >>>>> requiring 2x free space and triggering false -ENOSPC. Resetting i=
+t right before
+> > >>>>> resize also introduces a race window where concurrent writes can
+> > >>>>> consume the space.
+> > >>>>> 2. Root can allocate from reserve_root:
+> > >>>>> reserve_root allows root/CAP_SYS_RESOURCE processes to allocate. =
+During OTA,
+> > >>>>> system daemons and updaters can eat into the reserved blocks.
+> > >>>>> reserve_shrink strictly blocks all callers, including root.
+> > >>>>
+> > >>>> Daeho, sorry for the delay.
+> > >>>>
+> > >>>> Thanks for the explanation, I see, it's not appropriate to reuse
+> > >>>> "reserve_root=3D" option for your requirement.
+> > >>>>
+> > >>>> May I ask that do you need to keep the reservation for a long time=
+ before resize,
+> > >>>> e.g. from OTA starts till shrink happens? or is it enough to make =
+it reserved
+> > >>>> during f2fs_resize_fs()?
+> > >>>>
+> > >>>> If the latter, can we just reserve shrunk_blocks in f2fs_resize_fs=
+()
+> > >>>> directly, w/ the same way we did for f2fs_ioc_reserve_dev_alias()?=
+ Then
+> > >>>> we don't need a new mount option. Something like:
+> > >>>>
+> > >>>> f2fs_resize_fs()
+> > >>>>          spin_lock(&sbi->stat_lock);
+> > >>>>          if (shrunk_blocks + valid_user_blocks(sbi) + ... > sbi->u=
+ser_block_count)
+> > >>>>              err =3D -ENOSPC;
+> > >>>>          else
+> > >>>>              sbi->resize_reserved_blocks +=3D shrunk_blocks;
+> > >>>>          spin_unlock(&sbi->stat_lock);
+> > >>>>
+> > >>>>          free_segment_range(sbi, secs, true);
+> > >>>>          ...
+> > >>>>          freeze_super();
+> > >>>>          ...
+> > >>>>          spin_lock(&sbi->stat_lock);
+> > >>>>          sbi->user_block_count -=3D shrunk_blocks;
+> > >>>>          sbi->resize_reserved_blocks -=3D shrunk_blocks;
+> > >>>>          spin_unlock(&sbi->stat_lock);
+> > >>>>          ...
+> > >>>>          /* error path: sbi->resize_reserved_blocks -=3D shrunk_bl=
+ocks */
+> > >>>>
+> > >>>> and in get_available_block_count(), deduct resize_reserved_blocks =
+as we did for
+> > >>>> alias_reserved_blocks, so that no one, including root, can allocat=
+e from the
+> > >>>> reserved space during resize.
+> > >>>>
+> > >>>> Thanks,
+> > >>>
+> > >>> Hi Chao,
+> > >>>
+> > >>> Thanks for the suggestion.
+> > >>>
+> > >>> Unfortunately, reserving only inside f2fs_resize_fs() is not enough=
+ for
+> > >>> our use case. We need the reservation to be in place for a long tim=
+e
+> > >>> before the resize, i.e. from the moment we decide to shrink (mount =
+time)
+> > >>> until F2FS_IOC_RESIZE_FS is actually issued. During that window,
+> > >>> privileged processes (OTA updater, package manager, system daemons)=
+ keep
+> > >>> writing to the filesystem. If they consume the free space, the ENOS=
+PC
+> > >>> check at the entry of f2fs_resize_fs() fails right away, so there i=
+s no
+> > >>> chance to reserve anything inside the ioctl. Also, statfs would kee=
+p
+> > >>> reporting space that is going to be cut off.
+> > >>>
+> > >>> That's why it's a mount option: the reservation is applied before a=
+ny
+> > >>> userspace write can happen, it's honored for all callers including =
+root,
+> > >>> it's reflected in statfs, and it's released automatically once the
+> > >>> shrink succeeds.
+> > >>>
+> > >>> Thanks,
+> > >>
+> > >> Plus,
+> > >>
+> > >> Please think about the FOTA scenario below:
+> > >>
+> > >> 1) The device downloads the FOTA image. At this point, we check that
+> > >>    there is enough free space for the shrink.
+> > >> 2) The device reboots to apply the update.
+> > >> 3) After the reboot, /data is mounted and F2FS_IOC_RESIZE_FS is issu=
+ed
+> > >>    to shrink the filesystem.
+> > >>
+> > >> Between 1) and 3), there is a long window that also spans a reboot.
+> > >>
+> > >> Thanks,
+> > >
+> > > Hi Chao,
+> > >
+> > > Sorry for the confusion. Our scenario has recently changed.
+> > >
+> > > Now the shrink is triggered at OTA install time, before the reboot: t=
+he
+> > > updater figures out how much space the new partitions need, and issue=
+s
+> > > F2FS_IOC_RESIZE_FS on the mounted /data right away. So we don't need =
+to
+> > > keep the reservation for a long time before the resize anymore. What =
+we
+> > > need is to protect the space during f2fs_resize_fs(), between the
+> > > dry-run GC and freeze_super(), where other processes (including root)
+> > > can consume it.
+> > >
+> > > So your suggestion fits the new scenario better. I'll drop the
+> > > reserve_shrink mount option, and send a new patch that reserves
+> > > shrunk_blocks inside f2fs_resize_fs() and deducts it in
+> > > get_available_block_count() for all callers.
+> >
+> > Hi Daeho,
+> >
+> > I see, thanks for the sync-up.
+> >
+> > BTW, could you please add above background information into commit mess=
+age?
+> > I think it can help developer/reviewer to know more background info.
+> >
+> > Thanks,
+> >
+> > >
+> > > Thanks for the review,
+> > >
+> > >>
+> > >>>
+> > >>>>
+> > >>>>>
+> > >>>>> Thanks,
+> > >>>>> Daeho
+> > >>>>>
+> > >>>>>>
+> > >>>>>>>
+> > >>>>>>> To resolve this, introduce a dedicated reserve_shrink=3D<blocks=
+>
+> > >>>>>>> mount option:
+> > >>>>>>> 1. Symmetrically mirrors reserve_root=3D<blocks> in block units=
+ to
+> > >>>>>>>      pre-reserve space specifically for subsequent filesystem s=
+hrinkage.
+> > >>>>>>> 2. In get_available_block_count(), unconditionally deducts
+> > >>>>>>>      reserve_shrink_blocks for all callers, strictly rejecting =
+all
+> > >>>>>>>      allocations (including root / CAP_SYS_RESOURCE) once avail=
+able blocks
+> > >>>>>>>      are exhausted.
+> > >>>>>>> 3. In f2fs_statfs(), deducts reserve_shrink_blocks from f_bfree=
+ (and
+> > >>>>>>>      f_bavail) so that filesystem statistics accurately reflect=
+ usable space.
+> > >>>>>>> 4. In f2fs_resize_fs(), automatically resets reserve_shrink_blo=
+cks to 0
+> > >>>>>>>      and clears F2FS_MOUNT_RESERVE_SHRINK upon successful shrin=
+k completion,
+> > >>>>>>>      releasing any remaining reservation.
+> > >>>>>>> 5. In sysfs: reserved_blocks, subtracts reserve_shrink_blocks w=
+hen
+> > >>>>>>>      validating the upper limit of configurable reserved blocks=
+.
+> > >>>>>>>
+> > >>>>>>> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+> > >>>>>>> ---
+> > >>>>>>> v2:
+> > >>>>>>>    - Split out mount option bitmask expansion (BIT_ULL) into a =
+separate
+> > >>>>>>>      prerequisite patch (Patch 1/2).
+> > >>>>>>> ---
+> > >>>>>>>    Documentation/filesystems/f2fs.rst |  7 +++++
+> > >>>>>>>    fs/f2fs/f2fs.h                     |  9 ++++++
+> > >>>>>>>    fs/f2fs/gc.c                       |  5 ++++
+> > >>>>>>>    fs/f2fs/super.c                    | 47 ++++++++++++++++++++=
+++++++++++
+> > >>>>>>>    fs/f2fs/sysfs.c                    | 13 +++++++--
+> > >>>>>>>    5 files changed, 79 insertions(+), 2 deletions(-)
+> > >>>>>>>
+> > >>>>>>> diff --git a/Documentation/filesystems/f2fs.rst b/Documentation=
+/filesystems/f2fs.rst
+> > >>>>>>> index 771216f45207..dbdc5d5a83ad 100644
+> > >>>>>>> --- a/Documentation/filesystems/f2fs.rst
+> > >>>>>>> +++ b/Documentation/filesystems/f2fs.rst
+> > >>>>>>> @@ -191,6 +191,13 @@ reserve_node=3D%d           Support config=
+uring reserved nodes which are used for
+> > >>>>>>>                         gid, the default limit is 12.5% of all =
+nodes.
+> > >>>>>>>    resuid=3D%d            The user ID which may use the reserve=
+d blocks and nodes.
+> > >>>>>>>    resgid=3D%d            The group ID which may use the reserv=
+ed blocks and nodes.
+> > >>>>>>> +reserve_shrink=3D%d     Support pre-reserving space for subseq=
+uent filesystem
+> > >>>>>>> +                      shrinkage (e.g. during partition resizin=
+g or FOTA),
+> > >>>>>>> +                      unit: blocks. Unlike reserve_root, alloc=
+ations from
+> > >>>>>>> +                      this reserved space strictly reject all =
+callers
+> > >>>>>>> +                      (including root / CAP_SYS_RESOURCE). Onc=
+e the
+> > >>>>>>> +                      filesystem is successfully shrunk via re=
+size, this
+> > >>>>>>> +                      value is automatically reset to 0.
+> > >>>>>>>    fault_injection=3D%d   Enable fault injection in all support=
+ed types with
+> > >>>>>>>                         specified injection rate.
+> > >>>>>>>    fault_type=3D%d                Support configuring fault inj=
+ection type, should be
+> > >>>>>>> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> > >>>>>>> index 4aaf29de3f6f..48a91771be95 100644
+> > >>>>>>> --- a/fs/f2fs/f2fs.h
+> > >>>>>>> +++ b/fs/f2fs/f2fs.h
+> > >>>>>>> @@ -145,6 +145,7 @@ enum f2fs_mount_opt {
+> > >>>>>>>         */
+> > >>>>>>>        F2FS_MOUNT_LAZYTIME,
+> > >>>>>>>        F2FS_MOUNT_RESERVE_NODE,
+> > >>>>>>> +     F2FS_MOUNT_RESERVE_SHRINK,
+> > >>>>>>>    };
+> > >>>>>>>
+> > >>>>>>>    #define F2FS_OPTION(sbi)    ((sbi)->mount_opt)
+> > >>>>>>> @@ -226,6 +227,7 @@ struct f2fs_mount_info {
+> > >>>>>>>        unsigned long long opt;
+> > >>>>>>>        block_t root_reserved_blocks;   /* root reserved blocks =
+*/
+> > >>>>>>>        block_t root_reserved_nodes;    /* root reserved nodes *=
+/
+> > >>>>>>> +     block_t reserve_shrink_blocks;  /* reserve blocks for shr=
+ink */
+> > >>>>>>>        kuid_t s_resuid;                /* reserved blocks for u=
+id */
+> > >>>>>>>        kgid_t s_resgid;                /* reserved blocks for g=
+id */
+> > >>>>>>>        int active_logs;                /* # of active logs */
+> > >>>>>>> @@ -2658,6 +2660,13 @@ static inline unsigned int get_available=
+_block_count(struct f2fs_sb_info *sbi,
+> > >>>>>>>        if (test_opt(sbi, RESERVE_ROOT) && !__allow_reserved_roo=
+t(sbi, inode, cap))
+> > >>>>>>>                avail_user_block_count -=3D F2FS_OPTION(sbi).roo=
+t_reserved_blocks;
+> > >>>>>>>
+> > >>>>>>> +     if (test_opt(sbi, RESERVE_SHRINK)) {
+> > >>>>>>> +             if (avail_user_block_count > F2FS_OPTION(sbi).res=
+erve_shrink_blocks)
+> > >>>>>>> +                     avail_user_block_count -=3D F2FS_OPTION(s=
+bi).reserve_shrink_blocks;
+> > >>>>>>> +             else
+> > >>>>>>> +                     avail_user_block_count =3D 0;
+> > >>>>>>> +     }
+> > >>>>>>> +
+> > >>>>>>>        if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
+> > >>>>>>>                if (avail_user_block_count > sbi->unusable_block=
+_count)
+> > >>>>>>>                        avail_user_block_count -=3D sbi->unusabl=
+e_block_count;
+> > >>>>>>> diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+> > >>>>>>> index bc22dde1cb30..556c4793478d 100644
+> > >>>>>>> --- a/fs/f2fs/gc.c
+> > >>>>>>> +++ b/fs/f2fs/gc.c
+> > >>>>>>> @@ -2492,6 +2492,11 @@ int f2fs_resize_fs(struct file *filp, __=
+u64 block_count)
+> > >>>>>>>                spin_lock(&sbi->stat_lock);
+> > >>>>>>>                sbi->user_block_count +=3D shrunk_blocks;
+> > >>>>>>>                spin_unlock(&sbi->stat_lock);
+> > >>>>>>> +     } else if (test_opt(sbi, RESERVE_SHRINK)) {
+> > >>>>>>> +             spin_lock(&sbi->stat_lock);
+> > >>>>>>> +             F2FS_OPTION(sbi).reserve_shrink_blocks =3D 0;
+> > >>>>>>> +             clear_opt(sbi, RESERVE_SHRINK);
+> > >>>>>>> +             spin_unlock(&sbi->stat_lock);
+> > >>>>>>>        }
+> > >>>>>>>    out_err:
+> > >>>>>>>        f2fs_up_write_trace(&sbi->cp_global_sem, &clc);
+> > >>>>>>> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+> > >>>>>>> index a5e109bdcebc..58f33750b2a8 100644
+> > >>>>>>> --- a/fs/f2fs/super.c
+> > >>>>>>> +++ b/fs/f2fs/super.c
+> > >>>>>>> @@ -196,6 +196,7 @@ enum {
+> > >>>>>>>        Opt_data_flush,
+> > >>>>>>>        Opt_reserve_root,
+> > >>>>>>>        Opt_reserve_node,
+> > >>>>>>> +     Opt_reserve_shrink,
+> > >>>>>>>        Opt_resgid,
+> > >>>>>>>        Opt_resuid,
+> > >>>>>>>        Opt_mode,
+> > >>>>>>> @@ -328,6 +329,7 @@ static const struct fs_parameter_spec f2fs_=
+param_specs[] =3D {
+> > >>>>>>>        fsparam_flag("data_flush", Opt_data_flush),
+> > >>>>>>>        fsparam_u32("reserve_root", Opt_reserve_root),
+> > >>>>>>>        fsparam_u32("reserve_node", Opt_reserve_node),
+> > >>>>>>> +     fsparam_u32("reserve_shrink", Opt_reserve_shrink),
+> > >>>>>>>        fsparam_gid("resgid", Opt_resgid),
+> > >>>>>>>        fsparam_uid("resuid", Opt_resuid),
+> > >>>>>>>        fsparam_enum("mode", Opt_mode, f2fs_param_mode),
+> > >>>>>>> @@ -407,6 +409,7 @@ static match_table_t f2fs_checkpoint_tokens=
+ =3D {
+> > >>>>>>>    #define F2FS_SPEC_lookup_mode                       (1 << 24=
+)
+> > >>>>>>>    #define F2FS_SPEC_reserve_node                      (1 << 25=
+)
+> > >>>>>>>    #define F2FS_SPEC_resizable_tail_secno              (1 << 26=
+)
+> > >>>>>>> +#define F2FS_SPEC_reserve_shrink             (1 << 27)
+> > >>>>>>>
+> > >>>>>>>    struct f2fs_fs_context {
+> > >>>>>>>        struct f2fs_mount_info info;
+> > >>>>>>> @@ -550,6 +553,27 @@ static inline void limit_reserve_root(stru=
+ct f2fs_sb_info *sbi)
+> > >>>>>>>                                           F2FS_OPTION(sbi).s_re=
+sgid));
+> > >>>>>>>    }
+> > >>>>>>>
+> > >>>>>>> +static inline void limit_reserve_shrink(struct f2fs_sb_info *s=
+bi)
+> > >>>>>>> +{
+> > >>>>>>> +     block_t block_limit;
+> > >>>>>>> +
+> > >>>>>>> +     if (!test_opt(sbi, RESERVE_SHRINK))
+> > >>>>>>> +             return;
+> > >>>>>>> +
+> > >>>>>>> +     block_limit =3D sbi->user_block_count - sbi->reserved_blo=
+cks;
+> > >>>>>>> +     if (test_opt(sbi, RESERVE_ROOT)) {
+> > >>>>>>> +             if (block_limit > F2FS_OPTION(sbi).root_reserved_=
+blocks)
+> > >>>>>>> +                     block_limit -=3D F2FS_OPTION(sbi).root_re=
+served_blocks;
+> > >>>>>>> +             else
+> > >>>>>>> +                     block_limit =3D 0;
+> > >>>>>>> +     }
+> > >>>>>>> +     if (F2FS_OPTION(sbi).reserve_shrink_blocks > block_limit)=
+ {
+> > >>>>>>> +             F2FS_OPTION(sbi).reserve_shrink_blocks =3D block_=
+limit;
+> > >>>>>>> +             f2fs_info(sbi, "Reduce reserved blocks for shrink=
+ =3D %u",
+> > >>>>>>> +                       F2FS_OPTION(sbi).reserve_shrink_blocks)=
+;
+> > >>>>>>> +     }
+> > >>>>>>> +}
+> > >>>>>>> +
+> > >>>>>>>    static inline void adjust_unusable_cap_perc(struct f2fs_sb_i=
+nfo *sbi)
+> > >>>>>>>    {
+> > >>>>>>>        if (!F2FS_OPTION(sbi).unusable_cap_perc)
+> > >>>>>>> @@ -953,6 +977,14 @@ static int f2fs_parse_param(struct fs_cont=
+ext *fc, struct fs_parameter *param)
+> > >>>>>>>                F2FS_CTX_INFO(ctx).root_reserved_nodes =3D resul=
+t.uint_32;
+> > >>>>>>>                ctx->spec_mask |=3D F2FS_SPEC_reserve_node;
+> > >>>>>>>                break;
+> > >>>>>>> +     case Opt_reserve_shrink:
+> > >>>>>>> +             if (result.uint_32)
+> > >>>>>>> +                     ctx_set_opt(ctx, F2FS_MOUNT_RESERVE_SHRIN=
+K);
+> > >>>>>>> +             else
+> > >>>>>>> +                     ctx_clear_opt(ctx, F2FS_MOUNT_RESERVE_SHR=
+INK);
+> > >>>>>>> +             F2FS_CTX_INFO(ctx).reserve_shrink_blocks =3D resu=
+lt.uint_32;
+> > >>>>>>> +             ctx->spec_mask |=3D F2FS_SPEC_reserve_shrink;
+> > >>>>>>> +             break;
+> > >>>>>>>        case Opt_resuid:
+> > >>>>>>>                F2FS_CTX_INFO(ctx).s_resuid =3D result.uid;
+> > >>>>>>>                ctx->spec_mask |=3D F2FS_SPEC_resuid;
+> > >>>>>>> @@ -1775,6 +1807,9 @@ static void f2fs_apply_options(struct fs_=
+context *fc, struct super_block *sb)
+> > >>>>>>>        if (ctx->spec_mask & F2FS_SPEC_reserve_node)
+> > >>>>>>>                F2FS_OPTION(sbi).root_reserved_nodes =3D
+> > >>>>>>>                                        F2FS_CTX_INFO(ctx).root_=
+reserved_nodes;
+> > >>>>>>> +     if (ctx->spec_mask & F2FS_SPEC_reserve_shrink)
+> > >>>>>>> +             F2FS_OPTION(sbi).reserve_shrink_blocks =3D
+> > >>>>>>> +                                     F2FS_CTX_INFO(ctx).reserv=
+e_shrink_blocks;
+> > >>>>>>>        if (ctx->spec_mask & F2FS_SPEC_resgid)
+> > >>>>>>>                F2FS_OPTION(sbi).s_resgid =3D F2FS_CTX_INFO(ctx)=
+.s_resgid;
+> > >>>>>>>        if (ctx->spec_mask & F2FS_SPEC_resuid)
+> > >>>>>>> @@ -2300,6 +2335,13 @@ static int f2fs_statfs(struct dentry *de=
+ntry, struct kstatfs *buf)
+> > >>>>>>>        buf->f_bfree =3D user_block_count - valid_user_blocks(sb=
+i) -
+> > >>>>>>>                                                sbi->current_res=
+erved_blocks;
+> > >>>>>>>
+> > >>>>>>> +     if (test_opt(sbi, RESERVE_SHRINK)) {
+> > >>>>>>> +             if (buf->f_bfree > F2FS_OPTION(sbi).reserve_shrin=
+k_blocks)
+> > >>>>>>> +                     buf->f_bfree -=3D F2FS_OPTION(sbi).reserv=
+e_shrink_blocks;
+> > >>>>>>> +             else
+> > >>>>>>> +                     buf->f_bfree =3D 0;
+> > >>>>>>> +     }
+> > >>>>>>> +
+> > >>>>>>>        if (unlikely(buf->f_bfree <=3D sbi->unusable_block_count=
+))
+> > >>>>>>>                buf->f_bfree =3D 0;
+> > >>>>>>>        else
+> > >>>>>>> @@ -2524,6 +2566,9 @@ static int f2fs_show_options(struct seq_f=
+ile *seq, struct dentry *root)
+> > >>>>>>>                                        F2FS_OPTION(sbi).s_resui=
+d),
+> > >>>>>>>                                from_kgid_munged(&init_user_ns,
+> > >>>>>>>                                        F2FS_OPTION(sbi).s_resgi=
+d));
+> > >>>>>>> +     if (test_opt(sbi, RESERVE_SHRINK))
+> > >>>>>>> +             seq_printf(seq, ",reserve_shrink=3D%u",
+> > >>>>>>> +                             F2FS_OPTION(sbi).reserve_shrink_b=
+locks);
+> > >>>>>>>    #ifdef CONFIG_F2FS_FAULT_INJECTION
+> > >>>>>>>        if (test_opt(sbi, FAULT_INJECTION)) {
+> > >>>>>>>                seq_printf(seq, ",fault_injection=3D%u",
+> > >>>>>>> @@ -3105,6 +3150,7 @@ static int __f2fs_remount(struct fs_conte=
+xt *fc, struct super_block *sb)
+> > >>>>>>>
+> > >>>>>>>        adjust_pinned_area_boundary(sbi);
+> > >>>>>>>        limit_reserve_root(sbi);
+> > >>>>>>> +     limit_reserve_shrink(sbi);
+> > >>>>>>>        fc->sb_flags =3D (flags & ~SB_LAZYTIME) | (sb->s_flags &=
+ SB_LAZYTIME);
+> > >>>>>>>
+> > >>>>>>>        sbi->umount_lock_holder =3D NULL;
+> > >>>>>>> @@ -5322,6 +5368,7 @@ static int f2fs_fill_super(struct super_b=
+lock *sb, struct fs_context *fc)
+> > >>>>>>>        sbi->current_reserved_blocks =3D 0;
+> > >>>>>>>        sbi->alias_reserved_blocks =3D 0;
+> > >>>>>>>        limit_reserve_root(sbi);
+> > >>>>>>> +     limit_reserve_shrink(sbi);
+> > >>>>>>>        adjust_unusable_cap_perc(sbi);
+> > >>>>>>>
+> > >>>>>>>        f2fs_init_extent_cache_info(sbi);
+> > >>>>>>> diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+> > >>>>>>> index aaca9ed9b169..d61940d095b4 100644
+> > >>>>>>> --- a/fs/f2fs/sysfs.c
+> > >>>>>>> +++ b/fs/f2fs/sysfs.c
+> > >>>>>>> @@ -591,9 +591,18 @@ static ssize_t __sbi_store(struct f2fs_att=
+r *a,
+> > >>>>>>>        }
+> > >>>>>>>    #endif
+> > >>>>>>>        if (a->struct_type =3D=3D RESERVED_BLOCKS) {
+> > >>>>>>> +             unsigned long limit;
+> > >>>>>>> +
+> > >>>>>>>                spin_lock(&sbi->stat_lock);
+> > >>>>>>> -             if (t > (unsigned long)(sbi->user_block_count -
+> > >>>>>>> -                             F2FS_OPTION(sbi).root_reserved_bl=
+ocks)) {
+> > >>>>>>> +             limit =3D sbi->user_block_count -
+> > >>>>>>> +                             F2FS_OPTION(sbi).root_reserved_bl=
+ocks;
+> > >>>>>>> +             if (test_opt(sbi, RESERVE_SHRINK)) {
+> > >>>>>>> +                     if (limit > F2FS_OPTION(sbi).reserve_shri=
+nk_blocks)
+> > >>>>>>> +                             limit -=3D F2FS_OPTION(sbi).reser=
+ve_shrink_blocks;
+> > >>>>>>> +                     else
+> > >>>>>>> +                             limit =3D 0;
+> > >>>>>>> +             }
+> > >>>>>>> +             if (t > limit) {
+> > >>>>>>>                        spin_unlock(&sbi->stat_lock);
+> > >>>>>>>                        return -EINVAL;
+> > >>>>>>>                }
+> > >>>>>>
+> > >>>>
+> >
