@@ -1,167 +1,132 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4BF3F888A
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:54:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752CE4A4F12
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:54:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792155283; cv=none; b=NTnqs78IORQA5Ji8aht13OUtw/6M2OFxbU9tvvQmGFD6QaYVXk0fqR6ZQPzFQHVbgpBHwvVbUlF0kHqFdoMrRazu1ySfGfW/CDasO9ErHM4fEswJxiiNln3uE6EfnYwWLtY8LHXd+BI7VXyGhZo0+iZ5lrVxOYpd1ZVRP9h3eko=
+	t=1792155287; cv=none; b=nsOpqKN+tMr7gOpkMdm2PQKaq3+jKQjhSku3LS4sshuh2vGDF4LhA5Ld+vlcb5pj9PT3JefMxDdh/tMlZJtGlyxAVUDRSpWCr+Ok7zNOfQzLW6j6Asx33taEu+eC9nCaxd+QmhbDxgqgYVQaBQwOP2UGyMJkUEhE1jCavMBfQ8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792155283; c=relaxed/simple;
-	bh=x96yRi+rg72nO2L3bIVmQsQ6SzwyjfTCHUgMt0kpwJ0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mUVtKKF3wK3ETlGGd8UuB4yueNaI9rMuOZ1eEyL951vFRekMICsWyyIwnMeozXWQD93phPa15jat82QGfc6qgLcBBo3Ikm2AQ9WoZLx+kyuZmOqRAtFuxoqCZKBeP4llWmOA+0OHX35KJ6EjDh+z3ZEAUm2r7kiFyFbsRS9TVnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TW+N774G; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KDyReAd8; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792155287; c=relaxed/simple;
+	bh=LtOibToDbEaBaevqO4ikHPxXA2mp/7h2SUznsOKHAtY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=AO+eAPHbvzUIK4vD28fbbUrc22Qe1FxI5/yC6/dmFRHaNr3/x5E6lAEy+/7+uLuoVNdCbYZ+2yzo4R4DxN7CtObTcPVGEEOsbo3EyhT+1D5Op7lFug4M89QENqRTBwv47jOBhxVQicxYaA1kMjno2VQBKg5pOnssPajJ1eppO6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h8wHP1Jl; arc=none smtp.client-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TW+N774G";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KDyReAd8"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAvH4J1503924
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:54:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XO8v3O2VsXW8MiGFrpI6qTd/A+X+oiAypVl/y9s5AYQ=; b=TW+N774GsmFf3Ae0
-	R7RfnvUC0izCPo03cn1m4VU5C4hu2AjW/+vvrKO6z7PGzPfOn1RwjjmUXCnCCgh/
-	JCyZ+o52FRf25aAt33f+zlYKY14XDelzPEAKeWdrkg57oNUtZSvsMlwD41ZKnsDc
-	NGM/gdCtmdUhJPL0ULfEPSUnfXw+SegxQWkhUBkFLTRiKurA+i67pz/nZytTKKiN
-	59RfDvcl5BHOWaba0037OETWiowYuVC3fa04Y47tMuAiZ1v9j1YIv0Le+0zt8bDK
-	uq+RdTcsEtOGuoTJDMHEdqwqPwMzfETJTs89hE/QO7s6+FvhoBNTa0HlR0V47JjA
-	jv5v6g==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbjmf8c86-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:54:41 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-35d4538fd74so9140821eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:54:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h8wHP1Jl"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3514b90bb89so5895067eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:54:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792155281; x=1792760081; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XO8v3O2VsXW8MiGFrpI6qTd/A+X+oiAypVl/y9s5AYQ=;
-        b=KDyReAd8Nuxch1yBO4/+t74xMLxcuUlwUGdvkitE/1qOtiMDQARU39TbbutaGxLwUc
-         u9CGkGm5rn22Q01IuuWV3POQLnIDwqEIl408R4Ky44fpPfMBDl7aHtZJoOoHl+W57DOG
-         TnZg/BMMaLyrcrO6R3YtW4Ddgich1j+4mdhM3XHaXVD1TMaZzhDOyP87kKM/d/FwtMRk
-         CYCWjnKV3IiKbleSVLWbiuJSAUNqMOAAwRbgxa+l0nMpUBkGDOsNTJxIgxt50fAN8uf9
-         6lA3UQCGv3j2ep84pxudQWR/5B7Cd+SStveAy2I0KK0BzcX6Ef9nSaTWG3OwMncyH/oe
-         trVA==
+        d=gmail.com; s=20251104; t=1792155285; x=1792760085; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=47xwNbLDV/wYZSE2wpX2Ena+RjFR2X+u3FxDomSqYmQ=;
+        b=h8wHP1JlCuJhMsidMonmya9u6255PqnG6bFZo8I5rC52+WUPINutq9nWvV2gaqV8TF
+         sMGZoseL/C87XfjOVEQagFBb29MND4NbIzC5ucXjzYf7XRdaGF4nD6V7GFi4p3Wpm0qd
+         v01Loh06OMV2fJXfeIV2CtIkg4+bE5/5v9zGiKx/BHwwx5eIKzaiiETaIY27t6FWN0Kn
+         KIuz4V6GT6VynpvYMmsjyvcCLom6Dqk/XStbV8cVYuYwyUAq+TaYHQLV8emiUKwN7eFz
+         91xsQaj7JUAE15V4SIeTORJMhkf9zfr7R6CVfS+pn0WjXPB3zTrQ4eq+KBek/DvvVgD1
+         2Ikg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792155281; x=1792760081;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XO8v3O2VsXW8MiGFrpI6qTd/A+X+oiAypVl/y9s5AYQ=;
-        b=tA2zEBFgQLDKBOewe+FMN4uVUktSAHRIndkJP+rQ0hqcOOTo2g+qd/1Ii9GlusEd6g
-         9RX5MD10RENgD8/CFR9Ss06aZgXk912sxhIKWITRaEEeCK3v9eevAoU9bmTGOicoFL3v
-         y/poFpijlFOwsXCcp6Ww7kckLW/mG6mtbRcXfqzoG5ItXEct2KZ0KJFQqjd5wEGWQHbI
-         tGyXSpYburX5WgmPpr21eHaXbG7EIDuSCtbVDSsrcogd7UkUryUktNjJNiL56vpy1tlV
-         bx6QNB0auIleXDSte0axZfRV9mN7oTpJksbni5re9bbJbHbgS6xI3u37/teMSJem8GDW
-         XH/w==
-X-Forwarded-Encrypted: i=1; AKwUvBz2pRnIPbi2brtUqDciG8Bx/qRgmvsSbHwt3Bgw0+r/9YVC+s4qFhnORjY8uXX9JdoDcxpxbhfY+IxVFFU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAHjKninRdEWM5eNki7N4KQQiefdYLMCm72aud5q5deWvpAYFY
-	Yg8G5OZZXWnEulPSV4PAixsJ+FIpgpcb9+cvhMIdkL6hpRjoYzMABN13iHzpqYHeFWbTHbq0lew
-	t7TlZ2C+LnmUB17wp1D8hVPli6qYRqfHZgjIH0HjLvDsg/SCw4viDMy2JkqWxdjQT8gg=
-X-Gm-Gg: AYBFou118MorDt4Vq4YrGzy+RyGG7XkqVuROgdkvxOAO2X2z6PWNhpD9rgPE5Z9y+FR
-	3HYV+Wez9SBYmOQslWO582/XJzl/XPGdotH9TT45zRpzM6wP3QgqiHtrUIfC90kOCTjyN1JUlPx
-	6n6D+8fzR/sBB9WwiLgGaVvoGHi/wxkDlAYVNyLZTsL7KwKMSgo38FRZ6HNEkXilxr29K63lrLS
-	rJrcV1cEyoNXvq/G43NaORV+psgy7PJggg/BSMgWTTPqDY7VeIguhkQV8G+heNFLmc2CdaHZuIL
-	Np9PNCGMZyL0qoHhcMfgbkcFhrhI1wWdshC1bVqL9vScwh+mc1d2denby5r8efJOqvlonC2cd2r
-	kS6ORBk+L2lmgva3jOUABKSfjngUAxw==
-X-Received: by 2002:a05:693c:8959:10b0:35b:da8b:f88c with SMTP id 5a478bee46e88-35bda8c2195mr17030978eec.41.1792155280697;
-        Fri, 16 Oct 2026 05:54:40 -0700 (PDT)
-X-Received: by 2002:a05:693c:8959:10b0:35b:da8b:f88c with SMTP id 5a478bee46e88-35bda8c2195mr17030931eec.41.1792155279953;
-        Fri, 16 Oct 2026 05:54:39 -0700 (PDT)
-Received: from [10.218.31.125] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0d391sm7184042eec.4.2026.10.16.05.54.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 05:54:39 -0700 (PDT)
-Message-ID: <bea6d8df-88b2-4f03-9da2-1be7d5788d1e@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 18:24:32 +0530
+        d=1e100.net; s=20260707; t=1792155285; x=1792760085;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=47xwNbLDV/wYZSE2wpX2Ena+RjFR2X+u3FxDomSqYmQ=;
+        b=RhK3AdkCglZv0snysjSlnxCg6Cho9Mt969e5ztT6wRXEoKy3RcjA5zK9Gb9u5DFim4
+         13AWOwdWgjuQ0UTVwqfOrHMEzSibUpTiYIDZPNYdm2WTeRxP22c0zGp0MxPnRhGw/GRO
+         u4TRuG4xhtpK5IsECNb1yPP3XQ7mrdUsfy9tjzJXip/vH6oKp5tIDl32UTr2jp0pQvkV
+         p4EQWNxIHy8zip4iv/r0FzPzTNaRQhg6nP7k1OKkt2HxN5aCDjksQ2bfpsZKZlK2f73J
+         sLFaBBQloGno+nD5zCZJU5aKHDELeaN66AL/P4EXS5yFUkx4vruOJwr7HCLarvW5mSXq
+         VsAg==
+X-Forwarded-Encrypted: i=1; AKwUvBx0Zt6PiQUudaZfTMRKbhNh6NGHWNf9ESS58Wd/mdo4Wm2g96XZUcULmHEpAArMhyEwx7H5asTorx1DrL4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGjwADkj5mOsvKgJGRpPqb4uE3PZ0Ito8K/QzWwqajX9HAEPK8
+	dM+P9npxnOOK0MCQeXYtQTAx6gzmSBTxwwDcvJZNO8Ci5txMCu+GmTbb
+X-Gm-Gg: AYBFou2/luJaV18T3j0cpS9jN9IVlPzb/PD7pjVKltPlMT1Er8xkZx8pUW0z1Ka/F54
+	Rg8AXCgUbOHduq/msLZrsO9PmghsrutEF/i5NKH5QN+q6ZbaSM7QrM924M+ICQ3evc0I7CB+nNI
+	gSQ42F8XX/lEaJ0ixCbmAEuLcm7U0v4fDNokRS548Mhj8G5ZJ4wVGH1kCXSqWJbp0dcyx2QPkdP
+	PGpeQqbZKB4H5xaoQYL8QFgsiO4DmiJ4PwKhYNO6nx+Fa1RBB+hyKZVs8rnTe0w/GEequL6cpGO
+	H3HdKltPXqQEPp1HlhpkfOCMplBWPX89KDkp4VHQNOInB2uGegoGeSqiAaU3vdT26th/VCkDDvQ
+	cYsJRl/BN2IOtnRUPiS0yDx8LQTb6RwymKqjtPSuwMV4oRhXsSlUgdOatMYcwfUbfgRvlAExLyt
+	HTeHrn1tPaDrP8aSB1dScOhVDeVf3EDNEpPngGV4ZYdmO8ZzDYdcWXHNTlX5SjLCWwy0jaKF9SO
+	a/s
+X-Received: by 2002:a05:7300:6d23:b0:35c:6ffd:e91b with SMTP id 5a478bee46e88-35c6ffdf3b6mr20435005eec.40.1792155285484;
+        Fri, 16 Oct 2026 05:54:45 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0e5e6sm6829118eec.1.2026.10.16.05.54.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 05:54:45 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Fri, 16 Oct 2026 20:54:37 +0800
+Subject: [PATCH] selftests/mm: load xfs before checking for it in
+ run_vmtests.sh
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/7] tee: Add kernel client object invoke helper
-To: Harshal Dev <harshal.dev@oss.qualcomm.com>,
-        Jens Wiklander <jens.wiklander@oss.qualcomm.com>,
-        Sumit Garg <sumit.garg@kernel.org>,
-        Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Basant Kumar <basantk@qti.qualcomm.com>,
-        Apurupa Pattapu <apurupa@qti.qualcomm.com>,
-        Arun Kumar Neelakantam <aneelaka@qti.qualcomm.com>,
-        op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        Sumit Garg <sumit.garg@oss.qualcomm.com>
-References: <20261015-qcom_uefisecapp_migrate_qcomtee-v5-0-1460691b35d3@oss.qualcomm.com>
- <20261015-qcom_uefisecapp_migrate_qcomtee-v5-2-1460691b35d3@oss.qualcomm.com>
-Content-Language: en-US
-From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-In-Reply-To: <20261015-qcom_uefisecapp_migrate_qcomtee-v5-2-1460691b35d3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: b4PNeY1OTvClgSMwiHSJal8f3--YRgUg
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA1MSBTYWx0ZWRfX0lrxRVXlf1hd
- Yk1HczR2hvmpYfaKxNWBRhQqG6NrgDMht4ssFmtX3A+T0d4y+wcO/L0jwz2tpzSFiJqa+/dYpJf
- hj1mQIJwrbY6VPF5hjrbuthX49mRoeA=
-X-Authority-Analysis: v=2.4 cv=SrAFe/O0 c=1 sm=1 tr=0 ts=6ad21e91 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=IkwWU5-DNg5bmC6MlS0A:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-ORIG-GUID: b4PNeY1OTvClgSMwiHSJal8f3--YRgUg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA1MSBTYWx0ZWRfX2mchUL6Iqxmh
- uJODXwZwysk5Q4Pd/EEUVYc6UT6EDmQ+q0tgzSyqFOeQuv8HAT0hcWl7INV7SDhNsMk4HoEm3gK
- AcAJXDZ9yx/0nK+rIOpFUoTBUfmxeI7d6bT6oJNbQPg+y5KGKlfUhjTxIxIGfcjTyKULVcgr076
- hHpP+CTIqdV85aOdjveggVY0j3LyJQn/WiEcYyFd5TwH2tVSYyrRNQoYQsL9ZJldS1XxeGNgBUx
- fGLit+dQFZn0KV/W4Gz6L8zIv1lkbarOUtYArkOnxUu1QLXgQf0M2EQvYPcvSccG0gZHICkni9V
- eDV9f9EIpilPOERGv2Y5Xk5a/PB1teXSjU+cMJ7UgAcQkCGbU8OQ0Tw781+XlOJMlwp2j/mn9Kw
- bf6NoExtbV+2BACc5i7+dT9ChOGLSWgzWAnYxJs2kGQfPrjxBWfrqm+X2FclvrrKQdG+6ZfkaYY
- n2sps+WeYzbj+iio6AQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 bulkscore=0 spamscore=0 phishscore=0
- clxscore=1015 malwarescore=0 priorityscore=1501 adultscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610160051
+Message-Id: <20261016-bug-selftests-mm-run-vmtests-xfs-modprobe-v1-1-b97dfc79e97a@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAIwe0moC/yXNwQqDMBCE4VeRPXchEUmxr1J6qGZiA00iuyqC+
+ O6G9vj9h5mDFBKh9GgOEmxRY8kV9tbQ+HnnCRx9NbWmddZYx8M6seIbFuiinBLLmnlLf+6hpuJ
+ nKQPYw7j+7ruxQ091bxaEuP++nq/zvACD1dWgewAAAA==
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+ Zi Yan <ziy@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-On 15-10-2026 17:09, Harshal Dev wrote:
-> From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-> 
-> Kernel clients can open a TEE context and invoke regular TA commands
-> through tee_client_invoke_func(). However, there is currently no
-> equivalent helper for invoking TEE objects.
-> 
-> Add tee_client_object_invoke_func() as a kernel client API for issuing
-> object invocation requests. The helper checks that the backend provides
-> object_invoke_func() before forwarding the request by setting the origin
-> as TEE_OBJECT_INVOKE_KERNEL. This allows TEE backends to support
-> privileged object-based calls from the kernel-space.
-> 
-> Co-developed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
-> Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
-> Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> Reviewed-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-> Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+run_vmtests.sh creates a loop-mounted XFS for "khugepaged all:file" and
+for the pagecache folio split cases of split_huge_page_test, since
+tmpfs does not give them large pagecache folios.
 
-Tested-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com> #on Glymur-crd
+It only does so when xfs already shows up in /proc/filesystems. When
+xfs is built as a module that is not loaded yet, the check fails, no
+XFS is created, "khugepaged all:file" is reported as skipped and every
+pagecache folio split case of split_huge_page_test is skipped with "No
+large pagecache folio generated".
 
+Try to load the module when xfs is not registered yet.
+
+"run_vmtests.sh -a -t thp" with xfs built as a module and not loaded:
+
+                                   before    after
+  skipped tests                         1        0
+  skipped split_huge_page_test cases   43        0
+
+Fixes: fc4d182316bd ("mm: huge_memory: enable debugfs to split huge pages to any order")
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+---
+ tools/testing/selftests/mm/run_vmtests.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
+index a1b45a3dedaee..6b754555d5734 100755
+--- a/tools/testing/selftests/mm/run_vmtests.sh
++++ b/tools/testing/selftests/mm/run_vmtests.sh
+@@ -399,7 +399,7 @@ CATEGORY="thp" run_test ./khugepaged -s 4 all:shmem
+ # Try to create XFS if not provided
+ if [ -z "${SPLIT_HUGE_PAGE_TEST_XFS_PATH}" ]; then
+     if test_selected "thp"; then
+-	if grep xfs /proc/filesystems &>/dev/null; then
++	if grep -q xfs /proc/filesystems || modprobe -q xfs 2>/dev/null; then
+ 	    XFS_IMG=$(mktemp /tmp/xfs_img_XXXXXX)
+ 	    XFS_DIR=$(mktemp -d /tmp/xfs_dir_XXXXXX)
+ 	    truncate -s 314572800 ${XFS_IMG}
+
+---
+base-commit: 437a7e839def0f505277022622fc59a8b071d6cf
+change-id: 20261016-bug-selftests-mm-run-vmtests-xfs-modprobe-de0697d4c4e9
+
+Best regards,
 -- 
-Regards
-Kuldeep
+Qiliang Yuan <odys.yuan@gmail.com>
 
