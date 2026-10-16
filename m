@@ -1,150 +1,66 @@
-Received: from 15.mo581.mail-out.ovh.net (15.mo581.mail-out.ovh.net [87.98.180.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212CF47DFAF
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:42:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=87.98.180.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6518B49158D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:44:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792154572; cv=none; b=H2fjCLAndmW8aqr9IolzW7oTQ45Hd3Qjv4C128h0POkI7RLkShtAcBhNOuuE00ewwHN5H0vry46ECfhpjIU+8GWedqYMYVYmnameNuGFr4BWwv2zb6yvDgUbItu80CIJdMhAqQvnZ+8Drc06/Te9QR7m7rE00vo75Z+32A2CZa8=
+	t=1792154642; cv=none; b=eIdeylLTzzbg5rdLnE9RQa4rPy0OiFRYafvfLnAOn9dE7yycYrmHs/5V+8us28ZBb+jZuYiPt8+shOGLppMEmBgnjcbFoH6cOEFPnGHFgQNSHdlp4/eBFAQM1wzWO/O++rL4exKUgDKKCjCPq+YJugN88JCx+FQ6roX3KcyJbVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792154572; c=relaxed/simple;
-	bh=2itXlY4WWJcPLw4e4JalWJkACvlyR6sDXGe9P8c+phs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KZTO04PxE23AVzXdSD5p++N+QpBpp8dszhEsUzZI04lndtkwbCPldMnDEGoVXs57NI6p+I05Awsz+ooIY/MzlrC95P91RJZ/I4stzmI+4qC+BscJ78XcVII4LHcKsjuWC5cIdbZa6qSzEGySG4KWbcTSXIuO/yKkCZcQ4PBASH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com; spf=pass smtp.mailfrom=cynove.com; dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b=RXn2gXGg; arc=none smtp.client-ip=87.98.180.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cynove.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b="RXn2gXGg"
-Received: from director3.ghost.mail-out.ovh.net (unknown [10.110.0.7])
-	by mo581.mail-out.ovh.net (Postfix) with ESMTP id 4j5fBJ4dwyz5vmQ
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:03:52 +0000 (UTC)
-Received: from ghost-submission-7ccd8bbbb6-4kjr4 (unknown [10.111.174.188])
-	by director3.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 05CA7C03E0;
-	Fri, 16 Oct 2026 09:03:51 +0000 (UTC)
-Received: from cynove.com ([37.59.142.97])
-	by ghost-submission-7ccd8bbbb6-4kjr4 with ESMTPSA
-	id fClPE3Xo0WpZ/AEAmtFogg:T3
-	(envelope-from <stephane.debusne@cynove.com>); Fri, 16 Oct 2026 09:03:51 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-97G002e07fcbaa-f78b-4434-88ca-256de4d93e96,
-                    49BC7871EA8B080B249AF49F55FA702C3B4DE52D) smtp.auth=Stephane.Debusne@cynove.com
-X-OVh-ClientIp:176.150.47.247
-From: Stephane Debusne <stephane.debusne@cynove.com>
-To: herbert@gondor.apana.org.au,
-	lukas@wunner.de
-Cc: ignat@cloudflare.com,
-	davem@davemloft.net,
-	horia.geanta@nxp.com,
-	pankaj.gupta@nxp.com,
-	gaurav.jain@nxp.com,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Stephane Debusne <stephane.debusne@cynove.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] crypto: rsassa-pkcs1 - use a separate buffer for the RSA output
-Date: Fri, 16 Oct 2026 11:03:33 +0200
-Message-ID: <20261016090333.2247764-3-stephane.debusne@cynove.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261016090333.2247764-1-stephane.debusne@cynove.com>
-References: <20261016090333.2247764-1-stephane.debusne@cynove.com>
+	s=arc-20240116; t=1792154642; c=relaxed/simple;
+	bh=VTMojNSXcb3NesLdltxRQHnw4PZSUY8+CCKODSKNacM=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=AboTRHjm5v4rU968DZPSh9AIQ5JihSM/3RqyvvvKOsg9k9OE48ExuzBFXA2QO25IhOMkpWTdvq4v73CjFRUTfyysOwE6JoS2xJ3MI36T3VXkJ0zO1DijbFsKjANXalX7NFmes8l3DMbyuwW//ouZaOkNA94+adGZ7wVRywRwM+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a7de733fa9so9221159b6e.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:44:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792154639; x=1792759439;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VTMojNSXcb3NesLdltxRQHnw4PZSUY8+CCKODSKNacM=;
+        b=nAaEb0H1hm3oooU0WE20pVHGlSky/tEPhdqzVD/G8R50jg2H5vQB5SW7MqO5AtXUqt
+         u8iJwBmzEcb/8ETsscjShjpxBVFPSBDAp6XPpwIAyUZUxTiQm4+B4I79V6C2p9a9v0SU
+         qitv5rC7LCG3rXwqXT7Fr0hvUBHAWuZNgQDaSb78LN3hJWbom03YBy8l8WnjKqFPxVSo
+         yOZBYh6ISML2XtE5me9wxdfQ5APEZwAeW5uSGq78uR8Le6/fHEJK4sp2Q3/TTEwthn0M
+         sbOvDXSUiqVFfXbFInGI8nRqJ5y1D0yGyehIK2O7SV2h0qNJHtPqTWFxeTW0A4sQQ5xl
+         PJZw==
+X-Gm-Message-State: AFq9FYJ4PcTg+HYxjk1mubzVHf9MUK6l4UQc2TDO+206VSbTVwWTWxwG
+	vAmoRLhOtihkXXrLzbBmIq2TAXHjTB5yhEhzse+MEvqXCn4xpTyn80vo9zMiOkBmVCgVVcUB5Uc
+	6i1mE5ptcHp86XAz7DTOqe+TBPLUm8wYbMHun1qQUVtvXzQEGr5vh2p9O3lk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 16751138816091151131
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: dmFkZTGD4nW62LQB9KssNcZQuK5kWrFQh+w6Vz+V+RAD8MnUAde72M/FLWE8ieu2/logkQIvP3h+HxkwhNQElJPI8dksBAWHsBdG4nOBhE97wdBgSrq7i9Dr7HTzEIPNJ9r0nStZP+4SxoAOI00vFHP+uMc2VAR7sYwcGJsPfO6GsKeTbDbZqUoT/dClNmsHiZliUHARqZfNmZpbXqR+OyK7tCsyhTiGvjmRA5ZoJHO4AiXlGsWEh0ULl2YyjVayzCXrjJyQQpi+DCuYI7TAzwqHsddO0+B9C81cyWecg6aiOCtYZJ4PPYAinicFtLLV81oPd4bQfiHnVg0dZa0FsvCqAOufJahprfNjGgkJc97+G0wo0TZJxnlBTnvJ0x+92kDYzjTdlDQi6iZ5oOZxEgvvaykfoy9aSHiR+aWlncEbOb1WdAqqdbVftIMQeP6e1tntz88pmztpu56aOCjk2D9ks7+Pv2V1stdcsOnXsco6YeLRE1+MHVUYojr0mhFrtEWmMRMD5ZAhIqN0uATgYHxmKY3lvYYB74LpIhKzENNkzfp2kz9uBmsaXEEMBvlGDNNKVj3lXNqwq22WwB4ixQR294dgnnfZabSoZgeiZl7jszuoNa0CWNY4m1zkeoRk8giw6hMdTdWp6DHExnGB8b4STdJ11Oj9zhN2UyD35LhqPaP3kQ
-DKIM-Signature: a=rsa-sha256; bh=/nyx8E1BJm42jAE/tXOKFc+YlYeMaXu9CSxvpmY+cXU=;
- c=relaxed/relaxed; d=cynove.com; h=From; s=ovhmo4616632-selector1;
- t=1792141432; v=1;
- b=RXn2gXGg/TY5dpuxR6xz/xqezEYUB3lhXJ6eQdK3UTI+PPfHQGZzff+JAy7lMe0qCtqnaRNJ
- yen8cnJ007XQn9eKRTGmlcigU8EpRdPT9XymuCscm0k0gm0mDxBxFQ6ooWC7y5YB61NycCWvMLV
- AkZIwMvEtqKtZWXVyQL2lgl8A3uVzeY1T8A9X0ET5f6pmD0EhoJoWCSSYAQVGC3xoxqbs0z6fet
- hKiYVrMbefk7M15aMeFFEi21ImuU8I9zzyEPUAJ2wLAYiNkXExPKzegoXoVvNtmCvfLiBQm3lqH
- 0Pp3L3F+6ESinGOWY/deOez8Q2ehkPzQk3QWb2B+FbUlQ==
+X-Received: by 2002:a05:6808:1a08:b0:4d6:90f3:74a3 with SMTP id
+ 5614622812f47-50c582328eemr20183958b6e.46.1792154639345; Fri, 16 Oct 2026
+ 05:43:59 -0700 (PDT)
+Date: Fri, 16 Oct 2026 05:43:59 -0700
+In-Reply-To: <6a57ad78.9d83364e.246513.0004.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad21c0f.7514cce4.1ece07.0151.GAE@google.com>
+Subject: Forwarded: [syzbot control] llc UAF on unpatched 2f2f7eeef8b0
+From: syzbot <syzbot+44efda9647c52be29d9c@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-rsassa_pkcs1_verify() places the buffer it hands to the akcipher driver
-right after the driver's request context, in the same allocation, and
-since commit 8552cb04e083 ("crypto: rsassa-pkcs1 - Copy source data for
-SG list") uses it in place (src == dst).
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-On non-coherent DMA, the start of this buffer may share a cache line
-with the end of the request context. The CAAM driver (caampkc) writes
-req_ctx->edesc and req_ctx->akcipher_op_done after dma_map_sg() of the
-destination, which dirties that line. On arm64,
-dma_unmap_sg(DMA_FROM_DEVICE) cleans and invalidates partial lines
-(dc civac), so the stale CPU copy is written back over the result
-written by the device.
+***
 
-On i.MX8M Mini (CAAM era 9, rsa-caam, 6.18), the buffer starts 168 bytes
-into the allocation, at offset 40 of the 64-byte line that also holds
-edesc and akcipher_op_done: the first 24 bytes of the RSA output are
-replaced by the signature bytes, and rsassa_pkcs1_verify() returns
--EINVAL in 398 of 400 calls over two runs (the rare successes are
-consistent with the dirty line being evicted before the device writes).
-Visible effects: cfg80211 rejects regulatory.db ("loaded regulatory.db
-is malformed or signature is missing/invalid"), and adding a valid
-self-signed X.509 certificate to a keyring fails with EINVAL. The
-akcipher self-tests pass, as they use separate buffers.
+Subject: [syzbot control] llc UAF on unpatched 2f2f7eeef8b0
+Author: miguelgarciaroman8@gmail.com
 
-A test module comparing rsa-caam with rsa-generic shows that only the
-position of the destination matters: separate or in-place buffers from
-their own kmalloc() give correct results, while a destination right
-after the request context is corrupted, in place or not (200 of 200
-calls, the 24 first bytes always holding the previous content of the
-buffer).
+#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
 
-Allocate the output buffer separately, so that it is DMA-safe like any
-kmalloc() buffer.
-
-Fixes: 1e562deacecc ("crypto: rsassa-pkcs1 - Migrate to sig_alg backend")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stephane Debusne <stephane.debusne@cynove.com>
----
- crypto/rsassa-pkcs1.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
-
-diff --git a/crypto/rsassa-pkcs1.c b/crypto/rsassa-pkcs1.c
-index 94fa5e960..205493037 100644
---- a/crypto/rsassa-pkcs1.c
-+++ b/crypto/rsassa-pkcs1.c
-@@ -223,6 +223,7 @@ static int rsassa_pkcs1_verify(struct crypto_sig *tfm,
- 	struct rsassa_pkcs1_ctx *ctx = crypto_sig_ctx(tfm);
- 	unsigned int child_reqsize = crypto_akcipher_reqsize(ctx->child);
- 	struct akcipher_request *child_req __free(kfree_sensitive) = NULL;
-+	u8 *out_alloc __free(kfree_sensitive) = NULL;
- 	struct crypto_wait cwait;
- 	struct scatterlist sg;
- 	unsigned int dst_len;
-@@ -237,12 +238,21 @@ static int rsassa_pkcs1_verify(struct crypto_sig *tfm,
- 		return -EINVAL;
- 
- 	/* RFC 8017 sec 8.2.2 step 2 - RSA verification */
--	child_req = kmalloc(sizeof(*child_req) + child_reqsize + ctx->key_size,
--			    GFP_KERNEL);
-+	child_req = kmalloc(sizeof(*child_req) + child_reqsize, GFP_KERNEL);
- 	if (!child_req)
- 		return -ENOMEM;
- 
--	out_buf = (u8 *)(child_req + 1) + child_reqsize;
-+	/*
-+	 * The output buffer is mapped for DMA by hardware RSA drivers. Keep
-+	 * it in its own allocation: placed right after the request context,
-+	 * it may share a cache line with fields the driver writes while the
-+	 * buffer is mapped, which corrupts the output on non-coherent DMA.
-+	 */
-+	out_alloc = kmalloc(ctx->key_size, GFP_KERNEL);
-+	if (!out_alloc)
-+		return -ENOMEM;
-+
-+	out_buf = out_alloc;
- 	memcpy(out_buf, src, slen);
- 
- 	crypto_init_wait(&cwait);
--- 
-2.43.0
-
+Control run without a patch. The earlier patched test log showed
+"Failed to bind: Device or resource busy"; I want to check whether the
+stock reproducer reaches the bug on this exact commit.
