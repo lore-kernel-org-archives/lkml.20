@@ -1,221 +1,107 @@
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+Received: from mta1.migadu.com (out-253.mta1.migadu.com [95.215.58.253])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852C43CF030
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:24:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C46A93CF030
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:24:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.253
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792193058; cv=none; b=qwI6j02xqDIozD0Zt0rtdyyOkR9tJbhtzvaByA5AeYOezxF5sSUsFg1oISoTQnLKN/Iw3pOcnQpdutCkkq+/7qB+hrvEzdUitU202ANSreYCWetT3qomNmeaYwyNAnCtH9MOiLiaDLWne0IXXE29QqfbYHyZQ+HX88/O21SY5sw=
+	t=1792193074; cv=none; b=tKni+OfJxgZxVfJwbanDHxsBn7bz3VKEZXtSIJHBekqlzFToyZKWhc9+p/yfGU0XdmPrLUCAF+sJLGR7m3DMyAlQt0J/abhFjmIc5Xz9wbgiO0BRgkbJWmd4QSe9orCpAnuU/GKLtpPzA9hEPy40lBKYG9dyHfUaWdIqvzHQ6Sw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792193058; c=relaxed/simple;
-	bh=YuCSu0KUlA61RKonog/8G3904xdj5d5wzDThguAvb4s=;
-	h=Message-ID:Subject:From:To:Cc:Date:Content-Type:MIME-Version; b=oVaoiKu48OKAnsGw1cFvN1EYsGCT4yKY+yJHTuWnRAxlo6OpJ4oBGd+ggigQeEbim2ftoFLuGF2gkO/2iBU9D+Bbi4258GRNkOTMteJUXdqOLSQKp4lKsJ4H2/xMiKZur1zEoHK89ctxDGAJnccsAgszaRye1pR1iYEIOu7DQqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=QZ08b8cG; arc=none smtp.client-ip=209.85.128.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1792193074; c=relaxed/simple;
+	bh=jGAdImBGD1zBR6ZCSwCEdEyZFGXYBaqDl4HcKAwxYFQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YqmruKv6R09JKQQ0iX1V5N1AF87xDFP0+AhTATLb5Hc6YTDbo4+CP8vBxeZ3d2PeG7llqFduOln71+Vkm+NDCfA81llBdrYlE9+BEljr+f/m+wzo2ObLjQ3zxdzuuxfqT47Ls+m5HpoUQl6nKCVKSwHUPt2h3bi9MSdEsrHOdiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ohEi0Dsk; arc=none smtp.client-ip=95.215.58.253
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="QZ08b8cG"
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b0f59a5fdaso847827b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:24:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1792193055; x=1792797855; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8P9DrTPplGvyRcmS1s0MMPyOw0+R+/2HpDpl+9Qh+MI=;
-        b=QZ08b8cGVGMhbSI/wdInjjIXcaKSpxFdkJibYBDabxSAk5LQI9lrrGRG5pN6YhxXq2
-         pZpf4+L0tzYUOPGG5ekv/PE3Ohbw7MEEvjRWoTsn8FscI1wncKbbVjVcqHHoFN4vqBBK
-         owcVTSlAI0CBUbDoWsaJzkQRWq8Gd/SS4kZhCqaojlCFrSW/vTaFvroxP/hxreynJ+cj
-         jpzhWcol/GH+O9O9JELHgPysTAliTOzlsWeTmRnFPYxTZlhQ9TEIenRTIbUNPgkWTe5f
-         Av6lAMD99WZKxJIkFhkSEDgdnM8cDtMXVQDwJwpiaQ9/w5Ub3AMrKsUcVhPmrhYZaNbE
-         qQbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792193055; x=1792797855;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8P9DrTPplGvyRcmS1s0MMPyOw0+R+/2HpDpl+9Qh+MI=;
-        b=ivYUDpfaT2JBUkyjgliKxSEDBnjDbAaTix6qZXsPK22iLDQkHBw8pla0zxWrLP46zY
-         WrPdtJJVhkbj7P592wXrDiuJUY4vTAxK/F5jtv5KrKt68XV5CB3fRYqeb8EY+aK7enZf
-         ZnlAc6md8ZNwXUNQuZ5YfSTEHxU23byriuPKuuenXBjIdnma8QVGjteFPjMC4V5lbxuW
-         R03s39ghz1Firips0ZgEvzgBV6LY64ygabG1lIq5MbnkYfLqpMLFyrYF0F4CNE34zWID
-         KaDiSwOFBKjHwimoebeHU8Casd9lZz14csGEFifqJ64vQEo8FAckIe+8jkV+zYQ/wPNA
-         6Wjg==
-X-Forwarded-Encrypted: i=1; AKwUvBz2J6DZQke30GGw9Aq56X0eOdQHikfqy0yo13EZlUh1/I8a182GeIXuKYIsQbY1T0PuqJLPGy27Ijbk0c8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJFz86fpiIqgghZlL0oMJ+hsHMVOoV22dbiM0BMENMqRHu4/Zd
-	hdF01fUzOujvYfxENP9vjxQqqNhDNS5NYeVx5VRL7nYjRGQpZ3CFB54LdzcqaXSbAWI=
-X-Gm-Gg: AYBFou3dPsbM2z0Bqlfgh4T9gaaE+tSobc5Y/VKSXuZKQp1p/sF4yuHRp4frHmjC4YN
-	h0Hb7vwd3mWXet+URif1PiRiBvZvpiWarLO9NAh9rHcUEm2zML90OYBagUZzVU3quXtXk31BJqz
-	lzOsIQO3qrxFc3MHuUwdHiP1vSO2n+DfO+1+ePsFLkStW8t8+dkqRuD7H0I+g0vgE9lHdvHXUOD
-	aYAoPXriH2WeZWS1ZwvGoshDwIhE5bhx2u+bCcU5u/ctfZ+HNyXupbVsHoZoieBB8iCfP2XPv3n
-	miZzWqMpDNHgERirjcaNrZqSaNeFZx2xopDKhcADDK6llSKZJ/b+lYHaTeSH52/IeNnP459oEIJ
-	659QHtEmw7Ebv0j5eD/7tgLDBqOlnYssH+V4Ns9kfb4dCeqSSBekffTZRSCtVkGaSQxLnh2zo4i
-	22VRuM9aPjG+RxUFclwEB2vLg5Mf+7ftmmedtnFAl1/IU5iC0yn90FBp1fNv+TpslDXaOD3j+Tl
-	3q8jG/kl8F7zDN0Gu0U4zYyDo5KSKpTS1N2ywGt5TKpz7b/OMCrXseJ/PRoIx12CrTtJ4Wri9fo
-	u4xWv/A/OYz3H1znZkMT7DjGgDUBc1GO+0YOfh2RwOgZvsCtb2kVaZiHnkm5JDEW
-X-Received: by 2002:a05:690c:5310:b0:8b0:f1c0:60a7 with SMTP id 00721157ae682-8b0f205b35cmr4777487b3.6.1792193054670;
-        Fri, 16 Oct 2026 16:24:14 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:73b8:7067:c087:bc97? ([2600:1700:6476:1430:73b8:7067:c087:bc97])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e58dc156sm14773577b3.25.2026.10.16.16.24.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 16:24:13 -0700 (PDT)
-Message-ID: <db285527bb969bdd9388a84523979ddff36e86cd.camel@dubeyko.com>
-Subject: [GIT PULL] hfs/hfsplus changes for 7.4-rc1
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: torvalds@linux-foundation.org
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	glaubitz@physik.fu-berlin.de, frank.li@vivo.com, vdubeyko@coreweave.com, 
-	bruno.produit@trailofbits.com, davyfelipe34@gmail.com
-Date: Fri, 16 Oct 2026 16:24:11 -0700
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=mQINBGgaTLYBEADaJc/WqWTeunGetXyyGJ5Za7b23M/ozuDCWCp+yWUa2GqQKH40dxRIR
- zshgOmAue7t9RQJU9lxZ4ZHWbi1Hzz85+0omefEdAKFmxTO6+CYV0g/sapU0wPJws3sC2Pbda9/eJ
- ZcvScAX2n/PlhpTnzJKf3JkHh3nM1ACO3jzSe2/muSQJvqMLG2D71ccekr1RyUh8V+OZdrPtfkDam
- V6GOT6IvyE+d+55fzmo20nJKecvbyvdikWwZvjjCENsG9qOf3TcCJ9DDYwjyYe1To8b+mQM9nHcxp
- jUsUuH074BhISFwt99/htZdSgp4csiGeXr8f9BEotRB6+kjMBHaiJ6B7BIlDmlffyR4f3oR/5hxgy
- dvIxMocqyc03xVyM6tA4ZrshKkwDgZIFEKkx37ec22ZJczNwGywKQW2TGXUTZVbdooiG4tXbRBLxe
- ga/NTZ52ZdEkSxAUGw/l0y0InTtdDIWvfUT+WXtQcEPRBE6HHhoeFehLzWL/o7w5Hog+0hXhNjqte
- fzKpI2fWmYzoIb6ueNmE/8sP9fWXo6Av9m8B5hRvF/hVWfEysr/2LSqN+xjt9NEbg8WNRMLy/Y0MS
- p5fgf9pmGF78waFiBvgZIQNuQnHrM+0BmYOhR0JKoHjt7r5wLyNiKFc8b7xXndyCDYfniO3ljbr0j
- tXWRGxx4to6FwARAQABtCZWaWFjaGVzbGF2IER1YmV5a28gPHNsYXZhQGR1YmV5a28uY29tPokCVw
- QTAQoAQQIbAQUJA8JnAAULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBFXDC2tnzsoLQtrbBDlc2cL
- fhEB1BQJoGl5PAhkBAAoJEDlc2cLfhEB17DsP/jy/Dx19MtxWOniPqpQf2s65enkDZuMIQ94jSg7B
- F2qTKIbNR9SmsczjyjC+/J7m7WZRmcqnwFYMOyNfh12aF2WhjT7p5xEAbvfGVYwUpUrg/lcacdT0D
- Yk61GGc5ZB89OAWHLr0FJjI54bd7kn7E/JRQF4dqNsxU8qcPXQ0wLHxTHUPZu/w5Zu/cO+lQ3H0Pj
- pSEGaTAh+tBYGSvQ4YPYBcV8+qjTxzeNwkw4ARza8EjTwWKP2jWAfA/ay4VobRfqNQ2zLoo84qDtN
- Uxe0zPE2wobIXELWkbuW/6hoQFPpMlJWz+mbvVms57NAA1HO8F5c1SLFaJ6dN0AQbxrHi45/cQXla
- 9hSEOJjxcEnJG/ZmcomYHFneM9K1p1K6HcGajiY2BFWkVet9vuHygkLWXVYZ0lr1paLFR52S7T+cf
- 6dkxOqu1ZiRegvFoyzBUzlLh/elgp3tWUfG2VmJD3lGpB3m5ZhwQ3rFpK8A7cKzgKjwPp61Me0o9z
- HX53THoG+QG+o0nnIKK7M8+coToTSyznYoq9C3eKeM/J97x9+h9tbizaeUQvWzQOgG8myUJ5u5Dr4
- 6tv9KXrOJy0iy/dcyreMYV5lwODaFfOeA4Lbnn5vRn9OjuMg1PFhCi3yMI4lA4umXFw0V2/OI5rgW
- BQELhfvW6mxkihkl6KLZX8m1zcHitCpWaWFjaGVzbGF2IER1YmV5a28gPFNsYXZhLkR1YmV5a29Aa
- WJtLmNvbT6JAlQEEwEKAD4WIQRVwwtrZ87KC0La2wQ5XNnC34RAdQUCaBpd7AIbAQUJA8JnAAULCQ
- gHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRA5XNnC34RAdYjFEACiWBEybMt1xjRbEgaZ3UP5i2bSway
- DwYDvgWW5EbRP7JcqOcZ2vkJwrK3gsqC3FKpjOPh7ecE0I4vrabH1Qobe2N8B2Y396z24mGnkTBbb
- 16Uz3PC93nFN1BA0wuOjlr1/oOTy5gBY563vybhnXPfSEUcXRd28jI7z8tRyzXh2tL8ZLdv1u4vQ8
- E0O7lVJ55p9yGxbwgb5vXU4T2irqRKLxRvU80rZIXoEM7zLf5r7RaRxgwjTKdu6rYMUOfoyEQQZTD
- 4Xg9YE/X8pZzcbYFs4IlscyK6cXU0pjwr2ssjearOLLDJ7ygvfOiOuCZL+6zHRunLwq2JH/RmwuLV
- mWWSbgosZD6c5+wu6DxV15y7zZaR3NFPOR5ErpCFUorKzBO1nA4dwOAbNym9OGkhRgLAyxwpea0V0
- ZlStfp0kfVaSZYo7PXd8Bbtyjali0niBjPpEVZdgtVUpBlPr97jBYZ+L5GF3hd6WJFbEYgj+5Af7C
- UjbX9DHweGQ/tdXWRnJHRzorxzjOS3003ddRnPtQDDN3Z/XzdAZwQAs0RqqXrTeeJrLppFUbAP+HZ
- TyOLVJcAAlVQROoq8PbM3ZKIaOygjj6Yw0emJi1D9OsN2UKjoe4W185vamFWX4Ba41jmCPrYJWAWH
- fAMjjkInIPg7RLGs8FiwxfcpkILP0YbVWHiNAabQoVmlhY2hlc2xhdiBEdWJleWtvIDx2ZHViZXlr
- b0BrZXJuZWwub3JnPokCVAQTAQoAPhYhBFXDC2tnzsoLQtrbBDlc2cLfhEB1BQJoVemuAhsBBQkDw
- mcABQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEDlc2cLfhEB1GRwP/1scX5HO9Sk7dRicLD/fxo
- ipwEs+UbeA0/TM8OQfdRI4C/tFBYbQCR7lD05dfq8VsYLEyrgeLqP/iRhabLky8LTaEdwoAqPDc/O
- 9HRffx/faJZqkKc1dZryjqS6b8NExhKOVWmDqN357+Cl/H4hT9wnvjCj1YEqXIxSd/2Pc8+yw/KRC
- AP7jtRzXHcc/49Lpz/NU5irScusxy2GLKa5o/13jFK3F1fWX1wsOJF8NlTx3rLtBy4GWHITwkBmu8
- zI4qcJGp7eudI0l4xmIKKQWanEhVdzBm5UnfyLIa7gQ2T48UbxJlWnMhLxMPrxgtC4Kos1G3zovEy
- Ep+fJN7D1pwN9aR36jVKvRsX7V4leIDWGzCdfw1FGWkMUfrRwgIl6i3wgqcCP6r9YSWVQYXdmwdMu
- 1RFLC44iF9340S0hw9+30yGP8TWwd1mm8V/+zsdDAFAoAwisi5QLLkQnEsJSgLzJ9daAsE8KjMthv
- hUWHdpiUSjyCpigT+KPl9YunZhyrC1jZXERCDPCQVYgaPt+Xbhdjcem/ykv8UVIDAGVXjuk4OW8la
- nf8SP+uxkTTDKcPHOa5rYRaeNj7T/NClRSd4z6aV3F6pKEJnEGvv/DFMXtSHlbylhyiGKN2Amd0b4
- 9jg+DW85oNN7q2UYzYuPwkHsFFq5iyF1QggiwYYTpoVXsw
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ohEi0Dsk"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jGAdImBGD1zBR6ZCSwCEdEyZFGXYBaqDl4HcKAwxYFQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792193069; v=1; x=1792797869;
+ b=ohEi0DskkRJKko7UMYzQoJ5ZVtLOvhRW5DpGBZy8orVZ4teVKDXVmVVqbEk+NM+LiaQTJKBa
+ PrJFYzyBh2MyCJlUbIpopUCnN4soEusdxUQAjn5dPeweZt0dnZc+69CYsJV/471JNlunC6rCjfz
+ 2izBSe3Qkfd5C6px5EYlTfrw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d1975a4dcb4e56ae;
+	Fri, 16 Oct 2026 23:24:29 +0000
+X-Mizu-Trace-ID: d1975a4dcb4e56ae
+X-Migadu-Flow: FLOW_OUT
+From: Matthew Schwartz <matthew.schwartz@linux.dev>
+To: broonie@kernel.org
+Cc: Matthew Schwartz <matthew.schwartz@linux.dev>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+	Oder Chiou <oder_chiou@realtek.com>,
+	Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	Sen Wang <sen@ti.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/5] ASoC: support the ASUS ROG Xbox Ally X20 audio
+Date: Fri, 16 Oct 2026 16:24:10 -0700
+Message-ID: <20261016232416.2628603-1-matthew.schwartz@linux.dev>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hello Linus,
+The ASUS ROG Xbox Ally X20 (RC74XA) moves from the HDA codec and TAS2781
+amps of the earlier ROG Ally models to SoundWire on ACP 7.0, with two
+TAS2783 amps on link 0 and an RT721 on link 1. Its BIOS marks the ACP as
+legacy DMIC only, no machine table entry matches the link layout, and
+its TAS2783 firmware in linux-firmware uses the four-field name that
+carries the BIOS speaker ID, so the speakers do not work today.
 
-Bruno Produit has fixed issue in {hfs,hfsplus}_btree_close()
-method. B-tree nodes with a zero reference count remain in
-the node hash until folio reclaim or tree teardown frees them.
-The folio release callbacks remove nodes while holding hash_lock,
-but hfs_btree_close() walks and frees the same hash without
-that lock.  Reclaim can therefore unhash and free a node after
-close has loaded its pointer, causing a use-after-free or
-double-free. Detach each node with hfs_bnode_unhash() while
-holding hash_lock before inspecting and freeing it.
-Drop the lock before hfs_bnode_free() so a large tree is not
-freed while holding a spinlock.
+Patches 1 to 3 cover that: the ACP config override so the SoundWire
+links are probed, the machine entry, and the speaker ID firmware name.
+Patch 4 stops sdw_utils from creating the TAS2783 amp feedback capture
+link when the BIOS declares an empty source port list, which otherwise
+fails on every open. It touches the shared helper and the AMD and Intel
+SoundWire machine drivers, but I was only able to test on AMD. Patch 5
+makes rt721-sdca wait for its power domains to reach PS0, which removes
+a burst of full scale samples at the start of headset mic capture.
 
-Davy Felipe has fixed issues in hfs_inode_setattr() and
-hfs_brec_insert():
-- hfs_inode_setattr() rejects unsupported UID, GID and mode
-  changes, but returns the value stored in error when
-  the filesystem is not mounted with the quiet option.
-  At this point error is zero, as execution has already passed a
-  successful setattr_prepare() call. As a result, unsupported attribute
-  changes are incorrectly reported to userspace as successful even
-  though the inode remains unchanged. Return -EPERM for these
-  operations while preserving the existing behavior for quiet mounts.
-- hfs_brec_insert() may fail while inserting a new extent record, but
-  __hfs_ext_write_extent() currently ignores its return value and
-  clears HFS_FLG_EXT_DIRTY and HFS_FLG_EXT_NEW as if the insertion had
-  succeeded. Use a reusable B-tree node range helper that takes
-  the find data and the expected record size. The helper validates
-  the bnode and tree pointers, entry offset and entry length, and
-  ensures that the write range fits within the node.
+Tested on an RC74XA with speaker playback on both amps, headphones, jack
+detection, both microphones and suspend.
 
-Viacheslav Dubeyko has fixed the failure in xfstests generic/339
-case. The xfstests generic/339 leaves an HFS+ volume corrupted and,
-as a result, fsck.hfsplus reports a long run of "Illegal name".
-The root cause is that fs/hfsplus/unicode.c's decomposition table
-(Apple Technote #1150) decomposes each source character entirely on
-its own and never does anything further with the result. Real fsck_hfs
-has carried a permanent "FixDecomps" fixup in CatalogCheck.c for
-exactly what that leaves unhandled. Fix makes hfsplus store, hash and
-compare names the same way current macOS does.
+Matthew Schwartz (5):
+  ASoC: amd: acp-config: force SoundWire probe on ASUS RC74XA
+  ASoC: amd: acp: add ACP70 SoundWire machine entry for ASUS RC74XA
+  ASoC: tas2783-sdw: use the BIOS speaker ID in the firmware name
+  ASoC: sdw_utils: honor empty DisCo port lists when creating DAI links
+  ASoC: rt721-sdca: wait for PDEs to reach PS0 after powering them up
 
-The following changes since commit
-cee9395acd8043be0644b25c34bfa86623f2b935:
+ include/sound/soc_sdw_utils.h            |  1 +
+ sound/soc/amd/acp-config.c               |  7 ++++
+ sound/soc/amd/acp/acp-sdw-legacy-mach.c  |  2 +-
+ sound/soc/amd/acp/acp-sdw-sof-mach.c     |  2 +-
+ sound/soc/amd/acp/amd-acp70-acpi-match.c | 44 ++++++++++++++++++++++++
+ sound/soc/codecs/Kconfig                 |  1 +
+ sound/soc/codecs/rt721-sdca-sdw.c        | 17 +++++++++
+ sound/soc/codecs/rt721-sdca.c            | 33 ++++++++++++++++++
+ sound/soc/codecs/rt721-sdca.h            |  1 +
+ sound/soc/codecs/tas2783-sdw.c           | 42 ++++++++++++++++++++--
+ sound/soc/intel/boards/sof_sdw.c         |  2 +-
+ sound/soc/sdw_utils/soc_sdw_utils.c      | 36 +++++++++++++++++--
+ 12 files changed, 179 insertions(+), 9 deletions(-)
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-are available in the Git repository at:
+base-commit: 2450a9bcd3423612f614ea15ff44966fed189191
+-- 
+2.56.0
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/vdubeyko/hfs.git
-tags/hfs-v7.4-tag1
-
-for you to fetch changes up to
-f278d04be3acfd3a9eccf045b9eb180007cceccc:
-
-  hfs: handle extent B-tree write errors (2026-09-30 11:11:14 -0700)
-
-----------------------------------------------------------------
-hfs/hfsplus updates for v7.4
-
-- hfs: handle extent B-tree write errors
-- hfsplus: add KUnit coverage for canonical reordering and legacy
-fixups
-- hfsplus: canonicalize decomposed catalog names like fsck_hfs expects
-- hfsplus: add Unicode combining-class and legacy decomposition data
-- hfs/hfsplus: serialize B-tree close against folio release
-- hfs: return -EPERM for unsupported setattr changes
-
-----------------------------------------------------------------
-Bruno Produit (1):
-      hfs/hfsplus: serialize B-tree close against folio release
-
-Davy Felipe (2):
-      hfs: return -EPERM for unsupported setattr changes
-      hfs: handle extent B-tree write errors
-
-Viacheslav Dubeyko (3):
-      hfsplus: add Unicode combining-class and legacy decomposition
-data
-      hfsplus: canonicalize decomposed catalog names like fsck_hfs
-expects
-      hfsplus: add KUnit coverage for canonical reordering and legacy
-fixups
-
- fs/hfs/btree.c            |   7 +-
- fs/hfs/btree.h            |  19 ++
- fs/hfs/extent.c           |  10 +-
- fs/hfs/inode.c            |   2 +-
- fs/hfsplus/btree.c        |   7 +-
- fs/hfsplus/hfsplus_fs.h   |   6 +-
- fs/hfsplus/tables.c       | 496
-++++++++++++++++++++++++++++++++++++++++++++++
- fs/hfsplus/unicode.c      | 390 ++++++++++++++++++++++++------------
- fs/hfsplus/unicode.h      |  63 ++++++
- fs/hfsplus/unicode_test.c | 309 +++++++++++++++++++++++++++++
- 10 files changed, 1165 insertions(+), 144 deletions(-)
- create mode 100644 fs/hfsplus/unicode.h
