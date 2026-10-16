@@ -1,36 +1,36 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539AE339390;
-	Fri, 16 Oct 2026 06:37:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337233B27D6;
+	Fri, 16 Oct 2026 06:37:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792132666; cv=none; b=Do0zpAiTjz3ZnfADs3tMWTSUn34C1zITO2iqwOdXQ5zIqUZMVlLK3ML5yrUbDFNlMCySepuzx3NI7NS8NHfEZz0JWJN6xkt7NWhosbVLisTDfFq91vSiJsVomlPffBHo/LOjKGX95Zk3oE/rg89BHkJPbaa8CRgQgaFoMyknJT8=
+	t=1792132678; cv=none; b=eQEz1Jr4XSSDNmrXmnWn1K0hhx9l5rt54eLm7s37HeAmBfgdq0+A+g+Otjbgg1+pK2Sr/1aItwHpG8m5mSHR+7Zh5ErBmq/PPjFyi+nlbrFX74UUAj0Lv7F7mcET3/kqWGum7y0YBfjE9x+wjo0Zd7lxIu2j9c218bz7eeVADkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792132666; c=relaxed/simple;
-	bh=RRr7FAtyes9jqwagcNaiAPzkSd2hFWKFBh1dgEF+KGM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=V94C+SvSeOXg+zCwqlBthVRwfQSw6H0qTC/44okLYNV+LvKKmFgf2dbG0l/oCrQu9Go03XrF11gis2G1hbm7GJmmf2Ghp0TxTj1eRDRRILNGQbWi+LA81DgCi76mRluCad3Lp5HOkgs/BuZF/GWrGTkfR6A43noC3Ckf9KnE6gY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CqNW1QyE; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792132678; c=relaxed/simple;
+	bh=HWpTXpqeGccXOhG+etsDdBrWUQc1QRCSs5YG9/CPkrI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fzjP2PXxIsn+OBikohHt9eiRpAmqFXHu/MjWxq6BLwYSRVxn1+l4DzLDHUmGAtq4V3vuB9QpnWYvEZmwzweka6fxPKAghIUwukLYD0b0rmBk4O//ghvmA3dPhijdkk/GeQjG8K/UiY3fbicjS1NfcSehABFtvPSrReuRB28zK7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bUYNy6Ki; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CqNW1QyE"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DA652C2BCF4;
-	Fri, 16 Oct 2026 06:37:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bUYNy6Ki"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A2533C2BCF5;
+	Fri, 16 Oct 2026 06:37:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792132665;
-	bh=RRr7FAtyes9jqwagcNaiAPzkSd2hFWKFBh1dgEF+KGM=;
+	s=k20201202; t=1792132677;
+	bh=HWpTXpqeGccXOhG+etsDdBrWUQc1QRCSs5YG9/CPkrI=;
 	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=CqNW1QyE92PTKcE7x8RI171QWSQMaZYO+wZLtdOE5WGgegN1/f+xzwEb+lpk9Usmk
-	 q8xrXPyxx066CVgeDXgZGSY46pBTWsoKnIxL8V02tjnDvRue745J03dZOxOZfo6UU/
-	 AmFW/dCnss61olZhYrv0T3bEfRxNEGQR8YI4l7MxUMJT2a/Ur1WUE001JWseIvYdEd
-	 kUkgJOrKckzLNmKyUiLyyfeUKwrONn73Q4vuvxEY5pWtWtpSdunCoPrXKnmUsjT3PS
-	 jxMxE5pwPu2s5I9x1hl2VFbfvkYIA/hNHVZthXCZIk4Qo3RAiZvIi+hjpeEY5tBYqO
-	 n9HztlSG5XKig==
+	b=bUYNy6KiLrjkdvrbAOwp94aK8sDrvO03nQplc3G0EwtnCkP5d14CLfBUazLn4If0d
+	 Dc3YC2VDMtSERq994EBUiomY4ZD48dg7QnUSju5DESHZZx/xxEDxctEuPY2QkQ/bOg
+	 /JKO4WK/iBZivLSLEHG0oXf0SKmgmkAGDZ/FApq4uOVV21o5Z5aoohpMsWW0krUPGm
+	 aJ/JyEBook7SYaMGZVkv+rIg9yF1tX2ulAhXaIOem2D3PdbcKCGmcn2AljP6/T/WI3
+	 2Chjce0TY+0laM6rikIHIlva89I7EHAaYDsOgQemp7FzkKWeQV4awZCkvLdPkfraeY
+	 meQOf+AI4pm/w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C638BCC6B38;
-	Fri, 16 Oct 2026 06:37:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D6E0CCA462;
+	Fri, 16 Oct 2026 06:37:57 +0000 (UTC)
 From: George Neacsu via B4 Relay <devnull+geocausa.gmail.com@kernel.org>
-Date: Fri, 16 Oct 2026 07:37:45 +0100
-Subject: [PATCH] media: i2c: vd55g1: Register as a sensor sub-device
+Date: Fri, 16 Oct 2026 07:37:57 +0100
+Subject: [PATCH] media: i2c: vd55g1: fix VD55G0 streaming below 900 Mbps
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,23 +39,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-vd55g1-async-sensor-v1-1-cd72f6d68ea4@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBtQQ6muEi20ppqNhgNSRHdPW
- r7F/w8IZSaBsXkgU2HhFCt028By+LgT8loNRhmnlXZYVmt3jV7uuKBQlJTRBlJD71Toeg+1PDN
- tfP3XaX7fD9Hg0oBlAAAA
-X-Change-ID: 20261016-vd55g1-async-sensor-5be09860b38a
-To: Sylvain Petinot <sylvain.petinot@foss.st.com>, 
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Peter Marshall <pm@petermarshall.ca>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, George Neacsu <geocausa@gmail.com>
+Message-Id: <20261016-vd55g0-sp11-fix-v1-1-eb14bd80d8f8@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12RwU6jMQyEX6X6z/tLdhLHMa+CONiODT0A3baLV
+ kK8+waQVirHsfTN2OP37RLnY1y2u8P7do634+X4+rIE/jps/qQvj7Ef59JbgdIRsO9vk+gR9ss
+ Jcc/j372DeW9KYji3RZ3OscZfjvcP3/ocv/8s4+v3cDvp1Z+W7d1htsYtCScrgudE0Io9vBiI1
+ N4EDJuyfPn+pwCQ3albchc1gOhs08GpYBPCZerG2G8pIS1TMgf2EYYMCFTHHJDNqJURxdhYxi0
+ VjBy1hLpgd9d0TwlWouIKUAEGTdV6S430lkwrUr1WLbgKmtbQscr0WnBY0KrtlqJiM6hLg7UQO
+ QRlaxPLQEwx6dzNK6LfUg4mtYFErTCbDW5WGcpcnRBH8WawbGu5peZKz06ANFasaVb8jIu0iHX
+ aeqrmaiN/UORiBtxgvaWArP5yGJGZwBiqbKXPyvaDQo/WtKYgNI3QWRzHpKHYGCbaRA2q+EmZX
+ mL31+fn4/Xu0Eu2UTK5WlaNMQx8iCCu9pnXmiluiXV7+Pj4B2mKXVrJAgAA
+X-Change-ID: 20261016-vd55g0-sp11-fix-60bc64a59b1d
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+ Peter Marshall <pm@petermarshall.ca>, 
+ Sylvain Petinot <sylvain.petinot@foss.st.com>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ Jizhou Tong <fqwqf@fqwqf.xyz>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>, 
+ George Neacsu <geocausa@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792132664; l=1573;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792132676; l=5492;
  i=geocausa@gmail.com; s=20261015; h=from:subject:message-id;
- bh=HOuIUiiGtrzICJ6LB+4q4TGvU5naELrGEK4lImy36vw=;
- b=MB5soG0/w+aFpF+5oy7ZTTdO6Vctif3AxNsJen4iBAiIBdEYyrmRQy57hrDUOPbLcr390eGn7
- C9/GD7PcvLQAUgzDib7GFYgJmmBUyQd/m+Wgma6pt+56Jlh5TqfTyjg
+ bh=GU0MyDBe6lLQUO5Q8auruEMChbN8UFtavHtDbFIx0pM=;
+ b=VCHwLg2Rf6FkACPUMLeBsyS5G3PUMZagCUVDsQB1j3d0qZWRm59LIKaDSt47gETEByNaJOjjv
+ NPiNgbJDFkCBWsQ9qrHKYtwhI76w9rajExH5DXHeRkjVTlBic8l43Cw
 X-Developer-Key: i=geocausa@gmail.com; a=ed25519;
  pk=KyQk/iWbxsikewDBh0SwlHI51RvAqahD3loqmRp9DVI=
 X-Endpoint-Received: by B4 Relay for geocausa@gmail.com/20261015 with
@@ -65,44 +71,126 @@ Reply-To: geocausa@gmail.com
 
 From: George Neacsu <geocausa@gmail.com>
 
-The binding references video-interface-devices.yaml, so a board can
-link the sensor to its illuminator with flash-leds. The driver
-registers with v4l2_async_register_subdev(), which does not parse that
-property, so the flash sub-device is never bound and never appears in
-the media graph.
+On a Surface Pro 11 (Snapdragon X Elite, CAMSS) the VD55G0 IR sensor
+(cut 1, revision 0x1111) runs one D-PHY lane at 840 Mbps. With the
+VD55G0 support as posted, the sensor accepts the start command and
+reports STREAMING, but it never sends a frame and the stop command
+never completes.
 
-Use v4l2_async_register_subdev_sensor(), which also handles flash-leds
-and lens-focus. v4l2_async_unregister_subdev() already cleans up the
-sub-notifier it creates.
+Two settings cause this:
 
-Tested on a Surface Pro 11 (X1E80100), whose VD55G0 IR sensor (with
-Peter Marshall's VD55G0 support applied) drives the PM8550 flash LED
-in hardware strobe mode: with this change the leds-qcom-flash V4L2
-flash sub-device binds and the IR LED can be armed from userspace.
+- The minimum line length is the VD55G1 value, 1128 pixels. ST's
+  reference vd55g0 driver uses 1200 below 900 Mbps and 1128 above.
+  At 840 Mbps the sensor stalls with 1128 and streams with 1200.
 
+- Writing 0 to 0x0329, mapped as ISL_ENABLE for the VD55G0, also stops
+  frame output, even with the longer line. The register reads 0x01
+  after boot, and the ST reference driver never writes it. Drop it from
+  the VD55G0 map and only write ISL_ENABLE on models that have it.
+
+With both changes the sensor streams 644x604 Y10 at 61.6 fps, the
+diagonal grey-scale test pattern comes out correct, and stop completes.
+The built-in 2.11 cut1 patch is used unchanged.
+
+Link: https://github.com/STMicroelectronics/vd55g0-linux-driver/blob/a05627b0f6d8775aa54b6fa306e91f425f2cbf9e/vd55g0.c
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: George Neacsu <geocausa@gmail.com>
 ---
- drivers/media/i2c/vd55g1.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This is an incremental fix for Peter's unmerged VD55G0 support (v2,
+patch 11/11), on top of Jizhou's register-width fix (v2). It does not
+apply to media-next on its own.
+
+Prerequisites:
+https://lore.kernel.org/all/20260918221705.323510-1-pm@petermarshall.ca/
+(and Jizhou Tong's "[PATCH v2] media: i2c: vd55g1: correct VD55G0
+register access widths", 12 October)
+
+Benjamin, I know you'd rather see a separate vd55g0 driver (Sergey's).
+ST's downstream driver already uses a 1200-pixel line below 900 Mbps
+and never writes 0x0329, so this is also a data point for that driver:
+these are the two settings this hardware needs. I can test Sergey's
+driver on the Snapdragon Surface Pro 11 when it is posted.
+
+Tested on mainline (62f482ff73bf) with Peter's v2 01 and 04-11 plus
+Jizhou's fix. 02 and 03 did not apply to that tree, and neither touches
+the driver. The receiver is qcom CAMSS (CSIPHY0 -> CSID0 -> VFE0 RDI0)
+with out-of-tree Surface Pro 11 board support.
+---
+ drivers/media/i2c/vd55g1.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-index 6f458f6..8e050b4 100644
+index ba70447..4471c5a 100644
 --- a/drivers/media/i2c/vd55g1.c
 +++ b/drivers/media/i2c/vd55g1.c
-@@ -2043,7 +2043,7 @@ static int vd55g1_probe(struct i2c_client *client)
- 		goto err_power_off;
- 	}
+@@ -76,6 +76,8 @@
+ #define VD55G1_XCLK_FREQ_MAX				(27 * HZ_PER_MHZ)
+ #define VD55G0_MIPI_RATE_MIN				(750 * MEGA)
+ #define VD55G0_MIPI_RATE_MAX				(1200 * MEGA)
++#define VD55G0_LINE_LENGTH_LOW_RATE			1200
++#define VD55G0_LOW_MIPI_RATE_LIMIT			(900 * MEGA)
+ #define VD55G1_MIPI_RATE_MIN				(250 * MEGA)
+ #define VD55G1_MIPI_RATE_MAX				(1200 * MEGA)
  
--	ret = v4l2_async_register_subdev(&sensor->sd);
-+	ret = v4l2_async_register_subdev_sensor(&sensor->sd);
- 	if (ret) {
- 		dev_err(dev, "async subdev register failed %d\n", ret);
- 		goto err_subdev;
+@@ -169,7 +171,6 @@ static const int vd55g0_reg_map[REG_MAX_INDEX] = {
+ 	[REG_OIF_IMG_CTRL] = CCI_REG8(0x030f),
+ 	[REG_MIPI_DATA_RATE] = CCI_REG32_LE(0x0224),
+ 	[REG_SYSTEM_FSM] = CCI_REG8(0x002c),
+-	[REG_ISL_ENABLE] = CCI_REG8(0x0329),
+ 	[REG_FWPATCH_REVISION] = CCI_REG16_LE(0x0022),
+ 	[REG_PATGEN_CTRL] = CCI_REG16_LE(0x0400),
+ 	[REG_READOUT_CTRL] = CCI_REG8(0x047a),
+@@ -1245,6 +1246,8 @@ struct vd55g1_model {
+ 	u16 num_modes;
+ 	u32 mipi_rate_min;
+ 	u32 mipi_rate_max;
++	u32 low_mipi_rate_limit;
++	u16 line_length_low_rate;
+ 	u16 width;
+ 	u16 height;
+ 	bool bayer;
+@@ -1323,6 +1326,8 @@ static const struct vd55g1_model vd55g0_model = {
+ 	.num_modes = ARRAY_SIZE(vd55g0_supported_modes),
+ 	.mipi_rate_min = VD55G0_MIPI_RATE_MIN,
+ 	.mipi_rate_max = VD55G0_MIPI_RATE_MAX,
++	.low_mipi_rate_limit = VD55G0_LOW_MIPI_RATE_LIMIT,
++	.line_length_low_rate = VD55G0_LINE_LENGTH_LOW_RATE,
+ 	.width = VD55G0_WIDTH,
+ 	.height = VD55G0_HEIGHT,
+ 	.bayer = false,
+@@ -1542,6 +1547,8 @@ static unsigned int vd55g1_get_hblank_min(struct vd55g1 *sensor,
+ 
+ 	/* Absolute time required for ADCs to convert pixels */
+ 	min_line_length = VD55G1_LINE_LENGTH_MIN;
++	if (sensor->mipi_rate < sensor->model->low_mipi_rate_limit)
++		min_line_length = sensor->model->line_length_low_rate;
+ 	if (sensor->model->hdr &&
+ 	    sensor->hdr_ctrl->val == VD55G1_HDR_SUB)
+ 		min_line_length = VD55G1_LINE_LENGTH_SUB_MIN;
+@@ -2117,7 +2124,8 @@ static int vd55g1_enable_streams(struct v4l2_subdev *sd,
+ 	/* Configure output */
+ 	vd55g1_write(sensor, REG_MIPI_DATA_RATE, sensor->mipi_rate, &ret);
+ 	vd55g1_write(sensor, REG_OIF_CTRL, sensor->oif_ctrl, &ret);
+-	vd55g1_write(sensor, REG_ISL_ENABLE, 0, &ret);
++	if (sensor->model->reg_map[REG_ISL_ENABLE])
++		vd55g1_write(sensor, REG_ISL_ENABLE, 0, &ret);
+ 	if (ret)
+ 		goto err_rpm_put;
+ 
 
 ---
 base-commit: 62f482ff73bf3ae88b0c899115527752cf9cbf13
-change-id: 20261016-vd55g1-async-sensor-5be09860b38a
+change-id: 20261016-vd55g0-sp11-fix-60bc64a59b1d
+prerequisite-patch-id: d4474f51d7a10cfd10a316ec2b09936490b14a79
+prerequisite-patch-id: 0017cc56bf769ab00e67bdc0c5214951447cb716
+prerequisite-patch-id: 95a2d9ff8168eb17010538d80f4b5428e2b7b798
+prerequisite-patch-id: e717e32eac916ccafccf9e7a552ca0030085daa3
+prerequisite-patch-id: 8fc4f7595aac33a2164adb41c139dc3218be5bc6
+prerequisite-patch-id: 52bde56940b545c0e5f44d12811f9b9676bc311c
+prerequisite-patch-id: c0b93409e330d4b874b3702d67b57e2c4b0bde32
+prerequisite-patch-id: dbc6f65015852bbaf31e5f4efbee52c60bafb79f
+prerequisite-patch-id: d5c9bb074014a20938df8b55bb9088aa7b26d37b
+prerequisite-patch-id: d1ce44a3f9104aeead2c18d58a1470d1bd1ae531
 
 Best regards,
 -- 
