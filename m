@@ -1,35 +1,35 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D27A45476D1
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:55:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D167954A7D6
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:55:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169755; cv=none; b=nzEtI4npav+QkTJ96bPmBS8SnVYDXF0K4ZcjvdVy2rk235F9plcxwK6H+/Qg4H6lUezZy/HLzwWILFHnThmGJEBp7P9DVfiGUu80YQepOuK7dRT8s0lGk7o88ONxfrpczv9cXLHS1Tcff4QA7LG93r385HBRlNhJMJDg6wrD6oo=
+	t=1792169756; cv=none; b=PpOX0/4YIXpVzxSOn+NVRpzs6C3sVrxxcmGj/O1vPM9SlqLf8cRdJVbHBdK3P/okXFZ77n6l+8j8eu8m89w3Sd9fHl5Z1NAMgXSGdyEJ2urz6bfLW5OZ6wBOEkfs7W7WHfHXKPfFo7AGAhgi0o8PucPqUpCIZEkgwMzDkev8vmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169755; c=relaxed/simple;
-	bh=BvLu6cpm6zpybvEvvULEk+E4+hqOj0523fLkGhrmUY8=;
+	s=arc-20240116; t=1792169756; c=relaxed/simple;
+	bh=heLyCzP1OgFt+fIxgZTcGvWkmEm4xEc14PmqM7fQv9o=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OYlAOs9r0pW2QL5W1rKcb0dEPpGnvjJyzAaRvxx36MDAMjw+9Tq7l6Nyw8o7SWOugFwkzXJv49Kc7f+Pq8mjCDPT7lOj4f96/Zxupw9HyLQoQE42IgJ74VMCxd8gmr0RAeGnPXSofL0Pp5KHXBUoAZjI2Mc+POimT0t89AhdAwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nxUWApFd; arc=none smtp.client-ip=217.140.110.172
+	 In-Reply-To:To:Cc; b=hfxKBcpQv49R8Fjh8QPFubzIxQ4S8gBX5x2WffWwwtBgK/HJzsn8bNyErQPd8gq5ObXW5VxzKUouXGImwiKQwJFhKVzFFz1zPD/hfWSZwEzAvCEs+jiPcTpyiyDjJ7aTlaUCP8c9Jk71EqJR7/Ar1xIymq/X6kNmfJKZOG/Lr2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=MZNK9mBU; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nxUWApFd"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="MZNK9mBU"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 26F94175A;
-	Fri, 16 Oct 2026 09:55:49 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D1B783F7B4;
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ED5EF175D;
 	Fri, 16 Oct 2026 09:55:50 -0700 (PDT)
+Received: from e132581.arm.com (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A9B243F7B4;
+	Fri, 16 Oct 2026 09:55:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792169752; bh=BvLu6cpm6zpybvEvvULEk+E4+hqOj0523fLkGhrmUY8=;
+	t=1792169754; bh=heLyCzP1OgFt+fIxgZTcGvWkmEm4xEc14PmqM7fQv9o=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=nxUWApFdIF5go77go/gkUIQHLh4gWSAbExADi3FKHUv7lHOwGeEhjfHRjUC5Sf2Er
-	 ER0OUY6Sp7ytIRoHtuFa9nMnA6Sn+EnOCcRzLJb5hbXNTK7G+MVfTCNviXRcT11Q1n
-	 vXMArzs0sKQdr3+kfxG04CeIl3qAZHww2Nbe08JA=
+	b=MZNK9mBUe9kCsPgtWkV1BZFie4DV9HzyIrE3N0fF7ZU+87JlD4oqMUWBNTOs/4r+y
+	 llHMR3GFNAKSqtQZVcq7usYmiEFxfryLlLSZ3eU1kpr8AGIxTPJwz7+4B49g4cxRBD
+	 R5tn41tTSj9PtO+3uDnEXu2140pds6KVgYklUBHI=
 From: Leo Yan <leo.yan@arm.com>
-Date: Fri, 16 Oct 2026 17:55:20 +0100
-Subject: [PATCH v2 22/23] coresight: trbe: Restart trace source for stopped
- buffers
+Date: Fri, 16 Oct 2026 17:55:21 +0100
+Subject: [PATCH v2 23/23] coresight: trbe: Report trace gaps with PARTIAL
+ instead of COLLISION
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-trbe_enable_disable_irq_handle_refactor-v2-22-3f57cf3199b1@arm.com>
+Message-Id: <20261016-trbe_enable_disable_irq_handle_refactor-v2-23-3f57cf3199b1@arm.com>
 References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
 In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
@@ -50,199 +50,89 @@ To: Suzuki K Poulose <suzuki.poulose@arm.com>,
 Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  coresight@lists.linaro.org, Leo Yan <leo.yan@arm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792169710; l=5429;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792169710; l=3130;
  i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=BvLu6cpm6zpybvEvvULEk+E4+hqOj0523fLkGhrmUY8=;
- b=OP/ONtQmKrOtKCR6nHRXZ/27H//JIwhmkJ+eFab6S1eyGwtVsbnd71xN9jWIpBHFJchZLlq9T
- Yofrkqaw+H8CfglI7U5uP+DT6h2HNAujQgniblJTN5BbXU1rBZxKrFn
+ bh=heLyCzP1OgFt+fIxgZTcGvWkmEm4xEc14PmqM7fQv9o=;
+ b=dbGqZUyaDLNBTHx4jK+djoBtF4nEgp1sIJbFz3bMeMLfoLtgMew6Ecf1iItF83agWnFh26J3p
+ P9eIoNmg232BTNmWbG314KQ8tVGm9DegVTDh+U46AqHws4KkMdYvXUL
 X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
  pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-When TRBSR reports a stopped buffer, the IRQ handler closes the current
-AUX buffer and programs TRBE for the next run. This creates a trace
-discontinuity. User tool has to reset the decoder when moving to the
-next AUX data block, which can reduce decoded trace coverage.
+When a fill-mode wrap stops TRBE, the trace source can continue running
+until software handles the stop. Trace generated during this interval
+may be lost.
 
-Stop and restart the trace source around TRBE reprogramming for stopped
-buffers. This emits ASYNC packets, allowing the decoder to recognize
-discontinuity without a full reset.
+The overflow path now stops and restarts the trace source around buffer
+reprogramming. This emits ASYNC packets so the decoder can synchronize
+with the next trace segment. Use PERF_AUX_FLAG_PARTIAL to report the
+possible gap instead of PERF_AUX_FLAG_COLLISION.
 
-This duplicates part of the trace source enable/disable code in the
-ETMv4 driver. Reusing that code would require splitting the ETMv4
-callbacks into finer-grained helpers that TRBE can call, which would
-make the change much larger. Keep the TRBE change self-contained for
-now.
+Set PARTIAL in both the overflow handler and the buffer update callback.
+This also preserves the gap indication when event shutdown handles a
+pending wrap, even if no further trace segment follows. Limit the flag
+to stopped buffers.
 
 Signed-off-by: Leo Yan <leo.yan@arm.com>
 ---
- drivers/hwtracing/coresight/coresight-trbe.c | 121 +++++++++++++++++++++++++--
- 1 file changed, 116 insertions(+), 5 deletions(-)
+ drivers/hwtracing/coresight/coresight-trbe.c | 29 +++++++---------------------
+ 1 file changed, 7 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
-index 36f143a15e680b28aa6ca6a43ad7d3ee134693be..6bc82d5b55539795059da37039d2929b4ea504e3 100644
+index 6bc82d5b55539795059da37039d2929b4ea504e3..29a1882b1f3c2eb7166f71eeef37badece67039c 100644
 --- a/drivers/hwtracing/coresight/coresight-trbe.c
 +++ b/drivers/hwtracing/coresight/coresight-trbe.c
-@@ -17,9 +17,11 @@
- 
- #include <asm/barrier.h>
- #include <asm/cpufeature.h>
-+#include <linux/iopoll.h>
- #include <linux/kvm_host.h>
- #include <linux/vmalloc.h>
- 
-+#include "coresight-etm4x.h"
- #include "coresight-self-hosted-trace.h"
- #include "coresight-trbe.h"
- 
-@@ -1132,14 +1134,106 @@ static void trbe_handle_spurious(struct trbe_cpudata *cpudata)
- 	set_trbe_enabled(cpudata, trblimitr);
+@@ -285,25 +285,6 @@ static void trbe_reset_local(struct trbe_cpudata *cpudata)
+ 	write_sysreg_s(0, SYS_TRBSR_EL1);
  }
  
-+static u64 read_sys_trcstatr(void)
-+{
-+	/* Context synchronization for each polling */
-+	isb();
-+	return read_sysreg_s(SYS_TRCSTATR);
-+}
-+
-+static int arm_trbe_start_tracer(u64 trcprgctlr)
-+{
-+	u64 val;
-+
-+	/* A pending IRQ after AUX pause? */
-+	if (!(trcprgctlr & BIT(0)))
-+		return 0;
-+
-+	/* Restore the saved tracer state */
-+	write_sysreg_s(trcprgctlr, SYS_TRCPRGCTLR);
-+
-+	/*
-+	 * Context synchronization between writing to the TRCPRGCTLR and
-+	 * reading the TRCSTATR.
-+	 */
-+	isb();
-+
-+	/* Wait for TRCSTATR.IDLE to go down to 0 */
-+	if (read_poll_timeout_atomic(read_sys_trcstatr, val,
-+				     !(val & BIT(TRCSTATR_IDLE_BIT)),
-+				     1,		/* delay_us */
-+				     TIMEOUT_US, /* timeout_us */
-+				     false)) {	/* delay_before_read */
-+		pr_err("TRBE: timeout for TRCSTATR IDLE\n");
-+		return -ETIME;
-+	}
-+
-+	/* Context synchronization after programming the tracer */
-+	isb();
-+
-+	return 0;
-+}
-+
-+static int arm_trbe_stop_tracer(u64 *trcprgctlr)
-+{
-+	u64 val;
-+
-+	/* Disable tracer and save trcprgctlr */
-+	*trcprgctlr = read_sysreg_s(SYS_TRCPRGCTLR);
-+
-+	/* No need to stop tracer again */
-+	if (!(*trcprgctlr & BIT(0)))
-+		return 0;
-+
-+	write_sysreg_s(*trcprgctlr & ~BIT(0), SYS_TRCPRGCTLR);
-+
-+	/*
-+	 * Context synchronization between writing to the TRCPRGCTLR and
-+	 * reading the TRCSTATR.
-+	 */
-+	isb();
-+
-+	/*
-+	 * PMSTABLE alone does not permit re-enabling the tracer.
-+	 * Wait for TRCSTATR.IDLE to go to 1.
-+	 */
-+	if (read_poll_timeout_atomic(read_sys_trcstatr, val,
-+				     val & BIT(TRCSTATR_IDLE_BIT),
-+				     1,
-+				     TIMEOUT_US,
-+				     false)) {
-+		pr_err("TRBE: timeout for TRCSTATR IDLE=1\n");
-+		return -ETIME;
-+	}
-+
-+	/* Context synchronization after programming the tracer */
-+	isb();
-+
-+	return 0;
-+}
-+
- static int trbe_handle_overflow(struct trbe_cpudata *cpudata,
--				enum trbe_fault_action act)
-+				enum trbe_fault_action act,
-+				bool is_buffer_stopped)
+-static void trbe_report_wrap_event(struct perf_output_handle *handle)
+-{
+-	/*
+-	 * Mark the buffer to indicate that there was a WRAP event by
+-	 * setting the COLLISION flag. This indicates to the user that
+-	 * the TRBE trace collection was stopped without stopping the
+-	 * ETE and thus there might be some amount of trace that was
+-	 * lost between the time the WRAP was detected and the IRQ
+-	 * was consumed by the CPU.
+-	 *
+-	 * Setting the TRUNCATED flag would move the event to STOPPED
+-	 * state unnecessarily, even when there is space left in the
+-	 * ring buffer. Using the COLLISION flag doesn't have this side
+-	 * effect. We only set TRUNCATED flag when there is no space
+-	 * left in the ring buffer.
+-	 */
+-	perf_aux_output_flag(handle, PERF_AUX_FLAG_COLLISION);
+-}
+-
+ static void trbe_truncate_event(struct perf_output_handle *handle)
  {
- 	struct perf_output_handle *handle = cpudata->handle;
- 	struct perf_event *event = handle->event;
- 	struct trbe_buf *buf = etm_perf_sink_config(handle);
- 	unsigned long size;
- 	struct etm_event_data *event_data;
-+	u64 trcprgctlr = 0;
-+	int ret = 0;
-+
-+	/*
-+	 * Since the trace buffer has stopped, disable and re-enable the
-+	 * tracer to generate ASYNC packets. This allows the decoder to
-+	 * recognize the discontinuity in the trace stream.
-+	 */
-+	if (is_buffer_stopped) {
-+		ret = arm_trbe_stop_tracer(&trcprgctlr);
-+		if (ret)
-+			goto truncate_event;
-+	}
- 
- 	/*
- 	 * Clear the status. No context synchronization is required here,
-@@ -1172,11 +1266,27 @@ static int trbe_handle_overflow(struct trbe_cpudata *cpudata,
- 	 */
- 	buf = etm_perf_sink_config(handle);
- 	if (!buf || buf->cpudata != cpudata) {
--		trbe_truncate_event(handle);
--		return -EINVAL;
-+		ret = -EINVAL;
-+		goto truncate_event;
-+	}
-+
-+	ret = __arm_trbe_enable(buf, handle);
-+	if (ret)
-+		return ret;
-+
-+	if (is_buffer_stopped) {
-+		ret = arm_trbe_start_tracer(trcprgctlr);
-+		if (ret) {
-+			trbe_drain_and_disable_local(cpudata);
-+			goto truncate_event;
-+		}
+ 	perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
+@@ -917,10 +898,12 @@ static unsigned long arm_trbe_update_buffer(struct coresight_device *csdev,
+ 		perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
+ 		size = 0;
+ 		goto done;
+-	} else if (act == TRBE_FAULT_ACT_WRAP) {
+-		trbe_report_wrap_event(handle);
  	}
  
--	return __arm_trbe_enable(buf, handle);
-+	return 0;
++	/* Trace may have been lost before the source was stopped. */
++	if (act == TRBE_FAULT_ACT_WRAP && !is_trbe_running(status))
++		perf_aux_output_flag(handle, PERF_AUX_FLAG_PARTIAL);
 +
-+truncate_event:
-+	trbe_truncate_event(handle);
-+	return ret;
- }
+ 	size = trbe_get_trace_size(handle, buf, act == TRBE_FAULT_ACT_WRAP);
  
- static bool is_perf_trbe(struct perf_output_handle *handle)
-@@ -1267,7 +1377,8 @@ static irqreturn_t arm_trbe_irq_handler(int irq, void *dev)
- 	act = trbe_get_fault_act(handle, status);
- 	switch (act) {
- 	case TRBE_FAULT_ACT_WRAP:
--		truncated = !!trbe_handle_overflow(cpudata, act);
-+		truncated = !!trbe_handle_overflow(cpudata, act,
-+						   !is_trbe_running(status));
- 		break;
- 	case TRBE_FAULT_ACT_SPURIOUS:
- 		trbe_handle_spurious(cpudata);
+ done:
+@@ -1246,7 +1229,9 @@ static int trbe_handle_overflow(struct trbe_cpudata *cpudata,
+ 	if (buf->snapshot)
+ 		handle->head += size;
+ 
+-	trbe_report_wrap_event(handle);
++	if (is_buffer_stopped)
++		perf_aux_output_flag(handle, PERF_AUX_FLAG_PARTIAL);
++
+ 	perf_aux_output_end(handle, size);
+ 	event_data = perf_aux_output_begin(handle, event);
+ 	/*
 
 -- 
 2.34.1
