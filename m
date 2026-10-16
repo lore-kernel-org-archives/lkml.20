@@ -1,174 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD4D1541445;
-	Fri, 16 Oct 2026 17:06:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A105476E4
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:06:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792170401; cv=none; b=mLOmD5+HwEbeAqGvdo+O4JWOrZ7mZji6QJngIQ78xYWb7/3B3HjhsMC8rOpvk2d8tBNnjKkq4AoDRn+VvdpNMseJWHSNJ1yKR/mhQfVcN1g1tn0IdUe6UibGE/qoPFO7S8vxxPYIe8BqtUL3zHVFwwk33Uku8CeBRjPf4S0ISQI=
+	t=1792170404; cv=none; b=E3ON6WBSJjrA56Njmp1pdAFLr7OljNdF8aKFDIEYCc5uMVQWHu9lPBcwQuAaVr9DK0SsCa3BHCsiIclquiNCrKTNkbhPzqm+CfvYYYpC/6IZSOSIXLKYH8d7NfisaOWAAgzTw0vMprH8r7B3v0FZOMs3VtYnjx5mJyNaancqATo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792170401; c=relaxed/simple;
-	bh=QATHSqJJztJnV0paSL0pCTmsmHHABXkfxxSjlOcycNI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=so8voWn+2/bDKtirNlGcUykbodPrr/MD8Lu7S6veKgkmLkfh6onXm3+LbRBPR+TJmgxR6YJ/y1aw/rK9qGDrzEryglzUhgRCTt/E/PvXM3YzShuSic0gbYnn+VKD+yEmBVn4sUrAV/e6Kr4I8MUzXwwRGrvQayaSi+Ksgm2/M1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RPE/DYLq; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792170404; c=relaxed/simple;
+	bh=jBWZwIMiOxyxYojRsXD6S4nvuQkHBu+rSMXSXxQ5PZQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bnnxruylVC8kaVhfwyWGFsD7GPqcXazfAFoBOcDO3WarUdVfKbKoN7dlK4w/cW5m/cDVNCOBICRcgK/Cxt5AttLWKbOcerFruMO9wBar6qUBijDqsSz3/4JmYlA5kf7iWjVCo12vXuQzagTp43+BxIdQB7E4y5j3qJACe5Cs5g8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=okRFUC9a; arc=none smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RPE/DYLq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792170397; x=1823706397;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=QATHSqJJztJnV0paSL0pCTmsmHHABXkfxxSjlOcycNI=;
-  b=RPE/DYLquV6X7xwPiucytVOQkwxZ/9TwQS1A0UE70Zghoshsx1+MGwmO
-   Xg18bLQRXYK1i4h2UL0JI7D96iSHA0eKD8CPGWfKugSecpGEB5XKwho/h
-   qCQ6qygKs33IwWXWqpr1g720P6zGBF9hvDsFhhJ7M6NwWoEv66lIEz9a5
-   gHifN1tMsnxZnP4QOqiC7h3Pzac89pmR9ZDiGMn0fyCYR4ajaIl3clNHm
-   wIahlEtgnVKsnw/SWPJ6Y/3Hjw3X4AElVDd0Lpx9WlmNyi7JHuhv4/5AR
-   HQsq6Xf8T/0oEkbVpgudf2RDKBCRh2DTztlrE9gRFGQXCDohTWOhdOPgn
-   g==;
-X-CSE-ConnectionGUID: QmkOLJNkTzWrpi5BbMuHfg==
-X-CSE-MsgGUID: 1FmeIew/TpSBUgUtMT9rWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="977157"
-X-IronPort-AV: E=Sophos;i="6.27,162,1787036400"; 
-   d="scan'208";a="977157"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 10:06:36 -0700
-X-CSE-ConnectionGUID: y1tY0Dv3QrOetd2Xls98bg==
-X-CSE-MsgGUID: 9N7QS/2nTK+WtvdFc6wO3A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,162,1787036400"; 
-   d="scan'208";a="2366450"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 16 Oct 2026 10:06:32 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xHlO1-00000000ISY-14Lc;
-	Fri, 16 Oct 2026 17:06:29 +0000
-Date: Sat, 17 Oct 2026 01:05:42 +0800
-From: kernel test robot <lkp@intel.com>
-To: Liu Chao <liuc63@xiaopeng.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
-	Chiranjeevi Rapolu <chiranjeevi.rapolu@linux.intel.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Liu Haijun <haijun.liu@mediatek.com>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Ricardo Martinez <ricardo.martinez@linux.intel.com>,
-	Sergey Ryazanov <ryazanov.s.a@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: wwan: t7xx: fix tx buffer release loop on invalid
- skb
-Message-ID: <202610170128.gs8DZ6Gj-lkp@intel.com>
-References: <20261016041156.2295670-1-liuc63@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="okRFUC9a"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso187355eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:06:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792170402; x=1792775202; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gl1azP5WKss8k1lh9wXiZ7oCRnOGPPksswe4Q0rIdDg=;
+        b=okRFUC9aYG6Qz37SVSCvJDn1mV25j1sTnenL1GEtSwRJX5foGTU54BDlWzEqM7RBDK
+         M34/3s3smRzjVHKzlqyZC5/Fsv3qKVXltWO5KztHqhclRjNmTZ1pQBFlzSOIQsGszorm
+         RvJJluIHmS/HoyySL9TidEzz//YJFPxWOLKenIo1DGj2a9TlBGXEdnbycusbAPvrAgpe
+         HVlYNZ359sD9I5dKZx0PH2ZSAZuaPVDpRocXc8OH2l8+PDdp6FGm8VaL9R+CgCu0Rsfk
+         +5uUzVUD5r/I9M0MAMD+vXfp6Kgd3qMG0x8BtePbgOCAXJMLhGAm2LlR9i60gS7E4Ssh
+         4PUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792170402; x=1792775202;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gl1azP5WKss8k1lh9wXiZ7oCRnOGPPksswe4Q0rIdDg=;
+        b=hZc07mOEy9z7K6MpdGh89C1lNZcXdYbr74Z28ToMzXvFCAfKIxuVos0IzXJdL8tEYM
+         ndamp8NfU/OPBk6GO6AVHmwMMbkbF2+rumP4so7ocHovmcL32xuR/DVhM9gPXfOlZpOr
+         V/0TaoYJxXjL7/QCuSWtSwW4vhnVJ1P79wci3sQud0rhMcB2CFPTprJeLR/2ezhZX4my
+         Z0f58AGalkqeNup+gXC1tnAS2WjKGXq6+Q+L+FU+MIQquzGbS+IX9mjt+WCbdY/mb4jb
+         jL/CSkUlkDuhEvXCXQC3EVfSJSl2aDTJSa9VRJMdormoCO66cIkXoOUne0wSKldNKBR2
+         rwQA==
+X-Forwarded-Encrypted: i=1; AKwUvByP2oIe7QYwpX7P61mBpNFOd94CA+KTK0fzLjfpDEe9Ga1JcZbMoxelskh9oVmZRhlQbHLOkUmS3ju1MRw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJ+rI5R7ZvDvuFHFw/zetKRmR87M0Zy+11TPfgPH0rf2468QYM
+	ajqiwmT/2NBamxiHTjV2WWB5i9I1lYUoFALqHXyLJfO1JxICqam52BIc
+X-Gm-Gg: AYBFou1sk1cSe98AeOY4+An9fFb0zJEAho8V6MfraPBY+ImOzmXG9lD0CuiZ//6lntA
+	CVNZ2qk4RA1vf96AT3Wbq71utlVJxTApw/okHDBlxQPdodxzf58/x46zW4Yv1TduK9KGNJ3B6ol
+	qZ8gV1cNlsA5w42jDtsNoPnGzwPGLupJrEO2w/OjbLc8BasjBOwBjdCIVTNK6GnSzB30/GSeant
+	bH8H3dE0egUJG1XbbtheVuuKR0aTWtRYxLJrzG/m5c3R+tV5D+NUlm2GqxjYAXmt0D2OfZRv76G
+	NwNx6naRGwLntI8b0PBrEyxmr2DhDb/1PS/+Ad0g3U/jk9vlKuPurXPcZbXroU7lbDa9Kr3IfeN
+	iDhXWVg8VJLn7rK4Pq1m0By3r87K0r7rWoMLivmDNb+WyALlcYf4VqRG7ymBMF3fCRE8wcIec5K
+	RZrl8n2FdoQqdI6n3m/wn4TqJmmtkrLvT4jLYavLiFkFwJKQnpVstj5pWNuBcK
+X-Received: by 2002:a05:701b:4291:10b0:166:9e0d:3b56 with SMTP id a92af1059eb24-18513e7c690mr599794c88.38.1792170401713;
+        Fri, 16 Oct 2026 10:06:41 -0700 (PDT)
+Received: from adriano ([186.40.6.142])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831a6f58c2sm11285825c88.11.2026.10.16.10.06.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 10:06:41 -0700 (PDT)
+From: Adriano Cordova <adrianox@gmail.com>
+To: Tyler Hicks <code@tyhicks.com>
+Cc: Nguyen Duy Nhat Anh <neganhat@gmail.com>,
+	ecryptfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Adriano Cordova <adrianox@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/2] ecryptfs: reject short encrypted key payloads
+Date: Fri, 16 Oct 2026 14:06:32 -0300
+Message-ID: <20261016170633.1415240-1-adrianox@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016041156.2295670-1-liuc63@xiaopeng.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Liu,
+Reject payloads too short to hold a struct ecryptfs_auth_tok,
+as a key created with a non-ecryptfs format is shorter than
+the struct, so the payload gets dereferenced past its end.
 
-kernel test robot noticed the following build warnings:
+Fixes: 1252cc3b232e ("eCryptfs: added support for the encrypted key type")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+---
+Changes in v3:
+- Split the v2 patch.
+- Remove Nguyen Duy Nhat Anh change and its Reported-by tag.
 
-[auto build test WARNING on net-next/main]
-[also build test WARNING on net/main wireless-next/main wireless/main linus/master v7.3-rc7 next-20261016]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Changes in v2:
+- Add Reported-by tag.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Liu-Chao/net-wwan-t7xx-fix-tx-buffer-release-loop-on-invalid-skb/20261016-121156
-base:   net-next/main
-patch link:    https://lore.kernel.org/r/20261016041156.2295670-1-liuc63%40xiaopeng.com
-patch subject: [PATCH] net: wwan: t7xx: fix tx buffer release loop on invalid skb
-config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20261017/202610170128.gs8DZ6Gj-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261017/202610170128.gs8DZ6Gj-lkp@intel.com/reproduce)
+ fs/ecryptfs/ecryptfs_kernel.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610170128.gs8DZ6Gj-lkp@intel.com/
+diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
+index 58165928ed1e..d4fef71738b0 100644
+--- a/fs/ecryptfs/ecryptfs_kernel.h
++++ b/fs/ecryptfs/ecryptfs_kernel.h
+@@ -88,6 +88,9 @@ ecryptfs_get_encrypted_key_payload_data(struct key *key)
+ 	if (!payload)
+ 		return ERR_PTR(-EKEYREVOKED);
+ 
++	if (payload->payload_datalen < sizeof(struct ecryptfs_auth_tok))
++		return ERR_PTR(-EINVAL);
++
+ 	return (struct ecryptfs_auth_tok *)payload->payload_data;
+ }
+ 
+-- 
+2.51.0
 
-All warnings (new ones prefixed by >>):
-
-   drivers/net/wwan/t7xx/t7xx_hif_dpmaif_tx.c: In function 't7xx_dpmaif_release_tx_buffer':
->> drivers/net/wwan/t7xx/t7xx_hif_dpmaif_tx.c:102:25: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
-     102 |                         if (!cur_drb_skb->is_msg)
-         |                         ^~
-   drivers/net/wwan/t7xx/t7xx_hif_dpmaif_tx.c:106:33: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
-     106 |                                 if (!FIELD_GET(DRB_HDR_CONT, le32_to_cpu(cur_drb->header))) {
-         |                                 ^~
-
-
-vim +/if +102 drivers/net/wwan/t7xx/t7xx_hif_dpmaif_tx.c
-
-d642b012df70a76 Haijun Liu 2022-05-06   79  
-d642b012df70a76 Haijun Liu 2022-05-06   80  static unsigned int t7xx_dpmaif_release_tx_buffer(struct dpmaif_ctrl *dpmaif_ctrl,
-d642b012df70a76 Haijun Liu 2022-05-06   81  						  unsigned int q_num, unsigned int release_cnt)
-d642b012df70a76 Haijun Liu 2022-05-06   82  {
-d642b012df70a76 Haijun Liu 2022-05-06   83  	struct dpmaif_tx_queue *txq = &dpmaif_ctrl->txq[q_num];
-d642b012df70a76 Haijun Liu 2022-05-06   84  	struct dpmaif_callbacks *cb = dpmaif_ctrl->callbacks;
-d642b012df70a76 Haijun Liu 2022-05-06   85  	struct dpmaif_drb_skb *cur_drb_skb, *drb_skb_base;
-d642b012df70a76 Haijun Liu 2022-05-06   86  	struct dpmaif_drb *cur_drb, *drb_base;
-d642b012df70a76 Haijun Liu 2022-05-06   87  	unsigned int drb_cnt, i, cur_idx;
-d642b012df70a76 Haijun Liu 2022-05-06   88  	unsigned long flags;
-d642b012df70a76 Haijun Liu 2022-05-06   89  
-d642b012df70a76 Haijun Liu 2022-05-06   90  	drb_skb_base = txq->drb_skb_base;
-d642b012df70a76 Haijun Liu 2022-05-06   91  	drb_base = txq->drb_base;
-d642b012df70a76 Haijun Liu 2022-05-06   92  
-d642b012df70a76 Haijun Liu 2022-05-06   93  	spin_lock_irqsave(&txq->tx_lock, flags);
-d642b012df70a76 Haijun Liu 2022-05-06   94  	drb_cnt = txq->drb_size_cnt;
-d642b012df70a76 Haijun Liu 2022-05-06   95  	cur_idx = txq->drb_release_rd_idx;
-d642b012df70a76 Haijun Liu 2022-05-06   96  	spin_unlock_irqrestore(&txq->tx_lock, flags);
-d642b012df70a76 Haijun Liu 2022-05-06   97  
-d642b012df70a76 Haijun Liu 2022-05-06   98  	for (i = 0; i < release_cnt; i++) {
-d642b012df70a76 Haijun Liu 2022-05-06   99  		cur_drb = drb_base + cur_idx;
-d642b012df70a76 Haijun Liu 2022-05-06  100  		if (FIELD_GET(DRB_HDR_DTYP, le32_to_cpu(cur_drb->header)) == DES_DTYP_PD) {
-d642b012df70a76 Haijun Liu 2022-05-06  101  			cur_drb_skb = drb_skb_base + cur_idx;
-d642b012df70a76 Haijun Liu 2022-05-06 @102  			if (!cur_drb_skb->is_msg)
-d642b012df70a76 Haijun Liu 2022-05-06  103  				dma_unmap_single(dpmaif_ctrl->dev, cur_drb_skb->bus_addr,
-d642b012df70a76 Haijun Liu 2022-05-06  104  						 cur_drb_skb->data_len, DMA_TO_DEVICE);
-d642b012df70a76 Haijun Liu 2022-05-06  105  
-d642b012df70a76 Haijun Liu 2022-05-06  106  				if (!FIELD_GET(DRB_HDR_CONT, le32_to_cpu(cur_drb->header))) {
-d642b012df70a76 Haijun Liu 2022-05-06  107  					if (!cur_drb_skb->skb) {
-d642b012df70a76 Haijun Liu 2022-05-06  108  						dev_err(dpmaif_ctrl->dev,
-d642b012df70a76 Haijun Liu 2022-05-06  109  							"txq%u: DRB check fail, invalid skb\n", q_num);
-35baede15130184 Liu Chao   2026-10-16  110  					} else {
-d642b012df70a76 Haijun Liu 2022-05-06  111  						dev_kfree_skb_any(cur_drb_skb->skb);
-d642b012df70a76 Haijun Liu 2022-05-06  112  					}
-35baede15130184 Liu Chao   2026-10-16  113  				}
-d642b012df70a76 Haijun Liu 2022-05-06  114  
-d642b012df70a76 Haijun Liu 2022-05-06  115  			cur_drb_skb->skb = NULL;
-d642b012df70a76 Haijun Liu 2022-05-06  116  		}
-d642b012df70a76 Haijun Liu 2022-05-06  117  
-d642b012df70a76 Haijun Liu 2022-05-06  118  		spin_lock_irqsave(&txq->tx_lock, flags);
-d642b012df70a76 Haijun Liu 2022-05-06  119  		cur_idx = t7xx_ring_buf_get_next_wr_idx(drb_cnt, cur_idx);
-d642b012df70a76 Haijun Liu 2022-05-06  120  		txq->drb_release_rd_idx = cur_idx;
-d642b012df70a76 Haijun Liu 2022-05-06  121  		spin_unlock_irqrestore(&txq->tx_lock, flags);
-d642b012df70a76 Haijun Liu 2022-05-06  122  
-d642b012df70a76 Haijun Liu 2022-05-06  123  		if (atomic_inc_return(&txq->tx_budget) > txq->drb_size_cnt / 8)
-d642b012df70a76 Haijun Liu 2022-05-06  124  			cb->state_notify(dpmaif_ctrl->t7xx_dev, DMPAIF_TXQ_STATE_IRQ, txq->index);
-d642b012df70a76 Haijun Liu 2022-05-06  125  	}
-d642b012df70a76 Haijun Liu 2022-05-06  126  
-d642b012df70a76 Haijun Liu 2022-05-06  127  	if (FIELD_GET(DRB_HDR_CONT, le32_to_cpu(cur_drb->header)))
-d642b012df70a76 Haijun Liu 2022-05-06  128  		dev_err(dpmaif_ctrl->dev, "txq%u: DRB not marked as the last one\n", q_num);
-d642b012df70a76 Haijun Liu 2022-05-06  129  
-d642b012df70a76 Haijun Liu 2022-05-06  130  	return i;
-d642b012df70a76 Haijun Liu 2022-05-06  131  }
-d642b012df70a76 Haijun Liu 2022-05-06  132  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
