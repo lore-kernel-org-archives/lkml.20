@@ -1,287 +1,216 @@
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5F33BB122
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:56:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D9738910F
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:56:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141003; cv=none; b=Bz2zQzhRYAC1SiFUaCJldFeIyZKp0zli/hvrDWjR8rFcQuBuzGCrzlBAUee6wKry1MaMfpAOD62f/FDJrxidYy8lGo6Git2tuSVv3/BwzaOh+/pSKvKFbs/2QBsT1QeomM8BUrCNfx4pMPRSp70pBoekxWtqFuo/IcjWKDUFkGY=
+	t=1792141010; cv=none; b=CL1E374T9jRxR55yp3aIyyIXpEQHXwBUr4QNcxzm9ffitOXO20GErf9pOyiuJPm+5ov9FipVcVgcpNVonOVnEmcPnd2naI4zWH74Mz41geOXEL/Fp4Bd1vpmaaVtaOr7vaWnufqr8Y7ADR92RTiP3rDQkocm65vEeGMNUEz/AyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141003; c=relaxed/simple;
-	bh=GmUDiaORjuRYOKneZfjtXP3c4wLZOMDQTKf6Hy9sdUk=;
-	h=Cc:From:Message-Id:Mime-Version:Content-Type:Date:In-Reply-To:To:
-	 Subject:References; b=W4D2bL+dFPvemofu8uCVCPCmxUzFHiSNwSwt/cVLKMHlat+nGCADmuDlYm5WbMIGhOvkJr3TjkvfTlMe0ckmN4etklFXaObvvBQ32chZSfgovxjf20Y/QKoFPkDUipWMaj7nHmXkI8a4LUYGNNEdzlIf6IvJuC9MEgblk+tPKS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=hg9G/pjJ; arc=none smtp.client-ip=209.127.230.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1792141010; c=relaxed/simple;
+	bh=grCjE6G8S4b3gnfZy+Q41OvGbpz8ziNIO6eKpGz6Ia8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LgsLYy2kX1c4LXS4YKozc2D7gPoaZEeL+27shR5WcnpZdjHGpefaDuuVT1//8fz5Zun8T9paVns1aEZ5wzO6okhanHnWfXCJFl3MPTYdv2quQ/+NdeATyiF/ZaY+F0F9W8azZ+Zker9JLeH+yHGN1gUZZFIxPMgMXmzEc6LgfOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g+YBWAN3; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="hg9G/pjJ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792140988; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=JQiwVdIK4vBXJJpYT47996cqj9h+8EQFDKlEgBsPi2k=;
- b=hg9G/pjJ5AyrytlBk/RvOgukJNuMYnum4mg374qmjpnIJKwnd3YRl4DmNPbrirMMvqk0TB
- 8FLGYl8TWQlW/8nV71mMOgcpp/62JcPgtHhJ1m1ZuL/EBWcPdF6MSiQwkA/oMChunNGRTD
- h/VB1XjEEyVWNcCP4P9SqNx9YFV0vUj+4hrl3to8CVlNZr9gsR82S9OOEKqMNYHIFWqMXT
- SLgjLypbiQHXCuk7eagf70GGsMl6eGq36Y9aokwbCuFEeLRTVna4fr8v1jjA+pun977Awd
- QqTIeJbwLk2IDrsYbgeCmHhXCM1aG1HK+KUFTb62qhmHUnUi1n0tybqjtJmisw==
-Cc: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
-	<akpm@linux-foundation.org>, <muchun.song@linux.dev>, 
-	<osalvador@suse.de>, <linux-mm@kvack.org>, 
-	<linux-kernel@vger.kernel.org>
-User-Agent: Mozilla Thunderbird
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Message-Id: <f529ea30-2e93-4862-9642-21dc1b233e0c@bytedance.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g+YBWAN3"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ddb35cf9a4so4473215ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:56:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792141007; x=1792745807; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fdiQVOV9kGikp3BjxuFAHEh6NTE83RldKRLkuMUOTzA=;
+        b=g+YBWAN3j52eOO+39dUJpcyfGW6SEZ/obEDM/ub9zUjeJUF5ieUGFYIxZRyQ2H697t
+         muYIRmWAj5eBnFiHsvKlskB8dXVnu7GOnI7gu2OdSli7QgdcUQX+A2jKmh7B+K2Y0437
+         W9Vg4KET0e8rF4R6QTn8oOugNGUxMVlG8hOu7bc5wJBqECPynq2wXOFkyBOeacu3mHzP
+         mMiN2wUoelc6u70+kmZRZhSeeIMDKbumGG7QfWKIHN91Plq06tf4PjVM3sWUpLvEOo3P
+         OrB+CRE4WrMrUR9UCcv7Z3vXiwcHjoHvOHNWIilr1x6zs7Y9eh53MmbPXpYjSwg85t1a
+         RriQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792141007; x=1792745807;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fdiQVOV9kGikp3BjxuFAHEh6NTE83RldKRLkuMUOTzA=;
+        b=zk/5kJSi4l1+f3KtlKFs7laEhkMtGDpppPTSVDs2LQPOvyMT61z1fTvT7Wop1204Rl
+         66lPLdv5XNk71YnyoN93jUx2loaX+hJgXBytuM09LkYbif0FQ/+mxBjA4SyP0F2T2Uqn
+         xLkTfxb4py52lTfPkNezJ9zkQ+CLEHWE05JzUGAfCWCP/GWMLGAq1rb5qb5Tmbr1Pg4o
+         MYuh0Pih4Owru+tca0rILHPdDoMGPHRSdpUcK5W+47ObwMR2vuYSXpW6PtgJZCmjqWmE
+         wOmhF2AcmPA4ExP7lq0u29eiqBNKg5Cu8AAbcXyAMGIu3rAQA/kHM5JBk61VKdFYoTSV
+         rkQA==
+X-Forwarded-Encrypted: i=1; AKwUvBxD8M5VU2H2FY8IeBbx+kaGL13yHMjFd06MLvu7Hyb8LV/SjPMtsVvNPcOu1O7bEH8nPSNcz8AEckkTTiM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKTGYmwEw4RN3bZdxpGl4xkxAcLth9aRuULpbbTScXTon5bWT0c
+	DkJtsZ828uHZ0Q9zTbBIjYsDRqQzVZTl6CYnDs6sX3GMM4sg5ll3kqRo
+X-Gm-Gg: AYBFou2dRIw2MozoV3kSNnP9vgw9gP8oqJubk+iQyeo7rN22tTUmhGuizzlgivrk+dS
+	FZKW2OhkwSoC4cxafzn2Hfvt1/fYiO8J1pvgPaKVwBM3TfgQu32bDE/jNXpuKOBp+09Sd03CJC/
+	DAyBt3SWO2G9H8pf0TYBq65p/gKGV0h5Rr/BBMfjH0Mks2EbYXGB/LdnpmEY7/vd2VzLm2cW9sh
+	Y4y2Lm68n2kSZqPvpERaOgKwPEnwz2kjAaF9CEP5hAr0KlmhYe73YHJwjO3kQ0T1hksCcabfD3/
+	/Pp4F4uCunkIue7YLpONcD56czmt2smTyNshc02Kj6JZ5GG+qyNN4eDIs/lcpFF0o/7IXYd8vby
+	fvzrPtehqVQDe26LopUKevlygrse59s4srOEfS3VaBsrbGh4r2kGZmDVa0eHL/Kit6NEMAntXFa
+	SNhGgWs+5Dpyc2gKRQYpd5n/0A/0GfIoijlH0pDa7TirunoSAbzRX1lNHr/XtudJjQq6cSkRWYr
+	L60tdGV43cZ3iKDwkTEtyIq1ahACg==
+X-Received: by 2002:a17:903:2f92:b0:2df:8ab7:fe3a with SMTP id d9443c01a7336-2e842abf30fmr328222235ad.4.1792141006559;
+        Fri, 16 Oct 2026 01:56:46 -0700 (PDT)
+Received: from [127.0.1.1] (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e882a20sm6971025ad.62.2026.10.16.01.56.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 01:56:45 -0700 (PDT)
+From: Jason Yang <jason98166@gmail.com>
+Subject: [PATCH v5 0/8] phy: rockchip-samsung-dcphy: Add the MIPI D-PHY
+ receiver
+Date: Fri, 16 Oct 2026 16:56:34 +0800
+Message-Id: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Lms-Return-Path: <lba+26ad1e6ba+d9f6df+vger.kernel.org+lizhe.67@bytedance.com>
-Date: Fri, 16 Oct 2026 16:56:11 +0800
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <33e26c40-45f4-44a4-bfea-1ae7ff74e4cf@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>, 
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: Re: [PATCH] mm/hugetlb: avoid recursive i_mmap_rwsem in PMD sharing
-References: <20260930064308.58159-1-lizhe.67@bytedance.com> <arzVaC2IYkqSb0_U@gmail.com> <9a7c026e-f5f2-40e0-84aa-919c988cc136@bytedance.com> <2b4571c5-8e51-4c91-9d88-11929f200875@kernel.org> <asjVUa6XBZ8ti-0_@gremlin> <70ea8ee6-6fc5-4209-8cee-362da37f5035@kernel.org> <86de1ee5-be14-4123-b372-b4691cea8e67@bytedance.com> <fedff1b6-0522-4398-a0d4-d4111a570159@kernel.org> <98d4a305-51e4-4374-b09d-7d251dbf166d@bytedance.com> <33e26c40-45f4-44a4-bfea-1ae7ff74e4cf@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMPm0WoC/23OSwrDIBSF4a0Ux7Xo1TzsqPsoHchVE6F5oCUkh
+ Oy9JpMmoeDkXPh+nEm0wdtI7peZBDv46Ls2jex6IVjrtrLUm7QJMMhZAZwa7OuJhpEOnCrtssI
+ Ja5xRJIk+WOfHrfZ8pV37+OnCtMUHvl7/d9JjVDosBTJEjepRNdq/b9g1ZO0MsLf50UKy6BSik
+ Fpy0Gcrfrbk7GhFshoMZAhKG4dnK3f2/GeZrOOFKnIhQQizt8uyfAFK5X41WgEAAA==
+X-Change-ID: 20260721-dcphy-rx-v1-9af57f3edfd9
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Guochun Huang <hero.huang@rock-chips.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Michael Riesch <michael.riesch@collabora.com>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Jason Yang <jason98166@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792141002; l=5449;
+ i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
+ bh=grCjE6G8S4b3gnfZy+Q41OvGbpz8ziNIO6eKpGz6Ia8=;
+ b=j3Hwnfcg9m7EnEJ19LuhgpVq8+zNnvVw4z6NbYtbJo0vjsl/Hy2288Wbn0t6aqMsriZIhX+rj
+ C/X7Nqx2Wq8BkaPRwSJancYIlQWfIxzhi086JSEKmpcTFwbEApFXsul
+X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
+ pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
 
-On 10/16/26 3:33 AM, David Hildenbrand (Arm) wrote:
-> On 10/15/26 04:40, Li Zhe wrote:
->> On 10/14/26 6:52 PM, David Hildenbrand (Arm) wrote:
->>> On 10/14/26 08:39, Li Zhe wrote:
->>>> Hi David,
->>>>
->>>> I thought more about the case where the destination page table was
->>>> preallocated as a shared PMD.
->>>>
->>>> I do not think the current move_huge_pte() handles that case very well=
-. The
->>>> reason is that it assumes the destination PTE is not part of a shared =
-PMD
->>>> page table: it clears the source PTE and then installs that PTE into t=
-he
->>>> destination. That works when the destination PMD page table is not sha=
-red,
->>>> because the source removal and destination install have a net-zero eff=
-ect on
->>>> rmap and hugetlb accounting.
->>>>
->>>> If the destination PTE belongs to a shared PMD, that assumption does n=
-ot
->>>> hold. In that case, I think we should leave the shared destination pag=
-e
->>>> table untouched and treat the operation as a source-side unmap. Otherw=
-ise
->>>> move_huge_pte() either writes through a shared page table or skips the
->>>> source-side unmap accounting. That can make the rmap, hugetlb count an=
-d
->>>> folio release handling inconsistent with the actual PTE update.
->>>>
->>>> So I think the change should be roughly:
->>> IIUC, what you are saying is:
->>>
->>> A) If the source table is shared, unshare it.
->>>
->>> b) If the destination table is shared, there is nothing to do.
->>>
->>> ?
->> Yes, mostly.
->>
->> If the source PMD table is shared, huge_pmd_unshare() already drops that
->> shared PMD table from the source side and we skip moving individual PTEs
->> from that table.
->>
->> If the source PTE is not in a shared PMD table, but the destination PTE
->> is in a shared PMD table, then I think we should not install the source
->> PTE into the destination page table. The destination mapping is already
->> represented by the shared PMD page table.
->>
->> However, move_huge_pte() still has to handle the source side as an
->> unmap: clear the source PTE, record the TLB removal, and update the
->> source-side hugetlb accounting/rmap state. Otherwise the source mapping
->> is removed from the page table without the matching source-side
->> accounting. I was able to reproduce this as:
->>
->>   =C2=A0 BUG: Bad page cache in process init
->>   =C2=A0 page dumped because: still mapped when deleted
->>
->> when keeping the preallocation approach but dropping the special handlin=
-g
->> for a destination PMD-shared page table.
->>
->> So my current understanding is:
->>
->>   =C2=A0 1. source PMD shared: unshare it and skip the PMD-sized range;
->>   =C2=A0 2. destination PMD shared: do not modify the destination PTE, b=
-ut
->>   =C2=A0 =C2=A0 =C2=A0still clear and account the source PTE removal.
-> Yes, I think this makes a lot of sense. Given that this issue has been
-> in the works for more than one month without a fix I tried to see how to =
-do
-> it cleaner than your version:
->
-> This is what I came up with quickly, using existing helpers by refactorin=
-g them.
->
-> Is this what you had in mind? I didn't actually test this yet. If it make=
-s sense,
-> could you test it and possibly clean it up further?
->
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index fb51f7d02cebf..0c3aebea7a2f8 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -124,6 +124,9 @@ static int __huge_pmd_unshare(struct mmu_gather *tlb,
->   		bool check_locks);
->   static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
->   		unsigned long start, unsigned long end, bool take_locks);
-> +static void hugetlb_unmap_range(struct mmu_gather *tlb,
-> +		struct vm_area_struct *vma, unsigned long start, unsigned long end,
-> +		struct folio *folio, zap_flags_t zap_flags);
->   static struct resv_map *vma_resv_map(struct vm_area_struct *vma);
->  =20
->   static inline bool subpool_is_free(struct hugepage_subpool *spool)
-> @@ -5172,6 +5175,8 @@ int move_hugetlb_page_tables(struct vm_area_struct =
-*vma,
->   	for (; old_addr < old_end; old_addr +=3D sz, new_addr +=3D sz) {
->   		const unsigned long offset_to_last_entry =3D
->   			(old_addr | last_addr_mask) - old_addr;
-> +		const unsigned long offset_to_last_dst_entry =3D
-> +			(new_addr | last_addr_mask) - new_addr;
->  =20
->   		src_pte =3D hugetlb_walk(vma, old_addr, sz);
->   		if (!src_pte) {
-> @@ -5188,6 +5193,23 @@ int move_hugetlb_page_tables(struct vm_area_struct=
- *vma,
->   			continue;
->   		}
->  =20
-> +		/*
-> +		 * Don't try to install a shared PMD table and move stuff into
-> +		 * them. Instead, just zap the source PMDs and share the PMD
-> +		 * table later lazily.
-> +		 */
-> +		if (sz =3D=3D PMD_SIZE && want_pmd_share(new_vma, new_addr)) {
-> +			const unsigned long unmap_size =3D min(old_end - old_addr,
-> +							     offset_to_last_dst_entry + sz);
-> +
-> +			hugetlb_unmap_range(&tlb, vma, old_addr,
-> +					    old_addr + unmap_size, NULL,
-> +					    ZAP_FLAG_DROP_MARKER);
-> +			old_addr +=3D unmap_size - sz;
-> +			new_addr +=3D unmap_size - sz;
-> +			continue;
-> +		}
-> +
->   		dst_pte =3D huge_pte_alloc(mm, new_vma, new_addr, sz);
->   		if (!dst_pte)
->   			break;
-> @@ -5207,9 +5229,9 @@ int move_hugetlb_page_tables(struct vm_area_struct =
-*vma,
->   	return len + old_addr - old_end;
->   }
->  =20
-> -void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struc=
-t *vma,
-> -			    unsigned long start, unsigned long end,
-> -			    struct folio *folio, zap_flags_t zap_flags)
-> +static void hugetlb_unmap_range(struct mmu_gather *tlb,
-> +		struct vm_area_struct *vma, unsigned long start, unsigned long end,
-> +		struct folio *folio, zap_flags_t zap_flags)
->   {
->   	struct mm_struct *mm =3D vma->vm_mm;
->   	const bool folio_provided =3D !!folio;
-> @@ -5227,13 +5249,6 @@ void __unmap_hugepage_range(struct mmu_gather *tlb=
-, struct vm_area_struct *vma,
->   	BUG_ON(start & ~huge_page_mask(h));
->   	BUG_ON(end & ~huge_page_mask(h));
->  =20
-> -	/*
-> -	 * This is a hugetlb vma, all the pte entries should point
-> -	 * to huge page.
-> -	 */
-> -	tlb_change_page_size(tlb, sz);
-> -	tlb_start_vma(tlb, vma);
-> -
->   	last_addr_mask =3D hugetlb_mask_last_page(h);
->   	address =3D start;
->   	for (; address < end; address +=3D sz) {
-> @@ -5362,6 +5377,15 @@ void __unmap_hugepage_range(struct mmu_gather *tlb=
-, struct vm_area_struct *vma,
->   		if (folio_provided)
->   			break;
->   	}
-> +}
-> +
-> +void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struc=
-t *vma,
-> +			    unsigned long start, unsigned long end,
-> +			    struct folio *folio, zap_flags_t zap_flags)
-> +{
-> +	tlb_change_page_size(tlb, huge_page_size(hstate_vma(vma)));
-> +	tlb_start_vma(tlb, vma);
-> +	hugetlb_unmap_range(tlb, vma, start, end, folio, zap_flags);
->   	tlb_end_vma(tlb, vma);
->  =20
->   	huge_pmd_unshare_flush(tlb, vma);
+The Samsung MIPI D-/C-PHY block on RK3588 and RK3576 has a transmitter
+for DSI and a receiver for CSI-2. Both can be used at the same time.
 
+Mainline only supports the transmitter and models the block as a single
+struct phy. The PHY core refcounts power_on() per struct phy, so the
+receiver cannot be powered independently of it, and the single
+devicetree cell selects the mode, so the provider cannot tell which of
+the two a consumer refers to.
 
-Hi David,
+This series registers a struct phy for each of them, adds a second
+devicetree cell with generic PHY_DIRECTION_TX and PHY_DIRECTION_RX
+constants so that a consumer can select one of them, and implements the
+D-PHY receiver. A single cell keeps referring to the transmitter, so
+existing device trees are unaffected.
 
-Your patch looks good to me.
+  1/8  adds PHY_DIRECTION_TX and PHY_DIRECTION_RX to the generic header
+  2/8  allows a second cell in the rockchip,rk3588-mipi-dcphy binding
+       to select the transmitter or the receiver
+  3/8  moves the block-level setup to runtime resume
+  4/8  names the transmitter helpers and ops (no functional change)
+  5/8  registers the receiver's struct phy and takes the second cell
+       in of_xlate()
+  6/8  implements the D-PHY receiver bring-up
+  7/8  switches the RK3588 DC-PHYs to two cells and lets DSI select
+       the transmitter
+  8/8  adds the MIPI CSI-2 receiver nodes on RK3588 and connects them
+       to VICAP
 
-Sashiko pointed out one corner case around UFFDIO_POISON.=C2=A0 In the
-destination-PMD-sharing path, the patch zaps the source range and lets
-the destination fault path populate or share the PMD lazily.=C2=A0 That wor=
-ks
-for normal hugetlb mappings, but if the source PTE contains
-PTE_MARKER_POISONED, the marker is not copied to the destination. The
-source zap uses ZAP_FLAG_DROP_MARKER, so the marker can be dropped, and a
-later fault at the new address would see an empty entry instead of the
-poisoned marker.
+Testing
+=======
 
-One possible way to avoid this is to make VM_UFFD_MISSING participate in
-the existing uffd_disable_huge_pmd_share() logic, because UFFDIO_POISON
-can install PTE_MARKER_POISONED and the poison state is stored in the
-PTE, similar to the existing UFFD-WP/RWP per-PTE state.
+Tested on an RK3588 board, with a DSI panel and an IMX219 camera on
+DCPHY0, and an LVDS panel behind a DSI-to-LVDS bridge on DCPHY1.
 
-For example:
+  - The transmitter and the receiver run at the same time: with 7/8
+    and 8/8, both panels light from boot, and the camera stream is
+    shown live on the DCPHY0 panel.
+  - The two can be powered independently: the DCPHY0 panel is turned
+    off and back on during a 1200-frame capture, and the capture
+    completes.
+  - The receiver does not need the transmitter: with dsi0 disabled,
+    the camera alone brings the block up and streams, which relies
+    on 3/8 moving the block-level setup to runtime resume.
+  - Existing device trees keep working: with a single PHY_TYPE_DPHY
+    cell in dsi0 as before 7/8, the DCPHY0 panel lights.
+
+No WARNING, underflow, "Internal error" or Oops in dmesg in any of
+these.
+
+Not covered: the receiver of DCPHY1, the 3- and 4-lane receiver
+paths, and RK3576.
+
+The DSI panels only light with the U-Boot SPLL fix [1] applied:
+without it the bootloader leaves the SPLL at its 351 MHz bootrom
+default while the devicetree describes it as a 702 MHz fixed clock,
+halving the rate of both DSI hosts. The receiver path is unaffected;
+the camera captures exercise it independently.
+
+[1] https://lore.kernel.org/u-boot/20260804002643.2308515-3-jonas@kwiboo.se/
 
 ---
-diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-index a4351cffc60c..9a057d7531c3 100644
---- a/include/linux/userfaultfd_k.h
-+++ b/include/linux/userfaultfd_k.h
-@@ -183,8 +187,8 @@ static inline bool=20
-is_mergeable_vm_userfaultfd_ctx(struct
-vm_area_struct *vma,
- =C2=A0static inline bool uffd_disable_huge_pmd_share(struct vm_area_struct=
- *vma)
- =C2=A0{
- =C2=A0 =C2=A0 =C2=A0return vma_test_any_mask(vma,
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 mk_vma_flags_from_masks(VMA_UFFD_WP, VMA_UFFD_=
-RWP,
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 VMA_=
-UFFD_MINOR));
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 mk_vma_flags_from_masks(VMA_UFFD_MISSING, VMA_=
-UFFD_WP,
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 VMA_=
-UFFD_RWP, VMA_UFFD_MINOR));
- =C2=A0}
+Changes in v5:
+- Rebase onto phy/next. The runtime PM fix this series applied on top
+  of is now commit 261e84f9278f ("phy: rockchip-samsung-dcphy: Enable
+  runtime PM at PHY core level"), so it is no longer carried here.
+- 1/8: use PHY_DIRECTION_TX and PHY_DIRECTION_RX instead of
+  PHY_TYPE_DSI and PHY_TYPE_CSI. (Michael)
+- 2/8: use PHY_DIRECTION_* for the second cell and rewrite the
+  description.
+- Drop v4's 5/7: it has no benefit over the switch, and it moved a
+  DC-PHY shared function into a D-PHY helper. (Michael)
+- 5/8: rename protocol to direction in of_xlate() to follow 1/8.
+- 6/8: use a switch in the receiver's power_on() and power_off(), as
+  the transmitter does.
+- New patches 7/8 and 8/8: switch the RK3588 DC-PHYs to two cells and
+  add the MIPI CSI-2 receiver nodes.
+- Link to v4: https://lore.kernel.org/r/20260821-dcphy-rx-v1-v4-0-f1797634233d@gmail.com
 
- =C2=A0/*
+Changes in v4:
+- Put the second cell back: the first cell selects the mode, the
+  second the transmitter or the receiver.
+- Drop the private use count and mutex; the runtime PM usage count
+  does the same job.
+- New patch 3/7: move the block-level setup to runtime resume.
+- Split v3's 3/5 into 4/7 and 5/7.
+- of_xlate() rejects a mix of D-PHY and C-PHY consumers.
+- The runtime PM probe-order fix is now a separate patch [1] that this
+  series applies on top of.
+- Bryan O'Donoghue's Reviewed-by from v2 is not carried over; that
+  patch was rewritten.
+- Link to v3: https://lore.kernel.org/r/20260810-dcphy-rx-v1-v3-0-a2d25c29adfc@gmail.com
+
 ---
-However, Sashiko also pointed out that this may still be incomplete,
-because PTE_MARKER_POISONED can outlive VM_UFFD_MISSING.
+Jason Yang (8):
+      dt-bindings: phy: Add PHY_DIRECTION_TX/RX definitions
+      dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add a cell to select TX or RX
+      phy: rockchip-samsung-dcphy: Move block-level setup to runtime resume
+      phy: rockchip-samsung-dcphy: Name the transmitter helpers and ops
+      phy: rockchip-samsung-dcphy: Add a second PHY for the receiver
+      phy: rockchip-samsung-dcphy: Add MIPI D-PHY receiver support
+      arm64: dts: rockchip: use two phy cells for the rk3588 mipi dcphys
+      arm64: dts: rockchip: add mipi csi-2 receiver nodes for the dcphys on rk3588
 
-I am not very familiar with this part of the userfaultfdsemantics.
+ .../bindings/phy/rockchip,rk3588-mipi-dcphy.yaml   |  20 +-
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |  76 ++-
+ drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c  | 529 +++++++++++++++++++--
+ include/dt-bindings/phy/phy.h                      |   3 +
+ 4 files changed, 580 insertions(+), 48 deletions(-)
+---
+base-commit: 8f56fdf3d8cb9f1dbdc93bf9ac816698aa6f70b7
+change-id: 20260721-dcphy-rx-v1-9af57f3edfd9
 
-Do you have any suggestions for this issue or for this direction?
+Best regards,
+--  
+Jason Yang <jason98166@gmail.com>
 
-Thanks,
-Zhe
