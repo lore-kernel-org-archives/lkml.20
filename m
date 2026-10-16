@@ -1,147 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80AA242AD83;
-	Fri, 16 Oct 2026 18:21:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799B248DB22
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:21:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792174887; cv=none; b=O+SAJ68/5OFqWVcEJyLpGGEKAvrnEmo2IbEaOGxjnLepBsifkZiuJFuaG1plKDu3FsAr9INvAMVrRYIgco8I9uzX6iyZjqoCPdSK4SGtzux85CWdsiAxK2MvHuWZnxRGzFZzaT1S+rz60HWFJPBi3NpSRcFoJPXVbOmifdT0gnc=
+	t=1792174896; cv=none; b=XuZ3bXtB4SX4VRNRT6/lqflwwGfQY7AErbgB54bxpTErKSHJdbtUg60nt7RR2bB2a76kGXjK2VqCrlP/64cOc7VOSwXNEbTaDxXnNZIznqPg2dDWJD9xeNUGJhGVpnmv5uR6FSKkZ09z4SNGSzSDl87jtNX3TUpevPiqEUis5IE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792174887; c=relaxed/simple;
-	bh=JVdkMJsRCn1XSDVkBaxNUZpS/5OGuKe2hDMPAxbQrkw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=iMkvwoHdahUlXchgtBOefeqWWtXql/ROHmwQ1kByJwkPfF2uz6Eo94hlodJKZNYgvdp3ghswfTG9HRLNsjcOPfmJRU2RiWceQN2PHDZ6Cejgv7E3AlmCyAk5q1oWVSxVYHkCGU4Pbult1y1eeRmeMm+StZZ/r173u7ix2havb70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ru5sFJDI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792174896; c=relaxed/simple;
+	bh=P7O79ZLj5F0GGvTc/f2daAdUTh2Yqj6MHo++HqedS2g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UIxrL9Tn/OMVavGa7nFQrqrsN2+WEz1750DSkpNInWfj7I0R8KmpIMWykHrVkjbJqVXjYRMAxHW2aofNGqcB2X8zvJeKsGIX0gBmogU4OMX0/8xkvgv6zWm/G25hvem6SWDEAOpRu4N3RiyyCT0MuClfKHGknAYK2634Mx6SaWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UzKDmLGo; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ru5sFJDI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26CB01F000C4;
-	Fri, 16 Oct 2026 18:21:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792174886;
-	bh=FtiGdjgqtjT1pvwqeEY6y9aTlaYLGZB6OmGXYll3xpI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=Ru5sFJDIojnoKUslABrY/JiS9gVMLdFF+C6MPIMI4ixlj6hyIKP8xDr/FB+iNQog4
-	 t13WWgvXQQSY5wkHVZ9bshp2LLRGLN5S58md1dn8fawhIGs3+G7FYPwN59D6s4Tgis
-	 WiWMX+qVuwLiSNR0r1Kw87MxAG5Usxd6XhaxMZqLq9Fe+skj+F0JEEbi/O8nOZ6XSR
-	 Xka4+4l83bYE9AJ+TjeZTd0Q8lqQ5I/j+eADQhZ0lNjlKw3AkVD4fLDxPIzF0fiq/W
-	 BlRoXKw8UG+a4XV7eo+ti6DlMIudETfY7emrUvSm4IOImIuCYB36pHI8DFZGswhRJG
-	 lDILvsAIjPXuw==
-Date: Fri, 16 Oct 2026 13:21:24 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Eugen Hristev <ehristev@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI: iproc-msi: Bound events handled per IRQ
-Message-ID: <20261016182124.GA1884550@bhelgaas>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UzKDmLGo"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38759bcd877so218890a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:21:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792174895; x=1792779695; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cREHVSgVpsX1N2sYltHm34md8NvEm7EO4it+8u2tj/M=;
+        b=UzKDmLGotnT2Rl3S0/CS3JqjQnQjkp+T8J+zN8QBdXuavTNlj4gP6yQNruDiigja4t
+         kqGuwUNwQyXCymTyPZOtF/T3Cp5PW/5SBzS3zFydCkzCW6a0K01/0OfOfCWhAGHdCWnr
+         MWC7fzxpuv/Mh3kQOlrfsKwhqINwqG7/yfZ6jFYXB5XTfKYTyxIQT9SlhCoJ1eh2Nv6F
+         amRKr2QJL1Wcl9Q1Brcg6hm4NwtRB5UYxqoo/THlhNba2RtxXQzKxvRoW/ERO8ocHmQ9
+         iHddyfQxh6GiWky48K+h6zcBXkiUSUsgnotttv+AOa9Ljrt4q4qTpCMOTaI7UDJ9kpU+
+         VCvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792174895; x=1792779695;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cREHVSgVpsX1N2sYltHm34md8NvEm7EO4it+8u2tj/M=;
+        b=neGkEUvcNrQEXEOaYrq58PIrCkSVnuJsmJtfK1OwJzYj2NjkzkNr0lUgQqdfPOVbW8
+         cj2nUiEfsGt6swk8UWXy8bLAzILT98suxIyHNEGEBlS1vR9bXRdXvvbn2cU2KQ3eSHRE
+         t359hzPZvjbnGRTOQLwLZSTgyrWftKW8MYjeSIzTMVYQlSuKC7f/SebeH29a2sMvhl4F
+         Wn/Ieoj3ajvt6OjNT0dBMXnbe/3fdm3pr8ePn9ietQQOI3CO/FFj2+8PN4qfWo+n68vw
+         QQYgPcFa5fT2i6W85FySmU/6ehGxlkKKi4Po6+/NJXNvDLMIowGvX42eBmeNIBtxRYPr
+         8JEA==
+X-Forwarded-Encrypted: i=1; AKwUvBw58iFjPi0AmfycbL40D9U1cuglqAR8Ec9xqLe3UnTpLWZTQUO9H28WYjxqIRw5/UW4EdJv+yjhXe4kcUY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrUqZiKOk7cKymMwxEUOu0BXel+Ol6gw+FsYI3/al6qIpf4jQl
+	Bil0DQp49i45GiOtT5dqoQhgas18gDRK3zBoku9cMkH6j4Rf9u+NocaLfwtWJQ==
+X-Gm-Gg: AYBFou1m1ALe0vskf3N5+7JFmu/3qbTWh5kciSst9Wg//mSBUniCFET4UV7C5AixDtK
+	MKl7YIrn7L6IhgNUmOJ6I5pByqX8nwRx75BbWf4C4y5WjSGzuBhuSS7+dwSx9YPESorHMMRgRxB
+	I1IQEhVrVzL59CX0Mi5XC73knmRsgHNu3mzk7BezwEw7kxFrAbSV6R443Gc3MLeqGJUDp32mdzs
+	RfZyNnL78kT+Ki4Yae2cw4AsQxsPSBdD8b2y1bUSQXxaUbrURBsrTViVyh+7TjhD5RNZvdJnHSz
+	WwQhlnMNxyY8Vv0XdL7ywaEbxJyN0uRGtHUFNOcURGurgqWDH+8aRd4hHztWp4gaQM1gvyRLjOG
+	XE5r24vb91pPXyg7TRNepu0zfhBjz/Jw3yFqXoPcw4Pb7Q3ETd3YGk3G9J65BFK/82GvmXQUour
+	RVjc/clpNc6RH4F8PsV58ToO6U+jcKGyZGLu3NB9AzPPzjFyXPbi1DUs8daIrSJPhxIsuW48yX4
+	ZCa5UDWc/6s1q3G7B4tvKlx7YrhJg4FCTWAvQyOWsHfg7Nr
+X-Received: by 2002:a17:90b:1805:b0:3ab:c6d:2bf9 with SMTP id 98e67ed59e1d1-3acef5b0dd5mr547132a91.57.1792174894838;
+        Fri, 16 Oct 2026 11:21:34 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc4872861sm5616457a91.7.2026.10.16.11.21.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 11:21:34 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <e7c99dc5-dfa4-4ce7-b7da-a3a70a2710a8@roeck-us.net>
+Date: Fri, 16 Oct 2026 11:21:32 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016-iproc-irq-v1-1-ebaaf027f29e@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] watchdog: allow WATCHDOG_PRETIMEOUT_GOV_SEL=y
+To: Dmitry Voytik <voytikd@gmail.com>
+Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261004213755.554191-1-voytikd@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261004213755.554191-1-voytikd@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 16, 2026 at 03:18:53PM +0300, Eugen Hristev wrote:
-> Limit each iProc MSI parent IRQ to 16 event-queue entries.
+On 10/4/26 14:37, Dmitry Voytik wrote:
+> Fix the issue when WATCHDOG_PRETIMEOUT_GOV_SEL can't be set to =y,
+> and always is =m.
 > 
-> A continuously fed queue could otherwise keep the chained handler running
-> and starve other work. The budget still drains pending events and lets the
-> next parent interrupt continue processing, improving fairness and bounding
-> interrupt-handler latency.
+> The issues can be reproduced with the following steps:
+> 	make mrproper
+> 	make defconfig
+> 	./scripts/config \
+> 	  -e WATCHDOG_CORE \
+> 	  -e WATCHDOG_PRETIMEOUT_GOV \
+> 	  -e WATCHDOG_PRETIMEOUT_GOV_SEL \
+> 	  --refresh
+> 	make olddefconfig
+> 	make mod2yesconfig
 > 
-> Without this starvation avoidance, one CPU can stall indefinitely
-> in the loop and not serve other interrupts, timers, etc.
+> 	grep '=m$' .config
+> returns only CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL as module:
+> 	CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL=m
 > 
-> While testing it with an Ethernet NIC,  when too many MSI interrupts
-> come in, CPU might get starved:
+> "make menuconfig" doesn't let it to be switched from =m to =y either.
 > 
-> Connecting to host 192.168.30.1, port 5201
-> [  5] local 192.168.30.2 port 52586 connected to 192.168.30.1 port 5201
-> [ ID] Interval           Transfer     Bitrate         Retr  Cwnd
-> [  5]   0.00-1.00   sec   240 MBytes  2.01 Gbits/sec    2    334 KBytes
-> [  5]   1.00-2.00   sec  63.2 MBytes   531 Mbits/sec    1   1.41 KBytes
-> [  5]   2.00-3.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
-> [  5]   3.00-4.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
-> [  5]   4.00-5.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
-> [  5]   5.00-6.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
-> [  5]   6.00-7.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
-> [  5]   7.00-8.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
-> [  5]   8.00-9.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
-> [  177.568497] rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
-> [  177.568913] rcu:     0-...!: (1 GPs behind) idle=28ac/1/0x4000000000000002 softirq=28922/28930 fqs=1
-> [  177.569457] rcu:     (detected by 1, t=5256 jiffies, g=21629, q=819 ncpus=4)
-> [  177.569870] Sending NMI from CPU 1 to CPUs 0:
-> 
-> With this bounded approach, IRQ handler will complete and continue
-> to serve MSI events on the next handler invocation.
 
-Is there something unique about iproc that makes this an issue, or do
-we need to worry about this in every MSI interrupt handler?
+This does not explain what the problem actually is that is supposed
+to be solved with this patch. Since this is just a selector used to
+enable other configurations, and the configuration option does not
+result in any packages built, "WATCHDOG_PRETIMEOUT_GOV_SEL can't be
+set to =y" on its own is not a problem.
 
-> Assisted-by: Github Copilot
-> Signed-off-by: Eugen Hristev <ehristev@kernel.org>
+Guenter
+
+> Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
 > ---
->  drivers/pci/controller/pcie-iproc-msi.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
+>   drivers/watchdog/Kconfig | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/pci/controller/pcie-iproc-msi.c b/drivers/pci/controller/pcie-iproc-msi.c
-> index 9ba242ab9596..6649807822d2 100644
-> --- a/drivers/pci/controller/pcie-iproc-msi.c
-> +++ b/drivers/pci/controller/pcie-iproc-msi.c
-> @@ -29,6 +29,9 @@
->  /* Number of entries in each event queue */
->  #define EQ_LEN                         64
->  
-> +/* Bound parent interrupt handler such that a queue cannot starve CPU. */
-> +#define IPROC_MSI_MAX_EVENTS_PER_IRQ   16
-> +
->  /* Size of each event queue memory region */
->  #define EQ_MEM_REGION_SIZE             SZ_4K
->  
-> @@ -326,6 +329,7 @@ static void iproc_msi_handler(struct irq_desc *desc)
->  	struct iproc_msi_grp *grp;
->  	struct iproc_msi *msi;
->  	u32 eq, head, tail, nr_events;
-> +	unsigned int event_budget = IPROC_MSI_MAX_EVENTS_PER_IRQ;
->  	unsigned long hwirq;
->  
->  	chained_irq_enter(chip, desc);
-> @@ -360,9 +364,11 @@ static void iproc_msi_handler(struct irq_desc *desc)
->  			break;
->  
->  		/* process all outstanding events */
-> -		while (nr_events--) {
-> +		while (nr_events && event_budget) {
->  			hwirq = decode_msi_hwirq(msi, eq, head);
->  			generic_handle_domain_irq(msi->inner_domain, hwirq);
-> +			nr_events--;
-> +			event_budget--;
->  
->  			head++;
->  			head %= EQ_LEN;
-> @@ -373,6 +379,8 @@ static void iproc_msi_handler(struct irq_desc *desc)
->  		 * head pointer.
->  		 */
->  		iproc_msi_write_reg(msi, IPROC_MSI_EQ_HEAD, eq, head);
-> +		if (!event_budget)
-> +			break;
->  
->  		/*
->  		 * Now go read the tail pointer again to see if there are new
-> 
-> ---
-> base-commit: b810335a0699d1810683796b0e3ffe8827ddfe6c
-> change-id: 20261016-iproc-irq-9c58cfe39158
-> 
-> Best regards,
-> --  
-> Eugen Hristev <ehristev@kernel.org>
-> 
+> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
+> index f7d0a0c2c0ef..712ebfa1c99c 100644
+> --- a/drivers/watchdog/Kconfig
+> +++ b/drivers/watchdog/Kconfig
+> @@ -92,7 +92,7 @@ config WATCHDOG_PRETIMEOUT_GOV
+>   config WATCHDOG_PRETIMEOUT_GOV_SEL
+>   	tristate
+>   	depends on WATCHDOG_PRETIMEOUT_GOV
+> -	default m
+> +	default WATCHDOG_CORE
+>   	select WATCHDOG_PRETIMEOUT_GOV_PANIC if \
+>   		WATCHDOG_PRETIMEOUT_GOV_NOOP=n && WATCHDOG_PRETIMEOUT_GOV_DUMP=n
+>   
+
