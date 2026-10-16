@@ -1,87 +1,45 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A96245516F;
-	Fri, 16 Oct 2026 17:14:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 022C72D6E5A;
+	Fri, 16 Oct 2026 17:14:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792170860; cv=none; b=B7A35eFJyuEKD3KIcEOJV6RR+LkJEEBf7Ox9+jL/t1vSNfDEhAQMQFBfPrjeUKKOiZ2fgcxSLm7jqNLLFhbUXr6w9v+B+ukeRapTtVMc3o24HMsk9chl8I8R41p9QL29tOee7BgsQCiA8H7PZEP9P5Omt4c64h/qKh3vng+CyV4=
+	t=1792170884; cv=none; b=X89jD/mqvLqtiBEeDFIQPL5vgPZ9f8TWWuaFjjANNqo6F+GcgB6A8OxTGYnDmCW3nesBVlzLcsfAykjugLl66C2uCUN4jXhhxZcyenposPFArKPYn4IQ8BbbEa9IBTkVHehnE6WZi5grBqIwvfiJqfkbWFRY6KkCndBF9g10wFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792170860; c=relaxed/simple;
-	bh=JYapKKS6ruYfXba2ERZhWRXjyBU4WUUxYqInIjsJWeY=;
+	s=arc-20240116; t=1792170884; c=relaxed/simple;
+	bh=oYjSgEgoTVkAqaic/eLXsthjcrJqD0NXBt9N8/nVNIQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iVjBSbu66N+HcExEbr3vBS8LiKDO3vNU+AeTbT37sSGPs3hRAeT8XSI7Fq5G02jXSZes93rsBVCL1U5EXYNFIqaoZuErZw4A7M214dT7aHXlP9T7ZNveEcnyiIYNpZ5SfS9MZZtxFQFeJg87SGiXXC80ZCC+nqLOG79Zp3ABFm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=CnJTg5JR; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ipIkDzCe; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=26SFX1xF; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=u4H8dCxU; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	 Content-Type:Content-Disposition:In-Reply-To; b=UW8HD4FskXIh+xs+JCrgehh2jqUYQH41J7BbDPdCf6CHSxU4cfO/v+OfpHsn217s9BCp7ZVZqLVjW+GqOC8dS90G5UF/DwbS3g13KBGImQA+IY2c+LwFI5CzLJQ2uF48t3f+3TjOw8CU1dTaZyYll0c/6OZ8ziUoiryWs/+DfuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=J0Be9/kM; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="CnJTg5JR";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ipIkDzCe";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="26SFX1xF";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="u4H8dCxU"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 5EEC721CE8;
-	Fri, 16 Oct 2026 17:14:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792170856;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MjRpDGLYi8+0KKXQb8F+0ihOVW+dwncBYmwpvFHeGww=;
-	b=CnJTg5JRrM88TAIZWGVqJM0Kf10Jw/J4ZDC3xwzpKEYA5+2thJLDowg2hfE9Fz53IuzeFs
-	OHrYXaIfrvbaZgubVzXoXmeRHCIs1c71JtSO8YHFczPmh4OB6hGmPWSRVkQlME0uGJdQvx
-	dtqdC8AtaQ7Q4GL4v64fsKTktm0LBeo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792170856;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MjRpDGLYi8+0KKXQb8F+0ihOVW+dwncBYmwpvFHeGww=;
-	b=ipIkDzCeoMsk1lD98V/baGANkK/KQ8kHQyE0gDX72hcQou93tOtzRrKh7v087dNsL+ch+j
-	Bep5JsT8cnTy/YCw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=26SFX1xF;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=u4H8dCxU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792170854;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MjRpDGLYi8+0KKXQb8F+0ihOVW+dwncBYmwpvFHeGww=;
-	b=26SFX1xF2Y94Ev0iU/JdlR5DIvshA9RjDFOZ16YJbcLoSOuRpB5TdBKUNm63ULdnBjA/5+
-	ht9L2wPRPDX7qaoCASOm1LxytDWPPUxnNiYZNI4dSK9M6pEslgxygfP1sD2yT+3MxGPfgs
-	K7JkY9QdQA/HhRNVS3pEYuSY4cI/5Ko=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792170854;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MjRpDGLYi8+0KKXQb8F+0ihOVW+dwncBYmwpvFHeGww=;
-	b=u4H8dCxUDZBDB1KA2lCCw2R4oL+Z8pexYz8xdQQikZm1yURVdtSiv9b7o39eVbXv8pO1kX
-	VlN+fu7As4w4gZCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 30165139B7;
-	Fri, 16 Oct 2026 17:14:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 2MiFA2Zb0mosWAAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Fri, 16 Oct 2026 17:14:14 +0000
-Date: Fri, 16 Oct 2026 19:14:12 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
-	Qu Wenruo <wqu@suse.com>, linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 00/19] btrfs: remove the v1 space cache
-Message-ID: <20261016171411.GB1310987@suse.cz>
-Reply-To: dsterba@suse.cz
-References: <20261015-btrfs-remove-v1-space-cache-v5-0-6b31347d9998@columbia.edu>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="J0Be9/kM"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=yk5QjouUMVgrI9mYSPXA66yoO1F4fmgDZyJqEKOQrG0=; b=J0Be9/kMLz0FNq2E1ciKmOdKrb
+	Mx0Vpin6IRwXunELqsTiZDE0aGwpioJ4kntiGTV6htzwJPyApzV8b483+vzB5HGn+KyjaQExyCu2h
+	X44SkfTrZ/1t5m9pOHxgW4QrE6bYdKywFVXJIaYRgiPss37nKvW6ZLsYk2UzH94Ffl+M=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xHlVg-00BBg8-KI; Fri, 16 Oct 2026 19:14:24 +0200
+Date: Fri, 16 Oct 2026 19:14:24 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Pufan Jin <cyan2254650260@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH net-next] net: phy: Add JLSemi JL21xx Gigabit Ethernet
+ PHY driver
+Message-ID: <cdadd697-fc26-43eb-a427-07f557e3b6aa@lunn.ch>
+References: <20261016161543.444356-1-cyan2254650260@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,113 +48,287 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015-btrfs-remove-v1-space-cache-v5-0-6b31347d9998@columbia.edu>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Rspamd-Action: no action
-X-Spam-Score: -4.21
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.21 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,suse.cz:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,msgid.link:url];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_FIVE(0.00)[6]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 5EEC721CE8
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+In-Reply-To: <20261016161543.444356-1-cyan2254650260@gmail.com>
 
-On Thu, Oct 15, 2026 at 10:43:13AM -0400, Tal Zussman wrote:
-> Since commit 545e560a5b0f ("btrfs: disable v1 space cache") the mount
-> options can't select the v1 space cache anymore, but the code is all
-> still there, and a filesystem with an old cache and no free space tree
-> still enabled it from the superblock. Qu suggested removing it rather
-> than converting its page handling to folios [1].
+On Sat, Oct 17, 2026 at 12:15:43AM +0800, Pufan Jin wrote:
+> Add a new PHY driver for JLSemi (Jinglue Semiconductor (Shanghai)
+> Co., Ltd.) Gigabit Ethernet PHYs, specifically supporting the JL2101,
+> JL2121, and generic JL21xx models.
 > 
-> Patch 1 fixes a pre-existing bug in the ordered extent error path: a
-> truncated ordered extent that fails to complete kept the extent maps for
-> its written part while the extent itself was freed.
+> The driver implements:
+> - Paged register access via register 0x1f
+> - RGMII TX and RX internal delay configuration with Device Tree
+>   support via phy_get_internal_delay()
+> - Link downshift and resolved speed, duplex, and master/slave mode
+>   reporting from vendor-specific status registers
+> - Interrupt handling for link state change and PME wakeup events
+> - Hardware LED control via the Linux LED class / netdev triggers
+> - Wake-on-LAN (WoL) with magic packet matching
+> - Autonomous EEE disable to prevent interoperability packet drops
+> - Power management (suspend / resume)
 > 
-> Patch 2 fixes a pre-existing leak in the cleanup path, where a crash
-> before the delayed iput evicts a cache inode left it unreachable with
-> its link count still set.
-> 
-> Patch 3 stops enabling the cache from the on-disk state, so an existing
-> cache is cleaned up on the next read-write mount, as -o nospace_cache
-> already did. This is the one user-visible change: the cleanup is now
-> unconditional, and a read-write mount fails if it fails. There are two
-> ways to fix this failure:
-> 
-> 1. Convert to the free space tree during mount (the recommended
->    conversion), but this could fail for the same reason.
-> 
-> 2. Run 'btrfs rescue clear-space-cache v1' on an unmounted filesystem.
-> 
-> Patches 4-8 remove the write path, 9 and 10 the load path and
-> disk_cache_state, and 11 and 12 the SPACE_CACHE flag and the unused
-> half of the cleanup helper. Patches 13-18 remove the trimming ranges
-> and the free space inode special cases in the write path, which only
-> the v1 writer used. Patch 19 removes TRANS_JOIN_NOLOCK, which the space
-> cache was the only user of.
-> 
-> What's left is what's needed to find and delete the cache inodes of an
-> existing filesystem:
-> 
-> 1. lookup_free_space_inode(), btrfs_remove_free_space_inode(), and
->    btrfs_cleanup_free_space_cache_v1(), which runs on the first
->    read-write mount and zeroes cache_generation in the super block.
-> 
-> 2. btrfs_truncate_free_space_cache() and delete_v1_space_cache(), which
->    relocation uses to get a cache inode's extents out of a block group.
-> 
-> 3. btrfs_is_free_space_inode(), for the evict and inode update paths.
-> 
-> 4. The on-disk definitions: cache_generation in the super block,
->    BTRFS_FREE_SPACE_OBJECTID, and the free space header and entry
->    items.
-> 
-> space_cache and space_cache=v1 still fall back to nospace_cache with a
-> warning.
-> 
-> This also removes the page-based I/O in the free space code.
-> btrfs_io_ctl used a struct page array and was one of the last users
-> of clear_page_dirty_for_io().
-> 
-> Tested with fstests (btrfs and generic quick groups), with and without
-> the free space tree, with no regressions against the base kernel.
-> Upgrading from a filesystem with an existing v1 cache written by a 6.8
-> kernel was also tested. The cache is removed on the first read-write
-> mount and on remount from read-only, and the resulting filesystem is
-> clean under btrfs check and still mountable by the old kernel.
-> 
-> Based on btrfs for-7.4.
-> 
-> [1] https://lore.kernel.org/linux-btrfs/e1dd5a75-9a67-4bc6-b8d8-bfff79b5b907@suse.com/
-> 
+> Link: https://www.jlsemi.com/
+> Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
 > ---
-> Changes in v5:
-> - Patch 1 (new): Drop the extent maps of the written part when a
->   truncated ordered extent fails to complete, per Sashiko.
-> - Link to v4: https://patch.msgid.link/20261012-btrfs-remove-v1-space-cache-v4-0-f125bd8c07f9@columbia.edu
+>  MAINTAINERS              |   6 +
+>  drivers/net/phy/Kconfig  |   9 +
+>  drivers/net/phy/Makefile |   1 +
+>  drivers/net/phy/jlsemi.c | 551 +++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 567 insertions(+)
+>  create mode 100644 drivers/net/phy/jlsemi.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index f53047aa8..4f738a573 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -13976,6 +13976,12 @@ T:	git https://github.com/kleikamp/linux-shaggy.git
+>  F:	Documentation/admin-guide/jfs.rst
+>  F:	fs/jfs/
+>  
+> +JLSEMI PHY DRIVER
+> +M:	Pufan Jin <cyan2254650260@gmail.com>
+> +L:	netdev@vger.kernel.org
+> +S:	Maintained
+> +F:	drivers/net/phy/jlsemi.c
+> +
+>  JME NETWORK DRIVER
+>  M:	Guo-Fu Tseng <cooldavid@cooldavid.org>
+>  L:	netdev@vger.kernel.org
+> diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
+> index b4ef927fd..535a48084 100644
+> --- a/drivers/net/phy/Kconfig
+> +++ b/drivers/net/phy/Kconfig
+> @@ -270,6 +270,15 @@ config INTEL_XWAY_PHY
+>  	  PEF 7061, PEF 7071 and PEF 7072 or integrated into the Intel
+>  	  SoCs xRX200, xRX300, xRX330, xRX350 and xRX550.
+>  
+> +config JLSEMI_PHY
+> +	tristate "JLSemi Ethernet PHYs"
+> +	help
+> +	  Supports the JLSemi Gigabit Ethernet PHYs, including the
+> +	  JL2121 and JL2101 models found on embedded system carrier boards
+> +	  and single-board computers.
+> +
+> +	  If unsure, say N.
+> +
+>  config LSI_ET1011C_PHY
+>  	tristate "LSI ET1011C PHY"
+>  	help
+> diff --git a/drivers/net/phy/Makefile b/drivers/net/phy/Makefile
+> index 25c4a3c24..2d7758e86 100644
+> --- a/drivers/net/phy/Makefile
+> +++ b/drivers/net/phy/Makefile
+> @@ -66,6 +66,7 @@ obj-$(CONFIG_DP83TG720_PHY)	+= dp83tg720.o
+>  obj-$(CONFIG_FIXED_PHY)		+= fixed_phy.o
+>  obj-$(CONFIG_ICPLUS_PHY)	+= icplus.o
+>  obj-$(CONFIG_INTEL_XWAY_PHY)	+= intel-xway.o
+> +obj-$(CONFIG_JLSEMI_PHY)	+= jlsemi.o
+>  obj-$(CONFIG_LSI_ET1011C_PHY)	+= et1011c.o
+>  obj-$(CONFIG_LXT_PHY)		+= lxt.o
+>  obj-$(CONFIG_MARVELL_10G_PHY)	+= marvell10g.o
+> diff --git a/drivers/net/phy/jlsemi.c b/drivers/net/phy/jlsemi.c
+> new file mode 100644
+> index 000000000..c3acff48d
+> --- /dev/null
+> +++ b/drivers/net/phy/jlsemi.c
+> @@ -0,0 +1,551 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Driver for JLSemi Gigabit Ethernet PHYs (JL2121 / JL2101)
+> + *
+> + * Copyright (C) 2026 Pufan Jin <cyan2254650260@gmail.com>
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/ethtool.h>
+> +#include <linux/ethtool_netlink.h>
+> +#include <linux/leds.h>
+> +#include <linux/module.h>
+> +#include <linux/netdevice.h>
+> +#include <linux/phy.h>
+> +
+> +#define PHY_ID_JL2101			0x937c4032
+> +#define PHY_ID_JL2121			0x937c4030
+> +#define PHY_ID_JL21XX			0x937c0000
+> +#define JLSEMI_PHY_ID_MASK		0xffff0000
+> +
+> +#define JLSEMI_PAGE_SELECT		0x1f
+> +
+> +/* Status page and register */
+> +#define JLSEMI_STATUS_PAGE		0xa43
+> +#define JLSEMI_PHYSR			0x1a
+> +#define JLSEMI_PHYSR_DUPLEX		BIT(3)
+> +#define JLSEMI_PHYSR_SPEED_MASK		GENMASK(5, 4)
+> +#define JLSEMI_PHYSR_SPEED_1000		0x20
+> +#define JLSEMI_PHYSR_SPEED_100		0x10
+> +#define JLSEMI_PHYSR_SPEED_10		0x00
+> +#define JLSEMI_PHYSR_MASTER		BIT(11)
+> +
+> +/* RGMII delay page and registers */
+> +#define JLSEMI_RGMII_PAGE		0xd08
+> +#define JLSEMI_TXCR			0x11
+> +#define JLSEMI_TX_DELAY			BIT(8)
+> +#define JLSEMI_RXCR			0x15
+> +#define JLSEMI_RX_DELAY			BIT(3)
+> +
+> +/* Power and EEE configuration */
+> +#define JLSEMI_PHYCR2			0x19
+> +#define JLSEMI_PHYCR2_PHY_EEE_ENABLE	BIT(5)
+> +
+> +/* Interrupt page and registers */
+> +#define JLSEMI_INSR			0x1d
+> +#define JLSEMI_INER_PAGE		0xa42
+> +#define JLSEMI_INER			0x12
+> +#define JLSEMI_INER_LINK_STATUS		BIT(4)
+> +#define JLSEMI_INER_PME			BIT(7)
+> +
+> +/* Wake-on-LAN settings */
+> +#define JLSEMI_WOL_PAGE			0xd8a
+> +#define JLSEMI_WOL_SETTINGS_EVENTS	16
+> +#define JLSEMI_WOL_EVENT_MAGIC		BIT(12)
+> +#define JLSEMI_WOL_RST_RMSQ		17
+> +#define JLSEMI_WOL_RG_RSTB		BIT(15)
+> +#define JLSEMI_WOL_RMSQ			0x1fff
+> +
+> +/* Physical MAC address for WoL */
+> +#define JLSEMI_PHYSICAL_ADDR_PAGE	0xd8c
+> +#define JLSEMI_PHYSICAL_ADDR_WORD0	16
+> +#define JLSEMI_PHYSICAL_ADDR_WORD1	17
+> +#define JLSEMI_PHYSICAL_ADDR_WORD2	18
+> +
+> +/* LED control */
+> +#define JLSEMI_LED_COUNT		3
+> +#define JLSEMI_LEDCR_PAGE		0xd04
+> +#define JLSEMI_LEDCR			0x10
+> +#define JLSEMI_LEDCR_MODE		BIT(15)
+> +#define JLSEMI_LEDCR_ACT_TXRX		BIT(4)
+> +#define JLSEMI_LEDCR_LINK_1000		BIT(3)
+> +#define JLSEMI_LEDCR_LINK_100		BIT(1)
+> +#define JLSEMI_LEDCR_LINK_10		BIT(0)
+> +#define JLSEMI_LEDCR_MASK		GENMASK(4, 0)
+> +#define JLSEMI_LEDCR_SHIFT		5
+> +
+> +struct jlsemi_priv {
+> +	u16 iner;
+> +};
+> +
+> +static int jlsemi_read_page(struct phy_device *phydev)
+> +{
+> +	return __phy_read(phydev, JLSEMI_PAGE_SELECT);
+> +}
+> +
+> +static int jlsemi_write_page(struct phy_device *phydev, int page)
+> +{
+> +	return __phy_write(phydev, JLSEMI_PAGE_SELECT, page);
+> +}
+> +
+> +static int jlsemi_probe(struct phy_device *phydev)
+> +{
+> +	struct device *dev = &phydev->mdio.dev;
+> +	struct jlsemi_priv *priv;
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	phydev->priv = priv;
+> +
+> +	return 0;
+> +}
+> +
+> +static int jlsemi_config_rgmii_delay(struct phy_device *phydev)
+> +{
+> +	u16 val_txdly = 0, val_rxdly = 0;
+> +	s32 rx_delay = -1, tx_delay = -1;
+> +	int ret;
+> +
+> +	if (!phy_interface_is_rgmii(phydev))
+> +		return 0;
 
-Thanks for the update, I've moved the patchset to for-next. Current plan
-is to send it as a separate pull request for 7.4.
+...
+
+> +static int jlsemi_config_init(struct phy_device *phydev)
+> +{
+> +	int ret;
+> +
+> +	ret = jlsemi_disable_autonomous_eee(phydev);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (phy_interface_is_rgmii(phydev)) {
+> +		ret = jlsemi_config_rgmii_delay(phydev);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+
+No need to test for RGMII twice.
+
+> +static int jlsemi_read_status(struct phy_device *phydev)
+> +{
+
+> +	if (phydev->speed >= SPEED_1000) {
+
+The > can be dropped. It should not happen.
+
+Humm, actually. Should this be SPEED_100?
+
+> +static void jlsemi_get_wol(struct phy_device *phydev, struct ethtool_wolinfo *wol)
+> +{
+> +	int val;
+> +
+> +	wol->supported = WAKE_MAGIC;
+> +	wol->wolopts = 0;
+> +
+> +	val = phy_read_paged(phydev, JLSEMI_WOL_PAGE, JLSEMI_WOL_SETTINGS_EVENTS);
+> +	if (val < 0)
+> +		return;
+> +
+> +	if (val & JLSEMI_WOL_EVENT_MAGIC)
+> +		wol->wolopts |= WAKE_MAGIC;
+
+I think you need something like:
+
+        if (!device_can_wakeup(&dev->mdio.dev)) {
+                wol->supported = 0;
+                return;
+        }
+
+in order to determine if the PHY really can wake the system.
+
+Look at realtek_main.c and
+
+commit b826bf795564ddef6402cf2cb522ae035bd117ae
+Author: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Date:   Wed Aug 13 11:04:45 2025 +0100
+
+    net: phy: realtek: fix RTL8211F wake-on-lan support
+
+> +static struct phy_driver jlsemi_drivers[] = {
+> +	{
+> +		PHY_ID_MATCH_EXACT(PHY_ID_JL2101),
+> +		.name			= "JLSemi JL2101 Gigabit Ethernet",
+> +		.features		= PHY_GBIT_FEATURES,
+
+Should not be needed, if the device describes itself correctly.
+
+> +	{
+> +		.phy_id			= PHY_ID_JL21XX,
+> +		.phy_id_mask		= JLSEMI_PHY_ID_MASK,
+
+PHY_ID_MATCH_VENDOR()
+
+> +
+> +static const struct mdio_device_id __maybe_unused jlsemi_tbl[] = {
+> +	{ PHY_ID_MATCH_EXACT(PHY_ID_JL2101) },
+> +	{ PHY_ID_MATCH_MODEL(PHY_ID_JL2121) },
+> +	{ PHY_ID_JL21XX, JLSEMI_PHY_ID_MASK },
+> +	{ /* sentinel */ }
+
+PHY_ID_MATCH_VENDOR() should work here as well.
+
+
+    Andrew
+
+---
+pw-bot: cr
+	
