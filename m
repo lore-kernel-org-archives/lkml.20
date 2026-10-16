@@ -1,35 +1,44 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B684E50AA;
-	Fri, 16 Oct 2026 16:06:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673A24FC8E5;
+	Fri, 16 Oct 2026 16:07:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166820; cv=none; b=ZE7eq7I+KuIGJrUBBquqY5X++1dwGpp17G8H4B9f9p/2V3S8pSfB75roMsbHGfyWzJiYKPjxXdUj7olf+k3okNytabv8hetgIPlH/qQsin1L/kE/IGSNaINhihoQNPC4PKENxcZJK2rwNwu/b7mGkObaVKjJiJWMhh1fJ2j40q8=
+	t=1792166822; cv=none; b=k9geJfZD5IrhYp1eBdCZZb7YEjPHzZeqw85v0anOkH7OE1YKZIr0PJCCc4oLWr29fZ62WKciJ33f8w0rGuB0Ik2D2zKgcYekpraeXJU1bisx4tu2PQdl0eYXWZiKmhhqMik4jo79W4Pq9uTxJUJkEO0nEPwbJBhIZn9QEhEiEp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166820; c=relaxed/simple;
-	bh=P7xoi/48OfUGfYAlKLcJ3DIv6/5hzGyzBD5CtlEccLc=;
+	s=arc-20240116; t=1792166822; c=relaxed/simple;
+	bh=9sHF3JRaXcIWL09bXPLmsqW1Z21hCdeAHOj00DITeFY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=crIJnqcYNzm+nVbmL3Tj9Kc8J0AjvimHwCdsI0YXkcNMVjr5y2wY5F0j5y8rra4foAbB3neTYL/zIgXERcv8U4pGRWuOEfjWHwbdhKrh68vgwbjCdmFV1vQjAOM1cV0yqf4jfZqK/aEpNAiUe9JXFb+tz9qoCPkqz48DRqoGlWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=O/sufW3G; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="O/sufW3G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4C621F000C5;
-	Fri, 16 Oct 2026 16:06:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792166819;
-	bh=aaVBUD2PKbkek+Fd/f96Q4HKVt+s1ljkp4Vo6Ejr404=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O/sufW3GGjcFCYrgwQH05z6vC9t5tJo8nJ3FjJAMPBgY8z8YDeM50+5OebBG0M0vH
-	 arX3qdz5tRa0Mn8KCflBCT3ZmYBkQMj9Q10d7OSlCm/WJpCfCut7X2tT9fJH0HOx5k
-	 7Zfn3x45vAD8/wOZqxgYxfoiI9n0yqBViuSSUQUk=
-Date: Fri, 16 Oct 2026 18:06:37 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [GIT PULL] USB serial updates for 7.4-rc1
-Message-ID: <2026101631-doorframe-purge-17ac@gregkh>
-References: <atHfPtcketplfkrd@hovoldconsulting.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=aOR/ywIgKmTlDXit8wGMDarufmm8D4VrS/pULHc/JJILyELTif4pmNAmQFmptliV8T6ImZnNVIBWH9prSdbjZi/O4OloNzx4w0NkYSbkRtr+nbDUJOYkm+I+hagMx+cqNVV+CEFlg8qTFQDtWEVpGJUcAx6KfR3+1FAsVGoK8Ek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xHkSL-0000000086k-1X6n;
+	Fri, 16 Oct 2026 16:06:53 +0000
+Date: Fri, 16 Oct 2026 17:06:50 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Paul Elder <paul.elder@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Dafna Hirschfeld <dafna@fastmail.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, michael.riesch@collabora.com,
+	stefan.klug@ideasonboard.com, mehdi.djait@linux.intel.com,
+	xuhf@rock-chips.com, zyc@rock-chips.com, dalong.deng@rock-chips.com,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 5/5] arm64: dts: rockchip: add ISP nodes to rk3588
+Message-ID: <atJLmq50uRVfeuyX@makrotopia.org>
+References: <20260827-rkisp2-v3-0-e91ff0a604d6@ideasonboard.com>
+ <20260827-rkisp2-v3-5-e91ff0a604d6@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,17 +47,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <atHfPtcketplfkrd@hovoldconsulting.com>
+In-Reply-To: <20260827-rkisp2-v3-5-e91ff0a604d6@ideasonboard.com>
 
-On Fri, Oct 16, 2026 at 10:24:30AM +0200, Johan Hovold wrote:
-> The following changes since commit a90ee4305c4a5df72c11b31dacfdc76e00fcf78a:
-> 
->   Linux 7.3-rc6 (2026-10-04 13:45:25 -0700)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/johan/usb-serial.git tags/usb-serial-7.4-rc1
+On Thu, Aug 27, 2026 at 07:48:34PM +0900, Paul Elder wrote:
+> From: Xu Hongfei <xuhf@rock-chips.com>
+>
+> Add device tree nodes for the ISP and their iommus on the RK3588.
+[...]
+> +	isp0: isp@fdcb0000 {
+> +		compatible = "rockchip,rk3588-isp";
+> +		reg = <0x0 0xfdcb0000 0x0 0x7f00>;
+> +		interrupts = <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH 0>,
+> +			     <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH 0>,
+> +			     <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH 0>;
+> +		interrupt-names = "isp_irq", "mi_irq";
 
-Pulled and pushed out, thanks.
+Three interrupts with two names, while the binding in patch 4 has
+maxItems: 2 and isp1 below lists two, so dtbs_check rejects isp0. If
+134 is the MIPI line it needs a name and an entry in the binding (the
+RV1126 has that third line and the driver can use it for the CSI-2
+receiver errors); otherwise drop it.
 
-greg k-h
+Best regards,
+Daniel
