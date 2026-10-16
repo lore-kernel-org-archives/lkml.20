@@ -1,250 +1,210 @@
-Received: from mx07-001d1705.pphosted.com (mx07-001d1705.pphosted.com [185.132.183.11])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A3F42E42B;
-	Fri, 16 Oct 2026 07:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.183.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE4413B777C
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:00:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792137599; cv=none; b=cgDsEcU5Os8di7JSyRd5KiJgrl9T2otpMzSlDmTGXZnbkS9xQMr+3Gt+elP7SdCKqDe/aqaCZ23ucj3OpWHrMWpKHRlEjz6Xr6/D+mXzqVGOsI7Lx11lMWIQ+YcFePkaxr793oplrfny+ZwmAR23o1zFrf7xnayRxAYmJAyfO+0=
+	t=1792137616; cv=none; b=TE0ByWLsKVjKNNh+5GiUhhKt2Ap04Zh9vy/Plin6QOXphokQB/ohfON04E1Yv9oVdZKTi/yaFls3rKUYnQTEabdZPWl03bjWOOP0nznpiz8zKGxXGO7NI0M3doGmbvzF0frVF2PgHeF6FTt8f19vBGDIXT9/Pml5fJhNUmytFAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792137599; c=relaxed/simple;
-	bh=MVrRut5QGWHBV1Z+9yYG3/aPvMpahEdN1wElk1ehhfs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gRHtyEKfdtJa7i8f+nkB+8AiX87zv+EKEOabE3vCjFGCF12aFdwD+uAtV7Jhhtd3cqvQEccIgCDsLHkoBIZJv8oxQFQacaPJr3ws9nDQjD8T6kgJCEHM09+ttuEOnw/R7ExhPkOAxnJYp9kGR7LZrQnm13y/0nFXO5euZcJ6LDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com; spf=unknown smtp.mailfrom=sony.com; dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b=dq6HTpOO; arc=none smtp.client-ip=185.132.183.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
-Authentication-Results: smtp.subspace.kernel.org; spf=tempfail smtp.mailfrom=sony.com
+	s=arc-20240116; t=1792137616; c=relaxed/simple;
+	bh=Jom/33lMvyROexEXXBka+2wEVnyD992vNREAbJ9xUFw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Q1win9aWjXswk7ypLOmj1FdGC8pYA9ehLFJSVap7EYSPpfiedhz8vd4jpwmyYJ4b21YF6ifOI37143szGYvbO0KZRsRzZvbPTOkESKBHjcxhsjpZBz1zwasfYDyBnLEsgZ7PI43QVftPErVBBD3Sn7atKWchNST/AWffKomytGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PDftbMo0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Vh04l+Y3; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b="dq6HTpOO"
-Received: from pps.filterd (m0209325.ppops.net [127.0.0.1])
-	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G4v1Cn2388745;
-	Fri, 16 Oct 2026 07:59:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=p1; bh=D2HMvwmOaIFAB2iNl2
-	fz5Rhs/T2htF4tBxEpfNv9fjQ=; b=dq6HTpOOOXUoxFiHpN5nZY/HjK/St1D2Ux
-	PazvFxi8XvcOzou0Qcwiy4H4NfV+zJAD8uwkBRQR/ncDF1J2Ks5MUd8v530FCTGu
-	W+CdrgVicxAS9gOUwMEXBH/YTT1+ZZyR7pBLklbR9zb6diareh2doVgTzStzByYp
-	YyoRiEd2NoxQXTbTG/qXJjg0EgqrvPtqX24zUreBkY432S/SMwjp5zFVqdR7nxgw
-	Hcl/KcjnvM3vVdlS00eUGkXOUk1I1Qcl/YOPqLxI+dOojUNvuis1Bz071HxX5syE
-	6Bv4UQNo1ylv8LCmBM3pqcJZS4FUWLS9FjI9wVfipZMcWAebmtPQ==
-Received: from sgppsea02v.sg.gdce.sony.com.sg ([121.100.43.226])
-	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4h7d9s7f1a-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Fri, 16 Oct 2026 07:59:45 +0000 (GMT)
-Received: from pps.filterd (SGPPSEA02v.sg.gdce.sony.com.sg [127.0.0.1])
-	by SGPPSEA02v.sg.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 69G7folE1453289;
-	Fri, 16 Oct 2026 07:59:43 GMT
-Received: from sgppsba02v.s.gdce.sony.com.sg ([146.215.113.219])
-	by SGPPSEA02v.sg.gdce.sony.com.sg (PPS) with ESMTPS id 4h7eejcc15-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 07:59:43 +0000 (GMT)
-Received: from pps.filterd (SGPPSBA02v.s.gdce.sony.com.sg [127.0.0.1])
-	by SGPPSBA02v.s.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 69G6ijFx2896467;
-	Fri, 16 Oct 2026 07:59:43 GMT
-Received: from localhost.localdomain ([146.215.113.251])
-	by SGPPSBA02v.s.gdce.sony.com.sg (PPS) with ESMTP id 4h7eejxknj-2;
-	Fri, 16 Oct 2026 07:59:42 +0000 (GMT)
-From: Lachlan Michael <lachlan.michael@sony.com>
-To: mchehab@kernel.org, sakari.ailus@linux.intel.com,
-        hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com,
-        Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com,
-        Kazumi.A.Sato@sony.com, Yuji.John.Takahashi@sony.com,
-        linux-kernel@vger.kernel.org,
-        Lachlan Michael <lachlan.michael@sony.com>
-Subject: [PATCH v4 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
-Date: Fri, 16 Oct 2026 16:59:17 +0900
-Message-ID: <20261016075918.19345-2-lachlan.michael@sony.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261016075918.19345-1-lachlan.michael@sony.com>
-References: <20261016075918.19345-1-lachlan.michael@sony.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PDftbMo0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Vh04l+Y3"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G2Tmt4405915
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:00:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=evMqfyXWXTJBLIRuZtTEpo
+	fBPLXYO84fBR90qAnHG8I=; b=PDftbMo0OF2PX88jsiOk8q6JCNPYSGHMRXjeNm
+	HZ+FziMYkLRrLfXV/Ighpdwv9h90BCEK0jXVO2s1yDuYaeIiDBlwbjqYu3qTqkgs
+	VLo5uIDIBJD48BxSZIY+vST4UyBM1gTYOkxZeO6zrZjH+OkLrchX+LskQCLxkDvN
+	xAL05Ghmr5lUMIDWvo41+ak7mH8ugtQq1MQqX2LS7tdI1daET8w/SX85vZyG219I
+	LBdIbvuFEvktRPYDLS5GFcJRqac36iicMDAnN+P1ySpFYBpLLRJ1wzVu5yztWoAF
+	5Bj0jrCNNUPfWcJHvXpUQpPoKonPejmv8MBREPOU6UmNtibQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb3sa2psh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:00:13 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93e49a1d3b1so1366230085a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:00:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792137613; x=1792742413; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=evMqfyXWXTJBLIRuZtTEpofBPLXYO84fBR90qAnHG8I=;
+        b=Vh04l+Y3Qx575IptIcdTmSxmE8KWVxiOzIAySJaDOnI/YtlbEqh3OPhrx8qZ1dW2Ra
+         /wi4reSG1d550g5X2EFTWg0+s0i7Bu+e2UkTVag4WxcXDXKYBaxbBOkrpXfc+N6n33N6
+         WXOv+fM62j6Kf+sK1IKELcnVZJ2bV+99io75O/2b1lEVP6GX+lDP1btVcbPA6VhLSxAK
+         mb0k5T8l41DYkdQ+ioxS8DMjJXl0QieW1C2OxEC9E5VDvAEm5rElXSFnOI0dHrm6mLAL
+         eCsM8A3UBhyHE9iZ2SIZudBg4/cyB9/iew1SYw69CbqKFkEtDDJt8LJfssHvmMhuKDG8
+         RJmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792137613; x=1792742413;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=evMqfyXWXTJBLIRuZtTEpofBPLXYO84fBR90qAnHG8I=;
+        b=GI3MWoKBtChdFzKB3G2kHZJ/xzUMMt9fZkIJZw0d9GNMgzI5JOdBorhNZkQ0S/7AJQ
+         mB91TE7Msqx8LGG5nxUo1prE2hTKhAzz3f7GInGk9FmBlBXzzzbmnF/pZ1PDhTlfFDZ6
+         Fn8ppytFBMA73SLpLgwybu0q8xiCPnyfCe1Gr273r+xG7yS1BdJ0g8mXAMIV2AEfdENE
+         fJiyJpCxLee3UKCDwyessibPR/SByyq8pV+z9fkDsXa4xKNu4KCAjqfCiLUoKajJzv79
+         5ANWtkFVzBiVjEGmKLNFMIK1uMcsW29hlZ+JIfUIB/R0RxAh5XKbSsNdOftp58zCVgI9
+         dVKg==
+X-Forwarded-Encrypted: i=1; AKwUvBwfKnliPLbEmMqwqwDwxRyLa+E/FMg+cCsGpoX1lAlKLNcKDT2JGFJ8e6JQSC7eqUhmnPCD1toWtFonjhY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFkgxpaE89o9cBc7t2xdY4tJ6l7ARQUXcqXvqMv5l5HmXrwDuB
+	hu8yvU3Q/ryQh44UmmyNPf3PG17Z5rf+Pa8hRnDDz+2D1KCN5XjolIPdd4qWOtuR5+JBabOpUWG
+	l1MzKAQ2e5xLfAxQLYjEswpNRzA5K+KY9RbHAJ4OPipOUiTvzgZqnwM5a8s+2n9e5lVc=
+X-Gm-Gg: AYBFou0XxjZivMne7Wvl4a4gal13oXch3aWSTunFo1G3pW0HNUBXYOe1MfdA+Wt7Jpq
+	9/gjmfIbinEDH/SOBFBCRnsm4xqvs7QGdmTxHwsJGk9jg5JRnJ8A3pQuTVl4nLHLmCq1UJUYBsp
+	h93A89/pHNUTrv6QJk21gWryN560lnQWSXM3hQcuZZRemso8+MTwK0kEPDMD7OWP6uN/XTEfgPg
+	npmGeuM7cK+B501N9zeldbGwxUyxLH6LvHMPG3NVoSB853e7a1XX2uKQRhlMrZlkYtN+wPOf9o1
+	Ki76jak0llNkgswdeQnSTCldIDK7AM/ILou6+LTC3lQfL6sxNQJ1AwuJm5HkVp/e0zsGgEPjy/+
+	57RA0LvVeCNhYDvKmN7KKmergJQ/Z4MbObpmXbpfY1YiuFq4aE24tXpizRkan7waB0r1jfXZh2R
+	z91yKBtyV+71Z6mWCeIsM8qaO6p3Egw7CvVZE4ZSjxQHxnrHS9nDw=
+X-Received: by 2002:a05:620a:2b42:b0:93c:8e3f:3036 with SMTP id af79cd13be357-93ebd0a1ed0mr3577119585a.4.1792137612521;
+        Fri, 16 Oct 2026 01:00:12 -0700 (PDT)
+X-Received: by 2002:a05:620a:2b42:b0:93c:8e3f:3036 with SMTP id af79cd13be357-93ebd0a1ed0mr3577113085a.4.1792137611802;
+        Fri, 16 Oct 2026 01:00:11 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:5402:5e0b:9ef0:9b5b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4c5942sm5471446f8f.16.2026.10.16.01.00.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 01:00:10 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Subject: [PATCH v3 0/7] i2c: qcom-cci: Runtime capability detection and
+ improved read/write
+Date: Fri, 16 Oct 2026 10:00:08 +0200
+Message-Id: <20261016-cci-imp-v3-0-5ee7ec1ea1a1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Sony-BusinessRelay-GUID: EpMVbvF2WLiHoRu4_MCrBvmqW012phvf
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIjZ0WoC/22Nyw7CIBBFf6VhLQ0MpIIr/8O4oBTtJPYFLdE0/
+ XdpTawLN5Pcm3vOzCQ4jy6QUzYT7yIG7NoUxCEjtjbt3VGsUibAoGAaNLUWKTY9VaURSgqmtQS
+ S1r13N3xupsv1k70bpiQc97LGMHb+tX2LfG03MWdMfsWRU0YBjhUHW0oF+tyFkA+TediuafJ0y
+ KqK8INzseOQ8EIdhYCilNKIP/iyLG85EpEA+QAAAA==
+X-Change-ID: 20260929-cci-imp-8ba384309942
+To: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+X-Mailer: b4 0.14.2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzMSBTYWx0ZWRfX/sxqk2uPaCyn
+ aJMulVRhJJ9OZyDsmtllpS+naCaP7efOISsxjQxYP9f1Wa74zWAyv4VRDzKEHH4K1DNYyEfm9hx
+ QrJJoJYnWgQuqX1Mx4V3n0WHbdLFYAU=
+X-Proofpoint-ORIG-GUID: xgE7xyE0VtxoKUsj2NvIgXrkgjhBQI9R
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzMSBTYWx0ZWRfXytffoI39098f
+ oAFINIofXM4PIgqIVQbgI/oyOQKuW7u0IG82PiMqNRAa2Ec1LWmeEil7p+287RXlBxsNUyBYbuH
+ 0T0IE3HFMILSIvtrGVZ3fNmYN2QpLlYSIIppkwPmsBGf8p6IyNO21PnlJ4nqiF0PY+1FXVx2qFJ
+ B4Dp12k8sNipuISHy9SVQGoBmt94r+uYeJWW+i1pJ1JDYvGvr9+kGLH81vTTTyXZnFpqYCBzN58
+ +l0SMGH0xEOJx9l8Z1AAKa4wo/mhrsCF5kc+YaSWNFXo4ZVIBvmtTVTDwZORA+Qt3UCtWGtL0rf
+ Zp4+OxpCKtZornTIqNKLvBNv7XVAeVjpXKbfmx2wUPcVwxicdR95M5PbVVU8BOXwxedYOoBrypq
+ cUpWb05iujh5+QQsiaFHmruYmrT1r8B3lHmGA5UsWlxhJSFkp6bYrTJY1FzEA/3qL5a3SEdGoHV
+ NCCieEgP2M4GnHSl/0w==
+X-Proofpoint-GUID: xgE7xyE0VtxoKUsj2NvIgXrkgjhBQI9R
+X-Authority-Analysis: v=2.4 cv=AN0XGc5Z c=1 sm=1 tr=0 ts=6ad1d98d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=YGdjDy1V9CnC6BiKI58A:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Sony-EdgeRelay-GUID: MjNx4-3ks7gYmmCrtIdu6TcKRUZ0TGEI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Authority-Analysis: v=2.4 cv=QvTLTlyd c=1 sm=1 tr=0 ts=6ad1d971 cx=c_pps
- a=6mgWUpd4vGE96FGw1JXD8A==:117 a=6mgWUpd4vGE96FGw1JXD8A==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=KAb5x4SsHD3PzxGk7EmX:22
- a=FGjXJT7Bex8XaPnzAX5M:22 a=gEfo2CItAAAA:8 a=z6gsHLkEAAAA:8 a=pGLkceISAAAA:8
- a=CjxXgO3LAAAA:8 a=2jjaTXmTgyMSI3A5OP0A:9 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-ORIG-GUID: Nb6P8PKbRQcCfzakNmia3-njRbLFiDNw
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzMSBTYWx0ZWRfXx2H5plj+TYPR
- 6WHmq/WkOZJnKRTCajnhU9DDeFDwF+TBrXDg34xhbvBgiH84hAjqunCT3HdYTQkbwCZ9N1xMNYz
- dDRNdJb6XIhMvIS6A5vtL7j4Ga973uHY5cFZ+2droT30HmVOMKDG
-X-Proofpoint-GUID: Nb6P8PKbRQcCfzakNmia3-njRbLFiDNw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzMSBTYWx0ZWRfXzM/p/6x/EFJp
- UCu/Rw3AevBVvLE49eQ4fd+0iWnupm66g6+iKq9xJMGHU3AUnEOlqbqSXRyIupKZ9B4ISy+Q8z8
- ilYehiaINt0J335+6JU7mQFMnrCqc/hqs5eARwQm+R4Kh76orPG86n/Wywl7RWeF7UTodKFx0ap
- 2G6pohPeA7HiFCB2ZAaYBzVDrp5smhkhiuxFXjzOgrI8C4t5Dl9eq57AxUoOGd+HnKQwMphEE7l
- bH7pb0+mfRl1PYXTlDXCQWeMqI/Ig0YyqM/11b68oqXQVwaI4AvaCqT+9BqM942CABcXiHd5dmS
- 9q4hZ08WwOVA3Nq5Qyfvvu7QcTBnzhdrYXhkJNRfy+9ls5r09wyNN2AUmlHDeYHetT/hR/yQgJh
- SOOV6zjpeJbxVYfKvw/6QiIbdNDXIax5zIwk8oWP0HMNu23gErVGOS/VoCuSma1H9OnOIuE+E1G
- fd48surTRjGZ6cf59TQ==
-X-Sony-Outbound-GUID: Nb6P8PKbRQcCfzakNmia3-njRbLFiDNw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 phishscore=0 malwarescore=0 spamscore=0
+ clxscore=1015 bulkscore=0 priorityscore=1501 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160031
 
-The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
-with a MIPI CSI-2 output interface, supporting RAW10 and RAW12 output
-over 2 or 4 data lanes.
+Improves the Qualcomm CCI I2C driver read/write in different ways:
 
-Add device tree bindings for the sensor.
+- Capabilities (queue sizes, max transfer lengths, supported I2C mode)
+  are currently hardcoded per DT compatible string in a handful of
+  cci_data instances. Replace the static per-compatible structs with a
+  single version-sorted capability catalog resolved at runtime from
+  CCI_HW_VERSION.
 
-Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
+- The driver only supported single-command writes, capped at 11 bytes
+  regardless of how much space the command queue actually has. Factor
+  out the write-command queueing into a reusable helper and then add
+  burst-write support, chunking longer writes across the whole queue
+  instead of a single command's payload.
+
+- The FIFO read path hardcoded a fixed 12-byte limit unrelated to the
+  actual per-revision FIFO size, with a special-cased drain loop.
+  Simplify the FIFO read/drain loop and derive the read-side limits
+  from each revision's FIFO size.
+
+- Add burst-read support using threshold interrupts, allowing reads of
+  arbitrary size by draining the FIFO incrementally during the transfer.
+
+Also add overflow and underflow IRQ reporting, as queue/fifo limits are
+now derived from the hardware capabilities and exercised more
+aggressively.
+
+Unbounded writes, which refill the command queue while the transfer is
+still in flight and so lift the queue-depth limit on the write side,
+build on this series and will be posted separately.
+
+Reads up to 4 KiB and writes up to the full command queue depth (451
+bytes on this part) were exercised on an imx219 behind CCI v1.8
+(128-word queue, 400 kHz).
+
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
-No changes in v4 from v3
----
- .../bindings/media/i2c/sony,imx908.yaml       | 108 ++++++++++++++++++
- MAINTAINERS                                   |   5 +
- 2 files changed, 113 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+Changes in v3:
+- Reject a write longer than the advertised limit with an error rather
+  than ignoring it. (Bryan)
+- Build the command words with FIELD_PREP() instead of open-coded
+  shifts, which also documents the per-opcode field widths (Konrad)
+- Actually program CCI_IRQ_MASK_1, the RD_PAUSE bits were being ORed
+  into the value written to CCI_IRQ_MASK_0 and so never took effect
+- Clear the per-transfer status on entry and stop reinitialising the
+  completion in the read drain loop, as RD_DONE can fire while the
+  fifo is being drained
+- Link to v2: https://lore.kernel.org/r/20261013-cci-imp-v2-0-6873326b44a3@oss.qualcomm.com
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
-new file mode 100644
-index 000000000000..828db1175e2f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
-@@ -0,0 +1,108 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright 2026 Sony Semiconductor Solutions
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/sony,imx908.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Sony IMX908 CMOS Image Sensor
-+
-+maintainers:
-+  - Lachlan Michael <Lachlan.Michael@sony.com>
-+
-+description:
-+  Sony IMX908 diagonal 6.42 mm (Type 1/2.8) CMOS active pixel type
-+  solid-state image sensor with a square pixel array and 8.39 M
-+  (3856x2176) pixels, supporting MIPI CSI-2 output with
-+  RAW10 and RAW12 formats, configured as either 2 or 4 data lanes.
-+  The I2C target address is selected by the SLAMODE0 and SLAMODE1 pins.
-+
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
-+
-+properties:
-+  compatible:
-+    const: sony,imx908
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    description: Input clock (24 MHz, 27 MHz, 37.125 MHz, 72 MHz or 74.25 MHz)
-+    maxItems: 1
-+
-+  dvdd-supply:
-+    description: Digital supply voltage (1.1V)
-+
-+  ovdd-supply:
-+    description: Interface supply voltage (1.8V)
-+
-+  avdd-supply:
-+    description: Analog supply voltage (3.3V)
-+
-+  reset-gpios:
-+    description: Sensor reset (XCLR) GPIO. Active low.
-+    maxItems: 1
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    unevaluatedProperties: false
-+
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          data-lanes:
-+            oneOf:
-+              - items:
-+                  - const: 1
-+                  - const: 2
-+              - items:
-+                  - const: 1
-+                  - const: 2
-+                  - const: 3
-+                  - const: 4
-+
-+        required:
-+          - data-lanes
-+          - link-frequencies
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - dvdd-supply
-+  - ovdd-supply
-+  - avdd-supply
-+  - port
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+         camera@1a {
-+            compatible = "sony,imx908";
-+            reg = <0x1a>;
-+            clocks = <&cdce913_cam0 0>;
-+            dvdd-supply = <&cam_dvdd_1r1v>;
-+            ovdd-supply = <&cam_ovdd_1r8v>;
-+            avdd-supply = <&cam_avdd_3r3v>;
-+            reset-gpios = <&tca6416_cam0 5 GPIO_ACTIVE_LOW>;
-+
-+            port {
-+                imx908_out: endpoint {
-+                    data-lanes = <1 2 3 4>;
-+                    link-frequencies = /bits/ 64 <720000000>;
-+                    remote-endpoint = <&csi0_in>;
-+                };
-+            };
-+        };
-+    };
-+
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5d39ec6feb03..91aaba2cf764 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25578,6 +25578,11 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
- F:	drivers/media/i2c/imx678.c
- 
-+SONY IMX908 SENSOR DRIVER
-+M:	Lachlan Michael <lachlan.michael@sony.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
-+
- SONY MEMORYSTICK SUBSYSTEM
- M:	Maxim Levitsky <maximlevitsky@gmail.com>
- M:	Alex Dubov <oakad@yahoo.com>
+Changes in v2:
+- Split the HALT_ACK reset fix out into its own patch (Andi)
+- Fix a typo in the "Detect capabilities from CCI_HW_VERSION" commit
+  message (Andi)
+- Use GENMASK()/FIELD_GET() to decode the CCI_HW_VERSION fields (Konrad)
+- Derive the number of masters from the DT i2c-bus subnodes instead of
+  encoding it per compatible string (Konrad)
+- Add burst read support via RD_THRESHOLD/RD_PAUSE IRQs
+- Link to v1: https://lore.kernel.org/r/20261004-cci-imp-v1-0-227d12cb4829@oss.qualcomm.com
+
+---
+Loic Poulain (7):
+      i2c: qcom-cci: Factor out write command queue programming
+      i2c: qcom-cci: Handle and report queue overflow/underflow interrupts
+      i2c: qcom-cci: Detect capabilities from CCI_HW_VERSION at runtime
+      i2c: qcom-cci: Add burst write support
+      i2c: qcom-cci: Extend i2c read limits based on CCI revision
+      i2c: qcom-cci: Add burst read support
+      i2c: qcom-cci: Build command words with FIELD_PREP()
+
+ drivers/i2c/busses/i2c-qcom-cci.c | 464 +++++++++++++++++++++++++++++---------
+ 1 file changed, 355 insertions(+), 109 deletions(-)
+---
+base-commit: d6dc536a4c8bb99dd822bc349a9e801be7ea81c9
+change-id: 20260929-cci-imp-8ba384309942
+
+Best regards,
 -- 
-2.47.3
+Loic Poulain <loic.poulain@oss.qualcomm.com>
 
