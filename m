@@ -1,350 +1,169 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012023.outbound.protection.outlook.com [52.101.43.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9444E1C9E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:25:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792164341; cv=none; b=Md1NBITAD5m1X7MB6/1vcwtnF+CE/TDPPKoqknONgMXpxn3nQrsOdzOhb6+uLwLs4A2igvTdwy972qzytcRsg+Kf9cR4ne6Yas8ydDEzpnQ/tM8jfDkuwEpZN8XE2Wx4YWVI6BtI3oliAVMbK06wOi2ll20XB7gnY1xAe8cOUoE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792164341; c=relaxed/simple;
-	bh=0Q2F8eMXPptzTA6CFnPdDDK7WMX88/q6nK1Vu+WDDwY=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=qyAjPkfz9hH1jgARZG4Wt9dp52cWWM+DdLY4c4IQm3UitcNt8lFB2zlqQp02gxQx0fmTI3oI5RF5ey1bK8YLom+dZ/I6EZPo/V2sgMw06qz/m4o+5CZwIcb8lPNrbSkVP5CaetFyxYhR5EDN7yB0z/3RZzJAgERiEz8QwaMWRBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=b/mI+PQ0; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1CB4D90B7
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:25:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.23
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792164355; cv=fail; b=lrnuHBCaJBtDelSJMITZUWukYOaXAZuhJ9dd0pfq9fmqlrfFAnKDpfajJj8v+MH3TLYlvwRl92+5eJ3t8gAY5+TwX9fVgsn8aF8EX+f2Noxf9qeJEI9ZuBToq3RsYKnMv5DKwm0hE8M1jd2J47x10hIWDG7QJuab0hWW1sfBHCo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792164355; c=relaxed/simple;
+	bh=y4lFu/jKO4sKnhkle5aWNEg5IJ4s/HdOn1qHTKIj5MI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=gANfM3amuK5MiKjul/TWGAzOckIF3ahjQTYyM379u6CwlshYHkRaU3wJImwxvVi89WRnBrZxZyfOlmIy3PlMD1Yb+5OpPe6F+7ZhCzzEDWZup206cU0iL8xtO1Z2HKwWxXecxN+V15fUr0U+mfCsjBd3Mtso2eL1N8upsQuukDo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=TMIO8pWa; arc=fail smtp.client-ip=52.101.43.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="b/mI+PQ0"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e617b5e9b3so46720485ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:25:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792164335; x=1792769135; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iFPRBPV73hLcdeayNzC5abDouETyR83o00x/J8+4uxc=;
-        b=b/mI+PQ0hDBHW+ZQ1eXxNuy43qU5OktSky8Za7V+LexvFwHgyfG3vzZuGRPMFsaj4G
-         d1v16KTZzW/vPbsnpAzurzxt10JXhxPMDMYjQA6TQzqJXcq0ZVOeregCNQ/Uckta0hR9
-         8GNGvHhhpMtAT/qQWWih57xNfXVf4//ZMgKwR1fHGphuaHVh3mVJ53/CtsgO+2BmQZwa
-         mt3GW+ukrAC4RgUztMUlGW+toISUxaVJqcSdmDwJLGOD7HwQWpNz4bUQvcI6fHr7hi7c
-         W8B9MjOC6U+09GtK1cwXB2j1c7F/c1grPwH06V6JTHy/KWOpM/n3diIRW/TSqpVW8zkx
-         KOZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792164335; x=1792769135;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iFPRBPV73hLcdeayNzC5abDouETyR83o00x/J8+4uxc=;
-        b=rxXBR+Pd5RgfiKUTbYEaLyhT4ThfEI4dFa3snxg37o320F2ucNj6Lzglv6EuCB6IOL
-         Mh7DpZsQ0ALpKAbnUrq6K1+U8pjUzy3Aun5pVY1Z0mEQ81hxcxSwWKT96MOzgLDp2Z7u
-         N7Q90d3u7CWMUxWcQ6eloTlHbU3SSKqFmaBx8NfAjFR1N6qXG69z5ucvsEaoEfMTeZUm
-         7I6u6CsaoRF5rs8vrmPsd2qJ7/4cG7356efy7TV6dhlAFmoYE2MJ7IqL08IcxzotN3od
-         bXS2sYGtDaNfHd7qh1TONfBMlrMGZwglhitr+iof//tckdvjD8gwKlMQnpY6EnwBO1pH
-         k/Fw==
-X-Gm-Message-State: AFq9FYJQJfOF3LU65piBRGBAS1J07cbGHUTsQ+of17hQa9e5ljZ/lUjw
-	HJikbx5u8316tU81zf1BZ67FCK+NfBuH0YnMLt26xVKVSX6vAiZcXvui+KxGRHuIicRZlzw0D9X
-	oRstjWg==
-X-Received: from plot22.prod.google.com ([2002:a17:902:8c96:b0:2e5:94eb:e1f])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:da48:b0:2e8:1ec2:a8c4
- with SMTP id d9443c01a7336-2e9a6c1b779mr3046575ad.14.1792164334914; Fri, 16
- Oct 2026 08:25:34 -0700 (PDT)
-Date: Fri, 16 Oct 2026 08:25:34 -0700
-In-Reply-To: <20261016091422.3182216-2-binbin.wu@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="TMIO8pWa"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=he9RUR3FSCG6Buk3HKBEHKxtyLXB7QDWHIeZFNx+d9T4/TOAuE0KvwR/IJw8/3mU+9bb8qyMVWEqtQuS4QlMX28vbi9LdPgD9jWJFsakSxnHeZ0qxlM7Js001klvC6pv39BEfsVeoJJDmivJfAhlln3OMRo1KnJvSb+o1cc3oaRgj0o0o3MBBtl3+lncWfSsYoiAIEWQNTQkpNb54WSlwRsc7gWX+/u/2b1VipbqPhql2TSUcdOGm391JX8osrdbVFEKTJhJx/hAKwONJfVRKGPdoWBwHlOZT5MfZb28unkUjxqOJYS2l9wxT+uc9JKZ7qrfC0LMnWJbpBySuGBYkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Lc1hOto8i2gw52XDO1vJBtLotiKpdpZEJ1aifxBCFdU=;
+ b=Oa4PVH68EYTcdnS+pN5kl9swBGs03I9fy4Y3IyWJoH8vjqGLhWYU0mN6BQZ33KGRh0A5vA4Us3HaCb5KIz8QOc6rFCtfqqY5kOIrQZTWnInBxg0gxqiD0bx7y2SzksxNBQ0fkIWzdZz6psUu4eUAykvRa3a265PAmls8PbdQGzfRffPoP4XLz5XL+vZE+O77Oa4LoX9kAyHvmtfB2Xxft0euSFUgfcnEdOxpO9lKR/hbtTsUr8WXS3VApUAsFqXW9icWVoWligx657bMrvZF6lqnD8lHiAMfpKOlGHD2rncItGFROxblZZalFay0YnFfRKD5o0hxF6csiYCYICJwaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Lc1hOto8i2gw52XDO1vJBtLotiKpdpZEJ1aifxBCFdU=;
+ b=TMIO8pWaWC8ICeoLqKFEnkf6Cku1BKOwdslozdoflXvUPKSdzQOoUSnQwZ0lapZDahPJYPkmlFcBk8o+bj06o6eD9NOqA03GNFVwvBm5V3wLPo50l/8dsClyLm1uKt7ooQvh5MsTTDUiug/2PrKgyutE0cT8E6+zZrJtlvwOHnWD3l+kAFYHnmUvnkdXTjKqMrdj80uPjtgYDL2YA4k3YclQgrOzVZWlba9ARbmcMI5rXcJr9yrJ4Kt0udY1jVBRcXJfywe0LRGwkXlgkLc4iJKyKeC22qJrFzO9XU74Nvz1PuSDNx1CZuKxhEHcPZQi3TgUjT0NnU7zucOP4wmWIw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by MW4PR12MB7214.namprd12.prod.outlook.com
+ (2603:10b6:303:229::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
+ 2026 15:23:45 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
+ 15:23:45 +0000
+Date: Fri, 16 Oct 2026 12:23:43 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: fangyu.yu@linux.alibaba.com
+Cc: Ankit.Soni@amd.com, guoren@kernel.org, iommu@lists.linux.dev,
+	joerg.roedel@amd.com, joro@8bytes.org, kevin.tian@intel.com,
+	linux-kernel@vger.kernel.org, robin.murphy@arm.com,
+	vasant.hegde@amd.com, will@kernel.org
+Subject: Re: [PATCH] iommupt/kunit: Read an exact NR_SECONDARY_PAGETABLE
+ snapshot for the leak check
+Message-ID: <20261016152343.GH13920@nvidia.com>
+References: <20261015134048.GB13920@nvidia.com>
+ <20261016011229.71498-1-fangyu.yu@linux.alibaba.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016011229.71498-1-fangyu.yu@linux.alibaba.com>
+X-ClientProxiedBy: BLAP220CA0009.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:32c::14) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261016091422.3182216-1-binbin.wu@linux.intel.com> <20261016091422.3182216-2-binbin.wu@linux.intel.com>
-Message-ID: <atJB7kDzKsvzrMau@google.com>
-Subject: Re: [PATCH v5 1/5] KVM: TDX: Check unsupported CPUID bits against the
- TDX module's subleaf
-From: Sean Christopherson <seanjc@google.com>
-To: Binbin Wu <binbin.wu@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, pbonzini@redhat.com, 
-	dave.hansen@linux.intel.com, andrew.cooper3@citrix.com, nik.borisov@suse.com, 
-	kas@kernel.org, rick.p.edgecombe@intel.com, xiaoyao.li@intel.com, 
-	chao.gao@intel.com, tony.lindgren@linux.intel.com, kishen.maloor@intel.com, 
-	dedekind1@gmail.com, adrian.hunter@intel.com
-Content-Type: multipart/mixed; charset="UTF-8"; boundary="eT79xhp2T0neg3Wb"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|MW4PR12MB7214:EE_
+X-MS-Office365-Filtering-Correlation-Id: b673307b-d74f-40d1-db38-08df2b9977cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|56012099006|11063799006|4143699003|261009223027099003|22082099003|18002099003|10067099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	pI34pvUrMBXhjwZ3zTpDuL83NfepET3yM3GK9McLmGKiGxVNy1AiQ0bhC8ANlRGNNPPMaqR7jRP/WF/hJavLvKROVKgrjfubP9zgknKw3ZqtYef6pJ6W0eU/6EhWqQ2PyeXhewAm0rLlEbtNMkkimOtymqLZUoGjsQ1R7TLEGR06mTniME6b+AqP2PUmFNsM1OpQkJaqigTJn3FAyjz5D0+JgUwCrCGp/LkiXpJMx4Uc+Jh7gexRfhiCsqXLVOvWGAMIppqjJ96xXq5GippenkRODEanRmf94aBwgUQIQLSTLRrZ/YZy5PA56yLu2C2sF6qibihzlrTf3ucWfdzwln83hb8gq9/wgaacyc2KdUYEpuiKINu0vIprv6exLxUszye2ORFhO9OlELCaJBkteChfzpndTbY+ZeusEhkqObX6aRynF9f68qGMsUEmhK7Fgvb/T8Wlatq21LZmC4MT3xEXknAh6nPYp7leZIuZw0CIZqXcFjuKVqiJcjru6U2RTwFtvKTbheiemevgZvz4+NDfaC8pUjJ234NCPIBWIIbbz8W6yDn/TbfyMqqeSdk+zuWoJBWK2udNfgwwsFgVDaC/qLZElYfBFmXc9ObNveqYt2DFX77mPGTxJHScBzVtsT3+i98jGH5LctWOW4sYdnn3VVkdwe0oCJJRdGMvW2A=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(56012099006)(11063799006)(4143699003)(261009223027099003)(22082099003)(18002099003)(10067099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ShlQ7o4H8YsMwhF6bt0rB15Y/0Rj7oyKuZ11iSBk3+eVgo/YNarsOSTAYhix?=
+ =?us-ascii?Q?gFfcxXh4N54TxT71gxFrd7IFBV9SIPzCYAYg8/M1bSGUIG11EJh/7IVvfRct?=
+ =?us-ascii?Q?LCW1IEUnyGCYuaKPP+IWwVD8zi8mc8BjZHx3UY7WbtRaXsL8sEpA1PcpQWvA?=
+ =?us-ascii?Q?yzvahwcIFvghFMY5+VGmHyiJ6jWAR+HstO0/BBHh4547021Webu3JELHQcHt?=
+ =?us-ascii?Q?WQpMO/ynVES/qxUDzFyBo4Fuw0qkHU/elthBEobcurOPYBssdfreVbWL6M5a?=
+ =?us-ascii?Q?NFZG/Z11YrO3oxf72UH7CZi8u/QAvBP/iilYSgZm9M0pH0a60FJH0HZspLPO?=
+ =?us-ascii?Q?u2rf/f2BdD906yFDC3ni9vBk0UMC8IiQ5WEwj8/A2jvWo3Od7lK+HgwqU5Te?=
+ =?us-ascii?Q?g3adM/G4Tee3//0a1Vp2FDu+qXcKawcoyBzbWHRvaiAEro9jBiWUB35aCiEP?=
+ =?us-ascii?Q?0gQjSbQKAgHp6eUX27BFd2ZWVuSJgQs9Ds4iprvxw6d0fb6+xHxIHpQaMXkZ?=
+ =?us-ascii?Q?L3WFxHckKs8UrSTUpLpJbwIv42cLJ/bZU14pAM8kEROlpKgojCadTglwEcOc?=
+ =?us-ascii?Q?N+qoY06d72B9Ntw8s0AXnuHm04NxkOI/IKzfP6/zpH5bH/YyPi0kENC7Fjxv?=
+ =?us-ascii?Q?3bdgPw+RpdP1WsQiDhXKK+2ooL4wT2mqRU/x/vqHCNyDDiTmMoj06xEUvJ1I?=
+ =?us-ascii?Q?7o6AfJe0TyHyBExUkv32BBjIFCcA5E9WYEkc9pt1Z721W6BldKki5wDcaJcm?=
+ =?us-ascii?Q?kkwhzuQdBljsyF5ZIG56SN0Ucjs7nDHg+YmwCwsaPStwzsXwsX2S4PDCTw5p?=
+ =?us-ascii?Q?LvX2dSvhR9qVXqgp/4JLpzPu2QG96jT+qqsM7Q0RbvzrD1MleJ/c1UBaMvCJ?=
+ =?us-ascii?Q?R7kIeCYXbJR/TY4MQo3XTpvwNEvqN4UUad969LXzbLQkbxzanZoMwVPB7Gc+?=
+ =?us-ascii?Q?TmpohuSXku10Wa5pUfVtnsiF9K4+40V43QEglGQ2UF1H+ZCKn1QwD8qPSanx?=
+ =?us-ascii?Q?F/N3ifnF7cVTJe3PwS05WPlEBa55K9N77mh1IwGsHMyFKTCfUq73D8Jg2kAR?=
+ =?us-ascii?Q?5yKzlXgS2QJiYQl/53QGWkTca6Phl7bTrG8EYt+LD3N7b/axBDICkuf7pmVo?=
+ =?us-ascii?Q?BTqzSl9Bn5zUwxx3vzpifPud8CwIYDkNlb19NL+o2qiyRiww9G2eQdsRney/?=
+ =?us-ascii?Q?p3ENNAjsKvbpeguV6Myr1kk4GW0fLRkLS8QJHcYAv3X2ZJthiz3acZ9B5Siu?=
+ =?us-ascii?Q?U+5XBt2Q9e3fq0ICiYpU6qpuu34fdhadov7mf2z28cZe1Et75xyI/MpapAZn?=
+ =?us-ascii?Q?iJk0hSkhLZirw8CiB0268pAQO2TAhbcQmUsjB5y/oj0EQWTMCQzCCmQdoG01?=
+ =?us-ascii?Q?w7Vw6UKyXpOpB8FpZHJWAMOw90Inda/AgKveFGY808JqjMEneIdclDmuM2k/?=
+ =?us-ascii?Q?EvA/y6xT907KncNujvfA188wi0cErrR7PYnTPcEnyv70nE6Y90X9JEFmwxMe?=
+ =?us-ascii?Q?kGu+E7g/nAxj5gKqm2OIZ+FFcEwFvqBBDYb7FSMvK25vc/UZyiubkEmPRcP+?=
+ =?us-ascii?Q?oLgsFNWw7n6HMFveTKgWF3blRhBUZDxH/AfvHFIsT+R4Uhopdhpk3PurEO4j?=
+ =?us-ascii?Q?cxow1U4168JzqVKPXRHO+0ufi7iIwHayWfKnEA0W9lRb/UaIDnQShtOdLjF9?=
+ =?us-ascii?Q?KhpdRUgLk+FeyQ2z1Isvn2pNUL0mdFqk6WyHbaUxP3yLHuFx?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b673307b-d74f-40d1-db38-08df2b9977cf
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 15:23:45.1125
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yLS7gFJQTjbggMPldJinm2zvKVHcajogmGpnYmvzzY3Ej/DWyGyj3lng+x9Hg1Ar
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7214
 
-
---eT79xhp2T0neg3Wb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Fri, Oct 16, 2026, Binbin Wu wrote:
-> Don't reject the mismatch outright, as the ABI allows userspace to provide
-> an arbitrary index when KVM_CPUID_FLAG_SIGNIFCANT_INDEX is cleared.  It's
-> userspace's responsibility to provide the intended entries; KVM only needs
-> to ensure that the values it validates are the values it applies.
+On Fri, Oct 16, 2026 at 09:12:29AM +0800, fangyu.yu@linux.alibaba.com wrote:
+> >> +/*
+> >> + * The global NR_SECONDARY_PAGETABLE counter is batched per-CPU and folded
+> >> + * into the global value asynchronously, sum the global value and the per-CPU
+> >> + * deltas to get an exact snapshot.
+> >> + *
+> >> + * The global value must be read without the clamp of global_node_page_state():
+> >> + * the raw counter is transiently negative whenever a folded free batch
+> >> + * outweighs allocation deltas still pending on other CPUs, and clamping
+> >> + * before adding the deltas back would overestimate and report phantom leaks.
+> >> + * global_node_page_state_monotonic() is normally reserved for monotonic
+> >> + * counters because a raw negative read is garbage as a page count, but the
+> >> + * sum with the pending deltas always restores the exact non-negative value.
+> >> + */
+> >> +static unsigned long pt_kunit_nr_secondary_pagetable(void)
+> >> +{
+> >> +	unsigned long nr = global_node_page_state_monotonic(NR_SECONDARY_PAGETABLE);
+> >> +
+> >> +#ifdef CONFIG_SMP
+> >> +	int nid, cpu;
+> >> +
+> >> +	cpus_read_lock();
+> >> +	for_each_online_cpu(cpu)
+> >> +		for_each_online_node(nid)
+> >> +			nr += per_cpu_ptr(NODE_DATA(nid)->per_cpu_nodestats,
+> >> +					  cpu)->vm_node_stat_diff[NR_SECONDARY_PAGETABLE];
+> >> +	cpus_read_unlock();
+> >> +#endif
+> >
+> >This should not be outside the mm code that manages this data
+> >structure.
+> >
 > 
-> Fixes: 6d415778f106 ("KVM: TDX: Disable support for TSX and WAITPKG")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/kvm/20260604024927.E22311F00893@smtp.kernel.org
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
-> ---
-> v5:
-> - Split out from "KVM: TDX: Validate userspace CPUID input for
->   KVM_TDX_INIT_VM" as a standalone fix.  Sashiko reported the issue
->   against the TDX CPUID validation patch, but it also applies to the
->   existing code, so split it out to allow backporting to stable
->   independently of the rest of the series.
-> - Check the userspace values against the subleaf reported by the TDX
->   module instead of rejecting the request when there is a mismatch.
+> You're right. However, I couldn't find a way to solve this by
+> modifying only the iommupt KUnit code.
 > 
->   A simpler alternative would be to require a zero index when
->   KVM_CPUID_FLAG_SIGNIFCANT_INDEX is cleared, but that would be an ABI
->   change.
+> >I think the kunit runner executes this in some environment that
+> >doesn't trigger this delay? At least I've never seen this assert?
+> >
+> 
+> I can reproduce the assert stably on an x86 machine by booting a
+> 4-core riscv64 QEMU.
 
-The even simpler change is to reject the incoming CPUID if userspace doesn't set
-KVM_CPUID_FLAG_SIGNIFCANT_INDEX as expected.  Yes, that's an ABI change.  No, we
-don't care.  The rule isn't "never change the ABI", it's "don't break userspace",
-and there's basically zero chance a TDX guest can function properly if userspace
-doesn't set KVM_CPUID_FLAG_SIGNIFCANT_INDEX as appropriate.
+Possibly kunit runner doesn't enable smp. Can you investigate? Maybe
+we can solve this by disabling the check on !SMP
 
-diff --git arch/x86/kvm/vmx/tdx.c arch/x86/kvm/vmx/tdx.c
-index 75a86d64892a..7e0d81066420 100644
---- arch/x86/kvm/vmx/tdx.c
-+++ arch/x86/kvm/vmx/tdx.c
-@@ -151,8 +151,12 @@ static void tdx_clear_unsupported_cpuid(struct kvm_cpuid_entry2 *entry)
-                clear_waitpkg(entry);
- }
- 
--static bool tdx_unsupported_cpuid(const struct kvm_cpuid_entry2 *entry)
-+static bool tdx_is_unsupported_cpuid_entry(const struct kvm_cpuid_entry2 *entry)
- {
-+       if (cpuid_function_is_indexed(entry->function) !=
-+           !!(entry->flags & KVM_CPUID_FLAG_SIGNIFCANT_INDEX))
-+               return true;
-+
-        return has_tsx(entry) || has_waitpkg(entry);
- }
- 
-@@ -2386,7 +2390,7 @@ static int setup_tdparams_cpuids(struct kvm_cpuid2 *cpuid,
-                if (!entry)
-                        continue;
- 
--               if (tdx_unsupported_cpuid(entry))
-+               if (tdx_is_unsupported_cpuid_entry(entry))
-                        return -EINVAL;
- 
-                copy_cnt++;
-
-Can you test the attached patches?  If they boot TDX with QEMU, I'll go ahead
-and post.
-
---eT79xhp2T0neg3Wb
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename=0001-x86-cpuid-Mark-CPUID-function-0x23-as-being-index.patch
-
-From 73ab6386bac6625333526ab6b137c445d22ab5db Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Thu, 15 Oct 2026 18:34:12 -0700
-Subject: [PATCH 1/4] x86/cpuid: Mark CPUID function 0x23 as being index
-
-Add function 0x23 to the set of CPUID functions that are index, as per the
-SDM and the many sub-leafs defined in leaf_types.h.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/include/asm/cpuid/api.h | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/x86/include/asm/cpuid/api.h b/arch/x86/include/asm/cpuid/api.h
-index 82eddfa2347b..25b22b173f2a 100644
---- a/arch/x86/include/asm/cpuid/api.h
-+++ b/arch/x86/include/asm/cpuid/api.h
-@@ -181,6 +181,7 @@ static __always_inline bool cpuid_function_is_indexed(u32 function)
- 	case 0x1d:
- 	case 0x1e:
- 	case 0x1f:
-+	case 0x23:
- 	case 0x24:
- 	case 0x8000001d:
- 		return true;
-
-base-commit: dea4f6380f4ec96e8f3b0aaf2343764bd0d25ef4
--- 
-2.56.0.176.g3575e65682-goog
-
-
---eT79xhp2T0neg3Wb
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename=0002-KVM-TDX-Set-SIGNIFCANT_INDEX-flag-as-appropriate-whe.patch
-
-From 90bd7cecc21de49fc30eda93de1d9f59d0c9a428 Mon Sep 17 00:00:00 2001
-From: Changyuan Lyu <changyuanl@google.com>
-Date: Thu, 15 Oct 2026 18:39:30 -0700
-Subject: [PATCH 2/4] KVM: TDX: Set SIGNIFCANT_INDEX flag as appropriate when
- filling CPUID entries
-
-Set the KVM_CPUID_FLAG_SIGNIFCANT_INDEX flag in the kvm_cpuid_entry2
-structures returned by KVM_TDX_CAPABILITIES if the CPUID is indexed,
-otherwise KVM could confuse userspace and induce a configuration error.
-This also ensures consistency with the CPUID entries returned by
-KVM_GET_SUPPORTED_CPUID.
-
-Fixes: 61bb28279623 ("KVM: TDX: Get system-wide info about TDX module on initialization")
-Cc: stable@vger.kernel.org
-Suggested-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Changyuan Lyu <changyuanl@google.com>
-[sean: keep the WARN, don't key off KVM_TDX_CPUID_NO_SUBLEAF]
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/kvm/vmx/tdx.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index ee1d412b0ee6..bcfecd2b1f31 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -2,6 +2,7 @@
- #include <linux/cleanup.h>
- #include <linux/cpu.h>
- #include <asm/cpufeature.h>
-+#include <asm/cpuid/api.h>
- #include <asm/fpu/xcr.h>
- #include <linux/misc_cgroup.h>
- #include <linux/mmu_context.h>
-@@ -163,11 +164,18 @@ static void td_init_cpuid_entry2(struct kvm_cpuid_entry2 *entry, unsigned char i
- 
- 	entry->function = (u32)td_conf->cpuid_config_leaves[idx];
- 	entry->index = td_conf->cpuid_config_leaves[idx] >> 32;
-+	entry->flags = 0;
- 	entry->eax = (u32)td_conf->cpuid_config_values[idx][0];
- 	entry->ebx = td_conf->cpuid_config_values[idx][0] >> 32;
- 	entry->ecx = (u32)td_conf->cpuid_config_values[idx][1];
- 	entry->edx = td_conf->cpuid_config_values[idx][1] >> 32;
- 
-+	if (cpuid_function_is_indexed(entry->function))
-+		entry->flags |= KVM_CPUID_FLAG_SIGNIFCANT_INDEX;
-+
-+	WARN_ON_ONCE(cpuid_function_is_indexed(entry->function) !=
-+		     (entry->index != KVM_TDX_CPUID_NO_SUBLEAF));
-+
- 	if (entry->index == KVM_TDX_CPUID_NO_SUBLEAF)
- 		entry->index = 0;
- 
--- 
-2.56.0.176.g3575e65682-goog
-
-
---eT79xhp2T0neg3Wb
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename=0003-KVM-TDX-Don-t-zero-non-significant-CPUID-entry-indic.patch
-
-From c5cb713d03fa7cc41b999db8b014da6aa3d2a424 Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Thu, 15 Oct 2026 18:42:36 -0700
-Subject: [PATCH 3/4] KVM: TDX: Don't zero non-significant CPUID entry indices
-
-Now that KVM sets KVM_CPUID_FLAG_SIGNIFCANT_INDEX when filling CPUID
-entries based on output from the TDX Module, don't zero the index for
-entries without a signficant index, as doing so incorrectly suggests that
-zero is somehow special, which it is not.  The critical piece of info is
-the SIGNIFCANT_INDEX flag, which tells KVM (and userspace) to simply ignore
-the index.
-
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/kvm/vmx/tdx.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index bcfecd2b1f31..75a86d64892a 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -176,9 +176,6 @@ static void td_init_cpuid_entry2(struct kvm_cpuid_entry2 *entry, unsigned char i
- 	WARN_ON_ONCE(cpuid_function_is_indexed(entry->function) !=
- 		     (entry->index != KVM_TDX_CPUID_NO_SUBLEAF));
- 
--	if (entry->index == KVM_TDX_CPUID_NO_SUBLEAF)
--		entry->index = 0;
--
- 	/*
- 	 * The TDX module doesn't allow configuring the guest phys addr bits
- 	 * (EAX[23:16]).  However, KVM uses it as an interface to the userspace
--- 
-2.56.0.176.g3575e65682-goog
-
-
---eT79xhp2T0neg3Wb
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename=0004-KVM-TDX-Reject-KVM_TDX_INIT_VM-if-indexed-CPUID-func.patch
-
-From c38351fecf16d9bbb694f3a08127ab90ae64484b Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Fri, 16 Oct 2026 07:41:34 -0700
-Subject: [PATCH 4/4] KVM: TDX: Reject KVM_TDX_INIT_VM if indexed CPUID
- functions don't match
-
-Reject KVM_TDX_INIT_VM if userspace doesn't configure the canonical CPUID
-entries correctly with respect to KVM_CPUID_FLAG_SIGNIFCANT_INDEX to fix a
-bug where userspace could bypass the TSX and WAITPKG checks by simply not
-marking a CPUID.0x7 entry as being indexed.  This also sets the stage for
-more in-depth validation of the incoming CPUID configuration.
-
-This is obviously an ABI change and diverges from KVM's general approach of
-"let userspace do what it wants".  In practice, no "real" VMM that supports
-TDX misconfigures a TD's CPUID entries in this way, i.e. the probability of
-actually breaking userspace is basically nil.  And unlike normal VMs, where
-KVM has full control and thus can deal with bizarre CPUID input without too
-much fuss, TDX VMs require extra care due to the TDX Module also reacting
-to the CPUID configuration, i.e. KVM_TDX_INIT_VM needs to be more strict
-than KVM_SET_CPUID{,2} to avoid creating potentially dangerous-to-the-host
-setups.
-
-Opportunistically rename the helper to make it more obvious that it's
-checking if the passed in @entry is unsupported, as opposed to returning a
-set of unsupported entries or something.
-
-Fixes: 6d415778f106 ("KVM: TDX: Disable support for TSX and WAITPKG")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/kvm/20260604024927.E22311F00893@smtp.kernel.org
-Cc: stable@vger.kernel.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/kvm/vmx/tdx.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index 75a86d64892a..7e0d81066420 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -151,8 +151,12 @@ static void tdx_clear_unsupported_cpuid(struct kvm_cpuid_entry2 *entry)
- 		clear_waitpkg(entry);
- }
- 
--static bool tdx_unsupported_cpuid(const struct kvm_cpuid_entry2 *entry)
-+static bool tdx_is_unsupported_cpuid_entry(const struct kvm_cpuid_entry2 *entry)
- {
-+	if (cpuid_function_is_indexed(entry->function) !=
-+	    !!(entry->flags & KVM_CPUID_FLAG_SIGNIFCANT_INDEX))
-+		return true;
-+
- 	return has_tsx(entry) || has_waitpkg(entry);
- }
- 
-@@ -2386,7 +2390,7 @@ static int setup_tdparams_cpuids(struct kvm_cpuid2 *cpuid,
- 		if (!entry)
- 			continue;
- 
--		if (tdx_unsupported_cpuid(entry))
-+		if (tdx_is_unsupported_cpuid_entry(entry))
- 			return -EINVAL;
- 
- 		copy_cnt++;
--- 
-2.56.0.176.g3575e65682-goog
-
-
---eT79xhp2T0neg3Wb--
+Jason
