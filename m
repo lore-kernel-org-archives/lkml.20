@@ -1,58 +1,56 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9374FDE7B;
-	Fri, 16 Oct 2026 15:40:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F0D4FDE50
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:41:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792165253; cv=none; b=tDsQ+IKf9xTiE5EW6LhDp0gd6v4WVnI951BeVFM9cWj5ppOkqY9HLVEWP/3PLYGx3JwudqAyhxu00qjsgzFjFDWVeNoHESP4Jn6SsmxzSFoDLN2FPmHQyvNBMvOTFnKqY2O4cqBCqKt7GBedqSO1/inalrqjSlgkLWTqa/Estv8=
+	t=1792165306; cv=none; b=Zovv/fqFYURH238YfbXeNdCM5Je5W9KE65zKQTWbRMizNNuSFGHV6i4fMN+tde6owlihC/2XoM8MqHfbyqdox1vDlhsH174NNDAhgfRXgQA0o6IHZP62rpADmKv/4liD3FMXwxWAib/tVOFCVJAb3MjUaSNcqLnGldwyTRWIHzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792165253; c=relaxed/simple;
-	bh=PWKkcdsBBgYQxSU2/GWGHlKuFkpH4PAl87IVc32ausk=;
+	s=arc-20240116; t=1792165306; c=relaxed/simple;
+	bh=lQdNO9ASIMt190LNwk3gfFdUkFysuLWeoiSEXfgy8Es=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BZHJmcQH3uVe+vltRAKPfl7HHjmCn7nmKIB9rHgsQM6wZ9GFfkyRD4R2EEM/IKBQtjleZsp5kW1mtAqNGnYaCOoxsYi0XwSR/44jmnENLFbfgFHugHfPr6/XuN4wGRHYHspNIftKTGqBHMVsWjvMnLRHeglUs4PtYJz9T4Gkk9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=nW8dNfcx; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=klX9iPGT6336caR7dCLZqF8roksPh5fOairFE3JkLp0ytQL9h0JojlIE3FdkVAOzbjdek5KAoIZCNnvm+LO72wBNJHh62oIIq0/RDJCMG1VK66/lWRs/Pi+vxPB2COsAC5jV/uFJLlwsrIdRjh3H9NzysQxU5TtCJhc8SrGMdEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eU+O+S8w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="nW8dNfcx"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=zV1tkuQVhB7asiK+J7N184oVAmpF7qz9rFGuGv/mKyw=; b=nW8dNfcxTDYiFECGGfWoIX/Ku7
-	sNm/7PDt5sXWvnWyXzhpOQ2gJNbHyuDrk9MvdSwog/lwmUtPRdYxf/cY8s5vrupvCYCd5nLhfXZkc
-	T+HCLAIsl4EYA1mG6U13D3Fg74Ln3knSk4rATAMC7bC7iRz98pywJkmpdcpg8OX3tMa0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xHk2y-00BArn-3k; Fri, 16 Oct 2026 17:40:40 +0200
-Date: Fri, 16 Oct 2026 17:40:40 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Biao Huang <biao.huang@mediatek.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Eric Dumazet <edumazet@kernel.org>, kernel@collabora.com,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH net-next v3 2/9] dt-bindings: net: mediatek-dwmac: add
- support for MT8189 SoC
-Message-ID: <b4950f82-0163-4482-9799-a5e3c6eb5964@lunn.ch>
-References: <20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com>
- <20261016-dwmac-mediatek-mt8189-v3-2-25daf2bbcf35@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eU+O+S8w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65DFE1F000C4;
+	Fri, 16 Oct 2026 15:41:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792165303;
+	bh=NxH6DkhqLCrufeYTYEwrZTsGvgraVA141qi17FQA5/M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eU+O+S8wgpGDtS96N4yUHFCa7f5OCOrTgJsoWlvmwEgFyXteoj0TjQGZIBzuBsEet
+	 5+SIRDkZ5wUSpaEO40q8tFjQ0lHT5T8CYYbvT5pLfVjsnyYcSY9o5kFEgr9Yf7WD/y
+	 4clKaDRRqpSOOBJgIOPOtP8pRM/1bID1pa6TfZ8rU9TLpGNDKOxKVOLzwXeIQ7g4nP
+	 Rq/43UNiOvGAKfBYO0J0w2Fdcw9HTwLQNzVbkl6yvr/J9eud5z3NNu9aACbmEkFSqu
+	 d8ymw1M4F/g7BXheoUDFhHda1Dcp9wuIs2DAshof3eW6pFGssek1/aTOf1iEYkPyZ7
+	 fSvTuEazNprPA==
+Date: Fri, 16 Oct 2026 15:41:41 +0000
+From: Jaegeuk Kim <jaegeuk@kernel.org>
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Pedro Falcato <pfalcato@suse.de>, Harry Yoo <harry@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Ilya Gladyshev <ilya.gladyshev@linux.dev>,
+	Matthew Wilcox <willy@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-mm <linux-mm@kvack.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>
+Subject: Re: Improve page refcount scalability
+Message-ID: <atJFtYbWKpL2qQ-a@google.com>
+References: <CAHk-=wjLjgfwgSZ1RDk4YdNFcV0ntosMO5AmBoHD76Zb3HFY7Q@mail.gmail.com>
+ <as690Xcu7FxIDYjf@thinkpad>
+ <CAHk-=wiak+h+d2tZ5W_MwRzatUP=hJKn7cpGjDxArG-gwgHLXg@mail.gmail.com>
+ <as9-2cIuGuXwE2Oa@pedro-suse.tail5790ac.ts.net>
+ <CAHk-=wgkoAuxNXga29nQ8w7GxdqR+4vPAUhPsbfp+gzKrb9EgA@mail.gmail.com>
+ <CAHk-=whzkNzkBmCspHYd80D1Z=krDc4SgVC32=pJ5PtEgqSDrw@mail.gmail.com>
+ <3c613725-406a-4506-b788-987a337b9771@app.fastmail.com>
+ <CAHk-=wh+1Hz+3HJ8evmh=FKO1fCGiwuNTqArXEfe-tAJ6hDy0A@mail.gmail.com>
+ <atA2g8OgpiNOiVL_@google.com>
+ <atI30-1q2iEFPEbR@thinkstation>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,42 +59,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-2-25daf2bbcf35@collabora.com>
+In-Reply-To: <atI30-1q2iEFPEbR@thinkstation>
 
-> Finally, update "mediatek,rx-delay-ps" and "mediatek,tx-delay-ps" property
-> description to add MT8189 RX/TX delay stage divider values, as they
-> differ from existing supported SoC.
+On 10/16, Kiryl Shutsemau wrote:
+> On Thu, Oct 15, 2026 at 02:12:19AM +0000, Jaegeuk Kim wrote:
+> > Indeed, it's a bug that user can see zeros between F2FS_IOC_START_ATOMIC_REPLACE
+> > and F2FS_IOC_COMMIT_ATOMIC_WRITE. I think we need to move the truncation path
+> > into the commit phase and use truncate_inode_pages() instead.
+> 
+> What about f2fs_abort_atomic_write(inode, true)?
+> 
+> It calls truncate_inode_pages_final() as well. As far as I can see, it
+> runs on the last writer's close (f2fs_release_file()), on flush when the
+> atomic writer exits (f2fs_file_flush()), from
+> F2FS_IOC_ABORT_ATOMIC_WRITE and when F2FS_IOC_COMMIT_ATOMIC_WRITE fails.
+> 
+> Can other processes still have the file open at those points?
+> 
+> AS_EXITING is never cleared. Does the inode then stay "exiting" until
+> it is evicted? If so, reclaim stops leaving shadow entries for the file,
+> and with the rcu-free series a hot folio of it could be freed without a
+> grace period while a reader still has the file open.
+> 
+> Would truncate_inode_pages() work for the abort path too?
 
-These should be mark deprecated and the standard rx-internal-delay-ps
-and tx-internal-delay-ps used in there place for new devices.
+Yup, we revisited all the cases and the fix is coming.
+https://lore.kernel.org/lkml/20261015161714.1586334-1-daeho43@gmail.com/
 
-> @@ -86,8 +85,10 @@ properties:
->        or will round down. Range 0~31*170.
->        For MT2712 RMII/MII interface, Allowed value need to be a multiple of 550,
->        or will round down. Range 0~31*550.
-> -      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a multiple of 290,
-> -      or will round down. Range 0~31*290.
-> +      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a
-> +      multiple of 290, or will round down. Range 0~31*290.
-> +      For MT8189 RGMII/RMII/MII interface, Allowed value need to
-> +      be a multiple of 180, or will round down. Range 0~31*180.
+Regarding the truncated page access during the transaction, we reached out a
+conclusion that the user land provides a synchronization method to prevent it.
+So, I think we're fine with the above patch only.
 
-Please make this:
-
-For MT8189 RGMII/RMII/MII interface, this property is not used, the
-standard tx-internal-delay-ps should be used instead.
-
-> @@ -96,8 +97,10 @@ properties:
->        or will round down. Range 0~31*170.
->        For MT2712 RMII/MII interface, Allowed value need to be a multiple of 550,
->        or will round down. Range 0~31*550.
-> -      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a multiple
-> -      of 290, or will round down. Range 0~31*290.
-> +      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a
-> +      multiple of 290, or will round down. Range 0~31*290.
-> +      For MT8189 RGMII/RMII/MII interface, Allowed value need to
-> +      be a multiple of 180, or will round down. Range 0~31*180.
-
-Same here.
-
-     Andrew
+> 
+> -- 
+>   Kiryl Shutsemau / Kirill A. Shutemov
