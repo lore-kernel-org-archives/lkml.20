@@ -1,278 +1,170 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C5E54E2F28;
-	Fri, 16 Oct 2026 14:31:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896A94E80B6;
+	Fri, 16 Oct 2026 14:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161106; cv=none; b=AEbkLUSoCyCW7f9L5cAERg47a7esUGjlo64H80HFJxO1KgyZMYFDKqX7SepBf6jubfzQtGHiajsYYGxMdEwQtxY4Wo+fqX7fDkknISCRLHA9rEFMo1LQ7aPZDR/RkeDr78I2mRJJi8/Kz/IJ5c85/K/DUoSNZKX24YaIPQh6E5g=
+	t=1792161107; cv=none; b=ZWULJmxks39VEtwNdqbw2fae10DoxV0amRhPe9nWBjQ6Tm2eqMuE7VIcr/1X5LOX142yq3tTFl1BEeycieddmnO7UHJV5NM7VC2GVmVHQSjdrRKNqM9DbwW7yezA+TiD2loM6M1nyKMY4nrUlJgZ/bRW8LGXSrb6m6joqlOkDLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161106; c=relaxed/simple;
-	bh=dt+a4a6W70jAxDMgMbHMH1fPbQ/npH5no4bHOhmOJ1Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tKy1JmXNEnA4cuQkopgP+EI7cEKY7+V4LSdHhuNabcqktEiS+8XX6vjcyJbG8GsnnNMzoDcbxxBjkz/o7CxS/o3DfXWhIVvePo0kD92q/SFYr+8R2KwfMnh/zWeDfYAPf9GG/eGC0VGtcCwD9gabNtM7lgKTdURxfBQR1PIqw24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JUGTEosA; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1792161107; c=relaxed/simple;
+	bh=ZVdy5Cz3DjKZ34TIfzoW/satpORc0d8M1TxE2FIIDSQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZB+Ry5ETvz8p5EuLlBVR6n1mJch1Yxe2TsX9KZOT6SU3zuTU/YAOTx15/LU81OeaazY9VKoLyy28k7kNhciGWqd5u6pT3cIaxkJegbI4C7Y+OK/g08JSCw9KJKLmF6mZkVQkYB+bSIi1oKs9EGs2pe1cTRU30sE+ooIN9pss7E0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BIkbO2Qg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JUGTEosA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792161104; x=1823697104;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=dt+a4a6W70jAxDMgMbHMH1fPbQ/npH5no4bHOhmOJ1Q=;
-  b=JUGTEosAmxx1iscke4UCmFU4HmpA/Suto0zJ1tOwo/4qPhqleprS1Mlp
-   K5ZMHPVhbntquFS2gdaia8M9nfsngwJQ1FfYH9QKRP3nLe+z8SHu8DJFX
-   U9S/wGF1v16Biq74EdEcQ5nA9XsAGnrcv9MJG3ALHaogP64x5rQv+Ex8s
-   BIHJid+0I9wP4AVriqW8CGioW/oO15E0IhDlpks5T8Zvq6eQwNYr6yXrA
-   t324Ob5jpGjm9mqP3fMe9CDLO3Bw74MXtvAUcdg+7g5zVM+nn9cTp+C/j
-   oo1jyslsrdal9E9a2teAivgcOF2YTfT/4veEW66dmYUv+B5nw4O2wglv0
-   Q==;
-X-CSE-ConnectionGUID: z+BscdiTSV6eyvG6uChHIA==
-X-CSE-MsgGUID: JJc683/TQ96eSgHjji01FA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="950265"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="950265"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 07:31:43 -0700
-X-CSE-ConnectionGUID: mRWJKeS1S0+qnz5vjEKOLw==
-X-CSE-MsgGUID: 52fbFazJTpmxta21tS5qsw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="1954568"
-Received: from dawidgla-mobl.ger.corp.intel.com (HELO [10.94.249.157]) ([10.94.249.157])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 07:31:41 -0700
-Message-ID: <f7c98fbe-2880-4769-bf09-53134cdfc63d@linux.intel.com>
-Date: Fri, 16 Oct 2026 16:31:33 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BIkbO2Qg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C4791F000C4;
+	Fri, 16 Oct 2026 14:31:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792161106;
+	bh=lc2UzAwqjINRM2lPF6747JxhVVG9TcyYOOdH7tVVz6w=;
+	h=From:To:Cc:Subject:Date;
+	b=BIkbO2Qg2MC+Lxzk1xNjZG/ed0DaLOC2F1L38e9adOEvabpZJ/oN8ak9/CRegszsT
+	 8JE5mQM9K6FNP05TsE82YB+gyFcU2nnrRGVgFAGscXF0XBwON2bOCKshTgzksrpIVJ
+	 SRi8xkub1oM8XfOyYVRbmJy1Of6kol3GrbUxW3bweKyYbZPpbfweRKaaY9bOoSRgzO
+	 JV5N3TMW92K59qERkFT3UtmhEZas7OLDF4C9D+xJZnRsOgRVPB222GtbrKOhx5wzHu
+	 +nH6VPlrgCWPoDbM+OopMdmNEnXNQh45dCSjqSG2fL6Vf6TUHf/oHcGfUPO+/UbmkA
+	 OOqbxpNB/5jIw==
+From: Sasha Levin <sashal@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	linux-kbuild@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v2 0/7] kbuild: build the userspace tools in tools/ with the kernel
+Date: Fri, 16 Oct 2026 10:31:36 -0400
+Message-ID: <20261016143143.3613501-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] ARM: dts: aspeed: add Intel AVCRP BMC
-To: Tan Siewert <tan.siewert@9elements.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- maciej.lawniczak@intel.com
-References: <cover.1791825961.git.dawid.glazik@linux.intel.com>
- <12f8124fea31a6c6b1401d6aee640842c8d896a7.1791825961.git.dawid.glazik@linux.intel.com>
- <7d703c43-e462-41d6-a488-87342fd139a2@9elements.com>
-Content-Language: en-US
-From: Dawid Glazik <dawid.glazik@linux.intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <7d703c43-e462-41d6-a488-87342fd139a2@9elements.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/12/2026 7:19 PM, Tan Siewert wrote:
-> On 10/12/26 7:39 PM, Dawid Glazik wrote:
->> Add the initial AST2600 device tree for the Intel AVCRP BMC platform.
->>
->> Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
-> 
-> You got Review trailers from Andrew Lunn in v1. Unless you think Andrew 
-> has to re-review it (which should be then reasoned), please keep them in 
-> new revisions.
-> 
->  From the kernel docs [0]:
-> 
-> "Both Tested-by and Reviewed-by tags, once received on mailing list from 
-> tester or reviewer, should be added by author to the applicable patches 
-> when sending next versions. However if the patch has changed 
-> substantially in following version, these tags might not be applicable 
-> anymore and thus should be removed. Usually removal of someone’s Acked- 
-> by, Tested-by or Reviewed-by tags should be mentioned in the patch 
-> changelog with an explanation (after the ‘---’ separator)."
-> 
->> ---
->> v2:
->>   - Replace bootargs console=ttyS4,115200n8 with stdout-path = &uart5
->>   - Remove the unreferenced video_memory reserved-memory node
->> ---
->>   arch/arm/boot/dts/aspeed/Makefile             |   1 +
->>   .../dts/aspeed/aspeed-bmc-intel-avcrp.dts     | 315 ++++++++++++++++++
->>   2 files changed, 316 insertions(+)
->>   create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
->>
->> diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/ 
->> aspeed/Makefile
->> index 767f7c7652d5..ea4645ef9872 100644
->> --- a/arch/arm/boot/dts/aspeed/Makefile
->> +++ b/arch/arm/boot/dts/aspeed/Makefile
->> @@ -54,6 +54,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
->>       aspeed-bmc-ibm-rainier-4u.dtb \
->>       aspeed-bmc-ibm-sbp1.dtb \
->>       aspeed-bmc-ibm-system1.dtb \
->> +    aspeed-bmc-intel-avcrp.dtb \
->>       aspeed-bmc-intel-s2600wf.dtb \
->>       aspeed-bmc-inspur-fp5280g2.dtb \
->>       aspeed-bmc-inspur-nf5280m6.dtb \
->> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts b/ 
->> arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
->> new file mode 100644
->> index 000000000000..7c088c89d417
->> --- /dev/null
->> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
->> @@ -0,0 +1,315 @@
->> +// SPDX-License-Identifier: GPL-2.0-or-later
->> +// Copyright 2026 Intel Corporation
->> +
->> +/dts-v1/;
->> +
->> +#include "aspeed-g6.dtsi"
->> +#include <dt-bindings/gpio/aspeed-gpio.h>
->> +
->> +/ {
->> +    model = "Intel AVCRP BMC";
->> +    compatible = "intel,avcrp-bmc", "aspeed,ast2600";
->> +
->> +    aliases {
->> +        serial4 = &uart5;
->> +    };
->> +
->> +    chosen {
->> +        stdout-path = &uart5;
->> +        bootargs = "earlycon";
->> +    };
->> +
->> +    memory@80000000 {
->> +        device_type = "memory";
->> +        reg = <0x80000000 0x40000000>;
->> +    };
->> +
->> +    reserved-memory {
->> +        #address-cells = <1>;
->> +        #size-cells = <1>;
->> +        ranges;
->> +
->> +        video_engine_memory: jpegbuffer {
->> +            size = <0x02000000>; /* 32M */
->> +            alignment = <0x01000000>;
->> +            compatible = "shared-dma-pool";
->> +            reusable;
->> +        };
->> +    };
->> +
->> +};
->> +
->> +&rtc {
->> +    status = "okay";
->> +};
-> 
-> Please sort your nodes, as described in the device tree design guideline 
-> [1]. There's also a tool called `scripts/dtc/dt-check-style` that can 
-> help with this.
-> Note on that: we usually run `--mode strict` but it is known to report 
-> false-positives, so please check any reported errors twice ^^
-> 
->> +
->> +&fmc {
->> +    status = "okay";
->> +    flash@0 {
->> +        status = "okay";
->> +        m25p,fast-read;
->> +        label = "bmc";
->> +        spi-rx-bus-width = <4>;
->> +        spi-max-frequency = <50000000>;
->> +#include "openbmc-flash-layout-64.dtsi"
->> +    };
->> +};
->> +
->> +&uart1 {
->> +    status = "okay";
->> +};
->> +
->> +&uart3 {
->> +    status = "okay";
->> +};
->> +
->> +&uart4 {
->> +    status = "okay";
->> +};
->> +
->> +&uart5 {
->> +    status = "okay";
->> +};
->> +
->> +&uart_routing {
->> +    status = "okay";
->> +};
->> +
->> +&mdio1 {
->> +    status = "okay";
->> +
->> +    ethphy1: ethernet-phy@0 {
->> +        compatible = "ethernet-phy-id001c.c916";
->> +        reg = <0>;
->> +        reset-gpios = <&gpio0 ASPEED_GPIO(C, 1) GPIO_ACTIVE_LOW>;
->> +        reset-assert-us = <10000>;
->> +        reset-deassert-us = <50000>;
->> +    };
->> +};
->> +
->> +&mac1 {
->> +    status = "okay";
->> +    pinctrl-names = "default";
->> +    pinctrl-0 = <&pinctrl_rgmii2_default>;
->> +    clocks = <&syscon ASPEED_CLK_GATE_MAC2CLK>,
->> +         <&syscon ASPEED_CLK_MAC2RCLK>;
->> +    clock-names = "MACCLK", "RCLK";
->> +    phy-mode = "rgmii-id";
->> +    phy-handle = <&ethphy1>;
->> +};
->> +
->> +&lpc {
->> +    lpc_snoop: lpc-snoop@80 {
->> +        snoop-ports = <0x80>;
->> +        status = "okay";
->> +    };
-> 
-> Why's this named if you don't use it as reference anywhere.
-> 
->> +};
->> +
->> +&i3c_global {
->> +    status = "okay";
->> +};
-> 
-> That's enabled by default.
-> 
->> +
->> +&vhub {
->> +    status = "okay";
->> +};
->> +
->> +&video {
->> +    status = "okay";
->> +    memory-region = <&video_engine_memory>;
->> +};
->> +
->> +&gpio0 {
->> +    gpio-line-names =
->> +        /*A0-A7*/ "", "", "", "", "SMB_CPU_PIROM_SCL", 
->> "SMB_CPU_PIROM_SDA",
->> +                "SMB_IPMB_STBY_LVC3_SCL", "SMB_IPMB_STBY_LVC3_SDA",
->> +        /*B0-B7*/ "", "", "", "FM_CPU1_ERR2_LVT3_N",
->> +                "RGMII_BMC_RMM4_LVC3_R_MDC", 
->> "RGMII_BMC_RMM4_LVC3_R_MDIO",
-> 
-> Why do you name reserved GPIO lines (in this case the RGMII lines)? 
-> They're used by the kernel anyways.
-> 
-> Tan
-> 
-> [0] https://docs.kernel.org/process/submitting-patches.html#using- 
-> reported-by-tested-by-reviewed-by-suggested-by-and-fixes
-> [1] https://docs.kernel.org/devicetree/bindings/dts-coding-style.html
-Hi Tan,
+The userspace programs under tools/ are disconnected from the rest of the
+kernel's build system. Each has its own makefiles and build framework, and
+"make" never builds them: apart from the few host tools the build itself needs,
+such as objtool and resolve_btfids, nothing under tools/ is compiled as part of
+a kernel build.
 
-Thanks for the instructions. I'll implement them in the new revision
+That makes them easy to break. Most people, and most of the build bots, check a
+change with "make allmodconfig && make", which doesn't cover tools/ at all. A
+change that breaks a tool passes every build check and is only noticed when
+someone happens to build that tool by hand, often much later.
 
-Dawid
+We keep seeing this in tools/testing/: selftests that stop building after a
+change elsewhere in the tree, or after a backport to a stable tree, and stay
+broken until someone tries to build them. Others brought up the same concern at
+LPC.
+
+This series lets the kernel build also build the tools it is configured for:
+
+- tools/Kconfig adds a "Build userspace tools from tools/" menu
+  (CONFIG_TOOLS_BUILD) with one entry per tool and per selftests
+  directory, so .config records what gets built, and a tool that breaks
+  can be turned off on its own.
+
+- "make tools_build" builds the selected tools for the target, each with
+  its own build system as it is built standalone, into tools-build/ in
+  the object tree.
+
+- With CONFIG_TOOLS_BUILD=y, "make all" builds them too. allmodconfig
+  and allyesconfig enable every entry that applies to the target when
+  the compiler can link glibc programs for it (currently x86_64 and
+  arm64), so the usual build test catches tools breakage. Other
+  toolchains are unaffected, as are "make vmlinux", "make modules" and
+  external module builds.
+
+This is useful beyond build testing: the tools are built for the same
+target, from the same tree, as the kernel they go with.
+
+Changes in v2:
+- 1/7: Add Thomas's Reviewed-by.
+- 2/7: Put each "depends on" condition on its own line. Allow UML: the
+  tools are built for the architecture UML runs on (HEADER_ARCH), as
+  their build systems do not know ARCH=um. Drop the
+  PYTHONDONTWRITEBYTECODE export, as 5479e1a13b75 ("perf tools: Put
+  Python bytecode in output directory") in perf-tools-next keeps perf's
+  bytecode in its output directory.
+- 3/7: New. Add MINIMAL=1 to perf, which turns off every optional
+  feature, as Ian suggested.
+- 4/7: Build perf with MINIMAL=1 instead of a list of NO_* variables.
+- 5/7: As with "make kselftest-all", a selftest that fails to build no
+  longer fails the build unless FORCE_TARGETS is set, and
+  kselftest_deps.sh lists the libraries it needs that the compiler
+  cannot link with. Also rebuild the selftests when headers under
+  tools/arch change, the vDSO test when kernel headers change, and the
+  x86 tests when the x86 headers they include change.
+
+3/7 is against mainline. perf-tools-next renamed NO_LIBPYTHON to
+NO_PYTHON_MODULE and runs mypy and pylint by default, so there it also
+needs NO_PYTHON_MODULE, NO_MYPY and NO_PYLINT.
+
+v1: https://lore.kernel.org/r/20261011233647.2454648-1-sashal@kernel.org
+
+Sasha Levin (7):
+  kbuild: factor the userspace ABI flags out into KBUILD_USERABI
+  kbuild: add "make tools_build" to build userspace tools from tools/
+  perf build: Add MINIMAL=1 to build without optional features
+  tools: build perf in tools_build
+  tools: build kernel selftests in tools_build
+  kbuild: build the tools selected in tools/Kconfig as part of "make
+    all"
+  Documentation: describe building tools with the kernel
+
+ .gitignore                                 |   5 +
+ Documentation/dev-tools/kselftest.rst      |   4 +
+ Documentation/kbuild/kbuild.rst            |   4 +-
+ Documentation/process/submit-checklist.rst |   5 +
+ Makefile                                   |  24 +-
+ lib/Kconfig.debug                          |   2 +
+ tools/Kconfig                              | 330 +++++++++++++++++++++
+ tools/Makefile.kbuild                      | 205 +++++++++++++
+ tools/perf/Makefile.config                 |   8 +-
+ tools/perf/Makefile.perf                   |  40 ++-
+ tools/perf/tests/make                      |   8 +-
+ 11 files changed, 617 insertions(+), 18 deletions(-)
+ create mode 100644 tools/Kconfig
+ create mode 100644 tools/Makefile.kbuild
+
+
+base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
+prerequisite-patch-id: 68eb8785244b88ec7e696e716420e2d9b1367dbc
+prerequisite-patch-id: 37c57cf4c2a9700788cd1755912753f363cbb3f9
+prerequisite-patch-id: 7772557d5d842a42f1bbb3ee18d41f337db9783a
+prerequisite-patch-id: 75abf8d47ec8093740c215e9eebe7bbb5846ddd6
+prerequisite-patch-id: de33c5273a0f7619a54dc6d1fd9c47383b7dd60e
+prerequisite-patch-id: 5243b7b03f2c12a6e66c353b0c083f7f21fd7ba2
+prerequisite-patch-id: 7153a847ba7b05e49a670caba5d5b8fa2508eff1
+prerequisite-patch-id: 67a995618952454c30eb77960a5bf6f897d22547
+prerequisite-patch-id: f0580be789bfbd90c903bfef8cf6099609e63347
+prerequisite-patch-id: 975b27a83085ae7532771fbd7bb17b779ea2c254
+prerequisite-patch-id: 1eee5ec66bc4c1ff3ba9f57e005484ed514c77a1
+prerequisite-patch-id: 333bf51a132f726bf970b5963017bdc607c0e315
+prerequisite-patch-id: 7853ec5197ec9b9322a102a6b02dd62bba4df102
+prerequisite-patch-id: bc69d99570e4326ce7736b244838e1e97cc13358
+prerequisite-patch-id: 7a28872d234cdfa7bd5ec851e9dde01a65e91130
+prerequisite-patch-id: f75a478f103e8707f7ce1ebb136e3a605f026cae
+prerequisite-patch-id: c6aacf3772c239df0224afb7e4bb661fb9b81c63
+prerequisite-patch-id: a71f47de3fd339d680c9f18e80f5bcde7eae0abf
+-- 
+2.53.0
+
