@@ -1,231 +1,197 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022079.outbound.protection.outlook.com [52.101.126.79])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283D2421A15;
-	Fri, 16 Oct 2026 08:20:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.79
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792138826; cv=fail; b=VpyYqgt2AsVpTL1P+OuRHdTV/fvu1nHp6fCF8pFbU1usR3450ouu00l8+tPi5kor1OX9l2TA9lXiffJ62OdpYOMMqhUzGZWqJfvMQxnIqgu8K79X9TowVg8DPkI6ycmEAHcTXu6AtQ2ysrumhS8QDlZD+mFAec/wcDR0oWBmCjk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792138826; c=relaxed/simple;
-	bh=BPOCnhcaVSXKej71J3Q68f6qOwYla+C5R3q16xvnTfE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=TRWa0DH2uyAoxbw37ao39xz3eG9+Tff2Zg61ezdq8jYrH+vxHnjRsR2HlWGdXtQQE51eerI8fa/+kiURjEenB706M/+VCdu25c4h4rOnA9znHIEUUh0BnAUasEDlL5bd1/jiuc4VCIwXuHQ+q86MBZU5MNjUadKsTAlyMMnzfpE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=microsoft.com; dkim=pass (1024-bit key) header.d=microsoft.com header.i=@microsoft.com header.b=VQovOkUB; arc=fail smtp.client-ip=52.101.126.79
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microsoft.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1845530CD81;
+	Fri, 16 Oct 2026 08:20:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792138853; cv=none; b=IKbosIFQvAIGoOlKK5EQswWiA4oOrPd5e/IMh0DpLTw9IHBIEyLbRM0X2ZM4+0Olvqg8JY72m8AhMv2kA4OiFV8t3e+klkAC/+cF8qUoztnepKAH0I+V5A3yMrfQPwh4K/ZpKqB9Zpm7MxQINHMnteZBfibe3ljjE+w2sSypGKw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792138853; c=relaxed/simple;
+	bh=BOOkYLgUaPu0axgwVqPPQh923YwcL1wTo6GS7Rp7sGA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lnryXxmjLix90sZA9SzRSK2IyB9SOONHt3+8E/89Bp/0HORdUq1iCsip4zThCVpDk9qIq+/Iu79gb1URxOmj3ioXsZ1s7jq3oTt95FJFE1l1lja+lcMvTapMh01c+0J/X3y2LJp66VA95fsMk6tkSC+sAWq0GMvYG6fTQt7giE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1Y0vH9yD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=gdubjBOU; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1Y0vH9yD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=gdubjBOU; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=microsoft.com header.i=@microsoft.com header.b="VQovOkUB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gKlerueZAx8vTsCp8JObwINKfnmMLhxetKzMGOs7oYRUWBFmdmK1qUy5hxC1qZNexOs9YBsB4HbP03Zm1M9BOyUDJ+iBo/e2MJAAMi/Zrn0k6DBHr3I5ycAVce0nYruDi+pN1sycREd+5cnuXeuAXv3dHWwfXYwe7gl5jyu0EDvgI7meHEQRL1SNMMJA/4AiG2BtMDGPNsg7A5nsnrLTIV7Z1astwxmD0UynVEgjK+T7cCdBXX+FGW/qpTbB7JgpNQrCry0XTnjmv0tVfvx68ZY0Gwwu/v3ksqsU7zwRew2/oluiMp2jmPVdzsYsjUG5NJ2iQNvCUH4WWREu9KmJ2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=BPOCnhcaVSXKej71J3Q68f6qOwYla+C5R3q16xvnTfE=;
- b=EOliEJI/mRM1QThMNLDsICa8aZnKTDRqpQsxR8IMGi4csjwGabiJ0Ey6kk6xA3jRj+jhG4fupuhgiEMxOjtn6O2Ppb4G1uXkzY4rwSgUAn1sQQVY7x8DxFjI9NORcPatXiJXtTy0mAxt4YYdjE5D3W5mtH7ndnh4pb20wEekoOD885f+dF9x/vmtHOM08sfP4w8GH8he+Qp+1LVzyDTD2yGlrxVv73PwAu7Mp5RYEL5AbefyodxDsd9+4T3EZb8RO7gWKqkaQ8cTcLmjCmt8xqfUwugT1xsY0ROpEdc5eA8tdGCQKXt3kLhVso60fplABACLqOx0HAzdWq9EQN/n1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BPOCnhcaVSXKej71J3Q68f6qOwYla+C5R3q16xvnTfE=;
- b=VQovOkUB9BDShXEGW/kfqIpP2tqoEYiCadJrm6QKZAtNEGlxd4dG6tZXvA+IE2KrXboaiI19EIp1gn1H3OD8AkE2rmNADDlm5MTEG4W4geqaltBLBe52aS2UB0w7+2jEDFmhFl8COOhgU2AKzYU5foVMKoHMm3DgWc39nWympKg=
-Received: from SE3P153MB1848.APCP153.PROD.OUTLOOK.COM (2603:1096:101:340::5)
- by SEYP153MB1334.APCP153.PROD.OUTLOOK.COM (2603:1096:101:2b2::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.11; Fri, 16 Oct
- 2026 08:20:18 +0000
-Received: from SE3P153MB1848.APCP153.PROD.OUTLOOK.COM
- ([fe80::8f4e:575a:4706:a56e]) by SE3P153MB1848.APCP153.PROD.OUTLOOK.COM
- ([fe80::8f4e:575a:4706:a56e%6]) with mapi id 15.21.0546.006; Fri, 16 Oct 2026
- 08:20:18 +0000
-From: Wei Hu <weh@microsoft.com>
-To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>,
-	"weh@linux.microsoft.com" <weh@linux.microsoft.com>
-CC: "longli@kernel.org" <longli@kernel.org>, Konstantin Taranov
-	<kotaranov@microsoft.com>, "kuba@kernel.org" <kuba@kernel.org>,
-	"davem@davemloft.net" <davem@davemloft.net>, "pabeni@redhat.com"
-	<pabeni@redhat.com>, "edumazet@google.com" <edumazet@google.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "jgg@ziepe.ca"
-	<jgg@ziepe.ca>, "leon@kernel.org" <leon@kernel.org>, Haiyang Zhang
-	<haiyangz@microsoft.com>, "wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan
- Cui <DECUI@microsoft.com>, "shradhagupta@linux.microsoft.com"
-	<shradhagupta@linux.microsoft.com>, "horms@kernel.org" <horms@kernel.org>,
-	"ernis@linux.microsoft.com" <ernis@linux.microsoft.com>,
-	"stephen@networkplumber.org" <stephen@networkplumber.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"gargaditya@linux.microsoft.com" <gargaditya@linux.microsoft.com>,
-	"kees+treewide@kernel.org" <kees+treewide@kernel.org>, "kees@kernel.org"
-	<kees@kernel.org>, "mawasthi@linux.microsoft.com"
-	<mawasthi@linux.microsoft.com>, "edumazet@kernel.org" <edumazet@kernel.org>
-Subject: RE: [EXTERNAL] Re: [PATCH net-next v7 3/4] net: mana: support
- concurrent HWC requests
-Thread-Topic: [EXTERNAL] Re: [PATCH net-next v7 3/4] net: mana: support
- concurrent HWC requests
-Thread-Index: AQHdW7RCOxZeYdcQZ0OG1ksHOUP7eLb/1fnw
-Date: Fri, 16 Oct 2026 08:20:17 +0000
-Message-ID:
- <SE3P153MB18489E593F946D89FE4865C0BB9B2@SE3P153MB1848.APCP153.PROD.OUTLOOK.COM>
-References: =?utf-8?q?=3C08f833983788be99fc73b856dd4822826b5876f7=2E17915619?=
- =?utf-8?q?95=2Egit=2Eweh=40linux=2Emicrosoft=2Ecom=3E?=
- <179196575640.434549.9102950927041409151@kernel.org>
-In-Reply-To: <179196575640.434549.9102950927041409151@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=e57ec545-1f68-44c3-b376-e2b9c613ca29;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-10-16T08:16:48Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10,
- 3, 0, 1;
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SE3P153MB1848:EE_|SEYP153MB1334:EE_
-x-ms-office365-filtering-correlation-id: b33d0076-35ce-4933-071b-08df2b5e5019
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|42112799006|366016|38070700021|56012099006|5023799004|11063799006|261009223027099003|7146999003|10067099003|18002099003|22082099003|7053199004|6133799003|3023799007;
-x-microsoft-antispam-message-info:
- Kyguawa7wtngZ2yAIXmG/GwutJwuvuH7fM23KxBOOCkNCpBJ5SlRnriuc8sxA5xHsWVCZgaP7llTYErd8oaRd1fqMccEYcq1qiPZBRm6pSAOyrQLZX2E5FgxvdBrW+9+dWEBg329974GzTkza4Zv522hLLoYqsAiyVWTsVn2VkDefjjcOS5uRvFya1Zqvuz5Lrvg5SvYGJMXXgitOcbSZtTe3MqPDGcFKow0Q3zeKi+5I0nWv0PeEhBCKCTSP38FXAyablE6Kx9//MMRRweTuACuaEw0gByh7XfezEITcib0eZWq7gCrWOzXi9GqWaxkoVXEddeHpu+wggQz7aYmvu+vDcYsac8jK3m/R/Ds3aDq+cG6dJ/T5fo6GXc/rYGTFczElHSdVJC9x37ZO2eolKa6bYo1gZk2tsdoKhgRluxnFk7WCKiiLvZj8EIl70dshFm35FZmoBJxiBfd0zhicHE1fYzg5SvOv9LkixC0bYFY8Vzy7P2L/fPi+1iLdSBc1a2JNzstDJ3avcsmHyl5IxVsU6ykdBAgi4vsO3wknjdE0+DuQPBMvfc1FpZXh9ESmVXUedx9+ObcNbAGrPZ6SPHPAuBzmiQp1skzW3TF/8P8wyLmOu/6Qbx+O3Mw0bMRqHT+atrkAXLfdZewsxNo/k2wsl6zz1/MZuS9WPE2do1Ey7+Xgzg3G433j0NczR6qn79hFjJ/IqNcM1wBtZM0KYrkWUb7saSrlei5NbSI1nY=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SE3P153MB1848.APCP153.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(42112799006)(366016)(38070700021)(56012099006)(5023799004)(11063799006)(261009223027099003)(7146999003)(10067099003)(18002099003)(22082099003)(7053199004)(6133799003)(3023799007);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?qs5PV/iQ5jpLIDTpRSC3em6Kqe0qLPghlfO5P+0xviB+vSi3tin2fMYVzcuQ?=
- =?us-ascii?Q?9/XXcer6Q98g4ba7EuKigCBA5XA4MgIgg+tkJ4mBH5ITW0gDQKnGjIkAPFNe?=
- =?us-ascii?Q?mvgIlGUnyNzVLYHNVhmSx/HdT0tHfgcJ8WYi4LSk0QqYZrUcsYlr0924rujB?=
- =?us-ascii?Q?78QFXSVh27Kh1XEOCT/LVgoF/Z7HgQbgzcVyu4Q6XZQbTYRoVI94FkFCquvC?=
- =?us-ascii?Q?CMwysUcvSLQIYrQc5Q/YpZbm3ymBypHbhW26q46HiAG8lzgSrR5iQg5em0gk?=
- =?us-ascii?Q?a4YO+Ha9iRiZywG6VzZ5tZmW2el3bjimIB7JrZROr+i59XONJny1loX1g3m9?=
- =?us-ascii?Q?dJ0FmOidgvznNhWYTHL04wQm4vs9By1fRhOEq1OI9rjky+Rog+9HRAeOUz3W?=
- =?us-ascii?Q?8K2u5dF3O7T7WNiUL+NsCf5sHOn++8Olc/uARFpUoCMZjnfWL/yfkXkGXpmQ?=
- =?us-ascii?Q?3KdpjzBXusWOWbW+NCTK9AaT2uF6yREJ6Laqdv3+D26KwQUAky9hKIl34sRB?=
- =?us-ascii?Q?uVoFIecF7jO3shbzTLj3qqnral01ZJx5Liyyl6GvuOFji7l2poISCzvyFsMb?=
- =?us-ascii?Q?9ZM0UMfqx2UIKlELWeHaGy/EvYmaed8PbnDXCCSGdHPDB3I+r8t+j0RWwePt?=
- =?us-ascii?Q?D0qjJUTixvJC0V2ILS51be5/Sk38+0TyKBI4L3+PXzhkbasiAW6o8mFMXw5I?=
- =?us-ascii?Q?Fty1kTPssDglRR8z88H32PyWAgq68p6QBxL8tEdMgcHYhHYA7Yb9Y3eo25tm?=
- =?us-ascii?Q?n9SfQMR1qwXmJgW5iCPj16e/c9l1lT6590e65OgPdjQTRuE+4H4H4v2VPcCs?=
- =?us-ascii?Q?YG+/HeqtwO9jWYiDk2Nm1qEy6whKTkDglR/6nkOsa7VnPns/HwZoa1bnk2FI?=
- =?us-ascii?Q?bcHjqHxhv7s1/9HwLcehJe93xWD8YrpjA4e3p5hIcQYZ/1IgtuCLwSCvAQEt?=
- =?us-ascii?Q?JOBvVEdSd9/7ufzg7+Xn0CdoSGgOAcvoDYVY8lPsLv4EjBbSY5DQamcVpz0g?=
- =?us-ascii?Q?Y1K88SFBfmYv1KyUA4tbYFT47/QDYMnSY/Tqbk+PBJF8FcBjOFxekO/3SDJj?=
- =?us-ascii?Q?HXpwzUUUklShio+Nol7g7PW1J8iubdN/jHnPXcCXxRntw1jYZD88bvfqi1n/?=
- =?us-ascii?Q?Zv/4FWLzI8xeIhjTbT4r1Qe4fU3HnZus7AmWbzBXiL+S9nqkfLjYvzpU4ntT?=
- =?us-ascii?Q?9JdMrwTnPxVDXJuapnThO8OSCm2xgI4Z3u9Dm8UwwatYbgMlJ/KW7CC9oKAV?=
- =?us-ascii?Q?IyfBKAPIfEJC8H87fQ9x89iDfwQyPvQddqMr0K8L5aWx5Eq3n8Ja9Mpmtkfv?=
- =?us-ascii?Q?lxOdyjqom1fLRJ+NZvx0hEvKdVC9CvxOBun8Y9Hw56RlmDBl70Pu4IoqPpro?=
- =?us-ascii?Q?2CjoUWHmPf3619j2sGvFHz+1DwISNrOxvp8FR6oNMV8V8+1ztgizSJkJMEFn?=
- =?us-ascii?Q?WTn+wHVIBgo0/s0gA8cYJ4vFuc8x1WKR7T75ObQlIulh8gKjwExF8bV2UjKs?=
- =?us-ascii?Q?OVxxiKFo3b1E4Rd/+yVk/IpxWh+1XNu4c2S2CGjWRPphw+dJJ6MgBYST04Yz?=
- =?us-ascii?Q?+si9zAmyb8aDjKKUzVSvvOCBkkIaOm8Ol5imisPGQzPKX3EWMJMdyVXVtTN1?=
- =?us-ascii?Q?iXoVqC34NGLyGdhkaYrIJRJky6RNxRreIeakEjq7a4sP17qDy6HCL/VQtW0a?=
- =?us-ascii?Q?15F0jC4Ua0nuJ9HlQt6MSDOWkTf4jeD9Frnk3LkT2DO0LV4h?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1Y0vH9yD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gdubjBOU";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1Y0vH9yD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gdubjBOU"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 022741F43B;
+	Fri, 16 Oct 2026 08:20:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792138850; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3HDGHxYDCOJkufrEMSIyp3sPGUcQk5bS4SZm0hZm9ac=;
+	b=1Y0vH9yDBziQxlw9EIOF1hm215hZ/1OJTXV7vuZzw8IKdXU+tESZo4vuXN2P48OBT42d+w
+	DhCD4rbtX0Zxaz22EAam7Dev+cJpKqUJQf1Tg7OsNZc57v3iKi0MhEgNVXmGuLdbC6guNh
+	/UrYADTURV7p+DX9M7c7AjMEpjHAQMU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792138850;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3HDGHxYDCOJkufrEMSIyp3sPGUcQk5bS4SZm0hZm9ac=;
+	b=gdubjBOUA1cqHhws1qZuQUVL8YDtXhFeBSpeQTqUs4oW8EBMu1LMQHOLDSPHnWOQ/xw0U6
+	yUvYm/dIAxeN48Dw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792138850; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3HDGHxYDCOJkufrEMSIyp3sPGUcQk5bS4SZm0hZm9ac=;
+	b=1Y0vH9yDBziQxlw9EIOF1hm215hZ/1OJTXV7vuZzw8IKdXU+tESZo4vuXN2P48OBT42d+w
+	DhCD4rbtX0Zxaz22EAam7Dev+cJpKqUJQf1Tg7OsNZc57v3iKi0MhEgNVXmGuLdbC6guNh
+	/UrYADTURV7p+DX9M7c7AjMEpjHAQMU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792138850;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3HDGHxYDCOJkufrEMSIyp3sPGUcQk5bS4SZm0hZm9ac=;
+	b=gdubjBOUA1cqHhws1qZuQUVL8YDtXhFeBSpeQTqUs4oW8EBMu1LMQHOLDSPHnWOQ/xw0U6
+	yUvYm/dIAxeN48Dw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A754E1339F;
+	Fri, 16 Oct 2026 08:20:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 2GRaH2He0Wo4UwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 16 Oct 2026 08:20:49 +0000
+Date: Fri, 16 Oct 2026 10:20:49 +0200
+Message-ID: <87o6cu5a5a.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Joonho Lee <mynameisjune111@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org
+Subject: Re: [PATCH v5 0/2] ALSA: pcm: preserve capture tail during drain
+In-Reply-To: <v5-core-capture-drain-0.e9b40d3bc08c4162@gmail.com>
+References: <v5-core-capture-drain-0.e9b40d3bc08c4162@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SE3P153MB1848.APCP153.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: b33d0076-35ce-4933-071b-08df2b5e5019
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2026 08:20:18.0063
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2DOUykFBfmxfEeElPXSPVfIVqBwOrmZsdzUUynOQsS+W/i8bcjn7q+5I23aWUaaHMgdaDnGV054l2ArS3Ospeg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYP153MB1334
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-Thanks for the review. I have prepared a four-patch v8 based on net-next
-commit 05b5019b01fb, with the following dispositions.
+On Fri, 16 Oct 2026 01:48:03 +0200,
+Joonho Lee wrote:
+> 
+> Capture drain can leave final frames buffered after the device stops.
+> This series lets userspace read those frames and refreshes the linked
+> streams' hardware pointers before drain-init.
+> 
+> Patch 1 allows capture reads in DRAINING, preserves the unread count when
+> waking a blocked reader, and finishes capture with snd_pcm_drain_done()
+> so linked playback can continue draining. DELAY and SYNC_PTR(HWSYNC) use
+> the cached final capture pointer after capture stops.
+> 
+> Patch 2 refreshes each running member under its stream lock while holding
+> snd_pcm_link_rwsem for reading. It updates both playback and capture,
+> after the existing pause-resume step. The pause and drain-init actions
+> remain outside the link rwsem. Pointer errors follow the normal XRUN
+> path and return -EPIPE before drain-init.
+> 
+> Changes since RFC v4:
+> - Submit as a non-RFC series following Takashi's response.
+> - No changes to either patch body, including the commit message, diff,
+>   and existing trailers. This cover and the mail headers are updated.
+> 
+> Takashi said both patches look OK and that he can try merging a non-RFC
+> series:
+> https://lore.kernel.org/all/87ld7z6jsk.wl-tiwai@suse.de/
+> Previous RFC v4:
+> https://lore.kernel.org/all/rfc-v4-core-capture-drain-0.b56779f7976d4657@gmail.com/
+> Implementation and test discussion:
+> https://lore.kernel.org/all/core-drain-helper-reply.0c1099dbd0ca4a37@gmail.com/
+> 
+> The five-patch virtio-snd lifetime v3 series is unchanged:
+> https://lore.kernel.org/all/cover.1791881787.git.mynameisjune111@gmail.com/
+> The base and prerequisite IDs below preserve the tested integration:
+> apply the five lifetime patches, then these two core patches. Replace
+> both earlier core patches when testing this revision. Core has no
+> dependency on the generic control-wait or VZ compatibility RFC. This
+> submission does not revise either companion series.
+> 
+> The following validation is from RFC v4's unchanged source; no new
+> runtime tests were run for this mail-only revision.
+> 
+> Validation used ARM64 QEMU with KASAN and lockdep:
+> - 26 linked-stream checks passed across atomic and nonatomic modes,
+>   including paused drain, first/later member pointer errors, normal XRUN
+>   handling, tail reads, and unlink/prepare/reopen recovery.
+> - The three patch-1 failures were reproduced with the helper and the old
+>   first patch in both locking modes. All six corresponding fixed cases
+>   passed: a blocked reader received all 64 final frames, capture EOF
+>   left linked playback in DRAINING, and both position queries succeeded
+>   without another pointer callback.
+> - Four additional blocked-reader runs compared baseline and fixed modules
+>   in both modes with a stronger gate: thread sleep and a pointer callback
+>   after START. They confirmed the baseline loss and fixed 64-frame read.
+> - The 10 existing lifecycle and timeout/reset scenarios passed, including
+>   held STOP/RELEASE, SIGKILL, reset, and subsequent I/O recovery.
+> - No KASAN, lockdep, or panic diagnostics appeared in the 54 selected
+>   logs, which include the baseline behavioral-failure comparisons.
+> 
+> The full Image and modules were first built with the new helper and the
+> old first patch. After fixing the three tail issues, sound/core was
+> rebuilt with W=1 against that same configuration and symbol versions,
+> and the corrected PCM module was used for the runs above. The module
+> build had no warnings or errors. The full build had 517 existing
+> -Woverride-init warnings in arch/arm64 outside sound/. The exported v5
+> core source matches the tested source byte for byte.
+> 
+> These tests use synthetic drivers and modified fault/reset backends.
+> 
+> LLM assistance was used for implementation, reproducer development,
+> analysis, and documentation. I reviewed the changes and test evidence.
+> Assisted-by: LLM
+> 
+> Joonho Lee (2):
+>   ALSA: pcm: allow capture reads while draining
+>   ALSA: pcm: refresh linked pointers before draining
 
-On Wed, 14 Oct 2026 08:15:56 +0000, netdev-bot+sashiko@kernel.org wrote:
+Applied both to for-next branch now.  Thanks.
 
-> Is -EBUSY the right return value when the slot is held by a request that
-> timed out?
 
-Fixed in v8 patch 3. Outstanding abandoned responses are counted separately
-from healthy admission pressure. If admission expires while such responses
-still hold slots, the caller receives -ETIMEDOUT so the existing
-statistics/recovery path remains reachable; ordinary saturation still
-returns -EBUSY. A late response or teardown retires that state exactly once
-with the response reference. Device status is not overloaded as a flag.
-
-> Would it work to initialize the slot while holding ctx->lock nested insid=
-e
-> r->lock, which matches the existing r->lock then ctx->lock order? Or to
-> clear the bitmap bit while holding ctx->lock?
-
-Fixed in v8, starting with the per-slot initialization in patch 2 and
-retained in patch 3. Initialization now takes ctx->lock while holding the
-resource lock, matching the response path's lock order, and publishes the
-bitmap bit last. Returning a permit does not let a new initializer race an
-older callback still holding ctx->lock. This fixes that lifetime
-interleaving; it does not invent a wire generation field or claim to
-distinguish every stale duplicate after a completed message ID has been
-reused.
-
-> Larger depths only arrive with the next patch in the series, "net: mana:
-> add dynamic HWC queue depth with reinit path". Could the message say so?
-
-Clarified in the v8 patch-3 message: bootstrap remains depth one at this
-intermediate commit; the following patch negotiates and allocates larger
-queues. Patch 3 supplies the concurrency-capable ownership/admission
-machinery, not a claim that multiple firmware requests are already
-outstanding with a depth-one channel.
-
-> Does this case need a narrower unwind? It can only happen if channel
-> creation runs concurrently without serialization, which the normal
-> lifecycle doesn't do.
-
-The reported WARN-only failure path is not claimed to recover overlapping
-channel creation on one gdma_context. This series supports concurrent
-requests, not concurrent device setup/teardown. Before the publication
-check, setup has already used GC-wide SMC, IRQ and CQ-table state, so
-merely changing cleanup at that check would not preserve an independently
-created winner. A complete solution needs device-lifecycle serialization
-from setup entry. I have left this as an explicit lifecycle follow-up
-rather than add a partial concurrency/reset policy in this series. No
-PM/service/remove overlap qualification or fix is claimed.
-
-> Once a late response frees the slot, later commands are posted to the
-> firmware and abandoned after about one jiffy, while the firmware may stil=
-l
-> be executing them. Callers like mana_gd_create_mana_wq_cq() then free the
-> DMA memory those commands refer to.
-
-Agreed that the existing one-millisecond fail-fast policy does not
-establish DMA-command completion. That reduction and callers which release
-data-queue memory after failed control requests already exist in the
-baseline. V8 preserves the runtime policy while retaining timed-out HWC
-slots until their responses retire or teardown cancels them, and restores
-the existing recovery errno. Fixing the wider data-queue/DMA failure policy
-requires an independently established device-quiescence contract. It is not
-repaired or represented as safe by this HWC series.
-
-> With a depth of 1, wouldn't a single out-of-range msg_id from the device
-> leave the RQ with no posted buffers for the rest of the channel's life?
-> With the new -EBUSY behaviour above, that starved channel would also neve=
-r
-> trigger recovery.
-
-Confirmed as a separate baseline issue: the RX handler rejects an invalid
-msg_id after locating rx_req but returns without reposting that request.
-That function is unchanged by this series. It should be addressed with
-explicit malformed-response handling and the RX ownership/repost contract,
-not hidden inside the concurrency change. V8 fixes the separate
-admission/recovery classification, but does not claim that malformed
-responses cannot starve this RQ.
-
-Regards,
-Wei
-
-pw-bot: cr
+Takashi
