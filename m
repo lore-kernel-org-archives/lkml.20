@@ -1,187 +1,298 @@
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54ED3BC687
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C203CFF4C;
+	Fri, 16 Oct 2026 08:40:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792139969; cv=none; b=NcP9ae8aEOKe4hDaOA0tjoVgqmGNvlgq7GUqMt7RXAk0zKlXmH5Jy35QOjpM1GcGfNI1+rSM+opsXFQF6TXUvjnXILA21u37hwDSmSQRNHf5RmlFrDvx9RkAmrzRPdPz6LgKe14c63xxzaAKJdAomY4g2Zb/F54LNdP1QBoKkww=
+	t=1792140007; cv=none; b=PtvjKfAdGJkG4KlClgGJbyQ8QbLUkMXVTU+EEzeOnp4JZGzBNgxl8mfXo8G+XpRA4qiDfE3u89eajydOZRdMluLf67biIIjFSNKk/o6vt8fS8T9E2ScB2t/Hj5O5QiCYUCH2xnj1IzZVg3agIrcRpKw0ZPg221d79PKcmmTl/6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792139969; c=relaxed/simple;
-	bh=2vUfpCqB6arRjfJ3KPHapqfeAhBKxgvIcU1LXx14dMo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GalilHKDMqRZc3/Xy4/B7atWN27qiQZvB5Fpg0vMi/ffJllqN8Z3bTW5lFFzqECK1N1pPq84/fdBSsnEeA8XRojxi0ubCmq+hpUjIp1fVi/oq+OBEV8zCF/iSDAF6o5R7MoY/+/JwqdO3qMTCPmZAJdf/cW3NjPGR9AaHOvs34I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=SlwEFiw0; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=u/KtTLyi; arc=none smtp.client-ip=103.168.172.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
+	s=arc-20240116; t=1792140007; c=relaxed/simple;
+	bh=QQI6AOUeC3xCwgD1ZTWLfBAf2ShWkVN9x4VjallQlMY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WNZ/xVOlLgt7f8DvWHr4htRETsVg0xpAC9X9antvPiKLnPmQRxMFdqSJ7u8d9xbxEmWB+GnO6CS2GeuC9kghOGokFN45nmzjl4e4giwG7rceM/3ejwgCRKK4nTC3ctBl0Huggd2NClMYAd6ZWdW9o/kKdvdbbQ/OJGMmyAwcXX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J85uWx/a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="SlwEFiw0";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="u/KtTLyi"
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id EE2031400153
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:39:25 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-10.internal (MEProxy); Fri, 16 Oct 2026 04:39:25 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=fm3;
-	 t=1792139965; x=1792226365; bh=MGcm7yt5rkjkwGxDwn+nCpIgUmt3dbHJ
-	nZ2E7d60Ius=; b=SlwEFiw0UmH2omxWxjkD0qBibzBO+jmJwH+L9/fQe4A2fZa5
-	nf1RZKteXF8PWVbQkxOdyW9wyEZ2XuhiKC6wnTsqFVHZITBB3mxuI21EwDyI8huQ
-	i12x+MQKfgjYUD5xtSqKYJNOUO2+V9UxeWdEMbSYYxuKypSdla2TUarpOb5PUQeC
-	KhCHsZYksx3ag7phBknXjYonObcrHk1lMlaU0A5JtKK/7w14deQVUx9xO1r1D0Hs
-	3dlApU7j/fJ+ZRVCjbIcRaXA+CygllCv8zG+k39OpYzKQpQ2tHVM9PvA6MnH4/tn
-	GUOjHNIHLbzLewKm4LK3VKgjFES5LPOi+h8E6g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792139965; x=
-	1792226365; bh=MGcm7yt5rkjkwGxDwn+nCpIgUmt3dbHJnZ2E7d60Ius=; b=u
-	/KtTLyi1nFZyzGsxSqBC87fzQZHV2wb2ZrzmXgeMYOLCn9d+B8eVRmV1I8s/AhpL
-	ct3q1ryiEhXKuyD1/U6+5Qt0nQeoilPldjwHxIvS4w+dnSxDgAsMs5tuXUKSsLhw
-	TRse8YOLctNw4PQm0d6/CnXvBQ7gWu0YGWjbfCOiAJuxmvQzon86nL8Q2zX33EtK
-	CT1ii+nMESa28z25iu8GgBJuxIbLNpz2JuUf8lvElFn9pkkhPlhiRAG65gv11VZc
-	4j8POxT3hgYoxAa4PV8iAravcZPzMrCXUkJt0S0kxWrsYaI3BQbxd1ygFxjwaSkj
-	jeaK43BXVL8EJ7qCxzMbQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=queasysnail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792139965; d=queasysnail.net;
-	mf=PHNkQHF1ZWFzeXNuYWlsLm5ldD4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:KjDzMhpOWpmTpEjtvvCKJ8QlulR6LedEnqT4cYmnAb3C54y
-	kUrhdlXQiZhR7TO7AS3n3+zu2N6E4t0rvn0I3wumTkL6SHfVmsqTPv8og3YAc++C
-	2AvQx7R8+4rwHeoATkxEJ85fAuiAMS6JgQ4LVixHlBk3x7rKbGCuzt3o7QR1hfF8
-	b46mw+OssmKwXg7KVZmqWHaS8aGGUi31gSvU3rW/xYTdhKuaCZgz363ggLbAv4Ob
-	GC2xAA4RGw8nlMzvWVHbP27Kd/HUA1bevtd/8xNa4snFMn4NcTCLimaSfMrWnm/+
-	ZzfU4uBlmqXN5A6g9LsxwbLxwtZH/SWOO/vGt8A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:SJ3kX2eTGKgXrqDXngm6d4mVMdr2f/LtcavSxlxMiQg=:2vUfpCqB6arRjfJ3KPHapqfeAhBKxgvIcU1LXx14dMo=;
-X-ME-Sender: <xms:veLRardFrgOBH04g7LNC9ujzhFMD9sJiNojeVTsWzqMbtSkCikBZJQ>
-    <xme:veLRak4MULgsNrfgs15inipPNcKYWwQLU5Q0ypJC4DNucUJG8lzgNutCbDw4pBJMK
-    7mWchuVCScR0fQRqBaHx5JVZVGWWaSxHmdZbIhTj235InPm_UFvbs4>
-X-ME-Received: <xmr:veLRatKegijhwrkemurOvHzEMBHnVwhSwaO0GsSZXTAQ_gwknmzzDzMGCPA>
-X-ME-Proxy-Cause: dmFkZTGm6mBkZB8wsCnbaRONJj0gUzKLj4+7j3xqlzxkDDn0+lEwC8DyiDGNrr3QdPq3gU
-    NSYOeOP1jbjKE25PhP5WFZf7RozX4BYk6jeohnf1cWoF2Jn/Qyyg0pFAi1nqBLDqI3OX5O
-    VGp24z2ABNdPAb6iQubwN8g5q7BzdIS3tdl1+PENBcWj8in7R6arbtlu4huAmdZg1s+IGk
-    9y7c3m00fOFRlxPPWw1/5xDkZnwVpGK/3v/9rT04Yaqs6A9qEv88UOOcded3Rk+GQmtk/p
-    CsniU0NAQIKm6FayrBKbRCby51SCzKYNAG5fOCObWKActP+FzNq6I/egqci3nVyDNvSyWa
-    zifKPzJy9Ht5nQfPX0FmR2CuyRwoPaxa/+fGTLSdTr6H7ke4iAor9MRbgR+dB5tm85grhr
-    P45tkiFgk5DxLwCOUhBTG392xd8pjUH8BOuO/T34NzXbzvc+51NN6hH6cq53VpD+fZYn6W
-    1SBnViQhKwOukZF83p1eNtKMdYrnD+oTF2vDoyixkx5hNBSxqFH57mesBXGwBygnMaZx9L
-    gLFnsYaYUXFmnnAKBVJy/UVan5kRp1A+9J+A0OyttqI0e3XCIet4oZPhQ3ODoaFnIA/twr
-    RTatQjVJ1Heb7Bteyo7AwC1UcgMms7Zo4L+1CPh+XDHHYpoJVXHNv2lmaaQw
-X-ME-Proxy: <xmx:veLRauWSZlDfLsAbdr00xNPBIEhbR5kc8vG5B7jXr98jpti7rQtJwQ>
-    <xmx:veLRapHRLISPzlPJHwwFCexD2jJ55fx1vWSCffkSwIRkjueBTLpWRQ>
-    <xmx:veLRat6_JxmrjObz0e4FkWnODUQflo_7Y-ffE1xkVM2FCrPUPqWyvA>
-    <xmx:veLRave4cbPQi04zxBszKlsvrJHCVlQs3Tqu1wleiI-SalZ77ADh6g>
-    <xmx:veLRaum5F-zyh5VRkeUDnf4ws1zNf6a9s4e0DmGMMy3Igr-4TIzGZFJB>
-Feedback-ID: i934648bf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 16 Oct 2026 04:39:24 -0400 (EDT)
-Date: Fri, 16 Oct 2026 10:39:23 +0200
-From: Sabrina Dubroca <sd@queasysnail.net>
-To: Rishikesh Jethwani <rjethwani@everpuredata.com>
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, netdev@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] tls: refuse RX records after record-number exhaustion
-Message-ID: <atHiu9gmKQAoqTD0@krikkit>
-References: <20261013002701.1957686-1-rjethwani@purestorage.com>
- <as37-A3DKONrFuxs@krikkit>
- <CAKaoeS1E7jMyP8F9a+SAheE4+o6RG2VOdA5uiSjZe5yX+E0wEg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J85uWx/a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 228DA1F000C4;
+	Fri, 16 Oct 2026 08:39:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792140004;
+	bh=yF0+t8VmLxprbVJ7vonZo5vnvDwO+uiWBRkMfVhzMqc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=J85uWx/a02s+shYbLJY23WbGfaxqgttPQltnCy+/EDBY9+Ebv0ucI6u90Aof+1WXf
+	 /NxAckxUqrukfLods4pyq18A1lKBnB5P8nN9ry813gc6/aJuOJOd18bOx8Is2a+NHO
+	 W7AGbpDWF93z9wkPjNIenWFQcOHNeO85gQhro5ZGdiN7ciRmzJYANLYluy0TxB/h6v
+	 TcG1/Z8h9b7//vn26dDEFGrtiPK4Pmb/vS74yeLH+oXlOGj5gf8gj69QFnXVpifPqL
+	 hZgAOaULWV5tSJFpa4h/Ip7lnVyL3k3j7jFA5wJVC5wmR/BaDQ5NQ1pxYlT/4q895n
+	 QB2xLAjTvQnmg==
+Message-ID: <7ed85b95-603c-4afe-acec-633feb3cdd88@kernel.org>
+Date: Fri, 16 Oct 2026 10:39:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 8/8] PCI/quirks: Avoid certain address on Genoa systems
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Bjorn Helgaas <helgaas@kernel.org>
+Cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Maciej Grochowski <Maciej.Grochowski@sony.com>,
+ Nikolas Joshua Britton <nbritton@exabit.io>,
+ Geramy Loveless <gloveless@jqluv.com>, Eric Auger <eauger@redhat.com>,
+ Alexey Fomenko <alexey.fomenko@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Rob Herring
+ <robh@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ LKML <linux-kernel@vger.kernel.org>, Bradley Morgan <brads@mainlining.org>,
+ Kai-Heng Feng <kaihengf@nvidia.com>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>, linux-acpi@vger.kernel.org
+References: <20261013224010.GA1589480@bhelgaas>
+ <f823d264-8b9d-422e-bfaf-388957fbc2fa@kernel.org>
+ <da239633-c789-41b6-ab92-ed1575f0d19c@amd.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <da239633-c789-41b6-ab92-ed1575f0d19c@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAKaoeS1E7jMyP8F9a+SAheE4+o6RG2VOdA5uiSjZe5yX+E0wEg@mail.gmail.com>
 
-2026-10-13, 10:55:26 -0700, Rishikesh Jethwani wrote:
-> On Tue, Oct 13, 2026 at 2:38 AM Sabrina Dubroca <sd@queasysnail.net> wrote:
-> >
-> > 2026-10-12, 18:27:01 -0600, Rishikesh Jethwani wrote:
-> > > A receive socket records sequence-number exhaustion only in sk_err.
-> > > After processing record UINT64_MAX, it advances the counter to zero and
-> > > reports EBADMSG, but SO_ERROR or sock_error() can clear that error.
-> >
-> > I vaguely remember a discussion around making some fatal errors more
-> > permanent (ie not use sk_err).
+Hi,
+
+On 14-Oct-26 22:37, Mario Limonciello wrote:
 > 
-> Do you have a pointer to that thread? If there's a preferred way to make
-> these errors sticky, I'd rather use it than add a one-off flag.
-
-https://lore.kernel.org/all/ajFpejsl1ukTbG96@krikkit/
-
-and I had a suggestion at the end, but I guess I got interrupted and
-never got back to it.
-
 > 
-> > > parser-ready record also bypasses the socket-error check in the record
-> > > wait. The receiver can then accept a record authenticated for sequence
-> > > zero under the same exhausted key.
-> >
-> > I guess, but what's the problem with wrapping as long as we don't
-> > reuse the same record number?
+> On 10/14/26 04:34, Hans de Goede wrote:
+>> Hi,
+>>
+>> On 14-Oct-26 00:40, Bjorn Helgaas wrote:
+>>> [+cc Hans, Kai-Heng, Andy, linux-acpi]
+>>>
+>>> On Tue, Oct 13, 2026 at 01:59:23PM -0500, Mario Limonciello wrote:
+>>>> On 10/13/26 12:26, Ilpo Järvinen wrote:
+>>>>> On Tue, 13 Oct 2026, Mario Limonciello wrote:
+>>>>>> On 10/13/26 12:00, Mario Limonciello wrote:
+>>>>>>> On 10/13/26 08:09, Ilpo Järvinen wrote:
+>>>>>>>> While testing the resource placement changes, tests hit a case where
+>>>>>>>> igb fails to probe when BAR 0 is placed at 0x9c000000:
+>>>>>>>>
+>>>>>>>>       90000000-9cffffff : PCI Bus 0000:a0
+>>>>>>>>      -  90000000-902fffff : PCI Bus 0000:a1
+>>>>>>>>      -    90000000-900fffff : 0000:a1:00.0
+>>>>>>>>      -      90000000-900fffff : igb
+>>>>>>>>      -    90100000-901fffff : 0000:a1:00.0
+>>>>>>>>      -    90200000-90203fff : 0000:a1:00.0
+>>>>>>>>      -      90200000-90203fff : igb
+>>>>>>>>      +  9be00000-9c0fffff : PCI Bus 0000:a1
+>>>>>>>>      +    9be00000-9befffff : 0000:a1:00.0
+>>>>>>>>      +    9bf00000-9bf03fff : 0000:a1:00.0
+>>>>>>>>      +    9c000000-9c0fffff : 0000:a1:00.0
+>>>>>>>>         9c100000-9c17ffff : amd_iommu
+>>>>>>>>         9c180000-9c1803ff : IOAPIC 8
+>>>>>>>>
+>>>>>>>>      -       Region 0: Memory at 90000000 (32-bit, non-prefetchable)
+>>>>>>>> [size=1M]
+>>>>>>>>      -       Region 3: Memory at 90200000 (32-bit, non-prefetchable)
+>>>>>>>> [size=16K]
+>>>>>>>>      -       Expansion ROM at 90100000 [disabled] [size=1M]
+>>>>>>>>      +       Region 0: Memory at 9c000000 (32-bit, non-prefetchable)
+>>>>>>>> [size=1M]
+>>>>>>>>      +       Region 3: Memory at 9bf00000 (32-bit, non-prefetchable)
+>>>>>>>> [size=16K]
+>>>>>>>>      +       Expansion ROM at 9be00000 [disabled] [size=1M]
+>>>>>>>>
+>>>>>>>> igb 0000:a1:00.0 0000:a1:00.0 (uninitialized): PCIe link lost
+>>>>>>>> ------------[ cut here ]------------
+>>>>>>>> igb: Failed to read reg 0x18!
+>>>>>>>> WARNING: drivers/net/ethernet/intel/igb/igb_main.c:724 at
+>>>>>>>> igb_rd32.cold+0x3c/0x4f [igb], CPU#32: kworker/32:1/706
+>>>>>>>> ...
+>>>>>>>>     igb_get_invariants_82575+0xff/0xf00 [igb]
+>>>>>>>>     igb_probe+0x3c8/0x1190 [igb]
+>>>>>>>>     local_pci_probe+0x3b/0x80
+>>>>>>>>
+>>>>>>>> It turns out there is a 64kB iomem black hole at 9c000000 that returns
+>>>>>>>> ~0 and this is where igb's BAR 0 resides. If another BAR of the same
+>>>>>>>> card is placed into that address, it is similarly black holed.
+>>>>>>>>
+>>>>>>>> Mark the problematic 64kB range reserved using a quirk bound to the
+>>>>>>>> bridge found in the problematic system.
+>>>>>>>>
+>>>>>>>> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222074
+>>>>>>>> Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
+>>>>>>>> Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+>>>>>>>> ---
+>>>>>>>> Cc: Borislav Petkov <bp@alien8.de>
+>>>>>>>>
+>>>>>>>> As an alternative to this, I've also tested reverting the commit
+>>>>>>>> 07eab0901ede ("efi/x86: Remove EfiMemoryMappedIO from E820 map") and
+>>>>>>>> that also resolves the issue by retaining "9c000000-9cffffff : Reserved"
+>>>>>>>> entry in the resource tree.
+>>>>>>>>
+>>>>>>>> ---
+>>>>>>>>     arch/x86/pci/fixup.c | 36 ++++++++++++++++++++++++++++++++++++
+>>>>>>>>     1 file changed, 36 insertions(+)
+>>>>>>>>
+>>>>>>>> diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
+>>>>>>>> index b301c6c8df75..cc463bf492b6 100644
+>>>>>>>> --- a/arch/x86/pci/fixup.c
+>>>>>>>> +++ b/arch/x86/pci/fixup.c
+>>>>>>>> @@ -822,6 +822,42 @@ DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x1571,
+>>>>>>>> pci_amd_enable_64bit_bar);
+>>>>>>>>     DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x15b1,
+>>>>>>>> pci_amd_enable_64bit_bar);
+>>>>>>>>     DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x1601,
+>>>>>>>> pci_amd_enable_64bit_bar);
+>>>>>>>> +/*
+>>>>>>>> + * TODO: Remove when/if root cause is found.
+>>>>>>>> + *
+>>>>>>>> + * Genoa appears to have a 64kB iomem black hole starting at 0x9c000000
+>>>>>>>> + * address for which all reads return ~0 blocking an overlapping BAR from
+>>>>>>>> + * working.
+>>>>>>>> + *
+>>>>>>>> + * Work around the problem by reserving the space prior to making any
+>>>>>>>> iomem
+>>>>>>>> + * allocations that could overlap with the black hole.
+>>>>>>>> + */
+>>>>>>>> +static struct resource genoa_black_hole =
+>>>>>>>> DEFINE_RES_MEM_NAMED(0x9c000000,
+>>>>>>>> +                                   SZ_64K,
+>>>>>>>> +                                   "reserved");
+>>>>>>>> +
+>>>>>>>> +static void genoa_iomem_black_hole(struct pci_dev *dev)
+>>>>>>>> +{
+>>>>>>>> +    struct resource *r;
+>>>>>>>> +
+>>>>>>>> +    pci_bus_for_each_resource(dev->bus, r) {
+>>>>>>>> +        if (!r || !r->flags || !resource_assigned(r))
+>>>>>>>> +            continue;
+>>>>>>>> +
+>>>>>>>> +        if (!__resource_contains_unbound(r, &genoa_black_hole))
+>>>>>>>> +            continue;
+>>>>>>>> +
+>>>>>>>> +        if (resource_assigned(&genoa_black_hole))
+>>>>>>>> +            pci_dbg(dev, "iomem black hole workaround already
+>>>>>>>> applied\n");
+>>>>>>>> +        else if (!insert_resource(r, &genoa_black_hole))
+>>>>>>>> +            pci_info(dev, "iomem black hole workaround enabled\n");
+>>>>>>>> +        else
+>>>>>>>> +            pci_dbg(dev, "iomem black hole workaround add failed\n");
+>>>>>>>> +        return;
+>>>>>>>> +    }
+>>>>>>>> +}
+>>>>>>>> +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_AMD, 0x14ab,
+>>>>>>>> genoa_iomem_black_hole);
+>>>>>>>> +
+>>>>>>>>     #define RS690_LOWER_TOP_OF_DRAM2    0x30
+>>>>>>>>     #define RS690_LOWER_TOP_OF_DRAM2_VALID    0x1
+>>>>>>>>     #define RS690_UPPER_TOP_OF_DRAM2    0x31
+>>>>>>>
+>>>>>>> I guess it's good we know the root cause is 07eab0901ede. If we're going
+>>>>>>> down the path of making holes in that we may well put the hole in
+>>>>>>> efi_remove_e820_mmio() like this (attached).
+>>>>>>
+>>>>>> I don't really like that though.  If Genoa is affected I would expect plenty
+>>>>>> of other machines are too they just haven't been found yet.
+>>>>>
+>>>>> That's what I'm worried as well. My own testing can only cover very little
+>>>>> ground here.
+>>>>>
+>>>>>> Can we roll back 07eab0901ede and add quirks for the busted machines instead?
+>>>>
+>>>> I had an agent dig through all the reports linked in 07eab0901ede and
+>>>> drafted up what should be the remaining quirks for a revert.
+>>>>
+>>>> https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/log/?h=superm1/genoa-mess
+>>>>
+>>>> Bjorn, thoughts on this?  I'll send it out if that's the way we want
+>>>> to go (or Ilpo feel free to subsume into your series as it's only
+>>>> really exposed by your series at the moment)
+>>>
+>>> I would LOVE it if we can use those patches because it's way less
+>>> magic than 07eab0901ede is.
+>>>
+>>> But I'm frankly terrified to touch it because I'm skeptical that two
+>>> more quirks are enough.  I just expect that whatever strategy BIOS
+>>> uses to build these maps is likely to be used on many models.  I do
+>>> hate 07eab0901ede though, so I would love to see it gone.
+>>
+>> It has been about 4 years since we came up with 07eab0901ede IIRC we
+>> had a huge email thread with a whole bunch of attempts at fixing
+>> the issue in a generic manner.
+>>
+>> IIRC some of those attempts tried to identify the exact problematic
+>> issue the quirks try to fix where there is an EFI MMIO reservation
+>> covering the entire bridge window.
+>>
+>> Maybe we can dig through the old thread and see if with the knowledge
+>> we have now one of the previous attempts of fixing it from the thread
+>> is better?
+>>
+>> I agree that needing to go back to quirks is likely going to be painful
+>> and break a whole bunch of other systems. IIRC 07eab0901ede fixed
+>> a whole bunch of laptops having issues around the time not just
+>> the Clevo NL4XLU and Lenovo Yoga C940. But this info might be spread
+>> over various bugzilla entries, etc. + some models where likely never
+>> reported but just fixed in time for users to not report things.
+>>
 > 
-> You're right, in practice there isn't one. The only way to get there is
-> for userspace to install a rec_seq close to the limit, so sequence 0 was
-> never used under that key and nothing can be replayed. Starting there
-> already breaks RFC 8446 5.3, which requires the first record under a
-> key to use sequence number 0.
+> So I did have an agent at least dig into all the linked bugzillas.
+> That's how the quirk list came up.
+
+I see, that is good t know.
+> Whether or not this series is going to help any of those systems I think is a totally separately question.
 > 
-> What's left is consistency. Today the wrap gives at most one EBADMSG,
-> and none if the next record has already been parsed. After that recv
+> Could we perhaps loop in a all of the reporters from those bugzillas and ask them to test Ilpo's v3 series + the revert?
 
-I'm not seeing the "none if the next record has already been parsed"
-flow. Can you describe the sequence of events?
+I'm afraid I do no have time to do that myself. With that said
+I do think this is a good idea. For privacy reasons (bugzilla
+email addresses or not really public) this should probably be
+done through a comment in the relevant bugzilla tickets.
 
-> continues at record 0, which is neither rekeying nor terminating. TX
-> behaves the same way: the UINT64_MAX record is queued, and it goes out
-> once SO_ERROR is cleared.
-
-Then why are you patching only RX here? Both are just as problematic?
-
-
-If we implement the "abort with (some error code) is actually final,
-and not cleared with sk_err" idea, all this goes away?
-
-
-> So I'll drop the security framing and the Fixes tag. I can either drop
-> the patch, or send a minimal version for net/net-next that makes the wrap
-> error stick on both RX and TX, without touching the rekey path. Which
-> would you prefer?
-
-For this, net-next should be fine.
-
-
-> > For 1.3, just do a "silent rekey" (change the key but don't send a
-> > keyupdate) on the TX side to record number 0 with the same key? And it
-> > should be enough to test this with just 1.3.
+> BTW - I think we would want to roll back all the e820 quirks for the purpose of this test.
 > 
-> Agreed, that gets rid of the fixed vectors. Since 1.3 only uses the
-> record number in the nonce, TX can also produce the UINT64_MAX record
-> cleanly, using rec_seq 0 and the IV XORed with UINT64_MAX. If the patch
+> Even if it doesn't help we might be able to get a "live" failure from someone to iterate on trying to find a better solution.
+> 
+>> I also wonder if given we only have this magic black-hole on geneo/zen4
+>> if it would not be better to go with Mario's original approach here ?
+>> Esp. since Mario's quirk is chipset based where as the other problems
+>> seem to be model/product based so that is 1 quirk vs many quirks.
+>>
+> As Boris said - it was found on Genoa, but there is no reason it *should* be Genoa only.
+> 
+> IMV the firmware on that Genoa system advertised not to use the region but 07eab0901ede says ignore the firmware and use it anyway.  So we're adding hacks on top of hacks if we go that direction.
 
-I don't get this rec_seq 0 and IV to reach UINT64_MAX. Why not just
-pass rec_seq = 0xff..., like the current recseq_wrap test?
+This depends in your reading of what an MMIO reservation in the EFI memmap
+actually means. Some BIOSes put an MMIO reservation over the entire
+PCI bridge window. So there an MMIO reservation basically means
+"this is MMIO not RAM" it does not mean "do not touch".
 
--- 
-Sabrina
+> Our ("collective") goal should be to get rid of unscable tech debt not add more that's even harder to peel back.
+
+I complete agree, but 07eab0901ede was added exactly to do that, well to
+not need to end an endless amount of quirks. I'm afraid reverting it
+will cause lots of breakage putting users off of using Linux and if we
+end up fixing all that breakage with quirks this may result in lots of
+quirks.
+
+We know the issue worked-around by 07eab0901ede was seen on many laptop
+models. Where as the current problem so far has only shown on Genoa.
+
+Note I'm not necessarily against reverting 07eab0901ede I'm just trying
+to get across that this is a tricky issue. When we hit the issue which
+lead to 07eab0901ede I spend weeks going through bug-reports / dmesg
+outputs to try and come up with a solution.
+
+Anyway I've said what I want to say and this time around I do not have
+a whole lot of time to spend on this issue, so I which you all the best
+of luck with whatever approach you chose.
+
+Regards,
+
+Hans
+
+
