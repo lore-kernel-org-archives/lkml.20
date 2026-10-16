@@ -1,80 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C50EF4CB8C8;
-	Fri, 16 Oct 2026 13:53:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158802; cv=none; b=o+rrEFKElHj1N7W5bEcYJem6Eyc4vcuvo3QIg/88oH//90WAlTUFm8WFkeX/x+i4+KFTlMeVn+ODDksq3eHRF95Fy1/n4cCljorOZRXkpa7QobfjF5fGOEfpMErdHBzfda9KkdLMyigLorC4nMtoGgq2AGITrElI8OUuEybNqbo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158802; c=relaxed/simple;
-	bh=ZefTqfyaugMOTcSREbhZrfephi7hVcxlh9jDp46Gask=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mH13lzotaEeziNXpnAwXFFB0s9VK831VaJIhe9f3ayqRnt07TAzfz0TbZ3Go4H+/h9Ef51qdDRA4Ovf00GU+AV9mFnoglEe9+6G+C8iz5DTBuz+92Ze2g95jrXWF73WyTC2WsAssiOLVMuPWloWUqfAzkXy0NUr09cmm21e6vWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AiOYfL40; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D374D4889
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:53:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792158806; cv=pass; b=KuEqN2YjEFbovJNCp++rOGxb5ipwP1K8A1S9WaW0aIHm3kMColy4dQkqViGebLttstm09OsWUwSB5+dJG5LBCFe0wYEh4lRF+97bZQwXA6WnagXfqB0pSEhxCMTFHv3lhYCDopaey388/pxXgUmKh+IdaQ8XzePHuGAPKaRzKnw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792158806; c=relaxed/simple;
+	bh=cFvCifBg1Erj7yodq2VFcaiWk0MntVdZBsFvLjc5PDc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jf/YLV2tLpADvOOgqMk1hEpVYIp/s7DDjC50iQtGOpvFJ/KQwpm4E10l1Og9NuzZnJRVC5uHJMwL1QJk5RqyMXU84UDhlL7ebJphen2LysJ8Ym+THZUWYVqQpbbKJSUFb2Vsw3qSpmGAitqt1+H59mM0hYUsy2OIVxZCs2/C4M8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UrkPKG3T; arc=pass smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AiOYfL40"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB0CE1F000C4;
-	Fri, 16 Oct 2026 13:53:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792158801;
-	bh=5w0Kc00l7vNH6aFbFh1J6AyHjosBdNaXtwhFEc5dl44=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AiOYfL4060GZNNvWhhdBnBnoYsQzLR8kwMOJz9QCK6tTpr7OsYa5udSKRfEuOR+3j
-	 Xpk6EDpFPHtieo6J2rpQQOxzNkv46m9qhGakyxjSoe7Z56hy+8nTXVw/I6sDu1dnH8
-	 LaI4V9VRko7PaYRxtwdDeqtiZzOtfb74wt9AjrQNhjWkIbdjekl1l36NhxJTnQPhNs
-	 abKYE1fKdYQtLgYqHww69QSoz3r8XlL5CAMsj9nxVPf52KLI1JFtd4ip+CaLIY3MCi
-	 a1jTZj0J4I0P0ESArCSl7mXfv/sQkh7L81YFRtrXdKxWXy3z1+qersIGbHGq9+QtbV
-	 xirEv1EPEI+9A==
-Date: Fri, 16 Oct 2026 08:53:18 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Ali Rouhi <arouhi@sitime.com>
-Cc: vadim.fedorenko@linux.dev, ivecera@redhat.com, jiri@resnulli.us,
-	arkadiusz.kubalewski@intel.com, pabeni@redhat.com,
-	conor+dt@kernel.org, kuba@kernel.org,
-	prabhakar.mahadev-lad.rj@bp.renesas.com,
-	Oleg.Zadorozhnyi@devoxsoftware.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, krzk+dt@kernel.org,
-	cjubran@nvidia.com, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v14 02/12] dt-bindings: dpll: add SiTime
- SiT95316 clock generator
-Message-ID: <179215879728.1780041.16503599921080906388.robh@kernel.org>
-References: <20261016005823.13690-1-arouhi@sitime.com>
- <20261016005823.13690-3-arouhi@sitime.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UrkPKG3T"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c40e9aff12fso58843066b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:53:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792158803; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ddJbTCkHUsoILfeRdzIlN2kMumyuqXdcI9KPUmyKHEPd3jRiCu9NJ+00utxWHfHCtl
+         GadzDsTwqcihaeXTpN+O5Mcm/cNq57RmOXYiLHuLtapAWueIEQriopRsG0+S09mr023G
+         wnVCNXgiXqzxPaN9+RFn7whdsCZ1fOV7qmq2Ia7FNqoVSK4UC71kiKdczbIdaPzQ8mva
+         mAvSKT08eTEEtgbMPf8EIePvqrl0OGjmb78RTJLzJ6Our5H+vBx1M2XN6Iey3wEWzwJH
+         w37KBc5En3PR0gEQS0uVQgkqcMFYCZrU32/q7GFx5MUU9pYPfHfOpNJu5rSVIOxTulWt
+         jhlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=cFvCifBg1Erj7yodq2VFcaiWk0MntVdZBsFvLjc5PDc=;
+        fh=8ycVEOlon9AJPHBQThteo4utAdiHV+t2uSHxp86aRK0=;
+        b=DDjfof0UpD4+P2dcPBYbcubLEJd8wTLc4OM54ZgbznvmsYB46hO3H4twO62bkKMHm+
+         FKX0odIEPds6vbbamJBWPxDsVq41WPfKNYsIfLX/KyiBfi1Dpy7FGnQdTU5ipVQhm5cW
+         l8Rt5yxpcblYrC0Bf+iKuokKZCWkZZcuS2xqCVgPgafT9Tw5mS5AQaAtteaB2iugWJER
+         61LNq31+yVbCZKD/F8z9OqnmfZvx88RDiil6elfpoNx+7lkjyARQ/wNZhbuLtBmY97Zy
+         38fhOY2NWi1f3LA0nFhtVWzlWuG+Dmd0pnU+Wkhrb3V8zRJaVWqZ7p5TSR47W6W6JIxV
+         pygA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792158803; x=1792763603; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cFvCifBg1Erj7yodq2VFcaiWk0MntVdZBsFvLjc5PDc=;
+        b=UrkPKG3TQqFSqYcoBcmKc/Ou03DNJXJAbsOtE0PveJeD9h6ORhmph1PUQOAhPa4My1
+         y9isF1oCV6zbjbSxteywL3yvSxO96cO0He3iGJpUx78oY3L0wzOfGe+Oi5Djzf7ww5G8
+         7YEnCPTkylMB1Z1A83rpN7v5en/3m2E89NQXK5gUlDrHGeJeMGwsm2S9CUkUxuRgohTy
+         90hhlMlXGnHtmxd61xwJM6Lhf++J4icKeaADsn4LJxgku0nK6AlvWF3XkYiXVrOi+RJC
+         WC9f7A9zFPeP7ocSTEFsL3EzVYCrjO/yuL0xOEbqE8xTNBDmuo7kHWbz96uOEdt/OaB4
+         Kgrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792158803; x=1792763603;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cFvCifBg1Erj7yodq2VFcaiWk0MntVdZBsFvLjc5PDc=;
+        b=Cv8sjenAZ1I40xc9BeVn+hucjcXPbkjvPZdPCJnmT0E4CR2g5JxjraEZGu2uZafDOO
+         3e4iViKcDsea0aNdR7LXMlwmJYsTA7mcwgwcFgqy1TNKWMfjQHjE0hr7so0zm1gBFdfC
+         gUiQO0x8dmPFTxBPd0rnfKJSaF0KZmP71wWMuHZl0gM7Do35QcudIqwxbk+zHpIgsgEe
+         PJi3R3gEEckU52TfC/vsJ0R64V5vBm4IPLLm51lJ+KksXWFXBwyAFB+eVVPgxSXTHfjS
+         QtRZEFT89vFw1k0+SvRKnSrHTbkDwKNhZywo3c3frbnK/QJiV5YH9LgB0kWsfXeH5pXP
+         4oGA==
+X-Forwarded-Encrypted: i=1; AKwUvBxG/DymAJiJdMCnvlSgXMcaLOclvOKYeTrulWvxXR1TKu9OKj8539F08C06Z8XFgpbLzY+PyoQoPWLxSik=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLj1NoRqKoXDy1XgFihkbpKDE9K8SbvCLYgljV9KkTodWbRAqO8
+	IAWOwrr77yv8RhZHHxT5970/Wo3IjTH3sDj87mE75Np2QrSPR8OHehRDHk+NbHaPLNzQm2mdsF+
+	C9by/TOfvziCjDSRxPs6iy0f/1WsC150=
+X-Gm-Gg: AYBFou3Bm1iZKDXXQy7tbsAJLr7ahy4EF9ko3VSJqzU4FOnGburCQ3MnbqiGh+65QYk
+	aZW1f2esj00RX+2TuB5nR2pI2ZuVYe1FHetHZoAivZpu9u3oBY9OZp/WhL2MVk5jYDSnwEePwMc
+	fkaDB2BPWguA9GWhOBBlxGwNHXYmv3N26N1pQYPJgOKuPa/N8ZELWQicWUvFkAnd2LpdTWEemjx
+	UH7qbU7kBrtQcrxtUDu+Ra23W6nc+9j88OOqlo/citQVwROBorodogs12HtSZhQm5ycCDEnwRob
+	AyxmsUhq720rY922TtiVqqXJJNFtH3TmLzjWd/bmB80TxfxkPVDqfaQf2+0=
+X-Received: by 2002:a17:907:3f0b:b0:c29:c079:676d with SMTP id
+ a640c23a62f3a-c31a9a2d869mr2007763866b.3.1792158802842; Fri, 16 Oct 2026
+ 06:53:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016005823.13690-3-arouhi@sitime.com>
+References: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com> <8a7eb315-b8af-45b8-a0a0-52814a5341de@yahoo.com>
+In-Reply-To: <8a7eb315-b8af-45b8-a0a0-52814a5341de@yahoo.com>
+From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Date: Fri, 16 Oct 2026 10:53:07 -0300
+X-Gm-Features: AclHuK_zgmTCWwlrEtDavnlWwYCxIc6oJyBMHV4DNMVoRBrUuHmo5hygFtbQTgE
+Message-ID: <CAJq09z6it-Vz3cF+sJgAP1X3tcr_L3ir=iqoSduiw9XaB5FyPg@mail.gmail.com>
+Subject: Re: [PATCH net-next v6 2/9] net: dsa: realtek: rtl8365mb: add chip
+ family infrastructure
+To: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org, 
+	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, 
+	linux@armlinux.org.uk, maxime.chevallier@bootlin.com, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+> Add enum rtl8365mb_family and a family member to struct
+> rtl8365mb_chip_info, together with rtl8365mb_get_family() declared in a
+> new rtl8365mb.h so that the VLAN code can use it too. Tag all existing
+> chips as RTL8365MB_FAMILY_C.
+>
+> RTL8365MB_FAMILY_D is defined here but no chip uses it yet; it is needed
+> by the following patches, which add family D handling for chips whose
+> register layout differs from the existing ones.
+>
+> No functional change.
+>
+> Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-On Fri, 16 Oct 2026 00:58:25 +0000, Ali Rouhi wrote:
-> Add a binding for the SiTime SiT9531x family of clock generators: an
-> I2C-controlled device with four independent PLLs, up to eight input
-> clocks and up to twelve outputs, described as a DPLL provider.
-> 
-> The XO is given either as a clock or, for firmware that describes the
-> oscillator as a property rather than as a clock provider, such as ACPI,
-> as clock-frequency.
-> 
-> The supplies are described by their pin names: the core and input rails,
-> the GPIO rail the SiT95317 has, and one per output-driver pin -- VDDO0 to
-> VDDO7 on the SiT95317, VDDO0_1, VDDO2 to VDDO9 and VDDO10_11 on the
-> SiT95316.  The driver does not enable them, since the boards so far
-> power the part permanently; describing them gives a board with
-> switchable rails a way to say so.
-> 
-> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
-> ---
->  .../bindings/dpll/sitime,sit95316.yaml        | 214 ++++++++++++++++++
->  MAINTAINERS                                   |   6 +
->  2 files changed, 220 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml
-> 
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-
+Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
