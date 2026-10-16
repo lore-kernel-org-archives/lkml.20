@@ -1,88 +1,85 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B58348C6B;
-	Fri, 16 Oct 2026 21:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C123D348C6B;
+	Fri, 16 Oct 2026 21:13:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792185170; cv=none; b=URquqrl97N0ZrUyromNlu9YH1wp8A8J4UOrGfchhwJfHzSSlTVujIxcJ7rhdi/5CUpyVBaNbH4lAOLEhy9ZnQVn0psT6OoEH+EVh17otD4We3z2Plx2iSiwnxnmF7SBRgWxYOpLAGh+AUjQ86QHJ6ocCPPpJn9EFDh/j3WqfzXU=
+	t=1792185187; cv=none; b=k9OD8JM8cVhINkPWmI3XpGElQ862E5VkObC9NZrP09FJ4Pj34rYhgRE2lB82g1d/HTaD0PxO+axusz9MlzYi2HMbD2YrNjppDiGW13qUnPFdAn4HZ/4AVrIlmwRftWuVmEVLISM4ua7gYeAsjnB+lfCwQD7F176Uc8UzMow/LuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792185170; c=relaxed/simple;
-	bh=xEDBDZLnCA1TaZqZJKoAlK6nDOVbDceU/MIop2KkYeg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JlIvzluUU8shsUA4e8qhZbZElIUcwxy5890MJOATIWDLJvxCxBl1mBdZ/tM7TrhwMwfNMLMIsWaePf6aVr+akdX2s4PRT8ovJSpBv2hi4PQo2G+Pwe09eRE9ET281kdIeLKp6wCbG8pQ/O6OV7YFBzR+qt+IfClxk9X15cJKiJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=olJw8sxb; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="olJw8sxb"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=xzkj/ZBHK+z7M4G04Cm+Pn9IBQkeIvv/Jc//KeKDVZk=; b=olJw8sxbieC1HTdPa0kHf0eGnc
-	HTqN7iFZDlQEOx08ZBDM0oe2CHW/6z0gnYl83w9N4VZPHZxD20KrFM6VhuVNcXXKaZ7lrQItC9saC
-	Petg2DVXdZWVonrEqF1jGKlNztXv9Wycn7IiNH+NmATARJFRVWiJrbkrFIbddbIdpV5s=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xHpEF-00BE90-HA; Fri, 16 Oct 2026 23:12:39 +0200
-Date: Fri, 16 Oct 2026 23:12:39 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Robert Marko <robert.marko@sartura.hr>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, lxu@maxlinear.com,
-	hkallweit1@gmail.com, linux@armlinux.org.uk, michael@walle.cc,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, lrosu@maxlinear.com,
-	luka.perkov@sartura.hr
-Subject: Re: [PATCH net-next v2 2/5] net: phy: mxl-gpy: add MxL86211C VDDP
- supply
-Message-ID: <5d2c866f-9c01-4f9b-b50f-ec95696fa2ef@lunn.ch>
-References: <20261016112033.949026-1-robert.marko@sartura.hr>
- <20261016112033.949026-2-robert.marko@sartura.hr>
+	s=arc-20240116; t=1792185187; c=relaxed/simple;
+	bh=ZcfoHCpiiQP2tZzKi9R/eJUdJ4wjVCYNR7LFIym2pN0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=psBZMxWhYm9J+c/fa5zg95SGvcnSgfs5j0rcRrR+1owGQsry6xUuPUJabE0cxvLyiF5NxitPbvxZSR+eK6T3ZUrJRRZFfACSdG0Ss/XbJFOmSSo1MFaI60ouKFa9YC7DRjejWKoIbZRzo2+CzdgxLnSJSdmSqaDUKqaYRKWbqPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 3814A92009D; Fri, 16 Oct 2026 23:12:56 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 32D2092009B;
+	Fri, 16 Oct 2026 22:12:56 +0100 (BST)
+Date: Fri, 16 Oct 2026 22:12:56 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Matt Turner <mattst88@gmail.com>
+cc: linux-alpha@vger.kernel.org, Magnus Lindholm <linmag7@gmail.com>, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] alpha: replace dead links in Kconfig help text
+In-Reply-To: <20261001165018.415526-1-mattst88@gmail.com>
+Message-ID: <alpine.DEB.2.21.2610162207360.22065@angie.orcam.me.uk>
+References: <20261001165018.415526-1-mattst88@gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016112033.949026-2-robert.marko@sartura.hr>
+Content-Type: text/plain; charset=US-ASCII
 
-> +static int mxl86211c_probe(struct phy_device *phydev)
-> +{
-> +	struct device *dev = &phydev->mdio.dev;
-> +	struct gpy_priv *priv;
-> +	struct regulator *vddp;
-> +	int ret;
-> +
-> +	vddp = devm_regulator_get(dev, "vddp");
-> +	if (IS_ERR(vddp))
-> +		return dev_err_probe(dev, PTR_ERR(vddp),
-> +				     "failed to get VDDP supply\n");
-> +	if (!vddp)
-> +		return dev_err_probe(dev, -EOPNOTSUPP,
-> +				     "VDDP supply requires regulator support\n");
-> +
+On Thu, 1 Oct 2026, Matt Turner wrote:
 
->  static bool gpy_sgmii_need_reaneg(struct phy_device *phydev)
->  {
->  	struct gpy_priv *priv = phydev->priv;
-> @@ -1406,7 +1467,7 @@ static struct phy_driver gpy_drivers[] = {
->  		.name		= "Maxlinear Ethernet MxL86211C",
->  		.get_features	= genphy_c45_pma_read_abilities,
->  		.config_init	= gpy21x_config_init,
-> -		.probe		= gpy_probe,
-> +		.probe		= mxl86211c_probe,
+> The Linux/Alpha FAQ, the unix-ag LX164 overview, the Rawhide install
+> HOWTO and the Ruffian FAQ are all gone. Point the "Alpha system type"
+> help at the system and motherboard lists on the alphalinux.org wiki
+> instead, give LX164 a one-line description in place of its link, and
+> drop the others.
 
-This is an existing device. You cannot add required new DT parameters,
-that would break backwards compatibility. Anything you add news to be
-optional.
+ Would it make sense to keep links to archive.org copies around?
 
-    Andrew
+> @@ -184,8 +185,8 @@ config ALPHA_EIGER
+>  config ALPHA_LX164
+>  	bool "LX164"
+>  	help
+> -	  A technical overview of this board is available at
+> -	  <http://www.unix-ag.org/Linux-Alpha/Architectures/LX164.html>.
+> +	  AlphaPC164-LX, a 21164A-based single-board computer using the
+> +	  Pyxis chipset.
 
----
-pw-bot: cr
+ For example: 
+<https://web.archive.org/web/19990913123756/http://www.unix-ag.org/Linux-Alpha/Architectures/LX164.html> 
+seems fully usable.
+
+> @@ -224,14 +225,11 @@ config ALPHA_RAWHIDE
+>  	select HAVE_EISA
+>  	help
+>  	  AlphaServer 1200, AlphaServer 4000 and AlphaServer 4100 machines.
+> -	  See HOWTO at
+> -	  <http://www.alphalinux.org/docs/rawhide/4100_install.shtml>.
+
+ Likewise: 
+<https://web.archive.org/web/20000817221358/http://www.alphalinux.org/docs/rawhide/4100_install.shtml>.
+
+>  config ALPHA_RUFFIAN
+>  	bool "Ruffian"
+>  	help
+> -	  Samsung APC164UX.  There is a page on known problems and workarounds
+> -	  at <http://www.alphalinux.org/faq/FAQ-11.html>.
+> +	  Samsung APC164UX.
+
+ Likewise: 
+<https://web.archive.org/web/20000130062931/http://www.alphalinux.org/faq/FAQ-11.html>.
+
+ Of course nested links may or may not work, but at least references to 
+some information are retained.  Or has it all been already extracted and 
+written down in the wiki?
+
+  Maciej
