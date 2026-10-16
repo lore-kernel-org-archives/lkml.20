@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7A7D1F63D9;
-	Fri, 16 Oct 2026 00:30:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2A22D29C8;
+	Fri, 16 Oct 2026 00:30:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792110609; cv=none; b=snE7PUsXB8vHbpxE0GemlO925tUNDC7ToZ1VFY8O8lai5F26LN2AkM1Krvb6dOgz6LnYWvdmj8LtEALtGB3lX1pXuC6Li9ERMRVaqC5YnWSr62BU5eSFf9akJcYW2ojErNRBZkanMIJj1234zfSR3Z/hsbEQYWT0XaDg4dUBLPE=
+	t=1792110612; cv=none; b=GZF6Nb5ET1DW1R03xu9T3pTl+2ayXyjdxbwiY3jcxCCsUZzBkIghKndtgQsinLdu69ZHEU13ZazQo6QgKjo90WXv1bN7cohwCuU637SkbdTF6hWnDjZ3BG1z8nFozytwoMiyC+CzdkyI6r2TQs7lUl/+q5VrN5O2Yvvx2FmPLVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792110609; c=relaxed/simple;
-	bh=Dz6TmJYux1mux0ua/EVsgGLhVbDlddlquCM0PmBge9s=;
+	s=arc-20240116; t=1792110612; c=relaxed/simple;
+	bh=bARByNApv2qSYRvMZApvNsjaTS6YnxdAS15KW7TVQTI=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=ckQ9gZ/AMrtRMHLIrziVo5It1tz4Npgc2SumVKnBZBM/8qVUGHI+sLD0VRPdRW6Bw01m83OrjJiqmuoKI4KQpVZ7dzIcDyjrfgWi4maGAjHNMhHW4k61PZ2g0rHVFAUhLhIxiEvhfRfh9wvS0mY3Aq7n1JzarRM4nScrnj25+Zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AII46m96; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=X7XbPD+3eJbrqOVM9qfHZiiN7vjW8uiiZqPQtvGs/YPtBI4+h/AKRCXE087K7l39H2X1OSo+qdQkDUFEMw2umZfshhro9o1u8uCkQJkUOq1kLLOiDLYJAkUy1aQM8PQzRJu8oM7hRL0K3Irii4IFCOZXBqq2/Xe5N0CIedJ5KHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EId3jhZ7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AII46m96"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 804B71F000C4;
-	Fri, 16 Oct 2026 00:30:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EId3jhZ7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1FD21F000C4;
+	Fri, 16 Oct 2026 00:30:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792110607;
-	bh=k5OvMtbid22qcJDJv0Ls53VED6eV7K0r+g2fFWg94zE=;
+	s=k20260515; t=1792110610;
+	bh=7Lq+Sse+et5IRJkDZ9c0elUVkXMe4tv8qt9iuxv7iS4=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=AII46m96jiBSwHH7m4eJ3KWFAWFqGy/ZELg0QYaDonJ+tUj4hBDhYN0+Q1GjOYmPy
-	 4XarjMZ3seaVos4xOThqpkTiRYea3ZmFfmfFJPjZh2mm1F97rpV0QNlzpf8dZYykef
-	 3NMaPlWJ5s/f9YfMRumMFemJgbPEHqxd2YbA+tMpB6pPkqOU5fU6Z1IwUTNc+ALQXu
-	 W2XygfhS9TIVPGBpLFz9n8+RQCcfV64MH/56t1Mw/sx/6lK/ceok4QkHHp18J8Urp3
-	 X2RhC+XpwRwF2hhCYFtUxDf6xNlDkDUcuT543cdJF8Ir/2Oz1QcPIU0IsEgTLCzJrp
-	 hE9ARP7B5ZX9Q==
+	b=EId3jhZ7GNOop/wPZHOc2akj9yHKAw+4xeETaq1/VSgOk29Jl6WYgI2GHklMK4iQF
+	 8p40yd3q/Ptjub0Eg8u+qg5QkrwYulqVieZCN5w67MgZKx6VUdDU5nbaDvZc9R2fZh
+	 KrT3+hUCCg9ObKyeAtQlgtFn7rBwfpbdsfJu7Y0+aO35WuWph+kvmZF0p6r7qUFdEz
+	 D5T5JTrNHwxyCIdpWGPrtRibHbR7tcbkLcZS5AWFA8prGU/F6fU0eBh/TbwOCodtG0
+	 9XSSnl8U1Zy7Lj/XiRG8NBJClkw53bBDSk/4dx/I70N6MX57eheh82zwOa5MiUC7AP
+	 6KzBaHn1BxpRw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 774F03808209;
-	Fri, 16 Oct 2026 00:30:07 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B43413808209;
+	Fri, 16 Oct 2026 00:30:10 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,40 +37,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf-next v9 0/2] bpf: htab: Reduce memory use of hash maps
+Subject: Re: [PATCH net v5] net: erspan: set lltx to avoid sch_direct_xmit
+ deadlock
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179211060627.4173731.9793836983476129802.git-patchwork-notify@kernel.org>
-Date: Fri, 16 Oct 2026 00:30:06 +0000
-References: <20261008104108.993791-1-tjmercier@google.com>
-In-Reply-To: <20261008104108.993791-1-tjmercier@google.com>
-To: T.J. Mercier <tjmercier@google.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, mykyta.yatsenko5@gmail.com, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org
+ <179211060926.4173731.112372523388867313.git-patchwork-notify@kernel.org>
+Date: Fri, 16 Oct 2026 00:30:09 +0000
+References: <20261008093824.119453-1-yun.zhou@windriver.com>
+In-Reply-To: <20261008093824.119453-1-yun.zhou@windriver.com>
+To: Yun Zhou <yun.zhou@windriver.com>
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
 Hello:
 
-This series was applied to bpf/bpf-next.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-On Thu,  8 Oct 2026 03:41:04 -0700 you wrote:
-> Memory is expensive and scarce these days. This series reduces the
-> memory use of BPF hash maps by eliminating the per-element overheads
-> below. This saves up to 50% of per-element memory use for standard and
-> PCPU hash maps. The memory use of LRU hash maps is unaffected.
+On Thu, 8 Oct 2026 17:38:24 +0800 you wrote:
+> The ERSPAN xmit path re-enters the network stack, causing nested
+> acquisition of _xmit_lock on the underlay device while already holding
+> the ERSPAN device's _xmit_lock, creating an ABBA deadlock. This happens
+> for both IPv4 ERSPAN (erspan_xmit() -> ip_tunnel_xmit()) and IPv6 ERSPAN
+> (ip6erspan_tunnel_xmit() -> ip6_tnl_xmit()):
 > 
-> Map Type & Configuration           | Old size | New size | Savings
+>   sch_direct_xmit [lock erspan] -> erspan_xmit -> ip_tunnel_xmit ->
+>   ip_output -> __dev_queue_xmit -> sch_direct_xmit [lock underlay]
 > 
 > [...]
 
 Here is the summary with links:
-  - [bpf-next,v9,1/2] bpf: htab: Split htab_elem_lru and htab_elem_pcpu off of htab_elem
-    https://git.kernel.org/bpf/bpf-next/c/26c9dc906692
-  - [bpf-next,v9,2/2] bpf: htab: Reduce elem_size by 8 bytes for small key sizes
-    https://git.kernel.org/bpf/bpf-next/c/0d0421c96f67
+  - [net,v5] net: erspan: set lltx to avoid sch_direct_xmit deadlock
+    https://git.kernel.org/netdev/net/c/2d36ec73836e
 
 You are awesome, thank you!
 -- 
