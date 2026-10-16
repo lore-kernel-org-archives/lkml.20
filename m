@@ -1,288 +1,216 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C213A33D503
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:17:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0FBE33508E;
+	Fri, 16 Oct 2026 01:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792113446; cv=none; b=EfwA9/AUvjPnDEhoJ+RSRVcxjNy12tRuC4zHTPSzILbdpAixmqbbr4Hfx7skO9+b4EucseQ62lEcITpGju4AP2TVEGYn5ka2hsWGL96Sp/IPAPcwB5dUHQ84oQc65zk9IsAP+fynu7Cg3yrqVuqvD0JPGaV/u7VuJ42PtHHhapY=
+	t=1792113536; cv=none; b=fifMEFebxtulhxw3NH/atXcz6g/MBpAjcc2QTjUM7WMjQGeEWcZHU9IE5cXktOu640U2j13A0vSsKXTmKtMg7FUTJFN4LLHSP5txrS9OYjzXDV+y09RPxBEt4HNRsEpwagFv5UrN8TNgfsi4XX/XIO26khHcOw07zoaNhzs5BnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792113446; c=relaxed/simple;
-	bh=SJ/jG8MLQshaLuhuluYLLcj2s2DRB1st0MberlN5Xn8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=K/l8fkzTklQUCeRnc4xOKnTvqAxEWSN7hfGLfNxJ18jNyq0tGIGang3E2NoACukogDnoLEkco1lgPrfIpeOtKwAYppWrrUBMS4XKVC9NtLNX6gLWk3sAi+/p8ZVBAv5IyPHe9pZF0PHBtzFhNDuuIYPw6vuY3pP7iJVjOMSuXrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qtA4PMHY; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qtA4PMHY"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-89f1318195fso340003b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:17:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792113441; x=1792718241; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Kt9FQDsR1MLn/kxVOoumsCY08npA6k90Pz+IFSTIf/4=;
-        b=qtA4PMHYkPBEq3zuWGZUi5OI9/e3x5TELtHQc/iN1zFJhVJon9El7OJrR1PH1ARGy6
-         5GGVXKL/Yu+jCNZTvo7XMi08+iL/zPv/Js9V0/v8U1WJHAhhkc3epzpIt7pTQg/gVKnF
-         DDh1yxkH5YCfXNueJ/5BeRfogpUxuWre9UMRRP9aMQ6JMVfieXen97gd+Od9y2WntfJJ
-         J54xTtyr8jC4OXzEBsR2XHfr/TYWS3Y7ZkXzwXfP002O+Y4NkuslbYcd4vLgCqVjD11c
-         S4BjANuMjvAqmkaJdEEZ5nBaO80PmiHFm7/0HCIdiFOSq8IWrn4ap0u2dgpsnZibk1ze
-         LGnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792113441; x=1792718241;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Kt9FQDsR1MLn/kxVOoumsCY08npA6k90Pz+IFSTIf/4=;
-        b=lE6B/ZiYtYHOjCdVEsFdzZKg466ljDYQ8xEpz0wymSjN3Oancz2e8SAebZrEwz2yd+
-         MTGaggCb9WF9CLgaaSsqHqPEcSJZuwlqzIkWkwUDEHAiQ/xL6BEqwd3emUIL2Xv1FPKO
-         95BkXvHhU39Ge4bOFTQ8GR8EAOWQ6CfX28GjcjF+hGpGzPkVqlhMiE4dl0pcby8ZdjzT
-         0Zxx+YTlykgmMyyhEGm5ElNNmYLyaGaHAKykIIxOg6DjHnob4RBBHSSZgqKUrzO+V86k
-         ozbZnCPhYpoMskR549t16IReESyFQuwIFtndzMeJiuV9U0XAm1Jicr2X0UDgJgsa4sdk
-         5lWA==
-X-Forwarded-Encrypted: i=1; AKwUvByCdfN6M3zxeR/iSJCE7IdGPb7ac+fMZ9/d6lq/V5IGzmutJujFSjzU5k38aitZRhciy767kedYr6BZyBw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKoVKneO8P4CRdIYQo2awtSttnVTitO5W4pn0wZdY7G6M8m0yHp
-	nlHezVOLpMGPZKBjU5JPrMem7VlMStJ8iEcHUdrJe91CNccTjsIlCMPO
-X-Gm-Gg: AYBFou0S8D3ccZ4agbiNCuHRvksCPUTAgTrLuMWeY0Bl07m5R43yKX/wXd7kCPDbpjP
-	NMpMK/5z324dOwWXiSR10rUjrSles1TVUA/awWpIPe6a32e16FNzjKXciZ8Ni99IwYlBO6jlTpF
-	StSVVqYCtt/CrjdZqvtjE+Pcd9LCNIR5vvs/la6ckWQqk+jlOJiYjp5k/XmJVYAJPUrguTMq/io
-	5egzNvoTgirLf/H5alefVmGzrEBZJkTv2PvyVzRbMlLeaYvwLkhtJLItRG4jLfsmS1LxKgQhC6w
-	r2lgHrofz5NSM+EcCiEIa/MJ+eOixumBmj4qm71rmT5UERpXh8tYgTBQsfSW6Ru2Klm4Q6pPVbj
-	U4HINZpDP02+g3g1f9S2sw4k3KQ6FGjDnILEMEAHDIps8XzC9GO/uj0u3Amt2OFy2Y+9pFcqaM9
-	t6mo9zMf1yenWu7IM1Fjtc4OqWE79QBeNJZubdG0Pu0RIXZrGr4XYujVHslcUOiwiNrQ0=
-X-Received: by 2002:a05:6a00:9504:b0:878:6ee:671c with SMTP id d2e1a72fcca58-897c700e769mr18527238b3a.30.1792113441269;
-        Thu, 15 Oct 2026 18:17:21 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f6ab19e93sm247444b3a.49.2026.10.15.18.17.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 18:17:20 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com,
-	heming.zhao@suse.com,
-	akpm@linux-foundation.org,
-	zzzccc427@gmail.com,
-	kees@kernel.org,
-	kmehltretter@gmail.com,
-	christophe.jaillet@wanadoo.fr,
-	ericterminal@gmail.com,
-	rppt@kernel.org,
-	rollkingzzc@gmail.com,
-	brauner@kernel.org,
-	sunil.mushran@oracle.com,
-	kurt.hackel@oracle.com,
-	jack@suse.cz
-Cc: ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com
-Subject: [PATCH v3] ocfs2: Pin owning modules for open debugfs files
-Date: Fri, 16 Oct 2026 09:17:13 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0089-v6-f7fda843f80887488145@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1792113536; c=relaxed/simple;
+	bh=vJIefsg1Wdj6LPcG4jxyb9SehHRoYIBR778BIER5y6M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FHGGt2SG6yFuoaEvv7juxrfnsmC6gWsijdTZH3vxpaNnvHODynitSb4JBKFGetxnybtWSy9710WpoBNAcjSv7DMaffQ/f08xhuNsE7xAM8+Dznixym6c3jKTLENY46hWtMkK1AP2IbRpfgr5d9YQUQhxsLnP7Z1nwwdUrGQdVgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j5RsT3Q67zKHMQM;
+	Fri, 16 Oct 2026 09:18:37 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id DA953406D4;
+	Fri, 16 Oct 2026 09:18:39 +0800 (CST)
+Received: from [10.67.110.36] (unknown [10.67.110.36])
+	by APP4 (Coremail) with UTF8SMTPA id gCh0CgAHOulve9FqJtJqAg--.4184S2;
+	Fri, 16 Oct 2026 09:18:39 +0800 (CST)
+Message-ID: <8fdf2566-bbac-4854-8faf-0276af5f936e@huaweicloud.com>
+Date: Fri, 16 Oct 2026 09:18:38 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 00/15] perf annotate arm64: Support instruction
+ tracking for data type profiling
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: james.clark@linaro.org, xueshuai@linux.alibaba.com,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, leo.yan@linux.dev,
+ Li Huafei <lihuafei1@huawei.com>, Ian Rogers <irogers@google.com>,
+ Kim Phillips <kim.phillips@arm.com>, Mark Rutland <mark.rutland@arm.com>,
+ Ingo Molnar <mingo@redhat.com>, Bill Wendling <morbo@google.com>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, Zecheng Li <zli94@ncsu.edu>,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev
+References: <cover.1791629326.git.wutengda@huaweicloud.com>
+ <atFdpZG-b2JPS1St@google.com>
+Content-Language: en-US
+From: Tengda Wu <wutengda@huaweicloud.com>
+In-Reply-To: <atFdpZG-b2JPS1St@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:gCh0CgAHOulve9FqJtJqAg--.4184S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3WF13tFWktFW7Gr4fCFWDXFb_yoW7Zr1Upa
+	93C3WfJr45tr40ywnrJrZ7XF4rtw4fJa48G348ta4Syr12kF9YyF9rKF1FyFZ5Cr98Cw17
+	tw4qyFn8Zay8uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvFb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7
+	CjxVAFwI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02
+	F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4I
+	kC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAa
+	w2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxV
+	Aqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a
+	6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6x
+	kF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AK
+	xVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvj
+	xUxo7KDUUUU
+X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-The OCFS2 debugfs file operation tables do not set owner. The
-full debugfs proxy obtains real_fops with fops_get() at open and
-keeps it until final release. Without an owner, this does not acquire
-a reference to the module containing the table and its callbacks.
-Removing the debugfs entries does not drain retained open files.
 
-An open connected_nodes file can therefore outlive ocfs2_nodemanager
-and make full_proxy_release() read real_fops->release from freed
-module memory. Heming also reproduced the issue with fs_state and
-asked for the other OCFS2 debugfs operation tables to be checked.
 
-Set owner to THIS_MODULE in all eleven explicit debugfs operation
-tables: five in ocfs2_nodemanager, four in ocfs2_dlm, and two in
-ocfs2. The existing debugfs get/put pair then holds the appropriate
-module until final release. Leave the open, read and release callbacks
-unchanged. The blockcheck table already sets owner through
-DEFINE_DEBUGFS_ATTRIBUTE(), so it needs no change.
+On 2026/10/16 7:11, Namhyung Kim wrote:
+> Hello,
+> 
+> On Tue, Oct 13, 2026 at 01:27:58PM +0000, Tengda Wu wrote:
+>> This series adds arm64 support to perf's data type profiling by
+>> implementing instruction tracking for the arm64 architecture.
+>>
+>> Patches 01-11 of v6 have already been merged. This version only
+>> contains the remaining instruction tracking part, renumbered from 01.
+>>
+>> The main changes since v6 include:
+>> v6: https://lore.kernel.org/all/cover.1789521520.git.wutengda@huaweicloud.com/
+>>
+>>   * Rebase on the latest tree, since flex array support patches have been
+>>     merged recently.
+>>   * Invalidate lifetime in propagate_load_reg_state(). (Sashiko)
+>>   * Remove the has_reg_type() guard in update_store_insn_state() to avoid
+>>     skipping the stack state invalidation logic. (Sashiko)
+>>   * Fix the issue where TSR_KIND_PERCPU_BASE fails to retry as expected. (Sashiko)
+>>
+>> Patch organization
+>> ==================
+>>
+>>   Patches 1-3:   Shared infrastructure. Extract invalidate_reg_state() as
+>>                  a common helper, add the arch_get_reg_offset() helper for
+>>                  computing operand base offsets, and wire up the arm64
+>>                  entry points (arch_supports_insn_tracking(),
+>>                  init_type_state(), and update_insn_state_arm64()).
+>>
+>>   Patches 4-6:   Core instruction tracking for arm64: function return
+>>                  types after calls, load instructions (ldr/ldp and their
+>>                  addressing modes), and store instructions (str/stp).
+>>
+>>   Patches 7-9:   Shared data structure improvements and an x86 fix.
+>>                  Expand type_state_reg.imm_value to u64 so 64-bit
+>>                  addresses can be tracked, preserve imm_value for stack
+>>                  variables, and delete stale stack state on store of an
+>>                  untracked register on x86.
+>>
+>>   Patches 10-15: Remaining arm64 patterns: stack variable tracking,
+>>                  'mov' (register and immediate forms), 'add' member
+>>                  address calculation, 'adrp' global variable tracking,
+>>                  per-cpu variable access, and 'mrs sp_el0' to resolve the
+>>                  'current' pointer.
+>>
+>> Each patch's type profiling results are as follows:
+>>
+>> Patch | Feature                    | no_sym | no_var | no_typeinfo | bad_offset | insn_track | ok(%)
+>> ------+----------------------------+--------+--------+-------------+------------+------------+------
+>> base  | baseline                   | 6      | 493    | -           | -          | -          | 56.2%
+>> 0002  | enable insn tracking       | 6      | 42     | 437         | 2          | 12         | 57.2%
+>> 0005  | support 'load' insn        | 6      | 42     | 398         | 1          | 52         | 60.7%
+>> 0006  | support 'store' insn       | 6      | 42     | 398         | 1          | 52         | 60.7%
+>> 0010  | support stack variable     | 6      | 42     | 391         | 1          | 59         | 61.3%
+>> 0011  | support 'mov' insn         | 6      | 42     | 372         | 3          | 76         | 62.8%
+>> 0012  | support 'add' insn         | 6      | 42     | 318         | 7          | 126        | 67.2%
+>> 0013  | support 'adrp' insn        | 6      | 42     | 238         | 8          | 205        | 74.2%
+>> 0014  | support per-cpu variable   | 6      | 42     | 233         | 8          | 210        | 74.6%
+>> 0015  | support 'mrs' insn         | 6      | 42     | 230         | 8          | 213        | 74.9%
+>>
+>> Testing
+>> =======
+>>
+>> Tested on arm64 (all passed):
+>>
+>>   # perf test -v "perf data type profiling tests"
+>>   81: perf data type profiling tests                                                                  : Ok
+>>
+>>   === Test Summary ===
+>>   Passed main tests : 1
+>>   Passed subtests   : 0
+>>   Skipped tests     : 0
+>>   Failed tests      : 0
+>>
+>> Tested on x86. The profiling results show no change before/after applying
+>> this patch series:
+>>
+>>   before : total 880, ok 711 (80.8%), bad 169 (19.2%)
+>>   after  : total 880, ok 711 (80.8%), bad 169 (19.2%)
+>>
+>> Changelog
+>> =========
+>> v6 -> v7:
+>>   - v6: https://lore.kernel.org/all/cover.1789521520.git.wutengda@huaweicloud.com/
+>>   - Invalidate lifetime in propagate_load_reg_state().
+>>   - Remove the has_reg_type() guard in update_store_insn_state().
+>>   - Fix the issue where TSR_KIND_PERCPU_BASE fails to retry as expected.
+>>
+>> Please let me know if you have any feedback.
+> 
+> Thanks a lot for your work!  Assuming you'll fix the issues from Sashiko
+> in the next version, you can add my:
+> 
+> Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+> 
 
-The original controlled test used an unloadable OCFS2 module and
-case-local probe filters without changing the candidate open, unload
-or release logic. Closing a retained connected_nodes file after
-normal unload produced:
+Yes, I'll address the issues reported by Sashiko and send a v8.
+Most of them are minor, and I'll fix them accordingly (or explain
+in the v8 thread if I think any of them is a false positive).
+I'll carry your Reviewed-by in the next version as agreed.
 
-  BUG: unable to handle page fault for address: fffffbfff804cfef
-  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:full_proxy_release+0xbf/0x190
-  Call Trace:
-   <TASK>
-   __fput+0x39a/0xa60
-   fput_close_sync+0xff/0x200
-   __x64_sys_close+0x8c/0xf0
-   do_syscall_64+0x114/0x620
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-  Modules linked in: [last unloaded: ocfs2_nodemanager]
+Thanks,
+Tengda
 
-Fixes: 2309e9e040fe ("ocfs2/net: Add debug interface to o2net")
-Fixes: 87d3d3f3931f ("ocfs2/hb: Expose the list of heartbeating nodes via debugfs")
-Fixes: 3ba169ccec1c ("ocfs2/cluster: Add new function o2net_fill_node_map()")
-Fixes: 50397507e856 ("ocfs2: Expose the file system state via debugfs")
-Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Fixes: 7209300a9b98 ("ocfs2/dlm: Dumps the purgelist into a debugfs file")
-Fixes: d0129aceaecc ("ocfs2/dlm: Dumps the mles into a debugfs file")
-Fixes: 4e3d24ed1a12 ("ocfs2/dlm: Dumps the lockres' into a debugfs file")
-Fixes: 007dce53a29c ("ocfs2/dlm: Dump the dlm state in a debugfs file")
-Assisted-by: LLM
-Cc: <stable@vger.kernel.org>
-Suggested-by: Heming Zhao <heming.zhao@suse.com>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> Thanks,
+> Namhyung
+>  
+> 
+>> Tengda Wu (15):
+>>   perf annotate-data: Extract invalidate_reg_state() as a common helper
+>>   perf annotate-arm64: Enable instruction tracking support
+>>   perf annotate-data: Add arch_get_reg_offset helper
+>>   perf annotate-arm64: Track return type after call instructions
+>>   perf annotate-arm64: Support load instruction tracking
+>>   perf annotate-arm64: Support store instruction tracking
+>>   perf annotate-data: Expand type_state_reg imm_value to u64
+>>   perf annotate-data: Track imm_value for stack variables
+>>   perf annotate-x86: Delete stale stack state on store of untracked
+>>     register
+>>   perf annotate-arm64: Support stack variable tracking
+>>   perf annotate-arm64: Support 'mov' instruction tracking
+>>   perf annotate-arm64: Support 'add' instruction tracking
+>>   perf annotate-arm64: Support 'adrp' instruction to track global
+>>     variables
+>>   perf annotate-arm64: Support per-cpu variable access tracking
+>>   perf annotate-arm64: Support 'mrs' instruction to track 'current'
+>>     pointer
+>>
+>>  .../perf/util/annotate-arch/annotate-arm64.c  | 750 ++++++++++++++++++
+>>  tools/perf/util/annotate-arch/annotate-x86.c  |  38 +-
+>>  tools/perf/util/annotate-data.c               | 209 ++++-
+>>  tools/perf/util/annotate-data.h               |  14 +-
+>>  4 files changed, 963 insertions(+), 48 deletions(-)
+>>
+>>
+>> base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
+>> -- 
+>> 2.34.1
+>>
 
----
-Changes in v3:
-- Match each .owner assignment to the indentation of neighboring members
-  throughout, as requested by Kees Cook.
-
-Changes in v2:
-- Cover fs_state and locking_state in the OCFS2 filesystem module.
-- Cover all four OCFS2 DLM debugfs operation tables.
-- Keep the five node manager fixes and the original diagnostic.
-- Add explicit module headers and Fixes tags for the added tables.
-- Add Cc: stable@vger.kernel.org.
-
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0089-v2-4c67f48d4e2d0fc85990@gmail.com
-Link to v2: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0089-v5-076c780eeaf45afb2a53@gmail.com
-
- fs/ocfs2/cluster/heartbeat.c | 1 +
- fs/ocfs2/cluster/netdebug.c  | 4 ++++
- fs/ocfs2/dlm/dlmdebug.c      | 5 +++++
- fs/ocfs2/dlmglue.c           | 2 ++
- fs/ocfs2/super.c             | 1 +
- 5 files changed, 13 insertions(+)
-
-diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
-index 8e6ead433228e7419bfbbe5c7cdde65c654a24f4..1cb516df53f4e1b3b2a292eb2550faa3d16e3fa2 100644
---- a/fs/ocfs2/cluster/heartbeat.c
-+++ b/fs/ocfs2/cluster/heartbeat.c
-@@ -1447,6 +1447,7 @@ static ssize_t o2hb_debug_read(struct file *file, char __user *buf,
- #endif  /* CONFIG_DEBUG_FS */
- 
- static const struct file_operations o2hb_debug_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		o2hb_debug_open,
- 	.release =	o2hb_debug_release,
- 	.read =		o2hb_debug_read,
-diff --git a/fs/ocfs2/cluster/netdebug.c b/fs/ocfs2/cluster/netdebug.c
-index f7ab66e70799302f3ed4e70ab6a8fb057dd0bfa9..5d373002297de1fdd9a05e270f7942d8c1ce2dac 100644
---- a/fs/ocfs2/cluster/netdebug.c
-+++ b/fs/ocfs2/cluster/netdebug.c
-@@ -183,6 +183,7 @@ static int nst_fop_release(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations nst_seq_fops = {
-+	.owner = THIS_MODULE,
- 	.open = nst_fop_open,
- 	.read = seq_read,
- 	.llseek = seq_lseek,
-@@ -415,6 +416,7 @@ static int stats_fop_open(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations stats_seq_fops = {
-+	.owner = THIS_MODULE,
- 	.open = stats_fop_open,
- 	.read = seq_read,
- 	.llseek = seq_lseek,
-@@ -427,6 +429,7 @@ static int sc_fop_open(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations sc_seq_fops = {
-+	.owner = THIS_MODULE,
- 	.open = sc_fop_open,
- 	.read = seq_read,
- 	.llseek = seq_lseek,
-@@ -476,6 +479,7 @@ static ssize_t o2net_debug_read(struct file *file, char __user *buf,
- }
- 
- static const struct file_operations nodes_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= nodes_fop_open,
- 	.release	= o2net_debug_release,
- 	.read		= o2net_debug_read,
-diff --git a/fs/ocfs2/dlm/dlmdebug.c b/fs/ocfs2/dlm/dlmdebug.c
-index ce6d301cb9420385211d20d59637069154a89993..8919eb14df22700b36b1edf985bca15b8f185fd6 100644
---- a/fs/ocfs2/dlm/dlmdebug.c
-+++ b/fs/ocfs2/dlm/dlmdebug.c
-@@ -7,6 +7,7 @@
-  * Copyright (C) 2004, 2008 Oracle.  All rights reserved.
-  */
- 
-+#include <linux/module.h>
- #include <linux/types.h>
- #include <linux/slab.h>
- #include <linux/highmem.h>
-@@ -339,6 +340,7 @@ static int debug_purgelist_open(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations debug_purgelist_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		debug_purgelist_open,
- 	.release =	debug_release,
- 	.read =		debug_read,
-@@ -394,6 +396,7 @@ static int debug_mle_open(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations debug_mle_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		debug_mle_open,
- 	.release =	debug_release,
- 	.read =		debug_read,
-@@ -601,6 +604,7 @@ static int debug_lockres_release(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations debug_lockres_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		debug_lockres_open,
- 	.release =	debug_lockres_release,
- 	.read =		seq_read,
-@@ -791,6 +795,7 @@ static int debug_state_open(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations debug_state_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		debug_state_open,
- 	.release =	debug_release,
- 	.read =		debug_read,
-diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
-index 6bc4a21cf5f02f04a6b54100925084aed239ae62..88d9464660833006b7bac25e2c2641dd77874438 100644
---- a/fs/ocfs2/dlmglue.c
-+++ b/fs/ocfs2/dlmglue.c
-@@ -7,6 +7,7 @@
-  * Copyright (C) 2003, 2004 Oracle.  All rights reserved.
-  */
- 
-+#include <linux/module.h>
- #include <linux/types.h>
- #include <linux/slab.h>
- #include <linux/highmem.h>
-@@ -3332,6 +3333,7 @@ static int ocfs2_dlm_debug_open(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations ocfs2_dlm_debug_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		ocfs2_dlm_debug_open,
- 	.release =	ocfs2_dlm_debug_release,
- 	.read =		seq_read,
-diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
-index 1e76b1d9fe0af4b3cf503e91e1dd077762fef88a..0af2245ae30369421e78ecd781b986c481d10f5b 100644
---- a/fs/ocfs2/super.c
-+++ b/fs/ocfs2/super.c
-@@ -387,6 +387,7 @@ static ssize_t ocfs2_debug_read(struct file *file, char __user *buf,
- #endif	/* CONFIG_DEBUG_FS */
- 
- static const struct file_operations ocfs2_osb_debug_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		ocfs2_osb_debug_open,
- 	.release =	ocfs2_debug_release,
- 	.read =		ocfs2_debug_read,
