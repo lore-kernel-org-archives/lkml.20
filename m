@@ -1,344 +1,253 @@
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217844C33C0
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:40:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792176013; cv=pass; b=NMZGpVfp3qgbWyEFS6BQ3tdSobbRwRhfUrrGT9cxrcoEplMUIrBu9xiPy5iR0M5NTxDP91ipRZ9U/GR7NPWKs8NZSM72gNSr73halcsBU4cU/3YcFILmofBvPzD18jWRVm4brN6aGxnpGosgzj5Yvvy2lcwn85bE8vnQXNAMYOE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792176013; c=relaxed/simple;
-	bh=xsYeI4hR5bFvuqm0PSlnW0Z65GnHOzwL1uy/B9ZA4Pc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eyW5Mqucg+KQrSp+brll1e/BCQemyGf9wQ823XrhhxjsMrh85SUQKJS5Bq3DJWlKeJoRlS/FkDViutm2qUiizahPyqYPnUmVVCmzTEej2kby1ZigfFx0W0kjry6IjbH0WHCDntRglTxAaYAiPhLSJCHD2i00jjGjPeEFm4ZJNuY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=V2oJOivZ; arc=pass smtp.client-ip=74.125.82.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97EA582BA0
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:40:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792176025; cv=none; b=IdP06rf4vkIG5RGkO3ZS10OAsUTGnNRdAsjCVj9BovupP6UZAc0kU0OmkGqaMEsWiu3t3+fH/se5EETtNuWXhePjbeI0j09G4dj+7w6FFUaVhrk3wdwnSwpJRkTHWwVLMtwYA/LlVcEJDJLkbf+kOoFWx9ObSdu+QI8IXxusQIk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792176025; c=relaxed/simple;
+	bh=TtCwQmW9z7VLSlbkIUYvUJ6XV+W61FfizwGxp/7PXxQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ShS4xftDEVkjpE/L5KifKa124D9w6GtVt8Ke2wo/g/G0pk4MFbjXowJjr8ONQHUwg7nGyPEuZS3SH2dYq0bYaJu9KQYvoaRFjn2XKhIfDFRY5MyczMI6jyw/EY/oMswdCt1zD1rlXwZ5q+Pkf6TOw1Orp7dVp7g06lpkZuZW4MI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Jgi5GBvY; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=bC6qo3gx; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="V2oJOivZ"
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-15354aa70e8so523037c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:40:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792176011; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IzVX0dAYS0qKOhzyrQ9NnAL/NQoPGTwBqvMDkXxUlgyMSahQFwUp0uX+j5xncYN4V+
-         snSCFsLMDdxr45HUF5O6XumiZ44sH52wh3Rjz0AeSejUoXE0ZQjBbt0hnWLeKRjK3JjL
-         EWrbFuwXsMU6zNdjNuhnXHcN0U8te0oOhBgAnnE8camrCXoIF1e+1yO+BGlB80QL2LTB
-         CWPIiY8xHqm0rSdNnaeFrnwOWIi4D0XFomfwoSwaimVoEKkohGmpn6a6AYoDXiakmLyR
-         xruZwht8ItSB+OUvJKYHZT49BP6ilzN4XSoSm0zwQkGOij8MZtuLG7V3oFdtp35cjXYi
-         3PzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hlEE7DVQkmo1bBGtV9WB4/uzh7DrzDs6MItzTSYiyfE=;
-        fh=+FOTlVurbnfZoydo8qWbjMPkH67n5Ro3DdNElrGYhpE=;
-        b=PD+D1DG6cBl8oUp7ZrKUn91AOezATAO7GT/S7w8JkeHKj5TsZmt6/bh60ru9Le3lST
-         Ct4YZgzQuKB7zUMz7N2371nxkKl0N783oeRMm0w9kjevpfAnCeVYjF6xzPSvaVFNwEw+
-         XVb6TBmhxVL2oWVShiad7laVVkA7yZM0y/ON8p5seN7FNEhLkTnMbFKq2zND4HNSsI3V
-         NH6mN3FlLMEj71HJjT76NUjlXYkqajOnuViZDGXExRJ+YazijsgfFtMIVm8fQ+zwOiti
-         mNxobQE1e/80zFp+JLDz8CKN2JIN9vcGEfdBAKlcu36fH8mOnNm9irChHEq/qh9Ac7F7
-         WJDg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Jgi5GBvY";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="bC6qo3gx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792176022;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=plc50fRCIOdcKHDZ5D5nq9FAVnLtqLtSVPaltfZbIaM=;
+	b=Jgi5GBvYsQXsu74SyEm762bnDQhEWKEDCE5Cdgqp0gqOEziTEqAU9tQNGA/5s9Rr6x21nI
+	hYMESgbGy0ISsOlzOcP1w7JEWozKSHb5FuE0/p+YrJJNicNyhDJ1BbHHFsbH5Tq5wazak+
+	lleaxgHmMMht2mOEUS90FouOXmgWVOg=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-601-g3GDH9GXMNKGF5NmGZpv7g-1; Fri, 16 Oct 2026 18:40:20 +0000
+X-MC-Unique: g3GDH9GXMNKGF5NmGZpv7g-1
+X-Mimecast-MFC-AGG-ID: g3GDH9GXMNKGF5NmGZpv7g_1792176019
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48c7fe9736eso90538f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:40:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792176011; x=1792780811; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=redhat.com; s=google; t=1792176019; x=1792780819; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=hlEE7DVQkmo1bBGtV9WB4/uzh7DrzDs6MItzTSYiyfE=;
-        b=V2oJOivZvXPQsaQR2mPbLDaWl3n/gStv8sw6dJIITu5wPoS4wEVePaFysUgj2INkog
-         hubKRfGP7qkq96nyjhOEsCMFiyioBfXXNInBSy3fnkz+ZRWfFLFu1BLDSjp9PJXpYv0P
-         BcTiJ/pp4reAd7CFK3aM2y3LljL/IDCyy1VlZT4TH/lAi6xWWCWku8BuoKiJNUBALYp6
-         mS9uKJXiPBJ+GWXAwvC7WqYqHT21xUFAQfllGn6npfeU6KkVJe1VHgbCunRTl+q3jzla
-         DO3mQwT9FytshRuybrFa5anSMMrHelYbNXJj4eZkFSsRTy3WDRCvVzzhruk69NsKgYCv
-         A8qg==
+        bh=plc50fRCIOdcKHDZ5D5nq9FAVnLtqLtSVPaltfZbIaM=;
+        b=bC6qo3gxeQgiJZ8bkrTygAfW6HXrIZ1k7LJyh8TLXObK7HAQJYHT4pJKSLH6tOGssc
+         QY14v5ilGa9TJIMATsH3gf5kS/6e2BBoxixSYRRFE/mt5xtr8wt2+c/4UWq498TH0dsk
+         M9Q8Dv8jsObX8cJtNzNXau/+oT9mxbRW/kopvp7X3mHFWWFoqUYSBFafJhG8yTYQnrhW
+         rZdD8hkKntgkdCLVIF88pTCDW8symjjPcVxzdWd+3plGnD0nRLgnC1y06fSLGEO/CeUZ
+         5qccn7MUq0nTNMQT7M7TUpFzrwwp/H3Wi3bwQCmLvgbjWbfnP99O9cLFUtYKFWVXPeuG
+         sX2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792176011; x=1792780811;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792176019; x=1792780819;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hlEE7DVQkmo1bBGtV9WB4/uzh7DrzDs6MItzTSYiyfE=;
-        b=MqvVWe/h6KWhgs5QQMOEvQ2tNGZUG9sCxfFGRxytF3Zu7GVHpDaokhFogZ2T2G00np
-         XqHJBqGvjaAvTpBYXBSGsYhhrTvPAYjSBcF9YrZ4XoDf1cJkW2vu1gWY+A/MXQysDd2E
-         jkPPnQYu7OlCZcRBiebWdMqX7tTSbxLT9dBJ4pJCBB2x3aY8zws3kcY4pFz3CQHyJ7qv
-         ewpnG1OhSZZ6J/iL8NqIop7qZc2KA5oMOZ1MJkie6X7MWGZq7pg573FtUbvvCMKidd9t
-         ewYmOuj8jzmYWprI9RT45r2n6m/6koIOq/dwaXaIXLI4RjH5HlrB0YHa3oyS0+nn7Hn3
-         NN0w==
-X-Forwarded-Encrypted: i=1; AKwUvBwJctcXxVv6fgdOxfvM0fvuaYgeDVOi1CFpTQ+uYVFmBeubZQLFj9FY/GBPFscTVatNcyU9xKNa5D9rBFU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJR3xnKLDZkZBIv5StpR3fSJAW05h170kpTX5N1ofOPwU1CE2kG
-	QjpY7qho5Zd1emIYlzNODPNv1ucuvct73FKMXy0EVz4CTV+vtsJc7yv9bX5MP8ORCQTHSciffXD
-	8xyZZtd5hIU07VS9/OeJnVFxA/zAfZUhlF4uzVxBC
-X-Gm-Gg: AYBFou1KWhpgUn/dwDdAnsiKu55wkIdBKFM1CnmQdRJAJkva5goYiyjkyGaQ2ndBe6s
-	sZXGDTjPuNWMHtPf4fU7fPCSr51g89ZfefkmsYXvaxc7ON57+2Lkr3BgZGnoPbl5ZXglXG6nEfA
-	poYso2HugE7fHiSw0ORxMEKEbBw5zY77ChtGJkjFNeZqLwVWVh8vfdv2dmnDqrNxdVA697Nxxv5
-	bnKljPMdkiEDoc+Evjo4+ydXLO865x5FUMHg/aESfxZdFgWo/lewmfiD1jrsf484djbOt4thvau
-	xK8bDNIEIMroSOh1TR7PA4ktC0KcnVUHiTZ2b7Wm+/dLeLwi24rtN73WQ+CXOQ0P+ZSChXoK3Xh
-	0qxWD0KEam6cJMMpNupa5bOH6pFmCZorO5kU=
-X-Received: by 2002:a05:7022:f68c:b0:149:49c:22b with SMTP id
- a92af1059eb24-1850c8da7f7mr1196016c88.1.1792176009241; Fri, 16 Oct 2026
- 11:40:09 -0700 (PDT)
+        bh=plc50fRCIOdcKHDZ5D5nq9FAVnLtqLtSVPaltfZbIaM=;
+        b=Plsd5Thcpxfhq8vkyky8yZgdq6423nn+P0hhjQdz8rUwlOF1e5Yhr+nhkn95wmFD9w
+         CJEphWRjPCh+9GKd52+HOdBGrjBeJ73dxLk0DPfK+ofMHCKpT7cxQ3w3CRCuQuHnf07G
+         2c/hs+CyyMztbADUzwBemCz40b6zVT3MI1ZdFC4nGapD8yJIEDs+TTTse24h8zqHI+4u
+         xznHVG6KfO9D9rlFTVBooqchX05UfkgIGxPKvN26JQ3T1PB7Nos+u2X0U0sYbQmW7o45
+         vE9Bdz6OjyLn0rH77VsQ8ZgqOq96oOLW15VingZzCQYF3Yv73r2TR2v297sg8Ai5X3Z3
+         UDtw==
+X-Gm-Message-State: AFq9FYKjw7wUVtllFFwB1gQaHjhJNEfNSGB1j1U0rYH5Pqmftso69H5O
+	c54L6Zz7IGTBT5czx6ln3uCPpYpMsFysyV5Y8NK3qekp+KYMpoNsIXjbKjtpl3LItZ6WuiL1gpN
+	cG9FV36l1LAwYTpVLbPAzaIp1mtfwRHJsKfqL4wEt8lvraGNAiNprPi0RPryTzSZobg==
+X-Gm-Gg: AYBFou2XtSrXBvavRMEgEQOo1LUuO0anG5oH3ebrDINFz9IGC2h8qhSUswmWN7Iwj4F
+	7bcy8TrpggK/PNPcoUnzmxIiQj3MMpRzQCuVvadgCCqKGnf5mAou0x7kukOJDELLYFlE4CxRsfi
+	ZEQk/tuGoHBzqoGU8XXku/Z9XX3HFwPB0MvXbQVxIghc1mJDfVOCqUfnTWh8dxdBTJhB+VH1aca
+	JAnrv/NpYJZSNVGek607KHOhj/wVZrTKwsFexZ3+b6mT/sji1w38DZRqXC6QNS07sI5Pfy/ChyU
+	hrFbeh+d8glQCYXhCKPPy23PJTZ033OjQpoQNO2fBYT/Nnh3SF4n2uCYsZcOAVkm09QXuec=
+X-Received: by 2002:a05:600c:3e85:b0:4a1:d798:b08a with SMTP id 5b1f17b1804b1-4a1d798b0d4mr12241565e9.21.1792176019012;
+        Fri, 16 Oct 2026 11:40:19 -0700 (PDT)
+X-Received: by 2002:a05:600c:3e85:b0:4a1:d798:b08a with SMTP id 5b1f17b1804b1-4a1d798b0d4mr12240665e9.21.1792176018224;
+        Fri, 16 Oct 2026 11:40:18 -0700 (PDT)
+Received: from redhat.com ([2a06:c701:73fb:d100:601d:d7d4:d03f:527b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cc642573sm56208515e9.2.2026.10.16.11.40.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 11:40:16 -0700 (PDT)
+Date: Fri, 16 Oct 2026 14:40:13 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Simon Horman <horms@kernel.org>, linux-doc@vger.kernel.org
+Subject: Re: [PATCH net-next v2 5/7] net: add a sysctl to opt out of virtio
+ net hdr checksum validation
+Message-ID: <20261016143944-mutt-send-email-mst@kernel.org>
+References: <cover.1792067836.git.mst@redhat.com>
+ <ad05a40681719a579691a1da6413f0dd7064f2a0.1792067836.git.mst@redhat.com>
+ <willemdebruijn.kernel.3a7d04e1c306e@gmail.com>
+ <20261016051827-mutt-send-email-mst@kernel.org>
+ <willemdebruijn.kernel.1d7ce6b64753a@gmail.com>
+ <20261016134823-mutt-send-email-mst@kernel.org>
+ <willemdebruijn.kernel.2deaddfb31bd9@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928175127.1032535-1-ctshao@google.com> <20260928175127.1032535-3-ctshao@google.com>
- <SA1PR12MB6773C9DE93757D6B73C1E9B3A09E2@SA1PR12MB6773.namprd12.prod.outlook.com>
-In-Reply-To: <SA1PR12MB6773C9DE93757D6B73C1E9B3A09E2@SA1PR12MB6773.namprd12.prod.outlook.com>
-From: Chun-Tse Shao <ctshao@google.com>
-Date: Fri, 16 Oct 2026 11:39:32 -0700
-X-Gm-Features: AclHuK8Cpf5D1lvwH4p5xYmhynUiIV6Rjo0lLCe4H-T2quohCaweLeh1uTj4GVc
-Message-ID: <CAJpZYjWLRiyNbzoGpA-2KE0zHgQn2gc0V943WxJEr5K5aZtRYA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] perf jevents: Add NVIDIA Tegra410 uncore PCIe metrics
-To: Besar Wicaksono <bwicaksono@nvidia.com>
-Cc: "acme@kernel.org" <acme@kernel.org>, "namhyung@kernel.org" <namhyung@kernel.org>, 
-	"irogers@google.com" <irogers@google.com>, "peterz@infradead.org" <peterz@infradead.org>, 
-	"mingo@redhat.com" <mingo@redhat.com>, "mark.rutland@arm.com" <mark.rutland@arm.com>, 
-	"alexander.shishkin@linux.intel.com" <alexander.shishkin@linux.intel.com>, "jolsa@kernel.org" <jolsa@kernel.org>, 
-	"adrian.hunter@intel.com" <adrian.hunter@intel.com>, "james.clark@linaro.org" <james.clark@linaro.org>, 
-	"linux-perf-users@vger.kernel.org" <linux-perf-users@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Matt Ochs <mochs@nvidia.com>, 
-	Sean Kelley <skelley@nvidia.com>, Rich Wiley <rwiley@nvidia.com>, Vikram Sethi <vsethi@nvidia.com>, 
-	Raj Joshi <rajjoshi@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <willemdebruijn.kernel.2deaddfb31bd9@gmail.com>
 
-On Tue, Oct 13, 2026 at 2:08=E2=80=AFPM Besar Wicaksono <bwicaksono@nvidia.=
-com> wrote:
->
-> Hi Chun-Tse,
->
-> I tested this on 2-sockets Tegra410 and found some issues.
-> 1. With --per-socket or -A, every lpm_pcie_* metric is only reported for
->    socket 0, so socket 1's PCIe traffic never shows up. Example output:
->
-> perf stat -a -A -M lpm_pcie_rc1_bw -- sleep 1
->
->  Performance counter stats for 'system wide':
->
-> CPU0               15,204      nvidia_pcie_pmu_0_rc_1/wr_bytes/ #      0.=
-0 MB/s  lpm_pcie_wr_bw_1
-> CPU0                                                                    #=
-     33.8 MB/s  lpm_pcie_bw_1
-> CPU0           33,910,952      nvidia_pcie_pmu_0_rc_1/rd_bytes/ #     33.=
-8 MB/s  lpm_pcie_rd_bw_1
-> CPU88                   0      nvidia_pcie_pmu_1_rc_1/wr_bytes/
-> CPU88                   0      nvidia_pcie_pmu_1_rc_1/rd_bytes/
-> CPU0        1,002,286,615      tool/duration_time/
-> CPU0                    0      nvidia_pcie_pmu_0_rc_1/wr_bytes,dst_rem=3D=
-0x1/ #      0.0 MB/s  lpm_pcie_rem_wr_bw_1
-> CPU88                   0      nvidia_pcie_pmu_1_rc_1/wr_bytes,dst_rem=3D=
-0x1/
-> CPU0        1,002,275,059      tool/duration_time/
-> CPU0                    0      nvidia_pcie_pmu_0_rc_1/rd_bytes,dst_rem=3D=
-0x1/ #      0.0 MB/s  lpm_pcie_rem_rd_bw_1
-> CPU88                   0      nvidia_pcie_pmu_1_rc_1/rd_bytes,dst_rem=3D=
-0x1/
-> <snip>
->
-> Note CPU88 (socket 1_ has no lpm_pcie_* values.
->
-> 2. In the default mode, lpm_pcie_*_<i> adds RC i of socket 0 and RC i of
->    socket 1. These are separate root complexes with different devices,
->    so the "Root Complex i" value can combine traffic from two unrelated
->    links.
->    Could the metrics follow the hardware hierarchy instead, starting at
->    the socket and drilling down to the RC, with the same destination
->    split at each level?
->     - per socket, all RCs (nvidia_pcie_pmu_<s>_rc):
->         lpm_pcie_s<s>_{bw,rd_bw,wr_bw}
->         lpm_pcie_s<s>_{loc,rem}_{rd,wr}_bw
->     - per socket and RC (nvidia_pcie_pmu_<s>_rc_<i>):
->         lpm_pcie_s<s>_{bw,rd_bw,wr_bw}_<i>
->         lpm_pcie_s<s>_{loc,rem}_{rd,wr}_bw_<i>
->       grouped as lpm_pcie_s<s>_rc<i>_bw.
+On Fri, Oct 16, 2026 at 02:19:39PM -0400, Willem de Bruijn wrote:
+> Michael S. Tsirkin wrote:
+> > On Fri, Oct 16, 2026 at 11:30:17AM -0400, Willem de Bruijn wrote:
+> > > Michael S. Tsirkin wrote:
+> > > > On Thu, Oct 15, 2026 at 01:50:54PM -0400, Willem de Bruijn wrote:
+> > > > > Michael S. Tsirkin wrote:
+> > > > > > The ingress validation as implemented by the previous
+> > > > > > patch is stricter than what it replaced: GSO
+> > > > > > packets whose checksum metadata matches no transport header are
+> > > > > > dropped, and non-GSO ones get their checksum completed in place.
+> > > > > > Such packets used to pass with the metadata unvalidated,
+> > > > > > and with no overhead.
+> > > > > > 
+> > > > > > I judge that this should not affect any deployments, but there is still
+> > > > > > some risk that it does.  In case a deployment depends on them anyway,
+> > > > > > provide a per-netns switch to get the old behavior back:
+> > > > > > 
+> > > > > > echo 0 > /proc/sys/net/core/virtio_net_hdr_csum_check
+> > > > > > 
+> > > > > > The default is validating.
+> > > > > > 
+> > > > > > Assisted-by: LLM
+> > > > > > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> > > > > > ---
+> > > > > >  Documentation/admin-guide/sysctl/net.rst | 15 +++++++
+> > > > > >  include/linux/virtio_net.h               | 23 ++++++++++
+> > > > > >  include/net/netns/core.h                 |  1 +
+> > > > > >  net/core/dev.c                           |  6 +++
+> > > > > >  net/core/net_namespace.c                 |  1 +
+> > > > > >  net/core/sysctl_net_core.c               | 54 ++++++++++++++++++++++++
+> > > > > >  6 files changed, 100 insertions(+)
+> > > > > > 
+> > > > > > diff --git a/Documentation/admin-guide/sysctl/net.rst b/Documentation/admin-guide/sysctl/net.rst
+> > > > > > index e586e17fc7a5..7f230929c37e 100644
+> > > > > > --- a/Documentation/admin-guide/sysctl/net.rst
+> > > > > > +++ b/Documentation/admin-guide/sysctl/net.rst
+> > > > > > @@ -246,6 +246,21 @@ processes are dropped unless socket option SOF_TIMESTAMPING_OPT_TSONLY is set.
+> > > > > >  Default: 1 (on)
+> > > > > >  
+> > > > > >  
+> > > > > > +virtio_net_hdr_csum_check
+> > > > > > +-------------------------
+> > > > > 
+> > > > > Make more generic, virtio_net_hdr_validate?
+> > > > > 
+> > > > > In case we add more validation in the future (as we have in the past),
+> > > > > without having to introduce multiple such knobs.
+> > > > 
+> > > > But it's uapi, are you sure we'll be able to change the meaning
+> > > > of an existing knob, even if we keep the name vague?
+> > > > 
+> > > > > > +
+> > > > > > +When processing packets with a virtio net header (through tun, tap, a
+> > > > > > +packet socket or a virtio network device) that request checksum offload
+> > > > > > +(VIRTIO_NET_HDR_F_NEEDS_CSUM), validate the packet: complete the checksum
+> > > > > > +in software, or drop the packet where the header does not match it.
+> > > > > > +
+> > > > > > +When disabled, the header is trusted not to corrupt the packet, and the
+> > > > > > +checksum is offloaded to hardware (or not verified if it never reaches
+> > > > > > +hardware). This is only safe if no protocol is processing the packets.
+> > > > > > +
+> > > > > > +Default: 1 (on)
+> > > > > > +
+> > > > > > +
+> > > > > >  wmem_default
+> > > > > >  ------------
+> > > > > >  
+> > > > > > diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+> > > > > > index 357115ff0ec2..aa2f8ac4657c 100644
+> > > > > > --- a/include/linux/virtio_net.h
+> > > > > > +++ b/include/linux/virtio_net.h
+> > > > > > @@ -5,6 +5,7 @@
+> > > > > >  #include <linux/if_vlan.h>
+> > > > > >  #include <linux/ip.h>
+> > > > > >  #include <linux/ipv6.h>
+> > > > > > +#include <linux/jump_label.h>
+> > > > > >  #include <linux/netdevice.h>
+> > > > > >  #include <linux/udp.h>
+> > > > > >  #include <net/gso.h>
+> > > > > > @@ -78,6 +79,19 @@ static inline struct iphdr *virtio_net_ip4_parse(struct sk_buff *skb,
+> > > > > >  	*thoff = nhoff + iph->ihl * sizeof(u32);
+> > > > > >  	return iph;
+> > > > > >  }
+> > > > > > +/* Defined in net/core/dev.c, enabled while any network namespace
+> > > > > > + * has net.core.virtio_net_hdr_csum_check set to 0.
+> > > > > > + */
+> > > > > 
+> > > > > Should this be a global sysctl, rather than per netns?
+> > > > 
+> > > > 
+> > > > For customers I work with, it would be much less useful.
+> > > 
+> > > Third option: make it an integer rather than a boolean.
+> > > 
+> > > 0: no validation
+> > > 1: current level of validation
+> > > 2 and beyond: if we have to extend it later
+> > > 
+> > > Not pretty, I'll admit. So fine to keep as is too if you prefer.
+> > > But I do foresee more changes in this area, if history is a guide.
+> > >  
+> > > > 
+> > > > > Even if per-netns, most likely do not want it writable by netns root
+> > > > > with user namespaces.
+> > > > >
+> > > > > That is the equivalent of ns_capable(CAP_NET_RAW), which is the cause
+> > > > > of many crashes due to bad packets ingested by, e.g., a packet socket.
+> > > > 
+> > > > Hmm, yes i get that. Two knobs? a. verify b. the per netns value ro? Both
+> > > > on by default?
+> > > 
+> > > A single system wide field is simplest.
+> > > 
+> > > Is there a benefit to making this configurable on a per netns basis?
+> > 
+> > As I tried to explain: a specific container breaks, you decide to trust it,
+> > you do not need to trust all.
+> 
+> Ok
+> 
+> > > If so, that's fine too. As long as root-in-namespace cannot modify it,
+> > > so readonly indeed.
+> > 
+> > 
+> > Right. So I envision along the lines of:
+> > 
+> > net.core.virtio_net_hdr_validate_all - validate packets from any netns,
+> > netns root can not change it, only host root
+> > 
+> > net.core.virtio_net_hdr_validate - per netns
+> 
+> Then skip the global option, as it's just a convenience: the same can be
+> achieved by iterating over all the per-netns settings.
+> 
+> Per netns validation, but only settable by root, not by root-in-namespace.
 
-Thanks for testing and for the suggestion. I think both problems come
-from how perf expects a PMU to expose its cpumask. Ideally perf wants
-a single PMU for both sockets, with one CPU per socket in its cpumask,
-e.g.:
+Hmm I don't know how to achieve that. Are there examples of such
+options?
 
-```
-/sys/bus/event_source/devices/nvidia_pcie_rc_0/cpumask: 0,88
-```
-
-We can work around the one-PMU-per-socket layout in the metrics, but
-would a single PMU per RC be a viable plan for you to implement?
-
-Thanks,
-CT
-
->
-> Thanks,
-> Besar
->
-> > -----Original Message-----
-> > From: Chun-Tse Shao <ctshao@google.com>
-> > Sent: Monday, September 28, 2026 5:51 PM
-> > To: acme@kernel.org; namhyung@kernel.org; irogers@google.com
-> > Cc: peterz@infradead.org; mingo@redhat.com; mark.rutland@arm.com;
-> > alexander.shishkin@linux.intel.com; jolsa@kernel.org;
-> > adrian.hunter@intel.com; james.clark@linaro.org; Besar Wicaksono
-> > <bwicaksono@nvidia.com>; linux-perf-users@vger.kernel.org; linux-
-> > kernel@vger.kernel.org; Chun-Tse Shao <ctshao@google.com>
-> > Subject: [PATCH 2/2] perf jevents: Add NVIDIA Tegra410 uncore PCIe
-> > metrics
-> >
-> > External email: Use caution opening links or attachments
-> >
-> >
-> > Add PCIe bandwidth metrics for the NVIDIA Tegra410 SoC. The formulas
-> > follow Documentation/admin-guide/perf/nvidia-tegra410-pmu.rst:
-> >
-> >   AVG_RD_BANDWIDTH_IN_GBPS =3D RD_BYTES / ELAPSED_TIME_IN_NS
-> >   AVG_WR_BANDWIDTH_IN_GBPS =3D WR_BYTES / ELAPSED_TIME_IN_NS
-> >
-> > There is one PCIE PMU per socket and PCIe Root Complex (RC), named
-> > nvidia_pcie_pmu_<socket-id>_rc_<pcie-rc-id>, with RCs 0 to 5 in each
-> > socket. The metrics sum the rd_bytes/wr_bytes events of both sockets:
-> >
-> >   lpm_pcie_bw, lpm_pcie_rd_bw, lpm_pcie_wr_bw: all RCs.
-> >   lpm_pcie_bw_<rc>, lpm_pcie_rd_bw_<rc>, lpm_pcie_wr_bw_<rc>: one RC.
-> >   lpm_pcie_loc_rd_bw_<rc>, lpm_pcie_loc_wr_bw_<rc>: one RC to local
-> >     CMEM, GMEM, PCIe peer and CXL memory.
-> >   lpm_pcie_rem_rd_bw_<rc>, lpm_pcie_rem_wr_bw_<rc>: one RC to remote
-> >     memory.
-> >
-> > The per RC metrics are in the lpm_pcie_rc<rc>_bw metric groups.
-> >
-> > A socket's event counts as 0 if its PMU isn't present (has_event() is
-> > 0), e.g. on a single socket system, or if it isn't counted in the
-> > aggregation (source_count() is 0), e.g. the other socket's event with
-> > --per-socket. Otherwise the metric fails to parse or is nan.
-> >
-> > Signed-off-by: Chun-Tse Shao <ctshao@google.com>
-> > Assisted-by: Gemini:gemini-3.1-pro-preview
-> > ---
-> >  tools/perf/pmu-events/arm64_metrics.py | 68
-> > ++++++++++++++++++++++++--
-> >  1 file changed, 64 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/tools/perf/pmu-events/arm64_metrics.py b/tools/perf/pmu-
-> > events/arm64_metrics.py
-> > index b0d0651fec12..1ca3d8ddb4b7 100755
-> > --- a/tools/perf/pmu-events/arm64_metrics.py
-> > +++ b/tools/perf/pmu-events/arm64_metrics.py
-> > @@ -2,9 +2,10 @@
-> >  # SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause)
-> >  import argparse
-> >  import os
-> > -from typing import Optional
-> > -from metric import (aggr_nr, d_ratio, Event, JsonEncodeMetric,
-> > -                    JsonEncodeMetricGroupDescriptions, LoadEvents, Met=
-ric,
-> > MetricGroup)
-> > +from typing import List, Optional, Union
-> > +from metric import (aggr_nr, d_ratio, has_event, source_count, Event,
-> > Expression,
-> > +                    JsonEncodeMetric, JsonEncodeMetricGroupDescription=
-s,
-> > LoadEvents, Metric,
-> > +                    MetricGroup, Select)
-> >  from common_metrics import Cycles
-> >
-> >  # Global command line arguments.
-> > @@ -67,7 +68,66 @@ def NvidiaT410Uncore() -> Optional[MetricGroup]:
-> >                     rd_cum_outs - rd_cum_outs, "1ns"),
-> >          ], description=3D"NVIDIA Tegra410 DDR latency")
-> >
-> > -    return MetricGroup("lpm_uncore", [DdrBw(), DdrLat()],
-> > +    def PcieBw() -> MetricGroup:
-> > +        # PCIE PMU, one per socket and PCIe Root Complex (RC):
-> > +        # AVG_{RD,WR}_BANDWIDTH =3D {RD,WR}_BYTES / ELAPSED_TIME
-> > +        loc_dst =3D
-> > "dst_loc_cmem=3D0x1,dst_loc_gmem=3D0x1,dst_loc_pcie_p2p=3D0x1,dst_loc_p=
-ci
-> > e_cxl=3D0x1"
-> > +        rem_dst =3D "dst_rem=3D0x1"
-> > +
-> > +        def SocketSum(rc: str, event: str) -> Expression:
-> > +            # Sum the event over both sockets. A PMU counts as 0 if it=
- isn't
-> > +            # present (has_event() is 0) or isn't counted in the aggre=
-gation,
-> > +            # e.g. the other socket with --per-socket (source_count() =
-is 0).
-> > +            def Count(e: Event) -> Expression:
-> > +                return Select(Select(e, source_count(e), 0), has_event=
-(e), 0)
-> > +
-> > +            return (Count(Event(f"nvidia_pcie_pmu_0_{rc}/{event}/")) +
-> > +                    Count(Event(f"nvidia_pcie_pmu_1_{rc}/{event}/")))
-> > +
-> > +        # nvidia_pcie_pmu_<socket-id>_rc matches the PMUs of all RCs i=
-n the
-> > socket.
-> > +        rd =3D SocketSum("rc", "rd_bytes")
-> > +        wr =3D SocketSum("rc", "wr_bytes")
-> > +        metrics: List[Union[Metric, MetricGroup]] =3D [
-> > +            Metric("lpm_pcie_bw", "Total PCIe bandwidth across all Roo=
-t
-> > Complexes",
-> > +                   d_ratio(rd + wr, interval_sec), mb_per_sec),
-> > +            Metric("lpm_pcie_rd_bw", "Total PCIe read bandwidth across=
- all
-> > Root Complexes",
-> > +                   d_ratio(rd, interval_sec), mb_per_sec),
-> > +            Metric("lpm_pcie_wr_bw", "Total PCIe write bandwidth acros=
-s all
-> > Root Complexes",
-> > +                   d_ratio(wr, interval_sec), mb_per_sec),
-> > +        ]
-> > +        for i in range(6):
-> > +            rc =3D f"rc_{i}"
-> > +            rc_rd =3D SocketSum(rc, "rd_bytes")
-> > +            rc_wr =3D SocketSum(rc, "wr_bytes")
-> > +            loc_rd =3D SocketSum(rc, f"rd_bytes,{loc_dst}")
-> > +            loc_wr =3D SocketSum(rc, f"wr_bytes,{loc_dst}")
-> > +            rem_rd =3D SocketSum(rc, f"rd_bytes,{rem_dst}")
-> > +            rem_wr =3D SocketSum(rc, f"wr_bytes,{rem_dst}")
-> > +            metrics.append(MetricGroup(f"lpm_pcie_rc{i}_bw", [
-> > +                Metric(f"lpm_pcie_bw_{i}", f"PCIe total bandwidth on R=
-oot
-> > Complex {i}",
-> > +                       d_ratio(rc_rd + rc_wr, interval_sec), mb_per_se=
-c),
-> > +                Metric(f"lpm_pcie_rd_bw_{i}", f"PCIe read bandwidth on=
- Root
-> > Complex {i}",
-> > +                       d_ratio(rc_rd, interval_sec), mb_per_sec),
-> > +                Metric(f"lpm_pcie_wr_bw_{i}", f"PCIe write bandwidth o=
-n Root
-> > Complex {i}",
-> > +                       d_ratio(rc_wr, interval_sec), mb_per_sec),
-> > +                Metric(f"lpm_pcie_loc_rd_bw_{i}",
-> > +                       f"PCIe local read bandwidth on Root Complex {i}=
-",
-> > +                       d_ratio(loc_rd, interval_sec), mb_per_sec),
-> > +                Metric(f"lpm_pcie_loc_wr_bw_{i}",
-> > +                       f"PCIe local write bandwidth on Root Complex {i=
-}",
-> > +                       d_ratio(loc_wr, interval_sec), mb_per_sec),
-> > +                Metric(f"lpm_pcie_rem_rd_bw_{i}",
-> > +                       f"PCIe remote read bandwidth on Root Complex {i=
-}",
-> > +                       d_ratio(rem_rd, interval_sec), mb_per_sec),
-> > +                Metric(f"lpm_pcie_rem_wr_bw_{i}",
-> > +                       f"PCIe remote write bandwidth on Root Complex {=
-i}",
-> > +                       d_ratio(rem_wr, interval_sec), mb_per_sec),
-> > +            ], description=3Df"PCIe bandwidth on Root Complex {i}"))
-> > +
-> > +        return MetricGroup("lpm_pcie_bw", metrics,
-> > +                           description=3D"NVIDIA Tegra410 PCIe Root Co=
-mplex
-> > bandwidth")
-> > +
-> > +    return MetricGroup("lpm_uncore", [DdrBw(), DdrLat(), PcieBw()],
-> >                         description=3D"NVIDIA Tegra410 uncore metrics")
-> >
-> >
-> > --
-> > 2.56.0.rc1.315.gc6ed9934b7-goog
->
