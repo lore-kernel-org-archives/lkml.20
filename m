@@ -1,77 +1,82 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-ed1-f97.google.com (mail-ed1-f97.google.com [209.85.208.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB313AFCEA
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:25:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171C6370ACA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:26:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792124760; cv=none; b=QMwrX94koQbGL0HlE9MgaMm2jVUqMS4Xop2AFgG0VZW1cEAZm/GYpqeOgRzwzlj/CsIpNSd0UNNHJsV5ceRcB8JCh1LGXOrOSg9n8FQfB+t93JzxFVPrLg8gFXSN+5Uft3tz9anqByAKbnFVrWKBI6VBtW8Jk7028W9Tu5Ug2sU=
+	t=1792124778; cv=none; b=O16nuQN8BdsmL4kMCju1qVa1zfcd0AMTH0Mtw/vJ9Kl3k+0KWxhs+cOsJL/NcpykTj0Y1IMTGvQEe5jOIeSy2avOk0tGPuG/q2HhSFku1XXmQUUKLLE+ajr2wYdMnWAXUnHkkea7Cq+aCBPvAy5ser3VNHrZ/BwKgQfpz9i4ekI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792124760; c=relaxed/simple;
-	bh=AvFSkkBXaTLQaYXlLs8U7Ru/H9/uYPTAtG20hLgeY3U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QZ1m7wHNs0WlJoYl608FsIs6jEpWm2li913nUIMfRxh6zX6uOBFsD+59T2XBUzoYUvQuWJwPhAJFAQSqPo4sFoLoBbqvG7KUYLEdrUBUC92aPrxeYz5Uf+pQv9g83GoAkOi6brN0x9voUyXiyDgnedrZOS6RCXhSXAcsOh6nIWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=YkCBsgh2; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1792124778; c=relaxed/simple;
+	bh=XhuBJxvrFU63QJqVPgO8OLPmkeIwMQWgsRFiyIW57d4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=boNp7mQEDhtoACrnyRaR6C6HnKk4/EKXNiiTP9ImcczchsWG2r/XcbCW/xYgpXu5weQSiw15ZNUHG/92wZ9uhOxVh0iI215Psao4Dpi7BK/Ia8RwYAX8KNEhRtu5R4A1+6jX9nohJJwhXvvx8HmNiDH5m2/QXGZqHBiEactk614=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=Dr8PN3In; arc=none smtp.client-ip=209.85.208.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="YkCBsgh2"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-ccca948203aso2506831a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:25:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="Dr8PN3In"
+Received: by mail-ed1-f97.google.com with SMTP id 4fb4d7f45d1cf-6ae14eecc64so3974227a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:26:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792124758; x=1792729558; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sDa7AgSRCyble15tiDzF+aYI4tsftz7KyCtWm1HB4U8=;
-        b=YkCBsgh2/oknGO0RWY7tBSOMVqLjIfyHKPnnBV7Tna8M7wb5I6rfRsMMGGEe/hnFaD
-         WQG5Kw6OxMByk0/GAe+UKBzLu4Lw+gE5Ag3Pvqq0z4cE4XirzbCOKqUgRvdhiLRsvZoU
-         2S/VQ5WGoF4srogKCweSLkWp145SOyhwfIuf6AAafsKz4AuirK+q4d8+JEUALVYlb+am
-         U2AG/7uyW8OfbI3nxyS4fxBr1tfJAO3r4P36btm1Gx5CTVTPA3ilOPXfbVulImxP8lo+
-         GpgFiGZp87HQCECvMY2PMtastWr0BK+xB+4De/BfgzswIIMQv636UI+a21xJEtwxu+YJ
-         yNfQ==
+        d=purestorage.com; s=google2022; t=1792124774; x=1792729574; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=D6HjbkY/HYrC6drUiJxPoewo53hju7P5AQYetis26ew=;
+        b=Dr8PN3InoxaRbBl6Z7sLbm+kYKszkLyV9qlzWHjzsOLNke/Wl20erfaBvHn25t3crX
+         EBTLIJHk8OncMFqHwTK0zjl3l4I9Frrrw4GsUNACPmFanAvd8gQHHxmzd6+7ntVolChN
+         m1K8CaNtKPzKMt4gNJGQJ/bkmrvf8dfIimH3+VyFJYWtkTzpY4VVGckNvpI/sXu7IZYG
+         L/ZF6UjJhJuUi57SxlsU/V5a7a6VUS6mTrHOQRzbh5a45Y7Lv/Zg1R5JzcnBzTSmxBUp
+         mbQHvgL65e7yQdQnlwfEeoIqtfTFUVu53rPVxthmwi5z7d0xUAg3OL8LGIybmrYRbQ6o
+         apvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792124758; x=1792729558;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sDa7AgSRCyble15tiDzF+aYI4tsftz7KyCtWm1HB4U8=;
-        b=Imd6Xw58M1pKXyVPtnvHW1kVdoQ8c2mCmQPvwOWCG5lr/uiXkFsge5czJrgJl3CfM7
-         PDWy/wHKkffgMtlAAHz6X4m2ng9IHNOecve0g8V/5AM0Aq/Akjg1lnQdLHBO1BcfIZ6S
-         r14ht/d2uMuKILH9JhKkl7bt5Gp+OCjF+akbAdLvx/3lzP5X8EVBI5NyiYAw4F3moNHx
-         Jenn/ztKtKL9nrESUUwCEcLDKAZZY5x2zWdTGPE9rfL1p7xxFKPsaFb1Gh6+NGoMeA/Z
-         oXjsiG2kpWCwCZ58Tl6keuVWUxKlD5Qpnb3br13mLJz6lXlTSNA6ZHzCTNu7eUbl0ArY
-         5QaA==
-X-Forwarded-Encrypted: i=1; AKwUvBysMtqTiai5o9qy6qTd/thQv6bv0dK4JNtYCvgS3o4Ph61LWf8W9GnbZjmSJTjohonatcq4s6rq/9I1CJw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKE5LTmjDgayQJah3hTqSZc2k8Npx/p9LNReYzphmDEmkgqqiPe
-	YFJMls3TsVYnopNWlHzGW8fJ4tv0lNZtmt+76EsptL8A8h8cUxnvZUcsAF8jBbLx2s0=
-X-Gm-Gg: AYBFou1uJ9TubLkMDqT7B+NhbRA3pCxNvRw/RbjoN72VmATFrHn5xSyEyGkagiNeZpX
-	sa6WBWPfG12F7CYOEjnBdPrTKssodNJseTmhG5VTjVTo3wcp7xxYqw1GlbS7I5D67T2cLHFoE/a
-	sWMV7Vq+MVZw7KVLKpUMkiQvJlVqry7PCS7aqbVQJdU2NAnEnqhuzrtJwpmQMf082gRjYHovm7E
-	thK2LT7oWmfdxInzWXPyPm4HP2KXxTFO+NUJ9up0/rvflixTtL/urOxfbOdRk2RRDrr/d8uAPXL
-	jTtH8RWMmRwSPcDRYnmOJSsBdBc9BCSqv18pjG74MJNPwJU/IB/I9GP1Qpe5VWzSkTYO34b8mgM
-	zqr6fBEsuvGczsN/SPOSEiULiemoSoisVLx1EEnOGYUOnkxQcP557T1VED0K+h84Lmg/lB2voK3
-	yNgkCOAKJHRAFOvX8c1OSoBTU2xpkKIi5JLHK4HD3mW0CLPMbg4kPGbKZFjN0gkBSztWWe9WYp8
-	fzjEA==
-X-Received: by 2002:a17:90b:2d06:b0:3ab:c80:9365 with SMTP id 98e67ed59e1d1-3ab3acdf2e1mr15724116a91.42.1792124758492;
-        Thu, 15 Oct 2026 21:25:58 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549b761bsm424443a12.15.2026.10.15.21.25.57
+        d=1e100.net; s=20260707; t=1792124774; x=1792729574;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D6HjbkY/HYrC6drUiJxPoewo53hju7P5AQYetis26ew=;
+        b=M4dMcYUDWzabMSjb4Y6X5+N2woVIBlQSXRgPYGIcSMLy3/vbyBI/cZfgUjIxc6TJIK
+         LuaJz+wD2+bka7ufWUodIgsUl1zGh6APEUriYee72pLZCnz+InUbhkgDrkYD+LR8N/zz
+         ZUKKv9MBkNvKlVRtKRlxSYs9NiYKMVmp4jINCEjeDGkJhndYNz6A9oLKw9Je4urQ7AFg
+         ZSr6deL+c5p+qgT6A4MSPXUZNvAVM0E9j1WWr9EHfdp3RwBFOObjHCT3nIRQKIsMTl7S
+         8np5sJBG1y6fLwIPexzWPpDXj/mCMKiDKty+hYzVSTfFHWZMepy7Nhpiy4X+J/FWpTvi
+         Ft9w==
+X-Forwarded-Encrypted: i=1; AKwUvByq39WnN6HXtp2fBteuWcvOjnkfBdCKszan0TQLIGyI2X8+01EgZGM8RPM/gmueRWL0LTi/VfiQj7vXeX0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmhINhfGIUr2QyIYLPa7N6qgfeKT3dcww2NWG49Grt5hhuyGyp
+	79QzFmyuOg42wUj6aYOcM2bVKDtyEBbqqlY6fWVN0BjQG1oKBjUJSnYQIqfog0ngVNVYtL9sQih
+	QWH9ejH9VP9joqbGalb4LQDZrCUDS6eKCje9kvXwUHFAlqheCRq0L
+X-Gm-Gg: AYBFou3T0k56kJQKhp1YvZbB8nAXA9mwzPWg39ioQAFz1ltnc2oJrPonx/Kmhb9qloc
+	syGXxkbrmHDzt54/Lj6vxNmevhIXUyt16HG5LiBPVD5j1ZMaoGUEdtMX/3ttNihaEeQEHI+Gack
+	yh2TvtAT31Y67+5UsWwf7TiGCz0ro36bRKmW5YdM5Qd9g7ZTxesbwa6iOaB2BlHaGvicUZgurLl
+	w++ElM7GENMBdo1fxIBAfP6IXaaJHD8aUqXobXVIcyY6aaYRcr+lE3D8lF0BYw8IubqYo5Smpa3
+	vMKhxByOBu4yma8PDfILUFopBgugf+1T3ZJm7qCxaqHsFD4EF/BFO6t9bomkUlTLQtudCBzBwyt
+	6FvzfEQ0cjn6oy3wcBFdv
+X-Received: by 2002:a05:6402:5c8:b0:6b1:ef9d:9d73 with SMTP id 4fb4d7f45d1cf-6b1ef9d9ff8mr7915116a12.28.1792124774162;
+        Thu, 15 Oct 2026 21:26:14 -0700 (PDT)
+Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
+        by smtp-relay.gmail.com with ESMTPS id 4fb4d7f45d1cf-6b38a14d0ddsm242711a12.1.2026.10.15.21.26.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 21:25:58 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Jeff Chen <jeff.chen_1@nxp.com>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org,
+        Thu, 15 Oct 2026 21:26:14 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [IPv6:2620:125:9025:23::2ea])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id BEE71400B8;
+	Thu, 15 Oct 2026 22:26:11 -0600 (MDT)
+Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
+	id BAC6DDC12FA; Thu, 15 Oct 2026 22:26:11 -0600 (MDT)
+From: Rishikesh Jethwani <rjethwani@purestorage.com>
+To: netdev@vger.kernel.org
+Cc: John Fastabend <john.fastabend@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v3 3/3] wifi: nxpwifi: bound the TLV lengths in the 11AX_CFG response
-Date: Fri, 16 Oct 2026 13:25:42 +0900
-Message-ID: <20261016042542.773945-4-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261016042542.773945-1-yhlee@isslab.korea.ac.kr>
-References: <20261016042542.773945-1-yhlee@isslab.korea.ac.kr>
+	Rishikesh Jethwani <rjethwani@purestorage.com>
+Subject: [PATCH net] tls: only install push_pending_record for a TX context
+Date: Thu, 15 Oct 2026 22:26:04 -0600
+Message-ID: <20261016042604.357739-1-rjethwani@purestorage.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,105 +85,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nxpwifi_ret_11ax_cfg() walks the TLVs the firmware returns for
-HOST_CMD_11AX_CFG and copies one of them into two fixed-size
-destinations. Nothing bounds any of the three lengths involved.
+tls_set_sw_offload() assigns ctx->push_pending_record for both
+directions, but the hook is a TX-side dispatcher. On a socket whose TX
+side is HW offloaded, tls_set_device_offload() installs
+tls_device_push_pending_record(); any later TLS_RX setsockopt overwrites
+it with tls_sw_push_pending_record(), because tls_set_device_offload_rx()
+itself calls tls_set_sw_offload(sk, 0, NULL) for the software half of a
+successful HW RX offload, and so does the fallback when the RX offload
+is declined (NIC with TX-only offload, tls_dev_add() failure).
 
-The walk length comes straight out of the response:
+From then on tls_handle_open_record() (a TLS_SET_RECORD_TYPE cmsg after
+a MSG_MORE send, or the close path with a pending writer) runs
+tls_sw_push_pending_record() against priv_ctx_tx, which is a
+struct tls_offload_context_tx, not a struct tls_sw_context_tx, and
+reads open_rec from inside the offload context. On x86_64 without
+lock debugging that field overlays sg_tx_data[2].dma_address,
+which is never set, so the push is silently skipped and the data
+buffered by the MSG_MORE send is later sent under the cmsg's
+record type, e.g. application data in a handshake
+or alert record. With a layout where the field lands on a non-zero
+value it is dereferenced and fed to bpf_exec_tx_verdict().
 
-	left_len = le16_to_cpu(resp->size) - sizeof(*he_cfg) - S_DS_GEN;
+Only set the hook when initialising the TX side.
 
-left_len is a u16 and the two sizes add up to 11, so a response claiming
-fewer than 11 bytes makes the subtraction wrap instead of ending the
-walk, and the loop condition is only "left_len > sizeof(*header)".
+Found by code review while developing TLS 1.3 HW offload
+rekey support.
 
-Inside the loop, header->len is used as a memcpy length twice without
-being compared to what is left or to what the destinations hold:
+Tested with HW TLS TX and RX offload on Mellanox ConnectX-6 Dx
+(Crypto Enabled): after setting TLS_RX,
+send() "AAAA" with MSG_MORE, then sendmsg() "BBBB" with a
+TLS_SET_RECORD_TYPE cmsg for a handshake record. Without this patch
+the peer receives a single handshake record "AAAABBBB"; with it, an
+application data record "AAAA" followed by a handshake record "BBBB".
 
-	memcpy((u8 *)&he_cap->ext_id,
-	       (u8 *)header + sizeof(*header),
-	       tlv_len);
-	memcpy(priv->user_he_cap, (u8 *)header, sizeof(*header) + tlv_len);
-
-The first destination runs from ext_id to the end of struct
-nxpwifi_11ax_he_cap_cfg, which is 50 bytes; the second is
-priv->user_he_cap[HE_CAP_MAX_SIZE], which is 54. header->len is 16 bits.
-nxpwifi_set_11ax_status() declares the struct nxpwifi_11ax_he_cfg this
-writes into on the stack and issues the command synchronously, so the
-frame is still live when the response is parsed.
-
-Do what the driver already does elsewhere. nxpwifi_ret_sta_get_hw_spec()
-checks that the response is longer than its fixed part before
-subtracting, and nxpwifi_uap_parse_tail_ies() rejects an element longer
-than the bytes remaining. Add the matching three checks here: refuse a
-response that cannot hold the fixed part, refuse a TLV that claims more
-than the remaining length, and refuse an HE-capability TLV that does not
-fit either destination. A TLV whose length is within those bounds is
-copied exactly as before, including one that fills both destinations
-completely.
-
-This is not a claim of a reachable out-of-bounds write. The lengths come
-from the device firmware, and whether it can emit these values is not
-something the tree answers. The arithmetic reaches past both
-destinations, the idiom is already in the driver, and the checks are
-cheap.
-
-The driver has not appeared in a released kernel, so there is nothing to
-backport to and no stable tag.
-
-Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Fixes: e8f69799810c ("net/tls: Add generic NIC offload infrastructure")
+Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
 ---
- drivers/net/wireless/nxp/nxpwifi/11ax.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+This is independent of the TLS 1.3 HW offload KeyUpdate series, but
+that series' TX rekey path (tls_device_start_rekey()) calls
+ctx->push_pending_record() and depends on this fix.
+---
+ net/tls/tls_sw.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/nxp/nxpwifi/11ax.c b/drivers/net/wireless/nxp/nxpwifi/11ax.c
-index a5278375329a4..d59bd213f3e45 100644
---- a/drivers/net/wireless/nxp/nxpwifi/11ax.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/11ax.c
-@@ -204,7 +204,7 @@ int nxpwifi_ret_11ax_cfg(struct nxpwifi_private *priv,
- {
- 	struct host_cmd_11ax_cfg *he_cfg = &resp->params.ax_cfg;
- 	struct nxpwifi_ie_types_header *header;
--	u16 left_len, tlv_type, tlv_len;
-+	u16 resp_size, left_len, tlv_type, tlv_len;
- 	struct nxpwifi_11ax_he_cap_cfg *he_cap;
- 	u8 ext_id;
+diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
+index d1ad31986cf2..b3fe153c3c68 100644
+--- a/net/tls/tls_sw.c
++++ b/net/tls/tls_sw.c
+@@ -2591,7 +2591,12 @@ int tls_set_sw_offload(struct sock *sk, int tx,
+ 		}
+ 	}
  
-@@ -212,16 +212,32 @@ int nxpwifi_ret_11ax_cfg(struct nxpwifi_private *priv,
- 		return 0;
+-	ctx->push_pending_record = tls_sw_push_pending_record;
++	/* The RX path shares tls_context with a TX side that may be HW
++	 * offloaded and rely on tls_device_push_pending_record(); only the TX
++	 * setup owns this hook.
++	 */
++	if (tx)
++		ctx->push_pending_record = tls_sw_push_pending_record;
  
- 	he_cap = &ax_cfg->he_cap_cfg;
--	left_len = le16_to_cpu(resp->size) - sizeof(*he_cfg) - S_DS_GEN;
-+	resp_size = le16_to_cpu(resp->size);
-+	if (resp_size < S_DS_GEN + sizeof(*he_cfg))
-+		return -EINVAL;
-+
-+	left_len = resp_size - S_DS_GEN - sizeof(*he_cfg);
- 	header = (struct nxpwifi_ie_types_header *)he_cfg->tlv;
- 
- 	while (left_len > sizeof(*header)) {
- 		tlv_type = le16_to_cpu(header->type);
- 		tlv_len = le16_to_cpu(header->len);
- 
-+		if (sizeof(*header) + tlv_len > left_len)
-+			return -EINVAL;
-+
- 		if (tlv_type == TLV_TYPE_EXTENSION_ID && tlv_len >= 1) {
- 			ext_id = *((u8 *)header + sizeof(*header));
- 			if (ext_id == WLAN_EID_EXT_HE_CAPABILITY) {
-+				if (tlv_len > sizeof(*he_cap) -
-+				    offsetof(struct nxpwifi_11ax_he_cap_cfg,
-+					     ext_id) ||
-+				    sizeof(*header) + tlv_len >
-+				    sizeof(priv->user_he_cap) ||
-+				    sizeof(*header) + tlv_len >
-+				    sizeof(priv->user_2g_he_cap))
-+					return -EINVAL;
-+
- 				he_cap->id = tlv_type;
- 				he_cap->len = tlv_len;
- 				memcpy((u8 *)&he_cap->ext_id,
+ 	/* setkey is the last operation that could fail during a
+ 	 * rekey. if it succeeds, we can start modifying the
 -- 
-2.43.0
+2.50.1
 
