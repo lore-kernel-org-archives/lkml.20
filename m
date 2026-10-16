@@ -1,170 +1,124 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CDF24F85D0;
-	Fri, 16 Oct 2026 16:06:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90254FECFC
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:06:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166808; cv=none; b=ejU4u7Gw4M6JMKzLquOhxexJ8q7LpOcu7/6IJzGhxCWVhnUPt7//ISsRcPpHwTHqd5ENspQLLI7N9r0xEOwuXAgkg1k6BVppmt+m8rgpIYyYNRG9Foa1wIlpiHb79KzRhGbCkKq1eu0HeTEz2WVYEkCX7htGjQ1Z9uFX/5FgHSA=
+	t=1792166810; cv=none; b=UwLFOAkaaaGcO1yt13bqrkcTtX5idZj8vuOIuvumBkjqo4X/gnsZXqv8WLY5Gos01muSQmEJSpBBCbIoWrW1IoXeJoAtWXCQ/M6Moh8krCmRtKTwUNc4R8deZY9iG/LWlq1dssN9fnGnv0aT5LWQlSBqeT5Xr11WSBrnec2nIP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166808; c=relaxed/simple;
-	bh=7viwu1kcBwPuKKsdYWp530CoRwyUQVc1fFhZNJS4SOQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cmgXa28K3KmzIW+rZ3B0TISOamdzmgidXmNnbUHXBVZKq5lPhCO6JjFR5AnnydfNwytDo7TtLLhZpOn//tgO7uDiWjMeTfqQHHA5s7V72JChcLh/hWWDR4A7XOnruaYoasDbU+S7Fldn4jS8eEAO1mTEs0JCf+xXaL2QKkwcpXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100.1)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1xHkS7-0000000086N-2vvQ;
-	Fri, 16 Oct 2026 16:06:39 +0000
-Date: Fri, 16 Oct 2026 17:06:36 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Paul Elder <paul.elder@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Dafna Hirschfeld <dafna@fastmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, michael.riesch@collabora.com,
-	stefan.klug@ideasonboard.com, mehdi.djait@linux.intel.com,
-	xuhf@rock-chips.com, zyc@rock-chips.com, dalong.deng@rock-chips.com,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 3/5] media: rkisp2: Add statistics capture video node
-Message-ID: <atJLjCV3Z8V7DsqY@makrotopia.org>
-References: <20260827-rkisp2-v3-0-e91ff0a604d6@ideasonboard.com>
- <20260827-rkisp2-v3-3-e91ff0a604d6@ideasonboard.com>
+	s=arc-20240116; t=1792166810; c=relaxed/simple;
+	bh=Sp+kvynA1LD3S5bZccoXo6BpOy+Css26i58fO0Uh0kM=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:
+	 References:MIME-Version; b=DY72+gFYvCteA1aLk5+LwQTwaT9L3e9OuSivq4eEWf/vPyONGaVBcke75aekgrGnajuRVyHcbfA8iZtaqn6kEeYlcdpXOwq5hovtEEElGyV7WIIafP8jgfrxgA4+hh7MWFQg08a+z0+1+/L1NLDSQC2YIUrTlABCfN5n8Lzjdzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=klkfNhQT; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="klkfNhQT"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-89f1318195fso66518b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:06:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792166806; x=1792771606; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KOH4IRDD54/m9IGgKIfn5Mrlm3KQxG//txDjDyh2SCE=;
+        b=klkfNhQTqY0mre0ukR8CRc024N2sOFMEo4cOFwHVFqa19JoeTpJPnn8d586F6TRk41
+         NN6uYKxDJiclpge/NdYHyuyyPGiSO6+yFJ67gjCEZmOHRQyrnZIBd3B2+AXiUYkQYh7E
+         d9jVW8EdSszl9M0wlmABK7R8Tr5D3gXxjmzaB5FAi7XMAhyTdmoAGDJEfaWsYEfms7QP
+         3TsV/X/fKZL0OoyFGKC3Qg38nbv8Wa1OT/Nd/Ecq0vHcmDpC3nvkqSiDR1KLWL8YzFLa
+         K90VVrYYrXorR3P1c0gA8peEgp4gAL/EepgRqdDyb9rON1z/gsdndvl9oUEr8nZjF7Si
+         QXaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792166806; x=1792771606;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KOH4IRDD54/m9IGgKIfn5Mrlm3KQxG//txDjDyh2SCE=;
+        b=VbGNascpEwp3o9BVgIPLBGeeBScS2vC+kle/ZaNQTtdfVgLIZH3N+889JA50c1vxug
+         hjzfd2S2Wbh/vDtZ47kQtP54HTlCRRGM54vANoHqrmzRE3oeJv9Juenh5BWRG5MRMsx4
+         JI1JWGJz6CF9XRfSVAp3qHi2HKE0UaP8gNe53NhIzNE/xMGDfPwC25H/D1NF/6U/qVtc
+         I3bVKkkH+bxup2kIWtwwcbtnpwuVaolxkzsiXgJoohHyAn7gX1k+w/WyPtY6jaSddI5h
+         EFPrZJD3vHeBxUk1C3737wNcCVlrn2ILjYkSGmmgRtC5rgW5zF3gBpxIK4ZCGDdviox+
+         V+VA==
+X-Forwarded-Encrypted: i=1; AKwUvByrHou8l17az/SHbyKeU1yAQEN4G9iRQ6WhRlbQP7j1U05gQwZHGrnpp8TZGQPMYjv9qr3i8lt5o0icU88=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIN5F380hg6kA4FgvFOsE+wSFiqQG6hk4Ufq/BngLS3gbOnPyTw
+	lMAjyFeufS8ixY1/JfTCWRwd9rWhpwIQz4Jtk3VaWc9lasrUVnHjzE+LqLeotg==
+X-Gm-Gg: AYBFou3fgvWBGGQxv3HZ2rj+7zhQs+1mdOZT+QQZcdxmDT1O7PfBw5l61hb6dL33Uk5
+	Xb6TROeFT4AUjs0DuP8cbr/v4gCMdoNjI9/v1I+rYU7dUDVh6BwaORJcu+U7MyyPQbXYWZPpn3G
+	dFqezruR7aw1vWi4gsRqq/PRPHv0C0B6PQ9eDDHrTISyUCS+wBrVBl5xUo9O6nlUwUo4UxIgVqz
+	97+IdxAzUXvadbDOeImqsX8HWBSbe98qiIp5p/Pbzs7zaUt/vLGmB7CE5JOCUrJAOtlJadCynzq
+	txPVzfNkUCaxlStIza7amWFie/CJNK+KaFS8A3GJTZdnkvH9rTjfRk3qeQ8Bps7bq2adQsENJcn
+	3oKTutUzGhyyAKDbXFL5Zh1ovOtRhQXvxssF8QOWGUv4R71YelDCVxydiEllsJQ7BCETSKSNaPo
+	ZXc5rZLj8cr6bd+fVT8U64C8PonfvyaWW22KkHQJ2i8grq4zi/6pQXzPi8/Drigk1JTjnoEvHCs
+	STH58vPFAjuq0fAJ36bC/tREhDrJ00fyPi5koQ8LePwMAA0GBIWch0b2K4AChHKl4IhECbKVUii
+	FOk=
+X-Received: by 2002:a05:6a00:4c12:b0:89f:9fdb:a99c with SMTP id d2e1a72fcca58-8a04cc1ff03mr12344b3a.55.1792166805807;
+        Fri, 16 Oct 2026 09:06:45 -0700 (PDT)
+Received: from localhost ([153.61.198.243])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89fd010b47fsm950512b3a.31.2026.10.16.09.06.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 09:06:45 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 16 Oct 2026 16:06:44 +0000
+Message-Id: <DM6E405GXJXY.1PEDGW93RMMYO@gmail.com>
+To: <nicholasfvelten@gmail.com>, "Daniel Borkmann" <daniel@iogearbox.net>,
+ "Andrii Nakryiko" <andrii@kernel.org>, "Eduard Zingerman"
+ <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Martin
+ KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong
+ Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>
+Cc: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <syzbot+1ea4f564bf6f1f3d1dc4@syzkaller.appspotmail.com>
+Subject: Re: [PATCH bpf-next] bpf: Annotate data races on bpf_lru_node type
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+In-Reply-To: <20261013-fix-lru-node-type-kcsan-v1-1-0b743f5af2f3@gmail.com>
+References: <20261013-fix-lru-node-type-kcsan-v1-1-0b743f5af2f3@gmail.com>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827-rkisp2-v3-3-e91ff0a604d6@ideasonboard.com>
 
-On Thu, Aug 27, 2026 at 07:48:32PM +0900, Paul Elder wrote:
-> Implement support for getting statistics out of the ISP by dequeueing
-> statistics buffers from rkisp2.
-[...]
-
-Hi Paul,
-
-Comments from running the statistics on the RV1126; the RK3588
-statements are by code inspection.
+On Tue, Oct 13, 2026 at 11:00 PM Nicholas Velten via B4 Relay <devnull+nicholasfvelten.gmail.com@kernel.org> wrote:
+> Both races are benign: the type is a single byte, the sanity check only
 
 [...]
-> +++ b/Documentation/userspace-api/media/v4l/metafmt-rkisp2.rst
-[...]
-> +:ref:`rkisp2_stats <rkisp2_stats>` metadata capture video node, using
 
-Undefined label, as rkisp2_params in patch 2.
+> Fixes: 3a08c2fd7634 ("bpf: LRU List")
 
-[...]
-> +                const struct v4l2_isp_stats_block_header *block =
-> +                        (void*)(stats->data + block_offset);
-[...]
-> +                                printf("ae_lite.exp_mean_r[%u] = 0x%08x\n",
-> +                                        i, ae_lite.exp_mean_r[%i]);
+It's not a fix. There is nothing to backport. Drop the tag.
 
-struct v4l2_isp_stats_block_header does not exist, the header is
-struct v4l2_isp_block_header; and ae_lite is a pointer and %i is not
-an index (ae_lite->exp_mean_r[i]).
+> @@ -298,7 +298,7 @@ static void bpf_lru_list_push_free(struct bpf_lru_list *l,
+>  {
+>  	unsigned long flags;
+>
+> -	if (WARN_ON_ONCE(IS_LOCAL_LIST_TYPE(node->type)))
+> +	if (WARN_ON_ONCE(IS_LOCAL_LIST_TYPE(READ_ONCE(node->type))))
+>  		return;
 
-[...]
-> +++ b/drivers/media/platform/rockchip/rkisp2/rkisp2-params.c
-[...]
-> +static void rkisp2_params_hist_big(struct rkisp2_params *params,
-[...]
-> +	default:
-> +		WARN_ONCE(1, "invalid big histogram base %x\n", reg_base);
-> +		return;
+__bpf_lru_node_move() called few lines below does the same
+WARN_ON_ONCE(IS_LOCAL_LIST_TYPE(node->type)) under l->lock.
+Remove this check instead of annotating it.
 
-reg_base is uninitialised in the default branch (clang warns);
-block.header->type is what you want to print.
+> @@ -357,7 +357,7 @@ static void __local_list_add_pending(struct bpf_lru *lru,
+>  {
+>  	*(u32 *)((void *)node + lru->hash_offset) = hash;
+>  	node->cpu = cpu;
+> -	node->type = BPF_LRU_LOCAL_LIST_T_PENDING;
+> +	WRITE_ONCE(node->type, BPF_LRU_LOCAL_LIST_T_PENDING);
 
-[...]
-> +++ b/drivers/media/platform/rockchip/rkisp2/rkisp2-stats.c
-[...]
-> +static const struct v4l2_isp_stats_block_type_info
-> +rkisp2_stats_blocks_info[] = {
-> +	RKISP2_STATS_BLOCK_INFO(AE_LITE, ae_lite),
-> +	RKISP2_STATS_BLOCK_INFO(HIST_LITE, hist),
-> +	RKISP2_STATS_BLOCK_INFO(HIST_BIG0, hist),
-> +	RKISP2_STATS_BLOCK_INFO(HIST_BIG1, hist),
-> +	RKISP2_STATS_BLOCK_INFO(HIST_BIG1, hist),
-> +	RKISP2_STATS_BLOCK_INFO(AWB, awb),
-> +};
+The node in push_free is not in the htab anymore, so del_from_htab()
+fails and shrink or steal cannot take it.
+Only flush and rotate can change its type, which is
+__bpf_lru_node_move_in() and __bpf_lru_node_move().
+Here and in the other three places the node has one owner and
+nobody is reading its type. No need for WRITE_ONCE.
 
-HIST_BIG1 twice, and HIST_BIG2 is left with size 0.
-v4l2_isp_stats_init_block() then writes a zero-sized header for
-HIST_BIG2 without advancing data_size, the 256 bins are written after
-it and the AWB block overwrites both, so user space never sees a
-HIST_BIG2 block. With the entry fixed the block shows up on the RV1126.
-
-[...]
-> +static void rkisp2_stats_get_rawae_lite(struct rkisp2_stats *stats,
-[...]
-> +	block = rkisp2_init_stats_block(rkisp2, pbuf,
-> +					RKISP2_STATS_BLOCK_AE_LITE);
-> +	if (IS_ERR(block))
-> +		return;
-> +
-> +	ae_lite = &block->ae_lite;
-> +
-> +	/* TODO figure out what the other channels are for */
-> +	if (!(status & ISP2X_3A_RAWAE_CH0))
-> +		return;
-
-The block is reserved and its header written before the status check,
-and v4l2_isp_stats_init_block() does not clear the payload, so when
-the bit is not set the block goes out with whatever the buffer held
-from its previous use, done flag included (every frame after AE lite
-was disabled through the params node, for instance). Reserve the block
-after the check, or clear done and the means when the measurement is
-missing. rkisp2_stats_get_rawawb() has the same pattern.
-
-[...]
-> +irqreturn_t rkisp2_stats_isr_eof(struct rkisp2_stats *stats)
-> +{
-> +	struct rkisp2_device *rkisp2 = stats->rkisp2;
-> +	u32 status = rkisp2_read(rkisp2, ISP_ISP3A_MIS);
-
-Is the 3A interrupt on its own line on the RK3588? On the RV1126 it
-shares the ISP line: the measurements complete early in the frame, the
-ISP handler returns IRQ_NONE for the rest of the frame as ISP_MIS is
-clear, and the line stays asserted until this clears it, about 1400
-unhandled interrupts per frame until the kernel disables the line.
-Leaving ISP3A_IMSC clear (the params handlers set it) and reading
-ISP3A_RIS here instead works on both.
-
-[...]
-> +	rkisp2_stats_init_vb2_queue(vdev->queue, stats);
-
-The return value is ignored.
-
-[...]
-> +++ b/include/uapi/linux/media/rockchip/rkisp2-config.h
-[...]
-> +/**
-> + * Same as struct rkisp2_params_hist_lite but for big channel
-> + *
-> + * RkISP2 parameters histogram configuration block.
-> + * Identified by :c:type:`RKISP2_PARAMS_BLOCK_HIST_BIG{0,1,2}`.
-> + *
-> + * @window_num: 0 or 1 for 5x5, 2 or 3 for 15x15
-> + */
-> +struct rkisp2_params_hist_big {
-
-scripts/kernel-doc warns that this is not a kernel-doc comment; it
-needs the "struct rkisp2_params_hist_big - ..." title and the other
-members, since the header is pulled into the documentation.
-
-Best regards,
-Daniel
+pw-bot: cr
