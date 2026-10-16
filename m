@@ -1,116 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0813FFF9D;
-	Fri, 16 Oct 2026 10:10:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB182D73A0
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:10:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145433; cv=none; b=nPMh+r4CuWsvSWTARBPtfBah/unfaDJxaVnHUvFJTBK1X8BYqCsZqCVe5ytwTgrrpseUyVgxase5fz6isISTdngstPnNPYxQ/AKpXJJl+buoHvUPk83sOtOh/gLQC1OauUJBEiIlFda4AiEuP06Tg+bUVmmnaOh+LQqzUNczVRY=
+	t=1792145456; cv=none; b=BJKq4T0HznjBvvzgOvchyNM2euXJFirRxwtJ4dj4WQsgXVE+oDXgaCxTeSa99YWMrBzwaD/rpXk8emB1Qi/FKu/7YN0kgRjgF6zQj+3zRvE1ttFKO1vPvCebnGqC5j5perEvIwzaK4crbpWdDLZ37niQuWTUs3KIDDdCfTsTK2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145433; c=relaxed/simple;
-	bh=aZUN3Ejaq62Bdo0IPChTj5v5o1bSTJ7szt3m8E/Y9qI=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=c3JLpMZEpVWUKS/uutR0JvqT7DIcsHW2rDc6JwqynQ5qWKjjiXmog8Uu/XgkDO9ZBIyO7JFSFCU/37IwV4NhwxbeD5uBLK1Kl+LMCWuhUs3KY/gWMLTq+gZ7siwOfpBhziPNJgUmqw5ntyjwI50qAYZ1JAVuwKr/jv0MdP7lLYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PCkV+VjP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792145456; c=relaxed/simple;
+	bh=oRhTkADbPPFk2lQxJ3Q9u6uunqgBs4YugN4ok4WKsVk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gZPiPBNIlLRhN00/L8Fk+hTuzZXPpx4JTfcPElFScyz1kiRN5j1quLXF6KdRzgAY6U1wZnZvrsgwur6EbHS4luICUBWgvKWdA8pGU8sTJi/LQy8UAVR0pGHO7k+5KEU7i87KCUtTsSgP3WY1uNqw4MGwBedeV+bvU0oCGS/DP3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=T92sHFFE; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PCkV+VjP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9831F000C4;
-	Fri, 16 Oct 2026 10:10:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792145431;
-	bh=8lC+3QuyhSeSDfWPg49wFSQP1WWmXzv+SO1bTfVf9QQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=PCkV+VjPEAbPVnwsmhUyCGHvwkW9is05IsSldUUc0jyYvVlhvfueTj7fa8oB2keil
-	 xAzKBOW7NtS/qJyh1VEZSe8eHpzwBlo/GTt2WfF0TI49xl37eMTM3sxJ2sPOSxP6vv
-	 +ONFn+3vDxPlE2dqlmwmp7VWkFeIfLCtQ9DpvFpaqoZRoNhDzb8gyS4N5zLQJsiiqj
-	 d547wc0OYXsILmkfaG/RbPg2RxHCBNXk5hRLogXTDMuRAweLjS16vt1Sev4BDT69bT
-	 rtZNhWB80fByfnfn6bW8o9bk1db6ubyJ6kcDL9vynE3Bz9LIzMNqDhCQZsxAfm3OPZ
-	 KSJMQ0FE9lQjw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xHetQ-00000003hIw-3TGV;
-	Fri, 16 Oct 2026 10:10:28 +0000
-Date: Fri, 16 Oct 2026 11:10:28 +0100
-Message-ID: <86cxta0xd7.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="T92sHFFE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=s7
+	ahz3ZxDOrAoSGBstCMhjFpTs1DKuTtqUs9FA5eqxs=; b=T92sHFFEQcwomuaQcH
+	lAY0IPMMYmEFIEZ60p/y2cGvYkdFAyIjIPO1/ebkA2REh4HZCWp6qX18qYZEaWOY
+	yS1oXtWO6P4pi+LqJXPeDbFLXL11z7sUg2GWBY/nal2QPzeNnHlRAcua80Lhv5hJ
+	UWbwBngwE4mdXSy1Wd/dHH5EE=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3XwMb+NFqvNkBAg--.61009S2;
+	Fri, 16 Oct 2026 18:10:36 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: Set HCR_EL2.BSU to Inner Shareable for guests
-In-Reply-To: <20261016081558.805411-1-fuad.tabba@linux.dev>
-References: <20261016081558.805411-1-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH] misc: bh1770glc: queue proximity work on freezable workqueue
+Date: Fri, 16 Oct 2026 18:10:33 +0800
+Message-Id: <20261016101034.2586548-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, joey.gouly@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, seiden@linux.ibm.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, tabba@google.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3XwMb+NFqvNkBAg--.61009S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Gr4rKFW7Gw1fZF4xAw4xZwb_yoWDtrc_Wa
+	y7XrnrGryj9w4jyw1vyr13Zry0ka4v9r95JFsxKw47try7urWkJF92yr98Aw1UuF48JFnx
+	Wrn8ZayfKw1qkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRiSoG5UUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xxUjmrR+ByPvQAA3E
 
-On Fri, 16 Oct 2026 09:15:58 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
-> 
-> KVM sets HCR_EL2.BSU to Inner Shareable for guests, so that a guest's
-> barriers cover the TLB and I-cache invalidations that HCR_EL2.FB
-> broadcasts. However, since HCR_BSU_IS became an alias of the generated
-> HCR_EL2_BSU_IS, it is the unshifted field value 0b01, which sets bit
-> 0 (VM, already set) and leaves BSU at 0b00. A guest's DSB NSH is then
-> not required to wait for a broadcast TLBI to complete on other CPUs.
-> 
-> Build the field with SYS_FIELD_PREP_ENUM().
-> 
-> Fixes: d0f39259eff4 ("arm64: sysreg: Add layout for HCR_EL2")
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
-> Found while testing Marc's HCR cleanup [1]. Its patch 1 carries this
-> line over as HCR_EL2_BSU_IS, so on top of this fix that hunk would
-> keep SYS_FIELD_PREP_ENUM() instead. I can also rebase this on top of
-> the series if that's easier.
-> 
-> [1] https://lore.kernel.org/r/20261015173605.1072963-1-maz@kernel.org
-> 
->  arch/arm64/include/asm/kvm_arm.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_arm.h b/arch/arm64/include/asm/kvm_arm.h
-> index 4bfbd827c5aa7..b3e9dd302730e 100644
-> --- a/arch/arm64/include/asm/kvm_arm.h
-> +++ b/arch/arm64/include/asm/kvm_arm.h
-> @@ -98,7 +98,7 @@
->   * TID1:	Trap REVIDR_EL1, AIDR_EL1, and SMIDR_EL1
->   */
->  #define HCR_GUEST_FLAGS (HCR_TSC | HCR_TSW | HCR_TWE | HCR_TWI | HCR_VM | \
-> -			 HCR_BSU_IS | HCR_FB | HCR_TACR | \
-> +			 SYS_FIELD_PREP_ENUM(HCR_EL2, BSU, IS) | HCR_EL2_FB | HCR_EL2_TACR | \
->  			 HCR_AMO | HCR_SWIO | HCR_TIDCP | HCR_RW | HCR_TLOR | \
->  			 HCR_FMO | HCR_IMO | HCR_PTW | HCR_TID3 | HCR_TID1)
->  #define HCR_HOST_NVHE_FLAGS (HCR_RW | HCR_API | HCR_APK)
+The proximity fallback work reads sensor registers after a delay. System
+suspend powers the sensor down without cancelling that work, while
+schedule_delayed_work() leaves it runnable on the non-freezable system
+workqueue.
 
-Huh. That's a bad one. I've added a Cc: stable to that, and queued it
-as a prefix of the cleanup series.
+Queue the fallback work on system_freezable_wq so it cannot access the
+powered-down sensor or its suspended I2C adapter.
 
-Thanks,
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/misc/bh1770glc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-	M.
-
+diff --git a/drivers/misc/bh1770glc.c b/drivers/misc/bh1770glc.c
+index 98fc5970b2bb..3411947d9283 100644
+--- a/drivers/misc/bh1770glc.c
++++ b/drivers/misc/bh1770glc.c
+@@ -620,8 +620,8 @@ static irqreturn_t bh1770_irq(int irq, void *data)
+ 		 * next expected interrupt time.
+ 		 */
+ 		cancel_delayed_work_sync(&chip->prox_work);
+-		schedule_delayed_work(&chip->prox_work,
+-				msecs_to_jiffies(rate + 50));
++		queue_delayed_work(system_freezable_wq, &chip->prox_work,
++				   msecs_to_jiffies(rate + 50));
+ 	}
+ 	return IRQ_HANDLED;
+ }
 -- 
-Without deviation from the norm, progress is not possible.
+2.34.1
+
