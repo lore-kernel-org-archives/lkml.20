@@ -1,181 +1,247 @@
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013041.outbound.protection.outlook.com [40.107.201.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B7F53C1F57
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:51:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792133476; cv=none; b=GNlG6X+bwasTXn89J45Rr58ZfFqbw+HoqpTYe86/LbblkRlB+0cunGE7AhJY0IkvlbbkRdLwHNGOOkJ5EN7m0bD57rSyrQbW3CbbPsmDhNbZKh5MpFeCpXQsZfV/JvenX8cy3Peet4TGaxobw7c1Wkybnc5G20ODLgwZy86+hyQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792133476; c=relaxed/simple;
-	bh=lCT5eQI3T6CFc5K4WWsKWLdWWTgnuJ3yq/JdbXGvWrI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=iScXrVCN7jzYGuj4NVyN0hd9uanwk0IvKCgt6+uCjG/mhorrW4c/ssRDfFtAcYgcB+s3IF1yF4X3mbtDEemz9/qeMHGM3wgb9qJInzrEatPbAHPnn5tXlT4tJM4dCfSpWrZu4zcRYfyXnbDjD8u89dtjvh0JNsdyL3M7f65AZ1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W9KJlRRk; arc=none smtp.client-ip=74.125.82.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5272E3A785D;
+	Fri, 16 Oct 2026 06:52:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792133529; cv=fail; b=HR7jfBwoKZKsuB8YbXFw1geVA0hiby67SFdY3tRcJZKydhiHom6S1x4X0HwPHRFky5+cDW/FcxWUf/titJGhQVJMHhMpvbN67eLr/PeEbA6CM8HRrWTaUmMlCyKGiiXhh1gg2xtrozK5EzdomhX1/nQsMOPd8MQhXSpH8dfZB1c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792133529; c=relaxed/simple;
+	bh=FGB1riuyTsKXqAEGLZn+YVyR7wKXTrtPdePDWXHVqNU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=pjeghuZpGhP6WBAP+0BZFMEupV43yM7xQk7sRoZ93NmV/j51cCY5+dkLJPSnYDkSytQ8PPEkSN8+FKxlKXp/cnIAxaxiLfIS9nqFNMtFKXrVwtvMcITY8ODSEKDOoLauJNhm2ATtpk70lywt0D0tOmE3i721OxAaWTvW1OVzo5c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JAT4qwXG; arc=fail smtp.client-ip=40.107.201.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W9KJlRRk"
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35a31bb9fb6so2399344eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:51:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792133470; x=1792738270; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=SkUjAgS3p4LeEjKgy5L7LfWzR0DWI89VQPIY4JkskUI=;
-        b=W9KJlRRkOIFHslTngcXEvlwybRS68Q1vLuhVZNfVIWZB7efJhhBYdKTvlQq+QCeuQ2
-         +sgG3hzKjHYNOgbyH3YDeg6QKaVDACsuBkyomwZaiAY1qlFySMyT1SpbHpIG1UCS13/m
-         OjwNMdUc4+yfxCy5sL1ncDR9Gky5OOel+Q+iWsmTHuE06ksgvuhoDg3P2fsBnuOOqXoe
-         Y/t4OrDsvpFphiixX5WJYkaM+zA0XvxTTq0LEUvf2OIcqm6L+sx+nqN2HOz8LWj8JKjS
-         tUuiffhRfAoDz1AxQBiQPI1+lzTnCLKcHZHop1JLXIWMRv5Rd3rIQz1VXZ4wz9zYhXwP
-         yscw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792133470; x=1792738270;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=SkUjAgS3p4LeEjKgy5L7LfWzR0DWI89VQPIY4JkskUI=;
-        b=oGuYPlzUFtMp2vFxCwaHxjDpdb8XYmCgpW+1m7mi3G8VzrQucThXAgnV5+5VjWHieX
-         3kzLtd4wTH0ZgAlJcZk1EYjHOKZGSrzlPanwoocGQU4GB5yGb43qNg8f9w9EVGGenejF
-         SOXc0Uugb2bcgEw2cC6fZLe1VtFQqQZF6iOmhBKi3NCK55Q9OAHMJ36pQ4t+p1qeDTe9
-         1DOuacxN4p1OblNV/RTqd7XniF8S6JN0GTSj5BdJwdx+2kiSzjkZ7COR3m478/i+Yvgx
-         HBu4IkM3FZW+CWgIp6rSIsKLXFoyblNg38jUis+JCwezB8vExUAQ/yqhbimt52dDYwhw
-         05tg==
-X-Forwarded-Encrypted: i=1; AKwUvBzm9waO6S6Od3YHl+Sjvp4hOdl/ABByBZ/Q1VJBiWESBJ1I+EH/qkGABdAYee93moNmWvM7JJTywBewl2I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKAyYYFs6FYRViTDHUlQie43AbettBsbPsXivAR0fFNyV+DtVW3
-	V/CEdwmbZEGufmSk5yCF2R3VXlRB2Qu88S+YJTok3jU+be4WS1ysjuPK
-X-Gm-Gg: AYBFou196BET2HUol1lIXhQUmu4JvxwD3iLm/8O1q1/YJzwB+M/DJ2OPu2tRWCzzAmI
-	jtTYYETjClTEGE2tgrF6uWZle70/MItuNXyKR62UjaHkeUARyY7k0T/S1/Nk7mVBoHotipr8+gU
-	citqrhNmV3gje+BzUVgGyHC+OkXkp2DO1/dAtJKPsglEb2bHQXibGvbVTxfsY+ltUvDa5EPI5Lu
-	lbfkIaGbyT1UY1Ss9Tk/CVKtJZwsHF5HLev32pd1IZDVMCeYitCSVpUn9TZqF2ZJFYwcgPUO3qd
-	b6towXn+onMKdQSzlef8P7LIqC64olRR8h3Hb0zfvTE8wUBGcbdXm+OLDiWfqeynUMRgojkNTTo
-	AVktjks6Z4R25C0TDGBE+Z+fVpPkqtmv7Tk6FdiqjJrOZxwokZWYyu0pG2tJffSx5i3AcYeP2zN
-	DFGJIusBwewB/WX9miz7ceGRelyrkO8VXGyJHwKS634TvcAwzFVIkZ/8rjLCDg1tJ/+w==
-X-Received: by 2002:a05:693c:23c6:b0:351:1f56:3a89 with SMTP id 5a478bee46e88-3537e00a83amr40808059eec.23.1792133470086;
-        Thu, 15 Oct 2026 23:51:10 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cab0sm4839555eec.3.2026.10.15.23.51.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 23:51:09 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Fri, 16 Oct 2026 14:51:05 +0800
-Subject: [PATCH net-next] veth: set the real number of queues before
- registering the devices
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JAT4qwXG"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SXbqNvvNe1jh8N/PKOrVYR8siieUn07Sgx2Vii8zZQHFsmriUVDClYt8J9o5FV1fd5w/ZJtgaMJUpQdsVu6Fw1bjyMSXIxWD+Ct1hUdz2HrlUnPQ50Tpf9JWpwobrSFHtvSd6d24INuklJXLmywzWnHSkAe/fe1OJkER2HOePs3fojHt20bSzyePTuwd/u7ifJ+xLTixtveNbCK0v3set1Bg5q28PUPhK3ncDinbCwSRoTvfZlAcmaX74zWyIXTZA15VfUfRAlw5CC4zzo9Sp+k5T9/HgQ6iBqGTEKETZNG8s1/B0loh9SaFCspRNJynOSeIbaQfULlft1eZNHEIfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ed62jcrSjphzHHtIlogIbWMAmxdh0UqTt53U+fczllY=;
+ b=OfdGu1iZtRs4PcKzEUvtJpQZA0V6hYbb5/+9lzGw/vtO3p+B+b5s+NWx/AL/uRYFSW3c+66FgsGgS/2BSfp+tfEKAtRNObQYSmg6C44itN1Qfz2SzmxBKxUSbwV0Sw+Bfixg3nwHFkhAUj7pjt8PDPd3U6MCh70MSDzFvaQL7EJoFpX4m3ZUBlYKoOW+VFFE3oBfJL+YJsZSRHi/pZeVeUdvcAgAt53j4bswaZP8xOLnv94TpBYZ/h3IluGVk+F1iHOWBAVwE/N8WpRYlK6lAJ12xYR5rS1avSBpRYl8GCqODwJ6FEVGcNBOdOuklmOyU6bNRbQljb1gfXe2zjxHXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ed62jcrSjphzHHtIlogIbWMAmxdh0UqTt53U+fczllY=;
+ b=JAT4qwXGHLdZVoINVTBoP+KaPOcSGnOMpYq7gsAC0atHzyTUoxxT2dfEabO3uTd2HBAdN/RZDgdEFZ52jTRYCnx8vpb7XDpU4Is9AJrQVfOAtH7UO0COaVpc1OhVEwNP/Ph6x+C0k+Fv1/mo1amqC5zGv8sYHaPYLTGRtXuJVpk=
+Received: from BN9PR03CA0149.namprd03.prod.outlook.com (2603:10b6:408:fe::34)
+ by DS0PR12MB8441.namprd12.prod.outlook.com (2603:10b6:8:123::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
+ 2026 06:52:02 +0000
+Received: from BN7PEPF000000A6.namprd05.prod.outlook.com
+ (2603:10b6:408:fe:cafe::92) by BN9PR03CA0149.outlook.office365.com
+ (2603:10b6:408:fe::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 16
+ Oct 2026 06:52:01 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN7PEPF000000A6.mail.protection.outlook.com (10.167.245.230) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 06:52:01 +0000
+Received: from danielhuang-HP-EliteBook-845-14-inch-G10-Notebook-PC.amd.com
+ (10.180.168.240) by satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.53; Fri, 16 Oct 2026 01:51:52 -0500
+From: Daniel Huang <danielhu@amd.com>
+To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>
+CC: <christian.koenig@amd.com>, <alex.sierra@amd.com>, <Philip.Yang@amd.com>,
+	<amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Daniel Huang
+	<danielhu@amd.com>
+Subject: [PATCH] drm/amdkfd: disable SVM when the GPUVM cannot cover CPU addresses
+Date: Fri, 16 Oct 2026 22:51:29 +0800
+Message-ID: <20261016145129.69645-1-danielhu@amd.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-bug-veth-init-queues-before-register-v1-1-f48eb2bb25a0@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAFjJ0WoC/x3NQQqDMBBG4avIrDuQWIjQq5QuEvsbZxPbyUQE8
- e4NXX6b906qUEGlx3CSYpcqW+nwt4HmNZYMlnc3jW4M3vnAqWXeYStLEeNvQ0PlhGVTsCJLNSg
- DCVO4R+fjRD31USxy/DdPKjAuOIxe1/UD5E+6zoAAAAA=
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF000000A6:EE_|DS0PR12MB8441:EE_
+X-MS-Office365-Filtering-Correlation-Id: a12bf397-3aaa-465a-6fc5-08df2b51fb52
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|56012099006|11063799006|261009223027099003|18002099003|10067099003|6133799003|3023799007|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	kC4ggiO3U9EB3k5DFWibMAglywpu23WzuFS317jykxsRWaff2OsDsm74/wkNtBMajML4fRvtmGJlDpLv58/NGNeB2GCFvE97p3TXykwFBaacS9ye7B6oTujEu4bWpGrxbLbcNtTDJNsJinWaO6lVWzXMZrULQlRXLUkTDUCORDoGwpCj3mEFZjCo0y69NcEZpBg3HJ1RjtZvBtQmZcnsPdC/oAv23gOJHYY9I69yhUsyakj8NG4Kgpc8HiIqyi+cvtlOKkwaH2xF1G1iHyspucQvJHqB9LEyU5wpz1gJfgYE3a9F72TPpgVfdvCUaYiE0E3fmTrvfbGs7j/C3BrlQO3j5mCXn+eEtH2OapglVY8ycZYy3FQ8b8IlfZ6VwvPkpQQW0FYfPksHyMYOlohMOZUEjff24IsevDLTCKDX2/W1zugO4IfEJPxphURR8hOZUzndodCfiirnysZyqMmpwiZHklGV+UYIXGe0aqVNsZSBsf+SMy3e4ud3WTdtQcvvJXgduRlPEzyYRZJFmvxK23dDzMq2xF7cMyaah29HObVwwbpeY56rNMAvD4covYc3qbjuo0uwk+KvDDRWdtBFzP2LsDMvCOMbIhZcIf8qaTllRMU5aiIhp8A42wGNFmUVOPfdkHuZesHakcYRcRYywA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(56012099006)(11063799006)(261009223027099003)(18002099003)(10067099003)(6133799003)(3023799007)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	xdA24JGafpRcEYlqPIRH6+cW1vzhk9jhSpaHBdTHR7QxSOxcS2qUY280QD8Q9Ct7hFpeixIsaSDFl7iSC7cvxCPQd/fkICEtYyipjrXEMsZocmKSG1DQKajOOqAEMtfnV0uE1pR8m6BROj4AzGk/dn53XmtbvHmIIjTUIh510NCGYVH+7eoriNvSmvBlWA3snu3IpkrNlT7aowEnkzBe8l13sUSWBt3BHsRPy9QpHcRYCJ7XyKu9thLlyTG4XfbyxWzf2wmdmQbAZ9D4D7e2WH2jp6AFiPar/rDz+haRMfvJ+kXkrvTcYchNSnkPKGYCsC6X1sjRygG5utlQipONxYm6Ht489lREEHwJ67Ioj/Je/mtx23BUIttVmYXn+DqJMDFpbdAdrN5yF7l3cBS/z4wGFSSJ3BkmhlPA0ZBPi9yfeBgkEPerAr5zK24SF3WR
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 06:52:01.8336
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a12bf397-3aaa-465a-6fc5-08df2b51fb52
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN7PEPF000000A6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8441
 
-Since commit 9d3684c24a52 ("veth: create by default nr_possible_cpus
-queues"), each veth device is allocated with one rx and one tx queue
-per possible CPU, and veth_newlink() reduces the real number of queues
-to one unless the user asked for a number.
+KFD SVM maps memory in GPUVM at the same virtual address used by
+the CPU. However, svm_range_map_to_gpu() passes the corresponding
+PFNs to amdgpu_vm_update_range() without checking them against
+vm_manager.max_pfn.
 
-Both devices are already registered at that point, so
-netif_set_real_num_tx_queues() and netif_set_real_num_rx_queues()
-remove the sysfs objects of every extra queue that register_netdevice()
-has just created, each one emitting an add and a remove uevent, and the
-tx side also waits for an expedited RCU grace period. This happens with
-RTNL held, twice per pair, and grows with the number of possible CPUs:
-with 240 of them a veth pair emits about 1900 uevents, and udev
-processing them slows down later sysfs work such as deleting devices.
+If the GPUVM address range is smaller than the CPU address range,
+the page-table walker can index beyond the allocated root page-table
+entries. Unlike the SVM path, the BO mapping path validates the
+address range through amdgpu_vm_verify_parameters().
 
-Set the number of queues before registering each device. For a device
-that is not registered yet this only updates the counters, so the extra
-queues never appear in sysfs, and the error paths that undid a
-registration are no longer needed.
+An explicit amdgpu.vm_size override can trigger this condition by
+configuring a smaller GPUVM than the driver would normally select.
 
-Creating and then deleting 500 veth pairs, one ip -batch each, in a 16
-vCPU guest, median of 3 runs, per pair:
+Reproduced on a Radeon 780M (gfx1103) with amdgpu.vm_size=64.
+Repeated hipMallocManaged() allocations attempted to map CPU
+address 0x74bd48000000, well beyond the 64 GiB GPUVM limit.
+The out-of-bounds root entry contained SLUB poison with
+slub_debug=FZPU and recycled heap data without it, resulting in
+a general protection fault:
 
-                                   before      after
-  16 possible CPUs    create      1644 us     520 us
-                      delete     11822 us    9750 us
-  240 possible CPUs   create     17253 us    1339 us
-                      delete     17082 us    9941 us
-                      uevents        1918          6
+  RIP: 0010:amdgpu_vm_cpu_update+0x2f/0x140 [amdgpu]
+   amdgpu_vm_pte_update_flags+0xfa/0x1e0 [amdgpu]
+   amdgpu_vm_ptes_update+0x38b/0xa00 [amdgpu]
+   amdgpu_vm_update_range+0x279/0x930 [amdgpu]
+   svm_range_map_to_gpu+0x13d/0x400 [amdgpu]
+   svm_range_validate_and_map+0x8d3/0xaa0 [amdgpu]
+   svm_ioctl+0x66/0x80 [amdgpu]
+   kfd_ioctl+0x40a/0x650 [amdgpu]
 
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+As discussed in [1], rejecting out-of-range PFNs in
+amdgpu_vm_update_range() is too late. SVM must not be initialized
+when the GPUVM cannot represent the required CPU addresses.
+
+Prevent this by disabling KFD SVM support when the GPUVM address
+range is smaller than AMDGPU_GMC_HOLE_START. This prevents
+affected devices from advertising SVM support and excludes them
+from SVM mappings. Warn from kfd_update_svm_support_properties(),
+which runs after the device memory pgmap is registered, so that
+only devices that would otherwise have advertised SVM report the
+loss of the capability.
+
+[1] https://lore.kernel.org/amd-gfx/da43b0e3-5bd9-4aa1-86d3-b733f3bad108@amd.com/
+
+Fixes: f80fe9d3c114 ("drm/amdkfd: map svm range to GPUs")
+Closes: https://github.com/ROCm/legacy-rocm-build/issues/6691
+Cc: stable@vger.kernel.org
+Signed-off-by: Daniel Huang <danielhu@amd.com>
 ---
- drivers/net/veth.c | 20 ++++++++------------
- 1 file changed, 8 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index 38f263d4f06b4..92ad064567327 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -1875,6 +1875,10 @@ static int veth_newlink(struct net_device *dev,
+Tested on a Radeon 780M (gfx1103, PCI 1002:15bf), kernel
+7.0.0-38-generic, and ROCm 7.13.0-2.
+
+The reproducer performs 24 iterations of hipMallocManaged(1 GiB),
+hipMemset(), and hipFree() per run, with 40 runs per attempt.
+
+With amdgpu.vm_size=64:
+- Stock module: kernel Oops within approximately 2 seconds on
+  every attempt.
+- Patched module: completed 40/40 runs in two attempts, with
+  stock and patched modules tested alternately on the same kernel.
+
+With the default GPUVM size, the patched module preserved SVM
+support, emitted no warning, and completed the same test.
+
+Two questions for maintainers:
+
+1. I interpreted "SVM must fail to initialize" as disabling
+   the SVM capability for affected devices rather than failing
+   KFD initialization or rejecting the vm_size override.
+   Would a different approach be preferable?
+
+2. This check also affects GMC v6/v7/v8, whose GPUVM address
+   ranges cannot reach AMDGPU_GMC_HOLE_START. Although these
+   devices do not register device-private memory, an APU with
+   apu_prefer_gtt can currently advertise SVM support.
+
+   Should the check apply to these devices as well, or should
+   it be limited to explicitly configured amdgpu.vm_size
+   overrides?
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h      | 18 ++++++++++++++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 14 +++++++++++++-
+ 2 files changed, 29 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+index c7d7adae4476..6235ce0f988e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+@@ -203,11 +203,25 @@ struct kfd_process_device *
+ svm_range_get_pdd_by_node(struct svm_range *prange, struct kfd_node *node);
+ void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_struct *mm);
  
- 	netif_inherit_tso_max(peer, dev);
- 
-+	err = veth_init_queues(peer, tb);
-+	if (err)
-+		goto err_register_peer;
++/*
++ * SVM uses CPU virtual addresses for GPU mappings. Disable SVM if the GPUVM
++ * address range cannot cover the required CPU address range.
++ *
++ * The parameter must be named adev since AMDGPU_GMC_HOLE_START references
++ * adev->vm_manager.max_level.
++ */
++static inline bool kfd_svm_vm_covers_user_va(struct amdgpu_device *adev)
++{
++	return (adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT) >=
++		AMDGPU_GMC_HOLE_START;
++}
 +
- 	err = register_netdevice(peer);
- 	if (err < 0)
- 		goto err_register_peer;
-@@ -1904,6 +1908,10 @@ static int veth_newlink(struct net_device *dev,
- 	else
- 		snprintf(dev->name, IFNAMSIZ, DRV_NAME "%%d");
+ /* SVM API and HMM page migration work together, device memory type
+  * is initialized to not 0 when page migration register device memory.
+  */
+-#define KFD_IS_SVM_API_SUPPORTED(adev) ((adev)->kfd.pgmap.type != 0 ||\
+-					((adev)->apu_prefer_gtt))
++#define KFD_IS_SVM_API_SUPPORTED(adev)					\
++	(((adev)->kfd.pgmap.type != 0 || (adev)->apu_prefer_gtt) &&	\
++	 kfd_svm_vm_covers_user_va(adev))
  
-+	err = veth_init_queues(dev, tb);
-+	if (err)
-+		goto err_register_dev;
-+
- 	err = register_netdevice(dev);
- 	if (err < 0)
- 		goto err_register_dev;
-@@ -1917,16 +1925,10 @@ static int veth_newlink(struct net_device *dev,
- 	priv = netdev_priv(dev);
- 	rcu_assign_pointer(priv->peer, peer);
- 	netdev_hold(peer, &priv->peer_tracker, GFP_KERNEL);
--	err = veth_init_queues(dev, tb);
--	if (err)
--		goto err_queues;
+ void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
  
- 	priv = netdev_priv(peer);
- 	rcu_assign_pointer(priv->peer, dev);
- 	netdev_hold(dev, &priv->peer_tracker, GFP_KERNEL);
--	err = veth_init_queues(peer, tb);
--	if (err)
--		goto err_peer_queues;
- 
- 	veth_disable_gro(dev);
- 	/* update XDP supported features */
-@@ -1935,12 +1937,6 @@ static int veth_newlink(struct net_device *dev,
- 
- 	return 0;
- 
--err_peer_queues:
--	netdev_put(dev, &priv->peer_tracker);
--	priv = netdev_priv(dev);
--err_queues:
--	netdev_put(peer, &priv->peer_tracker);
--	unregister_netdevice(dev);
- err_register_dev:
- 	/* nothing to do */
- err_configure_peer:
-
----
-base-commit: 6b3e73774815910a39d8ca75b9ad7df963f61d50
-change-id: 20261016-bug-veth-init-queues-before-register-eebe763a01a7
-
-Best regards,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 35b3abe57b80..5de19fa27d12 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -2471,8 +2471,20 @@ void kfd_update_svm_support_properties(struct amdgpu_device *adev)
+ 				sys_props.generation_count++;
+ 			else
+ 				dev_err(adev->dev, "Failed to update SVM support properties. ret=%d\n", ret);
+-		} else
++		} else {
++#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
++			/* Report it rather than letting the capability
++			 * silently vanish from the KFD topology.
++			 */
++			if ((adev->kfd.pgmap.type || adev->apu_prefer_gtt) &&
++			    !kfd_svm_vm_covers_user_va(adev))
++				dev_warn_once(adev->dev,
++					      "GPUVM size 0x%llx is too small for KFD SVM; SVM disabled (amdgpu.vm_size=%d)\n",
++					      adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT,
++					      amdgpu_vm_size);
++#endif
+ 			dev->node_props.capability &= ~HSA_CAP_SVMAPI_SUPPORTED;
++		}
+ 	}
+ 	up_write(&topology_lock);
+ }
 -- 
-Qiliang Yuan <odys.yuan@gmail.com>
+2.53.0
 
