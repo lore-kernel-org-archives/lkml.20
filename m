@@ -1,47 +1,53 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF494AF691
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:16:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B292746F4A6;
+	Fri, 16 Oct 2026 15:17:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792163792; cv=none; b=oBKzbyVs+ZGn+xuApvSdnrVg2oAUMx+oQ7I8dZpve/FOWkkH6K2DCYQ3nDA8ozC/m7rifAi0At7SeK5xxqEDvhk6E6k4oqNy+8Cf0dZX7LHOpC6WSZnWFuhO3K1PdY+N9Lmum9ZVQQxZBLcwOu2YIkQL38P5dNlZV8OVn9ekXow=
+	t=1792163864; cv=none; b=g03PJQMFsmTTLSnWwiTsZHUyoblJ+40jlhwiidCSjvMo9CujobLcmP19KmXmYnbRDnyZRwKtBkiw/uilirf95HZ46dL/fN0I51ECObqAJTXu/p03LhrHLaNWsE3VL5Fy5xpGGDbNpcKnIz1cB00HqG9QNlSKc7Qd0Lsa92gsmvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792163792; c=relaxed/simple;
-	bh=SnsP856WH9EN0f8rzBZpUY00WIfcIXC9VKNA7HXRXR0=;
+	s=arc-20240116; t=1792163864; c=relaxed/simple;
+	bh=S0cC7/QOZ211s+sMqObPJG6rINXOGu5G5uygArOyVF8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cc+hWV9/50/zy566I82vVp1DrEzyJ26CeDvfqj3Iv2PEJbHa3h+f5BVObC1SciG1siS3NmtBBtC8LSPhJoGp787rkhR6fhGIZjwa0Fqgn1+yqxz1eGzChSXKOUeq/VRAbnQOJBfmdRbrC/7WoPgyLqlBj57UEjXZMUWIFgUIr0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=IMEJ2Kmc; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=A3dCKfH4TkyeY6pvstXl7ShR2sqtGUGGrKxIoasxKx8DKE8iH1tpsJGQ6hrJjmH61V8w1p7Nu0qDVzuEiKWCQNoUVbf23cDIqyaw8uXl8SmPPwAr8roBUeh8sEF9BZtN0ofqp11KOmrHK1+5VEx8/tOx0ssmRLdqhW88/tzlWaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=zh4hh7ut; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="IMEJ2Kmc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=xjddH5Y+fsofTaQF3xJna0LdADuPzouwrn9/ok9D37M=; b=IMEJ2Kmc/2fhFDOtOYbpdISPnI
-	u1K/3bKq9qK7os2R/z8zr+ziF4Dq5Be0vqqQX01bCUkio45IibcbcExX9BVmn7Bha4MHuN7Wof56+
-	obHT15uWuw4H7mSxwOPN8PJS36WaNq3KfnwEtN4B5mZGUQ2b/gn/NGH/5JGbpyc2inRFHprrttlUH
-	WOz+qqO/YqeOe6zb7gm8SZWqiiTTjKXOenpH0TCzYK1Dfg0zU/ELEfJh/eLO8H+6MYEEw+z4+p6wU
-	dexrk7tMbaYsd6tzt2zYvGHFYHPlel7uOLrO88eVFkfZtmnelBas6HSkKTRHZBNFPoLOuExRUr1RV
-	m5tOsgRg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xHjfY-0063WF-0k;
-	Fri, 16 Oct 2026 15:16:28 +0000
-Date: Fri, 16 Oct 2026 08:16:23 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Marco Crivellari <marco.crivellari@suse.com>
-Cc: linux-kernel@vger.kernel.org, Tejun Heo <tj@kernel.org>, 
-	Lai Jiangshan <jiangshanlai@gmail.com>, Frederic Weisbecker <frederic@kernel.org>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Michal Hocko <mhocko@suse.com>
-Subject: Re: [PATCH v4 2/2] doc: Update WQ_UNBOUND and WQ_BH documentation
-Message-ID: <atI_vcVR6-CcB5M4@gmail.com>
-References: <20261015140148.231126-1-marco.crivellari@suse.com>
- <20261015140148.231126-3-marco.crivellari@suse.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="zh4hh7ut"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=7885/ixmP6gyJsNIj6uZTmUOqtGEvwBooBf2XJfbSZ8=; b=zh4hh7ut/zpdYEgCDGAJZlNqVr
+	67h/rDyowHcsN3HbsbtxYE1EcDVETrFsW0lyi/2IFox45vTdW5+aAuXSDBd05uxqrJg/oeBsww598
+	o6RheaHaOUdpfaUt4UEGq9kfQ0VE4EiYgT0mHqiu2gYx0cxHEV1v34nxWNBzRWq87Eig=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xHjgO-00BAXW-HJ; Fri, 16 Oct 2026 17:17:20 +0200
+Date: Fri, 16 Oct 2026 17:17:20 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Cc: Alex Elder <elder@riscstar.com>,
+	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, hkallweit1@gmail.com,
+	linux@armlinux.org.uk, Daniel Thompson <daniel@riscstar.com>,
+	ansuelsmth@gmail.com, donggeunyoo.kernel@gmail.com,
+	devicetree@vger.kernel.org, netdev@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 2/2] net: phy: qcom: qca808x: Add regulator
+ management
+Message-ID: <e489ed64-9319-44f1-a74f-f75165c189c5@lunn.ch>
+References: <20261015143849.483339-1-elder@riscstar.com>
+ <20261015143849.483339-3-elder@riscstar.com>
+ <atDz2hJ6xpA3p5y7@lore-desk>
+ <4fc165eb-b57d-41f8-b7b9-c9fe433d866c@riscstar.com>
+ <1af4e7a8-adb9-41bd-8841-61180b284470@lunn.ch>
+ <atEBPbpMtlmG+Mxe@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,21 +56,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015140148.231126-3-marco.crivellari@suse.com>
-X-Debian-User: leitao
+In-Reply-To: <atEBPbpMtlmG+Mxe@oss.qualcomm.com>
 
-On Thu, Oct 15, 2026 at 04:01:48PM +0200, Marco Crivellari wrote:
-> When WQ_PERCPU is not present the default behavior is now WQ_UNBOUND,
-> so update the documentation, reflecting this change.
+> I was going to share a text version of the power-up diagram given in
+> this PHY's datasheet. This might help.
 > 
-> WQ_BH workqueues are the exception to this rule: they are always
-> per-CPU and can't be unbound, so WQ_PERCPU is implicitly set for them
-> regardless of what the caller passes. Update the WQ_BH section
-> accordingly, as WQ_HIGHPRI is no longer the only additional flag
-> involved.
+> Power-Up Sequence
 > 
-> Link: https://lore.kernel.org/all/20250221112003.1dSuoGyc@linutronix.de/
-> Suggested-by: Tejun Heo <tj@kernel.org>
-> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+> 1. DVDD asserted
+>    |
+>    |<-------- 10 ms -------->|   (required for external power)
+>    |
+> 2. DVDD18 / AVDD18 asserted
+> 
+> 3. VDD1P25 asserted
+>    |
+>    |<-------- 0.2 ms ------->|   (required for LDO to settle)
+>    |
+> 4. VDD_LDO asserted
+> 
+> 5. AVDD asserted
+>    |
+>    |<--------- 2 ms -------->|   (required for XTL to oscillate)
+>    |
+> 6. Crystal 50 MHz starts oscillating
+> 
+> 7. PAD reset deasserted
+>    |
+>    |<------- 10 ms --------->|   (deglitch time)
+> 
 
-Reviewed-by: Breno Leitao <leitao@debian.org>
+Are these supposed to be staggered? Or can you turn them all on at
+once.
+
+23ms does seem like the worst case.
+
+	Andrew
