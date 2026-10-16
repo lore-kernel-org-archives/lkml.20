@@ -1,179 +1,135 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D88C481234
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:55:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC14257845
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:55:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166108; cv=none; b=Wyxdy7RkEWLVCAsvLYyyqSRXj2tWflwn13scxJtJ1UZSbDtpsPsgbq0IzitZMsHkeA7eEcS6MtksK99aYVOSphY//ZdH4YZrZ2xR9V9/2OgJ/9b/TQHfIaFw4i9tnBrQWsJroDu0Tz2eVhc2uRKr2s1JafR6m5xpzfyzh+t8lrQ=
+	t=1792166145; cv=none; b=fGfXiHthDIEN9lcpg1eK255cBRkaF2oOF7ZtWI3U8kieo5ykQgCDEm6nm38RbMMx/cQe5FTGQXs8O2PrN5Z+Tqdbz7KcaBN2mr6kkiMXEAaeMEpZXSu/XQ9/CzkMOEA3mdwW7H3iazW9GMEZhFGLP27Sy+NG17wFv3iI8uc2Q7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166108; c=relaxed/simple;
-	bh=1aZ1Hbx0leHFN1nuRH3mHqgwJWSeWWZ5qKC0j/9xtH4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VpDQbDMfTg/gUIEDFojXmk5L9TNrb1AbH3UzbJnWfU7LsgXg094KGBWMq49XpltRAsnRuAKw6VvhyjAxIxjzxMkoEdo9rpMLPDWRxr+KHIQ8g6eucVKDrhJgzpWoWmFv5zhTs41TIRjKMUufH9e+kfuI59Zqjy6Dmm/DCsnscfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=tD12J7Yk; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1792166145; c=relaxed/simple;
+	bh=XovGGZDGcMTSdz8nogdvxDY0i5eeOP5V0+TcNmFECBA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VJoSxVDSBqRVCgqizwPBoeUIdZkyc8mSoZZy2e07vgAY15dATHmSMAiR4FXtsFFc39y0jQIdW5TTHxdQZuJv/xGpnSPzqlMi4Ym4ahXTItPRiO9gEOVFXpqLz5DVkZ5e9KwEX8y9iG0dtTwYQyQPKq8WxTHzldqeclUTVvOAv/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ImKKOb9f; arc=none smtp.client-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="tD12J7Yk"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-884062f3296so44137b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:55:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ImKKOb9f"
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-825b40f8a26so3122923a34.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:55:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792166106; x=1792770906; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+nMO90+ihrPi/+vHsOKHFmp1mDYdajMoYewWX5BF1cA=;
-        b=tD12J7Yk/r4meH8cGhlvVVP2jtM2ApCsIbHEyZBYlB0RvMyK0VOFzFs58KlPL6yCjY
-         PCjn/ce2oHCjYhSS6zEmlcVG2EIDKCXdVaPKsFY7zlZMYnQjDaUmFxu9M8uIt3O8TpjX
-         haAoL0tWthESh3I6cGyCoLwS38FZrJe1E/wIl/5/EDqxxtuI4HPQEZz/NHJ6kp7y0Y6l
-         KGj9AW9pKLQsZEpns9hIfQJqBtXEkK+cqcZ2u1QNZPZRrtmo69yMcsML5a1ea40iQ93M
-         k0RtuqmVSuU+Ptp87fLuyMwY5wNd8oCUFUt9aL/77PPm4CJulF6hpsvZxZuIjyTsfWc1
-         cGQA==
+        d=linaro.org; s=google; t=1792166142; x=1792770942; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MANMo/9EL3PurFRTyqp9fqNscO3ewlbZ43zTZIeVTEM=;
+        b=ImKKOb9fW0meVxetLtUMwwSVnuorHVWX2YzrYFvZYVyRTrGML32MW6vFsZUViEhl20
+         wFYDg0JqPM0srze1b5V/F0nDCe0nHnvn17RXegk0I0JwRw9HaQH1kGz03nI/RnW75UkH
+         Ckv+5CXLUNCTOJ3q/ORWSDGiRRULYGwV4lz2MlXXaQjPQOY3mDRGszLGTqgTpzsCLnax
+         mb/+STdlw+bzmQH+o7qFZSps47UQZPkdAKD5otyPXtg7dT5FzfcOCBApi2r9ktFQYSGG
+         GI8GKSCbSgGhjCRbpVhZnC6Klk0o9l4HqYqg+iAlakjRDaCKveyLqgCjSb2VYT1q2ImA
+         11Rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792166106; x=1792770906;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+nMO90+ihrPi/+vHsOKHFmp1mDYdajMoYewWX5BF1cA=;
-        b=mwpcAc54Ew2NS+lC4upFO9hyWXBsIPZD85m9zh5cKcc7uriiUEgRXVoT4icluCJNAx
-         YpXDGnALwYP9YCq/WwfaTFMobMOLA6nCC6XOJOYbG/5m8CascvWZj/eiW0o2GBRgPruc
-         EfdRcpNeoMbUxjcdDA6dKFWVj/2e76sszhdPCbR/nNI4MI/51A6ys4Evy0oqqBIn6qD5
-         9Lupur8CbM0tPcwsonfGprOK1DSzm7Apue2+GJf9j4nJCT00hCvppQCyl9S663IWewP9
-         KQn7Qst34uR3zc/UQhigsY6GkhuWZu3IgaOvQ7d8VKZBkoTd3+Y3ZYyvcW1LvHPg9mgT
-         dmQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzlBPlO1gUQU24ymkUNpPlhUwCHwVXEUuqlie2wVgciiJ7jMAy2Qj1XgZ2llm7emy/nzhxHyg0x/qh/k1w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIEPv+/sdkNiUd/0FbTWUcVYXN3uGv41aLVzntb+lOVVkSbX8+6
-	V+t97uDvYaYOsX5VCHebY3PbtR4dtokuCBnEjRXuy5V5WqDN5wLsO8YqkSryELQFRgItyEf7Ook
-	BSwZ3
-X-Gm-Gg: AYBFou190ta/AxzP26zi3kjLV1fXVgzzpAF245QjwYVfbTsHWA/B2HGU1EnD10J7vzY
-	7s/gBcOOO9wKFM8CwHzDDcU/N1qbypN6iFW6IhuoSeGk29ii/5WNSSOWs8yxTRGo6nLlEI9eMOo
-	lKtXu1CjXUCtZuhvXg1Aa/KEIkBREI/Oa+Tb1LkPgN+IPkt/5mqcq0KmzTTK5qelkeW++ymNRfy
-	iosuw51Dorhwdn7Xeya/ajorgB4qLHaN6CnxhebmGp58rRsXT+MX4Ee4Z3WsYdze4CS5bgHpnlP
-	cuqI9WLWQ/J1F5vWn9c9HU6fijcFoBs9/iUSWGdFlO15rkO81dWOihHOR85XD27KsbJTucUFnd3
-	8ljty029/zFyVcLLqIATb9JFzOEI3Qvra6tjXwt1tnYWRiWkYdoOiqgEprs93sNw93K2o1IBQVN
-	f94o/bMWKfITuCrz7zKQAnguy3q7F8hsTQOBqvtbStZ09jRoPUUrIEeYEP9xzPqDi5MRpbrs3kE
-	OIVs+BfNRwwvNajFWm6Nw==
-X-Received: by 2002:a05:6a21:2d46:b0:3e0:e242:5ff with SMTP id adf61e73a8af0-3e16bec70c6mr18933541637.56.1792166106456;
-        Fri, 16 Oct 2026 08:55:06 -0700 (PDT)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:5e7a:332f:f584:a3d8])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd65ab63cadsm983076a12.4.2026.10.16.08.55.04
+        d=1e100.net; s=20260707; t=1792166142; x=1792770942;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MANMo/9EL3PurFRTyqp9fqNscO3ewlbZ43zTZIeVTEM=;
+        b=d/wF2jxugaVPbtCP9WbvmTtYqgbdKPbHrvcm2QBA9YGs1RFwuhSqr9iZmwgjxltUqO
+         fnZUsGERwVmFE/0Xq88e+2bnnFkHTwfqy/bKPMj0hJ4KKQyzRNtS5e0+S94DmVNGLuX3
+         61C90NzzfvY2ZWgdsH8qe38nqe4iZN5Fq9dDjuAOaCCzpNQmAofbJ6MHWag9Lfm2tQK+
+         5pa6kzX1A6JIxj4Mc8nCp6G+Smcvs68rpHP2Asv/v2BD8i2N80bThWJVeYq57fp/XTqD
+         4rFqNBv8Y9t48JOReCriO4mfComi583IWIug6cnTGdzRDglcKS/kiT8tcOFjzR7LbLFG
+         zp2g==
+X-Forwarded-Encrypted: i=1; AKwUvByWZGW25yP2puIh/uOiEbn59u/ZOnG00WEzb/cDrR795UpD6zTJp+3WPO+3gzGzuv38805uqS9JFHK4xJw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLzBdx8oM+gNiVMsFkWcWMAtU8AjR20rC7MoUPWWA2MZbsdRhR
+	04l4Js1r9Ov9vEOQvECp6R1OiGqCzvuy6C/vmJCtCP5Psmu2wFc1klHmc76O+LQDjpt948gYDjT
+	4X3FG
+X-Gm-Gg: AYBFou0ZvT58uuhqP7bCsecNEiaHebt6MWovx9+QaKynHP7g03sux/M+B7f1zAL1VPq
+	doW+Gdv7BRs7+nix+ByysPch93na9Fq8LUvMXHEfzTsLXyL0AeK314/yri+CFI2PLKYExUXzbD1
+	jfor+F8Vugt50AJLR3NQwlG09umCbN1pXA7+yXVhNMj3ALM4ofmEBYJWTJ/sZGbIE5tMEOERMQh
+	KThLvta52OGwjxMPkvMksABvyQGOYw6S7Ccc1XD4Ua7raXFsRGLVYKB9mCM9F2LLOfHD8A2V6jM
+	X5NTzUwx0vtq/WvmiAv8ZAzFz4O/ttSVza3sRENhKLljSDIDfij+pL1auRdsGdSPIgWDe/m4VLi
+	D35GBixIyJubgIZHBaOioRM7ULAazbqxwuka8sctVRTS02zjEaWr4v+P8GBqXGPsSCXM77spAw/
+	81yR/7zSkw3YS8nKafVRR+oeESHKDOLJDasZ5yv52xkq9DTzgmSiwnjth8W5aENybBVCO8bHwDx
+	A==
+X-Received: by 2002:a05:6830:4408:b0:81c:292f:97a3 with SMTP id 46e09a7af769-8309610badfmr21885225a34.5.1792166141529;
+        Fri, 16 Oct 2026 08:55:41 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:ff2f:8a9c:5623:f753])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a0f284d1sm2073901a34.2.2026.10.16.08.55.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 08:55:06 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v5 3/3] scsi: bfa: bound the RSCN event list by the received frame length
-Date: Sat, 17 Oct 2026 00:54:41 +0900
-Message-ID: <20261016155441.1607196-4-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261016155441.1607196-1-yhlee@isslab.korea.ac.kr>
-References: <20261016155441.1607196-1-yhlee@isslab.korea.ac.kr>
+        Fri, 16 Oct 2026 08:55:41 -0700 (PDT)
+Date: Fri, 16 Oct 2026 09:55:38 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Yonghao Zhang <hyz3367@gmail.com>
+Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] remoteproc: core: Guard against a missing stop() in
+ rproc_start()
+Message-ID: <atJI-r0JBsnVfMVS@p14s>
+References: <20260929075453.2324597-1-hyz3367@gmail.com>
+ <20260929075453.2324597-3-hyz3367@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929075453.2324597-3-hyz3367@gmail.com>
 
-bfa_fcs_lport_scn_process_rscn() is given the length of the frame it has
-to parse and never looks at it. The number of events it walks comes only
-from the payload length the peer put in the frame:
+On Tue, Sep 29, 2026 at 03:54:51PM +0800, Yonghao Zhang wrote:
+> When the subdevice registration fails after a successful ops->start(),
+> rproc_start() unrolls with an unconditional ops->stop() call: an
+> implementation without stop() turns that error path into a NULL
+> dereference, and there is no other way to undo a start once the
+> processor is up.
+> 
+> Nothing rules that implementation out.  rproc_validate() checks the
+> callbacks against the state a processor registers in: start() for
+> an offline one, attach() for a detached one, which never look at
+> stop(); the only written rule, Documentation/staging/remoteproc.rst
+> ("Every remoteproc implementation should at least provide the ->start
+> and ->stop handlers"), is a should the core does not enforce.  The
+> in-tree implementations all provide both, or neither when they only
+> attach (commit 1168af40b1ad ("remoteproc: k3-r5: Add support for
+> IPC-only mode for all R5Fs")), so none of them can reach the call
+> today.
+> 
+> Skip the rollback call when there is no stop(): with nothing to roll
+> the start back with, the processor stays running and the failure is
+> reported by the boot attempt itself.
+> 
+> Fixes: 7bdc9650f036 ("remoteproc: Introduce subdevices")
+> Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
+> ---
+>  drivers/remoteproc/remoteproc_core.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> index 123aadb467a0..19e0ea3e7240 100644
+> --- a/drivers/remoteproc/remoteproc_core.c
+> +++ b/drivers/remoteproc/remoteproc_core.c
+> @@ -1336,7 +1336,10 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
+>  	return 0;
+>  
+>  stop_rproc:
+> -	rproc->ops->stop(rproc);
+> +	if (rproc->ops->stop)
+> +		rproc->ops->stop(rproc);
+> +	else
+> +		dev_err(dev, "can't roll %s back: no stop()\n", rproc->name);
 
-	num_entries =
-		(be16_to_cpu(rscn->payldlen) -
-		 sizeof(u32)) / sizeof(rscn->event[0]);
+I don't want to clutter the function's error path.  Please move that to the
+error path for rproc_start_subdevices() and call the correct "goto" based on the
+validity of rproc->ops->stop.
 
-	for (i = 0; i < num_entries; i++) {
-		rscn_pid = rscn->event[i].portid;
-
-payldlen is a 16-bit field, so num_entries can be 16382 while the frame
-sits in an unsolicited frame buffer that holds 569 events after the
-fchs_s and the RSCN header. The loop reads up to 63 kB past the frame it
-was handed, and the duplicate scan nested inside it is quadratic in
-num_entries, so one frame can also take the receive path through more
-than a hundred million iterations.
-
-The length that bounds this is already here. bfa_fcs_uf_recv() takes it
-from the completion with bfa_uf_get_frmlen() and it reaches this function
-through bfa_fcs_fabric_uf_recv() and bfa_fcs_lport_uf_recv(). Work out
-how many events the received frame can hold and take the smaller of that
-and what the payload claims. A frame whose payload fits is parsed exactly
-as before; one that claims more is parsed only as far as it goes, which
-also caps the duplicate scan.
-
-Reject a payload length below the four-byte RSCN header it is measured
-from as well, instead of subtracting past it.
-
-The same shape is in lpfc_els.c, where lpfc_els_rcv_rscn() and
-lpfc_rscn_payload_check() walk the payload length without comparing it to
-the frame either.
-
-The read is caught by KASAN under a KUnit fault-injection harness; I have
-no Brocade hardware, so the frame and its oversized payload length are
-injected, with the arithmetic and the loop bounds modelled against an
-unsolicited frame buffer:
-
-  BUG: KASAN: slab-out-of-bounds in bfa_fcs_lport_scn_process_rscn+0x1156/0x1750
-  Read of size 4 at addr 0000000062270900 by task kunit_try_catch/19
-
-  Call Trace:
-   [<60935866>] ? bfa_fcs_lport_scn_process_rscn+0x1156/0x1750
-   [<603b5d8b>] ? kasan_report+0x11b/0x160
-
-  The buggy address belongs to the object at 0000000062270000
-   which belongs to the cache kmalloc-4k of size 4096
-  The buggy address is located 0 bytes to the right of
-   allocated 2304-byte region [0000000062270000, 0000000062270900)
-
-Fixes: 7725ccfda597 ("[SCSI] bfa: Brocade BFA FC SCSI driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/scsi/bfa/bfa_fcs_lport.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/scsi/bfa/bfa_fcs_lport.c b/drivers/scsi/bfa/bfa_fcs_lport.c
-index 8c9d423129c07..49bcb76c118b6 100644
---- a/drivers/scsi/bfa/bfa_fcs_lport.c
-+++ b/drivers/scsi/bfa/bfa_fcs_lport.c
-@@ -5533,17 +5533,28 @@ bfa_fcs_lport_scn_process_rscn(struct bfa_fcs_lport_s *port,
- 			struct fchs_s *fchs, u32 len)
- {
- 	struct fc_rscn_pl_s *rscn = (struct fc_rscn_pl_s *) (fchs + 1);
--	int             num_entries;
-+	int             num_entries = 0, max_entries = 0;
- 	u32        rscn_pid;
- 	bfa_boolean_t   nsquery = BFA_FALSE, found;
- 	int             i = 0, j;
-+	u32             pl_off = sizeof(struct fchs_s) + sizeof(*rscn);
-+	u16             payldlen = be16_to_cpu(rscn->payldlen);
- 
--	num_entries =
--		(be16_to_cpu(rscn->payldlen) -
--		 sizeof(u32)) / sizeof(rscn->event[0]);
-+	/* payldlen spans a four-byte header and the event list */
-+	if (payldlen >= sizeof(u32))
-+		num_entries = (payldlen - sizeof(u32)) / sizeof(rscn->event[0]);
- 
- 	bfa_trc(port->fcs, num_entries);
- 
-+	/* the event list cannot run past the frame that was received */
-+	if (len > pl_off)
-+		max_entries = (len - pl_off) / sizeof(rscn->event[0]);
-+
-+	if (num_entries > max_entries)
-+		num_entries = max_entries;
-+
-+	bfa_trc(port->fcs, max_entries);
-+
- 	port->stats.num_rscn++;
- 
- 	bfa_fcs_lport_scn_send_ls_acc(port, fchs);
--- 
-2.43.0
-
+>  unprepare_subdevices:
+>  	rproc_unprepare_subdevices(rproc);
+>  reset_table_ptr:
+> -- 
+> 2.34.1
+> 
