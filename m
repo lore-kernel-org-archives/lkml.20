@@ -1,504 +1,348 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023131.outbound.protection.outlook.com [52.101.83.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F754AE8A0;
-	Fri, 16 Oct 2026 13:04:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792155895; cv=none; b=qCsN2U9rLyrilUeUt7XcfgDUnXdKxoGlkYirJV309I9vJwmYPC4KiLqBgZYHjoeHZQFiwzdHn3Rsbp+NXXxTIBfPIj5QDoYUBtEMFGLuHoAONBTtd8IjCM/Rv0UYBVY7jgFa2OtCi4+Fpjd9umCNQALzCfoudr90c3ZnbzmI1PQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792155895; c=relaxed/simple;
-	bh=/dWUn9gFQWU4KsvkqoYGt4werc5X32GhNXlEcT01dSE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YhuvH7qoFia6q+MJ0yBUKtEUWQ1mjk+LuQvsKf7kyj6X7v+MwZ4E/YLZtGyWcjqyb+E4grse5W0OxUaIVOXKoxcxp67jMe6AFzSpckybrVWxgnQF/vDj63oZKDmWpo+phLDibwDvSxRsa5Ub8wPBN6wE/cQtTHljQy4HyIKYfG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUrs/atY; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09DC64A5EDC;
+	Fri, 16 Oct 2026 13:05:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792155932; cv=fail; b=FMahr/m7pUmCS20R8q9+cjQ33PFiA16Yh2Sxr3V7iWyFD9DjfkL6jPJ1Vy0WwYAnXrYgMencT0jJxN6vi1Pk/FCNq4h/6BZIrflBhw8AWki7IY5AY+h4w0/seJ5xGFuqSyCCPcuX5qx5mxrvbeHWh0vcel0MwdN5ApgtkrhFk1E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792155932; c=relaxed/simple;
+	bh=Yl4J1RXoD/FD1XBsLH3wGgkeOqLeFOXB25gcApW+JUE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=aOFu9U3j90FX2YiFpE8+zysDVchLGp0hH88dATWbjpbvtfCtoToldEuIXOwow2BrgiqwG/bBGpFCgUP+BKWXHoHRC8Hvmmnyz+z9nxmk9zgkc3oAuEZrWC6YqSAw3tys4wwWPaJCGnjoSdV1iUq5rHisg1/syUK9svWTKpT6ZRs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=fAAZRWQ+; arc=fail smtp.client-ip=52.101.83.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUrs/atY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D40F91F000C5;
-	Fri, 16 Oct 2026 13:04:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792155889;
-	bh=wrPT9Lrjxy76fySyvzQnbjhS1kLeVMlj+8DifWP4xoc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JUrs/atYkz/dtMf/QmqWg663uQZDYUoBoEdlakJ5+DYVsosIRtKVO2oklh6lBXGE5
-	 gF7O9BxFlxv3z1PDnF3oTzt8qHAvnGfsnFSAPgzlhoiXozRHMeAioIhe6xga4gGtEW
-	 2hnT/6LYeW+3mA+F+kv+S7fyBd3EEP7qHG4TW/DYb3cCLjtQDjJJrNrn2PDBGxEQUI
-	 K4HgkgF6BQkxUj3pKmFP1YB3lmIOa3cpNG1Gp98UwnXjCAXuE1FtZZYsq/aWwPJnP5
-	 OhVbAXyhJ2TFC8+uWDCcOJ34YAw2hcQ1kyozL4bxXVt4wZZLgGwaEedYxz+s+lAPtK
-	 kJhuANh6rONgw==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
-Subject: [PATCH 2/2] [v2] serial: 8250: remove obsolete and broken PORT_RSA support
-Date: Fri, 16 Oct 2026 14:59:48 +0200
-Message-ID: <20261016130328.1037616-2-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016130328.1037616-1-arnd@kernel.org>
-References: <20261016130328.1037616-1-arnd@kernel.org>
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="fAAZRWQ+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xxDp/6U72eDhmpp4yBJQh3WS/HOXwFZE4Dg9uy1nzpz6qzj6zARunwnq2izxwnwEQdQkwhY/GGEOO0ggvMyfq1nqj3bqk0bygGqnMHPIZtpZ2xtEyWXKGBRtVmLlLLJXxm1HZsM5SwD/8uUueNfn5RR52423XrLZRXuMqL644ccNIcmubHqvYeY+ktTz83hqy/TtNfXxDbGh3GmvgUGCtxp/YnpYPxQWqAFUyM8MeXwRMKYxGIBJ2DMVz5avMvhrNOY+TgCeuXGKTauc10Ac9qVklbM++VsFUsdJa4Q4QH7P8im2k6tzT1tTyAl80d/c+XGmxdCHp8u0YpZI7YMXvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8qwltEA+LdaFLY9jWzx3NBsq/jKxvBN588c+pmAnkFo=;
+ b=s2RIgFgPdAN3Eikea8zJezdf5rfYeWdFvayw75gP2hxRV8g7CozkxEcJB1EShZ3zu6OAtSFnO4UJfYSQkyUYx1ias6is3yTTwR9w3qtW5seDVhBUiPzybI9lDFi5sAQ41FjX17rVr/oIsnfuVY4bv17Uf3ofzEXjK+K4N4UvbYevk7Tsv6/KcUcusaN7yTmb6IUSpzDjRZTPHQJaLl2kIPCKuiPOuJfSA8sBLqQTvh9j9x7VeuXOIEyobsIM2q68WS2/fMc0jbwMoHpxq5e9PKtQkD4EuYWbXsfBXxIEY6gWTGbsaKOs0rWVTt5KPfpEWWNmPbvOQDxPBPYhY4MEuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
+ header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8qwltEA+LdaFLY9jWzx3NBsq/jKxvBN588c+pmAnkFo=;
+ b=fAAZRWQ+EG9llF3zMeswlJ96b3Wbb2hbAiEE5OF8arT2qnww+ae11SVWz+vanSuccjwnAx4YAGi8X6ouK9LzZ+eQA7cG6n3yC8iw3Vc/FBDT5exzLOtVfwh7jWZROfAZXDMxgB/gLLkH+EdyFEMoZ3YJhapSoQ70H8XGJV3/NBxiTrHIHEMLlTYTnolfnGWmOuhmRRe3hphCbpfvnMIr7A0EX68N69AL+RWcZeqpdbmSyTXJ6kZxCrDHWBDVvva6FkyzBkUU8Iy72L5WJbX42hXHsetCtbwWrHDdYyBadZ+4kqokcfe+GEY59m3nLij+WYO7U3rL3CJ/b0QttbqfFA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=virtuozzo.com;
+Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
+ (2603:10a6:102:3c7::20) by AM0PR08MB644083.eurprd08.prod.outlook.com
+ (2603:10a6:20b:7fd::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.11; Fri, 16 Oct
+ 2026 13:05:21 +0000
+Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
+ ([fe80::1999:c6db:dc55:494a]) by PA6PR08MB10708.eurprd08.prod.outlook.com
+ ([fe80::1999:c6db:dc55:494a%5]) with mapi id 15.21.0546.006; Fri, 16 Oct 2026
+ 13:05:21 +0000
+Message-ID: <03a10e8e-f14e-4612-9c23-70f94137a29e@virtuozzo.com>
+Date: Fri, 16 Oct 2026 15:05:18 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] mm/huge_memory: recheck a special PMD under the
+ lock in copy_huge_pmd()
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+ =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ stable@vger.kernel.org
+References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+ <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-1-85eaec8417f6@virtuozzo.com>
+ <5800bc6e-7671-41eb-bb09-7fbc8f2d085c@kernel.org>
+Content-Language: en-US, ru, sr
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+In-Reply-To: <5800bc6e-7671-41eb-bb09-7fbc8f2d085c@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM9P192CA0009.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:20b:21d::14) To PA6PR08MB10708.eurprd08.prod.outlook.com
+ (2603:10a6:102:3c7::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA6PR08MB10708:EE_|AM0PR08MB644083:EE_
+X-MS-Office365-Filtering-Correlation-Id: de8ddfb5-f6df-4cee-67dd-08df2b86222b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|921020|56012099006|4143699003|261009223027099003|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	YjlHwmXJs7lL3lqZQfueXROKTu6rLm9F68uG0SnigR9ntYSIq0Ai380uc4wiu27KGSQIQrucprrzPvWLnpJwTv0gDLdpCeKAFsAwJrmSgUAudT1tD97NCwa/xTFZNn++YY9jmA07uqN90e2fe1hKWqrzEF+GFemO/aM3RHBQuzcM9UswAdz06sTmVwyDUe1z5h2KcRbQqaY4UjD4bLhocB2GmSLIFnlF1uo3sHlwuE//DghDHPeIBRO7RXxk1+4nmHpv4kWinblsPVGhDMcJt+QjBLHUrWG9O/nQNVVW9QeywGapHiSkQ+dYm+jinywc2KHHpeqsMusjp3jMaXEbkt6M0L2nvkDA8AjGQNbiVQMB4bs0QQIwaZJWcDASoyoa4CfMJ0yxAivvg2B5nC4nhu6ZEBPGWZ43FLw1SzfOWuZA7UJ8lyVhMaK2s0FUv/WWGhQXkCLnd7uJad2uith8J9oZtzc3mfeRRBlODAs+uhrEAyOjsU4u/oMxBPe8ts4fdfoq9T56lUvwXeriQY2CkcOGK68FZJ9FCowZ92YflVO9G4jaFjrz+ipHp1CaAfDuJj7hubo8bWPtQRWsiovbWc1SDZG4hWddKw4cNqZF0yzn+deTz8pwTAreQwECgsAJX2OYeeI0fSltKvEuCIt4kriqo4/YuH+DbTTN8suNP10+bDAaE/m5FjWOMrEsG65srUjfGq/sEXbbGxpskHD/WQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR08MB10708.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(921020)(56012099006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Z00rMzNUbG5ZeDNCbHhjOWFTUnVBMm9qN1JwdkNJbCs3RmZqYSs4U2NVcUN2?=
+ =?utf-8?B?T2lrbjVQQnFhMmVlRURzS1gydFJBa3A3SDdqcjhaUlg3WkwxWHNxYTJDODc0?=
+ =?utf-8?B?bUFKNllwVDIvSllieGRsRGFQVkRpSkNQOUhaNDFvRlF0NTV5TFphcXRua2da?=
+ =?utf-8?B?Q3FrUHpsS3l6YkQ2SXNSdWNaVnZMQnNyc1d3c3NIZFlXSk1pc0lxY21FeldH?=
+ =?utf-8?B?U1NkSFlyOGdveTJXSDhhNnpFbXlJYTNLRHJ0UStYb1dWQ2x1Z2xwVjZIR3Yw?=
+ =?utf-8?B?dlVHazU2cW4vc3R2SFpMUWZDR2FVR05ycjJIdDhPdHJNbDM5ZTdORGRFUUNt?=
+ =?utf-8?B?UDB3Wmt1Mnl3cHBQb25tUUV3UVc0bEJUcGY2WDUxZU51ZVR3bUIzUGpiU3Vk?=
+ =?utf-8?B?ME1QMHBtVlladDhHalBCTjZDQ0FsR2V2WlRJcUJ3NHN2ODIvT3p1VkZUa0FX?=
+ =?utf-8?B?WlhsVFZCQXN0U1NPekNKTzFodG1pZmJYUkZFNVRlVVFMc1BzUXhvbVBpRThz?=
+ =?utf-8?B?aUl3b0RQQzgzZWVwRkxiM1J6ZjE3VTRsd2NvbjBySGU0ZGdoR1d5dGh3anli?=
+ =?utf-8?B?NXlUY3pvUzY5UGdXWlBsd3JOYVpGN0JGOCtUdVg3VGJyUklUbHBNK2MvcVNu?=
+ =?utf-8?B?L0pxTGd3OXdlclV2ZHJFeE1Xc093akZNVXE2SWJYOEl0T2xqekNHdFJ1blRj?=
+ =?utf-8?B?cmNlRG5zMEFLNW4rODVrczU4M0piL2dUU29XQ1dMckZsMXpqSVc4OVZoNWpF?=
+ =?utf-8?B?WWFvUTR4WnNjaFg1QjJtQkdrYTBtZE5adklkMnZLN2c2K3ZTandKamZKVmxD?=
+ =?utf-8?B?SjRIZm1xWGdHL1FydVdGM0xGU0NyM3JnUlg5dzJQL0p3WGt3NEQyRDMySDBX?=
+ =?utf-8?B?MjNSSkxkZVNCRm9udXZXZXZYZVVud0k4MWdBVktvUXgrTUovcTFVV3E0Tk9J?=
+ =?utf-8?B?SVR0dXJid2M5QUJMemx0aTNBTFhLM296UkdFc0RQdGpoNEFYb0pYSHplSHdX?=
+ =?utf-8?B?a2p1bEJLazQwaVpSN0FNVndLUmh6MUxNbGY3c1VrQkJuZm1sT0sxcHVuRTE5?=
+ =?utf-8?B?VVFZenIrSGd5VGdodDloTUNpbi9HUDlpNi9PMDc0Z1JJczJxcmN6OTYvWE5k?=
+ =?utf-8?B?U1lNWnRsaHF3Zk5qVkNubWdGUFpnekIvYlFTcTUzd0JUTDYvamhXTjFoc3pq?=
+ =?utf-8?B?TXNzRmNFUnNXd1hMUjVRSWhYMmJoc1Z4QzZaQkJXUjlqMzlDeDdlOGVmYkRs?=
+ =?utf-8?B?b0U5UTdKREJ6N0I5QXV3bjJxTnROSS8yMXBxNGVtTE9LU1pGS2VxaWJGM1l2?=
+ =?utf-8?B?T0E5WCtXYmprNGJRZ1h6a1pmTGVrMXFkMTQxY2FGRkRLTWdPVkJIbU10UVhy?=
+ =?utf-8?B?ME9icmdBektTMUEwcmNPeVVFQUhVN2VjRGpGdjJsWGJwM1U1K3J2NnJCKzY3?=
+ =?utf-8?B?TktVbEU5bUYrN1RFSUh4VFRLNmpvTHpTdlBibkZWdGM5Mm8wTk9TbitPeXRk?=
+ =?utf-8?B?TFl0eUJIanh1akpWU283Z25pWVZKTE4raW00UFVoVEdYeEZMSSs0cnFmOUpE?=
+ =?utf-8?B?TXJObG1FV2pQaVhnVW4xcTFlMVgzbGh0bXFSQmUzYXNZUyt2SWorNHRIaXJ4?=
+ =?utf-8?B?NmZTZ21VQlcrK0FWYnBQSXNNam9YQTVmdmRYRi9VTkxUWVRVRUQ2dU1jWXV5?=
+ =?utf-8?B?NjVHK2FUNlBoU1Bkd0Q2VzdacG9iOGZnQTREMFE2a25NM3IxZzAvK3o2WXFM?=
+ =?utf-8?B?cjExZUlJT1h1ZzIxbE9jWVNlejRjb3M2akNQcWtVVGpkUGY4SURUMCtPYTkw?=
+ =?utf-8?B?anF3Vk9nUVNGZHJMdmJMU2NsN0tIcGxYTU5Tckd0enJlM2w5T3FuUWpJMHd3?=
+ =?utf-8?B?aC9GZjhyQ2lKM0huOEc0L1dmVVBobHp2Y2N5Si9leWlmU2IrYkdGck1HSm01?=
+ =?utf-8?B?ejRXZnQ1TWVmakRwQUEzWVF5ZWR1c2JWUjNZdWhVcmpobzVpeng1VUxxa1Yv?=
+ =?utf-8?B?SmZBelBEb1Bra3JJM2YrUlBPalk2M2o5RXNqU1pncmZnKzB1MUJ3SVErMnlk?=
+ =?utf-8?B?REQxMlp5RUJzeXVFTW5MVW1MbUFYdm1PWlQ5QUZDTjFNODdiRkRQSEd1dDNM?=
+ =?utf-8?B?SWVCVlJELysyVlBYZE5Rc0ZzWVdoNWwrTWFlWCt5cDJuUDJyTUQvMnBKVXM2?=
+ =?utf-8?B?YkNyWkxFRWw5UHhiMW42OVVtaWQwb21VYWpxVXBZVzNiaGIyRVNwVGJTVlVk?=
+ =?utf-8?B?TFNjMHphOERVU2pTcjlpdEhSOGhOTk9PT3RsaVlweXZCeFNQNjd1alNVSk50?=
+ =?utf-8?B?T0hXek9wU3JJQm1JK3g2d0hIdXMyOTNhaU85MGtTWi9KcEhlWlU3Zz09?=
+X-OriginatorOrg: virtuozzo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: de8ddfb5-f6df-4cee-67dd-08df2b86222b
+X-MS-Exchange-CrossTenant-AuthSource: PA6PR08MB10708.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 13:05:21.0554
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: G8JBA2rEgGR4ilCt7G5NvslYlUpsRfoTgGFalXVK+SnVMW55QEGNQIVAbXmQg32yPLkr1E3plBmRhbJwjL/w5w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB644083
 
-From: Arnd Bergmann <arnd@arndb.de>
+On 10/15/26 16:14, David Hildenbrand (Arm) wrote:
+> I would have thought that unmap_mapping_pages() is only called in
+> corner cases when we would have concurrent fork().
+>
+> Like vfio_pci_zap_bars().
+>
+> But yeah, likely there is a theoretical race.
 
-For all I can tell, the RSA support in the 8250 driver is not functional
-and has not been for a long time.
+Agreed, it needs a zap such as vfio_pci_zap_bars() racing with fork()
+of the mapping owner. I only hit it with a delay injected into the
+window.
 
-The RSA-DV II/S ISA card[1] was sold by IODATA in the 1990s as a faster
-alternative to regular ISA serial ports, and it was discontinued in
-2002. Linux support was added by Kiyokazu SUTO in 2000.
+> TBH, I think we can drop this comment entirely. That's just simply
+> the right thing to do?
 
-The driver defines an I/O port base address of -8 (negative eight),
-which should always get refused by request_region on all architectures
-for being outside of the valid resource range.
+Will do. I kept the comment on the CoW warning below it, which is
+about something else.
 
-Further, it seems that a patch to setserial would be required in order
-to set PORT_RSA when not using autoconfiguration.
+> But why do we do this early copy dance *at all*? I think I
+> complained about this vma_is_anonymous handling in the past.
+> vma_needs_copy() is the one deciding whether something should get
+> copied or not.
+>
+> So, can't we just get rid of the vma_is_anonymous() handling and
+> perform the weird special-pte check (that I hate entirely) when
+> already holding the PTL?
 
-This patch removes all code related to the RSA support, with the exception
-of the user-visible PORT_RSA definition.
+I tried exactly that first, see "try 1" below. The early
+vma_is_anonymous() return is gone, the locks are taken for every huge
+PMD, and both the special check and the skip of non-anonymous VMAs
+run on the value read under the lock. The lockless read is gone, and
+the race with it. The skip itself has to stay, as the anonymous path
+cannot copy a file THP.
 
-Link: http://translate.google.com/translate?hl=en&sl=ja&u=http://www.iodata.jp/products/network/rsadv2s.htm
-Link: https://lore.kernel.org/all/1309211120-2803-6-git-send-email-arnd@arndb.de/
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
-v2: rebased my own patch after 15 years
----
- drivers/tty/serial/8250/8250.h          |  17 --
- drivers/tty/serial/8250/8250_core.c     |   6 -
- drivers/tty/serial/8250/8250_platform.c |   4 -
- drivers/tty/serial/8250/8250_port.c     |   8 -
- drivers/tty/serial/8250/8250_rsa.c      | 209 ------------------------
- drivers/tty/serial/8250/Kconfig         |  11 --
- include/uapi/linux/serial_reg.h         |  51 ------
- 7 files changed, 306 deletions(-)
- delete mode 100644 drivers/tty/serial/8250/8250_rsa.c
+That makes fork slower when it walks a VMA full of huge PMDs that it
+then skips. vma_needs_copy() sends such VMAs here, for example a
+MAP_PRIVATE file mapping with an anon_vma. fork() of a process with
+4 GB of shmem THPs mapped MAP_PRIVATE and an anon_vma on the VMA
+(2047 PMD-mapped THPs), median of 2000 forks, 4-vCPU KVM guest:
 
-diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
-index 75afeb8c0cef..6225027ed7b4 100644
---- a/drivers/tty/serial/8250/8250.h
-+++ b/drivers/tty/serial/8250/8250.h
-@@ -126,9 +126,6 @@ void serial8250_isa_init_ports(void);
- 
- extern struct platform_device *serial8250_isa_devs;
- 
--extern const struct uart_ops *univ8250_port_base_ops;
--extern struct uart_ops univ8250_port_ops;
--
- static inline int serial_in(struct uart_8250_port *up, int offset)
- {
- 	return up->port.serial_in(&up->port, offset);
-@@ -323,20 +320,6 @@ static inline int serial8250_pnp_init(void) { return 0; }
- static inline void serial8250_pnp_exit(void) { }
- #endif
- 
--#ifdef CONFIG_SERIAL_8250_RSA
--void univ8250_rsa_support(struct uart_ops *ops, const struct uart_ops *core_ops);
--void rsa_enable(struct uart_8250_port *up);
--void rsa_disable(struct uart_8250_port *up);
--void rsa_autoconfig(struct uart_8250_port *up);
--void rsa_reset(struct uart_8250_port *up);
--#else
--static inline void univ8250_rsa_support(struct uart_ops *ops, const struct uart_ops *core_ops) { }
--static inline void rsa_enable(struct uart_8250_port *up) {}
--static inline void rsa_disable(struct uart_8250_port *up) {}
--static inline void rsa_autoconfig(struct uart_8250_port *up) {}
--static inline void rsa_reset(struct uart_8250_port *up) {}
--#endif
--
- #ifdef CONFIG_SERIAL_8250_FINTEK
- int fintek_8250_probe(struct uart_8250_port *uart);
- #else
-diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/8250/8250_core.c
-index 96c99f0ae683..b9ce22948389 100644
---- a/drivers/tty/serial/8250/8250_core.c
-+++ b/drivers/tty/serial/8250/8250_core.c
-@@ -307,9 +307,6 @@ static void univ8250_release_irq(struct uart_8250_port *up)
- 		serial_unlink_irq_chain(up);
- }
- 
--const struct uart_ops *univ8250_port_base_ops;
--struct uart_ops univ8250_port_ops;
--
- static const struct uart_8250_ops univ8250_driver_ops = {
- 	.setup_irq	= univ8250_setup_irq,
- 	.release_irq	= univ8250_release_irq,
-@@ -352,9 +349,6 @@ struct uart_8250_port *serial8250_setup_port(int index)
- 	up->port.port_id = index;
- 
- 	serial8250_init_port(up);
--	if (!univ8250_port_base_ops)
--		univ8250_port_base_ops = up->port.ops;
--	up->port.ops = &univ8250_port_ops;
- 
- 	timer_setup(&up->timer, serial8250_timeout, 0);
- 
-diff --git a/drivers/tty/serial/8250/8250_platform.c b/drivers/tty/serial/8250/8250_platform.c
-index 8aa769085bfa..1a41a4ac25f8 100644
---- a/drivers/tty/serial/8250/8250_platform.c
-+++ b/drivers/tty/serial/8250/8250_platform.c
-@@ -73,10 +73,6 @@ static void __init __serial8250_isa_init_ports(void)
- 	for (i = 0; i < nr_uarts; i++)
- 		serial8250_setup_port(i);
- 
--	/* chain base port ops to support Remote Supervisor Adapter */
--	univ8250_port_ops = *univ8250_port_base_ops;
--	univ8250_rsa_support(&univ8250_port_ops, univ8250_port_base_ops);
--
- 	for (i = 0; i < ARRAY_SIZE(old_serial_port) && i < nr_uarts; i++) {
- 		struct uart_8250_port *up = serial8250_get_port(i);
- 		struct uart_port *port = &up->port;
-diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
-index 3593e7209879..462441237a90 100644
---- a/drivers/tty/serial/8250/8250_port.c
-+++ b/drivers/tty/serial/8250/8250_port.c
-@@ -1186,8 +1186,6 @@ static void autoconfig(struct uart_8250_port *up)
- 		break;
- 	}
- 
--	rsa_autoconfig(up);
--
- 	serial_out(up, UART_LCR, save_lcr);
- 
- 	port->fifosize = uart_config[up->port.type].fifo_size;
-@@ -1199,7 +1197,6 @@ static void autoconfig(struct uart_8250_port *up)
- 		/*
- 		 * Reset the UART.
- 		 */
--		rsa_reset(up);
- 		serial8250_out_MCR(up, save_mcr);
- 		serial8250_clear_fifos(up);
- 		serial_in(up, UART_RX);
-@@ -2156,9 +2153,6 @@ static void serial8250_startup_special(struct uart_port *port)
- 				UART_DA830_PWREMU_MGMT_URRST |
- 				UART_DA830_PWREMU_MGMT_FREE);
- 		break;
--	case PORT_RSA:
--		rsa_enable(up);
--		break;
- 	}
- }
- 
-@@ -2450,8 +2444,6 @@ void serial8250_do_shutdown(struct uart_port *port)
- 
- 	serial8250_clear_fifos(up);
- 
--	rsa_disable(up);
--
- 	/*
- 	 * Read data port to reset things, and then unlink from
- 	 * the IRQ chain.
-diff --git a/drivers/tty/serial/8250/8250_rsa.c b/drivers/tty/serial/8250/8250_rsa.c
-deleted file mode 100644
-index da971437e89c..000000000000
---- a/drivers/tty/serial/8250/8250_rsa.c
-+++ /dev/null
-@@ -1,209 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0+
--
--#include <linux/errno.h>
--#include <linux/ioport.h>
--#include <linux/module.h>
--#include <linux/moduleparam.h>
--
--#include <linux/serial.h>
--#include <linux/serial_8250.h>
--
--#include "8250.h"
--
--#define PORT_RSA_MAX 4
--static unsigned long probe_rsa[PORT_RSA_MAX];
--static unsigned int probe_rsa_count;
--
--static const struct uart_ops *core_port_base_ops;
--
--static int rsa8250_request_resource(struct uart_8250_port *up)
--{
--	struct uart_port *port = &up->port;
--	unsigned long start;
--	unsigned int size;
--
--	if (!uart_iotype_io(port->iotype))
--		return -EINVAL;
--
--	start = UART_RSA_BASE << port->regshift;
--	start += port->iobase;
--	size = 8 << port->regshift;
--
--	if (!request_region(start, size, "serial-rsa"))
--		return -EBUSY;
--	return 0;
--}
--
--static void rsa8250_release_resource(struct uart_8250_port *up)
--{
--	struct uart_port *port = &up->port;
--	unsigned long offset;
--	unsigned int size;
--
--	if (!uart_iotype_io(port->iotype))
--		return;
--
--	offset = UART_RSA_BASE << port->regshift;
--	size = 8 << port->regshift;
--	release_region(port->iobase + offset, size);
--}
--
--static void univ8250_config_port(struct uart_port *port, int flags)
--{
--	struct uart_8250_port *up = up_to_u8250p(port);
--	unsigned int i;
--
--	up->probe &= ~UART_PROBE_RSA;
--	if (port->type == PORT_RSA) {
--		if (rsa8250_request_resource(up) == 0)
--			up->probe |= UART_PROBE_RSA;
--	} else if (flags & UART_CONFIG_TYPE) {
--		for (i = 0; i < probe_rsa_count; i++) {
--			if (probe_rsa[i] == up->port.iobase) {
--				if (rsa8250_request_resource(up) == 0)
--					up->probe |= UART_PROBE_RSA;
--				break;
--			}
--		}
--	}
--
--	core_port_base_ops->config_port(port, flags);
--
--	if (port->type != PORT_RSA && up->probe & UART_PROBE_RSA)
--		rsa8250_release_resource(up);
--}
--
--static int univ8250_request_port(struct uart_port *port)
--{
--	struct uart_8250_port *up = up_to_u8250p(port);
--	int ret;
--
--	ret = core_port_base_ops->request_port(port);
--	if (ret == 0 && port->type == PORT_RSA) {
--		ret = rsa8250_request_resource(up);
--		if (ret < 0)
--			core_port_base_ops->release_port(port);
--	}
--
--	return ret;
--}
--
--static void univ8250_release_port(struct uart_port *port)
--{
--	struct uart_8250_port *up = up_to_u8250p(port);
--
--	if (port->type == PORT_RSA)
--		rsa8250_release_resource(up);
--	core_port_base_ops->release_port(port);
--}
--
--/*
-- * It is not allowed to directly reference any symbols from 8250.ko here as
-- * that would result in a dependency loop between the 8250.ko and
-- * 8250_base.ko modules. This function is called from 8250.ko and is used to
-- * break the symbolic dependency cycle. Anything that is needed from 8250.ko
-- * has to be passed as pointers to this function which then can adjust those
-- * variables on 8250.ko side or store them locally as needed.
-- */
--void univ8250_rsa_support(struct uart_ops *ops, const struct uart_ops *core_ops)
--{
--	core_port_base_ops = core_ops;
--	ops->config_port  = univ8250_config_port;
--	ops->request_port = univ8250_request_port;
--	ops->release_port = univ8250_release_port;
--}
--EXPORT_SYMBOL_FOR_MODULES(univ8250_rsa_support, "8250");
--
--module_param_hw_array(probe_rsa, ulong, ioport, &probe_rsa_count, 0444);
--MODULE_PARM_DESC(probe_rsa, "Probe I/O ports for RSA");
--
--/*
-- * Attempts to turn on the RSA FIFO.  Returns zero on failure.
-- * We set the port uart clock rate if we succeed.
-- */
--static int __rsa_enable(struct uart_8250_port *up)
--{
--	unsigned char mode;
--	int result;
--
--	mode = serial_in(up, UART_RSA_MSR);
--	result = mode & UART_RSA_MSR_FIFO;
--
--	if (!result) {
--		serial_out(up, UART_RSA_MSR, mode | UART_RSA_MSR_FIFO);
--		mode = serial_in(up, UART_RSA_MSR);
--		result = mode & UART_RSA_MSR_FIFO;
--	}
--
--	if (result)
--		up->port.uartclk = SERIAL_RSA_BAUD_BASE * 16;
--
--	return result;
--}
--
--/*
-- * If this is an RSA port, see if we can kick it up to the higher speed clock.
-- */
--void rsa_enable(struct uart_8250_port *up)
--{
--	if (up->port.type != PORT_RSA)
--		return;
--
--	if (up->port.uartclk != SERIAL_RSA_BAUD_BASE * 16) {
--		guard(uart_port_lock_irq)(&up->port);
--		__rsa_enable(up);
--	}
--	if (up->port.uartclk == SERIAL_RSA_BAUD_BASE * 16)
--		serial_out(up, UART_RSA_FRR, 0);
--}
--
--/*
-- * Attempts to turn off the RSA FIFO and resets the RSA board back to 115kbps compat mode. It is
-- * unknown why interrupts were disabled in here. However, the caller is expected to preserve this
-- * behaviour by grabbing the spinlock before calling this function.
-- */
--void rsa_disable(struct uart_8250_port *up)
--{
--	unsigned char mode;
--	int result;
--
--	if (up->port.type != PORT_RSA)
--		return;
--
--	if (up->port.uartclk != SERIAL_RSA_BAUD_BASE * 16)
--		return;
--
--	guard(uart_port_lock_irq)(&up->port);
--
--	mode = serial_in(up, UART_RSA_MSR);
--	result = !(mode & UART_RSA_MSR_FIFO);
--
--	if (!result) {
--		serial_out(up, UART_RSA_MSR, mode & ~UART_RSA_MSR_FIFO);
--		mode = serial_in(up, UART_RSA_MSR);
--		result = !(mode & UART_RSA_MSR_FIFO);
--	}
--
--	if (result)
--		up->port.uartclk = SERIAL_RSA_BAUD_BASE_LO * 16;
--}
--
--void rsa_autoconfig(struct uart_8250_port *up)
--{
--	/* Only probe for RSA ports if we got the region. */
--	if (up->port.type != PORT_16550A)
--		return;
--	if (!(up->probe & UART_PROBE_RSA))
--		return;
--
--	if (__rsa_enable(up))
--		up->port.type = PORT_RSA;
--}
--
--void rsa_reset(struct uart_8250_port *up)
--{
--	if (up->port.type != PORT_RSA)
--		return;
--
--	serial_out(up, UART_RSA_FRR, 0);
--}
-diff --git a/drivers/tty/serial/8250/Kconfig b/drivers/tty/serial/8250/Kconfig
-index 9917b7e1bb26..908fc86852b6 100644
---- a/drivers/tty/serial/8250/Kconfig
-+++ b/drivers/tty/serial/8250/Kconfig
-@@ -236,17 +236,6 @@ config SERIAL_8250_DETECT_IRQ
- 
- 	  If unsure, say N.
- 
--config SERIAL_8250_RSA
--	bool "Support RSA serial ports"
--	depends on SERIAL_8250_EXTENDED
--	help
--	  Say Y here if you have a IODATA RSA-DV II/S ISA card and
--	  would like to use its >115kbps speeds.
--	  You will need to provide module parameter "probe_rsa", or boot-time
--	  parameter 8250.probe_rsa with I/O addresses of this card then.
--
--	  If you don't have such card, or if unsure, say N.
--
- config SERIAL_8250_MANY_PORTS
- 	bool "Support more than 4 legacy serial ports"
- 	depends on SERIAL_8250_EXTENDED
-diff --git a/include/uapi/linux/serial_reg.h b/include/uapi/linux/serial_reg.h
-index 9c987b04e2d0..e4f288b557ca 100644
---- a/include/uapi/linux/serial_reg.h
-+++ b/include/uapi/linux/serial_reg.h
-@@ -285,57 +285,6 @@
- #define UART_ACR_ICRRD	0x40	/* ICR Read enable */
- #define UART_ACR_ASREN	0x80	/* Additional status enable */
- 
--
--
--/*
-- * These definitions are for the RSA-DV II/S card, from
-- *
-- * Kiyokazu SUTO <suto@ks-and-ks.ne.jp>
-- */
--
--#define UART_RSA_BASE (-8)
--
--#define UART_RSA_MSR ((UART_RSA_BASE) + 0) /* I/O: Mode Select Register */
--
--#define UART_RSA_MSR_SWAP (1 << 0) /* Swap low/high 8 bytes in I/O port addr */
--#define UART_RSA_MSR_FIFO (1 << 2) /* Enable the external FIFO */
--#define UART_RSA_MSR_FLOW (1 << 3) /* Enable the auto RTS/CTS flow control */
--#define UART_RSA_MSR_ITYP (1 << 4) /* Level (1) / Edge triger (0) */
--
--#define UART_RSA_IER ((UART_RSA_BASE) + 1) /* I/O: Interrupt Enable Register */
--
--#define UART_RSA_IER_Rx_FIFO_H (1 << 0) /* Enable Rx FIFO half full int. */
--#define UART_RSA_IER_Tx_FIFO_H (1 << 1) /* Enable Tx FIFO half full int. */
--#define UART_RSA_IER_Tx_FIFO_E (1 << 2) /* Enable Tx FIFO empty int. */
--#define UART_RSA_IER_Rx_TOUT (1 << 3) /* Enable char receive timeout int */
--#define UART_RSA_IER_TIMER (1 << 4) /* Enable timer interrupt */
--
--#define UART_RSA_SRR ((UART_RSA_BASE) + 2) /* IN: Status Read Register */
--
--#define UART_RSA_SRR_Tx_FIFO_NEMP (1 << 0) /* Tx FIFO is not empty (1) */
--#define UART_RSA_SRR_Tx_FIFO_NHFL (1 << 1) /* Tx FIFO is not half full (1) */
--#define UART_RSA_SRR_Tx_FIFO_NFUL (1 << 2) /* Tx FIFO is not full (1) */
--#define UART_RSA_SRR_Rx_FIFO_NEMP (1 << 3) /* Rx FIFO is not empty (1) */
--#define UART_RSA_SRR_Rx_FIFO_NHFL (1 << 4) /* Rx FIFO is not half full (1) */
--#define UART_RSA_SRR_Rx_FIFO_NFUL (1 << 5) /* Rx FIFO is not full (1) */
--#define UART_RSA_SRR_Rx_TOUT (1 << 6) /* Character reception timeout occurred (1) */
--#define UART_RSA_SRR_TIMER (1 << 7) /* Timer interrupt occurred */
--
--#define UART_RSA_FRR ((UART_RSA_BASE) + 2) /* OUT: FIFO Reset Register */
--
--#define UART_RSA_TIVSR ((UART_RSA_BASE) + 3) /* I/O: Timer Interval Value Set Register */
--
--#define UART_RSA_TCR ((UART_RSA_BASE) + 4) /* OUT: Timer Control Register */
--
--#define UART_RSA_TCR_SWITCH (1 << 0) /* Timer on */
--
--/*
-- * The RSA DSV/II board has two fixed clock frequencies.  One is the
-- * standard rate, and the other is 8 times faster.
-- */
--#define SERIAL_RSA_BAUD_BASE (921600)
--#define SERIAL_RSA_BAUD_BASE_LO (SERIAL_RSA_BAUD_BASE / 8)
--
- /* Extra registers for TI DA8xx/66AK2x */
- #define UART_DA830_PWREMU_MGMT	12
- 
--- 
-2.53.0
+  v7.3-rc7     86-87 us
+  try 1       131-148 us
 
+That is about 25 ns per huge PMD, spent taking and dropping the two
+PMD locks only to skip it.
+
+So "try 2" keeps the early return, but decides it from the VMA flags
+instead of a lockless read of the PMD: a non-anonymous VMA without
+VM_PFNMAP or VM_MIXEDMAP cannot hold a special PMD other than the huge
+zero one, as vmf_insert_pfn_pmd() requires one of the flags, and the
+flags cannot change under the mmap write lock fork holds. Everything
+else is decided under the PTL, as in try 1. fork() is back at
+86-87 us.
+
+I also tried vma_is_special_huge() for that check, but its
+vma_is_dax() test on every huge PMD made fork cost about 17% more
+kernel instructions than v7.3-rc7 here, against about 1% for the
+flags test.
+
+Both diffs are against v7.3-rc7 and leave out the deposit fix from
+patch 2, which goes on top as before. If try 2 looks right to you, v4
+will be try 2 plus the deposit patch.
+
+Try 1:
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1958,39 +1958,36 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+        pgtable_t pgtable = NULL;
+        int ret = -ENOMEM;
+
+-       pmd = pmdp_get_lockless(src_pmd);
++       if (vma_is_anonymous(dst_vma)) {
++               pgtable = pte_alloc_one(dst_mm);
++               if (unlikely(!pgtable))
++                       goto out;
++       }
++
++       dst_ptl = pmd_lock(dst_mm, dst_pmd);
++       src_ptl = pmd_lockptr(src_mm, src_pmd);
++       spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
++
++       ret = -EAGAIN;
++       pmd = *src_pmd;
++
+        if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
+                     !is_huge_zero_pmd(pmd))) {
+-               dst_ptl = pmd_lock(dst_mm, dst_pmd);
+-               src_ptl = pmd_lockptr(src_mm, src_pmd);
+-               spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+                /*
+-                * No need to recheck the pmd, it can't change with write
+-                * mmap lock held here.
+-                *
+-                * Meanwhile, making sure it's not a CoW VMA with writable
+-                * mapping, otherwise it means either the anon page wrongly
+-                * applied special bit, or we made the PRIVATE mapping be
+-                * able to wrongly write to the backend MMIO.
++                * Make sure it's not a CoW VMA with writable mapping,
++                * otherwise it means either the anon page wrongly applied
++                * special bit, or we made the PRIVATE mapping be able to
++                * wrongly write to the backend MMIO.
+                 */
+                VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
+                goto set_pmd;
+        }
+
+        /* Skip if can be re-fill on fault */
+-       if (!vma_is_anonymous(dst_vma))
+-               return 0;
+-
+-       pgtable = pte_alloc_one(dst_mm);
+-       if (unlikely(!pgtable))
+-               goto out;
+-
+-       dst_ptl = pmd_lock(dst_mm, dst_pmd);
+-       src_ptl = pmd_lockptr(src_mm, src_pmd);
+-       spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+-
+-       ret = -EAGAIN;
+-       pmd = *src_pmd;
++       if (!vma_is_anonymous(dst_vma)) {
++               ret = 0;
++               goto out_unlock;
++       }
+
+        if (unlikely(thp_migration_supported() &&
+                     pmd_is_valid_softleaf(pmd))) {
+
+Try 2:
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1958,32 +1958,16 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+        pgtable_t pgtable = NULL;
+        int ret = -ENOMEM;
+
+-       pmd = pmdp_get_lockless(src_pmd);
+-       if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
+-                    !is_huge_zero_pmd(pmd))) {
+-               dst_ptl = pmd_lock(dst_mm, dst_pmd);
+-               src_ptl = pmd_lockptr(src_mm, src_pmd);
+-               spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+-               /*
+-                * No need to recheck the pmd, it can't change with write
+-                * mmap lock held here.
+-                *
+-                * Meanwhile, making sure it's not a CoW VMA with writable
+-                * mapping, otherwise it means either the anon page wrongly
+-                * applied special bit, or we made the PRIVATE mapping be
+-                * able to wrongly write to the backend MMIO.
+-                */
+-               VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
+-               goto set_pmd;
+-       }
+-
+        /* Skip if can be re-fill on fault */
+-       if (!vma_is_anonymous(dst_vma))
++       if (!vma_is_anonymous(dst_vma) &&
++           !vma_test_any(dst_vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT))
+                return 0;
+
+-       pgtable = pte_alloc_one(dst_mm);
+-       if (unlikely(!pgtable))
+-               goto out;
++       if (vma_is_anonymous(dst_vma)) {
++               pgtable = pte_alloc_one(dst_mm);
++               if (unlikely(!pgtable))
++                       goto out;
++       }
+
+        dst_ptl = pmd_lock(dst_mm, dst_pmd);
+        src_ptl = pmd_lockptr(src_mm, src_pmd);
+@@ -1992,6 +1976,23 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+        ret = -EAGAIN;
+        pmd = *src_pmd;
+
++       if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
++                    !is_huge_zero_pmd(pmd))) {
++               /*
++                * Make sure it's not a CoW VMA with writable mapping,
++                * otherwise it means either the anon page wrongly applied
++                * special bit, or we made the PRIVATE mapping be able to
++                * wrongly write to the backend MMIO.
++                */
++               VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
++               goto set_pmd;
++       }
++
++       if (!vma_is_anonymous(dst_vma)) {
++               ret = 0;
++               goto out_unlock;
++       }
++
+        if (unlikely(thp_migration_supported() &&
+                     pmd_is_valid_softleaf(pmd))) {
+                copy_huge_non_present_pmd(dst_mm, src_mm, dst_pmd, src_pmd, addr,
+
+--
+Cheers,
+Konstantin
