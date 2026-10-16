@@ -1,57 +1,57 @@
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB053E3D9E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:05:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4232264A9
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:05:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792148716; cv=none; b=kycsba79Mi/2HDqyl8G6sSoxybIgscmp0u1bEZ9Oldus0lS8TThh0yag+vK6LBhAicJq07UMkOO6prncx4ijJWn+XeZROuEd3445aIqTSi0TwHp2a1o2c9q+sIcvsNrhjAy/ppljR8451ruYXqPDmZGo1Jq+QWHdGqWAGnIKZr0=
+	t=1792148734; cv=none; b=GyUkZP4ABbEeqHKa2ywFZeH9lBL4otyjNz1BHhLmUJ1I8sJqac6bBfVRRObnfoBgrvopGeqMATSUOG8ky3FnlATZ31QoG+vcy0aQ7ENaAyzykSdMlE0AQqhB/HDfRu6oImvdgqr/4J0up8MErG0zxoqd1pQV967ceRWCvhKMdx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792148716; c=relaxed/simple;
-	bh=J41L95QDCgWWNjf2aNfXW7ydnLSem2d8zS5ZkzenOuI=;
+	s=arc-20240116; t=1792148734; c=relaxed/simple;
+	bh=OKUt/ibP2X71+GZPF05NQeo+Xk2nMuOJ2tjvVaPXy+w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jdIJShCjffZZvHpkyqDs6AyhCCX7FK4QTagB5BDXBd8F+CpgEuB/QldO0r2xOtRgj/iE2gW1gKMCSUqGP6pmZIUBSBrYl9hOipKAqY3sq0eu/PT96pgthUKIkpmz8gwTgC2RA0Zb1ytEdUl/XXKPRACGZsP3SzWaQkNtbbIJcq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JcrfecMz; arc=none smtp.client-ip=148.163.156.1
+	 MIME-Version; b=AabQxTHAx8Sheeng0Pe21dglLvMbUM6/bkJYGTHhNdyiYVOMeYxRKX2JHmjuGSCaDzVr3K82Z/lPqwzT1M1FgU/gXHZSBCzZ9EO24/635/AUasuRwrwzu1Nj65K0qHMX5lERdGfhZ9k5YOjIIxUtqliaffk1eCz43OSadl9f8K8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=WLw8oWXt; arc=none smtp.client-ip=148.163.156.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JcrfecMz"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAE8iR3502878;
-	Fri, 16 Oct 2026 11:05:00 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="WLw8oWXt"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAE5iO1774726;
+	Fri, 16 Oct 2026 11:05:05 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=ZzcWpbJ+WGNjOpTIg
-	FA5wZdtn7byV4BKif+YEWLPAK4=; b=JcrfecMzP44N054tmvXLoH620FkgkY7XJ
-	fT+62ytxJLjGx8p22DJbOoXdY+wQ1JGUgQKO+iIf8eaFjaLzdJZtKF0t024z3F6P
-	lALgNqdYD2yJLGRxp1ePDheLD3jxMl7v+LvUkHbrmELPsuz5HKLqtd1j5NbfeQte
-	xNP0k00k6kleW/r/b6FqHWEqkGknwbuc4YMnz1h/JUBRty/CB6o+CNJ+d7Hc3UuP
-	zafKoN/TZdRS7N4yjv61Je9uNCP7TOlTPySWBq5GN5FHru6rjaOaOm1Kmvwgfk8S
-	wee2d/gkSlv4J/Pv5C1OHP3Uww45tn9h/BNoUiCZxrHgrmRDEtFbA==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv3xvh3-1
+	:mime-version:references:subject:to; s=pp1; bh=3LdbEFi7r4NaTkcBE
+	cyhUB1vIUkbFrOAU/v3p1r9X2k=; b=WLw8oWXtaPaDjy+Gd+pG29ADnQ2NkSDe9
+	kk5hbV1pZ2pZgXQoZhkGKp1xv+3K0BB0jWEWacQPtcl3GxJ+NVuVPjN5Vahy8eDD
+	ebKRtH2IucGyZWm7v2hff604tMS9yhhhFzsmjA+KmY+zgps9v27flvT+Ttd/JMLF
+	RoPm4DGNyWE3/1AWzBT9mKXVKVgmhM/YTfslHG1V6pQxbFjQc+2ZIiW7+rIuB0cJ
+	c7gcpJ7S2SwfhSW4yXkiD/eLIl34bubXfC/edqQtc7toCsp0EXPPAfIWPhHtVK+U
+	u/Pg70oWpGP4/ehHThd/Q8JeI8Y6e+0Rs5GYttw7MTm9+54oyY4Xg==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwhxweq-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 11:04:59 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAJr1V3586429;
-	Fri, 16 Oct 2026 11:04:58 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hb36wk593-1
+	Fri, 16 Oct 2026 11:05:04 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAYpGB3534796;
+	Fri, 16 Oct 2026 11:05:03 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9ypqb2se-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 11:04:58 +0000 (GMT)
+	Fri, 16 Oct 2026 11:05:01 +0000 (GMT)
 Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69GB4t1652953540
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69GB4vq36619426
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 16 Oct 2026 11:04:55 GMT
+	Fri, 16 Oct 2026 11:04:57 GMT
 Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 331572004F;
+	by IMSVA (Postfix) with ESMTP id 3CC3020040;
+	Fri, 16 Oct 2026 11:04:57 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7FCD82004B;
 	Fri, 16 Oct 2026 11:04:55 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 750C820043;
-	Fri, 16 Oct 2026 11:04:53 +0000 (GMT)
 Received: from sapthagiri.in.ibm.com (unknown [9.123.124.175])
 	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 16 Oct 2026 11:04:53 +0000 (GMT)
+	Fri, 16 Oct 2026 11:04:55 +0000 (GMT)
 From: Srikar Dronamraju <srikar@linux.ibm.com>
 To: linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
 Cc: Michael Ellerman <mpe@ellerman.id.au>,
@@ -60,9 +60,9 @@ Cc: Michael Ellerman <mpe@ellerman.id.au>,
         Nicholas Piggin <npiggin@gmail.com>,
         Shrikanth Hegde <sshegde@linux.ibm.com>,
         Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org
-Subject: [PATCH 6/7] powerpc/numa: Extract CPU associativity processing into separate function
-Date: Fri, 16 Oct 2026 16:34:11 +0530
-Message-ID: <20261016110412.1380298-7-srikar@linux.ibm.com>
+Subject: [PATCH 7/7] powerpc/numa: Enable coregroup support for shared LPARs
+Date: Fri, 16 Oct 2026 16:34:12 +0530
+Message-ID: <20261016110412.1380298-8-srikar@linux.ibm.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261016110412.1380298-1-srikar@linux.ibm.com>
 References: <20261016110412.1380298-1-srikar@linux.ibm.com>
@@ -75,142 +75,199 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: y_bDebaEFDmebbvk4noYHdPoBXe1bMmK
-X-Proofpoint-ORIG-GUID: oi2OGu5N0HeWDuyG1ooZ5Hlho7vF4Bd0
-X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6ad204dc cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA0MiBTYWx0ZWRfXxNZVbJpFQjTi
+ xXMedP2L3qspXb/a1XpPyDul3/Bic2P5SezBAlsGMf/e0zcEO5cqOpp5Sy95djiTcDc+kUW6cmS
+ w1PU6whY5KnNZi6ORP3ICW/E+byfOTs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA0MiBTYWx0ZWRfX3bSV21Vsz3jB
+ x783BzY8bNa/l32+BdyoFXjQynf+FAMNiSSi+0booy13BlbcbYAIyMOZy/OCGJeYv00XP2wSQJW
+ +9EmrTMZKaiKcmiz70xHe3+4D+ueNzI8oP0gIXByCR6FE/JuRLqZpf1wrdI65lZ+7cAR1zOf/5q
+ jkxMoiXhE6yRhvQM78EQh+lhmoggmfgtg0kk+rp/Lv7zdLtOmJaaOOFLkFMuyDquiXngFZgcrb6
+ xp4V4U3XdgxbATGqQzOwIeFnmB7d5l+XTO9cBfNDEMR2kyVaKd5wQdU6GKO6eUKastE+sBB38Yy
+ JNpR9NXw5oYOj3sSDzqy3MpaQhfEku7YQ5PRgGjlodBwuWtZ2+qmKNffRYv8x5bD1QGxKh2Y1gD
+ VNj6BfdqTFcHJ1B2zCI7p+TAfEeFHlNFL57U31ebLaaxViHOcs6AMDbWjbE0vFUjVb7otfumiVd
+ saQ+BSghCk09btnjjaw==
+X-Proofpoint-GUID: sohdhe-9vh2IxJvBOihArff0YZFKHRFE
+X-Authority-Analysis: v=2.4 cv=RoFQvymK c=1 sm=1 tr=0 ts=6ad204e0 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=CSkan9fJTwVe4Lm5sQ8A:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA0MiBTYWx0ZWRfX48Lc0YHBocnI
- x/fmqUjSkWMUNrKl8L6U6/ZW0NBaB0eMVgmR38pcSz/rgpuOig1cq2ggoQo+luw5J7c0eW1xSEM
- L8f7XAUjVflbXzZ5JhLm5qvJRQfzpuI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA0MiBTYWx0ZWRfX0Hys5IO2hFP8
- yejQ2vV13M/XIqNfa/v2D8Ioy0mdIQjW9nlVef8Nr+y+XuOoMY0h26CWlJ2Ko1Cu3eQL42Pox0h
- JzPE9azHw3kuTzaBhNxVexpdcw6hrsTzqKIZ95SkC5FWtNob4j8F4f2GSqIr1rO4zdVkh0M/Eu7
- anyhkieuIpl0cP/0s1VPqAoZKSI43ezToL0pdWNFySC9vdROarVSeDsJhJc4hFudh/d0Z9aZYsI
- qgaL86lC+cfcWpRhdgobVaj/RoZ3/putthh5vIv6jDSNuWzwkEWtrqY/ftOdq/k8ZnokhS3vLOs
- XS//9At1JCvtSoPczpq6T6k3GCaLTQrD/JPEor05TRivbBw2SUnf8K1juMAhes7B4ZznAG76Kx7
- PCsUfAh7cxhav6dNs8V1Sumt5Pq4GOFAYeUrwYJwmYhrPdBcMQK9VcaIYXCYJmZ6CYbGYpGc6uJ
- O3fwlKie30hEbYZdqRg==
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=LnY_ip3p0wky2DI6E4oA:9
+X-Proofpoint-ORIG-GUID: OnOjFEw8nJcbZEEI1p6HPAA0TLn4mnfg
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
- bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015
  lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
  definitions=main-2610160042
 
-Move the CPU associativity processing loop from parse_numa_properties()
-into a dedicated process_cpu_associativity() function. This improves code
-organization by separating concerns:
+Coregroup support is currently disabled for shared LPARs even when the
+associativity hierarchy contains the information required to identify
+the coregroup level.
 
-- parse_numa_properties() handles overall NUMA initialization
-- process_cpu_associativity() focuses on CPU associativity processing
+The associativity hierarchy differs between shared and dedicated LPARs.
+For dedicated LPARs, the hierarchy must extend beyond
+primary_domain_index + 1 to contain a coregroup level. Shared LPARs have
+one fewer level, so a coregroup is available when the hierarchy extends
+beyond primary_domain_index.
 
-This also allows CPU associativity processing to be invoked again after
-the processor sharing mode is known.
+Remove the unconditional exclusion of shared processors from coregroup
+support and use the appropriate hierarchy when detecting a coregroup
+level. Read the coregroup ID from the associativity level immediately
+following the primary NUMA domain. If no distinct coregroup ID is
+available, fall back to the core ID.
 
-No functional change in the initialization flow.
+The processor sharing mode is not known when NUMA properties are
+initially parsed and is determined later in pSeries_setup_arch().
+Therefore, initially process CPU associativity using the existing
+dedicated-LPAR interpretation and reprocess it after shared processor
+mode is known. During the second pass, only reevaluate coregroup
+information and avoid repeating NUMA node and distance initialization.
+
+This allows coregroup topology to be enabled on shared LPARs when the
+required associativity information is available.
 
 Signed-off-by: Srikar Dronamraju <srikar@linux.ibm.com>
 ---
- arch/powerpc/mm/numa.c | 65 +++++++++++++++++++++++-------------------
- 1 file changed, 36 insertions(+), 29 deletions(-)
+ arch/powerpc/include/asm/topology.h    |  2 ++
+ arch/powerpc/kernel/smp.c              |  4 ----
+ arch/powerpc/mm/numa.c                 | 28 +++++++++++++++++---------
+ arch/powerpc/platforms/pseries/setup.c |  6 ++++++
+ 4 files changed, 26 insertions(+), 14 deletions(-)
 
+diff --git a/arch/powerpc/include/asm/topology.h b/arch/powerpc/include/asm/topology.h
+index 02c3c9ab3ea9..35230011ef84 100644
+--- a/arch/powerpc/include/asm/topology.h
++++ b/arch/powerpc/include/asm/topology.h
+@@ -67,6 +67,7 @@ int of_drconf_to_nid_single(struct drmem_lmb *lmb);
+ void update_numa_distance(struct device_node *node);
+ 
+ extern void map_cpu_to_node(int cpu, int node);
++void process_cpu_associativity(bool first_pass);
+ #ifdef CONFIG_HOTPLUG_CPU
+ extern void unmap_cpu_from_node(unsigned long cpu);
+ #endif /* CONFIG_HOTPLUG_CPU */
+@@ -104,6 +105,7 @@ static inline void update_numa_distance(struct device_node *node) {}
+ 
+ #ifdef CONFIG_SMP
+ static inline void map_cpu_to_node(int cpu, int node) {}
++static inline void process_cpu_associativity(bool first_pass) {}
+ #ifdef CONFIG_HOTPLUG_CPU
+ static inline void unmap_cpu_from_node(unsigned long cpu) {}
+ #endif /* CONFIG_HOTPLUG_CPU */
+diff --git a/arch/powerpc/kernel/smp.c b/arch/powerpc/kernel/smp.c
+index 6a5a5469aaae..0213ef8d855a 100644
+--- a/arch/powerpc/kernel/smp.c
++++ b/arch/powerpc/kernel/smp.c
+@@ -1052,10 +1052,6 @@ struct cpumask *cpu_coregroup_mask(int cpu)
+ 
+ static bool has_coregroup_support(void)
+ {
+-	/* Coregroup identification not available on shared systems */
+-	if (is_shared_processor())
+-		return 0;
+-
+ 	return coregroup_enabled;
+ }
+ 
 diff --git a/arch/powerpc/mm/numa.c b/arch/powerpc/mm/numa.c
-index c2aefb60ed5a..fde79f34340e 100644
+index fde79f34340e..2a5d94550dc0 100644
 --- a/arch/powerpc/mm/numa.c
 +++ b/arch/powerpc/mm/numa.c
-@@ -918,44 +918,18 @@ static int detect_and_enable_coregroup(const __be32 *associativity, int index)
+@@ -890,12 +890,15 @@ static int __init numa_setup_drmem_lmb(struct drmem_lmb *lmb,
+ }
+ 
+ /*
+- * Coregroup info is present in associativity property just after
+- * primary_domain_index. In dedicated LPARs, coregroup info is present only
+- * if primary_domain_index is third from the last or earlier.
++ * Coregroup information follows the primary NUMA domain in the
++ * associativity hierarchy. Shared LPARs have one fewer associativity
++ * level than dedicated LPARs.
+  */
+ static bool has_coregroup_level(int index)
+ {
++	if (is_shared_processor())
++		return index > primary_domain_index;
++
+ 	return index > primary_domain_index + 1;
+ }
+ 
+@@ -918,7 +921,7 @@ static int detect_and_enable_coregroup(const __be32 *associativity, int index)
  	return -1;
  }
  
--static int __init parse_numa_properties(void)
-+static void process_cpu_associativity(void)
+-static void process_cpu_associativity(void)
++void process_cpu_associativity(bool first_pass)
  {
  	bool vphn = firmware_has_feature(FW_FEATURE_VPHN);
--	struct device_node *memory, *pci;
--	int default_nid = 0, index = 0;
--	const __be32 *associativity;
  	unsigned long i;
-+	int index = 0;
+@@ -947,15 +950,17 @@ static void process_cpu_associativity(void)
+ 			associativity = of_get_associativity(cpu);
+ 		}
+ 		if (associativity) {
+-			nid = associativity_to_nid(associativity);
+-			initialize_form1_numa_distance(associativity);
++			if (first_pass) {
++				nid = associativity_to_nid(associativity);
++				initialize_form1_numa_distance(associativity);
++			}
+ 			index = detect_and_enable_coregroup(associativity, index);
+ 		}
+ 		if (cpu)
+ 			of_node_put(cpu);
  
--	primary_domain_index = find_primary_domain_index();
--
--	if (primary_domain_index < 0) {
--		/*
--		 * if we fail to parse primary_domain_index from device tree
--		 * mark the numa disabled, boot with numa disabled.
--		 */
--		numa_enabled = false;
--		return primary_domain_index;
--	}
--
--	pr_debug("associativity depth for CPU/Memory: %d\n", primary_domain_index);
--
--	/*
--	 * If it is FORM2 initialize the distance table here.
--	 */
--	if (affinity_form == FORM2_AFFINITY)
--		initialize_form2_numa_distance_lookup_table();
--
--	/*
--	 * Even though we connect cpus to numa domains later in SMP
--	 * init, we need to know the node ids now. This is because
--	 * each node to be onlined must have NODE_DATA etc backing it.
--	 */
- 	for_each_present_cpu(i) {
-+		const __be32 *associativity = NULL;
- 		__be32 vphn_assoc[VPHN_ASSOC_BUFSIZE];
- 		struct device_node *cpu = NULL;
- 		int nid = NUMA_NO_NODE;
- 
--		associativity = NULL;
- 		if (vphn) {
- 			memset(vphn_assoc, 0, VPHN_ASSOC_BUFSIZE * sizeof(__be32));
- 			if (vphn_get_associativity(i, vphn_assoc) == 0)
-@@ -984,6 +958,39 @@ static int __init parse_numa_properties(void)
- 		if (likely(nid >= 0) && numa_enabled)
+ 		/* node_set_online() is an UB if 'nid' is negative */
+-		if (likely(nid >= 0) && numa_enabled)
++		if (first_pass && likely(nid >= 0) && numa_enabled)
  			node_set_online(nid);
  	}
-+}
-+
-+static int __init parse_numa_properties(void)
-+{
-+	struct device_node *memory, *pci;
-+	int default_nid = 0;
-+	const __be32 *associativity;
-+
-+	primary_domain_index = find_primary_domain_index();
-+
-+	if (primary_domain_index < 0) {
-+		/*
-+		 * if we fail to parse primary_domain_index from device tree
-+		 * mark the numa disabled, boot with numa disabled.
-+		 */
-+		numa_enabled = false;
-+		return primary_domain_index;
-+	}
-+
-+	pr_debug("associativity depth for CPU/Memory: %d\n", primary_domain_index);
-+
-+	/*
-+	 * If it is FORM2 initialize the distance table here.
-+	 */
-+	if (affinity_form == FORM2_AFFINITY)
-+		initialize_form2_numa_distance_lookup_table();
-+
-+	/*
-+	 * Even though we connect cpus to numa domains later in SMP
-+	 * init, we need to know the node ids now. This is because
-+	 * each node to be onlined must have NODE_DATA etc backing it.
-+	 */
-+	process_cpu_associativity();
+ }
+@@ -990,7 +995,7 @@ static int __init parse_numa_properties(void)
+ 	 * init, we need to know the node ids now. This is because
+ 	 * each node to be onlined must have NODE_DATA etc backing it.
+ 	 */
+-	process_cpu_associativity();
++	process_cpu_associativity(true);
  
  	if (numa_enabled == 0) {
  		pr_warn("disabled by user\n");
+@@ -1463,12 +1468,15 @@ int cpu_to_coregroup_id(int cpu)
+ 		goto out;
+ 
+ 	index = of_read_number(associativity, 1);
+-	if (index > primary_domain_index + 1)
+-		coregroup_id = of_read_number(&associativity[index - 1], 1);
++	if (has_coregroup_level(index))
++		coregroup_id = (int)of_read_number(&associativity[primary_domain_index + 1], 1);
+ 
+ out:
+ 	if (cpunode)
+ 		of_node_put(cpunode);
+ 
++	if (coregroup_id == -1)
++		return cpu_to_core_id(cpu);
++
+ 	return coregroup_id;
+ }
+diff --git a/arch/powerpc/platforms/pseries/setup.c b/arch/powerpc/platforms/pseries/setup.c
+index f29e7547c995..fd8163200b97 100644
+--- a/arch/powerpc/platforms/pseries/setup.c
++++ b/arch/powerpc/platforms/pseries/setup.c
+@@ -874,6 +874,12 @@ static void __init pSeries_setup_arch(void)
+ 
+ 		if (lppaca_shared_proc()) {
+ 			static_branch_enable(&shared_processor);
++
++			/*
++			 * Reprocess CPU associativity now that the shared
++			 * LPAR hierarchy can be interpreted correctly.
++			 */
++			process_cpu_associativity(false);
+ 			pv_spinlocks_init();
+ #ifdef CONFIG_PARAVIRT_TIME_ACCOUNTING
+ 			static_key_slow_inc(&paravirt_steal_enabled);
 -- 
 2.47.1
 
