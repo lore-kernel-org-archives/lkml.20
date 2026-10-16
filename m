@@ -1,199 +1,173 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010050.outbound.protection.outlook.com [52.101.46.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3305C4C151C;
-	Fri, 16 Oct 2026 13:25:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157153; cv=none; b=sUoEfErgQnlDKwnZV18gNI7nEhiLij3YEMegSLoZrldfc3PoCTrAP6+oOYj7eprv0G9U1J2dXD+hsH0dP75wEfQ+Buj7L9LSL6VCOBiuQByCVOxyDMoTdmyGhVk6DacXf28V5vVpCSGNobqPxOLdxdd6KdL6fhmzhjEo6XkSLsQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157153; c=relaxed/simple;
-	bh=o/Ckp1rrM6kHYZ25eu+4PLt+sP/3DzaXCIN1wStsUS4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QIyZb50IBa+eGTQyFgcQRcCH7LGUFyt7+nLQNNkxbdlPeg7s9oKnYkdwlYH3cVZh93KF292kjMLAsLbaiiyQ00kRlB40n7BeJvbnTt2xAgS6SN5M8C1oxJSQ6rD9/7gxcMIAoBKW1dWWlj2ekqCRdGIVhtK7baunGD8T29Ejub8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cgW8WHP0; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E4E4C77A3;
+	Fri, 16 Oct 2026 13:25:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792157157; cv=fail; b=k3I5ENSQlNNQkrgX8JRGUyn4L9PHAI+7rN1OzHlWaJgB3d2ejbLHmDD+HVi26SAqeAzOamF8inUW7lTVxg5meqQyJHoVmHACW+9T7H9BC2ZrdawjlyQVICYfCsxkFkAtt+wcyvHvFnpcg0TcSdsH8hsoSFrPWzid6r2kH0jv0xA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792157157; c=relaxed/simple;
+	bh=hPZA9qi36brLVpPKP3NK4juP3U7yLqdr6HNI0TGrNuw=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=p0OJPXhj3JBbMZLvn30Pu7VQKr2QSSwiczYUmoX2SVpjsVlQ4BnmPVGCfaISoeUFxXAojk6ag0/+JWjtv//D4XbK3zSUzCWOwIaAitmnbN7vh7NUFPCgAtylwx002nWqwU2xFrfBgKwUXE7zFI5WWoOe+rbO4N46ygPRxXLv3OY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YMJ685i9; arc=fail smtp.client-ip=52.101.46.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cgW8WHP0"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAEDEE3424962;
-	Fri, 16 Oct 2026 13:25:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=A1oGMJ
-	NudXu36XPK/yxV+yodSQqNeuzr6WgFF4E8wpw=; b=cgW8WHP0tcEwPbkwgMC0h+
-	MhSyL+6DoggdkX+LOnamLDX/LFTDPxdyEXLhsX6VZMNxf7BZbH+UT9R4peVbnWc8
-	vc8zWbd5AU9lREb+oY+gk0zAcSfm6mQO5l+iw8GOI9/r4cvNNkHpO4Nk4v4vUTKI
-	v+m738i/hqD3H+npVjse7ohz3vHu7fzoLfwXwvDSxFC/a/S2rNHo5Sva5rvKIqXM
-	YPTNx0xXQKioSmLTn/ce2Bg/v6Gu8N7QzB1NvMidwwIDqHEJApvUZjP+HPwLDGjm
-	WQ/zRAMv5USdK8mF74sl8K6vNQ9i4JDZ/RN0dYGHVg/S0gTQUG+c3v53l9HUYG7A
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwjevn4-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 13:25:33 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAK3ro3580924;
-	Fri, 16 Oct 2026 13:25:32 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hawqww07j-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 13:25:32 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69GDPS6e43647362
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 16 Oct 2026 13:25:28 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5FC7920043;
-	Fri, 16 Oct 2026 13:25:28 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 53C0220040;
-	Fri, 16 Oct 2026 13:25:25 +0000 (GMT)
-Received: from fedora (unknown [9.5.7.39])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri, 16 Oct 2026 13:25:25 +0000 (GMT)
-Date: Fri, 16 Oct 2026 19:03:44 +0530
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
-        Steven Rostedt <rostedt@goodmis.org>,
-        Masami Hiramatsu <mhiramat@kernel.org>,
-        linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        Michal =?utf-8?B?U3VjaMOhbmVr?= <msuchanek@suse.de>,
-        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-        kvm-ppc@vger.kernel.org, Mark-PK Tsai <mark-pk.tsai@mediatek.com>,
-        stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] ring-buffer: Do not check si_mem_available() during
- SYSTEM_BOOTING
-Message-ID: <20261016190235.cef361be-9e-amachhiw@linux.ibm.com>
-Mail-Followup-To: Vincent Donnefort <vdonnefort@google.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	Michal =?utf-8?B?U3VjaMOhbmVr?= <msuchanek@suse.de>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Harsh Prateek Bora <harshpb@linux.ibm.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	kvm-ppc@vger.kernel.org, Mark-PK Tsai <mark-pk.tsai@mediatek.com>, stable@vger.kernel.org
-References: <20261009163557.88467-1-amachhiw@linux.ibm.com>
- <20261009163557.88467-3-amachhiw@linux.ibm.com>
- <as0NDyaXsfQnWPQ4@google.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YMJ685i9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kl+pwvu+7IJWJUMZyQ7W0Wd4mNqkq3msyvggKmc4weJmSoaw6iTPv2HWUrzXs+4t6kICLDciAhRAS4pjA1KBTAUgAcDQx6qip6r5C2pZCPgnJBORB/ZdeJuQanXDKXA0+zKL1zOCzTxK6Snapr+Zyp+hkGJfz2Mzn+edyGkdb//XwahyZBCMCPC8mMUTGvTDcCVqdU1EugeSTUV385tMD3wEdjKjbhoBHUGE/NQJu+q3DOU4epOnFlwr/QrnV4JmEYz/XusudycyXWZxFLAqXXUHZcncOAO8026fn7Xk/HrHdL3JuziQGiMMXNIjPrBfD9FOcJ6NEkB3mcYa/W/6wQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SyAsyGG/jlVKXj46dmIfsmWbii62IxqvRaDwRZ4zHNY=;
+ b=m6nSvADtGJC/pmu6U2uiVujhg6nH+Dt1FWI0Q6vZ0SuOFZ4vteQhlZaK1VCyK9ZuQytqeaQ1HEzx3MYxRipnNSmOoS+8KlhKWFEX18VgeBcRwbC1Cam3hIzh33ASQjRYD2x8lV8XlTMzSaB8fxDikXysutRnY+OhPw9B7XngWfZeRRSYm+m1SAmjsfjHdBtDtkgFTYAABlOrLvlqkNLEyiX7uhngQAAN6lOEcI2n84bZc83wnPkQwzZZUnLEaRBEw/+oR6mb0vu53S4mQ/NqdBH2ktrnLLKiSOAB3ppqXM8gLTQFzQs9m4xjCzcrmgWOKzYbVZW9bWTEfrb/Ft2rSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SyAsyGG/jlVKXj46dmIfsmWbii62IxqvRaDwRZ4zHNY=;
+ b=YMJ685i92utwQwcwW6++C8DOYKgnjxRuTRroJtYI+gCMj6UZZdxo1CT7mWKJZmFrhlnwRac42PpAG4GFetxcijPuWVLbgbN1b9DsP/twtFPqp1TGzuOxOzzODJLjCx6y+CUoKJfiM+Ouf8fs0YIsIwdT4g2/4GZ0/HiADdqruRaOK5QZYfOWjVpXivMrM7jO2e33GaXback7ysDqkLdk6MrWVfbDC1Mkg7x1oiKsZhA93KMxjsSskE1gfO4y/xEpyyec/Cvzb6TgbM5Glalclh4UJAQdJjHCZ6NCLg43f7y7CFk9hLOYU+tnSHz3dZhyzySjgLhcYXD01MMmuQEFBA==
+Received: from CH0P223CA0020.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:116::10)
+ by PH7PR12MB6737.namprd12.prod.outlook.com (2603:10b6:510:1a8::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
+ 2026 13:25:48 +0000
+Received: from CH3PEPF0002457A.namprd04.prod.outlook.com
+ (2603:10b6:610:116:cafe::4) by CH0P223CA0020.outlook.office365.com
+ (2603:10b6:610:116::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
+ Oct 2026 13:25:48 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CH3PEPF0002457A.mail.protection.outlook.com (10.167.252.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 13:25:48 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 16 Oct
+ 2026 06:25:21 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 16 Oct
+ 2026 06:25:20 -0700
+Received: from build-va-bionic-20260204.nvidia.com (10.127.8.12) by
+ mail.nvidia.com (10.129.68.7) with Microsoft SMTP Server id 15.2.2562.49 via
+ Frontend Transport; Fri, 16 Oct 2026 06:25:20 -0700
+From: Vishwaroop A <va@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter
+	<jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>
+CC: Sowjanya Komatineni <skomatineni@nvidia.com>, Laxman Dewangan
+	<ldewangan@nvidia.com>, Breno Leitao <leitao@debian.org>, Aaron Kling
+	<webgeek1234@gmail.com>, Carol Soto <csoto@nvidia.com>, Suresh Mangipudi
+	<smangipudi@nvidia.com>, Vishwaroop A <va@nvidia.com>,
+	<linux-tegra@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/2] spi: tegra210-quad: don't overwrite refreshed status with lost-IRQ snapshot
+Date: Fri, 16 Oct 2026 13:25:19 +0000
+Message-ID: <20261016132520.3723412-2-va@nvidia.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20261016132520.3723412-1-va@nvidia.com>
+References: <20261016132520.3723412-1-va@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <as0NDyaXsfQnWPQ4@google.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA1MiBTYWx0ZWRfX1B7DwnvE2ZEB
- ZRiQKFd017ZkLJ6lx/GN0Yv/cIpG1mfbEPXwKjRV6HaJ6J5OfuVVXY2YF6Qcbl0+jCpe1AAGd+2
- x2BcSvvOjBXzKhv5Wv8cqRDY+PUUtt8YMQrHC/Wk8tdqZ9FPabRSReZGVWxkeHlp1n3IGsExqKA
- lMXlhyBqOCyWW6GlJbnEXDVWD5Rmc1DCwCKyEdoeaUQWpk+EC7950uKr1uqRr/8Y1HZhrIaFPXj
- WNCX9XmloMkDNe3NJWx5pZI7Z3ICStyCShvrrQOMLwy1OuTJzToc9+VUmBJnjEGeVFXuWlzaLj3
- 2aNsA3FjUovGHJRmjb/jzipIQbwCWxS+QUWpPKZeItGavknOe0a4f3LwkgKgn8yIC5hXMLT89vZ
- 0CUp+yain6Hl+VX3kUh/iKs0sg66qTJkmsVaIZKNWOFAYF9QP22qD4uJCwOK4v4CD/QJ4IMxdjP
- YJvJnPPtW4Z7TgPssDA==
-X-Proofpoint-GUID: BI2cxKGAEKJYjpJtdhn7B-QEcpA1kyCp
-X-Proofpoint-ORIG-GUID: qYdT_-xCKwD220TGgWg54Kp8opywLsvm
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA1MiBTYWx0ZWRfX8QDgacc7g/xQ
- R45WROGLPAbi8OaA0R2kULYl5urC62K2wuewINkM1+Rm44n0HIYLOVTtchd4A32Evje1KsgqdRU
- +wHkkM8pKRO1Ddbq93xCai2bVyWQeXQ=
-X-Authority-Analysis: v=2.4 cv=btHZl0ai c=1 sm=1 tr=0 ts=6ad225cd cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=dlV8YpW79Mn5UFwVz3cA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 phishscore=0 impostorscore=0 adultscore=0
- lowpriorityscore=0 priorityscore=1501 clxscore=1015 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610160052
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0002457A:EE_|PH7PR12MB6737:EE_
+X-MS-Office365-Filtering-Correlation-Id: 005cce58-6823-48d1-2419-08df2b88fde5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|18002099003|22082099003|10067099003|13003099007|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	9UQn+zVkXGAo2nP9almQb0rPivMUVEZv8x7vN4sYl7m/RK9vqak1a0OFMFt6Vela+9N5er1ezWhDLQpIrOMVGBfGEL1q9kUOwU6EOkBOS42DNi2/YVx9Ex1a64alY0J2WnkdmAVCm0X+ZwJoBzUbTWWAwF1Lt6jBLo4PBGoKhvxHMQ/UssfaWkrRVg8oS3jZ7uWRLJK7XNPNABKpK4Yy0NeliNPJLR+tgKiCHQ1RHjDJtvlL54xCh97UOTWn+9uot4FxipNx8ICK1gVmKs6f4PJY7y3rrR/ySeKDRMWuaDFod8+4/q2S6S2PR7s/75SGtE0tYLwtuzuKn6lGChdFLocp6isUQX+RXqiKcyNVl19Sk+K/kSFVIdJTQca1zYyBY3aqYTkCggaxxcuRP6b3yX1HTi7lVQodWfeuV2nhgpEsuMgcS8rVF8p0JNcfpvPP9VtDQ/v+7cfjZUongqizwYxYoyoCiTfo/sJ+e9KSrcAHpyH5HBOhUzMCeFIAjH1nzcyR+zXDcYMFzk+v4hzl0rbZwcaLHOKj9h5+59UcoiG/WR/16eCBOe2CJJzqZo2jJFRYFAjS0O5YFaXOoQF6B2p7WTLrjqv6fnwAEyiTn8lKy/tIenrR/UZ7c0Y6Qfr2tX7mcfA7sToFKN96V5sBA2JZ7IH9TETDX2aaLx1+alIm6vX4CCcW52LJUWOt4qhQuWRjHQu1NAlhSgG//bulfg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(18002099003)(22082099003)(10067099003)(13003099007)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	zu4zriHt8TYN0zfe6Y/vbFaT40IqIAWeNQXyb+vKVmng0cj+3Ux7EtUiET/90DxgKUu0koilaagkzH6OSHCJV1YkZfvZMQqI1w74jAO7hYwsY0N6JvvWllAI97Y+/5tj+AdR3XIJfSgcoJIs1A9xUgQxkBfnEw7g0NF+pfYAxZH1CAv/EWAoL1svHa8roYhifbg1F1bvhUIgCdEAARNNEBTzr0HWIu/YhgOlXtQoou+fcR3QqvKpbUNkfFFIYpk7bnD13cb02tbkHi9OOlhP9FLzQUhYx+eKGKCJ7D+hsmlxJJKf+Z9DQod3l1t9lDxvWpNKUeLHHc7AkREPxPsaUaB5VuMoSLTneYkOagDZeNAgocOwHJSnP4BjBSbYqvZ1INGjvP9noGzgwCAeRExjyT8ZxSbh6R4rsMBmerjqZ5I0jnIUwLXxiJ0wncAl4d+N
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 13:25:48.3489
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 005cce58-6823-48d1-2419-08df2b88fde5
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF0002457A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6737
 
-Hi Vincent,
+tegra_qspi_handle_timeout() captures a "lost IRQ" FIFO status snapshot
+when the ISR cache is empty on entry but QSPI_TRANS_STATUS shows the
+transfer completed. After masking the controller IRQ and draining the
+workqueue with cancel_work_sync(), it re-loads the ISR cache with
+smp_load_acquire(): if the drain observed a real ISR completion, the
+refreshed cache holds ISR-published status_reg, tx_status and rx_status
+that reflect the true hardware error state at IRQ time.
 
-Thanks for reviewing this patch.
+However, when both cache and snapshot are set, the code keeps the
+refreshed value in the local status variable but then unconditionally
+publishes the pre-drain lost_fifo_status / lost_tx_status /
+lost_rx_status snapshot into tqspi->status_reg / tx_status / rx_status
+via the lost_irq_snapshot branch. That snapshot is racy: if the ISR
+fires on another CPU between our live QSPI_TRANS_STATUS read and our
+live QSPI_FIFO_STATUS snapshot, the ISR W1Cs the hardware error bits
+before we sample them, so the snapshot may contain zeroed error
+fields. Overwriting the ISR-published values with these zeros makes
+the manual completion handler downstream silently accept a transfer
+that actually reported a FIFO error.
 
-On 2026/10/12 05:38 PM, Vincent Donnefort wrote:
-> On Fri, Oct 09, 2026 at 10:05:57PM +0530, Amit Machhiwal wrote:
-> > During early boot (early_trace_init() called from start_kernel()),
-> > tracing allocates initial ring buffers (temp_buffer, array_buffer, and
-> > snapshot_buffer) for CPU 0.
-> > 
-> > Before attempting page allocation, __rb_allocate_pages() performs a
-> > heuristic check using si_mem_available() to return early with -ENOMEM if
-> > memory appears insufficient.
-> > 
-> > However, on kernels built with CONFIG_DEFERRED_STRUCT_PAGE_INIT=y,
-> > defer_init() leaves only a single section per node (e.g.  16 MiB with 64
-> > KB pages) initialized up-front.  On kernels with large static binary
-> > footprints (such as debug configurations enabling PAGE_OWNER,
-> > DEBUG_PAGEALLOC, KFENCE, or SLUB_DEBUG), the static kernel image and
-> > early core initialisations (SLUB caches, vmalloc, static ftrace records)
-> > consume virtually all managed pages in this initial pool.
-> > 
-> > At T=0.000000, watermarks have not yet been established
-> > (totalreserve_pages = 0), so si_mem_available() returns the raw free
-> > page count (often 0-1 pages).  When the snapshot buffer or global trace
-> > buffer attempts to allocate 2 sub-pages, si_mem_available() returns <
-> > nr_pages and prematurely aborts with -ENOMEM.
-> > 
-> > This failure is false: if the page allocation were actually attempted
-> > via alloc_pages_node(), the page allocator would trigger
-> > deferred_grow_zone() on demand to initialise additional deferred memory
-> > sections.  Checking si_mem_available() before attempting the allocation
-> > short-circuits this on-demand growth.
-> > 
-> > Skip the si_mem_available() check when system_state == SYSTEM_BOOTING.
-> > Once the system transitions past early boot and page_alloc_init_late()
-> > initialises all deferred memory, si_mem_available() accurately reflects
-> > system-wide free memory and the check operates as intended for runtime
-> > allocations.
-> > 
-> > Fixes: 2a872fa4e9c8 ("ring-buffer: Check if memory is available before allocation")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Michal Suchánek <msuchanek@suse.de>
-> > Closes: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
-> > Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
-> > ---
-> >  kernel/trace/ring_buffer.c | 8 +++++++-
-> >  1 file changed, 7 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> > index 04bb94c29f58..a9f82e2f8fad 100644
-> > --- a/kernel/trace/ring_buffer.c
-> > +++ b/kernel/trace/ring_buffer.c
-> > @@ -2452,9 +2452,15 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
-> >  	 * memory. It may not be accurate. But we don't care, we just want
-> >  	 * to prevent doing any allocation when it is obvious that it is
-> >  	 * not going to succeed.
-> > +	 *
-> > +	 * Skip this check during early boot: with CONFIG_DEFERRED_STRUCT_PAGE_INIT,
-> > +	 * NR_FREE_PAGES only reflects the initial non-deferred pool at this
-> > +	 * stage. si_mem_available() returns a false negative while actual
-> > +	 * allocations succeed by growing the zone on demand via
-> > +	 * deferred_grow_zone().
-> 
-> As Sashiko pointed-out, if si_mem_available() is only ready after
-> page_alloc_init_late() when CONFIG_DEFERRED_STRUCT_PAGE_INIT, then checking for
-> system_state >= SYSTEM_FREEING_INITMEM might be more correct.
-> 
-> Also I wonder if we don't want to guard with CONFIG_DEFERRED_STRUCT_PAGE_INIT,
-> to keep the verification when CONFIG_DEFERRED_STRUCT_PAGE_INIT is unset.
+Clear lost_irq_snapshot when the refreshed cache is non-zero, so the
+ISR-published status wins over the pre-drain snapshot in that case.
+The lost-IRQ path (refreshed == 0 && live QSPI_RDY set) is unaffected.
 
-Both suggestions adopted in v2 — using system_state >= SYSTEM_FREEING_INITMEM
-and wrapping in #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT.
+Fixes: 1ff82c13ea94 ("spi: tegra210-quad: Cache TRANS_STATUS in ISR for timeout handler")
+Reported-by: Carol Soto <csoto@nvidia.com>
+Link: https://github.com/NVIDIA/NV-Kernels/pull/579
+Signed-off-by: Vishwaroop A <va@nvidia.com>
+---
+ drivers/spi/spi-tegra210-quad.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-Thanks,
-Amit
+diff --git a/drivers/spi/spi-tegra210-quad.c b/drivers/spi/spi-tegra210-quad.c
+index d8cca3aa276b..4a5933d8112c 100644
+--- a/drivers/spi/spi-tegra210-quad.c
++++ b/drivers/spi/spi-tegra210-quad.c
+@@ -1260,8 +1260,17 @@ static int tegra_qspi_handle_timeout(struct tegra_qspi *tqspi)
+ 	 * loaded the cache but before we masked).
+ 	 */
+ 	refreshed = smp_load_acquire(&tqspi->trans_status);
+-	if (refreshed)
++	if (refreshed) {
+ 		status = refreshed;
++		/*
++		 * The drain observed a real ISR completion. Prefer the
++		 * ISR-published status_reg / tx_status / rx_status over
++		 * the pre-drain lost-IRQ snapshot, which may have been
++		 * taken after the ISR W1C-ed the hardware error bits and
++		 * therefore holds cleared values.
++		 */
++		lost_irq_snapshot = false;
++	}
+ 
+ 	if (!(status & QSPI_RDY)) {
+ 		retval = -ETIMEDOUT;
+-- 
+2.17.1
+
