@@ -1,120 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B47331328E;
-	Fri, 16 Oct 2026 11:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB07F1E260C;
+	Fri, 16 Oct 2026 11:37:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792150572; cv=none; b=Cbx+bjPmgV+0J/wfDKaGqqVYyafOh5TSOGfnMaGcG9EqbAKHDuYsOBmy4pLjTrul8T3a+5PePXtAVuHOmTqJj474rafwonfHd8X00YjbWOEYddM/6wNMRCq84o7ZRVDx+S1yhX8vJzMtfvlKo69PeUldnlbQdwx4GVSBO90lRYY=
+	t=1792150680; cv=none; b=PdQpGLS6kAZ2Y21wDZPAtqFsQoFqffD386q60p2s/mzhf9xUd61DEpNvqmGV4a7MxRfRPV46z0iMOlXXXobvAuNFKwy/buPgfbDwdui63VZVq+6nH/O8xaJqHiFQVYiAnks3+iBSkKoDWsDEzs/IYgh4a4EokBIevSsFzCjk+ng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792150572; c=relaxed/simple;
-	bh=lP1JaRZd8SJ9aL/z2Ey7Uk+l25m3bdI9BATnKHnwin4=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=qoSCWGwtSFSbYz3arLSGUgiORqp6Fr+oP66PXRm0oR+UNodbb+mN5BVSELlca4u4eDcBmFoVh+tZ6eGC4UngKCgSnSB6T8vsTfhq/u7wGXin0F7lDctpI41DYtyGbN9S5yzPRXyVaM7+Fw4818v23k+270wFFy+XArZ1i715SfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UkVt5UhU; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1792150680; c=relaxed/simple;
+	bh=hURAYmRiGjFW3uRx49r6YrGzPgKt06TgM9IXY6vfPsk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kDNS7X9uEzeeKhCpK97G9Y60X0x3Pu40Ycd4zlqD+B9QC7U6DvcMNO+zip8vjRSPWQrJYvjeo/DDRfLQIecnvQvnNXg7re/oXqhQp9ZpTQSh9D+yBteu7oxHkIWmVhY8M/52s2z9tyZhR1CWkai5vvStWa6KKVLIv+Xd3W+eWtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DOVSw9oI; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UkVt5UhU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792150568; x=1823686568;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=lP1JaRZd8SJ9aL/z2Ey7Uk+l25m3bdI9BATnKHnwin4=;
-  b=UkVt5UhUr1TDyrnayGQWTVNZdVlb2szOKGsnKVRQs1GcSpHcPch4SfP4
-   4ScbxR5krI8fQJbiM95cy6mIDThS9ZO7kHfrI32UTh+LbpKxUYAbrFeDy
-   zqM7MP5QJxWXeocbAyqHVyk4ex1fXM53gmfoCysHma3lP6jdQS12mrHsw
-   2XVHQfdo/8aNviNot6GQVZADiL56ZMElqRV7egMB3kkJYK16iHdn02d5G
-   TfXYJQ8oukcQnhL6fDC6G9pBg3V+E91Uj/JR4Q+hmuVTTWqkOcB4kRYgM
-   A4NtaawFIWloN+j5dpAm94nV7HnacGz5XGc5Ppp/YgL79yAncMvofXHgw
-   Q==;
-X-CSE-ConnectionGUID: my19EW4FSVOWM/gt4+mfLg==
-X-CSE-MsgGUID: puZqDvMyRs6W9SPR77apAA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="952357"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="952357"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 04:36:07 -0700
-X-CSE-ConnectionGUID: f6MqJw8KSs6//7HZiG4Zdw==
-X-CSE-MsgGUID: g9Ah1glCRXek/4yLE+0YVQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="3763233"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.34])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 04:36:06 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 16 Oct 2026 14:36:02 +0300 (EEST)
-To: Donjuanplatinum <donplat@barrensea.org>
-cc: W_Armin@gmx.de, hans@kernel.org, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 RESEND] platform/x86: uniwill-laptop: Add support
- for
-In-Reply-To: <20261016082819.1414285-2-donplat@barrensea.org>
-Message-ID: <305b37f0-b1c0-911a-0a07-42f6c4a51b85@linux.intel.com>
-References: <87wlridqzx.fsf@barrensea.org> <20261016082819.1414285-2-donplat@barrensea.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DOVSw9oI"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 239F54E4124D;
+	Fri, 16 Oct 2026 11:37:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DD40E6075D;
+	Fri, 16 Oct 2026 11:37:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 38F5610328153;
+	Fri, 16 Oct 2026 13:37:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792150669; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=9GRmkk0d7/PC2JYZ6s87MIdsq4qp1zD1dJ0+v2vwEqA=;
+	b=DOVSw9oI99DtbYEp6j/IMxmzCvhQrVrV9IRzEyczUgqy6HHPbxXruaeiDSNanNAfldxFfj
+	QBmgYZpLAo5JLMjFMRsN65bzPuPjoadxWuVMjgEBsuc7gtos1IvD9hrJoyUjtVpc+kgvgt
+	ojQ0upsve+H0brWS+pQEPLnkB6VmNkoUU2VfkryWBniwZnaLTRjB6UNY7Mp4QuPZiilxWd
+	e7QnoyiDYek5sVmIs/gOKJrB3YxCnIsaJfRQRJgJbogTl2FoAKkpuqoOOY2ia5MvI2aoZD
+	pIfHxwpdC0CsLbBbaKR1KWFR1j+JBjqgZF/zoYR8P3rco2vIudsLUJo8Tg4nXg==
+Message-ID: <34608ab8-18f3-4680-8276-cd8611c05cb1@bootlin.com>
+Date: Fri, 16 Oct 2026 13:37:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 5/9] net: stmmac: mediatek: add RX/TX delay
+ stage divider in platform data
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Biao Huang <biao.huang@mediatek.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Eric Dumazet <edumazet@kernel.org>
+Cc: kernel@collabora.com, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com>
+ <20261016-dwmac-mediatek-mt8189-v3-5-25daf2bbcf35@collabora.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-5-25daf2bbcf35@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, 16 Oct 2026, Donjuanplatinum wrote:
+Hi Louis-Alexis,
 
-Your shortlog (on subject line) is truncated.
-
-> Add support for the MECHREVO WUJIE Series 15 X Pro (WUJIE
-> Series-X5SP4NAG).
+On 10/16/26 12:31, Louis-Alexis Eyraud wrote:
+> In preparation of newer SoC support, that have like MT8189 SoC
+> different RX and TX internal delay stage steps than MT8188/MT8195, add
+> the RX and TX delay stage divider values in the variant platform data
+> and replace the hardcoded value uses in mt2712_set_delay and
+> mt8195_set_delay.
 > 
-> Signed-off-by: Yifei Yao <donplat@barrensea.org>
+> Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 > ---
->  drivers/platform/x86/uniwill/uniwill-acpi.c | 22 +++++++++++++++++++++
->  1 file changed, 22 insertions(+)
+>  .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   | 46 ++++++++++++++++++----
+>  1 file changed, 38 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platform/x86/uniwill/uniwill-acpi.c
-> index 7a2eeaec4c96..bf46f03fb5f5 100644
-> --- a/drivers/platform/x86/uniwill/uniwill-acpi.c
-> +++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
-> @@ -2712,6 +2712,20 @@ static struct uniwill_device_descriptor lapkc71f_descriptor __initdata = {
->  	.lightbar_max_brightness = 200,
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> index 596411d4a5b2..cb5bda53edb9 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> @@ -108,6 +108,10 @@ struct mediatek_dwmac_variant {
+>  
+>  	u32 rx_delay_max;
+>  	u32 tx_delay_max;
+> +	u16 rx_rmii_delay_stage_div;
+> +	u16 tx_rmii_delay_stage_div;
+> +	u16 rx_rgmii_delay_stage_div;
+> +	u16 tx_rgmii_delay_stage_div;
+>  	u8 dma_bit_mask;
 >  };
 >  
-> +static struct uniwill_device_descriptor series_x5sp4nag_descriptor __initdata = {
-> +	.features = UNIWILL_FEATURE_FN_LOCK |
-> +		    UNIWILL_FEATURE_SUPER_KEY |
-> +		    UNIWILL_FEATURE_CPU_TEMP |
-> +		    UNIWILL_FEATURE_PRIMARY_FAN |
-> +		    UNIWILL_FEATURE_SECONDARY_FAN |
-> +	            UNIWILL_FEATURE_BATTERY_CHARGE_MODES |
-> +		    UNIWILL_FEATURE_KEYBOARD_BACKLIGHT |
-> +		    UNIWILL_FEATURE_AC_AUTO_BOOT |
-> +		    UNIWILL_FEATURE_USB_POWERSHARE,
-> +	.kbd_led_single_color = false,
-> +	.kbd_led_max_brightness = 4,
-> +};
-> +
->  /*
->   * The featuresets below reflect somewhat chronological changes:
->   * 1 -> 2: UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL is added to the EC firmware.
-> @@ -2996,6 +3010,14 @@ static const struct dmi_system_id uniwill_dmi_table[] __initconst = {
->  		},
->  		.driver_data = &tux_featureset_4_descriptor,
->  	},
-> +	{
-> +		.ident = "MECHREVO WUJIE Series 15 X Pro",
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "MECHREVO"),
-> +			DMI_EXACT_MATCH(DMI_BOARD_NAME, "WUJIE Series-X5SP4NAG"),
-> +		},
-> +		.driver_data = &series_x5sp4nag_descriptor,
-> +	},
->  	{
->  		.ident = "TUXEDO InfinityBook Pro 14/15 Gen9 Intel/Commodore Omnia-Book 15 Gen9",
->  		.matches = {
-> 
+> @@ -146,14 +150,22 @@ static int mt2712_set_delay(struct mediatek_dwmac_plat_data *plat)
+>  	u32 fine_val = 0;
+>  
+>  	if (phy_interface_mode_is_rgmii(plat->phy_mode)) {
+> -		rx_delay_stage_div = MT2712_RGMII_DLY_RXC_STAGE_DIV;
+> -		tx_delay_stage_div = MT2712_RGMII_DLY_TXC_STAGE_DIV;
+> +		rx_delay_stage_div = plat->variant->rx_rgmii_delay_stage_div;
+> +		tx_delay_stage_div = plat->variant->tx_rgmii_delay_stage_div;
+>  	} else {
+> -		rx_delay_stage_div = MT2712_RMII_DLY_RXC_STAGE_DIV;
+> -		tx_delay_stage_div = MT2712_RMII_DLY_TXC_STAGE_DIV;
+> +		rx_delay_stage_div = plat->variant->rx_rmii_delay_stage_div;
+> +		tx_delay_stage_div = plat->variant->tx_rmii_delay_stage_div;
 
--- 
- i.
+Looking closer at this, what's RMII delay ? There's no delays in RMII, and
+it's a single clock not a RX and TX clock like RGMII, there's no RMII TXC/RXC.
 
+I think it's the same as on allwinner, the delay handling has been mixed-up between
+RMII and RGMII in the glue, you should be able to simplify this even more by
+ditching the RMII case.
+
+Maxime
