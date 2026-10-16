@@ -1,172 +1,112 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA6B547078
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:24:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6B7547041
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:28:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792110272; cv=none; b=JQQq+oCs8oCxeXq61rEFfXAHHWXAjwYHmNmPYftC7UpqV+5EEOjYbRbiahftq99GEMF8uzzQNj1GHmCCTDA1EmYBKFO5+7dXSOghHpmmJzYM541ko2N87Gw6SfKq9cTV46+lOLp/cWhn+rihWt1hnkY0CUxlauFo+BTVNzAoQ0k=
+	t=1792110503; cv=none; b=AmevnPMdHn5TUQpHoYY1Ij+WHzc7HPBOA4PIan52Dj0Ygh7kkMAyn4PyNs6FLv1naNFnPiKvqZdw7cb8N6l4cI93auQIX5dXQ33xWV/YcMDGTHmsSov3Y5195bYUKgPCjfifSyY0GRgDnjm2D0exQmVqhq6jB75a3mhQesAP/rc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792110272; c=relaxed/simple;
-	bh=hL6mtDs6/B84fk7/+W2d4BXH2JG2EoqzxGwgSukCgic=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lMWjew5cCKWFXm3Gf1mKCIDjN4QbqrQVh3g3KlUSOSY7Scf7778StBirVh7D6uwEXCKQwRbemuRn983K2bEiLrXap9gYp8Q/I1DeVT2RPp8+zRtMTdWnAVGG77iPpIIbdffUMQzwa3tNiVatTnvs9tPs34538Kx5NM4yMESFVbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=l+4BKTQp; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792110503; c=relaxed/simple;
+	bh=JrV2aaGMxvDa8l4Ok451VQGmYrMHjM9953t4XfUJa/Q=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=iG2AtXMJHnDXSJSFlZEGKv6pb05TRoGPJM+kdTc3I4UTwksJhTpHOKwxtBOFIGAIyt9+M8vkkvK/4WUTaF7SEulYMsaz+N8FjTqaa5L5VwXNi9SaSPA3xcuq2Ox/oVcsA8uSgev93lgpO/KATBJCsVAHxgZ9QGs2NM4N8xopsd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=cQ3/riAL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="l+4BKTQp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=bt
-	rJprSS194OAW2n6AQnMcqpIUNr9AAzjlrzl1y+2yA=; b=l+4BKTQpNdNlwWQFiu
-	BuDVrswfIwfI88pIRVs3W1EgLbZ29agEgU1aGXwpz1Jnxri+Rgj33aJV00sTvJT7
-	5C+VfLImKOUxS2JWQpvQPpNb0BoIYZ80y37Klj2qFKNnDP2KeqPJosEy35nFE7kX
-	iJF16pDDYx4fB0hLAZS0POZns=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3H1+KbtFqgGZ0AQ--.60229S2;
-	Fri, 16 Oct 2026 08:23:40 +0800 (CST)
-From: Haolong Wang <18766350203@163.com>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>
-Cc: kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [BUG] mm/memfd_luo: MFD_NOEXEC_SEAL memfd becomes executable after restore
-Date: Fri, 16 Oct 2026 08:19:00 +0800
-Message-ID: <20261016001900.4722-1-18766350203@163.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="cQ3/riAL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 686361F000C4;
+	Fri, 16 Oct 2026 00:28:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792110502;
+	bh=8tChevyDCNpHwTF6VNwlTOZAk8TDbJCK/O52gp4miT8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=cQ3/riAL9kw/dqN6Oigdw8FG/7/Hdfr7otqyORVpjcGZh1l+5sfriH2LIq58Lhe6q
+	 jR9kJwWGxjvvmfdN3RFPvDBhfN7Ne5xo1MAC7SDWo2S+ls9jVdLCl8BwWvf4gFWQy0
+	 MOLupzKsLaRhF+5VZL+c7h+2+ePrAswKvyMs/PLg=
+Date: Thu, 15 Oct 2026 17:28:20 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Nikola Ciprich <nikola.ciprich@linuxbox.cz>, David Laight
+ <david.laight.linux@gmail.com>, Rik van Riel <riel@surriel.com>,
+ ljs@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ david@kernel.org, Mike Rapoport <rppt@kernel.org>, Dave Hansen
+ <dave.hansen@linux.intel.com>, Pedro Falcato <pfalcato@suse.de>, Kiryl
+ Shutsemau <kas@kernel.org>, luizcap@redhat.com, pbonzini@redhat.com, Tal
+ Zussman <tz2294@columbia.edu>, Matt Fleming <matt@readmodwrite.com>
+Subject: Re: hunting memory corruption bug in 6.18.x
+Message-Id: <20261015172820.7961d2c0def74d41cc6c4b0c@linux-foundation.org>
+In-Reply-To: <20261014235736.GCatAW8GD0GlYumL4l@fat_crate.local>
+References: <ar/F6+OUzj8qQ8YC@pcnci.linuxbox.cz>
+	<asAE3kLFDUx5v0Nw@gremlin>
+	<asKdhWiJb3qXeopz@pcnci.linuxbox.cz>
+	<bd8e9b01ad88cafb12da33331f32a1ce315f590b.camel@surriel.com>
+	<20261005132113.43548696@pumpkin>
+	<asP5xK4axiUk7jun@pcnci.linuxbox.cz>
+	<aseMsMGpGPT/G548@pcnci.linuxbox.cz>
+	<20261008182356.GBasffvDuTemTu1VUY@fat_crate.local>
+	<20261009090042.39ba9c06@pumpkin>
+	<aszH4vpXFAOQP1WG@pcnci.linuxbox.cz>
+	<20261014235736.GCatAW8GD0GlYumL4l@fat_crate.local>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3H1+KbtFqgGZ0AQ--.60229S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF45Wr15Cr1UWF4xXr15CFg_yoWrXrWkp3
-	y5Gas8ur1DJrykKw4I9F10qFyfKa1fJr4jvrWSgFyxAan8Wrn2yF4F9FyUWF9xArsrWa1j
-	qw4Ykry8A3W7JwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5wIDUUUUU=
-X-CM-SenderInfo: jpryllawtvijiqt6il2tof0z/xtbC9g3NlWrRbo1-AgAA3G
 
-Hi,
+On Wed, 14 Oct 2026 16:57:36 -0700 Borislav Petkov <bp@alien8.de> wrote:
 
-I observed: LUO preserves and restores the seals of a memfd, including
-F_SEAL_EXEC, but it does not preserve the inode execute mask protected
-by that seal. For a new memfd created with MFD_NOEXEC_SEAL, when it has
-not been fchmod'ed, its state before preservation is normally
-inode->i_mode & 0777 == 0666, seals = 0x20; however, the new inode
-created when LUO restores the memfd has default permission bits 0777,
-and the seals also change to 0x3e during restoration.
+> On Mon, Oct 12, 2026 at 01:43:30PM +0200, Nikola Ciprich wrote:
+> > Since I didn’t have anything else to try, and we started having
+> > crashes on our own cluster nodes, where I can be a bit bolder,
+> > I built 7.3-rc6, deployed it on two problematic AMD nodes, and
+> > started a migration torture loop.
+> > 
+> > Over the weekend, there were ~70 migrations of ~160 VMs between
+> > those two nodes without a single issue.
+> 
+> Did it reproduce usually with this?
+> 
+> If not, keep hammering on it with the latest kernel. We might've fixed
+> whatever that was, along the way. :-(
+> 
+> And if so, that would be a damn nasty bisection to figure out what fixed it...
+> 
+> So pls hammer on it as long as possible to see if it is really fixed or it is
+> simply harder to repro.
 
-Although the LUO documentation states that it is not a completely
-transparent restoration and that only the listed properties are
-guaranteed to be preserved, I think that preserving only F_SEAL_EXEC
-without preserving the inode mode, or rather the execute mask, is
-somewhat unreasonable. I am not sure whether this matches your intended
-design.
+fwiw, I fed a lot of tokens into $LLM and it suggests that 55780d8a1dcc
+fixed this.
 
-To put it somewhat imprecisely, I think the LUO mechanism may bypass
-the "no executable memfd may be created" expectation that
-vm.memfd_noexec=2 is intended to provide.
+If that sounds sane then testing 55780d8a1dcc on that 6.18.x kernel
+would be useful.
 
-The analysis is as follows:
 
-1. If we pass the MFD_NOEXEC_SEAL flag, SYSCALL_DEFINE2 goes through
-   the sanitize_flags() check, which may modify flags, and then enters
-   memfd_alloc_file().
-
-2. In memfd_alloc_file(), it enters shmem_file_setup() and then
-   __shmem_file_setup():
-
-```
-	if (flags & MFD_HUGETLB) {
-		file = hugetlb_file_setup(name, 0, mk_vma_flags(VMA_NORESERVE_BIT),
-					HUGETLB_ANONHUGE_INODE,
-					(flags >> MFD_HUGE_SHIFT) &
-					MFD_HUGE_MASK);
-	} else {
-		file = shmem_file_setup(name, 0, mk_vma_flags(VMA_NORESERVE_BIT));
-	}
-```
-
-3. In __shmem_file_setup(), the inode->i_mode obtained by default is
-   0777:
-
-```
-	inode = shmem_get_inode(&nop_mnt_idmap, mnt->mnt_sb, NULL,
-				S_IFREG | S_IRWXUGO, 0, flags);
-```
-
-4. Back in memfd_alloc_file(), inode->i_mode becomes 0666, and
-   F_SEAL_EXEC is set:
-
-```
-	if (flags & MFD_NOEXEC_SEAL) {
-		inode->i_mode &= ~0111;
-		file_seals = memfd_file_seals_ptr(file);
-		if (file_seals) {
-			*file_seals &= ~F_SEAL_SEAL;
-			*file_seals |= F_SEAL_EXEC;
-		}
-	} else if (flags & MFD_ALLOW_SEALING) {
-		/* MFD_EXEC and MFD_ALLOW_SEALING are set */
-		file_seals = memfd_file_seals_ptr(file);
-		if (file_seals)
-			*file_seals &= ~F_SEAL_SEAL;
-	}
-```
-
-5. In memfd_luo_preserve(), LUO obtains the seals of the original
-   memfd through memfd_get_seals() and stores them in ser->seals:
-
-```
-	seals = memfd_get_seals(args->file);
-	...
-	ser->seals = seals;
-```
-
-6. After switching kernels and restoring the memfd, in the
-   memfd_luo_retrieve() function, memfd_luo_retrieve() directly calls
-   memfd_alloc_file("", MFD_ALLOW_SEALING). This call creates a new
-   shmem inode with permission bits 0777. Since MFD_NOEXEC_SEAL is not
-   passed and only MFD_ALLOW_SEALING is, the execute bits are not
-   cleared, and the inode mode still remains 0777:
-
-```
-	file = memfd_alloc_file("", MFD_ALLOW_SEALING);
-```
-
-7. Then, in the memfd_luo_retrieve() function, it enters memfd_add_seals():
-
-```
-	err = memfd_add_seals(file, ser->seals);
-```
-
-8. In memfd_add_seals(), ser->seals holds the F_SEAL_EXEC that the
-   original memfd has because of MFD_NOEXEC_SEAL. Since the restored
-   inode is 0777, inode->i_mode & 0111 is true, and
-   SHRINK|GROW|WRITE|FUTURE_WRITE are additionally added -> seals
-   becomes 0x3e:
-
-```
-	if (seals & F_SEAL_EXEC && inode->i_mode & 0111)
-		seals |= F_SEAL_SHRINK|F_SEAL_GROW|F_SEAL_WRITE|F_SEAL_FUTURE_WRITE;
-```
-
-Meanwhile, I noticed the earlier review discussion about the original
-seal-preservation patch:
-
-https://lkml.org/lkml/2026/1/26/843
-https://lkml.org/lkml/2026/1/26/1044
-
-I feel that your discussion touched on this issue.
-
-I think Pratyush has already come close to the essence of the problem:
-"But I think that should be done by preserving the mode of the inode
-directly, and then copying the seals back." Unfortunately, that
-requirement did not make it into the final implementation.
-
-Regards,
-Haolong Wang
-
+: The repeated structures appear to be AMD VMCBs: 0x0fffffff0c930020
+: decodes as segment state (selector 0x20, attributes 0xc93, limit
+: 0x0fffffff), not a damaged pointer.  The FS/GS offsets in the dcache
+: corruption and the LSTAR/CSTAR/SFMASK offsets in the earlier library
+: corruption suggest misplaced VMLOAD/VMSAVE state transfers.  A
+: candidate fix is 55780d8a1dcc (KVM: SVM: Stop toggling virtual
+: VMSAVE/VMLOAD on intercept recalc), which is absent from the inspected
+: v6.18.53/v6.18.55 code.  In the affected
+: svm_recalc_instruction_intercepts(), VMLOAD/VMSAVE interception is
+: changed in vmcb01, but virtualization enablement is changed in the
+: currently selected VMCB, potentially vmcb02.
+: 
+: Although the commit describes this mismatch as benign, restoring a
+: fresh destination vCPU directly into L2 appears to expose a case that
+: assessment overlooks: deferred intercept recalculation could clear
+: vmcb01s intercepts while enabling virtualization only in vmcb02,
+: leaving L1s subsequent VMLOAD/VMSAVE instructions neither intercepted
+: nor virtualized.  That could make guest-supplied physical addresses
+: target host memory, consistent with the observed corruption.  This is a
+: source-derived hypothesis, not a reproduced root cause, and depends on
+: an affected vCPU actually being restored in nested guest mode.  Could
+: we confirm that condition and test a backport of 55780d8a1dcc?  A
+: useful vmcore check would also be whether any live vCPUs vmcb01 has
+: both VMLOAD/VMSAVE intercepts clear and the virtual-VMLOAD/VMSAVE
+: enable bit clear.
