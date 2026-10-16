@@ -1,47 +1,82 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.119])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812543403FF;
-	Fri, 16 Oct 2026 14:22:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A2A032B132
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:22:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792160528; cv=none; b=F30io15B5v1qDzbyuVdb5fMZfbvnE+bw7PUG+14WvcCLI6jqXduNR0loESwbEqv686T+YTLJmybIZ8iBPZo46Bx7mOAGBnJTAo2j/hgnllJeq51ApqOerwTgrTb38pvR7FDDso4JK+9q1YiOacdUrFQ7BeYsEY8O/sDquIEyOZY=
+	t=1792160574; cv=none; b=WeCUB1H39by7yeLX0wE+ORnTdhHY8Rn4ntQsuYkBWhieP4S86wnPklDjtfaK1BxQUBLfZeFx7ZpN88CweaVMBbNDJv7hzVQ1wVXQnwYfDYaTmbcqq/bU8Obb9I0spGfqXNB741HWLwI+N5kP2mUdSSSizgdc1gRXH18Suyh0C1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792160528; c=relaxed/simple;
-	bh=t8dMX8i60cqgxm3Kkq/I2tAcGNfMb28GLsRh5wzRTAA=;
+	s=arc-20240116; t=1792160574; c=relaxed/simple;
+	bh=wDudkpJMf5ejI3cqhPGuNbonZgQ9jSRG+XHkNxnZupg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QTmzkKKuxPNlavceFo6siltwn+dFjlzUNvW/xIuqSjbCy//MVdLpyqz4upiNtIxLu52PBbdQYv3y7lPb8SDhhuPk4qznASVoYdO8liOzV0guSKHl0oIYz/qwvVE4j8qKbhX99Q4b0UIL7ucwzXS96I7/dnYTb9UKr8hypWzbLBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=oASl/Bd5; arc=none smtp.client-ip=212.42.244.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=G9GnUlizM6wrjoNOTkSLqEjIafrcn3aiwwDJcit2sx33ayc4hpkjJbijVEXtJRhljq+eDmK1CpyfRnfYg9JkqOAHavS2NVirTzbZjLcEycwlwLlwgtmf4i09Lf7va7u2xj4ueXM+Ow5TEtUTIJvbXyqEZ7WXphw1FlImSOfHkZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mZbm3gqJ; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="oASl/Bd5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1792160523; bh=t8dMX8i60cqgxm3Kkq/I2tAcGNfMb28GLsRh5wzRTAA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oASl/Bd5G3k5f5ECCNh9GXixRgeWk0nSMr8IPbGX0b+zvmbf9u2n53hNv9A03Zezx
-	 BIb4tfIYjZVmrvodRFd9MgLDWW5I7YPCcenLipGo/Saek2js03/TqCPeDoDR3oAB9Z
-	 x8cl33DDCIAzH/kLkPNPT6BM/aQe5qlHs1DctMEnYS1IF0k61UCXthCCsCgLE0YGOp
-	 +/qdFOwcXLF8yFryP9599jtFZRHr5C7JxqY81LyzvzrLlkzG+1zT9ujVV9WG6LRMvr
-	 rgXt3jj9p5WksnYl5LjKhEPfDT638r7ESUcLT4ReRaHm5u7ksgyamc1xovGQnd/eVi
-	 OBeI7rw/4lmzA==
-Received: from [2001:bf0:244:244::78] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <n.schier@fritz.com>)
-	id 6ad2330a-c83a-7f0000032729-7f000001ddb4-1
-	for <multiple-recipients>; Fri, 16 Oct 2026 16:22:02 +0200
-Received: from mail-auth.fritz.com (unknown [IPv6:2001:bf0:244:244::78])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Fri, 16 Oct 2026 16:22:02 +0200 (CEST)
-Date: Fri, 16 Oct 2026 16:22:01 +0200
-From: Nicolas Schier <n.schier@fritz.com>
-To: =?utf-8?B?QWRyacOhbiBHYXJjw61h?= Casado <adriangarciacasado42@gmail.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kbuild: depmod: fallback to
- /boot/System.map-KERNELRELEASE
-Message-ID: <20261016-lyrical-original-woodlouse-3cfb2c@l-nschier-aarch64>
-References: <20261016111106.221542-1-adriangarciacasado42@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mZbm3gqJ"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48df160bb9cso314600f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:22:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792160571; x=1792765371; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JbzTovp25uxldUAgBphw0KXTMkfsfyJTioqUchT27Ik=;
+        b=mZbm3gqJ+lCj85rXg0tHGRmyfkWpUes8kWYTkn+1BKqkcUlpRKc4OUXJxwtwRVVKn2
+         iNFHmZA9+hbJl6GMe1p4Q5LWpXsEjFkkj5+cH7VoZhIEBOJ5Uy4OXINMLOFfHawlJ92D
+         HiYUDxcUCiR+KUmjeLYb+pKi9Je/wCQtVaR80D6zual87s6JObsL4lGpTXSJ5Sg/+Z2z
+         p4h590vcIKC1dmZyEH71J4ZMY8tVdBfhMSIOFA85GvzzFQeROWv6JQy64b5BrcPxBR6Q
+         LhLYelpDDxjZIjPYzign/tpgEDCrqXyL3HylhMOG1kYX+If5Ix4wp1nQPvepynapB3Pt
+         ZByg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792160571; x=1792765371;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JbzTovp25uxldUAgBphw0KXTMkfsfyJTioqUchT27Ik=;
+        b=jxM4YtwQFYGRpNOl8w4nKxWr6xfCLHN84SDDidHjSGHs09AP2I8DPGe7RU5boKp+FZ
+         rndlUTSyO7T0IC/MPgnLeqFRghtrO9i+bZg4plgBIBT3GSn5U9aEYG9veAveqP+r8mQO
+         pUjKNawiNBeTt2VQ1qGt2ByhT8BKt4RVJnmezPXJjQFM7hUAnd3g0IRuP4xXAXIbjIc8
+         THYHqEyFcKf0kNlW9D5pAG9dsuElsgsjzBr5IejJft41V2lYJEwSvB9Y4gzHTaS+mQI6
+         DU6hg3QbxMI4u8U2gJNG/vTmwg/N2qvp6Ne4rxW0U61+kOC5YO/mY7KsWHTQII2RHWHH
+         GgCw==
+X-Forwarded-Encrypted: i=1; AKwUvBx4/X0O9BlhO7R6f5JLJEeXO4fYZP1/RHUy6WnqX74d/qIWwoZ7oY6JH3SQ1n10PMVv84CX6ErcxWJR84I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYICgBCCRfDHdUFaQkZzIsu09tH2D+2CVR6E18u6gsfqqkClpLXR
+	rRoSVsALjxOVcRQT2+eY8NHmEzCD0jnDBelIkHDpeQR6yGMe5mIjcfIE
+X-Gm-Gg: AYBFou3ivb0lsO/vI6s8LxLC+4NODbgEMHv94wb+ZnHH++GCh4IC17FiFPAroR2X5+V
+	iphz8dD6SJK79su3Auwc5+2x5kesoGdzXTqeaOmsgeqppZPE0LZa76jrQhjCaguv1QOKPW+vrnS
+	FctYUB9rGXa1xeAuab4FNdfEXH1dZp69zWpOXGq13RLX3X0D+wYyikcDVOXnsU9pCR3gEkk9eG1
+	LExh0u5iddrBDGGGtNDl/DFRnGlYZX/7zUgDSx/afFRsOvQD4P2XW+bZXjKiLUZuRwXZCSD/Xwm
+	68imC1GbpM4fK2IIljU4cXTnTlQDRKcfVPkyy1ULQN7EVBHoYeEbReyRYYEDuxGQ051Vf0EGbm3
+	AcHOxIZCwfH4pBPwAegd7pgh802F0p17ayvSf0AOnggREfCjvr0UZ5c1J2s/8c/HOL9fdWAundU
+	aZR1hYaASwg64stkVYSqjZHqi/a2JUCAAkoxTF9Xm+cZ2shwrLxUiwaXuQ6wVzjYIKphshgLtqb
+	yhwGesBdLmURIQql92o9pzvjQ==
+X-Received: by 2002:a05:600c:6285:b0:4a1:715d:1913 with SMTP id 5b1f17b1804b1-4a18e4760demr471450795e9.1.1792160571155;
+        Fri, 16 Oct 2026 07:22:51 -0700 (PDT)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ad6245sm68981135e9.3.2026.10.16.07.22.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 07:22:50 -0700 (PDT)
+Date: Fri, 16 Oct 2026 17:22:47 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: peterz@infradead.org, Ingo Molnar <mingo@redhat.com>, 
+	Juri Lelli <juri.lelli@redhat.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	christian.loehle@arm.com, elif.topuz@arm.com, linux-kernel@vger.kernel.org, 
+	mingo@kernel.org, sh@gentwo.org
+Subject: Re: [PATCH v3] sched/eevdf: Fix vprot across reweighting
+Message-ID: <atIxeVCdZufhlnYZ@scheduler.schedules>
+References: <20261016084604.17999-1-kayracizmeci@gmail.com>
+ <CAKfTPtBYSdrLe09hp3R0V1AgV_FY65mGaLxHUdLVhpZqU6KpKw@mail.gmail.com>
+ <atHwIzHeWaw1kXXm@scheduler.schedules>
+ <atH8BI9jCf2gqjTb@vingu-cube>
+ <atH-Rf-yL7ewRTgD@scheduler.schedules>
+ <CAKfTPtBW2RymeCLdRr2OraqX=e0RFzM3fuoTP65oG=5x_5opVw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,83 +86,154 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261016111106.221542-1-adriangarciacasado42@gmail.com>
-Organization: FRITZ! Technology GmbH
-x-ms-reactions: disallow
-X-purgate-ID: 149429::1792160522-C3FE1515-4143D72E/0/0
-X-purgate-type: clean
-X-purgate-size: 2480
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-02  mail-id: 23C7CA0432  external: no
+In-Reply-To: <CAKfTPtBW2RymeCLdRr2OraqX=e0RFzM3fuoTP65oG=5x_5opVw@mail.gmail.com>
 
-On Fri, Oct 16, 2026 at 01:11:06PM +0200, Adrián García Casado wrote:
-> When installing external modules (M=...) against packaged kernel headers
-> such as linux-headers built via 'make bindeb-pkg', ${objtree}/System.map
-> is absent because System.map is located in:
-> /boot/System.map-${KERNELRELEASE}
+On Fri, Oct 16, 2026 at 04:06:47PM +0200, Vincent Guittot wrote:
+> On Fri, 16 Oct 2026 at 12:51, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
+> >
+> > On Fri, Oct 16, 2026 at 12:27:16PM +0200, Vincent Guittot wrote:
+> > > Le vendredi 16 oct. 2026 à 12:45:45 (+0300), Kayra Cizmeci a écrit :
+> >
+> >
+> > > > >  se != curr so why is this needed?
+> > > >
+> > > > sched_change_begin() sets .running as task_current_donor(), then if
+> > > > .running is true calls put_prev_task(). put_prev_task_fair() sets
+> > > > cfs_rq->curr to NULL. While the task still is the donor. Then we enter
+> > > > sched_change_end(), we call enqueue_task() with cfs_rq->curr == NULL but
+> > > > the donor is still p. There is set_next_task() call afterwards, but it
+> > > > does not sets protection since its called with SNT_NORMAL.
+> > >
+> > > okay, but we don't want to spread this all over the code.
+> > > reweight_eevdf/scale_entity is  doing this already.
+> > >
+> > > The below should do the stuff while keeping the computation in reweight_eevdf:
+> > >
+> > > ---
+> > >  kernel/sched/fair.c | 26 ++++++++++++++++++--------
+> > >  1 file changed, 18 insertions(+), 8 deletions(-)
+> > >
+> > > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> > > index 0feec172fd37..c212c6aa9691 100644
+> > > --- a/kernel/sched/fair.c
+> > > +++ b/kernel/sched/fair.c
+> > > @@ -4863,10 +4863,11 @@ rescale_entity(struct sched_entity *se, unsigned long weight, bool rel_vprot)
+> > >  }
+> > >
+> > >  static void reweight_eevdf(struct cfs_rq *cfs_rq, struct sched_entity *se,
+> > > -                        unsigned long weight, bool on_rq)
+> > > +                        unsigned long weight, bool update_vprot)
+> > >  {
+> > >       bool curr = cfs_rq->curr == se;
+> > >       bool rel_vprot = false;
+> > > +     bool on_rq = se->on_rq;
+> > >       u64 avruntime = 0;
+> > >
+> > >       if (se->h_load.weight == weight)
+> > > @@ -4878,22 +4879,25 @@ static void reweight_eevdf(struct cfs_rq *cfs_rq, struct sched_entity *se,
+> > >               se->deadline -= avruntime;
+> > >               se->rel_deadline = 1;
+> > >               if (curr && protect_slice(se)) {
+> > > -                     se->vprot -= avruntime;
+> > >                       rel_vprot = true;
+> > >               }
+> > >
+> > >               cfs_rq->h_nr_queued--;
+> > >               if (!curr)
+> > >                       __dequeue_entity(cfs_rq, se);
+> > > +     } else if (update_vprot) {
+> > > +             avruntime = se->vruntime;
+> > > +             rel_vprot = true;
+> > >       }
+> > >
+> > > +     if (rel_vprot)
+> > > +             se->vprot -= avruntime;
+> > > +
+> > >       rescale_entity(se, weight, rel_vprot);
+> > >
+> > >       update_load_set(&se->h_load, weight);
+> > >
+> > >       if (on_rq) {
+> > > -             if (rel_vprot)
+> > > -                     se->vprot += avruntime;
+> > >               se->deadline += avruntime;
+> > >               se->rel_deadline = 0;
+> > >               se->vruntime = avruntime - se->vlag;
+> > > @@ -4902,6 +4906,12 @@ static void reweight_eevdf(struct cfs_rq *cfs_rq, struct sched_entity *se,
+> > >                       __enqueue_entity(cfs_rq, se);
+> > >               cfs_rq->h_nr_queued++;
+> > >       }
+> > > +
+> > > +     if (rel_vprot)
+> > > +             se->vprot += avruntime;
+> > > +     else if (curr || update_vprot)
+> > > +             se->vprot = se->vruntime;
+> > > +
+> > >  }
+> > >
+> > >  static void reweight_entity(struct cfs_rq *cfs_rq, struct sched_entity *se,
+> > > @@ -4965,7 +4975,7 @@ static void reweight_task_fair(struct rq *rq, struct task_struct *p,
+> > >       for_each_sched_entity(se)
+> > >               weight = __calc_prop_weight(cfs_rq_of(se), se, weight);
+> > >
+> > > -     reweight_eevdf(&rq->cfs, &p->se, weight, p->se.on_rq);
+> > > +     reweight_eevdf(&rq->cfs, &p->se, weight, false);
+> > >  }
+> > >
+> > >  static inline int throttled_hierarchy(struct cfs_rq *cfs_rq);
+> > > @@ -8200,7 +8210,7 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
+> > >       weight = enqueue_hierarchy(p, flags);
+> > >
+> > >       if (!curr) {
+> > > -             reweight_eevdf(cfs_rq, se, weight, false);
+> > > +             reweight_eevdf(cfs_rq, se, weight, task_current_donor(rq, p));
+> > >               place_entity(cfs_rq, se, flags | ENQUEUE_QUEUED);
+> > >               __enqueue_entity(cfs_rq, se);
+> > >       }
+> >
+> > On the old code on_rq was always false. But because enqueue_hierarchy(),
+> > se->on_rq is always true. So this just goes to the other path in
+> > reweight_eevdf().
 > 
-> Currently, scripts/depmod.sh only checks ${objtree}/System.map and skips
-> running depmod with a warning, leaving newly installed out-of-tree
-> modules unindexed in modules.dep.
+> I changed the interface and the last arg is no more on_rq but force
+> the update of vprot
 > 
-> Fall back to ${INSTALL_MOD_PATH}/boot/System.map-${KERNELRELEASE} when
-> ${objtree}/System.map is not readable so that depmod runs properly
-> during external module installation.
+> >
+> > Also, vruntime can move in place_entity() too.
 > 
-> Signed-off-by: Adrián García Casado <adriangarciacasado42@gmail.com>
-> ---
->  scripts/depmod.sh | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
+> But still, this is horrible...
+
+Yeah. There is really no clean way of fixing vprot in all the ways.
+Just a cleaner way than the other.
+
 > 
-> diff --git a/scripts/depmod.sh b/scripts/depmod.sh
-> index 3c34fecac..d6d1b9547 100755
-> --- a/scripts/depmod.sh
-> +++ b/scripts/depmod.sh
-> @@ -12,9 +12,14 @@ KERNELRELEASE=$1
->  
->  : ${DEPMOD:=depmod}
->  
-> -if ! test -r "${objtree}/System.map" ; then
-> -	echo "Warning: modules_install: missing 'System.map' file. Skipping depmod." >&2
-> -	exit 0
-> +system_map="${objtree}/System.map"
-> +if ! test -r "${system_map}" ; then
-> +	if test -r "${INSTALL_MOD_PATH}/boot/System.map-${KERNELRELEASE}" ; then
-> +		system_map="${INSTALL_MOD_PATH}/boot/System.map-${KERNELRELEASE}"
-> +	else
-> +		echo "Warning: modules_install: missing 'System.map' file. Skipping depmod." >&2
-> +		exit 0
-> +	fi
->  fi
->  
->  # legacy behavior: "depmod" in /sbin, no /sbin in PATH
-> @@ -25,7 +30,7 @@ if [ -z $(command -v $DEPMOD) ]; then
->  	exit 0
->  fi
->  
-> -set -- -ae -F "${objtree}/System.map"
-> +set -- -ae -F "${system_map}"
->  if test -n "$INSTALL_MOD_PATH"; then
->  	set -- "$@" -b "$INSTALL_MOD_PATH"
->  fi
-> -- 
-> 2.39.5
+> Also, after more thinking, I don't think trying to keep vprot correct
+> in all cases is worth the effort, nor is it achievable without cost.
+> When one changes the prio and/or the slice of the running task, that
+> task might no longer be the best one to pick anyway. We should just do
+> our best effort like other places where we only decrease or cancel
+> protection to ensure it will not have an extended protection slice.
+
+So something like below for !curr path?
+
+	if (!curr) {
+		reweight_eevdf(cfs_rq, se, weight, false);
+		place_entity(cfs_rq, se, flags | ENQUEUE_QUEUED);
+		if (task_current_donor(rq, p))
+			cancel_protect_slice(se);
+		__enqueue_entity(cfs_rq, se);
+	}
+
+Does this work for you? And keeping the reweight_eevdf() part as is?
+BTW, I didn't typed a comment right now, so if you say 'yes' I'll add a comment
+above how even task_current_donor() can return true on the !curr path.
+
+Thanks!
+
+Kayra
+
+
 > 
-
-Thanks for report and patch.
-
-For the record, this is what I can find in Debian's Linux packages:
-
-Debian puts a dummy System.map to /lib/modules/$(KERNELVER)/System.map 
-(linux-image-$(KVER)-$(DEBVER)-$(ARCH).deb) and the real System.map is 
-only available in linux-image-$(KVER)-$(DEBVER)-$(ARCH)-dbg package 
-at /usr/lib/debug/lib/modules/$(KVER)-$(ARCH)/System.map.
-
-So, do we need a valid System.map for out-of-tree modules?
-
-At a first glance, you patch looks good to me.  But lets way some days 
-for other feedback.
-
-Kind regards,
-Nicolas
+> >
+> > Thanks!
+> > Kayra
