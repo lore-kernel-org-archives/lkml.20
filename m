@@ -1,126 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9463CF68E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:28:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A7B47CC91
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:31:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792153728; cv=none; b=GKQdTPfQonOFBzVXUNS12OwhIn7PshMBBaoJiU3NE48QyItOLdhE6X3O3jr73foQ7/xL43ObRWew+w5T9jv5ZBkIQrnTa0scXMOwH7fBh8stY7FWSdYZLfThxgSKyG9XwIRHt+B/du6YWVE9Zts6Rq/ScU7g2BXEB5AU6yOdGs0=
+	t=1792153887; cv=none; b=ELqJPvU23B+7SQ5ya4WgQe279yFB+6BM/+VxwXEsh6wIButc4NjwtVpiFlBPgt+h4UBYrsnZ7V7rjO+xoYYMM3aZHff1NcECZc6VTIfNARnHTrc3TFlS4fWP5q74ZBvIwVXcUuPb7uPRJw6RY6OzZuM+3osbgceFk5bu6vDpeD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792153728; c=relaxed/simple;
-	bh=T1W17b8xPZaroEZijoek+Vna3qIAkTvc3xtdOUlylJQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L8CL7LO7/LoLAUtlFQyShNn6Rq8llJa4Uf3/ki6HfSnCAZ7Q0jgznFfXVp0we4WUqKNpiE637mB39EcjaoX9IZRIR3H5YCmF0pxKBxS3w5489Nrov0Te96Yg9TCeGMl1QW/ScdC4lVfc50hfrwlCC1U5y8A1CToFzU+qCbEcazA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PyXKnWWm; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792153887; c=relaxed/simple;
+	bh=7GYnwhI3jVn6b4pynLH+o13sxdIvDiuogpoaPN+NUKU=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=YUKS7GeiY9m35nvOPLwCZRiXZ/S9X7JA7BP8eDBlPc125erL+G9RoxCn1udxt2fiVcbznfkAIcY27vLvdnjPdYrLqse99zoVen+4OhZ67JzcKnvUZhqyOD7J3I2ePfV1VhOXMcHvetXk1nv++pnm3jbF0RJ4JV1jifIYx1+JzwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=k2Be9rfY; arc=none smtp.client-ip=209.85.128.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PyXKnWWm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792153727; x=1823689727;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=T1W17b8xPZaroEZijoek+Vna3qIAkTvc3xtdOUlylJQ=;
-  b=PyXKnWWmH1kMg0ko9ir9EdpndBC+/WBAxYxQQT6vZBgSG5rAvrsHSgBN
-   RYfHhWHTghgffx7cmiImNI9FHlBsI9OP7sfT0AbiDBw+hflwkSuad7SrK
-   xXf+QFhdfIvzQaZ7uQygD16duW4gZz7FBQFhH8UIe0xwcTJVp/p1/Hd8E
-   4gGlo+e//OEU8N2wyimEH+bIf0Wb1v/giwq4KVeyN0gEZQBgL1GCwisGD
-   XQTKIUTlm6hQnJ9ofbB0nJOcTpEud3NiUkSSIEKBlH+xrUSAHNkuHSv63
-   Nw/W3ngsq+kFGR2tw72+Joe2ayBP+rWPg3p2xx7Tr1v/W9Q6rP1de/Na0
-   A==;
-X-CSE-ConnectionGUID: opmonh6CROyA17to0UbQdw==
-X-CSE-MsgGUID: X0sPoxj3SqOeE+CCowmYuQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="838453"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="838453"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 05:28:46 -0700
-X-CSE-ConnectionGUID: eJjhAYWnS6SEKpUHkUjqUQ==
-X-CSE-MsgGUID: vL52YNVYRVGcOP445kR2QQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="2256804"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.56])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 05:28:43 -0700
-Date: Fri, 16 Oct 2026 15:28:39 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Hugo Sales <hugo@hsal.es>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
-	jfalempe@redhat.com, javierm@redhat.com
-Subject: Re: [PATCH 0/2] drm/client: Keep larger modes in connector->modes on
- fbdev hotplug
-Message-ID: <atIYd0dd6ynXulwQ@intel.com>
-References: <20261015212545.1989962-1-hugo@hsal.es>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="k2Be9rfY"
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a1ad49096fso10174865e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:31:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792153884; x=1792758684; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7GYnwhI3jVn6b4pynLH+o13sxdIvDiuogpoaPN+NUKU=;
+        b=k2Be9rfYIL9Pei36b3BrPQAFs1l7MhyyWe40PSciakTilBjJV4Qn6D+oqAA4S9sDK6
+         TaQ4X3uOadMYqeon4GWEcLQ9PqfVH0NKtY3s/qimv2TGc7PEc34uTKwsGJ/u71u7RbEs
+         SjqOvzzoR2dHcSsTy/GCZHoAq6GlDDoyNmn2+yPxmdVv3PHqmosYEHRLDgEK2qOQSdKt
+         8DxdAlWxXbEj7FOKxRd9Wiu0otOJCNvTQfSph/JmtBRgsCmw1RF4D7+a9n4YqB5mTlo4
+         lNbKvW4dZaF1GqR3v9XykddNvxCrM+F/Bqq0ksl0r4RYNUw7Eh8JMJ/TuFGapOlIFLZ1
+         z52w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792153884; x=1792758684;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7GYnwhI3jVn6b4pynLH+o13sxdIvDiuogpoaPN+NUKU=;
+        b=CgfLsejuhpCwm2yJWFBevMHEbwK0PZAZsJe/VhsVPC36ziIq5pVEiSWbhvKnD3Rnsc
+         JcixwuWBpUhk267NvalnumvyeiamzR9jpToaqo7hcT6hDfMgmfqelwDOsRuNGZW9nmk6
+         t/gcmaQDqFBp10mRFECVPH0Bjb01wdb48L7oYvAiPUX2RgATEjbEEX1XiiQ8Xrtp0A/H
+         5oYQbMhcz8kPFBRLotBsFOco64MYpN39gvXMr9LDx0FUWEaJqtmeojKdWKpGONdG0sFK
+         /J6U9ElcGEhAl+xeYOFWhDwDRbXiDMqL+rMR5/36n5Gnp7TBzhfmKoH0qB2QcNCtNyzJ
+         7zOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwtcg9VDiXp+ECTup8n7UvXZabbVxXIncdP+ZyK0bzoEBZExhNoc91QD6gBuv+dteuXYaOUMc/AjGhn2Pw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJkgk2FoQwnXRgoulvzUIjmr14t1oL4Ltok1Sqn2aGc1NRoih89
+	q5GjiJMBesl7Eh1x06ET8M8vqJIzVaGBhqjrKs8HFKtfV4pSOm/+u5UjaE65hXorVG8lYWVmC39
+	maNsrUsTPu98ukdx10Q==
+X-Received: from wmee11.prod.google.com ([2002:a05:600c:218b:b0:4a1:bd96:2aa0])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:c106:b0:4a1:7a1e:6910 with SMTP id 5b1f17b1804b1-4a1c6635d15mr53398115e9.4.1792153883281;
+ Fri, 16 Oct 2026 05:31:23 -0700 (PDT)
+Date: Fri, 16 Oct 2026 12:31:22 +0000
+In-Reply-To: <20260930122755.1657820-2-phasta@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261015212545.1989962-1-hugo@hsal.es>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Mime-Version: 1.0
+References: <20260930122755.1657820-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261016123122.3744636-1-aliceryhl@google.com>
+Subject: Re: [PATCH v2] rust: DmaFence: Remove static lifetime
+From: Alice Ryhl <aliceryhl@google.com>
+To: Philipp Stanner <phasta@kernel.org>
+Cc: Alice Ryhl <aliceryhl@google.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, "=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 15, 2026 at 10:25:43PM +0100, Hugo Sales wrote:
-> On an ASUS ROG Flow X13 with a 3840x2400 eDP panel, booted with
-> video=eDP-1:1920x1200@60, an HDMI hotplug makes fbdev reprobe every
-> connector with its 1920x1200 framebuffer as the limit. connector->modes
-> loses the panel's 3840x2400 mode, and after suspend/resume amdgpu drives
-> the panel with the 1920x1200 timing. The image ends up squeezed into the
-> top-left corner. Details are in
-> https://gitlab.freedesktop.org/drm/amd/-/issues/5983
+On Wed, Sep 30, 2026 at 02:27:56PM +0200, Philipp Stanner wrote:
+> A FenceCallbackRegistration can stem from another party than the one
+> that has created a Fence. Should that party forget the registration
+> object (for example through a refcount cycle) and then unload the
+> module, a fence signaling would run into the unloaded module, causing
+> UAF bugs.
+>=20
+> So far, this has been solved by demanding that the payload data of the
+> registration object demanding static lifetime.
+>=20
+> It turns out, however, that this is harmful because the static lifetime
+> bubbles up to all users, ultimately potentially causing a large amount
+> of driver data to be static, which renders the lifetime obsolete.
+>=20
+> Solve this issue instead through an unsafe requirement which demands
+> that the user does not forget the registration object. This is also the
+> solution chosen by ScopedWork.
+>=20
+> Suggested-by: Danilo Krummrich <dakr@kernel.org>
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>
 
-Sounds like an amdgpu bug.
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 
-> 
-> Patch 1 makes drm_client_modeset_probe() probe with the device's limits
-> and moves the framebuffer size check into the fbdev mode pickers.
-> Patch 2 adds KUnit tests for it
-> 
-> fbdev's hotplug probe has passed the framebuffer size since 2010
-> (4abe35204af8). The pickers didn't check mode sizes then, so leaving
-> larger modes out of the list was what kept fbdev from picking one. They
-> check the size themselves now, so the probe can use the device's limits
-> like initial setup, drm_log and GETCONNECTOR already do
-> 
-> The HiBMC thread "[RFC] drm/client: Relax clone mode selection in
-> drm_client_target_cloned" runs into the same pruning: its 640x480
-> framebuffer removes 1024x768 from both connectors' lists. With this
-> series userspace sees that mode again, but fbdev still can't use it, so
-> this doesn't replace that RFC:
-> https://lore.kernel.org/r/a48e0b33-7eab-478e-a396-b6e76b7a066f@huawei.com
-> 
-> I sent an amdgpu fix for the same symptom separately. It makes amdgpu
-> fall back to the encoder's native mode on eDP and LVDS:
-> https://lore.kernel.org/r/20261014223041.171317-1-hugo@hsal.es
-> This series fixes the shared mode list for every driver instead. Either
-> one alone fixes the reported bug, from my testing
-> 
-> On amd-staging-drm-next with only this series applied, with an HDMI
-> hotplug and suspend/resume (pm_test=platform) in a loop, 255 of 255
-> resumes kept the native timing. Without it, 28 of 29 came back with the
-> wrong timing, and the same loop on unpatched v7.2.8 got it wrong in 103
-> of 103. The drm KUnit tests pass, also under KASAN, which reports
-> nothing in the code this series touches
-> 
-> Hugo Sales (2):
->   drm/client: Probe connectors with the device's mode size limits
->   drm/tests: Add KUnit tests for the client mode size limits
-> 
->  drivers/gpu/drm/drm_client_modeset.c          |  57 +++--
->  .../gpu/drm/tests/drm_client_modeset_test.c   | 222 +++++++++++++++++-
->  2 files changed, 260 insertions(+), 19 deletions(-)
-> 
-> -- 
-> 2.55.0
-
--- 
-Ville Syrjälä
-Intel
+Applied to drm-rust-next. Thanks!
