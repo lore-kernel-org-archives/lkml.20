@@ -1,64 +1,64 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9DE3A4521
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:59:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0333AA9D8
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:59:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792126762; cv=none; b=SEzcmPxFJS7VCrqG9K6AKgL8oLnGGNK0rEiy2hbDpzlXjcCxRwXvXlB6vi951TCoH3qocLx6+QNvEffDR+HCC6ncFGRT4nw/NYAVDEIhSCH3Y952uT+QL4e68/PaRyK7O0KIhqrSOZeaAKybU3gu6SVBfK1A2V3WotIx6k5ECbQ=
+	t=1792126764; cv=none; b=ksS8tSOxQ5KXmwRE0mkcOMRE47lYAfHftDVn52yEEBV31SQ19AacBLqT9AZAz196ZwSbKzeqUMJdoKOHjHEargdKseqtJLu9/2S80V7bjOoB2NjiXuQPortSv93qnYeoWFd4vICOYoyPcMC1cTDuSfF69N125SAFEGd9cxJLH5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792126762; c=relaxed/simple;
-	bh=crYD9FsCo7u/ZLp7PH3HreLTAmNAPByXPBRR/HgHCL0=;
+	s=arc-20240116; t=1792126764; c=relaxed/simple;
+	bh=EDqH+UtMu9lLfpvEqam2Dre/TtwJRJkTG1q+T7HLHiI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cMOBjk7EH69gwPE4pk3l66iunLtdOC0avGB/A1+KiorYgIUpZxHeWRGE6+XTiwBnX8VEsl4EFU1qPFHLoRZ9/VyBvXhpp8l72zxt1i7LpFlBA+6/v7Cl03ITI/NPadG4N4D7YNgAUO4+Ms1c/UJJnoDiwLkdp6BMrEa6zsGve/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CYpitZqq; arc=none smtp.client-ip=209.85.219.49
+	 MIME-Version; b=FzPRtBKqRVH8cRIQATrXdX+Ig6xvn9ukdGoa2XopV1dxYeVAiVto5WMKqPKMqQTrpmIbXU1wD3kEBKR150KnARQbTrYjQzELzDqgWOivg3AMuT0Lj2E+qDlP2xUncX9YZ6VrlK+qOiFHKNcQ2v7DcuetdE1rrvjEmxZLRD51Gfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ITjleeO6; arc=none smtp.client-ip=209.85.222.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CYpitZqq"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91b813ac020so76013086d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:59:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ITjleeO6"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93e6fb35f91so565196885a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:59:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792126760; x=1792731560; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792126762; x=1792731562; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=z5pMf4NdY1cyxsLm3fpLx1RNiNh9Zh4IdtUUYRx7XZw=;
-        b=CYpitZqqgbCaddqOw4a4GbZiZPSlFSE2a8z2tuiWqGglcJD6H83CEZWarY0R7Qnsc9
-         Stql8hCSji4iPsl5lst7LOEcUnbPQirYzGJ/GLuN+2bbhAu9strJM6O0wySha3A6MwhO
-         G0NfpUzWoRxMecu/IpxSMLJFyuR/WOA37HQaLkPzTKcAjWGacUtjD+29U+IkHFffQBx7
-         mPoYGgYc+qvRWi1OHseqhbLrYe/NFyOMv9X7CJyNvyZn+b7qNQN1Xivi9q9//KKJ+MCD
-         lS1uwCEyx9/30wZLBNmXUdOz3o0QlotN3h83S7tolJEyMJ8tVLGI7fP2AE6gqUhHitxv
-         C83w==
+        bh=YXMmAjVIKkIpvClePKCqZRvItWuOvpeYbF8NBgtQiLs=;
+        b=ITjleeO6OJUB3L02RHa9imrSRZZ2I7Mz/mKxiDrEpcUDsWG50hExjpHwGN/NcxRbuH
+         aDznMOQXxGe2XC2iKqm7mZKYh5NcPW0W0TWvPENhG7p5hJe34ufFbMbSP0Yo5gGQ5FMU
+         eMmnpAaesoO8NhClZQjgOgxHkqpOaD1IaAXEYuGaAkIYvZfJGo3sBGMszrAFalk3vZ7R
+         sxfXEc2BK8oJaDmpq2D0eUHjxa/bP/xfUONOIfoIUalsmzYCPAySXNJnhMlt1jUSqmpF
+         qCfaQBppOAiZj6PbEVrx26HmBcD+keofu2ioR+p2jbbLcBKw7C7KVlpjGlirlpn1YSTe
+         2LOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792126760; x=1792731560;
+        d=1e100.net; s=20260707; t=1792126762; x=1792731562;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z5pMf4NdY1cyxsLm3fpLx1RNiNh9Zh4IdtUUYRx7XZw=;
-        b=tnG7jpnaUpAQysJPX1qI3FLZ60Kh4TfekOhdkK4mssHvkW6yG6cZEkhIlhy20r6Hqg
-         yoiY3gpp5dJ6863a1m9u9kHR9Yz+XsYLhHPKnCa3lt7SGRRGSlNhH0fcx5+6QXTBbnaR
-         VyyJ97zWs2dqS3MeqFeG5nVtX1O4AYeI37U3bNkjrjxK4KY0EIw07mW3r4nIAe/FLXFU
-         OUOqdm7Wt8g9Ng06jQnsxbGkkSqvKaAurO/gP1/cevAnzMJ2TiKtvVxqVxZpuoi95qUL
-         J5frP46IlPo0h9VmGFChUSzfeayJPHa86LRlupQ829VQ2M9Ystjb71rdsnefaaY4z3Wd
-         sAvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBybB0Z2AQun3ViosyioITI1URsjZcLpr9pspE+FdgQRZ9P9R17fJaU06//t/+AgAYb9pQE6Da1J+l7Vwn8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsaMmkDfoJ1COANSLeWeehG5SHGJ0uRLpF3rQptBaVFjQtfPQB
-	MxS4UKLKALOyg/5F08bbCr0Je0bet9iE3psqp4EEab7S9Qk0LH/ExsRe
-X-Gm-Gg: AYBFou2veQaIwGVhwjzWYrY1ZYWZU9m0E8z1qz+euA0UX0+8t/VKxDRdygmS3HaQrlu
-	fFR/9JE0vqIESSuz1Aa3jpqY+bfBFpCUqqxOMFfR0pVbumUZDrSdmZ1Al07CL2P9b4I9g9Lw13G
-	MSF1VSWre25Gbfy/5JQfRjP7BgYNlWD2e7KBZAd4XkBHFfTlpx4O8OxYmJH9E7HW0Ms6x2miqYG
-	nrYDoV6VbCMZZW4e7xn8UFzAsqDtYl5J/B9I9kUlfCCeaqajDkJskhgCieBWWIL1d5wz+Gxbx0O
-	hVlBATkgx/ZiJCvkjbuxZIQfUt7oPpeu7b1BY7mQCoVJapl4+/TN0f34ZS5fXOqmpmiBZFq/Hl9
-	VkB5QghceimHRmcEULFAsWQBnSiNR3ofoapxlP2jshHdQs8KGGUS3U9krbZS2pMUyq8kV/YQqaZ
-	MP8+OqhdbYfLQWMYMwn9DxxmVipijSCApAPQ1Rrt4b0uD5CFtLSZFsRIPfZehJsTGCWDKWlaSmp
-	Np9BCGiRJE8I2AVhBhMepdIWLYcSgkh
-X-Received: by 2002:a05:620a:2b8b:b0:93e:c12c:fbb6 with SMTP id af79cd13be357-93ec12d082emr3415103385a.67.1792126760053;
-        Thu, 15 Oct 2026 21:59:20 -0700 (PDT)
+        bh=YXMmAjVIKkIpvClePKCqZRvItWuOvpeYbF8NBgtQiLs=;
+        b=phI9tjfw2bXOASoiyYxoHWHpWmFagw79wuBnRjVRe1EzMKxYGZEP8s+G/ZLzovvN8u
+         tjXDfhI8qUcHDWrfLaEBEmuY/GPHYcJml+duZevkPOLZmY0MTqPbAs8TULn2pgsLMZVt
+         EQ4V4FEc9cNOyqEGAqRR9MRwG6FrNEzGauOYzlEufXr9VixzQHNnSXVr96PLpQpe13/n
+         Q4f6A47G5vbRTBbkC6ikdqg8ilf0NYxDZC2MHaaJO01H/VQ++pE59X5VQC84YlY7/37i
+         2IhnqydFRyILcNUqG6DzcQ26l9t1E0CUXoBbFZzqftnRtz2skML8VJ97Asm9vCZ+C8ef
+         txPQ==
+X-Forwarded-Encrypted: i=1; AKwUvByJA1M6GPWSdGJFtQhdZKDWNNEKYoqggD2OMAcELd0uZpe/jaq75gRtIqAuI1k1voxQjS1Bh1kr3Hg0JaQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI4XR/SQ/dUxepnBQr85WHlvQMI3fQ/gZkCb+VoEE+SWOtMIs3Z
+	/Br1GanRxj9LuQN5U1jljH9Q1TcH10aO2ZT70xxdiAtkYAhH0pkA/j8Y
+X-Gm-Gg: AYBFou1Tub+1LZI3TskwD52xBjJp2Zw9J5WG4MBZoZGwk9SmglEeoLmEwKAXYlAMmfx
+	BDxkOI+ggTRbx9xmE1HCphnrEGoJzPgM9cagSSbytuZm/Kq8f1w26ukTvu9dsseYxAjsIPBqlsw
+	FyRAT4nAm/LWJdXfdWOOlRybbylyS/v4f0U5DqBzcf3IDm/ofEFuJzRFbSnJFxYxTRjtEXz+RR0
+	3EgIU49HJgclzX7201367931H/Xe2l6BzWonaDKJlkRn5i8MfT5mfP6TUCs230jrDCrM0gPhNAb
+	8C1iHFx7AofZ/2S+am+LlLA5BHIo7sNoEJ4z+JJH9g0FfHBoJsYrLr1FgpzDEfNNW01dG8vDtN+
+	wdXL/ZoQTE5xSBv4pl7cxiims3Ony0YXm6hg8pEJGyDlUrp/8j8g1QXD4v+4diEWc60erqYbR7t
+	cTky32PyikL5RXbA93mZ0+WNakQNUnw+e8P8+lSrMf1JfmJ81kvRzAKhSOGo2rjALnT2F4NfM2h
+	2sXzKKO0sDxHz9oUnY8DCWm5EHu9tPY
+X-Received: by 2002:a05:620a:198d:b0:93e:942f:b8ae with SMTP id af79cd13be357-93ebd1dfff5mr3416433185a.26.1792126761933;
+        Thu, 15 Oct 2026 21:59:21 -0700 (PDT)
 Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a198372sm118038685a.27.2026.10.15.21.59.18
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a198372sm118038685a.27.2026.10.15.21.59.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 21:59:19 -0700 (PDT)
+        Thu, 15 Oct 2026 21:59:21 -0700 (PDT)
 From: Yuho Choi <oss.patchbox@gmail.com>
 To: Saeed Mahameed <saeedm@nvidia.com>,
 	Leon Romanovsky <leon@kernel.org>,
@@ -78,9 +78,9 @@ Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
 	linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH net-next v1 2/4] net/mlx5: Don't free the WC test CQ if destroying it fails
-Date: Fri, 16 Oct 2026 00:57:47 -0400
-Message-ID: <20261016045849.813696-8-oss.patchbox@gmail.com>
+Subject: [PATCH net-next v1 3/4] net/mlx5: DR, Don't free the send ring CQ if destroying it fails
+Date: Fri, 16 Oct 2026 00:57:48 -0400
+Message-ID: <20261016045849.813696-9-oss.patchbox@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261016045849.813696-6-oss.patchbox@gmail.com>
 References: <20261016045849.813696-6-oss.patchbox@gmail.com>
@@ -92,20 +92,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mlx5_wc_destroy_cq() ignores the result of mlx5_core_destroy_cq() and
-frees the CQ buffer and doorbell record anyway, and mlx5_core_test_wc()
-then frees the struct mlx5_wc_sq that embeds the CQ. If DESTROY_CQ
-fails, the CQ may still exist in firmware and retain access to its
-buffer and doorbell record. mlx5_core_destroy_cq() also returns early in
-that case, without waiting for EQ handlers that may already hold a
-reference to the CQ.
+dr_destroy_cq() ignores the result of mlx5_core_destroy_cq() and frees
+the CQ buffer, doorbell record and struct mlx5dr_cq anyway. If
+DESTROY_CQ fails, the CQ may still exist in firmware and retain access
+to its buffer and doorbell record. mlx5_core_destroy_cq() also returns
+early in that case, without waiting for EQ handlers that may already
+hold a reference to the CQ.
 
-Return the error from mlx5_wc_destroy_cq() and keep both the buffer and
-the struct mlx5_wc_sq when it fails, as the regular mlx5_ib CQ destroy
-path does. A device in internal error is not affected, since the mlx5
-core reports success for DESTROY_CQ in that state.
+Keep the CQ and its buffer when DESTROY_CQ fails, as the regular mlx5_ib
+CQ destroy path does. A device in internal error is not affected, since
+the mlx5 core reports success for DESTROY_CQ in that state.
 
-Fixes: d98995b4bf98 ("net/mlx5: Reimplement write combining test")
+Fixes: 297cccebdc5a ("net/mlx5: DR, Expose an internal API to issue RDMA operations")
 Assisted-by: LLM
 Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
 ---
@@ -113,54 +111,23 @@ This was found with a static analysis tool from ongoing, not yet
 published research, and confirmed by code inspection. It has not been
 reproduced on hardware.
 
- drivers/net/ethernet/mellanox/mlx5/core/wc.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ .../net/ethernet/mellanox/mlx5/core/steering/sws/dr_send.c    | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/wc.c b/drivers/net/ethernet/mellanox/mlx5/core/wc.c
-index 7d3d4d739e2cd..df1b1555ed8f4 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/wc.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/wc.c
-@@ -148,10 +148,14 @@ static int mlx5_wc_create_cq(struct mlx5_core_dev *mdev, struct mlx5_wc_cq *cq)
- 	return err;
- }
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/steering/sws/dr_send.c b/drivers/net/ethernet/mellanox/mlx5/core/steering/sws/dr_send.c
+index 79e3c29d1044e..8fc41adb4c756 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/steering/sws/dr_send.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/steering/sws/dr_send.c
+@@ -1130,7 +1130,9 @@ static struct mlx5dr_cq *dr_create_cq(struct mlx5_core_dev *mdev,
  
--static void mlx5_wc_destroy_cq(struct mlx5_wc_cq *cq)
-+static int mlx5_wc_destroy_cq(struct mlx5_wc_cq *cq)
+ static void dr_destroy_cq(struct mlx5_core_dev *mdev, struct mlx5dr_cq *cq)
  {
--	mlx5_core_destroy_cq(cq->mdev, &cq->mcq);
--	mlx5_wq_destroy(&cq->wq_ctrl);
-+	int err = mlx5_core_destroy_cq(cq->mdev, &cq->mcq);
-+
-+	/* The device may still access an undestroyed CQ's buffer; keep it. */
-+	if (!err)
-+		mlx5_wq_destroy(&cq->wq_ctrl);
-+	return err;
+-	mlx5_core_destroy_cq(mdev, &cq->mcq);
++	/* The device may still use an undestroyed CQ; keep it. */
++	if (mlx5_core_destroy_cq(mdev, &cq->mcq))
++		return;
+ 	mlx5_wq_destroy(&cq->wq_ctrl);
+ 	kfree(cq);
  }
- 
- static int create_wc_sq(struct mlx5_core_dev *mdev, void *sqc_data,
-@@ -360,6 +364,7 @@ static int mlx5_wc_poll_cq(struct mlx5_wc_sq *sq)
- static void mlx5_core_test_wc(struct mlx5_core_dev *mdev)
- {
- 	unsigned int offset = 0;
-+	bool keep_sq = false;
- 	struct mlx5_wc_sq *sq;
- 	int i, err;
- 
-@@ -396,11 +401,13 @@ static void mlx5_core_test_wc(struct mlx5_core_dev *mdev)
- 	mlx5_wc_destroy_sq(sq);
- 
- err_create_sq:
--	mlx5_wc_destroy_cq(&sq->cq);
-+	/* An undestroyed CQ may still be in use; keep the SQ that holds it. */
-+	keep_sq = mlx5_wc_destroy_cq(&sq->cq);
- err_create_cq:
- 	mlx5_free_bfreg(mdev, &sq->bfreg);
- err_alloc_bfreg:
--	kfree(sq);
-+	if (!keep_sq)
-+		kfree(sq);
- 
- 	if (mdev->wc_state == MLX5_WC_STATE_UNSUPPORTED)
- 		mlx5_core_warn(mdev, "Write combining is not supported\n");
 -- 
 2.43.0
