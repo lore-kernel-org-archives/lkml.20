@@ -1,220 +1,203 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E09344AB68
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:42:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569ED4AAC5D;
+	Fri, 16 Oct 2026 13:43:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158127; cv=none; b=poa4NkvZ0VmDqOQWABpslw/hG/urIcH5K8b9wh3iIyOPX1lgMH9q1qPC5VYNF3tcvuK42p0mgGpYy+v5bVKxjCnMqA9xc8yrFP3ziEQITWJXwvcyu0jhQUl2tRzBMr6Q7RKSKMOi08zBHAw4IntSogAmZc01Hd4mt5JzP+IDTv8=
+	t=1792158197; cv=none; b=uW9bSpvrUS1m9x7O9hHVBo6HhQsYJvNgE6QR5KMD49ZbCbuyvexSvQIny2SPZpAyaUOeJ9SRGbhyTtiuyyi5ljgGtWYRa/cuEFiTCDAutwtIxTozVu9/bzp/rHx83Mw476NqilLGAKtHqcRZpNpqUcpWzxFiWlP4pqtMMR4SoRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158127; c=relaxed/simple;
-	bh=RKgV5hZvafCihZFGYAAI/L2obRXJPdA1lHWrYC52Kok=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DLuMZ5D0tXuISiz0yGTj0D3EmGsQ3ucPJt7A6VmVmRXBCjH2+08HY6AdM3Y8KzYf1MU8RHuTzsHTFWyydkfjHVi+Dp8hIZxXFWeugCH0ja6GctLCYTBXHxNmEU3D/E/NUan9DJUYQbR37fehxcWuCeMqdrRVlh8llCa2TXmLFcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=orKZ0Li1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RCg4LdH4; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792158197; c=relaxed/simple;
+	bh=ny601/NZwe1DDZwdoiGgGnqLqwJrF1nQN/gmQZtE1dk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tEfHTt8S1BuFApidPpUVZoUMyDcwpMjw4CHuI2OZn9coXWViQpICJheeCm+yYUELyTsZTeNto8UatJmUTUz76tCRJ0/chDY5t5/8vsXAghyp3EVVPJQslTW0fmAushQ7Bm8n9up/ZcxWt8Zy1TlG27yCI5nmp/Qj9oRgFc2OxTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=S4qsFaaK; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="orKZ0Li1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RCg4LdH4"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GDE9E62802353
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:42:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hXlYtj95HgLNKsldaNN7asPVeJJ5Fh4BlficT6fRyak=; b=orKZ0Li1t4druC1H
-	6hY1MMvOXVDwKuo+7DpV93/wX0dUWT5ysZNdQwDKDYzgEGkGB6nYunT4cGGJScOp
-	cUFL8cU1iLX8RakwqdJs3RP7RkbtOwGGLMqXyXURNnJ39nEcAYX4pOMXzMCmycRD
-	DMWF8iQOZyhMa/yj2jWeBcufHGq910wcBNM9Ie6tEgsyWYJsuS4ekW2t1KyQ+IJx
-	iZNpBq/D4cpIpZDBx+96U1dFshdK7X11wy2IEPdODUYPNiFeFqMeTnwX49sjwU9y
-	L77MLVyAk5uMy6HiHViVYwxy30eNXFp51jh4d7NeuslWaDO1TL4+4Pv0GSPbGYCy
-	ObVc0Q==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbmmq03c5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:42:05 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-915e9e1a5f1so14544736d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:42:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792158124; x=1792762924; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hXlYtj95HgLNKsldaNN7asPVeJJ5Fh4BlficT6fRyak=;
-        b=RCg4LdH4q+LZeU/U/U3vCCcRwr1QT4Gx3xy7gbJ954dzvwRRb0ID9v1qzjrOdkTNiK
-         z7iKfPPyXnjrt/iMvxXyJFUYgNvhB3U+7OvaN+TZatzI6AGKuXCQBxZ3mQ+QVAmhLbUK
-         bg80BRHDMSNz/q3w5K6zbVtCnsZ/OmIbJoel+HSSkFRPHMToBJ1p7K+KsXyGWaTYgU4y
-         vv2X9Sp56QdBIaIJD2jspEGJnn1IQxlvmeIc5fX6QISyg1DkWQpynqvjjHiBm7W1NoxT
-         gPfs+0Jqw3pGLEvb6Yja6v0GvdbpanG+L9p3TLAwRljXRbn1u92rrCzPdxUXnLt6iJwR
-         STpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792158124; x=1792762924;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hXlYtj95HgLNKsldaNN7asPVeJJ5Fh4BlficT6fRyak=;
-        b=ozQpdbRQSaWR/s6tJD0yUi88Xum0Yvh4Cxd5U21/Pq2kGirEgUUfCHPjvhCAXArKTH
-         0bb+JYQwyPjKpMq2XIUIBmoWkIEuT86IKGdr0LGzmBHYDbKUD+ImlLi2eAEyseQYbaSd
-         Tk5TjWGnhiGYuRl012QLt3WIjQh0V4xgV6xfDNlz2fT/sGwS5J3i2VIrhLfAKEl0TlS6
-         SOGuyDEhODVDO2ylh0Yog2vrwuR8pVEhZdVlayZ1EeB1wUGY72wuNSgtbBgVGXq9+pDK
-         CuII+pg+DKAMlGXy1NPXXZOGT0ySNyT9U0zWMEd1O+Byr1cS0E9flVxP05lvPwCxHNPO
-         7XrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy27wAP8onovQS3rUf1pmtb/A/TmbcmOOZvZDd+EpmKil1kFVax58tnP/6HWZLW/fiqnL+8ZdxBWHEh1/4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIa2q0bM+VnV+rs3D9TBkHsOEDT0kU+VpbcFM+H2iqgYOl0IWut
-	zg9wmdG7gU7p8zTnALxFyJullZ49GAV4OEY7AxRXB8JqrMuEZ7KW1G4Loci+FIzuon6LueIREMg
-	+qKYAO++NBgvkFiTaJm2ltpEr44JyhqKnBdfFR+ElcVfl1kgVaze4l8FdU3NyR6YOPsA=
-X-Gm-Gg: AYBFou1U5y8biH5tE6XHx562XzlhC0N9XOMFRZiqhyzgu5dsh7ItYq5yYXKg7TuuzGs
-	KubYc+uqIpToZ/RtccPv4cJzjNz6KDGWkJzTEM/bv4hpyYs7HGd7N0LVMC7T7u+KK4kuW+FpI0R
-	Sso2XTy/+eGpVDeG9hAiwFaPuC140kCjd4d21MzbyvxHS7QV3Eu3KneDPMGnkQ0m6uXkadrdtP+
-	yC5VISrm0cA8ga9seh8EMA2I3q7nNs4kiy1LudkMSnm4DA2zR7DcVB+NA6sSmZl7ghd7NKU19zq
-	Yb+y3Syp+7VNwhS3ZDSipprkknHgW4XHUsVZqCZOoX/gQWdGdTr3TPfc3KiOJtVPk5SH3M1skYZ
-	/HSbXEJ8Xxo2eRJsNNRFwMg==
-X-Received: by 2002:a05:620a:6506:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93ebcd2b830mr3752546185a.0.1792158124363;
-        Fri, 16 Oct 2026 06:42:04 -0700 (PDT)
-X-Received: by 2002:a05:620a:6506:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93ebcd2b830mr3752538885a.0.1792158123718;
-        Fri, 16 Oct 2026 06:42:03 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1d8b4csm877756a12.26.2026.10.16.06.42.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 06:42:02 -0700 (PDT)
-Message-ID: <6eaf5257-8c9f-4cb3-9232-e8f9fb19de71@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 15:41:59 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="S4qsFaaK"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAESmr3540566;
+	Fri, 16 Oct 2026 13:43:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=hz/Wzr
+	r7Ghfv/m9Znn7aTpfAD1ntAjz54+O38Sp8PJI=; b=S4qsFaaKSsv41leWspk3u3
+	a0Fs63zUvkOcSzTwUdHXX+MVNpDo/HU+qIoCyQhpk5gCi1Azy/8HIM77gwAK19tI
+	dICk2fInxkCDSx0CV0K9B8nmvMAhPdU4GMMv8zT1+302AvS+qJMcZD0PV90oNIuM
+	TdNyGlWMhDSTP9wwmLiGXyj+Z0eT3CwqSyx4ClzJvA3pe3AtVKPRYERRCmhfOS7l
+	sEF8rN9HUNVF9h3T66wR5jE4syAxgk0mOQkfXcqwOMAFsDCH22PjUCrXgu/hDGPv
+	tK1tNEl6uWyIkBg0VCL3MCASIm8hdz195QcpjJnsfECh9NJCsF3PA/76SNJQmZmg
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1wptcr-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 16 Oct 2026 13:43:01 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAJs0d3503283;
+	Fri, 16 Oct 2026 13:43:01 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hb34mkq61-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 16 Oct 2026 13:43:00 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69GDgvPl33227166
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 16 Oct 2026 13:42:57 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E3FFA20043;
+	Fri, 16 Oct 2026 13:42:56 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5CAE520040;
+	Fri, 16 Oct 2026 13:42:53 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.124.217.170])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 16 Oct 2026 13:42:53 +0000 (GMT)
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+        Masami Hiramatsu <mhiramat@kernel.org>,
+        linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
+        =?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
+        Vincent Donnefort <vdonnefort@google.com>,
+        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+        kvm-ppc@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v2] ring-buffer: Do not check si_mem_available() before deferred init completes
+Date: Fri, 16 Oct 2026 19:12:47 +0530
+Message-ID: <20261016134247.70722-1-amachhiw@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261009163557.88467-3-amachhiw@linux.ibm.com>
+References: <20261009163557.88467-3-amachhiw@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] arm64: dts: qcom: Fix touchscreen address on Dell
- Inspiron 7441
-To: avalon.vargas.centeno@est.una.ac.cr,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Val Packett <val@packett.cool>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Laurentiu Tudor <laurentiu.tudor1@dell.com>
-References: <20260914-dell7441-touchscreen-v2-1-7f7224c0cce5@est.una.ac.cr>
- <20260914-dell7441-touchscreen-v3-1-062d6b93d1ea@est.una.ac.cr>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260914-dell7441-touchscreen-v3-1-062d6b93d1ea@est.una.ac.cr>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA1NCBTYWx0ZWRfX7JU2vlBiJ3YR
- o3CQE1eDwMyWOO7tMQONC55Ql3li4Qx2etB34IuysO8D5UTF8DSiLUE2N/oZkr4phk2YoOq8jSu
- yFgcsxv9aMLAWyu9BNxBEWXanIPJrkA=
-X-Authority-Analysis: v=2.4 cv=P9uvFSAu c=1 sm=1 tr=0 ts=6ad229ad cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=bC-a23v3AAAA:8 a=VwQbUJbxAAAA:8 a=iLNU1ar6AAAA:8 a=KKAkSRfTAAAA:8
- a=EUspDBNiAAAA:8 a=gXMl86fzaOV-y-lz5Y0A:9 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22 a=FO4_E8m0qiDe52t0p3_H:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA1NCBTYWx0ZWRfX/B6WLRtKa0oT
- YBmMdSaEQoVBC4vksYoURc++kRVhoGjyvwH72ZtnpYbuCvksEqQgKyfvNalxmPhVaMoTx405aX0
- p5ABxChRzqrSOYdAMwMnNl2rfNMQxQXUayAbo3KROEQPE8fUf0vPSFEseDNi1v1NTH7LpSAN3VM
- /GeCZ6PcUNRs32XDwvxmEWenQEUdJWI0Ok1Y+ebYdDyRwDwS7kVBUv5UHEeFTKLtd9v42kiuIUi
- 7NFauyzAKg0kfUyabWKr9wDcKpBe+dtoJfM0xlyGwEM9n8M+V9EB9asBzJ+pVL1ZRQ9LdDHoeKL
- lbR7LJA4kbcaw7oVkryf6JaJ0pIe3Dgpt9H9YtAMUcZX1Ed3+KgeMHQ4XfDaldXuypw+sQGd64G
- GUnCxUSnCL3hyCjEEBP0c1UJIg1u1drhx/WLGjsVfV3wSKwesLFNoTIfR4xQZ3qDZoQOpztBhmN
- Gmr4gTyJEMuO9XYUuXg==
-X-Proofpoint-GUID: jHJvRVb7FosCWmmoH7hHpjkW1icnQkKl
-X-Proofpoint-ORIG-GUID: jHJvRVb7FosCWmmoH7hHpjkW1icnQkKl
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA1MiBTYWx0ZWRfX4WHfQ1W7wcu6
+ yaUgmPuJg+SPqEGkimZtjqa1vy4PJdUR4nD6nG8hB+bcPG6rGKC5+wVsoYEcDlRdTLilGo02wF8
+ uMaIPfKxgFyAaIURCbxQwb+yqmzcV4E=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA1MiBTYWx0ZWRfX2tZyr/57vI0K
+ wjhX+iajny+iBnHRHRUN/VOJcAfOprHG6oFvrMN+FCT/GuEdPhKd4WzBmHdiF5Aj/zypnWLOmDB
+ sPAJwmWj0m1/AUukOGoJmnh93VMQUIX/xUMPNnbDWTrIT3f9VHvZIJbgkvye6+y28AngnkH2nBz
+ CjneMuH6GzvtKj1ws5mWy/iWgudcbMpzUjwKiM58Geed2yn7BK+liba3DJsuPit/EIzkLbUNLAj
+ 0BOl628uFCQfXwStaDC5KQTmmQsw5O/20+Txl9Fwj59ms6jDzeP7lc/W1MdTwKguaM5wMfzX+6A
+ 5JVIzV5mNiIXsqMOazz5QDfHIQxS5tf0PHw6lN1WGhBkUEHODZ9wR26ik+aMtUvO67ZlCEzr80N
+ GIl7eLdffnAnpo1ysxJKYXc7cZsDe+awTOxzPt987pzF+nC85QMDaUR2OpDGkT7LIsV6VajCiSU
+ mU8N8LQ8XyJNNN+VsaA==
+X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6ad229e6 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=K0jeOQhstxwOhyhfrK8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: DkEQCYaunIu9jw2BbyhxhUMgtZ1rsqrC
+X-Proofpoint-GUID: 6jv_EiBt89_ZMqRCvPVa1SGK35B2xEw_
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 phishscore=0 adultscore=0 lowpriorityscore=0
- clxscore=1015 priorityscore=1501 bulkscore=0 impostorscore=0 spamscore=0
+ impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
+ spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160054
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160052
 
-On 9/15/26 12:04 AM, Avalon Vargas via B4 Relay wrote:
-> From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
-> 
-> The LXST2021 touchscreen on the tested Dell Inspiron 14 Plus 7441
-> responds at I2C address 0x09, while the device tree specifies 0x10.
-> Probing the latter fails with -ENXIO and no touchscreen input device
-> is registered.
-> 
-> Use address 0x09, matching the LXST2021 configuration on the related
-> Dell Latitude 7455. With this address, the controller identifies as
-> 29BD:1103 and binds to hid-multitouch.
-> 
-> Fixes: e7733b42111c ("arm64: dts: qcom: Add support for Dell Inspiron 7441 / Latitude 7455")
-> Signed-off-by: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
-> ---
-> This replaces the earlier report-plus-diff with a patch submission.
-> Only one unit has been tested. I have no evidence of double-sourcing
-> or a working Inspiron touchscreen at 0x10; a typo remains possible.
-> 
-> touch input and suspend/resume. The native upstream patch has not yet
-> undergone a full kernel DTB build or dtbs_check.
+During early boot (early_trace_init() called from start_kernel()),
+tracing allocates initial ring buffers (temp_buffer, array_buffer, and
+snapshot_buffer) for CPU 0.  Later, as secondary CPUs come online during
+smp_init(), each CPU's ring buffer is allocated via trace_rb_cpu_prepare().
 
-This is a prerequisite for all contributions.
+Before attempting page allocation, __rb_allocate_pages() performs a
+heuristic check using si_mem_available() to return early with -ENOMEM if
+memory appears insufficient.
 
-Bryan, does the touchscreen work for you without this patch? Is this simply
-double-sourcing?
+However, on kernels built with CONFIG_DEFERRED_STRUCT_PAGE_INIT=y,
+NR_FREE_PAGES only reflects the initial non-deferred pool across the entire
+period from early_trace_init() through smp_init().  defer_init() leaves
+only a single section per node (e.g.  16 MiB with 64 KB pages) initialized
+up-front, and on kernels with large static binary footprints (debug
+configurations enabling PAGE_OWNER, DEBUG_PAGEALLOC, KFENCE, or SLUB_DEBUG),
+early core initialisations (SLUB caches, vmalloc, static ftrace records)
+consume virtually all managed pages in this pool.
 
-Konrad
+si_mem_available() therefore returns a false negative (often 0-1 pages)
+across both SYSTEM_BOOTING (for the initial CPU 0 buffers) and
+SYSTEM_SCHEDULING (for secondary CPU buffers via trace_rb_cpu_prepare()),
+causing __rb_allocate_pages() to prematurely abort with -ENOMEM.
 
-> 
-> Validation: Linux 7.2.4 plus the equivalent local DT overlay, physical
-> ---
-> Changes in v3:
-> - Add the Fixes tag for the commit that introduced the incorrect address.
-> - Link to v2: https://patch.msgid.link/20260914-dell7441-touchscreen-v2-1-7f7224c0cce5@est.una.ac.cr
-> 
-> Changes in v2:
-> - Drop the testing details from the commit message as requested.
-> - Link to v1: https://patch.msgid.link/20260914-dell7441-touchscreen-v1-1-d79540ca5e81@est.una.ac.cr
-> 
-> To: Bjorn Andersson <andersson@kernel.org>
-> To: Konrad Dybcio <konradybcio@kernel.org>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Laurentiu Tudor <laurentiu.tudor1@dell.com>
-> To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> To: Val Packett <val@packett.cool>
-> Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
-> index 75e10d97c..0cf5716cd 100644
-> --- a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
-> +++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
-> @@ -25,9 +25,10 @@ &gpu_zap_shader {
->  };
->  
->  &i2c8 {
-> -	touchscreen@10 {
-> +	/* LXST2021 */
-> +	touchscreen@9 {
->  		compatible = "hid-over-i2c";
-> -		reg = <0x10>;
-> +		reg = <0x09>;
->  
->  		hid-descr-addr = <0x1>;
->  		interrupts-extended = <&tlmm 51 IRQ_TYPE_LEVEL_LOW>;
-> 
-> ---
-> base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
-> change-id: 20260914-dell7441-touchscreen-6b6201348ab6
-> 
-> Best regards,
-> --  
-> Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+This failure is false: the buddy allocator is designed to replenish
+ZONE_NORMAL on demand via deferred_grow_zone() when an actual allocation
+is attempted.  Checking si_mem_available() before calling alloc_pages_node()
+short-circuits this on-demand growth entirely.
+
+deferred_grow_zone() is only permanently disabled after page_alloc_init_late()
+completes (it spawns per-node kthreads and blocks until done), which happens
+inside kernel_init_freeable() — before system_state is set to
+SYSTEM_FREEING_INITMEM.  Skip the si_mem_available() check until
+SYSTEM_FREEING_INITMEM, at which point all deferred pages are initialized
+and si_mem_available() is accurate.
+
+Wrap the guard in #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT so that on kernels
+without deferred init the original check is preserved unchanged.
+
+Fixes: 2a872fa4e9c8 ("ring-buffer: Check if memory is available before allocation")
+Cc: stable@vger.kernel.org
+Reported-by: Michal Suchánek <msuchanek@suse.de>
+Closes: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
+Link: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
+Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+---
+Changes since v1:
+ - Extend the guard to cover SYSTEM_SCHEDULING as well: smp_init() calls
+   trace_rb_cpu_prepare() -> __rb_allocate_pages() before page_alloc_init_late()
+   completes, so the false negative window spans both SYSTEM_BOOTING and
+   SYSTEM_SCHEDULING. Use system_state >= SYSTEM_FREEING_INITMEM as the correct
+   boundary.  (Sashiko, Vincent Donnefort)
+ - Wrap in #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT to preserve the original
+   check unchanged on non-deferred kernels. (Vincent Donnefort)
+ - Drop Tested-by: guard condition changed, requesting fresh test.
+
+ kernel/trace/ring_buffer.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 04bb94c29f58..aa877a272c89 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -2452,10 +2452,24 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
+ 	 * memory. It may not be accurate. But we don't care, we just want
+ 	 * to prevent doing any allocation when it is obvious that it is
+ 	 * not going to succeed.
++	 *
++	 * With CONFIG_DEFERRED_STRUCT_PAGE_INIT, NR_FREE_PAGES only reflects
++	 * the initial non-deferred pool during early boot and throughout SMP
++	 * bring-up (smp_init() runs before page_alloc_init_late() completes
++	 * deferred initialization). si_mem_available() returns a false negative
++	 * across this entire window while actual allocations succeed by growing
++	 * the zone on demand via deferred_grow_zone(). Only re-enable the check
++	 * from SYSTEM_FREEING_INITMEM onward, after page_alloc_init_late() has
++	 * finished and si_mem_available() is accurate.
+ 	 */
+ 	i = si_mem_available();
++#ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT
++	if (system_state >= SYSTEM_FREEING_INITMEM && i < nr_pages)
++		return -ENOMEM;
++#else
+ 	if (i < nr_pages)
+ 		return -ENOMEM;
++#endif
+ 
+ 	/*
+ 	 * If a user thread allocates too much, and si_mem_available()
+
+base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
+-- 
+2.54.0 (Apple Git-157)
+
