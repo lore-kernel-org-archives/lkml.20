@@ -1,88 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A9C3264FD;
-	Sat, 17 Oct 2026 18:18:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4822E3A2559;
+	Sat, 17 Oct 2026 18:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792261099; cv=none; b=hHsGH2sGp8NHbGLyiVbxcuFIlygsBcSu7C4rHgP2+GeMSmtEbSO9b0mS7k1vTo/hBeQ48pnxp94tH//rYbuGO4vVdZ24EO4gk3aPY1JrzZhSgNLGVuYrWfGgU3yT7wybUmmg+fy6tihNQySv0dz+WexNzyQhdo7c/+kQy6wf+EE=
+	t=1792261158; cv=none; b=oTqVYv6dbGyzQbfyUVTWkA2SRvTNlBTreQi7C/Yvh124AEK3SbTcUXK+PGqDZTqZ4JVRPU2E4fDjhBMn0T6HW89oQziw6mL8y8MAKHLZ1kGnYJj8MO/a7bOmpVSuJT5L2DLZlOmpnH1VpcXeOaKZ91RZhkw/5QK4HnY36KcFFa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792261099; c=relaxed/simple;
-	bh=UJvrkUpwgAjUB8i4BUeu4gVGoD4bjBcXb1bdO/1K2fQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iljym5b5E2J/1tgZEzvZ3IEYopkzdDunS1QKCPgdTgHjlTj3faT/3zUi1kjupgLTcpYGWv/91WthrriOnM9+VnrB/pHK6wy1BdZbDPfo/l0nbbnKuiemcYbUFTwYqPiQKbghMXBFOGlsB+ztOgDyN+PvYksKxcQCrKW+yvIZAaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W5MW4B/g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792261158; c=relaxed/simple;
+	bh=L/P4HtHRbTJElNoTQJpIvdWlFl4tFtfm9DPAIaSyhQU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tTYO/cwBoIKp/EsxFW4sN5ZLtGmHllrYIfIE65LCTXPtawrPXZ+S0Qf5ZA4XMNCj2d43Rkk7OrZ3SLixpXLUqHxWMA97ZAkInKCBTc77ffAwQdJjXzCV9IYF2QmgBTSzl3gCTs7jdW0jXQ3RhhBb5ufkZueG1Clh7mM0sz1OMJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=jzlvZpvD; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W5MW4B/g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 155611F000C4;
-	Sat, 17 Oct 2026 18:18:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792261098;
-	bh=2tybnaskFF1K3dm/+sU90/So1lPJtsLSrsZzRJnLBmI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=W5MW4B/gIHuOih+r9qZAnYOky/WZVCQqj1m/5FTmJ01pkFwpvHvwZwPXDrek509TS
-	 JrQHhPFVHNhRivRuTVAag5CI2TM2p/R2eJEoLGfmIwXIDG0UlgQtuf3EssXLn1xiyh
-	 +Xa4rM9iJe5XDvq/iQME/xp1h7A2/2a6nIQvRUEDy4Csg//aZD1U57Nkb/RUN9btQB
-	 fsent+rqIQZj5oEYEApX4J7JcKByBSX0u9qJVJP5y0wbRabXtF1G6qDWfTLxS+FXBx
-	 AiZsXMMn5BpkXyXMatn6g0uomhJ/bMl2eAVovAqeOBewQQMhiANxVTYCb4z9/I9ra6
-	 M2rhfrgpJrnNg==
-Date: Sat, 17 Oct 2026 19:18:12 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nikhil Gautam <nikhilgtr@gmail.com>
-Cc: anshulusr@gmail.com, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iio: chemical: ags02ma: Check for short I2C reads
-Message-ID: <20261017191757.0e18754f@jic23-hlaptop>
-In-Reply-To: <20261017094639.3002-1-nikhilgtr@gmail.com>
-References: <20261017094639.3002-1-nikhilgtr@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="jzlvZpvD"
+Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id 250AE1FB65;
+	Sat, 17 Oct 2026 20:19:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1792261151;
+	bh=RpTSiOPXX8wfXwImlsolqAJ9WURkWVPhsipC38lvdxg=; h=From:To:Subject;
+	b=jzlvZpvDijkHExpia6go2tWbL3gNnnjaUicl7J7bG70rCpdlLnO8iHeVsDtLJViux
+	 G3R//dDgdpE7pm/TrJ9l0f9Wh50G4iFB+ITanrSWaa55O8UQncNVS8brkzOTdwAiEe
+	 bhxDAd08+EjuGnO2gfRzltiq+umepgVu/4Bjdp1aqrlF4vw0CXPQBlXZ2CTIhxWCer
+	 ZUFWxjn1WZ84+F8ib/kG8fP71kbQVHT0ARvMxM8EmRow+UZ81Sa1Ikz+yW4bJsqJYL
+	 7747Z+S5rXrSaQydALonfGxM/fBRBQpgt38PiLRxMDq3hY0hxaRTLWVQaIIMIQcenJ
+	 r6yvejn38Da1A==
+Date: Sat, 17 Oct 2026 20:19:06 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Frank.Li@oss.nxp.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH 08/14] ARM: dts: imx6qdl-apalis: remove disabled node
+ "panel-lvds"
+Message-ID: <20261017181906.GA8265@francesco-nb>
+References: <20261016-arm_dts_cleanup2-v1-0-3a0cab9fd784@nxp.com>
+ <20261016-arm_dts_cleanup2-v1-8-3a0cab9fd784@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016-arm_dts_cleanup2-v1-8-3a0cab9fd784@nxp.com>
 
-On Sat, 17 Oct 2026 15:16:39 +0530
-Nikhil Gautam <nikhilgtr@gmail.com> wrote:
+Hi Frank,
 
-> Check that the I2C receive operation transfers the expected number
-> of bytes before accessing the received data.
+On Fri, Oct 16, 2026 at 04:10:51PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
-> Return -EIO if the transfer is incomplete.
+> "panel-lvds"'s status is disabled and no dtso overlay to enable it. So
+> remove it to fix below CHECK_DTBS:
+>  arch/arm/boot/dts/nxp/imx/imx6q-apalis-eval.dtb: panel-lvds (panel-lvds): compatible: ['panel-lvds'] is too short
+>         from schema $id: http://devicetree.org/schemas/display/panel/panel-lvds.yaml
 > 
-> Fixes: d58013f39b30 ("iio: chemical: add support for Aosong AGS02MA")
-> Signed-off-by: Nikhil Gautam <nikhilgtr@gmail.com>
-Hi Nikhil,
-
-Given in practice we are very unlikely to ever see this condition I've
-not rushed this one in.  Next cycle is soon enough.
-
-As such, applied to the testing branch of iio.git.
-
-Jonathan
-
-> ---
->  drivers/iio/chemical/ags02ma.c | 6 ++++++
->  1 file changed, 6 insertions(+)
+> Reduce move than 44 lines warnings.
 > 
-> diff --git a/drivers/iio/chemical/ags02ma.c b/drivers/iio/chemical/ags02ma.c
-> index 151178d4e8f4..2219965d044f 100644
-> --- a/drivers/iio/chemical/ags02ma.c
-> +++ b/drivers/iio/chemical/ags02ma.c
-> @@ -61,6 +61,12 @@ static int ags02ma_register_read(struct i2c_client *client, u8 reg, u16 delay,
->  		return ret;
->  	}
->  
-> +	if (ret != sizeof(read_buffer)) {
-> +		dev_err(&client->dev,
-> +			"Short read from register 0x%x\n", reg);
-> +		return -EIO;
-> +	}
-> +
->  	crc = crc8(ags02ma_crc8_table, (u8 *)&read_buffer.data,
->  		   sizeof(read_buffer.data), AGS02MA_CRC8_INIT);
->  	if (crc != read_buffer.crc) {
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+
+Please, do not merge this. This is just breaking functionality for real
+user to fix a warning.
+
+There is a series [1] already posted to address the issue correctly, so that
+we can have the issue fixed without impacting users.
+
+[1] https://lore.kernel.org/all/20261001155412.3177428-1-leoreis.costa@gmail.com/
+
+Francesco
 
