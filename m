@@ -1,181 +1,111 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98922391E74
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:34:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CB819A288;
+	Sat, 17 Oct 2026 02:38:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792204491; cv=none; b=qsfutOXEcnzGYmPK3dqCGXdP/5Gfa4eDgM5sKD8W/NCwtqBMVbpnMh6OLZJ5Pc/RYRbSYFxtUeYh/58hrm3Cp0bBlR9zvsosHRLksazm8PuLKyh5QHkFKb6ZN2Qf4q2/gkWvUH3uuq6Ou1YyLixHLek2cfxFGzr/dvD1dQMmXmQ=
+	t=1792204724; cv=none; b=ZQ3Pqz3eyAqSx3ofXmwl2MVRN5wRyCJL08sSMumM4xqOt26LD7uww/Nkfh6EuDsX60Ckro5TkcgaWnKwI5zId44ZWaD6oqFX2KRbSTw/tlIhsd4Ld+zfpyLp03rwNhca+5HliuMX1s6EAHE8rgxxtJgOe27uWNChj3ZsrZF9JcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792204491; c=relaxed/simple;
-	bh=d9ZRRvSR4mnbRvLXvHuu/oEYPNtyrfml0HfGAQs+uGk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kE8bZ8ayCqcQEkgIV6LMac3dUokvx4b6vMOIhl6NWDXzhlLA000Xwi4X8DE1HmF5ly8y42QCGUANC4DX6w10Fo0IlglMu7658XqshF+kTQCxXI+5FB0zhbvGzkKZgpiVovaB51ifumvOjQmV+JP8sEXYgbOADVP5kEmryPhodbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=Fj1K5h1b; arc=none smtp.client-ip=74.125.82.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	s=arc-20240116; t=1792204724; c=relaxed/simple;
+	bh=v+tWZ6wzBQDmc0TsNkvNx1aa5akEKUuEFeP4oWUd75w=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=oNhNjGNYVy/XA7CBIO6yX2udBsVM+NrmXR/cRoJLVC3pNPGJTEnBknzYmbf8pAipPfwC5X1+vjlcvAuNjjqUsO0FYR2QTsWPPzASLjm1+C8aTbY8RO7xF+Od9U88/WYdc2xJiThEo6UMKHm3SZyiHN5OdEnMcKRNcVCHz6eVLN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=a/GEhrIG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="Fj1K5h1b"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-33fb4680717so1294021eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:34:49 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="a/GEhrIG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5811F000C4;
+	Sat, 17 Oct 2026 02:38:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1792204489; x=1792809289; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZROtWBtn7Em4KQUcWsy9pq8PmRRT29SnOSczBb7KaLk=;
-        b=Fj1K5h1b5915rC1MaqNhUZtKSF7RYfrilGCDNfYhYAD7ZY4N5L4xIo7/b5JyLc2awl
-         Az6vvmC5absOlPzVgDvAb/iwY78Ja2phW9f5+gXYYJx2bTshApaf50WEM/HdQfXCB1WH
-         /PH4TRyH99m1O3B5WBsO/oW5mtc9XouLIw7xqClx9cFgoIzwBxFFukJkGm6B1d5akHn8
-         Mmibzqr5QBLypwywHJ/pBjPguLuL3gboNOcaxL6DUMZSfvUglu8h6rcTfQrHgzaqI6MO
-         KzYmw02FDs5LPP2x8QkmKJegW6HrfUaqso8AlZlh4IkU15oV7Oejj1u+PWI6eiZEAufh
-         U32Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792204489; x=1792809289;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZROtWBtn7Em4KQUcWsy9pq8PmRRT29SnOSczBb7KaLk=;
-        b=SL6P3I4tIxDPnFdl2tz2fA9YOA8oUp4meuwwbvXJ1A9maM9s8I5p4boObpUsftfhug
-         Q0vK+oYOzg5LZSpy9eCS6PPqa2HuZO/dnEFGmgOf+d5MBqJqFfhvnp48PKCkMv3DfoOh
-         w8rOj4GVHBVsX86p0SFmMfRVfpNCuUMOpxlnAnq6h1mKxB1WuyVVVNAne1cA1lC5GeCv
-         31Tp9akm6+x70jd2Ecuy+yzGh0AdmQ7lXBZThlbVIerRGOG2WZ+kEsKOVTKM0hcEY5Vz
-         1krDXRHDNLk/c3M/Uq6dV4ZhW3ftx6tE8kJHwsdU52HZL9E0DAiJ+qQEGRd54Prtq9VX
-         R2ew==
-X-Forwarded-Encrypted: i=1; AKwUvBwpSlqNg9AxQnDjoadTpygiNVvu53kT0QokEXUqvd1KRTj0odO+P64IpRSdaxGJDSh1DawsZ0svaqNTyho=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJvbrS8UtOe8R6jKfwLnRwqysJlt1GHUivJvhRgggkF750gEgu
-	G1lgJgPgKXUaN+QIsrtB1XvmGPawYxHRO8BZcpkkLedjfPM9ghNpyY49zDwc0GSukP4=
-X-Gm-Gg: AYBFou3td4cjY+dNhQtZQmvYS/V8/oGHzaGmJr6TBdzsEd1belRhN92TXYVzfSjiCqN
-	DucQ/nn1yF3Y3x4K36jUo3QMzigiAKF15z+hb+tbc4o0pYqs5M1RC94/QYw75ZdClvnDV/zfMig
-	zEFsXadqPdzs1czZtDCpCuYJOq+/pBptBOILlXuX0KTsBdXGebhM8kVHNHadSWehZU26Q9A+r4H
-	m4jEUevul8XDH56g86KL2gXyZDGFHzeJ2BNXAHTgfCZiQCy90QreZK985oZJcJwQVXjL29kINjO
-	ZMTP9+4fZfIK0awimmMRzvHTwhhjhrF6mOs0SPzIDcFPOtNY7mlL4RWYxyh+lFyisV2eUjAnTrD
-	6yOKx7jdzKv/DxRt3KiiXLG1DPfdYU1Y083FkKp8icYOuMMuYmy/MDe4Qebv1DwVPJn84OeBN9P
-	8SdsegWRng/ZmzhNgBGulFXNgI9zyLDdTiDN5Fh+gAzF6dJGA7jq2Sy4OWMLjlUJ1zV9M6QZlmq
-	Q3S8PWQV6Dql/x3ExbhQR11i1bUCmAplv+A8uM1tQuU
-X-Received: by 2002:a05:7301:2727:b0:343:fb75:a5f2 with SMTP id 5a478bee46e88-361a1865981mr2187452eec.9.1792204488444;
-        Fri, 16 Oct 2026 19:34:48 -0700 (PDT)
-Received: from MBP-Saravanan-D.civet-hops.ts.net ([67.208.231.220])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6e33sm11007439eec.7.2026.10.16.19.34.46
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 16 Oct 2026 19:34:47 -0700 (PDT)
-From: Saravanan D <saravanand@crusoe.ai>
-To: Nilay Shroff <nilay@linux.ibm.com>
-Cc: Saravanan D <saravanand@crusoe.ai>,
-	linux-nvme@lists.infradead.org,
-	kbusch@kernel.org,
-	hch@lst.de,
-	sagi@grimberg.me,
-	axboe@kernel.dk,
-	dwagner@suse.de,
-	linux-kernel@vger.kernel.org,
-	iyamahata@crusoe.ai,
-	kiyer@crusoe.ai,
-	ganbalagane@crusoe.ai,
-	sjpark@crusoe.ai
-Subject: Re: [PATCH v4 2/2] nvme-tcp: allow setting per-queue io_cpu through sysfs
-Date: Fri, 16 Oct 2026 19:34:38 -0700
-Message-ID: <20261017023442.63620-1-saravanand@crusoe.ai>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <e3bd727d-869b-470d-84dc-fccae61ca499@linux.ibm.com>
-References: <20260927070925.47209-1-saravanand@crusoe.ai> <20260927070925.47209-3-saravanand@crusoe.ai> <51a451fe-fdf6-4e8f-afbd-c595f3c6de2c@linux.ibm.com> <20261009020145.64651-1-saravanand@crusoe.ai> <e3bd727d-869b-470d-84dc-fccae61ca499@linux.ibm.com>
+	d=linux-foundation.org; s=korg; t=1792204722;
+	bh=yCYy/omc/k0UmUcHxQJgnXUXd6XKF1gPbq7tP/hUJKU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=a/GEhrIG16ujWZEtMe2TRhF0aWm3OKHO9R7aOAjmg04ODrE/hQ76QqCThdvXH6hXK
+	 l/WGCgfAhJI5+IZdEbJyG5IaaM1wkSiMeimGr9DAJRMTtlrFn2s1dLm4/Q3yImYE0f
+	 U9CL2Pw5tTCsyQd7pRk0sX0fw750Mndukm5hD3zY=
+Date: Fri, 16 Oct 2026 19:38:42 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Konstantin Khorenko <khorenko@virtuozzo.com>
+Cc: Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, Roman
+ Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, cgroups@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] mm/shrinker: make per-memcg shrinker units
+ cheaper
+Message-Id: <20261016193842.5af1f5a6cffafd7a24aeb521@linux-foundation.org>
+In-Reply-To: <79c1246f-8c9e-4e2a-adbf-e730732b33b1@virtuozzo.com>
+References: <20261014-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v2-0-51af2aedbe6c@virtuozzo.com>
+	<20261014135046.7b13252ce99d918ffcdb1f49@linux-foundation.org>
+	<84c9e97b-67c0-4c9b-bb7d-81811af8a16b@virtuozzo.com>
+	<20261015175836.efc93cf9de01306402da61f9@linux-foundation.org>
+	<79c1246f-8c9e-4e2a-adbf-e730732b33b1@virtuozzo.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 10/11/26 1:27 PM, Nilay Shroff wrote:
-> On 10/9/26 7:31 AM, Saravanan D wrote:
-[...]
->> Annotating io_cpu with __guarded_by(&ctrl->io_cpu_lock) would need
->> context_unsafe() around each of those hot path reads, so I'd rather
->> document the lockless readers next to the field. Happy to add the
->> annotation if you prefer it.
->
-> Yes, reading io_cpu locklessly in the I/O hot path is intentional. However,
-> to avoid KCSAN splat, we should mark read and write access with READ_ONCE()
-> and WRITE_ONCE() respectively.
->
-> Unfortunately, the Clang context analyzer cannot currently model a lock that
-> serializes writers while allowing readers to access the protected variable
-> without holding that lock. Annotating io_cpu with __guarded_by() would therefore
-> require us to annotate lockless reads with context_unsafe() or data_race(),
-> which I think we'd prefer to avoid.
->
-> I suggest introducing two helpers: one to read io_cpu and another to update it:
->
-> static inline int nvme_tcp_queue_io_cpu(struct nvme_tcp_queue *queue)
-> {
-> 	return READ_ONCE(queue->io_cpu);
-> }
->
-> static inline void nvme_tcp_queue_change_io_cpu(struct nvme_tcp_queue *queue,
-> 		int cpu)
-> 	__must_hold(&queue->ctrl->io_cpu_lock)
-> {
-> 	WRITE_ONCE(queue->io_cpu, cpu);
-> }
->
-> All readers could then access queue->io_cpu through nvme_tcp_queue_io_cpu(),
-> while all writes would go through nvme_tcp_queue_change_io_cpu(). The __must_hold()
-> annotation on the update helper would allow the Clang context analyzer to verify
-> that callers hold io_cpu_lock when modifying io_cpu, without requiring annotations
-> for the intentional lockless reads.
+On Fri, 16 Oct 2026 14:27:32 +0200 Konstantin Khorenko <khorenko@virtuozzo.com> wrote:
 
-Agreed. v5 adds both helpers as you wrote them. Every reader goes
-through nvme_tcp_queue_io_cpu(), and the two writers, the cpu
-selection at connect and the sysfs store, go through
-nvme_tcp_queue_change_io_cpu() with io_cpu_lock held.
+> On 10/16/26 02:58, Andrew Morton wrote:
+> > On Thu, 15 Oct 2026 13:42:41 +0200 Konstantin Khorenko <khorenko@virtuozzo.com> wrote:
+> ...
+> >> If you prefer the cache, I'm happy to redo patch 1 that way.
+> >> Patch 2 does not care about the unit size.
+> > 
+> > OK, thanks.  Yes, using a kmem_cache is a simple no-brainer.  Let's get
+> > that done first and then let's look at additional optimizations on top
+> > as a separate activity.
+> 
+> OK, no problem. I'll redo patch 1 with a dedicated kmem_cache and send
+> it separately.
 
-[...]
->> (3) The user managed side has no unbound state. A -1 written by the
->>      user is the same state as a queue the driver has not bound yet,
->>      so managed reads 1 and the next connect binds it again. Also,
->>      nvme_tcp_wq is a per-cpu workqueue, so an unbound io_work runs
->>      on the cpu that queued it rather than on a cpu chosen by the
->>      workqueue.
->>
-> May not be true always when nvme_tcp_wq is inited with wq_unbound. We
-> have a module option using which we could toggle this behavior.
+Great.
 
-You're right, that holds only for the default per-cpu nvme_tcp_wq.
-With wq_unbound the workqueue picks the cpu as you describe, and
-nvme_tcp_set_queue_io_cpu() leaves every driver managed queue unbound.
-A user written io_cpu still selects the worker pool for that cpu, so
-how closely io_work follows it depends on the affinity_scope of
-nvme_tcp_wq. With affinity_scope=cpu and affinity_strict=1, io_work
-runs on that cpu, provided the cpu is in the cpumask of nvme_tcp_wq.
-With the default cache_shard scope, io_work starts on a cpu in the
-same shard, and the scheduler may move it afterwards.
-v5 documents this in the ABI entry.
+> 
+> > But a tweak which reduces 145GB of bloat to half of that is lipsticking
+> > the pig, and what a pig it is.
+> > 
+> > Why the heck is memcg allocating so many of these things?  What sort of
+> > rip-out/rethink/start-over can we do to reduce this by 99.x%?
+> 
+> That is what patch 2 does:
+>   [PATCH v2 2/2] mm/shrinker: allocate the per-memcg shrinker units on demand
+> 
+> Today every memcg allocates, on every node, a unit for every 63 shrinker
+> ids up to shrinker_nr_max, whether or not it ever has an object on those
+> shrinkers. Patch 2 allocates a unit only when the memcg gets a list on that
+> shrinker's list_lru, so a memcg pays for the shrinkers it uses, not for
+> every superblock on the host.
+> 
+> In the synthetic test from the cover letter (8000 tmpfs mounts,
+> shrinker_nr_max 8064, 2000 empty memcgs, 4 nodes):
+> 
+>                      units               slab per memcg
+>   base               1011518 x 1024 B    548 KB
+>   + patch 1          1023787 x  512 B    289 KB
+>   + patches 1-2          136 x  512 B     42 KB
 
-[...]
->> 	mutex_lock(&ctrl->io_cpu_lock);
->> 	old = xchg(&queue->io_cpu, cpu);
->> 	set_bit(NVME_TCP_Q_IO_CPU_USER, &queue->flags);
->> 	if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags))
->> 		atomic_dec(&nvme_tcp_cpu_queues[old]);
->> 	if (cpu != WORK_CPU_UNBOUND &&
->> 	    test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags)) {
->> 		atomic_inc(&nvme_tcp_cpu_queues[cpu]);
->> 		set_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags);
->> 	}
->> 	mutex_unlock(&ctrl->io_cpu_lock);
->>
->> Does that work for you?
->>
-> This looks good. However, I wonder why we need to check NVME_TCP_Q_ALLOCATED
-> here? If the user can update io_cpu only while the queue's sysfs directory
-> exists, and that directory is created and removed along with the queue's
-> allocation and teardown, shouldn't we be able to drop this check?
+OK.
 
-Agreed, v5 drops the check. nvme_tcp_free_queue() removes the
-directory before it clears NVME_TCP_Q_ALLOCATED, so no store can run
-on a freed queue. The SET backstop stays after the removal, for a
-store that lands between the queue stop and the free.
+> Size: it would replace patch 2 with two patches. The first turns the
+> array into an xarray, with the units still allocated up front, and
+> removes struct shrinker_info and the expand path. The second allocates
+> the units on demand, without the lock and the expand handling patch 2
+> needs now. Together I expect about the size of patch 2 today, around
+> 170 changed lines, mostly in mm/shrinker.c, with fewer lines in total
+> than now.
 
-Thanks,
-Saravanan D.
+That sounds like a good plan.
+
+> Which way would you prefer: patch 2 as it is, or the xarray version in
+> its place? Or something else?
+
+The xarray approach sounds more complex?  If so I'd say only do that if
+it's justified for some reason.
+
