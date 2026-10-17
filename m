@@ -1,130 +1,80 @@
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E84381EB4
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:19:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36204CF483;
+	Sat, 17 Oct 2026 02:21:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792203594; cv=none; b=S/Ik9wmeXP5e56r4uYseH7FsS4auhZnI/WCT4sHY9o8d5OKKeD6i9YgZ7zQaly1amEFzeczs5k9lA7QEIDhIufWVw2138caaLDQkRz9AZRXeLBi/UHtLDw1pVa03VQe9i8TDxj7B18aDGxQlEzXasorwer6d9ZKGCntjzinU3eo=
+	t=1792203673; cv=none; b=isci0y3ExUaOxuwSLTDpMer9+F25sDdtTIwLosSZfN+tw44O8dDVmT6Qt64hfffcHEHGHlOVK65wykc+h21Efw3vErrbBD7jwYvHJPSiN9fmRP93g9vb5nkt/BmCqQPF9SZlzaqqwR7OB/ZRXHXT8k/geITizuY1I6S/Eb7OYds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792203594; c=relaxed/simple;
-	bh=5rRTjvVUCj1giTYCsBQ/YKcd/9d9HjEXgG9juU7sMfM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dGDkd8ar6QkJNNlJJOs1j61c/T+WzL8SH2hRreduKBiIlJORG1Ct2ZVUE7GqOz7sluhNu1CBcYK4lwbJTLTHrl/POEc9DlOLV+xeHKTB0uGjEvlAzF98lmqL34Q2RpK7ZO5MKG9LpIwgz0bFDVcKMr9OB4AMJGgcY4MoW6HJgMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qZNiQ2vr; arc=none smtp.client-ip=74.125.82.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792203673; c=relaxed/simple;
+	bh=0TfubNCRKx/nd4YIwWQ9zAA6YnSczDnzEoamyZzo2QE=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=RPyutydQvxuSmWdKdiwCVx4y11yxcHMElJlq6Zk+75GeKftUqDS4yZVDH6yV2FxjmMGIoZLEQMwJDx+5m6Ou5UkOi3kKFb5h8MT2ugqPSoWaUxj76mTpHZNGD5IuuATi6mZAsV4D2yCeZ0BeQYOD2mFXHfyifD9YA73xpNBpS2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=oHkyY+Z5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qZNiQ2vr"
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-157fe9d771bso136742c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:19:52 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="oHkyY+Z5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E6271F000C4;
+	Sat, 17 Oct 2026 02:21:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792203591; x=1792808391; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5+kfzjr8MQEb3lKi5cTeDPkUvBSdgUV4zlTId0CwE3M=;
-        b=qZNiQ2vrR8t1p1kDECcMcJ+4tgxT0xHqGWGnIkvfdJnmRdStPCy2f30zRNJhI6hpQn
-         tVrB7pmcocSx6V8z0p2FgOWpDE+EhdzDOFlxZpESRsr6+4S5hIASg1BM70lbfvmW8S3G
-         tX92JFpLaVwIwvIKBKMrF9jI5FO4kRhPAhCk7pgDe/Y4uSA33l1ulwF3qGtzwVVBux6G
-         P2LcuWNFUIAaFJAis5qWu1OeyQ8cLWicwDfBCafuD4FljTEAujvXtbE/7kqkGnuIAzXu
-         KAaZDWw+cZvBSMnayWw9ANvrZrPR6a30wVyClUXyohfyyDQ3jLl4oGzloS4scNhMVbgT
-         QNcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792203591; x=1792808391;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5+kfzjr8MQEb3lKi5cTeDPkUvBSdgUV4zlTId0CwE3M=;
-        b=eSrP09L9WQZOMWGpF64IsPSXsyF0rzAi9pLILyWpx0wbtROXVaJ1tLomU3Y0jpYn/N
-         6ydPPi1/5aPKi5STVB7BypriBdeg/f3oZKH0gP73lyl7Xb+ho6jsSzLhMVIC/63CgvZ8
-         TfHp1t+sy5eCOt8mcm0T44pFq6JTXsD9d2wNklBKLTmY9s9NP2EpaYcgKZlpzZqjb5oC
-         FI51WMxC7KwgseuxpX/cIwqWFs1BtvPb4LlDpSZGaQ7CUg/NjDZcEyQcVZJUCwauhjXR
-         VusMfNAlDAU6uoKpj2YQlkPNzeyrU6WfF08Ltb5rP5MfCCdjTttK2JvoBJjE/drvHQ5b
-         x7ZA==
-X-Forwarded-Encrypted: i=1; AKwUvBzn0H+V6aUNzjn8qtuldV5Ch6/JlM8veA8FGhgJ3u0q685gevAbOTGZyVU7Qgp/LBzZFStDcOcD57SDw8o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcuwVaUdKrYWcEkH6NFNFbICL9y4vZhPaflDxcAIamdujq2K54
-	ybys+18nbuT7VSAOoAZ2qYCmSf9uC6Vd7BiSIrjxrU2VDAsYCFtMCmZz
-X-Gm-Gg: AYBFou02o+FWThU6tuGMi2Lt8qMWwIjCLteP9SSlsB8etMlwchCkKwjLowD6gXQ+B6g
-	hWuAflzZL+bCbTVJgOI8ApujjKetYgJDR7nnprRNNguxFKYb5TF7Kub0IuwYVcDwuqQKtzviVvH
-	ZRVOJ/uemtXAdxMx21Ha2nVcVtTPFujnst2wS5lZ2ZysRgK2kA4n0h88fTsBtoLSpjPk/bFmxBO
-	f7v2Ohv2DFQvYxzAonWtX2JzCHnwMFSrsFU2seFJbPwiCDQEZ54K3DiP0bLzS6JhzGQFiQCOdq1
-	MRJdFqcg8/3jtJGf7cXPiCXITQGyZSXdBYypvNvUUIzokanZeSsWem6UxPree+YzFxUe+NYysH/
-	AFp4veLKyvJ/bgCUtWQtkaBCYuyB6oXHCzEi0srjqjdhzf9x4V358G6N++44+j4svbIxHvIhTe+
-	K0p9GHmv7pzB4rcjmD8bxXsAQ6qqPtcR4gD0ioZUabJn4oOPpeCuYT2Q0PshpBzrII5cUKe2nse
-	+86MrUKVrH/SLhkRFE=
-X-Received: by 2002:a05:7023:a47:10b0:14c:fb3f:bedb with SMTP id a92af1059eb24-185136cad08mr2162857c88.18.1792203591050;
-        Fri, 16 Oct 2026 19:19:51 -0700 (PDT)
-Received: from [100.125.248.95] ([124.70.231.46])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-183190aa7bbsm9100489c88.5.2026.10.16.19.19.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 19:19:50 -0700 (PDT)
-Message-ID: <743d1d96-40f9-4dac-839f-5d5269364b50@gmail.com>
-Date: Sat, 17 Oct 2026 10:19:41 +0800
+	d=linux-foundation.org; s=korg; t=1792203672;
+	bh=9kRCw0sKehKRxmnkhA1oEqDkBNynw9yxGSEEeZ/1H6s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=oHkyY+Z5Ymkq1XEoRDrm1unXQCYkIsRZyIk+AFZSJ8WFcZ2jRLLrTtiAYqX2wxxBf
+	 /C9TjfiWVK5xpPlN2RPaq31PQTQZL3VsQxjp6HCa9nbL/STbOluZD+QFrFEDROKFfP
+	 BuP+8UW1QgrBoxAXEEkjw7vavuoZzfdjbz1hrznI=
+Date: Fri, 16 Oct 2026 19:21:11 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Muchun Song <songmuchun@bytedance.com>
+Cc: Mike Rapoport <rppt@kernel.org>, Dan Williams <djbw@kernel.org>, Vishal
+ Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>, Alison
+ Schofield <alison.schofield@intel.com>, Joao Martins
+ <joao.m.martins@oracle.com>, Ritesh Harjani <ritesh.list@gmail.com>, Muchun
+ Song <muchun.song@linux.dev>, linux-mm@kvack.org, nvdimm@lists.linux.dev,
+ linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm: warn on unaligned compound zone device ranges
+Message-Id: <20261016192111.cf4b6477a13a711248a8a079@linux-foundation.org>
+In-Reply-To: <20261016131334.3419393-1-songmuchun@bytedance.com>
+References: <20261016131334.3419393-1-songmuchun@bytedance.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ext4: fix folio reference leak in
- mpage_submit_partial_folio()
-To: guolingxing <guolingxing@tju.edu.cn>
-Cc: Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>,
- Jan Kara <jack@suse.cz>, Baokun Li <libaokun@linux.alibaba.com>,
- Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh Harjani
- <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
- linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261016142524.655789-1-guolingxing@tju.edu.cn>
-Content-Language: en-US
-From: Zhang Yi <yizhang089@gmail.com>
-In-Reply-To: <20261016142524.655789-1-guolingxing@tju.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 10/16/2026 10:25 PM, guolingxing wrote:
-> mpage_submit_partial_folio() obtains a folio reference with
-> filemap_get_folio(). If the subsequent position check fails, it
-> returns -EINVAL without dropping that reference.
+On Fri, 16 Oct 2026 21:13:34 +0800 Muchun Song <songmuchun@bytedance.com> wrote:
+
+> A compound page of order N must start at a PFN aligned to 2^N pages.
+> Therefore, a range used to initialize compound pages must start on a
+> compound-page boundary and contain an integral number of compound pages.
 > 
-> Call folio_put() before returning from this error path. Leave the
-> folio locked so that the caller can invalidate and unlock it through
-> mpage_release_unused_pages().
+> Two recent Device DAX bugs were caused by ranges that violated this
+> invariant, but neither was detected by memmap_init_zone_device().
 > 
-> Fixes: ded2d726a304 ("ext4: fix stale data if it bail out of the extents mapping loop")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
-
-Thank you for the fix, looks good to me.
-
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
-
-> ---
->   fs/ext4/inode.c | 8 +++++++-
->   1 file changed, 7 insertions(+), 1 deletion(-)
+> Warn if the adjusted zone-device range violates this invariant so future
+> violations are reported when the compound pages are initialized.
 > 
-> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-> index 26f0f9714f03..7afba6298fa2 100644
-> --- a/fs/ext4/inode.c
-> +++ b/fs/ext4/inode.c
-> @@ -2412,8 +2412,14 @@ static int mpage_submit_partial_folio(struct mpage_da_data *mpd)
->   	 */
->   	pos = ((loff_t)mpd->map.m_lblk) << inode->i_blkbits;
->   	if (WARN_ON_ONCE((folio_pos(folio) == pos) ||
-> -			 !folio_contains(folio, pos >> PAGE_SHIFT)))
-> +			 !folio_contains(folio, pos >> PAGE_SHIFT))) {
-> +		/*
-> +		 * Leave the folio locked so that the caller can invalidate
-> +		 * and unlock it through mpage_release_unused_pages().
-> +		 */
-> +		folio_put(folio);
->   		return -EINVAL;
-> +	}
->   
->   	mpage_submit_folio(mpd, folio);
->   	/*
+> ...
+>
+> --- a/mm/mm_init.c
+> +++ b/mm/mm_init.c
+> @@ -1142,6 +1142,8 @@ void __ref memmap_init_zone_device(struct zone *zone,
+>  	if (!nr_pages)
+>  		return;
+>  
+> +	VM_WARN_ON(!IS_ALIGNED(start_pfn | nr_pages, pfns_per_compound));
 
+Would VM_WARN_ON_ONCE() suffice?
+
+> +
+>  	/*
+>  	 * Seed the reusable head-page template from the first real struct
+>  	 * page. The normal page-init and refcount helpers must operate on
+> 
+> base-commit: 63562804f25cb5b6f5e4f5e3a9f0d1c3c6868596
+> -- 
+> 2.54.0
