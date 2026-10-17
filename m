@@ -1,103 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E493B71A1;
-	Sat, 17 Oct 2026 07:55:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDF323C3C19;
+	Sat, 17 Oct 2026 07:56:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792223718; cv=none; b=CoKHV+EbzOAsKNeEdoZ/jMmlkuFFEU9NnRUq2doq6BZor64XBpmsaBGG227iQ4a0wI8p/cWfL3svDDFaweMHarQ/zlOasxk14EYaRjTFOLbUJfyYqB86zgWwzhJZdqQ8VeAQ1TfxiCwlMTbcgJIj4fxAEDeehaiNtnuVi7MUqrs=
+	t=1792223805; cv=none; b=DIl0T+odGey2i5JqDTthyxpaDBY/aFpdoCXySy9A8B3MfeB74E2FXfMCaR23uoMUIRHu8AUqflgE211xMnwXb8SV/puQp5RP8fN4yOp4baMJs/06FvitELE03shlSrZY+Tz43coHZSrk/JJumEkHjf5EGnzZ7Xd5e8sfLulEOlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792223718; c=relaxed/simple;
-	bh=Tw8hJUhyTwi8lTcx047M6CYvFWd+zJ7pVwCTxqJs4xo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Io8bnB9slXJdqqZVeL7wvatsxlDxtXnTkUAkKZYgYxACp/iDMnaSMbr7s37cv8W9puFh+xzhni3TkIiaMoOHbZ91t2XpibHycaUQepcIRrmSm7HzHMJpbPluqeqj2fGG5qWEXGV0+v1td0OH+EoQDiVGNla7ITaduKsPf4I7oIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ko22WGJx; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ko22WGJx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C6EB1F000C4;
-	Sat, 17 Oct 2026 07:55:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792223717;
-	bh=mJAFf6584RgZ4z6pPlJH3mmCU2Tv3trUdU3KklbqpMM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ko22WGJxPzQMensaPFTS4BAdyEKEMBDuRvRBpGqvs3XCMFFX92qtbsvnPePqOo1+A
-	 177+37znf3aI/v03wVmgl2f5BGtAB0+cXmy6ZlkdQkgfqc6QGgxF6kWxEHON/UMSdm
-	 fBO4tLGrN06iM/INr6ZZtpKT3AuHyU1vlHR53paA=
-Date: Sat, 17 Oct 2026 09:55:14 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Markus Probst <markus.probst@posteo.de>
-Cc: Ayush Singh <ayush@beagleboard.org>, Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	greybus-dev@lists.linaro.org, linux-serial@vger.kernel.org,
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH v4 1/4] tty: serdev: Add mutex lock
-Message-ID: <2026101715-penny-headfirst-1644@gregkh>
-References: <20261016-rust_serdev_probe_refactor-v4-0-46832e034757@posteo.de>
- <20261016-rust_serdev_probe_refactor-v4-1-46832e034757@posteo.de>
+	s=arc-20240116; t=1792223805; c=relaxed/simple;
+	bh=k61wgDs7T9sK5hYRjTQ0xOh9CdEGiEhFv1LBY+S4epg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NIbCGGwzdguDVC8sV1NZvnXdH7Xqtd48hUO/BXQDFkN9NJ7MEvF2f7suqF0hQMVdtcGNB2a4mcYaDZTUAu1rJkLqbG+qJ4/efAm42xLWJt7DArQIYn6FljNMq8lZqMKx071oSDVU48t5tsiYNn8LtE/9yLKWHuVa/bD9IuQY6NY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn; spf=pass smtp.mailfrom=kylinsec.com.cn; arc=none smtp.client-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinsec.com.cn
+X-QQ-mid: zesmtpgz3t1792223749td9b57055
+X-QQ-Originating-IP: nS5SmDb7r7zDI7MsP68STATtfd3mkBZmpPrULitq8Rk=
+Received: from localhost.localdomain ( [111.8.45.130])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sat, 17 Oct 2026 15:55:47 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 17322942487440971034
+EX-QQ-RecipientCnt: 5
+From: Hongjian Dai <daihongjian@kylinsec.com.cn>
+To: broonie@kernel.org
+Cc: linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	purna.mandal@microchip.com,
+	Hongjian Dai <daihongjian@kylinsec.com.cn>
+Subject: [PATCH] spi: pic32-sqi: fail transfer when the BD ring is exhausted
+Date: Sat, 17 Oct 2026 15:55:45 +0800
+Message-ID: <F5276982A630220B+20261017075545.95854-1-daihongjian@kylinsec.com.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016-rust_serdev_probe_refactor-v4-1-46832e034757@posteo.de>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:kylinsec.com.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: OUC5DGN0mB58GH4wSbD7cnOVw0/m49be2gOBmrQX/weH8FIrE+mIYusu
+	/owZm1m9jhsMicrUFCUWrGZS5Co9dB4vobJP/gSg/zMqxcdZ3Aq2Nxk9srr4IFDtL6xqt3B
+	XlWpF3RAdkSSR6O2K1NK6uCDJKanGXThNUArXegQiIVT7zzHU7b3dyDFttCsspO6Ch+0ZUk
+	F1chX/xnhKEjQ0m1zTiLreH6NDRnxglxwDhZplPlOiPQiafebcG69Sj4gFVY4Y/+SMK7m+e
+	2auU6PnFOpjy+k6TULQb7FJ2Dy/36Rxw+9bIQZjq6SD7zem8mxmEt5trgPKcUsHw9f08ttD
+	NH2+/dCOnpgJuVJenLPMyXudsEZoOoHta9iviq3WXBE7ElBPTYe6sDrHId9ePXNwHSz4X98
+	fhDkyE+kR17XRFLlyQCoVzfs4Lzf6a6/TQ+g6eIg6KRIG9BIs9jCtUD8XdsAJ8LomzcbqRX
+	2sAudwEyzfSEkeplUkQ/opLAJE4oLHWrrBopHtQD1N3tKenIonAwCBlGVTzJs/iHgy+efoO
+	YKxMr9ea8wlAzt7SW0tEt2Cn7n8EWbGDhQpWITKsohegzuPFIx2B09NyA3PLENcJITY/iIT
+	27u0sl+On8jeVWEMrCwhG6A/K2MhJHxzofNbFK0Ce64ERgYndHCTbbBlygVsfAX+pG3SXAb
+	+zEVQcHmp3PQnWkXetGn2yoj2RBrF3lJ+x+Dwuu6BZEUX1hOr900HG/tRTbPBdbTK/OUYNj
+	r5G6x7TzNF4ocRXtyAnRHtRQ7ml7HLh0EKy+OQ6OvUQjYBiEDsC1bSdbHjXhsUf37yJGive
+	KKnaS8b7ZJ/DZzIYsbie+l7V0YI+GsjbyItcHaZNbpbj7pAaBHG5BsHYi8iLV/inuzolEGz
+	QV8ibPDU1mXQuoJKleUe2bC9wKHcYeVntJLJHzYJRKCjOqRiDofyo0f6eCtkY9+MrriKV10
+	O+BcLIdrbKB+hdFntdlm/mCN3g5+8kLVyD14OOk+eKuFEHUmsZeYIj6/fGx7k1SncsZ5WXj
+	f2UBqgqgXkbODjb12c
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-On Fri, Oct 16, 2026 at 06:00:32PM +0000, Markus Probst wrote:
-> Besides more predictable behaviour, this allows for several hardened
-> behaviour changes:
-> 
-> Return -EALREADY in `serdev_device_open` if the device is already open
-> instead of causing undefined behaviour.
-> 
-> Allow calling `serdev_device_close`, even if the device is already
-> closed instead of causing a null pointer dereference.
-> 
-> If the device is left open by the driver after remove, close it and warn
-> instead of leaving it in a invalid state.
-> 
-> Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> ---
->  drivers/tty/serdev/core.c           | 10 +++++---
->  drivers/tty/serdev/serdev-ttyport.c | 46 +++++++++++++++++++++++++++++++------
->  include/linux/serdev.h              |  2 +-
->  3 files changed, 47 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
-> index 7500efcdfc21..77e8e1d4d2a6 100644
-> --- a/drivers/tty/serdev/core.c
-> +++ b/drivers/tty/serdev/core.c
-> @@ -142,6 +142,11 @@ void serdev_device_remove(struct serdev_device *serdev)
->  	struct serdev_controller *ctrl = serdev->ctrl;
->  
->  	device_unregister(&serdev->dev);
-> +
-> +	/* Warn if driver did not close the serial device. */
-> +	if (ctrl->ops->close && WARN_ON(ctrl->ops->close(ctrl)))
-> +		pm_runtime_put(&ctrl->dev);
+pic32_sqi_one_transfer() silently stopped programming buffer descriptors
+when ring_desc_get() returned NULL and still returned success. The caller
+then marked the last programmed descriptor as the end of the list and
+started the DMA engine, so the hardware transferred only a prefix of the
+requested data while the message completed with status 0.
 
-Wait, how can close() ever fail?  That should be something that just
-can't happen right?
+The ring holds PESQI_BD_COUNT (256) descriptors of at most
+PESQI_BD_BUF_LEN_MAX (256) bytes each, so messages larger than 64 KiB (or
+with enough SG entries) can exhaust it. Since the driver sets no
+max_message_size/max_transfer_size, the SPI core does not prevent this.
 
-thanks,
+Return -ENOMEM instead, and set msg->status so the failure reaches the
+caller rather than being silently truncated.
 
-greg k-h
+Fixes: 3270ac230f66 ("spi: pic32-sqi: add SPI driver for PIC32 SQI controller.")
+Signed-off-by: Hongjian Dai <daihongjian@kylinsec.com.cn>
+---
+ drivers/spi/spi-pic32-sqi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/spi/spi-pic32-sqi.c b/drivers/spi/spi-pic32-sqi.c
+index 5d3921e29461..35f0c60a31d6 100644
+--- a/drivers/spi/spi-pic32-sqi.c
++++ b/drivers/spi/spi-pic32-sqi.c
+@@ -297,7 +297,7 @@ static int pic32_sqi_one_transfer(struct pic32_sqi *sqi,
+ 		/* get ring descriptor */
+ 		rdesc = ring_desc_get(sqi);
+ 		if (!rdesc)
+-			break;
++			return -ENOMEM;
+ 
+ 		bd = rdesc->bd;
+ 
+@@ -387,6 +387,7 @@ static int pic32_sqi_one_message(struct spi_controller *host,
+ 		ret = pic32_sqi_one_transfer(sqi, msg, xfer);
+ 		if (ret) {
+ 			dev_err(&spi->dev, "xfer %p err\n", xfer);
++			msg->status = ret;
+ 			goto xfer_out;
+ 		}
+ 	}
+-- 
+2.43.0
+
