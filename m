@@ -1,38 +1,38 @@
 Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A0C494277;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C0849427F;
 	Sat, 17 Oct 2026 12:25:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792239914; cv=none; b=r/mZANWWihbYSu/ftvksPBuAwEPUe1JJd2kKnrT4Pc2bc6WLq9uYa0SlUCYrhYY1wkbjuc1dAZF2bTTA92Wv009vCohXp5o26prZZ/YvSaJlZepAwJFHYsshFlqC+POCL1a2R0ngej9GswGZUmwnv56QnpOSS1AW6xExq8xWkMw=
+	t=1792239914; cv=none; b=V8NaSPdCz33/U7OXI6yfX3SXgs4NhxrOq0d4K3iWAIpH0mzbVSTRQTXWtdbB01yo5LkG2i65KC5MZKG1wZ7COL6tDrAjjQ7OD86I8Gf3VUVPSh0avS27uFn1KolgL30A2ZSG+yDEUP0V2MJb1LZylaMt+BFAwk5RdrgdWYWjWuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792239914; c=relaxed/simple;
-	bh=Sp9QhG2zvGm/87lgTfKNG36csrD6OLdvypZy3iohC6w=;
+	bh=DA6gk81+wCV1G05Q+kU4c0Muh3+eDPCCG9oU1VwD57k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CcrfA0c8V+UeArRlGl1h8RdkoeYdwum852QtdzYbRQX6Wy4WVDtBsZskCI02O7lcMZCXSV7LEbq56serNtJxIJNacJs7My06BlF3feNWO55HpnZXsSIxQvRv/pXAKE/BsJISeWzzyYpgGsPrSQ5dy45pClP3Pz2J7PhhA8OppX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=BdUcoph1; arc=none smtp.client-ip=90.155.92.199
+	 MIME-Version; b=YSrroyxeizw6/p7BIqUuvgRmLaFyUPUpE6bgYukHZviFWrzdKS8WCbMGr2hYxmkwiCqYWF56v7tiQN93ltHf0LW1SXa2v6RcyfyL/pplNCadAlzoUX6eMlXuz1DYCfNN7skTBdbZYHXeX6+QFkX0OyfadKa11lT0n7sjZsOACig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=IqAvW1+l; arc=none smtp.client-ip=90.155.92.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="BdUcoph1"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="IqAvW1+l"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
-	To:From:Reply-To:Content-ID:Content-Description;
-	bh=GiYB2tiV9bDGTn9TORkcTuW2eXqoZ0EusCpPtBqMd5c=; b=BdUcoph1voi3uwGHVH/hqDze2t
-	n/Bw7jEzE2b1+IlyFrMQwJIdB7SdsVnP7uuoD/pYUXhtygRVfpi8I/zxhTxmGGTP5L2LmiQ2MCRfY
-	haJidhs3+Q8foJUDPgtSyZEJiboOQ+QpUsRGQGZh7lNrkq3efVdPX4aoRxPsJco39XjaZje5TIUQr
-	NF+Uxsr16GMUrCNA+hAYYNL/s0++4Gti9JlAHtNnLvZ+eacR20KaYQyxCOnmo6Qcfw/4q8sAhGJIO
-	Burh8ENcH8qfkWskpJbYMZV+QggX08JC/DyR9ZLsFJ4JX+CKMAeF5bJim5Y0kzBu673C2PewsK3un
-	I431DqFw==;
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=KCTMPfLGPbExC6rYO6Osf5ZRh9jRRpcPoU7REB3cQ+E=; b=IqAvW1+l2AtQGs4Pwl7gFZCx67
+	CjjHjzBAovRmMtLpvEYGDgU1w1vOAGY+n+dxEL0f9TUmhFvWAerfR6W8O0skQ8mm4k/vdgElPCyAB
+	1b/yM+XRkCrM5+sKQe011utzmac9G+R1WggT7ckJ/0YdhnfsmTG+/YS2f4vzqmG5JwmZwbvYTCjr3
+	9O42DHr3YICkglCdoKi8TZHtz3OCIWFZm6DBUDL81ssf6Vb+ri7ozg4JM+Z0YdwZXJM5EiW2UOIKv
+	/n35+v7ZVhNnWBc54fDmms7KI5u3XcNHW5EKgOIj+LMon0FkL9YZfAMX9ur5a1zxwMi1483vfiTVo
+	Qt3Cyklg==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xI3TE-00000002LfI-1c7O;
-	Sat, 17 Oct 2026 12:25:05 +0000
+	id 1xI3TF-00000002Lfc-1ynt;
+	Sat, 17 Oct 2026 12:25:06 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xI3TC-00000002Ylm-2DOV;
-	Sat, 17 Oct 2026 13:25:02 +0100
+	id 1xI3TE-00000002Ynz-0Etu;
+	Sat, 17 Oct 2026 13:25:04 +0100
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -53,9 +53,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Mushahid Hussain <hmushi@amazon.co.uk>,
 	David Woodhouse <dwmw@amazon.co.uk>,
 	nh-open-source@amazon.com
-Subject: [RFC PATCH 15/55] KVM: x86: hyper-v: bank the reference TSC page per plane
-Date: Sat, 17 Oct 2026 13:24:21 +0100
-Message-ID: <20261017122501.610248-16-dwmw2@infradead.org>
+Subject: [RFC PATCH 46/55] KVM: x86: hyperv: Do not skip a moved vCPU when completing a hypercall
+Date: Sat, 17 Oct 2026 13:24:52 +0100
+Message-ID: <20261017122501.610248-47-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261017122501.610248-1-dwmw2@infradead.org>
 References: <20261017122501.610248-1-dwmw2@infradead.org>
@@ -65,181 +65,296 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+From: Mushahid Hussain <hmushi@amazon.co.uk>
 
-HV_X64_MSR_REFERENCE_TSC is a per-VTL instance like GUEST_OS_ID and
-HYPERCALL. With a single partition-wide copy, the secure kernel
-enabling its own reference TSC page from VTL1 invalidated VTL0's, and
-the normal kernel fell back to a TIME_REF_COUNT MSR read — a VM exit —
-on every clock read.
+A Hyper-V hypercall that exits to userspace is completed on the next
+KVM_RUN of the vCPU, and the completion skips the VMCALL. With planes,
+the lower plane is not run again until the secure kernel returns, and
+userspace applies the registers the secure kernel sets for it in
+between. On a resume from hibernation the secure kernel sets VTL0's
+RIP to the hibernate continuation. The deferred completion then skips
+an instruction on top of that RIP.
 
-Keep the masterclock-maintained page bound to plane 0, and give
-non-zero planes a banked MSR whose page gets a one-shot copy of the
-current parameters; those stay valid while the masterclock is stable,
-which is enough for VTL1's bounded execution windows.
+The two vendors fail differently. SVM writes the stale next_rip of the
+old VMCALL exit, so the VP resumes at the hypercall page's RET with
+the new RSP, pops a zero and faults at RIP 0: Windows Server 2025
+with Credential Guard bugchecks 0xD1 (0, 0xff, 0, 0) on every resume
+on AMD. VMX adds the VMCALL length to the new RIP and lands three
+bytes into PopSaveHiberContextWrapper+0x35, where the bytes happen to
+decode as a harmless instruction before resynchronising, so Intel
+passes by luck.
 
-The copy is made only when hv->tsc_ref is host-computed. With
-HV_X64_MSR_TSC_EMULATION_CONTROL set (reenlightenment, restored across
-migration), kvm_hv_setup_tsc_page() repopulates hv->tsc_ref from the
-plane-0 page in guest RAM, which the lowest VTL can write; handing a
-copy of that to a higher plane with hypervisor authority would let
-VTL0 forge the sequence/scale/offset the secure kernel computes time
-from. In that case write the plane's page with a zero sequence, making
-it fall back to the TIME_REF_COUNT MSR. The reference VSM host keeps
-fully separate per-VTL pages and never crosses VTLs here.
+Record the RIP of the hypercall when exiting to userspace and complete
+without skipping when the vCPU is no longer there. Applies to both
+the VTL switch completion and the generic userspace completion. The
+generic KVM_EXIT_HYPERCALL and Xen completions have the same shape
+but userspace does not move the vCPU there; on arm64 the HVC is
+skipped at exit time, so the planes series is unaffected there.
 
-The copy uses the same zero-sequence/body/sequence protocol as the
-plane-0 path, so a concurrent reader never sees torn parameters, and
-the MSR write fails when the guest write faults, as the
-HV_X64_MSR_HYPERCALL case does.
+Measured on an m6a.metal (AMD) planes bench, WS2025 CG hibernate:
+SK SETs VTL0 RIP = wrapper+0x35, RSP = cont; first plane-0 exits after
+the return are at hypercall page+3, then RIP 0; KiBugCheckData 0xD1.
 
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 Assisted-by: LLM
+Signed-off-by: Mushahid Hussain <hmushi@amazon.co.uk>
+
+[dwmw2: this stack retires a forwarded VtlCall/VtlReturn eagerly at
+ exit time with no pending completion, so that path is unexposed; the
+ exposures are the FORWARD_HCALL completion and the plane an in-kernel
+ VTL switch suspends at its vmcall, whose RIP the higher VTL rewrites
+ via HvCallSetVpRegisters. Both resume through
+ kvm_hv_hypercall_complete_userspace(), so one moved-check there
+ covers both; the RIP is recorded in kvm_hv_hypercall_userspace_exit()
+ and kvm_hv_vtl_switch(). The check yields to the TLB-flush
+ suspension retry (a suspended vCPU re-executes the instruction, so
+ there is no skip to suppress).]
+(re-done by hand)
+[dwmw2: folded in the RAISE_UD completion-contract tightening: the
+ KVM_CAP_HYPERV_FORWARD_HCALL extension check returns 2 to advertise
+ that the kernel honours KVM_HV_HCALL_RESULT_RAISE_UD, the bit is
+ honoured only while forwarding is enabled (the legacy syndbg and
+ slow-form completions treat bit 63 as part of the result) and only
+ after the suspended and moved guards, and an in-kernel-armed
+ completion is tagged with hcall_resume_pending so it re-executes the
+ hypercall instead of consuming stale run-union bytes left by an
+ unrelated exit.]
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- Documentation/virt/kvm/api.rst  |  7 ++++
- arch/x86/include/asm/kvm_host.h |  8 +++++
- arch/x86/kvm/hyperv.c           | 58 ++++++++++++++++++++++++++++++++-
- 3 files changed, 72 insertions(+), 1 deletion(-)
+ Documentation/virt/kvm/api.rst  |  6 +++
+ arch/x86/include/asm/kvm_host.h | 17 ++++++++
+ arch/x86/kvm/hyperv.c           | 77 ++++++++++++++++++++++++++++++---
+ arch/x86/kvm/x86.c              | 11 ++++-
+ include/uapi/linux/kvm.h        |  4 +-
+ 5 files changed, 106 insertions(+), 9 deletions(-)
 
 diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index f8d9bca1baea..570db83844c7 100644
+index d75987c1d325..494600236360 100644
 --- a/Documentation/virt/kvm/api.rst
 +++ b/Documentation/virt/kvm/api.rst
-@@ -6611,6 +6611,13 @@ in the future may use the plane id when planes are supported by hardware (as is
- the case for VMPLs in AMD), or if KVM supports accelerated plane switch
- operations (as might be the case for Hyper-V VTLs).
+@@ -9146,6 +9146,12 @@ with ``hyperv.u.hcall.result`` set.  Hypercalls KVM implements itself,
+ and the ordering of CPUID-enforcement checks against hypercall
+ dispatch, are unaffected.
  
-+On x86, the Hyper-V partition-wide MSRs HV_X64_MSR_GUEST_OS_ID,
-+HV_X64_MSR_HYPERCALL and HV_X64_MSR_REFERENCE_TSC are banked per plane,
-+matching their per-VTL instances in the TLFS: an MSR access reads or
-+writes the instance belonging to the plane of the vCPU fd that performs
-+it.  A migrating VMM must therefore save and restore these MSRs through
-+a vCPU fd of every plane, not just plane 0.
++When KVM_CHECK_EXTENSION reports a value of 2 or more, a result with
++KVM_HV_HCALL_RESULT_RAISE_UD set makes KVM raise #UD at the hypercall
++instruction instead of completing it (honoured only while forwarding
++is enabled).  A VMM must not set that bit on kernels reporting 1,
++where it lands in the guest's RAX as part of the result.
 +
- 4.146 KVM_GET_PLANE_RUN_STATE / KVM_SET_PLANE_RUN_STATE
- --------------------------------------------------------
+ 7.49 KVM_CAP_HCALL_FAULT_EXIT
+ ------------------------------------
  
 diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 1c4395f73acb..6ee85022cdfc 100644
+index 6d3bae46ecab..e03ae6493641 100644
 --- a/arch/x86/include/asm/kvm_host.h
 +++ b/arch/x86/include/asm/kvm_host.h
-@@ -1211,6 +1211,8 @@ struct kvm_hv {
- 	u64 hv_hypercall[KVM_MAX_PLANES];
- 	bool hv_forward_hcalls;
- 	u64 hv_tsc_page;
-+	/* Banked REFERENCE_TSC MSR values for non-zero planes (VTLs). */
-+	u64 hv_tsc_page_plane[KVM_MAX_PLANES];
- 	enum hv_tsc_page_status hv_tsc_page_status;
+@@ -762,6 +762,23 @@ struct kvm_vcpu_hv {
+ 	u64 vtl_entry_rcx;
+ 	bool vtl_entry_regs_valid;
  
- 	/* Hyper-v based guest crash (NT kernel bugcheck) parameters */
-@@ -1218,6 +1220,12 @@ struct kvm_hv {
- 	u64 hv_crash_ctl;
- 
- 	struct ms_hyperv_tsc_page tsc_ref;
 +	/*
-+	 * tsc_ref was read back from the plane-0 page (guest TSC emulation
-+	 * after migration) rather than computed by the host; such values
-+	 * are plane-0-writable and must never seed another plane's page.
++	 * Linear RIP of the hypercall instruction whose deferred
++	 * completion (userspace exit or in-kernel VTL switch suspension)
++	 * is pending; linear so that a CS.base change while the vCPU is
++	 * parked cannot alias the recorded offset.
 +	 */
-+	bool tsc_ref_from_guest;
- 
- 	struct idr conn_to_evt;
- 
++	u64 hcall_exit_rip;
++
++	/*
++	 * Set when an in-kernel VTL switch armed the deferred completion:
++	 * the resume value only lands in run->hyperv.u.hcall.result when
++	 * the opposite-direction switch provides it.  While set, the run
++	 * union holds unrelated bytes and the completion must retry the
++	 * hypercall instead of consuming them.
++	 */
++	bool hcall_resume_pending;
++
+ 	bool suspended;
+ 	int waiting_on;
+ };
 diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-index e703d8999ff0..eefc18c750f1 100644
+index e3ac840c8e5e..02866b9b7e9b 100644
 --- a/arch/x86/kvm/hyperv.c
 +++ b/arch/x86/kvm/hyperv.c
-@@ -1191,6 +1191,7 @@ void kvm_hv_setup_tsc_page(struct kvm *kvm,
- 		if (kvm_read_guest(kvm, gfn_to_gpa(gfn), &hv->tsc_ref, sizeof(hv->tsc_ref)))
- 			goto out_err;
+@@ -2838,16 +2838,67 @@ static int kvm_hv_hypercall_complete(struct kvm_vcpu *vcpu, u64 result)
+ 	return ret;
+ }
  
-+		hv->tsc_ref_from_guest = true;
- 		hv->hv_tsc_page_status = HV_TSC_PAGE_SET;
- 		return;
- 	}
-@@ -1227,6 +1228,7 @@ void kvm_hv_setup_tsc_page(struct kvm *kvm,
- 			    &hv->tsc_ref, sizeof(hv->tsc_ref.tsc_sequence)))
- 		goto out_err;
++/*
++ * A hypercall whose completion was deferred (a userspace exit, or an
++ * in-kernel VTL switch suspending this plane) completes on the vCPU's next
++ * run.  The vCPU may have been moved in between: the higher VTL can rewrite
++ * the suspended plane's RIP through HvCallSetVpRegisters (on a hibernate
++ * resume the secure kernel points VTL0 at the continuation), and userspace
++ * applies that through KVM_SET_REGS.  Skipping an instruction there would
++ * land past the new RIP, so only skip when the vCPU still sits at the RIP
++ * recorded when the completion was armed.
++ */
++static bool kvm_hv_hypercall_moved(struct kvm_vcpu *vcpu)
++{
++	return !kvm_is_linear_rip(vcpu, to_hv_vcpu(vcpu)->hcall_exit_rip);
++}
++
+ static int kvm_hv_hypercall_complete_userspace(struct kvm_vcpu *vcpu)
+ {
++	struct kvm_vcpu_hv *hv_vcpu = to_hv_vcpu(vcpu);
+ 	u64 result = vcpu->run->hyperv.u.hcall.result;
  
-+	hv->tsc_ref_from_guest = false;
- 	hv->hv_tsc_page_status = HV_TSC_PAGE_SET;
- 	return;
- 
-@@ -1432,6 +1434,58 @@ static int kvm_hv_set_msr_pw(struct kvm_vcpu *vcpu, u32 msr, u64 data,
- 		break;
- 	}
- 	case HV_X64_MSR_REFERENCE_TSC:
++	/* Still suspended: nothing completes yet, the vmcall is retried. */
++	if (kvm_hv_vcpu_suspended(vcpu))
++		return 1;
++
++	/*
++	 * An in-kernel VTL switch armed this completion, and only the
++	 * opposite-direction switch writes the resume value.  Resumed any
++	 * other way (a run-state ioctl, a switch forwarded to userspace),
++	 * the run union holds leftover bytes from an unrelated exit:
++	 * don't consume them, re-execute the hypercall instead.
++	 */
++	if (hv_vcpu->hcall_resume_pending) {
++		hv_vcpu->hcall_resume_pending = false;
++		return 1;
++	}
++
++	if (kvm_hv_hypercall_moved(vcpu)) {
 +		/*
-+		 * The reference TSC page is a per-VTL instance.  Plane 0 keeps
-+		 * the live masterclock-maintained page; a non-zero plane gets
-+		 * a one-shot copy of the current parameters, which stay valid
-+		 * while the masterclock is stable.
++		 * The parked plane was repointed (HvCallSetVpRegisters via
++		 * the higher VTL): deliver the result without the deferred
++		 * skip.  Strip the VMM-only control bit; an exception aimed
++		 * at the hypercall instruction has no target once RIP
++		 * moved, and bit 63 must not leak into guest RAX.
 +		 */
-+		if (vcpu->plane_level) {
-+			struct ms_hyperv_tsc_page tsc_ref = {};
-+			u32 tsc_seq;
-+			u64 gfn;
++		result &= ~KVM_HV_HCALL_RESULT_RAISE_UD;
++		trace_kvm_hv_hypercall_done(result);
++		kvm_hv_hypercall_set_result(vcpu, result);
++		++vcpu->stat.hypercalls;
++		return 1;
++	}
 +
-+			hv->hv_tsc_page_plane[vcpu->plane_level] = data;
-+			if (!(data & HV_X64_MSR_TSC_REFERENCE_ENABLE))
-+				break;
-+
-+			/*
-+			 * Copy only host-computed parameters.  After a
-+			 * masterclock change under guest TSC emulation,
-+			 * hv->tsc_ref holds values read back from the
-+			 * plane-0 page, which the lowest VTL can write;
-+			 * presenting those to another plane would let it
-+			 * forge that plane's clock.  Without usable
-+			 * parameters, publish an invalid (zero) sequence so
-+			 * the plane falls back to the TIME_REF_COUNT MSR.
-+			 */
-+			if (hv->hv_tsc_page_status == HV_TSC_PAGE_SET &&
-+			    !hv->tsc_ref_from_guest)
-+				tsc_ref = hv->tsc_ref;
-+
-+			gfn = data >> HV_X64_MSR_TSC_REFERENCE_ADDRESS_SHIFT;
-+			tsc_seq = tsc_ref.tsc_sequence;
-+
-+			/*
-+			 * Write the body under a zero sequence, then the
-+			 * real sequence, so a concurrent reader on this
-+			 * plane never consumes torn parameters.
-+			 */
-+			tsc_ref.tsc_sequence = 0;
-+			if (kvm_vcpu_write_guest(vcpu, gfn_to_gpa(gfn),
-+						 &tsc_ref, sizeof(tsc_ref)))
-+				return 1;
-+
-+			if (!tsc_seq)
-+				break;
-+
-+			tsc_ref.tsc_sequence = tsc_seq;
-+			if (kvm_vcpu_write_guest(vcpu, gfn_to_gpa(gfn),
-+						 &tsc_ref,
-+						 sizeof(tsc_ref.tsc_sequence)))
-+				return 1;
-+			break;
-+		}
- 		hv->hv_tsc_page = data;
- 		if (hv->hv_tsc_page & HV_X64_MSR_TSC_REFERENCE_ENABLE) {
- 			if (!host)
-@@ -1650,7 +1704,9 @@ static int kvm_hv_get_msr_pw(struct kvm_vcpu *vcpu, u32 msr, u64 *pdata,
- 		data = get_time_ref_counter(kvm);
+ 	/*
+ 	 * A hypercall the VMM judged malformed beyond returning a status
+ 	 * (such as a VTL call that is invalid in the current state) faults
+-	 * at the instruction instead of completing.
++	 * at the instruction instead of completing.  Only completions the
++	 * VMM owns under KVM_CAP_HYPERV_FORWARD_HCALL honour the control
++	 * bit; legacy exits (syndbg, slow-form hypercalls) predate it and
++	 * keep bit 63 as part of the result.
+ 	 */
+-	if (result & KVM_HV_HCALL_RESULT_RAISE_UD) {
++	if (to_kvm_hv(vcpu->kvm)->hv_forward_hcalls &&
++	    (result & KVM_HV_HCALL_RESULT_RAISE_UD)) {
+ 		kvm_queue_exception(vcpu, UD_VECTOR);
+ 		return 1;
+ 	}
+@@ -2993,6 +3044,9 @@ static int kvm_hv_hypercall_userspace_exit(struct kvm_vcpu *vcpu,
+ 	vcpu->run->hyperv.u.hcall.input = hc->param;
+ 	vcpu->run->hyperv.u.hcall.params[0] = hc->ingpa;
+ 	vcpu->run->hyperv.u.hcall.params[1] = hc->outgpa;
++	to_hv_vcpu(vcpu)->hcall_exit_rip = kvm_get_linear_rip(vcpu);
++	/* Userspace owns this exit and writes hcall.result before KVM_RUN. */
++	to_hv_vcpu(vcpu)->hcall_resume_pending = false;
+ 	vcpu->arch.complete_userspace_io = kvm_hv_hypercall_complete_userspace;
+ 	return 0;
+ }
+@@ -3136,9 +3190,11 @@ bool kvm_hv_vtl_interrupt_entry(struct kvm_vcpu *vcpu,
+ 	 * value is guest-derived; strip the VMM-only RAISE_UD control bit
+ 	 * so the completion cannot be made to inject #UD by the guest.
+ 	 */
+-	if (target->arch.complete_userspace_io)
++	if (target->arch.complete_userspace_io) {
+ 		vcpu->run->hyperv.u.hcall.result = kvm_rax_read(target) &
+ 						   ~KVM_HV_HCALL_RESULT_RAISE_UD;
++		to_hv_vcpu(target)->hcall_resume_pending = false;
++	}
+ 
+ 	vcpu->plane_kernel_stopped = true;
+ 	kvm_vcpu_set_plane_stopped(vcpu);
+@@ -3282,7 +3338,9 @@ static int kvm_hv_vtl_switch(struct kvm_vcpu *vcpu, bool is_return)
+ 	 * instruction skip and the resume RAX from the shared run struct,
+ 	 * exactly as when userspace drives the switch; until then its
+ 	 * suspended RIP stays at the vmcall, which the higher VTL can
+-	 * observe (and rewrite) through HvCallGetVpRegisters.
++	 * observe (and rewrite) through HvCallGetVpRegisters.  A rewritten
++	 * RIP suppresses the deferred skip (kvm_hv_hypercall_moved()): the
++	 * plane resumes exactly where the higher VTL pointed it.
+ 	 *
+ 	 * The resume value is guest-derived in all three cases (the
+ 	 * caller's RAX on a call or a fast return, the control area on a
+@@ -3291,9 +3349,10 @@ static int kvm_hv_vtl_switch(struct kvm_vcpu *vcpu, bool is_return)
+ 	 * plane.
+ 	 */
+ 	resume &= ~KVM_HV_HCALL_RESULT_RAISE_UD;
+-	if (target->arch.complete_userspace_io)
++	if (target->arch.complete_userspace_io) {
+ 		vcpu->run->hyperv.u.hcall.result = resume;
+-	else
++		to_hv_vcpu(target)->hcall_resume_pending = false;
++	} else
+ 		/*
+ 		 * No completion is armed when the target's suspension
+ 		 * already retired its vmcall (forwarded switch) or was a
+@@ -3307,8 +3366,12 @@ static int kvm_hv_vtl_switch(struct kvm_vcpu *vcpu, bool is_return)
+ 
+ 	/*
+ 	 * Suspend the current plane in its uncompleted hypercall; the
+-	 * switch back will provide its resume value the same way.
++	 * switch back will provide its resume value the same way.  Until
++	 * it does, hcall_resume_pending marks the run union as not holding
++	 * this plane's result.
+ 	 */
++	to_hv_vcpu(vcpu)->hcall_exit_rip = kvm_get_linear_rip(vcpu);
++	to_hv_vcpu(vcpu)->hcall_resume_pending = true;
+ 	vcpu->arch.complete_userspace_io = kvm_hv_hypercall_complete_userspace;
+ 
+ 	vcpu->plane_kernel_stopped = true;
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 89203909db36..dc6196107c23 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -4937,7 +4937,6 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
+ 	case KVM_CAP_HYPERV_CPUID:
+ 	case KVM_CAP_HYPERV_ENFORCE_CPUID:
+ 	case KVM_CAP_SYS_HYPERV_CPUID:
+-	case KVM_CAP_HYPERV_FORWARD_HCALL:
+ 	case KVM_CAP_HYPERV_VTL_SWITCH:
+ 	case KVM_CAP_HYPERV_REG_INTERCEPT:
+ #endif
+@@ -4985,6 +4984,16 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
+ 	case KVM_CAP_ONE_REG:
+ 		r = 1;
  		break;
- 	case HV_X64_MSR_REFERENCE_TSC:
--		data = hv->hv_tsc_page;
-+		data = vcpu->plane_level ?
-+		       hv->hv_tsc_page_plane[vcpu->plane_level] :
-+		       hv->hv_tsc_page;
++#ifdef CONFIG_KVM_HYPERV
++	case KVM_CAP_HYPERV_FORWARD_HCALL:
++		/*
++		 * 2: KVM_HV_HCALL_RESULT_RAISE_UD is honoured on hypercall
++		 * completion.  A VMM must not set the bit on kernels
++		 * reporting 1, where it lands in guest RAX instead.
++		 */
++		r = 2;
++		break;
++#endif
+ 	case KVM_CAP_PRE_FAULT_MEMORY:
+ 		r = tdp_enabled;
  		break;
- 	case HV_X64_MSR_CRASH_P0 ... HV_X64_MSR_CRASH_P4:
- 		return kvm_hv_msr_get_crash_data(kvm,
+diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
+index 843cef8f4cbf..8224ef335ba1 100644
+--- a/include/uapi/linux/kvm.h
++++ b/include/uapi/linux/kvm.h
+@@ -1038,7 +1038,9 @@ struct kvm_enable_cap {
+  * Userspace completion of a forwarded Hyper-V hypercall (KVM_EXIT_HYPERV_HCALL
+  * under KVM_CAP_HYPERV_FORWARD_HCALL): setting this bit in the result makes
+  * KVM raise #UD at the faulting instruction instead of completing the
+- * hypercall; all other result bits are then ignored.
++ * hypercall; all other result bits are then ignored.  Only honoured while
++ * forwarding is enabled, and only on kernels where
++ * KVM_CHECK_EXTENSION(KVM_CAP_HYPERV_FORWARD_HCALL) returns >= 2.
+  */
+ #define KVM_HV_HCALL_RESULT_RAISE_UD	(1ULL << 63)
+ #define KVM_CAP_HCALL_FAULT_EXIT 252
 -- 
 2.50.1
 
