@@ -1,92 +1,354 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82B51DA57;
-	Sat, 17 Oct 2026 00:28:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C006296BC8
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:28:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792196925; cv=none; b=QUSCrFeNg22gYBxQ2OKEJ0e4G5fIjmcn8I6KY1qP9fuAueyq/jmL7cWy9Hy6HlHj1JOwAJEcgtZWztzxJlDNYOCC3VU64Paik1vNW5IEe5E6wxcjD4WqKZg9tOmoz8iO4E0yPfzOHs7WKI+RVQht7EfOyENi6qOiPHsE3C/heBg=
+	t=1792196929; cv=none; b=Y5HvMlIQOp9xGV1Gm7grNt6S4M4cxgIDPQevor8D0r2Zq9RAK8VOZE4daIhvkTRCbhmtahbL8GiXW7cAm9324cET2aagoI7hd//3UnYLt7EGAi8qThxDb30Kiq2o3BlN0AisLQaEOzQknIi8bATel0fj4xzj+e6ZS4iyzcXV5Dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792196925; c=relaxed/simple;
-	bh=HLwSUli3ko11EJAMrWagoL7m8dMM3cBydyu3zRY0p1Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pr6y8x9sBsX2zXvDAsGAaOguV0rpUafwRE9glWZx7HjIPbQ0FCGLmmaN08AanCI9i/2Ec3husqEJO0eNUvTyymX+KsbR+f6Z6ovNgpZx1QyjNoKUby+pov0oIQYyqmiIfB089IDCEf54iSkvroC9ubtTHjefq237asl+4ehfIHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fenrt9GG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792196929; c=relaxed/simple;
+	bh=yRmqB7AoR796XTORIAtSNd1qKQPBbiTj4Ve7ENwxn+k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IGbZU9fLcxru4M9jfRvBOJTLC03+/YE/decA0X8y6jcFdiSmepqc+saTxj/l+ZLY5EmW7Nkyosm5fexQJPM0YnitN99C4NYZZQSrA1KaypAb3ChOZyCKeSvlQoZf8KWs78XmAdQe02JVuDOXyrqeR1e5WK+dZVHXUPue1FJv/HQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HNB/ne0y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fenrt9GG"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BD0221F000C4;
-	Sat, 17 Oct 2026 00:28:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HNB/ne0y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2878F1F000C4;
+	Sat, 17 Oct 2026 00:28:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792196924;
-	bh=uATyO7MiIGWt7kzsKD5f1kNMJ+/WpMh6uWwZOEVGvWM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fenrt9GGV4jHs6Q9s+ulzazdaZqcBr3RqaegLANIBNUyyVfMx3qgEk0zyNarXo+qi
-	 L7i2FcTy2LP81zNql7jP0rEO9XR3gPb/3CMyWcc9NXkor1hvCKpx0Vv/nNS9vd1RF/
-	 8wY2s0Vq5sAqVolLswCI40P2qcwiV+61A04+gZAWBdtMaEk2Y/hcAm0PkqsBmncZtd
-	 QPuW2SEIOhciBFp1Mfv4URXsVsLikHTu6FVQHibbLevtahG6ZWGCTriQblQcSTt8Ws
-	 dzSwc2g5AaxLXZ1je3IKuPSGHhWjtykEIu+zdF+qlayE7sD+2kAHKoLraPysWluv9u
-	 5pHUEMlhLIV0w==
-Date: Sat, 17 Oct 2026 03:28:40 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: "Graf (AWS), Alexander" <graf@amazon.de>
-Cc: Jonathan McDowell <noodles@earth.li>,
-	"Kanagaraj, Surendran" <surenkj@amazon.com>,
-	Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	"linux-integrity@vger.kernel.org" <linux-integrity@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	"nh-open-source@amazon.com" <nh-open-source@amazon.com>,
-	"Kudrjavets, Gunnar" <gunnarku@amazon.com>,
-	"Levinson, Josh" <joshlev@amazon.com>
-Subject: Re: [PATCH v2 2/2] tpm_crb: Raise durations for Amazon NitroTPM
-Message-ID: <atLBOMd22_lMJH4K@kernel.org>
-References: <20261016043733.30589-1-surenkj@amazon.com>
- <20261016043733.30589-3-surenkj@amazon.com>
- <atJQgXYkFjcQROb6@earth.li>
- <56bd8d2f-bf22-4a56-a845-674377b086fa@amazon.de>
+	s=k20260515; t=1792196928;
+	bh=GnbkRq1p0p88yP86RNOTbQA93+fATu/eBciwdGfzIqw=;
+	h=From:To:Cc:Subject:Date;
+	b=HNB/ne0ynZAsc3Yp5slqsCpcDoSC5yEk2xaZ1F/jYJAg77R0U6WChsWFxdwiZn2tr
+	 WF3p2DPN2p0ZspqDNhiVJYOuqc/4Eit8k44E2pdoCFCpfCmOtJx54KA3Tsb7Wn/LhK
+	 QC3kHeUOXsLcXtSYBecZvN+82aqkaMSJ8OHejQnP5MeP34g/nUaiaYuoOPAGKvAnPf
+	 z/rSu2g+e/78caazcadi3VZDAXTjSqpuzuIUoSCzRVOfw1kHAf61NeNoxv879gKW2T
+	 52L2jUhvS9rJMuGMkCyozO/MorE663iOrF+pPXUxjRidS8d076xxrjqi9w4EWfzj7G
+	 s2ywWtl4kIEOA==
+From: Gao Xiang <xiang@kernel.org>
+To: linux-erofs@lists.ozlabs.org
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	Gao Xiang <xiang@kernel.org>
+Subject: [PATCH] erofs: enable iomap for file-backed mounts on unencoded inodes
+Date: Sat, 17 Oct 2026 02:27:58 +0200
+Message-ID: <20261017002758.52193-1-xiang@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <56bd8d2f-bf22-4a56-a845-674377b086fa@amazon.de>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 04:38:56PM +0000, Graf (AWS), Alexander wrote:
-> 
-> On 16.10.26 18:27, Jonathan McDowell wrote:
-> > On Fri, Oct 16, 2026 at 04:37:33AM +0000, Surendran Kanagaraj wrote:
-> >> TPM commands need to complete within the command duration defined in
-> >> the TPM2 spec or keep answering TPM2_RC_RETRY for at most
-> >> TPM2_DURATION_LONG (2s).
-> >>
-> >> In rare scenarios NitroTPM can enter a mode where it either sends
-> >> TPM2_RC_RETRY for more than 2s or delays command completion. When
-> >> this happens during auth session start, the driver disables the chip
-> >> and every subsequent request fails:
-> >>
-> >>      tpm tpm0: in retry loop
-> >>      tpm tpm0: tpm2_load_context: failed with a TPM error 0x0922
-> >>
-> >> Add support for vendor duration overrides to the CRB driver, based on
-> >> the vendor ID read from the interface ID register. For NitroTPM, raise
-> >> TPM_SHORT, TPM_MEDIUM and TPM_LONG to 30s which covers the longest
-> >> unavailability time along with some headroom.
-> > Bumping all of these to 30s seems excessive. Is it really the case that
-> > all commands can potentially take this long? Is that because of
-> > non-TPM-related operations Nitro might be doing behind the scenes?
-> 
-> 
-> We won't reach the 30s, which is exactly why it's a safe default for the 
-> safety net that these timeouts are :).
+Iomap supports non-bdev I/O through fs-provided callbacks since
+commit b2f35ac4146d ("iomap: add caller-provided callbacks for read
+and readahead"), making it suitable for file-backed mounts on unencoded
+inodes.
 
-To be exact, durations. In the context of TPMs, timeouts are the
-latency between the requested state changes.
+Enable iomap for this case to support sub-folio buffered I/Os on
+file-backed mounts and simplify the codebase.
 
-> 
-> 
-> Alex
+Signed-off-by: Gao Xiang (Docker) <xiang@kernel.org>
+---
+ fs/erofs/data.c     |  23 ++++---
+ fs/erofs/fileio.c   | 144 ++++++++++++--------------------------------
+ fs/erofs/internal.h |   5 +-
+ 3 files changed, 53 insertions(+), 119 deletions(-)
 
-Br, Jarkko
+diff --git a/fs/erofs/data.c b/fs/erofs/data.c
+index a726be5e27ca..fd09dc2ae3b7 100644
+--- a/fs/erofs/data.c
++++ b/fs/erofs/data.c
+@@ -308,6 +308,7 @@ static int erofs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+ 	iomap->length = map.m_llen;
+ 	iomap->flags = 0;
+ 	iomap->addr = IOMAP_NULL_ADDR;
++	iomap->private = NULL;
+ 	if (!(map.m_flags & EROFS_MAP_MAPPED)) {
+ 		iomap->type = IOMAP_HOLE;
+ 		return 0;
+@@ -322,6 +323,7 @@ static int erofs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+ 		if (ret)
+ 			return ret;
+ 
++		iomap->private = mdev.m_dif;
+ 		if (flags & IOMAP_DAX)
+ 			iomap->dax_dev = mdev.m_dif->dax_dev;
+ 		else
+@@ -396,14 +398,16 @@ int erofs_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
+  */
+ static int erofs_read_folio(struct file *file, struct folio *folio)
+ {
+-	struct iomap_read_folio_ctx read_ctx = {
+-		.ops		= &iomap_bio_read_ops,
+-		.cur_folio	= folio,
+-	};
+ 	bool need_iput;
+ 	struct erofs_iomap_iter_ctx iter_ctx = {
+ 		.realinode = erofs_real_inode(folio_inode(folio), &need_iput),
+ 	};
++	struct erofs_sb_info *sbi = EROFS_I_SB(iter_ctx.realinode);
++	struct iomap_read_folio_ctx read_ctx = {
++		.ops = erofs_is_fileio_mode(sbi) ?
++			&erofs_fileio_iomap_read_ops : &iomap_bio_read_ops,
++		.cur_folio = folio,
++	};
+ 
+ 	trace_erofs_read_folio(iter_ctx.realinode, folio, true);
+ 	iomap_read_folio(&erofs_iomap_ops, &read_ctx, &iter_ctx);
+@@ -414,14 +418,16 @@ static int erofs_read_folio(struct file *file, struct folio *folio)
+ 
+ static void erofs_readahead(struct readahead_control *rac)
+ {
+-	struct iomap_read_folio_ctx read_ctx = {
+-		.ops		= &iomap_bio_read_ops,
+-		.rac		= rac,
+-	};
+ 	bool need_iput;
+ 	struct erofs_iomap_iter_ctx iter_ctx = {
+ 		.realinode = erofs_real_inode(rac->mapping->host, &need_iput),
+ 	};
++	struct erofs_sb_info *sbi = EROFS_I_SB(iter_ctx.realinode);
++	struct iomap_read_folio_ctx read_ctx = {
++		.ops = erofs_is_fileio_mode(sbi) ?
++			&erofs_fileio_iomap_read_ops : &iomap_bio_read_ops,
++		.rac = rac,
++	};
+ 
+ 	trace_erofs_readahead(iter_ctx.realinode, readahead_index(rac),
+ 			      readahead_count(rac), true);
+@@ -457,7 +463,6 @@ static ssize_t erofs_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
+ 	return filemap_read(iocb, to, 0);
+ }
+ 
+-/* for uncompressed (aligned) files and raw access for other files */
+ const struct address_space_operations erofs_aops = {
+ 	.read_folio = erofs_read_folio,
+ 	.readahead = erofs_readahead,
+diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
+index ebb81a7ffd4c..aa5a80cec41c 100644
+--- a/fs/erofs/fileio.c
++++ b/fs/erofs/fileio.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (C) 2024, Alibaba Cloud
++ * Copyright 2026 Docker, Inc.
+  */
+ #include "internal.h"
+ #include <trace/events/erofs.h>
+@@ -64,135 +65,66 @@ static void erofs_fileio_rq_submit(struct erofs_fileio_rq *rq)
+ 		kfree(rq);
+ }
+ 
+-static struct erofs_fileio_rq *erofs_fileio_rq_alloc(struct erofs_map_dev *mdev)
++static struct erofs_fileio_rq *erofs_fileio_rq_alloc(struct super_block *sb,
++						     struct file *file)
+ {
+ 	struct erofs_fileio_rq *rq = kzalloc_obj(*rq, GFP_KERNEL | __GFP_NOFAIL);
+ 
+ 	bio_init(&rq->bio, NULL, rq->bvecs, ARRAY_SIZE(rq->bvecs), REQ_OP_READ);
+-	rq->iocb.ki_filp = mdev->m_dif->file;
+-	rq->sb = mdev->m_sb;
++	rq->iocb.ki_filp = file;
++	rq->sb = sb;
+ 	refcount_set(&rq->ref, 2);
+ 	return rq;
+ }
+ 
+ struct bio *erofs_fileio_bio_alloc(struct erofs_map_dev *mdev)
+ {
+-	return &erofs_fileio_rq_alloc(mdev)->bio;
++	return &erofs_fileio_rq_alloc(mdev->m_sb, mdev->m_dif->file)->bio;
+ }
+ 
+ void erofs_fileio_submit_bio(struct bio *bio)
+ {
+-	return erofs_fileio_rq_submit(container_of(bio, struct erofs_fileio_rq,
+-						   bio));
++	erofs_fileio_rq_submit(container_of(bio, struct erofs_fileio_rq, bio));
+ }
+ 
+-static int erofs_fileio_scan_folio(struct erofs_fileio *io,
+-				   struct inode *inode, struct folio *folio)
++static void erofs_fileio_iomap_submit_read(const struct iomap_iter *iter,
++		struct iomap_read_folio_ctx *ctx)
+ {
+-	struct erofs_map_blocks *map = &io->map;
+-	unsigned int cur = 0, end = folio_size(folio), len, attached = 0;
+-	loff_t pos = folio_pos(folio), ofs;
+-	int err = 0;
++	struct erofs_fileio_rq *rq = ctx->read_ctx;
+ 
+-	erofs_onlinefolio_init(folio);
+-	while (cur < end) {
+-		if (!in_range(pos + cur, map->m_la, map->m_llen)) {
+-			map->m_la = pos + cur;
+-			map->m_llen = end - cur;
+-			err = erofs_map_blocks(inode, map);
+-			if (err)
+-				break;
+-		}
+-
+-		ofs = folio_pos(folio) + cur - map->m_la;
+-		len = min_t(loff_t, map->m_llen - ofs, end - cur);
+-		if (map->m_flags & EROFS_MAP_META) {
+-			struct erofs_buf buf = __EROFS_BUF_INITIALIZER;
+-			void *src;
+-
+-			src = erofs_read_metabuf(&buf, inode->i_sb,
+-				map->m_pa + ofs, erofs_inode_in_metabox(inode));
+-			if (IS_ERR(src)) {
+-				err = PTR_ERR(src);
+-				break;
+-			}
+-			memcpy_to_folio(folio, cur, src, len);
+-			erofs_put_metabuf(&buf);
+-		} else if (!(map->m_flags & EROFS_MAP_MAPPED)) {
+-			folio_zero_segment(folio, cur, cur + len);
+-			attached = 0;
+-		} else {
+-			if (io->rq && (map->m_pa + ofs != io->dev.m_pa ||
+-				       map->m_deviceid != io->dev.m_deviceid)) {
+-io_retry:
+-				erofs_fileio_rq_submit(io->rq);
+-				io->rq = NULL;
+-			}
+-
+-			if (!io->rq) {
+-				io->dev = (struct erofs_map_dev) {
+-					.m_pa = io->map.m_pa + ofs,
+-					.m_deviceid = io->map.m_deviceid,
+-				};
+-				err = erofs_map_dev(inode->i_sb, &io->dev);
+-				if (err)
+-					break;
+-				io->rq = erofs_fileio_rq_alloc(&io->dev);
+-				io->rq->bio.bi_iter.bi_sector =
+-					(io->dev.m_dif->fsoff + io->dev.m_pa) >> 9;
+-				attached = 0;
+-			}
+-			if (!bio_add_folio(&io->rq->bio, folio, len, cur))
+-				goto io_retry;
+-			if (!attached++)
+-				erofs_onlinefolio_split(folio);
+-			io->dev.m_pa += len;
+-		}
+-		cur += len;
+-	}
+-	erofs_onlinefolio_end(folio, err, false);
+-	return err;
++	erofs_fileio_rq_submit(rq);
++	ctx->read_ctx = NULL;
+ }
+ 
+-static int erofs_fileio_read_folio(struct file *file, struct folio *folio)
++static int erofs_fileio_iomap_read_folio_range(const struct iomap_iter *iter,
++		struct iomap_read_folio_ctx *ctx, size_t plen)
+ {
+-	bool need_iput;
+-	struct inode *realinode = erofs_real_inode(folio_inode(folio), &need_iput);
+-	struct erofs_fileio io = {};
+-	int err;
+-
+-	trace_erofs_read_folio(realinode, folio, true);
+-	err = erofs_fileio_scan_folio(&io, realinode, folio);
+-	erofs_fileio_rq_submit(io.rq);
+-	if (need_iput)
+-		iput(realinode);
+-	return err;
+-}
+-
+-static void erofs_fileio_readahead(struct readahead_control *rac)
+-{
+-	bool need_iput;
+-	struct inode *realinode = erofs_real_inode(rac->mapping->host, &need_iput);
+-	struct erofs_fileio io = {};
+-	struct folio *folio;
+-	int err;
+-
+-	trace_erofs_readahead(realinode, readahead_index(rac),
+-			      readahead_count(rac), true);
+-	while ((folio = readahead_folio(rac))) {
+-		err = erofs_fileio_scan_folio(&io, realinode, folio);
+-		if (err && err != -EINTR)
+-			erofs_err(realinode->i_sb, "readahead error at folio %lu @ nid %llu",
+-				  folio->index, EROFS_I(realinode)->nid);
++	struct folio *folio = ctx->cur_folio;
++	struct erofs_fileio_rq *rq = ctx->read_ctx;
++
++	if (!rq ||
++	    !bio_add_folio(&rq->bio, folio, plen,
++			   offset_in_folio(folio, iter->pos))) {
++		struct super_block *sb = iter->inode->i_sb;
++		const struct iomap *iomap = &iter->iomap;
++		struct erofs_device_info *dif = iomap->private;
++
++		/* submit the existing range if there was one. */
++		if (ctx->read_ctx)
++			erofs_fileio_iomap_submit_read(iter, ctx);
++		rq = erofs_fileio_rq_alloc(sb, dif->file);
++		rq->bio.bi_iter.bi_sector = iomap_sector(iomap, iter->pos);
++		bio_add_folio_nofail(&rq->bio, folio, plen,
++				offset_in_folio(folio, iter->pos));
++		ctx->read_ctx = rq;
++		ctx->read_ctx_file_offset = iter->pos;
+ 	}
+-	erofs_fileio_rq_submit(io.rq);
+-	if (need_iput)
+-		iput(realinode);
++	return 0;
+ }
+ 
+-const struct address_space_operations erofs_fileio_aops = {
+-	.read_folio = erofs_fileio_read_folio,
+-	.readahead = erofs_fileio_readahead,
++const struct iomap_read_ops erofs_fileio_iomap_read_ops = {
++	.read_folio_range	= erofs_fileio_iomap_read_folio_range,
++	.submit_read		= erofs_fileio_iomap_submit_read,
+ };
+ 
+ int erofs_read_meta_folio(struct file *file, struct folio *folio)
+@@ -207,7 +139,7 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
+ 	if (err)
+ 		return err;
+ 
+-	io.rq = erofs_fileio_rq_alloc(&io.dev);
++	io.rq = erofs_fileio_rq_alloc(inode->i_sb, io.dev.m_dif->file);
+ 	io.rq->bio.bi_iter.bi_sector =
+ 		(io.dev.m_dif->fsoff + io.dev.m_pa) >> 9;
+ 	erofs_onlinefolio_init(folio);
+diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
+index da58053c1116..666c7294a0f3 100644
+--- a/fs/erofs/internal.h
++++ b/fs/erofs/internal.h
+@@ -380,7 +380,6 @@ struct erofs_map_dev {
+ 
+ extern const struct super_operations erofs_sops;
+ extern const struct address_space_operations erofs_aops;
+-extern const struct address_space_operations erofs_fileio_aops;
+ extern const struct address_space_operations z_erofs_aops;
+ 
+ extern const struct inode_operations erofs_generic_iops;
+@@ -393,6 +392,7 @@ extern const struct file_operations erofs_dir_fops;
+ extern const struct file_operations erofs_ishare_fops;
+ 
+ extern const struct iomap_ops z_erofs_iomap_report_ops;
++extern const struct iomap_read_ops erofs_fileio_iomap_read_ops;
+ 
+ int erofs_setup_managed_cache(struct super_block *sb);
+ #ifdef CONFIG_EROFS_FS_BACKED_BY_FILE
+@@ -450,9 +450,6 @@ erofs_get_aops(struct inode *realinode)
+ 			  "EXPERIMENTAL EROFS subpage compressed block support in use. Use at your own risk!");
+ 		return &z_erofs_aops;
+ 	}
+-	if (IS_ENABLED(CONFIG_EROFS_FS_BACKED_BY_FILE) &&
+-	    erofs_is_fileio_mode(EROFS_SB(realinode->i_sb)))
+-		return &erofs_fileio_aops;
+ 	return &erofs_aops;
+ }
+ 
+-- 
+2.47.3
+
