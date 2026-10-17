@@ -1,237 +1,206 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F3B288C81;
-	Sat, 17 Oct 2026 14:09:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792246187; cv=fail; b=rFM77wAqa/UOme6GCCZ33q/rGfVbAr9wszJG6rh7uPnWdj2h1X/nOrLtTDi1DZLXgkHgMkxBbi+Gh1lGhcI9CCwc/zgrHt1GfVDvODMhfRFBwqg9TvF2DCqUitGnaXYxROLdL6Ac5nDk1QT9yPxO8Qe1FaMnVBr0bLeI1/73uPI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792246187; c=relaxed/simple;
-	bh=QTyl2XgTnz/IFx6q5AkEbJrKZAWmbOjMldSapj9tLfY=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=YMhdADoGsGrl7JDA7uYnYDYrcw6ILz6O3eFM9w2zok4t8zRLaHfvhO+zCxI+sYC8BQ3JVIBRDI7H29iSEAzSqJhCSVjJk3RyJcKU4Jad9BJz+2cb1aQ8acL7BRuZAz3dlf7IRWcKyCdFLarwbPrUpkiSo44LbrNzJFi0NRbYKqU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QB0/zA6g; arc=fail smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9582E62B7
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:13:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792246385; cv=none; b=fMxjy9age4UPzZXASY73OQ/SWLTsm4cSfYA4et5JanTcBuiuOxuPUaMelcr9mGl0p5K72jeviQEXKu/EW3djknApvivfKVoaNOWvHQ2sKWgHKkivQ2lh44J9u5t9DGxSQl+SIMresbrGrdTVW44Dlx+o38uutJTPKk3sb/c+BOQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792246385; c=relaxed/simple;
+	bh=EX/FzVLznKz1i9Q1JsMD+r5L5kBOVC+1NFVnRF5uMFQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=H7o9E0ql+u6nWaeb7p2tU62iKrBpOqNr8F/lmBcyZVJI5CtejFsNAyB4eoDVMs4RKW7K3N2EjUR3ATKunbhcO/tDbeGX9rPoj4fmY8rOMyeSc3/zLyzSD+9x7pymU5+vMg3UZl29iOYifAfGh/5No7htZDcF3Vj7CS3TZlqvNeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jWEtqr86; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QB0/zA6g"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792246185; x=1823782185;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=QTyl2XgTnz/IFx6q5AkEbJrKZAWmbOjMldSapj9tLfY=;
-  b=QB0/zA6gOSVCndyejizm21Mt+cBIdKvAueeGcT3jlzaEMBA9xzgbmNPz
-   +1SaHILiD3tLsRjjbsL3tF+xNLREHO69dD1hSEY8UI7Q5OxO7vQNmlWHM
-   Cja3gihdE0DBuVLCAHyA4krK2hLp13zC0hzuAIRBzhwSJlWN+2+d7akPO
-   n4WHmG5jg4uPoen97N0UOQ1Zgm49MCSsZH9CvvpdFbenMSAS7R9+kKSyZ
-   iVsIyUAQdxZ+7r/7G1wmfGeO4+B1wnU9XUApRdxY0kPvA8akWEQ21pDZi
-   OrOgFNivtGLzdXuUNJtVEDnDHRduRF7eipTzxydkg/JPKN/+rkcimw/1q
-   A==;
-X-CSE-ConnectionGUID: YWsi309zTrm3y5hohAbR+g==
-X-CSE-MsgGUID: KtRJLjipQT+iFA77/EXZ9A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="1009019"
-X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="1009019"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 07:09:44 -0700
-X-CSE-ConnectionGUID: 3gWPiDCCT8qa7ravo42Z7w==
-X-CSE-MsgGUID: rTO9z/XKQIKY9jTgGX9z3Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="2161989"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 07:09:44 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sat, 17 Oct 2026 07:09:43 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Sat, 17 Oct 2026 07:09:43 -0700
-Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.50) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sat, 17 Oct 2026 07:09:43 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j0odvtL09qtHNvbQq6FWbwoTo+Ud88vL/Amzy33GEqTGRR+h/aSIBNYN0qh6t80RchjyKbi4GbMWwfarfZgKjZqBF5pwiFWmT56/1QpET0GPaWsmhA58TGI/iwaeQ8Pz0d+oUcqJTa33v8E3u47W+BBGhK+F44gTLfyUp7PHi7yBjwx0Se7YHyVN7AyxHpDXV7Yv7FmM8eQDEtoCg1bMOa7iPHo4ppjFwVosyd54zh+5WxE9kXPck7JNtWm4fW1245RfyyYPZPNuyNofkl1p3yBLO+qnw+UZn/EhMeesJv5UVSZasixXBBu1ILl3mguWwUNb0bveCQjmWBkBtZfi2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7uT9a+FYmMaV089hyYf35SgPUJmIqj2aEx7GcKtrGLw=;
- b=axYL4j/TvltYB8/brO43DA5kifZ8TWS2yGHNMlrJPRYdsuBWJlqs7rbWBLUumw2u7sHn2UdHeyk5VQPv5DWO+6TA7VFjH0D1bKyvPsfoWwa6vLOx5kYOdQxclEbuuFtNmAZRDg4m1frYVFDByiUrxyURFSlBVMTNDeW18A7fUSgyny9D9QW+7fLHmH/3QYugrmkCshC4oSq5RM2gl7R0xU2UIa3/MDEmGNDj1nriSH4mZ9jtHXmEKFC0/dgHsdFGZ9pvhGSoJlS8f3PHXeQ/ze4V2MpSnkCr642owBBJ+ELDXp0FHrdA0F3bGgMiIDXrs1Dy8MxLG2F8wrNNwnpC5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6117.namprd11.prod.outlook.com (2603:10b6:8:b3::19) by
- DSVPR11MB736929.namprd11.prod.outlook.com (2603:10b6:8:3e9::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Sat, 17 Oct
- 2026 14:09:41 +0000
-Received: from DM4PR11MB6117.namprd11.prod.outlook.com
- ([fe80::d9b3:e942:2686:3cdd]) by DM4PR11MB6117.namprd11.prod.outlook.com
- ([fe80::d9b3:e942:2686:3cdd%6]) with mapi id 15.21.0522.012; Sat, 17 Oct 2026
- 14:09:41 +0000
-Date: Sat, 17 Oct 2026 16:09:34 +0200
-From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-To: =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>
-CC: Clement Lecigne <clecigne@google.com>, <aleksander.lobakin@intel.com>,
-	<edumazet@google.com>, <netdev@vger.kernel.org>, <bpf@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <kuba@kernel.org>, <sdf@fomichev.me>,
-	<horms@kernel.org>, <john.fastabend@gmail.com>, <ast@kernel.org>,
-	<daniel@iogearbox.net>
-Subject: Re: [PATCH v3] xsk: fix memory corruptions in net/core/xdp.c
-Message-ID: <atOBnjNbppL02n8/@boxer>
-References: <20260629072300.1664622-1-clecigne@google.com>
- <87qzhp51vc.fsf@all.your.base.are.belong.to.us>
- <atIfJAKqp3dZdY4M@boxer>
- <87cxt94d1t.fsf@all.your.base.are.belong.to.us>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <87cxt94d1t.fsf@all.your.base.are.belong.to.us>
-X-ClientProxiedBy: VI1PR06CA0156.eurprd06.prod.outlook.com
- (2603:10a6:803:a0::49) To DM4PR11MB6117.namprd11.prod.outlook.com
- (2603:10b6:8:b3::19)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jWEtqr86"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2df8484f12cso6686185ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:13:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792246384; x=1792851184; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JCniu1TDC3KaNG6UTHQva21z43WBHuc3cHi+ywDliPM=;
+        b=jWEtqr86zVYHhy3D0jq5B2tf3CdZQIYrVnNpoQ31baacycSD+FD1alaH3IgB5JcXzO
+         PHMiPCMllLl+P26HMoxfMA/sfOsOOLTnykPOYnqhQBQ65F3hQiM4GFAi96U12fjxTD3w
+         E7w7QT+repm6H48G4u+TzpScbYRtbycUEQb0TNQdAvFExRoG45qCxEqnDhyLDngjzbeQ
+         kSQ/DYo2MPdYbDEUdUrX03sMJYqXHNA/EP6D9SO2GufEBMzWkXe78RfPXPlIMRgMVjnl
+         6FIfzoN2DuvCNRCxYih5Ducqg7qb4Eop4wKmt7Snn6P9iGU8zXOxnxvyWJAEJxJte9bg
+         Q7pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792246384; x=1792851184;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JCniu1TDC3KaNG6UTHQva21z43WBHuc3cHi+ywDliPM=;
+        b=Y2LzcuFXAshqrCyAmM7VgE+77PoMswx8nbhbOgJa8QXi4uWvTprc9DvzI/emodq2G+
+         eUC9UeDBXI6bS9AsoJAvpzSTjXr24zW4cCjSFM3YiJbo741u7Gi5rCpYFt7KW+9SN5pb
+         MbrDE3EVV8OG9jzoSieg7YMokybrf67NaJALBz3RrQoj+4TkHKxL6mFD8B5x/yV1uFc4
+         lGZAqeVBvRR/6V8Wf6MVTQb+OTebhXLpgJCeZa7CQq5X+CyLXn8WKBV9DIZkLstFT0Ue
+         MGilENMXukapcpmQRSX/rCNcJBpEPC5rcYAPLavX8pVmWVm5Z9v+o7WEoEy/LFdYfiqT
+         bk5A==
+X-Forwarded-Encrypted: i=1; AKwUvByAK80RpaDRNNUM+xILhqOq9IXG4BP15cBIAd0zXsAnZ/Oaw6DyxOfLfBdvWafsaugNmL/7B4Ce4RviSqw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrGQMANNtOMGTlLqTzdBXMB/mWf4wqNGjVseF0Ayut2EPo0KHM
+	u3d1KS6Znk+cgp/PIDJKWYI64V43F3gOq80PIRxfKrYnYWR9bwNbvqHhtU2gbCniJf9zewcZhKT
+	GB3N7GQ==
+X-Received: from plbme6.prod.google.com ([2002:a17:902:fc46:b0:2df:6366:11cc])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2f87:b0:2e9:4f21:91ef
+ with SMTP id d9443c01a7336-2e9a69e99f3mr23537045ad.36.1792246383457; Sat, 17
+ Oct 2026 07:13:03 -0700 (PDT)
+Date: Sat, 17 Oct 2026 07:13:02 -0700
+In-Reply-To: <20261017093016.32348-4-amirmohammad.eftekhar@cispa.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6117:EE_|DSVPR11MB736929:EE_
-X-MS-Office365-Filtering-Correlation-Id: 624b0d0d-c00e-4cff-4c4a-08df2c58497a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|4143699003|11063799006|56012099006|261009223027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: XqreCj2xOq9sb+2JAMlSJFU1i5Rd8r90z23dMUKJSzT71t+lD1aSxNSob6afbdAYHzrorGV/yBMy8X65trwqgmX5eR+bLCzZkHCQpyeZiEseDPy+aBpTZd8z9hMug1WhRXKrQ3SaIdFkFfZnnJmuDBAkh1/NoALX8m/+yzxi6X1BMs9UT5qapPPD7riOziW3huDmTpW3es9YXM38evV5f98sVvNbfiArz2tGPJSQqz1X/J8iRjToWMZW1/Z8gg7s/lkud9Tkm+5xy/UoGzAdsPtuVkZVCpQRzifb9Q9LpyDG5cYEgRX46UmKhtng5y27K7aTFNTLuk+bAfCdpE4Ua2Vfh1WnTrBT+La2OczzQmQZSuJcXMNdhCx0LQEof+2VGmgeF7+qHYH26gtEYD95e3+KyhDVqrEJvBeQzcFY1EMmtBbDYlOPgjpm/hMP7gKHLKHPjP4JIisu2aaPoAyrAOyRZ0/ZtnIF0L4c5zTsItFsAeVY7Uhg7Yg4Q3PuwTAj/6ZzLbO0Z7YAQg9FXxxPVY+lp/paVgsaorf/ctRXaeviRzJaE5i13dDhcqthzRfwnwQy71S9Vip2ozsQEcgP6FTXicEql5nCUp+Qj5b+UbkqvtuaOmgvqBOHsegJ3ENEpxQAGFPugd88Amyz2LEMc7zXDwP5nZbDs8cXwmnD2b0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6117.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(4143699003)(11063799006)(56012099006)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?Ai8nGDwgQAMBj30I/ewuXlVBnj2chH1RKd00PovBc7XJRoDqQxh9X8wjX1?=
- =?iso-8859-1?Q?k7PomU35ZVBwSqsNNdQVr4UE+yPNpQ4RstIetBL5CB7eC/Pz2ZtbhZEOG5?=
- =?iso-8859-1?Q?Wfbk79JkC88IvY1bnexglgtCspT0zYrCJAXskPVPtf6CPsjnWN5fMwBRMU?=
- =?iso-8859-1?Q?wft6T6njQvv0u0lbt8kY6H4MHZ9WRhmjNRslYMByIkxK9jt2ZEZKisnsNP?=
- =?iso-8859-1?Q?nmvXzEyaa8sy31EUKfnK9UhjSJZQ1FsQhY9C1TqlNJ4/RZRxrQw+7qD8xc?=
- =?iso-8859-1?Q?CjtBWQtx23Bd6k8xb5EumHntoaMQ5hTz9ak1lvD+GWGjOf0nwGjvct1fy0?=
- =?iso-8859-1?Q?Pys7szM6J5RZldIqXWbWHQH2xbla/X/3y7/ajmZwL0rMZ9H28bpbYjGM9/?=
- =?iso-8859-1?Q?hqhxN7RsnkM1qjOJfM4TXwW4ZWyPyta3ApgHtN98L2Mc0XtzvwEufmdd36?=
- =?iso-8859-1?Q?9qm4svp9z5KTvCVs93VGlMdmxFhX+XAI5viX6y52uB5hDHUtHyawt6qJZA?=
- =?iso-8859-1?Q?Jbtv07J9afdP2QKTdzCIK90oIyHeeFS5ihHuMhz35/w6KzVLrolvpkPlDs?=
- =?iso-8859-1?Q?dxMFgyQbqldtfWeie/xasBNlMrzDIhmpXCMoYQUv9Hr36TilEO0IbLAgqf?=
- =?iso-8859-1?Q?4TiRS9nqR22cyWVm9Jilkgzv4vcERWqyt9J5ZMquKeGKfwRTVjD3gzgo/D?=
- =?iso-8859-1?Q?Nj2cs4R/eL4zTsGk3L+sptVI5VaL6h2mIM5H+HHZXg/Z39LwO43zGyBVYT?=
- =?iso-8859-1?Q?lE8HCTtFgtmYkpW0dNFrKhLtG2FYVwJXsS8TzB2/ONJelBK8cWQ7geMOZh?=
- =?iso-8859-1?Q?7lri0CWy15m9AABqMGZwsCIZMZ/XwS+rRYJT9wRf2Dk0Hd/llE2Esny99q?=
- =?iso-8859-1?Q?8pCcC+tGASCj1CZEDdjML+P3o+vtoEYJv+wBN80Nr9lhqBjZd+JHWGJnDK?=
- =?iso-8859-1?Q?0rjnVkDIRzz7Nhep7S3QH5W918BDENApBNoIKK23s2VfXZ4gvIVorSGGyX?=
- =?iso-8859-1?Q?waD0g1wOqCWgUbBwOUM6BLN5ORT+Xa2rwj/7MvuGxq+zMDgbbSjOP887/L?=
- =?iso-8859-1?Q?LD97iOzRFZ+wHkUfoI9L3AWkXudQOBO24+MGeSs34eyh5KDs/a0aId47Aq?=
- =?iso-8859-1?Q?UIr5T8qIu6r4FdknzQJHu0Vp9cRc3aPxFYIas9GcSEL6CxxgE5l9+GLzzK?=
- =?iso-8859-1?Q?dZjvtbnFgjCjRUFB0gkJl/JWddeheAOPex3H5i0DR1Oo+L4PZgSr2bd+Jw?=
- =?iso-8859-1?Q?wDdj3fWc3mZeuVhVeWjvYaDwdV1iWfmj0puv4z5ezMEBSO/qb0OaTwm2YI?=
- =?iso-8859-1?Q?ndyiWFQBFViuR1YiP3dXC0/21BuNHWF0oRpy4Nx2KEMD9XT+rg3UTe6Jkb?=
- =?iso-8859-1?Q?4HsiHEykpFuvYyM+fD0W9qU69o/AJdgE20ARo44bmRE29Wm9rNAdAsjmmt?=
- =?iso-8859-1?Q?YAO/XkbosAmYaVeZoUav0nvI/ZfMEZ0CYMOsGfooUNIn+GiqVhN++u5XpP?=
- =?iso-8859-1?Q?SJpDLMP5lVlb5I1gVamxRyHOU3QIuCuoKC6n9YcNk8hEMfSST/UO9Z/m23?=
- =?iso-8859-1?Q?HQwIjkUFphWL2eMEUvNdZFp47VJ7CXar5yJwXzfpmZ/QWKFgf8r2yAi9Cm?=
- =?iso-8859-1?Q?HHygWxiyGBIcjiEVb7VMvpsWjJKb7r0LQJc2DBUWpwj5JMlCJqKFo7z0n5?=
- =?iso-8859-1?Q?xNcbiwoUZ2udYdqH0Q+5DiTp5eCocVBNWwRxItRW0UtwzBTd3jnl6e/Qv5?=
- =?iso-8859-1?Q?r5izlfa1OoJkqdl2u1G7NvfNoVCP4ks2V2+0nW6uWnfWyk2mg1Urjg1GAp?=
- =?iso-8859-1?Q?Dug1n7wyGRN7nn84K80dAHTH45wqEUk=3D?=
-X-Exchange-RoutingPolicyChecked: tk8JHyVn8XMpcOv14K358pVdSXsPUo/YAdZKzSKJEqybCbLiV0Ff9wIn9dkxD6zm6Jy8NWPMLD7PpbORXLjFTtABTsyFb2HTD3h9ZUSLV8g+UPwJI2hFwPAygKGBN7WaBsntKg0w9kYbKRU8vELCzDMbw2fVAqB6W4SZc0McBBmQk7aQ/HSkytuH29t+MmGkF9PYXzPkZS+BYWQyln9GEpllvXu30xoA8Oqo+2NePo69+5jSAoyTigqqonodifEzsJn/ajNab+Q01ENOKvquKPfExdO0pON+2ZhiDFO7Ng8FJXM+JkT0WLFdmSN9XCmWNdUPKw0WLLTnKv/buI3LZw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 624b0d0d-c00e-4cff-4c4a-08df2c58497a
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6117.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2026 14:09:41.3630
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jQIU0xTYAaKPRrDlEM8642CgEG9HXUdeEZqLUnXNYoYHrTfIySIxv8wUpv3ZL+uxcVxV1jezHa038SejM5gg5Sxb1Qr7Qbku/+vSPDXIGEM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR11MB736929
-X-OriginatorOrg: intel.com
+Mime-Version: 1.0
+References: <20261017093016.32348-4-amirmohammad.eftekhar@cispa.de>
+Message-ID: <atOCbna3qAQZ1wLn@google.com>
+Subject: Re: [PATCH] KVM: x86: Ratelimit guest-triggerable IOAPIC/LAPIC log messages
+From: Sean Christopherson <seanjc@google.com>
+To: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+Cc: pbonzini@redhat.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 
-On Fri, Oct 16, 2026 at 10:15:42PM +0200, Björn Töpel wrote:
-> Maciej Fijalkowski <maciej.fijalkowski@intel.com> writes:
++Josef and Chris
+
+On Sat, Oct 17, 2026, Amirmohammad Eftekhar wrote:
+> A guest can drive these kernel log writes at will -- the IOAPIC MMIO
+> read/write handlers log every access with an unsupported length, and the
+> LAPIC IRQ-delivery path logs each physical-broadcast lowest-priority IPI --
+> so a guest can flood the host dmesg/journal.  Use the _ratelimited()
+> variants, matching the ratelimited logging already used elsewhere in the
+> LAPIC.
 > 
-> > On Fri, Oct 16, 2026 at 01:19:35PM +0200, Björn Töpel wrote:
-> >> Waking a dead thread: RISE FROM YOUR GRAVE!
-> >> 
-> >> Clement Lecigne <clecigne@google.com> writes:
-> >> 
-> >> > From: Clément Lecigne <clecigne@google.com>
-> >> >
-> >> > Commit 560d958c6c68 ("xsk: add generic XSk &xdp_buff -> skb conversion")
-> >> > introduced a vulnerability in the handling of XDP_PASS for AF_XDP zero-copy
-> >> > frames.
-> >> 
-> >> Hmm, I acually hit this in my WIP for UMEM page pool provider hack.
-> >> 
-> >> > Note: Currently, this specific AF_XDP zero-copy conversion path is only
-> >> > reachable from the drivers/net/ethernet/intel/ice and
-> >> > drivers/net/ethernet/intel/idpf drivers.
-> >> >
-> >> > When building an skb, xdp_build_skb_from_zc() uses the chunk size
-> >> > (xdp->frame_sz) for the allocation. However, napi_build_skb() automatically
-> >> > reserves space at the end of the allocation for the skb_shared_info
-> >> > structure. 
-> >> >
-> >> > Most high performance UMEM applications use 4K chunks, where the
-> >> > corruption cannot happen.
-> >> 
-> >> I think this can also happen with 4K UMEM chunks.
-> >> 
-> >> For example, on ice, use MTU 3800, 4K chunks, and no extra UMEM
-> >> headroom. Attach an xdp.frags program that returns XDP_PASS, and bind
-> >> the socket without XDP_USE_SG.
-> >> 
-> >> A 3814-byte Ethernet frame fits in the UMEM chunk:
-> >> 
-> >>   256 headroom + 3814 packet = 4070 bytes
-> >> 
-> >> But the copied skb also needs space for skb_shared_info. Using
-> >> the 320-byte size from your example:
-> >> 
-> >>   256 headroom + 3814 packet + 320 shared info = 4390 bytes
-> >> 
-> >> The old code allocates only 4096 bytes, so the packet copy
-> >> overwrites skb_shared_info.
-> >> 
-> >> Am I missing something?
-> >
-> > I was pushing back on relying on scenario above as we respect the tailroom
-> > now since some time:
-> >
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a315e022a72d95ef5f1d4e58e903cb492b0ad931
-> >
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=1ee1605138fc94cc8f8f273321dd2471c64977f9
+> Signed-off-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+> ---
+>  arch/x86/kvm/ioapic.c | 4 ++--
+>  arch/x86/kvm/lapic.c  | 2 +-
+>  2 files changed, 3 insertions(+), 3 deletions(-)
 > 
-> Hmm, isn't that only with XDP_USE_SG? My example binds without it.
-> 
-> Then xsk_pool_get_rx_frame_size() returns 3840. XDP_PASS still builds an
-> skb with skb_shared_info, even if it's linear. So we only have 4096 -
-> 256 - 320 = 3520 bytes for the packet.
-> 
-> Or am I missing another check?
+> diff --git a/arch/x86/kvm/ioapic.c b/arch/x86/kvm/ioapic.c
+> index 0d59b9c75..df15d9401 100644
+> --- a/arch/x86/kvm/ioapic.c
+> +++ b/arch/x86/kvm/ioapic.c
+> @@ -647,7 +647,7 @@ static int ioapic_mmio_read(struct kvm_vcpu *vcpu, struct kvm_io_device *this,
+>  		memcpy(val, (char *)&result, len);
+>  		break;
+>  	default:
+> -		printk(KERN_WARNING "ioapic: wrong length %d\n", len);
+> +		pr_warn_ratelimited("ioapic: wrong length %d\n", len);
+>  	}
+>  	return 0;
+>  }
+> @@ -672,7 +672,7 @@ static int ioapic_mmio_write(struct kvm_vcpu *vcpu, struct kvm_io_device *this,
+>  		data = *(u8  *) val;
+>  		break;
+>  	default:
+> -		printk(KERN_WARNING "ioapic: Unsupported size %d\n", len);
+> +		pr_warn_ratelimited("ioapic: Unsupported size %d\n", len);
+>  		return 0;
+>  	}
+>  
+> diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
+> index ecf611845..7d85a56b6 100644
+> --- a/arch/x86/kvm/lapic.c
+> +++ b/arch/x86/kvm/lapic.c
+> @@ -1359,7 +1359,7 @@ int __kvm_irq_delivery_to_apic(struct kvm *kvm, struct kvm_lapic *src,
+>  
+>  	if (irq->dest_mode == APIC_DEST_PHYSICAL &&
+>  	    irq->dest_id == 0xff && kvm_lowest_prio_delivery(irq)) {
+> -		pr_info("apic: phys broadcast and lowest prio\n");
+> +		pr_info_ratelimited("apic: phys broadcast and lowest prio\n");
+>  		irq->delivery_mode = APIC_DM_FIXED;
+>  	}
 
-I missed your trick with xdp.frags on prog side. Get this fixed then! :D I
-had a thought like 'who cares if we overwrite struct not used in linear
-traffic' but as Clement said somewhere destructor_arg overwrite would make
-a mess.
+This, and more flaws of this nature, were also sent along off-list by Josef and
+Chris.  For this specific case, I think what I'll do is combine all of the
+APIC ratelimited conversions into a single patch, flip a coin for the Author,
+and list the other person as Co-Author.  Any objections to that approach?
 
-Side note is ice currently still only allows 3k buffers for linear XDP
-progs but it currently works with page_pool not with magic page split
-mechanism, so the limit should be lifted.
+Author:     Josef Bacik <josef@toxicpanda.com>
+AuthorDate: Wed Oct 7 23:19:48 2026 +0000
+Commit:     Chris Mason <mason@kernel.org>
+CommitDate: Fri Oct 16 18:07:57 2026 +0000
 
-I might take this as an AR but anyone reading this in future feel free to
-pick it up.
+    KVM: x86: Ratelimit the I/O APIC's access size warnings
+    
+    ioapic_mmio_read() and ioapic_mmio_write() print a warning for an access
+    that is not 1, 2, 4 or 8 bytes long.  The guest chooses the length: a far
+    pointer load with a 32-bit operand size, e.g. LDS, reads six bytes, and
+    an access that starts in the page below the I/O APIC leaves a fragment of
+    any length for it.
+    
+    A guest that does this in a loop writes to the host's log, and to its
+    console, as fast as it can exit, which drowns everything else and keeps
+    the CPU busy in the console driver.
+    
+    Ratelimit the two messages.  They are now prefixed with the module name.
+    
+    Fixes: 1fd4f2a5ed8f ("KVM: In-kernel I/O APIC model")
+    Assisted-by: LLM
+    Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
-Bjorn, let us see if Clement responses in some nearby future, otherwise
-please go forward and submit a standalone fix out of your series.
+diff --git arch/x86/kvm/ioapic.c arch/x86/kvm/ioapic.c
+index 0d59b9c758c2..df15d940181c 100644
+--- arch/x86/kvm/ioapic.c
++++ arch/x86/kvm/ioapic.c
+@@ -647,7 +647,7 @@ static int ioapic_mmio_read(struct kvm_vcpu *vcpu, struct kvm_io_device *this,
+                memcpy(val, (char *)&result, len);
+                break;
+        default:
+-               printk(KERN_WARNING "ioapic: wrong length %d\n", len);
++               pr_warn_ratelimited("ioapic: wrong length %d\n", len);
+        }
+        return 0;
+ }
+@@ -672,7 +672,7 @@ static int ioapic_mmio_write(struct kvm_vcpu *vcpu, struct kvm_io_device *this,
+                data = *(u8  *) val;
+                break;
+        default:
+-               printk(KERN_WARNING "ioapic: Unsupported size %d\n", len);
++               pr_warn_ratelimited("ioapic: Unsupported size %d\n", len);
+                return 0;
+        }
 
-Thanks!
+Author:     Josef Bacik <josef@toxicpanda.com>
+AuthorDate: Thu Oct 8 13:12:54 2026 +0000
+Commit:     Chris Mason <mason@kernel.org>
+CommitDate: Fri Oct 16 18:08:44 2026 +0000
+
+    KVM: x86: Ratelimit "Local APIC read with len"
+    
+    kvm_lapic_reg_read() prints an error for a read within one register whose
+    length isn't 1, 2 or 4, i.e. is 3.  The instruction emulator doesn't ask
+    for that, but an SEV-ES guest states the length of an MMIO access in its
+    GHCB, and kvm_sev_es_mmio() passes up to eight bytes on as they come.
+    
+    Such a guest can write to the host's log, and to its console, as fast as it
+    can exit.  Ratelimit the message, which is now prefixed with the module
+    name.
+    
+    Fixes: 8f423a80d299 ("KVM: SVM: Support MMIO for an SEV-ES guest")
+    Assisted-by: LLM
+    Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+
+diff --git arch/x86/kvm/lapic.c arch/x86/kvm/lapic.c
+index ea3afa5e9fa3..82a2dba1f269 100644
+--- arch/x86/kvm/lapic.c
++++ arch/x86/kvm/lapic.c
+@@ -1829,8 +1829,8 @@ static int kvm_lapic_reg_read(struct kvm_lapic *apic, u32 offset, int len,
+                memcpy(data, (char *)&result + alignment, len);
+                break;
+        default:
+-               printk(KERN_ERR "Local APIC read with len = %x, "
+-                      "should be 1,2, or 4 instead\n", len);
++               pr_err_ratelimited("Local APIC read with len = %x, should be 1,2, or 4 instead\n",
++                                  len);
+                break;
+        }
+        return 0;
+
