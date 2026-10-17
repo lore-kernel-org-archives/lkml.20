@@ -1,155 +1,104 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C901F2B8D
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 23:48:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC65347C6;
+	Sat, 17 Oct 2026 23:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792280923; cv=none; b=b1rbiNunBkNjkHD8nN7A7Zc+NXDvJLmkbv8etv1BtXtWHt82bvwqgSAcWUIlXvHAb6TuoqsklUmwpuZW5PIhS1y6LwWhVZ0MED7krbThAEJqADXSLS09Xn0Pqrom3BUMQp3WG1Axuuep+oHmfDmnQFV5P20BZHZi1lHkhqqz0HE=
+	t=1792281155; cv=none; b=RYaEDXAPGKTASdcRO4w4+2CZeEsn1SBMSKGDgHG3if9r+wX7OHAMdyDuZY3ooJuYbwCSIOlCP9s89fPqR6b+FuGKjJmR+BlBLMmtpEKzC+vop/o06EEXa6MbzVZlzwKPG/ooVwSPYOB2vdkuFFGN76YtNxA/PSE2qiIiRkIP/uo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792280923; c=relaxed/simple;
-	bh=u8T4u6gGZi75MTzoTY4V6IDCsSHa0n66NfiID6Un2G8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dU/ng90bM7Z1vqjK6sZigpLOCKhHY2Dm6dnpAXKQQ2kP15CZIY/633itxj6DPjY8XQW/vkNnFVedaYsQPtHFo1rNNQPwIfmV/OyL0s8jqpBzBSNaGoFJtWA6D/r1j2/wkQIG2yOfKbWx50BZm5dRHvODVoVPxkpRut9gOElpa9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xIE8g-003rIH-Sh;
-	Sat, 17 Oct 2026 19:48:34 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Alexey Gladkov <legion@kernel.org>,
-	"Eric W. Biederman" <ebiederm@xmission.com>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Kees Cook <kees@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Serge Hallyn <serge@hallyn.com>,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] ucount: take the rlimit reference before checking the limit
-Date: Sat, 17 Oct 2026 19:48:34 -0400
-Message-ID: <20261017234834.797456-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1792281155; c=relaxed/simple;
+	bh=KQxRgMiC9eqfoxps45u3C8FRTJSV+Wus1W6p3YPA5AQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TLqncsGBuLlDCn+D77wjGr1e5W63dsE6lN2rVUvMUXxwcqFWwCpZ3TpWwllIADcZyPsF9w8hHwSFLREUugTLDLcrQTALIUP7KfiuK4eh73XZnOQjbGGpagxq6e4M/tVA8eYEpVNAO7w4OOGOAYkeG3rohZjNFihqxdBRZM5YTkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtTgdnJa; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtTgdnJa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEC281F000C4;
+	Sat, 17 Oct 2026 23:52:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792281154;
+	bh=StFzcik7Mp3ZhvVi5JfQWedzYDV64DGFpPQvRvZGGVU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=QtTgdnJaKeLronPOyT75NC3l1+vd0AHb1RHOFWqVSZ8LIqRqJVesYHg6P9pe6TCeW
+	 HxIhHTaivr2u1vZoOchTzuufBLhDIzPmaNAVuneMkakM0TZQq3lukqZ6lymHh2XYj2
+	 sNcE1VjoC0rruYkzekNa5tzEH/W1P6M3FslGfElMt7KwhixXuYW1n3Q3eqR+0D8b4C
+	 KMtVIyDJNhai1PEdoa3Uu5JRlnrQpgyEJoP7J61W1zEw/0S4HQ/iy5IqLxKVQR5tqG
+	 yjlf5l7pwJ0BF8yD3UzSjREkqrH6h/B9WpvonM+y/OS2pdRjO3mjti3sdIclkXazoo
+	 oOYYoXqG/aZHA==
+Date: Sun, 18 Oct 2026 00:52:28 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Shashank Mohan Jain <jain.sm@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Mark Brown
+ <broonie@kernel.org>, bui duc phuc <phucduc.bui@gmail.com>, Frank Li
+ <Frank.Li@nxp.com>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] iio: magnetometer: fix the register restore on
+ resume in mmc35240 and mmc5633
+Message-ID: <20261018005228.151cea5a@jic23-hlaptop>
+In-Reply-To: <20261012050055.48850-1-jain.sm@gmail.com>
+References: <20261012050055.48850-1-jain.sm@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On a kernel with user namespaces enabled (CONFIG_USER_NS=y, the default on
-most distributions) an unprivileged user can free a live struct ucounts,
-and the user_namespace it pins, while they are still in use, giving a use-
-after-free on the next signal-accounting access or an rcuref "imbalanced
-put()" warning. It needs no privilege beyond creating a user namespace: in
-a namespace whose RLIMIT_SIGPENDING is 0, race a thread queueing real-time
-signals (which obey the limit and fail at that namespace's ucounts level)
-against one taking a synchronous fault such as SIGSEGV (delivered with
-override_rlimit set, crossing the same level without the limit check);
-both charge the same per-namespace SIGPENDING counter. The defect has been
-present since inc_rlimit_get_ucounts() was introduced in v5.15.
+On Mon, 12 Oct 2026 10:30:53 +0530
+Shashank Mohan Jain <jain.sm@gmail.com> wrote:
 
-inc_rlimit_get_ucounts() walks the ucounts chain and, for each level,
-increments iter->rlimit[type] and then grabs one extra reference on the
-ucounts when the counter goes from 0 to 1 -- the reference that pins the
-ucounts for as long as the rlimit count stays non-zero, released by
-dec_rlimit_put_ucounts() when the counter returns to 0. The reference is
-taken only by the thread that observes new == 1, and only after the limit
-check: a level that fails "new > max" jumps to dec_unwind, which decrements
-iter->rlimit[type] again but takes no reference.
+> The resume callbacks of mmc35240 and mmc5633 call
+> regcache_sync_region() before they take the regmap out of cache-only
+> mode. Since v7.3-rc1 regmap refuses a sync in cache-only mode with a
+> WARN and -EINVAL (86fc3483a4d6 and afc8e3ee8307), so both drivers now
+> warn on every resume and no longer restore their control registers.
+> 
+> The kernel-doc added by 86fc3483a4d6 says that the caller has to
+> disable cache-only mode before the sync, so the two patches change the
+> order in the drivers.
+> 
+> The Fixes tags name the commit that added each resume callback
+> (553a776b7908 for mmc35240, 6e5f6bf2e3f0 for mmc5633), as suggested by
+> Bui Duc Phuc in review of v1: the wrong order predates the regcache
+> change (86fc3483a4d6 / afc8e3ee8307), which only turned it into a WARN
+> and a failed restore.
+> 
+> I have no hardware for either chip. The patches were tested in qemu
+> with the drivers bound to an i2c-stub device and a suspend/resume
+> cycle through /sys/power/pm_test; the details are in the changelogs.
+> A scan of drivers/ and sound/ for other resume paths which sync before
+> leaving cache-only mode in the same function found only these two.
+> 
+> Based on mainline (a5ebb76233b7, v7.3-rc6+); the patches also apply
+> to next-20261009.
+Applied both to the fixes-togreg branch of iio.git and marked them
+for stable.  Seems harmless if they get backported further than
+the change that added the error.
 
-That ordering is unsafe under concurrency. The thread that performs the
-0 -> 1 transition is not guaranteed to keep its increment:
+Jonathan
 
-  CPU0 (fails the limit)              CPU1 (overrides it)
-  new = add_return(1) -> 1
-                                      new = add_return(1) -> 2
-                                      new != 1, no get_ucounts()
-  new > max -> dec_unwind
-  sub_return(1) -> 1   (no put)
-
-The count is left at 1 with no reference held: CPU0 took the increment to 1
-but backed out without taking the reference, while CPU1's surviving
-increment never took one. When CPU1 later frees its charge,
-dec_rlimit_put_ucounts() drops the count 1 -> 0 and calls put_ucounts() for
-a reference nobody ever took. struct ucounts is freed with kfree_rcu() when
-its last reference goes away, so this stray put drops a live ucounts and
-frees it while it is still charged and still on the ucounts hash, giving a
-use-after-free of the ucounts (and of the user_namespace it pinned). The
-symmetric interleaving instead leaks a reference (CPU0 succeeds and takes
-the reference, CPU1 fails and unwinds the level to 0 with no put), pinning
-the ucounts and its user_namespace forever.
-
-The invariant the code wants is "rlimit[type] > 0 implies exactly one
-ucounts reference held for that level".
-
-Take the reference on the 0 -> 1 transition before the limit is decided, so
-the thread that raises the count from zero owns that level's reference even
-when its own request is rejected; the rejecting path then unwinds iter
-through do_dec_rlimit_put_ucounts(), which releases that reference when the
-counter returns to 0. The get_ucounts() failure path is unchanged: no
-reference was taken, so iter is decremented without a put.
-
-Fixes: 15bc01effefe ("ucounts: Fix signal ucount refcounting")
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
-
-Notes:
-    A reproducer, available on request, wins the race within seconds
-    under KASAN or rcuref debugging.
-
- kernel/ucount.c | 25 ++++++++++++++++---------
- 1 file changed, 16 insertions(+), 9 deletions(-)
-
-diff --git a/kernel/ucount.c b/kernel/ucount.c
-index ec8b1445e287..44a78ae80579 100644
---- a/kernel/ucount.c
-+++ b/kernel/ucount.c
-@@ -308,23 +308,30 @@ long inc_rlimit_get_ucounts(struct ucounts *ucounts, enum rlimit_type type,
- 
- 	for (iter = ucounts; iter; iter = iter->ns->ucounts) {
- 		long new = atomic_long_add_return(1, &iter->rlimit[type]);
--		if (new < 0 || new > max)
-+		/*
-+		 * Grab the extra reference when this walk observes the 0 -> 1
-+		 * transition, before the limit is checked: the thread that
-+		 * raises the count from zero owns this level's reference, even
-+		 * when the limit check below rejects the request. Otherwise a
-+		 * concurrent walk that raised the count past 1 is left holding
-+		 * the surviving increment with no reference, and its later
-+		 * dec_rlimit_put_ucounts() drops a reference nobody took.
-+		 */
-+		if (new == 1 && !get_ucounts(iter))
- 			goto dec_unwind;
-+		if (new < 0 || new > max) {
-+			/* undo iter too, releasing the reference taken above */
-+			do_dec_rlimit_put_ucounts(ucounts, iter->ns->ucounts, type);
-+			return 0;
-+		}
- 		if (iter == ucounts)
- 			ret = new;
- 		if (!override_rlimit)
- 			max = get_userns_rlimit_max(iter->ns, type);
--		/*
--		 * Grab an extra ucount reference for the caller when
--		 * the rlimit count was previously 0.
--		 */
--		if (new != 1)
--			continue;
--		if (!get_ucounts(iter))
--			goto dec_unwind;
- 	}
- 	return ret;
- dec_unwind:
-+	/* get_ucounts() failed for iter: undo iter without a put */
- 	dec = atomic_long_sub_return(1, &iter->rlimit[type]);
- 	WARN_ON_ONCE(dec < 0);
- 	do_dec_rlimit_put_ucounts(ucounts, iter, type);
-
-base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
--- 
-2.53.0
+> 
+> Changes since v1:
+>  - repoint the Fixes tags to the commits that added the resume
+>    callbacks (553a776b7908, 6e5f6bf2e3f0), per Bui Duc Phuc's review;
+>    the code change is unchanged.
+>  - note in each changelog that the ordering predates the regcache
+>    change that exposed it.
+> 
+> Shashank Mohan Jain (2):
+>   iio: magnetometer: mmc35240: leave cache-only mode before the cache
+>     sync
+>   iio: magnetometer: mmc5633: leave cache-only mode before the cache
+>     sync
+> 
+>  drivers/iio/magnetometer/mmc35240.c | 3 +--
+>  drivers/iio/magnetometer/mmc5633.c  | 3 +--
+>  2 files changed, 2 insertions(+), 4 deletions(-)
+> 
+> 
+> base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
 
