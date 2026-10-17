@@ -1,321 +1,272 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A39203D649A
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792209153; cv=none; b=mv12tk3HsD6hBW35GsI6CD+kYb5MbrIuQJ3WchBq3bq0BX1L/4nQoFG0klh2SVnMs8w1yNy6ogz1Q24vGw/J4B1HIeRWw6cFzufjzI/ET1FmQhuWFElxueBnyuGAh3aJsl8PzMo2LBcA/P5koivp4beC0GVL+D2NUb/tSnLWMw8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792209153; c=relaxed/simple;
-	bh=hFGzzUuJAf13a7cH1dk4NTelEuSXHb1jue9hfuno+fE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=txNAw80i7JzRtefYtgsQkRBFiH+CsU7Qhlqzas4F82Yp8xepfaXSprWd5EDNP8yXlMxock4RFnv1N12XxwXrHR2smFySg9z0cbVkLGoU9yo50Dfw88HLvp9mZA3zdo9UgdJT2cGdb5xn5N5e7m6Ejh5n3hqpZm74PU4GrMH0QME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ikp9c6bR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iEyxgMab; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC413D4130
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:53:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792209228; cv=pass; b=YfmtVp+5q190mTkUfXRXormQbQqISClJNv14zuTrmmuYaUxiFUaXSLO0h7B9+ws0mvs2ygTG9SiZWLQ5q0q4bqNv+LaX1gMRoiD/6emmQTgo6L4Ny3k/+zTmbedgHn5vyfUVvEHu21OEcVLWx/67VRtiBGIb1z9+bfQeySqeeXg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792209228; c=relaxed/simple;
+	bh=H0kJa2+j+UqUqwrq/WWDGpia51mM82qVdeIzkYkhygg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WLZpSJOH51N7H9dzPXKHjJCA0aYRa9aBLmj0aRGBqb5k/IZo4nkVZZ2p2oaAmo0hnkadZ6WYHaZDYZPDilR+gs0/24N/K/QQY3jaEobZuDclPmtAnRV/86LkhFYERYswDvrLFp1xvRh6BR+rUD3j0J3XqtGiPdTyUf3W+wxNIY4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=muV6RQUy; arc=pass smtp.client-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ikp9c6bR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iEyxgMab"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69H30SpW3242478
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:52:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=L0PYYEDltuM
-	aLnbqbWWQO9goRO0YLg64WgGosJrMhjE=; b=ikp9c6bRo/xr6K6NToySoDSGgBz
-	ez5cSAb8d3SLWwf9mcEb6C5DtNIjnSpQ3zh8XjFjSKKdEDuOs3ozBLrYkrl8ury5
-	D0NLM7K3GtoZ/jVvtNgUKRZlsm5V9Si1jPnwjaDOW3IVf8lcrDzLB0YHm1YHRmoA
-	qondPpbOlsUc1PN4IRYKLkkliGHrZetYkSWKQYZtzfg1nYEO6p9GlQePW1G7+Ig+
-	+Hs5orI6aQD0fIuoMFyPSKL82s8JWGWStS6w/ql5eKyYlghISisRBhcIMkkgdLXW
-	Vix1eygtXJMU0BAZCoLCPItMDTanYzXQo2K5V70OgIyILsPKC8QgkkFrg+A==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbk3v30p2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:52:29 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-341eff9e381so1437226eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:52:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="muV6RQUy"
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bcb4f23ddeso477348e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:53:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792209219; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OgPiuIS3mjqcP/pvVjFAq5Gc3h+bDZBfiwJZsmpBo5yOHxdnQlmDQi+j1lUUYu4pOq
+         lYs4fcuhPqJYlW8CYuDj7gUFXcfdXv46pIzUdGkGjrpuAjUb+wgYGJPZlXwCFZLKuvG5
+         aZpDFuuAvp8sMFeFmDKkVply8el/8UbGBNK3AK39le1kD/MO4fYEHgNLx67Qpu0DQWil
+         dWlzaAR9vAEImMT8BdkieRzU8JpQnloX3qvEqVWn48z6n6PcnNWCfHurK2vBHXVrpIp3
+         1HHfFhOtPrREg6wRQzbnphNjMi+iAVXyl58/xh+aXVRCoUgWijqiI+h5nOaKcKnrh5Ju
+         cMGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=c0xww6zOl66Izqr/6HsQKYJXypZK9pMb27w+but6MD0=;
+        fh=cBLczcCmM+goH13YH8GtmiSR1xuplXgc9L7VCxh/dY0=;
+        b=PcoUtYnj+SFepjTMZJ61LYCI2qmBYLysZHKEI4+Xo06cXQ7eKgmkuGzCxhC5CbgrDd
+         lAS0H6B5GsOCosGg4kjLWQ6SgE/ZZfnaqiLVejW1MdJCWDIrFodgwdXqQMjqQ2ECQwVJ
+         FoSjCwch5h4VLLqXjsOHWPY4vyjjZ+WEQpP/zfVFHjoqM/grbLOiZpKPmgsVfYVA+Z+e
+         WsgzBYV2l8JfpzRDIjiKz+OANNFFSLkjMQIrjzslWWhDravjveh4ZDY55gbDbzk1Xw3C
+         ZO2gPLk72ORzAdYYqr+Q6o4c6/PfvgTDHUEGZrW2unG8jtUn6i4gK8bJilSnU2NKXDLg
+         /dDA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792209149; x=1792813949; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L0PYYEDltuMaLnbqbWWQO9goRO0YLg64WgGosJrMhjE=;
-        b=iEyxgMab2BV7bUosvpX5mVELgoo7hfkh6yhCvAGc7KOSyjmNEAGnNclr0ckX9XShiR
-         ism+WZt647Nej4S41xbNduue8oarsalhnoWY8PxNPyqYro7c2SZbwbdKqMiTaHJckLa8
-         r/0AowsR8v0jNSWJXB2a3NYWpHwnP/tMTO+qje7diCBdYI4QBeFjlGezvBpGkWNAKU1P
-         bs5G1VvTUyj6mT/iB8OOATbUwmjo4WUcREK7E3NKuP+CFKzuwU7hAsJJHkQwIJMoQmiO
-         8S4sCLV1yT3BO21rL/pejM91hLqQtqJysXsFpnZoH00Vj4Og5VpN5CoNcWsLlsSuh/5q
-         tdTw==
+        d=gmail.com; s=20251104; t=1792209219; x=1792814019; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c0xww6zOl66Izqr/6HsQKYJXypZK9pMb27w+but6MD0=;
+        b=muV6RQUyhdCST2VnHWDjaQD/tPf3fzHfiYTBPR1cUphdKFcNwtpDMVf8GWTqXYMyzY
+         NQ1tSidNJWNSgrum53BRkvI8tbiH8s0s4WxFvJOsfDuBqt673OBeQGAF3GoW1yRRP49h
+         hQchXkBy7kSXxD84gDZOunvEZjTDzH5r5Ibv/x/85kVs1U69HrP3+6e2wGDzsz5JAHCd
+         ncAFxHzBDJ+bKwt4Sjz+0Zzkme2f0d6voFHDhRXMp3Tw13NuMQ/TihleRt5pzh1SOL+2
+         LFwJzG2OeaJRLxKqxUf73lu5kuW0U5m8NIQ/4VFxl0g2y5PjuEi5nCuNCEhuzBzcw5Qw
+         uDXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792209149; x=1792813949;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=L0PYYEDltuMaLnbqbWWQO9goRO0YLg64WgGosJrMhjE=;
-        b=qjEL412xjCwTVYpdeeJbQklg2vk5CxIHa8EvB3EbBDE1QFrPvWYFBdY1XNyZT685+U
-         jXtfQh3yqc+2o/GdtubqaxIMw4oPdBccePlhs5f+xx9vRZhh4eYxXMDtTdlYc6qqIZTf
-         q0PCuK48SFUQF0o/t4i5IqGCRoDjK8+geIyJOv7hEILbl0GdtpHKKWVjaEZVfq/8S45L
-         jLT0Db5rMmVTIbH4n4N1fdwewlX7eOZzELYrXsVoBiZkPKZ7OVKcojRVhf/6U51D4X++
-         dovgq6DKFwQRqGB/G/BMcCIsI3sq+7Uf6sBgrYJliEAyy45++zctf54llQut/IzUqYQU
-         sx3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxi/F+EQLzYrX0cClSEzcBelrg/ROOy8N3iLH9Msn0Rc32rWpyu17po/xwGgLhkKaVeVDBDmwTERcYnq6Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzcL4ELNZJ+2GJ5sRQGy1F+yiYYMhBdJhSVJIDAi95RQhslT4+
-	7lQWnOhTcSasb1R9UZUYw+h9aDrDmhY+xLkma7zbGZgATwGEkzuQcxRfQOsjR7HyfM93tHuKA4j
-	y/j1zRk5P9mJdMvCp86OFyPPSOfSn36ElZOOmwHOpx8u18W+bxSQisFkbuUS9tnna0k4=
-X-Gm-Gg: AYBFou3cv1xoB/51US2lUpGKntcQ42D7z0DiWtyHtgfRrg0ozZT5A5AHwf+fUagkK2/
-	xjz3uyJ38ZBJPt8XYDt9WthRTL6OJEAj8dcHfGe0aHa9vzVZNrbH51l3xDK6DwCl14xqK3Xvsuw
-	adtqogKge5YRPjYlofWyB0CQGwh7GylP48dTIw311T3YLKiErRAUb4isSvw5iMIJ9pkScQ6PRPO
-	lnZtxLTTXP+FVIIvnjl0VkoblJSi/7uOPHOTYlhvrS8NXsEbRs3aAJLHCcL98H0bCLsCCEghfAt
-	WAZuL7qPdAGJ2cblnGNifW0ma36hQvP3E193OjRXtjPbde1DxgEbGxgM/iXMLXQuaiqmUKjy3jb
-	BljbWQ1AIT+DejrWN6Jd0rTEe+Yq9nse1MRGcI9mR8c7a5TBoZiekjA==
-X-Received: by 2002:a05:701b:4657:b0:13e:5b2a:e65c with SMTP id a92af1059eb24-1850d370640mr2426915c88.3.1792209148791;
-        Fri, 16 Oct 2026 20:52:28 -0700 (PDT)
-X-Received: by 2002:a05:701b:4657:b0:13e:5b2a:e65c with SMTP id a92af1059eb24-1850d370640mr2426883c88.3.1792209148182;
-        Fri, 16 Oct 2026 20:52:28 -0700 (PDT)
-Received: from hu-aarunnan-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75ac0fsm9723006c88.15.2026.10.16.20.52.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 20:52:27 -0700 (PDT)
-From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-To: david@ixit.cz, andersson@kernel.org, konradybcio@kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        bod@kernel.org, vladimir.zapolskiy@linaro.org,
-        loic.poulain@oss.qualcomm.com, mchehab@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
-        jigarkumar.zala@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        bryan.odonoghue@linaro.org, linux-media@vger.kernel.org,
-        krzysztof.kozlowski@oss.qualcomm.com, daniel@quora.org,
-        konrad.dybcio@oss.qualcomm.com, christopher.obbard@linaro.org,
-        alex.vinarskis@gmail.com
-Subject: [PATCH 2/2] media: qcom: camss: account for C-PHY when calculating link frequency
-Date: Fri, 16 Oct 2026 20:52:21 -0700
-Message-Id: <20261017035221.3816464-3-anusha.nandi@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261017035221.3816464-1-anusha.nandi@oss.qualcomm.com>
-References: <20261017035221.3816464-1-anusha.nandi@oss.qualcomm.com>
+        d=1e100.net; s=20260707; t=1792209219; x=1792814019;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c0xww6zOl66Izqr/6HsQKYJXypZK9pMb27w+but6MD0=;
+        b=PiUhemqWrz2CiyyAHnMO9w4IFHQFvYLMSWYE0Eai5Ei0z/R1/jYCfIProuTj9Ylg4q
+         WgzHHqN8f79X+cyPH/oSQZ2Ihq3k+EkV3fNnd0XXJNgSFL1GlIP6S7RglOvyROZnRLIX
+         I48CZirlrGeJSKZeHlE7RAZBkT0uuVCP0spZS4JA4J1Im6I4tc6DOHkQFRTgV67e3ikH
+         PUikCW8C0tZsN0rKyBqmmzMA0mKKttLYRh5kvhZTvIaPYM9HQ23HQ/Ai8r+B0S0myi5k
+         FWYfBOV287gEyQOhyDBiDB/2EN9JJenaCJ+kQMZL9zu7CkAgtI8SKuezWQEIIhnpWEX+
+         FDJg==
+X-Forwarded-Encrypted: i=1; AKwUvByLZ5Be+m0F8Qyjl5KSLPHsLc5q7Jg0XpJmqObFETyz0XLoHdNmIvxe6CK1N1eILA+7j3066+YgSTFA4TI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnKyr/LjSu9Kd8NF46RjYhKTOyhXz5Ppv6RP4tXOwfuI/IIxu9
+	ZypUnQX5XnaryttAHNsqF1PkBqSO/zzhnIW414ZJ1Gl23ddcrCoCNJW8PmFxZaVD6EzKnkQfHGd
+	g/t1UoDsv395Wmv8YuI3AUF1YZ/Tn3gbksw==
+X-Gm-Gg: AYBFou2q8Tvk2SxMOGVhPvxB4Qn9hqV6WdYt3xagfc2VmV4yUhERBbemsf4CYgco5/S
+	jzJfXqDwjxoEgxEFtclFDvLEfFKvp4z4lL8h2uCZuio5UtcRhY/BkP8i9i/htDZShB6bOExJV2F
+	qGOYf2LSqjndd1KZ97Di3LldGM2GZqhDZgBocRg2O6+a5ntIWx/l55unjtTByTeIe1FiHd9xKWo
+	mdQ/j05W0FSXXjCCgclpnJMdAtbNDq6Zv8xK85SALSeGMCq1TSeryYWiVEcONre50dmeJx6YuGM
+	nKE5Wh45L94Lmu+CysLSUH+7MtSFS2jIMugH6+Al2thqOI9nTI8ehIE=
+X-Received: by 2002:a05:6512:3993:b0:5be:5220:3db2 with SMTP id
+ 2adb3069b0e04-5be52203f96mr217853e87.26.1792209219390; Fri, 16 Oct 2026
+ 20:53:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: iOQhK-c4DUl4Ec8wsDEOz_fXN4-pW_fm
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDAxNSBTYWx0ZWRfX275Q/kyp+e6l
- 4LqFQBnP0VufM0o+taagRP/UWD4OwWcQhTHpPjcci7rQB0kZRlNW4KGW0T6JTKlGFRbwlUnmQNP
- q4Td0maUCLm3WDeuCrXbngv9D6k4CCw=
-X-Authority-Analysis: v=2.4 cv=BZdNQbt2 c=1 sm=1 tr=0 ts=6ad2f0fd cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=nGyAT0_fS2eleY3HuKcA:9 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDAxNSBTYWx0ZWRfX6W7ppLG64wHk
- FJ/3slyQxUOZ9wExdjg4YbQ6e8nbkHamgCFBkCf00uGQBnOk4vx+vpf72q97JTuJU0vXsbY40iL
- KLMJcZffkYQNsmL00Mcf3dDUxgXsJdSzf/8iA2ootEmSvR3/RDiwxpjY8naFEDM/YVgjIwp+PtF
- Keh525cEImxI+dA1WROnusaUOH8KfE/RWiYzcsoAkRHSBABDIzA3Xjo386eVC1lOK/2VxVmeE/H
- HdOb4/mHtF+FioN2lpB63ZV+UtwghUdT6Fw8+qays+ON5kSnDHx+fL+Pm2Wk4SSs26QFXSmOKqJ
- AOWVMPh2cUT3zPRu5u5jutSKLfjNcOPd5q5L2X5m8DkPPY/VQu3bNEcTvJZJWS5ghkS1mJaHLou
- vYFNgwz39jN9DWfOlbX7eGcq+r66eBF5b05cbzMcKs9fH/B7DD6qQmVnIiOU6YzmTm9xEo+nzKH
- c6TL7c2Mx4IyBxY7sjg==
-X-Proofpoint-ORIG-GUID: iOQhK-c4DUl4Ec8wsDEOz_fXN4-pW_fm
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-17_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 impostorscore=0 priorityscore=1501 phishscore=0
- malwarescore=0 adultscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610170015
+References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
+ <CAO9r8zOHtaeo5jhHkHB8Vtb9+KZXO+DH74v+7Y84W0v=tatRqg@mail.gmail.com>
+ <CACpmpofN-JfCgJtW9D0wNu0_pL1pRWGfNphUQnE9Bse-P5tHpQ@mail.gmail.com> <CAO9r8zO+0h3LLuaFGi6RF02sBYrG71Zf9qMei73UPvRi2onGxg@mail.gmail.com>
+In-Reply-To: <CAO9r8zO+0h3LLuaFGi6RF02sBYrG71Zf9qMei73UPvRi2onGxg@mail.gmail.com>
+From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Date: Fri, 16 Oct 2026 20:53:26 -0700
+X-Gm-Features: AclHuK9PwGYFMZLK4QolgvssL7tX2S8kM-FVLNspgBd1JKDsPP-LcKfChdsn8JU
+Message-ID: <CACpmpoe+krnso-b1h_g_Q=HzV5x8xpu=Ke9==+4PfWF0ZcAUgQ@mail.gmail.com>
+Subject: Re: [PATCH v1 0/8] Batched zswap_store() with compression batching
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
+	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
+	davem@davemloft.net, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
+	senozhatsky@chromium.org, 
+	"Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The link-frequency divisor differs between D-PHY and C-PHY: D-PHY
-carries one bit per symbol while C-PHY encodes 16 bits per 7 symbols
-(~2.28 bits/symbol), as described in the MIPI CSI-2 specification.
-Extend camss_get_link_freq() with a cphy parameter and scale the
-per-lane divisor accordingly.
+On Fri, Oct 16, 2026 at 2:48=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> On Fri, Oct 16, 2026 at 12:05=E2=80=AFPM Kanchana P. Sridhar
+> <kanchanapsridhar2026@gmail.com> wrote:
+> >
+> > On Fri, Oct 16, 2026 at 9:14=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> =
+wrote:
+> > >
+> > > On Thu, Oct 8, 2026 at 11:28=E2=80=AFAM Kanchana P. Sridhar
+> > > <kanchanapsridhar2026@gmail.com> wrote:
+> > > >
+> > > > v1: Batched zswap_store() with compression batching
+> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D
+> > > >
+> > > > This series is a spin-off of "v14: zswap compression batching with =
+optimized
+> > > > iaa_crypto driver" [1], and focuses on the generic crypto_acomp and=
+ zswap
+> > > > compression batching enablers. Resuming work on this series followi=
+ng a gap
+> > > > since v14 (January 2026). Please note that my email address and aff=
+iliation have
+> > > > changed from kanchana.p.sridhar@intel.com to kanchanapsridhar2026@g=
+mail.com. I
+> > > > have retained the original Intel sign-offs on prior patches for his=
+torical
+> > > > attribution while signing off v1 of this series with my current add=
+ress.
+> > > >
+> > > > To summarize the main contribution of this patch series: Batching i=
+s introduced
+> > > > in zswap_store() of large folios: we carve out a large folio into b=
+atches of
+> > > > ZSWAP_MAX_BATCH_SIZE (8 pages) for software compressors, and store =
+each
+> > > > batch. Moving the fundamental operations that need to be happen to =
+store a page
+> > > > to now work at the granularity of a batch offers opportunities to o=
+ptimize them
+> > > > from these perspectives:
+> > > >
+> > > > 1) Utilize existing kernel API that minimize obtaining locks for bu=
+lk
+> > > >    operations, e.g. kmem_cache_alloc_bulk()/kmem_cache_free_bulk().
+> > > >
+> > > > 2) We keep the working set for each of the core store functionaliti=
+es (alloc
+> > > >    entries, compress pages, store pages in zsmalloc) to be focused =
+on a
+> > > >    batch, thereby minimizing cache evictions and benefiting from ca=
+che
+> > > >    locality.
+> > > >
+> > > > 3) Along the lines of (1), the main zswap_compress() batching routi=
+ne obtains
+> > > >    the acomp_ctx mutex lock once per batch, and releases it after i=
+t has
+> > > >    processed all pages in that batch.
+> > > >
+> > > > 4) Any zswap store functionality that works on a batch can potentia=
+lly be
+> > > >    parallelized as a next step, to further improve performance.
+> > > >
+> > > > Performance data: usemem with 60% over-commit:
+> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > Validation was done with mm-unstable as of 10-3-2026 (Baseline) and=
+ with this
+> > > > patch series.
+> > > >
+> > > > Testing was done on a Chromebook with a QEMU "vng" VM running in Cr=
+ostini.
+> > > >
+> > > > Chromebook Diagnostics reports:
+> > > >   Intel(R) Core(TM) Ultra 5 115U (10 CPUs, 4.200GHz)
+> > > >   RAM: 16GB
+> > > >
+> > > > vng setup:
+> > > >          Memory: 7G
+> > > >            Swap: 3G
+> > > >     Pinned CPUs: 4 (E-Cores: 4,5,6,7)
+> > > >
+> > > > zswap compressor:
+> > > >   ZSTD
+> > > >
+> > > > mTHP enabled:
+> > > >   64kB
+> > > >
+> > > > vm-scalability/usemem setup:
+> > > >
+> > > >   cgroup memory.high: 3G
+> > > >   4 usemem processes, each allocates 1200M anonymous memory, reads =
+the
+> > > >   Silesia dataset [2] from a pre-fork-allocated buffer into the 120=
+0M,
+> > > >   writes to each unsigned long in the 1200M, sleeps for 10 sec, the=
+n
+> > > >   frees the memory and exits.
+> > > >
+> > > >     usemem --read-silesia -w -O -b 1 -s 10 -n 4 1200M
+> > >
+> > > What is --read-silesia? Is this a local change you made to usemem?
+> >
+> > Yes, this is a local change I made because I wanted to get compressed
+> > lengths besides 565, which is the only compressed length of data
+> > swapped out from the original usemem.
+> >
+> > To replicate my setup:
+>
+> Thanks for sharing the details. I am having trouble reproducing the
+> results, mainly because the standard deviation seems to be too high to
+> make conclusions. What is the standard deviation in your runs?
 
-Thread the PHY type through the CSIPHY (via lane_cfg->phy_cfg) and CSID
-(via a new csid_phy_config.cphy flag, populated from the linked
-CSIPHY's lane configuration) call sites. The TPG path is always D-PHY.
+Sure thing! Let me know if it would be useful to upstream the
+--read-silesia option to the vm-scalability tree.
 
-No functional change for D-PHY: cphy is false and the divisor reduces
-to the previous 2 * lanes with unscaled bpp.
+Yes, standard deviation is considerable, which is why I run usemem
+consecutively for 10 iterations and report the mean Average
+throughput. I could also report the median going forward if that
+helps. The cover letter vmstats are after 10 iterations. The last set
+of data I reported in this thread after applying patch 8 [batched
+version of zswap_compress()], had a mean of 20,946 KB/s, standard
+deviation of 5,391 KB/s and median of 22,477 KB/s. For reference, the
+stddev for the baseline mm-unstable was 5,397 KB/s.
 
-Also program the CSID gen3 RX front-end's CSI2_RX_CFG0 PHY_TYPE_SEL
-bit (24) from the same csid->phy.cphy flag, so C-PHY streams are
-decoded as C-PHY instead of silently defaulting to D-PHY (RX counters
-increment but no packets/frames are ever assembled and buf_done never
-fires).
+I have found this methodology to be reliable in drawing conclusions
+because as zswap_store() performance improves, the outliers are fewer
+and the data is more clustered near the mean.
 
-Co-developed-by: David Heidelberg <david@ixit.cz>
-Signed-off-by: David Heidelberg <david@ixit.cz>
-Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
----
- .../media/platform/qcom/camss/camss-csid-gen3.c  |  2 ++
- drivers/media/platform/qcom/camss/camss-csid.c   |  4 +++-
- drivers/media/platform/qcom/camss/camss-csid.h   |  1 +
- drivers/media/platform/qcom/camss/camss-csiphy.c |  8 +++++---
- drivers/media/platform/qcom/camss/camss.c        | 16 ++++++++++++++--
- drivers/media/platform/qcom/camss/camss.h        |  2 +-
- 6 files changed, 26 insertions(+), 7 deletions(-)
+>
+> Also, I tried measuring the latency of zswap_store() itself through
+> bpftrace, and it doesn't seem to change much throughout the series.
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen3.c b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
-index 0fdbf75fb27d..6eaeb1ba7462 100644
---- a/drivers/media/platform/qcom/camss/camss-csid-gen3.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
-@@ -66,6 +66,7 @@
- #define		CSI2_RX_CFG0_VC_MODE		3
- #define		CSI2_RX_CFG0_DL0_INPUT_SEL	4
- #define		CSI2_RX_CFG0_PHY_NUM_SEL	20
-+#define		CSI2_RX_CFG0_PHY_TYPE_SEL	24
- #define		CSI2_RX_CFG0_TPG_MUX_EN		BIT(27)
- #define		CSI2_RX_CFG0_TPG_MUX_SEL	GENMASK(29, 28)
- 
-@@ -115,6 +116,7 @@ static void __csid_configure_rx(struct csid_device *csid,
- 
- 	camss = csid->camss;
- 	val = (phy->lane_cnt - 1) << CSI2_RX_CFG0_NUM_ACTIVE_LANES;
-+	val |= phy->cphy << CSI2_RX_CFG0_PHY_TYPE_SEL;
- 	val |= phy->lane_assign << CSI2_RX_CFG0_DL0_INPUT_SEL;
- 
- 	if (camss->tpg && csid->tpg_linked &&
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-index a00791b00feb..321bb3c86c56 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid.c
-@@ -547,7 +547,7 @@ static int csid_set_clock_rates(struct csid_device *csid)
- 	fmt = csid_get_fmt_entry(csid->res->formats->formats, csid->res->formats->nformats,
- 				 csid->fmt[MSM_CSIPHY_PAD_SINK].code);
- 	link_freq = camss_get_link_freq(&csid->subdev.entity, fmt->bpp,
--					csid->phy.lane_cnt);
-+					csid->phy.lane_cnt, csid->phy.cphy);
- 	if (link_freq < 0)
- 		link_freq = 0;
- 
-@@ -1279,6 +1279,7 @@ static int csid_link_setup(struct media_entity *entity,
- 			csid->phy.lane_cnt = tpg->res->lane_cnt;
- 			csid->phy.csiphy_id = tpg->id;
- 			csid->phy.lane_assign = csid_get_lane_assign(NULL, csid->phy.lane_cnt);
-+			csid->phy.cphy = false;
- 			csid->tpg_linked = true;
- 		} else {
- 			csiphy = v4l2_get_subdevdata(sd);
-@@ -1293,6 +1294,7 @@ static int csid_link_setup(struct media_entity *entity,
- 			lane_cfg = &csiphy->cfg.csi2->lane_cfg;
- 			csid->phy.lane_cnt = lane_cfg->num_data;
- 			csid->phy.lane_assign = csid_get_lane_assign(lane_cfg, lane_cfg->num_data);
-+			csid->phy.cphy = (lane_cfg->phy_cfg == V4L2_MBUS_CSI2_CPHY);
- 			csid->tpg_linked = false;
- 		}
- 	}
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
-index 5296b10f6bac..00e2669db64c 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.h
-+++ b/drivers/media/platform/qcom/camss/camss-csid.h
-@@ -70,6 +70,7 @@ struct csid_phy_config {
- 	u32 lane_assign;
- 	u32 en_vc;
- 	u8 need_vc_update;
-+	bool cphy;
- };
- 
- struct csid_device;
-diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
-index f99eea2ef228..60d58becc7c5 100644
---- a/drivers/media/platform/qcom/camss/camss-csiphy.c
-+++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
-@@ -146,8 +146,9 @@ static int csiphy_set_clock_rates_legacy(struct csiphy_device *csiphy)
- 	u8 bpp = csiphy_get_bpp(csiphy->res->formats->formats, csiphy->res->formats->nformats,
- 				csiphy->fmt[MSM_CSIPHY_PAD_SINK].code);
- 	u8 num_lanes = csiphy->cfg.csi2->lane_cfg.num_data;
-+	const bool cphy = (csiphy->cfg.csi2->lane_cfg.phy_cfg == V4L2_MBUS_CSI2_CPHY);
- 
--	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes);
-+	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes, cphy);
- 	if (link_freq < 0)
- 		link_freq  = 0;
- 
-@@ -272,9 +273,10 @@ static int csiphy_stream_on_legacy(struct csiphy_device *csiphy)
- 	u8 bpp = csiphy_get_bpp(csiphy->res->formats->formats, csiphy->res->formats->nformats,
- 				csiphy->fmt[MSM_CSIPHY_PAD_SINK].code);
- 	u8 num_lanes = csiphy->cfg.csi2->lane_cfg.num_data;
-+	const bool cphy = (csiphy->cfg.csi2->lane_cfg.phy_cfg == V4L2_MBUS_CSI2_CPHY);
- 	u8 val;
- 
--	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes);
-+	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes, cphy);
- 
- 	if (link_freq < 0) {
- 		dev_err(csiphy->camss->dev,
-@@ -336,7 +338,7 @@ static int csiphy_stream_on(struct csiphy_device *csiphy)
- 
- 	dphy_cfg = &dphy_opts.mipi_dphy;
- 
--	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes);
-+	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes, false);
- 
- 	if (link_freq <= 0) {
- 		dev_err(dev,
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index c888e78256b3..d525358afa04 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -32,6 +32,15 @@
- #define CAMSS_CLOCK_MARGIN_NUMERATOR 105
- #define CAMSS_CLOCK_MARGIN_DENOMINATOR 100
- 
-+/*
-+ * C-PHY encodes data at 16/7 ~ 2.28 bits/symbol, whereas D-PHY does not encode
-+ * data (16/16 = 1 bit/symbol). Scale the per-lane divisor accordingly when
-+ * deriving the link frequency from the sensor pixel rate.
-+ */
-+#define CAMSS_COMMON_PHY_DIVIDENT 16
-+#define CAMSS_CPHY_DIVISOR 7
-+#define CAMSS_DPHY_DIVISOR 16
-+
- static const struct parent_dev_ops vfe_parent_dev_ops;
- 
- static const struct camss_subdev_resources csiphy_res_8x16[] = {
-@@ -4624,19 +4633,22 @@ struct media_pad *camss_find_sensor_pad(struct media_entity *entity)
-  * @entity: Media entity in the current pipeline
-  * @bpp: Number of bits per pixel for the current format
-  * @lanes: Number of lanes in the link to the sensor
-+ * @cphy: True if C-PHY encoding is used
-  *
-  * Return link frequency on success or a negative error code otherwise
-  */
- s64 camss_get_link_freq(struct media_entity *entity, unsigned int bpp,
--			unsigned int lanes)
-+			unsigned int lanes, const bool cphy)
- {
- 	struct media_pad *sensor_pad;
-+	unsigned int div = lanes * 2 * (cphy ? CAMSS_CPHY_DIVISOR :
-+					       CAMSS_DPHY_DIVISOR);
- 
- 	sensor_pad = camss_find_sensor_pad(entity);
- 	if (!sensor_pad)
- 		return -ENODEV;
- 
--	return v4l2_get_link_freq(sensor_pad, bpp, 2 * lanes);
-+	return v4l2_get_link_freq(sensor_pad, CAMSS_COMMON_PHY_DIVIDENT * bpp, div);
- }
- 
- /*
-diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index ba3d51d9c0bf..f7ee2ae792c9 100644
---- a/drivers/media/platform/qcom/camss/camss.h
-+++ b/drivers/media/platform/qcom/camss/camss.h
-@@ -170,7 +170,7 @@ int camss_enable_clocks(int nclocks, struct camss_clock *clock,
- void camss_disable_clocks(int nclocks, struct camss_clock *clock);
- struct media_pad *camss_find_sensor_pad(struct media_entity *entity);
- s64 camss_get_link_freq(struct media_entity *entity, unsigned int bpp,
--			unsigned int lanes);
-+			unsigned int lanes, const bool cphy);
- int camss_get_pixel_clock(struct media_entity *entity, u64 *pixel_clock);
- int camss_pm_domain_on(struct camss *camss, int id);
- void camss_pm_domain_off(struct camss *camss, int id);
--- 
-2.34.1
+I ran bpftrace today to gather zswap_compress() latency per-page,
+before and after patch 8. It shows a clear performance improvement
+with compress batching for the reasons mentioned before:
 
+Sequential_zswap_compress  nr_samples     p25     p50      p75
+p95       p99
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D
+zswap_compress_ns_per_page  1,722,489  43,947  57,791   88,489
+130,165   323,961
+
+Batched_zswap_compress     nr_samples     p25     p50      p75
+p95       p99
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D
+zswap_compress_ns_per_page    339,088  42,081  52,633   63,185
+118,461   191,710
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D
+ Latency saving (ns)                   -1,866  -5,159  -25,305
+-11,704  -132,251
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D
+
+Hope this helps. Thanks!
