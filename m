@@ -1,180 +1,111 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E4F3822A1
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:22:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C02339375;
+	Sat, 17 Oct 2026 14:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792246933; cv=none; b=OVVshh8rR32Wlzk9lJL4tdoGXB1AjarbZ7KqbJGvlqhxm0CNLqW7W2+AGYbwDEWlHpeZGp297YsHO+d/jby96OmwxkSxrIvNQSc5Djss+kyTs9kHVYH0zWAQYA2T4nrmCPWioOaRsmeDVQ+Ow1L/jm7kmGzJnf5V6VICuticqIc=
+	t=1792247080; cv=none; b=gUPO59XFK+X7f8ww4Kex08y4dzW20A1eEktnTxoIi9fyf3lYqwJc34O4sC7/NdOTpPyUu34R24q4CpHKDa4JDS+zqBXEGCjPaA2+K9K2UO0SUhLIWexESYWXW7B/UwXRF6lbMhffhoKZNotxSPIEVH53NXxDI/VKm+ZYhnMn7BY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792246933; c=relaxed/simple;
-	bh=9VB+n9r8SAtE7pgAuVrM0JM4YuxP7Q20SYsFzX4ewR8=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=kV5e63R9yZM84sOfUmSzp2qr2IjeqGV3ln+igDFLqUaZHXTyuspmld1bwo0sr/kLTjaNjclRXgSGC9ZhLHhU02DMSa/Bdrdfu/DdAsOD5DtXl2t5Fb/4uYQ1IkMIO58g60UsOffi5uaSr551R//MNfTTk02Y5lUCzLDpwPwvcSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=LSQsroSL; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1792247080; c=relaxed/simple;
+	bh=QbHfjeIGKiQU338q0g8Oeylgixw3zvUk+tNkDLgIDxc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M4ZXxQkuP7/AQgq4na55NN9Eu17uWrL9Ji4I9hNvbdJPLnq3QYM6UHkqiNnbciCLfb6W7bTrNJoLiZwuDyNdIabNB4Zz1s+7E9n6+IaQU7dAwo7v5hJCxY0/ELD7gByzAGmJyBDKgEm/e/1biQy7xcCa65nO/isoGg6y4qkXqfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PBypj0yt; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="LSQsroSL"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso8909255e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:22:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792246930; x=1792851730; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ANOLOg5W5PGeejHJ7V1Gxk93nPDi6EIUyW6A+VPSJto=;
-        b=LSQsroSLbiOxsN5Ba0/zHf3o4IhtrzVqlfSldw7Klh+o4XnSxhMmfqMOS4RwUxT+VC
-         CJS1ttsgbcwrVIfzJK1z5Dx3b6OIu1HwCHEtYlA7/VJQ06LKWlrVBX+v5A1SR30qTAOo
-         3kNweOsHY6QEhT3pFW5HjvuW2c/pmLMrruD9CkcD16A8zIhxgSa8ii2cPqMRn9eodhom
-         ubSvs/blPYdB7QDdXBKmFWaPwgYVtk9q0+l5N2E+tEzM+OJ/PrgQGpQBVGnwjgKLQ+t4
-         DLFEHkJmxomIhbR7jMUrCINrCwWnPWfb0TjGm+GLvz2YHd92QLCYeek1OYMZDrJFRB9m
-         QKmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792246930; x=1792851730;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ANOLOg5W5PGeejHJ7V1Gxk93nPDi6EIUyW6A+VPSJto=;
-        b=ndez0/XLa44waF1JnxJB2+aHGJFSk6dEJg21cqG7Hmvze7EHUQsKIaO3xtoIObZ+01
-         oc3rkV7n7McpqVWwGjN9jnfgHmHobA4MnRLDGjzg7GBEtAePe+D3lX01YbOApRswyqP0
-         x6nlhzgZ6FnJkB/tSm/pi0D+LRjxxSVyp2V+rjinuh0Xu2es3pFGcQXrYAyrzbO2Bz56
-         Sdt/cLfotNBFBO+/yMeUqdsJZAapdlqlZGcGyAZ0Thc8PbOoBQbZwCAqYzZXWDEstxqM
-         oLATCV+kal1HbCWADvPkG9BFkupz/HnX5sl4frmmHKv8TpI1O+hP0/yq54dh8mXDemJq
-         o0yw==
-X-Forwarded-Encrypted: i=1; AKwUvBy5mitzo1W69QidCxJe7UXdxZmJpvESKGWJ6qZzFj+VW+aSoiL2+4zXRTmueG6DQNHyEjHC+UzGbfq/Uxw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmtGJNIK6oIO07NZgpDOUIcbcl8Awc3/Cc1RPViUzHbfNtbCcu
-	SEDuuu70EnGUsIASUG0m+6vpZy7+1pfUKRBdBQGzUAyPJWJsMik/S7xLBs81CZUJO5s=
-X-Gm-Gg: AYBFou38ZUQqGB9BuUnBu2+QTia3ZSyMV3AqX9UbbR548zYIuP57t3BkCN8iesk2Z5P
-	6Hub/PdqVbdvWJVY8P1bU26V9Qbz0p18wLbyXiZyhYsTyTnXcwq+azBQSu/Rx/kOeZm0LMSXgvI
-	fYTgV1eQJT7WxIwvJGRe+dHWsLT5mU35PvKUN2/dqx93jVx9h90WlsKMlnQ4TSyLo5TOGSgtmm0
-	0Ypev6vaifNCQB376BZIrnqCtOh0YQu8xABI1ALQv2TSb+JlI9HSVYWHwdqYgahpWJJlJa2CA/x
-	ATr8Ppl99h/rj+OvlsKtMMxnB4Pe+E9gjj0de1RSfll5GRqIxL+OJO67/P70KWz04L1E5meCc29
-	wFjBmneJeo68nqfljv4r915Jd5o4+eBzgmP0NncLgrbk5QVt//nKjyH5HBp7u+jwGroGoOEYgK0
-	HUfiH718wUQZtjlbhtpVTvLKNltEjX2lOtP8AoafCn2J2J/HzTvs0gUI9V+AoY+/HJ5K95avGaI
-	BY/HIymzLziowtjkg==
-X-Received: by 2002:a05:600c:8706:b0:49c:fc6c:be19 with SMTP id 5b1f17b1804b1-4a1d76224f0mr59164765e9.31.1792246928866;
-        Sat, 17 Oct 2026 07:22:08 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cdf2f0d1sm74285205e9.2.2026.10.17.07.22.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 07:22:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PBypj0yt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792247076; x=1823783076;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=QbHfjeIGKiQU338q0g8Oeylgixw3zvUk+tNkDLgIDxc=;
+  b=PBypj0ytAtNAjVA9N8o/LsU6cOO+Qhn0BkeSlSKyXSpHAVbAudfGDTRO
+   lzcrHc8XcgUmdmPTz5oInXDguHsrZIoZw1cLx/ykoE2sEGgI8YQ0puxE3
+   x4XVRxZILOhPNuJviWNyiFGRLpRPB7COs+8d2YTPCWboc1nql76tr0bhC
+   sw2DU5hPgtQMbUxEJUyddcLk9CVAUethOZnlLmXDEQLChuOhQWG7J0EZM
+   doxA8bjbUMGp6fSeKtc5BWgpFauiH6toHLj2y+SPYNsBtLa1m6MTtnH3k
+   WpKSOw+AWD7Px6xCgLC6vJAgwxP0PRUYVtXnTWDzWHO7LWeOozgRpaj0d
+   Q==;
+X-CSE-ConnectionGUID: PhsSHfN0Ssy5NZdDvUPf6w==
+X-CSE-MsgGUID: zL851pA2QbiEgl4eCdv4wQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="906138"
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="906138"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 07:24:35 -0700
+X-CSE-ConnectionGUID: HOZEW8DFQk2gJA2zyd7wTA==
+X-CSE-MsgGUID: haglIp14ROaLRtm+xsBwMQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="3935055"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa013.fm.intel.com with ESMTP; 17 Oct 2026 07:24:31 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xI5Km-00000000JPy-32zq;
+	Sat, 17 Oct 2026 14:24:28 +0000
+Date: Sat, 17 Oct 2026 22:23:54 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sebastian Reichel <sre@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	kernel@collabora.com,
+	Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: Re: [PATCH 3/4] arm64: dts: mediatek: Use DP AltMode defines
+Message-ID: <202610172234.PyocmhiR-lkp@intel.com>
+References: <20261014-dp-altmode-dt-defines-v1-3-b657c9b6e4c3@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v6 08/15] clk: starfive: Introduce idiv ops for
- inverted divider clocks
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Brian Masney <bmasney@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Emil Renner Berthing <kernel@esmil.dk>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- Hal Feng <hal.feng@starfivetech.com>
-In-Reply-To: <ZQ4PR01MB12029910538E78B60432F9B8F29D2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20261008123338.11081-1-changhuang.liang@starfivetech.com>
- <20261008123338.11081-9-changhuang.liang@starfivetech.com>
- <179180050742.66744.154947682767663962.b4-review@b4>
- <ZQ4PR01MB12029910538E78B60432F9B8F29D2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-Date: Sat, 17 Oct 2026 16:22:06 +0200
-Message-Id: <179224692686.859276.1840996329833650526.b4-reply@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3085; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=9VB+n9r8SAtE7pgAuVrM0JM4YuxP7Q20SYsFzX4ewR8=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFmXW/oNnjycuHTRz/v1c2U2/gvJidgvcJGDpzn+6vMVi
- Yu3nfG931HKwiDGxSArpshSw10t/k5S68us6Tq3YeawMoEMYeDiFICJfBBkZFiYnqcvt4u5xWle
- 87Sy9Vx/fue/UZFpWx/sIWTUVtNQu5qRoX3yom1vHzbEr0ya/SfXNfJScmZv15uZvXxlWbXSNta
- B7AA=
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014-dp-altmode-dt-defines-v1-3-b657c9b6e4c3@collabora.com>
 
-On 2026-10-14 03:16 +0000, Changhuang Liang wrote:
-> Hi, Jerome
-> 
-> > > Some StarFive clocks only advertise the divider and invert
-> > > capabilities (via JH71X0_CLK_INVERT, without ENABLE). Add the
-> > > JH71X0_IDIV() macro to declare such clocks, and jh71x0_clk_idiv_ops,
-> > > which combines the divider rate operations with get_phase/set_phase.
-> > >
-> > 
-> > Please rephrase, I don't understand what you mean
-> > 
-> > > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> > > ---
-> > >  drivers/clk/starfive/clk-starfive-jh71x0.c | 13 ++++++++++++-
-> > > drivers/clk/starfive/clk-starfive-jh71x0.h |  8 ++++++++
-> > >  2 files changed, 20 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/clk/starfive/clk-starfive-jh71x0.c
-> > > b/drivers/clk/starfive/clk-starfive-jh71x0.c
-> > > index c5ee82db3c92..224fcc3d08db 100644
-> > > --- a/drivers/clk/starfive/clk-starfive-jh71x0.c
-> > > +++ b/drivers/clk/starfive/clk-starfive-jh71x0.c
-> > > @@ -303,6 +303,15 @@ static const struct clk_ops jh71x0_clk_inv_ops = {
-> > >  	.debug_init = jh71x0_clk_debug_init,  };
-> > >
-> > > +static const struct clk_ops jh71x0_clk_idiv_ops = {
-> > > +	.get_phase = jh71x0_clk_get_phase,
-> > > +	.set_phase = jh71x0_clk_set_phase,
-> > > +	.recalc_rate = jh71x0_clk_recalc_rate,
-> > > +	.determine_rate = jh71x0_clk_determine_rate,
-> > > +	.set_rate = jh71x0_clk_set_rate,
-> > > +	.debug_init = jh71x0_clk_debug_init,
-> > 
-> > Instead of trying to cover all the combination that could exist, can you just
-> > chain 2 elements ?
-> > a div then an inv ?
-> 
-> This may require introducing quite a few new changes.
-> 
-> In the current code, struct clk_hw *hw is used to obtain struct jh71x0_clk *clk through hw, and then the register offset is obtained through clk->idx.
-> 
-> static void jh71x0_clk_reg_rmw(struct jh71x0_clk *clk, u32 mask, u32 value)
-> {
-> 	struct jh71x0_clk_priv *priv = jh71x0_priv_from(clk);
-> 	void __iomem *reg = priv->base + 4 * clk->idx;
-> 	unsigned long flags;
-> 
-> 	spin_lock_irqsave(&priv->rmw_lock, flags);
-> 	value |= readl_relaxed(reg) & ~mask;
-> 	writel_relaxed(value, reg);
-> 	spin_unlock_irqrestore(&priv->rmw_lock, flags);
-> }
-> 
-> static int jh71x0_clk_enable(struct clk_hw *hw)
-> {
-> 	struct jh71x0_clk *clk = jh71x0_clk_from(hw);
-> 
-> 	jh71x0_clk_reg_rmw(clk, JH71X0_CLK_ENABLE, JH71X0_CLK_ENABLE);
-> 	return 0;
-> }
-> 
-> Therefore, the existing code has one struct clk_hw corresponding to one register offset.
-> 
-> If it is split into a div and an inv, two struct clk_hw descriptions will be needed.
-> The jh71x0_crg_probe() will need to implement different branches for different clocks:
-> 
-> if (a div and an inv) {
->     devm_clk_hw_register (div)
->     devm_clk_hw_register (inv)
-> } else {
->     devm_clk_hw_register (other)
-> }
-> 
-> Do you need me to make this part of the adjustment?
+Hi Sebastian,
 
-No, it is ok this time around but understand that if this patterns repeats, you will have to
-fix this. Best would be to start thinking about it at least.
+kernel test robot noticed the following build errors:
 
--- 
-Jerome
+[auto build test ERROR on 0fcb05b72344f40806cbe810de8872f1698bf053]
 
+url:    https://github.com/intel-lab-lkp/linux/commits/Sebastian-Reichel/dt-bindings-connector-Add-DP-AltMode-VDO-definitions/20261014-233149
+base:   0fcb05b72344f40806cbe810de8872f1698bf053
+patch link:    https://lore.kernel.org/r/20261014-dp-altmode-dt-defines-v1-3-b657c9b6e4c3%40collabora.com
+patch subject: [PATCH 3/4] arm64: dts: mediatek: Use DP AltMode defines
+config: arm64-randconfig-1001-20261017 (https://download.01.org/0day-ci/archive/20261017/202610172234.PyocmhiR-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 13.4.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261017/202610172234.PyocmhiR-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610172234.PyocmhiR-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   Lexical error: arch/arm64/boot/dts/mediatek/mt8395-genio-common.dtsi:600.25-45 Unexpected 'USB_DISPLAYPORT_SVID'
+>> FATAL ERROR: Syntax error parsing input tree
+--
+   Lexical error: arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi:530.24-44 Unexpected 'USB_DISPLAYPORT_SVID'
+>> FATAL ERROR: Syntax error parsing input tree
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
