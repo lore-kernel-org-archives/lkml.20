@@ -1,233 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680E72F60B2;
-	Sat, 17 Oct 2026 21:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED4031F99A
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 21:40:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792273221; cv=none; b=jkapwEu+wIGEcAPImY3xaodvbyzk8Dq0y/pgeiozj8d6NEt7PUQTgISK3zVB69BhPlZxiKjPUAc5zZKt6TuawIo+YHYL3e5dG++a+OlELdsP1oAsTfLz9xaHazgCqox5T8RDmZDVprPf8PXzrOgdwitbjpEifAWqj0z9KLVi4UQ=
+	t=1792273251; cv=none; b=p0hU2p7t7LHUYmuGZF6mA51tlfWlToPbhl5ik62AM/GN2u9wh4BQo0rYkBCT7874UblRRWIPYhI/J/MNMrtwCtMOKuVScsYan/GQX2H57lvGnBePA0r2E7QuIuUMJhJeMXMoGglPDzWmHxArx6YUV8USZzoNLe8HYJfhu7QHCS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792273221; c=relaxed/simple;
-	bh=ZPU+6pL9dSCS0lBdPECZAZr8Yj1+06Le9ECSNxvwusI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=R58/jaaSQs36MVLLaCffz/pz/vt4uinDJ2FeIE31FDJBqTWa4jd1i0rTmXK54b+g4lI/Q1kmtdLo7AYTI6XCweRwMf0+Cv1xDmN+dReT6qP2tzw9VYXq1/pQEq8mxzabke6TOu1QxlgUMXBnJZaZrBKMILJnfDf6yU103xVGrvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kZuUnF5o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792273251; c=relaxed/simple;
+	bh=pKJj/9Wwtc4TG4Knbq09oNmo8hoqs+7fYuFsxQmFjxU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=md+LG5BBJJsACXldH2VIVWnvrMpxmep4HUlgY3KmmoDnmhIh18ZewZSYLae0ZdsIVGx6/49Odxb8x1TuhJJI5zwyxxHyDgWrsqG1BkJRKGoGgFRXcKj5VYPqHPS4J1E6S6sRsvy0+nTGu7VVEkg3vPgFzxNokOuBsoc5vgw0d1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net; spf=none smtp.mailfrom=nilk.net; dkim=pass (1024-bit key) header.d=nilk.net header.i=@nilk.net header.b=AiGQCGYz; arc=none smtp.client-ip=209.85.161.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=nilk.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kZuUnF5o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A8171F000C4;
-	Sat, 17 Oct 2026 21:40:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792273220;
-	bh=WEQoMZ2bChs4RLc/Ijgg2H/5omfdkYuVoREo4xEk6Bg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kZuUnF5oBvFkvzuXKzzquBs8Ath7mdmtPFX+TrzNHScgan2v17kwmtk/VkBw0IOZN
-	 eMkBo7vA7PgwUSpl4ZZExc/9Mb8FgwSsPfy5Unpm/8jkHjoMniOddjXe3ZFA8oUc5K
-	 +iDZmwKEDDAivN6A+6TZKUQz4ijCpQCyDLhVKtZXEw93ynEBPXDJAagg6qJx3zEPSu
-	 tqTDH6jYt9g2mg3hra6GNsnAgfkFKfmAkynBqb6TkK3F8WKOy+mdMqzCbSVuXSmTaZ
-	 MrmzP144Rj8oMyKpzbrwzTW3PxOvbZH8yul2T28E/OZ90yCVH81wvxfQCoWz+pAlFz
-	 murPH4a4JnNew==
-Subject:
- Re: [PATCH net v3] net: do not let defer_count outlive an empty defer_list
-From: netdev-bot+sashiko@kernel.org
-To: jkain@nuro.ai
-Cc: netdev@vger.kernel.org, edumazet@kernel.org, davem@davemloft.net,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, bigeasy@linutronix.de,
- clrkwllms@kernel.org, rostedt@goodmis.org, linux-rt-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Date: Sat, 17 Oct 2026 21:40:18 +0000
-Message-ID: <179227321891.3135.3487538638002916061@kernel.org>
-In-Reply-To: <20261013205416.3417296-1-jkain@nuro.ai>
-References: <20261013205416.3417296-1-jkain@nuro.ai>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=nilk.net header.i=@nilk.net header.b="AiGQCGYz"
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6c8f6a53fabso1990082eaf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:40:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nilk.net; s=nilk; t=1792273248; x=1792878048; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pKJj/9Wwtc4TG4Knbq09oNmo8hoqs+7fYuFsxQmFjxU=;
+        b=AiGQCGYzw+m72q4Vz08BsR1KPD7/BsdBs04MY3EjSVVbd770bqCr5ceRdGRtFYkBXk
+         pJdegYF62jHwo1C9i3NhOPOaTp5GXOpZ4q4mRCtmmmrcS2sfDKMMXtUqLbfNPw4IZ5FT
+         wfzls4OPcekmyvCLFHmaSwADsV25CyXYMY8NQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792273248; x=1792878048;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pKJj/9Wwtc4TG4Knbq09oNmo8hoqs+7fYuFsxQmFjxU=;
+        b=1jbJQmdhAS36bD9bnhg4TeCYIFAqVYM2GVi43gtDhaU8uqx1dVUNROr2I7aTvKdxlh
+         99+LN49rCuUApffDNmIygzUnSFbL5Kvq8zY3h00zEbwAAMcIXbSLNXqOo9lpJRmDkfWv
+         JENyqqnkEK2UpKG5F2Up5E2g9Mj+aC2DXyDbzZeHAUUoR4UeGyd1mzyCX4CqXKg7IJHa
+         47qZBwwP/wF6RqafbDggwX1Rj5CZjh7JL9G4/4jYs6J1Rg1xpEBy1KyBHhrQadOHQ5Qx
+         fW1AVSvg108vryaGiTRn3Z4se05Skq7uCx6cKltR7K+xN0nlLIRkzVgTNxc7ZXWZeYMZ
+         Iz2A==
+X-Forwarded-Encrypted: i=1; AKwUvBw2ZvAYNxpyDzs2l+HnBKrh6Gs2LoFuE/iIm9Ex3p8gJEHMOmFknkIhq/YEtC0XTaZeriAgnOKheXQGhac=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKv1lwEosICHDbuYMxwXdppiC/g7/Ze1Y1cbmHAanpJ0XSStjfs
+	8Bj0zxlgN6S9V2iV2u7VbGnYC2nqzK7ftd/puuvUUeLjNioIhvbGO1TDW0L/C7rGTw==
+X-Gm-Gg: AYBFou3t6vol+RteiPCNWK244EEnLL2Xs28sOu7C2THiGMgbjk45eUKGB2f3iJC5S+9
+	Ebd+WodL8wLtfWaR3jJ2oyjTKt2L6PnyQ2cnCISyzPzyUC+XnKK9txDsUBK2Q4LKmKgRRI2Asjl
+	0GnlmoBKEpObvau0LT0zHtsPJzXkFDEr/AQKJhItpWF/ms1Wt9H5P4g29KF76ciNwHaXX5/N2PB
+	CMw0Lawy/1ChDE2sBh4CxvqWj2yjVDTvC/huhrMjGXRFIww4Our3v/y6wu7xjPYYLqWv8sOul5t
+	i1W7bPbnFmi8evJJ09qIlb4A8tDN/qaqDoSAQEt3tTl3ohnBUteIkVvsYN/embclatsImvX4psE
+	OyAQrTekEJDwEw2NzkEfKg2vP221HzMn7/zABE8TAq0iV55zE55qehGgiLZd4RYLBBg5WhVFyXN
+	9zU76/iCopCCfJq9gnK64mHDWmU9XF0tSt4HepZ39d6fTCHNfr1uJDh2d0lLcgJ2gWPWcBtZTIz
+	mSdn3ahqdiL4zmg1ym9zIyJX5cQ/jxIW1MO46f8/2c/J1v2dLKPTYvT9BBvsgAb8xh8cnFr0LO5
+	sXDfwVNf2VcJtnPlIWs+XFKJWsP43g+ntBPx5TFPJKJ6mkY+bFUOiAWV+G4I3XiA9YWpfSaIDY8
+	r8ODxCL4zfRPgu3cIfXj0uaXMvpnpV4ZKRL8ppN0C8kdKhMsVuWo=
+X-Received: by 2002:a05:6820:4df8:b0:6f5:a844:b12 with SMTP id 006d021491bc7-70116e4a975mr3984515eaf.57.1792273248461;
+        Sat, 17 Oct 2026 14:40:48 -0700 (PDT)
+Received: from [192.168.0.114] ([187.14.252.51])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a6e12e06sm5109596a34.22.2026.10.17.14.40.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 17 Oct 2026 14:40:47 -0700 (PDT)
+Message-ID: <02feb114-960b-46e4-a126-9b8659fc4394@nilk.net>
+Date: Sat, 17 Oct 2026 15:40:46 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: i2c: dw9719: power down on detection errors
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Ijae Kim <ae878000@gmail.com>, Daniel Scally <dan.scally@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+References: <20260913041828.28430-1-mhun512@gmail.com>
+Content-Language: en-US
+From: Chris Simpson <chris@nilk.net>
+In-Reply-To: <20260913041828.28430-1-mhun512@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Sun, 13 Sep 2026 00:18:28 -0400, Myeonghun Pak wrote:
+> Moving chip detection into dw9719_power_up() introduced direct returns
+> after the regulator has been enabled. An INFO register read failure or
+> an unrecognized ID bypasses the power-down path, while probe only
+> cleans up the media entity and controls after a power-up error.
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0 (1)
+I found the same leak independently while adding DW9800W support for
+the Surface Pro 9, and wrote the same change.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I tested both error paths on a Surface Pro 9 (DW9800W, ACPI, a 7.2.11
+distro kernel with the linux-surface patches), forcing them with a
+test-only hook: an unknown INFO id, and a failed INFO read. Without your
+patch, each failed probe hit the WARN_ON(regulator->enable_count) in
+_regulator_put(), reported as regulator_put() because it is inlined
+there, and the (dummy) supply's num_users stayed one higher. With your
+patch, neither happened. An equivalent change in my tree also runs fine
+through the normal path, including runtime and system suspend.
 
-- [High] The new reject-path undo in skb_attempt_defer_free()
-  (net/core/skbuff.c:7399) brings in a new absorbing state that leaves…
+Reviewed-by: Chris Simpson <chris@nilk.net>
+Tested-by: Chris Simpson <chris@nilk.net>
 
-Pre-existing issues:
-- [Medium] In skb_attempt_defer_free() the reject path jumps to nodefer
-  without calling kick_defer_list_purge().
-- [Low] Documentation/admin-guide/sysctl/net.rst (line 365) describes
-  skb_defer_max as the "Max size (in skbs) of the per-cpu list".
+The patch still applies cleanly to the media-committers next branch.
 
---
+Thanks,
+Chris
 
-net: do not let defer_count outlive an empty defer_list
-
-When the skb_defer_max limit rejects an skb, skb_attempt_defer_free() now
-undoes its defer_count increment, so the counter only counts skbs that are
-actually queued. In __skb_defer_free_flush() the counter reset now comes
-after llist_del_all(), which avoids a transient over-count.
-
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index e76762e29360e..a5912b728ddd7 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -6940,8 +6940,11 @@ static void __skb_defer_free_flush(struct skb_defer_node *sdn, int budget)
->  
->  	if (llist_empty(&sdn->defer_list))
->  		return;
-> -	atomic_long_set(&sdn->defer_count, 0);
->  	free_list = llist_del_all(&sdn->defer_list);
-> +	/* Racy on purpose, as in __dev_xmit_skb(): a producer landing between
-> +	 * the del_all and this store stays queued but uncounted.
-> +	 */
-> +	atomic_long_set(&sdn->defer_count, 0);
-
-[ ... ]
-
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index 41beaf625421a..e45e15506283b 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
-> @@ -7392,8 +7392,13 @@ nodefer:	kfree_skb_napi_cache(skb);
->  	defer_max = READ_ONCE(net_hotdata.sysctl_skb_defer_max);
->  	defer_count = atomic_long_inc_return(&sdn->defer_count);
->  
-> -	if (defer_count >= defer_max)
-> +	if (defer_count >= defer_max) {
-
-[Severity: Low]
-This is a pre-existing issue and was not introduced by this patch. The >=
-test means at most defer_max - 1 skbs are queued. However,
-Documentation/admin-guide/sysctl/net.rst describes skb_defer_max as:
-
-    Max size (in skbs) of the per-cpu list of skbs being freed
-    by the cpu which allocated them.
-
-With skb_defer_max=1, nothing is deferred at all. The list is also now per
-(cpu, node), not per-cpu.
-
-Should the documentation or the comparison be changed so they agree?
-
-> +		/* Undo, or the count outlives the skbs it was counting: the
-> +		 * reject path never reaches kick_defer_list_purge() below.
-> +		 */
-> +		atomic_long_dec(&sdn->defer_count);
-
-[Severity: High]
-Can this decrement push defer_count below zero if it races with the flush
-on the owner CPU?
-
-The increment and the undo are two separate atomic operations. The
-atomic_long_set() in __skb_defer_free_flush() can run between them. With
-defer_max = M and M-1 skbs queued:
-
-P1, P2 (remote producers)            owner CPU
-atomic_long_inc_return() -> M
-atomic_long_inc_return() -> M+1
-both take the reject branch
-                                     llist_del_all()
-                                     atomic_long_set(&sdn->defer_count, 0)
-atomic_long_dec() -> -1
-atomic_long_dec() -> -2
-
-This leaves the counter at -2 with an empty list.
-
-defer_count is an unsigned long, so the next producer's
-atomic_long_inc_return() returns -1, which reads as ULONG_MAX. The
-defer_count >= defer_max test is true, so that producer rejects and
-decrements back to -2. Every later producer that runs alone does the same.
-
-__skb_defer_free_flush() then returns early on the empty list and never
-resets the counter:
-
-    if (llist_empty(&sdn->defer_list))
-        return;
-
-dev_cpu_dead() and sysctl writes don't reset it either.
-
-Wouldn't this switch off deferral for that (cpu, node) slot indefinitely,
-even at the default skb_defer_max?
-
-Several things can widen the inc-to-dec window: hardirqs, preemption in
-process context (the TCP/UDP recvmsg paths), and softirq preemption on
-PREEMPT_RT. Meanwhile the flush runs from net_rx_action, busy poll and
-threaded NAPI on the owner CPU.
-
-This seems to contradict the commit message:
-
-    The counter then only accounts for skbs that are actually queued, so
-    it cannot outlive them, and the absorbing state is unreachable without
-    depending on a flush ever running on the owner CPU.
-
-The new comment in __skb_defer_free_flush() cites __dev_xmit_skb() as
-precedent. That path increments q->defer_count and drops without ever
-decrementing, so its reset can only under-count and can never go negative:
-
-    defer_count = atomic_long_inc_return(&q->defer_count);
-    if (unlikely(defer_count > READ_ONCE(net_hotdata.qdisc_max_burst))) {
-        kfree_skb_reason(skb, SKB_DROP_REASON_QDISC_BURST_DROP);
-        return NET_XMIT_DROP;
-
-The new comment also only covers producers that get accepted. It does not
-cover rejected producers whose increment is erased by the store before
-their decrement runs.
-
-Would an approach that never increments past the limit avoid this? Some
-options:
-
-- atomic_long_add_unless() or a cmpxchg loop
-- a signed comparison, so a negative count heals
-- having the flush subtract the number of drained skbs instead of storing 0
-
->  		goto nodefer;
-> +	}
-
-[Severity: Medium]
-This isn't a bug introduced by this patch. The reject path still jumps to
-nodefer without calling kick_defer_list_purge(). The kick further down in
-skb_attempt_defer_free() only fires on exact equality:
-
-    kick = (defer_count - 1) == (defer_max >> 1);
-
-Can that threshold become unreachable, even with an accurate counter?
-
-With skb_defer_max=2, the only accepted value is inc_return == 1, and
-(1 - 1) == 1 is false. Every later producer increments to 2, rejects, and
-decrements back to 1.
-
-The same happens if the limit is lowered below the current count before
-the old kick fired. For example, with 127 skbs queued under a limit of 256,
-set the limit to 128. Every producer then goes 127 -> 128, rejects, and goes
-back to 127. The new threshold of 65 has already been passed.
-
-proc_do_skb_defer_max() only toggles skb_defer_disable_key on changes to or
-from 0. It doesn't reset the counters or schedule a flush:
-
-    if (nval != oval) {
-        if (nval)
-            static_branch_enable(&skb_defer_disable_key);
-        else
-            static_branch_disable(&skb_defer_disable_key);
-    }
-
-Consider an owner CPU that never runs NET_RX, such as the TX-only
-application CPU from the commit message, whose skbs are completed with
-napi_consume_skb() on another CPU. Wouldn't up to defer_max - 1 skbs stay
-pinned on that list, with deferral off for that (cpu, node), for as long as
-the sysctl keeps that value?
-
-Before this patch, the counter also climbed past the threshold without
-kicking. With this patch, it can recover once the limit is raised again.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013205416.3417296-1-jkain%40nuro.ai
+Made with AI assistance. Written by Claude Opus 5.5 (drafting), with
+review by Claude Fable 5.1 and testing by Claude Opus 5.5, under the
+direction of Chris Simpson <chris@nilk.net>, who reviewed and approved
+it.
