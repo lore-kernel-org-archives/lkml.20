@@ -1,36 +1,37 @@
 Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C79296BD2;
-	Sat, 17 Oct 2026 13:07:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC1A3290D1;
+	Sat, 17 Oct 2026 13:07:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792242438; cv=none; b=JPtMlIZVoiGvPa9gnFcLcZ5rhxv6sRBlfxi7/B+v1aCZoc6l1PLpNkYI65cWwMBznYZQytTzF9NBu/yrx2ArvgGJ9s8dHLTn79VJlVVNlmuht55ZWp/55pOY2/GEiygeVxF69pDxPhxQVJo6GSah+2+J7XeDU4khmxps13Jo/fI=
+	t=1792242440; cv=none; b=kGgIMjw74uXcaU8Fdj4LWPtq8SPShjZVcYNkX9oqzA1wjEbOmzhXxVSB3hk6SlrmXf3A8u7jRjPK2Mqr0KJQIZiZQ82yVSJUaQwyFr1xAtMeHjcJMxJ4NXJSSg9oa3Uzd7uHQXL19HDVX/xWDKWS/HX7ps5b8eqAc61M3g/HhYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792242438; c=relaxed/simple;
-	bh=wHaKnXk5dvgTuwSxeYuX3VMmbmmXSlzEXrIjK9mY2zY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BGRLHxObpp3xHcxg6Z6+RTVLBgZNiuJ4IYFP+tlh8G4RH//ttqaZOz2RqtBYLn0QbTal/z18DxC+87KBvU0KoY0fwOeW9hA90gkTrQfPbtv1kdE/QcabUSurZ6qY9XWAm3BubLOq1tAT600kGN1vJVuhobbMRR2+MQI/sZUH4fM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=A2DvF9JC; arc=none smtp.client-ip=178.21.23.139
+	s=arc-20240116; t=1792242440; c=relaxed/simple;
+	bh=CMaThmWfnpj/MwA2ZEDlOLJGrmCmh7iE0IvIv/qfMzw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tf12kFxgIufpRtMVThcqJgDimD73mQXGo1tAIvj+JXgtsxLV8NxjsaMntoH/tq4+/tbt3FBXnkIm2+Gn/ukfsdrxnbHxfXmiixvyuHirVvqDIa7fkdwBhgS0WN44pWb5bRstdSE8fHXZXdFuLJRu04W2aR+JGsgNPPNRLtMo5EM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=eUfLGFwY; arc=none smtp.client-ip=178.21.23.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="A2DvF9JC"
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="eUfLGFwY"
 Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 40EEC82C23;
-	Sat, 17 Oct 2026 15:07:08 +0200 (CEST)
+	by disroot.org (Postfix) with ESMTP id 019DB80A11;
+	Sat, 17 Oct 2026 15:07:11 +0200 (CEST)
 X-Virus-Scanned: SPAM Filter at disroot.org
 Received: from layka.disroot.org ([127.0.0.1])
  by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id DnvE_HUi_Gul; Sat, 17 Oct 2026 15:07:07 +0200 (CEST)
+ id JeIEbBuWO2j0; Sat, 17 Oct 2026 15:07:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1792242427; bh=wHaKnXk5dvgTuwSxeYuX3VMmbmmXSlzEXrIjK9mY2zY=;
-	h=From:To:Cc:Subject:Date;
-	b=A2DvF9JCal/FBlUICLtwz77n9zvowQnZ11u+0QB79EIYLf17317AyTKXac3d6Nqbz
-	 lfFqtLplYNaRxpXTZaq6oFKNUvOpNAwU7e3FYzpjedKoUhx1m8kQ+hCUpqtHZlPDvH
-	 eUCph3XMim3Sb9HaV8W7dL9EYDbhMyqxkzckkWQe6HIY8uhazuJNouiIKgP0gOc+27
-	 nHXATJM/2Nd/uV+Mrz0heTdPhYVl3o/IW5MfDldHmVdtEbOoQuEfwlv5XI2rNt8nEh
-	 oxtqi1xY4D2U8OTxZw6MFhdTrcwSHJL1AVAT0seaS9E0mkziKOIpIH1B/a8n7CI2p6
-	 iqw51HdmA5u3g==
+	t=1792242430; bh=CMaThmWfnpj/MwA2ZEDlOLJGrmCmh7iE0IvIv/qfMzw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eUfLGFwYzQES0YA7ITz/UZZIHg86QTVUJzDHns7s4PwjFGAZBnBpG+XAyxwUgVL4O
+	 cjYmFXZY6uKUDcI4+F9KAp8OXQ/W1xgRqIRmSK9qwRRm3Oa85nOgujqHhNXwdstTQS
+	 rX26f6CwclRws7e8RkYqXL0WfZ0lK+QnsyYvHD7WQ+ziziUPmCEsjeQX08rV1x3KBy
+	 xDipBOEXrOE4HWJWszYiFDTy8xXqTKhGlMMjLD/Uj4xl1/FhIN9r8clDj9fr3IX2ji
+	 kzN9KoFg0U6l6NRnNXujpp6YHVuHYBWsL36/sb+/snYGuJWMRhLegauNmk/krT4L35
+	 YfDILnqQPF8bg==
 From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
 To: "Rafael J . Wysocki" <rafael@kernel.org>
 Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
@@ -52,10 +53,13 @@ Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
 	linux-pm@vger.kernel.org,
 	platform-driver-x86@vger.kernel.org,
 	acpica-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/4] ACPI: Serialize battery, INT3403 _TMP and ideapad methods
-Date: Sat, 17 Oct 2026 16:06:33 +0300
-Message-ID: <20261017130652.318778-1-aliamemis@disroot.org>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 2/4] ACPI: battery: Evaluate battery methods exclusively
+Date: Sat, 17 Oct 2026 16:06:35 +0300
+Message-ID: <20261017130652.318778-3-aliamemis@disroot.org>
+In-Reply-To: <20261017130652.318778-1-aliamemis@disroot.org>
+References: <20261017130652.318778-1-aliamemis@disroot.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,42 +70,61 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On ThinkPad P1 Gen2 and P53, INT3403 _TMP switches the EC page selector
-without taking the mutex the battery methods use.  On some Lenovo
-IdeaPad and Yoga models, the battery _BIX and the ideapad GBMD take the
-EC mutex and a serialized method in opposite order and deadlock until
-an AML mutex times out.
+without taking the AML mutex the battery methods use, so _BIX and _BST
+running at the same time can read the wrong page. Since commit d33e89d12295
+("thermal: core: Suspend thermal zones later and resume them earlier")
+this happens on most resumes.
 
-As discussed in [1], add exclusive variants of the AML evaluation
-helpers and use them for the battery, INT3403 _TMP and ideapad methods.
-Patches 2-4 depend on patch 1.
+Evaluate the battery methods with acpi_evaluate_object_exclusive().
 
-Changes in v2:
-- Merge the follow-up series [2] and drop its EC query and UCSI patches
-  until they are shown to help
-- Add acpi_execute_simple_method_exclusive() for _BTP and ideapad
-- Make the helpers wrappers that take the lock around the existing ones
-- Join lines up to 100 columns, add a Link: for Suggested-by:
+Fixes: d33e89d12295 ("thermal: core: Suspend thermal zones later and resume them earlier")
+Reported-by: Charis Stratakis <c.stratakis@proton.me>
+Closes: https://lore.kernel.org/all/37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me/
+Cc: stable@vger.kernel.org
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Reviewed-by: Rong Zhang <i@rong.moe>
+---
+ drivers/acpi/battery.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
-Link: https://lore.kernel.org/all/CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com/ [1]
-Link: https://lore.kernel.org/all/20261014190544.150093-1-aliamemis@disroot.org/ [2]
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221065
-v1: https://lore.kernel.org/all/20261014132703.93355-1-aliamemis@disroot.org/
-
-Ali Ahmet Memiş (4):
-  ACPI: utils: Add exclusive AML evaluation helpers
-  ACPI: battery: Evaluate battery methods exclusively
-  thermal: intel: int340x: Evaluate _TMP exclusively
-  platform/x86: ideapad-laptop: Evaluate ACPI methods exclusively
-
- drivers/acpi/battery.c                        | 12 +++---
- drivers/acpi/utils.c                          | 41 +++++++++++++++++++
- drivers/platform/x86/lenovo/ideapad-laptop.c  | 12 ++++--
- .../int340x_thermal/int340x_thermal_zone.c    |  6 ++-
- include/acpi/acpi_bus.h                       |  7 ++++
- 5 files changed, 66 insertions(+), 12 deletions(-)
-
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
+index 670853ec3a4d..7169ac7e83f3 100644
+--- a/drivers/acpi/battery.c
++++ b/drivers/acpi/battery.c
+@@ -583,9 +583,8 @@ static int acpi_battery_get_info(struct acpi_battery *battery)
+ 		struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
+ 		acpi_status status = AE_ERROR;
+ 
+-		status = acpi_evaluate_object(battery->device->handle,
+-					      use_bix ? "_BIX":"_BIF",
+-					      NULL, &buffer);
++		status = acpi_evaluate_object_exclusive(battery->device->handle,
++							use_bix ? "_BIX" : "_BIF", NULL, &buffer);
+ 
+ 		if (ACPI_FAILURE(status)) {
+ 			acpi_handle_info(battery->device->handle,
+@@ -624,8 +623,7 @@ static int acpi_battery_get_state(struct acpi_battery *battery)
+ 			msecs_to_jiffies(cache_time)))
+ 		return 0;
+ 
+-	status = acpi_evaluate_object(battery->device->handle, "_BST",
+-				      NULL, &buffer);
++	status = acpi_evaluate_object_exclusive(battery->device->handle, "_BST", NULL, &buffer);
+ 	if (ACPI_FAILURE(status)) {
+ 		acpi_handle_info(battery->device->handle,
+ 				 "_BST evaluation failed: %s",
+@@ -675,8 +673,8 @@ static int acpi_battery_set_alarm(struct acpi_battery *battery)
+ 	    !test_bit(ACPI_BATTERY_ALARM_PRESENT, &battery->flags))
+ 		return -ENODEV;
+ 
+-	status = acpi_execute_simple_method(battery->device->handle, "_BTP",
+-					    battery->alarm);
++	status = acpi_execute_simple_method_exclusive(battery->device->handle, "_BTP",
++						      battery->alarm);
+ 	if (ACPI_FAILURE(status))
+ 		return -ENODEV;
+ 
 -- 
 2.55.0
 
