@@ -1,731 +1,149 @@
-Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18080391E51
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 16:53:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 199773A6418
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 16:53:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792256005; cv=none; b=LJFLmsYUUcBBUqDQ36APOl/uYxoTMnbpQznc7Y1yt24++FkiVX/Z5hVHUORSpjc5m+2DxUjd43/BYXnOodhUPmM/aP+dwoG9umqAqR/FlRujRUEsxiktAS3jczYHoPcXc5QdKiRY/ZtcjzfVhMCxVSn8a/2iGOIix0VgVsOy0Po=
+	t=1792256021; cv=none; b=rk2Etk7M+s6JoPI5t+XapFaL6P62JIu4Qsm0C3YL32RaCV7+7nel75Y6+GZen2c1dlMcP0eaR2ONiDa7lK8iFoAV4g4yUXdZJtEst356BXFX+EKiiM5IYPvk028zl09gbuYOCDzImYWjwy+4dBAvjnuE0E2tBa/v6JA6L1vDoXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792256005; c=relaxed/simple;
-	bh=7PTi2fWkFCMjPAym8bymWt+qcmtBbRZlQwXFCqQ7eMg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KM1NXUd71IQOVJm84A7ZVELp1ZPvlBQlMMDkqvC1rMBwXHLMDxM/44QDTXePzIkbsuRF7iwsTGYgXhSgf0zQnQ/hcvNBrzTsnVa1EiQQBsycDtcad0/Bfie7pWEpPqrSV/ckY/8aBTCL2Ie6lApc2OILrstco72n8R+s/WokJqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jlKkTpfF; arc=none smtp.client-ip=74.125.227.129
+	s=arc-20240116; t=1792256021; c=relaxed/simple;
+	bh=wSqS8syXnzPmL/m37NiQQJrKyVaM3mH1XDu7x/X8LmY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=T4TL66Ys3GZi9/cRbML+AOeP24OJEzCMGMEOI1QPrCy9ENfgTGxzL5YmeA7E8wJAkmmzHQQr5+UXTjA1Y+hVadZnBEKXcUAgOQVdGAxKV+uiyjVj1MJimvcJjZ6rJL1wba3gK1yGv8xhBxyrAjQV1YwPUrKYFdBA3iOaBNd6PCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ei/lb4K8; arc=none smtp.client-ip=74.125.224.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jlKkTpfF"
-Received: by mail-pj2-f1.google.com with SMTP id d9443c01a7336-2e876f468e5so3462045ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:53:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ei/lb4K8"
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-6798c4b882eso697925d50.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:53:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792256003; x=1792860803; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x7MGG2O6iHXtpJeWq+LVCqdiXI/1b1YP1KtK/ar5GBw=;
-        b=jlKkTpfF2jd/TkoJ1jbk9SnEcYrLRoLIjj/SvdZVAguDb1kZKeaAKuJfoK7Hqg34/1
-         U+eN5T7qljCE1nZCOHExrr1Fo/cqkJlYEJicxwVdrWDmOW9aGoJ0YgZNgwvp6P2Dbt3/
-         dmf1Li1Bga/Gd6KI295xyMTf5F4bD3bcogRd0XJU8HXL+tjHZToIvAzQFp1+zLpoXKqj
-         gZ8mgvHkuTFJ4cIB9PnWAW7E0NoJUjrgQYQ9jGnfiXzRu3yaExVF1xZ7JQTy1xfnoVzW
-         7VXk+mhYjE7wOx7aEpQvGs1XnPrM1g+JunH6RgvObfOuPcZNH+WWoFy//Myywrj/dv4Q
-         txhw==
+        d=gmail.com; s=20251104; t=1792256019; x=1792860819; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yukuLO6L7OMMl8uV5z9gWiJWO8Ic/Ym6OwukJlGX4pQ=;
+        b=ei/lb4K8C4WBMLLA1DR5lJoV4Lk0LOCRdWo6KlVr4fAkasVdERtLuzaR/YmipM9ZsA
+         oCgTKEYHd30o7b+y9wIL6okfHSnGXzmlECS7VjjiiLO/1awXtVdAkcPq21siuVUqdAZr
+         4hJYUkWd1K3mPWo7CpWnVinaitilG1aIq1Zm7QA2EhlxNzIjCqBlFYx+ljiGOqorCcUV
+         DryB6ciY6giLeKqzr/ERDCAAu1dZzthAq1UQEFiapv0NxF9XyewaoDyNgGZfPctPMyps
+         oGRU+9OkyVlOQJAV9IiXHiT4mnjhQFZlz6G7dh7qYOwGP/blXurwTY63I2rgZEQ/nAAF
+         rAqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792256003; x=1792860803;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x7MGG2O6iHXtpJeWq+LVCqdiXI/1b1YP1KtK/ar5GBw=;
-        b=BMrfhFvjPen9tU2FQzyIII0qliQg6FxlxiU9v0UrRpsf5jvNKBzrqaFWtFTAvKrtfY
-         ueT6tAPbhjeX1FP/h4w6spDMoSVkqoAWSJ5np/t6COGY5yLQs2sEEgM7+EnW5xtiEuUO
-         lA7q6Tgha/lS1lx0WttQNIcj01sF0vJ5TEJPVT9Cvw+G3mQUdlUPbevcdlico/Jg8lgB
-         4TdNH63dQW84iRmqZPvvu4FMXrbWGmTzo8nQXbz2Bktx+FynFAAuT0wODWELGBhJSe8n
-         mPxE01U/+MNLN0PJaQo5gJXX38nucTZLKdVvJniWl2xpHG/yOeop5NqKi8yAyra6HVRp
-         U5Zg==
-X-Gm-Message-State: AFq9FYK9va6sUns9Ltxy8yHOR+umJ9bpb0gb6mnSJgh+LOZzovKTEMAk
-	dzWdT3pOjdwRCX2GmRXXd9jSQt2PwSVit/ut6A61+t0WJ9yPmwZBzBq4rAKMTtg4616uvuf0
-X-Gm-Gg: AYBFou3yHEYX8XCUt8R/yYmZ/fVPMTGo17tg9CTriyx8SJAWNyGhXI3eO2qWJEE5hiY
-	Sf88ZKR2w8QyYFyaMDPYrgywqwjp+mVyF0F7iAvy5VvgQyQCwJDvvq1y8GEcLMtRHBB+JRuLHU5
-	EAxqIfmz6I8/eloRU2DGdp64JI3z4dcQD2E8QLbMuCArZIQYqtbNyrrzpqshbZ3L00AH0DI7jR8
-	0NHvSOuk8a8Mw/kxYFZDOVoNzwyFMwuSVP5fNMJa0uQKVoIpl9lXEv7fxEx4bneU3K2v3aM0Xhn
-	G6peFkj54bYh5ZfBQ4mQBQyyLhZU0pAW70/MSNy2obHIqs7gZXVlP3+JlrREMBRNEIfIQHkwSEO
-	zAtOiRMLk/lrhAK5xxToPI14UfFBKgVDAvGQB8yjZ6I/9k8CpLti8rWivQp9qeSEIrjIE8t/HSu
-	ZIEI3mupDTQqdH+MRY4Hrm9mvoifUTi/9G+7OEm6FNGBYmFcrd65vW8dM1Jz+Hx9dFd9C1al9Ar
-	EBAIvcv3oa4ISUkI2eE
-X-Received: by 2002:a17:903:3884:b0:2e9:6972:54d7 with SMTP id d9443c01a7336-2e9a7058929mr26666915ad.52.1792256003151;
-        Sat, 17 Oct 2026 09:53:23 -0700 (PDT)
-Received: from AERO17.taila7786d.ts.net ([156.231.115.17])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e835a19sm22530415ad.45.2026.10.17.09.53.19
+        d=1e100.net; s=20260707; t=1792256019; x=1792860819;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yukuLO6L7OMMl8uV5z9gWiJWO8Ic/Ym6OwukJlGX4pQ=;
+        b=ts5sYsGxN09OuRz/ijqAhblCeYQlJdjgZKgdX9UW4c6hcWwT8bbD4KdJtevRT8viDw
+         xKJZl6y7ULS01RU5oPftARWHLVWUccSxI/xvjYxfvL+FSqVaVZzqaN96Pw7ZpTiZELOE
+         3MU9FSAtOq+F8VgNZCzMLssc1a6HaxDyxSczMDDiSwhFQ5p3uTkpKtA3bqWkTqnWywGx
+         J/PztaXwhrVEhEE1VkSrPUcnR60yoEVfH07h245LRvARUsUourmo7lvV79CNs7R+t2JM
+         4+aOP6J9WiescWCQpl9w6gUY3RpAE9AmgSKwvlyiGAsxKNzBVJNVMzDbhqfk130r0e/b
+         IcMg==
+X-Gm-Message-State: AFq9FYLFHK/ymXiZine2k5COkiiRSLMR1UjwGq7PqvtQpGda+fCA+ISL
+	1M0S9BazIYhVwcRBjpTaKAsPOesXRSbbLpd1TD/eZEwGaVPlzfdCWyKL+iP3EQ==
+X-Gm-Gg: AYBFou2A0MpXnV6Hwc4PCSGy2r+NvP2AgqXxwTI4+9rSkCG/MJ7ZjjwYrXOfdXbbMJD
+	JrqvQFSECV5XAf3hottjKktu+dYdMf5IHFxgAChPqvnnyQrWxLAwFO6GArdZ8jB+pAXCpynpNl4
+	J3wcmjKI2dRMnELVRvN7eeNU81M0Gpa7fVj1gBgLmn7mio/5NNpKULyDtSUCfy+hLabQlqYH6aq
+	WntNCCEGKH+hKceVxubTuwkC5n0fdnO2OkACIusBZFf7MdoaoRnr1PqlR6sBG3bfwqGwBHPnZUN
+	kWmkdxg00CCUZsUXDtI2sm8YGK3dirggtKcTNE5BZhPzVKbWX7AqY3A/fSGFgoyZuAxs0+4L2jI
+	nVoXmWQzf1CfXL/djx+AhNqSXCJLwJSF3/ZuIhnfEV5fFXamFqCwgKGxLMqIu4Z6w9RRKlDMX3Z
+	9ZuEuZIR4rzgHYgDS1TP/hh+ZQkkIOuD1ojrASoETnZ3XCupl9htno+bxhov7OdzO76BGUaVYNy
+	Zi+xa9o2jEAFlHWvPj6zzEzGY1NWPSFi2UY4Ynzb1gxNWjt5Rw3+PGLmAX8oh+ySml2sDF5dHsx
+	CglnFi7Fx/SAOXTHrIAGX/fgfCv2
+X-Received: by 2002:a05:690e:4191:b0:677:cf7a:ea97 with SMTP id 956f58d0204a3-679ca8a25bamr931326d50.85.1792256018956;
+        Sat, 17 Oct 2026 09:53:38 -0700 (PDT)
+Received: from localhost (108-93-236-139.lightspeed.chtnsc.sbcglobal.net. [108.93.236.139])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679b19c3933sm2418313d50.0.2026.10.17.09.53.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 09:53:22 -0700 (PDT)
-From: Pufan Jin <cyan2254650260@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>
-Cc: linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH net-next v2] net: phy: Add JLSemi JL21xx Gigabit Ethernet PHY driver
-Date: Sun, 18 Oct 2026 00:53:16 +0800
-Message-ID: <20261017165316.146793-1-cyan2254650260@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Sat, 17 Oct 2026 09:53:38 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+Subject: [PATCH v2 0/3] alpha: self-extracting compressed kernel images
+Date: Sat, 17 Oct 2026 12:53:32 -0400
+Message-Id: <20261017-alpha-kernel-compression-v2-0-c71e6b08dc63@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NSw6CMBCGr0Jm7Zg+BIWV9zAsapnCRCikNY2Gc
+ HcLJ3D5/c8VIgWmCE2xQqDEkWefQZ0KsIPxPSF3mUEJVYlaKjTjMhh8UfA0op2nJVDcS6jERbu
+ bqNzzWkKuZ8Px55h+tJkHju85fI+nJHf1j9EkUaCluitLrYWs9b2fDI/nnIF227Yfjh+R6MAAA
+ AA=
+X-Change-ID: 20260912-alpha-kernel-compression-2043f806fb75
+To: Lasse Collin <lasse.collin@tukaani.org>, 
+ Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>, Nick Terrell <terrelln@fb.com>, 
+ David Sterba <dsterba@suse.com>
+Cc: linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org, 
+ Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2397; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=wSqS8syXnzPmL/m37NiQQJrKyVaM3mH1XDu7x/X8LmY=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLIur+BduUf15L6zWt1eyr8bxW2kUpi6FJyDOx/eTDm0Q
+ qS1WndWx0cWBjEuhpliiixx6xVZZrXtWOpzWvoXzBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
+ CGToGMVD5PQYNDKLi0tTi3TTCooc8vJLEksy8/OK9fILUvMK0gv00jLTSjIy8ouKU4FG6OWllpi
+ 6OroZGRqYWDpamDlZOJqaODs7GTq5OTo6uzoZWZqbGDhbOpq4WpozcHEKwFyzyofhn7Xjhoapx2
+ YItl3TWez5y2vv1NtNOxNjtE5Hqc0oiNr4IoHhfwCD8GYPBx0N1u75ndu42vbrWYSskTBl3Ofg/
+ /Yq14OjvAA=
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-Add a new PHY driver for JLSemi (Jinglue Semiconductor (Shanghai)
-Co., Ltd.) Gigabit Ethernet PHYs, specifically supporting the JL2101,
-JL2121, and generic JL21xx models.
+Alpha is the last architecture whose boot loader decompresses the kernel
+itself: aboot carries its own inflate code, so vmlinux.gz has always
+been plain gzip, and adding a compression format meant writing a
+decompressor for aboot as well as for the kernel.
 
-The driver implements:
-- Paged register access via register 0x1f
-- RGMII TX and RX internal delay configuration with Device Tree
-  support via phy_get_internal_delay()
-- Link downshift and resolved speed, duplex, and master/slave mode
-  reporting from vendor-specific status registers
-- Interrupt handling for link state change and PME wakeup events
-- Hardware LED control via the Linux LED class / netdev triggers
-- Wake-on-LAN (WoL) with magic packet matching
-- Autonomous EEE disable to prevent interoperability packet drops
-- Power management (suspend / resume)
+Build a self-extracting image instead, a small ELF stub with the
+compressed vmlinux linked in, which aboot loads and enters like any
+other kernel. The compression format then becomes an ordinary kernel
+Kconfig choice, and all seven formats become available: xz gives the
+smallest image, 5547496 bytes against 7677280 for the equivalent gzip
+one. The build now emits arch/alpha/boot/vmlinuz, since the image is no
+longer gzip data.
 
-Link: https://www.jlsemi.com/
-Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
+The SRM netboot path (bootpz.c) has its own boot protocol and keeps
+using gzip.
+
+Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
 Changes in v2:
-- Drop redundant phy_interface_is_rgmii() check in jlsemi_config_init()
-  (Andrew Lunn)
-- Change speed check in jlsemi_read_status() to '== SPEED_1000' since
-  JL21xx only supports up to 1000M and 100BASE-TX does not use Master/Slave
-  clock resolution (Andrew Lunn)
-- Check device_can_wakeup() in get_wol/set_wol, and configure wakeup
-  capability and wake IRQ in probe() when 'wakeup-source' is present
-  (Andrew Lunn)
-- Drop redundant .features = PHY_GBIT_FEATURES (Andrew Lunn)
-- Use PHY_ID_MATCH_VENDOR() for generic driver and mdio table (Andrew Lunn)
+- Build private copies of the arch/alpha/lib/ memory and division
+  routines for the stub instead of linking lib.a, whose objects carry
+  UBSAN/gcov instrumentation and the kernel's -mcpu=. Fixes stub link
+  failures with UBSAN or GCOV_PROFILE_ALL. (Magnus)
+- Build the stub with an explicit -mcpu=ev4.
+- Collect trailers.
+- Link to v1: https://lore.kernel.org/r/20260912-alpha-kernel-compression-v1-0-ce9d55330193@gmail.com
 
- MAINTAINERS              |   6 +
- drivers/net/phy/Kconfig  |   9 +
- drivers/net/phy/Makefile |   1 +
- drivers/net/phy/jlsemi.c | 555 +++++++++++++++++++++++++++++++++++++++
- 4 files changed, 571 insertions(+)
- create mode 100644 drivers/net/phy/jlsemi.c
+---
+Matt Turner (3):
+      xz: add arch-specific tuning for alpha
+      alpha: add self-extracting compressed kernel boot stub
+      alpha: support the remaining kernel compression formats
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8..4f738a573 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13976,6 +13976,12 @@ T:	git https://github.com/kleikamp/linux-shaggy.git
- F:	Documentation/admin-guide/jfs.rst
- F:	fs/jfs/
- 
-+JLSEMI PHY DRIVER
-+M:	Pufan Jin <cyan2254650260@gmail.com>
-+L:	netdev@vger.kernel.org
-+S:	Maintained
-+F:	drivers/net/phy/jlsemi.c
-+
- JME NETWORK DRIVER
- M:	Guo-Fu Tseng <cooldavid@cooldavid.org>
- L:	netdev@vger.kernel.org
-diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
-index b4ef927fd..535a48084 100644
---- a/drivers/net/phy/Kconfig
-+++ b/drivers/net/phy/Kconfig
-@@ -270,6 +270,15 @@ config INTEL_XWAY_PHY
- 	  PEF 7061, PEF 7071 and PEF 7072 or integrated into the Intel
- 	  SoCs xRX200, xRX300, xRX330, xRX350 and xRX550.
- 
-+config JLSEMI_PHY
-+	tristate "JLSemi Ethernet PHYs"
-+	help
-+	  Supports the JLSemi Gigabit Ethernet PHYs, including the
-+	  JL2121 and JL2101 models found on embedded system carrier boards
-+	  and single-board computers.
-+
-+	  If unsure, say N.
-+
- config LSI_ET1011C_PHY
- 	tristate "LSI ET1011C PHY"
- 	help
-diff --git a/drivers/net/phy/Makefile b/drivers/net/phy/Makefile
-index 25c4a3c24..2d7758e86 100644
---- a/drivers/net/phy/Makefile
-+++ b/drivers/net/phy/Makefile
-@@ -66,6 +66,7 @@ obj-$(CONFIG_DP83TG720_PHY)	+= dp83tg720.o
- obj-$(CONFIG_FIXED_PHY)		+= fixed_phy.o
- obj-$(CONFIG_ICPLUS_PHY)	+= icplus.o
- obj-$(CONFIG_INTEL_XWAY_PHY)	+= intel-xway.o
-+obj-$(CONFIG_JLSEMI_PHY)	+= jlsemi.o
- obj-$(CONFIG_LSI_ET1011C_PHY)	+= et1011c.o
- obj-$(CONFIG_LXT_PHY)		+= lxt.o
- obj-$(CONFIG_MARVELL_10G_PHY)	+= marvell10g.o
-diff --git a/drivers/net/phy/jlsemi.c b/drivers/net/phy/jlsemi.c
-new file mode 100644
-index 000000000..c83739ad1
---- /dev/null
-+++ b/drivers/net/phy/jlsemi.c
-@@ -0,0 +1,555 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Driver for JLSemi Gigabit Ethernet PHYs (JL2121 / JL2101)
-+ *
-+ * Copyright (C) 2026 Pufan Jin <cyan2254650260@gmail.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/ethtool.h>
-+#include <linux/ethtool_netlink.h>
-+#include <linux/leds.h>
-+#include <linux/module.h>
-+#include <linux/netdevice.h>
-+#include <linux/phy.h>
-+#include <linux/pm_wakeirq.h>
-+#include <linux/property.h>
-+
-+#define PHY_ID_JL2101			0x937c4032
-+#define PHY_ID_JL2121			0x937c4030
-+#define PHY_ID_JLSEMI			0x937c4000
-+#define JLSEMI_PAGE_SELECT		0x1f
-+
-+/* Status page and register */
-+#define JLSEMI_STATUS_PAGE		0xa43
-+#define JLSEMI_PHYSR			0x1a
-+#define JLSEMI_PHYSR_DUPLEX		BIT(3)
-+#define JLSEMI_PHYSR_SPEED_MASK		GENMASK(5, 4)
-+#define JLSEMI_PHYSR_SPEED_1000		0x20
-+#define JLSEMI_PHYSR_SPEED_100		0x10
-+#define JLSEMI_PHYSR_SPEED_10		0x00
-+#define JLSEMI_PHYSR_MASTER		BIT(11)
-+
-+/* RGMII delay page and registers */
-+#define JLSEMI_RGMII_PAGE		0xd08
-+#define JLSEMI_TXCR			0x11
-+#define JLSEMI_TX_DELAY			BIT(8)
-+#define JLSEMI_RXCR			0x15
-+#define JLSEMI_RX_DELAY			BIT(3)
-+
-+/* Power and EEE configuration */
-+#define JLSEMI_PHYCR2			0x19
-+#define JLSEMI_PHYCR2_PHY_EEE_ENABLE	BIT(5)
-+
-+/* Interrupt page and registers */
-+#define JLSEMI_INSR			0x1d
-+#define JLSEMI_INER_PAGE		0xa42
-+#define JLSEMI_INER			0x12
-+#define JLSEMI_INER_LINK_STATUS		BIT(4)
-+#define JLSEMI_INER_PME			BIT(7)
-+
-+/* Wake-on-LAN settings */
-+#define JLSEMI_WOL_PAGE			0xd8a
-+#define JLSEMI_WOL_SETTINGS_EVENTS	16
-+#define JLSEMI_WOL_EVENT_MAGIC		BIT(12)
-+#define JLSEMI_WOL_RST_RMSQ		17
-+#define JLSEMI_WOL_RG_RSTB		BIT(15)
-+#define JLSEMI_WOL_RMSQ			0x1fff
-+
-+/* Physical MAC address for WoL */
-+#define JLSEMI_PHYSICAL_ADDR_PAGE	0xd8c
-+#define JLSEMI_PHYSICAL_ADDR_WORD0	16
-+#define JLSEMI_PHYSICAL_ADDR_WORD1	17
-+#define JLSEMI_PHYSICAL_ADDR_WORD2	18
-+
-+/* LED control */
-+#define JLSEMI_LED_COUNT		3
-+#define JLSEMI_LEDCR_PAGE		0xd04
-+#define JLSEMI_LEDCR			0x10
-+#define JLSEMI_LEDCR_MODE		BIT(15)
-+#define JLSEMI_LEDCR_ACT_TXRX		BIT(4)
-+#define JLSEMI_LEDCR_LINK_1000		BIT(3)
-+#define JLSEMI_LEDCR_LINK_100		BIT(1)
-+#define JLSEMI_LEDCR_LINK_10		BIT(0)
-+#define JLSEMI_LEDCR_MASK		GENMASK(4, 0)
-+#define JLSEMI_LEDCR_SHIFT		5
-+
-+struct jlsemi_priv {
-+	u16 iner;
-+};
-+
-+static int jlsemi_read_page(struct phy_device *phydev)
-+{
-+	return __phy_read(phydev, JLSEMI_PAGE_SELECT);
-+}
-+
-+static int jlsemi_write_page(struct phy_device *phydev, int page)
-+{
-+	return __phy_write(phydev, JLSEMI_PAGE_SELECT, page);
-+}
-+
-+static int jlsemi_probe(struct phy_device *phydev)
-+{
-+	struct device *dev = &phydev->mdio.dev;
-+	struct jlsemi_priv *priv;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	phydev->priv = priv;
-+
-+	if (device_property_read_bool(dev, "wakeup-source") &&
-+	    phy_interrupt_is_valid(phydev)) {
-+		device_set_wakeup_capable(dev, true);
-+		devm_pm_set_wake_irq(dev, phydev->irq);
-+	}
-+	return 0;
-+}
-+
-+static int jlsemi_config_rgmii_delay(struct phy_device *phydev)
-+{
-+	u16 val_txdly = 0, val_rxdly = 0;
-+	s32 rx_delay = -1, tx_delay = -1;
-+	int ret;
-+
-+	if (!phy_interface_is_rgmii(phydev))
-+		return 0;
-+
-+	if (phydev->interface != PHY_INTERFACE_MODE_RGMII_TXID)
-+		rx_delay = phy_get_internal_delay(phydev, NULL, 0, true);
-+
-+	if (phydev->interface != PHY_INTERFACE_MODE_RGMII_RXID)
-+		tx_delay = phy_get_internal_delay(phydev, NULL, 0, false);
-+
-+	switch (phydev->interface) {
-+	case PHY_INTERFACE_MODE_RGMII:
-+		val_txdly = 0;
-+		val_rxdly = 0;
-+		break;
-+	case PHY_INTERFACE_MODE_RGMII_ID:
-+		val_txdly = JLSEMI_TX_DELAY;
-+		val_rxdly = JLSEMI_RX_DELAY;
-+		break;
-+	case PHY_INTERFACE_MODE_RGMII_RXID:
-+		val_txdly = 0;
-+		val_rxdly = JLSEMI_RX_DELAY;
-+		break;
-+	case PHY_INTERFACE_MODE_RGMII_TXID:
-+		val_txdly = JLSEMI_TX_DELAY;
-+		val_rxdly = 0;
-+		break;
-+	default:
-+		return 0;
-+	}
-+
-+	if (rx_delay >= 0)
-+		val_rxdly = rx_delay > 0 ? JLSEMI_RX_DELAY : 0;
-+	if (tx_delay >= 0)
-+		val_txdly = tx_delay > 0 ? JLSEMI_TX_DELAY : 0;
-+
-+	ret = phy_modify_paged_changed(phydev, JLSEMI_RGMII_PAGE,
-+				       JLSEMI_TXCR, JLSEMI_TX_DELAY, val_txdly);
-+	if (ret < 0)
-+		return ret;
-+
-+	return phy_modify_paged_changed(phydev, JLSEMI_RGMII_PAGE,
-+					JLSEMI_RXCR, JLSEMI_RX_DELAY,
-+					val_rxdly);
-+}
-+
-+static int jlsemi_disable_autonomous_eee(struct phy_device *phydev)
-+{
-+	return phy_modify(phydev, JLSEMI_PHYCR2,
-+				JLSEMI_PHYCR2_PHY_EEE_ENABLE, 0);
-+}
-+
-+static int jlsemi_config_init(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	ret = jlsemi_disable_autonomous_eee(phydev);
-+	if (ret < 0)
-+		return ret;
-+
-+	return jlsemi_config_rgmii_delay(phydev);
-+}
-+
-+static int jlsemi_ack_interrupt(struct phy_device *phydev)
-+{
-+	int err = phy_read(phydev, JLSEMI_INSR);
-+
-+	return (err < 0) ? err : 0;
-+}
-+
-+static int jlsemi_config_intr(struct phy_device *phydev)
-+{
-+	struct jlsemi_priv *priv = phydev->priv;
-+	int err;
-+	u16 val;
-+
-+	if (phydev->interrupts == PHY_INTERRUPT_ENABLED) {
-+		err = jlsemi_ack_interrupt(phydev);
-+		if (err)
-+			return err;
-+
-+		val = JLSEMI_INER_LINK_STATUS;
-+		err = phy_write_paged(phydev, JLSEMI_INER_PAGE, JLSEMI_INER, val);
-+		if (!err)
-+			priv->iner = val;
-+	} else {
-+		val = 0;
-+		err = phy_write_paged(phydev, JLSEMI_INER_PAGE, JLSEMI_INER, val);
-+		if (!err)
-+			priv->iner = val;
-+
-+		err = jlsemi_ack_interrupt(phydev);
-+	}
-+
-+	return err;
-+}
-+
-+static irqreturn_t jlsemi_handle_interrupt(struct phy_device *phydev)
-+{
-+	int irq_status;
-+
-+	irq_status = phy_read(phydev, JLSEMI_INSR);
-+	if (irq_status < 0) {
-+		phy_error(phydev);
-+		return IRQ_NONE;
-+	}
-+
-+	if (irq_status & JLSEMI_INER_LINK_STATUS) {
-+		phy_trigger_machine(phydev);
-+		return IRQ_HANDLED;
-+	}
-+
-+	if (irq_status & JLSEMI_INER_PME) {
-+		pm_wakeup_event(&phydev->mdio.dev, 0);
-+		return IRQ_HANDLED;
-+	}
-+
-+	return IRQ_NONE;
-+}
-+
-+static int jlsemi_read_status(struct phy_device *phydev)
-+{
-+	int err, val;
-+
-+	err = genphy_read_status(phydev);
-+	if (err < 0 || !phydev->link)
-+		return err;
-+
-+	val = phy_read_paged(phydev, JLSEMI_STATUS_PAGE, JLSEMI_PHYSR);
-+	if (val < 0)
-+		return val;
-+
-+	if (val & JLSEMI_PHYSR_DUPLEX)
-+		phydev->duplex = DUPLEX_FULL;
-+	else
-+		phydev->duplex = DUPLEX_HALF;
-+
-+	switch (val & JLSEMI_PHYSR_SPEED_MASK) {
-+	case JLSEMI_PHYSR_SPEED_1000:
-+		phydev->speed = SPEED_1000;
-+		break;
-+	case JLSEMI_PHYSR_SPEED_100:
-+		phydev->speed = SPEED_100;
-+		break;
-+	case JLSEMI_PHYSR_SPEED_10:
-+		phydev->speed = SPEED_10;
-+		break;
-+	default:
-+		phydev->speed = SPEED_UNKNOWN;
-+		break;
-+	}
-+
-+	if (phydev->speed == SPEED_1000) {
-+		if (val & JLSEMI_PHYSR_MASTER)
-+			phydev->master_slave_state = MASTER_SLAVE_STATE_MASTER;
-+		else
-+			phydev->master_slave_state = MASTER_SLAVE_STATE_SLAVE;
-+	} else {
-+		phydev->master_slave_state = MASTER_SLAVE_STATE_UNSUPPORTED;
-+	}
-+
-+	return 0;
-+}
-+
-+static void jlsemi_get_wol(struct phy_device *phydev, struct ethtool_wolinfo *wol)
-+{
-+	int val;
-+
-+	if (!device_can_wakeup(&phydev->mdio.dev)) {
-+		wol->supported = 0;
-+		wol->wolopts = 0;
-+		return;
-+	}
-+
-+	wol->supported = WAKE_MAGIC;
-+	wol->wolopts = 0;
-+
-+	val = phy_read_paged(phydev, JLSEMI_WOL_PAGE, JLSEMI_WOL_SETTINGS_EVENTS);
-+	if (val < 0)
-+		return;
-+
-+	if (val & JLSEMI_WOL_EVENT_MAGIC)
-+		wol->wolopts |= WAKE_MAGIC;
-+}
-+
-+static int jlsemi_set_wol(struct phy_device *phydev, struct ethtool_wolinfo *wol)
-+{
-+	const u8 *mac_addr;
-+	int oldpage, ret;
-+
-+	if (!device_can_wakeup(&phydev->mdio.dev))
-+		return -EOPNOTSUPP;
-+
-+	if (wol->wolopts & ~WAKE_MAGIC)
-+		return -EINVAL;
-+
-+	if (wol->wolopts & WAKE_MAGIC) {
-+		if (!phydev->attached_dev)
-+			return -EINVAL;
-+
-+		mac_addr = phydev->attached_dev->dev_addr;
-+
-+		oldpage = phy_select_page(phydev, JLSEMI_PHYSICAL_ADDR_PAGE);
-+		if (oldpage < 0)
-+			return oldpage;
-+
-+		__phy_write(phydev, JLSEMI_PHYSICAL_ADDR_WORD0,
-+			    mac_addr[1] << 8 | mac_addr[0]);
-+		__phy_write(phydev, JLSEMI_PHYSICAL_ADDR_WORD1,
-+			    mac_addr[3] << 8 | mac_addr[2]);
-+		__phy_write(phydev, JLSEMI_PHYSICAL_ADDR_WORD2,
-+			    mac_addr[5] << 8 | mac_addr[4]);
-+
-+		ret = __phy_write(phydev, JLSEMI_PAGE_SELECT, JLSEMI_WOL_PAGE);
-+		if (ret < 0)
-+			goto restore;
-+
-+		__phy_write(phydev, JLSEMI_WOL_SETTINGS_EVENTS,
-+			    JLSEMI_WOL_EVENT_MAGIC);
-+		__phy_write(phydev, JLSEMI_WOL_RST_RMSQ,
-+			    JLSEMI_WOL_RMSQ);
-+restore:
-+		phy_restore_page(phydev, oldpage, ret);
-+	} else {
-+		oldpage = phy_select_page(phydev, JLSEMI_WOL_PAGE);
-+		if (oldpage < 0)
-+			return oldpage;
-+
-+		__phy_write(phydev, JLSEMI_WOL_SETTINGS_EVENTS, 0);
-+		__phy_clear_bits(phydev, JLSEMI_WOL_RST_RMSQ,
-+				 JLSEMI_WOL_RG_RSTB);
-+
-+		phy_restore_page(phydev, oldpage, 0);
-+	}
-+
-+	device_set_wakeup_enable(&phydev->mdio.dev, !!(wol->wolopts & WAKE_MAGIC));
-+
-+	return 0;
-+}
-+
-+static int jlsemi_suspend(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	if (device_may_wakeup(&phydev->mdio.dev)) {
-+		ret = phy_write_paged(phydev, JLSEMI_INER_PAGE, JLSEMI_INER,
-+				      JLSEMI_INER_PME);
-+		if (ret < 0)
-+			return ret;
-+
-+		jlsemi_ack_interrupt(phydev);
-+		return 0;
-+	}
-+
-+	return genphy_suspend(phydev);
-+}
-+
-+static int jlsemi_resume(struct phy_device *phydev)
-+{
-+	struct jlsemi_priv *priv = phydev->priv;
-+	int ret;
-+
-+	ret = genphy_resume(phydev);
-+	if (ret < 0)
-+		return ret;
-+
-+	return phy_write_paged(phydev, JLSEMI_INER_PAGE, JLSEMI_INER,
-+			       priv ? priv->iner : 0);
-+}
-+
-+static int jlsemi_led_hw_is_supported(struct phy_device *phydev, u8 index,
-+				      unsigned long rules)
-+{
-+	const unsigned long mask = BIT(TRIGGER_NETDEV_LINK) |
-+					BIT(TRIGGER_NETDEV_LINK_10) |
-+					BIT(TRIGGER_NETDEV_LINK_100) |
-+					BIT(TRIGGER_NETDEV_LINK_1000) |
-+					BIT(TRIGGER_NETDEV_RX) |
-+					BIT(TRIGGER_NETDEV_TX);
-+
-+	if (index >= JLSEMI_LED_COUNT)
-+		return -EINVAL;
-+
-+	if (rules & ~mask)
-+		return -EOPNOTSUPP;
-+
-+	if (!(rules & BIT(TRIGGER_NETDEV_RX)) ^ !(rules & BIT(TRIGGER_NETDEV_TX)))
-+		return -EOPNOTSUPP;
-+
-+	return 0;
-+}
-+
-+static int jlsemi_led_hw_control_get(struct phy_device *phydev, u8 index,
-+				     unsigned long *rules)
-+{
-+	int val;
-+
-+	if (index >= JLSEMI_LED_COUNT)
-+		return -EINVAL;
-+
-+	val = phy_read_paged(phydev, JLSEMI_LEDCR_PAGE, JLSEMI_LEDCR);
-+	if (val < 0)
-+		return val;
-+
-+	val >>= JLSEMI_LEDCR_SHIFT * index;
-+	val &= JLSEMI_LEDCR_MASK;
-+
-+	if (val & JLSEMI_LEDCR_LINK_10)
-+		__set_bit(TRIGGER_NETDEV_LINK_10, rules);
-+
-+	if (val & JLSEMI_LEDCR_LINK_100)
-+		__set_bit(TRIGGER_NETDEV_LINK_100, rules);
-+
-+	if (val & JLSEMI_LEDCR_LINK_1000)
-+		__set_bit(TRIGGER_NETDEV_LINK_1000, rules);
-+
-+	if ((val & JLSEMI_LEDCR_LINK_10) &&
-+	    (val & JLSEMI_LEDCR_LINK_100) &&
-+	    (val & JLSEMI_LEDCR_LINK_1000)) {
-+		__set_bit(TRIGGER_NETDEV_LINK, rules);
-+	}
-+
-+	if (val & JLSEMI_LEDCR_ACT_TXRX) {
-+		__set_bit(TRIGGER_NETDEV_RX, rules);
-+		__set_bit(TRIGGER_NETDEV_TX, rules);
-+	}
-+
-+	return 0;
-+}
-+
-+static int jlsemi_led_hw_control_set(struct phy_device *phydev, u8 index,
-+				     unsigned long rules)
-+{
-+	const u16 mask = JLSEMI_LEDCR_MASK << (JLSEMI_LEDCR_SHIFT * index);
-+	u16 reg = 0;
-+
-+	if (index >= JLSEMI_LED_COUNT)
-+		return -EINVAL;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK, &rules) ||
-+	    test_bit(TRIGGER_NETDEV_LINK_10, &rules)) {
-+		reg |= JLSEMI_LEDCR_LINK_10;
-+	}
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK, &rules) ||
-+	    test_bit(TRIGGER_NETDEV_LINK_100, &rules)) {
-+		reg |= JLSEMI_LEDCR_LINK_100;
-+	}
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK, &rules) ||
-+	    test_bit(TRIGGER_NETDEV_LINK_1000, &rules)) {
-+		reg |= JLSEMI_LEDCR_LINK_1000;
-+	}
-+
-+	if (test_bit(TRIGGER_NETDEV_RX, &rules) ||
-+	    test_bit(TRIGGER_NETDEV_TX, &rules)) {
-+		reg |= JLSEMI_LEDCR_ACT_TXRX;
-+	}
-+
-+	reg <<= JLSEMI_LEDCR_SHIFT * index;
-+	reg |= JLSEMI_LEDCR_MODE;
-+
-+	return phy_modify_paged(phydev, JLSEMI_LEDCR_PAGE, JLSEMI_LEDCR,
-+				mask, reg);
-+}
-+
-+static struct phy_driver jlsemi_drivers[] = {
-+	{
-+		PHY_ID_MATCH_EXACT(PHY_ID_JL2101),
-+		.name			= "JLSemi JL2101 Gigabit Ethernet",
-+		.flags			= PHY_ALWAYS_CALL_SUSPEND,
-+		.probe			= jlsemi_probe,
-+		.soft_reset		= genphy_soft_reset,
-+		.config_init		= jlsemi_config_init,
-+		.read_status		= jlsemi_read_status,
-+		.config_intr		= jlsemi_config_intr,
-+		.handle_interrupt	= jlsemi_handle_interrupt,
-+		.set_wol		= jlsemi_set_wol,
-+		.get_wol		= jlsemi_get_wol,
-+		.suspend		= jlsemi_suspend,
-+		.resume			= jlsemi_resume,
-+		.read_page		= jlsemi_read_page,
-+		.write_page		= jlsemi_write_page,
-+		.led_hw_is_supported	= jlsemi_led_hw_is_supported,
-+		.led_hw_control_get	= jlsemi_led_hw_control_get,
-+		.led_hw_control_set	= jlsemi_led_hw_control_set,
-+		.disable_autonomous_eee	= jlsemi_disable_autonomous_eee,
-+	},
-+	{
-+		PHY_ID_MATCH_MODEL(PHY_ID_JL2121),
-+		.name			= "JLSemi JL2121 Gigabit Ethernet",
-+		.flags			= PHY_ALWAYS_CALL_SUSPEND,
-+		.probe			= jlsemi_probe,
-+		.soft_reset		= genphy_soft_reset,
-+		.config_init		= jlsemi_config_init,
-+		.read_status		= jlsemi_read_status,
-+		.config_intr		= jlsemi_config_intr,
-+		.handle_interrupt	= jlsemi_handle_interrupt,
-+		.set_wol		= jlsemi_set_wol,
-+		.get_wol		= jlsemi_get_wol,
-+		.suspend		= jlsemi_suspend,
-+		.resume			= jlsemi_resume,
-+		.read_page		= jlsemi_read_page,
-+		.write_page		= jlsemi_write_page,
-+		.led_hw_is_supported	= jlsemi_led_hw_is_supported,
-+		.led_hw_control_get	= jlsemi_led_hw_control_get,
-+		.led_hw_control_set	= jlsemi_led_hw_control_set,
-+		.disable_autonomous_eee	= jlsemi_disable_autonomous_eee,
-+	},
-+	{
-+		PHY_ID_MATCH_VENDOR(PHY_ID_JLSEMI),
-+		.name			= "JLSemi Generic Gigabit Ethernet",
-+		.flags			= PHY_ALWAYS_CALL_SUSPEND,
-+		.probe			= jlsemi_probe,
-+		.soft_reset		= genphy_soft_reset,
-+		.config_init		= jlsemi_config_init,
-+		.read_status		= jlsemi_read_status,
-+		.config_intr		= jlsemi_config_intr,
-+		.handle_interrupt	= jlsemi_handle_interrupt,
-+		.suspend		= jlsemi_suspend,
-+		.resume			= jlsemi_resume,
-+		.read_page		= jlsemi_read_page,
-+		.write_page		= jlsemi_write_page,
-+		.disable_autonomous_eee	= jlsemi_disable_autonomous_eee,
-+	},
-+};
-+
-+module_phy_driver(jlsemi_drivers);
-+
-+static const struct mdio_device_id __maybe_unused jlsemi_tbl[] = {
-+	{ PHY_ID_MATCH_EXACT(PHY_ID_JL2101) },
-+	{ PHY_ID_MATCH_MODEL(PHY_ID_JL2121) },
-+	{ PHY_ID_MATCH_VENDOR(PHY_ID_JLSEMI) },
-+	{ /* sentinel */ }
-+};
-+
-+MODULE_DEVICE_TABLE(mdio, jlsemi_tbl);
-+
-+MODULE_DESCRIPTION("JLSemi Ethernet PHY driver");
-+MODULE_AUTHOR("Pufan Jin <cyan2254650260@gmail.com>");
-+MODULE_LICENSE("GPL");
+ arch/alpha/Kconfig                       |   7 ++
+ arch/alpha/Makefile                      |   6 +-
+ arch/alpha/boot/.gitignore               |   2 +
+ arch/alpha/boot/Makefile                 |  16 ++-
+ arch/alpha/boot/compressed/.gitignore    |   3 +
+ arch/alpha/boot/compressed/Makefile      |  89 +++++++++++++
+ arch/alpha/boot/compressed/head.S        |  36 ++++++
+ arch/alpha/boot/compressed/misc.c        | 209 +++++++++++++++++++++++++++++++
+ arch/alpha/boot/compressed/trampoline.S  |  46 +++++++
+ arch/alpha/boot/compressed/vmlinux.lds.S |  83 ++++++++++++
+ arch/alpha/boot/compressed/vmlinux.scr   |  10 ++
+ scripts/xz_wrap.sh                       |   5 +
+ 12 files changed, 504 insertions(+), 8 deletions(-)
+---
+base-commit: 4407825b2f96b0e48a4bd08ab196b50a30eb3aef
+change-id: 20260912-alpha-kernel-compression-2043f806fb75
+
+Best regards,
 -- 
-2.56.0
+Matt Turner <mattst88@gmail.com>
 
