@@ -1,47 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10DA18D62A;
-	Sat, 17 Oct 2026 17:24:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E814374E60;
+	Sat, 17 Oct 2026 17:25:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792257873; cv=none; b=ojLE6eZUKG0U95wmPS0D14IsgvjAZUpup34YpEuDjM26HsMXOv9TiVd6lVD9/bjhTd/6m9lL9FqrqlydUJ7Y/Q7c5PudrwPKaoj8dKWhevbqCniSM5IiMQ/Qxi+qyYUDZp+bpE9zASA0CS40qaTu0AW+exUptJX0kwZk0SdUjCs=
+	t=1792257922; cv=none; b=DDKjTD+WXckIZf6ep5FgHZ9WUmG3Ua0pXiPYnUpPS9iBmNQuawPDb/2zgV0baJs5xvoo4M8DHsKoUQgV8B1Yln/HxQ6eiDFK3XEQ4FhsM3bM7WkuQhAn0cUlc9WlgXhEswzdn/RWD1GALee5PkSbXpM05Y1x7hd1T6plzf+SHNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792257873; c=relaxed/simple;
-	bh=pYQb55FNnYrg/PjbDQ9mlPCLdI5y4pVtxidLaFV3pT8=;
+	s=arc-20240116; t=1792257922; c=relaxed/simple;
+	bh=bJJ3z4/pjAaEpe27vR8GsaDAdYx2zotHXmor2sXxykk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z5unXefXsEoQ8NrUwxTKmHwWTgc6bxGALRcsWDBzkzhjxfZePlkRbHOWoBVd2qtoKoePmqH2WYqZGO1QU9gWRHL6jYvPP8ma4fDA5ibRwPQGdqVj7hyMUwWAAUwSQ3YWMSK/jQNEVprpdmjaOcmj2OUeY8bM/saNs0pnKH/YRlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ORf3IN3i; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=eff5u9IYHCJjefjR8wVQNCUdkpN5OZqzlTaLrUXSX621WTlINwDICu/fw9/aCf1tN5SpY8UeO6ckCh6AgArh04EIBjzpXWGzfKk3uixkLEkUvRxHTYhgJ6pmn1nM5oJelmA0btaEtRLuajo1cmpMHAi0RglTl5+I28/5K7zhcZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SARNoqwM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ORf3IN3i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 003A71F000C4;
-	Sat, 17 Oct 2026 17:24:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SARNoqwM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5883B1F000C5;
+	Sat, 17 Oct 2026 17:25:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792257872;
-	bh=sSDpwvN0yoSV1vrqdzCv4HHzV9QnxibI1Q5Gk8f/Jl8=;
+	s=k20260515; t=1792257921;
+	bh=5f/gI5h5KZDV5ahz+DubqH0u+kHWiemTT4qZvIm49L4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ORf3IN3ieNKp3nEkixkDrUvQWzbomLdlA+SRHSLCDzLpC4Rtb1fcX3rH05tjOQrea
-	 V5MuOw96wMT3IuIfmeNXHE4HiSAWtXzadA5sMzr6ZTBlsFrphODQuB5NUJyb+Vf6sO
-	 sBoi3OLggVRyEqXPI5HfD3nJJ1dgs8ZL4DmS4RTamSqnh925mREQWlrW2RxflvFRA3
-	 Ihq674RpOyfvXBN+UOIptJ5btQplfQ2vNX2gd5+DE9VI9SiAPIw7kPKcKBSB2tbi8s
-	 nTjTpCOIzWE8MErPWpgUMl2s2Gof3Xoys2+9mOAQ1dm4EoEf9ZA7EHkONvZoFOkZD+
-	 2idtfG4elTVHg==
-Date: Sat, 17 Oct 2026 19:24:29 +0200
+	b=SARNoqwM/PD9jQbMUNy5lcK4uolgw8lUHNblRsu+HBf6HTfwBR/cC3XAJFOmBXEBX
+	 hsQLt3ym8bAsb+K1gkxCXQcc7VUaz2DkxstNa7s+ugTzGGHjiOpv3LckO3UhdDuZQl
+	 xWRAB0A8OurEVBGn5/1J7C5vAZ2vvFCMFdFAA3tWOOCS3AGbeFMS44CtuN+UWZCVdV
+	 44P07DRJ4JbQZ2M64aizX/OlcH0D2KBrjKf1OmSSHhsiwQ3y2vEcfcQvdrL6hMrlI5
+	 7pFvMNGYW7nMmGHCZ/FdC4a2RlGEkiuJZgi3MaGkTdMMB2IgqvSI300JB9Las0lf2U
+	 YJTaR/jPJ0LTg==
+Date: Sat, 17 Oct 2026 19:25:18 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jason Yang <jason98166@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-	Guochun Huang <hero.huang@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Michael Riesch <michael.riesch@collabora.com>, Sebastian Reichel <sebastian.reichel@collabora.com>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 5/8] phy: rockchip-samsung-dcphy: Add a second PHY for
- the receiver
-Message-ID: <20261017-merry-crystal-crow-d2a4c9@quoll>
-References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
- <20261016-dcphy-rx-v1-v5-5-e63b49eabe2d@gmail.com>
+To: Asif Ikbal <asif.ikbal@amd.com>
+Cc: neil.armstrong@linaro.org, jesszhan0024@gmail.com, 
+	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, 
+	simona@ffwll.ch, thierry.reding@gmail.com, sam@ravnborg.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, git@amd.com, michal.simek@amd.com, 
+	naveen.gaddipati@amd.com
+Subject: Re: [PATCH 1/2] dt-bindings: panel-simple-dsi: Add AUO B101UAN01
+Message-ID: <20261017-delightful-gleaming-bumblebee-af40f8@quoll>
+References: <20261016094638.2958431-1-asif.ikbal@amd.com>
+ <20261016094638.2958431-2-asif.ikbal@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,48 +47,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261016-dcphy-rx-v1-v5-5-e63b49eabe2d@gmail.com>
+In-Reply-To: <20261016094638.2958431-2-asif.ikbal@amd.com>
 
-On Fri, Oct 16, 2026 at 04:56:39PM +0800, Jason Yang wrote:
-  static const struct phy_ops samsung_mipi_dcphy_tx_ops = {
->  	.configure = samsung_mipi_dcphy_tx_configure,
->  	.power_on  = samsung_mipi_dcphy_tx_power_on,
-> @@ -1520,6 +1538,15 @@ static const struct phy_ops samsung_mipi_dcphy_tx_ops = {
->  	.owner	   = THIS_MODULE,
->  };
->  
-> +static const struct phy_ops samsung_mipi_dcphy_rx_ops = {
-> +	.configure = samsung_mipi_dcphy_rx_configure,
-> +	.power_on  = samsung_mipi_dcphy_rx_power_on,
-> +	.power_off = samsung_mipi_dcphy_rx_power_off,
-> +	.init = samsung_mipi_dcphy_init,
-> +	.exit = samsung_mipi_dcphy_exit,
-> +	.owner	   = THIS_MODULE,
-> +};
-> +
->  static const struct regmap_config samsung_mipi_dcphy_regmap_config = {
->  	.name = "dcphy",
->  	.reg_bits = 32,
-> @@ -1532,19 +1559,42 @@ static struct phy *samsung_mipi_dcphy_xlate(struct device *dev,
->  					    const struct of_phandle_args *args)
->  {
->  	struct samsung_mipi_dcphy *samsung = dev_get_drvdata(dev);
-> +	/* Device trees without the second cell describe the transmitter. */
-> +	u32 direction = PHY_DIRECTION_TX;
-> +	u32 type;
->  
-> -	if (args->args_count != 1) {
+On Fri, Oct 16, 2026 at 03:16:37PM +0530, Asif Ikbal wrote:
+> Add the bindings for the AU Optronics B101UAN01 1920x1200 10.1" WUXGA
+> MIPI-DSI TFT LCD panel to panel-simple-dsi.
+> 
+> Signed-off-by: Asif Ikbal <asif.ikbal@amd.com>
+> ---
+>  .../devicetree/bindings/display/panel/panel-simple-dsi.yaml     | 2 ++
+>  1 file changed, 2 insertions(+)
 
-So this is the part which prevents change in the ABI (see Rob's comment).
-
-Why was the driver coded that way?
-
-> +	if (args->args_count < 1 || args->args_count > 2) {
-
-And you repeat the pattern, so if third argument is added, DTS does not
-work with existing kernel.
-
-Why?
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
