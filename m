@@ -1,84 +1,240 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9204D38424C;
-	Sat, 17 Oct 2026 02:03:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7D01C861D
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:04:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792202587; cv=none; b=iIlcUR2+qUhR4u9fFwRBeXNhQ7IxYZMkTEoqreUfJY9kF65VCSbcrASVtXlfsVfgAiNbnPu7o1PZ8TN4OsTR6F0Gd3d9zuf4Tbk2ovg2XUAChjBmGMCWQ+5XCy21f4YWW6J91SNcrRpn0OZn1x0VLhBZmKtGYKVcISNnNOwOR1Q=
+	t=1792202650; cv=none; b=kCQPW1f+xVpsu3FU/Jc/QsyA5Ol4it68X7/iN5K8436V1eTJihzC9RPR8dh9rB038YZBjRMh6jiJlp8krRbGF6SuegC+bownQ4h6fz8B8Kf3JGzHLwdoYXq2ZZLfHhxBcJ/YvjoMi042lR+QUbt869nQvndomIZmKOu9Zi42LRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792202587; c=relaxed/simple;
-	bh=zxDyrKoG6b6BMQdhx2eHnKWY9oMDfv7nDAtzugsa2nU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=J1rG/8tP1WBferPXKwSUwCxzNnswYI9+FyD0HComYW/ttfz4ZoxU/+q6Z16ZzKtvXukaUYog7k6fIm4K73vpZqXKub4Bv2pksbAAUeWyuxoHvPdKHL3kAi4NKJsc8y5QculM/CuNzTxFv3iR/RLQkp8sXZ3zisjqxhZasfoW57Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KtOQI9Rn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792202650; c=relaxed/simple;
+	bh=tM4grI1jlQAy0tAe0AIDztfwFOhIwD9g3gTk1Qlea6U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=etSdpOGrtDT6rC+P/VZi36LnDIQsdiuTSXavlCYpmPytJPlU4Whd1MGc/3XSNpDDYTI+sRFie97L1Eyml5MsjmKnqAws0DdCx6PQxkuEo4jDyRwfrnN2qRrZj+Ljny0pXmUB53GQstogvkMoq9O52TNmTrclANEM/UWpmGhOu60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M/QhGHF+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KtOQI9Rn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC60B1F000C4;
-	Sat, 17 Oct 2026 02:03:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M/QhGHF+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C28B71F000C4;
+	Sat, 17 Oct 2026 02:04:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792202586;
-	bh=LizRZHLnqt6c/yrgA4GIqDBk6Yug6XyQhPvTm9fd++4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=KtOQI9RnFHw3a0CoeXTkSzBwQJ+27pgqXPYhVy575/zUoRUQB4hIQDSUtfgjJ7bw1
-	 Gfe9NgGIKeUcYqvFxksMarZM4M8pZmo9vcD0Dh+4jmjVhJDnIPE5rTy+9A8VVxLaJL
-	 GS7ULmg7O+sq/qv8mAnnRXT2IoM6DEw23O//sC8sYz0/tvyVdNsau0cvHZLs0TgLvu
-	 6VAjQccSKrGRP2+H/TqExBzD69Egh3kVt0pp8c1rLJKQSF8R5O9IWE0JyjIQ8ImYsI
-	 bGRM6OvkwrYueK24NXVmnfMuRbwj1tkx3Amdv9Tef3ZYXxPWrrqKP2n6SAExISaNg9
-	 jXjL6+gvevMiA==
-Date: Sat, 17 Oct 2026 03:02:58 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 5/6] iio: imu: adis16607: Add external clock sync
- support
-Message-ID: <20261017030258.0157e651@jic23-hlaptop>
-In-Reply-To: <20261015-adis16607-v3-5-f972d4efee85@analog.com>
-References: <20261015-adis16607-v3-0-f972d4efee85@analog.com>
-	<20261015-adis16607-v3-5-f972d4efee85@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792202648;
+	bh=qIfzl9+QXGyHxNn9noq+ro3ckc6FSDaXOAYGm2ZzYik=;
+	h=From:To:Cc:Subject:Date;
+	b=M/QhGHF+aSMVtmJMxXsNf0QCeNWKFhLYRIDQs90crrEDJXZCEvcwajlPj7OI8I8L+
+	 W2l/1tQNeraVP/yXtcBQx+/S/TqQCxuoFpEvs5CUyzT79/oHPt8A4bruogfyeSJwQ0
+	 g+4NPwotant0IsnhP1abmCtTInjP22Bt/Q7LawTK9nTXA2ismg0DU/QI33oN1ns7Qh
+	 lxW82125OEYZQ2loY238IpZNDxIzoG2KBdi0VaK8bBLEkhD6nsvVlsnOTQdyrxXdnR
+	 lnJ8HV8/qXMtBh5BYbdtzwdj14RxMK4Fh89HxSv/EbSbe7P6t3mHjliddok8ejh5I8
+	 SMl0H4KE7HNRQ==
+From: Chao Yu <chao@kernel.org>
+To: jaegeuk@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Chao Yu <chao@kernel.org>
+Subject: [PATCH 1/2] f2fs: introduce max_write_bio_{folio,entry}_cnt module parameters
+Date: Sat, 17 Oct 2026 02:03:57 +0000
+Message-ID: <20261017020358.305503-1-chao@kernel.org>
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 12:33:02 +0300
-Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+From: Chao Yu <chao@kernel.org>
 
-> From: Radu Sabau <radu.sabau@analog.com>
-> 
-> Add support for an optional external clock (clocks property),
-> selecting between SYNC_DIRECT and SYNC_SCALED modes depending on the
-> supplied frequency, with the internal 8 kHz clock used as the default
-> when no clock is provided.
-> 
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+Commit 3de6b8094115 ("f2fs: Run f2fs_write_end_io() asynchronously")
+introduced max_atc_write_bio_size to offload write bio completion to a
+workqueue when f2fs_write_end_io() is called in atomic context.
 
-Just a very quick look as I'm out of time for today.
+However, relying on bio->bi_iter.bi_size as the threshold has two main
+issues:
 
-> +
-> +	/* Default dec=0 after reset: period = 1 / clk_freq */
+1. bio->bi_iter.bi_size is not reliable at bio completion time, as its
+   value depends on the underlying storage stack:
+   - On a direct blk-mq path (e.g. SCSI or UFS), blk_update_request()
+     consumes the bio iterator via bio_advance() before calling
+     bio_endio(), so bi_size is already 0 when f2fs_write_end_io() is
+     called, and the threshold check is never triggered:
+     scsi_end_request() / blk_mq_end_request()
+      -> blk_update_request()
+        -> bio_advance()          /* bio->bi_iter.bi_size becomes 0 */
+        -> bio_endio()
+          -> f2fs_write_end_io()  /* sees bi_size == 0 */
+   - On a device-mapper / zoned device path (e.g. dm-linear / dm-crypt),
+     DM allocates a clone bio and sets clone->bi_iter.bi_size, while the
+     original bio's bi_size remains intact when completed:
+     dm_submit_bio()
+      -> dm_split_and_process_bio()
+        -> __split_and_process_bio()
+          -> alloc_tio()          /* sets clone->bi_iter.bi_size */
+          -> __map_bio()
+            -> dm_submit_bio_remap()
+              -> submit_bio_noacct(clone)
+     blk_update_request()         /* advances clone->bi_iter.bi_size to 0 */
+      -> bio_endio(clone)
+        -> clone_endio()
+          -> dm_io_dec_pending()
+            -> dm_io_complete()
+              -> __dm_io_complete()
+                -> bio_endio(orig_bio)
+                  -> f2fs_zone_write_end_io()
+                    -> f2fs_write_end_io() /* orig_bio->bi_iter.bi_size intact */
 
-Why does the comment make sense now but didn't before?
+2. With large folios or multi-page bvecs, bi_size (and bi_vcnt) does not
+   reflect the actual completion latency:
+   - In f2fs_write_end_bio() and f2fs_cache_write_end_bio(), execution
+     time is dominated by the completion loop (bio_for_each_folio_all()
+     for pagecache folios, or while(entry) for cached metadata blocks).
+     The CPU latency in atomic context scales with the number of entries
+     in the bio, not its byte size.
+   - For large folios, a large bio (e.g. 1MB comprised of a few large
+     folios) only iterates a few times in the loop. Throttling by
+     bi_size unnecessarily offloads such low-latency bios to the
+     workqueue, adding context-switch overhead.
+   - Relying on bio->bi_vcnt is also insufficient because the block
+     layer (bvec_try_merge_page()) merges physically contiguous
+     pages/folios into the same bio_vec segment, so a bio with
+     bi_vcnt == 1 can still contain multiple entries.
 
->  	st->sample_period_ns = DIV_ROUND_CLOSEST_ULL((u64)NSEC_PER_SEC * 1000ULL,
-> -						     st->clk_freq);
-> +						      st->clk_freq);
-Tidy this up.
+Furthermore:
+- The limit is used to bound the CPU latency of f2fs_write_end_io() in
+  atomic context, which is a property of the platform (CPU and storage
+  completion path) rather than of each f2fs instance, so a global knob
+  set once at boot fits better than a per-superblock sysfs entry.
+- Pagecache folios and cached metadata blocks are completed in different
+  loops with different per-entry costs, i.e. f2fs_write_end_bio() and
+  f2fs_cache_write_end_bio(), so it's better to tune them separately
+  rather than sharing a single threshold.
 
-> +
->  	return 0;
->  }
->  
-> 
+To address this, track the exact number of entries (folios or cached
+blocks) queued to a write bio via entry_cnt in struct f2fs_bio, and
+introduce two module parameters:
+
+- max_write_bio_folio_cnt: for write bios of pagecache folios, which
+  are completed in f2fs_write_end_bio().
+- max_write_bio_entry_cnt: for write bios of cached metadata blocks,
+  which are completed in f2fs_cache_write_end_bio().
+
+Both parameters are read-only at runtime, they can be set via
+f2fs.max_write_bio_{folio,entry}_cnt=<n> in the kernel command line, or
+via modprobe, and apply to all f2fs instances. The default value is
+UINT_MAX, which means this functionality is disabled by default.
+
+Signed-off-by: Chao Yu <chao@kernel.org>
+---
+ fs/f2fs/data.c | 28 +++++++++++++++++++++++++++-
+ fs/f2fs/f2fs.h |  1 +
+ 2 files changed, 28 insertions(+), 1 deletion(-)
+
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 1b0395b45fb7..3caadb30496a 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -36,6 +36,16 @@ static struct kmem_cache *ffs_entry_slab;
+ static mempool_t *bio_post_read_ctx_pool;
+ static struct bio_set f2fs_bioset;
+ 
++static unsigned int max_write_bio_folio_cnt = UINT_MAX;
++module_param(max_write_bio_folio_cnt, uint, 0444);
++MODULE_PARM_DESC(max_write_bio_folio_cnt,
++		"Maximum number of folios in a write bio completed in atomic context");
++
++static unsigned int max_write_bio_entry_cnt = UINT_MAX;
++module_param(max_write_bio_entry_cnt, uint, 0444);
++MODULE_PARM_DESC(max_write_bio_entry_cnt,
++		"Maximum number of cache entries in a write bio completed in atomic context");
++
+ struct f2fs_folio_state {
+ 	spinlock_t		state_lock;
+ 	unsigned int		read_pages_pending;
+@@ -390,6 +400,12 @@ static void f2fs_write_end_io_work(struct work_struct *work)
+ 	f2fs_write_end_bio(bio);
+ }
+ 
++static unsigned int f2fs_max_write_bio_cnt(struct bio *bio)
++{
++	return f2fs_is_cache_bio(bio) ? max_write_bio_entry_cnt :
++					max_write_bio_folio_cnt;
++}
++
+ static void f2fs_write_end_io(struct bio *bio)
+ {
+ 	struct f2fs_sb_info *sbi;
+@@ -398,7 +414,8 @@ static void f2fs_write_end_io(struct bio *bio)
+ 
+ 	sbi = bio->bi_private;
+ 
+-	if (in_atomic() && bio->bi_iter.bi_size > sbi->max_atc_write_bio_size) {
++	if (in_atomic() && (bio->bi_iter.bi_size > sbi->max_atc_write_bio_size ||
++		F2FS_BIO(bio)->entry_cnt > f2fs_max_write_bio_cnt(bio))) {
+ 		struct work_struct *w;
+ 
+ 		w = &container_of(bio, struct f2fs_bio, bio)->work;
+@@ -555,6 +572,7 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
+ 						fio->type, fio->temp);
+ 		bio->bi_write_stream = f2fs_io_type_to_write_stream(bdev, fio->type,
+ 								    fio->temp);
++		F2FS_BIO(bio)->entry_cnt = 0;
+ 	}
+ 	iostat_alloc_and_bind_ctx(sbi, bio, NULL);
+ 
+@@ -867,6 +885,9 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
+ 			fio_folio->index, fio, GFP_NOIO);
+ 	bio_add_folio_nofail(bio, data_folio, folio_size(data_folio), 0);
+ 
++	if (!is_read_io(fio->op))
++		F2FS_BIO(bio)->entry_cnt++;
++
+ 	if (fio->io_wbc && !is_read_io(fio->op))
+ 		wbc_account_cgroup_owner(fio->io_wbc, fio_folio, PAGE_SIZE);
+ 
+@@ -937,6 +958,7 @@ static void add_bio_entry(struct f2fs_sb_info *sbi, struct bio *bio,
+ 	bio_get(bio);
+ 
+ 	bio_add_folio_nofail(bio, folio, folio_size(folio), 0);
++	F2FS_BIO(bio)->entry_cnt++;
+ 
+ 	f2fs_down_write(&io->bio_list_lock);
+ 	list_add_tail(&be->list, &io->bio_list);
+@@ -977,6 +999,7 @@ static int add_ipu_page(struct f2fs_io_info *fio, struct bio **bio,
+ 					fio_folio->mapping->host,
+ 					fio_folio->index, fio) &&
+ 			    bio_add_folio(*bio, folio, folio_size(folio), 0)) {
++				F2FS_BIO(*bio)->entry_cnt++;
+ 				ret = 0;
+ 				break;
+ 			}
+@@ -1234,6 +1257,8 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
+ 		goto alloc_new;
+ 	}
+ 
++	F2FS_BIO(io->bio)->entry_cnt++;
++
+ 	if (fio->io_wbc)
+ 		wbc_account_cgroup_owner(fio->io_wbc, fio->folio,
+ 				folio_size(fio->folio));
+@@ -1340,6 +1365,7 @@ void f2fs_submit_cache_write(struct f2fs_io_info *fio)
+ 	}
+ 
+ 	f2fs_bio_add_cache(fio, io->bio);
++	F2FS_BIO(io->bio)->entry_cnt++;
+ 
+ 	io->last_block_in_bio = fio->new_blkaddr;
+ 
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 362f06cb398d..4333d88cf076 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -1778,6 +1778,7 @@ struct f2fs_gc_kthread {
+ struct f2fs_bio {
+ 	struct work_struct work;
+ 	struct f2fs_cached_block *entry;
++	unsigned int entry_cnt;
+ 	struct bio bio;
+ };
+ 
+-- 
+2.49.0
 
