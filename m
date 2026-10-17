@@ -1,116 +1,127 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 767C147F3B3
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 12:51:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0617049159C
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 12:51:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792241481; cv=none; b=aE1bWm99U2uPNSJLCGG/kkX2N2cuPf/NvSAd7HXn55BPk2Bwrpq2Y0i3mAmxrwP8vXzc8AdhaEA4aQuZkZQ9wF8Af1SqOswgKEB5gQFkIRXwZGPOAsziOomqAvLN97S03zhXUZJK8OR4QpO7WalpkqswyoYfqDk00iyTowREWaQ=
+	t=1792241484; cv=none; b=tIyOdcomdx6buukdCsiyFGtPfDSKs/xEmgJz7SSaD3U5EI7PC2GpeD1TRif5K4ZYLM/EAg6/ko9soT8EphW5WKy6QBPRT5T8xi+9v1p0j5JhE/MwhRxBwvAzoM6Za2do9RhUbJjXt36Lfoic/EzrG130eGlODsbGUOSwVCRI+tE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792241481; c=relaxed/simple;
-	bh=upGMgUD854NKHIOpLR+aC/wxCwRgDGAkCByC7Zomsek=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=TiQWQYhxluLlEVmbH+XsfcXqzSO1a2aCRIDx7iJ1mopYdlPS12h17Q+pdHJVoJhUTyi5y8bXqv3FvAbdwQl7lYpK0BvJu3/LVArUfnHmVeTMUjqTMakZt8bxoeqf2PnvoR8xj8keeKQgKTzw0hUQ4+Fta7XI1N14iIu+rWzO8CE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-5384e381fbbso852336b6e.2
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:51:20 -0700 (PDT)
+	s=arc-20240116; t=1792241484; c=relaxed/simple;
+	bh=ejhKqmQASVCjBpB6Zzm6onKZzFwjxIZTAb/mq8y168c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TExkBwfTv5Eialh1WKryZ16Aygs/y3MOS9qgruSjPAzzEH3WDqt+mTdq+/d6lTrJTp1X9jLs66xOe9UILy4R3OTNIF4CvlfU9WkvVBVHOUdCvLRsSQHNgoBiaDKcaB6xlDyx43MTlf8LIto6L+uYXEwBaH6DcCqLJqxDEkXBOdc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HLtecz7k; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HLtecz7k"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e915887d9dso3330045ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:51:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792241482; x=1792846282; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ejhKqmQASVCjBpB6Zzm6onKZzFwjxIZTAb/mq8y168c=;
+        b=HLtecz7klVYY7tyn/NXtELa5lanybttTeR2gU+zEnB6ZccZtUf448HmuCIbEz9qJPu
+         tTGK1T4RuqzOkHG1JWoxNvzYhuhBVdg0m+vPBNy7YeHLrWKMc9kmjCCxdZRbSq/z2F6I
+         E4tKPVPxp5bzsEkfYE0ZdNhOR6iOsry860Fc4H7qCxbyYnwX5rYAvXJN9854eBHaCQ0j
+         fI50l312PVIYDVYv2uk27Eo1ASlcOg5OdEWMH48iaZWmY5sUtyVzzpTq8S3qKWqIHMjr
+         jTpMq0s2nTKWOX3x9oqxLjLILbaPPX7DZvVBZzKoy7CQqAw1Tyrce/i3vFxS+c7DuND8
+         Du0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792241479; x=1792846279;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=KM+nHAahhhDbaZJX1oLdaM/1E55uA3vWlwfNq/9qgmw=;
-        b=nzYcju9f8587t8BV3UEUF1M5qrv2IHGPeo0AFnm25QOe0+cRFrlOW0q2RlfJdsRJWS
-         KxDlNnE0XRQG3cresS8rZiF/Av6Pe6q96lSoCu9tTBN3RMBJKUzQhYn7R907xtUTVmtA
-         w7onBPYNnRZrUU5NlEDTSNZOSXuHPWu9x2ZLQHzDuQx9MXpVOqLl6Z+I5pFRQRQ3D0yX
-         LRNbAhgPrVU96pHToO3E1G6fHc1ST1lbtzcL+sslJYrqMU9gA7HMhLfEx7GdNL+m8jvY
-         qZsHfHlGBaLgE2DYj2L9al6NvHdVHtFP6m1rZPFkGhtvMVi+eugIXk/sM++uFPPdJc7Z
-         4CZg==
-X-Forwarded-Encrypted: i=1; AKwUvBx1NRl4De3gbfbpVHadef3XmKDzgWL56Hx/xRQnN4VLds45gFgc4he/zUipBe70H9i9DI1PopCX8jAnLj4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKyPrc6HhhzvR2VEi2XqflkEP/txWVP1oNEVZ8N9gIIiai6dR9R
-	Z1hWDYDNw1h124caZ/wH1gZk4XwCIwtNsWjk381O4iI7lHLi9M3SYRXkdd+rRwcyeH1a8kinuXq
-	5R1uCIqtJHGuUjD1EKSvraf/4HMlRLduGCRwVZFpDyIy7Nj7P0J2d8eoq7x8=
+        d=1e100.net; s=20260707; t=1792241482; x=1792846282;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ejhKqmQASVCjBpB6Zzm6onKZzFwjxIZTAb/mq8y168c=;
+        b=Ri8x+7o9kVYh8nGR7GZtPCSs3knZl5UCKUQ2+7xwgMY0u81Pe4epTvMBEp78bwhzGw
+         fZ0h4NDSW8Jbh+7ZIRRaIaOL9ksVeft7jQ1+PHGu6qmo34Q+EztB9ldNxPkm+HGf37wf
+         +G3AUMLIhCckdrUB1uIiOcDdzc3OV5cZmtesFzN06flbwvgZhcZCJsyvjm2Jz1KJDehy
+         cdB1xHBlC812DQBBjz+Lt7HVI/Dt4xZVuvbOB/ozNeEN2vEjam56z3GfSpRf4TeLQoHB
+         99XQ2E6nl1XQWFFL01E2HVPu2Srbk3SQ4G2wDtGgN4f0hSabKKQGVgLxmI3nXmGmxLeZ
+         HW2w==
+X-Forwarded-Encrypted: i=1; AKwUvBxjCAmIpZ/gkhlQE46R0KU++DhBp/A4mIZOCZh/kjzH2AOLez5Yvo/3T6pgMbkfo5taEYfbOULTV7xYPIg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3YVskmvMRilfeeBzdCsHholPwTgtQs1qua2ub8GPjHCmrs6cW
+	da2A7hzi08FJQ0j/q4BS/PWvhT/hMiryKXyjQjH7kvlhKLHQgQCMTFtmTM+rgxHq
+X-Gm-Gg: AYBFou25tCRAjtDIHuefxWJgBTdL9ZuF3lobNui31wZCzLgQGBsvy2bubke1Qx21Uzm
+	85VItC6Ww0qWXvFHJ7KgNcAvFVZsLesT6YlHrUheW/sGyGNeU6OaB/5XfTQpZqrXQbgI2lyO2yW
+	R+DJNoxtTHx4v4OEhPaJ2VlZoXF+jI1epCb8LNFdGcGtyRkK3d4jRMUipQFKJoqZBgztiOQ9DnW
+	7iR47emPI9s2TgLOLxP/pIX6h2v64HrHml0aIxngHDEUgRPwkOKehd5cw4OtMDEMDeawJzkLVpZ
+	P0IyjnOKOV2d3q3ab4gdAU6QgGO4dcIAe3gTUlxBJpgNqg3gkSEAS18zT7usqJ2fJ04yKXrs+oG
+	DrOfZsUavpy3Kb2MKWpn4lDqyyTXuXVNRqj6d2eoXY8upeNiM9uTyMnUO18ZRMV4ntWLtTVtv7+
+	QF9oyVnWfAJa/0kPUfL0vy1mVRd852gjU4avI0UQDQ2tMigH22MHDxcBED4hKOuwjCJw9WRdBDf
+	tBETYBcXmjC7XGCffW63cit1O7Tur9fGdinTcF6Duc9CuY0hDdMJ+v1R/XWUbgnsJP8eoZVwIBj
+	De5zEyOlLGXRn08=
+X-Received: by 2002:a17:903:acd:b0:2e9:6788:9373 with SMTP id d9443c01a7336-2e9a68d9118mr21964585ad.17.1792241482151;
+        Sat, 17 Oct 2026 05:51:22 -0700 (PDT)
+Received: from localhost.localdomain ([180.182.24.11])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e8b98a9sm22014615ad.74.2026.10.17.05.51.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 17 Oct 2026 05:51:20 -0700 (PDT)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: Anton Yakovlev <anton.yakovlev@opensynergy.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/2] ALSA: virtio: fix staged capture ACK ordering and period scheduling
+Date: Sat, 17 Oct 2026 21:51:14 +0900
+Message-ID: <virtio-snd-capture-reproducer.e56fe77fd0dc4571@gmail.com>
+In-Reply-To: <rfc-virtio-snd-capture-followups-0.f2737c95c12e45b4@gmail.com>
+References: <rfc-virtio-snd-capture-followups-0.f2737c95c12e45b4@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1489:b0:4fb:ac9b:b076 with SMTP id
- 5614622812f47-53cd39dc078mr2257398b6e.67.1792241479500; Sat, 17 Oct 2026
- 05:51:19 -0700 (PDT)
-Date: Sat, 17 Oct 2026 05:51:19 -0700
-In-Reply-To: <6ad16e43.7514cce4.1ece07.010d.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad36f47.7952420f.283480.0362.GAE@google.com>
-Subject: Re: [syzbot] [fs?] WARNING in V1_minix_truncate (2)
-From: syzbot <syzbot+e353ad4408c4f9fac965@syzkaller.appspotmail.com>
-To: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-syzbot has found a reproducer for the following issue on:
+Hi,
 
-HEAD commit:    58161ead29e5 Merge tag 'drm-fixes-2026-10-17' of https://g..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=10aa0f01580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=4ccb65e03706547e
-dashboard link: https://syzkaller.appspot.com/bug?extid=e353ad4408c4f9fac965
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16da320d580000
+I've prepared the reproducer and build instructions for this series:
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+e353ad4408c4f9fac965@syzkaller.appspotmail.com
+https://github.com/whatisyourname0/virtio-snd-reproducer/tree/88913cb432c3771d179a274e3b622a22b03bb9f1/capture-followups
 
-IO error syncing minix inode [loop0:00000008]
-------------[ cut here ]------------
-!buffer_uptodate(bh)
-WARNING: fs/buffer.c:991 at mark_buffer_dirty+0x299/0x410 fs/buffer.c:991, CPU#0: syz.0.603/7129
-Modules linked in:
-CPU: 0 UID: 0 PID: 7129 Comm: syz.0.603 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:mark_buffer_dirty+0x299/0x410 fs/buffer.c:991
-Code: 4c 89 f7 e8 99 d3 d7 ff 49 8b 3e be 40 00 00 00 5b 41 5c 41 5e 41 5f 5d e9 34 44 fb ff e8 4f 57 65 ff eb 8c e8 48 57 65 ff 90 <0f> 0b 90 e9 a5 fd ff ff e8 3a 57 65 ff 90 0f 0b 90 e9 cf fd ff ff
-RSP: 0018:ffffc90001c3f9f0 EFLAGS: 00010293
-RAX: ffffffff8262cae8 RBX: ffff8880452da7e0 RCX: ffff888034fc0000
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000002
-RBP: ffffc90001c3fb01 R08: ffff8880452da7e7 R09: 1ffff11008a5b4fc
-R10: dffffc0000000000 R11: ffffed1008a5b4fd R12: ffff88800bf88566
-R13: ffff88800bf885f0 R14: ffff88800bf88558 R15: 0000000000000017
-FS:  00007f2982d386c0(0000) GS:ffff88808b0b4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f2981deb8c0 CR3: 000000004669a000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- free_data fs/minix/itree_common.c:272 [inline]
- truncate fs/minix/itree_common.c:321 [inline]
- V1_minix_truncate+0x310/0x10c0 fs/minix/itree_v1.c:61
- minix_truncate fs/minix/inode.c:750 [inline]
- minix_evict_inode+0x1c9/0x260 fs/minix/inode.c:52
- evict+0x624/0xb50 fs/inode.c:822
- minix_mkdir+0xdc/0x120 fs/minix/namei.c:136
- vfs_mkdir+0x40c/0x620 fs/namei.c:5409
- filename_mkdirat+0x285/0x510 fs/namei.c:5442
- __do_sys_mkdirat fs/namei.c:5463 [inline]
- __se_sys_mkdirat+0x35/0x150 fs/namei.c:5460
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f2981d9e1d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f2982d38028 EFLAGS: 00000246 ORIG_RAX: 0000000000000102
-RAX: ffffffffffffffda RBX: 00007f2982025fa0 RCX: 00007f2981d9e1d9
-RDX: 00000000000001c0 RSI: 0000200000000700 RDI: ffffffffffffff9c
-RBP: 00007f2981e35888 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f2982026038 R14: 00007f2982025fa0 R15: 00007ffda9cc0648
- </TASK>
+DEPENDENCIES.md lists the exact base and prerequisite patches. The
+preparation script reconstructs the pre-ACK, ACK-only and ACK plus
+scheduling trees from those patches. Each tree matches the source used
+for the original tests. The two kernel patches in this series are
+unchanged.
 
+For patch 1, ack/ extracts the baseline and candidate routines and tests
+ACK ordering and refill failure with two kernel threads. I rebuilt the
+ACK-only kernel and fixture module with KASAN and lockdep. All four
+cases passed, followed by module unload and a clean guest shutdown. The
+fixture supplies test queue hooks; full virtqueue coverage is a separate
+part of the test setup.
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+I also rebuilt QEMU and the kernel with both patches for the capture
+regression checks. All 24 captures across four/eight channels and
+one/two vCPUs matched the expected file length and SHA-256. A deliberate
+reader stall produced XRUN, and a fresh capture after it matched the
+oracle. An eight-channel, one-vCPU run completed 70 seconds under guest
+CPU load and a subsequent ten-second capture without XRUN or a data
+mismatch. The kernel logs were clean.
+
+These QEMU tests use a deterministic synthetic source. They cover
+capture correctness and recovery; the VZ comparison in the original
+cover letter remains the evidence for patch 2's scheduling benefit. The
+ACK fixture uses the ACK-only tree because patch 2 changes a shared
+helper. Both build paths are documented separately.
+
+FRESH-BUILD-VALIDATION.md records the source and artifact hashes,
+results and remaining test limits. The package also includes the QEMU
+fixture patch, the guest build recipe and the channel/frame oracle.
+
+I'd appreciate guidance on which parts would be most useful to keep in
+the kernel test suite and which should stay with the QEMU test backend.
+
+Thanks,
+Joonho
