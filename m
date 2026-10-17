@@ -1,85 +1,106 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E671F3D9539
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:33:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2C84CF46C
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:35:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792211610; cv=none; b=Od1MYDBGkQXB3FfkFa75urgGtkHDEZM1HqqWjnRtsJA5CycrwAoSp4yJ9IIELTXeDOk3O2q7n+E/dT7zFBvbXe8jtL0nOcf2bbpm8pRnuxHRGEISK3ABsJWRB1mCzyZPh8cumhAmGykgVuGvBz2y7xDOHgL+b+CafTV8DTEdkow=
+	t=1792211712; cv=none; b=bS9tbWF2yQhma2Xv73GyIYlyklXNATNd1FXqh9U2M5zR7auujEcsbhirmhTaM6nUTps2F9icc8CWRsSvhhBlzafysI2IIqr4sHNh3dHZeyIuFTkCZVmMp6orqO59ORIUXhla88wBfrUUP1mf5aw9krzj10lHDoaXGHsv2TZdZEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792211610; c=relaxed/simple;
-	bh=H7w0jgd4cueY4W2eg7Uy4M4v1bq7qslA8C0Ck1mQZiU=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=ks3WTjL/kmtLcdpMpZR5xqqC1lukamhc9PS8lwX0BLr+0+3c2kupL+J+aqEACTefPHXNy/07nO4/S9I3xf9AF5MfcqCaUtte56yhJmFV0LEPl05W0fsPremRQZt2MgZ17HKp2stKEUTGAIncajB7ecuh02WuGLpjzmYCLB8ONDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b38ea4c6acso658642b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:33:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792211607; x=1792816407;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+	s=arc-20240116; t=1792211712; c=relaxed/simple;
+	bh=7kk2U4a9Lo1xYcGtwJg0lyGzo5dv0nbWpZ3vvoWDVTU=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=cgyjpf40kLwnVdfsq8Va/gNfONYZiVa3Ea/GpKHqolE+5kd2r6PoaBWxjHQfglcya55z590WiDVeUvU987DiWkq2F+UBp7MWhR7RASLnAXWk1NaHPUFifbiSfplBuf0JyW64mYz+xqfvfs5IkNhchaUDbxO9aovcv/Qy+57SXc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=J4vVm79I; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="J4vVm79I"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e60770381cso3641795ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:35:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792211710; x=1792816510; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=znQ/6erazSuBWZJFYK2t4/TYjjByImut22Yc7HPydfw=;
-        b=sER5hwmkQvjC3LYLwfVytfPLIFJzLD9RgiQYnZ4PCEHtuRmY299oTX90otruzY9b2e
-         3lrV3vs/TI+T4LFT8OvZxTvmkD8dU6e8/xLKG8FGLpruKzPbRX7+tbx+HSVyMioi69DE
-         KsS2T3o/I8v+pLQTzWxR/Xk44U+M+qnWcrHTVf24bEfHzFdB4RO+z4By0pQscrg3X4aa
-         IoE+H0Z/WCNfZbrmhEqQYYPTVipsXcxnGVfooddWjAyzPMem4wENpOP7bQdb3ODavMBg
-         RvFFYEZ/7EsLZqzLe7VhvI67Lj4XT8NksjiYn2G43D2spPf/KeD0gCqPWWhDTcMvvKxO
-         CupQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzmyATmUfo/bbZh7jpytIXcFeHOBhdhq2IHII8BiK0SHaw2HyPxY2zLMBoZr/ww+yJg98+Cbs5aaJYkYaQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4NclXZMld4jswjtorJwrSRYVx+uJOnHnbx8npDN4rXER62ek1
-	gD6LkM8s+y5VSbgT7L0jJNepy1/WgwxC8MSuGmKKhGHuFsiCtCff01xigq4MZvIyXnZ0T1PW/uG
-	VEDG++V+fO82lrBDA1hnuNr+3cgLFHDbfWDyC70fEN1o6GNn53M03SZf362o=
+        bh=ij/yw0EE7qvrJWtzl6WjRChvvvMCRKj13EcgUfUn1no=;
+        b=J4vVm79IEdUl4CwBAXuLRkNGAagM1HJ5exu0RLrYub0/G7tsTiMeYQ1PKXKdMO8CBM
+         K/k3jKvbHV/9IRwUftxPrsrH1V0JaTBz63AG0mNuKhArnffE82a1/g3F4TIYzmBmzF+b
+         a7MplhpalQVIAiiSrzrEgIXKe8to43X+Ni2JCjktshSKpP+eIvIYwXktg7KvU2UiJRzS
+         xbNWGTqWE+EjAYbiO3nz32tqDyC33SSjRyPM18lqDH1q+gjaiHTXvJxRP8WomJhG92RG
+         pX1WyyF1rEXT9fXmXGofsBA9qCEE0AtQZAeJb0ku7U6ZGDHRAh3w7OH5RPKV8yP3no6D
+         84dA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792211710; x=1792816510;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ij/yw0EE7qvrJWtzl6WjRChvvvMCRKj13EcgUfUn1no=;
+        b=Ue28921GNu4ynwP+yMsE4WpRMUpGxTbq0rJZmmqF29d+CKUuHiUL+qp/i28G1DWfSh
+         mj8XsSASm5Jo3tBN6d7/cuaztgxQ7ZMxuumy3n0YJzvTiZANOtZGgKavzFTvPBB56qPV
+         kYcljFMFnDGOIlCwHyO+kEEfuDBSXGrpRvJ0/BjcG4EAbH71+u90O+VZnRYUdXBLQNK8
+         BTVHuP0IPzO+IwDkVnjenM4pgSpIn7eVw1ZEJyd9rbUYboKsGwx8wzW/u/StDrTqLGa7
+         5TKR9Or0fQPS3wo7zrlvOWgRix0ALJYfgFRcuFZVHqKCTa5fLFtP8xwG1qBDtLxDPh8D
+         s7WQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxZUsbj6FNTnepBBuO93mkhhkA1ygKoFiKCi30+J9M9D9CyjUZk7ETdW/u8Ttw8g2PL/OrHyI0MgkCWSGM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKs8PVhgZhnpDqI4oFejs970FXrrBnFFIOqDPz1suUcJE09DyoF
+	ZJHx1HinTglIeS8Pa33mei+zI/qXj9Du5x2bk82iYxSuqj/WRQtYb2U8YeP4INcpnxqFIHPG9BB
+	RLga/dA==
+X-Received: from pgnm1.prod.google.com ([2002:a63:7d41:0:b0:cc7:a825:732d])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1d4d:b0:3ac:a7ee:6760
+ with SMTP id 98e67ed59e1d1-3aceefc2b04mr1444742a91.23.1792211709522; Fri, 16
+ Oct 2026 21:35:09 -0700 (PDT)
+Date: Sat, 17 Oct 2026 04:35:09 +0000
+In-Reply-To: <20261016-bug-net-netns-move-rcu-barrier-v1-1-4157d798658f@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f5f:b0:4b9:a88b:8889 with SMTP id
- 5614622812f47-53ccdca144dmr1787696b6e.31.1792211607715; Fri, 16 Oct 2026
- 21:33:27 -0700 (PDT)
-Date: Fri, 16 Oct 2026 21:33:27 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad2fa97.6814cce4.34c49f.002a.GAE@google.com>
-Subject: [syzbot] Monthly jffs2 report (Oct 2026)
-From: syzbot <syzbot+list0128a3c76429c868bdf8@syzkaller.appspotmail.com>
-To: dwmw2@infradead.org, linux-kernel@vger.kernel.org, 
-	linux-mtd@lists.infradead.org, richard@nod.at, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+References: <20261016-bug-net-netns-move-rcu-barrier-v1-0-4157d798658f@gmail.com>
+ <20261016-bug-net-netns-move-rcu-barrier-v1-1-4157d798658f@gmail.com>
+Message-ID: <atL51vM2GDL-7YCn@google.com>
+Subject: Re: [PATCH net-next 1/3] ipv4: draw rt_genid from a sequence shared
+ by all netns
+From: kuniyu@google.com
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	Nikolay Aleksandrov <razor@blackwall.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-Hello jffs2 maintainers/developers,
+On Fri, 16 Oct 2026 14:09:53 +0800, Qiliang Yuan wrote:
+> An IPv4 route records the rt_genid of the netns it was created in, and
+> rt_is_expired() compares it with the rt_genid of the netns its device
+> belongs to when the route is checked. Every netns starts its rt_genid
+> at 0 and increments it on each cache flush, so different netns often
+> hold the same value.
+> 
+> When a device moves to another netns, routes cached through it remain
+> usable until dst_dev_put() points them to blackhole_netdev. For a route
+> using a nexthop object this happens in nexthop_free_rcu(), which
+> free_fib_info_rcu() queues from inside an RCU callback, so the
+> rcu_barrier() in __dev_change_net_namespace() does not wait for it. If
+> the rt_genid of the new netns matches the cached one in that window,
+> ipv4_dst_check() accepts the route and a socket in the old netns keeps
+> sending through a device that now belongs to another netns.
+> 
+> Take every rt_genid, including the initial one, from one global
+> sequence, so that a cached route never matches the rt_genid of another
+> netns.
+> 
+> A connected UDP socket in netns A caches a route through a nexthop
+> object on a veth. The veth is moved to netns B and brought up with one
+> RTM_NEWLINK, then the socket sends 200000 datagrams. B's rt_genid is
+> bumped 0 to 20 times before the move, 63 trials:
+> 
+>                                 before     after
+>   trials sending after move          2         0
+>   datagrams sent after move       2353         0
+> 
+> Fixes: 4c7e8084fd46 ("ipv4: Plumb support for nexthop object in a fib_info")
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 
-This is a 31-day syzbot report for the jffs2 subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/jffs2
-
-During the period, 0 new issues were detected and 0 were fixed.
-In total, 9 issues are still open and 1 has already been fixed.
-There are also 2 low-priority issues.
-
-Some of the still happening issues:
-
-Ref Crashes Repro Title
-<1> 25      Yes   KASAN: slab-use-after-free Read in jffs2_xattr_delete_inode
-                  https://syzkaller.appspot.com/bug?extid=3a8099322b09d8d073d1
-<2> 10523   Yes   kernel BUG in jffs2_del_ino_cache
-                  https://syzkaller.appspot.com/bug?extid=44664704c1494ad5f7a0
-<3> 7       No    possible deadlock in jffs2_xattr_delete_inode
-                  https://syzkaller.appspot.com/bug?extid=fdfd8fdf716c90baef0f
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
-
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
