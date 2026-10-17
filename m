@@ -1,46 +1,33 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A77358381;
-	Sat, 17 Oct 2026 02:51:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FAC3B7B79
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:54:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792205480; cv=none; b=rrnK1FlBZcWR6WE101QHp+EH/mVbadWWzDyDMmEFLkx+0ELGDhVxUM3Uoz1vBCbcPqf4mU3pe2g7DKFRNKU8etXhLSk8nat61Hdo72cwBSUw91SLqz3Y5sOM7kSuqkFaeCCfHANYAob60hD36LA75B8DuoEGe+wG1+M4HepoHjQ=
+	t=1792205674; cv=none; b=bYsNk8W4uMgk9TJz4V5O5UO2OPreeWx4Ew5BboM8jcA+2yAAPF1CRG32Y76hArRhRCRxdoPJwyGsRc7+YGDjwTMc4IyxZKXhyKuITeAwNRr5FC64ZOJ5zdbWh18ADNXq3yxJiS8giSr41hD+kWqr8wR8v9/wJl0VONqZxLUL2hY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792205480; c=relaxed/simple;
-	bh=U89heu2jCTY4+XdnpuE6PJe92tymGs798OufEH3OCg4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p9O8cMJpdXuH8EoNKf9KssnEmCx7RcHRwMXJeG3Kdp0hkOjo2eQWNBjYq7kX2piHBrM8i14lhGEVv4sjFtykMq8Sm+g7r8Z763xkO2aZugRenjLBSE2w3QjaXJOjjiN68xGxRZtzKUFYn2MRRqlDiful6V2ysb9/8wzf/M/5rKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=dswa8D4l; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="dswa8D4l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Tv
-	qRxu3wZUl3qnl5HJMUarHybVvoBInfmiM14VK2s8A=; b=dswa8D4lN2JTphz21A
-	iYickNEhzb/8Zy3bxjLkgSQydylgv+0RRZGMLZ96trDYhAvAugRQYBoxNoCWtkKH
-	i6K4xQ5nQr6RhmaRrL/OdWdW72Lv6Mi+cHgBckiGXn5tUDNsNBepL+WWrXXwyZhF
-	qkdDu++cOTwUkvLZd4LbVcUkg=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3f4lP4tJq7yDCAg--.63664S2;
-	Sat, 17 Oct 2026 10:49:52 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: sam@mendozajonas.com,
-	fercerpav@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	gwshan@linux.vnet.ibm.com,
-	joel@jms.id.au
-Cc: netdev@vger.kernel.org,
+	s=arc-20240116; t=1792205674; c=relaxed/simple;
+	bh=8V4KEEoD051nOMGpLrxMUSDSwZLv8SijsOKAy9BqOto=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IlV3qoCVIf4YnkmwGFMIQMWkD6iJ2L0RoWGUSag8BrutghZeHxH2PPDFVGf5ahu3+J7ngx5ehJsqG9WirSrsUtFR6kqAvNIokzVmfw9fCFW6rNz1M2iCjlMGepFv/2PJ+4aq1QLqBSyDsb3Qd4c433lk9szY1IDRWgoV7Ph5jak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xHuYu-00HXl9-Hx;
+	Fri, 16 Oct 2026 22:54:20 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Radu Rendec <radu@rendec.net>,
+	Anup Patel <apatel@ventanamicro.com>,
 	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH net v2] net/ncsi: fix use-after-free of ncsi_channel in ncsi_remove_channel()
-Date: Sat, 17 Oct 2026 10:49:47 +0800
-Message-ID: <20261017024947.420683-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] genirq/msi: Fix the mapping race of wire to MSI interrupts
+Date: Fri, 16 Oct 2026 22:54:20 -0400
+Message-ID: <20261017025420.792976-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,231 +35,264 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3f4lP4tJq7yDCAg--.63664S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtw48tw17tr4DKw13JF1xAFb_yoW3CrWfpF
-	W3try5Jw4jyryF9r9aka15Wr13Ar4rX3yUKwnxKw4fAa45GryUuFy7Aay09F15CrZ7uw42
-	yw4jgw4Y9rs5JrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziiL08UUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC-BAcAGrS4lDP9QAA3A
 
-The NCSI generic netlink package information paths walk the global
-ncsi_dev_list (ndp_from_ifindex() -> ncsi_find_dev()) and the
-ndp->packages / np->channels lists through the list_for_each_entry_rcu()
-based NCSI_FOR_EACH_* macros, but they never enter an RCU read-side
-critical section.  Everything these walkers touch is only unlinked with
-list_del_rcu(), so the lifetime contract of the objects is "alive for an
-RCU grace period after unlink"; a walker that does not hold
-rcu_read_lock() has no protection at all once it is preempted mid-walk,
-no matter what the free side does.
+On every platform whose wired interrupts go through a wire to MSI bridge
+(the RISC-V APLIC in MSI mode and the RPMI system MSI controller, the
+HiSilicon MBIGEN and the GICv5 IWB on arm64, the Marvell ICU), two
+devices which share an interrupt line and probe at the same time
+(asynchronous probing, the deferred probe worker, parallel module
+loading) race in irq_create_fwspec_mapping(), and the loser's probe
+fails with a misleading error: platform_get_irq() returns -ENXIO ("IRQ
+index 0 not found"), or request_irq() on irq 0 returns -EINVAL for a
+PCI device. The bridges route every wired peripheral interrupt of their
+platform through this path, and the mapping is created in driver probe
+context: platform_get_irq() through of_irq_get(), and pci_device_probe()
+through pci_assign_irq() for the legacy interrupt line of every PCI
+device. On the QEMU RISC-V virt machine with aia=aplic-imsic, two
+virtio-net-pci devices on the same INTx line (slots 1 and 5, MSI-X
+disabled) booted with driver_async_probe=virtio-pci lose one of the two
+devices in 17 of 20 boots, and in 0 of 20 with the patch:
 
-The teardown side breaks the other half of that contract for the
-channels: ncsi_remove_channel() unlinks the channel from its package's
-channel list with list_del_rcu() and then frees the channel's mac/vlan
-filter arrays and the channel object itself immediately.  The netlink
-walkers dereference deep into the channel --
-ncsi_write_channel_info() reads nc->version.fw_name with nla_put_string()
-(strlen) and iterates the nc->vlan_filter.vids[] entries -- so a reader
-mid-walk reads freed memory when a teardown overlaps it.
+  virtio_net virtio0: probe with driver virtio_net failed with error -22
 
-Either half alone leaves the race, so fix both sides:
+Two kernel threads on two CPUs mapping the same unmapped APLIC wire at
+the same moment lose one of the two callers for 6 of 30 wires without
+any added delay and for 8 of 8 with a 100 ms delay in the window, for 0
+of 30 and 0 of 8 with the patch. This exists since the wire to MSI
+bridges moved to per device MSI domains in v6.9.
 
-  * Enter the read-side critical section in the NCSI_CMD_PKG_INFO doit
-    (ncsi_pkg_info_nl()) and dump (ncsi_pkg_info_all_nl()) handlers and
-    keep it held across every dereference of ndp, np and nc.  The doit
-    response skb is allocated before the lock is taken so that the
-    GFP_KERNEL allocation does not run under rcu_read_lock(); the dump
-    handler only appends to the callback skb it is given and can hold
-    the lock across its whole walk.
+irq_create_fwspec_mapping() looks the hardware interrupt up under the
+domain lock and allocates a new interrupt when there is none. For a
+wire to MSI domain it has to drop the domain lock before invoking
+msi_device_domain_alloc_wired(), because the MSI allocation takes the
+device's MSI descriptor lock first and the domain lock below it. When
+two callers map the same wire in that window, both find no mapping and
+both allocate. msi_domain_alloc() detects the duplicate hardware
+interrupt number for the second one and fails with -EEXIST,
+msi_handle_pci_fail() turns that into -ENOSPC for a non-PCI domain, and
+irq_create_fwspec_mapping() returns 0: the second caller sees no
+interrupt for a wire which is mapped and working. The legacy and the
+non-MSI hierarchical paths keep the domain lock across the allocation
+and are not affected.
 
-  * Move the frees of nc->mac_filter.addrs, nc->vlan_filter.vids and nc
-    into an RCU callback.  The two arrays are only reachable through
-    the channel object, so they have to share its grace period.
+Repeat the lookup in msi_device_domain_alloc_wired() under the MSI
+descriptor lock, which serializes all wired allocations of the device,
+and return the mapping a concurrent caller created instead of
+allocating a second one. The returned interrupt may already carry a
+trigger type, so let irq_create_fwspec_mapping() apply the same trigger
+type checks to it as to a mapping it found itself: the type handling
+becomes common to both, and a newly created interrupt, which starts
+with IRQ_TYPE_NONE, ends up with the requested type as before.
 
-The race needs no real NC hardware:
+Found while formally verifying irq_create_fwspec_mapping() against the
+kernel binary.
 
-  writer: rmmod ftgmac100
-            -> ftgmac100_remove() -> ncsi_unregister_dev()
-            -> ncsi_remove_package() -> ncsi_remove_channel() -> kfree()
-  reader: sendmsg(NETLINK_GENERIC, NCSI_CMD_PKG_INFO)
-            -> ncsi_pkg_info_nl() -> ncsi_write_package_info()
-            -> ncsi_write_channel_info()
-
-(freeing happens before unregister_netdev(), so the netdev, and with it
-the genl entry point, stays reachable during the whole window).
-
-Tested on an arm multi_v7 kernel (KASAN + SLUB + PREEMPT) running as a
-QEMU ast2600-evb guest with a host-side NC-SI responder; the PoC hammers
-NCSI_CMD_PKG_INFO from four threads while cycling insmod/rmmod
-ftgmac100 (doit and dump variants in parallel).  KASAN fires at the
-first teardown of every boot:
-
-  BUG: KASAN: slab-use-after-free in ncsi_write_package_info+0xa5c/0xf84
-  Read of size 1 at addr c69019e0 by task poc_dump/68
-  CPU: 0 UID: 0 PID: 68 Comm: poc_dump Not tainted 7.2.6 #1 PREEMPT
-  Hardware name: Generic DT based system
-  Call trace:
-   ...
-   kasan_report from ncsi_write_package_info+0xa5c/0xf84
-   ncsi_write_package_info from ncsi_pkg_info_nl+0x320/0x63c
-   ncsi_pkg_info_nl from genl_family_rcv_msg_doit+0x218/0x2d8
-   genl_family_rcv_msg_doit from genl_rcv_msg+0x578/0xb24
-   genl_rcv_msg from netlink_rcv_skb+0x134/0x3c4
-   netlink_rcv_skb from genl_rcv+0x24/0x34
-   genl_rcv from netlink_unicast+0x884/0xac0
-   netlink_unicast from netlink_sendmsg+0x62c/0xb98
-   netlink_sendmsg from __sys_sendto+0x290/0x3e0
-   __sys_sendto from sys_send+0x18/0x20
-   sys_send from ret_fast_syscall+0x0/0x5c
-
-Found during a static-analysis-assisted audit: candidate sites were
-surfaced by a Coccinelle rule, and the reader/writer paths were
-confirmed by LLM-assisted (GLM-5.3) code inspection.
-
-Fixes: 2d283bdd079c ("net/ncsi: Resource management")
-Fixes: 955dc68cb9b2 ("net/ncsi: Add generic netlink family")
-Signed-off-by: Binbin Deng <18983559317@163.com>
+Fixes: e49312fe09df ("genirq/irqdomain: Reroute device MSI create_mapping")
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
 ---
- net/ncsi/internal.h     |  1 +
- net/ncsi/ncsi-manage.c  | 20 ++++++++++++++------
- net/ncsi/ncsi-netlink.c | 36 ++++++++++++++++++++++++++----------
- 3 files changed, 41 insertions(+), 16 deletions(-)
 
-diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-index adee6dcabdc3..530834d8caa7 100644
---- a/net/ncsi/internal.h
-+++ b/net/ncsi/internal.h
-@@ -239,6 +239,7 @@ struct ncsi_channel {
- 	} monitor;
- 	struct list_head            node;
- 	struct list_head            link;
-+	struct rcu_head             rcu;
- };
- 
- struct ncsi_package {
-diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index 54d0df0a9efe..c16047dee3f8 100644
---- a/net/ncsi/ncsi-manage.c
-+++ b/net/ncsi/ncsi-manage.c
-@@ -242,17 +242,21 @@ struct ncsi_channel *ncsi_add_channel(struct ncsi_package *np, unsigned char id)
- 	return nc;
- }
- 
-+static void ncsi_channel_release(struct rcu_head *rcu)
-+{
-+	struct ncsi_channel *nc = container_of(rcu, struct ncsi_channel, rcu);
-+
-+	kfree(nc->mac_filter.addrs);
-+	kfree(nc->vlan_filter.vids);
-+	kfree(nc);
-+}
-+
- static void ncsi_remove_channel(struct ncsi_channel *nc)
- {
- 	struct ncsi_package *np = nc->package;
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&nc->lock, flags);
+Notes:
+    The duplicate is already caught deep in the allocation: msi_domain_alloc()
+    returns -EEXIST when irq_resolve_mapping() finds the hardware interrupt,
+    but msi_handle_pci_fail() maps that to -ENOSPC for every non-PCI bus
+    token, so the error cannot be told apart in irq_create_fwspec_mapping()
+    and the only place where the race can be resolved without an allocate-
+    and-free cycle is under the descriptor lock, which every wired
+    allocation and free of the device takes.
+    
+    Making the trigger type handling common to the found and the created
+    interrupt is required by the change, not a cleanup: a type of
+    IRQ_TYPE_NONE from the loser would otherwise clear the type the winner
+    stored, and a differing type would overwrite it instead of being
+    rejected as it is for a mapping found by the lookup. The WARN_ON on a
+    missing irq_data after a fresh allocation goes away with it; the common
+    path returns 0 for that case like the lookup path always did.
+    
+    Reproduced on riscv64 under QEMU only (TCG, 2 and 4 harts): with a
+    kernel thread pair and with two virtio-net-pci devices sharing an INTx
+    line probed asynchronously. With all eight slots populated the pairs
+    sharing a line are four probes apart and the window was not hit in 11
+    boots; with the two devices back to back it was hit in 17 of 20. Not
+    reproduced on hardware.
+    
+    Reproducer (QEMU, no kernel change): two legacy-INTx PCI devices on one
+    line, probed asynchronously; the loser's probe fails on the unpatched
+    kernel in 17 of 20 boots, 0 of 20 with the patch:
+    
+      qemu-system-riscv64 -M virt,aia=aplic-imsic -smp 4 -m 1G -nographic \
+        -kernel arch/riscv/boot/Image \
+        -device virtio-net-pci,vectors=0,addr=1 \
+        -device virtio-net-pci,vectors=0,addr=5 \
+        -append "console=ttyS0 driver_async_probe=virtio-pci"
+      # before: "virtio_net virtio0: probe with driver virtio_net failed with
+      # error -22" and /proc/interrupts lists one device on line 33
+      # after:  both devices on line 33 ("virtio0, virtio1")
+    
+    Deterministic variant (throwaway test, not in the series): a
+    late_initcall_sync starting two kthreads on CPUs 0 and 1 that both call
+    irq_create_fwspec_mapping() for the same unmapped APLIC source; 8 of 8
+    wires lose a caller with a 100 ms delay in the window, 6 of 30 without,
+    0 with the patch (repro/hook.sh, repro/run-kthread.sh).
+
+ kernel/irq/irqdomain.c | 84 +++++++++++++++++++++---------------------
+ kernel/irq/msi.c       | 18 +++++++--
+ 2 files changed, 56 insertions(+), 46 deletions(-)
+
+diff --git a/kernel/irq/irqdomain.c b/kernel/irq/irqdomain.c
+index 57c819da30c2..2a7868d71778 100644
+--- a/kernel/irq/irqdomain.c
++++ b/kernel/irq/irqdomain.c
+@@ -942,63 +942,61 @@ unsigned int irq_create_fwspec_mapping(struct irq_fwspec *fwspec)
+ 	 * don't do it again, or hell will break loose.
+ 	 */
+ 	virq = irq_find_mapping(domain, hwirq);
+-	if (virq) {
+-		/*
+-		 * If the trigger type is not specified or matches the
+-		 * current trigger type then we are done so return the
+-		 * interrupt number.
+-		 */
+-		if (type == IRQ_TYPE_NONE || type == irq_get_trigger_type(virq))
+-			goto out;
 -
--	/* Release filters */
--	kfree(nc->mac_filter.addrs);
--	kfree(nc->vlan_filter.vids);
+-		/*
+-		 * If the trigger type has not been set yet, then set
+-		 * it now and return the interrupt number.
+-		 */
+-		if (irq_get_trigger_type(virq) == IRQ_TYPE_NONE) {
+-			irq_data = irq_get_irq_data(virq);
+-			if (!irq_data) {
++	if (!virq) {
++		if (irq_domain_is_hierarchy(domain)) {
++			if (irq_domain_is_msi_device(domain)) {
++				/*
++				 * The MSI code takes the descriptor lock
++				 * before the domain lock and resolves a
++				 * concurrent mapping of the same wire, so
++				 * the returned interrupt may already be
++				 * configured.
++				 */
++				mutex_unlock(&domain->root->mutex);
++				virq = msi_device_domain_alloc_wired(domain, hwirq, type);
++				mutex_lock(&domain->root->mutex);
++			} else {
++				virq = irq_domain_alloc_irqs_locked(domain, -1, 1, NUMA_NO_NODE,
++								    fwspec, false, NULL);
++			}
++			if (virq <= 0) {
+ 				virq = 0;
+ 				goto out;
+ 			}
 -
- 	nc->state = NCSI_CHANNEL_INACTIVE;
- 	spin_unlock_irqrestore(&nc->lock, flags);
- 	ncsi_stop_channel_monitor(nc);
-@@ -263,7 +267,11 @@ static void ncsi_remove_channel(struct ncsi_channel *nc)
- 	np->channel_num--;
- 	spin_unlock_irqrestore(&np->lock, flags);
+-			irqd_set_trigger_type(irq_data, type);
+-			goto out;
++		} else {
++			/* Create mapping */
++			virq = irq_create_mapping_affinity_locked(domain, hwirq, NULL);
++			if (!virq)
++				goto out;
+ 		}
++	}
  
--	kfree(nc);
-+	/* Readers (netlink package info walkers, channel configuration
-+	 * worker) may still hold the channel or its filter arrays;
-+	 * release everything after a grace period.
+-		pr_warn("type mismatch, failed to map hwirq-%lu for %s!\n",
+-			hwirq, of_node_full_name(to_of_node(fwspec->fwnode)));
+-		virq = 0;
++	/*
++	 * If the trigger type is not specified or matches the
++	 * current trigger type then we are done so return the
++	 * interrupt number.
 +	 */
-+	call_rcu(&nc->rcu, ncsi_channel_release);
- }
++	if (type == IRQ_TYPE_NONE || type == irq_get_trigger_type(virq))
+ 		goto out;
+-	}
  
- struct ncsi_package *ncsi_find_package(struct ncsi_dev_priv *ndp,
-diff --git a/net/ncsi/ncsi-netlink.c b/net/ncsi/ncsi-netlink.c
-index 8cc538358f6a..3de607f6982c 100644
---- a/net/ncsi/ncsi-netlink.c
-+++ b/net/ncsi/ncsi-netlink.c
-@@ -169,11 +169,6 @@ static int ncsi_pkg_info_nl(struct sk_buff *msg, struct genl_info *info)
- 	if (!info->attrs[NCSI_ATTR_PACKAGE_ID])
- 		return -EINVAL;
+-	if (irq_domain_is_hierarchy(domain)) {
+-		if (irq_domain_is_msi_device(domain)) {
+-			mutex_unlock(&domain->root->mutex);
+-			virq = msi_device_domain_alloc_wired(domain, hwirq, type);
+-			mutex_lock(&domain->root->mutex);
+-		} else
+-			virq = irq_domain_alloc_irqs_locked(domain, -1, 1, NUMA_NO_NODE,
+-							    fwspec, false, NULL);
+-		if (virq <= 0) {
++	/*
++	 * If the trigger type has not been set yet, then set
++	 * it now and return the interrupt number.
++	 */
++	if (irq_get_trigger_type(virq) == IRQ_TYPE_NONE) {
++		irq_data = irq_get_irq_data(virq);
++		if (!irq_data) {
+ 			virq = 0;
+ 			goto out;
+ 		}
+-	} else {
+-		/* Create mapping */
+-		virq = irq_create_mapping_affinity_locked(domain, hwirq, NULL);
+-		if (!virq)
+-			goto out;
+-	}
  
--	ndp = ndp_from_ifindex(genl_info_net(info),
--			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
--	if (!ndp)
--		return -ENODEV;
--
- 	skb = genlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
- 	if (!skb)
- 		return -ENOMEM;
-@@ -192,7 +187,21 @@ static int ncsi_pkg_info_nl(struct sk_buff *msg, struct genl_info *info)
- 		kfree_skb(skb);
- 		return -EMSGSIZE;
+-	irq_data = irq_get_irq_data(virq);
+-	if (WARN_ON(!irq_data)) {
+-		virq = 0;
++		irqd_set_trigger_type(irq_data, type);
+ 		goto out;
  	}
-+	/* The device is resolved and the lists are walked inside an RCU
-+	 * read-side critical section: the teardown path only unlinks these
-+	 * objects and frees them after a grace period.
-+	 */
-+	rcu_read_lock();
-+	ndp = ndp_from_ifindex(genl_info_net(info),
-+			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
-+	if (!ndp) {
-+		rcu_read_unlock();
-+		kfree_skb(skb);
-+		return -ENODEV;
-+	}
-+
- 	rc = ncsi_write_package_info(skb, ndp, package_id);
-+	rcu_read_unlock();
  
- 	if (rc) {
- 		nla_nest_cancel(skb, attr);
-@@ -228,20 +237,26 @@ static int ncsi_pkg_info_all_nl(struct sk_buff *skb,
- 	if (!attrs[NCSI_ATTR_IFINDEX])
+-	/* Store trigger type */
+-	irqd_set_trigger_type(irq_data, type);
++	pr_warn("type mismatch, failed to map hwirq-%lu for %s!\n",
++		hwirq, of_node_full_name(to_of_node(fwspec->fwnode)));
++	virq = 0;
+ out:
+ 	mutex_unlock(&domain->root->mutex);
+ 
+diff --git a/kernel/irq/msi.c b/kernel/irq/msi.c
+index fb5f372215bf..dac36ba6667b 100644
+--- a/kernel/irq/msi.c
++++ b/kernel/irq/msi.c
+@@ -1571,6 +1571,12 @@ struct msi_map msi_domain_alloc_irq_at(struct device *dev, unsigned int domid, u
+  * msi_desc::cookie so the underlying interrupt chip and domain code can
+  * retrieve it.
+  *
++ * The caller looks @hwirq up before invoking this function, but it cannot
++ * hold the domain lock across the call. Allocations are serialized by the
++ * MSI descriptor lock, so the lookup is repeated under it and a mapping
++ * which a concurrent caller created in the meantime is returned instead
++ * of a second one.
++ *
+  * Return: The Linux interrupt number (> 0) or an error code
+  */
+ int msi_device_domain_alloc_wired(struct irq_domain *domain, unsigned int hwirq,
+@@ -1580,6 +1586,7 @@ int msi_device_domain_alloc_wired(struct irq_domain *domain, unsigned int hwirq,
+ 	union msi_instance_cookie icookie = { };
+ 	struct device *dev = domain->dev;
+ 	struct msi_map map = { };
++	unsigned int virq;
+ 
+ 	if (WARN_ON_ONCE(!dev || domain->bus_token != DOMAIN_BUS_WIRED_TO_MSI))
  		return -EINVAL;
+@@ -1588,9 +1595,14 @@ int msi_device_domain_alloc_wired(struct irq_domain *domain, unsigned int hwirq,
  
-+	package_id = cb->args[0];
+ 	guard(msi_descs_lock)(dev);
+ 	if (WARN_ON_ONCE(msi_get_device_domain(dev, domid) != domain))
+-		map.index = -EINVAL;
+-	else
+-		map = __msi_domain_alloc_irq_at(dev, domid, MSI_ANY_INDEX, NULL, &icookie);
++		return -EINVAL;
 +
-+	rcu_read_lock();
- 	ndp = ndp_from_ifindex(get_net(sock_net(skb->sk)),
- 			       nla_get_u32(attrs[NCSI_ATTR_IFINDEX]));
- 
--	if (!ndp)
-+	if (!ndp) {
-+		rcu_read_unlock();
- 		return -ENODEV;
-+	}
- 
--	package_id = cb->args[0];
- 	package = NULL;
- 	NCSI_FOR_EACH_PACKAGE(ndp, np)
- 		if (np->id == package_id)
- 			package = np;
- 
--	if (!package)
-+	if (!package) {
-+		rcu_read_unlock();
- 		return 0; /* done */
-+	}
- 
- 	hdr = genlmsg_put(skb, NETLINK_CB(cb->skb).portid, cb->nlh->nlmsg_seq,
- 			  &ncsi_genl_family, NLM_F_MULTI,  NCSI_CMD_PKG_INFO);
-@@ -265,9 +280,10 @@ static int ncsi_pkg_info_all_nl(struct sk_buff *skb,
- 	genlmsg_end(skb, hdr);
- 
- 	cb->args[0] = package_id + 1;
--
-+	rcu_read_unlock();
- 	return skb->len;
- err:
-+	rcu_read_unlock();
- 	genlmsg_cancel(skb, hdr);
- 	return rc;
++	/* Lost the race against a concurrent mapping of the same wire? */
++	virq = irq_find_mapping(domain, hwirq);
++	if (virq)
++		return virq;
++
++	map = __msi_domain_alloc_irq_at(dev, domid, MSI_ANY_INDEX, NULL, &icookie);
+ 	return map.index >= 0 ? map.virq : map.index;
  }
+ 
+
+base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
 -- 
-2.43.0
+2.53.0
 
