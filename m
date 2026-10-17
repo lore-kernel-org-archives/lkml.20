@@ -1,144 +1,115 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B8B3C4B8D
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:22:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D8E34B437
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792261359; cv=none; b=RTr8ffzn0y7hyvDIRjGICu0YRMcdtUfHptODqGkXBIUO1uc3rdm8Y21Bhy5nb9BQJOqPxCGhTLV2cxBachlqHWtrz97VeDLUAxopvDDjRS+GRIAtuHyioJWxtnBXcj9GQuKJP7u76vGynXUpJIGTNqiG4U68AjJMXjV9McRXS6g=
+	t=1792261518; cv=none; b=F8WpdeuwcFcxSwxVrg9Zo/ici4mBXb/OyeAtxjLdAQnuPbX5F5snB4kLJNHMsnO5uLCPgA3JjPDhiR5O6dvcc6R1rg4fw8+nb2Sged1bIDfj56GCpE816Bhi+nRNqGuB1BnwPdGZHk1+ATtM8aRleUmOvjWG3CkkabVD7Nf2P8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792261359; c=relaxed/simple;
-	bh=pSHGp8EXL2VWTgqxVtbb1srpNASE94++qjfipyPc07U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NJLIre5B8EgeY3KgAEN9PgkHIWT8tLUN3wyiCG5plz8W2eAF7WNKoqnw6TqzfpHa8lKmt4nahMI4RuPBuq7c0Vr2BhBRP+MDv3R6C8ZEzE8TdnGOvwX84AA7FsoQ5mFeqxCTLXEXuaCEbCgTc9whFZoiQloO+m21s5qPCANg1M0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gUQ5Cpmc; arc=none smtp.client-ip=209.85.221.51
+	s=arc-20240116; t=1792261518; c=relaxed/simple;
+	bh=BRWVIj0+QDTuMYi7F6ltxI3tp8k6MD7qa2pkLuMBaWQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aDkoe78AY7RElaiAc/9Bufm6j9deox0yIGkg0a6BZat5MhVoZuEntzlb2zh2C3UWHJrTQ4h4dwxLADddmJz9n8fKnT85tBrllKkkQ/Daef56K3oD1W5QOtL2Qi1Zv7S8EQDUpCku0+6KTBeLTle4YEQlVGnfLxBX1+sZt86u/Wo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ILLOFWEa; arc=none smtp.client-ip=209.85.215.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gUQ5Cpmc"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48c4be28b82so700788f8f.2
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:22:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ILLOFWEa"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso386278a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:25:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792261356; x=1792866156; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lKYjKyTf4RjyhjQEohsiFNaGW/B8AaSxNStHaviaITQ=;
-        b=gUQ5Cpmc+cekn9zZ4jhX4PUFZgG3JxNDRWdxywOc6s6Ha05Pcpa5Uc/vomv9/Wnzti
-         y/ZjYvGqBd9GQImK2HVzAJPOVZzZTx0iWpEsK1NDopyMkPBZosflfH1I0F+aMAE+TBC2
-         Bc6wmiuhZE9/kBE5Q1M4QfRGwG+vkHKOMzFNFCL80Je4MmcP6opl6c0uBIiUVxHPlMRg
-         cd8mY0w1v11ldzEq8GH4RzwwY2P6i00do9Ukj5kSr4uGhFXUOrQMu8nMzOwwV3vycLLA
-         8qFko5+MU/FRbD2g68vNMH9NCu8nd8Xb2ENf7QPwWPg0iAlHiV9Tg8xJeX/7KLefLZ+g
-         KyPA==
+        d=gmail.com; s=20251104; t=1792261517; x=1792866317; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=luYltKYLm6yYl2bIMxE28aT7V3Jm1uOyqRT/NXcaIW8=;
+        b=ILLOFWEalzVrj8yA0Em/8NS4cW4lV/XJhCeGEuPLrdwS/gyy78RcUnnMztUvzgcmc7
+         SC0PiSO0AeEt0Vub1isPfXOsdasudQWYFfD2ncJIM3VJSCZsvl81jfUEgX/sVx8x7TYA
+         4QVyFK/QUSN+xjeQask7SNGC3iNlLpelcv7elehDLmZTzTZicIadVUzqmuo+z6OM1dea
+         nOeSP4qtxNXXpIYaPeT8nzWS6BBcXTyNfNx55qDnqQc59UKiaZbK1DW4sGaXepbRmvSq
+         k/ChkTDc2cHzDOY80A8lwDhoh+NxFPS7paSWIde5xzdPl68VZWi3MOFv12FfdSUAH3C5
+         jsFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792261356; x=1792866156;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lKYjKyTf4RjyhjQEohsiFNaGW/B8AaSxNStHaviaITQ=;
-        b=RBJOSZh/789ZjNeiBnosP5F3t2ZrqAAbhreFt+AS5zb230bJd84lHfnYnutk60/2kP
-         ihT2+BCtrsQ3Ox0drcya93qICQLy3L3Yi6Tg6jJ+yhohTihqg/hpJjOTYsNnqoI9uIPw
-         iqB8hMzPemfi+CSQ3yKrdjx4XfUpmPP1oPSnvQI/ommoB8f9AwlVN9XQwspxD6+DTrWk
-         FiENylkAu8+N8FJsgSfvt93pe/x17hM6aHU70jel4DK9YgW8TsOCXZRCfMyToStwEQCD
-         V3lM29qliyc2A/um6nOvumwLtONr8keLX7Q2MdTzVUGfPYmor9DHnPGeJQWprT5ksjWX
-         vNyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxH5uYyFkPKIgQdj+OYY1DDx/uFoDa0x+OaoHaqzDXJ2iv8hPKkQEoFju5qyCi01Ti2RI+sGsqp5Uteot8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJZ+xRKqZuayYYvZk1DdPKFXS+1Wm57ZO07cBTVLPhkYP3y8iho
-	tOSoEiIAAf1DP/IyK2RcFFifUgcgJZCXBMpj/1ZXTcNbSloTt94hiZk=
-X-Gm-Gg: AYBFou2w9GRabKmPyGrZhx1j2tAaq2EpTIxBMbvHRFs7/YoDqMC9IOWd9D5S7ocmWyd
-	n4T84m88B3DBrNWGzjusD+k8QMaqNRo/Ny2m0pIzmunOdE0OteHyozBo5Fh/ssZGEHphkVLgurm
-	Duld1VVhGSao1xI1OVBmZx/D6xazWcK19lTuPuX9vmg7GAddTSpgyisRHnzDp7pU8AGfd29t0Fa
-	4LcGD0s0OPXP7yNg6Gxo1t4FkJdsu5y5csNQ9LGSRkMNfBLaD7svLLBx9f8h/x9oIC5eXw7PzPP
-	rbqECoYrADXn9Ry8VOA/uGE9okC1ByY6YOi5EPTh08nv6SCwfzBVAEENzQyhQFJjDnBOhpyQYfj
-	njPYdRDVumtHDEN2/InPPmGrS/htBwr/guJ7sgUZ7h67qkHE6pf2+UE3yO00Ard5ZX55/qsSbEO
-	44rbu25TM7JO46X+z7Agv0+rl8qDLyyKBAcGk+mzKhd9DPYE5ZfGewc1Kg06U3arvOR0y1/9RC+
-	5BKZEe+YfC2fwACYGmgLXmMrHFLQxGr8d2SPR8O5SaUAZekgDk=
-X-Received: by 2002:a05:6000:4908:b0:48e:f10:ce31 with SMTP id ffacd0b85a97d-48e0f10cf4bmr1238644f8f.28.1792261356021;
-        Sat, 17 Oct 2026 11:22:36 -0700 (PDT)
-Received: from lithos ([2a02:810d:4a94:b300:4ac6:ff14:fe01:9da2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd503a0dsm12750208f8f.47.2026.10.17.11.22.34
+        d=1e100.net; s=20260707; t=1792261517; x=1792866317;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=luYltKYLm6yYl2bIMxE28aT7V3Jm1uOyqRT/NXcaIW8=;
+        b=mpNOXaW3o2VliEEtxWukZfgbTS28Dh4FWvoGM1XRWaVk55Shtm7EM9S7WN4KUqERgp
+         IBstRc5Ic1DlVEI61/bKoC0KQ6WdqbZsCAS5xZ0r++nspAegYAgcpbmSAm0sEWaz85kC
+         D/RIgb3ZmyxKYBpuzxVHciQ4AxzmwjNSAbeBUhVWT24nxszObA2a1t+nrUqNm4mG2+dx
+         himtcuYvkXye6mJvyf/DKaA/THRrQWtqJ3tnqkGQwqnUP8RmuDwV5XRrMxczntq7n0bh
+         YTkg55jLi/RB9347IZnFW2CF3ocg8aCiN/Qn23V+km4pofGvkJyDLiSXR7bZb+PHtgID
+         QnKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz+FCdTJFTEOQ7+mD2ThGM3DyhAWIktkAr0AK4AxTeMO6u/3nmeVKxlQfjQIzFxw22YNRGxZse3+4/UVxk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZUvW2ZKcA7ayUIrmMD9BNYknAJm/UHbyZLRb/jAExU0ovcDh+
+	rSfYsiCu/mB+YTRddZrVW7mNhc1ELhN9d1VdhvUu4Z+0SYJUSg/Vcb6wjS8+N/6rL6g=
+X-Gm-Gg: AYBFou120P9kG7EIYx7IwB9ARImtYZNqoZ85hA2JUOjcOHf1u38nthgPfbMgaWxmjmI
+	bNZQLNsSHIrBIih6zTfwkNuu/tvPcYEqB8g7Mf594JiI1+fWRVPLfl0Gh70R9UBiiwFGAYHN0pr
+	hgJluzC0rzrakaIkTKGrullUC7gMQbyT1tBJqqgo2n3sVEHVc7F/mbjMrDSUteNt+o0+V6qkUEg
+	8t2C6C8pANVg/58mbtvsW9X1f/MF3NEkPj/hlkT8wCQSrTVWkPh+XPiTgo7yLyg4/56p5gyywrY
+	56CTdGFlVGTx3kWaJT2/XguT3ptVLI7jeqpAfe8Vkxlui9ryy5UyruLCO0flTDKSmo8ZqTbSSWy
+	Q9LP6NO8KMDmfnQADpiwA1PA59mGoz+SlHlVYQ6CNdc0ILecttjfa+BBpVg5zurPm1qaBi3YhsE
+	v8AvNfkBpQi6Jx2P268VE27vYfXBtPCn7BSgLk5KqQWn7uoBIQMOrcuMrZic8Bdd4eIcTlWk0Yo
+	6domN8fSBDGwiOt9v94V0ciVAOMiOMfeV4t7piNNGqMcP0lBHRSMQTviTFcVJ8totHoFZ2E2gvR
+	eQ==
+X-Received: by 2002:a17:90b:3b91:b0:3ac:bfa7:b079 with SMTP id 98e67ed59e1d1-3acee97ab0amr2910170a91.7.1792261516634;
+        Sat, 17 Oct 2026 11:25:16 -0700 (PDT)
+Received: from localhost.localdomain ([2001:56a:78dc:9300:8846:761:63e4:6d67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc46ecd32sm9241586a91.3.2026.10.17.11.25.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 11:22:35 -0700 (PDT)
-Date: Sat, 17 Oct 2026 20:22:29 +0200
-From: Florian Fuchs <fuchsfl@gmail.com>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] sh: maple: use the matching IRQ cookie
-Message-ID: <atO85d3tjAyPiPRF@lithos>
-References: <20261009040248.1136356-1-runyu.xiao@seu.edu.cn>
+        Sat, 17 Oct 2026 11:25:16 -0700 (PDT)
+From: Abdalla Eldoumani <aamsdoumani@gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Abdalla Eldoumani <abdalla.eldoumani@ucalgary.ca>
+Subject: [PATCH 0/2] kselftest/arm64: vec-syscfg exit status and VL inheritance coverage
+Date: Sat, 17 Oct 2026 12:24:52 -0600
+Message-ID: <20261017182455.1884-1-aamsdoumani@gmail.com>
+X-Mailer: git-send-email 2.49.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009040248.1136356-1-runyu.xiao@seu.edu.cn>
+Content-Transfer-Encoding: 8bit
 
-On 09 Oct 12:02, Runyu Xiao wrote:
-> The Maple DMA and VBLANK handlers are registered with
-> &maple_unsupported_device as their dev_id. Passing NULL to free_irq()
-> cannot find either action, so the handlers remain registered and the
-> IRQ core warns.
-> 
-> Use the same cookie when freeing both handlers on the error paths.
-> 
-> Fixes: 17be2d2b1c33 ("sh: Add maple bus support for the SEGA Dreamcast.")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->  drivers/sh/maple/maple.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/sh/maple/maple.c b/drivers/sh/maple/maple.c
-> index 5585f220e..7df88e00c 100644
-> --- a/drivers/sh/maple/maple.c
-> +++ b/drivers/sh/maple/maple.c
-> @@ -863,10 +863,10 @@ static int __init maple_bus_init(void)
->  	kmem_cache_destroy(maple_queue_cache);
->  
->  cleanup_bothirqs:
-> -	free_irq(HW_EVENT_VSYNC, 0);
-> +	free_irq(HW_EVENT_VSYNC, &maple_unsupported_device);
->  
->  cleanup_irq:
-> -	free_irq(HW_EVENT_MAPLE_DMA, 0);
-> +	free_irq(HW_EVENT_MAPLE_DMA, &maple_unsupported_device);
->  
->  cleanup_dma:
->  	free_pages((unsigned long) maple_sendbuf, MAPLE_DMA_PAGES);
-> -- 
-> 2.34.1
+From: Abdalla Eldoumani <abdalla.eldoumani@ucalgary.ca>
 
-The patch looks correct to me and works like intended, that it frees the
-corresponding IRQ handler in the error path.
+Two small changes to the vector length configuration test.
 
-Reviewed-By: Florian Fuchs <fuchsfl@gmail.com>
-Tested-by: Florian Fuchs <fuchsfl@gmail.com>
-Fixes: b3c69e248176 ("maple: more robust device detection.")
+The first makes vec-syscfg report failures through its exit status. It
+currently always exits 0, so a kernel that fails its checks still shows
+as passing in the kselftest runner.
 
-Just a little addition, it looks like commit b3c69e248176
-("maple: more robust device detection.") introduced the issue, where the
-static irqaction with IRQF_SHARED, was replaced by a request_irq() with
-a cookie, but the free_irq() wasn't updated.
+The second implements the "Test PR_SVE_VL_INHERIT after a double fork"
+item from the fp TODO list by also checking the VL in a grandchild, two
+fork() and exec() generations down.
 
-I tested the patch with a forced failure of maple_bus_init(), which
-gives the WARNs and keeps the handlers registered in /proc/interrupts:
-Trying to free already-free IRQ 69
-WARNING: kernel/irq/manage.c:1880 at 0x8c0522c4, CPU#0: swapper/0/1
+Tested under QEMU (-cpu max, -cpu max,sme=off and -cpu cortex-a57) on
+mainline (58161ead2, after v7.3-rc7). To check that the new test can
+fail, it was also run on a kernel modified to clear the inherit flag on
+exec(): the existing check passed, the new check failed for SVE and SME,
+and vec-syscfg exited 1.
 
-After the patch, the IRQ handlers are unregistered in /proc/interrupts
-and no kernel WARN is shown.
+Assisted-by: LLM
 
-And tested if keyboard, mouse still work with the patch, which they do.
+Abdalla Eldoumani (2):
+  kselftest/arm64: Report test failures in vec-syscfg's exit status
+  kselftest/arm64: Check that PR_SVE_VL_INHERIT survives a second exec
 
-Thank you!
-Regards
-Florian
+ tools/testing/selftests/arm64/fp/TODO         |  1 -
+ tools/testing/selftests/arm64/fp/vec-syscfg.c | 64 +++++++++++++++++--
+ 2 files changed, 60 insertions(+), 5 deletions(-)
+
+
+base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
+-- 
+2.49.0.windows.1
+
