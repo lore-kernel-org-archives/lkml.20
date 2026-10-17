@@ -1,63 +1,63 @@
-Received: from mail-pz2-f9.google.com (mail-pz2-f9.google.com [74.125.228.9])
+Received: from mail-pz2-f7.google.com (mail-pz2-f7.google.com [74.125.228.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3B73D5C38
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 10:33:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61BD3BBFC0
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 10:33:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792233215; cv=none; b=LaTm/iIwTQA7nYqJsO/OKUU6R11NqDQxMgS/kpDL6tTxVajQqI+cj0Vi5aQ+w2JZZmx4/02OragrrST2ecX4Hn22TXawwcnQBVaMAGcCWPOTRz4NJ29XCc8phI3QxZgX79JPWiJl+f3UC4Xp/yRSOVHSX0/P3HZYQGoK9Ujb9ew=
+	t=1792233234; cv=none; b=g5Poc64tz0g+AG0FGrx77jZUqhDKSCQUFZJrE4bWZh/iYMeU8Ma8Fx/8Vr42zycBiPZ2VzX1dQ/CAwQi6T82uhtZUfvJCXRot0nlC/hPYoEzp8nxdpd9qW5sjPr9eo5A0eBaGUPeHgbKgVl3fBR88G7DMJBOCtpEiph9NK0lwic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792233215; c=relaxed/simple;
-	bh=H+/PngVUyrVREnpYqPk0KT7pitaBFyX7wNqwwHkQmDo=;
+	s=arc-20240116; t=1792233234; c=relaxed/simple;
+	bh=L4hjxrVI9j9WNQiTNo7E4pMfYOhsq3Kw++wyebOLp74=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DfUv7USvKZcdS11UXgmyGyOA+ATlwJiBcKzYocuo31QhTEFxJvo6VHqeaxtJYNDHCqDjXwAjyg4YPHhH2QCGXT6oAfcBxY04x0EiXEC4YlCooXiYyk9VEkPZz4XGFuj8ow2yfG2hhXfhgt0hg3sG+TLY7ngNGhT3P50mfLiQQ9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NqB74/KU; arc=none smtp.client-ip=74.125.228.9
+	 MIME-Version; b=RCCTTSXo+RebvLy5AT/bGl1SEh3L97AzpkLl58LsamW3CnqpzjwYrzJS9Utg3+mhLApDO7+YAgVW0mkuCCm8T2A1gvk0lG8k5JzMm2qcK1ZEEE/NJaAU0A6CRIhr6EwfQpAns80adHDKdXycKtCpUZth0VU5xz+DiCl1IXmsEDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zw+t4m9p; arc=none smtp.client-ip=74.125.228.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NqB74/KU"
-Received: by mail-pz2-f9.google.com with SMTP id 41be03b00d2f7-cc4f2a5c3c8so172046a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:33:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zw+t4m9p"
+Received: by mail-pz2-f7.google.com with SMTP id 41be03b00d2f7-cc53988d9f3so336431a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:33:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792233214; x=1792838014; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792233233; x=1792838033; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tDddWpoHqTtkxFsBbERUVZlldFJw6rS3OQ/sbeQSp+8=;
-        b=NqB74/KUgwesx3xYGyZWogoVMpX9xc+qhVvLA0e/hQSqG21+JpostPRx2Ql6aQPnqQ
-         8+XU68WhhSiArbOa+uzLAO3h+Gl9NnIjEvBU9TqZajMM01vqe4K0MxWYa3D0fjXJKLBB
-         JbdNZsPEQtIdl8JYy315lUrp9lpgykjTXdf0FHhDjjdhY/81iNRQTqOULLdhCrRVtudl
-         ueMzryAWMtB/HiP4pq/6FKdbfhtPLlBW28SCwg7QXTl1f0wXNvrq7p1/eohcZ8I+gnhR
-         1Epww1qMp89wGMmu0RY//7d0+qX74UimA8GEsjcn9v7XywyzlxP/Z0WHyokBnrjn5UZm
-         V8bA==
+        bh=RJMiI3zn0Ah/6v7E7BqKNzfu3zqpMlEsQjtNsehcFhg=;
+        b=Zw+t4m9pTvbzqeGSsoTavHub+dMoO4riTa+0aDpo9itRvLxx42ZfC6+VfmAPzc+609
+         rR3Gz3DKJrlGiV4z06YqKchs2D3oVRpQojCmH05j4I82/kK5HGuEmveOfoiHTiHGrQQm
+         ntpSVfomXmgi9TQoEWeZ7e8fkcwksCdQHLT9P0tEbCOrdLoKZbRqFnCsJARlXlxqSGma
+         oaEUqVB2kKYnlSASBM7PUKV8i/G34rDki61ggHLFUQmABrE3Sot1Y8t+v0urQqixUZgH
+         DU78r3t+Y6yN//Y0mHGgQNqKatFfv/RYyALiQSnUc/vBx4bWMdZTxgAZyMiFoJKKMohq
+         H0zA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792233214; x=1792838014;
+        d=1e100.net; s=20260707; t=1792233233; x=1792838033;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tDddWpoHqTtkxFsBbERUVZlldFJw6rS3OQ/sbeQSp+8=;
-        b=bUj97mYOPLVtInV+PQz071rhT/u5xmA0E2eS6KQT6dBR63FNuUxOKxZxU85ETAmCB8
-         bjWuBYA4cfOaxJ74uQkfXrvyOuYzA/1ATpgUAPXzuCa5Imq8tQmfjd5pXC3KUtyyBSlk
-         reqIoOBcjgjAfwvf2TrcHV3zSpU1Jm5OaO/zEF2M3XdyurfLl2UQE8Yj4JPZ8HyvIeu5
-         K9PZFaMGoTzyPmfzJFrF8MexLltW2nc+M/3VJd+CD3snlF2ATu/C9w2enRL7SOB2qCtc
-         gVa97DCJB65/Q4DdwtgvjXJzgy3iGLGlQiRSpaVQAzVakZBLd7ZkaPr+CCvkJcfKJSzi
-         fS6A==
-X-Forwarded-Encrypted: i=1; AKwUvByssHrD0I5fZ80h3xtuvk5nfvpOTtCJsoiYKnygLVLm47mMslPw3D8EuY5xYO01Np2DSBzTn8XyHmt50EI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFGxsqNPQHQ/v11qpdR7MxLmyoHQ1S9e1Cq2S/6oTb1u5D7RSF
-	/uKnkYtNZCtLh9tlTbnVdOlDAKOWO7p7+IiWEYPp00D3WnP7zrURCl/Q
-X-Gm-Gg: AYBFou18nTdVNBrXXrNRW/0h3tx9k3yPFvFWyuzid8RvH2oYeHLHbaEk5ri3TJvBdDq
-	CF8yQm5mDSlgXK3XxC6OLu/sjI6L/gHSxh2/dnkHWPPknPd8FJLYy2YSU6E6zpLt+8Z3Jnrxen9
-	AoVgU55R9D/+lPeIdslM2gYWe8D5u0HavKKfmwAFcPlwDkFXcZNi2yhltaZpxjejLEb5QvmGcpe
-	L5pTfajSJRnVdKC4Gg1AxKvkgEt8EsRLnPohEMDtjpgzSpoijIkh8Yj4XcewWNMjCtj1+QIAq1z
-	TB8hpZSfiqRqhOI4nZvs8XPMkjWmh6ru14bKEiqwXXuxkw8wubXI2zinSj4WDwPvaPQwBW10Uek
-	Bq+U6OihzkBWnBA/u7njUG45AD5vo7tR+gbQgdRoUWSiOV5ceLmkK5Har+xmOJDfj+4IRIJZNhK
-	dnut92ZqSQOWYxgQ4+yktGB3nkdbrq4v1ZUuLYbdhstiy+VnnKWiNmSzvF
-X-Received: by 2002:a05:6a20:d80f:b0:3df:5190:2275 with SMTP id adf61e73a8af0-3e22607d574mr1478512637.70.1792233213912;
-        Sat, 17 Oct 2026 03:33:33 -0700 (PDT)
+        bh=RJMiI3zn0Ah/6v7E7BqKNzfu3zqpMlEsQjtNsehcFhg=;
+        b=bxx6UFKgXPXPxdtSqd8eUQ781IVKczx92C84vsC22/m/o7z2dO20h1ueCDfHuawoq/
+         /dRnCL12fVpJQTrs5PeWz4pIkrECAOUWFwO8RLahc5tIYj2LKDDFrR6Ubs4YvOLkA19G
+         I1tPzAo0q5KIIyTo0lV9THg+2FlotjM05yAU2GoCF86bYmjVzdsLHVZpa3a+nk+RKbRX
+         WXs9fNfh4pcXIu2xERc/te1O5DGv9es0jUv2+v1gwco+iR00Q3C/EJfR8XhVf48S7Dix
+         GgyviR4nfJxbBy18DimIfKY2AmPbWuRY8owcc2+wNukBTbn+7sA+sjv2NH4ZGN0rcKAz
+         Sh4A==
+X-Forwarded-Encrypted: i=1; AKwUvBztEpc7KP2/wfTlBeUYC6h1CuXa9dU1wmzArI2f2L3tqDv1e6NtzK6hxM7ysG7LqqsUagGCI2XnDbwiqqA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIotQPwWe37JoqzoR1zimy7UBkDREtJ6yK0x4tVB52zPACLa0iQ
+	xboS22ui287JivG9qSn30N1Pb0n8A9WAQI4jk+pL2MW0sbKYRyGpwMsy
+X-Gm-Gg: AYBFou1YfsSKS1T7pjpIfsrejsvkd13AqZ+0zS9gJeO+nUXFoQDLvJMuqWdLjrp5ogS
+	8YKYFTfOYS+bRsZQe8BV5dVEjN/lwv9P7q7fIUp6v4HMmg4dUSJXkc3gcjPh0/yV34eWP1FMPIM
+	N1B0xw9ECdMQMEBLNNgCSk/+AQmXqglsTiZCLJTRz8v4rVCSiStwb7yuUIJicu8sXpfyISiApvT
+	gNRMqpg813F9ZSYmkXwBGvhNVjC6necJMl9zySZFIZ+UbQlsXRLoxiTW2i/kGJykLDlwxwRWVNE
+	8d8WEYa6KIi90y31jBZLOluef9m71qm3ggnP3plJIYf55o1lwlK5jk9hImkfBm8xhfWWz1GiZCz
+	D4CA1kfEHX0Zw7iM4SoCsNXlpN1Px8vGCgb/1VoHVTGI2IgVJUH/Ij/iYjeoD4pbwmVFG28kda1
+	SOOAbHpiOVRny7ody1/enq6/u4C+sAhkg0SGvfB4U6Md4zEFZy8Lvetn0O
+X-Received: by 2002:a05:6a20:6f8b:b0:3e1:7249:e26c with SMTP id adf61e73a8af0-3e226057ed8mr1628852637.34.1792233232952;
+        Sat, 17 Oct 2026 03:33:52 -0700 (PDT)
 Received: from Linux-PC ([2a09:bac5:1f0f:372d::57f:4e])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f58414986sm2051585b3a.57.2026.10.17.03.33.24
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f58414986sm2051585b3a.57.2026.10.17.03.33.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 03:33:33 -0700 (PDT)
+        Sat, 17 Oct 2026 03:33:52 -0700 (PDT)
 From: tianshi12127 <tianshi12127@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
 	dri-devel@lists.freedesktop.org
@@ -72,9 +72,9 @@ Cc: Jessica Zhang <jesszhan0024@gmail.com>,
 	Conor Dooley <conor+dt@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	Lu Chen <tianshi12127@gmail.com>
-Subject: [PATCH v2 1/3] dt-bindings: vendor-prefixes: add smartisan
-Date: Sat, 17 Oct 2026 18:32:48 +0800
-Message-ID: <20261017103250.800109-2-tianshi12127@gmail.com>
+Subject: [PATCH v2 2/3] dt-bindings: display: panel: add Smartisan TD4362
+Date: Sat, 17 Oct 2026 18:32:49 +0800
+Message-ID: <20261017103250.800109-3-tianshi12127@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261017103250.800109-1-tianshi12127@gmail.com>
 References: <20261017083531.766557-1-tianshi12127@gmail.com>
@@ -89,27 +89,96 @@ Content-Transfer-Encoding: 8bit
 
 From: Lu Chen <tianshi12127@gmail.com>
 
-Add a vendor prefix for Smartisan Technology, used by Smartisan
-devices such as the R1 (trident).
+Document the Smartisan TD4362, a 1080x2242 command mode panel
+found in the Smartisan R1 (trident) smartphone.
 
 Signed-off-by: Lu Chen <tianshi12127@gmail.com>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ .../display/panel/smartisan,td4362.yaml       | 75 +++++++++++++++++++
+ 1 file changed, 75 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 28784d66ae7b..6ad8d3499227 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1535,6 +1535,8 @@ patternProperties:
-     description: Skyworks Solutions, Inc.
-   "^smartfiber,.*":
-     description: ShenZhen Smartfiber Technology Co, Ltd.
-+  "^smartisan,.*":
-+    description: Smartisan Technology Co., Ltd.
-   "^smartlabs,.*":
-     description: SmartLabs LLC
-   "^smartrg,.*":
+diff --git a/Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml b/Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
+new file mode 100644
+index 000000000000..d9a18cbe635a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
+@@ -0,0 +1,75 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/smartisan,td4362.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Smartisan TD4362 MIPI-DSI panel
++
++maintainers:
++  - Lu Chen <tianshi12127@gmail.com>
++
++description:
++  The Smartisan TD4362 is a 1080x2242 command mode panel found in the
++  Smartisan R1 (trident) smartphone.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - const: smartisan,td4362
++
++  reg:
++    maxItems: 1
++
++  vddio-supply:
++    description: I/O voltage rail
++
++  vsp-supply:
++    description: Positive source voltage rail
++
++  vsn-supply:
++    description: Negative source voltage rail
++
++  reset-gpios:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - vddio-supply
++  - vsp-supply
++  - vsn-supply
++  - reset-gpios
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "smartisan,td4362";
++            reg = <0>;
++            vddio-supply = <&vreg_l14a_1p88>;
++            vsp-supply = <&lab>;
++            vsn-supply = <&ibb>;
++            reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
++            backlight = <&backlight>;
++
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&dsi_out>;
++                };
++            };
++        };
++    };
++
++...
 -- 
 2.56.0
 
