@@ -1,215 +1,201 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010031.outbound.protection.outlook.com [52.101.201.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 489D34A0F06
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 22:19:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D048824679C
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 22:27:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792275576; cv=fail; b=rVv2NvoC2Q3Ycn7EtcnesOEW2adsCTnY5bAszjHSr6jYtencKPhLxIILUQE18BbqY+wNFEMe8ez93UvtH56+lUjL6VLcO6i7NSOJ+/YI9GoTythlBOaIMwVrhd88ma89J9SEAViCpa/JOVpYzDA9q/FAzy8NIshDkRy4Uwb9xvo=
+	t=1792276080; cv=pass; b=rmvsRm5rUaMxBBxe1Zj2u691xbIQ5W0Og0BWJCBpESQSXjA83htCb3e6XKjDYglObcmeM1B1zwlcxAqhzmkAsnCVF5WTTbnjCw3k7qCT471tMyIpSPFWrKkdD2w3XJ97aViRHD4cMPD3thiuI+kmNm9eo9n6X6wvBdgAI9iPGMc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792275576; c=relaxed/simple;
-	bh=vrt1M/v39+wOM1P+70ohg+7c9EWnNMSLnlDJXr2oGi8=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=YRUrPMiPW8Q+8xqIx4TwVKQzY6pdKGoDpdckedN3Cr8ZX6z1k0qWij2iJE/vnpzsbYrf5qsVLkSwLAb9+SGzKpiggRaNYmXFty7o72c/hnT/27jILqfKSvNHU00KPcfaEnNOO75ZK3FFqIMDZ68UOamjm3ZadO3igTRjkOLEkH8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=F9VwI2XA; arc=fail smtp.client-ip=52.101.201.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1792276080; c=relaxed/simple;
+	bh=8GjnVBLgBaYv1z0rdaECWqGcaPppZMfW2GOTX765nuY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iFENuR4jpED5jueWiV2KJn9asYOWS9igOKvgfZkQmkecWLUoR89CQ6BsOPahevHYNKl6+Yp+e+Du5U6KT71R61gUJE1EBjIG2IVZHiVr3nwaFxWbknJ1V1fPn+2nOmuNkY7plzC+exL2z/8ZmZUgyvbm83YWaj7FCPNX2XlM/Io=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P8XCX/4P; arc=pass smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="F9VwI2XA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QO/Zy5MiumSfYJuE3ZjrHS2uXCpiED2a7KkwTMvbw6cZQQ8MMssWDiExZ020GZ3VOVZyAdw9cwdA6mhaXBU/ayxqeQpTXEhilYVSmSFx7ePCaGfetlVXYJhAfsO6YpnekdBFc2crB6INBCUnExpVQ7LX/NOtzrIvqFisl3F/V3zGKt4rRSpUbeTZxk15DFg1mwNHLxq9OyFxwvJQbyW3J6scMIN49cjUonjwsvBmG17EuDCHOdH92WXY003UivRRlrL3UkzWQ4IuFyFM2vIyqE9p0ugRCR5Enf1merARazLi2UxDzsAeMCOlifADlMcP+eyq1jVhE0T+YQJMa9aL3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qByenqWWwNT+MjecKAkzhkX5MoHyS/NGZRqAKn2+X/s=;
- b=W8TWVf8EmVtCONmKK1JDeN+oQSlvtIbxSNNl5D7BhLI4GtTIINVSlRI65aPdpXP2IApRUT18wtNJ/iuy0AnxXy2gJ7U4VNbnhI4fk2wOa4woVhyRhkKncpN/56XsjZ5Vfja/gX9PzntD4b+p+FhJ8w+sKPXrZ7cVVHYsi+H6PZWIWaK9Msakr3TDGohE9D0mrPXm1CArn+j1fx78nBVtxKcmyj4vLL4oJKnUaZk1Fgm9etEaH+kt7nknIbWkma4aBG2cwBpLjwaJuJqkswmPOar08CouaBQVQLuHUaLY73Dp+U5Imubmy6KheG6LLxLvUQaXASZHQT88TPiAwlMHhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qByenqWWwNT+MjecKAkzhkX5MoHyS/NGZRqAKn2+X/s=;
- b=F9VwI2XAF1FC5kIy6++2ySRhxptWBJLxurDi2DAKWIO1BUIVl3DU8kJ3pesrojbA2kvFYBp8Tnq0dqKYnn0IBKLIHUuZcTdziwjEoL4WPERnKYSiQzHaqnUkmsU/6r8u4KGW1bOJepjGoIlNsoCeCsTZIAe5crg90ipUj+0oUuv8oGvIqOryHVTVmTNdVNW/7c/Z1dWuFBzRlwPxdxx2ZAKajbqF3UtK4QBhuSwi8ks23cayLcEoYDVJ5OCWopdnAU1yTXFHRi6yaYftEULlVcIbclLvzrKTV2MWSdO0nbwWFHTS49lNF3XWLH7ANxEc0D9li74tu46k5JJFqFFGiw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by DS7PR12MB5815.namprd12.prod.outlook.com (2603:10b6:8:77::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Sat, 17 Oct
- 2026 22:19:32 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0522.017; Sat, 17 Oct 2026
- 22:19:31 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: Emil Tsalapatis <emil@etsalapatis.com>,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 sched_ext/for-7.3-fixes] sched_ext: Reenqueue IMMED tasks when their CPU picks idle
-Date: Sun, 18 Oct 2026 00:19:24 +0200
-Message-ID: <20261017221924.3908922-1-arighi@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR1PEPF000077DE.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:918::40b) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P8XCX/4P"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6afbc363efeso1481515a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:27:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792276077; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CId7M97vhIKBOJbKwfcPIZgM7KY2nMkoTvAzYgxwnBHjgCsOU11eLJ63+RGT6xzXLp
+         OWFP90qLGln7fLvNIphPbCu6UWbZz2XRkfHxFhtlSQfFD4ZcBiwEEAVrWcRnA333ZOkL
+         rsTs0bHOBO5ae7GgTavFyPQRiL4Sxt8Gh6zH71wlH/y1Mm7wJlkHa7ODBzi/wjnbKwDh
+         sQyutLcwgSIcsCxJU8LrtBKzoNWYHOIsTNUBuy+QsHCV7WehLWI9NzlghruCyyFp+RBp
+         kylwKvdV4MxPzknURjJrazI35lTgvvTGdhBKyNixOJP85/xdN0nu2ne3asGGGzYHwdIP
+         mphQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5DtMVKHLYZFrVZWABcgGlrAwjSrKQ0wsgdgM1oLN6EY=;
+        fh=TTaqgR3b6DFgshuaF4s93A5l4pOWg/WvDhSnnqE95fw=;
+        b=ljgn0X6dleAokHS5TI61NafOOf1RbnDnWjekIISdvZQw+9ZZMtmDB8x9GXwpStzHFP
+         sH+dy1qrJrh2034yAZwCsB7t/Xw8l6Q5N0gQsilNwT+dKllvYtVLjvm8E7q3iXVTea2C
+         83+4jZzb8I9jVr80750Q2mLTlNSTwku478B20PUznzGfUza6bFgQVTtYGS1Zy2jMs+Ro
+         Q/x+7OWmnl91Hof8MjPginRQHowCooPb5xzzfdj9AE4NmIwCVAksROgJ7DhGF/1x58cE
+         w9mrrXXhOn/BF0yePeRNbxA5gzWCAkaoA40EDpRG5zX0Xf6vUwGoR0/O9Ft5yXj8jh7f
+         JHWA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792276077; x=1792880877; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5DtMVKHLYZFrVZWABcgGlrAwjSrKQ0wsgdgM1oLN6EY=;
+        b=P8XCX/4PZjMIyzdqZh2YzZJRqEsAY0Z4H889gtivGJ6Kg0Y0jAeGDAKHq2oOk1NiYA
+         kehdeC5YQtTmJwffJF6rfjrXDEO01QKISuP/PpAyJa5xm6RUljH7PO58PDDG7K50NVkt
+         vgcBhxxZt9IGts8U6sXdvXrV2qqnlz5wCsdiNkA2zH+KxLcevH6UdPVxHqingospVdE4
+         T9+bOC8bhyoCibSFCswaDCPbJJnyU1VGbvaNNRehAv9wQSttwthVBBOpiFPMgki52qla
+         To32JxcS8/8IPeOJookuRx6GmZm+za74AIjVh4TFyBDW5n6eOk9u93/U+RbghBsFZEes
+         2QCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792276077; x=1792880877;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5DtMVKHLYZFrVZWABcgGlrAwjSrKQ0wsgdgM1oLN6EY=;
+        b=maAUFkBRwo7CYsdgItsNOiJSOB0hNW09Fw9r0voeXOEQ6EUynlfoahRpsCwBfbRAG+
+         m4gc5pHRiGIuhNZYJ9JmhViIBGz48B4lVYuBkDBkpp8hSZFdSo+i9AUIiBA139R6KFMR
+         fURe3aLD1AvkTcTltH5WWKb1iJPyfjB/ElxcCwvPA5w1TmZnGtk2NLSCnQgO/fCV5eiI
+         cZDB5noeC60dLx48hU+NmCEj3QIX2p7YOoI4qVT+Dw+m5Ky1braWYQnj/B6pgt/5J+N+
+         nzVsCDYYSfRcumwjrT7YfievCsoLr0oj+p44RfdbLD0IEi28W32RlE10aAhNbgbaIRe/
+         9hZg==
+X-Forwarded-Encrypted: i=1; AKwUvBzO3c4Bvcv2tlZuI9+xkyOxsXXf0W73He0oCjdsf/oR16eAh3q0RyvFs2zQTLRjwn38SFjVtxRtqJXYSMg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAjt3KpAlZaDIs6Is73yXJkKMwk42HETlsX+iIGyVaWYfoQffv
+	Q4N3Uh+CjKMZBMCLJpSiWrePFRLMVpSnVgTuDuLGZJd/qt0HxeRY1NlZ5HsfBMDdmpBd+9SweD1
+	xQIKsb+VwgIHe4FxeTPAa7KHvJpxRDGo=
+X-Gm-Gg: AYBFou0P1Ck9t41gSQL5PXPP8aTw8uHcGlD+Pt22qWTpUiLuyZipjx9H1nmCbrs+xfh
+	BOrwlqRYsznW1yMyIN/vTS0kpKoaqNIrV1i0HNwmfMY4Ht9zSLmukz3JE092PxmjXe2JC+dWcF3
+	W8bQEzHI0IVe+BgfgtZJCCtIi2DtuE601hwwMDeCJG37u/vNfaenLXE1F/RHQYzK3t4poU3fzBE
+	Kd4UhOG0dZffI68qQNOuNvzFF0nfUYaUdwzbpHE28nlJr5moEQcEoA6fe8btun2Y1EKHzEHMHav
+	NzfOt2GtXAcRgDwdO2xwWBklQFcPbj+kr/7/qeDf9BBAlbnKfea5a73peN+246QKdPuldQCdncp
+	N6vEvMviFSpn+fJsCWcLHOcXTZA0x91hokG7D8qSwhHQT0s9ADq04rkkNXmLdKW1qKD69HUGemc
+	HFouM=
+X-Received: by 2002:a17:907:930e:b0:c40:eb1a:4c8b with SMTP id
+ a640c23a62f3a-c419fded7ccmr227588666b.29.1792276076901; Sat, 17 Oct 2026
+ 15:27:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|DS7PR12MB5815:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2398fb16-53d6-4a24-fffb-08df2c9cb763
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|10067099003|18002099003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	bYPvpDauSQrnunHNBFCNDzuUpNr4/P5eoz74P3oz6Qex7pmrnJ57UzNt5UAgUmdO0+l68vEIy9mNHsAmBwVu+hQ9NEPaUJKjL+cE1EOsw2gKTy/nKHajm8zu2Of1VRBZv9mZ83NU8xxIUSRdobOAAbMSCorDR6FnmXsUwoaDAD7hJ9ftsyzKl44YCacO/cpZPDUsVIaC3MIz5CNRj8jxsF0meDpLHZoEEXet5V4VCmwiJei+7erGgrMHg3dWyMMnOHf6KOrS2Ku9iX2QwwW6gG4coxJZ0s+p/DLispygG6udDSNm9U7IzuZke99EftT6JvXXOcuqt3fk9d9/El8HfdECi03tBqXhR2i8jG1Lf1z4GARapjTxGtDjVr7XZ8NzogNshUvZItJml89cgVZIQsRASyJkPmN9XNeFn0gKGbsRCC/cfViz4E35vKv52BSNxE1qMAj8VXtdhsS/INL24lMMQ838FfZYRC3SYYoi7Olm+WAE0KoFUddqTxNgTBrzX0ohLT3+sOEOf9P05oezzSog8TVU/+BgD+7Hjy4jkaQ59j0+vPMK1JQpmLRZsndpuqkq3MgvBwH+lNebdph+n8iEbgDBPKNA2ap8Ms6WX6Ed9SsQgC5qymo3bm8U1w4i3QSfSQ1m6hm4U5xTLCFNY6xr7Sa5HJ3YwlfsJfELbLQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(18002099003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ckBHrpEhVS7SyiF69P78FDogR3aJQfJih+auLJx+bU+4ZyU253pamG8sd/AZ?=
- =?us-ascii?Q?cJYB1Py+R3yGzGMevnWcbqYJp/hH/5dG2DOV3pzs66RtDXJlx9N6XV3ckKc3?=
- =?us-ascii?Q?ACx2AlrkaAdMU3OA2H6jpweCBRz+NHMVHC0W5YFK3R6dYwOeyzu0caVa6UjY?=
- =?us-ascii?Q?m98R7mA5Spqcx9QvLS0fdQ+FBE/iT2z+3lTCYQgVsUzjXgCByRIaXtQzJZUS?=
- =?us-ascii?Q?J2RmtR9QMYoO8cgWxPIrFW5cDJwv2AEG/lEEeqm6pG4EaV6FNnuZF668RIzL?=
- =?us-ascii?Q?fePLyH6nkNZwV4P+VxS5q4RMcqL4jSjY+lXFE8/d1ZhEZhkme5v0QeiUYoW0?=
- =?us-ascii?Q?y5yriz4bR3pV0VMaZchCOZo924s50Szw4IiLk4TQrPMqgcDL+QjSGzZqqB8w?=
- =?us-ascii?Q?mihgoVbFNQmjDpn3AvIRfVe/oOghYZh5ZeYlCwG7OLjgdcRxTYO2ZnnNTMK6?=
- =?us-ascii?Q?BYSN/rPFoMoLpt2odlkJTvyHk/mCXP7j5xsT0FRr8Sn4diaXIg99hepojxXi?=
- =?us-ascii?Q?JBrsaiDsTxDKbfUQXf1q9DWtX0fPL0Kl2VKQa8YqN/HLs++aU0Ptj+UV1iAE?=
- =?us-ascii?Q?NfTmWgtNAJYGWAyw5VpbjQ9+RwwCAVvQPi3X5DtU+yfzbRHP/1YVfp8/MB04?=
- =?us-ascii?Q?yDSc8Sl/28DX6X9BFAjKjWtNYXiW0LKvEIry0weHo6p6cwk8P82R6tpndKFK?=
- =?us-ascii?Q?Qlc15jMXu0SWjBtD8Iy34qxF6tKRz50nsGFgBxrRMPAQilPgDpeyY7RgTKqE?=
- =?us-ascii?Q?DKfQkRjwT5chJWxE5oR6zSJ3Aa63B9VnYIt8yDAd+yXWCb26foxcgetl94HX?=
- =?us-ascii?Q?7ZFKB6s8smxTPEO3GMIXaP8bekWyRFxLJQ8fQEGF1dbQu4Lzr6+lErQtHYur?=
- =?us-ascii?Q?L80JI2ERP9QoGWrDNGX1DaBn0JbXIDu2jLpz5utfeAXWC0QQtjEUenyrES1x?=
- =?us-ascii?Q?65O2W03ruZXW2gSSWllEz4uJQ6wLe31j4unkkeXJIy/QdJ2kB1uQnOhxDzLp?=
- =?us-ascii?Q?DFM2SG0e0FADTwjEgCVQjXizMQaRPkmY1QS5R+1w7VHWS3X8X953JIB0WXUn?=
- =?us-ascii?Q?z6SV8dvlrsr5kxLThcHt4TKn38obwvKLrZCP84rrKubcnKkfAzll7i3lcmxI?=
- =?us-ascii?Q?IqfFbbP33NrKt9DnS2z5o4nGGnna6n8ZUerx/k72rJFf6GP1SmT+o2hZahHX?=
- =?us-ascii?Q?FP8WmOwgxq+aUlrTsgtTAysy4oN8q+ftLVV/jvCO7AWbT6UOUMb6gxYmC3s5?=
- =?us-ascii?Q?D5RmJDq8TLQGlAcJDhSWXvUVIF7UmZ1mvwTpa/H4iqt/EINOhF18Ynjenhyq?=
- =?us-ascii?Q?nQPLJDdIb7GEojhOWLHJohrxx72/JGlQckwklj4c1zSMe0LsNGUBiBSYRc4O?=
- =?us-ascii?Q?FaN2lq26iaZ9fOBGHkLQXcSIZYHqDLM+jQE85qo1c1eZHuxPGaGR8BkXUvHB?=
- =?us-ascii?Q?aI7A/XM0vTOqac30pioAOBnASofe5+50dgQTeug26BIWqxJmI7JW7nYgkId+?=
- =?us-ascii?Q?EiiNshmRkzTbx9CSfvvBrLlrZC0tMz5gYJRzKEoMbnqkNOrdl+Ivjm2IoohQ?=
- =?us-ascii?Q?N6lHxbRLwQ/1UoVE9GEjd5uxKYLStViI3Arh5jKxCqL1H6al0xy7RC7v1l3Y?=
- =?us-ascii?Q?F/EXCbH2QDxTpGvWmayOw6YKVGCYp3ewfE1a95AKzl5+5P3XZpjy3CLW8mXP?=
- =?us-ascii?Q?z5D4j90mxM1CzXrLLI6bBBUVzwVQmGOBlkJbHXQnxKvVgoLp?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2398fb16-53d6-4a24-fffb-08df2c9cb763
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2026 22:19:31.4285
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pcjtNOxkmximixshDxtKbkqScH3LzxRQaO63kdvT63RezTuByVfxhHnadvukumdM4HlCcoUlnGFv/UnHHsTLEA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5815
+References: <20261004213755.554191-1-voytikd@gmail.com> <e7c99dc5-dfa4-4ce7-b7da-a3a70a2710a8@roeck-us.net>
+ <CAAX90H0qGF-H8BYcmT_vbUGoqN9RbfeGxMdTTRyQPK_h8MzFhA@mail.gmail.com> <053269a6-41ab-41eb-8756-b6a04eea2e5a@roeck-us.net>
+In-Reply-To: <053269a6-41ab-41eb-8756-b6a04eea2e5a@roeck-us.net>
+From: Dmitry Voytik <voytikd@gmail.com>
+Date: Sun, 18 Oct 2026 00:27:32 +0200
+X-Gm-Features: AclHuK8tE_N4UG79q7e2DudOKyQpIuX0mkjOdoteD9hdJcJ3YMDpvAHZdwNlj9g
+Message-ID: <CAAX90H1-tzrH6hwHHrvfQi2e-TXQKmgNy0Lj2TXG7yDbKYy3Og@mail.gmail.com>
+Subject: Re: [PATCH] watchdog: allow WATCHDOG_PRETIMEOUT_GOV_SEL=y
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Nathan Chancellor <nathan@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Core scheduling can force a CPU idle while tasks are runnable on it:
-when the CPU's highest priority task doesn't match the core cookie, or
-when an IMMED task's own cookie doesn't match it, e.g. a tagged IMMED
-task while the SMT sibling runs an untagged RT task. In both cases
-rq->next_class is idle, so rq_is_open() reports the CPU as open and
-IMMED tasks inserted into its local DSQ are parked there, instead of
-going back to the BPF scheduler.
+On Sat, Oct 17, 2026 at 11:42=E2=80=AFPM Guenter Roeck <linux@roeck-us.net>=
+ wrote:
+>
+> On 10/17/26 08:59, Dmitry Voytik wrote:
+> > Hi Guenter,
+> >
+> > Thanks for reviewing the patch!
+> >
+> > On Fri, Oct 16, 2026 at 8:21=E2=80=AFPM Guenter Roeck <linux@roeck-us.n=
+et> wrote:
+> >>
+> >> On 10/4/26 14:37, Dmitry Voytik wrote:
+> >>> Fix the issue when WATCHDOG_PRETIMEOUT_GOV_SEL can't be set to =3Dy,
+> >>> and always is =3Dm.
+> >>>
+> >>> The issues can be reproduced with the following steps:
+> >>>        make mrproper
+> >>>        make defconfig
+> >>>        ./scripts/config \
+> >>>          -e WATCHDOG_CORE \
+> >>>          -e WATCHDOG_PRETIMEOUT_GOV \
+> >>>          -e WATCHDOG_PRETIMEOUT_GOV_SEL \
+> >>>          --refresh
+> >>>        make olddefconfig
+> >>>        make mod2yesconfig
+> >>>
+> >>>        grep '=3Dm$' .config
+> >>> returns only CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL as module:
+> >>>        CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL=3Dm
+> >>>
+> >>> "make menuconfig" doesn't let it to be switched from =3Dm to =3Dy eit=
+her.
+> >>>
+> >>
+> >> This does not explain what the problem actually is that is supposed
+> >> to be solved with this patch. Since this is just a selector used to
+> >> enable other configurations, and the configuration option does not
+> >> result in any packages built, "WATCHDOG_PRETIMEOUT_GOV_SEL can't be
+> >> set to =3Dy" on its own is not a problem.
+> >
+> > The issue is that
+> >    make mod2yesconfig
+> > doesn't work as expected. Help says "Change answers from mod to yes if
+> > possible".
+>
+> This does say "If possible".
+>
+> > I might have misunderstood it, but I thought all configs should be =3Dy
+> > for this make target.
+> >
+>
+> $ make allmodconfig
+> $ make mod2yesconfig
+> $ grep =3Dm .config | wc -l
+> 51
+>
+> Not really.
+>
+> > Maybe a dumb question, but why does only this config have " default m"
+> > and others use
+> > "default WATCHDOG_CORE"? Does it have some special meaning with "defaul=
+t m"?
+> >
+>
+> Again, this configuration option is only used to set the (default) value
+> for the watchdog pretimeout governor, and the "=3Dm" states that the defa=
+ult
+> should be WATCHDOG_PRETIMEOUT_GOV_PANIC=3Dm, not =3DWATCHDOG_CORE.
 
-This was reproduced on an SMT pair, with the ext server runtime set to 0
-on both siblings and an untagged SCHED_FIFO task spinning on one of
-them, forcing the other idle in two ways: with a tagged SCHED_FIFO task
-runnable on it, and with no higher class task, but a tagged IMMED task.
-In both cases, the IMMED task inserted into the local DSQ of the
-forced-idle sibling was never reenqueued and stayed parked for the
-whole test time window.
+This doesn't explain why it's =3Dm by default.
 
-Instead of predicting the core scheduling pick, react to it: a CPU
-picking idle with IMMED tasks on its local DSQ means that they didn't
-run immediately, whatever the reason. __scx_update_idle() is called on
-every idle pick, both on a task to idle switch and on an idle to idle
-re-pick, so schedule a local DSQ reenqueue from there, with a new
-internal SCX_REENQ_IDLE_PICK flag that tells reenq_local() to skip
-rq_is_open(), which would report the idle rq as open and keep the IMMED
-task at the head. With this change the IMMED task is reenqueued right
-away and the BPF scheduler runs it on another CPU.
+> > I want to have no modules and still not disable the module load
+> > ability, and it annoys me
+> > that some configs don't allow "=3Dy" :-) otherwise when I do
+> >   grep '=3Dm$' .config
+> > I need to remember that CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL is a special=
+ case.
+> >
+> > FYI, for Arch Linux based config, only
+> > CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL pops up with =3Dm.
+> > A fix for the same issue with CONFIG_TDX_HOST_SERVICES seems to be acce=
+pted:
+> > https://lore.kernel.org/lkml/as04AoNxjzlvh-K8@thinkstation/
+> You are comparing apples with oranges. That commit states:
+>
+>    Fix the issue when the driver always gets compiled as a module.
+>
+> There is no module that can or will be compiled based on
+> WATCHDOG_PRETIMEOUT_GOV_SEL.
 
-Fixes: 98d709cba319 ("sched_ext: Implement SCX_ENQ_IMMED")
-Cc: stable@vger.kernel.org # v7.1+
-Suggested-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
----
-Changes in v2:
- - React to the idle pick instead of predicting it from rq_is_open(),
-   which also covers an IMMED task whose own cookie forces the CPU idle
-   (Tejun Heo)
- - Link to v1: https://lore.kernel.org/r/20261017124749.3608468-1-arighi@nvidia.com
+Sure, I understand that. What is the semantic meaning of making it by
+default =3Dm? And why can't I make it =3Dy?
+I understand the build artifacts are the same, but I'm curious why =3Dm?
+Why WATCHDOG_PRETIMEOUT_GOV_PANIC is not =3Dm by default?
+Thanks for the explanation in advance!
 
- kernel/sched/ext/ext.c      |  2 +-
- kernel/sched/ext/idle.c     | 10 ++++++++++
- kernel/sched/ext/internal.h |  6 ++++++
- 3 files changed, 17 insertions(+), 1 deletion(-)
+> Guenter
+>
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 32b248a6d1777..7fc306ff54ac1 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -4591,7 +4591,7 @@ static u32 reenq_local(struct scx_sched *sch, struct rq *rq, u64 reenq_flags)
- 
- 	if (WARN_ON_ONCE(reenq_flags & __SCX_REENQ_TSR_MASK))
- 		reenq_flags &= ~__SCX_REENQ_TSR_MASK;
--	if (rq_is_open(rq, 0))
-+	if (!(reenq_flags & SCX_REENQ_IDLE_PICK) && rq_is_open(rq, 0))
- 		reenq_flags |= SCX_REENQ_TSR_RQ_OPEN;
- 
- 	/*
-diff --git a/kernel/sched/ext/idle.c b/kernel/sched/ext/idle.c
-index 28ed9e3270854..3d8d75ffbf9e1 100644
---- a/kernel/sched/ext/idle.c
-+++ b/kernel/sched/ext/idle.c
-@@ -804,6 +804,16 @@ void __scx_update_idle(struct rq *rq, bool idle, bool do_notify)
- 
- 	lockdep_assert_rq_held(rq);
- 
-+	/*
-+	 * Picking idle with IMMED tasks on the local DSQ means that they didn't
-+	 * run immediately, e.g., core scheduling forced the CPU idle. Outside
-+	 * of that, pick_task_scx() would have taken the local DSQ head. As
-+	 * next_class is idle, the rq looks open to rq_is_open(), tell
-+	 * reenq_local() to reenqueue the IMMED tasks anyway.
-+	 */
-+	if (idle && unlikely(rq->scx.nr_immed))
-+		scx_schedule_reenq_local(rq, SCX_REENQ_IDLE_PICK);
-+
- 	/*
- 	 * pick_task_idle() calls here only on an idle-to-idle re-pick and the
- 	 * transitions call with @do_notify, so every reaching call updates the
-diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
-index 03f03204d1582..df8b013fcd09c 100644
---- a/kernel/sched/ext/internal.h
-+++ b/kernel/sched/ext/internal.h
-@@ -1819,6 +1819,12 @@ enum scx_reenq_flags {
- 	/* internal: kernel-issued on cap revoke, not accepted from BPF */
- 	SCX_REENQ_CAP_REVOKE	= 1LLU << 1,
- 
-+	/*
-+	 * internal: kernel-issued when the rq picks idle with IMMED tasks on its
-+	 * local DSQ, the rq isn't open for them regardless of rq_is_open().
-+	 */
-+	SCX_REENQ_IDLE_PICK	= 1LLU << 2,
-+
- 	__SCX_REENQ_FILTER_MASK	= 0xffffLLU,
- 
- 	__SCX_REENQ_USER_MASK	= SCX_REENQ_ANY,
--- 
-2.56.0
-
+Best Regards,
+Dmitry Voytik.
