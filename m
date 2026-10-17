@@ -1,156 +1,162 @@
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D301B48123D
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 10:37:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9C447C103
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 10:38:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792233464; cv=pass; b=NLieQOEIiDvTt8AI30+hUtOdvP52cb6dwwil+LkVs1B60LTalPX9+g1xTSyT705PRG16mJZkQTTt01CKLIMCS71SptwWl/KrwL06RyKT2Oxl85ex4HcKlQLcVtXbFD2lAowC5I1gVRmNWWDQ8CadD/2QOa14C3LWuvL/dE9shfg=
+	t=1792233501; cv=pass; b=olfXH6ruEU9VVOUVoCebwyF3jC/LHJdJLs4Hb4kKPW+XIvMVLtDQAHO2HJFwnui87cJgWTAn++Db7phbwUU+3GCXsGHGaHAf3jUFCrAP6QgXgV/ZwlL0meyOfAmWal7ze9LPXvx54XqRWNIYiLlVfducW3g3S1RsMSn8NCIGeC4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792233464; c=relaxed/simple;
-	bh=DdTRwYsOyMO2Pon1eB9HGGKKuUN6WYiZ/XENSt+d+ow=;
+	s=arc-20240116; t=1792233501; c=relaxed/simple;
+	bh=rUjDD6U/Vk2sVzndgzGKR20/1geXd0fQlZah3gocmXY=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OTDuKth5FDhlTebVj+w6PSNnAvBK3ccOVeLdG6uFPGsC8+cy9lbdYFVSCzNw6Y6wlDnOu8Z08mH16yRD8qYlvinm+wvvubxZCUnNVkGu9TnnuIkeUf2PBK4ATWLvZrHoPjP8WnnZy2KHIxIjhsKNBAihNE4Gsd3ZAQO90bUrOh0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=Gz8k7RRe; arc=pass smtp.client-ip=74.125.224.44
+	 To:Cc:Content-Type; b=TvqjgvMJbUkdMAp80us+sF+vCqB4+BdLojap7CD/ETTqHhPj8Hrk45ZXPnqH2c9SDzS25g+x8Bf6oQcCqq+tytklFHJJ+QuP/v1Dvft7W+jjifD1rCjuaUXoNvqxYeK+r/4nJTOZCM32USIrpq7te43xh0iTo/Gheo+FIoJQWhM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=j5FIfqGu; arc=pass smtp.client-ip=74.125.224.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="Gz8k7RRe"
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-679a2b5fe87so684749d50.3
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:37:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792233462; cv=none;
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="j5FIfqGu"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-679a2297c55so573816d50.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:38:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792233498; cv=none;
         d=google.com; s=arc-20260327;
-        b=akUNl0a+adZDXCvL/3LevE4tC4JwQq9Oeo6c4fwOkCvt84sICckrNAL0gFih7MDwrs
-         1pmZbZp2XDCOIM1fAC8ltLsOWj/oBjivzyglZ2RGfhvG4TwaSiI1Fc88eWIxB3c5Dzxo
-         7zVgZ6YMc2KBEwVp4xu5+UWv+cHAlIxB27g76R3S5nuLjzDWpYm2VpbBIKb9e1XC236H
-         tYzS3eOYNJ13emMe566ddrnCKL0ZRRT/MOi96RGEEfUL+YA/Im8D1uOVp9I5UcrR7fBC
-         X70EdTHV0d2ck+G6zEkRPA4PhrQVTfbq6DnHqm/owQokTGyJRj6Ov0D4yNVU96hsE0Cw
-         uPmw==
+        b=d2wkpInIT5RBdABAJXo+icVGmtFeF0ojFVVSZGchxbLH4MTV1NSC3l2sX+7B0BKRRe
+         8JByvLiVIqMQ4On1QEoBJbqgn3g3stMtUG81CdbVX0pJTBFDKufPB+OZ1HT51aI2KWqA
+         +oLeSSWlFvTVIb5mPuECsZ8bpT0oGAZ1bo9AKSG/TrZKwXWOYKRvBZDL1zEd5yr5aacl
+         Fs4X32fYfkX770guckiHwtjgWOFz5s2zl1b4mMalIOdBWPCrun+KgZkarSFOvJVmSu/2
+         x4ITo31SQyITeShPVRLSszucJS0BhQMT6HcNKLsZwHCxlxy2cC7ccP0MnX3JTwe+9Qbp
+         owdA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=8xQtVA18Ly6EVrTffA/+C9Ju5Q0HewYi23Ad/Eu06YI=;
-        fh=/Was0AKr6Q8s8PjjgtlW//XaiKR93175e83wfKCvg+E=;
-        b=SxU9JDtShrACsl3aehMSvDWS3Zq0VSKtxEtbs6n3GLd7nCXiiU9/hxtVQdD7YpF4gz
-         pYGinM9S3SDB9/hV0rvzlL7HFFFhgFuP9exYtst6lb4KQxCIChTNFXpi9GLOWUStHEr1
-         /1W02hqDcCTT4YZ/wP01X9xsRuTzb8KWwsiudgWyA7zeLvmmlMec5EzC+73TZXM8q9CS
-         c2FApJQ92AaoLKB+mmAZ8b5ls8HsNQAaI7zJvOi/mGnXSQ075HQghYM09bSpduaI30Fe
-         6RAV59nPuq9jNH2OhIPoddfehkFe6HeoQxkwBJzTvUNuToIrcrMszMMYvOecUGEeBKwj
-         v/HQ==;
+        bh=F5snhMS2ueW2Cl14d0N6Rs5a/KC8OfBoDlKdn0Y41pQ=;
+        fh=R85QFbWXMAd9vCUxMnvJR0XsglZ1gmoAt2/WJG5YwJQ=;
+        b=e/rf9MqXbvS0XTDzYJ0eD+svcPvRUJv9W2pESGmg/2bBelf+gIKeei47HBK+6jr5qH
+         6ySGJhYfF/KLjCOmJcoOQzm5Yb295t/Zs7ZuW0veXSdIt8iFByzdryOLRxh/QcsNOrU0
+         rY3LbTPpx5/7tkClOezj0q2B9JhAh6HoafCyHth3crPSIJ3ZiXwMLMbJpWOFoeswKyiy
+         BxFLEE3tyrsNiCQcOVQMRBPYrF8Ct352lprj4CeCo66IGPmZi3CfzkCCA6IZ9XCA3wGt
+         8PohcBSHn6lnfKQie2AMpFR34P0zBcJp860tWB08DToo8yXIKRLUzZ7Xu/aryrl/O369
+         QWEw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1792233462; x=1792838262; darn=vger.kernel.org;
+        d=bairaktaris.de; s=google; t=1792233498; x=1792838298; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8xQtVA18Ly6EVrTffA/+C9Ju5Q0HewYi23Ad/Eu06YI=;
-        b=Gz8k7RReE/vgqJIU2IlmmvzZtxgqj7Zoz1Pqg9mI57Ea0Zjc9gnNpvTRM8DDyEByI8
-         KR4iQRBvgZjjOWswddPDV1Tl/sWmckZUrR2NlxR2jl42h63QQUetaHO6ieZGz/8wmWZ3
-         MIMzj31omne/mFjOOAKGgAvjQvM4c5omH1sOhnT8KjKTdWh1dAQoSfuwK6uVJCwBNqPh
-         T1TQ6e8QIYjRj9JeRF+24xakerjrFEM5UAcQ4d4Iy3cwyT2oKVeqH5JvCYZfYnk3oJYk
-         emC21QpdAUUd5mZGxoOv7FN+tsAPAl43Cx/+SW3/XatAAY+2Jukl3l07heiWDmO3MnXX
-         02UA==
+        bh=F5snhMS2ueW2Cl14d0N6Rs5a/KC8OfBoDlKdn0Y41pQ=;
+        b=j5FIfqGux3fWPogqh9AjX7mbsEajb8T3Hc9zBPl1s2yym7aHtAUq1iQb9AHiWggeCU
+         F2QNt/qbXONFaIC+kFNWeGATOeYftLvZJn4VKyIKS1B9pKMnnFU3roPVajtluDBLSeKf
+         /purfHugOIFBmK+Ii2pHRfCTZJNpKg60OB+QGnRv4PyuK7573FBLEEhPHmDdQYV277FV
+         VrQE0xbsvgJkdGCBvl4NWNO5J/GeCzuZkfFqU55QiQQEFhrVtd1r/TJTCOsKBmO0E7y4
+         62axBcQWHkTljhPY7MptIXDcEOEttFCRUbKBt2fU/rqtFfyR5kTSc1zaRLdPjG5ksN9x
+         yhDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792233462; x=1792838262;
+        d=1e100.net; s=20260707; t=1792233498; x=1792838298;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=8xQtVA18Ly6EVrTffA/+C9Ju5Q0HewYi23Ad/Eu06YI=;
-        b=dfC3swn5i3uuOKZ5bleI2XeqK4Eym0t4VC310hay6SgXXJ0hVTCU3NcAdvh/MyBoJO
-         xNsRFUknNCuPRVsrg8Y4F6PIJ3D1glwt20/n0hl6EbcLbyT65rgaYfLPZJWXd3q3sAk9
-         9CqTndhvma+bKMamXuYDhWNDNDhwnM8216pPKsE+Eqfp4olgzpzphFK4SdFI2PJUQz5j
-         26Xt1VEho/8GHNL40G0buZdRxPw4Cpj8fNKBXet9BqWovyIxYEuuyefMtvX3BTBofZrH
-         Ig7sdoWV/QvPv9Ro4u7StaDdYdhQ+7u7gjxeTzXXtAZBWQTxs85ulrJlXnQvLPrD81IO
-         6w3w==
-X-Forwarded-Encrypted: i=1; AKwUvBzs4PiotM4ACV1xCUDWBnD+89lap5DRMnkSNGP5h5Jl3lVaep1sp1OEao8R3UdJYjXdkOQpvSYgPZe7WDg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLGPkY+3PELM8j/92i+pyKVeuWiQXqT5Izb2eii+iPM9aklpTrI
-	dCrefNOi5pbtuqOYldqIJd7dMz4mzhzDuyqg8ODLDjK+mcL6Ly2exuH7En5YTbDw3s77jMPCWIc
-	DwV1H1MYqj24vZr7lQZWdwZ67MOGqQcg8aKWylDqU
-X-Gm-Gg: AYBFou2I/3CkSgAuiNZ9FXLPjMn+TOBVnQDmN5aLLGMOSzYey48q//tChwuMODQoN0W
-	tXjdEKPmv8dc2Uvn69XiXNMFuSp22rq8g4LVeF5hutSS0qUjNLg8BgsGxWl3V004d23K2D+vQde
-	Z787EBamOmDompZigp89AgGP3YWJCS2JPXFPgO6laM19MB3zLfV92cKHx2K7E3aJmWQIUQZ/EKi
-	BddBaOHDIaCSXwQGKRhrelEoHAKIfMAjNFyIWXnfl10QFsno7baOZzZTJ4KpTxaZUqVQ02A2lPy
-	FV2muJU2bEDQ/wa5X3LLia3IErC42syWt7tlLuYwOF4vK66jA6fE4ir7WLdhfHLQPYNF/dxAoT2
-	+Ip4B8lSoxqtHr0EfQXyTgqKSeC5zqfRIsAsmayDJ812J9wmVGhchmtOS/rOW/yCKD4iec6jiKs
-	lpVKXb6W5Vlr/IebmgQSeP5GKIGRoyDKFx7o/FzyG1WQe/sjgbpXd0t1Yv3mJVg9+OA/v9EoZit
-	PDTL+dX6JM8XSDNFeUXQVdKjRKCvrQX6GNNcICGK6kArWeywc3LChAKjiUv0FplgwWmiCNGbXpj
-	VHyzwKMBzO27QA==
-X-Received: by 2002:a05:690e:1913:b0:674:981:a937 with SMTP id
- 956f58d0204a3-679ca914780mr522735d50.121.1792233461776; Sat, 17 Oct 2026
- 03:37:41 -0700 (PDT)
+        bh=F5snhMS2ueW2Cl14d0N6Rs5a/KC8OfBoDlKdn0Y41pQ=;
+        b=zx6m7T7LMx7QSwNXVewbqWjVE6EfPFC1uLmbCEiMwyla6ClHH4SBvpZV1floUnyrQp
+         7CLOwcX1A2CJJylv1DRHm0L39aXmdSJWKQBE0zseKqKijhq47GVZLg9+YXi2e2xbEP8F
+         FJBUWxA8gPRyDGbbLOZz2qzLBGN96plt8gze78y9US8oOZnjggtxqkZd43tu6tMd0yhq
+         Xvp50Kkfnwdof947RPhQCaM8XhjBlhkOLhwxU3c4dJLX73tZ1qO2da37pNpaGvRxk+R3
+         DaEkpJhuCue5HsW7FGsPgVwOY1WYXTMQisKxHBWn1/luhv6Kt8TNwWHjToXXz7UA1PLW
+         FZkg==
+X-Forwarded-Encrypted: i=1; AKwUvBwlNW2COqnUy18EHAFrzMs9zxXz9NUQhKWnWF1qoOOQfNb4NNhoq8CEZd05SbuqFlLOrc4p+n/RWDRIVMo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKU7nM1kTGPqwoSJdV8oUqdrgkJrFDFUHdUY40gTzP4vr2ibT18
+	PZ0x9yr6zYFy+K7XTLzAY1atWu9H2rPFZk0J6jK1dOrPxPEmZHz0sf3zJ6b9b9DmzEYrtJbsbc/
+	67Z2NhRCzVlFl0k+jZQDnKaOjOzKO40sbJaxt/BRE7RxPaV01HlBM5KiT
+X-Gm-Gg: AYBFou2ooEtzKasyC96qE9gd5V762jQOyGj7lsPcyN7FxTj670/f07dwveH4TIaTbyS
+	T6SZlWV6ib5h2+uV9hZMuCRaf5U0UoCXN0KKhgp9nAJ4f4b3eJoytUzRrTcX1p/Vi2KphbaQpZB
+	ttgnfFwr3nN0Q0d0kRpb+svEL6MYURZBh6Ciadf9fu59V6S+6WPnTiWb6g4P+0k3U5OP6gOLgNj
+	01NSVlDijYJrNUohNOpHQ4wRoBrUj1C6QEqOMcyFG1aaOpay+B0llXFZNnfb0Fz5W1haM1IfInV
+	GSjiFK6+PWg2tqAhEGs6gDQPEijysXx9TKVwVGEjA/VmIBVbz8Imo+G+pBIIA4ry3UQfWggbzxd
+	J8P6x0D6VkH75pOimpjDFDKCvq7sydktyBmyh9gzFXoQcqfdxxspRR0NDX+NJ+VD01cZp4MnqJg
+	zykWAlM+8/bmIGx7JNLxylUTUAi3UZOZIGoW9zROn1+upnsG8HC5VdZqR5B0e3X91TwWq9OHDI0
+	lbzppOjoWDDXhgzWdQmVLbZdGRTZNv3QfLAez4ZBWR8HzF4GrmkKMHZS2vOHnDgb2PvnxxRMIXH
+	Y8pwB2dbMA9HSw==
+X-Received: by 2002:a53:b547:0:b0:679:aa23:4150 with SMTP id
+ 956f58d0204a3-679ca906735mr433421d50.107.1792233498275; Sat, 17 Oct 2026
+ 03:38:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004171616.3544880-1-julius@bairaktaris.de>
-In-Reply-To: <20261004171616.3544880-1-julius@bairaktaris.de>
+References: <20260910071838.1983652-1-julius@bairaktaris.de> <CAC1t37+f7+CJ+kBSe25g31fMWE65hme1m1gvB7ZZ_Ydvmce4vQ@mail.gmail.com>
+In-Reply-To: <CAC1t37+f7+CJ+kBSe25g31fMWE65hme1m1gvB7ZZ_Ydvmce4vQ@mail.gmail.com>
 From: Julius Bairaktaris <julius@bairaktaris.de>
-Date: Sat, 17 Oct 2026 10:37:05 +0000
-X-Gm-Features: AclHuK-ma-16nXT2QPoniX4Y6rIglK1_-HkBDcD-pfQT-pjJWoWmgSkOWis1dDQ
-Message-ID: <CAC1t37LLnXEaD2YDSj1iBBxezSKjHGNqm_AR9G4s5Nhy_O=9mA@mail.gmail.com>
-Subject: Re: [PATCH nf-next 0/3] netfilter: flowtable: update upper device
- stats in the fast path
-To: netfilter-devel@vger.kernel.org
-Cc: pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, coreteam@netfilter.org, 
-	netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch, 
-	shuah@kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, nbd@nbd.name
+Date: Sat, 17 Oct 2026 10:37:42 +0000
+X-Gm-Features: AclHuK9YPhV95_cGbl4XOUUVArJb9QpR6dXPUyjfRBwMk0R7v_0JU9GGfaOaYu8
+Message-ID: <CAC1t37KfVf18kbwDqHkVgSFMfAykqbh8th33362Sw07vTt9sMg@mail.gmail.com>
+Subject: Re: [PATCH] wifi: ath11k: request firmware-2.bin directly
+To: jjohnson@kernel.org
+Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Pablo, Florian,
+Hi Jeff,
 
-gentle ping on this series. Let me know if you'd like anything
-changed.
+gentle ping on this one. Would you also like the same change for
+ath12k? I can send it as a separate patch.
 
 Thanks,
 Julius
 
 
-Am So., 4. Okt. 2026 um 17:16 Uhr schrieb Julius Bairaktaris
+Am Do., 10. Sept. 2026 um 07:25 Uhr schrieb Julius Bairaktaris
 <julius@bairaktaris.de>:
 >
-> With the software flowtable, packets bypass the bridge, VLAN, PPPoE and
-> tunnel devices above the flowtable device, so their counters only see
-> the first packets of each connection. The classic forwarding path
-> always counts them, so this series does too, without a flag.
+> Hi,
 >
-> Patch 1 adds VLAN stats helpers; it touches include/linux/if_vlan.h, so
-> a netdev ack would let it go through nf-next. Patch 2 updates the
-> counters from the fast path with the lengths the classic path counts.
-> Patch 3 adds bridge, VLAN and tunnel counter checks to nft_flowtable.sh,
-> which fail without patches 1 and 2.
+> This doesn't change functionality, but log lines like
 >
-> Hardware offloaded flows are not counted. A GSO packet sent through a
-> PPPoE device counts once, not once per segment.
+>     Could not find firmware /lib/firmware/ath11k/IPQ8074/hw2.0/firmware-2.bin
 >
-> Cost: struct flow_offload grows from 296 to 328 bytes (slab object 320
-> to 384). Forwarding from a bridge with a VLAN port to a veth in an x86
-> guest, mean of three interleaved runs without/with the series: TCP
-> 55.7/55.0 Gbit/s, 64 byte UDP 177/173 kpps.
+> confuse the average user.
 >
-> This series was written with the help of an AI coding assistant. I have
-> reviewed and tested it.
+> linux-firmware does not ship firmware-2.bin for IPQ5424. I don't have the
+> hardware, so the fix would be unverified there. Would you like the same
+> change for ath12k?
 >
-> Julius Bairaktaris (3):
->   8021q: add vlan_dev_sw_netstats_rx_add() and
->     vlan_dev_sw_netstats_tx_add()
->   netfilter: flowtable: update upper device stats in the fast path
->   selftests: netfilter: nft_flowtable.sh: check upper device counters
+> Julius
 >
->  include/linux/if_vlan.h                       | 36 ++++++++++
->  include/net/netfilter/nf_flow_table.h         |  8 ++-
->  net/netfilter/nf_flow_table_core.c            |  3 +
->  net/netfilter/nf_flow_table_ip.c              | 53 +++++++++++++++
->  net/netfilter/nf_flow_table_path.c            |  9 +++
->  .../selftests/net/netfilter/nft_flowtable.sh  | 67 +++++++++++++++++++
->  6 files changed, 175 insertions(+), 1 deletion(-)
->
->
-> base-commit: 87b80c2f6b05cad9f0ff9136709c62a0f59923e3
-> --
-> 2.53.0
->
+> Am Do., 10. Sept. 2026 um 07:18 Uhr schrieb Julius Bairaktaris
+> <julius@bairaktaris.de>:
+> >
+> > ath11k treats firmware-2.bin as optional and falls back to API 1 when
+> > the file is not present. Request it with request_firmware_direct(),
+> > which does not fall back to the userspace firmware helper.
+> >
+> > Closes: https://github.com/openwrt/openwrt/issues/24743
+> > Assisted-by: Claude:claude-opus-5
+> > Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+> > ---
+> >  drivers/net/wireless/ath/ath11k/fw.c | 8 +++++---
+> >  1 file changed, 5 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/net/wireless/ath/ath11k/fw.c b/drivers/net/wireless/ath/ath11k/fw.c
+> > index ef1b4c81843a..88ec2ffd9f00 100644
+> > --- a/drivers/net/wireless/ath/ath11k/fw.c
+> > +++ b/drivers/net/wireless/ath/ath11k/fw.c
+> > @@ -16,10 +16,12 @@ static int ath11k_fw_request_firmware_api_n(struct ath11k_base *ab,
+> >         struct ath11k_fw_ie *hdr;
+> >         const u8 *data;
+> >         __le32 *timestamp;
+> > +       char path[100];
+> >
+> > -       ab->fw.fw = ath11k_core_firmware_request(ab, name);
+> > -       if (IS_ERR(ab->fw.fw)) {
+> > -               ret = PTR_ERR(ab->fw.fw);
+> > +       ath11k_core_create_firmware_path(ab, name, path, sizeof(path));
+> > +
+> > +       ret = request_firmware_direct(&ab->fw.fw, path, ab->dev);
+> > +       if (ret) {
+> >                 ath11k_dbg(ab, ATH11K_DBG_BOOT, "failed to load %s: %d\n", name, ret);
+> >                 ab->fw.fw = NULL;
+> >                 return ret;
+> > --
+> > 2.53.0
+> >
