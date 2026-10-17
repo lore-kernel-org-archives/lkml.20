@@ -1,160 +1,219 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f2.google.com (mail-pz2-f2.google.com [74.125.228.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92BAC38E8B4
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:43:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13293914FA
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:44:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792215820; cv=none; b=cA0jx1Rv0BcU/Xc8TW+JA9i/DUcD4CwWicmdGpixBpznxOJaiF+Ve9ELIv+9Y3Bqlpv7MRm7URH4IS5Rq7BXJ2692RuIh30kx5nYjv14L441wbaGYH2Jx7qXJyLM89yPTh0TukOfzSpwc5gciQ6yav+PXzFXle6gtOCxibSFYVM=
+	t=1792215882; cv=none; b=Lx0M1ta4XYfm69hvkTuq/k5KlFQnke3iHtdwsQrOOEQJwW/8l1Uj698TZcEdoZtKSaYVkdZrPrrb21PSxVwgdog3hwI1Nq7EPbjrOXvalgrTygJzdBnSTPnPV6UzNnCwmvfDyUBtmmItYRvPI275l4AQ+6mLgI/joBQBKWgpsY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792215820; c=relaxed/simple;
-	bh=ukDYy32ORfJGPl2W3fDYbW46UYRmceiEfPmdkjdbq4E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QdWBD3Q9HgAndRmIokGEQZMVKdczOBkmuORBo5GBSeDbpnxYEq7eYGKO6PWPqJspkghAf8Cz+rH0BIIMWTTycwilni47giwGIkqlXIQ/86oHGmeMfBLGeS/n/vpcMt5UoLqNQ2tIdn9IwXWZV/2xGQC5DmFkgEEoDKWADFZcX1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=N32TcfAt; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1792215882; c=relaxed/simple;
+	bh=/tqBOkf3rZ68oAtuWQMEyBuLNE6bYhAWXGsgJ9b0Abg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=XoNVfoRnQ3403OJqTyDQj2WbwCSzJP+wVgV55O632qFJBAa8IvXB8QXkNZHJShopFJ761pMj68ClAiy7u/abmAxYw0E+u4lDkqG+8TzITVpeZaG2lbFvoWq2+rm27aar0WpAcNGocR4QlodbA5wgIvtGDI+DRSvk/VPwVHlWX9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HSL1w6iU; arc=none smtp.client-ip=74.125.228.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="N32TcfAt"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792215808; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=7NzrDCYoAPXZ3QXhbNS3e0GZIh1YHAHXFMXaEZ1z778=;
-	b=N32TcfAtSW1cRzMDQX4PO2qg/QGUEaAglHCyTsNdr1ptE1Hp/SF8BTHeHKQVtMlWNDuU4IhptJWhqUrkg4ymlJT9pXqY+IXwPnZzda2fI2C2mykvzC7MpfkUJEmIWLHZCsrU7+rllC4UjMPC9kTMagmmTcvTAXxaBQlTGwPFAwY=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XCwbfOi_1792215805;
-Received: from 30.42.72.158(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCwbfOi_1792215805 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 17 Oct 2026 13:43:26 +0800
-Message-ID: <6a005d89-df5b-4524-a4b9-c637cb15f1ee@linux.alibaba.com>
-Date: Sat, 17 Oct 2026 13:43:25 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HSL1w6iU"
+Received: by mail-pz2-f2.google.com with SMTP id 41be03b00d2f7-ccc451ef3a7so103513a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:44:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792215880; x=1792820680; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ijVuixKGbcFzhxPljdKSrg9qSldEjkdopCfbyGu/Rtc=;
+        b=HSL1w6iUGBaLk7CNG4k+OMv7iT0QfTYmhZaJT3IfkoQWVc6b9E7NyHTDtBySkP5e6X
+         EB8Bs0+yEENH0m7QMgsZYekmM6HhBxpz7XxWVBN+hT+3nKVEe4JcbTRXMf2VJxaSmbg4
+         j3lrW2OL22JnRLxj1M37xbXsCwKP+RWO9sIrg51mioA25mKwFZY564Od9G4CmOHUGJYS
+         +rqUf5Miq10DZjVCiyrm3tCzDy+36FWdiCDUd4rhsbsOmU5wPRubaN78eRM04BMvpxLW
+         yaQDqcPL08iwwcx8ULZd3W4ahGK82IgLrkcy5vtou2gQI3x5VCfZAVn6+ezorHp4VIAP
+         hyeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792215880; x=1792820680;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ijVuixKGbcFzhxPljdKSrg9qSldEjkdopCfbyGu/Rtc=;
+        b=cGinCKvScu4g1fHhn7GIOzgu9FRFVYbv/q7kMDnQ57HE4r8rqItkvS3inFUVjQWrcV
+         LJuzZYP3G9NG3l9839/R9OZ6z0mOWiFyKaj3pKZMiobrdD00JuHRAwjhU9A9HNgJ/ee5
+         yHMEg8Kdxx+tLDPDaIT2Mb4u5Bkqbl0NronZPC2HQ8JqS+s0JzFbG2ZrDRKGdl0kQNyx
+         MlAaS24QSIgEicAdbZ9N/Oc8MvTbxgKTj2/LHnlo/yVM+SdygbXpmP0vZiRe3Y8FfOcQ
+         3xtRaYsbo/hsCyD8BWZ90F15ZFV9hI4I+mKCfmXpEJA13Jb5Q+7kPDjenHIxHPuNDcoj
+         hsrg==
+X-Forwarded-Encrypted: i=1; AKwUvBzoCJK6RuFvjht1X+VYh/vRi6RQ3TOYPJ11KUKC4ri13ZERIotBCD/2p8aGGcEDiEBOuJKLjJK0uLJWJ7A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZgd3jKrKEtoIMAb6O8mbUG+0qvxRyZuNcZssLJQxuIxiUq6tp
+	4yRi2BBITl8Jo+gJx3OnpIxGNQoFp4IP7DLUMV4DqdCaprlj1B7jBXqC
+X-Gm-Gg: AYBFou0X6OTUCCJhyN46Ty5sXgNhsNnhdBJDNUAVq7dEireruC6g0vpr6g8y0IkQB3p
+	1TXzmdK/0ImoxeIej3yW+VxxwHIyLTSMvAI11Oq7NTUtPZMsay3mQuRKPVgfPmlvCROaGiJc0LB
+	d6M8slI/3C1BxadNKO80SOyhy6UBNWMokwaTrVzwQnbr2rHeUyO9VBf17j/eyEmFS8qg2oC546Q
+	nYEmUOqIupw8F9Qj1B4nzV6GCZ7D6NG5eUAxP1aM/CUp61C3WKiPwrVZh3AA55/ggM38QskVjNd
+	WkSg4vV93X4yEZxy6CxGD5++mrNmox9vPBoZZ6t/h1Hpg68r0bauns80zd0vx6t2QAq8cMVTBaZ
+	1nhOatCnTyyc8Qv8kHZlRQbB4sAGPqKzGuQOleDLjaVETxlUL1uLSHMnIAfKQlavuA1ppsQ5D4l
+	R5FFHokvYjhpcuheh1lLljqq+O6z2esygdZ584Eucdjr9uiNAqRBp690FOirYbcaeIR8LSJg==
+X-Received: by 2002:aa7:88c7:0:b0:891:6aeb:84fc with SMTP id d2e1a72fcca58-8a04be250efmr1456271b3a.22.1792215880096;
+        Fri, 16 Oct 2026 22:44:40 -0700 (PDT)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f57269315sm1958225b3a.23.2026.10.16.22.44.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 22:44:38 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	David Wu <david.wu@rock-chips.com>,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Coia Prant <coiaprant@gmail.com>
+Subject: [PATCH net-next v12 0/6] net: pcs: add basic support for RK3568 XPCS
+Date: Sat, 17 Oct 2026 13:43:58 +0800
+Message-ID: <20261017054406.1828061-1-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/1] khugepaged: fix readahead lock inversion in
- collapse_file()
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Lance Yang <lance.yang@linux.dev>, akpm@linux-foundation.org,
- david@kernel.org, ziy@nvidia.com, liam@infradead.org, nico.pache@linux.dev,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- usama.arif@linux.dev, kas@kernel.org, jack@suse.cz, djwong@kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, hch@lst.de,
- syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
- ngocthang2710.1999@gmail.com, willy@infradead.org, rppt@kernel.org,
- ljs@kernel.org
-References: <20261016065920.4153-1-lance.yang@linux.dev>
- <27e5aadc-2d68-428f-a958-308e4a75c058@linux.alibaba.com>
- <atICp2NL8j2z7UFM@pedro-suse.tail5790ac.ts.net>
- <atIiR1NWNssDvgt6@pedro-suse.tail5790ac.ts.net>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <atIiR1NWNssDvgt6@pedro-suse.tail5790ac.ts.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+This series adds proper SGMII support for the Rockchip RK3568 SoC
+using the integrated Synopsys DesignWare XPCS, along with necessary
+fixes and refactoring in the stmmac core and XPCS driver.
 
+Motivation
+==========
+The RK3568 integrates a DW XPCS accessed via APB3 and connected to
+a Naneng Combo SerDes PHY.  Several boards (e.g., Ariaboard
+Photonicat) use this interface for Gigabit Ethernet.  However, the
+current upstream stmmac driver does not support this configuration,
+and the XPCS driver has issues in SGMII poll mode that cause the
+link to be reported incorrectly.
 
-On 10/16/26 9:18 PM, Pedro Falcato wrote:
-> On Fri, Oct 16, 2026 at 12:00:24PM +0100, Pedro Falcato wrote:
->> On Fri, Oct 16, 2026 at 05:57:48PM +0800, Baolin Wang wrote:
->>>
->>>
->>> On 10/16/26 2:59 PM, Lance Yang wrote:
->>>> collapse_file() can end up calling page_cache_sync_readahead() with
->>>> source folios from earlier in the range still locked. If truncate already
->>>> holds mapping->invalidate_lock exclusively and is waiting for one of
->>>> those folios, readahead blocks on the same invalidate_lock and neither
->>>> side can make progress.
->>>>
->>>> Do readahead in a separate pass before we start holding source folios
->>>> locked for collapse. Keep page_cache_sync_readahead() and its existing
->>>> policy, and drop each folio's lock and reference after checking that it
->>>> is uptodate. If truncate or reclaim removes a folio between the two
->>>> passes, roll back instead of doing readahead again with source folios
->>>> locked.
->>>>
->>>> Shmem handles swapin and fallocated folios through shmem_get_folio()
->>>> without taking mapping->invalidate_lock, so it isn't affected by this
->>>> lock inversion.
->>>>
->>>> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
->>>> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
->>>> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
->>>> Signed-off-by: Lance Yang <lance.yang@linux.dev>
->>>> ---
->>>
->>> Thanks for the fix.
->>>
->>>> Thanks to Nguyen Ngoc Thang for v2. David asked for volunteers, so I'm
->>>> happy to take this over.
->>>>
->>>> Some older stable trees lack the folio infrastructure used here, and the
->>>> code will differ for each stable tree, so each backport will need quite a
->>>> bit of rework and its own review. I'm not sure whether to Cc stable here.
->>>> Once we agree on the fix, I'll send a separate backport for each maintained
->>>> stable tree except 5.10, which isn't affected.
->>>>
->>>> v2 -> v3:
->>>>    - Replace the scan-wide invalidate_lock and page_cache_ra_unbounded() with
->>>>      a preparation pass using page_cache_sync_readahead().
->>>>    - Roll back on a new page cache miss during collapse.
->>>>    - https://lore.kernel.org/all/20260913163644.122133-1-ngocthang2710.1999@gmail.com/
->>>>
->>>>    mm/khugepaged.c | 42 +++++++++++++++++++++++++++++++-----------
->>>>    1 file changed, 31 insertions(+), 11 deletions(-)
->>>>
->>>> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
->>>> index ef5cd6fda34f..b3f67617caf0 100644
->>>> --- a/mm/khugepaged.c
->>>> +++ b/mm/khugepaged.c
->>>> @@ -2262,6 +2262,34 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
->>>>    	new_folio->index = start;
->>>>    	new_folio->mapping = mapping;
->>>> +	if (!is_shmem) {
->>>> +		/*
->>>> +		 * Populate the range before accumulating locked source folios:
->>>> +		 * readahead may block on invalidate_lock.
->>>> +		 */
->>>> +		for (index = start; index < end;) {
->>>
->>> why drop xas_unlock_irq()?
->>>
->>>> +			folio = filemap_lock_folio(mapping, index);
->>>> +			if (IS_ERR(folio)) {
->>>> +				page_cache_sync_readahead(mapping, &file->f_ra,
->>>> +							  file, index, end - index);
->>>> +				folio = filemap_lock_folio(mapping, index);
->>>> +				if (IS_ERR(folio)) {
->>>> +					result = SCAN_FAIL;
->>>> +					goto rollback;
->>>> +				}
->>>> +			}
->>>> +			if (!folio_test_uptodate(folio))
->>>> +				result = SCAN_FAIL;
->>>
->>> Do we need to check PG_uptodate after locking the folio? If we successfully
->>> lock the folio, doesn't that mean the read I/O has completed? The following
->>
->> Yes, you do; a read can "complete" without the IO having completed successfully,
->> and in those cases PG_uptodate is not set, but the folio is unlocked.
+This series addresses these issues by:
+- Adding ANRESTART support for SGMII link recovery
+- Adding a Rockchip XPCS platform glue driver and wiring it up in
+  dwmac-rk
 
-OK.
+Series overview
+===============
 
->> Either way, why are we checking for uptodate here? We only care for starting readahead.
->> Anyway, I would possibly recommend we do this as post-processing, not pre-processing.
->> The current loop is a little overhead-happy.
-> 
-> To clarify: I would do this kind of RA as an error path if isolation failed.
+RK3568 XPCS/SGMII:
+  Patch 1: add ANRESTART support for SGMII link recovery
+  Patch 2: DT binding for Rockchip RK3568 XPCS
+  Patch 3: implement the Rockchip XPCS platform glue driver
+  Patch 4: DT binding for Rockchip DWMAC PCS
+  Patch 5: wire up SGMII support in dwmac-rk
+  Patch 6: update MAINTAINERS
 
-Sounds good.
+Dependencies
+============
+- Generic PM domain (genpd) changes:
+  https://lore.kernel.org/all/20260925041751.495818-1-coiaprant@gmail.com/
+- PHY binding+driver (Naneng Combo PHY SGMII MAC selection):
+  https://lore.kernel.org/all/20261006162807.2843858-1-coiaprant@gmail.com/
 
-> Namely, at the end of rollback, after unlocking folios. It doesn't make sense
-> to me to do this kind of checking upfront. I don't think it's particularly
-> realistic that, starting RA upfront, you'd see uptodate completed folio reads
-> when doing the actual isolation.
+The DTS changes using the PHY property are sent separately to
+Heiko/linux-rockchip. There is no hard build dependency; the pieces
+can converge during the merge window.
 
-But why not add RA logic in collapse_pmd(), as we do for 
-SCAN_PAGE_DIRTY_OR_WRITEBACK? There's already retry logic there, and 
-this would also simplify the long collapse_file().
+Changelog
+=========
+
+Changes since v11:
+
+- Drop the "default PCS_XPCS" for PCS_XPCS_PLATFORM and the
+  "default ARCH_ROCKCHIP" for PCS_XPCS_ROCKCHIP. There is no in-tree
+  user of the generic snps,dw-xpcs glue that needs it selected by
+  default, and new symbols defaulting to enabled on olddefconfig are
+  something we should avoid (Jakub).
+
+- Update the PCS_XPCS_PLATFORM commit message accordingly.
+
+Key design decisions
+====================
+- The stmmac core now delegates XPCS creation entirely to platform
+  drivers via pcs_init/pcs_exit.  This is necessary because the
+  generic XPCS creation logic would override any XPCS set up by the
+  platform driver.
+
+- The Rockchip XPCS driver creates a virtual MDIO bus over the APB3
+  registers and implements address remapping.  The generic XPCS core
+  handles all PCS configuration via phylink_pcs_ops.
+
+- On RK3568 in SGMII mode, the MAC clock is fixed at 125 MHz and
+  cannot be dynamically changed.  In-band mode is used, and the
+  generic stmmac set_clk_tx_rate callback is disabled to prevent
+  incorrect clock updates that would break RX.
+
+- The SerDes and power domain are attached to the XPCS device tree
+  node rather than the MAC node. This reflects the actual hardware
+  topology and simplifies the dwmac-rk driver by keeping all PCS-related
+  resources self-contained. It also prepares for possible future QSGMII
+  support, where a single SerDes serves multiple MACs and would be
+  more naturally managed under the XPCS node.
+
+Testing
+=======
+Board: Ariaboard Photonicat (RK3568)
+OS: Armbian (trixie)
+Kernel: 6.18 (backports)
+Result: The SGMII interface obtains an IP address, SSH works, and
+        ping traffic passes without loss.
+
+Notes
+=====
+- When testing out-band mode with set_clk_tx_rate, only 1000Mbps
+  works on both TX/RX; 10/100Mbps only works on TX side.
+
+Acknowledgments
+===============
+This work was inspired by and builds upon the excellent work of others:
+- Serge Semin's Synopsys DesignWare XPCS platform driver (pcs-xpcs-plat.c)
+- Clément Léger's Renesas MIIC driver (pcs-rzn1-miic.c)
+- The Rockchip TRM and downstream OEM drivers
+
+Thanks in advance,
+Coia Prant
+---
+Coia Prant (6):
+  net: pcs: xpcs: add ANRESTART support for SGMII link recovery
+  dt-bindings: net: pcs: add rockchip,rk3568-xpcs support
+  net: pcs: xpcs: add Rockchip RK3568 platform glue driver
+  dt-bindings: net: rockchip-dwmac: document pcs-handle
+  net: stmmac: dwmac-rk: add SGMII support for RK3568
+  MAINTAINERS: add entry for Rockchip XPCS driver
+
+ .../net/pcs/rockchip,rk3568-xpcs.yaml         |  69 ++
+ .../bindings/net/rockchip-dwmac.yaml          |  27 +
+ MAINTAINERS                                   |   9 +
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 131 +++-
+ drivers/net/pcs/Kconfig                       |  23 +
+ drivers/net/pcs/Makefile                      |   5 +-
+ drivers/net/pcs/pcs-xpcs-rk.c                 | 598 ++++++++++++++++++
+ drivers/net/pcs/pcs-xpcs.c                    |  35 +-
+ include/linux/pcs/pcs-xpcs-rk.h               |  11 +
+ 10 files changed, 881 insertions(+), 28 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml
+ create mode 100644 drivers/net/pcs/pcs-xpcs-rk.c
+ create mode 100644 include/linux/pcs/pcs-xpcs-rk.h
+
+-- 
+2.47.3
+
