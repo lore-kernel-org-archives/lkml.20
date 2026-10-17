@@ -1,98 +1,97 @@
-Received: from mx1.bren.win (mx1.bren.win [51.81.56.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4DC23EA83;
-	Sat, 17 Oct 2026 19:10:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.81.56.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4517D255E43;
+	Sat, 17 Oct 2026 19:10:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792264226; cv=none; b=fqABI1zuHS0nec3T2TKAYc15qnkEudLfLfrgx2EHJMcTHo8oMnTaTxTUii/a3kC+4ZlL/K2bsOxhwGycNgi8u+r8jtXNa3ZcNCsR5izAqA4/oSe/NWW0Wx0RWganiO3mB5kaG6X7IDv9tkJpQsXSTqojIIPVOvG6D6zasgCv8Po=
+	t=1792264246; cv=none; b=VyO4Wh0CflJbcKUwA8+gaZqI1bror1vs1p2W9C1HtFinlEL1uvlQFwvdVa1+Vy/ADMq/sYs2o5PF2jol/m0nkimJ12v+cUhsjmTQ6VAzIxqM7UFytFxk0eAJsFOPKTcEIWKR1ggFpBAHzDH0jHYkcLADYHvVCh9W+Q6i5H96+XQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792264226; c=relaxed/simple;
-	bh=Djy41uqofoQIiPfaTR/WPLCuispKlr76tIFJoN03GgE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ENGeDN+5/xw/UYxAjtrq+pTeSnqUsjW9JHSwQGAgRKVW9awhgErdMifL/14MRn8Bdf4R5COIdYwTUYdBIzAKch9BdYpmvc7X82bUcUufQJ87+tZaZ6kUF4a5TpwDwTQqEtA6qILnoQcUSCU8E2ZE4ynzPCGs7jMxJ1hJR2+/BcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bren.win; spf=pass smtp.mailfrom=bren.win; dkim=permerror (0-bit key) header.d=bren.win header.i=@bren.win header.b=6VSXbn9z; dkim=pass (2048-bit key) header.d=bren.win header.i=@bren.win header.b=b5Y2yPgI; arc=none smtp.client-ip=51.81.56.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bren.win
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bren.win
+	s=arc-20240116; t=1792264246; c=relaxed/simple;
+	bh=orzydwwQvH+4TFpY2dG3asuXR+qpItNnlOB4/yGcQDU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mUrqHkq9I8MWmY83mO70eIzkblV0Ay6bhZQv6ZJiH2bb3Bim/ENmcik4hzVw3wSaGgPH8A4c7h1kii4Jk2h/mpXaCyDvVrt8yFH5uzM79k/ktkc7p2S/oSX+woKPSEOYwvfpqH0SRFMHCLUXXdnJZCCYrCQVTOrN6Tripa1Bw9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ieogcHsz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=bren.win header.i=@bren.win header.b="6VSXbn9z";
-	dkim=pass (2048-bit key) header.d=bren.win header.i=@bren.win header.b="b5Y2yPgI"
-DKIM-Signature: v=1; a=ed25519-sha256; s=v1-ed25519-20260901; d=bren.win; c=relaxed/relaxed; r=y;
-	h=Message-ID:Date:Subject:To:From; t=1792264070; bh=U6lrfKYxwRPk81meP9A1UQN
-	vKzgaV9NKcjqP9C72Qg0=; b=6VSXbn9zmlKqPvyuha3tXjweH3xGw6uzee0+jvMNiV2Y5nqTiO
-	Y9h7miJ3XTmx+fJFK+CW4dMoa8fQ5i8y5bBA==;
-DKIM-Signature: v=1; a=rsa-sha256; s=v1-rsa-20260901; d=bren.win; c=relaxed/relaxed; r=y;
-	h=Message-ID:Date:Subject:To:From; t=1792264070; bh=U6lrfKYxwRPk81meP9A1UQN
-	vKzgaV9NKcjqP9C72Qg0=; b=b5Y2yPgImc3oIYV6sK50cp+LyuH+CUrY0FqqVqeMju4RoK4a3Z
-	3q2A6hc6a/Ja39Xzhm9pcyuSQfa1DHvOSk4m8021AuF8tDv9RL9itTQkomXP7vsVKoh4tp4/eNq
-	aiTUw65IBZ9DGGJ8fuzF1btorUIgKYHouMYBs+xjiM3dq5tMuWWvKVz0J/9D5o3yKmaGQ4ZQKHG
-	7330HGO3SO+ZnXwGTqcAPk33c5jnK6Kxqnz8S/h6KlbFjHCXx+zX+7Ydi/fPu2CfNgeh5mss2l0
-	91/lakndh+YicPVHIi5rC74odgL56QrF5UTulMkcru7j/g2os7ThyosOxGtLWH2bR5w==;
-From: "Brendon C." <bren@bren.win>
-To: linux-clk@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Daniel Golle <daniel@makrotopia.org>
-Subject: [PATCH] clk: mediatek: mt7981: feed MSDC from emmc_208m, not emmc_400m
-Date: Sat, 17 Oct 2026 14:07:29 -0500
-Message-ID: <20261017190729.1369302-1-bren@bren.win>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ieogcHsz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51C081F000C4;
+	Sat, 17 Oct 2026 19:10:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792264245;
+	bh=1t/2jUGkxv5LyP1PvSsusnqIWBP2jrYAkzX+eKb0a9M=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ieogcHszQGt88CGu7RgJtcmPIP32ORtD+NMO16miZFs1OJMAEV31BQtiFXrE/APQu
+	 2m1YP2yfSihxpPP264tH/nt/zvDHw/EMjcXMYBpxx3Wbzi85itl6UahDRcDIdpFsSc
+	 P/3oXs2DQ7FY4IvlJ2Grrrd2skN6A6gEZzRqnVNxCMJ+K/aYfI0c/x1nMpRL0RMYrQ
+	 2VAknvprqm/PaFz4Hk27DyH44EX0jqncu0q1HzAeDuwxuW+KGOjBy0AkElJBAU2Q5p
+	 kprJt8bO2W+HPSSokToRsWF07m+5g51s7c8b8IWrl5HnH1dUIhKECn/CbQ4QHSzw0y
+	 P++TLqey6oAJA==
+Date: Sat, 17 Oct 2026 20:10:36 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux@analog.com>, <nuno.sa@analog.com>,
+ <dlechner@baylibre.com>, <andy@kernel.org>, <Michael.Hennerich@analog.com>,
+ <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <corbet@lwn.net>, <skhan@linuxfoundation.org>, <marcelo.schmitt1@gmail.com>
+Subject: Re: [PATCH v5 14/15] iio: adc: ad4134: Support high-speed data
+ capture
+Message-ID: <20261017201036.28a64081@jic23-hlaptop>
+In-Reply-To: <44d545559aaf7cf2605aa30b5e9c9e5aa4aca879.1792200021.git.marcelo.schmitt@analog.com>
+References: <cover.1792200021.git.marcelo.schmitt@analog.com>
+	<44d545559aaf7cf2605aa30b5e9c9e5aa4aca879.1792200021.git.marcelo.schmitt@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The MT7981B datasheet specifies the storage interface as "eMMC v4.5 @52
-MHz 3.3V", MediaTek's SDK kernel parents CLK_INFRA_MSDC_CK from
-emmc_208m, and both the SDK and U-Boot device trees hand the controller
-CK_TOP_EMMC_208M as its "source" clock with max-frequency 52 MHz (52 =
-208/4). Mainline parents the gate from emmc_400m instead. mtk-sd derives
-its divider, the reported actual_clock and its data timeouts from that
-source rate, so with a device tree asking for 26 MHz it programs CKDIV=4
-and believes the bus runs at 25 MHz while the real bus clock is 13 MHz,
-and every clock-derived timeout is sized for a bus twice as fast as the
-real one.
+On Fri, 16 Oct 2026 23:00:34 -0300
+Marcelo Schmitt <marcelo.schmitt@analog.com> wrote:
 
-On a GL.iNet GL-X3000 (Samsung 8GTF4R eMMC, 8-bit, 3.3 V, HS) this shows
-up as msdc_track_cmd_data write data errors (host->error=0x4) on
-roughly every 40 MB written, escalating under sustained multi-segment
-writes to exhausted retries, "I/O error, dev mmcblk0", lost page writes
-and a stopped f2fs overlay. Raw direct reads top out at 11 MB/s where
-the vendor kernel reaches 23 MB/s on the same card.
+> Make use of SPI transfer offloading to speed up data capture, enabling data
+> acquisition at faster sample rates (up to 1.496 MSPS).
+> 
 
-With the correct parent the same device tree yields a real 26 MHz bus,
-23 MB/s reads, and four rounds of a 1.4 GB mixed direct/buffered write
-stress complete with zero retries and zero I/O errors, matching the
-vendor firmware.
+I'd call out here that in this mode, you can't uses the sysfs interfaces
+to read channels.  Even when offloading is involved, no access at all
+is unusual. Is there a path to add that, if only for debug?
 
-Signed-off-by: Brendon C. <bren@bren.win>
----
- drivers/clk/mediatek/clk-mt7981-infracfg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-diff --git a/drivers/clk/mediatek/clk-mt7981-infracfg.c b/drivers/clk/mediatek/clk-mt7981-infracfg.c
-index 68a102d..3d98bff 100644
---- a/drivers/clk/mediatek/clk-mt7981-infracfg.c
-+++ b/drivers/clk/mediatek/clk-mt7981-infracfg.c
-@@ -157,7 +157,7 @@ static const struct mtk_gate infra_clks[] = {
- 	GATE_INFRA1(CLK_INFRA_SPI1_HCK_CK, "infra_spi1_hck", "infra_66m_mck",
- 		    14),
- 	GATE_INFRA1(CLK_INFRA_FRTC_CK, "infra_frtc", "cb_rtc_32k", 15),
--	GATE_INFRA1(CLK_INFRA_MSDC_CK, "infra_msdc", "emmc_400m", 16),
-+	GATE_INFRA1(CLK_INFRA_MSDC_CK, "infra_msdc", "emmc_208m", 16),
- 	GATE_INFRA1(CLK_INFRA_MSDC_HCK_CK, "infra_msdc_hck", "emmc_208m", 17),
- 	GATE_INFRA1(CLK_INFRA_MSDC_133M_CK, "infra_msdc_133m", "sysaxi", 18),
- 	GATE_INFRA1(CLK_INFRA_MSDC_66M_CK, "infra_msdc_66m", "sysaxi", 19),
 
-base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
--- 
-2.55.0
+> diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
+> index 6b05e40f7aeb..21e8039b3411 100644
+> --- a/drivers/iio/adc/ad4134.c
+> +++ b/drivers/iio/adc/ad4134.c
+
+>  static irqreturn_t ad4134_trigger_handler(int irq, void *p)
+>  {
+>  	IIO_DECLARE_BUFFER_WITH_TS(u32, channels, AD4134_NUM_CHANNELS) = { };
+> @@ -520,6 +660,9 @@ static int ad4134_read_raw(struct iio_dev *indio_dev,
+>  
+>  	switch (info) {
+>  	case IIO_CHAN_INFO_RAW: {
+> +		if (!IS_ERR_OR_NULL(st->offload))
+> +			return -EPROTONOSUPPORT;
+
+If direct access is not supported when offload is in play
+then we shouldn't have an interface to get here (i.e. no
+IIO_CHAN_INFO_RAW bit set in the info mask bitmaps.
+As such is this just defensive coding?
+
+If so add a comment to say that, or just drop it.
+
+
+> +
+>  		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+>  		if (IIO_DEV_ACQUIRE_FAILED(claim))
+>  			return -EBUSY;
+
+
 
 
