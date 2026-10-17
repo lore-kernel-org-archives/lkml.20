@@ -1,56 +1,56 @@
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE99480DEB
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:55:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A39B3E7BA9
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:55:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792263306; cv=none; b=g+r7Q0q9T2hWX4wDWXkxST3HIQHxYXG+ZpgR5rDkOhzreX1ZF0DV18PVfsH70wjo3o9XswPg3lrWhyz/ifreJANhHO/9Wb1HQqVPjXz0f6BlNxjt3SxbNw0KLygDdAHdWY0zaQ70484iITHIklGSvOoq6t3o5Ct3RQT87R6+a9w=
+	t=1792263310; cv=none; b=HZ7idmJZlpd9N9mYcjOrlo1kYIwtzBgG4nz3cRx12etX1AZQXtPoO0J1FhcEpFuganUNQTK2SQrsL2gUCytBoWla8q5uQFZbmxQgFvmrt36NHAYKFuDNu0o0haLn9WphnykNBugEI8zh9fStZGmEt2NoNecxwsoap7lMYubu6TM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792263306; c=relaxed/simple;
-	bh=d8ccj9wasrUpk6SrnlHGB47zakLtv+KxknX/3XaLWjQ=;
+	s=arc-20240116; t=1792263310; c=relaxed/simple;
+	bh=1TfcuJ+iqFvC5gIhd4B8JkBrK9k6//aipNZC8Vl3BNc=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ipuzsbv/NDb8ry9FMug7OrekwV8EdraIHdkFnUUCWXOaEQNuwYr1eD10p272f9S7LssmYiWUVeLJD0+7/Ft+npGp2pdi2Pu5R6OYujg2KIvtsSfZuzGDvom3Z6/VNZuN3sGu0oCWGMVkWTHzV+C1HJG7VTlfCZfOJTfW/CSdEGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ditwdCph; arc=none smtp.client-ip=74.125.82.71
+	 To:Cc:Content-Type; b=NFClrgz5rkUnCdb2d+DFGRi8ykkBaG6w6vvBaUP1Q6qSeZe0ksjK28j6NzH8X2PNLAzp4RVrsvGelkivb8D8+3rs4ITGyozQ58JTQGRRCfnengIDpjDmW38IFtL5ZUZkSXTBb2fvcVL85aRsO3MIyEaAtoDoJ6bcr/TV1sBHKk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aT03My8D; arc=none smtp.client-ip=74.125.82.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ditwdCph"
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-139b62317d0so3566267c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:55:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aT03My8D"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33713e5e6daso1233685eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:55:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792263303; x=1792868103; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792263306; x=1792868106; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Jzq4IMlcviYl43vBpDT6+ClQb90rxjT75S9ty1COlLY=;
-        b=ditwdCphfvLuwf7AsnYnoa7cw/J3Pqc4YEmETH4eYbWwd3zArF/U5Sw3ebIHJuJKq4
-         2bOvSUP+/B0ABJsRJuLd0rccfzFZ6VliPbTck7ZqUYfbhT2Bu8gBcAOGaTxQwS0MK3ic
-         gLivYh5PYSQXUcpmcxdqBT2msQasjMIo2FMtJTzCu/tHsxdNPCpNGVMg9UYOnVGTebsk
-         ihyiaZApFSvyiuBGNX2n3mq/OyrGOnr4n6oDYch+Jnc1wSKOr/wRAsH6d0zdY5QPi5y7
-         orrNcyAOtjNK+opYOOuah2OB3wqEI5kSWlFlExB01zoJ4wI3Gc9X4oW/6wOa2d9+ZOxe
-         bGPQ==
+        bh=ZsdjEwiqvxlCkfgYVZF8ZXFXcYZLiZugcoshb+d+2tg=;
+        b=aT03My8Df6npdaROHvbI6CLLR3EwHPAV6TTW22dOz6OY8HMG+HsrcDP8IhJmITdHZ6
+         K4xotclYgoQlwfl3IZ6gkPcL5wjlTtJVvPMtyTmN1CB+TIa/DSGqEQVR7n6L7ssi84Wg
+         NMLSkT0wYWuJUuBGPsQ3oDLSxGZBmji0gtBPAIGDb+csjdYZE3ZaH6wBxcz/foe3X0fs
+         P8oneM4zPh/M6zKcTPqEwc4a/k2eFGC063HDTFpbQidd1zzXWn4/4aIz0mJDtEoVX4j4
+         P8HHcMZ9T6tqxTUtquATfPf3m5ireGMamToG92MV675+fztrPwy/jZJXu4JgLJLweEAj
+         2Bag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792263303; x=1792868103;
+        d=1e100.net; s=20260707; t=1792263306; x=1792868106;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Jzq4IMlcviYl43vBpDT6+ClQb90rxjT75S9ty1COlLY=;
-        b=efCPP+FP5fZLF34OUq+dEzpaAO8AInlTlbAmlfBC4KOjS8+mc4tk86tfq2vjjRCQGV
-         yJNFC0NCCaltAuUmtkz5cFvnUgy8aAkxG/epqt2gjgwkc19jzne2YEBqrQ2qaMfCVnIV
-         CGqWG6uA3LSENYLnK4Uy9LRgOlvy2d/SK30QU8HrF4PHa9RMo1IU1n6Ci9BT2Y4iqvE/
-         OXK5qLvr0UBoozWEkapiIPXFD8AXhBExxynfUtnVdgKQu88+LqE4gjdWGpxQkLFm3++s
-         7Sf89RSZHhPVP+TwChAm1tMgg5ZY9INHJ8jvMXe30Dcd4CUH5i8LmbrIjXn137vaXvL2
-         +e2g==
-X-Forwarded-Encrypted: i=1; AKwUvBy3o0LjAJHg3kLyOTueFfFEEBR7XUAiBdBzbhqMkoJw27yDsMrVD6a+vwRZAlzmPuPSnkV5l97m2qUcHLw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvxOVEaGjTuJNuyyq3cthOerqDjcQaoOZCWleDTpL8y0Z9CCq4
-	TK+xrnB8v3N0x+vadK8uVC3GcyHNsqC9OExApbyWko0rA4sbmtjbTY2CCO1tsUsTU+hUmxR0QF+
-	gjJTj/CGlcg==
-X-Received: from dleg20.prod.google.com ([2002:a05:701b:4314:b0:168:b4b9:d783])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:f685:b0:158:7ea9:4a76
- with SMTP id a92af1059eb24-185120a8d0cmr6455576c88.16.1792263301972; Sat, 17
- Oct 2026 11:55:01 -0700 (PDT)
-Date: Sat, 17 Oct 2026 11:54:38 -0700
+        bh=ZsdjEwiqvxlCkfgYVZF8ZXFXcYZLiZugcoshb+d+2tg=;
+        b=wMOXnGGXBXNYa3AS0HLfx/XdIL1mVXWH8D0ebAgs/hzGDEtYKz0tT6ndZd2n4+vU7h
+         f0Egqcgn/C1Disk0o39FlocQ4JeUnXFAe2oCT7yZL9ui1sknzgHwUYb171E2PWA5swtu
+         VG3JPVzVL/8aweQPAU8rEzkXPyiVO2VLZ2r7EkksyClvEaKzE1jWXVhtL/6qttAnelHQ
+         oX4buJvavqSQoC6jwBhHq1PzC2r2wZgIL2qYSQm0NPSG3RAPMP1lcy/483Z82EHxDefj
+         M0fTulUu3Di72BjfxJavheV1Zy1F4y8aY0+Dw7RNx1KHU6f5Oqjze6qwmDnOAv622yco
+         KFYw==
+X-Forwarded-Encrypted: i=1; AKwUvBwsFGryocU1oTq6dyzT+93f92H5fnt8FFlkjNduR2hAQ+6Gie5+1/nIcY2niCD4ZlXzE/07YE5v3kJzlPI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnbvmRuc/HVNusGO4oxweqMN3Tu2jAX/mdubb6U5Rr7Bkvmrk8
+	4QQxWkhbNOCQwYq3ehrQ878pF2n9CumqOTgnH9JtTZ2tGAf0UzhQybfRONm3TgUshGHg9//jt2J
+	RlFQfAhFyww==
+X-Received: from dldyq20-n2.prod.google.com ([2002:a05:701b:4554:20b0:17f:c757:3afd])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:fc03:b0:128:d4be:7428
+ with SMTP id a92af1059eb24-1851229662fmr3860153c88.19.1792263305828; Sat, 17
+ Oct 2026 11:55:05 -0700 (PDT)
+Date: Sat, 17 Oct 2026 11:54:40 -0700
 In-Reply-To: <20261017185442.2137623-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261016213258.945737-1-irogers@google.com> <20261017185442.2137623-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261017185442.2137623-6-irogers@google.com>
-Subject: [RFC PATCH v2 5/9] perf pmu: Add perf_pmu__probe() for live
- capability probing
+Message-ID: <20261017185442.2137623-8-irogers@google.com>
+Subject: [RFC PATCH v2 7/9] perf sysinfo: Add sysinfo subcommand
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
 Cc: adrian.hunter@intel.com, eranian@google.com, james.clark@linaro.org, 
@@ -70,1426 +69,2104 @@ Cc: adrian.hunter@intel.com, eranian@google.com, james.clark@linaro.org,
 	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-Add struct perf_pmu::probed and perf_pmu__probe() to actively probe live
-PMU capabilities via perf_event_open(), including
-counting/sampling/branch_stack modes, precise_ip levels, supported
-perf_event_sample_format flags, privilege exclusion modifiers, execution
-features (leader sampling, software grouping, auto-counter reload, AUX
-pause/resume/sample), and event group size limits.
+Add the 'perf sysinfo' subcommand to display and probe PMUs and system
+performance monitoring capabilities on the running system or from a
+perf.data file.
+
+By default, 'perf sysinfo' reports a system-wide summary of core PMU
+features (precise sampling, branch stack sampling, user-space counter
+reading, leader sampling, memory profiling events, and hardware AUX
+trace PMUs), memory and PCIe/IO interconnect bus bandwidth monitoring,
+total events and metrics, pipeline metric drill-down levels, and an
+overall system rating.
+
+When '-p'/'--pmus' (or a PMU glob filter, '-v'/'--verbose',
+'-a'/'--all', or '-j'/'--json') is specified, it also reports per-PMU
+static attributes and live probed capabilities in text or JSON format.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/pmu.c | 1225 +++++++++++++++++++++++++++++++++++++++++
- tools/perf/util/pmu.h |  134 ++++-
- 2 files changed, 1358 insertions(+), 1 deletion(-)
+ tools/perf/Build             |    1 +
+ tools/perf/builtin-help.c    |    3 +-
+ tools/perf/builtin-sysinfo.c | 2010 ++++++++++++++++++++++++++++++++++
+ tools/perf/builtin.h         |    1 +
+ tools/perf/perf.c            |    1 +
+ 5 files changed, 2015 insertions(+), 1 deletion(-)
+ create mode 100644 tools/perf/builtin-sysinfo.c
 
-diff --git a/tools/perf/util/pmu.c b/tools/perf/util/pmu.c
-index cd8211f87291..83c8d6f392ba 100644
---- a/tools/perf/util/pmu.c
-+++ b/tools/perf/util/pmu.c
-@@ -9,6 +9,7 @@
- #include <sys/stat.h>
- #include <unistd.h>
- #include <errno.h>
-+#include <limits.h>
- #include <stdbool.h>
- #include <stdio.h>
- #include <stdlib.h>
-@@ -38,7 +39,21 @@
- #include "strbuf.h"
- #include "fncache.h"
- #include "util/evsel_config.h"
-+#include "cloexec.h"
-+#include "dwarf-regs.h"
-+#include "evlist.h"
-+#include "mem-events.h"
-+#include "mmap.h"
-+#include "perf_regs.h"
-+#include "rlimit.h"
-+#include "util/sample.h"
-+#include "../perf-sys.h"
-+#include <linux/hw_breakpoint.h>
-+#include <sys/ioctl.h>
-+#include <sys/mman.h>
-+#include <sched.h>
- #include <regex.h>
-+#include <elf.h>
- 
- #define UNIT_MAX_LEN	31 /* max length for event unit name */
- 
-@@ -2832,9 +2847,1219 @@ void perf_pmu__delete(struct perf_pmu *pmu)
- 	zfree(&pmu->name);
- 	zfree(&pmu->alias_name);
- 	zfree(&pmu->id);
-+	zfree(&pmu->probed.probe_event);
- 	free(pmu);
- }
- 
-+#define MAX_PROBE_GROUP_SIZE 64
-+#define MAX_PROBE_CANDIDATES 16
+diff --git a/tools/perf/Build b/tools/perf/Build
+index dcba5ba55206..8a3f6071fa40 100644
+--- a/tools/perf/Build
++++ b/tools/perf/Build
+@@ -13,6 +13,7 @@ perf-y += builtin-list.o
+ perf-y += builtin-record.o
+ perf-y += builtin-report.o
+ perf-y += builtin-stat.o
++perf-y += builtin-sysinfo.o
+ perf-y += builtin-top.o
+ perf-y += builtin-script.o
+ perf-y += builtin-kvm.o
+diff --git a/tools/perf/builtin-help.c b/tools/perf/builtin-help.c
+index 5bbdb4d9b9c0..fbab4b77761b 100644
+--- a/tools/perf/builtin-help.c
++++ b/tools/perf/builtin-help.c
+@@ -329,6 +329,7 @@ void list_common_cmds_help(void)
+ 		{"report", "Read perf.data (created by perf record) and display the profile"},
+ 		{"script", "Read perf.data (created by perf record) and display trace output"},
+ 		{"stat", "Run a command and gather performance counter statistics"},
++		{"sysinfo", "Display and probe PMU and system performance monitoring information"},
+ 		{"test", "Runs sanity tests."},
+ 		{"top", "System profiling tool."},
+ 		{"version", "display the version of perf binary"},
+@@ -485,7 +486,7 @@ int cmd_help(int argc, const char **argv)
+ 	};
+ 	const char * const builtin_help_subcommands[] = {
+ 		"buildid-cache", "buildid-list", "diff", "evlist", "help", "list",
+-		"record", "report", "bench", "stat", "timechart", "top", "annotate",
++		"record", "report", "bench", "stat", "sysinfo", "timechart", "top", "annotate",
+ 		"script", "sched", "kallsyms", "kmem", "lock", "kvm", "test", "inject", "mem", "data",
+ #ifdef HAVE_LIBELF_SUPPORT
+ 		"probe",
+diff --git a/tools/perf/builtin-sysinfo.c b/tools/perf/builtin-sysinfo.c
+new file mode 100644
+index 000000000000..ea544b3d70a0
+--- /dev/null
++++ b/tools/perf/builtin-sysinfo.c
+@@ -0,0 +1,2010 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * builtin-sysinfo.c
++ *
++ * Builtin sysinfo command: Display and probe PMU and system performance
++ * monitoring information in a system or a perf.data file.
++ */
++#include "builtin.h"
 +
-+static unsigned long dummy_bp_var;
++#include "util/color.h"
++#include "util/cpumap.h"
++#include "util/data.h"
++#include "util/debug.h"
++#include "util/env.h"
++#include "util/evlist.h"
++#include "util/evsel.h"
++#include "util/header.h"
++#include "util/mem-events.h"
++#include "util/metricgroup.h"
++#include "util/perf_regs.h"
++#include "util/pmu.h"
++#include "util/pmus.h"
++#include "util/session.h"
++#include "util/strbuf.h"
++#include "util/string2.h"
++#include "util/strlist.h"
++#include "util/tool.h"
 +
-+static bool get_self_uprobe_target(char *exe_path, __u64 *out_offset)
++#include <dwarf-regs.h>
++#include <linux/bitmap.h>
++#include <linux/bitops.h>
++#include <linux/err.h>
++#include <linux/perf_event.h>
++#include <linux/zalloc.h>
++#include <subcmd/parse-options.h>
++
++#include <errno.h>
++#include <inttypes.h>
++#include <stdarg.h>
++#include <stdbool.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <strings.h>
++
++static const char *pmu_type_desc(u32 type)
 +{
-+#if __SIZEOF_POINTER__ == 8
-+	Elf64_Ehdr ehdr;
-+#else
-+	Elf32_Ehdr ehdr;
-+#endif
-+	int fd;
-+	bool found = false;
-+
-+	if (!realpath("/proc/self/exe", exe_path))
-+		return false;
-+
-+	fd = open(exe_path, O_RDONLY | O_CLOEXEC);
-+	if (fd < 0)
-+		return false;
-+
-+	if (pread(fd, &ehdr, sizeof(ehdr), 0) != sizeof(ehdr) ||
-+	    memcmp(ehdr.e_ident, ELFMAG, SELFMAG) != 0) {
-+		close(fd);
-+		return false;
-+	}
-+
-+	for (unsigned int i = 0; i < ehdr.e_phnum; i++) {
-+#if __SIZEOF_POINTER__ == 8
-+		Elf64_Phdr phdr;
-+#else
-+		Elf32_Phdr phdr;
-+#endif
-+		off_t pos = (off_t)ehdr.e_phoff + (off_t)i * ehdr.e_phentsize;
-+
-+		if (ehdr.e_phentsize < sizeof(phdr))
-+			break;
-+
-+		if (pread(fd, &phdr, sizeof(phdr), pos) != sizeof(phdr))
-+			break;
-+		if (phdr.p_type != PT_LOAD || !(phdr.p_flags & PF_X))
-+			continue;
-+		if (ehdr.e_entry >= phdr.p_vaddr &&
-+		    ehdr.e_entry < phdr.p_vaddr + phdr.p_filesz) {
-+			*out_offset = phdr.p_offset + (ehdr.e_entry - phdr.p_vaddr);
-+			found = true;
-+			break;
-+		}
-+	}
-+
-+	close(fd);
-+	return found;
-+}
-+
-+struct probe_candidates {
-+	char *names[MAX_PROBE_CANDIDATES];
-+	size_t nr;
-+};
-+
-+static void probe_candidates__add(struct probe_candidates *cands, const char *str)
-+{
-+	if (cands->nr >= MAX_PROBE_CANDIDATES || !str)
-+		return;
-+	for (size_t i = 0; i < cands->nr; i++) {
-+		if (!strcmp(cands->names[i], str))
-+			return;
-+	}
-+	cands->names[cands->nr] = strdup(str);
-+	if (cands->names[cands->nr])
-+		cands->nr++;
-+}
-+
-+static void probe_candidates__exit(struct probe_candidates *cands)
-+{
-+	for (size_t i = 0; i < cands->nr; i++)
-+		zfree(&cands->names[i]);
-+	cands->nr = 0;
-+}
-+
-+static int collect_probe_candidate_cb(void *vstate, struct pmu_event_info *info)
-+{
-+	struct probe_candidates *cands = vstate;
-+	char buf[512];
-+
-+	if (info->deprecated)
-+		return 0;
-+	if (info->str && strstr(info->str, "=?"))
-+		return 0;
-+	if (!info->name)
-+		return 0;
-+
-+	if (info->pmu && info->pmu->type == PERF_TYPE_TRACEPOINT) {
-+		probe_candidates__add(cands, info->name);
-+		return 1;
-+	} else if (strchr(info->name, '/')) {
-+		probe_candidates__add(cands, info->name);
-+	} else if (info->pmu && info->pmu->name) {
-+		snprintf(buf, sizeof(buf), "%s/%s/", info->pmu->name, info->name);
-+		probe_candidates__add(cands, buf);
-+	} else {
-+		probe_candidates__add(cands, info->name);
-+	}
-+
-+	return cands->nr >= MAX_PROBE_CANDIDATES ? 1 : 0;
-+}
-+
-+static bool parse_candidate_attr(const char *event_str, struct perf_event_attr *attr)
-+{
-+	struct evlist *evlist;
-+	struct parse_events_error err;
-+	struct evsel *evsel;
-+	int ret;
-+
-+	evlist = evlist__new();
-+	if (!evlist)
-+		return false;
-+
-+	parse_events_error__init(&err);
-+	ret = __parse_events(evlist, event_str, /*pmu_filter=*/NULL,
-+			     /*cputype_filter=*/false, &err, /*fake_pmu=*/false,
-+			     /*warn_if_reordered=*/false, /*fake_tp=*/false);
-+	parse_events_error__exit(&err);
-+	if (ret || evlist__empty(evlist)) {
-+		evlist__put(evlist);
-+		return false;
-+	}
-+
-+	evsel = evlist__first(evlist);
-+	*attr = evsel->core.attr;
-+	evlist__put(evlist);
-+	return true;
-+}
-+
-+static int select_probe_cpu(const struct perf_pmu *pmu)
-+{
-+	struct perf_cpu_map *online = perf_cpu_map__new_online_cpus();
-+	int cpu = 0;
-+
-+	if (pmu->cpus && !perf_cpu_map__is_empty(pmu->cpus)) {
-+		int nr = perf_cpu_map__nr(pmu->cpus);
-+
-+		cpu = perf_cpu_map__cpu(pmu->cpus, 0).cpu;
-+		if (online) {
-+			for (int i = 0; i < nr; i++) {
-+				struct perf_cpu c = perf_cpu_map__cpu(pmu->cpus, i);
-+
-+				if (perf_cpu_map__has(online, c)) {
-+					cpu = c.cpu;
-+					break;
-+				}
-+			}
-+		}
-+	} else if (online && !perf_cpu_map__is_empty(online)) {
-+		cpu = perf_cpu_map__cpu(online, 0).cpu;
-+	}
-+
-+	perf_cpu_map__put(online);
-+	return cpu >= 0 ? cpu : 0;
-+}
-+
-+static bool try_open_attr_variants(struct perf_event_attr *attr,
-+				   bool is_uncore, int pmu_cpu,
-+				   unsigned long flags,
-+				   pid_t *out_pid, int *out_cpu,
-+				   int *last_err)
-+{
-+	pid_t pids[2];
-+	size_t nr_pids = 2;
-+
-+	if (is_uncore) {
-+		pids[0] = -1;
-+		pids[1] = 0;
-+	} else {
-+		pids[0] = 0;
-+		pids[1] = -1;
-+	}
-+
-+	for (size_t p = 0; p < nr_pids; p++) {
-+		pid_t pid = pids[p];
-+
-+		for (int samp = 0; samp < 2; samp++) {
-+			for (int priv = 0; priv < 4; priv++) {
-+				struct perf_event_attr try_attr = *attr;
-+				int fd;
-+
-+				try_attr.size = sizeof(try_attr);
-+				try_attr.disabled = 1;
-+				try_attr.read_format = 0;
-+				if (samp == 0) {
-+					try_attr.sample_period = 0;
-+					try_attr.freq = 0;
-+					try_attr.sample_type = 0;
-+				} else {
-+					try_attr.sample_period = 10000;
-+					try_attr.freq = 0;
-+					try_attr.sample_type = PERF_SAMPLE_IP;
-+				}
-+
-+				if (priv >= 1)
-+					try_attr.exclude_kernel = 1;
-+				if (priv >= 2)
-+					try_attr.exclude_hv = 1;
-+				if (priv >= 3)
-+					try_attr.exclude_guest = 1;
-+
-+				fd = sys_perf_event_open(&try_attr, pid, pmu_cpu, -1, flags);
-+				if (fd >= 0) {
-+					close(fd);
-+					*attr = try_attr;
-+					*out_pid = pid;
-+					*out_cpu = pmu_cpu;
-+					return true;
-+				}
-+				if (*last_err == 0 || *last_err == ENOENT || *last_err == EINVAL)
-+					*last_err = errno;
-+			}
-+		}
-+	}
-+	return false;
-+}
-+
-+static bool check_group_active(int leader_fd, int last_fd)
-+{
-+	u64 before[3] = { 0, 0, 0 };
-+	u64 after[3] = { 0, 0, 0 };
-+	u64 f_before[3] = { 0, 0, 0 };
-+	u64 f_after[3] = { 0, 0, 0 };
-+	u64 delta_ena, delta_run;
-+	bool check_follower = false;
-+
-+	if (read(leader_fd, before, sizeof(before)) != sizeof(before))
-+		return false;
-+
-+	if (last_fd >= 0 && read(last_fd, f_before, sizeof(f_before)) == sizeof(f_before))
-+		check_follower = true;
-+
-+	if (ioctl(leader_fd, PERF_EVENT_IOC_ENABLE, PERF_IOC_FLAG_GROUP) < 0)
-+		return false;
-+
-+	for (int spin = 0; spin < 20000; spin++)
-+		barrier();
-+
-+	ioctl(leader_fd, PERF_EVENT_IOC_DISABLE, PERF_IOC_FLAG_GROUP);
-+
-+	if (read(leader_fd, after, sizeof(after)) != sizeof(after))
-+		return false;
-+
-+	if (check_follower && read(last_fd, f_after, sizeof(f_after)) != sizeof(f_after))
-+		return false;
-+
-+	delta_ena = after[1] - before[1];
-+	delta_run = after[2] - before[2];
-+	if (delta_ena == 0 || delta_run != delta_ena)
-+		return false;
-+
-+	if (check_follower) {
-+		u64 f_delta_ena = f_after[1] - f_before[1];
-+		u64 f_delta_run = f_after[2] - f_before[2];
-+
-+		if (f_delta_ena == 0 || f_delta_run != f_delta_ena)
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
-+static void probe_group_limits(const struct perf_event_attr *attrs, size_t nr_attrs,
-+			       pid_t pid, int cpu, unsigned long flags,
-+			       int *max_open, bool *open_capped,
-+			       int *max_active, bool *active_capped)
-+{
-+	struct perf_event_attr leader_attr;
-+	int leader_fd;
-+	int fds[MAX_PROBE_GROUP_SIZE];
-+	int nr_followers = 0;
-+	bool has_time_read = true;
-+	bool active_ok = true;
-+	enum rlimit_action set_rlimit = NO_CHANGE;
-+	cpu_set_t saved_affinity, probe_affinity;
-+	bool affinity_changed = false;
-+
-+	*max_open = 0;
-+	*open_capped = false;
-+	*max_active = 0;
-+	*active_capped = false;
-+
-+	if (!attrs || nr_attrs == 0)
-+		return;
-+
-+	if (pid == 0 && cpu >= 0 && cpu < CPU_SETSIZE) {
-+		CPU_ZERO(&saved_affinity);
-+		if (sched_getaffinity(0, sizeof(saved_affinity), &saved_affinity) == 0) {
-+			CPU_ZERO(&probe_affinity);
-+			CPU_SET(cpu, &probe_affinity);
-+			if (sched_setaffinity(0, sizeof(probe_affinity), &probe_affinity) == 0)
-+				affinity_changed = true;
-+		}
-+	}
-+
-+	leader_attr = attrs[0];
-+	leader_attr.disabled = 1;
-+	leader_attr.read_format = PERF_FORMAT_TOTAL_TIME_ENABLED | PERF_FORMAT_TOTAL_TIME_RUNNING;
-+
-+	leader_fd = sys_perf_event_open(&leader_attr, pid, cpu, -1, flags);
-+	if (leader_fd < 0) {
-+		leader_attr.read_format = 0;
-+		has_time_read = false;
-+		leader_fd = sys_perf_event_open(&leader_attr, pid, cpu, -1, flags);
-+	}
-+	if (leader_fd < 0)
-+		goto out_affinity;
-+
-+	*max_open = 1;
-+	if (has_time_read && check_group_active(leader_fd, -1))
-+		*max_active = 1;
-+	else
-+		active_ok = false;
-+
-+	for (int count = 2; count <= MAX_PROBE_GROUP_SIZE; count++) {
-+		struct perf_event_attr follower_attr = attrs[(count - 1) % nr_attrs];
-+		int fd;
-+
-+		follower_attr.disabled = 0;
-+		follower_attr.read_format = leader_attr.read_format;
-+
-+		fd = sys_perf_event_open(&follower_attr, pid, cpu, leader_fd, flags);
-+		if (fd < 0 && errno == EMFILE && rlimit__increase_nofile(&set_rlimit))
-+			fd = sys_perf_event_open(&follower_attr, pid, cpu, leader_fd, flags);
-+		if (fd < 0 && follower_attr.read_format != 0) {
-+			follower_attr.read_format = 0;
-+			fd = sys_perf_event_open(&follower_attr, pid, cpu, leader_fd, flags);
-+		}
-+		if (fd < 0)
-+			break;
-+
-+		fds[nr_followers++] = fd;
-+		*max_open = count;
-+		if (active_ok && has_time_read) {
-+			if (check_group_active(leader_fd, fd))
-+				*max_active = count;
-+			else
-+				active_ok = false;
-+		}
-+	}
-+
-+	if (*max_open >= MAX_PROBE_GROUP_SIZE)
-+		*open_capped = true;
-+	if (*max_active >= MAX_PROBE_GROUP_SIZE)
-+		*active_capped = true;
-+
-+	for (int i = 0; i < nr_followers; i++)
-+		close(fds[i]);
-+	close(leader_fd);
-+
-+out_affinity:
-+	if (affinity_changed)
-+		sched_setaffinity(0, sizeof(saved_affinity), &saved_affinity);
-+}
-+
-+enum probe_exclude_flag {
-+	PROBE_EXCLUDE_USER,
-+	PROBE_EXCLUDE_KERNEL,
-+	PROBE_EXCLUDE_HV,
-+	PROBE_EXCLUDE_IDLE,
-+	PROBE_EXCLUDE_HOST,
-+	PROBE_EXCLUDE_GUEST,
-+};
-+
-+static bool test_exclude_flag(const struct perf_event_attr *base_attr,
-+			      pid_t pid, int cpu, unsigned long flags,
-+			      enum probe_exclude_flag which)
-+{
-+	struct perf_event_attr attr = *base_attr;
-+	int fd;
-+
-+	switch (which) {
-+	case PROBE_EXCLUDE_USER:
-+		attr.exclude_user = 1;
-+		break;
-+	case PROBE_EXCLUDE_KERNEL:
-+		attr.exclude_kernel = 1;
-+		attr.exclude_user = 0;
-+		break;
-+	case PROBE_EXCLUDE_HV:
-+		attr.exclude_hv = 1;
-+		break;
-+	case PROBE_EXCLUDE_IDLE:
-+		attr.exclude_idle = 1;
-+		break;
-+	case PROBE_EXCLUDE_HOST:
-+		attr.exclude_host = 1;
-+		attr.exclude_guest = 0;
-+		break;
-+	case PROBE_EXCLUDE_GUEST:
-+		attr.exclude_guest = 1;
-+		attr.exclude_host = 0;
-+		break;
++	switch (type) {
++	case PERF_TYPE_HARDWARE:
++		return "PERF_TYPE_HARDWARE";
++	case PERF_TYPE_SOFTWARE:
++		return "PERF_TYPE_SOFTWARE";
++	case PERF_TYPE_TRACEPOINT:
++		return "PERF_TYPE_TRACEPOINT";
++	case PERF_TYPE_HW_CACHE:
++		return "PERF_TYPE_HW_CACHE";
++	case PERF_TYPE_RAW:
++		return "PERF_TYPE_RAW";
++	case PERF_TYPE_BREAKPOINT:
++		return "PERF_TYPE_BREAKPOINT";
 +	default:
-+		return false;
++		if (type <= PERF_PMU_TYPE_PE_END)
++			return "dynamic";
++		if (type <= PERF_PMU_TYPE_DRM_END)
++			return "drm";
++		if (type <= PERF_PMU_TYPE_HWMON_END)
++			return "hwmon";
++		if (type == PERF_PMU_TYPE_TOOL)
++			return "tool";
++		return "fake";
 +	}
++}
 +
-+	fd = sys_perf_event_open(&attr, pid, cpu, -1, flags);
-+	if (fd >= 0) {
-+		close(fd);
++static const char *format_config_name(int config)
++{
++	static const char * const config_names[PERF_PMU_FORMAT_VALUE_CONFIG_END] = {
++		[PERF_PMU_FORMAT_VALUE_CONFIG]  = "config",
++		[PERF_PMU_FORMAT_VALUE_CONFIG1] = "config1",
++		[PERF_PMU_FORMAT_VALUE_CONFIG2] = "config2",
++		[PERF_PMU_FORMAT_VALUE_CONFIG3] = "config3",
++		[PERF_PMU_FORMAT_VALUE_CONFIG4] = "config4",
++	};
++
++	if (config >= 0 && config < PERF_PMU_FORMAT_VALUE_CONFIG_END)
++		return config_names[config];
++	return "config?";
++}
++
++static bool pmu_matches_filters(const struct perf_pmu *pmu,
++				int argc, const char **argv)
++{
++	if (argc <= 0)
 +		return true;
-+	}
-+	if (which == PROBE_EXCLUDE_USER && attr.exclude_kernel == 1) {
-+		attr.exclude_kernel = 0;
-+		fd = sys_perf_event_open(&attr, pid, cpu, -1, flags);
-+		if (fd >= 0) {
-+			close(fd);
++
++	for (int i = 0; i < argc; i++) {
++		const char *pat = argv[i];
++
++		if (perf_pmu__wildcard_match(pmu, pat))
 +			return true;
++		if (pmu->name && (strglobmatch(pmu->name, pat) || !strcmp(pmu->name, pat)))
++			return true;
++		if (pmu->alias_name &&
++		    (strglobmatch(pmu->alias_name, pat) || !strcmp(pmu->alias_name, pat)))
++			return true;
++		if (pmu->name) {
++			size_t base_len = pmu_name_len_no_suffix(pmu->name);
++
++			if (strlen(pat) == base_len && !strncmp(pmu->name, pat, base_len))
++				return true;
 +		}
 +	}
 +	return false;
 +}
 +
-+static void probe_sample_types(struct perf_pmu *pmu,
-+			       const struct perf_event_attr *base_attr,
-+			       pid_t pid, int cpu, unsigned long flags)
++static void json_escape_fprintf(FILE *fp, struct strbuf *buf, const char *fmt, ...)
 +{
-+	u64 reg_bit = BIT_ULL(perf_arch_reg_ip(EM_HOST)) ?: 1ULL;
-+	u64 bulk_mask = PERF_SAMPLE_IP | PERF_SAMPLE_TID | PERF_SAMPLE_TIME |
-+			PERF_SAMPLE_ADDR | PERF_SAMPLE_READ | PERF_SAMPLE_CALLCHAIN |
-+			PERF_SAMPLE_ID | PERF_SAMPLE_CPU | PERF_SAMPLE_PERIOD |
-+			PERF_SAMPLE_STREAM_ID | PERF_SAMPLE_RAW | PERF_SAMPLE_REGS_USER |
-+			PERF_SAMPLE_STACK_USER | PERF_SAMPLE_WEIGHT | PERF_SAMPLE_DATA_SRC |
-+			PERF_SAMPLE_IDENTIFIER | PERF_SAMPLE_TRANSACTION |
-+			PERF_SAMPLE_REGS_INTR | PERF_SAMPLE_CGROUP |
-+			PERF_SAMPLE_DATA_PAGE_SIZE | PERF_SAMPLE_CODE_PAGE_SIZE;
-+	struct perf_event_attr b_attr = *base_attr;
-+	int b_fd;
++	va_list args;
 +
-+	b_attr.disabled = 1;
-+	b_attr.sample_period = base_attr->sample_period ?: 10000;
-+	b_attr.sample_type = bulk_mask;
-+	b_attr.sample_regs_user = reg_bit;
-+	b_attr.sample_regs_intr = reg_bit;
-+	b_attr.sample_stack_user = 64;
-+	b_attr.exclude_callchain_kernel = b_attr.exclude_kernel;
-+	b_attr.inherit = 0;
-+	b_fd = sys_perf_event_open(&b_attr, pid, cpu, -1, flags);
-+	if (b_fd >= 0) {
-+		close(b_fd);
-+		pmu->probed.sample_types |= bulk_mask;
-+	}
++	va_start(args, fmt);
++	strbuf_setlen(buf, 0);
++	for (size_t fmt_pos = 0; fmt_pos < strlen(fmt); fmt_pos++) {
++		switch (fmt[fmt_pos]) {
++		case '%':
++			fmt_pos++;
++			switch (fmt[fmt_pos]) {
++			case 's': {
++				const char *s = va_arg(args, const char*);
 +
-+	for (unsigned int shift = 0; (1ULL << shift) < PERF_SAMPLE_MAX; shift++) {
-+		u64 bit = 1ULL << shift;
-+		struct perf_event_attr attr = *base_attr;
-+		int fd;
++				strbuf_addstr(buf, s);
++				break;
++			}
++			case 'S': {
++				const char *s = va_arg(args, const char*);
 +
-+		if (pmu->probed.sample_types & bit)
-+			continue;
-+
-+		attr.disabled = 1;
-+		attr.sample_period = base_attr->sample_period ?: 10000;
-+		attr.sample_type = bit;
-+
-+		switch (bit) {
-+		case PERF_SAMPLE_BRANCH_STACK:
-+			attr.branch_sample_type = PERF_SAMPLE_BRANCH_ANY |
-+				(attr.exclude_kernel ? PERF_SAMPLE_BRANCH_USER : 0);
-+			break;
-+		case PERF_SAMPLE_CALLCHAIN:
-+			attr.exclude_callchain_kernel = attr.exclude_kernel;
-+			break;
-+		case PERF_SAMPLE_REGS_USER:
-+			attr.sample_regs_user = reg_bit;
-+			break;
-+		case PERF_SAMPLE_REGS_INTR:
-+			attr.sample_regs_intr = reg_bit;
-+			break;
-+		case PERF_SAMPLE_STACK_USER:
-+			attr.sample_stack_user = 64;
-+			break;
-+		case PERF_SAMPLE_READ:
-+			attr.inherit = 0;
++				for (size_t s_pos = 0; s[s_pos] != '\0'; s_pos++) {
++					switch (s[s_pos]) {
++					case '\n':
++						strbuf_addstr(buf, "\\n");
++						break;
++					case '\r':
++						strbuf_addstr(buf, "\\r");
++						break;
++					case '\t':
++						strbuf_addstr(buf, "\\t");
++						break;
++					case '\\':
++						fallthrough;
++					case '\"':
++						strbuf_addch(buf, '\\');
++						fallthrough;
++					default:
++						strbuf_addch(buf, s[s_pos]);
++						break;
++					}
++				}
++				break;
++			}
++			default:
++				strbuf_addch(buf, '%');
++				strbuf_addch(buf, fmt[fmt_pos]);
++				break;
++			}
 +			break;
 +		default:
++			strbuf_addch(buf, fmt[fmt_pos]);
 +			break;
 +		}
-+
-+		fd = sys_perf_event_open(&attr, pid, cpu, -1, flags);
-+		if (fd < 0 && bit == PERF_SAMPLE_BRANCH_STACK) {
-+			attr.branch_sample_type = PERF_SAMPLE_BRANCH_ANY;
-+			fd = sys_perf_event_open(&attr, pid, cpu, -1, flags);
-+		}
-+		if (fd < 0 && bit != PERF_SAMPLE_IP) {
-+			attr.sample_type = PERF_SAMPLE_IP | bit;
-+			fd = sys_perf_event_open(&attr, pid, cpu, -1, flags);
-+		}
-+		if (fd >= 0) {
-+			close(fd);
-+			pmu->probed.sample_types |= bit;
-+		}
 +	}
-+
-+	pmu->probed.can_branch_stack = !!(pmu->probed.sample_types & PERF_SAMPLE_BRANCH_STACK);
-+	pmu->probed.can_callchain = !!(pmu->probed.sample_types & PERF_SAMPLE_CALLCHAIN);
-+	pmu->probed.can_data_src = !!(pmu->probed.sample_types & PERF_SAMPLE_DATA_SRC);
-+	pmu->probed.can_weight = !!(pmu->probed.sample_types & PERF_SAMPLE_WEIGHT);
++	va_end(args);
++	fputs(buf->buf, fp);
 +}
 +
-+void perf_pmu__probe(struct perf_pmu *pmu)
++struct print_format_state {
++	FILE *fp;
++	struct strbuf *buf;
++	bool json;
++	int count;
++};
++
++static int print_format_cb(void *vstate, const char *name, int config,
++			   const unsigned long *bits)
 +{
-+	struct probe_candidates cands = { .nr = 0 };
-+	struct perf_event_attr base_attr;
-+	struct perf_event_attr group_attrs[MAX_PROBE_GROUP_SIZE];
-+	char uprobe_exe_path[PATH_MAX];
-+	__u64 uprobe_offset = 0;
-+	size_t nr_group_attrs = 0;
-+	unsigned long flags = perf_event_open_cloexec_flag();
-+	int keepalive_fd = -1;
-+	int pmu_cpu;
-+	pid_t pid = 0;
-+	int cpu = 0;
-+	int last_err = 0;
-+	bool found = false;
++	struct print_format_state *state = vstate;
++	char bits_buf[128];
 +
-+	if (!pmu || pmu->from_env || pmu->probed.checked)
-+		return;
-+	if (perf_pmu__kind(pmu) != PERF_PMU_KIND_PE)
-+		return;
++	if (!bits)
++		return 0;
 +
-+	pmu_cpu = select_probe_cpu(pmu);
++	bitmap_scnprintf((unsigned long *)bits, PERF_PMU_FORMAT_BITS,
++			 bits_buf, sizeof(bits_buf));
 +
-+	if (pmu->type == PERF_TYPE_TRACEPOINT) {
-+		static const struct {
-+			const char *sys;
-+			const char *name;
-+		} fast_tps[] = {
-+			{ "sched", "sched_switch" },
-+			{ "raw_syscalls", "sys_enter" },
-+			{ "irq", "irq_handler_entry" },
-+		};
++	if (state->json) {
++		char spec[160];
 +
-+		for (size_t i = 0; i < ARRAY_SIZE(fast_tps); i++) {
-+			int tp_id = tp_pmu__id(fast_tps[i].sys, fast_tps[i].name);
++		if (state->count == 0)
++			fprintf(state->fp, ",\n\t\"Formats\": {\n");
 +
-+			if (tp_id >= 0) {
-+				memset(&base_attr, 0, sizeof(base_attr));
-+				base_attr.type = PERF_TYPE_TRACEPOINT;
-+				base_attr.config = tp_id;
-+				if (try_open_attr_variants(&base_attr, false, pmu_cpu,
-+							   flags, &pid, &cpu, &last_err)) {
-+					char tp_buf[128];
++		snprintf(spec, sizeof(spec), "%s:%s",
++			 format_config_name(config), bits_buf);
++		json_escape_fprintf(state->fp, state->buf, "%s\t\t\"%S\": \"%S\"",
++				    state->count > 0 ? ",\n" : "",
++				    name, spec);
++	} else {
++		if (state->count == 0)
++			fprintf(state->fp, "  Formats: ");
 +
-+					snprintf(tp_buf, sizeof(tp_buf), "%s:%s",
-+						 fast_tps[i].sys, fast_tps[i].name);
-+					pmu->probed.probe_event = strdup(tp_buf);
-+					found = true;
-+					break;
-+				}
-+			}
++		fprintf(state->fp, "%s%s (%s:%s)",
++			state->count > 0 ? ", " : "",
++			name, format_config_name(config), bits_buf);
++	}
++	state->count++;
++	return 0;
++}
++
++static bool evsel_matches_pmu(const struct evsel *evsel,
++			      const struct perf_pmu *pmu, bool show_all)
++{
++	struct perf_pmu *ev_pmu = evsel__find_pmu(evsel);
++	const char *ev_pmu_name;
++
++	if (ev_pmu == pmu)
++		return true;
++
++	if (ev_pmu) {
++		if (!show_all && !pmu->is_core && pmu->name && ev_pmu->name) {
++			size_t base_len = pmu_name_len_no_suffix(pmu->name);
++
++			if (pmu_name_len_no_suffix(ev_pmu->name) == base_len &&
++			    !strncmp(pmu->name, ev_pmu->name, base_len))
++				return true;
 +		}
-+		if (!found) {
-+			perf_pmu__for_each_event(pmu, /*skip_duplicate_pmus=*/false,
-+						 &cands, collect_probe_candidate_cb);
-+		}
-+	} else if (pmu->name && !strcmp(pmu->name, "kprobe")) {
-+		static const char * const kprobe_funcs[] = {
-+			"vfs_read",
-+			"schedule",
-+			"do_sys_openat2",
-+		};
-+
-+		for (size_t i = 0; i < ARRAY_SIZE(kprobe_funcs); i++) {
-+			memset(&base_attr, 0, sizeof(base_attr));
-+			base_attr.type = pmu->type;
-+			base_attr.size = sizeof(base_attr);
-+			base_attr.kprobe_func = (uintptr_t)kprobe_funcs[i];
-+			base_attr.probe_offset = 0;
-+			if (try_open_attr_variants(&base_attr, false, pmu_cpu,
-+						   flags, &pid, &cpu, &last_err)) {
-+				char kp_buf[128];
-+
-+				snprintf(kp_buf, sizeof(kp_buf), "kprobe:%s",
-+					 kprobe_funcs[i]);
-+				pmu->probed.probe_event = strdup(kp_buf);
-+				found = true;
-+				break;
-+			}
-+		}
-+	} else if (pmu->name && !strcmp(pmu->name, "uprobe")) {
-+		if (get_self_uprobe_target(uprobe_exe_path, &uprobe_offset)) {
-+			memset(&base_attr, 0, sizeof(base_attr));
-+			base_attr.type = pmu->type;
-+			base_attr.size = sizeof(base_attr);
-+			base_attr.uprobe_path = (uintptr_t)uprobe_exe_path;
-+			base_attr.probe_offset = uprobe_offset;
-+			if (try_open_attr_variants(&base_attr, false, pmu_cpu,
-+						   flags, &pid, &cpu, &last_err)) {
-+				const char *slash = strrchr(uprobe_exe_path, '/');
-+				const char *bname = slash ? slash + 1 : uprobe_exe_path;
-+
-+				if (asprintf(&pmu->probed.probe_event, "uprobe:%s+0x%llx",
-+					     bname, (unsigned long long)uprobe_offset) < 0)
-+					pmu->probed.probe_event = NULL;
-+				found = true;
-+			}
-+		}
-+	} else if (pmu->is_core) {
-+		static const char * const core_events[] = {
-+			"cycles",
-+			"instructions",
-+			"branches",
-+			"branch-misses",
-+			"cache-misses",
-+			"cache-references",
-+			"bus-cycles",
-+			"ref-cycles",
-+		};
-+		char buf[256];
-+
-+		for (size_t i = 0; i < ARRAY_SIZE(core_events); i++) {
-+			snprintf(buf, sizeof(buf), "%s/%s/", pmu->name, core_events[i]);
-+			probe_candidates__add(&cands, buf);
-+		}
-+		perf_pmu__for_each_event(pmu, /*skip_duplicate_pmus=*/false,
-+					 &cands, collect_probe_candidate_cb);
-+	} else if (pmu->type == PERF_TYPE_SOFTWARE) {
-+		static const char * const sw_events[] = {
-+			"software/cpu-clock/",
-+			"software/task-clock/",
-+			"software/page-faults/",
-+			"software/context-switches/",
-+			"software/cpu-migrations/",
-+			"software/minor-faults/",
-+			"software/major-faults/",
-+			"software/dummy/",
-+		};
-+
-+		for (size_t i = 0; i < ARRAY_SIZE(sw_events); i++)
-+			probe_candidates__add(&cands, sw_events[i]);
-+	} else if (pmu->type != PERF_TYPE_BREAKPOINT) {
-+		if (pmu->selectable) {
-+			char buf[256];
-+
-+			if (perf_pmu__has_format(pmu, "swfilt")) {
-+				snprintf(buf, sizeof(buf), "%s/swfilt=1/", pmu->name);
-+				probe_candidates__add(&cands, buf);
-+			}
-+			snprintf(buf, sizeof(buf), "%s//", pmu->name);
-+			probe_candidates__add(&cands, buf);
-+		}
-+		perf_pmu__for_each_event(pmu, /*skip_duplicate_pmus=*/false,
-+					 &cands, collect_probe_candidate_cb);
++		return false;
 +	}
 +
-+	for (size_t i = 0; !found && i < cands.nr; i++) {
-+		memset(&base_attr, 0, sizeof(base_attr));
-+		if (!parse_candidate_attr(cands.names[i], &base_attr))
-+			continue;
++	ev_pmu_name = evsel__pmu_name(evsel);
++	if (ev_pmu_name && pmu->name) {
++		if (!strcmp(ev_pmu_name, pmu->name))
++			return true;
++		if (!show_all && !pmu->is_core) {
++			size_t base_len = pmu_name_len_no_suffix(pmu->name);
 +
-+		if (try_open_attr_variants(&base_attr, pmu->is_uncore, pmu_cpu,
-+					   flags, &pid, &cpu, &last_err)) {
-+			pmu->probed.probe_event = strdup(cands.names[i]);
-+			found = true;
++			if (pmu_name_len_no_suffix(ev_pmu_name) == base_len &&
++			    !strncmp(pmu->name, ev_pmu_name, base_len))
++				return true;
++		}
++	}
++	return false;
++}
++
++static void print_recorded_events(FILE *fp, struct strbuf *buf,
++				  const struct perf_pmu *pmu,
++				  const struct perf_session *session,
++				  bool show_all, bool json)
++{
++	struct strlist *ev_names;
++	struct str_node *pos;
++	struct evsel *evsel;
++	size_t count = 0;
++
++	if (!session || !session->evlist)
++		return;
++
++	ev_names = strlist__new(NULL, NULL);
++	if (!ev_names)
++		return;
++
++	evlist__for_each_entry(session->evlist, evsel) {
++		if (evsel_matches_pmu(evsel, pmu, show_all))
++			strlist__add(ev_names, evsel__name(evsel));
++	}
++
++	if (strlist__empty(ev_names)) {
++		strlist__delete(ev_names);
++		return;
++	}
++
++	if (json) {
++		fprintf(fp, ",\n\t\"RecordedEvents\": [");
++		strlist__for_each_entry(pos, ev_names) {
++			json_escape_fprintf(fp, buf, "%s\"%S\"",
++					    count > 0 ? ", " : "", pos->s);
++			count++;
++		}
++		fprintf(fp, "]");
++	} else {
++		fprintf(fp, "  Recorded events: ");
++		strlist__for_each_entry(pos, ev_names) {
++			fprintf(fp, "%s%s", count > 0 ? ", " : "", pos->s);
++			count++;
++		}
++		fputc('\n', fp);
++	}
++
++	strlist__delete(ev_names);
++}
++
++static const struct {
++	u64 bit;
++	const char *name;
++} sample_type_names[] = {
++	{ PERF_SAMPLE_IP,		"ip" },
++	{ PERF_SAMPLE_TID,		"tid" },
++	{ PERF_SAMPLE_TIME,		"time" },
++	{ PERF_SAMPLE_ADDR,		"addr" },
++	{ PERF_SAMPLE_READ,		"read" },
++	{ PERF_SAMPLE_CALLCHAIN,	"callchain" },
++	{ PERF_SAMPLE_ID,		"id" },
++	{ PERF_SAMPLE_CPU,		"cpu" },
++	{ PERF_SAMPLE_PERIOD,		"period" },
++	{ PERF_SAMPLE_STREAM_ID,	"stream_id" },
++	{ PERF_SAMPLE_RAW,		"raw" },
++	{ PERF_SAMPLE_BRANCH_STACK,	"branch_stack" },
++	{ PERF_SAMPLE_REGS_USER,	"regs_user" },
++	{ PERF_SAMPLE_STACK_USER,	"stack_user" },
++	{ PERF_SAMPLE_WEIGHT,		"weight" },
++	{ PERF_SAMPLE_DATA_SRC,		"data_src" },
++	{ PERF_SAMPLE_IDENTIFIER,	"identifier" },
++	{ PERF_SAMPLE_TRANSACTION,	"transaction" },
++	{ PERF_SAMPLE_REGS_INTR,	"regs_intr" },
++	{ PERF_SAMPLE_PHYS_ADDR,	"phys_addr" },
++	{ PERF_SAMPLE_AUX,		"aux" },
++	{ PERF_SAMPLE_CGROUP,		"cgroup" },
++	{ PERF_SAMPLE_DATA_PAGE_SIZE,	"data_page_size" },
++	{ PERF_SAMPLE_CODE_PAGE_SIZE,	"code_page_size" },
++	{ PERF_SAMPLE_WEIGHT_STRUCT,	"weight_struct" },
++};
++
++static const char *precise_level_desc(int lvl)
++{
++	switch (lvl) {
++	case 0:
++		return "0 - SAMPLE_IP can have arbitrary skid";
++	case 1:
++		return "1 - SAMPLE_IP must have constant skid";
++	case 2:
++		return "2 - SAMPLE_IP requested to have 0 skid";
++	case 3:
++		return "3 - SAMPLE_IP must have 0 skid, or uses randomization";
++	default:
++		return "unknown";
++	}
++}
++
++static void print_precise_levels(FILE *fp, const struct perf_pmu *pmu,
++				 unsigned int precise_mask,
++				 int max_precise, bool json)
++{
++	static const char * const pnames[] = { "", ":p", ":pp", ":ppp" };
++	bool need_sep = false;
++
++	if (json) {
++		fprintf(fp, ",\n\t\t\"PreciseLevels\": [");
++		for (int lvl = 1; lvl <= 3; lvl++) {
++			if (precise_mask & (1u << lvl)) {
++				fprintf(fp, "%s\"%s\"",
++					need_sep ? ", " : "", pnames[lvl]);
++				need_sep = true;
++			}
++		}
++		fprintf(fp, "]");
++		return;
++	}
++
++	fprintf(fp, "    Precise sampling: ");
++	if (precise_mask == 0) {
++		if (perf_pmu__is_software(pmu)) {
++			color_fprintf(fp, PERF_COLOR_GREEN, "always precise");
++			fprintf(fp, " (software event, SAMPLE_IP has 0 skid)\n");
++		} else {
++			color_fprintf(fp, PERF_COLOR_RED, "not supported");
++			fprintf(fp, " (%s)\n", precise_level_desc(0));
++		}
++		return;
++	}
++
++	for (int lvl = 1; lvl <= 3; lvl++) {
++		if (precise_mask & (1u << lvl)) {
++			if (need_sep)
++				fprintf(fp, ", ");
++			color_fprintf(fp, PERF_COLOR_GREEN, "%s", pnames[lvl]);
++			fprintf(fp, " (%s)", precise_level_desc(lvl));
++			need_sep = true;
++		}
++	}
++	fprintf(fp, " (max_precise: ");
++	color_fprintf(fp, PERF_COLOR_GREEN, "%d", max_precise);
++	fprintf(fp, ")\n");
++}
++
++static void print_measured_skid(FILE *fp, const struct perf_pmu *pmu, bool json)
++{
++	static const char * const lvl_keys[] = { "0", ":p", ":pp", ":ppp" };
++	static const char * const lvl_labels[] = {
++		"level 0 (no :p)",
++		"level 1 (:p)",
++		"level 2 (:pp)",
++		"level 3 (:ppp)",
++	};
++	const typeof(pmu->probed) *p = &pmu->probed;
++	bool any = false;
++	bool first = true;
++
++	for (int lvl = 0; lvl <= 3; lvl++) {
++		if (p->skid[lvl].measured) {
++			any = true;
 +			break;
 +		}
 +	}
-+
-+	if (!found && pmu->is_core) {
-+		memset(&base_attr, 0, sizeof(base_attr));
-+		base_attr.type = PERF_TYPE_HARDWARE;
-+		base_attr.config = PERF_COUNT_HW_CPU_CYCLES;
-+		if (perf_pmus__supports_extended_type())
-+			base_attr.config |= (__u64)pmu->type << PERF_PMU_TYPE_SHIFT;
-+		if (try_open_attr_variants(&base_attr, false, pmu_cpu,
-+					   flags, &pid, &cpu, &last_err)) {
-+			pmu->probed.probe_event = strdup("cycles");
-+			found = true;
-+		}
-+	}
-+
-+	if (!found && pmu->type == PERF_TYPE_BREAKPOINT) {
-+		memset(&base_attr, 0, sizeof(base_attr));
-+		base_attr.type = PERF_TYPE_BREAKPOINT;
-+		base_attr.bp_addr = (unsigned long)&dummy_bp_var;
-+		base_attr.bp_type = HW_BREAKPOINT_W;
-+		base_attr.bp_len = HW_BREAKPOINT_LEN_4;
-+		if (try_open_attr_variants(&base_attr, false, pmu_cpu,
-+					   flags, &pid, &cpu, &last_err)) {
-+			pmu->probed.probe_event = strdup("mem:<addr>:w");
-+			found = true;
-+		}
-+	}
-+
-+	if (!found && cands.nr == 0) {
-+		memset(&base_attr, 0, sizeof(base_attr));
-+		base_attr.type = pmu->type;
-+		base_attr.size = sizeof(base_attr);
-+		if (pmu->perf_event_attr_init_default)
-+			pmu->perf_event_attr_init_default(pmu, &base_attr);
-+		if (try_open_attr_variants(&base_attr, pmu->is_uncore, pmu_cpu,
-+					   flags, &pid, &cpu, &last_err)) {
-+			char buf[256];
-+
-+			snprintf(buf, sizeof(buf), "%s//", pmu->name);
-+			pmu->probed.probe_event = strdup(buf);
-+			found = true;
-+		}
-+	}
-+
-+	if (!found) {
-+		probe_candidates__exit(&cands);
-+		pmu->probed.open_supported = false;
-+		pmu->probed.open_err = last_err ?: ENOENT;
-+		pmu->probed.checked = true;
++	if (!any)
 +		return;
++
++	if (json)
++		fprintf(fp, ",\n\t\t\"MeasuredSkid\": {\n");
++	else
++		fprintf(fp, "    Measured branch skid (instructions from branch):\n");
++
++	for (int lvl = 0; lvl <= 3; lvl++) {
++		if (!p->skid[lvl].measured)
++			continue;
++		if (json) {
++			fprintf(fp,
++				"%s\t\t\t\"%s\": { \"Samples\": %d, \"ExactIp\": %d, \"MinInsn\": %d, \"MaxInsn\": %d, \"AvgInsn\": %.1f }",
++				first ? "" : ",\n",
++				lvl_keys[lvl],
++				p->skid[lvl].samples,
++				p->skid[lvl].exact_samples,
++				p->skid[lvl].min_skid,
++				p->skid[lvl].max_skid,
++				p->skid[lvl].avg_skid);
++		} else {
++			const char *skid_color = PERF_COLOR_YELLOW;
++
++			if (p->skid[lvl].max_skid == 0)
++				skid_color = PERF_COLOR_GREEN;
++			else if (p->skid[lvl].max_skid <= 2)
++				skid_color = PERF_COLOR_CYAN;
++
++			fprintf(fp, "      %-15s: ", lvl_labels[lvl]);
++			color_fprintf(fp, skid_color, "min %d, max %d, avg %.1f",
++				      p->skid[lvl].min_skid,
++				      p->skid[lvl].max_skid,
++				      p->skid[lvl].avg_skid);
++			fprintf(fp, " (%d/%d exact_ip)\n",
++				p->skid[lvl].exact_samples,
++				p->skid[lvl].samples);
++		}
++		first = false;
 +	}
 +
-+	pmu->probed.open_supported = true;
++	if (json)
++		fprintf(fp, "\n\t\t}");
++}
 +
-+	/*
-+	 * For tracepoint events, closing the last fd for a tracepoint triggers
-+	 * tracepoint_synchronize_unregister() (an RCU grace period) in the
-+	 * kernel. Hold one disabled fd open across the probe sequence so
-+	 * tp_event->perf_refcount stays >= 1 and each probe open/close is
-+	 * instantaneous.
-+	 */
-+	if (pmu->type == PERF_TYPE_TRACEPOINT) {
-+		struct perf_event_attr ka_attr = base_attr;
++static void print_sample_type_list(FILE *fp, u64 mask, bool json)
++{
++	bool need_sep = false;
 +
-+		ka_attr.disabled = 1;
-+		keepalive_fd = sys_perf_event_open(&ka_attr, pid, cpu, -1, flags);
++	for (size_t x = 0; x < ARRAY_SIZE(sample_type_names); x++) {
++		if (!(mask & sample_type_names[x].bit))
++			continue;
++		if (json)
++			fprintf(fp, "%s\"%s\"", need_sep ? ", " : "", sample_type_names[x].name);
++		else
++			fprintf(fp, "%s%s", need_sep ? ", " : "", sample_type_names[x].name);
++		need_sep = true;
++	}
++	if (!json && !need_sep)
++		fprintf(fp, "none");
++}
++
++static void print_probed_regs(FILE *fp, struct strbuf *buf, const char *label,
++			      u64 mask, int abi, u64 simd_mask, u64 pred_mask,
++			      bool intr, bool json)
++{
++	const char *last_name = NULL;
++	bool need_sep = false;
++
++	if (!mask && !simd_mask && !pred_mask)
++		return;
++
++	if (json)
++		fprintf(fp, ",\n\t\t\"%s\": [", label);
++	else
++		fprintf(fp, "    %s: ", label);
++
++	for (int reg = 0; reg < 64; reg++) {
++		const char *name;
++
++		if (!(mask & BIT_ULL(reg)))
++			continue;
++		name = perf_reg_name(reg, EM_HOST, EF_HOST, abi);
++		if (!name || !strcmp(name, "unknown"))
++			continue;
++		if (last_name && !strcmp(last_name, name))
++			continue;
++		last_name = name;
++
++		if (json) {
++			json_escape_fprintf(fp, buf, "%s\"%S\"",
++					    need_sep ? ", " : "", name);
++		} else {
++			fprintf(fp, "%s%s", need_sep ? ", " : "", name);
++		}
++		need_sep = true;
 +	}
 +
-+	group_attrs[nr_group_attrs++] = base_attr;
++	for (int is_pred = 0; is_pred <= 1; is_pred++) {
++		bool pred = is_pred != 0;
++		u64 cmask = pred ? pred_mask : simd_mask;
 +
-+	for (size_t i = 0; pmu->type != PERF_TYPE_TRACEPOINT &&
-+	     i < cands.nr && nr_group_attrs < MAX_PROBE_GROUP_SIZE; i++) {
-+		struct perf_event_attr cand_attr;
-+		int fd;
-+		bool dup = false;
++		for (int reg_c = 0; reg_c < 64; reg_c++) {
++			const char *cname;
++			u16 qwords = 0;
++			u64 bitmap;
++			char reg_range[64];
 +
-+		memset(&cand_attr, 0, sizeof(cand_attr));
-+		if (!parse_candidate_attr(cands.names[i], &cand_attr))
++			if (!(cmask & BIT_ULL(reg_c)))
++				continue;
++			cname = perf_simd_reg_class_name(EM_HOST, reg_c, pred);
++			bitmap = intr ?
++				perf_intr_simd_reg_class_bitmap_qwords(EM_HOST, reg_c,
++								       &qwords, pred) :
++				perf_user_simd_reg_class_bitmap_qwords(EM_HOST, reg_c,
++								       &qwords, pred);
++			if (!cname || !bitmap)
++				continue;
++			snprintf(reg_range, sizeof(reg_range), "%s0-%d",
++				 cname, fls64(bitmap) - 1);
++			if (json) {
++				json_escape_fprintf(fp, buf, "%s\"%S\"",
++						    need_sep ? ", " : "", reg_range);
++			} else {
++				fprintf(fp, "%s%s", need_sep ? ", " : "", reg_range);
++			}
++			need_sep = true;
++		}
++	}
++
++	if (json)
++		fprintf(fp, "]");
++	else
++		fputc('\n', fp);
++}
++
++static void pmu_event_counts(struct perf_pmu *pmu, size_t *out_total,
++			     size_t *out_sysfs, size_t *out_json)
++{
++	size_t total = perf_pmu__num_events(pmu);
++	size_t sysfs;
++
++	if (pmu->type == PERF_TYPE_TRACEPOINT ||
++	    (pmu->type >= PERF_PMU_TYPE_DRM_START &&
++	     pmu->type <= PERF_PMU_TYPE_DRM_END) ||
++	    (pmu->type >= PERF_PMU_TYPE_HWMON_START &&
++	     pmu->type <= PERF_PMU_TYPE_HWMON_END))
++		sysfs = total;
++	else
++		sysfs = pmu->sysfs_aliases;
++
++	*out_total = total;
++	*out_sysfs = sysfs;
++	*out_json = total > sysfs ? total - sysfs : 0;
++}
++
++static void print_mem_events_static(FILE *fp, struct strbuf *buf,
++				    const struct perf_pmu *pmu, bool json)
++{
++	bool first = true;
++
++	if (!pmu->mem_events)
++		return;
++
++	perf_pmu__mem_events_init_pmu((struct perf_pmu *)pmu);
++
++	for (int j = 0; j < PERF_MEM_EVENTS__MAX; j++) {
++		struct perf_mem_event *e = perf_pmu__mem_events_ptr((struct perf_pmu *)pmu, j);
++		char ev_buf[256];
++		const char *s;
++
++		if (!e || !e->tag || !e->supported)
++			continue;
++		s = perf_pmu__mem_events_name((struct perf_pmu *)pmu, j,
++					      ev_buf, sizeof(ev_buf));
++		if (!s)
 +			continue;
 +
-+		cand_attr.sample_period = base_attr.sample_period;
-+		cand_attr.freq = base_attr.freq;
-+		cand_attr.sample_type = base_attr.sample_type;
-+		cand_attr.exclude_user = base_attr.exclude_user;
-+		cand_attr.exclude_kernel = base_attr.exclude_kernel;
-+		cand_attr.exclude_hv = base_attr.exclude_hv;
-+		cand_attr.exclude_idle = base_attr.exclude_idle;
-+		cand_attr.exclude_host = base_attr.exclude_host;
-+		cand_attr.exclude_guest = base_attr.exclude_guest;
-+		cand_attr.disabled = 1;
++		if (json) {
++			if (first)
++				fprintf(fp, ",\n\t\"MemoryEvents\": {\n");
++			json_escape_fprintf(fp, buf, "%s\t\t\"%S\": \"%S\"",
++					    first ? "" : ",\n", e->tag, s);
++		} else {
++			if (first)
++				fprintf(fp, "  Memory events: ");
++			fprintf(fp, "%s%s (%s)", first ? "" : ", ", e->tag, s);
++		}
++		first = false;
++	}
 +
-+		for (size_t j = 0; j < nr_group_attrs; j++) {
-+			if (group_attrs[j].type == cand_attr.type &&
-+			    group_attrs[j].config == cand_attr.config &&
-+			    group_attrs[j].config1 == cand_attr.config1 &&
-+			    group_attrs[j].config2 == cand_attr.config2) {
-+				dup = true;
++	if (!first) {
++		if (json)
++			fprintf(fp, "\n\t}");
++		else
++			fputc('\n', fp);
++	}
++}
++
++static void print_pmu_json(FILE *fp, const struct perf_pmu *pmu,
++			   const struct perf_session *session, bool show_all)
++{
++	struct strbuf buf;
++	size_t num_instances = show_all ? 1 : perf_pmu__num_duplicates(pmu);
++	char display_name[128];
++	size_t total_events, sysfs_events, json_events;
++	struct print_format_state format_state = {
++		.fp = fp,
++		.buf = &buf,
++		.json = true,
++		.count = 0,
++	};
++
++	strbuf_init(&buf, 0);
++
++	if (num_instances > 1) {
++		size_t base_len = pmu_name_len_no_suffix(pmu->name ?: "");
++
++		snprintf(display_name, sizeof(display_name), "%.*s",
++			 (int)base_len, pmu->name ?: "");
++	} else {
++		snprintf(display_name, sizeof(display_name), "%s", pmu->name ?: "");
++	}
++
++	fprintf(fp, "{\n");
++	json_escape_fprintf(fp, &buf, "\t\"Unit\": \"%S\"", display_name);
++	if (pmu->name)
++		json_escape_fprintf(fp, &buf, ",\n\t\"FullName\": \"%S\"", pmu->name);
++	fprintf(fp, ",\n\t\"Instances\": %zu", num_instances);
++	if (pmu->alias_name)
++		json_escape_fprintf(fp, &buf, ",\n\t\"Alias\": \"%S\"", pmu->alias_name);
++	if (pmu->id)
++		json_escape_fprintf(fp, &buf, ",\n\t\"Identifier\": \"%S\"", pmu->id);
++	if (pmu->type != PERF_PMU_TYPE_FAKE) {
++		fprintf(fp, ",\n\t\"Type\": %u", pmu->type);
++		json_escape_fprintf(fp, &buf, ",\n\t\"TypeDesc\": \"%S\"",
++				    pmu_type_desc(pmu->type));
++	}
++	fprintf(fp, ",\n\t\"IsCore\": %s", pmu->is_core ? "true" : "false");
++	fprintf(fp, ",\n\t\"IsUncore\": %s", pmu->is_uncore ? "true" : "false");
++	fprintf(fp, ",\n\t\"IsSoftware\": %s", perf_pmu__is_software(pmu) ? "true" : "false");
++	fprintf(fp, ",\n\t\"Auxtrace\": %s", pmu->auxtrace ? "true" : "false");
++	fprintf(fp, ",\n\t\"Selectable\": %s", pmu->selectable ? "true" : "false");
++
++	if (pmu->cpus) {
++		char cpus_buf[256];
++		int nr_cpus = perf_cpu_map__nr(pmu->cpus);
++
++		cpu_map__snprint(pmu->cpus, cpus_buf, sizeof(cpus_buf));
++		if (cpus_buf[0]) {
++			json_escape_fprintf(fp, &buf, ",\n\t\"CPUs\": \"%S\"", cpus_buf);
++			fprintf(fp, ",\n\t\"NrCPUs\": %d", nr_cpus);
++		}
++	}
++
++	perf_pmu__caps_parse((struct perf_pmu *)pmu);
++	if (!list_empty(&pmu->caps)) {
++		struct perf_pmu_caps *cap;
++		bool first = true;
++
++		fprintf(fp, ",\n\t\"Capabilities\": {\n");
++		list_for_each_entry(cap, &pmu->caps, list) {
++			json_escape_fprintf(fp, &buf, "%s\t\t\"%S\": \"%S\"",
++					    first ? "" : ",\n",
++					    cap->name, cap->value);
++			first = false;
++		}
++		fprintf(fp, "\n\t}");
++	}
++
++	perf_pmu__for_each_format((struct perf_pmu *)pmu, &format_state, print_format_cb);
++	if (format_state.count > 0)
++		fprintf(fp, "\n\t}");
++
++	pmu_event_counts((struct perf_pmu *)pmu, &total_events,
++			 &sysfs_events, &json_events);
++	if (total_events > 0) {
++		fprintf(fp, ",\n\t\"Events\": {\n");
++		fprintf(fp, "\t\t\"Total\": %zu,\n", total_events);
++		fprintf(fp, "\t\t\"Sysfs\": %zu,\n", sysfs_events);
++		fprintf(fp, "\t\t\"Json\": %zu\n", json_events);
++		fprintf(fp, "\t}");
++	}
++
++	print_mem_events_static(fp, &buf, pmu, /*json=*/true);
++	print_recorded_events(fp, &buf, pmu, session, show_all, /*json=*/true);
++
++	if (pmu->probed.checked) {
++		const typeof(pmu->probed) *p = &pmu->probed;
++
++		fprintf(fp, ",\n\t\"Probed\": {\n");
++		fprintf(fp, "\t\t\"OpenSupported\": %s",
++			p->open_supported ? "true" : "false");
++		if (p->open_supported) {
++			bool need_sep = false;
++			const struct {
++				bool supported;
++				const char *name;
++			} excl[] = {
++				{ p->exclude_user,   "exclude_user" },
++				{ p->exclude_kernel, "exclude_kernel" },
++				{ p->exclude_hv,     "exclude_hv" },
++				{ p->exclude_idle,   "exclude_idle" },
++				{ p->exclude_host,   "exclude_host" },
++				{ p->exclude_guest,  "exclude_guest" },
++			};
++
++			if (p->probe_event) {
++				json_escape_fprintf(fp, &buf,
++						    ",\n\t\t\"ProbeEvent\": \"%S\"",
++						    p->probe_event);
++			}
++			fprintf(fp, ",\n\t\t\"Counting\": %s",
++				p->can_count ? "true" : "false");
++			fprintf(fp, ",\n\t\t\"Sampling\": %s",
++				p->can_sample ? "true" : "false");
++			fprintf(fp, ",\n\t\t\"BranchStack\": %s",
++				p->can_branch_stack ? "true" : "false");
++			if (p->can_sample) {
++				if (!pmu->auxtrace) {
++					const char *pdesc = (p->max_precise == 0 &&
++							     perf_pmu__is_software(pmu)) ?
++						"software event - SAMPLE_IP has 0 skid" :
++						precise_level_desc(p->max_precise);
++
++					fprintf(fp, ",\n\t\t\"MaxPrecise\": %d", p->max_precise);
++					json_escape_fprintf(fp, &buf,
++							    ",\n\t\t\"MaxPreciseDesc\": \"%S\"",
++							    pdesc);
++					print_precise_levels(fp, pmu, p->precise_mask,
++							     p->max_precise, /*json=*/true);
++
++					print_measured_skid(fp, pmu, /*json=*/true);
++				}
++
++				fprintf(fp, ",\n\t\t\"SampleTypes\": [");
++				print_sample_type_list(fp, p->sample_types, /*json=*/true);
++				fprintf(fp, "]");
++			}
++
++			print_probed_regs(fp, &buf, "UserRegisters",
++					  p->user_regs_mask, p->user_regs_abi,
++					  p->user_simd_mask, p->user_pred_mask,
++					  /*intr=*/false, /*json=*/true);
++			print_probed_regs(fp, &buf, "IntrRegisters",
++					  p->intr_regs_mask, p->intr_regs_abi,
++					  p->intr_simd_mask, p->intr_pred_mask,
++					  /*intr=*/true, /*json=*/true);
++
++			if (p->mem_events_mask) {
++				need_sep = false;
++				fprintf(fp, ",\n\t\t\"MemoryEvents\": [");
++				for (int j = 0; j < PERF_MEM_EVENTS__MAX; j++) {
++					struct perf_mem_event *e =
++						perf_pmu__mem_events_ptr((struct perf_pmu *)pmu, j);
++
++					if (e && e->tag && (p->mem_events_mask & (1u << j))) {
++						json_escape_fprintf(fp, &buf, "%s\"%S\"",
++								    need_sep ? ", " : "",
++								    e->tag);
++						need_sep = true;
++					}
++				}
++				fprintf(fp, "]");
++
++				fprintf(fp, ",\n\t\t\"MemorySampleTypes\": [");
++				print_sample_type_list(fp, p->mem_sample_types, /*json=*/true);
++				fprintf(fp, "]");
++			}
++
++			need_sep = false;
++			fprintf(fp, ",\n\t\t\"ExcludeModifiers\": [");
++			for (size_t x = 0; x < ARRAY_SIZE(excl); x++) {
++				if (excl[x].supported) {
++					fprintf(fp, "%s\"%s\"",
++						need_sep ? ", " : "",
++						excl[x].name);
++					need_sep = true;
++				}
++			}
++			fprintf(fp, "]");
++
++			{
++				const struct {
++					bool supported;
++					const char *name;
++				} feats[] = {
++					{ p->can_leader_sampling,  "leader_sampling" },
++					{ p->can_sw_grouping,      "sw_grouping" },
++					{ p->can_inherit,          "inherit" },
++					{ p->can_freq,             "sample_freq" },
++					{ p->can_write_backward,   "write_backward" },
++					{ p->can_callchain,        "callchain" },
++					{ p->can_data_src,         "data_src" },
++					{ p->can_weight,           "weight" },
++					{ p->can_pinned,           "pinned" },
++					{ p->can_exclusive,        "exclusive" },
++					{ p->can_format_lost,      "format_lost" },
++					{ p->can_acr,              "auto_counter_reload" },
++					{ p->can_aux_start_paused, "aux_start_paused" },
++					{ p->can_aux_pause,        "aux_pause" },
++					{ p->can_aux_resume,       "aux_resume" },
++					{ p->can_aux_sample,       "aux_sample" },
++					{ p->can_user_rdpmc,       "user_rdpmc" },
++					{ p->can_user_time,        "user_time" },
++					{ p->can_user_time_zero,   "user_time_zero" },
++					{ p->can_user_time_short,  "user_time_short" },
++				};
++
++				need_sep = false;
++				fprintf(fp, ",\n\t\t\"Features\": [");
++				for (size_t x = 0; x < ARRAY_SIZE(feats); x++) {
++					if (feats[x].supported) {
++						fprintf(fp, "%s\"%s\"",
++							need_sep ? ", " : "",
++							feats[x].name);
++						need_sep = true;
++					}
++				}
++				fprintf(fp, "]");
++			}
++
++			if (pmu->auxtrace) {
++				const struct {
++					bool supported;
++					const char *name;
++				} aux_acts[] = {
++					{ p->can_aux_start_paused, "aux_start_paused" },
++					{ p->can_aux_pause,        "aux_pause" },
++					{ p->can_aux_resume,       "aux_resume" },
++					{ p->can_aux_sample,       "aux_sample" },
++				};
++
++				need_sep = false;
++				fprintf(fp, ",\n\t\t\"AuxActions\": [");
++				for (size_t x = 0; x < ARRAY_SIZE(aux_acts); x++) {
++					if (aux_acts[x].supported) {
++						fprintf(fp, "%s\"%s\"",
++							need_sep ? ", " : "",
++							aux_acts[x].name);
++						need_sep = true;
++					}
++				}
++				fprintf(fp, "]");
++			}
++
++			if (p->can_user_rdpmc && p->pmc_width > 0)
++				fprintf(fp, ",\n\t\t\"PmcWidth\": %u", p->pmc_width);
++
++			fprintf(fp, ",\n\t\t\"UserRdpmc\": {\n");
++			fprintf(fp, "\t\t\t\"Available\": %s,\n",
++				p->rdpmc_available ? "true" : "false");
++			fprintf(fp, "\t\t\t\"Enabled\": %s,\n",
++				p->can_user_rdpmc ? "true" : "false");
++			fprintf(fp, "\t\t\t\"Working\": %s",
++				p->rdpmc_works ? "true" : "false");
++			if (p->rdpmc_available && p->pmc_width > 0)
++				fprintf(fp, ",\n\t\t\t\"PmcWidth\": %u", p->pmc_width);
++			if (p->rdpmc_sysfs >= 0)
++				fprintf(fp, ",\n\t\t\t\"Sysfs\": %d", p->rdpmc_sysfs);
++			fprintf(fp, "\n\t\t}");
++
++			fprintf(fp, ",\n\t\t\"MaxGroupSize\": %d",
++				p->max_group_size);
++			fprintf(fp, ",\n\t\t\"MaxGroupSizeCapped\": %s",
++				p->max_group_capped ? "true" : "false");
++			fprintf(fp, ",\n\t\t\"MaxActiveGroupSize\": %d",
++				p->max_active_group_size);
++			fprintf(fp, ",\n\t\t\"MaxActiveGroupSizeCapped\": %s",
++				p->max_active_capped ? "true" : "false");
++			if (p->max_gp_group_size > 0) {
++				fprintf(fp, ",\n\t\t\"MaxGpGroupSize\": %d",
++					p->max_gp_group_size);
++				fprintf(fp, ",\n\t\t\"MaxActiveGpGroupSize\": %d",
++					p->max_active_gp_group_size);
++			}
++		} else {
++			json_escape_fprintf(fp, &buf, ",\n\t\t\"Error\": \"%S\"",
++					    strerror(p->open_err));
++		}
++		fprintf(fp, "\n\t}");
++	}
++
++	fprintf(fp, "\n}");
++	strbuf_release(&buf);
++}
++
++static void print_pmu_text(FILE *fp, const struct perf_pmu *pmu,
++			   const struct perf_session *session, bool show_all)
++{
++	size_t num_instances = show_all ? 1 : perf_pmu__num_duplicates(pmu);
++	char display_name[128];
++	const char *kind_sep = "";
++	size_t total_events, sysfs_events, json_events;
++	struct print_format_state format_state = {
++		.fp = fp,
++		.buf = NULL,
++		.json = false,
++		.count = 0,
++	};
++
++	if (num_instances > 1) {
++		size_t base_len = pmu_name_len_no_suffix(pmu->name ?: "");
++
++		snprintf(display_name, sizeof(display_name), "%.*s",
++			 (int)base_len, pmu->name ?: "");
++	} else {
++		snprintf(display_name, sizeof(display_name), "%s", pmu->name ?: "");
++	}
++
++	color_fprintf(fp, PERF_COLOR_BOLD, "%s", display_name);
++	fprintf(fp, " (");
++	if (pmu->type != PERF_PMU_TYPE_FAKE) {
++		fprintf(fp, "type: %u [%s]", pmu->type, pmu_type_desc(pmu->type));
++		kind_sep = ", ";
++	}
++	if (pmu->is_core) {
++		fprintf(fp, "%s", kind_sep);
++		color_fprintf(fp, PERF_COLOR_GREEN, "core");
++		kind_sep = ", ";
++	}
++	if (pmu->is_uncore) {
++		fprintf(fp, "%s", kind_sep);
++		color_fprintf(fp, PERF_COLOR_CYAN, "uncore");
++		kind_sep = ", ";
++	}
++	if (perf_pmu__is_software(pmu)) {
++		fprintf(fp, "%s", kind_sep);
++		color_fprintf(fp, PERF_COLOR_BLUE, "software");
++		kind_sep = ", ";
++	}
++	if (pmu->auxtrace) {
++		fprintf(fp, "%s", kind_sep);
++		color_fprintf(fp, PERF_COLOR_MAGENTA, "auxtrace");
++		kind_sep = ", ";
++	}
++	if (pmu->selectable) {
++		fprintf(fp, "%sselectable", kind_sep);
++		kind_sep = ", ";
++	}
++	fprintf(fp, "):\n");
++
++	if (num_instances > 1 || (pmu->name && strcmp(pmu->name, display_name) != 0))
++		fprintf(fp, "  Instances: %zu (first: %s)\n", num_instances, pmu->name);
++	if (pmu->alias_name)
++		fprintf(fp, "  Alias: %s\n", pmu->alias_name);
++	if (pmu->id)
++		fprintf(fp, "  Identifier: %s\n", pmu->id);
++	if (pmu->cpus) {
++		char cpus_buf[256];
++		int nr_cpus = perf_cpu_map__nr(pmu->cpus);
++
++		cpu_map__snprint(pmu->cpus, cpus_buf, sizeof(cpus_buf));
++		if (cpus_buf[0]) {
++			if (nr_cpus > 0)
++				fprintf(fp, "  CPUs: %s (%d %s)\n",
++					cpus_buf, nr_cpus,
++					nr_cpus == 1 ? "CPU" : "CPUs");
++			else
++				fprintf(fp, "  CPUs: %s\n", cpus_buf);
++		}
++	}
++
++	perf_pmu__caps_parse((struct perf_pmu *)pmu);
++	if (!list_empty(&pmu->caps)) {
++		struct perf_pmu_caps *cap;
++		bool first = true;
++
++		fprintf(fp, "  Capabilities: ");
++		list_for_each_entry(cap, &pmu->caps, list) {
++			fprintf(fp, "%s%s=%s", first ? "" : ", ", cap->name, cap->value);
++			first = false;
++		}
++		fputc('\n', fp);
++	}
++
++	perf_pmu__for_each_format((struct perf_pmu *)pmu, &format_state, print_format_cb);
++	if (format_state.count > 0)
++		fputc('\n', fp);
++
++	pmu_event_counts((struct perf_pmu *)pmu, &total_events,
++			 &sysfs_events, &json_events);
++	if (total_events > 0) {
++		fprintf(fp, "  Events: %zu total (%zu sysfs, %zu json)\n",
++			total_events, sysfs_events, json_events);
++	}
++
++	print_mem_events_static(fp, NULL, pmu, /*json=*/false);
++	print_recorded_events(fp, NULL, pmu, session, show_all, /*json=*/false);
++
++	if (pmu->probed.checked) {
++		const typeof(pmu->probed) *p = &pmu->probed;
++
++		if (!p->open_supported) {
++			fprintf(fp, "  Probed capabilities: ");
++			if (p->open_err == EACCES && pmu->name &&
++			    !strcmp(pmu->name, "kprobe")) {
++				color_fprintf(fp, PERF_COLOR_YELLOW,
++					      "unavailable (%s; requires CAP_PERFMON or CAP_SYS_ADMIN)",
++					      strerror(p->open_err));
++			} else if (p->open_err == EACCES && pmu->name &&
++				   !strcmp(pmu->name, "uprobe")) {
++				color_fprintf(fp, PERF_COLOR_YELLOW,
++					      "unavailable (%s; requires CAP_SYS_ADMIN)",
++					      strerror(p->open_err));
++			} else {
++				color_fprintf(fp, PERF_COLOR_YELLOW, "unavailable (%s)",
++					      strerror(p->open_err));
++			}
++			fputc('\n', fp);
++		} else {
++			const char *sep = "";
++			const struct {
++				bool supported;
++				const char *name;
++			} excl[] = {
++				{ p->exclude_user,   "exclude_user" },
++				{ p->exclude_kernel, "exclude_kernel" },
++				{ p->exclude_hv,     "exclude_hv" },
++				{ p->exclude_idle,   "exclude_idle" },
++				{ p->exclude_host,   "exclude_host" },
++				{ p->exclude_guest,  "exclude_guest" },
++			};
++
++			fprintf(fp, "  Probed capabilities (event: ");
++			color_fprintf(fp, PERF_COLOR_CYAN, "%s",
++				      p->probe_event ?: "default");
++			fprintf(fp, "):\n");
++			fprintf(fp, "    Modes: ");
++			if (p->can_count) {
++				fprintf(fp, "%s", sep);
++				color_fprintf(fp, PERF_COLOR_GREEN, "counting");
++				sep = ", ";
++			}
++			if (p->can_sample) {
++				fprintf(fp, "%s", sep);
++				color_fprintf(fp, PERF_COLOR_GREEN, "sampling");
++				sep = ", ";
++			}
++			if (p->can_branch_stack) {
++				fprintf(fp, "%s", sep);
++				color_fprintf(fp, PERF_COLOR_GREEN, "branch_stack");
++				sep = ", ";
++			}
++			if (*sep == '\0')
++				color_fprintf(fp, PERF_COLOR_RED, "none");
++			fputc('\n', fp);
++
++			if (p->can_sample) {
++				if (!pmu->auxtrace) {
++					print_precise_levels(fp, pmu, p->precise_mask,
++							     p->max_precise, /*json=*/false);
++
++					print_measured_skid(fp, pmu, /*json=*/false);
++				}
++
++				fprintf(fp, "    Sample types: ");
++				print_sample_type_list(fp, p->sample_types, /*json=*/false);
++				fputc('\n', fp);
++			}
++
++			print_probed_regs(fp, NULL, "User registers",
++					  p->user_regs_mask, p->user_regs_abi,
++					  p->user_simd_mask, p->user_pred_mask,
++					  /*intr=*/false, /*json=*/false);
++			print_probed_regs(fp, NULL, "Intr registers",
++					  p->intr_regs_mask, p->intr_regs_abi,
++					  p->intr_simd_mask, p->intr_pred_mask,
++					  /*intr=*/true, /*json=*/false);
++
++			if (p->mem_events_mask) {
++				sep = "";
++				fprintf(fp, "    Memory events (probed): ");
++				for (int j = 0; j < PERF_MEM_EVENTS__MAX; j++) {
++					struct perf_mem_event *e =
++						perf_pmu__mem_events_ptr((struct perf_pmu *)pmu, j);
++
++					if (e && e->tag && (p->mem_events_mask & (1u << j))) {
++						fprintf(fp, "%s%s", sep, e->tag);
++						sep = ", ";
++					}
++				}
++				if (p->mem_sample_types) {
++					fprintf(fp, " (sample types: ");
++					print_sample_type_list(fp, p->mem_sample_types,
++							       /*json=*/false);
++					fprintf(fp, ")");
++				}
++				fputc('\n', fp);
++			}
++
++			sep = "";
++			fprintf(fp, "    Exclusion modifiers: ");
++			for (size_t x = 0; x < ARRAY_SIZE(excl); x++) {
++				if (excl[x].supported) {
++					fprintf(fp, "%s%s", sep, excl[x].name);
++					sep = ", ";
++				}
++			}
++			if (*sep == '\0')
++				fprintf(fp, "none");
++			fputc('\n', fp);
++
++			{
++				const struct {
++					bool supported;
++					const char *name;
++				} feats[] = {
++					{ p->can_leader_sampling,  "leader_sampling" },
++					{ p->can_sw_grouping,      "sw_grouping" },
++					{ p->can_inherit,          "inherit" },
++					{ p->can_freq,             "sample_freq" },
++					{ p->can_write_backward,   "write_backward" },
++					{ p->can_callchain,        "callchain" },
++					{ p->can_data_src,         "data_src" },
++					{ p->can_weight,           "weight" },
++					{ p->can_pinned,           "pinned" },
++					{ p->can_exclusive,        "exclusive" },
++					{ p->can_format_lost,      "format_lost" },
++					{ p->can_acr,              "auto_counter_reload" },
++					{ p->can_aux_start_paused, "aux_start_paused" },
++					{ p->can_aux_pause,        "aux_pause" },
++					{ p->can_aux_resume,       "aux_resume" },
++					{ p->can_aux_sample,       "aux_sample" },
++					{ p->can_user_rdpmc,       "user_rdpmc" },
++					{ p->can_user_time,        "user_time" },
++					{ p->can_user_time_zero,   "user_time_zero" },
++					{ p->can_user_time_short,  "user_time_short" },
++				};
++
++				sep = "";
++				fprintf(fp, "    Features: ");
++				for (size_t x = 0; x < ARRAY_SIZE(feats); x++) {
++					if (feats[x].supported) {
++						fprintf(fp, "%s%s", sep, feats[x].name);
++						sep = ", ";
++					}
++				}
++				if (*sep == '\0')
++					fprintf(fp, "none");
++				fputc('\n', fp);
++			}
++
++			if (pmu->auxtrace) {
++				const struct {
++					bool supported;
++					const char *name;
++				} aux_acts[] = {
++					{ p->can_aux_start_paused, "aux_start_paused" },
++					{ p->can_aux_pause,        "aux_pause" },
++					{ p->can_aux_resume,       "aux_resume" },
++					{ p->can_aux_sample,       "aux_sample" },
++				};
++
++				sep = "";
++				fprintf(fp, "    AUX actions: ");
++				for (size_t x = 0; x < ARRAY_SIZE(aux_acts); x++) {
++					if (aux_acts[x].supported) {
++						fprintf(fp, "%s%s", sep, aux_acts[x].name);
++						sep = ", ";
++					}
++				}
++				if (*sep == '\0')
++					fprintf(fp, "none");
++				fputc('\n', fp);
++			}
++
++			if (pmu->is_core || p->rdpmc_available) {
++				fprintf(fp, "    User space counter reading (rdpmc): ");
++				if (!p->rdpmc_available) {
++					color_fprintf(fp, PERF_COLOR_RED, "not supported");
++					fputc('\n', fp);
++				} else {
++					color_fprintf(fp, PERF_COLOR_GREEN, "available");
++					fprintf(fp, ", ");
++					color_fprintf(fp,
++						      p->can_user_rdpmc ?
++						      PERF_COLOR_GREEN : PERF_COLOR_YELLOW,
++						      "%s",
++						      p->can_user_rdpmc ? "enabled" : "disabled");
++					if (p->rdpmc_sysfs >= 0)
++						fprintf(fp, " (sysfs: %d)", p->rdpmc_sysfs);
++					if (p->can_user_rdpmc) {
++						fprintf(fp, ", ");
++						color_fprintf(fp,
++							      p->rdpmc_works ?
++							      PERF_COLOR_GREEN : PERF_COLOR_RED,
++							      "%s",
++							      p->rdpmc_works ?
++							      "working" : "read failed");
++					}
++					if (p->pmc_width > 0)
++						fprintf(fp, " (width: %u bits)", p->pmc_width);
++					fputc('\n', fp);
++				}
++			}
++
++			fprintf(fp, "    Max event group size: %s%d (active: %s%d)\n",
++				p->max_group_capped ? ">=" : "",
++				p->max_group_size,
++				p->max_active_capped ? ">=" : "",
++				p->max_active_group_size);
++			if (p->max_gp_group_size > 0 &&
++			    (p->max_gp_group_size != p->max_group_size ||
++			     p->max_active_gp_group_size != p->max_active_group_size)) {
++				fprintf(fp, "    Max GP event group size: %s%d (active: %s%d)\n",
++					p->max_gp_group_capped ? ">=" : "",
++					p->max_gp_group_size,
++					p->max_active_gp_capped ? ">=" : "",
++					p->max_active_gp_group_size);
++			}
++		}
++	}
++}
++
++static int process_header_feature(const struct perf_tool *tool,
++				  struct perf_session *session,
++				  union perf_event *event)
++{
++	int ret = perf_event__process_feature(tool, session, event);
++
++	if (ret == 0 && event->header.size == sizeof(struct perf_record_header_feature) &&
++	    (int)event->feat.feat_id >= session->header.last_feat) {
++		session_done = 1;
++	}
++	return ret;
++}
++
++static int process_sample_stop(const struct perf_tool *tool __maybe_unused,
++			       union perf_event *event __maybe_unused,
++			       struct perf_sample *sample __maybe_unused,
++			       struct machine *machine __maybe_unused)
++{
++	session_done = 1;
++	return 0;
++}
++
++#define MAX_SUMMARY_METRICS 2048
++#define MAX_DRILLDOWN_LEVELS 16
++
++struct summary_metric_item {
++	char *pmu;
++	char *name;
++	char *groups;
++	int level;
++	bool has_children;
++	bool has_parent;
++};
++
++struct summary_metrics_state {
++	struct strlist *metrics;
++	struct strlist *groups;
++	struct summary_metric_item items[MAX_SUMMARY_METRICS];
++	size_t nr_items;
++};
++
++static bool group_list_has_token(const char *groups, const char *token)
++{
++	size_t tok_len;
++	const char *p;
++
++	if (!groups || !token || !*token)
++		return false;
++	tok_len = strlen(token);
++	p = groups;
++	while (*p) {
++		const char *semi = strchr(p, ';');
++		size_t len = semi ? (size_t)(semi - p) : strlen(p);
++
++		if (len == tok_len && !strncmp(p, token, len))
++			return true;
++		if (!semi)
++			break;
++		p = semi + 1;
++	}
++	return false;
++}
++
++static int collect_summary_metric_cb(const struct pmu_metric *pm,
++				     const struct pmu_metrics_table *table __maybe_unused,
++				     void *vdata)
++{
++	struct summary_metrics_state *st = vdata;
++
++	if (pm->metric_name)
++		strlist__add(st->metrics, pm->metric_name);
++
++	if (pm->metric_group) {
++		char *copy = strdup(pm->metric_group);
++		char *tok, *saveptr = NULL;
++
++		if (copy) {
++			for (tok = strtok_r(copy, ";", &saveptr); tok;
++			     tok = strtok_r(NULL, ";", &saveptr)) {
++				if (*tok)
++					strlist__add(st->groups, tok);
++			}
++			free(copy);
++		}
++	}
++
++	if (pm->metric_name) {
++		const char *pmu_name = pm->pmu ?: "cpu";
++		struct summary_metric_item *existing = NULL;
++
++		for (size_t i = 0; i < st->nr_items; i++) {
++			if (st->items[i].pmu && st->items[i].name &&
++			    !strcmp(st->items[i].pmu, pmu_name) &&
++			    !strcmp(st->items[i].name, pm->metric_name)) {
++				existing = &st->items[i];
 +				break;
 +			}
 +		}
-+		if (dup)
-+			continue;
++		if (!existing && st->nr_items < MAX_SUMMARY_METRICS) {
++			existing = &st->items[st->nr_items++];
++			existing->pmu = strdup(pmu_name);
++			existing->name = strdup(pm->metric_name);
++			existing->groups = strdup(pm->metric_group ?: "");
++		} else if (existing && pm->metric_group && existing->groups &&
++			   !strstr(existing->groups, pm->metric_group)) {
++			char *merged = NULL;
 +
-+		fd = sys_perf_event_open(&cand_attr, pid, cpu, -1, flags);
-+		if (fd >= 0) {
-+			close(fd);
-+			group_attrs[nr_group_attrs++] = cand_attr;
-+		}
-+	}
-+
-+	probe_candidates__exit(&cands);
-+
-+	/* 1. Counting vs Sampling support */
-+	if (base_attr.sample_period == 0) {
-+		struct perf_event_attr samp_attr = base_attr;
-+		int fd;
-+
-+		pmu->probed.can_count = true;
-+		samp_attr.sample_period = 10000;
-+		samp_attr.sample_type = PERF_SAMPLE_IP;
-+		fd = sys_perf_event_open(&samp_attr, pid, cpu, -1, flags);
-+		if (fd >= 0) {
-+			close(fd);
-+			pmu->probed.can_sample = true;
-+		}
-+	} else {
-+		pmu->probed.can_count = false;
-+		pmu->probed.can_sample = true;
-+	}
-+
-+	/* 2. All enum perf_event_sample_format types */
-+	if (pmu->probed.can_sample)
-+		probe_sample_types(pmu, &base_attr, pid, cpu, flags);
-+
-+	/*
-+	 * 3. Precise sampling support (:p, :pp, :ppp).
-+	 * PMUs that do not validate attr.precise_ip (such as software,
-+	 * breakpoint, or intel_pt) silently accept precise_ip > 0 even when
-+	 * sample_period == 0. A PMU that genuinely implements precise_ip
-+	 * either rejects precise_ip > 0 on non-sampling events or is a
-+	 * sampling-only PMU (such as AMD ibs_op).
-+	 * Note: On AMD, core events like cycles:P are forwarded to IBS and
-+	 * support higher precision than advertised in sysfs caps/max_precise.
-+	 */
-+	if (pmu->probed.can_sample && !pmu->auxtrace) {
-+		bool ignores_precise_ip = false;
-+
-+		if (pmu->probed.can_count) {
-+			struct perf_event_attr c_attr = base_attr;
-+			int fd;
-+
-+			c_attr.sample_period = 0;
-+			c_attr.freq = 0;
-+			c_attr.sample_type = 0;
-+			c_attr.precise_ip = 1;
-+			fd = sys_perf_event_open(&c_attr, pid, cpu, -1, flags);
-+			if (fd >= 0) {
-+				close(fd);
-+				ignores_precise_ip = true;
++			if (asprintf(&merged, "%s;%s", existing->groups, pm->metric_group) > 0) {
++				free(existing->groups);
++				existing->groups = merged;
 +			}
 +		}
-+
-+		if (!ignores_precise_ip) {
-+			for (int level = 1; level <= 3; level++) {
-+				struct perf_event_attr p_attr = base_attr;
-+				int fd;
-+
-+				p_attr.sample_period = 10000;
-+				p_attr.sample_type = PERF_SAMPLE_IP;
-+				p_attr.precise_ip = level;
-+				fd = sys_perf_event_open(&p_attr, pid, cpu, -1, flags);
-+				if (fd < 0 && p_attr.exclude_kernel && p_attr.config2 == 0) {
-+					p_attr.config2 = 1;
-+					fd = sys_perf_event_open(&p_attr, pid, cpu, -1, flags);
-+				}
-+				if (fd >= 0) {
-+					close(fd);
-+					pmu->probed.precise_mask |= (1u << level);
-+					pmu->probed.max_precise = level;
-+				}
-+			}
-+		}
-+
 +	}
-+
-+	/* 4. Privilege / exclusion modifiers */
-+	pmu->probed.exclude_user =
-+		test_exclude_flag(&base_attr, pid, cpu, flags, PROBE_EXCLUDE_USER);
-+	pmu->probed.exclude_kernel =
-+		test_exclude_flag(&base_attr, pid, cpu, flags, PROBE_EXCLUDE_KERNEL);
-+	pmu->probed.exclude_hv =
-+		test_exclude_flag(&base_attr, pid, cpu, flags, PROBE_EXCLUDE_HV);
-+	pmu->probed.exclude_idle =
-+		test_exclude_flag(&base_attr, pid, cpu, flags, PROBE_EXCLUDE_IDLE);
-+	pmu->probed.exclude_host =
-+		test_exclude_flag(&base_attr, pid, cpu, flags, PROBE_EXCLUDE_HOST);
-+	pmu->probed.exclude_guest =
-+		test_exclude_flag(&base_attr, pid, cpu, flags, PROBE_EXCLUDE_GUEST);
-+
-+	/* 5. Execution features */
-+	if (pmu->probed.can_sample) {
-+		struct perf_event_attr l_attr = base_attr;
-+		struct perf_event_attr f_attr = nr_group_attrs > 1 ? group_attrs[1] : base_attr;
-+		int l_fd;
-+
-+		l_attr.disabled = 1;
-+		l_attr.sample_period = 10000;
-+		l_attr.sample_type = PERF_SAMPLE_IP | PERF_SAMPLE_READ;
-+		l_attr.read_format = PERF_FORMAT_GROUP | PERF_FORMAT_ID;
-+
-+		f_attr.disabled = 0;
-+		f_attr.sample_period = 0;
-+		f_attr.sample_type = 0;
-+		f_attr.read_format = 0;
-+
-+		l_fd = sys_perf_event_open(&l_attr, pid, cpu, -1, flags);
-+		if (l_fd >= 0) {
-+			int f_fd = sys_perf_event_open(&f_attr, pid, cpu, l_fd, flags);
-+
-+			if (f_fd >= 0) {
-+				if (ioctl(l_fd, PERF_EVENT_IOC_ENABLE, PERF_IOC_FLAG_GROUP) >= 0)
-+					pmu->probed.can_leader_sampling = true;
-+				ioctl(l_fd, PERF_EVENT_IOC_DISABLE, PERF_IOC_FLAG_GROUP);
-+				close(f_fd);
-+			}
-+			close(l_fd);
-+		}
-+	}
-+
-+	{
-+		struct perf_event_attr l_attr = base_attr;
-+		int l_fd;
-+
-+		l_attr.disabled = 1;
-+		l_fd = sys_perf_event_open(&l_attr, pid, cpu, -1, flags);
-+		if (l_fd >= 0) {
-+			struct perf_event_attr sw_attr;
-+			int sw_fd;
-+
-+			memset(&sw_attr, 0, sizeof(sw_attr));
-+			sw_attr.type = PERF_TYPE_SOFTWARE;
-+			sw_attr.size = sizeof(sw_attr);
-+			sw_attr.config = PERF_COUNT_SW_DUMMY;
-+			sw_attr.disabled = 0;
-+			sw_attr.exclude_user = base_attr.exclude_user;
-+			sw_attr.exclude_kernel = base_attr.exclude_kernel;
-+			sw_attr.exclude_hv = base_attr.exclude_hv;
-+			sw_attr.exclude_idle = base_attr.exclude_idle;
-+			sw_attr.exclude_host = base_attr.exclude_host;
-+			sw_attr.exclude_guest = base_attr.exclude_guest;
-+
-+			sw_fd = sys_perf_event_open(&sw_attr, pid, cpu, l_fd, flags);
-+			if (sw_fd < 0) {
-+				sw_attr.config = PERF_COUNT_SW_CPU_CLOCK;
-+				sw_fd = sys_perf_event_open(&sw_attr, pid, cpu, l_fd, flags);
-+			}
-+			if (sw_fd >= 0) {
-+				pmu->probed.can_sw_grouping = true;
-+				close(sw_fd);
-+			}
-+			close(l_fd);
-+		}
-+	}
-+
-+	{
-+		struct perf_event_attr inh_attr = base_attr;
-+		int fd;
-+
-+		inh_attr.disabled = 1;
-+		inh_attr.inherit = 1;
-+		fd = sys_perf_event_open(&inh_attr, pid, cpu, -1, flags);
-+		if (fd >= 0) {
-+			close(fd);
-+			pmu->probed.can_inherit = true;
-+		}
-+	}
-+
-+	if (pmu->probed.can_sample) {
-+		struct perf_event_attr freq_attr = base_attr;
-+		int fd;
-+
-+		freq_attr.disabled = 1;
-+		freq_attr.freq = 1;
-+		freq_attr.sample_freq = 4000;
-+		freq_attr.sample_type = PERF_SAMPLE_IP;
-+		fd = sys_perf_event_open(&freq_attr, pid, cpu, -1, flags);
-+		if (fd >= 0) {
-+			close(fd);
-+			pmu->probed.can_freq = true;
-+		}
-+	}
-+
-+	if (pmu->probed.can_sample) {
-+		struct perf_event_attr wb_attr = base_attr;
-+		int fd;
-+
-+		wb_attr.disabled = 1;
-+		wb_attr.sample_period = 10000;
-+		wb_attr.sample_type = PERF_SAMPLE_IP;
-+		wb_attr.write_backward = 1;
-+		fd = sys_perf_event_open(&wb_attr, pid, cpu, -1, flags);
-+		if (fd >= 0) {
-+			close(fd);
-+			pmu->probed.can_write_backward = true;
-+		}
-+	}
-+
-+	{
-+		struct perf_event_attr pin_attr = base_attr;
-+		int fd;
-+
-+		pin_attr.disabled = 1;
-+		pin_attr.pinned = 1;
-+		fd = sys_perf_event_open(&pin_attr, pid, cpu, -1, flags);
-+		if (fd >= 0) {
-+			close(fd);
-+			pmu->probed.can_pinned = true;
-+		}
-+	}
-+
-+	{
-+		struct perf_event_attr exc_attr = base_attr;
-+		int fd;
-+
-+		exc_attr.disabled = 1;
-+		exc_attr.exclusive = 1;
-+		fd = sys_perf_event_open(&exc_attr, pid, cpu, -1, flags);
-+		if (fd >= 0) {
-+			close(fd);
-+			pmu->probed.can_exclusive = true;
-+		}
-+	}
-+
-+	{
-+		struct perf_event_attr lost_attr = base_attr;
-+		int fd;
-+
-+		lost_attr.disabled = 1;
-+		lost_attr.read_format = PERF_FORMAT_TOTAL_TIME_ENABLED |
-+					PERF_FORMAT_TOTAL_TIME_RUNNING |
-+					PERF_FORMAT_LOST;
-+		fd = sys_perf_event_open(&lost_attr, pid, cpu, -1, flags);
-+		if (fd >= 0) {
-+			close(fd);
-+			pmu->probed.can_format_lost = true;
-+		}
-+	}
-+
-+	/* 5c. Auto-counter reload (acr_mask / ratio-to-prev) */
-+	if (pmu->probed.can_sample && perf_pmu__has_format(pmu, "acr_mask")) {
-+		struct perf_event_attr l_attr = base_attr;
-+		struct perf_event_attr f_attr = nr_group_attrs > 1 ? group_attrs[1] : base_attr;
-+		int l_fd;
-+
-+		l_attr.disabled = 1;
-+		l_attr.freq = 0;
-+		l_attr.sample_period = 200000;
-+		l_attr.sample_type = PERF_SAMPLE_IP;
-+		l_attr.config2 = 0x2;
-+
-+		f_attr.disabled = 0;
-+		f_attr.freq = 0;
-+		f_attr.sample_period = 100000;
-+		f_attr.sample_type = PERF_SAMPLE_IP;
-+		f_attr.config2 = 0x3;
-+
-+		l_fd = sys_perf_event_open(&l_attr, pid, cpu, -1, flags);
-+		if (l_fd >= 0) {
-+			int f_fd = sys_perf_event_open(&f_attr, pid, cpu, l_fd, flags);
-+
-+			if (f_fd >= 0) {
-+				if (ioctl(l_fd, PERF_EVENT_IOC_ENABLE, PERF_IOC_FLAG_GROUP) >= 0)
-+					pmu->probed.can_acr = true;
-+				ioctl(l_fd, PERF_EVENT_IOC_DISABLE, PERF_IOC_FLAG_GROUP);
-+				close(f_fd);
-+			}
-+			close(l_fd);
-+		}
-+	}
-+
-+	/* 5d. AUX area event actions (start_paused, pause, resume, aux_sample) */
-+	if (pmu->auxtrace) {
-+		struct perf_event_attr a_attr = base_attr;
-+		int l_fd;
-+
-+		a_attr.size = max_t(__u32, base_attr.size, PERF_ATTR_SIZE_VER8);
-+		a_attr.disabled = 1;
-+		a_attr.aux_start_paused = 1;
-+		l_fd = sys_perf_event_open(&a_attr, pid, cpu, -1, flags);
-+		if (l_fd >= 0) {
-+			close(l_fd);
-+			pmu->probed.can_aux_start_paused = true;
-+		}
-+
-+		a_attr = base_attr;
-+		a_attr.disabled = 1;
-+		l_fd = sys_perf_event_open(&a_attr, pid, cpu, -1, flags);
-+		if (l_fd >= 0) {
-+			struct perf_event_attr f_attr;
-+			int f_fd;
-+
-+			memset(&f_attr, 0, sizeof(f_attr));
-+			f_attr.type = PERF_TYPE_SOFTWARE;
-+			f_attr.size = max_t(__u32, base_attr.size, PERF_ATTR_SIZE_VER8);
-+			f_attr.config = PERF_COUNT_SW_CPU_CLOCK;
-+			f_attr.sample_period = 10000;
-+			f_attr.sample_type = PERF_SAMPLE_IP;
-+			f_attr.exclude_user = base_attr.exclude_user;
-+			f_attr.exclude_kernel = base_attr.exclude_kernel;
-+			f_attr.exclude_hv = base_attr.exclude_hv;
-+			f_attr.exclude_idle = base_attr.exclude_idle;
-+			f_attr.exclude_host = base_attr.exclude_host;
-+			f_attr.exclude_guest = base_attr.exclude_guest;
-+
-+			f_attr.aux_pause = 1;
-+			f_attr.aux_resume = 0;
-+			f_fd = sys_perf_event_open(&f_attr, pid, cpu, l_fd, flags);
-+			if (f_fd >= 0) {
-+				close(f_fd);
-+				pmu->probed.can_aux_pause = true;
-+			}
-+
-+			f_attr.aux_pause = 0;
-+			f_attr.aux_resume = 1;
-+			f_fd = sys_perf_event_open(&f_attr, pid, cpu, l_fd, flags);
-+			if (f_fd >= 0) {
-+				close(f_fd);
-+				pmu->probed.can_aux_resume = true;
-+			}
-+
-+			f_attr.aux_resume = 0;
-+			f_attr.sample_type = PERF_SAMPLE_IP | PERF_SAMPLE_AUX;
-+			f_attr.aux_sample_size = 64;
-+			f_fd = sys_perf_event_open(&f_attr, pid, cpu, l_fd, flags);
-+			if (f_fd >= 0) {
-+				close(f_fd);
-+				pmu->probed.can_aux_sample = true;
-+			}
-+
-+			close(l_fd);
-+		}
-+	}
-+
-+	/* 6. Max event group size & max simultaneously active group size */
-+	if (pmu->name && (!strcmp(pmu->name, "kprobe") || !strcmp(pmu->name, "uprobe"))) {
-+		if (pmu->probed.can_leader_sampling || pmu->probed.can_sw_grouping) {
-+			pmu->probed.max_group_size = MAX_PROBE_GROUP_SIZE;
-+			pmu->probed.max_group_capped = true;
-+			pmu->probed.max_active_group_size = MAX_PROBE_GROUP_SIZE;
-+			pmu->probed.max_active_capped = true;
-+		} else {
-+			pmu->probed.max_group_size = 1;
-+			pmu->probed.max_active_group_size = 1;
-+		}
-+	} else {
-+		probe_group_limits(group_attrs, nr_group_attrs, pid, cpu, flags,
-+				   &pmu->probed.max_group_size,
-+				   &pmu->probed.max_group_capped,
-+				   &pmu->probed.max_active_group_size,
-+				   &pmu->probed.max_active_capped);
-+	}
-+
-+	/*
-+	 * On core PMUs, cycles/instructions may use fixed counters in addition
-+	 * to general-purpose (GP) programmable counters. Probe a GP-only event
-+	 * group rotating through distinct GP events to determine the GP limit.
-+	 */
-+	if (pmu->is_core) {
-+		static const char * const gp_events[] = {
-+			"branches",
-+			"branch-misses",
-+			"cache-misses",
-+			"cache-references",
-+			"bus-cycles",
-+			"stalled-cycles-frontend",
-+			"stalled-cycles-backend",
-+		};
-+		static const int gp_configs[] = {
-+			PERF_COUNT_HW_BRANCH_INSTRUCTIONS,
-+			PERF_COUNT_HW_BRANCH_MISSES,
-+			PERF_COUNT_HW_CACHE_MISSES,
-+			PERF_COUNT_HW_CACHE_REFERENCES,
-+			PERF_COUNT_HW_BUS_CYCLES,
-+			PERF_COUNT_HW_STALLED_CYCLES_FRONTEND,
-+			PERF_COUNT_HW_STALLED_CYCLES_BACKEND,
-+		};
-+		struct perf_event_attr gp_attrs[MAX_PROBE_GROUP_SIZE];
-+		size_t nr_gp_attrs = 0;
-+		pid_t gp_pid = pid;
-+		int gp_cpu = cpu;
-+		int gp_err = 0;
-+
-+		for (size_t i = 0;
-+		     i < ARRAY_SIZE(gp_events) && nr_gp_attrs < MAX_PROBE_GROUP_SIZE; i++) {
-+			char gp_buf[256];
-+			struct perf_event_attr gp_attr;
-+			bool parsed;
-+
-+			snprintf(gp_buf, sizeof(gp_buf), "%s/%s/", pmu->name, gp_events[i]);
-+			memset(&gp_attr, 0, sizeof(gp_attr));
-+			parsed = parse_candidate_attr(gp_buf, &gp_attr);
-+			if (!parsed) {
-+				gp_attr.type = PERF_TYPE_HARDWARE;
-+				gp_attr.config = gp_configs[i];
-+				if (perf_pmus__supports_extended_type())
-+					gp_attr.config |= (__u64)pmu->type << PERF_PMU_TYPE_SHIFT;
-+			}
-+			gp_attr.sample_period = base_attr.sample_period;
-+			gp_attr.freq = base_attr.freq;
-+			gp_attr.sample_type = base_attr.sample_type;
-+			gp_attr.exclude_user = base_attr.exclude_user;
-+			gp_attr.exclude_kernel = base_attr.exclude_kernel;
-+			gp_attr.exclude_hv = base_attr.exclude_hv;
-+			gp_attr.exclude_idle = base_attr.exclude_idle;
-+			gp_attr.exclude_host = base_attr.exclude_host;
-+			gp_attr.exclude_guest = base_attr.exclude_guest;
-+			gp_attr.disabled = 1;
-+
-+			if (nr_gp_attrs == 0) {
-+				if (try_open_attr_variants(&gp_attr, false, pmu_cpu,
-+							   flags, &gp_pid, &gp_cpu, &gp_err)) {
-+					gp_attrs[nr_gp_attrs++] = gp_attr;
-+				}
-+			} else {
-+				int fd = sys_perf_event_open(&gp_attr, gp_pid, gp_cpu, -1, flags);
-+
-+				if (fd >= 0) {
-+					close(fd);
-+					gp_attrs[nr_gp_attrs++] = gp_attr;
-+				}
-+			}
-+		}
-+
-+		if (nr_gp_attrs > 0) {
-+			probe_group_limits(gp_attrs, nr_gp_attrs, gp_pid, gp_cpu, flags,
-+					   &pmu->probed.max_gp_group_size,
-+					   &pmu->probed.max_gp_group_capped,
-+					   &pmu->probed.max_active_gp_group_size,
-+					   &pmu->probed.max_active_gp_capped);
-+		}
-+	}
-+
-+	if (keepalive_fd >= 0)
-+		close(keepalive_fd);
-+	pmu->probed.checked = true;
++	return 0;
 +}
 +
- const char *perf_pmu__name_from_config(struct perf_pmu *pmu, u64 config)
- {
- 	struct hashmap_entry *entry;
-diff --git a/tools/perf/util/pmu.h b/tools/perf/util/pmu.h
-index adb33a9fc94b..6da57b167d71 100644
---- a/tools/perf/util/pmu.h
-+++ b/tools/perf/util/pmu.h
-@@ -209,6 +209,138 @@ struct perf_pmu {
- 	 * @mem_events: List of the supported mem events
- 	 */
- 	struct perf_mem_event *mem_events;
++static int compute_metric_drilldown(struct summary_metrics_state *st,
++				    int level_counts[MAX_DRILLDOWN_LEVELS],
++				    char *level_labels[MAX_DRILLDOWN_LEVELS])
++{
++	int max_level = 0;
 +
-+	/**
-+	 * @probed: Capabilities discovered by probing perf_event_open() on live
-+	 * systems.
-+	 */
-+	struct {
-+		/** @checked: Has perf_pmu__probe() been run on this PMU? */
-+		bool checked;
-+		/** @open_supported: Could a probe event be opened on this PMU? */
-+		bool open_supported;
-+		/** @can_count: Supports counting (sample_period == 0). */
-+		bool can_count;
-+		/** @can_sample: Supports interrupt-based sampling (sample_period > 0). */
-+		bool can_sample;
-+		/** @can_branch_stack: Supports PERF_SAMPLE_BRANCH_STACK. */
-+		bool can_branch_stack;
-+		/** @can_leader_sampling: Supports group leader sampling (:S). */
-+		bool can_leader_sampling;
-+		/** @can_sw_grouping: Supports grouping software events with this PMU's events. */
-+		bool can_sw_grouping;
-+		/** @can_inherit: Supports perf_event_attr::inherit across child tasks. */
-+		bool can_inherit;
-+		/** @can_freq: Supports dynamic sample frequency (perf_event_attr::freq). */
-+		bool can_freq;
-+		/** @can_write_backward: Supports overwrite ring buffer (write_backward). */
-+		bool can_write_backward;
-+		/** @can_callchain: Supports PERF_SAMPLE_CALLCHAIN. */
-+		bool can_callchain;
-+		/** @can_data_src: Supports PERF_SAMPLE_DATA_SRC. */
-+		bool can_data_src;
-+		/** @can_weight: Supports PERF_SAMPLE_WEIGHT. */
-+		bool can_weight;
-+		/** @can_pinned: Supports perf_event_attr::pinned. */
-+		bool can_pinned;
-+		/** @can_exclusive: Supports perf_event_attr::exclusive. */
-+		bool can_exclusive;
-+		/** @can_format_lost: Supports PERF_FORMAT_LOST. */
-+		bool can_format_lost;
-+		/** @can_acr: Supports auto-counter reload (acr_mask / ratio-to-prev). */
-+		bool can_acr;
-+		/** @can_aux_start_paused: Supports aux_start_paused (PERF_PMU_CAP_AUX_PAUSE). */
-+		bool can_aux_start_paused;
-+		/** @can_aux_pause: Supports aux_pause action on group followers. */
-+		bool can_aux_pause;
-+		/** @can_aux_resume: Supports aux_resume action on group followers. */
-+		bool can_aux_resume;
-+		/** @can_aux_sample: Supports AUX area snapshot sampling (aux_sample_size). */
-+		bool can_aux_sample;
-+		/** @rdpmc_available: PMU supports user-space counter reading (rdpmc/mrs/csrr). */
-+		bool rdpmc_available;
-+		/** @can_user_rdpmc: User-space counter reading enabled (cap_user_rdpmc & index). */
-+		bool can_user_rdpmc;
-+		/** @rdpmc_works: User-space counter read instruction executed and worked. */
-+		bool rdpmc_works;
-+		/** @can_user_time: Supports user-space time conversion (cap_user_time). */
-+		bool can_user_time;
-+		/** @can_user_time_zero: Supports cap_user_time_zero in mmap page. */
-+		bool can_user_time_zero;
-+		/** @can_user_time_short: Supports cap_user_time_short in mmap page. */
-+		bool can_user_time_short;
-+		/** @exclude_user: Supports perf_event_attr::exclude_user. */
-+		bool exclude_user;
-+		/** @exclude_kernel: Supports perf_event_attr::exclude_kernel. */
-+		bool exclude_kernel;
-+		/** @exclude_hv: Supports perf_event_attr::exclude_hv. */
-+		bool exclude_hv;
-+		/** @exclude_idle: Supports perf_event_attr::exclude_idle. */
-+		bool exclude_idle;
-+		/** @exclude_host: Supports perf_event_attr::exclude_host. */
-+		bool exclude_host;
-+		/** @exclude_guest: Supports perf_event_attr::exclude_guest. */
-+		bool exclude_guest;
-+		/** @max_group_capped: Was max_group_size capped at probe limit? */
-+		bool max_group_capped;
-+		/** @max_active_capped: Was max_active_group_size capped at probe limit? */
-+		bool max_active_capped;
-+		/** @max_gp_group_capped: Was max_gp_group_size capped at probe limit? */
-+		bool max_gp_group_capped;
-+		/** @max_active_gp_capped: Was max_active_gp_group_size capped at probe limit? */
-+		bool max_active_gp_capped;
-+		/** @probe_event: Name of the event used to probe the PMU. */
-+		char *probe_event;
-+		/** @open_err: errno if open_supported is false. */
-+		int open_err;
-+		/** @max_precise: Maximum precise_ip level (0..3) supported. */
-+		int max_precise;
-+		/** @precise_mask: Bitmask of supported precise_ip levels (1..3). */
-+		unsigned int precise_mask;
-+		/** @max_group_size: Max events in a group accepted by perf_event_open(). */
-+		int max_group_size;
-+		/** @max_active_group_size: Max events in a group active simultaneously. */
-+		int max_active_group_size;
-+		/** @max_gp_group_size: Max GP events in a group accepted by perf_event_open(). */
-+		int max_gp_group_size;
-+		/** @max_active_gp_group_size: Max GP events in a group active simultaneously. */
-+		int max_active_gp_group_size;
-+		/** @user_regs_abi: ABI flags for user_regs_mask. */
-+		int user_regs_abi;
-+		/** @intr_regs_abi: ABI flags for intr_regs_mask. */
-+		int intr_regs_abi;
-+		/** @rdpmc_sysfs: Value from sysfs rdpmc or perf_user_access (-1 if unknown). */
-+		int rdpmc_sysfs;
-+		/** @mem_events_mask: Bitmask of memory event types verified by probing. */
-+		unsigned int mem_events_mask;
-+		/** @pmc_width: Bit-width of hardware counter for user-space rdpmc. */
-+		u16 pmc_width;
-+		/** @sample_types: Bitmask of supported enum perf_event_sample_format flags. */
-+		u64 sample_types;
-+		/** @mem_sample_types: Bitmask of memory sample formats verified on mem_events. */
-+		u64 mem_sample_types;
-+		/** @user_regs_mask: Bitmask of supported sample_regs_user registers. */
-+		u64 user_regs_mask;
-+		/** @intr_regs_mask: Bitmask of supported sample_regs_intr registers. */
-+		u64 intr_regs_mask;
-+		/** @user_simd_mask: Bitmask of supported user SIMD vector register classes. */
-+		u64 user_simd_mask;
-+		/** @user_pred_mask: Bitmask of supported user SIMD predicate register classes. */
-+		u64 user_pred_mask;
-+		/** @intr_simd_mask: Bitmask of supported intr SIMD vector register classes. */
-+		u64 intr_simd_mask;
-+		/** @intr_pred_mask: Bitmask of supported intr SIMD predicate register classes. */
-+		u64 intr_pred_mask;
-+		/** @skid: Measured branch instruction skid at precise_ip levels (0..3). */
-+		struct {
-+			bool measured;
-+			int samples;
-+			int exact_samples;
-+			int min_skid;
-+			int max_skid;
-+			double avg_skid;
-+		} skid[4];
-+	} probed;
- };
- 
- struct perf_pmu_info {
-@@ -332,8 +464,8 @@ int perf_pmu__convert_scale(const char *scale, char **end, double *sval);
- 
- struct perf_pmu_caps *perf_pmu__get_cap(struct perf_pmu *pmu, const char *name);
- int perf_pmu__add_cap(struct perf_pmu *pmu, const char *name, const char *value);
--
- int perf_pmu__caps_parse(struct perf_pmu *pmu);
-+void perf_pmu__probe(struct perf_pmu *pmu);
- 
- void perf_pmu__warn_invalid_config(struct perf_pmu *pmu, __u64 config,
- 				   const char *name, int config_num,
++	memset(level_counts, 0, sizeof(int) * MAX_DRILLDOWN_LEVELS);
++	memset(level_labels, 0, sizeof(char *) * MAX_DRILLDOWN_LEVELS);
++
++	for (size_t i = 0; i < st->nr_items; i++) {
++		char child_grp[256];
++
++		if (!st->items[i].name || !st->items[i].pmu)
++			continue;
++		snprintf(child_grp, sizeof(child_grp), "%s_group", st->items[i].name);
++		if (!strlist__has_entry(st->groups, child_grp))
++			continue;
++
++		for (size_t j = 0; j < st->nr_items; j++) {
++			if (i == j || !st->items[j].groups || !st->items[j].pmu)
++				continue;
++			if (strcmp(st->items[i].pmu, st->items[j].pmu) != 0)
++				continue;
++			if (group_list_has_token(st->items[j].groups, child_grp)) {
++				st->items[i].has_children = true;
++				st->items[j].has_parent = true;
++			}
++		}
++	}
++
++	for (size_t i = 0; i < st->nr_items; i++) {
++		if (st->items[i].has_children && !st->items[i].has_parent) {
++			st->items[i].level = 1;
++			max_level = 1;
++		}
++	}
++
++	for (int d = 1; d < MAX_DRILLDOWN_LEVELS - 1; d++) {
++		bool progress = false;
++
++		for (size_t i = 0; i < st->nr_items; i++) {
++			char child_grp[256];
++
++			if (st->items[i].level != d || !st->items[i].has_children)
++				continue;
++			snprintf(child_grp, sizeof(child_grp), "%s_group", st->items[i].name);
++			for (size_t j = 0; j < st->nr_items; j++) {
++				if (i == j || !st->items[j].groups || !st->items[j].pmu)
++					continue;
++				if (strcmp(st->items[i].pmu, st->items[j].pmu) != 0)
++					continue;
++				if (group_list_has_token(st->items[j].groups, child_grp) &&
++				    st->items[j].level < d + 1) {
++					st->items[j].level = d + 1;
++					if (d + 1 > max_level)
++						max_level = d + 1;
++					progress = true;
++				}
++			}
++		}
++		if (!progress)
++			break;
++	}
++
++	for (int d = 1; d <= max_level; d++) {
++		struct str_node *pos;
++		const char *best_label = NULL;
++		int best_hits = 0;
++		int total_at_d = 0;
++
++		for (size_t i = 0; i < st->nr_items; i++) {
++			if (st->items[i].level == d)
++				total_at_d++;
++		}
++		level_counts[d] = total_at_d;
++
++		strlist__for_each_entry(pos, st->groups) {
++			const char *g = pos->s;
++			size_t glen = strlen(g);
++			int hits_in_d = 0;
++			bool in_other_d = false;
++
++			if (!strcasecmp(g, "Default") || !strcasecmp(g, "Summary") ||
++			    (glen > 6 && !strcmp(g + glen - 6, "_group")))
++				continue;
++
++			for (size_t i = 0; i < st->nr_items; i++) {
++				if (!st->items[i].groups || st->items[i].level == 0)
++					continue;
++				if (group_list_has_token(st->items[i].groups, g)) {
++					if (st->items[i].level == d)
++						hits_in_d++;
++					else
++						in_other_d = true;
++				}
++			}
++
++			if (!in_other_d &&
++			    (hits_in_d > best_hits ||
++			     (hits_in_d == best_hits && best_label &&
++			      strlen(g) > strlen(best_label)))) {
++				best_hits = hits_in_d;
++				best_label = g;
++			}
++		}
++
++		if (best_label && best_hits * 2 >= total_at_d)
++			level_labels[d] = strdup(best_label);
++	}
++
++	return max_level;
++}
++
++static bool is_mem_bw_pmu_name(const char *name)
++{
++	if (!name)
++		return false;
++	return strstarts(name, "uncore_imc") ||
++	       strstarts(name, "uncore_mc") ||
++	       strstarts(name, "uncore_edc") ||
++	       strstarts(name, "uncore_mchbm") ||
++	       strstarts(name, "amd_df") ||
++	       strstarts(name, "amd_umc") ||
++	       strstarts(name, "arm_dmc") ||
++	       strstarts(name, "dmc620") ||
++	       strstarts(name, "arm_cmn") ||
++	       strstr(name, "ddrc") != NULL ||
++	       strstr(name, "ddr") != NULL ||
++	       !strcmp(name, "hv_24x7") ||
++	       strstarts(name, "nest_mc");
++}
++
++static bool is_io_bw_pmu_name(const char *name)
++{
++	if (!name)
++		return false;
++	return strstarts(name, "uncore_iio") ||
++	       strstarts(name, "uncore_irp") ||
++	       strstarts(name, "uncore_pcie") ||
++	       strstarts(name, "uncore_upi") ||
++	       strstarts(name, "uncore_qpi") ||
++	       strstarts(name, "uncore_m2pcie") ||
++	       strstarts(name, "uncore_m3upi") ||
++	       strstarts(name, "uncore_arb") ||
++	       strstarts(name, "cxl") ||
++	       strstarts(name, "amd_iommu") ||
++	       strstarts(name, "amd_xgmi") ||
++	       strstarts(name, "arm_smmu") ||
++	       strstr(name, "pcie") != NULL ||
++	       strstarts(name, "dwc_rootport") ||
++	       strstarts(name, "cci") ||
++	       strstarts(name, "ccn");
++}
++
++static void print_strlist_color(FILE *fp, const char *color, struct strlist *list)
++{
++	struct str_node *pos;
++	bool first = true;
++
++	strlist__for_each_entry(pos, list) {
++		if (!first)
++			fprintf(fp, ", ");
++		color_fprintf(fp, color, "%s", pos->s);
++		first = false;
++	}
++}
++
++static void add_pmu_display_name(struct strlist *list, const struct perf_pmu *pmu)
++{
++	size_t num_inst = perf_pmu__num_duplicates(pmu);
++	char buf[128];
++
++	if (!pmu->name)
++		return;
++	if (num_inst > 1) {
++		size_t base_len = pmu_name_len_no_suffix(pmu->name);
++
++		snprintf(buf, sizeof(buf), "%.*s", (int)base_len, pmu->name);
++		strlist__add(list, buf);
++	} else {
++		strlist__add(list, pmu->name);
++	}
++}
++
++static void print_system_summary(FILE *fp, const struct perf_session *session,
++				 bool probed, bool leading_newline)
++{
++	const struct pmu_metrics_table *mtable;
++	struct perf_pmu *pmu = NULL;
++	struct strlist *core_pmus = strlist__new(NULL, NULL);
++	struct strlist *mem_bw_pmus = strlist__new(NULL, NULL);
++	struct strlist *io_bw_pmus = strlist__new(NULL, NULL);
++	struct strlist *aux_pmus = strlist__new(NULL, NULL);
++	struct strlist *missing = strlist__new(NULL, NULL);
++	struct summary_metrics_state *mstate = zalloc(sizeof(*mstate));
++	int level_counts[MAX_DRILLDOWN_LEVELS];
++	char *level_labels[MAX_DRILLDOWN_LEVELS];
++	int max_drill_lvl = 0;
++	bool has_sw_sampling = false;
++	bool core_can_sample = false;
++	bool core_precise = false;
++	int max_precise = 0;
++	bool core_rdpmc = false;
++	bool core_branch_stack = false;
++	int max_br_depth = 0;
++	bool core_mem_events = false;
++	bool core_leader_sampling = false;
++	size_t total_pmus = 0, total_events = 0, total_sysfs_events = 0, total_json_events = 0;
++	size_t nr_core, nr_metrics, nr_groups;
++
++	if (!mstate)
++		goto out_free;
++	mstate->metrics = strlist__new(NULL, NULL);
++	mstate->groups = strlist__new(NULL, NULL);
++
++	if (!core_pmus || !mem_bw_pmus || !io_bw_pmus || !aux_pmus ||
++	    !missing || !mstate->metrics || !mstate->groups)
++		goto out_free;
++
++	while ((pmu = perf_pmus__scan_skip_duplicates(pmu)) != NULL) {
++		size_t pmu_events, sysfs_ev, json_ev;
++
++		pmu_event_counts(pmu, &pmu_events, &sysfs_ev, &json_ev);
++
++		total_pmus++;
++		total_events += pmu_events;
++		total_sysfs_events += sysfs_ev;
++		total_json_events += json_ev;
++
++		if (pmu->is_core) {
++			struct perf_pmu_caps *br_cap;
++
++			add_pmu_display_name(core_pmus, pmu);
++			perf_pmu__caps_parse(pmu);
++			br_cap = perf_pmu__get_cap(pmu, "branches");
++			if (br_cap && br_cap->value) {
++				int depth = atoi(br_cap->value);
++
++				if (depth > max_br_depth)
++					max_br_depth = depth;
++			}
++			if (probed && pmu->probed.checked && pmu->probed.open_supported) {
++				if (pmu->probed.can_sample)
++					core_can_sample = true;
++				if (pmu->probed.max_precise > 0) {
++					core_precise = true;
++					if (pmu->probed.max_precise > max_precise)
++						max_precise = pmu->probed.max_precise;
++				}
++				if (pmu->probed.can_user_rdpmc)
++					core_rdpmc = true;
++				if (pmu->probed.can_branch_stack)
++					core_branch_stack = true;
++				if (pmu->probed.can_leader_sampling)
++					core_leader_sampling = true;
++			} else {
++				core_can_sample = true;
++				if (pmu->max_precise > 0) {
++					core_precise = true;
++					if (pmu->max_precise > max_precise)
++						max_precise = pmu->max_precise;
++				}
++				if (max_br_depth > 0)
++					core_branch_stack = true;
++			}
++		} else if (pmu->type == PERF_TYPE_SOFTWARE) {
++			if (!probed || !pmu->probed.checked || pmu->probed.can_sample)
++				has_sw_sampling = true;
++		}
++
++		if (pmu->mem_events) {
++			if (probed && pmu->probed.checked && pmu->probed.open_supported) {
++				if (pmu->probed.mem_events_mask)
++					core_mem_events = true;
++			} else if (!session) {
++				perf_pmu__mem_events_init_pmu(pmu);
++				for (int j = 0; j < PERF_MEM_EVENTS__MAX; j++) {
++					struct perf_mem_event *e =
++						perf_pmu__mem_events_ptr(pmu, j);
++
++					if (e && e->tag && e->supported) {
++						core_mem_events = true;
++						break;
++					}
++				}
++			}
++		}
++
++		if (pmu->auxtrace)
++			add_pmu_display_name(aux_pmus, pmu);
++		if (is_mem_bw_pmu_name(pmu->name))
++			add_pmu_display_name(mem_bw_pmus, pmu);
++		if (is_io_bw_pmu_name(pmu->name))
++			add_pmu_display_name(io_bw_pmus, pmu);
++	}
++
++	if (session) {
++		struct perf_env *env = (struct perf_env *)&session->header.env;
++
++		mtable = NULL;
++		if (env->cpuid) {
++			const char *arch = perf_env__arch(env);
++			char cpuid_str[128];
++			char vendor[32];
++			unsigned int family, model, step;
++			char extra;
++
++			mtable = find_core_metrics_table(arch, env->cpuid);
++			if (!mtable && !strcmp(arch, "x86") &&
++			    sscanf(env->cpuid, "%31[^,],%u,%u,%u%c",
++				   vendor, &family, &model, &step, &extra) == 4) {
++				snprintf(cpuid_str, sizeof(cpuid_str), "%s-%u-%X-%X",
++					 vendor, family, model, step);
++				mtable = find_core_metrics_table(arch, cpuid_str);
++				if (!mtable) {
++					snprintf(cpuid_str, sizeof(cpuid_str), "%s-%u-%X",
++						 vendor, family, model);
++					mtable = find_core_metrics_table(arch, cpuid_str);
++				}
++			}
++		}
++	} else {
++		mtable = pmu_metrics_table__find();
++	}
++
++	metricgroup__for_each_metric(mtable, collect_summary_metric_cb, mstate);
++	max_drill_lvl = compute_metric_drilldown(mstate, level_counts, level_labels);
++
++	nr_core = strlist__nr_entries(core_pmus);
++	nr_metrics = strlist__nr_entries(mstate->metrics);
++	nr_groups = strlist__nr_entries(mstate->groups);
++
++	if (leading_newline)
++		fputc('\n', fp);
++	color_fprintf(fp, PERF_COLOR_BOLD, "Summary:");
++	fputc('\n', fp);
++	if (nr_core == 0) {
++		const char *sw_desc = has_sw_sampling ?
++			"minimal system; sampling only via software timer events" :
++			"no sampling support detected";
++
++		color_fprintf(fp, PERF_COLOR_BOLD, "  Core PMUs:");
++		fprintf(fp, " ");
++		color_fprintf(fp, PERF_COLOR_RED, "none");
++		fprintf(fp, " (%s)\n", sw_desc);
++		strlist__add(missing, "hardware core PMU");
++	} else {
++		color_fprintf(fp, PERF_COLOR_BOLD, "  Core PMUs (%zu%s):", nr_core,
++			      nr_core > 1 ? ", hybrid" : "");
++		fprintf(fp, " ");
++		print_strlist_color(fp, PERF_COLOR_GREEN, core_pmus);
++		fputc('\n', fp);
++
++		color_fprintf(fp, PERF_COLOR_BOLD, "  Core features:");
++		fputc('\n', fp);
++		fprintf(fp, "    Interrupt-based sampling: ");
++		color_fprintf(fp, core_can_sample ? PERF_COLOR_GREEN : PERF_COLOR_RED,
++			      "%s", core_can_sample ? "supported" : "missing");
++		fputc('\n', fp);
++		if (!core_can_sample)
++			strlist__add(missing, "core interrupt sampling");
++
++		fprintf(fp, "    Precise event sampling: ");
++		if (core_precise) {
++			color_fprintf(fp, PERF_COLOR_GREEN, "supported");
++			fprintf(fp, " (max_precise: %d [%s])\n",
++				max_precise, precise_level_desc(max_precise));
++		} else {
++			color_fprintf(fp, PERF_COLOR_RED, "missing");
++			fprintf(fp, " (%s)\n", precise_level_desc(0));
++			strlist__add(missing, "precise event sampling (PEBS/IBS/SPE)");
++		}
++
++		fprintf(fp, "    Branch stack sampling (LBR/BRBE): ");
++		if (core_branch_stack) {
++			color_fprintf(fp, PERF_COLOR_GREEN, "supported");
++			if (max_br_depth > 0)
++				fprintf(fp, " (depth: %d branches)\n", max_br_depth);
++			else
++				fputc('\n', fp);
++		} else {
++			color_fprintf(fp, PERF_COLOR_RED, "missing");
++			fputc('\n', fp);
++			strlist__add(missing, "hardware branch stack sampling (LBR/BRBE)");
++		}
++
++		if (probed) {
++			fprintf(fp, "    User-space counter reading (rdpmc): ");
++			color_fprintf(fp, core_rdpmc ? PERF_COLOR_GREEN : PERF_COLOR_YELLOW,
++				      "%s", core_rdpmc ? "supported" : "missing/disabled");
++			fputc('\n', fp);
++			if (!core_rdpmc)
++				strlist__add(missing, "user-space counter reading (rdpmc)");
++
++			fprintf(fp, "    Leader sampling: ");
++			color_fprintf(fp,
++				      core_leader_sampling ? PERF_COLOR_GREEN : PERF_COLOR_RED,
++				      "%s",
++				      core_leader_sampling ? "supported" : "missing");
++			fputc('\n', fp);
++		}
++
++		fprintf(fp, "    Memory profiling events (DATA_SRC): ");
++		color_fprintf(fp, core_mem_events ? PERF_COLOR_GREEN : PERF_COLOR_RED,
++			      "%s", core_mem_events ? "supported" : "missing");
++		fputc('\n', fp);
++		if (!core_mem_events)
++			strlist__add(missing, "memory load/store profiling events");
++
++		fprintf(fp, "    Hardware AUX trace PMUs: ");
++		if (!strlist__empty(aux_pmus)) {
++			print_strlist_color(fp, PERF_COLOR_GREEN, aux_pmus);
++			fputc('\n', fp);
++		} else {
++			color_fprintf(fp, PERF_COLOR_RED, "missing");
++			fputc('\n', fp);
++			strlist__add(missing, "hardware AUX trace PMU");
++		}
++	}
++
++	color_fprintf(fp, PERF_COLOR_BOLD, "  Bus & uncore monitoring:");
++	fputc('\n', fp);
++	fprintf(fp, "    Memory bandwidth PMUs: ");
++	if (!strlist__empty(mem_bw_pmus)) {
++		print_strlist_color(fp, PERF_COLOR_GREEN, mem_bw_pmus);
++		fputc('\n', fp);
++	} else {
++		color_fprintf(fp, PERF_COLOR_RED, "missing");
++		fputc('\n', fp);
++		strlist__add(missing, "memory bus bandwidth PMUs");
++	}
++
++	fprintf(fp, "    PCIe / IO interconnect bandwidth PMUs: ");
++	if (!strlist__empty(io_bw_pmus)) {
++		print_strlist_color(fp, PERF_COLOR_GREEN, io_bw_pmus);
++		fputc('\n', fp);
++	} else {
++		color_fprintf(fp, PERF_COLOR_RED, "missing");
++		fputc('\n', fp);
++		strlist__add(missing, "PCIe/IO interconnect bandwidth PMUs");
++	}
++
++	color_fprintf(fp, PERF_COLOR_BOLD, "  Events & metrics:");
++	fputc('\n', fp);
++	fprintf(fp, "    Available events: %zu total (%zu sysfs, %zu json) across %zu PMUs\n",
++		total_events, total_sysfs_events, total_json_events, total_pmus);
++	if (nr_metrics == 0) {
++		fprintf(fp, "    Available metrics: ");
++		color_fprintf(fp, PERF_COLOR_RED, "none");
++		fprintf(fp, " (missing JSON metrics)\n");
++		strlist__add(missing, "multi-level pipeline drill-down and JSON metrics");
++	} else {
++		const char *tier = (max_drill_lvl >= 2) ? "advanced" : "minimal";
++		const char *tier_col = (max_drill_lvl >= 2) ?
++				       PERF_COLOR_GREEN : PERF_COLOR_YELLOW;
++
++		fprintf(fp, "    Available metrics: %zu metrics in %zu groups (",
++			nr_metrics, nr_groups);
++		color_fprintf(fp, tier_col, "%s", tier);
++		fprintf(fp, ")\n");
++		if (max_drill_lvl > 0) {
++			fprintf(fp, "    Metric drill-down levels (%d): ", max_drill_lvl);
++			for (int d = 1; d <= max_drill_lvl; d++) {
++				if (d > 1)
++					fprintf(fp, ", ");
++				color_fprintf(fp, PERF_COLOR_CYAN, "L%d", d);
++				if (level_labels[d])
++					fprintf(fp, " (%s: %d metrics)",
++						level_labels[d], level_counts[d]);
++				else
++					fprintf(fp, " (%d metrics)", level_counts[d]);
++			}
++			fputc('\n', fp);
++		} else {
++			fprintf(fp, "    Metric drill-down levels: ");
++			color_fprintf(fp, PERF_COLOR_YELLOW, "none");
++			fprintf(fp, " (flat metrics only)\n");
++		}
++		if (max_drill_lvl < 2) {
++			strlist__add(missing,
++				     "multi-level pipeline drill-down metrics (<metric>_group)");
++		}
++	}
++
++	color_fprintf(fp, PERF_COLOR_BOLD, "  System rating:");
++	if (nr_core == 0) {
++		const char *min_desc =
++			"no hardware core PMU; profiling limited to software timer events";
++
++		fprintf(fp, " ");
++		color_fprintf(fp, PERF_COLOR_RED, "Minimal");
++		fprintf(fp, " (%s)\n", min_desc);
++	} else if (core_precise && core_branch_stack && (!probed || core_rdpmc) &&
++		   !strlist__empty(mem_bw_pmus) && max_drill_lvl >= 2) {
++		const char *core_adv = "precise sampling, branch stack (LBR), user rdpmc";
++		const char *sys_adv = "bus PMUs, and metric drill-down";
++
++		fprintf(fp, " ");
++		color_fprintf(fp, PERF_COLOR_GREEN, "Advanced");
++		fprintf(fp, " (core PMU with %s, %s)\n", core_adv, sys_adv);
++	} else if (core_can_sample &&
++		   (core_precise || core_branch_stack || max_drill_lvl >= 1)) {
++		const char *std_desc =
++			"core PMU with hardware sampling and partial advanced features or metrics";
++
++		fprintf(fp, " ");
++		color_fprintf(fp, PERF_COLOR_CYAN, "Standard");
++		fprintf(fp, " (%s)\n", std_desc);
++	} else {
++		const char *bas_desc =
++			"core PMU with basic counting/sampling only; missing advanced features";
++
++		fprintf(fp, " ");
++		color_fprintf(fp, PERF_COLOR_YELLOW, "Basic");
++		fprintf(fp, " (%s)\n", bas_desc);
++	}
++
++	if (!strlist__empty(missing)) {
++		color_fprintf(fp, PERF_COLOR_BOLD, "  Missing baseline features:");
++		fprintf(fp, " ");
++		print_strlist_color(fp, PERF_COLOR_RED, missing);
++		fputc('\n', fp);
++	}
++
++	for (int d = 1; d <= max_drill_lvl; d++)
++		free(level_labels[d]);
++
++out_free:
++	strlist__delete(core_pmus);
++	strlist__delete(mem_bw_pmus);
++	strlist__delete(io_bw_pmus);
++	strlist__delete(aux_pmus);
++	strlist__delete(missing);
++	if (mstate) {
++		for (size_t i = 0; i < mstate->nr_items; i++) {
++			free(mstate->items[i].pmu);
++			free(mstate->items[i].name);
++			free(mstate->items[i].groups);
++		}
++		strlist__delete(mstate->metrics);
++		strlist__delete(mstate->groups);
++		free(mstate);
++	}
++}
++
++int cmd_sysinfo(int argc, const char **argv)
++{
++	bool json = false;
++	bool show_pmus = false;
++	bool show_all = false;
++	bool force = false;
++	bool do_probe = true;
++	const char *output_path = NULL;
++	const char *input_name = NULL;
++	FILE *fp = stdout;
++	struct perf_data data = {
++		.mode = PERF_DATA_MODE_READ,
++	};
++	struct perf_tool tool;
++	struct perf_session *session = NULL;
++	struct perf_pmu *pmu = NULL;
++	size_t pmu_idx = 0;
++	int ret = 0;
++	const struct option sysinfo_options[] = {
++		OPT_STRING('i', "input", &input_name, "file",
++			   "Input perf.data file name to read PMUs from"),
++		OPT_BOOLEAN('f', "force", &force, "don't complain, do it"),
++		OPT_STRING('o', "output", &output_path, "file", "output file name"),
++		OPT_BOOLEAN('p', "pmus", &show_pmus,
++			    "Display detailed information for each PMU"),
++		OPT_BOOLEAN('j', "json", &json, "JSON encode PMU information"),
++		OPT_BOOLEAN('v', "verbose", &show_all,
++			    "Show all similar PMUs with alphanumeric suffixes"),
++		OPT_BOOLEAN('a', "all", &show_all,
++			    "Show all similar PMUs with alphanumeric suffixes"),
++		OPT_BOOLEAN(0, "probe", &do_probe,
++			    "Probe PMU capabilities on live system (default: on)"),
++		OPT_INCR(0, "debug", &verbose, "Enable debugging output"),
++		OPT_END()
++	};
++	const char * const sysinfo_usage[] = {
++		"perf sysinfo [<options>] [pmu_glob ...]",
++		NULL
++	};
++
++	argc = parse_options(argc, argv, sysinfo_options, sysinfo_usage,
++			     PARSE_OPT_STOP_AT_NON_OPTION);
++
++	if (show_all || json || argc > 0)
++		show_pmus = true;
++
++	if (output_path) {
++		perf_use_color_default = 0;
++		fp = fopen(output_path, "w");
++		if (!fp) {
++			pr_err("Failed to open output file '%s': %m\n", output_path);
++			return -1;
++		}
++	}
++
++	if (input_name) {
++		data.path = input_name;
++		data.force = force;
++
++		perf_tool__init(&tool, /*ordered_events=*/false);
++		tool.attr = perf_event__process_attr;
++		tool.feature = process_header_feature;
++		tool.sample = process_sample_stop;
++
++		session = perf_session__new(&data, &tool);
++		if (IS_ERR(session)) {
++			ret = PTR_ERR(session);
++			pr_err("Error opening %s: %s\n", input_name, strerror(-ret));
++			goto out_close;
++		}
++
++		if (data.is_pipe)
++			perf_session__process_events(session);
++
++		ret = perf_pmus__read_from_env(&session->header.env);
++		if (ret) {
++			pr_err("Failed to read PMU information from %s: %s\n",
++			       input_name, strerror(-ret));
++			goto out_session;
++		}
++	}
++
++	if (json)
++		fputs("[", fp);
++
++	while ((pmu = show_all ? perf_pmus__scan(pmu) :
++				 perf_pmus__scan_skip_duplicates(pmu)) != NULL) {
++		if (!pmu_matches_filters(pmu, argc, argv))
++			continue;
++
++		if (do_probe && !input_name &&
++		    (show_pmus || pmu->is_core || pmu->mem_events ||
++		     pmu->type == PERF_TYPE_SOFTWARE))
++			perf_pmu__probe(pmu);
++
++		if (!show_pmus)
++			continue;
++
++		if (json) {
++			if (pmu_idx > 0)
++				fputs(",\n", fp);
++			else
++				fputs("\n", fp);
++			print_pmu_json(fp, pmu, session, show_all);
++		} else {
++			if (pmu_idx > 0)
++				fputc('\n', fp);
++			print_pmu_text(fp, pmu, session, show_all);
++		}
++		pmu_idx++;
++	}
++
++	if (json)
++		fputs(pmu_idx > 0 ? "\n]\n" : "]\n", fp);
++	else if (argc == 0)
++		print_system_summary(fp, session, do_probe && !input_name,
++				     pmu_idx > 0);
++
++out_session:
++	if (session)
++		perf_session__delete(session);
++out_close:
++	if (output_path && fp)
++		fclose(fp);
++	return ret;
++}
+diff --git a/tools/perf/builtin.h b/tools/perf/builtin.h
+index e0b430821abc..28e85c054468 100644
+--- a/tools/perf/builtin.h
++++ b/tools/perf/builtin.h
+@@ -37,6 +37,7 @@ int cmd_list(int argc, const char **argv);
+ int cmd_record(int argc, const char **argv);
+ int cmd_report(int argc, const char **argv);
+ int cmd_stat(int argc, const char **argv);
++int cmd_sysinfo(int argc, const char **argv);
+ int cmd_timechart(int argc, const char **argv);
+ int cmd_top(int argc, const char **argv);
+ int cmd_script(int argc, const char **argv);
+diff --git a/tools/perf/perf.c b/tools/perf/perf.c
+index d60bc929c257..a6fab1e6eb1c 100644
+--- a/tools/perf/perf.c
++++ b/tools/perf/perf.c
+@@ -112,6 +112,7 @@ static const struct cmd_struct commands[] = {
+ 	{ "report",	cmd_report,	0 },
+ 	{ "bench",	cmd_bench,	0 },
+ 	{ "stat",	cmd_stat,	0 },
++	{ "sysinfo",	cmd_sysinfo,	0 },
+ 	{ "timechart",	cmd_timechart,	0 },
+ 	{ "top",	cmd_top,	0 },
+ 	{ "annotate",	cmd_annotate,	0 },
 -- 
 2.56.0.212.g129ede20d9-goog
 
