@@ -1,40 +1,92 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CA7172877DE;
-	Sat, 17 Oct 2026 07:03:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9D537F30C
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:04:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792220633; cv=none; b=Ufo+C1WEdGC8BppyL3e4LHoRmesIbXc9upLA63ZjpnQ/jcmqvg5ELxydWH99Ux7lup5lFlVCpcB8P7CM8dT2lOidCopFuRdkouAacdsmi8pG8jO+PJyYbP8yS/5uqRYMQTiDcgK7BV5LpCo4MrRxWOjIdBN842dJOcRtx0vbD1k=
+	t=1792220688; cv=none; b=bN/b3HQsWoz/zG4CMtj8GfnC0Zo9+LxLCYZ6cuheys1oJvI8f+clL/K8XhLuLK6OLhNtnxwSSRTA+n31UwQ30Zi0XAaoRwLgnWdx0Pwv/z9NPhoPrhxEkTZi/RVJX0T17QFEqKhRz7uWbKbIZPHMAiN36+nZ9205yG+uAHU/ILg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792220633; c=relaxed/simple;
-	bh=LlGpm7qD6u3DExZbUErAOyHnhK2G0MPho8mL0LeRKrk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ltAc8EesJ9jj/d7nRdCs3uj0EQruS09wBM82x/7V3/uOwxGD05o6MHqulyGh55yei11eRdVeItk5cUFCgBPfxuLWQaOkXph8jdjCCedX2oTy6soPul3hqhm1GSN10RNdx/ggqmHFK0uRfVWdzLLKI/RUuBpbC30idBcI3ir9pj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=VigEsU6H reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1792220688; c=relaxed/simple;
+	bh=rxDPqqfdCHuDvD8yKQQePfEYQGgg7u8qfF++9QenVmk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fx+5tRPoBcNzTJkdcmdNw/Yz5u/fj6GmPplm06VpoegEOjITO0gNPG/S7c96zl44RyNagjX61+DMu0/SHLcjncY2H/6asl38xsx+hauFCKfQOcfnGmzaNoMxnYOOK317uW7LEsqYZagBUWkWhv564LP9M5FHhM4XQAXB1TsOOsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cGwU865j; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="VigEsU6H"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cGwU865j"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49d05d51553so3877335e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:04:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=LH5oxfFALy
-	feze5kOzVd/GRJgHOwip9pVGpes13qqVo=; b=VigEsU6HFhexcs3LBS6k+2+4xR
-	BcK0BDY2+EkpoKIS5h2MGqI7SnFnslgkj/2Uc8ATs+VeM7RGmk+kUYWXpsyXFLWF
-	v/UgJlBsGhIMxTrDLoEwCfgWeZlZVxJ083eMVqXka9oLZD4Qh562QPBoO2Hcdwd3
-	5DXMujB3a1XYZ2MJY=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.50])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkA2XALHHdNqiyWvAA--.26153S2;
-	Sat, 17 Oct 2026 15:03:36 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: linux-wireless@vger.kernel.org,
-	libertas-dev@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Daniel Hodges <git@danielhodges.dev>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] wifi: libertas: check workqueue creation in lbs_add_card()
-Date: Sat, 17 Oct 2026 15:03:35 +0800
-Message-Id: <20261017070335.19330-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=gmail.com; s=20251104; t=1792220686; x=1792825486; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WbAvIHCV2ZftO19xbd69sV1gKtlfgITtC4/NwtZnAR4=;
+        b=cGwU865jJ9K/kd2zsnbgXD/+OXDAoBsJAmGJ3UbhmZRT6lCNPeMsDp0V0s17cC4y75
+         BjFDmS6uryJohps17CAu9+Djv327S7QJHpTEvIx+4bvHSgPOYbjbZg3mbLkrUXkvBHOh
+         qCgbkCLACJGIwxGs0qWfxS1inTGjEAU16bMUg0gHBc3bYgaPciMMUGxR9LORNqSd6eto
+         EObGTb0XZS5I6OHWCwJohX5whh0uBzsuC8W3tbGlVY0yMnUeun/Ko9py1bnv8oz4Ecfg
+         LQxuzOoblPZvdcZwmmN1orakp22TtAZKtdA0mVdfRJIQ1clO70mVitjBZl5citEy3ECK
+         6Uog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792220686; x=1792825486;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WbAvIHCV2ZftO19xbd69sV1gKtlfgITtC4/NwtZnAR4=;
+        b=iHzQnCwzIPTp4Rxy/qvVVoJNUahFkKZeGePKZpUjhXWNqLsECj9q6I54WtqBT6PAFQ
+         gmsnlORFSdgjYrT5OH0whw8qh/Ug+QwYMSoEBEi7Zu4lYVctrI1vFAUR0AC+iHWwZVjn
+         vFpBAXBoVVjmyO+WzgGaKJJo4KRZgwxK0uPiRVcQySomktDxFuEz/fhp9AwxHmjWy76K
+         VPiHG8+7p67LlERebdHEyuvXGOP8Lk16XiDUcaLZmI+SRilX38IoLWAJLp+47XX9v5V0
+         ptaOQ+5ZKymxo63rVrunrMKvN9tLCNP4ohcvENaq5wKiwC1Xp9MBxhoOvSOxLNoy1ymW
+         9xrw==
+X-Forwarded-Encrypted: i=1; AKwUvBwqH256RubjhOjo9nQ55XGIwmNDUEx32Hoi5AbZkCQEYWjY/HVGYDSa7b/6VEOY2Kv4aU1lt0y0Qgq7gWg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLR9cd8a/1M0BzpoqAj53vI1qWBis70wGkK2gitOJ3yal3VrGfY
+	TmYS0k8benKWCwU30fmyvuYm5lUod+j50P+apRjirMVJBdSTqimI7GIp
+X-Gm-Gg: AYBFou0GXr9aDT5HW6Erg2OZNv8cbmhyg3IMmTqt+I6bHFLHoUVpBKRcanr8vgZnzAT
+	T7odFq3giVVHNexzCKNpNHVC5dKw3MVGUq+EpCiGL0p5zUIaeixerRMGe7Qj5OKx9X7snVOpLmM
+	gQi+nE8gQyRdo3BJGPV6iN0Ef/2wjembnTeNT3lGMuDQR5dyVJSk5V14cjVM8iAitJl18q8LcyN
+	qeRtTJwZV7QpqkBxben7pdlYdqj+vRVGeQmGOkIj9vWoh5NS1B3Ovneb7Bug2GufVER4xsfrThE
+	c2t2B+hPVUiPh38NymToPE4+eFqXRhrOBi6+5Lj/tDTAYH+BCMGBxM5hxDeFwpnrT+IW8QdS/P4
+	A/9g2uD60tIAiC3vmWUc3TuMct660MgacdMJp8U8TCCuy0kO7bt9AqlnUJSvY8zSHEKtuPBL8RW
+	iYzBeeRZgPG89kgCiQzlQCDbNeBI7q6l/AC3P287tGBOYC5Jy6ZJBzyp22nAyUNwYraOQ5oZUWl
+	cCeXdnPsFLWvmVgTpfDGAVyqNznnEdVsKR8kVigtjYSJwLlOEN8eaVcI9xjwGLwodliH8Xu
+X-Received: by 2002:a05:600c:5251:b0:4a1:9663:7639 with SMTP id 5b1f17b1804b1-4a1d76315acmr38850985e9.34.1792220685574;
+        Sat, 17 Oct 2026 00:04:45 -0700 (PDT)
+Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b35a6sm194605425e9.6.2026.10.17.00.04.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 00:04:45 -0700 (PDT)
+From: George Neacsu <geocausa@gmail.com>
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	David Heidelberg <david@ixit.cz>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+	Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+	Suresh Vankadara <svankada@qti.qualcomm.com>,
+	tjose@qti.qualcomm.com,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	linux-phy@lists.infradead.org,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	jigarkumar.zala@oss.qualcomm.com,
+	hariram.purushothaman@oss.qualcomm.com
+Subject: Re: [PATCH v3 0/6] phy: qcom-mipi-csi2: C-PHY for X1E80100
+Date: Sat, 17 Oct 2026 08:04:43 +0100
+Message-ID: <20261017070443.989736-1-geocausa@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <db2fffdd-634c-4728-a2a6-2ab1816b07ba@oss.qualcomm.com>
+References: <20261016-x1e-cphy-rfc-v3-0-40a346a72153@gmail.com> <db2fffdd-634c-4728-a2a6-2ab1816b07ba@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,92 +94,38 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkA2XALHHdNqiyWvAA--.26153S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAFy3CFWfKr1kZry3KF4kWFg_yoW5Wry3pr
-	W5CryUK3yFyr4qka98Jws7tF15Cw1fJFy3GrWI9w1rAwsxGrZYv34FgFyUWrW5AFW0vFW7
-	ZF98t3s2yFWqyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4xMxAIw28IcxkI7VAKI48JMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
-	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8HrW5UUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUJD2rSPdFn1gAAsn
 
-lbs_add_card() does not check whether create_singlethread_workqueue()
-returned a valid workqueue.  That helper always creates the workqueue
-with WQ_MEM_RECLAIM, so alloc_workqueue() also creates a rescuer kthread
-and returns NULL if that kthread cannot be created, for example when the
-task which starts the driver is killed while kthread_create() waits for
-the new thread:
+Hi Anusha,
 
-  workqueue: Failed to create a rescuer kthread for wq "lbs_worker": -4
+On 17/10/2026 05:31, Anusha Arun Nandi wrote:
+> In our series we split C-PHY hw-ops into a dedicated
+> phy-qcom-mipi-csi2-3ph-cphy.c (mirroring the existing -3ph-dphy.c
+> split)
 
--4 is -EINTR, which is exactly what the killable wait in
-kthread_create_on_node() returns when it is interrupted.
+Thanks, I had missed your July series. Your three series cover what
+this one does and more: the generic C-PHY API in its own
+phy-core-mipi-cphy.c like the D-PHY one, the C-PHY ops in their own
+file, two SoCs, and the CAMSS side including David's patches. The split
+makes sense to me, and two versions of PHY_MODE_MIPI_CPHY should not
+both go in.
 
-The card is published anyway, with priv->work_thread left NULL, and the
-removal path destroys the workqueue unconditionally.  destroy_workqueue()
-dereferences the NULL pointer while unregistering the workqueue from
-sysfs, which faults at offset 0xb0, the ->wq_dev member of struct
-workqueue_struct:
+So I would rather build on yours than send a v4 of this series. I will
+send the X1E80100 sequence as one patch adding it to
+phy-qcom-mipi-csi2-3ph-cphy.c on top of your series, and test the whole
+stack on the Surface Pro 11 (IMX681 on CSIPHY2, one trio at
+2.4 Gsym/s), with Tested-by on your patches if it works.
 
-  KASAN: null-ptr-deref in range [0x00000000000000b0-0x00000000000000b7]
-  RIP: 0010:destroy_workqueue+0x2e/0xc00 kernel/workqueue.c:6147
-  Call Trace:
-   lbs_remove_card+0xc9/0x3a0 main.c:919
-   if_usb_disconnect+0xc1/0x270 if_usb.c:317
+Review of this series raised a few points that I will check against
+your patches and comment on there:
+- the settle count computed from the timer clock rate instead of a
+  fixed table value (Nihal);
+- a u64 symbol rate, so 32-bit can hold rates above 4.29 Gsym/s;
+- trios instead of lanes in the C-PHY options (Loic).
 
-Fail the probe instead of publishing a card whose workqueue could not be
-created.  The other two libertas bus backends already check the result
-of their alloc_workqueue() call, and all three callers of lbs_add_card()
-already handle an ERR_PTR() return, so no caller needs to change.
+Also, Vinod and linux-phy are not on Cc for your PHY series.
 
-Fixes: 2afc0c5d71a3 ("[PATCH] libertas: push WEXT scan requests to a work queue")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/net/wireless/marvell/libertas/main.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Bryan, Vinod: unless you would rather take this series, I will follow
+Anusha's.
 
-diff --git a/drivers/net/wireless/marvell/libertas/main.c b/drivers/net/wireless/marvell/libertas/main.c
-index dd97f1b61f4d..522736ca6cfd 100644
---- a/drivers/net/wireless/marvell/libertas/main.c
-+++ b/drivers/net/wireless/marvell/libertas/main.c
-@@ -877,6 +877,12 @@ struct lbs_private *lbs_add_card(void *card, struct device *dmdev)
- 	}
- 
- 	priv->work_thread = create_singlethread_workqueue("lbs_worker");
-+	if (!priv->work_thread) {
-+		err = -ENOMEM;
-+		lbs_deb_thread("Error creating worker thread.\n");
-+		goto err_thread;
-+	}
-+
- 	INIT_WORK(&priv->mcast_work, lbs_set_mcast_worker);
- 
- 	priv->wol_criteria = EHS_REMOVE_WAKEUP;
-@@ -886,6 +892,9 @@ struct lbs_private *lbs_add_card(void *card, struct device *dmdev)
- 
- 	return priv;
- 
-+ err_thread:
-+	kthread_stop(priv->main_thread);
-+
-  err_ndev:
- 	free_netdev(dev);
- 
--- 
-2.34.1
-
+Thanks,
+George
