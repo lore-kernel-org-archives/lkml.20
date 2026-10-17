@@ -1,150 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20FC44CF460;
-	Sat, 17 Oct 2026 23:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A60540B11B
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 23:42:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792280527; cv=none; b=CBdfSwUm7dEpzOukiYaKpa5G7WoROfGOAJSHhfYjMiwHD41fclRxaKEO+/UvuYAcOjeZ6jF37btFRwaXi1NA0sE+wof3NywCZyIDFF+48JFNAYodDedzKUV7Nt7XhecXl9LR1cSj4Fp6snem6Yrvf5m7Krp6dCURnAkBycqplZU=
+	t=1792280551; cv=none; b=jyNJg4uA2zHIAMELDd4ESxXB1X5pO+B8ig5yzr9tUFJS/HWUPKx26wWSAE1WBXI8jTVKLPlotr9mADZQZOZrSjSwVOEL+utWQhCuAcL+v8j4MaNe67fURIVIrIY1k3CLcXaqAAvRue5lYYiVmPdzn/DWbzRuPwKntF/crDOQe0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792280527; c=relaxed/simple;
-	bh=uVl5t0hNdlTbZrRJf1kWWu3wPXHhVQCLSWs/mG2dF60=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SqeMpwADm5rrdp0mVsJSFH+UawISgIX5vAG9hQ1qPSSQE+cDpvD2SBkDJVoNzG8RsRwRSgpggRx45kvZOEcUmXAPM9UzWBH9qboKhPawp+5bJTDIRUuvJt6/oOtNGkflx4jJcYIRHVsgSHCWOpUAOfAkfePPcn2GbtbIThjHsRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kkipT/Ir; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kkipT/Ir"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA5561F000C4;
-	Sat, 17 Oct 2026 23:42:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792280525;
-	bh=evUXB6CDtFbOeT3FSRX1mbalYGQtmf06tYshnf8grqU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kkipT/Ir9XR4VUIWFnbPAkJh/SdNkXnNU1JMpC4UZz4APs93Yfh08RiDgXkK07xLb
-	 muNWL9yKPrl0YiG1C3MesqGIDmx1MiwRY0qLqnWanJ/7zDUeSQ4n9gbQ+jV4cJd6s5
-	 xJQUj3nUdz6GvaNF+N5fz5X33omfqNoGNV5fUDq9DTsxl8ENbYJ3l+k77vTPgSRRZt
-	 8ouPIn/2N05uPBLedOEmH/ui67O1hC514cCHZsetZh7zLnf/RPHYwPulpLWkF43dnp
-	 ecizAUkwwbLYHAqWverCGm5SUdA4eQPGpT3LhWjRo83owV1x7IMwt2UtjxIjWeWTmC
-	 mzgHtLu6Uk8Iw==
-Date: Sun, 18 Oct 2026 00:41:58 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- Marcelo Schmitt <marcelo.schmitt@analog.com>, Joshua Crofts
- <joshua.crofts1@gmail.com>, Radu Sabau <radu.sabau@analog.com>, Janani
- Sunil <janani.sunil@analog.com>, Salih Erim <salih.erim@amd.com>, Jishnu
- Prakash <jishnu.prakash@oss.qualcomm.com>, Jakub Szczudlo
- <jakubszczudlo40@gmail.com>, <linux@analog.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH 3/4] iio: adc: ade9000: add support for ADE9039
-Message-ID: <20261018004158.00c15871@jic23-hlaptop>
-In-Reply-To: <20261012111342.48040-4-antoniu.miclaus@analog.com>
-References: <20261012111342.48040-1-antoniu.miclaus@analog.com>
-	<20261012111342.48040-4-antoniu.miclaus@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1792280551; c=relaxed/simple;
+	bh=FdC9RuunKVN0rickt7jmRn+kYZhlndDu+64L/2mKya0=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=UhNBg8JRU3d9QOlMFP1Mtp344P2yx6V+91srGmb+mdwvOpmYR/uqrltimjIjdjRfun4lXFGgzCPoPTGtZe1zmH4dVkdAKvH05jtitvz83ABml2Ymz/u8e/CD3ViyfCnAALNYVRZF4cJJvpzBPq0MgJGcWBKwXgvmtZu2k8yCFZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-83edc5c5ae9so845865a34.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 16:42:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792280549; x=1792885349;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ulz0XGKnxhl+8qtO3fftNe3Z7GVcPt33pyCT2Um33DA=;
+        b=a2kRet2kkxRaLVBnadqMQRQna5m4XOT/5kwvrtRSV1d4nJ4hjWQ+Hi6HP20PI6dx8g
+         iHAg1J+G2voJe6nU55Lgo047UY/BBgNFXDrM0hi+Fq56hsoeF+HtkqqHFli1Ohhn+Jjf
+         aAssnZp4YkMc/gnMgyCTR9na1+6auUReCOy2+eymbTCYvM/uAnny0vHMsI8GUgRS+TlF
+         i/KsqrHrbtQp4befcxyoCtdLU4wLo9DGHLH3NV5B57dw+Gcyzqu+QU2sUkcQUhiDxdaZ
+         Mct7x8KMjZL2+pNphpx8F0HQhelLUUqvkYM5C5vLUZnx6YAmCctH9IOtcNsSlKOACtUI
+         pTUw==
+X-Forwarded-Encrypted: i=1; AKwUvBy8IPtRhRJ+6MEO8+0LuvrSh1RgEEQna6LhSNNMiCRcP93LA3oUtVwKOyv/1b6tD5IGP2lhGWL3+fy8mv8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5AnBQRMup7Ebjgr7L56KRoln5Ue+mLxlttaiu9pGKZ//Wpf6Q
+	iPo1x+VuixGmGRsedKREkwaATQ82jxIR8FQbQlq3G6ZQwWMwjuukp/Ve0AOI3CjgeC+wK3NDx6H
+	Qn3XNoHz1RXw2t9NXeLtVXkGTJI6RtZh8xHYHkpJG09sV8/Fae5zQxarmQMs=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:3c49:b0:53c:7298:35a9 with SMTP id
+ 5614622812f47-53cc3e3c8bbmr2979416b6e.8.1792280549338; Sat, 17 Oct 2026
+ 16:42:29 -0700 (PDT)
+Date: Sat, 17 Oct 2026 16:42:29 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad407e5.6814cce4.34c49f.00a4.GAE@google.com>
+Subject: [syzbot] [mm?] INFO: rcu detected stall in filemap_fault (4)
+From: syzbot <syzbot+af37a78f810994eae641@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, cgroups@vger.kernel.org, hannes@cmpxchg.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, mhocko@kernel.org, 
+	muchun.song@linux.dev, roman.gushchin@linux.dev, shakeel.butt@linux.dev, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 12 Oct 2026 14:13:39 +0300
-Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
+Hello,
 
-> The ADE9039 is a polyphase energy metering device that is register
-> compatible with the ADE9000 for every register the driver touches. The
-> differences relevant to the driver are that it shares the full-scale codes
-> of the ADE9078 rather than those of the ADE9000, and that it has no total
-> reactive power register: the register map has no AVAR at 0x211 and no
-> AVAROS at 0x010, only the fundamental AFVAR and AFVAROS.
-> 
-> Add a chip_info for it and a channel table that keeps the dip/swell events
-> of the ADE9000 but drops the three total reactive power channels. The
-> fundamental reactive energy channels are unaffected, as AFVARHR is present.
-> 
-> No change is needed in the CALIBBIAS path: with no channel carrying the
-> AVAR address, that case is simply never reached for this part.
-> 
-> Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
-> ---
->  drivers/iio/adc/Kconfig   |  1 +
->  drivers/iio/adc/ade9000.c | 14 ++++++++++++++
->  2 files changed, 15 insertions(+)
-> 
-> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-> index 02de4809ae31..3052a86c460f 100644
-> --- a/drivers/iio/adc/Kconfig
-> +++ b/drivers/iio/adc/Kconfig
-> @@ -603,6 +603,7 @@ config ADE9000
->  	    - ADE9000
->  	    - ADE9078
->  	    - ADE9430
-> +	    - ADE9039
->  
->  	  The devices feature high-precision analog-to-digital converters
->  	  and digital signal processing to compute RMS values, power factor,
-> diff --git a/drivers/iio/adc/ade9000.c b/drivers/iio/adc/ade9000.c
-> index 03b69556b62f..e7f509bbac77 100644
-> --- a/drivers/iio/adc/ade9000.c
-> +++ b/drivers/iio/adc/ade9000.c
-> @@ -683,6 +683,8 @@ ADE9000_DECLARE_CHANNELS(ade9000_channels, ADE9000_ALTVOLTAGE_RMS_CHANNEL,
->  			 ADE9000_POWER_REACTIVE_ENTRY);
->  ADE9000_DECLARE_CHANNELS(ade9078_channels, ADE9000_ALTVOLTAGE_RMS_CHANNEL_NO_EVENTS,
->  			 ADE9000_POWER_REACTIVE_ENTRY);
-> +ADE9000_DECLARE_CHANNELS(ade9039_channels, ADE9000_ALTVOLTAGE_RMS_CHANNEL,
-> +			 ADE9000_NO_POWER_REACTIVE_ENTRY);
+syzbot found the following issue on:
 
-Put this such that the various parts are in numeric order.
+HEAD commit:    70dd4ee72eb2 Merge tag 'pinctrl-v7.3-3' of git://git.kerne..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=15b2320d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=4ccb65e03706547e
+dashboard link: https://syzkaller.appspot.com/bug?extid=af37a78f810994eae641
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10de5da9580000
 
->  
->  /*
->   * Full-scale codes referred from the respective datasheets. These are the
-> @@ -718,6 +720,16 @@ static const struct ade9000_chip_info ade9430_chip_info = {
->  	.has_digital_integrator = false, /* no on-chip digital integrator */
->  };
->  
-> +static const struct ade9000_chip_info ade9039_chip_info = {
-> +	.name = "ade9039",
-> +	.channels = ade9039_channels,
-> +	.num_channels = ARRAY_SIZE(ade9039_channels),
-> +	.rms_full_scale_codes = 52866837,
-> +	.watt_full_scale_codes = 20823646,
-> +	.pcf_full_scale_codes = 74680000,
-> +	.has_digital_integrator = true,
-> +};
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-70dd4ee7.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/f1d9bae25289/vmlinux-70dd4ee7.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/d8b2b9fc2571/bzImage-70dd4ee7.xz
 
-Put this in location that is appropriate for part number.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+af37a78f810994eae641@syzkaller.appspotmail.com
 
-> +
->  static const struct reg_sequence ade9000_initialization_sequence[] = {
->  	{ ADE9000_REG_PGA_GAIN, ADE9000_PGA_GAIN },
->  	{ ADE9000_REG_CONFIG0, ADE9000_CONFIG0 },
-> @@ -1883,6 +1895,7 @@ static const struct spi_device_id ade9000_id[] = {
->  	{ .name = "ade9000", .driver_data = (kernel_ulong_t)&ade9000_chip_info },
->  	{ .name = "ade9078", .driver_data = (kernel_ulong_t)&ade9078_chip_info },
->  	{ .name = "ade9430", .driver_data = (kernel_ulong_t)&ade9430_chip_info },
-> +	{ .name = "ade9039", .driver_data = (kernel_ulong_t)&ade9039_chip_info },
-numeric order here as well.
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(spi, ade9000_id);
-> @@ -1891,6 +1904,7 @@ static const struct of_device_id ade9000_of_match[] = {
->  	{ .compatible = "adi,ade9000", .data = &ade9000_chip_info },
->  	{ .compatible = "adi,ade9078", .data = &ade9078_chip_info },
->  	{ .compatible = "adi,ade9430", .data = &ade9430_chip_info },
-> +	{ .compatible = "adi,ade9039", .data = &ade9039_chip_info },
-And here as well.
+rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
+rcu: 	Tasks blocked on level-0 rcu_node (CPUs 0-0): P5320/1:b..l
+rcu: 	(detected by 0, t=10502 jiffies, g=61125, q=864 ncpus=1)
+task:syz-execprog    state:R  running task     stack:22864 pid:5320  tgid:5314  ppid:5313   task_flags:0x440040 flags:0x00080000
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
+ preempt_schedule_irq+0x4b/0x90 kernel/sched/core.c:7606
+ irqentry_exit_to_kernel_mode include/linux/irq-entry-common.h:539 [inline]
+ irqentry_exit+0x14f/0x920 kernel/entry/common.c:167
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+RIP: 0010:task_css include/linux/cgroup.h:548 [inline]
+RIP: 0010:mem_cgroup_from_task+0x8f/0x120 mm/memcontrol.c:1134
+Code: 38 48 c7 c7 58 c8 d9 8f be ff ff ff ff e8 a9 1a a8 09 85 c0 75 23 49 83 c6 2c 4c 89 f0 48 c1 e8 03 42 0f b6 04 38 84 c0 75 6e <41> f6 06 04 75 09 e8 76 f7 68 ff 85 c0 74 28 48 83 c3 20 48 89 d8
+RSP: 0018:ffffc9000e0ef610 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: ffffffff8fd9f0c0 RCX: 0000000000000046
+RDX: 000000009a0f617f RSI: ffffffff8e6f5004 RDI: ffffffff8c6dec80
+RBP: 1ffff110061db463 R08: ffffffff8242ae78 R09: 0000000000000000
+R10: dffffc0000000000 R11: ffffed10070f1e47 R12: ffff88803878f230
+R13: dffffc0000000000 R14: ffff888000f525ac R15: dffffc0000000000
+ get_mem_cgroup_from_mm+0xd6/0x290 mm/memcontrol.c:1187
+ __mem_cgroup_charge+0x15/0x80 mm/memcontrol.c:5226
+ mem_cgroup_charge include/linux/memcontrol.h:662 [inline]
+ filemap_add_folio+0x140/0x4e0 mm/filemap.c:965
+ page_cache_ra_unbounded+0x46d/0x9d0 mm/readahead.c:293
+ do_page_cache_ra mm/readahead.c:348 [inline]
+ page_cache_ra_order+0xb47/0xee0 mm/readahead.c:558
+ do_sync_mmap_readahead+0x75e/0x990 mm/filemap.c:3443
+ filemap_fault+0x7d9/0x13b0 mm/filemap.c:3597
+ __do_fault+0x138/0x2a0 mm/memory.c:5565
+ do_read_fault mm/memory.c:6000 [inline]
+ do_fault mm/memory.c:6134 [inline]
+ do_pte_missing+0x2215/0x34b0 mm/memory.c:4700
+ handle_pte_fault mm/memory.c:6558 [inline]
+ __handle_mm_fault mm/memory.c:6707 [inline]
+ handle_mm_fault+0x1a53/0x3750 mm/memory.c:6876
+ do_user_addr_fault+0xa4f/0x1340 arch/x86/mm/fault.c:1343
+ handle_page_fault arch/x86/mm/fault.c:1483 [inline]
+ exc_page_fault+0x6a/0xc0 arch/x86/mm/fault.c:1536
+ asm_exc_page_fault+0x26/0x30 arch/x86/include/asm/idtentry.h:595
+RIP: 0033:0x46fe0e
+RSP: 002b:000010e09c0a5178 EFLAGS: 00010216
+RAX: 00000000015e4970 RBX: 000000000173a820 RCX: 0000000000000000
+RDX: 000000000001a058 RSI: 00000000015ca918 RDI: 000000000041db80
+RBP: 000010e09c0a51a0 R08: 00000000015ca918 R09: 00000000015cb3b8
+R10: 0000000001911ec0 R11: 0000000000000000 R12: 0000000043fdf3b9
+R13: 0000000000000000 R14: 000010e09c078960 R15: 000000000000012a
+ </TASK>
+rcu: rcu_preempt kthread starved for 1643 jiffies! g61125 f0x0 RCU_GP_WAIT_FQS(5) ->state=I ->cpu=0
+rcu: 	Unless rcu_preempt kthread gets sufficient CPU time, OOM is now expected behavior.
+rcu: RCU grace-period kthread stack dump:
+task:rcu_preempt     state:I stack:27496 pid:17    tgid:17    ppid:2      task_flags:0x208040 flags:0x00080000
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
+ preempt_schedule_common+0x7f/0xd0 kernel/sched/core.c:7463
+ preempt_schedule_thunk+0x16/0x40 arch/x86/entry/thunk.S:12
+ __raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:211 [inline]
+ _raw_spin_unlock_irqrestore+0x76/0x80 kernel/locking/spinlock.c:221
+ debug_object_assert_init+0x20d/0x380 lib/debugobjects.c:1072
+ debug_timer_assert_init kernel/time/timer.c:803 [inline]
+ debug_assert_init kernel/time/timer.c:848 [inline]
+ __mod_timer+0x4b/0xed0 kernel/time/timer.c:1025
+ schedule_timeout+0x14d/0x2c0 kernel/time/sleep_timeout.c:98
+ rcu_gp_fqs_loop+0x30c/0x11f0 kernel/rcu/tree.c:2122
+ rcu_gp_kthread+0x9e/0x2b0 kernel/rcu/tree.c:2330
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+rcu: Stack dump where RCU GP kthread last ran:
+CPU: 0 UID: 0 PID: 5761 Comm: syz.2.24 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:get_current arch/x86/include/asm/current.h:25 [inline]
+RIP: 0010:__sanitizer_cov_trace_pc+0x8/0x80 kernel/kcov.c:212
+Code: 8b 3d 34 de ab 0c 48 89 de 5b e9 93 fc 66 00 cc cc cc 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 48 8b 04 24 <65> 48 8b 0d c8 9d ce 12 65 48 8b 15 c8 9d ce 12 f7 c2 00 01 00 ff
+RSP: 0018:ffffc9000d3278e8 EFLAGS: 00000202
+RAX: ffffffff8be56f10 RBX: 1ffff11006b094a2 RCX: ffff888034c90000
+RDX: ffff88803584a508 RSI: ffff88803584a508 RDI: ffffc9000d327ab8
+RBP: 1ffff11006b094a1 R08: ffff888034c9001b R09: 1ffff11006992003
+R10: dffffc0000000000 R11: ffffed1006992004 R12: ffff88803584a508
+R13: ffff88803584a508 R14: ffff88803584a508 R15: ffff88803584a510
+FS:  00007f0baa9bd6c0(0000) GS:ffff88808b0b4000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200000000058 CR3: 000000004004c000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ __list_add include/linux/list.h:172 [inline]
+ list_add_tail include/linux/list.h:206 [inline]
+ plist_add+0x420/0x580 lib/plist.c:111
+ __futex_queue+0xed/0x160 kernel/futex/core.c:866
+ futex_queue kernel/futex/futex.h:333 [inline]
+ futex_wait_setup+0x424/0x590 kernel/futex/waitwake.c:695
+ __futex_wait+0x15f/0x400 kernel/futex/waitwake.c:717
+ futex_wait+0x121/0x390 kernel/futex/waitwake.c:750
+ do_futex+0x3e7/0x4e0 kernel/futex/syscalls.c:133
+ __do_sys_futex kernel/futex/syscalls.c:210 [inline]
+ __se_sys_futex+0x3a8/0x450 kernel/futex/syscalls.c:191
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f0ba9b9e559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f0baa9bd0e8 EFLAGS: 00000246 ORIG_RAX: 00000000000000ca
+RAX: ffffffffffffffda RBX: 00007f0ba9e25fa8 RCX: 00007f0ba9b9e559
+RDX: 0000000000000000 RSI: 0000000000000080 RDI: 00007f0ba9e25fa8
+RBP: 00007f0ba9e25fa0 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f0ba9e26038 R14: 00007ffe158db450 R15: 00007ffe158db538
+ </TASK>
 
-Otherwise LGTM.
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(of, ade9000_of_match);
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
