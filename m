@@ -1,131 +1,304 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010043.outbound.protection.outlook.com [52.101.84.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8100E388860
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:21:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792203689; cv=none; b=BOGk4KzP01Z81JGCnC6pXSeheq7p/wt4unPJxvPRjMZC+8DxfMmI61mMl7VrYI1mjoU2WXJlP+TqPfoUzA1oVBZnO7dSOQ+pgzHlE9TilDlyp7XBdL9AO0qG9/UnX92+lopGnD9yCAZzpoucyNXtavGmZJF4cwA+X167Nnp6lS4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792203689; c=relaxed/simple;
-	bh=dU4Ga5fgz0ZhWVdt5zYpF/rV2MXuB99vWQRS1jxAqkk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D7IdzHhZxf89D0/wU/CbDpNrl/uv2EKUPjurQ0u4CWXnpusoRyzS8HDG1Da/baao01cp1RP3UKkQS2qH4kXjAcf5+srnwPja5KAs8qmiwGDAjqrjwdV7YwunYMvokTehXQ8eW7cjJh9+g/PIvFVR8wJ1xm30bYiUci/kBr8tJFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xHu2u-00HRgx-OL;
-	Fri, 16 Oct 2026 22:21:16 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Richard Weinberger <richard@nod.at>
-Cc: Zhihao Cheng <chengzhihao1@huawei.com>,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] ubifs: drop the obsolete ULONG_MAX assertion on the wbuf timer delta
-Date: Fri, 16 Oct 2026 22:21:16 -0400
-Message-ID: <20261017022116.792684-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E9D3148D8;
+	Sat, 17 Oct 2026 02:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792203900; cv=fail; b=gSgyyK/v1YQ9gLHn3Z4bfmef+Z2Bc4sNU2KzaqN+k3uGc73xmYGFm0xodeegogtSdaI3QL9FZ2wdQnkXshtxHde0Xm4Zqv/WnDdmY0B+wfP+lWWn02XQaxlp3fjSGSdfyI2M/3tvunj6XvwA8T2y9YS2udbreJwNmyiVqIcFHug=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792203900; c=relaxed/simple;
+	bh=8nR67DFS0URoHs2xymz87UyZbXOHmjfLN4EY2zi3bSE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=tPLhIGLaabW9VsvjDPId+LfMg6moSsQAlAALO3RJqmMRZHfsXr6ZFeCIBZCzgBGWHG+xjHWccRhRi4V7ASDrcELtwie8pr5qUUZdIHqVStQCW9q6qM7eHSgL4/01UIuAZARI6SfxFzjpGw3jv6TZCPnH14G1zcjOmx0FUrBrq68=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=jSMcoIF7; arc=fail smtp.client-ip=52.101.84.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="jSMcoIF7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fGRSqtPrGB1UWsIMBLXKAIEibVODe0iFB2TSq3/iRpqLPjDZeA46wmE6FnzE3PFr0Wlwqbz8mAZXogsvLSkIod5k4aMrcg1/QKfheqwWY8aKSbx7Hu3difETiVrfwQCWY6L4l4TSjjvF86gpN/m90GVCFdSsVWvYaihk9yFqTW4dkg9bKb4FSzlJJLobXI3Y932Vi5gi33ifZAvuCwHqKgb+4Gjbz9/ip1zEYICKCMbZ1lHHvgGZzQx/8P43Y11O/58+m+y6pzKbN8QAFaeaE0+69JeZ24ymQet3PaN+g6Pq4CI+5SQoT486vOaX4syoblp56hPBWLKY1rcCf0XwIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RlmdC/ZrC2wE8s5bUwcx60nsjLZEKFAjdQUiwuhb7TU=;
+ b=EnnTZ7efK97Oa86yOnDGb5DG5W9SRY1gv5xlsJgA8mcqhw+HJXs26zGQce9vT+9X60SGAdl8GPYzwtT8LEZ6g3GX2FDoP4uvSPqrCuPqOZnlpwSmoRMBK1lDuLV22Y3vw+mrbREfX7ga6SLSLEhaO1jZA2WHXBVawIaJGe4uBea62fv7L9m/bJhvUBiGkizw15Y+l7zpGmUAFKbsfVK3lmsgJYOXnPMAsp2U+oRlvb0oeaJ82oNrmTu57Z3ASlsiGXajGUTgjuCjboeKEbfziYIQjYoUUSqT9xmNqcfT4WGZvlgZ/oPpaYfsdBZGd7bCZRPDUFvddPpjr20tTsb/XA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RlmdC/ZrC2wE8s5bUwcx60nsjLZEKFAjdQUiwuhb7TU=;
+ b=jSMcoIF7eu67kLk7m2ZS/jG5rrVVp45RenXa+oaKDmpAWZP3g+nb5vT3UImcPB6xHorkDGedLnHZrpsrLM8afg0N8v/IeAxVOLWf8TJasj0UMwPEcTzOqcHoOHmKaC3gwP+M1hIK0dxtu4wT28I9L1uZpfPV8fsrykgC/7MQlWjHxEfZjbJ44cclBy9fdwBQMi3qeJDQ4SFaRXtnHRfHk/098FWwpB7qxRbNBJmYWVxghc2TVmhwgLlw5XkHJKmoc5HWOwrIrBQq+7QTsIEwizLn1REMl3cV8VFp4SZyPmH3LUEi5i9wqMnO6XyrihV3L//YttyAwR1D12wGtd4MBg==
+Received: from DB9PR04MB9332.eurprd04.prod.outlook.com (2603:10a6:10:36c::6)
+ by GVXPR04MB10754.eurprd04.prod.outlook.com (2603:10a6:150:225::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Sat, 17 Oct
+ 2026 02:24:50 +0000
+Received: from DB9PR04MB9332.eurprd04.prod.outlook.com
+ ([fe80::75d8:3bd9:28df:cfdb]) by DB9PR04MB9332.eurprd04.prod.outlook.com
+ ([fe80::75d8:3bd9:28df:cfdb%2]) with mapi id 15.21.0522.013; Sat, 17 Oct 2026
+ 02:24:50 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: "Frank Li (OSS)" <frank.li@oss.nxp.com>, Marek Vasut <marex@nabladev.com>
+CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, Vladimir Oltean
+	<vladimir.oltean@nxp.com>, "Christophe Leroy (CS GROUP)"
+	<chleroy@kernel.org>, "David S. Miller" <davem@davemloft.net>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, Clark Wang <xiaoning.wang@nxp.com>, Claudiu Manoil
+	<claudiu.manoil@nxp.com>, Conor Dooley <conor+dt@kernel.org>, Eric Dumazet
+	<edumazet@kernel.org>, Frank Li <frank.li@nxp.com>, Jakub Kicinski
+	<kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+	"UNGLinuxDriver@microchip.com" <UNGLinuxDriver@microchip.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linuxppc-dev@lists.ozlabs.org"
+	<linuxppc-dev@lists.ozlabs.org>
+Subject: RE: [net-next,PATCH 2/2] enetc: Make eMDIO MDC rate configurable from
+ DT
+Thread-Topic: [net-next,PATCH 2/2] enetc: Make eMDIO MDC rate configurable
+ from DT
+Thread-Index: AQHdXaVPTB8CJdKLoUewahs8NUD/ZLcAl7OAgABoBfA=
+Date: Sat, 17 Oct 2026 02:24:50 +0000
+Message-ID:
+ <DB9PR04MB933217F7ADCB6223A44DACA7889A2@DB9PR04MB9332.eurprd04.prod.outlook.com>
+References: <20261016193344.115518-1-marex@nabladev.com>
+ <20261016193344.115518-2-marex@nabladev.com> <atKDNdxl0w65s8yQ@SMW015318>
+In-Reply-To: <atKDNdxl0w65s8yQ@SMW015318>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB9PR04MB9332:EE_|GVXPR04MB10754:EE_
+x-ms-office365-filtering-correlation-id: 886d8eae-da9c-4722-6146-08df2bf5d273
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|19092799006|23010399003|376014|1800799024|7416014|366016|261009223027099003|6133799003|18002099003|10067099003|22082099003|4143699003|11063799006|38070700021|56012099006;
+x-microsoft-antispam-message-info:
+ giYjXPglTBeQWDBLuEXOHODYW3VeC/AddZnYh2zykdTi3fxSKePv3mMOyUJCVq5onkFATkW4Gs79DDYPVOBL2FSZQqa7MnB9aCKf7ss8CNlmUZxExm/UouCGxRhTNDXXniGsRhHsSE5Kt9KK4UPvaSR+pjwEW6R66MAxgiKGm0bLHRyYMWQBJk+o43Zr5NJIvxb+tyoj8Kcg1C4GgeslSAE5uw+GMJjD0Bet03EGUcpEecz/KrivWkOIBqwHS4EC6Hm/74C8OenK10f8O5P9HijiPOka8AVrUDAhic2Ddhcc90kUHzlNfeBM4FJFXcPlxF1SVpbTwMvPHeybx+e5S679HSj8xRsAAZJO197OwxySixUbqqMdI37s/5afipTlAUVC8I5m5YIC2gHXF2C/UK5Dy3jejIvF+l7Toa9d30Fm9kM+rnvvxCwbMbNs61rZBTAzXKvUG/tGjQLVl7hMJ9Ut/HO5We1rNBSKoL/5mAoK+BXfJSgnKkA2+g/XwO3LwWZV4BH0i4tKzvSIT3WWWi5A1dNgAVL63aha7Dw0YIpoou89MTwfvhZMOJ5Hr2GlYfKMXO69RlBAAXVM8/LMMDAWVY3OJPAiOLpevdmTqmYVkGONX3gnH3vnRJ04ffmo+w+DOEaF55iaMEx5pMh//enOasg9W6ERI4dOaRJ/M8bpXCeQ+LPlSjMpfhiRimXJ6kH0gBrgHq65ZWwWcQL78w9siplbhWw+mfBq4gDRmiQ=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9332.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(1800799024)(7416014)(366016)(261009223027099003)(6133799003)(18002099003)(10067099003)(22082099003)(4143699003)(11063799006)(38070700021)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?TXoMRRWqcoF2V1IhUfs6nIOWYB5jWNG3KyaQjCVanuqwItF2ZeP5wFsTWTUc?=
+ =?us-ascii?Q?52OxOxyx7RzCJeiHre4PqgpaUByfFmvq+hwi1o3gPdu7UsaoyoDbXFJGUQuo?=
+ =?us-ascii?Q?JxXyondc5H3yDc4lZ9y7SMnuPQdksxpZVfrMlyfffoSedK4KtiM3VjDifiuJ?=
+ =?us-ascii?Q?XPdPMRSkpGN+vRx0vtb+VtjyhJM5/AgNHEoEQzrV1+Un3F0B0IEBlAJ1mks3?=
+ =?us-ascii?Q?bDLDlVKrHNTJEF0BJ+dpcXdIT8jluRhZqSn/uGqw7vh1MkOPiIkrA2nDfIOo?=
+ =?us-ascii?Q?5WGWE5Sx5W0A5OQxcFBcXG6rC2sWb27N+6W3SI/0QMtogF3psCq4qniDJj4H?=
+ =?us-ascii?Q?Ze+vBB9GZn5kORTPuGlYJL5WXW1+0R/qaj4731SLjg7s0oodQEDZuCRdM7Z8?=
+ =?us-ascii?Q?EzUpExAp577SLvEvG+iYrShLJ7IVdT5W33Tx8GuzVEUhWqnz2J/c7qrKraVO?=
+ =?us-ascii?Q?R20mNkMpCyUnoXnc4G0PGda0oyfUGKyou5rk+JyjaawHvLQZMPQYZzUL/kY7?=
+ =?us-ascii?Q?Ay9BMraypVRIt7PMGNSj639h4kzHOiFn34+JuL74H+5wmjyofE203fvpdq2M?=
+ =?us-ascii?Q?tiviGpwT9HVDwv7SEdRboNTREBopkROWPMjGgypn+TZsvPuA27kZyLcLL/li?=
+ =?us-ascii?Q?whbPCn5rjV+RZM0sVsVeB+vFNu+ccvencAOXKc+3nVPPuVOuHPfFmOiCdO9a?=
+ =?us-ascii?Q?KveOujJZ//LGsBVmrYRqFW0nBdwsQvJTuqubS8zZVeaiUzlIufz++a2rgYSG?=
+ =?us-ascii?Q?pI9/QTSV7a9g9xFC+eJbVue/JCCT4UmLQpBfG/LXKVHFDov6GZ8mi70vlf4n?=
+ =?us-ascii?Q?pM152kYMJfMr/Lz273GDSddJK3UsjIr/3mpH9TdACaVfl17HW7EFFwp/wmEg?=
+ =?us-ascii?Q?H2KMPcheE0/lZFOFNfrD7Ny7sW0WPoHFPrCOXcZiRgVBlHrqBeFc+A/m7ZVy?=
+ =?us-ascii?Q?QDZ9kpRPPJgrcI5YAOt87i5+A1/OEAgzFoisQoBRhFPzbdzuh0AxnO5/Pyx+?=
+ =?us-ascii?Q?a9atvfLp3v0zxF5y2iBWcac1y5J+vtz9+a+x8/pLx+iNPUKhnMs/sDOu2vRm?=
+ =?us-ascii?Q?aARCkEV8eQCMxg5tGE1CpAYfWIQI4fSmO1untf0Apua0ulfEWVVSLPa1B8lZ?=
+ =?us-ascii?Q?JV8LxrR1tbV9tAZNCxFPLQNvNZ7cPZD5UIslrn4/2cElxdqfPnexRadAMkoY?=
+ =?us-ascii?Q?DvO4vPyeIFWl64N5ONzN+oVI2XAF4ArRnrf4vnyQLMdM8YquYyfVRUb96UNO?=
+ =?us-ascii?Q?415xX/yIPXX8y8XKtOzPQ8x6GOF3pQ+yTcWkps5jK9LHkcvYYVMBU2cGZBZN?=
+ =?us-ascii?Q?+J+J0/SC0xN+TqKnEC9dLPkStE1Xy1jshNgKhMtDAMlltIc4H5ZI/1rImAUE?=
+ =?us-ascii?Q?6IZRhrwKV8r2RTW2na8Ainth1J/V4ZTt8FGF8bliXMrY2ohia1PsMUNVBJ1/?=
+ =?us-ascii?Q?iOaS1T79dX2bM2u0YpKHL4Bu+JM/4jZMYQFqZMo9PJvzoDoH4SQBebtLScor?=
+ =?us-ascii?Q?PvGVBGOn++6UvEsHK2iVhVBHD6Py9hneWPBsBBdUJswPOADc9xqACboEPaoQ?=
+ =?us-ascii?Q?G8sSe9uZiDAKus/GtIbbb7UAyWx8vlQ+FtXQnhZqMKuageU0FvA7CDgBJFCW?=
+ =?us-ascii?Q?zHf83kj6Np4TYsZAjNwL4soqroybt8IP/q3Z7SSa6jPLfALLdzTCpDdjd3qO?=
+ =?us-ascii?Q?HJZ+vw4Nq+ZXQWqinSKliXlW6k4WEjWAX3Yc3YDQNBg8h6dF?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9332.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 886d8eae-da9c-4722-6146-08df2bf5d273
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Oct 2026 02:24:50.7335
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: MXpGZIatfbKKxUfTK3B59AUPDBD0FwoN+GRKqtDpf2qrirz8/lF6UOhxjFDOevHjG71kBL/Oq32ps08iehIp7w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10754
 
-On a 32-bit kernel, once root sets vm.dirty_writeback_centisecs to 4295
-or more (43 s; raised on flash-based systems to reduce wear), the next
-journal write of every mounted UBIFS file system fails its write-buffer
-timer assertion and, with the default assert=read-only, switches the file
-system to read-only mode:
+> On Fri, Oct 16, 2026 at 09:32:01PM +0200, Marek Vasut wrote:
+> > The current eMDIO MDC rate is hard-coded in the drivers which use the
+> > eMDIO MDC, this is not flexible for various deployments of SoCs which
+> > use the eMDIO interface, for example i.MX95 B0 MDC clock is currently
+> > set to 644 kHz.
+> >
+> > Introduce enetc_mdio_priv .mdc_div field which contains the divider
+> > used for MDC clock and pass it around, including into functions which
+> > configure the MDC clock. This way, drivers which use the eMDIO can set
+> > the divider as needed. Introduce enetc_mdio_update_mdc_div() function
+> > which calculates the divider from upstream clock and clock-frequency
+> > DT property, both of which are optional to retain compatibility with
+> > older DTs. This is modeled according to xgmac_mdio_set_mdc_freq().
+> >
+> > Suggested-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> > Signed-off-by: Marek Vasut <marex@nabladev.com>
+> > ---
+> > Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+> > Cc: "David S. Miller" <davem@davemloft.net>
+> > Cc: Andrew Lunn <andrew+netdev@lunn.ch>
+> > Cc: Clark Wang <xiaoning.wang@nxp.com>
+> > Cc: Claudiu Manoil <claudiu.manoil@nxp.com>
+> > Cc: Conor Dooley <conor+dt@kernel.org>
+> > Cc: Eric Dumazet <edumazet@kernel.org>
+> > Cc: Frank Li <Frank.Li@nxp.com>
+> > Cc: Jakub Kicinski <kuba@kernel.org>
+> > Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> > Cc: Paolo Abeni <pabeni@redhat.com>
+> > Cc: Rob Herring <robh@kernel.org>
+> > Cc: UNGLinuxDriver@microchip.com
+> > Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
+> > Cc: Wei Fang <wei.fang@nxp.com>
+> > Cc: devicetree@vger.kernel.org
+> > Cc: imx@lists.linux.dev
+> > Cc: linux-arm-kernel@lists.infradead.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: linuxppc-dev@lists.ozlabs.org
+> > Cc: netdev@vger.kernel.org
+> > ---
+> > NOTE: I could only test i.MX95 , I could not test LS or Felix
+> > ---
+> >  drivers/net/dsa/ocelot/felix_vsc9959.c        |  5 +++
+> >  .../net/ethernet/freescale/enetc/enetc_mdio.c | 39 ++++++++++++++++---
+> >  .../ethernet/freescale/enetc/enetc_pci_mdio.c |  5 +++
+> >  .../freescale/enetc/enetc_pf_common.c         | 10 +++++
+> >  include/linux/fsl/enetc_mdio.h                |  6 +++
+> >  5 files changed, 59 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/net/dsa/ocelot/felix_vsc9959.c
+> b/drivers/net/dsa/ocelot/felix_vsc9959.c
+> > index 8387dd208adb9..dbeec1b229325 100644
+> > --- a/drivers/net/dsa/ocelot/felix_vsc9959.c
+> > +++ b/drivers/net/dsa/ocelot/felix_vsc9959.c
+> > @@ -1008,8 +1008,13 @@ static int vsc9959_mdio_bus_alloc(struct ocelot
+> *ocelot)
+> >  	 * starting with the proper offset.
+> >  	 */
+> >  	mdio_priv->mdio_base =3D 0;
+> > +	mdio_priv->mdc_div =3D ENETC_MDIO_DEFAULT_DIVIDER;
+> >  	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-imdio", dev_name(dev));
+> >
+> > +	rc =3D enetc_mdio_update_mdc_div(bus);
+> > +	if (rc)
+> > +		return rc;
+> > +
+> >  	/* Needed in order to initialize the bus mutex lock */
+> >  	rc =3D mdiobus_register(bus);
+> >  	if (rc < 0) {
+> > diff --git a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
+> b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
+> > index 998aaa394e9c4..93d61c2f1464f 100644
+> > --- a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
+> > +++ b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
+> > @@ -1,6 +1,7 @@
+> >  // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+> >  /* Copyright 2019 NXP */
+> >
+> > +#include <linux/clk.h>
+> >  #include <linux/fsl/enetc_mdio.h>
+> >  #include <linux/mdio.h>
+> >  #include <linux/of_mdio.h>
+> > @@ -22,9 +23,9 @@
+> >   /* external MDIO only - driven on neg MDC edge */
+> >  #define MDIO_CFG_NEG		BIT(23)
+> >
+> > -#define ENETC_EMDIO_CFG \
+> > +#define ENETC_EMDIO_CFG(mdc_div) \
+> >  	(MDIO_CFG_HOLD(2) | \
+> > -	 MDIO_CFG_CLKDIV(258) | \
+> > +	 MDIO_CFG_CLKDIV(mdc_div) | \
+> >  	 MDIO_CFG_NEG)
+> >
+> >  #define MDIO_CTL_DEV_ADDR(x)	((x) & 0x1f)
+> > @@ -63,7 +64,7 @@ int enetc_mdio_write_c22(struct mii_bus *bus, int
+> phy_id, int regnum,
+> >  	u16 dev_addr;
+> >  	int ret;
+> >
+> > -	mdio_cfg =3D ENETC_EMDIO_CFG;
+> > +	mdio_cfg =3D ENETC_EMDIO_CFG(mdio_priv->mdc_div);
+> >  	dev_addr =3D regnum & 0x1f;
+> >  	mdio_cfg &=3D ~MDIO_CFG_ENC45;
+> >
+> > @@ -95,7 +96,7 @@ int enetc_mdio_write_c45(struct mii_bus *bus, int
+> phy_id, int dev_addr,
+> >  	u32 mdio_ctl, mdio_cfg;
+> >  	int ret;
+> >
+> > -	mdio_cfg =3D ENETC_EMDIO_CFG;
+> > +	mdio_cfg =3D ENETC_EMDIO_CFG(mdio_priv->mdc_div);
+> >  	mdio_cfg |=3D MDIO_CFG_ENC45;
+> >
+> >  	enetc_mdio_wr(mdio_priv, ENETC_MDIO_CFG, mdio_cfg);
+> > @@ -133,7 +134,7 @@ int enetc_mdio_read_c22(struct mii_bus *bus, int
+> phy_id, int regnum)
+> >  	u16 dev_addr, value;
+> >  	int ret;
+> >
+> > -	mdio_cfg =3D ENETC_EMDIO_CFG;
+> > +	mdio_cfg =3D ENETC_EMDIO_CFG(mdio_priv->mdc_div);
+> >  	dev_addr =3D regnum & 0x1f;
+> >  	mdio_cfg &=3D ~MDIO_CFG_ENC45;
+> >
+> > @@ -176,7 +177,7 @@ int enetc_mdio_read_c45(struct mii_bus *bus, int
+> phy_id, int dev_addr,
+> >  	u16 value;
+> >  	int ret;
+> >
+> > -	mdio_cfg =3D ENETC_EMDIO_CFG;
+> > +	mdio_cfg =3D ENETC_EMDIO_CFG(mdio_priv->mdc_div);
+> >  	mdio_cfg |=3D MDIO_CFG_ENC45;
+> >
+> >  	enetc_mdio_wr(mdio_priv, ENETC_MDIO_CFG, mdio_cfg);
+> > @@ -231,6 +232,32 @@ struct enetc_hw *enetc_hw_alloc(struct device
+> *dev, void __iomem *port_regs)
+> >  }
+> >  EXPORT_SYMBOL_GPL(enetc_hw_alloc);
+> >
+> > +int enetc_mdio_update_mdc_div(struct mii_bus *bus)
+> > +{
+> > +	struct enetc_mdio_priv *mdio_priv =3D bus->priv;
+> > +	struct device *dev =3D bus->parent;
+> > +	struct clk *enet_clk;
+> > +	u32 div, mdc_freq;
+> > +
+> > +	if (device_property_read_u32(dev, "clock-frequency", &mdc_freq))
+> > +		return 0;
+> > +
+> > +	enet_clk =3D devm_clk_get(dev, NULL);
+> > +	if (IS_ERR(enet_clk))
+> > +		return dev_err_probe(dev, PTR_ERR(enet_clk),
+> > +				     "Input clock unknown, not changing MDC
+> frequency\n");
+>=20
+> binding said clock is optional. If return failure here, it will block
+> existing dts, which have not clock property.
+>=20
 
-  UBIFS error (ubi0:0 pid 1): ubifs_assert_failed: UBIFS assert failed: delta <= ULONG_MAX, in fs/ubifs/io.c:516
-  UBIFS warning (ubi0:0 pid 1): ubifs_ro_mode.part.0: switched to read-only mode, error -22
+For EMDIO device, the clocks property is not added to
+fsl,enetc-mdio.yaml, I suppose this property should be added to the
+dt-binding doc if the clock is really needed here.
 
-The create, write, unlink or fsync that started the timer returns EROFS
-and so does every later one until the file system is remounted; with
-assert=panic the machine crashes instead. 64-bit kernels are not
-affected. The assertion has been reachable since v4.10, when the timer
-started to follow the sysctl.
-
-new_wbuf_timer_nolock() computes the timer slack as
-
-	delta = dirty_writeback_interval * 10^6 ns
-
-in an unsigned long long and asserts delta <= ULONG_MAX. On 32-bit
-ULONG_MAX is 4294967295, exceeded from 4295 centiseconds on. The check
-dates from commit 2a35a3a8ab3e ("UBIFS: set write-buffer timout to 3-5
-seconds"), when hrtimer_start_range_ns() took the slack as an unsigned
-long and the value was a compile-time constant that could only be checked
-against truncation. Commit da8b44d5a9f8 ("timer: convert timer_slack_ns
-from unsigned long to u64") widened the parameter to u64, so nothing is
-truncated any more, and commit 1b7fc2c0069f ("ubifs: Use
-dirty_writeback_interval value for wbuf timer") then derived the value
-from the sysctl, which has no upper bound. The assertion no longer guards
-anything and fails on a legitimate setting.
-
-Remove it. The timer is started with the full 64-bit slack exactly as
-before.
-
-Tested on a riscv32 QEMU kernel with UBIFS on an mtdram-backed UBI
-volume: after "vm.dirty_writeback_centisecs = 4295" the first
-open(O_CREAT) fails with EROFS and the assertion is logged; with this
-patch the open and fsync succeed and the log is clean. 4294 works on
-both.
-
-Found while reviewing the users of dirty_writeback_interval for the
-formal verification of the periodic writeback code.
-
-Fixes: 1b7fc2c0069f ("ubifs: Use dirty_writeback_interval value for wbuf timer")
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
-
-Notes:
-    The write-buffer timer start is the only user of the value in fs/ubifs; the
-    softlimit next to it, ms_to_ktime(dirty_writeback_interval * 10), is a 32-bit
-    product on all architectures and wraps above 429496729 centiseconds (49.7 days),
-    the same wrap that fs/fs-writeback.c has at its two msecs_to_jiffies() sites;
-    that is a separate issue of the sysctl's range, not touched here.
-    
-    Reproducer (32-bit kernel, any UBIFS mount, root):
-    
-      sysctl -w vm.dirty_writeback_centisecs=4295
-      touch /mnt/ubifs/f
-    
-    Before: touch fails with EROFS; the log shows "UBIFS assert failed: delta <=
-    ULONG_MAX, in fs/ubifs/io.c:516" and "switched to read-only mode, error -22";
-    every later write to the file system fails with EROFS until it is remounted.
-    After: touch succeeds, nothing is logged. 4294 works on both; a 64-bit kernel
-    never trips the assertion.
-    
-    Run here as a freestanding init on qemu-system-riscv32 (-M virt,
-    CONFIG_MTD_MTDRAM=y with a 16 MiB device and 128 KiB erase blocks,
-    CONFIG_MTD_UBI=y, CONFIG_UBIFS_FS=y, "ubi.mtd=0" on the command line): the init
-    creates a 4 MiB dynamic UBI volume with UBI_IOCMKVOL, mounts "ubi0:v" (UBIFS
-    formats the empty volume), creates /mnt/a at 4294 (ok, fsync ok), sets 4295 and
-    creates /mnt/b: open returns -30 unpatched, 0 patched.
-
- fs/ubifs/io.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/fs/ubifs/io.c b/fs/ubifs/io.c
-index 6c6d68242779..da4eb0a82e62 100644
---- a/fs/ubifs/io.c
-+++ b/fs/ubifs/io.c
-@@ -513,7 +513,6 @@ static void new_wbuf_timer_nolock(struct ubifs_info *c, struct ubifs_wbuf *wbuf)
- 	delta *= 10ULL * NSEC_PER_MSEC / 10ULL;
- 
- 	ubifs_assert(c, !hrtimer_active(&wbuf->timer));
--	ubifs_assert(c, delta <= ULONG_MAX);
- 
- 	if (wbuf->no_timer)
- 		return;
-
-base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
--- 
-2.53.0
+For ENETC device, we already have a 'ref' clock in the enetc node,
+so devm_clk_get(dev, NULL) may get the 'ref' clock rather than the
+system clock of NETC.
 
