@@ -1,98 +1,112 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77CF3CB542
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6E03C4163;
+	Sat, 17 Oct 2026 08:05:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792224297; cv=none; b=WFyflhEywf1IyLyZzRhQWoicUnYrWILLDPCxE2GbHOBDnTju01DKzxw/WeqwZwbwpj3xrKaW0e/PkTgENC8v+Mu2JYHdduh8PwO3PiCDtKZMf1TOOKZsVRXK2LM1m4ag4lwbCfxCZtdanRPpXLXW2e+lBrHY0eYqH1r87S4ZodU=
+	t=1792224317; cv=none; b=G48ZD+KfUool3Ei9ejItleq7YbTe65sou4v8l4S3638UysNTiNtN3ac5HCtdkIhQ4Oo1yGauPTiLkFNEUpt2MdlelyUpUcl5z+tg8/FXmTWrsyqXbUp2Z5mN+0HXq6K0q8bAgeVQwYxr+aoi2WIrBikk2ngVQA1fOIkO6w5KEks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792224297; c=relaxed/simple;
-	bh=T2X/NPxw04NLeBqwlBxu8Ew5YcEVhywK9NUgebHkghc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BJyXhQ/FHntxu0c+Wg6RGqPIPzSREVzktZcMH86HTlVbeGJctE/vnxW8OM0khtQt5W8cza1nH+4An0wHrNW316hANyI+F5VFyC+s0hlRPH8Kx5FU/RVLrvHakL4UoZo90lFkF20YvGeenHhJlJUsbj88n63KyGRSdPVxWMP08zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Yl8ZRenH; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792224317; c=relaxed/simple;
+	bh=6v1c9XZS4bixBBqUUcfJEteCcdTXTXnQcDN+8g3SW5Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mf0nV/E887Jlabv96XgykqcD/x/0zl2PIKn/DzbfiEbnyAZNr4XHiFpeDVoCdE3/KyTBX9geTd/ovJQrKo9uW3BVi7pPsIQocvl16Ar93suyUZ7fc5K+JHVY5JrY2Z5YDUNg3u/7vsb2c2PLb2y1l1LZhOoSWMLjjf3OZ4ZRNqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pF3WD4qs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Yl8ZRenH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792224294;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=T2X/NPxw04NLeBqwlBxu8Ew5YcEVhywK9NUgebHkghc=;
-	b=Yl8ZRenH1G34hFIjxYPfc0nWyTjsbXk3nFTdCzS2MdHU7KxbdYNymU/r4clIbYVvzb96yR
-	S0OjAHpr3yrs4gwBYkfV/HiFpH9m14mled8nofrb16ylzSQW7uc1NIOEjU51dlh6aQ8MHR
-	5/gmsGWWrhbs9TRAeqx56WkqAoGfUrE=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-687-VoMmkkY7OiqWdZUZTVk1sw-1; Sat,
- 17 Oct 2026 08:04:51 +0000
-X-MC-Unique: VoMmkkY7OiqWdZUZTVk1sw-1
-X-Mimecast-MFC-AGG-ID: VoMmkkY7OiqWdZUZTVk1sw_1792224289
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C9FEA19560B4;
-	Sat, 17 Oct 2026 08:04:48 +0000 (UTC)
-Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E9AB91956087;
-	Sat, 17 Oct 2026 08:04:45 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: baochen.qiang@oss.qualcomm.com
-Cc: ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	jjohnson@kernel.org,
-	johannes@sipsolutions.net,
-	jtornosm@redhat.com,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] wifi: ath12k: fixes to improve MLO station stability
-Date: Sat, 17 Oct 2026 10:04:43 +0200
-Message-ID: <20261017080444.41177-1-jtornosm@redhat.com>
-In-Reply-To: <aaf175a7-86e0-4da2-a3fc-df87d906f800@oss.qualcomm.com>
-References: <aaf175a7-86e0-4da2-a3fc-df87d906f800@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pF3WD4qs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECF541F000C4;
+	Sat, 17 Oct 2026 08:05:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792224315;
+	bh=pYaLRk3IaoCXdaGwBn5EufmNnHO0PU354pzQex0/BOk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=pF3WD4qseeZzl6s4Pk82VAawF+goGtZns/w0a01evta0Afl94Q3U6jqGM+LBqIQvP
+	 i7xERIBtkvcMEC3W1FsWNcdwQ3WJhwaD3BboKgvt2TTWJZ8G+vOrFAi2RyaU0sJepf
+	 KVOdOgZQkp+p9U1+f6p36wxSx0nHEhNM5E4Gi04c=
+Date: Sat, 17 Oct 2026 10:05:12 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Kyle Farrell <kaf@nwlink.com>
+Cc: linux-usb@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 0/2 RESEND] usb: gadget: uac2: support explicit
+ channel counts
+Message-ID: <2026101742-ouch-sensually-f5a4@gregkh>
+References: <20261016162534.384844-1-kaf@nwlink.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016162534.384844-1-kaf@nwlink.com>
 
-Hi Baochen,
+On Fri, Oct 16, 2026 at 09:25:32AM -0700, Kyle Farrell wrote:
+> USB Audio Class 2.0 permits up to 255 channels in an audio channel cluster
+> via bNrChannels. Independently, a channel-location bitmap is specified via
+> bmChannelConfig for up to 27 predefined spatial locations. Setting
+> bmChannelConfig to zero indicates that the channels have no predefined
+> spatial positions.
+> 
+> The current UAC2 gadget driver derives bNrChannels from the number of set
+> bits in bmChannelConfig. Since bmChannelConfig provides 27 predefined
+> spatial locations this limits playback and capture streams to 27 channels.
+> 
+> This series allows channel counts up to the UAC2 limit of 255 without
+> requiring predefined spatial channel locations in bmChannelConfig.
+> Existing ConfigFS channel-mask configuration continues to work unchanged.
+> New optional playback and capture count attributes allow the number of
+> channels to be specified separately from the channel-location bitmap.
+> 
+> The series is split so that the shared u_audio infrastructure is updated
+> first without changing behavior, followed by the UAC2 functional change.
+> 
+> Patch 1:
+>   Pass resolved playback and capture channel counts explicitly into
+>   the UAC1/UAC2 shared u_audio implementation instead of deriving them
+>   from channel masks.
+> 
+> Patch 2:
+>   Add ConfigFS playback/capture channel-count attributes to the UAC2
+>   function driver and use them when generating descriptors and stream
+>   configuration, allowing counts beyond the 27 predefined channel
+>   locations.
+> 
+> Testing
+> 
+> Testing was performed using a Raspberry Pi Zero 2 W configured as a USB
+> UAC2 gadget. Streaming and descriptor validation were performed against
+> both Linux and macOS hosts.  Windows hosts were not tested.
+> 
+> UAC1
+>   - Verified playback/capture operation via alsaloop.
+>   - No descriptor or behavioral changes observed.
+> 
+> UAC2
+>   - Verified legacy channel-mask configuration (1-27 channels).
+>   - Verified explicit channel-count mode with 2, 28, 61, 62, 96 channels.
+>   - Verified invalid channel-count/channel-mask combinations are rejected.
+>   - Verified Feature Unit descriptor size limits at 61/62 channel boundary.
+>   - Verified descriptors including:
+>       * bNrChannels
+>       * bmChannelConfig
+>       * Feature Unit presence and bLength
+>       * AudioControl wTotalLength
+>       * endpoint wMaxPacketSize
+>   - Verified ALSA-reported playback and capture channel counts.
+>   - Verified streaming using alsaloop.
+> 
+> Changes in v2:
+>   - Edit commit messages for clarity and brevity.
+>   - Add Assisted-by: LLM attribution.
+>   - No code changes.
 
-I agree that per-callback guards don't scale well long-term. Johannes
-can comment better because both alternatives need mac80211 changes,
-but let me share my thoughts.
+Why was RESEND needed here?  Saying that would be nice.
 
-Option 1 (recovery inside .start()) holds rtnl for ~1.3s, that seems
-too long to hold.
+Also, sashiko points out a number of problems...
 
-Option 2 (split ieee80211_restart_hw() into early barrier + deferred
-restart) looks like the right direction. It would benefit any driver
-with async recovery, not just ath12k. But it is a mac80211 core change
-and a bigger effort, and it still needs in_reconfig checks added to
-callbacks that don't have them today (scan, for one), so the guarding
-moves to mac80211 rather than disappearing.
+thanks,
 
-In the meantime, the crashes this series fixes are real: without it,
-an MLO firmware crash gives NULL derefs and 20+ second recovery. The
-guards here cover the callbacks that actually run during that window,
-not a speculative list.
-
-I am happy to work on the mac80211 side (option 2), but would it make
-sense for you to land this series as an interim fix while that is
-worked out as a follow-up?
-
-Thanks
-
-Best regards
-José Ignacio
-
+greg k-h
