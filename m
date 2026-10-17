@@ -1,204 +1,120 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEE92EA15C;
-	Sat, 17 Oct 2026 02:06:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792202805; cv=none; b=vDM4LxJagY3ckzFnB9SaMR7bRbeby5zH8BC8OASdudPnA3XeWG6f66QBTKbkiyRiMR4KUzxXKpLbDWJJuD36BX4MjjWzdaQPADTcRMk4KfL+mR2bkDO58OxQU67RGEfzR6Ak4thlzjjS/vp55u6+8zl1kloPqxh0mpA6onLaJJk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792202805; c=relaxed/simple;
-	bh=Cu+OSIQH8dP/eLmsqcJbGmKyOWUvKeB7xnH9dIGk8Og=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CEyLpt3+pBHcT0ah5cpEiqUyVsl9SgExh9Oveh4VJCSeEDyzgeow1qqj98xIk8wGKeAH6VhM3/erhPXm8sKfktoMnIfZ5tXV+9ikVAJh5gfU+txN7u1lefQI5ZR+JWZNoFHEt3URfb6/xehz8NCvOfx3X92JBysDKMVz1UHwi5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xHtog-00HOWO-Ar;
-	Fri, 16 Oct 2026 22:06:34 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	Shuah Khan <shuah@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>,
-	Luca Boccassi <luca.boccassi@gmail.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] pidfs: do not report fields that do not fit into the caller's struct
-Date: Fri, 16 Oct 2026 22:06:33 -0400
-Message-ID: <20261017020634.792390-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A950437F312
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:07:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792202841; cv=pass; b=DHkRRUILIQiUWfv3OUTK4nKCY/og8ez3eJbFWMhTxcKPDisnYNO+9YluuoX0q7N2Z9m7vfhnKxaVjbAb1O+ZA5pTqYhMGjUHxyjgVeP/nT/bxO/CZ6bdUYwTQQugIFkgARtrFl9rgaLjq0JYvipaT7y7FWUjrNXMd63nRU64Apc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792202841; c=relaxed/simple;
+	bh=ucLhLRqL2N8ilt+Zi5fdpr9rjtxklnK4PIUsffaVrRQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W2eET74GBTK4Wywfq22L73UxIlGmAkDDbQEGp7UyyC+iYjspeV0fFLE/yoCAlPdeBTgjIJlIhAOMTQSD1ceaQrPxxJW9CUUFhqHmCGjHNQ4JRYVrEoAvHVlLte4gQJ5tp1a2lDPaCpGmVssEuYXWQZ3watlC0vbHaFc0+umWEjc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=H1pRoMlz; arc=pass smtp.client-ip=209.85.128.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="H1pRoMlz"
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b0dba37a7fso4774437b3.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:07:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792202837; cv=none;
+        d=google.com; s=arc-20260327;
+        b=F3oHBvrjIiK2NYfepnFGsnLkggvpTnXoALTsZGAaTYnnkUowaqmViMWOVphrS4K03d
+         HsRSYhMKQaT7cP/xScIFAi/Z9uN7/b6gCUtubE2CpslhhG7Yr3ElcnYum+VMD594I1ih
+         Jmplue5ygkEh2mMDl069x4c1QKOgWP4FU4sGJ969hed8ZzJAgrskXeYOLUJdfDTktfCl
+         0ZuBaZvMEKOxbmatqWLhTzV2K/at/tL1H9XIxpFvc6Sop8BYkmLLig697NUKcOt+jv3c
+         FtG9I3Tq8eV4+RL1rJMGT7zvZgNTy+wAD+8P51PonhMUj1GDnLXjc+chbmUaQnFdiEbr
+         ggTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Rt4iW6eCLigRGcM8uSRJchyBda6OwJVbeGjzxJgrzQQ=;
+        fh=3oVf5TGk44GBTWSZnZ0k2rvXPYUyu/UNSoKBQ1VXp5Y=;
+        b=AoJFAJNDFoiAPULaDEDbv57gb5oKbx9h24lbcYoqgAQmtgDxicHVhFjy2IXlH62Kpd
+         JCU7HXwhisjGWIPHn8QMkUDjB8jLuRFc8uTYcK7LILudyJ7aPfLaTaXjQBdMfEwiBvZO
+         wSrnLWvHRP5rDqi6uDYAzdkqUUp4gcb82/PS1QOF8QPHPy3jhIWNQOqODfn2EqMoNUGb
+         EbCrFjLCxDa4H3tsuYzXIL/2Psl8opdtW06dwWMC/udoAIyytM9vCu82j6BBrNButgY3
+         Pha4hWEXW9BB+409XX7YrLW4uwdsBg5yEO4OBM7/2XfiQBMaJ8e4plF1vfdW8/HdKGVw
+         BUjw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tenstorrent.com; s=google; t=1792202837; x=1792807637; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Rt4iW6eCLigRGcM8uSRJchyBda6OwJVbeGjzxJgrzQQ=;
+        b=H1pRoMlzueVrol4qx0l+oT9cmGk68zNnu32dDTC8JnWWYjEoRwOrO3KdC/IXEToUSI
+         bdy/U/OxQW9VR7l1mWrHLbrb4hwENywuM8XJp3iqGJsuoyZzjNH4e4qvHyDCn0GxseHI
+         h5OKeRDakAaK4ix7JOJP/j2VKyu2W0R92X8oRH+oDqnjJpLiQbSXS2CCWrwiQ1+5WEUZ
+         YJeCxzRX6E+i6c9MPfaVJd46qSCEI9eNfTmZZYntPSwitmGRPmnNRHKbOwieJcjFqyVl
+         wM4FVz1XRTWz5HoDlpxUp4jglu2QVZUwPV9oDzyePr0brpH/pt2QGtpaTXrwwAziOm7o
+         OBCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792202837; x=1792807637;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Rt4iW6eCLigRGcM8uSRJchyBda6OwJVbeGjzxJgrzQQ=;
+        b=xrf479oef+a/1kqi3odPPAstEdZoo2Q6dJzXcJp/hQdzsXefcwfxdI47OaxGkJnA/J
+         yA6AtCXmQQtsPJrv25oiYdbAKUYAv7YWrxA2Ba7jlUw3doJaB0aBIZXNNcR+UkJ8HVI1
+         0qIorjH2MXXE+gK5ci/n3b35sCz6dRmVJ7RAIa4i1u0cwdnA41PTQeBm7dXcGOea7Bh/
+         q6uYbXFoMSYuYnSqjWeduuQPNTARnEox4eEdszRgta66AUa1QWDQKAGcKN4VwVJ0Zxn7
+         SoNbwfL0XJB4P5XQ6L95CURj5gwwz+zYWvmWVJsra9V9+LReKS/EdVOgCg/Cw4Ui5EEE
+         Z5MQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxoMWBVtLpT+wyISndv9UisW1Gnc/e3ECxr2m0G1kw1EBHkOTOUwYr0fq2ExVf2Bp7M68U7xb/7Z3st0s0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+Zvzrr31Md6orJqeTX64CTMjPGrxwpoR76RkbYCv9q8HKGleP
+	snOdzwlPtIU2Hq+BZ3segXQVuVy+h4p86/PpvPQ6Jl9wj36CgNlWy8W6bQGIYYKLrpeC46MOXdh
+	6Ykr70XMZPn9ypYC/9KKGVM9o3XEWKho22SAc8qLPzQ==
+X-Gm-Gg: AYBFou00LHe8NOHDUeHDRP/0443PitzWV0k24aEuLQuJ22zYYtI/JhoGi3j+qcInwP4
+	D+ln6dJiMJM0cirmCtHb5H4YVuL5KFfKJbOcFLrzgUZ/wvFGDGOaCez5eSDDKbUImAOEIf9SM5R
+	xMX1CsX1Frp0zVjqw+CtaSia8T6z2vrDovn2p5Y3Uzh9YX6DQUbOsozM1fO7iN6W6+Sg6sDl0V7
+	TBesAilw6JJvxVSBmu8OMC+qWBFaJOPM9vjeGuEL7PC6RucawMf7gMDEeuEUyS1c/b8MSH1UlfV
+	Oz3laXZsLKezvjAKIfNZ0QCcysw2maDWAm3clDYCY7+WrrcP9EWsJ2mnWp09iH6PN+aEilBY9HF
+	krRsnNKCmjFFQaa5/wbWWTmFBhcgUodquJqWwXPzzRgs=
+X-Received: by 2002:a05:690c:a4d4:b0:8b0:a7d5:8592 with SMTP id
+ 00721157ae682-8b0f2056466mr5190937b3.7.1792202836817; Fri, 16 Oct 2026
+ 19:07:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261002-breakpoints_rtc-v1-1-a3b6542a0fdf@oss.tenstorrent.com>
+In-Reply-To: <20261002-breakpoints_rtc-v1-1-a3b6542a0fdf@oss.tenstorrent.com>
+From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Date: Fri, 16 Oct 2026 21:07:05 -0500
+X-Gm-Features: AclHuK8RuFJnIf3a20iamJ5FM0dBZXzdMrAy_kqn8gXFOTDJuXIEynXWTKXUKbM
+Message-ID: <CAEev2e_aPeO_MF4k2ScHB5OmyOsMQe7-uz1cxD7vOAO8ntoXmQ@mail.gmail.com>
+Subject: Re: [PATCH] selftests: breakpoints: Skip step_after_suspend_test on
+ systems without a wakeup capable RTC
+To: Shuah Khan <shuah@kernel.org>
+Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The documentation of struct pidfd_info promises that "If the structure
-size is too small to contain a field (requested or not), to avoid
-confusion the mask will not contain a bit for that field", and asks
-userspace to trust the returned mask when deciding which fields hold
-valid data.
+Hi all,
 
-pidfd_info() does not keep that promise. It builds kinfo.mask without
-looking at the size encoded in the ioctl command, and
-copy_struct_to_user() then truncates the copy to that size. A caller
-that passes a 64-byte struct (PIDFD_INFO_SIZE_VER0) and requests
-PIDFD_INFO_COREDUMP or PIDFD_INFO_SUPPORTED_MASK gets a mask with
-PIDFD_INFO_COREDUMP, PIDFD_INFO_COREDUMP_SIGNAL, PIDFD_INFO_COREDUMP_CODE
-and PIDFD_INFO_SUPPORTED_MASK set, while the coredump_* and
-supported_mask fields behind the 64 bytes were never written. Trusting
-the mask as documented, userspace then reads whatever its own buffer
-held at those offsets. The same happens for a 72- or 80-byte struct
-and the fields added after it.
+On Fri, Oct 2, 2026 at 4:55=E2=80=AFPM Anirudh Srinivasan
+<asrinivasan@oss.tenstorrent.com> wrote:
+>
+> This test puts a system into suspend state and uses CLOCK_BOOTTIME_ALARM
+> to wake the system up. This alarm can only wake up systems that have a
+> wakeup capable RTC source. On systems without such an RTC (for example,
+> most RISC-V boards), this test puts the system into suspend and just
+> hangs, requiring power cycling.
+>
+> clock_getres(CLOCK_BOOTTIME_ALARM) fails with EINVAL on such systems,
+> so add a check based on that to skip this test on systems without a
+> wakeup capable RTC source.
+>
+> Signed-off-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+> ---
+>  tools/testing/selftests/breakpoints/step_after_suspend_test.c | 11 +++++=
+++++++
+>  1 file changed, 11 insertions(+)
 
-Clear the bits of the fields that lie beyond the caller's size before
-the copy, in the one place that knows both the final mask and the size.
-A request for a field that cannot be returned is thereby answered the
-way the header describes: the field is simply absent from the mask.
-
-The added selftest issues PIDFD_GET_INFO with the first published size
-over a full-size, poisoned struct and checks that the mask names none
-of the fields beyond that size and that the poison is intact. It fails
-on an unpatched kernel and passes with this change.
-
-Found by formal verification of fs/pidfs.c against the kernel binary.
-
-Fixes: 1d8db6fd698d ("pidfs, coredump: add PIDFD_INFO_COREDUMP")
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
-
-Notes:
-    The three size thresholds follow the field layout: coredump_mask and
-    coredump_signal end at PIDFD_INFO_SIZE_VER1 (72), coredump_code at
-    PIDFD_INFO_SIZE_VER2 (80), supported_mask at PIDFD_INFO_SIZE_VER3 (88).
-    Masking the request bits early instead (before the coredump and
-    supported_mask blocks run) would save a little work for such callers
-    but leaves the bits set in the task->mm fallback path; clearing the
-    result once before copy_struct_to_user() covers every way a bit can be
-    set. No stable tag: the only callers affected pass a struct size
-    smaller than the fields they request, and the consequence is a wrong
-    mask bit, not a crash or corruption.
-
- fs/pidfs.c                                    |  8 ++++
- tools/testing/selftests/pidfd/pidfd.h         | 16 +++++++
- .../testing/selftests/pidfd/pidfd_info_test.c | 48 +++++++++++++++++++
- 3 files changed, 72 insertions(+)
-
-diff --git a/fs/pidfs.c b/fs/pidfs.c
-index a6a643f15d08..b20f507c6bdf 100644
---- a/fs/pidfs.c
-+++ b/fs/pidfs.c
-@@ -485,6 +485,14 @@ static long pidfd_info(struct file *file, unsigned int cmd, unsigned long arg)
- 		kinfo.supported_mask = PIDFD_INFO_SUPPORTED;
- 	}
- 
-+	/* Only report fields that fit into the caller's struct. */
-+	if (usize < PIDFD_INFO_SIZE_VER1)
-+		kinfo.mask &= ~(PIDFD_INFO_COREDUMP | PIDFD_INFO_COREDUMP_SIGNAL);
-+	if (usize < PIDFD_INFO_SIZE_VER2)
-+		kinfo.mask &= ~PIDFD_INFO_COREDUMP_CODE;
-+	if (usize < PIDFD_INFO_SIZE_VER3)
-+		kinfo.mask &= ~PIDFD_INFO_SUPPORTED_MASK;
-+
- 	/* Are there bits in the return mask not present in PIDFD_INFO_SUPPORTED? */
- 	WARN_ON_ONCE(~PIDFD_INFO_SUPPORTED & kinfo.mask);
- 	/*
-diff --git a/tools/testing/selftests/pidfd/pidfd.h b/tools/testing/selftests/pidfd/pidfd.h
-index 5a4e78c10f43..cf146d327334 100644
---- a/tools/testing/selftests/pidfd/pidfd.h
-+++ b/tools/testing/selftests/pidfd/pidfd.h
-@@ -160,6 +160,22 @@
- #define PIDFD_INFO_COREDUMP_CODE	(1UL << 7)
- #endif
- 
-+#ifndef PIDFD_INFO_SIZE_VER0
-+#define PIDFD_INFO_SIZE_VER0		64 /* sizeof first published struct */
-+#endif
-+
-+#ifndef PIDFD_INFO_SIZE_VER1
-+#define PIDFD_INFO_SIZE_VER1		72 /* sizeof second published struct */
-+#endif
-+
-+#ifndef PIDFD_INFO_SIZE_VER2
-+#define PIDFD_INFO_SIZE_VER2		80 /* sizeof third published struct */
-+#endif
-+
-+#ifndef PIDFD_INFO_SIZE_VER3
-+#define PIDFD_INFO_SIZE_VER3		88 /* sizeof fourth published struct */
-+#endif
-+
- #ifndef PIDFD_COREDUMPED
- #define PIDFD_COREDUMPED	(1U << 0) /* Did crash and... */
- #endif
-diff --git a/tools/testing/selftests/pidfd/pidfd_info_test.c b/tools/testing/selftests/pidfd/pidfd_info_test.c
-index 597012ed195f..ee08df3dc3d2 100644
---- a/tools/testing/selftests/pidfd/pidfd_info_test.c
-+++ b/tools/testing/selftests/pidfd/pidfd_info_test.c
-@@ -764,4 +764,52 @@ TEST(supported_mask_with_other_fields)
- 	close(pidfd);
- }
- 
-+/*
-+ * Test: fields beyond the caller's struct size are not reported
-+ *
-+ * Request the coredump and supported_mask fields with a struct of the
-+ * first published size. None of those fields fit, so the returned mask
-+ * must not name them and the memory behind the struct must be untouched.
-+ */
-+TEST(info_size_ver0_mask)
-+{
-+	struct pidfd_info info = {
-+		.mask = PIDFD_INFO_COREDUMP | PIDFD_INFO_SUPPORTED_MASK,
-+		.coredump_mask = 0xdeadbeef,
-+		.coredump_signal = 0xdeadbeef,
-+		.coredump_code = 0xdeadbeef,
-+		.supported_mask = 0xdeadbeefdeadbeefULL,
-+	};
-+	unsigned int cmd = _IOC(_IOC_READ | _IOC_WRITE, PIDFS_IOCTL_MAGIC, 11,
-+				PIDFD_INFO_SIZE_VER0);
-+	int pidfd;
-+	pid_t pid;
-+
-+	pid = create_child(&pidfd, 0);
-+	ASSERT_GE(pid, 0);
-+
-+	if (pid == 0)
-+		pause();
-+
-+	ASSERT_EQ(ioctl(pidfd, cmd, &info), 0);
-+
-+	/* The fields that fit are reported as usual. */
-+	ASSERT_TRUE(!!(info.mask & PIDFD_INFO_PID));
-+	ASSERT_TRUE(!!(info.mask & PIDFD_INFO_CREDS));
-+
-+	/* The fields that do not fit are neither reported nor written. */
-+	ASSERT_FALSE(!!(info.mask & (PIDFD_INFO_COREDUMP |
-+				     PIDFD_INFO_COREDUMP_SIGNAL |
-+				     PIDFD_INFO_COREDUMP_CODE |
-+				     PIDFD_INFO_SUPPORTED_MASK)));
-+	ASSERT_EQ(info.coredump_mask, 0xdeadbeef);
-+	ASSERT_EQ(info.coredump_signal, 0xdeadbeef);
-+	ASSERT_EQ(info.coredump_code, 0xdeadbeef);
-+	ASSERT_EQ(info.supported_mask, 0xdeadbeefdeadbeefULL);
-+
-+	sys_pidfd_send_signal(pidfd, SIGKILL, NULL, 0);
-+	sys_waitid(P_PIDFD, pidfd, NULL, WEXITED);
-+	close(pidfd);
-+}
-+
- TEST_HARNESS_MAIN
-
-base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
--- 
-2.53.0
-
+Gentle ping on this.
