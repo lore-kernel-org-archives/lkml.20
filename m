@@ -1,107 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B084CF477;
-	Sat, 17 Oct 2026 00:20:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E4825771;
+	Sat, 17 Oct 2026 00:24:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792196418; cv=none; b=SrzUOp0T3G5Ig0ZIrbj/tzYuwXNYCVpkYfVOoiGQwjfpGdQYk5czEVhxoJfybOZGAyF7MxVewf512hO+JAN4FGY+XThL/vzgWwD1qp15jNi58iMayIpPy/j0pVoSu3mTaz8y2ZxMb4pUA3rTCRYVe4jqBP8tURkx5cHeaEK7b3w=
+	t=1792196689; cv=none; b=plZ902DA7IPmNObRAPsnzKjs+ZedJupEan3nej+ok18xYkuhUCj5DrLbRYI0gUVhRW0c7FSrjopzKMzg5EntYHYCpTCHwhD0VTNDLZMJjC+QqAM2kLJ5ZjceVrgjbkoI7A7ygFEG2HQTZKcW8rBL1lRHD5AJscUsof7MCZ17Nco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792196418; c=relaxed/simple;
-	bh=0TAg9kwf3bBy6hz4ngcoqFMwcjlxEnjkj6ka1h5G9Pk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gaV94YWOir1Cc22kMR1XCrKIfzoiTZdFsrYHsMhfGzo/wQlwH+1jZGy84sPk8f9T+h7k7fvDjv8HVj2i0aesPBLtuaG+ZdfCCJYXrClnAT9ABV4lM43nkEgVWLfGa3hgaXezO58PXn+v/uNgBi1rpU1lr8vl/13RUEQQDogEdc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lBH5faVC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792196689; c=relaxed/simple;
+	bh=6G5n0FDPTPjR9sBseTwJxbMei11euc6KKl3QHSgP3Ag=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fUlGOOeErrlKvwlWrmz9zIbKTI7gimLYi2nEb8DGgHkwI+x5xoNUbw0x28ZXbL6eb7fh21J59kvaNZkAc/ic3x7+RIaQ9agDXNMesw0hhjI06o5p/mV/hoIalh+ZBKWdXr4Wmfn4aoAE/C6hPlrot1JwWNm3otKRC5xwxl7eKaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TlvWTnsa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lBH5faVC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D1501F000C4;
-	Sat, 17 Oct 2026 00:20:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TlvWTnsa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 695031F000C4;
+	Sat, 17 Oct 2026 00:24:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792196417;
-	bh=T7gCl+qVVVNj8BjUCLZNh4b3oW8uH2GR5hEhwUea7s8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=lBH5faVCSPBlur4HNNtBz2Rz9iAlb5cimJsDa1iSOavVcmAot9t8RcyjYiKrggflB
-	 6GjOXHZITslrQSnEeswSDYox5M9pIrsUQzzpQcOjgPNO+mT+J1vZLJr6fW+713tBYJ
-	 Gw+uGSuYV+RkUY94PGhU9zY7pvFG5H4/+LjQ+PCcGJYnAw/luiDjNpF/n2/bt7mrvp
-	 3RUQkduczhWfn191IWo6xtdgL03mhEF1oxaFwjOSMtBg5e3GW+bKjGlGKkhWw5aCxB
-	 ciuWYevazih+c3bVOMKX/k+JI3ijTnUS9FZDYlOOfHQvPotAGcAL9CQTntTkPqQb3B
-	 ltWwk68CphJKg==
-Date: Sat, 17 Oct 2026 01:20:12 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andrea Amer via B4 Relay <devnull+and.amer.gmail.com@kernel.org>
-Cc: and.amer@gmail.com, Peter Rosin <peda@lysator.liu.se>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Liam Beguin <liambeguin@gmail.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iio: afe: rescale: always expose offset
-Message-ID: <20261017012012.3390a90a@jic23-hlaptop>
-In-Reply-To: <20261016-iio-rescale-offset-v2-1-02c825967139@gmail.com>
-References: <20261016-iio-rescale-offset-v2-1-02c825967139@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792196687;
+	bh=9fzL5hMra9kEevlYPK33fLecenioscGbo/vl/rIlX04=;
+	h=From:To:Cc:Subject:Date;
+	b=TlvWTnsazbjZzkZlDuUYuCiLFDbW3wL3EJkR7IMhxSM1oweaOourvg1jDuySXqafF
+	 GH93mqKfeS3AQbjthAjIOnFOTT2Qh8P3Wg7YRqsF/I7vB8a5embQU6UNHC+/2LDjtP
+	 NkhjcfXnZX9x4zYFV+4rB3wBGl29260EbiqiZUw9VFm+XRsXtWGeUi3EC+OOgw36LJ
+	 iYW0oXRCgj6c7meOPLdY3e8D5SEFsDrPYZrPxNX3ZvQlAj+60T5IEX/M2JhChLLNCh
+	 uMgUyQYAbOfVL1ptmK95Ln/LZiszDbma6lZZwttxdGCkCU2rb8R4B8W9ZNQ6Tdo3XX
+	 5gH/VdyF+4QGQ==
+From: Song Liu <song@kernel.org>
+To: live-patching@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Cc: jpoimboe@kernel.org,
+	jikos@kernel.org,
+	mbenes@suse.cz,
+	pmladek@suse.com,
+	joe.lawrence@redhat.com,
+	shuah@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Song Liu <song@kernel.org>
+Subject: [PATCH 00/11] klp-build: Fix dependent patches, add selftests
+Date: Fri, 16 Oct 2026 17:24:30 -0700
+Message-ID: <20261017002441.716615-1-song@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 16 Oct 2026 13:00:20 +0200
-Andrea Amer via B4 Relay <devnull+and.amer.gmail.com@kernel.org> wrote:
+klp-build fails when a later patch in the series depends on an earlier
+one, because it fixes each patch against the original source on its
+own.  Patch 1 fixes this by combining the patches into a single patch
+before adding the #line directives.
 
-> From: Andrea Amer <and.amer@gmail.com>
-> 
-> A rescale channel advertises IIO_CHAN_INFO_OFFSET only when its own
-> offset is non-zero. A child rescale therefore hides a source offset,
-> and consumers apply raw * scale and drop it. rescale_read_raw() already
-> folds the source offset in, so expose the attribute in every case.
+So far, testing this step has needed a full kernel build.  Patch 2 adds
+a --patch-only option, which validates and fixes the patches, prints
+the result, and exits without building.
 
-Hi Andrea,
+Patches 3-11 use it to add a kselftest target, livepatch/test_klp_build.
+Each test builds a small source tree, runs "klp-build --patch-only" on
+some patches, and checks the patch it prints.  The tests compile
+nothing, need no root, and take about a second.  To run them:
 
-Why not check if there is either an offset in the rescaler or the underlying
-device? iio_channel_has_info(schan, IIO_CHAN_INFO_OFFSET) is used just above
-an should tell us that.
+  make -C tools/testing/selftests/livepatch/test_klp_build tests
 
-If neither are present I think we can continue to not present that attribute.
+Song Liu (11):
+  klp-build: Fix dependent patches in a series
+  klp-build: Add --patch-only option
+  selftests/livepatch: Add tests for klp-build's patch handling
+  selftests/livepatch: Test klp-build with dependent patches
+  selftests/livepatch: Test klp-build with patches to different
+    functions
+  selftests/livepatch: Test klp-build with patches which cancel out
+  selftests/livepatch: Test klp-build with created and deleted files
+  selftests/livepatch: Test where klp-build adds #line directives
+  selftests/livepatch: Test klp-build's rejection of unsupported files
+  selftests/livepatch: Test klp-build with patches which don't apply
+  selftests/livepatch: Test klp-build with patches which need offset or
+    fuzz
 
-Thanks,
+ scripts/livepatch/klp-build                   | 121 ++++++++----
+ tools/testing/selftests/Makefile              |   1 +
+ tools/testing/selftests/livepatch/README      |  16 ++
+ .../livepatch/test_klp_build/Makefile         |  27 +++
+ .../livepatch/test_klp_build/functions.sh     | 150 +++++++++++++++
+ .../livepatch/test_klp_build/run-tests.sh     |  68 +++++++
+ .../livepatch/test_klp_build/test-basic.sh    |  57 ++++++
+ .../test_klp_build/test-cancelling-patches.sh | 102 ++++++++++
+ .../test_klp_build/test-dependent-patches.sh  |  72 +++++++
+ .../test-independent-patches.sh               | 124 +++++++++++++
+ .../test_klp_build/test-line-directives.sh    | 175 ++++++++++++++++++
+ .../test-new-and-deleted-files.sh             |  94 ++++++++++
+ .../test_klp_build/test-offset-and-fuzz.sh    | 120 ++++++++++++
+ .../test_klp_build/test-patch-not-applying.sh |  73 ++++++++
+ .../test_klp_build/test-unsupported-files.sh  |  30 +++
+ 15 files changed, 1189 insertions(+), 41 deletions(-)
+ create mode 100644 tools/testing/selftests/livepatch/test_klp_build/Makefile
+ create mode 100644 tools/testing/selftests/livepatch/test_klp_build/functions.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/run-tests.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-basic.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-cancelling-patches.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-dependent-patches.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-independent-patches.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-line-directives.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-new-and-deleted-files.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-offset-and-fuzz.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-patch-not-applying.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-unsupported-files.sh
 
-Jonathan
-
-
-> 
-> Fixes: a29c3283653b ("iio: afe: rescale: add offset support")
-> Signed-off-by: Andrea Amer <and.amer@gmail.com>
-> ---
-> Changes in v2:
-> - Keep the IIO_CHAN_INFO_SCALE line unchanged (Andy Shevchenko)
-> - Link to v1: https://lore.kernel.org/r/20261012-iio-rescale-offset-v1-1-14ed15979ff2@gmail.com
-> ---
->  drivers/iio/afe/iio-rescale.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
-> 
-> diff --git a/drivers/iio/afe/iio-rescale.c b/drivers/iio/afe/iio-rescale.c
-> index 3a6a09ffa5267ddfd5131fbd04a5df928836589d..4639a67ea462bf5c29603783a6f230d769fb02b0 100644
-> --- a/drivers/iio/afe/iio-rescale.c
-> +++ b/drivers/iio/afe/iio-rescale.c
-> @@ -301,11 +301,9 @@ static int rescale_configure_channel(struct device *dev,
->  	}
->  
->  	chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> +		BIT(IIO_CHAN_INFO_OFFSET) |
->  		BIT(IIO_CHAN_INFO_SCALE);
->  
-> -	if (rescale->offset)
-> -		chan->info_mask_separate |= BIT(IIO_CHAN_INFO_OFFSET);
-> -
->  	/*
->  	 * Using .read_avail() is fringe to begin with and makes no sense
->  	 * whatsoever for processed channels, so we make sure that this cannot
-> 
-> ---
-> base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
-> change-id: 20261012-iio-rescale-offset-41254a33b6d6
-> 
-> Best regards,
+-- 
+2.53.0-Meta
 
