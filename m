@@ -1,65 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rudorff.com (rudorff.com [193.31.26.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E814374E60;
-	Sat, 17 Oct 2026 17:25:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CA83A542B;
+	Sat, 17 Oct 2026 17:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.31.26.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792257922; cv=none; b=DDKjTD+WXckIZf6ep5FgHZ9WUmG3Ua0pXiPYnUpPS9iBmNQuawPDb/2zgV0baJs5xvoo4M8DHsKoUQgV8B1Yln/HxQ6eiDFK3XEQ4FhsM3bM7WkuQhAn0cUlc9WlgXhEswzdn/RWD1GALee5PkSbXpM05Y1x7hd1T6plzf+SHNM=
+	t=1792258097; cv=none; b=IJN6DxqWii59GemOcvkFhQ7XLQYNLVD1HEcyJAuItlsUCA6ICZ90laelrycUNHSgbKDGRgoCINhrEddUoFILAyETFh1Qhl4Q8HWBcR01Y58J9ZlrDMiTqDKZ2CAumQ9rzQcrcPjFny75mn2pTzzuv3FpCkXHs6zOUdxWng6i8ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792257922; c=relaxed/simple;
-	bh=bJJ3z4/pjAaEpe27vR8GsaDAdYx2zotHXmor2sXxykk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eff5u9IYHCJjefjR8wVQNCUdkpN5OZqzlTaLrUXSX621WTlINwDICu/fw9/aCf1tN5SpY8UeO6ckCh6AgArh04EIBjzpXWGzfKk3uixkLEkUvRxHTYhgJ6pmn1nM5oJelmA0btaEtRLuajo1cmpMHAi0RglTl5+I28/5K7zhcZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SARNoqwM; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SARNoqwM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5883B1F000C5;
-	Sat, 17 Oct 2026 17:25:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792257921;
-	bh=5f/gI5h5KZDV5ahz+DubqH0u+kHWiemTT4qZvIm49L4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SARNoqwM/PD9jQbMUNy5lcK4uolgw8lUHNblRsu+HBf6HTfwBR/cC3XAJFOmBXEBX
-	 hsQLt3ym8bAsb+K1gkxCXQcc7VUaz2DkxstNa7s+ugTzGGHjiOpv3LckO3UhdDuZQl
-	 xWRAB0A8OurEVBGn5/1J7C5vAZ2vvFCMFdFAA3tWOOCS3AGbeFMS44CtuN+UWZCVdV
-	 44P07DRJ4JbQZ2M64aizX/OlcH0D2KBrjKf1OmSSHhsiwQ3y2vEcfcQvdrL6hMrlI5
-	 7pFvMNGYW7nMmGHCZ/FdC4a2RlGEkiuJZgi3MaGkTdMMB2IgqvSI300JB9Las0lf2U
-	 YJTaR/jPJ0LTg==
-Date: Sat, 17 Oct 2026 19:25:18 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Asif Ikbal <asif.ikbal@amd.com>
-Cc: neil.armstrong@linaro.org, jesszhan0024@gmail.com, 
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, 
-	simona@ffwll.ch, thierry.reding@gmail.com, sam@ravnborg.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, git@amd.com, michal.simek@amd.com, 
-	naveen.gaddipati@amd.com
-Subject: Re: [PATCH 1/2] dt-bindings: panel-simple-dsi: Add AUO B101UAN01
-Message-ID: <20261017-delightful-gleaming-bumblebee-af40f8@quoll>
-References: <20261016094638.2958431-1-asif.ikbal@amd.com>
- <20261016094638.2958431-2-asif.ikbal@amd.com>
+	s=arc-20240116; t=1792258097; c=relaxed/simple;
+	bh=8xXC8+UyLJWGLwAt+gPInKDAc2YkKONSTC9ecJzc+qQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=FWTrvi8Mw+TeNY1iANj/KPzvvaNYuvrjuoO/7x4w0WQN4j+54nu5eKFJLvf8mpuExOBkgZ3amgMbVT6M+xx59bp34eslijJ8dsRjvzkIyRFGrd7TFuJjczd5tIiUu08n1U/yUNduZRiAvG5RIM9DaY8jXDBcviZT0eZbuACpDI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rudorff.com; spf=pass smtp.mailfrom=rudorff.com; arc=none smtp.client-ip=193.31.26.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rudorff.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rudorff.com
+Received: from [127.0.1.1] (dynamic-002-211-221-196.2.211.pool.telefonica.de [2.211.221.196])
+	by rudorff.com (Postfix) with ESMTPSA id 1663B4094C;
+	Sat, 17 Oct 2026 19:28:08 +0200 (CEST)
+From: Christoph Rudorff <chris@rudorff.com>
+Date: Sat, 17 Oct 2026 19:27:41 +0200
+Subject: [PATCH v2 1/3] dt-bindings: iio: light: gp2ap002: add vled
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261016094638.2958431-2-asif.ikbal@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261017-iio-light-gp2ap002-v2-1-d6879767a446@rudorff.com>
+References: <20261017-iio-light-gp2ap002-v2-0-d6879767a446@rudorff.com>
+In-Reply-To: <20261017-iio-light-gp2ap002-v2-0-d6879767a446@rudorff.com>
+To: Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Christoph Rudorff <chris@rudorff.com>
+X-Mailer: b4 0.16.0
 
-On Fri, Oct 16, 2026 at 03:16:37PM +0530, Asif Ikbal wrote:
-> Add the bindings for the AU Optronics B101UAN01 1920x1200 10.1" WUXGA
-> MIPI-DSI TFT LCD panel to panel-simple-dsi.
-> 
-> Signed-off-by: Asif Ikbal <asif.ikbal@amd.com>
-> ---
->  .../devicetree/bindings/display/panel/panel-simple-dsi.yaml     | 2 ++
->  1 file changed, 2 insertions(+)
+According to datasheet page 8 "Recommended external circuit",
+it can have tree supplies: vio, vdd and vled. As vdd and vled wants the
+same voltage, they may be connected to a single supply.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Christoph Rudorff <chris@rudorff.com>
+---
+ Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Best regards,
-Krzysztof
+diff --git a/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml b/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml
+index 99bddf31cbed..f5b2c6a4d7e3 100644
+--- a/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml
++++ b/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml
+@@ -33,6 +33,10 @@ properties:
+   vio-supply:
+     description: VIO power supply a phandle to a regulator
+ 
++  vled-supply:
++    description: LED power supply a phandle to a regulator
++      Optional. It may already be connected to VDD.
++
+   io-channels:
+     maxItems: 1
+     description: ALSOUT ADC channel to read the ambient light
+
+-- 
+2.39.5
 
