@@ -1,296 +1,122 @@
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2ACA37A4AB;
-	Sat, 17 Oct 2026 05:14:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2269B397332
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:15:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792214098; cv=none; b=DhCt/CTGLzEGfaGIqF8iCN7X0Nl+55aFAsFPSgmqbYqZwH3GmYxHXGuWRvmO0T1zA1FGrUHvydF3OjyZiPqroCBYbym+DeU3Hmr53NzK6m0VDYjlyvd9iTfxdCan/qctoYFngj1wrXq20oegWpx7r6XkYGDPnuD1iv1eh9LfnDI=
+	t=1792214134; cv=none; b=TeYYzKqGaBzLeQWP/pZUvywsTVCxau82te1buzdlPd2KTY3kVCA9lFz1gX17K1TqdHQtr4y5VfUfOOH1HieHFlgLO1fQwns0GhjjX3Y7Y+lFrGGx30e8cEQXujn5nMPSztWIRIzQMKkDEDdPWlbDCrfsSg/XBaOjgQiKSPyGpu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792214098; c=relaxed/simple;
-	bh=L8wPbUwK7gP3tz71GUYU7reszJlST8t87w3EDL+FRko=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YeDYtQk9ONgVXtn41imjFDwDfNlxHdZ5JP3GPXg+8xKUySwSe2J1laUz+ZUvJ31/PwggBKX8G/hYzR+zVk22T8zObkc7pqU75UtS040CuZ/u/SroTLk3hDQdL+7i3+ZESY0CYlIirEM7ta+6QHNf1Fqh2UwjVqCPIpMdoj09Tjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=etKiXf3V; arc=none smtp.client-ip=162.62.57.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1792214134; c=relaxed/simple;
+	bh=95SdnSdg3U+zWWAokMZ2g2KRRVCLQeq73KICUEfOvb8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q2439V7IkflMl8O/0SmTWu17qbdb4dHT8TZ8+0WzvQ51/ooIGMK4yiwkceMe/c3fIrrP6kb5ICKuIPTRDXyMR+aZYh0ZfM5H83uZyHWi4+Is8RWfg796Sqx/Ti0LLBi2NOVKs33DroZLsR0QVT5ZmQCQtEADyxE7MYwX2gCqqSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e69dl9ha; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="etKiXf3V"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792214082; bh=3MUILTUKwCrEVNT4m6haFoUahTeQOBu/qvTvIMYGUDg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=etKiXf3VmLcH+4iSeNxcdDPJmUy/eRl0S4NIRtKmvFSGecSUOtHHs9RG2jrgRB/jP
-	 BmCBmapdW8JDwGf0YYlkAeTmwxVXv9r43S/tqYhcT/LW07azZlLyE4OHIxqhZvyZ2U
-	 V9YTbt5urLFGTyFM4ZdJ3YhtKcITWjedFK3tOiCM=
-Received: from [172.18.4.77] ([111.31.227.58])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id 3A8A3A55; Sat, 17 Oct 2026 13:14:40 +0800
-X-QQ-mid: xmsmtpt1792214080thcfwnqix
-Message-ID: <tencent_D7C3A89AD4D46F86915EA777538028349F07@qq.com>
-X-QQ-XMAILINFO: NZFlUIrZ4HCZw/+vbjYMQNEqMPC/X0lBkt7I58MyhWwgwNjUBYSEQPyv/laE9o
-	 udtixEbkUV2wgZh/KbG+kX12QVkAWub+oA+PZVBg0RnYGCcMCTnAGhsLDzV33gJO3VmjLcyZHBoc
-	 dEbpwWhd8lL1I6P1gSNd8BPinwExE4+JwvEMVLxBuUMpwkwGFwSN+76Nm7Swo3DzycbTuE5dQFD8
-	 IqVKkpM6xMdQtBFNH8B4njKHB6L7/pJW9YCURpRaHeKOV7JbFfxZKd0vI7KMTdIxX2fjMQxks7bM
-	 bNCj7VMKeoAuy3CFuNGAnSciLRkyrLbe8e5w/wZ0PJXuSy8cbZUO1wa2Z8AblD0gfeSxCYzS4zX1
-	 7JkLGQF+fkeEVorSPeHgb2gx/hJueWINkIxkoJOTQO3LHOuhOrqMI6uaPmBskPURqLwLy4+obK2o
-	 BQyRGEQP6EcJc8vTkYmNueax7T7y1c+n63hkvuqslPxLuAtNm8j64VcMZdG+Nvp0ZGGPWhlIEwR9
-	 WPNWGrqwttkEXTTmJU2R/Rg6htGf8YQywEXwk8dPP9yjZ1Yolf3QxUzxq250RbooTcCdXvutqxpU
-	 GllJkrLPBs/3hKw6P5/E44I2DOMOprFFJlzHUA3JEc9OZgLq860o9wbd4LPcxSizX3NNTd4+txhI
-	 acrdqdbWqS60R01Yvh8tqI5NqFNFjZOFGhhJXRcOquifvcDWrFyyjA56W0pwbYEgHg5n/0Kr3Xhz
-	 fQGAqoBmTR2NjUw5Nd8ADTTQ0o3WteDa/RC3NH/FovPxNp3eUz8Kao4kR/1wq31kAfJy3ACvgqeM
-	 3u9IIlXu7e12B97QBcBmqia0yEbZhBBsKCCosUxWRLvryaHiMrNXsMXokW7780G3VAGuWXj3iRVK
-	 JVa8OxwWJXiqLWizHJFLsOaFrsJT/Cg+M0Kiw9BxzieNKKfrxwAw98wbJnnPHjYGtpmSbxB9+LDg
-	 o+QwNtEyXLo9QeFHe5PlpHH2FqBDjJIQWdQ5qTlC0og6LKm5KCr7oPLWZfajdN5QiGCaOEt8HELs
-	 hznqJD6/nWhxAQdygphHbKqf1Qk8gZ8P4ePOd5UsbGkfW7X88PWJDy7D1JsZfiipGOYAZXESSARj
-	 0yxSWsWWZ2QlHcYFk=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: yangguikun <yangguikun19@qq.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Yangtao Li <frank.li@vivo.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] hfs: initialize B-tree inodes and validate catalog CNIDs
-Date: Sat, 17 Oct 2026 13:14:40 +0800
-X-OQ-MSGID: <20261017131440.91180-v6-yangguikun19@qq.com>
-In-Reply-To: <0ed462f8eb132699e04dfe458a69f28941d2069b.camel@dubeyko.com>
-References: <498724fe4ae0f0bc91137f573397363f962ac73d.camel@dubeyko.com> <abe509bc80fe0f4e83f49af87aaa74fb95888aff.camel@dubeyko.com> <tencent_A4C2280F9FC0A89C54BDEF96112DA7245307@qq.com> <88f825b8d9942f8b9a94a39f53deee5e6f5d1f4c.camel@dubeyko.com> <tencent_A6CC872D2A2155E7DB68E4D889C9D42E2A05@qq.com> <b154a8939a2dc819bd011a502f835d9377351a46.camel@dubeyko.com> <tencent_35A04F645468AAD977F1C899D38EA945D406@qq.com> <0ed462f8eb132699e04dfe458a69f28941d2069b.camel@dubeyko.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e69dl9ha"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ac7c7b3a90so294107a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:15:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792214131; x=1792818931; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=J8NkLjAJdUFmj5MLQvoJkW4xVPLRTNUGffFYw5vC+68=;
+        b=e69dl9hakpx+ANYReUiFzvYEF2HNSG+geV7Kdxp84Zh7Qpy/rd6AMWlxvXT7/gi3DO
+         QG/WYIck0y5fLEhBrxtkUJXP5tVfnblmWTRftHvk8IqUyZMCymmySG/pfF0EbCM8PbqN
+         1OQLoEAj7Vo5Xl4608hz/YczqXv4d6L3A3LebTxsFUd9p1mujJ70m/h6ZB6hdlg2JVZ+
+         gnR0ciNB4RrWXrI5ly0iuOkfrd74hldH5GnPV5QCoJXdAzs9MTNbBdBRU5Jqa5aq97Ce
+         2HRJ7exlvtRWIeDIMPcmesEG7+5rbRMe1/Ebwl0Wu1JBBl1taZcRHRRDf9svUUip8pks
+         tvsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792214131; x=1792818931;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=J8NkLjAJdUFmj5MLQvoJkW4xVPLRTNUGffFYw5vC+68=;
+        b=ap7jlAp0Zcp8ZmbOWF2gc6HtYI0NpE5zM7znF0Ub7EKwJICE0voey3IKTDH96UwMI4
+         mb44HiBiV7PDInqOjS4jy2l9ghmwiMkI4GfqrXh2YUcsewvomnLPCizgEWo6wImg8CuK
+         6DHMpjNkGjcTFFgj27GRL+ebxLUgT8iZtx9PZKWQPUR4oBjxhjirfkJvgrOiVbB7Ugsq
+         VvaSDA2VUmnsPOf/tCYVSn/sjVb+Yre5P6Q2+iW92ELKSGdD/OhIGmIUj/QcU343IhpT
+         9AngtSmSX5xCdj/UD0mOWrX35P6e3FFL97u84mJwcGk7MAwHH6Pcwo51GeDA/8/MKj+Q
+         9H9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxGuthfzd1F+vl4sF8RuhPGPdPfhfUiYBKLR4dEl4FAnjfmPRIylDFJrPJSq/CYZ/jNhxGVhRuddNRF6H4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKIw4VvGZf3Lv4uSr0nPCj0XOd5e9HK3xTaYbKYR4ThGQujCra+
+	/kBA6XWrCNam5VPZWygA04kvaCTLr1CrSw2C5lfife/jAVE36hRhgNON
+X-Gm-Gg: AYBFou2MOickl29u7u6LuBLw8CN8S45CLXz5j9aGWGbU5LPbnIXM0imUx+jVptr0nFK
+	VTIL/lcTQLdl2oBoZrIPjYrifFFj7XtQ1SrnQx4PFcgJyZ3BoIc24a7CWEZlXswvS7wsdo2TzJp
+	5X9KUI3+Ug8Yj7mx/UQCY1xXlcYY37eet/oSW2rVatFI1+dd0TaH61YOlp4aoLkqN3mfQvRtfXd
+	Ke20tqRpTN0vy6uIqUgAmOd+02v8fMUTuxhjjfZoORz7LycSyBj4DLRjNR9bh181l+1kBGwpaU/
+	OBTAqLU9acMhPjIGdaXNp9jjR6Rf3336opEhCdlN+Xw3Pb1BdhWMsC9KuFguwbPTl/UMcaIh+jh
+	8e1ach7LFx0tWT4D3+XpHB9NPtS68PqOSmlk3YjV2qiFevc+u4WfnUl5DorOHnGRIYu7X76KXaA
+	lJALw2sd3T00vnV8E3XZIiDRmPrZXF1GAsy2uAUNto+D4fxn99sUmF+L8oLQ+0xulNXUGFnzKZy
+	ubO9JmYnwoIWL+2eT0+nWt3ttebizCa/6q5mGQGlNE+rLlVhOozxoWeianyejxjIBYZG+Wu1RGy
+	DBObHj1WxgZadWfuqFl1Zp7A
+X-Received: by 2002:a17:90b:5623:b0:3ac:9a54:e3ce with SMTP id 98e67ed59e1d1-3acef6391ecmr1619670a91.63.1792214131334;
+        Fri, 16 Oct 2026 22:15:31 -0700 (PDT)
+Received: from localhost.localdomain ([180.182.24.11])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc38b457esm7443575a91.0.2026.10.16.22.15.29
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 16 Oct 2026 22:15:30 -0700 (PDT)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: Anton Yakovlev <anton.yakovlev@opensynergy.com>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	virtualization@lists.linux.dev,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/1] ALSA: virtio: trace control message lifecycles
+Date: Sat, 17 Oct 2026 14:15:26 +0900
+Message-ID: <rfc-virtio-snd-control-trace-0.208f05ae8ea44e77@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-Hi Slava,
+Hi,
 
-Thanks for the detailed review.
+While investigating capture stalls, I needed to tell whether a control request had timed out, completed later, or been canceled during teardown. The existing timeout log gives the raw opcode, but repeated requests need an identifier to follow their lifetimes (or cycles).
 
-On set_nlink(): I removed the explicit call, but please note that it
-was a no-op: inode_init_always_gfp() sets __i_nlink = 1 (fs/inode.c:238)
-for every new inode, and the original iget_locked() path in
-hfs_btree_open() never cleared it. So the B-tree inodes have had
-i_nlink == 1 since before this series, inode_generic_drop() returns
-false for them, and the final iput() in hfs_btree_close() already took
-the !drop branch with writeback. I could not construct the
-still-dirty-at-put_super scenario outside of an error in the umount
-sync; if you have a concrete case in mind, I am happy to test it. The
-redundant set_nlink() is still worth removing for clarity.
+This RFC adds one trace event to sound/virtio. Its enqueue, response, cancel and wait records share a per-send ID. Wait records describe the sender's outcome, response and cancel records describe queue completion. Therefore a timed-out wait can be followed by a response with the same identifier.
 
-tz_secondswest is only consumed by hfs_revalidate_dentry(), which runs
-from dentries; the B-tree inodes never get one, so I removed that
-initialization as well.
+The patch applies directly to the mainline base listed below. PCM capture staging, split-ACK accounting, workqueue priority and application recovery changes are outside this RFC.
 
-I will use the WARN_ON_ONCE() form for the already-cached inode case.
+Validation of the exact source diff:
+- ARM64 W=1 kernel/module builds with KASAN and lockdep; additional object builds with BPF events enabled and with event tracing disabled.
+- Six QEMU cases compare baseline, trace-off and trace-on for a delayed PREPARE response and cancellation during unbind/rebind. Each checks subsequent capture and playback. No KASAN/lockdep diagnostics or trace loss were recorded. These tests use a patched synthetic QEMU backend.
+- Eighteen QEMU performance trials, 9,000 timed open/start/drop/close cycles, use a 4,096-frame buffer. Enabled trials produce the expected enqueue/response/wait counts. Steady capture produces no control events.
 
-On hfs_iget(): agreed on both counts. Returning ERR_PTR() lets the
-corruption cases (-EIO) and allocation failure (-ENOMEM) stay
-distinguishable, and both callers currently guess: hfs_lookup()
-translates NULL to -EACCES and hfs_fill_super() reports -EINVAL.
-minix_iget() already works this way. In v5 I only did what the v4
-review suggested (-EIO), but the complete fix is the ERR_PTR()
-conversion, so I reverted the dir.c change and will send it as a
-separate patch with the caller updates.
+The added message fields cost 24 bytes per request on the tested ARM64 configurations, even with tracing off. Module sections grew by 11,160 bytes in the debug build. Actual allocation depends on slab/page layout.
 
-Patch v6 follows.
+A further non-debug comparison used this exact candidate with QEMU 11.1.2 and HVF, sharing the same Image/config and differing only in virtio_snd.ko. Six balanced orders exercised 90,000 timed lifecycle cycles at 4,096 frames, followed by three 30-second synthetic captures. All functional checks passed, as each capture read 1,440,000 frames, with zero XRUNs or read errors. Each trace-on lifecycle trial recorded 90,000 events without loss. Steady capture recorded no control events.
+
+Observed medians of six per-trial p95/p99 lifecycle times, in microseconds, were 201.105/349.729 for baseline, 254.146/334.416 for trace off, and 291.667/413.083 for trace on. Median process CPU time per lifecycle was 70.437, 70.532 and 77.300 microseconds, respectively. These measure the open/configure/prepare/start/drop/close sequence, rather than audio delivery latency.
+
+Native VZ with the unpatched baseline and internal microphone completed 100 lifecycle cycles, but a 30-second capture returned EIO after 1,131,472 frames (23.57 seconds of audio). Native VZ steady-capture performance remains unverified. Earlier VZ integration results included experimental capture changes and a different port of the trace implementation, as they do not establish performance of this exact candidate.
+
+Additional ARM64 QEMU fault injection exercises the real send and completion paths through a separate test-only caller. The backend returns status `0xdeadbeef` and used lengths 0, 3 and 37 for a 36-byte response capacity. Blocking queue consumption fills 64 entries; the 65th send returns -ENOSPC. A held asynchronous request returns before its response, while SIGUSR1 interrupts a synchronous wait with kernel -ERESTARTSYS and userspace EINTR. Both requests complete later without another sender wait. Each fault is followed by a successful query, then the suite checks an additional-SG query, capture and capture reopen at 4,096 frames, plus playback.
+
+The length faults deliberately write a complete response within the writable buffers and alter only the reported used length. Baseline and instrumented senders still return success in those cases. The event records the raw length with status_valid=0 and status=0; this patch does not change protocol validation. An unknown status with a valid length is recorded verbatim, with the existing sender path returning -EINVAL. Here status_valid describes coverage of the response header word. The raw used length remains available for opcode-specific payload checks.
+
+Two fresh boots each of baseline, feature trace-off and feature trace-on passed all 42 fault scenarios with identical sender results. Each trace-on run contained 280 events with no trace loss. The original, unmodified production modules also passed six repeated timeout/reset regressions. Seven deliberately corrupted evidence sets were rejected by the oracle.
+
+The fault caller and QEMU changes are local test fixtures, excluded from this patch. The production control implementation remains byte-for-byte the candidate tested above. The fixture modules were rebuilt with W=1; KASAN and lockdep remain enabled. These synthetic tests do not exercise physical microphone input or establish additional VZ compatibility.
 
 Thanks,
-yangguikun
+Joonho
 
-From 014ad11799ffc5fb857c23337e26121ee571f76a Mon Sep 17 00:00:00 2001
-From: yangguikun <yangguikun19@qq.com>
-Date: Sat, 17 Oct 2026 01:49:17 +0800
-Subject: [PATCH v6] hfs: initialize B-tree inodes and validate catalog CNIDs
+Joonho Lee (1):
+  ALSA: virtio: trace control message lifecycles
 
-hfs_btree_open() leaves the internal B-tree inodes with i_mode == 0.
-A crafted catalog record naming CNID 3 or 4 can return one of these
-cached inodes through hfs_iget(), triggering VFS_BUG_ON_INODE() in
-may_open() with CONFIG_DEBUG_VFS=y.
+ sound/virtio/Makefile               |   2 +
+ sound/virtio/virtio_ctl_msg.c       | 156 +++++++++++++++++++++++++++-
+ sound/virtio/virtio_ctl_msg_trace.h | 107 +++++++++++++++++++
+ 3 files changed, 264 insertions(+), 1 deletion(-)
+ create mode 100644 sound/virtio/virtio_ctl_msg_trace.h
 
-Initialize the B-tree inodes with S_IFREG and their address-space
-operations before publishing them. Reject attempts to reuse an
-already-cached B-tree inode.
-
-Validate catalog CNIDs and record types before the inode-cache lookup,
-since cached inodes bypass hfs_read_inode() validation. This also
-prevents a crafted file record from aliasing the root directory inode.
-
-Found by syzkaller-style fuzzing of v7.2-rc7.
-
-Suggested-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Link: https://lore.kernel.org/linux-fsdevel/tencent_24D928451FEFA8A35482EFFA9132A7305307@qq.com/
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: yangguikun <yangguikun19@qq.com>
----
-Changes in v6:
- - Drop redundant set_nlink(inode, 1); the link count remains 1.
- - Drop tz_secondswest initialization for B-tree inodes.
- - Use WARN_ON_ONCE() for an already-cached B-tree inode.
- - Defer hfs_iget() error propagation to a separate patch.
-
-diff --git a/fs/hfs/btree.c b/fs/hfs/btree.c
-index 41b4e8f..1891ad5 100644
---- a/fs/hfs/btree.c
-+++ b/fs/hfs/btree.c
-@@ -155,44 +155,9 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id, btree_keycmp ke
- 	tree->cnid = id;
- 	tree->keycmp = keycmp;
- 
--	tree->inode = iget_locked(sb, id);
--	if (!tree->inode)
-+	tree->inode = hfs_system_iget(sb, id);
-+	if (IS_ERR(tree->inode))
- 		goto free_tree;
--	BUG_ON(!(inode_state_read_once(tree->inode) & I_NEW));
--	{
--	struct hfs_mdb *mdb = HFS_SB(sb)->mdb;
--	HFS_I(tree->inode)->flags = 0;
--	mutex_init(&HFS_I(tree->inode)->extents_lock);
--	switch (id) {
--	case HFS_EXT_CNID:
--		hfs_inode_read_fork(tree->inode, mdb->drXTExtRec, mdb->drXTFlSize,
--				    mdb->drXTFlSize, be32_to_cpu(mdb->drXTClpSiz));
--		if (HFS_I(tree->inode)->alloc_blocks >
--					HFS_I(tree->inode)->first_blocks) {
--			pr_err("invalid btree extent records\n");
--			unlock_new_inode(tree->inode);
--			goto free_inode;
--		}
--
--		tree->inode->i_mapping->a_ops = &hfs_btree_aops;
--		break;
--	case HFS_CAT_CNID:
--		hfs_inode_read_fork(tree->inode, mdb->drCTExtRec, mdb->drCTFlSize,
--				    mdb->drCTFlSize, be32_to_cpu(mdb->drCTClpSiz));
--
--		if (!HFS_I(tree->inode)->first_blocks) {
--			pr_err("invalid btree extent records (0 size)\n");
--			unlock_new_inode(tree->inode);
--			goto free_inode;
--		}
--
--		tree->inode->i_mapping->a_ops = &hfs_btree_aops;
--		break;
--	default:
--		BUG();
--	}
--	}
--	unlock_new_inode(tree->inode);
- 
- 	mapping = tree->inode->i_mapping;
- 	folio = filemap_grab_folio(mapping, 0);
-diff --git a/fs/hfs/hfs_fs.h b/fs/hfs/hfs_fs.h
-index e250f87..8d52170 100644
---- a/fs/hfs/hfs_fs.h
-+++ b/fs/hfs/hfs_fs.h
-@@ -163,6 +163,11 @@ extern int hfs_cat_move(u32 cnid, struct inode *src_dir,
- extern void hfs_cat_build_key(struct super_block *sb, btree_key *key,
- 			      u32 parent, const struct qstr *name);
- 
-+static inline bool hfs_is_system_reserved_cnid(u32 cnid)
-+{
-+	return cnid > HFS_ROOT_CNID && cnid < HFS_FIRSTUSER_CNID;
-+}
-+
- /*
-  * Validate the CNID of a catalog record.
-  */
-@@ -219,6 +224,7 @@ extern void hfs_inode_read_fork(struct inode *inode, struct hfs_extent *ext,
- 				u32 clump_size);
- extern struct inode *hfs_iget(struct super_block *sb, struct hfs_cat_key *key,
- 				hfs_cat_rec *rec);
-+extern struct inode *hfs_system_iget(struct super_block *sb, u32 cnid);
- extern void hfs_evict_inode(struct inode *inode);
- extern void hfs_delete_inode(struct inode *inode);
- 
-diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
-index 2aef3c3..a66de7b 100644
---- a/fs/hfs/inode.c
-+++ b/fs/hfs/inode.c
-@@ -421,6 +421,69 @@ static int hfs_read_inode(struct inode *inode, void *data)
- 	return 0;
- }
- 
-+static int hfs_system_read_inode(struct inode *inode)
-+{
-+	struct hfs_sb_info *hsb = HFS_SB(inode->i_sb);
-+	struct hfs_mdb *mdb = hsb->mdb;
-+
-+	HFS_I(inode)->flags = 0;
-+	HFS_I(inode)->rsrc_inode = NULL;
-+	mutex_init(&HFS_I(inode)->extents_lock);
-+
-+	inode->i_uid = hsb->s_uid;
-+	inode->i_gid = hsb->s_gid;
-+
-+	inode->i_mode = S_IFREG;
-+	inode->i_mapping->a_ops = &hfs_btree_aops;
-+
-+	switch (inode->i_ino) {
-+	case HFS_EXT_CNID:
-+		hfs_inode_read_fork(inode, mdb->drXTExtRec, mdb->drXTFlSize,
-+				    mdb->drXTFlSize, be32_to_cpu(mdb->drXTClpSiz));
-+		if (HFS_I(inode)->alloc_blocks > HFS_I(inode)->first_blocks) {
-+			pr_err("invalid btree extent records\n");
-+			return -EIO;
-+		}
-+		break;
-+	case HFS_CAT_CNID:
-+		hfs_inode_read_fork(inode, mdb->drCTExtRec, mdb->drCTFlSize,
-+				    mdb->drCTFlSize, be32_to_cpu(mdb->drCTClpSiz));
-+		if (!HFS_I(inode)->first_blocks) {
-+			pr_err("invalid btree extent records (0 size)\n");
-+			return -EIO;
-+		}
-+		break;
-+	default:
-+		return -EIO;
-+	}
-+
-+	return 0;
-+}
-+
-+struct inode *hfs_system_iget(struct super_block *sb, u32 cnid)
-+{
-+	struct inode *inode;
-+	int err;
-+
-+	inode = iget_locked(sb, cnid);
-+	if (!inode)
-+		return ERR_PTR(-ENOMEM);
-+
-+	if (WARN_ON_ONCE(!(inode_state_read_once(inode) & I_NEW))) {
-+		iput(inode);
-+		return ERR_PTR(-EEXIST);
-+	}
-+
-+	err = hfs_system_read_inode(inode);
-+	if (err) {
-+		iget_failed(inode);
-+		return ERR_PTR(err);
-+	}
-+
-+	unlock_new_inode(inode);
-+	return inode;
-+}
-+
- /*
-  * __hfs_iget()
-  *
-@@ -446,6 +509,11 @@ struct inode *hfs_iget(struct super_block *sb, struct hfs_cat_key *key, hfs_cat_
- 	default:
- 		return NULL;
- 	}
-+
-+	if (!hfs_is_valid_cnid(cnid, rec->type) ||
-+	    hfs_is_system_reserved_cnid(cnid))
-+		return NULL;
-+
- 	inode = iget5_locked(sb, cnid, hfs_test_inode, hfs_read_inode, &data);
- 	if (inode && (inode_state_read_once(inode) & I_NEW))
- 		unlock_new_inode(inode);
--- 
-2.53.0.windows.1
-
+ base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
