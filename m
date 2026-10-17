@@ -1,62 +1,93 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7954F3E1692
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:04:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785D4394797
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792235053; cv=none; b=HvDN29+uslayQjaDDj+D4xZqA4QjU8UJT+EiOl35Y8aH8601OkTgHzAm60JoWWQB/OldrEKMpJ8FzfmYfiOuK2K64V23b8h0y0L7TPHfqAdZw143iC2oj5rnWHmQgh8Ftkaf2UB7diADh9HOstPchW5ybzkAjlFYlWRrDAhMgsQ=
+	t=1792235064; cv=none; b=txI+pYKjWA7F+ADibqWSYWM+NxmgBAwrU0sERPn+C7R/nAV9brNjxNeObK8KIRwlwzXtS1lgyjW+S1qH0qtRtu3mbXIGnb+yTXmEMV5TjoXluI/tMUCaJUR66adoruEnqbUO88mgUIGqBRjXcC6JyDwu/QpsJhsgQFBkN/Mg/ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792235053; c=relaxed/simple;
-	bh=Rf7YNCL8qZoDiA9pZ5Q4C7iNelijmn8IlqFSt4Pcxcc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=LyrGzoLiSkh0IMHlM3pobQxiX9rKtImXTZtpbc3ZEAwQ1/Y8PwxrwdZ8ohqHW0atNYDo5RJA6iWbrgWcnR9tQwv++dNfVFnsmAMNtYTXxHB1rtgjejUV+1nHEIF6Q7fejSLDHxQIAQqMiZ1SrB76ws8hBZBnRdCbCDiMfsbEKy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G98g1pXw; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792235064; c=relaxed/simple;
+	bh=2PkaU5TbFTI8MHj7BOso2/r4YBu8nhLgzXo03LSlapk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lj/i9XoEyYjUl9HRSvA2jCmop/bZ4mBdOTyYSSYCoqrnkmJ0S/9t4WGT6JAVB2Yqeevhcp8RrFmuMsv1hvQ0eNoiKJvij2ddbVAXeMDWRdkF+nLRvu5wUM+tNZ4ayXcoYicukqORWvDhxDcN2eniyLzoknIHMufvMmeCEnpiuOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fhWCS+R3; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G98g1pXw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=Rf7YNCL8qZoDiA9pZ5Q4C7iNelijmn8IlqFSt4Pcxcc=; b=G
-	98g1pXwS5YbGNBuLT9A4B6yzcltTUTa/tZPwF9mhuFZ1Y7RVU8jAlUP+s4K/63QA
-	vw0sn3oDZCuujWhQYJpU0G1Mv6sn+DSRaE1ISTto5Xk0NOlQ7vHJcFBz/CwUAVVS
-	IRWRhjLYYSSeyugQEy3NbV061C9xbV3v1vUvvF+8yc=
-Date: Sat, 17 Oct 2026 19:03:45 +0800 (CST)
-From: "Andy Yan" <andyshrk@163.com>
-To: "Heiko Stuebner" <heiko@sntech.de>
-Cc: linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH] MAINTAINERS: update my email address
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <179182161341.3798543.15754027777678561940.b4-ty@b4>
-References: <20261010134705.2131-1-andyshrk@163.com>
- <179182161341.3798543.15754027777678561940.b4-ty@b4>
-X-NTES-SC: AL_Qu2SAP6Yukgp4yaQZ+kdk0gQhec/Xce4uvsi3YJQc+sEuRHc0y4KV3NaI3bW4uurDCuJsDerSTh36895ZIt037tprUyx/emwdR8aRfIEJg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fhWCS+R3"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a0213948d3so4836525e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:04:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792235062; x=1792839862; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=B2G9ZJTSg0XhBrGZT3d3dKn6X4ZPYelm2j926k8i4T0=;
+        b=fhWCS+R3a3DZerpE8ZguGARRbec+6hSsYIKlc0/zIgFrMTit2CsWuyfVlvqRQbA439
+         WaheSpWC24nxznJ9vgEGlK4zND2yCoyHfT8yN48RQFHLPLkNAXAyZhO87MZD0MNYs3wo
+         d5JkWmSqaFP5YUUEDYtWkH65j/Sgapg1wx0MNs7/aeJXH4A064JY4X7C4ClO3YwXuNlO
+         pItka2ziX/uDnVEDCXJQLrEw2USw+OHNRJwkL8fSIk6DpQQPNBeXFeAS2Fm8mo8f4ZPm
+         RM1Y/bURzjc/dyw9C8RtgdrySWy+0SIl93XCxjdDJReOEftWq2qFir9fXouOat9gdOTV
+         NDzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792235062; x=1792839862;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B2G9ZJTSg0XhBrGZT3d3dKn6X4ZPYelm2j926k8i4T0=;
+        b=oHDl1ekwuLaIqepBDNqBf2Cg5CgMJOTRbiEmgtCroyehFasIgY7SKxuiqh1RfE4SPE
+         lIZpqZFWY6g8uEY0WleeYjQt6Q+xnO9MZnxPPR6hN2hn8+O79OQCLHehShhB68ITKFPi
+         4s7bij2voZuwWXck9FMUCOAwQaDxlaYQGsPNQbEBOJ5rJRu1j/DBettqaOC3Pnwb8jtI
+         D8a4VTGdT/Knz5ODqK4zRVHRhG2Y8oFrfe/dcrG5989T2MMW/9FSUcHnnbIBANVIbtDQ
+         8FD8WWx1+hwlsaDcUfp0k5Son5BjXv/Jl+ihes1dFzuNybneSH5TEbeI7m8CAILwc3Ll
+         YTEg==
+X-Forwarded-Encrypted: i=1; AKwUvBzSamgBqZ6KsuVRYXkSiz/33Qw/igum4IYJrDSI82m14MifgBJRbsA5uzWC9xwIy7fXrtAvq06ymXK52sM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhHacJi3jfXGGjs1Xne2XgkR9sEgO/QYlqCn9cPsRrEBTHMpj+
+	pze75wbK2eaZxioBPRr3TUGYEpPesaA/D2JlEFPYjCnOA79UKtOgKX5y
+X-Gm-Gg: AYBFou2M7xgl7aRbLF6Qu5gHdmmQmzoqp9nKXvW1oN0bWFIwVik8M0ED2ZdW6wVetnV
+	sB5fnsLFj5Pdv67vNipC6WSMUv0gQOzVSZXy/ISLaMHe/jFIyErTIRHlMv3JblsmmZcijn522lz
+	dN0J/ybpLYe2DYTobLC2pPuwyMYhfEipAKm2I9ahF7+qnwZAraEbCN3bQzS5D3xKWst1Y6thO22
+	37Z6GfcUccpv/8OSS5RG+abUEv4XeB1fa5yYDx9jWJ+amd1y2p9SAXqWaWgCy4CDMQxUloUyT0m
+	jYpHCkVj7bN4Ouw2kZzLsf/GHWGYbP/sjTit+896ItWqqUlrpGp8R4Yh2y/GLa3OFj3j4LR2sbb
+	82dcwSIvmntkuDVrfaYtX7F2TcwlhfvZ5UMbc31lyP0wkf1movpX6vGskZrqFeMhCr1molUJZsE
+	Czq73X0Ef9ae8+Pfd8qnVYaSWd6wXOlXTGnud+bxsO7qMOtAnfmvImi/AaeMGPijgT6fAXOD/L9
+	8C5Dg==
+X-Received: by 2002:a05:600c:8b25:b0:49f:fe39:5bc8 with SMTP id 5b1f17b1804b1-4a1d75f987dmr67689495e9.12.1792235061513;
+        Sat, 17 Oct 2026 04:04:21 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8a81587sm245158245e9.1.2026.10.17.04.04.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 04:04:20 -0700 (PDT)
+Date: Sat, 17 Oct 2026 14:04:16 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Feiyu Wang <wangfeiyu_mc_code@163.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: remove multiple blank lines
+Message-ID: <atNWMLAznJJqABRA@stanley.mountain>
+References: <20261007104610.128178-1-wangfeiyu_mc_code@163.com>
+ <20261017103549.6555-1-wangfeiyu_mc_code@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <77d3eab.24b0.1a14988351c.Coremail.andyshrk@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:ZCgvCgD3_yISVtNqKwJbAA--.2458W
-X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbC7hIph2rTVhIVbgAA3U
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017103549.6555-1-wangfeiyu_mc_code@163.com>
 
-CgpIZWxsbyBIZWlrb++8jAoKQXQgMjAyNi0xMC0xMyAwMDoxNTo0MCwgIkhlaWtvIFN0dWVibmVy
-IiA8aGVpa29Ac250ZWNoLmRlPiB3cm90ZToKPkhpIEFuZHksCj4KPk9uIFNhdCwgMTAgT2N0IDIw
-MjYgMjE6NDY6NDggKzA4MDAsIEFuZHkgWWFuIHdyb3RlOgo+PiBTd2l0Y2ggbXkgY29udGFjdCBh
-ZGRyZXNzIHRvIGFuZHlzaHJrQDE2My5jb20KPgo+QXBwbGllZCwgdGhhbmtzIQo+Cj5bMS8xXSBN
-QUlOVEFJTkVSUzogdXBkYXRlIG15IGVtYWlsIGFkZHJlc3MKPiAgICAgIGNvbW1pdDogN2FmYzM2
-YzkyYTI4MTJkZTM2ZWMyZTE1YTZmMjgxZmNhMDgxYmVhYgo+Cj4KPldpc2hpbmcgeW91IGFsbCB0
-aGUgYmVzdCBvbiB5b3VyIG5ldyBhZHZlbnR1cmVzIGFuZCBob3BlIHRvIHN0aWxsCj5zZWUgeW91
-IGFyb3VuZCA6LSkgLgo+Cj5UaGFua3MgYSBsb3QgZm9yIGFsbCB0aGUgd29yayBhbmQgZ3JlYXQg
-aW5wdXQgeW91IHByb3ZpZGVkIHRvIHVzLgo+Cj4KPkJlc3QgcmVnYXJkcywKCgpUaGFuayB5b3Xi
-gJR0aGFuayB5b3UgZm9yIGFsbCB5b3VyIGNvbnRyaWJ1dGlvbnMgYW5kIGhlbHAgYWxvbmcgdGhl
-IHdheS4KSSB0aGluayBvdXIgY29kZSB3aWxsIGNyb3NzIHBhdGhzIGFnYWluLCBzb21ld2hlcmUg
-dXBzdHJlYW0uCgo+LS0gCj5IZWlrbyBTdHVlYm5lciA8aGVpa29Ac250ZWNoLmRlPgo=
+On Sat, Oct 17, 2026 at 06:35:45PM +0800, Feiyu Wang wrote:
+> Hi Greg,
+> 
+> A gentle ping on this patch. Please let me know if there is
+> anything that needs to be changed.
+> 
+
+Same driver.  It's still there in staging-next, I think, but it's gone
+in linux-next.
+
+regards,
+dan carpenter
