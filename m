@@ -1,82 +1,109 @@
-Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB42E24BBEE
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 23:26:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A03D24BBEE;
+	Sat, 17 Oct 2026 23:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792279575; cv=none; b=obrdlvR1g16tr9f1UuZkVvQKBpVRqG4gwNWO1+Sj+45hJfVmrTWCFEv9tbeUb1W+jSrj0X3d9DrEFr6ctKnbbvGSV6NoIb05yE7TxGgmLv9ntIRVzKv0ZSnjNt8aT7vyp0lHSrSBRmLLUzem7vu0NukkdsXbZd0yh4rrXzC0Kns=
+	t=1792279707; cv=none; b=aW/nVItT1S5C01YPDAe7fJrck3WgqLWKYLtmgn+/wILkakUOVVKgzNA1PYQeSDbJUeh2VH/2ETfNV4s7nqxzzyGxmYxAtQnHDLvK0RmMw3De5exdSI57HSBCxN33D58z+L7oejE0WU0Dycj+3PrCn2ExB6PCTGMkGcwQugp1vm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792279575; c=relaxed/simple;
-	bh=xnAVFjE1eCbBv4nwANE8WB7XFHdzRK+IhFb0m7alkCk=;
-	h=From:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 To:Cc:Content-Type; b=D8jgjxibYnEue2l3Qa5ZPHcQM3ICJfB6qcWsyDQMxhVlAb4nYZ74pNJAWTG7WsLoxatciyfcn0mN04ZI6vt5ooIhkf5CJC4dxkhySkgPjG0x1HRSLiOixpR5A37u87woHaO1s6amE54grnI4D4/RyMJCSabw//e9PGWNxBaZRSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=wzZ/6EHB; arc=none smtp.client-ip=149.72.141.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
+	s=arc-20240116; t=1792279707; c=relaxed/simple;
+	bh=k5zWeJXJEurOnDhHsF93exBiSxJgAlW9SNVyvu9qQqU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=V+57vz9rYLhs3PTjbcVlc2CM3EGmKaYJtK3R+fLfO0b7/jFuo+ERr7jQeMWwIk2oHrsApYNry0+yDCieid/pwkVerLii1LBiyVHOWCdzJAi8Nl7V/NOk33oIn4GC5Ajrf4ozbOoCEXP1m2faitw7dRKaeHAzmSOMGoqbVEcyVho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C/DF35Yw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="wzZ/6EHB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
-	h=from:subject:date:in-reply-to:references:mime-version:to:cc:
-	content-type:content-transfer-encoding:cc:content-type:date:from:subject:to;
-	s=s1; t=1792279572;
-	bh=5+ChxQruMtybdrIxH4Oe8hOrLdCEmzhndPHUNt+XKPE=;
-	b=wzZ/6EHBiigs8/TQYNjoDCs/bWZhBQxV0oRv+5YMCJCot3fU2FYd14whwZFUYDLrpys3
-	kZlYEeQH/bQTabrsz58OVISF2LFeixWETRaWwZKJNS0bpwZbV3qzxg1GJVA+6gpY4P8aWp
-	nUh/rCk5wI+tB5+966TTp9MOzLesKXbNHI0vV0FnmGXVIDE1txhlWWy3FG/ZqHQkfZVR0y
-	AsN32Yox8zgMV/3++bTYWWkls1ddzl1Esxw1wcFgrYDcL8f5RdIDUN+TAemb3wXQQ8AeSx
-	oKFM/1JsiluDALnxZSNCfdUudaJMqAmnvRpXnoDi54KBOm7SDYo1mw5mfWVWAFFw==
-Received: by recvd-567c5c9644-whh6j with SMTP id recvd-567c5c9644-whh6j-1-6AD40414-60
-	2026-10-17 23:26:12.752423817 +0000 UTC m=+1578342.782868143
-Received: from daisy.dens.ffj.family (unknown)
-	by geopod-ismtpd-142 (SG)
-	with ESMTP
-	id BqvlJyNgSimQIUNJgrYm1A
-	Sat, 17 Oct 2026 23:26:12.534 +0000 (UTC)
-From: Liz Fong-Jones <lizf@honeycomb.io>
-Subject: Re: [PATCH v2] writeback: keep cleanup_offline_cgwb()'s scan out of
- syncs
-Date: Sat, 17 Oct 2026 23:26:12 +0000 (UTC)
-Message-ID: <20261017232610.58733-1-lizf@honeycomb.io>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261017040710.1174009-1-lizf@honeycomb.io>
-References: <20261015114307.1041273-1-lizf@honeycomb.io> <20261017040710.1174009-1-lizf@honeycomb.io>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C/DF35Yw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC4021F000C4;
+	Sat, 17 Oct 2026 23:28:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792279705;
+	bh=qRc6XunMlGQk8dxay7+/4etC+5Ns2lA5EHpNlyAI7pk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=C/DF35YwBaO+K0nsPc934z0kRUdiEuFW3LRHOKyrW/esIxV5j19FNloYHGt3JBWBw
+	 sMr65974v6zEOL6ZeShmB+y5m9u275s9Nt8rBEeS1RJqAQeIzvxRcRDUQpXlYgLG1Q
+	 FtpreyIzpYCIkBUeVHC14rdw8DqposRf2HV9CCTnj34nkC0RuY8HU7rg5lknVeL/d8
+	 XAsyeS5sO0qrvBok2SGjljb3Kwg2yYP5FyTUSMGJR34rHFI9sKxIQtAW+6A/iIIRmH
+	 7fuSpMEIbPTN7ooarkfxnWaHwNNk71rpyKNb0AcQlF4ZgOkeg2rHkGABEsxLv+yIAo
+	 TBuVuiJXOyFDA==
+Date: Sun, 18 Oct 2026 00:28:22 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
+Cc: Alexander Sarmanow <as@discnull.de>, David Lechner
+ <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Parthiban
+ Nallathambi <pn@denx.de>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: light: vcnl4035: Fix reversed ALS mode bit
+Message-ID: <20261018002822.5a5f2102@jic23-hlaptop>
+In-Reply-To: <as0B1EnPqfwRO1D-@nsa>
+References: <20261012144315.1678195-1-as@discnull.de>
+	<as0B1EnPqfwRO1D-@nsa>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SG-EID: 
- =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
- =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeZBE29le3x4T?=
- =?us-ascii?Q?AizvtRpU7VP809D=2Fmwb1shMNqfUcvGTQsx53Zse?=
- =?us-ascii?Q?L=2FBtvuK5SBXStd+Nht40iPrZhf4f+iwfv6L7tCH?=
- =?us-ascii?Q?FMbY7S5TX96ODxMZuW4tfONJGqFLBVFbIEarzRC?=
- =?us-ascii?Q?KOfD+3i0=2FEXsshL8VajpQXixcbQleHyN=2FwOjZaI?=
- =?us-ascii?Q?oUkW?=
-To: Christian Brauner <brauner@kernel.org>
-Cc: Tejun Heo <tj@kernel.org>, Jan Kara <jack@suse.cz>,
-	"Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>, Roman Gushchin
-	<roman.gushchin@linux.dev>, Alexander Viro <viro@zeniv.linux.org.uk>,
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ian@honeycomb.io, Liz Fong-Jones
-	<lizf@honeycomb.io>
-X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Christian,
+On Mon, 12 Oct 2026 16:51:05 +0100
+Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
 
-This fixes f6988c90671e, which went into 7.3-rc5, so the regression is
-new in this cycle, and f6988c90671e is already tagged for stable. Could
-it go into vfs.fixes before 7.3 is released? Tejun has acked it:
+> On Mon, Oct 12, 2026 at 04:43:15PM +0200, Alexander Sarmanow wrote:
+> > According to the datasheet (table 2) the ALS_SD bit behaves the opposite
+> > way the current ALS mode defines are set, writing 0 powers the sensor
+> > and writing 1 shuts it down.
+> >=20
+> > The current driver thinks the ALS is up while it's actually shut down
+> > and it's down when the systems powers it up.
+> >=20
+> > Fixes: 55707294c4eb ("iio: light: Add support for vishay vcnl4035")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Alexander Sarmanow <as@discnull.de>
+> > --- =20
+>=20
+> Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
+Mystifying how this worked for original contributor.  Maybe it's one of
+those last minute edits that went wrong.
 
-  b4 shazam 20261017040710.1174009-1-lizf@honeycomb.io
-
-Separately, the wb-dying-cgwb-flush series now has Tejun's ack on all
-three patches and Jan's Reviewed-by, for whichever cycle suits:
-https://lore.kernel.org/all/20261015-wb-dying-cgwb-flush-v7-0-9278d9ebaf5d@honeycomb.io/
+Anyhow, applied and marked for stable as what you have matches the datasheet
+and you've tested it so it's not an issue with a wrong datasheet.
 
 Thanks,
-Liz
+Jonathan
+
+>=20
+> > Tested on a Raspberry Pi 3B+ with a VCNL4035 on I2C, running Raspberry
+> > Pi OS downstream kernel 6.18.50. Checked with i2cget that bit 0 of the
+> > config register 0x00 is 0 while PM runtime resume and 1 once it's
+> > runtime suspended. Also builds cleanly against iio/testing.
+> >=20
+> >  drivers/iio/light/vcnl4035.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/drivers/iio/light/vcnl4035.c b/drivers/iio/light/vcnl4035.c
+> > index ce1bd42b0c7c..f1cc75245001 100644
+> > --- a/drivers/iio/light/vcnl4035.c
+> > +++ b/drivers/iio/light/vcnl4035.c
+> > @@ -44,8 +44,8 @@
+> >  #define VCNL4035_DEV_ID_MASK		GENMASK(7, 0)
+> > =20
+> >  /* Default values */
+> > -#define VCNL4035_MODE_ALS_ENABLE	BIT(0)
+> > -#define VCNL4035_MODE_ALS_DISABLE	0x00
+> > +#define VCNL4035_MODE_ALS_ENABLE	0x00
+> > +#define VCNL4035_MODE_ALS_DISABLE	BIT(0)
+> >  #define VCNL4035_MODE_ALS_INT_ENABLE	BIT(1)
+> >  #define VCNL4035_MODE_ALS_INT_DISABLE	0
+> >  #define VCNL4035_DEV_ID_VAL		0x80
+> >=20
+> > base-commit: a22dc7ebb21a6bd4c8b63bc2c1dd46a24945aae7
+> >=20
+> > Best regards,
+> > Alexander
+> > --=20
+> > 2.47.3
+> >  =20
+
