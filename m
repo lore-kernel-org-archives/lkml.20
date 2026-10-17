@@ -1,143 +1,214 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD3BB381B0A
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:03:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792267401; cv=pass; b=Hwe5luQrdPGy8vnCQ6Q3dtQLuZa2m/UuDE8/Py00PwIhYDbnzRBBHPKK/7ATNIYf197cTg49XgFE5C9Av0Xb187wG5VeICbYYqnhzI4oj8dk8SonFWjA12dPyGJ2QMAxKVyYfHTUb3AfrTsUrIbj8AnFOr5NqZacRt6eMoRbtU8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792267401; c=relaxed/simple;
-	bh=Q+TrQfdIt2cIqZ+T8TmoFuxdS2bELcuBxOsSwzG2agw=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8C53D45DE;
+	Sat, 17 Oct 2026 20:04:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792267479; cv=none; b=AEKRNd2IouArc/3iA/WCda3iS9Kr/k8B6TW7X1CvnGi+3aoUtM6jKW3JtrAeyOnoGg22RNMGOBgIqAx8Bg/SZG6AQ6/iP27CoMAZhggTdqZUk8EelJIe7trfAjqPt/fBFF1dhIG8qH0pXvUCh64cgmnju33/YRK1mSgkpv4gddo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792267479; c=relaxed/simple;
+	bh=kPBa35ZIZOSowlDq+1A975XlBQyamFUYeo+hSw/32Sw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GQqWg7M8yjVohQ6qd7uQIYd1jKf9vQ0cf6Keu7xVRgn4bLP1HjJYAl0bUcW7x9spjkycWUIylWKEsRICedOkINGENTcJtL00BrOkyaOSlRwRSgKS6lobKGjJ4MRzJWP5wxpXsa/07z+7CjzqUFWvXotD8JPXa1HPrjBxFKvZT5E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=B6wI6mjg; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=C2U2WOpr/I7ekg4pmvC/Ci2atN/vDP5kbZ5MuQQrJyjb8XKnBM0qOG/Wmpp5RXJN3CJtrk144vnUIbXCMpeeuTzNFosNPMKixGfEPY5yBGpfxU8vsDe+t19q9hH5k78uE9WtzUSfzyd6wP4Kd4sQzzGh/tuNF7hF4WL8iU7F7jA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dz05FIP6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="B6wI6mjg"
-ARC-Seal: i=1; a=rsa-sha256; t=1792267385; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Igo3uCDCkyYHWLIfZrGqYdhY2lvfVz7qXYwygG2HH5tUC3P0An0/2gg/RLjcFHIehbrgQ4a65SKRbp2zZRFxhQ+GIiOrx7FWup5wfBDpXC71pBgCMk8+ZnLWOVRFon/NlN2xhgGo/Rx9x4aVtYPRrSTFSugoxavgKLv0bVpfhYs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792267385; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=HDbfx51p5XxyIurP4n8Jh9qNXSr08aSyHOnPDldz6es=; 
-	b=BCAjgWBxyM5JFwJJjtwszIU94I3OAVFriJMWlhBFz6D2GZ5vNIhU/3KxPqr80ZM6McZIdm4OhEoz0PbOnTvZjMFljE18zAN6Ju7r41ZD/85vp4oBgoRlvsEbCLc5QV2Q92juhlXZ1W2bHfbpni8Pi+xZ/+9pNzdniu7+m9knF5A=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792267385;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=HDbfx51p5XxyIurP4n8Jh9qNXSr08aSyHOnPDldz6es=;
-	b=B6wI6mjg5+WMcsIGxn1kYkI5/i2pKKA83F83GxQtFIdo0Vt2aSbdtonpLzTrNyV1
-	HUFyCGWx07BZHE7o4Y7EJuBQONIJoGRxWaFEf+wsX63AuBgmPty5vCjhME0vpASfeQF
-	uVAW9d2CEGo1kAMpysZMKEPmqe//nsHQvUbRIjVM=
-Received: by smtp.zohomail.com with SMTPS id 1792267383927317.9562881794884;
-	Sat, 17 Oct 2026 13:03:03 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 38934182304; Sat, 17 Oct 2026 22:02:59 +0200 (CEST)
-Date: Sat, 17 Oct 2026 22:02:59 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Shawn Lin <shawn.lin@rock-chips.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Vinod Koul <vkoul@kernel.org>, linux-rockchip@lists.infradead.org, 
-	linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] phy: rockchip: naneng-combphy: Fix overwritten PLL SSC
- control bit
-Message-ID: <atPUUusoWLVds9jL@venus>
-References: <1792036787-37927-1-git-send-email-shawn.lin@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dz05FIP6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFE161F000C4;
+	Sat, 17 Oct 2026 20:04:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792267477;
+	bh=qRP3vyBEJ2t0noEtwUXg4HTqo/d122GPQHEtZAe2QME=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=Dz05FIP6+mcrgC02FJSoNhMEK4jXVwA2TQ2rDpSokxtfCTIWFBI7hj/fVObRW5vqT
+	 R563kNReF98+aZHOA3RJEPmq27YyrB/GLotirA/Khxn4mUxJX0bH7qkO7NbxCLp7qP
+	 4ITDsMjZfHZAbIGKz8zqTfysHvRxa2wkkwX5TDD7FKpgxxesJtXu+cMBQdXW4AuYK3
+	 F0x8IQRZ1RxR/VJynOLneCM/DO7DnKxpuOEDHQSxtyPfWSLn0jA9FS7WHGVPusuK2D
+	 9WW+83SWpZsTxnaIWybtUY3cIkBihIdTrGfNdBDlWXySRB/NNiUU+2PS5ZjNzS31HA
+	 u9Q/RNi923DKQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 79D5FCE1ADC; Sat, 17 Oct 2026 13:04:37 -0700 (PDT)
+Date: Sat, 17 Oct 2026 13:04:37 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: Zqiang <qiang.zhang@linux.dev>, boqun@kernel.org, frederic@kernel.org,
+	joelagnelf@nvidia.com, linux-kernel@vger.kernel.org,
+	neeraj.upadhyay@kernel.org, rcu@vger.kernel.org, urezki@gmail.com
+Subject: Re: [PATCH] rcu-tasks: Warn on too-short RCU Tasks Rude grace period
+Message-ID: <82551705-77de-48d3-b310-ba23a5549903@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <D155FA7E-8E99-4D4F-92A8-74472834F25A@mainlining.org>
+ <8d7f265cd1320bf7996bcffea07ffdea69cfd625@linux.dev>
+ <2247C12C-EE02-46CC-922F-D6A62D1E77C1@mainlining.org>
+ <3fc682be-c0ed-48b2-ae91-af80d1535520@paulmck-laptop>
+ <0E5D0BB2-BEF1-430A-B30C-C53F4254214F@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="amn6qqo5nchmrmqw"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1792036787-37927-1-git-send-email-shawn.lin@rock-chips.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/292.264.81
-X-ZohoMailClient: External
+In-Reply-To: <0E5D0BB2-BEF1-430A-B30C-C53F4254214F@mainlining.org>
 
+On Sat, Oct 17, 2026 at 06:49:41PM +0100, Bradley Morgan wrote:
+> On 17 October 2026 18:46:25 BST, "Paul E. McKenney" <paulmck@kernel.org>
+> wrote:
+> >On Sat, Oct 17, 2026 at 12:16:48PM +0100, Bradley Morgan wrote:
+> >> On 17 October 2026 00:41:00 BST, Zqiang <qiang.zhang@linux.dev> wrote:
+> >> >> 
+> >> >> On 15 October 2026 10:46:19 BST, Zqiang <qiang.zhang@linux.dev>
+> >wrote:
+> >> >> 
+> >> >> > 
+> >> >> > The RCU Tasks Rude grace period is implemented by invoking the
+> >> >> > schedule_on_each_cpu() with an empty work function, which forces
+> >> >> > a context switch on every online CPU and guarantees that all
+> >> >> > rude-tasks read-side critical sections have completed. However,
+> >> >> > schedule_on_each_cpu() can fail (via alloc_percpu() returning
+> >> >> > -ENOMEM) and returns immediately, in which case those context
+> >> >> > switches never happen, too-short grace period happen.
+> >> >> > 
+> >> >> > This commit therefore wraps the schedule_on_each_cpu() call in
+> >> >> > WARN_ONCE() so that this failure is reported as a "Too-short
+> >> >> > grace period" warning.
+> >> >> > 
+> >> >> NAK, this seems like a edge case, and potentially panicking the
+> >system
+> >> >> with panic on oops doesn't seem right to me, because we would reserve
+> >> >that
+> >> >> for when something definitely goes really wrong and we need to notify
+> >> >> the user.
+> >> >> 
+> >> >> I don't believe this patch should go in for this reason, it's a heavy
+> >> >edge
+> >> >> case, that doesn't *have* nessesarily need to be accounted for.
+> >> >
+> >> >Indeed, this is a rare event, so I use WARN_ONCE() to mark it, the
+> >> >WARN_ONCE()
+> >> >not panicking system unless you set warn_on_oops true, this can help us
+> >> >troubleshoot
+> >> >UAF issues caused by a too short tasks-rude grace period.
+> >> >
+> >> >or maybe we can use DEFINE_PER_CPU(struct work_struct, rude_work) to
+> >> >replace
+> >> >alloc_percpu(struct work_struct) queue to all online CPUs.
+> >> >
+> >> >Anyway, Thank you for your reply. I would also like to hear the
+> >opinions
+> >> >of others.
+> >> 
+> >> Fair enough, but me and Paul done some discussions:
+> >> 
+> >> Here is the TL;DR
+> >> 
+> >> My ^W^Wai slop^W^W tool helped me with this: if the too short grace
+> >> happens,
+> >> it falls back.
+> >> 
+> >> 
+> >> root@p10-linux-brads:~/linux# git diff kernel/rcu
+> >> diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+> >> index 627295396cd9..65bb7d4ed632 100644
+> >> --- a/kernel/rcu/tasks.h
+> >> +++ b/kernel/rcu/tasks.h
+> >> @@ -1344,15 +1344,23 @@ void exit_tasks_rcu_finish(void) { }
+> >>  // Ordering is provided by the scheduler's context-switch code.
+> >> 
+> >>  // Empty function to allow workqueues to force a context switch.
+> >> -static void rcu_tasks_be_rude(struct work_struct *work)
+> >> +static void __maybe_unused rcu_tasks_be_rude(struct work_struct *work)
+> >>  {
+> >>  }
+> >> 
+> >>  // Wait for one rude RCU-tasks grace period.
+> >> +static void rcu_tasks_rude_ipi(void *info)
+> >> +{
+> >> +}
+> >> +
+> >>  static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
+> >>  {
+> >> +       int cpu;
+> >>         rtp->n_ipis += cpumask_weight(cpu_online_mask);
+> >> -       schedule_on_each_cpu(rcu_tasks_be_rude);
+> >> +       cpus_read_lock();
+> >> +       for_each_online_cpu(cpu)
+> >> +               smp_call_function_single(cpu, rcu_tasks_rude_ipi, NULL,
+> >1);
+> >> +       cpus_read_unlock();
+> >>  }
+> >> 
+> >>  static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback_t
+> >func);
+> >> root@p10-linux-brads:~/linux#
+> >> 
+> >> On POWERPC, this passes 12 hours of rcutorture on the RUDE01 config.
+> >
+> >That is surprising, given that when I run your patch shown above on my
+> >x86 laptop, rcutorture reports a too-short grace period within 20 seconds.
+> 
+> Odd! I definitely ran it for 12 hours, on PowerPC, so this is certainly odd
 
---amn6qqo5nchmrmqw
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] phy: rockchip: naneng-combphy: Fix overwritten PLL SSC
- control bit
-MIME-Version: 1.0
+Those who care are free run it themselves on the systems of their choice.
 
-Hi,
+							Thanx, Paul
 
-On Thu, Oct 15, 2026 at 11:59:47AM +0800, Shawn Lin wrote:
-> rk_combphy_common_cfg_ssc() first sets RK3568_PHYREG33_PLL_SSC_CTRL on the
-> RK3588 and RK3576 SoCs, then, for PCIe at 24MHz, programs the PLL KVCO
-> adjust field. The latter used a plain writel() of the FIELD_PREP() value,
-> which cleared all the other bits of RK3568_PHYREG33, including the
-> PLL_SSC_CTRL bit that had just been set a few lines above.
->=20
-> Use rockchip_combphy_updatel() so that only the KVCO field is updated and
-> the SSC control bit is preserved, as the comment and the pre-consolidation
-> code intended.
->=20
-> Fixes: 0b31f297557f ("phy: rockchip: naneng-combphy: Consolidate SSC conf=
-iguration")
-> Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
-> ---
-
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-Greetings,
-
--- Sebastian
-
->=20
->  drivers/phy/rockchip/phy-rockchip-naneng-combphy.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c b/drivers=
-/phy/rockchip/phy-rockchip-naneng-combphy.c
-> index 3102a99..b6cc010 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
-> @@ -526,7 +526,8 @@ static void rk_combphy_common_cfg_ssc(struct rockchip=
-_combphy_priv *priv, unsign
-> =20
->  		val =3D FIELD_PREP(RK3568_PHYREG33_PLL_KVCO_MASK,
->  				 RK3576_PHYREG33_PLL_KVCO_VALUE);
-> -		writel(val, priv->mmio + RK3568_PHYREG33);
-> +		rockchip_combphy_updatel(priv, RK3568_PHYREG33_PLL_KVCO_MASK,
-> +					 val, RK3568_PHYREG33);
->  	}
->  }
-> =20
-> --=20
-> 2.7.4
->=20
->=20
-
---amn6qqo5nchmrmqw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrT1HIACgkQ2O7X88g7
-+prxjQ/+OYMRiDnXqbbhEGeraMuRgc+2Ie55Q3vzMGzMMPNOyCiLEC43IawflKar
-EffRybxsBwH7b2fUSmnN7TgnRXvovNVMAEq4jICN04Axo+kTktnyl8VNx+hCcS6A
-e9s5Us1Te80IFfHmfRerVgu4v+9fjPhAym2auNlLz8gbJtB6+qzuFSRoKAUpjVxv
-CvqanEu0LnFoY5SdsoOwKhQkbNil1XkHRJ8nUZyDyzwCl4roEMnUJG0J9PvxKrSd
-olRIKEYj1dOWZIj487wz8Dt1n6ATRHZga2KzGyrP0SNCZ7VG9nz2PBf2ozGXDuji
-WWqjRFgWzAMWLGgQs5jnlrmtOVOS+Nl/fNkIpHjBuGnTMysGP50vqVdVAF2/bsgP
-ux4dmBTfc/e5fDFtY6/wtuvSa1I9dhKUiANec2Wx8aT8t9dlj03LFZbnm7enkJgj
-eHrVVRUjKRyAnCd1frYXyA4lluLeFcV44RkOhRIR7x6ETNEAzdY0jVFoLESlQH7J
-DbQIXfNsSrV15bEmGHgVx4J2hUPYQp5xNpbXmYYfEaJ1NbzN7WhKz5oA9uCvnfDF
-VEhZ370k4tElgRm2JklIrIqJAcwwKeeOVu+NQp18PReg3lizBjN/LPNgDbwh7jQN
-nDXS7WiU5nl3B7qFS5Qr0VNqBx18oVitJuNSCNvJvlHX2C0p3U8=
-=N1ZP
------END PGP SIGNATURE-----
-
---amn6qqo5nchmrmqw--
+> >> If you plan on submitting this into a patch, please add my authorship,
+> >or
+> >> my c-d-b. 
+> >> 
+> >> Feel free to rcutorture test it ;d
+> >> 
+> >> BTW: have you reproduced this on your own system?
+> >> 
+> >> >
+> >> >Thanks
+> >> >Zqiang
+> >> >
+> >> >
+> >> >> 
+> >> >> Zqiang, have you reproduced this OOM on your own system, if so, could
+> >> >you
+> >> >> tell me more details, you may turn my frown into a smiley face ;)
+> >> >> 
+> >> >> > 
+> >> >> > Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+> >> >> > ---
+> >> >> >  kernel/rcu/tasks.h | 3 ++-
+> >> >> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> >> >> > 
+> >> >> > diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+> >> >> > index fcac7361ec51..91c25717402e 100644
+> >> >> > --- a/kernel/rcu/tasks.h
+> >> >> > +++ b/kernel/rcu/tasks.h
+> >> >> > @@ -1361,7 +1361,8 @@ static void rcu_tasks_be_rude(struct
+> >work_struct
+> >> >*work)
+> >> >> >  static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
+> >> >> >  {
+> >> >> >  rtp->n_ipis += cpumask_weight(cpu_online_mask);
+> >> >> > - schedule_on_each_cpu(rcu_tasks_be_rude);
+> >> >> > + WARN_ONCE(schedule_on_each_cpu(rcu_tasks_be_rude),
+> >> >> > + "%s: Too-short grace period, OOM is now expected behavior!!!\n",
+> >> >rtp->name);
+> >> >> > 
+> >> >> Good message, makes sense. But I don't think this is right, see
+> >above.
+> >> >> 
+> >> >> > 
+> >> >> > }
+> >> >> >  
+> >> >> >  static void call_rcu_tasks_rude(struct rcu_head *rhp,
+> >rcu_callback_t
+> >> >> >  func);
+> >> >> > 
+> >> >> --- Thanks!
+> >> >> "I'm not a very positive person" - Linus torvalds
+> >> >>
+> >> 
+> >> --- Thanks!
+> >> "I'm not a very positive person" - Linus torvalds
+> 
+> --- Thanks!
+> "I'm not a very positive person" - Linus torvalds
