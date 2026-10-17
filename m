@@ -1,255 +1,375 @@
-Received: from mta0.migadu.com (out-180.mta0.migadu.com [91.218.175.180])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30486DCE1
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 16:02:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FED86DCE1
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 16:04:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792252955; cv=none; b=Sn0YEVEfSvWwZ+nifC2ThT4WL8vCQc5TiIJZ2hkSO+6MppBnZFZ0GxD4lBLRcCsJjFbHFntUSq/UrqN2sNC3Hd6p4Hu+d1YAdlSwtDqphvMVThU9o2SBGSfbEatVWere2CyJRHnjgA217nqDc9f9OZKSo+kWvnALLzSJQKj9J14=
+	t=1792253080; cv=none; b=q7Pl658sdWjDOtiP6YVQ0tmikYGl5QGWZzpgRdlaFQkY5y/DK93a0FifV/uJNp2csDgQsfilhT+VDP+iqhPg9pVvoqvJMC0qkF1KPnkkBDp6M/hXIrzCzwLZuIblT91RLUoPH90u5JP3s6axovYJxMe4Yt0EQZL5SDsEECns2y0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792252955; c=relaxed/simple;
-	bh=3TIUnaMNJegHr2uMi3ty/Rxvko3+soqxUBxLdSsFFmc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bmW4qhJpBasmTkp0VYWoQle0ahFLM6DijVhRaqaL1IOmtuEPCdecGeNKdzuM9ue7c/inkFDfKVrp2thDFAKm2vYETfUyB6A3nQxrPlpp9XZ3WQkT6t3gB76Xkagg4egh30qIUe2u6Mdg56a2LeACC13PoISIBq9UOwLL7yefw74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=H+X25fg3; arc=none smtp.client-ip=91.218.175.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792253080; c=relaxed/simple;
+	bh=q5GwUydFJGngM47C47iSjnYFjCrPgo6jRNKeTUJSwQ0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QynLgz7FFPHsmmub++0QIh9scvg34VbI4dFlruRXMXsfm7xI9yYEI9elDAxHcWWhwtlG6DwL3qF6sAEqTPyMS4pzB/I1BMqZ4kO9/WIWHt2H2x/m6H/t2S432zoZwKRMWxYS6V4eBm1VA+773U/vb/ehDbYSMNUhl0XspWnAJ/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fkBE1bch; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="H+X25fg3"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3TIUnaMNJegHr2uMi3ty/Rxvko3+soqxUBxLdSsFFmc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792252949; v=1; x=1792857749;
- b=H+X25fg3kSVgbkwl44DuSSGBpdLoTDbZAfgfCHea7mC39cPQbcdlR8FOiWFo92vVmuqGCKCB
- k0sluPFs3zb+PPqtemu9aaRgFKeHHvlKfnVfmHGulfFjy+f0B/EwA6vOxTEfXSpmQdp8gqsNwtW
- omwLM6dWFVNfGyawXzenfRxU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 0e5aa83133d443f6;
-	Sat, 17 Oct 2026 16:02:29 +0000
-X-Mizu-Trace-ID: 0e5aa83133d443f6
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	chengming.zhou@linux.dev,
-	dsterba@suse.com,
-	hannes@cmpxchg.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fkBE1bch"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e9cf928dc9so180245ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:04:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792253077; x=1792857877; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3QwA5vW0f4s8qEaJOYzG5jC8EAnnYyjXtd9OHFplOi8=;
+        b=fkBE1bchDK5c7fi+t30FVQoXhMElkpMPuRS1bmk9jXwVhEqcOlsn9mmyJdhHa8oRWM
+         ps4zkD3z037V4/qmaM8PPWcS6ThIGzCYV6gCKFuXC69ZOgkV8BA5zet9NcYGlyU2lT98
+         tUJ2jiVqIryc1beKE/f4LXDRTcNRgzv1RDg17AJuMAIuxW5MSwz7QAxy8cXqcp2RwuIN
+         QE6PGvDXsHicAQ1Qp+A9y3JuZ1QKYhTVtYDUn6O/aDJgdk3Wr+CKWZgRjAVt3BSF38iH
+         0rvvNPe9EOeGCaJunAR1V275sRJnns7dY6tJ+p24G+/ny+y+AXWEpeSStUoSAPaCTx0E
+         7tBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792253077; x=1792857877;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3QwA5vW0f4s8qEaJOYzG5jC8EAnnYyjXtd9OHFplOi8=;
+        b=n9qPxM6M8vSOyKp4ygXwnv3BDRRbBZXo1eg/5Yvdoxhplo1p6om6WoK00ZklFCRWh5
+         FksLX381io/iC0SCBtkSUVMtxdpu3tre7ZsNAnR+woDYodpUA6Zgc73PXhEOKA6WQa22
+         dyX8rALfAHlBxPR2yFChVo22km0QHIQEDy40yFFTpCmFDVHZzt0b5N7dMCQM3gg7IMkt
+         CzSiPnbMw3i1a6PMc7QU/C7TikKextNL7Gv7/TYlo2xKEqGIq/juv2cqKoV6SkFIJkve
+         T9kXr1RhxQIZQW6sA1k3rhdATvsL/A/pPClfodoQMe7mne2C9gMbNY7KmPnoSyeRT1XQ
+         1twg==
+X-Forwarded-Encrypted: i=1; AKwUvBwr1TqUrhueIHLZtfKopRmmkg4yfOAi56GVDs4u0GAPSBMZOYxySRWWt5LRHjEUETlguXImcEfxDJ4Aq5Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLlcnw1Rnz1onGFqFq3FvJgdoToS0TzIUvoteUS6btHdOORCnn
+	vDKn7BsIWiBm5ubBJ9eOzsBQbrf3z1jEcvNaPZs8725pI3a0icH5tEEf
+X-Gm-Gg: AYBFou0D6bSZ60xNxSb8r207DUgsrGDXm0sC3pj5anWACIioGbbaGZuSGFcVMprcYqY
+	5o3z8Yvak/3iIYfHGQgl/GrcRjZotAXBWDEHATAcJAY7tsvdAstqpjmbvsFCr9vCwOG6mz1olyJ
+	4WNdw9GJuITx6Suu4NnhdcTwUYRGhx2YpHV8TH60Vq2RnZbRUu32oFpz4WOtREIP1nE7d9U99Cc
+	h5eP1tviOjpc8hhNkMFzWqJw18+JuUZF4DTsyWlh85YSN0pZ8B0PJHT6tzG7xTbhHygb4RrMYn6
+	YJo7uhECgpnQbAMvTDLKaURFb48GB2TErhmm3uxEO5fRdCGALc9UJOZjIZIFelLRAHC5W9tCBUR
+	ToY/mr3vYudU6TwDKDzqSkB38sgqJMrN/Af6RFj0gjQt+DIJ4NOh8/0jQZRqlV2Js/dZsaVeLye
+	t8f3Ji+MZfd+gW0NarGYXR/S0GpuC3fOWpurV/M8R28d+8YCptghitfRsAefgYPkby+aA=
+X-Received: by 2002:a17:903:2a87:b0:2e6:2023:29fb with SMTP id d9443c01a7336-2e977569c8emr43336385ad.29.1792253077263;
+        Sat, 17 Oct 2026 09:04:37 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e835063sm22296545ad.33.2026.10.17.09.04.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 09:04:36 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	nphamcs@gmail.com,
-	terrelln@fb.com,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	alex@ghiti.fr,
-	senozhatsky@chromium.org,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	davem@davemloft.net,
-	linux-crypto@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH v3 1/3] mm: zswap: use separate compression and decompression requests
-Date: Sat, 17 Oct 2026 09:02:25 -0700
-Message-ID: <20261017160226.2510957-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAO9r8zM-utRFYGBfaEb=89LWM0DOKc8dywcDLSb6L7f4c80yuQ@mail.gmail.com>
-References: 
+	tiwai@suse.de,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v2] ALSA: oss: Keep emulation modules loaded until object teardown
+Date: Sun, 18 Oct 2026 00:04:28 +0800
+Message-Id: <pm-pmb-26d66390a25fec9fad6c-v4-a7d8a5d3db28c5bca90a@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Tue, 13 Oct 2026 13:57:14 -0700 Yosry Ahmed <yosry@kernel.org> wrote:
+OSS proc entries and notifier callbacks can remain in use without an
+open OSS device file. Unloading snd-pcm-oss on a live card can remove a
+PCM's OSS proc entry while a repeated snd_card_register() walks the same
+entry tree:
 
-> On Tue, Oct 13, 2026 at 8:10 AM Usama Arif <usama.arif@linux.dev> wrote:
-> >
-> > Stores and loads serialize on the same per-CPU acomp request and mutex.
-> > A low-priority store can be preempted as soon as the compressor drops
-> > its stream lock, while it still holds the mutex. A higher-priority load
-> > on that CPU then waits until the store runs again, which can take a
-> > long time when other tasks are runnable.
-> >
-> > Give compression and decompression their own request, completion wait
-> > and mutex. Since commit e2c3b6b21c77f ("mm: zswap: use SG list
-> > decompression APIs from zsmalloc"), the per-CPU buffer is only used for
-> > compression, so group it with the compression request. Independent
-> > requests can share the per-CPU transform; the codecs and drivers
-> > synchronize their shared state internally. Loads can still wait for
-> > each other on the decompression mutex, and stores still serialize on
-> > the compression mutex.
-> >
-> > acomp_request_free() ignores NULL requests, so drop the check in
-> > acomp_ctx_free().
-> >
-> > This follows the proposal from Sergey Senozhatsky for the same split
-> > for zram [1].
-> >
-> > [1] https://lore.kernel.org/all/20261005122036.718976-10-senozhatsky@chromium.org/
-> >
-> > Acked-by: Nhat Pham <nphamcs@gmail.com>
-> > Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> 
-> Why didn't you take Herbert's Ack?
+  OSS PCM module unload                 Card registration
+  ---------------------                 -----------------
+  snd_pcm_oss_proc_done()
+    snd_info_free_entry(entry)
+      proc_remove(entry->p)
+      clear entry->p
+                                        snd_info_card_register()
+                                          snd_info_register()
+                                            republish entry
+      unlink and free entry
 
-Ah completely forgot, will add it in the next revision and fix the nit below.
+The new proc node then retains a pointer to freed storage. Mixer OSS
+also allows module exit to free an adapter while a card notification
+still uses it.
 
-> 
-> LGTM with one nit below:
-> 
-> Acked-by: Yosry Ahmed <yosry@kernel.org>
-> 
+Following Takashi's suggestion, hold an OSS PCM module reference for
+each PCM registered with its notifier, and a mixer OSS module reference
+for each card adapter. Release them at final unregister or FREE, after
+the corresponding proc entries and adapter have been removed. Normal
+module unload can no longer initiate that removal on a live object.
 
-Thanks!
+Keep the PCM pin independent of oss.reg: disconnect clears that field,
+and unmapped PCMs also participate in notifier dispatch. Record whether
+a reference was acquired so BUILD-state and creation-error cleanup do
+not issue an unmatched module_put().
 
+Protect the final PCM notifier traversal with register_mutex, matching
+notifier removal. For mixer OSS, serialize callback publication,
+withdrawal and dispatch in the core under a lifecycle mutex. Module exit
+then waits for a callback which dropped the last reference
+to return before withdrawing the callback and releasing module text.
 
-> > ---
-> >  mm/zswap.c | 108 +++++++++++++++++++++++++++++++----------------------
-> >  1 file changed, 64 insertions(+), 44 deletions(-)
-> >
-> > diff --git a/mm/zswap.c b/mm/zswap.c
-> > index ae19e301fced7..23c4298765795 100644
-> > --- a/mm/zswap.c
-> > +++ b/mm/zswap.c
-> > @@ -137,14 +137,25 @@ bool zswap_never_enabled(void)
-> >  * data structures
-> >  **********************************/
-> >
-> > -struct crypto_acomp_ctx {
-> > -       struct crypto_acomp *acomp;
-> > +struct zswap_acomp_req {
-> >         struct acomp_req *req;
-> >         struct crypto_wait wait;
-> > -       u8 *buffer;
-> >         struct mutex mutex;
-> >  };
-> >
-> > +/* The compression mutex also protects the output buffer. */
-> > +struct zswap_comp_ctx {
-> > +       struct zswap_acomp_req areq;
-> > +       u8 *buffer;
-> > +};
-> > +
-> > +/* Separate requests, so that decompression does not wait for compression. */
-> > +struct crypto_acomp_ctx {
-> > +       struct crypto_acomp *acomp;
-> > +       struct zswap_comp_ctx comp;
-> > +       struct zswap_acomp_req decomp;
-> > +};
-> > +
-> >  /*
-> >   * The lock ordering is zswap_tree.lock -> zswap_pool.lru_lock.
-> >   * The only case where lru_lock is not acquired while holding tree.lock is
-> > @@ -270,14 +281,10 @@ static void acomp_ctx_free(struct crypto_acomp_ctx *acomp_ctx)
-> >         if (!acomp_ctx)
-> >                 return;
-> >
-> > -       /*
-> > -        * If there was an error in allocating @acomp_ctx->req, it
-> > -        * would be set to NULL.
-> > -        */
-> > -       if (acomp_ctx->req)
-> > -               acomp_request_free(acomp_ctx->req);
-> > -
-> > -       acomp_ctx->req = NULL;
-> > +       acomp_request_free(acomp_ctx->comp.areq.req);
-> > +       acomp_ctx->comp.areq.req = NULL;
-> > +       acomp_request_free(acomp_ctx->decomp.req);
-> > +       acomp_ctx->decomp.req = NULL;
-> >
-> >         /*
-> >          * We have to handle both cases here: an error pointer return from
-> > @@ -289,8 +296,8 @@ static void acomp_ctx_free(struct crypto_acomp_ctx *acomp_ctx)
-> >
-> >         acomp_ctx->acomp = NULL;
-> >
-> > -       kfree(acomp_ctx->buffer);
-> > -       acomp_ctx->buffer = NULL;
-> > +       kfree(acomp_ctx->comp.buffer);
-> > +       acomp_ctx->comp.buffer = NULL;
-> >  }
-> >
-> >  static struct zswap_pool *zswap_pool_create(char *compressor)
-> > @@ -796,6 +803,28 @@ static void zswap_entry_free(struct zswap_entry *entry)
-> >  /*********************************
-> >  * compressed storage functions
-> >  **********************************/
-> > +static int zswap_acomp_req_init(struct zswap_acomp_req *areq,
-> > +                               struct crypto_acomp *acomp)
-> > +{
-> > +       /* acomp_request_alloc() returns NULL in case of an error. */
-> > +       areq->req = acomp_request_alloc(acomp);
-> > +       if (!areq->req)
-> > +               return -ENOMEM;
-> > +
-> > +       crypto_init_wait(&areq->wait);
-> > +
-> > +       /*
-> > +        * if the backend of acomp is async zip, crypto_req_done() will wakeup
-> > +        * crypto_wait_req(); if the backend of acomp is scomp, the callback
-> > +        * won't be called, crypto_wait_req() will return without blocking.
-> > +        */
-> > +       acomp_request_set_callback(areq->req, CRYPTO_TFM_REQ_MAY_BACKLOG,
-> > +                                  crypto_req_done, &areq->wait);
-> > +
-> > +       mutex_init(&areq->mutex);
-> > +       return 0;
-> > +}
-> > +
-> >  static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
-> >  {
-> >         struct zswap_pool *pool = hlist_entry(node, struct zswap_pool, node);
-> > @@ -811,8 +840,8 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
-> >                 return 0;
-> >         }
-> >
-> > -       acomp_ctx->buffer = kmalloc_node(PAGE_SIZE, GFP_KERNEL, cpu_to_node(cpu));
-> > -       if (!acomp_ctx->buffer)
-> > +       acomp_ctx->comp.buffer = kmalloc_node(PAGE_SIZE, GFP_KERNEL, cpu_to_node(cpu));
-> > +       if (!acomp_ctx->comp.buffer)
-> >                 return ret;
-> >
-> >         /*
-> > @@ -827,25 +856,13 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
-> >                 goto fail;
-> >         }
-> >
-> > -       /* acomp_request_alloc() returns NULL in case of an error. */
-> > -       acomp_ctx->req = acomp_request_alloc(acomp_ctx->acomp);
-> > -       if (!acomp_ctx->req) {
-> > +       if (zswap_acomp_req_init(&acomp_ctx->comp.areq, acomp_ctx->acomp) ||
-> > +           zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp)) {
-> 
-> We stop propagating the output of these functions to the caller here.
-> It still works because ret is initialized as -ENOMEM, and that's the
-> only possible failure of zswap_acomp_req_init(), but that's really
-> subtle.
-> 
-> I'd rather either propagate the return value as-is on failure, or make
-> zswap_acomp_req_init() a boolean so that it's obvious there's one
-> failure mode and future changes can't just return a new error code
-> that would be silently thrown away.
-> 
-> >                 pr_err("could not alloc crypto acomp_request %s\n",
-> >                        pool->tfm_name);
-> >                 goto fail;
-> >         }
-> >
-> > -       crypto_init_wait(&acomp_ctx->wait);
-> > -
-> > -       /*
-> > -        * if the backend of acomp is async zip, crypto_req_done() will wakeup
-> > -        * crypto_wait_req(); if the backend of acomp is scomp, the callback
-> > -        * won't be called, crypto_wait_req() will return without blocking.
-> > -        */
-> > -       acomp_request_set_callback(acomp_ctx->req, CRYPTO_TFM_REQ_MAY_BACKLOG,
-> > -                                  crypto_req_done, &acomp_ctx->wait);
-> > -
-> > -       mutex_init(&acomp_ctx->mutex);
-> >         return 0;
-> >
-> >  fail:
-> 
+Ignore duplicate mixer REGISTER notifications: module loading can find
+a card whose DISCONNECT has already withdrawn the mixer minor while
+retaining the adapter. Replacing it would leak the old adapter and pin.
+Keep existing card enumeration in the OSS module and drop its card
+references after the core dispatch helper returns, outside the mutex.
+The new locking is confined to lifecycle notifications.
+
+Partial HDA codec teardown can still remove a PCM while its card stays
+registered; that object-lifetime problem requires separate treatment.
+
+Fixes: 2471b6c80a70 ("ALSA: info: Register proc entries recursively, too")
+Suggested-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Assisted-by: LLM
+---
+Changes in v2:
+- Follow Takashi's suggestion to pin OSS modules until object teardown.
+- Track successful PCM pins across disconnect and unregistered cleanup.
+- Protect final PCM notifier traversal and mixer callback withdrawal across
+  the last module reference drop.
+- Keep card enumeration in the OSS module and prevent duplicate mixer
+  REGISTER notifications from replacing a disconnected adapter.
+- Leave partial HDA codec teardown for a separate fix.
+
+Link to v1: https://lore.kernel.org/r/pm-pmb-26d66390a25fec9fad6c-v2-743c9b89c0f0d761eda1@gmail.com
+
+ include/sound/core.h       |  3 ++-
+ include/sound/pcm_oss.h    |  1 +
+ sound/core/init.c          | 29 +++++++++++++++++++++--------
+ sound/core/oss/mixer_oss.c | 36 ++++++++++++++++++++----------------
+ sound/core/oss/pcm_oss.c   | 12 ++++++++++++
+ sound/core/pcm.c           |  6 ++++--
+ 6 files changed, 60 insertions(+), 27 deletions(-)
+
+diff --git a/include/sound/core.h b/include/sound/core.h
+index 657b12e1e95b..d6584967fd49 100644
+--- a/include/sound/core.h
++++ b/include/sound/core.h
+@@ -301,7 +301,8 @@ int snd_card_locked(int card);
+ #define SND_MIXER_OSS_NOTIFY_REGISTER	0
+ #define SND_MIXER_OSS_NOTIFY_DISCONNECT	1
+ #define SND_MIXER_OSS_NOTIFY_FREE	2
+-extern int (*snd_mixer_oss_notify_callback)(struct snd_card *card, int cmd);
++void snd_mixer_oss_set_notify(int (*callback)(struct snd_card *card, int cmd));
++void snd_mixer_oss_notify(struct snd_card *card, int cmd);
+ #endif
+ 
+ int snd_card_new(struct device *parent, int idx, const char *xid,
+diff --git a/include/sound/pcm_oss.h b/include/sound/pcm_oss.h
+index c96f23c7755b..fa78d7e3a3ee 100644
+--- a/include/sound/pcm_oss.h
++++ b/include/sound/pcm_oss.h
+@@ -70,6 +70,7 @@ struct snd_pcm_oss_stream {
+ struct snd_pcm_oss {
+ 	int reg;
+ 	unsigned int reg_mask;
++	bool module_ref;
+ };
+ 
+ #endif /* __SOUND_PCM_OSS_H */
+diff --git a/sound/core/init.c b/sound/core/init.c
+index 9deb5e920d0d..d518cb838777 100644
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -82,8 +82,24 @@ static int module_slot_match(struct module *module, int idx)
+ }
+ 
+ #if IS_ENABLED(CONFIG_SND_MIXER_OSS)
+-int (*snd_mixer_oss_notify_callback)(struct snd_card *card, int free_flag);
+-EXPORT_SYMBOL(snd_mixer_oss_notify_callback);
++static DEFINE_MUTEX(mixer_oss_notify_mutex);
++static int (*mixer_oss_notify_callback)(struct snd_card *card, int cmd);
++
++void snd_mixer_oss_notify(struct snd_card *card, int cmd)
++{
++	guard(mutex)(&mixer_oss_notify_mutex);
++	if (mixer_oss_notify_callback)
++		mixer_oss_notify_callback(card, cmd);
++}
++EXPORT_SYMBOL(snd_mixer_oss_notify);
++
++void snd_mixer_oss_set_notify(int (*callback)(struct snd_card *, int))
++{
++	/* Wait for callbacks, including a final module_put(), to return. */
++	guard(mutex)(&mixer_oss_notify_mutex);
++	mixer_oss_notify_callback = callback;
++}
++EXPORT_SYMBOL(snd_mixer_oss_set_notify);
+ #endif
+ 
+ static int check_empty_slot(struct module *module, int slot)
+@@ -508,8 +524,7 @@ void snd_card_disconnect(struct snd_card *card)
+ 	/* at this point, they cannot respond to any calls except release() */
+ 
+ #if IS_ENABLED(CONFIG_SND_MIXER_OSS)
+-	if (snd_mixer_oss_notify_callback)
+-		snd_mixer_oss_notify_callback(card, SND_MIXER_OSS_NOTIFY_DISCONNECT);
++	snd_mixer_oss_notify(card, SND_MIXER_OSS_NOTIFY_DISCONNECT);
+ #endif
+ 
+ 	/* notify all devices that we are disconnected */
+@@ -567,8 +582,7 @@ static int snd_card_do_free(struct snd_card *card)
+ 
+ 	card->releasing = true;
+ #if IS_ENABLED(CONFIG_SND_MIXER_OSS)
+-	if (snd_mixer_oss_notify_callback)
+-		snd_mixer_oss_notify_callback(card, SND_MIXER_OSS_NOTIFY_FREE);
++	snd_mixer_oss_notify(card, SND_MIXER_OSS_NOTIFY_FREE);
+ #endif
+ 	snd_device_free_all(card);
+ 	kfree(card->components);
+@@ -912,8 +926,7 @@ int snd_card_register(struct snd_card *card)
+ 		return err;
+ 
+ #if IS_ENABLED(CONFIG_SND_MIXER_OSS)
+-	if (snd_mixer_oss_notify_callback)
+-		snd_mixer_oss_notify_callback(card, SND_MIXER_OSS_NOTIFY_REGISTER);
++	snd_mixer_oss_notify(card, SND_MIXER_OSS_NOTIFY_REGISTER);
+ #endif
+ 	return 0;
+ }
+diff --git a/sound/core/oss/mixer_oss.c b/sound/core/oss/mixer_oss.c
+index f1fa42e634fc..a51bc68473e6 100644
+--- a/sound/core/oss/mixer_oss.c
++++ b/sound/core/oss/mixer_oss.c
+@@ -1309,13 +1309,22 @@ static int snd_mixer_oss_free1(void *private)
+ static int snd_mixer_oss_notify_handler(struct snd_card *card, int cmd)
+ {
+ 	struct snd_mixer_oss *mixer;
++	int err;
+ 
+ 	if (cmd == SND_MIXER_OSS_NOTIFY_REGISTER) {
+-		int idx, err;
++		int idx;
++
++		/* Module loading and card registration can both notify us. */
++		if (card->mixer_oss)
++			return 0;
+ 
+ 		mixer = kzalloc_objs(*mixer, 2);
+ 		if (mixer == NULL)
+ 			return -ENOMEM;
++		if (!try_module_get(THIS_MODULE)) {
++			kfree(mixer);
++			return -ENODEV;
++		}
+ 		mutex_init(&mixer->reg_mutex);
+ 		err = snd_register_oss_device(SNDRV_OSS_DEVICE_TYPE_MIXER,
+ 					      card, 0,
+@@ -1325,6 +1334,7 @@ static int snd_mixer_oss_notify_handler(struct snd_card *card, int cmd)
+ 				"unable to register OSS mixer device %i:%i\n",
+ 				card->number, 0);
+ 			kfree(mixer);
++			module_put(THIS_MODULE);
+ 			return err;
+ 		}
+ 		mixer->oss_dev_alloc = 1;
+@@ -1358,7 +1368,10 @@ static int snd_mixer_oss_notify_handler(struct snd_card *card, int cmd)
+ 		if (cmd == SND_MIXER_OSS_NOTIFY_DISCONNECT)
+ 			return 0;
+ 		snd_mixer_oss_proc_done(mixer);
+-		return snd_mixer_oss_free1(mixer);
++		err = snd_mixer_oss_free1(mixer);
++		if (!err)
++			module_put(THIS_MODULE);
++		return err;
+ 	}
+ 	return 0;
+ }
+@@ -1367,12 +1380,12 @@ static int __init alsa_mixer_oss_init(void)
+ {
+ 	struct snd_card *card;
+ 	int idx;
+-	
+-	snd_mixer_oss_notify_callback = snd_mixer_oss_notify_handler;
++
++	snd_mixer_oss_set_notify(snd_mixer_oss_notify_handler);
+ 	for (idx = 0; idx < SNDRV_CARDS; idx++) {
+ 		card = snd_card_ref(idx);
+ 		if (card) {
+-			snd_mixer_oss_notify_handler(card, SND_MIXER_OSS_NOTIFY_REGISTER);
++			snd_mixer_oss_notify(card, SND_MIXER_OSS_NOTIFY_REGISTER);
+ 			snd_card_unref(card);
+ 		}
+ 	}
+@@ -1381,17 +1394,8 @@ static int __init alsa_mixer_oss_init(void)
+ 
+ static void __exit alsa_mixer_oss_exit(void)
+ {
+-	struct snd_card *card;
+-	int idx;
+-
+-	snd_mixer_oss_notify_callback = NULL;
+-	for (idx = 0; idx < SNDRV_CARDS; idx++) {
+-		card = snd_card_ref(idx);
+-		if (card) {
+-			snd_mixer_oss_notify_handler(card, SND_MIXER_OSS_NOTIFY_FREE);
+-			snd_card_unref(card);
+-		}
+-	}
++	/* Live adapters hold module references and prevent normal unload. */
++	snd_mixer_oss_set_notify(NULL);
+ }
+ 
+ module_init(alsa_mixer_oss_init)
+diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
+index bd19328dca9e..cc239929dfca 100644
+--- a/sound/core/oss/pcm_oss.c
++++ b/sound/core/oss/pcm_oss.c
+@@ -3151,6 +3151,12 @@ static void register_oss_dsp(struct snd_pcm *pcm, int index)
+ 
+ static int snd_pcm_oss_register_minor(struct snd_pcm *pcm)
+ {
++	if (pcm->oss.module_ref)
++		return 0;
++	if (!try_module_get(THIS_MODULE))
++		return -ENODEV;
++	pcm->oss.module_ref = true;
++
+ 	pcm->oss.reg = 0;
+ 	if (dsp_map[pcm->card->number] == (int)pcm->device) {
+ 		char name[128];
+@@ -3205,8 +3211,14 @@ static int snd_pcm_oss_disconnect_minor(struct snd_pcm *pcm)
+ 
+ static int snd_pcm_oss_unregister_minor(struct snd_pcm *pcm)
+ {
++	/* BUILD-state and creation-error cleanup need not have registered us. */
++	if (!pcm->oss.module_ref)
++		return 0;
++
+ 	snd_pcm_oss_disconnect_minor(pcm);
+ 	snd_pcm_oss_proc_done(pcm);
++	pcm->oss.module_ref = false;
++	module_put(THIS_MODULE);
+ 	return 0;
+ }
+ 
+diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+index c133f23418fe..35ece386d1a2 100644
+--- a/sound/core/pcm.c
++++ b/sound/core/pcm.c
+@@ -853,8 +853,10 @@ static int snd_pcm_free(struct snd_pcm *pcm)
+ {
+ 	if (!pcm)
+ 		return 0;
+-	if (!pcm->internal)
+-		pcm_call_notify(pcm, n_unregister);
++	if (!pcm->internal) {
++		scoped_guard(mutex, &register_mutex)
++			pcm_call_notify(pcm, n_unregister);
++	}
+ 	if (pcm->private_free)
+ 		pcm->private_free(pcm);
+ 	snd_pcm_lib_preallocate_free_for_all(pcm);
+
+base-commit: 2533eecf592c2d7434170bf9669a4270fd594ae2
+-- 
+2.43.0
+
