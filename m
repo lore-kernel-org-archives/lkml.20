@@ -1,156 +1,249 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7854CF47C;
-	Sat, 17 Oct 2026 12:17:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792239475; cv=none; b=Zs/qPy15QO4mh9TBa6Ngh4neQTVeoODtuanIeT+yEFTQ3/VD+Va/hWL6EyiCVrOzIK3bGbzGmOIVnzq4n9IsWq7M8y9aYxqMQZfw4EiJUn6Ui68BAaNHiFc5baZqukaSO3fgsDpKtEt2egbbLHmLvR8MrQZh85voBLV9c9uBdXM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792239475; c=relaxed/simple;
-	bh=ltUFJHuUt8xxihxeGW7JXWQvpY6Far+jwebWB6Wgo6Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ALFoDTf7Vo+1F5aVou9pk9G6keGV0C4ta4dAAKitWidLpMMupHfBzI4mA/0dKEqKhizpWtQTLxCjmiH+XwYmlXWerLHEAU23ePGaDv2WtkZkPoIvptOO8H/Xw58+VQGHEhIKefPXdEW1kfkogn3jqR0CWGqSd6my0RmjAna6VUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=hQwPcZf3; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0884CF47C
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 12:19:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792239558; cv=pass; b=HO8dET5FawCpB8ghS5SYiAj9wJG5dlGT67ce61aUa655qviTo6EdZ/+4ia7MbROPMnMsDyHHUi1krAWYsK2R4ai9RH35bVEES0w8ceU+Y9Bctirp+cmc0gkLGIXGCeHY2HuPWDHyM6OlddmWTgfrGtFKD5fHATU4o2OTxdS2YnQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792239558; c=relaxed/simple;
+	bh=q/ORQJ8ws0wdXV3wRdd9DZ+pHlYs68ELvhmHl5u9R7Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uQecUJ0ifTq0yXEgbvdsIdLbQRFsczS/RX5SPHtXcgZx6QMyAIlfNjnKZE+VsiSbOWsr7U2YnisrHdRKxXnj/S1Ot2wqrXHQfmxCpjdafz7cC0d28S4nNNWGcXwzuR2oSW0iqwJuJBuwoR2BO2n1oZIZyDEVFYf63udjd/l059s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ThsNhBMH; arc=pass smtp.client-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="hQwPcZf3"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4j6LRW5n7zz8sYP;
-	Sat, 17 Oct 2026 14:17:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792239463;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rk5Lh21RnQJCZHlWuL13QYUUtzk8xkysSYr1XB0Phdo=;
-	b=hQwPcZf3n1ch7VoaUcFqBl1U/UWXmfSsF5DxVsYNWkHSqiyaA9KKGNdZlDoki89vAjudm2
-	nODfBX5+iiYpNVancfgD2JBBzGf1uFLFYZC6WSRcN2r/f7oYZygNlZLQSx270IbEwpjbqk
-	8abqVq9b4HiwXW0aio5fZWhMJgFptMBD0lj05SPiq691WfbXpcpSKnlojIkz/J96iOr7ga
-	mwDshAEfcj+BoA1daHuQjrAUuP/39l77af0iGUVRI31dvOqRsWiiz/0uds4u4hFwP38X2P
-	HEgX1jfpfE6ctv9veQweQOq8OY88kslrO0O+hyWuHmxJuVVseximiy/NkaM7KA==
-Message-ID: <814043dc-d194-4afd-8317-03b55cc9e913@mailbox.org>
-Date: Sat, 17 Oct 2026 14:17:38 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ThsNhBMH"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-535f598d126so102281cf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:19:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792239556; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GL2d4MEo2DRqUBkVyztX4AOALuceUn6TpjPw/rFwpQOmLfQUNt38e9mGntmVhlzAht
+         c3YeEw70Flkrip8c1ZcWNFgpT24fkj6wbaME6J9JYjBExAxbJFrmQIA7ezZckijtv33i
+         4woLU6yuFtICduUS5ZOX/pXvWLVrCJ2RvCA5dpgX5uMPCz4Vst7B63EStohcLFmUD5ZC
+         DdgonhJuLugov4nPjcTfHUCzw5q/xC99dY9kfQP4r9PSYUY4SwjXOymhy3k8eIY2FNBs
+         b/KaVk/5Y6P8bN+NsPaQqSkrmrliE2Y3KVZNRgdEjc+sDn70k65vmtHGWynqOE6GoP3j
+         Mhcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wzjdQ8KeLOKPpUHygxBJ7WOEjFu6Ph8LRE3nzk8raOA=;
+        fh=AHB4lLlRDray8KelxHEaiOBwku0mcDh+LD61caSAvv4=;
+        b=MklasEbLI71C9N1O6+lIwjzM6e2Z6J1p5E/T+WuwjlUa5AfG5ho4/GU+M/ifdCmrsm
+         MIqbj8rcwZh+HJlWYKAtphLpLqJ0FTxythOPpDKsgoDTdJV59xLXGf9mw1ZVb/f+Y8X1
+         30cUH0T7jYqGUdxP2gMxqrEdKVAL34ThtLO2oiXdBbtv1b9RObDB9LhF6YUXTW+f1ai/
+         cGZeIKYumMXlDEQW4IupkY66NVfOAsmi4YaPHtT67y1eYvRa1y74HvEqOrGuZedOCkih
+         n83myxaHkgPB6RaM5sXZ0Naw7FwekaGewl59Vk+OlWHtIvsr45j2ijBUIiszHxvUO7tq
+         wqXg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792239556; x=1792844356; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wzjdQ8KeLOKPpUHygxBJ7WOEjFu6Ph8LRE3nzk8raOA=;
+        b=ThsNhBMHznLBJY9bCkTeMKrxL50nZfhe9fnCzeNBIYE71w57S0xMm6Q2rwTwY9NqI/
+         XKVFu2LWSIoJHoor1epmPHZaHmGpLhwbXzUKNj2f3V6EvNxq0efQjcNk7/yLtYSI2QHk
+         7pMyR+jJtOrJU2lxWtUOwn8fLvCgtUbSkFvSvgs2ykybuO6rVMGRfmR7DFkdRu55DTcP
+         DVD3osSIu/ObbSHDFDtmCXqoT5DsYL+aNoWtXL5wepG3Rfx7SuQGlRSkrBggJ6uOmc5a
+         FbyQkAlcDCM60cZVrvn1CgEZxO8fUU8CD5grYl7pNpmBbFhQhb372Nc571ex4evhPkh/
+         4xpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792239556; x=1792844356;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wzjdQ8KeLOKPpUHygxBJ7WOEjFu6Ph8LRE3nzk8raOA=;
+        b=kGL3hKV58XJmNm/8+UDDzhsTGMbYBExIbfwzqpWta9OYQbXl2utg3Wa5e5QfdPu1JQ
+         RVtS5eaIkhbSL98+eKVxeXh4uiLsw7Id3J65/cjPz8MaskyrD6BqqX9XV7swHI8hZF9H
+         yuFazuvvRpQUCdNLjaDf0YheNGWEKmwwlbVypWvlFrAy1wG//8nUdktRp0ybH2HraCOW
+         LslBUWGq1ZtvbdjKWnvPfRr+Tn1BEVUfwADDTWh2h7nma1e1iC1U0GE7y0a5HTVPep7Z
+         IKZvRXrDQ3x5xSZbpOu33L7WWpEU4VH9BKdejloLKWLv23OlguCBs0ZdrR4FhEwIkI1f
+         q8bg==
+X-Forwarded-Encrypted: i=1; AKwUvBz3lext5SrlsahSdD32JZOsDH5BjBTsrHdaFw7V+IZETQJEqMIH5N6JacbGK2gEtfV9/hMZliJ5MQ0PotY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLw0WQN+NfrWiVYcXeQ4Ur4Z4M3cNdOXQpsbQNkSXGs7kxGx6eB
+	d/aYTvazYz1QMbRk+SiE7mXVJA3OnssXm/LDtm/mz/K9Ah/1eFZxw4CRFlFCIAC0vbxSELB1nPR
+	D6tBcmc33MF2lv2EDLTqaXULutQ2UF/mDsFbvOy3A
+X-Gm-Gg: AYBFou0nUmt+Gr5qzYxCgJ35eh0PDYYHJ5LRfFLJympqSK2KPZhKZTi8leanvCACUfS
+	o8DmHD1SSXTAvppgCNhUWkLTRc/DojEdtzI0oZsb3ayi2svoaVaEfoJfDLbd7/CnIdv7f/tmDAO
+	nxFxm8qKytGxnm4E/16QFtddXi8KYN+JY88R5fJVv2q9p7r1q0pKzwpc2+HxfTHdGghJ/pMvyZV
+	Wg/aiQmN/vR7aYbWLnsvYY1IXuHdQ54KkKo6HDkdC8cX1HciuanmwAE3/JPYaEEzLZCHKY+suOI
+	7vb2p/haKrUox/uj5vPyBGepeGR7SzLcj6PNMSXQuVX6dC1smds1XUrY
+X-Received: by 2002:a05:622a:aad1:10b0:533:9746:9a86 with SMTP id
+ d75a77b69052e-536499e8967mr8164001cf.5.1792239555029; Sat, 17 Oct 2026
+ 05:19:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 04/18] dt-bindings: PCI: rcar-gen4: Add optional "aer"
- interrupt for R-Car Gen4 SoCs
-To: Koichiro Den <den@valinux.co.jp>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
- <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015033103.3076869-1-den@valinux.co.jp>
- <20261015033103.3076869-5-den@valinux.co.jp>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20261015033103.3076869-5-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: rjej7x87b81ytdg5xf5xxb7s3wh5rtxc
-X-MBO-RS-ID: 3315d6597cf075cc723
+References: <20261009063619.112313-1-hao.ge@linux.dev> <20261009063619.112313-3-hao.ge@linux.dev>
+ <CAJuCfpE9VfgTw2ZNMJTEVh41H_R+1RY_MtzeMuZNCD3BFm-Piw@mail.gmail.com>
+ <as5epHFQF4iE_VQK@pc636> <bdcf2425-c0cf-48df-96a8-7ee1d23125d7@linux.dev>
+In-Reply-To: <bdcf2425-c0cf-48df-96a8-7ee1d23125d7@linux.dev>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Sat, 17 Oct 2026 16:19:02 +0400
+X-Gm-Features: AclHuK_ldkostR4vqZE29fcaoDnWO3b8rAtih31hbuFNFSoBo5VC0b-tINCA_80
+Message-ID: <CAJuCfpFWbtBD5K5S49oCPQYTxv0ZvtBio04nNyV9Sj1KRCbiwg@mail.gmail.com>
+Subject: Re: [RFC PATCH 2/4] mm/vmalloc: undo partial mappings inside the
+ mapping functions
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Uladzislau Rezki <urezki@gmail.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	Shrikanth Hegde <sshegde@linux.ibm.com>, Alexander Potapenko <glider@google.com>, 
+	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
+	Christoph Lameter <cl@gentwo.org>, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	kasan-dev@googlegroups.com, linux-mm@kvack.org, 
+	Sashiko <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/15/26 5:30 AM, Koichiro Den wrote:
-> The intreq_pcim_lperr interrupt carries Root Port AER notifications,
-> separately from the integrated MSI receiver interrupt. Describe it with
-> the "aer" name so the controller driver can use it for Root Port error
-> reporting.
-> 
-> Keep the fifth interrupt optional on R-Car Gen4 SoCs so existing device
-> trees remain valid. Extend the example accordingly.
-> 
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
-> Changes since v3:
->    - Rebase on Marek's Gen5 AER binding fix:
->      https://lore.kernel.org/r/20261003215710.792518-1-marek.vasut+renesas@mailbox.org/
->      This requires "aer" for the Gen5 SoC PCIe4 controller from the
->      beginning. Update the subject to clarify that it is optional only
->      on Gen4 SoCs, for compatibility with existing DTs.
->    - Drop R-b tags due to the changes.
-> 
-> v3: https://lore.kernel.org/r/20261006084638.3821710-5-den@valinux.co.jp/
-> 
->   .../devicetree/bindings/pci/rcar-gen4-pci-host.yaml | 13 ++++++++++---
->   1 file changed, 10 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> index 083b77d4de8f..a86c06701fa9 100644
-> --- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> +++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> @@ -26,7 +26,8 @@ properties:
->             - const: renesas,rcar-gen5-pcie4 # R-Car Gen5 PCIe4
->   
->     interrupts:
-> -    maxItems: 4
-> +    minItems: 4
-> +    maxItems: 5
+On Wed, Oct 14, 2026 at 11:28=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
+>
+> Hi Uladzislau and Suren
+>
+> On 2026/10/14 00:39, Uladzislau Rezki wrote:
+> > On Tue, Oct 13, 2026 at 03:23:14PM +0400, Suren Baghdasaryan wrote:
+> >> On Fri, Oct 9, 2026 at 10:36=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrot=
+e:
+> >>>
+> >>> __vmap_pages_range_noflush() and friends can install some PTEs before
+> >>> failing and leave them mapped, and the kernel callers do not agree on
+> >>> who cleans them up. pcpu_map_pages() and kmsan_ioremap_page_range()
+> >>> roll back what they mapped before the failure, while
+> >>> vm_module_tags_populate() and the __GFP_NOFAIL retry loop in
+> >>> __vmalloc_area_node() rely on the mapping functions cleaning up and
+> >>> do not call anything like vunmap_range() themselves. When the same
+> >>> range is mapped again, the attempt hits the leftovers and fails, with
+> >>> a BUG() in vmap_pte_range() for huge mappings and a warning on the
+> >>> small-page path.
+> >>>
+> >>> After discussing with Suren and Ulad, we decided to put the rollback
+> >>> into the entry points of the vmap API rather than into every low-leve=
+l
+> >>> helper. __vmap_pages_range_noflush() undoes the whole range it was
+> >>> asked to map when it fails, and vmap_page_range() undoes its range
+> >>> for the ioremap-style mappings.
+> >>>
+> >>> The rollback is __vunmap_range_noflush(), it only clears the PTEs,
+> >>> no TLB flush, nothing has touched these mappings.
+> >>> vmap_pages_range_noflush() drops the KMSAN metadata when the data
+> >>> mapping fails, and an empty range bails out with -EINVAL now, which
+> >>> used to BUG_ON() on the small-page path and map nothing at all on
+> >>> the huge-page one.
+> >>>
+> >>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> >>> Suggested-by: Uladyslau Rezki <urezki@gmail.com>
+> >>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> >>> ---
+> >>>  mm/vmalloc.c | 44 ++++++++++++++++++++++++++++++++------------
+> >>>  1 file changed, 32 insertions(+), 12 deletions(-)
+> >>>
+> >>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> >>> index db669103dc66..e1b376f57dd2 100644
+> >>> --- a/mm/vmalloc.c
+> >>> +++ b/mm/vmalloc.c
+> >>> @@ -363,6 +363,9 @@ int vmap_page_range(unsigned long addr, unsigned =
+long end,
+> >>>         if (!err)
+> >>>                 err =3D kmsan_ioremap_page_range(addr, end, phys_addr=
+, prot,
+> >>>                                                ioremap_max_page_shift=
+);
+> >>> +       if (err)
+> >>> +               __vunmap_range_noflush(addr, end);
+> >>> +
+> >>>         return err;
+> >>>  }
+> >>>
+> >>> @@ -683,27 +686,35 @@ int __vmap_pages_range_noflush(unsigned long ad=
+dr, unsigned long end,
+> >>>                 pgprot_t prot, struct page **pages, unsigned int page=
+_shift)
+> >>>  {
+> >>>         unsigned int i, nr =3D (end - addr) >> PAGE_SHIFT;
+> >>> +       unsigned long start =3D addr;
+> >>> +       int err =3D 0;
+> >>> +
+> >>> +       if (WARN_ON_ONCE(addr >=3D end))
+> >>> +               return -EINVAL;
+> >>>
+> >>>         if (WARN_ON_ONCE(page_shift < PAGE_SHIFT))
+> >>>                 return -EINVAL;
+> >>>
+> >>>         if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
+> >>> -                       page_shift =3D=3D PAGE_SHIFT)
+> >>> -               return vmap_small_pages_range_noflush(addr, end, prot=
+, pages);
+> >>> -
+> >>> -       for (i =3D 0; i < nr; i +=3D 1U << (page_shift - PAGE_SHIFT))=
+ {
+> >>> -               int err;
+> >>> -
+> >>> -               err =3D vmap_range_noflush(addr, addr + (1UL << page_=
+shift),
+> >>> +                       page_shift =3D=3D PAGE_SHIFT) {
+> >>> +               err =3D vmap_small_pages_range_noflush(addr, end, pro=
+t, pages);
+> >>> +       } else {
+> >>> +               for (i =3D 0; i < nr; i +=3D 1U << (page_shift - PAGE=
+_SHIFT)) {
+> >>> +                       err =3D vmap_range_noflush(addr, addr + (1UL =
+<< page_shift),
+> >>>                                         page_to_phys(pages[i]), prot,
+> >>>                                         page_shift);
+> >>> -               if (err)
+> >>> -                       return err;
+> >>> +                       if (err)
+> >>> +                               break;
+> >>>
+> >>> -               addr +=3D 1UL << page_shift;
+> >>> +                       addr +=3D 1UL << page_shift;
+> >>> +               }
+> >>>         }
+> >>>
+> >>> -       return 0;
+> >>> +       /* Undo the PTEs installed before the failure. */
+> >>> +       if (err)
+> >>> +               __vunmap_range_noflush(start, end);
+> >>
+> >> Would it be too complicated to track how much was actually mapped and
+> >> unmap only that portion?
+> >>
+> > I think it is possible to vunmap the range which is already unmapped.
+> > i.e. in this case it is better to no to track anything as soon as a
+> > mapping failure is a corner case. Also it is more reliable without
+> > extra track logic.
+>
+> Thank you both.
+> I take note of Suren's concerns. The worst case is a single PMD where onl=
+y
+> the first page was installed, __vunmap_range_noflush() then loops 512 tim=
+es
+> to undo one PTE, plus 511 empty ones.
+>
+> And tracking the exact progress would require vmap_pages_p4d/pud/pmd_rang=
+e()
+> to report how far they got. That also puts counting instructions on the s=
+uccessful
+> mapping path, while the saving only pays off on the failure one.
+>
+> So I agree with Ulad.
 
-Wouldn't it be easier/cleaner keep only maxItems: 4 here and set ...
+Got it. Makes sense.
 
->     clocks:
->       maxItems: 2
-> @@ -93,11 +94,13 @@ allOf:
->               - const: config
->   
->           interrupt-names:
-> +          minItems: 4
-
-... minItems/maxItems here ^ for R-Car Gen4 (because Gen4 is the only 
-SoC family which has optional non-mandatorily-described AER interrupt) ...
-
->             items:
->               - const: msi
->               - const: dma
->               - const: sft_ce
->               - const: app
-> +            - const: aer
->     - if:
->         properties:
->           compatible:
-> @@ -117,6 +120,9 @@ allOf:
->               - const: app
->               - const: config
->   
-> +        interrupts:
-> +          maxItems: 4
-
-... and drop this interrupts: hunk here entirely (because Gen5 always 
-has mandatorily described AER interrupt) ?
-
->           interrupt-names:
->             items:
->               - const: msi
-> @@ -146,8 +152,9 @@ examples:
->               interrupts = <GIC_SPI 416 IRQ_TYPE_LEVEL_HIGH>,
->                            <GIC_SPI 417 IRQ_TYPE_LEVEL_HIGH>,
->                            <GIC_SPI 418 IRQ_TYPE_LEVEL_HIGH>,
-> -                         <GIC_SPI 422 IRQ_TYPE_LEVEL_HIGH>;
-> -            interrupt-names = "msi", "dma", "sft_ce", "app";
-> +                         <GIC_SPI 422 IRQ_TYPE_LEVEL_HIGH>,
-> +                         <GIC_SPI 421 IRQ_TYPE_LEVEL_HIGH>;
-> +            interrupt-names = "msi", "dma", "sft_ce", "app", "aer";
->               clocks = <&cpg CPG_MOD 624>, <&pcie0_clkref>;
->               clock-names = "core", "ref";
->               power-domains = <&sysc R8A779F0_PD_ALWAYS_ON>;
-
-What do you think ?
+>
+> Thanks
+> Best Regards
+> Hao
+>
+> >
+> > --
+> > Uladzislau Rezki
