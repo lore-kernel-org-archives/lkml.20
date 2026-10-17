@@ -1,286 +1,268 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625C240B11F;
-	Sat, 17 Oct 2026 22:37:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792276663; cv=none; b=JGlCatDilOJaMMloG1tOtuTBszuxTKHRBRyLDJoozALFX9zCeR2H/I8Y4vbMNRD6Y5QYQpzkxOhAbcZ4UTxiptHIM5eeuabwmWNmyxSixOSYBxMxV5I7H5oYwwTaLtli/sz6h+v1Axbf37ZGOU8vu4bXJJrSVJoyhvQbH1l2Zrg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792276663; c=relaxed/simple;
-	bh=mYQtm8i2mBuvJLt3V2IN6yzw1jk95M+Zamars0cEvZg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=InlbjSkvN1ooe2fXG627I4ZnyGxf++1up/w2I2ny37iaN9AGywqqHOltQ+dJdu3xZt12Mc4CrjtXEKcYcwCQvPelHrB5kCHP4FRU3DqKERJTkQuE8oHTLUXwyGyeGgTcvKPDIxPTVi6uvLBMTfYXjKWPZFLQeriLQeD6TEep1e8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W5VUm8mu; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA88019DF62
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 22:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792276855; cv=pass; b=Tl38m4KDr5xi770WAHQlqbjEWt9cVpWgyLeSaNtMC4wNrnURL2LWWn9A5rO06yXcS8O+cgbsKlYsyA++wK6qtAgCpnivMziADL54Cx9SXyf4tA8ZB97NACLCyZvzcuyPGRrFcwvw8DhU+X3X/3qVjBJbtyL9WnGGZ5wMGcAAUvM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792276855; c=relaxed/simple;
+	bh=oRIP8pPJqh7IzUGPPWhIsDDwt7q2HNrL8WwBT8sPcSg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hZs3S+hqgANk7cDtggpvb/ijmPsf4PUByvQr8Ogm8NYDEzulfb7AwtjYsp4pAtU+YtH7DkXxEoftS4owPClVu/pMNTvFxqOK7+CCW/s+Niz25iQLl4sEU2yI27djMp6zs4LrPFcnn1hMGAspOcPma0U1CpmLG6mScCKjgJh7fxA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SRvY+Iib; arc=pass smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W5VUm8mu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAA431F000C4;
-	Sat, 17 Oct 2026 22:37:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792276662;
-	bh=F8Ya2fY2tiLI6FE9/9wdhWNKP4nDXnKZoDZ38gwykCw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W5VUm8mu4LmkrhfJ2FgGYCdDjPzfjgz/lcfl3jjMXB49BY5JOjxS6IelnRs+xWcRe
-	 nxqN/6OyGQtY7kTbPOfAbJ1LQmM9pW16+uCeCKVbTS5L9ppBZNyXkDUeHsUDaZiTOH
-	 JVfi16qA0Tsh607TBFdAL8Xpvo3rxSPf3hBmmWTDbQYrmQRvGUR6WNZkKsI4/ql5K2
-	 hX34LjWzR5oizBpg9A+/rpzitjU4oJ8wQCNhio6STMqwUucLlVjgvSFCxHgYKju0Qh
-	 hOgf3PaghEAUQpQEOfDKS/13P5gsmOmExnZl3IJnVBENyvCX9EyesM9BNVaW64j7Go
-	 mG77dGOdWr3yg==
-From: Tejun Heo <tj@kernel.org>
-To: sched-ext@lists.linux.dev
-Cc: David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>
-Subject: [PATCH 2/3] sched_ext: Add scx_bpf_dsq_reenq_task() to re-enqueue single tasks from a DSQ iteration
-Date: Sat, 17 Oct 2026 12:37:37 -1000
-Message-ID: <20261017223738.993262-3-tj@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261017223738.993262-1-tj@kernel.org>
-References: <20261017223738.993262-1-tj@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SRvY+Iib"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b1d8944cb0so1373205a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:40:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792276852; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ADtUau2qn5Ut8cobUZMNOG/vlBbeGc/hBnfwQH52GY+Rqt+AJwsd+LL6pWewcETGni
+         13ejZZ2c1Y0y0ZnZw+X/7KehI+kQYC642xOgCvXUrJCmY63WedaJ+DVEFYfxiBLLXTDY
+         fKQCWLIQa2MC6JfmJ/93DjVPtSDwb2+wnU8uU7YxEmH1ul08RdjaWvBeFn3H7Yg4JYyC
+         5gvMiPvUQqI5WQxOuK2jwovccYE3nKkWB11NiQpiKEYgnvowqqj4F1Xsiui+DlcSToHs
+         QIPFTlNClTKl64C7cVm0QBWoCq//BVeVtVfYRkYXpIeTXH3SPdDSkUQkp50fJydsOyeP
+         nihw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BqaWKmhEIx/MyBH36dUoBxkHOV46oHXgijHsAslfTAQ=;
+        fh=GHhZV39dOsKhQQC/ly/vKQHSPM60dgTWcOm2mTxnCJg=;
+        b=KzvPFVmvfe/XgfyN71nAb7rS01J+hZSyKBliXoKpXWLPPf7Xsw7MLx11znvYgRxHkc
+         k6s5zmt8oLxr2cZRxgb6xYOogGLBKd2TmFnxGHRZ6ON9c3a3qRq/TgE7TOaPWgIA9Z84
+         rempV18GN9Xvb2AR812YHjYSqi6N2Jwiqd24PQFaHkZlbueNELEbRKvG59UUAkDRrvEB
+         DpV3dBJPepywJHEtu3+xTAdLwAkezb9r8DbDJMhoNYCGnX4oE/GbPy+gCs7sTsQ7csdD
+         AQZ6ntdgnHCDq7MZtAIdUJwoMZIftXcM9WMvZf/pY61bbTYRZCH09mkvd+VvEWFlI0xE
+         iTlQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792276852; x=1792881652; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BqaWKmhEIx/MyBH36dUoBxkHOV46oHXgijHsAslfTAQ=;
+        b=SRvY+IibDLnkdVsAawwcDnYrSdUJFGpKmIKMyqNVZhdjr39u6LWwo1Uh9pmiZRGBWk
+         kyOR2w2O4pGXqvQ5lb2AsmgDod7jylVK0DGUhyL7/cpIggwainTklmXazZ1y4wK5Iqy4
+         Q6XE7h7FcpQby9NH2tLFvgr67UX1xtZgX0HmpEsSszzyn/doYhbNY3PqlgOAC0y6OWEO
+         dJRxbIv6LsanGtfglPqmYQ3Wkyyd0gcxWAD6y0k6iW8sX3+u+i+m4ebWNCuE2FHIpQ45
+         cAg3uCTtpR+QQ8jC92HdzhAjPi5zcDnabVgAySIm3w22ne4yMrkofVbMs7dZsDzcGsh1
+         uHXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792276852; x=1792881652;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BqaWKmhEIx/MyBH36dUoBxkHOV46oHXgijHsAslfTAQ=;
+        b=O/172NWwV4JhokKRukm0vVFxJRrFLX5XPQZwrEmaT1R6xNgtdfc8AACRUpsUZe+/xb
+         N0w9ytDuYkwUXdw8GlUW7iNlwzH3JLDKJ1hEB+lwoSaEmZVcosqkcRzxF57e9ceVmcDW
+         TwiQP5HPm4iFatumyxh2Njzsu8norgtdHKM8iLftL5DO+52ibxM/I4mqU2MqwLo9lKtK
+         jyvnlzPCUQ8AMOt24vkvJYdmM2Dyb7b9Wa5KxJfLhjXZfK4oOF4EBw8TZbI02dQ5cVzb
+         uiQzsXrThUYhPG1E0NM3dq8nShB7B/jFeya/ajOauiFkc3W88EF6FR5R5gnElaHePx3L
+         ClRg==
+X-Forwarded-Encrypted: i=1; AKwUvBxoYKwbFeWMNnJmyU01LmhX603ezbmjDsh8b9h7GW3mjoNXOr8V2LiC7SlermSSCkAZciBnf/giE07VrpI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLU/O3yB57/Nw9UD6A1CBQsbW4KVZ1oZAKcDXRBRhC+3AYCTOlA
+	ZMEg+A+Ar7+Nn9cPIPwf2kZfEWYkD/tZOBm0o1W9nf6GsOV/EkSPW8hsxkYj0c2EWfXDPn54B0I
+	8DsH9m5Ur34P/pLQL8Vq9Bs08FbRCS5w=
+X-Gm-Gg: AYBFou0LK2ey8Q+2N7YCoDwNIujjhhefcqmY4agiHu7wIPD4GowgM3X4g02v1dHnW+n
+	BKNUCSiBIaJ0eWZf+vydXIvJlAvu+olB73q7EUpXf25C1bABQWCU+R7MXXTqv2GIN/BCEDIRjJZ
+	eJ8THSXQ7DnYEGatR/cZxrLV3gJ1Sk8NoFZKmHvAgwBumOaD/ew5vMCxAk/24RcLpgBLioVlEH8
+	dxui2o6v0SW7VNzcNIYlSWHGPjN1aED51d3CnvR22+H0HWoEQTHsmB0WUE7Hr7OzCTL9kUTRFVO
+	I8Y3+PR6ThuxZ+kMdokw8TH3xcbOXZWHpTGAN9HzACmE3Rh5wSAosKkggC6mq4759U2aP2xOPXo
+	H8evSZ+QPDF6h93BGAD3cXMCp36nlS0SLcYniPBI6bM8ZeiLMsW3v
+X-Received: by 2002:a05:6402:a516:20b0:6ac:afa2:ca25 with SMTP id
+ 4fb4d7f45d1cf-6b3a80d48bcmr1363508a12.6.1792276851798; Sat, 17 Oct 2026
+ 15:40:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261017174007.695344-1-mattst88@gmail.com>
+In-Reply-To: <20261017174007.695344-1-mattst88@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sun, 18 Oct 2026 00:40:39 +0200
+X-Gm-Features: AclHuK_Ih8NRcUeHiVy08vs1YO2xbvPGDzEkZWbDiQ8EM38w8BlDbwAuz0bVzYc
+Message-ID: <CA+=Fv5R2vixMYF4-ksiFYjS00Se1f51MW0uoSNtge4XMcoS5pw@mail.gmail.com>
+Subject: Re: [PATCH v3] alpha: select ARCH_SUPPORTS_INT128
+To: Matt Turner <mattst88@gmail.com>
+Cc: linux-alpha@vger.kernel.org, 
+	Richard Henderson <richard.henderson@linaro.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-scx_bpf_dsq_reenq() re-enqueues a whole DSQ, but a scheduler that loses the
-cpus serving a DSQ, such as a sub-scheduler after a cap revoke, needs only
-the stranded tasks placed again.
+Hi Matt,
 
-Add scx_bpf_dsq_reenq_task(), which marks a task from a DSQ iteration. When
-the iteration ends, the DSQ's deferred re-enqueue walk is scheduled once and
-re-enqueues only the marked tasks. The kfunc locks the task's rq and the DSQ
-like scx_bpf_dsq_move() and is callable from the same contexts. The mark is
-cleared when the task leaves the DSQ, so a task consumed before the walk is
-not re-enqueued.
+On Sat, Oct 17, 2026 at 7:40=E2=80=AFPM Matt Turner <mattst88@gmail.com> wr=
+ote:
+>
+> gcc supports __int128 on Alpha, and the 64x64 to 128-bit multiply that
+> the users in the scheduler and in lib/ care about maps onto mulq/umulh
+> rather than an out-of-line libgcc helper.
+>
+> Variable 128-bit shifts are another matter. gcc open-codes them when
+> optimizing for speed, but with CONFIG_CC_OPTIMIZE_FOR_SIZE=3Dy it calls t=
+he
+> libgcc routines __ashlti3, __ashrti3 and __lshrti3 instead. The kernel
+> does not link against libgcc, so provide the three helpers in C, as s390
+> does, and export them for modules. They are built into the kernel proper
+> rather than lib.a so the exports are present even when nothing built in
+> references them. Like the s390 versions they are marked noinstr, since
+> the compiler may emit calls to them from noinstr code.
+>
+> Gate the select on CC_HAS_INT128 as the other 64-bit architectures do.
+>
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> ---
+> v3:
+> - Fold in "alpha: add 128-bit shift helpers" so the select never lands
+>   without the libgcc shift routines that -Os builds need
+>   (https://lore.kernel.org/r/20261010022039.1610210-1-mattst88@gmail.com,
+>   reported at https://lore.kernel.org/oe-kbuild-all/202610090831.DSxrGQRc=
+-lkp@intel.com/)
+> - Mark the helpers noinstr, as s390 does
+> - Drop Magnus's Reviewed-by and Tested-by given the new code
+>
+>  arch/alpha/Kconfig                      |  1 +
+>  arch/alpha/include/asm/asm-prototypes.h |  6 +++
+>  arch/alpha/lib/Makefile                 |  2 +
+>  arch/alpha/lib/tishift.c                | 70 +++++++++++++++++++++++++
+>  4 files changed, 79 insertions(+)
+>  create mode 100644 arch/alpha/lib/tishift.c
+>
+> diff --git a/arch/alpha/Kconfig b/arch/alpha/Kconfig
+> index 2672971b83f3..bed3f1c8d9d2 100644
+> --- a/arch/alpha/Kconfig
+> +++ b/arch/alpha/Kconfig
+> @@ -16,6 +16,7 @@ config ALPHA
+>         select ARCH_NO_PREEMPT
+>         select ARCH_NO_SG_CHAIN
+>         select ARCH_SUPPORTS_ATOMIC_RMW
+> +       select ARCH_SUPPORTS_INT128 if CC_HAS_INT128
+>         select ARCH_USE_CMPXCHG_LOCKREF
+>         select FORCE_PCI
+>         select PCI_DOMAINS if PCI
+> diff --git a/arch/alpha/include/asm/asm-prototypes.h b/arch/alpha/include=
+/asm/asm-prototypes.h
+> index c8ae46fc2e74..672fea15032f 100644
+> --- a/arch/alpha/include/asm/asm-prototypes.h
+> +++ b/arch/alpha/include/asm/asm-prototypes.h
+> @@ -17,3 +17,9 @@ extern void __remlu(void);
+>  extern void __divqu(void);
+>  extern void __remqu(void);
+>  extern unsigned long __udiv_qrnnd(unsigned long *, unsigned long, unsign=
+ed long , unsigned long);
+> +
+> +#ifdef CONFIG_ARCH_SUPPORTS_INT128
+> +extern __int128_t __ashlti3(__int128_t a, int shift);
+> +extern __int128_t __ashrti3(__int128_t a, int shift);
+> +extern __int128_t __lshrti3(__int128_t a, int shift);
+> +#endif
+> diff --git a/arch/alpha/lib/Makefile b/arch/alpha/lib/Makefile
+> index 84046e730e6d..f77d4a46f2e6 100644
+> --- a/arch/alpha/lib/Makefile
+> +++ b/arch/alpha/lib/Makefile
+> @@ -35,6 +35,8 @@ lib-y =3D       __divqu.o __remqu.o __divlu.o __remlu.o=
+ \
+>         callback_srm.o srm_puts.o srm_printk.o \
+>         fls.o
+>
+> +obj-$(CONFIG_ARCH_SUPPORTS_INT128) +=3D tishift.o
+> +
+>  # The division routines are built from single source, with different def=
+ines.
+>  AFLAGS___divqu.o =3D -DDIV
+>  AFLAGS___remqu.o =3D       -DREM
+> diff --git a/arch/alpha/lib/tishift.c b/arch/alpha/lib/tishift.c
+> new file mode 100644
+> index 000000000000..8319907d8150
+> --- /dev/null
+> +++ b/arch/alpha/lib/tishift.c
+> @@ -0,0 +1,70 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * 128-bit shift helpers.
+> + *
+> + * gcc open-codes a variable 128-bit shift when optimizing for speed, bu=
+t
+> + * calls these libgcc routines when optimizing for size.
+> + */
+> +
+> +#include <linux/export.h>
+> +#include <linux/types.h>
+> +#include <asm/asm-prototypes.h>
+> +
+> +union ti {
+> +       __int128_t val;
+> +       struct {
+> +               u64 low;
+> +               u64 high;
+> +       };
+> +};
+> +
+> +noinstr __int128_t __ashlti3(__int128_t a, int shift)
+> +{
+> +       union ti ti =3D { .val =3D a };
+> +
+> +       if (!shift)
+> +               return ti.val;
+> +       if (shift < 64) {
+> +               ti.high =3D (ti.high << shift) | (ti.low >> (64 - shift))=
+;
+> +               ti.low <<=3D shift;
+> +       } else {
+> +               ti.high =3D ti.low << (shift - 64);
+> +               ti.low =3D 0;
+> +       }
+> +       return ti.val;
+> +}
+> +EXPORT_SYMBOL(__ashlti3);
+> +
+> +noinstr __int128_t __ashrti3(__int128_t a, int shift)
+> +{
+> +       union ti ti =3D { .val =3D a };
+> +
+> +       if (!shift)
+> +               return ti.val;
+> +       if (shift < 64) {
+> +               ti.low =3D (ti.low >> shift) | (ti.high << (64 - shift));
+> +               ti.high =3D (s64)ti.high >> shift;
+> +       } else {
+> +               ti.low =3D (s64)ti.high >> (shift - 64);
+> +               ti.high =3D (s64)ti.high >> 63;
+> +       }
+> +       return ti.val;
+> +}
+> +EXPORT_SYMBOL(__ashrti3);
+> +
+> +noinstr __int128_t __lshrti3(__int128_t a, int shift)
+> +{
+> +       union ti ti =3D { .val =3D a };
+> +
+> +       if (!shift)
+> +               return ti.val;
+> +       if (shift < 64) {
+> +               ti.low =3D (ti.low >> shift) | (ti.high << (64 - shift));
+> +               ti.high >>=3D shift;
+> +       } else {
+> +               ti.low =3D ti.high >> (shift - 64);
+> +               ti.high =3D 0;
+> +       }
+> +       return ti.val;
+> +}
+> +EXPORT_SYMBOL(__lshrti3);
+> --
+> 2.55.0
+>
 
-An iteration's DSQ can be destroyed before the iteration ends, so
-schedule_dsq_reenq() now skips a destroyed DSQ instead of aborting the
-scheduler. scx_bpf_dsq_reenq() racing scx_bpf_destroy_dsq() takes the same
-path.
+Tested v3 on my ES40: all 3,369,984 shift checks and 168 mul/div
+tests passed, including compiler-generated -Os helper calls.
 
-Declare the kfunc for the tools and add a compat probe.
-
-Signed-off-by: Tejun Heo <tj@kernel.org>
----
- include/linux/sched/ext.h                |  1 +
- kernel/sched/ext/ext.c                   | 79 +++++++++++++++++++++++-
- kernel/sched/ext/internal.h              |  2 +
- tools/sched_ext/include/scx/common.bpf.h |  1 +
- tools/sched_ext/include/scx/compat.bpf.h |  6 ++
- 5 files changed, 86 insertions(+), 3 deletions(-)
-
-diff --git a/include/linux/sched/ext.h b/include/linux/sched/ext.h
-index ae696d11dac9..efd635a99309 100644
---- a/include/linux/sched/ext.h
-+++ b/include/linux/sched/ext.h
-@@ -157,6 +157,7 @@ enum scx_ent_flags {
- /* scx_entity.dsq_flags */
- enum scx_ent_dsq_flags {
- 	SCX_TASK_DSQ_ON_PRIQ	= 1 << 0, /* task is queued on the priority queue of a dsq */
-+	SCX_TASK_DSQ_REENQ	= 1 << 1, /* marked by scx_bpf_dsq_reenq_task() */
- };
- 
- enum scx_dsq_lnode_flags {
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 3e707b00e78b..2d274b54904e 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -555,11 +555,13 @@ enum scx_dsq_iter_flags {
- 	/* iterate in the reverse dispatch order */
- 	SCX_DSQ_ITER_REV		= 1U << 16,
- 
-+	__SCX_DSQ_ITER_HAS_REENQ	= 1U << 29,
- 	__SCX_DSQ_ITER_HAS_SLICE	= 1U << 30,
- 	__SCX_DSQ_ITER_HAS_VTIME	= 1U << 31,
- 
- 	__SCX_DSQ_ITER_USER_FLAGS	= SCX_DSQ_ITER_REV,
- 	__SCX_DSQ_ITER_ALL_FLAGS	= __SCX_DSQ_ITER_USER_FLAGS |
-+					  __SCX_DSQ_ITER_HAS_REENQ |
- 					  __SCX_DSQ_ITER_HAS_SLICE |
- 					  __SCX_DSQ_ITER_HAS_VTIME,
- };
-@@ -1292,7 +1294,9 @@ void schedule_dsq_reenq(struct scx_sched *sch, struct scx_dispatch_q *dsq,
- 			WRITE_ONCE(dru->flags, dru->flags | reenq_flags);
- 		}
- 	} else {
--		scx_error(sch, "DSQ 0x%llx not allowed for reenq", dsq->id);
-+		/* destroyed since the caller resolved it, nothing to reenq */
-+		if (READ_ONCE(dsq->id) != SCX_DSQ_INVALID)
-+			scx_error(sch, "DSQ 0x%llx not allowed for reenq", dsq->id);
- 		return;
- 	}
- 
-@@ -1918,6 +1922,7 @@ void scx_task_unlink_from_dsq(struct task_struct *p, struct scx_dispatch_q *dsq)
- 		RB_CLEAR_NODE(&p->scx.dsq_priq);
- 		p->scx.dsq_flags &= ~SCX_TASK_DSQ_ON_PRIQ;
- 	}
-+	p->scx.dsq_flags &= ~SCX_TASK_DSQ_REENQ;
- 
- 	list_del_init(&p->scx.dsq_list.node);
- 	dsq_dec_nr(dsq, p);
-@@ -5095,7 +5100,9 @@ static void process_deferred_reenq_locals(struct rq *rq)
- static bool user_task_should_reenq(struct task_struct *p, u64 reenq_flags, u32 *reason)
- {
- 	*reason = SCX_TASK_REENQ_KFUNC;
--	return reenq_flags & SCX_REENQ_ANY;
-+	if (reenq_flags & SCX_REENQ_ANY)
-+		return true;
-+	return (reenq_flags & SCX_REENQ_MARKED) && (p->scx.dsq_flags & SCX_TASK_DSQ_REENQ);
- }
- 
- static void reenq_user(struct rq *rq, struct scx_dispatch_q *dsq, u64 reenq_flags)
-@@ -10087,6 +10094,8 @@ BTF_ID_FLAGS(func, scx_bpf_dsq_move_set_slice, KF_RCU)
- BTF_ID_FLAGS(func, scx_bpf_dsq_move_set_vtime, KF_RCU)
- BTF_ID_FLAGS(func, scx_bpf_dsq_move, KF_RCU)
- BTF_ID_FLAGS(func, scx_bpf_dsq_move_vtime, KF_RCU)
-+/* also in scx_kfunc_ids_unlocked, same contexts as scx_bpf_dsq_move() */
-+BTF_ID_FLAGS(func, scx_bpf_dsq_reenq_task, KF_RCU)
- #ifdef CONFIG_EXT_SUB_SCHED
- BTF_ID_FLAGS(func, scx_bpf_sub_dispatch, KF_IMPLICIT_ARGS)
- #endif
-@@ -10202,6 +10211,7 @@ BTF_ID_FLAGS(func, scx_bpf_dsq_move_set_slice, KF_RCU)
- BTF_ID_FLAGS(func, scx_bpf_dsq_move_set_vtime, KF_RCU)
- BTF_ID_FLAGS(func, scx_bpf_dsq_move, KF_RCU)
- BTF_ID_FLAGS(func, scx_bpf_dsq_move_vtime, KF_RCU)
-+BTF_ID_FLAGS(func, scx_bpf_dsq_reenq_task, KF_RCU)
- /* also in scx_kfunc_ids_select_cpu: also callable from ops.select_cpu()/ops.enqueue() */
- BTF_ID_FLAGS(func, __scx_bpf_select_cpu_and, KF_IMPLICIT_ARGS | KF_RCU)
- BTF_ID_FLAGS(func, scx_bpf_select_cpu_and, KF_RCU)
-@@ -10610,7 +10620,8 @@ __bpf_kfunc struct task_struct *bpf_iter_scx_dsq_next(struct bpf_iter_scx_dsq *i
-  * bpf_iter_scx_dsq_destroy - Destroy a DSQ iterator
-  * @it: iterator to destroy
-  *
-- * Undo bpf_iter_scx_dsq_new().
-+ * Undo bpf_iter_scx_dsq_new(). If the iteration marked tasks with
-+ * scx_bpf_dsq_reenq_task(), schedule their re-enqueue.
-  */
- __bpf_kfunc void bpf_iter_scx_dsq_destroy(struct bpf_iter_scx_dsq *it)
- {
-@@ -10626,6 +10637,13 @@ __bpf_kfunc void bpf_iter_scx_dsq_destroy(struct bpf_iter_scx_dsq *it)
- 		list_del_init(&kit->cursor.node);
- 		raw_spin_unlock_irqrestore(&kit->dsq->lock, flags);
- 	}
-+
-+	if (kit->cursor.flags & __SCX_DSQ_ITER_HAS_REENQ) {
-+		guard(preempt)();
-+		schedule_dsq_reenq(kit->dsq->sched, kit->dsq, SCX_REENQ_MARKED,
-+				   scx_locked_rq());
-+	}
-+
- 	kit->dsq = NULL;
- }
- 
-@@ -10714,6 +10732,61 @@ __bpf_kfunc void scx_bpf_dsq_reenq(u64 dsq_id, u64 reenq_flags,
- 	schedule_dsq_reenq(sch, dsq, reenq_flags, locked_rq);
- }
- 
-+/**
-+ * scx_bpf_dsq_reenq_task - Re-enqueue a task from a DSQ iteration
-+ * @it__iter: DSQ iterator in progress
-+ * @p: task to re-enqueue
-+ *
-+ * Mark @p, which is on the DSQ iterated by @it__iter and was queued before the
-+ * iteration started, for re-enqueue. When the iteration ends, the DSQ's marked
-+ * tasks go through ops.enqueue() with %SCX_ENQ_REENQ in DSQ order and the other
-+ * tasks on the DSQ keep their positions. A marked task that leaves the DSQ in
-+ * the meantime is not re-enqueued. @p must be on the DSQ's scheduler.
-+ *
-+ * Re-enqueues are performed asynchronously. Can be called from ops.dispatch()
-+ * or any BPF context which doesn't hold a rq lock (e.g. BPF timers or SYSCALL
-+ * programs).
-+ *
-+ * Return %true if @p was marked, %false if @p left the DSQ or was queued after
-+ * the iteration started, or the iterator holds no DSQ.
-+ */
-+__bpf_kfunc bool scx_bpf_dsq_reenq_task(struct bpf_iter_scx_dsq *it__iter,
-+					struct task_struct *p)
-+{
-+	struct bpf_iter_scx_dsq_kern *kit = (void *)it__iter;
-+	struct scx_dispatch_q *dsq = kit->dsq;
-+	struct rq *src_rq, *entry_rq;
-+	unsigned long flags;
-+	bool marked = false;
-+
-+	/* NULL after a failed bpf_iter_scx_dsq_new(), see scx_dsq_move() */
-+	if (unlikely(!dsq))
-+		return false;
-+
-+	/* the cursor check needs @p's rq locked */
-+	src_rq = task_rq(p);
-+	entry_rq = kf_switch_rq_lock(src_rq, &flags);
-+
-+	scoped_guard (raw_spinlock, &dsq->lock) {
-+		if (nldsq_cursor_lost_task(&kit->cursor, src_rq, dsq, p))
-+			break;
-+
-+		if (unlikely(!scx_task_on_sched(dsq->sched, p))) {
-+			scx_error(dsq->sched, "scx_bpf_dsq_reenq_task() on %s[%d] but the task belongs to a different scheduler",
-+				  p->comm, p->pid);
-+			break;
-+		}
-+
-+		p->scx.dsq_flags |= SCX_TASK_DSQ_REENQ;
-+		/* the walk is scheduled once, by bpf_iter_scx_dsq_destroy() */
-+		kit->cursor.flags |= __SCX_DSQ_ITER_HAS_REENQ;
-+		marked = true;
-+	}
-+
-+	kf_restore_rq_lock(src_rq, entry_rq, flags);
-+	return marked;
-+}
-+
- /**
-  * scx_bpf_reenqueue_local___v2 - Re-enqueue tasks on a local DSQ
-  * @aux: implicit BPF argument to access bpf_prog_aux hidden from BPF progs
-diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
-index b408993af794..29e69a83d876 100644
---- a/kernel/sched/ext/internal.h
-+++ b/kernel/sched/ext/internal.h
-@@ -1946,6 +1946,8 @@ enum scx_reenq_flags {
- 
- 	/* internal: kernel-issued on cap revoke, not accepted from BPF */
- 	SCX_REENQ_CAP_REVOKE	= 1LLU << 1,
-+	/* internal: tasks marked by scx_bpf_dsq_reenq_task() */
-+	SCX_REENQ_MARKED	= 1LLU << 2,
- 
- 	__SCX_REENQ_FILTER_MASK	= 0xffffLLU,
- 
-diff --git a/tools/sched_ext/include/scx/common.bpf.h b/tools/sched_ext/include/scx/common.bpf.h
-index 651bd4952647..9376d5704a47 100644
---- a/tools/sched_ext/include/scx/common.bpf.h
-+++ b/tools/sched_ext/include/scx/common.bpf.h
-@@ -75,6 +75,7 @@ struct task_struct *scx_bpf_dsq_peek(u64 dsq_id) __ksym __weak;
- int bpf_iter_scx_dsq_new(struct bpf_iter_scx_dsq *it, u64 dsq_id, u64 flags) __ksym __weak;
- struct task_struct *bpf_iter_scx_dsq_next(struct bpf_iter_scx_dsq *it) __ksym __weak;
- void bpf_iter_scx_dsq_destroy(struct bpf_iter_scx_dsq *it) __ksym __weak;
-+bool scx_bpf_dsq_reenq_task(struct bpf_iter_scx_dsq *it, struct task_struct *p) __ksym __weak;
- void scx_bpf_exit_bstr(s64 exit_code, char *fmt, unsigned long long *data, u32 data__sz) __ksym __weak;
- void scx_bpf_error_bstr(char *fmt, unsigned long long *data, u32 data_len) __ksym;
- void scx_bpf_dump_bstr(char *fmt, unsigned long long *data, u32 data_len) __ksym __weak;
-diff --git a/tools/sched_ext/include/scx/compat.bpf.h b/tools/sched_ext/include/scx/compat.bpf.h
-index c26024a6e2b1..254882bd8ce6 100644
---- a/tools/sched_ext/include/scx/compat.bpf.h
-+++ b/tools/sched_ext/include/scx/compat.bpf.h
-@@ -498,6 +498,12 @@ static inline bool __COMPAT_has_generic_reenq(void)
- 	return bpf_ksym_exists(scx_bpf_dsq_reenq___compat);
- }
- 
-+/* v7.4: Add scx_bpf_dsq_reenq_task(). */
-+static inline bool __COMPAT_has_dsq_reenq_task(void)
-+{
-+	return bpf_ksym_exists(scx_bpf_dsq_reenq_task);
-+}
-+
- /*
-  * v6.19: The new void variant can be called from anywhere while the older v1
-  * variant can only be called from ops.cpu_release(). The double ___ prefixes on
--- 
-2.56.0
-
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
