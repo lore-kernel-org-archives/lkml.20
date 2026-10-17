@@ -1,202 +1,169 @@
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012026.outbound.protection.outlook.com [40.93.195.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A893515E3
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:14:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC194CF477;
+	Sat, 17 Oct 2026 15:16:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.26
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792250067; cv=pass; b=fSJo8+WYCEWcd3xjtrWJFeJ7ecC9wmr6NdU8E9qWepAzKOM4akB65sq4Fpzz0EQP1SqMgnyDiIkfgssNZPHpbD7qio6QXcma9Y9PaZE7ajNr23asK1YnQlgYVqRjmcRZHrQsdAU/BnU3XJ4W7s5hhb5v1wutVAO3fG0zjaSng4c=
+	t=1792250207; cv=fail; b=KRuxPdGJweumzbkAoT3T4+YO2aZvuuF69ahD7VP3z6oQstSdNO6kNu4M94zYOZP4Jz+lSGY+cR10LJ1RV+92BZ9JWeaE+y5s9IfeDrWkWwsqA4wss6XJ/n1Jd+pRLvxkZIhwE1VvyS33E6Ufe2p7maAlmtq4paz00mVMm3018+8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792250067; c=relaxed/simple;
-	bh=2gcDKbdCCLqMqHhK8oJJGW6NSKFDlP0sJsXi4mnHmwo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Gi7uIwKQbZq7fFnYnKrshcYd5yST+RSD+4onfmDusqbiBZtgTMbXJTMCUDaRSM3zySqDe8oTdJdyopw9d0NWlg+BK+S6OEaAHyL1UpFceEjC4tz79U60uSl7VSKL+R3JH1OZALmxRvLK7b3YhKxEA6nJAJTyErir2bqErMDlTNE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KIGT076I; arc=pass smtp.client-ip=74.125.224.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792250207; c=relaxed/simple;
+	bh=josM/6KsGbOZAqUD9jXdROZResECruYWFl7fchGmdV4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=as2V+zKk1OTkYL/Dox9RyPafYB74pmrs+Ewo9lUmaL22jXEjedu+c8aZGdIjuNMix73WrycFkHPZWtA4Z6WV+67oyIGnf1GcUBHuN7ANFPcx5o9UQI3atkBrinhxZONNIBpMyzpmyDQL42YxL9DVvGN5UJ+vp5APJbuYgHdOvEc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=bKEGpEwb; arc=fail smtp.client-ip=40.93.195.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KIGT076I"
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-675676afc3cso862076d50.3
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:14:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792250065; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mBLWmKeN4tegcXrSmW38nEwPsqKHasxcaMH5Ju8tuSH71sF1Dj6ap1abUqqfabNqlw
-         ++3/MoFsuj+9tBr5ykBJWM+VlGQtzKEkbX4lrRSsNm+RA91UvgJ3M8NCMASQ2oOYCtBG
-         +nN05Ta29jpM3ymcAGsrP1MokRCClaIRY4XBzUyJ7+8NfbIqz7Prq4yLEhTBabRNLCSJ
-         G9rpN8yZswRpt6JM9g0iavucctBhrAI2Otfw8A8tRUXjJU6qZSg120nblT70QkmDSehP
-         +Y0sfb0VmU6oCU5CiNTO7bvlEAS+k7lfWzwRFM66C7V/++J9+0NVL0iRy1zIhzltXd/j
-         tRhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GipuAe3BWx4PIpFUcH/elDBDZ0+uIB+GVKCWA82fBvM=;
-        fh=I1NkFITxdpMD4Fl0lwQEpkbLvV6LzztXdy1tDaOyZic=;
-        b=YAkad4pJma1+pJ8lbHDuDJ6JSEHMIGATy2uEo+kLZXC04O/tX3BwUN2MuFjDf1N+iv
-         xt+gRTmUIb6Wd4l6T7F4LHR/LmzZpO9YOiqJg05LDgdEbxMmLFrmvW7vyrM6o6MLRyt/
-         QIZILI9wlcboOrMYx9NyMVuIrnZNbc/Lk5Ds5IcdCWt826Xm1rBGoMjuhHvBwizuCTWi
-         rGgWajk1Gs1BpPEJhuSXC/v5kOBDcRG7PNhMNDmazTK1Zy8rfYCZ9HHK3UYHzg3gxnon
-         ozBcGC+qZ/W1o2f7ASBjYLwTITUnlXto7JHqgAthZTByDvYha8NqhjX+WjD4bZFF4ePN
-         gLNQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792250065; x=1792854865; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GipuAe3BWx4PIpFUcH/elDBDZ0+uIB+GVKCWA82fBvM=;
-        b=KIGT076I+a6TOHDcnPlrE1Cfx6OjYgFejAkxDvaKYsf0ADbzGyv+1U5GsaMCZTkL4a
-         NN/xAOikdGoA0O3UGBiuBeMAXAl3XrT9Rd6SSpUA0KzSSRyHYQ1kOkylltABRgF0xOE/
-         af2gkQtRzDLVWG1Y+o+AkJUOH8kuu0PkjzlbrQuYzkS3Ud+RdLKYMm/glw29zOJJHdjw
-         jwAuA2kduIAUBTuyZGv43NQyHAlmA1OcFxh/piAnGfXbyrxSBADZ/PWA/4bBu6t5hD5j
-         CpV2I24WbcdAPd1hwfId0tOBnHO7Aghg1k+h8uOrHw+UFBv9/npOcsORMd0KdR3POWWU
-         fzbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792250065; x=1792854865;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GipuAe3BWx4PIpFUcH/elDBDZ0+uIB+GVKCWA82fBvM=;
-        b=RpnnxTDUv2VAa5KTnE3/5W6kPG9aSKFoDTD56a8SgeNfO+FRdO7DUeruoUXFSax+Kj
-         0D2GdY8IEhWb5mPqeisjxjcp+S2KZF10yL8wmTthnQIezRzz9sE3L2dFmOIPFj2Uft2J
-         9zbUVx5I2F9Uqr534b8GEG1ldWqa9/Q0CesjQOlcuegn1U9htalKE/Wp9slOn/WMpGXA
-         O11C3Sgq+Wp7HU6bjRIoTi7iMuzU+fCOACzxV7jkjR+IYHZfOx/vmShYC04sjLuform4
-         4Xpv1Uc8gfn5uluXHXW/dW9MXlOm703i7ealApptzPEEdM0d39LPXcir9bQehZQHq6PT
-         urdA==
-X-Forwarded-Encrypted: i=1; AKwUvBxcCpkhLm0oBuIWwMsc774tWNL1VqqZGRBywL+QvwItta65nAHoarhB93qJUWHSpSDgDeID+B1wKuIBi+o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRIHOMlR4u1WxxThXBbDfWMC6bvGH4g39QmYajf6G3FsaZtNoG
-	T+jIJ0rX0EP4TSFn70ZdtO7n4T9N3TvT/c6HnRv9SbEp1ClfC76QDO7zMq84cCrDPmd2Xbiq62N
-	/xst0vveOWWzoLJPjB6LN6v7BGGbMG8U=
-X-Gm-Gg: AYBFou0ambGWU9DAaSRQ/OpWo7nZF1kkIzSytIr9QghSa2LMZExOlWiDyDlIWbTE7hP
-	LbWcD9n3oeUfl64FKtNxujnGty3S8mHz6o70zz+CbJi4eqjhCo2HRXMmjmyLXzF9fEHwGVryhnQ
-	FQ0O3Wi4OLsRnty2Ss7aPY9QIHnJMKWiPYCeZ5yjRjxpzkLXdoBvkmZlr1ECHoI4ClXWuF7/sOe
-	q1HPBFMU9qgMo3Lk6H3AtBiriie8mnP1mH7Y55tDiDSDctr4/E7PSM6dwLD2TJSGLZjDeRS+6kX
-	cpyJUT9gMfTwRsCV4akFfIMAdEYBStPA0lAqNvq7aMZnZOQxRMPygLXK
-X-Received: by 2002:a05:690e:454a:20b0:679:583:e45e with SMTP id
- 956f58d0204a3-679ca4d586emr564058d50.8.1792250064946; Sat, 17 Oct 2026
- 08:14:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="bKEGpEwb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ewS2dwlCOfFZZDqD5wqObTP6P+qEwmw20zwksDa9RDHd70d6mxTjIv26OUf7iKlc9lWgSx0vEX0cEJ3baWHuGynsBu5iWF8MwxCC2zA9/IT3Kl9yz+MpfXVjN/o0t/lqlDyGX6AFAomLcUAp3HyBCQDgzvKoQ/2UjBjlEzCoxkj7dgDGdUhr1xX+DIEyx7sSgqHMujS9h9uh0DOQjff0pF/Zi7oh+I+06asjCr6FWsIq7hR/KOV5NvDJ3SYiOtoMJ0g1LwP/ulSs5Ah1yf5HOrCy75XJLyA8XlvWN2C5smrGgIYeBO6qDaWXJi4Ay6vCGdCLpqzSgrpCMpLpDazLPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=I39IxhZ24NA3bArM1SStAIz2zYDBZRnTp1KB/x9gi48=;
+ b=IwtJSOgHpNibK9dzpbEwqsGE0Qrknayfj5tOx/dmmB1f0ieKnXZVtTsdXztuHVBlBSkX3l1fbvGL5X/kVpsF4TJ83MYTG//DPxkOrh3mQjJT5uixtG4NWQcnFB2fU9hH7VsaSTRYQFbu5nVXX2O3Ep+P7JB0w71m1SuKn7SsdnozIw+WcPV7BgafCe7blqnjlljS+05aWNX9XeSA9WJ0Z0akBKYHDbg7+o0P+x0qFEAvAnPFNFELWlRzrDPp/V4LJ0z659eT+RcXAsyDFP0VLdqin0bjozFtZovqjBtN5+fReYf1Cvz9tJ0Ym0lPA6hn0pUDzKaDNnT2uO53lS/saw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I39IxhZ24NA3bArM1SStAIz2zYDBZRnTp1KB/x9gi48=;
+ b=bKEGpEwbzmg+qyJljn+r+WJHav689k/LRsPZO8OM+KWQR6ukDoCgPwsUMd9iAKJSodtDwDHJogKsppt/SLn8XE8PxOSw/OkYypKcAdWgb/ICdvZz6r4+8ozlMd3eHqK84cbBy2W7SRfmir5h7d/git4Wc2fe+wLHztXIWiut1rU=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
+ MN0PR12MB6174.namprd12.prod.outlook.com (2603:10b6:208:3c5::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Sat, 17 Oct
+ 2026 15:16:42 +0000
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf%5]) with mapi id 15.21.0522.016; Sat, 17 Oct 2026
+ 15:16:42 +0000
+Date: Sat, 17 Oct 2026 11:16:36 -0400
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: Lin Wang <wanglin@open-hieco.net>
+Cc: Borislav Petkov <bp@alien8.de>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Pu Wen <puwen@hygon.cn>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, Tony Luck <tony.luck@intel.com>,
+	x86@kernel.org, linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 3/7] EDAC/amd64: Stop matching Hygon CPUs
+Message-ID: <20261017151636.GC359037@yaz-khff2.amd.com>
+References: <20261009090111.151878-1-wanglin@open-hieco.net>
+ <20261009090111.151878-4-wanglin@open-hieco.net>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009090111.151878-4-wanglin@open-hieco.net>
+X-ClientProxiedBy: BN9PR03CA0112.namprd03.prod.outlook.com
+ (2603:10b6:408:fd::27) To DM4PR12MB6374.namprd12.prod.outlook.com
+ (2603:10b6:8:a3::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <pm-pmb-26d66390a25fec9fad6c-v2-743c9b89c0f0d761eda1@gmail.com>
- <87ld7w20ok.wl-tiwai@suse.de> <CAFRLqsVs8BGNHb8qG6nnrCc=fafMYAmCSDuXDb8uBRBrgJhnEA@mail.gmail.com>
- <87ecdo1uud.wl-tiwai@suse.de> <87bj8s1u4a.wl-tiwai@suse.de>
-In-Reply-To: <87bj8s1u4a.wl-tiwai@suse.de>
-From: Cen Zhang <zzzccc427@gmail.com>
-Date: Sat, 17 Oct 2026 23:14:12 +0800
-X-Gm-Features: AclHuK-xEKioADGTiLMltPLaprezTGdBPdIHxHvc9v89B5ZAIk4ud1epwNdVnaY
-Message-ID: <CAFRLqsX0iZEHWF3uTgv0FW12DPJv=ESAKFYLwWSvJzxKPsxK8g@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: info: Serialize freeing with recursive registration
-To: Takashi Iwai <tiwai@suse.de>
-Cc: perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|MN0PR12MB6174:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5d59ea9-3bfe-4f53-abfc-08df2c61a5fe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|11063799006|4143699003|56012099006|22082099003|18002099003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	/ld+yCeuTTnKlfQVZY5zJFngQVy4wvNNsMz46JYJlXxIdGfqJ2iKBlRYcJp/IOMDenNcuao2hkNCcodk8OL7yQvH2kdjgFOhJjLN/HIUXALCB2/rWOUqjslMDMR8BkTpRQEC+AGSn7F5vDLrQaQJnMDk2Tka3dPggqGkQ0bqmBs8ZBGSLxfZmTfkfxShq7qP53ah7povv6fuwUZAPB6E9UPO+7UGHNarsFztiByLNYvGGumDR2Mt0wpy069sVTPUCvcXkR5U1WlXqvRggeAY45PWJIhoC2kBKlKHjSDHtxEkmdUKmlWnFZb19z0OjNMjBBfHmGgUiSQ1Nz9S5cSwx6553/zVfoY1Thaw2EgzFjQhXnCNaYh/IqaPD85BBEUdjMPYYdKEjyZFqOfNPCHHDws23eDUMpZm5D5kn7nBvVBv+UOl7kCHIMtxsfCd75IxlBmORX9SbxusPJxL6YO6L/RSFoVlSpocDXAXzhfv0qdIgE4rN0HePEf9jsxnQ/ZkfG04dePJuZpP0gm5/zadhb+0uHgrilVbVUScNlXf37YRy25D6VCWgYl8NnZPFms5qU5QZeGbzVq+cHzIMerwdhvVx7IHIyFvBJCua8b7Qj8pt+QZRA0hSuNiimBruNGoPtypDPVC/ENfhUJ/TKlEcpyamaL7FKiBj6D/HTWrkk4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?3Pr22oudNtH7OFUncn9aunTAbvlADSZetGpgRE/hlI4K0iMZLYvQKwfs7URl?=
+ =?us-ascii?Q?uW3wwnxTi3PcKNDed+OZj5NPO16HyNxCBCRigS2KMYNvSVyXsMbSsBS6zO9K?=
+ =?us-ascii?Q?Gafqwky+xME5+eRYYNlu4z1HR1Xpr49PicZIFF8hc/P2BZHIBbG+O9GvJX3H?=
+ =?us-ascii?Q?0zKhPlNBdIMrTcVsLwW+LelVDffz037GzCYJCRWmt6XYne7sBoX9oLxiero8?=
+ =?us-ascii?Q?7ggITZEZY+Ysw3hMbvAB4QloJgVhlMz1lu+ZrXolJIIVWrJP8vTX83v4qiY9?=
+ =?us-ascii?Q?ArH980H78kYvm/WB6y3MkOKiljhkGMRd6n1WfKd9UuWaC9275iZj3bg0ztdh?=
+ =?us-ascii?Q?hku/iAp7wn7/kaUaLKKJol4ycOxZ+zOWCoszZF1pZUh53tzUoAJwxpiA27Ap?=
+ =?us-ascii?Q?YCVjXhHFh2j93yQe0Ildpm1NVyoEkA0T4LBF/ao5i1NgoIRCRCGZQENK9HK3?=
+ =?us-ascii?Q?m95T/YKvPlao3lZ5lZxUITN2RtK4CLe1w7iIl22QUvyTEk3firFuXJMg7R9K?=
+ =?us-ascii?Q?McGJ1m3EewJjz+kL4o1zxOzQGbWb84LUwKae9SFvtLDPHcXtKv89J16B3fE6?=
+ =?us-ascii?Q?DK9+tq2VACHx3rcqib5P8vXC01k06xRkRCvTQz+IbaUEKCMqRglY9zPC8UKm?=
+ =?us-ascii?Q?rI4CcKhMp1lNWLLVmHXHcJ7BmcPBUSNn99Z7pjkU+POvPF6aeCAXzaiMsLZs?=
+ =?us-ascii?Q?ie0aI7TASh1rux6v9WzdBfPhKuHxuy3Z9Fj+aKWqx17GrANuH2H7vDmJ4hmK?=
+ =?us-ascii?Q?AfpGGnCu/uuDl8wRMfXpRSC8HYRNI3tMtxfRkTkQStcvT1ROpxaZWiVw7W03?=
+ =?us-ascii?Q?WbdRDXC+T6irskbcIGsDzdCDOK0yycX/vcX00dq0zPeknLvujH+lI0UonIk5?=
+ =?us-ascii?Q?+rOYW9zpUo79TYXwvV6SvulVJDgcrFufgOAHBzzwqzq/V0VI9iiGkIwwiEyy?=
+ =?us-ascii?Q?1lnAeYQP2lQKSKoHO3jlsB44S6USZtSfd3g1OZyaA2Ht70wClojn+lG6RBz4?=
+ =?us-ascii?Q?EoMrPwDn9L+bDbCLV2sXi1RMk5MvSAsYqB40q3/v1rPpXRJ6RXBeKU0W03lz?=
+ =?us-ascii?Q?k3q6W+7H/31bnpKFi/MjTnAXYIaV+J2kyuH/qQ2CgnLSCUXJv08TKT2Tu9Xm?=
+ =?us-ascii?Q?Ae3zYFw7hAm49djpFhcnWXbpJU/wVVizaKpgN+ljUXE/Cj6YxspCKBuMJWAU?=
+ =?us-ascii?Q?jN4/t/45xh2wafhl5Naj9Iwm0a/HGf0cZYVmm0BDpgVWsxY8+7DXEBzq/Q6o?=
+ =?us-ascii?Q?rC0PXhKMnjJjZHWU+rS2/VusDP1zrOuv6lmmIODU04y4FTKfitVSNWF5QFZI?=
+ =?us-ascii?Q?ZnEheGYxBZMTt9556zOBBuc5MxPuf3mYhLAbC/Dx9DmklX8wZMYitRVRLZ2Y?=
+ =?us-ascii?Q?LYnvctPZOC6IpR1FtQ7Xj2ZtxMb2CQ1zjqLR/eUPd8NQgOa9OiwvKwjjf7bV?=
+ =?us-ascii?Q?+9iEAEL/3oJWsY46zWfxFM896lNpnf8ZphVfrOPd92OKNEqg3QHyNbdJvZr1?=
+ =?us-ascii?Q?0eEFYloYBl+GZSGFhtDmZ/HJ+b+PDOd5kT3e0s4CdMzcn4SD0KrFWVBRn9+M?=
+ =?us-ascii?Q?gpwaKYM2NVMmolNOXHWTZmQBgt5oxItk/BMiyKwI7JdwDOdtOMi/UyV2wZrl?=
+ =?us-ascii?Q?WuzEYh9bLDnczWGaGbae0wD2f+ZgBC0mg3buPvOeL7irGsP0kOO3HtQerCUF?=
+ =?us-ascii?Q?yOHjSBRieElizclk4haclfk3acNDwygWmXdyOvwbdMiBz2Vi?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5d59ea9-3bfe-4f53-abfc-08df2c61a5fe
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2026 15:16:42.0226
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RuC8dTROgYhWLXFiq5hxgWAEGKEl71/jC9K9RdAFFzKtY0VL/uDqN9Au2hSUGfQ6v/U22ZwlDXD/S4xhED0q3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6174
 
-Hi Takashi,
+On Fri, Oct 09, 2026 at 05:01:07PM +0800, Lin Wang wrote:
+> amd64_edac gets its node count and DF devices from the AMD northbridge
+> cache. Since commit 49b96fc0dddc ("x86/amd_nb: Simplify function 3
+> search"), the cache finds function 3 only at the fixed PCI slots
+> 0x18 + N. Hygon DF devices are not at those slots, so the cache is
+> discarded on Hygon and amd64_edac_init() returns -ENODEV at its
+> amd_nb_num() check.
+> 
+> Remove the Hygon match and the empty Family 0x18 case. MCE decoding
+> in mce_amd.c is separate and unchanged. Hygon memory controller support
+> will use the Hygon node interfaces in a separate series.
+> 
+> Signed-off-by: Lin Wang <wanglin@open-hieco.net>
+> ---
+>  drivers/edac/amd64_edac.c | 4 ----
+>  1 file changed, 4 deletions(-)
+> 
+> diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
+> index 475235c402e8..9e35098d3dd2 100644
+> --- a/drivers/edac/amd64_edac.c
+> +++ b/drivers/edac/amd64_edac.c
+> @@ -3840,9 +3840,6 @@ static int per_family_init(struct amd64_pvt *pvt)
+>  		}
+>  		break;
+>  
+> -	case 0x18:
+> -		break;
+> -
+>  	case 0x19:
+>  		switch (pvt->model) {
+>  		case 0x00 ... 0x0f:
+> @@ -4120,7 +4117,6 @@ static const struct x86_cpu_id amd64_cpuids[] = {
+>  	X86_MATCH_VENDOR_FAM(AMD,	0x15, NULL),
+>  	X86_MATCH_VENDOR_FAM(AMD,	0x16, NULL),
+>  	X86_MATCH_VENDOR_FAM(AMD,	0x17, NULL),
+> -	X86_MATCH_VENDOR_FAM(HYGON,	0x18, NULL),
+>  	X86_MATCH_VENDOR_FAM(AMD,	0x19, NULL),
+>  	X86_MATCH_VENDOR_FAM(AMD,	0x1A, NULL),
+>  	{ }
+> -- 
 
-Takashi Iwai <tiwai@suse.de> =E4=BA=8E2026=E5=B9=B410=E6=9C=8817=E6=97=A5=
-=E5=91=A8=E5=85=AD 18:47=E5=86=99=E9=81=93=EF=BC=9A
->
-> I meant something like below (totally untested)
->
->
-> Takashi
->
-> -- 8< --
-> diff --git a/sound/core/oss/mixer_oss.c b/sound/core/oss/mixer_oss.c
-> index f1fa42e634fc..2e686bd6c5f9 100644
-> --- a/sound/core/oss/mixer_oss.c
-> +++ b/sound/core/oss/mixer_oss.c
-> @@ -1309,13 +1309,18 @@ static int snd_mixer_oss_free1(void *private)
->  static int snd_mixer_oss_notify_handler(struct snd_card *card, int cmd)
->  {
->         struct snd_mixer_oss *mixer;
-> +       int err;
->
->         if (cmd =3D=3D SND_MIXER_OSS_NOTIFY_REGISTER) {
-> -               int idx, err;
-> +               int idx;
->
->                 mixer =3D kzalloc_objs(*mixer, 2);
->                 if (mixer =3D=3D NULL)
->                         return -ENOMEM;
-> +               if (!try_module_get(THIS_MODULE)) {
-> +                       kfree(mixer);
-> +                       return -ENODEV;
-> +               }
->                 mutex_init(&mixer->reg_mutex);
->                 err =3D snd_register_oss_device(SNDRV_OSS_DEVICE_TYPE_MIX=
-ER,
->                                               card, 0,
-> @@ -1325,6 +1330,7 @@ static int snd_mixer_oss_notify_handler(struct snd_=
-card *card, int cmd)
->                                 "unable to register OSS mixer device %i:%=
-i\n",
->                                 card->number, 0);
->                         kfree(mixer);
-> +                       module_put(THIS_MODULE);
->                         return err;
->                 }
->                 mixer->oss_dev_alloc =3D 1;
-> @@ -1358,7 +1364,9 @@ static int snd_mixer_oss_notify_handler(struct snd_=
-card *card, int cmd)
->                 if (cmd =3D=3D SND_MIXER_OSS_NOTIFY_DISCONNECT)
->                         return 0;
->                 snd_mixer_oss_proc_done(mixer);
-> -               return snd_mixer_oss_free1(mixer);
-> +               err =3D snd_mixer_oss_free1(mixer);
-> +               module_put(THIS_MODULE);
-> +               return err;
->         }
->         return 0;
->  }
-> diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
-> index bd19328dca9e..3d35f9d2d675 100644
-> --- a/sound/core/oss/pcm_oss.c
-> +++ b/sound/core/oss/pcm_oss.c
-> @@ -3151,6 +3151,9 @@ static void register_oss_dsp(struct snd_pcm *pcm, i=
-nt index)
->
->  static int snd_pcm_oss_register_minor(struct snd_pcm *pcm)
->  {
-> +       if (!try_module_get(THIS_MODULE))
-> +               return -ENODEV;
-> +
->         pcm->oss.reg =3D 0;
->         if (dsp_map[pcm->card->number] =3D=3D (int)pcm->device) {
->                 char name[128];
-> @@ -3207,6 +3210,7 @@ static int snd_pcm_oss_unregister_minor(struct snd_=
-pcm *pcm)
->  {
->         snd_pcm_oss_disconnect_minor(pcm);
->         snd_pcm_oss_proc_done(pcm);
-> +       module_put(THIS_MODULE);
->         return 0;
->  }
->
+Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
 
-Thank you for the review and suggestions. This looks good to me.
-
-While reviewing the draft, I noticed one detail we may need to account
-for: snd_pcm_free() calls
-n_unregister even for a PCM that never reached n_register, for example
-during creation failure or
-BUILD-state cleanup. We may therefore need per-PCM bookkeeping so that
-unregister drops a
-module reference only if one was successfully acquired.
-
-I would also like to check the last-reference drop against callback
-completion and notifier traversal,
-to make sure module teardown cannot overtake either.
-
-I will send a patch soon.
-
-Thanks again.
-
-Best regards,
-Cen Zhang
+Thanks,
+Yazen
