@@ -1,135 +1,94 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A8A3C1404
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 16:43:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7359A3AAF69;
+	Sat, 17 Oct 2026 16:44:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792255385; cv=none; b=s6R+07pk4G+mDNP6JiTKYPuJMBly0MwCH4TlYuoPcPXu8M8PJqQUa3HafwXH3i7mHWy/iRt8E29AaHd0mCPx39TQwK1ANRWTQ1xOEJ0nu+z0AyyOeWlFzCh6eJcz8JwjqlWXiQ5dADjNNUB2xWjPVw1D4h+v7sZ2ppF69PTtUC8=
+	t=1792255457; cv=none; b=DqdMTno+79CgMZicnrYkj5RDFMw+lByFEoPamBpm2meEJ2OBbKQmqHXIfTdxxa7ew4RdmdfaBRuRrJkNnCFQOuH8pBHEZEua5afaWF5LLIf95DoPkUH5Y+PSIexKCtTWU8vqtLdIPBOzRHhPNbDQNAbDtjY9UkgGH63wzSFyFag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792255385; c=relaxed/simple;
-	bh=V1PrfALe+dXwVq1n5n/hITI7hGqfkZud86/hme5sr+Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NauPwegHsigiYNv1X59gYiXu9z83eFIM+++T8I53Zoxkdx/8DjS7mHopaX0zzdhHPX6he6DGb5t0lAI29nXCJbyu3YOllGlMKdflFjevQ7uWl+Dk0Vp1AzoWZfSDBH0emfj3ZBfVAD4xKh0+EU+NEE5PXQqocGWEBcI1dpiv5AU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z684EGJz; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792255457; c=relaxed/simple;
+	bh=UKfbu1T20lQWRoXbYY8lBXY7F/u8wdHGM7XgPm/Ol3Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mdza5P8bW2QtK4PLoN1VZdtbd8OKXrLeoW4hJA7sQUPrvV1nLRXCzK/+zOnyXTaX5IJwL9eim5a8rddyJ2J1hI5g6VmD+WquaISu8sfG6o0bifBB1bzmjtRF8lXI4J7tZ7SMfZ7yqoOdZXMEiRQQMnFo8M+SW7xlQi6QQzXVOH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UahZwYB/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z684EGJz"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38759bcd877so522456a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:43:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792255383; x=1792860183; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JyrovHosLdX2LQj1aC6ideMoPUaKKiI6CstREEz9Rbg=;
-        b=Z684EGJzahvWTW/dApznEGhNzcZDNeGIMusam1DcH5X2irUvFOTfj07KS3NThy8NU8
-         LfSIlw3tFdq4UjNCeWX5F72/LvzMk9XtazIwLlj1oWcZY7OH7fbcttABt4wjPr1idZUJ
-         +lfUVDUW/d9u5iogF3S3RIbS8MeKAZPk/hwtWaENxM4CgqSBm4Zgh5W7tA5VyBwd7hoO
-         1v9UnMGrY7QesfH4Xc/koXsmrT3r91RKZUIbS88qMekBHHmMczd8+RtQwC27G6G53zj8
-         z8XPMyLWbxr/Z3uqkAHrCgy8pCezp2iklrRpdyUmqQ0c3T/WZSfNqtAti7NTTQuyVoff
-         8/Hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792255383; x=1792860183;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JyrovHosLdX2LQj1aC6ideMoPUaKKiI6CstREEz9Rbg=;
-        b=DqZIZUEvziHNOaJP4jHdC755T+IIe7QXjMfiHx398V253TKUfaF0V5Bla9VwKX1b92
-         W36jh8ctkby5vW/dJ8tgyq2HXn1sITpLdrSZj98npUE3S9jfsiFrJhmAwtFgo2ED2dUW
-         fJW0jVW2OUcA0j8Qk68XXRNcA/h9ATPCsdz1vi3PwdDeHWpYw3yJBRFjrmkXsWdp0eWu
-         yen5kMJ+OJUm9m87RHsh1Jl+/MSg+6LgoDT5DcKGJKg3P2AWPEN/6ODH8ckmYUaltfw4
-         n+STeAW1tLOxGkrOfkAHo6XdtOCl5jinGJ4wnM+nJuEgZG0UL0DvIwp2Uur9Jigv9IIa
-         HIMA==
-X-Forwarded-Encrypted: i=1; AKwUvBzgngJKLPw71IG0Jkf89vB40qI3tVesOdt0sOPMp4LYm4D8LCFjihxhvgRuwI2pkTpOlParz/cDIYFN8HI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLA9o4TlXwBrnq9JNVSMxfBIgu7adspGcDaMz3gYkKCtwW5ZZO8
-	uPd0UF4NXK9I9GIIgp1rjpboMolLVn8X5mT0I20/7DKs/3mTBSGqcs6i
-X-Gm-Gg: AYBFou3K6Mn5hgxjP77CcRlX/GaIUoqi5UCieRccLPAYgn9bsYCaFDSYVB2blh/GrTQ
-	C/c80Kp6FQNZRzopTb/zBNgwbkUhpoBqLEJ0hiuo6GVJI42W4BoviYlWJtNiDX7QTF06YKn7Y/2
-	WJz8R4CdFBYUE5LmXqOgsipl/HXQzQ5PnHLK752DABdDqOLJ+ogaU1RWDNCUtb2dvmfdjRGFmVD
-	MUEtx4np66sOLr9QGrIQBtNdI1i3FuHTney9yVHzwIGWTkLBBEqvHR9+euWsz7pjEaLiBm1xA7H
-	KfAdAoUCrco5x1hoOY6Q7r3BN4J85vmu7ow9St6OYRxUFY6qwZBt4F4NjZ1zanKwZkJVWFGXIV/
-	+iQ1OZF8WdKKYGo7QhRl//BcuLLs30i1m7BvgEBO6LXvintqiXoDoMpcUTtdVuZxoit1EbhwhHQ
-	LuRUFrxNfLIY2vQqMcGYqTCrpueRHSPI8ApVQV8uHbq6uP8MgPGM+bPdqsamvL3Q==
-X-Received: by 2002:a17:90b:582d:b0:3ac:8897:7b98 with SMTP id 98e67ed59e1d1-3acef1455edmr2772023a91.32.1792255383602;
-        Sat, 17 Oct 2026 09:43:03 -0700 (PDT)
-Received: from [127.0.0.2] ([2404:c0:7618:4e1c:2cb7:b2e6:ffb7:d23])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94798212sm13816164a91.14.2026.10.17.09.42.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 09:43:02 -0700 (PDT)
-From: Reza Kurniawan <imkyufie@gmail.com>
-Date: Sat, 17 Oct 2026 23:41:26 +0700
-Subject: [PATCH 4/4] arm64: dts: qcom: msm8917: Use a shallower cluster
- state to fix unresponsive idle
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UahZwYB/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91BBF1F000C5;
+	Sat, 17 Oct 2026 16:44:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792255456;
+	bh=7G2NT+fxfzQbeg8Nb8I82d+DeZrkITmTp7CpnmRJeHA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UahZwYB/srfY5H1wEt+QhcwHwIMamSV2QK6PUOvWsyvAWb26Ujy9ZyGZZbRIE7cx9
+	 L4sFGTVbTrdEP6DUKl5iIcs+0PqSzivCsyWpbT8QIjlPo4xXhWsO+2ymfBAO3/70ew
+	 i2c1sHcxmCq7aOBZwj7cGzkqkTgDWhBNYw3Nj7WkyzPo8eXCdXyfGPDNN02IkY8U1k
+	 PscUh0mSTdTv/nu6ZXb0ks5naIMwGvLp9KcfXw2nL/DtBxx3f/EtyvDMygbPCUFr9/
+	 4E93+YOyIxPjqYtGQ0RJSlElpcI2D2tEqQGquvN/2pynoT5jKOLzZFx9AuGopuW9Vt
+	 qKGJEjMVJzPCA==
+From: SJ Park <sj@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
+	workflows@vger.kernel.org,
+	ksummit@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Mark Brown <broonie@kernel.org>,
+	Theodore Ts'o <tytso@mit.edu>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	Thorsten Leemhuis <linux@leemhuis.info>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Kees Cook <kees@kernel.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Dan Carpenter <error27@gmail.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 3/7] docs: stable-kernel-rules: drop rules the stable trees do not apply
+Date: Sat, 17 Oct 2026 09:44:08 -0700
+Message-ID: <20261017164408.104457-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261016152828.3765695-4-sashal@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261017-psci-fix-v1-4-dedae27e4a31@gmail.com>
-References: <20261017-psci-fix-v1-0-dedae27e4a31@gmail.com>
-In-Reply-To: <20261017-psci-fix-v1-0-dedae27e4a31@gmail.com>
-To: Mark Rutland <mark.rutland@arm.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Christian Loehle <christian.loehle@arm.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, Reza Kurniawan <imkyufie@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-MSM8917 is a single cluster SoC, so powering down the cluster means
-powering down the whole system. This causes two problems:
+On Fri, 16 Oct 2026 11:28:23 -0400 Sasha Levin <sashal@kernel.org> wrote:
 
-1. The system becomes unresponsive, even to common interrupts. Waking it
-   requires an interrupt from the MPM (MSM Power Manager) or scheduling
-   the MPM to wake the system later. Linux currently has no way of doing
-   the latter, so the cluster may never resume operation.
+> The stable trees do not apply the 100 line limit or the exclusion of
+> theoretical issues, and they require a fix to be correct and tested
+> rather than obviously correct. Drop those rules.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-2. Entering power collapse blanks the screen. When the state is entered
-   and exited repeatedly, this shows up as visible flicker.
+Acked-by: SJ Park <sj@kernel.org>
 
-Even if MPM scheduling were implemented, the second problem would remain
-and it wouldn't fix the system being unresponsive at idle.
+[...]
+> @@ -24,9 +23,6 @@ Rules on what kind of patches are accepted, and which ones are not, into the
+>      regression they should only be submitted by a distribution kernel
+>      maintainer and include an addendum linking to a bugzilla entry if it
+>      exists and additional information on the user-visible impact.
+> -  - No "This could be a problem..." type of things like a "theoretical race
+> -    condition", unless an explanation of how the bug can be exploited is also
+> -    provided.
 
-Replace the idle state with PSCI mode 4 (dubbed GDHS downstream), which
-is less aggressive and can wake up from conventional interrupt sources.
+I initially thought requestion the explanation of how it can be exploited is
+still good.  But, that's maybe what need to be requested when the commit is
+landed on the mainline.  So this looks good to me.
 
-Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
----
- arch/arm64/boot/dts/qcom/msm8917.dtsi | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8917.dtsi b/arch/arm64/boot/dts/qcom/msm8917.dtsi
-index f0771187d0..7730977e6e 100644
---- a/arch/arm64/boot/dts/qcom/msm8917.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8917.dtsi
-@@ -112,10 +112,10 @@ core3 {
- 		domain-idle-states {
- 			cluster_sleep_0: cluster-sleep-0 {
- 				compatible = "domain-idle-state";
--				arm,psci-suspend-param = <0x41000053>;
--				entry-latency-us = <700>;
--				exit-latency-us = <1000>;
--				min-residency-us = <6500>;
-+				arm,psci-suspend-param = <0x41000043>;
-+				entry-latency-us = <240>;
-+				exit-latency-us = <280>;
-+				min-residency-us = <806>;
- 			};
- 		};
- 
+Thanks,
+SJ
 
--- 
-2.55.0
-
+[...]
