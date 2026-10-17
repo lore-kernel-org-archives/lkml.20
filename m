@@ -1,86 +1,272 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-150.mta1.migadu.com [95.215.58.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F993CA4B9;
-	Sat, 17 Oct 2026 12:12:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F005E3D3492
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 12:14:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792239157; cv=none; b=pR1aIEE3T7TuS5kj6sJym4PEXZTAbhAiasNDuTzAEM6gJh2BJiNZer2NiAv576q0AIEJ1m4yFS+a1TBr7GA/7+AySRbLdWBqwyPC7t38XkYysYTKlT7ivGBaKe2KzkNolGlbqZGwWWYeIj2KjXl+ByJKW1kHQN6CDgMlfDYryOM=
+	t=1792239275; cv=none; b=HchDaZgJCSIk4ZZ1LJ+a671q5NKv7Nb4tmg9VdtjRq9nHXVl/UIl1zdBTs0TJpcqGWf09ohQN3dDNpWr0F9sTXC3DnmFO+m8U3w1A2GXx8Q1/z4ADQf9XHN2WqiEvp/L+ESsPyx+0YdsY20xsLWp+0uif5LYB4raCzXV35SR+4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792239157; c=relaxed/simple;
-	bh=zRJU0WG9Zkq4jTEKkU7FtXZ89Y0anq2YQF6kYDCEUQM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PbOKgVt7w6eR7Rp7DNPSyX6eF5IIsJr2pBVte2JSF8beQD8QTKVCudyQW7TRRXSgrjT+hJxWPsAkzjTdhtEC6G6S043tpkXTXS1gFRAGdSLlT+K4LqBmlt2Q8Q93tPpSzOrzvBOYaZOvGSY3P/9ABJmqsAh/yi8OJIcouXO3NUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=nJTa69zh; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1792239275; c=relaxed/simple;
+	bh=O2UYZUCWbDSKof+yS8T8rxW6apZXqTol7muI8jUTw7o=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=S8Oc1I5+DQf9YPcMnzl4D5eE1opWEbtzmcklo94Fz+ObZeAlkUuzdzeVXQ9AnTsts9a1cocKOKXxkgDGfB/8AJ24pFy4qMHVQYL/HH/N6+k0+1n8BbPrZjnj9vj2B38FXTm7QQWbuZomFwSXwYF/uxbudNDgv7AoxSfnCOWU3NQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qwPLE0Hk; arc=none smtp.client-ip=95.215.58.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="nJTa69zh"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j6LKW5RdLzKnWS;
-	Sat, 17 Oct 2026 14:12:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792239151;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=q9g0XoimYUH25XFfAs9i86QtQLWCG1fLb3h7h5amVKY=;
-	b=nJTa69zhafpqPIC99eUCQJCTOnGadeSds1bw/JEoIFc/X01XfpdRaiftaRnAyDwwTBb74r
-	26hUSQKi4LJpL8tZnnZuwBTkz37Jp3FVnPyTdRSohOs3blwv7U+idjk/tBAb5yAq6FzoFF
-	z7WrvtwPJUVn5Pcjln1v4wa86rI/AGjU3pd1yqJMX7LJxAZqEPvANL9/jA7GSiJ2pGcG1S
-	eXG4xmbFwr2YFHtsqtnvNlzQ7cHck2Kopw2dMw0rl8ufFkrmkBGhe6+MR73DjAW1IASkdu
-	bbtXrDvNt9brzgTCwRdLLUQepwxynlc6h1jlNCwxGvS33mDaOoQCdVkFSZz6cA==
-Message-ID: <650ed710-c11a-4d7b-9e0e-f83a8b52b078@mailbox.org>
-Date: Sat, 17 Oct 2026 14:12:27 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qwPLE0Hk"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=O2UYZUCWbDSKof+yS8T8rxW6apZXqTol7muI8jUTw7o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792239269; v=1; x=1792844069;
+ b=qwPLE0HknS+1VG8xUQ9TVWSx6f+jQJCQb3cHT4b1g6fwoVD6uKmbjWVM03ahidwrqcdLkpQY
+ dy6noGfNhoDdkpMJ6J9loGsCg81+OkfWwZfgD0JT0MQwsciRr3YlWLghf32XU4zMnEbd4Y8/GfO
+ LMK6wvMVBVHCYgKJo7s9mhM8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3a16678bb6dfea46;
+	Sat, 17 Oct 2026 12:14:29 +0000
+X-Mizu-Trace-ID: 3a16678bb6dfea46
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/18] PCI: dwc: Factor out the PORT_LINK_DEBUG1
- link-up check
-To: Koichiro Den <den@valinux.co.jp>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
- <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015033103.3076869-1-den@valinux.co.jp>
- <20261015033103.3076869-3-den@valinux.co.jp>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20261015033103.3076869-3-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: b7ad063e07287705aaa
-X-MBO-RS-META: fmxu4zyybco91pata315jrztghxmmofa
+Date: Sat, 17 Oct 2026 12:14:29 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Zqiang" <qiang.zhang@linux.dev>
+Message-ID: <aa11c41ba0458bda078c6cdff9e2b155bee1a59b@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH] rcu-tasks: Warn on too-short RCU Tasks Rude grace period
+To: "Bradley Morgan" <brads@mainlining.org>
+Cc: boqun@kernel.org, frederic@kernel.org, joelagnelf@nvidia.com,
+ linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org,
+ paulmck@kernel.org, rcu@vger.kernel.org, urezki@gmail.com
+In-Reply-To: <2247C12C-EE02-46CC-922F-D6A62D1E77C1@mainlining.org>
+References: <D155FA7E-8E99-4D4F-92A8-74472834F25A@mainlining.org>
+ <8d7f265cd1320bf7996bcffea07ffdea69cfd625@linux.dev>
+ <2247C12C-EE02-46CC-922F-D6A62D1E77C1@mainlining.org>
 
-On 10/15/26 5:30 AM, Koichiro Den wrote:
-> dw_pcie_link_up() reads PORT_LINK_DEBUG1 when the glue driver provides
-> no .link_up() callback. A callback that needs a platform-specific check
-> on top of that register would have to duplicate the register read.
-> 
-> Factor the check out into dw_pcie_link_up_debug_check() and export it
-> for modular glue drivers. pcie-rcar-gen4 will be the first user: its APP
-> link-up events remain latched after the link goes down, so it has to
-> combine them with the live PORT_LINK_DEBUG1 state.
-> 
-> No functional change.
-> 
-> Suggested-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>=20
+>=20On 17 October 2026 00:41:00 BST, Zqiang <qiang.zhang@linux.dev> wrote=
+:
+>=20
+>=20>=20
+>=20> >=20
+>=20> > On 15 October 2026 10:46:19 BST, Zqiang <qiang.zhang@linux.dev> w=
+rote:
+> > >=20=20
+>=20> >  >=20
+>=20> >  > The RCU Tasks Rude grace period is implemented by invoking the
+> > >  > schedule_on_each_cpu() with an empty work function, which forces
+> > >  > a context switch on every online CPU and guarantees that all
+> > >  > rude-tasks read-side critical sections have completed. However,
+> > >  > schedule_on_each_cpu() can fail (via alloc_percpu() returning
+> > >  > -ENOMEM) and returns immediately, in which case those context
+> > >  > switches never happen, too-short grace period happen.
+> > >  >=20
+>=20> >  > This commit therefore wraps the schedule_on_each_cpu() call in
+> > >  > WARN_ONCE() so that this failure is reported as a "Too-short
+> > >  > grace period" warning.
+> > >  >=20
+>=20> >  NAK, this seems like a edge case, and potentially panicking the =
+system
+> > >  with panic on oops doesn't seem right to me, because we would rese=
+rve
+> > >=20
+>=20> that
+> >=20
+>=20> >=20
+>=20> > for when something definitely goes really wrong and we need to no=
+tify
+> > >  the user.
+> > >=20=20
+>=20> >  I don't believe this patch should go in for this reason, it's a =
+heavy
+> > >=20
+>=20> edge
+> >=20
+>=20> >=20
+>=20> > case, that doesn't *have* nessesarily need to be accounted for.
+> > >=20
+>=20> Indeed, this is a rare event, so I use WARN_ONCE() to mark it, the
+> > WARN_ONCE()
+> > not panicking system unless you set warn_on_oops true, this can help =
+us
+> > troubleshoot
+> > UAF issues caused by a too short tasks-rude grace period.
+> >=20
+>=20> or maybe we can use DEFINE_PER_CPU(struct work_struct, rude_work) t=
+o
+> > replace
+> > alloc_percpu(struct work_struct) queue to all online CPUs.
+> >=20
+>=20> Anyway, Thank you for your reply. I would also like to hear the opi=
+nions
+> > of others.
+> >=20
+>=20Fair enough, but me and Paul done some discussions:
+>=20
+>=20Here is the TL;DR
+>=20
+>=20My ^W^Wai slop^W^W tool helped me with this: if the too short grace
+> happens,
+> it falls back.
+>=20
+>=20root@p10-linux-brads:~/linux# mailto:root@p10-linux-brads:~/linux#  g=
+it diff kernel/rcu
+> diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+> index 627295396cd9..65bb7d4ed632 100644
+> --- a/kernel/rcu/tasks.h
+> +++ b/kernel/rcu/tasks.h
+> @@ -1344,15 +1344,23 @@ void exit_tasks_rcu_finish(void) { }
+>  // Ordering is provided by the scheduler's context-switch code.
+>=20
+>=20 // Empty function to allow workqueues to force a context switch.
+> -static void rcu_tasks_be_rude(struct work_struct *work)
+> +static void __maybe_unused rcu_tasks_be_rude(struct work_struct *work)
+>  {
+>  }
+>=20
+>=20 // Wait for one rude RCU-tasks grace period.
+> +static void rcu_tasks_rude_ipi(void *info)
+> +{
+> +}
+> +
+>  static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
+>  {
+> + int cpu;
+>  rtp->n_ipis +=3D cpumask_weight(cpu_online_mask);
+> - schedule_on_each_cpu(rcu_tasks_be_rude);
+> + cpus_read_lock();
+> + for_each_online_cpu(cpu)
+> + smp_call_function_single(cpu, rcu_tasks_rude_ipi, NULL, 1);
+> + cpus_read_unlock();
+>  }
+
+RCU Tasks Rude use preempt_disable/enable as the read critical section,
+you use smp_call_function_single() to send ipi to each online CPUs,=20
+it's=20not forces a context sched switch, and not wait the preempt_disabl=
+e/enable
+read critical section to exit, this is the wrong mechanism. ;-(
+
+Obviously, we only need to not apply alloc_percpu dynamic allocation:
+
+diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+index fcac7361ec51..49b629b0010b 100644
+--- a/kernel/rcu/tasks.h
++++ b/kernel/rcu/tasks.h
+@@ -1357,11 +1357,25 @@ static void rcu_tasks_be_rude(struct work_struct =
+*work)
+ {
+ }
+
++static DEFINE_PER_CPU(struct work_struct, tasks_rude_work);
++
+ // Wait for one rude RCU-tasks grace period.
+ static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
+ {
++       int cpu;
++
++       guard(cpus_read_lock)();
+        rtp->n_ipis +=3D cpumask_weight(cpu_online_mask);
+-       schedule_on_each_cpu(rcu_tasks_be_rude);
++
++       for_each_online_cpu(cpu) {
++               struct work_struct *work =3D &per_cpu(tasks_rude_work, cp=
+u);
++
++               INIT_WORK(work, rcu_tasks_be_rude);
++               schedule_work_on(cpu, work);
++       }
++
++       for_each_online_cpu(cpu)
++               flush_work(&per_cpu(tasks_rude_work, cpu));
+ }
+
+ static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback_t fun=
+c);
+
+
+Thanks
+Zqiang
+
+
+
+>=20
+>=20 static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback_t=
+ func);
+> root@p10-linux-brads:~/linux# mailto:root@p10-linux-brads:~/linux#=20
+>=20
+> On POWERPC, this passes 12 hours of rcutorture on the RUDE01 config.
+>=20
+>=20If you plan on submitting this into a patch, please add my authorship=
+, or
+> my c-d-b.=20
+>=20
+> Feel free to rcutorture test it ;d
+>=20
+>=20BTW: have you reproduced this on your own system?
+>=20
+>=20>=20
+>=20> Thanks
+> > Zqiang
+> >=20
+>=20> >=20
+>=20> > Zqiang, have you reproduced this OOM on your own system, if so, c=
+ould
+> > >=20
+>=20> you
+> >=20
+>=20> >=20
+>=20> > tell me more details, you may turn my frown into a smiley face ;)
+> > >=20=20
+>=20> >  >=20
+>=20> >  > Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+> > >  > ---
+> > >  > kernel/rcu/tasks.h | 3 ++-
+> > >  > 1 file changed, 2 insertions(+), 1 deletion(-)
+> > >  >=20
+>=20> >  > diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+> > >  > index fcac7361ec51..91c25717402e 100644
+> > >  > --- a/kernel/rcu/tasks.h
+> > >  > +++ b/kernel/rcu/tasks.h
+> > >  > @@ -1361,7 +1361,8 @@ static void rcu_tasks_be_rude(struct work_=
+struct
+> > >=20
+>=20> *work)
+> >=20
+>=20> >=20
+>=20> > > static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
+> > >  > {
+> > >  > rtp->n_ipis +=3D cpumask_weight(cpu_online_mask);
+> > >  > - schedule_on_each_cpu(rcu_tasks_be_rude);
+> > >  > + WARN_ONCE(schedule_on_each_cpu(rcu_tasks_be_rude),
+> > >  > + "%s: Too-short grace period, OOM is now expected behavior!!!\n=
+",
+> > >=20
+>=20> rtp->name);
+> >=20
+>=20> >=20
+>=20> > >=20
+>=20> >  Good message, makes sense. But I don't think this is right, see =
+above.
+> > >=20=20
+>=20> >  >=20
+>=20> >  > }
+> > >  >=20
+>=20> >  > static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_call=
+back_t
+> > >  > func);
+> > >  >=20
+>=20> >  --- Thanks!
+> > >  "I'm not a very positive person" - Linus torvalds
+> > >
+> >=20
+>=20--- Thanks!
+> "I'm not a very positive person" - Linus torvalds
+>
