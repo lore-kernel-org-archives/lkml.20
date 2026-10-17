@@ -1,187 +1,203 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E784CF49E
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93FF4CF49E;
+	Sat, 17 Oct 2026 00:05:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792195497; cv=none; b=iPHRP+iPhFJjqp5X+fDW3mPokLfkQsOsSxt49by4Y0j1PcmR6V98ZWAuZyVQ7zbyxb6am3LoYPuR2pZ8qqeOL6ZjFXidr6Nb2uAkpOsJFTEK1Vhx2+KvdCz8OlGe5YyBAJxw4aYbx6NrZk/YoLuFlxeQbNx+QQNjSP+kX1VQNbQ=
+	t=1792195509; cv=none; b=scTBEk18IDAlWfIIQLpZEurdo0y3Mka4n+oSeloNrzTaQB6vYKSKVHfCodaHADgy4CNn+Ngp0gDDtFDn/MtlJPhw55VuZ4HeZfi9Ckb/Q8/npA9gjyCT3j/eM05aySIksXM3fPKP78kd5gZn1V+gex0dO04waP7hqluYNsHwGFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792195497; c=relaxed/simple;
-	bh=6/qYlEhJHSxlMKX7o7HI7DT+c0x8I+YT/0Zuz+mG7pg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mj4CM6CSPvBDdb2p/LAm4Qsny1vp4b1Do0H2ATS32oywmZp/uJGgSXyyvWv+3m59ysHD616X9BoGDOD7vEE+U+ZTDG4rEy6Uz9SorgUCXwTVTzsmlt+zCLn+8rGGi3CBmT/uzDJBylCa4ZX14xt8qnDuRX6f42CeEIL5XSMOTkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ABXhLn1J; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792195509; c=relaxed/simple;
+	bh=DBOpTQMF0EgcSbdTbsSaWuCYTUflbitFRHuZzO9jhTs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Hm2WqXCQ86E7L0Miho02GWncYPkbx5RLR8iANzVDnRsaq71qFr3KXY7XVAjzpXYEV3lBPfl0aleVmLMU0MUjfQkzPP5A6pNuyM3X+V7pDQjdiUbJzumBRv9y8rPdFHUDlkXhl8+iCKthjjzJ6ejBX+B6+2omBOh9iBY0LkQrJJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQiRf6KD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ABXhLn1J"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc1cf287ef8so312096a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:04:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792195495; x=1792800295; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lBiMjT8ldL7Ky1jQPlUb8oCa4/bnIv7ADJeJybOOjZ4=;
-        b=ABXhLn1JrHn/1sKXLDqSqPT3tOxX9nb4NDv08QUpcWND53dDiyh+RQXk66t+AHn76i
-         35BWs1WGYGaNW+LSJzXUbF5wc4PcRO98vGufCZtxJEiGsO57knWQSkOOJXg8FWF9x78g
-         HZw0t4HgVbVkZsiPvFo5dyehS8aKdRIUjqTe3qIHN+iMUw7/0KWl38bvSlCKAB0q+Swq
-         +TD4TP8K4K42xg/HhslvedAM6vWZRz2NcNLoXia+HEeRSxsJ4C4EN/fX1xJqM3ph0Bja
-         zxMKf6ooBwnUKh7Rfp1pTPkIKQPkJUH0jyAy/M62QDxH7Dzj+4d00112vp55dF1SgjqI
-         52Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792195495; x=1792800295;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lBiMjT8ldL7Ky1jQPlUb8oCa4/bnIv7ADJeJybOOjZ4=;
-        b=LxmrOx0QBjPYVRXIVnRRwlOEw2j21YFmOgcRX97IriNVRolcB55C+/iB3jY7nslXU1
-         gafwgt1F7LPbSr6JbOafSBwAzxxInRRXkRNpm4cZC7ki5K8WXhtNpyMaljHJ5x+oW+XR
-         G13ziTNK4E4HKIy2OXOMjbWONliWd8lU180ijipKp8jLF08gGECQxsV8P8MZzelr3li5
-         T58lqCpHqV6d7RyH/qX4te1IK2KEtMbwDN6sqt0Xp5/4qVAkVbUi+Icu7QzPa9/NfqRn
-         JNcWlA1kZvPX6ln/wJOgrJMKOdKCicMFr7N6DGhS5FEwpb722+VaXC5FR0/nbpS38D73
-         bkww==
-X-Forwarded-Encrypted: i=1; AKwUvBwPecZ7D/A7PjQAhnnuFnDV/ZUJmXqkzl4Ksx02YDrD1g8SotlczsWZlgZFy/4SEHjLNmJTdFNXDqiNrFk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzAYPa2Ua0HaArBUAtHJkzLtgwrEbgckv07xU58uRqbL8KuvGR
-	8Wi1cwnhfKInSuW9TBYbW8lL2yT8pCx4yUa6LwSCla3B9W3N9T1wH8dn
-X-Gm-Gg: AYBFou0M7f950x6QNJH7ZqANd/tEPY0Q73WE8wbKw/sevpa6+FGykBUBeYlip1AUsUp
-	yBMAAsy2IVpKESu9d8Q7xNt+LYgL53HWEoPdbhudU+8Qcv+Ga1tD0jxr53FLg5JbljPNnxryl0Y
-	//88Z+Ci1SDwPQSHSJxyyDKGiysXG0LhIPIcELhLPYlpHh6suc/bc9VUzt56T8vy7bhd8MYT/Dn
-	YNqoKM8RkGfq3gxRueEC9diurqFtP9ymw1I49xpJLmwTMaWnN9RJ0Y5bplSMgBrzu/nvDFqlwFG
-	5bFGagAnG4SwYf97pGJAHkIy3A+zIcTOguhw1EO34VVS3ciscTN0GMbWPj9sBZoMx6+mhc2p8lL
-	Pr/+1nEggIKSU0q8wryLciSEo2ShYe1UhCZRpr90NX9gSsfIrI/kt7eVjg8sfvAKzJTtE9u2fg7
-	rJrpbXhP2dkkiSre7yASA80JgKCcTfXcDb1H73BqieHH13ClP+RbgeK8YrrlvgmAG3iLbnNcFKH
-	/n/aYLnzFSfuJ8MeT8THetpxT/Sn1qr+M7CJiLRlOlMJ5h1j6AZmGYS77OOW1WXFHKG2KmkFqJZ
-	eBHIOIwEGb7Fx+DfobBrK7bm9KNxydxMGgcsHw3w2nJztpYsmzWouJVzNufwN7Oj3gxfmDP39EG
-	3XlmWbMKT7Q==
-X-Received: by 2002:a17:90b:2e46:b0:3ac:9e76:aa9e with SMTP id 98e67ed59e1d1-3acee276f13mr1245594a91.3.1792195495154;
-        Fri, 16 Oct 2026 17:04:55 -0700 (PDT)
-Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc98139ccsm3284963a91.0.2026.10.16.17.04.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 17:04:54 -0700 (PDT)
-From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-To: akpm@linux-foundation.org,
-	hannes@cmpxchg.org
-Cc: david@kernel.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	ljs@kernel.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	yuzhao@google.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	apais@microsoft.com,
-	rlmenge@gmail.com,
-	Siddharth Chintamaneni <sidchintamaneni@gmail.com>,
-	stable@vger.kernel.org,
-	Hardik Garg <hargar@linux.microsoft.com>
-Subject: [PATCH v1] mm: multi-gen LRU: fix NULL lruvec->pgdat deref with memcg disabled on cmdline
-Date: Sat, 17 Oct 2026 00:04:51 +0000
-Message-ID: <20261017000451.89536-1-sidchintamaneni@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQiRf6KD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19C2D1F000C4;
+	Sat, 17 Oct 2026 00:05:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792195507;
+	bh=ZEEP+hDmF0puw+t08sFA5eA5k0+vUWBsEJ35A4r0ZiU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=KQiRf6KDaxFzOIAHP+DJxPT8/lu8MUTgGYrvKvS+QJO34vm9VQTTSc4+vpYfdDC/N
+	 QZ3KnoiZgF6hdO8y0g/UyZHr92Z0m9QL/HBrm5cFEsQ/D35tbC34qP8+zL2igifdfx
+	 zjSZbpBumP0WmbxybJ7F3nKbONnFTN/Sm6VN/hu4HyxvOXab8dt1olotjsbl4pXoiF
+	 y1qNSEj5tvIyrRD9Ges3Dr0RTES+jKmgZ1iL+MXSlKhzBFdWJdVOSk+zIaEZHTZXf1
+	 cXYSXp8/VQeR+YYV7i0bflrwj6PEGDDueU5c2ieH4a+RLeanJiS45oQpJSDku57bgN
+	 5qF82Hk5wxQ1Q==
+Date: Sat, 17 Oct 2026 01:05:01 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Christoph Rudorff <chris@rudorff.com>
+Cc: Linus Walleij <linusw@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn
+ Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 1/3] iio: light: gp2ap002: add led power supply
+Message-ID: <20261017010501.70eb3ee4@jic23-hlaptop>
+In-Reply-To: <20261016-iio-light-gp2ap002-v1-1-7c93312fa8d5@rudorff.com>
+References: <20261016-iio-light-gp2ap002-v1-0-7c93312fa8d5@rudorff.com>
+	<20261016-iio-light-gp2ap002-v1-1-7c93312fa8d5@rudorff.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-When CONFIG_MEMCG=y, lruvec_pgdat() returns lruvec->pgdat, which for the
-per-node pgdat->__lruvec is left NULL by lruvec_init() and only filled in
-lazily by mem_cgroup_lruvec(). Normally that happens early, e.g. on the
-first folio_add_lru().
+On Fri, 16 Oct 2026 16:43:06 +0200
+Christoph Rudorff <chris@rudorff.com> wrote:
 
-With cgroup_disable=memory, lru_gen_shrink_node() passes &pgdat->__lruvec
-directly to shrink_one(). If direct reclaim runs before anything has
-called mem_cgroup_lruvec() for the node, which can happen during early
-boot under memory pressure (e.g. a kdump kernel), get_swappiness() ends
-up dereferencing a NULL pgdat:
+> According to data sheet "Recommended external circuit"
+> this got up to three supplies, we missed VLED
+> 
+> Now it works (tested on msm8916-samsung-j5):
+> 
+> $ cd /sys/bus/iio/devices/iio\:device1
+> $ echo 1 > events/in_proximity_thresh_either_en
+> 
+> $ iio_event_monitor /dev/iio\:device1
+> 
+> Event: time: 1791460068846871297, type: proximity, channel: 0,
+> evtype: thresh, direction: rising
+> 
+> Event: time: 1791460068876669724, type: proximity, channel: 0,
+> evtype: thresh, direction: falling
+> 
+> ...
+> 
+> Signed-off-by: Christoph Rudorff <chris@rudorff.com>
 
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000005040
-  pc : get_swappiness+0x68/0xb0
-  lr : try_to_shrink_lruvec+0x54/0x2c0
-  Call trace:
-   get_swappiness+0x68/0xb0 (P)
-   try_to_shrink_lruvec+0x54/0x2c0
-   shrink_one+0x8c/0x240
-   shrink_node+0xc6c/0xe08
-   do_try_to_free_pages+0xdc/0x570
-   try_to_free_pages+0x124/0x278
-   __alloc_frozen_pages_noprof+0x6e8/0xf78
-   alloc_pages_mpol+0xc4/0x1c0
-   alloc_frozen_pages_noprof+0x54/0xe8
-   alloc_pages_noprof+0x1c/0x40
-   atomic_pool_expand+0x98/0x300
-   __dma_atomic_pool_init+0x58/0xd8
-   dma_atomic_pool_init+0x154/0x170
-   do_one_initcall+0x64/0x350
-   kernel_init_freeable+0x214/0x430
-   kernel_init+0x2c/0x208
-   ret_from_fork+0x10/0x20
+A few comments inline if you resolve the question Linus raised.
 
-The classic LRU path and MGLRU before per-node lru_gen_folio lists
-obtained the lruvec through mem_cgroup_lruvec(), which sets
-lruvec->pgdat.
+> ---
+>  drivers/iio/light/gp2ap002.c | 28 +++++++++++++++++++++++++---
+>  1 file changed, 25 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/iio/light/gp2ap002.c b/drivers/iio/light/gp2ap002.c
+> index de29081fd3b2..c03eb0f1988b 100644
+> --- a/drivers/iio/light/gp2ap002.c
+> +++ b/drivers/iio/light/gp2ap002.c
+> @@ -129,6 +129,7 @@
+>   * @dev: pointer to parent device
+>   * @vdd: regulator controlling VDD
+>   * @vio: regulator controlling VIO
+> + * @vled: regulator controlling VLED
+>   * @alsout: IIO ADC channel to convert the ALSOUT signal
+>   * @hys_far: hysteresis control from device tree
+>   * @hys_close: hysteresis control from device tree
+> @@ -142,6 +143,7 @@ struct gp2ap002 {
+>  	struct device *dev;
+>  	struct regulator *vdd;
+>  	struct regulator *vio;
+> +	struct regulator *vled;
+>  	struct iio_channel *alsout;
+>  	u8 hys_far;
+>  	u8 hys_close;
+> @@ -169,7 +171,7 @@ static irqreturn_t gp2ap002_prox_irq(int irq, void *d)
+>  
+>  	if (val & GP2AP002_PROX_VO_DETECT) {
+>  		/* Close */
+> -		dev_dbg(gp2ap002->dev, "close\n");
+> +		dev_dbg(gp2ap002->dev, "close %i\n", val);
 
-The above was hit on an arm64 kdump kernel (6.18-based) booted with
-cgroup_disable=memory nr_cpus=4. It also reproduces on mainline on an
-arm64 VM with CONFIG_ARM64_64K_PAGES=y, CONFIG_MEMCG=y,
-CONFIG_LRU_GEN_ENABLED=y and:
+Why?
 
-  mem=160M nr_cpus=4 coherent_pool=512M cgroup_disable=memory
+>  		ret = regmap_write(gp2ap002->map, GP2AP002_HYS,
+>  				   gp2ap002->hys_far);
+>  		if (ret)
+> @@ -179,7 +181,7 @@ static irqreturn_t gp2ap002_prox_irq(int irq, void *d)
+>  					IIO_EV_TYPE_THRESH, IIO_EV_DIR_RISING);
+>  	} else {
+>  		/* Far */
+> -		dev_dbg(gp2ap002->dev, "far\n");
+> +		dev_dbg(gp2ap002->dev, "far %i\n", val);
 
-These options only serve to force direct reclaim early in boot; with
-160M the boot eventually ends in OOM regardless. On mainline the first
-LRU reclaim happens while unpacking the initramfs, and faults the same
-way:
+Why?
 
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000005040
-  pc : get_swappiness+0xd4/0x150
-  Call trace:
-   get_swappiness+0xd4/0x150 (P)
-   try_to_shrink_lruvec+0x44/0x2b8
-   shrink_one+0x80/0x1a0
-   shrink_node+0xd98/0xea8
-   do_try_to_free_pages+0xf4/0x4b0
-   try_to_free_pages+0x110/0x360
-   __alloc_frozen_pages_noprof+0x8b0/0x1718
-   ...
-   __filemap_get_folio_mpol+0x2ac/0x548
-   simple_write_begin+0x44/0xf8
-   page_symlink+0x178/0x198
-   ...
-   do_populate_rootfs+0x13c/0x200
+>  		ret = regmap_write(gp2ap002->map, GP2AP002_HYS,
+>  				   gp2ap002->hys_close);
+>  		if (ret)
+> @@ -530,14 +532,22 @@ static int gp2ap002_probe(struct i2c_client *client)
+>  	if (IS_ERR(gp2ap002->vio))
+>  		return dev_err_probe(dev, PTR_ERR(gp2ap002->vio),
+>  				     "failed to get VIO regulator\n");
+> +	// returns a dummy if not declared:
 
-Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-Cc: stable@vger.kernel.org # 6.3+
-Assisted-by: LLM
-Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
----
- mm/vmscan.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+See comment syntax elsewhere and match it.
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index f11491ee9ed5..0c57e4f1eb15 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -5253,7 +5253,7 @@ static void lru_gen_shrink_node(struct pglist_data *pgdat, struct scan_control *
- 		sc->nr_reclaimed = 0;
- 
- 	if (mem_cgroup_disabled())
--		shrink_one(&pgdat->__lruvec, sc);
-+		shrink_one(mem_cgroup_lruvec(NULL, pgdat), sc);
- 	else
- 		shrink_many(pgdat, sc);
- 
--- 
-2.45.4
+> +	gp2ap002->vled = devm_regulator_get(dev, "vled");
+> +	if (IS_ERR(gp2ap002->vled))
+> +		return dev_err_probe(dev, PTR_ERR(gp2ap002->vled),
+> +				     "failed to get VLED regulator\n");
+>  
+>  	/* Operating voltage 2.4V .. 3.6V according to datasheet */
+>  	ret = regulator_set_voltage(gp2ap002->vdd, 2400000, 3600000);
+>  	if (ret) {
+> -		dev_err(dev, "failed to sett VDD voltage\n");
+> +		dev_err(dev, "failed to set VDD voltage\n");
+
+Good to fix, but unrelated so separate patch.
+
+>  		return ret;
+>  	}
+>  
+> +	/* LED voltage 2.4V .. 3.6V according to datasheet */
+> +	/* nothing to set: it's a simple "regulator-fixed" gpio pin */
+Use multiline comment syntax.
+> +
+>  	/* VIO should be between 1.65V and VDD */
+>  	ret = regulator_get_voltage(gp2ap002->vdd);
+>  	if (ret < 0) {
+> @@ -560,6 +570,11 @@ static int gp2ap002_probe(struct i2c_client *client)
+>  		dev_err(dev, "failed to enable VIO regulator\n");
+>  		goto out_disable_vdd;
+>  	}
+> +	ret = regulator_enable(gp2ap002->vled);
+> +	if (ret) {
+> +		dev_err(dev, "failed to enable VLED regulator\n");
+> +		goto out_disable_vio;
+> +	}
+>  
+>  	msleep(20);
+>  
+> @@ -635,6 +650,7 @@ static void gp2ap002_remove(struct i2c_client *client)
+>  	iio_device_unregister(indio_dev);
+>  	regulator_disable(gp2ap002->vio);
+>  	regulator_disable(gp2ap002->vdd);
+> +	regulator_disable(gp2ap002->vled);
+
+There are enough of them that if this goes forward consider using
+the bulk handling.
+
+>  }
+>  
+>  static int gp2ap002_runtime_suspend(struct device *dev)
+> @@ -659,6 +675,7 @@ static int gp2ap002_runtime_suspend(struct device *dev)
+>  	 */
+>  	regulator_disable(gp2ap002->vio);
+>  	regulator_disable(gp2ap002->vdd);
+> +	regulator_disable(gp2ap002->vled);
+>  
+>  	return 0;
+>  }
+> @@ -679,6 +696,11 @@ static int gp2ap002_runtime_resume(struct device *dev)
+>  		dev_err(dev, "failed to enable VIO regulator in resume path\n");
+>  		goto out_disable_vdd;
+>  	}
+> +	ret = regulator_enable(gp2ap002->vled);
+> +	if (ret) {
+> +		dev_err(dev, "failed to enable VLED regulator in resume path\n");
+> +		goto out_disable_vio;
+> +	}
+>  
+>  	msleep(20);
+>  
+> 
 
