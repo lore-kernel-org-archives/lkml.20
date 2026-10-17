@@ -1,120 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94EA73BB9F7;
-	Sat, 17 Oct 2026 17:52:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15AC0324B32
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:53:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792259557; cv=none; b=TdFbye4Q7YY9hX6ryagvIiiiIG+A7Kovoik8Gb4zogp5amj+iZ6qadPJ9VittTcNK4FPpgNQYUP+9CT8Jl0qJVfL9+u24h2p0oXNo91oSF+8NeqZMwyCVdLXlOhGqJErocnItpu15f0sYo0hEyZaQOLtRdIHxtH7uMpZXI/ejVc=
+	t=1792259605; cv=none; b=lQNUyxHWcPhUPKW0cB7ntFsjD4HbB7qhqq76LTUWWCpduFQIUfsBlTckEst8t52voeNgK2hXoXxfqrdbZFIKwgX1ygFXT3tBbrwK1ByAWmrWSJhAdVLF3ObTw9QSqgYjqYsCfHxxqa84CWTb8rood/XQJaYZYghCZX////KLxp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792259557; c=relaxed/simple;
-	bh=Jo2FHXTkJtPu2fvGuVrv3A70r8NxjJrsOWgWcjkIr58=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tWfNV9/uW4qhEyrfODo2eEVEuyhp3RqT9Ii1xWPBJKpwoz7SnO91wb0IFsW/5UpeZ/MCOor3rvfI8R/mBuPMQan3PDJCCBb8Sk+OkmirJCD8EANjySLEyZaML2P80aX9TX5+I+PNxXUBYq4iyRnmdS8IZYrVrQQLaRtZhTdguWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DVzoz7F8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792259605; c=relaxed/simple;
+	bh=b+5D799ouQ2Iwsg6VUg6t0MfL2oD3ffXyjOVQ+RJMK8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ri3fQerCjLsIT6FpnToL2K7E9AHZCwQ8anUvj9rIbyDe4+gjYuNSgFkeG8f7zm7Wgsc8i/+wrt+61WUJISJaClDVZLagJczUC2RBKlP5KAZGkRwlUicGFD8gHocSyqIMwqTAxxDR6r+3wYPyBCEAW5Ri2H1FXzVIA3aBtous3xs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q5QchNgl; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DVzoz7F8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D85D91F000C5;
-	Sat, 17 Oct 2026 17:52:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792259556;
-	bh=vzg59Xkf4Lmvc7NfaNymuTJFzLiLBxFJ5cCPJCvEM6Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DVzoz7F8prxSjPPCcYFu0iIWqStKwNasZL6ZqLLBfCL9F8oUcg1oOBl53sOGb1aNP
-	 xsxRDXuAL4RzQuZ91EAFXVad3o4XJ6EtDNVxHHuPFh3N/WTB01H/MiziVdLSN3XvGi
-	 6Lac4k55lyLtZgR7vvxQVd8vVry5DrD8aoXy7YmmhbkpnNjGU0DqEehx0qWDO++u0g
-	 wo/5XjD+HTioy83qafn94Ux67uoLLKxYsgL0D4AT2HtsTzAvEA1UzvgMY3uCgrf0oN
-	 xzl2kNefILUzkLyacq2Bsu3lF5bf8EmGKMEXz5vouLPICRF3n9BnkmRwlSkPiaIdz4
-	 IDaGk93oVcIiQ==
-Date: Sat, 17 Oct 2026 19:52:33 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Christophe Roullier <christophe.roullier@foss.st.com>, Srinivas Kandagatla <srini@kernel.org>, 
-	Simeon Marijon <simeon.marijon@foss.st.com>, linux-stm32@st-md-mailman.stormreply.com, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] dt-bindings: arm: stm32: allow TAMP nvram child
- node for syscon
-Message-ID: <20261017-valiant-exotic-heron-c0b6e8@quoll>
-References: <20261016-upstream_nvram_reworked-v3-0-f65908490cf7@foss.st.com>
- <20261016-upstream_nvram_reworked-v3-2-f65908490cf7@foss.st.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q5QchNgl"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48dfdd431dcso929989f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 10:53:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792259602; x=1792864402; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w4U2BjgqQMIyASOu2f7QDzW/sels7LA7kZfnUoXucck=;
+        b=q5QchNglt5qDq7AkaZN4hgbJwUWSUBVuOp2Fds9plOWXz78hpMmw907402V2IeOZUm
+         1P+bZJqgBoBseabzjipV6qB0IX7lY4lFLHeo/Rnymljq76S2i3RfejymsXiv+eu3tXbR
+         skCaa9fQbH2e3GJmGdVGvzVv8uSDs+gnOJDxJt+nwkiRMgX1IpYYKfi9hf2b5BQ2BSF3
+         rKvdo5M66KteOf0d0jhNKW17OS5P2ot3VpUcN+RmSKNuKx7jzSXQ/8LD01dlWdqHlvmb
+         ReBNcALecWvPG6CBpeMBPZTETqxz9E+oqQRKNWwS9BWPAex5nkJNow4Bb4EOgUy9jPE9
+         U07A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792259602; x=1792864402;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w4U2BjgqQMIyASOu2f7QDzW/sels7LA7kZfnUoXucck=;
+        b=nu9FeMhblU59I/M4E7r7+Eh1nrOwn9tecPDeWZkR15XyKmzaHZMuti0/m98neZVfol
+         5NbfVS9sFFo7iKW/CeJGWhVR1dSwJsutu2Ac6uEshYi1HHJttZUHWgZthcOLOr0ivXPQ
+         MJ22iHPNdJZBqhNC7yJEbCnjXRhHyVqx/zcnv2qKoVk/zvCMEK3JXo8aEqX4wOl3z9Ip
+         D82TjQddfc1N1knqukHBlaHeApoDIHa/oORd7V73N72Wk0P6ZJuBdYBGmC4HoG0DGReu
+         cLccKgpZEx3EwYfwDTNJrsvghjrmO//kp7fv+eJsQPxKlKPhw+zm5qYbBgdHhCIWwVqk
+         y1Ww==
+X-Forwarded-Encrypted: i=1; AKwUvBx9+QyfQaHSDZoZzSbXryjzOmq5Utw8dYcT6kfjodS0V/62kZuGkDepI/tF3Q2yLWa9IgIXxGsfWeWNU6U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwd9FATqLS7kZwSYKLCg8Am+RBooXf1g3DNLjiRPkx+67qgTxE
+	ViyECPhtqGFs+37i2zTvBhxXUhVcU1GivA/dTXlToMlGm0cpl6yqVu+c
+X-Gm-Gg: AYBFou1Ku2eqKqKxO/Jblc15ShHo/+vWHPiPP31MAS+dMUaeflXJvNRuJaZvHx+o4Kv
+	00iaf3I4Q89vEW7/B2Or6IVPkZb7p1dP/cj6a6AEku5D2tduZZtcnJMY/xxGc2X+8O01NXjhHBK
+	EIMSvAvRzsbJWXxa1cvlV1xxjHMci4dd2g8EmDSRZAtG1m3IBcxCHccvn+kPw/oBh3snxw9KlKg
+	qfAaxeHN+Jv+JDBE4H4eR6zQPTlU7NkKuC/zlrRMd37bdFdiqjam4rAD1+3KetTA0g/ng9x8ybM
+	TODDtZzDsTe1ITOcT0HRAy88tJ2swWdCDG86JewwBtzuqjphIlR1xQx7KLfbthGAcEwCDIMnjZr
+	DrAPq1BOtW3RZ2q6i+5qJLBrblrGUR+y0Fi1s+XfxC8Md8VwCt/HK+ol8pgO9LTWWVEzxO5gNor
+	cHW5mPApQQfGrn1QdS3s5SKjMl+WoGYnplqNVG/yiNEjZflS5jFBNxwuAPKFbutG60QQ==
+X-Received: by 2002:a05:6000:4b1d:b0:48b:437:8fbb with SMTP id ffacd0b85a97d-48dfae72117mr14846838f8f.19.1792259602249;
+        Sat, 17 Oct 2026 10:53:22 -0700 (PDT)
+Received: from [192.168.1.18] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd5008e7sm12247801f8f.43.2026.10.17.10.53.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 17 Oct 2026 10:53:20 -0700 (PDT)
+Message-ID: <85ab08aa-9ab1-4f32-b16e-10e778669e24@gmail.com>
+Date: Sat, 17 Oct 2026 19:53:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261016-upstream_nvram_reworked-v3-2-f65908490cf7@foss.st.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] mm: hugetlb: group CMA pool and reservation state
+To: Qi Zheng <qi.zheng@linux.dev>, muchun.song@linux.dev, osalvador@suse.de,
+ david@kernel.org, akpm@linux-foundation.org
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>
+References: <cover.1792136742.git.zhengqi.arch@bytedance.com>
+ <100b5e1400e692086b1af70e88732faa5a638be1.1792136742.git.zhengqi.arch@bytedance.com>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <100b5e1400e692086b1af70e88732faa5a638be1.1792136742.git.zhengqi.arch@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 16, 2026 at 05:26:04PM +0200, Patrice Chotard wrote:
-> The STM32 TAMP node (compatible "st,stm32-tamp", "syscon", "simple-mfd")
-> exposes its backup registers through an nvram child node described by
-> nvmem/st,stm32-tamp-nvram.yaml. That requires the TAMP node to carry
-> "#address-cells", "#size-cells", "ranges" and an "nvram@..." child.
+On 10/16/26 12:07 PM, Qi Zheng wrote:
+> From: Qi Zheng <zhengqi.arch@bytedance.com>
 > 
-> st,stm32-syscon.yaml uses "additionalProperties: false" and only allowed
-> reg/clocks/#clock-cells, so wiring the nvram provider into the DTSI made
-> "make dtbs_check" fail on every STM32MP TAMP node:
+> The HugeTLB CMA areas, total size, per-node sizes and percentages are
+> stored in separate singleton variables. Group the runtime areas and
+> size into a pool, and the temporary reservation inputs into a separate
+> configuration structure.
 > 
->   tamp@5c00a000 (st,stm32-tamp): '#address-cells', '#size-cells',
->   'nvram@5c00a100', 'ranges' do not match any of the regexes:
->   '^pinctrl-[0-9]+$'
-
-There are no children of tamp@5c00a000 in
-arch/arm/boot/dts/st/stm32mp151.dtsi. How is it possible to reproduce
-this warning?
-
-Are you using some other patches bugs as a reason of change in bindings?
-
+> Keep one instance of each structure and preserve the existing parsing,
+> reservation and allocation behavior. This separates the mechanical state
+> conversion from adding support for multiple page orders.
 > 
-> Allow the addressing properties and the nvram child, gated on the
-> st,stm32-tamp compatible so the other syscon variants stay strict.
-> "#size-cells" may be 1 or 2: the STM32MP21 soc bus uses two size cells
-> (an empty "ranges" requires the node to match its parent) while the
-> other STM32MP SoCs use one.
-> 
-> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
-> ---
->  .../bindings/arm/stm32/st,stm32-syscon.yaml        | 30 ++++++++++++++++++++++
->  1 file changed, 30 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> index 95d2319afe23..1aeb54867db2 100644
-> --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> @@ -39,6 +39,23 @@ properties:
->    "#clock-cells":
->      const: 0
->  
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    enum: [1, 2]
-> +
-> +  ranges: true
+> Assisted-by: LLM
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 
-You work on some weeks old tree.
+this LGTM too so:
 
-> +
-> +patternProperties:
-> +  "^nvram@[0-9a-f]+$":
-> +    type: object
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-additionalProperties true with ref or false with a compatible, just like
-every other binding. See also display/msm for some examples.
-
-> +    description:
-> +      TAMP backup registers exposed as an NVMEM provider. See
-> +      nvmem/st,stm32-tamp-nvram.yaml.
-> +    required:
-> +      - compatible
-
-Best regards,
-Krzysztof
-
+-- 
+cheers,
+jose a. p-a
