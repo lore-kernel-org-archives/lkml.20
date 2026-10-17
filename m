@@ -1,281 +1,169 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0CAA4CF489;
-	Sat, 17 Oct 2026 20:08:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792267707; cv=none; b=uxsUq0z8cOsB40FWs/1+eqvZQvmJODEYi4/tBmwa2LOUCZ7EAKH+BIdVwyXezCvaAOKMg10bNzHTm4UrZSHHA1yIJftVPmqLTIp3pqtrjV2OAMEJgKdpFSrEC8G4FJjLdYu2KV6ZldCUGb4nv0d28Mjdvc7Otfb7P0vNv2dxa1c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792267707; c=relaxed/simple;
-	bh=SgxPrBIkYCcPi30gyGH4MQTBEMSNpjs9yE/2MFe/s4g=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=n2Hpu0tCesBC5MPi/xIEtngC1uicoOxPz8+9WD4Ei9qRMWLCyFe5N65o+N9Wk3GjWS4eaGLLCducdSW4M8RDVghlM8FDB264JOjnVUQTB8uP0sgDa60Q3nDekTc0wxRbCOfcsjnjmVFB3Xu1Lc7peB39ZbPPVeB3EHOtA6RTzpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=pTdYhPl+; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=juc68V3q; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D1A4CF489
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:09:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792267752; cv=pass; b=Spm88tQqzKH68XJGL5sN+woYvim3vsWSxM0ysDTpQZw8R2fvnVfcxuhEkgwcMuQFxdzuyfjLKKf37djZeE8XptJvhlUoonVM0WmMF+werEUumBbpCwlTWeL2Cp4dMPop6MXV3/PReiHfaMBu6a9N7xTxpc3xGY19jzq/f8ajMOc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792267752; c=relaxed/simple;
+	bh=xIyIC8AOaowHOJTyLtB5oWPtdmEniOxx2vyJJk0BwME=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DPW/oSghB882s9tiSJM5RupYbQmgJV8ElUnw+8ex6AjMjO9c4rjBCQSwfp/rBFJgm+s6TNfVqn9T1YoxMGDTBIox9P4MliSemZATWkT4g8/9yJW09Pyrhc/Wxk9DdZN/pxPI7NDAGo1pAoSE5XPGWNT6nz7+qxyXIxpu3uq/e68=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=Mhwx1CWO; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="pTdYhPl+";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="juc68V3q"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792267703; bh=yJCb7x6Wu2ieI/lhWZQWGE6
-	i7B6nkQk7onSe4PgkTEQ=; b=pTdYhPl+NELM4pRNAQ6x9GPt/fr/uQeTwwQQda7xgp3lIzHVDa
-	QzlCq+jcg1VpFahy29klJBjAQYmXFJrrwGSmuChH7SMdwZTmqSFaD/sh1HjwLzCXhQM1oTBEAqh
-	ipPXBPGmIv8FkdfoiRRrol2FArELbrIodrWSL/JQxWgp4lCIjh0cuoiu4LeVNnruqO1wYJBbK3j
-	iCrydEDZxFw+mlJHTQ5vOhTBuI/sZ2FNnWrQ1fJPVcMzt/1yXsymfoxKtcDfKe3yGwr6KiztumJ
-	wkiYvfApvvLmonfLB+BUEVXaulMTo2l8FiGGjJGFJVP24KN3+ElVgK2KWP4e+Gy5hbA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792267703; bh=yJCb7x6Wu2ieI/lhWZQWGE6
-	i7B6nkQk7onSe4PgkTEQ=; b=juc68V3qa0mzmmjElu/dKfqgrzkJmv3Kq9Own+6gDMUfj7ZnS0
-	kzX8wKRUmtpqnwKYEIZSqHMEFbWN3GO45ZDg==;
-Date: Sat, 17 Oct 2026 21:08:24 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: paulmck@kernel.org, "Paul E. McKenney" <paulmck@kernel.org>
-CC: Zqiang <qiang.zhang@linux.dev>, boqun@kernel.org, frederic@kernel.org,
- joelagnelf@nvidia.com, linux-kernel@vger.kernel.org,
- neeraj.upadhyay@kernel.org, rcu@vger.kernel.org, urezki@gmail.com
-Subject: Re: [PATCH] rcu-tasks: Warn on too-short RCU Tasks Rude grace period
-In-Reply-To: <82551705-77de-48d3-b310-ba23a5549903@paulmck-laptop>
-References: <D155FA7E-8E99-4D4F-92A8-74472834F25A@mainlining.org> <8d7f265cd1320bf7996bcffea07ffdea69cfd625@linux.dev> <2247C12C-EE02-46CC-922F-D6A62D1E77C1@mainlining.org> <3fc682be-c0ed-48b2-ae91-af80d1535520@paulmck-laptop> <0E5D0BB2-BEF1-430A-B30C-C53F4254214F@mainlining.org> <82551705-77de-48d3-b310-ba23a5549903@paulmck-laptop>
-Message-ID: <5568467D-34D6-4735-9F01-43B2CB8C207F@mainlining.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="Mhwx1CWO"
+ARC-Seal: i=1; a=rsa-sha256; t=1792267737; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=MV1Ihi5w65tETzvdAVruY+4iDWVUcyf52bMDv/scjrc/4U2y3Tce6fU2XQuDcLINvooMKGRU/IME7U+KasheiJr6740jM6AbN4U7n6RCq8Thmplz53qE+aV54eg0/R6Dp7NEc9j0uhXP8cktPl+EHM3kHIz2F7ZQ9IbVcLdQnzY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792267737; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=dMd2Cnyzg2AY+6hcrzhQpnTa668bEMUasMPE/0oO2OQ=; 
+	b=hHpwexE19pNHq5SQ0sbWpxgS8fW7BgUWEvy3n1rLI2JMpT1pP5gi68y1sQyxzxwakZqdL1qO1kXqIC5CUE/MXfQsh8Ul7lPQmk3JiCimynDgvS7Eoxvgh8ko2N9ox6gXEMuaMtfRf2va5IyuwQySJViJOnE9et6okIEmdFjA788=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792267737;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=dMd2Cnyzg2AY+6hcrzhQpnTa668bEMUasMPE/0oO2OQ=;
+	b=Mhwx1CWODXntMcsfwl/pzf4hjgInJ9YkSHHMb4+jv481dlldfxfT3DxApm0ls5Pk
+	8PVbfAXwuoe7AzD7O38DBAePwaac2lZ+goXvDLQ3DhGBE64z+SV91gM7IksOtBhyx69
+	3ey2F7WXGAucl9kibvmidAgHJsnqsbtnRzp3MZho=
+Received: by smtp.zohomail.com with SMTPS id 1792267734140505.60928145954665;
+	Sat, 17 Oct 2026 13:08:54 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 8ECDA182304; Sat, 17 Oct 2026 22:08:48 +0200 (CEST)
+Date: Sat, 17 Oct 2026 22:08:48 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Shawn Lin <shawn.lin@rock-chips.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Vinod Koul <vkoul@kernel.org>, linux-rockchip@lists.infradead.org, 
+	linux-phy@lists.infradead.org, Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] phy: rockchip: snps-pcie3: Raise the SRAM init timeout
+Message-ID: <atPVLyxH8mPglzQ0@venus>
+References: <1792047775-77954-1-git-send-email-shawn.lin@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-On 17 October 2026 21:04:37 BST, "Paul E. McKenney" <paulmck@kernel.org>
-wrote:
->On Sat, Oct 17, 2026 at 06:49:41PM +0100, Bradley Morgan wrote:
->> On 17 October 2026 18:46:25 BST, "Paul E. McKenney" <paulmck@kernel.org>
->> wrote:
->> >On Sat, Oct 17, 2026 at 12:16:48PM +0100, Bradley Morgan wrote:
->> >> On 17 October 2026 00:41:00 BST, Zqiang <qiang.zhang@linux.dev>
->wrote:
->> >> >> 
->> >> >> On 15 October 2026 10:46:19 BST, Zqiang <qiang.zhang@linux.dev>
->> >wrote:
->> >> >> 
->> >> >> > 
->> >> >> > The RCU Tasks Rude grace period is implemented by invoking the
->> >> >> > schedule_on_each_cpu() with an empty work function, which forces
->> >> >> > a context switch on every online CPU and guarantees that all
->> >> >> > rude-tasks read-side critical sections have completed. However,
->> >> >> > schedule_on_each_cpu() can fail (via alloc_percpu() returning
->> >> >> > -ENOMEM) and returns immediately, in which case those context
->> >> >> > switches never happen, too-short grace period happen.
->> >> >> > 
->> >> >> > This commit therefore wraps the schedule_on_each_cpu() call in
->> >> >> > WARN_ONCE() so that this failure is reported as a "Too-short
->> >> >> > grace period" warning.
->> >> >> > 
->> >> >> NAK, this seems like a edge case, and potentially panicking the
->> >system
->> >> >> with panic on oops doesn't seem right to me, because we would
->reserve
->> >> >that
->> >> >> for when something definitely goes really wrong and we need to
->notify
->> >> >> the user.
->> >> >> 
->> >> >> I don't believe this patch should go in for this reason, it's a
->heavy
->> >> >edge
->> >> >> case, that doesn't *have* nessesarily need to be accounted for.
->> >> >
->> >> >Indeed, this is a rare event, so I use WARN_ONCE() to mark it, the
->> >> >WARN_ONCE()
->> >> >not panicking system unless you set warn_on_oops true, this can help
->us
->> >> >troubleshoot
->> >> >UAF issues caused by a too short tasks-rude grace period.
->> >> >
->> >> >or maybe we can use DEFINE_PER_CPU(struct work_struct, rude_work) to
->> >> >replace
->> >> >alloc_percpu(struct work_struct) queue to all online CPUs.
->> >> >
->> >> >Anyway, Thank you for your reply. I would also like to hear the
->> >opinions
->> >> >of others.
->> >> 
->> >> Fair enough, but me and Paul done some discussions:
->> >> 
->> >> Here is the TL;DR
->> >> 
->> >> My ^W^Wai slop^W^W tool helped me with this: if the too short grace
->> >> happens,
->> >> it falls back.
->> >> 
->> >> 
->> >> root@p10-linux-brads:~/linux# git diff kernel/rcu
->> >> diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
->> >> index 627295396cd9..65bb7d4ed632 100644
->> >> --- a/kernel/rcu/tasks.h
->> >> +++ b/kernel/rcu/tasks.h
->> >> @@ -1344,15 +1344,23 @@ void exit_tasks_rcu_finish(void) { }
->> >>  // Ordering is provided by the scheduler's context-switch code.
->> >> 
->> >>  // Empty function to allow workqueues to force a context switch.
->> >> -static void rcu_tasks_be_rude(struct work_struct *work)
->> >> +static void __maybe_unused rcu_tasks_be_rude(struct work_struct
->*work)
->> >>  {
->> >>  }
->> >> 
->> >>  // Wait for one rude RCU-tasks grace period.
->> >> +static void rcu_tasks_rude_ipi(void *info)
->> >> +{
->> >> +}
->> >> +
->> >>  static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
->> >>  {
->> >> +       int cpu;
->> >>         rtp->n_ipis += cpumask_weight(cpu_online_mask);
->> >> -       schedule_on_each_cpu(rcu_tasks_be_rude);
->> >> +       cpus_read_lock();
->> >> +       for_each_online_cpu(cpu)
->> >> +               smp_call_function_single(cpu, rcu_tasks_rude_ipi,
->NULL,
->> >1);
->> >> +       cpus_read_unlock();
->> >>  }
->> >> 
->> >>  static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback_t
->> >func);
->> >> root@p10-linux-brads:~/linux#
->> >> 
->> >> On POWERPC, this passes 12 hours of rcutorture on the RUDE01 config.
->> >
->> >That is surprising, given that when I run your patch shown above on my
->> >x86 laptop, rcutorture reports a too-short grace period within 20
->seconds.
->> 
->> Odd! I definitely ran it for 12 hours, on PowerPC, so this is certainly
->odd
->
->Those who care are free run it themselves on the systems of their choice.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eirj7uqn7dp5um72"
+Content-Disposition: inline
+In-Reply-To: <1792047775-77954-1-git-send-email-shawn.lin@rock-chips.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/292.264.81
+X-ZohoMailClient: External
 
 
-root@p10-linux-brads:~/linux/tools/testing/selftests/rcutorture/res/2026.10.15-19.45.43/RUDE01#
-uname -a && uname
-Linux p10-linux-brads 7.0.0-34-generic #34-Ubuntu SMP PREEMPT_DYNAMIC Wed
-Sep  2 16:05:10 UTC 2026 ppc64le GNU/Linux
-Linux
-root@p10-linux-brads:~/linux/tools/testing/selftests/rcutorture/res/2026.10.15-19.45.43/RUDE01#
-tail -n 20 console.log
-[43269.029077][   T73] tasks-rude-torture: rcu_torture_read_exit: Start of
-episode
-[43269.033954][   T73] tasks-rude-torture: rcu_torture_read_exit: End of
-episode
-[43282.341070][   T73] tasks-rude-torture: rcu_torture_read_exit: Start of
-episode
-[43282.345268][   T73] tasks-rude-torture: rcu_torture_read_exit: End of
-episode
-[43295.653087][   T73] tasks-rude-torture: rcu_torture_read_exit: Start of
-episode
-[43295.657260][   T73] tasks-rude-torture: rcu_torture_read_exit: End of
-episode
-[43308.965081][   T73] tasks-rude-torture: rcu_torture_read_exit: Start of
-episode
-[43308.969151][   T73] tasks-rude-torture: rcu_torture_read_exit: End of
-episode
-[43322.277071][   T73] tasks-rude-torture: rcu_torture_read_exit: Start of
-episode
-[43322.281345][   T73] tasks-rude-torture: rcu_torture_read_exit: End of
-episode
-[43335.589160][   T73] tasks-rude-torture: rcu_torture_read_exit: Start of
-episode
-[43335.593159][   T73] tasks-rude-torture: rcu_torture_read_exit: End of
-episode
-[43348.901077][   T73] tasks-rude-torture: rcu_torture_read_exit: Start of
-episode
-[43348.905165][   T73] tasks-rude-torture: rcu_torture_read_exit: End of
-episode
-[43362.213069][   T73] tasks-rude-torture: rcu_torture_read_exit: Start of
-episode
-[43362.217298][   T73] tasks-rude-torture: rcu_torture_read_exit: End of
-episode
-[43375.525085][   T73] tasks-rude-torture: rcu_torture_read_exit: Start of
-episode
-[43375.529207][   T73] tasks-rude-torture: rcu_torture_read_exit: End of
-episode
-[43388.837074][   T73] tasks-rude-torture: rcu_torture_read_exit: Start of
-episode
-[43388.841160][   T73] tasks-rude-torture: rcu_torture_read_exit: End of
-episode
-root@p10-linux-brads:~/linux/tools/testing/selftests/rcutorture/res/2026.10.15-19.45.43/RUDE01#
+--eirj7uqn7dp5um72
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] phy: rockchip: snps-pcie3: Raise the SRAM init timeout
+MIME-Version: 1.0
 
-I certainly ran it :(
+Hi,
 
+On Thu, Oct 15, 2026 at 03:02:55PM +0800, Shawn Lin wrote:
+> The SRAM initialization of the PCIe3 PHY may take longer than the 500us
+> currently allowed, especially on a slow power-up such as at low
+> temperature. In that case the driver reports
+>=20
+>   lock failed 0x..., check input refclk and power supply
+>=20
+> even though the input refclk and power supply are fine.
+>=20
+> Raise the timeout to 20ms and use a named constant for it, applied to
+> both the RK3568 and RK3588 paths.
+>=20
+> Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
+> ---
+>=20
+>  drivers/phy/rockchip/phy-rockchip-snps-pcie3.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/phy/rockchip/phy-rockchip-snps-pcie3.c b/drivers/phy=
+/rockchip/phy-rockchip-snps-pcie3.c
+> index 4e8ffd1..bbbfd6d 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-snps-pcie3.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-snps-pcie3.c
+> @@ -19,6 +19,8 @@
+>  #include <linux/regmap.h>
+>  #include <linux/reset.h>
+> =20
+> +#define RK_PCIE_SRAM_INIT_TIMEOUT		20000
 
->
->							Thanx, Paul
->
->> >> If you plan on submitting this into a patch, please add my
->authorship,
->> >or
->> >> my c-d-b. 
->> >> 
->> >> Feel free to rcutorture test it ;d
->> >> 
->> >> BTW: have you reproduced this on your own system?
->> >> 
->> >> >
->> >> >Thanks
->> >> >Zqiang
->> >> >
->> >> >
->> >> >> 
->> >> >> Zqiang, have you reproduced this OOM on your own system, if so,
->could
->> >> >you
->> >> >> tell me more details, you may turn my frown into a smiley face ;)
->> >> >> 
->> >> >> > 
->> >> >> > Signed-off-by: Zqiang <qiang.zhang@linux.dev>
->> >> >> > ---
->> >> >> >  kernel/rcu/tasks.h | 3 ++-
->> >> >> >  1 file changed, 2 insertions(+), 1 deletion(-)
->> >> >> > 
->> >> >> > diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
->> >> >> > index fcac7361ec51..91c25717402e 100644
->> >> >> > --- a/kernel/rcu/tasks.h
->> >> >> > +++ b/kernel/rcu/tasks.h
->> >> >> > @@ -1361,7 +1361,8 @@ static void rcu_tasks_be_rude(struct
->> >work_struct
->> >> >*work)
->> >> >> >  static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
->> >> >> >  {
->> >> >> >  rtp->n_ipis += cpumask_weight(cpu_online_mask);
->> >> >> > - schedule_on_each_cpu(rcu_tasks_be_rude);
->> >> >> > + WARN_ONCE(schedule_on_each_cpu(rcu_tasks_be_rude),
->> >> >> > + "%s: Too-short grace period, OOM is now expected
->behavior!!!\n",
->> >> >rtp->name);
->> >> >> > 
->> >> >> Good message, makes sense. But I don't think this is right, see
->> >above.
->> >> >> 
->> >> >> > 
->> >> >> > }
->> >> >> >  
->> >> >> >  static void call_rcu_tasks_rude(struct rcu_head *rhp,
->> >rcu_callback_t
->> >> >> >  func);
->> >> >> > 
->> >> >> --- Thanks!
->> >> >> "I'm not a very positive person" - Linus torvalds
->> >> >>
->> >> 
->> >> --- Thanks!
->> >> "I'm not a very positive person" - Linus torvalds
->> 
->> --- Thanks!
->> "I'm not a very positive person" - Linus torvalds
+#define RK_PCIE_SRAM_INIT_TIMEOUT_US        20 * USEC_PER_MSEC
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Otherwise
+
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+Greetings,
+
+-- Sebastian
+
+> +
+>  /* Register for RK3568 */
+>  #define GRF_PCIE30PHY_CON1			0x4
+>  #define GRF_PCIE30PHY_CON6			0x18
+> @@ -127,7 +129,7 @@ static int rockchip_p3phy_rk3568_init(struct rockchip=
+_p3phy_priv *priv)
+>  	ret =3D regmap_read_poll_timeout(priv->phy_grf,
+>  				       GRF_PCIE30PHY_STATUS0,
+>  				       reg, SRAM_INIT_DONE(reg),
+> -				       0, 500);
+> +				       0, RK_PCIE_SRAM_INIT_TIMEOUT);
+>  	if (ret)
+>  		dev_err(&priv->phy->dev, "%s: lock failed 0x%x, check input refclk and=
+ power supply\n",
+>  		       __func__, reg);
+> @@ -187,11 +189,11 @@ static int rockchip_p3phy_rk3588_init(struct rockch=
+ip_p3phy_priv *priv)
+>  	ret =3D regmap_read_poll_timeout(priv->phy_grf,
+>  				       RK3588_PCIE3PHY_GRF_PHY0_STATUS1,
+>  				       reg, RK3588_SRAM_INIT_DONE(reg),
+> -				       0, 500);
+> +				       0, RK_PCIE_SRAM_INIT_TIMEOUT);
+>  	ret |=3D regmap_read_poll_timeout(priv->phy_grf,
+>  					RK3588_PCIE3PHY_GRF_PHY1_STATUS1,
+>  					reg, RK3588_SRAM_INIT_DONE(reg),
+> -					0, 500);
+> +					0, RK_PCIE_SRAM_INIT_TIMEOUT);
+>  	if (ret)
+>  		dev_err(&priv->phy->dev, "lock failed 0x%x, check input refclk and pow=
+er supply\n",
+>  			reg);
+> --=20
+> 2.7.4
+>=20
+>=20
+
+--eirj7uqn7dp5um72
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrT1dAACgkQ2O7X88g7
++pqxcg//Vo/x9r1Rt9Y4F7K6g++zkELgZxMOI/hGgSejnF10Ctfi7/7c2RT+PJZG
+qj91qrr6ATEiwzSAJh85eKGxD2SzmT/3yNxo2QyjQtCgBaz4+7dwcvRgI4KZ4sRJ
+WSgrzLiyTmJD4U1I0akKsKAOkIKEv8+UlNWBZKK3XKw4EFQ38gBWvPpY5NzUtdSQ
+WrmGL0wHPLlyT6kzAVDop5HUJ+lqFSY+qD8PGWH1K4/q0fbGXu3WjiDd8z25ol8+
+F8PJPgnBOGTI58xVR1dzfUij8FVFSmNsN+cfRtcFRxXeZ19m1N/Mk2rvPyUsyl1R
+c+l4ICzUrgv3A97NoTdRISaJuMN4fwd2kwJWnwVM6vsR6T/17a6MZQmVdiYK80C2
+PmzCI8dVmQg6wEr1fZs2PPWb6HVUjZq+fqnXYLvByv31NsYgRTq6Nyw3wpF7e5Lo
+zNwDCGjROmSdFlgoJcMNH6IBTxiUSebxn2Ko3rXthyD6LgbptvdKlhzebxOxnMbE
+n8PQxMZFnzVJBhucQsUcTT3SaafWjXJJQUTXXIM5LVsmgkTVWAKV+XBxKbe2qEje
+tudRq9OHO1JtQ0uP7Nw16CHmgNAxqM5XpTFkstHhOqtujiqwRYfsSSFAZHULOJ3S
+jBkGYvg0ogV/rDNAqneztxXkqRywwcDViwC4cZWi4oe2DQ6qcWQ=
+=rkYy
+-----END PGP SIGNATURE-----
+
+--eirj7uqn7dp5um72--
