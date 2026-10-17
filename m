@@ -1,90 +1,383 @@
-Received: from szelinsky.de (szelinsky.de [85.214.127.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4664A3F26;
-	Sat, 17 Oct 2026 22:47:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.127.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85ED3A7D82;
+	Sat, 17 Oct 2026 22:47:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792277250; cv=none; b=scGi39aPQtaTOVKavWBUjDXOGmN3AUyOPrjhTUa5wU+pLuxmkdgfIQPso6Y+3A1VIy9TOA2mDmMtlw999EMnHlhWvnDdqjcHih0wVJuVE/5uNstejsTb6xkIQLQ1WvNRWqXbStoA+U//ujPbc5LlYJRlvng/fROZdNhBEkZzSFE=
+	t=1792277273; cv=none; b=CTxi99Zkt09gGu3yhX1z71KuRdhJ3qpxlGK4UuNdsKowGWTxPN52kfykQQd9/SPGteb0u16N3qWpIQwGtxI6wYLTW4NFMZPGQOmCbBOAVAC3Aq3JSykimlm87T7/wYy4rEEvMYqCcLqWFg05TpUXpcYqCwFWd5KvG+n84WEn/7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792277250; c=relaxed/simple;
-	bh=jD4vlbbmmWvkhvLchPAO7I/M4krCE5RGGC2DMcApkGA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sFNCJXje8JTWbNXTjmGQ/w381knR6ZEExX+c2b6Soikk7O9rBb2NIw9x+/fpBwzQz3LpqiAa69EsLLS3BWQTDwqn6hTk6EkjAfsOHidgJhzjiCJE9NfDKakzostX7hK2++ZoAAQxllJ4/A+m8ZSht+szJQQgthgw8EMAm0xODSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szelinsky.de; spf=pass smtp.mailfrom=szelinsky.de; dkim=temperror (0-bit key) header.d=szelinsky.de header.i=@szelinsky.de header.b=SgcDvhTm; arc=none smtp.client-ip=85.214.127.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szelinsky.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szelinsky.de
+	s=arc-20240116; t=1792277273; c=relaxed/simple;
+	bh=1R0dc0z9e8kqb7Jc23e4ZGOhaYmv8gQcbTVK/UCreUY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UfoyrU+tfhfG4Rkg1POtBlZciPUQSpKyufZFUYa0CJ0x9X0ZLtJS4LGwhtLz9YsnzsTdJeEwDKvTA0rNZY8aobA59Bv22D7ThTLK6+sNAb0tyoR9l98lEnln4SgBv5cw1rEHbqtjYyGD3Xx1IvmGHuzUCiKuAZEn8ymIYgSVBsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5gBLm9b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=szelinsky.de header.i=@szelinsky.de header.b="SgcDvhTm"
-Received: from localhost (localhost [127.0.0.1])
-	by szelinsky.de (Postfix) with ESMTP id 16824E83404;
-	Sun, 18 Oct 2026 00:47:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=szelinsky.de;
-	s=mail; t=1792277246;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ScwdTuhzZINXtODHQG4RTmOjqFwDmM/HQjD/jlKcXxQ=;
-	b=SgcDvhTm74TphCCjCV84TrMTZthyqVsRCGjGYxC4HNAev6HoDGec7zWcEah9aOptaIw7zz
-	OL8b3BMfbmPOeDTdt3uqi5YCc2VW56CSEsbTWvdT9NNvJwOwDX3C/vTlDRqan2c2v+Y3sL
-	HBb9HUlh3HR/RIozkj2Ov+OlkcsypvY0NYzZL+Ovg0Oi+2tyrEzSM8vYuC3T1Ca2hvZvVP
-	C/Pu9YMxATQABJAhXuatZIebjUioCrckt+jmnnAP6DbxF8pV2GNNl5vxDRP6r8PDRW20ia
-	ZvR+nhHu3rjhKC2mZknVVbfPSfTOfVyG3ytPycho62QFvlHzFk5iLMXR/2cvPg==
-X-Virus-Scanned: Debian amavis at szelinsky.de
-Received: from szelinsky.de ([127.0.0.1])
- by localhost (szelinsky.de [127.0.0.1]) (amavis, port 10025) with ESMTP
- id BH7wBReCclG0; Sun, 18 Oct 2026 00:47:26 +0200 (CEST)
-Received: from p14sgen5.netbird.selfhosted (dslb-088-070-183-026.088.070.pools.vodafone-ip.de [88.70.183.26])
-	by szelinsky.de (Postfix) with ESMTPSA;
-	Sun, 18 Oct 2026 00:47:25 +0200 (CEST)
-From: Carlo Szelinsky <github@szelinsky.de>
-To: Oleksij Rempel <o.rempel@pengutronix.de>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>
-Cc: Corey Leavitt <corey@leavitt.info>,
-	Jonas Jelonek <jelonek.jonas@gmail.com>,
-	Simon Horman <horms@kernel.org>,
-	Aleksander Jan Bajkowski <olek2@wp.pl>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	netdev-bot+sashiko@kernel.org,
-	sashiko-bot@kernel.org,
-	sashiko-reviews@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	Kyle Swenson <kyle.swenson@est.tech>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v8 0/7] net: pse-pd: decouple controller lookup from MDIO probe
-Date: Sun, 18 Oct 2026 00:47:23 +0200
-Message-ID: <20261017224723.1527477-1-github@szelinsky.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261004164219.1161294-1-github@szelinsky.de>
-References: <20261004164219.1161294-1-github@szelinsky.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5gBLm9b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C323D1F000C4;
+	Sat, 17 Oct 2026 22:47:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792277271;
+	bh=Z3LvxrDURZwrtPkb5eP+Ohc+mQiogSpY4hH5g0DvOmw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=H5gBLm9bBQrxOtYXVBC6ZF3CRwuL51CIdx9hZd8N/iYv8xTk3ryPsIM5XpzYXlIGy
+	 PKKSFBUnm5q5/h9zD8SOxqKNC8MwIgi5vuw1Sm0nKbJrPvuFgAyNfb2a+0w8uvss55
+	 KdsIsR2y41rtbM6Y1FN817ie8KOoTjiNBdRb9cBk6cLxKk8ZWtrrQ44m3rY7iUHLyg
+	 H5inWfDpnDUiey/Euold9l6Jf7LwYqhe/bubyNmit16yf71JTn8huHFNU7dNS40MuQ
+	 tL4Yb0GUhPKQA/w95YbS4P5enKcT/yvDYhYbXvRZ7LPIDAOAPbD/VXlPr76c6tIP+7
+	 /jyXz5BtzQ76A==
+Date: Sat, 17 Oct 2026 23:47:46 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] iio: adc: add driver for the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+Message-ID: <20261017234746.4af7b7f6@jic23-hlaptop>
+In-Reply-To: <20261013-topic-sm8x50-iio-max34417-adc-v3-3-d3604ae4a229@linaro.org>
+References: <20261013-topic-sm8x50-iio-max34417-adc-v3-0-d3604ae4a229@linaro.org>
+	<20261013-topic-sm8x50-iio-max34417-adc-v3-3-d3604ae4a229@linaro.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thanks to Paolo, Kory and Oleksij for the reviews, and to Kyle for the
-kind words.
+On Tue, 13 Oct 2026 16:07:13 +0200
+Neil Armstrong <neil.armstrong@linaro.org> wrote:
 
-I have now my own sashiko instance. Different models have different findings,
-but I got some progress ... 
+> The MAX34417 is a specialized current and voltage monitor used to
+> determine power consumption of portable systems. The driver support
+> getting the channels voltage, average power and accumulated average
+> power and energy over an I2C/SMBUS serial interface.
+> 
+> The MAX34417 datasheet only specified on how to calculate the
+> accumulated average power, but with the Sample Per Second rate
+> we can easily get accumulated Energy in mJ.
+> 
+> By default the IIO driver only supports single-shot Voltage
+> and Power sensing, but the accumulation can be enabled by
+> enabling the Energy IIO channel which then enables the
+> Continuous Accumulation Mode.
+> 
+> The counter is common to all channels, so when reading a single
+> channel we will copy all accumulators to registers, so in order
+> to permit reading individual channels we must accumulate the
+> other channels in the driver when Continuous Accumulation Mode
+> is enabled.
+> 
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-I answered the AI reviews in reply to each of them. v9 follows, split in
-two series as Oleksij asked: the PSE core fixes, and the decouple series
-on top. The older bugs the reviews found go to net as a separate series.
+Reminder to check sashiko.  I haven't looked at whether they
+are right this time.
+https://sashiko.dev/#/patchset/20261013-topic-sm8x50-iio-max34417-adc-v3-0-d3604ae4a229%40linaro.org
 
-Carlo
+> diff --git a/drivers/iio/adc/max34417.c b/drivers/iio/adc/max34417.c
+> new file mode 100644
+> index 000000000000..00d7f20cd953
+> --- /dev/null
+> +++ b/drivers/iio/adc/max34417.c
+
+> +/* TODO Implement trigger to update accumulator once and get all channels at once */
+> +
+> +static int max34417_reset_smm(struct max34417_data *max34417)
+> +{
+> +	u32 control;
+> +	int rc;
+> +
+> +	rc = regmap_read(max34417->regmap, MAX34417_CONTROL_REG, &control);
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Set SMM=0 to re-init the SMM mode */
+> +	control &= ~(MAX34417_CONTROL_SMM);
+> +	rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, control);
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Reset accumulators after setting SMM=0 */
+> +	rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+return regmap_write()
+
+Might as well save a few lines.
+
+> +	if (rc)
+> +		return rc;
+> +
+> +	return 0;
+> +}
+
+
+> +
+> +static int max34417_check_ovf(struct max34417_data *max34417)
+> +{
+> +	u32 control;
+> +	int rc;
+> +
+> +	/* Check for overflow */
+
+Given function name and the check below, not seeing value in this comment.
+
+> +	rc = regmap_read(max34417->regmap, MAX34417_CONTROL_REG, &control);
+> +	if (rc)
+> +		return rc;
+> +
+> +	if (control & MAX34417_CONTROL_OVF) {
+> +		rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG,
+> +				  control & ~MAX34417_CONTROL_OVF);
+> +		if (rc)
+> +			return rc;
+> +
+> +		rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+> +		if (rc)
+> +			return rc;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * Save all power accumulators and counter after each UPDATE command
+> + * since it will reset the internal registers for ALL channels,
+> + * so in order to not loose any captured data we retrieve all registers
+> + * and accumulate them in the context variables.
+> + * When user gets either power or energy, those variables content
+> + * will be returned and zero-ed to return the power accumulated
+> + * since last read for each separate channel.
+> + */
+> +static int max34417_save_accumulators(struct max34417_data *max34417)
+> +{
+> +	unsigned int i;
+> +	u64 acc_power;
+> +	u32 acc_count;
+> +	int rc;
+> +
+> +	rc = max34417_read_acc_count(max34417, &acc_count);
+> +	if (rc)
+> +		return rc;
+> +
+> +	for (i = 0; i < MAX34417_CHANNEL_COUNT; ++i) {
+> +		rc = max34417_read_acc_power(max34417, MAX34417_PWR_ACC_1_REG + i,
+> +					     &acc_power);
+> +		if (rc)
+> +			return rc;
+> +
+> +		max34417->acc_power[i] += acc_power;
+> +		max34417->acc_count[i] += acc_count;
+> +	}
+> +
+> +	/* Check for overflow */
+> +	rc = max34417_check_ovf(max34417);
+
+return max34417_..
+
+> +	if (rc)
+> +		return rc;
+> +
+> +	return 0;
+> +}
+
+
+> +
+> +static int max34417_setup_cam_mode(struct max34417_data *max34417, int val)
+> +{
+> +	u32 control;
+> +	int rc, i;
+> +
+> +	guard(mutex)(&max34417->lock);
+> +
+> +	rc = regmap_read(max34417->regmap, MAX34417_CONTROL_REG, &control);
+> +	if (rc)
+> +		return rc;
+> +
+> +	if (max34417->cam_mode && !val) {
+> +		/* SMM and CAM modes should not be enabled at the same time */
+> +		control &= ~(MAX34417_CONTROL_CAM | MAX34417_CONTROL_SMM);
+
+The comment doesn't makes sense given neither are enabled.
+
+> +		rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, control);
+
+Feels like it would be cleaner as an update_bits() here and below rather than
+sharing that read above.
+
+> +		if (rc)
+> +			return rc;
+> +
+> +		/*
+> +		 * If CAM mode must be set, the Control byte must be set to
+> +		 * desired values with CAM = 0, then followed by an UPDATE
+> +		 */
+> +		rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+> +		if (rc)
+> +			return rc;
+> +	} else if (!max34417->cam_mode && val) {
+> +		/*
+> +		 * After this, the CAM mode bit can be set and another
+> +		 * UPDATE must be sent.
+> +		 */
+> +		control |= MAX34417_CONTROL_CAM;
+> +		/* SMM and CAM modes should not be enabled at the same time */
+> +		control &= ~(MAX34417_CONTROL_SMM);
+
+As above, perhaps an update_bits is simpler?
+
+> +		rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, control);
+> +		if (rc)
+> +			return rc;
+> +
+> +		rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+> +		if (rc)
+> +			return rc;
+> +
+> +		/* Reset counters and accumulators */
+> +		for (i = 0; i < MAX34417_CHANNEL_COUNT; ++i) {
+> +			max34417->acc_power[i] = 0;
+> +			max34417->acc_count[i] = 0;
+> +		}
+> +	}
+> +
+> +	max34417->cam_mode = val;
+> +
+> +	return 0;
+> +}
+
+
+
+> +static int max34417_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct max34417_data *max34417;
+> +	struct iio_dev *indio_dev;
+> +	struct regmap *regmap;
+> +	int rc, i;
+> +
+> +	regmap = devm_regmap_init_i2c(client, &max34417_regmap_config);
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(dev, PTR_ERR(regmap), "regmap_init failed\n");
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*max34417));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	rc = devm_regulator_get_enable(dev, "vdd");
+> +	if (rc)
+> +		return dev_err_probe(dev, rc, "failed to get vdd regulator\n");
+> +
+> +	rc = devm_regulator_get_enable(dev, "vio");
+> +	if (rc)
+> +		return dev_err_probe(dev, rc, "failed to get vio regulator\n");
+> +
+> +	max34417 = iio_priv(indio_dev);
+> +	max34417->regmap = regmap;
+> +	max34417->dev = dev;
+> +	max34417->indio_dev = indio_dev;
+> +	mutex_init(&max34417->lock);
+> +
+> +	/* Set default input correction for all channels */
+> +	for (i = 0; i < MAX34417_CHANNEL_COUNT; ++i)
+> +		max34417->input_correction[i] =
+> +			max34417_calc_input_correction(MAX34417_DEFAULT_RSENSE);
+> +
+> +	device_for_each_child_node_scoped(dev, node) {
+> +		u32 rsense, index;
+> +
+> +		if (!fwnode_property_present(node, "reg"))
+> +			return dev_err_probe(dev, -EINVAL, "missing reg property of %pfwP\n",
+> +					     node);
+
+Bit unusual to check for a property that must be there.
+We tend to use present checks for optional properties. Is the
+following failure path not enough?
+
+> +
+> +		rc = fwnode_property_read_u32(node, "reg", &index);
+> +		if (rc)
+> +			return dev_err_probe(dev, rc, "failure reading reg property of %pfwP\n",
+> +					     node);
+> +
+> +		if (index >= MAX34417_CHANNEL_COUNT)
+> +			return dev_err_probe(dev, -EINVAL, "invalid reg %d of %pfwP\n",
+> +					     index, node);
+> +
+> +		if (fwnode_property_present(node, "label")) {
+> +			rc = fwnode_property_read_string(node, "label",
+> +							 &max34417->input_label[index]);
+> +			if (rc)
+> +				return dev_err_probe(dev, rc,
+> +						"failure reading label property of %pfwP\n",
+> +						node);
+> +		}
+> +
+> +		if (fwnode_property_present(node, "shunt-resistor-micro-ohms")) {
+> +			rc = fwnode_property_read_u32(node, "shunt-resistor-micro-ohms",
+> +						      &rsense);
+> +			if (rc)
+> +				return dev_err_probe(dev, rc,
+> +						"failure reading shunt property of %pfwP\n",
+> +						node);
+> +
+> +			if (!rsense || rsense < MAX34417_MIN_RSENSE ||
+
+Is !rsense useful given that is less than min?
+
+> +			    rsense > MAX34417_MAX_RSENSE)
+> +				return dev_err_probe(dev, -EINVAL,
+> +						     "invalid shunt value %d of %pfwP\n",
+> +						     rsense, node);
+> +
+> +			max34417->input_correction[index] =
+> +				max34417_calc_input_correction(rsense);
+> +		}
+> +	}
+> +
+> +	indio_dev->channels = max34417_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(max34417_channels);
+> +	indio_dev->name = "max34417";
+> +	indio_dev->info = &max34417_info;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +
+> +	rc = devm_iio_device_register(dev, indio_dev);
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Reset mode and set accumulator width to Wide */
+
+The docs refer to this as choosing between the max34417 and the max34407.
+Any idea what that is going on about?  Is it that the setting this to 0 would
+make the device look just like the part with small accumulator?
+Seems like an easy win if you fancy adding support for that part as well as
+this would be the main difference I think (it's reserved on that part to 0)
+
+Anyhow, just made me curious rather than a request to change anything!
+
+> +	rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, MAX34417_CONTROL_MODE);
+> +	if (rc)
+> +		return dev_err_probe(max34417->dev, rc, "Error writing control register\n");
+> +
+> +	/* Reset the accumulators */
+> +	rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+
+return regmap_write();
+
+Though I'm not sure why you'd do these two after setting up the userspace
+interface (iio_device_register). Is there no potential race where something
+related to the accumulators gets read before they are reset?  Seems that would look
+a little more odd than the other way around where they aren't quite
+zero when they first become readable.
+
+> +	if (rc)
+> +		return rc;
+> +
+> +	return 0;
+> +}
+
+
