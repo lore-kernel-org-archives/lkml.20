@@ -1,140 +1,118 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 102D04CF47E
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 13:30:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57DE133939C
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 13:35:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792243858; cv=none; b=IhqGGo4+LfzOYxUWFM9fUV5H0j/xr1WosiMU3x6E+SycmwCAzK1XFKbFXkg/O6iA6njMbA4fDzSKYM/hTU5Do2MTq5L2p+KeKAjODCXIJ6e3ljuYg3uJ0uX+wGDQjFgwZk1ItN86zlekCRccxanXZaHxsgywFdlEoe/bycyBjiU=
+	t=1792244132; cv=none; b=Ov79zGpFANmUlftCQ3s2ETMu4L4hbr1yPtI7T2UVIYNNt1aZ7BUldpi0q8Sx/ksUhWcdYHcwpeLGYHg0WhCkC4ejS83ruT5TGFJ83kVKo0sqUuq5SSN4REeeHCMFK+a0WUO1zpSIzDFmERejdZYvmJVmXpV99/MwNEyE6E22buM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792243858; c=relaxed/simple;
-	bh=FQMJxj30Jbh8Y1kO8a4BCGr9W3VcLELopHi5oh2lXiU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cr3N2mlEv6Fl4RrfbgqDhpmmZQk+x/qxPh95Q9ZQw3zQco/2X5b1jVK3KzX2fkcXEUK1/TVeKWwEBrQje0tkat/Ml8R568kVmnowSZfJ2rv/Y6sWOMKVUJO8tPAOehvBV3pUcKYuhaP5zAu0zYPsUWMQUik4CwQwrgokENGc2wI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZZ/9JNdv; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792244132; c=relaxed/simple;
+	bh=gBGo24fl5Af6G7SCsbJb5/idqIuEjFcib/+jlSFpkLE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ESIPPqrxA0SzLuDT6VIC9YQMykeD5qwJKsxKMhQVoqKFAf7NhhlE/Jqd90qEbKtcYhWU70lJDdWHIoT4IFhP78UquvYEVgR74nWZOQ6SKvz4LeTPDAaMCo78OkcG42kt5sN0N0tkE4xAbv6sbpyIpIEhywpk5MdK/I5MvYQMs40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=GzRXa0WX; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZZ/9JNdv"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ac5b090d16so515204a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 06:30:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="GzRXa0WX"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1dfd49525so910225e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 06:35:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792243852; x=1792848652; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7HdD63cIO1sGwME46dAp51tBAKzD7lOoAch50AxvXAQ=;
-        b=ZZ/9JNdvROD2022jkf0P/0i9VRnIky1kthf4IBkA7L7MOLg3jOdWIpubmscKhXabhv
-         6dmctlfM6BTjwyuXhjWRAyvWfDK2Aj4ThCt+aHkQLPUCMCL+xADpP1szhySA2O7zuDzz
-         6Jh4PgmskpQpdb10B0ixrYw/+XxxaJkIAqgws+c2Mv0sBgqdXbPeuEWocFuWutOt2Rh2
-         o5Wig1ImLL49XUDwsappFMy98fBewODCuroFcKNyg6UT+Q0uwhRyfunIU9qKBJmbjton
-         SSCayQnzFzkTJEaHhiPZTMjF+UADEyRUEhM675S1gwveQtMUhs8txG/nH+Bzh4Pds4a1
-         Iw2Q==
+        d=linaro.org; s=google; t=1792244129; x=1792848929; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Bg8gcmVf98z+OPBCGbYb/r+iHjc/oki2rBnkAci8HgU=;
+        b=GzRXa0WXUD3So3RP5HtlDhI0t2k2BrlVLbcmaBT4T/kMicK4Hq0KNKkw1KpbEFqbzl
+         u0Y4aSogFLrOxRoAwwQUWQp1H78VzBZTIbuJZ+uFdN8XmdYZC/+hHlDxmxmZfEW8rn5f
+         +UAxJTwiywIZrRDlw7ufNS5pJLzbvMBocUYd/ac7/qSQQQna9+hljdKc6KQFvQl77w/p
+         IjLS5MRnIK30Sl+UNttobQy7bRd5TqKFKMMglUV/6n9CTLLJ7RZGP6zJi1pmhhSAEURE
+         FT2EQVzm2V0ktk+O4YqHJ9gaig0K4xX2oFEzDSRaII0j626AEiMeX45m64ZYUvACzKXN
+         CKLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792243852; x=1792848652;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792244129; x=1792848929;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7HdD63cIO1sGwME46dAp51tBAKzD7lOoAch50AxvXAQ=;
-        b=Mv7Jn5xgJORwidIVVgcerkfU3t7BNqXU9O6X3MqKUFF3JN69av6qXZ1famBB6lak3t
-         M9EjKkyoDviHV0tupsYSQkC4IkVrgS5ZJ816oOzBaSiOclUjskYNw8DczacyDPoNw81k
-         C7bqkiCTlX0EnStZStw24xuhKNo8J2yzfiVRFm7ipk499TqPo3advT2WuiOVtCGnafvL
-         ogwWKo4C/Q3bXCSwEuf4IeaqARD9ZFWhqfElyyctZ3CgylvGf/3opk40ABGRmFgqWZaf
-         uZg9Atdiq3JSU2nQAln2oVPiIR5AR6NFHcy2rXEhK9Zb8Y8E0j+eX8jYjS4wE366Rs2g
-         wdnA==
-X-Forwarded-Encrypted: i=1; AKwUvBylaNRKlvCxU9QA8VhYAa+B4R6iGRu2pYaLy4Q2V0xnzWebRVb2f9DJS9dhlX+sS9GjE9uAoSsDLSpfOHw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKD5AtphPjo8IwLmeSmFgYureUkqUB/p7RroD3gfan4Nq9CevwB
-	JLTmCOxZq50tzS43fCNEVv86QAwK1noSu2xUwUnwj51Ad0Fj0aGtpIDW
-X-Gm-Gg: AYBFou2iisr3aG1CsZ5rSy7aF8FnlZQP3FNxMq1+AsSmGvagrfW8jt9jM5s94iMnOnK
-	0W3apVI48aAWkA8QtfT96WI0xptGn1xOroFtAf3vwKaOTq9PY1dYCcArmS65pkDn1U82um34MIR
-	RlHCVzIKSVAwM3PH2nRRyMAFAn5ULaiUSR/m6vWgOgjc6JPjKgU1++63Ad8xRc4hVzYM7RiDEfz
-	znfuv1kGql6Q8D/V99BtBOoUTfr3EyC1NidAobx303itWa244zP2yb+JBTzeKcmkKv7KnTA0POI
-	JS2DJ/ePOKTDttqN5GPmqi4TUXvoNqdAoERk+OnKzQ1wpK7gMInff7UN+0R4BAWP2EHW0xd1j9w
-	ypXSjuu6JNS9YUGJ6TT0JtinTq+5J7m2TAVnV+Z3sOo/2n58cOcg/9kHQ68wj3fpL18fcmKJ1Wx
-	NDDXKmebqGW5qVo3mS4cQ1ZFTtQN+DxJoU3mNiHCMgE54mjyWBu6mQ+EqT3q6sp9HsD9+YFtvJ/
-	Dro5UjJmQ7fQzVCG2whYV+mfB49/9OG0IM/Mw/74DE1whBymTFrUe+O8CuiBioTwckVUKEgt29v
-	uEUCFO2igdQYp3a1fblm2Pd+3QuGF50R2TIIoQFEaRYGnfXC
-X-Received: by 2002:a17:90b:3e85:b0:3ac:36c7:c144 with SMTP id 98e67ed59e1d1-3acef2b4edamr1516587a91.28.1792243852151;
-        Sat, 17 Oct 2026 06:30:52 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.249])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9474b52fsm14952942a91.9.2026.10.17.06.30.48
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 17 Oct 2026 06:30:51 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Mike Christie <michael.christie@oracle.com>
-Cc: Dmitry Bogdanov <d.bogdanov@yadro.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	target-devel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yu Zhang <yuz08559@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: target: release SAM task attribute on the abort path
-Date: Sat, 17 Oct 2026 23:30:42 +1000
-Message-ID: <20261017133042.54305-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=Bg8gcmVf98z+OPBCGbYb/r+iHjc/oki2rBnkAci8HgU=;
+        b=OEaFJL7rmKzoBL6iuc1HF7dLxtDPLoeGXv5bBoSiQJ4WOQVWN2YYTkzj6W2Zei1ViC
+         pjsS4HYCk9sa5gVNQvZJ+PTCsZv1Um8ETJ0PsPx3QP7AJyG2Z1LeQrCTPEroYmHNZIPZ
+         qDjM6Nj13Fj4s0OYng8H+aAx2mKOyM/uHx2GdMdp6nwzG+i57iUiyKdM7Icpq/C4y9dS
+         oCDw7JIp1kocg0BH211c7llltzqeSypfctMnJaPkBVqoZRjzjbeQ0ZIvVOyp2rIHoYtL
+         d9fY5s3kxPG2bRcUEF0B0B7m4eeXPBO7rxva8H7j2cJ0jQlwl6yvlb2+9p5Trj4ck03V
+         I9Hg==
+X-Forwarded-Encrypted: i=1; AKwUvBy2FORKuJWYquKMJyNleLY+33W5RLxJJ4PpDeLklOvzUL4oTxwwvPeNyqmxl9N9702s0XyY1aoQZD47ZP0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJBE4jwodi2+TMyHJV9EU8RoafV7U2/nM3GHty8NGWaiPRzz6Y5
+	Rb71DmJXnb5HJ1XCHMoTGaTMZgZvi3tJBfJ7Kir+FPfoN9dyt3kS5QVdhb4cdckIYUE=
+X-Gm-Gg: AYBFou3W6rJuejilQhel6xXLTQ7bRdXP8m5MK5saSVVuJj55iE54qP/kI+WbA7fspRt
+	3L0As7KsXRkF1tsxbbgup1fQlx5wFjrXQywyTn92SB7q4oaH2i8WGVjsx4540OADWUkJjRQbX0H
+	hMMD5BGIHVB4h6rmy30hMG9ToLt5rEa2td7yY+7BYQyZMJndrnTyrz5qXwFP6btchWm673rA8KI
+	scgiCBtJpuavs8TDHt0Mf6bKHDE/3LjCn1MOuIAG05Hy8qP3Ad6q/X1ujN77LdLRn4XiJlwJtNk
+	eWAUK/2yk7lqw7SBsYKtZQ4/4t0AWYgqhk43RxANXubx/3Kf/BxVROcMko8NR8IhwHGIyuPzKLr
+	VvuCcNdpQmEWI8U6Z0ZDJqzQcS5FrdUnXoSHPEJcYPCoa4OD3jim9kXglLL3iOynToOfKIE4QB/
+	qK+A/cZnLFyiYx9YnM6Vwgy+Un5YnqfGZ16BT2mUsK0HvcegGG8mdGDcYTY24gBEgNpAncM5Yjf
+	ugdgm26UtVL
+X-Received: by 2002:a05:600c:3b2a:b0:4a1:d1f7:bf4 with SMTP id 5b1f17b1804b1-4a1d75fcdc6mr63156145e9.12.1792244129542;
+        Sat, 17 Oct 2026 06:35:29 -0700 (PDT)
+Received: from [192.168.0.167] ([109.77.131.195])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ce33155fsm90508865e9.4.2026.10.17.06.35.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 17 Oct 2026 06:35:28 -0700 (PDT)
+Message-ID: <4d307e32-04c1-4df2-b93f-9dd187fa53b5@linaro.org>
+Date: Sat, 17 Oct 2026 14:35:27 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/6] phy: qcom-mipi-csi2: C-PHY for X1E80100
+To: George Neacsu <geocausa@gmail.com>,
+ Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ David Heidelberg <david@ixit.cz>, Neil Armstrong
+ <neil.armstrong@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+ Suresh Vankadara <svankada@qti.qualcomm.com>, tjose@qti.qualcomm.com,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jigarkumar.zala@oss.qualcomm.com,
+ hariram.purushothaman@oss.qualcomm.com
+References: <20261016-x1e-cphy-rfc-v3-0-40a346a72153@gmail.com>
+ <db2fffdd-634c-4728-a2a6-2ab1816b07ba@oss.qualcomm.com>
+ <20261017070443.989736-1-geocausa@gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261017070443.989736-1-geocausa@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-A command that has started execution and is then aborted is completed
-through target_handle_abort() (target_cmd_interrupted() ->
-target_abort_work()), which bypasses target_complete_ok_work().
+On 17/10/2026 08:04, George Neacsu wrote:
+> Bryan, Vinod: unless you would rather take this series, I will follow
+> Anusha's.
 
-target_handle_abort() never calls transport_complete_task_attr(), the
-only function that releases the SAM task-attribute accounting a command
-takes in target_handle_task_attr() at execute time: for a SIMPLE command
-the dev->non_ordered reference, and for an ORDERED command the
-dev->ordered_sync_in_progress state (cleared, and non_ordered
-resurrected, by transport_complete_ordered_sync()).
+Fine by me, TBH I hadn't yet cottoned-on to the fact that the cphy init 
+sequences had been buried in the dphy file so, I'm happier with an 
+approach that = a separation of concerns between CPHY and DPHY as well 
+as absorption of both your and David's prior art - with appropriate 
+Co-Developed-by citations and SOBs.
 
-The normal completion path (target_complete_ok_work()) and the failure
-path (transport_generic_request_failure()) both call
-transport_complete_task_attr() before handling the command; the abort
-path does not, so aborting an in-flight command leaks the accounting:
+One thing I am picking up on with an initial scan is the absence of the 
+clock calculation helper functions in this new series.
 
- - Aborting an in-flight SIMPLE command leaks a dev->non_ordered
-   reference. A later ORDERED command then waits forever for non_ordered
-   to drain and every subsequent command piles up on
-   dev->delayed_cmd_list, wedging all I/O to the device.
+Anyway let's see if that turns out to be required with a deep dive on 
+this one.
 
- - Aborting an in-flight ORDERED command leaves
-   dev->ordered_sync_in_progress set forever, so target_do_delayed_work()
-   never makes progress and all subsequent commands to the device hang.
+I will mark your series as superseded in patchwork on the understanding 
+you will rebase on top of Anusha's work.
 
-Call transport_complete_task_attr() from target_handle_abort() as the
-completion and failure paths do. It is a no-op for commands that never
-set SCF_TASK_ATTR_SET (e.g. task management requests) and is idempotent
-via that flag, so it is also safe on the failure path that already
-called it before dispatching to target_abort_work().
-
-Reproduced over an iSCSI session to a demo-mode LIO target backed by a
-dm-delay device: an ORDERED WRITE held in flight at the backend is
-aborted with ABORT_TASK, after which a follow-up command never completes
-(device wedged); with this patch the follow-up command completes
-normally.
-
-Fixes: ed1227e08099 ("scsi: target: Fix ordered tag handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
 ---
- drivers/target/target_core_transport.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/target/target_core_transport.c b/drivers/target/target_core_transport.c
-index 1111111..2222222 100644
---- a/drivers/target/target_core_transport.c
-+++ b/drivers/target/target_core_transport.c
-@@ -870,6 +870,8 @@ static void target_handle_abort(struct se_cmd *cmd)
-
- 	WARN_ON_ONCE(kref_read(&cmd->cmd_kref) == 0);
-
-+	transport_complete_task_attr(cmd);
-+
- 	transport_lun_remove_cmd(cmd);
-
- 	transport_cmd_check_stop_to_fabric(cmd);
---
-2.43.0
+bod
