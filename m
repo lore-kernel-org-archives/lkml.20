@@ -1,354 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C006296BC8
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:28:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792196929; cv=none; b=Y5HvMlIQOp9xGV1Gm7grNt6S4M4cxgIDPQevor8D0r2Zq9RAK8VOZE4daIhvkTRCbhmtahbL8GiXW7cAm9324cET2aagoI7hd//3UnYLt7EGAi8qThxDb30Kiq2o3BlN0AisLQaEOzQknIi8bATel0fj4xzj+e6ZS4iyzcXV5Dg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792196929; c=relaxed/simple;
-	bh=yRmqB7AoR796XTORIAtSNd1qKQPBbiTj4Ve7ENwxn+k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IGbZU9fLcxru4M9jfRvBOJTLC03+/YE/decA0X8y6jcFdiSmepqc+saTxj/l+ZLY5EmW7Nkyosm5fexQJPM0YnitN99C4NYZZQSrA1KaypAb3ChOZyCKeSvlQoZf8KWs78XmAdQe02JVuDOXyrqeR1e5WK+dZVHXUPue1FJv/HQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HNB/ne0y; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76E3218592;
+	Sat, 17 Oct 2026 00:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792197027; cv=fail; b=rdIMEy3/bQMCf0b37vX9O20XU6Ng72Z1o+h2rP5H49QKbrkHxiz5ROuEO9KjkMhYfzZ7KLs6lt7UJM6SsSt1mBuRH2YlPwVEWztcKE94G99V/qTnpM4Zjrjvd+deiKoW1rnHlBSatLG823gUxsWFuTxyjJKYT6HiSStGuOjNjUA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792197027; c=relaxed/simple;
+	bh=Fmp0H48nE5UnuE/7g9J0g/3TX9X834XANJTWLaRhdA4=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=EC8SUuPgDd6//6w1MZf7ARR4XyWVuTQeWDzpgZOYHU1E5rEOjA4IsONZHu1aKKWzDJ0pz1Xt7nSkV8shGVVrV3uGNWoN91p2VIC81h0Eg9LjFE3vkEAdic1E6mkYxQYjSGlYvPqhEdx0qQO9uFS0evNzmYKY6c9gHiMQQ4il4eY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y3MaBTjr; arc=fail smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HNB/ne0y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2878F1F000C4;
-	Sat, 17 Oct 2026 00:28:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792196928;
-	bh=GnbkRq1p0p88yP86RNOTbQA93+fATu/eBciwdGfzIqw=;
-	h=From:To:Cc:Subject:Date;
-	b=HNB/ne0ynZAsc3Yp5slqsCpcDoSC5yEk2xaZ1F/jYJAg77R0U6WChsWFxdwiZn2tr
-	 WF3p2DPN2p0ZspqDNhiVJYOuqc/4Eit8k44E2pdoCFCpfCmOtJx54KA3Tsb7Wn/LhK
-	 QC3kHeUOXsLcXtSYBecZvN+82aqkaMSJ8OHejQnP5MeP34g/nUaiaYuoOPAGKvAnPf
-	 z/rSu2g+e/78caazcadi3VZDAXTjSqpuzuIUoSCzRVOfw1kHAf61NeNoxv879gKW2T
-	 52L2jUhvS9rJMuGMkCyozO/MorE663iOrF+pPXUxjRidS8d076xxrjqi9w4EWfzj7G
-	 s2ywWtl4kIEOA==
-From: Gao Xiang <xiang@kernel.org>
-To: linux-erofs@lists.ozlabs.org
-Cc: LKML <linux-kernel@vger.kernel.org>,
-	Gao Xiang <xiang@kernel.org>
-Subject: [PATCH] erofs: enable iomap for file-backed mounts on unencoded inodes
-Date: Sat, 17 Oct 2026 02:27:58 +0200
-Message-ID: <20261017002758.52193-1-xiang@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y3MaBTjr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792197025; x=1823733025;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=Fmp0H48nE5UnuE/7g9J0g/3TX9X834XANJTWLaRhdA4=;
+  b=Y3MaBTjrYfKtAfoiR6byUAQw00V6wHGb5+RkAlg7x5NwKBrVJU57GlT8
+   wxNGfzZh7786fxXTQX6B5nir76Q5F7QeW8upXHnn9xvtxMygW3xQRab6z
+   yElWDkKfdSx9KtkTqbhJ8vX7EXbz6oqDjt+WY4isJyLrqh97S5ZKz0ATT
+   FRNEZsyLCpnsYfx3QEKjaRltEjv54juODW7uYhYKEBzw9x53BNiJN94Z+
+   lCUj8LGf4cavun4+WTj0ontLWGwLscNdz3PhtggLhbhsOSSvZlud91e/p
+   Qrp1ZW2HP+OB1ydiDg71V57rogAy0uG9FQUcZ2d/L7Epp7GJ+pBdS1tiO
+   Q==;
+X-CSE-ConnectionGUID: s1mDqdwFTVqzTi79ixSISA==
+X-CSE-MsgGUID: p1FAs1QPRKWxwpzdSbS3vg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="995998"
+X-IronPort-AV: E=Sophos;i="6.27,162,1787036400"; 
+   d="scan'208";a="995998"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 17:30:24 -0700
+X-CSE-ConnectionGUID: tTFplR9BS+KuJzkqhLYi4A==
+X-CSE-MsgGUID: mWvfy6oqTB6Swk+6j63lHw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,162,1787036400"; 
+   d="scan'208";a="1949725"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 17:30:24 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 16 Oct 2026 17:30:23 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Fri, 16 Oct 2026 17:30:23 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.37) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 16 Oct 2026 17:30:23 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=T4Itfaj7oMfuPaM6kMtYd01fu1vW9/FYhTIXbuMX8UG28SEJ8Fn8sXAU2hxgzdW0tZG79bqGF1us4FiUpZm/XEimvM6x9G6E1GlJc+6VKliau7MSedC8U7CllkUkgMGF771SXcvyv9q3NHmxOuSsJbX9sp10wEQiT9+2D1pwCGvsSP7Qkh1iG11jNj3xWSHV3dCIxsVKXv04ez4LvU6gq8mRWmZwJRB6Gr0M50ZbTv5RyZhoK4QpdI6xFfq0UHXAN3vrw13VosT1Vn4jiCIPjF6JSSSY7g9gZSLdRVWCPoBls8Aotcf3acXhxrvW3eiZL45zwkm2BsVfk8xuRv3LAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RMb5BW4nxa4qii6bg1vH3EWdXwXA+rYKbURPvKTMwL4=;
+ b=G+XfQtdZv//gpGPy2KOtRU+axRYm2D7ySl4ruUUULxIzVzgwbSG4iR3mVXRVO8l87PZHVttCpkXxnE0BqMda8q0UDqqtWMC5PZaxBloIdqimgDNTTc5ry+0be6Jt3luA+Sf9Z2PrCMLEswm6zjqoL209BSvt3Oe4bRT0jGsGRrbbqTcpWUa9SDf42raGbruxvz/WJzXGeLpihUy5nVALSkIxaLo5vJVVKWOEdSKtzLP5y4TpsT+ZGDBaXjTWcQkXjXdcTZYh4tjzop4nhZIvYjFFOzdbPPTFZssL3mOOuACDJWrIEeG31zT+h1UrT/YXbZZ2Tv5SAtJZixefH+d22Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
+ by SJ0PR11MB5183.namprd11.prod.outlook.com (2603:10b6:a03:2d9::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Sat, 17 Oct
+ 2026 00:30:18 +0000
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0522.013; Sat, 17 Oct 2026
+ 00:30:18 +0000
+Date: Fri, 16 Oct 2026 17:30:14 -0700
+From: Alison Schofield <alison.schofield@intel.com>
+To: Richard Cheng <icheng@nvidia.com>
+CC: <dave@stgolabs.net>, <jic23@kernel.org>, <dave.jiang@intel.com>,
+	<vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
+	<gourry@gourry.net>, <rrichter@amd.com>, <linux-cxl@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH] cxl/region: Calculate peer distance only for reused
+ targets
+Message-ID: <atLBlibv3kbT7xv5@aschofie-mobl2.lan>
+References: <20261015094059.46818-1-icheng@nvidia.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261015094059.46818-1-icheng@nvidia.com>
+X-ClientProxiedBy: MW4PR04CA0280.namprd04.prod.outlook.com
+ (2603:10b6:303:89::15) To DS4PPF0BAC23327.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|SJ0PR11MB5183:EE_
+X-MS-Office365-Filtering-Correlation-Id: 670af6bf-d8f6-4804-b5d3-08df2be5d21c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|6133799003|22082099003|18002099003|10067099003|260925022911599003|260925021311599003|260925021911599003|56012099006|11063799006|261009223027099003;
+X-Microsoft-Antispam-Message-Info: 4A1EZC1fIkWfQI/qDyt7xroKVUDUUXVrN8hJDRIap47495md6KZ3aP7UnvvpaAixi3mRaMy3QM4z7XXGzIWxOZ7yUf7dji9GFjNsRjZTJdb9piPQHdohBeCFHSeNAMgC0aMpdD3Hru31aWOfDth1wJJKmS9bgX2xJldyo1Crti4UHeSGvj9JLyJ2gNP8F1faRHFq+rTiV+54nKTExJ+vNOgbbNY4baLfT82u2Se5tqfE7y9Ijgndw8Idjp2sqQrzeydyZeIL2r+nm1wQkjA4Ni0jsH0MccNJhzMNrM1evjbLnnXQYSpy7wnsy2VzKyXDTciUQtOVZ/1Ta2LtRe7R9ASzvMPZZNVJ1PcVjE1ow9hY3L79cOjEfUjSAEeaAGBdTL1roMCgfv8WEzlUfxXzYB+UU2OMYijkAOjSKRvvsZxWKCVQBh+oVJqNRGVOHiPTbUUsAIwUdnrtW2YRvvawu0PeKZuZljtWolfMTDkFx9Z6KGBKlfO9SIxbTDX8ULScPb02zaB92HhZ3xdcLKMl41U0kB3O5h8bFQhSVpxPxJFnWQ0o5L6ctDfbB9Zx42GG/wr1iPRKyBntOnVaFOnpb5U0EfCVFqmKhrQvdmo2oYMBBz3U99Inh1NTcGvfuKNO
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(6133799003)(22082099003)(18002099003)(10067099003)(260925022911599003)(260925021311599003)(260925021911599003)(56012099006)(11063799006)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?y5WcuS9mRbZ9VxxgFHWZBbQoETogVU4nH/Ux1M3OYJTzMzrw71DDb0CgfGdp?=
+ =?us-ascii?Q?1blaEmSoUUmc/LdCC00PnlsApHOrvvoC/zthPYoko7+9yZTMNA3cOcbAItqS?=
+ =?us-ascii?Q?1UTx8C7VjBOMUiZ6mmgKZfREK6xXjbk3H9bpy419FAIkaoJFYayVSbu5S4rw?=
+ =?us-ascii?Q?HYxjmU1556s0pHJIwPy/IMbWwxfsgCj0YA5Tilyx7wmIBwYcrkoMvmTzrQAA?=
+ =?us-ascii?Q?WT9vKb5KzBGNBFBjUeRJwp4bK7Ti3f/48aqN+SDIT6mwTogvKQS2Q1gWFed5?=
+ =?us-ascii?Q?ZIP/e3aHGTqNhKiLLKUJLNuGbKKZTc7NHfx1we7lHf3DLVgXS0Pn7V7/zXxD?=
+ =?us-ascii?Q?EZabTqEfgdkvkrqV+QOzwZvBwAH+nKee3sWfhnxoFVCgRpNlvSw84d9v7gqK?=
+ =?us-ascii?Q?OVbcjSLvsRLb4+BWMiJYFttiGMA0/Q3npaE1eE9VVhYxYnQilwKWNGrKJMeJ?=
+ =?us-ascii?Q?j/0qjf8KmWoxVuCJa7LZ+VEnh90sN8Yqo/01z33Lp3Ai8UQ67ioIVIAzYN99?=
+ =?us-ascii?Q?qUpZu64lA/YAzs5cbUSW9nLjBBS2OIiSKiNq2jzTzVPCxr7C0i/zOmhBA/MY?=
+ =?us-ascii?Q?CoR3CxBFA+oBwp1nYiYosuPkKjPVWCbrFbSZsLDi6NzpempN7tar9n0rUUAD?=
+ =?us-ascii?Q?cHiZwhqln7r3xisafC756DUjT6jQ7u/KPSjJwuwZENNilZAThZ6lE1/AC6hl?=
+ =?us-ascii?Q?Z8UTx5ddV6VEVSTcePTCWHppl63JcRn0prhp7kdfpPE1IiPhIGZU3pZDVg3f?=
+ =?us-ascii?Q?DlHHRJK9la9u387ps5a8wlWtN8mz6YOxGOEgIzNfV6eMP82AaoQUQEGXm2+J?=
+ =?us-ascii?Q?+FSA5h9oao47EZ4xkkdVP/KwB/C4WlZUO3ti/ZDPjOs/wJmsWJF9mYDGx8dx?=
+ =?us-ascii?Q?NRNb3+Wwrv/qXv4ewqTKQeFCw1qBbEqiR83jy2IhD0HkriuTUJ+6OryBWGOA?=
+ =?us-ascii?Q?9BOqXD633h26SqK4EZ6JqpRvIDhYWa0F0v8fsk2va4N8qS1XYlTEyDLJK+pJ?=
+ =?us-ascii?Q?Wckcyt3QZQEqyXBoOy1e76jTqXpslwW1Llnm6leKmMJghxE08gxqrso+XlEc?=
+ =?us-ascii?Q?JMTDLZuLv7mNy0LzL3CYduq0GIKQdAViL4KM7bIdDtEwlBOdm/qtwckSRf+S?=
+ =?us-ascii?Q?XQnD9Y4P2eI94BrfM8ee/Rkje+Rjciywjn7hcsUt5yxiZnvUJN0m2Qr9T9JW?=
+ =?us-ascii?Q?GxZ1/1fKCPIYK10jT82bGdIwA34EX7pZx355jQbAU+o2XmoYV/L61utv/yuE?=
+ =?us-ascii?Q?kl70gS/DIlcHF2MOt8sFbIyBuggaNwzhpyI62HbvH+qkLzASzY1o+j/+5ush?=
+ =?us-ascii?Q?hEJQXtc1EvvtJZr/umE8KyzdMpoKM7QDimvCmh3vBveYUWD5XkKYMzjz0uj8?=
+ =?us-ascii?Q?0OffzDhXSWPQ6os1DMFHBusDT7WN1vl0K19F9F8gZEpCyhs+VIEegqD+j7pr?=
+ =?us-ascii?Q?CDYLI1fLIUbGG8pOgLc3tIoXMSBPeDdmTcBaGPHNl8cSlJkI/IG0VDte0GfK?=
+ =?us-ascii?Q?dqtfg9ojSK3S8r6qyZ/BogR3LUs4ndUPtTB6J2BJyln/scmasa00icJD0rad?=
+ =?us-ascii?Q?C0cbYSp+FY/sMGYFft+Ciyy6ZWuQrWAaSUpMM0IJOf9vyVXH1p41z46OU+sn?=
+ =?us-ascii?Q?FKfz/HpAjesbyFChbbdbTw7Ek6X1Oh+5MjXjzOcA7qchuJEMoACd3XXk31mS?=
+ =?us-ascii?Q?8N/GYBhlsrF3yPYtu3e9XhwWKaopwV84D204d+kf60TuJxR8dRpbLMGX+nuB?=
+ =?us-ascii?Q?VwhcG6Ax0Tqgt0CYMJuhdww3GaY7f48=3D?=
+X-Exchange-RoutingPolicyChecked: jgUz+fZse07Z+BmT1AuB/2SSZ3Eu+Dx2MVGyGRET1KAL6hMqNWWrRINtUrGPGle4i3Cfv19B6MjcQGt7Z2/F99hlSzTA7NeM7/aWJS8Zq+fq4/7LTNbY/JXHbluEA5MK/cevD5HHA3jZRRs2kGsTDYvSsBKuvj9F0J8W3vQ6p2/0v4XF9+R2q2Mg0kB6UP6kJau4cLJtqK6c1B16XdKAhvrP0Qcx/Zbbckliy/XJkTh2VA02sNmD5bjT3GDpmq/QhcJ6AHWDUzhBAM9Av/iZnykMPUmZFwcO6RYizeoYcVnRhlrXu8Ip5vourn50eF2giYYRUST8rDz5ngrDBAiTAQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 670af6bf-d8f6-4804-b5d3-08df2be5d21c
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2026 00:30:18.5170
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QGe2gahnNZQvnHrwaMRyB8AYGmcfy3s/TSoeyeyOa0beP1L3Ssq5y0cUayz+zrfs3q9bR/S54zPvgPGpm6CeYKP9nBzuVGFPK/GLjBXyfU8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB5183
+X-OriginatorOrg: intel.com
 
-Iomap supports non-bdev I/O through fs-provided callbacks since
-commit b2f35ac4146d ("iomap: add caller-provided callbacks for read
-and readahead"), making it suitable for file-backed mounts on unencoded
-inodes.
+On Thu, Oct 15, 2026 at 05:40:59PM +0800, Richard Cheng wrote:
+> This patch depends on Alison Schofield's v3 "cxl/region: Refactor
+> cxl_port_setup_targets()" series [1], this is inspired from that serie
+> as well, since her serie contains no functional change, I pull this one
+> out as a standalone patch.
+> 
+> cxl_switch_port_setup_targets() calculates peer distance before
+> searching the existing targets. When the endpoint needs a new target,
+> the calculated distance is never used.
+> 
+> Move cxl_port_peer_distance() into the matching-target branch,
+> immediately before check_last_peer(). This avoids unnecessary ancestor
+> walks and per-port region lookups when adding distinct targets.
+> 
+> [1]:
+> https://lore.kernel.org/linux-cxl/cover.1791860305.git.alison.schofield@intel.com/
+> Signed-off-by: Richard Cheng <icheng@nvidia.com>
+> ---
+> I don't have available HW for multi-way interleaving setup, so I can't
+> exercise the case optimized here. I would appreciate if someone is
+> williing to validate the actual benefit of this.
 
-Enable iomap for this case to support sub-folio buffered I/Os on
-file-backed mounts and simplify the codebase.
+Nice patch! I've picked it up into v4 of the refactor set.
 
-Signed-off-by: Gao Xiang (Docker) <xiang@kernel.org>
----
- fs/erofs/data.c     |  23 ++++---
- fs/erofs/fileio.c   | 144 ++++++++++++--------------------------------
- fs/erofs/internal.h |   5 +-
- 3 files changed, 53 insertions(+), 119 deletions(-)
+I tested it with using the cxl unit test cxl-region-sysfs.sh and this
+at the end of cxl_port_peer_distance():
 
-diff --git a/fs/erofs/data.c b/fs/erofs/data.c
-index a726be5e27ca..fd09dc2ae3b7 100644
---- a/fs/erofs/data.c
-+++ b/fs/erofs/data.c
-@@ -308,6 +308,7 @@ static int erofs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
- 	iomap->length = map.m_llen;
- 	iomap->flags = 0;
- 	iomap->addr = IOMAP_NULL_ADDR;
-+	iomap->private = NULL;
- 	if (!(map.m_flags & EROFS_MAP_MAPPED)) {
- 		iomap->type = IOMAP_HOLE;
- 		return 0;
-@@ -322,6 +323,7 @@ static int erofs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
- 		if (ret)
- 			return ret;
- 
-+		iomap->private = mdev.m_dif;
- 		if (flags & IOMAP_DAX)
- 			iomap->dax_dev = mdev.m_dif->dax_dev;
- 		else
-@@ -396,14 +398,16 @@ int erofs_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
-  */
- static int erofs_read_folio(struct file *file, struct folio *folio)
- {
--	struct iomap_read_folio_ctx read_ctx = {
--		.ops		= &iomap_bio_read_ops,
--		.cur_folio	= folio,
--	};
- 	bool need_iput;
- 	struct erofs_iomap_iter_ctx iter_ctx = {
- 		.realinode = erofs_real_inode(folio_inode(folio), &need_iput),
- 	};
-+	struct erofs_sb_info *sbi = EROFS_I_SB(iter_ctx.realinode);
-+	struct iomap_read_folio_ctx read_ctx = {
-+		.ops = erofs_is_fileio_mode(sbi) ?
-+			&erofs_fileio_iomap_read_ops : &iomap_bio_read_ops,
-+		.cur_folio = folio,
-+	};
- 
- 	trace_erofs_read_folio(iter_ctx.realinode, folio, true);
- 	iomap_read_folio(&erofs_iomap_ops, &read_ctx, &iter_ctx);
-@@ -414,14 +418,16 @@ static int erofs_read_folio(struct file *file, struct folio *folio)
- 
- static void erofs_readahead(struct readahead_control *rac)
- {
--	struct iomap_read_folio_ctx read_ctx = {
--		.ops		= &iomap_bio_read_ops,
--		.rac		= rac,
--	};
- 	bool need_iput;
- 	struct erofs_iomap_iter_ctx iter_ctx = {
- 		.realinode = erofs_real_inode(rac->mapping->host, &need_iput),
- 	};
-+	struct erofs_sb_info *sbi = EROFS_I_SB(iter_ctx.realinode);
-+	struct iomap_read_folio_ctx read_ctx = {
-+		.ops = erofs_is_fileio_mode(sbi) ?
-+			&erofs_fileio_iomap_read_ops : &iomap_bio_read_ops,
-+		.rac = rac,
-+	};
- 
- 	trace_erofs_readahead(iter_ctx.realinode, readahead_index(rac),
- 			      readahead_count(rac), true);
-@@ -457,7 +463,6 @@ static ssize_t erofs_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
- 	return filemap_read(iocb, to, 0);
- }
- 
--/* for uncompressed (aligned) files and raw access for other files */
- const struct address_space_operations erofs_aops = {
- 	.read_folio = erofs_read_folio,
- 	.readahead = erofs_readahead,
-diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
-index ebb81a7ffd4c..aa5a80cec41c 100644
---- a/fs/erofs/fileio.c
-+++ b/fs/erofs/fileio.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (C) 2024, Alibaba Cloud
-+ * Copyright 2026 Docker, Inc.
-  */
- #include "internal.h"
- #include <trace/events/erofs.h>
-@@ -64,135 +65,66 @@ static void erofs_fileio_rq_submit(struct erofs_fileio_rq *rq)
- 		kfree(rq);
- }
- 
--static struct erofs_fileio_rq *erofs_fileio_rq_alloc(struct erofs_map_dev *mdev)
-+static struct erofs_fileio_rq *erofs_fileio_rq_alloc(struct super_block *sb,
-+						     struct file *file)
- {
- 	struct erofs_fileio_rq *rq = kzalloc_obj(*rq, GFP_KERNEL | __GFP_NOFAIL);
- 
- 	bio_init(&rq->bio, NULL, rq->bvecs, ARRAY_SIZE(rq->bvecs), REQ_OP_READ);
--	rq->iocb.ki_filp = mdev->m_dif->file;
--	rq->sb = mdev->m_sb;
-+	rq->iocb.ki_filp = file;
-+	rq->sb = sb;
- 	refcount_set(&rq->ref, 2);
- 	return rq;
- }
- 
- struct bio *erofs_fileio_bio_alloc(struct erofs_map_dev *mdev)
- {
--	return &erofs_fileio_rq_alloc(mdev)->bio;
-+	return &erofs_fileio_rq_alloc(mdev->m_sb, mdev->m_dif->file)->bio;
- }
- 
- void erofs_fileio_submit_bio(struct bio *bio)
- {
--	return erofs_fileio_rq_submit(container_of(bio, struct erofs_fileio_rq,
--						   bio));
-+	erofs_fileio_rq_submit(container_of(bio, struct erofs_fileio_rq, bio));
- }
- 
--static int erofs_fileio_scan_folio(struct erofs_fileio *io,
--				   struct inode *inode, struct folio *folio)
-+static void erofs_fileio_iomap_submit_read(const struct iomap_iter *iter,
-+		struct iomap_read_folio_ctx *ctx)
- {
--	struct erofs_map_blocks *map = &io->map;
--	unsigned int cur = 0, end = folio_size(folio), len, attached = 0;
--	loff_t pos = folio_pos(folio), ofs;
--	int err = 0;
-+	struct erofs_fileio_rq *rq = ctx->read_ctx;
- 
--	erofs_onlinefolio_init(folio);
--	while (cur < end) {
--		if (!in_range(pos + cur, map->m_la, map->m_llen)) {
--			map->m_la = pos + cur;
--			map->m_llen = end - cur;
--			err = erofs_map_blocks(inode, map);
--			if (err)
--				break;
--		}
--
--		ofs = folio_pos(folio) + cur - map->m_la;
--		len = min_t(loff_t, map->m_llen - ofs, end - cur);
--		if (map->m_flags & EROFS_MAP_META) {
--			struct erofs_buf buf = __EROFS_BUF_INITIALIZER;
--			void *src;
--
--			src = erofs_read_metabuf(&buf, inode->i_sb,
--				map->m_pa + ofs, erofs_inode_in_metabox(inode));
--			if (IS_ERR(src)) {
--				err = PTR_ERR(src);
--				break;
--			}
--			memcpy_to_folio(folio, cur, src, len);
--			erofs_put_metabuf(&buf);
--		} else if (!(map->m_flags & EROFS_MAP_MAPPED)) {
--			folio_zero_segment(folio, cur, cur + len);
--			attached = 0;
--		} else {
--			if (io->rq && (map->m_pa + ofs != io->dev.m_pa ||
--				       map->m_deviceid != io->dev.m_deviceid)) {
--io_retry:
--				erofs_fileio_rq_submit(io->rq);
--				io->rq = NULL;
--			}
--
--			if (!io->rq) {
--				io->dev = (struct erofs_map_dev) {
--					.m_pa = io->map.m_pa + ofs,
--					.m_deviceid = io->map.m_deviceid,
--				};
--				err = erofs_map_dev(inode->i_sb, &io->dev);
--				if (err)
--					break;
--				io->rq = erofs_fileio_rq_alloc(&io->dev);
--				io->rq->bio.bi_iter.bi_sector =
--					(io->dev.m_dif->fsoff + io->dev.m_pa) >> 9;
--				attached = 0;
--			}
--			if (!bio_add_folio(&io->rq->bio, folio, len, cur))
--				goto io_retry;
--			if (!attached++)
--				erofs_onlinefolio_split(folio);
--			io->dev.m_pa += len;
--		}
--		cur += len;
--	}
--	erofs_onlinefolio_end(folio, err, false);
--	return err;
-+	erofs_fileio_rq_submit(rq);
-+	ctx->read_ctx = NULL;
- }
- 
--static int erofs_fileio_read_folio(struct file *file, struct folio *folio)
-+static int erofs_fileio_iomap_read_folio_range(const struct iomap_iter *iter,
-+		struct iomap_read_folio_ctx *ctx, size_t plen)
- {
--	bool need_iput;
--	struct inode *realinode = erofs_real_inode(folio_inode(folio), &need_iput);
--	struct erofs_fileio io = {};
--	int err;
--
--	trace_erofs_read_folio(realinode, folio, true);
--	err = erofs_fileio_scan_folio(&io, realinode, folio);
--	erofs_fileio_rq_submit(io.rq);
--	if (need_iput)
--		iput(realinode);
--	return err;
--}
--
--static void erofs_fileio_readahead(struct readahead_control *rac)
--{
--	bool need_iput;
--	struct inode *realinode = erofs_real_inode(rac->mapping->host, &need_iput);
--	struct erofs_fileio io = {};
--	struct folio *folio;
--	int err;
--
--	trace_erofs_readahead(realinode, readahead_index(rac),
--			      readahead_count(rac), true);
--	while ((folio = readahead_folio(rac))) {
--		err = erofs_fileio_scan_folio(&io, realinode, folio);
--		if (err && err != -EINTR)
--			erofs_err(realinode->i_sb, "readahead error at folio %lu @ nid %llu",
--				  folio->index, EROFS_I(realinode)->nid);
-+	struct folio *folio = ctx->cur_folio;
-+	struct erofs_fileio_rq *rq = ctx->read_ctx;
-+
-+	if (!rq ||
-+	    !bio_add_folio(&rq->bio, folio, plen,
-+			   offset_in_folio(folio, iter->pos))) {
-+		struct super_block *sb = iter->inode->i_sb;
-+		const struct iomap *iomap = &iter->iomap;
-+		struct erofs_device_info *dif = iomap->private;
-+
-+		/* submit the existing range if there was one. */
-+		if (ctx->read_ctx)
-+			erofs_fileio_iomap_submit_read(iter, ctx);
-+		rq = erofs_fileio_rq_alloc(sb, dif->file);
-+		rq->bio.bi_iter.bi_sector = iomap_sector(iomap, iter->pos);
-+		bio_add_folio_nofail(&rq->bio, folio, plen,
-+				offset_in_folio(folio, iter->pos));
-+		ctx->read_ctx = rq;
-+		ctx->read_ctx_file_offset = iter->pos;
- 	}
--	erofs_fileio_rq_submit(io.rq);
--	if (need_iput)
--		iput(realinode);
-+	return 0;
- }
- 
--const struct address_space_operations erofs_fileio_aops = {
--	.read_folio = erofs_fileio_read_folio,
--	.readahead = erofs_fileio_readahead,
-+const struct iomap_read_ops erofs_fileio_iomap_read_ops = {
-+	.read_folio_range	= erofs_fileio_iomap_read_folio_range,
-+	.submit_read		= erofs_fileio_iomap_submit_read,
- };
- 
- int erofs_read_meta_folio(struct file *file, struct folio *folio)
-@@ -207,7 +139,7 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
- 	if (err)
- 		return err;
- 
--	io.rq = erofs_fileio_rq_alloc(&io.dev);
-+	io.rq = erofs_fileio_rq_alloc(inode->i_sb, io.dev.m_dif->file);
- 	io.rq->bio.bi_iter.bi_sector =
- 		(io.dev.m_dif->fsoff + io.dev.m_pa) >> 9;
- 	erofs_onlinefolio_init(folio);
-diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
-index da58053c1116..666c7294a0f3 100644
---- a/fs/erofs/internal.h
-+++ b/fs/erofs/internal.h
-@@ -380,7 +380,6 @@ struct erofs_map_dev {
- 
- extern const struct super_operations erofs_sops;
- extern const struct address_space_operations erofs_aops;
--extern const struct address_space_operations erofs_fileio_aops;
- extern const struct address_space_operations z_erofs_aops;
- 
- extern const struct inode_operations erofs_generic_iops;
-@@ -393,6 +392,7 @@ extern const struct file_operations erofs_dir_fops;
- extern const struct file_operations erofs_ishare_fops;
- 
- extern const struct iomap_ops z_erofs_iomap_report_ops;
-+extern const struct iomap_read_ops erofs_fileio_iomap_read_ops;
- 
- int erofs_setup_managed_cache(struct super_block *sb);
- #ifdef CONFIG_EROFS_FS_BACKED_BY_FILE
-@@ -450,9 +450,6 @@ erofs_get_aops(struct inode *realinode)
- 			  "EXPERIMENTAL EROFS subpage compressed block support in use. Use at your own risk!");
- 		return &z_erofs_aops;
- 	}
--	if (IS_ENABLED(CONFIG_EROFS_FS_BACKED_BY_FILE) &&
--	    erofs_is_fileio_mode(EROFS_SB(realinode->i_sb)))
--		return &erofs_fileio_aops;
- 	return &erofs_aops;
- }
- 
--- 
-2.47.3
+dev_dbg(&cxlr->dev, "%s:%s: peer distance %d\n",
+        dev_name(port->uport_dev), dev_name(&port->dev), distance);
 
+The x8 region went from 10 calls to 4. The eliminated calls were for
+new downstream targets and the remaining calls were for reused
+targets where check_last_peer() needs the distance.
+
+The x2 auto region also went from 2 calls to 1.
+
+I tested the peer validation path by swapping endpoints at positions
+0 and 2 in cxl-region-sysfs.sh. The mismatched peer was detected and
+the region rejected.
+
+-- Alison
+
+> 
+> Best regards,
+> Richard Cheng.
+> ---
+>  drivers/cxl/core/region.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/cxl/core/region.c b/drivers/cxl/core/region.c
+> index 50f4830c225d..efd173c57dad 100644
+> --- a/drivers/cxl/core/region.c
+> +++ b/drivers/cxl/core/region.c
+> @@ -1666,10 +1666,10 @@ static int cxl_switch_port_setup_targets(struct cxl_port *port, struct cxl_regio
+>  
+>  	cxlsd = to_cxl_switch_decoder(&cxld->dev);
+>  	if (cxl_rr->nr_targets_set) {
+> -		int distance = cxl_port_peer_distance(port, cxlr);
+> -
+>  		for (int i = 0; i < cxl_rr->nr_targets_set; i++)
+>  			if (ep->dport == cxlsd->target[i]) {
+> +				int distance = cxl_port_peer_distance(port, cxlr);
+> +
+>  				rc = check_last_peer(cxled, ep, cxl_rr,
+>  						     distance);
+>  				if (rc)
+> -- 
+> 2.43.0
+> 
