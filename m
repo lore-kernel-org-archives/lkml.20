@@ -1,100 +1,108 @@
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2F9476CD3;
-	Sat, 17 Oct 2026 22:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E3E3CEBA9;
+	Sat, 17 Oct 2026 22:09:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792274558; cv=none; b=KzvwcfFYDoLcg3caWd1IZJIv+hk/P/mDSIE7UZM8GWLxud6ZtWIskxvaH99wR6m/cCdhpkCRgUBPJx+12sMBf3QTnQedImBP228D3lG8SdIme2W65eigPMRIcEMFemFonYDrsgbd2YMbbrplBxfcKVaA0CX6UGGV48oZfyQCeJE=
+	t=1792274957; cv=none; b=p0gq1Gu22HW+XBywh/3YWDZ58cVZqYTzKy66dJnfZ/6/em3RRJuDsqQ/YfRiaua5xyChs9uTH/mExqi4YnVk4V2Qb8fn204vZP+x879qIiA9aW86tJlinwNeLOWZtctJQSymAsXKekXfXc8LLd7ti3ogZ5Q6z4sDrjlC5M58RB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792274558; c=relaxed/simple;
-	bh=Vc+m7Gpi6RSXlHOcniGXp1iDUeMacvLIvd8xUuPFJAs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Z4iirYlIq7q8Xl2FFxU5ZOU3waKYMuycC0xkmKMHr9ZrsRiHbutgabyK6ELE9t95XbEVXyMEhIuK0jFkuJfrcbYv5anqVr2YD8aQee4CeEM8Z73VEuNN7vLMnmRP5Fgxi9+rdl7BfsZy0j73tjlRGXRLjShzQjxOKLDDklLXCcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=JUT0LK3t; arc=none smtp.client-ip=159.69.126.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
+	s=arc-20240116; t=1792274957; c=relaxed/simple;
+	bh=faV6llRO8CaHdvnOHiJm/DyZ8pHAKov1RneZKmx3TLQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eZsrQGleGCi4EkiV44w6K4hFhR0IOmj343yyKJ5XWqx+DxY7J9gxHFzDsw/7nydTvZ3pmxFqZSM3l5QSO3oU+fPkZUC+LlR4pnhH/J6aD1tx5SwFgdNvLG/UaYBwmT/Qcotef5/wV5n0hgncM9ykxRwxJeobelJIN/5wJUMFJ/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bO7y+lSm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="JUT0LK3t"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
-	s=mail; t=1792274552;
-	bh=Vc+m7Gpi6RSXlHOcniGXp1iDUeMacvLIvd8xUuPFJAs=;
-	h=From:Date:Subject:To:Cc:From;
-	b=JUT0LK3t+MccQ7y+JZNBSFBm0W0x9iZ3y0WNHnScowj+KKz5YEeO84zUH8+vC8kpY
-	 dzh0hGi8EGVeHhx1wC1fwLIfB81ohiVrGK+nZzUEORj1gVB7ZBdks2OWWZ/CTDDj9c
-	 qFZaEMgo1Xj2W1fB8y2+U0wM2h3VKcSZFudf+E98=
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Sun, 18 Oct 2026 00:02:18 +0200
-Subject: [PATCH] selftests/nolibc: explicitly disable position independent
- executables
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bO7y+lSm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC03C1F000C4;
+	Sat, 17 Oct 2026 22:09:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792274955;
+	bh=KhTRZDCPpifaW7Sm9z1hzbF40fk1NfbUB9WfmrVLg8A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=bO7y+lSmxj0SlJM9+CUPvuZElDqByoSHYm/KYQ7tgpv1VvykUM/YDDVylp4K86DkO
+	 0yiGcJMJu0Ho40kUy3eR6gvcE8/kE+BKVTGeBEDzi/dUfNMj3J1UoMMMGn45B6x+U4
+	 AoYXf4uLZe7HL2mb2CNFnzmw2FiTH8XJvHjsDiY1+bgCFucpb4Apglv/wZhXLXJOUW
+	 DcU3KD2zmgkq0WCf482jyBrN/bhDUrx4Wr8HbRJiGPk3wdqczPVTizKlpZ8egxoT6s
+	 Rpuwof0yPYMpfsrv3ULOEIM1ghouaOlrNnSTTFdS7d84Q3RYvkPlRCNaWglljCxCz4
+	 oaZY4MCjMly3w==
+Date: Sat, 17 Oct 2026 23:09:10 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Viral Patel <viral8854@gmail.com>
+Cc: Dixit Parmar <dixitparmar19@gmail.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: magnetometer: tlv493d: fix magnetic field scale
+Message-ID: <20261017230910.77d1637b@jic23-hlaptop>
+In-Reply-To: <20261014-tlv493d-scale-fix-v1-1-69a722176c06@gmail.com>
+References: <20261014-tlv493d-scale-fix-v1-1-69a722176c06@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261018-nolibc-unused-arguments-v1-1-6cba71555fe8@weissschuh.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQqDMAyA4VeRnBdoxXWwV5EdbIwuY4vSWBHEd
- 7fbjt/h/3cwTsIG92qHxKuYTFrgLxXQs9ORUfpiqF0dvPM31OktkTBrNu6xS2P+sC6G8eqagVz
- w1AQo9Zx4kO13bh9/W44vpuW7g+M4Ae6S9sl7AAAA
-X-Change-ID: 20261017-nolibc-unused-arguments-b504fc061c46
-To: Willy Tarreau <w@1wt.eu>, Shuah Khan <shuah@kernel.org>, 
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
-Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792274551; l=1970;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=Vc+m7Gpi6RSXlHOcniGXp1iDUeMacvLIvd8xUuPFJAs=;
- b=2AU69PoxQRnQ4EbAm0e6BW6u2EXyJGm1PhEJAGI3GAG1G45Fpk1Dp1iRV28ZdF95pgmsmL2V4
- 9+KpOXwOpd5Av2HyuMKzxrFsC+Hf0E5Y6nlzaZkRxJ38AaqkYo6HVXb
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-nolibc does not support position independent executables (PIE).
-However a toolchain might generate these by default depending on various
-circumstances. Recently clang started to do so for hexagon. See LLVM
-commit ab43cb8520c0 ("[Hexagon] Pass -pie to linker when PIE is the
-toolchain default (#189723)").
+On Wed, 14 Oct 2026 23:07:36 +0530
+Viral Patel <viral8854@gmail.com> wrote:
 
-As clang can also be configured to create PIE for other architectures by
-default disable it globally. While we are at it also pass the argument
-for GCC to be on the safe side.
+> The TLV493D-A1B6 datasheet specifies a magnetic resolution of
+> 98 uT/LSB (0.098 mT/LSB). IIO reports magnetic field in Gauss
+> (1 mT =3D 10 G), so the scale should be 0.98 G/LSB.
+>=20
+> The driver currently reports 98/1000 =3D 0.098 G/LSB, which
+> under-reports the magnetic field by a factor of 10. The comment
+> also gives the resolution as 0.0098 mT (9.8 uT), mixing up units.
+>=20
+> Correct the scale value and the comment.
+>=20
+> Fixes: 106511d280c7 ("iio: magnetometer: add support for Infineon TLV493D=
+ 3D Magentic sensor")
+> Signed-off-by: Viral Patel <viral8854@gmail.com>
 
-If PIE is disabled already, clang will generate
--Wunused-command-line-argument warnings. Inhibit those.
+I'll give some time for Dixit to take a look at this.
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
----
-I ran into this when testing the upcoming PR to Linus.
-The referenced LLVM commit was released between when I wrote the hexagon
-support and today. My plan is to fold this patch into the PR.
----
- tools/testing/selftests/nolibc/Makefile.include | 1 +
- 1 file changed, 1 insertion(+)
+Thanks,
 
-diff --git a/tools/testing/selftests/nolibc/Makefile.include b/tools/testing/selftests/nolibc/Makefile.include
-index ea520eac64a6..14e51c821d8a 100644
---- a/tools/testing/selftests/nolibc/Makefile.include
-+++ b/tools/testing/selftests/nolibc/Makefile.include
-@@ -8,6 +8,7 @@ _CFLAGS_SANITIZER ?= $(call cc-option,-fsanitize=undefined -fsanitize-trap=all)
- CFLAGS_NOLIBC_TEST  ?= -Os -fno-ident -fno-asynchronous-unwind-tables -std=c89 -ggdb \
- 		-W -Wall -Wextra -Wundef -Wwrite-strings \
- 		$(call cc-option,-fno-stack-protector) $(call cc-option,-Wmissing-prototypes) \
-+	        $(call cc-option,--start-no-unused-arguments) -no-pie $(call cc-option,--end-no-unused-arguments) \
- 		$(_CFLAGS_STACKPROTECTOR) $(_CFLAGS_SANITIZER)
- 
- NOLIBC_TEST_SOURCES := nolibc-test.c nolibc-test-linkage.c nolibc-test-ignore-errno.c
+Jonathan
 
----
-base-commit: f9532b372e415e8198287ce010efa22f337857b5
-change-id: 20261017-nolibc-unused-arguments-b504fc061c46
-
-Best regards,
---  
-Thomas Weißschuh <linux@weissschuh.net>
+> ---
+> Found while comparing this driver against the TLE493D-W2B6 register
+> map for a new driver I am working on. Compile-tested only; I do not
+> have TLV493D-A1B6 hardware.
+> ---
+>  drivers/iio/magnetometer/tlv493d.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/iio/magnetometer/tlv493d.c b/drivers/iio/magnetomete=
+r/tlv493d.c
+> index 03415cc2c9b3..234e3ce63ff7 100644
+> --- a/drivers/iio/magnetometer/tlv493d.c
+> +++ b/drivers/iio/magnetometer/tlv493d.c
+> @@ -299,11 +299,11 @@ static int tlv493d_read_raw(struct iio_dev *indio_d=
+ev,
+>  		switch (chan->type) {
+>  		case IIO_MAGN:
+>  			/*
+> -			 * Magnetic field scale: 0.0098 mTesla (i.e. 9.8 =C2=B5T)
+> -			 * Magnetic field in Gauss: mT * 10 =3D 0.098.
+> +			 * Magnetic field scale: 0.098 mTesla (i.e. 98 =C2=B5T) per LSB.
+> +			 * In Gauss (1 mT =3D 10 G): 0.98 G per LSB.
+>  			 */
+>  			*val =3D 98;
+> -			*val2 =3D 1000;
+> +			*val2 =3D 100;
+>  			return IIO_VAL_FRACTIONAL;
+>  		case IIO_TEMP:
+>  			/*
+>=20
+> ---
+> base-commit: ceb05f22e5cdc3f8bd3f7d5dcfc57843942191dd
+> change-id: 20261014-tlv493d-scale-fix-5a0b83b52d2a
+>=20
+> Best regards,
 
