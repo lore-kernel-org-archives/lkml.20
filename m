@@ -1,170 +1,908 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010045.outbound.protection.outlook.com [52.101.85.45])
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4238F39EF39
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:52:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792263180; cv=fail; b=AP3HP6Gbb9YEDS5S5Yc7ycZryzA8z003z+PvmoEYSUguUtbsqR/9PtC0j0eeC0Ml2YNZN6jXRwV69pqgZGc/KCf847/JyVuq5jo/gJX6m72DDlUJFMNDQxgx+JBV7xlumFZ70VGAUOfXc7kPJxdkLlQrIq4kzljY6vx+znw3waE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792263180; c=relaxed/simple;
-	bh=fRjqPKHGPYYWwIQKbhIQe4YUC72OBJb2LsnJJO0D4EA=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IGtszSV4G7laJjFIJ/YA0wKn1o2Hjc8R+TGaY7/vKEWVVGizfKAwxkuoABgdUhkS0EFdaXU7aQCRXSD6svUUzKIAPZmgYV73PjmlnL874DEYxEww3iJS1iU11z6B9cXosiuZcnfDjoXYk1Jl/pb/R6NAcsICVJoXj7nIbVagiBM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ULXkPGq+; arc=fail smtp.client-ip=52.101.85.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F173C73EC
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:53:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.183
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792263205; cv=none; b=SjzQz8ZFf3aJ6d6OXie6pTtjq8HdI6gpMni6hGl5VYkKzcfZzFxzNqqGh2p8b+rii9rVXU1uLr6Oi5QzhSXUFCRVLRp+XFOdYrZYkDEIBlJayoNHSsv2mYZ/iJ8EN1TXGiAQxKdg5W5BdQckCEkmG7Fu6XL/Vi2IIQ/t4ScZcTA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792263205; c=relaxed/simple;
+	bh=vQa0F19ORCfbK7Z7Ti7ov+6PNSzRrql1mfYU6WC+750=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=W6V/KnucVnyks1ZnVqX+b7kfI0lyLrO47hxqZ9TzSi66q2MUzvzs6CfabZxk8D/q7n7ykYGhAmyxzXl5z/iEyCaMGHqMmbi5Hep1vvyGLB5tDnrOwHGwNu3AdbeBq3jI9CzXJ67UB36y0jiKQaMTUfTDJ7oaupay6UFcaAGrFuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=sZyawPgL; arc=none smtp.client-ip=195.121.94.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ULXkPGq+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SOtauT+41YUPIDGcnPR48TmjHAp8ZZ7eGxE8zC1yC2hKG3dZVIPIs70eGpyw6UROLWdLSn4oXjOjZ8aR2dPZsIANrhAF1q80lPaxPxWTeh5UxKoNXZB0lX8q9MOKIorpTouMgCUCmgR9qfGhdpEME6eLc48gXVKT3VDF1B5hQQ/GotmOpS4+0+0m7bO6sMqo5vRO0wx7slUh6pJBt77CVxF+VySkho0xrkfyp1C/f5qi/f3SMwrALj53TzjDfmk0ut9VsnWPWWE2glEW73M2Bo6eqeuUzKBHJOIxuviM+uluhK6mSyDuPNIfx0LuLvvWnXKHB49gRxH/TBTWWt8gvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fnG1IHbKdrW5+1vo0oRNSVva4D3AZOkREuzQNjGzOQQ=;
- b=e0vT2W9Ex53WmycrAcotrx6F1UkdYWwKumNWRs/qHBScoOOThpNLktaUqEcQ2qqtvFtf/bYRUl0sWCTvDpJnLuWstYwWMNw43ri6oak0z2YH4626umhiV1QeD6a1sE1LhMCI//kZ9rytO/t/aX4xH4iilCrbDkCgdkJcq3xlZvg2ugD/YGzHFH+Hm/N7SUJ2CaHNlP+RG2lUJ30a+Jm/hokvG/ovBE7zJUgT5QnRcvPp9ogJdJugYY5M0zZhZ1vMnW5PVb1XD6GjG/CFNbFb0UnWaWjRxDoS1HSNMru2SaNCNN3hJADGSaFae3kKYrdzWhrIkUiJZnEkMI9SK5zTSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=linux.alibaba.com
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fnG1IHbKdrW5+1vo0oRNSVva4D3AZOkREuzQNjGzOQQ=;
- b=ULXkPGq+nWguu9U8G6cBRE41jRRuvsCdmfAPXmWTZU5o6ba1b7wLqtAJICo4CnNpZiHyeURO4CBo0+w0mKu3eRRo8J+kJ7n7GYBi5z9PtwBYppZCgtAGOT7QOe4jlwaPq9vhX5u7CNhYi+aDVNipuoenYPmVpWDhVACzoa/DhZSFyK56iOsxlRkUMalcACNJIrPFdE8twhLCeKFPSdyIy1FZd2rTuNKxBLtPTquzFZyP7x6AxYfD6HKoxH2Aq+A5YdQk84V883revaB8QgMgKVyxdQQc0NbM3aeuoyBOla0mfaVkjZWLcdd4oeqvGmQ4L4Hhs/TKmLmOwpilVt5RsA==
-Received: from PH7P221CA0058.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:33c::28)
- by PH7PR12MB5951.namprd12.prod.outlook.com (2603:10b6:510:1da::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Sat, 17 Oct
- 2026 18:52:52 +0000
-Received: from BY1PEPF00026964.namprd05.prod.outlook.com
- (2603:10b6:510:33c:cafe::a3) by PH7P221CA0058.outlook.office365.com
- (2603:10b6:510:33c::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Sat, 17
- Oct 2026 18:52:52 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- BY1PEPF00026964.mail.protection.outlook.com (10.167.244.148) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Sat, 17 Oct 2026 18:52:52 +0000
-Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Sat, 17 Oct
- 2026 11:52:51 -0700
-Received: from drhqmail202.nvidia.com (10.126.190.181) by
- drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sat, 17 Oct 2026 11:52:51 -0700
-Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.126.190.181)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Sat, 17 Oct 2026 11:52:50 -0700
-Date: Sat, 17 Oct 2026 11:52:47 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Shuai Xue <xueshuai@linux.alibaba.com>
-CC: <will@kernel.org>, <robin.murphy@arm.com>, <joro@8bytes.org>,
-	<jgg@nvidia.com>, <praan@google.com>, <kevin.tian@intel.com>,
-	<smostafa@google.com>, <linux-arm-kernel@lists.infradead.org>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, <jamien@nvidia.com>,
-	<kas@kernel.org>, Cristian Prundeanu <cpru@amazon.com>, Breno Leitao
-	<leitao@kernel.org>
-Subject: Re: [PATCH v11 00/11] iommu/arm-smmu-v3: Adopt the crashed kernel's
- stream table for kdump
-Message-ID: <atPD/yTKA1Jw3bS1@nvidia.com>
-References: <cover.1791226953.git.nicolinc@nvidia.com>
- <27f2e050-10c0-4a77-8d59-00a95a162912@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="sZyawPgL"
+X-KPN-MessageId: ff3b03f1-ca5b-11f1-8f57-005056992ed3
+Received: from mta.kpnmail.nl (unknown [10.31.161.188])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id ff3b03f1-ca5b-11f1-8f57-005056992ed3;
+	Sat, 17 Oct 2026 20:53:09 +0200 (CEST)
+Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.190])
+	by mta.kpnmail.nl (Halon) with ESMTP
+	id ff3948d6-ca5b-11f1-ac19-00505699693e;
+	Sat, 17 Oct 2026 20:53:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xs4all.nl; s=xs4all01;
+	h=content-type:mime-version:subject:message-id:to:from:date;
+	bh=mUTNcdOuFAwoXfXDwXLYSMXRay+TgTQDaU/WFJpqPps=;
+	b=sZyawPgLOdsQtwJatn0lgz9VPZUGuToq+A9aDqRGD5hbFQRKxirkoHrAXyROD0lhKs9sc01yNdskq
+	 zljVuTFvvRH1+zPKTUbiziPDaiUmF0AnYoIvj9pKQQdZcVMWCGvupxejNo8/kBLGiTmkUO2BeaHzLF
+	 bF8rhOMw96u6pJzgyZFHcK8GsZfpywgOpqz0JzxiCznvkBbmCdz9K5pi5B7fOApJ5nwy3J4DZVh+BI
+	 P0lwCt8ExCHqMGUD0SbUerEJB4Kd0xrW2oedtCGifOD866OlWSq53eLpDdXTaxjDKHGiD3Sge4NydH
+	 GkrASB10sSh+f76mkA9Mv1h9pTRGsXg==
+X-KPN-MID: 33|VleHav72ZJ+i0xrWgv0z2KEkh/pvNCHiRvg8hKim2iZBDaF+5c6+sdKqTvNicoC
+ LlCbrOHgiPIDt6MDP4R7TeQ==
+X-CMASSUN: 33|hGtNWVFMuWtd9Cm2sKC3BEFuQiygsHP3JZJu6ZLShSoPsbDUYms6ULOn+yyOVgd
+ 0Ti29C1+fnBpH2rpJ6WiBIw==
+X-KPN-VerifiedSender: Yes
+Received: from cpxoxapps-mh06 (cpxoxapps-mh06.personalcloud.so.kpn.org [10.128.135.212])
+	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
+	id ff29e411-ca5b-11f1-916a-005056995d6c;
+	Sat, 17 Oct 2026 20:53:09 +0200 (CEST)
+Date: Sat, 17 Oct 2026 20:53:09 +0200 (CEST)
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org, Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>, Amir Goldstein <amir73il@gmail.com>,
+	Aleksa Sarai <cyphar@cyphar.com>
+Message-ID: <389954710.1309939.1792263189694@kpc.webmail.kpnmail.nl>
+In-Reply-To: <20261016143806.2946578-9-jkoolstra@xs4all.nl>
+References: <20261016143806.2946578-1-jkoolstra@xs4all.nl>
+ <20261016143806.2946578-9-jkoolstra@xs4all.nl>
+Subject: Re: [PATCH v7 08/12] vfs: add O_CREAT|O_DIRECTORY to open*(2)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <27f2e050-10c0-4a77-8d59-00a95a162912@linux.alibaba.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF00026964:EE_|PH7PR12MB5951:EE_
-X-MS-Office365-Filtering-Correlation-Id: c068e7dc-89b8-4488-eb35-08df2c7fd8db
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|23010399003|7416014|376014|4143699003|56012099006|18002099003|22082099003|6133799003|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	nIbCEIq3wVML9+dCGxIYI3EwinKQcP0XZ4qmrXUiTF/YJmXHKQUssjrGx9vx1B6zLqm/mBl2nmVTYX5N8m910MkajryUGTRLCUfp5QXLhSXiw7lQW3Oa1cGWhknBN6Zmshzk09b0+PQBzSgukXmSk5RxO7fFolFFSnIupeefgrpgV3XEzz29QCr0V8IjSbUOJCmHf0aOBz6/u1cPTzxa2Ivokrotk75mkqsL6PsPhjk48xoSN6jmYfpfhMm78qlh/vFcibuXwypoJOYPFUFGXRTEikXxZJlQBIQMqmET3MAyOWuvFkDxHT6qByg0vKycOky0Sh2oetPRXDatQdIQAjepWebhR704J+WjVUxRLQf2YhWVx9MwOWv/ejtbx+r648IwFCkMGMMBrJYaujLjZsb7stHIonaEKRJ1dHApBiSH/n4y7WtjXC0oppn2isSwGIw+uy0dMZfS0r2ZDW609EQy3u7Vu0KVX6x/WLVCjw6OgDDtMgTtfR7DCaBk0FQmCgvg4RLe0dmTCKtV223xe5fRYIHdfAeRi08dpIte4Lm5135XyIaH336Y8hi+f8ld3+IZsySYYmKHRCGGYdgnDkXuv/HgM2J69jJFsgF/BBp5w1oSUN5ReWRDsabYStA/GaT7lkEMeuDxlSj+ukmQ79GgBFzpzbEnDybU3Y2E7tOnj9uuplHJwRJuCiBLqgBK8ckMMNlnsbMfhTlViKHxvg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(7416014)(376014)(4143699003)(56012099006)(18002099003)(22082099003)(6133799003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Y/2BpgpMVeCtGiTgQupv+bCDJRhQptll+bf64fDbZefIoMkcYZyAZjNRX6vmWSMiNavp8wFQlAu0QWH3TaZ4n9qPT6oS+Ps/AKxU2G+CAdlfh244TxSudtXAWME8LInkzQr2VTPoX2XZHhQJc97aRccS4UiMRiaeMljm8ZsfHnN4e+nX+juzT5I4pJY+x1MuiqnrRa/DyJ/LFj+BAo9VDzGYMe425eDYHA611TjKxqamVWhz5xtKGp9rtJoQl7H9XKipfoRBu4BHNT+WiUEaLRKuQKGHaukoUw7NGS0frUtPd2ThOG0gWGTDDSb25OlV3mMvr9m2FXc2pqQ8Wk/5PiiV56eJrfs/ZvXrOu16I2uvyrWmkAjJ2ftXEyIVsfD58Bx+6t/Sbg78SB2iu4SZTRjgfMRNvifV4yLJjd2z22FecOGAb45opFfXc0zBf2DT
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2026 18:52:52.0503
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c068e7dc-89b8-4488-eb35-08df2c7fd8db
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF00026964.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5951
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+Importance: Normal
 
-On Sat, Oct 17, 2026 at 04:19:20PM +0800, Shuai Xue wrote:
-> We tested this series (v11, backported onto our 6.6-based kernel) on two
-> arm64 server platforms that differ in how PCIe errors are reported: one
-> with firmware-first reporting (GHES/CPER), the other with OS-first AER
-> plus DPC. The test triggers a kdump crash (echo c > /proc/sysrq-trigger)
-> on an otherwise idle machine and compares the capture kernel's dmesg
-> between the unpatched baseline and the kernel carrying this series.
-> 
-> On the firmware-first platform (10 SMMUv3 instances):
-> 
->   Unpatched, every SMMU logs:
-> 
->     arm-smmu-v3.0.auto: SMMU currently enabled! Resetting...
-> 
->   and the destructive reset immediately aborts in-flight DMA. The capture
->   kernel then drowns in a storm of GHES/CPER records together with PCIe
->   AER "Poisoned TLP" (Data Link Layer) errors from the devices that were
->   bus-mastering at crash time. Devices behind the reset SMMUs fail to
->   recover in the capture kernel, and in some runs the capture kernel
->   hangs in the error storm instead of saving the vmcore.
-> 
->   With the series applied, all 10 SMMUs log:
-> 
->     arm-smmu-v3.0.auto: kdump: retaining SMMUEN for in-flight DMA
-> 
->   and the capture kernel boots with zero AER/GHES error records. A
->   complete vmcore is saved and the machine reboots normally.
-> 
-> On the OS-first AER/DPC platform (8 SMMUv3 instances):
-> 
->   Unpatched: 8x "SMMU currently enabled! Resetting..." followed within
->   seconds by PCIe AER Completion Abort errors reported by the root
->   complex, along with DPC containment events and EDR notifications. The
->   NICs behind the contained link never recover in the capture kernel.
-> 
->   With the series applied: 8x "kdump: retaining SMMUEN for in-flight DMA",
->   no PCIe error events at all, a complete vmcore and a clean reboot.
-> 
-> The baseline symptom is load-independent: it reproduces on idle machines,
-> since even an idle server has periodic DMA in flight (NIC rings, NVMe
-> admin queues, etc.).
-> 
-> Overall, on both platforms this series turns a capture-kernel boot that
-> used to be buried under fatal PCIe error storms into a quiet one that
-> reliably produces a usable vmcore.
-> 
-> Please feel free to add:
-> 
-> Tested-by: Shuai Xue <xueshuai@linux.alibaba.com>
 
-Thanks for the test report. I'll add your tag in v12 (on rc1).
+> Op 16-10-2026 16:38 CEST schreef Jori Koolstra <jkoolstra@xs4all.nl>:
+> 
+>  
+> Currently there is no way to race-freely create and open a directory.
+> For regular files we have open(O_CREAT) for creating a new file inode,
+> and returning a pinning fd to it. The lack of such functionality for
+> directories means that when populating a directory tree there's always
+> a race involved: the inodes first need to be created, and then opened
+> to adjust their permissions/ownership/labels/timestamps/acls/xattrs/...,
+> but in the time window between the creation and the opening they might
+> be replaced by something else.
+> 
+> Addressing this race without a proper API is only partially possible:
+> the caller can immediately fstat() what was opened to verify that it
+> has the expected inode type, owner and mode. But besides being easy to
+> get wrong, this cannot establish who created the directory: a directory
+> created by another process with identical credentials is
+> indistinguishable from one the caller created itself, so the caller
+> cannot tell whether the directory is its own to manage.
+> 
+> Historically, the O_CREAT|O_DIRECTORY behaviour was to return ENOTDIR if
+> a regular file exists at the open path; EISDIR if a directory exists at
+> the path; and to create a regular file if no file exists at the path.
+> This behaviour changed accidentally with
+> commit 973d4b73fbaf ("do_last(): rejoin the common path even earlier in
+> FMODE_{OPENED,CREATED} case") causing ENOTDIR to return in the last case
+> while still creating the file. As this change was not detected for a
+> long time, Brauner proposed to adopt the more consistent NetBSD
+> behaviour, i.e. to return EINVAL on the O_CREAT|O_DIRECTORY combination.
+> This change was applied in commit 43b450632676 ("open: return EINVAL for
+> O_DIRECTORY | O_CREAT") in March, 2023. As the EINVAL behaviour has been
+> in the kernel for about 3 years now, no rollback is expected as a result
+> of userspace reliance on old behaviour, leaving us free to reassign the
+> O_CREAT|O_DIRECTORY semantics.
+> 
+> O_CREAT|O_DIRECTORY must be combined with O_EXCL; otherwise open fails
+> with EINVAL. As with O_CREAT|O_EXCL, a trailing symlink is not followed,
+> and any existing entry at the path results in EEXIST.
+> 
+> Filesystems that do not support O_CREAT|O_DIRECTORY set
+> SB_I_NO_ATOMIC_MKDIR, and lookup_open() refuses the open with EOPNOTSUPP
+> for them before doing any lookup. These are all ->atomic_open()
+> filesystems, which cannot create directories without protocol
+> extensions, and tracefs, whose ->mkdir() drops the parent's i_rwsem so
+> that the directory at the name may not be the one created by the call
+> (or at least it has to be verified that this plays well with the
+> atomicity guarantee that O_CREAT|O_DIRECTORY attempts to provide.) For
+> ecryptfs and apparmorfs there are similar concerns and hence they are
+> also blocked for now.
+> 
+> kernfs ->mkdir() did not instantiate the dentry; this is fixed by
+> returning the new kernfs_node from the kernfs_syscall_ops ->mkdir()
+> callbacks and splicing its inode.
+> 
+> This feature idea (and some of its description) is taken from the
+> UAPI group:
+> https://github.com/uapi-group/kernel-features?tab=readme-ov-file#race-free-creation-and-opening-of-non-file-inodes
+> 
+> Signed-off-by: Jori Koolstra <jkoolstra@xs4all.nl>
+> ---
+>  fs/9p/vfs_super.c               |   1 +
+>  fs/ceph/super.c                 |   1 +
+>  fs/ecryptfs/main.c              |   1 +
+>  fs/fuse/inode.c                 |   1 +
+>  fs/gfs2/ops_fstype.c            |   1 +
+>  fs/kernfs/dir.c                 |  30 ++++++++--
+>  fs/kernfs/inode.c               |  34 +++++++++++
+>  fs/kernfs/kernfs-internal.h     |   2 +
+>  fs/namei.c                      | 101 +++++++++++++++++++++++++-------
+>  fs/nfs/super.c                  |   1 +
+>  fs/open.c                       |  33 +++++++----
+>  fs/resctrl/rdtgroup.c           |  35 ++++++-----
+>  fs/smb/client/cifsfs.c          |   1 +
+>  fs/tracefs/inode.c              |   1 +
+>  fs/vboxsf/super.c               |   1 +
+>  include/linux/fcntl.h           |   6 ++
+>  include/linux/fs/super_types.h  |   1 +
+>  include/linux/kernfs.h          |   7 ++-
+>  kernel/cgroup/cgroup-internal.h |   3 +-
+>  kernel/cgroup/cgroup.c          |  16 +++--
+>  security/apparmor/apparmorfs.c  |   1 +
+>  21 files changed, 218 insertions(+), 60 deletions(-)
+> 
+> diff --git a/fs/9p/vfs_super.c b/fs/9p/vfs_super.c
+> index 94d6b02c221b..a3377bc34ac0 100644
+> --- a/fs/9p/vfs_super.c
+> +++ b/fs/9p/vfs_super.c
+> @@ -40,6 +40,7 @@ static int v9fs_fill_super(struct super_block *sb)
+>  	sb->s_blocksize_bits = fls(v9ses->maxdata - 1);
+>  	sb->s_blocksize = 1 << sb->s_blocksize_bits;
+>  	sb->s_magic = V9FS_MAGIC;
+> +	sb->s_iflags |= SB_I_NO_ATOMIC_MKDIR;
+>  	if (v9fs_proto_dotl(v9ses)) {
+>  		sb->s_op = &v9fs_super_ops_dotl;
+>  		if (!(v9ses->flags & V9FS_NO_XATTR))
+> diff --git a/fs/ceph/super.c b/fs/ceph/super.c
+> index 72935f665f11..fa1cf1f4f57d 100644
+> --- a/fs/ceph/super.c
+> +++ b/fs/ceph/super.c
+> @@ -1226,6 +1226,7 @@ static int ceph_set_super(struct super_block *s, struct fs_context *fc)
+>  	fsc->max_file_size = 1ULL << 40; /* temp value until we get mdsmap */
+>  
+>  	s->s_op = &ceph_super_ops;
+> +	s->s_iflags |= SB_I_NO_ATOMIC_MKDIR;
+>  	set_default_d_op(s, &ceph_dentry_ops);
+>  	s->s_export_op = &ceph_export_ops;
+>  
+> diff --git a/fs/ecryptfs/main.c b/fs/ecryptfs/main.c
+> index 5f37cddb956f..8ed6076d50af 100644
+> --- a/fs/ecryptfs/main.c
+> +++ b/fs/ecryptfs/main.c
+> @@ -477,6 +477,7 @@ static int ecryptfs_get_tree(struct fs_context *fc)
+>  	/* ->kill_sb() will take care of sbi after that point */
+>  	sbi = NULL;
+>  	s->s_op = &ecryptfs_sops;
+> +	s->s_iflags |= SB_I_NO_ATOMIC_MKDIR;
+>  	s->s_xattr = ecryptfs_xattr_handlers;
+>  	set_default_d_op(s, &ecryptfs_dops);
+>  
+> diff --git a/fs/fuse/inode.c b/fs/fuse/inode.c
+> index e9552be3637b..cf766c6feea4 100644
+> --- a/fs/fuse/inode.c
+> +++ b/fs/fuse/inode.c
+> @@ -1608,6 +1608,7 @@ static void fuse_sb_defaults(struct super_block *sb)
+>  	sb->s_iflags |= SB_I_IMA_UNVERIFIABLE_SIGNATURE;
+>  	sb->s_iflags |= SB_I_NOIDMAP;
+>  	sb->s_iflags |= SB_I_NO_DATA_INTEGRITY;
+> +	sb->s_iflags |= SB_I_NO_ATOMIC_MKDIR;
+>  	if (sb->s_user_ns != &init_user_ns)
+>  		sb->s_iflags |= SB_I_UNTRUSTED_MOUNTER;
+>  	sb->s_flags &= ~(SB_NOSEC | SB_I_VERSION);
+> diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+> index 718e0da7dfce..695835819a5d 100644
+> --- a/fs/gfs2/ops_fstype.c
+> +++ b/fs/gfs2/ops_fstype.c
+> @@ -1139,6 +1139,7 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+>  	sb->s_flags |= SB_NOSEC;
+>  	sb->s_magic = GFS2_MAGIC;
+>  	sb->s_op = &gfs2_super_ops;
+> +	sb->s_iflags |= SB_I_NO_ATOMIC_MKDIR;
+>  
+>  	set_default_d_op(sb, &gfs2_dops);
+>  	sb->s_export_op = &gfs2_export_ops;
+> diff --git a/fs/kernfs/dir.c b/fs/kernfs/dir.c
+> index 82bbaeb326aa..42b3810a04be 100644
+> --- a/fs/kernfs/dir.c
+> +++ b/fs/kernfs/dir.c
+> @@ -1294,18 +1294,40 @@ static struct dentry *kernfs_iop_mkdir(struct mnt_idmap *idmap,
+>  {
+>  	struct kernfs_node *parent = dir->i_private;
+>  	struct kernfs_syscall_ops *scops = kernfs_root(parent)->syscall_ops;
+> -	int ret;
+> +	struct kernfs_node *kn;
+> +	struct inode *inode;
+>  
+>  	if (!scops || !scops->mkdir)
+>  		return ERR_PTR(-EPERM);
+>  
+> -	if (!kernfs_get_active(parent))
+> +	inode = new_inode(dir->i_sb);
+> +	if (!inode)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	if (!kernfs_get_active(parent)) {
+> +		iput(inode);
+>  		return ERR_PTR(-ENODEV);
+> +	}
+>  
+> -	ret = scops->mkdir(parent, dentry->d_name.name, mode);
+> +	kn = scops->mkdir(parent, dentry->d_name.name, mode);
+>  
+>  	kernfs_put_active(parent);
+> -	return ERR_PTR(ret);
+> +	if (IS_ERR(kn)) {
+> +		iput(inode);
+> +		return ERR_CAST(kn);
+> +	}
+> +
+> +	inode = kernfs_get_inode_prealloc(inode, kn);
+> +	kernfs_put(kn);
+> +
+> +	/*
+> +	 * We may race with kernfs_fh_to_dentry() which calls d_obtain_alias(),
+> +	 * so the inode may already have a disconnected alias. Use
+> +	 * d_splice_alias() to move it into place, which does not accept
+> +	 * hashed dentries, so drop the negative dentry first.
+> +	 */
+> +	d_drop(dentry);
+> +	return d_splice_alias(inode, dentry);
+>  }
+>  
+>  static int kernfs_iop_rmdir(struct inode *dir, struct dentry *dentry)
+> diff --git a/fs/kernfs/inode.c b/fs/kernfs/inode.c
+> index 83f2007498db..a25409036492 100644
+> --- a/fs/kernfs/inode.c
+> +++ b/fs/kernfs/inode.c
+> @@ -255,6 +255,40 @@ struct inode *kernfs_get_inode(struct super_block *sb, struct kernfs_node *kn)
+>  	return inode;
+>  }
+>  
+> +/**
+> + *	kernfs_get_inode_prealloc - get inode for kernfs_node
+> + *	@prealloc_inode: inode allocated with new_inode() on the target superblock
+> + *	@kn: kernfs_node to get the inode for
+> + *
+> + *	Like kernfs_get_inode(), but cannot fail. @prealloc_inode is
+> + *	initialized for @kn, unless @kn already has an inode on the super
+> + *	block, in which case @prealloc_inode is released and the existing inode
+> + *	is returned instead.
+> + *
+> + *	Locking:
+> + *	Kernel thread context (may sleep).
+> + *
+> + *	Return:
+> + *	Pointer to the inode of @kn.
+> + */
+> +struct inode *kernfs_get_inode_prealloc(struct inode *prealloc_inode,
+> +					struct kernfs_node *kn)
+> +{
+> +	struct inode *old;
+> +
+> +	prealloc_inode->i_ino = kernfs_ino(kn);
+> +	while (insert_inode_locked(prealloc_inode)) {
+> +		old = ilookup(prealloc_inode->i_sb, prealloc_inode->i_ino);
+> +		if (old) {
+> +			iput(prealloc_inode);
+> +			return old;
+> +		}
+> +	}
 
-Nicolin
+This doesn't work like I thought it does. I guess technically it is kinda OK,
+but a racing kernfs_iop_lookup() may now result in -ENOMEM, which is not really
+nice.
+
+I guess we should use inode_insert5(), but I find the API a bit confusing.
+I_CREATING does not seem to be needed because kernfs_init_inode() cannot fail
+and the kernfs_node already exists.
+
+So this should be something like this I guess:
+
+  static int kernfs_inode_test(struct inode *inode, void *data)
+  {
+          return inode->i_ino == *(u64 *)data;
+  }
+
+  struct inode *kernfs_get_inode_prealloc(struct inode *prealloc_inode,
+                                          struct kernfs_node *kn)
+  {
+          u64 ino = kernfs_ino(kn);
+          struct inode *inode;
+
+          prealloc_inode->i_ino = ino;
+          inode = inode_insert5(prealloc_inode, ino, kernfs_inode_test, NULL, &ino);
+          if (inode != prealloc_inode) {
+                  iput(prealloc_inode);
+                  return inode;
+          }
+
+          kernfs_init_inode(kn, inode);
+          return inode;
+  }
+
+> +
+> +	kernfs_init_inode(kn, prealloc_inode);
+> +	return prealloc_inode;
+> +}
+> +
+>  /*
+>   * The kernfs_node serves as both an inode and a directory entry for
+>   * kernfs.  To prevent the kernfs inode numbers from being freed
+> diff --git a/fs/kernfs/kernfs-internal.h b/fs/kernfs/kernfs-internal.h
+> index aa784b540b36..e4273f104a24 100644
+> --- a/fs/kernfs/kernfs-internal.h
+> +++ b/fs/kernfs/kernfs-internal.h
+> @@ -170,6 +170,8 @@ extern struct kmem_cache *kernfs_node_cache, *kernfs_iattrs_cache;
+>   * inode.c
+>   */
+>  extern const struct xattr_handler * const kernfs_xattr_handlers[];
+> +struct inode *kernfs_get_inode_prealloc(struct inode *inode,
+> +					struct kernfs_node *kn);
+>  void kernfs_evict_inode(struct inode *inode);
+>  int kernfs_iop_permission(struct mnt_idmap *idmap,
+>  			  struct inode *inode, int mask);
+> diff --git a/fs/namei.c b/fs/namei.c
+> index 0cae8b4c071d..c16150965041 100644
+> --- a/fs/namei.c
+> +++ b/fs/namei.c
+> @@ -4363,21 +4363,43 @@ static inline int open_to_namei_flags(int flag)
+>  
+>  static int may_o_create(struct mnt_idmap *idmap,
+>  			const struct path *dir, struct dentry *dentry,
+> -			umode_t mode)
+> +			int open_flag, umode_t mode)
+>  {
+> -	int error = security_path_mknod(dir, dentry, mode, 0);
+> +	struct inode *dir_inode = dir->dentry->d_inode;
+> +	bool create_dir = O_IS_MKDIR(open_flag);
+> +	int error;
+> +
+> +	WARN_ON_ONCE(create_dir && !S_ISDIR(mode));
+> +
+> +	if (create_dir)
+> +		error = security_path_mkdir(dir, dentry, mode);
+> +	else
+> +		error = security_path_mknod(dir, dentry, mode, 0);
+>  	if (error)
+>  		return error;
+>  
+>  	if (!fsuidgid_has_mapping(dir->dentry->d_sb, idmap))
+>  		return -EOVERFLOW;
+>  
+> -	error = inode_permission(idmap, dir->dentry->d_inode,
+> -				 MAY_WRITE | MAY_EXEC);
+> +	error = inode_permission(idmap, dir_inode, MAY_WRITE | MAY_EXEC);
+>  	if (error)
+>  		return error;
+>  
+> -	return security_inode_create(dir->dentry->d_inode, dentry, mode);
+> +	if (create_dir)
+> +		error = security_inode_mkdir(dir_inode, dentry, mode);
+> +	else
+> +		error = security_inode_create(dir_inode, dentry, mode);
+> +
+> +	return error;
+> +}
+> +
+> +static inline umode_t o_create_mode(struct mnt_idmap *idmap,
+> +		const struct inode *dir, int open_flag, umode_t mode)
+> +{
+> +	if (O_IS_MKDIR(open_flag))
+> +		return vfs_prepare_mode(idmap, dir, mode, S_IRWXUGO | S_ISVTX, S_IFDIR);
+> +	else
+> +		return vfs_prepare_mode(idmap, dir, mode, S_IALLUGO, S_IFREG);
+>  }
+>  
+>  /**
+> @@ -4413,8 +4435,10 @@ static struct dentry *atomic_open(const struct path *path, struct dentry *dentry
+>  
+>  	file->__f_path.dentry = DENTRY_NOT_SET;
+>  	file->__f_path.mnt = path->mnt;
+> +
+>  	error = dir_inode->i_op->atomic_open(dir_inode, dentry, file,
+> -				       open_to_namei_flags(open_flag), mode);
+> +					     open_to_namei_flags(open_flag), mode);
+> +
+>  	d_lookup_done(dentry);
+>  
+>  	if (!error) {
+> @@ -4458,18 +4482,24 @@ static struct dentry *atomic_open(const struct path *path, struct dentry *dentry
+>  			error = create_error;
+>  		}
+>  		dput(dentry);
+> -		dentry = ERR_PTR(error);
+> -	} else {
+> -		if (file->f_mode & FMODE_CREATED)
+> -			fsnotify_create(dir_inode, dentry);
+> -		if (file->f_mode & FMODE_OPENED)
+> -			fsnotify_open(file);
+> +		return ERR_PTR(error);
+>  	}
+>  
+> +	if (file->f_mode & FMODE_CREATED) {
+> +		if (d_is_dir(dentry))
+> +			fsnotify_mkdir(dir_inode, dentry);
+> +		else
+> +			fsnotify_create(dir_inode, dentry);
+> +	}
+> +	if (file->f_mode & FMODE_OPENED)
+> +		fsnotify_open(file);
+>  
+>  	return dentry;
+>  }
+>  
+> +static inline
+> +struct dentry *vfs_mkdir_no_perm(struct mnt_idmap *, struct inode *, struct dentry *,
+> +				 umode_t, struct delegated_inode *);
+>  /*
+>   * Look up and maybe create and open the last component.
+>   *
+> @@ -4491,6 +4521,7 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
+>  	struct mnt_idmap *idmap;
+>  	struct dentry *dir = nd->path.dentry;
+>  	struct inode *dir_inode = dir->d_inode;
+> +	bool create_dir = O_IS_MKDIR(op->open_flag);
+>  	int open_flag;
+>  	struct dentry *dentry;
+>  	int error, create_error;
+> @@ -4503,6 +4534,9 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
+>  	mode = op->mode;
+>  	create_error = 0;
+>  
+> +	if (create_dir && (dir_inode->i_sb->s_iflags & SB_I_NO_ATOMIC_MKDIR))
+> +		return ERR_PTR(-EOPNOTSUPP);
+> +
+>  	if (open_flag & (O_CREAT | O_TRUNC | O_WRONLY | O_RDWR)) {
+>  		got_write = !mnt_want_write(nd->path.mnt);
+>  		/*
+> @@ -4563,10 +4597,10 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
+>  	if (open_flag & O_CREAT) {
+>  		if (open_flag & O_EXCL)
+>  			open_flag &= ~O_TRUNC;
+> -		mode = vfs_prepare_mode(idmap, dir_inode, mode, mode, mode);
+> +		mode = o_create_mode(idmap, dir_inode, open_flag, mode);
+>  		if (likely(got_write))
+>  			create_error = may_o_create(idmap, &nd->path,
+> -						    dentry, mode);
+> +						    dentry, open_flag, mode);
+>  		else
+>  			create_error = -EROFS;
+>  	}
+> @@ -4611,12 +4645,32 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
+>  		goto out_dput;
+>  	}
+>  
+> -	if (!dir_inode->i_op->create) {
+> +	/* mimic operation missing errnos of vfs_mkdir/vfs_create */
+> +	if (create_dir && !dir_inode->i_op->mkdir) {
+> +		error = -EPERM;
+> +		goto out_dput;
+> +	}
+> +	if (!create_dir && !dir_inode->i_op->create) {
+>  		error = -EACCES;
+>  		goto out_dput;
+>  	}
+>  
+> -	error = vfs_create_no_perm(idmap, dentry, mode, &delegated_inode);
+> +	if (create_dir) {
+> +		struct dentry *res = vfs_mkdir_no_perm(idmap, dir_inode, dentry, mode,
+> +						       &delegated_inode);
+> +		error = PTR_ERR_OR_ZERO(res);
+> +		if (!error) {
+> +			dentry = res;
+> +			/*
+> +			 * Filesystems whose ->mkdir() may leave the dentry
+> +			 * negative must set SB_I_NO_ATOMIC_MKDIR.
+> +			 */
+> +			if (WARN_ON_ONCE(d_is_negative(dentry)))
+> +				error = -EIO;
+> +		}
+> +	} else {
+> +		error = vfs_create_no_perm(idmap, dentry, mode, &delegated_inode);
+> +	}
+>  	if (error)
+>  		goto out_dput;
+>  
+> @@ -4748,7 +4802,7 @@ static struct dentry *lookup_fast_for_open(struct nameidata *nd, int open_flag)
+>  	struct dentry *dentry;
+>  
+>  	if (open_flag & O_CREAT) {
+> -		if (trailing_slashes(&nd->last))
+> +		if (trailing_slashes(&nd->last) && !(open_flag & O_DIRECTORY))
+>  			return ERR_PTR(-EISDIR);
+>  
+>  		/* Don't bother on an O_EXCL create */
+> @@ -4786,6 +4840,13 @@ static const char *open_last_lookups(struct nameidata *nd,
+>  	if (nd->last_type != LAST_NORM) {
+>  		if (nd->depth)
+>  			put_link(nd);
+> +		/*
+> +		 * Return -EOPNOTSUPP consistently, not -EEXIST, for paths
+> +		 * ending in . or .., as lookup_open() does for other names.
+> +		 */
+> +		if (O_IS_MKDIR(open_flag) &&
+> +		    (nd->path.dentry->d_sb->s_iflags & SB_I_NO_ATOMIC_MKDIR))
+> +			return ERR_PTR(-EOPNOTSUPP);
+>  		return handle_dots(nd, nd->last_type);
+>  	}
+>  
+> @@ -4849,7 +4910,7 @@ static int do_open(struct nameidata *nd,
+>  	if (open_flag & O_CREAT) {
+>  		if ((open_flag & O_EXCL) && !(file->f_mode & FMODE_CREATED))
+>  			return -EEXIST;
+> -		if (d_is_dir(nd->path.dentry))
+> +		if (!(open_flag & O_DIRECTORY) && d_is_dir(nd->path.dentry))
+>  			return -EISDIR;
+>  		error = may_create_in_sticky(idmap, nd,
+>  					     d_backing_inode(nd->path.dentry));
+> @@ -5188,7 +5249,7 @@ inline struct dentry *start_creating_user_path(
+>  EXPORT_SYMBOL(start_creating_user_path);
+>  
+>  /**
+> - * dentry_create - Create and open a file
+> + * dentry_create - Create and open a regular file
+>   * @path: path to create
+>   * @flags: O\_ flags
+>   * @mode: mode bits for new file
+> @@ -5225,7 +5286,7 @@ struct file *dentry_create(struct path *path, int flags, umode_t mode,
+>  		path->dentry = dir;
+>  		mode = vfs_prepare_mode(idmap, dir_inode, mode, S_IALLUGO, S_IFREG);
+>  
+> -		create_error = may_o_create(idmap, path, dentry, mode);
+> +		create_error = may_o_create(idmap, path, dentry, flags, mode);
+>  		if (create_error)
+>  			flags &= ~O_CREAT;
+>  
+> diff --git a/fs/nfs/super.c b/fs/nfs/super.c
+> index cb19f1540d98..f4452b630f52 100644
+> --- a/fs/nfs/super.c
+> +++ b/fs/nfs/super.c
+> @@ -1077,6 +1077,7 @@ static void nfs_fill_super(struct super_block *sb, struct nfs_fs_context *ctx)
+>  	sb->s_blocksize = 0;
+>  	sb->s_xattr = server->nfs_client->cl_nfs_mod->xattr;
+>  	sb->s_op = server->nfs_client->cl_nfs_mod->sops;
+> +	sb->s_iflags |= SB_I_NO_ATOMIC_MKDIR;
+>  	if (server->bsize)
+>  		sb->s_blocksize =
+>  			nfs_block_size(server->bsize, &sb->s_blocksize_bits);
+> diff --git a/fs/open.c b/fs/open.c
+> index 6b1c14e684a9..4177f7226537 100644
+> --- a/fs/open.c
+> +++ b/fs/open.c
+> @@ -1239,29 +1239,30 @@ inline int build_open_flags(const struct open_how *how, struct open_flags *op)
+>  	if (WILL_CREATE(flags)) {
+>  		if (how->mode & ~S_IALLUGO)
+>  			return -EINVAL;
+> -		op->mode = how->mode | S_IFREG;
+> +		if (O_IS_MKDIR(flags))
+> +			op->mode = how->mode | S_IFDIR;
+> +		else
+> +			op->mode = how->mode | S_IFREG;
+>  	} else {
+>  		if (how->mode != 0)
+>  			return -EINVAL;
+>  		op->mode = 0;
+>  	}
+>  
+> -	/*
+> -	 * Block bugs where O_DIRECTORY | O_CREAT created regular files.
+> -	 * Note, that blocking O_DIRECTORY | O_CREAT here also protects
+> -	 * O_TMPFILE below which requires O_DIRECTORY being raised.
+> -	 */
+> -	if ((flags & (O_DIRECTORY | O_CREAT)) == (O_DIRECTORY | O_CREAT))
+> -		return -EINVAL;
+> -
+>  	/* Now handle the creative implementation of O_TMPFILE. */
+>  	if (flags & __O_TMPFILE) {
+>  		/*
+>  		 * In order to ensure programs get explicit errors when trying
+>  		 * to use O_TMPFILE on old kernels we enforce that O_DIRECTORY
+> -		 * is raised alongside __O_TMPFILE.
+> +		 * is raised alongside __O_TMPFILE, but without O_CREAT. The
+> +		 * reason for disallowing O_CREAT|O_TMPFILE is that
+> +		 * O_DIRECTORY|O_CREAT used to work and created a regular file
+> +		 * if nothing existed at the open path. Hence, allowing the
+> +		 * combination would have caused O_CREAT|O_TMPFILE to create a
+> +		 * regular (non-temporary) file on old kernels, while the caller
+> +		 * would believe they created an actual O_TMPFILE.
+>  		 */
+> -		if (!(flags & O_DIRECTORY))
+> +		if (!(flags & O_DIRECTORY) || (flags & O_CREAT))
+>  			return -EINVAL;
+>  		if (!(acc_mode & MAY_WRITE))
+>  			return -EINVAL;
+> @@ -1319,11 +1320,19 @@ inline int build_open_flags(const struct open_how *how, struct open_flags *op)
+>  	op->intent = flags & O_PATH ? 0 : LOOKUP_OPEN;
+>  
+>  	if (flags & O_CREAT) {
+> -		op->intent |= LOOKUP_CREATE;
+> +		if (flags & O_DIRECTORY) {
+> +			/*
+> +			 * O_CREAT|O_DIRECTORY is provided to prevent TOCTOUs, so
+> +			 * it makes little sense to allow it without O_EXCL.
+> +			 */
+> +			if (!(flags & O_EXCL))
+> +				return -EINVAL;
+> +		}
+>  		if (flags & O_EXCL) {
+>  			op->intent |= LOOKUP_EXCL;
+>  			flags |= O_NOFOLLOW;
+>  		}
+> +		op->intent |= LOOKUP_CREATE;
+>  	}
+>  
+>  	if (flags & O_DIRECTORY)
+> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+> index 5dcbb0a964e8..d7b13b63c6ad 100644
+> --- a/fs/resctrl/rdtgroup.c
+> +++ b/fs/resctrl/rdtgroup.c
+> @@ -4042,15 +4042,16 @@ static void mkdir_rdt_prepare_clean(struct rdtgroup *rgrp)
+>   * and monitor group(ctrl_mon). This is a resource group
+>   * to monitor a subset of tasks and cpus in its parent ctrl_mon group.
+>   */
+> -static int rdtgroup_mkdir_mon(struct kernfs_node *parent_kn,
+> -			      const char *name, umode_t mode)
+> +static struct kernfs_node *rdtgroup_mkdir_mon(struct kernfs_node *parent_kn,
+> +					      const char *name, umode_t mode)
+>  {
+>  	struct rdtgroup *rdtgrp, *prgrp;
+> +	struct kernfs_node *kn;
+>  	int ret;
+>  
+>  	ret = mkdir_rdt_prepare(parent_kn, name, mode, RDTMON_GROUP, &rdtgrp);
+>  	if (ret)
+> -		return ret;
+> +		return ERR_PTR(ret);
+>  
+>  	prgrp = rdtgrp->mon.parent;
+>  	rdtgrp->closid = prgrp->closid;
+> @@ -4069,17 +4070,22 @@ static int rdtgroup_mkdir_mon(struct kernfs_node *parent_kn,
+>  	 */
+>  	list_add_tail(&rdtgrp->mon.crdtgrp_list, &prgrp->mon.crdtgrp_list);
+>  
+> +	kn = rdtgrp->kn;
+> +	kernfs_get(kn);
+> +	rdtgroup_kn_unlock(parent_kn);
+> +	return kn;
+> +
+>  out_unlock:
+>  	rdtgroup_kn_unlock(parent_kn);
+> -	return ret;
+> +	return ERR_PTR(ret);
+>  }
+>  
+>  /*
+>   * These are rdtgroups created under the root directory. Can be used
+>   * to allocate and monitor resources.
+>   */
+> -static int rdtgroup_mkdir_ctrl_mon(struct kernfs_node *parent_kn,
+> -				   const char *name, umode_t mode)
+> +static struct kernfs_node *rdtgroup_mkdir_ctrl_mon(struct kernfs_node *parent_kn,
+> +						   const char *name, umode_t mode)
+>  {
+>  	struct rdtgroup *rdtgrp;
+>  	struct kernfs_node *kn;
+> @@ -4088,7 +4094,7 @@ static int rdtgroup_mkdir_ctrl_mon(struct kernfs_node *parent_kn,
+>  
+>  	ret = mkdir_rdt_prepare(parent_kn, name, mode, RDTCTRL_GROUP, &rdtgrp);
+>  	if (ret)
+> -		return ret;
+> +		return ERR_PTR(ret);
+>  
+>  	kn = rdtgrp->kn;
+>  	ret = closid_alloc();
+> @@ -4127,7 +4133,9 @@ static int rdtgroup_mkdir_ctrl_mon(struct kernfs_node *parent_kn,
+>  			rdtgrp->mba_mbps_event = mba_mbps_default_event;
+>  	}
+>  
+> -	goto out_unlock;
+> +	kernfs_get(kn);
+> +	rdtgroup_kn_unlock(parent_kn);
+> +	return kn;
+>  
+>  out_del_list:
+>  	list_del(&rdtgrp->rdtgroup_list);
+> @@ -4137,17 +4145,16 @@ static int rdtgroup_mkdir_ctrl_mon(struct kernfs_node *parent_kn,
+>  	closid_free(closid);
+>  out_common_fail:
+>  	mkdir_rdt_prepare_clean(rdtgrp);
+> -out_unlock:
+>  	rdtgroup_kn_unlock(parent_kn);
+> -	return ret;
+> +	return ERR_PTR(ret);
+>  }
+>  
+> -static int rdtgroup_mkdir(struct kernfs_node *parent_kn, const char *name,
+> -			  umode_t mode)
+> +static struct kernfs_node *rdtgroup_mkdir(struct kernfs_node *parent_kn,
+> +					  const char *name, umode_t mode)
+>  {
+>  	/* Do not accept '\n' to avoid unparsable situation. */
+>  	if (strchr(name, '\n'))
+> -		return -EINVAL;
+> +		return ERR_PTR(-EINVAL);
+>  
+>  	/*
+>  	 * If the parent directory is the root directory and RDT
+> @@ -4161,7 +4168,7 @@ static int rdtgroup_mkdir(struct kernfs_node *parent_kn, const char *name,
+>  	if (resctrl_arch_mon_capable())
+>  		return rdtgroup_mkdir_mon(parent_kn, name, mode);
+>  
+> -	return -EPERM;
+> +	return ERR_PTR(-EPERM);
+>  }
+>  
+>  static int rdtgroup_rmdir_mon(struct rdtgroup *rdtgrp, cpumask_var_t tmpmask)
+> diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
+> index 98b610b2a114..93a5ead81c82 100644
+> --- a/fs/smb/client/cifsfs.c
+> +++ b/fs/smb/client/cifsfs.c
+> @@ -247,6 +247,7 @@ cifs_read_super(struct super_block *sb)
+>  
+>  	sb->s_magic = CIFS_SUPER_MAGIC;
+>  	sb->s_op = &cifs_super_ops;
+> +	sb->s_iflags |= SB_I_NO_ATOMIC_MKDIR;
+>  	sb->s_xattr = cifs_xattr_handlers;
+>  	rc = super_setup_bdi(sb);
+>  	if (rc)
+> diff --git a/fs/tracefs/inode.c b/fs/tracefs/inode.c
+> index f3d6188a3b7b..0f64310c3095 100644
+> --- a/fs/tracefs/inode.c
+> +++ b/fs/tracefs/inode.c
+> @@ -471,6 +471,7 @@ static int tracefs_fill_super(struct super_block *sb, struct fs_context *fc)
+>  		return err;
+>  
+>  	sb->s_op = &tracefs_super_operations;
+> +	sb->s_iflags |= SB_I_NO_ATOMIC_MKDIR;
+>  	tracefs_apply_options(sb, false);
+>  	set_default_d_op(sb, &tracefs_dentry_operations);
+>  
+> diff --git a/fs/vboxsf/super.c b/fs/vboxsf/super.c
+> index a61fbab51d37..190b76f04d4f 100644
+> --- a/fs/vboxsf/super.c
+> +++ b/fs/vboxsf/super.c
+> @@ -196,6 +196,7 @@ static int vboxsf_fill_super(struct super_block *sb, struct fs_context *fc)
+>  	sb->s_blocksize = 1024;
+>  	sb->s_maxbytes = MAX_LFS_FILESIZE;
+>  	sb->s_op = &vboxsf_super_ops;
+> +	sb->s_iflags |= SB_I_NO_ATOMIC_MKDIR;
+>  	set_default_d_op(sb, &vboxsf_dentry_ops);
+>  
+>  	iroot = iget_locked(sb, 0);
+> diff --git a/include/linux/fcntl.h b/include/linux/fcntl.h
+> index 6ad6b9e7a226..204e16bbe263 100644
+> --- a/include/linux/fcntl.h
+> +++ b/include/linux/fcntl.h
+> @@ -30,6 +30,12 @@
+>   */
+>  #define __O_REGULAR		(1 << 30)
+>  
+> +#define O_MKDIR_MASK	(O_CREAT | O_DIRECTORY)
+> +static inline bool O_IS_MKDIR(unsigned int flags)
+> +{
+> +	return (flags & O_MKDIR_MASK) == O_MKDIR_MASK;
+> +}
+> +
+>  /* List of all valid flags for the how->resolve argument: */
+>  #define VALID_RESOLVE_FLAGS \
+>  	(RESOLVE_NO_XDEV | RESOLVE_NO_MAGICLINKS | RESOLVE_NO_SYMLINKS | \
+> diff --git a/include/linux/fs/super_types.h b/include/linux/fs/super_types.h
+> index ecd96aeb1cee..521b00c47d0a 100644
+> --- a/include/linux/fs/super_types.h
+> +++ b/include/linux/fs/super_types.h
+> @@ -352,5 +352,6 @@ struct super_block {
+>  #define SB_I_NOIDMAP	0x00002000	/* No idmapped mounts on this superblock */
+>  #define SB_I_ALLOW_HSM	0x00004000	/* Allow HSM events on this superblock */
+>  #define SB_I_NO_DATA_INTEGRITY	0x00008000 /* fs cannot guarantee data persistence on sync */
+> +#define SB_I_NO_ATOMIC_MKDIR	0x00010000 /* no O_CREAT|O_DIRECTORY on this fs */
+>  
+>  #endif /* _LINUX_FS_SUPER_TYPES_H */
+> diff --git a/include/linux/kernfs.h b/include/linux/kernfs.h
+> index 351a5101c862..0aced5004340 100644
+> --- a/include/linux/kernfs.h
+> +++ b/include/linux/kernfs.h
+> @@ -241,13 +241,14 @@ struct kernfs_node {
+>   * syscalls.  These optional callbacks are invoked on the matching syscalls
+>   * and can perform any kernfs operations which don't necessarily have to be
+>   * the exact operation requested.  An active reference is held for each
+> - * kernfs_node parameter.
+> + * kernfs_node parameter.  @mkdir returns the kernfs_node of the new
+> + * directory with a reference held, or an ERR_PTR() on failure.
+>   */
+>  struct kernfs_syscall_ops {
+>  	int (*show_options)(struct seq_file *sf, struct kernfs_root *root);
+>  
+> -	int (*mkdir)(struct kernfs_node *parent, const char *name,
+> -		     umode_t mode);
+> +	struct kernfs_node *(*mkdir)(struct kernfs_node *parent,
+> +				     const char *name, umode_t mode);
+>  	int (*rmdir)(struct kernfs_node *kn);
+>  	int (*rename)(struct kernfs_node *kn, struct kernfs_node *new_parent,
+>  		      const char *new_name);
+> diff --git a/kernel/cgroup/cgroup-internal.h b/kernel/cgroup/cgroup-internal.h
+> index 58797123b752..eca8d3088539 100644
+> --- a/kernel/cgroup/cgroup-internal.h
+> +++ b/kernel/cgroup/cgroup-internal.h
+> @@ -256,7 +256,8 @@ void cgroup_procs_write_finish(struct task_struct *task,
+>  
+>  void cgroup_lock_and_drain_offline(struct cgroup *cgrp);
+>  
+> -int cgroup_mkdir(struct kernfs_node *parent_kn, const char *name, umode_t mode);
+> +struct kernfs_node *cgroup_mkdir(struct kernfs_node *parent_kn, const char *name,
+> +				 umode_t mode);
+>  int cgroup_rmdir(struct kernfs_node *kn);
+>  int cgroup_show_path(struct seq_file *sf, struct kernfs_node *kf_node,
+>  		     struct kernfs_root *kf_root);
+> diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+> index 227d09704ca5..b3793b5842ab 100644
+> --- a/kernel/cgroup/cgroup.c
+> +++ b/kernel/cgroup/cgroup.c
+> @@ -6113,18 +6113,20 @@ static bool cgroup_check_hierarchy_limits(struct cgroup *parent)
+>  	return ret;
+>  }
+>  
+> -int cgroup_mkdir(struct kernfs_node *parent_kn, const char *name, umode_t mode)
+> +struct kernfs_node *cgroup_mkdir(struct kernfs_node *parent_kn, const char *name,
+> +				 umode_t mode)
+>  {
+>  	struct cgroup *parent, *cgrp;
+> +	struct kernfs_node *kn;
+>  	int ret;
+>  
+>  	/* do not accept '\n' to prevent making /proc/<pid>/cgroup unparsable */
+>  	if (strchr(name, '\n'))
+> -		return -EINVAL;
+> +		return ERR_PTR(-EINVAL);
+>  
+>  	parent = cgroup_kn_lock_live(parent_kn, false);
+>  	if (!parent)
+> -		return -ENODEV;
+> +		return ERR_PTR(-ENODEV);
+>  
+>  	if (!cgroup_check_hierarchy_limits(parent)) {
+>  		ret = -EAGAIN;
+> @@ -6156,14 +6158,16 @@ int cgroup_mkdir(struct kernfs_node *parent_kn, const char *name, umode_t mode)
+>  	/* let's create and online css's */
+>  	kernfs_activate(cgrp->kn);
+>  
+> -	ret = 0;
+> -	goto out_unlock;
+> +	kn = cgrp->kn;
+> +	kernfs_get(kn);
+> +	cgroup_kn_unlock(parent_kn);
+> +	return kn;
+>  
+>  out_destroy:
+>  	cgroup_destroy_locked(cgrp);
+>  out_unlock:
+>  	cgroup_kn_unlock(parent_kn);
+> -	return ret;
+> +	return ERR_PTR(ret);
+>  }
+>  
+>  /*
+> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+> index 5b42140e12e8..8ae096cc1af6 100644
+> --- a/security/apparmor/apparmorfs.c
+> +++ b/security/apparmor/apparmorfs.c
+> @@ -248,6 +248,7 @@ static int apparmorfs_fill_super(struct super_block *sb, struct fs_context *fc)
+>  	if (error)
+>  		return error;
+>  	sb->s_op = &aafs_super_ops;
+> +	sb->s_iflags |= SB_I_NO_ATOMIC_MKDIR;
+>  
+>  	return 0;
+>  }
+> -- 
+> 2.56.0
