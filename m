@@ -1,181 +1,140 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from r3-23.sinamail.sina.com.cn (r3-23.sinamail.sina.com.cn [202.108.3.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E99246EF93;
-	Sat, 17 Oct 2026 09:18:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3934348463
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:20:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792228723; cv=none; b=tVnKx31575MH8RUgExXJQC3DUzH0oroWNIS4i/UJDclMTkkdjxA6ybGM1NEVwz4W8LPLtHobThroaMnGocTI45mNWCmYyLbScoWKrCZyOMC8RLCiPoydMGmaVq5xB5WS2mk+axyHJMjpoLCCQJnNH+ESW3PrLNKj+lSzojxA/lA=
+	t=1792228826; cv=none; b=qtGSH7U8cfXSWshmFupkEkIhMwKFWJdggXLvahDeJKnq9GSyDwQG32qlDbKq+SeIvmfh8Cb9m5v6MtiDWKcocM/vWNh8g0l6B1NylmzY2G+YJxC49ohZG+ud644THA88tnzMWYGYMLlBQxw8tx+hQeOiev6VaK9ggxjPKwd2i1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792228723; c=relaxed/simple;
-	bh=AJNqfW0ioAwXAyHgrrMYr3i85p2JVBdKUXfKlT6Pido=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Dg7XDm07USmyNkybwGc+GKN+fE1PPPnrjEo1oDDaOEoRMoFDVDRlELFk130vhCapCxQAFxtB6I60TkF+ZKMiiCyC0R/2ZbYiG0elpd1kCPvkKb/W/clrbAyQLkB2H8l3sezx465hrCNrf3s5uKnosx0f6nrVWbYuZH45X02z+rk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=UqxkiEmf; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1792228826; c=relaxed/simple;
+	bh=rAWGPe02zDDUaocBF91ScV2HBenRCf7/jDG4H5QbjOg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PfmI2xn3MGyQxHMfPsu3yoxAwrK8xGPJ8BfzJ2Ow0JJiiXK2fHxcgHobvZnEpb5nDxchUpVmQ9KkVc4NQK9P104RZczURvtbb095lpx1XioPReu5zD2T5IpB0r2s1u5BwmG5ppwHBsSked1a2GbG5kdwASEJueqNz6H893IPMoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=mDasihI3; arc=none smtp.client-ip=202.108.3.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="UqxkiEmf"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j6GSs6Ct8zKnTY;
-	Sat, 17 Oct 2026 11:18:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792228717;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AJNqfW0ioAwXAyHgrrMYr3i85p2JVBdKUXfKlT6Pido=;
-	b=UqxkiEmf8ArLdQmOp8pJzr16B+51FF6wd4VGNwPO/FNzS9wMD4L7/Bw1W9+HrxX4DFJBCi
-	KqL8s8ND8VeJOTdFwRlJFsG5Ixw6fkR9jChBnm7cE/8TwGKdjtyzWSJ2F5xskI94RkLHjJ
-	DD942aHIEMFTwtPKU6CmFWoWSUvbQH/cBml5Ja36Nigncb2r92fmRxBQRlNl4+QwSPe8+G
-	MK/DhOJEWw2tK3SL0FvP3hyxhKOSu+O20vHcHkEw+LrfF7hoW+K4KFha1rIHQpt0FHfmkk
-	c3kRrkpvLs89UAhUewPF+EFadAunu790rbD7e9wWaNL5R7PWwZ7DR0zUGEPt2Q==
-Message-ID: <c575314d3e52d5fcff3d6fc47d12dc118a24bd63.camel@mailbox.org>
-Subject: Re: [PATCH] mm/damon/reclaim: improve grammar and style
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-To: SJ Park <sj@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>,  Randy Dunlap <rdunlap@infradead.org>,
- damon@lists.linux.dev, linux-mm@kvack.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Aveline Noir <jm5905938@gmail.com>
-Date: Sat, 17 Oct 2026 11:18:34 +0200
-In-Reply-To: <20261015140122.87808-1-sj@kernel.org>
-References: <20261015140122.87808-1-sj@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="mDasihI3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792228821;
+	bh=2DORpuK6VypsSarVxLX2Q87bhjJz48M3QZZUjduE5o0=;
+	h=From:Subject:Date:Message-ID;
+	b=mDasihI3TlOGSppx7Kl1uyxR8lJBKMl4VIsK7ITm3BkQZqdozmQCDY0KdsHv70y1i
+	 oFMLrMQORpgfA16QdaW7W9EMVJohetZnw1YsUsw7/TA12bA871OVTlTNeY37iQp6bf
+	 6xjNufYtdm7NieyQjD392wLd6j9qlHr50e0vS87s=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.246.238.15])
+	by sina.com (10.54.253.31) with ESMTP
+	id 6AD33DCE000023E6; Sat, 17 Oct 2026 17:20:18 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 248916816172
+X-SMAIL-UIID: EDD7FA40B95140DC8E9839BD7DEE6AA3-20261017-172018-1
+From: Hillf Danton <hdanton@sina.com>
+To: syzbot <syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [nvme?] BUG: corrupted list in nvmet_fc_remove_port
+Date: Sat, 17 Oct 2026 17:20:03 +0800
+Message-ID: <20261017092004.650-1-hdanton@sina.com>
+In-Reply-To: <6acbc835.a150a118.27e199.003c.GAE@google.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: 1hapjjy6635khx6ean1i9pxm4mypfzp9
-X-MBO-RS-ID: 3cc1a3b206adc544abb
+Content-Transfer-Encoding: 8bit
 
-Hi SJ,
+> Date: Sun, 11 Oct 2026 10:32:37 -0700	[thread overview]
+> Hello,
+> 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    a5ebb76233b7 Merge tag 'edac_urgent_for_v7.3_rc7' of git:/..
+> git tree:       upstream
+> console+strace: https://syzkaller.appspot.com/x/log.txt?x=1494923e580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=df4bbab1c2172b9f
+> dashboard link: https://syzkaller.appspot.com/bug?extid=c98b21427617af7f547a
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=126a0f15580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=166a0f15580000
 
-On Thu, 2026-10-15 at 07:01 -0700, SJ Park wrote:
-> On Thu, 15 Oct 2026 10:06:23 +0200 Manuel Ebner <manuelebnerli@mailbox.or=
-g> wrote:
->=20
-> > Fix tenses. Replace 'set as' with 'set to'.
-> > Rewrite complex sentences.
->=20
-> Let's put two sentences in one line, while breaking it for the 75 column =
-limit.
+#syz test
 
-Will do.
->=20
-> [...]
-> > @@ -113,8 +113,8 @@ quota_sz
-> > =C2=A0
-> > =C2=A0Limit of size of memory for the reclamation in bytes.
-> > =C2=A0
-> > -DAMON_RECLAIM charges amount of memory which it tried to reclaim withi=
-n a time
-> > -window (quota_reset_interval_ms) and makes no more than this limit is =
-tried.
-> > +DAMON_RECLAIM recordes the amount of memory which it tried to reclaim =
-within a time
->=20
-> s/recordes/charges/=C2=A0 or s/recordes/records/ ?
-
-For me charge is such a weird word exepct in 'charge a battery' or 'charge =
-a fee'. And
-'recordes' is a typo. Does this work:
-
-DAMON_RECLAIM records the amount of memory which it tried to reclaim within=
- a time
-
-I could do this in a second patch aswell.
-
->=20
-> I'd prefer charges, but my English is definitely bad, so looking for your
-> suggestion.
->=20
-> > +window (quota_reset_interval_ms) and stops when this memory limit is r=
-eached.
->=20
-> I feel like readers might wonder what is stopped.=C2=A0 How about "stops =
-trying
-> reclaiming memory when ..." ?
-
-window (quota_reset_interval_ms) and stops trying to reclaim memory when th=
-is limit is reached.
-
->=20
-> > =C2=A0This can be used for limiting consumption of CPU and IO.=C2=A0 If=
- this value is
-> > =C2=A0zero, the limit is disabled.
-> > =C2=A0
-> > @@ -125,19 +125,19 @@ quota_reset_interval_ms
-> > =C2=A0
-> > =C2=A0The time/size quota charge reset interval in milliseconds.
-> > =C2=A0
-> > -The charge reset interval for the quota of time (quota_ms) and size
-> > -(quota_sz).=C2=A0 That is, DAMON_RECLAIM does not try reclamation for =
-more than
-> > +The quota reset interval of time is quota_ms and of size is
-> > +quota_sz.=C2=A0 That is, DAMON_RECLAIM does not try reclamation for mo=
-re than
->=20
-> I think this change is just wrong?=C2=A0 quota_ms is not quota reset inte=
-rval of
-> time.=C2=A0 Which part of the original sentence was difficult to read?
-
-'charge' again, and I think there is the verb is missing.
-
->=20
-> > =C2=A0quota_ms milliseconds or quota_sz bytes within quota_reset_interv=
-al_ms
-> > =C2=A0milliseconds.
-> > =C2=A0
-> > -1 second by default.
-> > +1000 (1 second) by default.
->=20
-> Isn't this (1 second in milliseconds is 1,000) easy enough to infer for
-> readers?
-
-Ok.
-
-> > =C2=A0
-> > =C2=A0quota_mem_pressure_us
-> > =C2=A0---------------------
-> > =C2=A0
-> > =C2=A0Desired level of memory pressure-stall time in microseconds.
-> > =C2=A0
-> > -While keeping the caps that set by other quotas, DAMON_RECLAIM automat=
-ically
-> > +While keeping the caps set by other quotas, DAMON_RECLAIM automaticall=
-y
->=20
-> How about "caps that are set by ..." ?
-
-Yes, this was my second choice.
-
->=20
-> > =C2=A0increases and decreases the effective level of the quota aiming t=
-his level of
-> > =C2=A0memory pressure is incurred.=C2=A0 System-wide ``some`` memory PS=
-I in microseconds
-> > =C2=A0per quota reset interval (``quota_reset_interval_ms``) is collect=
-ed and
->=20
->=20
-> Thanks,
-> SJ
-
-I messed up the subject line, should be:
-Docs/admin-guide/mm/damon/reclaim: improve grammar and style
-
-I'll follow up with a [v2], including Aveline suggestions.
-
-Thanks,
- Manuel
->=20
-> [...]
+--- x/drivers/nvme/target/fc.c
++++ y/drivers/nvme/target/fc.c
+@@ -113,6 +113,7 @@ struct nvmet_fc_tgtport {
+ 	struct nvmet_fc_port_entry	*pe;
+ 	struct kref			ref;
+ 	u32				max_sg_cnt;
++	int				assoc_freed;
+ };
+ 
+ struct nvmet_fc_port_entry {
+@@ -1271,9 +1272,17 @@ nvmet_fc_portentry_bind(struct nvmet_fc_
+ static void
+ nvmet_fc_portentry_unbind(struct nvmet_fc_port_entry *pe)
+ {
++	struct nvmet_fc_port_entry *entry;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
++	list_for_each_entry(entry, &nvmet_fc_portentry_list, pe_list) {
++		if (entry == pe)
++			goto out;
++	}
++	spin_unlock_irqrestore(&nvmet_fc_tgtlock, flags);
++	return;
++out:
+ 	if (pe->tgtport) {
+ 		nvmet_fc_tgtport_put(pe->tgtport);
+ 		pe->tgtport->pe = NULL;
+@@ -1474,14 +1483,20 @@ static void
+ __nvmet_fc_free_assocs(struct nvmet_fc_tgtport *tgtport)
+ {
+ 	struct nvmet_fc_tgt_assoc *assoc;
++	unsigned long flags;
+ 
++	if (tgtport->assoc_freed)
++		return;
++	tgtport->assoc_freed = 1;
+ 	rcu_read_lock();
++	spin_lock_irqsave(&tgtport->lock, flags);
+ 	list_for_each_entry_rcu(assoc, &tgtport->assoc_list, a_list) {
+ 		if (!nvmet_fc_tgt_a_get(assoc))
+ 			continue;
+ 		nvmet_fc_schedule_delete_assoc(assoc);
+ 		nvmet_fc_tgt_a_put(assoc);
+ 	}
++	spin_unlock_irqrestore(&tgtport->lock, flags);
+ 	rcu_read_unlock();
+ }
+ 
+@@ -1643,8 +1658,10 @@ nvmet_fc_unregister_targetport(struct nv
+ 
+ 	nvmet_fc_portentry_unbind_tgt(tgtport);
+ 
++	spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
+ 	/* terminate any outstanding associations */
+ 	__nvmet_fc_free_assocs(tgtport);
++	spin_unlock_irqrestore(&nvmet_fc_tgtlock, flags);
+ 
+ 	flush_workqueue(nvmet_wq);
+ 
+@@ -2927,8 +2944,10 @@ nvmet_fc_remove_port(struct nvmet_port *
+ 	nvmet_fc_portentry_unbind(pe);
+ 
+ 	if (tgtport) {
++		spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
+ 		/* terminate any outstanding associations */
+ 		__nvmet_fc_free_assocs(tgtport);
++		spin_unlock_irqrestore(&nvmet_fc_tgtlock, flags);
+ 		nvmet_fc_tgtport_put(tgtport);
+ 	}
+ 
+--
