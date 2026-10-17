@@ -1,129 +1,137 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2DF53C9EDD;
-	Sat, 17 Oct 2026 18:01:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C89F3B2FCA
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:01:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792260089; cv=none; b=kDcuhYDqbAqqbZ5duwXXcq1hLI2UBcDcOcMbC2nZRCqGSSkShhottV5DumjlKBaCk7UhKLV/dQcFz6yb3HaDg/WvNwv4/5ZvnfqJCO7NHci+0oiaj5lw/h9cTpZ99jjnyH8YXZcXj/5OpXs6QZE0j2Tv4OMfWNxOQkpu3TfCiwA=
+	t=1792260109; cv=none; b=jqCcyo23/7/PYB5haiOCausc52tYaHhnSX8naDiVWTz9JBdvP93SqE5vAJbPg9IiSnI2f+JEcDvRoEmBrDxQ4UEaza/UEBQkrzhLxsOjFwwJ9NA3qlL1qE/QyLJ5reBG1jXp8v85rkqFshrHEh5y3k404CP+ucK5gdsYZwRSEJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792260089; c=relaxed/simple;
-	bh=+c/xiDUPku8W1vKWQKXvJWMOO4RfbpagwfgQcUwn2Tw=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=pBWkHdAbUvvtSKXll43zob745lYVw76FWR2NWMhbIOWF0sYCLl71EUSZPqGbqDhjoGw3A6rKv9/aFSgccRJrmaBKRLq4ILD/N2clh7jRMNGMMRofURaA9niacXsDD1xAmlfWnqQB316Iv9apfF/LRScsgb1aHQ2R7KIaiKETEJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Pwiurlty; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=qtZfeDdH; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1792260109; c=relaxed/simple;
+	bh=OC28K9DeVAvdNt2i4HLQhvj/9KpHA1D851pZfGYKe8E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XASdyz1psSqnq/HkR/VkWg9l5cLJ1HrJVJbpFiWIrrwOgDeOwFrjDwp6QV8kIcHSYNJ76+A4wLyltMnKe6nO8Xv2ACQP/lzU9mzkPTR6w7Wo3zJ8qaKFU3o59oroKdb/wGYaiUY7H2jIeDk/FUG3ucOPMtlJox2McRlzs5iEiqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A+cWFWCd; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Pwiurlty";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="qtZfeDdH"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792260058; bh=vQzXdR/kzJROk3+hTFbRUPZ
-	YUiSuUSMMqSOAjMeiBoU=; b=PwiurltyKMpllS8kXgGsYj50jhHudSeBkVv6x57sW085UJVCde
-	QTGqPOGgNyi1wCOheBFPPLXplBiKoHLUiM2nDr4bkjKNyoQkex2L92qNmpUFQd6tAzIRKRCmx+J
-	pJeFOl5SebQ1dMFX77CkcvLm0V8BmqjTP2CNj4dNKu+Wt7S1X9FhpJ+WaAuEoPPr75Ss8quhGqg
-	Z7UNvfRWFge46omvXfG+OboTH3S9N2fFCKs4RIqcMtorsimlMopyDuFJ2BGoHioGV691J70UCfM
-	e6SmnVEzP9sL2R1PMJTwuAIg8pUNP6PZqetL0EKziyW7z1mIArGU4V6ZejVAfeWH4mg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792260058; bh=vQzXdR/kzJROk3+hTFbRUPZ
-	YUiSuUSMMqSOAjMeiBoU=; b=qtZfeDdHTawoBojwHT2w2U035c5Vap7ZJiKHFNX4a56QlXO2+p
-	kX/Jr/IxaMttuV5d0erC1jzsOlp7RfBV3+Cw==;
-Date: Sat, 17 Oct 2026 19:00:58 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: paulmck@kernel.org, "Paul E. McKenney" <paulmck@kernel.org>
-CC: qiang.zhang@linux.dev, frederic@kernel.org, neeraj.upadhyay@kernel.org,
- joelagnelf@nvidia.com, josh@joshtriplett.org, boqun@kernel.org,
- urezki@gmail.com, rostedt@goodmis.org, mathieu.desnoyers@efficios.com,
- jiangshanlai@gmail.com, rcu@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_rcu/tasks=3A_Use_static_per_cpu?=
- =?US-ASCII?Q?_work=5Fstruct_for_Tasks_Rude_grace_periods?=
-In-Reply-To: <4b456047-62ae-4bc2-8da5-e4e5e603fcbb@paulmck-laptop>
-References: <20261017123313.1441679-1-brads@mainlining.org> <4b456047-62ae-4bc2-8da5-e4e5e603fcbb@paulmck-laptop>
-Message-ID: <16D9B60F-5D06-45F0-9414-553BF9CF2540@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A+cWFWCd"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e5378b281aso3596655ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:01:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792260107; x=1792864907; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Tpd5O0R9+duoKDmKNVdsMKIxn7WvXRY/NssiY4nj4tc=;
+        b=A+cWFWCdgw4rdM/pG6koANtVAvZ0B8JEN3xJ4Cdoz2SnR7QhCFGVoKJgalJsq1CQJ9
+         mczG4P90fCEKKj8xwxykbNN4L/ILvGabfR1u7q+RRPmOMHzAAe0YP9epGl9XEPpOlrvI
+         x5eVe72vgkO2kdsJNS7qqRVF8dcJ8qtBaYPJgtRPvzh5Yoi05bQzbQYPXtKIP2Btm0Do
+         K8voe9TzJH+4mWfuEGZSd7VgtsqLHcbwpGg4dYED/X89dGX9/yQU2hKWrGvpbw9HD1YH
+         zKg5SJbtHqXbjFuPel52Bws4l8KbzvUAcK/ZOKHAB36MhXw/If1XxAx2/ZlytesGzc3r
+         lJqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792260107; x=1792864907;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Tpd5O0R9+duoKDmKNVdsMKIxn7WvXRY/NssiY4nj4tc=;
+        b=cUspYKEyxcYr9nGX+MJGHysxXTM66s9uTv6j1EHexg7Ebysm3LUvji9trtWAfZizCy
+         6JOZ2MbbDKsrefsXCLFNIxauX1jQaaUFOw5ABcQ1pwlA8o7Rxs0GgcEAddiu/qUb4Yqs
+         rb+6pWFtR5Jcxdiw1hXJKnM8xjSJSTAD1gJXdLc2H7kZOc6ZiP7YwhKZritNmsWte1Eq
+         g1xfKGt5GRHjqKRAlAiRutpG05Gw3rlfUJxzHDOckH3JMwcJVYUHfdpU2NpfUvCB+4ie
+         VkvVEt4skg4odH0yAaqoAxtaSjlGqebrSrFBZX+51hQU13HTa6HkXIaoTvDdeubxMltY
+         PwEg==
+X-Forwarded-Encrypted: i=1; AKwUvByUBhLGxOUJxWXRgC+d6ecZ5GC7Ze2dj5tnN+IFm03ju+V2bPiBZLaNbsAV93mfLnO1x/0XtUctyDeSQX4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYINEkOzzDRlWUzC2UIlCaMRiHELju9xMW2jmU+IrJGr2bqNlnMi
+	HmA1K7JYN01pVsR7vjczNyQ+Y7Mi0wj2hm7PX1aWQs68H3kBDDzuTdVl
+X-Gm-Gg: AYBFou00VH3GMbND4e6md7X/ya+YOLbzjmpc9zmzCet39WEIg2Xqpavkr+4bYb1fxYT
+	Ix5PRlJK6M9UUFV76+pLenIRCubD3x0eRwZII2Mjn8+pYgUFohqZWrqftrDiWk+lENV4Gx0M9lO
+	yRsiFgYvGlvTFAu9n8HGYCKxonl4jW2947KXIS3JZVq8Hn5DoU5P7cQlTIwN9VFCAYwqRU0cDKt
+	OG9xGOxd3wVT9TOsWRTY5CewLYPHPdGTnFw+aNiYgDLgGBYPT2D1AbOjW+yW0CBdjRy0svCYHc+
+	X+KdZDxMSrniAIv5Zzct4xGKVNCHpg82Et6xcER+chj6bVs2JbbylZzvzaf3VFoO9LNYsiKkVFI
+	+ywsfg5U4la16RJGRS9AR0Tw4aG86mZFeo56DV/If861O62lWMH8PiHRX/EsJnbmAyKPKbF6nDf
+	TvVfbbJz/mBgl/rEs6EREB6wEhVFDGAe7VVhzzMAAL/gIpqHjxX63e/LjJn2NtUkpRO0JhlMlql
+	5hnxycX/XuiXEu3LIrSmH3D8UkUUxtBfpbuPQzTlngYznylMjMplNum/dVZ10KtnDlUhOIMj46t
+	3ceWNgWvtYp2GOWttd0EmDlEGjSKf0cgKymgU1zMMIlT+PWBIzrksQ==
+X-Received: by 2002:a17:903:a90:b0:2e9:40ef:e44a with SMTP id d9443c01a7336-2e9a6833906mr30171515ad.3.1792260106924;
+        Sat, 17 Oct 2026 11:01:46 -0700 (PDT)
+Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e5d98d9sm23030035ad.2.2026.10.17.11.01.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 11:01:46 -0700 (PDT)
+From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+To: Yixun Lan <dlan@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	E Shattow <e@freeshell.de>,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] riscv: dts: spacemit: mark K1 boot nodes bootph-pre-ram
+Date: Sun, 18 Oct 2026 02:01:39 +0800
+Message-ID: <20261017180141.3477743-1-alan.tseng.cs@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 17 October 2026 18:55:37 BST, "Paul E. McKenney" <paulmck@kernel.org>
-wrote:
->On Sat, Oct 17, 2026 at 12:33:13PM +0000, Bradley Morgan wrote:
->> Zqiang caught a snafu in the rude grace period, if a too small grace
->> period was reached, a UAF could occur. However, his patch used
->> a WARN_ONCE() on schedule_on_each_cpu() OOM failures, which would not
->> have handled the failure properly.
->> 
->> Instead of throwing a warning or relying on dynamic alloc_percpu(),
->replace
->> the dynamic allocation with static per cpu work_struct instances. Using
->> schedule_work_on() and flush_work() keeps everything in task context,
->> guarantees the required context switch on every online CPU, and stays
->> zero allocation so it cannot fail under OOM.
->> 
->> Suggested-by: Zqiang <qiang.zhang@linux.dev>
->> Signed-off-by: Bradley Morgan <brads@mainlining.org>
->
->Sorry, Bradley, but no, absolutely not.
->
->Because this not taking a suggestion, but is instead *exactly* Zqiang's
->patch.  We do not commit plagiarism in the Linux-kernel community.
->
->Zqiang, please submit a proper patch with appropriate credit to Bradley.
->The obvious approach would be to following his example, that is, to
->credit him using Suggested-by, but Reported-by or a sentence calling out
->his feedback in the commit log would suffice.  However, I will defer to
->your best judgment.
+A bootloader SPL on the SpacemiT K1 runs from SRAM and needs a handful
+of nodes before DRAM is up: the root clocks and clock controllers, the
+console UART, the boot media (SD, eMMC, QSPI NOR), the board EEPROM
+used to identify the board, and the PMIC rails it programs before DRAM
+training. Today mainline U-Boot carries the bootph-pre-ram tags for
+these in per-board -u-boot.dtsi files.
 
-Apologies, I must've misunderstood..
-:(
+When I sent a U-Boot patch adding another such file for the Milk-V
+Jupiter, E Shattow asked for the tags to go upstream first, so every
+K1 board gets them and the U-Boot overlays can shrink [1]. Earlier
+there was no working mainline SPL for K1 to justify them; there is now.
 
->
->							Thanx, Paul
->
->> ---
->>  kernel/rcu/tasks.h | 16 +++++++++++++++-
->>  1 file changed, 15 insertions(+), 1 deletion(-)
->> 
->> diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
->> index 627295396cd9..f81c0ea0b92a 100644
->> --- a/kernel/rcu/tasks.h
->> +++ b/kernel/rcu/tasks.h
->> @@ -1348,11 +1348,25 @@ static void rcu_tasks_be_rude(struct work_struct
->*work)
->>  {
->>  }
->>  
->> +static DEFINE_PER_CPU(struct work_struct, tasks_rude_work);
->> +
->>  // Wait for one rude RCU-tasks grace period.
->>  static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
->>  {
->> +	int cpu;
->> +
->> +	guard(cpus_read_lock)();
->>  	rtp->n_ipis += cpumask_weight(cpu_online_mask);
->> -	schedule_on_each_cpu(rcu_tasks_be_rude);
->> +
->> +	for_each_online_cpu(cpu) {
->> +		struct work_struct *work = &per_cpu(tasks_rude_work, cpu);
->> +
->> +		INIT_WORK(work, rcu_tasks_be_rude);
->> +		schedule_work_on(cpu, work);
->> +	}
->> +
->> +	for_each_online_cpu(cpu)
->> +		flush_work(&per_cpu(tasks_rude_work, cpu));
->>  }
->>  
->>  static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback_t
->func);
->> -- 
->> 2.53.0
+Patch 1 tags the SoC nodes in k1.dtsi, including i2c8, which every K1
+board uses for the PMIC. Patch 2 tags the board-specific EEPROM and its
+bus, the PMIC rails and the SPI NOR on the boards that have them. The
+set of nodes matches what the mainline U-Boot SPL tags for the BPI-F3
+and MusePi Pro. Pin control and regulator supplies are left untagged:
+the K1 SPL does not enable SPL_PINCTRL, and neither the P1 PMIC driver
+nor the SPI NOR and EEPROM drivers look up supplies there.
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Testing: all K1 DTBs build, and dtbs_check is clean for them with and
+without this series. I have not run an SPL built from these trees on
+hardware. On a Milk-V Jupiter running Linux I checked that the EEPROM,
+PMIC and SPI NOR answer at the addresses described.
+
+Changes in v2:
+- Tag i2c8 in k1.dtsi instead of in every board file (Yixun)
+- Rebase onto the spacemit dt-for-next branch, where buck1 now carries
+  the buck1_0v9 label on musepi-pro and the OrangePi boards
+- Link to v1: https://lore.kernel.org/all/20261012235624.77993-1-alan.tseng.cs@gmail.com/
+
+[1] https://lore.kernel.org/u-boot/5d323a11-da4e-4071-bdeb-ab5c03e8f85e@freeshell.de/
+
+Hung-Chun Tseng (2):
+  riscv: dts: spacemit: k1: mark boot-critical SoC nodes bootph-pre-ram
+  riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
+
+ arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi |  6 ++++++
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts   |  6 ++++++
+ arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts |  7 +++++++
+ arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts    |  7 +++++++
+ arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts  |  4 ++++
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts  |  5 +++++
+ arch/riscv/boot/dts/spacemit/k1.dtsi              | 13 +++++++++++++
+ 7 files changed, 48 insertions(+)
+
+
+base-commit: d05c6236496071916e19012cda7149465f15e66e
+-- 
+2.43.0
+
