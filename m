@@ -1,281 +1,131 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981A92E11C7;
-	Sat, 17 Oct 2026 10:47:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3ECA47ECED
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 10:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792234059; cv=none; b=VXqTZ3ErwGciKcLS84v+bChJeWJLh0nSfWDjj27VgP1GMsjnbDY+OPDw132so0Guihmt+gMiK4PT4dzHGicqoIBtF7CGJ+g3Oi+mccimazbPrmp0t42sGLdiEHpY62y+cn2EIwlF9Hh51XUAxx2o6UgJJD+T3/SClnGnvLgDzN8=
+	t=1792234139; cv=none; b=RDhdAM/unyuHXjrVwuSY7k4hAOraZAteSzr1LI4cC4YaWeGPbtaq785VrliHgGIqEZy9IuaZONUEkCi6dRmQyNzgRCW7AfMTfTX4cO/uTX8zcppZAEiXa2/r4Js725pythRr6HAIFrXbzoJMMfTjqscefmR6S8R2GP5nDoVXsk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792234059; c=relaxed/simple;
-	bh=39ARCK9lcPsfXWBXoRLwKxpJzdqrE4HnnoCnP90p7tY=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nbePGOwiD/poBh64/oqbhti114TKK9wtLVzLHUostXyj4jurgHXC+sSbvrMC82Om2G1utTUzex7tDqbB4ln8aIe+nltKhsEQKPPNTo//kPzQ7zEux+vqg+0aomv7bhKAbhhb4wrLtaSYah5kFN4Y0eLMb3wRu6IEWFMJnWx7WdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=hwKgMiCV; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Xf915SPl; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=P0Blv9Sx; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=qE/5ILiK; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1792234139; c=relaxed/simple;
+	bh=A20xBO7QgEsrNOrczTNQE5uRJSnt+znmLpzvUhIEckI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=d+AYEQvKg8cEyvjUbObbXhqZLBSk6kQCYKUmDMi+K+uxCr5rNR/tqNrSjXeEkybte85YKfxOHbAMHggzLCV4rpH5soOxivXmTKkusnqCCsClIRvmE6H0+Uku5LP7M2hZ9ZPJgH7SWi9VfQPNXXyFQsR+o1uR4TjdYfDTqr49mzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lJsUYk97; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hwKgMiCV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Xf915SPl";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="P0Blv9Sx";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qE/5ILiK"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 7957821CD8;
-	Sat, 17 Oct 2026 10:47:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792234055; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=68vfiRaa2us99PpsAAvgS26dgF1NtVVNahsovh1xngs=;
-	b=hwKgMiCVndqsj2U+MtzeDjQQg3iIURaakwW8YMRJ6L7g974pQK1et4LiD4MqhcXsg2rOK8
-	26ouepzXognVzxqPAPYH5JdfhWzCyxKAU1z03xv4xvSXSAquYWCC9jfljjdF9UWx9H1srJ
-	p98Wso/IhVf8bShoqSYXbIW++C2770U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792234055;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=68vfiRaa2us99PpsAAvgS26dgF1NtVVNahsovh1xngs=;
-	b=Xf915SPlPfOW1n8HBTAq2WyojbeJWZNXXqnW/YbkinizCfC0f6u6Iep0whi5mmb+C0Vq4g
-	eatH7WJ8aIpu9kAQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792234054; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=68vfiRaa2us99PpsAAvgS26dgF1NtVVNahsovh1xngs=;
-	b=P0Blv9SxbcS8QvFGrJAuBn9S6eJVgeETAITrfYUaQRZUZFnEa4NlFQY3UDdAGxkzT/JkYG
-	5kjpRRBNmLc+0Bib/NXdgrigj84JgdmyiULmHCMgZLHbD4gFfhZT+1Ufw5NoSgCDasiW9X
-	b0fdnGo4ieJGVjsqG9x5mXeZE52h6p0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792234054;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=68vfiRaa2us99PpsAAvgS26dgF1NtVVNahsovh1xngs=;
-	b=qE/5ILiKwyaZseNPgG0nbgzBY9JvOxdElGEtkAfAhonGZTyvmLrEvRsyMlDHyt4mWvYeh5
-	EIo/qErv90kL15AA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 06B0D133A7;
-	Sat, 17 Oct 2026 10:47:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id LzuHM0VS02pJMwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 17 Oct 2026 10:47:33 +0000
-Date: Sat, 17 Oct 2026 12:47:33 +0200
-Message-ID: <87bj8s1u4a.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lJsUYk97"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48c4d870d54so348004f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:48:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792234136; x=1792838936; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ceNAXnEsJQILkHO89D/yuhjMt2LxJXSg5m/0dNM+wvE=;
+        b=lJsUYk97DqZJ8K/VOGGIolhyxLmRFg0LGhqFDmUsnjynV7QC8picgWfwjfy1oOjXs2
+         0OlZNTg3tQXg9nRF/MIdKq4KYThvBW0XQqXkAM1DQNbPYN5JbyOuErPCgvM9rnnIBnX8
+         zpwRMV4Nbqj2l3nWrC4A6XsEFUpnIsRztd2ar2xTXc+R++U563LZXl+wA/Wdx3YJjLBt
+         X6sBWmvjpMnFL4+1e+wqcbigadKj1FVdaTNjh1P+4oQHBRVg6S6zlaw9xjYSeGBV0Dkq
+         l4zIQRrZS+cPOJ5zR+acwpyujp7x22W9TTI2mJfaZeQGM++fThYnOgGggXNGwWpKRddf
+         r2aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792234136; x=1792838936;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ceNAXnEsJQILkHO89D/yuhjMt2LxJXSg5m/0dNM+wvE=;
+        b=qtzozqO95GxwLgtjqNeCy4h98fyvVqRSUZxzI0JkyPPp9Ie1JPMX4u4l8cr9g7F6tJ
+         7BN7mEXZGmG1DzVZiFEeZpg8IGqUA8CfwBafQRd4jcqIIdWjzQoHE+ySi0LAlST3ahgR
+         cB423M3EovJjYk6+XdN+b35pk4q1WjsJ9a6VaZv1QjfNvsXaWn+D48Bik+YsqTiSVODa
+         pMtsEg0OIRcc+fHTNct1GBNa9AEg4KpatdkadYLJOXFMr7F72hnwUvZtTOkrnh/QbZgg
+         U6A/j0TKU3YrCJNrYgA4/8w0sVUpx/k19L2k7usBjT0sZYdJhBzVPqlyZyo62rXPDENd
+         A8sQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxRwTXbn21QlyRbpQH5WutyXfv7Ycvm5QiW3Jzy1kZHVF7otJfXswBlTh5p0wIO6Ledao4E66BPm88e0m8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYjok39MtRVizGS11sfYnGVUUcvdruTilwmJ9j3XFXIJliYIvg
+	Ppq9IEDiK5WCXYdhks/4VZUhUHP+y0hND4tVbD0DYYvaM0gQVxAgHImy
+X-Gm-Gg: AYBFou0c1EKS77JLBlIUl/S8OSLW98l7F4RcHvne25lsNjpHw0ORnVKr7qI33iKdmtw
+	OOXEYxr4PRYwDfG5dG4anhfZKyCfyuBMBkgaHdLhrj91ZFCOZMbGoc65jBzZRp0npGDbbAkYZg0
+	kHFYhcVUIwVHrZH7f9i+xXwdAbnY78pXjHPG/dkyUvJu2KwRejagqMOLQgorRMjeLjHkh3tzAk3
+	y8a0zhgsAeoWKQNQLkHSixwvUuvd02HIez50pWm3YSEjZMPLfTZ4cJfVlB6ZChcUxn2bVEfzx/A
+	TmyiEQ7B9VAFsXLeDnZv7uT9jk2X9FLXycytY7XFHW+bUxKoztmqvpPGzWgAM5EY0gbX2uFToVA
+	cZDw0MMqz+Y/2Ad0pSp3oGuLAxTm+yCPFVsnj3PL3JjA7obCZFOeZuWugVwkV7QiD2W3T+XTApT
+	F2NocV9O98ekUc3BsTYCz+Kkr49NTuj1T9WbOSGrWt5E6aH+vlj8HtJmbKf1VooS6Pm65WDzv6R
+	WnPqMJfr048eerF2jCnYmvhD1HTwSwDSN4goX0ghNe+Bzd79vypLeY+MvtX83MoPsHhuI8e
+X-Received: by 2002:a05:600c:a4e:b0:4a1:80d8:aed5 with SMTP id 5b1f17b1804b1-4a1d75e39b9mr45674975e9.6.1792234135774;
+        Sat, 17 Oct 2026 03:48:55 -0700 (PDT)
+Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4fe9d9sm10039464f8f.40.2026.10.17.03.48.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 03:48:55 -0700 (PDT)
+From: George Neacsu <geocausa@gmail.com>
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+Cc: David Heidelberg <david@ixit.cz>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com
-Subject: Re: [PATCH] ALSA: info: Serialize freeing with recursive registration
-In-Reply-To: <87ecdo1uud.wl-tiwai@suse.de>
-References: <pm-pmb-26d66390a25fec9fad6c-v2-743c9b89c0f0d761eda1@gmail.com>
-	<87ld7w20ok.wl-tiwai@suse.de>
-	<CAFRLqsVs8BGNHb8qG6nnrCc=fafMYAmCSDuXDb8uBRBrgJhnEA@mail.gmail.com>
-	<87ecdo1uud.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	gjorgji.rosikopulos@oss.qualcomm.com,
+	jigarkumar.zala@oss.qualcomm.com,
+	hariram.purushothaman@oss.qualcomm.com,
+	akapatra@quicinc.com,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	linux-media@vger.kernel.org,
+	krzysztof.kozlowski@oss.qualcomm.com,
+	daniel@quora.org,
+	konrad.dybcio@oss.qualcomm.com,
+	alex.vinarskis@gmail.com
+Subject: Re: [PATCH] media: qcom: camss: configure C-PHY in the new csiphy_stream_on()
+Date: Sat, 17 Oct 2026 11:48:53 +0100
+Message-ID: <20261017104853.148839-1-geocausa@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261017040529.3832120-1-anusha.nandi@oss.qualcomm.com>
+References: <20261017040529.3832120-1-anusha.nandi@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_CC(0.00)[perex.cz,suse.com,vger.kernel.org,gmail.com];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, 17 Oct 2026 12:31:54 +0200,
-Takashi Iwai wrote:
-> 
-> On Sat, 17 Oct 2026 11:27:54 +0200,
-> Cen Zhang wrote:
-> > 
-> > Hi Takashi,
-> > 
-> > >
-> > > Does the above crash really happen with unmodified code?
-> > > The PCM oss proc unregister is per card, hence there can't be race
-> > > between register and unregister for the same card.
-> > >
-> > > The hardening itself in the proc code is good, per se (although it's
-> > > doubtful whether we really need a global mutex from the performance
-> > > POV), though.
-> > >
-> > >
-> > > thanks,
-> > >
-> > > Takashi
-> > 
-> > 
-> > Thank you for the review. The quoted KASAN report used scheduling
-> > instrumentation
-> > and a small test module that called snd_card_register() on an already registered
-> > dummy card.
-> > 
-> > But reviewing the source, I found a concrete scenario involving
-> > existing in-tree callers that appears to allow this race.
-> > 
-> > Consider a registered card with PCM A and its published OSS proc
-> > entry. A later bind of another codec B on the same card can reach
-> > hda_codec_driver_probe(), which calls snd_card_register() when
-> > !bus_probing && card->registered.
-> > 
-> > At the same time, snd-pcm-oss can be unloaded while the card remains
-> > registered, provided no active OSS references prevent the unload.
-> > alsa_pcm_oss_exit() calls snd_pcm_notify(..., 1), which invokes
-> > n_unregister() for the registered PCM devices and frees their OSS
-> > proc entries.
-> > 
-> > The interleaving I believe the source permits is:
-> > 
-> >   HDA codec B probe                  snd-pcm-oss module exit
-> >   -----------------                  -----------------------
-> >   snd_card_register(card)
-> >     snd_device_register_all(card)
-> >     /* PCM register_mutex released */
-> > 
-> >                                      lock(register_mutex)
-> >                                      n_unregister(PCM A)
-> >                                        snd_info_free_entry(entry)
-> >                                          proc_remove(entry->p)
-> >                                          lock(info_mutex)
-> >                                          entry->p = NULL
-> >                                          unlock(info_mutex)
-> >                                          /* entry still linked */
-> > 
-> >     lock(snd_card_mutex)
-> >     snd_info_card_register(card)
-> >       snd_info_register(card->proc_root)
-> >         find PCM A's linked entry
-> >         lock(info_mutex)
-> >         recreate proc node with
-> >           entry as private data
-> >         unlock(info_mutex)
-> >     unlock(snd_card_mutex)
-> > 
-> >                                      unlink entry
-> >                                      kfree(entry)
-> >                                      unlock(register_mutex)
-> > 
-> > The card-info traversal does not hold the PCM register_mutex, and
-> > OSS notifier removal does not take snd_card_mutex. The parent proc
-> > directories also remain present because the card and PCM A have
-> > not been removed.
-> > 
-> > This appears to allow the new proc node to retain a pointer to the
-> > freed entry. A subsequent open could then reach alloc_info_private()
-> > with that stale pointer. Please let me know if I have overlooked
-> > another serialization point in this path.
-> 
-> OK, the arbitrary OSS removal is the problem child.
-> 
-> IMO, instead of hardening piece-by-piece in ad hoc ways, we can pin
-> the OSS PCM and mixer module when any card is added and unpin at the
-> card removal, so that we can't unload OSS modules while there are any
-> actually used cards.
+Hi Anusha,
 
-I meant something like below (totally untested)
+One units issue showed up while testing this on X1E80100.
 
+camss_get_link_freq(..., cphy=true) returns the V4L2 C-PHY link
+frequency. The media documentation defines link frequency as the bus
+frequency, explicitly not the symbol rate; its C-PHY pixel-rate formula
+also has the factor of two that makes the C-PHY symbol rate twice the
+V4L2 link frequency.
 
-Takashi
+For the SP11 IMX681, the exact Windows/QTI sensor mode programs PLL2
+for a 2.400 Gsym/s C-PHY rate (19.2 MHz * 375 / 3). The same 68-write
+mode programming was also observed live under KD on this machine.
+camss_get_link_freq() returns the corresponding 1.200 GHz V4L2 link
+frequency.
 
--- 8< --
-diff --git a/sound/core/oss/mixer_oss.c b/sound/core/oss/mixer_oss.c
-index f1fa42e634fc..2e686bd6c5f9 100644
---- a/sound/core/oss/mixer_oss.c
-+++ b/sound/core/oss/mixer_oss.c
-@@ -1309,13 +1309,18 @@ static int snd_mixer_oss_free1(void *private)
- static int snd_mixer_oss_notify_handler(struct snd_card *card, int cmd)
- {
- 	struct snd_mixer_oss *mixer;
-+	int err;
- 
- 	if (cmd == SND_MIXER_OSS_NOTIFY_REGISTER) {
--		int idx, err;
-+		int idx;
- 
- 		mixer = kzalloc_objs(*mixer, 2);
- 		if (mixer == NULL)
- 			return -ENOMEM;
-+		if (!try_module_get(THIS_MODULE)) {
-+			kfree(mixer);
-+			return -ENODEV;
-+		}
- 		mutex_init(&mixer->reg_mutex);
- 		err = snd_register_oss_device(SNDRV_OSS_DEVICE_TYPE_MIXER,
- 					      card, 0,
-@@ -1325,6 +1330,7 @@ static int snd_mixer_oss_notify_handler(struct snd_card *card, int cmd)
- 				"unable to register OSS mixer device %i:%i\n",
- 				card->number, 0);
- 			kfree(mixer);
-+			module_put(THIS_MODULE);
- 			return err;
- 		}
- 		mixer->oss_dev_alloc = 1;
-@@ -1358,7 +1364,9 @@ static int snd_mixer_oss_notify_handler(struct snd_card *card, int cmd)
- 		if (cmd == SND_MIXER_OSS_NOTIFY_DISCONNECT)
- 			return 0;
- 		snd_mixer_oss_proc_done(mixer);
--		return snd_mixer_oss_free1(mixer);
-+		err = snd_mixer_oss_free1(mixer);
-+		module_put(THIS_MODULE);
-+		return err;
- 	}
- 	return 0;
- }
-diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
-index bd19328dca9e..3d35f9d2d675 100644
---- a/sound/core/oss/pcm_oss.c
-+++ b/sound/core/oss/pcm_oss.c
-@@ -3151,6 +3151,9 @@ static void register_oss_dsp(struct snd_pcm *pcm, int index)
- 
- static int snd_pcm_oss_register_minor(struct snd_pcm *pcm)
- {
-+	if (!try_module_get(THIS_MODULE))
-+		return -ENODEV;
-+
- 	pcm->oss.reg = 0;
- 	if (dsp_map[pcm->card->number] == (int)pcm->device) {
- 		char name[128];
-@@ -3207,6 +3210,7 @@ static int snd_pcm_oss_unregister_minor(struct snd_pcm *pcm)
- {
- 	snd_pcm_oss_disconnect_minor(pcm);
- 	snd_pcm_oss_proc_done(pcm);
-+	module_put(THIS_MODULE);
- 	return 0;
- }
- 
+phy_mipi_cphy_get_default_config_for_hsclk() takes the high-speed symbol
+rate, so passing link_freq directly here fills hs_clk_rate with
+1.2 Gsym/s rather than 2.4 Gsym/s. I think this wants:
+
+    phy_mipi_cphy_get_default_config_for_hsclk((u64)link_freq * 2,
+                                                num_lanes, cphy_cfg);
+
+I instrumented that path on X1E and get link=1200000000 Hz and
+symbol=2400000000 sym/s. Capture succeeds with those values.
+
+The qcom provider then needs to keep those units distinct too; I have a
+separate comment on that patch.
+
+Thanks,
+George
