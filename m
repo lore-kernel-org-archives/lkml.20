@@ -1,214 +1,121 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02293C4163;
-	Sat, 17 Oct 2026 10:31:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C6734CF49D
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 10:33:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792233122; cv=none; b=gkxmRiwywh8CcbQtIILFs6MvVdKDrwdaUIDJcGw9gL52tuqV+i74oVKKPalQNtrKlAbclVZlAYs+CISlmytLY4bkiPsuadQWaGYEFTRpZznRYVNjSf03T/+yrbA5cjpVaDrlQ37FU2/xu6obvTu9N3KyaWY2E2s3vBSDtGw3RyE=
+	t=1792233206; cv=none; b=BS2HiwMI5iw/6muvXS/Q0J5lCGDBoXTLjB6NYKYoPTn8XSKNGO5vQFWHfdHJYwIueZ9xJgOPocXzOBPqWjiKVDfzSljvcZsLKtJ0zHoNVGzeJaR4vPKf9Hzyv6WCFUtnCJOA/JH3nU9PaW1Vp38bovzKJUg39LMwXK0EuaRFlMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792233122; c=relaxed/simple;
-	bh=8Sam++QywWms/RRrPwse85nq2TJkglcFx6i2zC73XS0=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XQgS/GHjGTKLiYT+KM9jB4sjuX3oZBi1zn6rfjBgQAipP3yQQEfye3E9XJMjbQEdUHnCe7H2K1Il+Ni8EOSECa0a5ZBoGTl0VVpFL0gRVh8jBfu+16Xe5Nfe/W/UoblLnSi4Vji8XAMsoTfzsoS95wXyr+YJn21HgueSNVcAnZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=GIsnDzO+; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=rwGfSIWo; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=BN6UyB6j; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=kDuuGrI+; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1792233206; c=relaxed/simple;
+	bh=h9mpyNGxyB5LQ5/f3cT1zd18jPmDbLcsYpdDrXeaHok=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Mxo4E2MJGhZ1CQdNaeHukzIX8HoxjazYhh5pF55cjwhUmpO/vvtmKLvTXLFMrmmBi439yjcAQMQsXvwGCpwnq7MDC63zcwTzKAkYDLPv6Ul9whXUdek9su4327bJTYp4KtORxfR7s64iovpVSpQpanWny0SMrZyjpTJBs9Ew10Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z5PW6Xyr; arc=none smtp.client-ip=74.125.228.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="GIsnDzO+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rwGfSIWo";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="BN6UyB6j";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kDuuGrI+"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 77A911F44F;
-	Sat, 17 Oct 2026 10:31:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792233116; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FHaH74bOf21j9DIx0c01Sl3r4QEftpKhFzhthKWkkNI=;
-	b=GIsnDzO+ourOXl12ZSznPofHNWkeZ+cyJnec4rNKOWym9JGcM3ftG/AdRX+YDBqwLN9tQJ
-	W73c51mDbqFPncGpWgMaDWzspc3JNsY8ENrmC0mGnLXv8AMps06FV1kR+4w4FWeArc8tAo
-	Py2A0yzrCR8HC+qxQyaJGau1DlB1QR8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792233116;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FHaH74bOf21j9DIx0c01Sl3r4QEftpKhFzhthKWkkNI=;
-	b=rwGfSIWoJRYxKBhjHCeOOgrSoL6Q+4KUoprnJ+wWvui9Cnp1qlmYKnZxE7wLQXUoQ5NprL
-	ucRekuK7NyCvmWAg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792233115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FHaH74bOf21j9DIx0c01Sl3r4QEftpKhFzhthKWkkNI=;
-	b=BN6UyB6jmFd39hOyTDh6lr1RHFrbU4XAqqLI79UfZJmsmzgjUYiJam2nbprN0i1bIQZgeN
-	ifFWcG2HPr9dZ71DV9wFOt1PG79mJOD5co+W22/r9MYH/xYoswCD6dIw4q7B4WsPk3IP30
-	M8bh5ZqLOYxruUASDNCLG9luk+bmmO0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792233115;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FHaH74bOf21j9DIx0c01Sl3r4QEftpKhFzhthKWkkNI=;
-	b=kDuuGrI+Xc/y0Hs5JSohN/B3BOwoTeufksafqdFI0y92qOMeE0F2VPGWiU1sKV2/rcPfxj
-	hwF7KHECTZijh/Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1E498133A7;
-	Sat, 17 Oct 2026 10:31:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id O2fKOZpO02pAJAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 17 Oct 2026 10:31:55 +0000
-Date: Sat, 17 Oct 2026 12:31:54 +0200
-Message-ID: <87ecdo1uud.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z5PW6Xyr"
+Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cd616db42fcso287538a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:33:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792233203; x=1792838003; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PE+HwLCwRnxv9Z9DzgjUbOHs4/5c++tnA7FG82mBFBc=;
+        b=Z5PW6Xyrb/yHCZXJlD0saKWcSdUBpdU3jem+YD6Axvy/lfkg8c46WTi57EGxP8wPML
+         nOJelPuKjzD0gxHRHb91NOdRtoc6hBhlizF7k/nMrY+tp2kNMz/Gl17bpofUdeqnWnS7
+         nl7Tvd/cSL6dNnFNpLHjYCpJnsx7fhaQLMg6LDNrgyuGqnRXjKh+PnFOxDd1tLzUdoxw
+         xFw6sJi0tuXZVuSLIw7/VZHo1Q8pJzztoYqtHrQRSmjaH8Y43E2jfgz3wjej3uiYNn1h
+         VVBusgsy18DUC1ihop3szHiEZi9GrfAZ7ir1GexqyG/i/SajVAF0IVW5yulhFH6LZvb9
+         kN9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792233203; x=1792838003;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PE+HwLCwRnxv9Z9DzgjUbOHs4/5c++tnA7FG82mBFBc=;
+        b=NnQQBD5mL8CTLXFJl43higbKsrn+EJRZ57qbXTY8u/+lUlr0yWH3hqhzZen3gUb1MI
+         kEwDQzVxyYLu5lxlnUnoKIwBGM2myucCzYfA0m6LQVp2UfbRMmdHrKgy1Fk4xIp0KXuf
+         zpeUkSUL8s3cUW+t0PR5PGzvfDnJOPCiASXkDseuHcqQM+ngB8ECEPT2o0c5nXQcz9wj
+         eXBNFUQk/vQO9lQAiDCNIf9r2HKNqgEsAh7VTO8OmD2CDu45xtANTYGErpnmkMDnZVE1
+         XFrqY7gjDYvF+IKsodR+HHvM+BYeA7D6Mjsg6CjH2QcZsu7+fnuVivnig9lXBADUkG0v
+         XHWA==
+X-Forwarded-Encrypted: i=1; AKwUvBywByE9FC7yPBA98hL2cxUtHfRkwHVgUlFwkUCWdEbrL34bu1PoDWLnbLUrEAuOgeeQiXVA8uRqLTK4uj0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK24P2IlK13OUVIjNrSDswBtFpApOH5boEuZTVMybFxmWWzBWjV
+	XcIfqTixn+9VzYgHhsknDWA9+n3javQQ3hq6ab+7gJ4/QbLud0EWIziD
+X-Gm-Gg: AYBFou2L9ylDZ68Pk0KnlHgoacWJQ06K4Hng+B2MFeSjW+vHNKnh4T76iprpscYN67y
+	yxZWR7jNvCExM+mpD6+/RvqfoEbO/yPvHF2wEpPfKCSALU7Byjv2Q9sOa2tN4a8oVnND2sw3d29
+	230x+3y8GwrJkKF5VHkpd5iqpqdR07Ob08JcTKck5oJ5g0xFkedZ1kwgoXMu0ETvspwjhXzrHK7
+	hH7Fwj+BhOWPo/FWzaqwZx9LGM1msE1QKcr1OpDPqZfQcZWYPr7g/vWH9FIZUAMAeNvNNq8iQz/
+	sagboTzhYB8XxV6DbYs1ARW7CrRPh0Ev5d0wAhIAb6ugljNszVJvRtwbfgWNr/04IAArqwa5epE
+	ALAmlxxp+Lf4nzZd77sKzJ9neo2OMDpf/WcdaH7cddI+viPUMhPGGNZappmk9YggRkZQY82CIU6
+	e8PTlJIBzX4RGjb5A2KXX7ePUIPn/WXGCH0ouMDoGyJRF5l+MNQR1gHKe6
+X-Received: by 2002:a05:6a00:13a6:b0:878:34d7:6a24 with SMTP id d2e1a72fcca58-8a04be4a6bfmr1651573b3a.38.1792233203390;
+        Sat, 17 Oct 2026 03:33:23 -0700 (PDT)
+Received: from Linux-PC ([2a09:bac5:1f0f:372d::57f:4e])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f58414986sm2051585b3a.57.2026.10.17.03.33.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 03:33:22 -0700 (PDT)
+From: tianshi12127 <tianshi12127@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	dri-devel@lists.freedesktop.org
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Simona Vetter <simona@ffwll.ch>,
+	devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com
-Subject: Re: [PATCH] ALSA: info: Serialize freeing with recursive registration
-In-Reply-To: <CAFRLqsVs8BGNHb8qG6nnrCc=fafMYAmCSDuXDb8uBRBrgJhnEA@mail.gmail.com>
-References: <pm-pmb-26d66390a25fec9fad6c-v2-743c9b89c0f0d761eda1@gmail.com>
-	<87ld7w20ok.wl-tiwai@suse.de>
-	<CAFRLqsVs8BGNHb8qG6nnrCc=fafMYAmCSDuXDb8uBRBrgJhnEA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	Lu Chen <tianshi12127@gmail.com>
+Subject: [PATCH v2 0/3] drm/panel: Add Smartisan TD4362 panel support
+Date: Sat, 17 Oct 2026 18:32:47 +0800
+Message-ID: <20261017103250.800109-1-tianshi12127@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261017083531.766557-1-tianshi12127@gmail.com>
+References: <20261017083531.766557-1-tianshi12127@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_CC(0.00)[suse.de,perex.cz,suse.com,vger.kernel.org,gmail.com];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, 17 Oct 2026 11:27:54 +0200,
-Cen Zhang wrote:
-> 
-> Hi Takashi,
-> 
-> >
-> > Does the above crash really happen with unmodified code?
-> > The PCM oss proc unregister is per card, hence there can't be race
-> > between register and unregister for the same card.
-> >
-> > The hardening itself in the proc code is good, per se (although it's
-> > doubtful whether we really need a global mutex from the performance
-> > POV), though.
-> >
-> >
-> > thanks,
-> >
-> > Takashi
-> 
-> 
-> Thank you for the review. The quoted KASAN report used scheduling
-> instrumentation
-> and a small test module that called snd_card_register() on an already registered
-> dummy card.
-> 
-> But reviewing the source, I found a concrete scenario involving
-> existing in-tree callers that appears to allow this race.
-> 
-> Consider a registered card with PCM A and its published OSS proc
-> entry. A later bind of another codec B on the same card can reach
-> hda_codec_driver_probe(), which calls snd_card_register() when
-> !bus_probing && card->registered.
-> 
-> At the same time, snd-pcm-oss can be unloaded while the card remains
-> registered, provided no active OSS references prevent the unload.
-> alsa_pcm_oss_exit() calls snd_pcm_notify(..., 1), which invokes
-> n_unregister() for the registered PCM devices and frees their OSS
-> proc entries.
-> 
-> The interleaving I believe the source permits is:
-> 
->   HDA codec B probe                  snd-pcm-oss module exit
->   -----------------                  -----------------------
->   snd_card_register(card)
->     snd_device_register_all(card)
->     /* PCM register_mutex released */
-> 
->                                      lock(register_mutex)
->                                      n_unregister(PCM A)
->                                        snd_info_free_entry(entry)
->                                          proc_remove(entry->p)
->                                          lock(info_mutex)
->                                          entry->p = NULL
->                                          unlock(info_mutex)
->                                          /* entry still linked */
-> 
->     lock(snd_card_mutex)
->     snd_info_card_register(card)
->       snd_info_register(card->proc_root)
->         find PCM A's linked entry
->         lock(info_mutex)
->         recreate proc node with
->           entry as private data
->         unlock(info_mutex)
->     unlock(snd_card_mutex)
-> 
->                                      unlink entry
->                                      kfree(entry)
->                                      unlock(register_mutex)
-> 
-> The card-info traversal does not hold the PCM register_mutex, and
-> OSS notifier removal does not take snd_card_mutex. The parent proc
-> directories also remain present because the card and PCM A have
-> not been removed.
-> 
-> This appears to allow the new proc node to retain a pointer to the
-> freed entry. A subsequent open could then reach alloc_info_private()
-> with that stale pointer. Please let me know if I have overlooked
-> another serialization point in this path.
+From: Lu Chen <tianshi12127@gmail.com>
 
-OK, the arbitrary OSS removal is the problem child.
+This series adds support for the Smartisan TD4362, a 1080x2242
+command mode DSI panel found in the Smartisan R1 (trident)
+smartphone.
 
-IMO, instead of hardening piece-by-piece in ad hoc ways, we can pin
-the OSS PCM and mixer module when any card is added and unpin at the
-card removal, so that we can't unload OSS modules while there are any
-actually used cards.
+The initialization and power sequences were converted from the
+downstream device tree with linux-mdss-dsi-panel-driver-generator,
+and the driver was tested on a Smartisan R1 (trident).
 
-The cases with the partial HDA codec probe/remove is a different
-problem, though.  This has to be addressed somehow better.
+Patch 1 adds the "smartisan" vendor prefix, patch 2 documents the
+panel binding, and patch 3 adds the DRM panel driver itself.
 
+Changes in v2:
+- rename lab-supply/ibb-supply to vsp-supply/vsn-supply (per review)
 
-thanks,
+Lu Chen (3):
+  dt-bindings: vendor-prefixes: add smartisan
+  dt-bindings: display: panel: add Smartisan TD4362
+  drm/panel: add driver for Smartisan TD4362
 
-Takashi
+ .../display/panel/smartisan,td4362.yaml       |  75 +++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ drivers/gpu/drm/panel/Kconfig                 |  13 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ .../gpu/drm/panel/panel-smartisan-td4362.c    | 263 ++++++++++++++++++
+ 5 files changed, 354 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
+ create mode 100644 drivers/gpu/drm/panel/panel-smartisan-td4362.c
+
+-- 
+2.56.0
+
