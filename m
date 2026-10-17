@@ -1,38 +1,37 @@
 Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3DC49BB59;
-	Sat, 17 Oct 2026 12:25:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC7049158D;
+	Sat, 17 Oct 2026 12:25:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792239922; cv=none; b=BTBJWgrihnnr9ClF0gq1vFkAhKPwV3CTLk4jsyMjzLmeH2Qx1bjhWd0YTCqgiKSKBjA+/FK06ZBTycT5UwoxcER3PCDFp38CeJKTFOxvGt5swFcj/LK9C2bjeGT7AzOjUrhpONIpXklsIePK9OjqCTWj3Uzh01JBL0I3uPdhJ70=
+	t=1792239920; cv=none; b=fdbQADDeMlKoFoG01VlwgZTUhnFeA8h79IilcSctxZrq8yI8b/k73RPvN77wq1bdVEzqvAFfn7gwTpOBVdOCRVphm1b8t1ZyZsa2ikSMBbSJNLlxnVu4HGpswnlYPvHJfUvALOB48RbIB8ZpcaZudfkMIYk2Cxgs8mhFBzAFaGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792239922; c=relaxed/simple;
-	bh=f+s0TcF2rgcdhfqMxtlIt/rrYCzhR9bIrpDtS6bz1rw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kLGaMsKLF7hiuUalq02Gszyoibg4cGdMx4bFvOcpQmr36g6fo6Rdx8h/94QBxM88YTMihRNf3vp1rTixyj4v+gYhRuUN7cdAtDU4TSKHQZIJHpVJ6L8DuBCOhychXJIYB1ket0LjRLVx39uigDJVKcsFA7CtQDs9tQ0j4YtiyPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=BB7ZQpyg; arc=none smtp.client-ip=90.155.92.199
+	s=arc-20240116; t=1792239920; c=relaxed/simple;
+	bh=VmonMQNQEvT+KIRX0/Xw55/yWpG4wzyoRpO6of1g4IU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=AKjKMpWj1XBo7ChshLd7M4MCeFRcGksRTJ3u9DkgpPrbxB0xoISlwy3IXvD8Ld3MvgZ736fkDLfIvKLLQsV4xqSyCtMVwZYGR/KA4LvdZXMabVzLqvOwVHKS0F69uRiOuFLXJ1cv1iEhjNdwoF1VIj8ZsE+YztbPsfDkNIrN9+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=WCgXz196; arc=none smtp.client-ip=90.155.92.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="BB7ZQpyg"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="WCgXz196"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=b84l7c+3APHc+R8gW+0cyDQpS7umyE+pPCwVc1HKzPw=; b=BB7ZQpyg00Ps5gcId6kR9qE/OI
-	CAIRlQcvQHfL+wro46vRqxDngRs16Ee/TAKUSH/vQrCjdEwZ8wz9VjbO7WTRG2u9DpkF0e4Lvk5Sa
-	MOA5xnsS9oyrZdjDKfPipY838OjHBwSLRvv5C3k5PExOGoT9mLrUb7L/J7Aq1+1L4Ptu9O9PtaNdt
-	nSUEK4w7wuqWbsoxcZBBSzGcbf6g39MeqF3QBWWhLJd4HcuPZUNGwgMmVmnkbi6sLvLk41FBUxyFY
-	EfgnYZ3JsA2xR9jBWTxDxxoGghyQeEmpAEN6G0M/rFXNbMARoTL/KYnp4PkSGIYlRbTz87bU3aOQE
-	r7+zzBXA==;
+	Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=4/j4hLYo4ZKdASbTs1SD/1QRFdf80rHDt9FHcVo24Jo=; b=WCgXz196SH7LweylMCamKShkHV
+	areI3OOvaTLnwOX4nWtJX6zKuCzex6JGzdrvuJ/zZsJIL+UZuO6x0mjflEu1UCUPVhGm+lvbvuNFM
+	410CmL2rXYJ7hn8ioKn06tIavnBdxOv8w9EsLlqXiDpdkP6ieWWPHqRV7XBaxUNdAqhHrbXDyk7jH
+	WIBvV5i11xKA2diUt7qpp3tnVIW9iJdTYqI1obq6kZWSkTl+z0u0iunQKq+H2TTm8iEOU3ePjvzJ9
+	JLTcpfSytV/8ygaGNfxcltTPFQTRs3g0LKxIDgyrhB1Qp0RrIKYhRzyvaDuQQhVDvmCdZXmVpDMkm
+	bTVe7zQA==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xI3TF-00000002LfQ-1xV5;
-	Sat, 17 Oct 2026 12:25:06 +0000
+	id 1xI3TE-00000002LfB-1abf;
+	Sat, 17 Oct 2026 12:25:14 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xI3TD-00000002Yms-13LI;
-	Sat, 17 Oct 2026 13:25:03 +0100
+	id 1xI3TB-00000002Yko-3Hf6;
+	Sat, 17 Oct 2026 13:25:01 +0100
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -53,145 +52,249 @@ Cc: linux-kernel@vger.kernel.org,
 	Mushahid Hussain <hmushi@amazon.co.uk>,
 	David Woodhouse <dwmw@amazon.co.uk>,
 	nh-open-source@amazon.com
-Subject: [RFC PATCH 30/55] KVM: planes: Unwind published state on KVM_CREATE_PLANE failure
-Date: Sat, 17 Oct 2026 13:24:36 +0100
-Message-ID: <20261017122501.610248-31-dwmw2@infradead.org>
+Subject: [RFC PATCH 00/55] KVM: x86: Hyper-V VSM (Virtual Trust Levels) on VM planes
+Date: Sat, 17 Oct 2026 13:24:06 +0100
+Message-ID: <20261017122501.610248-1-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261017122501.610248-1-dwmw2@infradead.org>
-References: <20261017122501.610248-1-dwmw2@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-kvm_create_plane() publishes the new plane in kvm->planes[] and takes
-the APICV_INHIBIT_REASON_PLANES inhibit before
-kvm_vm_ioctl_create_plane() can still fail at anon_inode_getfile(),
-and the error path freed the plane without unpublishing it: a VMM
-retrying plane setup after such a failure wrote overlays through the
-freed plane via KVM_SET_PLANE_MEMORY_OVERLAY, and VM teardown
-destroyed the plane a second time. The VM also kept APICv inhibited
-with no nonzero plane left to justify it.
+Windows uses Virtualization Based Security for Credential Guard and
+friends, and enables it by default in current releases. A guest with
+VBS enabled runs its secure kernel in VTL1, a higher privilege level
+which the hypervisor has to keep isolated from the normal kernel in
+VTL0. KVM has no concept of that today, so Windows guests either lose
+VBS or emulate it with nested virtualization, which is slower and
+loses features.
 
-Clear the kvm->planes[] slot before freeing, and drop the APICv
-inhibit in kvm_arch_plane_destroy() when the last nonzero plane of a
-live VM goes away (at VM teardown plane 0 is already gone, which skips
-the update). Make the overlay ioctl read kvm->planes[] under
-kvm->lock, which the create path holds across publish and unpublish,
-so a plane pointer it observes stays valid until VM teardown; publish
-with smp_store_release() for the remaining lock-free readers.
+There have been completely in-kernel implementations of VBS, which
+did unnatural things all within a single kvm_vcpu (four APICs, etc.)
 
-Found by Sashiko review.
+This is an attempt to build it more cleanly, more in userspace, based
+on KVM planes (https://lwn.net/Articles/1087590/).
 
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Assisted-by: LLM
----
- arch/x86/kvm/x86.c  | 32 ++++++++++++++++++++++++++++++++
- virt/kvm/kvm_main.c | 25 ++++++++++++++++++++++---
- 2 files changed, 54 insertions(+), 3 deletions(-)
+The behavioural reference was the in-kernel VSM implementation in the
+Nitro Hypervisor, complete with its latest compatibility fixes since
+it was last posted — largely turned into a bunch of kvm unit
+tests. The result boots Windows Server 2016 through 2025 with
+Credential Guard active, on both Intel and AMD hosts, with VTL1
+protecting its memory from VTL0. With hibernate/resume tested, since
+that part has always been extra fun.
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index c5122e6f42bd..afd668c6db3f 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -14003,7 +14003,39 @@ int kvm_arch_plane_init(struct kvm *kvm, struct kvm_plane *plane,
- 
- void kvm_arch_plane_destroy(struct kvm_plane *plane)
- {
-+	struct kvm *kvm = plane->kvm;
-+	int i;
-+
- 	kvfree(rcu_dereference_check(plane->arch.apic_map, 1));
-+
-+	if (plane->level == 0)
-+		return;
-+
-+	/*
-+	 * Drop the APICv inhibit taken in kvm_arch_plane_init() when the
-+	 * last nonzero plane goes away.  Only the KVM_CREATE_PLANE error
-+	 * path destroys a nonzero plane while the VM is live; at VM
-+	 * teardown plane 0 is destroyed first and kvm->planes[0] is
-+	 * already NULL, which skips the update (the inhibit machinery
-+	 * needs plane 0 and SRCU, both gone by then).
-+	 */
-+	if (!kvm->planes[0])
-+		return;
-+
-+	/*
-+	 * Reaching here means a nonzero plane died while the VM is live,
-+	 * which only the KVM_CREATE_PLANE error path does - under
-+	 * kvm->lock.  A future kvm_destroy_planes() reordered to tear
-+	 * nonzero planes down before plane 0 would get here locklessly;
-+	 * catch that instead of silently poking freed APICv state.
-+	 */
-+	lockdep_assert_held(&kvm->lock);
-+
-+	for (i = 1; i < KVM_MAX_PLANES; i++)
-+		if (kvm->planes[i] && kvm->planes[i] != plane)
-+			return;
-+
-+	kvm_clear_apicv_inhibit(kvm, APICV_INHIBIT_REASON_PLANES);
- }
- 
- int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 3e021683c8a8..ae998cef3c36 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -1259,7 +1259,12 @@ static struct kvm_plane *kvm_create_plane(struct kvm *kvm, unsigned plane_level)
- 	if (kvm_arch_plane_init(kvm, plane, plane_level))
- 		goto out_free_plane;
- 
--	kvm->planes[plane_level] = plane;
-+	/*
-+	 * Pairs with the lock-free readers of kvm->planes[] (MSI delivery,
-+	 * SEV VMPL targeting): the plane's fields must be visible before
-+	 * the pointer is.
-+	 */
-+	smp_store_release(&kvm->planes[plane_level], plane);
- 
- 	return plane;
- 
-@@ -5915,8 +5920,15 @@ static int kvm_vm_ioctl_create_plane(struct kvm *kvm, unsigned id)
- 	return fd;
- 
- put_kvm:
--	kvm_put_kvm(kvm);
-+	/*
-+	 * kvm_create_plane() published the plane; unpublish it before
-+	 * freeing (kvm->lock is held throughout, so readers who take it
-+	 * never observe the dead pointer) and so that VM teardown does
-+	 * not destroy it a second time.
-+	 */
-+	kvm->planes[id] = NULL;
- 	kvm_destroy_one_plane(plane);
-+	kvm_put_kvm(kvm);
- put_fd:
- 	put_unused_fd(fd);
- 	return r;
-@@ -6037,7 +6049,14 @@ static int kvm_vm_ioctl_set_plane_overlay(struct kvm *kvm,
- 		return -EINVAL;
- 	if (ov->uaddr & ~PAGE_MASK)
- 		return -EINVAL;
--	plane = kvm->planes[ov->plane];
-+	/*
-+	 * Read under kvm->lock: KVM_CREATE_PLANE publishes and, on its
-+	 * error path, unpublishes-and-frees the plane under that lock, so
-+	 * a pointer observed here is either NULL or a plane that lives
-+	 * until VM teardown.
-+	 */
-+	scoped_guard(mutex, &kvm->lock)
-+		plane = kvm->planes[ov->plane];
- 	if (!plane)
- 		return -EINVAL;
- 
+For now I've structured the userspace part as a separable library
+which can be pulled into QEMU or other VMMs. Partly because QEMU
+doesn't want it when AI did the typing (but *might* tolerate it as an
+external library), and partly because I think it might make sense to
+have a more permissively licensed standard implementation for how
+KVM-based VMMs implement VSM, and have some input from the Microsoft
+side and some improved expectation that it'll *keep* working with
+Windows and not keep breaking for every new release. But that's a
+future conversation. For now I'm just preempting the question, "why
+does it look like that?".
+
+ • https://git.infradead.org/?p=users/dwmw2/linux.git;a=shortlog;h=refs/heads/vsm
+ • https://git.infradead.org/?p=users/dwmw2/qemu.git;a=shortlog;h=refs/heads/vsm
+ • https://git.infradead.org/?p=users/dwmw2/kvm-unit-tests.git;a=shortlog;h=refs/heads/vsm
+
+Pulled into my base tree on v7.1-rc7 (not reposted here):
+
+ • KVM planes itself (Jörg's latest from June)
+   https://lore.kernel.org/kvm/20260608144252.351443-1-joro@8bytes.org/
+   https://github.com/joergroedel/linux/tree/kvm-planes-v7.1
+ • Paolo's memory protection attributes v3
+   https://lore.kernel.org/kvm/20260918135030.171564-1-pbonzini@redhat.com/
+ • Melody Wang's SEV-SNP #HV doorbell / Restricted Injection series
+   https://lore.kernel.org/all/cover.1777048608.git.huibo.wang@amd.com/
+ • A few fixes to the above ride just above them in the git tree,
+   each citing the report it addresses; not part of this posting
+
+Generic fixes and features in KVM before we get to VSM itself:
+
+ • Userspace opt-in (KVM_CAP_PLANES) and plane run-state ioctls;
+   MP state, guest-debug, KVM_TRANSLATE, SETUP_MCE and a filtered
+   KVM_ENABLE_CAP on plane vCPU fds; unwind of a failed
+   KVM_CREATE_PLANE
+ • Plane mechanics: per-plane request fan-out, kicking the twin
+   that is actually running, XCR0 and TSC matching shared across
+   twins, runtime CPUID per plane, APICv inhibited while planes
+   are enabled (for now).
+ • Per-plane memory attributes and overlays, and instruction state
+   on the memory-fault exit, for the VMM to build intercept
+   messages from
+ • Fixes found along the way: KVM_TRANSLATE reporting a real
+   write-access walk, SVM keeping TPR[3:0] across exits without a
+   guest CR8 write
+
+Finally we get to the actual Hyper-V VSM bits:
+
+ • Hypercall forwarding to userspace (KVM_CAP_HYPERV_FORWARD_HCALL),
+   with completion or injected #UD, for the VSM hypercalls KVM
+   doesn't handle itself
+ • HvCallVtlCall/HvCallVtlReturn switching between planes in the
+   kernel; forced VTL entry gated on interrupt deliverability and
+   re-armed when a plane suspends with IRR set
+ • Per-plane Hyper-V state: GUEST_OS_ID/HYPERCALL MSRs, the
+   reference TSC page, SynIC and event routing, TLB flushes
+ • VTL register intercepts, including the descriptor-table load
+   traps Credential Guard requires
+ • The suspended-VP state (from Nikolas Wipper's series), refusal of
+   SendIpi to a higher VTL, XMM fast hypercall output
+ • Selftests for both halves; a hyperv_vsm suite for kvm-unit-tests
+   covering VTL call/return, protections, intercepts and eventing
+   follows separately
+
+The four WIP-marked patches need finishing and splitting; they are
+included because the series does not function without them. This is
+very much an RFC.
+
+Held back in the git tree for a follow-up posting:
+
+ • KVM_TRANSLATE2 and the page-walker flags/status work (also
+   Nikolas's), and the HvCallTranslateVirtualAddress handling built
+   on it
+ • TLB flush inhibit (TlbLocked)
+
+Not done at all yet: VINA, and migration of mid-VTL-switch state
+(the forced-entry and captured-register state has no GET/SET
+exposure). The interaction with SEV-SNP VMPLs, the other consumer of
+planes, is untested from this side.
+
+Mushahid also has a version which boots Windows 11 on arm64, which
+we'll reconcile when some of the dust settles.
+
+I think this will take a while to reconcile and merge, even after
+the base dependencies (planes, memattrs, etc.) are in. I'd like to
+start settling the basic functionality so we can start preparing
+to merge it in little pieces, if we can reach a general consensus.
+
+
+David Woodhouse (44):
+  KVM: x86/mmu: Move ACC_* masks from spte.h to mmu.h
+  KVM: x86: Let userspace opt in to multiple planes with KVM_CAP_PLANES
+  KVM: selftests: Add x86 planes lifecycle test
+  KVM: x86: hyper-v: Add KVM_CAP_HYPERV_FORWARD_HCALL
+  KVM: selftests: Add Hyper-V hypercall forwarding test
+  KVM: Add KVM_GET/SET_PLANE_RUN_STATE vCPU ioctls
+  KVM: selftests: Cover plane run-state ioctls in planes_test
+  KVM: x86: hyper-v: Let userspace fault a forwarded hypercall
+  KVM: x86: Allow MP state ioctls on plane vCPU fds
+  KVM: x86: Filter KVM_ENABLE_CAP on plane vCPU fds
+  KVM: x86: initialise Hyper-V state on every plane vCPU
+  KVM: implement per-plane memory attributes
+  KVM: x86: hyper-v: bank GUEST_OS_ID and HYPERCALL MSRs per plane
+  KVM: x86: hyper-v: bank the reference TSC page per plane
+  KVM: x86: allow KVM_SET_GUEST_DEBUG on plane vCPU fds
+  KVM: x86: hyper-v: flush the calling plane's TLB on flush hypercalls
+  KVM: x86/mmu: free obsolete roots of all planes
+  KVM: x86: hyperv: don't arm PV EOI for a higher plane's VP assist page
+  KVM: x86: allow KVM_TRANSLATE on plane vCPU fds
+  KVM: x86: hyper-v: handle VTL call/return in the kernel
+  KVM: x86: load each plane twin while updating it after KVM_SET_CPUID
+  WIP: userspace VTL interrupt entry and register intercepts
+  WIP: KVM: x86: deliver events to suspended higher planes
+  WIP: KVM: per-plane memory overlays, richer protection-fault exits
+  WIP: KVM: x86: VSM event-delivery parity fixes from Windows boot
+    triage
+  KVM: planes: fan out per-plane requests to twin vCPUs
+  KVM: x86: inhibit APICv when VM planes are enabled
+  KVM: x86: hyperv: divert LLDT and LTR into register intercepts
+  KVM: planes: Unwind published state on KVM_CREATE_PLANE failure
+  KVM: planes: Kick the running twin's pCPU, not the request target's
+  KVM: planes: Keep current_vcpu in sync in vcpu_load()
+  KVM: x86: Report a real write-access walk from KVM_TRANSLATE
+  KVM: planes: Share XCR0 across plane twins
+  KVM: x86: hyperv: Refuse a synthetic IPI to a higher VTL
+  KVM: x86: Gate forced VTL entry on interrupt deliverability
+  KVM: selftests: Test a plane suspending with an undelivered interrupt
+  KVM: x86: hyperv: Advertise XMM fast hypercall output
+  KVM: SVM: Carry instruction state on reflected plane-protection faults
+  KVM: SVM: Trap descriptor-table loads for VTL register intercepts
+  KVM: SVM: Keep TPR[3:0] across exits without a guest CR8 write
+  KVM: selftests: Add Hyper-V reference TSC page memory attribute test
+  KVM: SVM: Hedge the v_tpr_entry comment
+  KVM: Check every plane's protections before caching a gfn->hva
+  KVM: planes: Annotate the lockless twin-publication protocol
+
+Mushahid Hussain (9):
+  KVM: x86: Leave TSC matching to the plane 0 vCPUs
+  KVM: x86: hyperv: Track the reference TSC page per plane
+  KVM: x86: hyperv: Update the reference TSC page past protections
+  KVM: x86: hyperv: Publish an added reference TSC page at once
+  KVM: x86: hyperv: Harden the per-plane reference TSC page updates
+  KVM: x86: Derive runtime CPUID bits from the executing plane
+  KVM: selftests: Test hugepage sizing over mixed protection attributes
+  KVM: x86: hyperv: Do not skip a moved vCPU when completing a hypercall
+  KVM: x86: Allow KVM_X86_SETUP_MCE on plane vCPUs
+
+Nikolas Wipper (1):
+  KVM: x86: Implement Hyper-V's vCPU suspended state
+
+Paolo Bonzini (1):
+  KVM: selftests: Add VM plane infrastructure and tests
+
+ Documentation/virt/kvm/api.rst                | 241 ++++-
+ arch/x86/hyperv/hv_apic.c                     |   3 +-
+ arch/x86/include/asm/kvm-x86-ops.h            |   1 +
+ arch/x86/include/asm/kvm_host.h               | 140 ++-
+ arch/x86/kvm/cpuid.c                          | 139 ++-
+ arch/x86/kvm/cpuid.h                          |   6 +-
+ arch/x86/kvm/emulate.c                        |  21 +
+ arch/x86/kvm/hyperv.c                         | 995 ++++++++++++++++--
+ arch/x86/kvm/hyperv.h                         |  37 +-
+ arch/x86/kvm/kvm_emulate.h                    |  10 +
+ arch/x86/kvm/lapic.c                          |  85 +-
+ arch/x86/kvm/mmu.h                            |  14 +
+ arch/x86/kvm/mmu/mmu.c                        | 131 ++-
+ arch/x86/kvm/mmu/paging_tmpl.h                |   7 +-
+ arch/x86/kvm/mmu/spte.h                       |  14 -
+ arch/x86/kvm/mmu/tdp_mmu.c                    |  23 +-
+ arch/x86/kvm/svm/nested.c                     |  16 +
+ arch/x86/kvm/svm/svm.c                        | 143 ++-
+ arch/x86/kvm/svm/svm.h                        |  16 +-
+ arch/x86/kvm/vmx/main.c                       |  13 +-
+ arch/x86/kvm/vmx/nested.c                     |   1 +
+ arch/x86/kvm/vmx/vmx.c                        | 118 ++-
+ arch/x86/kvm/vmx/x86_ops.h                    |   1 +
+ arch/x86/kvm/x86.c                            | 668 +++++++++++-
+ include/hyperv/hvgdk_mini.h                   |   5 +-
+ include/hyperv/hvhdk_mini.h                   |   3 +-
+ include/linux/kvm_host.h                      | 149 ++-
+ include/uapi/linux/kvm.h                      |  63 +-
+ tools/include/uapi/linux/kvm.h                |  54 +-
+ tools/testing/selftests/kvm/Makefile.kvm      |   7 +
+ .../testing/selftests/kvm/include/kvm_util.h  |  74 ++
+ .../selftests/kvm/include/x86/processor.h     |   1 +
+ tools/testing/selftests/kvm/lib/kvm_util.c    |  85 +-
+ .../testing/selftests/kvm/lib/x86/processor.c |  15 +
+ .../testing/selftests/kvm/memory_attributes.c |   6 +-
+ tools/testing/selftests/kvm/plane_test.c      | 137 +++
+ .../selftests/kvm/x86/hyperv_forward_hcall.c  | 144 +++
+ .../selftests/kvm/x86/hyperv_tsc_page_attrs.c | 129 +++
+ .../selftests/kvm/x86/memattr_hugepage_test.c | 132 +++
+ .../selftests/kvm/x86/plane_x86_test.c        | 325 ++++++
+ tools/testing/selftests/kvm/x86/planes_test.c | 142 +++
+ .../selftests/kvm/x86/planes_vtl_entry_test.c | 188 ++++
+ virt/kvm/kvm_main.c                           | 699 +++++++++++-
+ virt/kvm/pfncache.c                           |   3 +-
+ 44 files changed, 4956 insertions(+), 248 deletions(-)
+ create mode 100644 tools/testing/selftests/kvm/plane_test.c
+ create mode 100644 tools/testing/selftests/kvm/x86/hyperv_forward_hcall.c
+ create mode 100644 tools/testing/selftests/kvm/x86/hyperv_tsc_page_attrs.c
+ create mode 100644 tools/testing/selftests/kvm/x86/memattr_hugepage_test.c
+ create mode 100644 tools/testing/selftests/kvm/x86/plane_x86_test.c
+ create mode 100644 tools/testing/selftests/kvm/x86/planes_test.c
+ create mode 100644 tools/testing/selftests/kvm/x86/planes_vtl_entry_test.c
+
 -- 
 2.50.1
 
