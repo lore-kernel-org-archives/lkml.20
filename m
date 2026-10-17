@@ -1,35 +1,41 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367D13C0601;
-	Sat, 17 Oct 2026 17:32:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A76A3C09E0;
+	Sat, 17 Oct 2026 17:33:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792258379; cv=none; b=PbrlXyQIQswfD/hDE8TVKo2Gbc7isUAE3iyZuJCWTwTxQ6cXFkK7z8J5dg7wTqw8PPiIOHx6FVLlP48Zwxg63swHbjQTGhp45y5QBvFoOO6z2OayeAy1Vqa6aUTMiNGwHyMXk6hXiSFnKn2nBI6tkZL4oQoi/gSxwouLWtgA560=
+	t=1792258397; cv=none; b=keQ9kXiTL+qbuxqL82XqcKnDVEdlQZN+D8qsffsFh33UhRuygVyjjcTTRPegI1vDw5PVRm8cnPexHTzdEaIEJrJljZz6G95reSGkjQfMNqho3b+EWWOO8hCNE2WNphYxnSqoxNcO6m/GKVGd6eZUzdtigxus0awYmSaq/3dBNyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792258379; c=relaxed/simple;
-	bh=PoZDbh8zFZHGT0bnSvOo3abVC59c2ysCz0B2lX2dt74=;
+	s=arc-20240116; t=1792258397; c=relaxed/simple;
+	bh=ntTcxfSZ3fDRZ7/8naFztMa2D6QsUn2rYE4svh10BaA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d8+LH1M+bzENRiLpKAO6RkLzxqOWbZLzrgC5edtyf5qlDPCEC2tx3UTl1KceQRHsvbF/5z9Z44VEHdymW9+PyyZ5ChBQ0vZRrGekPXgoyEND1N7bYQcobYbS32DomW+2JlpRqguYuZx5qg/pFGhb1FSHr2596ITujK5aciSVyzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=bYit+MJr; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	 In-Reply-To:Content-Type; b=hBQ6BJYPDnYiEvbM2aQiYMkJUMzN4qkge22gdyGC5CGJ3j9vKj20cTjxvtxVNJjJyp6cuWQheOZOl8QAkDGvhrJVTbiH3kN+rmXJh4S32SpNTu4OFqwIEpoPvwSvQFwzMo8Uc6oMgYDpUMyprhiF9mCNe3n9RBbP3+MNkZ91SYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=HhTI9QfG; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="bYit+MJr"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E0413109C7B;
-	Sat, 17 Oct 2026 19:32:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1792258372;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=0PboifeeUBu+En/QUnp8Dze9H/89JQuESMLCW2nSTi0=;
-	b=bYit+MJr1x/TFwh8IMEuyMS7y0hQzeHzdvc+wxFOClJEgGlZ2xFrqX0Gsy/uxeqFVO66+b
-	joHDJ4BBaEypkc8u8iVW6fOBJEfOZ8tpFhoSqqKFlpsICoa5e6b4XakyisLlGXQfH6gHHg
-	bBZa7EyiOiqQa/dYNYB6iwXJ9mDbHRd09YwHoRa+jilLYMYkHL7liejfjEFbalR7F0B+MW
-	cFfHcgKJKy+FTE3jDkjKjH9Z62rVtb7aZwnrOwGqtaxGLmyh3dvyMhijQVDiB/FHyzNUHA
-	6GwoK9Z+xorwKfo5C592zxEVbAR8E63pIeFN6+hLO1NEVuw/NkCZjEXvO3Wh3A==
-Message-ID: <32239c97-e1dc-416d-8570-f681f91df0c8@nabladev.com>
-Date: Sat, 17 Oct 2026 00:26:36 +0200
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="HhTI9QfG"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j6TRW6r8HzKnjK;
+	Sat, 17 Oct 2026 19:33:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792258391;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eQ8t9/fLcmwf2pGZuWlYvvYgGuI5tCDATttpvKen1xk=;
+	b=HhTI9QfG53Xvz13UpGfk+ZZPnc/lmFRghi3/30t40EierbAyEVy8iyXke1MmFgDxFzhWQo
+	0jeyVtr7g0a2y5TNSQPQpdhxwppblHLx2yBwOAGaQAIcdApzz+KQjCdsVmwthQEVRlwBo+
+	EW/LbKCMur6wYzGcQoY463Jh00QXhKPeHISpRsw+L0GWPADBqNGZj+qs1bt53BDigV4k4M
+	Zn/Px2xccqGwU4FGze41nal3ZEq4CXwcnegLjVIohX0hKmiCx3wOondrgWBQszWxW3QyeR
+	AgXBjjtmfaSkgjgesSWoVnUV5+EOMrc7ye5avFZlH+10NgHc5P/HfSJe663KEw==
+Message-ID: <93e693c6-8b19-4cb1-8dc4-4e6ea60746f5@mailbox.org>
+Date: Sat, 17 Oct 2026 14:32:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,42 +43,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [net-next,PATCH 2/2] enetc: Make eMDIO MDC rate configurable from
- DT
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org, Vladimir Oltean <vladimir.oltean@nxp.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Andrew Lunn
- <andrew+netdev@lunn.ch>, Clark Wang <xiaoning.wang@nxp.com>,
- Claudiu Manoil <claudiu.manoil@nxp.com>, Conor Dooley <conor+dt@kernel.org>,
- Eric Dumazet <edumazet@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- UNGLinuxDriver@microchip.com, Wei Fang <wei.fang@nxp.com>,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
-References: <20261016193344.115518-1-marex@nabladev.com>
- <20261016193344.115518-2-marex@nabladev.com>
- <725fe351-bdd0-4b53-b551-0f638d02f98a@lunn.ch>
+Subject: Re: [PATCH v2 09/15] PCI: rcar-gen4: Add Root Port reset support
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
+ <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
+ linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260928165230.3397664-1-den@valinux.co.jp>
+ <20260928165230.3397664-10-den@valinux.co.jp>
+ <f9258887-2cc5-4c88-b465-5ac7fc1e82ea@mailbox.org>
+ <eivzz4zumuu32zrycw6wpt3orzk2dvlzuvj34krmbhjf7a3a6u@ccvu2nkupzid>
 Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <725fe351-bdd0-4b53-b551-0f638d02f98a@lunn.ch>
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <eivzz4zumuu32zrycw6wpt3orzk2dvlzuvj34krmbhjf7a3a6u@ccvu2nkupzid>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-MBO-RS-META: 5rhy8s3p4biznsjywibh6myuhoxjmztf
+X-MBO-RS-ID: a51a92d28dcc6f6efc1
 
-On 10/16/26 10:59 PM, Andrew Lunn wrote:
->> +	div = ((clk_get_rate(enet_clk) / mdc_freq) - 1) / 4;
->> +	if (div < 5 || div > 0x1ff)
->> +		return dev_err_probe(dev, -EINVAL,
->> +				     "Requested MDC frequency is out of range, ignoring\n");
+On 10/5/26 8:14 AM, Koichiro Den wrote:
+> On Sun, Oct 04, 2026 at 02:11:37AM +0200, Marek Vasut wrote:
+>> On 9/28/26 6:52 PM, Koichiro Den wrote:
+>>> Implement the host bridge reset_root_port() callback so PCI error
+>>> recovery can reset and reinitialize the R-Car controller. This also
+>>> provides the reset operation for the link-down handling added later.
+>>>
+>>> Call .reinit() with clocks and PHY initialization retained, restore
+>>> the Root Port registers and restart link training.
+>>>
+>>> Rather than tracking which APP interrupt enables survive the power
+>>> reset, derive them from software state through a single helper. A flag
+>>> keeps the sources masked from the start of a reset until one succeeds,
+>>> so a failed reinitialization does not re-enable them against an
+>>> uninitialized controller.
+>>>
+>>> Serialize the reset with a mutex, as not all callers hold the Root
+>>> Port's device lock: pci_try_reset_function() on a downstream device only
+>>> locks that device before falling back to a parent bus reset.
+>>
+>> Please pardon my ignorance, but is this maybe something that could be fixed
+>> in the core code ?
 > 
-> Returning -EINVAL is not really 'ignoring' the invalid value. Since
-> these are optional properties which are present, if they are not valid
-> returning an error is good. So please fix the message.
+> Yes. pci_reset_function() has locked the upstream bridge since 7e89efc6e9e4
+> ("PCI: Lock upstream bridge for pci_reset_function()"), but
+> pci_try_reset_function() and pci_reset_function_locked() still do not. I am not
+> sure whether this is intentional, but in either case, that is a core matter and
+> separate from this series.
+> 
+> However: more to the point, your question made me look at this again, and I now
+> believe the mutex (rcar->reset_lock) was not needed in the first place. Every
+> path to reset_root_port() already holds a device lock that excludes the others:
+> - error recovery and bus resets go through pci_bus_lock(), which locks the Root
+>    Port and every device below it, and
+> - pci_try_reset_function() (even without the upstream bridge locked, as I noted
+>    above) holds the lock of the downstream device, which pci_parent_bus_reset()
+>    only accepts when it is the only device on the bus.
+> 
+> So I will drop the mutex in v3. Thanks for making me look at this again, it
+> really helps!
+Excellent!
 
-All right, done in V2, thanks !
-
-> Why is dev < 5 an issue?
-The clock would be way too fast, on MX95 that would be over 33 MHz.
+Thank you!
