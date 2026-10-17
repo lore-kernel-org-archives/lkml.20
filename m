@@ -1,131 +1,124 @@
-Received: from mta0.migadu.com (out-246.mta0.migadu.com [91.218.175.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8353D75C2
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:13:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88DF348463;
+	Sat, 17 Oct 2026 09:14:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792228440; cv=none; b=fk8FZEC/VLvz/X17O2QQ9gQvkW4JhTeZApghhJjZaLPdJSTinjISiziz5u74Uflm0g3+CFb3sKe5f8E+QRT8dPYkHJc+3Lyg3Iu3xjiW+TR3VctdfmW5nFcGBxHxlDh+uJFmBie4tShc+RqbLxtHEHxuw25pMSdG/LsjSvDZcjs=
+	t=1792228458; cv=none; b=mDaaV+86izNFZomFyESS/74G+O+d45W8MftRgG9k9AMSeeIKY3LOtMTzfBxBRyZDpgORdiMrFdELhKE/uljK5vxGSyNVk5QEqir0/z/qYYuPja+EZB9F0zVSdoJ2OEnC2u0ml5zTo2yj3YSF4dmr3jEKd7fiL53dCafgd7Chr50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792228440; c=relaxed/simple;
-	bh=EvUH/ifmbrml9nHlgOiU5kMRxvjJDNadN4/C6gpKGWs=;
+	s=arc-20240116; t=1792228458; c=relaxed/simple;
+	bh=8vABHsB13eyqoMgwp6aTT5t4riKAcG78mN2q6kXrNg8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fHewfHFjaU/OXLBtV+B4HmL9ZKo68k9UOkPIM/vP2rPoV0lq0qmtYg3wZEhQ7DW/UskHeJ52O0oEsPFA7M7uP+94Yl7eE8nploldJY4oaeL0hP6c6KDHsxFg9XHN/QPB8iQ2JmcEqjT1Kyrg1X/mSZn+Q7VUJRFSdui7n+5IyuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=dbQI+jta; arc=none smtp.client-ip=91.218.175.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mc4NckgvgxCDTKsv3xOk8aRqvYyAqWQR12+1r/n82Xbl5CmM9hpdXRX4lHJ9HUB3+IljUPczgGjPUWaJ1Vgkxc/D55Njs2DQAqDBnxSekQHmnEW6LN4mxZrMXwgS2ygQpPR2E7SgZfdO7FARp/D2CSTG8jviF97diidslb61GHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Pg7Uzfa1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="dbQI+jta"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EvUH/ifmbrml9nHlgOiU5kMRxvjJDNadN4/C6gpKGWs=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792228432; v=1; x=1792833232;
- b=dbQI+jtabdL/ZnvkJIR+AHy5bPcG4s6MmE/ydDqppWgO3yOspW4WcpgzGn4rV+Tmn7ny7FN/
- l1p0PxXTdWhoK4Il5i1HgXWfDbd6d0NFsgqybDgSdyCpBXu2UBZEkDy91+cYIMaY/QUT7veUU6Y
- SU2JMMh20HRKKfB70lcDfOquVy2R3X8tGQNL4n+v0/uq2RzL4zaj1ifQkYynUUSBZAAQUoKmcHz
- CVTC5VfVN0PgUX+GQvey+NG3BKcAIlwNz4fmhoBvrID1WyXQSIJCTLdvyNsm+0RzM5XjvPTIoAn
- zVPHqXZG6LuaFEg9O7gBs1c677q9H/SpQuZJAEKdJjijg==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cc049a13f0df8977;
-	Sat, 17 Oct 2026 09:13:52 +0000
-X-Mizu-Trace-ID: cc049a13f0df8977
-X-Migadu-Flow: FLOW_OUT
-Date: Sat, 17 Oct 2026 17:13:45 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Pg7Uzfa1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 220AC1F000C4;
+	Sat, 17 Oct 2026 09:14:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792228456;
+	bh=CnRNgtJg3qHsn4g0qrZKuVv1hDNtWmsy7zLHcTj6znE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Pg7Uzfa10I7JHTA982u7w07n9+pFsyM4SRqINgM9czcXcUkH/Aw62F/qdufEy7go5
+	 x1MgavQB3jndA/KisJmgce+AP8frlKWD/z8vkQ8typ0nOR7S36hoUHvEEXTERez1Fk
+	 l5g4zGMGbSH+2w3wJgmfUt1By3Qp+T2TWjWa9NDY=
+Date: Sat, 17 Oct 2026 11:14:13 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>,
+	Christian Brauner <christian@brauner.io>,
+	Meta kernel team <kernel-team@meta.com>,
+	linux-fsdevel@vger.kernel.org, driver-core@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] docs/zh_CN: remove translator-related headers
-Message-ID: <atM8STwzREGJ_-Vd@wyuan.org>
-References: <cover.1792167855.git.wy@wyuan.org>
- <a7c3af29fd1783bbca36cdacd3f17bf52cd5ef3f.1792167856.git.wy@wyuan.org>
- <3ee47cf1-a7a2-481a-bf46-46e74bdaa1e5@hust.edu.cn>
- <atMxWvnyYmD5r6O3@wyuan.org>
+Subject: Re: [PATCH v3] kernfs: allocate inodes and dentry outside
+ kernfs_rwsem
+Message-ID: <2026101745-brisket-outspoken-ef6c@gregkh>
+References: <20261016220029.3276154-1-shakeel.butt@linux.dev>
+ <236f5fe73f01f03d75dddca9362f39a7@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <atMxWvnyYmD5r6O3@wyuan.org>
+In-Reply-To: <236f5fe73f01f03d75dddca9362f39a7@kernel.org>
 
-On 2026-10-17 16:27:12 +0800, Weijie Yuan <wy@wyuan.org> wrote:
+On Fri, Oct 16, 2026 at 12:42:29PM -1000, Tejun Heo wrote:
+> On Fri, Oct 16, 2026 at 03:00:29PM -0700, Shakeel Butt wrote:
+> > In the Meta fleet, on 6.16 with the kernfs changes queued for 7.4
+> > backported, we still see long cgroupfs stalls:
+> >
+> > - oomd and below waited 72 seconds in kernfs_fop_readdir() while an out
+> >   of memory container created cgroups.  They resumed when the kernel OOM
+> >   killer killed the container's workload.
+> >
+> > - oomd waited 15 minutes in kernfs_iop_lookup().  PID 1 waited for
+> >   kernfs_rwsem in cgroup_rmdir() while holding cgroup_mutex.
+> >
+> > - A lock profiler sampling part of the fleet saw kernfs_iop_lookup()
+> >   hold kernfs_rwsem across memcg reclaim on 26 hosts in 29 days, for up
+> >   to 625 ms.
+> >
+> > The profiler shows where these stalls come from.  kernfs_iop_lookup()
+> > and the export ops allocate a new inode while holding kernfs_rwsem for
+> > read.  The inode is charged to the caller's memcg.  If that memcg is at
+> > memory.max, the allocation can stay in reclaim for a long time,
+> > sometimes until an OOM kill.  A writer then queues on the lock and every
+> > new reader queues behind it.  On cgroup2 this blocks every cgroupfs user
+> > on the machine.
+> >
+> > Such lookups are common in a memcg that is out of memory.  Its reclaim
+> > drops its kernfs dentries fast, and the files of a new cgroup have no
+> > inodes yet.
+> >
+> > Allocate the inode before taking kernfs_rwsem, and free it if it is not
+> > used, as commit 8b64f32fee95 ("kernfs: allocate the new name outside
+> > kernfs_rwsem") and commit 5ad03af18434 ("kernfs: allocate the open node
+> > outside the open file mutex") do.  Everything else still runs under the
+> > lock, so a new inode is added only for an active node, and
+> > __kernfs_remove() still finds every inode it must clear i_nlink on, as
+> > commit dc1a0cc95737 ("kernfs: don't lose IN_DELETE_SELF when decoding a
+> > file handle") needs.
+> >
+> > The inode goes unused when the name does not exist, the node is
+> > inactive, or it already has an inode.  In a VM, a lookup of a missing
+> > name takes about 0.35 us longer, 1.65 us instead of 1.3 us on
+> > cgroupfs.  Cold lookups of existing sysfs and cgroupfs files are not
+> > slower.
+> >
+> > kernfs_get_parent_dentry() also held the lock across d_obtain_alias(),
+> > which allocates a dentry.  Hold it only around the inode lookup, as
+> > __kernfs_fh_to_dentry() already does.  This also gives ->get_parent the
+> > active test that the IN_DELETE_SELF fix left out: a parent that is
+> > being removed and has no inode now gets -ESTALE instead of a new inode
+> > with i_nlink 1.
+> >
+> > kernfs_fill_super() preallocates the root inode the same way, so no
+> > inode is allocated under kernfs_rwsem any more.
+> >
+> > Tested on a 316-CPU machine.  A task in a full 256 MB memcg with slow
+> > swap looks up the files of new cgroups.  Worst waits in 60 seconds:
+> >
+> >                                   before    after
+> >   oomd, for kernfs_rwsem          236 ms   0.1 ms
+> >   below, for kernfs_rwsem         356 ms   0.8 ms
+> >   systemd, for kernfs_rwsem       160 ms    37 us
+> >   readdir of another directory    530 ms   3.9 ms
+> >
+> > The lookup itself is still slow.  The VFS still holds its directory's
+> > lock, so other work in that one directory still waits.
+> >
+> > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> > Suggested-by: Tejun Heo <tj@kernel.org>
+> 
+> Acked-by: Tejun Heo <tj@kernel.org>
 
-> On 2026-10-17 10:06:39 +0800, Dongliang Mu <dzm91@hust.edu.cn> wrote:
-> 
-> > On 10/17/26 12:52 AM, Weijie Yuan wrote:
-> > > The headers related to translators and proofreaders appear multiple
-> > > times in our directory. Their information is duplicated with that in the
-> > > commit logs, making it difficult to maintain over an extended period
-> > > of time, as there have been multiple instances of requests to update the
-> > > email address.
-> > > 
-> > > Remove all the related fields to make our source clean.
-> > > 
-> > > Suggested-by: Jonathan Corbet <corbet@lwn.net>
-> > > Signed-off-by: Weijie Yuan <wy@wyuan.org>
-> > > ---
-> > > The diffs are inconvenient to review, sorry. Because I cannot find a
-> > > better way to split them up besides by directories.
-> > 
-> > 1. I recommend to preserve the RST anchors because other files would use
-> > this.
-> 
-> Yes, I also removed some top-level labels while I was at it, though I
-> would better have done that in a separate patch. (My Git index was messy
-> with these large diff. So later, the topic was expanded to a cleanup.
-> But yes, I should split it)
-> 
-> But I checked that none of these removed labels are referenced
-> elsewhere, if I was doing it correctly. (No invalid citations were
-> reported by 'make htmldocs'.)
+This looks sane, but it's really late in the cycle, can we wait until
+after -rc1 to add it to the tree for lots of testing in -next?
 
-Oops, I mean the removed labels are not used by other places according
-to 'make htmldocs'.
+thanks,
 
-Thanks.
-
-> 
-> Anyway, I'll not touch these labels in next re-roll.
-> 
-> > 2. There are three checkpatch SPDX warnings during the review:
-> > 
-> > dev-tools/sparse.rst | Missing or malformed SPDX-License-Identifier tag in
-> > line 1
-> > process/howto.rst | Missing or malformed SPDX-License-Identifier tag in line
-> > 1
-> > process/kernel-enforcement-statement.rst | Missing or malformed
-> > SPDX-License-Identifier tag in line 1
-> > 
-> > Each warning is triggered because the patch changes that file´s first line.
-> > All three files already lacked an SPDX tag before the patch.
-> 
-> Oh, I forgot to mention this when writing cover lettter, sorry I did
-> send these emails a bit too hastily.
-> 
-> I did run checkpatch and got these reminders.
-> 
-> The original Engish versions of these three are missing
-> SPDX-License-Identifier(s), so as far as I know, our translation is
-> better not to add this first.?
-> 
-> Please see: https://lore.kernel.org/linux-doc/87y0dv1wp3.fsf@trenco.lwn.net/
-> 
-> But I guess we could add the identifier with Alex's and Yanteng's ack,
-> as they are the original translator if we want to.
-> 
-> Thanks!
-> 
-> 
-> p.s. Many of the recipients' addresses are no longer in use. To avoid
-> unnecessary clutter, I will simplify the list of recipients in the next
-> version.
-
-
+greg k-h
