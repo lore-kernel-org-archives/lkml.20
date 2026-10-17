@@ -1,76 +1,41 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1A5347C6
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:31:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9297B3911B8
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:34:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792204306; cv=none; b=OAdTYa+Rx4cJuQigz6gu8mY1431FWyZ5dH8ubC0uJcuCKM3FqA+CT0hvK+kNHT2dNlwAflVl1UH8hUCWGlsuZx3zyFxa/sYtQFahxMrmG3wqLahBYmzEeBzHYziVD/3bYU4POO4tSsvuv5JvNu3vUVo4rL6Y4vxLMcPBHofwT1E=
+	t=1792204489; cv=none; b=as726ojZIi3vrFB4QMVjwZ9feV7rt/omO+dvE6df3p9MgkB9NSjASB33FPfsjYvjnO2GfVkYXT1rNp7spFAM02vTTv+7Q4i6FrgrDTJ6+5YRGHV+dVfkOnnham0SQYBjbQhMau7McjqbzkqHvqWZ8cXqH55BiFiLSvVFOhMVM+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792204306; c=relaxed/simple;
-	bh=r2rgRMSxOCwYCvb2cyG+bi9NBz53dSLQ691q9KtiQVQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gA/C8+OKC0d6iWQ7e7V0CugeNLXPnwEadu6uyKnUuooh45sxFwLf80OKYj7sIozIjotyOttDS3Iw15ccstxICqFXzNJTMBIrc2bTIA7dVi3AnHSNPSB4s2+sdzSrSZSEaGF7pjbGCv8TZP6wEXJT7YTgQvuijaWj2royjDbhUzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DS6WFQ+X; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792204489; c=relaxed/simple;
+	bh=TDNP4QjHCO3Ewb2W0hEwEIu/wQpicWrWTPfbVA4DhWk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IyrWbI/IrtumwDw+EzTppX43+AUnHqqyEpa0S6LJCCGG9VVzVHNFcnVfEjZwln9lRakHCeUMtqOFZUrD+bNyCiVFkkj8m0it/rhaFDou0YTgWS++W1Fult65hcrMLh0sF0isDbwQ4ORJkHiiDqLA9kVseQzSv/7mXVH2Cv90qRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D82ASA+6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DS6WFQ+X"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cd60c5da24cso394346a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:31:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792204303; x=1792809103; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qf0+8yxTfLNhsB75ahQTgX/QAqjUGdC45aMQHpNb6bE=;
-        b=DS6WFQ+X7WcuAh8Tf4RZE50jqL3v66EzsY95BHHWp7kmOEloH3K0lQEdVwikXqsAwn
-         Dja/rshAPNEkEw1L8e1IA6iWHnhTtHHdkhpWaBtn9VSu9Gy5Ze5t7WnxgT8825wVDv+g
-         +Tt5QNVDrIbJnHGyqZpTJBgUlmwgI6bVilvQ9//6iHjT/8JG1OammtS1SEdW/VJwv+/j
-         OyCrBZGdHbUuhhzHaQ4mEAy6488kVK8GpyG/QTuIXdqM51UZi+wBGR2Fx9WqsZVFHNq5
-         Cl6xJB58BpiA3e3PNSfYl90lADER8Kqzpnm/GEuoBJiN/hLroP6doDSyX+5DidIwl0YV
-         QQ1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792204303; x=1792809103;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qf0+8yxTfLNhsB75ahQTgX/QAqjUGdC45aMQHpNb6bE=;
-        b=lHMPSFaa9XaIMFA95KcX29GCd9k5/bPZDWuJ8NJIKxtAGVenlQyYGSfTkRfKU64rEV
-         zc5lB5tgcmTdeszCxx9xvDuGrkXOUP2AEkzVVHcrcX3dDbu9DNurhiSfvDpMNZ/DHyht
-         HjityVkWnJ7jlWrAfJugknBJvUl0LmWb56/zQd0s87oA1XO0uNP2dx0UWnk95hNFSDc6
-         k83WPynFpHiY1nV3PK3fNhK9TCftsPE1FYK3K/pB+p/fJ2weUxaf0CX30AsEo6DJ/tfV
-         FouT5vq/Rr49IMwPH3gLNIclQxExYi0fdKxAyWT2cS9uLBUH1/a/SRCJzWP+GBvp/gvn
-         YzgA==
-X-Forwarded-Encrypted: i=1; AKwUvBz93VYPjJqgIRYtVv2rLIiD4mLMWzo9WQJ5V1jrNc1pUwebFu6CzkxWBKbsYapD6QZw4HWlxxh4kSnKPMs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIWZbMqCFNJyssfV9k38IK9q8EfiuS0/aQsmHgYG8I6Y9A/fEd
-	J/GwxaBAknjLUi5thPHXV1eW7hIDwEqxoac55KojD5foDpq54PMg1CRY
-X-Gm-Gg: AYBFou1Og0hUeD4rOoAkJrfj2Q+80MoCncuzMJM1tHCEFqyiSq+DujoTpU6t+XquuK9
-	CkBfbjWcUGBT/K6azcWXXk6J/UgP3orEtFfmkxkAVRjQ+SJ1NGejKG8cp+tVT/veA0IZzem5lRb
-	7GCreHqMPY761+ScCnWBwhSiVCenRZD31VUgnDKND3rgnJK68iVsPMhBoJ7sQUofZByk1BhSxhi
-	xDcBr5TNZZtgJgaIYcKtgOCpnpcY/0vGKluc876VAIQWLuO9xHl9b2Tc84QrSedYNms/uPQNn2Z
-	PxmKMcEQk4Gmw9bAhTomanTI3xACVT+DQuql0y4uQ4skiwc04uzKA66zGWzRVd7CySL7ZsWJvnT
-	Yxw/YalyBCiPEWcQxnffAh5Jx9mTN4cC0Q2P0rb61L6zVV8Csh4wj8Y8IeubFqnKZ+8SyYoGf4P
-	8tZo7kD/iXBDeyzqISPKSY6H+Mklo2eUGdZ2eb/E3iETsu4ItFDqRsSaQ4abl7+zXmL1lQqzuxE
-	gBLFgqmBkncfUG2ktumK9CW6YE=
-X-Received: by 2002:a17:90b:45:b0:3a4:b061:2765 with SMTP id 98e67ed59e1d1-3aceeb9272dmr1441087a91.15.1792204303254;
-        Fri, 16 Oct 2026 19:31:43 -0700 (PDT)
-Received: from d.home.yangfl.dn42 ([2a09:bac5:661b:1250::1d3:d3])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd9c4b4eesm4189707a91.2.2026.10.16.19.31.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 19:31:42 -0700 (PDT)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] net: dsa: motorcomm: Extend ACL with UDF
-Date: Sat, 17 Oct 2026 10:31:32 +0800
-Message-ID: <20261017023136.2961543-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D82ASA+6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30F9A1F000C4;
+	Sat, 17 Oct 2026 02:34:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792204483;
+	bh=9V/xgr9jngFFG2L0GcWyCCedfCMW8t5PFYiGhShblyU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=D82ASA+6GL9nu21+4bpJsZ4fZzWlmilN5ZSIMCCwTJdq2wBViDEZwJsnJ34XpkhXo
+	 NHKLQg9bjWgdnLd11fhFSI7xYfplOstyZBfd7D+b+3XXcq7SQpNt3WNvXbMaTXLCrF
+	 Kp3e+MDHDoD/RJ61dt0xVSGJMh8JjbGUKXHvi48CNrshdhxnJbMh7W9HeZEbJWB6K7
+	 6wbV4UH1MK5nLD5HsZw8aL61O2NXYZrX5t6AVN37SfVl5U4ML4nk5WOPEEVG3Wyvwu
+	 GZk3Ys59G69s+Sd2c/6xY2FdY5ZhPd1h/XcjC32dd7XEjrYkqiznHrBXWc/kAKOsnt
+	 0vf7ATdUlMX+w==
+From: Gao Xiang <xiang@kernel.org>
+To: linux-erofs@lists.ozlabs.org
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	Gao Xiang <xiang@kernel.org>
+Subject: [PATCH v4 RESEND] erofs: enable iomap for file-backed mounts on unencoded inodes
+Date: Sat, 17 Oct 2026 04:33:52 +0200
+Message-ID: <20261017023352.67568-1-xiang@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261017002758.52193-1-xiang@kernel.org>
+References: <20261017002758.52193-1-xiang@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,279 +44,381 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The native ACL key set cannot express IP TTL or ICMP type/code. Use the
-User Defined Filter windows to match them in the tc flower offload.
+Iomap supports non-bdev I/O through fs-provided callbacks since
+commit b2f35ac4146d ("iomap: add caller-provided callbacks for read
+and readahead"), making it suitable for file-backed mounts on unencoded
+inodes.
 
-Signed-off-by: David Yang <mmyangfl@gmail.com>
+Enable iomap for this case to support sub-folio buffered I/Os on
+file-backed mounts and simplify the codebase.
+
+Signed-off-by: Gao Xiang (Docker) <xiang@kernel.org>
 ---
- drivers/net/dsa/motorcomm/chip.h |   2 +-
- drivers/net/dsa/motorcomm/tc.c   | 140 +++++++++++++++++++++++++++++--
- drivers/net/dsa/motorcomm/tc.h   |  12 ++-
- 3 files changed, 144 insertions(+), 10 deletions(-)
+v4 RESEND:
+ - consider i_blkbits of ishare inodes for sub-page block sizes found by sashiko.
 
-diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
-index 7047ad98f431..fc315f1d8f87 100644
---- a/drivers/net/dsa/motorcomm/chip.h
-+++ b/drivers/net/dsa/motorcomm/chip.h
-@@ -440,7 +440,7 @@ enum yt921x_fdb_entry_status {
- #define YT921X_TAG_LEN	8
- 
- #define YT921X_ACL_BLK_NUM	48
--#define YT921X_UDF_NUM		8
-+#define YT921X_UDF_NUM		16
- 
- #define YT921X_LED_GROUP_NUM	3
- #define YT921X_LED_PORT_NUM	10
-diff --git a/drivers/net/dsa/motorcomm/tc.c b/drivers/net/dsa/motorcomm/tc.c
-index 3e0f80500f41..9dbd61e48fee 100644
---- a/drivers/net/dsa/motorcomm/tc.c
-+++ b/drivers/net/dsa/motorcomm/tc.c
-@@ -543,6 +543,24 @@ yt921x_acl_rule_set_ports(struct yt921x_acl_rule *aclrule, u16 ord,
- 	}
+ fs/erofs/data.c     |  29 ++++----
+ fs/erofs/fileio.c   | 157 ++++++++++++++------------------------------
+ fs/erofs/internal.h |  11 ++--
+ fs/erofs/ishare.c   |   4 +-
+ 4 files changed, 73 insertions(+), 128 deletions(-)
+
+diff --git a/fs/erofs/data.c b/fs/erofs/data.c
+index a726be5e27ca..f09c152d5516 100644
+--- a/fs/erofs/data.c
++++ b/fs/erofs/data.c
+@@ -281,12 +281,6 @@ void erofs_onlinefolio_end(struct folio *folio, int err, bool dirty)
+ 	folio_end_read(folio, !(v & BIT(EROFS_ONLINEFOLIO_EIO)));
  }
  
-+struct yt921x_udf_entry {
-+	unsigned char type;
-+	unsigned char offset;
-+	u8 key;
-+	u8 mask;
-+};
-+
-+struct yt921x_udf_map {
-+	unsigned char type;
-+	unsigned char offset;
-+};
-+
-+/* UDF windows are preselected - that's enough for now. */
-+static struct yt921x_udf_map yt921x_udf_maps[] = {
-+	{YT921X_UDF_TYPE_L3, 7},
-+	{YT921X_UDF_TYPE_L4, 0},
-+};
-+
- struct yt921x_acl_rule_ext {
- 	struct yt921x_acl_rule r;
+-struct erofs_iomap_iter_ctx {
+-	struct page *page;
+-	void *base;
+-	struct inode *realinode;
+-};
+-
+ static int erofs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+ 		unsigned int flags, struct iomap *iomap, struct iomap *srcmap)
+ {
+@@ -308,6 +302,7 @@ static int erofs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+ 	iomap->length = map.m_llen;
+ 	iomap->flags = 0;
+ 	iomap->addr = IOMAP_NULL_ADDR;
++	iomap->private = NULL;
+ 	if (!(map.m_flags & EROFS_MAP_MAPPED)) {
+ 		iomap->type = IOMAP_HOLE;
+ 		return 0;
+@@ -322,6 +317,7 @@ static int erofs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+ 		if (ret)
+ 			return ret;
  
-@@ -556,9 +574,13 @@ yt921x_acl_rule_ext_parse_flow_entries(struct yt921x_acl_rule_ext *ruleext,
- 	const struct flow_rule *rule = flow_cls_offload_flow_rule(cls);
- 	struct yt921x_acl_entry *entries = ruleext->r.entries;
- 	struct netlink_ext_ack *extack = cls->common.extack;
-+	struct yt921x_udf_entry udfs[YT921X_UDF_NUM];
- 	const struct flow_dissector *dissector;
- 	struct yt921x_acl_entry *entry;
-+	unsigned int udfs_cnt = 0;
- 	unsigned int size = 0;
-+	__be16 n_proto = 0;
-+	u8 ip_proto = 0;
- 	bool use_dport;
- 	bool use_sport;
++		iomap->private = mdev.m_dif;
+ 		if (flags & IOMAP_DAX)
+ 			iomap->dax_dev = mdev.m_dif->dax_dev;
+ 		else
+@@ -396,14 +392,16 @@ int erofs_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
+  */
+ static int erofs_read_folio(struct file *file, struct folio *folio)
+ {
+-	struct iomap_read_folio_ctx read_ctx = {
+-		.ops		= &iomap_bio_read_ops,
+-		.cur_folio	= folio,
+-	};
+ 	bool need_iput;
+ 	struct erofs_iomap_iter_ctx iter_ctx = {
+ 		.realinode = erofs_real_inode(folio_inode(folio), &need_iput),
+ 	};
++	struct erofs_sb_info *sbi = EROFS_I_SB(iter_ctx.realinode);
++	struct iomap_read_folio_ctx read_ctx = {
++		.ops = erofs_is_fileio_mode(sbi) ?
++			&erofs_fileio_iomap_read_ops : &iomap_bio_read_ops,
++		.cur_folio = folio,
++	};
  
-@@ -575,7 +597,8 @@ yt921x_acl_rule_ext_parse_flow_entries(struct yt921x_acl_rule_ext *ruleext,
- 	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS_RANGE) |
- 	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
- 	      BIT_ULL(FLOW_DISSECTOR_KEY_IP) |
--	      BIT_ULL(FLOW_DISSECTOR_KEY_TCP))) {
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_TCP) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ICMP))) {
- 		NL_SET_ERR_MSG_MOD(extack, "Unsupported keys used");
- 		return -EOPNOTSUPP;
- 	}
-@@ -741,7 +764,9 @@ yt921x_acl_rule_ext_parse_flow_entries(struct yt921x_acl_rule_ext *ruleext,
- 		if (match.mask->n_proto) {
- 			enum yt921x_l3_type l3type = YT921X_L3_TYPE_OTHER;
+ 	trace_erofs_read_folio(iter_ctx.realinode, folio, true);
+ 	iomap_read_folio(&erofs_iomap_ops, &read_ctx, &iter_ctx);
+@@ -414,14 +412,16 @@ static int erofs_read_folio(struct file *file, struct folio *folio)
  
--			if (match.mask->n_proto == htons(~0))
-+			if (match.mask->n_proto == htons(~0)) {
-+				n_proto = match.key->n_proto;
-+
- 				switch (match.key->n_proto) {
- 				case htons(ETH_P_IP):
- 					l3type = YT921X_L3_TYPE_IPV4;
-@@ -762,6 +787,7 @@ yt921x_acl_rule_ext_parse_flow_entries(struct yt921x_acl_rule_ext *ruleext,
- 					l3type = YT921X_L3_TYPE_ERP;
- 					break;
- 				}
-+			}
+ static void erofs_readahead(struct readahead_control *rac)
+ {
+-	struct iomap_read_folio_ctx read_ctx = {
+-		.ops		= &iomap_bio_read_ops,
+-		.rac		= rac,
+-	};
+ 	bool need_iput;
+ 	struct erofs_iomap_iter_ctx iter_ctx = {
+ 		.realinode = erofs_real_inode(rac->mapping->host, &need_iput),
+ 	};
++	struct erofs_sb_info *sbi = EROFS_I_SB(iter_ctx.realinode);
++	struct iomap_read_folio_ctx read_ctx = {
++		.ops = erofs_is_fileio_mode(sbi) ?
++			&erofs_fileio_iomap_read_ops : &iomap_bio_read_ops,
++		.rac = rac,
++	};
  
- 			if (l3type != YT921X_L3_TYPE_OTHER) {
- 				size = yt921x_acl_entries_set_l3_type(entries,
-@@ -783,7 +809,9 @@ yt921x_acl_rule_ext_parse_flow_entries(struct yt921x_acl_rule_ext *ruleext,
- 		if (match.mask->ip_proto) {
- 			enum yt921x_l4_type l4type = YT921X_L4_TYPE_OTHER;
+ 	trace_erofs_readahead(iter_ctx.realinode, readahead_index(rac),
+ 			      readahead_count(rac), true);
+@@ -457,7 +457,6 @@ static ssize_t erofs_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
+ 	return filemap_read(iocb, to, 0);
+ }
  
--			if (match.mask->ip_proto == (u8)~0)
-+			if (match.mask->ip_proto == (u8)~0) {
-+				ip_proto = match.key->ip_proto;
-+
- 				switch (match.key->ip_proto) {
- 				case IPPROTO_TCP:
- 					l4type = YT921X_L4_TYPE_TCP;
-@@ -801,6 +829,7 @@ yt921x_acl_rule_ext_parse_flow_entries(struct yt921x_acl_rule_ext *ruleext,
- 					l4type = YT921X_L4_TYPE_IGMP;
- 					break;
- 				}
-+			}
- 
- 			if (l4type != YT921X_L4_TYPE_OTHER) {
- 				size = yt921x_acl_entries_set_l4_type(entries,
-@@ -852,10 +881,25 @@ yt921x_acl_rule_ext_parse_flow_entries(struct yt921x_acl_rule_ext *ruleext,
- 		struct flow_match_ip match;
- 
- 		flow_rule_match_ip(rule, &match);
-+
- 		if (match.mask->ttl) {
--			NL_SET_ERR_MSG_MOD(extack,
--					   "Matching on TTL not supported");
--			return -EOPNOTSUPP;
-+			if (n_proto != htons(ETH_P_IP) &&
-+			    n_proto != htons(ETH_P_IPV6)) {
-+				NL_SET_ERR_MSG_MOD(extack,
-+						   "Matching on TTL requires protocol ip or ipv6");
-+				return -EOPNOTSUPP;
-+			}
-+
-+			if (udfs_cnt >= YT921X_UDF_NUM)
-+				goto err;
-+
-+			udfs[udfs_cnt] = (struct yt921x_udf_entry){
-+				.type = YT921X_UDF_TYPE_L3,
-+				.offset = n_proto == htons(ETH_P_IP) ? 8 : 7,
-+				.key = match.key->ttl,
-+				.mask = match.mask->ttl,
-+			};
-+			udfs_cnt++;
+-/* for uncompressed (aligned) files and raw access for other files */
+ const struct address_space_operations erofs_aops = {
+ 	.read_folio = erofs_read_folio,
+ 	.readahead = erofs_readahead,
+diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
+index ebb81a7ffd4c..c36a90a1a4cb 100644
+--- a/fs/erofs/fileio.c
++++ b/fs/erofs/fileio.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (C) 2024, Alibaba Cloud
++ * Copyright 2026 Docker, Inc.
+  */
+ #include "internal.h"
+ #include <trace/events/erofs.h>
+@@ -30,7 +31,8 @@ static void erofs_fileio_ki_complete(struct kiocb *iocb, long ret)
+ 	if (!rq->bio.bi_end_io) {
+ 		bio_for_each_folio_all(fi, &rq->bio) {
+ 			DBG_BUGON(folio_test_uptodate(fi.folio));
+-			erofs_onlinefolio_end(fi.folio, ret < 0, false);
++			iomap_finish_folio_read(fi.folio, fi.offset, fi.length,
++						ret < 0 ? ret : 0);
  		}
+ 	} else if (ret < 0 && !rq->bio.bi_status) {
+ 		rq->bio.bi_status = errno_to_blk_status(ret);
+@@ -64,137 +66,76 @@ static void erofs_fileio_rq_submit(struct erofs_fileio_rq *rq)
+ 		kfree(rq);
+ }
  
- 		if (match.mask->tos) {
-@@ -889,6 +933,82 @@ yt921x_acl_rule_ext_parse_flow_entries(struct yt921x_acl_rule_ext *ruleext,
- 		}
- 	}
+-static struct erofs_fileio_rq *erofs_fileio_rq_alloc(struct erofs_map_dev *mdev)
++static struct erofs_fileio_rq *erofs_fileio_rq_alloc(struct super_block *sb,
++						     struct file *file)
+ {
+ 	struct erofs_fileio_rq *rq = kzalloc_obj(*rq, GFP_KERNEL | __GFP_NOFAIL);
  
-+	if (flow_rule_match_key(rule, FLOW_DISSECTOR_KEY_ICMP)) {
-+		struct flow_match_icmp match;
-+
-+		flow_rule_match_icmp(rule, &match);
-+
-+		if (match.mask->type || match.mask->code) {
-+			if (ip_proto != IPPROTO_ICMP &&
-+			    ip_proto != IPPROTO_ICMPV6) {
-+				NL_SET_ERR_MSG_MOD(extack,
-+						   "Matching on ICMP type/code requires ip_proto icmp or icmpv6");
-+				return -EOPNOTSUPP;
-+			}
-+
-+			if (match.mask->type) {
-+				if (udfs_cnt >= YT921X_UDF_NUM)
-+					goto err;
-+
-+				udfs[udfs_cnt] = (struct yt921x_udf_entry){
-+					.type = YT921X_UDF_TYPE_L4,
-+					.offset = 0,
-+					.key = match.key->type,
-+					.mask = match.mask->type,
-+				};
-+				udfs_cnt++;
-+			}
-+
-+			if (match.mask->code) {
-+				if (udfs_cnt >= YT921X_UDF_NUM)
-+					goto err;
-+
-+				udfs[udfs_cnt] = (struct yt921x_udf_entry){
-+					.type = YT921X_UDF_TYPE_L4,
-+					.offset = 1,
-+					.key = match.key->code,
-+					.mask = match.mask->code,
-+				};
-+				udfs_cnt++;
-+			}
-+		}
-+	}
-+
-+	/* Compile UDFs */
-+	for (unsigned int i = 0; i < udfs_cnt; i++) {
-+		unsigned int o;
-+		u32 mask;
-+		u32 key;
-+
-+		for (o = 0; o < ARRAY_SIZE(yt921x_udf_maps); o++)
-+			if (udfs[i].type == yt921x_udf_maps[o].type &&
-+			    (udfs[i].offset == yt921x_udf_maps[o].offset ||
-+			     udfs[i].offset == yt921x_udf_maps[o].offset + 1))
-+				break;
-+
-+		if (WARN_ON(o == ARRAY_SIZE(yt921x_udf_maps)))
-+			return -EOPNOTSUPP;
-+
-+		entry = yt921x_acl_entries_find(entries, &size,
-+						YT921X_ACL_TYPE_UDF0 + o / 2);
-+		if (!entry)
-+			goto err;
-+
-+		key = udfs[i].key;
-+		mask = udfs[i].mask;
-+		if (udfs[i].offset == yt921x_udf_maps[o].offset) {
-+			key <<= 8;
-+			mask <<= 8;
-+		}
-+		if (!(o % 2)) {
-+			key <<= 16;
-+			mask <<= 16;
-+		}
-+
-+		entry->key[0] |= key;
-+		entry->mask[0] |= mask;
-+	}
-+
- 	if (!size) {
- 		NL_SET_ERR_MSG_MOD(extack, "Empty rule generated, this should not happen");
- 		return -EOPNOTSUPP;
-@@ -1579,5 +1699,13 @@ int yt921x_chip_setup_acl(struct yt921x_priv *priv)
- 	if (res)
- 		return res;
+ 	bio_init(&rq->bio, NULL, rq->bvecs, ARRAY_SIZE(rq->bvecs), REQ_OP_READ);
+-	rq->iocb.ki_filp = mdev->m_dif->file;
+-	rq->sb = mdev->m_sb;
++	rq->iocb.ki_filp = file;
++	rq->sb = sb;
+ 	refcount_set(&rq->ref, 2);
+ 	return rq;
+ }
  
-+	for (unsigned int o = 0; o < ARRAY_SIZE(yt921x_udf_maps); o++) {
-+		ctrl = YT921X_UDF_CTRL_UDF_OFFSET(yt921x_udf_maps[o].offset) |
-+		       YT921X_UDF_CTRL_UDF_TYPE(yt921x_udf_maps[o].type);
-+		res = yt921x_reg_write(priv, YT921X_UDFn_CTRL(o), ctrl);
-+		if (res)
-+			return res;
-+	}
+ struct bio *erofs_fileio_bio_alloc(struct erofs_map_dev *mdev)
+ {
+-	return &erofs_fileio_rq_alloc(mdev)->bio;
++	return &erofs_fileio_rq_alloc(mdev->m_sb, mdev->m_dif->file)->bio;
+ }
+ 
+ void erofs_fileio_submit_bio(struct bio *bio)
+ {
+-	return erofs_fileio_rq_submit(container_of(bio, struct erofs_fileio_rq,
+-						   bio));
++	erofs_fileio_rq_submit(container_of(bio, struct erofs_fileio_rq, bio));
+ }
+ 
+-static int erofs_fileio_scan_folio(struct erofs_fileio *io,
+-				   struct inode *inode, struct folio *folio)
++static void erofs_fileio_iomap_submit_read(const struct iomap_iter *iter,
++		struct iomap_read_folio_ctx *ctx)
+ {
+-	struct erofs_map_blocks *map = &io->map;
+-	unsigned int cur = 0, end = folio_size(folio), len, attached = 0;
+-	loff_t pos = folio_pos(folio), ofs;
+-	int err = 0;
+-
+-	erofs_onlinefolio_init(folio);
+-	while (cur < end) {
+-		if (!in_range(pos + cur, map->m_la, map->m_llen)) {
+-			map->m_la = pos + cur;
+-			map->m_llen = end - cur;
+-			err = erofs_map_blocks(inode, map);
+-			if (err)
+-				break;
+-		}
+-
+-		ofs = folio_pos(folio) + cur - map->m_la;
+-		len = min_t(loff_t, map->m_llen - ofs, end - cur);
+-		if (map->m_flags & EROFS_MAP_META) {
+-			struct erofs_buf buf = __EROFS_BUF_INITIALIZER;
+-			void *src;
+-
+-			src = erofs_read_metabuf(&buf, inode->i_sb,
+-				map->m_pa + ofs, erofs_inode_in_metabox(inode));
+-			if (IS_ERR(src)) {
+-				err = PTR_ERR(src);
+-				break;
+-			}
+-			memcpy_to_folio(folio, cur, src, len);
+-			erofs_put_metabuf(&buf);
+-		} else if (!(map->m_flags & EROFS_MAP_MAPPED)) {
+-			folio_zero_segment(folio, cur, cur + len);
+-			attached = 0;
+-		} else {
+-			if (io->rq && (map->m_pa + ofs != io->dev.m_pa ||
+-				       map->m_deviceid != io->dev.m_deviceid)) {
+-io_retry:
+-				erofs_fileio_rq_submit(io->rq);
+-				io->rq = NULL;
+-			}
+-
+-			if (!io->rq) {
+-				io->dev = (struct erofs_map_dev) {
+-					.m_pa = io->map.m_pa + ofs,
+-					.m_deviceid = io->map.m_deviceid,
+-				};
+-				err = erofs_map_dev(inode->i_sb, &io->dev);
+-				if (err)
+-					break;
+-				io->rq = erofs_fileio_rq_alloc(&io->dev);
+-				io->rq->bio.bi_iter.bi_sector =
+-					(io->dev.m_dif->fsoff + io->dev.m_pa) >> 9;
+-				attached = 0;
+-			}
+-			if (!bio_add_folio(&io->rq->bio, folio, len, cur))
+-				goto io_retry;
+-			if (!attached++)
+-				erofs_onlinefolio_split(folio);
+-			io->dev.m_pa += len;
+-		}
+-		cur += len;
+-	}
+-	erofs_onlinefolio_end(folio, err, false);
+-	return err;
++	erofs_fileio_rq_submit((struct erofs_fileio_rq *)ctx->read_ctx);
++	ctx->read_ctx = NULL;
+ }
+ 
+-static int erofs_fileio_read_folio(struct file *file, struct folio *folio)
++static int erofs_fileio_iomap_read_folio_range(const struct iomap_iter *iter,
++		struct iomap_read_folio_ctx *ctx, size_t plen)
+ {
+-	bool need_iput;
+-	struct inode *realinode = erofs_real_inode(folio_inode(folio), &need_iput);
+-	struct erofs_fileio io = {};
+-	int err;
+-
+-	trace_erofs_read_folio(realinode, folio, true);
+-	err = erofs_fileio_scan_folio(&io, realinode, folio);
+-	erofs_fileio_rq_submit(io.rq);
+-	if (need_iput)
+-		iput(realinode);
+-	return err;
++	struct erofs_iomap_iter_ctx *iter_ctx = iter->private;
++	struct folio *folio = ctx->cur_folio;
++	struct erofs_fileio_rq *rq = ctx->read_ctx;
++	sector_t sector = iomap_sector(&iter->iomap, iter->pos);
 +
++	if (!rq || bio_end_sector(&rq->bio) != sector ||
++	    !bio_add_folio(&rq->bio, folio, plen,
++			   offset_in_folio(folio, iter->pos))) {
++		struct super_block *sb = iter_ctx->realinode->i_sb;
++		struct erofs_device_info *dif = iter->iomap.private;
++
++		/* submit the existing range if there was one. */
++		if (ctx->read_ctx)
++			erofs_fileio_iomap_submit_read(iter, ctx);
++		rq = erofs_fileio_rq_alloc(sb, dif->file);
++		rq->bio.bi_iter.bi_sector = sector;
++		bio_add_folio_nofail(&rq->bio, folio, plen,
++				offset_in_folio(folio, iter->pos));
++		ctx->read_ctx = rq;
++		ctx->read_ctx_file_offset = iter->pos;
++	}
++	return 0;
+ }
+ 
+-static void erofs_fileio_readahead(struct readahead_control *rac)
++const struct iomap_read_ops erofs_fileio_iomap_read_ops = {
++	.read_folio_range	= erofs_fileio_iomap_read_folio_range,
++	.submit_read		= erofs_fileio_iomap_submit_read,
++};
++
++static void erofs_fileio_meta_endio(struct bio *bio)
+ {
+-	bool need_iput;
+-	struct inode *realinode = erofs_real_inode(rac->mapping->host, &need_iput);
+-	struct erofs_fileio io = {};
+-	struct folio *folio;
+-	int err;
++	bool uptodate = !bio->bi_status;
++	struct folio_iter fi;
+ 
+-	trace_erofs_readahead(realinode, readahead_index(rac),
+-			      readahead_count(rac), true);
+-	while ((folio = readahead_folio(rac))) {
+-		err = erofs_fileio_scan_folio(&io, realinode, folio);
+-		if (err && err != -EINTR)
+-			erofs_err(realinode->i_sb, "readahead error at folio %lu @ nid %llu",
+-				  folio->index, EROFS_I(realinode)->nid);
+-	}
+-	erofs_fileio_rq_submit(io.rq);
+-	if (need_iput)
+-		iput(realinode);
++	bio_for_each_folio_all(fi, bio)
++		folio_end_read(fi.folio, uptodate);
+ }
+ 
+-const struct address_space_operations erofs_fileio_aops = {
+-	.read_folio = erofs_fileio_read_folio,
+-	.readahead = erofs_fileio_readahead,
+-};
+-
+ int erofs_read_meta_folio(struct file *file, struct folio *folio)
+ {
+ 	struct erofs_fileio io = {
+@@ -207,10 +148,10 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
+ 	if (err)
+ 		return err;
+ 
+-	io.rq = erofs_fileio_rq_alloc(&io.dev);
++	io.rq = erofs_fileio_rq_alloc(inode->i_sb, io.dev.m_dif->file);
++	io.rq->bio.bi_end_io = erofs_fileio_meta_endio;
+ 	io.rq->bio.bi_iter.bi_sector =
+ 		(io.dev.m_dif->fsoff + io.dev.m_pa) >> 9;
+-	erofs_onlinefolio_init(folio);
+ 	bio_add_folio_nofail(&io.rq->bio, folio, folio_size(folio), 0);
+ 	erofs_fileio_rq_submit(io.rq);
  	return 0;
- }
-diff --git a/drivers/net/dsa/motorcomm/tc.h b/drivers/net/dsa/motorcomm/tc.h
-index f11136a1c5e2..cc53f148d690 100644
---- a/drivers/net/dsa/motorcomm/tc.h
-+++ b/drivers/net/dsa/motorcomm/tc.h
-@@ -118,6 +118,9 @@ enum yt921x_acl_type {
- 	YT921X_ACL_TYPE_IPV6_SA3,
- 	YT921X_ACL_TYPE_MISC,
- 	YT921X_ACL_TYPE_L4,
-+	/* Each User Defined Filter entry contains 2 UDF windows (UDF_CTRL 2i
-+	 * and 2i+1)
-+	 */
- 	YT921X_ACL_TYPE_UDF0,
- 	YT921X_ACL_TYPE_UDF1,
- 	YT921X_ACL_TYPE_UDF2,
-@@ -255,12 +258,15 @@ enum yt921x_l4_type {
- #define YT921X_UDFn_CTRL(x)		(0x210094 + 4 * (x))
- #define  YT921X_UDF_CTRL_UDF_TYPE_M		GENMASK(8, 7)
- #define   YT921X_UDF_CTRL_UDF_TYPE(x)			FIELD_PREP(YT921X_UDF_CTRL_UDF_TYPE_M, (x))
--#define   YT921X_UDF_CTRL_UDF_TYPE_ETH			YT921X_UDF_CTRL_UDF_TYPE(0)
--#define   YT921X_UDF_CTRL_UDF_TYPE_L3			YT921X_UDF_CTRL_UDF_TYPE(1)
--#define   YT921X_UDF_CTRL_UDF_TYPE_L4			YT921X_UDF_CTRL_UDF_TYPE(2)
- #define  YT921X_UDF_CTRL_UDF_OFFSET_M		GENMASK(6, 0)
- #define   YT921X_UDF_CTRL_UDF_OFFSET(x)			FIELD_PREP(YT921X_UDF_CTRL_UDF_OFFSET_M, (x))
+diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
+index da58053c1116..924b37e06e1c 100644
+--- a/fs/erofs/internal.h
++++ b/fs/erofs/internal.h
+@@ -380,7 +380,6 @@ struct erofs_map_dev {
  
-+enum yt921x_udf_type {
-+	YT921X_UDF_TYPE_L2,
-+	YT921X_UDF_TYPE_L3,
-+	YT921X_UDF_TYPE_L4,
+ extern const struct super_operations erofs_sops;
+ extern const struct address_space_operations erofs_aops;
+-extern const struct address_space_operations erofs_fileio_aops;
+ extern const struct address_space_operations z_erofs_aops;
+ 
+ extern const struct inode_operations erofs_generic_iops;
+@@ -392,7 +391,14 @@ extern const struct file_operations erofs_file_fops;
+ extern const struct file_operations erofs_dir_fops;
+ extern const struct file_operations erofs_ishare_fops;
+ 
++struct erofs_iomap_iter_ctx {
++	struct page *page;
++	void *base;
++	struct inode *realinode;
 +};
 +
- #define YT921X_PORTn_RATE(port)		(0x220000 + 4 * (port))
- #define  YT921X_PORT_RATE_GAP_VALUE		GENMASK(4, 0)	/* default 20 */
- #define YT921X_METER_SLOT		0x220104
+ extern const struct iomap_ops z_erofs_iomap_report_ops;
++extern const struct iomap_read_ops erofs_fileio_iomap_read_ops;
+ 
+ int erofs_setup_managed_cache(struct super_block *sb);
+ #ifdef CONFIG_EROFS_FS_BACKED_BY_FILE
+@@ -450,9 +456,6 @@ erofs_get_aops(struct inode *realinode)
+ 			  "EXPERIMENTAL EROFS subpage compressed block support in use. Use at your own risk!");
+ 		return &z_erofs_aops;
+ 	}
+-	if (IS_ENABLED(CONFIG_EROFS_FS_BACKED_BY_FILE) &&
+-	    erofs_is_fileio_mode(EROFS_SB(realinode->i_sb)))
+-		return &erofs_fileio_aops;
+ 	return &erofs_aops;
+ }
+ 
+diff --git a/fs/erofs/ishare.c b/fs/erofs/ishare.c
+index a1cf2aff8d32..db32d16517a5 100644
+--- a/fs/erofs/ishare.c
++++ b/fs/erofs/ishare.c
+@@ -54,11 +54,13 @@ bool erofs_ishare_fill_inode(struct inode *inode)
+ 		si->i_mapping->a_ops = aops;
+ 		si->i_mode = 0444 | S_IFREG;
+ 		si->i_size = inode->i_size;
++		si->i_blkbits = inode->i_blkbits;
+ 		mapping_set_large_folios(si->i_mapping);
+ 		unlock_new_inode(si);
+ 	} else {
+ 		kfree(fp.opaque);
+-		if (!si || aops != si->i_mapping->a_ops) {
++		if (!si || aops != si->i_mapping->a_ops ||
++		    si->i_blkbits != inode->i_blkbits) {
+ 			iput(si);
+ 			return false;
+ 		}
 -- 
-2.53.0
+2.47.3
 
