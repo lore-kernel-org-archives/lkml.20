@@ -1,593 +1,502 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4DC37C109;
-	Sat, 17 Oct 2026 02:00:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5554437C109
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:00:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792202425; cv=none; b=IFQfLvN1kNE9zuRjTZOFf0S/LrZJnHMVAneWNfjQZIm8TNzBIDfCFEd059OL+buQTHEvLqBrZaqYk7zSPj+7d3w0VN2UUcUPGdIx4OAi2/lWl+M2qFIJy5IlnGkKAENW2I6AeZvHRY8pG0c9ynVb25mRmDSkqLciua9WG0xtS84=
+	t=1792202433; cv=none; b=b3ZNRBow4jFf0eeagUeoZ5FrvTvlWmKRH4SWfqFtbXHXacpV2JLioubGcZodJ12UChts633hbDH9wB/j/cKVHEMcQSOz6q9MUq3bOsVN1uhb+Xo/DNMwOyBRcTpVHe+7lF3mw4WyOkAGq0uZ4pvAkQPEHeGLfjbFPvhDErRBNt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792202425; c=relaxed/simple;
-	bh=MMXha+dT3026QMAe7zX84TJ+URkFKPBNH7gxbBP8mBI=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Nc76pm0VnWo6l27lLyeDASp9x8Qc81Yazgb8nmkCZTDt8t2mIzB1PmMFiQJgqh3HrTFFCyxiWXHn22PoP6+e87o8y1GuPUqoxYXBPESnmFAzvZ5Kkx7CQU4UDMaLyzn3SZtPkkfgMkMciPnfc9CJT4wgOZoltvqLjtsU2EkAo9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b=cBh00Ufo; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=g/ApJthp; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1792202433; c=relaxed/simple;
+	bh=iEX9p+CjabtHg1ofkb524OZqEiO0wgBsjbh6dkwNPGM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SHUwbe84LO4S0xlzdf/oczAfkD/VQj9rILzKAjr/KXn0xQpW3wKyf+yulBz5+icPB3gS/kRKUCRKYWAW5R0/uRt8PrHIPLsarIYuuH+rx1etqn9sV5E6mEDA0kVdJcIKcPt//0JgcStuSCbNxDhii+YaHQU+dO/hTBWtIfor4Qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mam6StNc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b="cBh00Ufo";
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="g/ApJthp"
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GNH1Ub3829504;
-	Fri, 16 Oct 2026 22:00:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=x2p5Z5EbRChXuqb6FuyLn1HrEo487sT/nt/mejsImaU=; b=cBh00Uf
-	oVOEI742zNlo1hflUss3XWs2prCzKxswX6R+Kndzay5H2GydSI+Xmveg+yQMmFGP
-	2ZV0L15xuLgHAvpbjng+Qwk3J4vcZWR+TCduXKOv/gZFoQsfzIB7QCmhApExPeNk
-	3k7Nakop0R0J2U+eiMPsRp4Pq4f+mklZJws0leAeq7XzlXKxY0s7dQmOfwAzANPk
-	mhmvUcQ9cw//EUdeHoVfhy2DGD8eNw82OYOUnfku9PTVQ4wXQ8c6Ul/4XudQEhbF
-	uUHT8VjJHeKCBuqe9S3Y7SPuL1Hhjfi7GX/8FCCfPrp9dMXJnx1Mq+4JYx/gfUV/
-	UHnUNM/PvstaYnQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=x2p5Z
-	5EbRChXuqb6FuyLn1HrEo487sT/nt/mejsImaU=; b=g/ApJthpq1QVlgBicwFiv
-	SqOFEks62WMirXMIwhiNYBOSN5Ou5a+bULV73LJL1/E5nze91qOJ0FUC5qxDDhbK
-	IHltxAKk1fIPXBYfTeRybo0lRx/1JNI3uATUKvUV9RChULYvJ9arVx+vBfLmAjUJ
-	s/Di0/wOoLCkh3pNcn5/GVyNhCYNYQJcqqa3sXP0qI6zgcXSXVPzi0ikbX1eTG39
-	9qw5xbAbi6HkE5wDCSD8y+6EuqEccq4nF0b7CTfDQB7SsK406hKopHrtNzhRrIBa
-	jetme5QFCUzYe6FrJkU0c9q6fxmNtiOJBHxROD3we9bNOCvO1owa6Yyj1Ztiy43G
-	A==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hbj17492e-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 22:00:18 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 69H20H21062156
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 16 Oct 2026 22:00:17 -0400
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 16 Oct 2026 22:00:17 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 16 Oct 2026 22:00:16 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Fri, 16 Oct 2026 22:00:16 -0400
-Received: from work.maxim-ic.internal ([10.66.6.191])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69H2030a004364;
-	Fri, 16 Oct 2026 22:00:06 -0400
-From: Marcelo Schmitt <marcelo.schmitt@analog.com>
-To: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux@analog.com>
-CC: <jic23@kernel.org>, <nuno.sa@analog.com>, <dlechner@baylibre.com>,
-        <andy@kernel.org>, <Michael.Hennerich@analog.com>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <corbet@lwn.net>,
-        <skhan@linuxfoundation.org>, <marcelo.schmitt1@gmail.com>
-Subject: [PATCH v5 12/15] iio: adc: ad4134: Support SPI 4-wire mode
-Date: Fri, 16 Oct 2026 22:59:56 -0300
-Message-ID: <fabe47973d8de0bc2f5177a99ef032a26b42d926.1792200021.git.marcelo.schmitt@analog.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1792200021.git.marcelo.schmitt@analog.com>
-References: <cover.1792200021.git.marcelo.schmitt@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mam6StNc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF5B91F000C4;
+	Sat, 17 Oct 2026 02:00:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792202431;
+	bh=eECXxyH/Ryxs6QdWBpf3tfZ6BP+n43LeDrvXxsbbMbQ=;
+	h=From:To:Cc:Subject:Date;
+	b=mam6StNcNeFpE5Xzk2AfB0gf8b7NUiqe8C+XLmIvMJof0hu6daDsXgb1Euy0LWKgx
+	 PFxZqidtXOo/h7bmGwKeMOrm6cbM0r9HExxtEl/snlNzEAt2qOktrTynX8oax5SBNh
+	 afObARSWiU5xl7ZZtgos7kTQVTHTxwVWKImGmzjN3mvGHhzgWPHMYrllFcLsDsUbW2
+	 UIMR5A6T+3AJKPl/gsyqWjgA47IhgpShlWRHriIYDegXkmC4GxI63/XRHuolkhNl84
+	 dyR7HN7dP9Wh5AX6oS/rBQUOHs1QQLgnh7mVFZmBpFdW+JEepRCalwtJP/VQe+BCUe
+	 xZ1G5QmC+xb4g==
+From: Chao Yu <chao@kernel.org>
+To: jaegeuk@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Chao Yu <chao@kernel.org>,
+	Daeho Jeong <daehojeong@google.com>,
+	Wenjie Qi <qiwenjie@xiaomi.com>
+Subject: [PATCH v4 3/5] f2fs: cache: wake up f2fs_writeback when exceeding threshold
+Date: Sat, 17 Oct 2026 02:00:22 +0000
+Message-ID: <20261017020022.301122-1-chao@kernel.org>
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDAwNyBTYWx0ZWRfX5Kij6zFh5RnE
- VygBuGgMehVty2zU3N3dLyDoH+rG5iey3rx2BDxXGkxyYp2qzhNKqGMDkmnTaEVOcoE/Ks/ZqYr
- skd/4Y0HPjK2e4Wl4kIxliMDUH1GFEM6i59ZyS+SDOqtBGKIUt8F
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDAwNyBTYWx0ZWRfX5I+R4rzMNn5K
- xQQMGWf9HcLaEhL7GMcdrOPrSWEdTWDN0759OV95a1q/JNZ5qTr3SJf056wgFpgcMn27sKFh/7G
- HV4pHBtBKUXLq++XA5VIi0Vw+VtvB5GouGw3ij3BTiOkmE6OIQwNy+G2anxfe0uFklVoMzUZVuy
- CRub02a2U+vs4aO7PK4fcXgFjDILuf6Bqd39Eqh1SJu2XmCnDJnAsavmhNb4UUTZc4DisLn+uLk
- yNy4sFikGsr1MSc/910M+M3X/COqiQ0X9gmA2yKyxyunzdcE+G5A2F2aVfQ4aKTuv05p7BHLFYV
- iXwDr9Q3mqEIAfEgCP3L3zthEGnZXLn1ALcMZ1JPsCN3k/t1AMyEaDZcygtuWzff/WMqwOgWc52
- mVy08FzeGtcc/qOhYShSVTxv8iwT2GA0H7CMkJnDIoX2lb+RkjwCSKAHBwqzDhgo4XIdeuJl4Mu
- jX3GLf55h5NGyWNP4uQ==
-X-Authority-Analysis: v=2.4 cv=Wd6Z+EhX c=1 sm=1 tr=0 ts=6ad2d6b2 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8
- a=NXAGyndoHhwLlbJfipYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: t_rsRlQrzW9JiM2KBR64CCbain1kdIxX
-X-Proofpoint-GUID: t_rsRlQrzW9JiM2KBR64CCbain1kdIxX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_04,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 suspectscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 adultscore=0 priorityscore=1501 impostorscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610170007
 
-AD4134 devices can be wired in a few different ways. So far, only minimum
-I/O mode was supported. While minimum I/O mode allows interfacing with
-AD4134 with a reduced number of wires, that wiring configuration is not
-suitable for high-throughput data acquisition.
+From: Chao Yu <chao@kernel.org>
 
-Extend AD4134 support to enable interfacing in SPI 4-wire configuration.
+This patch introduces cache_wb_dirty_threshold and cache_wb_total_threshold
+sysfs nodes under /sys/fs/f2fs/<disk>/, and wakes up the f2fs_writeback
+kthread when dirty meta/node caches exceed cache_wb_dirty_threshold and
+total cached entries exceed cache_wb_total_threshold; a zero threshold
+disables the corresponding check. By default, cache_wb_dirty_threshold is
+8192 and cache_wb_total_threshold is 0.
 
-Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+If both thresholds are zero, f2fs_writeback only runs periodically, unless
+checkpoint is disabled, as nothing else will flush dirty caches then.
+
+f2fs_writeback won't be woken up unless there are enough dirty caches for
+f2fs_write_{meta,node}_caches() to gather. And if thresholds are exceeded
+but one round fails to write any caches, e.g. due to cp_error, freezing,
+frozen fs, or lock contention, threshold based wakeup is throttled until
+a later round makes progress, in order to avoid busy-looping. To detect
+progress, introduce a new parameter for f2fs_write_{meta,node}_caches()
+and f2fs_writeback_node_caches() to return the number of caches submitted
+for writeback.
+
+Thanks Daeho and Wenjie for help and suggestion on this patch.
+
+Suggested-by: Daeho Jeong <daehojeong@google.com>
+Suggested-by: Wenjie Qi <qiwenjie@xiaomi.com>
+Signed-off-by: Chao Yu <chao@kernel.org>
+Reviewed-by: Wenjie Qi <qiwenjie@xiaomi.com>
 ---
-Change log v4 -> v5
-- Updated adi,spi-mode property handling.
-- No longer selecting/deselecting multiplexer states when in minimum I/O mode.
+v4:
+- introduce f2fs_init_cache_wb_info() to init wq and parameter only once
+  to avoid race case:
+  1. remount can reinit wq which may be used by others.
+  2. lost parameter value after remount
+ Documentation/ABI/testing/sysfs-fs-f2fs |  21 ++++
+ fs/f2fs/cache.c                         | 133 ++++++++++++++++++++++--
+ fs/f2fs/cache.h                         |   7 ++
+ fs/f2fs/checkpoint.c                    |  10 +-
+ fs/f2fs/f2fs.h                          |   7 +-
+ fs/f2fs/node.c                          |  11 +-
+ fs/f2fs/super.c                         |   1 +
+ fs/f2fs/sysfs.c                         |   8 +-
+ 8 files changed, 180 insertions(+), 18 deletions(-)
 
-Detailed reasoning for the external multiplexer usage.
-
-Before coming to the current solution, the following configuration was tried.
-
-  +-----------------------+                           +-----------------+
-  |       AD4134          |                           | SPI Controller  |
-  |                       |                           |                 |
-  | SPI interface    SCLK |<--------------------------| SCLK            |
-  | for register       CS |<--------------------------| CS              |
-  | access            SDI |<--------------------------| SDO             |
-  |                   SDO |---+                       |                 |
-  |                       |   |                       |                 |
-  | Data interface  DOUT0 |---+---------------------->| SDI0            |
-  | for ADC sample  DOUT1 |-------------------------->| SDI1            |
-  | data read       DOUT2 |-------------------------->| SDI2            |
-  |                 DOUT3 |-------------------------->| SDI3            |
-  |                 DCLK  |<--------------------------| DCLK
-  |                 ODR   |<------------------+    +->| Offload Trigger |
-  +-----------------------+                   |    |  +-----------------+
-                                              |    +--| PWM1            |
-                                              +-------| PWM0            |
-                                                      +-----------------+
-
-Though, because DOUT0 never goes high-Z, the DOUT0 pin keeps driving the data
-line, causing register reads to fail.
-
-Alternatively, we could have something like
-
-  +-----------------------+                           +-----------------+
-  |       AD4134          |                           | SPI Controller  |
-  |                       |                           |                 |
-  | SPI interface    SCLK |<--------------------------| SCLK            |
-  | for register       CS |<--------------------------| CS              |
-  | access            SDI |<--------------------------| SDO             |
-  |                   SDO |-------------------------->| SDI0            |
-  |                       |                           |                 |
-  | Data interface  DOUT0 |-------------------------->| SDI1            |
-  | for ADC sample  DOUT1 |-------------------------->| SDI2            |
-  | data read       DOUT2 |-------------------------->| SDI3            |
-  |                 DOUT3 |-------------------------->| SDI4            |
-  |                 DCLK  |<--------------------------| DCLK
-  |                 ODR   |<------------------+    +->| Offload Trigger |
-  +-----------------------+                   |    |  +-----------------+
-                                              |    +--| PWM1            |
-                                              +-------| PWM0            |
-                                                      +-----------------+
-
-The downside of the above is the peripheral would need fine-grained config of
-controller SDI lines to only read SDI0 for register access, and only read SDI1,
-SDI2, SDI3, SDI4 for ADC sample data (currently available
-SPI_MULTI_LANE_MODE_STRIPE reads from all SDI lines).
-
-The currently proposed solution looks like the following
-
-  +-----------------------+                         +-----------------+
-  |         AD4134        |                         | SPI Controller  |
-  |                       |                         |                 |
-  | SPI interface    SCLK |<------------------------| SCLK            |
-  | for register       CS |<------------------------| CS              |
-  | access            SDI |<------------------------| SDO             |
-  |                   SDO |------->|¯¯¯¯\           |                 |
-  |                       |        |MUX  >--------->| SDI0            |
-  | Data interface  DOUT0 |------->|____/           |                 |
-  | for ADC sample        |          ^              |                 |
-  | data read       DOUT1 |------------------------>| SDI1            |
-  |                 DOUT2 |------------------------>| SDI2            |
-  |                 DOUT3 |------------------------>| SDI3            |
-  |                  DCLK |<------------------------| DCLK            |
-  |                   ODR |<----------------+    +->| Offload Trigger |
-  +-----------------------+          |      |    |  +-----------------+
-                                     |      |    +--| PWM1            |
-                                     |      +-------| PWM0            |
-                                     +--------------| GPIO            |
-                                                    +-----------------+
-
-By being able to mux between AD4134 SDO and AD4134 DOUT0, the peripheral can be
-connected to a single bus such that controllers able to read from multiple lines
-will be able to gather ADC sample data from all SDI lines (SPI_MULTI_LANE_MODE_STRIPE).
-With that, AD4134 maximum data throughput can be supported with what is already
-available from the SPI core. See additional details on the AD4134 IIO
-documentation (patch 15).
-
-Yet another possibility would be to have the peripheral sitting in two buses.
-
-  +-----------------------+                           +-----------------+
-  |       AD4134          |                           | SPI Controller A|
-  |                       |                           |                 |
-  | SPI interface    SCLK |<--------------------------| SCLK            |
-  | for register       CS |<--------------------------| CS              |
-  | access            SDI |<--------------------------| SDO             |
-  |                   SDO |-------------------------->| SDI             |
-  |                       |                           +-----------------+
-  |                       |                           | SPI Controller B|
-  |                       |                           |                 |
-  | Data interface  DOUT0 |-------------------------->| SDI0            |
-  | for ADC sample  DOUT1 |-------------------------->| SDI1            |
-  | data read       DOUT2 |-------------------------->| SDI2            |
-  |                 DOUT3 |-------------------------->| SDI3            |
-  |                 DCLK  |<--------------------------| DCLK            |
-  |                 ODR   |<------------------+    +->| Offload Trigger |
-  +-----------------------+                   |    |  +-----------------+
-                                              |    +--| PWM1            |
-                                              +-------| PWM0            |
-                                                      +-----------------+
-
-That may be a fallback option if what's currently being proposed fails to comply
-to Linux code standards.
-
-
- drivers/iio/adc/Kconfig  |   1 +
- drivers/iio/adc/ad4134.c | 221 +++++++++++++++++++++++++++++++++++----
- 2 files changed, 204 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index d625f36a0283..10f3c804df9a 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -127,6 +127,7 @@ config AD4134
- 	select CRC8
- 	select IIO_BUFFER
- 	select IIO_TRIGGERED_BUFFER
-+	select MULTIPLEXER
- 	help
- 	  Say yes here to build support for Analog Devices AD4134 SPI analog to
- 	  digital converters (ADC).
-diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
-index eaf5bb55f25b..6b05e40f7aeb 100644
---- a/drivers/iio/adc/ad4134.c
-+++ b/drivers/iio/adc/ad4134.c
-@@ -17,6 +17,8 @@
- #include <linux/gpio/consumer.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/mux/consumer.h>
-+#include <linux/property.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
-@@ -72,6 +74,9 @@
- #define AD4134_CH3_OFFSET_MSB_REG		0x3E
- #define AD4134_AIN_OR_ERROR_REG			0x48
+diff --git a/Documentation/ABI/testing/sysfs-fs-f2fs b/Documentation/ABI/testing/sysfs-fs-f2fs
+index 5b196806b3bc..3d2e78a8bb7d 100644
+--- a/Documentation/ABI/testing/sysfs-fs-f2fs
++++ b/Documentation/ABI/testing/sysfs-fs-f2fs
+@@ -1027,3 +1027,24 @@ Contact:	"Chao Yu" <chao@kernel.org>
+ Description:	This is a writable entry to control writeback interval of
+ 		f2fs_writeback-x:y, the range is [100, 30000], by default the value
+ 		is 5000, unit is ms.
++
++What:		/sys/fs/f2fs/<disk>/cache_wb_dirty_threshold
++Date:		October 2026
++Contact:	"Chao Yu" <chao@kernel.org>
++Description:	This is a writable entry for metadata cache. f2fs_writeback-x:y
++		will be woken up for writeback once the number of dirty meta and
++		node caches reaches this value. 0 disables this check. By default
++		the value is 8192, unit is cache entries.
++
++What:		/sys/fs/f2fs/<disk>/cache_wb_total_threshold
++Date:		October 2026
++Contact:	"Chao Yu" <chao@kernel.org>
++Description:	This is a writable entry for metadata cache. f2fs_writeback-x:y
++		will be woken up for writeback only if the total number of cached
++		entries also reaches this value. 0 disables this check. By default
++		the value is 0, unit is cache entries.
++
++		If both cache_wb_dirty_threshold and cache_wb_total_threshold are
++		0, f2fs_writeback-x:y only runs every cache_wb_interval, unless
++		checkpoint is disabled, in which case it will still be woken up
++		once there are enough dirty caches to be gathered for writeback.
+diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
+index f385fe928b5b..d2303e5caa1a 100644
+--- a/fs/f2fs/cache.c
++++ b/fs/f2fs/cache.c
+@@ -81,6 +81,7 @@ bool f2fs_mark_cache_dirty(struct f2fs_cached_block *entry)
+ 		f2fs_cache_update_tag(entry, F2FS_CACHE_TAG_NONE,
+ 						F2FS_CACHE_TAG_DIRTY);
+ 		inc_cache_count(cache->sbi, type);
++		f2fs_wake_up_cache_wb(cache->sbi);
+ 		return true;
+ 	}
  
-+#define AD4134_SDO_INPUT			0
-+#define AD4134_DOUT0_INPUT			1
-+
- /*
-  * AD4134 register map ends at address 0x48 and there is no register for
-  * retrieving ADC sample data. Though, to make use of Linux regmap API both
-@@ -86,6 +91,17 @@
- #define AD4134_SPI_CRC_INIT_VALUE		0xA5
- static unsigned char ad4134_spi_crc_table[CRC8_TABLE_SIZE];
+@@ -681,6 +682,74 @@ unsigned long f2fs_shrink_node_cache(struct f2fs_sb_info *sbi,
+ 	return f2fs_do_shrink_cache(NODE_CACHE(sbi), nr_to_scan);
+ }
  
-+enum ad4134_spi_mode {
-+	AD4134_SPI_MODE_NO_CS, /* datasheet calls this "minimum I/O mode" */
-+	AD4134_SPI_MODE_4_WIRE,
-+};
++static inline unsigned long f2fs_total_cached_entries(struct f2fs_sb_info *sbi)
++{
++	unsigned long total = READ_ONCE(META_CACHE(sbi)->num_entries) +
++			      READ_ONCE(NODE_CACHE(sbi)->num_entries);
++#ifdef CONFIG_F2FS_FS_COMPRESSION
++	if (test_opt(sbi, COMPRESS_CACHE))
++		total += READ_ONCE(COMPRESS_CACHE(sbi)->num_entries);
++#endif
++	return total;
++}
 +
-+/* maps adi,spi-mode property value to enum */
-+static const char * const ad4134_spi_modes[] = {
-+	[AD4134_SPI_MODE_NO_CS] = "no-cs",
-+	[AD4134_SPI_MODE_4_WIRE] = "4-wire",
-+};
++static inline s64 f2fs_nr_dirty_caches(struct f2fs_sb_info *sbi)
++{
++	return get_nr_caches(sbi, F2FS_DIRTY_META) +
++		get_nr_caches(sbi, F2FS_DIRTY_NODES);
++}
 +
- enum ad4134_filter_type {
- 	AD4134_WIDEBAND,
- 	AD4134_SINC6,
-@@ -110,6 +126,8 @@ struct ad4134_state {
- 	 * consecutive register access operations.
- 	 */
- 	struct mutex sync_lock;
-+	struct mux_state *mux_st[2]; /* For external multiplexer control */
-+	enum ad4134_spi_mode spi_mode;
- 	int refin_mv;
- 	bool crc_en;
- 	/*
-@@ -219,6 +237,85 @@ static const struct regmap_access_table ad4134_regmap_wr_table = {
- 	.n_yes_ranges = ARRAY_SIZE(ad4134_regmap_wr_range),
++/*
++ * f2fs_write_{meta,node}_caches() skip writeback until there are enough
++ * dirty caches to gather, so don't wake up f2fs_writeback for nothing.
++ */
++static inline bool f2fs_cache_wb_collectable(struct f2fs_sb_info *sbi,
++					     s64 nr_dirty, int type)
++{
++	return nr_dirty && nr_dirty >= nr_caches_to_skip(sbi, type);
++}
++
++static bool f2fs_cache_wb_exceeded(struct f2fs_sb_info *sbi)
++{
++	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
++	unsigned int total_threshold, dirty_threshold;
++	s64 nr_meta, nr_node;
++
++	total_threshold = READ_ONCE(cache_thread->cache_wb_total_threshold);
++	dirty_threshold = READ_ONCE(cache_thread->cache_wb_dirty_threshold);
++
++	/*
++	 * Both thresholds are disabled, rely on periodic writeback only,
++	 * unless checkpoint is disabled, as nothing else will flush dirty
++	 * caches then.
++	 */
++	if (!total_threshold && !dirty_threshold &&
++	    !is_sbi_flag_set(sbi, SBI_CP_DISABLED))
++		return false;
++
++	if (total_threshold &&
++	    f2fs_total_cached_entries(sbi) < total_threshold)
++		return false;
++
++	nr_meta = get_nr_caches(sbi, F2FS_DIRTY_META);
++	nr_node = get_nr_caches(sbi, F2FS_DIRTY_NODES);
++
++	if (dirty_threshold && nr_meta + nr_node < dirty_threshold)
++		return false;
++
++	return f2fs_cache_wb_collectable(sbi, nr_meta, META) ||
++		f2fs_cache_wb_collectable(sbi, nr_node, NODE);
++}
++
++static bool f2fs_should_wake_up_cache_wb(struct f2fs_sb_info *sbi)
++{
++	/* last round made no progress, wait for periodic writeback */
++	if (READ_ONCE(sbi->cache_thread.cache_wb_throttled))
++		return false;
++
++	return f2fs_cache_wb_exceeded(sbi);
++}
++
+ static int f2fs_cache_writeback_kthread(void *data)
+ {
+ 	struct f2fs_sb_info *sbi = data;
+@@ -690,15 +759,27 @@ static int f2fs_cache_writeback_kthread(void *data)
+ 	set_freezable();
+ 
+ 	while (!kthread_should_stop()) {
+-		unsigned int interval = cache_thread->cache_wb_interval;
++		unsigned int interval = READ_ONCE(cache_thread->cache_wb_interval);
++		long nr_meta = 0, nr_node = 0;
++		s64 nr_dirty;
+ 
+ 		wait_event_freezable_timeout(*wq,
+-				kthread_should_stop(),
++				kthread_should_stop() ||
++				f2fs_should_wake_up_cache_wb(sbi),
+ 				msecs_to_jiffies(interval));
+ 
+ 		if (kthread_should_stop())
+ 			break;
+ 
++		/*
++		 * If thresholds are exceeded, throttle threshold based wakeup
++		 * until a round makes progress, otherwise we may busy-loop if
++		 * this round can not write anything, e.g. on cp_error, freezing,
++		 * frozen fs, or lock contention.
++		 */
++		WRITE_ONCE(cache_thread->cache_wb_throttled,
++			   f2fs_cache_wb_exceeded(sbi));
++
+ 		if (f2fs_readonly(sbi->sb))
+ 			continue;
+ 
+@@ -711,14 +792,51 @@ static int f2fs_cache_writeback_kthread(void *data)
+ 		if (!sb_start_write_trylock(sbi->sb))
+ 			continue;
+ 
+-		f2fs_write_meta_caches(sbi);
+-		f2fs_write_node_caches(sbi);
++		nr_dirty = f2fs_nr_dirty_caches(sbi);
++
++		f2fs_write_meta_caches(sbi, &nr_meta);
++		f2fs_write_node_caches(sbi, &nr_node);
+ 
+ 		sb_end_write(sbi->sb);
++
++		/*
++		 * Don't rely on the delta of dirty caches only, as caches may
++		 * be dirtied concurrently; also count in caches cleaned by
++		 * others, e.g. checkpoint triggered by f2fs_balance_fs_bg().
++		 */
++		if (nr_meta || nr_node || f2fs_nr_dirty_caches(sbi) < nr_dirty)
++			WRITE_ONCE(cache_thread->cache_wb_throttled, false);
++
++		cond_resched();
+ 	}
+ 	return 0;
+ }
+ 
++void f2fs_wake_up_cache_wb(struct f2fs_sb_info *sbi)
++{
++	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
++
++	if (!READ_ONCE(cache_thread->cache_wb_task))
++		return;
++
++	if (!f2fs_should_wake_up_cache_wb(sbi))
++		return;
++
++	if (wq_has_sleeper(&cache_thread->cache_wb_wq))
++		wake_up(&cache_thread->cache_wb_wq);
++}
++
++void f2fs_init_cache_wb_info(struct f2fs_sb_info *sbi)
++{
++	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
++
++	init_waitqueue_head(&cache_thread->cache_wb_wq);
++	cache_thread->cache_wb_interval = DEF_DIRTY_CACHE_TIMEOUT;
++	cache_thread->cache_wb_dirty_threshold = DEF_CACHE_WB_DIRTY_THRESH;
++	cache_thread->cache_wb_total_threshold = 0;
++	cache_thread->cache_wb_throttled = false;
++}
++
+ int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi)
+ {
+ 	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
+@@ -729,8 +847,7 @@ int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi)
+ 	if (cache_thread->cache_wb_task)
+ 		return 0;
+ 
+-	init_waitqueue_head(&cache_thread->cache_wb_wq);
+-	cache_thread->cache_wb_interval = DEF_DIRTY_CACHE_TIMEOUT;
++	WRITE_ONCE(cache_thread->cache_wb_throttled, false);
+ 	snprintf(name, sizeof(name), "f2fs_writeback-%u:%u",
+ 			MAJOR(dev), MINOR(dev));
+ 
+@@ -738,7 +855,7 @@ int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi)
+ 	if (IS_ERR(task))
+ 		return PTR_ERR(task);
+ 
+-	cache_thread->cache_wb_task = task;
++	WRITE_ONCE(cache_thread->cache_wb_task, task);
+ 	return 0;
+ }
+ 
+@@ -750,5 +867,5 @@ void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi)
+ 		return;
+ 
+ 	kthread_stop(cache_thread->cache_wb_task);
+-	cache_thread->cache_wb_task = NULL;
++	WRITE_ONCE(cache_thread->cache_wb_task, NULL);
+ }
+diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
+index 3df3a562c46f..cd017c1b188f 100644
+--- a/fs/f2fs/cache.h
++++ b/fs/f2fs/cache.h
+@@ -234,13 +234,20 @@ unsigned long f2fs_shrink_node_cache(struct f2fs_sb_info *sbi,
+ #define MIN_DIRTY_CACHE_TIMEOUT 100
+ #define MAX_DIRTY_CACHE_TIMEOUT 30000
+ 
++#define DEF_CACHE_WB_DIRTY_THRESH	(8192)
++
+ struct f2fs_cache_kthread {
+ 	struct task_struct *cache_wb_task;
+ 	wait_queue_head_t cache_wb_wq;
+ 	unsigned int cache_wb_interval;
++	unsigned int cache_wb_dirty_threshold;
++	unsigned int cache_wb_total_threshold;
++	bool cache_wb_throttled;	/* last round made no progress */
  };
  
-+/*
-+ * When operating in modes other than minimum I/O mode, AD4134 register data on
-+ * the SDO line is sampled on SCLK rising edge (SPI mode 0). In addition to
-+ * that, when AD4134 SDO and DOUT0 pins are multiplexed by hardware OUTSIDE
-+ * AD4134 SILICON, the multiplexer state must be set to route SDO to the SPI
-+ * controller. With both SPI mode and multiplexer state properly set, register
-+ * access runs as usual. Successful calls to this function must be balanced with
-+ * calls to ad4134_release_reg_access() so to release the mux state lock. See
-+ * AD4134 IIO documentation for details.
-+ */
-+static int ad4134_claim_reg_access(struct ad4134_state *st)
-+{
-+	unsigned int cur_mode = st->spi->mode & SPI_MODE_X_MASK;
-+	int ret;
-+
-+	if (st->spi_mode != AD4134_SPI_MODE_NO_CS && cur_mode != SPI_MODE_0) {
-+		st->spi->mode &= ~SPI_MODE_X_MASK;
-+		st->spi->mode |= SPI_MODE_0;
-+		ret = spi_setup(st->spi);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (st->spi_mode != AD4134_SPI_MODE_NO_CS && st->mux_st[AD4134_SDO_INPUT])
-+		return mux_state_select(st->mux_st[AD4134_SDO_INPUT]);
-+
-+	return 0;
-+}
-+
-+/*
-+ * Must be balanced with successful calls to ad4134_claim_reg_access().
-+ */
-+static int ad4134_release_reg_access(struct ad4134_state *st)
-+{
-+	if (st->spi_mode != AD4134_SPI_MODE_NO_CS && st->mux_st[AD4134_SDO_INPUT])
-+		return mux_state_deselect(st->mux_st[AD4134_SDO_INPUT]);
-+
-+	return 0;
-+}
-+
-+/*
-+ * When operating in modes other than minimum I/O mode, AD4134 ADC sample data
-+ * on the DOUT lines is sampled on SCLK falling edge (SPI mode 1). In addition
-+ * to that, when AD4134 SDO and DOUT0 pins are multiplexed by hardware OUTSIDE
-+ * AD4134 SILICON, the multiplexer state must be set to route DOUT0 to the SPI
-+ * controller. With both SPI mode and multiplexer state properly set, ADC
-+ * samples can be read normally. Successful call to this function must be paired
-+ * with a call to ad4134_release_sample_access().
-+ */
-+static int ad4134_claim_sample_access(struct ad4134_state *st)
-+{
-+	unsigned int cur_mode = st->spi->mode & SPI_MODE_X_MASK;
-+	int ret;
-+
-+	if (st->spi_mode != AD4134_SPI_MODE_NO_CS && cur_mode != SPI_MODE_1) {
-+		st->spi->mode &= ~SPI_MODE_X_MASK;
-+		st->spi->mode |= SPI_MODE_1;
-+		ret = spi_setup(st->spi);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (st->spi_mode != AD4134_SPI_MODE_NO_CS && st->mux_st[AD4134_DOUT0_INPUT])
-+		return mux_state_select(st->mux_st[AD4134_DOUT0_INPUT]);
-+
-+	return 0;
-+}
-+
-+/*
-+ * Must be balanced with successful calls to ad4134_claim_sample_access().
-+ */
-+static int ad4134_release_sample_access(struct ad4134_state *st)
-+{
-+	if (st->spi_mode != AD4134_SPI_MODE_NO_CS && st->mux_st[AD4134_DOUT0_INPUT])
-+		return mux_state_deselect(st->mux_st[AD4134_DOUT0_INPUT]);
-+
-+	return 0;
-+}
-+
- static int ad4134_calc_spi_crc(u8 inst, u8 data)
++void f2fs_init_cache_wb_info(struct f2fs_sb_info *sbi);
+ int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi);
+ void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi);
++void f2fs_wake_up_cache_wb(struct f2fs_sb_info *sbi);
+ 
+ #endif /* _LINUX_F2FS_CACHE_H */
+diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+index 2e5e0ee5feb2..fd0a6c03987e 100644
+--- a/fs/f2fs/checkpoint.c
++++ b/fs/f2fs/checkpoint.c
+@@ -581,10 +581,11 @@ static bool __f2fs_write_meta_cache(struct f2fs_cached_block *entry,
+ 	return false;
+ }
+ 
+-void f2fs_write_meta_caches(struct f2fs_sb_info *sbi)
++void f2fs_write_meta_caches(struct f2fs_sb_info *sbi, long *nr_written)
  {
- 	u8 buf[] = { inst, data };
-@@ -242,18 +339,27 @@ static int ad4134_reg_write(void *context, unsigned int reg, unsigned int val)
- 		.rx_buf = st->rx_buf,
- 		.len = st->crc_en ? AD4134_SPI_MAX_XFER_LEN : 2,
- 	};
--	int ret;
-+	int access_ret, ret;
+ 	struct f2fs_lock_context lc;
+ 	long nr_to_write = LONG_MAX;
++	long nwritten;
+ 
+ 	if (unlikely(is_sbi_flag_set(sbi, SBI_POR_DOING)))
+ 		return;
+@@ -599,8 +600,11 @@ void f2fs_write_meta_caches(struct f2fs_sb_info *sbi)
+ 		return;
+ 
+ 	nr_to_write = adjust_flush_cache_number(sbi, META);
+-	f2fs_sync_meta_caches(sbi, nr_to_write, false, FS_META_IO);
++	nwritten = f2fs_sync_meta_caches(sbi, nr_to_write, false, FS_META_IO);
+ 	f2fs_up_write_trace(&sbi->cp_global_sem, &lc);
 +
-+	ret = ad4134_claim_reg_access(st);
-+	if (ret)
-+		return ret;
- 
- 	ad4134_prepare_spi_tx_buf(reg, val, st->tx_buf);
- 
- 	ret = spi_sync_transfer(st->spi, &xfer, 1);
- 	if (ret)
--		return ret;
-+		goto out_write_release;
- 
- 	if (st->crc_en && st->rx_buf[2] != st->tx_buf[2])
- 		dev_dbg(&st->spi->dev, "reg write CRC check failed\n");
- 
--	return 0;
-+out_write_release:
-+	access_ret = ad4134_release_reg_access(st);
-+	if (access_ret)
-+		dev_err(&st->spi->dev, "error on access release: %d\n", access_ret);
-+
-+	return ret;
++	if (nr_written)
++		*nr_written = nwritten;
  }
  
- static int ad4134_data_read(struct ad4134_state *st, unsigned int reg,
-@@ -261,7 +367,11 @@ static int ad4134_data_read(struct ad4134_state *st, unsigned int reg,
+ long f2fs_sync_meta_caches(struct f2fs_sb_info *sbi, long nr_to_write,
+@@ -1553,7 +1557,7 @@ static int block_operations(struct f2fs_sb_info *sbi)
+ 		f2fs_up_write(&sbi->node_write);
+ 		atomic_inc(&sbi->wb_sync_req[NODE]);
+ 		err = f2fs_writeback_node_caches(sbi, LONG_MAX,
+-			true, false, FS_CP_NODE_IO);
++			true, false, FS_CP_NODE_IO, NULL);
+ 		atomic_dec(&sbi->wb_sync_req[NODE]);
+ 		if (err) {
+ 			f2fs_up_write(&sbi->node_change);
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 089a62c054ea..362f06cb398d 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -4132,7 +4132,7 @@ int f2fs_truncate_inode_blocks(struct inode *inode, pgoff_t from);
+ int f2fs_truncate_xattr_node(struct inode *inode);
+ int f2fs_wait_on_node_caches_writeback(struct f2fs_sb_info *sbi,
+ 					unsigned int seq_id);
+-int f2fs_write_node_caches(struct f2fs_sb_info *sbi);
++int f2fs_write_node_caches(struct f2fs_sb_info *sbi, long *nr_written);
+ int f2fs_remove_inode_cache(struct inode *inode);
+ struct f2fs_cached_block *f2fs_new_inode_cache(struct inode *inode);
+ struct f2fs_cached_block *f2fs_new_node_cache(struct dnode_of_data *dn, unsigned int ofs);
+@@ -4151,7 +4151,8 @@ void f2fs_flush_inline_data(struct f2fs_sb_info *sbi);
+ int f2fs_fsync_node_caches(struct f2fs_sb_info *sbi, struct inode *inode,
+ 					bool atomic, unsigned int *seq_id);
+ int f2fs_writeback_node_caches(struct f2fs_sb_info *sbi, long nr_to_write,
+-			bool sync, bool do_balance, enum iostat_type io_type);
++			bool sync, bool do_balance, enum iostat_type io_type,
++			long *nr_written);
+ int f2fs_build_free_nids(struct f2fs_sb_info *sbi, bool sync, bool mount);
+ bool f2fs_alloc_nid(struct f2fs_sb_info *sbi, nid_t *nid);
+ void f2fs_alloc_nid_done(struct f2fs_sb_info *sbi, nid_t nid);
+@@ -4317,7 +4318,7 @@ int f2fs_ra_meta_caches(struct f2fs_sb_info *sbi, block_t start, int nrpages,
+ 			int type, bool sync);
+ void f2fs_ra_meta_caches_cond(struct f2fs_sb_info *sbi, pgoff_t index,
+ 							unsigned int ra_blocks);
+-void f2fs_write_meta_caches(struct f2fs_sb_info *sbi);
++void f2fs_write_meta_caches(struct f2fs_sb_info *sbi, long *nr_written);
+ long f2fs_sync_meta_caches(struct f2fs_sb_info *sbi, long nr_to_write,
+ 				bool sync, enum iostat_type io_type);
+ void f2fs_add_ino_entry(struct f2fs_sb_info *sbi, nid_t ino, int type);
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 7b2ff2c3dd03..bc7ae9c67137 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -2111,7 +2111,8 @@ void f2fs_flush_inline_data(struct f2fs_sb_info *sbi)
+ }
+ 
+ int f2fs_writeback_node_caches(struct f2fs_sb_info *sbi, long nr_to_write,
+-			bool sync, bool do_balance, enum iostat_type io_type)
++			bool sync, bool do_balance, enum iostat_type io_type,
++			long *nr_written)
  {
- 	unsigned int i;
- 	u32 sample = 0;
--	int ret;
-+	int access_ret, ret;
+ 	pgoff_t index;
+ 	struct f2fs_cached_block *entries[F2FS_ONSTACK_CACHES];
+@@ -2231,6 +2232,9 @@ int f2fs_writeback_node_caches(struct f2fs_sb_info *sbi, long nr_to_write,
+ 
+ 	trace_f2fs_write_caches(sbi, nr_to_write, nwritten, NODE);
+ 
++	if (nr_written)
++		*nr_written = nwritten;
 +
-+	ret = ad4134_claim_sample_access(st);
-+	if (ret)
-+		return ret;
- 
- 	/*
- 	 * To be able to read data from all 4 channels through a single line, we
-@@ -277,7 +387,7 @@ static int ad4134_data_read(struct ad4134_state *st, unsigned int reg,
- 		ret = spi_write_then_read(st->spi, NULL, 0, st->rx_buf,
- 					  BITS_TO_BYTES(AD4134_CHAN_PRECISION_BITS));
- 		if (ret)
--			return ret;
-+			goto out_data_read_release;
- 
- 		/*
- 		 * AD4134 has a built-in feature that flags when data transfers
-@@ -289,7 +399,12 @@ static int ad4134_data_read(struct ad4134_state *st, unsigned int reg,
- 	}
- 	*val = sign_extend32(sample, AD4134_CHAN_PRECISION_BITS - 1);
- 
--	return 0;
-+out_data_read_release:
-+	access_ret = ad4134_release_sample_access(st);
-+	if (access_ret)
-+		dev_err(&st->spi->dev, "error on access release: %d\n", access_ret);
-+
-+	return ret;
+ 	if (unlikely(f2fs_cp_error(sbi)))
+ 		return -EIO;
+ 	return ret;
+@@ -2271,7 +2275,7 @@ int f2fs_wait_on_node_caches_writeback(struct f2fs_sb_info *sbi,
+ 	return f2fs_cp_error(sbi) ? -EIO : 0;
  }
  
- static int ad4134_register_read(struct ad4134_state *st, unsigned int reg,
-@@ -301,14 +416,18 @@ static int ad4134_register_read(struct ad4134_state *st, unsigned int reg,
- 		.len = st->crc_en ? AD4134_SPI_MAX_XFER_LEN : 2,
- 	};
- 	unsigned int inst;
--	int ret;
-+	int access_ret, ret;
-+
-+	ret = ad4134_claim_reg_access(st);
-+	if (ret)
-+		return ret;
+-int f2fs_write_node_caches(struct f2fs_sb_info *sbi)
++int f2fs_write_node_caches(struct f2fs_sb_info *sbi, long *nr_written)
+ {
+ 	struct blk_plug plug;
+ 	long nr_to_write = LONG_MAX;
+@@ -2296,7 +2300,8 @@ int f2fs_write_node_caches(struct f2fs_sb_info *sbi)
  
- 	inst = AD4134_REG_READ_MASK | reg;
- 	ad4134_prepare_spi_tx_buf(inst, 0, st->tx_buf);
- 
- 	ret = spi_sync_transfer(st->spi, &xfer, 1);
- 	if (ret)
--		return ret;
-+		goto out_read_release;
- 
- 	*val = st->rx_buf[1];
- 
-@@ -316,7 +435,12 @@ static int ad4134_register_read(struct ad4134_state *st, unsigned int reg,
- 	if (st->crc_en && st->rx_buf[2] != st->tx_buf[2])
- 		dev_dbg(&st->spi->dev, "reg read CRC check failed\n");
- 
--	return 0;
-+out_read_release:
-+	access_ret = ad4134_release_reg_access(st);
-+	if (access_ret)
-+		dev_err(&st->spi->dev, "error on access release: %d\n", access_ret);
-+
-+	return ret;
+ 	nr_to_write = adjust_flush_cache_number(sbi, NODE);
+ 	blk_start_plug(&plug);
+-	f2fs_writeback_node_caches(sbi, nr_to_write, false, true, FS_NODE_IO);
++	f2fs_writeback_node_caches(sbi, nr_to_write, false, true, FS_NODE_IO,
++				   nr_written);
+ 	blk_finish_plug(&plug);
+ 	return 0;
  }
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 0e468a06c7f7..1664928fedca 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -5277,6 +5277,7 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	f2fs_init_cache(sbi, META_CACHE(sbi), F2FS_META_CACHE);
+ 	f2fs_init_cache(sbi, NODE_CACHE(sbi), F2FS_NODE_CACHE);
+ 	f2fs_init_cache(sbi, COMPRESS_CACHE(sbi), F2FS_COMPRESS_CACHE);
++	f2fs_init_cache_wb_info(sbi);
  
- static int ad4134_reg_read(void *context, unsigned int reg, unsigned int *val)
-@@ -372,6 +496,21 @@ static irqreturn_t ad4134_trigger_handler(int irq, void *p)
- 	return IRQ_HANDLED;
- }
+ 	err = f2fs_get_valid_checkpoint(sbi);
+ 	if (err) {
+diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+index afce74744d4d..95f8dc0c4218 100644
+--- a/fs/f2fs/sysfs.c
++++ b/fs/f2fs/sysfs.c
+@@ -1019,7 +1019,9 @@ static ssize_t f2fs_sbi_store(struct f2fs_attr *a,
+ 					a->struct_type == GC_THREAD);
+ 	bool thread_entry = !strcmp(a->attr.name, "ckpt_thread_ioprio") ||
+ 			!strcmp(a->attr.name, "critical_task_priority") ||
+-			!strcmp(a->attr.name, "cache_wb_interval");
++			!strcmp(a->attr.name, "cache_wb_interval") ||
++			!strcmp(a->attr.name, "cache_wb_dirty_threshold") ||
++			!strcmp(a->attr.name, "cache_wb_total_threshold");
  
-+static int ad4134_buffer_postenable(struct iio_dev *indio_dev)
-+{
-+	return ad4134_claim_sample_access(iio_priv(indio_dev));
-+}
-+
-+static int ad4134_buffer_predisable(struct iio_dev *indio_dev)
-+{
-+	return ad4134_release_sample_access(iio_priv(indio_dev));
-+}
-+
-+static const struct iio_buffer_setup_ops ad4134_buffer_setup_ops = {
-+	.postenable = &ad4134_buffer_postenable,
-+	.predisable = &ad4134_buffer_predisable,
-+};
-+
- static int ad4134_read_raw(struct iio_dev *indio_dev,
- 			   struct iio_chan_spec const *chan,
- 			   int *val, int *val2, long info)
-@@ -440,11 +579,6 @@ static int ad4134_min_io_mode_setup(struct ad4134_state *st)
- 	int ret;
+ 	if (gc_entry || thread_entry) {
+ 		if (!down_read_trylock(&sbi->sb->s_umount))
+@@ -1363,6 +1365,8 @@ ATGC_INFO_RW_ATTR(atgc_age_threshold, age_threshold);
  
- 	st->crc_en = true; /* In minimum I/O mode CRC cannot be disabled */
--	st->odr_gpio = devm_gpiod_get(dev, "odr", GPIOD_OUT_LOW);
--	if (IS_ERR(st->odr_gpio))
--		return dev_err_probe(dev, PTR_ERR(st->odr_gpio),
--				     "failed to get ODR GPIO\n");
--
- 	ret = regmap_update_bits(st->regmap, AD4134_DIG_IF_CFG_REG,
- 				 AD4134_DIF_IF_CFG_FORMAT_MASK,
- 				 FIELD_PREP(AD4134_DIF_IF_CFG_FORMAT_MASK,
-@@ -591,10 +725,61 @@ static int ad4134_probe(struct spi_device *spi)
- 		return dev_err_probe(dev, PTR_ERR(st->regmap),
- 				     "failed to initialize regmap");
+ /* WB_THREAD ATTR */
+ WB_THREAD_RW_ATTR(cache_wb_interval, cache_wb_interval);
++WB_THREAD_RW_ATTR(cache_wb_dirty_threshold, cache_wb_dirty_threshold);
++WB_THREAD_RW_ATTR(cache_wb_total_threshold, cache_wb_total_threshold);
  
--	ret = ad4134_min_io_mode_setup(st);
--	if (ret)
--		return dev_err_probe(dev, ret,
--				     "failed to setup minimum I/O mode\n");
-+	if (device_property_present(dev, "adi,spi-mode")) {
-+		ret = device_property_match_property_string(dev, "adi,spi-mode",
-+							    ad4134_spi_modes,
-+							    ARRAY_SIZE(ad4134_spi_modes));
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret,
-+					     "getting adi,spi-mode property failed\n");
-+
-+		st->spi_mode = ret;
-+	} else {
-+		/* Default to no-cs mode if adi,spi-mode is not specified */
-+		st->spi_mode = AD4134_SPI_MODE_NO_CS;
-+	}
-+
-+	if (st->spi_mode == AD4134_SPI_MODE_NO_CS) {
-+		/*
-+		 * The support hardware for AD4134 may have a multiplexer for
-+		 * selecting between AD4134 SDO and AD4134 DOUT0. If that mux
-+		 * is set but the user still wants to run AD4134 in minimum I/O
-+		 * mode, then DOUT0 is not used and the multiplexer OUTSIDE OF
-+		 * AD4134 SILICON must be set to select AD4134 SDO. See AD4134
-+		 * IIO documentation for details.
-+		 */
-+		st->mux_st[AD4134_SDO_INPUT] =
-+			devm_mux_state_get_optional_selected(dev, "reg_access");
-+		if (IS_ERR(st->mux_st[AD4134_SDO_INPUT]))
-+			return dev_err_probe(dev, PTR_ERR(st->mux_st[AD4134_SDO_INPUT]),
-+					     "failed to get reg_access mux-state\n");
-+
-+		ret = ad4134_min_io_mode_setup(st);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "failed to setup minimum I/O mode\n");
-+	} else {
-+		/*
-+		 * This controls a multiplexer OUTSIDE OF AD4134 SILICON.
-+		 * See AD4134 IIO documentation for details.
-+		 */
-+		st->mux_st[AD4134_SDO_INPUT] = devm_mux_state_get(dev, "reg_access");
-+		if (IS_ERR(st->mux_st[AD4134_SDO_INPUT]))
-+			return dev_err_probe(dev, PTR_ERR(st->mux_st[AD4134_SDO_INPUT]),
-+					     "failed to get reg_access mux-state\n");
-+
-+		st->mux_st[AD4134_DOUT0_INPUT] = devm_mux_state_get(dev, "data_read");
-+		if (IS_ERR(st->mux_st[AD4134_DOUT0_INPUT]))
-+			return dev_err_probe(dev, PTR_ERR(st->mux_st[AD4134_DOUT0_INPUT]),
-+					     "failed to get data_read mux-state\n");
-+
-+		indio_dev->setup_ops = &ad4134_buffer_setup_ops;
-+	}
-+
-+	st->odr_gpio = devm_gpiod_get(dev, "odr", GPIOD_OUT_LOW);
-+	if (IS_ERR(st->odr_gpio))
-+		return dev_err_probe(dev, PTR_ERR(st->odr_gpio),
-+				     "failed to get ODR GPIO\n");
- 
- 	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
- 					      iio_pollfunc_store_time,
+ F2FS_GENERAL_RO_ATTR(dirty_segments);
+ F2FS_GENERAL_RO_ATTR(free_segments);
+@@ -1552,6 +1556,8 @@ static struct attribute *f2fs_attrs[] = {
+ 	ATTR_LIST(adjust_lock_priority),
+ 	ATTR_LIST(critical_task_priority),
+ 	ATTR_LIST(cache_wb_interval),
++	ATTR_LIST(cache_wb_dirty_threshold),
++	ATTR_LIST(cache_wb_total_threshold),
+ 	NULL,
+ };
+ ATTRIBUTE_GROUPS(f2fs);
 -- 
-2.53.0
+2.49.0
 
