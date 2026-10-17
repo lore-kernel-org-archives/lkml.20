@@ -1,116 +1,122 @@
-Received: from mta0.migadu.com (out-196.mta0.migadu.com [91.218.175.196])
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497814CF492
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:47:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.196
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792223256; cv=none; b=fHOJIQnC7LLHIT8Q+J8xsPW8g8huXi3GNaor946ftWktTcRnPrTGfyNT0ZltuhO8H0gLciwKJjL0t9IxqJIQmsK/w6tbv22EMXKydMYXgpnbvnh5H5kCIM0gUcp0n0c64bmcpwHbwIDeb233w45FbnTmxFItBRJ81gVZjzMRn4E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792223256; c=relaxed/simple;
-	bh=K/GjPujog81eosgMnB/C6I2UKh+50kgQjjrNKqsh+sw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=lWvgYfSAj4SpgDKQYG+gRMLDtP0F7tJdp5J3SdYLinwRT4DL/XQIBein5aAuDFNktrUDNfg88+sOPtY0mVT+am/xpaY3jwHVpRCma3AfghB+jZ+0k7kblBt0v+D2vbubHgSHMOb0kuU8Nu/0QHxNSNMzjMHZp5BElDXjd11FYlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gdUfYuum; arc=none smtp.client-ip=91.218.175.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C90C3AC0C3
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:47:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792223269; cv=pass; b=Q6lI55Fxzdye6//eQ7GT19DD9p+1iRxcLRXA+WO2Q5tOWS2r837kF2h1CktbDlFT3nRym3AvidKCt2ZDniJuxwf7DcVzr1JaJ3kn496ShhTGjDMiw8zbkYizvDxWKV/aPTtEvO85J3RNCKfopmFW+2Jd4pwmxBRw0rHT+FUmkrY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792223269; c=relaxed/simple;
+	bh=eRWmAlIfs3iswnjnTR4TzrAUiVQGOccDgG6x9wZmrjY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GGCjp4NdOnAmezJIIJPUPQDsegOR7ulz6br+HbAeiEXLyL2zhzW85W/VKtLImYd0gG4nXO8h0N8z70054c0/CfrIPf5QZdEvfr4EbOV/7qLllbbCeHK59Gt92KoL4x4esGzpHQYLYrOe3cZAyO+H4oDQKTI7mCKemK1oeJOoBXs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ehNE3iKR; arc=pass smtp.client-ip=209.85.128.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gdUfYuum"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=K/GjPujog81eosgMnB/C6I2UKh+50kgQjjrNKqsh+sw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792223252; v=1; x=1792828052;
- b=gdUfYuumArIO26fzon+sgfQV0duZO2YOurShhPgSUXOdiAmBEnhCpmTr4O23bF/NJs6JCv31
- oSR48EBhlYbuZdpIc/e/xvpuArdN/xRXJFY9v2LDiXcIqyYIEOzMxSj0z0Z18GNB+YNs6ermNtA
- kQA/O1BACza9Du4qy14QR76g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 445c47590b6a75ee;
-	Sat, 17 Oct 2026 07:47:32 +0000
-X-Mizu-Trace-ID: 445c47590b6a75ee
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH v2 2/2] KVM: arm64: vgic-its: Remove the pending state of a discarded LPI
-Date: Sat, 17 Oct 2026 08:47:28 +0100
-Message-Id: <20261017074728.1981932-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261017074021.1948168-1-fuad.tabba@linux.dev>
-References: <20261017074021.1948168-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ehNE3iKR"
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b056d58f2aso5229097b3.2
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:47:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792223267; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oq7uAxP3zoKFm6/ex9Z6EMenbG7K77IJg7UNWYFW09VO0Tab7sZP7OOwuXYtfO6oyh
+         4gGYMkHUouMjpICN00nU4Y+1WX+ybHGUg8t5F+B/L/2UlJPUNkzu2JOPW39VNe6wT66J
+         wJCSTpjzdlkSbTw35SKiNg22p8ggLKSpk5+kJJHW2X2d4XBZtfxnZl1cPacp57/FiOAJ
+         ct7+NKDkvDETxqSNZ22NVD9AbfTqZ2afBiYjTjCwTChIbyYywSIKDKJhtKXgr3EtJl7+
+         OA4GUzpmFc2xsZAAJY5bj4WRDuKzxja2o5Mi3PVc6f6+55pIWP1Vyht+332vCDWzmK5n
+         C79w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eRWmAlIfs3iswnjnTR4TzrAUiVQGOccDgG6x9wZmrjY=;
+        fh=5Y+nrAoa5X6RQ8iHGGt/bFgzJDtX6Ppqgrpi8C3oFKU=;
+        b=PHIjs9R6cS9eanf/zqg7NCIOcdqFng3xppaswtMAVO2YJeqiOkkjg67E++hu23qgup
+         uxK9bIXUWbvTC/kcsD6SPb2qmOs9q61j+igcJEIyrNTmXXcnyPMDTlK2UuOFOW1GB/La
+         UbSq3Cb2QHu0LUDj79VziFF4OrBZYDvPqPqdPSy00EqTgCdKYSibT7cXaLiS8pB9rZWB
+         jvKNEvQYcdsNcMGkyQpqZ/afiUqHPjavoJCR5JYHx4LG17TnOvSLDLrij/4VekrJTpvb
+         Okk58qMt9vzXYM9ewqU7wiH7WTJrm1GF5avxNmO1cSW7QCDonTU48Yv0DQtY9ww5cR0P
+         cFPA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792223267; x=1792828067; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eRWmAlIfs3iswnjnTR4TzrAUiVQGOccDgG6x9wZmrjY=;
+        b=ehNE3iKR1FMemamaIhf7rKzmpTd6aUjpZVRlTnXw2rT2KeZFGpgrwgod4rnjB0KvfO
+         O2RP9TFeydIiUuOuRXr9PVaK9SLUsxZ5ioS8yddVbtOZ1jBsLkR7RSGBiIhFZD+R1lxz
+         aoUmGubuN1e70vklWPW3ERDyQC+I8z6DaR2t0h1fWqcxrEgGL1MUZVa0sYhUFA2YP5hk
+         FXUI6VrPBFi3snLVMYVXR4j5vDaGH/n+L1GjQ95+H7A3Kp+du7aa3JLdrUjhyLkzG4H1
+         Pmvy2oL1DK79enzif+W4ZD3rz/3YWvSQSSvDiEVwLJK4Er6SmlVw5AXwvLzSC3DD6mvD
+         y26A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792223267; x=1792828067;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eRWmAlIfs3iswnjnTR4TzrAUiVQGOccDgG6x9wZmrjY=;
+        b=N1mtUXt5roGbKzC0XmZwq9LSbarvSz+hXt4bKRN8Nn1OPUzZKqKgVgN4H5b+pfWXcm
+         eonQZ0mCAc/00C90OHyTsCmuR074yUKpTBcKAJ5xTY2uYdIAb1GmiwwBHUPLmDx+StM7
+         7V46Amcs/Xrk7TiKmkbhQejXAfWRA3ZKBTyosOeI65nqs0DfGCAoGM0RsqfZhr2QUprn
+         ULrGIqbEbV05CAPdkPBU43pG2uUxuNBF+BeKbnn42RxYpQHEU/6o26ZPJqA6sGGWA/EY
+         flt9mjZBtkc4rOt9InJKdAzLBNWZJeJKhZUcWLX8/IMC5m2fZMTXmEJZx4g7AtlCWpOV
+         7DAw==
+X-Forwarded-Encrypted: i=1; AKwUvBwAiLXNXRsmMeA3HgOcizOBZehv90uoc7gS25ATF0a49lww0lfBGDvkK8kAB/AygY8jXmsX14vAqYb3WuY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnaSxwNk1w842mHu+vaPkNXZryw+t6GCw4+UCnZYpZQEkRE7f2
+	0Lx1kbDRrxLFYCzm15MQc5MVYEVEprZRbVlxKyGcbBhKWISJIGIdhuQLQ3TAbDzjWAEaviG1VnP
+	DiipCwU9wfTURyzb8LO6nmn6fzAuu4vw=
+X-Gm-Gg: AYBFou0s8ZLZETaKW8J1rVIe25g3rb2QbWG2fY1v1Qovfl32vgEZutmqVumsdBGKN3E
+	huSx54sxVCjygBUPh5b7erba+TFfZ5F0XgbE53B+vLEHdAxBu79njJ4NiZRL8h8kxTmquqfjp1O
+	0E39SPjFsRRtIoq//5h65pMvwt35vHPcHV+VccURwtNTn4IK7BUeFM4qm8s4opsPUCD3DORLCfI
+	Poj85Wx1LtduxaSgYO7Hrh57vQHHaMc3By5KHZjnFM60N1EplftgQBUysGenDsCMVOEuFRb1GRI
+	BLSmp8u5jO1pQnkkNvL1v6wN8K3Bn9NLjFeRFO2fiw8YknEZluZSuhb8wnw/YeTFgXHHIKDXjkz
+	Hp7sVpLQ00A==
+X-Received: by 2002:a05:690c:f:b0:8b0:ac9e:14f7 with SMTP id
+ 00721157ae682-8b0f2164c94mr7719657b3.28.1792223266956; Sat, 17 Oct 2026
+ 00:47:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <pm-key-management-objects-candidate-0002-v3-2baa8cad2bb554364e10@gmail.com>
+ <20261017035156.GA29318@sol>
+In-Reply-To: <20261017035156.GA29318@sol>
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Sat, 17 Oct 2026 15:47:32 +0800
+X-Gm-Features: AclHuK-HpdMP-grbZn8KpuFXmo2CHX60pojXLGdBgVLSQqCwngEWAu1uK5ALbG8
+Message-ID: <CAFRLqsWcV=0MKituMQqALy_2rS3kOPPFpMHxn7yRxoyxOHp6hg@mail.gmail.com>
+Subject: Re: [PATCH v2] keys: Avoid the owner account dereference in named
+ keyring lookup
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: dhowells@redhat.com, jarkko@kernel.org, paul@paul-moore.com, 
+	jmorris@namei.org, serge@hallyn.com, sergeh@kernel.org, 
+	keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Marc,
+Hi Eric,
 
-In case it saves you writing it, this is what I tested on top of v2
-and your series:
+Eric Biggers <ebiggers@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8817=E6=
+=97=A5=E5=91=A8=E5=85=AD 11:51=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Don't key_serial_next() and find_ge_key() (used when reading from
+> /proc/keys) have the same bug?
+>
+> - Eric
 
-diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
-index d24c391e0aae2..37059d1338406 100644
---- a/arch/arm64/kvm/vgic/vgic-its.c
-+++ b/arch/arm64/kvm/vgic/vgic-its.c
-@@ -834,25 +834,34 @@ static int vgic_its_cmd_handle_discard(struct kvm *kvm, struct vgic_its *its,
- 		int ite_esz = vgic_its_get_abi(its)->ite_esz;
- 		gpa_t gpa = device->itt_addr + ite->event_id * ite_esz;
- 		struct vgic_irq *irq = ite->irq;
--		bool queued;
-+		struct kvm_vcpu *vcpu, *target;
- 
- 		vgic_its_invalidate_cache(its);
- 
- 		/*
--		 * A queued LPI can be pending in a running vCPU's list register,
--		 * which the exit path folds back: halt the guest before clearing.
-+		 * Only an LPI on a vCPU's AP list can be in its list registers,
-+		 * which the exit path folds back, and that exit moves the LPI
-+		 * to its target vCPU if the target has changed: pause both.
- 		 */
--		scoped_guard(raw_spinlock_irqsave, &irq->irq_lock)
--			queued = irq->vcpu;
-+		scoped_guard(raw_spinlock_irqsave, &irq->irq_lock) {
-+			vcpu = irq->vcpu;
-+			target = irq->target_vcpu;
-+		}
- 
--		if (queued)
--			kvm_arm_halt_guest(kvm);
-+		if (vcpu) {
-+			if (target != vcpu)
-+				kvm_pause_vcpu(target);
-+			kvm_pause_vcpu(vcpu);
-+		}
- 
- 		scoped_guard(raw_spinlock_irqsave, &irq->irq_lock)
- 			irq->pending_latch = false;
- 
--		if (queued)
--			kvm_arm_resume_guest(kvm);
-+		if (vcpu) {
-+			kvm_resume_vcpu(vcpu);
-+			if (target != vcpu)
-+				kvm_resume_vcpu(target);
-+		}
- 
- 		its_free_ite(kvm, ite);
- 
+Thansk a lot for the reivew. You're right =E2=80=94 key_serial_next() and
+find_ge_key() have
+the same issue.
 
-Cheers,
-/fuad
+I'll send a follow-up patch to fix those as well.
+
+Thanks for the catch again.
+
+Best regards,
+Cen Zhang
