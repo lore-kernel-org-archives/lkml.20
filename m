@@ -1,196 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA22E397929;
-	Sat, 17 Oct 2026 16:27:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EAB83905EB;
+	Sat, 17 Oct 2026 16:28:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792254435; cv=none; b=YpcTVenYVLMzR5zxHD4cyYOIqSzgv6LonRX28OYs4TuNRdZHxxstADMD2pe7Ei//KyN792yI6GaO+2pD7fxbHOINfN0DNeMrAuGIB1HNoxeurBS04DlRRV1APwG55GNHU0oPDnOUYus3334APRdYPEtw70NpvtxIA8oiOwV1D/8=
+	t=1792254512; cv=none; b=BuAHRpco0XHrzKLyPSVff54thC3UrqG6Tic184L5y7/uldHVIgmnQ9ZgogWNijIqvS/4P8/QJOht7yA0fdonskwl8IfBiUroS6aZ/wSXNn8tqoxjzPO2Ccv4/deAneOb5W/Ke6IgMthOOsfj0JkkqrjZZ3FVjO0DXph4jWoTk3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792254435; c=relaxed/simple;
-	bh=AoC4eNIlO3LSIzyltldsosThUAlOnG2DKf2ALvd8tGg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DZJqEUULq1NXRuuYBpTpPghsStz/te1aaTMV2Lmi/QCupjzfDJQaQU9laODsWmLgLfM5d2yEZ1o1Ww3jFP0XUtlIwYTivdDdLcjp/EhEN7zKdMrF51B2zmyVqG7qtH4FTokbFE7bb1VAV0ejV1LvDY4C9MW8IU06+pQCK3xcSQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GcXJLNUA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792254512; c=relaxed/simple;
+	bh=hmGthl7ROQ+2Sazw8Qsd1owdcWc1sNDH/NYg99prN1Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZVM1rJiqB2zqnYQ+bzB228qJV26JG4Nd9qIy9HRIVEdYc/BguMYkNiF/x86UgBCz+F7DKetp654FY6ZLLv1RzPFMw4hWRQPv66GcPLpH9Wz0+jGHetBvfdpVrGfrA9NlGxLygxVJ3w4l/WtIGpijWHvDrRpaUV36g/h7UEHaRzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aDksJQEk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GcXJLNUA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 398261F000C5;
-	Sat, 17 Oct 2026 16:27:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aDksJQEk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 875891F000C5;
+	Sat, 17 Oct 2026 16:28:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792254433;
-	bh=EsWRQEfX03GTNdb56tV6nXJjKEivM5tx+oNkBb8EiW8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GcXJLNUAAE7A1QqxYvjonnyJ/dHuGFZZFHa+Fw/mJNHP09tddIrnZeEPGlfu/ruFK
-	 qYTSYHjzR2CyxjvvwTqYHeLtXjj6r6kR40Y56TiM4JzTvv1ZEfQPpFz+HQwSmR5z2i
-	 Cwpa/oAysGRTlJS6itL4TLmY3cvMHONyQakixRexzo9FdhxHvLUuGLso2Sjt+apYtH
-	 0yXyygobq94FYENsTnKfmi8FE0HLRFGujY/tKEGT0XEnkK4TrVsrDUTnY5khrxrrBw
-	 5DshkCSv5rCOlv27ZQb0aySFP8AcyVcgx/28CU5LmH4MAcB29DyiIAUzVW3RPotxOV
-	 cO07tYtyxgzDw==
-From: SJ Park <sj@kernel.org>
-To: Manuel Ebner <manuelebnerli@mailbox.org>
-Cc: SJ Park <sj@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aveline Noir <jm5905938@gmail.com>
-Subject: Re: [PATCH] mm/damon/reclaim: improve grammar and style
-Date: Sat, 17 Oct 2026 09:27:02 -0700
-Message-ID: <20261017162706.103996-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <c575314d3e52d5fcff3d6fc47d12dc118a24bd63.camel@mailbox.org>
-References: 
+	s=k20260515; t=1792254511;
+	bh=UXDBNwbs40Wmge81zYEpg8X4LKn6+JBx9zEjbE6db04=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aDksJQEkC7scLwX0FZnKHamiS9wFsMPBBzLTRBnFNEZbTTTu9omrwnXsEPLyLraRV
+	 fDbBYToxqnsf5/TEL+px0fhVLyrYFpGtQXE1qIQzMAFSBTyVuWgB+c3ifK+GRMl4cA
+	 tsnRh+GZxJG1KeBql65pjMnYQhUeCFM26nLYB2/8vN8yeColuB9efPuGtCIhhy7Nzk
+	 12frXcTBLyQ90aHCZwoQbAVPOLNKeD9EY+FAMsHwL1ONfIBPGHop4tN9aWEVSkB2y6
+	 EO9BOQhPDjo2Y0u9BvWCwpEtC2lHgXxvG+ZrkwEajPWqG20JbmxuZx5XPaXsag/LKZ
+	 oIa0dhb2QMJhw==
+Date: Sat, 17 Oct 2026 19:28:27 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: Eric Biggers <ebiggers@kernel.org>, dhowells@redhat.com,
+	paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com,
+	sergeh@kernel.org, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Subject: Re: [PATCH v2] keys: Avoid the owner account dereference in named
+ keyring lookup
+Message-ID: <atOiKzlHKH47SMNt@kernel.org>
+References: <pm-key-management-objects-candidate-0002-v3-2baa8cad2bb554364e10@gmail.com>
+ <20261017035156.GA29318@sol>
+ <CAFRLqsWcV=0MKituMQqALy_2rS3kOPPFpMHxn7yRxoyxOHp6hg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAFRLqsWcV=0MKituMQqALy_2rS3kOPPFpMHxn7yRxoyxOHp6hg@mail.gmail.com>
 
-On Sat, 17 Oct 2026 11:18:34 +0200 Manuel Ebner <manuelebnerli@mailbox.org> wrote:
-
-> Hi SJ,
+On Sat, Oct 17, 2026 at 03:47:32PM +0800, Cen Zhang wrote:
+> Hi Eric,
 > 
-> On Thu, 2026-10-15 at 07:01 -0700, SJ Park wrote:
-> > On Thu, 15 Oct 2026 10:06:23 +0200 Manuel Ebner <manuelebnerli@mailbox.org> wrote:
-> > 
-> > > Fix tenses. Replace 'set as' with 'set to'.
-> > > Rewrite complex sentences.
-> > 
-> > Let's put two sentences in one line, while breaking it for the 75 column limit.
+> Eric Biggers <ebiggers@kernel.org> 于2026年10月17日周六 11:51写道：
+> >
+> > Don't key_serial_next() and find_ge_key() (used when reading from
+> > /proc/keys) have the same bug?
+> >
+> > - Eric
 > 
-> Will do.
-> > 
-> > [...]
-> > > @@ -113,8 +113,8 @@ quota_sz
-> > >  
-> > >  Limit of size of memory for the reclamation in bytes.
-> > >  
-> > > -DAMON_RECLAIM charges amount of memory which it tried to reclaim within a time
-> > > -window (quota_reset_interval_ms) and makes no more than this limit is tried.
-> > > +DAMON_RECLAIM recordes the amount of memory which it tried to reclaim within a time
-> > 
-> > s/recordes/charges/  or s/recordes/records/ ?
+> Thansk a lot for the reivew. You're right — key_serial_next() and
+> find_ge_key() have
+> the same issue.
 > 
-> For me charge is such a weird word exepct in 'charge a battery' or 'charge a fee'. And
-> 'recordes' is a typo. Does this work:
-
-'charge' in this sentence is somewhat like 'charge a fee'.  I personally don't
-feel it is weird.  But 'record' also work for me.
-
+> I'll send a follow-up patch to fix those as well.
 > 
-> DAMON_RECLAIM records the amount of memory which it tried to reclaim within a time
-
-So this looks good to me, too.
-
+> Thanks for the catch again.
 > 
-> I could do this in a second patch aswell.
-> 
-> > 
-> > I'd prefer charges, but my English is definitely bad, so looking for your
-> > suggestion.
-> > 
-> > > +window (quota_reset_interval_ms) and stops when this memory limit is reached.
-> > 
-> > I feel like readers might wonder what is stopped.  How about "stops trying
-> > reclaiming memory when ..." ?
-> 
-> window (quota_reset_interval_ms) and stops trying to reclaim memory when this limit is reached.
+> Best regards,
+> Cen Zhang
 
-Looks good.
+Yeah, please do.
 
-> 
-> > 
-> > >  This can be used for limiting consumption of CPU and IO.  If this value is
-> > >  zero, the limit is disabled.
-> > >  
-> > > @@ -125,19 +125,19 @@ quota_reset_interval_ms
-> > >  
-> > >  The time/size quota charge reset interval in milliseconds.
-> > >  
-> > > -The charge reset interval for the quota of time (quota_ms) and size
-> > > -(quota_sz).  That is, DAMON_RECLAIM does not try reclamation for more than
-> > > +The quota reset interval of time is quota_ms and of size is
-> > > +quota_sz.  That is, DAMON_RECLAIM does not try reclamation for more than
-> > 
-> > I think this change is just wrong?  quota_ms is not quota reset interval of
-> > time.  Which part of the original sentence was difficult to read?
-> 
-> 'charge' again, and I think there is the verb is missing.
+You put so much effort to scenario and you are nailing the bug
+that way, and I do appreciate that, so here's what you should do
+with the commit messages:
 
-If use of the term 'charge' is really making reading difficult, we could add a
-short definition of 'charge' as a separate patch.
+1. Do the first half like you always do. That's great. And I've
+   also said that.
+2. Think just a moment. If you get anxiety from that something
+   that should be mentioned e.g., something that you did not get
+   immediately yourself at first, write remarks those down. I'm
+   100% sure you know when it might be good tip on something
+   non-obvious.
+3. Send that. If we feel it is lacking some info needed, let's
+   iterate that. It's not a big deal.
 
-E.g., 
+I'm just underlining this because so little would have to be
+improved to make this right :-)
 
-'''
---- a/Documentation/mm/damon/design.rst
-+++ b/Documentation/mm/damon/design.rst
-@@ -695,7 +695,9 @@ dynamic.
- To mitigate that situation, DAMOS provides an upper-bound overhead control
- feature called quotas.  It lets users specify an upper limit of time that DAMOS
- can use for applying the action, and/or a maximum bytes of memory regions that
--the action can be applied within a user-specified time duration.
-+the action can be applied within a user-specified time duration.  DAMOS tracks
-+(charge) the amount of memory that the action is applied, and stops applying
-+the action once the limit is reached.
-
- To know how user-space can set the basic quotas via :ref:`DAMON sysfs interface
- <sysfs_interface>`, refer to :ref:`quotas <sysfs_quotas>` part of the
-'''
-
-Please let me know if you'd like to send such a patch.
-
-> 
-> > 
-> > >  quota_ms milliseconds or quota_sz bytes within quota_reset_interval_ms
-> > >  milliseconds.
-> > >  
-> > > -1 second by default.
-> > > +1000 (1 second) by default.
-> > 
-> > Isn't this (1 second in milliseconds is 1,000) easy enough to infer for
-> > readers?
-> 
-> Ok.
-> 
-> > >  
-> > >  quota_mem_pressure_us
-> > >  ---------------------
-> > >  
-> > >  Desired level of memory pressure-stall time in microseconds.
-> > >  
-> > > -While keeping the caps that set by other quotas, DAMON_RECLAIM automatically
-> > > +While keeping the caps set by other quotas, DAMON_RECLAIM automatically
-> > 
-> > How about "caps that are set by ..." ?
-> 
-> Yes, this was my second choice.
-> 
-> > 
-> > >  increases and decreases the effective level of the quota aiming this level of
-> > >  memory pressure is incurred.  System-wide ``some`` memory PSI in microseconds
-> > >  per quota reset interval (``quota_reset_interval_ms``) is collected and
-> > 
-> > 
-> > Thanks,
-> > SJ
-> 
-> I messed up the subject line, should be:
-> Docs/admin-guide/mm/damon/reclaim: improve grammar and style
-> 
-> I'll follow up with a [v2], including Aveline suggestions.
-
-Sounds good.  But let's finish the discussion about use of the term, 'charge'
-before posting v2.
-
-
-Thanks,
-SJ
-
-[...]
+Br, Jarkko
