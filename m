@@ -1,165 +1,161 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB2E3EFD24;
-	Sat, 17 Oct 2026 11:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D17F3CCFB2
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 12:05:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792238380; cv=none; b=mGegRxijucmBEa1YhK8GR7bFsE+hgTO/79rdDwz0CUBWNdIvURjo+2sFOfBi3q6AUa9WSpqJPkfjwTOFQTBZT2KBcQwaVnU+LYBALp3ztQjRdua8r303TDlGNKyzFF11/mfy38dPwGwc9+OQmINHPhoyA1KPwwviFhN79uoYksg=
+	t=1792238709; cv=none; b=Vg3s3i/m58vC3cD84QlBzXmJ5LBcPffm1L+gwqNMItN1aQ5zxUw8+OAak619niUxPn+1Rb541202qy/zd2Z0x87RKIZeWJ11Cv1F+O/EPESbNNgt9F5NX5D/QXlqcmPeR7KQvnoCfOCpAr7RcCRyoSxBRKX59VTjqEot6KRywqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792238380; c=relaxed/simple;
-	bh=GkuaJAdKLTlzIRSXrvrAZIs9RVPQ5+l5epy7umzJzKA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pyUkjwdBXbBMD8lQtQZbPjY+GntyXC6DqRu/cpoWVgnCv3l1qGTCfR06i6ePtCDtJ3bebahU1FDWPff/sfM3JJRjwPU5EnJ1tMdqWhu74I5hrMa7Z92D6i6tJYhC2FJfVl5doM/xJ50Ox5LwIp0kGnndZhUVwfesVYpQxZhXrRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=P4HexBQs; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1792238709; c=relaxed/simple;
+	bh=Uhqf6kEDaVk5sdN1pEgcxFC260gFONWp77GIpmEdMVk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gDsddEEAH26wf+n0q6KTAUj5Gi/aiAdzJQ35xOLCgN4BdxWgJdrTRDjeDmaRgTevY8fOJxEDdpUafb/MqYKYZyO7szatJur+AGMCG3GK+CW7FeFRpOGgRJ2B4nhCLQxv1OySLBOnvjjXGzldwjmfsOezHuQpk4BssaizdFyiDUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WyYOGloR; arc=none smtp.client-ip=74.125.227.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="P4HexBQs"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A63C9A158D;
-	Sat, 17 Oct 2026 13:59:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792238375; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=9zreNu2GTEcKLgAuX+6IWZZKy6Tv+DsUt1N8j/NZ5oI=;
-	b=P4HexBQsG0KaXhjBn+wb1JwLaCiL7di65qXuR6ep2gN+ePeh6bGuAT4EN8PXFDJwjce2wK
-	ILfbmiMexaKa564GUNiTZCFtqz78NOAUD0t6NSGFm4P70dPO58Mpnj08cdRs5OD/dz2un8
-	q9FwPzHBGaglLtkGzt+DH5VHk10/8hDj14WkKOSOXzRCrCZB6eqvfIg5tdhBpZIEubTXVF
-	szTd8PA9Z2sLenNkfyebp8Co3cD7cOR14gyv0c+AldaTfLDE6ly4ZLbUFPEI+IwCqNC8Nr
-	Tzqf54PDtRxo4bhprQ7kBwsG25lIl2ATjhs5bZGW7r7lK2uxG9s/L7NMeAlMYg==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Sat, 17 Oct 2026 13:59:26 +0200
-Subject: [PATCH net 2/4] net: bcmgenet: do not tear the datapath down twice
- after a failed resume
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WyYOGloR"
+Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-3ac749e0719so193703a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:05:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792238707; x=1792843507; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=shPj0JpAvHjJzhITuPzL8gL8dV599qsdcXL+y8yPBvI=;
+        b=WyYOGloRwlCMpBDiWpb5Qd86Y8koRZg67hGD3zmnd/L3BIeH783bcI9gq/4b4KMnOc
+         4LuuJ7d5htJPh+1XVuLf4sbfFBgn6tKydOfY0EPu/pRALdhK/3L8DqtEhf/Iks0atNt2
+         Ub152fpwtoG6JbBMT/KuEqsgu22TbFFFjhF4H8UVFVeJIGrhj7MKjlNRVe4OmsglDZJ2
+         kpgg8bVuTmq7MHn0G/mKAXVq6agfSvNWrxJrWfnOs//csMKHUI/DSkoAGxlsjWdFxdKY
+         x7DnkC37chLX4JtvBqNmSTYw7A/DRlb8L/1IUzcHjtfIm4cCCj7CCj9YTQAIEF/N0BmT
+         Hkwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792238707; x=1792843507;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=shPj0JpAvHjJzhITuPzL8gL8dV599qsdcXL+y8yPBvI=;
+        b=K6Nhk2XqubWR8Uek5cZZSwTODXpnwxP5MrRFBaiklOO56y501nGL4jalOUuIm/0fA4
+         IUijQkCo6o1oAaLox9RYoDQrSlAoIzr1vD5vxQBBi+PjkUAxHsbPruhzY28Uo1XNDjP/
+         /ion+xmK4yADfwhhL0OsoV177CsqTha7xKP2NK21bgmaERFHIxJuizMCMU8y7HGFEs4O
+         u5MoHE8bq2yiJ8R/Vdg7tGdRBp3XhQxldvguVsYm3XbSW/1A7FIlOY2SyObTzbxKxxcl
+         tMgJCn/0Pv7xGquXHa6BnffesXaQiJXET53AU3w4Yql4WcozV86MLhx9VofuF/z5XLSh
+         paCg==
+X-Forwarded-Encrypted: i=1; AKwUvBxNgoFzwWxQepN7+bERniK9NJ0lv/dNx1XmwoSVi7dNOrFISo8rfNww1aJn9HOkU8/1qBzy0DLUZAuqayc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK4sGX/MT0PTLeI1ShfcG29Kn7SKn9y1ku3CdfA9+QQiQuf1f7/
+	ztp3it2qvEjZCju5YYdjvEOFuJjKrcIfdLP2U7m9XwBp+PjPftPFvNLM
+X-Gm-Gg: AYBFou2BqYJUOKjXpBCBjmJ2L6nIERBFvNoSr2AxmDr2iQZ48mXLbDH8Wz8F1e86Q00
+	GASVY2xFLDNu34p7PQ9YUl+YP7G4LSCQBkJUa3riiqf9KRB1SmX/z3eDZvk8FYzYMqFowVGwS0n
+	ap1J1nTnOhYbXaHETXAN6txCe887n0TsXNz4xmnufOwWKXXAVsqm3td1uRbRJYLfwL+1n56FQlA
+	nMqLyTTMZ9sYv87POG7c/J+WMjIyoOoEZThB0Hpqb3FvDzxlaWeDs7oIC5lfFz/SQhauj3Zdru4
+	Oqd3NHcW62KCxMBlvII2DuSd8qr1GXjzGcFwX6+AsiAOi81WPS6Ypyt9D1ytMNwP14LZbReRlLh
+	ulr8FDLhz3SPjPvvJS68aySsMbH3Q/3uIWFG4Mas/2TPMTTKeWc07eQLUhpWyHGruhETyNg96Yz
+	zXfB+0dj/fakZHw3wNyCthcT8XSfSNBBmf1LH9CZOpDgGcWpDS4waVyjS6UDqrMO/Yqz8m7JzDL
+	fOSglMGoKkkDUX/AZ2G
+X-Received: by 2002:a17:90a:c110:b0:3ab:f38:2b43 with SMTP id 98e67ed59e1d1-3aceeeabd7dmr1791948a91.34.1792238707370;
+        Sat, 17 Oct 2026 05:05:07 -0700 (PDT)
+Received: from LAPTOP-QJLDGQ2L.localdomain ([112.224.225.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc48f4cadsm7815593a91.12.2026.10.17.05.05.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 05:05:06 -0700 (PDT)
+From: Boyan Liu <yymhvert@gmail.com>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>,
+	David Ahern <dsahern@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	co+98d7de09cd94fec5@bugs.sh
+Subject: [PATCH net v2] seg6: Fix unset mac header in SRv6 End.DT VRF decapsulation
+Date: Sat, 17 Oct 2026 20:01:44 +0800
+Message-ID: <20261017120144.3059-1-yymhvert@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261017-nb-genet-fini-dma-net-v1-2-47e7c57f6834@tipi-net.de>
-References: <20261017-nb-genet-fini-dma-net-v1-0-47e7c57f6834@tipi-net.de>
-In-Reply-To: <20261017-nb-genet-fini-dma-net-v1-0-47e7c57f6834@tipi-net.de>
-To: Doug Berger <opendmb@gmail.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Florian Fainelli <f.fainelli@gmail.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-If bcmgenet_resume() fails in bcmgenet_init_dma() it returns with the
-interface still IFF_UP. The suspend before it already deleted the NAPIs and
-freed rx_cbs and tx_cbs, so the next ifdown runs the whole teardown again
-and napi_disable() waits for a NAPI_STATE_SCHED bit that nothing will
-clear:
+SRv6 End.DT4/End.DT6 VRF decapsulation unsets the mac header in
+end_dt_vrf_rcv() so that the VRF device can rebuild it for packet
+sniffers. The VRF rx handler only performs the rebuild when a
+sniffer is actually attached to the VRF device (ptype_all
+non-empty); otherwise the packet continues up the stack with
+mac_header == 0xffff.
 
-  task:ip  state:D
-    usleep_range_state+0xec/0x158
-    napi_disable_locked+0x254/0x318
-    napi_disable+0x3c/0x68
-    bcmgenet_netif_stop+0x1c8/0x318
-    bcmgenet_close+0x24/0xd0
-    __dev_close_many+0x18c/0x310
+Every other receive path delivers packets with a valid mac header:
+NIC drivers set it in eth_type_trans(), and tunnels without an L2
+header (ipip, sit, gre, tun) reset it to the network header after
+decapsulation. skb_mac_header() even warns on the unset state with
+DEBUG_NET_WARN_ON_ONCE().
 
-RTNL is held across the wait, so every other rtnl_lock() user blocks behind
-it. A second suspend ends up in the same place.
+If the decapsulated packet is an unexpected UDP GSO packet,
+udp_queue_rcv_skb() re-segments it after restoring skb->data to the
+mac header with __skb_push(skb, -skb_mac_offset(skb)). With the mac
+header unset, skb_mac_offset() returns a large positive value,
+which the unsigned __skb_push() argument turns into a huge length:
+skb->data moves far outside the buffer and skb->len is corrupted,
+so segmentation reads out of bounds:
 
-Flagged in a sashiko review, found plausible and then reproduced on a CM4.
+    BUG: KASAN: slab-out-of-bounds in inet_gso_segment (net/ipv4/af_inet.c:1383)
+    Read of size 1 at addr ffff88800da7ffff by task exploit/149
+    Call Trace:
+     inet_gso_segment (net/ipv4/af_inet.c:1383)
+     skb_mac_gso_segment (net/core/gso.c:53)
+     __skb_gso_segment (net/core/gso.c:124)
+     udp_queue_rcv_skb (net/ipv4/udp.c:2476 net/ipv4/udp.c:2466)
+     udp_unicast_rcv_skb (net/ipv4/udp.c:2620)
+     ip_local_deliver (net/ipv4/ip_input.c:262)
+     seg6_local_input_core (net/ipv6/seg6_local.c:1640)
+     lwtunnel_input (net/core/lwtunnel.c:465)
+     ipv6_rcv (net/ipv6/ip6_input.c:351)
 
-Clear rx_cbs and tx_cbs as they are freed, so close and suspend can tell
-there is nothing left to tear down.
+Restore a valid mac header, pointing at the network header, once
+the VRF rx handler returns. The sniffer rebuild happens inside the
+handler while the header is still unset, so tap behavior is
+unchanged; when no rebuild happened, the packet now carries the
+same mac header state as any packet received on an L3 device.
 
-The WoL resume path needs the same check. It reuses the rings when it sees
-the receiver enabled. But after a failed resume the MAC sits in software
-reset, and the next link event takes it out and enables it. Reusing rings
-that are gone reattaches the interface and the first transmit hits
-BUG_ON(!tx_cb_ptr), so check the rings too.
-
-Fixes: b6e978e50444 ("net: bcmgenet: add suspend/resume callbacks")
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Fixes: 664d6f86868b ("seg6: add support for the SRv6 End.DT4 behavior")
+Cc: stable@vger.kernel.org
+Reported-by: co+98d7de09cd94fec5@bugs.sh
+Signed-off-by: Boyan Liu <yymhvert@gmail.com>
 ---
- drivers/net/ethernet/broadcom/genet/bcmgenet.c | 24 ++++++++++++++++++++++--
- 1 file changed, 22 insertions(+), 2 deletions(-)
+v2:
+- Move the fix from the UDP GSO path to seg6local.
+- Restore the mac header after the VRF rx handler returns, preserving
+  the VRF sniffer behavior.
+- Verify the original reproducer, datagram delivery, and VRF sniffer
+  output under QEMU.
+v1: https://lore.kernel.org/netdev/20261010073015.7665-1-yymhvert@gmail.com/
 
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-index 308716cddc077..fe3338ba81980 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-@@ -3107,7 +3107,9 @@ static void bcmgenet_fini_dma(struct bcmgenet_priv *priv)
- 	bcmgenet_free_rx_buffers(priv);
- 	bcmgenet_destroy_rx_page_pools(priv);
- 	kfree(priv->rx_cbs);
-+	priv->rx_cbs = NULL;
- 	kfree(priv->tx_cbs);
-+	priv->tx_cbs = NULL;
- }
+ net/ipv6/seg6_local.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
+index 7b5212220185..5232c9e2b7d7 100644
+--- a/net/ipv6/seg6_local.c
++++ b/net/ipv6/seg6_local.c
+@@ -1113,6 +1113,14 @@ static struct sk_buff *end_dt_vrf_rcv(struct sk_buff *skb, u16 family,
+ 		/* the skb buffer was consumed by the handler */
+ 		return NULL;
  
- /* init_edma: Initialize DMA control register */
-@@ -3165,6 +3167,7 @@ static int bcmgenet_init_dma(struct bcmgenet_priv *priv, bool flush_rx)
- 	priv->tx_cbs = kzalloc_objs(struct enet_cb, priv->num_tx_bds);
- 	if (!priv->tx_cbs) {
- 		kfree(priv->rx_cbs);
-+		priv->rx_cbs = NULL;
- 		return -ENOMEM;
- 	}
- 
-@@ -3184,7 +3187,9 @@ static int bcmgenet_init_dma(struct bcmgenet_priv *priv, bool flush_rx)
- 		bcmgenet_free_rx_buffers(priv);
- 		bcmgenet_destroy_rx_page_pools(priv);
- 		kfree(priv->rx_cbs);
-+		priv->rx_cbs = NULL;
- 		kfree(priv->tx_cbs);
-+		priv->tx_cbs = NULL;
- 		return ret;
- 	}
- 
-@@ -3493,7 +3498,9 @@ static int bcmgenet_close(struct net_device *dev)
- 
- 	netif_dbg(priv, ifdown, dev, "bcmgenet_close\n");
- 
--	bcmgenet_netif_stop(dev, false);
-+	/* A failed resume has torn the datapath down already */
-+	if (priv->tx_cbs)
-+		bcmgenet_netif_stop(dev, false);
- 
- 	/* Really kill the PHY state machine and disconnect from it */
- 	phy_disconnect(dev->phydev);
-@@ -4258,7 +4265,11 @@ static int bcmgenet_resume(struct device *d)
- 
- 	if (device_may_wakeup(d) && priv->wolopts) {
- 		reg = bcmgenet_umac_readl(priv, UMAC_CMD);
--		if (reg & CMD_RX_EN) {
-+
-+		/* A link event can enable the receiver after a failed
-+		 * resume, so check the rings too
-+		 */
-+		if (priv->tx_cbs && (reg & CMD_RX_EN)) {
- 			/* Successfully exited WoL, just resume data flows */
- 			list_for_each_entry(rule, &priv->rxnfc_list, list)
- 				if (rule->state == BCMGENET_RXNFC_STATE_ENABLED)
-@@ -4343,6 +4354,15 @@ static int bcmgenet_suspend(struct device *d)
- 	if (!netif_running(dev))
- 		return 0;
- 
-+	/* A failed resume has torn the datapath down already. Resume still
-+	 * enables irq1 on the WoL path, so it has to be disabled here.
++	/* the VRF device had its chance to rebuild the mac header for
++	 * sniffers; restore a valid one pointing at the network header,
++	 * like any L3 device without an L2 header, before the packet
++	 * continues up the stack.
 +	 */
-+	if (!priv->tx_cbs) {
-+		if (device_may_wakeup(d) && priv->wolopts)
-+			disable_irq(priv->irq1);
-+		return 0;
-+	}
++	if (!skb_mac_header_was_set(skb))
++		skb_reset_mac_header(skb);
 +
- 	netif_device_detach(dev);
- 
- 	if (device_may_wakeup(d) && priv->wolopts) {
-
+ 	/* when a packet is received by a VRF or by one of its slaves, the
+ 	 * master device reference is set into the skb.
+ 	 */
 -- 
-2.53.0
+2.43.0
 
