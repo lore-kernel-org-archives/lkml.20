@@ -1,57 +1,57 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFA43B3C0A
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FB03E411D
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:34:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792265628; cv=none; b=W1UlRPSmd7ng7WZ4ZpGG6wn9z8cyyNptsO+L1Twl+sbneKew3bs8fPGt+4QjdIUEZyihTJmBC6KrJRG+M3uCWFwtxV4mCyqVXXLjKbhywYAxyS9axMzQvxtbYyr3K/KlfhEfpkotoAJZbsr0Cysz6SAJTxZs9tO3uvlu8d4usEU=
+	t=1792265687; cv=none; b=ju0RnQ1I733wbIqjz14Vd56bKlill8CzuyieZHFAQWN8rfnQkIEPlSJ5PtP2ByFyeOKusgLxS5BYGbhoffaqKrU9eGtl9FoSu4U8S4TRdkzUeLMoz6oSlnShFIu3j8l3Hi5+/AiPFuw13pdWk7g1wz8O+h0icaTK31NDZuCreQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792265628; c=relaxed/simple;
-	bh=cBqmD98ABzzBTsEwSfmjcA4c2fMOxe6QnnchVSfgf7U=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=VeirnY7UJd74s820ZrKsqB6568C+NdpNFBd9Wgiqc9lhnpxPDLsjrdTLKSOx3mIsrf5OtBCO+/2Vuwi7jBj4o3EhGBkf9yM6jC3WwgStxJTM5dMtuTn2QNIf+K3YybYnxw6xQDzHfRzxAlrnur03ykWzpc8p0NX9IGQPTxjLQ8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aRppFLll; arc=none smtp.client-ip=192.198.163.7
+	s=arc-20240116; t=1792265687; c=relaxed/simple;
+	bh=FKQh8bsSY/Vhoj4ZvUC8fICN4DowhPk8ZQ/B+HSiPQk=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=U38gqwwhuPQIztQ1iiIyw1RkJy6yMmnuqIOykxQqt/zYqTRbiAV7gzGMeKNbHQo3F+DeVcckTHHfW39zJDD5kmFXdKDv/yFtBWyU5p9tYDCDmcFFayosQFdtkWvhDfI6Bg9J35pxZEV6avoXbk4WiayhSv23RT9lV6ojnGbSCNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aD6F8C5U; arc=none smtp.client-ip=192.198.163.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aRppFLll"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aD6F8C5U"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792265625; x=1823801625;
+  t=1792265686; x=1823801686;
   h=date:from:to:cc:subject:message-id;
-  bh=cBqmD98ABzzBTsEwSfmjcA4c2fMOxe6QnnchVSfgf7U=;
-  b=aRppFLllQJLn0sCq31SUWGDkkHl7RzSFhUafGlNnuAdvjaku5+Qh36EX
-   tJ9qsFu0/2SKR9hgBId2gG+Sk50Exr9Q6UPoJfVwBy+nWgexD3AucJC+p
-   iLOK/VYzN+lpB042y5NekA6MiGmz9CqaGLa2eT2ZkmGTnkJVurNSZODP/
-   dzSYizNQ5j28mlFdzXVOP8ECxNjOvY+bFIX1jJ+fJxWrtSeRnQkPvKIn+
-   THfWp7v53XpI9ZsdppIjeScA+9MpaXY/YIxBGRg7sYPokSs9CrVwt+R4w
-   wfOkTtVcR0ZVvWtpZKf/sHdNKoI+J27TFNb5H13Fe8n/U7ZBVMW0mft5T
-   g==;
-X-CSE-ConnectionGUID: 5ZgtBRplT4yaf0YPS/oRXw==
-X-CSE-MsgGUID: x5uiS8UnQmGjV1uJhJdv1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11938"; a="916426"
+  bh=FKQh8bsSY/Vhoj4ZvUC8fICN4DowhPk8ZQ/B+HSiPQk=;
+  b=aD6F8C5UWo/Px1TIljw/Vr+k/aKeXOgZIzsAXtL+AEcepqYuaiC65JJS
+   Nj4XDvz9CcL/N1LxOdfLy7TzVSJCkGOtU0aJv0E5S99mXKuIQSubMh4SA
+   IZ3rz/R6WBUWeZoxRGd4+7ngMex7lvl7Pj80vUN2t7aneYuHzJBrb9Y1R
+   5c8Gp/9RcGbBc+GTxQr8itaMS/0Y08pOpwgfDoRcLjcMpifjNemp20STS
+   lrWvjnKuPBkuT/zKpg0jE7hTFuQvsW459G6CzTXeCzS9/syAFIKbUtsDK
+   VHHu4vRJmegZY0MH0xekn4s/OsWxwEaAAICGTm4w2Fq1h8mh1mMfQTzqx
+   A==;
+X-CSE-ConnectionGUID: Uslsl0FlTAeT4AxxUTXvmQ==
+X-CSE-MsgGUID: MbgHfvAXSj6aUkSwKgkIAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11938"; a="1034999"
 X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="916426"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 12:33:42 -0700
-X-CSE-ConnectionGUID: 8w/SGmMAS1C2IOlKVw5omw==
-X-CSE-MsgGUID: XHuJgCc/RjCaUVyOTnKRhg==
+   d="scan'208";a="1034999"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 12:34:45 -0700
+X-CSE-ConnectionGUID: HJqqPgdbRQitr6OvVd2QEw==
+X-CSE-MsgGUID: Oj8Lv+XUToO/eY4soTG0bQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="2579313"
+   d="scan'208";a="2284000"
 Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 17 Oct 2026 12:33:41 -0700
+  by fmviesa005.fm.intel.com with ESMTP; 17 Oct 2026 12:34:44 -0700
 Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1xIA9y-00000000JeK-2iDf;
-	Sat, 17 Oct 2026 19:33:38 +0000
-Date: Sun, 18 Oct 2026 03:32:54 +0800
+	id 1xIAAz-00000000JeW-2glR;
+	Sat, 17 Oct 2026 19:34:41 +0000
+Date: Sun, 18 Oct 2026 03:34:17 +0800
 From: kernel test robot <lkp@intel.com>
 To: "x86-ml" <x86@kernel.org>
 Cc: linux-kernel@vger.kernel.org
-Subject: [tip:perf:urgent] BUILD SUCCESS
- e4c7c401c6b9174c0c893084fdaa6a84bd2520d7
-Message-ID: <202610180352.ummCd67q-lkp@intel.com>
+Subject: [tip:sched:urgent] BUILD SUCCESS
+ 2f93bcb3f9aaf6ceee1aec0a97d4fe386d48e781
+Message-ID: <202610180313.nI1jjRFN-lkp@intel.com>
 User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,10 +59,10 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git perf/urgent
-branch HEAD: e4c7c401c6b9174c0c893084fdaa6a84bd2520d7  perf: Update cgroup time when rotating multiplexed events
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git sched/urgent
+branch HEAD: 2f93bcb3f9aaf6ceee1aec0a97d4fe386d48e781  sched/fair: Avoid overflow in place_entity()
 
-elapsed time: 1808m
+elapsed time: 1809m
 
 configs tested: 228
 configs skipped: 2
