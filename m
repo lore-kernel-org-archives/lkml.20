@@ -1,132 +1,180 @@
-Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D2230C631;
-	Sat, 17 Oct 2026 00:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.76.10.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F442F745D
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:34:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792197245; cv=none; b=JRUv8T2uFmhhh2eQjrvujARseaIIUM6ADGkgE1zSMe+hqjPzcvCvtIU6pIt0AS1OJI7XxpuS0idVq6n0wBHtlVe7w00xsM04qbpg/znhz30OZdY7ledkfVU22K3dVDWFrw9CGjxQAv2HCJcBPsB3psmOX0NlfdKLVlQsmR12URw=
+	t=1792197287; cv=none; b=bAeRjYSguy1cP+4PSOpFBG2AbrJxORfRn1ZT/b1NZS8hIuwCg4MDf4txtUl13xAf+bNovX3mbqHxZwNwsVQc1DhRBJGwfy5/OU6ou08Ff7udaXowLyolxWACp24RrDTOBVTzW5bAkk8WNNCzOC4BwTX7MRxfA65YW6wJavmPX24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792197245; c=relaxed/simple;
-	bh=JDPw7W4hvxmpAbHvFL44g+TJT6tFdMu1q08yNRVLrrs=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=abEehboF/0HwC5V0IsXLBmaNdKVMhkz71ZmvvaotZjYaJACMEyPazaxYC3KsiKLTuFRerVqnLoIS2692+3T73lsh38x58Hp++QHx9QPKXhFjEe4JufEWndBwLzA7xmJT6ODu42kIRi48pNX1HOEfyLt2rzeax8qnLwc9GPgLc2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cispa.de; spf=pass smtp.mailfrom=cispa.de; dkim=pass (2048-bit key) header.d=cispa.de header.i=@cispa.de header.b=YOmfPKhw; arc=none smtp.client-ip=134.76.10.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cispa.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cispa.de
+	s=arc-20240116; t=1792197287; c=relaxed/simple;
+	bh=Sdv7CtUWrHDpWs7HDwx2mV6IO/EUxee2clEbWUOToFg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ox+PZNyJ9Rtwtj7M6C17EIDd07N0p5yLB7rlbUTbXeRMc2oaHrBJOtbX7s96lmZuHDmPsd1h4rS9q8lRaTQNW5J2jJ3aI0wp6Dm9n5jYayY9qNgyBrwBdJmlEybmHG7prMphETJJ2opnROFVhjb4y2wHGfy5ulXD4SaYNip13q8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Vqh+tUUm; arc=none smtp.client-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cispa.de header.i=@cispa.de header.b="YOmfPKhw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=cispa.de;
-	s=2023-rsa; h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:
-	Date:Subject:CC:To:From:Sender:Reply-To:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=iSHy/CgRhICg1/p9z2nRv5RhEZ6KErBjj3CCnAWRA2c=; b=YOmfPKhw5Dc1btUQmoic+5Jmm3
-	fY+vfCUD6mgkk3AM1EGU3qtoGJT0bmqm+cLNtRTa0DRtIB9VgT8tekhXd+0hXz/20hfxaVMEjwD1U
-	e6LhWHeiquJh0tsKGgU1AQMt+8GY0vQoTmLLT3U0HZIyMcfyJSDxH/T2qDE+tEhtP9t5bFkJ1TI4g
-	Z0bunAWeFmB5jezrw4FgoKl+DswFrgy3hTBDunL68JHSccazlWQg9CWpEqELDPXvbfoeTYfSUKH9k
-	MxHOmTCSIfDAg+zZy8C7Om9ApIzNELpl1kawai311cfzCb+xDvTK8LgO7assR5ERbac0w3U7QqhHb
-	dk+wkOaQ==;
-Received: from mailer.gwdg.de ([134.76.10.26]:60494)
-	by mailer.gwdg.de with esmtp (GWDG Mailer)
-	(envelope-from <amirmohammad.eftekhar@cispa.de>)
-	id 1xHrjM-00B5eV-0b;
-	Sat, 17 Oct 2026 01:52:55 +0200
-Received: from mbx19-gwd-01.um.gwdg.de ([10.108.142.50] helo=email.gwdg.de)
-	by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
-	(GWDG Mailer)
-	(envelope-from <amirmohammad.eftekhar@cispa.de>)
-	id 1xHrjK-000D3R-2V;
-	Sat, 17 Oct 2026 01:52:54 +0200
-Received: from localhost.localdomain (10.250.9.199) by mbx19-gwd-01.um.gwdg.de
- (10.108.142.50) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Sat, 17 Oct
- 2026 01:52:52 +0200
-From: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-To: <seanjc@google.com>, <pbonzini@redhat.com>
-CC: <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] KVM: nSVM: Reset the virtual VMLOAD/VMSAVE bit in vmcb02 on every nested VMRUN
-Date: Sat, 17 Oct 2026 01:52:18 +0200
-Message-ID: <20261016235221.33726-2-amirmohammad.eftekhar@cispa.de>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Vqh+tUUm"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35943f55c06so638728eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:34:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1792197285; x=1792802085; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KsjFJvXudSwXdcgN7c4k2FLE+FzpOd2OfS6oolBJa/8=;
+        b=Vqh+tUUm1X/c5ImFWpyEZ7/5xpZ/yVUTPtG/RW8YI35G6i23yUUgWTypnXNwJgtBYZ
+         31EH4N/myhFL/uDcfnb+JNsb2S5Ei+2LtBzvdEsAJUxnqZn9ePvHXkbIa/ncwJ/q4xAU
+         bkXeFSaUBSUemGKoVOibHNJ8mpOaP0cygsD0Q=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792197285; x=1792802085;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=KsjFJvXudSwXdcgN7c4k2FLE+FzpOd2OfS6oolBJa/8=;
+        b=QIV4hlmYsuTSex498XlVW2dJ54UxajW5PDCuBH8rVTXGZcSaqU8mXHRFaPtfoGhHbS
+         IM9QzG3/sy3ffbIlCB0kzYd/dpstpn25ZJK1Jr9hq/74S/ivu7+Gw6leDjNOlsWaKCet
+         pVufavK4jSIaywhV0aUb8JFnr8g76Jvi/Q33Vxbhk37NyamIwEVFuXO1rt/cLTWafyKj
+         N/bM0KqrWJCWiYOA9NoSklvihKfmQnqZsAVkl1pHtigu/q3C9ce/S9qHLjL2XxZL4Ngk
+         oNPEDK0VEfNtdBm7ZsEEACWzApiLb0kzihz8n3/QuLrue8vLieq9o47gKdRxuPTQt7c3
+         vQwg==
+X-Forwarded-Encrypted: i=1; AKwUvBxSrI3yafF8TUWTVC3DzRg8tphv1P15Dxc/wrF2+NlX+m+wpgG6k419VgjFbd9+nNXPDpoRv0umgzUoMr4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+E1P9zPO+7FqcktmYLB7Fv/Otq+luJukEHSixcVnYFmGfT3Zz
+	8ktSPwp58mkGpXlM6DIWQmSasu9xmYUlboo68PBVcR63yka0CzMS88tRB6FSPJyCxg==
+X-Gm-Gg: AYBFou3lYFBsIT9mLlITF9F9snmmU9bsbnTqOsf38tsiipo5jp0482v2GOevykPs3r7
+	SYHDaSMWRhFlYP4mCmpAVU7SvwhTr2FQgUuqIqwUgSm3G8zg/6qHAyPJ0KD/CyK7d0WLhaXtrCP
+	xaTTzIfaRoXcSsDChY/oy+LRgp8wRJ8sq++M4PKqLT6PUJpX61HeOo1njOAizwbW4xGJ9rfKjso
+	gax97+lXs7x8OoqcwL3PS5mgNp5nhQf5rea0k2qTusSlKC2FFxTyAsdQZBArZoM/90GaOBtyEzl
+	Rjx8No1vRgT5V50Ew+E8PZXfM78PRnhe0+QIAQYQ5cTGYW19wr3Yu5QRy4d1yqTz2POGCweCBIG
+	wKZ0YYjOnTB4GTcmSWSIGtRVLOPj/GHCCGV7fGvCkQ2BdcVk5Jb7KbmQ0pYZYGFhcQBOjxX+7ZY
+	e/aontFSmKQdnqugCzK+Z3SsPNjn9FpCDObzpSBri5aEZU3JW3t8wbx1NRjIdf5XCs3ou5PsH4K
+	oJjyab1t4CCi6gcxfeJFu21pJhESd0HSvEZ
+X-Received: by 2002:a05:7300:dd0b:b0:361:a195:c46e with SMTP id 5a478bee46e88-361a195c51cmr1438547eec.1.1792197285163;
+        Fri, 16 Oct 2026 17:34:45 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2e7c:8:d542:736d:a85:f140])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-36082b8573dsm9819489eec.25.2026.10.16.17.34.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 17:34:43 -0700 (PDT)
+Date: Fri, 16 Oct 2026 17:34:42 -0700
+From: Brian Norris <briannorris@chromium.org>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: linux-doc@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Doug Anderson <dianders@chromium.org>,
+	Ulf Hansson <ulfh@kernel.org>
+Subject: Re: [PATCH v4 2/2] PM: runtime: Add Example Driver Patterns section
+Message-ID: <atLCom0YznHV8U6D@google.com>
+References: <20261001155118.1750028-1-briannorris@chromium.org>
+ <20261001085009.v4.2.I75ceea7b1afd016e08922e47b82e6eb36de144fe@changeid>
+ <CAJZ5v0hMHutu69acgSR7KsmcLs0McZK+-3OFoiqFrU5GnJzTNQ@mail.gmail.com>
+ <as_i5MEz3WfnDQmf@google.com>
+ <CAJZ5v0i+77gt-KmMYdxxzS4uGzxFArrYGpoDnjrfknpPOkAuHg@mail.gmail.com>
+ <atE9urIHXAJZXu6k@google.com>
+ <CAJZ5v0g56J9e9qdiR8W+BfmEbbedvpD8hop4+n9=rkFEsDG_Jw@mail.gmail.com>
+ <CAJZ5v0gNQqffxcdzWff=z3hi0BXzJBOV6WKgf6RXuOydzQJQMw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: mbx19-sub-01.um.gwdg.de (10.108.142.54) To
- mbx19-gwd-01.um.gwdg.de (10.108.142.50)
-X-Virus-Scanned: (clean) by clamav
-X-Spam-Level: -
+In-Reply-To: <CAJZ5v0gNQqffxcdzWff=z3hi0BXzJBOV6WKgf6RXuOydzQJQMw@mail.gmail.com>
 
-The SVM_MISC2_ENABLE_V_VMLOAD_VMSAVE (VLS) bit in
-vmcb02->control.misc_ctl2 is OR-set in nested_vmcb02_prepare_control()
-when L2 is allowed to use virtual VMLOAD/VMSAVE, but it is never reset.
-vmcb02 is a persistent per-vCPU structure reused across nested VMRUNs,
-so once one nested entry enables VLS the bit leaks into every later
-entry -- including entries where vmcb12 has VLS cleared and L1 has asked
-KVM to intercept VMLOAD/VMSAVE.  Per AMD's APM, virtual VMLOAD/VMSAVE is
-honored over the VMLOAD/VMSAVE intercepts, so with the stale bit set
-L2's VMLOAD/VMSAVE are virtualized and run without a #VMEXIT, and the
-intercept L1 explicitly requested is silently dropped.
+Hi Rafael,
 
-misc_ctl is reset from vmcb01 a few lines earlier; misc_ctl2's VLS bit
-has no equivalent reset.  The only writes to misc_ctl2 are this OR-set,
-the vmcb01 init OR-set, and the independent V_LBR (bit 0) set/clear, so
-nothing clears bit 1 between entries.  nested_vmcb02_recalc_intercepts()
-sets INTERCEPT_VMLOAD/VMSAVE when nested_vmcb_needs_vls_intercept() is
-true and otherwise only WARNs on the reverse condition; it never catches
-the real hazard of VLS on while the intercept is also set.
+On Fri, Oct 16, 2026 at 08:05:12PM +0200, Rafael J. Wysocki (Intel) wrote:
+> On Fri, Oct 16, 2026 at 7:42 PM Rafael J. Wysocki (Intel)
+> <rafael@kernel.org> wrote:
+> > On Thu, Oct 15, 2026 at 10:55 PM Brian Norris <briannorris@chromium.org> wrote:
+> > > On Thu, Oct 15, 2026 at 10:11:04PM +0200, Rafael J. Wysocki (Intel) wrote:
+> > > > On Wed, Oct 14, 2026 at 10:15 PM Brian Norris <briannorris@chromium.org> wrote:
+> > > > > On Wed, Oct 14, 2026 at 09:07:54PM +0200, Rafael J. Wysocki (Intel) wrote:
+> > > > > > On Thu, Oct 1, 2026 at 5:51 PM Brian Norris <briannorris@chromium.org> wrote:
+> > > > > > >
+> 
+> [cut]
 
-Reset the VLS bit before the conditional set, mirroring misc_ctl, and
-add a forward WARN so a future regression trips immediately.
+[ Thanks for the earlier clarification about PM domain. It helps me
+  understand where you're coming from. ]
 
-This is distinct from CVE-2021-3656 (single-VMRUN under-sanitization of
-a VLS bit L1 set in vmcb12 without being granted the feature); here L1
-is granted VLS and uses it legitimately, and the bit goes stale across
-VMRUNs.
+> > > I kinda think the point of most of this power domain architecture is
+> > > that a typical driver just doesn't have to worry about it at all (in
+> > > probe(), and if you use runtime PM properly), so I'd prefer not
+> > > mentioning it in the Basic example. But sure.
+> >
+> > Well, your basic example needs to be put in a certain context because
+> > it may not be generally applicable everywhere.
+> >
+> > I think that you should make it clear what the driver's expectations
+> > regarding the physical state of the device at the probe time are and
+> > the general rule is that it is better to leave the device in the same
+> > state in which it is expected to be found next time.
 
-Signed-off-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
----
- arch/x86/kvm/svm/nested.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Ack, will do to the best of my ability.
 
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index af0ef6784..65e61b796 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -197,6 +197,14 @@ void nested_vmcb02_recalc_intercepts(struct vcpu_svm *svm)
- 	} else {
- 		WARN_ON_ONCE(!(vmcb02->control.misc_ctl2 & SVM_MISC2_ENABLE_V_VMLOAD_VMSAVE));
- 	}
-+
-+	/*
-+	 * If KVM is intercepting VMLOAD/VMSAVE, virtual VMLOAD/VMSAVE must be
-+	 * off, or hardware would honor the virtualization and render the
-+	 * intercept inert.
-+	 */
-+	WARN_ON_ONCE(vmcb_is_intercept(&vmcb02->control, INTERCEPT_VMLOAD) &&
-+		     (vmcb02->control.misc_ctl2 & SVM_MISC2_ENABLE_V_VMLOAD_VMSAVE));
- }
- 
- /*
-@@ -994,6 +1002,13 @@ static void nested_vmcb02_prepare_control(struct vcpu_svm *svm)
- 
- 	/* SVM_MISC2_ENABLE_V_LBR is controlled by svm_update_lbrv() */
- 
-+	/*
-+	 * vmcb02 is reused across nested VMRUNs and the VLS bit below is only
-+	 * OR-set, so clear it first; a stale bit would let L2 run VMLOAD/VMSAVE
-+	 * unintercepted even on a VMRUN that asks KVM to intercept them.
-+	 */
-+	vmcb02->control.misc_ctl2 &= ~SVM_MISC2_ENABLE_V_VMLOAD_VMSAVE;
-+
- 	if (!nested_vmcb_needs_vls_intercept(svm))
- 		vmcb02->control.misc_ctl2 |= SVM_MISC2_ENABLE_V_VMLOAD_VMSAVE;
- 
--- 
-2.54.0 (Apple Git-157)
+> To be somewhat more precise, if the driver expects to find the device
+> completely off and the runtime PM callbacks are set up to make it
+> operational, runtime PM can be used to power it up in probe:
+> 
+> /* Assume the runtime PM status to be "suspended". */
+> pm_runtime_enable(dev);
+> pm_runtime_get_sync(dev);
+> 
+> but then in remove or on probe errors the "power off" state needs to
+> be restored manually:
+> 
+> pm_runtime_disable(dev);
+> /* Allow the parent and suppliers (if any) to suspend. */
+> pm_runtime_set_suspended(dev);
+> device_specific_power_off(dev);
 
+That's ... precisely the second example, "Probe with Hardware Powered
+Off". It's couched more in my non-ACPI background, but it's the same.
+And it mostly avoids pseudocode, so it should be a bit more clear than
+the "Basic Probe" we've been talking about.
+
+But there, I still propose that the main distinction is about what work
+needs done in the driver in question. The PM domain is still mostly
+irrelevant to the driver writer, except perhaps in the language I use
+about "on", "off", "operational", etc. And yes, sometimes that means the
+work needed to "become operational" is minimal/empty; but that seems
+like an obvious reduction from "do what's needed to power on" (nothing)
+and "undo what you did on the way up" (nothing).
+
+> However, if the driver expects to find the device operational (for
+> example, because it assumes the ACPI PM domain to be there), it may
+> just update the runtime PM status before enabling runtime PM:
+> 
+> /* Assume the runtime PM status to be "suspended". */
+> pm_runtime_set_active(dev);
+> pm_runtime_enable(dev);
+> 
+> but then in remove or on probe errors it may just leave the device in
+> its current physical state (whatever it is) and assume somebody else
+> to take care of turning it off subsequently:
+> 
+> pm_runtime_disable(dev);
+> /* Allow the parent and suppliers (if any) to suspend. */
+> pm_runtime_set_suspended(dev);
+> 
+> These are two distinct cases that are rather hard to cover in one
+> simple example.
+
+To me, this case is barely different than my existing "Basic Probe"
+case, except that the "/* Power on and initialize hardware registers... */"
+(or "foo_initialize()") is empty, and so the setup and teardown becomes
+smaller.
+
+So I still think my first 2 example cases are perfectly sufficient to
+cover what you're talking about. I can just improve a bit of the
+language and clarity w.r.t. the things you've mentioned. For example, I
+can clarify that the driver might need to power on resources or itself,
+or the PM domain might have done that for you -- regardless, one needs
+to tear down what they set up (which is nothing but the
+pm_runtime_set_[status](), in some cases).
+
+Brian
