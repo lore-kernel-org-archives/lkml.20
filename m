@@ -1,204 +1,132 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B2E47F3DF
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 10:49:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1ED50223DEA;
+	Sat, 17 Oct 2026 10:51:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792234162; cv=none; b=EFcfvfWLiX6EU/djUve5pTrepo0kERnC/BgrqPHcXj1VZ4ztAf4SQQtLX6RMD8hGk39lwBrNbX8HSoi0db8h/3EA6sMJKE7zlEBGR5BWI+6QLXihmul4G31Byh/ea1woZ+cc2zfbLy5HyarxExSwvv+aEIorlv7JSFay5PENVQU=
+	t=1792234296; cv=none; b=flTX3LmGYjP7P4W5B8P/RAPQBi7CIu76VAXJxZJR+vvEttSjZvz6jVjIfcQ1IaS4eGZX4t5jUKUpgiWo1OGaMMhcV+sQOgBloqb1bvDh6FYWiNCLGvdjSI0kwH9Q283wUMBaL3cLY9OPYmIMW1RQI6xpKtHzcoYXjsZ7j0TOwgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792234162; c=relaxed/simple;
-	bh=4IkWz0fAt6tzb2IiRdYaJ3TQcYsDJV9O+l1t72HHZak=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Y5yviPRcjWH8rII3C6q7xVsOheZhNC0ScrsaxCUAqRT1yVsZBBUxmlWpwe6yFckXkBhGg4BsVxQSzQHN6p9zD04ZiDs1mhWWPn+PZsu9x3n/VxAfNuJuwIi62lqYWzkAUyCmm1QPcyOvN0FU+aAB2za4DzThmugtotyNZfY/WNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=gD1GBkys; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="gD1GBkys"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 9382F240104
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 12:49:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1792234152;
-	bh=cBuCgVM7uR5aFGMoFHO8vtXxdVtJzmrd41G9Rr1lQr0=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=gD1GBkysfEsRAdZf68J0vVZYOV0SpepJ7hogOp0Yx21MdeIM0Z9bXMcs9bsLJA0bR
-	 i9jCROvYXZATOBxWP5zrjvZe5/uellsnHbeNsJ4zLmE7GeMYLaokCkxil+MM1iy2Jt
-	 bTSn/eloKCQ3CvEAKDtdLgovgpLB9BXMFTigdgWsjk3yaZ6dORiXa81PS+rFW8vQK7
-	 rkGzSBAF7LvOJ3OwzxtnuUfClcAcACwzsjEgVavpXsfiEEuDIbgaUbaiTBlr3au0qC
-	 YCeskHl00KAyhbwB0qUqLpIQ4YsFqK0v7dXfowA3NXA1FSl2Ao3kE2k3N3FTTDm9v4
-	 3Hgd+doReZp4w==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4j6JTJ4nXwz9rxN;
-	Sat, 17 Oct 2026 12:49:08 +0200 (CEST)
-Message-ID: <533e035ab0e390cd053513437ba3b49bcc52e226.camel@posteo.de>
-Subject: Re: [PATCH v4 1/4] tty: serdev: Add mutex lock
-From: Markus Probst <markus.probst@posteo.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Ayush Singh <ayush@beagleboard.org>, Johan Hovold <johan@kernel.org>, 
- Alex Elder <elder@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
- <boqun@kernel.org>, Gary Guo	 <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?=
- Roy Baron	 <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich
- <dakr@kernel.org>, Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Eric Biggers	
- <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, Lorenzo Stoakes	
- <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett"	
- <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, Jiri Slaby	
- <jirislaby@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	greybus-dev@lists.linaro.org, linux-serial@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	driver-core@lists.linux.dev
-Date: Sat, 17 Oct 2026 10:49:11 +0000
-In-Reply-To: <2026101715-penny-headfirst-1644@gregkh>
-References: 
-	<20261016-rust_serdev_probe_refactor-v4-0-46832e034757@posteo.de>
-	 <20261016-rust_serdev_probe_refactor-v4-1-46832e034757@posteo.de>
-	 <2026101715-penny-headfirst-1644@gregkh>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-Y9yB0ABxg49Dk+BLAnmv"
+	s=arc-20240116; t=1792234296; c=relaxed/simple;
+	bh=GgaQFVqEjIrCUeHwcQ+Fc526g51/JusfikxoHon9ouI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mhDnt7mFwfzdOKoSIP13C2gdenJLbQxQJkM7Aix5B+ffbIwBFLGgAJrBT1zmJs69zcIjxmNe5RJz+2PzeNiStpHelSw++OmI15T/8y0V5LSqF3z6K/kuie1q/nCEsQvJQLWn2sgzSRfTxwhmD4mZxnY/GyeE5SJrV/RbyiRzhIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8AxntIzU9NqLcgWAA--.705S3;
+	Sat, 17 Oct 2026 18:51:31 +0800 (CST)
+Received: from linux.localdomain (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJAx1cwwU9Nq824tAA--.1559S2;
+	Sat, 17 Oct 2026 18:51:29 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>,
+	Hengqi Chen <hengqi.chen@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: loongarch@lists.linux.dev,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] LoongArch: BPF: Fix stack arguments for indirect trampolines
+Date: Sat, 17 Oct 2026 18:51:28 +0800
+Message-ID: <20261017105128.18537-1-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAx1cwwU9Nq824tAA--.1559S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxAF4kZF43tw4kXw17uFyxXrc_yoW5Cw4fpF
+	n0kFsxGF48tr4Iq3Z7JayUZr1a9Fs3Z3y3Wr4DJay8ua15uryUXr1rK3ZI9F98Grn5A34F
+	vrs0vw1YvFWDA3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUkjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AK
+	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64
+	vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK
+	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I
+	0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07j0FALUUUUU=
 
+From: Kumar Kartikeya Dwivedi <memxor@gmail.com>
 
---=-Y9yB0ABxg49Dk+BLAnmv
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+LoongArch passes arguments beyond a0-a7 at the caller stack pointer. The
+trampoline store_args() helper always reads those arguments at FP + 16,
+which is correct for an fentry trampoline: its prologue leaves FP 16 bytes
+below the stack pointer at trampoline entry after accounting for the saved
+parent and traced-function frames.
 
-On Sat, 2026-10-17 at 09:55 +0200, Greg Kroah-Hartman wrote:
-> On Fri, Oct 16, 2026 at 06:00:32PM +0000, Markus Probst wrote:
-> > Besides more predictable behaviour, this allows for several hardened
-> > behaviour changes:
-> >=20
-> > Return -EALREADY in `serdev_device_open` if the device is already open
-> > instead of causing undefined behaviour.
-> >=20
-> > Allow calling `serdev_device_close`, even if the device is already
-> > closed instead of causing a null pointer dereference.
-> >=20
-> > If the device is left open by the driver after remove, close it and war=
-n
-> > instead of leaving it in a invalid state.
-> >=20
-> > Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> > ---
-> >  drivers/tty/serdev/core.c           | 10 +++++---
-> >  drivers/tty/serdev/serdev-ttyport.c | 46 +++++++++++++++++++++++++++++=
-++------
-> >  include/linux/serdev.h              |  2 +-
-> >  3 files changed, 47 insertions(+), 11 deletions(-)
-> >=20
-> > diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
-> > index 7500efcdfc21..77e8e1d4d2a6 100644
-> > --- a/drivers/tty/serdev/core.c
-> > +++ b/drivers/tty/serdev/core.c
-> > @@ -142,6 +142,11 @@ void serdev_device_remove(struct serdev_device *se=
-rdev)
-> >  	struct serdev_controller *ctrl =3D serdev->ctrl;
-> > =20
-> >  	device_unregister(&serdev->dev);
-> > +
-> > +	/* Warn if driver did not close the serial device. */
-> > +	if (ctrl->ops->close && WARN_ON(ctrl->ops->close(ctrl)))
-> > +		pm_runtime_put(&ctrl->dev);
->=20
-> Wait, how can close() ever fail?  That should be something that just
-> can't happen right?
-It can't fail and its not a fail. It returns true if the device was
-closed, false if already closed. Currently the driver is responsible
-for closing the device, so this should always be false.
+A struct_ops indirect trampoline is entered through a function pointer and
+only saves its own RA and FP before setting FP to the entry stack pointer.
+Its stack arguments therefore start at FP, not FP + 16. As a result, every
+stack-passed struct_ops argument is currently read two slots late.
 
-The WARN_ON was intended if the driver did not close the device and
-close it.
+Select the source offset based on whether the trampoline is indirect. This
+also prepares the stack-passed arena argument path to consume the actual
+pointer slot.
 
-Thats the "If the device is left open by the driver after remove, close
-it and warn instead of leaving it in a invalid state." part of the
-commit msg.
+With this patch, the BPF selftest "./test_progs -t struct_ops_multi_args"
+passed on LoongArch.
 
-But I see that a panic (panic-on-warn) is definitely not appropriate
-here.
+Fixes: c9ebe2016de9 ("LoongArch: BPF: Support up to 12 function arguments for trampoline")
+Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+---
+Here is the original link:
+https://lore.kernel.org/bpf/20260821233516.3426127-8-memxor@gmail.com/
 
-Thanks
-- Markus Probst
+This version is based on the series:
+https://lore.kernel.org/loongarch/20261016081006.26069-1-yangtiezhu@loongson.cn/
 
->=20
-> thanks,
->=20
-> greg k-h
+ arch/loongarch/net/bpf_jit.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
---=-Y9yB0ABxg49Dk+BLAnmv
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
+index 1a7c8effc37b..03c59956c0b7 100644
+--- a/arch/loongarch/net/bpf_jit.c
++++ b/arch/loongarch/net/bpf_jit.c
+@@ -1725,17 +1725,23 @@ int bpf_arch_text_invalidate(void *dst, size_t len)
+ 	return ret;
+ }
+ 
+-static void store_args(struct jit_ctx *ctx, int nr_arg_slots, int args_off)
++static void store_args(struct jit_ctx *ctx, int nr_arg_slots, int args_off, bool is_struct_ops)
+ {
++
++	/*
++	 * Regular fentry trampolines need to skip the 16-byte saved T0 and FP
++	 * slots of the traced function. Indirect struct_ops trampolines place
++	 * incoming stack arguments directly at FP.
++	 */
++	int stack_args_off = is_struct_ops ? 0 : 16;
+ 	int i;
+ 
+ 	for (i = 0; i < nr_arg_slots; i++) {
+ 		if (i < LOONGARCH_MAX_REG_ARGS)
+ 			emit_insn(ctx, std, LOONGARCH_GPR_A0 + i, LOONGARCH_GPR_FP, -args_off);
+ 		else {
+-			/* Skip slots for T0 and FP of traced function */
+ 			emit_insn(ctx, ldd, LOONGARCH_GPR_T1, LOONGARCH_GPR_FP,
+-				  16 + (i - LOONGARCH_MAX_REG_ARGS) * 8);
++				  stack_args_off + (i - LOONGARCH_MAX_REG_ARGS) * 8);
+ 			emit_insn(ctx, std, LOONGARCH_GPR_T1, LOONGARCH_GPR_FP, -args_off);
+ 		}
+ 		args_off -= 8;
+@@ -2068,7 +2074,7 @@ static int __arch_prepare_bpf_trampoline(struct jit_ctx *ctx, struct bpf_tramp_i
+ 	func_meta = nr_arg_slots;
+ 	emit_store_stack_imm64(ctx, LOONGARCH_GPR_T1, -func_meta_off, func_meta);
+ 
+-	store_args(ctx, nr_arg_slots, args_off);
++	store_args(ctx, nr_arg_slots, args_off, is_struct_ops);
+ 
+ 	if (bpf_fsession_cnt(tnodes)) {
+ 		/* clear all session cookies' value */
+-- 
+2.42.0
 
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmrTUqMbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSCz4P/jRlhrCJdQeoI7xX7Np8
-TT+7GJbEprIvoS8Y5TIj6iRJbhoGKs77+A88ISBtQ12wogSlSDhzhna9puQSdScz
-wj2l9lCCt+wLVYMKgX2cJHU/aWgy+R4MXnpoAthywtTQcx7QLPexEacPSHBdDCW5
-S5HGG94BZq51gE1iHqMslfnGpDg2ZtvvMLNuwhDNCR5nVGDBiGpzZWFbkocWGMrJ
-2IcleyqDFE8piCYBureIo2zR9v4hDWVK8ahhI8QDqXH5Q0xT7yVsxsc4Frf5m32m
-AD9CyOsG+WFCkULp+j1ACaDTgBO+m/Tw1tAfCpk3KlLSVDd3S5wbH0KWU/rhfhXN
-awJc7QhdF0ZQj6+VN/CudzIu57c9SUdWENY9oRq2n3cNyGSjqCtA9UvYdRCcQVNj
-ykQ4tBl5+zkgPLWCuPPhKydpeSrhriSQQGiBLp0KHUygLGKrsFGALfjsRG5dTfWN
-MnM+2iv+YWlAjKXjggK6zYsztZ45p/5bvBOIgkRT8konIQEqQO9zVSGqzkjtyAFr
-DmevEsxqo8KaMBaZJARFfpaSsjHNRHszE3HTliOXCIZaUjEJ+k0IQMd/eYkUpi5u
-88nf2fO6k/mutO6Zcwu3LssnQliLlbHQc4Rz3nJr0XWKvoGbXtkhA0c5Pm6bYFFd
-P88B0xHjYM6WsAb1+dszSrBl
-=Bgx2
------END PGP SIGNATURE-----
-
---=-Y9yB0ABxg49Dk+BLAnmv--
