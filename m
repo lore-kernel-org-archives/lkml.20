@@ -1,210 +1,154 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB1B214812;
-	Sat, 17 Oct 2026 01:54:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FF1384CE1
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 01:55:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792202071; cv=none; b=t80RKxKdzgZhc3FInyc+cyZpy1BWvzAvbGxO1W6Hd5420TD4ub0KZh77yjizI0F9RqlEJ41r3TBX5AL6iM+k4og1aEfJ032fB4SKxeqYN1T5BmdWPgY+8wxyMBxv/j5P8WEEzmFMPWsYxyz9IahW/YH6YIK2i1ejFBHqVVITBYA=
+	t=1792202157; cv=none; b=GzlLrAPM0qhsA/lPqffx0hiOhzwlXelzkUqbitpOkITu31fjtb/QlLQj7yhzHH5gNgHY6HnlXAaYzRrA3AU3jcUATZ53KM5kcOlUvnXsiKnoMAYM4oQZYSYF6tYJRtvQtX1bQDiad2XEDA6ZStDbKy5B2TQFUrmLVvHuzolN7mU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792202071; c=relaxed/simple;
-	bh=4EY5UqDQoVP28I8PxoGRhWu4pfs/TwbwsXLAgwGqbH0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dRxL8DeR3Pcuj149baiM1GHEKNRKNL+U90CYZ1LaGiFB/ao8Ql7W82+dUfrPBOnWIp7i6uIGh0vTJdrsV9vQ0xOWq2F3fwG8cutD2RtJn3Guc1pNq/sUplFEqWByXDD+GD5VQeGmBn10EpDKYA0QgRfg2xWbNyaCEluWF2qM9Vk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=QZvHHeit; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792202157; c=relaxed/simple;
+	bh=amj26N7GBgNkKSic738dtOdhoZO7SxmjDL8PSryCbBM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=n0BwY0nSL83eTYXKAy750QC3DbOlvibcnKvQ4Aee4f+4Ll5YL7++YN8hcsXcr7pHYiKChq1qyOJBkVdrdIvcqiAf5cp60MSYl1MxZn3I/eH0McbMMqsKBrgPEwkCg9dU6pW+zQA+F1l476M+bf6TwoTruKFdrYteFZy72Gk018E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KyBIzeHZ; arc=none smtp.client-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="QZvHHeit"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=A6
-	yIrZq7tAk7cxdJ8XQZYPAxPVb5CEzRWJ+W0DjJyro=; b=QZvHHeitpCFvAHyz4g
-	qbLQKM4Afii0+mGXN+KYF2bW8QtTjb1OjcUCmyB77lxT1I3SH3AJXFIhC7Zuz4kD
-	+P2gMYx7YejCFyZhfkHH82vVe9/QpWtgkiH0tKMtLLztFWgTEWP1FOgflfvamP0B
-	xWksZfW9dQonPIFxtmXISGvKk=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3_+IM1dJqNLmHAg--.49298S2;
-	Sat, 17 Oct 2026 09:53:18 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: sam@mendozajonas.com,
-	fercerpav@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	gwshan@linux.vnet.ibm.com,
-	joel@jms.id.au
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH net v1] net/ncsi: fix use-after-free of ncsi_dev_priv in ncsi_unregister_dev()
-Date: Sat, 17 Oct 2026 09:53:15 +0800
-Message-ID: <20261017015315.415794-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KyBIzeHZ"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b0d91601bdso11969387b3.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:55:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792202155; x=1792806955; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=V5KfIFOpzzVgEmADZkACyBVWel5cim9UCxoXS8oTCY4=;
+        b=KyBIzeHZBFSGJopzAV18TAIGtbwWivzxYOmavLodDM+juWnRhEp1Kr2nVTf+a5qUKg
+         v5UrzbO2cE9p4/lDVSr7eBNay8uE2rE6nVFmR4qzGVjdJbsYEBZvoapqRdnUwrKdnXXm
+         ReqML3nKDFFB8VqwE65GTlQ4P2t7wiAtB/nbREheOC8IfUIDHpXAHYozodQJ3xbpTrGl
+         lvnyeVPOOuCQGUCvWldw0SwEFOrDNoUOAJDhBWw6ST+accIwCRddSIDGmyGCgwMdQyr3
+         a1C02yAEpLFaDidk1FShhi1pKeL8Ec0tIaAERm9GTYuLwzXFs7alNGnFO0ekayT7WRK3
+         lI2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792202155; x=1792806955;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=V5KfIFOpzzVgEmADZkACyBVWel5cim9UCxoXS8oTCY4=;
+        b=zObezWLNLit/oB1WRqLANx/sG8XWRykaAFUouT/JxXM/meaRZDWNj64Ob9ONR6iLNX
+         w3jhGrEkr7dfjmJdC63UlQEbAaBACnvoLJtYgsiVRI+Lfhy+ZWGWQ14fD1v7fObIsuDi
+         0ATik0XaZvPtlGt9nDFarppRkIh6iGhpZDCLfRwSLt1ssU9tPW78HjrZ3UR+m66ePOpk
+         VVX+PdL6nY91GqekmMk7SPREPDZfraFGNfWQ/y17a0HyeZMBlJ9aYlaE7vZCIPzwjd0Y
+         5FO/6uG+6xqHTrxkdkhbd4gNijMYR1SgNMiASvpLdYVMwotH0bQh+wdPDiEOQ69RQRpn
+         GKwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxDra6r9BG+1ynilLobU97m+LDVbTVIQsxTZciwxAOIKhsAVIuAuEt1llQJ3zyJRdawYrSjN1g+2mUEFhE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhCSEG2USm5LE2T2j86sqNtRrw/8/alXfQFHiRlPHYiTq+8CKO
+	0dtBagTD/ATMH6UHCl6J78hJ8lI9VCyoPb9cWW8eyjzuUbrecM/IcS79svggug==
+X-Gm-Gg: AYBFou3oiM46Q0WJcmihg5Y0dpucAJu8eRSHaYTzxgIbzCYNh5yliY8o8elkARQNm6B
+	b3imjmO+lZDiCvj8Np2Y4q+BFOHhgU6hUVr55IUiRQyzdBg+0t1LI6mcAwgl6vVi7UQX+r3SfRu
+	pX+fXmPJkCsLGnAwVEbaYZ4f/7T5Hz4mO45IszNjzNqvfXk+r9/QXsLY0fBRtcJejF99bZLYYiq
+	T4vvaSaRM5BpmUOHKhCRiUh9CI26H6MUi0zOETzY1CND97ioWbjdgseBxc7MLUWQi0uLZ8at08E
+	NAZfnASC71/zkbmS89BByu07LSgtwx3abbVTdm+73nUAMLnSHRTpI4mDMwGkt4/DsHGWii5AGdf
+	yOuRljqU1Xy917i7fCrxkbLpLnF4QDUHk+isUWDllmMD1paphKKxqZIMCZcJAeBZHDTsqQ2tvEJ
+	PDi7kc5C78Rf2Nsya44DZ6aEuliEl27PaOH8acWbcpAKSK+6tXHjapBMT/1eXA4Sb4FbqYy2Bpi
+	/IjniZ7CNmc+D7V6XVrI4FQ6OgJXdgzIQyWgkQ/kctCzeO6943j1ckxGcOsBmkRTZjSmpvmYL7x
+	yjc189GINGE4BRzUMxZsXFreLsmg
+X-Received: by 2002:a05:690c:60c6:b0:8b0:56e6:54ff with SMTP id 00721157ae682-8b0f20f2b8fmr6810397b3.6.1792202154647;
+        Fri, 16 Oct 2026 18:55:54 -0700 (PDT)
+Received: from localhost (108-93-236-139.lightspeed.chtnsc.sbcglobal.net. [108.93.236.139])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e590b586sm15829807b3.31.2026.10.16.18.55.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 18:55:53 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+Subject: [PATCH v2 0/5] alpha: perf register sampling and user stack dumps
+Date: Fri, 16 Oct 2026 21:55:46 -0400
+Message-Id: <20261016-alpha-perf-regs-v3-v2-0-17654742226a@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3_+IM1dJqNLmHAg--.49298S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuw15Xw4rCw17JF15Zr43Wrg_yoWxAr1DpF
-	W3KFy3J3yktryUWrWv9a1rWFy8Zr4DW3W7Wwnxt3ya9a15CryjqFyxtFWruF15ArZ7Ca42
-	vay5WFWYvrs8Aw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi_-B_UUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC-A7Hq2rS1Q4WzAAA3n
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NywrCQAxFf0WyNjJJaauu/A/pIoxpG+iLGRmU0
+ n93LC5dngP33BWiBtMI18MKQZNFm6cMfDyA72XqFO2RGdhxRc4RyrD0gouGFoN2EVOBtXJRurM
+ nLwx5uARt7bVH703m3uJzDu/9I9HX/nL0N5cIHapIxaUUl5r41o1iw8nPIzTbtn0A3qXslrQAA
+ AA=
+X-Change-ID: 20261001-alpha-perf-regs-v3-7e23508c1ca2
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+ Ian Rogers <irogers@google.com>, Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2600; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=amj26N7GBgNkKSic738dtOdhoZO7SxmjDL8PSryCbBM=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLIuXV10VlF/39zcEnabm29+TT3kMS/kx1KnuxE/ue+/q
+ VO/dvaiRMdHFgYxLoaZYooscesVWWa17Vjqc1r6F8wcViaQIdIiDQxAwMLAl5uYV2qkY6Rnqm2o
+ Zwhk6BjFQ+T0GDQyi4tLU4t00wqKHPLySxJLMvPzivXyC1LzCtIL9NIy00oyMvKLilOBRujlpZa
+ Yujq6GRkamFg6Wpg5WTiamjg7Oxk6uTk6Ors6GVmamxg4WzqauFqaM3BxCsBc8+sII8OBrdfP7X
+ Eqff9YNU3ZSX5F71HXXXLHn+imX3ir3Lk8a7cSw/+I9/9t113QsWAvmjDz/+8rwXUP++dvXz5n2
+ /tNtxWXsuczAwA=
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-ncsi_unregister_dev() releases every package (which releases every
-channel), unlinks the ncsi_dev_priv from the global ncsi_dev_list with
-list_del_rcu(), disables the configuration work and frees the device
-itself -- in that order.  Two defects:
+This lets perf sample registers and dump the user stack on alpha, which
+perf record --call-graph dwarf needs to unwind user space.
 
-  * kfree(ndp) runs immediately after list_del_rcu().  The netlink
-    reporting paths resolve the device through ncsi_dev_list
-    (ndp_from_ifindex()) and keep dereferencing it, starting with the
-    ndp->package_num check at the entry of ncsi_write_package_info(),
-    so a reader can be inside the freed allocation.
+r9-r15 are not in pt_regs, so they cannot be sampled. An unwinder
+therefore cannot get past a first frame that uses $15 as its frame
+pointer (-O0 code or alloca).
 
-  * The packages and channels are freed before
-    disable_work_sync(&ndp->work); the configuration worker
-    (ncsi_dev_work, including set_one_vid()/clear_one_vid()) can be
-    walking the very objects being freed, and the teardown has to
-    race it instead of quiescing it first.
+The perf tool side is a separate patch for perf-tools-next:
 
-  writer: rmmod ftgmac100 -> ftgmac100_remove() -> ncsi_unregister_dev()
-            -> ncsi_remove_package() ... -> kfree(ndp)
-  reader: sendmsg(NETLINK_GENERIC, NCSI_CMD_PKG_INFO)
-            -> ncsi_pkg_info_nl() -> ncsi_write_package_info()
+  https://lore.kernel.org/r/20261011-alpha-perf-tools-regs-v1-1-2a5940e22548@gmail.com
 
-Quiesce the work first, then release the packages, and defer the free
-of the ncsi_dev_priv with kfree_rcu().  A corollary of the old
-ordering: the ftgmac100 driver calls ncsi_stop_dev() right after
-ncsi_unregister_dev() and used to read the already freed device.
+libdw also needs alpha unwinding support, which I sent to
+elfutils-devel:
 
-Commit a0ffa68c70b3 ("net/ncsi: Disable the ncsi work before freeing
-the associated structure") already added a disable_work_sync() before
-the kfree(ndp), but its placement still releases the packages and
-channels first, so the worker can walk those while they are being
-freed, and it does nothing for the netlink readers.
+  https://inbox.sourceware.org/elfutils-devel/20261012-alpha-v1-0-46760216dfb7@gmail.com/
 
-Both defects are visible in KASAN.  The netlink reader, on the
-ndp->package_num entry check of ncsi_write_package_info() -- a read of
-size 4 at ndp+160; struct ncsi_dev_priv is 17700 bytes on arm32, hence
-kmalloc-32k:
-
-  BUG: KASAN: use-after-free in ncsi_write_package_info+0xf50/0xf84
-  Read of size 4 at addr c9f100a0 by task poc_dump/62
-  Call trace:
-   ...
-   kasan_report from ncsi_write_package_info+0xf50/0xf84
-   ncsi_write_package_info from ncsi_pkg_info_nl+0x320/0x63c
-   ncsi_pkg_info_nl from genl_family_rcv_msg_doit+0x218/0x2d8
-   genl_family_rcv_msg_doit from genl_rcv_msg+0x578/0xb24
-   genl_rcv_msg from netlink_rcv_skb+0x134/0x3c4
-   netlink_rcv_skb from genl_rcv+0x24/0x34
-   genl_rcv from netlink_unicast+0x884/0xac0
-   netlink_unicast from netlink_sendmsg+0x62c/0xb98
-   netlink_sendmsg from __sys_sendto+0x290/0x3e0
-   __sys_sendto from sys_send+0x18/0x20
-   sys_send from ret_fast_syscall+0x0/0x5c
-  The buggy address belongs to the physical page:
-
-(a page-level report: the freed pages had already been returned to the
-buddy allocator, so no cache or object lines are printed).  The same
-reader site also surfaces once the page has been recycled into another
-cache -- the same free at a different stage of the page lifecycle:
-
-  BUG: KASAN: slab-out-of-bounds in ncsi_write_package_info+0xf50/0xf84
-  Read of size 4 at addr c9d700a0 by task poc_dump/70
-  Call trace:
-   ...
-   kasan_report from ncsi_write_package_info+0xf50/0xf84
-   ncsi_write_package_info from ncsi_pkg_info_nl+0x320/0x63c
-   ...
-   netlink_unicast from netlink_sendmsg+0x62c/0xb98
-  The buggy address belongs to the object at c9d70000
-   which belongs to the cache kmalloc-8k of size 8192
-  The buggy address is located 160 bytes inside of
-   allocated 8192-byte region [c9d70000, c9d72000)
-
-And the corollary, in the rmmod task itself -- its stack documents the
-very ordering this patch changes (ncsi_unregister_dev() has already
-freed the device when unregister_netdev() closes it):
-
-  BUG: KASAN: use-after-free in ncsi_stop_dev+0x398/0x3a0
-  Read of size 4 at addr c9d480a8 by task poc_dump/55
-  Call trace:
-   ...
-   kasan_report from ncsi_stop_dev+0x398/0x3a0
-   ncsi_stop_dev from ftgmac100_stop+0x2dc/0x364 [ftgmac100]
-   ftgmac100_stop [ftgmac100] from __dev_close_many+0x2d8/0x57c
-   __dev_close_many from netif_close_many+0x264/0x5a4
-   netif_close_many from unregister_netdevice_many_notify+0x87c/0x1f0c
-   unregister_netdevice_many_notify from
-    unregister_netdevice_queue+0x290/0x328
-   unregister_netdevice_queue from unregister_netdev+0x18/0x68
-   unregister_netdev from ftgmac100_remove+0x74/0x9c [ftgmac100]
-   ftgmac100_remove [ftgmac100] from
-    device_release_driver_internal+0x41c/0x5e0
-   ...
-   bus_remove_driver from sys_delete_module+0x308/0x438
-   sys_delete_module from ret_fast_syscall+0x0/0x5c
-
-Tested on an arm multi_v7 kernel (KASAN + SLUB + PREEMPT) running as a
-QEMU ast2600-evb guest with a host-side NC-SI responder; with the
-series applied the same rmmod hammering completes without KASAN
-reports.
-
-Found during a static-analysis-assisted audit: candidate sites were
-surfaced by a Coccinelle rule, and the reader/writer paths were
-confirmed by LLM-assisted (GLM-5.3) code inspection.
-
-Fixes: 2d283bdd079c ("net/ncsi: Resource management")
-Signed-off-by: Binbin Deng <18983559317@163.com>
 ---
- net/ncsi/internal.h    | 1 +
- net/ncsi/ncsi-manage.c | 9 ++++++---
- 2 files changed, 7 insertions(+), 3 deletions(-)
+Changes in v2:
+- Patch 4: report sp as 0 for software event samples, whose pt_regs is
+  a per-CPU buffer rather than a trap frame (Magnus).
+- New patch 5: fill in pc for those samples via
+  perf_arch_fetch_caller_regs() (Magnus).
+- Collect trailers. Magnus's Tested-by on patch 4 dropped until he
+  retests the change.
+- Link the perf and elfutils postings.
+- Link to v1: https://lore.kernel.org/r/20261011-alpha-perf-regs-v3-v1-0-eaa625a39712@gmail.com
 
-diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-index adee6dcabdc3..5d315768409a 100644
---- a/net/ncsi/internal.h
-+++ b/net/ncsi/internal.h
-@@ -316,6 +316,7 @@ struct vlan_vid {
- 
- struct ncsi_dev_priv {
- 	struct ncsi_dev     ndev;            /* Associated NCSI device     */
-+	struct rcu_head     rcu;             /* Deferred free (kfree_rcu)  */
- 	unsigned int        flags;           /* NCSI device flags          */
- #define NCSI_DEV_PROBED		1            /* Finalized NCSI topology    */
- #define NCSI_DEV_HWA		2            /* Enabled HW arbitration     */
-diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index 54d0df0a9efe..35e9dd85e044 100644
---- a/net/ncsi/ncsi-manage.c
-+++ b/net/ncsi/ncsi-manage.c
-@@ -1960,6 +1960,11 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
- 
- 	dev_remove_pack(&ndp->ptype);
- 
-+	/* Quiesce the configuration worker before releasing the packages
-+	 * and channels it walks.
-+	 */
-+	disable_work_sync(&ndp->work);
-+
- 	list_for_each_entry_safe(np, tmp, &ndp->packages, node)
- 		ncsi_remove_package(np);
- 
-@@ -1967,8 +1972,6 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
- 	list_del_rcu(&ndp->node);
- 	spin_unlock_irqrestore(&ncsi_dev_lock, flags);
- 
--	disable_work_sync(&ndp->work);
--
--	kfree(ndp);
-+	kfree_rcu(ndp, rcu);
- }
- EXPORT_SYMBOL_GPL(ncsi_unregister_dev);
+---
+Matt Turner (5):
+      alpha: fix stale user_stack_pointer()
+      alpha: stop storing the user stack pointer in pt_regs
+      alpha: use user_stack_pointer() in KSTK_ESP() and dump_elf_thread()
+      alpha: add HAVE_PERF_REGS and HAVE_PERF_USER_STACK_DUMP support
+      alpha: fill in pc for software event samples
+
+ .../features/perf/perf-regs/arch-support.txt       |  2 +-
+ .../features/perf/perf-stackdump/arch-support.txt  |  2 +-
+ arch/alpha/Kconfig                                 |  2 +
+ arch/alpha/include/asm/perf_event.h                |  7 +++
+ arch/alpha/include/asm/processor.h                 |  3 +-
+ arch/alpha/include/asm/ptrace.h                    |  7 +--
+ arch/alpha/include/uapi/asm/perf_regs.h            | 45 +++++++++++++++
+ arch/alpha/include/uapi/asm/ptrace.h               |  2 +-
+ arch/alpha/kernel/Makefile                         |  1 +
+ arch/alpha/kernel/asm-offsets.c                    |  1 -
+ arch/alpha/kernel/entry.S                          |  5 --
+ arch/alpha/kernel/perf_regs.c                      | 64 ++++++++++++++++++++++
+ arch/alpha/kernel/process.c                        |  2 +-
+ arch/alpha/kernel/ptrace.c                         | 12 ++++
+ arch/alpha/kernel/traps.c                          |  8 ---
+ 15 files changed, 137 insertions(+), 26 deletions(-)
+---
+base-commit: 8f5dbfb93440d1aba216a1a34369a65654b94be9
+change-id: 20261001-alpha-perf-regs-v3-7e23508c1ca2
+
+Best regards,
 -- 
-2.43.0
+Matt Turner <mattst88@gmail.com>
 
