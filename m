@@ -1,161 +1,197 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BFA2422523
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:03:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B285247DD7C
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:03:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792235007; cv=none; b=Nx8xcD8efP2EzCb5/UipEgRMaixUkibgLVS6NFYo9viaXlUSxjJUcDcQmHhvU6nKSknDkqv035lFzIi/ObbOaUa6AaXgrUJIh4Eji8kPfKUEBzSTm3J5iFPRN6lSvpLcdhRP+z1n8KDCqynBL2SAZj3CgRt1FyJ2SMjXeEvTDwc=
+	t=1792235013; cv=none; b=Jm4qckDbqG2+qVNrqrxBW58b4uYjRbeIYoQUDu2rChxvqjWasd/cFmjWQsFPpxUYLznqpB/X/YjNxibRdz6Y807IhbDGWBNJbXLoUP1csRqRrK/VHndVjc/H5e3APUDtp2MAXoTbTQOrqSvIgE+ielTUeFO4nDLySdaXExeAshU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792235007; c=relaxed/simple;
-	bh=ZfdFL+mOgr8C5/Q5zBQQ/lVzqfgyNXnS/9dewaQPMiQ=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=g4BScsd8Y9FF19d33phGax5Alt5ukU+znJbu3PETQsYUvdhtJyD4row6ZI4GAQZAUpoMwvfzUsjeTUGGsQCAwIb++dFUJMCQMjrud5L0MzqpPLHvyqQbw93UuHMBuuJJyz3bj+2X9dvkz40iDTxfOy9msqc4MJXeZCoLJqTDi2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=J//3iF0n; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=j57Plmlr; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792235013; c=relaxed/simple;
+	bh=7GJpk+Zm7RfMxIWiA/UAYftsuVNurXh/QNUDx1LsL7I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=b5Q8v6/x+mm4ePC/6wH8cLLBBzQNs8wkDB2+hQCxPciKRqo9WAGX57OwbehYp4YprOf3IFX5gcxTqsDHgE6tDHy2UmGttjL++GWm7t5DnQEpw6yt/pQhpiqFTXTWr8kUcgh+qEV5MpsjF8/LQXhMx8ne7QjCoNpK2KxjGMRL9VA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=USj/93rV; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="J//3iF0n";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="j57Plmlr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792235004;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZfdFL+mOgr8C5/Q5zBQQ/lVzqfgyNXnS/9dewaQPMiQ=;
-	b=J//3iF0nV13EUIFq5okm+YDq7cami6UbGto+t2jg0VaHeSz91qrC4mHwRNHJEbe9bK+Rqq
-	B7ye/1EUphAJ0k451gJjOnRvpo7TuDhZbZvgSTj/XZrWJ+i7Kx8rFiTip0OLkZVayBcHTT
-	0q/6xz3iV2OvUNj6rqPOJkAZcOVysu0=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-413-9Gvu65OUNymOT6aOP4BcGg-1; Sat, 17 Oct 2026 11:03:23 +0000
-X-MC-Unique: 9Gvu65OUNymOT6aOP4BcGg-1
-X-Mimecast-MFC-AGG-ID: 9Gvu65OUNymOT6aOP4BcGg_1792235002
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-487038bc9b8so414054f8f.2
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:03:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="USj/93rV"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e5378b281aso2896915ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:03:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792235002; x=1792839802; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZfdFL+mOgr8C5/Q5zBQQ/lVzqfgyNXnS/9dewaQPMiQ=;
-        b=j57Plmlrj5Dex8EbJmEMzgHh3/3Ui59HX5d0utzFWQmIdMSoCwNW8IUekstQ82J9Qk
-         /7BW/UyuUv1I1LvotQOdCly9TjqoOrr4F1qvbJjPBJodI83dyINHdkQW50un/YzrP30g
-         ZjhcgMb2Guf0Red0rBAXyTg7OFfdKRYIxTWyLVr0e1yCVwJR0OJJ2ojNx4Px8NVtl1Yf
-         yIy4iyL/g3RDIXaYeFElS0H4Ou2SMmkunW+IwEKznOeHNr48neWv0gguswwmhPOoQEyz
-         gDRpObvs8GQS9y/X1rh8S41YQ+Mj7GGDM0ZmoYJS+ycxGd777vqf75zKkEspCiQLy7Gz
-         NAEg==
+        d=gmail.com; s=20251104; t=1792235012; x=1792839812; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Tf4fy3DAykjNBLlmTR7a2o12P+Rb24NlY7yvH7wOMkE=;
+        b=USj/93rVMZ7kMj/UgK8nl+8jzPWsmEaGOUYt0f2cZoNZ1EM2s0ybq5ydIlaZfOhRCK
+         VecqvOHi7U0mAJ7m3LTuMngG4Lm/Q3H79Ubkf5SulOLs/tM54dWwHOjVOMZ9DtuBaJ2I
+         WyThx+84LCg/d2c2hL8iS1XSw3c71q0TwYtE425zxQjlvNuK33YXqWFPyeCFdfBC0FXu
+         MKP4NLnL90laYp7AbosLBtDuSdsRyJeRI1PtJOs3nVqKbUHhIlwAgVtvZR5qnf76w3b8
+         sgQjwqrQdQ5elToLA7JJGLz1bwopr5gQNZ7QOaDGZLy4GAyERzrA2J75n1RRUnUizID6
+         wC2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792235002; x=1792839802;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZfdFL+mOgr8C5/Q5zBQQ/lVzqfgyNXnS/9dewaQPMiQ=;
-        b=p3l9Jf/LYp+jlcRETIDBfrUlaxgl/gzRYRcxF5oy9SIGEnEX+hJKOK6QJwd3VY5rAK
-         y+jndqKjFRl/s328TzpVQPTx8R/7Jj8OgQe/dqfH42HtOxT6WYiy7pTiHt7zAqfYuYwB
-         aGQBF5ghZaCcGr72BZBRFnAxeoTAChjp6rcJd0Prub11XRGi/OIrof7jur6eL1rY5pLY
-         7CPVjFcIOC9EwDUZJO+3f2OXQBVJY+29OU/hMQe6wYIFrxgSFh2MHZcM01pF6tNeYSAi
-         kObJn3C9LKtqhoZ77j2zw9/OmjHSxao7raO1PeydDQ3GBcu1nco03UWx/5WtCs6KmK9/
-         JxwA==
-X-Forwarded-Encrypted: i=1; AKwUvBz8O3b8QPU+T3MiQQkbJycXloVn1crrydniINJW3uaaVJlAhq6ccRt/bgHuzxyh9Viw7+iOS6ZbmT3F5rM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfaJr6pvzfNMjjIX1lab6Iw99OXiDL2w+JWn+PKLnHBY/fFDuw
-	rqe9pOEs2i8Ojrc3/TEe7DLKPbn+NT3lZ34Z3D0iWEH52wBhrSBCWM8a7xfY7DZfypsVo8qRilv
-	ABLV3nMIEQlgQmtzeNC5TzaeIUFYhTSOve5JKSLmx1VC8M4HI18bTpOq5P1oTZc56FA==
-X-Gm-Gg: AYBFou1fp5oa6sESHPYissZPJDxGJm+RRuUE+KhVZaq/jlaozU8DcAKD9SdS4Rjo0XF
-	KiXQoJeuSUxctqqc28ftPlbkY2tO4a9GuDtu88blbzz71/o9voHzx9j5nBtQABvgppStVK75ECA
-	4NMusZqay30Z89N9L5esd6WhFvpBieIGdCxI27Bo+va3xzo0Z9zeuFlREwCOl7nL60jufMaTBH3
-	Mw9yWMnH8/ofucDgy5KyqhGc7gHXeqaEc66ec5h2qND1OwqnbUmjj/oYe5ncuIQAjNMmzQMtGGL
-	CDF+F/ObelbFV5TDF+w5U6raZQ+e7FYMznJ1Y9bO9D1dfKyIHJXbqIU84PDxfC29BRJ5qjCxVx9
-	5Q8s0a0eA
-X-Received: by 2002:a05:600c:a4b:b0:4a0:eae0:b30e with SMTP id 5b1f17b1804b1-4a1d7604051mr52205185e9.22.1792235002053;
-        Sat, 17 Oct 2026 04:03:22 -0700 (PDT)
-X-Received: by 2002:a05:600c:a4b:b0:4a0:eae0:b30e with SMTP id 5b1f17b1804b1-4a1d7604051mr52204745e9.22.1792235001686;
-        Sat, 17 Oct 2026 04:03:21 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([195.174.135.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4feb6bsm11345521f8f.41.2026.10.17.04.03.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 17 Oct 2026 04:03:21 -0700 (PDT)
-Date: Sat, 17 Oct 2026 10:48:30 +0000
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- bpf@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>
-CC: Nam Cao <namcao@linutronix.de>, Wen Yang <wen.yang@linux.dev>,
- Tobias Schaffner <tobias.schaffner@siemens.com>,
- Viktor Malik <vmalik@redhat.com>, John Ogness <john.ogness@linutronix.de>
-Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
-In-Reply-To: <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
-References: <20261001152042.124445-1-gmonaco@redhat.com> <20261001152042.124445-11-gmonaco@redhat.com> <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com> <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com> <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
-Message-ID: <5A1AB76E-E338-4B88-8FDD-947BA0C5A294@redhat.com>
+        d=1e100.net; s=20260707; t=1792235012; x=1792839812;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Tf4fy3DAykjNBLlmTR7a2o12P+Rb24NlY7yvH7wOMkE=;
+        b=wZP+ekn+H1/K9ZGl34zhoTZp4xCXlXjAC81u5gnGizAZ5GfKFfSvFvs2oVbsNMW1BG
+         +07ntutYM7k3I5W2QzAAdfDhNiqWm23ChabSBcoJr5YoEoeP5svSCz6wlDVOL2KKWz1v
+         31+isHrsWU8DfcuCQgCkhQqicNC13orSpnpLoxIneSRcytNuH57k6ptM8QFGhKOPul0k
+         C40uBjeMUH9UgWIUV9udX/F9XJFHWRfdjlPqao2Z8+d8qUslgrTN/7ShYXWSLlo2CkN9
+         gp+Ue03XLwN4/Nfu4/IL+LueoXGoTUe6pBZPojlcYSvsPOoxtYlDMq7nFeC8hAOcj6oW
+         fAUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxY+siSXtwtmOg7MQZAIVX4oz1yV8Hf/XQBB6Ulw9k982ZQW6MYUbZR5XFSYrc6lXydXFiXqvVjuyacQbc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9JURew4HbJ1ATUiyj2tv4/6HLdR8T6atjXBwlIus+7RgyYbA7
+	/AWQPXxrLGNeyOA+boiQqS85bojbPazskKh9EphYpW8oViwjGnuhhhV+
+X-Gm-Gg: AYBFou1URBQPT6sccJhzCIrTxmKXKW+gVEJptytNsQ7QLJwviklsIcei6VSfyxhyYrB
+	UmXjaew2UNz1miaacQkwBpGW01IIhWtgnX1cbsJsd8N47zwkzS2XmwI8N90IhRSOIITbxx8WyJI
+	rLo8GEcgyw7uPy0AACw/WCl3ysXth7wSqgzPf1eiSwhU9AfEA7H9mtCiWVWgbhT9gLACBdxAI0q
+	DWDCDeJPjD6S9BYW+nkmCeaLXuc1gZtDfO7u336Om2ZD94Hjt2bMPExlmb/5VCEcICc6ArdFd7i
+	ghMCo+AJK7TiDkV5z2uLpO8gL6y5JMWvGqOp8Fh3mm7cfuGOjNMRcY0nDBN4Oxv/p8x0Fx+34GO
+	e+JjhDiZOUKaYQSB+YrYfLVX3y90J5OTgeeAWmjmrptNmgKqhAnKfPqeuVYuqwoYfL2oJbFJGTR
+	x6oR0m/Y6mfZAsYARU3YmPLL7PfKDq685BVSDZbjBqRBF1LFlHTPais7du98/ad1xUI87/NbupC
+	WLaBTdK98SNycjwQSqTDA==
+X-Received: by 2002:a17:902:e84c:b0:2e9:6b5b:3db6 with SMTP id d9443c01a7336-2e9a69e93d4mr22504755ad.30.1792235011936;
+        Sat, 17 Oct 2026 04:03:31 -0700 (PDT)
+Received: from x1c ([2405:9800:b670:b64b:7c65:ff3e:80ba:b06])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e804dd9sm20559955ad.16.2026.10.17.04.03.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 04:03:31 -0700 (PDT)
+From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>
+Cc: Shuah Khan <shuah@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	kvm-riscv@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel-mentees@lists.linux.dev,
+	skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	jkoolstra@xs4all.nl,
+	Tharit Tangkijwanichakul <tharitt97@gmail.com>
+Subject: [PATCH 5/5] KVM: selftests: Test protection of the ucall MMIO region
+Date: Sat, 17 Oct 2026 18:02:13 +0700
+Message-ID: <20261017110213.46199-6-tharitt97@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261017110213.46199-1-tharitt97@gmail.com>
+References: <20261017110213.46199-1-tharitt97@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
+Verify that creating a memslot overlapping the ucall MMIO region
+fails with EEXIST and that ucalls work before and after the
+attempt. Skip when MMIO ucalls or read-only memory are unsupported.
 
+Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+---
+ tools/testing/selftests/kvm/Makefile.kvm      |  1 +
+ .../selftests/kvm/reserved_slot_test.c        | 61 +++++++++++++++++++
+ 2 files changed, 62 insertions(+)
+ create mode 100644 tools/testing/selftests/kvm/reserved_slot_test.c
 
-Il 16 ottobre 2026 18:32:44 UTC, Alexei Starovoitov <alexei=2Estarovoitov@=
-gmail=2Ecom> ha scritto:
->On Thu, Oct 08, 2026 at 11:54 AM Gabriele Monaco <gmonaco@redhat=2Ecom> w=
-rote:
->> Reactors in this patch use bpf_printk(), which is in fact a trace_print=
-k()
->> instead of a real printk, is there a technical limitation forbidding us=
- to
->> create a kfunc using some flavour of printk_deferred()? Or am I missing=
- an
->> existing one? (this need was brought up by John, Cc'd here)
->
->No technical limitation, and there is no such kfunc today=2E
->printk_deferred() is a lockless store into the ring buffer plus irq_work=
-=2E
->It's ok in any context where tracing progs run=2E
->The closest we have is bpf_stream_vprintk()=2E That's stdout/stderr of
->the prog=2E User space has to read it=2E
->rv tool is around for as long as the monitor is loaded, so it can read
->the stream and log it anywhere like /dev/kmsg=2E
->If the message has to reach the console when user space cannot run
->then the kfunc makes sense, but using bpf_stream is imo much cleaner=2E
->
-
-Thanks for the answer, I'd expect a mildly higher overhead in doing that, =
-but since it's only on violations we can probably accept it=2E
-
-I'm going to have a look at that=2E User space should be able to run for a=
-t least most models, I'd say, but I'm not sure how fast it can pick up=2E
-
->> Not needed in this patch but potentially required for more complex moni=
-tors=2E In
->> kernel, when timers are required, we allow monitors to use hrtimers (pr=
-ecise but
->> heavy), or the timer_wheel (lightweight but less precise)=2E
->> I'm not aware of any wrapper of the wheel in BPF, but I think a few kfu=
-ncs for
->> these could be useful, in general, also for other programs needing a lo=
-t of
->> timer instances or simply light timeouts=2E
->> What do you think?
->
->I don't think it's needed=2E
->bpf_timer is hrtimer only, but hrtimer vs wheel is not where the cost is=
-=2E
->bpf_timer_start() cannot call hrtimer_start() directly=2E
->bpf_async_schedule_op() does kmalloc_nolock()
->and irq_work_queue() instead=2E
->I don't think timer wheel will help=2E
->
-
-Alright, I'm going to keep that in mind once I get to work with timed auto=
-mata=2E
-
-Thanks,
-Gabriele
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 1f4bc2a1322d..ff4a5e9733e9 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -68,6 +68,7 @@ TEST_GEN_PROGS_COMMON += set_memory_region_test
+ TEST_GEN_PROGS_COMMON += memslot_modification_stress_test
+ TEST_GEN_PROGS_COMMON += memslot_perf_test
+ TEST_GEN_PROGS_COMMON += vm_types_test
++TEST_GEN_PROGS_COMMON += reserved_slot_test
+ 
+ # Compiled test targets
+ TEST_GEN_PROGS_x86 = $(TEST_GEN_PROGS_COMMON)
+diff --git a/tools/testing/selftests/kvm/reserved_slot_test.c b/tools/testing/selftests/kvm/reserved_slot_test.c
+new file mode 100644
+index 000000000000..4a908017ca73
+--- /dev/null
++++ b/tools/testing/selftests/kvm/reserved_slot_test.c
+@@ -0,0 +1,61 @@
++// SPDX-License-Identifier: GPL-2.0
++#include "kvm_util.h"
++#include "processor.h"
++#include "test_util.h"
++
++#define CLOBBERED_SLOT		TEST_MEM_SLOT_BASE
++
++static void guest_code(void)
++{
++	GUEST_SYNC(1);
++	GUEST_SYNC(2);
++}
++
++static void test_slot1_protected(void)
++{
++	struct kvm_vcpu *vcpu;
++	struct kvm_run *run;
++	struct kvm_vm *vm;
++	struct ucall uc;
++	u32 nr_pages;
++	size_t slot_size;
++	void *slot_mem;
++	int ret;
++
++	vm = vm_create_with_one_vcpu(&vcpu, guest_code);
++	nr_pages = vm_adjust_num_guest_pages(vm->mode, 1);
++	slot_size = (size_t)nr_pages * vm->page_size;
++
++	run = vcpu->run;
++	vcpu_run(vcpu);
++	TEST_ASSERT(run->exit_reason == KVM_EXIT_MMIO,
++		    "Unexpected exit reason = %u", run->exit_reason);
++	TEST_ASSERT(get_ucall(vcpu, &uc) == UCALL_SYNC && uc.args[1] == 1,
++		    "Expected the first sync before clobbering the ucall GPA");
++
++	slot_mem = kvm_mmap(slot_size, PROT_READ | PROT_WRITE,
++			    MAP_PRIVATE | MAP_ANONYMOUS, -1);
++	ret = __vm_set_user_memory_region2(vm, CLOBBERED_SLOT, 0,
++					   vm->ucall_mmio_addr, slot_size, slot_mem, 0, 0);
++	TEST_ASSERT(ret == -1 && errno == EEXIST,
++		    "Expected the ucall GPA overlap to be rejected: ret=%d errno=%d",
++		    ret, errno);
++
++	vcpu_run(vcpu);
++	TEST_ASSERT(run->exit_reason == KVM_EXIT_MMIO,
++		    "Unexpected exit reason = %u", run->exit_reason);
++	TEST_ASSERT(get_ucall(vcpu, &uc) == UCALL_SYNC && uc.args[1] == 2,
++		    "Expected the second sync after attempting to clobber the ucall GPA");
++
++	kvm_vm_free(vm);
++	TEST_ASSERT(!munmap(slot_mem, slot_size), "munmap() failed, errno=%d", errno);
++}
++
++int main(void)
++{
++	TEST_REQUIRE(UCALL_EXIT_REASON == KVM_EXIT_MMIO);
++	TEST_REQUIRE(kvm_has_cap(KVM_CAP_READONLY_MEM));
++
++	test_slot1_protected();
++	return 0;
++}
+-- 
+2.53.0
 
