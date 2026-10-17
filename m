@@ -1,80 +1,148 @@
-Received: from 1.mo575.mail-out.ovh.net (1.mo575.mail-out.ovh.net [46.105.41.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0127E39447C
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:56:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.41.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03AC033F8B2
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:57:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792252587; cv=none; b=uVDwAAbu2Kl9TQ8CAK2qqZkKrFnFB3tlQaZwYKwhLLcNVNbEz3uHfO5qLQRECEQ2F+yvJliVaLr/E9LXJPTzDjN5LjkdL69N0dEONfykUm1SeirpViMLIEGCB/Q97Ag/sM0WpI+0yivqCGvUF76/USX5xg/57Qi/kqbUf+VvTxo=
+	t=1792252648; cv=none; b=ai3N1y5dp74TjG1eFiw7X88iDGw0x97NqFGE8dwFBRbdJciUrFwigGez5TyLNqejxKMyCp4ZAemlP3Pvrnzks/RwmOY7Mw3bKHfJ+JKpoOmaHrktU9VFBT6ORj+RR3dQ0drJ1GlYcjaGGLBHAqp4UwVNEDElvzc8aUzuHqZds68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792252587; c=relaxed/simple;
-	bh=uCQaig9rEgF3+aw2tds27Jcd3vh04Y8p7BFJnWSwwpQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H0dKAVK6YM38wKXLpSdNfQiYZWOLbd4CvOBX440HJIOdhWfKrLIV85ExyQHv8B6ldzdt6sGPrwpx9rVCGRZVrQ19uhTiP9YAMY/8CuJdohok6leiXw6RPOJXiopkCTcQrDu8q2pcOtJUW15e8aoBuexeT/O1XjOclzG+zeXbRwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com; spf=pass smtp.mailfrom=cynove.com; dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b=XUZFJnG1; arc=none smtp.client-ip=46.105.41.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cynove.com
+	s=arc-20240116; t=1792252648; c=relaxed/simple;
+	bh=buDbH2F3njrRXDQ6sKsXG1aceZOpDv/n8vQhTMP7H5I=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=ESIHimfKpvyaabiGAoR8jAke9BWr4wuLVs7Evb/TjOV/0ZpIPoK2qnNNd5NsUff1vcPv3PMD/iZNbCkN8KlxJaW2Cz9f52n7VA5z7eFLwa0Vq7xkpzCJoz+S2cAUxWMnzcw4K9N1SaRW9HoWMDf1twUSkHNny/wO0cPB473vrGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zr3Zdkoy; arc=none smtp.client-ip=209.85.217.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b="XUZFJnG1"
-Received: from director11.ghost.mail-out.ovh.net (unknown [10.110.58.15])
-	by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4j6Qw33Sxnz5vZv
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:39:15 +0000 (UTC)
-Received: from ghost-submission-7ccd8bbbb6-lmllg (unknown [10.110.54.2])
-	by director11.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 066D5C2921;
-	Sat, 17 Oct 2026 15:39:13 +0000 (UTC)
-Received: from cynove.com ([37.59.142.106])
-	by ghost-submission-7ccd8bbbb6-lmllg with ESMTPSA
-	id cwkeN6GW02rJaAQA3SBaag
-	(envelope-from <stephane.debusne@cynove.com>); Sat, 17 Oct 2026 15:39:13 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-106R00606d3a3a0-4c64-47ff-91af-fdab2a6dd61d,
-                    E277A82C44659F51833474C02B8FDD9281845D64) smtp.auth=Stephane.Debusne@cynove.com
-X-OVh-ClientIp:176.150.47.247
-From: Stephane Debusne <stephane.debusne@cynove.com>
-To: changwei.zou@canonical.com
-Cc: herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	jeffbarnes@linux.microsoft.com,
-	lukas@wunner.de,
-	horia.geanta@nxp.com,
-	pankaj.gupta@nxp.com,
-	iuliana.prodan@nxp.com,
-	sahil.malhotra@nxp.com,
-	sahil.malhotra@oss.nxp.com,
-	martin.kepplinger-novakovic@ginzinger.com,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] crypto: caam - Use bounce buffer for unaligned RSA destination buffers
-Date: Sat, 17 Oct 2026 17:39:08 +0200
-Message-ID: <20261017153908.2813630-1-stephane.debusne@cynove.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261017102047.333792-1-changwei.zou@canonical.com>
-References: <20261017102047.333792-1-changwei.zou@canonical.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zr3Zdkoy"
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7cc0892f92cso236052137.3
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:57:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792252646; x=1792857446; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZlkplhADRs5o0g+DjBrPDoiSvTdMdtK+ibJQdYkg8KY=;
+        b=Zr3ZdkoyHecZwh9gUpewrKThHwH8ysmKyeqyvgOSByIDDBN6JXS490PYarmrSFxQO4
+         RRq9l/RBMCOsbvgI1F/V3xkP0HOyfn4LFY8lfsi6onaZySWQnQGY038y6yCdvz6+PrgX
+         migzCdGZYo25ItVsJk2ukvDMgEc/tqeb2OLsIl0FNdfsMzYK8r+spG0XM07Ow08H/8K6
+         KnSX+uOcI3WFhBOBZ2ddxjqwjHmiWmSAQFKhosrGdH5kK9ljinRypvNq1JDRJgTr65Q7
+         9lcFlvv/Bpy/jW8JeuKg6c1PGFo1XPcnUt9qmW/Qbitg29xmeRdSCPfUzs7QpZhS8hxj
+         byKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792252646; x=1792857446;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZlkplhADRs5o0g+DjBrPDoiSvTdMdtK+ibJQdYkg8KY=;
+        b=MiMjqiVl9GeRzvSj1Vgz4pjmjy+EGqI4tn9usvd5X0y1RgcF+FyDJZNf6uU6feXpCX
+         SnJGikyXL1vtjm45oIHg/CK1oKI0ZKz3SnX8pGkvle+oE0CQBVx0+1z05XjJyMN6/Mc9
+         0JXalVwqbcSngxnL56rbv8gz/GWZUyiT3XdvYUWsoTwkNavTs217yhPDdsQtw9DHHeNW
+         EBlhDdDGXvfGA7U61UA36RuyoEmotySP2EGoRMy+mcWnFNfWDQ3Ke5juiadlJ/3yd7Jq
+         xn4BPOJit4OxzfhUeT1XWDDDEY4/E8FFHZon36AxYWDE9x/FHnsweVBU8cqhvNli55nP
+         tS/g==
+X-Forwarded-Encrypted: i=1; AKwUvBxLQnaoS7sq45As2For3oYBTvJdDNClkEgvlfdfz3NwX4RC0yz0OhqQ8ON4j07adoMhdt2M9KQdq8mu2yk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJnb5SEVrLZ5n9Q8xPXd8Jg/DJcyu/VNaPM7ey07Lbj+L2uHXw
+	JZFG6UIbBdr71dGvGRd8zoM+EE8pbNPpUKuRSBWP+Md2pX8zZMuEZldn
+X-Gm-Gg: AYBFou1TP8fqlP0G/7ZNZke+t78OW0V+JcI2sFQ/oD8CYaHjGZx1ghQSV0ti5zx+CSd
+	0TlAD2uBNz3NArwiU0AY7g5636ZqjcRj1JZw/fHBJ64CVVrtvkL1PQgcJ9OE4enCsw51YVRopAT
+	IF3HpwmjDOLSMpG35wBwO5HrkkaAP9Ez+ZYVNh5NTJZPONsFIJ4EcdgMSf1I93zTkNNoDtoxxKI
+	dva2Q6UBU/ByK6iy03pUwT7/WZJWjLJ4vsOtq07Sg8oW3xp/dqER2qTqkjo2ALISdUfspcFyphU
+	7LipaELZL/e6PgkQAL73Yckr9Xd9Ozukiv5LrIXKBbMkiMKh5sk8h2ws7UX25FA0/i8ZQ4tjeVL
+	7l9kdGB8sHN4GcAj0D053lN6W4ZJ/WbEKGiR9OcpU2NwBZQt8etp/QJvtNpSx77/Y9IKvFxVHs9
+	2uReaQsc7CYrMS30lJiiNzWlrlFTW4zxGKDcc5WYmlVutpm3ip4XbYraPZKnCqodZiL7iP0cMaa
+	vrANklefVzie3z2UzYVH3c8NQAd8SBeEvKCSYvKU8UakL5gTuD/VmC0SNfZCMK1rj1QUkj7/rTq
+	FW2eFG4RrojDijpdX5ED1B2/BST0F0+Xb57GdQ==
+X-Received: by 2002:a05:6102:5488:b0:7cc:2086:34cc with SMTP id ada2fe7eead31-7cc369c0cd8mr778804137.16.1792252645798;
+        Sat, 17 Oct 2026 08:57:25 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990835f05c7sm4323730241.6.2026.10.17.08.57.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 08:57:25 -0700 (PDT)
+Date: Sat, 17 Oct 2026 11:57:24 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Boyan Liu <yymhvert@gmail.com>, 
+ Andrea Mayer <andrea.mayer@uniroma2.it>, 
+ David Ahern <dsahern@kernel.org>, 
+ "David S . Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ co+98d7de09cd94fec5@bugs.sh
+Message-ID: <willemdebruijn.kernel.3068e5bf74671@gmail.com>
+In-Reply-To: <20261017120144.3059-1-yymhvert@gmail.com>
+References: <20261017120144.3059-1-yymhvert@gmail.com>
+Subject: Re: [PATCH net v2] seg6: Fix unset mac header in SRv6 End.DT VRF
+ decapsulation
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 10854519530342570812
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: dmFkZTFItG+dckT/CYq7g4nK61jBfak3V94fQHIvYK7SXdxWl7LpwJIUCm5QByplztHFQNN/lG1XP4gSF0UmDfDjreJDWVsXPcz+oE+3K6XkuCtP1ZNd2QH3dAqaKohcBtkU7KVYj92bY/7wuf68ev2MoAsp6qszwIKgHCJXHAWAMwo/9DttfYFwmB5v6etLK42WAatG+S99/R+PtEOBO8Wq7FaXcvO4P6UBSsVzixbYtpoMvwuLv6GnxU10qry4rLndw70Aq2h6SCE4nC/K9MOOImziXmzaIzrdE8Siinyi+rLHKPbgKlbbcYbiJ5Rs8gYaJFnjJ+88n+oD0Ce+2NiE75RRSvayBj63c+383xmW5c2YyEO6lctyzn8lPCcLsOAUksljlCWYWmXK01kxhRYphvOOscu436SS88Lls01b3Z8Ynz/f1Cjy28iH/BTM4BxMEoQkwxyqctPFbLM1f6MuR/WYKq8+SGPOxl8+4/KXyTdzUG9tIjg728yKOwyjwdkYHZsqvzJkAcCuUnBiX8EPrsqhp6/7NdLQPkiksCFRhf4gKwYlai99WfDrVK8yAyfO+cvt0Wr6aEj7TOv4HY+kNWveP2EKyUZWcu2w1Gjz595/lo2ZRSkRCCgtp0XScW4Q5aI5hjk5t0mUUbaHO8DJb/KpydJmIP/2cQrjiUNqFKpUfA
-DKIM-Signature: a=rsa-sha256; bh=uCQaig9rEgF3+aw2tds27Jcd3vh04Y8p7BFJnWSwwpQ=;
- c=relaxed/relaxed; d=cynove.com; h=From; s=ovhmo4616632-selector1;
- t=1792251555; v=1;
- b=XUZFJnG18D9d+4WJNzrc1qn2b9kDLvEeP3UsI9saQPpSqXrGKh2HHaTOQrdc82ukEo9Xe+0D
- EOWhFaQM1/AMv2bkpNAlHorx8UfIBN3SdeNUuzwoEb9KcDMnSuPiQMdwtPq//s5fpD4NePIh9IJ
- poW8jjASlKPcRXzvbkfknbyZHAcPoQ5urGALOybEPQoLx5tRotMQld7UdgndjMZn+mAen/GLgVL
- ElSZbQ7YVPqabFonbck5H31FRs7TpAlIEfFOyEqP9UKz5H4CkigFgMHouQHWyxXctTL4Ze9cOdA
- cDZyQhH+CLnJfg8HOG6LUTkMAhRDJP9whNaP9IjNP8l/A==
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-Hi Changwei,
+Boyan Liu wrote:
+> SRv6 End.DT4/End.DT6 VRF decapsulation unsets the mac header in
+> end_dt_vrf_rcv() so that the VRF device can rebuild it for packet
+> sniffers. The VRF rx handler only performs the rebuild when a
+> sniffer is actually attached to the VRF device (ptype_all
+> non-empty); otherwise the packet continues up the stack with
+> mac_header == 0xffff.
+> 
+> Every other receive path delivers packets with a valid mac header:
+> NIC drivers set it in eth_type_trans(), and tunnels without an L2
+> header (ipip, sit, gre, tun) reset it to the network header after
+> decapsulation. skb_mac_header() even warns on the unset state with
+> DEBUG_NET_WARN_ON_ONCE().
+> 
+> If the decapsulated packet is an unexpected UDP GSO packet,
+> udp_queue_rcv_skb() re-segments it after restoring skb->data to the
+> mac header with __skb_push(skb, -skb_mac_offset(skb)). With the mac
+> header unset, skb_mac_offset() returns a large positive value,
+> which the unsigned __skb_push() argument turns into a huge length:
+> skb->data moves far outside the buffer and skb->len is corrupted,
+> so segmentation reads out of bounds:
+> 
+>     BUG: KASAN: slab-out-of-bounds in inet_gso_segment (net/ipv4/af_inet.c:1383)
+>     Read of size 1 at addr ffff88800da7ffff by task exploit/149
+>     Call Trace:
+>      inet_gso_segment (net/ipv4/af_inet.c:1383)
+>      skb_mac_gso_segment (net/core/gso.c:53)
+>      __skb_gso_segment (net/core/gso.c:124)
+>      udp_queue_rcv_skb (net/ipv4/udp.c:2476 net/ipv4/udp.c:2466)
+>      udp_unicast_rcv_skb (net/ipv4/udp.c:2620)
+>      ip_local_deliver (net/ipv4/ip_input.c:262)
+>      seg6_local_input_core (net/ipv6/seg6_local.c:1640)
+>      lwtunnel_input (net/core/lwtunnel.c:465)
+>      ipv6_rcv (net/ipv6/ip6_input.c:351)
+> 
+> Restore a valid mac header, pointing at the network header, once
+> the VRF rx handler returns. The sniffer rebuild happens inside the
+> handler while the header is still unset, so tap behavior is
+> unchanged; when no rebuild happened, the packet now carries the
+> same mac header state as any packet received on an L3 device.
+> 
+> Fixes: 664d6f86868b ("seg6: add support for the SRv6 End.DT4 behavior")
+> Cc: stable@vger.kernel.org
+> Reported-by: co+98d7de09cd94fec5@bugs.sh
+> Signed-off-by: Boyan Liu <yymhvert@gmail.com>
+> ---
+> v2:
+> - Move the fix from the UDP GSO path to seg6local.
+> - Restore the mac header after the VRF rx handler returns, preserving
+>   the VRF sniffer behavior.
+> - Verify the original reproducer, datagram delivery, and VRF sniffer
+>   output under QEMU.
+> v1: https://lore.kernel.org/netdev/20261010073015.7665-1-yymhvert@gmail.com/
 
-On Sat, Oct 17, 2026 at 09:20:47PM +1100, Changwei Zou wrote:
-> Therefore, I later switched to a driver-side solution.
-
-Thanks for the explanation and the links. I have asked Herbert to drop
-my series.
-
-Stephane
+Thanks. As discussed in v1, this sounds the better approach to me too.
+But it would be better to get the opinion of experts on VRF and SRv6.
