@@ -1,171 +1,168 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010013.outbound.protection.outlook.com [40.93.198.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCBFE1DFDA1
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 01:36:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792201007; cv=none; b=f67uRtNfHiuTvIZXgcnh9POHhiZYkeb55D7yLet5ZlHe3DTrCgLty7wWZvKbh4lp0aLJc1SxZvT0bYWT1cMpk/rQeTzvHicjdv7Uj6CV00yEDyT7JIHibIQOWHPs1dukf6HcEiw6gQSpVxtSZSxkCPMOhEpxLOi5uqXJGtqoGmg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792201007; c=relaxed/simple;
-	bh=wA/d1m64eiCKvLtGmRQj9FgppDSunaFyzHXVzWElm1U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XHYuH5l3NELGoZcySkYZ6FT/A/c3uqo0kKQIYLos7ujx2U6i0BVJkGKuyutNlC0SMYsnXjq0x2cxtZAFQ0tF5dp+4SCpYY6mLlGtiKo0PIT7WVwSXMeo4yTOT6K01jmMSEWh9kEnBfUOfvt81qO2PVd3jZwfZ3Yasrk8TqkDB4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xHtLe-00HJES-F9;
-	Fri, 16 Oct 2026 21:36:34 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>
-Cc: Alexandre Ghiti <alex@ghiti.fr>,
-	Andrew Waterman <andrew@sifive.com>,
-	linux-riscv@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] riscv: mm: Skip the icache flush for special PTEs
-Date: Fri, 16 Oct 2026 21:36:34 -0400
-Message-ID: <20261017013634.792220-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F191DFDA1;
+	Sat, 17 Oct 2026 01:37:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792201023; cv=fail; b=PHMvpwszofttWB03EY9ohrfUguBXmeWQsPnxuDvtKClORHzbC7mGk/TCRFD++zpgs4zkZ/qwBe1+1VMGlixTdTd3y0gVyInXnn0dQHXu11ftj3V+gQaFbDtBXb2809YreYQ/pECuI9NNel5IyglffFe/G2ewKGxW1xE3vku71dw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792201023; c=relaxed/simple;
+	bh=zdUzl98Luwh6DS1FlFM7U56QUmntxuFAo8I6NNloMTE=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=rAAAWop3jghr3iARfK7dqORFir/8eCppEq+t/L9azZZuxLwED1ebSniE5cMdv3Ww4XjPbLjUlQHILwAp+Rn4mmwWSDVh/eR0wIE4srbtPlsi8g7m2xyJw6fRkO0E63nlmPyfq3SRphhh6O9lk/sUT15jkxGLCE9YaRablrDh1YM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WOWmLTfJ; arc=fail smtp.client-ip=40.93.198.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WOWmLTfJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=g6Ab3nV7Ok0XH/YK6/R/Zn9hTfSQNiVKn5qcjAOiDNXndMPbJisopwN/8Sc7Uu5urjw37zRLx1eUYJPvN/nXeZf+ljyBeFi7Qrz18PJqTaM1Zd0XekqXh3KqLtrWVqKetEal02KRMdVx1FnP6Ayk47lSP76HNe/KLgZ+NJkOx5vVuQey79ZoJkJbNOcPhzQbNmdzLpYqKubIldpBiPoXeS07AylrtE7ief2lbjHEYSg0EMPrJCN1ytes0syYbuvD+2llWqxFKAzVRpqgdr6z3EWLmeeqZIDDXzmegfHvE3tMOvJf5Hc4/Lr9aYquSUS+JHL1qqUdDoeec4cpfuobQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uMQkXDjEQEMUoWqCSyi7yTea55+kgCAgyIlcGhjjiLQ=;
+ b=CaMr0kStAH8gc+R5E1YwwhdvGfzQXss10NSJSp6dZIMRVlUWAftZplD4ifKKs7273xLLwzbZb9QELcW0u84XAbLyZR43gYgP1KTmf4sVroygGNuhCnSSF2W4I7rYkks1B2Op9S491rjH0uFRBI2qjWwOm5qEJV+/V8rhf9UrpZI2i5EdaqrfANLlL/jGXFoAxjawZELctrWlcOU95aoTzeFkeaV3h9yvOpmzIQYeWeQnUEgq2T5la3MUsSlQSw14IHhJMToZbM7cPLwX5cj8n7Xg+lO9BDKCx0afP20SyU876dmm+AYHqVM3hC5K/rSHC/ONED5aoMh/y/dJSQedsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uMQkXDjEQEMUoWqCSyi7yTea55+kgCAgyIlcGhjjiLQ=;
+ b=WOWmLTfJe2qSV2JZwcrMGFZ1vkq3L6iilWxy+/CKTEO30Xvku2aeFjQ12H+ei6HKiochprkF/IQZKuhcGyVXuKW7yD43kl6PseEz46JZtzVHWnUNKOsIuha6J5oo3y4CC9YKFxfrOmUXyfw2GxYvRVdo0o3+HMYk0N0f/D8dycVvtwVZl9/4BmAhnGSTTC0ctRWr70CZ3hzcl82iOsxZdSCtfl3XysXMB2LI7cjyZh8dxgH8QbGDK9LU7jzSa/6cBFgbNtAth/pZgj7VGT0u5uzZ947Z0vNaSxB8LSzIL4+XqnyijHL7k2kJmIpZ+gIOpgPKMJKTkO2nv7347Y+EKA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by CH1PR12MB9624.namprd12.prod.outlook.com (2603:10b6:610:2b3::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Sat, 17 Oct
+ 2026 01:36:52 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0522.011; Sat, 17 Oct 2026
+ 01:36:52 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 17 Oct 2026 10:36:49 +0900
+Message-Id: <DM6Q8HOV2J6Z.19M92D448I2JQ@nvidia.com>
+Cc: "Deborah Brouwer" <deborah.brouwer@collabora.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v2 2/2] drm/tyr: allow userspace buffers to be
+ mismatched
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Alice Ryhl" <aliceryhl@google.com>
+References: <20261015-b4-dev_query_fixes-v2-0-e3e6d25050cb@collabora.com>
+ <20261015-b4-dev_query_fixes-v2-2-e3e6d25050cb@collabora.com>
+ <atHwZg245MM7l9Ty@google.com>
+In-Reply-To: <atHwZg245MM7l9Ty@google.com>
+X-ClientProxiedBy: TYCP286CA0030.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:263::20) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CH1PR12MB9624:EE_
+X-MS-Office365-Filtering-Correlation-Id: 647ed8e4-463e-48b8-a2ed-08df2bef1e9c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|10070799003|7416014|376014|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	9SWzmncpCHiCmLD8SxTQ+Il0XcW+7HcjKff2pJTNlD2P6MeWMU1QsOerLhtcromuujiOjkFXbFBK48vZOr4xq7zqFzetgddgH8CjKjmS58GmwBybf7SofGkoSwHlYxT00C/CJc0RH508OuZhey599/3SmydmrVVWgMrZj/wJfoS4c8xry620ORvJOhoZvcqQf0PBnighHDvmQS96lgF+dCZeSQRDj6qwbxd4/owSCPmeWhD4jjUvAmoHC+XoHVx3K0BVC2UxWuTVWqsRcrqdMimuZk1zEUENJwrTL+QICAXNlvqZiwvg1ZkfABCxqrjMCV6vRZScDsyzYlPMXi9Sj8gnzvlLRdUzUCx29zTwBNrscVkT9ZimmOoHgtxqW/sTwIhQxvUEMZDammM54QK9V9CiqzzVHkVg3GmFXeywxqyy3eGCLYNrbzi7r5iztJTrMEMtTLJviGI5agg3BFcdcQrcKeazv3O5WpnX2GUXHw7sizWfCWo6dNuqcxziiLwDlc/UqPcuH7zne9/WcKPjHidKAwpJkwvTia1wJhP6H8O+/5o2bBtoF2GzuuLNxtoQoHHFWaqObnN8fdfWhSrK6hfooZmkbySzOncyZXKY9HNrpITIiA0tquwtVsj30Mh3P/TJneRb8Op9slUCjaN8U6ohDKtQY4rBM/QNPyHqmgY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(10070799003)(7416014)(376014)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cER4NmlGTmZ5M0JvYkFLcld1UC9GR3Azb3ZCM2MzQ05UdlRjSkJlQ21EME1B?=
+ =?utf-8?B?MjBpU3IrU1Nuc0ZDVldMSWgwaEl0b01qR3dXL0ZnRHVNTzA3cm5uS09reXNX?=
+ =?utf-8?B?aUV1WUtMMngzWXlSSEhmeVFIWlpJZnlmbTM4WkRxUUN5MEkzUjk4c1ZnVFQ0?=
+ =?utf-8?B?dVhJYnNKczFMZ0VMbTFrNnF3N2RHMkoyZ2Z2SlBZTklraWRSMzR5RFdoR0Qy?=
+ =?utf-8?B?U0I4TTVqTjh1aytvNTNvWFp1RlYrZTg3QlNhbkhCODBpM2c3MkRwL04rcTd2?=
+ =?utf-8?B?aDN3aC93c08wdzV6Ui83amNUTWJBbDJCRlluNkZObk1oS3VRWnQ5VlhYTlZW?=
+ =?utf-8?B?djhUWk1FYzYzNjFONFFaMGRzRkpPM296UDRRaHNxOWc0eEQyTjNNN1pKRjVs?=
+ =?utf-8?B?UnV2R0J0bHVGUUx4a3EwbzcxdGZPcGpDdkVTb2kvQzd1YloxOXFvSkhiQlVr?=
+ =?utf-8?B?QWViQUVvOUFJSU95VFJEQ2UvaElOYWJIV0lRQ3NjMkNKRFRIV0R4NWQrajVr?=
+ =?utf-8?B?b1dZZXE1TzVYZ0M1RWNRZnNtSjhJS1JwWC9wZGJCNHI2YUhVM1BpaWVXL2ti?=
+ =?utf-8?B?L0l6Vnh6OVVLNVBLRE1ySGdSb1orMHZDcVhvUzRmTlR5ZVFZWk9id1ZndXFY?=
+ =?utf-8?B?VVBhRTV0Z2UvU0k3Mi9RVVN1eEdnQ2JaN3lObFhOcURoN09sT0h5SjNlV1Jn?=
+ =?utf-8?B?OXBETGhqLzd3ekVUR3FmdXd6N1VtR2xlVUIwTVRtSVdJRktqUzVYalFEbDRM?=
+ =?utf-8?B?ZWs5TGpNajQ2V1dlMGl6dE5jcENxTUtFRloxTUxtSEo2OVlLeXhENTYvcDVL?=
+ =?utf-8?B?MnVETk5kV0FObjErWWY1RVlGT0JPYkR0MU1UZldCWGJML0svY3VYaXRiYjVW?=
+ =?utf-8?B?MnhScGVZcnVNQnZ3Y3grOGJBU1ZnaFMzQ0d6SjkyeGl2azE0eEgwb3BobVRj?=
+ =?utf-8?B?dW1DdFRxRmt3U3pGQjZHbEJESyszTFNvTWRCOXd6TzNibDIvc2xVQW9xem1q?=
+ =?utf-8?B?UHBvWFRZdFY2QjhJYzJpTHBFTXhKUjZBd0g5UDJIdjMvZmJWKzFwWmdFeHUr?=
+ =?utf-8?B?ZXRqKzlkQjBBT0xVNWcyRFNrdkYyT05ybUt5dmZISFJjd0l0OFRtSEx6ZG5n?=
+ =?utf-8?B?dGYwcmFPOVZ6cGFCN2NGa2JvdG80Wm1Ud0wzMVg3T21rVzNoa0VQZjI1Qzcz?=
+ =?utf-8?B?MUlZTHhYemNwSTlTRmY2QkhUWTduczFabnQxWDlhMCttZ0R4ZStNTUtJTXJB?=
+ =?utf-8?B?WWIreHpUTGRFZFVPVUR4YllMTkhKMzBpMDFndjhPSjlyZFlaMElxSnQ4dUIz?=
+ =?utf-8?B?UWVNSTNhQXpiRzBUVHhCNDExejdOZCtOS1BEL3ZTT1NVRUVOU01kcU9uS2JE?=
+ =?utf-8?B?QlVRRnNjZlUrZVNvUHNadEIzN2xSSWplKzhxc0FUamxhK0ltT3I4NVp5Yzk3?=
+ =?utf-8?B?YVVBUjlNYzg5RUlhU0FEaUVCUU9HMTIyTEpZMnlMNVlTMHpOT1BxVUptUXgx?=
+ =?utf-8?B?WUJZVllnTUtweEgrSVZJWkd6dWRyNEIxRVBBckFzeTIyZFpKR1h1TWJxUXNx?=
+ =?utf-8?B?UEVyOWNVZTV4bER6ZmlRRlUzWVJwcUR5NzRTYUdHQ2VlNm1acFlneXZHSURF?=
+ =?utf-8?B?dVYrMzk5eGpkOTFOZ0dyV2dsdE5xZmZ4bm1Va0lDYWdJb2NuYWZhWDVDemhm?=
+ =?utf-8?B?aXJwdFo5SGpBTW5PTlQ2RWpudmJOL2NWRzJ6SFRGdG9QMmZLNlppTlRKZGVF?=
+ =?utf-8?B?cGdCMGRVOUVwRSsvTEt0Z3pQM3NpQlRGb2o4WThpdmN6OFFwUGZZSkZMOVZs?=
+ =?utf-8?B?TDV2RUhwcTFjdEtZUEd2OTliRWU5cWxxZkw4N1JVaXFZNTJ5bWlmazNtdzBT?=
+ =?utf-8?B?M2UzRUQrZzI5clBjNUlzR3BkNXIyN2thbFRxK3Y2NXBRd0pXbTEyelhaWGlE?=
+ =?utf-8?B?ampMbnduajZCbjlOTHI2VWhLQkVGSlYxV3h3YzQwY1dYUHBVVDNBYmdGYk1T?=
+ =?utf-8?B?aHZZLzRKeFRIY2hRZGhhb2RGNXFsdkF1U2E5b2FHaFgrV05jTDFOSDZDaENa?=
+ =?utf-8?B?NlZUOXZhY0dtd3h1MjFxYis4U3ZIbENCaWxxaHBwcmMzM1Q1Vm5IS0Fpd0xz?=
+ =?utf-8?B?SjV1d2twd3JjZ3g4OFVobWJYSHJTR2lWa1ViZHU0QlVQMEdldHNYcC8yS1Vj?=
+ =?utf-8?B?VmlrSHo3SkZBYlVDbTVHZTUrYUNPQnV1dVpsY1hXVE9RRVRlb2lHd1RkVHF3?=
+ =?utf-8?B?L28xNHhWTGlUdFVuTEc5WG9iNGZIMHhXLzA3RThKVWRJMU42ZG5OZlRLellZ?=
+ =?utf-8?B?Mm9BSXlxdldRWURLUXg1aTJhbW0xNEJBb0lzZktKckJ0UThtOEtBRjVZdjhE?=
+ =?utf-8?Q?6jPWFGovGYYSlinS0XTRhrwc1zesM5YAg5FOMSGKCWZ15?=
+X-MS-Exchange-AntiSpam-MessageData-1: Y1GfqIgfBrXIiA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 647ed8e4-463e-48b8-a2ed-08df2bef1e9c
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2026 01:36:52.2819
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zxTrW4l/+zMnvosB+jDbNNDglsbYF9dp3MKskthebOqnMLUr3jfDjxcg7Uk8z/uzweDRpKhfPR3zy0/yHntcsw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9624
 
-Mapping device memory executable crashes the kernel: an mmap() with
-PROT_EXEC of a physical range outside RAM, from /dev/mem, from a PCI
-BAR's sysfs resource file, from a frame buffer or from any driver whose
-mmap() uses remap_pfn_range(), io_remap_pfn_range() or vmf_insert_pfn(),
-oopses in flush_icache_pte() with the page table lock held; the task
-never completes its exit and its parent's wait() hangs. On QEMU virt
-with the riscv64 defconfig of v7.3-rc7, mapping the PCIe ECAM window
-from /dev/mem:
+On Fri Oct 16, 2026 at 6:37 PM JST, Alice Ryhl wrote:
+> On Thu, Oct 15, 2026 at 11:35:21AM -0700, Deborah Brouwer wrote:
+>> +// If the user buffer is at least the minimum required size, then
+>> +// copy as much of the kernel object as will fit into the user buffer.
+>> +// Don't fail if the user buffer is smaller than the kernel object.
+>> +// If the user buffer is bigger than needed, zero out the remainder.
+>> +fn set_uobj<T: AsBytes>(usr_dst: u64, size: u32, min_size: usize, src_o=
+bj: &T) -> Result {
+>> +    if (size as usize) < min_size {
+>> +        return Err(EINVAL);
+>
+> Use `kernel::num::casts::u32_as_usize` here.
+>
+>> +    }
+>> +
+>> +    let mut writer =3D UserSlice::new(UserPtr::from_addr(usr_dst as usi=
+ze), size as usize).writer();
+>
+> Avoid casting to usize twice.
+>
+> 	let size =3D kernel::num::casts::u32_as_usize(size);
 
-mmap(/dev/mem, phys 0x30000000, PROT_READ|PROT_EXEC, MAP_SHARED)
-Unable to handle kernel paging request at virtual address ff1c000000c00008
-Oops [#1]
-epc : flush_icache_pte+0x74/0xa0
- ra : do_remap_pfn_range+0x2b2/0x3ee
-...
-note: test[52] exited with preempt_count 2
-
-With CONFIG_FLATMEM (32-bit, or a 64-bit configuration without
-SPARSEMEM) nothing faults: pte_page() of a pfn outside RAM is a pointer
-outside mem_map, and flush_icache_pte() tests and sets a bit of whatever
-memory it lands on. The privilege needed is that of the device file
-(root for /dev/mem and the PCI resource files). Present since the port
-was merged (v4.15).
-
-__set_pte_at() calls flush_icache_pte() for every present executable
-PTE. flush_icache_pte() does the flush once per folio: it takes
-page_folio(pte_page(pte)) and tests and sets PG_dcache_clean. A special
-PTE (pte_mkspecial(), what remap_pfn_range() and vmf_insert_pfn() write
-into a VM_PFNMAP mapping) maps a frame the kernel does not manage as a
-page: there is no struct page behind it, so pte_page() returns a vmemmap
-address with no memory section, or with FLATMEM a pointer outside the
-array.
-
-Skip the flush for special PTEs, as arm64 does since
-commit 71fdb6bf61bf ("arm64: Do not synchronise I and D caches for
-special ptes"). These mappings are device memory or buffers the kernel
-never wrote code into on the user's behalf; a user that writes code
-into one and executes it has to flush with the cache flush system
-call, as for any memory it writes itself.
-
-Found while formally verifying remap_pte_range() against the kernel
-binary.
-
-Fixes: 08f051eda33b ("RISC-V: Flush I$ when making a dirty page executable")
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
-
-Notes:
-    Every pte_special() PTE goes through this path: remap_pfn_range() and
-    io_remap_pfn_range() (remap_pte_range() writes pte_mkspecial(pfn_pte())),
-    vmf_insert_pfn() (insert_pfn()), and the huge variants through
-    set_pmd_at()/set_pud_at(), which also land in __set_pte_at(). The
-    pte_special() bit is _PAGE_SPECIAL (RSW bit 8) on every riscv
-    configuration; ARCH_HAS_PTE_SPECIAL is selected unconditionally.
-    
-    Non-special PTEs are unchanged: anonymous, page cache and
-    vm_insert_page() mappings keep the per-folio flush. A RAM-backed
-    VM_PFNMAP mapping (dma_mmap_coherent() of an allocated buffer, /dev/mem
-    over RAM) loses the flush it used to get; nothing in the kernel writes
-    instructions into such a buffer for userspace to execute, and the
-    PG_dcache_clean state of those pages was never maintained for that use.
-    
-    Reproducer (QEMU virt, riscv64 defconfig, as /init with /dev/mem c 1 1
-    in the initramfs; the PCIe ECAM window is at 0x30000000, any non-RAM
-    range does):
-    
-      riscv64-linux-gnu-gcc -O2 -static -o test exec_mmio_mmap.c
-      qemu-system-riscv64 -M virt -cpu max -smp 2 -m 1G -nographic \
-          -bios /usr/share/qemu/opensbi-riscv64-generic-fw_dynamic.bin \
-          -kernel Image -initrd initramfs.cpio -append "console=ttyS0 rdinit=/init"
-    
-      unpatched: Unable to handle kernel paging request at virtual address
-                 ff1c000000c00008, epc : flush_icache_pte+0x74/0xa0,
-                 ra : do_remap_pfn_range+0x2b2/0x3ee; the task never exits
-      patched:   mapped at 0x7fffab55d000, first word 0x00081b36
-                 (the host bridge's vendor and device ID)
-    
-      #include <fcntl.h>
-      #include <stdint.h>
-      #include <stdio.h>
-      #include <stdlib.h>
-      #include <sys/mman.h>
-      #include <unistd.h>
-    
-      int main(int argc, char **argv)
-      {
-      	unsigned long phys = argc > 1 ? strtoul(argv[1], NULL, 0) : 0x30000000UL;
-      	volatile uint32_t *p;
-      	int fd;
-    
-      	fd = open("/dev/mem", O_RDONLY | O_SYNC);
-      	if (fd < 0) {
-      		perror("open /dev/mem");
-      		return 2;
-      	}
-      	printf("mmap(/dev/mem, phys 0x%lx, PROT_READ|PROT_EXEC, MAP_SHARED)\n", phys);
-      	fflush(stdout);
-      	p = mmap(NULL, 4096, PROT_READ | PROT_EXEC, MAP_SHARED, fd, phys);
-      	if (p == MAP_FAILED) {
-      		perror("mmap");
-      		return 2;
-      	}
-      	printf("mapped at %p, first word 0x%08x\n", p, p[0]);
-      	return 0;
-      }
-
- arch/riscv/include/asm/pgtable.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
-index 40b1ed4f3ea8..7a4d60ccabb0 100644
---- a/arch/riscv/include/asm/pgtable.h
-+++ b/arch/riscv/include/asm/pgtable.h
-@@ -628,7 +628,8 @@ void flush_icache_pte(struct mm_struct *mm, pte_t pte);
- 
- static inline void __set_pte_at(struct mm_struct *mm, pte_t *ptep, pte_t pteval)
- {
--	if (pte_present(pteval) && pte_exec(pteval))
-+	/* A special PTE has no struct page for flush_icache_pte() to track. */
-+	if (pte_present(pteval) && pte_exec(pteval) && !pte_special(pteval))
- 		flush_icache_pte(mm, pteval);
- 
- 	set_pte(ptep, pteval);
-
-base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
--- 
-2.53.0
+Or `usize::from_safe_cast(size)` after importing `FromSafeCast` -
+`u32_as_usize` is useful in const context, but for regular conversions
+the `FromSafeCast` trait looks slightly better.
 
