@@ -1,77 +1,74 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82BEB3AEF3F
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:17:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084843B2FD9
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:17:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792257451; cv=none; b=qck+2kuUCNjPQR3GY7hmr4S1wE+qZYDfIsWfc5ZIYk2zp7tUcrX0pjxDly1oLDbcDD0cNM5IkFSUsn6BNjxnYLglBl8SBebf9PbXDkr5Gar6/+hN5hrXU4gwpvcoZG1JQJJph+Gl8jTK6iXE+Ixq4IbpfNo44VkpXcE9THDeP18=
+	t=1792257470; cv=none; b=MTEDQYMSiLXRkP6b00i/262PeXBtY5yXP8HF6RD+xao19UvbWUOu8H4MucUjfvoz9LyCcugzpAwes1rdTuV4dqqsIxh/5pBETeehS6ANyY//xs0oHWPY7ktwkGlGKzlr45ERsTcwl4jxS5d44BGy3eASDhyBUaQm0AzeRAM9WUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792257451; c=relaxed/simple;
-	bh=+Xrjusm7uk8yi/68OHDDssqjCOfFWC3Jht37GD4VCAw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VwiDIFIQIymUbFK8qumZoFW8XVtUCObt8q9t0A5m318TAvTtz/CMZSbjuUf/jO3+TFRinn7YnhcaEJOXJJXSp1jlVWqoWx4oKBHN/qiu5m4aFkJGlW4FuwLefxmKrahnWJGSGlwQCn7m4vd3HCus9Tvxw6ikDKUbT5Yydcv5/NM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I6hDbvPA; arc=none smtp.client-ip=74.125.82.181
+	s=arc-20240116; t=1792257470; c=relaxed/simple;
+	bh=dzyiSRz4+xBFKPvndD/3jeiT3Eok+8jZG/7BgH78V4g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rUmBmB8XkUPtml9EweFwuaPcyWvPBlRs4MgUXEX6Q6ztL5rv7fypK6G2sdzNjoXJL0Sa6i6gR9V5Fp+cJ8l8DPQyiXloJu4Xwe+NZt7mA3exWPhpVWEMfLuFe6ZgEkHxphIeaMwFNBxbnisZZsB/4lqn27prrqcAfFZglePc66Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RsZLAZUI; arc=none smtp.client-ip=74.125.82.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I6hDbvPA"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3282db206d3so1167953eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 10:17:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RsZLAZUI"
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-15dd124bbe7so1656782c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 10:17:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792257449; x=1792862249; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792257468; x=1792862268; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jLfEr+NgE09LwZV7PAwpKfzwycgTPnmE1PsuHXjQM58=;
-        b=I6hDbvPAy9YM5uxPr4/G/QCX0YAn+nVzit22dP/1mvQh2i7Ve9KQC3ok/zgqSdBJhW
-         VZrT/IlJCyHaidfTbLwP4IEQUQoTdsJrSW9j2GsolyE0vDBKeohU4kpOH3VIDmL7bakc
-         asBJAXDwDQ8SULsjmEUintrbadjXeJd//1hrHvj+vkftTAhWYzRVpFSRUAfOLvSDGqRD
-         ndSOTUu368b7p1ytjhmyvVqor23gtBYXVmxpVExW3gB6iEbxPcc3LjjREfj2ua9kFB6Q
-         b5qWRca1ZxlIfDPqmgCcrLEmixMdNveNHImTf2O9a31YahVr73baV+/DVqjNgFfThTwv
-         luiw==
+        bh=hDa9JjAt9pCFlYhBjZKvcPCh0gjBULFSTkPmO/Bq8MA=;
+        b=RsZLAZUIZIrApSgGRfnsdNVG8OpGlLeYSzIZbQWm3bNTY2nKP1AFxZ/lr6D2FK7dZ2
+         0m2vKdD2obhIzuR1vREY0njveHfO7nAXT8Pcal88q4I110WO2rAyMdhwbnh7aemZKveU
+         xYi1UzUTcqwY3OY9hRjtBYUHeSaNZ3LUhoVEDQlBa+cZZDGEalprEYe1ieytCcXY8VAZ
+         eJOz9YXG+7z5ukvKOJR7FLOeL91xndSCvBVw2ReR22ZwzubaQzNqJu3428ZE1ecwPERW
+         tBy9oOfMB/l3wm9/jebNrOT3922Sc4+gJDV/wS2MZ5IMMb0b/xMbjeQ77LdpzTdM7mDt
+         ciQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792257449; x=1792862249;
+        d=1e100.net; s=20260707; t=1792257468; x=1792862268;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jLfEr+NgE09LwZV7PAwpKfzwycgTPnmE1PsuHXjQM58=;
-        b=HxVTy4RxwAQ6hUo2FdDFrSqZDuN/GNXALxIXHY0eFfTedoTJY8Fu9xJSoMUPx0Apfu
-         HZFf7zwgsOlHkmqVXzdfjLD+cREUKU7asrsFz+L7A2WPkHhl4qqSekeBx/cy4x+zi0S8
-         SMXsCmtcWe1Hz9nV3AvJZ0EPN4uf4H65edw9lcr6gRnpYEsU7tHDZQ8+pMkB0Se7qe3C
-         gKVpXC92mR0nR1lf15io2gXXVZrOke3/imlQWbsthPBm4FrtcNthYr2xU30Gj4arKK7I
-         UZi48GFLtg4jiPWy3QhNYeQ4rF4jEkNNbsCJ0OSH5yloZgsO7IEwCq1BS03fAGSwLbid
-         JPzA==
-X-Forwarded-Encrypted: i=1; AKwUvBzb8rrjl3+dYycL/mfq+EYVDuKdwpIfnMoSjosUTsqYV8wcoWO0/g5Rpzc2OBF79hbd4SpRGtFmbyXOWZM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoppGJVKL+blz/Q5g1nTzzrPDip0YXjUupblgeSGXuuqOYks6A
-	WTdN4Wtxz6YBgiftJrMoG1czWeem0MBW75wktaCT9x8TLJvYJrEI2GEc
-X-Gm-Gg: AYBFou2/UUWg6rW01mLid4CNkPhV9UhI/oWUlMvKC0r2BL6mBT103vPBm5iaWut+hL+
-	cY3ebLZ0N1+uGTGvy53Ee1Q5uBhyAbSYXXiYkr+I+ZxaNzMr5FXDDiUuSVGOASFos6twC0WXRoE
-	sOGwO+xZqflWF329wEgNO/UM76nPfDfJ3MBBdq45EJ2dQ49ES89iJkE/bI9+6gSK5HM4jo+tcLl
-	V3vGwzMOVVTSIV8VEdYrD/FehkPhlnBWhPBtVMxKgeIQXtvoLBVG5K+jdbcy+TLb3UHb+V2Mp7N
-	8GTJ0j5skRUJ+Tafre5NB68AZ2q7u/pNVRZiG6lphC9HyElDpOrw48g0HJqreyx4r89wL8BBY5p
-	/PFdpIxVawywDFwG1GyvCXs6UuHBVvNI3ilO9Mj5ptx1e3sFviIEv5n9bceJn/R50h/Le02SNp6
-	C2WpErX5ns7K7iY61to7Kau6tE/IfNtbm7VBb3hg6S3Iz/VHMc1uqgBFt2eLuDAUMbXd+8anZQ9
-	Sb3T08qv3EkZTqExuEe9g8RpynILJGCKRYXg39XvaVPCC3iQ75BZS8YIrkXlbx71in9JrD0Apk5
-	TRV4eXjJTTTb9kz7/UjEFo3tFQ==
-X-Received: by 2002:a05:7301:2a9b:b0:351:7f5c:dbe1 with SMTP id 5a478bee46e88-361a2b3e483mr4308818eec.28.1792257449303;
-        Sat, 17 Oct 2026 10:17:29 -0700 (PDT)
-Received: from server1868-4.tail96fc24.ts.net ([199.188.91.198])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0e5e6sm17762897eec.1.2026.10.17.10.17.28
+        bh=hDa9JjAt9pCFlYhBjZKvcPCh0gjBULFSTkPmO/Bq8MA=;
+        b=mur464EFcs0fjRE4Y7+BouV+eDpF7pBuVX9ZzBjwWa+T5AuIccf2HnwlojEL+cgtvj
+         VJFlD8bsUQWpqk3prCiUTdiwhHtHXiEZZtfxE0eCBrEaLmJrqCyB6ikKNN1YTudUy52H
+         dqXbbKshETGcupsEkeOQHf3aXnm6kdxepY91FleLyLRliJXz5qLSl2xTC0hS4kwdIgWU
+         rSIsyrsUj6dPSrnOcSUhd6qWdd07Tv/7roeC+TWX+cUOZkK3fk4rGWsBZ37nS6c0SDkQ
+         awT+VoTkgGryWcv1ZKz6ITchSSJsJI7gsXFYeRq0YHHtVOJCEmv5ORkIc5L+dTyAAGj/
+         tBxA==
+X-Forwarded-Encrypted: i=1; AKwUvBw1mO2CmZ2uvcrH47RiX8blKQFaJcuDXvIYlmwIajh/DKXWbX950Yr4pz6//DoI43e+4OzjS4LBnqZcVYw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFldIowfrJ653K9gCu0mHI91kOiUarAyRgT6eE+Z+0B++7ZrVc
+	S3flBCvEuXXomqn8VqVX2Rt+OMlfa7HFUTrDOkOnGw0o860jKSMBT9F6
+X-Gm-Gg: AYBFou2hvkA9xOcCaAvNxZm9aQbYh+HBgQlE/2cXIKm/2oM0Pq8yULwRIuxdWcMcpBA
+	1LuSr8Qu6RfVsOWv3KQfyV0vx/en2nqs8HwVY6j6M97ZKXjYya3WHaZNznnwnkpYIuJtAXSA1J1
+	JMFNE2kHxpNMNdb9cD9XK452d3X9fBZC7Bp8hyrLFTUGSASI85Dw1hhfIRAswKGSPtHv+QTGWwc
+	REYaUOAdjfK+fkhBSgqmv18HdStc3N6jUDqeO9Qtvs2CWF+cBvFJ7AkgX+vPzzzXvPeqd4yHy56
+	l80Kgy/HwLiD68tL2xSN38G6iTnUS4CHD4HXAGhQti7Xz8F8QMMHm+3Krg7YQdlZ/Z1FPtakIic
+	lP8q9Dj9nNKb4XVJ9+WfPgI6W5iKECJuXSrD+IX7DuD59182Jt/JgcYMRwM3FCcRdNpOK5GvTXC
+	b7sJlqvNLw8tmzvbWnogbHiUauOOJ/Melm5JYLRDGVzxZ6LYno26Ay4j2V3Qf+6Qz2pfqHXtg=
+X-Received: by 2002:a05:701b:4308:b0:15a:2b63:a0cb with SMTP id a92af1059eb24-18511ad8bacmr5174627c88.13.1792257467699;
+        Sat, 17 Oct 2026 10:17:47 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac5:d45a:263c::3cf:8])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831a6f58c2sm24518865c88.11.2026.10.17.10.17.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 10:17:28 -0700 (PDT)
-From: Austin Schuh <austin.linux@gmail.com>
-To: axboe@kernel.dk
-Cc: bigeasy@linutronix.de,
-	io-uring@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	clrkwllms@kernel.org,
-	rostedt@goodmis.org,
-	tglx@kernel.org,
+        Sat, 17 Oct 2026 10:17:47 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: greybus-dev@lists.linaro.org,
 	linux-kernel@vger.kernel.org,
-	Austin Schuh <austin.linux@gmail.com>
-Subject: [PATCH v2] io_uring/wait: wake real-time waiters from hard interrupt context
-Date: Sat, 17 Oct 2026 10:17:26 -0700
-Message-ID: <20261017171726.601443-1-austin.linux@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	stable@vger.kernel.org,
+	syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH] greybus: operation: arm the timeout timer before sending the request
+Date: Sun, 18 Oct 2026 00:17:43 +0700
+Message-ID: <20261017171743.24612-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,104 +77,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit cebf123c634a ("io_uring: implement our own schedule timeout
-handling"), a CQ wait with a timeout sleeps on io_uring's own hrtimer
-instead of an hrtimer sleeper.  On PREEMPT_RT, an hrtimer that isn't
-marked for hard interrupt expiry expires in the per-CPU ktimers thread,
-which runs at SCHED_FIFO 1.  A real-time task waiting in io_uring_enter()
-is therefore not woken at its deadline while any other real-time task is
-runnable on its CPU: the wakeup waits until every one of them has blocked.
+gb_operation_request_send() sends the request message and only then arms
+the operation timer. The host driver can complete the operation before
+add_timer() runs, e.g. when the transfer fails right away. The completion
+work then calls timer_delete_sync() on a timer that is not armed yet,
+the synchronous caller wakes up and drops the last reference, and
+the operation is freed while the timer is still pending:
 
-hrtimer sleepers, which schedule_hrtimeout_range_clock() used to give
-io_uring, don't have this problem: __hrtimer_setup_sleeper() marks the
-timer hard when the sleeping task is in a real-time or deadline class.
-Both of io_uring's callbacks are fine in hard interrupt context:
-io_cqring_timer_wakeup() sets a flag and calls wake_up_process(), and
-io_cqring_min_timer_wakeup() only reads ring state, under RCU, before
-doing the same or re-arming the timer.  Apply the sleeper rule to them.
+  ODEBUG: free active (active state 0) object type: timer_list
+          hint: gb_operation_timeout+0x0/0xc0
+  WARNING: lib/debugobjects.c:629 at debug_print_object+0x198/0x2b0
+   kmem_cache_free+0xfd/0x6d0
+   gb_operation_sync_timeout+0x1c7/0x270
+   gb_svc_process_deferred_request+0x5f3/0x1150
 
-Measured on a Jetson Orin Nano running 6.18.39-rt with this change
-backported: a SCHED_FIFO 40 task waits in io_uring_enter() for 40,000
-deadlines 500us apart, while a SCHED_FIFO 20 task runs bursts of up to
-1ms on the same CPU.  Before, 6,647 wakeups were more than 100us late,
-the latest by 1,040us, and 2,758 deadlines passed without a wakeup at
-all.  After, none were more than 100us late and the latest was 18us.
+Arm the timer before the message is sent. If sending fails, delete the
+timer again. If it has already fired, its work is queued and drops the
+active and operation references itself, so the error path must not drop
+them a second time.
 
-This mirrors epoll: epoll_pwait2() waits on an hrtimer sleeper, so its
-timeout is already hard for real-time tasks, and on the same setup it
-was never more than 17us late.
-
-Fixes: cebf123c634a ("io_uring: implement our own schedule timeout handling")
+Fixes: dbec27298b0d ("staging: greybus: operation: add generic timeout support")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Austin Schuh <austin.linux@gmail.com>
+Reported-by: syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a2e50fb40695811c2dab
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
+ drivers/greybus/operation.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-Notes:
-    v2:
-    - Refer to __hrtimer_setup_sleeper() for the policy instead of restating
-      it in the comment (Sebastian).
-    
-    Based on for-7.4/io_uring (89f193dc3ef4).  Built for arm64 with
-    PREEMPT_RT and with PREEMPT, W=1, no new warnings.  The numbers above are
-    from the same change on 6.18.39-rt (in 6.18 the code is still in
-    io_uring.c); I haven't booted for-7.4 on the board.
-    
-    v1: https://lore.kernel.org/r/<v1 message-id>
-
- io_uring/wait.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
-
-diff --git a/io_uring/wait.c b/io_uring/wait.c
-index b7a0292767c7..fb1c082993a7 100644
---- a/io_uring/wait.c
-+++ b/io_uring/wait.c
-@@ -3,6 +3,7 @@
-  * Waiting for completion events
-  */
- #include <linux/kernel.h>
-+#include <linux/sched/rt.h>
- #include <linux/sched/signal.h>
- #include <linux/io_uring.h>
- #include <linux/time_namespace.h>
-@@ -120,23 +121,32 @@ static enum hrtimer_restart io_cqring_min_timer_wakeup(struct hrtimer *timer)
- 	return io_cqring_timer_wakeup(timer);
- }
+diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
+index 7e12ffb2dd60..19b0cdeca498 100644
+--- a/drivers/greybus/operation.c
++++ b/drivers/greybus/operation.c
+@@ -766,17 +766,22 @@ int gb_operation_request_send(struct gb_operation *operation,
+ 	if (ret)
+ 		goto err_put;
  
-+/* Same policy as for hrtimer sleepers, see __hrtimer_setup_sleeper(). */
-+static enum hrtimer_mode io_cqring_timer_mode(void)
-+{
-+	if (IS_ENABLED(CONFIG_PREEMPT_RT) && rt_or_dl_task_policy(current))
-+		return HRTIMER_MODE_ABS_HARD;
-+	return HRTIMER_MODE_ABS;
-+}
-+
- static int io_cqring_schedule_timeout(struct io_wait_queue *iowq,
- 				      clockid_t clock_id, ktime_t start_time)
- {
-+	enum hrtimer_mode mode = io_cqring_timer_mode();
- 	ktime_t timeout;
- 
- 	if (iowq->min_timeout) {
- 		timeout = ktime_add_ns(iowq->min_timeout, start_time);
- 		hrtimer_setup_on_stack(&iowq->t, io_cqring_min_timer_wakeup, clock_id,
--				       HRTIMER_MODE_ABS);
-+				       mode);
- 	} else {
- 		timeout = iowq->timeout;
- 		hrtimer_setup_on_stack(&iowq->t, io_cqring_timer_wakeup, clock_id,
--				       HRTIMER_MODE_ABS);
-+				       mode);
+-	ret = gb_message_send(operation->request, gfp);
+-	if (ret)
+-		goto err_put_active;
+-
++	/* Arm before sending, as the response may complete the operation at once. */
+ 	if (timeout) {
+ 		operation->timer.expires = jiffies + msecs_to_jiffies(timeout);
+ 		add_timer(&operation->timer);
  	}
  
- 	hrtimer_set_expires_range_ns(&iowq->t, timeout, 0);
--	hrtimer_start_expires(&iowq->t, HRTIMER_MODE_ABS);
-+	hrtimer_start_expires(&iowq->t, mode);
++	ret = gb_message_send(operation->request, gfp);
++	if (ret)
++		goto err_del_timer;
++
+ 	return 0;
  
- 	if (!READ_ONCE(iowq->hit_timeout))
- 		schedule();
-
-base-commit: 89f193dc3ef462059387e9691bf6af4b1808379a
++err_del_timer:
++	/* A timer that already fired has queued work which drops our references. */
++	if (timeout && !timer_delete_sync(&operation->timer))
++		return ret;
+ err_put_active:
+ 	gb_operation_put_active(operation);
+ err_put:
 -- 
-2.47.3
+2.43.0
 
