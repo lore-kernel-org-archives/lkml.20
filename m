@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B2C19DF62;
-	Sat, 17 Oct 2026 22:37:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D274A207B;
+	Sat, 17 Oct 2026 22:37:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792276662; cv=none; b=KS213PpEl+jCovgZyD57cU3qKvG7RFBPbH95qKLUG5+4O+2Tnw1BZx45F/hyApamkpKV2POX51a1msAzWR12c40Hsbbi3b1IANwknhusr7xnj18B/cgWMiYPCu6KkfMHtXnHGOKPuqkpY162KsVOFRdm+WxsaKjNCafpsXzbzGg=
+	t=1792276664; cv=none; b=i/ldyz38BDFxtvEUesvYru6afEQX814XIkjR/RL0cNI90MCTL8Fh+JPxqQyfCC7ya4hFkSHzC9H3HoN5Cn6G6p+Fw7ml1qiNI1lmfomOnHK+GMwzehj0mPW1Up9585aP8JguB95Ic9+MKKTLJyCgWXagvaoSNnimbcWvfib/ejc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792276662; c=relaxed/simple;
-	bh=kM4HZLgYzvf5ntXgjwxtUM3ArAODRcxTAaQcnjMVHjg=;
+	s=arc-20240116; t=1792276664; c=relaxed/simple;
+	bh=aFvsEQiFe+acVRD/OP89N83Pgk7Dhp8uo5/qjL7aCQQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P+7X1hYG7VoSQiFtDUO/sZRkO9AWnVp0kP572tq1uOo0zQPJXsKNvqAHiN6ejlSU3Nqd6TV6lPZbWRIriyOXiRsTJKyYw2vx0Q73qc1gGKK91DvXLgIUDW12QRnyc+HvCuNRqAQNiyOqKAO2M8YwJXJbNXeh3/40PTP0WXt9bxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BoA6/uT6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Bgg1V79Gh5ScnnF3t1qFJdFtG1SkK/bxLMlRhYhz9Z54Xk4bBVOb+AjdYR2EVM6b7eCxHi7aiPv6mGU210H3IR4O8G352GPhnVgXrH5Ra4brh7QkZleF8+GrDemZ9qs96nMb8pzo3UPWBOgoGLCEKuMo66bDdSTF8p7mdDbePGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A4/LQ77V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BoA6/uT6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5DE61F000C5;
-	Sat, 17 Oct 2026 22:37:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A4/LQ77V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED8231F000C5;
+	Sat, 17 Oct 2026 22:37:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792276661;
-	bh=fg8Dyuuxz5C8n1jvmqKXYzcBSnRtj0AV1+VEozw2Qw0=;
+	s=k20260515; t=1792276663;
+	bh=TW+xjrd+vNz++QRmcV1JuE9QIBZEOYwD32mrxTgZJz8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BoA6/uT6eI5NWiFqHckHRxHbtKjUogdgUttLe4WMu+gLdumPcREYsy1noiJ4/3Bax
-	 zBq2jYeodFRhhyCGzEQiIW0mIRwpOj8aSPAUnfRhpT0kKfg2JHiESgnT+D6jeD+J5x
-	 WQByWUSmQ5QkztE5AMmE+BCAXJWQwea3W6iVs0TP2u2eYWs9jLMg1LU4M/CLrjyepL
-	 pmumf130BC+m77rOEsaUXGlcoqPcxvqdSMw7dsrXt+nKarQ8xe77IIeISp+eC9fIWn
-	 tapLRYiUCbCoeJTSBVOEMitrHXvTs7rBFNrdDD4puRfMAPTgL7YhjcrG306m3Ipm65
-	 7bDnuY2+iZeBA==
+	b=A4/LQ77VAHV+d7yUtWzszW839s6l7OdcZ8dWh+KxeshzrFYstfzMoU3ogHLzAhEOx
+	 to1zxgvQGsrM4hW+DTfAhnh7kakiBEqquEVoooeFsrjczk6M3VBLimdqweRj6RHbqD
+	 08yL2YpmJK5RCAqKCbE7dKtvlnhG4r1FFxD80rvgx6HGrUV6sXProZwqBa9hJ/Uiu7
+	 3hqfinYsuuroIxKtFkjWzxijpzY6rFCyPTTyIVOqY603ySgfY9cwsWhDZNz0bHv3ij
+	 Qt99VxXB4MLUkJNyTBz6sHCzfsyr53O1FpbvXjDayYassrCGozJ2S2n/vycYoV4xz/
+	 WtcdpBIFcUAsQ==
 From: Tejun Heo <tj@kernel.org>
 To: sched-ext@lists.linux.dev
 Cc: David Vernet <void@manifault.com>,
@@ -35,9 +35,9 @@ Cc: David Vernet <void@manifault.com>,
 	David Dai <david.dai@linux.dev>,
 	linux-kernel@vger.kernel.org,
 	Tejun Heo <tj@kernel.org>
-Subject: [PATCH 1/3] sched_ext: Factor out the rq lock switch of scx_dsq_move()
-Date: Sat, 17 Oct 2026 12:37:36 -1000
-Message-ID: <20261017223738.993262-2-tj@kernel.org>
+Subject: [PATCH 3/3] sched_ext: scx_qmap: Also re-enqueue stranded tasks with scx_bpf_dsq_reenq_task()
+Date: Sat, 17 Oct 2026 12:37:38 -1000
+Message-ID: <20261017223738.993262-4-tj@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261017223738.993262-1-tj@kernel.org>
 References: <20261017223738.993262-1-tj@kernel.org>
@@ -49,105 +49,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Factor the rq lock switch on entry to scx_dsq_move() and its undo on exit
-out into kf_switch_rq_lock() and kf_restore_rq_lock() so that other kfuncs
-operating on a task from a DSQ iteration can share them. No functional
-change.
+scan_shared_dsq() rescues a task stranded on SHARED_DSQ or HIGHPRI_DSQ by
+moving it to the rescue path with scx_bpf_dsq_move(). For a task with an odd
+pid, mark it with scx_bpf_dsq_reenq_task() instead, which sends it back
+through qmap_enqueue() and its rescue, so that both kfuncs are exercised.
+
+scan_shared_dsq() runs from qmap_dispatch() and from the monitor timer, so
+the kfunc can be called both with the dispatch rq locked and with no rq lock
+held.
 
 Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- kernel/sched/ext/ext.c | 63 ++++++++++++++++++++++++------------------
- 1 file changed, 36 insertions(+), 27 deletions(-)
+ tools/sched_ext/scx_qmap.bpf.c | 50 +++++++++++++++++++++-------------
+ 1 file changed, 31 insertions(+), 19 deletions(-)
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index b9f80fb29255..3e707b00e78b 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -9745,6 +9745,40 @@ static const struct btf_kfunc_id_set scx_kfunc_set_enqueue_dispatch = {
- 	.filter			= scx_kfunc_context_filter,
- };
+diff --git a/tools/sched_ext/scx_qmap.bpf.c b/tools/sched_ext/scx_qmap.bpf.c
+index 61143a2d79f8..e8e451be862d 100644
+--- a/tools/sched_ext/scx_qmap.bpf.c
++++ b/tools/sched_ext/scx_qmap.bpf.c
+@@ -651,10 +651,35 @@ static void update_core_sched_head_seq(struct task_struct *p)
+ 		qa.core_sched_head_seqs[idx] = taskc->core_sched_seq;
+ }
  
 +/*
-+ * Lock @rq from a kfunc called either from ops.dispatch(), which holds the
-+ * dispatched rq's lock, or from a context holding no rq lock. Under core
-+ * scheduling, dispatch can run for a sibling rq, so the locked rq is not
-+ * necessarily this CPU's. Return the rq locked on entry, NULL if none.
++ * Send @p, stranded on the DSQ @it iterates, to the kernel rescue path. To
++ * exercise both kfuncs, move tasks with an even pid there with
++ * scx_bpf_dsq_move() and re-enqueue the others with scx_bpf_dsq_reenq_task(),
++ * which takes them through qmap_enqueue()'s rescue. The choice is per task so
++ * that a marked task isn't moved by another scan before the re-enqueue reaches
++ * it.
 + */
-+static struct rq *kf_switch_rq_lock(struct rq *rq, unsigned long *flags)
++static __always_inline void rescue_stranded(struct bpf_iter_scx_dsq *it,
++					    struct task_struct *p, task_ctx_t *taskc)
 +{
-+	struct rq *entry_rq;
++	s32 c;
 +
-+	local_irq_save(*flags);
-+
-+	entry_rq = scx_locked_rq();
-+	if (entry_rq) {
-+		if (entry_rq != rq)
-+			switch_rq_lock(entry_rq, rq);
-+	} else {
-+		raw_spin_rq_lock(rq);
++	if (p->pid & 1) {
++		scx_bpf_dsq_reenq_task(it, p);
++		return;
 +	}
-+	return entry_rq;
-+}
 +
-+/* undo kf_switch_rq_lock(), @rq is the rq locked now */
-+static void kf_restore_rq_lock(struct rq *rq, struct rq *entry_rq, unsigned long flags)
-+{
-+	if (entry_rq) {
-+		if (entry_rq != rq)
-+			switch_rq_lock(rq, entry_rq);
-+	} else {
-+		scx_rq_lock_drop(rq);
-+		raw_spin_rq_unlock_irqrestore(rq, flags);
++	c = cmask_next_set_wrap(&taskc->cpus_allowed, 0);
++	if (c >= 0 && c < scx_bpf_nr_cids()) {
++		__sync_fetch_and_add(&qa.nr_rescue_dsp, 1);
++		scx_bpf_dsq_move(it, p, SCX_DSQ_LOCAL_ON | c, SCX_ENQ_RESCUE);
 +	}
 +}
 +
- static bool scx_dsq_move(struct bpf_iter_scx_dsq_kern *kit,
- 			 struct task_struct *p, u64 dsq_id, u64 enq_flags,
- 			 bool priq)
-@@ -9779,27 +9813,8 @@ static bool scx_dsq_move(struct bpf_iter_scx_dsq_kern *kit,
- 	if (unlikely(READ_ONCE(sch->aborting)))
- 		return false;
+ /*
+  * One pass over SHARED_DSQ: rescue stranded tasks and boost highpri ones. A
+  * task whose cids were lost while it was queued in the fifos would strand on
+- * SHARED_DSQ, which is consumed only on self cids it can't run on - move it to
++ * SHARED_DSQ, which is consumed only on self cids it can't run on - send it to
+  * the kernel rescue path. One whose cids were lost after the highpri cull is
+  * likewise rescued out of HIGHPRI_DSQ below.
+  *
+@@ -663,9 +688,9 @@ static void update_core_sched_head_seq(struct task_struct *p)
+  * consuming them first. This makes minor difference only when dsp_batch is
+  * larger than 1.
+  *
+- * scx_bpf_dsq_move[_vtime]() are allowed both from ops.dispatch() and
+- * non-rq-lock holding BPF programs. As demonstration, this function is called
+- * from qmap_dispatch() and monitor_timerfn().
++ * scx_bpf_dsq_move[_vtime]() and scx_bpf_dsq_reenq_task() are allowed both from
++ * ops.dispatch() and non-rq-lock holding BPF programs. As demonstration, this
++ * function is called from qmap_dispatch() and monitor_timerfn().
+  */
+ static bool scan_shared_dsq(bool from_timer)
+ {
+@@ -677,19 +702,13 @@ static bool scan_shared_dsq(bool from_timer)
+ 	bpf_for_each(scx_dsq, p, SHARED_DSQ, 0) {
+ 		static u64 highpri_seq;
+ 		task_ctx_t *taskc;
+-		s32 c;
  
--	/*
--	 * Can be called from either ops.dispatch() holding the dispatched rq's
--	 * lock or any context where no rq lock is held. If latter, lock @p's
--	 * task_rq which we'll likely need anyway.
--	 */
- 	src_rq = task_rq(p);
--
--	local_irq_save(flags);
--
--	/*
--	 * Under core scheduling, dispatch can run for a sibling rq, so the
--	 * locked rq is not necessarily this CPU's.
--	 */
--	locked_rq = scx_locked_rq();
--
--	if (locked_rq) {
--		if (locked_rq != src_rq)
--			switch_rq_lock(locked_rq, src_rq);
--	} else {
--		raw_spin_rq_lock(src_rq);
--	}
-+	locked_rq = kf_switch_rq_lock(src_rq, &flags);
+ 		if (!(taskc = lookup_task_ctx(p)))
+ 			return false;
  
- 	p_rq = src_rq;
- 	raw_spin_lock(&src_dsq->lock);
-@@ -9838,13 +9853,7 @@ static bool scx_dsq_move(struct bpf_iter_scx_dsq_kern *kit,
- 	p_rq = move_task_between_dsqs(sch, p, enq_flags, src_dsq, dst_dsq);
- 	dispatched = true;
- out:
--	if (locked_rq) {
--		if (locked_rq != p_rq)
--			switch_rq_lock(p_rq, locked_rq);
--	} else {
--		scx_rq_lock_drop(p_rq);
--		raw_spin_rq_unlock_irqrestore(p_rq, flags);
--	}
-+	kf_restore_rq_lock(p_rq, locked_rq, flags);
+ 		/* stranded? rescue - it can't be dispatched here either way */
+ 		if (!cmask_intersects(&taskc->cpus_allowed, &qa.self_cids.mask)) {
+-			c = cmask_next_set_wrap(&taskc->cpus_allowed, 0);
+-			if (c >= 0 && c < scx_bpf_nr_cids()) {
+-				__sync_fetch_and_add(&qa.nr_rescue_dsp, 1);
+-				scx_bpf_dsq_move(BPF_FOR_EACH_ITER, p, SCX_DSQ_LOCAL_ON | c,
+-						 SCX_ENQ_RESCUE);
+-			}
++			rescue_stranded(BPF_FOR_EACH_ITER, p, taskc);
+ 			continue;
+ 		}
  
- 	kit->cursor.flags &= ~(__SCX_DSQ_ITER_HAS_SLICE |
- 			       __SCX_DSQ_ITER_HAS_VTIME);
+@@ -723,19 +742,12 @@ static bool scan_shared_dsq(bool from_timer)
+ 						      &qa.usable_cids.mask,
+ 						      this_cid + 1);
+ 		if (cid >= nr_cids) {
+-			s32 c;
+-
+ 			/* self cids lack caps in effect yet, leave it queued */
+ 			if (cmask_intersects(&taskc->cpus_allowed, &qa.self_cids.mask))
+ 				continue;
+ 
+ 			/* stranded after the cull - rescue it from here */
+-			c = cmask_next_set_wrap(&taskc->cpus_allowed, 0);
+-			if (c >= 0 && c < nr_cids) {
+-				__sync_fetch_and_add(&qa.nr_rescue_dsp, 1);
+-				scx_bpf_dsq_move(BPF_FOR_EACH_ITER, p, SCX_DSQ_LOCAL_ON | c,
+-						 SCX_ENQ_RESCUE);
+-			}
++			rescue_stranded(BPF_FOR_EACH_ITER, p, taskc);
+ 			continue;
+ 		}
+ 
 -- 
 2.56.0
 
