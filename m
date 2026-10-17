@@ -1,109 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E655463B75;
-	Sat, 17 Oct 2026 09:04:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386423CB2FA
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:06:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792227885; cv=none; b=sTX5xjVQWvgUBrk6TPXQlmU6V+LMh0c1kW/omB2gX4VgGcj54kGkC1CWjXLHU2npigFFi0KNx4quO07D9D4R/IqUMASpx9e/RCGtuVFY3HoRfinqI4oaUcjeSfIeqqNpf0yMNo0qpR8gdJESGUQAA35+m7TOWWovcjZX129ffTA=
+	t=1792227965; cv=none; b=BUZcfxwp9VXbHw9tWU+8TnAzYo9DpglnTykB8eq/PUZvh0/4WDdbGfgQMpUvJ0QjaVdQZrSvPrXBcnETFWA9ccFtG3dtzXh4ETCub02qqxvokjooDv9muSzO1JytUgRHqbpB1BDzwcctrUSM9KDqRpVuB5JF/FQ0mWlrNEhwurw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792227885; c=relaxed/simple;
-	bh=djD/V9d0QYLhzz/76krlJ84+3vyG49fYA5wmKdmvis4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OPQZ614IDD3KzbJt6io+otSuUALGlHDPkAmlaCTx3BcdLmIsLOe1YuUpq7dmFwHq22bg6vXB+ZNgbaC/FxVFm7FyD2axAkVed9ktPc2aSVOAG6QUoul/9v0Qkg6CCR76Hpox1zm7Hwc1vDD+vZgf0DKddZHMXqXilFUn6nw0Tec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VWtQKOsL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792227965; c=relaxed/simple;
+	bh=PJIb4TRS1B7oZsCjZ5WW1IwlU12EO4LgK9NuEO1Pa68=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IMgirIouWiVZEhH4AJcE+yJf3xH3QgPHVQaJSgqwGoyFTdhOl1NskLCx2O1apvJdMRkq1cMQu/dYPKLEVgepbv7vyPK+jPo3rL2xeZk9bUdp/Fe06oz+ONE4GpPwwZmBdvTkr4MKicrfjRQR03g75F9bjFmt2a5rSOFh0jQ0lWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=MoyatWcL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=UnkV1F+s; arc=none smtp.client-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VWtQKOsL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8E521F000C4;
-	Sat, 17 Oct 2026 09:04:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792227883;
-	bh=99mlhEUv4uuRxGlx/KL/BwKIec6lmdsz9tFjs72EqpU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VWtQKOsLyvFFcFhmxFn6XghqCoKT7auV9H/QWdZiNRaO6xM/1NKTk82h/2CeFKXMv
-	 AD+nMBOUFUJ5Qc9RhtDlzmYmFmGjkAS9dWGvWUjxU2pIgVV+ahWsAa3W8V+aa5s7rQ
-	 mRb8dw6+EoPhvgK+jJ6r0VGA87CzItbWJLPIASvk0Lqd6X53BnxgdkfkFV5JrOBgNi
-	 KB1HoMfmBi7mHFRKuvcsOGsUSMlG+lrNQE8TmoMlUysob53Zf4CRWvoBox0bn/rp+I
-	 LPmm5hFlcsdcG8G0KIr+sOXYalQR4mAl4Y7tKViHihfcvE3VeX7y8r1nPFDAV1cY3l
-	 8HPwIbvLbVwgw==
-Message-ID: <6ac3413c-1c40-49a0-a5b3-05d059114efe@kernel.org>
-Date: Sat, 17 Oct 2026 11:04:36 +0200
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="MoyatWcL";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="UnkV1F+s"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id A44161D00014
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:06:03 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Sat, 17 Oct 2026 05:06:03 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1792227962; x=1792314362; bh=nVZZl6/Mu+
+	b0pKxknf/5K0vEjUCByAfibexN3hnGTGs=; b=MoyatWcLwb7JrN3Plo/AYcROBU
+	5cIsAg2GXW3NFBepev5xqGvx0ZhmeMCUQWPe4u2Eh2desbNeTmD/2ePXN8DtkjjF
+	hIY/5yTVzJGuu2wZBb9Zcxr4HWhbDayHc7gvh5PaNO90iTb/2s3QHBj6J2/or/ln
+	XbO3oRgaV+XBn326IrTr2QCEPg13J2V6M3RCXSp28Cyf5DVy7cmawYtFPAJKJhiz
+	wSFp0YzS2zAxyIIZnDjRan46ZIqNx0IPkQf/7QeWlQAcq3O/Wb6Y+Yb2Vb1+gNSR
+	vI7stgnrS1jlGvISMj9EHcQMopH2G85Vme4EXl+/JZ/xQlMK/vz5GZY1Gjpg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792227962; x=1792314362; bh=nVZZl6/Mu+b0pKxknf/5K0vEjUCByAfibex
+	N3hnGTGs=; b=UnkV1F+szvuzJqJYZ2dfWWiXErITbSqB0S1TGHw/zhtLcM3HwLs
+	kpYQz/pgLx0xXtH9lruD164FcEAUx5ApvN2aGs9Zi3Zm9XH4y0uGIB0C4zluTBhQ
+	VdUdeB3nkl2xn6mvOBS9BEvY45F/eiH+sSa7GNoKOPgTzMi4e6S+tC9N56v8M4kW
+	zXtM9SGWedo1f7fj46PMUqziqXNzojSHL6Q7lqLPTIAQ6dd4+xcEjh9ACfzHYmTG
+	D2zGrQr7PiagIvPwBh4zHz/8S9T5qsbHZFKJEnbgmhX7ZJOoV/rS2j7T7gZdkted
+	4jAa4PK+JEWDQgbA5k6Pgd8T0RVhwncGdmQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792227962; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:TG7vBp4dhOTcj2Krs/sOaIulKnovdb1DxInuO6j3ez51y9n
+	Lhc7qxcuR/5xJvRBto0+2/eAN/m2iwjNc0QzwtIWtHHd++ou45ijiOn00nMhwSAP
+	MC997zzA4Z5/+Z0VWld+/2SLKEhoPD5hbcrbk+T4EBw0/GgaPvfwZ3ExKNajqJeC
+	+J+iITYlA6yVPYON6P7ftaVuIlaF1SsyKCmhJ4bJVhS2KJ60eraHC52VAQTBgV/A
+	pib1HCEpvbqoZkMKt1HrNQjA1yrO7XOImsCxqgkjlUSc/+bQa65Kb2ev93g6Hh1d
+	bpeEaZ5OCdyNjDHt6YYZ4hY+AOirJlNaXpoJ3LA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:1KXjdkGRee6BPcWb+KLOanPCir7NKbfNOq6AHMIKUlQ=:PJIb4TRS1B7oZsCjZ5WW1IwlU12EO4LgK9NuEO1Pa68=;
+X-ME-Sender: <xms:ejrTalod7NYQ2bWMzjc4pYGmkcUPmCeUsyVivHwdK9pqU3pxrZSNwg>
+    <xme:ejrTasxPPtpZj3AHXroEzUh1Mivy2hNxU_9eH52OLOw0BDmVRzHeHfDPCr3PfpL3B
+    P38oj0IrwB1eu1GSqVgiF85k9BGkoexGXtKahGZs-bg9eer9_U>
+X-ME-Received: <xmr:ejrTalIZG93txse36Vkm9pKW4KotG_eOjZ0bWezRN5qJGNd3QevjzZyxcnq36UOdhGRKaCBLLW9W9Un1lsHZf1yDRqYCl9RA1ee6JjOEUyU>
+X-ME-Proxy-Cause: dmFkZTGQQdqoEe7fwc0RF/hCGdyTrVrgrv/fnU4qZKHJGS2riRgYXePyEuB8jYXrA/NwyJ
+    Z0NthuPRl5Y8EvXeHQskQv3bZgwpg3P3DaMcRxJA9Uy2j6fVM7G5rRUbOfv4r2nICpiN9T
+    X0ktSIv8L+5R5AbDFYhEqj5bVBhYKCWe4vg3s3upCE6aIT9Nj/exGqzpCERYmci9UUh8jV
+    0yTmhHW0HfhwiX/NzSy8krpjpF+py7AxDTHWhGNtdYoRCsGU9zeLfXFFSVZKZR/9/3U8+d
+    KOcdu4AWDwTNqtwKGmypRSygBg9Cp/pMMSUs3XIvJtqY+jp34ZLjNz3SMHkmPqtamC+LfX
+    tbDZgk4qdZdYrMzZ/Or/KxKRHlIClfmzgPzC8zQXaZWoVYEQIszmvp1ZOKKsvvp7+rBAw7
+    qFZ4eH+wnYDnyVMWHSn44tcGCFfuw1daN2h0Ju5PxuZ3T/cc764GUhjjDd0TBQW7sT0An6
+    ODeqV/0rCvQCyo9JhanqIFltNrHa5MuCYhWGS1g522XwYdbcJZWBLlC1BvwKdTX8372EJ9
+    yNR7lQzyQGk+iX8NG6lnQZqSktMCp70eVEm3D7bgG0U5uE7y+G3uADLVrjsLeOaV1BsHom
+    WM9XsLJb+QJnInfIO9DW5xJArpLY0x1UB7QSpkGEMPE8UBABWEL+vszFEWRQ
+X-ME-Proxy: <xmx:ejrTam68LSS0A4lyRWBLF4ilGVoM2y6SXHxdiv_lf8f7w5F1APGVRg>
+    <xmx:ejrTarxdL3TJJcbmBGiX5dC9OyhaDbB-e6bUEmwQKCTrESCQtb16jw>
+    <xmx:ejrTag-4xYDnRSw7tNeQcA6X-TgZ9Ki1T7Q5vbudXo6J8DCc4JrDmQ>
+    <xmx:ejrTanHC03pYjZ7Xl8J5Jd_YRpGRM6WlO4VR7ItZEBaBo0aq5lYdKA>
+    <xmx:ejrTasXVeMAAS7YPNen_1oiOqc-0BwLu8DV1MsG6XwxjSbNd3iUJ2wYV>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 17 Oct 2026 05:06:01 -0400 (EDT)
+Date: Sat, 17 Oct 2026 11:05:59 +0200
+From: Greg KH <greg@kroah.com>
+To: CatMe0w <CatMe0w@live.cn>
+Cc: Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+	Simona Vetter <simona@ffwll.ch>,
+	Albin Babu Varghese <albinbabuvarghese20@gmail.com>,
+	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] fbdev: bitblit: Fix glyph clipping when fbcon pans
+Message-ID: <2026101740-concrete-mowing-498b@gregkh>
+References: <TYYP301MB1525C03FE71D47908263EBFCF69A2@TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom: Document Xiaomi 17 Ultra
- devices
-To: Igor Belwon <igor.belwon@mentallysanemainliners.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261017-nezha-v2-0-44c95e1a9d6a@mentallysanemainliners.org>
- <20261017-nezha-v2-1-44c95e1a9d6a@mentallysanemainliners.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261017-nezha-v2-1-44c95e1a9d6a@mentallysanemainliners.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <TYYP301MB1525C03FE71D47908263EBFCF69A2@TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM>
 
-On 17/10/2026 08:41, Igor Belwon wrote:
-> Add compatibles for the Xiaomi 17 Ultra devices, consisting of the
-> EU model with a smaller capacity battery and the CN model.
+On Sat, Oct 17, 2026 at 02:53:37AM -0600, CatMe0w wrote:
+> Commit 3637d34b35b2 ("fbdev: Add bounds checking in bit_putcs to fix
+> vmalloc-out-of-bounds") made bit_putcs() clip glyphs to var.yres. When
+> fbcon scrolls by panning, it draws text rows up to var.yres_virtual,
+> so after the first pan most new text is not drawn until the next full
+> redraw. This affects fbdev drivers that set FBINFO_HWACCEL_YPAN or
+> FBINFO_HWACCEL_YWRAP, such as vesafb with the ypan option, when
+> CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION=y.
 > 
-> Signed-off-by: Igor Belwon <igor.belwon@mentallysanemainliners.org>
+> Clip to GETVYRES() instead, which fbcon_ud.c and fbcon_ccw.c already
+> use as the drawing area height. When fbcon does not pan, GETVYRES()
+> returns var.yres, keeping the existing bound. When fbcon pans, it
+> returns var.yres_virtual, which the framebuffer memory must cover
+> anyway for panning to work.
+> 
+> Fixes: 3637d34b35b2 ("fbdev: Add bounds checking in bit_putcs to fix vmalloc-out-of-bounds")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: CatMe0w <CatMe0w@live.cn>
 > ---
+>  drivers/video/fbdev/core/bitblit.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 
+Hi,
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
-Best regards,
-Krzysztof
+You are receiving this message because of the following common error(s)
+as indicated below:
+
+- It looks like you did not use your "real" name for the patch on either
+  the Signed-off-by: line, or the From: line (both of which have to
+  match).  Please read the kernel file,
+  Documentation/process/submitting-patches.rst for how to do this
+  correctly.
+
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
+
+thanks,
+
+greg k-h's patch email bot
