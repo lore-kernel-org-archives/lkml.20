@@ -1,113 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD455347533;
-	Sat, 17 Oct 2026 18:31:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1BEA382F1E;
+	Sat, 17 Oct 2026 18:34:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792261882; cv=none; b=hnLir5MEg1l3SDDFejz5Ia/tYoTXG+hunGov1G6xx1rnM3SyMMQe/xYyNiBhCbxc6Mfnw4uP5bpL60KmjE7Utrf/mHaB6MYxl6txvuc8YovaaGfY0LGR4fmxlKMr4Pn++Gpl4mzEw/OjCGmtQBY6cLx9vrQrj0t1qUlQGzr1Alw=
+	t=1792262087; cv=none; b=Q19ueta1wOigr2+iwHinCHLbi6aiQRDeakmn4szeaUnJZbxjGRr0bEg8Pys0vSg4SS8SAuZuXGFrSBLZojEvNMx8Y9hZTiq84zNBngMM60JQCFP6YnkvikXhYb46NWtzGLhwd6I15movcL76k7xTwSFV2YsJWwkZr3tBkkw1BOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792261882; c=relaxed/simple;
-	bh=5MwvH6yXOWrWw954Zho6Vin04TWOYE30tOX1DrCbzU4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NOgJR94LWMcr0vDO3+Dky2c+FjRKGInlYnVdV654dkFcppcf/34wtE7iAW5I3p8bSHjy6fOrwwCoOptE6nDnw/uxETE0eSeSJvbEpfCatd+sfJZPJcNZAbQagwDXG1ga5TYnPc0loA1tIRHjhSrhme5eyyGPae5lrzF51PGYOr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=It133tOL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792262087; c=relaxed/simple;
+	bh=WjtYC0JJVVHPGFt6KM5QwJv500+Juc/Cr2pUlgFC7Vo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=J0u2JTXlqr95jKsTdZqnxHdOmlrP8ar0akoWcKvUskLjhkTgS7Q/peKlzne6FNekOcys+SD+mJWEu7MngvGXpd6c9efaW4mYkb/giAsgAqg228Bh0OKXGwF/HsPFXOF6UavH0rEGhgskKs9CUtPJfGLt8PNmvaWrrciWup6x0bQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=hfX7dMXl; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="It133tOL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903151F000C4;
-	Sat, 17 Oct 2026 18:31:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792261880;
-	bh=31sZM63EOEAfwhJrcrA2P/23kgLtM+HNbtPomQJ6tkc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=It133tOLnIkAgDNxl6oYfh2i4AegnUEw6W8DCsgU/zNYZ9RhQ5tax/q/pMR4YMTbM
-	 5evKlkrcKDURlM8225b4THB7PtTyjF4IQh5F1cm21HGhQJOuo05q2nbA7Ie37/SPie
-	 j1/X0hppwvLamU/5tlA78dYvbQ/P9X7OZu0eJ6Otx3f2b51/x1v0yz7S3he21Ay5D8
-	 Ru8AUa44PPvd8e6pk5Q3e4aOm/DUc5dEdMTPJEhJSxo9w2wk5hywJAnKDU2UwRiA6R
-	 r9eEo+Dy7+GXVHLYmGrNHIqP6QSQWTQPxwjR+kFXyTYUOLMHUWTIt+vu8vt+siUDjn
-	 ELpSFJYm6VsIA==
-Date: Sat, 17 Oct 2026 19:31:17 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Marcelo Schmitt <marcelo.schmitt@analog.com>,
- robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v3 10/13] iio: adc: ad4134: Support SPI 4-wire mode
-Message-ID: <20261017193117.04b71262@jic23-hlaptop>
-In-Reply-To: <ar1lg7PMwP_RdzzO@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1790719424.git.marcelo.schmitt@analog.com>
-	<c066072441fdba492c18c71d5332d84224379410.1790719425.git.marcelo.schmitt@analog.com>
-	<20260929230830.A8F3A1F000FF@smtp.kernel.org>
-	<ar1lg7PMwP_RdzzO@debian-BULLSEYE-live-builder-AMD64>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="hfX7dMXl"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=U38TNxbjZWPafcS+7I1nkZg5tbz0P1qs72gc4jTBwsI=; t=1792262084;
+	x=1792866884; b=hfX7dMXlEcQAegaKx9bxeQR1JIanTBYyqYZlNJTX4A/JLSFuK+4mCSpN6yCFi
+	rE9ZPlLa1wxhCQQ4fjKGrZoMpDUp52Y1dLmHSFEJjC5z/OFqHpy8nFIME3eOI7v+wjcdDXy6z2CBL
+	QNnTeypSbB5WfA9TjyfQHxA2ejG07hCkoOzTXJvetRuLhXT71vyvtQQ3tLk+3qxr5xhl/SEUcSLbr
+	4XKL+k87gnTfkEKQj/4vQXxAeuLIuELNm1wLDyK83IMTeIb+MPeN43a0j6sL2IGK6sW9nR8KF1b6U
+	1wn6OT2AWedUxvoLnE0UxGw8fczRPxOYFP1dzUobyrqq9tGNHQ==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xI9Eo-00000003JjI-1CiV; Sat, 17 Oct 2026 20:34:34 +0200
+Received: from dynamic-002-242-066-005.2.242.pool.telefonica.de ([2.242.66.5] helo=[192.168.178.50])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xI9En-000000049Wd-42q6; Sat, 17 Oct 2026 20:34:34 +0200
+Message-ID: <e94382c5fad225eff08bd7126997eeef05d0287b.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH] sh: maple: use the matching IRQ cookie
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Florian Fuchs <fuchsfl@gmail.com>, Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker
+ <dalias@libc.org>, 	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,  Jianhao Xu <jianhao.xu@seu.edu.cn>
+Date: Sat, 17 Oct 2026 20:34:33 +0200
+In-Reply-To: <atO85d3tjAyPiPRF@lithos>
+References: <20261009040248.1136356-1-runyu.xiao@seu.edu.cn>
+	 <atO85d3tjAyPiPRF@lithos>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
+Hi Florian,
 
-> > > +static int ad4134_buffer_predisable(struct iio_dev *indio_dev)
-> > > +{
-> > > +	struct ad4134_state *st = iio_priv(indio_dev);
-> > > +	int ret;
-> > > +
-> > > +	ret = ad4134_release_sample_access(st);
-> > > +
-> > > +	mutex_unlock(&st->access_lock);  
-> > 
-> > [Severity: High]
-> > Is it intentional to hold st->access_lock across system calls here? Returning
-> > to user space with the mutex held violates lock ownership semantics and can
-> > trigger lockdep splats. Furthermore, could this deadlock any subsequent sysfs
-> > regmap accesses while the buffer is enabled?  
-> 
-> I'm not sure about this one. The intent is to prevent sysfs regmap access while
-> the buffer is enabled. IIO direct/buffer mode locking should provide that, no?
-> The rationale for the two mutexes is for access_lock to avoid concurrent updates
-> to the external multiplexer and for sync_lock to protect read/modify/write
-> sequences. Maybe IIO direct/buffer mode locking + sync_lock is enough?
+On Sat, 2026-10-17 at 20:22 +0200, Florian Fuchs wrote:
+> On 09 Oct 12:02, Runyu Xiao wrote:
+> > The Maple DMA and VBLANK handlers are registered with
+> > &maple_unsupported_device as their dev_id. Passing NULL to free_irq()
+> > cannot find either action, so the handlers remain registered and the
+> > IRQ core warns.
+> >=20
+> > Use the same cookie when freeing both handlers on the error paths.
+> >=20
+> > Fixes: 17be2d2b1c33 ("sh: Add maple bus support for the SEGA Dreamcast.=
+")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> > ---
+> >  drivers/sh/maple/maple.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/drivers/sh/maple/maple.c b/drivers/sh/maple/maple.c
+> > index 5585f220e..7df88e00c 100644
+> > --- a/drivers/sh/maple/maple.c
+> > +++ b/drivers/sh/maple/maple.c
+> > @@ -863,10 +863,10 @@ static int __init maple_bus_init(void)
+> >  	kmem_cache_destroy(maple_queue_cache);
+> > =20
+> >  cleanup_bothirqs:
+> > -	free_irq(HW_EVENT_VSYNC, 0);
+> > +	free_irq(HW_EVENT_VSYNC, &maple_unsupported_device);
+> > =20
+> >  cleanup_irq:
+> > -	free_irq(HW_EVENT_MAPLE_DMA, 0);
+> > +	free_irq(HW_EVENT_MAPLE_DMA, &maple_unsupported_device);
+> > =20
+> >  cleanup_dma:
+> >  	free_pages((unsigned long) maple_sendbuf, MAPLE_DMA_PAGES);
+> > --=20
+> > 2.34.1
+>=20
+> The patch looks correct to me and works like intended, that it frees the
+> corresponding IRQ handler in the error path.
+>=20
+> Reviewed-By: Florian Fuchs <fuchsfl@gmail.com>
+> Tested-by: Florian Fuchs <fuchsfl@gmail.com>
+> Fixes: b3c69e248176 ("maple: more robust device detection.")
+>=20
+> Just a little addition, it looks like commit b3c69e248176
+> ("maple: more robust device detection.") introduced the issue, where the
+> static irqaction with IRQF_SHARED, was replaced by a request_irq() with
+> a cookie, but the free_irq() wasn't updated.
+>=20
+> I tested the patch with a forced failure of maple_bus_init(), which
+> gives the WARNs and keeps the handlers registered in /proc/interrupts:
+> Trying to free already-free IRQ 69
+> WARNING: kernel/irq/manage.c:1880 at 0x8c0522c4, CPU#0: swapper/0/1
+>=20
+> After the patch, the IRQ handlers are unregistered in /proc/interrupts
+> and no kernel WARN is shown.
+>=20
+> And tested if keyboard, mouse still work with the patch, which they do.
 
-Technically claiming mode would be enough and if the locking is only coupled
-to "in buffered mode or not in buffered mode" I'm fine with that.
-However, if you need to serialize for other reasons we probably need to
-grow a more complex solution with a lock and a flag (similar to what the
-IIO mode stuff is doing) so as to avoid holding a lock across syscalls
-as this points out.
+Thanks a lot for both the additional review and testing!
+Since I'm using b4, it will automatically pick up the Fixes tag you provide=
+d.
 
-> 
-> >   
-> > > +
-> > > +	return ret;
-> > > +}  
-> > [ ... ]  
-> > > @@ -588,15 +768,69 @@ static int ad4134_probe(struct spi_device *spi)
-> > >  	if (ret)
-> > >  		return ret;
-> > >  
-> > > +	ret = devm_mutex_init(dev, &st->access_lock);
-> > > +	if (ret)
-> > > +		return ret;
-> > > +
-> > > +	ad4134_regmap_config.lock_arg = st;
-> > >  	st->regmap = devm_regmap_init(dev, NULL, st, &ad4134_regmap_config);  
-> > 
-> > [Severity: Medium]
-> > Is it safe to modify the global ad4134_regmap_config structure during probe?
-> > If multiple devices probe concurrently, could this cause a data race where one
-> > device's lock_arg overwrites another's before devm_regmap_init() copies it?
-> >   
-> Not sure. Should it lock on a mutex before editing the regmap_config. Maybe
-> I get rid of access_lock and make regmap_config const again.
+Will apply the patch tomorrow or Monday.
 
-Good catch here.
+Adrian
 
-You shouldn't be modifying the global. The mutex solution works because
-devm_regmap_init() doesn't keep any references to the config anyway but
-I'd just use a local copy instead.  One on the stack should be fine.
-
-
-Jonathan
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
