@@ -1,25 +1,26 @@
 Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023076.outbound.protection.outlook.com [52.101.127.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D81FD13B293;
-	Sat, 17 Oct 2026 04:00:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D79F3AEF36;
+	Sat, 17 Oct 2026 04:00:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792209659; cv=fail; b=n/M+Q/GoyauEnN1Fwrb+IQoUIf7yz5ZtcJnoU9qmZF3eICPJmUh6OeXJ77+qBYMf5bqkXC/pGy2MFdDm4wSQdCZQpc4HgPmAB7g6+3xJH9QgeWzcfC/FiHSnfp6/2ZakhnAHwv3eFlTVxQNEMD0vaqJXk+X3Q7WwjSevPnNX3hs=
+	t=1792209661; cv=fail; b=tHDIWd8Nq42ZgsDVhD/qhUvbW+3OhdoC8T1e/8nGqLYiFeT6K2gcJjipB+gUpolzVqP2ndsSRREp5l1IiMf9TLWOjxKqMQ2RHEe4p6PPqH9Z2YO6n++LWHa3Bkqem7oqeq8ctnADsSSOHeJp8fFgAd2jwL4NFJJfhNd8n+xvGR0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792209659; c=relaxed/simple;
-	bh=eewtY3e7fNKuL7c/ss9C0rkFb5NEsGOcrxOBnabWCm0=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=kl17PHYXFS+xXXPrbKFn++iEYXYI1kfZYpHbo2bVygj2klMV8ogGjloUw5sYEHAUqra/GlwzbB4QE0/NTNVwJuoAHsjvK+0q2qj7YZIJidXKoxBqTClM06d5y0VgZHJ1NwkY1HLXfFLJN9CyFWJGA2WyLazZ6RNOP+xU/s0UO5I=
+	s=arc-20240116; t=1792209661; c=relaxed/simple;
+	bh=2u6DgMSKTHAX49fygbZSOPbkPNlHwm4ALGVISQmqngU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MQPr6y7SPuVViA7/5UbKqbKNR9+herQmcSjqA6ug1rb/SuR+8UabKkyg3GSGnRcq8Wvkwnla44PXV7csoQKiJt9/qzjhX1cpoBpeTxWVZldqkuSlZxAPzs2pR1Z1buV/9ACYYTMFDmAXqfYt/Rr6PjgATl8Lc7xzzH3LjoaUZ7c=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=khadas.com; spf=pass smtp.mailfrom=khadas.com; arc=fail smtp.client-ip=52.101.127.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=khadas.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khadas.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OdUy+4VedDoy/+MTreHWTGKs7Fru5sbMnRrzb8nOzShsum8cR3N/0v5SRUaiSnKW9n287y1maw8x0+JJG1o4HDgtvY982IkPL1adogzyyN+sa4AOGpC0wWWBOWtXyDci61faYUWgq6vBdMouOJq/XMrEtEFzPwKebcOR4Ddurdia2wxrDIXsuWKGpb67ZV7SpCI5Z+iEh/7ME6qSbCjdt6GR1l/wJtEJXKurVk1cATzB2W1mH4iK5fo0T9Vfry01xhwiOZlRNP+tv/jEwOfQfbczu165w1906OkTeKI2se7x7A6YlWAiF9yq2PDmXpw2A0F2VW6XDrlnicXaUjOVDA==
+ b=mMM+h6meJkYB/5dI2Qo++W1QfAkiKO7UaLinfRRuX213ys4RpqqHuYmmsyaCiewDBL21T3C3dqB1KZ2q6yql4JLyoJnXfPTCxFWmPIbXGdPwjTUgwbonaz6IzO25CGwkWJjT8WUbnmIvgEGFPrupN8EUrHqDFuqmQz6VuwS64caON26xB9i6S6WvkzzJ3e7acFIpYAZDvHCNo64JgFh0sHBZz4AanLsvQ+SvYfs0bKFsnDlFYJtEDbgmI2kNUa92DYq/SVBGnpywvYE2RWqmaLxfaBj+q1pUcyDltUocXE6I3jg3WUnT4ox3LJvT44AslZsyO/dFHt7bqpnMEZea0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qgF/46vpSV2Q2+Gd47OgVknr2zG1d6cGLyD2Crahfzs=;
- b=CnrXD/ahUn1IINhEY6E26A9cLfyoSlKptzv7U1l61uNxhcjPSlehbKaUqeGlgFenNAVZcC6vCo9Km6O//5dwDVx+52NEKIQksPnLP5k/7CjuDPveW8P2h3/EpopGZ/fwTo21Alrh2Dwf7NLyIp6df2/USKcP9r3yf8AayqQHnDHXmRtSvZrMIzNBzAY1CyI2jpJIGg1+BghV9wSmWzXHVsiNpiSdB18g+SLCwVXFj5WlHWY9vJ7suUV2CIjarEtsIAP1Ccn0GiKKaPPxQDKRErMOjWgug1S38pDzAgujoNSrLxm+vWYiG0qb1+XJseawTVC8HfzVnDRlJg4HmuaPPA==
+ bh=nuCzbGwfzqJh7CbB2ZV6E09uNZxNfhJso8o7caEjKsQ=;
+ b=fqpm60cmuggz4ESFY9idr/G1S7FK03jC3VUBGoD9RzZwCyCzBhoh+npB33tIFBi2VIjPo1TQPjVMqQuOAo1QCcoQe3osNnEhoycdVoVU2a+uR9go+uLmYFHaDa6CgYAPxtQ/iRGCGaFv5jf7dB7oomykKUd4708b2GysmCn/TWVZolyQeTAKWNSDTJyJLW+XLhyPxF17Z+89rGCWS7pFyVdSP4EksJ7alQ8V7cP39ib0zd9nVKlB8Ptv9iTFA7zlV2XfaCtSRT+CGywRTZqf2oFaIpYSb+OtGLeeg9vFc2MPF0hVJ+vVUXVRtU9At84YLMgmf4yNmOpgBjPf5vk2yg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=khadas.com; dmarc=pass action=none header.from=khadas.com;
  dkim=pass header.d=khadas.com; arc=none
@@ -29,11 +30,11 @@ Received: from KUXPR03MB10477.apcprd03.prod.outlook.com (2603:1096:d10:6e::13)
  by TY1PPFAEA8AB8B7.apcprd03.prod.outlook.com (2603:1096:408::a66) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Sat, 17 Oct
- 2026 04:00:53 +0000
+ 2026 04:00:55 +0000
 Received: from KUXPR03MB10477.apcprd03.prod.outlook.com
  ([fe80::889e:504a:790b:aa74]) by KUXPR03MB10477.apcprd03.prod.outlook.com
  ([fe80::889e:504a:790b:aa74%3]) with mapi id 15.21.0522.016; Sat, 17 Oct 2026
- 04:00:52 +0000
+ 04:00:55 +0000
 From: Nick Xie <nick@khadas.com>
 To: neil.armstrong@linaro.org,
 	khilman@baylibre.com
@@ -49,10 +50,12 @@ Cc: robh@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	xieqinick@gmail.com
-Subject: [PATCH 0/2] Add initial support for Khadas VIM 5
-Date: Sat, 17 Oct 2026 12:00:36 +0800
-Message-Id: <20261017040038.3702428-1-nick@khadas.com>
+Subject: [PATCH 1/2] dt-bindings: arm: amlogic: Add Khadas VIM 5
+Date: Sat, 17 Oct 2026 12:00:37 +0800
+Message-Id: <20261017040038.3702428-2-nick@khadas.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261017040038.3702428-1-nick@khadas.com>
+References: <20261017040038.3702428-1-nick@khadas.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: TP0P295CA0030.TWNP295.PROD.OUTLOOK.COM
@@ -66,82 +69,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: KUXPR03MB10477:EE_|TY1PPFAEA8AB8B7:EE_
-X-MS-Office365-Filtering-Correlation-Id: fcd87716-6333-48af-df04-08df2c033cba
+X-MS-Office365-Filtering-Correlation-Id: b1afb518-60ce-48b4-5b1f-08df2c033e75
 X-LD-Processed: 2dc3bd76-7ac2-4780-a5b7-6c6cc6b5af9b,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|52116014|376014|1800799024|366016|7416014|23010399003|38350700014|56012099006|261009223027099003|18002099003|10067099003;
+ BCL:0;ARA:13230040|52116014|376014|1800799024|366016|7416014|23010399003|38350700014|56012099006|261009223027099003|22082099003|18002099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
- s6UHYH/iwtk+xHJckXq9WxFgi4QIbY+fuTsZuAN4HB+qw/Mf3KtaBGk0Z8dNpPUvLD1duTuWJvFRt1axvGQpwF3k8rFifG8cT5uX6oW4QOtEGhCziY9azovXz5ScDpe9ohKCW7XlHYMQeYMh0Kithq8ZqoviAyHG9RS900hFS81sU4ifCZtDpitQXjLgImsTG5a/3e03j1Plsd/2QswDM7J5iBfeSKGsaDLFCj6uFFiK1bc+5J72Rzm+A1Rr/6RKVjYuXZjZI0Q0JydZ1Uli4vP5tHhZuA7T2qx+WsFR4ZlTGjMe21McGr/Yq2LV5Fa2COu+bukNyWn3PqRZE/wXRcm/ldtmCvSinpSmD5XDQFduk1isQBRyyNpdn3Hr71BVDvcHn32UbbN2nIHKA8qpVXQCbh+KK45GaQ/SMne+YM2cF1lFfknaikvJcgen3rWngfqSF4guRRSk921fSvfJcPL5TL3hQqbsReNMLWTJF0c08kVz/j2wS05B+ulu0PZjWNfHym+SbkF2hjyci2sppSJbKrf1LjzxNpyNpFUrZmTSf3jR8lTcyvoYgS5nT2lHANWeCcyOejIDuSkpfLKLIBzionNmkSAW1NuJiRRsH/yWOmp7Vb5Jy2B0wGOyegonO1G7RWJmtyvGHAFZvsbQzUvCFVAGwUu/Mtnqi+EhJZa3bfKXxk18AOeOLu4kNoAyopqeOwMzBwo0XaM0PSt+PZ8rewy1+3Yqgi+qws1AHM8=
+ SBq+CRkOG9AC3e/fjY04dGGKuEELhGiqZXZXwOTOAqpshHcMkpgssKoTXGTmt5mPrMorMINqZHE06QOeptAD2xDYRiOIJHhe80/TBLUy6J6fRneQx5Z5GeufFR4xLyle6uequiMFcOZ3MVaZj/5c24fINV4FKp2sOm5bi3ctQIeG4dFqxXfNNHx0dsN1h9npN7OOkHhsSlDRISUcMBMHshpn9LGeIQsY09nW/Nr9Y2kefWsYDFrN5sHsc8x5RwMNH2xo+W2jSBLTHBeYCo+Tc/Lq6IHNzv3Xc/56MovPRK9mrwzUtzQdIawEC6YJo0PYf9nb6Oc+EIlvlwa5vwgHrbrOO8CoRCOpOfcwDiLx9TwRbgjvuCoNKvoedtcGOQGPDTK5OZF+pgHWnFxh0B+08pXnM3xA4RlTKBRvEpkGpAHgs9UpD7VpFBIYlbK7eA1+I+oXRWlXMvd1z9HtrnlMrtHvHtNbcC8hJMum7HmJNgImt+UovkCEVomnC37F/rEQ73qf4xYKQS6sGiCF7OD/UDVHq++iLTBQYQCV52qjmemCKJvvYB5bhBNmIKP3gI4TDvQHj1lDoEmlISP+hsCL5jj/7aOKXwQADV5p83y6upWB5ba44OpNrnC+HLCg8coN9ic1+Mi4hypTFvbYUnMF0sl9pGkq5Upqqb4y9RL4+UAJj4zTlJ983GFDmYgS2SeaL9Qf5MozUOhnR5aibB6WJtf2U72g0IBJOeTq30616Io=
 X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KUXPR03MB10477.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(1800799024)(366016)(7416014)(23010399003)(38350700014)(56012099006)(261009223027099003)(18002099003)(10067099003);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KUXPR03MB10477.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(1800799024)(366016)(7416014)(23010399003)(38350700014)(56012099006)(261009223027099003)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?MMOZuCNc2UZinGM6T34iy61daCikEME2aKOvhZ4rtwYMLbIw3qYBxd3dF8aW?=
- =?us-ascii?Q?b/TkrGklfWXmYD7SM7tX2YW5pSywPV6R2j6ZvxIf0j2QWRAlHXXckYIumCS7?=
- =?us-ascii?Q?lI+9EOGEcBslFmmY5/6q6QeuAXPCFm4GQonQcwVh58C9Au0RB9IAO4yiwdSL?=
- =?us-ascii?Q?sE4OM0GNetWD0plsNE09PhXNTAjzrGfb7Hvl/DGe7kjklzHwdW+qvG4YeeVc?=
- =?us-ascii?Q?GORKcu3qogWSD85eLPhU8tfEx4tI4wBw0mPelNJEuvPcDQiz9TH8ShQ/WXn0?=
- =?us-ascii?Q?DJrnpOseSvesJjtXiZjd2P7dtRYtOr+5z+B26bEvtrBUYD03ZsLpsboq5XxS?=
- =?us-ascii?Q?/mDXgGn7r1mmo4FqllBDG4EPJq1h3dO3d0+H3APIMrbtOOiH4rg4lPeOCvuz?=
- =?us-ascii?Q?Nh2bQhofyCUfEVvPfuLa2WfSn36Y2cCs7MdORiPvObNu20x0lylDXyQ2COC6?=
- =?us-ascii?Q?kdLdqzcQnwrmGYWDV+ZsS8m1lCsOPvDwmM/HugiE12MyIB6nmEk8ke2zDSKe?=
- =?us-ascii?Q?Kp01tE7QX3+SXZ72kOwTtl/r/gfthUDInHoMy+pAMQOYa+mNSKqKBjBKQyE+?=
- =?us-ascii?Q?gSRwjtSxjSaFCWHeKOi3BkA894fOEo8lTX6CI2YKe+kHxTLBs6Hc70r7yZIL?=
- =?us-ascii?Q?WHJhLm4IkDPfS0hv5ZNNtzugFKZbovoEAGT5wwvyVJRAZlrE0KboniZSWgCU?=
- =?us-ascii?Q?U+ag/fseLjpV1ip2lCo0Y6ZaOt/63mvG1BYWbUPITeMDNBInQTPZF1d/y6nq?=
- =?us-ascii?Q?HpLYQmNaChdwRDKWtVgDOvpFvK6NcqwPypk4VJjwrL/rOz3qPmK3leJJUAX4?=
- =?us-ascii?Q?RxngWVXArWe9PNVczwW58HxuAEBnXMKpltRKgTRlBC6WMODIW2KZ7imBNztq?=
- =?us-ascii?Q?wrC/PIbu4VrrrkhEr9jSO07dB6EjsYoUs0IyD7ysuk6lN2tK6Taao1pZWUzn?=
- =?us-ascii?Q?SnbmsCQTshz01UvH0jfF+uc3w5is8bw4Shi2c29BwHz0rZt82iEbsAaQ1bCM?=
- =?us-ascii?Q?XS6iL0D5E2xy6TRcst3PdDfP6Yn8w8yaDmq1tRiC9TX9F5Fq/MXKevUFmb2N?=
- =?us-ascii?Q?rNkFjL9iv4E7l1tLjsJ0C5pLz4hl56RZBzAsqgUnGuMLWZG20IYozhx5JScL?=
- =?us-ascii?Q?iPQdropQ/r+c+qKRCMR+eurvtGkIuBBKj31WFPjoBJwkEfk+OBOLY+NGraAr?=
- =?us-ascii?Q?Qvc9zwEW9EIQfZfCc4Pl7qeLbPfAoyhIfZMGHDrVrNDMC/MQ2D1Bydug8GOH?=
- =?us-ascii?Q?AcjZsNkQKMsPUPWV8+BwKEz1YOHkqkJ1V+PUWCdfq9a137s/OrXpbMXNMAbh?=
- =?us-ascii?Q?vkuBW9OrY0pYqoVZokLMOrqnV7qGCO2OZKKnl3duvU+7sErYwV4DzMHK8GSz?=
- =?us-ascii?Q?3JAMahhaUG5jkaeODPn4RL69I2Wzs6wx+DMAiDm/Ghd562cVo9Kub488Xm11?=
- =?us-ascii?Q?tZa+zFn7ycKr/MV5QSIJSZnZwxMgsTBSSFDNFEsT/1jvBwrt1uaNVIbD1vmn?=
- =?us-ascii?Q?1COgV0gkNVBs3YY5aRk9h1S3QmitBx07vpQAgJg4wvZbvjgEMRilAYWj+qkl?=
- =?us-ascii?Q?vKjmmBEPBIAhD9TiXjeVj6dW0uMC1QpmRg2VTMJ9Jf/XPFz0WrxcoXEBHshY?=
- =?us-ascii?Q?vkqAvMq7SN7WBaGbChxCPRJo4DtFBBR7T+Z0CDtAk+IooJbUNeChVZfYxsEi?=
- =?us-ascii?Q?jCFD0mu3sK4tExMk9O77+S7cUlppSL9WmiHFMWmAWkw+7uFU?=
+ =?us-ascii?Q?r5mlR9OBxN67ihRZpa5CCD+RCo8qKACEDna9sG3UkkClbGJjSOlTOWUxfx9Q?=
+ =?us-ascii?Q?V5+psPEO+o6Ggm5gRzYnWylpiGRuehQLafUGH/dy6o7c5BfAwxBQlEdjhxrf?=
+ =?us-ascii?Q?fdORL73XI3SXCb4K2SeNJojfOk19RbE2UnuVb4oxeLCD168fkFMbc763QsBX?=
+ =?us-ascii?Q?zQQzBD45kwuMmNsBf57c3yVuB6g7q5P8Fyc2NfsM/jLnU/Lk9pTD9ZlF5pIb?=
+ =?us-ascii?Q?kUnb8ifTCcPGp4ORhgulHzaHr6qe7h4rd4ZjEShYEqvLam6rRVAAjkVWZ+gU?=
+ =?us-ascii?Q?gFssz50OJxL9SWVNYJ0P0T8zPWzdbTP6q7zPQwOuuESDiRTrJry/EjZQ4tNE?=
+ =?us-ascii?Q?NMLpgxXTWNtTpDr+8p+bIad+xjdEiTqQxfKn2Rn+fdMW2zBNfBavvG/VcHyp?=
+ =?us-ascii?Q?xUs55NwpHKwH/Zl4oxxLh0l39l2cxfWfuQwqMplrSQ6o98H9L1IOyUzSpo+g?=
+ =?us-ascii?Q?mn96z/UzKv+GLrGXwuyIod+NxiHOI1IAAMJkgR+pyQHTZGrwQ0DXWFOwug5F?=
+ =?us-ascii?Q?UTYCAGR6CGsW0LDHCr/+ajRnZe4+sHM76Na+cyMpdNetP8gu2LuK2WS6T1/G?=
+ =?us-ascii?Q?/oPqQeY+7zK5Zmz1uS3F42cpx9v9O/XvwgqIgvvInjBh9orQIImKGINJCqSF?=
+ =?us-ascii?Q?STc6vCcrPvQTGQ+1rIvX4HK39Z5AnVnN0FwygwONPdhgy0WoIVO9nBuW7e63?=
+ =?us-ascii?Q?jYa1ssEixRG3y6wcWlYZ+uAhXePjZAxc6nWsBqIRyRTfAnYzOXBKVYXnxSmo?=
+ =?us-ascii?Q?FYNKI0r8BWJ6SpnRw5TN/Oxl3GNyBGQGqaKTMMN5/j1ztu0F8MY2ew7CSuII?=
+ =?us-ascii?Q?nUkt5eNknjGBLdgBC5MXS/fdYKwOSGHe37n0sMra4wpmqkbOaE7mEhMzZCeT?=
+ =?us-ascii?Q?qGUfCkKc90byncv6vUnyHBDFJ/QL5wBHBED1FsjgjSHFqUxW8EvT0nhk/cZu?=
+ =?us-ascii?Q?4S9xXrSNEC4Ck7WbQkGgg/ga6bxvD7kED7ySBPft5hQKoDFmtorCwESbLqS5?=
+ =?us-ascii?Q?EnKknLD4dUCpLVV0dB46CQwoQM8yvGQ1S+D3ObdHIKO3iTjiz0gzu12x0gwK?=
+ =?us-ascii?Q?WDkr4z8A+a/+na+zbFXYQVKc91bEre+40zb7UT8Y1TrKQZFkLe7jJlzABHnB?=
+ =?us-ascii?Q?uIc2uCPCa0SG+g5h0ko83/+rvepnpZ1yhj0L3lsXG/Ot1oF8kU1O+tebygQT?=
+ =?us-ascii?Q?VFinLBH94HDLmzFgKUS4HK+nyMGoq9KA7v/dHCmigytSGXeww7PUkW0tfBsh?=
+ =?us-ascii?Q?5tAVU8HA2WM02BCHF2FQF+8OcGPN6mt9LYdiaMHjG9en58DFeGt0HyWarboI?=
+ =?us-ascii?Q?qlDbS5VaK8T2UQbSL9Maa7XLMRtdgsu2SRBhAE+NF5bbO8Tr7p2lxxuSrDTH?=
+ =?us-ascii?Q?wbSeWf/qapqdgms7T96JZ2A/ooRTYbVx2IGutiT6vo4NRJ0fxitGm9aTlT9I?=
+ =?us-ascii?Q?2VUnS5Qoo36tbpxV+CEfuiJAF/G5qcO2vHFAK8Smieb4vsJSJCUMd3wx3kmc?=
+ =?us-ascii?Q?JbY07Qs8YxI2zIZ4kVhofb3Z67sa2MjwcwNevnogJZp1FE18OWXilAtVcdap?=
+ =?us-ascii?Q?f+NpZMCPg0z3IaqL/oE2FcA0RKA3R9IYMaZ5NWgB7vNodNK41smLc9kTryO4?=
+ =?us-ascii?Q?NJQBRzz+THEZUlI6AHFJi9SxSu5reJDtwoL7vLWY6m0Qm5+Mz218b/rMnMYB?=
+ =?us-ascii?Q?iXoxt4ZqqSsB+zkCz9zKgHOZUIfoml0o2aqd50TD0HNGzK0X?=
 X-OriginatorOrg: khadas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fcd87716-6333-48af-df04-08df2c033cba
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1afb518-60ce-48b4-5b1f-08df2c033e75
 X-MS-Exchange-CrossTenant-AuthSource: KUXPR03MB10477.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2026 04:00:52.6811
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2026 04:00:55.6138
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 2dc3bd76-7ac2-4780-a5b7-6c6cc6b5af9b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rSs0BrrFzTd9D3hor9qwfxt/8zT9ghJ1HvVqSPUrShl4i3ORbqlrMmhEKsbt65sH
+X-MS-Exchange-CrossTenant-UserPrincipalName: +l+zlXUWg3JfdbzDi2Z3s/LNTx9+6KMXQtQfRSLsK020Gu1xGvO/Oza+YLshc9fa
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1PPFAEA8AB8B7
 
-This series adds initial support for the Khadas VIM 5, a board based
-on the Amlogic A311Y3 SoC.
+The Khadas VIM 5 is a board based on the Amlogic A311Y3 SoC.
+Document its board compatible.
 
-The first patch documents the board compatible. The second adds the
-board device tree with UART B enabled, an 8 GiB memory description,
-and the ARM Trusted Firmware reserved memory region.
+Signed-off-by: Nick Xie <nick@khadas.com>
+---
+ Documentation/devicetree/bindings/arm/amlogic.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-The board has been boot-tested up to initramfs using the serial
-console.
-
-
-Nick Xie (2):
-  dt-bindings: arm: amlogic: Add Khadas VIM 5
-  arm64: dts: amlogic-a9-a311y3-khadas-vim-5: add initial device tree
-
- .../devicetree/bindings/arm/amlogic.yaml      |  1 +
- arch/arm64/boot/dts/amlogic/Makefile          |  1 +
- .../amlogic-a9-a311y3-khadas-vim-5.dts        | 42 +++++++++++++++++++
- 3 files changed, 44 insertions(+)
- create mode 100644 arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-khadas-vim-5.dts
-
-
-base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
+diff --git a/Documentation/devicetree/bindings/arm/amlogic.yaml b/Documentation/devicetree/bindings/arm/amlogic.yaml
+index 9f73a0054fb21..e2b258ae8a4c6 100644
+--- a/Documentation/devicetree/bindings/arm/amlogic.yaml
++++ b/Documentation/devicetree/bindings/arm/amlogic.yaml
+@@ -238,6 +238,7 @@ properties:
+         items:
+           - enum:
+               - amlogic,by401
++              - khadas,vim-5
+           - const: amlogic,a9
+ 
+       - description: Boards with the Amlogic C3 C302X/C308L SoC
 -- 
 2.34.1
 
