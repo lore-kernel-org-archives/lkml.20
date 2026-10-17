@@ -1,207 +1,235 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012053.outbound.protection.outlook.com [52.101.66.53])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21BC3B637E
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:25:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792211153; cv=fail; b=qIAGuerdTElMV9vH3LOk1DyykP+5RW9G+pWtxOXs41ZPWVzQRIJQUiCE1kdG6YxV01wMtCV8Dk73QTArRSynFaSWDwKqc73rCUnLCKLd8pYQIGvrkASqZ/zvuY1WuOXw6pOsPL8aUj2w+ds+u2JUkZ4RH0V9GOteRopjTmAQZ+s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792211153; c=relaxed/simple;
-	bh=3zMUckmdHlMtdlh/QB1ae7Hw29RsJYHLhEYheFqtBOg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=UVT7IklPYzjnHY+wB5XNcrxd2Wb01mPPUVgOZfrOwFgBZvT5JP5LdhwgvS6yguyuWN/pJSIi9EY6hIXeLhC7kGTlQsHxybNE+FI3KjzRaOOmZXmU2iPMZSlRApxUMVK3pxABzRnEADf/iHTKHbos8GTynHxKG+1a7l9CD4y1094=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=criteo.com; spf=pass smtp.mailfrom=criteo.com; dkim=pass (2048-bit key) header.d=criteo.com header.i=@criteo.com header.b=phGUqVea; arc=fail smtp.client-ip=52.101.66.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=criteo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=criteo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD9412139C9
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:27:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792211262; cv=none; b=iJRlaSVYnlAWwpr8mWcbtDsNlBo6bfrRdorLZTfP7J6UlwL9vjtrBEOr8C1loTcSYofnJDhxy1RHHhO0baxmHZXmxEpZ91p6QnVHaunb7gpzVq0Te10baVH5tWME+DystgDPmCAQMjjT6vodadDoLXu+6Hkpm3QgLLQ8U3J1doU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792211262; c=relaxed/simple;
+	bh=u/9yUQAgB6MdF6JNLgbDL3/pFHeGmFj2kmOMDD+q1b0=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=MCfWSep5ES07GglKsELCU0Z5ykGLude8C1rXG3Csd4OX0m3Gwj5Dw5ztTPC4590vWB+Hqv0kYkhsntwxQnSpwl3U5hGRdBbwLg3sF8IFSYr0LvwCioJAhoyHH3p6A9D+cGWUwNoa+h6+3dFguOG3NkgiNnizI9BALNQdWstS6Xw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WenWHma8; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=criteo.com header.i=@criteo.com header.b="phGUqVea"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qBGBvEp5oN+sNr3yorR4AxJRI6bkev63BDzBZmMJ5E9dzQ+anotP32KnrhJ01JkqS+LxKcVkfMY1UWZisUAY8XZfYPKUgNHNJDTs2x7IuyFpXXyyomzS6gkB/iVfyHu9lgjQwDTc576J1rKnFly00EZC/wn4R/+U1XNtNUMxwUekEXzlofl9BkFKmAcyoPzCBH1EFn008DwIL+gCjTRZ0QxJsgtEIzEclI8qgt+w6oLNQG+PdYaro9QtKnyTn4M5/UDK+5Q8Cwmaf/kZA7Z3mqrxfAPUbAhmNFhVNe/nHcjznaBeiZbrQPWwHU9wVCYoHKMYYRvk1XEGDzb6RyPeKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3zMUckmdHlMtdlh/QB1ae7Hw29RsJYHLhEYheFqtBOg=;
- b=gfZBitEUeBojoR8X4jOxPHtTbzBJX+aciPXkBp98cXIbfEg3bvaNv9wiXAUMj1sGe98tQoK/G+BYeUbWRqxHLE9hd7O1EfJ0nIQn7S7cN4PQnB5iwlUi8RVivcJ25Rh0knPVpYfoHK9SRBbYLzmAAgKL/AUgxp8yo1HpEO5zIY3w8VyqA2OeuQjXgWGSP1AVNGQktivxEUUo1EH128aNMMMHcvvjo6N2yOuBAFaG98iQMFiILE+RSQhQmaDCIjSB0k/Ogu03gj1DfN8lYqadDRWDhCdRNdP6gloh/b93N3QAKM74H9/CpAGXnCS4GJO+Q1BMIRpVx7KeZYZTvmy4zQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=criteo.com; dmarc=pass action=none header.from=criteo.com;
- dkim=pass header.d=criteo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=criteo.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3zMUckmdHlMtdlh/QB1ae7Hw29RsJYHLhEYheFqtBOg=;
- b=phGUqVea/jAU0z8HbXq/SDf3LzFiERredPLEvUtwxFHTSnxfpZmy6Xiak4G7dtwAWEh5a8zMIYF3eKS1y+laHLWpmko0t9pslraqEQtEygYj8K3Ff7T6D9cfECn9TfNXFvBpYLRW6+vL96jaMSpqitgTxrr3yAxC2L9nAZUdfEZpfl8FhiV27SFVzMYnjjQVdKqSwt4xFgUI2TVZv5a37rKfaUUDK+XJHrvFLwy77OKoTlryGqgUqRK9gJfCq+AoyYZqC6Pcu/+PgsTV2QUtLpbFjbPXZwvbPyT+wnqg4vMubqcowf9w05VDQhyN0m2X324tb2+r0ttlLoTjru/9Gg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=criteo.com;
-Received: from VI1PR04MB5310.eurprd04.prod.outlook.com (2603:10a6:803:57::26)
- by CPH1PF76D0E694C.eurprd04.prod.outlook.com (2603:10a6:388::3cb) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Sat, 17 Oct
- 2026 04:25:45 +0000
-Received: from VI1PR04MB5310.eurprd04.prod.outlook.com
- ([fe80::3b8e:ff4c:76b4:a012]) by VI1PR04MB5310.eurprd04.prod.outlook.com
- ([fe80::3b8e:ff4c:76b4:a012%5]) with mapi id 15.21.0522.013; Sat, 17 Oct 2026
- 04:25:44 +0000
-Message-ID: <f665dc3e-fc5c-4352-8e41-a46b7ae97946@criteo.com>
-Date: Sat, 17 Oct 2026 06:25:43 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvme: honor the volatile write cache enable state
-To: Keith Busch <kbusch@kernel.org>, Erwan Velu <erwanaliasr1@gmail.com>
-Cc: linux-nvme@lists.infradead.org, axboe@kernel.dk, hch@lst.de,
- sagi@grimberg.me, linux-kernel@vger.kernel.org
-References: <20261016141208.2641974-1-e.velu@criteo.com>
- <atJXYHJa4jkUWJmP@kbusch-mbp>
- <CAL2Jzuz1qFwLSA=iivp5qLCTL6-4rvKmvFzJbOQzjPu6j_7Y2A@mail.gmail.com>
- <atJeazM_rJ0uj3vt@kbusch-mbp>
- <CAL2Jzux8v6zCxfcdd=MY5n0zQMVSa-_8Lki9z-fz7bFShNf7vw@mail.gmail.com>
- <atJk_2FmzjUZYO_Z@kbusch-mbp>
-Content-Language: en-US
-From: Erwan Velu <e.velu@criteo.com>
-In-Reply-To: <atJk_2FmzjUZYO_Z@kbusch-mbp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PR1P264CA0009.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:19e::14) To VI1PR04MB5310.eurprd04.prod.outlook.com
- (2603:10a6:803:57::26)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WenWHma8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792211262; x=1823747262;
+  h=date:from:to:cc:subject:message-id;
+  bh=u/9yUQAgB6MdF6JNLgbDL3/pFHeGmFj2kmOMDD+q1b0=;
+  b=WenWHma8gPack3wD03vTy7cMgA3B0RUYoKgGR2H3boxAl8w3hrs+t2fY
+   SqzdQLMEEK/LCMLpkEa37eWb57y+U1I7im+PPXJrm39GmBPBo98gELc6n
+   xy11CQXRNWfnCOOng4wO6FTN4YGKRvRIc+0bpd8IsVtpJ4MavQRTWFIxN
+   GPRypP8XWfAQLokuxH7DUJM+Yvs0mK0J4w8O0SEKqq2hLWx5a+UtUnL9m
+   p0zQ3aH14+82AVj0yn/DLANebgaD7twaFHt7D/9gFbwho8Zx8mUf80740
+   d6n+zi9nSA8BUhEL7EPCHKNmQDJK4hzmw6i2or63zH5bPEEcrlM6ikjul
+   A==;
+X-CSE-ConnectionGUID: PXgctxz7SHWFS2o0CzMQQQ==
+X-CSE-MsgGUID: bIiKMsdxTqGzaip8D6+ZPA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="871832"
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="871832"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 21:27:41 -0700
+X-CSE-ConnectionGUID: NXMwfbYmSMKoBiK51wyZyw==
+X-CSE-MsgGUID: jQf8LmWARryo6LfTYkRAwg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="3928861"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa011.fm.intel.com with ESMTP; 16 Oct 2026 21:27:39 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xHw1A-00000000J40-36bD;
+	Sat, 17 Oct 2026 04:27:36 +0000
+Date: Sat, 17 Oct 2026 12:26:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: "x86-ml" <x86@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [tip:tip:urgent] BUILD SUCCESS
+ c480739eebcc4463dda81258275db6f741eb6857
+Message-ID: <202610171248.swGxZ2Pl-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5310:EE_|CPH1PF76D0E694C:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d1c48a4-770b-467f-a6d5-08df2c06b61c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|56012099006|11063799006|261009223027099003|4143699003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	N453uibhWPZkLELnUbauxZUndQgCefmu/u40VxATWz5huMedw6iBXD7llYo7MBoWx7mGj6YSGPfr+vglYzLIdyM59un3uVpmcJFRLDWuGsDFwUWrI2xrBqgt0S8+kqs/Y/2KbLOfHQEEYZg8bdh+MoxMBDP7nTraiT0gxlfeqk6UvuMuYNptk9Qry8uqjCLYRwTyKWsbHS/VeHc0E0N/HyOyQO+taVVc5OK3WC3c5crEsYDop6z+qFISemNhRkJuabd4yYVnq5XNaSm/bMRfuue0pWPzTcdKfeSyLgbMzCOtoK8hedLlzbmVQLAbtMGFgnLCrgmDYDuWsx43LdmHS9w3E2jGELSC+9OZbjK29CfeaNYy88h5kDKyw9aFc/3JmYX79fmei9Nm/O9sNWA8/HR/LkSRkCzCP4xwyJqJXCZOMy7hxjwX8vHEK1up57RYgzTgYUMDL8Vje03uz9YYJTRUElPp+9hpEuOfqnZWXg6hNqtqGNSJKWoW9PbpBGy/WrLENWqRD+wA3wgkOX0VjjZlBBAZpWrYTiJv4m2JDWBPH3v28yAutg7wsJfk112lZ/T7LnIYqv0z5bVywM8Hly860T7/oKzRXmp5GrjR0+bJMnbE/DZbvUquCPfJIBQOg8hTJ4Zpe5JOtOeKs6bWRtiVLDGKYAG9MsoBMgj4l1Y=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5310.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(11063799006)(261009223027099003)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?K1R2UVJMbFREcGZNdUQ1R3B0QmRjWWlLdldVYVRIZTRrV0lzS2dvQzMzK3VG?=
- =?utf-8?B?WlBBNUtpNC9xL25qdWdPQ251aWcyRlFQQnF6Z2hCUm02cjFrYkNlV0ZNTFFG?=
- =?utf-8?B?SldSVzN0aXI5LzRESG5jVmhFWEZDU1ZpbGpQZFRuUUx3OWFHQ1J0SnRQdEZT?=
- =?utf-8?B?cmMvcTZ3VVVnS2lEUkdPRU1QMldtNmZqeXZJOXUybjcxNVZnNFhKQ1o5Mldn?=
- =?utf-8?B?Wk5ObWhNWC9mUEhLTW1CUGhSYWx3d0paL2pHZlRXb0xFUVNlS0JDaEJ2YWxp?=
- =?utf-8?B?cWx1eTVraU1rS0k4aUd6UW1rT3hPRmpqeDU2UkVCN0M5QTYzc2pLUnRNTTFR?=
- =?utf-8?B?c1htTzJJa3g1OHNacjU0L0ZaWjFkVjJvREhoczVwZ29JLzRKNWxwdzVEOFpm?=
- =?utf-8?B?V1ZDUEsvZWkvdjl1eEs0TlBrdW5UM0s1ajh6VVpsb2xYY25zUmkzZ1VwVG1R?=
- =?utf-8?B?YWFZV05mSTE3WDJ5Tk5TV29wdEsxVUdUYkZqT3Y2OFdHYW9JeTV6bjJiNHVN?=
- =?utf-8?B?cHY2bGs2UG5rVnpDTis2bkMxblp3d0I0ZEtWRTJFZHNwdWo4UFB6TExSUnNv?=
- =?utf-8?B?MFQ5QTZ5NERCS0RnOU9FaWlTSXBsME12U3R3NTh1Rk5JaDFoc0NNVjc0bjV3?=
- =?utf-8?B?MTUvelhvbTZReExsRlRiVXMvaEZXZGdTMXpYV0J5NUZnTk56U2dwSTV3SGpz?=
- =?utf-8?B?MUtSbnJOclAzVG1YWE8zTWlxZUJKWk1xOS9hY1ZsVzQrNmVic3krWDd1MnBJ?=
- =?utf-8?B?VlJCVFVWZVB5c0VhcFFQWXJwb2FMaG1qbWZwRDNHU2F1aHZtK2Q3bDFxZUl5?=
- =?utf-8?B?ZDM0L0g5aURzTmNwNHVmQ0FZWXAyb1hPZmp2K0xpZ3NVUjRiSTR3b3RVMkpU?=
- =?utf-8?B?UUNHcTM3djJuYUlBNlF0M2dtcDI2VWZSYk1vYXgxc1d1Y1N3bUplRkc1Q2JD?=
- =?utf-8?B?MFJOL1FBaGwyUmFxdzBIWTFEL3FKRDRmUER0YkE5OHUyVHJHTXd6bFpxWUxV?=
- =?utf-8?B?UnN5cVM0TllNQXNGRkVGWFI5RTlydENyQVY4N1NoUHlQUzBUcGE2N3dZNGxL?=
- =?utf-8?B?Um9iTVhnY3RMd0NFNE9pWDFGZmxmRzhFVFAzejhLbnk5cCtvQTVrRXdJNW44?=
- =?utf-8?B?VnZ0aGV1d0VmUm5EV2cwWko1dHd6dkVxWlVPUmdBN0d1RU1KQ3hRZ09DZUZq?=
- =?utf-8?B?Y2Z6c1M5T2ZkZFBoVW5HTzhvaXlCRDNSdC9vR3dBNXlEWEdycGRLOVEyTWda?=
- =?utf-8?B?bEh4NDBuZzlxZnBnYWo4Sk0rVUU0THhhVE1QSXJkS2d3WnZReEdhNDY1ZFVr?=
- =?utf-8?B?R1YrMWc0ZE8wL3NvTS9kYmR6b0lOcWtIcVlvQXBPc2RlZWllU1NFYWhvb1hS?=
- =?utf-8?B?Um5NdFF5ZUh0cUM5S2VrWlFyU1FtWmk5bFNNRk54STNKSXgzaHJvU21PdVp3?=
- =?utf-8?B?L2tGbU9DRXcvbFZyNndhTDBkci9kWGM5SDVaeHVpUjc0OTNpOW42QUxHUmt4?=
- =?utf-8?B?Wms0TE1uclZoaFZvaTcyZ1d4alVKV0lpTjJMOExpbExXcE5hMVFxcDFuSVhM?=
- =?utf-8?B?eWdtaUlkZiszZklPM1orTlNFamh3THBVUHAvZStWbldVWXhVeW55MDJ4dXU4?=
- =?utf-8?B?QktxZTlabUlCbFdxK002UEN1SXRuZEx3VVdPVmJLRnpmLzNGd3hkdmVMekdF?=
- =?utf-8?B?NCtCenF0NXdmY2FwUk9DZHB4RmtOeGMvN2hiN1ZsMkNmMWhsNEZERVdUUmxt?=
- =?utf-8?B?MFBkWERPM1Z6VFVDckNYaVBkMDJBZE5IU0QyUGxKWTlrQWhQaDFpUTlyTkpC?=
- =?utf-8?B?dnprcTMvOGJ3SkFHMUY3c3RQK0ZlMkd5ZVgwdHhsRWZTMjAySStWb2l3dnZt?=
- =?utf-8?B?RjU4RlN6Zk52c1pSUXMzUUNENGhrY0dmR2o3cytRbUc0dnBNYkxHR1VzSGp5?=
- =?utf-8?B?ZFJQZktSdnpCWWlhY29WSDBnSEs5ZUdKaG5MVHZvWHJVT1NBK0JTMldrUVBC?=
- =?utf-8?B?ZU9Ea1hETFZxanpUN0V2MlVPVTA0YjM5QVdodXlaNUFkNWZudkVSK0lLQ1pJ?=
- =?utf-8?B?cU9UTkZWRUNiYm1VUDhMYWpqejJ5NDJIcWJQOFhPcStxSlhMNE1KRzZ1VFBj?=
- =?utf-8?B?d2EwU1JRYkpZN2VNUEV4WkdVNGFnM2VIMUNOZXF4U0c5U0Fvb0NjaWxBQ1hz?=
- =?utf-8?B?Q0FRSU9CNUNXYVVmeThMRjgyVUFjQi93ME5Ua0E2b2UxQ3VpNVhxeTdpdnVK?=
- =?utf-8?B?OEdKaFhiMUpPVUNOWk9PZUg1cnJKek9RWG1BbnNWVWpOY1UrZHd1cjh3K0tN?=
- =?utf-8?B?eWJxaXBqSFZMTUI3Z2JQQUpsQ0M3b2ZtNXRIYWRTRk5SUDhjNk1hUT09?=
-X-OriginatorOrg: criteo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d1c48a4-770b-467f-a6d5-08df2c06b61c
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5310.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2026 04:25:44.8683
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 2a35d8fd-574d-48e3-927c-8c398e225a01
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S1z8FDO6QOZShYDVK7Mam1dPGsed4c7ZEyY5LVSg+gS4txT4lN+yH8Cdu4hSZmFWBAp2JZx9simdORzLeqYJzw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPH1PF76D0E694C
 
-[...]
-> Unfortunately, no: there are contradicting statements here.
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git tip/urgent
+branch HEAD: c480739eebcc4463dda81258275db6f741eb6857  Merge branch into tip/master: 'x86/mm'
 
-Hi Keith,
+elapsed time: 901m
 
-Sorry for the confusion, my previous replies were wrong and contradicted
-the commit message. Let me restate it with new measurements.
+configs tested: 158
+configs skipped: 7
 
-To make sure the numbers are relevant, I switched to the latest nvme
-branch, nvme-7.4 (2e8e30b3cf9f), and re-ran all the tests from scratch,
-with and without the patch on top of it, on the same drive (Kioxia
-CD6-V, NVMe 1.4, VWC 0x5, WCE cleared by default).
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
-Both rows of each job in the commit message table were measured with
-WCE cleared; only the kernel differs. Without the patch, WCE is ignored
-and the namespace is exposed in write-back mode, so one Flush is sent
-per fsync. With the patch, the namespace is in write-through mode and no
-Flush is sent.
+tested configs:
+alpha                              allnoconfig    gcc-16.1.0
+alpha                             allyesconfig    gcc-16.1.0
+alpha                                defconfig    gcc-16.1.0
+arc                               allmodconfig    clang-24
+arc                                allnoconfig    gcc-16.1.0
+arc                               allyesconfig    clang-24
+arc                                  defconfig    gcc-16.1.0
+arc                   randconfig-1000-20261017    gcc-10.5.0
+arc                   randconfig-1001-20261017    gcc-10.5.0
+arm                                allnoconfig    gcc-16.1.0
+arm                               allyesconfig    clang-24
+arm                                  defconfig    gcc-16.1.0
+arm                       footbridge_defconfig    clang-24
+arm                         multi_v5_defconfig    clang-24
+arm                          nhk8815_defconfig    clang-24
+arm                   randconfig-1000-20261017    gcc-10.5.0
+arm                   randconfig-1001-20261017    gcc-10.5.0
+arm                   randconfig-1002-20261017    gcc-10.5.0
+arm                   randconfig-1003-20261017    gcc-10.5.0
+arm64                             allmodconfig    clang-24
+arm64                              allnoconfig    gcc-16.1.0
+arm64                                defconfig    gcc-16.1.0
+arm64                 randconfig-1000-20261017    clang-24
+arm64                 randconfig-1001-20261017    clang-24
+arm64                 randconfig-1002-20261017    clang-24
+arm64                 randconfig-1003-20261017    clang-24
+csky                              allmodconfig    gcc-16.1.0
+csky                               allnoconfig    gcc-16.1.0
+csky                                 defconfig    gcc-16.1.0
+csky                  randconfig-1000-20261017    clang-24
+csky                  randconfig-1001-20261017    clang-24
+hexagon                           allmodconfig    gcc-16.1.0
+hexagon                            allnoconfig    gcc-16.1.0
+hexagon                              defconfig    gcc-16.1.0
+hexagon               randconfig-1000-20261017    clang-21
+hexagon               randconfig-1001-20261017    clang-21
+i386                               allnoconfig    gcc-16.1.0
+i386        buildonly-randconfig-1000-20261017    gcc-14
+i386        buildonly-randconfig-1001-20261017    gcc-14
+i386        buildonly-randconfig-1002-20261017    gcc-14
+i386        buildonly-randconfig-1003-20261017    gcc-14
+i386        buildonly-randconfig-1004-20261017    gcc-14
+i386        buildonly-randconfig-1005-20261017    gcc-14
+i386                                 defconfig    gcc-16.1.0
+i386                  randconfig-1000-20261017    clang-22
+i386                  randconfig-1001-20261017    clang-22
+i386                  randconfig-1002-20261017    clang-22
+i386                  randconfig-1003-20261017    clang-22
+i386                  randconfig-1004-20261017    clang-22
+i386                  randconfig-1005-20261017    clang-22
+i386                  randconfig-1006-20261017    clang-22
+i386                  randconfig-1007-20261017    clang-22
+i386                  randconfig-1008-20261017    clang-22
+i386                  randconfig-1009-20261017    clang-22
+i386                  randconfig-1010-20261017    clang-22
+i386                  randconfig-1011-20261017    clang-22
+i386                  randconfig-1012-20261017    clang-22
+i386                  randconfig-1013-20261017    clang-22
+loongarch                         allmodconfig    clang-24
+loongarch                          allnoconfig    gcc-16.1.0
+loongarch                            defconfig    clang-24
+loongarch             randconfig-1000-20261017    clang-21
+loongarch             randconfig-1001-20261017    clang-21
+m68k                              allmodconfig    gcc-16.1.0
+m68k                               allnoconfig    gcc-16.1.0
+m68k                              allyesconfig    clang-24
+m68k                                 defconfig    clang-24
+microblaze                         allnoconfig    gcc-16.1.0
+microblaze                        allyesconfig    gcc-16.1.0
+microblaze                           defconfig    clang-24
+mips                              allmodconfig    gcc-16.1.0
+mips                               allnoconfig    gcc-16.1.0
+mips                              allyesconfig    gcc-16.1.0
+mips                            ip30_defconfig    clang-24
+mips                    sb1250_swarm_defconfig    clang-24
+nios2                             allmodconfig    clang-20
+nios2                              allnoconfig    clang-24
+nios2                                defconfig    clang-24
+nios2                 randconfig-1000-20261017    clang-21
+nios2                 randconfig-1001-20261017    clang-21
+openrisc                          allmodconfig    clang-20
+openrisc                           allnoconfig    clang-24
+openrisc                             defconfig    gcc-16.1.0
+parisc                            allmodconfig    gcc-16.1.0
+parisc                             allnoconfig    clang-24
+parisc                            allyesconfig    clang-17
+parisc                               defconfig    gcc-16.1.0
+parisc                randconfig-1000-20261017    gcc-15.2.0
+parisc                randconfig-1001-20261017    gcc-15.2.0
+parisc64                             defconfig    clang-24
+powerpc                           allmodconfig    gcc-16.1.0
+powerpc                            allnoconfig    clang-24
+powerpc                       chrp32_defconfig    clang-24
+powerpc               randconfig-1000-20261017    gcc-15.2.0
+powerpc               randconfig-1001-20261017    gcc-15.2.0
+powerpc64             randconfig-1000-20261017    gcc-15.2.0
+powerpc64             randconfig-1001-20261017    gcc-15.2.0
+riscv                             allmodconfig    clang-24
+riscv                              allnoconfig    clang-24
+riscv                             allyesconfig    clang-24
+riscv                                defconfig    gcc-16.1.0
+riscv                 randconfig-1000-20261017    clang-19
+riscv                 randconfig-1001-20261017    clang-19
+s390                              allmodconfig    clang-17
+s390                               allnoconfig    clang-24
+s390                              allyesconfig    gcc-16.1.0
+s390                                 defconfig    gcc-16.1.0
+s390                  randconfig-1000-20261017    clang-19
+s390                  randconfig-1001-20261017    clang-19
+sh                                allmodconfig    gcc-16.1.0
+sh                                 allnoconfig    clang-24
+sh                                allyesconfig    clang-17
+sh                                   defconfig    gcc-14
+sh                  kfr2r09-romimage_defconfig    clang-24
+sh                    randconfig-1000-20261017    clang-19
+sh                    randconfig-1001-20261017    clang-19
+sparc                              allnoconfig    clang-24
+sparc                                defconfig    gcc-16.1.0
+sparc                 randconfig-1000-20261017    gcc-15.2.0
+sparc                 randconfig-1001-20261017    gcc-15.2.0
+sparc                        sparc32_defconfig    clang-24
+sparc64                           allmodconfig    clang-20
+sparc64                              defconfig    gcc-14
+sparc64               randconfig-1000-20261017    gcc-15.2.0
+sparc64               randconfig-1001-20261017    gcc-15.2.0
+um                                allmodconfig    clang-17
+um                                 allnoconfig    clang-24
+um                                allyesconfig    gcc-16.1.0
+um                                   defconfig    gcc-14
+um                              i386_defconfig    gcc-14
+um                    randconfig-1000-20261017    gcc-15.2.0
+um                    randconfig-1001-20261017    gcc-15.2.0
+um                            x86_64_defconfig    gcc-14
+x86_64                             allnoconfig    clang-24
+x86_64      buildonly-randconfig-1000-20261017    gcc-14
+x86_64      buildonly-randconfig-1001-20261017    gcc-14
+x86_64      buildonly-randconfig-1002-20261017    gcc-14
+x86_64      buildonly-randconfig-1003-20261017    gcc-14
+x86_64      buildonly-randconfig-1004-20261017    gcc-14
+x86_64      buildonly-randconfig-1005-20261017    gcc-14
+x86_64                               defconfig    gcc-14
+x86_64                                   kexec    clang-22
+x86_64                randconfig-1000-20261017    gcc-14
+x86_64                randconfig-1001-20261017    gcc-14
+x86_64                randconfig-1002-20261017    gcc-14
+x86_64                randconfig-1003-20261017    gcc-14
+x86_64                randconfig-1004-20261017    gcc-14
+x86_64                randconfig-1005-20261017    gcc-14
+x86_64                                rhel-9.4    clang-22
+x86_64                            rhel-9.4-bpf    gcc-14
+x86_64                           rhel-9.4-func    clang-22
+x86_64                     rhel-9.4-kselftests    clang-22
+x86_64                          rhel-9.4-kunit    gcc-14
+x86_64                            rhel-9.4-ltp    gcc-14
+xtensa                             allnoconfig    clang-24
+xtensa                            allyesconfig    clang-20
+xtensa                randconfig-1000-20261017    gcc-15.2.0
+xtensa                randconfig-1001-20261017    gcc-15.2.0
 
-To answer your question, I measured the Flush latency at the driver
-level, between the nvme_setup_cmd and nvme_complete_rq tracepoints:
-
-  - passthrough: 2000 "nvme flush" sent directly to the device
-  - fio: 4k randwrite, io_uring, direct, QD1, fsync=1, 10s
-
-   kernel  | WCE | mode    | passthrough | fio: Flush | fio: fsync |  IOPS
-           |     |         | Flush avg   | avg (drv)  | avg (fio)  |
---------+-----+---------+-------------+------------+------------+------
-   nvme-7.4|  0  | back    |    194.8us  |   214.6us  |  236.1us  |  3917
-   patched |  0  | through |    194.2us  |    (none)  |  5.7us  | 44433
-   patched |  1  | back    |    194.2us  |   219.7us  |  237.1us  |  3916
-
-So:
-
-  - The block layer flush handling is not the reason: without the patch,
-    the device accounts for ~215us of the ~236us fsync, the rest of the
-    stack for ~21us.
-
-  - The drive spends ~194us on a Flush whether the volatile write cache
-    is enabled or not. It does not short-circuit the Flush when WCE is
-    cleared, although the spec says it has no effect in that case.
-
-  - Without the patch, WCE cleared therefore performs exactly like the
-    volatile write cache enabled (3917 vs 3916 IOPS), while the patched
-    kernel skips the Flush entirely (44433 IOPS).
-
-The slow no-op Flush is a firmware behavior, but the kernel should not
-send it in the first place when WCE is cleared, which is what the patch
-does.
-
-I also re-ran the commit message benchmark on nvme-7.4, WCE cleared in
-both cases (fio 4k randwrite, fsync=1, 30s):
-
-   job                   | kernel   |   IOPS | fsync avg | flushes |  gain
-----------------------+----------+--------+-----------+---------+------
-   psync buffered, QD1   | nvme-7.4 |   3917 |   249.2us | 117506 |
-                         | patched  |  48227 |    15.7us |  0 | x12.3
-----------------------+----------+--------+-----------+---------+------
-   io_uring direct, QD1  | nvme-7.4 |   3888 |   238.2us | 116636 |
-                         | patched  |  42580 |     5.5us |  0 | x11.0
-----------------------+----------+--------+-----------+---------+------
-   io_uring direct, QD32 | nvme-7.4 |   5674 |  5514.1us | 117774 |
-                         | patched  | 140090 |   107.1us |  0 | x24.7
-
-If you think it makes the commit message clearer, I can send a v2 with
-these numbers, the kernel anitly, and the driver level Flush latency above.
-
-Thanks,
-Erwan
-
-
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
