@@ -1,38 +1,38 @@
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8537648E0F3;
-	Sat, 17 Oct 2026 12:25:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404A7490BF8;
+	Sat, 17 Oct 2026 12:25:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792239911; cv=none; b=bnKrPV+GLcaD/0WRh/k95wj5g6IH3PE5KUeylDlfMAaiP7Qmx4gkYBthDCXU3UVhKCd5+3Llpf8aDJBzWq2rE5Az014dJg2dtiOBxNF2wahLax4ExLR8WZcBdU1v8vB1eQBUDwQspueu5uiGxkxsnYAwMHgu1qO4dGnjc9h/1XA=
+	t=1792239911; cv=none; b=VauN8lE1YxxWbn3CuQh3mC8zTfvx0JSGyFG7OFyVTzcImaFBVPtB/k+Pz5ZVvMAohr4PBZwF0fsVopzhcQIkl0iwBBCgfQiyox/lEN4VgjsnbSvjQ3DgzSSL4P3yczU6M6sR9dVnRHKGYTFo8tnrsliNiOQYiKTQUNbIN7pbDts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792239911; c=relaxed/simple;
-	bh=YmWAPTdE7JFm//2wSpZq0zHg7fsmkAideAHQvDZaLHY=;
+	bh=vr814dPQ7m+H8Psfpz2S57tibOiNxzsQ2rMb10VDSfA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=J/16LlKAWy1W+gp1ndenjB439skxXyT4kDASrX49C1Te9DCatMZmQSPBVOB45FVXZ85hwBX/YCwsogrxms85yqlj94vI1pMZNEL+lWWfrrjoiSYUA5huT1oX0TwfaRmPwK/GUO97dfoZz//dRp+gCQL8ZqweKfmPIKAZeiR2als=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=t6sKPgYK; arc=none smtp.client-ip=90.155.50.34
+	 MIME-Version:Content-Type; b=tzloKt+q1Y62W2Du9DLN4jneJx0N06PZFAEGpZ2DAWXqTu34WtyoLSIcJkgT5+3fAP8BjO4Yd07VGhLmRARCyco/yFPrY+BUbi/db5mFIqSSIiTODBIH6dlPcJqlgDswT4LZNbipo1XELSV9m/66xyqrmdsSpaP685qBcv9UP9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=rK7/yPkJ; arc=none smtp.client-ip=90.155.50.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="t6sKPgYK"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="rK7/yPkJ"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
 	To:From:Reply-To:Content-ID:Content-Description;
-	bh=XWh5KNFkAmFOR6TEW9zxrjvHeSZgS19hqXogLIStBpI=; b=t6sKPgYKWd3z1SZ/xz0SwuRZrR
-	KE8rNOk+RmfWpRD9pmqeHKThGNOLVTLN1wBwIUaQmGBqOjjxDXZXe1w8Dv15+etDGeBmOb0iQ4zfM
-	rSLKBjg+Rj/fOBs0GMpTTwapD17vi3fLv5LyeyDvG2g9UYYUNsGRTaOl8G6C1Fy6B7q9KgiXqfoHT
-	WhdQSJU4g3lwzF8ITERyUgWdIPISLFG62vlPSM0EaZHfxg7xZvQ3NooEvct46rEGCIPty43Tu3ps+
-	ICWrfHqn3g0fv47bnv7moGprQloZolf8022Bq3yIKA+CSyigawMwa0JAaQPsBLd60SSC+5+/LFdQc
-	p9ZRBhFQ==;
+	bh=a4CHpkcKk/utciFY5YQmuIJ361lOG35Qn0BJvjWEjlo=; b=rK7/yPkJmhRU1BF/WKlhP2FUB6
+	nKbcCjbDJMJMacaEwdDhkHkdY8hyXUfN/1GmyFO3F2xhB0FOz0pQqMiCPSiSlWkCQuDZS2cT9EkVi
+	Bw3I7rdyr4Kevdbsz4rOk+JEE0Ip72YK/W5Uqlgyr31EfRSaR4SbuT+qjhpq+aYV1St1Mz+BIQbZe
+	KjZLtZ/epZfJvE3h3m02vMC9gCZp0+L007TsqcKfYgoVKwPb917z6LnORLnwHJ7ls1xm0zCkUUeni
+	RVDCQaPN8g+BPlsDuaHi2cmr4B4umCkulpCmgQcH8mEeh+8Z4cn1EVtsYR0fB1EpnJShHAb/b4s6a
+	RuREs/Lg==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xI3TD-0000000CVCd-3GKG;
-	Sat, 17 Oct 2026 12:25:03 +0000
+	id 1xI3TE-0000000CVEV-2GHk;
+	Sat, 17 Oct 2026 12:25:04 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xI3TD-00000002Ymx-1DL7;
-	Sat, 17 Oct 2026 13:25:03 +0100
+	id 1xI3TE-00000002YoW-1ONF;
+	Sat, 17 Oct 2026 13:25:04 +0100
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -53,9 +53,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Mushahid Hussain <hmushi@amazon.co.uk>,
 	David Woodhouse <dwmw@amazon.co.uk>,
 	nh-open-source@amazon.com
-Subject: [RFC PATCH 31/55] KVM: planes: Kick the running twin's pCPU, not the request target's
-Date: Sat, 17 Oct 2026 13:24:37 +0100
-Message-ID: <20261017122501.610248-32-dwmw2@infradead.org>
+Subject: [RFC PATCH 52/55] KVM: selftests: Add Hyper-V reference TSC page memory attribute test
+Date: Sat, 17 Oct 2026 13:24:58 +0100
+Message-ID: <20261017122501.610248-53-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261017122501.610248-1-dwmw2@infradead.org>
 References: <20261017122501.610248-1-dwmw2@infradead.org>
@@ -72,87 +72,169 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-The remote kick paths (kvm_make_vcpus_request_mask(),
-kvm_make_all_cpus_request(), __kvm_vcpu_kick()) read
-READ_ONCE(vcpu->cpu) of the plane-0 vCPU. But vcpu->cpu is per plane
-vCPU — kvm_arch_vcpu_load() refreshes only the loaded twin's copy —
-while vcpu->mode is shared in kvm_vcpu_common. When the vCPU thread
-has migrated pCPUs while a non-zero plane was loaded, the shared mode
-reads IN_GUEST_MODE but the IPI goes to plane 0's stale pCPU: a flush
-hypercall returns HV_STATUS_SUCCESS while the twin keeps running on
-stale translations, breaking the TLFS guarantee that the flush covers
-the whole VP.
-
-Read the pCPU from common->current_vcpu, whose cpu field every
-kvm_arch_vcpu_load() refreshes, in both kick paths. Also read the twin
-array with READ_ONCE in the per-plane request fan-out and correct the
-comment there: mode and wait are shared with the common, the pCPU is
-not.
-
-Found by Sashiko review.
+The reference TSC page is written by the host, not by the guest, so
+the guest-side memory attribute tests never cover it.  Add a test
+that a page at an unprotected gfn is maintained as usual, that
+pointing HV_X64_MSR_REFERENCE_TSC at a gfn carrying
+KVM_MEMORY_ATTRIBUTE_NW leaves the page contents untouched — on the
+MSR write itself and on a subsequent KVM_SET_CLOCK-forced update —
+and that re-pointing the MSR at a writable page recovers.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 Assisted-by: LLM
 ---
- virt/kvm/kvm_main.c | 25 +++++++++++++++++++------
- 1 file changed, 19 insertions(+), 6 deletions(-)
+ tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+ .../selftests/kvm/x86/hyperv_tsc_page_attrs.c | 129 ++++++++++++++++++
+ 2 files changed, 130 insertions(+)
+ create mode 100644 tools/testing/selftests/kvm/x86/hyperv_tsc_page_attrs.c
 
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index ae998cef3c36..fa639a659138 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -225,16 +225,16 @@ static void kvm_make_vcpu_request(struct kvm_vcpu *vcpu, unsigned int req,
- 		 * A per-plane request raised on "the vCPU" (TLB flush after
- 		 * a host-side zap, obsolete-roots reload, ...) concerns
- 		 * every plane: fan it out to the twins, or the plane that
--		 * runs next consumes a bit the others still need.  Mode,
--		 * pCPU and wait are shared with the common, so the kick
--		 * logic below covers the twins too.
-+		 * runs next consumes a bit the others still need.  Mode and
-+		 * wait live in the common and the kick below targets the
-+		 * running twin's pCPU, so it covers the twins too.
- 		 */
- 		if (req & KVM_REQUEST_PER_PLANE) {
- 			struct kvm_vcpu *twin;
- 			int p;
- 
- 			for (p = 0; p < KVM_MAX_PLANES; p++) {
--				twin = vcpu->common->vcpus[p];
-+				twin = READ_ONCE(vcpu->common->vcpus[p]);
- 				if (twin && twin != vcpu)
- 					__kvm_make_request(req, twin);
- 			}
-@@ -255,7 +255,14 @@ static void kvm_make_vcpu_request(struct kvm_vcpu *vcpu, unsigned int req,
- 	 * finalized. See kvm_vcpu_kick() for more details on handling requests.
- 	 */
- 	if (kvm_request_needs_ipi(vcpu, req)) {
--		cpu = READ_ONCE(vcpu->cpu);
-+		/*
-+		 * vcpu->cpu is per plane vCPU and kvm_arch_vcpu_load()
-+		 * refreshes only the loaded twin's, so this plane's copy
-+		 * can point at a pCPU the thread has long left while a
-+		 * twin runs elsewhere.  The mode just checked is shared;
-+		 * the IPI must go where the running twin actually is.
-+		 */
-+		cpu = READ_ONCE(READ_ONCE(vcpu->common->current_vcpu)->cpu);
- 		if (cpu != -1 && cpu != current_cpu)
- 			__cpumask_set_cpu(cpu, tmp);
- 	}
-@@ -4334,7 +4341,13 @@ void __kvm_vcpu_kick(struct kvm_vcpu *vcpu, bool wait)
- 	 * vCPU also requires it to leave IN_GUEST_MODE.
- 	 */
- 	if (kvm_arch_vcpu_should_kick(vcpu)) {
--		cpu = READ_ONCE(vcpu->cpu);
-+		/*
-+		 * Target the running twin's pCPU: this plane's vcpu->cpu
-+		 * goes stale whenever the thread migrates while another
-+		 * plane is loaded, and the IN_GUEST_MODE just observed is
-+		 * the (shared) mode of whichever twin runs.
-+		 */
-+		cpu = READ_ONCE(READ_ONCE(vcpu->common->current_vcpu)->cpu);
- 		if (cpu != me && (unsigned int)cpu < nr_cpu_ids && cpu_online(cpu)) {
- 			/*
- 			 * Use a reschedule IPI to kick the vCPU if the caller
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 47c7a4c732eb..6edeb6693375 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -89,6 +89,7 @@ TEST_GEN_PROGS_x86 += x86/hyperv_forward_hcall
+ TEST_GEN_PROGS_x86 += x86/hyperv_ipi
+ TEST_GEN_PROGS_x86 += x86/hyperv_svm_test
+ TEST_GEN_PROGS_x86 += x86/hyperv_tlb_flush
++TEST_GEN_PROGS_x86 += x86/hyperv_tsc_page_attrs
+ TEST_GEN_PROGS_x86 += x86/kvm_clock_test
+ TEST_GEN_PROGS_x86 += x86/kvm_pv_test
+ TEST_GEN_PROGS_x86 += x86/kvm_buslock_test
+diff --git a/tools/testing/selftests/kvm/x86/hyperv_tsc_page_attrs.c b/tools/testing/selftests/kvm/x86/hyperv_tsc_page_attrs.c
+new file mode 100644
+index 000000000000..efa47ae69780
+--- /dev/null
++++ b/tools/testing/selftests/kvm/x86/hyperv_tsc_page_attrs.c
+@@ -0,0 +1,129 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Test that KVM honours plane memory attributes when it maintains the
++ * Hyper-V reference TSC page.  A page whose gfn carries
++ * KVM_MEMORY_ATTRIBUTE_NW in the owning plane's attributes must never
++ * be written by the host, on the HV_X64_MSR_REFERENCE_TSC write or on
++ * any later masterclock update; an unprotected page keeps working, and
++ * re-pointing the MSR at a writable page recovers.
++ */
++#include "test_util.h"
++#include "kvm_util.h"
++#include "processor.h"
++#include "hyperv.h"
++
++struct ms_hyperv_tsc_page {
++	volatile u32 tsc_sequence;
++	u32 reserved1;
++	volatile u64 tsc_scale;
++	volatile s64 tsc_offset;
++} __packed;
++
++#define SENTINEL_SEQ	0xdeadbeef
++#define SENTINEL_U64	0xcafef00dcafef00dULL
++
++static void guest_main(struct ms_hyperv_tsc_page *page_a, gpa_t page_a_gpa,
++		       struct ms_hyperv_tsc_page *page_b, gpa_t page_b_gpa)
++{
++	/* Set Guest OS id to enable Hyper-V emulation */
++	wrmsr(HV_X64_MSR_GUEST_OS_ID, HYPERV_LINUX_OS_ID);
++
++	/* An unprotected page is maintained by KVM as usual. */
++	wrmsr(HV_X64_MSR_REFERENCE_TSC, page_a_gpa | 0x1);
++	GUEST_ASSERT(page_a->tsc_sequence != 0);
++
++	/* Fill the page about to be protected, while it is still writable. */
++	page_b->tsc_sequence = SENTINEL_SEQ;
++	page_b->tsc_scale = SENTINEL_U64;
++	page_b->tsc_offset = SENTINEL_U64;
++
++	GUEST_SYNC(1);	/* host sets KVM_MEMORY_ATTRIBUTE_NW on page_b */
++
++	/*
++	 * Pointing the reference TSC MSR at the protected page must not
++	 * have KVM write to it: not on the MSR write itself, and not on
++	 * the masterclock update the write requests.
++	 */
++	wrmsr(HV_X64_MSR_REFERENCE_TSC, page_b_gpa | 0x1);
++	GUEST_ASSERT(page_b->tsc_sequence == SENTINEL_SEQ);
++	GUEST_ASSERT(page_b->tsc_scale == SENTINEL_U64);
++	GUEST_ASSERT(page_b->tsc_offset == SENTINEL_U64);
++
++	GUEST_SYNC(2);	/* host resets kvmclock, forcing a TSC page update */
++
++	GUEST_ASSERT(page_b->tsc_sequence == SENTINEL_SEQ);
++	GUEST_ASSERT(page_b->tsc_scale == SENTINEL_U64);
++	GUEST_ASSERT(page_b->tsc_offset == SENTINEL_U64);
++
++	/* Re-pointing the MSR at a writable page recovers. */
++	wrmsr(HV_X64_MSR_REFERENCE_TSC, page_a_gpa | 0x1);
++	GUEST_ASSERT(page_a->tsc_sequence != 0);
++
++	GUEST_DONE();
++}
++
++int main(void)
++{
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm;
++	struct ucall uc;
++	gva_t page_a_gva, page_b_gva;
++	gpa_t page_b_gpa;
++	int stage;
++
++	TEST_REQUIRE(kvm_has_cap(KVM_CAP_HYPERV_TIME));
++	TEST_REQUIRE(kvm_check_cap(KVM_CAP_MEMORY_ATTRIBUTES) &
++		     KVM_MEMORY_ATTRIBUTE_NW);
++	TEST_REQUIRE(sys_clocksource_is_based_on_tsc());
++
++	vm = vm_create_with_one_vcpu(&vcpu, guest_main);
++
++	vcpu_set_hv_cpuid(vcpu);
++
++	page_a_gva = vm_alloc_page(vm);
++	page_b_gva = vm_alloc_page(vm);
++	memset(addr_gva2hva(vm, page_a_gva), 0x0, getpagesize());
++	memset(addr_gva2hva(vm, page_b_gva), 0x0, getpagesize());
++	page_b_gpa = addr_gva2gpa(vm, page_b_gva);
++
++	vcpu_args_set(vcpu, 4, page_a_gva, addr_gva2gpa(vm, page_a_gva),
++		      page_b_gva, page_b_gpa);
++
++	for (stage = 1;; stage++) {
++		vcpu_run(vcpu);
++		TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
++
++		switch (get_ucall(vcpu, &uc)) {
++		case UCALL_ABORT:
++			REPORT_GUEST_ASSERT(uc);
++			/* NOT REACHED */
++		case UCALL_SYNC:
++			break;
++		case UCALL_DONE:
++			/* Keep in sync with guest_main() */
++			TEST_ASSERT(stage == 3, "Testing ended prematurely, stage %d",
++				    stage);
++			goto out;
++		default:
++			TEST_FAIL("Unknown ucall %lu", uc.cmd);
++		}
++
++		TEST_ASSERT(uc.args[1] == stage,
++			    "Stage %d: Unexpected sync, got %lx",
++			    stage, (ulong)uc.args[1]);
++
++		if (stage == 1)
++			vm_set_memory_attributes(vm, page_b_gpa, getpagesize(),
++						 KVM_MEMORY_ATTRIBUTE_NW);
++
++		/* Reset kvmclock triggering TSC page update */
++		if (stage == 2) {
++			struct kvm_clock_data clock = {0};
++
++			vm_ioctl(vm, KVM_SET_CLOCK, &clock);
++		}
++	}
++
++out:
++	kvm_vm_free(vm);
++}
 -- 
 2.50.1
 
