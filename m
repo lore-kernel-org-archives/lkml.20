@@ -1,104 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC65347C6;
-	Sat, 17 Oct 2026 23:52:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A372B3939C1
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 23:57:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792281155; cv=none; b=RYaEDXAPGKTASdcRO4w4+2CZeEsn1SBMSKGDgHG3if9r+wX7OHAMdyDuZY3ooJuYbwCSIOlCP9s89fPqR6b+FuGKjJmR+BlBLMmtpEKzC+vop/o06EEXa6MbzVZlzwKPG/ooVwSPYOB2vdkuFFGN76YtNxA/PSE2qiIiRkIP/uo=
+	t=1792281458; cv=none; b=lA3/0mCXBwajeaZwi17smpTc4xbqi1Ucq/7ZB37mGzFh6Su9kl9rtaXd2H8WOl6GBOTYTLecxoJEznQoA2246yUD84HO8pZz8Nq8O4RodJr6WDFlnVlDpvRlOAVdKtguLkRuiHuboenR0Sipx4ahrJxxOJ5lffewjLkeZgd3mmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792281155; c=relaxed/simple;
-	bh=KQxRgMiC9eqfoxps45u3C8FRTJSV+Wus1W6p3YPA5AQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TLqncsGBuLlDCn+D77wjGr1e5W63dsE6lN2rVUvMUXxwcqFWwCpZ3TpWwllIADcZyPsF9w8hHwSFLREUugTLDLcrQTALIUP7KfiuK4eh73XZnOQjbGGpagxq6e4M/tVA8eYEpVNAO7w4OOGOAYkeG3rohZjNFihqxdBRZM5YTkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtTgdnJa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792281458; c=relaxed/simple;
+	bh=o2NBSx/FDXqBMksdU/mUlTzX6/bzw8/craKKvdkqRIE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DEjX1qCzF2p9YcjU9EocCtBJFPxd/Mvlc4INPiOjKdnKyCsrxeuHirmt6fupD8939IGsi6SaAcuvDfVzniIc+zXW1VS4sNy1RZdGWOmjcbX2AUrOV9RpNGsGox1bnhnEcDg6JipoMGmsXVk43uG7mRzLlQwyQMgmpHqQgtTlyl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rlxL2WOB; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtTgdnJa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEC281F000C4;
-	Sat, 17 Oct 2026 23:52:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792281154;
-	bh=StFzcik7Mp3ZhvVi5JfQWedzYDV64DGFpPQvRvZGGVU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QtTgdnJaKeLronPOyT75NC3l1+vd0AHb1RHOFWqVSZ8LIqRqJVesYHg6P9pe6TCeW
-	 HxIhHTaivr2u1vZoOchTzuufBLhDIzPmaNAVuneMkakM0TZQq3lukqZ6lymHh2XYj2
-	 sNcE1VjoC0rruYkzekNa5tzEH/W1P6M3FslGfElMt7KwhixXuYW1n3Q3eqR+0D8b4C
-	 KMtVIyDJNhai1PEdoa3Uu5JRlnrQpgyEJoP7J61W1zEw/0S4HQ/iy5IqLxKVQR5tqG
-	 yjlf5l7pwJ0BF8yD3UzSjREkqrH6h/B9WpvonM+y/OS2pdRjO3mjti3sdIclkXazoo
-	 oOYYoXqG/aZHA==
-Date: Sun, 18 Oct 2026 00:52:28 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Shashank Mohan Jain <jain.sm@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Mark Brown
- <broonie@kernel.org>, bui duc phuc <phucduc.bui@gmail.com>, Frank Li
- <Frank.Li@nxp.com>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] iio: magnetometer: fix the register restore on
- resume in mmc35240 and mmc5633
-Message-ID: <20261018005228.151cea5a@jic23-hlaptop>
-In-Reply-To: <20261012050055.48850-1-jain.sm@gmail.com>
-References: <20261012050055.48850-1-jain.sm@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rlxL2WOB"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1dede3c2cso7317485e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 16:57:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792281456; x=1792886256; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pex06CPzZvFqO9bOYfRUEtlWF/y2fI6jKIVDllT5g/E=;
+        b=rlxL2WOBGgULzrCQFYBLIJu6zGUt4XvNu7tqg4nVHKJavNpjogHk/KWGnUX3oDMdqj
+         FYbgVMcLwPH+qPkgl0Fs48NALE7r01XFFyZWGgBT5UKMNGdKnltzW1s4GvaJhh8z7IWK
+         VFg8Ni1QVWm5B+Zcj3x5IpLy/jDMtXQnKCTFufAYZ8jlDGB9emnLdJYsOgzeO04QKtR5
+         mtUp9lq6GJbFdug2Qj+13OQJMOlrtYscNo7xCbIL7pCT/RnSoB2SVBPaqmXDRzqm8Z1O
+         KbpF4MV9g8R4ynJNBnZJkz/hz8rbBCkuJFLAZE3D02YuI2hzQQlJ7W80KdDDml10kR2f
+         lQ4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792281456; x=1792886256;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Pex06CPzZvFqO9bOYfRUEtlWF/y2fI6jKIVDllT5g/E=;
+        b=Nrbfo0HImav0K01alE1eltUmQI67LUWaqcJwb3cSzqIKnLhmdoSDGYnnfuplpDkbxN
+         iUqELmEz6OeFOYOzbSZSDztqadhFFkApCYQI3WZhKItqtAV58OzFH4egGlLua5hgsUcn
+         ZRxgzHmgxQmMgYpk7FvLKNlZdtpqHbuKqNT0NyPEyllOISKpiWluxKShh8CkrgcAoglv
+         olA4L24QsV5xu8eQIqvTCKJw28Ckb7SKstzjbTqoOHO99KCUsFI+I5VPx9iCDzc+abaC
+         OlzDG9/vf0yQvGtOwVQG4wqN62eDvaebHqcOb/OpsFY85IUgj5m185e/xZ763wHmbdar
+         T6PQ==
+X-Forwarded-Encrypted: i=1; AKwUvByRWYCYQmWS3KTkiywA0Tp5gBbdoNKfV6+M1F/iqYoYRk58kOU3Y4JwrLVqPedv2rydE1V4LcAa4MNlGDU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImU12O5gwiuSYmZYG3pG+CQGs8BPy1etknB3I/duKLU/hF3D8I
+	QWrjkQSDyOMYncprCq67I347OFsaSOfqGdcQIARk3H4ipGP+tDTx3lk8
+X-Gm-Gg: AYBFou2v2p2BfWIthiiOl8rxeTMCmvfjjXJ1rfSwyf2CY33hXs6IxW8+BsERpLiM7Gd
+	QEl3mpQALbbqBCv0pnoEr8uycdxCB2WMHJcTAcB9o6AQuFXZ5bgc+0onhvQhQvVF80lqFH9kKpE
+	y4B547gUKy7k8FqsbMbFSAvXubVObHU2lbvRmYPcNWhtyVj+77RHGeUNnbJoKSnK5mEpO2FKU14
+	X1E+Kl9XX2X8Vh04D4nmGy1bg9maQkl90pR7aq4h/r4GhedfIDCKypQEmvibIbCl/QvjiJuJwfP
+	5cs3YqO0rsjNACsnqEtQXMC/9MS3CaHTv/7dyaGh4a5a3TdS2JX/4BvQCVUFB8gqzKDnWJilOxe
+	NJ86HA+UGm+Y5fJ46V0vqbO4qyIaDKenRfYbQlfaxT2C2Lh5gVlSIWWNtoP97dQ+w7JhCG9KaJK
+	SQvb3ImsmNU3nHXd3ERF5JWrEED1dF3ekmN7bdzDwEhG2lE2lCsRTURvB9YU/Lc7w/5Z0PVUCvP
+	NtqP56RQt2Ieau/QBYz2MDDuXWP3uFZrcoYs0+UCAjMVFfsOqsrXCr9fhjmShqQ4JGE
+X-Received: by 2002:a05:600c:8219:b0:4a1:85d9:13be with SMTP id 5b1f17b1804b1-4a1d76031bfmr80634935e9.20.1792281455606;
+        Sat, 17 Oct 2026 16:57:35 -0700 (PDT)
+Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cf05009csm139331075e9.10.2026.10.17.16.57.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 16:57:35 -0700 (PDT)
+From: Palla Raghunath <raghunathpalla.0209@gmail.com>
+To: joern@lazybastard.org,
+	miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com
+Cc: linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	shuah@kernel.org,
+	me@brighamcampbell.com,
+	linux-kernel-mentees@lists.linux.dev,
+	raghunathpalla.0209@gmail.com,
+	stable@vger.kernel.org,
+	syzbot+c9d8bc9f8ccc03799e1f@syzkaller.appspotmail.com
+Subject: [PATCH] mtd: phram: fix name leak when phram_setup() fails
+Date: Sun, 18 Oct 2026 00:57:33 +0100
+Message-Id: <20261017235733.14667-1-raghunathpalla.0209@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 12 Oct 2026 10:30:53 +0530
-Shashank Mohan Jain <jain.sm@gmail.com> wrote:
+parse_err() is a macro that prints the message and then does "return 1".
+phram_setup() still uses it after parse_name() has allocated the device
+name, with a "goto error" right after each call. That goto is never
+reached, so the kfree(name) under the error label never runs and the
+name leaks every time one of these checks fails.
 
-> The resume callbacks of mmc35240 and mmc5633 call
-> regcache_sync_region() before they take the regmap out of cache-only
-> mode. Since v7.3-rc1 regmap refuses a sync in cache-only mode with a
-> WARN and -EINVAL (86fc3483a4d6 and afc8e3ee8307), so both drivers now
-> warn on every resume and no longer restore their control registers.
-> 
-> The kernel-doc added by 86fc3483a4d6 says that the caller has to
-> disable cache-only mode before the sync, so the two patches change the
-> order in the drivers.
-> 
-> The Fixes tags name the commit that added each resume callback
-> (553a776b7908 for mmc35240, 6e5f6bf2e3f0 for mmc5633), as suggested by
-> Bui Duc Phuc in review of v1: the wrong order predates the regcache
-> change (86fc3483a4d6 / afc8e3ee8307), which only turned it into a WARN
-> and a failed restore.
-> 
-> I have no hardware for either chip. The patches were tested in qemu
-> with the drivers bound to an i2c-stub device and a suspend/resume
-> cycle through /sys/power/pm_test; the details are in the changelogs.
-> A scan of drivers/ and sound/ for other resume paths which sync before
-> leaving cache-only mode in the same function found only these two.
-> 
-> Based on mainline (a5ebb76233b7, v7.3-rc6+); the patches also apply
-> to next-20261009.
-Applied both to the fixes-togreg branch of iio.git and marked them
-for stable.  Seems harmless if they get backported further than
-the change that added the error.
+syzbot hit this by writing "p0,0x8000000000000000,0" to
+/sys/module/phram/parameters/phram. The zero length fails the
+erasesize/len check and the "p0" string is leaked.
 
-Jonathan
+Use pr_err() for these five messages so we really jump to the error
+label and free the name. This also means the real error code goes back
+to the caller instead of 1, which sysfs returned to userspace as if one
+byte had been written.
 
-> 
-> Changes since v1:
->  - repoint the Fixes tags to the commits that added the resume
->    callbacks (553a776b7908, 6e5f6bf2e3f0), per Bui Duc Phuc's review;
->    the code change is unchanged.
->  - note in each changelog that the ordering predates the regcache
->    change that exposed it.
-> 
-> Shashank Mohan Jain (2):
->   iio: magnetometer: mmc35240: leave cache-only mode before the cache
->     sync
->   iio: magnetometer: mmc5633: leave cache-only mode before the cache
->     sync
-> 
->  drivers/iio/magnetometer/mmc35240.c | 3 +--
->  drivers/iio/magnetometer/mmc5633.c  | 3 +--
->  2 files changed, 2 insertions(+), 4 deletions(-)
-> 
-> 
-> base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
+Fixes: 49c64df88057 ("mtd: phram: fix a double free issue in error path")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+c9d8bc9f8ccc03799e1f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c9d8bc9f8ccc03799e1f
+Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
+---
+ drivers/mtd/devices/phram.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/mtd/devices/phram.c b/drivers/mtd/devices/phram.c
+index b42cadcd76b1..7aed57b31967 100644
+--- a/drivers/mtd/devices/phram.c
++++ b/drivers/mtd/devices/phram.c
+@@ -289,34 +289,34 @@ static int phram_setup(const char *val)
+ 
+ 	ret = parse_num64(&start, token[1]);
+ 	if (ret) {
+-		parse_err("illegal start address\n");
++		pr_err("illegal start address\n");
+ 		goto error;
+ 	}
+ 
+ 	ret = parse_num64(&len, token[2]);
+ 	if (ret) {
+-		parse_err("illegal device length\n");
++		pr_err("illegal device length\n");
+ 		goto error;
+ 	}
+ 
+ 	if (token[3]) {
+ 		ret = parse_num64(&erasesize, token[3]);
+ 		if (ret) {
+-			parse_err("illegal erasesize\n");
++			pr_err("illegal erasesize\n");
+ 			goto error;
+ 		}
+ 	}
+ 
+ 	if (len == 0 || erasesize == 0 || erasesize > len
+ 	    || erasesize > UINT_MAX) {
+-		parse_err("illegal erasesize or len\n");
++		pr_err("illegal erasesize or len\n");
+ 		ret = -EINVAL;
+ 		goto error;
+ 	}
+ 
+ 	div_u64_rem(len, (uint32_t)erasesize, &rem);
+ 	if (rem) {
+-		parse_err("len is not multiple of erasesize\n");
++		pr_err("len is not multiple of erasesize\n");
+ 		ret = -EINVAL;
+ 		goto error;
+ 	}
+-- 
+2.34.1
 
