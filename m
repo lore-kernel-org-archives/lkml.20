@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 729A03CA4B2;
-	Sat, 17 Oct 2026 17:34:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F802DF126;
+	Sat, 17 Oct 2026 17:35:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792258489; cv=none; b=q78vd1AgvH/PsUnIBhBBMhCRk6mK5KSxk/NRsZgQMpj89YJNgAyt+301t0qzyZJKhgO9DIWry7a2ho3CnD66vOMRDZfV6lj4DPkv9Wmu2LD0tVVBsKZfkqqSrhZCZcK1fAgT7dhYNMnUhxW2G8M/5VPUFR7/c2858xvtDciRCvQ=
+	t=1792258538; cv=none; b=SexqpiZhv7fw73B9ycIt06yjoK9rfN6YUnnJ76o96KSAVskq6LEeBkt1fcm2qLu390j3xXhY45yaaL8KCUW1ABs8YQOngQ1U/DiilLYxt5qv2rcqI8wTFlzykAYK+Hg+GrLwEx9uemTcZyfzyJrMIgQ2MpbYn6He/1zf9jP9rYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792258489; c=relaxed/simple;
-	bh=c1Y+cNgZSl6oxfa6sPWwhmyh86knC2zDX4YaremTr4Q=;
+	s=arc-20240116; t=1792258538; c=relaxed/simple;
+	bh=lCJycZqX+kBj4MPEtAbT3YtpN+yKIejf+6syPCfxv64=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X1ulvZRixK1UFaEswE0cVNIQo0827ccoaAfc9zqHmlBO04JIKOhUO7Wmueww7IJZbQlKfE7f67ITvSXkqU/lfykOlTJtKhWAY5h8nqncnoIbVPIWsHA+kM31FLsZw2Bb94Fi2bOqsIHfuGah9yc0z8j6Kcp7+1+RbS6o+X38NV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQDv/u4V; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=eCacUcCOSxjCUeRlaM8gh2NYDslwIL9MoNb1eSwsDh9BvLLxTA5Sy0G/2QnPQJY0TUNgM+KbT//8cQXVqsFq7BpvoLKLM4PoiMIxtCCTv9Dwj2ZCDci5/BLlg3LD6ztIAW2o6IC3UTvfoXMK1Bvji7xhLglOiboaJsfIknVUATo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DEU2vzuZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQDv/u4V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E2D51F000C5;
-	Sat, 17 Oct 2026 17:34:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DEU2vzuZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C93281F000C5;
+	Sat, 17 Oct 2026 17:35:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792258488;
-	bh=qNdjMQCTGNLewxfiHeMIIUAvhVBTONkqD2ENh1szlgE=;
+	s=k20260515; t=1792258537;
+	bh=3+0x/Z9A2Q85cxU4iMhAGY92L0CJlHjtu+SuYBQ6hY4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KQDv/u4V77KcvHQRNl5/W38Y5Ac8Hsw1MEbeRQ39v4p+vuFjxM8bfNUL7zuU2ov/J
-	 EyFKFPd+RYJhMp3/KO37xFdkUDcorh0UhqZ992K70HJasnNCziNMzSZwV0P9ksEgME
-	 /tjaxeCG/gZedWtDweiD93L4F9X1egUD6ZYU8CnenQClYt/k0sECg73/ar511caSWZ
-	 RiJZXyCtdlPKo84CHqL/kDyw3auSwZaXMvTBRjZrzQzLdykfcqKb7pP7DQXcQz1eGN
-	 fY7cmkmGEuD0loVlJk3AEemKyMMqsmOiUi0aFY6LbXVKjCCRA/HQtacDQqttdzWazU
-	 P6sKEpVPUvgGQ==
-Message-ID: <ced5461d-4c56-4250-9a0c-cafde5d08f12@kernel.org>
-Date: Sat, 17 Oct 2026 19:34:42 +0200
+	b=DEU2vzuZgdNsBMELztQJMGO8tOYt678s7UNMeDdOrCVzTgxPRwGDlBDTYwP04gscy
+	 HwOLwAJY4ajqhyNr2Eai4yFj2NCXru4BFNXvAU2Cej09IWNIFSIyANyTheDv37q2jp
+	 Po53AKNgPiIphY/J4kHjnxeA9BBaoS+HttqHQtMAdQMFxxCGTQGeN5+cJG1Mn8YKvm
+	 lzgIeqvnodwvj5rdf3/VcxY5fqPp3JGnQPGcVJr2ZCYNvz4YBZFG7sEtxaElig3L/6
+	 NbBqlPfDmph43+3PDGTdZKYNrXJMyUeNch8LXNTYkMw9O9WO+Vj+PX9Uh+j59ng5AC
+	 gzRPZxcmGVRkg==
+Message-ID: <26e2a1cb-d792-4ca2-8530-865ebb887eb7@kernel.org>
+Date: Sat, 17 Oct 2026 19:35:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,17 +35,24 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] dt-bindings: arm: qcom: Document OnePlus 8T
-To: Frieder Hannenheim <git@fhannenheim.net>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Robert Oscilowski <drgitx@gmail.com>,
- =?UTF-8?Q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
- phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261017-kebab_dts-v3-0-5fc3ca52a383@fhannenheim.net>
- <20261017-kebab_dts-v3-1-5fc3ca52a383@fhannenheim.net>
+Subject: Re: [PATCH 0/2] media: qcom: camss: track PHY type and scale link
+ frequency for C-PHY
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, david@ixit.cz,
+ andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, bod@kernel.org,
+ vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
+ mchehab@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
+ jigarkumar.zala@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com,
+ akapatra@quicinc.com, bryan.odonoghue@linaro.org,
+ linux-media@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com,
+ daniel@quora.org, konrad.dybcio@oss.qualcomm.com,
+ christopher.obbard@linaro.org, alex.vinarskis@gmail.com,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261017035221.3816464-1-anusha.nandi@oss.qualcomm.com>
+ <31bec5eb-97e0-4667-ab6e-0de662f97633@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -91,30 +98,20 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261017-kebab_dts-v3-1-5fc3ca52a383@fhannenheim.net>
+In-Reply-To: <31bec5eb-97e0-4667-ab6e-0de662f97633@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17/10/2026 17:12, Frieder Hannenheim wrote:
-> Add compatible for OnePlus 8T
+On 17/10/2026 19:30, Nihal Kumar Gupta wrote:
 > 
-> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->  1 file changed, 1 insertion(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-> index 50cc18a6ec5e..6e3fdce92798 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -1070,6 +1070,7 @@ properties:
->                - qcom,qrb5165-rb5
->                - qcom,sm8250-hdk
->                - qcom,sm8250-mtp
-> +              - oneplus,kebab
+> On 17-10-2026 09:22, Anusha Arun Nandi wrote:
+>> Depends-on: https://lore.kernel.org/all/20261017001116.2318647-1-anusha.nandi@oss.qualcomm.com/
+> 
+> This Depends-on is in the wrong series. 
+> The driver should not depend on the DTS.
 
-
-o < q, please don't break existing sorting.
+Good point. If dependency is true, then this patchset is just broken.
 
 Best regards,
 Krzysztof
