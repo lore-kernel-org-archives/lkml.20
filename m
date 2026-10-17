@@ -1,123 +1,78 @@
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 969B037187F
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:25:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792250718; cv=pass; b=hKL1UOAtByLt7eJDGExamYKDdwKoA+w2dFvGuA7lFv/t6Aackerg3+8g2HaO72B7i2tUuCJisltB3WMJhNuwGLkBtcr386nDx0WZazWsNSVm90xEx6IXqiI+Lip7KnV4c255cU1opkmAqMvILr3HPOjzqurEBMAJWWx47XhkY1o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792250718; c=relaxed/simple;
-	bh=Jm8AzdPrPR6BhXQyJz2nZ42hfc8fkKPUPVq/AoDXHaw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=b4rGHywkStUcv5v/gAGDSjjzAU8DtvOZQc5bCdMJ9FNCqX85zo5dJZYhi9CXa0ZioeDPeW34BEmouSrHyDNhHbQBVIRlL67k02KQc0+Zte9sTly5VGy3K3tlAA+UG1SsOXG7vSAVJlGAKez7HATjvtkw5APnLznX/Qo9vRgOjjk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S5YGnyIS; arc=pass smtp.client-ip=209.85.160.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946DA2DF126;
+	Sat, 17 Oct 2026 15:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792250811; cv=none; b=eSahyhtmClTop7FLSGTmXUAUDr/WKS2PFB0P80gC9aEPbFsJXIRVvxFXes+Pz5Z5fQEpJ9SieihsmCX84beHbosCr42SxihfFf08UE3W2XvfSfGHGfwpWPzH7wGBuZdX4qBch3wCAHQa7H3LHIkzEaoZJCMBGNiWYz7rRv3p/IA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792250811; c=relaxed/simple;
+	bh=nhakPVA8JKp3AZhT9iEwdgMEyGsXHRwczaW9lMZjvy8=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=WiQNVy9YF0fJ+PnbSy6weZerPuRAyi6eXtypdcrr/n/MbJ/g0Gix8r6JjqRLK8JN2CXz2ONPFPG8Lgs57sLfMfZcJM9Ruvh4iIpx5IEtrWSSFNRz+c/uGwiYWuh+6knA/1RF9bj/kggfGi832DvbiBkPsPfmcKJi/+eihjjWIk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=NH/RcBpx; arc=none smtp.client-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S5YGnyIS"
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-53381e53b80so10275751cf.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:25:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792250716; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QYmubi1Pds2ChUYaiVW/Frgl47grTfWgEUHEUbIkqv7vrtBvNBvcfnvfEyQzS8VS/v
-         EJ/cxbDSb7nPBZBOrIAoeVHy6iY419mIo1twUBVsXiem2PEoXzymtlB66p6BG9eo/gBV
-         6wZSaeiKmLSrLfnlLwZebG86cfn9WRHhFwdFRIyRmqE2ZBVBcrAGw1bpTumrhT+HV4x7
-         gw0ROBjJowXv/v4wA7Z0Lcz5ZeOVIuIXAB1DcNFC+7LGqrSIkYi1YA/Dd02c+aVoN7Pa
-         Mmm5F8lfUphroi+cMWOwyoDUOaGFxg1wA+sCpXp1akhflGMiY7TkF52nKaF4yp0C+GhY
-         f1aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=cBiNZFwCvoEsAVFQ+85lVVDF8nZW55yFDyjuRN5OJEE=;
-        fh=pRxJV5Nda/6Rw20DJFlzTB2exTadZC9ANxCyyFahCu8=;
-        b=YeHs8EnBXi7PYPH+1tLqQrGIiJ+xgjDKLIyE6/ozHLjj2oLPS/AbiuGjR/oSRRluqt
-         ilF6m8YYOAyLiHwN2ay1yChRdMBAsFtKyRApWF1QPZtluPOIJ9fYFkAh1vfQgmdD9mRE
-         +6YChLPw2K/BIr6I8JTkxi9qYJzv2TdBsUeOv75Vpt2iPwL8qmWE7N9n8CjsAjPtgEkJ
-         NReSz2cDdaIe0tXDhCw6UR6lbwQQ4Wn7W6YXdJLDt5SJk8Wadf/DSGDUfBxJb3G43LRg
-         jpWshA6xhvhyWuHi7qsk9OiAzmbNIN3x26TJ/jJl3jAdlHWwNFNhRmDVs9jFMLhXiA70
-         wo/w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792250716; x=1792855516; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cBiNZFwCvoEsAVFQ+85lVVDF8nZW55yFDyjuRN5OJEE=;
-        b=S5YGnyISdiqMD500TqKu/2332EmWoUTKP87+MUGOG6QPTvSlWnUVne+RBQtXXf8uii
-         pTMUtqFbFW3D+D6pM3k/cJkdQMEtMgwgDqSN+adWgX9u6IC9p1vl+8FJdIt5KhAs8bCN
-         x8ZARz/HAcGgUbbL9M7rj+p976MuH5PXUFwTaRTVghbH5D2z5Hy2P/HWdLK++bkPyG3t
-         nVmM9udXfE1pQM6YnsP4g7iXiKQDpWjZUdkJxzeO7yLTl6+Ewn57TdAVcWGRQ4RDUMSl
-         1/Htohgd2qUaGYR+t00PfMkRUHG9ctUkayYT3SzEZoX1ovEHlx4vFj7OddqUvPpy5OjL
-         9WaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792250716; x=1792855516;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=cBiNZFwCvoEsAVFQ+85lVVDF8nZW55yFDyjuRN5OJEE=;
-        b=LKiBOBoIatBZgc1jKPXn+nFtOXEp57J64mkybmguyc48xcaG08NmGG4jPIE+Cz1e1f
-         jMWeec8mwBN8gQjQu18IFTAndaMmNPRMqANainr3GDQr3zeUIgklYFsyj06HUrNK6cCg
-         GLicbrgxwdoJSKPpnCsfj8LX+MOQG8tr6qkc7mj5qasFlPhgKJD0RJdrdYXfi+Yv3CD7
-         kcApZAruR8Zi9Dikc+ryGOAtnzlwmWdSBSZi50yFYgULBmL3GbtPvnCRIPMJjDuBl3gv
-         lZiOsS2vhZC2iEWibGP1h/ueQk4OIcD8VH7yrCzrnh1MVhPC3sdlkEyVJuT8bTkwiTrB
-         e/gw==
-X-Forwarded-Encrypted: i=1; AKwUvBzYayrKrIH5n+xnMS+aQtEfw0IJinWzsq/8DSuwDoOaMJN9iT+uWoZlAnXkLT1DIm4Bt8icYK2DC5tWDRc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK7QvjrTUDSD2cUSk4rB+BpWrHQPolKDhAU6/fY68FKyC3VoHWT
-	P87wlqWS7z5LrMKzHdxDStNZPqE4cUELth4VaIwtd3lrOyijRoxfltd9mCRM7sR2i69qT0/+ROk
-	+5ff14WJ4B5lDfsLEfUuX4EOAqsQsK0U=
-X-Gm-Gg: AYBFou0d4llLLpmL8VGAhPJtAWu/vy7zWupoGCtViUytTgT1wIZpgDHAU+SGo+lsLYg
-	g+wwLBsjSrfRte2HIA6xHJUP0+rMhrfV2RnLDWJwFrR8kkrAsJEn2EfIWv6nJN32b9emDvfj8Ki
-	tZP8JIHJpGVO9RLo7MDqPnIjkI/GrNhp/OvYa5TGog3atRYkKvhDs934Hsw0qqewGkuzh1ovVwq
-	g6gGleY96jjdgca5kjjliRObtlB1t8xXsP4Ja+g5+ZlrkhW1BDsDiOPsK4YiNTEMA5k1FYeONLU
-	zyMOACSCU+jHU2rx+1BK7ebvc+maWUcpNSatjJCuFg39mPPr54tvKgIoHfGk25hJNRKoqAhRQjp
-	6ldLww1OTsOHU0X7mWbBQjAmvbaA3OoZwYkXs56WDz7qB1w==
-X-Received: by 2002:a05:620a:2783:b0:93e:d051:8f19 with SMTP id
- af79cd13be357-93f29ced575mr485953085a.40.1792250716444; Sat, 17 Oct 2026
- 08:25:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="NH/RcBpx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792250806; x=1792510006;
+	bh=kmo73JZ+WE61AhRHhomKf0ebO/aZsMtxEPXAwuecSQs=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=NH/RcBpx+1emWM6RfdKcuVnzmPlHbEF6NMJITHrMiq1gUsraMux/0wtwVAzRhXTJ0
+	 5NwiXbFnqtoQEGzV02SDqT6wHWvU4u9kXiFfnGZ0zPh2bvqf9r9YkxhsS03LezIdeK
+	 2nTvu92j/s3+XHe1X4srAX9GOVhl0222HSsnGPfF0vSuNwilKZMy6iq5D1wkUfN9Az
+	 xOxZt10eKTQNRY0dDmpQqoDu2dz/HA2UCe0tF4KeRa/XT10SoDl9lOftUCfdxEgvPg
+	 VIpNqXsR91t1nPAVWWa5FZliYmfjpECxvH3Awv0KDdDP2XNkMCVaBjodP3cgi+Cjyx
+	 CsObpZAw7e7qA==
+Date: Sat, 17 Oct 2026 15:26:43 +0000
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Hungyu Lin <dennylin0707@gmail.com>, Stefan Schmidt <stefan.schmidt@linaro.org>, Hans Verkuil <hverkuil@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] Revert "media: qcom: iris: use disable_irq() during power-off"
+Message-ID: <179225079986.90879.14436056966495077586@pm.me>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: 3aa12eaa5299d896a99c8a45d83be2d7fb11d6c0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261017110213.46199-1-tharitt97@gmail.com> <20261017110213.46199-6-tharitt97@gmail.com>
-In-Reply-To: <20261017110213.46199-6-tharitt97@gmail.com>
-From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
-Date: Sat, 17 Oct 2026 22:25:04 +0700
-X-Gm-Features: AclHuK8Bu8EDo40zZmiyUcWdeJAzBkx4-shpMZtTbASYDmEugT246DxrXg3J2Ik
-Message-ID: <CACak8wNa-dbNMGO=4U=JpTqSYWdk9MC+DWZS3WxRwuRRvC1T7g@mail.gmail.com>
-Subject: Re: [PATCH 5/5] KVM: selftests: Test protection of the ucall MMIO region
-To: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>
-Cc: Shuah Khan <shuah@kernel.org>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Anup Patel <anup@brainfault.org>, 
-	Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	kvmarm@lists.linux.dev, kvm-riscv@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, linux-kernel-mentees@lists.linux.dev, 
-	skhan@linuxfoundation.org, me@brighamcampbell.com, jkoolstra@xs4all.nl
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-> +#define CLOBBERED_SLOT         TEST_MEM_SLOT_BASE
-Upon self-review, this should have been hardcoded to 1 (to clobber the
-reserved ucal mmio).
+On Wed, 07 Oct 2026 17:01:05 +0530, Vishnu Reddy wrote:
+> iris_vpu_power_off() is always called with core->lock held. The threaded
+> IRQ handler also requires core->lock to proceed. If the handler is woken
+> and queued around the same time power-off is entered, it cannot acquire
+> core->lock because it is held by the power-off caller. disable_irq() wait=
+s
+> for the handler to complete, resulting in a deadlock.
 
-> +       ret = __vm_set_user_memory_region2(vm, CLOBBERED_SLOT, 0,
-> +                                          vm->ucall_mmio_addr, slot_size, slot_mem, 0, 0);
-> +       TEST_ASSERT(ret == -1 && errno == EEXIST,
-> +                   "Expected the ucall GPA overlap to be rejected: ret=%d errno=%d",
-> +                   ret, errno);
-This should have been errno == EINVAL check to catch writing to the
-exiting read-only slot.
+I hit this deadlock on a Lenovo Yoga Slim 7x (X1E80100) with 7.2.8, on
+the second rmmod of qcom_iris shortly after an H.264 decode through
+h264_v4l2m2m. rmmod never returned and the module stayed in
+"Unloading" until a reboot:
 
-The earlier test accidentally passed because it used a different slot
-ID (=2, not reserved) and received EEXIST for overlapping the reserved
-ucall GPA. It therefore tested GPA overlap rejection, not the intended
-rejection of overwriting slot 1.
+  INFO: task irq/229-iris:2028077 blocked for more than 122 seconds.
+   mutex_lock+0x8c/0xc0
+   iris_hfi_isr_handler+0x34/0x100 [qcom_iris]
+  INFO: task irq/229-iris:2028077 is blocked on a mutex likely owned by tas=
+k rmmod:2030918.
+  INFO: task rmmod:2030918 blocked for more than 122 seconds.
+   __synchronize_irq+0xb8/0xf8
+   disable_irq+0x60/0x88
+   iris_vpu_power_off+0x6c/0xb0 [qcom_iris]
+   iris_core_deinit+0xa4/0x1c0 [qcom_iris]
+   iris_remove+0x2c/0x70 [qcom_iris]
 
-I will fix it in v2
+With this patch on 7.2.8 (together with your iris_get_ts_metadata()
+fix), 20 rounds of a decode, a pause of 0 to 20 seconds, rmmod and
+insmod all unloaded in about half a second, with no hung task. Patch
+2/2 does not apply to 7.2.8 or v7.3-rc7, so it was not part of this
+test.
+
+Tested-by: Birk Skyum <birk.skyum@pm.me> # Lenovo Yoga Slim 7x (X1E80100)
+
