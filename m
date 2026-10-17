@@ -1,414 +1,81 @@
-Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3373C3C0A12
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:36:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44D43C108E;
+	Sat, 17 Oct 2026 08:38:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792226219; cv=none; b=pW5+v/7BgI5ZvHJqbMYkx7acKIVy6VnMhGvDgA1MnIR/oKZcGK+aDdm5FZsP/tu5PqCxDKh2ou2r/06MG7sEqMRa7SQC4U96gKesQCu0uYlbcd7XoxhG/EjOGjjFKGW3O/Gn+obJl822VQoEc9+BVvfh4oF0YLjKb3LIdxMuiaM=
+	t=1792226286; cv=none; b=GhFrazP9QBsdhmj6j8TS2rb9GfSpnlFLzxvsJzc38MidMytwwRQsKBMq8akYoX9gq0I8bv/FEKq7WsOxmtqUYb1xAj9HhkuQ6SE7vW0WcSTKQiVKtJTlLMY6/SoBEcxlqBSqpZCTx643MY7tM0AvwAk+RjgNPoij5f9JquTRkFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792226219; c=relaxed/simple;
-	bh=gWazb78Til6L4LLeAaKmgCqP4DtebL/Z0QIrUzh+p28=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nMp+XjqnFbJYaibujrlP4Dj4PNZx5E+CxnnVh4c6gCKtO5kUtIZm79a9QIwGQuhRGg9isiG/4qbm4T/Jh/25qWh0FkjhV7LbK/SI85v+cGbe4/f3Pu7qNfxDgXHncYEe4qydRLC1WK329D7tCfo25NAgyS6iyykqudFZqWCwWS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oBFmeGaB; arc=none smtp.client-ip=74.125.227.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792226286; c=relaxed/simple;
+	bh=QJtMS5sA/0eccIApwx6kBheVqzNsxLqXKYqzhi54xMU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=dEK1y4Ya9vGe6rUvmzhJdcwnsdptFxoE0gfyv638qcAV7l/VnCB6ezWPvbarEu2B/OXI21AjbWTQEWOHlQLXUJTcPTrKiETAJFXoXR2wsaRCbchds1AfGb3/AuhzMHHtAYlL1hjRfiCKQPgD3pcU6twKQwbKTQ7YFd+aeqJE8/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XJnGjoyf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oBFmeGaB"
-Received: by mail-pj2-f9.google.com with SMTP id d9443c01a7336-2e97de4be16so208245ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 01:36:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792226217; x=1792831017; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=68YJUDl98/bZKRH27CUBjNVC248aPx50zxON2hYp87I=;
-        b=oBFmeGaB086Fc8ODtV7ZkKcLNA7tjUI1HGy0Gp2eA5Q03u8P+1/4VN7qI97Y42PxLR
-         e4RuAnSrRiyOzsBBdfDcN+hJPyWZwO+Va1hvTdzpLon9Un8LActLbdETMOkmzlVjtMM7
-         snGNQDcxvSvHtH3q2Yi7ervCclXYnq//iHFVDZqWyy+ugaOHHMIWNu6EOfaTyh0D0Idy
-         29dz620nYNYVdG38cAeMh8m0GiTVPZq6OlZbpQbDV7y4IyuulsbmsQiWmQTX75S0EYsq
-         CcF0TfO1LZtLJ2Qkw0a6tCleOcgD3B+qJxJYoS1AE0AuHx/fr43Q1cg98FemJpuQZR3t
-         iMvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792226217; x=1792831017;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=68YJUDl98/bZKRH27CUBjNVC248aPx50zxON2hYp87I=;
-        b=opiunoHRGRLNYTQEKhOzBXqxfA+MENw4qse4SEgNSsctqfJWTxHeR3/BoCWAeOWMNv
-         EXQQnW8kiG1l/lU/uRhzr+c9BLfJs+lvrw2G0aK0WUNmeKhAtXfIh9na+SqBxnQzN6Bl
-         ipWWqvSCdmCatREDHGScqKqMLW0RcPEDYX94vh1pjv7FgHI+rfQG2DDFGuE0gQtSMUY4
-         r8414qgoaXmvOSbOqLchP7MEbH0KbLn2W8/mIUoixb9ndpCBksJDdEocVKC9Zyg6xjSQ
-         p8Jtlzz1gh8HZhmAkivPZYOJz3sMFN/Bnik5xlBjJa6Nvxr54Qr+PNr2xZMh/AtUX9UL
-         sQKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy9TjpLaKBofTjwIeX+/O3+uD5+79wnX3pRQ9tLw5Kf6yIxCsHPesKwekLhVupPyL2JcfoLCkPanw3ZOW8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/Nj+GR0SMF1vXYzgao2tfx4/oxc+Ej+h7be9/Ji5rspRHoM/X
-	ZC8w0dez+aDGyvZ9LMoA5BqIgV+vhvM+mXT2jLqm2zMl4S7bATVdurtq
-X-Gm-Gg: AYBFou2P7yt4yDVNWR1YzdksJGqURgDn5jjnMUpRF/sI3eQ77bD7IYMbLcdRw6WRF9q
-	gUP3GjayRAHVNMBFL9IJeyPfI/dDQdQo2RTKQd0iXdb0U9h0fYQJFlAuQU4AzU2CoP8Ta3No3EP
-	9bPJOqzjAywyJHjeCv/OipCltLysPeIotZSNJ+1BT7iajfVh2SrlySz8amvS2mFVGWMY4OuE4cS
-	+IIzYp8SjcdxA9iRB02T2M0xms3kZE1nrvAHdUjKg2NO5l7sVcaZdjDHAVgZTP6nUYVl3xHSrJU
-	v7rTC1M/duA9asp+24kUKFXUoqXWn5E1oDVaJZ4WMhUzX8XwNrt80gULcXhWRRAH7i5S8TnYEwu
-	koQ5NZdXCHFO5Nn9Qvb79NxGzkSd9GQBK6mRrCJkpSa41h0cbhGYeA2SLpWK1a3zP5neHxmZyB+
-	PcKcCirpbDHaNm+oj19GQzBX797yKmJ3nhUKsBP9ReVzkZpzvycNmB5iM=
-X-Received: by 2002:a17:90b:3a4f:b0:3a0:2900:f55e with SMTP id 98e67ed59e1d1-3acef3e9905mr1225414a91.29.1792226217503;
-        Sat, 17 Oct 2026 01:36:57 -0700 (PDT)
-Received: from Linux-PC ([2a09:bac5:1f0f:3141::4e8:8])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9461d71esm12548544a91.7.2026.10.17.01.36.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 01:36:56 -0700 (PDT)
-From: tianshi12127 <tianshi12127@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	dri-devel@lists.freedesktop.org
-Cc: Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Lu Chen <tianshi12127@gmail.com>
-Subject: [PATCH 3/3] drm/panel: add driver for Smartisan TD4362
-Date: Sat, 17 Oct 2026 16:35:31 +0800
-Message-ID: <20261017083531.766557-4-tianshi12127@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261017083531.766557-1-tianshi12127@gmail.com>
-References: <20261017083531.766557-1-tianshi12127@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XJnGjoyf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54B121F000C4;
+	Sat, 17 Oct 2026 08:37:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792226285;
+	bh=x1QxSP1pvDZOL/OB1iuOEP91tr8j31MeSCxfZlGiqtM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=XJnGjoyfjDwyctXlNEcJvNmzG6GXMH42gWT/81vT6XEZGTmfjAdjFlsz1EE9K9Cs9
+	 KI4t9sBZcwzxSC1HN5VrvscApPN5tJflyEC29PpY+rFDLzacLZgDUJ6mbJh72+8seB
+	 WKvwJ8rsXqFpSL3MXO3cfnCdYKMUR0XlEJLr5htKxZkxh/XGm3bVG9gpWphl/Ao3Y+
+	 s8dxvUC2LsVGTRyrJbjp1UTq1VQf4pdHXrxSNCIVAJscMbX2jpx8Dm9K+JRWPuWkUu
+	 dXD1aw/QO+v70a1U8tW/nFcaTw0EeHobObTYteUAYXJRCKgJWJHf+M+JOT5vB9YLeZ
+	 zGs3cZSgn+GfA==
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>, kwilczynski@kernel.org, 
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Manikanta Maddireddy <mmaddireddy@nvidia.com>, phucduc.bui@gmail.com
+Cc: Vidya Sagar <vidyas@nvidia.com>, Niklas Cassel <cassel@kernel.org>, 
+ linux-pci@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261012094815.28160-1-phucduc.bui@gmail.com>
+References: <20261012094815.28160-1-phucduc.bui@gmail.com>
+Subject: Re: [PATCH v2 1/2] PCI: tegra194: Use dev_err_probe() for PERST#
+ GPIO
+Message-Id: <179222626482.13667.12606800727936191501.b4-ty@b4>
+Date: Sat, 17 Oct 2026 14:07:44 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=446;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=XDE54Hdr7d9mMbkvLLDG7TjzglfiCOGWOCOT5ZGX9bw=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq0zPnYCJ5s9AcxR3/GnRjVMJioO1TPbkW/xrMe
+ ayItdbnuhOJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCatMz5wAKCRBVnxHm/pHO
+ 9Te1B/4jxR6FqlSZkWWSqmQzAQE+Lb/6vxPqpZ2vTHyeJ+ZtPK8aEV+qAN/6FlrhC7N68vMiSD2
+ B8uTYhNCjyoyh+HUW+YFuVvxjhmWCXi1z/+ByaxPY5F4eWtGI0ZsZJ/hQ98ALTirmo8lS0chojl
+ sAcV+HKKk7yM9mj5EhpD006OHImcaxbD+Wdc3yH285a6hc7FW+biK02YCIYcRsOwWEFuLs5jzZg
+ Yn7mmPjjCblSPX6pXlJC/sajnUBafj248AiNyaugl33W/rR5DldNLVXjXPTF60aXlGFcfB8HR3A
+ rxLUYfX5c47D9OteQbkpmw8obAfDx1ClS9nCAzgZHvZIa5zt
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-From: Lu Chen <tianshi12127@gmail.com>
 
-Add support for the Smartisan TD4362 1080x2242 command mode DSI
-panel found in the Smartisan R1 (trident) smartphone.
+On Mon, 12 Oct 2026 16:48:14 +0700, phucduc.bui@gmail.com wrote:
+> PCI: tegra194: Use dev_err_probe() for PERST# GPIO
 
-The initialization and power sequences were generated from the
-downstream device tree with linux-mdss-dsi-panel-driver-generator.
+Applied, thanks!
 
-Tested on a Smartisan R1 (trident).
+[1/2] PCI: tegra194: Use dev_err_probe() for PERST# GPIO
+      commit: d9b0c9ec352a5c8f037607bb938b6410ecf0dd54
+[2/2] PCI: tegra194: Propagate REFCLK select GPIO errors
+      commit: a439b860c96071e17d8877d28d0effdd42f60413
 
-Signed-off-by: Lu Chen <tianshi12127@gmail.com>
----
- drivers/gpu/drm/panel/Kconfig                 |  13 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- .../gpu/drm/panel/panel-smartisan-td4362.c    | 263 ++++++++++++++++++
- 3 files changed, 277 insertions(+)
- create mode 100644 drivers/gpu/drm/panel/panel-smartisan-td4362.c
-
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index b30d7781745c..0b413152267f 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -1124,6 +1124,19 @@ config DRM_PANEL_SITRONIX_ST7789V
- 	  Say Y here if you want to enable support for the Sitronix
- 	  ST7789V controller for 240x320 LCD panels
- 
-+config DRM_PANEL_SMARTISAN_TD4362
-+	tristate "Smartisan TD4362 DSI panel"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	help
-+	  Say Y here if you want to enable support for the Smartisan TD4362
-+	  1080x2242 command mode panel found in the Smartisan R1 (trident)
-+	  smartphone. The panel is driven over four MIPI DSI lanes in
-+	  command mode.
-+
-+	  If unsure, say N.
-+
- config DRM_PANEL_SONY_ACX565AKM
- 	tristate "Sony ACX565AKM panel"
- 	depends on GPIOLIB && OF && SPI
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index 4532f79021ea..bc4fad310554 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -112,6 +112,7 @@ obj-$(CONFIG_DRM_PANEL_SHARP_LS060T1SX01) += panel-sharp-ls060t1sx01.o
- obj-$(CONFIG_DRM_PANEL_SITRONIX_ST7701) += panel-sitronix-st7701.o
- obj-$(CONFIG_DRM_PANEL_SITRONIX_ST7703) += panel-sitronix-st7703.o
- obj-$(CONFIG_DRM_PANEL_SITRONIX_ST7789V) += panel-sitronix-st7789v.o
-+obj-$(CONFIG_DRM_PANEL_SMARTISAN_TD4362) += panel-smartisan-td4362.o
- obj-$(CONFIG_DRM_PANEL_SUMMIT) += panel-summit.o
- obj-$(CONFIG_DRM_PANEL_SYNAPTICS_R63353) += panel-synaptics-r63353.o
- obj-$(CONFIG_DRM_PANEL_SYNAPTICS_TDDI) += panel-synaptics-tddi.o
-diff --git a/drivers/gpu/drm/panel/panel-smartisan-td4362.c b/drivers/gpu/drm/panel/panel-smartisan-td4362.c
-new file mode 100644
-index 000000000000..dad4442d0421
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-smartisan-td4362.c
-@@ -0,0 +1,263 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Copyright (c) 2026 Lu Chen <tianshi12127@gmail.com>
-+// Generated with linux-mdss-dsi-panel-driver-generator from vendor device tree:
-+//   Copyright (c) 2013, The Linux Foundation. All rights reserved.
-+
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+struct smartisan_td4362 {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct regulator_bulk_data *supplies;
-+	struct gpio_desc *reset_gpio;
-+};
-+
-+static const struct regulator_bulk_data smartisan_td4362_supplies[] = {
-+	{ .supply = "vddio" },
-+	{ .supply = "lab" },
-+	{ .supply = "ibb" },
-+};
-+
-+static inline struct smartisan_td4362 *to_smartisan_td4362(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct smartisan_td4362, panel);
-+}
-+
-+static void smartisan_td4362_reset(struct smartisan_td4362 *ctx)
-+{
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 10100);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(10000, 10100);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 10100);
-+}
-+
-+static int smartisan_td4362_on(struct smartisan_td4362 *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_DISPLAY_BRIGHTNESS,
-+				     0xff);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY,
-+				     0x24);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x82);
-+	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-+	mipi_dsi_dcs_set_column_address_multi(&dsi_ctx, 0x0000, 0x0437);
-+	mipi_dsi_dcs_set_page_address_multi(&dsi_ctx, 0x0000, 0x08c1);
-+	mipi_dsi_dcs_set_tear_scanline_multi(&dsi_ctx, 0x07fa);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 80);
-+
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb0, 0x04);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb9,
-+					 0x9b, 0x51, 0x07, 0xe6, 0x00, 0x10,
-+					 0x00);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xba,
-+					 0xbb, 0x2f, 0x1d, 0xbe, 0x00, 0x10,
-+					 0x04);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xce,
-+					 0x5d, 0x40, 0x60, 0x78, 0x87, 0x94,
-+					 0x9e, 0xab, 0xb8, 0xc4, 0xcd, 0xd6,
-+					 0xde, 0xe5, 0xec, 0xf3, 0xfd, 0xff,
-+					 0x04, 0x28, 0x04, 0x04, 0x42, 0x00,
-+					 0x69, 0x5a, 0x40, 0x01, 0xf4, 0x00,
-+					 0x00, 0x04, 0xfa, 0x00);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xca,
-+					 0x1d, 0xfc, 0xfc, 0xfc, 0x00, 0x07,
-+					 0x07, 0x00, 0x00, 0x00, 0xeb, 0xe7,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf9, 0x64);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb0, 0x03);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int smartisan_td4362_off(struct smartisan_td4362 *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_usleep_range(&dsi_ctx, 16000, 17000);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 64);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int smartisan_td4362_prepare(struct drm_panel *panel)
-+{
-+	struct smartisan_td4362 *ctx = to_smartisan_td4362(panel);
-+	struct device *dev = &ctx->dsi->dev;
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(smartisan_td4362_supplies),
-+				    ctx->supplies);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to enable regulators: %d\n", ret);
-+		return ret;
-+	}
-+
-+	msleep(100);
-+
-+	smartisan_td4362_reset(ctx);
-+
-+	ret = smartisan_td4362_on(ctx);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to initialize panel: %d\n", ret);
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+		regulator_bulk_disable(ARRAY_SIZE(smartisan_td4362_supplies),
-+				       ctx->supplies);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int smartisan_td4362_unprepare(struct drm_panel *panel)
-+{
-+	struct smartisan_td4362 *ctx = to_smartisan_td4362(panel);
-+	struct device *dev = &ctx->dsi->dev;
-+	int ret;
-+
-+	ret = smartisan_td4362_off(ctx);
-+	if (ret < 0)
-+		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	regulator_bulk_disable(ARRAY_SIZE(smartisan_td4362_supplies),
-+			       ctx->supplies);
-+
-+	return 0;
-+}
-+
-+static const struct drm_display_mode smartisan_td4362_mode = {
-+	.clock = (1080 + 44 + 2 + 60) * (2242 + 8 + 2 + 100) * 60 / 1000,
-+	.hdisplay = 1080,
-+	.hsync_start = 1080 + 44,
-+	.hsync_end = 1080 + 44 + 2,
-+	.htotal = 1080 + 44 + 2 + 60,
-+	.vdisplay = 2242,
-+	.vsync_start = 2242 + 8,
-+	.vsync_end = 2242 + 8 + 2,
-+	.vtotal = 2242 + 8 + 2 + 100,
-+	.width_mm = 64,
-+	.height_mm = 117,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+};
-+
-+static int smartisan_td4362_get_modes(struct drm_panel *panel,
-+				      struct drm_connector *connector)
-+{
-+	return drm_connector_helper_get_modes_fixed(connector,
-+						    &smartisan_td4362_mode);
-+}
-+
-+static const struct drm_panel_funcs smartisan_td4362_panel_funcs = {
-+	.prepare = smartisan_td4362_prepare,
-+	.unprepare = smartisan_td4362_unprepare,
-+	.get_modes = smartisan_td4362_get_modes,
-+};
-+
-+static int smartisan_td4362_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct smartisan_td4362 *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct smartisan_td4362, panel,
-+				   &smartisan_td4362_panel_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ret = devm_regulator_bulk_get_const(dev,
-+					    ARRAY_SIZE(smartisan_td4362_supplies),
-+					    smartisan_td4362_supplies,
-+					    &ctx->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset-gpios\n");
-+
-+	ctx->dsi = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->mode_flags = MIPI_DSI_CLOCK_NON_CONTINUOUS;
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ret = drm_panel_of_backlight(&ctx->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get backlight\n");
-+
-+	drm_panel_add(&ctx->panel);
-+
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret < 0) {
-+		drm_panel_remove(&ctx->panel);
-+		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
-+	}
-+
-+	return 0;
-+}
-+
-+static void smartisan_td4362_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct smartisan_td4362 *ctx = mipi_dsi_get_drvdata(dsi);
-+	int ret;
-+
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
-+
-+	drm_panel_remove(&ctx->panel);
-+}
-+
-+static const struct of_device_id smartisan_td4362_of_match[] = {
-+	{ .compatible = "smartisan,td4362" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, smartisan_td4362_of_match);
-+
-+static struct mipi_dsi_driver smartisan_td4362_driver = {
-+	.probe = smartisan_td4362_probe,
-+	.remove = smartisan_td4362_remove,
-+	.driver = {
-+		.name = "panel-smartisan-td4362",
-+		.of_match_table = smartisan_td4362_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(smartisan_td4362_driver);
-+
-+MODULE_AUTHOR("Lu Chen <tianshi12127@gmail.com>");
-+MODULE_DESCRIPTION("DRM driver for Smartisan TD4362 1080p command mode DSI panel");
-+MODULE_LICENSE("GPL");
+Best regards,
 -- 
-2.56.0
+மணிவண்ணன் சதாசிவம்
+
 
