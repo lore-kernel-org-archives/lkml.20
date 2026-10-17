@@ -1,77 +1,67 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+Received: from mta0.migadu.com (out-165.mta0.migadu.com [91.218.175.165])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0993C1D48
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:38:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946833C1D48
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:38:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.165
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792247920; cv=none; b=e4qN9H76gIRqkYgeJsidAE3aEURcqgg7MzlFv4bB2mj9QZ319G2udHZbDGIdzwwZ06M6oh35vULk04V1PfXwyZZ9HjRWwz1NpbwSwd+uFfxFWXCsr00d9iqX6lNB1aFcBwyPlke/3hyKOuC1PPOFnb0Qz2xA6LTBfkIaI95c23M=
+	t=1792247934; cv=none; b=Y1TTauMhcf24M5HHQUsgoYvrmZfBHpolYTYIOJAO7Ge0SlCHd7YvSZTwe5nr1X9He9vayuunGuQWD7LqV3ZIGM1fpn1Z1Vl+wR1vCwwXLTZBokEdtbaNdSLBLiJSNsshankv2sFz74mhk46zVafCM1izp/97xq4xG+oVnZnLZlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792247920; c=relaxed/simple;
-	bh=9BCu4demUzTnXPk45hSWaOqkBCGnzNG0yYDUdRCCMp4=;
+	s=arc-20240116; t=1792247934; c=relaxed/simple;
+	bh=fhyc6R6ModOtnD7L+jTwXbhTgus7dkROG/hK5xGwd0w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bV8AGOHD84LNxgxeHr7XXErEEl9Kcni71e6fUwftQ31DyoVf/b4UO5zObq1ZSpx7uSNlLKzE2NkZk3oU+vHGv4hTwQyZ+OdwGMKmRPPFxFkJw2bxvE3xP8H/Job735kPzrVB9rBq5Le1juFEw5wc8UjMV/X+AZhcYJr21w9n3q0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y1M6+STm; arc=none smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=Fi2g7HRcPyEXnKYTiedBKfTzOtGZt8awm+LBAluQAqw0S1ddCC/YGFbz3+3LSEw0GVZujcpKGeDnPzb7cfstyZKxkTW21rkrJowTPGUTTQlMGX26HZ23cvjYJSJtkcNRUMmjZjRsfyonbLFjWwJMXq1kr9Qj4d1cgtCUzwDwAtg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=g+DQB3Kc; arc=none smtp.client-ip=91.218.175.165
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y1M6+STm"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3535a54bed9so1092722eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:38:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792247918; x=1792852718; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TnxjOcsDfjNAvZU8dj+rOzYZGfEa0Jvxh69bQaxfS9o=;
-        b=Y1M6+STmGLLETRIsIJHW5hle0h/BbWHKH/zevK6qvs61+p6mXzqoPNL/++x3sFl9le
-         DOlIibbcFH7nj7HM3xfsaJyO/suPOCL+M24/nFS8pthyNNtYD14vxxJDRxcdxzg2nIUm
-         nFLjxoflh3qKAdOsHiGl/BUTrOyWnhANLqiBIPP1f1SFkVfPGPbb0H+k/uDw43O0U7iM
-         noj9J2/wryUrTLbCMtapK57e89KkNRt2iCsG7QGQUnnoarS1YWG0GvT9CyW3JNhkNmo5
-         XFMi0laC26tKHzXXhG75UCUcRBb5J1woF077xMpZpuYezHdbCsit4baOmFnaiNOeGh0k
-         PRCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792247918; x=1792852718;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TnxjOcsDfjNAvZU8dj+rOzYZGfEa0Jvxh69bQaxfS9o=;
-        b=yAW1JwKo/IXaGxU6kMiNVgoVjGfR/F+pIlQbNKwhSCwTC8ntbRQXDnQgMygEEfaGbp
-         KzH82pIGw/al83ss4kd3tykoimxUsEmqVxqI39obD4+KtVSmzq65ZqD7yfpbo5oKXpMJ
-         iXhrvEChenX0YIkr2+9Yn7DEYcsCjKFJ0gbCSsYWGXzNBDVBScUqPoJpy87/iqAe4DYG
-         xN/DiTc9pVfXLc7VAV4FyRCziK0Rb/rb9CXZi1bK3H9ijlhm+Bja+eeW/+VmAwj/bRpF
-         r9K/Pr6NVN5zcY8S0kQxS5YhyrITE6hdl1+oWw3rHbKfgv0Z5rDQ6VXioIaNLaQU0PCX
-         MeNw==
-X-Forwarded-Encrypted: i=1; AKwUvBzBpLD5YkKhykisaA8YFQZK+yVxQ8dtyAHy37Cn5dliCtNf/Lp8ZoRyQP0SJmVG2bBy2AwCtEGF8uxGX10=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKU1q5JavIYrZRLWnOPgq5AkvJc0Xz1efPqFoF/QB/h/lh+9MOK
-	zpz5b6AqQykvlrrMgcVoZP8UfenaBu7sYZZsrri1ZGolJjofA+Znsrrv
-X-Gm-Gg: AYBFou2hxLIDlS+zK2Q0kDbMXdI9S/IiXD9KMFLx/zCJM7dIWGLUH7e2qSgmZcoBTzn
-	+F73UlkW4HrsQ/vb3Wapy3By7enlTrUgP0IxnrFyGs5fXvlOJTD5D+4cZaCWNEgVgizzY2AKkFz
-	Sv74Smk9+nhXltoHNfhgk8xZVMj9SVo3CrwHh2H83AfknkiamjoCgUIzKqsAjnccnSt0r+oKFA7
-	tDqUC+xF2c1JH0VG8nGh+4oHt5fPaBlNfkK6GqkxxyaIMfJ8lrr3vPcGKVA8Xf835lLIQeCS7AX
-	MY+9THdcXCegsq8Z3HBR0s7i0j1pvDOupD//jUT++G4CeoMfsPs2bBvAxkCDR+p0P/0MHkzQsFh
-	TO9psXRd/0St5GAjZLct6vIKNPh826f2BqLymyz62hl5Rvno39J0tiYvPOWqyufF6kJ5HfMTNHL
-	nq7tySbuc4df6KFrUq1j0VP5FK8+tcerD60/2xQzblbCjeZi169exAcvx64idm
-X-Received: by 2002:a05:693c:66d5:10b0:359:a6ed:41ab with SMTP id 5a478bee46e88-361a2a3cd8fmr4375850eec.36.1792247917659;
-        Sat, 17 Oct 2026 07:38:37 -0700 (PDT)
-Received: from beelink ([186.22.57.86])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081ab80f9sm26652075eec.12.2026.10.17.07.38.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 07:38:37 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="g+DQB3Kc"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fhyc6R6ModOtnD7L+jTwXbhTgus7dkROG/hK5xGwd0w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792247931; v=1; x=1792852731;
+ b=g+DQB3KcwewBElICQBPhWTGMvHSO02Kxc38DUf9YPD7RFVLPMOEuyJjdG919tS3OaquFDy9E
+ WhM5aT+PQduxJf5mqYxZyfH2d6+w3bdsK70SIyRdl/BjF5ZqZ9tLIERmOZirbgMSPZJFgBssd7u
+ mGO69cHvmffCY17wnunFO+gc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2db501b365efd3b9;
+	Sat, 17 Oct 2026 14:38:51 +0000
+X-Mizu-Trace-ID: 2db501b365efd3b9
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Amery Hung <ameryhung@gmail.com>,
+	Martin Teichmann <martin.teichmann@xfel.eu>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v10 2/2] HID: multitouch: give FF core ownership of haptic state
-Date: Sat, 17 Oct 2026 11:38:10 -0300
-Message-ID: <20261017143810.1567677-3-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261017143810.1567677-1-qwe.aldo@gmail.com>
-References: <20261017143810.1567677-1-qwe.aldo@gmail.com>
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf v2 2/2] selftests/bpf: Test narrow read of bpf_tcp_sock u64 fields
+Date: Sat, 17 Oct 2026 22:38:13 +0800
+Message-ID: <20261017143819.209510-2-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261017143819.209510-1-jiayuan.chen@linux.dev>
+References: <20261017143819.209510-1-jiayuan.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,358 +70,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An open evdev fd can delay input_ff_destroy() until after HID unbind.
-The descriptor mapping state is devres managed and cannot serve as
-ff->private for that lifetime.
+Add a test that reads the two u64 fields bytes_received and bytes_acked
+at offset + 4 with a u32 load, to make sure such a narrower access is
+rejected with "invalid tcp_sock access".
 
-Clone the mapped state in hid_haptic_init(). Transfer the allocation
-to ff->private only after input_ff_create() succeeds; the input core
-then frees it at final input device release. Scope cleanup releases
-the clone and its subresources on initialization failure.
-
-On devices with multiple inputs, attach FF to the first input with a
-multitouch touchpad report. An earlier touchpad report without a
-multitouch collection must not consume the single FF instance. Other
-inputs skip FF initialization and do not acquire INPUT_PROP_PRESSUREPAD
-from the haptic setup. The HID reports are shared, so multiple FF
-instances would write the same fields under different mutexes.
-
-Fixes: 8d0bf7908b5a ("HID: multitouch: add haptic multitouch support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 ---
- drivers/hid/hid-haptic.c     | 131 ++++++++++++++++++-----------------
- drivers/hid/hid-haptic.h     |   6 +-
- drivers/hid/hid-multitouch.c |  38 +++++-----
- 3 files changed, 91 insertions(+), 84 deletions(-)
+ .../selftests/bpf/progs/verifier_sock.c       | 48 +++++++++++++++++++
+ 1 file changed, 48 insertions(+)
 
-diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
-index 0a6126e..ec2a891 100644
---- a/drivers/hid/hid-haptic.c
-+++ b/drivers/hid/hid-haptic.c
-@@ -5,6 +5,7 @@
-  *  Copyright (c) 2021 Angela Czubak <acz@semihalf.com>
-  */
- 
-+#include <linux/cleanup.h>
- #include <linux/input/mt.h>
- #include <linux/module.h>
- 
-@@ -90,7 +91,9 @@ int hid_haptic_input_configured(struct hid_device *hdev,
- 	if (!haptic->auto_trigger_report || !haptic->manual_trigger_report)
- 		return 0;
- 
--	__set_bit(INPUT_PROP_PRESSUREPAD, hi->input->propbit);
-+	/* The HID reports are shared; create only one FF instance. */
-+	if (haptic->input_dev)
-+		return 1;
- 
- 	error = hid_haptic_init(hdev, haptic, hi->input);
- 	if (error) {
-@@ -99,6 +102,9 @@ int hid_haptic_input_configured(struct hid_device *hdev,
- 		return error;
- 	}
- 
-+	__set_bit(INPUT_PROP_PRESSUREPAD, hi->input->propbit);
-+	haptic->input_dev = hi->input;
-+
- 	return 1;
- }
- EXPORT_SYMBOL_GPL(hid_haptic_input_configured);
-@@ -377,53 +383,76 @@ static int hid_haptic_erase(struct input_dev *dev, int effect_id)
- 	return 0;
+diff --git a/tools/testing/selftests/bpf/progs/verifier_sock.c b/tools/testing/selftests/bpf/progs/verifier_sock.c
+index 565c4d8bc3fa..d8e65938c35c 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_sock.c
++++ b/tools/testing/selftests/bpf/progs/verifier_sock.c
+@@ -611,6 +611,54 @@ l1_%=:	r0 = *(u64*)(r0 + %[bpf_tcp_sock_bytes_acked__end]);\
+ 	: __clobber_all);
  }
  
--static void hid_haptic_stop(struct ff_device *ff)
-+static void hid_haptic_stop_work(struct hid_haptic_device *haptic)
- {
--	struct hid_haptic_device *haptic = ff->private;
--
- 	if (haptic->wq) {
- 		destroy_workqueue(haptic->wq);
- 		haptic->wq = NULL;
- 	}
- }
- 
--static void hid_haptic_destroy(struct ff_device *ff)
-+static void hid_haptic_stop(struct ff_device *ff)
++SEC("cgroup/skb")
++__description("bpf_tcp_sock(skb->sk): narrow load of tp->bytes_received")
++__failure __msg("invalid tcp_sock access")
++__failure_unpriv
++__naked void skb_sk_tp_bytes_received_narrow(void)
 +{
-+	hid_haptic_stop_work(ff->private);
++	asm volatile ("					\
++	r1 = *(u64*)(r1 + %[__sk_buff_sk]);		\
++	if r1 != 0 goto l0_%=;				\
++	r0 = 0;						\
++	exit;						\
++l0_%=:	call %[bpf_tcp_sock];				\
++	if r0 != 0 goto l1_%=;				\
++	exit;						\
++l1_%=:	r0 = *(u32*)(r0 + %[off]);			\
++	r0 = 0;						\
++	exit;						\
++"	:
++	: __imm(bpf_tcp_sock),
++	  __imm_const(__sk_buff_sk, offsetof(struct __sk_buff, sk)),
++	  __imm_const(off, offsetof(struct bpf_tcp_sock, bytes_received) + 4)
++	: __clobber_all);
 +}
 +
-+static void hid_haptic_free_resources(struct hid_haptic_device *haptic)
- {
--	struct hid_haptic_device *haptic = ff->private;
- 	int r;
- 
--	hid_haptic_stop(ff);
-+	hid_haptic_stop_work(haptic);
- 
- 	kfree(haptic->stop_effect.report_buf);
--	haptic->stop_effect.report_buf = NULL;
- 
- 	if (haptic->effect) {
--		for (r = 0; r < ff->max_effects; r++)
-+		for (r = 0; r < FF_MAX_EFFECTS; r++)
- 			kfree(haptic->effect[r].report_buf);
- 		kfree(haptic->effect);
- 	}
--	haptic->effect = NULL;
- 
- 	kfree(haptic->duration_map);
--	haptic->duration_map = NULL;
--
- 	kfree(haptic->hid_usage_map);
--	haptic->hid_usage_map = NULL;
++SEC("cgroup/skb")
++__description("bpf_tcp_sock(skb->sk): narrow load of tp->bytes_acked")
++__failure __msg("invalid tcp_sock access")
++__failure_unpriv
++__naked void skb_sk_tp_bytes_acked_narrow(void)
++{
++	asm volatile ("					\
++	r1 = *(u64*)(r1 + %[__sk_buff_sk]);		\
++	if r1 != 0 goto l0_%=;				\
++	r0 = 0;						\
++	exit;						\
++l0_%=:	call %[bpf_tcp_sock];				\
++	if r0 != 0 goto l1_%=;				\
++	exit;						\
++l1_%=:	r0 = *(u32*)(r0 + %[off]);			\
++	r0 = 0;						\
++	exit;						\
++"	:
++	: __imm(bpf_tcp_sock),
++	  __imm_const(__sk_buff_sk, offsetof(struct __sk_buff, sk)),
++	  __imm_const(off, offsetof(struct bpf_tcp_sock, bytes_acked) + 4)
++	: __clobber_all);
 +}
 +
-+static void hid_haptic_free_state(struct hid_haptic_device *haptic)
-+{
-+	if (haptic) {
-+		hid_haptic_free_resources(haptic);
-+		kfree(haptic);
-+	}
-+}
-+
-+DEFINE_FREE(hid_haptic_state, struct hid_haptic_device *, hid_haptic_free_state(_T));
-+
-+static void hid_haptic_destroy(struct ff_device *ff)
-+{
-+	struct hid_haptic_device *haptic = ff->private;
-+
-+	hid_haptic_free_resources(haptic);
- 
- 	module_put(THIS_MODULE);
- }
- 
- int hid_haptic_init(struct hid_device *hdev,
--		    struct hid_haptic_device *haptic,
-+		    const struct hid_haptic_device *config,
- 		    struct input_dev *dev)
- {
-+	struct hid_haptic_device *haptic __free(hid_haptic_state) =
-+		kmemdup(config, sizeof(*config), GFP_KERNEL);
- 	struct ff_device *ff;
--	int ret = 0, r;
-+	int ret, r;
- 	struct ff_haptic_effect stop_effect = {
- 		.hid_usage = HID_HP_WAVEFORMSTOP & HID_USAGE,
- 	};
--	const char *prefix = "hid-haptic";
--	char *name;
-+	if (!haptic)
-+		return -ENOMEM;
-+
-+	/* The mapping state does not own these allocations. */
-+	haptic->hid_usage_map = NULL;
-+	haptic->duration_map = NULL;
-+	haptic->effect = NULL;
-+	haptic->stop_effect.report_buf = NULL;
-+	haptic->wq = NULL;
- 
- 	haptic->hdev = hdev;
- 	haptic->max_waveform_id = max(2u, haptic->max_waveform_id);
-@@ -431,16 +460,12 @@ int hid_haptic_init(struct hid_device *hdev,
- 
- 	haptic->hid_usage_map = kcalloc(haptic->max_waveform_id + 1,
- 					sizeof(u16), GFP_KERNEL);
--	if (!haptic->hid_usage_map) {
--		ret = -ENOMEM;
--		goto exit;
--	}
-+	if (!haptic->hid_usage_map)
-+		return -ENOMEM;
- 	haptic->duration_map = kcalloc(haptic->max_duration_id + 1,
- 				       sizeof(u32), GFP_KERNEL);
--	if (!haptic->duration_map) {
--		ret = -ENOMEM;
--		goto usage_map;
--	}
-+	if (!haptic->duration_map)
-+		return -ENOMEM;
- 
- 	if (haptic->max_waveform_id != haptic->max_duration_id)
- 		dev_warn(&hdev->dev,
-@@ -460,21 +485,19 @@ int hid_haptic_init(struct hid_device *hdev,
- 	haptic->manual_trigger_report_len =
- 		hid_report_len(haptic->manual_trigger_report);
- 	mutex_init(&haptic->manual_trigger_mutex);
--	name = kmalloc(strlen(prefix) + strlen(hdev->name) + 2, GFP_KERNEL);
--	if (name) {
--		sprintf(name, "%s %s", prefix, hdev->name);
-+	{
-+		char *name __free(kfree) = kasprintf(GFP_KERNEL,
-+						     "hid-haptic %s", hdev->name);
-+
-+		if (!name)
-+			return -ENOMEM;
- 		haptic->wq = create_singlethread_workqueue(name);
--		kfree(name);
--	}
--	if (!haptic->wq) {
--		ret = -ENOMEM;
--		goto duration_map;
- 	}
-+	if (!haptic->wq)
-+		return -ENOMEM;
- 	haptic->effect = kzalloc_objs(struct hid_haptic_effect, FF_MAX_EFFECTS);
--	if (!haptic->effect) {
--		ret = -ENOMEM;
--		goto output_queue;
--	}
-+	if (!haptic->effect)
-+		return -ENOMEM;
- 	for (r = 0; r < FF_MAX_EFFECTS; r++) {
- 		haptic->effect[r].report_buf =
- 			hid_alloc_report_buf(haptic->manual_trigger_report,
-@@ -482,8 +505,7 @@ int hid_haptic_init(struct hid_device *hdev,
- 		if (!haptic->effect[r].report_buf) {
- 			dev_err(&hdev->dev,
- 				"Failed to allocate a buffer for an effect.\n");
--			ret = -ENOMEM;
--			goto buffer_free;
-+			return -ENOMEM;
- 		}
- 		haptic->effect[r].input_dev = dev;
- 		INIT_WORK(&haptic->effect[r].work, haptic_work_handler);
-@@ -494,8 +516,7 @@ int hid_haptic_init(struct hid_device *hdev,
- 	if (!haptic->stop_effect.report_buf) {
- 		dev_err(&hdev->dev,
- 			"Failed to allocate a buffer for stop effect.\n");
--		ret = -ENOMEM;
--		goto buffer_free;
-+		return -ENOMEM;
- 	}
- 	haptic->stop_effect.input_dev = dev;
- 	INIT_WORK(&haptic->stop_effect.work, haptic_work_handler);
-@@ -507,7 +528,9 @@ int hid_haptic_init(struct hid_device *hdev,
- 	ret = input_ff_create(dev, FF_MAX_EFFECTS);
- 	if (ret) {
- 		dev_err(&hdev->dev, "Failed to create ff device.\n");
--		goto ff_cap_clear;
-+		__clear_bit(FF_HAPTIC, dev->ffbit);
-+		__clear_bit(EV_FF, dev->evbit);
-+		return ret;
- 	}
- 
- 	ff = dev->ff;
-@@ -517,30 +540,8 @@ int hid_haptic_init(struct hid_device *hdev,
- 	ff->stop = hid_haptic_stop;
- 	ff->destroy = hid_haptic_destroy;
- 	__module_get(THIS_MODULE);
--	ff->private = haptic;
-+	ff->private = no_free_ptr(haptic);
- 	return 0;
--
--ff_cap_clear:
--	__clear_bit(FF_HAPTIC, dev->ffbit);
--	__clear_bit(EV_FF, dev->evbit);
--	kfree(haptic->stop_effect.report_buf);
--	haptic->stop_effect.report_buf = NULL;
--buffer_free:
--	while (--r >= 0)
--		kfree(haptic->effect[r].report_buf);
--	kfree(haptic->effect);
--	haptic->effect = NULL;
--output_queue:
--	destroy_workqueue(haptic->wq);
--	haptic->wq = NULL;
--duration_map:
--	kfree(haptic->duration_map);
--	haptic->duration_map = NULL;
--usage_map:
--	kfree(haptic->hid_usage_map);
--	haptic->hid_usage_map = NULL;
--exit:
--	return ret;
- }
- EXPORT_SYMBOL_GPL(hid_haptic_init);
- 
-diff --git a/drivers/hid/hid-haptic.h b/drivers/hid/hid-haptic.h
-index 6332991..661b605 100644
---- a/drivers/hid/hid-haptic.h
-+++ b/drivers/hid/hid-haptic.h
-@@ -69,7 +69,8 @@ int hid_haptic_input_mapping(struct hid_device *hdev,
- int hid_haptic_input_configured(struct hid_device *hdev,
- 				struct hid_haptic_device *haptic,
- 				struct hid_input *hi);
--int hid_haptic_init(struct hid_device *hdev, struct hid_haptic_device *haptic,
-+int hid_haptic_init(struct hid_device *hdev,
-+		    const struct hid_haptic_device *config,
- 		    struct input_dev *dev);
- void hid_haptic_handle_press_release(struct hid_haptic_device *haptic);
- void hid_haptic_pressure_reset(struct hid_haptic_device *haptic);
-@@ -108,7 +109,8 @@ static inline
- void hid_haptic_reset(struct hid_device *hdev, struct hid_haptic_device *haptic)
- {}
- static inline
--int hid_haptic_init(struct hid_device *hdev, struct hid_haptic_device *haptic,
-+int hid_haptic_init(struct hid_device *hdev,
-+		    const struct hid_haptic_device *config,
- 		    struct input_dev *dev)
- {
- 	return 0;
-diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index 154dc94..e53389e 100644
---- a/drivers/hid/hid-multitouch.c
-+++ b/drivers/hid/hid-multitouch.c
-@@ -1954,25 +1954,9 @@ static int mt_input_configured(struct hid_device *hdev, struct hid_input *hi)
- 	struct mt_report_data *rdata;
- 	struct mt_application *mt_application = NULL;
- 	struct hid_report *report;
-+	bool has_mt_touchpad = false;
- 	int ret;
- 
--	if (td->is_haptic_touchpad && (td->mtclass.name == MT_CLS_WIN_8 ||
--	    td->mtclass.name == MT_CLS_WIN_8_FORCE_MULTI_INPUT ||
--	    td->mtclass.name == MT_CLS_WIN_8_KEEP_LATENCY_ON_CLOSE)) {
--		if (hi->application == HID_DG_TOUCHPAD) {
--			ret = hid_haptic_input_configured(hdev, td->haptic, hi);
--			if (ret < 0) {
--				td->haptic_init_error = ret;
--				td->is_haptic_touchpad = false;
--				return ret;
--			}
--			if (ret == 0)
--				td->is_haptic_touchpad = false;
--		}
--	} else {
--		td->is_haptic_touchpad = false;
--	}
--
- 	list_for_each_entry(report, &hi->reports, hidinput_list) {
- 		rdata = mt_find_report_data(td, report);
- 		if (!rdata) {
-@@ -1987,9 +1971,29 @@ static int mt_input_configured(struct hid_device *hdev, struct hid_input *hi)
- 							mt_application);
- 			if (ret)
- 				return ret;
-+			if (hi->application == HID_DG_TOUCHPAD)
-+				has_mt_touchpad = true;
- 		}
- 	}
- 
-+	if (td->is_haptic_touchpad &&
-+	    (td->mtclass.name == MT_CLS_WIN_8 ||
-+	     td->mtclass.name == MT_CLS_WIN_8_FORCE_MULTI_INPUT ||
-+	     td->mtclass.name == MT_CLS_WIN_8_KEEP_LATENCY_ON_CLOSE)) {
-+		if (has_mt_touchpad) {
-+			ret = hid_haptic_input_configured(hdev, td->haptic, hi);
-+			if (ret < 0) {
-+				td->haptic_init_error = ret;
-+				td->is_haptic_touchpad = false;
-+				return ret;
-+			}
-+			if (ret == 0)
-+				td->is_haptic_touchpad = false;
-+		}
-+	} else {
-+		td->is_haptic_touchpad = false;
-+	}
-+
- 	switch (hi->application) {
- 	case HID_GD_KEYBOARD:
- 	case HID_GD_KEYPAD:
+ SEC("cgroup/skb")
+ __description("bpf_tcp_sock(bpf_sk_fullsock(skb->sk)): tp->snd_cwnd")
+ __success __success_unpriv __retval(0)
 -- 
-2.53.0
+2.43.0
 
