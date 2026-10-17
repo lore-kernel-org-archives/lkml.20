@@ -1,111 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A1B287518;
-	Sat, 17 Oct 2026 08:33:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A28179A3
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:36:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792226038; cv=none; b=iiNQGbxKichvUW82acR9zwmxJWeymJc/ptvk5PHal+eFNi0qUKRz3lFh+KJurUK1ekHdJaTZATSragxKcjPEJ2tNyds2mrVSXxpPGOzzChT3jga/MS5u5fsb6mGvixuPcY+A2gnOLcU3BgkjRD2naXclN8l+yQc7hE4aC7/O0qM=
+	t=1792226168; cv=none; b=bbH6bB/6yry3Boiu79NLislaBD5LYS/uYClsQivyderzJ1p3Cg6NsDmydOX8ZARjp8JBp7PcoxHbml4QwIetsKWB0RdmlACaAiqs31lyCkSSG/sSujNd9mz8RwJpug4FBOaMP74cjiC8bBSp+/528UTJaqEI0yP6oHi3WPEdRfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792226038; c=relaxed/simple;
-	bh=zdwjwUOYKQcqskKHgQtyDGupzcTZjIvYeMVDWx/tHkI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fNDDsWusJ+6mvDfTENUOx8C/FHPd7EKXzHIo5IczuDc6ioEg9rjURXzdiAzZYNPZm/dGHMZimyChia9Xm+qxDRuRrCAGjLDJbzCc6tUeNa1SNguGOskVuiOZMWpIQc7OR3IqFvuPGGI1KKyN2IllVm4ADeUlXn5JdslOYynrKcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JvBov5Qf; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792226168; c=relaxed/simple;
+	bh=RtCye4OYr+2e3wcQltPUd/mx5SOGyuXm6AFbqyk9vo0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E60uquQfj3CNqAMVPiMNqD8Iu845MF0RrYxZCpjNNVEvxw9d2jzAhx1M+rSLRve5KbT7AWNGYpATcYZvzvJD2wmKwyOb/MwMydmXJsMTndOTvwRHmJUB3ybbdH97LrQz51qaCCpkhNz3hKEoPDFJYFM4+qDTJdzjN3yP8gYACPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nlzoV/+V; arc=none smtp.client-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JvBov5Qf"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8ED67C2BCFC;
-	Sat, 17 Oct 2026 08:33:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792226038;
-	bh=zdwjwUOYKQcqskKHgQtyDGupzcTZjIvYeMVDWx/tHkI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=JvBov5Qft0h0lxNb06a6XwHMi4XL6cVgo3g7uQObB36+6Nj7aAjHZGnbL4k3bhIxu
-	 NRYeo9bYhwlK9ZYhU1erTJ9/gCCadF2TFsn07Hz9A2l2OMrE9gDR4xHaDloM9En2RX
-	 ujolUbjxa9QOCZ3Rhw8kgBgXxip5Yx13993YBoQxnTk786d1IHJ7X9QplygWXL3SOn
-	 g3hyVMIXHyQZZEnCjH5823+2WT+3TMp6LY5UMSj+/PdnTJ3bPN9nqKXwbK9GRF3tpi
-	 Jf2PTtH+DyX2SzwmuFJZpkR7xCFYVNFW+g3uVspM97G+fDioebM9XEdpOQKY5VLyvp
-	 xq9Z4pdGUFAkw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6FB8FCCA462;
-	Sat, 17 Oct 2026 08:33:58 +0000 (UTC)
-From: Dennis Nilsson via B4 Relay <devnull+kontakt.dennisnilsson.se@kernel.org>
-Date: Sat, 17 Oct 2026 10:33:58 +0200
-Subject: [PATCH 1/2] platform/x86: acer-wmi: Cycle platform profile on mode
- key 0x4
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nlzoV/+V"
+Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-3abe4821449so420007a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 01:36:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792226166; x=1792830966; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3Q8IZ33W6NNgXpiE2H7gk1DjA4QMN4AQzf1Ck9B7ifM=;
+        b=nlzoV/+VZDRgzPhY0+QeuJDgDsAkDUnBfuugqLTJKZ60negPfaGJlvnRyKCo3k+wR+
+         tyoMMkZXf6/Ig2EjFgfnOdNs1vB2AyrIU5bNG1gMy1mVdZl6/7DzyYy90gH2CIWEPhwC
+         lkttDZqbvtNGn5ULSaw3YAzgQ1VL0dRXSXd5JP+YF9ynNimKDxMC/2tyivq+isdcmhv3
+         ZFqDdhk5dkHS1da0/OE8EGBRSiUHK73r/U3Yoq+yAnRGfm3tW+wwRp+q+Nf31fnIDugs
+         FlvYTF58AJV7R0vDp44OhZMSde6nt3qNNq9t1RrEm9za6oM+jqGPh/TvbE+Z9J8KeC4J
+         wCew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792226166; x=1792830966;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3Q8IZ33W6NNgXpiE2H7gk1DjA4QMN4AQzf1Ck9B7ifM=;
+        b=nAjG8pS6p3/TVjS6o9xWVjFXomVLqevvaZ3tQDK9cmNV8eahZ1JmMEV14Seh23X7LC
+         Zz1dMUfpi3mmiKZ9cERoTEqXEWZ6aVGTuwX3ZFtwp9klscPM6Xu4psbNP8Afv90K6V8+
+         bakxAUzn+HWXyPPMLzCm60E6hh2u3n+46VJbSVYnf2xH45sfx0b6U25EUioAeaDTo5zW
+         /0Tv9fwCR6iT7nDzkyFFV0FsSsFIEXY6pSZqZTITCjTjBd8syvMPJ3FZtO7ZJYBePTDe
+         RBNVTm0sWgqMR/nEaofXLh6UWGF0mWZi9/dMe6injnilR9Vz/k/bjMLVyvOhRDMTY4jA
+         wRKg==
+X-Forwarded-Encrypted: i=1; AKwUvBxGk9p1M2dp0Z6Bqn7UQEc1+NnUw4ty6xHPMSaEDfqz7SGAguJOk8ffBNJPtzRYopR5Pw2OTNc6WrCe2YA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIac4qYiN8SemLgx6fmAEZU6A+EDeDdpVWezJ6bvqZhktyirUrA
+	HKf4rH8YL4n0cPIhjZ+3xYj4WgLp3MtU4Rtq4XKQwm3CQgoHwNrWJBSjjuFp9wZU5ComRCFY
+X-Gm-Gg: AYBFou0AHf/nofbmU1LRNurNeRV0d+QTfVKCvyqdtlmbIdEoznfkzjzLmVa6EDL0RH8
+	RnTSW71aK5+YniwfCwZ+hv7sGCYDw/e3DAbjOcF8LBDRRpuK8cx/pUBIY5qfFbDl9GZCLaC4rPm
+	bJuMdhcyyWUMD2939rkBjTZQg+NM6kjw6nF8Erez5elLi5c2LQ5Uwu0fy9jVDzf5L7VJ5YTY1NZ
+	8ot0i6oaZlECryppR9q1pNHV0zEqvTyqW5MVrxRzSJSHd7GkdJ8c6TAVg5P4EQkR4JOyL0AgbiR
+	WGQFEjxiJSZBD6PWnPnx3OejK+GatKNN5igK8jY0OqgZV3AAl5zGcX19ZX9TmHN93VhwBvjDFJl
+	nF7fMPaKUtyhGsl+CNfQcEPUkShdUAMSFb4l+Qbo9xmFabgbolfdA9k2ab5/NZm1JgjvVfk97ri
+	4HKI/R3LFQeUC2XDFgf7zghtFtqpkbtKcqWVM1Ar8tjb4g+YkLIHjTrQ0=
+X-Received: by 2002:a17:90b:5111:b0:3ac:a521:960 with SMTP id 98e67ed59e1d1-3acee2927aemr1967627a91.1.1792226166418;
+        Sat, 17 Oct 2026 01:36:06 -0700 (PDT)
+Received: from Linux-PC ([2a09:bac5:1f0f:3141::4e8:8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9461d71esm12548544a91.7.2026.10.17.01.35.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 01:36:05 -0700 (PDT)
+From: tianshi12127 <tianshi12127@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	dri-devel@lists.freedesktop.org
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Simona Vetter <simona@ffwll.ch>,
+	devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Lu Chen <tianshi12127@gmail.com>
+Subject: [PATCH 0/3] drm/panel: Add Smartisan TD4362 panel support
+Date: Sat, 17 Oct 2026 16:35:28 +0800
+Message-ID: <20261017083531.766557-1-tianshi12127@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261017-acer-nitro-an16-41-v1-1-c2e7a0ee7303@dennisnilsson.se>
-References: <20261017-acer-nitro-an16-41-v1-0-c2e7a0ee7303@dennisnilsson.se>
-In-Reply-To: <20261017-acer-nitro-an16-41-v1-0-c2e7a0ee7303@dennisnilsson.se>
-To: "Lee, Chun-Yi" <jlee@suse.com>, Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Dennis Nilsson <kontakt@dennisnilsson.se>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792226037; l=1804;
- i=kontakt@dennisnilsson.se; s=20261017; h=from:subject:message-id;
- bh=IKfoWUiW8BtIqNPpH5+ZHEtvsC/Ig0XEGWOdoucxonY=;
- b=PDl14wE1D+0LmKY37Xqfgodrjx6ws+PvCeO6lM6vpGqRMZkf7NBEJvUoqjBp2yggprqQNtdUd
- SUEbwUIVMaCDYk1zDFf6GcUp4II86R7J4+7zSU+4AlB9Lre5fylEbtX
-X-Developer-Key: i=kontakt@dennisnilsson.se; a=ed25519;
- pk=H+jadpTa8sEscQhkbeWZC2woL8j7NYwN5m1YCjkHJRQ=
-X-Endpoint-Received: by B4 Relay for kontakt@dennisnilsson.se/20261017 with
- auth_id=1223
-X-Original-From: Dennis Nilsson <kontakt@dennisnilsson.se>
-Reply-To: kontakt@dennisnilsson.se
+Content-Transfer-Encoding: 8bit
 
-From: Dennis Nilsson <kontakt@dennisnilsson.se>
+From: Lu Chen <tianshi12127@gmail.com>
 
-On some Nitro models using the Predator Sense v4 interface, such as the
-Nitro AN16-41, the mode key raises WMID_GAMING_TURBO_KEY_EVENT with
-key_num 0x4 instead of 0x5. The driver routes key_num 0x4 to
-acer_toggle_turbo(), which returns immediately on machines without
-ACER_CAP_TURBO_LED because WMID_gaming_get_u64() rejects the missing
-capability, so the key press is silently dropped.
+This series adds support for the Smartisan TD4362, a 1080x2242
+command mode DSI panel found in the Smartisan R1 (trident)
+smartphone.
 
-Only toggle turbo for key_num 0x4 when the turbo LED capability is
-present, and cycle the platform profile otherwise. Machines with the
-turbo quirk keep their current behaviour, and on every other machine
-key_num 0x4 was previously a no-op.
+The initialization and power sequences were converted from the
+downstream device tree with linux-mdss-dsi-panel-driver-generator,
+and the driver was tested on a Smartisan R1 (trident).
 
-Tested on an Acer Nitro AN16-41 (BIOS V1.03), where the mode key sends
-the event payload 07 04 01 00 and now cycles the platform profile.
+Patch 1 adds the "smartisan" vendor prefix, patch 2 documents the
+panel binding, and patch 3 adds the DRM panel driver itself.
 
-Assisted-by: LLM
-Signed-off-by: Dennis Nilsson <kontakt@dennisnilsson.se>
----
- drivers/platform/x86/acer-wmi.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+Lu Chen (3):
+  dt-bindings: vendor-prefixes: add smartisan
+  dt-bindings: display: panel: add Smartisan TD4362
+  drm/panel: add driver for Smartisan TD4362
 
-diff --git a/drivers/platform/x86/acer-wmi.c b/drivers/platform/x86/acer-wmi.c
-index 9e3758c57..323179c43 100644
---- a/drivers/platform/x86/acer-wmi.c
-+++ b/drivers/platform/x86/acer-wmi.c
-@@ -2564,8 +2564,13 @@ static void acer_wmi_notify(union acpi_object *obj, void *context)
- 		acer_kbd_dock_event(&return_value);
- 		break;
- 	case WMID_GAMING_TURBO_KEY_EVENT:
--		if (return_value.key_num == 0x4)
--			acer_toggle_turbo();
-+		if (return_value.key_num == 0x4) {
-+			/* Models without a turbo button report their mode key as 0x4 */
-+			if (has_cap(ACER_CAP_TURBO_LED))
-+				acer_toggle_turbo();
-+			else if (has_cap(ACER_CAP_PLATFORM_PROFILE))
-+				acer_thermal_profile_change();
-+		}
- 		if (return_value.key_num == 0x5 && has_cap(ACER_CAP_PLATFORM_PROFILE))
- 			acer_thermal_profile_change();
- 		break;
+ .../display/panel/smartisan,td4362.yaml       |  75 +++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ drivers/gpu/drm/panel/Kconfig                 |  13 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ .../gpu/drm/panel/panel-smartisan-td4362.c    | 263 ++++++++++++++++++
+ 5 files changed, 354 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
+ create mode 100644 drivers/gpu/drm/panel/panel-smartisan-td4362.c
 
 -- 
-2.53.0
-
+2.56.0
 
