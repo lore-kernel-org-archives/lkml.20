@@ -1,67 +1,67 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF38C36AB6B
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:00:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7683C09E0
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:00:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792206014; cv=none; b=maJywgXPHHsqRF2C0WuSzqsRVKnPdpzOMmJUnxuQb70xwTShzOnawu8l1utqDKD5gJhx5yFn86I+UMyJrcJldZwphYR+6phUDJMwEKnVIjxPUd03tsqDBeRgeaoRpSrXnHfEGe/L7/W4LJDD7eN1uZtbOAHmmZnh5MpUEcztzC8=
+	t=1792206015; cv=none; b=h2F1qEKZ8UrF+ASSMOzrfzM/nT5TWoYh1hYAlr/mK0A/xQGe/1VIGMTUSc+saNLh2Cr4LmR69L9K/HBQueXOac+0YiTHhFn3fPQOopXTnoLuuAlvnSmCKvpxszeLsLUpu3QAQD6q7vDBUtyZSPU6wQSZsQIo1Es2uliehUNzy3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792206014; c=relaxed/simple;
-	bh=RnyUtaj56FacvXKJT/5BOE5uL4aLHIIMeKqQgZyyy3w=;
-	h=Date:Message-ID:From:To:Cc:Subject; b=lnWccWJnPNyun88RNZpqj3mJrPFi9dWoz/emDKvPUZU23Ytx1c5aigSSPmQFkdH2PpeyO1YcIQ6ZyX6LxUIpkP+eydv8Bu1O6afS4UY6WyLy2MO/0dqu5nEW7JJJ+k4C5BOFHlG8QMCcIsA6GSSnuNKvpvbwpuW3xB3O/KkTmgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=SkyKkWWj; arc=none smtp.client-ip=209.85.222.178
+	s=arc-20240116; t=1792206015; c=relaxed/simple;
+	bh=XKZ636C+0wZF282LG7kK4JTGRRg5tviYpbDi0A8qZDo=;
+	h=Date:Message-ID:From:To:Cc:Subject; b=LNsYCN9l0V/u5Ol54nTKxXibmgaa+zVEUZuV0AAoeUCoZd3wKM++2hJedgwNYQMBSNJCzq66xAOzxbXw6T8H3KepsYV6Nbb3lgsB91ubJfc8p5UEFH8kH8eb5SewSyuvioljZ+0eSjrC8MV0XnlfVZT6nvmFgc8ehi8Yp499G3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=N5ToaYPI; arc=none smtp.client-ip=209.85.219.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="SkyKkWWj"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93f20c3aaa5so47304785a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:00:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="N5ToaYPI"
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-91791ec1b83so4639656d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:00:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1792206006; x=1792810806; darn=vger.kernel.org;
+        d=paul-moore.com; s=google; t=1792206000; x=1792810800; darn=vger.kernel.org;
         h=subject:cc:to:from:message-id:date:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=H7TFgfiFf6FEXV3J7Inq1lkdC8JNBzhySk1rzqW+t48=;
-        b=SkyKkWWj35bDcts8jT/Vm8ebaAmtwQIQ2aldBjUveWiFsnhPtE2VD0UHBM2h+63BMI
-         wHOSrBjN5DZr4EyOYc8VMQCHCVh6mueA0IX4/i0giSK7bBzkRGGMQautk4BBAOOt21Ig
-         vLVnT5fVS/TGo9mBBCDKKU1YvI+9gtXlIu6P0/e9MklAsUxTO2VxMtF9f9hV73u9pKwy
-         GQaIZa7rkJRP6gHb7/nORUOF/hLYirjJcN81gf/LRtgiCva7zkj8K4RYXuSCv/EinZsi
-         kS9sy+YCmmbIM68+/qDwnjh4g8AFfUwZnkv0fujgMWfSt856edmHxDNlOiGuDoWOoNjy
-         +LuQ==
+        bh=69p2wdFQwE6sYgQUmJukW/ziWDawqkeq3jAApKFhQsc=;
+        b=N5ToaYPIwJJh3D9MNF/JHT+nTNn5KSod1OTqgifkNA5YnahST4QqvUmOK7XEhK8GEX
+         x/5v5eA+GZ1Cy7fnNaAQfOUx2ff/ALgJtFiuXV4AFfxlGLOswG8AKIlsut8Lp4R9rA7s
+         rPri5Z4NAZAE6nLafdKJkfTeTfdfqaNuwLfbJvnXyERvcXcYatsRe0E5xfO1M3eo77vt
+         iOVLhEeh0sbgc1aR6Px+Q6RIvDjx/0r3Bz4FWRtFmMMmbf4reqIpSv378ZR2LyqHVtG1
+         e03IFC2U6epmGy0p59XdmrGgm1c7tDq+P6jXI3wD2MTCY6vdN9gQk3X2UY2s+9/pKRqE
+         puSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792206006; x=1792810806;
+        d=1e100.net; s=20260707; t=1792206000; x=1792810800;
         h=subject:cc:to:from:message-id:date:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H7TFgfiFf6FEXV3J7Inq1lkdC8JNBzhySk1rzqW+t48=;
-        b=dKKsYa9GVjzMvXYAQ/Y9Z04Se/vh4lUwJ3pATKAM/+JukbZeFVZipFGfLBZDq0jOwk
-         NHtU/2S8TjC932CT4HHM1bXvQI+il33eVMWhOI0X1xbpklZsXoi4DhDdz8CDuYol5QXz
-         HANDTZVHdNQDb5hK8DRvAv2UuvMn59iNXvDDOoJoEMF435B9uPBcLrXhlfNXYzKu6qnX
-         JQiqhSPIc7GsgBTSDWynQEIoICicWMgsDjcL2s9K9AWCTBu4MD4vfiH1PlvxQdi4nl19
-         QOGByoOc8wyDWUKpdb7BI/2z5trdUNC/bzV4VZr8FgzDv6pQkT3kjn33i/Gt+DkMJAFH
-         wR/g==
-X-Forwarded-Encrypted: i=1; AKwUvBwXoLaYf0g1MCA3DsovEq9SiXfJWyWnqCpWtTeavufTQvzJLj3Nk/yP+w7B5Yj4RbHPCi87clBwlFS8n2g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRW/WNBrxEFuQGzqGU/Sn1QBygYruIwwBaYEAVNQS/MfzpZpu5
-	ZjhHCXdFGy7oKIpF0Z1lVI6I24vLzXTtfl75A1qQnvOcClNuTSdbYsO9kFJOZbOtNQ==
-X-Gm-Gg: AYBFou1L6GtK6KPRNUqmDr9vPbyg4KfDU2gK2f69qYi1dtJ/BIjBPW2DYazljGBVRz1
-	XSaAHyT/LgNxR5GVmJts0DoI4Vb8RqBzrQvlFb6Ef3lNgOXkB3VQ4xzlAB0FNlvjv/3mDXD3pvA
-	8hXRlZroXlKBjo/CNY1KEGCatK+zoUwUrx97U5b7n+zCswvbhjzSwzfZE2i3RiFf2mjzaitVv5W
-	tr8anQOS+5SEWzd+mOibH2ZQO4AAjN05nNiAtQdQPy/DJG3lLvGZQXfmgmRO37lshVt9XmaQmGH
-	bIfZH8AwKFZheP4jYq9hPmGoImvYApgVkbYpuJFHWz9mEb0rq7cjdxgggjStix3E0k3dCi+UgkF
-	6NNwreJBdNLhOu7xooXpcOQa8Bu7+0/66OtxM8ImzC1qviOgq44Ms0QWEzggz5S2la0SwgVGbOB
-	SEGLjzHJ9qi9ZddoS22UZ2shY2wm5OBThWo1/etc2JjhSbcuneQSKryggaBpDhMD4Ms1Nmew0jZ
-	tmLGkxx991ykedLfxL0/KrKr5i6azo1txxkmlvhxV0jXXGGqoe7+kFUDgxD2OojY3eCjS27Cp4=
-X-Received: by 2002:a05:620a:439b:b0:939:9edf:edb7 with SMTP id af79cd13be357-93f29b73708mr304873385a.6.1792206006258;
-        Fri, 16 Oct 2026 20:00:06 -0700 (PDT)
+        bh=69p2wdFQwE6sYgQUmJukW/ziWDawqkeq3jAApKFhQsc=;
+        b=dRXfx7DdIcSpWot09cBW87rOmZIv+wcbnkKecRwrQLnxwWT2dhQIMPtHMnrHhjMFc7
+         etCTpTK8X2xmtdW9crBhB45PCSimV87LfoqdHQ2rZAzekavmLIf2O4YdUz2exLSQ3Ra/
+         7c1oqkI6VnAoAisRZeyU2+e+BX3zEiTGhS14k2reyLqX1erw9rz9hvDt03HksNDngBbJ
+         i9Gm3KWQJYWxiGAklA5wIEQzUYHjD5iYtZiP8cK4Idl227Q/Swng1Rg1QMmFVdJphZPB
+         klR8VODEhjE3gsrA12gf5Vlkm6OfrTxJl6GhVMK4V+VW0f6NqCuIcKY+sYGKgh+kH2UJ
+         VfGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz8bArC6Xq9ANu8UWDPzV5r1FAGG723efZRi/kvW1FDBJTNMwkniFN3o05Jq2u6gfN2fTm1ClYLfeh1Nu4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJbuo5dQSsbnKsp1io2qpxgpQEir1QWcchluzWYY1bgkodE+xzS
+	TMZKZJCq1mU0ABwsyew/xrpRK0WGifIbMIBagygQwUKG1J1w9g0Fti01HIKyZNbsxw==
+X-Gm-Gg: AYBFou2mZdFQSkidLgDy7lVpYUhS2tWxu7Tqt7QpGhoEUwhsFRWmb3srNVql3UX3twQ
+	62adsRf3WbOXIFh92NRHd3x9JHGeHpTq/C5Q5GU0xozVp5UplrR/K0su/c8IHnRc2qUkWZqKASX
+	G3f4/6X2Vpt4mUozS7hbjeB0bHgpyKhlcVlA50SwSkFhUfEQEBuX8WARfUV36cWYMPlRD/x0j53
+	TwPZcbKJH9mhNI2cencmTUP0RcfJKjk/O16CuTJUxdJzPkSyCAWu+gVDnkK3d+aYXTY4SmQUtsX
+	2NqqK3FF1zQsS6Kyj5gPRLpd5Uz9JWqBurw/RfrXot9FAfLU/KhvOdA+T0zOB2SflioLMjPllzP
+	7xTUmKUQ94/vziRWYAT7+YwTDSMJMCGsLBvgAnLW3VjBFrEecVmGoRiCbxsBFQFxK4sDWjjuBpb
+	EyWNxGr3/7QaQQl5Bk7vTz7Vq8VQ5WpsyKv/jzXqc11nhOH0+Kh5H5z6vlNidu9UBolnfP9LJGd
+	F14NMQuViVChfMerXQJ7qkkY1RuR8DToyGPwUc5qs+Da9CojlrTZZNtMZ6yQtcYXYM/6DcAVTY=
+X-Received: by 2002:a05:620a:4395:b0:93a:2611:270f with SMTP id af79cd13be357-93f29cc7d03mr292326485a.13.1792206000328;
+        Fri, 16 Oct 2026 20:00:00 -0700 (PDT)
 Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a1850cbsm361980985a.24.2026.10.16.20.00.05
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a16c21esm364494685a.16.2026.10.16.19.59.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 20:00:05 -0700 (PDT)
-Date: Fri, 16 Oct 2026 23:00:05 -0400
-Message-ID: <e30c2a29706391f16d9ac9446907193c@paul-moore.com>
+        Fri, 16 Oct 2026 19:59:59 -0700 (PDT)
+Date: Fri, 16 Oct 2026 22:59:58 -0400
+Message-ID: <58518dd02336a6018abb7fb8b34f5212@paul-moore.com>
 From: Paul Moore <paul@paul-moore.com>
 To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: selinux@vger.kernel.org, linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [GIT PULL] selinux/selinux-pr-20261015
+Cc: audit@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] audit/audit-pr-20261016
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,91 +70,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
 Linus,
 
-Thirteen SELinux patches for the Linux v7.4 merge window:
+Six audit patches for the Linux v7.4 merge window:
 
-- Continue to improve the load time validation of SELinux policies
+- Fix the accounting of audit filter rule additions and removals
 
-While SELinux policy loading remains a privileged operation, we continue
-the recent trend of hardening the policy parsing and validation code in
-the kernel to ensure that invalid, or poorly formatted policies are
-rejected at load time.
+Tracking audit filter rules is important as their presence can trigger
+additional processing.  Unfortunately, the existing code did not properly
+track the removal of filter rules, resulting in some cases where
+additional processing was done when none was required.  This pull
+request not only corrects the accounting problems, but also provides
+a cleaner API for tracking audit filter rule additions and removals.
 
-- Correctly incorporate "neveraudit" into the xperms code
+- Add a FSOPEN record to log the filesystem name in the new mount API
 
-This change aligns the xperms neveraudit handling with the conventional
-permission handling code, exiting early from the SELinux auditing
-code when neveraudit is enabled for the domain.
+Close a long standing audit blindspot by capturing the filesystem name,
+e.g. "tmpfs", when calling fsopen().
 
-- Mark the selinuxfs "status" and "policy" files immutable
+- Split audit's storage of process and file capabilities
 
-These are read-only kernel/userspace interfaces that could successfully
-be opened at the VFS layer through the use of CAP_DAC_OVERRIDE.  With
-this pull request we are marking these two files as immutable so that
-the requests to open these file with write permissions now fail at the
-VFS layer.  This also allows us to drop some of our mmap() checks around
-write permissions as the VFS will now also handle this for us.
+Instead of a single structure that stores all possible capability
+information, create a dedicated audit file capabilities struct and
+convert the existing audit capabilities struct into a process
+capabilities struct.  This saves 80 bytes from the per-task
+audit_context on 64-bit systems.
 
-The existing SELinux permissions checks remain untouched.
+- Ensure that the PROCTITLE record is reset on exec()
 
-- Convert the selinuxfs inode numbers to u64
+This fixes a problem where systemd would set a temporary PROCTITLE string
+after forking a child process before calling exec(), effectively locking
+the PROCTITLE string to the temporary value.  This pull request resets
+the PROCTITLE state on exec() so that newly executed processes can set
+their PROCTITLE correctly.
 
-Bring selinuxfs current with other filesystems in using u64 for inode
-numbering as opposed to the architecture dependent unsigned long.
+- Add some missing unlikely() annotations to the audit wrapper functions
 
-- Constify a number of the SELinux AVC function parameters
-
-- Remove a SELinux MLS function that was no longer used
+- Clean up the audit netlink multicast skb length adjustment
 
 Paul
 
 --
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+The following changes since commit a90ee4305c4a5df72c11b31dacfdc76e00fcf78a:
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+  Linux 7.3-rc6 (2026-10-04 13:45:25 -0700)
 
 are available in the Git repository at:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/selinux.git
-    tags/selinux-pr-20261015
+  https://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/audit.git
+    tags/audit-pr-20261016
 
-for you to fetch changes up to b73b967b0fc44707f39faa4f298f1f9d9b7bfac5:
+for you to fetch changes up to 5d59024a6cc9aa9300da59fbf7e2c29f1f2393c6:
 
-  selinux: validate permissive and neveraudit map types at load
-    (2026-09-30 16:59:44 -0400)
+  audit: add FSOPEN record to log filesystem name
+    (2026-10-04 07:33:18 -0400)
 
 ----------------------------------------------------------------
-selinux/stable-7.4 PR 20261015
+audit/stable-7.4 PR 20261016
 ----------------------------------------------------------------
 
-Christian Göttsche (8):
-      selinux: constify avc function parameters
-      selinux: reject a policy that both rejects and allows unknown
-         classes
-      selinux: reject duplicate symbol values during policy load
-      selinux: bounds-check filename transition source types at load
-      selinux: check neveraudit in avc_xperms_audit_required()
-      selinux: bounds-check role and user membership bitmaps at load
-      selinux: validate user MLS range and default level at load
-      selinux: validate permissive and neveraudit map types at load
+Christian Göttsche (1):
+      audit: separate file and process capability storage
 
-Paul Moore (2):
-      selinux: convert selinuxfs inode numbers from unsigned long to u64
-      selinux: avoid 64-bit division of inode numbers
+Ricardo Robaina (3):
+      audit: add missing unlikely hint to audit_dummy_context() wrappers
+      audit: use copied skb length in kauditd_send_multicast_skb()
+      audit: add FSOPEN record to log filesystem name
 
-Stephen Smalley (3):
-      selinux: tighten policydb_context_isvalid() checks
-      selinux: remove unused mls_setup_user_range()
-      selinux: mark status and policy inodes as immutable, drop status
-         mmap write checks
+Richard Guy Briggs (1):
+      audit: free proctitle in context so it can be re-set by fork on
+         exec_binprm
 
- security/selinux/avc.c          |   37 ++++----
- security/selinux/include/avc.h  |    7 -
- security/selinux/selinuxfs.c    |   59 +++++++------
- security/selinux/ss/mls.c       |   38 --------
- security/selinux/ss/mls.h       |    3 
- security/selinux/ss/mls_types.h |    3 
- security/selinux/ss/policydb.c  |  137 ++++++++++++++++++++++++++++----
- 7 files changed, 183 insertions(+), 101 deletions(-)
+Stanislav Kinsburskii (1):
+      audit: Fix filter rule accounting after automatic removal
+
+ fs/fsopen.c                |    3 +
+ include/linux/audit.h      |   16 +++++-
+ include/uapi/linux/audit.h |    1 
+ kernel/audit.c             |    2 
+ kernel/audit.h             |   20 ++++++--
+ kernel/audit_tree.c        |    1 
+ kernel/audit_watch.c       |    2 
+ kernel/auditfilter.c       |   86 ++++++++++++++++++-------------------
+ kernel/auditsc.c           |   17 ++++++-
+ 9 files changed, 93 insertions(+), 55 deletions(-)
 
 --
 paul-moore.com
