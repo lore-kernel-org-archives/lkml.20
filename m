@@ -1,79 +1,46 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6850D49B5DA
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 22:11:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A95649BB61;
+	Sat, 17 Oct 2026 22:11:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792275082; cv=none; b=Wo9TV/mBZaYVS06j7+I3ndGbPnYvloIzwb5b9tFGw1R1hLNkjeynpz4DhQhfMe/K6iqhXtXOdwI/7+gZt/7WbGXSa+JOhyJQs7g6+UW2hGWruTP3Jloa+E/wGbzjR5LUczfR9osEEA9n7rkS3sZ5nTUnTz9E27P1YpZpH0v4ar4=
+	t=1792275098; cv=none; b=PIfQ0u+ikr/xBZf7OFq9rLvlf8ejfCf0VMG7r1A309uKSAwR/ZYJBp4gp9w4z72oOXFfEicvHgMz33oQLo3G+XncpVRzrZAOkuPSfXNcq5lp8JWQUbNcAd84kRluH9mWsju2EqQ/95W0kyHAFiwxhuOmv6cHqZ0nSWlgF8oTX5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792275082; c=relaxed/simple;
-	bh=/Yrw2Pxsodgd+C7rMdJqMEaeHAtdLqPPZnmeOO2Plxs=;
+	s=arc-20240116; t=1792275098; c=relaxed/simple;
+	bh=us1xAfdtY+OwE/kjNhXj1NFgGLpRhGbUHM31ScDdh+s=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kYfaFS+TmTbceJppT5C1vhzoJbRnL5VCn8qFyHZbMaYlORq6N09uuSsXYPhZjNL8fDY7CQvuYrG9ZE7M5BO1F6p7KpXSuRIDp8Gf5vsWdt+CeGNF2l8UINlblt5Zy7smQc29ut5KeGLRZIXrztdxnb4sumTenz9wx33LytU5PNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hhSOTpKo; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version:Content-Type; b=iH3DrLhcUNb7iQTvG1txQxooFzMXahev2qyrAQlbONQM3OO13qUGzG7erlfflHqHvPLHMzb9cQ/M/pWG66EZadUhE9aOZ7PLxr0Qzw/zip4O+6WAjJyYaU/0DhA9UgaXOThumoRpBQD2I7BEP5P97C2I1WvZleiaUw8RyDSM14g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eOB6SYDW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hhSOTpKo"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso8261505e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:11:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792275080; x=1792879880; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=O7eqTqZMZBSun91Qk6DX1ShYcBC+PEVqt3fz0F4KCmo=;
-        b=hhSOTpKoLgi5E96f2PmfVbxhH5xdEjLl7PNhoHfHp8o2H8hQuKgMr8P3G4a9ozBG4R
-         qWu98tmA7KrEf+qU+pxyfANAev4bUxCuA4wC/umPHLiaMLJAbEnw/VRMBDYR4Ryv607z
-         EeifzfpYuZti1RluM9mNnFsqTx9Cxz7mElUnrqeUPvH33q55LQmQbfdi8BPZ4gSl9dAZ
-         3AkGmMzFaqgIL5Kovxbppqh2g8vcxa4rOjHUrXmhHBX2u2wqNPZebIms9kIS9Yo4U6iI
-         LUPYYaSHWX4/gFwGqtPFtQrQi0jO7Jy+0QQzRyzT9+H+jjy9TN/KfZRK9dPuF52OfjzL
-         wiMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792275080; x=1792879880;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O7eqTqZMZBSun91Qk6DX1ShYcBC+PEVqt3fz0F4KCmo=;
-        b=Mv5nPXAWotZNPqA14GsY2XoGbQgGE2/bweH3rzVeur+u5Anr6jKc3EUD5RVJSnMfcy
-         25hiRsfBPA02PlWy3pQQibSRIbeF7Gb8wv5/6y8cKEV/b0M2XJd8kOl0ODFj4Tzy1SXr
-         bbVP+A20t6yZRqpA+wHqBE8cJslWTX/Ef7v7z8HuZ5nRbYbBLnkHz3irYYNOs6NRDIxK
-         zKXOSAq+iMMc5rbXgSjm4wy6WAiBna0u0M4Rp9UWske2LAJLP0UzvEywAUnfEJKvyVNl
-         BVsKTjyQUwWPfam+9un+Az9AhSmQfFoxJyOkwo4ZQR7rXWny9fcZc63YJGlyz+4Lsdml
-         aJng==
-X-Forwarded-Encrypted: i=1; AKwUvBx6oELlgyA2Gc51+oSP3lIPqJLdFx1r7PtERuOFZnYphlbFG4otERAZOZoe+VvbNqpFuEDVHTP0wp1vhfs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSfQFHw0GUp9UPgfzwR5VceOn7KgrH0viBV+lONch2UgtKLeaP
-	HromYh+mRmQEVR69SD3xSxn8wi2BBq3L0MvQ1SoTwfmb7+c0nCEP2RNP
-X-Gm-Gg: AYBFou0vRkiEZ0dsFNm7i1wPAGscGXWjK8Csk9apjb/ss2EypVqWSrlKxOmSNko3kUE
-	RdGX8V3Hgrvcny2/xs+FxBaEf/g+4pimPy25N6j7FwNldeAlJSfYL+pqyXRZTqw7hSf2/61PM7R
-	5A9BTfhqOYp6/49Ax28EKr6R9jsvEHY286mNSMRJwhTVJH2pGJfidICzQKkvmLV9+gvr/Se5rha
-	Ncq7Mi+oAfYZkHx0lG9UYRly+dH5rc62WLIRw82cw35bYSGIp+na9sPsl3YQDIgnVB7U+NU5/4l
-	LNVZgNzwdFFukDMl+TApf131KV2eycbURHHGbLjbLgO5PyhZ7j6dSlIwp7HNkFK/s91CSde3uf0
-	AYfSSJD3Vflcd7jSwBcO3y2uTZeYyotZQ/9umKn/VFanySKp+HLdrCOiinJT9sUEdRwDOd12xx7
-	B8ohMNsjWmNSPvspfTwrXyNyVuXZcKaf4OTHTTYa2IRweZgdVAqjjZOpFV5Z7trPlQD8z2/t4gM
-	NVeaB0YanSHJ2/nzxPj6piZYoTWhiZKHNg=
-X-Received: by 2002:a05:600c:820a:b0:4a0:eae0:769a with SMTP id 5b1f17b1804b1-4a1d7616cfemr66857645e9.28.1792275079547;
-        Sat, 17 Oct 2026 15:11:19 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1dc8ee409sm104834715e9.13.2026.10.17.15.11.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 15:11:19 -0700 (PDT)
-Date: Sat, 17 Oct 2026 23:11:18 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Shihuang Liu <shlomojune6@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-hardening@vger.kernel.org, Marcus
- Folkesson <marcus.folkesson@gmail.com>, Dmitry Torokhov
- <dmitry.torokhov@gmail.com>, Ville Syrjala <syrjala@sci.fi>, Henk Vergonet
- <Henk.Vergonet@gmail.com>, Henrik Rydberg <rydberg@bitmath.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eOB6SYDW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2AC91F000C4;
+	Sat, 17 Oct 2026 22:11:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792275097;
+	bh=aQKq96l9JRsZg4s1OORIe54N8V7JG/5z1SNM2zjUXpc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=eOB6SYDWIiXi1dfASIqBeJ/ueoB6Uz4SEgJVSJeuKE6HYbGF/Rko9RZ0secSdr9SE
+	 DwcuwHX6o5HfMqwBKC6kNfNrUHo8H6b6W9/UAdvJOCEALQ1oHEbJTnqq4FVmEHB+K0
+	 OxnEgabFWbYipH7pM8oJExMJKLMaWfZZrfzmOEOLvbaXIf7ediuMRu6GJMIHbBhWbD
+	 aNcSTEWLI7Q1NUwiXDum2s1vLOeSs3uGR26oasDUIaoyaifCfkXi5to8VxjAyjDFYl
+	 9XDcHGyJijmMcHtz0c+3jhJb3whrfPV1yiEU/feBM3QqBMOJeaOh+X5k4lrIqNIbtG
+	 ITQilTvHUel3g==
+Date: Sat, 17 Oct 2026 23:11:31 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Joshua Crofts <joshua.crofts1@gmail.com>,
+ linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/5] Input: tablet - replace strlcat() with strscpy()
-Message-ID: <20261017231118.2b440e44@pumpkin>
-In-Reply-To: <20261016170411.51025-5-shlomojune6@gmail.com>
-References: <20261016170411.51025-1-shlomojune6@gmail.com>
-	<20261016170411.51025-5-shlomojune6@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+Subject: Re: [PATCH v2] staging: iio: adt7316: use kstrtobool() for sysfs
+ boolean parsing
+Message-ID: <20261017231131.06e518e5@jic23-hlaptop>
+In-Reply-To: <20261007135151.11780-1-abdelnasserhussein11@gmail.com>
+References: <20261007135151.11780-1-abdelnasserhussein11@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,145 +50,24 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sat, 17 Oct 2026 01:04:10 +0800
-Shihuang Liu <shlomojune6@gmail.com> wrote:
+On Wed,  7 Oct 2026 16:51:51 +0300
+Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
 
-> The acecad, aiptek, hanwang, kbtab and pegasus_notetaker drivers
-> build the physical path by appending a constant "/input0" suffix
-> with strlcat() after usb_make_path().
+> Replace manual and unsafe character checks (e.g., buf[0] == '1') with
+> the standard kstrtobool() API in sysfs store functions. This ensures
+> proper handling of standard boolean inputs, fixes potential safety
+> issues, and adheres to the Linux kernel coding style.
 > 
-> In preparation for removing the deprecated strlcat() API[1],
-> replace it with strnlen() followed by strscpy() into the remainder
-> of the buffer, as commit 34b228b739f5 ("HID: usbhid: replace
-> strlcat with better alternatives") did for the usbhid drivers.
-> 
-> Link: https://github.com/KSPP/linux/issues/370 [1]
-> Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
+> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
 > ---
->  drivers/input/tablet/acecad.c            | 4 +++-
->  drivers/input/tablet/aiptek.c            | 7 +++++--
->  drivers/input/tablet/hanwang.c           | 4 +++-
->  drivers/input/tablet/kbtab.c             | 4 +++-
->  drivers/input/tablet/pegasus_notetaker.c | 4 +++-
->  5 files changed, 17 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/input/tablet/acecad.c b/drivers/input/tablet/acecad.c
-> index ba79dff21aac8..8fec79c46d4b0 100644
-> --- a/drivers/input/tablet/acecad.c
-> +++ b/drivers/input/tablet/acecad.c
-> @@ -117,6 +117,7 @@ static int usb_acecad_probe(struct usb_interface *intf, const struct usb_device_
->  	struct input_dev *input_dev;
->  	int pipe, maxp;
->  	int err;
-> +	size_t len;
->  
->  	if (interface->desc.bNumEndpoints != 1)
->  		return -ENODEV;
-> @@ -161,7 +162,8 @@ static int usb_acecad_probe(struct usb_interface *intf, const struct usb_device_
->  	}
->  
->  	usb_make_path(dev, acecad->phys, sizeof(acecad->phys));
-> -	strlcat(acecad->phys, "/input0", sizeof(acecad->phys));
-> +	len = strnlen(acecad->phys, sizeof(acecad->phys));
-> +	strscpy(acecad->phys + len, "/input0", sizeof(acecad->phys) - len);
+> Changes in v2:
+> - Included <linux/kstrtox.h> explicitly as requested.
+> - Renamed the boolean variable from 'req' to 'val'. (My initial thought was 'req' as an abbreviation for 'user request', but 'val' is much clearer and avoids any confusion with block/network requests).
+> - Added Reviewed-by tag from Joshua.
 
-There is no point replacing strcat() with strlen() + strcpy()
-(any variants of the functions).
+I'm not immediately spotting the tag in Joshua's reply.
 
-David
+If it wasn't explicitly given you shouldn't add it.
 
->  
->  	input_dev->name = acecad->name;
->  	input_dev->phys = acecad->phys;
-> diff --git a/drivers/input/tablet/aiptek.c b/drivers/input/tablet/aiptek.c
-> index 0c1acb9e6b437..e868d0bac771d 100644
-> --- a/drivers/input/tablet/aiptek.c
-> +++ b/drivers/input/tablet/aiptek.c
-> @@ -1637,6 +1637,7 @@ aiptek_probe(struct usb_interface *intf, const struct usb_device_id *id)
->  		AIPTEK_PROGRAMMABLE_DELAY_300
->  	};
->  	int err = -ENOMEM;
-> +	size_t len;
->  
->  	/* programmableDelay is where the command-line specified
->  	 * delay is kept. We make it the first element of speeds[],
-> @@ -1707,8 +1708,10 @@ aiptek_probe(struct usb_interface *intf, const struct usb_device_id *id)
->  	 */
->  	usb_make_path(usbdev, aiptek->features.usbPath,
->  			sizeof(aiptek->features.usbPath));
-> -	strlcat(aiptek->features.usbPath, "/input0",
-> -		sizeof(aiptek->features.usbPath));
-> +	len = strnlen(aiptek->features.usbPath,
-> +		      sizeof(aiptek->features.usbPath));
-> +	strscpy(aiptek->features.usbPath + len, "/input0",
-> +		sizeof(aiptek->features.usbPath) - len);
->  
->  	/* Set up client data, pointers to open and close routines
->  	 * for the input device.
-> diff --git a/drivers/input/tablet/hanwang.c b/drivers/input/tablet/hanwang.c
-> index fd5a7e761dcc4..a75d10dd2fc7d 100644
-> --- a/drivers/input/tablet/hanwang.c
-> +++ b/drivers/input/tablet/hanwang.c
-> @@ -318,6 +318,7 @@ static int hanwang_probe(struct usb_interface *intf, const struct usb_device_id
->  	struct input_dev *input_dev;
->  	int error;
->  	int i;
-> +	size_t len;
->  
->  	if (intf->cur_altsetting->desc.bNumEndpoints < 1)
->  		return -ENODEV;
-> @@ -351,7 +352,8 @@ static int hanwang_probe(struct usb_interface *intf, const struct usb_device_id
->  	hanwang->dev = input_dev;
->  
->  	usb_make_path(dev, hanwang->phys, sizeof(hanwang->phys));
-> -	strlcat(hanwang->phys, "/input0", sizeof(hanwang->phys));
-> +	len = strnlen(hanwang->phys, sizeof(hanwang->phys));
-> +	strscpy(hanwang->phys + len, "/input0", sizeof(hanwang->phys) - len);
->  
->  	strscpy(hanwang->name, hanwang->features->name, sizeof(hanwang->name));
->  	input_dev->name = hanwang->name;
-> diff --git a/drivers/input/tablet/kbtab.c b/drivers/input/tablet/kbtab.c
-> index 6ce70c8e2d7cc..79a5e217654b6 100644
-> --- a/drivers/input/tablet/kbtab.c
-> +++ b/drivers/input/tablet/kbtab.c
-> @@ -113,6 +113,7 @@ static int kbtab_probe(struct usb_interface *intf, const struct usb_device_id *i
->  	struct kbtab *kbtab;
->  	struct input_dev *input_dev;
->  	int error = -ENOMEM;
-> +	size_t len;
->  
->  	if (intf->cur_altsetting->desc.bNumEndpoints < 1)
->  		return -ENODEV;
-> @@ -138,7 +139,8 @@ static int kbtab_probe(struct usb_interface *intf, const struct usb_device_id *i
->  	kbtab->dev = input_dev;
->  
->  	usb_make_path(dev, kbtab->phys, sizeof(kbtab->phys));
-> -	strlcat(kbtab->phys, "/input0", sizeof(kbtab->phys));
-> +	len = strnlen(kbtab->phys, sizeof(kbtab->phys));
-> +	strscpy(kbtab->phys + len, "/input0", sizeof(kbtab->phys) - len);
->  
->  	input_dev->name = "KB Gear Tablet";
->  	input_dev->phys = kbtab->phys;
-> diff --git a/drivers/input/tablet/pegasus_notetaker.c b/drivers/input/tablet/pegasus_notetaker.c
-> index 85390ae423076..679600bd214e4 100644
-> --- a/drivers/input/tablet/pegasus_notetaker.c
-> +++ b/drivers/input/tablet/pegasus_notetaker.c
-> @@ -277,6 +277,7 @@ static int pegasus_probe(struct usb_interface *intf,
->  	struct input_dev *input_dev;
->  	int error;
->  	int pipe;
-> +	size_t len;
->  
->  	/* We control interface 0 */
->  	if (intf->cur_altsetting->desc.bInterfaceNumber >= 1)
-> @@ -355,7 +356,8 @@ static int pegasus_probe(struct usb_interface *intf,
->  			 le16_to_cpu(dev->descriptor.idProduct));
->  
->  	usb_make_path(dev, pegasus->phys, sizeof(pegasus->phys));
-> -	strlcat(pegasus->phys, "/input0", sizeof(pegasus->phys));
-> +	len = strnlen(pegasus->phys, sizeof(pegasus->phys));
-> +	strscpy(pegasus->phys + len, "/input0", sizeof(pegasus->phys) - len);
->  
->  	INIT_WORK(&pegasus->init, pegasus_init);
->  
-
+J
