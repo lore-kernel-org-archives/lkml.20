@@ -1,97 +1,153 @@
-Received: from out203-205-221-242.mail.qq.com (out203-205-221-242.mail.qq.com [203.205.221.242])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBE837A844;
-	Sat, 17 Oct 2026 01:38:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.242
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100FD20D4FC
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 01:40:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792201114; cv=none; b=YzecYn2TniYB0TjJgBORby+jCNiK5Vb2TlcRgT1lNHBZPxjZLMwzq9+B8dgXhetpxsFP8sho6QueAzRvTxxkuAKgulE90XqkjgMeL+HKKC6PdtZ4eWLP/h6rwGid8JwZnsW9weajL/E4wbxaF9miImdfqiVXHeOjt6SSr9CyKdg=
+	t=1792201210; cv=none; b=ukCqM64EhhpyWzgO52zsQFhxhkhaiYINRtmfv9OxFqO/4T0tb90ReqBtdGQQMC2QwHoz1z+n9HQQzG6LcxaYvjmzKZQ8oBTnRlDiRwFOkTMPd22OJLxHJuPmQK8DMC4pcMNGy9f2eaMhUOL97/LVFWkYlX0oPpxTSNiEEHaop6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792201114; c=relaxed/simple;
-	bh=nhxZw5A5qxAznYentzn20vtaOKditdgoWk5VJ9PoAys=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=C0GLX+MvI/vR9bd9OqoDLU+h+t46UF1G/LZysOET9yXkYEj5GpnnJd3r18zPZWijfcs81rQA09iTKtCUSZFGTZfxTA08JJ1votDlLKe4XRwc6PIEvjID7J4byR+9Ej58DHoJRLrmxzRwY85ttEYx6jPTFyPJWgeQNoRnQjqLR1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=OZsltyiK; arc=none smtp.client-ip=203.205.221.242
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1792201210; c=relaxed/simple;
+	bh=yvRP1u2Utq0xeeZaPJqudxqNo20F7ftY+jKRkqzUimY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sxX4pH6h2rVd7+6PzKeC+xyoguzX/qskFZ5Xqm1oZN8XIu1gZeh/ZjvT5n1LVNSVZkIG1fd9QU6TcPA0fu+4w1pcVIRXc/1BXYpvMgN68dcR5Tcq0uVtlCB63wVLnlBLo99V5xkPmiCHDNNO12xraNTry0KVR5IIMk6awBdXw4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EKfag5dm; arc=none smtp.client-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="OZsltyiK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792201107; bh=nhxZw5A5qxAznYentzn20vtaOKditdgoWk5VJ9PoAys=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OZsltyiK3OFWrT/JuNoHPz81TwTZquA5szRnYm7PP7ymS0WoWQ3DYBo1oii0kD2T3
-	 JbzF+76bohzX/TX0O8Qiwy5H+0PBZrehrckbHM5S9LWQT2FE4Y2AAFRCYR1A+cFXNG
-	 4uJqWDY4sweBM3lSEMaVAsk2qDxFcyIJB65OEHww=
-Received: from [192.168.30.1] ([2408:8452:a80:146f:11d2:bd8e:de50:4c99])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 996326FE; Sat, 17 Oct 2026 09:38:22 +0800
-X-QQ-mid: xmsmtpt1792201102tgjl4kcjs
-Message-ID: <tencent_3A4DA800AA0FC8C76CB748048FFA0DCC210A@qq.com>
-X-QQ-XMAILINFO: MDbayGdXPuoe4GWJEEkHbDNRxtytg3T4/qnjYXQGpxmzvdSV8fR0iIqAJNk05R
-	 NBDUYebg4+pX4+QtSE7tEksDEDVyCIyLsUhQafCyOgDLOVx9Mpkz1zV8xK+Vbrj7yOlOfxO6PALF
-	 sDVyF7FLeA6/XQjWl/VI+tZMQIEZLE5TXLn0h5PYjMpMj9KJDX/GLFOR1zLyrD3qowsisFspauym
-	 ZafcTSx3LnoqevCvJQmgztoGz9f62wXcFSUP/xvslQAvezOXB/IOSkLFfoo/KEAAbE00CgcBIBXq
-	 PDaPY7N/cC4fL98K2g5mmCH/cquNMTQHVvosfkhgMqwP1idvyKh+fcAeZHjLNFSSz/2CMQ5NqnOQ
-	 rRGuUa1a2fBGH06DccJfCYgc0wAwzhVB87zPVMZ7CGoqft8t+wIDrhMnElTignoMXvl+kNVOp3gG
-	 lM7YesLon1I+FokY7NlaIAORW+f9wUmgak126uhbaNqEbnhBB26egysx6e3iT6E/AKwLd4AENOeu
-	 Ah64ERWMTXeosycWzW4Jcl7i1vZM5PTPczDCW6/BfJduuB9TdTie0bqxO3veC+8P9PowvOO4chRZ
-	 NLa+Rr2mxuDXTe+aQ+jxyqA6XUHFDKdKtdipQOsaY1HMLH7sE/DtggvLcxJ89F7FNoV0xzRjXiB1
-	 oqEc124sjmHEC3Df2k12/7OdF6dzvV0T5fhtW2SE3zYc/wAaZJqTD1h33fapiMvfQWZakvUwHMrn
-	 0BG9CAE8ZMEnswAMtgkI+ye9w13ymHWXjtrTnKCGlOKoINuslxWOYWFTbWTaMTJHk3cc5bcqI0Nr
-	 vZncxITlDDjRu+7O5Z7dACVgUICLUlTTcwsHCeAeSVD1szC4WpS0SkcD247NPznkWr0nG6PpQPBO
-	 DPgPKKaI+c5HTkfWdmjUz+EOiQnO5g73HHxd/26L8LHdwhb/16OJgtRYy/t914P325zcy9PTDbcD
-	 0V152SJQLNbVunk/rymBPAFagGIIoDAvckzl7dX60UuTVvZ/5qc98EiG7RQpSLitBPkXGex2rW5Z
-	 fQMLI2qifsnOFjyPD2
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: skxby <2374604267@qq.com>
-To: Donjuanplatinum <donplat@barrensea.org>
-Cc: Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject:
- Re: [PATCH 0/2] rust: hwmon: rework hwmon abstractions, add TMP108 driver
-Date: Sat, 17 Oct 2026 09:38:20 +0800
-X-OQ-MSGID: <179220110051.19044.14406267695678410421@qq.com>
-In-Reply-To: <818d5dd7-4b8f-488d-ad99-3ce114027262@roeck-us.net>
-References: <20260512155747.10136-1-donplat@barrensea.org>
- <9c2fa543-525a-4e43-9f73-7caf13b98039@roeck-us.net>
- <tencent_576573331343805F032731492D63C12D7E08@qq.com>
- <87se26dpzf.fsf@barrensea.org>
- <179214016501.15268.642738678844764524@qq.com>
- <121A8A5C-E782-4959-B1EF-F6F09E5842D5@barrensea.org>
- <818d5dd7-4b8f-488d-ad99-3ce114027262@roeck-us.net>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EKfag5dm"
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-170135e43c7so290649c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:40:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792201208; x=1792806008; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WyelgOLNhU1TGp2fbTGjic6AmzczPO+7QxOzuA4ZKMs=;
+        b=EKfag5dmToJtaW6U0+QgD9qH3TD+804yWOfzSMFM+o579stX/3IB58r/zVfudFXOnC
+         BTu4NO6qe46xQKSnq1EI0RvDzE9JBxnNv4TCu73Es1AZzySuvZgLlTBcxGSSv0Ru4dek
+         7rnsrivLDwk2x8wnIlhFufCehlsUzsKTK7UAfaVqwKfSvgIFmdlrmCob/nM8s3dqnA+A
+         X/OzgHfOSGajI0PMbGE9/nlce8JmNRijFgruKsHe7940VF1kmJpJNtSadEiIxgmURGJG
+         hB25uRc0bt0tTwJl+64zw4kGdnT+Mr0XO6vVF1TGzB7MEfbZR2iy4PqlGCeIg1d7bx+t
+         HxCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792201208; x=1792806008;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WyelgOLNhU1TGp2fbTGjic6AmzczPO+7QxOzuA4ZKMs=;
+        b=C2joqQsEXkz7YDWyQUmaCAFZpmzBO544TpZoIt1g4GMK2/4MFlQD6RG9z/RywAkTgk
+         dqM5UXHSdZwf7AeqyNam5/t/sjO1BGaQ643A9m9ify+LaQnuPcQfk97RrYPp5kMNWTOL
+         lrP8Zjww1HaH0t9ajKkVSCL+0pblSsxtMQfqsLJPJvvydHtr4zCA0uaNWy6oB4FryPso
+         HdyRtIP8Rc+BMsX6V+Ehbep1Eo75Dey5t2SVau9L1TH3F4a3VX75J0/mP8tPy+dkOWnx
+         5vvfMlJ9dlAm9eCQdhFwbK0LUASOL9haj/vjwYQmVWoYaMO30hy6DalWXwJGa6OjF+Li
+         bvaQ==
+X-Forwarded-Encrypted: i=1; AKwUvByb9hQa1X45buEa3HmfMw+OSAgQtKxNLhWbqIBaeL8lineMmRQxSl09aHwf+rWowSjfsdLBrgc1Fs6a5E0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKpWBuuJSM9CYvIO9dEfAGPtP0DYHnJdw61GTPV+9xlEEQFQMo8
+	TMXfD/ABAj916Td3X1lJTpmlgfvCfFUabUzxmvaeaW59j7dsmBlwyf83
+X-Gm-Gg: AYBFou1b+lAUpCK6NlmH95OfpVR4fynrQM7Z7kBFFd/iyLI28BYC823BU4HuOz8LHT8
+	xqagttAA0dtKPxxOI+jrsiEeIDBthzROXJgV03Py/59LxYozwe1awKK5FCcs+M03zdDj11IfCsq
+	LDujBUKyh5e1xpljGku4Yh7YSx+3u17//spUiLrqrREJHfD7+IH+MMgCeavdhkTaKOKNPKNNjzf
+	fGrj+twASwWrwuyCYnYpT3SQvIMcrqxrWhpJ4TiKs+tos2M/mcs718JR4tTwkGAPMV0JRsCkuGv
+	UJcy3F2aQSheLvrf3RKig+u5Rn25p39evExx3JRRFIMFXO0EG7S5iwWVYx+UHIm67tNG6fZC9do
+	0fSnUD/MWcIoOlk51x4278AlL++JobzvmQGE1vCr7OPKmvyeYocvieS6bzViQ6RqyWgLVMLFNfN
+	NLI3QyqJZbygX4VJycG4tg9K2OjnBYCR3Lay8/AQTlRBKnm/JA/kKvFtrdReRWL0N5NdT9p8l0U
+	TjQca45+KCtoKz7CfyLNFmb10edeXls6+NBeQ/qeWU+eSqaB1clN/ksqiaBLr77bBCdkzQr2DoK
+	EvH07QIot+w=
+X-Received: by 2002:a05:7022:fe06:b0:151:7831:e401 with SMTP id a92af1059eb24-185120a8c4fmr3099997c88.15.1792201207411;
+        Fri, 16 Oct 2026 18:40:07 -0700 (PDT)
+Received: from lappy.taila8a9bd.ts.net (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831acba710sm12128429c88.13.2026.10.16.18.40.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 18:40:06 -0700 (PDT)
+From: "Derek J. Clark" <derekjohn.clark@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
+	"Derek J . Clark" <derekjohn.clark@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel@lists.opengamingcollective.org
+Subject: [PATCH v2 00/11] HID: hid-lenovo-go-s: Fix various bugs
+Date: Fri, 16 Oct 2026 18:39:45 -0700
+Message-ID: <20261017013956.2440130-1-derekjohn.clark@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Donjuanplatinum, hi Guenter,
+This series fixes various bugs in the hid-lenovo-go-s driver
 
-An apology first: the AI-written reply in this thread was sent without my
-review. That was a mistake, and I am sorry. Nothing further goes out from
-here without going through me first.
+Patch 1 fixes a dropped error on return from mcu_property_out().
 
-Your "?" was about the "<SENDER NAME>" line at the end of our cover letter.
-That was a placeholder in our sending template that should have been
-replaced before posting -- there is nothing hidden behind it.
+Patch 2 creates a mechanism to ignore stale responses if they timed out
+in the previous command.
 
-Guenter, on runtime testing: every patch in this series was built and run.
-The lifecycle stress tests (100x load/unload cycles), a 22-case sysfs
-regression, and extreme-value writes were part of the work from the start;
-they are how the chip_config terminator and the i2c client leak on the
-registration error path were pinned down, and they were used to reproduce
-and verify every fix. The defects the review raised that the tests had not
-caught were handled the same way: reproduce first, then fix, then re-run.
+Patch 3 fixes a deadlock if the device is removed while cfg_setup() is
+running.
 
-v2 is being finalized: it addresses all review findings, will Cc
-rust-for-linux, and carries an "Assisted-by: LLM" tag per
-Documentation/process/coding-assistants.html.
+Patch 4 adds missing pm_ptr to the reset_resume function pointer.
 
-Before posting it: are the two of you still willing to take a look? If the
-answer is no, I would rather hear that now.
+Patch 5 adds a kobject_uevent notify during reset-resume to ensure the
+os_mode return is caught by udev.
 
-skxby
+Patch 6 adds a suspend callback to cancel delayed work and re-queue the
+cfg_setup if the device was suspended prior to or during the work.
+
+Patch 7 moves attribute init to the end of cfg_setup, ensuring the
+attributes can only be used once the MCU is ready.
+
+Patch 8 reorganizes hid_gos_cfg and renames it to gos_cfg_drvdata in
+preparation for later fixes.
+
+Patch 9 moves the static led_classdev to become a member of the drvdata
+struct.
+
+Patch 10 moves drvdata from a static global to a device allocated
+struct.
+
+Patch 11 stops and closes the HID device when probe fails.
+
+Signed-off-by: Derek J. Clark <derekjohn.clark@gmail.com>
+
+---
+v2:
+ - Patch 2: Only mark the ack as orphaned when no reply was consumed,
+   i.e. the wait timed out or was interrupted. An MCU error reply is
+   fully consumed and does not need draining.
+ - Patch 3: Re-take cfg_mutex in the remove path after stopping the
+   setup work; the commit body documents why the re-take is safe.
+ - Patch 6: Cancel instead of disable the delayed work on suspend so
+   the work can be rescheduled again on reset-resume.
+ - Patch 7: Bound the device query retry to 5 attempts at 50 ms. Register
+   the LED classdev manually and unregister it on failure and in the
+   remove path. The registered flags are set before the matching steps
+   and cleared on any failure, so a failed setup run can be retried.
+ - Patch 10: Fix stale work function name in the memory barrier
+   pairing comments.
+ - Add patch 11: Stop and close the HID device on probe failure.
+
+v1: https://lore.kernel.org/linux-input/20260914225303.868569-1-derekjohn.clark@gmail.com/
+
+Derek J. Clark (11):
+  HID: hid-lenovo-go-s: Return ret instead of 0 in mcu_property_out()
+  HID: hid-lenovo-go-s: Bound stale reply window before reusing
+    send_cmd_complete
+  HID: hid-lenovo-go-s: Prevent deadlock if device removed during setup
+  HID: hid-lenovo-go-s: Use pm_ptr for reset_resume callback
+  HID: hid-lenovo-go-s: Add kobject_uevent notify during reset-resume
+  HID: hid-lenovo-go-s: Add suspend function and gate access under bool.
+  HID: hid-lenovo-go-s: Move attribute init to after device query
+  HID: hid-lenovo-go-s: Reorganize and rename hid_gos_cfg
+  HID: hid-lenovo-go-s: Move static led_classdev_mc to drvdata struct
+  HID: hid-lenovo-go-s: Use devm_kzalloc for drvdata
+  HID: hid-lenovo-go-s: Stop and close device on probe failure
+
+ drivers/hid/hid-lenovo-go-s.c | 720 +++++++++++++++++++++++++---------
+ 1 file changed, 526 insertions(+), 194 deletions(-)
+
+-- 
+2.55.0
 
