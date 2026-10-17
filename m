@@ -1,88 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1160F37BE64;
-	Sat, 17 Oct 2026 16:32:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97AD129B795;
+	Sat, 17 Oct 2026 16:33:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.76.10.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792254738; cv=none; b=HRrxMtfJtvZeXjn877lk9Kgi5j9Zi3AH7FG61+qzuVyfZ7Lnr5+ajtfsTsPEFaqMI1RtW0cbE47kT86w6aX1za7tjr/ZswkGKbXoot8BLHzcWZSA3oQRXAMe+dIwlZ6VB5CqUV4Hp2MvJV+jbJB8DxYBGnJGPCj9rkOWRbSQXgA=
+	t=1792254833; cv=none; b=OBR6DkKBV6+XANeaXO27OX8O0dFqtvn37iPvo0axNV+74R9JAB7d4PmUZJkDeRdv81NT6O1/NQ5n1b5SWLp3CjOQcydnTh7uTmyHimDUAXXtaJtuOWP6v2a8hErMpv58+1sa/wFDUNwv/FFjy/ktUJBqV6YBVrGN0dUGkoFDdcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792254738; c=relaxed/simple;
-	bh=6aArWhdUyT7JOEHGG/p/CF2AWoy197eosIqZXtgGF0g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N5hilGBYr35gRmcGamCbcYDFPDmhgj+jLpL0RSlF1WJISDN0sr+cLYYq7VkIq3ueSMCslLm3gt5Xe/qEzPgQ9mCX6hDyLTQMvXVYClGvdWrOvQnu0Y2D0ziPJS3beyPQGPIlEBHig9fRUkHq5KMGywG8xVWShZHlZ7qr0oJIUWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WHltJ8sm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792254833; c=relaxed/simple;
+	bh=sZeGf+R3HeRq59y1/BharSvWIXj9JOKxyx4UFV7wfKg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=D8vk6j2S8oAop552af5SrcJPux9+qQH1KxeGKH9biuHmu855Dfxun7PfauBMx0F8sme1bJ0awbEqS969vNJvHhcCDsjDaONd9KMTMr6RU2eigOZScwYj8OWYGD8Ul1849spWK4LeX0RAvIcdk9svc6zi8DQ8PjFb5LeRu4ZrDi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cispa.de; spf=pass smtp.mailfrom=cispa.de; dkim=pass (2048-bit key) header.d=cispa.de header.i=@cispa.de header.b=H6LVDirh; arc=none smtp.client-ip=134.76.10.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cispa.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cispa.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WHltJ8sm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B3E71F000C5;
-	Sat, 17 Oct 2026 16:32:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792254737;
-	bh=LiCBouRtEdVUhIhRFH26iTaGqUiyrApY9i75/37ninQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WHltJ8smM5clEoJ9t9KOHhurwVsxDf6ToNDmNzaEKJh2Vx03Hzp0JNzueQJIVOjvT
-	 qFxOawj4XP9WqB5ZGvHq5GY6+fcrMeId3Z0vUggXetkgJb2R/jHDsjMyOjNQfZGqHr
-	 GvnAi42qvAmoAHK6El3zQZHpoumbx5x+KTOPjBUsoJ9ZEIQq5lqSTYGFxZKBGzIzV7
-	 S4NRMMrC91IfNkCKIgQmYwPaYoiuvYrJ6e9OFixmErKnEt+GQ+YEebAZPawSb3UKiJ
-	 8qtgKqkukIz4nTpzvlkayYMcWTUQZCAFuShCFHZ4SdlsXWrDJm+RyYZ49nmBNj+RbJ
-	 f8CkQsGMiPikw==
-Date: Sat, 17 Oct 2026 18:32:13 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org, 
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Subject: Re: [PATCH v5 7/9] ASoC: dt-bindings: qcom: Add Maili LPASS macro
- codecs
-Message-ID: <20261017-vivid-chubby-chimpanzee-c31c56@quoll>
-References: <20261014-add_shikra_support_v5-v5-0-fb9f0667e613@oss.qualcomm.com>
- <20261014-add_shikra_support_v5-v5-7-fb9f0667e613@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=cispa.de header.i=@cispa.de header.b="H6LVDirh"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=cispa.de;
+	s=2023-rsa; h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:
+	In-Reply-To:Message-ID:Date:Subject:CC:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=sZeGf+R3HeRq59y1/BharSvWIXj9JOKxyx4UFV7wfKg=; b=H6LVDirhcT9IaPoEDw2sCQCQ1i
+	WM/qehuwBszVO5RhPtJ7AHT6ks2/VjAjy3Q585xJUbN0bU5bpvlGGFqUsDQ1Ve87C5e1Ou6PNML4/
+	qZZ5+U4sm9qYrAAm/63oe+zDFkncT4Ytm5y78ba226EWKN+CsNqEz91LgMQ+aQee2iop+Xyc9oshH
+	+BiMz4d68Yp/83Q9DicxNWEWjNUGa+g6FfpYx/6s26ROpKZGnrkYsy2TNV2vSA5NXEgpXGcoFcZmZ
+	P5sF5pHMPuxT0qUELVPOpb8qFfi13WIaWwHEHgIIFeI+AAt+8ucOx5x4MdYm75Hv7WYNrG9vxie/L
+	SqM4zCfw==;
+Received: from mailer.gwdg.de ([134.76.10.26]:56399)
+	by mailer.gwdg.de with esmtp (GWDG Mailer)
+	(envelope-from <amirmohammad.eftekhar@cispa.de>)
+	id 1xI7Lw-00BG0M-2Y;
+	Sat, 17 Oct 2026 18:33:48 +0200
+Received: from mbx19-gwd-01.um.gwdg.de ([10.108.142.50] helo=email.gwdg.de)
+	by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+	(GWDG Mailer)
+	(envelope-from <amirmohammad.eftekhar@cispa.de>)
+	id 1xI7Lw-0009zy-1B;
+	Sat, 17 Oct 2026 18:33:48 +0200
+Received: from localhost.localdomain (10.250.9.199) by mbx19-gwd-01.um.gwdg.de
+ (10.108.142.50) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Sat, 17 Oct
+ 2026 18:33:47 +0200
+From: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+To: <seanjc@google.com>
+CC: <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<pbonzini@redhat.com>, <sashiko-reviews@lists.linux.dev>
+Subject: Re: [PATCH] KVM: VMX: Load the EOI-exit bitmap into vmcs01, not the active VMCS
+Date: Sat, 17 Oct 2026 18:33:40 +0200
+Message-ID: <20261017163340.3968-1-amirmohammad.eftekhar@cispa.de>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261017093016.32348-2-amirmohammad.eftekhar@cispa.de>
+References: <20261017093016.32348-2-amirmohammad.eftekhar@cispa.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261014-add_shikra_support_v5-v5-7-fb9f0667e613@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MBX19-FMZ-08.um.gwdg.de (10.108.142.67) To
+ mbx19-gwd-01.um.gwdg.de (10.108.142.50)
+X-Virus-Scanned: (clean) by clamav
+X-Spam-Level: -
 
-On Wed, Oct 14, 2026 at 02:42:53PM +0530, Mohammad Rafi Shaik wrote:
-> From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-> 
-> Add compatibles for the RX, TX and VA macro codecs found in the Low
-> Power Audio SubSystem (LPASS) of the Qualcomm Maili SoC.
-> 
-> The Maili RX, TX and VA macros are identical to their Hawi counterparts,
-> so document them with the corresponding Hawi compatible as fallback.
-> 
-> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml | 4 ++++
->  Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml | 4 ++++
->  Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml | 4 ++++
->  3 files changed, 12 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
-> index 142955b85..41b578f83 100644
-> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
-> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
-> @@ -29,6 +29,10 @@ properties:
->                - qcom,sm8750-lpass-rx-macro
->                - qcom,x1e80100-lpass-rx-macro
->            - const: qcom,sm8550-lpass-rx-macro
-> +      - items:
-> +          - enum:
-> +              - qcom,maili-lpass-rx-macro
-> +          - const: qcom,hawi-lpass-rx-macro
+Thanks, and agreed on all of it.
 
-h < s, thus this list should be placed before above one using sm8550
-fallback.
+You're right that it isn't reachable in normal operation. The deferral
+(load_eoi_exitmap_pending) is what kept it off the L2 path, and ripping that
+out reads cleaner than adding the guard alone, so your version is the better
+fix. My changelog was wrong about the trigger and about vmx_sync_pir_to_irr();
+sorry for the noise there.
 
-Best regards,
-Krzysztof
+Thanks for the Reported-by. Would you like me to test your version (nested VID
+with APICv active, deferral removed) before it goes in?
 
+Thanks,
+Amirmohammad
