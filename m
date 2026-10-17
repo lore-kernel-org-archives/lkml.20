@@ -1,66 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD4D31E831;
-	Sat, 17 Oct 2026 01:25:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C250D303A04;
+	Sat, 17 Oct 2026 01:25:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792200311; cv=none; b=AIr6hjDF3Mxp0Wlu17Ijoq2yNNu1ExPWXQmo1uLodYet586OYeCNYdQN1c+y4KMiED2Vcs0ypJBr5E1h4r7vSxST9H2d4kK2bNW0Vi5ufFVPop0qEDSdQUzfIKgTQGhdNJR3K4VRE0IyQxc+kwH8teP6tDf+SmOoPNP8KMEN1qQ=
+	t=1792200337; cv=none; b=N2mp3ZBkBAPuWK5lLMNCLfvkhnQ+MFdgxmE5ugSwmrfhLq6+SC/qUC1z4dTKUhKheyUqsBMR6C/knbMMIoaVawoR66d4Nlr6SX71agcrERgcNPd0Yv71nJUV9A2oxgTKcQFcv4aq4Kv3SljopGusaOVJuWrdPsoHMJmJ9YHG1aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792200311; c=relaxed/simple;
-	bh=+R0DzIC8NQiSlyOYZEpPxOcdRGRUQRil3l7tb4q+fFI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RRqjylfJ9k9lcQZbI+VM+KYicBZ3x/Rkbn+QOIORh25jqtAVX9k+KnxZMop377AMFnJljQxOivqdhc0SBTPAIpk26cmiTCNC4FTGQibXP9GD1LgezzH4DcaPdAI8GXlE1q0+TXrR3Vbzy945OI6r7WiJHCEMjzSg1fAaOsFIqkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eBB202bl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792200337; c=relaxed/simple;
+	bh=TuRConst3u34uVYtzmxrXcek7shQRM9RgoNxVMAJyBc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hsJMX9473O9i4MfoRer21KNtaO91DFJ88wjs46fmaBiUDC0FOitvlfslxLKS6eIs/BvErgfoY0tjJh0IUf4GSPjjw5LyA2Egkgp5sv+3GFB6AiQ3yyeYe88ZXPf3feMuUqVOC88JssxQ+NpziWebEqEjpAXO5Osx8AM0OC8W/Ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=a/GoxIZQ; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eBB202bl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 261851F000C5;
-	Sat, 17 Oct 2026 01:25:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792200310;
-	bh=+R0DzIC8NQiSlyOYZEpPxOcdRGRUQRil3l7tb4q+fFI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=eBB202bls8hB7cJV+QMc0rqPEXCbbSVkMTGmOK5jwZ2KQEsxfVMozPAVXFPOOzE2g
-	 XDxgeDk8h1DStYTCjH3mgGv/JqMuLu9zDflgHI+t2pcxhVhG5VzVyk0W8ddBSqxEYx
-	 LEjrnOxUCoUWHCPjdlOi7BstqA6MoGQhJC3X69LipAGe1OrYATfMSnSyB3Hbw4w1sh
-	 Tv+VsYrCdvhneGGBbYIWTK/ryW6sS+cxBvZawTHB5XnHj1L0xg1kxPp3iYTAJ1Aeex
-	 pkmgXta0VxsH4sb+s++YV/1CTwS6JIPjxiGc4ufmgGuaAEpp5C9Nm+4eMcnL93+1Rs
-	 qBoAW4bZSrQwA==
-Date: Fri, 16 Oct 2026 18:25:08 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Doug Berger <opendmb@gmail.com>, Florian Fainelli
- <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, Justin Chen <justin.chen@broadcom.com>,
- Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>, Florian Fainelli
- <f.fainelli@gmail.com>
-Subject: Re: [PATCH net-next v5 6/8] net: bcmgenet: pad transmit frames out
- of the packet ready window
-Message-ID: <20261016182508.1100f391@kernel.org>
-In-Reply-To: <20261013-nb-genet-mtu-nn-v2-v5-6-076b6fc240be@tipi-net.de>
-References: <20261013-nb-genet-mtu-nn-v2-v5-0-076b6fc240be@tipi-net.de>
-	<20261013-nb-genet-mtu-nn-v2-v5-6-076b6fc240be@tipi-net.de>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="a/GoxIZQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Cs
+	XS74tJCjl+nJsx5qBuVjBDMdaQCN2uExL5gwwPBY8=; b=a/GoxIZQ2hLPWqImnd
+	Wgnkr1rj7jhn/p5fxoBbm2oE2fW9LV2qnyUJpNH2LcvC22FckVw/IUtsm8WKXK+b
+	fotvj6ANb4BLWtXmXoajkyDkS32X5wlwGTxnV+xaYgcBPSb2SwKXcbGeaWbkE1Vs
+	eC+VDXx4afEN/rbdk+tRz864E=
+Received: from colol4bi5.localdomain (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgD3Q3hRztJquyIXAQ--.51309S2;
+	Sat, 17 Oct 2026 09:24:35 +0800 (CST)
+From: Binbin Deng <18983559317@163.com>
+To: sam@mendozajonas.com,
+	fercerpav@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	gwshan@linux.vnet.ibm.com,
+	joel@jms.id.au
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Binbin Deng <18983559317@163.com>
+Subject: [PATCH net v1] net/ncsi: fix use-after-free of ncsi_package in ncsi_remove_package()
+Date: Sat, 17 Oct 2026 09:24:31 +0800
+Message-ID: <20261017012431.413648-1-18983559317@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgD3Q3hRztJquyIXAQ--.51309S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGF18JrW8Cr17CFy3AFy8AFb_yoW5AF1rpF
+	W3Jry5J34vyry0gFWkWrn8WF15Ars7uw1UG3sIgw4Sva45GryUZFySyayY9FyYkFZ7Canr
+	Zr4UW34Y9F4DJrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziMGQfUUUUU=
+X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC+xMX+mrSzlOztgAA3l
 
-On Tue, 13 Oct 2026 16:20:35 +0200 Nicolai Buchwitz wrote:
-> A frame that ends a few bytes past the transmit packet ready threshold
-> stops the transmitter as soon as a shorter frame follows. Tx DMA then
-> refuses to halt, so every later bcmgenet_init_dma() fails and the interface
-> cannot be opened again. IP fragmentation generates that pattern on every
-> datagram, full frames and a short tail.
+ncsi_remove_package() unlinks the package from ndp->packages with
+list_del_rcu() and immediately kfree()s it, after having released all
+of its channels the same way.  As with the channels, the generic
+netlink package info walkers iterate ndp->packages with
+list_for_each_entry_rcu() and dereference the package in the loop body
+(nla_put_u8(NCSI_PKG_ATTR_ID, np->id), np->multi_channel,
+np->channels, ...), so an immediate kfree() turns a mid-walk reader
+into a use-after-free the moment a teardown overlaps it.
 
-This is really odd. Sounds like the IP can't really support high MTU
-properly. Should the user be somehow informed that the driver will
-append out-of-spec bytes to their frames or better still opt into
-this hack?
+  writer: rmmod ftgmac100
+            -> ftgmac100_remove() -> ncsi_unregister_dev()
+            -> ncsi_remove_package() -> kfree(np)
+  reader: sendmsg(NETLINK_GENERIC, NCSI_CMD_PKG_INFO)
+            -> ncsi_pkg_info_nl() -> ncsi_write_package_info()
+
+Free the package with kfree_rcu() so that it survives the grace period
+the readers rely on.
+
+Tested on an arm multi_v7 kernel (KASAN + SLUB + PREEMPT) running as a
+QEMU ast2600-evb guest with a host-side NC-SI responder; the PoC
+hammers NCSI_CMD_PKG_INFO while cycling insmod/rmmod ftgmac100:
+
+  BUG: KASAN: slab-use-after-free in ncsi_write_package_info+0xe3c/0xf84
+  Read of size 1 at addr c69e2580 by task poc_dump/69
+   ncsi_write_package_info from ncsi_pkg_info_nl+0x320/0x63c
+   netlink_unicast from netlink_sendmsg+0x62c/0xb98
+  Freed by task 65:
+   which belongs to the cache kmalloc-64 of size 64
+  The buggy address is located 0 bytes inside of
+
+struct ncsi_package is 60 bytes and lands in kmalloc-64; a size-1 read
+at offset 0 of that cache can only be np->id in this walker (the
+u16 vids[] array reads show up as "Read of size 2"), pinning the report
+to the kfree() fixed here.
+
+Found during a static-analysis-assisted audit: candidate sites were
+surfaced by a Coccinelle rule, and the reader/writer paths were
+confirmed by LLM-assisted (GLM-5.3) code inspection.
+
+Fixes: 2d283bdd079c ("net/ncsi: Resource management")
+Signed-off-by: Binbin Deng <18983559317@163.com>
+---
+ net/ncsi/internal.h    | 1 +
+ net/ncsi/ncsi-manage.c | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+index adee6dcabdc3..082862581ea6 100644
+--- a/net/ncsi/internal.h
++++ b/net/ncsi/internal.h
+@@ -253,6 +253,7 @@ struct ncsi_package {
+ 	bool                 multi_channel; /* Enable multiple channels  */
+ 	u32                  channel_whitelist; /* Channels to configure */
+ 	struct ncsi_channel  *preferred_channel; /* Primary channel      */
++	struct rcu_head      rcu;
+ };
+ 
+ struct ncsi_request {
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index 54d0df0a9efe..76b2cb9efe4f 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -326,7 +326,7 @@ void ncsi_remove_package(struct ncsi_package *np)
+ 	ndp->package_num--;
+ 	spin_unlock_irqrestore(&ndp->lock, flags);
+ 
+-	kfree(np);
++	kfree_rcu(np, rcu);
+ }
+ 
+ void ncsi_find_package_and_channel(struct ncsi_dev_priv *ndp,
+-- 
+2.43.0
+
