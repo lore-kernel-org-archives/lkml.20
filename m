@@ -1,76 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C90438736E;
-	Sat, 17 Oct 2026 05:03:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8BB37B018
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:04:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792213438; cv=none; b=sWunLrkiWknUV4ltgerxo1rpsf67mIetHXbemJzruDa2srf/V1iRqsfG2A0mM2GH6iCETd+XI8Dl4oedoorezTDQwdJ44cSJTaHEVAHEmaLscBr3o0ewXdt2sXQUMIx3hczGffACGOHuPZg4/oGEOjiBPhsnflNIagVGJO815tk=
+	t=1792213451; cv=none; b=h11/oynptR/T8zgKTcEdVBpyhD/W2sWrCXXpWNMc5xlDTrNvvuN4JMUkNE3yJg/wvhFCzTz5BsrNEan1MrNrLF2PJFPZa0yCN8deNyHQDftbEDnlOwjDXuLn5dKXsI3lOahUaxgBqqZ5g7ANLxUI+MUjVNWdoO0BfEL17nZRRDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792213438; c=relaxed/simple;
-	bh=+YWHAC5gYUDZCtOECncdNt6z5YOh2Ori4eqA/lsBvQQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=X+xUfWEKb5gtyKsZGzNsUO6gfJ6Y664Ma3T3lDxhKJjL464lEi81vbFmd76nuRFUKSYAplxnekz++8yX3/EO8+Pp3imTuTqAp9ovOth0rYN3iHlIaiQrtaROg2mkIQ9ZNrscRqlPuP4J9pQb7AoHPuxEndr5mv4tAa2G1vtg/JY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V6IPBrRK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792213451; c=relaxed/simple;
+	bh=8BLUOuobsXVPK0Hk4WClUwg69wNv/LObwP6VEuCQQpk=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=grU1S3FiOgMCt1x4PKjWPJq3/C+xfZFtXyeoQq8iXvPnsznkbbCgiHX33r29DMYor1XxLFnXWM6/4T539IQNbafebtx7SCo9E6BdWKI32cpgy+LKTE46HKUXeNohKQn/wCxpjjFiwj9PKGkedQJY4/OKSj7Z+zuEs88OoDaadjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vuFAi4DJ; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V6IPBrRK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE8311F000C5;
-	Sat, 17 Oct 2026 05:03:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792213437;
-	bh=lGAhQj4Vef2YXXX8wm8HKYGp/8FgcLBQIUB7nrHlyJ8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=V6IPBrRKtbvOWFwg6ChweTRbinNCB2qPF787hjUtZwP+1B5NMR6GjLF5Br2SSLymX
-	 NNmzctZ8cioC/0DjP6qDnskkxGEljnxS8xNLfzHOVtb3fzY4t9V2BOjzv/c9Gxc/gF
-	 nUrzCBjgWnphtTnhOk4guwHAlMWIUJ8gUDv7EwSI42PYx9BKpXp4MvMt3Z0+dqDTvb
-	 7/b6kopvSo3dhuWoQI4qhOunAESJl+StdNZBbOHRw301fw+96JiaYjvNGSZTIjE7o0
-	 8D4GFl6BKUuHcSpi8JKQePA9sHQ1z3jPW5jfmUGsKwYWIhBWvaQ+YgKP4fN4yajdFV
-	 F7rAZehajZB3A==
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: jingoohan1@gmail.com, lpieralisi@kernel.org, kwilczynski@kernel.org, 
- bhelgaas@google.com, 
- LECOINTRE Philippe <philippe.lecointre@thalesgroup.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
- robh@kernel.org
-In-Reply-To: <305ef70ecadb4db9aa42c66607240aba@thalesgroup.com>
-References: <305ef70ecadb4db9aa42c66607240aba@thalesgroup.com>
-Subject: Re: [PATCH] PCI: dwc: Correct PCIE_DW_PLAT_EP reference in Kconfig
- help
-Message-Id: <179221341677.2165.2177875431608248516.b4-ty@b4>
-Date: Sat, 17 Oct 2026 10:33:36 +0530
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vuFAi4DJ"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e954d87b48so6254675ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:04:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792213449; x=1792818249; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gV9/cHPnIlfRbaMaPitg64wMYECZnHJw7L0U4tqnfHE=;
+        b=vuFAi4DJZ3XmakwcmpGKv0lcssWG4LtJUbgyNBHPfk0cJswBAE71rjmLlge6JknNij
+         z7yxz4PyXTYr+H5tr/54ENmWbB3973pECVnzStvnUsRZ4aqYOAlo0cEtPVOVpMC4uuh5
+         QlpWLZIInRvg0LsOWmXAo7hcX8g8Km4gc1OYddz/KlNZ2fee6aVmHaJz+9c52KTu44oo
+         euBZTJQjdAzKpE0JnjWfQXtIZqc+UI8HX7JkvTd/OGkbEI4VObrThX8hC85RKX29lk2r
+         tr/047uTvpJTcwHheKedmxp0VyfUaa0OcEiIRkcmR/hZAMtZbd4Q8RsKLCfEw18NwtAJ
+         bP+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792213449; x=1792818249;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gV9/cHPnIlfRbaMaPitg64wMYECZnHJw7L0U4tqnfHE=;
+        b=Bfju1lU08yWh7HGjqbw27px6zcfKMvLs7Dtondtsdhi4maRcaxrD3CenuIbo0xxlbj
+         gJT+gLUhRFHehshEnm519Xu2k+IBAeuhYt+mINtbkEgrdW0KRt+K5RBdXiCH2RDvEbZp
+         QhZjeNt1KSlvFMpbiB99jxpWmeZX7UNU3hboYhB5jUK84zvBs44UM6fIX2Mf6MSkeXgj
+         lMrMyQtYBdQz14GS9rLkfsbHp4JtgJqbAG3NPCPYttS740qt2tKwer7+fjGEjoykI2dc
+         L0KYsD0xEU9GVncG4XKdmm54wjGTycPRwcDjAv99NRF5KNY62TwZRtxz5eYJl1jijvu8
+         4GVw==
+X-Forwarded-Encrypted: i=1; AKwUvBwrwinqFFQVHnyRNtwPXD/IZGafp2NeFqIJyxAd0VkSp7q3ybWL2ZgJIueZWyZAkkLqeKMvLSfkRN1QDnQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9wHXIXWsiLmKJuGxtLN7TBu5gFVt9dVyy6NIbdpMVucwaFaCV
+	vzfnyg7md3TeKUGqqnYLiHbOtC/5n9eOWIGSV2m3QouTHFguw8cRls7amINhwv1yt+ldKtWQ+pD
+	YKjpNfw==
+X-Received: from plbkm15.prod.google.com ([2002:a17:903:27cf:b0:2e9:5442:b91a])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:22c1:b0:2e9:6788:9372
+ with SMTP id d9443c01a7336-2e9a6d3668fmr18323965ad.62.1792213448706; Fri, 16
+ Oct 2026 22:04:08 -0700 (PDT)
+Date: Sat, 17 Oct 2026 05:04:08 +0000
+In-Reply-To: <tencent_A643419B56079E9A448D97922763FF069F08@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=347;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=NXwGK0gn7gOAiiajD6a0Nu1PXD7v5pzh8JGfZiistJg=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq0wG4HtX+dlOMO3g0Nary1c8Jih9+Q15aekb+3
- jOJzqISBoeJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCatMBuAAKCRBVnxHm/pHO
- 9Y6iB/9SBHurvDQlT8ouXAcQ1nzWHqFPL+8i6XTINGrWHDnSlyD9Uo7ySfmen5WmAVvDPHXx1YM
- o6jSYyRyRBKrnnw8EtLMvbKi5BcZ4lnAHgAhjKxfzmuLBcBr1BUmbiKy1f39j4EbK4T46xECWaZ
- QnhVN56qs1tEx3eKjrUPD//LXcelJ4rzhPAiP3CeXx2Uk8VSgLfFQRcnA/dw8Yet7E2ARr81l1y
- YMYcVGNKV3bw852pi32Xn631xyq9TvE+Q+bNVWwn2FDrNPjFvunNjYkMGT5vhD53ALCYiTGfn4v
- ZE6yni/ljzigSoqPMz6OnRHSb+3/HeYPMcgYPet6xNKo8Jfu
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Mime-Version: 1.0
+References: <tencent_A643419B56079E9A448D97922763FF069F08@qq.com>
+Message-ID: <atMBc9DNAnFhsR9V@google.com>
+Subject: Re: [PATCH net v3] net: unix: reject negative max_dgram_qlen values
+From: kuniyu@google.com
+To: Yingjie Wang <1075151112@qq.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-api@vger.kernel.org, stable@vger.kernel.org, skhan@linuxfoundation.org, 
+	rdunlap@infradead.org
+Content-Type: text/plain; charset="us-ascii"
 
+On Fri, 16 Oct 2026 11:02:58 +0800, Yingjie Wang wrote:
+> net.unix.max_dgram_qlen is parsed as a signed int and copied to the u32
+> sock::sk_max_ack_backlog when an AF_UNIX socket is created.  Consequently,
+> a negative value such as -1 is accepted and converted to UINT_MAX.  Since
+> the receive queue length is also u32, its fullness check cannot become true
+> for that limit.
+> 
+> max_dgram_qlen has no documented negative sentinel.  Its existing signed
+> interface represents nonnegative values only through INT_MAX; negative bit
+> patterns are not a supported encoding for the upper half of the u32
+> consumer range.
+> 
+> Switch to proc_dointvec_minmax and make the established 0..INT_MAX input
+> range explicit.  This rejects negative values without adding new accepted
+> values or changing the default and zero-value behavior.  Very large valid
+> values can still make the queue limit impractical to reach; this change
+> corrects the input domain rather than imposing a new resource ceiling.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: Yingjie Wang <1075151112@qq.com>
 
-On Fri, 02 Oct 2026 08:07:07 +0000, LECOINTRE Philippe wrote:
-> PCI: dwc: Correct PCIE_DW_PLAT_EP reference in Kconfig help
-
-Applied, thanks!
-
-[1/1] PCI: dwc: Correct PCIE_DW_PLAT_EP reference in Kconfig help
-      commit: 440b83f5b733ac4e6f6e3f0706bd718879859d9d
-
-Best regards,
--- 
-மணிவண்ணன் சதாசிவம்
-
-
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
