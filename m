@@ -1,260 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABB3768EA;
-	Sat, 17 Oct 2026 21:13:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E95F31E834;
+	Sat, 17 Oct 2026 21:14:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792271584; cv=none; b=ocielNrssbMw9+asx26cFtD/YV0C8kbF4ifW+4QKKhgP1rM/THNvNBJc1rgEyw4xpZY/YOZn0EHQrl4CTyABlhGvieQ4vp6F0G8FamsbzHyLW1R40KJsa4l2gfQ4sRF7vKz3MhRkW/EVn3AXux+l+KaSnc41w6nbJr6cAwiBmo4=
+	t=1792271665; cv=none; b=p9AfgzQA2XbE38Vk1cyqudNew9pflTzt6d3ayoBpYPcg2evqclF+1S3ukG0eWmC8gDxZKWUoTyuZsV14T7OgzfVNIxFp9YntZeMqZ7TnMUuyHANJVhCid5sYojo2kkq3p+C9NvaQ/Cnw5EBieDuY7s37Qz0Ymsa3i4Kg/qpstkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792271584; c=relaxed/simple;
-	bh=O0UpyZbM6yMxY95Xih+M89PeTAtqrWGlsc1e1u9J54I=;
-	h=From:Subject:Date:Message-Id:To:Cc:MIME-Version:Content-Type; b=DNYStx0Ful1SqL/TkZP9gUvkuB/CQWql+wHd/9vpQj63OBgLILLu2+TJxaMn4dj5AC/WQswJmPBi+TpW/DYN+0GZ+oeMYVVchs1AflOyeUHFIPyWhw7zS7vaitqzjTXMw2RyutE3DGbWDRlS1x7U0zEiFUN/MDXIhyU0j+FbYKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rm9/+Zh/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792271665; c=relaxed/simple;
+	bh=uwQYxTDhT24TVmXMpGbl8/96piiC56dPsU977K30FL4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UqYfZPsBk2314cEuxZ0M4DPJz0wUjppH5pYmX4gNLnG18lL44s244h602Il/uCmJPN7Ct0ZZatcfJDPhSUJ4bHn0gkvDlAdMC/76U/qFQ0O+PsokvNvOEPzjeeirKDk3Ym/vDKRYXXT43ClAJkn7XVu6w3McdRvR0qI18Ck6ytc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MvbzIyL0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rm9/+Zh/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 50A22C2BCF5;
-	Sat, 17 Oct 2026 21:13:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792271583;
-	bh=O0UpyZbM6yMxY95Xih+M89PeTAtqrWGlsc1e1u9J54I=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=rm9/+Zh/Ntolkrx3Dvx2thlFpqlGthq0lP22FnlaPzzcBsfiekkWem6SOqhB91vo9
-	 XyloNZqqTGOz7AelkN1jzBHFsbAMuCeof0zubUEhbCBmqGb4MxILkEKD4XDwuWuB89
-	 PT7hd1FgkHZ+yScgMSPqbNw3MgY3l0ZGxQrLGy9Gz02RNRn5HSqmeDstgiAHd28EYN
-	 jlC9Fd8BYnxbLIdqzW6AXW8e4BjVNv/+gv8jlDpJM6QP30yE4ch+a/7Wsw2TLhPn6H
-	 kGS4bawmCBisUqLLqq6FOq3HsyuynQml4SVu/veZ+0RM3HUFFht1yS1bU3fi3/wEOc
-	 lgHyKZCCwxuEw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 28516CCF2CC;
-	Sat, 17 Oct 2026 21:13:03 +0000 (UTC)
-From: Amir Atef via B4 Relay <devnull+amiratefabdallah1122.gmail.com@kernel.org>
-Subject: [PATCH v3] staging: iio: frequency: ad9834: use guard(mutex)
-Date: Sun, 18 Oct 2026 00:12:54 +0300
-Message-Id: <179227157492.345.14305383480190541762.20261018-ad9834-guard-mutex-v3@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-iio@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MvbzIyL0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B82E1F000C4;
+	Sat, 17 Oct 2026 21:14:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792271663;
+	bh=FKO4CvfP/4EzoFbPAE+XxKnikN9D8rSYpkJhdJvI2YY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MvbzIyL0+uVY1WLiysuCtcLfA7PbeMDJpKuvDJe215wvkhLzeUV1GMQmQqgs1zvRu
+	 XZGJ97HAv7I5lhtf9N7+ly81oScPwT85cZ1RVqcf1RmqETY7Z63C87hD/+H1sf4SS+
+	 10TGoybaPW9G/6/ODl73rFLo9IwJa77No3hZ9stqenEnyRNqJx7b6thQu+UphD5jqG
+	 57LfY1kqT2f6UQ5IQ0rR52PYJPDQ9wVGss7xlVaN+oUrXWkX1dNmjExBWsO+yPEqJ1
+	 3WacyFkzF5oeq43mEuLsz0jclKaDKuQjFAnglzjM+aNlt4E60uFgnfLNNrwnePSRWD
+	 dz4W+vAVVEgVg==
+Date: Sun, 18 Oct 2026 00:14:20 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Dionna Glaze <drdeeglaze@gmail.com>, Jiri Pirko <jiri@resnulli.us>,
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
+	ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
+	sameo@meta.com, James.Bottomley@hansenpartnership.com, aik@amd.com,
+	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
+	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+Message-ID: <atPlLOrAr0XcLlRW@kernel.org>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261016234354.GA664420@nvidia.com>
+ <CANwfdvXFLJpC4Bc1PwRoUUP20fu2K8b+FHZ1JLLFXAikC-cBaw@mail.gmail.com>
+ <atPHHNVJ2w0bkJIC@kernel.org>
+ <20261017205557.GN13920@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792271574; l=5594;
- i=amiratefabdallah1122@gmail.com; s=20261016; h=from:subject:message-id;
- bh=cmg3zId0FkdtcWpW+YuNWILFMdxVWIEd84BWrtcT1bk=;
- b=0GBySzvOnw223ToFk3EOc+Ox2oARIexfrRZoYPxfScC9r2vX6o8mAMJwZ7TLIYseBPqk/JSL8
- GYEeCcEgSw5BEFgcTTsrSg9fnOsfoJBbf7DV76+DkrydukzcyVg5tWL
-X-Developer-Key: i=amiratefabdallah1122@gmail.com; a=ed25519;
- pk=FRhtQptjt3GSkQBUg7qfVL8eusorsJqHzciu3+ss11o=
-X-Endpoint-Received: by B4 Relay for
- amiratefabdallah1122@gmail.com/20261016 with auth_id=1209
-X-Original-From: Amir Atef <amiratefabdallah1122@gmail.com>
-Reply-To: amiratefabdallah1122@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017205557.GN13920@nvidia.com>
 
-From: Amir Atef <amiratefabdallah1122@gmail.com>
+On Sat, Oct 17, 2026 at 05:55:57PM -0300, Jason Gunthorpe wrote:
+> On Sat, Oct 17, 2026 at 10:06:04PM +0300, Jarkko Sakkinen wrote:
+> > On Sat, Oct 17, 2026 at 11:16:07AM -0700, Dionna Glaze wrote:
+> > > +Jarkko
+> > > The TPM driver is pretty entrenched and heavily used by different user
+> > > space applications, so it seems really ambitious to bundle in TPM
+> > > here.
+> > 
+> > This is something on the table thanks to Trenchboot and its early boot
+> > code.
+> 
+> I've proposed that there be no early TPM in the Linux DRTM
+> implementation. The trampoline would just do a bit of additional work
+> with its existing TPM code before it reaches Linux.
+> 
+> https://lore.kernel.org/all/20261016165135.GA494690@nvidia.com/
 
-Use guard(mutex) to manage the state lock in ad9834_write() and
-ad9834_store_wavetype(). This simplifies error handling by allowing
-early returns instead of setting the return code and breaking out of the
-switch statement to manually unlock the mutex.
+Maybe really would want to see a PoC of this.
 
-Signed-off-by: Amir Atef <amiratefabdallah1122@gmail.com>
----
-Changes in v3:
-- Check 'ret' and return early at each call site in ad9834_write(), and
-  replace the final ternary return with 'return len;'.
-- Link to v2: https://lore.kernel.org/r/179219435216.322.13409717511306957730.20261017-ad9834-guard-mutex-v2@gmail.com
+> 
+> My intention with attestation subsystem: tpm and DRTM is to follow the
+> ARM design and get ACPI up enough to reach a HW driver. Attestation
+> subsystem will multiplex the DRTM "PCR" logging to which ever ROT that
+> DRTM launch selected. This is another reason why I dont like early TPM
+> because it turns from just early TPM, already hard, into
+> early-every-ROT which is much worse.
 
-Changes in v2:
-- Add blank line after guard(mutex) in ad9834_write().
-- Move 'int ret;' to the end of the variable declaration block in
-  ad9834_store_wavetype().
-- Drop redundant 'else' in ad9834_store_wavetype() case 1 by inverting
-  the condition (kept 'else' in ad9834_write() and case 0 where they are
-  part of if-else-if-else chains).
-- Replace ternary return with explicit 'if (ret) return ret;' in
-  ad9834_store_wavetype().
-- Link to v1: https://lore.kernel.org/r/179214943270.333.5921549521929682753.20261016-ad9834-guard-mutex@gmail.com
+Earlyboot code could be done with just C by having TCG compatible
+device parts in a "TIS lib" and "CRB lib" but yeah, this will
+inevitably hit into having to upscale hardware over TCG MMIO.
 
- drivers/staging/iio/frequency/ad9834.c | 70 +++++++++++++++-----------
- 1 file changed, 41 insertions(+), 29 deletions(-)
+So yeah, I think I get the negatives. This is what bothers me
+a bit also in Trenchboot patch set. Arbitrary context dependent
+hardware support for TPM does sound a bit risky...
 
-diff --git a/drivers/staging/iio/frequency/ad9834.c b/drivers/staging/iio/frequency/ad9834.c
-index 0d20f796e0f0..8686a22f3fc1 100644
---- a/drivers/staging/iio/frequency/ad9834.c
-+++ b/drivers/staging/iio/frequency/ad9834.c
-@@ -6,6 +6,7 @@
-  */
- 
- #include <linux/bits.h>
-+#include <linux/cleanup.h>
- #include <linux/clk.h>
- #include <linux/dev_printk.h>
- #include <linux/err.h>
-@@ -154,21 +155,26 @@ static ssize_t ad9834_write(struct device *dev,
- 	if (ret)
- 		return ret;
- 
--	mutex_lock(&st->lock);
-+	guard(mutex)(&st->lock);
-+
- 	switch ((u32)this_attr->address) {
- 	case AD9834_REG_FREQ0:
- 	case AD9834_REG_FREQ1:
- 		ret = ad9834_write_frequency(st, this_attr->address, val);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	case AD9834_REG_PHASE0:
- 	case AD9834_REG_PHASE1:
- 		ret = ad9834_write_phase(st, this_attr->address, val);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	case AD9834_OPBITEN:
--		if (st->control & AD9834_MODE) {
--			ret = -EINVAL;  /* AD9834 reserved mode */
--			break;
--		}
-+		if (st->control & AD9834_MODE)
-+			return -EINVAL;  /* AD9834 reserved mode */
- 
- 		if (val)
- 			st->control |= AD9834_OPBITEN;
-@@ -177,6 +183,9 @@ static ssize_t ad9834_write(struct device *dev,
- 
- 		st->data = cpu_to_be16(AD9834_REG_CMD | st->control);
- 		ret = spi_sync(st->spi, &st->msg);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	case AD9834_PIN_SW:
- 		if (val)
-@@ -185,6 +194,9 @@ static ssize_t ad9834_write(struct device *dev,
- 			st->control &= ~AD9834_PIN_SW;
- 		st->data = cpu_to_be16(AD9834_REG_CMD | st->control);
- 		ret = spi_sync(st->spi, &st->msg);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	case AD9834_FSEL:
- 	case AD9834_PSEL:
-@@ -194,11 +206,13 @@ static ssize_t ad9834_write(struct device *dev,
- 			st->control |= this_attr->address;
- 			st->control &= ~AD9834_PIN_SW;
- 		} else {
--			ret = -EINVAL;
--			break;
-+			return -EINVAL;
- 		}
- 		st->data = cpu_to_be16(AD9834_REG_CMD | st->control);
- 		ret = spi_sync(st->spi, &st->msg);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	case AD9834_RESET:
- 		if (val)
-@@ -208,13 +222,15 @@ static ssize_t ad9834_write(struct device *dev,
- 
- 		st->data = cpu_to_be16(AD9834_REG_CMD | st->control);
- 		ret = spi_sync(st->spi, &st->msg);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	default:
--		ret = -ENODEV;
-+		return -ENODEV;
- 	}
--	mutex_unlock(&st->lock);
- 
--	return ret ? ret : len;
-+	return len;
- }
- 
- static ssize_t ad9834_store_wavetype(struct device *dev,
-@@ -225,10 +241,10 @@ static ssize_t ad9834_store_wavetype(struct device *dev,
- 	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
- 	struct ad9834_state *st = iio_priv(indio_dev);
- 	struct iio_dev_attr *this_attr = to_iio_dev_attr(attr);
--	int ret = 0;
- 	bool is_ad9833_7 = (st->devid == ID_AD9833) || (st->devid == ID_AD9837);
-+	int ret;
- 
--	mutex_lock(&st->lock);
-+	guard(mutex)(&st->lock);
- 
- 	switch ((u32)this_attr->address) {
- 	case 0:
-@@ -241,7 +257,7 @@ static ssize_t ad9834_store_wavetype(struct device *dev,
- 				st->control &= ~AD9834_OPBITEN;
- 				st->control |= AD9834_MODE;
- 			} else if (st->control & AD9834_OPBITEN) {
--				ret = -EINVAL;	/* AD9834 reserved mode */
-+				return -EINVAL;	/* AD9834 reserved mode */
- 			} else {
- 				st->control |= AD9834_MODE;
- 			}
-@@ -249,31 +265,27 @@ static ssize_t ad9834_store_wavetype(struct device *dev,
- 			st->control &= ~AD9834_MODE;
- 			st->control |= AD9834_OPBITEN;
- 		} else {
--			ret = -EINVAL;
-+			return -EINVAL;
- 		}
- 
- 		break;
- 	case 1:
--		if (sysfs_streq(buf, "square") &&
--		    !(st->control & AD9834_MODE)) {
--			st->control &= ~AD9834_MODE;
--			st->control |= AD9834_OPBITEN;
--		} else {
--			ret = -EINVAL;
--		}
-+		if (!sysfs_streq(buf, "square") || (st->control & AD9834_MODE))
-+			return -EINVAL;
-+
-+		st->control &= ~AD9834_MODE;
-+		st->control |= AD9834_OPBITEN;
- 		break;
- 	default:
--		ret = -EINVAL;
--		break;
-+		return -EINVAL;
- 	}
- 
--	if (!ret) {
--		st->data = cpu_to_be16(AD9834_REG_CMD | st->control);
--		ret = spi_sync(st->spi, &st->msg);
--	}
--	mutex_unlock(&st->lock);
-+	st->data = cpu_to_be16(AD9834_REG_CMD | st->control);
-+	ret = spi_sync(st->spi, &st->msg);
-+	if (ret)
-+		return ret;
- 
--	return ret ? ret : len;
-+	return len;
- }
- 
- static
--- 
-2.51.0
+> 
+> I view all the stuff you are listing to make tpm early work as too
+> difficult compared to just having the trampoline do it since it
+> already must have a TPM extend operation inside it.
 
+OK, thanks for sharing this, and I'm not arguing against this.
 
+> 
+> Jason
 
+Br, Jarkko
