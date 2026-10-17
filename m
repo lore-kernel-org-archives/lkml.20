@@ -1,211 +1,235 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8978447A87A
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:47:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C7E47F3CA
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:47:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792230421; cv=none; b=Ss+44Rv+QMXVXpgxLhB8MsirD7Lbt3z12s4C/wvoUo8KIAeosBJwH4uPNu2vB0ChFwwrTeF6IXjnZG+quS/9t2tiSYSRsvTSFOGHrX9rXrvGVgXYHatTleFOqY9BMbRLfeP0rrijLNPwqT1e/Xg/bhXsz/a3NdyjjllwVHKv2PQ=
+	t=1792230423; cv=none; b=cp2fvc+GV1sa/MPVqVvCBcewbJm2gzUF/yLiK7uwKRTkBxPQF5OHiDocGGbZJZHod407VncOq85Egc0bfEqXHztXNBXsFJhlB53e5J2KvYWiUDcS/e/DKQKeFASQCp6RbKEebEqd3i3r6FdS2G+2uxrDtIHQfbYwY76eMh5YNWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792230421; c=relaxed/simple;
-	bh=LRWhJyRn3PkcxIWYRNNivl3BW306tPYAnRD6RQt/jf8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DfdWjEHrq75lKbMD98AP62dFEyds8Qp56NmrlPEa48cbkhiUHkej0u3vTajJ+mXu9pOokvVeoK4X5+naH9H4S9TOUu0tQhL77XHTQbbjxOXFmkuhkVRX8lCCpY/tlOohvPhz/4E2Mty+X85CCfhlDfGgzVFj12pRBnfQY2wNBU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jd9hXNKA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FtZyhMdo; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792230423; c=relaxed/simple;
+	bh=0+4EcF+28LSbjk09TRll/UcHslVJ8LpapruRYa45sB4=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=Ygt21TRCCji8t48O6l1UDh0RgvWScdTlTlIEJ+LxInsdYQr67BJFLHZh34bWaVZUi9RhPl6zjIrCgRhWwWZe0iDHe6jZJhFiS+FyIuvNZYUmsu8w8/zm9pG8x4dSawZ6ujQH+4gi5u5kRLJ/M0+xMvfbfJ2jWWgpJSt+Wlfg/DI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=nkqjsz5E; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=LKlgRttT; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jd9hXNKA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FtZyhMdo"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69H6o4Wf3533587
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:46:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jcjbR8An16SR3tP/GJFloko/bvbeikqy8AxazhWq948=; b=jd9hXNKAnoAHYnvp
-	UHBT2ccQ94NXStz29JbncN58ob5j/+V/7QFALT3RyO0krTVQOywkCKQL/IIjZd3U
-	Pq/iXiZe2QseoYB2HWiq2ykUlUmkFIaxGUUNYMDRLIt7/jg9NZjZzP5SzVW+gCJd
-	KSBZBqfrKbjjgXjyhCpXGx6DIxE7g88JPpLGPfhLCgSgjXg8NaH7IGWmG+kuIzNj
-	S8M2221cD9TpCqtJli3RpyFWwTeJzsFgRYEfLHJ5OsDEkFcumxpFgvCqaCPjLtaf
-	rNQN4Y5xoBjbpvnLk7T5OBdDBeWuMzMBnqCSALkZf2hwl7SOaMrR65x7qWf/k8aW
-	rz9tRg==
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hc1d7rkc6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:46:59 +0000 (GMT)
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-147be78cd56so2891777c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:46:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792230419; x=1792835219; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jcjbR8An16SR3tP/GJFloko/bvbeikqy8AxazhWq948=;
-        b=FtZyhMdoeMYSjkzB+EgfEqHL3ejGDSNqY+MZmaqkXWJW5STGMN2usQsLb0x2o12GnT
-         w+YXYYcg8/uZbU7T28Tajkgc6BKwusI9ltRSvd7gBZ1Ls7+WT8ciNTWgjHluaVKEfG4X
-         EfGfj/DqngMnMyyPJRYFT4fGqCs3rv46tv8CMgfy1i0MDHnQfYbeJ6c4s/MAJKhkyk9O
-         hPqk2mJPeZrDcmX/f2MTmVa2vzrSzY/FAxQbxcZtjyETebPtnkaqpxAvqTezEwlvGQBY
-         /Wsk52WCqWWjx2+5EYcVE+P3/Oqyjzu8L9Dlp4mFt7I6H576NDrKMpDGcSri8mzhOl8s
-         t8VQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792230419; x=1792835219;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jcjbR8An16SR3tP/GJFloko/bvbeikqy8AxazhWq948=;
-        b=c+SV8Zvjg/ty1LYBP9UqUDLTcouamT3Hc6Is8HxlJht+GMJIPQYoDk3OlB39N9tcFf
-         4AXOB+jBTEo2xxkI+37zNzO03ffophByTv8P2z5uwQjcjvGwjRRK7RD/cfVqOSg1uH4e
-         9mO6dIMJl/6vKbVZ/0bZ8UTIpEsDY30l2jMmgmKJuTBgn5SdVGac8ot0v3ivAxMwDXiB
-         QoNezy+plPuF14gvNETzW/oh5Fe3zGS+P7YUQe3g2hBz69swX7ECQ4SQPTwQh7tAHEwn
-         vjNarJMUy1f5StJKvIHxS0nskJsGEv8MqBn8hZDJYWPeWrrenDaFNHIuc1S7rm7GMccT
-         6aSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwwSKhNwdDIsWUTG6QBSpB2lS7Iw5/4j311SGcvf0HDE9R7XjQWRmvUoJaqX9rlPOhAAmxp4Us2+ZILpFM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2TrkzskwAyEiQMs/umC8HTJHoqug6vbvu0/dgFL//nel4h8TI
-	XzKhGu0xXkx4O6bBoPPiT7ILwt3OoGMbeCGa3DfMsMMeJ4WKy/cz/gniUGDUt7Mk4xeVt2T6TQc
-	xfYBgPAlL36qYOBKjnxCqSTRP8z14rsKMMjDd+Re34duI0qG+qlo6Jg5ls+z2KXCH34I=
-X-Gm-Gg: AYBFou004MpZCc4I8LIBRKb1iHiZ09xDBW4UG7nxkHLFUS4eKamklb7S9gRGiAZH5Kz
-	QuX2AFzA42QJjschmvOiLi+JPt345KcQmIt25XaYQPZtn4OqKXWSLihseZzhRnz3379P0FwsfTB
-	TmNEkamrHj3fvd6zODwEk+sZrPBfpd2w0flKjjDaLbce/iR57eIDsQEH6MsEJf+5E2MVySMcN0T
-	x7Dpn3hof62rcMMokicKdGXPnBCaU1yJfOth2PoF0RhTMgLy97Ujtt6KtCPbqZHCo5J26yXnNi5
-	rAAWP3zelzcJhdySYvIwWvc738aO708zJje5YuR7GyIsXj8VO6v1VBH9YiPCUBtclWFXKd/ApAf
-	jmaiv0avu4aiggLJiwhJtQsNI7ARyfQ==
-X-Received: by 2002:a05:7022:e808:b0:14a:51c8:e9fd with SMTP id a92af1059eb24-185139aa548mr3772608c88.26.1792230418533;
-        Sat, 17 Oct 2026 02:46:58 -0700 (PDT)
-X-Received: by 2002:a05:7022:e808:b0:14a:51c8:e9fd with SMTP id a92af1059eb24-185139aa548mr3772587c88.26.1792230417954;
-        Sat, 17 Oct 2026 02:46:57 -0700 (PDT)
-Received: from hu-mohdayaa-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831a6f58c2sm19450327c88.11.2026.10.17.02.46.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 02:46:57 -0700 (PDT)
-From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Date: Sat, 17 Oct 2026 15:15:20 +0530
-Subject: [PATCH net-next v3 9/9] net: stmmac: qcom-ethqos: add Shikra EMAC
- support
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="nkqjsz5E";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="LKlgRttT"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792230419; bh=IiioPecZQfgf0VgJTHM9BWW
+	cXOpdcjSdoRH4kGFgfI8=; b=nkqjsz5EBzpAoyT3Y+WxkdrNwQSjilfRwlq3l4GYAIS4TSIh0d
+	H7W+QvN5aZqHxmDLFimyOkWNkzibfurduZsXbWoDMPgcpIy5EDUMBKSn9TiWUSiaPe2rs1I6ZdA
+	3/E1grF9MRBp4LjwAPmFfxVLB6bChIg+ZTc5O7gO71TxKAJS+QoXk0EfR8SosVbzE9jL3K2UwGo
+	erTu6JV7UAO8unHtWd0V4ZuEb6T3mVMcGAspryqwDyObeHhJPetbueY/4BawmrJKjQ/dQomNQYb
+	9uFwKuNHepzpjVF2DXzLHyXLrvN4m9PfeAykUq4ogP8mSb+JCD7x0BgBhlVJ6TcrzqA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792230419; bh=IiioPecZQfgf0VgJTHM9BWW
+	cXOpdcjSdoRH4kGFgfI8=; b=LKlgRttT9qOxN+MkU3DeVBuXuTLddJHB/r6151tiSnD0tpRMxR
+	jSOM3YSpfFVHj7l6xADtwb2T5tOJXQ7T7KDQ==;
+Date: Sat, 17 Oct 2026 10:46:59 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: nickolai@csail.mit.edu
+CC: brauner@kernel.org, jlayton@kernel.org, linux-kernel@vger.kernel.org,
+ mic@digikod.net, serge@hallyn.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v1=5D_nsproxy=3A_Fix_cred_leak?=
+ =?US-ASCII?Q?_in_the_error_path_of_prepare=5Fnsset=28=29?=
+In-Reply-To: <20261017033538.793280-1-nickolai@csail.mit.edu>
+Message-ID: <97C8FE23-D2F6-4294-9C31-6DDAE2C6507D@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261017-shikra_ethernet-v3-9-26a8beb44b8f@oss.qualcomm.com>
-References: <20261017-shikra_ethernet-v3-0-26a8beb44b8f@oss.qualcomm.com>
-In-Reply-To: <20261017-shikra_ethernet-v3-0-26a8beb44b8f@oss.qualcomm.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>,
-        Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-        Jose Abreu <joabreu@synopsys.com>,
-        Maxime Chevallier <maxime.chevallier@bootlin.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org,
-        Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792230324; l=2359;
- i=mohd.anwar@oss.qualcomm.com; s=20250907; h=from:subject:message-id;
- bh=LRWhJyRn3PkcxIWYRNNivl3BW306tPYAnRD6RQt/jf8=;
- b=8irhRRycJY4lMPeMj+cjkHGT1y1OlkmuNDgvS66f2oU8rsvggEAa5HJEeCWPbUqMEr3ZUG3Vi
- bxh4S3ShekxCm6dM/rJVicTZxfQe9mMakJ0qVXvyZC4RUafE1IliZuw
-X-Developer-Key: i=mohd.anwar@oss.qualcomm.com; a=ed25519;
- pk=7JNY72mz7r6hQstsamPYlUbLhQ5+W64pY4LgfSh9DJU=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDAzOCBTYWx0ZWRfX8rkVkRcXCLFl
- 1ZyeZ5pr8TkVTbN/Qls6Rvdh/cbRE0vRj80pmQEsqVW4AJDtNJXSnRC/H+hW/jk5iD8M8uvhvZ/
- TEvre8qE8oajdMs03T/rE36FJLPF2F4=
-X-Proofpoint-ORIG-GUID: S9qV6XwCgOdSc-R0LMevQm_RRGMx0HMS
-X-Proofpoint-GUID: S9qV6XwCgOdSc-R0LMevQm_RRGMx0HMS
-X-Authority-Analysis: v=2.4 cv=K4O3jCWI c=1 sm=1 tr=0 ts=6ad34413 cx=c_pps
- a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=zfyZ_crbsqx4_ZaO5ygA:9 a=QEXdDO2ut3YA:10
- a=Kq8ClHjjuc5pcCNDwlU0:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDAzOCBTYWx0ZWRfX6C4FkWhQA2Ky
- 0KUy1/HP4QnxpBWydLDd0NjxTjqRYVe76zD0Zkjjg9VkxzVnZi5jv35sJv0G/kkgdz2hcQ4IPpI
- wHmH+kuhzS1i11kVi6cPdGnCyrebubaG+vGN0QDbB2lZsA2J7iJsNtxMxJ8X7KUu/PWhKOxmVlm
- 2PzTbAOc1MNM/XlSPj0Dunku1RMFXXnBX6Q9coa93Ji/+5qT9lU7SebpZhIDj3yLwpCTfDEWQbr
- IgOCvnTieHylhdXFPmE2KxIyvjDGpoBnYQus72YsxAU3RGvUs/Tob32zqJGMeBaBbdMel7TPlQD
- A90umMNp8DUYwrhElhAWT/439fNYLt0X7F4LAzhXEPbNEeWBQjtwZcFPa1WX1TEajJFg2TnVpfs
- Fz59aVVpOtNIcWoAb2mE2107LvKov+iJm+udPXOVZZcUmR/lW8bbuNpnwoA4Bjk+m4die6Jg1ZR
- g4rXSO+vPWqbtK4Zcgw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-17_02,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 priorityscore=1501 phishscore=0 clxscore=1015
- adultscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610170038
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Shikra integrates two Qualcomm ETHQOS controllers based on the Synopsys
-GMAC IP, similar to previous platforms.  Register qcom,shikra-ethqos
-backed by a new shikra_data descriptor that enables the three NOC clocks
-required for DMA memory access (axi-noc, pcie-tile-axi-noc, stmmaceth),
-and the 36-bit DMA address width.
+On 17 October 2026 04:35:38 BST, Nickolai Zeldovich
+<nickolai@csail.mit.edu> wrote:
+>A task that calls setns() with CLONE_NEWUSER together with CLONE_NEWNS
+>and at least one more namespace flag leaks a struct cred (and the
+>user_namespace, ucounts and group_info references it holds) whenever the
+>call fails at the fs_struct copy.  On a kernel with CONFIG_USER_NS the
+>leak is one cred per failed setns(); under memory pressure, or driven by
+>a fault-injecting attacker, it accumulates and pins user namespaces that
+>can then never be freed.
+>
+>prepare_nsset() sets nsset->flags only on the success path:
+>
+>	if (flags & CLONE_NEWUSER)
+>		nsset->cred = prepare_creds();
+>	...
+>	} else if (flags & CLONE_NEWNS) {
+>		nsset->fs = copy_fs_struct(me->fs);
+>		if (!nsset->fs)
+>			goto out;	/* flags still 0 here */
+>	}
+>	nsset->flags = flags;
+>	return 0;
+>out:
+>	put_nsset(nsset);
+>
+>put_nsset() decides what to release from nsset->flags:
+>
+>	if (flags & CLONE_NEWUSER)
+>		put_cred(nsset_cred(nsset));
+>
+>On the copy_fs_struct() failure arm prepare_creds() has already
+>allocated the cred, but nsset->flags is still the zero from the caller's
+>"struct nsset nsset = {}", so put_nsset() does not see CLONE_NEWUSER and
+>never drops it.  The caller (__do_sys_setns) returns the error without
+>touching nsset, so the cred is lost.
+>
+>Set nsset->flags at the start of prepare_nsset(), before anything can
+>fail, so every error exit through put_nsset() releases what was taken.
+>commit_nsset(), which clears nsset->cred on success, is unaffected.
+>
+>Reproduced on x86_64 under QEMU with failslab aimed at the fs_struct
+>cache and kmemleak enabled: 500 calls of
+>setns(pidfd, CLONE_NEWUSER | CLONE_NEWNS | CLONE_NEWUTS) each fail with
+>-ENOMEM and leave 851 unreferenced cred objects allocated from
+>prepare_creds() via setns() before the fix, and none after (the program
+>is in the notes below).
+>
+>Found by formal verification of kernel/nsproxy.c.
+>
+>Fixes: 303cc571d107 ("nsproxy: attach to namespaces via pidfds")
+>Assisted-by: LLM
 
-The NOC clock rates are set using an OPP table. As part of the NOC
-clock voting logic, the qcom-ethqos glue driver takes a second enable
-reference on the "stmmaceth" clock, which is already enabled by the
-stmmac core. Since, all three clocks must run at 120 MHzs, managing
-"stmmaceth" through the same clk_bulk path keeps the rate-setting and
-enable/disable together.
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
-Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 9c602755532e141f4b822721686b1481b29b7d4c..a4e083a8517d095e5571b1340f9dd4b5e0c6e81f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -307,6 +307,22 @@ static const struct ethqos_emac_driver_data emac_v4_0_0_data = {
- 	.dwmac4_addrs = &ethqos_dwmac4_addrs,
- };
- 
-+static const char * const shikra_noc_clk_names[] = {
-+	"stmmaceth",
-+	"axi-noc",
-+	"pcie-tile-axi-noc",
-+	NULL,
-+};
-+
-+static const struct ethqos_emac_driver_data shikra_data = {
-+	.dma_addr_width = 36,
-+	.has_emac_ge_3 = true,
-+	.noc_clk_names = shikra_noc_clk_names,
-+	.num_noc_clks = ARRAY_SIZE(shikra_noc_clk_names) - 1,
-+	.rgmii_config_loopback_en = false,
-+	.dwmac4_addrs = &ethqos_dwmac4_addrs,
-+};
-+
- static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
- {
- 	struct device *dev = &ethqos->pdev->dev;
-@@ -947,6 +963,7 @@ static const struct of_device_id qcom_ethqos_match[] = {
- 	{ .compatible = "qcom,qcs404-ethqos", .data = &emac_v2_3_0_data},
- 	{ .compatible = "qcom,sa8775p-ethqos", .data = &emac_v4_0_0_data},
- 	{ .compatible = "qcom,sc8280xp-ethqos", .data = &emac_v3_0_0_data},
-+	{ .compatible = "qcom,shikra-ethqos", .data = &shikra_data},
- 	{ .compatible = "qcom,sm8150-ethqos", .data = &emac_v2_1_0_data},
- 	{ }
- };
+>Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+>---
+>
+>Notes:
+>    The leak is reachable from userspace on a CONFIG_USER_NS kernel:
+>    setns(pidfd, CLONE_NEWUSER | CLONE_NEWNS | CLONE_NEWUTS) where
+>    copy_fs_struct() returns NULL. copy_fs_struct() allocates from fs_cachep
+>    ("fs_cache"), so CONFIG_FAILSLAB with that cache's per-slab failslab knob
+>    forces the error arm deterministically; otherwise it needs real memory
+>    pressure. The leaked object is the cred from prepare_creds() and the
+>    user_namespace, ucounts and group_info references it holds; CONFIG_USER_NS
+>    LSM blobs hung off that cred (security_prepare_creds) leak with it.
+>    
+>    Reproduced under QEMU (x86_64 defconfig + CONFIG_USER_NS, CONFIG_FAILSLAB,
+>    CONFIG_FAULT_INJECTION_DEBUG_FS, CONFIG_SLUB_DEBUG, CONFIG_DEBUG_KMEMLEAK;
+>    booted with slab_nomerge so fs_cache keeps refcount 1 for the per-cache
+>    knob). A task marks fs_cache for failslab, marks itself (make-it-fail), and
+>    calls setns() 500 times; every call returns -ENOMEM. On 70dd4ee72eb2 the
+>    "cred" slab grows (active 120 -> 660) and kmemleak reports the leaked creds:
+>    
+>      unreferenced object 0xff4bc4614195c000 (size 184):
+>        comm "test", ...
+>        backtrace:
+>          kmem_cache_alloc_noprof+0x188/0x3c0
+>          prepare_creds+0x22/0x280
+>          __se_sys_setns+0x131/0x710        (prepare_nsset is inlined here)
+>          do_syscall_64+0x109/0x330
+>    
+>    kmemleak: before 851 unreferenced cred objects via prepare_creds<-setns,
+>    RESULT FAIL; after 0, RESULT PASS. (The SLUB /proc/slabinfo active count is
+>    approximate, so kmemleak is the signal.)
+>    
+>    Reproducer (needs CONFIG_FAILSLAB + CONFIG_DEBUG_KMEMLEAK, boot slab_nomerge,
+>    run as root):
+>      cc -O2 -Wall -static -o setns_cred_leak setns_cred_leak.c
+>      ./setns_cred_leak   # before: RESULT: FAIL; after: RESULT: PASS
+>    
+>    // SPDX-License-Identifier: GPL-2.0
+>    /* setns() prepare_nsset() cred leak: fail copy_fs_struct() with failslab. */
+>    #define _GNU_SOURCE
+>    #include <sched.h>
+>    #include <stdio.h>
+>    #include <string.h>
+>    #include <unistd.h>
+>    #include <errno.h>
+>    #include <fcntl.h>
+>    #include <sys/mount.h>
+>    #include <sys/syscall.h>
+>    
+>    #define N 500
+>    
+>    static void w(const char *path, const char *val)
+>    {
+>    	int fd = open(path, O_WRONLY);
+>    	if (fd >= 0) {
+>    		if (write(fd, val, strlen(val)) < 0)
+>    			perror(path);
+>    		close(fd);
+>    	}
+>    }
+>    
+>    int main(void)
+>    {
+>    	char line[512];
+>    	int pidfd, i, enomem = 0, leaks = 0;
+>    	FILE *f;
+>    
+>    	mount("debugfs", "/sys/kernel/debug", "debugfs", 0, NULL);
+>    	w("/sys/kernel/slab/fs_cache/failslab", "1");	/* needs slab_nomerge */
+>    	w("/sys/kernel/debug/failslab/cache-filter", "1");
+>    	w("/sys/kernel/debug/failslab/task-filter", "1");
+>    	w("/sys/kernel/debug/failslab/ignore-gfp-wait", "0");	/* fail GFP_KERNEL */
+>    	w("/sys/kernel/debug/failslab/probability", "100");
+>    	w("/sys/kernel/debug/failslab/interval", "1");
+>    	w("/sys/kernel/debug/failslab/times", "-1");
+>    
+>    	pidfd = syscall(SYS_pidfd_open, getpid(), 0);
+>    	w("/proc/self/make-it-fail", "1");
+>    	for (i = 0; i < N; i++)
+>    		if (setns(pidfd, CLONE_NEWUSER | CLONE_NEWNS | CLONE_NEWUTS) &&
+>    		    errno == ENOMEM)
+>    			enomem++;
+>    	w("/proc/self/make-it-fail", "0");
+>    	w("/sys/kernel/slab/fs_cache/failslab", "0");
+>    	w("/sys/kernel/debug/failslab/times", "0");
+>    
+>    	w("/sys/kernel/debug/kmemleak", "scan");
+>    	sleep(5);
+>    	w("/sys/kernel/debug/kmemleak", "scan");
+>    	sleep(1);
+>    	f = fopen("/sys/kernel/debug/kmemleak", "r");
+>    	while (f && fgets(line, sizeof(line), f))
+>    		if (strstr(line, "prepare_creds"))	/* one per leaked cred */
+>    			leaks++;
+>    	if (f)
+>    		fclose(f);
+>    
+>    	printf("setns x%d: ENOMEM=%d; kmemleak cred leaks=%d\n", N, enomem, leaks);
+>    	printf("RESULT: %s\n", leaks > N / 10 ? "FAIL" : "PASS");
+>    	return leaks > N / 10;
+>    }
+>
+> kernel/nsproxy.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+>diff --git a/kernel/nsproxy.c b/kernel/nsproxy.c
+>index 3fb1595a4a59..028019f3e387 100644
+>--- a/kernel/nsproxy.c
+>+++ b/kernel/nsproxy.c
+>@@ -355,6 +355,7 @@ static int prepare_nsset(unsigned flags, struct nsset *nsset)
+> {
+> 	struct task_struct *me = current;
+> 
+>+	nsset->flags = flags;
+> 	nsset->nsproxy = create_new_namespaces(0, me, current_user_ns(), me->fs);
+> 	if (IS_ERR(nsset->nsproxy))
+> 		return PTR_ERR(nsset->nsproxy);
+>@@ -375,7 +376,6 @@ static int prepare_nsset(unsigned flags, struct nsset *nsset)
+> 			goto out;
+> 	}
+> 
+>-	nsset->flags = flags;
+> 	return 0;
+> 
+> out:
+>
+>base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
+>
 
--- 
-2.34.1
-
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
