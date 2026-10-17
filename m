@@ -1,86 +1,157 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1A737A4AB
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:46:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792212376; cv=none; b=NjHjFTx86s9AJ0eqOl4dyKgH0u+lRxR9UvUyauc9yfEI6Dt8c4fd9cWjhaUEJOMCKFsEqI03QYvlQvoe1f0SPQTBMKdvTt2OB1TRylexUcafevL4edSFKoo6NrBJg6KhlagYLb2LJxyTFeIzpKHwca3+59s7OacF0beEKShRy/M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792212376; c=relaxed/simple;
-	bh=muCKNnWoqVy1ZH4pwYiVJW5Wll4x8vXLppsXL20sbj4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K2p+OSFBLg6ceDdmSexznxaZRJHZluyiV80nPYtqbqlOpok+tK5j1CwF4WMPDxTvFyBot7zgHAZ6WASp/DwRLAD5X1LPvq70i1afk81TL2F9OqNFKDt37KnDKZOXBb6XETzxrlCriMiRj4OJ+KJiMb9qy+gmV3Oe02RRkpOAIOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e1WL21RS; arc=none smtp.client-ip=74.125.82.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548A21925BC
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:50:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792212634; cv=pass; b=rdtC4FrOwxyTT+0bXDEbPjkZSoKI3NhZg4z0Y0V2C3i0AyJ14TuTUhe0+HSrWAP8Pc9RMd2zK2TT2sbQ4ugN9n8Xwc7HlIxUSCwE8T5BGVWRIh+oAL+pcQ6gQ/ZnISz+5aNedOqcumqXIUl8DhLZ6N4fLLMBDbNWmgz5tQkc3Wc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792212634; c=relaxed/simple;
+	bh=K1yiiGLtdLJanbf2XaVdwTehw3IIcK166DQDerPHjQw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RJ52RL0iCBkv4Dp8Uw8u38coMgDRoWmYdjgnq/ujMF2emVC/aecdFo2PLMEpukH54EXrFx+it3+L/VBk/iK3wgkJhJXKM5eqnLxMgYQ+2rPTwLgsHD9Z22d7VWRq/ZYa9Hwffrk/vqbbK8R2pbnHKqmFwatgxxaPipb5/89e3mU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ghQoZlj2; arc=pass smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e1WL21RS"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3535a54bed9so701632eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:46:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ghQoZlj2"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48de6a62a4cso341427f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:50:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792212631; cv=none;
+        d=google.com; s=arc-20260327;
+        b=X2GIbYffAFt8gito/5/AwHGfrPTD0G4ia9/p6CpfuOxQGC5Jgpb0e93l/vxGXi1QWZ
+         ND0L9cjSttJlmcinxY4b1qXUalz2YaZaX+sc7dL1S2rxyodishsU4opxwT3BeJwy6Stc
+         YVsJvX6LYQr6tiqHxwKhvO4uzcXOcFGdpbaGcupTPr3wRB0joh9NtP2aqGBdQ/4QZQtj
+         rGRapYh8XR9bbAo3p+GoKYIB4uSxlSh3s4DN0x0bqi4DAej8IDsvyTUGnp2Mr/E6f6ID
+         dVisBVnqjMrHP3aeUVZ/iuwOrpq81r3CaR4Qrs6M9r0PAVT1X6xSevJggPQzjHcPWT/+
+         VZIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qosHYQJuZ24ikJeviUiwQ2yNV+e3zKJeglG60Rp1giM=;
+        fh=NlmKVrcNr3LX9INOC9E0HL5UiIJXDBlip1OtSiLVmIo=;
+        b=ffrfvtnF/4UedIMyvJuTXGPXdTGrTezBrTulrj8zaMck7+STaP/L45HeT3EyEbRyvP
+         1EyYSgtuLogrN8HeMk5KpB6pILYYQ4Dh/6LejiJXF2LJUn1iYACJpNRjsdNgczCUUWuM
+         TBQcqJsJFSqhTZb+zj2x70IsF0bgYJU9r9Mds1IGjWxPWgkL82WixOauL2ojV+oSRrRj
+         6MUIOroXiLuhk6M8iWmKy67ZcgQelskn/zkbLoXjwgob/VTtVPvtFBbt34im/AmuaRSl
+         TjJPFXIukzgjkvBQPtJUoKWee6DcfEDs773lM0ltskqeFnRTDO+V/ymse+deraa7lI9d
+         4pfQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792212374; x=1792817174; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=muCKNnWoqVy1ZH4pwYiVJW5Wll4x8vXLppsXL20sbj4=;
-        b=e1WL21RS6tS0XoVDzuQ9B9SK8tzG62Ef7l4g3F3ts6Iw5QMJI7yYtq4ZMMwoCOzkLN
-         HexIH1KdxO0uAMZglXBHATrb4jE0XpVtzi9/15220aS+zy1pAHxO/z4A5FY1qGBiuIGM
-         1XjFf7OGqGN9OVzZm/lea1TrBh09Hh/GZyd7N5+JYpkL1fEFM9CMTnAp2bi0lye8lG7u
-         SnsfFeWqy1XyVlWdTV/N6uE3z/YHTx2iyNZrw1ogHQtmnHk/phNF8SWigO2lZaQ8p2z5
-         TkQoff7gBFQh7188IbSz62L0c9OyTpXQTW2GCY/QiLfvLftrLcSwRLAEsQlLvNMtPhu9
-         qo1Q==
+        d=gmail.com; s=20251104; t=1792212631; x=1792817431; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qosHYQJuZ24ikJeviUiwQ2yNV+e3zKJeglG60Rp1giM=;
+        b=ghQoZlj2FBPCwUlgRWNYWkSdfHzoHX33oWsrIq9c3hnVdkbaR2hxGfBjrgm8K68KYb
+         vn2+5HsR9u8SSe8Djdr0Hzr3wsdWHjPR3Ui6a+gugVjZpPb5CmyykGt7YbPcPUCLIFfW
+         fan1wtWPL+C8WJdwELS4vtXMKC4geITASLCWDMH6Mm2AEUHkct75VROfCx3ZAl1Njvbd
+         6YQfOscuBXykA2Ykx0tieDLp/ihVrwPoYGX1WQb765ogGeETKxrcP4QzfsFvk577mRx9
+         Dfgt507m/6ikpc8sx9AWjJQFtiXxNv5t28s32H5ZSM8ZA+dLXsuy2PBfZMCnfSlwu3yG
+         myig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792212374; x=1792817174;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=muCKNnWoqVy1ZH4pwYiVJW5Wll4x8vXLppsXL20sbj4=;
-        b=O9+FxlNYrGiC1wZsaiQ+OW0X2RtZFSqvEl1om3GMhRqFPmpPC/sP2KabciKF+n4WvC
-         /I1LpzCaBKNsq3GAjJFK9NVgUs16//XRjqzaAOByC6cGCLf4vmhKecqEcXwzGAjywPlU
-         dChNbRGcGe77TwAcuPAMykX6q9e/0BhmEJojlgtkURAjmgLzCG3KqbmAT2H0jY5PWKzW
-         hj15z/ao56QYoWln9wR9VcgrB2sGUnCLqTS74kC3bThzvKzAoT9+qFIGCmS+oyW1rIoa
-         AQT5O0BWCxT4JMqhcYOtjq31oJuU1vgeSZh/tta5XyLZnij+Y0jc4nv6kmfIEYwJykv9
-         ZnsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwsgtIpK224PvWzNZI5Sycn7vwZnqD54PC5kw3E8eRHsnKwA+TZhnbbxxGSa0BcEW9h8qbarV3xoKo0Xi8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhpC9hsiTOo0z3OHdjVRirINksUaENh65JCcx+cIHUqdePRmjW
-	LABLiApfoDtW5CcmBp3R47Oqrg3fQlPobIeOouoyNX+YRJlv+nbz20rT
-X-Gm-Gg: AYBFou2tHEjZcsorjzS2VYP7l1NNTtsDO3VS6z0r3Ap3MHQqvSAPS349WVAD45ncm5/
-	hsVD//2M5EDYfi+3JY6U8+e/0VAASciNxnslGtU5C6/MjNRuAL/OFHxLl2SCJk15GVQrSDCSpLT
-	an8ReIkw39xS45akVihRiCMxo7twTRDUR/ZqXu0zU/ninNLzH5dCcewC5pYHoMsTXOjxoGG1MRV
-	iXFCJHZW6sIKIbs7u22STvjo7JGu58Co6JEudIaUg5FdwLXKvjuFZv3KB/69+3/RakO+/TM8den
-	W10c5PJlQYLFauujUiEJWIBWA5V/cMXi2XV0+1Ofm9WCI1ZSSzJ0+erQopiPqN607MNxy9cbcfO
-	oQOoSn0IU8t03n3yqthzSXqDRNhx+UcQkmYrgSlZYUkQc8IkqPC4aPvG9FCL9kZ9GngsmixaNR6
-	+sdrJYyS+alt5ARK0V6l1TWUWIoR8Ra32fmsPZBemjqV7YB222mRUOcmSa+3VCSku0SMbJiuGqJ
-	4DHwATK/b428ZBULNwK1KiKKh2xL/sHqGRwxMGhLrirYX5IXx4s
-X-Received: by 2002:a05:693c:87ca:b0:35b:c1d2:eab9 with SMTP id 5a478bee46e88-361a2e3d3abmr2168722eec.39.1792212374109;
-        Fri, 16 Oct 2026 21:46:14 -0700 (PDT)
-Received: from samaritan.sole-larch.ts.net ([38.78.160.29])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082b8573dsm11170734eec.25.2026.10.16.21.46.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 21:46:13 -0700 (PDT)
-From: iuseacosbtw@gmail.com
-To: mohd.sohail.biz@gmail.com
-Cc: gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Subject: Re: [PATCH] staging: rtl8723bs: remove comparisons to true/false in rtw_mlme_ext.c
-Date: Fri, 16 Oct 2026 21:45:49 -0700
-Message-ID: <20261017044612.252074-1-iuseacosbtw@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261007162114.138541-1-mohd.sohail.biz@gmail.com>
-References: <20261007162114.138541-1-mohd.sohail.biz@gmail.com>
+        d=1e100.net; s=20260707; t=1792212631; x=1792817431;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qosHYQJuZ24ikJeviUiwQ2yNV+e3zKJeglG60Rp1giM=;
+        b=O3zHNHzxdk6vm4ijnhb97tLcWSjJpOdN9nTX5gEmEP0JIbv5kin4V/5W1WE8JwlvMd
+         H0RPlzRpE8wbRn3quj+E4FXOuMXB8QLACoVJ8gtYz9CaWLqVmdojSYk40HEfzn+GaCxF
+         0QlW1UBqBBufqu8vkUCJ2nzb1TRlhfOt9t5vLLfDs4alH2x/8D61SNWsm/IfB1h5adY5
+         zvvhV1X7ekBBLq+Pg0QT4B/0wkxhMYhPMu/JRAwUmuUYRP1PEw8jtSU7fwV2Rh8eLHqA
+         5U79QKGjN2+7yq1+IlfcP36cqbpqg4Hq+/vZ1pQ+9/FIQXf53FGkTH+83df2UUEaUd2n
+         k4tQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwcaAEB9aX1OAl0OjHtLPfr7DFxRHyZWoi8H/lWQXUdCHy3eXVFi75rsZxqQ3KEfOZwB7BzxMTgDVS8d7g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLunAAI4n2e8PNvfBGAID2M9FMFKH1aRqxYWjB8xp5WaYELfvBW
+	IDFFi6rPNEPHR5dAgAdtk5QIzbZGQ/tUvWwMovmin+Wh34gNXzbVYksRSExchE6qqRsbKu0CVPv
+	XMHSCouP5E/AMVWS+UDK6O7lqB95Ga/Q=
+X-Gm-Gg: AYBFou1TnLCWbCP3IAIvrGgLp3xSRejQN3i1bqZjpHykA/bDGvcYVND9fS825s3CGEi
+	z0xYxMpOQhaBX6vOu/5I8wZP6K2VloSUrsOdzoR3UCm9fDxeMMSvla97d3/ByRq5VL83kK5apx0
+	nf0j4zd+CwlW+jic6UnGMIMvlN873aygP6k82qS7dGpJD5VxvuP6evxr+9YJCi6ec55W7/Qt7HQ
+	jf2PsXXcNnVQkO7S/8okyB1hk2O67ZXGJMmmGcJm/K86z4elIAEUP6p17++IftqRRXJhaIK506O
+	d6B0sxYXmsSEZ/RgpFFkQP2ezo71vzTfGyqRojnOIvg4WR8GTWxyDFb1fq730TSUobkernzStlE
+	mGygaxic2DpoF2C+MXoTo1wz0jIZ15MDzXC53dA==
+X-Received: by 2002:a05:6000:2dc8:b0:48d:f1b3:c02e with SMTP id
+ ffacd0b85a97d-48e07bbcf38mr3052492f8f.25.1792212631160; Fri, 16 Oct 2026
+ 21:50:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <6acbc835.a150a118.27e199.003c.GAE@google.com> <20261017020912.558-1-hdanton@sina.com>
+In-Reply-To: <20261017020912.558-1-hdanton@sina.com>
+From: =?UTF-8?B?Tmjhuq10IEFuaCBOZ3V54buFbiBEdXk=?= <neganhat@gmail.com>
+Date: Sat, 17 Oct 2026 11:50:18 +0700
+X-Gm-Features: AclHuK-UvoVbSR_Pxubp1gYLuQGISCM05_Zi_2y7vlURmXgKlnjSKpfveIzg7Lc
+Message-ID: <CAFJkwZxp2DnU=9748k=CjeANEL23Wn7zJ+wG44mJiiPL0ecJzQ@mail.gmail.com>
+Subject: Re: [syzbot] [nvme?] BUG: corrupted list in nvmet_fc_remove_port
+To: Hillf Danton <hdanton@sina.com>
+Cc: syzbot <syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com>, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The staging/rtl8723bs driver is being deprecated and removed, so patches
-to it might no longer be accepted. This is according to Luka Gejak, the
-maintainer of the rtl8723bs driver.
+On Sat, Oct 17, 2026 at 9:09=E2=80=AFAM Hillf Danton <hdanton@sina.com> wro=
+te:
+>
+> > Date: Sun, 11 Oct 2026 10:32:37 -0700 [thread overview]
+> > Hello,
+> >
+> > syzbot found the following issue on:
+> >
+> > HEAD commit:    a5ebb76233b7 Merge tag 'edac_urgent_for_v7.3_rc7' of gi=
+t:/..
+> > git tree:       upstream
+> > console+strace: https://syzkaller.appspot.com/x/log.txt?x=3D1494923e580=
+000
+> > kernel config:  https://syzkaller.appspot.com/x/.config?x=3Ddf4bbab1c21=
+72b9f
+> > dashboard link: https://syzkaller.appspot.com/bug?extid=3Dc98b21427617a=
+f7f547a
+> > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D126a0f155=
+80000
+> > C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=3D166a0f15580=
+000
+>
+> Test Nguyen's idea.
+>
+> #syz test
+>
+> --- x/drivers/nvme/target/fc.c
+> +++ y/drivers/nvme/target/fc.c
+> @@ -1319,12 +1319,13 @@ nvmet_fc_portentry_rebind_tgt(struct nvm
+>
+>         spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
+>         list_for_each_entry(pe, &nvmet_fc_portentry_list, pe_list) {
+> +               if (pe->tgtport)
+> +                       continue;
+>                 if (tgtport->fc_target_port.node_name =3D=3D pe->node_nam=
+e &&
+>                     tgtport->fc_target_port.port_name =3D=3D pe->port_nam=
+e) {
+>                         if (!nvmet_fc_tgtport_get(tgtport))
+> -                               continue;
+> +                               break;
+>
+> -                       WARN_ON(pe->tgtport);
+>                         tgtport->pe =3D pe;
+>                         pe->tgtport =3D tgtport;
+>                         break;
+> --
 
-I found one of his messages here:
-https://lore.kernel.org/linux-staging/5d577cb1b4a91e8cdfda171bc7100105ae90d91e@linux.dev/
+[Resending to list + CCs =E2=80=94 accidentally dropped them in my previous
+reply, apologies]
+
+You may need to recheck the commit you're testing
+on because #syz test or #syz test: upstream master runs on the latest
+commit of the repository. Something like #syz test: upstream [commit]
+would let the bot test it on the specific commit the bug was
+discovered in.
+
+Best regards,
+Nhat Anh
