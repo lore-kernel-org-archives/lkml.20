@@ -1,169 +1,302 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7126E374E67;
-	Sat, 17 Oct 2026 01:56:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E003384CCB
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 01:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792202177; cv=none; b=CEBsSpSyeN9imlOS8b8YicPyte3+Fd6jNC6W8lHN1tsY4kT2CBiYBiR4MgIIatEE6qlYy01jm8VGPQsLkptqa57RIWbglL8iQyc6VcQ2RBd4suLzUbkf8Yn8Xx4e+Wo48tRui4IQIjHp/ewEKxg3nLZKy2w1Y6bVqQW5CR6Z8Vw=
+	t=1792202184; cv=none; b=PPwqJNSC06jwZKIEGMVvIl8CMEDLr+Z/RjQ/sSK+/KO2KCJ5DLZ7SsgbuDvrLw+664CuhDRvvSMi+upm4OgODnI1lepX/yfJfhdo0EXNABmcYyd+n/mMylFZnUGZFWRcmeR0AlJfwh4/Fx+TAH9gvjaCertOCO5QWUDupm9fAt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792202177; c=relaxed/simple;
-	bh=45WcHNsOVp1HM/8758RiYYNvHu7k+O2D8ACwzC9ol7s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Rd/BhGSOgZBGRChoD4SmHawYr4ffKXnMtv654l5O41byIeYY9OFDAkJ2IoRp1hkrgQvClbu0Cd1l7L/omBK228WvieBs9+6MOgjXDgD5Yigm36uO53C9aBPcBY+wSoyIBlouRQAzzXKw3GJC9s5s8jXAcMSP7xRJvIhs1cVSduM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=PKA3cJVa reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1792202184; c=relaxed/simple;
+	bh=0sfPDDT0jECZIMZZ9J0nFJ+B721wObM7DqWeHH9xcrk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=arWY8NbnEm9Zf1f1siUcCcdrl6abEXZ5KK0ehn+hAAEo2r20x0rpKpgNQT15mzFhhLIiDW+K0BD+MdvV4LMPyP5MqLgMtwScD+VgJhGexDwwuIAjkLrTYPcYHXt5LXbYdh4R1y+AG5/YqvJBy/oSJe990BCKl+mDZYtAyCUNlRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ScACKjkJ; arc=none smtp.client-ip=74.125.224.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="PKA3cJVa"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ScACKjkJ"
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-679334baa1fso564376d50.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:56:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=N1yKU6KUXc
-	N58NtjXxKl0TZoGUc3TbGdFqR8Lm4dw1M=; b=PKA3cJVamnrhxz/9IPqfjx+O6n
-	BjO91HPTeRkvcchnoZ6hLZtcsXpeF3BXivs6LkhX/ImxR+2dJimN+dPgRpp+DmlG
-	UjbOjWVfDUEohJ9N0YcICd/36jlUkTqEmLDRPIuQqNbAoUJs2Y4GLp2+8Ht5vNLY
-	dNY/TSJ9xU6y68Z7w=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.50])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkD2PgSq1dJqqf2tAA--.53186S2;
-	Sat, 17 Oct 2026 09:55:54 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	stable@vger.kernel.org,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Subject: [PATCH v2] media: dvb-core: wait for a running frontend ioctl before device removal
-Date: Sat, 17 Oct 2026 09:55:53 +0800
-Message-Id: <20261017015553.5846-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=gmail.com; s=20251104; t=1792202181; x=1792806981; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uQsk+DrjtKX2noPiCRNVvYKJ7WY0cqf+gtD3vyGOBkg=;
+        b=ScACKjkJzCzHGy/9ydwQSyLBsKOCu0Pdi6uFaYGpgjpxFf7YPP3c4XpaBqeLwqGxSy
+         jVjQUdFvguiTPq7kVDWbV835dLpwuCZYYhtpQ9Sx1mHJvUQUUmljuiXKzL3Pkhjcs/35
+         q9dcfa+kVYHxlPLIvf0eeGxnj4BIw4tr6RaDtznImBNx6G9cto2eEYJjEua88waUW0p4
+         +ax/rrHw4ooPIKJN5hOvUdjVRMV51IAJGb6DFnSpaYWunXnqaYF/tInfrOP0CROd46S8
+         8hQNpa6QZAy4GGQnwm6RDQHFCb+CUoPSTXbPV1IqfYFhUE3vgVbO1sW24bsIn5in9HQL
+         Rv4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792202181; x=1792806981;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uQsk+DrjtKX2noPiCRNVvYKJ7WY0cqf+gtD3vyGOBkg=;
+        b=u1MTxOI9gE2N3FWEVV3y6l9I1ll0bmvjPip0tDZ09rHbHBOqe1SL1lt8NJIUz3UXje
+         vB2r9rLzPwYdkk6W5MBTlRqVcH3g3+cFLpjngNt5T6dlegecktJtc5RhzoK49XxQaUGK
+         ++csmhIza1LMkAonx/pqxWT/o0URphGXeOeJBCeNbuTnMJRdTlZTHOcLiUtZMomuHsWR
+         NgENNbqF5pWiTFK4ep9Uy8wgk9wz6fxM917Fs7UzENS+hSyqClyCIW79uaBjMC0zBM24
+         EIQCfis8iMmCJ4cUNVZqDav4VYUKygyatAehkkHupI16QhwzgZHja2UbPmazupNBzEsF
+         jJ1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzT/CLkQkdG5AKWL5+xFhL8k6IkpITdYgfwhBv3XirkIGF9pcg8Ng5hYQdl4UFnDO2dhcINMwXip7/gKOc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILIhq/xr7VHhTBFev0l27Jksqs45whhYNsVW3ovCmOF5Z4T+CU
+	iE0nhbQXUXWRhoyf0k+JTStUxOZWbRLXEq2g7ZoNPN53IBvaiC8m0JseEhzmvw==
+X-Gm-Gg: AYBFou3vcWWwHWbyg6NcWeFIc/NSYwcGn8Bi2+zqMRGL4P4AeRrkF1b/zWSYTN/S5zV
+	W7hNxuD8zhObt9PdFpWCP4Vx/yMVfky1jXh/1HtyqfXWvbrFaaNKlAuBJb1oPNFthJT+2fwyey4
+	6SPuiCWxjTIsslbYsnHh8J4jpksgZrAJynqT04cg3qRNktE4jmHnrNdheiNWmQ4o7exme2cWXqH
+	3C1CwVrISwVKGPq2XJUKObiXf07Q/IysdD9Pq65l2scGd8C8lAHc0nkWA+by5ELB5dfpVkhWsfr
+	MNn9ZIGnMfeKWmj7kZR04b/r8av0pey9kdyoB+X26zRY474sY1B8EKjCwn2DfiC9g9/x6Ki0tS0
+	BKIpb77GubPcWmACuD/J0ONSHxOouYqrTwfbf9zZNakEpL3ZrAKY1t6HOX8cm8lK6+1XklVsEGL
+	PN8TbL3h6eNdZE/uJS/35hqgDvyf5uxH9wjycpv9SomvQKdSXjyJ1npmrJQLWKYzfgLEYbPDOe3
+	WSE9/Xe+fpnDWm16k8e6m9eGrZA74EHfI9ddCMtBO+grPB2Ph18nHsJ2okoqgOaisNr6ajZFl1p
+	q8zylyHkh6TppmfStI8JBQinAZmSRyZO5DYJIxw74lvLAV8G+vnjSNSqeCM9KdqtTNTa1/K+EA5
+	GGUBame+rm6zFYWlAFna1LO5aeLXjfDA=
+X-Received: by 2002:a05:690e:4184:b0:679:8f96:ee34 with SMTP id 956f58d0204a3-679ca572478mr317726d50.22.1792202181284;
+        Fri, 16 Oct 2026 18:56:21 -0700 (PDT)
+Received: from localhost (108-93-236-139.lightspeed.chtnsc.sbcglobal.net. [108.93.236.139])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e58d93a0sm16403857b3.23.2026.10.16.18.56.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 18:56:19 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+Date: Fri, 16 Oct 2026 21:55:50 -0400
+Subject: [PATCH v2 4/5] alpha: add HAVE_PERF_REGS and
+ HAVE_PERF_USER_STACK_DUMP support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkD2PgSq1dJqqf2tAA--.53186S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJF4xAr43Ar43Gw4fXr4fXwb_yoWrZrW5pa
-	93AryYkFWDGw4Iywn0yw18JF95Aw4fJFWUK34xGw1DXr1rCFZ2kFykKa4UWFnxArs2yayj
-	q3ZagFy7CFWDAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9m14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
-	rcIFxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_KwCF04k20xvY0x0EwIxGrwCFx2
-	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
-	6r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
-	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IY
-	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
-	0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUmQ6LUUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUJD2rSQD1C9wAAsx
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-alpha-perf-regs-v3-v2-4-17654742226a@gmail.com>
+References: <20261016-alpha-perf-regs-v3-v2-0-17654742226a@gmail.com>
+In-Reply-To: <20261016-alpha-perf-regs-v3-v2-0-17654742226a@gmail.com>
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+ Ian Rogers <irogers@google.com>, Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6937; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=0sfPDDT0jECZIMZZ9J0nFJ+B721wObM7DqWeHH9xcrk=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLIuXV1cHabXfPv/wXlZq7fs/RC+psz6NZ/GZi3p0+/ij
+ 99YeenR+Y6PLAxiXAwzxRRZ4tYrssxq27HU57T0L5g5rEwgQ6RFGhiAgIWBLzcxr9RIx0jPVNtQ
+ zxDI0DGKh8jpMWhkFheXphbpphUUOeTllySWZObnFevlF6TmFaQX6KVlppVkZOQXFacCjdDLSy0
+ xdXV0MzI0MLF0tDBzsnA0NXF2djJ0cnN0dHZ1MrI0NzFwtnQ0cbU0Z+DiFIC55pMxI8P7pj9rRV
+ qZbRfXLGe69Ezk9eV8XnOP9qlr25OiJu9LyL7JyLB11g5H/z3/17CuOBU2/+ejjMvbP/E+OK916
+ PmZCwLM2634AA==
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-dvb_frontend_stop() runs in the device removal path, when the
-frontend is unregistered.  An ioctl that is already running at that
-point holds fepriv->sem for its whole duration, but it checks ->exit
-only before it calls into the driver, so a driver callback can still
-be executing while the driver state is being freed.
+Let perf sample registers and dump the user stack, which is what the
+perf tool needs for --call-graph dwarf.
 
-Two cases were not synchronised at all:
+The register indices follow the hardware numbering, so r0-r30 map
+directly to DWARF register numbers, with pc after them. r9-r15
+are callee-saved and live in switch_stack rather than pt_regs, so they
+cannot be sampled. Without r15 an unwinder cannot recover the CFA of a
+first frame that uses $15 as its frame pointer.
 
-  - when the frontend device node was opened read-only, no frontend
-    thread is started, so fepriv->thread is NULL and the function
-    returned immediately.  Unlike the other legacy statistics ioctls,
-    which return -EAGAIN, FE_READ_STATUS is allowed to run without the
-    thread, so its callback can be running when the removal path frees
-    the driver state;
+sp is not in pt_regs either: for user frames it comes from
+user_stack_pointer(), and for kernel frames (PERF_SAMPLE_REGS_INTR) it
+is the end of the trap frame, as in stacktrace.c.
 
-  - when a thread exists, the thread takes fepriv->sem on its way out,
-    but that acquisition is interruptible.  If it is interrupted, the
-    sema_init() that followed discarded the hold of a running ioctl and
-    left the semaphore with a surplus count, which also allowed two
-    ioctls to call into the driver at the same time.
+Software events such as context switches and tracepoints hand perf a
+per-CPU pt_regs filled in by perf_fetch_caller_regs() instead of a
+trap frame. It is not on the stack and has no room for sp, so report
+sp as 0 there rather than the address of the per-CPU buffer.
 
-A use-after-free read was observed on a Twinhan USB2.0 DVB-T receiver
-after the USB device had been disconnected, while the frontend device
-node was still open:
-
-  Read of size 8 at addr ffff8880068c8e90
-  vp7045_usb_op drivers/media/usb/dvb-usb/vp7045.c:61
-  vp7045_read_reg drivers/media/usb/dvb-usb/vp7045.c:86
-  vp7045_fe_read_status drivers/media/usb/dvb-usb/vp7045-fe.c:29
-  dvb_frontend_do_ioctl drivers/media/dvb-core/dvb_frontend.c:2101
-  dvb_usercopy drivers/media/dvb-core/dvbdev.c:996
-
-vp7045_usb_op() builds the receive control pipe from d->udev, but the
-dvb_usb_device holding it had already been freed by dvb_usb_exit().
-
-Wait for such an ioctl instead of re-initialising the semaphore,
-whether or not a frontend thread exists, so that the removal cannot
-proceed while a callback is using the driver state.  Ioctls that
-arrive later see ->exit and return -ENODEV before they reach the
-driver.
-
-Both the early return and the semaphore reset have been in this
-function since the initial git import of the tree.  An attempt in
-2022 to close this race, commit 6769a0b7ee0c ("media: dvb-core: Fix
-use-after-free on race condition at dvb_frontend"), waited for every
-user of the device node to close it, and was reverted by
-commit ec21a38df77a ("Revert "media: dvb-core: Fix use-after-free
-on race condition at dvb_frontend"") after it blocked the open path
-for minutes.  The wait added here covers only the ioctl that is
-still running, and is taken after the frontend thread has exited.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Assisted-by: Claude:claude-opus-5-5
+Acked-by: Ian Rogers <irogers@google.com>
+Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
-v2:
-  - Add the Fixes: tag that the media CI requires when Cc'ing
-    stable@vger.kernel.org.
-  - Quote the referenced commits as 'commit <id> ("<title>")' in
-    the description.
-  Commit message only, no code change.
+ .../features/perf/perf-regs/arch-support.txt       |  2 +-
+ .../features/perf/perf-stackdump/arch-support.txt  |  2 +-
+ arch/alpha/Kconfig                                 |  2 +
+ arch/alpha/include/uapi/asm/perf_regs.h            | 45 +++++++++++++++
+ arch/alpha/kernel/Makefile                         |  1 +
+ arch/alpha/kernel/perf_regs.c                      | 64 ++++++++++++++++++++++
+ 6 files changed, 114 insertions(+), 2 deletions(-)
 
- drivers/media/dvb-core/dvb_frontend.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
-index 0286da57f382..076e24ea8a4b 100644
---- a/drivers/media/dvb-core/dvb_frontend.c
-+++ b/drivers/media/dvb-core/dvb_frontend.c
-@@ -817,13 +817,21 @@ static void dvb_frontend_stop(struct dvb_frontend *fe)
- 		fe->exit = DVB_FE_NORMAL_EXIT;
- 	mb();
+diff --git a/Documentation/features/perf/perf-regs/arch-support.txt b/Documentation/features/perf/perf-regs/arch-support.txt
+index 4c9a5a012075..7d736d678fd4 100644
+--- a/Documentation/features/perf/perf-regs/arch-support.txt
++++ b/Documentation/features/perf/perf-regs/arch-support.txt
+@@ -6,7 +6,7 @@
+     -----------------------
+     |         arch |status|
+     -----------------------
+-    |       alpha: | TODO |
++    |       alpha: |  ok  |
+     |         arc: | TODO |
+     |         arm: |  ok  |
+     |       arm64: |  ok  |
+diff --git a/Documentation/features/perf/perf-stackdump/arch-support.txt b/Documentation/features/perf/perf-stackdump/arch-support.txt
+index dd362b5cb638..17b84ea7769d 100644
+--- a/Documentation/features/perf/perf-stackdump/arch-support.txt
++++ b/Documentation/features/perf/perf-stackdump/arch-support.txt
+@@ -6,7 +6,7 @@
+     -----------------------
+     |         arch |status|
+     -----------------------
+-    |       alpha: | TODO |
++    |       alpha: |  ok  |
+     |         arc: | TODO |
+     |         arm: |  ok  |
+     |       arm64: |  ok  |
+diff --git a/arch/alpha/Kconfig b/arch/alpha/Kconfig
+index b2c359b947f6..8fafbfabd1e5 100644
+--- a/arch/alpha/Kconfig
++++ b/arch/alpha/Kconfig
+@@ -41,6 +41,8 @@ config ALPHA
+ 	select HAVE_PAGE_SIZE_8KB
+ 	select HAVE_PCSPKR_PLATFORM
+ 	select HAVE_PERF_EVENTS
++	select HAVE_PERF_REGS
++	select HAVE_PERF_USER_STACK_DUMP
+ 	select NEED_DMA_MAP_STATE
+ 	select NEED_SG_DMA_LENGTH
+ 	select GENERIC_IRQ_PROBE
+diff --git a/arch/alpha/include/uapi/asm/perf_regs.h b/arch/alpha/include/uapi/asm/perf_regs.h
+new file mode 100644
+index 000000000000..da96a31b12fb
+--- /dev/null
++++ b/arch/alpha/include/uapi/asm/perf_regs.h
+@@ -0,0 +1,45 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_ASM_ALPHA_PERF_REGS_H
++#define _UAPI_ASM_ALPHA_PERF_REGS_H
++
++/*
++ * Indices 0-30 match the hardware (and DWARF) register numbers.
++ * r9-r15 are not saved in pt_regs and cannot be sampled.
++ */
++enum perf_event_alpha_regs {
++	PERF_REG_ALPHA_R0,
++	PERF_REG_ALPHA_R1,
++	PERF_REG_ALPHA_R2,
++	PERF_REG_ALPHA_R3,
++	PERF_REG_ALPHA_R4,
++	PERF_REG_ALPHA_R5,
++	PERF_REG_ALPHA_R6,
++	PERF_REG_ALPHA_R7,
++	PERF_REG_ALPHA_R8,
++	PERF_REG_ALPHA_R9,
++	PERF_REG_ALPHA_R10,
++	PERF_REG_ALPHA_R11,
++	PERF_REG_ALPHA_R12,
++	PERF_REG_ALPHA_R13,
++	PERF_REG_ALPHA_R14,
++	PERF_REG_ALPHA_R15,
++	PERF_REG_ALPHA_R16,
++	PERF_REG_ALPHA_R17,
++	PERF_REG_ALPHA_R18,
++	PERF_REG_ALPHA_R19,
++	PERF_REG_ALPHA_R20,
++	PERF_REG_ALPHA_R21,
++	PERF_REG_ALPHA_R22,
++	PERF_REG_ALPHA_R23,
++	PERF_REG_ALPHA_R24,
++	PERF_REG_ALPHA_R25,
++	PERF_REG_ALPHA_R26,
++	PERF_REG_ALPHA_R27,
++	PERF_REG_ALPHA_R28,
++	PERF_REG_ALPHA_GP,
++	PERF_REG_ALPHA_SP,
++	PERF_REG_ALPHA_PC,
++	PERF_REG_ALPHA_MAX,
++};
++
++#endif /* _UAPI_ASM_ALPHA_PERF_REGS_H */
+diff --git a/arch/alpha/kernel/Makefile b/arch/alpha/kernel/Makefile
+index 4ea5c189e60e..0c04b89676ed 100644
+--- a/arch/alpha/kernel/Makefile
++++ b/arch/alpha/kernel/Makefile
+@@ -18,6 +18,7 @@ obj-$(CONFIG_PCI)	+= pci.o pci_iommu.o pci-sysfs.o
+ obj-$(CONFIG_SRM_ENV)	+= srm_env.o
+ obj-$(CONFIG_MODULES)	+= module.o
+ obj-$(CONFIG_PERF_EVENTS) += perf_event.o
++obj-$(CONFIG_HAVE_PERF_REGS) += perf_regs.o
+ obj-$(CONFIG_RTC_DRV_ALPHA) += rtc.o
+ obj-$(CONFIG_AUDIT)	+= audit.o
  
--	if (!fepriv->thread)
--		return;
--
--	kthread_stop(fepriv->thread);
-+	if (fepriv->thread) {
-+		kthread_stop(fepriv->thread);
-+		fepriv->state = FESTATE_IDLE;
+diff --git a/arch/alpha/kernel/perf_regs.c b/arch/alpha/kernel/perf_regs.c
+new file mode 100644
+index 000000000000..33ea2e831ba0
+--- /dev/null
++++ b/arch/alpha/kernel/perf_regs.c
+@@ -0,0 +1,64 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <linux/bits.h>
++#include <linux/perf_event.h>
++#include <linux/sched/task_stack.h>
++#include <asm/perf_regs.h>
++
++#define REG(idx, field) \
++	[PERF_REG_ALPHA_##idx] = offsetof(struct pt_regs, field)
++
++#define REG_RESERVED	(~GENMASK_ULL(PERF_REG_ALPHA_MAX - 1, 0) | \
++			 GENMASK_ULL(PERF_REG_ALPHA_R15, PERF_REG_ALPHA_R9))
++
++static const unsigned int pt_regs_offset[PERF_REG_ALPHA_MAX] = {
++	REG(R0, r0),	REG(R1, r1),	REG(R2, r2),	REG(R3, r3),
++	REG(R4, r4),	REG(R5, r5),	REG(R6, r6),	REG(R7, r7),
++	REG(R8, r8),	REG(R16, r16),	REG(R17, r17),	REG(R18, r18),
++	REG(R19, r19),	REG(R20, r20),	REG(R21, r21),	REG(R22, r22),
++	REG(R23, r23),	REG(R24, r24),	REG(R25, r25),	REG(R26, r26),
++	REG(R27, r27),	REG(R28, r28),	REG(GP, gp),	REG(PC, pc),
++};
++
++u64 perf_reg_value(struct pt_regs *regs, int idx)
++{
++	if (idx == PERF_REG_ALPHA_SP) {
++		if (user_mode(regs))
++			return user_stack_pointer(regs);
++		/*
++		 * Software events built by perf_fetch_caller_regs() use a
++		 * per-CPU pt_regs rather than a trap frame, and pt_regs has
++		 * nowhere to record sp, so report none.
++		 */
++		if (!object_is_on_stack(regs))
++			return 0;
++		/* Same kernel sp approximation as stacktrace.c. */
++		return (unsigned long)(regs + 1);
 +	}
- 
--	sema_init(&fepriv->sem, 1);
--	fepriv->state = FESTATE_IDLE;
-+	/*
-+	 * An ioctl holds fepriv->sem for its whole duration, but it checks
-+	 * ->exit only before it calls into the driver.  One that started
-+	 * before ->exit was set above can still be running inside the driver,
-+	 * whose state is about to be removed, so wait for it here instead of
-+	 * re-initialising the semaphore.  Ioctls that arrive from now on see
-+	 * ->exit and return -ENODEV without reaching the driver.
-+	 */
-+	down(&fepriv->sem);
-+	up(&fepriv->sem);
- 
- 	/* paranoia check in case a signal arrived */
- 	if (fepriv->thread)
++
++	if (WARN_ON_ONCE((u32)idx >= PERF_REG_ALPHA_MAX ||
++			 BIT_ULL(idx) & REG_RESERVED))
++		return 0;
++
++	return *(unsigned long *)((void *)regs + pt_regs_offset[idx]);
++}
++
++int perf_reg_validate(u64 mask)
++{
++	if (!mask || mask & REG_RESERVED)
++		return -EINVAL;
++
++	return 0;
++}
++
++u64 perf_reg_abi(struct task_struct *task)
++{
++	return PERF_SAMPLE_REGS_ABI_64;
++}
++
++void perf_get_regs_user(struct perf_regs *regs_user,
++			struct pt_regs *regs)
++{
++	regs_user->regs = task_pt_regs(current);
++	regs_user->abi = perf_reg_abi(current);
++}
+
 -- 
-2.34.1
+2.55.0
 
