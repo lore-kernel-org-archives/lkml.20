@@ -1,187 +1,137 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219FC38AC99;
-	Sat, 17 Oct 2026 18:39:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7191931B828;
+	Sat, 17 Oct 2026 18:39:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792262369; cv=none; b=Uo++fZGerQOpNG7PzvBi4uWBlMcvhVhyQqOyVMg6qwmzium2HMdOu+uco4HxQ/mpwv5LdW/K7IWPhMIn8+Fdd8Cy+fjbP1Ya7bkonhKYQEF0Ucr+agcfr8pPLHolemXy/D1EFFYOkf9+gQaPgNFCizI4kzR4ZCJO+tVPUnAzkuc=
+	t=1792262377; cv=none; b=RCEyZdf1IV+T7tiu/cTOjFiaex1wqbHlGiQFmp47UU3LM6V/7Q8mBZQfvIJ7syvBp8Snta6tiDoYer8uGVuQiDogGklqQCDyRtPUHtsJmapRC/zdI0hSITx9+0m8lzbhHwt/hRu7r+T8GawK68g61fnjR8nH4JwTvYsVA8gUzGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792262369; c=relaxed/simple;
-	bh=Ue1rQJNWSwNxrHD31SPVIhY4bNy2f6EGqC+Ws2WiwCk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C8W3PONrNtae9k64L4A1xQ0roxEYiTqV3qyPOxriQ77ZIktZD3SNbDOAenPzGlAfESpcf9ss7iygXQbZeu113DURmpliupay+/6OjnrsYiJ6GFdjg1L24Z7lknPTACCDl4h1fFnGLV7ePjTUs2GY+8eXOfOzDriwGJZvTWuHEmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=nDADB32n; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1792262377; c=relaxed/simple;
+	bh=QiL16Zl2SSdiOlxnCfPNYhNmN7h6vHcmmdNb4/yM5GA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WLDIuC648+m4SpHkMsUgdxQzT1ByPaCt3uZhL51Ot8wcCvT3OMFNpYUfQFyYfQSXKP6LbFLE1IO+IQ+rlg9NGTe86tEFHKlQd4jgHGHfre+9l1EOCiiS3IFY4+qmtFxA/nrfZpf2w8lgV+pw7phze3tCLaYJarYjg7ray6w2/yk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJley54W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="nDADB32n"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69HGEE8w2776324;
-	Sat, 17 Oct 2026 18:39:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=okRYtv+hv1E0LEm9G7AUkWWpVlUvWs6SGbMVxXzRB
-	9c=; b=nDADB32nBSXKbAhT9hB/0x0jFAo1frjFakcJcJFR1IqAfhW++CXJntIvB
-	9ItKRV96GuYqjxw03AAXyi0+VVdGnzxUuQ59bbv7NPjGk9Dvw6o009BrxU4bfq03
-	3e8BW8nz5IACBn5bEy6mP/yqaV6pAqnbg7j04UwjGykYKScRFZHhom/wbhO/99db
-	mu34OMBC7agr6rvLrywhHqwe2LvwfPmqZToF/thM/+oo1bnzrYdMszzjltBMvHGO
-	olzmPjcjnXNE7e5PMUba/L2JvL4t207vnrCEzCE4ubKcCeBQnTsbhEyvy5/MWkxa
-	HOE/Lk/l907F3SgstFnf9QTD3kZGw==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hbxehjww7-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sat, 17 Oct 2026 18:39:09 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69HGJtV8078167;
-	Sat, 17 Oct 2026 18:39:08 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hbne4vs05-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 17 Oct 2026 18:39:08 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69HId4nW51118562
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 17 Oct 2026 18:39:05 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CC58720040;
-	Sat, 17 Oct 2026 18:39:04 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D320720043;
-	Sat, 17 Oct 2026 18:38:57 +0000 (GMT)
-Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.66.83])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sat, 17 Oct 2026 18:38:57 +0000 (GMT)
-From: Srish Srinivasan <ssrish@linux.ibm.com>
-To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org
-Cc: maddy@linux.ibm.com, ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
-        James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
-        zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
-        linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
-        rnsastry@linux.ibm.com, ssrish@linux.ibm.com
-Subject: [PATCH v4 0/9] Extend PKWM to support user-created wrapping keys
-Date: Sun, 18 Oct 2026 00:08:44 +0530
-Message-ID: <20261017183853.596052-1-ssrish@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJley54W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AD321F000C4;
+	Sat, 17 Oct 2026 18:39:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792262376;
+	bh=+kpb7sJgU9MLwUtO242t+UILHZlgnaHirthlLcE4U8E=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=aJley54WCYa6MzJSeof7ppApot1BLkAAOFy94yH0/lFBAidr8OEVpDpgCNnjsjgRr
+	 OZ5f2NU4PJfj79rHfmmp+9aAhwVq7nSttDqNu1PZ5h/y0gFFnTjYUiVfDCDLPPfybc
+	 MHG96+amM/saIenlMHZp4jRlPJ5fPbPuGVdJbxgJIYR8o/KEU2NyP2dGC58dwUWj97
+	 23s7aaSBC8LEJsjncd5y0MvUfszQf2Rijhtuph0zgmhrpm4ZpT56Pvo9Wrzt/hasE6
+	 WbliM7MDGwemcWvtWKArt9ktQH4o9kPlwkANz4nsBSiRz+WLEs6f1g7G0mYnX5qllC
+	 CHc4EQMc9qIPw==
+Date: Sat, 17 Oct 2026 19:39:29 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux@analog.com>, <nuno.sa@analog.com>,
+ <dlechner@baylibre.com>, <andy@kernel.org>, <Michael.Hennerich@analog.com>,
+ <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+ <marcelo.schmitt1@gmail.com>, Andy Shevchenko <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v5 05/15] iio: adc: ad4134: Serialize single-read
+ operations
+Message-ID: <20261017193929.12ce61bc@jic23-hlaptop>
+In-Reply-To: <fadebc9f9fd6fe3924d086bdd7f549555dc069bb.1792200021.git.marcelo.schmitt@analog.com>
+References: <cover.1792200021.git.marcelo.schmitt@analog.com>
+	<fadebc9f9fd6fe3924d086bdd7f549555dc069bb.1792200021.git.marcelo.schmitt@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDA3MiBTYWx0ZWRfX/lfLSb+QEp9y
- M7zqIn3Wd/fBZ0eQveJpwX+9ALmyZm1+mU9v/nD0iiPz5C+Tca3HokAkl69n6yfefTBAqakPAb2
- /tSzh3fkgDRdUF2ERM+Lm8C1IR8WQeJWHP7n5unsA1yium5UT9ehYZiLN27t6yL7TMBYQPO0aJJ
- 6kJ3q1hWT8NqBJot71H8U4Vr4VsKZR7RQxTIjWPESpdbeqVlPubWXSai31pGYnb247uJ31BbmVW
- lmbqBaRxgzuZK0yj+A1jP5odqUk2lAqqRa14oI/xfpn2HRiu2rTt3bFHD9lQ8UT6borUFvt7WIB
- AM4wu+tOmKHlWhOgOvacTXQg7w+edrcf3DtHLqXO5LMtELVXGGF3ws9NnnsF1oRG48JjPcE/Ufn
- PiX5r3tozR5MNIIHQLW+IjMBNZ3f2vJ5pQRO8b5//v2OhHW+GDLXXr6alPFbsOhzU2A2mevioME
- r9OJ3uqWBjuwo9kAm5g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDA3MiBTYWx0ZWRfX9oST7SMBnlBz
- pKCkl9T4L+EGEdWCoRxw7biRsKra2PfDvitHUIHbafDhX+U0H3Q1IW8SlE2Vpe8TvpCzN41JLp3
- nf/7265na7OVI9i3r7yUIN0T3yk20J8=
-X-Proofpoint-GUID: GHkwzwDdToujb2YhcMuShb9yUed9rkb_
-X-Proofpoint-ORIG-GUID: 0LUYb_2so38ld6OvEhQxsadvU8EaHGvn
-X-Authority-Analysis: v=2.4 cv=OZQNnRTY c=1 sm=1 tr=0 ts=6ad3c0cd cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=AgqpLgk7dxv-3Z7t9NMA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-17_05,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
- suspectscore=0 phishscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610170072
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-The PKWM trusted source currently uses a single default wrapping key per
-LPAR. This key is created during trusted source initialization, and all
-trusted keys backed by PKWM are sealed and unsealed using it.
+On Fri, 16 Oct 2026 22:57:47 -0300
+Marcelo Schmitt <marcelo.schmitt@analog.com> wrote:
 
-Recent versions of PKWM allow users to create and manage their own wrapping
-keys through a set of lifecycle operations. This patch series brings these
-PKWM capabilities into the kernel, allowing users to create, manage, and
-select wrapping keys for sealing their trusted keys, rather than requiring
-all trusted keys to use the default wrapping key.
+> Protect single-sample read operations from going wrong if two or more of
+> them run concurrently. Serialize the data read operation so to avoid
+> single-sample read requests disrupting each other.
 
-This series extends PKWM to support user-created wrapping keys. It adds
-the required hcalls, allows users to select a wrapping key by label when
-creating PKWM-backed trusted keys, and introduces a sysfs interface for
-managing wrapping keys from userspace.
+Why isn't this a fix (with appropriate fixes tag)?
+If nothing else comes up and you agree it should have one just
+reply to this email with it.
 
-This patchset also includes six preparatory fixes. These correct double
-conversion of PLPKS write, remove, and wrapping key flush errors; align
-wrapping length types with the underlying hcall interfaces; preserve the
-original error returned when default wrapping key generation fails;
-initialize PKWM output buffer pointers before cleanup; and clear sensitive
-PKWM seal and unseal buffers before freeing them.
+Otherwise LGTM
 
-This series depends on the following PLPKS refactoring and hardening series
-and must be applied on top of it:
-
-https://lore.kernel.org/all/20260923182816.151451-1-ssrish@linux.ibm.com/
-
-Changelog:
-
-v3 -> v4:
-- Addressed issues reported by Sashiko
-  - Fixed double conversion of PLPKS object flush errors
-  - Initialized PKWM output buffer pointers before cleanup
-  - Corrected the documented H_PKS_GET_OBJECTLABELS output field order
-  - Prevented stale policy use and caller data modification during
-    revocation checks
-  - Fixed wrapping key sysfs kobject cleanup
-  - Restricted wrapping key sysfs initialization to pseries
-- Dropped Tested-by tags from modified patches
-
-v2 -> v3:
-- Moved most of the refactoring and hardening patches into a separate
-  series:
-  https://lore.kernel.org/all/20260923182816.151451-1-ssrish@linux.ibm.com/
-- Added a fix to clear sensitive PKWM seal and unseal buffers before
-  freeing them
-- Added Nageswara's Tested-by tag
-- Refined error handling and documented default wrapping key restrictions
-
-v1 -> v2:
-- Addressed parameter validation issues reported by Nageswara
-- Tweaked PLPKS_WRAPKEY_SYSFS Kconfig help text
-- Added two preparatory bug-fix patches
-- Cc'd stable@vger.kernel.org where applicable
-
-Srish Srinivasan (9):
-  pseries/plpks: fix double conversion of write and remove flush errors
-  pseries/plpks: fix double conversion of wrapping key flush errors
-  pseries/plpks: fix length types for wrapping operations
-  keys/trusted_keys: propagate wrapping key generation errors
-  keys/trusted_keys: fix PKWM output buffer cleanup
-  keys/trusted_keys: clear sensitive PKWM buffers
-  pseries/plpks: add HCALLs for PKWM wrapping key life cycle management
-  keys/trusted_keys: enable PKWM wrapping key selection by label
-  pseries/plpks/wrapkey: expose PKWM wrapping key management to
-    userspace via sysfs
-
- .../ABI/testing/sysfs-firmware-plpks          | 116 ++++
- Documentation/arch/powerpc/papr_hcalls.rst    |  33 ++
- .../security/keys/trusted-encrypted.rst       |   4 +-
- arch/powerpc/include/asm/hvcall.h             |   5 +-
- arch/powerpc/include/asm/plpks.h              |  40 +-
- arch/powerpc/platforms/pseries/Kconfig        |  15 +
- arch/powerpc/platforms/pseries/Makefile       |   1 +
- arch/powerpc/platforms/pseries/plpks-sysfs.c  |  11 +
- .../platforms/pseries/plpks-wrapkey-sysfs.c   | 408 ++++++++++++++
- arch/powerpc/platforms/pseries/plpks.c        | 526 ++++++++++++++++--
- include/keys/trusted_pkwm.h                   |   3 +
- security/keys/trusted-keys/trusted_pkwm.c     |  52 +-
- 12 files changed, 1154 insertions(+), 60 deletions(-)
- create mode 100644 arch/powerpc/platforms/pseries/plpks-wrapkey-sysfs.c
-
--- 
-2.52.0
+>=20
+> Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> ---
+>  drivers/iio/adc/ad4134.c | 16 +++++++++++++++-
+>  1 file changed, 15 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
+> index dc2b32c73a3a..dc4d801490db 100644
+> --- a/drivers/iio/adc/ad4134.c
+> +++ b/drivers/iio/adc/ad4134.c
+> @@ -7,6 +7,7 @@
+>  #include <linux/array_size.h>
+>  #include <linux/bitfield.h>
+>  #include <linux/bitops.h>
+> +#include <linux/cleanup.h>
+>  #include <linux/clk.h>
+>  #include <linux/crc8.h>
+>  #include <linux/delay.h>
+> @@ -15,6 +16,7 @@
+>  #include <linux/export.h>
+>  #include <linux/gpio/consumer.h>
+>  #include <linux/module.h>
+> +#include <linux/mutex.h>
+>  #include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/reset.h>
+> @@ -98,6 +100,11 @@ struct ad4134_state {
+>  	struct regmap *regmap;
+>  	unsigned long sys_clk_hz;
+>  	struct gpio_desc *odr_gpio;
+> +	/*
+> +	 * Synchronize access to device state fields and ensure atomicity of
+> +	 * consecutive register access operations.
+> +	 */
+> +	struct mutex sync_lock;
+>  	int refin_mv;
+>  	/*
+>  	 * DMA (thus cache coherency maintenance) requires the transfer buffers
+> @@ -257,7 +264,9 @@ static int ad4134_read_raw(struct iio_dev *indio_dev,
+>  	int ret;
+> =20
+>  	switch (info) {
+> -	case IIO_CHAN_INFO_RAW:
+> +	case IIO_CHAN_INFO_RAW: {
+> +		guard(mutex)(&st->sync_lock);
+> +
+>  		gpiod_set_value_cansleep(st->odr_gpio, 1);
+>  		/*
+>  		 * For slave mode gated DCLK (data sheet page 11), the minimum
+> @@ -276,6 +285,7 @@ static int ad4134_read_raw(struct iio_dev *indio_dev,
+>  			return ret;
+> =20
+>  		return IIO_VAL_INT;
+> +	}
+>  	case IIO_CHAN_INFO_SCALE:
+>  		*val =3D st->refin_mv;
+>  		*val2 =3D AD4134_CHAN_PRECISION_BITS - 1;
+> @@ -445,6 +455,10 @@ static int ad4134_probe(struct spi_device *spi)
+>  	fsleep(AD4134_RESET_TIME_US);
+>  	crc8_populate_msb(ad4134_spi_crc_table, AD4134_SPI_CRC_POLYNOM);
+> =20
+> +	ret =3D devm_mutex_init(dev, &st->sync_lock);
+> +	if (ret)
+> +		return ret;
+> +
+>  	st->regmap =3D devm_regmap_init(dev, NULL, st, &ad4134_regmap_config);
+>  	if (IS_ERR(st->regmap))
+>  		return dev_err_probe(dev, PTR_ERR(st->regmap),
 
