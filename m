@@ -1,100 +1,110 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B08546C835;
-	Sat, 17 Oct 2026 09:06:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB5245FFD2;
+	Sat, 17 Oct 2026 09:07:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792227984; cv=none; b=E7q8kPIQvusXWJvK999Myn98NDkse/FvvFS2RuwjbN02SJAdglIDd7tyP6DRpv6pWEo5dH+cIkYG477cROqDaTiuaVDmlXA6beePaWG0TqGSgh9umb0h4XjkgI2dE4rPcENNAnVb8YnQCOou8JMNvO+Mf3U1sniO7/NM7jmcnN4=
+	t=1792228046; cv=none; b=osDNfM8ytH9ErsPGeIAwBZ/R4NV+pVMOE35JKtWVUtAI63v+4MU3QC4YaiyUU3myGJy/L7VhdKD3iKFmJVaKE3HT9s/Df2kQ9ilRrXvR5cJdLOh7GSEQ6RJswJx32y2eXObRSkQwg2nUlProyOiL5y7fky7Cqr3sWEfX8nxhOd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792227984; c=relaxed/simple;
-	bh=FbibGSHctlVdbJsTuBC/kmZGeVRnYngnwTvlaiUstwI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=EJk8IZ0kIS+lpsNfjLKzjou5QwaQa9jhVilCDRTYP7gDL6ovd+KRdPOjRVmd8D/Os0ip5XDBZAVH1xht4dxyvkHro445J1nDfhFPel4qGv/pNNJuc5Sh+DHNHh7Le7eghiWr1lRN4A3x8zSzza2gO+m7u4/G0QOcP3juxDwSSCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=k6KBkH9n; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1792228046; c=relaxed/simple;
+	bh=2bVN6WI79XRdOP2nDuYaFcE6l7huJ0b+vVJuL50Wn0E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uqiPP88iasmPSIue5JfswCd3REk/D7rpRkBd62tZXKiuy90Sr1skZ/Gyr33LkO/8lUO3meGgESvraiPAhi7qLbLWjaYeOK8QG57yR2Mc7TbhuMFmJ9BJpPY2ezXeunFdxYOWA6vykWnYANTteaqdh54gMOPAEdrMu5kMImti5e4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Em2/xzCG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="k6KBkH9n"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69H95G9m8009797, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1792227916; bh=FbibGSHctlVdbJsTuBC/kmZGeVRnYngnwTvlaiUstwI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=k6KBkH9nmehZdn7s3kmV9BOKv4wqGAiL4H2VR2l5TeE2fhIowRTS7gUZpTj9ATerU
-	 oW6NnyuqdpChEe6a3srv7V3oEnQ1spoYGBevmpYKl8bpL2lG7t7KS8FyfGqGClTA6N
-	 JOjZtiPFCGtq7q/qDTX6nPe4YmxU8Mzyo4mXKj/FazxmshOgChv85B0gSfMMNqRbEC
-	 6f/2dEK/+3MqHhT/LZUghgtj+Xzk1RREUSQDCkfNWxFVsj/oAG8bgEHY3s9DQBVFZj
-	 AmvYPX0n+ye9pLZmWyjOn9NVv4ZeANSrjUAB6XQNZvGM3kizKcTXpl7S0mHPqThTO7
-	 IUyA0n9PhQbdQ==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69H95G9m8009797
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sat, 17 Oct 2026 17:05:16 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sat, 17 Oct 2026 17:05:15 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Sat, 17 Oct 2026 17:05:15 +0800
-From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-To: Jerome Brunet <jbrunet@baylibre.com>
-CC: "jbrunet+clk@baylibre.com" <jbrunet+clk@baylibre.com>, "sboyd@kernel.org"
-	<sboyd@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	=?utf-8?B?RWRnYXIgTGVlIFvmnY7mib/oq61d?= <cylee12@realtek.com>,
-	"afaerber@suse.com" <afaerber@suse.com>,
-	=?utf-8?B?SnlhbiBDaG91IFvlkajoirflrold?= <jyanchou@realtek.com>,
-	"bmasney+clk@redhat.com" <bmasney+clk@redhat.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	"linux-realtek-soc@lists.infradead.org"
-	<linux-realtek-soc@lists.infradead.org>,
-	=?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
-	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
-	=?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>,
-	Brian Masney <bmasney@redhat.com>
-Subject: RE: [PATCH v15 06/11] clk: realtek: Add support for gate clock
-Thread-Topic: [PATCH v15 06/11] clk: realtek: Add support for gate clock
-Thread-Index: AQHdUkHCGMJ17VacYUWU4SZmtnaJtrb1DaSAgAx6+iA=
-Date: Sat, 17 Oct 2026 09:05:15 +0000
-Message-ID: <fd89a628e14546a3ac28c78f7cc0419e@realtek.com>
-References: <20261002074331.3066919-1-eleanor.lin@realtek.com>
- <20261002074331.3066919-7-eleanor.lin@realtek.com>
- <179157057524.266328.4248123787670079601.b4-review@b4>
-In-Reply-To: <179157057524.266328.4248123787670079601.b4-review@b4>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Em2/xzCG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6718A1F000C4;
+	Sat, 17 Oct 2026 09:07:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792228044;
+	bh=c4wmaPbMvA830uvvTHJtacKZjJZnACFWxcTC1JdWfNg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Em2/xzCG3JxvodjG7wIzquF+omxAaQZeIVacZFC/O6Dg3mmbPqw8rsifnSymTbuxi
+	 zWHZYSRhA/XDfTYPU5K5NoFkynhq0cnIBSCgXFYPKRxKpGPpCkEWT+gSlOOiZevvrf
+	 5p+A6zhLeK3qQv84hGxqrthjYSinujmxSGvfi0jc3Gk/loorjMrZdP8oIrycHK1I/c
+	 fH15ea282smGpkpIkveacE37FsuYhJKy2KK8tz8lwyAxLVtTkdjsltKDqcp86G/p7+
+	 zUW7LWu3hmsHZqmRnD6mCe/IIdRjo7rJJpdOX2DIWcZIwuOH98qic2pMynZxP88LQy
+	 izWV6b84iTpeg==
+Message-ID: <5c4211d0-94cf-4e53-8a4b-3f3c154228d2@kernel.org>
+Date: Sat, 17 Oct 2026 11:07:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: vendor-prefixes: add smartisan
+To: tianshi12127 <tianshi12127@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, devicetree@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org
+References: <20261017083531.766557-1-tianshi12127@gmail.com>
+ <20261017083531.766557-2-tianshi12127@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261017083531.766557-2-tianshi12127@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-SGkgSmVyb21lLA0KDQo+ID4gSW50cm9kdWNlIGNsa19yZWdtYXBfZ2F0ZV9vcHMgc3VwcG9ydGlu
-ZyBlbmFibGUsIGRpc2FibGUsIGFuZA0KPiA+IGlzX2VuYWJsZWQgZm9yIHN0YW5kYXJkIHJlZ21h
-cCBnYXRlIGNsb2Nrcy4gVG8gYWNjb21tb2RhdGUgaGFyZHdhcmUNCj4gPiBkZXNpZ25zLCB0aGUg
-ZW5hYmxlIGFuZCBkaXNhYmxlIG9wZXJhdGlvbnMgaGFuZGxlIGEgJ3dyaXRlX2VuJyBmbGFnLA0K
-PiA+IHdoaWNoIGFzc2VydHMgYW4gYWRqYWNlbnQgd3JpdGUtZW5hYmxlIGJpdCAoYml0X2lkeCAr
-IDEpDQo+ID4gc2ltdWx0YW5lb3VzbHkgd2hlbiBtb2RpZnlpbmcgdGhlIGdhdGUgYml0Lg0KPiA+
-DQo+ID4gQWRkIGNsa19yZWdtYXBfZ2F0ZV9yb19vcHMgYXMgYSByZWFkLW9ubHkgdmFyaWFudCBl
-eHBvc2luZyBvbmx5DQo+IGlzX2VuYWJsZWQuDQoNClsuLi5dDQoNCj4gPiArI2RlZmluZSBSVEtf
-Q0xLX1JFR01BUF9HQVRFX05PX1BBUkVOVChfbmFtZSwgX2ZsYWdzLCBfb2ZzLA0KPiBfYml0X2lk
-eCwgX3dyaXRlX2VuKSAgICAgICAgXA0KPiA+ICsgICAgIF9fUlRLX0NMS19SRUdNQVBfR0FURV9O
-T19QQVJFTlQoX25hbWUsDQo+ICZydGtfY2xrX3JlZ21hcF9nYXRlX29wcywgX2ZsYWdzLCBfb2Zz
-LCBcDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9iaXRfaWR4LCBfd3Jp
-dGVfZW4pDQo+ID4gKw0KPiA+ICsjZGVmaW5lIFJUS19DTEtfUkVHTUFQX0dBVEVfTk9fUEFSRU5U
-X1JPKF9uYW1lLCBfZmxhZ3MsIF9vZnMsDQo+IF9iaXRfaWR4LCBfd3JpdGVfZW4pICBcDQo+ID4g
-KyAgICAgX19SVEtfQ0xLX1JFR01BUF9HQVRFX05PX1BBUkVOVChfbmFtZSwNCj4gJnJ0a19jbGtf
-cmVnbWFwX2dhdGVfcm9fb3BzLCBfZmxhZ3MsIFwNCj4gPiArICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgX29mcywgX2JpdF9pZHgsIF93cml0ZV9lbikNCj4gDQo+IElzIHRoaXMgX05P
-X1BBUkVOVCBzdGlsbCB1c2VkID8gaWYgbm90IGRyb3AgaXQNCg0KQWNrLiBXaWxsIGRyb3AuDQoN
-CkJlc3QgUmVnYXJkcywNCll1LUNodW4NCj4gDQo+IC0tDQo+IEplcm9tZQ0K
+On 17/10/2026 10:35, tianshi12127 wrote:
+> From: Lu Chen <tianshi12127@gmail.com>
+> 
+> Add a vendor prefix for Smartisan Technology, used by Smartisan
+> devices such as the R1 (trident).
+> 
+> Signed-off-by: Lu Chen <tianshi12127@gmail.com>
+
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
