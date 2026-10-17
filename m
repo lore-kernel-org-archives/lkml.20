@@ -1,87 +1,93 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5124CF47E
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:36:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0FA9375F9C;
+	Sat, 17 Oct 2026 05:37:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792215406; cv=none; b=uKKCiOflWT/2D1nLsH+2+KEis7W21DL4lJfXtOyh99YpJDLZ1psLUh1eXdGdfVf2uOGESmLt35yJ84RC+332sCpd2GZxHiMemheFOOqEikuGFFzeuwbMi/KJVZyDkzua14w+Zm23Uo5AhxG+9uXOvd3fM1Mqo2O85Pi/1vRo7xU=
+	t=1792215439; cv=none; b=UyOJg5vWAaF+/+QE9kwaQTGArrhTKoGW2E3I9CSiezFRdcmeXqQHB3A2muM2SRRap7YYpLp4BUwlDtoaNrr53NZhpNrBM4pHWU2tMhKCpMln1pw4sD/mAd0aYfG+dC/3uUoBuEET8X/7aMcQlQxHvAh/zQzfyNZpFH05QTF7OJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792215406; c=relaxed/simple;
-	bh=CT0wh3KwPJovAUEvvTmUQApHxZpLs6H7xszDkTqLK6g=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=nzY2XRJldSf942+FvTl0ccdlkjyZ8JTTtEgcchTNXTRsmVKkSguLaWHNsSppitZQDvnG8JX73yj2dWjyRdCBvCNAy8IdvX1kPZFQ5hbkLTOcWkuSBZHc6BcZJ64ann0rgf4cjZgSKSAh9E7wcD5cp6UOGZP7JQ0gqjhZWvOZ+9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VUr87Xd6; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	s=arc-20240116; t=1792215439; c=relaxed/simple;
+	bh=EvIU8EuXNwKOEt+5tNKCNvzueHmtt9H6cO3Bhc8VB34=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k5ZR+/GNEujrLcNFEtcNo66gpq1iXiM+ErJxB5zyXBuu8Dva8UGBLobGrOO3NdVYvX12jSAkdQjL8x7SRuxPxqqQiPaVrzFkkYy7A+vPk8IljrHp27QHeAytnLoWdu6e6mcDMcLUPo0Dh+NQKOh+Z6IM9sdlg/O6QUmyXfrATAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n7w9P7MX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VUr87Xd6"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38f97b3f853so736603a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:36:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792215404; x=1792820204; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=slLcWG1N2gT6IfvpJKBO52lrlc4iEipRoMwUKxC7sOk=;
-        b=VUr87Xd6OaSnmOiqaP9LaN1ITT8omdRwPBrbenL9T4Tvfa/EGGIuWWuFdsX9AtDsc4
-         pNWsvN1QZ/HzoAtsyH0A4NaW8FC2gJkW8n68CFBeh6NNuBdkWXSsxjbYdUQmGg7hqMW9
-         3P0B0VLag80ks4M9f9ZGkeUwFgaGiXK4H6gfNai7zqD1V0BqTG/HlQV1/2egmtOjNCud
-         S98aWb5XCCSmiIh28ZtfB0tRcuv7GgpiAVlYi8NJNZCI1ITqqtwoYfOlFHhK4O4wL/tN
-         +Pj7o1yM4zItbp6+GdPN1ycbJl36VjbgZMZkYUAw9o3uoPgl6sWizNxJRwrRY0RduO5F
-         eFGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792215404; x=1792820204;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=slLcWG1N2gT6IfvpJKBO52lrlc4iEipRoMwUKxC7sOk=;
-        b=IPBD5tz4T8KENajAtqtKxau05MEZvwXl+j9jArN/hHM0vRUYa9cqRxOjFW47bo7Nfg
-         F2AY2gjfq3GD2VmP6nF/YhZbjVTjeklwslRoiLskh+ioa10ZJxkIZPoAvlg9zLd0YUri
-         c77VoyduoD4faCfLwtqpAVasRMnuNbYO3qEKVrjO1Al8/OcS2ZKEX0zm0bIW8CU1kCMz
-         oUsgxNEUmuCiIXjep8cJl1HNm47WXEMJKrSI9+cjh2WOKy7//38RzkJ85Ung24p0jTOU
-         Uur+PsVauQc/9cHI4Md2+aEP9Mk1hZVb21vsgac1/2INffAOiH/bB9vdviTigbqhs7kk
-         TLNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzziOPBabg/DHkotUECU9zp+HtIFPdJIssz+ZlVcFjrUIrrsUvK6OnAIq0QlZzJRbMZ/fkOiDGs6Ql9AfM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRAKSftkPXkyYHQcDBGS2ofHLQw64AzpJ1KtXxlRSxyuXWwjCA
-	eWVNdRunio3XBvCz9D5OE0RRLX3p/UKrgazFghVt4JupXjqc4HfyT5HjvK+IHfyxnK1hrgDqdd+
-	3iw7pYw==
-X-Received: from pgde16.prod.google.com ([2002:a05:6a02:310:b0:cc7:d698:697a])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5745:b0:3ac:c03a:38b0
- with SMTP id 98e67ed59e1d1-3acee27798dmr1827553a91.8.1792215403626; Fri, 16
- Oct 2026 22:36:43 -0700 (PDT)
-Date: Sat, 17 Oct 2026 05:36:43 +0000
-In-Reply-To: <20261015081723.404990-1-parri.andrea@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n7w9P7MX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F28E1F000C4;
+	Sat, 17 Oct 2026 05:37:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792215438;
+	bh=3Sjqebret22MRPMuJf2Lbw+gl5w07tTwnx2YlqGOC1k=;
+	h=From:To:Cc:Subject:Date;
+	b=n7w9P7MX1654hBDw+JR+Z+qZybpV/Kqvxdgf58mSIDCMR5vT/qQtjVpZ0HKBfWpgi
+	 NezYtRJW5WUh633OqGUtht78i/pfouzprMSrpMD4TWXwTUVTw5/YpUQ3nIGAz8nh/z
+	 T5T9aaB9FVoQYd1xook4LPUP5zFW2hFoLKg4z+Rh1wjTECEK34zfZqz8zFQTkcgizf
+	 yvIB3XZ2zPb5NWvm92e00er+qf+1aenwbTFYBmS1CDkLBuYGgJHF/xB5lrlQdoR2Op
+	 OF0PRLNuP7Pc+ajlPHQoI8rkGGkllc+pMSKOzq8c6UKXMjajHegfl1eBdpcrs79/vE
+	 0+lKXVvZ8oP4g==
+From: Tejun Heo <tj@kernel.org>
+To: sched-ext@lists.linux.dev
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>
+Subject: [PATCHSET sched_ext/for-7.3-fixes] sched_ext: Fix bypass leaving the running task protected and bypassed tasks stranded
+Date: Fri, 16 Oct 2026 19:37:15 -1000
+Message-ID: <20261017053717.3162619-1-tj@kernel.org>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261015081723.404990-1-parri.andrea@gmail.com>
-Message-ID: <atMJYPanib4g-C4q@google.com>
-Subject: Re: [PATCH net-next v2] rtnetlink: comment the RCU waits in
- unregister paths
-From: kuniyu@google.com
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 10:17:16 +0200, Andrea Parri wrote:
-> rtnl_unregister_all() and rtnl_af_unregister() wait for RCU readers
-> before tearing down what those readers use, but do not say which
-> readers they are waiting for.
-> 
-> A missing wait is then easy to overlook: rtnl_link_unregister() lacked
-> its synchronize_rcu() until commit 3b70edea393d ("rtnetlink: wait for
-> RCU readers in rtnl_link_unregister()"). Add a comment to both waits,
-> naming the readers each one waits for.
-> 
-> Suggested-by: Eric Dumazet <edumazet@kernel.org>
-> Link: https://lore.kernel.org/CAL4WiioFMQN4troVjQjCmE6Z9kwwb95SnoEupjD=PPSK6Q5f6w@mail.gmail.com
-> Assisted-by: LLM
-> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Hello,
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+scx_bypass() handles the running task inside its walk over the runnable
+list, which never contains the running task, so the protection strip at
+bypass entry never runs. Separately, a bypassing sub-scheduler's tasks are
+run by its nearest ancestor that isn't bypassing, but whether such a task
+may stay on its cpu is still checked against the caps of its own scheduler.
+A bypassed task that the bypass load balancer moved to a cpu where its
+scheduler holds no caps can't stay there once its slice runs out, and the
+cpu can go idle with the task queued on the ancestor's bypass DSQ.
+
+Patch 1 handles the running task outside the walk. Patch 2 checks a bypassed
+task against the caps of the scheduler running it and, in the block patch 1
+adds, evicts the running task when bypass lifts if its own scheduler lacks
+the caps to keep it.
+
+Verified on bare metal by attaching and detaching a sub-scheduler repeatedly
+under load. A debug knob that marks the running task protected at each
+bypass entry finds every such task stripped with patch 1. Without it, they
+all keep their protection and the bypass tick can't cut their slices. In a
+VM, running tasks whose scheduler holds no caps on their cpu leave it within
+about 50us of the bypass lift with patch 2, instead of running out their
+bypass slice. The sched_ext selftests pass.
+
+Based on sched_ext/for-7.3-fixes (43e1ef14a472).
+
+This patchset contains the following 2 patches.
+
+ 0001 sched_ext: Fix the running task keeping its protection into bypass
+ 0002 sched_ext: Fix a bypassed task stalling on a cpu its scheduler has no caps on
+
+The patchset is also available in the following git branch:
+
+ git://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git bypass-stall-fixes
+
+diffstat follows. Thanks.
+
+ kernel/sched/ext/ext.c      | 32 +++++++++++++++++++-------------
+ kernel/sched/ext/internal.h | 17 +++++++++++++++++
+ kernel/sched/ext/sub.c      |  7 +++++--
+ kernel/sched/ext/sub.h      |  6 +++++-
+ 4 files changed, 46 insertions(+), 16 deletions(-)
+
+--
+tejun
