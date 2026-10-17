@@ -1,56 +1,56 @@
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E560258EE9
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:54:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517CC39184B
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:54:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792263296; cv=none; b=jZ7y5EuKcSrOrBtQaOLek7EvFbdpltVLhQyJj6J8BPhE9YEGOW14unsaqZ9dGc7P3FoIni/Jf8er3Gv0ekeE7VttNAnyataPbCWKOji2yTz/IDVszeLsFaxyPmWwc3wjziUvFldaO/f9XZQvNi+5twa7vJt26gdK2VDw0QgNtEA=
+	t=1792263297; cv=none; b=albQwuagBLeBPYbEhlEwXW7zV/ZgQkAIooVpHWKr7gU3/7tFtwbTFIXd38J5uPej3nS6yKGCTJWRYuwnHUbQTd/zkzLnvIpjEbkYJYUTbV90p6Fi7qn350eizLP95N1PJyK1tG0keIpn+jaU5KAPiMUIHtDh8e7Sle7wbya+3es=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792263296; c=relaxed/simple;
-	bh=FtxOYhwfegkAWcwsWBkisGyTmJZq3wZEhZfE6lZEqH4=;
+	s=arc-20240116; t=1792263297; c=relaxed/simple;
+	bh=2iG9qrny+KoIlpAFRv6xeuc+w21c6I9wzUfbS2VLbL0=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=TQ5uNT+L4VvdVH6786McQVKXOJ/1zVO7G2fJo01iR0Mxj8PGdukwbBAIL+U3RPGmzZ0ORBxgsXYDZDNu1a4IX1Uz3OJxcFap9zZnSnUqKUsXeeR9YcKmCeRtNzoH3owdfglfxMJGxppF9q+VP/El4vZe9b32KF7mJiyvu6bPqwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YT04iux2; arc=none smtp.client-ip=74.125.82.197
+	 To:Cc:Content-Type; b=g1usMZqegzEDBHhCERa6attqUAuID4OxtyY4KPnN+mXbpcgI3UyXl1bfR2pfNzkORQbK/aCeaY7J3VthZeomFLRFWO/i0KA7LPXT6WWVl1yyqdlKW1qAZ12c6b35sJ7UFzQmON1S9ZDCNXi1FHM10RYnzkdVlCw37Z+OBCyYTU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aZAsPT5r; arc=none smtp.client-ip=74.125.82.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YT04iux2"
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35c5aef2a74so534533eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:54:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aZAsPT5r"
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1383723dfddso1967486c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:54:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792263293; x=1792868093; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792263295; x=1792868095; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=f+8mpyEx8Bj4gf3c0mTRwsejfaqbHbW/M22Bk0FXWaQ=;
-        b=YT04iux2LH8XhwFnKcJFsUEyRAY1kKb3S2BwNp+QilZu30k2MrZDEfWlQk72q/BhjL
-         fLs/9oEqn4l2FaCQcGZLgI1OatQwgC8wmKlxPlKfhrAMSG+CZq7Jxraty6GARcbKWsst
-         blrGnRuVeulsJZdqLCeGvYO1a4t6coapzLDER2jFnJ7FI7Mic9Bjde0l12RZWYydta2Y
-         FN9QLQ6erAN+IkT8CK5iDJyij+JJeKThYMbrBIEXtqvj3a6p6hRX8u1Z6wklg4sAV/vn
-         Q9TFG85lwphmqXBOFG4E6iMtiWddoNuaWc1Cnx7Z8Rd9lpcp7o0bSjb/Pa3xYQfx/A2o
-         AsbA==
+        bh=i4aE4aQQKNGeSMlyVXoPPRv4gsVIcD/jNJLltN1DGPw=;
+        b=aZAsPT5rpELvIl/0HIejJF7owBYzlx949xeLupuWZoPSI2Lf82M3S8fnV8cGH5b9qx
+         VySpWH9D9wTk8Z5o8nNYu0C3l7d5RpEFSKr+dUwv2QwFNpPd7/EV0qxrxMYzVOdNj/ux
+         qSkdLO/JLJywxPejwMm9w5qPdUpNTNRI1STHTxesWNRny+T2KpESaOu8hV3Trk6DEOoV
+         tQTY+YFBerAcJU7cL3P2sNTBi3Rc1/C4NWpL1/wKT6O3S4Do190Vxoq3c6SKxDQlNHj4
+         MRoQkQRW5FB/fhKhVNqdYrVOQTtS80u8mBmisB/d7qmcfAKdqzI7dD+2s/EAYCfgPhfq
+         dzdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792263293; x=1792868093;
+        d=1e100.net; s=20260707; t=1792263295; x=1792868095;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=f+8mpyEx8Bj4gf3c0mTRwsejfaqbHbW/M22Bk0FXWaQ=;
-        b=uuHggd9c3dwq33GiUefJ9bzuuh1IOwSQz+NUIed+0Rc4EmpXjUzURhehW+kVpzPxNQ
-         j6JLDz7T3NWKJ3nPTkZfZOqB8niWdJe2HbLm7/pdVhudNppKeu0ZF39TmSIoPrhCrJ4r
-         STAFptJXEu/B0fYhvsfig1MpoTJ7SH/7ehIVPNirpdTHNIiRvo4j0HeqTW13PAaIEz+U
-         1TxNNKzEDRaX1FoEDJfwWuKttE1a8+m/QsAR9ZexseWvNBH94q7yKrlGTEjl6HqQvhnn
-         cicDYBU62p79LIGQ7sOcS4KhNZE5Y9X8x7Q1uk6/wznhhIrIrdkmDjoPZC3d2r+gNDnh
-         M5uA==
-X-Forwarded-Encrypted: i=1; AKwUvBylYKndTYK3yoJXN+OLqb4bNBo3gsjvpgtngTg9j1V1FqMRjehJMme1E0Gx4sgIjRBbOde1s5VBHCscBXs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLs4wuB5d5r67/rMEIoRZ/13QVatvVT4knwZ5lmTcrBGF84LFrQ
-	N+RrzU0v2ltXWBZhltcfm3xUcKUqiKppK0cyPgvpgpNNI3oUKw4HyQJbEQQY3HgCwI3GhqCE6RK
-	5O7l7H3a38g==
-X-Received: from dlep5-n2.prod.google.com ([2002:a05:701b:4585:20b0:182:f49e:1d74])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4354:b0:16c:4eef:a526
- with SMTP id a92af1059eb24-1851238bde2mr4856695c88.15.1792263293221; Sat, 17
- Oct 2026 11:54:53 -0700 (PDT)
-Date: Sat, 17 Oct 2026 11:54:34 -0700
+        bh=i4aE4aQQKNGeSMlyVXoPPRv4gsVIcD/jNJLltN1DGPw=;
+        b=kJimGYK5xU3dzEb1k2vHmnffARocm59jm6+AD33rYeACBZd8C6ksuL8Vx56sBC9oe4
+         lFdlCFrsBHSF0zHBI0bvM6qFHnkJl480/nXwv/SsPr4q6/jPZ5D7eN4Ya0Bhp8km0JVy
+         iS8z8sm6lIGLnpE145p7GPXSy/DMV2/n3cwQVNhTZWHk8ru0ydSADFsUAK/PvqhoyrC0
+         P4EXUCDobcExg8dwGCHNy2u+G1FBYRRErAYhdhAs+LbbFUZh8Ful9TJv23am0aD4akhL
+         EX6g9e3EE2y5NV48IkLO+OVVOVA3GWikvpE0OGVcnxL1QNxX84mYt7jONiPAi47N3uQN
+         eUCA==
+X-Forwarded-Encrypted: i=1; AKwUvBxb12gW8hApGKVgbKbsChnCPgVZ7u9JW7sWd3BXiaV1zf9QBLkd3kRKGu/sw3du2AXYPKxwYc9eYHc4h/0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZL4+TpwMdlS0Rt2s0PhpL8y6ZLrBUjxCePBY7a3RCI1Q9ewjO
+	OnGyvkFp8b9TUYO9Nm0ktjRUGV06cIvXWb+f4m/vu88J/NCXqKxNQlj686K90Las8eECf+LsJ8e
+	0oL2Bmp+SIg==
+X-Received: from dlbsn1.prod.google.com ([2002:a05:7022:b901:b0:181:6f48:4d38])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:28b:10b0:16f:c9db:c5af
+ with SMTP id a92af1059eb24-185118eded7mr5129420c88.11.1792263294933; Sat, 17
+ Oct 2026 11:54:54 -0700 (PDT)
+Date: Sat, 17 Oct 2026 11:54:35 -0700
 In-Reply-To: <20261017185442.2137623-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261016213258.945737-1-irogers@google.com> <20261017185442.2137623-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261017185442.2137623-2-irogers@google.com>
-Subject: [RFC PATCH v2 1/9] perf pmu: Add from_env parameter to perf_pmu__init()
+Message-ID: <20261017185442.2137623-3-irogers@google.com>
+Subject: [RFC PATCH v2 2/9] perf pmus: Add perf_pmus__read_from_env()
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
 Cc: adrian.hunter@intel.com, eranian@google.com, james.clark@linaro.org, 
@@ -69,193 +69,320 @@ Cc: adrian.hunter@intel.com, eranian@google.com, james.clark@linaro.org,
 	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-Add a boolean from_env field to struct perf_pmu initialized via
-perf_pmu__init() to distinguish PMUs reconstructed from perf_env
-headers from live host PMUs. Guard tp_pmu, hwmon_pmu, and drm_pmu
-callbacks on !pmu->from_env so perf.data-derived PMUs do not access
-host tracepoints or cast plain struct perf_pmu allocations via
-container_of().
+Add perf_pmus__read_from_env() and perf_pmu__add_cap() to reconstruct
+core_pmus and other_pmus lists and their capabilities from
+HEADER_PMU_MAPPINGS, HEADER_HYBRID_TOPOLOGY, HEADER_CPU_PMU_CAPS, and
+HEADER_PMU_CAPS in a perf.data header environment.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/tests/pmu-events.c |  4 ++--
- tools/perf/util/drm_pmu.c     |  2 +-
- tools/perf/util/hwmon_pmu.c   |  2 +-
- tools/perf/util/pmu.c         | 33 ++++++++++++++++++---------------
- tools/perf/util/pmu.h         |  4 +++-
- tools/perf/util/tool_pmu.c    |  2 +-
- 6 files changed, 26 insertions(+), 21 deletions(-)
+ tools/perf/util/pmu.c  |  31 +++++++
+ tools/perf/util/pmu.h  |   1 +
+ tools/perf/util/pmus.c | 205 +++++++++++++++++++++++++++++++++++++++++
+ tools/perf/util/pmus.h |   2 +
+ 4 files changed, 239 insertions(+)
 
-diff --git a/tools/perf/tests/pmu-events.c b/tools/perf/tests/pmu-events.c
-index f507ce39439a..cbcc01227a76 100644
---- a/tools/perf/tests/pmu-events.c
-+++ b/tools/perf/tests/pmu-events.c
-@@ -514,7 +514,7 @@ static int __test_core_pmu_event_aliases(const char *pmu_name, int *count)
- 	if (!pmu)
- 		return -1;
- 
--	if (perf_pmu__init(pmu, PERF_PMU_TYPE_FAKE, pmu_name) != 0) {
-+	if (perf_pmu__init(pmu, PERF_PMU_TYPE_FAKE, pmu_name, /*from_env=*/false) != 0) {
- 		perf_pmu__delete(pmu);
- 		return -1;
- 	}
-@@ -566,7 +566,7 @@ static int __test_uncore_pmu_event_aliases(struct perf_pmu_test_pmu *test_pmu)
- 	if (!pmu)
- 		return -1;
- 
--	if (perf_pmu__init(pmu, PERF_PMU_TYPE_FAKE, test_pmu->pmu_name) != 0) {
-+	if (perf_pmu__init(pmu, PERF_PMU_TYPE_FAKE, test_pmu->pmu_name, /*from_env=*/false) != 0) {
- 		perf_pmu__delete(pmu);
- 		return -1;
- 	}
-diff --git a/tools/perf/util/drm_pmu.c b/tools/perf/util/drm_pmu.c
-index b8badae7015c..03764efb3342 100644
---- a/tools/perf/util/drm_pmu.c
-+++ b/tools/perf/util/drm_pmu.c
-@@ -116,7 +116,7 @@ static struct drm_pmu *add_drm_pmu(struct list_head *pmus, char *line, size_t li
- 	if (!drm)
- 		return NULL;
- 
--	if (perf_pmu__init(&drm->pmu, type, name) != 0) {
-+	if (perf_pmu__init(&drm->pmu, type, name, /*from_env=*/false) != 0) {
- 		perf_pmu__delete(&drm->pmu);
- 		return NULL;
- 	}
-diff --git a/tools/perf/util/hwmon_pmu.c b/tools/perf/util/hwmon_pmu.c
-index 96aeb379e169..d9e41eb88b6d 100644
---- a/tools/perf/util/hwmon_pmu.c
-+++ b/tools/perf/util/hwmon_pmu.c
-@@ -365,7 +365,7 @@ struct perf_pmu *hwmon_pmu__new(struct list_head *pmus, const char *hwmon_dir,
- 	if (!hwm)
- 		return NULL;
- 
--	if (perf_pmu__init(&hwm->pmu, type, buf) != 0) {
-+	if (perf_pmu__init(&hwm->pmu, type, buf, /*from_env=*/false) != 0) {
- 		perf_pmu__delete(&hwm->pmu);
- 		return NULL;
- 	}
 diff --git a/tools/perf/util/pmu.c b/tools/perf/util/pmu.c
-index 01753d5c69d1..bb2e79802def 100644
+index bb2e79802def..cd8211f87291 100644
 --- a/tools/perf/util/pmu.c
 +++ b/tools/perf/util/pmu.c
-@@ -1188,9 +1188,10 @@ static bool aliases__equal(long key1, long key2, void *ctx __maybe_unused)
- 	return strcasecmp((const char *)key1, (const char *)key2) == 0;
+@@ -2565,6 +2565,37 @@ static int perf_pmu__new_caps(struct list_head *list, char *name, char *value)
+ 	return -ENOMEM;
  }
  
--int perf_pmu__init(struct perf_pmu *pmu, __u32 type, const char *name)
-+int perf_pmu__init(struct perf_pmu *pmu, __u32 type, const char *name, bool from_env)
- {
- 	pmu->type = type;
-+	pmu->from_env = from_env;
- 	INIT_LIST_HEAD(&pmu->format);
- 	INIT_LIST_HEAD(&pmu->caps);
- 
-@@ -1240,7 +1241,7 @@ struct perf_pmu *perf_pmu__lookup(struct list_head *pmus, int dirfd, const char
- 	if (!pmu)
- 		return NULL;
- 
--	if (perf_pmu__init(pmu, PERF_PMU_TYPE_FAKE, name) != 0) {
-+	if (perf_pmu__init(pmu, PERF_PMU_TYPE_FAKE, name, /*from_env=*/false) != 0) {
- 		perf_pmu__delete(pmu);
- 		return NULL;
- 	}
-@@ -2118,11 +2119,11 @@ bool perf_pmu__have_event(struct perf_pmu *pmu, const char *name)
- 	if (perf_pmu__is_tool(pmu) && tool_pmu__skip_event(name))
- 		return false;
- 	if (perf_pmu__is_tracepoint(pmu))
--		return tp_pmu__have_event(pmu, name);
-+		return pmu->from_env ? false : tp_pmu__have_event(pmu, name);
- 	if (perf_pmu__is_hwmon(pmu))
--		return hwmon_pmu__have_event(pmu, name);
-+		return pmu->from_env ? false : hwmon_pmu__have_event(pmu, name);
- 	if (perf_pmu__is_drm(pmu))
--		return drm_pmu__have_event(pmu, name);
-+		return pmu->from_env ? false : drm_pmu__have_event(pmu, name);
- 	if (perf_pmu__find_alias(pmu, name, /*load=*/ true) != NULL)
- 		return true;
- 	if (pmu->cpu_aliases_added || (!pmu->events_table && !pmu->is_core))
-@@ -2139,11 +2140,11 @@ size_t perf_pmu__num_events(struct perf_pmu *pmu)
- 	size_t nr;
- 
- 	if (perf_pmu__is_tracepoint(pmu))
--		return tp_pmu__num_events(pmu);
-+		return pmu->from_env ? 0 : tp_pmu__num_events(pmu);
- 	if (perf_pmu__is_hwmon(pmu))
--		return hwmon_pmu__num_events(pmu);
-+		return pmu->from_env ? 0 : hwmon_pmu__num_events(pmu);
- 	if (perf_pmu__is_drm(pmu))
--		return drm_pmu__num_events(pmu);
-+		return pmu->from_env ? 0 : drm_pmu__num_events(pmu);
- 
- 	pmu_aliases_parse(pmu);
- 	nr = pmu->sysfs_aliases + pmu->sys_json_aliases;
-@@ -2275,11 +2276,11 @@ int perf_pmu__for_each_event(struct perf_pmu *pmu, bool skip_duplicate_pmus,
- 	size_t size_rem;
- 
- 	if (perf_pmu__is_tracepoint(pmu))
--		return tp_pmu__for_each_event(pmu, state, cb);
-+		return pmu->from_env ? 0 : tp_pmu__for_each_event(pmu, state, cb);
- 	if (perf_pmu__is_hwmon(pmu))
--		return hwmon_pmu__for_each_event(pmu, state, cb);
-+		return pmu->from_env ? 0 : hwmon_pmu__for_each_event(pmu, state, cb);
- 	if (perf_pmu__is_drm(pmu))
--		return drm_pmu__for_each_event(pmu, state, cb);
-+		return pmu->from_env ? 0 : drm_pmu__for_each_event(pmu, state, cb);
- 
- 	pmu_aliases_parse(pmu);
- 	pmu_add_cpu_aliases(pmu);
-@@ -2784,10 +2785,12 @@ void perf_pmu__delete(struct perf_pmu *pmu)
- 	if (!pmu)
- 		return;
- 
--	if (perf_pmu__is_hwmon(pmu))
--		hwmon_pmu__exit(pmu);
--	else if (perf_pmu__is_drm(pmu))
--		drm_pmu__exit(pmu);
-+	if (!pmu->from_env) {
-+		if (perf_pmu__is_hwmon(pmu))
-+			hwmon_pmu__exit(pmu);
-+		else if (perf_pmu__is_drm(pmu))
-+			drm_pmu__exit(pmu);
++int perf_pmu__add_cap(struct perf_pmu *pmu, const char *name, const char *value)
++{
++	struct perf_pmu_caps *caps;
++
++	if (!pmu || !name || !value)
++		return -EINVAL;
++	if (perf_pmu__get_cap(pmu, name))
++		return 0;
++
++	caps = zalloc(sizeof(*caps));
++	if (!caps)
++		return -ENOMEM;
++
++	caps->name = strdup(name);
++	if (!caps->name) {
++		free(caps);
++		return -ENOMEM;
 +	}
- 
- 	perf_pmu__del_formats(&pmu->format);
- 	perf_pmu__del_aliases(pmu);
++	caps->value = strdup(value);
++	if (!caps->value) {
++		zfree(&caps->name);
++		free(caps);
++		return -ENOMEM;
++	}
++	list_add_tail(&caps->list, &pmu->caps);
++	pmu->nr_caps++;
++	if (!strcmp(name, "max_precise"))
++		pmu->max_precise = atoi(value);
++	return 0;
++}
++
+ static void perf_pmu__del_caps(struct perf_pmu *pmu)
+ {
+ 	struct perf_pmu_caps *caps, *tmp;
 diff --git a/tools/perf/util/pmu.h b/tools/perf/util/pmu.h
-index 2c8916ad073e..44212f6361c7 100644
+index 44212f6361c7..adb33a9fc94b 100644
 --- a/tools/perf/util/pmu.h
 +++ b/tools/perf/util/pmu.h
-@@ -161,6 +161,8 @@ struct perf_pmu {
- 	uint32_t cpu_common_json_aliases;
- 	/** @sysfs_aliases_loaded: Are sysfs aliases loaded from disk? */
- 	bool sysfs_aliases_loaded;
-+	/** @from_env: Was the PMU reconstructed from a perf_env header? */
-+	bool from_env;
- 	/**
- 	 * @cpu_aliases_added: Have all json events table entries for the PMU
- 	 * been added?
-@@ -345,7 +347,7 @@ int perf_pmu__pathname_scnprintf(char *buf, size_t size,
- int perf_pmu__event_source_devices_fd(void);
- int perf_pmu__pathname_fd(int dirfd, const char *pmu_name, const char *filename, int flags);
+@@ -331,6 +331,7 @@ bool pmu_uncore_identifier_match(const char *compat, const char *id);
+ int perf_pmu__convert_scale(const char *scale, char **end, double *sval);
  
--int perf_pmu__init(struct perf_pmu *pmu, __u32 type, const char *name);
-+int perf_pmu__init(struct perf_pmu *pmu, __u32 type, const char *name, bool from_env);
- struct perf_pmu *perf_pmu__lookup(struct list_head *pmus, int dirfd, const char *lookup_name,
- 				  bool eager_load);
- struct perf_pmu *perf_pmu__create_placeholder_core_pmu(struct list_head *core_pmus);
-diff --git a/tools/perf/util/tool_pmu.c b/tools/perf/util/tool_pmu.c
-index d2f7591747d9..6054d5d5aece 100644
---- a/tools/perf/util/tool_pmu.c
-+++ b/tools/perf/util/tool_pmu.c
-@@ -714,7 +714,7 @@ struct perf_pmu *tool_pmu__new(void)
- 	if (!tool)
- 		return NULL;
+ struct perf_pmu_caps *perf_pmu__get_cap(struct perf_pmu *pmu, const char *name);
++int perf_pmu__add_cap(struct perf_pmu *pmu, const char *name, const char *value);
  
--	if (perf_pmu__init(tool, PERF_PMU_TYPE_TOOL, "tool") != 0) {
-+	if (perf_pmu__init(tool, PERF_PMU_TYPE_TOOL, "tool", /*from_env=*/false) != 0) {
- 		perf_pmu__delete(tool);
- 		return NULL;
- 	}
+ int perf_pmu__caps_parse(struct perf_pmu *pmu);
+ 
+diff --git a/tools/perf/util/pmus.c b/tools/perf/util/pmus.c
+index 1355b317f3ed..ea727d577c89 100644
+--- a/tools/perf/util/pmus.c
++++ b/tools/perf/util/pmus.c
+@@ -7,13 +7,16 @@
+ #include <subcmd/pager.h>
+ #include <sys/types.h>
+ #include <ctype.h>
++#include <errno.h>
+ #include <pthread.h>
++#include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
+ #include "cpumap.h"
+ #include "debug.h"
+ #include "drm_pmu.h"
++#include "env.h"
+ #include "evsel.h"
+ #include "pmus.h"
+ #include "pmu.h"
+@@ -916,3 +919,205 @@ struct perf_pmu *perf_pmus__fake_pmu(void)
+ 
+ 	return &fake;
+ }
++
++static bool env_is_pmu_core(const char *name, struct perf_env *env)
++{
++	if (!strcmp(name, "cpu") || !strcmp(name, "cpum_cf") ||
++	    !strcmp(name, "default_core") || strstarts(name, "cpu_") ||
++	    strstarts(name, "armv") ||
++	    (strstarts(name, "apple_") && strstr(name, "_pmu")))
++		return true;
++
++	if (env && env->hybrid_nodes) {
++		for (int i = 0; i < env->nr_hybrid_nodes; i++) {
++			const char *pmu_name = env->hybrid_nodes[i].pmu_name;
++
++			if (pmu_name && !strcmp(name, pmu_name))
++				return true;
++		}
++		return false;
++	}
++
++	if (!env || !strcmp(perf_env__arch(env), perf_env__arch(NULL)))
++		return is_pmu_core(name);
++
++	return false;
++}
++
++static struct perf_pmu *env_pmu_find_or_add(const char *name, __u32 type,
++					    struct perf_env *env,
++					    const struct pmu_events_table *core_table)
++{
++	struct perf_pmu *pmu = pmu_find(name);
++
++	if (pmu) {
++		if (pmu->type == PERF_PMU_TYPE_FAKE && type != PERF_PMU_TYPE_FAKE)
++			pmu->type = type;
++		return pmu;
++	}
++
++	pmu = zalloc(sizeof(*pmu));
++	if (!pmu)
++		return NULL;
++
++	if (perf_pmu__init(pmu, type, name, /*from_env=*/true) != 0) {
++		perf_pmu__delete(pmu);
++		return NULL;
++	}
++
++	pmu->sysfs_aliases_loaded = true;
++	pmu->caps_initialized = true;
++	pmu->max_precise = -1;
++	pmu->is_core = env_is_pmu_core(name, env);
++	pmu->is_uncore = strstarts(name, "uncore_");
++
++	if (!strcmp(name, "software") || !strcmp(name, "tool"))
++		pmu->events_table = perf_pmu__default_core_events_table();
++	else if (core_table && (pmu->is_core || pmu->is_uncore))
++		pmu->events_table = core_table;
++
++	list_add_tail(&pmu->list, pmu->is_core ? &core_pmus : &other_pmus);
++	return pmu;
++}
++
++static void env_pmu_add_caps_strings(struct perf_pmu *pmu, int nr_caps, char **caps)
++{
++	if (!pmu || nr_caps <= 0 || !caps)
++		return;
++
++	for (int i = 0; i < nr_caps; i++) {
++		const char *eq;
++
++		if (!caps[i])
++			continue;
++		eq = strchr(caps[i], '=');
++
++		if (eq) {
++			char *key = strndup(caps[i], eq - caps[i]);
++
++			if (key) {
++				perf_pmu__add_cap(pmu, key, eq + 1);
++				free(key);
++			}
++		} else {
++			perf_pmu__add_cap(pmu, caps[i], "");
++		}
++	}
++}
++
++int perf_pmus__read_from_env(struct perf_env *env)
++{
++	const struct pmu_events_table *core_table = NULL;
++	struct perf_pmu *pmu;
++
++	if (!env)
++		return -EINVAL;
++
++	perf_pmus__destroy();
++	read_pmu_types = PERF_TOOL_PMU_TYPE_ALL_MASK;
++
++	if (env->cpuid) {
++		const char *arch = perf_env__arch(env);
++		char cpuid_str[128];
++		char vendor[32];
++		unsigned int family, model, step;
++		char extra;
++
++		core_table = find_core_events_table(arch, env->cpuid);
++		/*
++		 * x86 HEADER_CPUID stores "vendor,family,model,step" in decimal
++		 * while pmu-events tables match "vendor-family-HEXMODEL[-HEXSTEP]".
++		 */
++		if (!core_table && !strcmp(arch, "x86") &&
++		    sscanf(env->cpuid, "%31[^,],%u,%u,%u%c",
++			   vendor, &family, &model, &step, &extra) == 4) {
++			snprintf(cpuid_str, sizeof(cpuid_str), "%s-%u-%X-%X",
++				 vendor, family, model, step);
++			core_table = find_core_events_table(arch, cpuid_str);
++			if (!core_table) {
++				snprintf(cpuid_str, sizeof(cpuid_str), "%s-%u-%X",
++					 vendor, family, model);
++				core_table = find_core_events_table(arch, cpuid_str);
++			}
++		}
++	}
++
++	/* 1. Populate from HEADER_PMU_MAPPINGS */
++	if (env->nr_pmu_mappings > 0 && env->pmu_mappings) {
++		char *str = env->pmu_mappings;
++
++		for (int i = 0; i < env->nr_pmu_mappings; i++) {
++			char *colon = NULL;
++			unsigned long type = strtoul(str, &colon, 0);
++
++			if (!colon || *colon != ':')
++				break;
++			str = colon + 1;
++			env_pmu_find_or_add(str, (__u32)type, env, core_table);
++			str += strlen(str) + 1;
++		}
++	}
++
++	/* 2. Populate/enrich from HEADER_HYBRID_TOPOLOGY */
++	for (int i = 0; i < env->nr_hybrid_nodes; i++) {
++		struct hybrid_node *hn = &env->hybrid_nodes[i];
++
++		if (!hn->pmu_name)
++			continue;
++		pmu = env_pmu_find_or_add(hn->pmu_name, PERF_PMU_TYPE_FAKE,
++					  env, core_table);
++		if (!pmu)
++			continue;
++		if (!pmu->is_core) {
++			pmu->is_core = true;
++			if (!pmu->events_table && core_table)
++				pmu->events_table = core_table;
++			list_move_tail(&pmu->list, &core_pmus);
++		}
++		if (hn->cpus && !pmu->cpus)
++			pmu->cpus = perf_cpu_map__new(hn->cpus);
++	}
++
++	/*
++	 * 3. Populate/enrich from HEADER_CPU_PMU_CAPS.
++	 * On hybrid systems HEADER_CPU_PMU_CAPS duplicates the first core PMU
++	 * while HEADER_PMU_CAPS has the per-PMU capabilities, so only create a
++	 * "cpu" PMU entry if no core PMUs exist yet.
++	 */
++	if (env->nr_cpu_pmu_caps > 0 && env->cpu_pmu_caps) {
++		pmu = pmu_find("cpu");
++		if (!pmu && list_empty(&core_pmus)) {
++			pmu = env_pmu_find_or_add("cpu", PERF_TYPE_RAW,
++						  env, core_table);
++		}
++		if (pmu)
++			env_pmu_add_caps_strings(pmu, env->nr_cpu_pmu_caps, env->cpu_pmu_caps);
++	}
++
++	/* 4. Populate/enrich from HEADER_PMU_CAPS */
++	for (int i = 0; i < env->nr_pmus_with_caps; i++) {
++		struct pmu_caps *pc = &env->pmu_caps[i];
++
++		if (!pc->pmu_name)
++			continue;
++		pmu = env_pmu_find_or_add(pc->pmu_name, PERF_PMU_TYPE_FAKE,
++					  env, core_table);
++		if (pmu)
++			env_pmu_add_caps_strings(pmu, pc->nr_caps, pc->caps);
++	}
++
++	/* 5. Set default core CPUs on non-hybrid systems */
++	if (env->nr_cpus_avail > 0 && env->nr_hybrid_nodes == 0) {
++		char buf[64];
++
++		snprintf(buf, sizeof(buf), "0-%d", env->nr_cpus_avail - 1);
++		list_for_each_entry(pmu, &core_pmus, list) {
++			if (!pmu->cpus)
++				pmu->cpus = perf_cpu_map__new(buf);
++		}
++	}
++
++	list_sort(NULL, &core_pmus, pmus_cmp);
++	list_sort(NULL, &other_pmus, pmus_cmp);
++	return 0;
++}
+diff --git a/tools/perf/util/pmus.h b/tools/perf/util/pmus.h
+index 0d55edb3f2fc..d1646f91036e 100644
+--- a/tools/perf/util/pmus.h
++++ b/tools/perf/util/pmus.h
+@@ -6,6 +6,7 @@
+ #include <stddef.h>
+ 
+ struct perf_event_attr;
++struct perf_env;
+ struct perf_pmu;
+ struct print_callbacks;
+ 
+@@ -14,6 +15,7 @@ size_t pmu_name_len_no_suffix(const char *str);
+ int pmu_name_cmp(const char *lhs_pmu_name, const char *rhs_pmu_name);
+ 
+ void perf_pmus__destroy(void);
++int perf_pmus__read_from_env(struct perf_env *env);
+ 
+ struct perf_pmu *perf_pmus__find(const char *name);
+ struct perf_pmu *perf_pmus__find_by_type(unsigned int type);
 -- 
 2.56.0.212.g129ede20d9-goog
 
