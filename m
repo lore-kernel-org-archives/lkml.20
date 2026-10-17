@@ -1,140 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F42C134CF;
-	Sat, 17 Oct 2026 21:28:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C177C3890E1
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 21:30:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792272521; cv=none; b=aMM9QpFhKDSKielv0eyIW11n9R+1YJtkSTdVpHaShiO3r032YCWfVYfB4dRILTUbQzO0SNPbWOGj0S5mCG1e5DueqoKRf5MXpxPg3Hh1fDNSmMa1BVBDdDojnWNfRvtCAO3L660G39/SBTIVPj+TfEbZxVElVpAeJX3mGRef8ag=
+	t=1792272653; cv=none; b=W0qBXFCxI7ZUOwXUF6P8RXH4e8JPbfsCuPJswlP9W57I9NyOhpJiry+9jS8ReJ7ttygloiDJzxpEVQ8V0yv6tRa+m/LLkO/KkiYVaOqIARRQmQsZNduU84370GieT0Dq5ZGQSpN4k5ftATDbKln8KxWJbSkIqeh7p8P/IMR3Eog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792272521; c=relaxed/simple;
-	bh=X+lKRu8sRWKE1hyitt1Q8JaNlh/A3yDu4gemrdN5gKc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dVmpTfv7OMy+uaCYbbzsH3lApaU/TcI7RBVUAlVv2Gq3/nxHyJzgKIMNXzX6++FknRNopIn3tsqpggIsE0jHyTwWsMpntSUfwrGmt4GkLz8eGZe3SHSj3VlxsPBB0hm32Pd0vCO7Hb2NQC3Jxt/KXameYhHbdtSr9iMAFR0AzH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I4D7HjH2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792272653; c=relaxed/simple;
+	bh=5qhJN09YPyNt7EZtN1s5WGSWuaIkBGhCn6fyXrrantY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KsFVzzPoyh92KkpzcQApYW14cqVS++TEknbLU6dFN8M1oNgGnXyxKbkcdO4SOAPbTvoPTqMHTjj/rcjNFH9efW/tNrdxkrdrcXXOXq5kk0EBxyWNfVLK8O8dBYrw9PVPUZ84O8vMB/Tlf2VTf3/xdm/R6UfI7ymOWum/N8RL//Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SEuvMRao; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I4D7HjH2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7EF21F000C4;
-	Sat, 17 Oct 2026 21:28:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792272519;
-	bh=q1BVkb5pmkK8UJqeVh978rmRoLp0JDE22LJYmcbLRJo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=I4D7HjH2AS1v54dqU+OJHOXlhChdAc8jXe/P8Og6U6nQVeE34BjsxLv48T0qH4941
-	 /W/qqdqljcF1RIXxxs/IHTwqEHv25tp8ze5se7acrAbdEknILi3RG1nf0PHnNgKttP
-	 ZdI+n8SKuMzaQZIVbmmSanlHaImO2fSzrq4Oc9P0e0vlZlTbvpFOZDekHsz7Ev99hK
-	 os8gGqBTu73sLleGMkSB1Z14voTmZIDADDNJUePfqdn0zAIChu/RU1fZhmVQDw2Y39
-	 0XPm0KSxxU/aVI55uKsiTOT0lvBvyYAEej2dYXds6l6q1hyBY1taAsQalLfuefPcZj
-	 wHy2zOrNLjuwA==
-Message-ID: <e7c16b26-9525-4a54-8098-20148c8461a9@kernel.org>
-Date: Sat, 17 Oct 2026 22:28:34 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SEuvMRao"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e60f9af6e6so6483495ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:30:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792272652; x=1792877452; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FiD6sMCpVV/13PjivmVbngyELUrVKdk1SGBNZwIKdms=;
+        b=SEuvMRaoDnR70YxfH2R0kxKYCNctK3PbgeWEbr2METrXbf8L46/HGQ8KzMM9lOZlDq
+         8/rTsz6ruJ56bVGshg8wAXbe1crTU26AOVym9d/Jk03HMue+MLEfqaWm81Ui6y4tJ+Pa
+         0/MZSp7ZEk7f/TpxMTDg9qizaTPSkh1auObPVzoA6Ek+IoOj+GjZfdXrmHjgIKDIKNX8
+         FJ+wmuPmg4JefDQ2IdLuZHBfzqLzwNr8w3ROBVkidUTbakDmKvh5twTy2x88TPcBmH6i
+         Dhz+IQ3iyIvkLNHhOqOo8rHK/9im9zE55thOIljs6NolBzf2Gj0M+IeobH2N0MqJeOPa
+         DtxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792272652; x=1792877452;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FiD6sMCpVV/13PjivmVbngyELUrVKdk1SGBNZwIKdms=;
+        b=eswD6oY8qffBIbxFh9zLy21xYwep31F4adNG4HB0uqvL1r2qbC645zWaV5sKgbgI5W
+         p5YRryop8edG8SjTB8UYdcMwqK/H0xke7TKtzTMhIF9N+y3rFzhbiAj6f1H4apazzr6F
+         Mbwxi0LmOfN5h/YQJY5isWtzEDycVNypN5wlJbqwls02RY7iw/lxB/wA4bZZ06wfDs2N
+         SzOc/LtcPS4DwgHKSwP5PbonAvV55I/6aBT6duxI2ElplTzbUpjakRXQGQmzcSTs2WHg
+         yI0WZMhTgiM1P1nmntbcJ6i97IQK9qYGJsrmFIDTV8qYA4ZsPtlf+JouDk2VoadYZaiH
+         GLvw==
+X-Forwarded-Encrypted: i=1; AKwUvBzlC3epQ511DyBstiPRj/Q9Ozyf2Tm0Lqdk+mwipNoRy79zfUMbaINw9HZBkWN1dohwIQKlBUcqEyrBIuY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjQX2/6i+mDkxx0REagqhxgHeTQamhTTmNPxm3YQaBLpzyw98D
+	CFAnvN3j+dHieYAN61X/TOKQ0YxvFEuMIHsyux/9Y1fYA+Er9ng5pEIQ
+X-Gm-Gg: AYBFou0KsF9hCrCBWFSQMo89kCSU4Cd7Ts0FgQ5PRGh4SLlu4QOd+NELgf+qAlIW8PL
+	zVd+6irUaNa16xZ13JZ+uISCM8gdlWSmaey9Y7OWofC3Wg3EQv8hyTujDS4Dda4HRG1TLJAeBTb
+	wxuYdcAz0FtAThapFeH3LSEb94cZl8yK6yzKfNJjfEQop5R4NXRsTuHKZAUR/JS6rex3eXXyW0g
+	zC7VTNd0NyJslbm4lcwTHYKRJLYyKxZxMshUB8gjhCdYNzq76qbhGj8TbeQR/03gmVItu2xIgtH
+	8kKWh5F5xUrP+ZMCpCTtY9F8YvE27N1+u27U9Xmj2svzmS+3rEEixC1XVQrazzGX9zCvURzli+G
+	ElimTEwX03hkU2gqhhurOid5E9VbfGclsPB1QIP9+mkrhJisrVA+1ae4ccwTqYfdk5nynbJskVp
+	5FekJnl2ngGy4Mm2cwR2LKb2+j1jxVuyKOCfiaj+17WgtuYo8skrFR841jE4Ji8GGGyZsT1XO3R
+	a7NwCE43L5ramZqNhVEL69ieCjXkeF0WlOw8Q9l9qOcuhuZ1CMSIf9DbLNEd1cueu9ymA6Nzkdd
+	CK71fvgHyFSFDu3pLoeNYlvbarVRFoXABI+o2mCxG+WUV5ga
+X-Received: by 2002:a17:902:d2ca:b0:2dd:c100:3133 with SMTP id d9443c01a7336-2e9a6c208f0mr34763315ad.47.1792272651972;
+        Sat, 17 Oct 2026 14:30:51 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e37])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e8758efsm22848825ad.55.2026.10.17.14.30.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 14:30:50 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: Larry Finger <Larry.Finger@lwfinger.net>,
+	Kalle Valo <kvalo@kernel.org>,
+	b43-dev@lists.infradead.org (open list:B43 WIRELESS DRIVER),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH wireless] wifi: b43: encrypt robust management frames in software
+Date: Sat, 17 Oct 2026 14:30:47 -0700
+Message-ID: <20261017213047.1160219-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: Add OmniVision OV13858
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: geocausa@gmail.com, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>,
- German Pablo Lindo <germanpapulindez@gmail.com>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
- <Tb0AcYbDPldfaB1S1ypqTPp6iFwxJVF_1Dh_7FJdavARv0U5KErpuPTQn6FNDYBoK206hZlqZHDsasGYmQx4zg==@protonmail.internalid>
- <20261015-ov13858-x1e-v1-1-acdd918f4fb6@gmail.com>
- <4359bff8-edb2-486a-8d41-38bd315a4430@kernel.org>
- <37my1V7zvAlADVEwmO3aSm1XZe6SLHeQnj8AYh3sVO_3mGc4_lWX-abstYbqLBYAZpvFXdbELWYmRoOF-HKavw==@protonmail.internalid>
- <20261017-successful-sturgeon-of-experiment-9d8caa@quoll>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261017-successful-sturgeon-of-experiment-9d8caa@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17/10/2026 17:57, Krzysztof Kozlowski wrote:
-> On Fri, Oct 16, 2026 at 09:49:16PM +0100, Bryan O'Donoghue wrote:
->> On 15/10/2026 22:48, George Neacsu via B4 Relay wrote:
->>> +  - clocks
->>> +  - avdd-supply
->>> +  - dovdd-supply
->>> +  - dvdd-supply
->>
->> The clocks, supplies and resets should all be optional as nothing says Linux
->> must control any of those on every system.
->>
->> i.e. you might have a co-processor or CPLD which owns the reset, power-rails
->> and the clock might not come from the SoC.
-> 
-> That would mean that every other binding/device would have them
-> optional. What Linux controls or does not, is not really important here
-> - these are required in the board design.
-> 
-> Best regards,
-> Krzysztof
+b43 sets MFP_CAPABLE, and uploads CCMP keys to the hardware with only
+IEEE80211_KEY_FLAG_GENERATE_IV. mac80211 then leaves the encryption of
+robust management frames to the hardware as well. The hardware
+encrypts every frame as a data frame, but the CCMP nonce and AAD of a
+management frame are built differently, so the peer discards these
+frames.
 
-Yeah I take your point, they should be optional in the driver. Actually 
-though we don't always know or represent a regulator for example or the 
-regulator can be on a daughter board - as is common on Laptops.
+Under MFP, this hits the block ack action frames. On a BCM4331 with HT
+enabled, associated to an access point that uses PMF, the access point
+never gets the ADDBA response of the BCM4331. It waits about 100 ms
+for it, sends its frames without aggregation, and asks again with the
+next frames it has queued, so pings take 103 ms every few frames. The
+TX block ack sessions of the BCM4331 never start either. A capture on
+a second card shows the protected ADDBA exchange before every delayed
+reply, and a new dialog each time.
 
-What is the DT policy for that ? My own understanding was that it is 
-better to not require all the regulators from the DT description and 
-leave it up to the individual DTs to describe what can be described.
+Set IEEE80211_KEY_FLAG_SW_MGMT_TX on CCMP keys, so that mac80211
+encrypts robust management frames in software. Data frames are still
+encrypted in hardware.
 
-Should we have a fake regulator - or reuse one ?
+With this, the block ack sessions start in both directions, ping times
+go from 146 ms average and 918 ms maximum to 2.6 ms and 3.2 ms, and
+iperf3 from 11 to 43 Mbit/s down and from 11 to 41 Mbit/s up on a
+BCM94311CD.
 
-OK the LLM tells me that I should have 'regulator-fixed' for that case 
-always-on, no GPIO, so describing a regulator we know exists but can't 
-actually control, hmm.
-
-Fair enough, that's the answer.
-
+Fixes: 75d057bda1fb ("b43: Fix connection problem with WPA3")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
-bod
+ drivers/net/wireless/broadcom/b43/main.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/net/wireless/broadcom/b43/main.c b/drivers/net/wireless/broadcom/b43/main.c
+index 3825b6ad9f4f..6d7c81c98e43 100644
+--- a/drivers/net/wireless/broadcom/b43/main.c
++++ b/drivers/net/wireless/broadcom/b43/main.c
+@@ -4266,6 +4266,12 @@ static int b43_op_set_key(struct ieee80211_hw *hw, enum set_key_cmd cmd,
+ 		key->flags |= IEEE80211_KEY_FLAG_GENERATE_IV;
+ 		if (algorithm == B43_SEC_ALGO_TKIP)
+ 			key->flags |= IEEE80211_KEY_FLAG_GENERATE_MMIC;
++		/*
++		 * The hardware encrypts every frame as a data frame, which
++		 * is wrong for robust management frames under MFP.
++		 */
++		if (algorithm == B43_SEC_ALGO_AES)
++			key->flags |= IEEE80211_KEY_FLAG_SW_MGMT_TX;
+ 		break;
+ 	case DISABLE_KEY: {
+ 		err = b43_key_clear(dev, key->hw_key_idx);
+-- 
+2.56.0
+
