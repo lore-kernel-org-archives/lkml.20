@@ -1,130 +1,198 @@
-Received: from mail-pz2-f2.google.com (mail-pz2-f2.google.com [74.125.228.2])
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9935A3E6394
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:45:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458633D567A
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792215927; cv=none; b=hmmB6HiryZHmIiebBzFLriaTAGU+Vd6c340kkhMjXjX0yYE5ePZ5BSZ+7w0+79u7HyyIewOhTpyQ8P6juo4WCzrKGdXNUClPGxgx6Xnvlwq1W614WlLP1+YdxnyypirHnRZWbXkYGgnnGX1TTjnNBDUKxSt35Ayh8+TlCl1qbt8=
+	t=1792215986; cv=none; b=uYTAuq6UQnL8LCf/XzFt4SKX72vIcKklPk56Pgg7C/IQ/EO6p98zD1Wz9/tSPb1joZl5+Vib1FFAVPoBj+q/+td7uQtbYLYN8ZrdtW66u2waeysbxPZDh+CXZ251ygUbsULWN2dICuOlP8YUk+V/aps+fMsR0/2PHFac5sx+Jng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792215927; c=relaxed/simple;
-	bh=77hqLc9J7JNzbmg7AMorhPOB16l5fiuXalMgNBngkQc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QHxdIgYn509diKPk95pMGkLlRzsIg1YhcP/dU81/kpIYiHRfZ6X2MIoKgh3FP1RrsDxowDsZSjhYK6b5+gvxgdzSTbZXjEJDXLC7OZA6Zcl7JR59uCsAhYOOihG4z5ikQ9mj1yMusdqYPvvrcek7Iuzp7mYn3SpI4Vm90T7f6C0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kaDuDKG1; arc=none smtp.client-ip=74.125.228.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792215986; c=relaxed/simple;
+	bh=oRoToiON3ZaD1lI1MPyxw1i6r2WmBIZ4K/66dw+svII=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=CgLrUWkRxJdBd3Ag04o1feveX20bndQ8BDbq+C2o2U8dufM2POt37Qae8BhGJGfYKuuVPoEQwZhQhdFndtlEROeTdKL1BfSey5EZJSGF+Y20yENRavH9TP8dj4KtLe/6YYOLTccZ7fEyqZpcKbh7QLfFOr8s8OmASiCb4S8sH+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HutJpr3j; arc=none smtp.client-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kaDuDKG1"
-Received: by mail-pz2-f2.google.com with SMTP id 41be03b00d2f7-ccc451ef3a7so103603a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:45:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HutJpr3j"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30bcb065bfdso963804eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:46:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792215926; x=1792820726; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yY8SyQWcSYsDi8cm3rA+aW2F8vWLi9p/feyMtYn7Pcg=;
-        b=kaDuDKG136hNm5tp9UX79/0FF1Mun9gn5tmDLxEe7NWNGc9+4IcOncJ+C/GjIyg04q
-         RPCYATQtAX9SbZx/GtS6I9J1cVFL1tJG5A/edKXOhyvhu/Q/kKOS1lWE8CsR5h4nHi4j
-         a6n7WQmPTBRijHwci0inGaeNd9wtE4udu5AUzD9JInrxqAl1ntepN2swaLZqEI6m5L7f
-         d0HWj/1NhmpCkGj6GwtQJX8w0ciDDVdKRIXHkg8Wv67s6arF3zu4b6MjM6oPjAG1BcxO
-         k2IMrIvJVZ2JQFKNjQz/9ppY2BE2t2hiw3xMrWqQqgzSbCnsVblJlAT1Y3hDfZBhynlj
-         MeQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792215926; x=1792820726;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20251104; t=1792215984; x=1792820784; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yY8SyQWcSYsDi8cm3rA+aW2F8vWLi9p/feyMtYn7Pcg=;
-        b=CH4Or3svXAqeFxyVu9QbIZ27f5uhoRwUhIOjI6BMC9xQ7JFF2/5Uz6w054kagIFW81
-         B3dOjQFxcO6IbewoLqx+7f8030/sSIwfRZNujxO/ff5VIYwpf00GypMOhQnDk7aBtLcO
-         lGa55CEv+8a7rbcbiGs0av5haxVkbrQO7o3TVnzhDQb9/fLHid7hAOdLMizLEmP1eypH
-         2Fc//1M9X8Os8pa4noi9d6KOq076Al3mvEJT9tiMds9voWQNwvJ5td236pOVlk93EIzJ
-         qzABfd7W00hNPp4PnxmbmSqvkI8RbSM0jZ06lJTcLn8c6u6FYqh4MVmeIHY9g+zhvXwG
-         x3vA==
-X-Forwarded-Encrypted: i=1; AKwUvBy5FEAPVZj2q5+PDD5K3vGTcalcqkKruJjXPoaIUi1LWdoX/XK2t8ttC4EFoCO2BPQ3X5PPQ41FevP7s6s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3+hEJXWiC+dztFT8giD0fwb81GoVfd7SnWtMruVzP/6UigpNg
-	4DOzZ9HOx/DmKOO4VEFnjeaW1iT0L9TW//yUWQbeFJog5VLypDDJ9p/c
-X-Gm-Gg: AYBFou2F2XNgaJv3wvNtRJ+FWEDori1IhyFyrt6gkt9HbBQlj7msq40Y9CzmG02yyNc
-	dmrOrPwpohrd/EmH3um/mpVjpkNELDetBkN8AfDvIr13V4YcZ9fCH6+5leVW3535QT4N76gDRCz
-	MJnxSXF4VqqHyff0BXCLmAD0BCjl4hkedD2hfCVphN8eeamAcJdvR2Js2mpGiUKSc60jqIXG67Q
-	pxwmDX1CCCqQEnEkaGwJeCH7igKQT01k6yo7L6OG9wt0beZOEDCAT5768LAsj9GgOIvKMFPr56W
-	kIOc5fHSAr1dL6ogtnXN85/pZhHmpam3xt4zjbLiBEHqqVudZD1Jh3Ua3p+ogp0zsbRh3Zwb6LE
-	U9h9dVHEkOsgE8xM84jc3nqUcCigu+zBQx0NqBGc1+jHbSOG4/Gi+f06A9/yxoyoELv1xZirBES
-	AqpboHb1qtDa/DQCDFW2oo7v4cJm0b4V0iNTCMbL28Ug1fIy01wlnLKYXi+QIM/WfmXVCH
-X-Received: by 2002:a05:6a00:4146:b0:87d:430:1437 with SMTP id d2e1a72fcca58-8a04be6035cmr1481735b3a.38.1792215925893;
-        Fri, 16 Oct 2026 22:45:25 -0700 (PDT)
-Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f57269315sm1958225b3a.23.2026.10.16.22.45.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 22:45:25 -0700 (PDT)
-From: Coia Prant <coiaprant@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	David Wu <david.wu@rock-chips.com>,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Coia Prant <coiaprant@gmail.com>
-Subject: [PATCH net-next v12 6/6] MAINTAINERS: add entry for Rockchip XPCS driver
-Date: Sat, 17 Oct 2026 13:44:04 +0800
-Message-ID: <20261017054406.1828061-7-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261017054406.1828061-1-coiaprant@gmail.com>
-References: <20261017054406.1828061-1-coiaprant@gmail.com>
+        bh=K2jhVCppV5GQjYVL/RGnDCx4V2eYYpWesrsS42HkL+s=;
+        b=HutJpr3jf8WwlM23vnCv7Q8QNXwA8nIH7WxGGo2ulAwfBkWDkXrAtU7zju4lQ/KAuF
+         JNuc8wjAGKGyUyLuUOZAhAtpNNl0CBT63jUkmAW40C9kIhAkUxUcjpdGE3YsDc8Gfr1n
+         72rn2R0TjcJRWJFCpodgUAUGb6JG4UmxGIeDtiQOTNtWpObIbbs60bOPI5VfwbhJzl1L
+         fqWFKCuNDowMi9NivBeN6r9U7bNySEZjoyd3tE8ujqjGtAIb2pyhZPHh/Uciuu3mPA0q
+         ksup4tOvP6PryrsABbFsECnBeRfgKRFh04XhNELFAs9pEptdTXmVanoiWtQpmyHJdPID
+         tHdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792215984; x=1792820784;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K2jhVCppV5GQjYVL/RGnDCx4V2eYYpWesrsS42HkL+s=;
+        b=A+mYBtFIG6hxM3UGnd/MDdxB3Z3oE/qSb8W1vYUVeDXh6PQh8DsK1vO3RODen74Lzf
+         0/LGxwEBjMi9cUoGg3QrQJR3ceTMy5uYWR9+xSUEziTfwEuKz5BrW3MxI+e9iPv5frDc
+         Beb/K7OtwCPslRb9TlGNAt5Wjb+yRZHSsghPNeqfrxMZLcpi/ocEFAbtQ5mPGB1e9x3W
+         Lox62eFmtmpq/KV87crvABgqnKncHQ9fFcEgX21FByMMjlqwHlME+OTg+cUrW0oG7/I8
+         h7cDiB/Bj2vV4LNrp+cZLNXarm9VSmA/3vFNK71OK4mN306uVXavJaDLjADMlm/pr/ZX
+         YmPw==
+X-Forwarded-Encrypted: i=1; AKwUvByK6gfuQ4VBEo7w/bOuovGp7nGtXqBAWkuSJlu4w5E+9aJXEBCpYO2SP3qC2kFBAKBGTq6ZWzsR5Z9ezxs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7AaATXMbjGi3h02rrPrJTIJH7VgHO4Ok8uPBbfFvMiw2S2H4c
+	i3mA8g30zcENdTtXIK16KFcj0ipdu3mY0bqLd4jeq1KeaodPBPZEM6UyI3q04bLIXTfE8EHzId2
+	ByE0WMJeM7A==
+X-Received: from dyp23.prod.google.com ([2002:a05:693c:65d7:b0:343:520f:7a80])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:424a:b0:35b:9bd:1435
+ with SMTP id 5a478bee46e88-3619ea236e5mr2314060eec.2.1792215983849; Fri, 16
+ Oct 2026 22:46:23 -0700 (PDT)
+Date: Fri, 16 Oct 2026 22:45:50 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261017054555.1655407-1-irogers@google.com>
+Subject: [PATCH v1 0/5] perf bpf-filter / lock contention: Add lock_held()
+ sample filter and RCU/SRCU support
+From: Ian Rogers <irogers@google.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rcu@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add a MAINTAINERS entry for the Rockchip RK3568 XPCS platform driver
-and its device tree binding.
+This series adds a new BPF sample filter predicate, `lock_held(<lock>)`
+(along with `lock_held_read(<lock>)` / `lock_held_shared(<lock>)`,
+`lock_held_write(<lock>)` / `lock_held_exclusive(<lock>)`, and `:R` / `:W`
+mode suffixes), to `perf record --filter`, allowing perf event samples to
+be recorded only when a specified kernel lock is held (or not held with
+`!`) by the running kernel thread or CPU. It also extends both
+`lock_held()` and `perf lock contention --use-bpf` to support RCU and
+SRCU.
 
-Include the relevant mailing lists (netdev and linux-rockchip) so that
-future patches are properly distributed.
+For example:
 
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
----
- MAINTAINERS | 9 +++++++++
- 1 file changed, 9 insertions(+)
+  # perf record -a -g -e cycles --filter 'lock_held(&cgroup_mutex)' -- ...
+  # perf record -a -g -e cycles --filter 'lock_held_read(&mmap_lock)' -- ...
+  # perf record -a -g -e cycles --filter 'lock_held(&mmap_lock:W)' -- ...
+  # perf record -a -g -e cycles --filter 'lock_held_read(rcu)' -- ...
+  # perf lock contention -a -b -Y rcu,srcu -- sleep 1
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 65e8a4b5c90b1..2f0f46eabcf54 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23757,6 +23757,15 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/sound/rockchip,rk3576-sai.yaml
- F:	sound/soc/rockchip/rockchip_sai.*
- 
-+ROCKCHIP XPCS DRIVER
-+M:	Coia Prant <coiaprant@gmail.com>
-+L:	netdev@vger.kernel.org
-+L:	linux-rockchip@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml
-+F:	drivers/net/pcs/pcs-xpcs-rk.c
-+F:	include/linux/pcs/pcs-xpcs-rk.h
-+
- ROCKER DRIVER
- M:	Jiri Pirko <jiri@resnulli.us>
- L:	netdev@vger.kernel.org
+Supported `<lock>` specifications match `perf lock contention`:
+- Global/static kernel lock symbols (with or without leading `&`, e.g.
+  `lock_held(&cgroup_mutex)` or `lock_held(cgroup_mutex)`)
+- Hexadecimal kernel lock addresses
+- Slab cache names prefixed with `&` (e.g. `lock_held(&dentry)`,
+  `lock_held_read(&dentry)`)
+- Well-known per-process, semi-global, and RCU locks: `mmap_lock`,
+  `siglock`, `rq_lock`, `zone_lock`, `rcu`, `rcu-trace`
+- Lock types and flags: `mutex`, `spinlock`, `rwsem`, `rwsem:R`,
+  `rwsem:W`, `rwlock`, `rwlock:R`, `rwlock:W`, `rt-mutex`,
+  `percpu-rwsem`, `pcpu-sem:W`, `srcu`, `srcu:R`, `srcu:W`, `rcu:R`,
+  `rcu:W`, `semaphore`
+
+Limitations and weaknesses in determining whether a lock is held:
+- Inlined lock/unlock operations:
+  - When the kernel is configured to inline spinlock or rwlock operations
+    (`CONFIG_INLINE_SPIN_LOCK`, `CONFIG_INLINE_READ_LOCK`,
+    `CONFIG_INLINE_WRITE_LOCK`, etc., which are enabled on many
+    `!CONFIG_PREEMPT_RT` / `!CONFIG_PROVE_LOCKING` builds unless
+    `CONFIG_UNINLINE_SPIN_UNLOCK` or lockdep/preemption forces them out of
+    line), `_raw_spin_lock*` / `_raw_spin_unlock*` and
+    `_raw_read_lock*` / `_raw_write_lock*` are inlined into callers and
+    have no BTF function entry points for `fentry`/`fexit` to attach to.
+  - Fast-path `percpu_down_read()` / `percpu_up_read()` and
+    `srcu_read_lock_fast()` / `srcu_read_unlock_fast()` are inlined
+    per-CPU counter increments without function calls, so only
+    `percpu_down_write()` / `percpu_up_write()` and out-of-line
+    `__srcu_read_lock*()` / `__srcu_read_unlock*()` can be hooked.
+  - On `!CONFIG_PREEMPT_RCU` kernels, `rcu_read_lock()` compiles to
+    `preempt_disable()` and does not maintain
+    `current->rcu_read_lock_nesting` in `task_struct`, so `lock_held(rcu)`
+    read-side inspection requires `CONFIG_PREEMPT_RCU`.
+- Lack of an inspectable owner field on non-exclusive / spinning locks:
+  - While `struct mutex`, `struct rt_mutex`, and write-locked
+    `struct rw_semaphore` store the owning `task_struct *` in `lock->owner`
+    (allowing `perf_sample_filter` to inspect kernel memory directly on
+    sample overflow when filtering by lock address), spinlocks, rwlocks,
+    semaphores, SRCU, and reader-locked `rw_semaphore`s (where
+    `__up_read()` does not clear `sem->owner` when `!CONFIG_DEBUG_RWSEMS`)
+    do not maintain an authoritative per-task owner pointer.
+  - Tracking these locks (as well as slab-cache and lock-type filters)
+    relies on `fexit` (acquire) and `fentry` (release) BPF hooks
+    maintaining the `held_locks` BPF hash map:
+    - Any such lock already held before `perf record` attaches its BPF
+      programs will not be present in `held_locks` until it is released
+      and re-acquired.
+    - The attached `fentry`/`fexit` hooks execute on every kernel lock
+      acquire and release for the hooked lock family across the system,
+      adding tracing overhead outside of perf sample handling.
+
+Patch overview:
+1. "perf lock contention: Share common BPF and lock type definitions in
+   lock_data.h": Moves `lock_type_table` to `util/lock-contention.c` and
+   `LCB_F_*` flags, CO-RE structs, and common BPF lock helpers
+   (`get_lock_owner`, `get_current_mmap_lock`, `get_current_siglock`,
+   `get_lock_addr`, `check_lock_type`, `do_collect_lock_syms`,
+   `do_slab_cache_iter`) into `tools/perf/util/bpf_skel/lock_data.h`.
+2. "perf bpf-filter: Add lock_held() sample filter": Implements
+   `lock_held()`, `lock_held_read()`/`lock_held_shared()`,
+   `lock_held_write()`/`lock_held_exclusive()`, and `:R`/`:W` mode
+   suffixes using direct lock owner inspection where possible (`mutex`,
+   `rt_mutex`, write-locked `rw_semaphore`) and a `held_locks` BPF map
+   updated by selectively attached `fentry`/`fexit` hooks.
+3. "perf test: Add tests for lock_held() BPF sample filter": Adds unit
+   tests in `tests/parse-events.c` and shell tests in
+   `tests/shell/record_bpf_filter.sh`.
+4. "perf bpf-filter: Extend lock_held() to support RCU, Tasks Trace RCU,
+   and SRCU": Supports `rcu` (`rcu:R` via direct
+   `current->rcu_read_lock_nesting` inspection with zero tracing hooks;
+   `rcu:W` via `synchronize_rcu*()` / `rcu_barrier()` hooks),
+   `rcu-trace` (via `current->trc_reader_nesting`), and `srcu`
+   (`srcu:R` via `__srcu_read_lock*` / `__srcu_read_unlock*`; `srcu:W`
+   via `synchronize_srcu*()` / `srcu_barrier()`).
+5. "perf lock contention: Extend BPF lock contention to RCU and SRCU":
+   Extends `perf lock contention --use-bpf` to track RCU and SRCU
+   grace-period and barrier waits (`-Y rcu`, `-Y srcu`, `-L rcu`).
+
+Assisted-by: Antigravity:gemini-3.1-pro
+
+Ian Rogers (5):
+  perf lock contention: Share common BPF and lock type definitions in
+    lock_data.h
+  perf bpf-filter: Add lock_held() sample filter
+  perf test: Add tests for lock_held() BPF sample filter
+  perf bpf-filter: Extend lock_held() to support RCU, Tasks Trace RCU,
+    and SRCU
+  perf lock contention: Extend BPF lock contention to RCU and SRCU
+
+ tools/perf/Documentation/perf-lock.txt        |    7 +-
+ tools/perf/Documentation/perf-record.txt      |   51 +-
+ tools/perf/builtin-lock.c                     |   27 -
+ tools/perf/tests/parse-events.c               |  121 ++
+ tools/perf/tests/shell/lock_contention.sh     |   14 +
+ tools/perf/tests/shell/record_bpf_filter.sh   |  119 ++
+ tools/perf/util/bpf-filter.c                  | 1070 ++++++++++++++++-
+ tools/perf/util/bpf-filter.h                  |   13 +
+ tools/perf/util/bpf-filter.l                  |   31 +-
+ tools/perf/util/bpf-filter.y                  |   46 +-
+ tools/perf/util/bpf_lock_contention.c         |  167 ++-
+ .../perf/util/bpf_skel/lock_contention.bpf.c  |  410 +++----
+ tools/perf/util/bpf_skel/lock_data.h          |  360 +++++-
+ tools/perf/util/bpf_skel/sample-filter.h      |   71 ++
+ tools/perf/util/bpf_skel/sample_filter.bpf.c  | 1051 ++++++++++++++++
+ tools/perf/util/bpf_skel/vmlinux/vmlinux.h    |    7 +
+ tools/perf/util/lock-contention.c             |   22 +
+ tools/perf/util/lock-contention.h             |   15 +
+ tools/perf/util/parse-events.c                |    3 +-
+ 19 files changed, 3273 insertions(+), 332 deletions(-)
+
 -- 
-2.47.3
+2.56.0.212.g129ede20d9-goog
 
