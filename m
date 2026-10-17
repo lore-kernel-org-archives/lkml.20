@@ -1,94 +1,116 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-150.mta0.migadu.com [91.218.175.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6644B39A060
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:40:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D234420E7C
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792222826; cv=none; b=Hoe9wDHnFF00lJXqltLRcGwJzd60iaCt+7Sa+/DMZFkFH2bb0bLU3H1t6eOTqOyN9rgA8hqa8R27X2C2CmIAvszJyI3EjKTN3t4cgZF8k/9na+e4ElkU2u1c+lmC74YUAN/3fRK+t1IEgZAIhuSe4/efEWo1a5Ia5W8T5NfaPEk=
+	t=1792222846; cv=none; b=aeDyxEiUlUx0EdYtqmDXcPFdeeckTp0FFNpTIvLrJ6/9rjQtBLFwygl8Td3dmDU19it+P9RKBgM4yKLmOWsCxBeL14+/6NhX1cit9s6EQWVJEc7QcX+Cdvre8MCV9vWf5tzfPy+f+QvLxTfj4fFRjkN/GopVWyLSPMEIhyfIp4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792222826; c=relaxed/simple;
-	bh=32ROnbLRGK5yQqWv4zvyzIZU4X+Kno5K7VF1XhhIYHQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dzCpNqsQLpz8HqdYUAOQFVW1ssBK0v8yiMArzB8GUmeo5zvicjZ7VIwu7vTu+ImRRX9e86wXxro0eQ5O84w01TGRuqf+1u76iFQAD3S64RhryRFFO3/oPC9PJlzS8crR2lArLe/aJ+nbCFSi1UNu8Igfu5MoZ86QiEYnz17MJIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ccTBmje1; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792222846; c=relaxed/simple;
+	bh=Lrzxfa7i0XIQgY3L+j7KanmroAYbc+jLnsGPgXkNd8Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=SQQSvlAaMhO1s3EGvEdr2ZZlc9gpv2f6OTNMVjk79XFEL3kETmWpHnTeKvr5dCSLaflhyVmDdS/8AYXqejFy4B5HTqcn7Az11QN82JbRPdQ4DPMhq5GOK4NRfJ4cb3/GLuCYqNHBRIpiTv+pglpc5fUIcFHvXkQD9uDqV7glAdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FUvwDXac; arc=none smtp.client-ip=91.218.175.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ccTBmje1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792222823;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=32ROnbLRGK5yQqWv4zvyzIZU4X+Kno5K7VF1XhhIYHQ=;
-	b=ccTBmje1lDGXxOKWMwuV0VAjuRG7TkUxOYu2gL2X4XbkfocSfAVQ+Ce1VGOOgcnl5sShkF
-	pCMk7lMNpgX/wA41Y59KABa4snp9Y0O2Lz6w5MPMZ2Tuj06ltDPFSAa1lgyocOCAjh2e9J
-	qTuGKDsZyP+wphDdwGWiD+ratZL6nxU=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-651-n-lOljHTMkm4dNjJEocrPQ-1; Sat,
- 17 Oct 2026 07:40:20 +0000
-X-MC-Unique: n-lOljHTMkm4dNjJEocrPQ-1
-X-Mimecast-MFC-AGG-ID: n-lOljHTMkm4dNjJEocrPQ_1792222818
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C424F1956074;
-	Sat, 17 Oct 2026 07:40:17 +0000 (UTC)
-Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 672B53000735;
-	Sat, 17 Oct 2026 07:40:14 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: tamizh.raja@oss.qualcomm.com
-Cc: julius@bairaktaris.de,
-	ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	jjohnson@kernel.org,
-	jtornosm@redhat.com,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FUvwDXac"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Lrzxfa7i0XIQgY3L+j7KanmroAYbc+jLnsGPgXkNd8Y=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792222841; v=1; x=1792827641;
+ b=FUvwDXac1Igb/NI1hxXeYV0l96o8401glxiaFhEUZM72X8i0Ec26RIKgczoIFmXlHlkuxU07
+ 22h3tmdonIy9S8lxMbhgMcAqLOKcjXM/naDy/GZScis3QhU5z0Cmhmf6kW/y/ThryNrrHfikgYo
+ QjRMjohkvpgvOACgQkTN5vvg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a470a9ff958b5a5d;
+	Sat, 17 Oct 2026 07:40:26 +0000
+X-Mizu-Trace-ID: a470a9ff958b5a5d
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org
-Subject: Re: [PATCH v7 0/4] ath11k/ath12k: implement TX flow control
-Date: Sat, 17 Oct 2026 09:40:11 +0200
-Message-ID: <20261017074012.35602-1-jtornosm@redhat.com>
-In-Reply-To: <CABkEBKbHhxNsx5ZpYCSDEKtC2UpR+PD4hSF1CeUOwUBkTq2XKw@mail.gmail.com>
-References: <CABkEBKbHhxNsx5ZpYCSDEKtC2UpR+PD4hSF1CeUOwUBkTq2XKw@mail.gmail.com>
+	Fuad Tabba <tabba@google.com>
+Subject: Re: [PATCH v2 2/2] KVM: arm64: vgic-its: Remove the pending state of a discarded LPI
+Date: Sat, 17 Oct 2026 08:40:21 +0100
+Message-Id: <20261017074021.1948168-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <867bjh1w52.wl-maz@kernel.org>
+References: <867bjh1w52.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Hi Tamizh,
+Hi Marc,
 
-Thanks for the heads-up about Julius's series.
+On Fri, 16 Oct 2026 16:51:37 +0100, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> > diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
+[...]
+> > @@ -829,13 +829,27 @@ static int vgic_its_cmd_handle_discard(struct kvm *kvm, struct vgic_its *its,
+[...]
+> > +                /*
+> > +                 * A queued LPI can be pending in a running vCPU's list register,
+> > +                 * which the exit path folds back: halt the guest before clearing.
+> > +                 */
+> > +                scoped_guard(raw_spinlock_irqsave, &irq->irq_lock)
+> > +                        queued = irq->vcpu;
+>
+> Is this comment correct? This is only checking that the LPI is on the
+> AP list of a vcpu, not that it is in the LRs.
 
-I have reviewed it. Both series replace .wake_tx_queue in ath11k, so
-they conflict textually there, but they solve different problems:
-mine stops -ENOMEM by checking the ring space before dequeue, his adds
-AQL, airtime fairness and a full deficit round-robin scheduler. The
-two are complementary.
+The comment is correct but incomplete: it should say that only an LPI
+on a vCPU's AP list can be in that vCPU's LRs, which is why the check
+is enough.
 
-For ath11k, my series is smaller (4 patches, 7 review cycles) and has
-no external dependencies, so it may be simpler to land first. Julius
-already offered to rebase onto it in his cover letter [1] and move the
-ring check into his scheduling round.
+> > +
+> > +                if (queued)
+> > +                        kvm_arm_halt_guest(kvm);
+>
+> And should we move this to kvm_pause_vcpu() instead of the big hammer,
+> this still works because
+>
+> - we hold the ITS lock, so no MOVI can be issued on the same ITS
+>
+> - mapping of the same LPI is already prevented by the previous patch,
+>   so no sneaky MOVI generated somewhere else can impact this LPI
+>
+> Do you agree?
 
-Since there is no conflict in ath12k (Julius's series is ath11k only),
-I could split ath11k and ath12k into separate series to try to unblock
-both. By the way, any more feedback on the ath12k patches? WDYT?
+Agreed, with one gap: a MOVI that completed before the DISCARD leaves
+the LPI on the old vCPU's AP list until that vCPU's next exit. Pausing
+irq->vcpu forces that exit, vgic_prune_ap_list() moves the LPI to the
+new target and kicks it, and the target can load it into an LR before
+pending_latch is cleared. Your two points keep target_vcpu stable, so
+pausing the target as well closes that.
 
-[1] https://lore.kernel.org/all/20260908135319.754140-1-julius@bairaktaris.de/
+I forced the window with a delay between the pause and the clear: after
+a MOVI and then a DISCARD, the new target takes the discarded LPI in
+every run with only irq->vcpu paused, and doesn't take it in any run
+with the target paused too.
 
-Thanks
+[...]
+> If you're OK with the above, I'll make the corresponding changes as I
+> apply the patches.
 
-Best regards
-José Ignacio
+Yes please, with the target paused as well.
 
+Cheers,
+/fuad
