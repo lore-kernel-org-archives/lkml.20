@@ -1,149 +1,80 @@
-Received: from smtp2.iinet.com (smtp2.iinet.com [52.129.46.36])
+Received: from 1.mo575.mail-out.ovh.net (1.mo575.mail-out.ovh.net [46.105.41.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A7838DC44;
-	Sat, 17 Oct 2026 15:56:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.129.46.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0127E39447C
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.41.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792252580; cv=none; b=mbE/y1PA0IjiS+y+jMwTeGXZ+dTZLa+zKmtEEolZMRde19choxTWkJ0DQABpqYsePuE/fydvFcfjp0B8dRQczRlMb33mJRCFvL1A6ZsdFeA/hTPHlfkkHUjwFMjOhKmfRZSiBKcPHfxPDHlvgl7TCi63Uc0GzIiaixBhMO38PUQ=
+	t=1792252587; cv=none; b=uVDwAAbu2Kl9TQ8CAK2qqZkKrFnFB3tlQaZwYKwhLLcNVNbEz3uHfO5qLQRECEQ2F+yvJliVaLr/E9LXJPTzDjN5LjkdL69N0dEONfykUm1SeirpViMLIEGCB/Q97Ag/sM0WpI+0yivqCGvUF76/USX5xg/57Qi/kqbUf+VvTxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792252580; c=relaxed/simple;
-	bh=8p2lca59Kr/sPXCKE0RC6oNDFhBqdb/jXD9F09ecVvs=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=UATTaM2UKEgdl46xhIbpdfRKK2y6nxRpgNAu8MX7DnVRJnodW2GBE9QyxCSdWTxwoWV1iEe9QshVE9GRyId13Tz0aR17AXc9/oF02dqbhuKZmXXArLNBvVzdyq5t/TV/PFJ9fvA95sxAL+KUsZc/yJ1Avq9DTyncovmsiSeSKNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nwlink.com; spf=pass smtp.mailfrom=nwlink.com; dkim=pass (2048-bit key) header.d=nwlink.com header.i=@nwlink.com header.b=XAwKO+Zv; arc=none smtp.client-ip=52.129.46.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nwlink.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nwlink.com
+	s=arc-20240116; t=1792252587; c=relaxed/simple;
+	bh=uCQaig9rEgF3+aw2tds27Jcd3vh04Y8p7BFJnWSwwpQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=H0dKAVK6YM38wKXLpSdNfQiYZWOLbd4CvOBX440HJIOdhWfKrLIV85ExyQHv8B6ldzdt6sGPrwpx9rVCGRZVrQ19uhTiP9YAMY/8CuJdohok6leiXw6RPOJXiopkCTcQrDu8q2pcOtJUW15e8aoBuexeT/O1XjOclzG+zeXbRwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com; spf=pass smtp.mailfrom=cynove.com; dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b=XUZFJnG1; arc=none smtp.client-ip=46.105.41.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cynove.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nwlink.com header.i=@nwlink.com header.b="XAwKO+Zv"
-Received: from webmail.iinet.com (web1.iinet.com [52.129.46.51])
-	(Authenticated sender: kaf@nwlink.com)
-	by smtp2.iinet.com (Postfix) with ESMTPA id F4024B42BD1;
-	Sat, 17 Oct 2026 08:56:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nwlink.com; s=mail;
-	t=1792252578; bh=wOC3z8d3unpvQdUfL2bvr+OorEHjTzNQZKSBDptrq6I=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=XAwKO+ZvEyUqx00zvjmuaTE/L9dRem0ramAaHSewGTTBAzjCD1A+fEG8pR4XFg4Dm
-	 gUJY8aXJ43X5SOn1D0iVJj0pu/g9Jy/JF2aAyAR+ORSAykMZQ2VKylEczL9aJXPJ8D
-	 BUGyrH7162eWdGVa42ZU9XxmFza+eiRzzFH/Z8J7HcEyF8SXGquOOZWV6T3Wx53pow
-	 znAbaT33WQAGu89m/spHLSHFidV9PJu0DvNw9OOGec2h2On7EmTMB6hdI1fVEErsrd
-	 DSUeLBfVDkTSRkjazJQZ4l9T3A3CNv+NXBYiWVEU2KSl7YFRO4fLHCTJdL6PtNnvZA
-	 f5L9gR6Y2wVhw==
-Received: from c-98-203-133-45.hsd1.wa.comcast.net ([98.203.133.45])
- by webmail.iinet.com
- with HTTP (HTTP/1.1 POST); Sat, 17 Oct 2026 08:56:15 -0700
+	dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b="XUZFJnG1"
+Received: from director11.ghost.mail-out.ovh.net (unknown [10.110.58.15])
+	by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4j6Qw33Sxnz5vZv
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:39:15 +0000 (UTC)
+Received: from ghost-submission-7ccd8bbbb6-lmllg (unknown [10.110.54.2])
+	by director11.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 066D5C2921;
+	Sat, 17 Oct 2026 15:39:13 +0000 (UTC)
+Received: from cynove.com ([37.59.142.106])
+	by ghost-submission-7ccd8bbbb6-lmllg with ESMTPSA
+	id cwkeN6GW02rJaAQA3SBaag
+	(envelope-from <stephane.debusne@cynove.com>); Sat, 17 Oct 2026 15:39:13 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-106R00606d3a3a0-4c64-47ff-91af-fdab2a6dd61d,
+                    E277A82C44659F51833474C02B8FDD9281845D64) smtp.auth=Stephane.Debusne@cynove.com
+X-OVh-ClientIp:176.150.47.247
+From: Stephane Debusne <stephane.debusne@cynove.com>
+To: changwei.zou@canonical.com
+Cc: herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	jeffbarnes@linux.microsoft.com,
+	lukas@wunner.de,
+	horia.geanta@nxp.com,
+	pankaj.gupta@nxp.com,
+	iuliana.prodan@nxp.com,
+	sahil.malhotra@nxp.com,
+	sahil.malhotra@oss.nxp.com,
+	martin.kepplinger-novakovic@ginzinger.com,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] crypto: caam - Use bounce buffer for unaligned RSA destination buffers
+Date: Sat, 17 Oct 2026 17:39:08 +0200
+Message-ID: <20261017153908.2813630-1-stephane.debusne@cynove.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261017102047.333792-1-changwei.zou@canonical.com>
+References: <20261017102047.333792-1-changwei.zou@canonical.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sat, 17 Oct 2026 08:56:15 -0700
-From: kaf@nwlink.com
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 0/2 RESEND] usb: gadget: uac2: support explicit channel
- counts
-In-Reply-To: <2026101742-ouch-sensually-f5a4@gregkh>
-References: <20261016162534.384844-1-kaf@nwlink.com>
- <2026101742-ouch-sensually-f5a4@gregkh>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <fef8f9aa36c922e846d37e686b38f6c3@nwlink.com>
-X-Sender: kaf@nwlink.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 10854519530342570812
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: dmFkZTFItG+dckT/CYq7g4nK61jBfak3V94fQHIvYK7SXdxWl7LpwJIUCm5QByplztHFQNN/lG1XP4gSF0UmDfDjreJDWVsXPcz+oE+3K6XkuCtP1ZNd2QH3dAqaKohcBtkU7KVYj92bY/7wuf68ev2MoAsp6qszwIKgHCJXHAWAMwo/9DttfYFwmB5v6etLK42WAatG+S99/R+PtEOBO8Wq7FaXcvO4P6UBSsVzixbYtpoMvwuLv6GnxU10qry4rLndw70Aq2h6SCE4nC/K9MOOImziXmzaIzrdE8Siinyi+rLHKPbgKlbbcYbiJ5Rs8gYaJFnjJ+88n+oD0Ce+2NiE75RRSvayBj63c+383xmW5c2YyEO6lctyzn8lPCcLsOAUksljlCWYWmXK01kxhRYphvOOscu436SS88Lls01b3Z8Ynz/f1Cjy28iH/BTM4BxMEoQkwxyqctPFbLM1f6MuR/WYKq8+SGPOxl8+4/KXyTdzUG9tIjg728yKOwyjwdkYHZsqvzJkAcCuUnBiX8EPrsqhp6/7NdLQPkiksCFRhf4gKwYlai99WfDrVK8yAyfO+cvt0Wr6aEj7TOv4HY+kNWveP2EKyUZWcu2w1Gjz595/lo2ZRSkRCCgtp0XScW4Q5aI5hjk5t0mUUbaHO8DJb/KpydJmIP/2cQrjiUNqFKpUfA
+DKIM-Signature: a=rsa-sha256; bh=uCQaig9rEgF3+aw2tds27Jcd3vh04Y8p7BFJnWSwwpQ=;
+ c=relaxed/relaxed; d=cynove.com; h=From; s=ovhmo4616632-selector1;
+ t=1792251555; v=1;
+ b=XUZFJnG18D9d+4WJNzrc1qn2b9kDLvEeP3UsI9saQPpSqXrGKh2HHaTOQrdc82ukEo9Xe+0D
+ EOWhFaQM1/AMv2bkpNAlHorx8UfIBN3SdeNUuzwoEb9KcDMnSuPiQMdwtPq//s5fpD4NePIh9IJ
+ poW8jjASlKPcRXzvbkfknbyZHAcPoQ5urGALOybEPQoLx5tRotMQld7UdgndjMZn+mAen/GLgVL
+ ElSZbQ7YVPqabFonbck5H31FRs7TpAlIEfFOyEqP9UKz5H4CkigFgMHouQHWyxXctTL4Ze9cOdA
+ cDZyQhH+CLnJfg8HOG6LUTkMAhRDJP9whNaP9IjNP8l/A==
 
-On 2026-10-17 01:05, Greg Kroah-Hartman wrote:
-> On Fri, Oct 16, 2026 at 09:25:32AM -0700, Kyle Farrell wrote:
->> USB Audio Class 2.0 permits up to 255 channels in an audio channel 
->> cluster
->> via bNrChannels. Independently, a channel-location bitmap is specified 
->> via
->> bmChannelConfig for up to 27 predefined spatial locations. Setting
->> bmChannelConfig to zero indicates that the channels have no predefined
->> spatial positions.
->> 
->> The current UAC2 gadget driver derives bNrChannels from the number of 
->> set
->> bits in bmChannelConfig. Since bmChannelConfig provides 27 predefined
->> spatial locations this limits playback and capture streams to 27 
->> channels.
->> 
->> This series allows channel counts up to the UAC2 limit of 255 without
->> requiring predefined spatial channel locations in bmChannelConfig.
->> Existing ConfigFS channel-mask configuration continues to work 
->> unchanged.
->> New optional playback and capture count attributes allow the number of
->> channels to be specified separately from the channel-location bitmap.
->> 
->> The series is split so that the shared u_audio infrastructure is 
->> updated
->> first without changing behavior, followed by the UAC2 functional 
->> change.
->> 
->> Patch 1:
->>   Pass resolved playback and capture channel counts explicitly into
->>   the UAC1/UAC2 shared u_audio implementation instead of deriving them
->>   from channel masks.
->> 
->> Patch 2:
->>   Add ConfigFS playback/capture channel-count attributes to the UAC2
->>   function driver and use them when generating descriptors and stream
->>   configuration, allowing counts beyond the 27 predefined channel
->>   locations.
->> 
->> Testing
->> 
->> Testing was performed using a Raspberry Pi Zero 2 W configured as a 
->> USB
->> UAC2 gadget. Streaming and descriptor validation were performed 
->> against
->> both Linux and macOS hosts.  Windows hosts were not tested.
->> 
->> UAC1
->>   - Verified playback/capture operation via alsaloop.
->>   - No descriptor or behavioral changes observed.
->> 
->> UAC2
->>   - Verified legacy channel-mask configuration (1-27 channels).
->>   - Verified explicit channel-count mode with 2, 28, 61, 62, 96 
->> channels.
->>   - Verified invalid channel-count/channel-mask combinations are 
->> rejected.
->>   - Verified Feature Unit descriptor size limits at 61/62 channel 
->> boundary.
->>   - Verified descriptors including:
->>       * bNrChannels
->>       * bmChannelConfig
->>       * Feature Unit presence and bLength
->>       * AudioControl wTotalLength
->>       * endpoint wMaxPacketSize
->>   - Verified ALSA-reported playback and capture channel counts.
->>   - Verified streaming using alsaloop.
->> 
->> Changes in v2:
->>   - Edit commit messages for clarity and brevity.
->>   - Add Assisted-by: LLM attribution.
->>   - No code changes.
-> 
-> Why was RESEND needed here?  Saying that would be nice.
-> 
-> Also, sashiko points out a number of problems...
-> 
-> thanks,
-> 
-> greg k-h
+Hi Changwei,
 
-I resent v2 as both it and v1 had received no review. I should have 
-stated
-that in the cover letter.
+On Sat, Oct 17, 2026 at 09:20:47PM +1100, Changwei Zou wrote:
+> Therefore, I later switched to a driver-side solution.
 
-I'm reviewing the Sashiko findings and will address relevant issues 
-before
-submitting a revised series.
+Thanks for the explanation and the links. I have asked Herbert to drop
+my series.
 
-Thanks,
-Kyle
+Stephane
