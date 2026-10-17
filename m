@@ -1,35 +1,33 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1CD3B6C06;
-	Sat, 17 Oct 2026 17:34:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 729A03CA4B2;
+	Sat, 17 Oct 2026 17:34:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792258447; cv=none; b=Ps2w2vE8VKYa1fc2/HtkgLcPjZKZR078DthbOj+SvMR7Mhz2SMWpIBWDKYfbyxn7EFktRav5tmuOrkR//2IEjrpeQaOJm+VZuk66o44wIxvdJJvX30uQcmVjc+5eUFrQK2+z6w8Yvc/DUVCNWthBH6JABuViu4TcAM1PpYEVEuw=
+	t=1792258489; cv=none; b=q78vd1AgvH/PsUnIBhBBMhCRk6mK5KSxk/NRsZgQMpj89YJNgAyt+301t0qzyZJKhgO9DIWry7a2ho3CnD66vOMRDZfV6lj4DPkv9Wmu2LD0tVVBsKZfkqqSrhZCZcK1fAgT7dhYNMnUhxW2G8M/5VPUFR7/c2858xvtDciRCvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792258447; c=relaxed/simple;
-	bh=+8pAPjRjaGWejxcu/xOh57SE4snp5QPNrEHd+xkPGVU=;
+	s=arc-20240116; t=1792258489; c=relaxed/simple;
+	bh=c1Y+cNgZSl6oxfa6sPWwhmyh86knC2zDX4YaremTr4Q=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jx7pOGtudtKncvgSzAkJLrlqBsoelSmYg0apmiwbq0s8WbqM9Ls6U29cR/yAoKLM+Fjo9aAklEDqLI73N3NzPYSd83Y7agtRedjCsBdnRTTe8DXyJQmZmfrtdlW2OeHKMrEaZhg08ZQhgxVS3P0dWCDSKnHH2922Sq+WS8wq2fE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=JUi7yPBl; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	 In-Reply-To:Content-Type; b=X1ulvZRixK1UFaEswE0cVNIQo0827ccoaAfc9zqHmlBO04JIKOhUO7Wmueww7IJZbQlKfE7f67ITvSXkqU/lfykOlTJtKhWAY5h8nqncnoIbVPIWsHA+kM31FLsZw2Bb94Fi2bOqsIHfuGah9yc0z8j6Kcp7+1+RbS6o+X38NV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQDv/u4V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="JUi7yPBl"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D57DB105FB3;
-	Sat, 17 Oct 2026 19:34:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1792258444;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=7ZMZTPvh9tMJLNdO7mYMSY3WuW2Rj56qTgdyt1nrogg=;
-	b=JUi7yPBlYsym0othMpS5J+dTlNByXsPSEu0yY4K0tzee4Mt9vKkHtjALk4Ja3quKrwHpRh
-	RgJqSt5ELaOBgXRZRS0gPjFgRJF1KwXPCRMzrVv0zXYULmKVTka5wtOtbm3aFb9p1SThEa
-	4IBTpweRBmkOciJT6N8lDjHSoxwuthk1O3O8yfEBQs4Z1O1+uf1wucrSW58ruCmicU0k2J
-	Wf+yJTTG0evga8/qKX6V02dmTc7LgNUVNjEMo9iS7vB3ukx+ClYxZkXpKevehAxUfujOMV
-	ELmsH9+znF2F2K3wsV9+j63Rwlo9faZGEv7X0Dd7ewh9APWWWIKnN+52fUyByA==
-Message-ID: <661412ff-3942-4d1c-be6f-1ef6c54620fd@nabladev.com>
-Date: Sat, 17 Oct 2026 19:30:37 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQDv/u4V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E2D51F000C5;
+	Sat, 17 Oct 2026 17:34:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792258488;
+	bh=qNdjMQCTGNLewxfiHeMIIUAvhVBTONkqD2ENh1szlgE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KQDv/u4V77KcvHQRNl5/W38Y5Ac8Hsw1MEbeRQ39v4p+vuFjxM8bfNUL7zuU2ov/J
+	 EyFKFPd+RYJhMp3/KO37xFdkUDcorh0UhqZ992K70HJasnNCziNMzSZwV0P9ksEgME
+	 /tjaxeCG/gZedWtDweiD93L4F9X1egUD6ZYU8CnenQClYt/k0sECg73/ar511caSWZ
+	 RiJZXyCtdlPKo84CHqL/kDyw3auSwZaXMvTBRjZrzQzLdykfcqKb7pP7DQXcQz1eGN
+	 fY7cmkmGEuD0loVlJk3AEemKyMMqsmOiUi0aFY6LbXVKjCCRA/HQtacDQqttdzWazU
+	 P6sKEpVPUvgGQ==
+Message-ID: <ced5461d-4c56-4250-9a0c-cafde5d08f12@kernel.org>
+Date: Sat, 17 Oct 2026 19:34:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,67 +35,86 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [net-next,PATCH 2/2] enetc: Make eMDIO MDC rate configurable from
- DT
-To: Wei Fang <wei.fang@nxp.com>, "Frank Li (OSS)" <frank.li@oss.nxp.com>
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Andrew Lunn
- <andrew+netdev@lunn.ch>, Clark Wang <xiaoning.wang@nxp.com>,
- Claudiu Manoil <claudiu.manoil@nxp.com>, Conor Dooley <conor+dt@kernel.org>,
- Eric Dumazet <edumazet@kernel.org>, Frank Li <frank.li@nxp.com>,
- Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- "UNGLinuxDriver@microchip.com" <UNGLinuxDriver@microchip.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
-References: <20261016193344.115518-1-marex@nabladev.com>
- <20261016193344.115518-2-marex@nabladev.com> <atKDNdxl0w65s8yQ@SMW015318>
- <DB9PR04MB933217F7ADCB6223A44DACA7889A2@DB9PR04MB9332.eurprd04.prod.outlook.com>
+Subject: Re: [PATCH v3 1/3] dt-bindings: arm: qcom: Document OnePlus 8T
+To: Frieder Hannenheim <git@fhannenheim.net>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Robert Oscilowski <drgitx@gmail.com>,
+ =?UTF-8?Q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261017-kebab_dts-v3-0-5fc3ca52a383@fhannenheim.net>
+ <20261017-kebab_dts-v3-1-5fc3ca52a383@fhannenheim.net>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <DB9PR04MB933217F7ADCB6223A44DACA7889A2@DB9PR04MB9332.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20261017-kebab_dts-v3-1-5fc3ca52a383@fhannenheim.net>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/17/26 4:24 AM, Wei Fang wrote:
-
-[...]
-
->>> +int enetc_mdio_update_mdc_div(struct mii_bus *bus)
->>> +{
->>> +	struct enetc_mdio_priv *mdio_priv = bus->priv;
->>> +	struct device *dev = bus->parent;
->>> +	struct clk *enet_clk;
->>> +	u32 div, mdc_freq;
->>> +
->>> +	if (device_property_read_u32(dev, "clock-frequency", &mdc_freq))
->>> +		return 0;
->>> +
->>> +	enet_clk = devm_clk_get(dev, NULL);
->>> +	if (IS_ERR(enet_clk))
->>> +		return dev_err_probe(dev, PTR_ERR(enet_clk),
->>> +				     "Input clock unknown, not changing MDC
->> frequency\n");
->>
->> binding said clock is optional. If return failure here, it will block
->> existing dts, which have not clock property.
->>
+On 17/10/2026 17:12, Frieder Hannenheim wrote:
+> Add compatible for OnePlus 8T
 > 
-> For EMDIO device, the clocks property is not added to
-> fsl,enetc-mdio.yaml, I suppose this property should be added to the
-> dt-binding doc if the clock is really needed here.
+> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+> index 50cc18a6ec5e..6e3fdce92798 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> @@ -1070,6 +1070,7 @@ properties:
+>                - qcom,qrb5165-rb5
+>                - qcom,sm8250-hdk
+>                - qcom,sm8250-mtp
+> +              - oneplus,kebab
 
-Isn't this what 1/2 in this series does ? (maybe I misunderstood this 
-paragraph)
 
-> For ENETC device, we already have a 'ref' clock in the enetc node,
-> so devm_clk_get(dev, NULL) may get the 'ref' clock rather than the
-> system clock of NETC.
-Shouldn't the clock be described in the MDIO DT node ?
+o < q, please don't break existing sorting.
+
+Best regards,
+Krzysztof
