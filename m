@@ -1,72 +1,49 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFAA53D6486
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:19:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFCF9374721;
+	Sat, 17 Oct 2026 05:20:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792214387; cv=none; b=AB+b8NnKum/iLztI8b/kdAyoVNcCCPaiG21pAHPcg4tjqi99MzcwYRDJBV1n+MCSPAwZAC0rq7Q9UjybCwUSENUVgql9j/eIGrNqtWBquCJskdBr23IR4H/NPo+Tg1PAvuRvssmdyP9Py9Q0JRvtG84XZ2xARvpS567PBrFnF4c=
+	t=1792214416; cv=none; b=e08GPQhxQ/HyGclzyxqbCCh0nH+lZ80bTIkXjAYyorL901hrmTLzldkNWwwJofxAm3u0ulLl7dZz75pAWoT0D/oEqmzfN1DDp+CBBSVu/UqP4BYR5c/9yz2kqOtAd3zi2udGsY0icfEHPgZns4MscdxnOfDlb1at9KG/uLvOZgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792214387; c=relaxed/simple;
-	bh=SWBmXu448zjzxYjCx3pUm9k+IVsTZM+Oeo1N4UfrkmA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VgiKK1O8xyY8XWVar8Hiq6cvufLDaBAsiDZGzL4NA7ltEVFSYsztB5CuzMYhfDHAfYFt2c0v32vUlZ7bCLItnQ9Zts+kK84OAD4jbwZLWOx9k3Opd1DROj+GQkhNTIXgXANS95liT9ACPTRrAvNlJcpOszlUx35GRuxf2TQCGcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I02ItFUu; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792214416; c=relaxed/simple;
+	bh=Bago6Jmsj0xZLAW/+e39d5cA/Jv5xrDfzf2WuwVhn+g=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=J/hkwxJyBpId2GH75bGj/68O78Y3f+2FVTTJCrN7ZyKoA2XE9XxhV794CQGBYERKWpMJQwz5dp332Gy5irBz0Z0A03LeAdbua+bw3ysXTOafgbPIsFobskjc9i067G2FGNlzPR28aueULjLmQVuKOLkXXCa2eYI9T4/V+j4CJgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jVhRD4VO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I02ItFUu"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1682bff3cso2497535e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:19:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792214384; x=1792819184; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/dnusO2vMBZJOXXq/LcKes7+kqYaIPlF1nsGZCt+1mw=;
-        b=I02ItFUupSWO3qGt/U1fQo2Y/vHnIePCw+EtE/R5rKNAoK0GDrZmxyfty0HjPeXHL6
-         k+TxVm1S1+H4rNz9zSYDFRfCJYxh21nsr79tAaq4jRU2hqj4MluvrHaBG0Fd8ORvPQH6
-         GDqM3x32sQF7qD11eHiDTsoJWnQveJAZPWHSWTtlC/wFrfWdwCOiU287Gl6dmzcUz1rn
-         HEhHkCqaj/TZTa4OA5x4PkIg4HeALufuIG/WaqyaqtXCvD5hPDIYZ2eodkd3deJhy7fR
-         t7x3Tm1fgZy2slneDZmiwrqg/3hHfgzr87gKOzmDbBR9IDszIjpWFQFQNJDst4PvRQy2
-         JJlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792214384; x=1792819184;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/dnusO2vMBZJOXXq/LcKes7+kqYaIPlF1nsGZCt+1mw=;
-        b=mqFCOuZWJZGvmSxN9g8CKHMR8LEoRwOFv68+t/q08RvdVh+8b8/U0uVz8ZYxa6MI84
-         6giPm0mvx+SxIUfldVN33O70whusRRil5KGB6jOYvdK2Joq7quvd8Ta82S/av06Vqk6V
-         tUiPVIVCgWBElVe0v1sWXsZH0nwbKZGPlcwLKi5AUi9XmsA2vpvuwWAqLIpZHJIZ1J7L
-         /MwSCUSR/QIolgxOrbkcbNChqcGBlOFQcUw769sth8VmeHlyOU1AdxSkmZAJWyz5GM6g
-         zy+SbbFs/sYzEawVMc/fHDxxgiKpQ2dmbLisTVIee+rcyFEZL5Ommm4IzOpsIr4lSv9t
-         aWDA==
-X-Forwarded-Encrypted: i=1; AKwUvBwpalkDshs3zI9+yACUR7QIXi6FhODSO2+BMHYPIF1WtkMfDI+QnnCMImG+xGPqjimIXLed3S2LW8Iy3KE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSQhfNsVSdWh1tF97bFdGuHl+m1C+BpzKiEhsks8P3c4K5jDN+
-	eb0CvGaQYnvWkrMTIFdF+kapcPFxMI+NHZj+mjQnaH4SLKnnzAWhYF5D
-X-Gm-Gg: AYBFou2oH8YDkBGF8Ugdv3dp2YpVg1P6Xv/TJgYqDzwX5vnqhQ3D+6xxP55lz9Y5qLB
-	PHPiHINaMiKqyhoFSaKKS7xynVgcyqxzLhJlTuM2VqT2fAc8V3ceTNwuUZySG8hm26kcgMWxr6E
-	j3qPMRhs8gQAMf9ONEL9AkCiMl46k1TyWQpN14TBKknuJVku54C1p4ewWj9gHspGBbMz2nSqVIb
-	CkvVNDbAFj2IeToLMTYQkTTzrnZrxa8iRLSzSaJcKEL1ypHQseVr2qh3j9xroG3IBJpYGPl797f
-	eO2PqDnU+sVjDgOnA35Ror/HCpy0M8CMtFpzxmNEoxdJSBiWssAjgWaRpuTO5S2RLeL0x3utDIC
-	vPXn3BKMgf/iEuJvOtyj61IyFJt57D+ukUVvPapcEuXNb7NPTl8VhwFjr9AdlomEdx5N01k54gW
-	hZ7zqkUVOtRLj2kl2v7P/eQEakPUawREGmlijp11wUZsoIUkYI7DNdlONEi1FGk9Fg+I2a1R8QA
-	YKZRWk/gfidJ23S2Ctp261uoIBj9phO+/hyRJUnjCLhwJO5OFNLjs1ir749eySA0hnTrv37Aupe
-	eDd3QK0MBFwx/Y/qRk2JDrHC4gpKpiET+kY6HZ8fakDFcYeJ/iS1YJLEPzayTlCVq05yThAZuo/
-	GdFbS/fvZ1KQ9JuGOZB1+tfug1MS9Hv8EEMr83dMf6nVTK3JdclrbvD8Mu/nJqZMYUoqwMrpqGb
-	jZS1MG6Ig=
-X-Received: by 2002:a05:600c:1552:b0:4a1:825a:56fd with SMTP id 5b1f17b1804b1-4a1d762a26bmr37921725e9.32.1792214383959;
-        Fri, 16 Oct 2026 22:19:43 -0700 (PDT)
-Received: from [10.200.7.52] (109-81-110-105.rct.o2.cz. [109.81.110.105])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1dc952d63sm16432585e9.2.2026.10.16.22.19.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 22:19:43 -0700 (PDT)
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-Date: Sat, 17 Oct 2026 07:19:21 +0200
-Subject: [PATCH v3 2/2] iio: gyro: mpu3050: add missing trigger cleanup on
- remove()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jVhRD4VO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570DD1F000C4;
+	Sat, 17 Oct 2026 05:20:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792214415;
+	bh=+BN2a5NcxG91rbh0FFEoErkrQJ4cOoOgg1Ae5R2Rh4k=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=jVhRD4VOQnfBlgQy12tBqMq1npNEpMAHR98MVp0ZLmA8skDya4z947MCM66fnK66h
+	 NwmILDiZLgtkjCMgFtMIlo/9n32+O/+erzBcW36+qzemKNHhmWCHQ39ZopgQm9Ha3u
+	 9ps8pLqa04AWTT7jFGj4Seofl/YeNuwrqqVftewS/ytZtUXQqf2sfdSrqeGxYeq4Sz
+	 LEl5hMyar0JN37r+/Q4Ff73CG8VBCoxMYoUYLYUlVggq2zzLk5fFJakrx5EbtvZO6X
+	 INTCae9HuhwL53S3Fvl4ea1hbityB04EJtVlVd0sQArdhWqjgCSgpgRTLtJKCTgHKN
+	 Awnqz9CP5LtkQ==
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Richard Zhu <hongxing.zhu@nxp.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>, 
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ imx@lists.linux.dev
+In-Reply-To: <20260924083429.461746-1-peng.fan@oss.nxp.com>
+References: <20260924083429.461746-1-peng.fan@oss.nxp.com>
+Subject: Re: [PATCH] PCI: dwc: imx6: use regmap_assign_bits() for
+ conditional set/clear
+Message-Id: <179221439258.2165.18106999350998009762.b4-ty@b4>
+Date: Sat, 17 Oct 2026 10:49:52 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,66 +51,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261017-mpu3050-fix-v3-2-d6f29f335a2b@gmail.com>
-References: <20261017-mpu3050-fix-v3-0-d6f29f335a2b@gmail.com>
-In-Reply-To: <20261017-mpu3050-fix-v3-0-d6f29f335a2b@gmail.com>
-To: Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joshua Crofts <joshua.crofts1@gmail.com>, 
- Dingisoul <dingiso.kernel@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792214381; l=1550;
- i=joshua.crofts1@gmail.com; s=20261015; h=from:subject:message-id;
- bh=SWBmXu448zjzxYjCx3pUm9k+IVsTZM+Oeo1N4UfrkmA=;
- b=Fev/aLp/t11PuIxED9XWHh8KFvT+A+vQaVp18KaBwGEewZtgXbUFr+4wGlDOjtM2p045I2Rxo
- mcfut4HanCTBy+iHu47QabIH0hrPyOukxNqQYLWwPzM2r2m9f1AoDr0
-X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
- pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=357;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=C6xSwQJLZdYpqw3s2Kwdy1fWQP8TOCHAaGWqZDEm7ps=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq0wWH1v8anA90InpGpuoBX7GtYOjmX2ZdUY7ns
+ k0XskPTcRuJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCatMFhwAKCRBVnxHm/pHO
+ 9dB3B/0VSlMrEBrkhftm9VoxrrNVzlMYISIts298KImUkOKQst5BGFrLG/R/M9HdNVk1amNzAHU
+ ncYZYmVEeKlZ+RRaC+iW7DZ9YWEdrMcF91DwPai0J8nGMpD8JHSKtsLOxfVboSOT6KuUwG9JVMe
+ sT1+MhEY2WyyT4PNRnU5hJ7L1876Zlsieupda75tgP8lbjfBoQKYhMJVd2pdCHSI4Ues9MQ9Gvb
+ 1uCZDPH19dqKiTJDpQf2vmHq9CkQHCgEaVc37zXtjd4rUh3kTCpgNNwISOa/LSI8FX+jroY5Rta
+ w/SmpkOSNgdOMnqj+O7rwVuMIHfSVEiOu1y7xt3wsAres9xx
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-The mpu3050_trigger_probe() registers a trigger but
-mpu3050_common_remove() and error paths in mpu3050_common_probe() forget
-to clean it up, causing a use-after-free bug.
 
-Add the missing calls to the iio_trigger_unregister() function.
+On Thu, 24 Sep 2026 16:34:28 +0800, Peng Fan (OSS) wrote:
+> PCI: dwc: imx6: use regmap_assign_bits() for conditional set/clear
 
-Reported-by: Dingisoul <dingiso.kernel@gmail.com>
-Closes: https://lore.kernel.org/all/20261010203601.1686148-1-dingiso.kernel@gmail.com/
-Fixes: 3904b28efb2c ("iio: gyro: Add driver for the MPU-3050 gyroscope")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
----
- drivers/iio/gyro/mpu3050-core.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Applied, thanks!
 
-diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050-core.c
-index 879caf3b729c..9e747836df3e 100644
---- a/drivers/iio/gyro/mpu3050-core.c
-+++ b/drivers/iio/gyro/mpu3050-core.c
-@@ -1262,7 +1262,9 @@ int mpu3050_common_probe(struct device *dev,
- 	pm_runtime_get_sync(dev);
- 	pm_runtime_put_noidle(dev);
- 	pm_runtime_disable(dev);
--	if (irq)
-+	if (mpu3050->trig)
-+		iio_trigger_unregister(mpu3050->trig);
-+	if (mpu3050->irq)
- 		free_irq(mpu3050->irq, mpu3050->trig);
- err_cleanup_buffer:
- 	iio_triggered_buffer_cleanup(indio_dev);
-@@ -1281,6 +1283,8 @@ void mpu3050_common_remove(struct device *dev)
- 	pm_runtime_get_sync(dev);
- 	pm_runtime_put_noidle(dev);
- 	pm_runtime_disable(dev);
-+	if (mpu3050->trig)
-+		iio_trigger_unregister(mpu3050->trig);
- 	if (mpu3050->irq)
- 		free_irq(mpu3050->irq, mpu3050->trig);
- 	iio_triggered_buffer_cleanup(indio_dev);
+[1/1] PCI: dwc: imx6: use regmap_assign_bits() for conditional set/clear
+      commit: 8f509a936cee46939f8bac231066e0f8a5d62bd0
 
+Best regards,
 -- 
-2.56.0
+மணிவண்ணன் சதாசிவம்
+
 
