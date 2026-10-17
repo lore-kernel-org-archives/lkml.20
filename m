@@ -1,73 +1,73 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCDB419FDC
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:37:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010B6434E39
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:37:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792222668; cv=none; b=MRp6np9gQGi6s1yJXmMw+Qvr5ehNrK88PyC6Me1R+ZReSlAZY3/gR2hdWEWuJtXUDEOwmZAG/X/l+T5YQvKzeLIfsqvwvuvRM9OZKjpZhCxuEW9Jz8NfqV+u+vhzVdJEe4gtpbJGcXghMJ+6zljaNYnA4HG2Nkip3R3o9SBRfWA=
+	t=1792222673; cv=none; b=PDO4hsiTfXj/70wRpH5Fk3Ji8EE+Q2rSkBSrNG2aEpuf0Iqewm6gApYzWp2DdArtibroKll9ZWc73KllWk3wYnTHXKP3z6x3dt2NtWOKpnkEHPO3VZxojm+8CI9Y5kvis6Ye0lLFIM4m+Li9C2IUf2rzZr1qnHNSdYFUB7LVmKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792222668; c=relaxed/simple;
-	bh=8zajuJbCZYDvPYc20T6semxymaSx/rpIwAsVqTVL97w=;
+	s=arc-20240116; t=1792222673; c=relaxed/simple;
+	bh=yO55rMRMNFiSDpzMtOxkRaSgAkLG/0ZSB7MlzUEj+QQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ojFHgu+RGaBUcRw4nLhHKEi0UdPN8r2ngfluaeJwQErawHLqtBOiQNHEzCUpQT4wdCbpTcvmtczlzK1prr9uviHM/UYlxzf85NVJk74so4jH+pDKEmYBKym6ltQsKmUAzMu/3BPQL7RjVMRmxx53zJaLpbB2apNUHA1Vxoy7Isk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MbFsPA4b; arc=none smtp.client-ip=74.125.82.177
+	 MIME-Version; b=is0gMoHD/GV0Mtg64d2kgsTTZ1DyZcNvszmC3TfVPkY09O9q6gptUUsL47ICTDkUdLde3JrCt6q9Js+bFhSrr8IePl9DeYgT1S4/Y1/S7KA4SECr6vgF0y0b5gFTASZ9isXWedsAdf42eB1iaKRa6vSi6Y4qIbwyVkvirWgav50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WtEqdD83; arc=none smtp.client-ip=74.125.82.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MbFsPA4b"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3550c917fd3so697516eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:37:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WtEqdD83"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-353804b591eso964099eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:37:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792222665; x=1792827465; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792222671; x=1792827471; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tCWKPJOQkz1GZ1kK+3Oy8l2mtoidBzuso/v99l2Kso8=;
-        b=MbFsPA4bCw4uwySuoELhj/DBUeOTZGyiBAYT8oLOlU172n3tpE0+00en1WwAq1tDgl
-         ELC6+oYkM+yVMXMtubq1Skfr8nYQeeFtlI8VLmBIp3J4pCNHjLk9AUX31zA4xPeA2tRL
-         hwOGzGRsALxPeQouU5FQpGC/9t/McpwKkupI+0noNBBNFPbdwaqdPuLlxUGlqUh0DWlX
-         56fwynYY0S1u94yqHPyxh+OeZidILcHKdXZ5rmpAyPshuwqZF2FKEZWZZ4+JjdlO/OYA
-         lpkoJfvn+1evueuz0CRGwbes74/TtVSwYv+moGu86m8XuuzBS/p0gu3x6GBownBTsSnJ
-         eCWQ==
+        bh=pvBVnVtS+/h3GSsbSWJrSoEHfPtmhIxjzCCsppIZ1BI=;
+        b=WtEqdD83QWpzHmQT91fGHNGuYUgzJGksQM4UP8j0GIcJ/5UQHyIbTvRlxeZpR+lbHL
+         iRsYfR7FEz9RgO4GjKfBzCaU8wiqz4XC3OtjPgkkTW3uk9pajMvGQK5DcS23Gd8/oSJ+
+         o6U/oP5UHHuV3UlbaBPqhRd1pAYt7/RRTx78pwXHzS4VLoF3Wj4aJd1ZlemOChlE2k1d
+         Ye8ISdUqRe3x9eqraZXkvsynEkCMs8in5T9kg+1r4dwT+tSgYIokMfyYbaBLkiDozOg9
+         CMPSTkwBLenE4JxSef7QxWr7l3JCjedIuGSsSu3m3gG4+e8tycQPQT1yJSkaLUzTZZIO
+         gozw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792222665; x=1792827465;
+        d=1e100.net; s=20260707; t=1792222671; x=1792827471;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tCWKPJOQkz1GZ1kK+3Oy8l2mtoidBzuso/v99l2Kso8=;
-        b=GNSL9rIb4qdjXBG0ouJ2dhGVsKnf2BXumxtv/RFoICphIFg/6+poMa++e22RSkx/Zp
-         jJ1XK1l0MYsXc9KjzCDKJkxmejIqEba3dl7+1n0vrPnddp9L8M+LNIT6OqpOUnQSSfEa
-         u5dJt+Kl9+PPQ8MSQHEaEwvizrfMk8oPPDY3LTqd3sD4eEPkPV+SSyY31hYdYkLctuu9
-         cdCOSnBdfddB+XqI46vHSVvBNxZ3CEsvQh1MuqNyj9vXCylTTnh7uPpdm0Ao/4EWhkYi
-         qxkTAHTyw453reFLWXt7I+/+EEZRxoE7IGOxOuDUnhKUJjiHZPhyPz2P1sVqjWp/YER3
-         ie0A==
-X-Forwarded-Encrypted: i=1; AKwUvBx9mat/eWBCmKSwSToh/ezohq/c50n9aAW/wb1pF7/y8gT528K2nP1qjGBmAlpykDABHVlo8knLomtpxLI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIg9phjNOawvNeI70BnaBoA2JLCCOiwx/sJvJ/FAcqQuZqRpXpN
-	kE9sONi8zoBjcpULPAEK2/4bDpwL7cxwmzN6dJLUv86S6737Pp0OYFkS
-X-Gm-Gg: AYBFou0linucun77tpRRUGYdoPIFv3JG052bF/YKxCkQc3RZXO2qV5Qu5HnIARjyrZL
-	Ap8FBeoUQAJdPgkHZ/37PEX8MTiw4V3m2FP1PsBjIBELP3LDNSH7xXIhqIZCgKfttD/EU04LpvF
-	3MRkXvoIPNCARgoI+wUKR8yWakAX5Z6A79ujincRvguz44MhVOrTxcRmnEpfhfqwDTWMIY+Fs03
-	YZy/IrgpWcrKAcUy+/B3HMrHYQXHJD2qf909rouhNlKBr/HncdI3xR+AG8xxsiDm/hc6DOCcg4H
-	qenE1lbWuucd0KiFPMAvWN3+DiJJUt0JoB5M+h5zhCGxSz2CWvKWjuG125cOUrchXDS3KyCgb6Y
-	f6NUtKVfCYU5LZuAAgbkU5QwW8z5JNA54GUEW6S1besNKeebcRlsC4RIyD9n75oFeFdURCPVuW3
-	obdQHYImv5pCPo6oq7uzBdrIliTHRea/qYhgClHoY+WHNEdDxloXdKOoJM9xzoOkExupTGK5qmS
-	aA558dkBdyvjvs8AUGodp0=
-X-Received: by 2002:a05:7300:d409:b0:351:1e2e:da4d with SMTP id 5a478bee46e88-361a1f5019bmr2907187eec.23.1792222665198;
-        Sat, 17 Oct 2026 00:37:45 -0700 (PDT)
+        bh=pvBVnVtS+/h3GSsbSWJrSoEHfPtmhIxjzCCsppIZ1BI=;
+        b=ukTs0aWaSkKqZSWYVbBlwUpNHeLL5KuQyeZjlAoqMXjvtHYysNtbGoHHjmD6Hb+MOD
+         Qn3S6okp2HB48Rkc8iyCTdK6xCkLyBqd+lTRlsA3QywpL7WOiGYaYJUbEeMleLCUzWgL
+         8tNwEVfe8UwlWYSP5eyPyz578ctBb15fpYbdH+4fehObspvc2pzCu378bliPqgwww85P
+         KhW1+xa/hunEoqHreSNLanBgNypx/O2qYvCUACNkIfo++w/D6jxKcOX1Q/AEpvQstFuJ
+         IwpLlz+sxQG+DByin5TacszULASSSAxbVY2HV79ZwMnRv48n/kPEi8I07/qn4M84JAfO
+         YW3A==
+X-Forwarded-Encrypted: i=1; AKwUvBwf0IAUMo9osWIqyNu3k+xsWKcYOt+1ZUeywuBAwE1q61DfF6pEZ9CWmiyU7f0WbmzmqqmjoY+vH049prg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrENhjSYAL7+Xel7caXS6jKBwFE4TuhgkmV7xr2cG626W83IBf
+	RURTT1Bf/yIyRW4KCluti9MkMKCfC9/0/+RAciuNNTsaTNTIwk/VbQlu
+X-Gm-Gg: AYBFou3Dbs8ml0H8I7B1j1sk7tmsUH45pBDpeB4OS2kfcrWqCEvc5njtN+T4BZpIU0r
+	JJqXfnzCd7zwb/dbi20WNwcUKQj25NjXpBtmq03+zQEbeA74SLQhw1K0KGBXcFpGYr6wzTN6c/6
+	CZrV9fQB1+pLLt5k4HGAHMbUHix3GzS+8rk+JnMl+AatqTlhKIfzLThCbfJAElSXSpoHKAH0kC3
+	ofkDQhF+Q/jTGca2pn9Fzfu53ssKFbrpujnQk2IQ3YiysAuvjbY3F0BFiiRQBS0Nm2ZgNhkOZZh
+	HzwSfI5blA7l86o7/uHBLCSt+/UIAQYRjC06wlVlu9zvu8x7tq7E0qdlLYmeMJVnY3sCnu3/ZY/
+	UAT9+l+IafbkJtF4X1duwARddNsksD4E1x04BLOXx0xboDsy/UxsOkGh3HPdtOKNIUPfRyeKkDH
+	gvuR0ylL0OrnI4S6FVfIa2kG7gFJRbb0Jy5RTiKSzY6hOOS9XqtXcP4sxU22VXo7QMpq1ScXUMR
+	VbOTRnMZZ1ISe5GvMrBALlEmsKU2ilOcw==
+X-Received: by 2002:a05:693c:87c2:10b0:359:bd18:aab8 with SMTP id 5a478bee46e88-3619e925ea4mr3318978eec.5.1792222670801;
+        Sat, 17 Oct 2026 00:37:50 -0700 (PDT)
 Received: from chitransh.. ([106.202.98.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cab0sm15999208eec.3.2026.10.17.00.37.42
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cab0sm15999208eec.3.2026.10.17.00.37.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 00:37:44 -0700 (PDT)
+        Sat, 17 Oct 2026 00:37:50 -0700 (PDT)
 From: chitranshmandhaniya@gmail.com
 To: hansg@kernel.org,
 	ilpo.jarvinen@linux.intel.com
 Cc: platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Chitransh_Mandhaniya@dell.com
-Subject: [PATCH v4 1/2] platform/x86: dell-uart-backlight: extract dell_uart_bl_receive_data() helper
-Date: Sat, 17 Oct 2026 13:07:03 +0530
-Message-ID: <20261017073704.606497-2-chitranshmandhaniya@gmail.com>
+Subject: [PATCH v4 2/2] platform/x86: dell-uart-backlight: recover from stray EC response byte
+Date: Sat, 17 Oct 2026 13:07:04 +0530
+Message-ID: <20261017073704.606497-3-chitranshmandhaniya@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261017073704.606497-1-chitranshmandhaniya@gmail.com>
 References: <20261004110333.5790-1-chitranshmandhaniya@gmail.com>
@@ -82,115 +82,67 @@ Content-Transfer-Encoding: 8bit
 
 From: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
 
-Factor the response-byte accumulation and checksum validation out of
-dell_uart_bl_receive() into a standalone dell_uart_bl_receive_data()
-helper.
+On some Dell All-in-One machines the EC occasionally inserts a spurious
+byte after the command echo in UART backlight response frames. For
+example a get-brightness reply that should be "04 0c 0a e5" arrives as
+"04 0c 0d 0a e5". The length field still reflects the original frame
+size, so the parser treats the stray byte as payload and the real
+payload as the checksum, producing a spurious -EIO.
 
-The helper returns the number of bytes consumed from the input buffer.
-The caller inspects dell_bl->status for the outcome:
+Add single-attempt recovery inside dell_uart_bl_receive_data(): on a
+checksum mismatch for a frame longer than the minimum size, drop the
+byte at the first payload offset, shift the remaining data down by one,
+and decrement resp_idx so serdev re-delivers the real checksum byte on
+the next callback. Status remains -EBUSY, so no special handling is
+needed in the caller.
 
-  -EBUSY  frame still incomplete
-   0      frame received and checksum valid
-  -EIO    checksum mismatch
+A per-transaction resync_used flag, cleared at the start of each
+command, limits recovery to one attempt. A second mismatch is a hard
+-EIO. Well-formed frames never enter the recovery path.
 
-This is a preparatory refactor for adding stray-byte recovery in the
-next patch.
-
-No functional change.
+Tested on Dell OptiPlex AIO 7410 65W (board 0TKWC4) where the EC
+inserts a stray byte on every get-brightness response.
 
 Signed-off-by: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
 ---
- .../platform/x86/dell/dell-uart-backlight.c   | 42 ++++++++++++-------
- 1 file changed, 27 insertions(+), 15 deletions(-)
+ drivers/platform/x86/dell/dell-uart-backlight.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 diff --git a/drivers/platform/x86/dell/dell-uart-backlight.c b/drivers/platform/x86/dell/dell-uart-backlight.c
-index f323a667dc2d..5f01ad108338 100644
+index 5f01ad108338..1243c191c5b0 100644
 --- a/drivers/platform/x86/dell/dell-uart-backlight.c
 +++ b/drivers/platform/x86/dell/dell-uart-backlight.c
-@@ -205,20 +205,13 @@ static const struct backlight_ops dell_uart_backlight_ops = {
- 	.get_brightness = dell_uart_get_brightness_op,
+@@ -60,6 +60,7 @@ struct dell_uart_backlight {
+ 	u8 resp_len;
+ 	u8 resp_max_len;
+ 	u8 pending_cmd;
++	bool resync_used;
+ 	int status;
+ 	int power;
  };
+@@ -91,6 +92,7 @@ static int dell_uart_bl_command(struct dell_uart_backlight *dell_bl,
+ 	dell_bl->resp_len = -1; /* Invalid / unset */
+ 	dell_bl->resp_max_len = resp_max_len;
+ 	dell_bl->pending_cmd = cmd[1];
++	dell_bl->resync_used = false;
  
--static size_t dell_uart_bl_receive(struct serdev_device *serdev, const u8 *data, size_t len)
-+/* Process received UART data; returns number of bytes consumed. */
-+static size_t dell_uart_bl_receive_data(struct dell_uart_backlight *dell_bl,
-+					const u8 *data, size_t len)
- {
--	struct dell_uart_backlight *dell_bl = serdev_device_get_drvdata(serdev);
- 	size_t i;
- 	u8 csum;
- 
--	dev_dbg(dell_bl->dev, "Recv: %*ph\n", (int)len, data);
--
--	/* Throw away unexpected bytes / remainder of response after an error */
--	if (dell_bl->status != -EBUSY) {
--		dev_warn(dell_bl->dev, "Bytes received out of band, dropping them.\n");
--		return len;
--	}
--
- 	i = 0;
- 	while (i < len && dell_bl->resp_idx != dell_bl->resp_len) {
- 		dell_bl->resp[dell_bl->resp_idx] = data[i++];
-@@ -231,7 +224,7 @@ static size_t dell_uart_bl_receive(struct serdev_device *serdev, const u8 *data,
- 				dev_err(dell_bl->dev, "Response length %d out if range %d - %d\n",
- 					dell_bl->resp_len, MIN_RESP_LEN, dell_bl->resp_max_len);
- 				dell_bl->status = -EIO;
--				goto wakeup;
-+				return i;
- 			}
- 			break;
- 		case RESP_CMD: /* CMD byte */
-@@ -239,7 +232,7 @@ static size_t dell_uart_bl_receive(struct serdev_device *serdev, const u8 *data,
- 				dev_err(dell_bl->dev, "Response cmd 0x%02x != pending 0x%02x\n",
- 					dell_bl->resp[RESP_CMD], dell_bl->pending_cmd);
- 				dell_bl->status = -EIO;
--				goto wakeup;
-+				return i;
- 			}
- 			break;
- 		}
-@@ -247,7 +240,7 @@ static size_t dell_uart_bl_receive(struct serdev_device *serdev, const u8 *data,
- 	}
- 
- 	if (dell_bl->resp_idx != dell_bl->resp_len)
--		return len; /* Response not complete yet */
-+		return i; /* Response not complete, status stays -EBUSY */
- 
+ 	/* The TTY buffer should be big enough to take the entire cmd in one go */
+ 	ret = serdev_device_write_buf(to_serdev_device(dell_bl->dev), cmd, cmd_len);
+@@ -245,6 +247,14 @@ static size_t dell_uart_bl_receive_data(struct dell_uart_backlight *dell_bl,
  	csum = dell_uart_checksum(dell_bl->resp, dell_bl->resp_len - 1);
  	if (dell_bl->resp[dell_bl->resp_len - 1] == csum) {
-@@ -257,11 +250,30 @@ static size_t dell_uart_bl_receive(struct serdev_device *serdev, const u8 *data,
+ 		dell_bl->status = 0; /* Success */
++	} else if (!dell_bl->resync_used && dell_bl->resp_len > MIN_RESP_LEN) {
++		/* Stray byte after cmd-echo? Drop it, let serdev re-deliver checksum. */
++		dell_bl->resync_used = true;
++		dev_dbg(dell_bl->dev, "Resync: dropping stray byte 0x%02x at offset %d\n",
++			dell_bl->resp[RESP_DATA], RESP_DATA);
++		memmove(&dell_bl->resp[RESP_DATA], &dell_bl->resp[RESP_DATA + 1],
++			dell_bl->resp_len - RESP_DATA - 1);
++		dell_bl->resp_idx = dell_bl->resp_len - 1;
+ 	} else {
+ 		dev_err(dell_bl->dev, "Checksum mismatch got 0x%02x expected 0x%02x\n",
  			dell_bl->resp[dell_bl->resp_len - 1], csum);
- 		dell_bl->status = -EIO;
- 	}
--wakeup:
--	wake_up(&dell_bl->wait_queue);
- 	return i;
- }
- 
-+static size_t dell_uart_bl_receive(struct serdev_device *serdev, const u8 *data, size_t len)
-+{
-+	struct dell_uart_backlight *dell_bl = serdev_device_get_drvdata(serdev);
-+	size_t ret;
-+
-+	dev_dbg(dell_bl->dev, "Recv: %*ph\n", (int)len, data);
-+
-+	/* Throw away unexpected bytes / remainder of response after an error */
-+	if (dell_bl->status != -EBUSY) {
-+		dev_warn(dell_bl->dev, "Bytes received out of band, dropping them.\n");
-+		return len;
-+	}
-+
-+	ret = dell_uart_bl_receive_data(dell_bl, data, len);
-+	if (dell_bl->status == -EBUSY)
-+		return ret; /* Response not complete yet, waiting for more data */
-+
-+	wake_up(&dell_bl->wait_queue);
-+	return ret;
-+}
-+
- static const struct serdev_device_ops dell_uart_bl_serdev_ops = {
- 	.receive_buf = dell_uart_bl_receive,
- 	.write_wakeup = serdev_device_write_wakeup,
 -- 
 2.43.0
 
