@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE6F3815F3;
-	Sat, 17 Oct 2026 08:32:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD893502A3;
+	Sat, 17 Oct 2026 08:33:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792225935; cv=none; b=XIEiIJkAvY45bRVdUFZ6WVcmuLx6KrusSeBokHyNAR+0RoYPpsRJA4yGUouaJ37/+mt+FIwJTEMSrA9RMiJqhAtWajsHtWaIkyz8+/18EMUQRiwFS/XIzNMDaHrBMVkrk9zkuesg1i/RNzRmvRXSsuqzImmWeXpYty/UdcZ69pM=
+	t=1792226038; cv=none; b=XXrIeDbXc7A7VmSK0ZTEe7fhmWmGt6ssLFSwMEVp3dyD8sO1/BpdooEL2WxELkIo5MAy1/ZUgMLiX5Dh85+WrM42PyLpx8TbKbhBgddAkvQDgeEF7LbKuGx6I2WlnIj1N3UQ/0DgKD5bG64i4LhbpxUvIHDhNonGNeX5vD3mprA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792225935; c=relaxed/simple;
-	bh=DZmxefMG7FnLQ5tjHxSaOt8I6ym2p8oL0eK9QC84e6Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CA2Nqd8E0b66qa8JQnriRjSCuZYAgoA4MYnY2oFSCzQRYQPtCJRJY4yMYShP/Y+G99ov24RcP1m34gBarnbmML3GHNNoLYzoXQkdtuP1YeNjxIrPne/TEGLms3WlWJSvguaPtKH95VAbQxtXjOcAA7geyOHKyepZfXSSubV1JyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fr6PJKCc; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792226038; c=relaxed/simple;
+	bh=5rWtNt1vL+mrQkDtba5N98fbbX9UeGo0VrHEVuJypWM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=oAnsdJf9IfmsjOA6K/3TWnqB6Q4BNEc1qeAWArIyCnoR00MCjGhpa8AUOslcKmYfII5tdShycEeLGYywuIi8HTtXQgWwG0iZkgB5YOWJNreHjJMkZ/ZW6La8hGmh/y3obuFPP6iNchuXN5CXO10c5CYSbdDIdPlaov6poPtYbfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fkG4+7cP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fr6PJKCc"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7C7AFC2BCFC;
-	Sat, 17 Oct 2026 08:32:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fkG4+7cP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7095CC2BCFA;
+	Sat, 17 Oct 2026 08:33:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792225935;
-	bh=DZmxefMG7FnLQ5tjHxSaOt8I6ym2p8oL0eK9QC84e6Y=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Fr6PJKCcORZxUkx2773k27nK7T9nhuZqBb4K5KuraP5KVD2OVOdwIIQyTlf5m11QK
-	 v3EeZTY6GdY0g/HmymRrSUksITrtWMXbbCEOF3JsWKUDpgIk0aGdsLRDUkvwgw5xcb
-	 KffMBTkXeo1bcbJBPYCcUQESg+QohAAhrbYsDF6j0ShoI2BDJBIf4X9TRYsq3TiLqx
-	 F8COFj2cEWRemVP/ZuigX5zqHx1UbFepHd4LijWovpfoz+3Ij+LWSxiJ1pcZPn0nGq
-	 mGV6M2Ad7Apg2YedFBcgS2ErTYyMGM7tntY1kNjf12ePtyts4B7v8wXUrJCIuWs5vq
-	 YziTewZX73mbw==
+	s=k20201202; t=1792226038;
+	bh=5rWtNt1vL+mrQkDtba5N98fbbX9UeGo0VrHEVuJypWM=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=fkG4+7cPGqKVWIx8a5SMg3RexJqOWRUAOexMzb0h5OlMO2V1x6w+EIDre+0O0zhAH
+	 oxW2iJnu1bfZeGE8d4yhQONi4JTEnBCgH+qa9dcen2MTyItQWq01Uk8eIti4kaaGr5
+	 C5EDddGIVx2+u9dxwqAGUF3SO7McKMImWQ5NDyvf01poyFY7o/QFJWZfpj9GPXxM0w
+	 sOXxDnv6iIOfE4DwvYIOTb9WIDax1zWMSJScuT34RYnRjAAofsh2LpuLwzpTJp0+nq
+	 LhqyhAcL/JfZqQb+sZkOK9fR/BGtXBz/1ECQd4/MNAos1+mukX18G6lN01p11mBojj
+	 FSbEIFkiYInJg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5FB9BCCF2C7;
-	Sat, 17 Oct 2026 08:32:15 +0000 (UTC)
-From: Tin Posavec via B4 Relay <devnull+tin.posavec04.gmail.com@kernel.org>
-Date: Sat, 17 Oct 2026 10:31:58 +0200
-Subject: [PATCH 2/3] media: i2c: ov9734: Add power on/off sequencing
- support
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E680CCF2C7;
+	Sat, 17 Oct 2026 08:33:58 +0000 (UTC)
+From: Dennis Nilsson via B4 Relay <devnull+kontakt.dennisnilsson.se@kernel.org>
+Subject: [PATCH 0/2] platform/x86: acer-wmi: Add Nitro AN16-41 support and
+ handle its mode key
+Date: Sat, 17 Oct 2026 10:33:57 +0200
+Message-Id: <20261017-acer-nitro-an16-41-v1-0-c2e7a0ee7303@dennisnilsson.se>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,260 +41,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261017-ov9734-ipu6-v1-2-86eab22ae258@gmail.com>
-References: <20261017-ov9734-ipu6-v1-0-86eab22ae258@gmail.com>
-In-Reply-To: <20261017-ov9734-ipu6-v1-0-86eab22ae258@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Bingbu Cao <bingbu.cao@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Tin Posavec <tin.posavec04@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMAyA4VchPdukHROir2I4jFm0HgbpgJAQ3
+ t2hx+/w/ztkMZUM92oHk1WzjqmALxXEd0gvQX0WgyPXMHGLIYph0tlGDIkb9IzX2lHrb0SD76G
+ Ek8mg22/66P7OS/+ROJ8nOI4vCzkwIHYAAAA=
+X-Change-ID: 20261017-acer-nitro-an16-41-532074900f4b
+To: "Lee, Chun-Yi" <jlee@suse.com>, Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Dennis Nilsson <kontakt@dennisnilsson.se>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792225933; l=7026;
- i=tin.posavec04@gmail.com; s=20261017; h=from:subject:message-id;
- bh=G+A64TOfBfamE9krKpD+uEXs2ubNWteQfnc5ypFAhEs=;
- b=SiWixlQKZg7eimTScnarM2D0/p0Wjy4duDqFLAMiypUCuoq1iz6uOhZyEmvehudJCfo6SmHUP
- mV8MktvwSSSD5sknecOjEcZ7s9bCRTW9bHoZD0qATwQraJRjhdjqRUv
-X-Developer-Key: i=tin.posavec04@gmail.com; a=ed25519;
- pk=SHQVmXmK88mO08JT/P9vzu9gKd208IICWLSbsX3TmcI=
-X-Endpoint-Received: by B4 Relay for tin.posavec04@gmail.com/20261017 with
- auth_id=1222
-X-Original-From: Tin Posavec <tin.posavec04@gmail.com>
-Reply-To: tin.posavec04@gmail.com
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792226037; l=1115;
+ i=kontakt@dennisnilsson.se; s=20261017; h=from:subject:message-id;
+ bh=5rWtNt1vL+mrQkDtba5N98fbbX9UeGo0VrHEVuJypWM=;
+ b=QXK3HUbXbx2leig3lU1IWwnNVqw0QJINfGUEnvlRXoNcNcBXFBM4Fd+a0c+XqWUGkCtcPAzV1
+ BgiAj1terE0CYnoFaN2rwvTBCr3d9F4C7uvuwMKnKsRcxxpjuG0fZtc
+X-Developer-Key: i=kontakt@dennisnilsson.se; a=ed25519;
+ pk=H+jadpTa8sEscQhkbeWZC2woL8j7NYwN5m1YCjkHJRQ=
+X-Endpoint-Received: by B4 Relay for kontakt@dennisnilsson.se/20261017 with
+ auth_id=1223
+X-Original-From: Dennis Nilsson <kontakt@dennisnilsson.se>
+Reply-To: kontakt@dennisnilsson.se
 
-From: Tin Posavec <tin.posavec04@gmail.com>
+The Acer Nitro AN16-41 supports the Predator Sense v4 platform profile,
+hwmon sensors and fan control, but needs predator_v4=1 to expose them,
+and its mode key does nothing because it reports key_num 0x4, which the
+driver only treats as a turbo button.
 
-So far the driver has relied on ACPI to power the sensor on and off. On
-the Intel NUC M15 (LAPRC710), however, the sensor's ACPI device has
-neither _PS0 nor _PR0. Its avdd supply and clock are provided by an
-INT3472 discrete device instead, and as the driver does not enable
-them, reading the chip ID in probe fails with -EREMOTEIO.
+Patch 1 routes key_num 0x4 to the platform profile cycle on machines
+without the turbo LED capability, where it was previously a no-op.
+Patch 2 adds a DMI quirk for the AN16-41.
 
-Get the dovdd, avdd and dvdd supplies and the optional reset and
-powerdown GPIOs, and power the sensor on and off in the runtime PM
-callbacks. Also power it on in probe before identifying it, and off on
-probe errors and in remove() if it is still powered on. The 2 ms reset
-assertion time and the 20 ms start-up delay are taken from ov01a10.
+Both patches were tested together on an AN16-41 (BIOS V1.03) running
+7.0: the quirk matches without module parameters, all five profiles
+cycle from the mode key, and pwm works in custom, maximum and automatic
+mode.
 
-Move pm_runtime_idle() after the sub-device registration, so that the
-sensor is not powered off twice if the registration fails, and drop the
-comment saying that the I2C core has already powered the device on.
-
-Assisted-by: LLM
-Signed-off-by: Tin Posavec <tin.posavec04@gmail.com>
 ---
- drivers/media/i2c/ov9734.c | 125 ++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 118 insertions(+), 7 deletions(-)
+Dennis Nilsson (2):
+      platform/x86: acer-wmi: Cycle platform profile on mode key 0x4
+      platform/x86: acer-wmi: Add support for Acer Nitro AN16-41
 
-diff --git a/drivers/media/i2c/ov9734.c b/drivers/media/i2c/ov9734.c
-index f9280ef0e..feb15de2c 100644
---- a/drivers/media/i2c/ov9734.c
-+++ b/drivers/media/i2c/ov9734.c
-@@ -4,9 +4,12 @@
- #include <linux/acpi.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/time.h>
- #include <linux/unaligned.h>
- 
- #include <media/v4l2-ctrls.h>
-@@ -322,9 +325,18 @@ static const struct ov9734_mode supported_modes[] = {
- 	},
- };
- 
-+static const char * const ov9734_supply_names[] = {
-+	"dovdd",	/* Digital I/O power */
-+	"avdd",		/* Analog power */
-+	"dvdd",		/* Digital core power */
-+};
-+
- struct ov9734 {
- 	struct device *dev;
- 	struct clk *clk;
-+	struct gpio_desc *reset;
-+	struct gpio_desc *powerdown;
-+	struct regulator_bulk_data supplies[ARRAY_SIZE(ov9734_supply_names)];
- 
- 	struct v4l2_subdev sd;
- 	struct media_pad pad;
-@@ -878,6 +890,88 @@ static int ov9734_check_hwcfg(struct device *dev)
- 	return ret;
- }
- 
-+static int ov9734_get_pm_resources(struct ov9734 *ov9734)
-+{
-+	int ret;
-+
-+	ov9734->reset = devm_gpiod_get_optional(ov9734->dev, "reset",
-+						GPIOD_OUT_HIGH);
-+	if (IS_ERR(ov9734->reset))
-+		return dev_err_probe(ov9734->dev, PTR_ERR(ov9734->reset),
-+				     "failed to get reset gpio\n");
-+
-+	ov9734->powerdown = devm_gpiod_get_optional(ov9734->dev, "powerdown",
-+						    GPIOD_OUT_HIGH);
-+	if (IS_ERR(ov9734->powerdown))
-+		return dev_err_probe(ov9734->dev, PTR_ERR(ov9734->powerdown),
-+				     "failed to get powerdown gpio\n");
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(ov9734_supply_names); i++)
-+		ov9734->supplies[i].supply = ov9734_supply_names[i];
-+
-+	ret = devm_regulator_bulk_get(ov9734->dev,
-+				      ARRAY_SIZE(ov9734_supply_names),
-+				      ov9734->supplies);
-+	if (ret)
-+		return dev_err_probe(ov9734->dev, ret,
-+				     "failed to get regulators\n");
-+
-+	return 0;
-+}
-+
-+static int ov9734_power_on(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct ov9734 *ov9734 = to_ov9734(sd);
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ov9734_supply_names),
-+				    ov9734->supplies);
-+	if (ret) {
-+		dev_err(dev, "failed to enable regulators: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = clk_prepare_enable(ov9734->clk);
-+	if (ret) {
-+		dev_err(dev, "failed to enable clock: %d\n", ret);
-+		regulator_bulk_disable(ARRAY_SIZE(ov9734_supply_names),
-+				       ov9734->supplies);
-+		return ret;
-+	}
-+
-+	if (ov9734->reset || ov9734->powerdown) {
-+		/*
-+		 * Keep reset/powerdown asserted for at least 2 ms on a
-+		 * back-to-back off-on cycle.
-+		 */
-+		fsleep(2 * USEC_PER_MSEC);
-+		gpiod_set_value_cansleep(ov9734->powerdown, 0);
-+		gpiod_set_value_cansleep(ov9734->reset, 0);
-+	}
-+
-+	/* Give the sensor time to start up before accessing it */
-+	fsleep(20 * USEC_PER_MSEC);
-+
-+	return 0;
-+}
-+
-+static int ov9734_power_off(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct ov9734 *ov9734 = to_ov9734(sd);
-+
-+	gpiod_set_value_cansleep(ov9734->reset, 1);
-+	gpiod_set_value_cansleep(ov9734->powerdown, 1);
-+
-+	clk_disable_unprepare(ov9734->clk);
-+
-+	regulator_bulk_disable(ARRAY_SIZE(ov9734_supply_names),
-+			       ov9734->supplies);
-+
-+	return 0;
-+}
-+
- static void ov9734_remove(struct i2c_client *client)
- {
- 	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-@@ -887,7 +981,10 @@ static void ov9734_remove(struct i2c_client *client)
- 	media_entity_cleanup(&sd->entity);
- 	v4l2_ctrl_handler_free(sd->ctrl_handler);
- 	pm_runtime_disable(ov9734->dev);
--	pm_runtime_set_suspended(ov9734->dev);
-+	if (!pm_runtime_status_suspended(ov9734->dev)) {
-+		ov9734_power_off(ov9734->dev);
-+		pm_runtime_set_suspended(ov9734->dev);
-+	}
- 	mutex_destroy(&ov9734->mutex);
- }
- 
-@@ -918,11 +1015,20 @@ static int ov9734_probe(struct i2c_client *client)
- 				     "external clock %lu is not supported",
- 				     freq);
- 
-+	ret = ov9734_get_pm_resources(ov9734);
-+	if (ret)
-+		return ret;
-+
- 	v4l2_i2c_subdev_init(&ov9734->sd, client, &ov9734_subdev_ops);
-+
-+	ret = ov9734_power_on(ov9734->dev);
-+	if (ret)
-+		return ret;
-+
- 	ret = ov9734_identify_module(ov9734);
- 	if (ret) {
- 		dev_err(ov9734->dev, "failed to find sensor: %d", ret);
--		return ret;
-+		goto probe_error_power_off;
- 	}
- 
- 	mutex_init(&ov9734->mutex);
-@@ -944,13 +1050,8 @@ static int ov9734_probe(struct i2c_client *client)
- 		goto probe_error_v4l2_ctrl_handler_free;
- 	}
- 
--	/*
--	 * Device is already turned on by i2c-core with ACPI domain PM.
--	 * Enable runtime PM and turn off the device.
--	 */
- 	pm_runtime_set_active(ov9734->dev);
- 	pm_runtime_enable(ov9734->dev);
--	pm_runtime_idle(ov9734->dev);
- 
- 	ret = v4l2_async_register_subdev_sensor(&ov9734->sd);
- 	if (ret < 0) {
-@@ -959,6 +1060,8 @@ static int ov9734_probe(struct i2c_client *client)
- 		goto probe_error_media_entity_cleanup_pm;
- 	}
- 
-+	pm_runtime_idle(ov9734->dev);
-+
- 	return 0;
- 
- probe_error_media_entity_cleanup_pm:
-@@ -970,9 +1073,16 @@ static int ov9734_probe(struct i2c_client *client)
- 	v4l2_ctrl_handler_free(ov9734->sd.ctrl_handler);
- 	mutex_destroy(&ov9734->mutex);
- 
-+probe_error_power_off:
-+	ov9734_power_off(ov9734->dev);
-+
- 	return ret;
- }
- 
-+static const struct dev_pm_ops ov9734_pm_ops = {
-+	RUNTIME_PM_OPS(ov9734_power_off, ov9734_power_on, NULL)
-+};
-+
- static const struct acpi_device_id ov9734_acpi_ids[] = {
- 	{ "OVTI9734", },
- 	{}
-@@ -983,6 +1093,7 @@ MODULE_DEVICE_TABLE(acpi, ov9734_acpi_ids);
- static struct i2c_driver ov9734_i2c_driver = {
- 	.driver = {
- 		.name = "ov9734",
-+		.pm = pm_ptr(&ov9734_pm_ops),
- 		.acpi_match_table = ov9734_acpi_ids,
- 	},
- 	.probe = ov9734_probe,
+ drivers/platform/x86/acer-wmi.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+---
+base-commit: ea40f1e9f07aab937b9a217633be7a1f66260394
+change-id: 20261017-acer-nitro-an16-41-532074900f4b
 
--- 
-2.53.0
+Best regards,
+--  
+Dennis Nilsson <kontakt@dennisnilsson.se>
 
 
