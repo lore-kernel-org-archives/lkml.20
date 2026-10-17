@@ -1,127 +1,88 @@
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF174F5E0
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 06:29:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02ACE4F5E0;
+	Sat, 17 Oct 2026 06:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792218550; cv=none; b=J6xeXRZ5V7pliuPQssW5gmtqlIRQS7PAJXXyoCuIF7XXdcWA73g/UMQylCEMRrti1PO+uJbN7KT/dRhyyFQYDiT7eQpB9armfp4xOyfNIsqGl77uJyg46ajF/RGL0YfWlcDCCzLggfTqBPBz/k4ayl/ZU4ZNBJOUPVkS5A7lcCk=
+	t=1792218591; cv=none; b=IKumAZnUsCxVCvNOIjegLQGY32xoR9Kwj/qZW5XjUg3ZOU5TDTKUb6eC5sHcACWcfyIINFKEz5tFZWEy6JvOhwwmtBqJErsQ1DL6CW5HNWFsLGatYWUEFAqVz86TFoLZhTA2QPYFbtbcvTXakFTNMumy6JrzMtLHSD2+T8jYZ2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792218550; c=relaxed/simple;
-	bh=i5Z1Qs66PBHaNvD3CQq2vpwzMbNCyM6CPGSuvxGpIvU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lbQa2agjcC2Hz4nKgLRZUq0sCH6+CLUep1QKzEX1XAIRlRU53RZhUNCpZ5yOdBpHxE1vqa5XO0Dp4+XhIlrgz91HNoscYkjy+EFlNPOmIlGpIs3VpafIdE8fiQEhPuLkmc4jtA1j/TmggV5WmcqTd/LvFR6tnEW+Iiq11SFwMyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=F+fdbmAQ; arc=none smtp.client-ip=74.125.224.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	s=arc-20240116; t=1792218591; c=relaxed/simple;
+	bh=kJURZ7e1xPCJy+mm3beZiyquZsemz22oiLFYRgkcK8s=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=VAOVxkebd9jUXpX6uajvyQnapoBSlx7oXT6WwRu7BUHl5RYvX8fH2vBHF6AV4EECHzJ7A6S9CQRN4YkuopuxF+XaIFfghoLvNvA6NV23NiFQ5VS/Y3ke+yuH1n/qAd1kp1xTQx5sK0oQsee/NJ96yUkfLGkjmn3lriBKbKOvxvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=Ld9YwnRB; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="F+fdbmAQ"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-6714595153cso1490130d50.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:29:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1792218547; x=1792823347; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PAXxfHVNqjjg/hDaqmfmaVEvPRdegvgVTMA3anU5ytA=;
-        b=F+fdbmAQK4HRrbx3+iAUYiI6AMFwCPwSxZcvJJLEAPMmkWWWGhR1WjBSl84ProMzpx
-         fv+deifr9qN8rCKHj75FI29d8ZylSu9HdWaxWLSnmRcCX6DxkyvAxLtixC77ao9ROzoU
-         19H225F6vJUlXkPBon9nKOiMTzm9G2NtVvOOZNjjbX51Bvl7spDEBN6MsAnuAzjcBW7x
-         povxAVuXhyDMthZgjH6THMyR0R/oU5nXjBJGAUHG2e5VonvezttmXFiCaJnozwHLRxY9
-         JU0F/+z2ofgL5Kvhy62BIMFTDmSVDj9mP0hgTiQd4FI3i+lzP8X4Aloo3UBQ0PHCZnib
-         ntKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792218547; x=1792823347;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PAXxfHVNqjjg/hDaqmfmaVEvPRdegvgVTMA3anU5ytA=;
-        b=XEk8c4aAsHv5Wy0UpiZxQlvwIQar64/o1tSauciulUJrHo/cpKyoeFILf1ss+11Pc7
-         cvPz0/JuEHiReWc4NN2iZbYF1qDjCsKLTEQmrgFtLVYN+L6NyO7uRyZdlej66J7NT7au
-         4DOXc4wMK7//RgpgquGcQhVdMRPJMEAsfxMO4LrKkgzXUT2aYpdS+0YkrU+Hc/fOMqlK
-         Y5JJW9RUwsoLlsJg4WohLu4H6UpClQD59q0yUDIl2XkAlHbMm3POt0Mjfy5MRGv0+pMF
-         JmXWdMDIDJlYb/JidavbAU/4iTXmHf+Kbn+mXu8DE1lRzSYzgUOi8k1HdIo21CEi4rfB
-         oXLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBztdL2uY5TiLv477+UBFepja7A9XFMl2a0hDt2QLlXr4iwi3Y2uj37xhVurapCSQhyA8Yi6Um690tsh3JI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKyXTeVaCraoI4TegK3pxRkiCwhgsGfk3A2pLiNmgamkBDWP9Zs
-	Vqn7OBFgExlihvR8XRzRBumbOq6QOcCbqj2F7evXPAk205t6kIP8827HdN/AXqNv28E=
-X-Gm-Gg: AYBFou1+OaT6bggvKXeM3RIqd23Avdf1LwYjs91dGiEQDvytUoeZYwFb/v5yJOM8fFx
-	HVOjczeJ853W1+D8YgmXbuI/WbDVgWUo9bIYQMD/K0iveMGdmJmoMNWT6YKZ9VYTcYlyEO6m4MC
-	TVVL733nkzLwKonm6gWsLdEZ0EQazyvJruS1td6mQSlw/bFac5tDtKRtpn1riSH4oVujma8WyVT
-	s4zSqe4Z3+NgHGLnnhT4wUw0pDKvg4L8txX82mM7Ke5Y4lIihGLPpNIEoWDDoFJ8K5j3TsLB3Lv
-	79NVxeYVQThvLHelgA47LQRa9LHFNaALpnJLY30gWzNwa1IDLWqAX4qUAELebekowTplWWYZxKC
-	I785W1nOj9C/vgX3p8BmYCxXhLUcJ7n6QtOXP4NdY42EqSmi09sIomXFX3WdFFZyMt8Hvm5H42A
-	f5eEz2uEZ0cIAZ+MRTDOF90QIQvUqZqza3JoCE95i5kqr+TreyAnYetwZlPSsid34M+Uu5HyIIg
-	FCFiLCP8zQIcgcmXnsl
-X-Received: by 2002:a05:690c:a74c:b0:8b0:cf3d:7b10 with SMTP id 00721157ae682-8b0f217d5fcmr5126757b3.28.1792218547682;
-        Fri, 16 Oct 2026 23:29:07 -0700 (PDT)
-Received: from localhost ([2600:1700:220:5c80:6dfb:85d9:d6b:fdcb])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e591c848sm17573967b3.35.2026.10.16.23.29.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 23:29:07 -0700 (PDT)
-Date: Sat, 17 Oct 2026 01:29:06 -0500
-From: Andy Chiu <tchiu@tenstorrent.com>
-To: Paul Walmsley <pjw@kernel.org>
-Cc: patchwork-bot+linux-riscv@kernel.org, linux-riscv@lists.infradead.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-	andybnac@gmail.com, dfustini@oss.tenstorrent.com,
-	greentime.hu@sifive.com, linux-kernel@vger.kernel.org,
-	olof@lixom.net
-Subject: Re:  riscv: optimize mode switch latency for Vector
-Message-ID: <atMVshcr7cp5wx6-@Tao-Chiu's-Mac>
-References: <20260918215154.2481482-1-tchiu@tenstorrent.com>
- <179127960878.2107992.9155163918962890142.git-patchwork-notify@kernel.org>
- <cce463c9-3a77-d21c-56e7-5eaa0a290f14@kernel.org>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="Ld9YwnRB"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B611EA1545;
+	Sat, 17 Oct 2026 08:29:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792218587; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=YkvrIbXSeJ4tHQ1/ngybmSshgi3TCb1zruHIEcBWitw=;
+	b=Ld9YwnRBcUtmKsW+6eZIKW+FTWboK5aOf4fEzD9H/a480fBasGLKeXeRVJEAE8n7lUoJKD
+	fE/X4j3h4sMl4oIF7PfjNWqxF+ePAbasqi9Cs3ep53NzLFqRArbiXiGXKPEth1niBdCgYQ
+	zZ+3ag3GH9+445D2en85bUenoUluBarODU+jFQT6OcydkxP8ZS6EsMBnpWNK5UEGffG5Gq
+	Jq/RnNIaaB5yOuj9wAVzCg1pBYcfUxEr6jMeuBXV82Eadqb4wdvCU3O4bh/O9EMz1TXqOZ
+	P50akyhcYBm0Aea31X6Vr/JrPESpUqY37oaJth0+NT30Qdc4uTv8rYEqfo3fYw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cce463c9-3a77-d21c-56e7-5eaa0a290f14@kernel.org>
+Date: Sat, 17 Oct 2026 08:29:46 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Doug Berger <opendmb@gmail.com>, Florian Fainelli
+ <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Dave Stevenson
+ <dave.stevenson@raspberrypi.com>, Justin Chen <justin.chen@broadcom.com>,
+ Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>, Florian Fainelli
+ <f.fainelli@gmail.com>
+Subject: Re: [PATCH net-next v5 6/8] net: bcmgenet: pad transmit frames out of
+ the packet ready window
+In-Reply-To: <20261016182508.1100f391@kernel.org>
+References: <20261013-nb-genet-mtu-nn-v2-v5-0-076b6fc240be@tipi-net.de>
+ <20261013-nb-genet-mtu-nn-v2-v5-6-076b6fc240be@tipi-net.de>
+ <20261016182508.1100f391@kernel.org>
+Message-ID: <dfbf28fcdac98687ab0bb49377657ed3@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Oct 07, 2026 at 08:20:18AM -0600, Paul Walmsley wrote:
-> On Tue, 6 Oct 2026, patchwork-bot+linux-riscv@kernel.org wrote:
+On 17.10.2026 03:25, Jakub Kicinski wrote:
+> On Tue, 13 Oct 2026 16:20:35 +0200 Nicolai Buchwitz wrote:
+>> A frame that ends a few bytes past the transmit packet ready threshold
+>> stops the transmitter as soon as a shorter frame follows. Tx DMA then
+>> refuses to halt, so every later bcmgenet_init_dma() fails and the 
+>> interface
+>> cannot be opened again. IP fragmentation generates that pattern on 
+>> every
+>> datagram, full frames and a short tail.
 > 
-> > Hello:
-> > 
-> > This series was applied to riscv/linux.git (for-next)
-> > by Paul Walmsley <pjw@kernel.org>:
-> > 
-> 
-> [ ... ]
-> 
-> > Here is the summary with links:
-> >   - [v6,1/8] riscv: do not read csr in vector context switch
-> >     https://git.kernel.org/riscv/c/5fd018c630e2
-> >   - [v6,2/8] riscv: vector: refactor context switch for kernel-mode vector
-> >     https://git.kernel.org/riscv/c/4740b934ebe7
-> >   - [v6,3/8] selftest: riscv: test vectorized user copy
-> >     https://git.kernel.org/riscv/c/52318cf0fa6e
-> >   - [v6,4/8] riscv: vector: refactor vector context operations
-> >     https://git.kernel.org/riscv/c/1a5c75ee3d09
-> >   - [v6,5/8] riscv: clarify vector state semantics on syscall and context switch
-> >     https://git.kernel.org/riscv/c/cc12e55016ba
-> >   - [v6,6/8] riscv: vector: adjust ptrace and signal behavior for INITIAL state
-> >     https://git.kernel.org/riscv/c/0d4b43a7734d
-> >   - [v6,7/8] selftests: riscv: Extend vector tests for sigreturn and ptrace
-> >     https://git.kernel.org/riscv/c/6740ec489dd7
-> >   - [v6,8/8] riscv: vector: optimize vstate operations
-> >     (no matching commit)
-> 
-> Just to clarify, I only applied the first three patches, for the reason
-> mentioned earlier.
-> 
+> This is really odd. Sounds like the IP can't really support high MTU
+> properly. Should the user be somehow informed that the driver will
+> append out-of-spec bytes to their frames or better still opt into
+> this hack?
 
-Hi Paul, sorry for catching up this late. The whole series should be able
-to apply, as the kvm fix is already in the tree. See commit b5060a4aa33d
-("RISC-V: KVM: fix vcpu vector context handling for kernel-mode
-vector"). Please let me know if you had encountered any issue when
-applying my series, I am also happy to respin the rest of the series for
-the next release if that works better for you!
+Fair, I don't like it either. In the last days I learned, that the bad
+window is exactly one 64 byte DMA unit wide, so it smells like packet
+ready and end of packet landing in the same transfer. Splitting the
+frame over two descriptors probably avoids it and leaves the wire bytes 
+alone.
+
+In v6 I will do that and drop the padding.
 
 Thanks,
-Andy
+Nicolai
+
+--
+pw-bot: cr
