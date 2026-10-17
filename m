@@ -1,217 +1,188 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f5.google.com (mail-yx2-f5.google.com [74.125.224.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C3E539A06C
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:49:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792252199; cv=none; b=bHrU83lp5C5l42gXQ++J36fHjpzsGt0QruVN3fIJU6fLs2e8n1CdomcPLn0jRQXO/rl/UvWLUlI/PeAJf5n9wQOjYntAiULsu1WOcftQdlIkCyrDfNV39H6KeFemtt49sTe6Am10M1eiKeM78uiMCao+z8lmRabIipyqL9ubrOM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792252199; c=relaxed/simple;
-	bh=EgJX6Oy1WRiWAVKvX2fON5pvsFaJqxF2o17SX4UJtHA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SkLeTjRiTVO9L58whwR6Mqr/aStgySRnddI1o2tX5i82V+hUGRl0cKbZ1Z7eNh7UMbudftMC5N832sKgYfMFeiDdoZHKsBz/crjYwYmNdVP+cSoxYnko55MgD260/kvBh2EhTGDZ9oNiibVpdmRv1ecC3N5zZcCm9xSGb0jFYk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iAKW4Q4Q; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4FB1419A4
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:52:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.133
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792252338; cv=pass; b=rzb+HsTBE/Y2Hk2swDGMVyvKV1nS7uLpZbIf3CbwpZE2yLfBlkh360NCY4Tqhc4ooT4ugK9Rf1VNDzna660jgYFpdReHHCPnS9H1+y9zcwTd219iUrTF0+ea7f54LwRCS/AsaKVdFEuV26Suf7jpdyMgwKAD/yLA0OLtvARA4Rw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792252338; c=relaxed/simple;
+	bh=bnjkPkEAdPmINg1RA9oDgANNlvYD2LriHvYJDibwokM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hcuVTweQxHWvrl2q8ZgA0lrY+TQoGyhOw2OpGl7Ja+Kg5f+cojiM75bubW2yuwAmyyB7RVtTc4zRxs56goL/Wtx/xQQwjZb2oQqBK8xO1+Ghy55WWZCVe9jnohUwSZkbB6Je9F6fEXecnPjYtxD73iZYVDUYYgrwMsAW/LUe3tA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dcnGGOVi; arc=pass smtp.client-ip=74.125.224.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iAKW4Q4Q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792252194;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Fpyd02A29NOi8DLSWCz2R996LjdQgLQ9qsrhJqG9wr8=;
-	b=iAKW4Q4Qm1Ts2lgZhgMpdBdchcfD9t9+peMubFNBjUCs3+EoeWjmGmeXioJn820itvZ2sQ
-	T5DEdZNGVuvLCWYysX7Vc9+eIFfLdXSLlvMFFlZpFyZavsU7KTWKYSJzBmhcehVfJfKzFS
-	EODojxty0AkS3f9Q1L1BaLr0raBdHpw=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-15-NgBHafJ3Ne6Dv85a3g4cjw-1; Sat,
- 17 Oct 2026 15:49:50 +0000
-X-MC-Unique: NgBHafJ3Ne6Dv85a3g4cjw-1
-X-Mimecast-MFC-AGG-ID: NgBHafJ3Ne6Dv85a3g4cjw_1792252188
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DD4B81800A3F;
-	Sat, 17 Oct 2026 15:49:47 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id E7CD630001B9;
-	Sat, 17 Oct 2026 15:49:44 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Sat, 17 Oct 2026 17:49:47 +0200 (CEST)
-Date: Sat, 17 Oct 2026 17:49:43 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Christian Brauner <brauner@kernel.org>,
-	David Laight <david.laight.linux@gmail.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Cc: alex.aring@gmail.com, jack@suse.cz, viro@zeniv.linux.org.uk,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 1/1] add pid::tasks_lock to fix send_sigio() and send_sigurg()
-Message-ID: <atOZF5-Xj7vZQ0_h@redhat.com>
-References: <atOY-5ZjqVTQw2JE@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dcnGGOVi"
+Received: by mail-yx2-f5.google.com with SMTP id 956f58d0204a3-677bd24a602so433972d50.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:52:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792252335; cv=none;
+        d=google.com; s=arc-20260327;
+        b=m9/zJQ8DrctLag/Lxtben/KfOoQyPxgrNloMWv6cINjQtZivhl20RePg/kCvMCM0a6
+         z64oOI3D8+4JwIjG8ji4EDWj9t8Rp17qrOz62m1iNlyj0gJSy1IZaba98Z2wAXqAKO/M
+         Tw0rTgjHoTFDR/IQVWZWwfG0+LxYJT/+Lv5sP1M8s1KitDcz4hg8qUOdLa8MhmDHxo19
+         /dPgGwWS7+FhbUdJHiX0zAtAg8DEHcduGTCIXQT6aY94TVutB2Zd4LXHklbp/7lHVZuP
+         QU5o1gA3YTT+E5HWBlPOuj9nwGmYHunZvVSlx/klm+67+yyaQ0Gfcaldoa8IOqlYzUrW
+         UHfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OLXPXIfPNuS9IvRUvmHmUY/S7grY8emZfJl3BOr7iEQ=;
+        fh=T6JO3dmWkaK94N6EuBLEjpjlRJ80aHZUI4eNVhDoh/A=;
+        b=pF4oZiXppMnQFsJUrcnfcIzI2ZM1jDAjrt+7ydWeAUqPK2BPLvzgAzD8aA0+kHuV5k
+         J801IpzpJTr6T70BghrNaml/o8Dci23p0NU8BIpIekSH50yEbYbHAk/gNULNtoXeZWMN
+         XoaB0Uy8frh/H3L1e/w/Ko5GsolszFWVDfRd3exiVnzNXUw3lnE16hl2udpHv0IEy+nl
+         Ft329F6H9GVtRA1YVuHX4CgCnu+fXLzdjCt6+Fz2uIVtihWTqvYeg17P6EKk7CYHvqr3
+         2vQGfrd0kchgFpKNSed5t51zgACdyGn1YCXK2qy/Wl0rQwAadOTL5e5l628/mVICEwxB
+         m2oQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792252335; x=1792857135; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OLXPXIfPNuS9IvRUvmHmUY/S7grY8emZfJl3BOr7iEQ=;
+        b=dcnGGOVi2qMPVzLdYHUiLAoMFDYdVZ09tbeOAxxtDl76xrsp1eKZ6E+AT8ZSGq24Wv
+         XXy8HYbgaRiRLS9spqVU0mQJWDZgU8THa93DyqTLtg8BrwuWjktAuY0nLLsn2Agb0gSy
+         BrN22SbRLT/pv76V0gWm/gUEPO3o4EfYPCpaRsNErREq/4a8S3DCRf+Cjd5W0NUYDQKq
+         iQAOsh+1jsPQv0R5NEp7G/8zIZt2UGHT0nIZfSCVtfWklt5wguq7tHH33ajgniJBEpCv
+         LMS4xrjr+ryVFvJmVCVagwm+BRKyGXeEtZFrd0fyCrDST3CmiIwizXjsEFldakr4NQRl
+         K84A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792252335; x=1792857135;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OLXPXIfPNuS9IvRUvmHmUY/S7grY8emZfJl3BOr7iEQ=;
+        b=YwAuWGYMaZuJa7MEfvWcjnKkRkELKS9SF85XFG2MpuCXAQyVihqX63k04JPG0fe/ZW
+         17gQgRifmUfH5Q03q9wc37RBI6cDFXwRbtUTnUzvGa29mgoXdPLyszaM1TWbO9MerG1a
+         gV0MEA/ykeS3qVEfE+PPub2er9yXYrb33mLcYe9p581eueik4WKUZGwPr2kS/fdG2+b+
+         LpGKITf1Uv5PZL48st4vbL61sF4FNVvAK7joxVcicS1u8dahbZqoXiaB+YSpXHFIV/lN
+         LegM7Gb4955x3gTjnjLKgwkhbpBX7TsLdFuDojDfhuvvGmGBbN+JGogcmiF+YxeWBbpt
+         YiqA==
+X-Gm-Message-State: AFq9FYJ4aePrhZ2lmgSytyE9FgqNsckvsS4xaSUI7QIXF4nM2F2p9iJj
+	kjZb90d5D1GtQkyi1ijuaNVNTPzl7U1UsNYLB8ouZbq2f700fGNYXVXv2Trtq7jRzGzdfvQ9UPr
+	DJuy7uIcUAoGeGaUYz6do0gEwIBDPBME=
+X-Gm-Gg: AYBFou3CzCLa9gXTnie6kHzTmjzphFODQeBwx8SpmrcDs/BCe5owifK9mm5bufmVlQb
+	WKJyTdTwGQCCtITnIKih0oBmbIxRbufIdI+mttQg10DtsO/U2mBJadIAmZpl7mrx5t9HCkMij9J
+	p3ieq5IxOfXxf0l1WMa7USJeOwpsZ0J0O0a9am5e8wrWASa3RcLvwg5cOqwtNjt7TjvjT4I0yfR
+	0xfVq0rUBB/ZHPZrmbb9wa/8Eegqhw8nxE+AIp2qqcYfMEOEynAq7A65gkKuY/KqPqu6AQoIBHH
+	84pZGk8l1eEYAOf51jHWZmZXb0ilfxZ0XJSgrbq692JCeAJBzAf+UPbkYIeCs/u7elgNl09DLtA
+	0y4k/uUd3uRBVI/0KDp1dClwl3P2/9tpBmRY=
+X-Received: by 2002:a53:bf0e:0:b0:677:afa4:a210 with SMTP id
+ 956f58d0204a3-679ca8c84e6mr690917d50.95.1792252334855; Sat, 17 Oct 2026
+ 08:52:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atOY-5ZjqVTQw2JE@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+References: <20261015143426.17620-1-jianyungao89@gmail.com> <atF8f0Jdb8OMcE9I@aschofie-mobl2.lan>
+In-Reply-To: <atF8f0Jdb8OMcE9I@aschofie-mobl2.lan>
+From: Jianyun Gao <jianyungao89@gmail.com>
+Date: Sat, 17 Oct 2026 23:52:03 +0800
+X-Gm-Features: AclHuK9hDBQvGLcT3mNvFowJYZJuyWyo9WXLFqaeSLdb5QJcwrs-segceXyoX-g
+Message-ID: <CAHP3+4CM=ZjuP+S10T9wxcBOBt3tXH0ObY42fcDUm2pGE1gr6Q@mail.gmail.com>
+Subject: Re: [PATCH v3] dax: fix wrong error code returned from dax_dedupe_file_range_compare()
+To: Alison Schofield <alison.schofield@intel.com>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
+	Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Shiyang Ruan <ruansy.fnst@fujitsu.com>, 
+	"open list:FILESYSTEMS (VFS and infrastructure)" <linux-fsdevel@vger.kernel.org>, 
+	"open list:FILESYSTEM DIRECT ACCESS (DAX)" <nvdimm@lists.linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-send_sigio() and send_sigurg() assume that do_each_pid_task() is
-rcu-safe but it is not. A lockless user can:
+Hi Alison,
 
-	- race with a change_pid() that moves the task to another hlist,
-	  and continue to scan the wrong list.
+Thanks for the heads-up. The Sashiko complaint in v3 is about a
+pre-existing bug in dax_range_compare_iter() =E2=80=94 the size parameter
+passed to dax_iomap_direct_access() is an absolute file offset
+(ALIGN(pos1 + len, PAGE_SIZE)) rather than a relative length.
 
-	- race with a copy_process() that adds a new task to the start of hlist,
-	  and miss the new child.
+This is indeed a real bug, but it is a separate issue from what
+this patch fixes (wrong error code propagation). I have already
+addressed it in a separate patch:
 
-As for send_sigio/sigurg in particular, they can also race with de_thread(),
-this needs another note.
+  "dax: fix dax_range_compare_iter() to use correct size and address offset=
+"
 
-Add the new per pid lock to protect pid->tasks hlist. Note that detach_pid()
-doesn't take this lock, so do_each_pid_task() without tasklist_lock needs
-rcu_read_lock().
+That patch fixes both the size parameter and the memcmp() addresses
+(missing offset_in_page()). The two patches fix independent bugs and
+can be applied separately.
 
-The "type <= PIDTYPE_TGID" case is wrong too, but this needs another patch.
+I've also replied to Sashiko.
 
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
----
- fs/fcntl.c          |  4 ++++
- include/linux/pid.h |  1 +
- kernel/pid.c        | 24 +++++++++++++++++++-----
- 3 files changed, 24 insertions(+), 5 deletions(-)
+Thanks,
+Jianyun
 
-diff --git a/fs/fcntl.c b/fs/fcntl.c
-index c158f082f1da..74c8a96e64b2 100644
---- a/fs/fcntl.c
-+++ b/fs/fcntl.c
-@@ -930,9 +930,11 @@ void send_sigio(struct fown_struct *fown, int fd, int band)
- 		rcu_read_unlock();
- 	} else {
- 		rcu_read_lock();
-+		spin_lock(&pid->tasks_lock);
- 		do_each_pid_task(pid, type, p) {
- 			send_sigio_to_task(p, fown, fd, band, type);
- 		} while_each_pid_task(pid, type, p);
-+		spin_unlock(&pid->tasks_lock);
- 		rcu_read_unlock();
- 	}
-  out_unlock_fown:
-@@ -976,9 +978,11 @@ int send_sigurg(struct file *file)
- 		rcu_read_unlock();
- 	} else {
- 		rcu_read_lock();
-+		spin_lock(&pid->tasks_lock);
- 		do_each_pid_task(pid, type, p) {
- 			send_sigurg_to_task(p, fown, type);
- 		} while_each_pid_task(pid, type, p);
-+		spin_unlock(&pid->tasks_lock);
- 		rcu_read_unlock();
- 	}
-  out_unlock_fown:
-diff --git a/include/linux/pid.h b/include/linux/pid.h
-index f5476d7140a3..ca5177fdae81 100644
---- a/include/linux/pid.h
-+++ b/include/linux/pid.h
-@@ -59,6 +59,7 @@ struct pid {
- 	refcount_t count;
- 	unsigned int level;
- 	spinlock_t lock;
-+	spinlock_t tasks_lock;
- 	struct {
- 		u64 ino;
- 		struct rhash_head pidfs_hash;
-diff --git a/kernel/pid.c b/kernel/pid.c
-index 95b8ccfa8269..41fe55fefc3c 100644
---- a/kernel/pid.c
-+++ b/kernel/pid.c
-@@ -45,9 +45,11 @@
- #include <linux/pidfs.h>
- #include <net/sock.h>
- #include <uapi/linux/pidfd.h>
-+#include "sched/sched.h"	/* double_lock() */
- 
- struct pid init_struct_pid = {
- 	.count		= REFCOUNT_INIT(1),
-+	.tasks_lock	= __SPIN_LOCK_UNLOCKED(init_struct_pid.tasks_lock),
- 	.tasks		= {
- 		{ .first = NULL },
- 		{ .first = NULL },
-@@ -193,6 +195,7 @@ struct pid *alloc_pid(struct pid_namespace *ns, pid_t *arg_set_tid,
- 	pid->level = ns->level;
- 	refcount_set(&pid->count, 1);
- 	spin_lock_init(&pid->lock);
-+	spin_lock_init(&pid->tasks_lock);
- 	for (type = 0; type < PIDTYPE_MAX; ++type)
- 		INIT_HLIST_HEAD(&pid->tasks[type]);
- 	init_waitqueue_head(&pid->wait_pidfd);
-@@ -396,7 +399,8 @@ void attach_pid(struct task_struct *task, enum pid_type type)
- 	lockdep_assert_held_write(&tasklist_lock);
- 
- 	pid = *task_pid_ptr(task, type);
--	hlist_add_head_rcu(&task->pid_links[type], &pid->tasks[type]);
-+	scoped_guard(spinlock, &pid->tasks_lock)
-+		hlist_add_head_rcu(&task->pid_links[type], &pid->tasks[type]);
- }
- 
- static void __change_pid(struct pid **pids, struct task_struct *task,
-@@ -427,10 +431,15 @@ void detach_pid(struct pid **pids, struct task_struct *task, enum pid_type type)
- }
- 
- void change_pid(struct pid **pids, struct task_struct *task, enum pid_type type,
--		struct pid *pid)
-+		struct pid *new)
- {
--	__change_pid(pids, task, type, pid);
--	attach_pid(task, type);
-+	struct pid *old = task->signal->pids[type];
-+
-+	double_lock(&old->tasks_lock, &new->tasks_lock);
-+	__change_pid(pids, task, type, new);
-+	hlist_add_head_rcu(&task->pid_links[type], &new->tasks[type]);
-+	spin_unlock(&old->tasks_lock);
-+	spin_unlock(&new->tasks_lock);
- }
- 
- void exchange_tids(struct task_struct *left, struct task_struct *right)
-@@ -441,6 +450,7 @@ void exchange_tids(struct task_struct *left, struct task_struct *right)
- 	struct hlist_head *head2 = &pid2->tasks[PIDTYPE_PID];
- 
- 	lockdep_assert_held_write(&tasklist_lock);
-+	double_lock(&pid1->tasks_lock, &pid2->tasks_lock);
- 
- 	/* Swap the single entry tid lists */
- 	hlists_swap_heads_rcu(head1, head2);
-@@ -452,6 +462,9 @@ void exchange_tids(struct task_struct *left, struct task_struct *right)
- 	/* Swap the cached value */
- 	WRITE_ONCE(left->pid, pid_nr(pid2));
- 	WRITE_ONCE(right->pid, pid_nr(pid1));
-+
-+	spin_unlock(&pid1->tasks_lock);
-+	spin_unlock(&pid2->tasks_lock);
- }
- 
- /* transfer_pid is an optimization of attach_pid(new), detach_pid(old) */
-@@ -460,7 +473,8 @@ void transfer_pid(struct task_struct *old, struct task_struct *new,
- {
- 	WARN_ON_ONCE(type == PIDTYPE_PID);
- 	lockdep_assert_held_write(&tasklist_lock);
--	hlist_replace_rcu(&old->pid_links[type], &new->pid_links[type]);
-+	scoped_guard(spinlock, &old->signal->pids[type]->tasks_lock)
-+		hlist_replace_rcu(&old->pid_links[type], &new->pid_links[type]);
- }
- 
- struct task_struct *pid_task(struct pid *pid, enum pid_type type)
--- 
-2.55.0
-
-
+On Fri, Oct 16, 2026 at 9:23=E2=80=AFAM Alison Schofield
+<alison.schofield@intel.com> wrote:
+>
+> On Thu, Oct 15, 2026 at 10:34:25PM +0800, jianyungao89@gmail.com wrote:
+> > From: Jianyun Gao <jianyungao89@gmail.com>
+> >
+> > When dax_range_compare_iter() returns a negative error code (e.g. -EIO)=
+,
+> > dax_dedupe_file_range_compare() incorrectly returns 'ret' which holds t=
+he
+> > positive return value from iomap_iter() indicating more iterations rema=
+in.
+> > This positive value leaks to the caller, where vfs_dedupe_file_range()
+> > interprets it as success (bytes_deduped =3D len), causing userspace to
+> > incorrectly believe deduplication completed.
+> >
+> > Return 'status' instead to propagate the actual error code.
+>
+> Hi Jianyun,
+>
+> I looked at merging this today but the Sashiko response stopped me.
+>
+> I do see you addressed Sashiko in v1, ignored Sashiko in v2.
+> If this v3 Sashiko complaint is one you've already addressed, please
+> reply saying so. Thanks!
+>
+> -- Alison
+>
+> >
+> > Fixes: 0e79e3736d54 ("fsdax: dedupe: iter two files at the same time")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+> > Reviewed-by: Jan Kara <jack@suse.cz>
+> > Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+> > ---
+> > Changes in v3:
+> > - Fix the Fixes tag to point to the commit that actually introduced
+> >   the bug (0e79e3736d54), not the one that renamed the variable
+> > - Add Reviewed-by from Darrick J. Wong
+> >
+> > Link: https://lore.kernel.org/lkml/20261012144925.6728-1-jianyungao89@g=
+mail.com/ # v2
+> >  fs/dax.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/fs/dax.c b/fs/dax.c
+> > index 6ba50142eeb2..1f6a4fbb97bd 100644
+> > --- a/fs/dax.c
+> > +++ b/fs/dax.c
+> > @@ -2261,7 +2261,7 @@ int dax_dedupe_file_range_compare(struct inode *s=
+rc, loff_t srcoff,
+> >               status =3D dax_range_compare_iter(&src_iter, &dst_iter,
+> >                               min(src_iter.len, dst_iter.len), same);
+> >               if (status < 0)
+> > -                     return ret;
+> > +                     return status;
+> >               src_iter.status =3D dst_iter.status =3D status;
+> >       }
+> >       return ret;
+> > --
+> > 2.34.1
+> >
+> >
