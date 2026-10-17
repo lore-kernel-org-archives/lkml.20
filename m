@@ -1,148 +1,116 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EB5703E1692;
-	Sat, 17 Oct 2026 10:58:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19ACA3D75BC
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 10:59:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792234707; cv=none; b=HM8G++vRbVM73Qw5fLtGBHh75oV+VQBNhAkvjzaivs3h+uH2Lv+C2sG/3XLUgTwaicWeiqYw/5NqsZUsc26FjVfBi2SzybHm1CqXlUk6mLpNQ710fZ+aAQPcpo6PpXCT/lRCYeTofAMGd4cEHr5YpNW2PtaOuoBEw2oNnAcIoLg=
+	t=1792234796; cv=none; b=avbj7PWtO/rvqn8hQRdK+91W/XZDYCun4jLfA8nIhjq6hZRoYE2O7n+AxzWCNRc6WMg0E2vgmwuDnCKO2yaAW09vik8Zsxv89oIFaEsCHNdVQ7r5hS/8nxIhYWFNXexB5k4rZlZGwUbdo/0GN5R6V8QOhxJp1r/lEAAogy3HBTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792234707; c=relaxed/simple;
-	bh=i5Nuk1yzuLP1jBUjm1Q0HVfm1BE0asN2mliPT/+MHOg=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=gYl9JTrc0JRs+YP/8uf9FPka+mdd0qwtLh2cbcnCJnOPzNqyMy1zqFuOIG4cAuTNhjxUy3rLjM1W5Fiv1ccVGEC+F5pW5iCsHBRy5rqqSxsf8nFq8vll9IOo4pZX9A3MeshlKr/LezTqOB76ERDFgq/WGQlYNI1guqC2oIiLheQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8AxX9PPVNNqdcgWAA--.780S3;
-	Sat, 17 Oct 2026 18:58:23 +0800 (CST)
-Received: from [10.130.40.83] (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJDxRs3OVNNqJW8tAA--.16816S2;
-	Sat, 17 Oct 2026 18:58:23 +0800 (CST)
-Subject: Re: [PATCH v3 3/3] LoongArch: BPF: Optimize 32-bit operations using
- native instructions
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- Huacai Chen <chenhuacai@kernel.org>, Hengqi Chen <hengqi.chen@gmail.com>
-Cc: loongarch@lists.linux.dev, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261016081006.26069-1-yangtiezhu@loongson.cn>
- <20261016081006.26069-4-yangtiezhu@loongson.cn>
- <DM6D33SL63BR.HOFSY6JUHO44@gmail.com>
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <c6a049d4-80c1-c3a4-e4de-87b582864e01@loongson.cn>
-Date: Sat, 17 Oct 2026 18:58:22 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1792234796; c=relaxed/simple;
+	bh=jQUwl37DgaThD4aZQvx7TB44uxGYxczvSMUsxh5IEuA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tvAhbYfB8XaX44Y4G8vpfHGwVlVwoDoAJPjgr5+K1CrntsFREu43LdmTL7DmVtZxVt6ge9tp1RHzwMDGeex8mQlIRF7l/9b/GN5J9TB8u1NxnycmIKI3LYPB1KnxkylfeStpBt+VgfwVoa/y1yMvYn91aEveIcBqMlW2AqPpTkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PXFu9xh8; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PXFu9xh8"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so474499f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:59:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792234793; x=1792839593; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jQUwl37DgaThD4aZQvx7TB44uxGYxczvSMUsxh5IEuA=;
+        b=PXFu9xh8HaM7SCihLY5vx8jtuLm6XGqCfQJP1yIs5/MTuw+DIosj3y6HonUUsgqcZH
+         OpcmiGTsciv/je/kV90s/soZULyWyrf/6N1mL3h+/MyFbrSF2b2FuQ/UYaR3lqRXxZql
+         EjhPDcXy4Vau4xrNdYDzzgl4DsWXErxDdZZQTS3qFfpw2Fw2FZ2i4ZfsW7oCqpt7F7Xe
+         VDxTWCreL4kjHtvHndbLb4IvT4i5+WkeqsdcZE+qvaDvMW0hjocyVbEr063vLJLPQ3ne
+         BaUPBHE9tQ10gU2U2lfmzh4Xfd8dMrGxAPRXUj+wAZz7I6whs8VYQK4AwCUbmOPdtwA+
+         uWRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792234793; x=1792839593;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jQUwl37DgaThD4aZQvx7TB44uxGYxczvSMUsxh5IEuA=;
+        b=EZnlO+60G0FvuU5Y9msAAyTU8wCzomc/6CXRWfyZQf7VULYMPXWfDIfh9Fw4oXIY93
+         jFbbfJfCmSIrHqrchxziLgeqGquKqYPHBgU2ecd86ylyBWSsFtiGypf+dM3icoHOpPCR
+         eKu6yLjX9Agp1rYToxGNjqNl5qSfe5jZBgzhGyyxRG3uAJTzc4zcxiVWG9fxTllJb/2S
+         TAq8ReIkToYHZ3OILwRYgcNB10qMMnv6CICpwjF4XYOQPMWsYaTaeKUhajeVJUyprePn
+         lqIXgt/LN81yFPOJPuYJeTDh733HNGCwMp7jZusOBSIGf06uPO2ZQQ5VA/ZuuMe/LiG2
+         fjWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxhJHXNn9xZQlFhtJWZw0bqMae1Cc53ZjqfLU+D/dT6NBxBXqsdlcDsKY2hHWqYtYU/bPY9znnQZsVeJGQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJCQPxXpWnvFWpZtTGGxdaS9g2adNJwJgAwMBuTQ0TLL6s6zDUE
+	IQgXlWBZyOmAjFh+k2acOcik9GA/FAlWuX7QA74WGSJilMJhm02va7igbMblzqC5
+X-Gm-Gg: AYBFou1mGGU7CpXOfUpPOuIGlLTvk/iu6Qbup7w9TgSsdshxLgV+3onvtGHjXm9T2oQ
+	NvJP0mJC3fVwzbqz54QacUoG3upeDItshY61s8b98PsZhqqP9+iZC/3H0WxNmHCTf5E8PH68WJ5
+	bF/2wuDhPYDkvuxs6iONPBi6Emtl4u+cuEY3Uqa1vw8BfJd9cGqYcLmw2nLBW6mc70ipT/Nbqd2
+	uq8VdxpA7QMdCS37yWujHrJafS+EitZwFJiuA4qPxTH13RH5RBi3JrErTC0d/KXY4Zd6LXZ3F8y
+	HJXogWV6LbJe06fmmPfBhlqPq0uSpWbMtEsNrRa9K4icDoDvdy0a7WQaEQ0w22O9zjwqtxnj8bO
+	U8LGZhkTxab3TtE9o1i7lgimuFqB7MjJZiuYTdv3mZyPBg+G+RP7bGWQsqE17mPWtwOuhScXxcK
+	8wnn5ly0mlHNkLnj+4K4exD7NL/Mbcn3GzTxqcc+u0kHhjBpkY9y712O2gjse7SK3b/QUnKPEU3
+	XUFh88=
+X-Received: by 2002:a05:6000:2889:b0:48d:f14a:9179 with SMTP id ffacd0b85a97d-48e07fadef3mr4438450f8f.48.1792234793046;
+        Sat, 17 Oct 2026 03:59:53 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:f44:cd2:abb8:fd3a:ad16:dbb5:6d35])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f5177sm10213993f8f.30.2026.10.17.03.59.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 03:59:51 -0700 (PDT)
+From: Stanislaw Pal <kuncy7@gmail.com>
+To: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v6 0/9] net: dsa: realtek: rtl8365mb: add support for RTL8367S-VB
+Date: Sat, 17 Oct 2026 12:59:46 +0200
+Message-ID: <20261017105946.20395-1-kuncy7@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
+References: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <DM6D33SL63BR.HOFSY6JUHO44@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxRs3OVNNqJW8tAA--.16816S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxXF1DZw1ruFyfuFy3tFy3KFX_yoW5tr13pF
-	WqgF1fKw4UXFnavan7AF1DJa4DuF4DG3WDXrW3Xr43Grn8Arn5Xry0krsIvFWqgrWSvw45
-	Ar1ayr92qFyDJrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AK
-	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzV
-	AYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
-	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIx
-	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
-	wI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
-	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8wNVDUU
-	UUU==
 
-On 2026/10/16 下午11:18, Alexei Starovoitov wrote:
-> On Fri, Oct 16, 2026 at 04:10 PM Tiezhu Yang <yangtiezhu@loongson.cn> wrote:
-> 
->> All of the testcases of test_bpf passed on Loongson-3A6000 (with DIV32)
->> and Loongson-3A5000 (without DIV32), here are the test results:
-> 
-> fyi test_bpf is gone. See
-> commit 4532e525b286 ("selftests/bpf: Remove the old test_bpf module").
-> Pls run test_progs
+From the family C side: I ran this series on a TP-Link Archer AX55 v1
+with an RTL8367S (chip ID 0x6367, family C), its CPU port on a
+2500base-x fixed link to an IPQ5018 GMAC, on OpenWrt's 6.18 kernel.
 
-I tested this series based on bpf-next tree with "./test_progs -a jit_insns"
-and "./test_progs -a jit_insns_blinded", there are 3 pre-existing failures:
-(1) #191/1   jit_insns/arena access with zero offset:FAIL
-(2) #191/25  jit_insns/ldst_offsets:FAIL
-(3) #192/11  jit_insns_blinded/ldst_offsets:FAIL
+That tree carries rtl8365mb patches of its own: a tag_8021q-based
+tagger for a packet offload engine, and one that holds the family C
+SerDes bring-up back until the conduit is up, pending in OpenWrt for
+this board and the Mercusys MR80X v2. So take this as a check that the
+series leaves family C alone rather than a clean test of the series by
+itself.
 
-These 3 failures are entirely unrelated to this series; they still fail on
-the clean, original bpf-next tree without this series.
+Six boots, five of them cold (power off for 30 s, 30 s, 5 min, 10 min
+and overnight), and two restarts of the network configuration: the
+trunk came up at 2.5Gbps every time, with no FCS errors on the CPU port
+and traffic through it, and a VLAN-aware bridge on the user ports kept
+working.
 
-The root cause is that LoongArch BPF JIT support for arena atomics and
-sign-extending loads from arena is still a work-in-progress.
+One path I did not run: with the bring-up patch on top,
+.conduit_state_change does not bail out on family C, so that early
+return was not exercised here. The SerDes register mutex and the other
+family C paths ran as posted. I will send the bring-up patch to netdev
+once this series is in.
 
-IIUC, there are already two patches to fix them, but need revisions:
-https://lore.kernel.org/loongarch/20260702022322.51033-8-dongtai.guo@linux.dev/
-https://lore.kernel.org/loongarch/20260702022322.51033-7-dongtai.guo@linux.dev/
+Tested-by: Stanislaw Pal <kuncy7@gmail.com> # RTL8367S (family C)
 
-Bypassing these known architectural gaps using the blacklist (-b) option
-allows the remaining subtests under jit_insns and jit_insns_blinded to pass:
-
-$ sudo ./test_progs -a jit_insns -b "jit_insns/arena access with zero 
-offset,jit_insns/ldst_offsets"
-#191/2   jit_insns/cast to a user address:OK
-#191/3   jit_insns/alu_imm:OK
-#191/4   jit_insns/alu_reg:OK
-#191/5   jit_insns/alu_imm_regs:OK
-#191/6   jit_insns/div_const:OK
-#191/7   jit_insns/alu_reg_pairs:OK
-#191/8   jit_insns/alu_edges:OK
-#191/9   jit_insns/shifts:OK
-#191/10  jit_insns/shift_counts:OK
-#191/11  jit_insns/atomics:OK
-#191/12  jit_insns/atomic_reg_pairs:OK
-#191/13  jit_insns/xadd_chain:OK
-#191/14  jit_insns/ld_imm64:OK
-#191/15  jit_insns/jmp_imm:OK
-#191/16  jit_insns/jmp_reg:OK
-#191/17  jit_insns/jmp_reg_pairs:OK
-#191/18  jit_insns/jmp_edges:OK
-#191/19  jit_insns/staggered_jumps:OK
-#191/20  jit_insns/max_jmp:OK
-#191/21  jit_insns/convergence:OK
-#191/22  jit_insns/calls:OK
-#191/23  jit_insns/helper_calls:OK
-#191/24  jit_insns/ldst_zero_off:OK
-#191/26  jit_insns/acq_rel:OK
-#191/27  jit_insns/movsx:OK
-#191/28  jit_insns/jset_imm:OK
-#191/29  jit_insns/cmp_imm:OK
-#191/30  jit_insns/alu_consts:OK
-#191/31  jit_insns/bswap:OK
-#191/32  jit_insns/probe_mem:OK
-#191     jit_insns:OK
-Summary: 1/30 PASSED, 0 SKIPPED, 0/0 FAILED
-
-$ sudo ./test_progs -a jit_insns_blinded -b jit_insns_blinded/ldst_offsets
-#192/1   jit_insns_blinded/alu_imm:OK
-#192/2   jit_insns_blinded/alu_imm_regs:OK
-#192/3   jit_insns_blinded/alu_edges:OK
-#192/4   jit_insns_blinded/div_const:OK
-#192/5   jit_insns_blinded/shifts:OK
-#192/6   jit_insns_blinded/xadd_chain:OK
-#192/7   jit_insns_blinded/ld_imm64:OK
-#192/8   jit_insns_blinded/jmp_imm:OK
-#192/9   jit_insns_blinded/jmp_edges:OK
-#192/10  jit_insns_blinded/ldst_zero_off:OK
-#192/12  jit_insns_blinded/jset_imm:OK
-#192/13  jit_insns_blinded/cmp_imm:OK
-#192/14  jit_insns_blinded/alu_consts:OK
-#192     jit_insns_blinded:OK
-Summary: 1/13 PASSED, 0 SKIPPED, 0/0 FAILED
-
-Thanks,
-Tiezhu
-
+Best regards,
+Stanislaw
