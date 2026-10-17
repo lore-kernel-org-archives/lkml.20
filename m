@@ -1,142 +1,108 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5529367F26
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:41:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 242DD3CDBA5;
+	Sat, 17 Oct 2026 19:41:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792266073; cv=none; b=L0+2A4dvvTZiqSA+gvkwMNdOnE8dwuw5sNkMMQNrehQWAWG5/VMAW9j1Vg6tPyY866pB3EjCCLbm1c2UR7Jfv/QE2TryKaiTR0+B/sOA3N0ofZvbcNMS/PpzPXDF8zR1wPDK0tUw696M/1mkY23YY2LfoJmnwvHa8YRPhrunBEA=
+	t=1792266076; cv=none; b=VhO5KCMBUzFyUzbEB0DmE+z8ydumHhPgTiX8X0m0htICzRJtOt0B5aK7HKeUjHloFoRgx5vQPZLvoahe58agjNz+eK5qYD/e69wTEEvsygWjeSeewCBPiO1jtyqRAFMFdp5b0IWysR0KNwMtuLL9ES0rRUOldnQBPjmSjSXJS80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792266073; c=relaxed/simple;
-	bh=QPv+Z8vzX3VY5Sy1t/flRp1XN74GPkpxccCBZDK+Y7g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=t4GEXIoHPgVXD8gz4sjWTjDQDDY6kOnkbEULIZy/DkG56o9CCo8kzL0rxh89wPf5BZMhmSukUHkk9vSVuTgQt/Qx8MERL0rNAbshF/G5SOswPXPsXQmKxvVRBNigJYucO7XzYGnRGxk4zLKp5Wg/LM9S4lxJ6P8W5+fpiYu8ymg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rSUfWYRX; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792266076; c=relaxed/simple;
+	bh=XpZ7WtmsjWKKZFQo/IyDyLr3d90h8EDRW9UeTOjlQ1U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RoK/j2423jwmkZuWwzD+EgMaR1z4SGr5YwJREYuyOgcf2PnusVkjx9/GEsM/rr8/slGh8dv9erq5fmkQesnT+xuObTG1IAD5HItf2zlP/8Mg36fGsxopaNhyWIhCFYLiOVA4nxHQuQa5shp2K0g46gWR48kvzIUFa+4/P4qjPyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WP1Rzm+r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rSUfWYRX"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48c4d870d54so504785f8f.2
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 12:41:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792266070; x=1792870870; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7bkANSMhFloWtWtc/bd8b694jgoI0AgZf+f/ClS6h3w=;
-        b=rSUfWYRXrQNmlcYPWOOI/ITjxrth8LiEmwZI3WbyV8LyC6gUxefT4QGk6hrY5N5vFe
-         3HbzBNutoa34pO1p/oewrObEBUEP68fcAZ6BxWAS8WUxK6BpFkqXlFj/DPcqm0mJSN0A
-         xW/ddMyGxrJD4W1u6Po9J/42MpNE9Mqn7hi6ybtjW8LsN9ywzQxJdGqrb8ybsRokFiJ0
-         sU+Z2hEdAfNVbKHVydqISwzu07DbfQPLgy818LFlUCJknb+yd0wY5EYGLpWlY+Alp0Ik
-         7y8zCVbOr8Fc1b9fp2xc6zoYA+gss+TarDspW1n7WH5EaP3gxrfE2Q8i72hg0+ncKqBi
-         UT4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792266070; x=1792870870;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7bkANSMhFloWtWtc/bd8b694jgoI0AgZf+f/ClS6h3w=;
-        b=wvS75F9t660nZS+0XceaN717JsBxn+xxBPrQI4IbXIKTmJQcWOmik/bnQDjoZbTi4+
-         iSQji3o1bmZ4NlBHdHoKo2GJaS4f29qqD2QZCxoHWmI73aMHqNuXpm9aUy2vcmcPu/qg
-         g9iVFalRAOwrBtVXJ4sTHIint5Hpam2+e4kcrXVgMK2x9R4hum+zFhMHqLh23kX3XrtA
-         19O4jfrHBpC92KBNOLmAr9jKO4ynMoS2Aw47OvpzoQ+5iYMBVn6GboH1M+SaQ7SU7CAU
-         ADaji4Z02KKS9SXSU0Iqx2bQvNi9EMal6wT4/f7UFfI/kWfWcaJanvKqcdCdI3ubDfN4
-         J+2g==
-X-Forwarded-Encrypted: i=1; AKwUvBxf5ViXXlnLL04wA3JAGF82nbJ10bGEantLGUYkOCdX12Md88dnGm7+Os9WYp1uTwKKydTHm+EQDZYwQ4Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK2YBv4NpkfXxtpWFI8cN/rrWi7MyTUFzo/aBgVwMsL50rDopNP
-	MUuif49CDmMLp82tTfwA4satwmSNmJsLvO+XTp2O2hz72vfa0t8/Yvfg
-X-Gm-Gg: AYBFou3Py7y1f3RNXEkaGvF+opJqJ1AL3b/n/kEh+UhnLBxNl2DrddkQfRcPzKR/cad
-	ITPGHXMpfuz6spHc2UA6sq3Xfjor+IwQrvacoZSDbuu2kxsNWL0B+x2GSslVkKAx0j9t/j9AOUW
-	111DTB7y1m00DpJwfhGIitL69I3+CNTIiuCUjxeWG0qk3SiFmqxFrCw4SJ7a5ybaTO0PlOsKn3h
-	ykBwjidi7b6CQ5bSFIr5e2OyAC4yPbr2rK1Lf0/09nB8xuakRZx2HaVTFwf0Ld3kRRKwjKSDHjM
-	UMH+bOtac5B3iNO/5odND24J9VJrvggIZD7dadmI6iCbjAKVIOQt7aINfRX+rFrLISp0pEuFP3e
-	Vze5rhbvNGUJen5BRD805jdIbmoZXFYTacmnxH/TioPW4HMVZFWrhX15hZfH5MZwrmz8SROICHk
-	v63UWys7bcfBzcTbBQnPU4lIIEqWAxMzitVWqeTlps3Nbky4ofS7Rr4CEhZK888fds8fSEtu9d7
-	YYjPU+78GhDzc8mE+HUSv+Ns+7t23q0OkYfkxo=
-X-Received: by 2002:a05:6000:260a:b0:486:f9ea:796f with SMTP id ffacd0b85a97d-48e07fa67d5mr6234193f8f.41.1792266069637;
-        Sat, 17 Oct 2026 12:41:09 -0700 (PDT)
-Received: from varodek-gpd-pocket-4.tailae96b8.ts.net ([2a04:ee41:108:fe4b:620d:dc44:b372:2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd5033a2sm12803462f8f.45.2026.10.17.12.41.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 12:41:08 -0700 (PDT)
-From: Vaibhav Gupta <vaibhavgupta40@gmail.com>
-To: Bjorn Helgaas <helgaas@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Bjorn Helgaas <bjorn@helgaas.com>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Mark Bloch <mbloch@nvidia.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Vaibhav Gupta <vaibhavgupta40@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] net/mlx5: Use generic power management
-Date: Sat, 17 Oct 2026 21:41:02 +0200
-Message-ID: <20261017194104.2684-1-vaibhavgupta40@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WP1Rzm+r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 704531F000C4;
+	Sat, 17 Oct 2026 19:41:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792266074;
+	bh=qNfEJeCDvn9/jBGM/Gu+ZPbvhFBqtl8LbtoJpfKkK7w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WP1Rzm+rI8iWHfl4EBkPGAaDpCdJdRVEyITbbd3JGwOImdDI5ZlV9WM4iVfif/APj
+	 aDMbMfO+BxpcnOQ/RYonCwRJh/MGJrxarWN5La3OX4qO/c6SyzbW4VVTyqiQZlBA3u
+	 YFb64TT142D+hgT9s6+AXaMiWw9T8Vhk0pbue4gZmpfxAjOToR/1Wi5v4CkHAQWkVI
+	 g0D4LCZmuODmdmhq6Tev8qrm1UGSr+pXuyDXIf0WMUnCqWJtpS/GE0vyHq/3UgiLF0
+	 2GR25NigO6esrVCaj/QZo5IQHTBvmNJtCZa3TeRn01kGw+XAeTMLh2+MNJDxGmvC9A
+	 xEEW3dI6fKG8A==
+Received: by venus (Postfix, from userid 1000)
+	id 9912F182304; Sat, 17 Oct 2026 21:41:11 +0200 (CEST)
+Date: Sat, 17 Oct 2026 21:41:11 +0200
+From: Sebastian Reichel <sre@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: codecs: wsa884x: Add mute control knob
+Message-ID: <atPNXkTPuAorOPLj@venus>
+References: <20261014-wsa884x-mute-support-v1-1-74d98d79e635@collabora.com>
+ <60cd552f-1de0-4304-8e84-bb307cdea45f@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xwtlun4sm6rr26mm"
+Content-Disposition: inline
+In-Reply-To: <60cd552f-1de0-4304-8e84-bb307cdea45f@sirena.org.uk>
 
-Switch to the generic power management and remove the usage of legacy
-(pci_driver) hooks.
 
-Signed-off-by: Vaibhav Gupta <vaibhavgupta40@gmail.com>
----
- drivers/net/ethernet/mellanox/mlx5/core/main.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+--xwtlun4sm6rr26mm
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] ASoC: codecs: wsa884x: Add mute control knob
+MIME-Version: 1.0
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/main.c b/drivers/net/ethernet/mellanox/mlx5/core/main.c
-index 5f28d906c35b..d8dba3328bb6 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/main.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/main.c
-@@ -2204,8 +2204,9 @@ static void shutdown(struct pci_dev *pdev)
- 	mlx5_pci_disable_device(dev);
- }
- 
--static int mlx5_suspend(struct pci_dev *pdev, pm_message_t state)
-+static int mlx5_suspend(struct device *device)
- {
-+	struct pci_dev *pdev = to_pci_dev(device);
- 	struct mlx5_core_dev *dev = pci_get_drvdata(pdev);
- 
- 	mlx5_unload_one(dev, true);
-@@ -2213,13 +2214,16 @@ static int mlx5_suspend(struct pci_dev *pdev, pm_message_t state)
- 	return 0;
- }
- 
--static int mlx5_resume(struct pci_dev *pdev)
-+static int mlx5_resume(struct device *device)
- {
-+	struct pci_dev *pdev = to_pci_dev(device);
- 	struct mlx5_core_dev *dev = pci_get_drvdata(pdev);
- 
- 	return mlx5_load_one(dev, false);
- }
- 
-+static DEFINE_SIMPLE_DEV_PM_OPS(mlx5_pm_ops, mlx5_suspend, mlx5_resume);
-+
- static const struct pci_device_id mlx5_core_pci_table[] = {
- 	{ PCI_VDEVICE(MELLANOX, PCI_DEVICE_ID_MELLANOX_CONNECTIB) },
- 	{ PCI_VDEVICE(MELLANOX, 0x1012),
-@@ -2281,8 +2285,7 @@ static struct pci_driver mlx5_core_driver = {
- 	.id_table       = mlx5_core_pci_table,
- 	.probe          = probe_one,
- 	.remove         = remove_one,
--	.suspend        = mlx5_suspend,
--	.resume         = mlx5_resume,
-+	.driver.pm      = pm_sleep_ptr(&mlx5_pm_ops),
- 	.shutdown	= shutdown,
- 	.err_handler	= &mlx5_err_handler,
- 	.sriov_configure   = mlx5_core_sriov_configure,
--- 
-2.56.0
+Hello Mark,
 
+On Thu, Oct 15, 2026 at 06:54:52PM +0100, Mark Brown wrote:
+> On Wed, Oct 14, 2026 at 07:02:54PM +0200, Sebastian Reichel wrote:
+> > This codec is typically used with ALSA UCM, which right now falls back
+> > to handling mute in software. Expose proper hardware mute control
+> > considering the driver already handles it internally anyways, which
+> > allows UCM to bind speaker mute LED to the new control knob.
+>=20
+> The reason we have the mute control in stream startup is to mask
+> glitches caused by the hardware during startup, for example clocking
+> random things out of FIFOs.  Are we sure that this isn't an issue?
+
+I guessed that part. My change should leave it working as the
+user requested mute is OR'd in. So during stream startup with the
+user mute control 'unmuted' nothing should change. With the user
+mute control in 'mute' state it will stay muted during stream
+startup (so no glitch possible IIUIC).
+
+The only potential issue I see is toggling the user control while
+the stream is already running. I don't have documentation for this
+chip, but I'm running a kernel with this patch on my T14s Gen6
+Snapdragon for a few days now and didn't notice any issues.
+
+Greetings,
+
+-- Sebastian
+
+--xwtlun4sm6rr26mm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrTz1QACgkQ2O7X88g7
++pp/wRAAkZIccIsqUsrMj5hXHD6h1HrsqqiIuOzxfoLpUMgmmPc8RzXRytJarbWv
+nbmJDfBrraqrjbT8t3GOJDw2af6LMZndxFgCC66GqQnmVZ24l+Qy/imSmAHtPuWg
+tuk01fdwjlZA8aDMLvVOHwte/BgyfuSh8ywAjMw3bAPnQxhorjysjC7dCOoiJX1K
+kMFBxYaNcNZvVAppvB2k9ve7+wcfvKypn/3ZlYv7Ic912eqH4a+1pH15HsLeujIT
+iaN1ot1RDgw0/HRStoEsUhqISdl1ZoPHfHGpjMYBt0r5bxyJ7pkfQeuCJaB1EufH
+tKymAXX4T2An45abwEZH5jwu+6lqX/She6qvqjW96D7YvArokL3NDI0g4DR8lNzU
+iP5e6nojlYJn7/LYECXsqMCAkGfhm4VlPce3wPuEMU99oP07QOOlIloFE6p8VJMb
+2ZzACFYPDalPridXrB09MZERkaC6jdDI8cPuYu6Qehk1hzRuV0lU4XNN3jjMxWxy
++NEj4GCMpV9XouJT/Y51C2KW+QQZbzeaCl4pP92V84luIbdW6vqfuqnu8qcpCDCS
+nCy7RCl3YSvfZTunVk7X5JarEb5dFx4xufG6tazhJ0uuQ4NeKWGITH56DzdFXjSm
+4K5ROtvkElF8O+2KF670MATyH0DTCuqFXNh27rDrYZS56T+6Uss=
+=v1E9
+-----END PGP SIGNATURE-----
+
+--xwtlun4sm6rr26mm--
