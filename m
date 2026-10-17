@@ -1,37 +1,36 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AA49484253;
-	Sat, 17 Oct 2026 19:59:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8338C4848A3;
+	Sat, 17 Oct 2026 19:59:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792267193; cv=none; b=a+Vsgz11/F7ViDv+M6rj5U5kvPKL55VKQRpWccjUJcgUnZ5EQGtV0w3+0iiopska04+/meVQ8Qd0PIFzHdhMeIEjt2tgKAY5RS0qTq2MR5t4JC+6xurSPMkdqmlTgVbRjelETpYE+DRkFeuIrG9yqLHU7lQkES4qo7R3shdWV1w=
+	t=1792267194; cv=none; b=pt4C0XjNHu2xT/R4NwlW9f+I6dRt4h9wDE6UFL20w0io1tqUOlq5XxnxTBeD5wmhW1Bj6PYDRA3AjFIWIz8sYPTH+Lin+GieHZ3cB7KD0DixEBA7wAOakjGHi2dj5JbzN+PYGhHuiJ+h9ard2CRDBdq3e4weFu6fHk9bvRXajxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792267193; c=relaxed/simple;
-	bh=I3FdlyeG4hO208P4EB5mq8shh+TK5zUhVSedS3ejpSw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GXsWscl9PCdZ4cpvbWiAO1CW9RzUlckDaBesiqgLxJCaiIrMt/gU9m21bu6Zl9GorIjZxAeCm84sTe8ZkspnEgdkl2Nez/XbVGpvsnbMIuc9SwCnTM9KYklaAaV1bTX8HCf3MCjDSqAfLsFpdc/uutuPjqLKmMYB9SBJWOYKLd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I3Z9AJwl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792267194; c=relaxed/simple;
+	bh=PqfTqC8qpNn6JfjpApf6oEqRdK+CHCueyoPGAQnMDOk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YOQYzDWS0jhjXrYFuRjr9Q3Bz9f8xndo2nbssvrw3o/4P5Ko8KfyWlqfB2hy04zq+OhhcygX3qq09YTPlwWB1TUwplRktyzHni7ZcRSaEoR/AZmepxdNuMh2TnQ361RcFEs1jAjlfRwvKi8KKwGnXIyLC7cMrDqUuAm7EqCiBaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BOfktHj4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I3Z9AJwl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF6071F000C6;
-	Sat, 17 Oct 2026 19:59:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BOfktHj4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D7C51F000C8;
+	Sat, 17 Oct 2026 19:59:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792267191;
-	bh=Z6VTzkNz3lljWq1ttScTRs6n3O7AGKj08rTBFz2E/vc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=I3Z9AJwlEDJ3hEEbUpZgPu5mDx2UniT1FMTwNIrV39TPl9YB6mBOTcmdvOM5PoEty
-	 Gd8bfKrIsLNYecEDsEAppsAtEI46+IT4e7W22nenqied6QoTTucs1S957XqdHSw2Jp
-	 tfoLwogxvnc9NZXpyZTNyYoycrnxC68k/sn7DNKPJKKS6lX2RHiCh2ggQLDH+uv5Tw
-	 Y8ZyebOlJUb9gwApXPZyVAIaLsIUoSPmRRyGJ8BGyAp5hRUoy8A9stJ7WMTxPFwoG6
-	 JGDaXfEm7wNrE+gUjqSkD2VY9/EehNAWh1j13G5ueXQB043L7AGAe6EIg4YSy/neh3
-	 KhmpHW/QN+9Xw==
+	s=k20260515; t=1792267192;
+	bh=AUA0BTD/dwmRkkig+Oe4GFBMuEGY8bqGFrhilsgKZsg=;
+	h=From:Subject:Date:To:Cc;
+	b=BOfktHj4SP/vcJ+nbzJOrQ9OGzo0UAC/oZeCXSg6NRv0kfkW/0kqihEVrt1oBpO7n
+	 LlXDXkVOy7plfV0UdE+94Y0T1mYu1ZqHInMssmA5Zc8zV5TXncWX6lVoNQb3gNgjyi
+	 K7UPchaJY8cEHaFO6Lb5oBNT64pakI7RY7O3sB0I76qtOGCJR/vMiKg6MTEVMhkpmW
+	 JGofn3n603Losfpa2nAoKcmNW0sVo7d4xlERlFN3RiO8gYSjHUuoxpdZapLg0amisd
+	 kOvSn4EIaoQkfLp4SwNLXGYivqA98yQ7H1kNb1BvsvoOKicm8v6OEJ1h3ILQQ+K8mG
+	 yX9iHA1k0BWgA==
 Received: by venus (Postfix, from userid 1000)
-	id E5332182303; Sat, 17 Oct 2026 21:59:47 +0200 (CEST)
+	id E3E7E182304; Sat, 17 Oct 2026 21:59:47 +0200 (CEST)
 From: Sebastian Reichel <sre@kernel.org>
-Date: Sat, 17 Oct 2026 21:59:30 +0200
-Subject: [PATCH v2 1/4] dt-bindings: connector: Add DP AltMode VDO
- definitions
+Subject: [PATCH v2 0/4] Add DP AltMode VDO definitions for DT usage
+Date: Sat, 17 Oct 2026 21:59:29 +0200
+Message-Id: <20261017-dp-altmode-dt-defines-v2-0-7ab3d93553dd@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,9 +39,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261017-dp-altmode-dt-defines-v2-1-7ab3d93553dd@collabora.com>
-References: <20261017-dp-altmode-dt-defines-v2-0-7ab3d93553dd@collabora.com>
-In-Reply-To: <20261017-dp-altmode-dt-defines-v2-0-7ab3d93553dd@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNTQ6CMBBGr0K6dkxboQRX3sOwmLaj1AAlbSUaw
+ t0tGJcuX76ft7BIwVFk52JhgWYXnR8zyEPBTIfjncDZzExyqQQXHOwE2KfBWwKbwNLNjRRBIlb
+ YlLpWt4rl7RRy8Np/r+2X41M/yKTtbGt0LiYf3rt4Flvv5yj/OGYBHLSqatNoRaU5XYzve9Q+4
+ NH4gbXrun4AOT6NEdAAAAA=
+X-Change-ID: 20261010-dp-altmode-dt-defines-2aa5a94b76f5
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
@@ -55,130 +56,67 @@ Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
  linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  linux-arm-msm@vger.kernel.org, kernel@collabora.com, 
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3086;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1990;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=DdeBUOCYvUk0SPwWOcib78tj6lKNiGNHfOqgeC+j5L4=;
- b=owEBbQKS/ZANAwAKAdju1/PIO/qaAcsmYgBq09Oy99LFXrodoWSUSElKdFj7JV5R+WhvMznjr
- 0MlWUnuiI+JAjMEAAEKAB0WIQTvZg0HRj+Lcmp5VBPY7tfzyDv6mgUCatPTsgAKCRDY7tfzyDv6
- mrMdD/9+HvJ6ObmxML/8/RtfTM84m2rQCM5E6/R/Ld0ZEWuHbER6ldNPo9wkIjrxoaAKTG2S7y5
- nuSH+2p8bvyNiBwYSXEQhP0MHUDDzPPceuX1wvrC9n9yNieBCd8N2grQbImRxvJs8jVvMvMKD9+
- OKfMq3RZWDpjBx4FlK+6Blp1sgYuTINewZ58Gpg1CqT1nEojJXiKY3JP+OTWVcD+R4j2DKrtHrq
- 8flld79PIHY9PM0aVPdAAdCrkGq5S+oRJGfadQ7pbXPEZKM7aSL83RUc0l1ojU9iRTFZjGR5Stk
- b39hRBuU/Gq5SKVe6R7h5Nf4KP81ga6fr7lRB8wTbHL4aiplpa5VzsGxDAFKgn8S0I5sL3wFr/N
- pxr2uVdqLAuVjXPlFCzgcAQxnlWdM7TaOaMK4MMfCpfYJos3jg8L4bCik5q5wYFHo0rFIfWvhe7
- bwGdhdLFPC3xwpunNDQdp+GNYeXCACUbSo9riyP1AvQwNav6wMceQmLNP6GHXutLhfrecjMAt4L
- hb8o/c38BitSnqWW7Wc3hgOnzK9Gz66wmAWeCXfE+xloEtWV45ZRy4CpSASogTA1BHxLdhWQGo3
- LxpufGx5QeseQlvJ2mqfAlVS4zVStFaZ6j/AJAiF1I+Oyorb6goyMI6bcYd1aA7TKKQ13xi5Ue5
- 6FOD58lIg/lebew==
+ bh=PqfTqC8qpNn6JfjpApf6oEqRdK+CHCueyoPGAQnMDOk=;
+ b=owEBbQKS/ZANAwAKAdju1/PIO/qaAcsmYgBq09OynXNuLyXyyQ5SWVxxDRwRhaVi3cCrJivmP
+ fdaX9EONICJAjMEAAEKAB0WIQTvZg0HRj+Lcmp5VBPY7tfzyDv6mgUCatPTsgAKCRDY7tfzyDv6
+ mnaVD/9GZlzEU1l9TiOtXfrV/MQlaTWxf0iCbR7yaV7e/6EuJKJDsC5/mJ5iFk+HTRhrzUKoK6J
+ 1Hl5VxN05xaQnu9OUbYSllPjpmhwNRvucLHMLhx6S0o3pR+cTAT4zUzu3zYXPvYyoHaUcMRp9cN
+ sGkddOJthw2d9mYOio5ytXPaRGERM5ZYNcmOucYcKioo7c/9cW5PoJ7OAHhiptX6cnLeciiMXj2
+ QdYauYw8uSAqTubsY8MfeYCNGj7HUNhhkkqmewejr0JUu1+hGg9lSn7qttHv+ROwmiujoNIGBMz
+ 4ta52lmQ+oIMp9/BFjI/8/e62vKohG4gyZnjndVZKi3BkQIKgf1MZ8Rnv9IApg5Np/iLvwLLp5f
+ Bm7pdQs57S7Xswf+i/+EJKzFhfVTWL3Y9krkuLoQTCTUpTe79AlWOjwmE7RV6iydtaa1zbAykS8
+ C55Ppj09pwIA8/FAYVjE8KpO43w3Hyg58/JeBLhLrNlfkEN+hlNKK+L7+NRTNctdqbf8VocxAIw
+ y10G4p6sdK7klh2oTIz3h/KfaRrN1pg/mioKNJ86j1/iTSxVfb0qD56MjXjwYDMyhCFz43XN81F
+ IRTQrU+xNdttbjeMIKl/+va80lj4G3PwmRxT7viuPVAfu9oisyNUPt3uWpTVFZKF+WuDtfw+W1I
+ MHONLfDDYHHuD5w==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Make DP AltMode devicetree entries more readable by adding a few
+defines. This hopefully helps to correctly describe the supported
+DP AltMode when boards are being upstreamed. Apparently right now
+all upstream boards with DP AltMode *should* have set their VDO to
+0x00001c46, which means that they can output DP1.4 with C, D or E
+pin mapping on a receptacle that also has functional USB 2.
 
-The typical USB-C DisplayPort AltMode capabilities for a down facing
-port (i.e. sending out video data) looks like this:
+The patch series is based on current master.
 
-altmodes {
-	displayport {
-		svid = /bits/ 16 <0xff01>;
-		vdo = <0x00001c46>;
-	};
-};
+Changes in v2:
+- Link to v1: https://patch.msgid.link/20261014-dp-altmode-dt-defines-v1-0-b657c9b6e4c3@collabora.com
+- s/USB_DISPLAYPORT_SVID/USB_SVID_DP_ALTMODE/ ; I initially
+  used the former and somehow missed updating the Mediatek DTS
+  before sending out the patches
+- Collect Reviewed-by from Dmitry Baryshkov and Konrad Dybcio
 
-Improve the readability by adding defines for the numbers, so that
-the above instead looks like this:
-
-altmodes {
-	displayport {
-		svid = /bits/ 16 <USB_SVID_DP_ALTMODE>;
-		vdo = <VDO_DP(DP_CAP_DPAM_V2_0, DP_CAP_CABLE_TYPE_PASSIVE,
-			      DP_CAP_UHBR_13_5_UNSUPPORTED,
-			      DP_PIN_UFP_NONE, DP_PIN_DFP_C_D_E,
-			      DP_CAP_USB2_USED, DP_CAP_RECEPTACLE,
-			      DP_CAP_SIGNALLING_HBR3, DP_CAP_DFP_D)>;
-	};
-};
-
-The generated DT binary will stay unchanged.
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- include/dt-bindings/usb/pd.h | 58 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 58 insertions(+)
+Sebastian Reichel (4):
+      dt-bindings: connector: Add DP AltMode VDO definitions
+      arm64: dts: rockchip: Use DP AltMode defines
+      arm64: dts: mediatek: Use DP AltMode defines
+      arm64: dts: qcom: Use DP AltMode defines
 
-diff --git a/include/dt-bindings/usb/pd.h b/include/dt-bindings/usb/pd.h
-index 1e64a1f563f9..6cea6165fc0f 100644
---- a/include/dt-bindings/usb/pd.h
-+++ b/include/dt-bindings/usb/pd.h
-@@ -483,6 +483,64 @@
- 	 | ((vbm) & 0x3) << 15 | (curr) << 14 | ((vbi) & 0x3f) << 7	\
- 	 | ((gi) & 0x3f) << 1 | (ct))
- 
-+/*
-+ * Displayport AltMode VDO
-+ * -----------------------
-+ * <30>    :: DPAM version
-+ * <29:28> :: Cable type
-+ * <26>    :: UHBR 13.5 support
-+ * <23:16> :: UFP Pin assignment
-+ * <15:8>  :: DFP Pin assignment
-+ * <7>     :: USB
-+ * <6>     :: Receptacle
-+ * <5:2>   :: Signalling
-+ * <1:0>   :: Capabilities
-+ */
-+#define DP_CAP_UFP_D			1
-+#define DP_CAP_DFP_D			2
-+#define DP_CAP_DFP_D_AND_UFP_D		3
-+
-+#define DP_CAP_SIGNALLING_HBR3		1
-+#define DP_CAP_SIGNALLING_UHBR10	2
-+#define DP_CAP_SIGNALLING_UHBR20	3
-+
-+#define DP_CAP_PLUG			0
-+#define DP_CAP_RECEPTACLE		1
-+
-+#define DP_CAP_USB2_USED		0
-+#define DP_CAP_USB2_UNUSED		1
-+
-+#define DP_PIN_ASSIGN_A			0x01 /* Not supported after v1.0b */
-+#define DP_PIN_ASSIGN_B			0x02 /* Not supported after v1.0b */
-+#define DP_PIN_ASSIGN_C			0x04
-+#define DP_PIN_ASSIGN_D			0x08
-+#define DP_PIN_ASSIGN_E			0x10
-+#define DP_PIN_ASSIGN_F			0x20 /* Not supported after v1.0b */
-+
-+#define DP_PIN_UFP_NONE		0x00
-+#define DP_PIN_DFP_C_D_E	(DP_PIN_ASSIGN_C | \
-+				DP_PIN_ASSIGN_D | \
-+				DP_PIN_ASSIGN_E)
-+
-+#define DP_CAP_UHBR_13_5_UNSUPPORTED	0
-+#define DP_CAP_UHBR_13_5_SUPPORTED	1
-+
-+#define DP_CAP_CABLE_TYPE_PASSIVE	0
-+#define DP_CAP_CABLE_TYPE_RE_TIMER	1
-+#define DP_CAP_CABLE_TYPE_RE_DRIVER	2
-+#define DP_CAP_CABLE_TYPE_OPTICAL	3
-+
-+#define DP_CAP_DPAM_V2_0		0
-+#define DP_CAP_DPAM_V2_1		1
-+
-+#define VDO_DP(dpam, cable, uhbr, ufp_pins, dfp_pins, usb, rcpt, sig, caps)	\
-+	(((dpam) & 1) << 30 | ((cable) & 3) << 28 | ((uhbr) & 1) << 26		\
-+	 | ((ufp_pins) & 0xff) << 16 | ((dfp_pins) & 0xff) << 8			\
-+	 | ((usb) & 1) << 7 | ((rcpt) & 1) << 6 | ((sig) & 0xf) << 2		\
-+	 | ((caps) & 3))
-+
-+#define USB_SVID_DP_ALTMODE		0xff01
-+
- /*
-  * Sink Load Characteristics
-  * -------------------------
+ .../boot/dts/mediatek/mt8390-genio-common.dtsi     |  8 ++-
+ .../boot/dts/mediatek/mt8395-genio-common.dtsi     | 10 +++-
+ arch/arm64/boot/dts/qcom/qrb5165-rb5.dts           |  8 ++-
+ arch/arm64/boot/dts/qcom/sm8150-hdk.dts            |  9 +++-
+ .../dts/rockchip/rk3576-anbernic-rg-vita-pro.dts   |  8 ++-
+ .../boot/dts/rockchip/rk3576-armsom-cm5-io.dts     |  8 ++-
+ .../boot/dts/rockchip/rk3576-armsom-sige5.dts      |  8 ++-
+ .../boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi   |  8 ++-
+ .../boot/dts/rockchip/rk3588s-indiedroid-nova.dts  |  8 ++-
+ include/dt-bindings/usb/pd.h                       | 58 ++++++++++++++++++++++
+ 10 files changed, 115 insertions(+), 18 deletions(-)
+---
+base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
+change-id: 20261010-dp-altmode-dt-defines-2aa5a94b76f5
 
--- 
-2.53.0
+Best regards,
+--  
+Sebastian Reichel <sebastian.reichel@collabora.com>
 
