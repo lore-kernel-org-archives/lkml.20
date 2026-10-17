@@ -1,81 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72DE4CF461;
-	Sat, 17 Oct 2026 20:36:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C6911F30BB;
+	Sat, 17 Oct 2026 20:39:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792269381; cv=none; b=ojGbPOddYBPOgXkp5RPKOqszKBEMPeKtIMjW+hCYj/D935IUNE0btlvyUabxZlxulg1uIOQRawChXIHenenlESRvXdPNLunn/y0F6ce4vpCjT8oF6MJF5XDINP1lPPr0TEK2sEjnsv8+JH5S8C5TN3U6hHBMdj+dDQWzAg9Fc+Q=
+	t=1792269566; cv=none; b=IrXiNlxxhvdq1SsHceyqiWqI1Q0qSu+hZaqNZvVoS41y5GFsNKWLx6KJwc7iinHZ2+cxXx433HV0empg77E86eI5Zbe0MfIb+wMzG3qxArTP1l/Ibfx6CVzEY1WPr/gnTrjph6sBschQ17Kjk/wm1GFl3JXLnJ3aHYt145tz2h4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792269381; c=relaxed/simple;
-	bh=JTUSpkxPgZaeYJXMLaLtVi/ac7o6w8I9BhgrFfbtO5A=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=hbg4y9WQ/HepG65q4Icv96C9700nuMbA7UuQHgU6eUAkjLdY5u8+6R7VQAfn8PzhiH+GuGkW6+6C53yoWDQpX4/9oFCV70vGEIPwYAXqzPq/5G6qG9G1S9nMWCIhaTtbTGCcZkuyYk/E4zNjM8TZ6sc/hEiy8rQtuour4ey6E9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f9Ov2Jnx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792269566; c=relaxed/simple;
+	bh=smM3CHUs9M1sqKEz1ShH+cXz9rl6NKZz2SUXLAExoLg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CBSZT6rZfIVHCAaSMIEydc3i1DJcsAYVRPll7MyAuQOvRkffNfdsF3m0D2QrzcddNhuNp1gS8EPY6o8gC2iq/CG+2cIYkMWPe8fx/6vaAlTdQ3KfyNSzdbjYLnjzj37N5xgink4grFLzoDLdfGV0Jgz4SDSJjpJrHXYCn+lJPSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VN7nYibv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f9Ov2Jnx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A7D41F000C4;
-	Sat, 17 Oct 2026 20:36:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VN7nYibv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 706551F000C4;
+	Sat, 17 Oct 2026 20:39:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792269380;
-	bh=9KH4qgSKtovAEig+paoqKFYdUfApc0kP116Lhit2lwk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=f9Ov2JnxjVwVSvnWdQVKfMh4ly6bTAi4NVATWRF/6+LiTaLaHi1LwV9sZEtD5ZszE
-	 jz0D23nPEQZConeUQUDXUFQVQNrKpdChqC3LntnAKcTNPR/ao3hC4QkcCpUdlmbDRK
-	 hXeuGVCaVCocR/W891BclgYj1/LS96QfR0Q8LqHbwR8zMqK5eLz/AdxjoBbglljIFJ
-	 03hY7WLJuavQa5MQuxXwMKCJBTnlRJocR2K6+HrUqXkt6qOd6E04bM1aYMwnYtpEtg
-	 KzffxwTjkQdn7L4MS83egRJLY1m5O+r1S8McaX3Hfzq8bgMl89xZhTt258MsfaCtGw
-	 Q2QQ6uVfwWPkA==
-Date: Sat, 17 Oct 2026 10:36:19 -1000
-Message-ID: <49d76a6ae49b2e0d5359edc831ffaf60@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <emil@etsalapatis.com>, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH sched_ext/for-7.3-fixes] sched_ext: Don't report a forced-idle CPU as open for IMMED tasks
-In-Reply-To: <20261017124749.3608468-1-arighi@nvidia.com>
-References: <20261017124749.3608468-1-arighi@nvidia.com>
+	s=k20260515; t=1792269564;
+	bh=1+zVta6ZRFT7GXOMcKiGSvwMYmCClLq2D4/Bh2F8bmU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VN7nYibvvQdZ15HO/WXBgyMlhHtL07VUIbDxKJlcDiPiQVbmPQW6EG1U/uZxGDQHa
+	 YdVlztMimUphjaIZd946qtgxw00MNk/OVZnzMPW75mbcYudUuTUuWVO8Ksb9TvWwR5
+	 gLXc5oS2HgZSkLJEL72qaLK3vUOzM4sfYPAwWV5VS51ZFG3VzVHeTm2efrCCUX9PgB
+	 RB1/sEEFWuTDtcE93sEr615NCH089cp+gCiq1Mg9Vby47FI2bmGw11HXIE+3eMVmEi
+	 +yn8CnUIM5/qIweesiUzXT4kAUo9L+S9Tsp+XySe+bActcWXUUthvrqXMPOOABK74J
+	 11ZCv7ov7icAw==
+Date: Sat, 17 Oct 2026 23:39:20 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Daehyeon Ko <4ncienth@gmail.com>
+Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>,
+	"Jason A . Donenfeld" <Jason@zx2c4.com>, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] keys: big_key: Remove the redundant quota reservation
+Message-ID: <atPc-K1wZtS3lP29@kernel.org>
+References: <20261016040004.324286-1-4ncienth@gmail.com>
+ <atK0MnGM2h9IH6FD@kernel.org>
+ <atK186hMPBhYyPCN@kernel.org>
+ <20261017152123.1200429-1-4ncienth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017152123.1200429-1-4ncienth@gmail.com>
 
-Hello, Andrea.
+On Sun, Oct 18, 2026 at 12:21:23AM +0900, Daehyeon Ko wrote:
+> A big_key is charged a fixed 16 bytes of key quota, regardless of its
+> payload size.  big_key_update() nevertheless reserves the new raw payload
+> length before destroying the old payload, and generic_key_instantiate()
+> then reserves the fixed quota length.
+> 
+> For an update shorter than 16 bytes, the first reservation temporarily
+> returns quota.  Another key operation by the same user can consume that
+> quota before generic_key_instantiate() reserves it again.  If the second
+> reservation fails, the key remains positive after its old payload has been
+> destroyed.  Reading a buffer-backed key or revoking a shmem-backed key then
+> dereferences a NULL payload pointer.
+> 
+> On a KASAN build, reading a buffer-backed key reports:
+> 
+>   BUG: KASAN: null-ptr-deref in big_key_read+0x110/0x310
+>   Read of size 64 at addr 0000000000000000
+> 
+> Revoking a shmem-backed key reports, with oops=panic:
+> 
+>   KASAN: null-ptr-deref in range [0x68-0x6f]
+>   RIP: vfs_truncate+0xa2/0x730
+>   big_key_revoke+0xbd/0xe0
+>   Kernel panic - not syncing: Fatal exception
+> 
+> The first reservation is unnecessary.  A positive big_key already has a
+> 16-byte reservation from successful instantiation, so the reservation in
+> generic_key_instantiate() has zero delta and cannot fail after the old
+> payload is destroyed.  A negative key has no old payload to destroy, and
+> generic_key_instantiate() performs the required reservation before
+> publishing the new payload.
+> 
+> Remove the redundant reservation so that the update path adjusts quota only
+> once and cannot expose a temporary quota gap.
+> 
+> Fixes: b6f61c314649 ("keys: Implement update for the big_key type")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+> ---
+> Changes since v1:
+> - Remove the redundant first reservation instead of changing its length,
+>   leaving generic_key_instantiate() as the single quota reservation on the
+>   update path, as suggested by Jarkko.
+> - Verify full-quota positive and negative updates separately.  A positive
+>   update keeps a zero quota delta; a negative update can still return
+>   -EDQUOT before publishing a payload and succeeds after quota is released.
+> 
+>  security/keys/big_key.c | 6 ------
+>  1 file changed, 6 deletions(-)
+> 
+> diff --git a/security/keys/big_key.c b/security/keys/big_key.c
+> index 268f702df380e..ef707f2a81a98 100644
+> --- a/security/keys/big_key.c
+> +++ b/security/keys/big_key.c
+> @@ -193,12 +193,6 @@ void big_key_destroy(struct key *key)
+>   */
+>  int big_key_update(struct key *key, struct key_preparsed_payload *prep)
+>  {
+> -	int ret;
+> -
+> -	ret = key_payload_reserve(key, prep->datalen);
+> -	if (ret < 0)
+> -		return ret;
+> -
+>  	if (key_is_positive(key))
+>  		big_key_destroy(key);
+>  
+> 
+> base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
+> -- 
+> 2.55.0
+> 
 
-On Sat, Oct 17, 2026 at 02:47:49PM +0200, Andrea Righi wrote:
-> +static bool higher_class_runnable(struct rq *rq)
-> +{
-> +	if (sched_stop_runnable(rq))
-> +		return true;
-> +
-> +	/* The ext server selects SCX tasks ahead of RT and fair tasks. */
-> +	if (sched_dl_runnable(rq))
-> +		return rb_first_cached(&rq->dl.root) != &rq->ext_server.rb_node;
-> +
-> +	return sched_rt_runnable(rq) || sched_fair_runnable(rq);
-> +}
+Well, that made a difference. I've started actively try to look
+for eager tactics, and in this case it turned out to be worth
+it. The first solution was exactly like weighted answer that
+cut the search too early :-) 
 
-This duplicates the core pick order in sched_ext, the dl_server ordering
-included, which is brittle. It also misses the case where the IMMED
-task's own cookie forces the CPU idle, e.g. a tagged IMMED task while
-the sibling runs an untagged RT task, as nothing above ext is runnable
-on the CPU itself.
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-Instead of predicting the pick, how about reacting to it? A CPU picking
-idle with IMMED tasks on its local DSQ means that they didn't run
-immediately, whatever the reason. scx_update_idle() is already called on
-every idle pick, from set_next_task_idle() on a task to idle switch and
-from pick_task_idle() on an idle to idle re-pick, so maybe something
-like the following in __scx_update_idle()?
+Thank you.
 
-	if (idle && unlikely(rq->scx.nr_immed))
-		scx_schedule_reenq_local(rq, SCX_REENQ_...);
+PS. Not applying til Monday.
 
-Outside forced idle, nr_immed should be zero there as pick_task_scx()
-would have taken the local DSQ head. The reenq would need a flag telling
-reenq_local() to skip rq_is_open(), as next_class is idle and the rq
-would look open, keeping the IMMED task at the head.
-
-Thanks.
-
---
-tejun
+Br, Jarkko
