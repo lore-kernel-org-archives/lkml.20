@@ -1,37 +1,67 @@
-Received: from freeshell.de (freeshell.de [116.202.128.144])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DC12459CF;
-	Sat, 17 Oct 2026 21:44:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.202.128.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A612EACF2
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 21:47:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792273497; cv=none; b=tdDDu/mFMo4XQLgUXxG31kST1Kk1p/H8CUVGVEEjSPyqA0tP6y0IePuu4DoTonoYU0tcO11kEmlRyKJP6XD0iv/8K6wNMcd3Wz9rrBxyyNTcO5p0XOM4s+sMCdU+lElaF5oCVDP+wV7OnMT1/PWO3HUYBg4lATQgJGGPaAdRoFY=
+	t=1792273639; cv=none; b=gjDROr5nYgu89nOe2qViknc71UVOWdLTY3/enDGqXYJ2sTmeVN8q6nuACRlGy59WgSNs2tZiWc8t3ru71InfKGDUPtRkUjBZtRJhWthg4XV+Kc2vdxJvFU18QFiVQe9rCy3mw/1SKlzU4cmTO9A2Lif44tkk2RDzEogKnyDEJjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792273497; c=relaxed/simple;
-	bh=F5rpSiBMT/Ji1Laqgg5ujovwyOIDwBqrmZaV+2MX/M4=;
+	s=arc-20240116; t=1792273639; c=relaxed/simple;
+	bh=LBiNyMQaU+Lz8qtwm1wDvcMmGVUcj0TquZ11KFl1f08=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u/PmyTl45YbmYp+bqUBdG2n4WzUNby6uPx60cvdpE5Iwx16aEv8b/zY4UznDEZVKb2W4mq6VcT8hqrEzZY3p4rQ5Ohd9Tb3+deb72CkXVaLXUJDLcpBIylqLBLlmBKCXT5DuFyIJ/Yry1+/g0h+ILR7rykbCzPkm6IeSKFd5QNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de; spf=pass smtp.mailfrom=freeshell.de; dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b=kX2llkKe; arc=none smtp.client-ip=116.202.128.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
+	 In-Reply-To:Content-Type; b=h7wAUPLWpfNAtV+zkC7nR8FJ/VGF0N6vMaA5sVbTxmd8OxGubWZs0Umj1iaP4RzqwB3IKHsrssKU9hhBQaUah8lLOZmr0ofeXXnl49O+z47pKg+geM2iTQ6y/l7JuFilLqE9okje/TM7fJdNz0WEchg2RkBlf+DuchZA1JtS71o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net; spf=none smtp.mailfrom=nilk.net; dkim=pass (1024-bit key) header.d=nilk.net header.i=@nilk.net header.b=EQgRe/lp; arc=none smtp.client-ip=74.125.231.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=nilk.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b="kX2llkKe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
-	s=s2025; t=1792273465;
-	bh=s/wVudeSgmsXY2dWTplVbFIoFXGODJ+yqwF0jxDKHAY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=kX2llkKe9MgLXAdyhC9lLGNE+erxsxxUEptOuqk0TgMVOnIgZhdVGj79al1WTnP8/
-	 3jQJd7rIZRPisbeEEFuYhcPOOhT9YHOrN0KvkGUVTkNs/B+3cgwllQq6ZiH0i3phep
-	 67f8HNft2EId89VNoObXetLvw4zSNopHOuE9WN70tWJHtAG0OYx4y0+qoGTU4qOWBw
-	 pDdGvWULdomVacVEUCDTALtXbIrFEZhBOG0M7jvdc99gvDCz8eT9dGTXsydObzfZe0
-	 26Z9dKdx8iHD0/1j4IlYajz9+lTs6PBVP8t9nyiQMl+Y6X3pScP4eq5esnANBZmOo6
-	 NWTbff2PDEA0w==
-Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
-	(Authenticated sender: e)
-	by freeshell.de (Postfix) with ESMTPSA id 59401B2202DA;
-	Sat, 17 Oct 2026 23:44:23 +0200 (CEST)
-Message-ID: <13d6926f-f085-4214-8051-7bf7b5d92b67@freeshell.de>
-Date: Sat, 17 Oct 2026 14:44:21 -0700
+	dkim=pass (1024-bit key) header.d=nilk.net header.i=@nilk.net header.b="EQgRe/lp"
+Received: by mail-oo2-f6.google.com with SMTP id 46e09a7af769-8216bf5eb5eso440585a34.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:47:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nilk.net; s=nilk; t=1792273637; x=1792878437; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Gr7QzmsxuF1G07OcSwQ0zxYW4hq1ADbK4n2bkyk1L1M=;
+        b=EQgRe/lpCg8SIPzTTm3+JpiCFHVy2eO3vhgMd3p4JHGaGJnROYRo+e5gJ5U0YDCVvh
+         NEY1RhLo7TLWvpjQs6+jF8mxUBSMrzMSWV5wE4VvvOSB5+9w17Rjj1LWIV5mJoXz/4fa
+         n5AgMyVMfpvrZybl069z+i8DhZE5qUUV2pvsg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792273637; x=1792878437;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Gr7QzmsxuF1G07OcSwQ0zxYW4hq1ADbK4n2bkyk1L1M=;
+        b=ZFCfApX/P9Xkffwdv3DG65/SRSWfZBEW32seXj5nry+gGnALoHsf4aEenUnx4YMohO
+         wMoGeCm067OjeQ+V6607hoAN+2uc4yqCME2Bu3JKycb03CdL9sHLjxhsGFNpXv9HlLgp
+         /fz3yGcJDjQhFyny2wLPeuGGy3uz31ysKGh8Zaq7yyY77chPwqVZYmJdV9BoSkw3fETD
+         bYNrO74D0OrLvq/BNKxp+04iSIKyitOmrENrBhWPIVzigZCfreRT2rWpFkaZ9wQN+nKL
+         1apDWVbfsA7mrnBB0hEyt/Fr5PvsKdtAEPncUKvs4mrUpzLcCXhC4a4p6GFas1aRrabk
+         /T+w==
+X-Forwarded-Encrypted: i=1; AKwUvBxomroPllMYI7nRC1/Wx1BmipdVzPB9RalwYhWAXlMZZEsfMuoO4PYvM8AFXSdjDKLszqCXilTz9GD+o8o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDMduX9qmj7bJpbETG3DB+/CfEZapknJ0I9zLMBaqrxZw424CR
+	gETTebrou8jz5a+YgFs9q7cqM27jXMQbMB/itx7w8IVeNXDFAizhlwqTCz02b0s4IA==
+X-Gm-Gg: AYBFou0XvlVjK66jsPpBSlV0Ojs4KABnLhBYUELVzkR0lwNtvqEJVP0xGheoCUruso3
+	C2muLQ62he0SyRMBwhaLr/TZDB8BRguNMpmLykkQ8+0OuUz/et+BOWD8mIMyLguGNuejaje7sHC
+	jhmMz+b6Cl1nnm3HK6krfm5ksxxZwTDr76e9G0h1Du+8s8KE2dzn/RvMqhYapfX/14dg+1K7xiR
+	Gd6Dvo3u//+98Vgw/9pIb7sF+mbjfpop8PqueqaTl+KLCoKVRm9VVn+v9fAs0t1pbUBQVnDRNwz
+	I4S8GazNTsCpKHmisYYZu82A0/XcuKpog2fTwS6ZnIUFyQAO0H1mBVxgKb5RwEwPxgo6jEeCN1n
+	6AnWb2Ykzp7TqsGnhVpk//w5DNvOZKZ03I7kdcDMWCy3/Ot5EHJAfPljSDcL+FX5wtpbHekRPMa
+	12ODPqRxXfMYbuBS19Hpq6A8luj7h7gEvnBqMh8oMWKm5h+PMygNM4sgXYPfGaQxuej7F6zLycL
+	nS0L4y5i8xgGt5sGwRMVQD4tK6/Hx8I+OH2nbX6YeEVa037zrwZwksDaWdbvTlidoN6CF9jbY+1
+	Mc5y38VjVQ9HiAamHRz9hcEN2KaSE/nd0IJP+KPgLro/raKJJP5YKEPmf30fwilsrMCp1B3loga
+	Ud7ppLeobdybnimEKcfz+ed5Lq0v9RGGpk/MiQoK3EwW2DUnJ2g==
+X-Received: by 2002:a05:6820:f023:b0:6d7:fea2:526f with SMTP id 006d021491bc7-70355d88ab4mr2411588eaf.30.1792273636699;
+        Sat, 17 Oct 2026 14:47:16 -0700 (PDT)
+Received: from [192.168.0.114] ([187.14.252.51])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a53dac8dsm5527535a34.12.2026.10.17.14.47.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 17 Oct 2026 14:47:16 -0700 (PDT)
+Message-ID: <eee2988c-5ab6-40c3-ad3d-e4e0aeb977be@nilk.net>
+Date: Sat, 17 Oct 2026 15:47:14 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,375 +69,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] riscv: dts: spacemit: mark K1 board boot devices
- bootph-pre-ram
-To: Hung-Chun Tseng <alan.tseng.cs@gmail.com>, Yixun Lan <dlan@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261017180141.3477743-1-alan.tseng.cs@gmail.com>
- <20261017180141.3477743-3-alan.tseng.cs@gmail.com>
+Subject: Re: [PATCH RFT 2/3] media: i2c: dw9719: Add DW9800W support
+To: Danila Tikhonov <danila@mainlining.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Eugene Lepshy <fekz115@gmail.com>,
+ Vasiliy Doylov <neko@altlinux.org>, Achill Gilgenast <achill@achill.org>,
+ Luca Weiss <luca.weiss@fairphone.com>,
+ Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht
+References: <20260801-dw9800w-clean-v1-0-38978de67963@mainlining.org>
+ <20260801-dw9800w-clean-v1-2-38978de67963@mainlining.org>
 Content-Language: en-US
-From: E Shattow <e@freeshell.de>
-In-Reply-To: <20261017180141.3477743-3-alan.tseng.cs@gmail.com>
+From: Chris Simpson <chris@nilk.net>
+In-Reply-To: <20260801-dw9800w-clean-v1-2-38978de67963@mainlining.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Hung-Chun,
+Hi Danila,
 
-On 10/17/26 11:01, Hung-Chun Tseng wrote:
-> On K1 boards an SPL reads the board EEPROM (0x50 on i2c2) to identify
-> the board, and before DRAM training it programs the P1 PMIC (0x41 on
-> i2c8) rails buck1, buck3 and aldo1. Boards that boot from SPI NOR also
-> need the flash on QSPI.
+On Sat, 01 Aug 2026 21:04:15 +0300, Danila Tikhonov wrote:
+> The DW9800W uses the same chip ID and register layout as the DW9800K,
+> but requires different default VCM frequency value.
 
-I think this statement is too much a description of software. It is not
-interesting what the user-provided SPL does of some other software
-project here for the hardware description in Linux device tree.
+A data point for v2. The Microsoft Surface Pro 9 has a DW9800W on its
+OV13858 rear camera module, at 0x0c on the sensor's I2C bus. INFO reads
+0xF2 and register 7 powers up as 0x60, both matching the values in this
+patch. The module is enumerated through ACPI, so ipu-bridge creates
+the I2C client, not DT.
 
-If the BootROM does this EEPROM configuration, then we could reasonably
-extend bootph-pre-ram tags with the understanding that any SPL will need
-those same interfaces. Does BootROM configure the EEPROM peripheral for
-access? If not, I think the justification is weak here to include this.
+I ran this patch as posted, plus the one dw9719_id_table line
+suggested below (without it the driver can't get the DW9800W model on
+ACPI), on a 7.2.11 distro kernel with the linux-surface patches. My
+ipu-bridge change, still to be posted, creates the "dw9800w" client
+from the Surface's SSDB. The driver binds to that client, INFO reads
+0xF2, so it goes through the DW9800_ID case, and the sensor gets its
+ancillary link to the lens. With the camera streaming, register
+readback shows CONTROL 0x02, MODE 0x40 and register 7 0x60, and
+V4L2_CID_FOCUS_ABSOLUTE values 640, 1023 and 512 reach VCM_CURRENT. An
+equivalent change has also run through runtime and system suspend on
+the same tablet.
 
-Ask vendor-employed developer(s) to give us a flow chart of the BootROM
-boot flows and list of configured peripherals in each boot flow. At a
-minimum we should have those peripherals configured and refer to that
-correspondance for justification. Additional to this we should identify
-what is not configured by the BootROM.
+[...]
 
-> 
-> Mark these board peripherals bootph-pre-ram on the boards that have
-> them, together with i2c2 where the EEPROM sits. i2c8 is tagged in
-> k1.dtsi, as every K1 board connects the PMIC there.
-> 
-> Assisted-by: claude-opus-5-5 dtbs_check
-> Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-> ---
->  arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi | 6 ++++++
->  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts   | 6 ++++++
->  arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts | 7 +++++++
->  arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts    | 7 +++++++
->  arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts  | 4 ++++
->  arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts  | 5 +++++
->  6 files changed, 35 insertions(+)
-> 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
-> index 81c40df2a..acb8fa2e6 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
-> @@ -64,6 +64,7 @@ &pdma {
->  };
->  
->  &i2c2 {
-> +	bootph-pre-ram;
->  	pinctrl-names = "default";
->  	pinctrl-0 = <&i2c2_0_cfg>;
->  	status = "okay";
-> @@ -71,6 +72,7 @@ &i2c2 {
->  	eeprom@50 {
->  		compatible = "atmel,24c02";
->  		reg = <0x50>;
-> +		bootph-pre-ram;
->  		vcc-supply = <&buck3_1v8>;
->  		pagesize = <16>;
->  		read-only;
-> @@ -100,6 +102,7 @@ &i2c8 {
->  	pmic@41 {
->  		compatible = "spacemit,p1";
->  		reg = <0x41>;
-> +		bootph-pre-ram;
->  		interrupts = <64>;
->  		vin1-supply = <&reg_vcc_4v>;
->  		vin2-supply = <&reg_vcc_4v>;
-> @@ -113,6 +116,7 @@ pmic@41 {
->  
->  		regulators {
->  			buck1 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <1050000>;
->  				regulator-ramp-delay = <5000>;
-> @@ -127,6 +131,7 @@ buck2 {
->  			};
->  
->  			buck3_1v8: buck3 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <1800000>;
->  				regulator-ramp-delay = <5000>;
-> @@ -155,6 +160,7 @@ buck6 {
->  			};
->  
->  			aldo1: aldo1 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <3400000>;
->  				regulator-boot-on;
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> index 58035d886..b91db3204 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> @@ -187,6 +187,7 @@ &qspi {
->  };
->  
->  &i2c2 {
-> +	bootph-pre-ram;
->  	pinctrl-0 = <&i2c2_0_cfg>;
->  	pinctrl-names = "default";
->  	status = "okay";
-> @@ -194,6 +195,7 @@ &i2c2 {
->  	eeprom@50 {
->  		compatible = "atmel,24c02";
->  		reg = <0x50>;
-> +		bootph-pre-ram;
->  		vcc-supply = <&buck3_1v8>; /* EEPROM_VCC1V8 */
->  		pagesize = <16>;
->  		read-only;
-> @@ -223,6 +225,7 @@ &i2c8 {
->  	pmic@41 {
->  		compatible = "spacemit,p1";
->  		reg = <0x41>;
-> +		bootph-pre-ram;
->  		interrupts = <64>;
->  		vin1-supply = <&reg_vcc_4v>;
->  		vin2-supply = <&reg_vcc_4v>;
-> @@ -236,6 +239,7 @@ pmic@41 {
->  
->  		regulators {
->  			buck1_0v9: buck1 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <1050000>;
->  				regulator-ramp-delay = <5000>;
-> @@ -250,6 +254,7 @@ buck2 {
->  			};
->  
->  			buck3_1v8: buck3 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <1800000>;
->  				regulator-ramp-delay = <5000>;
-> @@ -278,6 +283,7 @@ buck6 {
->  			};
->  
->  			aldo1: aldo1 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <3400000>;
->  				regulator-boot-on;
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-> index 635e95aad..d2a39cf55 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-> @@ -201,6 +201,7 @@ &pdma {
->  };
->  
->  &i2c2 {
-> +	bootph-pre-ram;
->  	pinctrl-0 = <&i2c2_0_cfg>;
->  	pinctrl-names = "default";
->  	status = "okay";
-> @@ -208,6 +209,7 @@ &i2c2 {
->  	eeprom@50 {
->  		compatible = "atmel,24c04";
->  		reg = <0x50>;
-> +		bootph-pre-ram;
->  		vcc-supply = <&buck3_1v8>; /* EEPROM_VCC18 */
->  		pagesize = <16>;
->  		read-only;
-> @@ -230,6 +232,7 @@ &i2c8 {
->  	pmic@41 {
->  		compatible = "spacemit,p1";
->  		reg = <0x41>;
-> +		bootph-pre-ram;
->  		interrupts = <64>;
->  		vin1-supply = <&reg_vcc_4v>;
->  		vin2-supply = <&reg_vcc_4v>;
-> @@ -243,6 +246,7 @@ pmic@41 {
->  
->  		regulators {
->  			buck1_0v9: buck1 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <1050000>;
->  				regulator-ramp-delay = <5000>;
-> @@ -257,6 +261,7 @@ buck2 {
->  			};
->  
->  			buck3_1v8: buck3 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <1800000>;
->  				regulator-ramp-delay = <5000>;
-> @@ -285,6 +290,7 @@ buck6 {
->  			};
->  
->  			aldo1: aldo1 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <3400000>;
->  				regulator-boot-on;
-> @@ -386,6 +392,7 @@ &qspi {
->  	flash@0 {
->  		compatible = "jedec,spi-nor";
->  		reg = <0>;
-> +		bootph-pre-ram;
->  		spi-max-frequency = <26500000>;
->  		spi-rx-bus-width = <4>;
->  		spi-tx-bus-width = <4>;
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-> index 23f32a8a3..a3d0e38ac 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-> @@ -160,6 +160,7 @@ &pdma {
->  };
->  
->  &i2c2 {
-> +	bootph-pre-ram;
->  	pinctrl-0 = <&i2c2_0_cfg>;
->  	pinctrl-names = "default";
->  	status = "okay";
-> @@ -167,6 +168,7 @@ &i2c2 {
->  	eeprom@50 {
->  		compatible = "atmel,24c02";
->  		reg = <0x50>;
-> +		bootph-pre-ram;
->  		vcc-supply = <&buck3_1v8>; /* EEPROM_VCC1V8 */
->  		pagesize = <8>;
->  		read-only;
-> @@ -199,6 +201,7 @@ &i2c8 {
->  	pmic@41 {
->  		compatible = "spacemit,p1";
->  		reg = <0x41>;
-> +		bootph-pre-ram;
->  		interrupts = <64>;
->  		vin1-supply = <&reg_vcc_4v>;
->  		vin2-supply = <&reg_vcc_4v>;
-> @@ -212,6 +215,7 @@ pmic@41 {
->  
->  		regulators {
->  			buck1_0v9: buck1 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <1050000>;
->  				regulator-ramp-delay = <5000>;
-> @@ -226,6 +230,7 @@ buck2 {
->  			};
->  
->  			buck3_1v8: buck3 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <1800000>;
->  				regulator-ramp-delay = <5000>;
-> @@ -254,6 +259,7 @@ buck6 {
->  			};
->  
->  			aldo1: aldo1 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <3400000>;
->  				regulator-boot-on;
-> @@ -353,6 +359,7 @@ &qspi {
->  	flash@0 {
->  		compatible = "jedec,spi-nor";
->  		reg = <0>;
-> +		bootph-pre-ram;
->  		spi-max-frequency = <26500000>;
->  		spi-rx-bus-width = <4>;
->  		spi-tx-bus-width = <4>;
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-> index eb77aae9d..5e2fde8be 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-> @@ -187,6 +187,7 @@ &i2c8 {
->  	pmic@41 {
->  		compatible = "spacemit,p1";
->  		reg = <0x41>;
-> +		bootph-pre-ram;
->  		interrupts = <64>;
->  		vin1-supply = <&vcc4v0>;
->  		vin2-supply = <&vcc4v0>;
-> @@ -200,6 +201,7 @@ pmic@41 {
->  
->  		regulators {
->  			buck1_0v9: buck1 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <1050000>;
->  				regulator-ramp-delay = <5000>;
-> @@ -214,6 +216,7 @@ buck2 {
->  			};
->  
->  			buck3_1v8: buck3 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <1800000>;
->  				regulator-ramp-delay = <5000>;
-> @@ -242,6 +245,7 @@ buck6 {
->  			};
->  
->  			aldo1_3v3: aldo1 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <3400000>;
->  				regulator-boot-on;
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-> index 790234f35..d4adfc5b7 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-> @@ -214,6 +214,7 @@ &i2c8 {
->  	pmic@41 {
->  		compatible = "spacemit,p1";
->  		reg = <0x41>;
-> +		bootph-pre-ram;
->  		interrupts = <64>;
->  		vin1-supply = <&vcc4v0>;
->  		vin2-supply = <&vcc4v0>;
-> @@ -227,6 +228,7 @@ pmic@41 {
->  
->  		regulators {
->  			buck1_0v9: buck1 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <1050000>;
->  				regulator-ramp-delay = <5000>;
-> @@ -241,6 +243,7 @@ buck2 {
->  			};
->  
->  			buck3_1v8: buck3 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <1800000>;
->  				regulator-ramp-delay = <5000>;
-> @@ -269,6 +272,7 @@ buck6 {
->  			};
->  
->  			aldo1: aldo1 {
-> +				bootph-pre-ram;
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <3400000>;
->  				regulator-boot-on;
-> @@ -366,6 +370,7 @@ &qspi {
->  	flash@0 {
->  		compatible = "jedec,spi-nor";
->  		reg = <0>;
-> +		bootph-pre-ram;
->  		spi-max-frequency = <26500000>;
->  		spi-rx-bus-width = <4>;
->  		spi-tx-bus-width = <4>;
+>  	{ .compatible = "dongwoon,dw9800k", .data = (const void *)DW9800K },
+> +	{ .compatible = "dongwoon,dw9800w", .data = (const void *)DW9800W },
 
-I do not agree with the "trust me, bro, I need this to boot" approach to
-device tree upstream if it is at all avoidable. However it is difficult
-to know without a listing of the BootROM.
+ACPI users need the I2C id as well. As posted, an ACPI-instantiated
+client can't get the DW9800W model:
 
-With that, and having no visibility into the workings of BootROM myself,
-the shape of this appears good. I'd like to see that discussion happen
-about what BootROM is doing and more specifically what it is not doing
-that we are amending for the benefit of software in this description of
-hardware.
+- Named "dw9800w" with CONFIG_OF=n (Fedora's x86 config), it matches
+  nothing.
+- Named "dw9800w" with CONFIG_OF=y, it binds through the i2c core's
+  compatible-name fallback. i2c_get_match_data() then returns NULL, so
+  the model is DW9718S and the INFO check is skipped.
+- Named "dw9719", it gets model DW9719, and the DW9800_ID case returns
+  -ENODEV.
 
-Reviewed-by: E Shattow <e@freeshell.de>
+Could v2 add this to dw9719_id_table?
+
+	{ .name = "dw9800w", .driver_data = (kernel_ulong_t)DW9800W },
+
+Also, that -ENODEV return leaves the regulator enabled, like the paths
+Myeonghun Pak's patch fixes [1]. It would be worth routing it through
+the same power-down path.
+
+I understand v2 is waiting for the DW9800K rework. I'll test it on the
+Pro 9 when it comes and send a Tested-by then. The ipu-bridge patch
+for the Surface's VCM type would follow on top of it.
+
+Thanks,
+Chris
+
+Made with AI assistance. Written by Claude Opus 5.5 (drafting), with
+review by Claude Fable 5.1 and testing by Claude Opus 5.5, under the
+direction of Chris Simpson <chris@nilk.net>, who reviewed and approved
+it.
+
+[1] https://lore.kernel.org/all/20260913041828.28430-1-mhun512@gmail.com/
