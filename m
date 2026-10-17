@@ -1,175 +1,269 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE5534DCD2
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:02:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792213349; cv=pass; b=RD3G+tzgnX6UoAJF7g4QoL1vINFb/8ZuKzlUX4xJhuh5JXFfFXcaY0vgL5NuhMTwX4nrCR42Zg8zxKSbHP9Qh24Mi+TdxWWpCSEW2IRvRSRi3CCf3alv1Gs5YRSVJDPB+U6o9SU4MTpo5pK/Hdmlh+UCljAScuHWUyMqtrXokYg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792213349; c=relaxed/simple;
-	bh=qA4ufMq4NgXLgUYdkQ43Xh3EEM7qAnRV0fG7/RHdhqY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=u3mBySqByru8WORy2DyVKq4MXelTj48blprtHCZmkJiZkBu3PTNb/XNYL6evDMXcr2kF50QuBr3ctSi8gHs/l39kXxoU3UKhF8m/JuvNZMZ/cdl71QnnSjqfh2oLY5NJSlTqz4FfaanS2vQ7FXtdetUVuNxMbGFhCF4RneWepjI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KjSvgtjL; arc=pass smtp.client-ip=209.85.167.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B947356A38
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:03:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792213434; cv=none; b=l8SGSsFkzdTGVj2ve1QxeGL3NVhghWFk5r/94gdq6EQVFIb+3I6i+DRUf5yHCua/UIBTLRAwlD6GjG6ZM6XjUV0eCgZgnwn58N+fkdEaxxIsEgcnOXwW20juIHInc2xcDOBmrkiYdrwKlsGhrTzKnSN8kBHiBd8OjZDkilby9o0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792213434; c=relaxed/simple;
+	bh=SOv12bKZ/oM9WsZs+pnaxa0RyeoxWC/41oXvgZAmAkw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QiXXBBSaRgWrW/48JO2SKvzNSeHrTDq1qseL+GnhyhhqePCH8gvQz2LeD09h3RkSXttm2QCNpcsSZYHzskTSCc+Tjxuts7pFh69DYXWE6djt+fZzGbtcSrpJ66thUZeoAs6UwUtHgVRfEh+g1OVvcFKXwvMgbT9zYOAT9P1exzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=IjwlADOE; arc=none smtp.client-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KjSvgtjL"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5be4d648aacso487755e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:02:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792213346; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Z5yTovL6vxU/EHJKh8ethKqv+Ah8p6KIbIJPwhfGrUrfeEY1vjdsbnu3ipFEwvTXZx
-         exRlntwiPs3Jr3VY791kyvfjlLBuh4K+WtxvN4oMdwp1RGvQIdCufvkh1nYKd9v6CKCB
-         yrItvwSJqGGGznndspU57c33Gmpx+4rnYpNxO/yA8PLnSGko277hQIWdWW9nSLo+XZmT
-         eIshJB5+LOPvrvjzE438ijA7tFUTLYqeY7P0LEIlpn+ms8dnrNP5KpQ//IqcZoRUFwm8
-         eW6R5ALB2oEQrtanEEt3Esa7iThPmARaQi1x3POwH7tOhVXtQXI6CBSWHwnq7zDt0Z0w
-         LAmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qA4ufMq4NgXLgUYdkQ43Xh3EEM7qAnRV0fG7/RHdhqY=;
-        fh=szMMO9y3q+2f6li5ikRjqDov/K5I/xnIVHK0u9xoqJQ=;
-        b=NeiylHqov2QcquYmEqvjhKXfXC+kpJtzbcwtOZ+hqbDQuJHqHc3+4aR7LsRks7CcyZ
-         izwAtK+WxUd7ES++FzyA+D/ymCZQnsK9WU3z2/C/xPElZUYYjC7iwnpFXBQ3IgQZEbVp
-         cQK+g25w8B3crTrVH3LA/7TRRvxSce4bCGGsdYsL2ITj866H0VO10w3TK3E4QX2nnjl9
-         llEG0CCr+Sxpu0u0HDQ/dMIBzg7L22TP09me0qYFSoTCY6ujDyl1WFBylpdRi/VqUMrV
-         NHYa0fMq4CEFSxB8iImeVn/rgUgYG1WTIUFoxP77Mrt4wMKJmIUmvCZWRZdUQtuBRmuS
-         8FgA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792213346; x=1792818146; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qA4ufMq4NgXLgUYdkQ43Xh3EEM7qAnRV0fG7/RHdhqY=;
-        b=KjSvgtjLMx0CCk7ab5oGQSnBpSJewW7IMuy5thAfPce3K129hQosuFKvuzZTzfy7BH
-         d6pJQUI2veGQNA9KG6Cs0ROV35LGJf95okA9KThBXnuEl78g+mRgiB8utWcef2Nn4R1M
-         kiyZ9cXU9GPcld5jre20eBkL7Hr7ErTsWVncghjGgZ8u2OdwmvwlQ7egKLU/q4fxdIuj
-         Xydu0sA6E5M2/cK8m8m+UODHd0Vz+VRWLjWrkPcoaLrDxDM5672EYK9KkTSzIksSmy8v
-         Y5ENIrS7K10VUvWvzea4MirvGRlNbneiIQ029sbfCcAtq+pZpAHXzmNFSlxJNFN3PuwY
-         S2zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792213346; x=1792818146;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qA4ufMq4NgXLgUYdkQ43Xh3EEM7qAnRV0fG7/RHdhqY=;
-        b=xj4FOC7eX6s7xv/XKvIofMQcQ+aqiDoV+mNdyCDGfesX7nCEMDn3gSJEbHcp2VolXi
-         dKCCSKqcU7IwDT//cazCmJOHU/gYUCYp/zD4VbXKzBNTiOhGFGELBYDknQLVoE5l7QOm
-         JOqsMai/BchDeC6+7REUcrweqg5HhVtIq5bH8A0q+yUVeH2OF3s/zssAQyhbZ1256VQt
-         xuCR800mwF+3m65BM3+GeC9LFRjVEVw/iT3eQqcUAM/QUGU30o2BKeUFz37PiXCmM3Y8
-         yVJEEV3f5Heu1Qdu5mT4RX79rAVqfyLwTdHXytSkuX/5pXq3hnVSPcM254kyvv93skRT
-         y24g==
-X-Forwarded-Encrypted: i=1; AKwUvBwmgIhirDJ8HwHAm47gBk7cz7GdfwqgZvF3zpYzgjJ2lui12iCGWDgJZXcAH3kp/lUZXcAJO35Cf6whWdo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/puPxcsujVXns/ZsAv9DtZGkMn5rGePLHQtJlaZO0IuEcaWD6
-	22ZQn11E4MdvPMn5FIteeY/0jK6ir/y4SbLu3ikVIurPJ7ESsBkCZ8bDe92c0JAgmP66wqJS9a+
-	ohDPa84HsC7UUjyrlOxd+vqnJsw0Xqg4U7Fw0
-X-Gm-Gg: AYBFou34vRR2ebNqQP5SY+RlsmI/wrMy+lKb7TwlaD7ngwxxyl+SyynOmhk0YiDg8vC
-	0illdpzQiddNzkGRkps5Fq7UQOGEpG5BYE8Uw+6Cc3wIGHJu/24CNGhFw/geVA/x33LCj3qfMV+
-	ES2BCblWwfm29L+z+khgchXLt8TKC8mv6r4je5ZifaRScez6BBCZ9DcqwOXh72QEAm8wzjYJCtq
-	8Hp+pL5LRviMbD7oK6gz2oKLAcDw8+zhrstzcqkp2UHVMRPgUnbP2EoX4Dp+p7F1tVS3On+c79O
-	Q03CogHcBxtNYBaXOAx6LgUCqTnjq6ZGG6DLorYbTrOiuDMt8B31D4g=
-X-Received: by 2002:a05:6512:3b24:b0:5be:3f7e:7409 with SMTP id
- 2adb3069b0e04-5be50a71003mr464282e87.43.1792213345431; Fri, 16 Oct 2026
- 22:02:25 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="IjwlADOE"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792213422; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=3bNNdf54bPSOyu30QFMPlpmkgCZp3aoSZH9DnyMrUgk=;
+	b=IjwlADOExBnBIWxw5d6Bwq6SBlQ+1meCQkT6qmmzuu3J6SqZp3Y+neClfsHVlakQV9fci1odUrb+4lSPbPnm5UjYWf0NQUlH6V+sKHHgJYPU2KUzCYvgp2g+Yin6FApAxJwdlvfINXqyKzlS4ZnsTl5NIrPMHHrVIEKwqScMZu0=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R691e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XCwamdB_1792213420;
+Received: from 30.42.72.158(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCwamdB_1792213420 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sat, 17 Oct 2026 13:03:40 +0800
+Message-ID: <21710bdf-3923-4e09-a99c-db50bf7e3247@linux.alibaba.com>
+Date: Sat, 17 Oct 2026 13:03:39 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <as-jZopKRfuYAiTE@google.com> <CACpmpoeS_cvXRWJXqiYZV9oykk=91efv8KtZgK2Pi-QwHnQH3A@mail.gmail.com>
- <CAO9r8zN5n=9v4K+OtEEODg=e0kcFW99PreUcZm09q9CUMQc+ew@mail.gmail.com>
- <CACpmpofdoeVbbw7izCDeJ7eS+XpWj+3sp3teKEQWywyRB75jYQ@mail.gmail.com>
- <CAO9r8zMaaUsBaS0TJumochRKt2ShV7nRaLnYPWv3=S-wUFgitw@mail.gmail.com>
- <CACpmpoecz4tjr-qvFRy22CGuF+4NBWbE7HVjdTGFqQOheK3CLg@mail.gmail.com>
- <CAO9r8zOAcf4=TscCXjMYvowUx-_u9qLGqY2-p7cK-z5CUU_x8w@mail.gmail.com>
- <CACpmpofYXDMviE6FS-BZdVntmQFvS+_xvfmOnJ2caZFerz6vyg@mail.gmail.com>
- <atGqPIpUfX0LDokV@gondor.apana.org.au> <CACpmpofyLW5z1DYEY2YAty0VOAhRR+Leic8O-B0N9hrzdW_=Ew@mail.gmail.com>
- <atL1ok1YkHbA4AaI@gondor.apana.org.au>
-In-Reply-To: <atL1ok1YkHbA4AaI@gondor.apana.org.au>
-From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Date: Fri, 16 Oct 2026 22:02:13 -0700
-X-Gm-Features: AclHuK83Cy-eJhLJZxzQLRm52k6Crd7V4JEX6EsZtttKAdEO7DhI1ttSz_5rhrM
-Message-ID: <CACpmpoe_RXcJM42sTVwk_Qvt3zjAOZhzYZNsRD4xz_1HxDmadg@mail.gmail.com>
-Subject: Re: [PATCH v1 0/8] Batched zswap_store() with compression batching
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Yosry Ahmed <yosry@kernel.org>, hannes@cmpxchg.org, nphamcs@gmail.com, 
-	chengming.zhou@linux.dev, akpm@linux-foundation.org, linux-mm@kvack.org, 
-	davem@davemloft.net, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
-	senozhatsky@chromium.org, 
-	"Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm: memory: fix truncation removing mapped folios
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: akpm@linux-foundation.org, david@kernel.org, liam@infradead.org,
+ vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ qi.zheng@linux.dev, jack@suse.cz, pfalcato@suse.de, ayushr@modal.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <e2f76ed117b0c22a26b7688fd46a38c9d035336e.1792114445.git.baolin.wang@linux.alibaba.com>
+ <atIsNGVDcWtznMKi@gremlin>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <atIsNGVDcWtznMKi@gremlin>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 16, 2026 at 9:12=E2=80=AFPM Herbert Xu <herbert@gondor.apana.or=
-g.au> wrote:
->
-> On Fri, Oct 16, 2026 at 08:03:07PM -0700, Kanchana P. Sridhar wrote:
-> >
-> > The Average throughput of 10 iterations usemem is 19,058 KB/s. IOW, I
-> > don't get the same performance boost as making the localized change in
-> > crypto_acomp_compress(), likely because of added computes per compress
-> > call (one function call, two conditionals).
->
-> What are we comparing against?
 
-Sorry, I should have clarified! The comparison is against having the
-conditional and short-circuit in crypto_acomp_compress() [1]. I was
-referring to this as the "localized change in crypto_acomp_compress".
 
-10 iterations usemem Average throughput with Conditional &
-short-circuit placement in:
+On 10/17/26 1:36 AM, Lorenzo Stoakes (ARM) wrote:
+> On Fri, Oct 16, 2026 at 09:48:08AM +0800, Baolin Wang wrote:
+>> Ayush reported an issue that shmem/tmpfs folios are still mapped when
+>> truncating them on production:
+>> "
+>> BUG: Bad page cache in process ...  pfn:...
+>> page dumped because: still mapped when deleted
+>> "
+>>
+>> I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
+>> branch, and I got the following crash info. From the dump message, we can
+>> see that truncate_inode_folio() is really trying to remove mapped folios,
+>> which is incorrect.
+>>
+>> "
+>> [  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
+>> index:0x3880 pfn:0x191647
+>> [  189.171995] memcg:ffff0000cc073d40
+>> [  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
+>> [  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
+>> workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
+>> .......
+>> [  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
+>> [  189.172026] ------------[ cut here ]------------
+>> [  189.172027] kernel BUG at mm/filemap.c:155!
+>> [  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
+>> .......
+>> [  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
+>> 7.3.0-rc4+ #277 PREEMPT(lazy)
+>> .......
+>> [  189.183986] Call trace:
+>> [  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
+>> [  189.184391]  __filemap_remove_folio+0x34/0x160
+>> [  189.184633]  filemap_remove_folio+0x4c/0xb0
+>> [  189.184859]  truncate_inode_folio+0x34/0x58
+>> [  189.185087]  shmem_undo_range+0x220/0x658
+>> [  189.185308]  shmem_fallocate+0x2f0/0x470
+>> [  189.185527]  vfs_fallocate+0x128/0x328
+>> ......
+>> [  189.187078]  el0t_64_sync+0x184/0x188
+>> "
+>>
+>> After analysis, I believe the race exists between truncation and MADV_DONTNEED,
+>> and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
+>> MADV_DONTNEED synchronously releases the pagetable page before calling
+>> tlb_flush_rmaps(), this could cause another thread's truncation to skip
+>> zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
+>> as non-zero. A possible race scenario is as follows:
+>>
+>> CPU 0                           CPU 1
+>> shmem_fallocate                 madvise_dontneed_single_vma
+>>    unmap_mapping_range            .......
+>>    ......
+>>    (filemap_map_pages() remap folios)
+>> 				  zap_pte_range
+>>    truncate_inode_folio		    zap_empty_pte_table(pmd clear)
+>>      unmap_mapping_folio
+>>      ......
+>>        zap_pmd_range (saw pmd none, skip)
+>>
+>>    filemap_remove_folio
+>>      BUG_ON(folio_mapped)
+>>                                      tlb_flush_rmaps(remove rmaps)
+>>
+>> To fix this issue, we should move the pmd clear operation (via zap_empty_pte_table())
+>> to after tlb_flush_rmaps() and use sync_with_folio_pmd_zap() to sync with
+>> concurrent zapping, so that when we find a pmd_none() while unmapping a folio
+>> without holding the PTL, the folio's mappings are guaranteed to have been
+>> removed via tlb_flush_rmaps().
+>>
+>> [1] https://lore.kernel.org/all/20260925065013.3682431-1-ayushr@modal.com/
+>> Reported-by: Ayush Ranjan <ayushr@modal.com>
+>> Closes: https://lore.kernel.org/all/20260924061708.1645968-1-ayushr@modal.com/
+>> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
+>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> 
+> With nits addressed LGTM, so:
+> 
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-crypto_acomp_compress(): 20,946 KB/s
-acomp_do_req_chain(): 19,058 KB/s
+Thanks.
 
->
-> The thing is that the conditional will have to be there at some
-> point as otherwise this becomes pointless.
->
-> What if you just do the conditional and short-circuit in
-> crypto_acomp_compress?
+> 
+>> ---
+>> Changes from v2:
+>>   - Use use sync_with_folio_pmd_zap() to sync with concurrent zapping (Per David).
+>> Changes from v1:
+>>   - Add an smp_rmb() to pair with the smp_wmb() (Per Lorenzo and Pedro).
+>> ---
+>>   mm/internal.h |  9 +++++----
+>>   mm/memory.c   | 25 ++++++++++++-------------
+>>   2 files changed, 17 insertions(+), 17 deletions(-)
+>>
+>> diff --git a/mm/internal.h b/mm/internal.h
+>> index 0434dfcfc36f..6d8f494296a4 100644
+>> --- a/mm/internal.h
+>> +++ b/mm/internal.h
+>> @@ -585,14 +585,15 @@ void free_pgtables(struct mmu_gather *tlb, struct unmap_desc *desc);
+>>   void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+>>
+>>   /**
+>> - * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
+>> + * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
+>>    * @mm: The mm_struct.
+>>    * @pmdp: Pointer to the pmd that was found to be pmd_none().
+>>    *
+>>    * When we find a pmd_none() while unmapping a folio without holding the PTL,
+>> - * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
+>> - * indicate that it's unmapped. Skipping the PMD without synchronization could
+>> - * make folio unmapping code assume that unmapping failed.
+>> + * zap_huge_pmd() or zap_empty_pte_table() may have cleared the PMD but not
+>> + * yet modified the mapped folios to indicate they are unmapped. Skipping the
+>> + * PMD without synchronization could make folio unmapping code assume that
+>> + * unmapping failed.
+> 
+> 'zap_empty_pte_table() may have cleared the PMD but not yet modified the mapped
+> folios'
+> 
+> Is that accurate after the patch?
+> 
+> You run tlb_flush_rmaps() before zap_empty_pte_table() now, and thus
+> folio_remove_rmap_ptes() ran for every folio by then.
+> 
+> Maybe something like:
+> 
+> 	"zap_huge_pmd() may have cleared the PMD but not yet updated the
+> 	 folio mapcount, and zap_empty_pte_table() clears the PMD only
+> 	 after the rmaps for the table have been removed, but nothing
+> 	 orders the pmd_none() read against later mapcount
+> 	 reads. Skipping... <etc.>"
 
-Yes, this is the first option I tried (20,946 KB/s).
+Ack. Thanks. Looks good to me.
 
-[1]:
+>>    *
+>>    * Wait for concurrent zapping to complete by grabbing the PTL.
+>>    */
+>> diff --git a/mm/memory.c b/mm/memory.c
+>> index 6a8e7772b8d6..8f7ba427371b 100644
+>> --- a/mm/memory.c
+>> +++ b/mm/memory.c
+>> @@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
+>>   		}
+>>   	} while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
+>>
+>> +	add_mm_rss_vec(mm, rss);
+>> +	lazy_mmu_mode_disable();
+>> +
+>> +	/* Do the actual TLB flush before dropping ptl */
+>> +	if (force_flush) {
+>> +		tlb_flush_mmu_tlbonly(tlb);
+>> +		tlb_flush_rmaps(tlb, vma);
+>> +	}
+>> +
+> 
+> Maybe worth a comment here about ordering?
 
-int crypto_acomp_compress(struct acomp_req *req)
-{
-struct crypto_acomp *tfm =3D crypto_acomp_reqtfm(req);
+Sure. Will add something like below:
 
-if (unlikely(acomp_req_on_stack(req) && acomp_is_async(tfm)))
-return -EAGAIN;
+diff --git a/mm/memory.c b/mm/memory.c
+index 976cd03954e3..6a93b7fa48b2 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2052,6 +2052,9 @@ static unsigned long zap_pte_range(struct 
+mmu_gather *tlb,
+          * to hold the pmd lock failed, then we need to recheck all pte 
+entries
+          * to ensure they are still none, thereby preventing the pte 
+entries
+          * from being repopulated by another thread.
++        *
++        * Clear the PMD after the rmaps for the table have been 
+removed, in case
++        * an incorrect mapcount is observed after unmapping the folio.
+          */
+         if (can_reclaim_pt && direct_reclaim && addr == end)
+                 direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, 
+&pmdval);
 
-if (likely(req->unit_size && acomp_request_issg(req))) {
-if (likely(!crypto_acomp_req_seg(tfm))) {
-int err =3D tfm->compress(req);
+>>   	/*
+>>   	 * Fast path: try to hold the pmd lock and unmap the PTE page.
+>>   	 *
+>> @@ -2046,15 +2055,6 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
+>>   	 */
+>>   	if (can_reclaim_pt && direct_reclaim && addr == end)
+>>   		direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
+>> -
+>> -	add_mm_rss_vec(mm, rss);
+>> -	lazy_mmu_mode_disable();
+>> -
+>> -	/* Do the actual TLB flush before dropping ptl */
+>> -	if (force_flush) {
+>> -		tlb_flush_mmu_tlbonly(tlb);
+>> -		tlb_flush_rmaps(tlb, vma);
+>> -	}
+>>   	pte_unmap_unlock(start_pte, ptl);
+>>
+>>   	/*
+>> @@ -2102,12 +2102,11 @@ static inline unsigned long zap_pmd_range(struct mmu_gather *tlb,
+>>   				continue;
+>>   			}
+>>   			/* fall through */
+>> -		} else if (details && details->single_folio &&
+>> -			   folio_test_pmd_mappable(details->single_folio) &&
+>> -			   next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
+>> -			sync_with_folio_pmd_zap(tlb->mm, pmd);
+>>   		}
+> 
+> I think David's getting at (correct me if I'm wrong) doing:
+> 
+> 	} else if (details && details->single_folio && pmd_none(*pmd)) {
+> 		sync_with_folio_pmd_zap(tlb->mm, pmd);
+> 	}
+> 
+> Here, rather than folding into the below?
+> 
+> I think that's neater also.
 
-req->dst->length =3D unlikely(err) ? err : req->dlen;
-return err;
-}
-
-return tfm->compress(req);
-}
-
-if (crypto_acomp_req_virt(tfm) || acomp_request_issg(req))
-return tfm->compress(req);
-
-return acomp_do_req_chain(req, true);
-}
-
-Thanks,
-Kanchana
-
->
-> Thanks,
-> --
-> Email: Herbert Xu <herbert@gondor.apana.org.au>
-> Home Page: http://gondor.apana.org.au/~herbert/
-> PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+As I replied to David, keeping two pmd_none() checks cannot fix the race.
