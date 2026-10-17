@@ -1,90 +1,130 @@
-Received: from r3-24.sinamail.sina.com.cn (r3-24.sinamail.sina.com.cn [202.108.3.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F48A4CF483
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:19:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E84381EB4
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:19:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792203551; cv=none; b=d1aeBlNu2Dr0Mqc6XFA9gXl8zR9kAkb/fcKqltkAR3FlKdX4ei43GKIueLdVm78felj7FBDoDPZ+KhnPPmm9KuBP8P9DyhF840fdt2MS6hKY+RtbCnDCjEOpSDYigcKpK85AUuZoAhDDnUDQG57G0CrzSI8J8J58qERr9gG73m4=
+	t=1792203594; cv=none; b=S/Ik9wmeXP5e56r4uYseH7FsS4auhZnI/WCT4sHY9o8d5OKKeD6i9YgZ7zQaly1amEFzeczs5k9lA7QEIDhIufWVw2138caaLDQkRz9AZRXeLBi/UHtLDw1pVa03VQe9i8TDxj7B18aDGxQlEzXasorwer6d9ZKGCntjzinU3eo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792203551; c=relaxed/simple;
-	bh=eLJkIJR3KuSs0q2tVyYERCeF11aA+DVrsdp6WXqKyQk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iKmFtBpYRAwasvo5AcRJcib9c/ZvFjGPUlF7OVsIzXu2DP0zMAztgd3yhpYLjZdO8xAEhkm28UHrJ6c7WdH3KLLvSKzvzFi8hYvJLYdIk+tYALjlv4zOw9lHwCJty6EUo+bQ3EXjT6pHoHbe8cHs3IJKLtd2jhDi9al8FQJITB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=kk6ioL7K; arc=none smtp.client-ip=202.108.3.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1792203594; c=relaxed/simple;
+	bh=5rRTjvVUCj1giTYCsBQ/YKcd/9d9HjEXgG9juU7sMfM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dGDkd8ar6QkJNNlJJOs1j61c/T+WzL8SH2hRreduKBiIlJORG1Ct2ZVUE7GqOz7sluhNu1CBcYK4lwbJTLTHrl/POEc9DlOLV+xeHKTB0uGjEvlAzF98lmqL34Q2RpK7ZO5MKG9LpIwgz0bFDVcKMr9OB4AMJGgcY4MoW6HJgMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qZNiQ2vr; arc=none smtp.client-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="kk6ioL7K"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792203546;
-	bh=dQRfsvzv4x3t9hvfXodBJhoOF5c9RPkztb/0LW5IJG4=;
-	h=From:Subject:Date:Message-ID;
-	b=kk6ioL7Ki/zBDVLkFphZMQ/XeFx5nhQEgZRYBddexnBOYCVL3n7wYcGugalQLF9JJ
-	 npTxzei3urWUXHVEctZaVAQTBfZDELfF7rkGrMyRHWfl7Nyokr9HeIElRhwaHtvUVb
-	 DOL/9s0YXKG+ch16wvojWOHv0veORar0ia69WApI=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.254.3.93])
-	by sina.com (10.54.253.31) with ESMTP
-	id 6AD2D8D2000009D6; Sat, 17 Oct 2026 10:09:26 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 7549286816064
-X-SMAIL-UIID: E93293EB192C4A84A1DE3839E246D068-20261017-100926-1
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com>
-Cc: Nguyen Duy Nhat Anh <neganhat@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [nvme?] BUG: corrupted list in nvmet_fc_remove_port
-Date: Sat, 17 Oct 2026 10:09:10 +0800
-Message-ID: <20261017020912.558-1-hdanton@sina.com>
-In-Reply-To: <6acbc835.a150a118.27e199.003c.GAE@google.com>
-References: 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qZNiQ2vr"
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-157fe9d771bso136742c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:19:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792203591; x=1792808391; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5+kfzjr8MQEb3lKi5cTeDPkUvBSdgUV4zlTId0CwE3M=;
+        b=qZNiQ2vrR8t1p1kDECcMcJ+4tgxT0xHqGWGnIkvfdJnmRdStPCy2f30zRNJhI6hpQn
+         tVrB7pmcocSx6V8z0p2FgOWpDE+EhdzDOFlxZpESRsr6+4S5hIASg1BM70lbfvmW8S3G
+         tX92JFpLaVwIwvIKBKMrF9jI5FO4kRhPAhCk7pgDe/Y4uSA33l1ulwF3qGtzwVVBux6G
+         P2LcuWNFUIAaFJAis5qWu1OeyQ8cLWicwDfBCafuD4FljTEAujvXtbE/7kqkGnuIAzXu
+         KAaZDWw+cZvBSMnayWw9ANvrZrPR6a30wVyClUXyohfyyDQ3jLl4oGzloS4scNhMVbgT
+         QNcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792203591; x=1792808391;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5+kfzjr8MQEb3lKi5cTeDPkUvBSdgUV4zlTId0CwE3M=;
+        b=eSrP09L9WQZOMWGpF64IsPSXsyF0rzAi9pLILyWpx0wbtROXVaJ1tLomU3Y0jpYn/N
+         6ydPPi1/5aPKi5STVB7BypriBdeg/f3oZKH0gP73lyl7Xb+ho6jsSzLhMVIC/63CgvZ8
+         TfHp1t+sy5eCOt8mcm0T44pFq6JTXsD9d2wNklBKLTmY9s9NP2EpaYcgKZlpzZqjb5oC
+         FI51WMxC7KwgseuxpX/cIwqWFs1BtvPb4LlDpSZGaQ7CUg/NjDZcEyQcVZJUCwauhjXR
+         VusMfNAlDAU6uoKpj2YQlkPNzeyrU6WfF08Ltb5rP5MfCCdjTttK2JvoBJjE/drvHQ5b
+         x7ZA==
+X-Forwarded-Encrypted: i=1; AKwUvBzn0H+V6aUNzjn8qtuldV5Ch6/JlM8veA8FGhgJ3u0q685gevAbOTGZyVU7Qgp/LBzZFStDcOcD57SDw8o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIcuwVaUdKrYWcEkH6NFNFbICL9y4vZhPaflDxcAIamdujq2K54
+	ybys+18nbuT7VSAOoAZ2qYCmSf9uC6Vd7BiSIrjxrU2VDAsYCFtMCmZz
+X-Gm-Gg: AYBFou02o+FWThU6tuGMi2Lt8qMWwIjCLteP9SSlsB8etMlwchCkKwjLowD6gXQ+B6g
+	hWuAflzZL+bCbTVJgOI8ApujjKetYgJDR7nnprRNNguxFKYb5TF7Kub0IuwYVcDwuqQKtzviVvH
+	ZRVOJ/uemtXAdxMx21Ha2nVcVtTPFujnst2wS5lZ2ZysRgK2kA4n0h88fTsBtoLSpjPk/bFmxBO
+	f7v2Ohv2DFQvYxzAonWtX2JzCHnwMFSrsFU2seFJbPwiCDQEZ54K3DiP0bLzS6JhzGQFiQCOdq1
+	MRJdFqcg8/3jtJGf7cXPiCXITQGyZSXdBYypvNvUUIzokanZeSsWem6UxPree+YzFxUe+NYysH/
+	AFp4veLKyvJ/bgCUtWQtkaBCYuyB6oXHCzEi0srjqjdhzf9x4V358G6N++44+j4svbIxHvIhTe+
+	K0p9GHmv7pzB4rcjmD8bxXsAQ6qqPtcR4gD0ioZUabJn4oOPpeCuYT2Q0PshpBzrII5cUKe2nse
+	+86MrUKVrH/SLhkRFE=
+X-Received: by 2002:a05:7023:a47:10b0:14c:fb3f:bedb with SMTP id a92af1059eb24-185136cad08mr2162857c88.18.1792203591050;
+        Fri, 16 Oct 2026 19:19:51 -0700 (PDT)
+Received: from [100.125.248.95] ([124.70.231.46])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-183190aa7bbsm9100489c88.5.2026.10.16.19.19.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 19:19:50 -0700 (PDT)
+Message-ID: <743d1d96-40f9-4dac-839f-5d5269364b50@gmail.com>
+Date: Sat, 17 Oct 2026 10:19:41 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ext4: fix folio reference leak in
+ mpage_submit_partial_folio()
+To: guolingxing <guolingxing@tju.edu.cn>
+Cc: Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>,
+ Jan Kara <jack@suse.cz>, Baokun Li <libaokun@linux.alibaba.com>,
+ Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh Harjani
+ <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
+ linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261016142524.655789-1-guolingxing@tju.edu.cn>
+Content-Language: en-US
+From: Zhang Yi <yizhang089@gmail.com>
+In-Reply-To: <20261016142524.655789-1-guolingxing@tju.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> Date: Sun, 11 Oct 2026 10:32:37 -0700	[thread overview]
-> Hello,
+On 10/16/2026 10:25 PM, guolingxing wrote:
+> mpage_submit_partial_folio() obtains a folio reference with
+> filemap_get_folio(). If the subsequent position check fails, it
+> returns -EINVAL without dropping that reference.
 > 
-> syzbot found the following issue on:
+> Call folio_put() before returning from this error path. Leave the
+> folio locked so that the caller can invalidate and unlock it through
+> mpage_release_unused_pages().
 > 
-> HEAD commit:    a5ebb76233b7 Merge tag 'edac_urgent_for_v7.3_rc7' of git:/..
-> git tree:       upstream
-> console+strace: https://syzkaller.appspot.com/x/log.txt?x=1494923e580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=df4bbab1c2172b9f
-> dashboard link: https://syzkaller.appspot.com/bug?extid=c98b21427617af7f547a
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=126a0f15580000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=166a0f15580000
+> Fixes: ded2d726a304 ("ext4: fix stale data if it bail out of the extents mapping loop")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
 
-Test Nguyen's idea.
+Thank you for the fix, looks good to me.
 
-#syz test
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
 
---- x/drivers/nvme/target/fc.c
-+++ y/drivers/nvme/target/fc.c
-@@ -1319,12 +1319,13 @@ nvmet_fc_portentry_rebind_tgt(struct nvm
- 
- 	spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
- 	list_for_each_entry(pe, &nvmet_fc_portentry_list, pe_list) {
-+		if (pe->tgtport)
-+			continue;
- 		if (tgtport->fc_target_port.node_name == pe->node_name &&
- 		    tgtport->fc_target_port.port_name == pe->port_name) {
- 			if (!nvmet_fc_tgtport_get(tgtport))
--				continue;
-+				break;
- 
--			WARN_ON(pe->tgtport);
- 			tgtport->pe = pe;
- 			pe->tgtport = tgtport;
- 			break;
---
+> ---
+>   fs/ext4/inode.c | 8 +++++++-
+>   1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index 26f0f9714f03..7afba6298fa2 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -2412,8 +2412,14 @@ static int mpage_submit_partial_folio(struct mpage_da_data *mpd)
+>   	 */
+>   	pos = ((loff_t)mpd->map.m_lblk) << inode->i_blkbits;
+>   	if (WARN_ON_ONCE((folio_pos(folio) == pos) ||
+> -			 !folio_contains(folio, pos >> PAGE_SHIFT)))
+> +			 !folio_contains(folio, pos >> PAGE_SHIFT))) {
+> +		/*
+> +		 * Leave the folio locked so that the caller can invalidate
+> +		 * and unlock it through mpage_release_unused_pages().
+> +		 */
+> +		folio_put(folio);
+>   		return -EINVAL;
+> +	}
+>   
+>   	mpage_submit_folio(mpd, folio);
+>   	/*
+
