@@ -1,41 +1,35 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB8C3C7E19;
-	Sat, 17 Oct 2026 17:33:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1CD3B6C06;
+	Sat, 17 Oct 2026 17:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792258435; cv=none; b=DumClviVyA2+wiZhpkkNJJvPWuxR8FvSIbxQW2cznj5felM4o8EyHA7sXV0rE+USJvEMhTo5dyR/FgqYgf6aFhO3gocUKxE5bSHA2CxqB0rmoBKvFKr7A1qbFNjNXnBKzj8aQCZfZb16DCiZTyfITvE/cAkbxyye24CfP57gONs=
+	t=1792258447; cv=none; b=Ps2w2vE8VKYa1fc2/HtkgLcPjZKZR078DthbOj+SvMR7Mhz2SMWpIBWDKYfbyxn7EFktRav5tmuOrkR//2IEjrpeQaOJm+VZuk66o44wIxvdJJvX30uQcmVjc+5eUFrQK2+z6w8Yvc/DUVCNWthBH6JABuViu4TcAM1PpYEVEuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792258435; c=relaxed/simple;
-	bh=sUMtSjJfH1Hc2Rb0srMs7Cu3KDrbOZILBwySp6UMGhU=;
+	s=arc-20240116; t=1792258447; c=relaxed/simple;
+	bh=+8pAPjRjaGWejxcu/xOh57SE4snp5QPNrEHd+xkPGVU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B7kIcHCbIF1CQI8V8TR6YB41miqx3UwmX2F6baGonkACMIMdk5If4GEz8xjULsFV+K8EiWEM4B1jbUDLQp8QYH8Ycd5lTCZXziPrD0ktohGxNNpA6FFTtqTNl4ApZ3pAebmrUul1vTNuv/5IvqGgs8aD7WJb9x0+H73lAGvZ7qQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ht5vrwyE; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	 In-Reply-To:Content-Type; b=jx7pOGtudtKncvgSzAkJLrlqBsoelSmYg0apmiwbq0s8WbqM9Ls6U29cR/yAoKLM+Fjo9aAklEDqLI73N3NzPYSd83Y7agtRedjCsBdnRTTe8DXyJQmZmfrtdlW2OeHKMrEaZhg08ZQhgxVS3P0dWCDSKnHH2922Sq+WS8wq2fE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=JUi7yPBl; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ht5vrwyE"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4j6TSH0PqlzMlJf;
-	Sat, 17 Oct 2026 19:33:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792258431;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wQcUAi6MSkLaCexc0ZzSlMbqTFUROvz0PGaISaVK38A=;
-	b=ht5vrwyEXe1MmJR/VXBRbkVY2fVUtrLL5E3WwdpDVo8iaESYeFsS4hbKbpRXb0nQwJbxV+
-	J/Jirm2+UI1PqkQT0oO3niVcbWH08YWDVIcKJZUiY6/EXOfmt07dPFcEbxkZ9RBLJwSq8C
-	QWqiZy3NKOs6YTxPkJ2cHb/2GNCaroQyaG0RNorS3OE2wgQjW4HSUFzuSse3LQuRbyLQRT
-	l/tMxrJPOUxxdq70ecioFZyYK0yrLpwBuDbHzrPYgTpjtqcyiivJv2HGh6lSgXdLRulTj/
-	XvSdpULrp8OtyNh6Oyc1t0aj1sChCsYBagY+H9t+lJprQwPk7eFQCA4pCTlWPA==
-Message-ID: <cba6b5db-d610-45d7-85e9-30ccf0a659f6@mailbox.org>
-Date: Sat, 17 Oct 2026 19:01:15 +0200
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="JUi7yPBl"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D57DB105FB3;
+	Sat, 17 Oct 2026 19:34:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1792258444;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=7ZMZTPvh9tMJLNdO7mYMSY3WuW2Rj56qTgdyt1nrogg=;
+	b=JUi7yPBlYsym0othMpS5J+dTlNByXsPSEu0yY4K0tzee4Mt9vKkHtjALk4Ja3quKrwHpRh
+	RgJqSt5ELaOBgXRZRS0gPjFgRJF1KwXPCRMzrVv0zXYULmKVTka5wtOtbm3aFb9p1SThEa
+	4IBTpweRBmkOciJT6N8lDjHSoxwuthk1O3O8yfEBQs4Z1O1+uf1wucrSW58ruCmicU0k2J
+	Wf+yJTTG0evga8/qKX6V02dmTc7LgNUVNjEMo9iS7vB3ukx+ClYxZkXpKevehAxUfujOMV
+	ELmsH9+znF2F2K3wsV9+j63Rwlo9faZGEv7X0Dd7ewh9APWWWIKnN+52fUyByA==
+Message-ID: <661412ff-3942-4d1c-be6f-1ef6c54620fd@nabladev.com>
+Date: Sat, 17 Oct 2026 19:30:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,117 +37,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PCI: rcar-host: Validate IO/MEM resource count in DT
- ranges property
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Manivannan Sadhasivam
- <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-References: <20261005233758.GA646371@bhelgaas>
+Subject: Re: [net-next,PATCH 2/2] enetc: Make eMDIO MDC rate configurable from
+ DT
+To: Wei Fang <wei.fang@nxp.com>, "Frank Li (OSS)" <frank.li@oss.nxp.com>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, Clark Wang <xiaoning.wang@nxp.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>, Conor Dooley <conor+dt@kernel.org>,
+ Eric Dumazet <edumazet@kernel.org>, Frank Li <frank.li@nxp.com>,
+ Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ "UNGLinuxDriver@microchip.com" <UNGLinuxDriver@microchip.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
+References: <20261016193344.115518-1-marex@nabladev.com>
+ <20261016193344.115518-2-marex@nabladev.com> <atKDNdxl0w65s8yQ@SMW015318>
+ <DB9PR04MB933217F7ADCB6223A44DACA7889A2@DB9PR04MB9332.eurprd04.prod.outlook.com>
 Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20261005233758.GA646371@bhelgaas>
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <DB9PR04MB933217F7ADCB6223A44DACA7889A2@DB9PR04MB9332.eurprd04.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: d0ad517624d8bf8c23f
-X-MBO-RS-META: jzgfbkmkmm44umbxituzuuidegm4rezp
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/6/26 1:37 AM, Bjorn Helgaas wrote:
-> On Sat, Oct 03, 2026 at 09:35:59AM +0200, Marek Vasut wrote:
->> The R-Car Gen3 PCIEC controller supports up to 4 memory area mappings.
->> Count the IO and MEM ranges described in DT 'ranges' property of the
->> controller DT node, and in case there are more than 4, refuse to probe
->> the controller driver, because such DT does not describe valid hardware
->> configuration. Do the IO and MEM counting early to avoid controller
->> configuration rollback in case of failure.
+On 10/17/26 4:24 AM, Wei Fang wrote:
+
+[...]
+
+>>> +int enetc_mdio_update_mdc_div(struct mii_bus *bus)
+>>> +{
+>>> +	struct enetc_mdio_priv *mdio_priv = bus->priv;
+>>> +	struct device *dev = bus->parent;
+>>> +	struct clk *enet_clk;
+>>> +	u32 div, mdc_freq;
+>>> +
+>>> +	if (device_property_read_u32(dev, "clock-frequency", &mdc_freq))
+>>> +		return 0;
+>>> +
+>>> +	enet_clk = devm_clk_get(dev, NULL);
+>>> +	if (IS_ERR(enet_clk))
+>>> +		return dev_err_probe(dev, PTR_ERR(enet_clk),
+>>> +				     "Input clock unknown, not changing MDC
+>> frequency\n");
 >>
->> Fixes: 5d2917d469fa ("PCI: rcar: Convert to DT resource parsing API")
->> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->> ---
->> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
->> Cc: Bjorn Helgaas <bhelgaas@google.com>
->> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
->> Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
->> Cc: Magnus Damm <magnus.damm@gmail.com>
->> Cc: Manivannan Sadhasivam <mani@kernel.org>
->> Cc: Rob Herring <robh@kernel.org>
->> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
->> Cc: linux-kernel@vger.kernel.org
->> Cc: linux-pci@vger.kernel.org
->> Cc: linux-renesas-soc@vger.kernel.org
->> ---
->>   drivers/pci/controller/pcie-rcar-host.c | 31 +++++++++++++++++++++++++
->>   1 file changed, 31 insertions(+)
+>> binding said clock is optional. If return failure here, it will block
+>> existing dts, which have not clock property.
 >>
->> diff --git a/drivers/pci/controller/pcie-rcar-host.c b/drivers/pci/controller/pcie-rcar-host.c
->> index cd9171eebc289..4bcc8c3051ac4 100644
->> --- a/drivers/pci/controller/pcie-rcar-host.c
->> +++ b/drivers/pci/controller/pcie-rcar-host.c
->> @@ -341,6 +341,32 @@ static void rcar_pcie_force_speedup(struct rcar_pcie *pcie)
->>   		 (macsr & LINK_SPEED) == LINK_SPEED_5_0GTS ? "5" : "2.5");
->>   }
->>   
->> +static int rcar_pcie_validate_resource_count(struct rcar_pcie_host *host)
->> +{
->> +	struct pci_host_bridge *bridge = pci_host_bridge_from_priv(host);
->> +	struct rcar_pcie *pcie = &host->pcie;
->> +	struct resource_entry *win;
->> +	int i = 0;
->> +
->> +	resource_list_for_each_entry(win, &bridge->windows) {
->> +		struct resource *res = win->res;
->> +		unsigned long type = resource_type(res);
->> +
->> +		if (!res->flags)
->> +			continue;
->> +
->> +		if (type == IORESOURCE_IO || type == IORESOURCE_MEM)
->> +			i++;
->> +
->> +		if (i > RCAR_PCI_MAX_RESOURCES)
->> +			return dev_err_probe(pcie->dev, -ENOSPC,
->> +					     "Too many IO/MEM entries in DT 'ranges' property, limit is %d\n",
->> +					     RCAR_PCI_MAX_RESOURCES);
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->>   static void rcar_pcie_hw_enable(struct rcar_pcie_host *host)
->>   {
->>   	struct rcar_pcie *pcie = &host->pcie;
->> @@ -947,6 +973,11 @@ static int rcar_pcie_probe(struct platform_device *pdev)
->>   	host = pci_host_bridge_priv(bridge);
->>   	pcie = &host->pcie;
->>   	pcie->dev = dev;
->> +
->> +	err = rcar_pcie_validate_resource_count(host);
->> +	if (err)
->> +		return err;
 > 
-> I guess you did this here to avoid rolling back controller config, but
-> the code would be a lot more readable if it checked the index at the
-> point where it might exceed the array bound, e.g., (I think) in
-> rcar_pcie_set_outbound().
+> For EMDIO device, the clocks property is not added to
+> fsl,enetc-mdio.yaml, I suppose this property should be added to the
+> dt-binding doc if the clock is really needed here.
 
-All right, I'll send a v2 like that in a bit.
+Isn't this what 1/2 in this series does ? (maybe I misunderstood this 
+paragraph)
 
-I also found another issue triggered during irq_dispose_mapping() in 
-probe fail path, I want to fix that too.
-
-(sorry, I'm still catching up on emails, hence my slow response)
-
-> This is for an invalid DT, which is unlikely.  What if
-> rcar_pcie_set_outbound() just printed a warning and ignored any excess
-> windows?
-I'd say it is better to simply reject the invalid DT and fail to probe 
-the controller driver, esp. since it is unlikely there are such invalid 
-DTs and users should really fix that problem instead of being surprised 
-by the missing windows. What do you think ?
+> For ENETC device, we already have a 'ref' clock in the enetc node,
+> so devm_clk_get(dev, NULL) may get the 'ref' clock rather than the
+> system clock of NETC.
+Shouldn't the clock be described in the MDIO DT node ?
