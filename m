@@ -1,82 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9069F54779;
-	Sat, 17 Oct 2026 05:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673AC37F01B
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:09:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792213742; cv=none; b=fYI36VBVR8rLSygdi9oirp00c5bRgCFE4yEkE3/q8gvL8NRBz1kOJXKOzvDsId7wec5tgBN1gUJfmD2HbQpd0w3f8PjYGCLn9JOiJ2g5q9Xk2W7m7djKLBGxhsm1EUhv8PfT+/nkgbKRzEOaT+ETrCxSVGJUFno7liSQIvQPcg4=
+	t=1792213772; cv=none; b=RUCC/6m9zeJOsYqgGJkNSUeGYzIQPi6gHCZdHlovWyHHetZwXoHkx/A5gNbev7ScCq0Tu5zrXwfli1gyuMIuayvgqqB/Dn82M0tq9huMRJ/V8nv4j0jHqVDce1Wb7VelCuxTBkP3q5M76ae/OqKafO4ymJfum8EK93PCG2wQLp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792213742; c=relaxed/simple;
-	bh=vZv+Ro9EQ0X12Hk9/RCKZdSioF9jiUv/82bIyb8JecE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=gfbhihiT7wyDTyE0PSVNf8J1WlsYHQO649OW+rSnnIPhi17U65EJgFbcul01qd1O+2SMOM0Oc1/3JRg7n3HG4YGgnzHyCq4P/wgjmMzcEOHUlzvDOb/fjpGUIp7P4h9s/WL9vmSXsUpcqTOE6/ZZY2TVduFXVebXbyd+Mjr2ZII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKPNl1sG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792213772; c=relaxed/simple;
+	bh=6/qYlEhJHSxlMKX7o7HI7DT+c0x8I+YT/0Zuz+mG7pg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OtrW6A3DhK9tRUwbeYttEMt6HtskHY3/dUlyIAsfcWPDvouefdpX/AEyfXSww5OEWG/F4oYfvpSJ9NO2XY0dga90S2sni4iHp6mjGqNtkN500NqbhBXPvuDmwKeMxdbFoCuWgW2+7p8Cy9Ws0udSTWlSt9kOW+DRZWUldfQ2rKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qfC8YMdC; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKPNl1sG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0DAA1F000C4;
-	Sat, 17 Oct 2026 05:08:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792213741;
-	bh=Hh8hgD59KprNFJkvgmXCpyZWPiqSOLgY15L6h/7HzLA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=jKPNl1sGsxImQq2F3SeiRgrwZW+GJfqrwyxOmuUueci1xB5nwcAsKHH8IeJ76mM0O
-	 p3FGeXwj1YfOkSisRL/lm+K+fi8wJhVQ2Tku0eoJYkNt+DP4nf39RpYBf15xhLSqtb
-	 241r9AbW7vztt2B1pBQQvStAs7PaHqSg1+kaZ5G3QH8hFsH9NzYPmjoSTqGa9ofc7r
-	 qgKPmhlZ514CrvEbppdj47ZHvVe8wMuk55FyZrkTWyC+IAzTTCnLMWalj6c44rJgBc
-	 PebcoglSrldkG0rF97tmEHGQqiaCR5GbdIf8TuMDBg6nRyZaTJoMX66mz3kweh/up8
-	 KPXB4+xLcS+Kw==
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: linux-pci@vger.kernel.org, 
- Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Koichiro Den <den@valinux.co.jp>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Conor Dooley <conor+dt@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org
-In-Reply-To: <20261004011851.866833-1-marek.vasut+renesas@mailbox.org>
-References: <20261004011851.866833-1-marek.vasut+renesas@mailbox.org>
-Subject: Re: [PATCH v5] PCI: rcar-gen4: Add missing PM ops
-Message-Id: <179221371910.2165.3746961034244609363.b4-ty@b4>
-Date: Sat, 17 Oct 2026 10:38:39 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qfC8YMdC"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso455686a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:09:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792213771; x=1792818571; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lBiMjT8ldL7Ky1jQPlUb8oCa4/bnIv7ADJeJybOOjZ4=;
+        b=qfC8YMdCKJDTW5GAXi1+FcXcVTO1gWbwoOAnsblKWh1gFwDc4KTLz9ryjWrDjIHgD0
+         IO+FclmSsW+Iw0P38W3U6+R3+6/7f8P23BJ9KKtii4Ah7eL4OCOok1meESSvr3i+jPtq
+         4kLldCxQiBfLsCA1gg4iWy/xhWd1Am2EITrcmb10DIGIRmeSeIruQKDg4MaLToZ3rqQH
+         gmbx0rlhLkRD5SfL+Y3C12yNit3a8Hb2gZuUnfaBLu4ePZISx6AmP/vS6xCT1dgoorJu
+         LOlN+PCMfPH8aBI2bGfngi7kF4KbyvR/6q/7ydY+pZArhhAX0CzPLh7a/grpvBnnpo51
+         SgaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792213771; x=1792818571;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lBiMjT8ldL7Ky1jQPlUb8oCa4/bnIv7ADJeJybOOjZ4=;
+        b=X7oilfojyYE3woPnMfQ7qZN1VaqsR0PlVDolSDdPoMl6FkXe5fdUkECaM/yQTcuoCn
+         uOgok7eUiF/N3VBXSzI8p3LSEL7pXqpg8xJ5rTfdXK2XCfARmnBEl3Iqf6eCLAtxEld/
+         +GJnT2TYS3dlym4QZ9TN5cTi0SsqCwLWxFNsQ72D31piex/q5VqM3V55mUHnR5g6jcAI
+         mirP/tYfv775QtVfa6e7zkFkXfi9guYyg9SjifVbc10eyJhXduPrV6QXP53c8hn1eLbR
+         TbEPPsVD7K0Pz7jFT07xj6MDacbJg1fD/4HW/USjUDbDAoZnogmDB2YzVlWN/ha/N+5s
+         c91Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzrbSHnWrSTsXtlcfvJqdvlV2mMHNlHHmd8nnbSRrXSfMlg6T5tcS/EyiwKdomUkvCqXqUQ55/GEN9ih/k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKwsebcC+MICfF1ENyr6HV8HVu+ayWcPIQydNcP1JI+ecn3XN1c
+	eWcgWgnEc4z8wG3VhfY3kPjwzuDK4IKnhsdDelGYIImV6zsxOQzgaq6t
+X-Gm-Gg: AYBFou2lDKttwlJHve92pbANAgCJaQJocFCW5pL4ev8I50Vw4jhpmTrte4YUuEvYggS
+	CAx3d6o6gooXVLLDVWbikX99roLp+63jFH9RqCbAe6cD3z6pUknhiSfgrJRDxGs+PNHP7iHmIlD
+	7sFyRPVoyJYimE6FCulPn01BIXzbzdiL8yrnTeC8Av5qoabmEAPGDTfaoC1ML9oHA/NhJCMsi8F
+	HGyz8tRMZ2Nxcz7zcyV+Jhxt1Du1PZjUieZzKACVuw+B4vX9OYIPwdW8pjEif4sa7MsHhdbaY8A
+	2D2BB1ma+Ig+2NAD/at3gSlWuA8kgTuWzGVtmu3Dc5CG4swt4HyKe/6cZ2eszZ3ZdwUMel3E4eM
+	yev5zzAPRjW2KJ5qTAEpXIbnxYki9/WJGta5Mb8D8BfOD5WhQovRhpIyMuUdAkMRtTaLD5KNBRT
+	BLw4y/F++Zu743yHDhN6Xlh31pBu95m6E7pOzP9XgkUdvL0GRwxxqi/RY2fXxxJ8Q9zvoFF1UdQ
+	zao5dRSti+Y2ikMhM+ZjG8HcWfvBJmKcrDUypmR/ZvRMc/7o4vEZgFeNaKZJ7BLQfxIqoVcnBCf
+	S6fPq6y4npklz5aqLyu7d9YA/CpQHp/y3Yb4naH0zGZFIK4Yxih/xMuc5jLXYF8FQdJR0BKY+M6
+	YumEepcTQx286sQ2UhueV
+X-Received: by 2002:a05:6a21:6b88:b0:3dd:a00a:1715 with SMTP id adf61e73a8af0-3e2263d5f61mr1225361637.48.1792213770605;
+        Fri, 16 Oct 2026 22:09:30 -0700 (PDT)
+Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89febdc2209sm1446036b3a.33.2026.10.16.22.09.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 22:09:29 -0700 (PDT)
+From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+To: akpm@linux-foundation.org,
+	hannes@cmpxchg.org
+Cc: david@kernel.org,
+	mhocko@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	ljs@kernel.org,
+	kasong@tencent.com,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	yuzhao@google.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	apais@microsoft.com,
+	rlmenge@gmail.com,
+	Siddharth Chintamaneni <sidchintamaneni@gmail.com>,
+	stable@vger.kernel.org,
+	Hardik Garg <hargar@linux.microsoft.com>
+Subject: [PATCH v2 1/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref with memcg disabled on cmdline
+Date: Sat, 17 Oct 2026 05:09:27 +0000
+Message-ID: <20261017050928.128582-1-sidchintamaneni@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=290;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=whg7raKWx1MyK1hn64e3xthGduvL5ZgiriJX/vpwxx4=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq0wLlgvsPQYj1hFg0yZ6C4j5HxNk9G697I0zAc
- jBo17h2e9+JATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCatMC5QAKCRBVnxHm/pHO
- 9T5ZB/4lMpgqhrDFltj/lgkT3ofNtyn1bxETNW+UCU1CE6zoskySSN3j+f+1Y5gNPkoQM4r+lIr
- FE30zoBGo/fhzxPXRMyd7I6IMBahes2ciCl6nhxAKt8tktYUl94l2h3vlxXgnRdWxPMV17rlxiU
- Ys503rkT4r3I2/TIIf4R/3FSi+QwytwPUrKlStsadfujlc+/79fx78TlntXvf6j7ZUr+puL3rFr
- ekMw2mBnbDVSQydakmkr8wbfP1VsnHinoC2QDTUG1wuqTV57olunt9liine/TRkmLEs4qED3V5q
- wMrDe7lPJARrPqBcxXM8NwThSTftmAvr0ZTZfTkT7WuCnXub
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
 
+When CONFIG_MEMCG=y, lruvec_pgdat() returns lruvec->pgdat, which for the
+per-node pgdat->__lruvec is left NULL by lruvec_init() and only filled in
+lazily by mem_cgroup_lruvec(). Normally that happens early, e.g. on the
+first folio_add_lru().
 
-On Sun, 04 Oct 2026 03:18:13 +0200, Marek Vasut wrote:
-> PCI: rcar-gen4: Add missing PM ops
+With cgroup_disable=memory, lru_gen_shrink_node() passes &pgdat->__lruvec
+directly to shrink_one(). If direct reclaim runs before anything has
+called mem_cgroup_lruvec() for the node, which can happen during early
+boot under memory pressure (e.g. a kdump kernel), get_swappiness() ends
+up dereferencing a NULL pgdat:
 
-Applied, thanks!
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000005040
+  pc : get_swappiness+0x68/0xb0
+  lr : try_to_shrink_lruvec+0x54/0x2c0
+  Call trace:
+   get_swappiness+0x68/0xb0 (P)
+   try_to_shrink_lruvec+0x54/0x2c0
+   shrink_one+0x8c/0x240
+   shrink_node+0xc6c/0xe08
+   do_try_to_free_pages+0xdc/0x570
+   try_to_free_pages+0x124/0x278
+   __alloc_frozen_pages_noprof+0x6e8/0xf78
+   alloc_pages_mpol+0xc4/0x1c0
+   alloc_frozen_pages_noprof+0x54/0xe8
+   alloc_pages_noprof+0x1c/0x40
+   atomic_pool_expand+0x98/0x300
+   __dma_atomic_pool_init+0x58/0xd8
+   dma_atomic_pool_init+0x154/0x170
+   do_one_initcall+0x64/0x350
+   kernel_init_freeable+0x214/0x430
+   kernel_init+0x2c/0x208
+   ret_from_fork+0x10/0x20
 
-[1/1] PCI: rcar-gen4: Add missing PM ops
-      commit: 41f18f63d60fdb25d70d0633816bdb7185fc48f8
+The classic LRU path and MGLRU before per-node lru_gen_folio lists
+obtained the lruvec through mem_cgroup_lruvec(), which sets
+lruvec->pgdat.
 
-Best regards,
+The above was hit on an arm64 kdump kernel (6.18-based) booted with
+cgroup_disable=memory nr_cpus=4. It also reproduces on mainline on an
+arm64 VM with CONFIG_ARM64_64K_PAGES=y, CONFIG_MEMCG=y,
+CONFIG_LRU_GEN_ENABLED=y and:
+
+  mem=160M nr_cpus=4 coherent_pool=512M cgroup_disable=memory
+
+These options only serve to force direct reclaim early in boot; with
+160M the boot eventually ends in OOM regardless. On mainline the first
+LRU reclaim happens while unpacking the initramfs, and faults the same
+way:
+
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000005040
+  pc : get_swappiness+0xd4/0x150
+  Call trace:
+   get_swappiness+0xd4/0x150 (P)
+   try_to_shrink_lruvec+0x44/0x2b8
+   shrink_one+0x80/0x1a0
+   shrink_node+0xd98/0xea8
+   do_try_to_free_pages+0xf4/0x4b0
+   try_to_free_pages+0x110/0x360
+   __alloc_frozen_pages_noprof+0x8b0/0x1718
+   ...
+   __filemap_get_folio_mpol+0x2ac/0x548
+   simple_write_begin+0x44/0xf8
+   page_symlink+0x178/0x198
+   ...
+   do_populate_rootfs+0x13c/0x200
+
+Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+Cc: stable@vger.kernel.org # 6.3+
+Assisted-by: LLM
+Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
+---
+ mm/vmscan.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index f11491ee9ed5..0c57e4f1eb15 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -5253,7 +5253,7 @@ static void lru_gen_shrink_node(struct pglist_data *pgdat, struct scan_control *
+ 		sc->nr_reclaimed = 0;
+ 
+ 	if (mem_cgroup_disabled())
+-		shrink_one(&pgdat->__lruvec, sc);
++		shrink_one(mem_cgroup_lruvec(NULL, pgdat), sc);
+ 	else
+ 		shrink_many(pgdat, sc);
+ 
 -- 
-மணிவண்ணன் சதாசிவம்
-
+2.45.4
 
