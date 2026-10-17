@@ -1,181 +1,228 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F9A4052D7
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 06:50:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A315331A5B
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 06:51:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792219844; cv=none; b=KN9mz6yxBsOfgDiEzeIAW5xTGZyRi6o5W07s4VY2V5yshrPMfOVB8wvseT0cMXptenHW0CmQ+B9z3YXL9idSB9zWw9p34MuqnBWVOh336fnI/bjp5zPftFkJl8I9BISSsxJAOyJKVU6jQipaD45xX7nxBY0rc8H9Hqt2ow0OhHM=
+	t=1792219919; cv=none; b=tS6cUw/BV6h+Ycls2Uxm2prVzdHhku0i4EfA2esHt0smBrY8BllvWuRI0ZZoTbVPXiKMlT0Tz9315blhozbhJPoy1wHYTrETt/5zysyZk0HQCg3ztRApJ3Wn8YWMmQV3bKZgKlZc0QHiRnpvOrpYIxXe2n8jGgWjUsp7xAVoyck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792219844; c=relaxed/simple;
-	bh=WwNugc1mChyUIwd61uIuYKw8rawcpidRYTzrLbgdtzY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tNj4mSrhOm0WnRvcMYw7OYC2QdXTDofXL3cC9cCeX74bWx1ScFUAYTD16M6VI7/9KypuFvdLLWDGhqP6vpnk5cw/+YJq+Gahdctq0hXNq717knnaZ7WlJkBdDG2EnljhicJDt8Y9ZRRQl8vg0uNmJW+h70IseftEHjlrWb7rLJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Au9vb/h5; arc=none smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792219919; c=relaxed/simple;
+	bh=+RGs98OKR+8RSYTh9cABiWdooY/6GYJQl2ugTgDhC/g=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=m9OtWk3QAW/Dd4/lg+nS+QaGBIHaECydLLL4KZDjQpn74O5wxV4pARS1FI/9OaJfpXC/+cWNjuL0X5BqHZepYcfv0Vz91Tm3IXugfZccZxHhmR8YaHYu2KujMHeFkvfngua4+RDlUzNg/gxYYRn6GxW/retEGaWhN+Cm+f3YDy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=prAwoMsq; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Au9vb/h5"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35aa0cf7c40so914745eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:50:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="prAwoMsq"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ab67ff8ec3so547067a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:51:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792219840; x=1792824640; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sawSoGb6Q0aMwk+GPR42ByjC7uK/8OA0+XJaAWB2Ug0=;
-        b=Au9vb/h5/2YfW1JQFPzhaqWiVBANLrGe26L6wf+1jEWS+IN1HXmkpuI+grJSUPSmF7
-         3ZsaPWNAxbpPYQ0ShnniFcDPDFjQggEmm6Y5zRq9nj72w420jFE7S0uMLFPF8As0BGzS
-         K/c5El9qQmDJnxL/PQzAVvnKs8u5MkURAvNQsYGW6bDdZDN4F80rZyiFTPwdCJx7aFOw
-         1KN8sZw+Ub+8uVxLlaF6A0zWM2skgbqMYLwCkRVtZuqwn2kuDkS7ZS8srRMMnPOSbESQ
-         JPOSPFZ7hOfKbI7PxV8zH6uaOmO1ttsl6MRJo6+W8YFvqFChXysme4OTZTg6eUp+uloP
-         ahEA==
+        d=google.com; s=20251104; t=1792219918; x=1792824718; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hLRycCYqFI0sJDL3wNe30VNcaI33OzZwjCiyocKoV9g=;
+        b=prAwoMsqLA4/jy110TkkHg90w0ttKt90H8CpT/uqubmL+0/BusNeE9Y5DkXLyD8ykK
+         OrCx21VZLb7nuXK99+jOEKx/PrynOgtoacjIb+Sn3yDvuGuMWefXMD1F8FzTa2Ye97uX
+         KoGSbRauxjCi46ED1v/ly1iO7jYuNORR0dsBztE2+mODK40ZcNMRoxuHWVCwCxKa1C3d
+         nkwsf5CREAtAXm5katQWK91UaIGxbw4aBXXpFr3+JBFkr6aGMxeB2egb/kEjgvFst8L0
+         LoS9cJdvrs2dBTxBXsgniB0FYEPoQgzy78vLdzlfQ5ZDzZDLpE7I3bNJXbN9FLRTUnNc
+         zMUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792219840; x=1792824640;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792219918; x=1792824718;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sawSoGb6Q0aMwk+GPR42ByjC7uK/8OA0+XJaAWB2Ug0=;
-        b=RM7fJi/ErkUiSo+pxiShDTARCSDtHfwx8VxJLpMDOWKYii6C1Gnf0yxbcK5h7heuhQ
-         qIj0v7MtbjKUQ8QFaTAVIXnJM2yILpz5Ijb7OHHfX2NQy1ADx79fwqhB72SaWNgTVk6Q
-         GVkY+FedIQptkNI5VNfWIeriB53HBpIoe6EzAWLKfZTdwaYrtdWHiV/VjNPDSsb0ka/O
-         Q4Z4R8x5YFJEi3CEmHkKc/K8mqXM/SjE5D7DgsGvkbn2gQvl1v1XlF/kbQERMIa4NfbG
-         za4Pr3gASNLVorwzWEaiUzSXIE+BiMlIX41ToONUVIy9hBVF3CsgHA6rAQTB+nzuslpL
-         G9cg==
-X-Forwarded-Encrypted: i=1; AKwUvByYeG00NepSKyesVtxVImVQBjSvNd60k11I3c39jjErmfmDck82lP4YBiknYbFxq1W+2qY/E7A3w9Vmz5g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2R8HTM7wyB8GWTVkOKsm6Tpy/VZEfdkJH9vDm9YHpjFx3Nz1h
-	WMq/jS6UQXWeLOtzAFCowrQ6yT2Fcrdvr8WmSUsVp+OK2vQQyQFE6WbG
-X-Gm-Gg: AYBFou1UnKb2VdfsArnAI/8RCOH7/Q023+P6lh5QghOTDnEE2qSLDoJWudhDDPdCmn2
-	CF7jKw7MW6SyWsUvIBiVvsSgqf3KWhC9tILimWkgHToLityeTRHnVkagTO6WpaJqs60DHXw2Wxh
-	ek5xHRx9XCeANKpRrblzIsMHSpVQCjWo3Mz/l8O5KdblCw6pc56ChMQZOBFBgiYkzFmjjOxzhZT
-	BOvTn7q8rxjJgsQi6Ty5xafzn2EmyykBvrvduqlnhC5mq4UHvSADncT0kXw/49qYpJ5Zs7D4pt7
-	UQCARAvrOWZTu+Rwi3wGt6jjeYaYSKgRjrx40wc6vTosVXm8ERvFSgG9POps8D1FTw76cPbULb+
-	y8pdFoI1P6BYp9OuK1HKc5gJdYvWFg6vwSG6ZSHWLict7uYNcYM9QG6KGoxBy8QZmz9TgvMxRoi
-	BxE2QvFet54DHeF7Z33D5zyvg3FQ0IErQvU8PnRtmv4s72wLuLYx/9q6sR7a0C/VKIrq+gIOOOh
-	zq6VnWIpYhxOSwYtsgknqVUkgYFPdrZWdKQq/EiLYgqdQCKF6UPUja8/AxKCRVe8n3VUBMvpUwo
-	hehUo367znGVtDZmlmE0VECAIw==
-X-Received: by 2002:a05:7300:ae22:b0:359:2a1f:520 with SMTP id 5a478bee46e88-361a2052f01mr2827792eec.24.1792219840075;
-        Fri, 16 Oct 2026 23:50:40 -0700 (PDT)
-Received: from server1868-4.tail96fc24.ts.net ([199.188.91.198])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b63e1sm13471690eec.8.2026.10.16.23.50.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 23:50:39 -0700 (PDT)
-From: Austin Schuh <austin.linux@gmail.com>
-To: thierry.reding@kernel.org,
-	jonathanh@nvidia.com
-Cc: anrao@nvidia.com,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Austin Schuh <austin.linux@gmail.com>
-Subject: [PATCH] firmware: tegra: bpmp: populate debugfs in the background
-Date: Fri, 16 Oct 2026 23:50:12 -0700
-Message-ID: <20261017065012.3063980-1-austin.linux@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        bh=hLRycCYqFI0sJDL3wNe30VNcaI33OzZwjCiyocKoV9g=;
+        b=T1MWRhVxds3/nbOEk59OjcPYmnX66EPf6xwYDdChuxTf4jdbLGgZPuqyLh2bUJiRTI
+         ou81KMazlYmehJPTjHehz08QrAiJWT6YURuSX+xoUwYOOAosf5WTX3unSbvec0iGBbqD
+         cJ2aRLSRUmjLShO5rMuEikys8whNtXs445StWr1lBR/3nhDGuzr2PpHBfjph6K4lDu1Q
+         JE1fgRgoq1rR9vvK/S+GYCmyvRr9wgxgD4KaKKK2dFeQPaKJZpCz3JjERWC+gmChY6rU
+         G8xP+UJfxA4uvUgP6ARXnZwgfPG/JwuJd5K3VvGTq5HOTsQnXtFONa7xMo8mi4K4AsdG
+         dkiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxuKewmW8bl8mDA6efAxMDTsHVtIo/Tx07z/z+H1U+BamLt1kokV8WqB4LxbPmJegxQGsB41s2xuivFuv0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGqKpRoxQLHGTORkfwcd+T+D3Kc7lf6Fx0mwJLig32Q4gNbsUd
+	PCCb8CWz0B6Y4awbdj2TqxOYjrNrlkpi6EBlhg0nRxCwvxKhYFcWdtR7KxXn5GhrhgW4euxaO6q
+	RQWPVyA==
+X-Received: from pjgs9.prod.google.com ([2002:a17:90a:4409:b0:3aa:ee30:1a77])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2ec3:b0:3ab:e588:c295
+ with SMTP id 98e67ed59e1d1-3acef51e29dmr1670580a91.42.1792219917592; Fri, 16
+ Oct 2026 23:51:57 -0700 (PDT)
+Date: Sat, 17 Oct 2026 06:51:57 +0000
+In-Reply-To: <20261015162209.485940-1-jkain@nuro.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261015162209.485940-1-jkain@nuro.ai>
+Message-ID: <atMVsAmXKl7D-Fxh@google.com>
+Subject: Re: [PATCH net v4] net: do not let defer_count outlive an empty defer_list
+From: kuniyu@google.com
+To: Joseph Kain <jkain@nuro.ai>
+Cc: netdev@vger.kernel.org, edumazet@kernel.org, davem@davemloft.net, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	kerneljasonxing@gmail.com, bigeasy@linutronix.de, clrkwllms@kernel.org, 
+	rostedt@goodmis.org, linux-rt-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-Populating the BPMP debugfs mirror takes a series of synchronous BPMP
-requests, several per directory.  On an Orin Nano (Tegra234) the tree has
-about 10,800 entries, and the BPMP probe doesn't return for over five
-seconds.  Every device that gets its clocks, resets or power domains from
-the BPMP waits for it, which on Tegra234 is nearly all of them, so PCIe,
-NVMe and the root filesystem all come up five seconds late.
+On Thu, 15 Oct 2026 09:22:09 -0700, Joseph Kain wrote:
+> __skb_defer_free_flush() can leave defer_count at or above skb_defer_max
+> with an empty defer_list. That state is absorbing: every producer then
+> takes the nodefer path without queueing, so the list never refills.
+> Deferred freeing stays off for that (cpu, node) until reboot, and
+> cross-CPU frees fall back to the page allocator, which is the contention
+> deferral exists to avoid.
+> 
+> skb_attempt_defer_free() increments before testing the limit and does not
+> undo the increment when it rejects, so a rejected free leaves the counter
+> raised with nothing queued.
+> 
+> Nothing brings it back down. The reject path returns before
+> kick_defer_list_purge(), so once the counter is stuck no producer
+> schedules a flush on the owner CPU. A CPU that never raises NET_RX itself
+> -- an application CPU doing TX while NIC IRQs are pinned elsewhere and
+> RPS is off -- then never runs the flush at all, so clearing the counter
+> inside the flush cannot help it either. proc_do_skb_defer_max() neither
+> resets the counters nor schedules a flush when the limit changes.
+> 
+> It is reachable with no race at all:
+> 
+>   sysctl -w net.core.skb_defer_max=1    # frees increment, then reject
+>   sysctl -w net.core.skb_defer_max=128  # does not recover
+> 
+> skb_defer_max has .extra1 = SYSCTL_ZERO and no .extra2, so 1 is settable.
+> From v7.1 on, 0 is safe because proc_do_skb_defer_max() flips
+> skb_defer_disable_key and the producer returns before incrementing. On
+> 6.18 through 7.0, which carry the llist conversion but not commit
+> 08dc30de1a40 ("net: add skb_defer_disable_key static key"), setting 0 and
+> restoring the previous value strands the counter the same way -- and 0 is
+> the documented way to turn the feature off.
+> 
+> Test the limit before incrementing, so the counter is only ever raised by
+> a producer that goes on to queue. It then cannot outlive the skbs it
+> counts, and the absorbing state is unreachable without depending on a
+> flush ever running on the owner CPU.
 
-Commit c7fc690da6f1 ("firmware: tegra: bpmp: Allow BPMP debugfs population
-to be skipped") lets a system that doesn't need the mirror turn it off with
-tegra_bpmp.debugfs=0.  A system that does use it, for instance to set
-clocks from userspace at boot, still pays the full cost.
+I think the state is still reachable when reducing the knob
+if the new value >> 1 is smaller than the current defer_count
+due to the kick condition (==).  This can be fixed by bumping
+the knob to defer_count * 2 though.
 
-Nothing in the kernel uses the mirror, and the probe already only logs an
-error from it, so populate it from a workqueue instead.  It isn't an
-async_schedule() job, since kernel_init() waits for all of those before it
-starts init.  Userspace that reads the mirror right after boot may find it
-still being filled in.
 
-Measured with initcall_debug on an Orin Nano running 6.18.39 with
-NVIDIA's patches: the BPMP probe returns after 1.2 seconds instead of
-6.36 seconds.
+> 
+> This makes the limit advisory. The test no longer reserves the slot it
+> checks, and the recvmsg callers run in preemptible context, so the
+> overshoot is bounded by the number of producers in flight rather than by
+> skb_defer_max; the post-increment test reserved the slot and bounded the
+> queue exactly. The counter is already approximate -- the flush zeroes it
+> without regard for producers in flight -- and the next flush erases the
+> overshoot, where the latch it replaces never recovered at all.
+> 
+> Undoing the increment on the reject path instead would be wrong: a flush
+> that zeroes the counter between a producer's increment and its undo
+> leaves the counter negative, and the producer's local is an unsigned
+> long, so every later test reads it as enormous and rejects. That is the
+> same dead end, reached more easily.
+> 
+> While here, drain before clearing in the flush. A producer that queues
+> between the clear and the drain currently has its skb drained but its
+> increment kept, which over-counts and costs deferral until the next
+> flush. Draining first matches the ordering __dev_xmit_skb() already uses
+> for the qdisc defer_list.
+> 
+> Found by manual code inspection, LLM-assisted, while backporting the
+> llist conversion to 6.1 after hitting the sd->defer_lock contention it
+> removes. The latch itself was not hit in production; it was reproduced by
+> lowering net.core.skb_defer_max.
+> 
+> Fixes: 844c9db7f7f5 ("net: use llist for sd->defer_list")
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Joseph Kain <jkain@nuro.ai>
+> ---
+> v4:
+>  - v3's "undo the increment on reject" was wrong: a flush that zeroes the
+>    counter between a producer's increment and its undo leaves the counter
+>    negative, and the producer's local is an unsigned long, so every later
+>    test reads it as enormous and rejects forever. Test the limit before
+>    incrementing instead, so there is no decrement to underflow
+>    (netdev-bot sashiko).
+> 
+> Note this changes the effective limit from skb_defer_max - 1 to
+> skb_defer_max, because the test now runs before the increment rather than
+> after it. That matches what Documentation/admin-guide/sysctl/net.rst
+> describes. It also means the half-capacity kick can now fire at
+> skb_defer_max = 1, which commit c09b0cd2cc6c ("net: avoid strange
+> behavior with skb_defer_max == 1") set out to make possible.
+> 
+> Built for x86_64 and arm64, with and without CONFIG_PREEMPT_RT. On
+> v7.3-rc6 with skb_defer_max=1 and a cross-CPU TCP load, defer_count
+> reached 1918118 unpatched and did not recover when the default was
+> restored; with this patch it stays within the limit.
+> 
+> v3: https://lore.kernel.org/all/20261013205416.3417296-1-jkain@nuro.ai/
+> v2: https://lore.kernel.org/all/20261008220256.1844072-1-jkain@nuro.ai/
+> v1: https://lore.kernel.org/all/20261007180056.1394868-1-jkain@nuro.ai/
+>  net/core/dev.c    | 5 ++++-
+>  net/core/skbuff.c | 9 ++++++---
+>  2 files changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index 18dc88990510..60d86bc21632 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -6940,8 +6940,11 @@ static void __skb_defer_free_flush(struct skb_defer_node *sdn, int budget)
+>  
+>  	if (llist_empty(&sdn->defer_list))
+>  		return;
+> -	atomic_long_set(&sdn->defer_count, 0);
+>  	free_list = llist_del_all(&sdn->defer_list);
+> +	/* Racy on purpose, as in __dev_xmit_skb(): a producer landing between
+> +	 * the del_all and this store stays queued but uncounted.
+> +	 */
+> +	atomic_long_set(&sdn->defer_count, 0);
+>  
+>  	llist_for_each_entry_safe(skb, next, free_list, ll_node) {
+>  		prefetch(next);
+> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> index 4aea06d5167d..25f82b7dcf01 100644
+> --- a/net/core/skbuff.c
+> +++ b/net/core/skbuff.c
+> @@ -7386,11 +7386,14 @@ nodefer:	kfree_skb_napi_cache(skb);
+>  	sdn = per_cpu_ptr(net_hotdata.skb_defer_nodes, cpu) + cpu_to_node(my_cpu);
+>  
+>  	defer_max = READ_ONCE(net_hotdata.sysctl_skb_defer_max);
+> -	defer_count = atomic_long_inc_return(&sdn->defer_count);
+> -
+> -	if (defer_count >= defer_max)
+> +	/* Test before incrementing: the reject path returns below without
+> +	 * reaching kick_defer_list_purge(), so a kept increment never flushes.
+> +	 */
+> +	if (atomic_long_read(&sdn->defer_count) >= defer_max)
+>  		goto nodefer;
+>  
+> +	defer_count = atomic_long_inc_return(&sdn->defer_count);
+> +
 
-Assisted-by: LLM
-Signed-off-by: Austin Schuh <austin.linux@gmail.com>
----
+IIUC, atomic_long_read() before atomic_long_inc_return() needs
+two-step coherency transaction, and we could avoid that and
+the corner case above by fixing the off-by-one and calling
+kick_defer_list_purge() in the slow path:
 
-Notes:
-    Based on tegra/for-7.4/firmware (1bbcf4a19f14).  Built for arm64, W=1,
-    no new warnings.  The timing is from the same change on 6.18.39 with
-    NVIDIA's patches (where the probe also has the VDK check), which is what
-    our board runs; I haven't booted this branch on it.
+if (unlikely(defer_count > defer_max)) {
+    if (!llist_empty(&sdn->defer_list))
+        kick_defer_list_purge(cpu);
+    goto nodefer;
+}
 
- drivers/firmware/tegra/bpmp.c | 35 ++++++++++++++++++++++++++++++++---
- 1 file changed, 32 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/firmware/tegra/bpmp.c b/drivers/firmware/tegra/bpmp.c
-index d3508e98e338..535ebbd55a6f 100644
---- a/drivers/firmware/tegra/bpmp.c
-+++ b/drivers/firmware/tegra/bpmp.c
-@@ -16,6 +16,7 @@
- #include <linux/semaphore.h>
- #include <linux/sched/clock.h>
- #include <linux/slab.h>
-+#include <linux/workqueue.h>
- 
- #include <soc/tegra/bpmp.h>
- #include <soc/tegra/bpmp-abi.h>
-@@ -1052,8 +1053,26 @@ int tegra_bpmp_init_dt_providers(struct tegra_bpmp *bpmp)
- 	return 0;
- }
- 
-+struct tegra_bpmp_debugfs_work {
-+	struct work_struct work;
-+	struct tegra_bpmp *bpmp;
-+};
-+
-+static void tegra_bpmp_debugfs_work_fn(struct work_struct *work)
-+{
-+	struct tegra_bpmp_debugfs_work *dw =
-+		container_of(work, struct tegra_bpmp_debugfs_work, work);
-+	int err;
-+
-+	err = tegra_bpmp_init_debugfs(dw->bpmp);
-+	if (err < 0)
-+		dev_err(dw->bpmp->dev, "debugfs initialization failed: %d\n",
-+			err);
-+}
-+
- static int tegra_bpmp_probe(struct platform_device *pdev)
- {
-+	struct tegra_bpmp_debugfs_work *debugfs_work;
- 	struct tegra_bpmp *bpmp;
- 	char tag[TAG_SZ];
- 	int err;
-@@ -1089,9 +1108,19 @@ static int tegra_bpmp_probe(struct platform_device *pdev)
- 	if (err < 0)
- 		dev_err(&pdev->dev, "failed to initialize sysfs: %d\n", err);
- 
--	err = tegra_bpmp_init_debugfs(bpmp);
--	if (err < 0)
--		dev_err(&pdev->dev, "debugfs initialization failed: %d\n", err);
-+	/*
-+	 * Mirroring the BPMP's debugfs tree takes several requests per
-+	 * directory, which on Tegra234 adds up to seconds.  Nothing else
-+	 * waits for it, so do it in the background rather than hold up every
-+	 * device that depends on the BPMP.
-+	 */
-+	debugfs_work = devm_kzalloc(&pdev->dev, sizeof(*debugfs_work),
-+				    GFP_KERNEL);
-+	if (debugfs_work) {
-+		debugfs_work->bpmp = bpmp;
-+		INIT_WORK(&debugfs_work->work, tegra_bpmp_debugfs_work_fn);
-+		queue_work(system_dfl_long_wq, &debugfs_work->work);
-+	}
- 
- 	return 0;
- 
-
-base-commit: 1bbcf4a19f1495f769b69e9569d8c1e81df074f5
--- 
-2.47.3
-
+>  	llist_add(&skb->ll_node, &sdn->defer_list);
+>  
+>  	if (unlikely(!cpu_online(cpu) || my_cpu != raw_smp_processor_id())) {
+> -- 
+> 2.55.0
+> 
