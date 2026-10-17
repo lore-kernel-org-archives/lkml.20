@@ -1,160 +1,113 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC98B38B14F
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 01:56:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75AE937473A
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 01:56:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792202167; cv=none; b=TXh7xAXldRGYZxVHN2Li/VovzeBPxmxOLNDAHw0h6wIv2k7koly7j9gy/ishGRfIc3q2fe31tyRy3Cfj8q3y8tqsFhgdzD8GpFt10X0j5mJedAAPjRowopGVTP9NmQYjKsxaDhFxXf2ROdK7FT9s5KsLU8Y2XzSvPSbGTLytqaY=
+	t=1792202168; cv=none; b=p9UmjjLlw3qt0pSMbm0Burq4iptTzppZ6xPQBXCwNIbOMxown4T/It5lFkrl7QWRw7ZOVjIXd0T2sdUnWCJvH8IocQNz9aqdxkq1b1VQUe9bNcn9WLkkxOB6rrFcKok9A3YzOxYQVF1Bi1gqvtk9QIRMLiSEN1+wu1KQtDbznUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792202167; c=relaxed/simple;
-	bh=3hBEoYmujIN/lIM+LWmpcdreauHJLGhIJOlga1pFDNU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=a7mFD6t7PA8mIFIet2iU5bWvm+/VQGb0ilsBQ0+5TzcLx7FGkThRhTE+3kDpvWuMBmhp9xN0U+HWz07LFiX1D1Qsv4hBLIyOtUt3bo0Ciuyhz72xtfXLOukEImAyi0VhRBNthx8Iicz4s0prgr7xPTKNVyui+fzP5Y+ITnBjsTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MnZxd6lu; arc=none smtp.client-ip=209.85.128.170
+	s=arc-20240116; t=1792202168; c=relaxed/simple;
+	bh=Fe8zxGQq/7dCid2W89W5GWhcTNqPOSQenj/BB/O4q7E=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YghOGK5dg/Rged8i6fnwPT9nfAY4ZfXGBAOOxHQ4qRenCYH/raa7rZeQqLCWmVZbs2ZVv/heES+NUMViFxPCDlIHvsguzzckdYqE+h3QdUH28t36lgMoUPTsT+seu5u8SqgjNeFyRcM/e9wdJt314hP0d82t1JJ7rUV5kuFND2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=njj0NpxP; arc=none smtp.client-ip=209.85.214.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MnZxd6lu"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b056d58f2aso4366017b3.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:56:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="njj0NpxP"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e49fbf92aaso2360075ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:56:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792202162; x=1792806962; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d8OpYwKY4k0JzilSveCfUGKhXNAVuzUj6LeYu6BiAQs=;
-        b=MnZxd6lu/Fga/o9/N50ER54dQZKvDC1oQr+qaafebeN/JCYaalHT+UFFycxYn9LM2X
-         bpkNJw6sAeYCEWpHooBPoQFlT5+01jdXZP1s5AUBCa87Tw7IbalHyvzA3ekDQ3K+QWvf
-         aa3pZ9OpI50KUJsL+8/lPO0Huw62q2hsEGwh1whclpLz1bdhJIxyEbvff3YoeWqw6QjV
-         l3cYZdgMfDwLp/4a2VsQRg0fC3z7amY0GbfGwOeKLldJif5H83Za+tBhX7i4UqS8pSKE
-         D/WRQNmhSDQQD2LGX542DugeFPQhPBmtHGYVlHq91yOM3wKuWHtHaY7vnyGYicBxJTA3
-         C8NQ==
+        d=gmail.com; s=20251104; t=1792202166; x=1792806966; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:date:subject:cc:to:from:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Fe8zxGQq/7dCid2W89W5GWhcTNqPOSQenj/BB/O4q7E=;
+        b=njj0NpxP7PMMY9QiiCHu2ZMK5ZNDmcqLnqXiLZCzhA26eiXXHdA0CikuUD+zuPTfNw
+         phtEfb42sCyThPfhrO6X5q6PkzLVvJjplFoZcMaGNqv8hPNvY/AJs7ZvwOLxNKh/IBsh
+         gAzjDTJVHVj/FWyo6gbPWWDf48MecKc9682oSwdSyReHfgXgVbzhHMa1kcoV97p2lKZV
+         FeKdHc+Mv1hp9GOWMLtc17PvFkpTKVdPXnmg5tSM/f/wfm/VQw5ZwV2WlfzXpMC0R+re
+         TDpPD2mOEzyg81PHtX9pDJ5IcMFC7XM3gWYYsC5w8m8MWjpsNv/yXxbZ18+4oywd5MGG
+         10dQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792202162; x=1792806962;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792202166; x=1792806966;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:date:subject:cc:to:from:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=d8OpYwKY4k0JzilSveCfUGKhXNAVuzUj6LeYu6BiAQs=;
-        b=DAEX0pZsDDgvkvfKOfDOu+f4bCj9SBu0GFczv8Xw9Dvi/u27lXyGVUURWD1EQr9ssr
-         vfY9i3+6etCCSyQkoDeMkmlluZvwDnW+z+Gq/4VORRPD0AySCjMxudOFF6H72GKpYgC5
-         kNefdjCmCajhNeUU4c2HPTzLVxQ1g8ib2/bFryZWsWFVEHJA1BbiheuO2rJCywSRyFxp
-         1P8QrMrftEnZJ9e1XjWWnvdN2ow0pDWFOrlya2s5idje6txKG4Nl401e+sz9CotonxzX
-         1MXOxLCf+DZ5HdmBBpa5slnX0mW/XvT9j6tkl+aX+G9aXbgOBubJidWXglo3r602Q3br
-         NxKg==
-X-Forwarded-Encrypted: i=1; AKwUvBzCN1U0RaKiEMuOXw4ZcVxuPp5N8+PObClZ8SeeL7fDdExDvFt4detGvJpHWSJE7YYZcsHLSa0K9mG9Ago=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKL4DfymH9o9W6VCbcZ8vTNNNgxDJn8Azk75m1FqFVssuRWtSo
-	GBUmQ8N8a9mVEFoeZeiuUWR3V61qlO/7Q0rzKzCXtZbQY0GFzVcKtJMtPD7J8A==
-X-Gm-Gg: AYBFou2yps4sMC5dW2P2mfZ8AYoA0BtDy85tlAdKU7cw3zQj/cI0O8Cs0yskW5QxLVW
-	4MRexWtjKMrF/bj6Jx7tUepDBLtXBKi7fPBHqMT96Oxm9Y+asbjskEWbN1AOpRFGOXDHgtw19Vh
-	NA0ja6l/m4rUeWNiB/kgc5qh/M4TmR/u0LUsBzCRwZY+0U2lKohIr+zG11tPSTySTMsUUZeqc8w
-	vjvRwFB3rwIizOhq5ZU+W0Gtju2OcWHjqi5ptWRGwJ1nLAsbIWo6yCPFxCW1INqrulUHLp08BiS
-	QCLYfQF9/Tbkw1AT8nFfrIMpMK0Xsv7KepGhCr7z5ezVNf4HxBCuMhyJ4i+g9P3c+eYU0hAH7bA
-	yWtjywFM8ktcDcw9fKh62mFEXtj7vIZAKSPSQmLkhUBnvLP1bYYnOc+pRhTamc4MRD2JHwlob5n
-	AXwzhAjm+toV5ahWWararjOJaLiPV2hHavso9CatCBPxipZuApsvSdbZz1aYhTeOWBI7a+NqOlO
-	9WSIkqQqDVROq7spUjCVvWOpdjmXbk1SWx66Aa/sTAylgdEnu/zHV7eNS+lkVSalBFs8n8Xfir4
-	3DTSfXtDHkAGfuedKSWpUUHmJ4O3
-X-Received: by 2002:a05:690c:c386:b0:8b0:a352:f978 with SMTP id 00721157ae682-8b0f2072ca1mr5509447b3.4.1792202162390;
-        Fri, 16 Oct 2026 18:56:02 -0700 (PDT)
-Received: from localhost (108-93-236-139.lightspeed.chtnsc.sbcglobal.net. [108.93.236.139])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e5885546sm16379857b3.16.2026.10.16.18.55.58
+        bh=Fe8zxGQq/7dCid2W89W5GWhcTNqPOSQenj/BB/O4q7E=;
+        b=yjNXzniUJ6EWc1lSjKGU9tcbeRJSrV92HCEEBL8GNLMJJR8TTgUIMwkQvXMUGLvxjM
+         SqM1xXWOGUiXup/3WoramrWXSIbSJaNCK3QHz7af1IGVOcIDTxU+KLFgYDuUzGNnnKUF
+         3H9CTH9r9OScNII45IBpYy0CSEWwKK/IHS3/CdiVtBjpTsxehfatE334MQRW53U/U1p6
+         kCC0BxADeLbMXASJu0j9lsaoNnFt1RF004kkKeR7hTPW2jF99l4BjBFl61b/6NEk7Zws
+         +siz0tgqsfSEXodFoIoNcyoZ/SP1kRhWDaQo9mL5k8WdregG3tr/8QeMHE9v6Jkwlt54
+         vzZw==
+X-Forwarded-Encrypted: i=1; AKwUvBzCiGNKdzQww6YNlzV8QClUkE7p4yiiQiFh/n39Ybd2pIO+BeCuByNlQR4VqdmBi9E8XiCGhqkJCL6T6CM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5AcDiufoE+UPfF8gExQcljW/IM+vjZuhDXX8bkajz3TCWyvJg
+	huQL/eQQDe+FlQcFnbtnVLkmADCz7KnmID68rMDgZ3hORYN0o6WfJIhb8N/BviKK1H4=
+X-Gm-Gg: AYBFou1nlYv7/hWSeR5gLTPc78mq2O942f8LJxu6ZDK9jw/+oOdtQwBJYBdFzLPltfY
+	z3oQ4XkALEV/xXmsJb0Kb86BOiffuDi9cFbr75HrCyV88WeWk4BwC7Uzpx5FYHm2MFYT+UHUXBJ
+	OG7Q+NgwlRkG7hqCBE9p0UAqAaXRjpjZ33camQXiXNJMZJNyDIDdh9tcDbQ4dO5LVM7ENB6b3wJ
+	AzMTYtjWvTI4mjalTGpLb2wKlyx/sLfMDhTswLR0vW8SXwSFvJ8xT1JWqGmnEqc/XV/ro2FDXnZ
+	P1ocVSfZdQenMy9WmxZZB+gRNRGk+3r1t2xH0uXb5pcVePzYktK711VMsFhCrLRyILIgqxWBMiX
+	uIwaLasKlnO8OpNhXLx/OqKsej7H3Jvzu0L0ZexwCR4++lNIR2i2h4zPH2z4k7vylNOmrvHg82/
+	612W0ioNKA7vvhIWnKvnmJkf5RP/0aX0ZAz+LxRKBESS/GYNVfrZgcDMFGI7W2OrjjA4vL9l6xT
+	QqsEF21FodmKLp4Uq6RLA==
+X-Received: by 2002:a17:90a:c110:b0:3ab:f38:2b43 with SMTP id 98e67ed59e1d1-3aceeeabd7dmr1165560a91.34.1792202165738;
+        Fri, 16 Oct 2026 18:56:05 -0700 (PDT)
+Received: from DESKTOP-UCPRL76.localdomain ([113.200.174.30])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94794dd9sm11245327a91.12.2026.10.16.18.56.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 18:56:00 -0700 (PDT)
-From: Matt Turner <mattst88@gmail.com>
-Date: Fri, 16 Oct 2026 21:55:47 -0400
-Subject: [PATCH v2 1/5] alpha: fix stale user_stack_pointer()
+        Fri, 16 Oct 2026 18:56:05 -0700 (PDT)
+Message-ID: <6ad2d5b5.969afe5a.ee04c.f286@mx.google.com>
+From: Zheng Shuhao <viennaoffh@gmail.com>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ syzbot+e7f24354da9f7915bc54@syzkaller.appspotmail.com
+Subject: Re: [PATCH] xfs: fix slab-use-after-free in xrep_newbt_free()
+Date: Sat, 17 Oct 2026 09:56:00 +0800
+In-Reply-To: <20261016152359.GA107986@frogsfrogsfrogs>
+References: <20261016085536.591-1-viennaoffh@gmail.com>
+ <20261016152359.GA107986@frogsfrogsfrogs>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-alpha-perf-regs-v3-v2-1-17654742226a@gmail.com>
-References: <20261016-alpha-perf-regs-v3-v2-0-17654742226a@gmail.com>
-In-Reply-To: <20261016-alpha-perf-regs-v3-v2-0-17654742226a@gmail.com>
-To: Richard Henderson <richard.henderson@linaro.org>, 
- Magnus Lindholm <linmag7@gmail.com>
-Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org, 
- Ian Rogers <irogers@google.com>, Matt Turner <mattst88@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2375; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=3hBEoYmujIN/lIM+LWmpcdreauHJLGhIJOlga1pFDNU=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLIuXV18W33zl227d0zLODlNyiLth9GZ36qJfc9uvru67
- dGWLZ+2POn4yMIgxsUwU0yRJW69Isusth1LfU5L/4KZw8oEMkRapIEBCFgY+HIT80qNdIz0TLUN
- 9QyBDB2jeIicHoNGZnFxaWqRblpBkUNefkliSWZ+XrFefkFqXkF6gV5aZlpJRkZ+UXEq0Ai9vNQ
- SU1dHNyNDAxNLRwszJwtHUxNnZydDJzdHR2dXJyNLcxMDZ0tHE1dLcwYuTgGYazo+MzK0yKU0pR
- 2aXPAhoNPn9MdCvuvP02b2qk8r+i/+5tIW9SnODH94uyZ9Wnv3S9jbNy1xAVav9y/vSs488rxTu
- 2m62rr1LcXsAA==
-X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
- fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-PALcode keeps the user stack pointer in the PCB, not the trap frame, so
-pt_regs->usp is only valid where entry code stores it: entSys,
-do_entArith() and do_entIF(). Interrupts, page faults and unaligned
-traps leave it stale, and ptrace and /proc/<pid>/syscall read it
-through user_stack_pointer().
+Hi Darrick,
 
-A user-mode pt_regs is at the top of its task's stack, so find the
-thread_info from it and use rdusp() for current or pcb.usp otherwise,
-as KSTK_ESP() and the regset code already do.
+Thanks. Re: "What if some other thread initiates the shutdown?"
 
-Fixes: 8a2857bc2b30 ("alpha: enable regset-based ptrace and core dumps")
-Assisted-by: Claude:claude-opus-5-5
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
-Acked-by: Ian Rogers <irogers@google.com>
-Signed-off-by: Matt Turner <mattst88@gmail.com>
----
- arch/alpha/include/asm/ptrace.h |  7 +------
- arch/alpha/kernel/ptrace.c      | 12 ++++++++++++
- 2 files changed, 13 insertions(+), 6 deletions(-)
+That is what I tested. The paused autoreap dfps are freed by the failed
+xrep_defer_finish() in the repair thread, no matter which thread sets the
+shutdown. xfs_defer_finish_noroll()'s out_shutdown path forces the
+shutdown before xfs_defer_cancel_list(), which frees every
+xfs_defer_pending on the scrub transaction, including the paused autoreap
+EFIs. resv->autoreap.dfp is dangling by the time junkit runs.
 
-diff --git a/arch/alpha/include/asm/ptrace.h b/arch/alpha/include/asm/ptrace.h
-index 430e8dc27ff7..45d1229344b6 100644
---- a/arch/alpha/include/asm/ptrace.h
-+++ b/arch/alpha/include/asm/ptrace.h
-@@ -26,12 +26,7 @@ static inline unsigned long regs_return_value(struct pt_regs *regs)
- 	return regs->r0;
- }
- 
--/* Helpers for working with the user stack pointer */
--static inline unsigned long user_stack_pointer(struct pt_regs *regs)
--{
--	/* Valid for user-mode regs */
--	return regs->usp;
--}
-+unsigned long user_stack_pointer(struct pt_regs *regs);
- 
- static __always_inline bool regs_irqs_disabled(struct pt_regs *regs)
- {
-diff --git a/arch/alpha/kernel/ptrace.c b/arch/alpha/kernel/ptrace.c
-index e1d8c2f69688..dba7e9905cfa 100644
---- a/arch/alpha/kernel/ptrace.c
-+++ b/arch/alpha/kernel/ptrace.c
-@@ -440,6 +440,18 @@ ptrace_cancel_bpt(struct task_struct * child)
- 	return (nsaved != 0);
- }
- 
-+/*
-+ * PALcode keeps the user stack pointer in the PCB, not the trap frame.
-+ * A user-mode pt_regs sits at the top of its task's stack, so the
-+ * thread_info is at the base.
-+ */
-+unsigned long user_stack_pointer(struct pt_regs *regs)
-+{
-+	struct thread_info *ti = (void *)((unsigned long)regs & -THREAD_SIZE);
-+
-+	return ti == current_thread_info() ? rdusp() : ti->pcb.usp;
-+}
-+
- void user_enable_single_step(struct task_struct *child)
- {
- 	/* Mark single stepping.  */
+If the shutdown is already set before repair starts, the dfps may still be
+alive, but unpausing them is a no-op: deferred work cannot progress on a
+dead log, and scrub teardown cancels the transaction and frees the dfps.
+Any EFI that reached the log is replayed at mount, which is exactly the
+intended autoreap behavior for a repair that never committed its new
+btree.
 
--- 
-2.55.0
+The guard cannot miss the dangling case, because the cancel that frees the
+dfps happens after the shutdown is forced.
 
+Testing: helper threads issue XFS_IOC_GOINGDOWN (LOGFLUSH and NOLOGFLUSH)
+after the xfs_defer_item_pause trace event -- 1 to 8 threads, 0-100 ms
+delays -- while the main thread force-rebuilds a bmap btree. Unpatched:
+KASAN UAF every time in xrep_newbt_free() -> xfs_defer_item_unpause().
+Patched: no splats, scrub returns -EIO; after remount the log replays,
+free block count is unchanged, data reads back intact, xfs_repair -n is
+clean. Healthy forced rebuilds still do the normal pause/unpause.
+
+Thanks,
+Zheng Shuhao
