@@ -1,48 +1,91 @@
-Received: from r3-11.sinamail.sina.com.cn (r3-11.sinamail.sina.com.cn [202.108.3.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f2.google.com (mail-pz2-f2.google.com [74.125.228.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB293F9F3C
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:45:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9935A3E6394
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792215927; cv=none; b=NDr5/rPbKAPMJ+iDEILXWyBngwLW/whczIBuwiB08ZfqSpfhn87ikH8jqM6vLoYH3ThslT6oT2dJ2prxdoROQZujECMeJnohVBJzAv1FnDIpure1q+6ObZ9hkVDVSFnbH2Ch7KEkaxifNIXr5h4wkdhg3oXGb/k+MgoqAKzykEg=
+	t=1792215927; cv=none; b=hmmB6HiryZHmIiebBzFLriaTAGU+Vd6c340kkhMjXjX0yYE5ePZ5BSZ+7w0+79u7HyyIewOhTpyQ8P6juo4WCzrKGdXNUClPGxgx6Xnvlwq1W614WlLP1+YdxnyypirHnRZWbXkYGgnnGX1TTjnNBDUKxSt35Ayh8+TlCl1qbt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792215927; c=relaxed/simple;
-	bh=4Z06arjgYdjBh2GrWJg9yOvseOZAdbJxeqp9Hy+zvKE=;
+	bh=77hqLc9J7JNzbmg7AMorhPOB16l5fiuXalMgNBngkQc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vFtOXWImt65tlrtp/FY8e2y/cURmTi1wSak2JxgRdSChnMYCyCKE9bcavWoshRibtdOc3slyr/5aCSplMRfcnhfPz2NIG+tmWDlAbH4OAqk9kngp82eJpYmSVCfjBFPQZLexgjVo6FCeub2gV9NzMKKFaZ8nk7yFPOmEBX4PdGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=MJHzl9Ft; arc=none smtp.client-ip=202.108.3.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	 MIME-Version; b=QHxdIgYn509diKPk95pMGkLlRzsIg1YhcP/dU81/kpIYiHRfZ6X2MIoKgh3FP1RrsDxowDsZSjhYK6b5+gvxgdzSTbZXjEJDXLC7OZA6Zcl7JR59uCsAhYOOihG4z5ikQ9mj1yMusdqYPvvrcek7Iuzp7mYn3SpI4Vm90T7f6C0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kaDuDKG1; arc=none smtp.client-ip=74.125.228.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="MJHzl9Ft"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792215922;
-	bh=+d2KJdB04dQ047eI25m+hGvmBYY5N8jOXMu16DOgI0I=;
-	h=From:Subject:Date:Message-ID;
-	b=MJHzl9Ft6Ln2u5KXZVjv9QUyVaoIocVq//0C/w6XOCAGeH1NBMBxWQMu6SEdNQZuo
-	 WQTINDmXu7EYT0hn5Ua5FfHCmliJ0BGiVzz9gUP6l7CmaAxVh+oegsEUTBQ6IvIxiq
-	 zIDTlrgih3VzNGDVxrPE8d7rvM1PV5eAGSzcFTT8=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.254.3.93])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6AD30AD40000418F; Sat, 17 Oct 2026 13:42:48 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 7281556291745
-X-SMAIL-UIID: A09AE63EC7724E98B21F0DAEFE84CE48-20261017-134248-1
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [nvme?] BUG: corrupted list in nvmet_fc_remove_port
-Date: Sat, 17 Oct 2026 13:42:34 +0800
-Message-ID: <20261017054235.608-1-hdanton@sina.com>
-In-Reply-To: <6acbc835.a150a118.27e199.003c.GAE@google.com>
-References: 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kaDuDKG1"
+Received: by mail-pz2-f2.google.com with SMTP id 41be03b00d2f7-ccc451ef3a7so103603a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:45:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792215926; x=1792820726; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yY8SyQWcSYsDi8cm3rA+aW2F8vWLi9p/feyMtYn7Pcg=;
+        b=kaDuDKG136hNm5tp9UX79/0FF1Mun9gn5tmDLxEe7NWNGc9+4IcOncJ+C/GjIyg04q
+         RPCYATQtAX9SbZx/GtS6I9J1cVFL1tJG5A/edKXOhyvhu/Q/kKOS1lWE8CsR5h4nHi4j
+         a6n7WQmPTBRijHwci0inGaeNd9wtE4udu5AUzD9JInrxqAl1ntepN2swaLZqEI6m5L7f
+         d0HWj/1NhmpCkGj6GwtQJX8w0ciDDVdKRIXHkg8Wv67s6arF3zu4b6MjM6oPjAG1BcxO
+         k2IMrIvJVZ2JQFKNjQz/9ppY2BE2t2hiw3xMrWqQqgzSbCnsVblJlAT1Y3hDfZBhynlj
+         MeQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792215926; x=1792820726;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yY8SyQWcSYsDi8cm3rA+aW2F8vWLi9p/feyMtYn7Pcg=;
+        b=CH4Or3svXAqeFxyVu9QbIZ27f5uhoRwUhIOjI6BMC9xQ7JFF2/5Uz6w054kagIFW81
+         B3dOjQFxcO6IbewoLqx+7f8030/sSIwfRZNujxO/ff5VIYwpf00GypMOhQnDk7aBtLcO
+         lGa55CEv+8a7rbcbiGs0av5haxVkbrQO7o3TVnzhDQb9/fLHid7hAOdLMizLEmP1eypH
+         2Fc//1M9X8Os8pa4noi9d6KOq076Al3mvEJT9tiMds9voWQNwvJ5td236pOVlk93EIzJ
+         qzABfd7W00hNPp4PnxmbmSqvkI8RbSM0jZ06lJTcLn8c6u6FYqh4MVmeIHY9g+zhvXwG
+         x3vA==
+X-Forwarded-Encrypted: i=1; AKwUvBy5FEAPVZj2q5+PDD5K3vGTcalcqkKruJjXPoaIUi1LWdoX/XK2t8ttC4EFoCO2BPQ3X5PPQ41FevP7s6s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3+hEJXWiC+dztFT8giD0fwb81GoVfd7SnWtMruVzP/6UigpNg
+	4DOzZ9HOx/DmKOO4VEFnjeaW1iT0L9TW//yUWQbeFJog5VLypDDJ9p/c
+X-Gm-Gg: AYBFou2F2XNgaJv3wvNtRJ+FWEDori1IhyFyrt6gkt9HbBQlj7msq40Y9CzmG02yyNc
+	dmrOrPwpohrd/EmH3um/mpVjpkNELDetBkN8AfDvIr13V4YcZ9fCH6+5leVW3535QT4N76gDRCz
+	MJnxSXF4VqqHyff0BXCLmAD0BCjl4hkedD2hfCVphN8eeamAcJdvR2Js2mpGiUKSc60jqIXG67Q
+	pxwmDX1CCCqQEnEkaGwJeCH7igKQT01k6yo7L6OG9wt0beZOEDCAT5768LAsj9GgOIvKMFPr56W
+	kIOc5fHSAr1dL6ogtnXN85/pZhHmpam3xt4zjbLiBEHqqVudZD1Jh3Ua3p+ogp0zsbRh3Zwb6LE
+	U9h9dVHEkOsgE8xM84jc3nqUcCigu+zBQx0NqBGc1+jHbSOG4/Gi+f06A9/yxoyoELv1xZirBES
+	AqpboHb1qtDa/DQCDFW2oo7v4cJm0b4V0iNTCMbL28Ug1fIy01wlnLKYXi+QIM/WfmXVCH
+X-Received: by 2002:a05:6a00:4146:b0:87d:430:1437 with SMTP id d2e1a72fcca58-8a04be6035cmr1481735b3a.38.1792215925893;
+        Fri, 16 Oct 2026 22:45:25 -0700 (PDT)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f57269315sm1958225b3a.23.2026.10.16.22.45.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 22:45:25 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	David Wu <david.wu@rock-chips.com>,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Coia Prant <coiaprant@gmail.com>
+Subject: [PATCH net-next v12 6/6] MAINTAINERS: add entry for Rockchip XPCS driver
+Date: Sat, 17 Oct 2026 13:44:04 +0800
+Message-ID: <20261017054406.1828061-7-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261017054406.1828061-1-coiaprant@gmail.com>
+References: <20261017054406.1828061-1-coiaprant@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,61 +94,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Date: Sun, 11 Oct 2026 10:32:37 -0700	[thread overview]
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    a5ebb76233b7 Merge tag 'edac_urgent_for_v7.3_rc7' of git:/..
-> git tree:       upstream
-> console+strace: https://syzkaller.appspot.com/x/log.txt?x=1494923e580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=df4bbab1c2172b9f
-> dashboard link: https://syzkaller.appspot.com/bug?extid=c98b21427617af7f547a
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=126a0f15580000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=166a0f15580000
+Add a MAINTAINERS entry for the Rockchip RK3568 XPCS platform driver
+and its device tree binding.
 
-#syz test
+Include the relevant mailing lists (netdev and linux-rockchip) so that
+future patches are properly distributed.
 
---- x/drivers/nvme/target/fc.c
-+++ y/drivers/nvme/target/fc.c
-@@ -1271,9 +1271,17 @@ nvmet_fc_portentry_bind(struct nvmet_fc_
- static void
- nvmet_fc_portentry_unbind(struct nvmet_fc_port_entry *pe)
- {
-+	struct nvmet_fc_port_entry *entry;
- 	unsigned long flags;
+Signed-off-by: Coia Prant <coiaprant@gmail.com>
+---
+ MAINTAINERS | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 65e8a4b5c90b1..2f0f46eabcf54 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23757,6 +23757,15 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/sound/rockchip,rk3576-sai.yaml
+ F:	sound/soc/rockchip/rockchip_sai.*
  
- 	spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
-+	list_for_each_entry(entry, &nvmet_fc_portentry_list, pe_list) {
-+		if (entry == pe)
-+			goto out;
-+	}
-+	spin_unlock_irqrestore(&nvmet_fc_tgtlock, flags);
-+	return;
-+out:
- 	if (pe->tgtport) {
- 		nvmet_fc_tgtport_put(pe->tgtport);
- 		pe->tgtport->pe = NULL;
-@@ -1643,8 +1651,10 @@ nvmet_fc_unregister_targetport(struct nv
- 
- 	nvmet_fc_portentry_unbind_tgt(tgtport);
- 
-+	spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
- 	/* terminate any outstanding associations */
- 	__nvmet_fc_free_assocs(tgtport);
-+	spin_unlock_irqrestore(&nvmet_fc_tgtlock, flags);
- 
- 	flush_workqueue(nvmet_wq);
- 
-@@ -2927,8 +2937,10 @@ nvmet_fc_remove_port(struct nvmet_port *
- 	nvmet_fc_portentry_unbind(pe);
- 
- 	if (tgtport) {
-+		spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
- 		/* terminate any outstanding associations */
- 		__nvmet_fc_free_assocs(tgtport);
-+		spin_unlock_irqrestore(&nvmet_fc_tgtlock, flags);
- 		nvmet_fc_tgtport_put(tgtport);
- 	}
- 
---
++ROCKCHIP XPCS DRIVER
++M:	Coia Prant <coiaprant@gmail.com>
++L:	netdev@vger.kernel.org
++L:	linux-rockchip@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml
++F:	drivers/net/pcs/pcs-xpcs-rk.c
++F:	include/linux/pcs/pcs-xpcs-rk.h
++
+ ROCKER DRIVER
+ M:	Jiri Pirko <jiri@resnulli.us>
+ L:	netdev@vger.kernel.org
+-- 
+2.47.3
+
