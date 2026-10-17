@@ -1,88 +1,201 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81560361640;
-	Sat, 17 Oct 2026 01:10:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0658368D4C;
+	Sat, 17 Oct 2026 01:11:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792199408; cv=none; b=Ns0IQKm9+YY8z2bR6u4OhDKQOKZ0z6e3OaeyHjGoIfV0DFbKCcjedtr+D/RaMqeCtv7bpFSaovQijncarHww3qp6R1S4qJGX3R58TnEmtPyZoCMP6w5DlwAZSP7xHDKaE7KLBHS7SOtW31DsdqLMSyMErAy/rBDmHBQOJEDqmic=
+	t=1792199509; cv=none; b=eJA8iuHfpI2a622ZUCycJMOhsAHKbofUijLa1PVY37L9pBTHlCjjC1ztyAunPbCcLHxB9HXK1XeYWZCjWE7q4MTjowBeVPLr1/yP472gyz1NOOTIsfIxJQvYa70JxQ8ApDsy0ETdAzccMeJ+eUZU0bdkKce/19wicQXi7SXlQvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792199408; c=relaxed/simple;
-	bh=kngYW9Acd5uFJOcKy1IwzHKHRk9hMCk2zWAmhmlip5Q=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=QWE4mosUKzZpBBaAKS4dr77uuBHrp/0SATUGkfPpDqogrnI7uLOH8P1q5s2o+TJKYLw6atda0w/5375Db+JBY8WsLa4zBKNvSVjbbSlQTKPh5od1SwO0Bs0hNANdbT7hguBihuUqJ2CPeC6X8BXtCAJ38krMQXIjpjoyqntSNP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ilSz8nWZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792199509; c=relaxed/simple;
+	bh=Tc+qWaLLbSD9D9Lls7lHXEoytPmpl4+LJ09JrbY00Dg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rf9r38QALxs4+1Z/KYaa12OtkyQaWcS7cVeNG6g66D3Z5mTmguP1AHA6wKgoOn0voyRhRirYsldJBY1lEsqBB2ALDe9w27YRCxdpeqLKtC4ucQVdEZcXChCNsGZGiAziASjxEvlI/XYiEqnm0M+XeWlhatWBJ39NGM+hZcrIEHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xzv3ALTK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ilSz8nWZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0820C1F000C4;
-	Sat, 17 Oct 2026 01:10:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xzv3ALTK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4CAA1F000C4;
+	Sat, 17 Oct 2026 01:11:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792199407;
-	bh=K77WVRrV8TE28I8U0O85wc7MMLGGxqqZI5Zgidghy94=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ilSz8nWZPz5KloseSYEVNrGPM1nszelMp44oMQyst16A0OphwmUpVF7m7kzqdDKdX
-	 HJ91wJa62AuwM9mpFAyzB2Rq6wsH0Pb2w8R8G6E4zqAZJ5mO9vEfBPJA1c7oHifdyy
-	 i1V9UNgHHt5NRWqNbhqvrMFhPWH8ZbrkrZs2lYxgTzrgYyAos0neX5MtXzR+HSmccq
-	 XnHiIY0TytSjV9sRjuGf6oDarfb3h8z9Tk6bHMhN18wRxugAnvBCSw3XbNwHgTv6sx
-	 uhIDGMwBt/CkiJ5TsRBA5B6g+39dMQqUTBRDQFXbWStyirvuhJ0uLeY5cDKJ30sWJW
-	 5aubCa5TiAACw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F15A9380CED8;
-	Sat, 17 Oct 2026 01:10:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1792199507;
+	bh=kIMCpe5Yt1Y2+5Y/j1kd4e8zqh9gHeuCZZIS+MOh7e0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Xzv3ALTKXcTtXWX5ADEpdHW/oD+O4r09sPDcfLW3T06wnrjngnCnRkd0Uj5aq6978
+	 nW6wPSDXdxomiCkFn/yB5v1hNP51LB9qO9KjlwMsE7E0tGF/e/zfqpsAx3iIF8DLEM
+	 jTEAcbcTm+10HjpgWOvktDvq/7AhUEUY8eZAKAIGSDwEIEdYed7HrUbjkv7rDxGlx3
+	 zLvU1TUu3nvq+wcBAvVfePraS53AqBLbGDZ6bhjKD4jIO6/gvSMWzD1Lzxfph23qSL
+	 DToCW+AXkrgwUy/qbUUVLZxmG4PnjvGB93NaDqqq7pfOx0gMTaofSfPqHqlf1u4beh
+	 xqLRVP3HHOC6g==
+Date: Sat, 17 Oct 2026 02:11:41 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 2/6] dt-bindings: iio: imu: Add bindings for ADI
+ ADIS16607
+Message-ID: <20261017021141.5b023e60@jic23-hlaptop>
+In-Reply-To: <20261015-adis16607-v3-2-f972d4efee85@analog.com>
+References: <20261015-adis16607-v3-0-f972d4efee85@analog.com>
+	<20261015-adis16607-v3-2-f972d4efee85@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v5 0/5] dpll: zl3073x: fix output pin frequency,
- esync and sibling notifications
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179219940577.1041032.9554002490347498296.git-patchwork-notify@kernel.org>
-Date: Sat, 17 Oct 2026 01:10:05 +0000
-References: <20261011061211.448373-1-ivecera@redhat.com>
-In-Reply-To: <20261011061211.448373-1-ivecera@redhat.com>
-To: Ivan Vecera <ivecera@redhat.com>
-Cc: netdev@vger.kernel.org, min.li@microchip.com, vadim.fedorenko@linux.dev,
- arkadiusz.kubalewski@intel.com, jiri@resnulli.us, kuba@kernel.org,
- Prathosh.Satish@microchip.com, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello:
+On Thu, 15 Oct 2026 12:32:59 +0300
+Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Sun, 11 Oct 2026 08:12:06 +0200 you wrote:
-> This series fixes several issues in the zl3073x output pin handling:
+> From: Radu Sabau <radu.sabau@analog.com>
 > 
-> 1. Do not offer 0 Hz as a supported frequency, it leads to a division
->    by zero.
-> 2. Reject N-divided output frequencies that cannot be set exactly.
-> 3. Reject output frequencies whose divisor is too small for the HW.
-> 4. Update the eSync period and width when the output frequency changes.
-> 5. Notify the sibling pin when a shared output setting changes.
+> Add device tree bindings for the Analog Devices ADIS16607 Precision
+> MEMS Inertial Measurement Unit. The ADIS16607 integrates a triaxial
+> gyroscope, triaxial accelerometer, and temperature sensor, and
+> communicates over SPI Half-Duplex.
 > 
-> [...]
+> Two variants are supported: adis16607-2 and adis16607-3.
 
-Here is the summary with links:
-  - [net,v5,1/5] dpll: zl3073x: do not offer 0 Hz as a supported pin frequency
-    https://git.kernel.org/netdev/net-next/c/23171065fb43
-  - [net,v5,2/5] dpll: zl3073x: reject inexact frequencies for N-divided outputs
-    https://git.kernel.org/netdev/net-next/c/f8993627d310
-  - [net,v5,3/5] dpll: zl3073x: reject output frequencies with too small divisor
-    https://git.kernel.org/netdev/net-next/c/456027325c9c
-  - [net,v5,4/5] dpll: zl3073x: make embedded sync follow the output carrier frequency
-    https://git.kernel.org/netdev/net-next/c/bf6f105f2cb6
-  - [net,v5,5/5] dpll: zl3073x: notify sibling pin when shared output config changes
-    https://git.kernel.org/netdev/net-next/c/0748e473b65a
+Say briefly how they are different and hence require their
+own compatibles.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+The hardware rest being a configurable pin is an unusual
+bit of hardware design given how do we reset the reset pin
+to issue a reset if the device is hung?  
 
+> 
+> The binding exposes optional properties for:
+>   - An external clock for sync mode (falling back to the internal 8 kHz
+>     clock when absent)
+>   - A hardware reset GPIO (active low)
+> 
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+> ---
+>  .../devicetree/bindings/iio/imu/adi,adis16607.yaml | 82 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  7 ++
+>  2 files changed, 89 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml b/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
+> new file mode 100644
+> index 000000000000..1cf969154885
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
+> @@ -0,0 +1,82 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/imu/adi,adis16607.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Analog Devices ADIS16607 IMU
+> +
+> +maintainers:
+> +  - Radu Sabau <radu.sabau@analog.com>
+> +
+> +description: |
+> +  Analog Devices ADIS16607 Precision MEMS Inertial Measurement Unit (IMU)
+> +  with a triaxial gyroscope, triaxial accelerometer, and temperature sensor.
+> +  Uses SPI Half-Duplex communication protocol.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - adi,adis16607-2
+> +      - adi,adis16607-3
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  spi-cpha: true
+> +
+> +  spi-cpol: true
+> +
+> +  spi-max-frequency:
+> +    maximum: 10000000
+> +
+> +  vdd-supply: true
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    description:
+> +      Optional external clock for sync mode. If not provided, the internal
+> +      8 kHz clock is used.
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    description:
+> +      Optional GPIO for hardware reset. The line is active low.
+> +    maxItems: 1
+
+The datasheet I looked at has 4 gpio pins. You are calling out one
+as reset.  What happens if we don't have controllable supplies
+and someone else (firmware for instance) configured GPIO0 to not
+be reset?
+
+Anyhow, feels like this isn't a full description.
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - spi-cpha
+> +  - spi-cpol
+> +  - vdd-supply
+> +
+> +allOf:
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    spi {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        imu@0 {
+> +            compatible = "adi,adis16607-2";
+> +            reg = <0>;
+> +            spi-cpha;
+> +            spi-cpol;
+> +            spi-max-frequency = <10000000>;
+> +            vdd-supply = <&vdd>;
+> +            interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
+> +            interrupt-parent = <&gpio>;
+> +            clocks = <&sync_clk>;
+> +            reset-gpios = <&gpio 10 GPIO_ACTIVE_LOW>;
+> +        };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index a7fd31320b38..f6ad73be5260 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -1717,6 +1717,13 @@ S:	Supported
+>  W:	https://ez.analog.com/linux-software-drivers
+>  F:	Documentation/devicetree/bindings/iio/imu/adi,adis16550.yaml
+>  
+> +ANALOG DEVICES INC ADIS16607 DRIVER
+> +M:	Radu Sabau <radu.sabau@analog.com>
+> +L:	linux-iio@vger.kernel.org
+> +S:	Supported
+> +W:	https://ez.analog.com/linux-software-drivers
+> +F:	Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
+> +
+>  ANALOG DEVICES INC ADL8113 DRIVER
+>  M:	Antoniu Miclaus <antoniu.miclaus@analog.com>
+>  L:	linux-iio@vger.kernel.org
+> 
 
