@@ -1,78 +1,80 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906A62D7DDD;
-	Sat, 17 Oct 2026 07:18:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5BB345EDC;
+	Sat, 17 Oct 2026 07:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792221491; cv=none; b=uTXuFBwWY4CJrZeCEg7IqNby2bJs8AGdVKicZ5LdKA5Y8cWE2f6SwYbzfPBya8csCVZtLRsxEMyjURn3NYpyCfGw7+MGmm3k1liy+ivwzmN0Fi8QsMbDSrEpva6hPQO7ZPumY7TkiCg5VZCJxOaXlrqSnCXW6nImQ4mkC0l+GMo=
+	t=1792221570; cv=none; b=SO3s9FwYSJVV/QVjMjLUdirxRcG9epegKogf2lpykysg5p0PIOrshcszwaXPy41IolxsEojfR7Uw3EErWPip+xHl+mEVAskutF6LRhXotfKxEzNKJxXoH58I4yFEBOqsatJhTngOkiMcex13izwlrKKLSauSWyCzzOUryO+t8m4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792221491; c=relaxed/simple;
-	bh=sFgiLvLt2TfNsyl3fYaJAvaVewg+w0JALWtf6clzWLw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=DNcI4PKVdKjvS9SvielZYhm4AP/HGH8nsBlZtxrEVOhoW0jugyBE0kgb2MW72iJ4wGW0PC9pFCv6aZCAn1Rvnz627erFX02W2rtHQ/j8QIwNRKcODNzPRYMITu33Mvle4HytPjBlN+2j616e5RfxlixAh8fSAXzOOXW+KJXsrzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TtlVd7kR; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792221570; c=relaxed/simple;
+	bh=+OQbdAvCqz373G+pRPnY1Y1Tv/4k/axYwIV3WlZCiUs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aThU7HhZ4HG8/OYXWr2A5IkBcWnwBdYkC4NSnrjvTXl5vWK4pxJSxZj65LXRcGCgBiJKp5k24XvLyRuzGcJYPiaRyaB1o95Oo7HN5r+CaV0vQIY6149zJKMwKG6SvtqYXMv8iwhWcxPSa007aeyOSufKa9vtwpe97OHbkEfcKQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=U2uP0MX4; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TtlVd7kR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=sFgiLvLt2TfNsyl3fYaJAvaVewg+w0JALWtf6clzWLw=; b=T
-	tlVd7kR5b8ebRHBag2q1WM0uA88b34uvcWJCCnEI1byN6OljplPn8I1f2pYOugej
-	5kKVQQ1HI7SWzwxIaYwMetDvqh5RiFVB5a7lqd6elhseJhyYKiE6iuDA5/i76dlJ
-	1ROG37Jkr6ElikKWN2Yf5AfmJcLf7R5RjWycyzK6E0=
-Date: Sat, 17 Oct 2026 15:18:00 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Lee Jones" <lee@kernel.org>, "Pavel Machek" <pavel@kernel.org>,
-	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:[PATCH 2/2] leds: cr0014114: queue recount work on freezable
- workqueue
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20261016100435.2581303-3-yaojiale02@163.com>
-References: <20261016100435.2581303-1-yaojiale02@163.com>
- <20261016100435.2581303-3-yaojiale02@163.com>
-X-NTES-SC: AL_Qu2SAP6Zvkwj5iWeYukdnEkQgO0/WsS1vfQu2Y5Wc+wEgCbN4z0YdHxaDHHN8e6DOSarnDiOagNHzNRcb4JHUfenmxtsc0C5xu+Wfk//Zw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="U2uP0MX4"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4j6CqK0mSzzMlHW;
+	Sat, 17 Oct 2026 09:19:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792221565;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=oNpAoGNTgHSqn7GUE7PK9R0mFPLr37YoZgQegXEC9bQ=;
+	b=U2uP0MX4eORzjZju9G8lLDckMufukkCMkVzVVo1L0ywDmQN+brKoHDoyMFk0zEq5F/qyFK
+	H5ePSkeS9MI7BZpMJuTO8v1uWi9fEfecf4X+Fdyo5CvNnjEnNPRoj85YG2kAK8pmZrvGgc
+	dqEYBu18eWuAipjMQg7VPIY+o+X4QJTPzSEnyU0a2zAKZh5LYTyLxEJ+iwxm4jea6ubTai
+	tsbie09nFNYL+vB3YEcYnGv7vUMqlYrJkJzZYeRIo3/UlmJKavzmfmp+hKLJY1ETjYbMCw
+	lVS8IHR89iArOPsYF4Ts1Y+82wg2HFKH7ePhTKlh2Xkduat5vIAFe3EMIsyxZQ==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] cpufreq: longrun: fix typo in kernel-doc
+Date: Sat, 17 Oct 2026 09:14:34 +0200
+Message-ID: <20261017071434.1250140-2-manuelebnerli@mailbox.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <547da4c9.1783.1a148b98683.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:ZygvCgD3X4YoIdNqWPpaAA--.123W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQjhHGrTISjkdgAA3a
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: eda2579dba5e26fb629
+X-MBO-RS-META: u5d96bo9xx37fhtp6omqn6kqhq6nkune
 
-QXQgMjAyNi0xMC0xNiAxODowNDozNSwgIkppYWxlIFlhbyIgPHlhb2ppYWxlMDJAMTYzLmNvbT4g
-d3JvdGU6Cj5UaGUgZmlybXdhcmUgd29ya2Fyb3VuZCBwZXJpb2RpY2FsbHkgcmVjb3VudHMgdGhl
-IExFRCBzdGF0ZSBieSBpc3N1aW5nCj5TUEkgdHJhbnNmZXJzLiBJdHMgZGVsYXllZCB3b3JrIHJ1
-bnMgb24gdGhlIG5vbi1mcmVlemFibGUgc3lzdGVtCj53b3JrcXVldWUgYW5kIGNhbiB0aGVyZWZv
-cmUgYWNjZXNzIHRoZSBjb250cm9sbGVyIGFmdGVyIGl0IGhhcyBiZWVuCj5zdXNwZW5kZWQuCj4K
-PlF1ZXVlIHRoZSByZWNvdW50IHdvcmsgb24gc3lzdGVtX2ZyZWV6YWJsZV93cSBzbyBoYXJkd2Fy
-ZSBhY2Nlc3MgaXMKPmRlZmVycmVkIHVudGlsIGRldmljZXMgaGF2ZSByZXN1bWVkLgo+CgpGaXhl
-czogOWU1MGQ1ZmIwZDE4ICgibGVkczogYWRkIExFRCBkcml2ZXIgZm9yIENSMDAxNDExNCBib2Fy
-ZCIpCgo+U2lnbmVkLW9mZi1ieTogSmlhbGUgWWFvIDx5YW9qaWFsZTAyQDE2My5jb20+Cj4tLS0K
-PiBkcml2ZXJzL2xlZHMvbGVkcy1jcjAwMTQxMTQuYyB8IDYgKysrKy0tCj4gMSBmaWxlIGNoYW5n
-ZWQsIDQgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPgo+ZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvbGVkcy9sZWRzLWNyMDAxNDExNC5jIGIvZHJpdmVycy9sZWRzL2xlZHMtY3IwMDE0MTE0LmMK
-PmluZGV4IDNmNjkzMWFlMGJjYy4uYWZlMzczMGUxMjIyIDEwMDY0NAo+LS0tIGEvZHJpdmVycy9s
-ZWRzL2xlZHMtY3IwMDE0MTE0LmMKPisrKyBiL2RyaXZlcnMvbGVkcy9sZWRzLWNyMDAxNDExNC5j
-Cj5AQCAtMTU1LDcgKzE1NSw4IEBAIHN0YXRpYyB2b2lkIGNyMDAxNDExNF9yZWNvdW50X3dvcmso
-c3RydWN0IHdvcmtfc3RydWN0ICp3b3JrKQo+IAlpZiAocmV0KQo+IAkJZGV2X3dhcm4ocHJpdi0+
-ZGV2LCAic3luYyBvZiBMRURzIGZhaWxlZCAlZFxuIiwgcmV0KTsKPiAKPi0Jc2NoZWR1bGVfZGVs
-YXllZF93b3JrKCZwcml2LT53b3JrLCBDUl9SRUNPVU5UX0RFTEFZKTsKPisJcXVldWVfZGVsYXll
-ZF93b3JrKHN5c3RlbV9mcmVlemFibGVfd3EsICZwcml2LT53b3JrLAo+KwkJCSAgIENSX1JFQ09V
-TlRfREVMQVkpOwo+IH0KPiAKPiBzdGF0aWMgaW50IGNyMDAxNDExNF9zZXRfc3luYyhzdHJ1Y3Qg
-bGVkX2NsYXNzZGV2ICpsZGV2LAo+QEAgLTI1Niw3ICsyNTcsOCBAQCBzdGF0aWMgaW50IGNyMDAx
-NDExNF9wcm9iZShzdHJ1Y3Qgc3BpX2RldmljZSAqc3BpKQo+IAkJcmV0dXJuIHJldDsKPiAKPiAJ
-Lyogc2V0dXAgcmVjb3VudCB3b3JrIHRvIHdvcmthcm91bmQgYnVnZ3kgZmlybXdhcmUgKi8KPi0J
-c2NoZWR1bGVfZGVsYXllZF93b3JrKCZwcml2LT53b3JrLCBDUl9SRUNPVU5UX0RFTEFZKTsKPisJ
-cXVldWVfZGVsYXllZF93b3JrKHN5c3RlbV9mcmVlemFibGVfd3EsICZwcml2LT53b3JrLAo+KwkJ
-CSAgIENSX1JFQ09VTlRfREVMQVkpOwo+IAo+IAlzcGlfc2V0X2RydmRhdGEoc3BpLCBwcml2KTsK
-PiAKPi0tIAo+Mi4zNC4xCg==
+Fix typo to fix:
+
+  $ ./scripts/kernel-doc -none drivers/cpufreq/longrun.c
+  Warning: drivers/cpufreq/longrun.c:126 expecting prototype for longrun_verify_poliy(). Prototype was for longrun_verify_policy() instead
+
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+---
+ drivers/cpufreq/longrun.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/cpufreq/longrun.c b/drivers/cpufreq/longrun.c
+index 82a7bb69c..7d4146d6c 100644
+--- a/drivers/cpufreq/longrun.c
++++ b/drivers/cpufreq/longrun.c
+@@ -117,7 +117,7 @@ static int longrun_set_policy(struct cpufreq_policy *policy)
+ 
+ 
+ /**
+- * longrun_verify_poliy - verifies a new CPUFreq policy
++ * longrun_verify_policy - verifies a new CPUFreq policy
+  * @policy: the policy to verify
+  *
+  * Validates a new CPUFreq policy. This function has to be called with
+-- 
+2.55.0
+
