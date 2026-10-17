@@ -1,38 +1,38 @@
 Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6062249E14B;
-	Sat, 17 Oct 2026 12:25:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF1C49BB6B;
+	Sat, 17 Oct 2026 12:25:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792239919; cv=none; b=cSGIu3usuFQ0Fkwy+Mbi0iKzITD7HtgQ7kd/P5KBeK0m5thcJw6Ftvthsc/My78c2tmEMFmIwfYDQoaCNNbHDKDR/GBJRhsShgVV2eXZcAiSTbfwO+5eO4wDN8wHnRLdUuvFUSpiuXailzOVEyq3WT++fn9f9Nx55RE0C+QeAfc=
+	t=1792239921; cv=none; b=JYt+KmvzCnxjBbi0ZTZ9ql8A0/dUx1CiwV0nNmztt7YwxHa6C/33su2TAFdg4mfXyC5L26Y58ll3P6dPniAuLERNb6NfwB4dO0RiqY9eo56czYWQ2igoOqlLinypk0STRWpFi1VE7SwxWB8eu5qpBDoyGnUhcmK2nvdC2GzzkOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792239919; c=relaxed/simple;
-	bh=/LsXguQhmSy6cUDt/D5aWgMQWux/IuGLv1mKrD1Vnk8=;
+	s=arc-20240116; t=1792239921; c=relaxed/simple;
+	bh=GGISYxBVMFwwmjIudiwkLQW2EBD5hrqUQjbmkYhAPRc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mkwyIAjN1pax4ct6KHW93PYZyqomBPsNGHeDnApmoaHaeAxG3etBucUybkOSria1fU6nH2A6MVLno82LVjFeSpi5MZs9t2hY/q6iXi6mh1zYbRfqU7X5s9PfdRwkPLw8m/5CVmnKvy77XZ1IuACH74f9Ul7tttPG0xC7SvnkYRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=mfWP3tB7; arc=none smtp.client-ip=90.155.92.199
+	 MIME-Version:Content-Type; b=hEuVSsDV15BdIgWD95AoV6n/wRsJKkAjtOZM4Vx97iUNc4AQkvmJPHSSOTfMtYCUaDalcniU4Tl/OaFNY7xQXCfhtAFgoig2kw4oktM+OI0y3dRKWzsBu7zb6bkCJrrUQ0b0/bcgg+BP8Qp9wkHxfCKe+Z+xl3H3s8+erFJGnDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=q9Q0dKWP; arc=none smtp.client-ip=90.155.92.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="mfWP3tB7"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="q9Q0dKWP"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
 	To:From:Reply-To:Content-ID:Content-Description;
-	bh=c3Ad41yLZWa1cG22U8FT3RHf8ZklcirDatDO4x4kl/g=; b=mfWP3tB7tvEm0nqDbGsyqD5o2M
-	G8+I35xRkkk8MsB7ozxCk5hJc1yo8mkEDoBd1fCJbnU+9wX/baqPLHeuU0c0LVYrlVU5O6zb9LILN
-	1tjcSka4jxTSIwyW/UEodmKy8T/vlTK/5OgKVqiwak8S7funVqIjfnMTvHkZjzyKL9m6Vm3vSF7zE
-	Oozr5b0Aa7esVlf0oxEGoLCRzt/Y5bCYhTHs3TgiZPkw/dmzSuMycusc1bRmcH3rDD+9dr7CWnLIJ
-	03/k1EjCNFm2wIqXS9GT2Vnl0rbmugPrdBtZNEyyhuzrC/Ks+bGgUWm05hFARmjGtq5nl/tgU4BzJ
-	D2OD2jug==;
+	bh=Ykge/B5ISm51mdf1roR9yJS+HCjWgrC1b43pwMOXgXQ=; b=q9Q0dKWPyC2w9TyoqC4TevCqLh
+	lxeQLzeDcO/dl+4ImxgPs9RIllyiu9EBzs70csScA9OOjohyLJgO9G29tT1z/CeQNlbCzO7siHc6g
+	M0gE1AGmUoL9hhmFnVKr/tRlsF9abURweNNgMsTDwECJsr8Uc5Vu3LJeV2+8RXPxPRtmjOg5Kz8+g
+	Bg4w73CF8Jr/d8YYmGLLjOmda5/FGi3jpAL58rRxlGSN0YRCI5gaO8b0svU4vABohIVnZgckBTTfk
+	PWTfU3jyVhk46U5nUmCqbZCQ4bpED4xb5Flrm0A5LSMpv0vHSIpjYzs8FiSPeltI5XFzTek7+K4ay
+	E1ICrNqA==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xI3TE-00000002LfJ-1bD0;
-	Sat, 17 Oct 2026 12:25:14 +0000
+	id 1xI3TG-00000002Lfe-3G7Y;
+	Sat, 17 Oct 2026 12:25:07 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xI3TC-00000002Ylu-2bKq;
-	Sat, 17 Oct 2026 13:25:02 +0100
+	id 1xI3TE-00000002Yob-1ZBX;
+	Sat, 17 Oct 2026 13:25:04 +0100
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -53,9 +53,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Mushahid Hussain <hmushi@amazon.co.uk>,
 	David Woodhouse <dwmw@amazon.co.uk>,
 	nh-open-source@amazon.com
-Subject: [RFC PATCH 17/55] KVM: x86: hyper-v: flush the calling plane's TLB on flush hypercalls
-Date: Sat, 17 Oct 2026 13:24:23 +0100
-Message-ID: <20261017122501.610248-18-dwmw2@infradead.org>
+Subject: [RFC PATCH 53/55] KVM: SVM: Hedge the v_tpr_entry comment
+Date: Sat, 17 Oct 2026 13:24:59 +0100
+Message-ID: <20261017122501.610248-54-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261017122501.610248-1-dwmw2@infradead.org>
 References: <20261017122501.610248-1-dwmw2@infradead.org>
@@ -72,92 +72,41 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-The Hyper-V TLB flush hypercalls resolve their target vCPUs through
-the plane-0 array, so a flush issued from a non-zero plane flushed
-only the plane-0 vCPUs and the caller's own plane kept stale
-translations. The Windows secure kernel repopulated a PFN-database
-page table entry, flushed, then took a fatal page fault on the very
-address it had just mapped, because VTL1's TLB still held the old
-read-only zero-page translation.
-
-Resolve each flush target to the vCPU of the calling plane (falling
-back to plane 0 where no such plane vCPU exists — it then has no TLB
-to flush either) and raise the flush request on that vCPU directly.
+The comment claimed V_TPR "differs, i.e. when the guest wrote CR8":
+differing implies a write, but a write does not imply differing. A
+same-value CR8 write is invisible to the back-sync, so TPR[3:0]
+survives where the architectural write would clear it — a documented
+tradeoff of commit f34c595cb8a5 ("KVM: SVM: Keep TPR[3:0] across
+exits without a guest CR8 write"), which deserves stating at the
+field rather than only in that commit's message. No functional
+change.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 Assisted-by: LLM
 ---
- arch/x86/kvm/hyperv.c | 34 ++++++++++++++++++++++++++++++++--
- 1 file changed, 32 insertions(+), 2 deletions(-)
+ arch/x86/kvm/svm/svm.h | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-index eefc18c750f1..797c5cbfbbaf 100644
---- a/arch/x86/kvm/hyperv.c
-+++ b/arch/x86/kvm/hyperv.c
-@@ -2122,6 +2122,23 @@ static int kvm_hv_hypercall_check_params(struct kvm_vcpu *vcpu,
- 	return 0;
- }
- 
-+/*
-+ * A TLB flush hypercall flushes the caller's VTL view of the target VPs:
-+ * resolve the target to the vCPU of the caller's plane, which has its own
-+ * roots and TLB tag.  Fall back to plane 0 when the plane vCPU does not
-+ * exist (it then has no TLB to flush either).
-+ */
-+static struct kvm_vcpu *hv_flush_plane_vcpu(struct kvm_vcpu *caller,
-+					    struct kvm_vcpu *v)
-+{
-+	struct kvm_vcpu *pv;
-+
-+	if (!caller->plane_level)
-+		return v;
-+	pv = v->common->vcpus[caller->plane_level];
-+	return pv ?: v;
-+}
-+
- static s64 kvm_hv_flush_tlb(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
- {
- 	struct kvm_vcpu_hv *hv_vcpu = to_hv_vcpu(vcpu);
-@@ -2257,12 +2274,18 @@ static s64 kvm_hv_flush_tlb(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
+diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+index 746a2ae98c4c..24d34697fe65 100644
+--- a/arch/x86/kvm/svm/svm.h
++++ b/arch/x86/kvm/svm/svm.h
+@@ -319,9 +319,13 @@ struct vcpu_svm {
+ 	/*
+ 	 * V_TPR value written by sync_lapic_to_cr8() on the last entry.
+ 	 * sync_cr8_to_lapic() pushes V_TPR back into the APIC only when it
+-	 * differs, i.e. when the guest wrote CR8 in guest mode: V_TPR holds
+-	 * TPR[7:4] only, so an unconditional back-sync would zero TPR[3:0]
+-	 * after every exit, losing the low nibble of an APIC TASKPRI write.
++	 * differs: V_TPR holds TPR[7:4] only, so an unconditional back-sync
++	 * would zero TPR[3:0] after every exit, losing the low nibble of an
++	 * APIC TASKPRI write.  A differing V_TPR implies a guest CR8 write,
++	 * but not the converse: a CR8 write of the same value is
++	 * indistinguishable from no write, so TPR[3:0] survives it where
++	 * the architectural write (and the intercepted path through
++	 * kvm_lapic_set_tpr()) would clear it.
  	 */
- 	if (all_cpus && !is_guest_mode(vcpu)) {
- 		kvm_for_each_vcpu(i, v, kvm) {
-+			v = hv_flush_plane_vcpu(vcpu, v);
- 			tlb_flush_fifo = kvm_hv_get_tlb_flush_fifo(v, false);
- 			hv_tlb_flush_enqueue(v, tlb_flush_fifo,
- 					     tlb_flush_entries, hc->rep_cnt);
-+			if (vcpu->plane_level) {
-+				kvm_make_request(KVM_REQ_HV_TLB_FLUSH, v);
-+				kvm_vcpu_kick(v);
-+			}
- 		}
- 
--		kvm_make_all_cpus_request(kvm, KVM_REQ_HV_TLB_FLUSH);
-+		if (!vcpu->plane_level)
-+			kvm_make_all_cpus_request(kvm, KVM_REQ_HV_TLB_FLUSH);
- 	} else if (!is_guest_mode(vcpu)) {
- 		sparse_set_to_vcpu_mask(kvm, sparse_banks, valid_bank_mask, vcpu_mask);
- 
-@@ -2270,12 +2293,19 @@ static s64 kvm_hv_flush_tlb(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
- 			v = kvm_get_vcpu(kvm, i);
- 			if (!v)
- 				continue;
-+			v = hv_flush_plane_vcpu(vcpu, v);
- 			tlb_flush_fifo = kvm_hv_get_tlb_flush_fifo(v, false);
- 			hv_tlb_flush_enqueue(v, tlb_flush_fifo,
- 					     tlb_flush_entries, hc->rep_cnt);
-+			if (vcpu->plane_level) {
-+				kvm_make_request(KVM_REQ_HV_TLB_FLUSH, v);
-+				kvm_vcpu_kick(v);
-+			}
- 		}
- 
--		kvm_make_vcpus_request_mask(kvm, KVM_REQ_HV_TLB_FLUSH, vcpu_mask);
-+		if (!vcpu->plane_level)
-+			kvm_make_vcpus_request_mask(kvm, KVM_REQ_HV_TLB_FLUSH,
-+						    vcpu_mask);
- 	} else {
- 		struct kvm_vcpu_hv *hv_v;
+ 	u8 v_tpr_entry;
  
 -- 
 2.50.1
