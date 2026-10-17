@@ -1,90 +1,196 @@
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4F4484252
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 12:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A0418FC80
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 13:00:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792241965; cv=none; b=Dc2opu/s/RXsfWqNdXG4Pb3ISbmfGMYuYa3fNmUhav4NbwBV2+QOI+HmG9nRRpfS0TjXHOnXzpwnIIGpdZn1r9YucXfQf52qjPJMGoJkX9FGEV6UZ3RXJmLp30/C4Jz3ZD1Mo+0h13UBIkeG1K/Ca+TCytlObBDbGEatBOoIHpQ=
+	t=1792242056; cv=none; b=m2++PchsFNC8lg83SvLhawy6MUHRj2IjLKr30Or2QxXr2mmXiFhyRFb+wfZ/B5jsHYfFzchl4UY0Olfsz755QoI7E6+9k0nhAZQU+9Pq11Y1aVPUgM72ZoGDL8wXd32rlYoIO7DW5FeitrHg/OpNn7L0styttc7VegO9HwB6lKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792241965; c=relaxed/simple;
-	bh=48uB7IGKpkpPCEvmyztH4UXSJo0EOIsaf8f/ZbYTrD0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ARVBpp5o7ibANyPLF1y5Q36mwb8fdJzL74g/J3MWW+otP4YOf2RU/yQeVzl/1QGKxQboNCZOI9LyJUhHlcdvMGuiyiJ0+fPkl9b65cB7fOeffHgI09GqYuHc6OYWQvvXjxN0prQPywqerZUyaTb6SUmoGAgWSllnrQxFBPfAuZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=AQK3aa2/; arc=none smtp.client-ip=115.124.30.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1792242056; c=relaxed/simple;
+	bh=u+eQJbhLth+JIVkOlrxS5/92+zPHAqD9bsEscA6yckk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XMFhpXGZhaTZ6dYJ9cfrAy+fJEg88fxEhaLbNjrhtdQwri3BjfILwa7Yb/TJ2eWlVVOeNpLOgikuZxXcVNmvE4ASQnlRmOG871NPXBsTqUJ6Y8uhWHcMP7bTiVcpMjyWzLjDxzNFREMA0946AQwd5UsuLi5qY056TTb7pfCnE5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gY/1x8E0; arc=none smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="AQK3aa2/"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792241952; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=hd1Oxli6U0B3gYK0ArhS5z5Om/LUuZunLMles1SU4Dw=;
-	b=AQK3aa2/mN7PoI8oVgNns13o6fsqFUkdF8iWiy7PkzFqYeJagFb0JBhSMnGQumEZUebJF4qBAqrbJ6wU0/zJenOP2JkMr1GkFpXF2cb6KXRmCqozVDpysoLGa6qdqtlfgH5igd5VIna7BIfs6kwJ9Uho+xNMW8AhHHnseDib7As=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R701e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=peng_wang@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0XCxJhRw_1792241950;
-Received: from localhost(mailfrom:peng_wang@linux.alibaba.com fp:SMTPD_---0XCxJhRw_1792241950 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 17 Oct 2026 20:59:11 +0800
-From: Peng Wang <peng_wang@linux.alibaba.com>
-To: Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Peng Wang <peng_wang@linux.alibaba.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	He Rongguang <herongguang@linux.alibaba.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gY/1x8E0"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6aa046a99c6so131115a12.2
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 06:00:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792242053; x=1792846853; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=legVIwX3VgSLwP32JW35R05ueTk+mHVnvshzarqz/HQ=;
+        b=gY/1x8E0kqt51eeCNxvf/ympWhsO2XeifJPGPQcYHAf9X6ecQeP8XwbTUJd4LTQAmN
+         c6yWxHi0Qn5rOtQHP7qTJ8/f1ON5eIOZ9JeSVcCVfud72Vbjig0cG3O1umAcEXxi95dn
+         H6STDPb1vDjFAlVHfgt6zyy4K6M61H2Z2+eFmW1S+1AKMrGN8SOywwpd+l9mgyedwY+w
+         HQjAexBw1P1a+P/ENXzQMiNbs8uSFyqKYHGrEAMyAsnZndCfcZOYy5TfeOISt8IGeQUx
+         g0aIXT9SyfPP9hwEjfDHXljcKJZk4oQr/TwOWYJOETZNGKc9pVY0vpN1pWzR0Pr7hZJP
+         02dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792242053; x=1792846853;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=legVIwX3VgSLwP32JW35R05ueTk+mHVnvshzarqz/HQ=;
+        b=JeJMPdhO4KgXFTuqbaA2zYGeAq7kBWn2b/qYozPdo3oN3W8pju+meiIMSmqvUOJ1LE
+         T+H70N2W1Xq9Hnri3JuSFk7mFzBrMcGUdZpI+Qb/iolXUuyki3He0VT3VZrhQO/EMR1q
+         1ggmjyKkSsz/c2uXwyezPt8MysfwOjKf9eLzD+//HstxAvNiJMQYAP2r/rQUWSQlprMU
+         87mtP3EWarjuaPsxlD2C9uZxzLMhcz48+wPY3BXrq++qiTGnUjXHYV4MM0QjkY9VKTAG
+         PlWBgF/W1xkrv+5L9iVScVuIc0BdGwLpS1uqtugC8ujpDh5yNL/6nHCh4vVVsLCY2BYu
+         JjFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzlUxMH0fv3AtA3TremyY/+9AXXn8t1PJ0ZxT1nS7alehQbztgFizOkyD5ff3WFuBsYXV9yRwT/fwlU1GM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBAtHhmdloB0iEcnkk/jzZRxtmHOXVGS5enY0b9Jzs5fD2cM9n
+	7mQd2m/1/RYhcO1YbDO3tnCnLjR/GEO/2UZ1dtkEnBinxOQUbMi3aAfx
+X-Gm-Gg: AYBFou3K/tiHg9uurRsBvFEOfrpDYxld3bSssPX6VdSdTWv8nO/66g+6PwywVZWLOID
+	nkjpN1qq6rig2NMQMF7EzhTlMSE3Yixwtp0d+4rcFLyR7x4sH6eQ1ciP7GZ4/EY7HP6NXFlnANl
+	b8GPnGkLSATM/XWkFrcW2DjOLB2N1fmdDw0mQmM05jnJJAzKcPEbZPc0zZKU7ClR/fPrRhi16Rp
+	VH2ki8PQMqbv6Ow4jK3TbZpgX4I+C/7HYRP9nxwIeVT9/L3MEiIMJ9AyPJ+sMIR+bVInlolILE+
+	D07lUqVCFyp61AykxEng0ScxmtG4BGEzoENS0QfkNcdhbOWEXvtwbIyxhIjVMixH99wYNUa9JOY
+	OvMShmmyqmp/iR4gZQoJ0q5A2IZda2LFM7ZwOO/9aZKJx1UX3ft80Zet3O9c3LcVABAL2Yma9Iy
+	ZpmwzzTLo6PAXGsO5yug7UvU2MLpoCRrC4ovX8rYd5tKCaQZbKEiH09vQREoso8JqhcnTrK5+Va
+	c4Z43ke9fwpvTI6k9p46g==
+X-Received: by 2002:a17:907:2d87:b0:c2d:bbae:703b with SMTP id a640c23a62f3a-c419b917404mr204323466b.2.1792242052720;
+        Sat, 17 Oct 2026 06:00:52 -0700 (PDT)
+Received: from Nuel20.localdomain ([105.112.97.113])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e328780sm174827366b.6.2026.10.17.06.00.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 06:00:52 -0700 (PDT)
+From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] tick/nohz: Requeue kicks flushed outside hardirq context
-Date: Sat, 17 Oct 2026 20:59:00 +0800
-Message-ID: <43668cf88d976084e2865ec07dea82b64ad402ba.1792240863.git.peng_wang@linux.alibaba.com>
-X-Mailer: git-send-email 2.47.0
+Cc: alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	paulmck@kernel.org,
+	rostedt@goodmis.org,
+	ast@kernel.org,
+	peterz@infradead.org,
+	gregkh@linuxfoundation.org,
+	emmaonana18@gmail.com,
+	abo@medichon.fr,
+	skhan@linuxfoundation.org
+Subject: [PATCH v2] drm/amd/display: remove unused cgs register accessor typedefs
+Date: Sat, 17 Oct 2026 14:00:46 +0100
+Message-ID: <20261017130047.42080-1-emmaonana18@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com>
+References: <981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A remote nohz kick can be flushed from task context after idle exit
-has checked tick dependencies. If polling suppressed the IPI, the empty
-callback is consumed without an IRQ exit to reevaluate the tick. A newly
-set dependency can then leave the non-idle tick stopped until another
-interrupt arrives.
+kernel-doc reports prototype mismatches for the cgs register accessor
+typedefs, e.g.:
 
-Requeue the work locally when it runs outside hardirq context on an
-online CPU. This raises the IRQ needed for the existing tick reevaluation
-path. Skip offline CPUs whose pending work is being drained during
-teardown.
+  drivers/gpu/drm/amd/include/cgs_common.h:89: expecting prototype
+  for cgs_read_register(). Prototype was for uint32_t() instead
 
-Fixes: 4b44a21dd640 ("irq_work, smp: Allow irq_work on call_single_queue")
-Fixes: a5183862e76f ("tick/nohz: Conditionally restart tick on idle exit")
-Co-developed-by: He Rongguang <herongguang@linux.alibaba.com>
-Signed-off-by: He Rongguang <herongguang@linux.alibaba.com>
-Signed-off-by: Peng Wang <peng_wang@linux.alibaba.com>
+Each of the four typedefs is used exactly once, as
+the type of a struct cgs_ops member, so they are merely an
+unnecessary layer of indirection. Drop the typedefs along with their
+kernel-doc comments and write the function pointer types directly in
+struct cgs_ops.
+
+Suggested-by: Christian König <christian.koenig@amd.com>
+Link: https://lore.kernel.org/all/981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com/
+Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
 ---
- kernel/time/tick-sched.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/include/cgs_common.h | 60 +++++++-----------------
+ 1 file changed, 18 insertions(+), 42 deletions(-)
 
-diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
-index 6c3fea386713..87e2a7a87526 100644
---- a/kernel/time/tick-sched.c
-+++ b/kernel/time/tick-sched.c
-@@ -402,7 +402,12 @@ static bool can_stop_full_tick(int cpu, struct tick_sched *ts)
+diff --git a/drivers/gpu/drm/amd/include/cgs_common.h b/drivers/gpu/drm/amd/include/cgs_common.h
+index f40b6a03fe63..1750401c7d08 100644
+--- a/drivers/gpu/drm/amd/include/cgs_common.h
++++ b/drivers/gpu/drm/amd/include/cgs_common.h
+@@ -80,43 +80,6 @@ struct cgs_firmware_info {
  
- static void nohz_full_kick_func(struct irq_work *work)
- {
--	/* Empty, the tick restart happens on tick_nohz_irq_exit() */
-+	/*
-+	 * Remote irq_work may be flushed from task context. Force an IRQ
-+	 * exit to reevaluate the tick unless this CPU is going offline.
-+	 */
-+	if (!in_hardirq() && cpu_online(smp_processor_id()))
-+		irq_work_queue(work);
- }
+ typedef unsigned long cgs_handle_t;
  
- static DEFINE_PER_CPU(struct irq_work, nohz_full_kick_work) =
-
-base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
+-/**
+- * cgs_read_register() - Read an MMIO register
+- * @cgs_device:	opaque device handle
+- * @offset:	register offset
+- *
+- * Return:  register value
+- */
+-typedef uint32_t (*cgs_read_register_t)(struct cgs_device *cgs_device, unsigned offset);
+-
+-/**
+- * cgs_write_register() - Write an MMIO register
+- * @cgs_device:	opaque device handle
+- * @offset:	register offset
+- * @value:	register value
+- */
+-typedef void (*cgs_write_register_t)(struct cgs_device *cgs_device, unsigned offset,
+-				     uint32_t value);
+-
+-/**
+- * cgs_read_ind_register() - Read an indirect register
+- * @cgs_device:	opaque device handle
+- * @offset:	register offset
+- *
+- * Return:  register value
+- */
+-typedef uint32_t (*cgs_read_ind_register_t)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
+-					    unsigned index);
+-
+-/**
+- * cgs_write_ind_register() - Write an indirect register
+- * @cgs_device:	opaque device handle
+- * @offset:	register offset
+- * @value:	register value
+- */
+-typedef void (*cgs_write_ind_register_t)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
+-					 unsigned index, uint32_t value);
+-
+ #define CGS_REG_FIELD_SHIFT(reg, field) reg##__##field##__SHIFT
+ #define CGS_REG_FIELD_MASK(reg, field) reg##__##field##_MASK
+ 
+@@ -137,14 +100,27 @@ typedef int (*cgs_get_firmware_info)(struct cgs_device *cgs_device,
+ 				     enum cgs_ucode_id type,
+ 				     struct cgs_firmware_info *info);
+ 
++/**
++ * struct cgs_ops - Common Graphics Services operations
++ * @read_register: read register value
++ * @write_register: write register value
++ * @read_ind_register: read indirect register value
++ * @write_ind_register: write indirect register value
++ * @get_firmware_info: get firmware information
++ */
+ struct cgs_ops {
+ 	/* MMIO access */
+-	cgs_read_register_t read_register;
+-	cgs_write_register_t write_register;
+-	cgs_read_ind_register_t read_ind_register;
+-	cgs_write_ind_register_t write_ind_register;
++	uint32_t (*read_register)(struct cgs_device *cgs_device, unsigned int offset);
++	void (*write_register)(struct cgs_device *cgs_device, unsigned int offset,
++			       uint32_t value);
++	uint32_t (*read_ind_register)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
++				      unsigned int index);
++	void (*write_ind_register)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
++				   unsigned int index, uint32_t value);
+ 	/* Firmware Info */
+-	cgs_get_firmware_info get_firmware_info;
++	int (*get_firmware_info)(struct cgs_device *cgs_device,
++				 enum cgs_ucode_id type,
++				 struct cgs_firmware_info *info);
+ };
+ 
+ struct cgs_os_ops; /* To be define in OS-specific CGS header */
 -- 
-2.47.0
+2.43.0
 
