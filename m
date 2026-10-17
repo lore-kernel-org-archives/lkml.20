@@ -1,197 +1,75 @@
-Received: from mta0.migadu.com (out-157.mta0.migadu.com [91.218.175.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED9E27144B
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:42:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2455D3D6CB0;
+	Sat, 17 Oct 2026 07:42:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792222926; cv=none; b=NFZB0J/s+D18mAq/sa2G9KBQ6CcILttBAM03NH9iv0fOpUm1qZf9Q6bwKR7G/CLX4wzWbEkeyqIvnl4OvZoWHbTuiiopmBBT0iD5fEoAsvlIzaQwJ0xMnSzFzDrJmiwYPWPAoXeHqIqVY/Znc+0A0JuHdqfRCNj6NvpycwJBK+k=
+	t=1792222930; cv=none; b=jzY+UTRZMX2xmbhiAKItkwx2YrUkZ7gTEyYVXnMVk6jqSpnk4TwrctlQ/amX1LEvJxPUGOfys4mLPaybaCAbNQw0uKbN7Wuu2VAoh3URqSbDJRVcizbf/nN3a0mZMACmI15hGq2Xp1WzIeg79gKfo1RQllRV2aM2BsTny4FjWr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792222926; c=relaxed/simple;
-	bh=cTmbWpIBmFSm4lFwnUIH2uqFavf981pVZQE+4xBkCvg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XU+DaN3kFeA4J0lkTR/1DgHSgTluocAMqwlP1T4C7MMjqAqfKXusuKq4G6tBO64/E6ULx41yZLbDT00Pl1tOtfVqouk972lEVU8R2fO2fr8wDy5P048JE0gTdCKHxoKpfEQJIA7pA0GxXRcW7AW4oe7AhM5u0kKiiTBFSWM9EtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TsC+TMYs; arc=none smtp.client-ip=91.218.175.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792222930; c=relaxed/simple;
+	bh=Gxjg79urtXTLn0Tgb44Qi1UvYYCwR6dxegZ29k4F/ZA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=JE5vJfo1QMn09CBubBfqaRNPnDE7eVoLAhwjjbdurFFDdHaBEU2lIMIt4SUZPDWT7iOvCSUID422Ws6oiQam2FhG3LjXQOAAEQZ67s9SdHyDTnjx0APD4eH/lu2ylF3N7ff0iwvxTR72eCPHGOOCIKWnanceFtyXd2hSvIJNpKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=k2xJIrjT; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TsC+TMYs"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cTmbWpIBmFSm4lFwnUIH2uqFavf981pVZQE+4xBkCvg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792222923; v=1; x=1792827723;
- b=TsC+TMYsEi+Hn8G9fawH3emMTlVT+1BkS3/mdmZqzQ2ZoXJk6Sa7Vz3BxX3GcLiKso3t8OBU
- 9ILWDRU172KSQ2NRNBgMaLF6Hc/o+DWOHHt/JQzR/ZFuAyfc+Sl11abni2eFF1x68x8EH3myGlc
- MN+wnqBA226O+RHcJpww4rLQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 822507f423bfaa6f;
-	Sat, 17 Oct 2026 07:42:01 +0000
-X-Mizu-Trace-ID: 822507f423bfaa6f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <cd6637db-7b30-4cbc-b07f-c2a2b32480fa@linux.dev>
-Date: Sat, 17 Oct 2026 15:41:49 +0800
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="k2xJIrjT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=Gxjg79urtXTLn0Tgb44Qi1UvYYCwR6dxegZ29k4F/ZA=; b=k
+	2xJIrjTKrHPGNDzul/4ENm4AjZoods8crKduRe+WNaw4ncVv9uwT2Nbq/t6/oLOx
+	S8ZzvxNBp5x4hYWssXnXHrWBZ0o93nOFJSbmnafosUUroQDYLzesCJHf9Wosuj9o
+	iz81o0yHhVilqKxhltQAyngQKxHKGZpexKanWzVZtI=
+Date: Sat, 17 Oct 2026 15:41:47 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Heikki Krogerus" <heikki.krogerus@linux.intel.com>,
+	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re:[PATCH] usb: typec: ucsi: acpi: Check ACPI companion before use
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20261017064321.3816776-1-yaojiale02@163.com>
+References: <20261017064321.3816776-1-yaojiale02@163.com>
+X-NTES-SC: AL_Qu2SAP6ZvUEr4SCZbekdnEkQgO0/WsS1vfQu2Y5Wc+wEgCbN4z0YdHxaDHHN8e6DOSarnDiOagNHzNRcb4JHPCKXWyWmgBSoITwxTBUIjA==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/1] khugepaged: fix readahead lock inversion in
- collapse_file()
-To: Baolin Wang <baolin.wang@linux.alibaba.com>,
- Pedro Falcato <pfalcato@suse.de>
-Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com,
- liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
- dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org,
- jack@suse.cz, djwong@kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, hch@lst.de,
- syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
- ngocthang2710.1999@gmail.com, willy@infradead.org, rppt@kernel.org,
- ljs@kernel.org
-References: <20261016065920.4153-1-lance.yang@linux.dev>
- <27e5aadc-2d68-428f-a958-308e4a75c058@linux.alibaba.com>
- <atICp2NL8j2z7UFM@pedro-suse.tail5790ac.ts.net>
- <atIiR1NWNssDvgt6@pedro-suse.tail5790ac.ts.net>
- <6a005d89-df5b-4524-a4b9-c637cb15f1ee@linux.alibaba.com>
-Content-Language: en-US
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <6a005d89-df5b-4524-a4b9-c637cb15f1ee@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Message-ID: <2df74bd8.1902.1a148cf4a95.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:ZygvCgDnt2i7JtNqXvxaAA--.176W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRtHgWrTJrsxewAA3+
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-
-
-On 2026/10/17 13:43, Baolin Wang wrote:
-> 
-> 
-> On 10/16/26 9:18 PM, Pedro Falcato wrote:
->> On Fri, Oct 16, 2026 at 12:00:24PM +0100, Pedro Falcato wrote:
->>> On Fri, Oct 16, 2026 at 05:57:48PM +0800, Baolin Wang wrote:
->>>>
->>>>
->>>> On 10/16/26 2:59 PM, Lance Yang wrote:
->>>>> collapse_file() can end up calling page_cache_sync_readahead() with
->>>>> source folios from earlier in the range still locked. If truncate 
->>>>> already
->>>>> holds mapping->invalidate_lock exclusively and is waiting for one of
->>>>> those folios, readahead blocks on the same invalidate_lock and neither
->>>>> side can make progress.
->>>>>
->>>>> Do readahead in a separate pass before we start holding source folios
->>>>> locked for collapse. Keep page_cache_sync_readahead() and its existing
->>>>> policy, and drop each folio's lock and reference after checking 
->>>>> that it
->>>>> is uptodate. If truncate or reclaim removes a folio between the two
->>>>> passes, roll back instead of doing readahead again with source folios
->>>>> locked.
->>>>>
->>>>> Shmem handles swapin and fallocated folios through shmem_get_folio()
->>>>> without taking mapping->invalidate_lock, so it isn't affected by this
->>>>> lock inversion.
->>>>>
->>>>> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
->>>>> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
->>>>> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page 
->>>>> cache with invalidate_lock")
->>>>> Signed-off-by: Lance Yang <lance.yang@linux.dev>
->>>>> ---
->>>>
->>>> Thanks for the fix.
->>>>
->>>>> Thanks to Nguyen Ngoc Thang for v2. David asked for volunteers, so I'm
->>>>> happy to take this over.
->>>>>
->>>>> Some older stable trees lack the folio infrastructure used here, 
->>>>> and the
->>>>> code will differ for each stable tree, so each backport will need 
->>>>> quite a
->>>>> bit of rework and its own review. I'm not sure whether to Cc stable 
->>>>> here.
->>>>> Once we agree on the fix, I'll send a separate backport for each 
->>>>> maintained
->>>>> stable tree except 5.10, which isn't affected.
->>>>>
->>>>> v2 -> v3:
->>>>>    - Replace the scan-wide invalidate_lock and 
->>>>> page_cache_ra_unbounded() with
->>>>>      a preparation pass using page_cache_sync_readahead().
->>>>>    - Roll back on a new page cache miss during collapse.
->>>>>    - https://lore.kernel.org/all/20260913163644.122133-1- 
->>>>> ngocthang2710.1999@gmail.com/
->>>>>
->>>>>    mm/khugepaged.c | 42 +++++++++++++++++++++++++++++++-----------
->>>>>    1 file changed, 31 insertions(+), 11 deletions(-)
->>>>>
->>>>> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
->>>>> index ef5cd6fda34f..b3f67617caf0 100644
->>>>> --- a/mm/khugepaged.c
->>>>> +++ b/mm/khugepaged.c
->>>>> @@ -2262,6 +2262,34 @@ static enum scan_result collapse_file(struct 
->>>>> mm_struct *mm, unsigned long addr,
->>>>>        new_folio->index = start;
->>>>>        new_folio->mapping = mapping;
->>>>> +    if (!is_shmem) {
->>>>> +        /*
->>>>> +         * Populate the range before accumulating locked source 
->>>>> folios:
->>>>> +         * readahead may block on invalidate_lock.
->>>>> +         */
->>>>> +        for (index = start; index < end;) {
->>>>
->>>> why drop xas_unlock_irq()?
->>>>
->>>>> +            folio = filemap_lock_folio(mapping, index);
->>>>> +            if (IS_ERR(folio)) {
->>>>> +                page_cache_sync_readahead(mapping, &file->f_ra,
->>>>> +                              file, index, end - index);
->>>>> +                folio = filemap_lock_folio(mapping, index);
->>>>> +                if (IS_ERR(folio)) {
->>>>> +                    result = SCAN_FAIL;
->>>>> +                    goto rollback;
->>>>> +                }
->>>>> +            }
->>>>> +            if (!folio_test_uptodate(folio))
->>>>> +                result = SCAN_FAIL;
->>>>
->>>> Do we need to check PG_uptodate after locking the folio? If we 
->>>> successfully
->>>> lock the folio, doesn't that mean the read I/O has completed? The 
->>>> following
->>>
->>> Yes, you do; a read can "complete" without the IO having completed 
->>> successfully,
->>> and in those cases PG_uptodate is not set, but the folio is unlocked.
-> 
-> OK.
-> 
->>> Either way, why are we checking for uptodate here? We only care for 
->>> starting readahead.
->>> Anyway, I would possibly recommend we do this as post-processing, not 
->>> pre-processing.
->>> The current loop is a little overhead-happy.
->>
->> To clarify: I would do this kind of RA as an error path if isolation 
->> failed.
-> 
-> Sounds good.
-> 
->> Namely, at the end of rollback, after unlocking folios. It doesn't 
->> make sense
->> to me to do this kind of checking upfront. I don't think it's 
->> particularly
->> realistic that, starting RA upfront, you'd see uptodate completed 
->> folio reads
->> when doing the actual isolation.
-> 
-> But why not add RA logic in collapse_pmd(), as we do for 
-> SCAN_PAGE_DIRTY_OR_WRITEBACK? There's already retry logic there, and 
-> this would also simplify the long collapse_file().
-
-That would be cleaner, yeah. Some older stable trees don't have that
-outer retry loop, though ... I'd prefer to get the fix backported first,
-then move the RA/retry logic out in a follow-up, wdyt?
-
-Cheers, Lance
-
+QXQgMjAyNi0xMC0xNyAxNDo0MzoyMSwgIkppYWxlIFlhbyIgPHlhb2ppYWxlMDJAMTYzLmNvbT4g
+d3JvdGU6Cj5QbGF0Zm9ybSBkcml2ZXJzIGNhbiBiZSBmb3JjZWQgdG8gYmluZCB0byBkZXZpY2Vz
+IG91dHNpZGUgdGhlaXIgbWF0Y2gKPnRhYmxlcyB0aHJvdWdoIGRyaXZlcl9vdmVycmlkZS4gdWNz
+aV9hY3BpX3Byb2JlKCkgYXNzdW1lcyB0aGF0IGV2ZXJ5IGJvdW5kCj5kZXZpY2UgaGFzIGFuIEFD
+UEkgY29tcGFuaW9uIGFuZCBhY2Nlc3NlcyBhZGV2LT5kZXBfdW5tZXQgd2l0aG91dCBjaGVja2lu
+Zy4KPgo+UmV0dXJuIC1FTk9ERVYgd2hlbiB0aGUgY29tcGFuaW9uIGlzIGFic2VudCB0byBhdm9p
+ZCBhIE5VTEwgcG9pbnRlcgo+ZGVyZWZlcmVuY2UuCj4KCkZpeGVzOiAxZjM1NDZmZjNmMGEgKCJ1
+c2I6IHR5cGVjOiB1Y3NpOiBhY3BpOiBDaGVjayB0aGUgX0RFUCBkZXBlbmRlbmNpZXMiKQoKPlNp
+Z25lZC1vZmYtYnk6IEppYWxlIFlhbyA8eWFvamlhbGUwMkAxNjMuY29tPgo+LS0tCj4gZHJpdmVy
+cy91c2IvdHlwZWMvdWNzaS91Y3NpX2FjcGkuYyB8IDYgKysrKystCj4gMSBmaWxlIGNoYW5nZWQs
+IDUgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+Cj5kaWZmIC0tZ2l0IGEvZHJpdmVycy91
+c2IvdHlwZWMvdWNzaS91Y3NpX2FjcGkuYyBiL2RyaXZlcnMvdXNiL3R5cGVjL3Vjc2kvdWNzaV9h
+Y3BpLmMKPmluZGV4IDU2OTdjY2MyNGVjMy4uZThlMzIwNWNhYjliIDEwMDY0NAo+LS0tIGEvZHJp
+dmVycy91c2IvdHlwZWMvdWNzaS91Y3NpX2FjcGkuYwo+KysrIGIvZHJpdmVycy91c2IvdHlwZWMv
+dWNzaS91Y3NpX2FjcGkuYwo+QEAgLTIyMiwxNCArMjIyLDE4IEBAIHN0YXRpYyB2b2lkIHVjc2lf
+YWNwaV9ub3RpZnkoYWNwaV9oYW5kbGUgaGFuZGxlLCB1MzIgZXZlbnQsIHZvaWQgKmRhdGEpCj4g
+Cj4gc3RhdGljIGludCB1Y3NpX2FjcGlfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRl
+dikKPiB7Cj4tCXN0cnVjdCBhY3BpX2RldmljZSAqYWRldiA9IEFDUElfQ09NUEFOSU9OKCZwZGV2
+LT5kZXYpOwo+IAljb25zdCBzdHJ1Y3QgdWNzaV9vcGVyYXRpb25zICpvcHMgPSAmdWNzaV9hY3Bp
+X29wczsKPiAJY29uc3Qgc3RydWN0IGRtaV9zeXN0ZW1faWQgKmlkOwo+KwlzdHJ1Y3QgYWNwaV9k
+ZXZpY2UgKmFkZXY7Cj4gCXN0cnVjdCB1Y3NpX2FjcGkgKnVhOwo+IAlzdHJ1Y3QgcmVzb3VyY2Ug
+KnJlczsKPiAJYWNwaV9zdGF0dXMgc3RhdHVzOwo+IAlpbnQgcmV0Owo+IAo+KwlhZGV2ID0gQUNQ
+SV9DT01QQU5JT04oJnBkZXYtPmRldik7Cj4rCWlmICghYWRldikKPisJCXJldHVybiAtRU5PREVW
+Owo+Kwo+IAlpZiAoYWRldi0+ZGVwX3VubWV0KQo+IAkJcmV0dXJuIC1FUFJPQkVfREVGRVI7Cj4g
+Cj4tLSAKPjIuMzQuMQo=
