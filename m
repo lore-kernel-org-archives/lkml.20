@@ -1,108 +1,87 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0ED30F927
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:52:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 572391F30BB;
+	Sat, 17 Oct 2026 20:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792270361; cv=none; b=WunGIhmvFlfWG4+uYx9yYLW/keiwSACGr0Rw39j9iVkDifB3UxchLSFjjw7u1xZGlnHg4FMrTYh+lBnh7cGNAeksFx5/JOCuM8/reiPpYKXSGrNZK6YUxwvzB4Zs/8TkKXCDaQJYM2rpHAt9exwcmFakpyCknTFGsoh1BUv6ZSo=
+	t=1792270511; cv=none; b=G7qMZhs18a7kmV3f3qr7AKJQxzk8ES6cviHm7vbwkKV8a1FsrHjEGQVVslc0SpmWQaXo8EmjL27YelCgt4TDXRU3+0pUzB8OOwGL5A0KjlEWGYpwjSS2Jlx9mlrPL6lJZrcUwiWxhiJ2pGrsi7/351Yp16b6KWE6AjEINCzs1N8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792270361; c=relaxed/simple;
-	bh=7bdSjD4gwsCJoWA6QPSigC009vO7jVqQkp3Tp2a7H1o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iJBZ7tEnm108LpQKCTIfS26CjA/PhaJMB+AwySr/j/xEKRI2ND8wuK9xsbWh6X+E4RbjTYlPGBchWSPikzvL1nYfuv3/SzZdQyCc7Tq/VWbKCjQN0p4SOSGsUxt+8jwJoAs+LeJ0SucSYaHXdNwKb3PyrAEEL4jFo0J+moZ9164=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KFMkRKPK; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792270511; c=relaxed/simple;
+	bh=yGno2iTDq5hw0OHBXLo7UU2CESgBiS7RV1/ZeYDAU1c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c8IHjro0Z9Lx7OyDzS1286rVT2sWDIwBWFQGqPKoDWtqmm166DAP4XEiW0hCg8C4HKFAfwhaxHzebaFnz5wrZAKXeZvnpEl2b4sF3RumgOiZWdepIGCH4Ef1F+AAfl6++qk4xUz4dIXzugLJvNZ0DPxXwNc80D5FpRVh2VEHHBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VW6kcfxX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KFMkRKPK"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ab3260b2cdso497128a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 13:52:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792270359; x=1792875159; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9CcMWlmXFcivfr2U5My+Uh1aVT0DIK+Y+H5HexutNao=;
-        b=KFMkRKPKDXJ9syjceIjBf16YcFraILfhVtyYTjrFSo9aBRUDaU82znIrmK4+kT3Msl
-         D4YNeogjBEvowUHOBljnEwCMVMzPuHwBgIBg18g+WWFI7fvsTAn+a5AI7ebvka0lH9DF
-         DQ1TjW9Pnu24PoIqbZWGLw2lMUJTHmaCvtu0k783I/axrrHpehMWDr1wyNxEnzVSPZaI
-         cx2W9JA1mop1eY9x6IDl1YuDcRvbjGsDdN0XC5MwTS97T50jxvmUyHQIUm3mgJKXWJt+
-         Cs4T6SECsaKp2D6u9xMIJlddtA1IJwcMb8EIGGvXgaDFHtq/Ll9Kwu9F9Ej8ZTerrwJu
-         /G2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792270359; x=1792875159;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9CcMWlmXFcivfr2U5My+Uh1aVT0DIK+Y+H5HexutNao=;
-        b=LWcqdOTPGlM07dl54B47CClMLKX1nbw8CjEtwo7LqYJD2QB+ujZLphoUAFP+PLMvjd
-         6xD0cn69VjtO2jOJ7IPPX8pkVRwW3N85IdsjfOnuKoLsxZ28jjU65NaLK3zBbOdrm1e/
-         hpMLcdxm5bacepZVn1v12VOBR608xONB1OHIKPbj/HH08Ld72cD7CZjp1geu2jPddxBH
-         0wlrCjTkEGWJ4u+XDgHrBqU7LKRYRJ2hK8fS5lA6NWN8w7CkzzXS2fjQdqX+mJhBnaCn
-         lW+qHqUXIaqS9nfzBwpPw8RRJAZvqMkMtLo1h6kOo62vdvGMFu+/gMD9lyr04W+w0tEH
-         PG5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwJ2tZf7XzpllXjYnbVY+5B6aseuEEcNguWWqT+iS0qG2ShcRfBSxMHPY/d0LGVvE5OzZGeEiDluoZlp6k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMD/+L1JUQrUFdmHUW68y+QnNZPrdmO1OoRvsDonq0lPwzI/4O
-	H0LFSN7/mmrAQLA4KxExfXBzDhApNoZNb5g3rEECz3/h6VmQSInc6F+J
-X-Gm-Gg: AYBFou3ySsoUxTua6OiBBkA1kfRXcYDfWiMRTJoDGLqJCqNzyp2FL/0A4mIas4gpoLe
-	UzcU3LLIUsb2wAhkoaA5QtoqP+Miv4uM88c7bp/RlX7cdDH9av6JHz5KnoKKj5cq334fr5HWKB9
-	B7ogo97zm3uammoIjvzyCSfDL1CAmYjCdD4DujTpo0SIcKVuVYdHBBlQI+mz3oafIdOrOEQPkER
-	fOoP+3UteCH4ozfOuc3OcrgrjFpBVtC4GmWUacHF8QvMz3nnm1uZxgL+Rem67egUHbzSu+XjhQF
-	TFjMmW26DEvxhxdTjEefw6XU4npOkWLDxp+Sc4Wq1j/mlm+W9iptG5cp0rR9zfOZgHZZ6N3Y/yb
-	0iQiZd2zEQ87G8BiUm0E9KQe8Hwwx6e/XlgHwtT0I0UjUX2QCfn+fo1hwsokVZsxMvv0UmMIbWm
-	cb1fygb58iZQPET/F4hgs3T7R01sLMt6uTKxln8YH1G6h7Qx6yP4IFBop9Benz3DcAF8BEzapfz
-	kzF85nR387ogblbNvYXvXtkPQ==
-X-Received: by 2002:a17:90b:2c90:b0:3ac:b7b9:6484 with SMTP id 98e67ed59e1d1-3acef0fe32cmr2898931a91.45.1792270359012;
-        Sat, 17 Oct 2026 13:52:39 -0700 (PDT)
-Received: from asahi.tail4da9e3.ts.net ([218.48.198.193])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac947cf9a5sm14288430a91.15.2026.10.17.13.52.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 13:52:38 -0700 (PDT)
-From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
-To: linux@roeck-us.net
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"Baek Kyu, Kim" <pocj8ur4in@gmail.com>
-Subject: [PATCH] hwmon: (sht4x) Reject incomplete heater command transfers
-Date: Sun, 18 Oct 2026 05:52:34 +0900
-Message-ID: <20261017205234.1084949-1-pocj8ur4in@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VW6kcfxX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 414541F000C4;
+	Sat, 17 Oct 2026 20:55:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792270509;
+	bh=P/uqGyU7l9Qf7Ba9DLV47J1ke5U16L/bBf8Zedn49kY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VW6kcfxXDGhEdgWIZabCbJZltp6NVLkCivx7DW93VkCROqiGBjJxHGRkPstlE7dJz
+	 8OWfvSBoy1upGSVCquk+/ZYV+/bi8sWpaqOdeMwHCnr5aKtIeIgvNfxzlFj8a9Bz0l
+	 oF6TOpM3MKifRjY0c2TKrqg8i0vws+gckl6kxxo86Xg9+FBOygXdDDzOtmBu0hpPC0
+	 k7ab54vOWRhB+QyxffXDFVBNEKX+gI0K2itji1CG79+R7n/0oFWeic+SdfxI6pirZS
+	 hj6AkUIuSHGSkc5QDo36VjcSI98n6D7/NPuQgPMmqjsFLhmuFMSTkDWAZyQ+SJzdoN
+	 /dMGYaCjjSifQ==
+Date: Sat, 17 Oct 2026 23:55:05 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Dionna Glaze <drdeeglaze@gmail.com>, Jiri Pirko <jiri@resnulli.us>,
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
+	ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
+	sameo@meta.com, James.Bottomley@hansenpartnership.com, aik@amd.com,
+	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
+	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+Message-ID: <atPgqROZZxnihYfC@kernel.org>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261016234354.GA664420@nvidia.com>
+ <CANwfdvXFLJpC4Bc1PwRoUUP20fu2K8b+FHZ1JLLFXAikC-cBaw@mail.gmail.com>
+ <20261017203407.GM13920@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017203407.GM13920@nvidia.com>
 
-heater_enable_store() treats a zero return from i2c_master_send() as
-success. It updates the heater state and returns count, so another
-attempt to enable the heater fails with -EBUSY.
+On Sat, Oct 17, 2026 at 05:34:07PM -0300, Jason Gunthorpe wrote:
+> > +Jarkko
+> > The TPM driver is pretty entrenched and heavily used by different user
+> > space applications, so it seems really ambitious to bundle in TPM
+> > here.
+> 
+> By "ROT agility" I mean if you want to do an extend operation you
+> should not have to know the details of the HW holding the "PCR".
+> 
+> One of the APIs offered here is a HW agnostic extend that can be used
+> to build ROT agility into user space programs that are doing
+> logging. That's systemd-pcr-extend for example.
+> 
+> The extent of the TPM support is to be able to issue a PCR extend
+> triggered with a TPM command by the agnostic API. Not ambitious at
+> all.
 
-i2c-virtio can return zero when the first message fails. Require
-SHT4X_CMD_LEN before updating the heater state, as sht4x_probe()
-already does for the reset command.
+I wish I had a better picture what is going on.
 
-Fixes: 0eed6fc3d2b9 ("hwmon: (sht4x): add heater support")
-Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
----
-Tested with an emulated I2C adapter under ARM64 QEMU. A zero return
-reproduces the false success and -EBUSY on retry; both are fixed by
-this change. No physical sensor was tested.
+I don't have capacity to heavily on this but can help sorting out
+issues if they are put better into nutshell.
 
- drivers/hwmon/sht4x.c | 2 ++
- 1 file changed, 2 insertions(+)
+I would recommend to at least check out tpm2-protocol because when
+I did it my main use case was exactly protocol interceptor. It is
+designed from the bottom for that one use case. Plus zero cost
+memory usage can be casted to a raw pointer.
 
-diff --git a/drivers/hwmon/sht4x.c b/drivers/hwmon/sht4x.c
-index a97dda9e92dc..c4b3db55de8b 100644
---- a/drivers/hwmon/sht4x.c
-+++ b/drivers/hwmon/sht4x.c
-@@ -287,2 +287,4 @@ static ssize_t heater_enable_store(struct device *dev,
- 		return ret;
-+	if (ret != SHT4X_CMD_LEN)
-+		return -EIO;
- 
-
-base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
--- 
-2.55.0
-
+Br, Jarkko
