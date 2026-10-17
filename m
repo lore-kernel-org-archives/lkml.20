@@ -1,81 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44D43C108E;
-	Sat, 17 Oct 2026 08:38:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2743BBA03;
+	Sat, 17 Oct 2026 08:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792226286; cv=none; b=GhFrazP9QBsdhmj6j8TS2rb9GfSpnlFLzxvsJzc38MidMytwwRQsKBMq8akYoX9gq0I8bv/FEKq7WsOxmtqUYb1xAj9HhkuQ6SE7vW0WcSTKQiVKtJTlLMY6/SoBEcxlqBSqpZCTx643MY7tM0AvwAk+RjgNPoij5f9JquTRkFE=
+	t=1792226288; cv=none; b=bQ2Gfs7VcWv5jrhaDn5hSDY4rxfl82+r61/okbfwviTqFktl0iA3bNLY1m23ppTonHUFG+bDQo80extM0UuMlL3kzlIBnzwbilVTynTnPn4GfqvoIQEwzgAs3ZY4HWa1UlIKNPrgQ+qI6T38l5f16cfIMaiYwlPklAt3ph7pYZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792226286; c=relaxed/simple;
-	bh=QJtMS5sA/0eccIApwx6kBheVqzNsxLqXKYqzhi54xMU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=dEK1y4Ya9vGe6rUvmzhJdcwnsdptFxoE0gfyv638qcAV7l/VnCB6ezWPvbarEu2B/OXI21AjbWTQEWOHlQLXUJTcPTrKiETAJFXoXR2wsaRCbchds1AfGb3/AuhzMHHtAYlL1hjRfiCKQPgD3pcU6twKQwbKTQ7YFd+aeqJE8/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XJnGjoyf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792226288; c=relaxed/simple;
+	bh=8YhiKmF1Nm93yWV2XKJvhfAd/B3334WjIgcUP7SRcaQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KX+QhY3B8qd50A44KSHVCdYdVlColcMGPgE6/HQpBhUOEHpXbPEYsaKV1gJ1qOumOBesT3qlZK7s4ojujrNlDlwBaxM/4ZmvD1OGNaIzMalls1v9ShwuQwXSp5b+238f3tsMdKi5EWQW9lQalK/b3a1Bms0u0XA0VHfKxVM4nwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=X1ZHIuhh; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XJnGjoyf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54B121F000C4;
-	Sat, 17 Oct 2026 08:37:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792226285;
-	bh=x1QxSP1pvDZOL/OB1iuOEP91tr8j31MeSCxfZlGiqtM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=XJnGjoyfjDwyctXlNEcJvNmzG6GXMH42gWT/81vT6XEZGTmfjAdjFlsz1EE9K9Cs9
-	 KI4t9sBZcwzxSC1HN5VrvscApPN5tJflyEC29PpY+rFDLzacLZgDUJ6mbJh72+8seB
-	 WKvwJ8rsXqFpSL3MXO3cfnCdYKMUR0XlEJLr5htKxZkxh/XGm3bVG9gpWphl/Ao3Y+
-	 s8dxvUC2LsVGTRyrJbjp1UTq1VQf4pdHXrxSNCIVAJscMbX2jpx8Dm9K+JRWPuWkUu
-	 dXD1aw/QO+v70a1U8tW/nFcaTw0EeHobObTYteUAYXJRCKgJWJHf+M+JOT5vB9YLeZ
-	 zGs3cZSgn+GfA==
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>, kwilczynski@kernel.org, 
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Manikanta Maddireddy <mmaddireddy@nvidia.com>, phucduc.bui@gmail.com
-Cc: Vidya Sagar <vidyas@nvidia.com>, Niklas Cassel <cassel@kernel.org>, 
- linux-pci@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261012094815.28160-1-phucduc.bui@gmail.com>
-References: <20261012094815.28160-1-phucduc.bui@gmail.com>
-Subject: Re: [PATCH v2 1/2] PCI: tegra194: Use dev_err_probe() for PERST#
- GPIO
-Message-Id: <179222626482.13667.12606800727936191501.b4-ty@b4>
-Date: Sat, 17 Oct 2026 14:07:44 +0530
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="X1ZHIuhh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=+w
+	ZQYfDXyigfN8u2pCrU2sG1bVZ6QjVFy8zUjVHhfsY=; b=X1ZHIuhhOKOWoH74ny
+	gIYS2cldnMdfcWbePoic9z3qdZCZ+xt1seYfPzGCMlKWSQ3IGE4Re7xVY/a5jGfA
+	ot8zu2By9yLX9m4IYUT1viRCQM0rXrl+sbQ8EaegkY0qaVzm9LicoSkj/YkAqA6r
+	ctGOIi1Go175zTQ4D5NCXY5p4=
+Received: from 163.com (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD33xHVM9Nq65H_Ag--.52920S2;
+	Sat, 17 Oct 2026 16:37:42 +0800 (CST)
+From: zhanghao <zh_exit@163.com>
+To: song@kernel.org,
+	yukuai@fygo.io
+Cc: magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	zhanghao <zh_exit@163.com>
+Subject: [PATCH v2] md/raid5: fix inverted condition in rdev_set_badblocks call
+Date: Sat, 17 Oct 2026 16:37:37 +0800
+Message-ID: <20261017083737.61793-1-zh_exit@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261017074343.59513-1-zh_exit@163.com>
+References: <20261017074343.59513-1-zh_exit@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=446;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=XDE54Hdr7d9mMbkvLLDG7TjzglfiCOGWOCOT5ZGX9bw=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq0zPnYCJ5s9AcxR3/GnRjVMJioO1TPbkW/xrMe
- ayItdbnuhOJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCatMz5wAKCRBVnxHm/pHO
- 9Te1B/4jxR6FqlSZkWWSqmQzAQE+Lb/6vxPqpZ2vTHyeJ+ZtPK8aEV+qAN/6FlrhC7N68vMiSD2
- B8uTYhNCjyoyh+HUW+YFuVvxjhmWCXi1z/+ByaxPY5F4eWtGI0ZsZJ/hQ98ALTirmo8lS0chojl
- sAcV+HKKk7yM9mj5EhpD006OHImcaxbD+Wdc3yH285a6hc7FW+biK02YCIYcRsOwWEFuLs5jzZg
- Yn7mmPjjCblSPX6pXlJC/sajnUBafj248AiNyaugl33W/rR5DldNLVXjXPTF60aXlGFcfB8HR3A
- rxLUYfX5c47D9OteQbkpmw8obAfDx1ClS9nCAzgZHvZIa5zt
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+X-CM-TRANSID:_____wD33xHVM9Nq65H_Ag--.52920S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJrWfXw1xKry3Xw1rGrWDCFg_yoW8uw1rpr
+	s8Gas0y34DWr95A3WDZaykAFy8Ww47tayqga1fJ3Wa9as0qFWSqF4rXryjgFyUWr4ft3W0
+	qr9IgrZ8ZF98CFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEAhLUUUUUU=
+X-CM-SenderInfo: p2kbv5llw6il2tof0z/xtbC9RaR+WrTM9Y95wAA3N
 
+Commit fd4d44c14ff6 ("md: mark rdev Faulty when badblocks setting fails")
+attempted to unify badblock handling but introduced a logic inversion in
+raid5_end_read_request().
 
-On Mon, 12 Oct 2026 16:48:14 +0700, phucduc.bui@gmail.com wrote:
-> PCI: tegra194: Use dev_err_probe() for PERST# GPIO
+The original check was:
 
-Applied, thanks!
+    if (!(set_bad && In_sync && rdev_set_badblocks(...)))
+            md_error(...);
 
-[1/2] PCI: tegra194: Use dev_err_probe() for PERST# GPIO
-      commit: d9b0c9ec352a5c8f037607bb938b6410ecf0dd54
-[2/2] PCI: tegra194: Propagate REFCLK select GPIO errors
-      commit: a439b860c96071e17d8877d28d0effdd42f60413
+which records badblocks when `set_bad && In_sync`, and calls md_error()
+either when recording fails or when the rdev is not In_sync. The new
+condition `if (!(set_bad && In_sync))` skips rdev_set_badblocks() exactly
+during recovery/reshape (In_sync is set), so failed badblock updates no
+longer trigger md_error() and the rdev is not marked Faulty. This allows
+reconstruction to continue on a disk with a saturated badblock table,
+potentially propagating corrupted data to the replacement disk.
 
-Best regards,
+Restore the intended behavior by recording badblocks when `set_bad &&
+In_sync`, and calling md_error() in the else branch so that non-In_sync
+rdevs, replacement devices, and the too-many-read-errors path are still
+marked Faulty.
+
+Fixes: fd4d44c14ff6 ("md: mark rdev Faulty when badblocks setting fails")
+Cc: stable@vger.kernel.org
+Signed-off-by: zhanghao <zh_exit@163.com>
+---
+v2:
+- Add the else branch calling md_error() for the !(set_bad && In_sync)
+  cases, as pointed out by Sashiko: replacement device read errors,
+  the too-many-read-errors path, and non-In_sync uncorrectable reads
+  would otherwise no longer mark the rdev Faulty.
+
+ drivers/md/raid5.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+index d52adf81065a..25395a9c996a 100644
+--- a/drivers/md/raid5.c
++++ b/drivers/md/raid5.c
+@@ -2866,9 +2866,11 @@ static void raid5_end_read_request(struct bio * bi)
+ 		else {
+ 			clear_bit(R5_ReadError, &sh->dev[i].flags);
+ 			clear_bit(R5_ReWrite, &sh->dev[i].flags);
+-			if (!(set_bad && test_bit(In_sync, &rdev->flags)))
++			if (set_bad && test_bit(In_sync, &rdev->flags))
+ 				rdev_set_badblocks(rdev, sh->sector,
+ 						   RAID5_STRIPE_SECTORS(conf), 0);
++			else
++				md_error(conf->mddev, rdev);
+ 		}
+ 	}
+ 	rdev_dec_pending(rdev, conf->mddev);
 -- 
-மணிவண்ணன் சதாசிவம்
-
+2.43.0
 
