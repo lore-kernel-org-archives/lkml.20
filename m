@@ -1,135 +1,224 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEEF4CF47E;
-	Sat, 17 Oct 2026 07:58:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350412E719B;
+	Sat, 17 Oct 2026 08:04:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792223892; cv=none; b=KYU1fA3eRZ+WMWbk3L8cRiTgAUl8gVbFViOnCbS6aW+bTPLCaJEa5vHYN7lLJAM1yGna9nDQ6er5PAZJZNrBmIgJ6F4jbp4L02fAKf34oQJEY/cA4wcmmKouBNaLNWDNNgp3PX5wXzFL3Tk3ZOIy60uMPS8KsZEq4ortD5idRBA=
+	t=1792224262; cv=none; b=kvn/l8CWzCHvXLee4ysuRi4lHudqhOF65EQ7Pd0fNqDBCe7ze0vHmW8pW6rmXH9WcOA8DUu9RAGqCRSpBm6o4UIKr0sE2FgM0ouIY9cPSb1iXbJ3Y2WVb6wTVjFVlsPbfc7yxZzwBCEK4V61MKv2pDGo3oElR8/A7L5ULiUjQ8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792223892; c=relaxed/simple;
-	bh=Au/BoQ1xa2bP8yNdXdbdZEZjnx1UxcvuZqe7ps6P644=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cvkwVKgYyUOKP/ZSEZGGSr42D3lYe3JWk5dvIVwcIGDGOQaQFqmxvE1MGbKYG1fi3IpWSXB+oG4cXaOXrL2UnBCesIW0Tcngrh5mq/UbXaIw51ToMMIcuf+cuVRuuqwBxQROwngQYLNacwT/FS3XIBlmeJQbCBCiEZMaf75i0PQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NjCnWhrR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792224262; c=relaxed/simple;
+	bh=7qDI74gjHZJGEwkABMcZSoA0MbCGw9LlI8XM9CtMxr0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Pyv2xzpAZLZNJ9hKG4DifCrfk+m45I9JfPcWDoCmpTSSv2uUD86LLYCVQwWiS0G21IjAcbQeh6Rzog1U37VM7kOsKZGmgrbqV2GkthJv3M0RNG783ADRpdbBh/fJiYLH9/RYx8I43Mx8jAJMV4QTsHFKlJT99W4n5M4e423j7yQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Msrv+BWb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NjCnWhrR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D66781F000C4;
-	Sat, 17 Oct 2026 07:58:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792223891;
-	bh=zyIpORDCcEGS3jQM/lTyiCkfDTuP5WcKeUnbqUJlYac=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NjCnWhrRgoRpe7KfjZt2eN8rF2UkH4MX4D4bwuIQserv1O/oTs7NUB3Da4bprszDI
-	 YbNMkjzJJPjgZ6YRy/e7jeRVx9w7qzTjjY6TqbNhasD8zqAUrA6YkRhR1UrUqhrFIf
-	 FQ+TzWdgRO7dlPLWHFYmYTo2tRjPldD08kR3R/tsMzeNHmp/IhjfPAuKbPqBf+voET
-	 LF4nJH/G9nFdhCKHdgigW+Y+AOtOMm/eACQC5pUeb/0C1u49vi3mGQH8x2voZt6rN3
-	 PRjOyn71iC4puTcIlaJg55oNCDgVT6KjBc119o8J/MN1VAgtS3VZKKvEcD24G9i3+v
-	 mt89kp7eK04Lg==
-Message-ID: <bbe0144d-183f-466d-a073-f65a6948ab28@kernel.org>
-Date: Sat, 17 Oct 2026 09:58:03 +0200
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Msrv+BWb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F32EB1F000C4;
+	Sat, 17 Oct 2026 08:04:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792224260;
+	bh=rbdJEzm5e/9pK3FIuLFI29o7B4dQ9T6z556KPHhg9Xc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Msrv+BWbTWkRxy7NwxshktzSRodYDmSL0oB1UrHevfw8y1D3qVmOCiGtsqoLrvrqd
+	 EgypIPZk3djOJSyw6qwSBif0cY/rRKubPS36GWOfYdZ0wjIodZWxBZfAdwwnmb23XC
+	 5LK1W2fC2ZNSzebGK1mcW83rV7rZI6HWPpZveRng=
+Date: Sat, 17 Oct 2026 10:04:17 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Peng Wang <peng_wang@linux.alibaba.com>
+Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
+	He Rongguang <herongguang@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org
+Subject: Re: [RFC PATCH 2/2] cpu: Add sysfs control of full dynticks policy
+Message-ID: <2026101743-monotype-demeaning-f97b@gregkh>
+References: <cover.1792067271.git.peng_wang@linux.alibaba.com>
+ <e93ef15796946485eaaecd774141378351307940.1792067271.git.peng_wang@linux.alibaba.com>
+ <2026101646-speller-gutter-c184@gregkh>
+ <atJea4b6VvYlAvbD@MacBook-Pro.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: iio: light: Add AMS TCS3472 and TCS3400
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: mocker-mug-unwoven@duck.com, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Arka Mondal <arka@arkamondal.net>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261016-tcs3400-v1-0-3d79d2a7f449@duck.com>
- <20261016-tcs3400-v1-1-3d79d2a7f449@duck.com>
- <af011ab8-b9ab-49d1-b9fe-4e87b3979bbd@kernel.org>
- <20261017013600.077fee36@jic23-hlaptop>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261017013600.077fee36@jic23-hlaptop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atJea4b6VvYlAvbD@MacBook-Pro.local>
 
-On 17/10/2026 02:36, Jonathan Cameron wrote:
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - ams,tcs3400
->>> +      - ams,tcs3472  
->>
->> Your driver cod suggests these are compatible, so it should be expressed.
+On Sat, Oct 17, 2026 at 01:27:07AM +0800, Peng Wang wrote:
+> On Fri, Oct 16, 2026 at 06:25:26PM +0200, Greg Kroah-Hartman wrote:
+> > On Thu, Oct 15, 2026 at 08:43:09PM +0800, Peng Wang wrote:
+> > > Expose nohz_full_allowed under /sys/devices/system/cpu/ as the subset of
+> > > nohz_full CPUs permitted to suppress their non-idle scheduler tick.
+> > > 
+> > > Writes replace the entire list; reads report policy, not current tick
+> > > state. Reject invalid input before updating policy. Document asynchronous
+> > > revocation, offline CPU configuration and persistence across hotplug.
+> > > The existing nohz_full attribute continues to report membership.
+> > > 
+> > > Co-developed-by: He Rongguang <herongguang@linux.alibaba.com>
+> > > Signed-off-by: He Rongguang <herongguang@linux.alibaba.com>
+> > > Signed-off-by: Peng Wang <peng_wang@linux.alibaba.com>
+> > > ---
+> > >  .../ABI/testing/sysfs-devices-system-cpu      | 40 ++++++++++++++++
+> > >  drivers/base/cpu.c                            | 46 +++++++++++++++++++
+> > >  2 files changed, 86 insertions(+)
+> > > 
+> > > diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documentation/ABI/testing/sysfs-devices-system-cpu
+> > > index 82d10d556cc89..edf3408fd84c8 100644
+> > > --- a/Documentation/ABI/testing/sysfs-devices-system-cpu
+> > > +++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
+> > > @@ -767,6 +767,46 @@ Description:	Preferred MTE tag checking mode
+> > >  
+> > >  		See also: Documentation/arch/arm64/memory-tagging-extension.rst
+> > >  
+> > > +What:		/sys/devices/system/cpu/nohz_full_allowed
+> > > +Date:		October 2026
+> > > +Contact:	Linux kernel mailing list <linux-kernel@vger.kernel.org>
+> > > +Description:
+> > > +		(RW) CPUs permitted to stop the scheduler tick while non-idle.
+> > > +		Available with CONFIG_NO_HZ_FULL. The default is the complete
+> > > +		nohz_full CPU list. Readback reports permission, not the current
+> > > +		tick state: all the usual tick dependencies still apply.
+> > > +
+> > > +		A write replaces the entire list, using CPU-list syntax (for
+> > > +		example, "1-3,5"). An empty line revokes permission from all
+> > > +		nohz_full CPUs. Invalid input is rejected without changing
+> > > +		policy. A parsed list containing CPUs outside nohz_full fails
+> > > +		with EINVAL. CPU numbers beyond the mask range and numeric
+> > > +		overflows are rejected by the CPU-list parser with ERANGE and
+> > > +		EOVERFLOW, respectively. Input must be shorter than PAGE_SIZE
+> > > +		bytes, otherwise E2BIG is returned. Embedded NULs and newlines
+> > > +		other than a trailing newline are rejected with EINVAL. Valid
+> > > +		writes without an active nohz_full configuration fail with
+> > > +		EOPNOTSUPP.
+> > > +
+> > > +		Reads fail with EOVERFLOW if the formatted output reaches
+> > > +		PAGE_SIZE - 1 bytes, rather than returning a potentially
+> > > +		truncated CPU list.
+> > > +
+> > > +		Revoking permission adds a per-CPU tick dependency. Online CPUs
+> > > +		are notified through the existing asynchronous kick mechanism
+> > > +		to restart a stopped non-idle tick. A successful write means
+> > > +		the policy is updated and any needed notification is queued;
+> > > +		it does not wait for tick restart. Changes to multiple CPUs
+> > > +		are not simultaneous. Granting permission only removes this
+> > > +		dependency and does not force the tick to stop.
+> > > +
+> > > +		Offline CPUs may be configured without sending notifications.
+> > > +		Policy persists across CPU offline/online. Idle tick suppression
+> > > +		is unchanged; the policy applies when a CPU leaves idle.
+> > > +
+> > > +		This interface does not change nohz_full membership, context
+> > > +		tracking, RCU offloading, or housekeeping configuration.
+> > > +
+> > >  What:		/sys/devices/system/cpu/nohz_full
+> > >  Date:		Apr 2015
+> > >  Contact:	Linux kernel mailing list <linux-kernel@vger.kernel.org>
+> > > diff --git a/drivers/base/cpu.c b/drivers/base/cpu.c
+> > > index 69e52fed42415..299ce61cef895 100644
+> > > --- a/drivers/base/cpu.c
+> > > +++ b/drivers/base/cpu.c
+> > > @@ -324,6 +324,51 @@ static ssize_t nohz_full_show(struct device *dev,
+> > >  	return sysfs_emit(buf, "\n");
+> > >  }
+> > >  static DEVICE_ATTR_RO(nohz_full);
+> > > +
+> > > +static ssize_t nohz_full_allowed_show(struct device *dev,
+> > > +				      struct device_attribute *attr, char *buf)
+> > > +{
+> > > +	cpumask_var_t mask;
+> > > +	ssize_t ret;
+> > > +
+> > > +	if (!alloc_cpumask_var(&mask, GFP_KERNEL))
+> > > +		return -ENOMEM;
+> > > +
+> > > +	tick_nohz_full_get_allowed(mask);
+> > > +	ret = sysfs_emit(buf, "%*pbl\n", cpumask_pr_args(mask));
+> > > +
+> > > +	free_cpumask_var(mask);
+> > > +
+> > > +	/* Never present a truncated CPU list as the complete policy. */
+> > > +	return ret == PAGE_SIZE - 1 ? -EOVERFLOW : ret;
+> > 
+> > Why not?  What will userspace do then if it gets -EOVERFLOW as it can
+> > not get the full list?
 > 
-> That's only true because this driver hard rejects a whoami mismatch
-> which is something we shouldn't really be doing. If we do a look
-> up in driver and fail to match we should be using the data associated with
-> the ID that the fallback compatible would have had.
+> Hi Greg,
 > 
-> Our old fun of what should we do about fallback compatibles and
-> devices with ID registers.  Some of which (in this driver) are actually
-> compatible with each other and some of which are not (in the sense
-> that the match the WHOAMI and do different things depending on that
-> matching).
-> 
-> I still prefer that we never claim devices that need different
-> handling are compatible (even if detectable) because of that prevents
-> new drop in parts being used (as they normally have different whoami
-> values even as supposedly drop in replacements).
-> 
-> I don't mind enough to argue much about it however.
-> Note that before this series all the supported parts were actually
-> compatible and the only difference was a print on the id match. So
-> if this patch hadn't turned up an I'd noticed, I have simply
-> deleted the error return.
+> There is no way to retrieve the full list through this attribute.
+> The intent was to avoid returning a truncated list that userspace
+> could write back, unintentionally revoking permission for the omitted
+> CPUs. Returning an error does not solve that interface limitation.
 
-In such case lack of compatibility should be very briefly explained in
-the commit msg or description in binding.
+If you _MUST_ have such a size of a sysfs file, then use a binary
+attribute which can accept any size.  I think we have had to do that for
+other sysfs files that show this information in the past, right?  Please
+check them.
 
-Best regards,
-Krzysztof
+> > > +}
+> > > +
+> > > +static ssize_t nohz_full_allowed_store(struct device *dev,
+> > > +				       struct device_attribute *attr,
+> > > +				       const char *buf, size_t count)
+> > > +{
+> > > +	cpumask_var_t mask;
+> > > +	int ret;
+> > > +
+> > > +	/* kernfs may truncate an oversized write to PAGE_SIZE. */
+> > > +	if (count >= PAGE_SIZE)
+> > > +		return -E2BIG;
+> > 
+> > How are you getting a larger than PAGE_SIZE value here?
+> 
+> I cannot; kernfs caps count at PAGE_SIZE. The check is intended for
+> count == PAGE_SIZE, to avoid applying a potentially truncated prefix
+> as a complete list. It also rejects an exactly page-sized input.
+
+If the check is for == PAGE_SIZE then check for that, not for something
+that can never happen :)
+
+But again, don't do this at all by using a binary attribute if you are
+going to be needing to accept larger amounts of data.  Don't create a
+known-broken api from the start please.
+
+> > 
+> > > +	if (memchr(buf, '\0', count) ||
+> > > +	    (count > 1 && memchr(buf, '\n', count - 1)))
+> > > +		return -EINVAL;
+> > 
+> > What are you testing for here, sorry, I can't easily figure it out.
+> 
+> The checks reject user-supplied NULs and non-final newlines.
+> For example, cpulist_parse() accepts "1\n2\n" as CPU 1 only, while
+> store() would report the full input as consumed. The NUL appended
+> by kernfs is at buf[count], outside the checked range.
+
+Please document that in a comment here.
+
+> I propose replacing the global attribute with
+> /sys/devices/system/cpu/cpuN/nohz_tick_allowed, available only on
+> nohz_full CPUs. Writing 0 would prevent non-idle tick suppression,
+> using the existing asynchronous kick when needed. Writing 1 would
+> allow suppression, subject to the existing tick dependencies.
+> Readback would report policy, not the current tick state.
+> 
+> Each write would affect only that CPU, without changing nohz_full
+> membership or other isolation settings. This would give up the
+> single-write whole-list replacement. Would that be a better fit?
+
+That's much simpler, so I'm all for that from a sysfs point of view,
+thanks.
+
+greg k-h
