@@ -1,457 +1,293 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011007.outbound.protection.outlook.com [40.93.194.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 354AF3BD64B
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:29:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.22
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792268979; cv=none; b=ftByrMA3pHE7vnkGJ1NJkNqrSGP7VYB4OUSfp2r4EIDi/Gn2dnnOoKCxO1y8/EmuZSwEFMvGlZqe0XYmC0m3qUEcieGLU2GZuWvSimY18LJ6yO80HZHNt53igbGxU6Aq9zE40ylzg4eZHDwqsu+/+p8Rdafwt4PGM6IoGljzraw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792268979; c=relaxed/simple;
-	bh=mXIrzcSyVTFqKmbG/Y3wCXBGm2VLzlef5Rh9o7gs+pE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rlnYOgTiECtKpS7z9k91l50XLbib0OT62YogxGgPuGHjrWCrLTxzmFuRRw0xw5zJlT0NmZtFAPvrjaSIXEGiJVL32muyRewUJESVImlqIla2EWb9pWuTI0GrFSjF69r27XQ61fxGlVe+mMoMQz1EdOEVKTe4lC8HlmSboqDTwLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com; spf=pass smtp.mailfrom=gmx.com; dkim=pass (2048-bit key) header.d=gmx.com header.i=boogiepop@gmx.com header.b=Acqouqd+; arc=none smtp.client-ip=212.227.17.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A375D42048E;
+	Sat, 17 Oct 2026 20:34:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792269255; cv=fail; b=Nx49BaLQEe2/L92+8HSYalFLJCVyU1+r2dBZOwkmNhRr33rTOGpssGHEsNvpPHSuzF2o0Fyj7e9RKOhBSPsWHBZDGYyzguQHSVzzWVblS3OY1befy0LXr3N4lCqdsKUIa3Ybv+1C0m65xK2n6MtcByVHzoz9Zhai1QKgWtVTEM8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792269255; c=relaxed/simple;
+	bh=Jd0VTCsu2HSbso1zJt/VI4y7S+3iSIbyvdBy63K5Wtw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Ajm4itJ5q6vdRetYpWwC3EsqbD1TTxW4kfQASEQWMom7so+SuUnP2htRn8faXkmVLajMP6rXkQhKj/UogVRv3YdoGL17NRBORttnyEbfWDXgOKmFuW1Gox/9+9yk1WLKKW7UqJzR+OzD/W94kzNJ8IzzrzzZ3qQAVHFggv66eGc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YV4/cJf4; arc=fail smtp.client-ip=40.93.194.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.com header.i=boogiepop@gmx.com header.b="Acqouqd+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
-	s=s31663417; t=1792268974; x=1792873774; i=boogiepop@gmx.com;
-	bh=k8RBBdIHwOnE6dGfKvFZuqiHAxqIJkAg9/LP6wG+Ig4=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=Acqouqd+E2WcBCoJh89Oi1OTJcp9Pf6Q6cJysH/5rPovKbQt/YhmCsMlkXtnJB9J
-	 V1XsvDBE2x7DuV2sK9723tFoxfhBQNBDjwEn3+B9b3qhkj9/sKMpwWGhkAVuQg+fb
-	 uq4eLH9spXbaCCevfu/XQQP7Rzw2pqe6fodLoepMJVCSq1dMpV//TosFmPKBUYQ1O
-	 wEK31FE03ZEBoutRS6cBBxS7t55ocbOf6cayEV/oXt3YXz4GR6vMVll4BnnQQ3mCy
-	 4jElMaWwD5zDzNMAiwAjInpblMCtfJnF/dgOnMb0NCPeBm0Umbgmx47Kg3ialK1+x
-	 qcmXWxKmxicsWDdCJA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.174]) with ESMTPSA (Nemesis) id 1MY6Cb-1x7wpv2Z01-00IT2I; Sat, 17
- Oct 2026 22:29:34 +0200
-Message-ID: <1720a844-fece-4983-a639-3af9da26475c@gmx.com>
-Date: Sat, 17 Oct 2026 22:29:32 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YV4/cJf4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ra0bMIVTUvdC/3kGqa6Lulx7RPDPF3tAtfopVCOAS/aYu4/vWaZNJU0/Ud4sDyv5Wz3azZ/h9nyFXhkt8tfvCcAf3lE/H2kRzDsqwdO6D0tRzDVWyzVBDZBNLv46oRCskpZuhe7Hfr9NeFzfhOxO2KUzTt/eu1KgyW6b9wXRJYWuNfkAiX4cOdDBwDS/OYHSCHFIgsIrcDuDHvKBjisZGbvXpPWBLQsoFfugOOSbMZe1pNOnJu9PeNUETShZRzUQhntCY2JEOStyOjDTOhfOz2h4iWiG8iXC8PbwzVOPCEIpvAW+RFStwXZpTbWvHcGyTdt1hNilp81UO3cLy5+dsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ihHpfG0tFL1l5Te9I9eIqRqphGa9WyG2yzfDTr3gJJw=;
+ b=H4H47pInVg7Uy8aC0hUs20ChPp0n3AyRtWiCQPXwlxjsHa3oCqc1YnXEHu6t/uuyqhRVSmq/KJe7lGsv0QyxJlKwRKBtl7lcL94wM/fo1jwDwIlBCLbuT2UdDmjNrSlty6O7ECXhrdX/HbfOUqKYDRHXzaBYvb19qlC9luExj4QzVObszF5M+kB25ZuYK2FRuTTKXkJ7J+p1rr/4xoZ4Ke0HIdnRIDg064FM8iPl26yB48kDk0lGunTS0i+VnytmiFiaKM6W1oSN2SRnXUdsrevi5pGmlXAzDJDBb458xvzlGyUuHSiAvP5XNMT6/H26LcaRrTRvHEK0ADOzdGGf4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ihHpfG0tFL1l5Te9I9eIqRqphGa9WyG2yzfDTr3gJJw=;
+ b=YV4/cJf4MPX/NcjO51N4RJvEn0kJrfUF4lx1sM+gWg7ogVfaWSjVnyLoYGaYm8l7A1WAMoAY0l3zoQZR/s+pcXc6uJZOWdhzG2qIZp2JJSgOYeJGQ3WDolqndkrQiClgoXYEZhRjqaD/HHfgLGXdIEyOrhuOCvsahdqVqi/CLfT2X76KVqjzL3f8O/OPpzEZvr98pjznb2mSzjb+4Ma+lKzm0cPfUcTMjezTYrReocNP0kwumjPFr41hHT+tDCwO+MFbPt91CP6pfZyGZOhwCfPTsi2YSP0K9Q3VSyqYC2Lptj0dIFhxSWIwjHEqGz6aCGDdy+HaDPFwbPn9/06uxg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by SN7PR12MB6713.namprd12.prod.outlook.com
+ (2603:10b6:806:273::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Sat, 17 Oct
+ 2026 20:34:08 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0522.017; Sat, 17 Oct 2026
+ 20:34:08 +0000
+Date: Sat, 17 Oct 2026 17:34:07 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Dionna Glaze <drdeeglaze@gmail.com>
+Cc: Jiri Pirko <jiri@resnulli.us>, linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+	x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
+	James.Bottomley@hansenpartnership.com, aik@amd.com,
+	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
+	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com,
+	jarkko@kernel.org
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+Message-ID: <20261017203407.GM13920@nvidia.com>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261016234354.GA664420@nvidia.com>
+ <CANwfdvXFLJpC4Bc1PwRoUUP20fu2K8b+FHZ1JLLFXAikC-cBaw@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANwfdvXFLJpC4Bc1PwRoUUP20fu2K8b+FHZ1JLLFXAikC-cBaw@mail.gmail.com>
+X-ClientProxiedBy: BL0PR05CA0022.namprd05.prod.outlook.com
+ (2603:10b6:208:91::32) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] ARM: rockchip: smp: enable secondary rk3066a/rk3188
- CPUs
-To: jbx6244@gmail.com, Russell King <linux@armlinux.org.uk>,
- Heiko Stuebner <heiko@sntech.de>
-Cc: linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261017-cpu-v3-1-25d8f4b06362@gmail.com>
-Content-Language: en-US
-From: boogie <boogiepop@gmx.com>
-In-Reply-To: <20261017-cpu-v3-1-25d8f4b06362@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:Kz2qsiXC/XlF90NwJDh8Tvf+FeQIae20o2pnQFwrIeCVJdnXBCQ
- 8/wT5CzJGmQP61HTSuw+QlSbmZWeapqIg63dDp/M52jqRlV4HjctlGcJ+S5UaXElcM1253T
- QllUIORK52lxFC5nKRptOewZY0V38cgGExyAiBmrBCeV97LeNVHxTAes7KdXhfON0dp/n0S
- AkSd7ccdO86iuqPqqvdQg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:78nt69TG4Kw=;CVeUoTuAyIGVmo+BNRZsTTNT14Q
- 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
- Pb05s/cUvD6HmCZ1SJSlw+db9HCy7U5/
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|SN7PR12MB6713:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f1fc504-1bc4-43d4-a1e7-08df2c8dfec6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|6133799003|22082099003|10067099003|18002099003|3023799007|4143699003|5023799004|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	F4xVrkRd67xITLVr0BfiQxMFHveaABIFkc/s4D1eEmwRc25CQdgkcekPadtbTS++tzw+Uo6Gq5Gr3G418CUO9P+UN4EZgm7e6SSS09qplDh5MENaAZ4NBRNV+nqVudHe8R9i7+/ruCzLzFGhrdwR5eDVUNElwtmkn4tlyVxvigyxV16TItULPqc3hos8I2OGhVnnRZKBQTe5cs+EvjR6CxuT7AsyZivb310Yqx5GgKbfM9P9QzaQ6fQeGuTMMvCud+K2UTQ+nE9tMUXXufjWSzpVr9LC0Rd5eHNkal1M7TsgSN9IsS+rYEvz/NP9zaLHL3MTKPNopyfGgWGp0AjebXKGlG6bgW/GF+ZAYzrjj8ZLdMiG7Uu3rXreiAZ4kQQ4Q+zVCczP5yB7HCqxj9xtGhNJoniVTtnG48E8Fac6kVvdAi///JsrqaqBRJp/X6QprgTd6ZQ5YFUz4NrsUqD6KOzlLrWjV6trVQKg2Ehoc5GK3LtQwxKDA2kmGxFKy+Cg875KnDrldS2YUWYSFrw3XqD1cRINgDVG49v2oB3nbFZztiipzibSiZLumaXETMZIGCgwyhBns3dxd1hTg28t8NhIWeKQAauC8dqi/j006VdQEuuZYSCF7KdU9J4TTbwJXFGffcL81lSy0eRI3TimkT9QtVtPG0MNRfCyL2jf2H4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(6133799003)(22082099003)(10067099003)(18002099003)(3023799007)(4143699003)(5023799004)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?sOxqbYiGrQ1GO3cE2oZ098EEgqOCAqBByrsdJ0bmuRKsuycvDWvBKQrbSNL2?=
+ =?us-ascii?Q?Yw7BUkRjbd25n/6IXsZd/kpfDbJt+BXV2bF520PT+KkTaKEiL0SPdRDc9/n1?=
+ =?us-ascii?Q?vdsHqQb1Vl+WbPt1lNznCQ0BAhp+6el2didq2prmvPM8WkbPexewV0O/Omor?=
+ =?us-ascii?Q?tb2eBzOCiye8xxbZcGzhsX/hrJulLS+Znor1isXxhcdeBbJjN/mV9nJNrLq3?=
+ =?us-ascii?Q?RRZIHChmBzYuQrZP1+MlwisVOOTRH/jxfKf4+mG/CP6g8KIeEl5hBPVtB1uF?=
+ =?us-ascii?Q?knCH+84eZNy3Yl8cuetp+73bNjAcVjUrCCG9amTZ3IuVI1YZWOyBKO4GHf0G?=
+ =?us-ascii?Q?N5Chs87hMeMEV+p1tl6QmOOJIiOlvn2pvZmawkPgYq6o22qKGQ7mufslo0Dw?=
+ =?us-ascii?Q?AK5JC0MTA9i3OP8097tdLiwHc/Wwf9TpfkecTipdZ95U2a9VLQIfYMbugT+K?=
+ =?us-ascii?Q?T7sQ+sPol/HJZWFik/pO3DvxhAMSUg7+MNXGiepBqbsjxgV26RUwsyaxZw2g?=
+ =?us-ascii?Q?4vVcfAm+uKu/UUqrGSzKUTu61KROPZZOegKxm4GsrZ2/ezTpIsgDxKF0bsgo?=
+ =?us-ascii?Q?Mu3p3Md3RlQCFgqSm2i8C0GZfQNxX7ZQzlTlOP2EVeuQaEEwBPRdyCt1Dbe8?=
+ =?us-ascii?Q?2800SQNiTYOt7tR+9Q/AfPNz1wTe80kBkyWCsm50sTJ9IRrGj+iZUJ56F0dz?=
+ =?us-ascii?Q?Y4W+Hw1E58DsyQd/1HpRwNzihY02rjxjhOzSKeiQRfygS0cp6JLxelydQFgm?=
+ =?us-ascii?Q?Z2rx+XtxYP1ZLKDO9FGgLTopRoFFChqmEa+aOl0M+B0I3L+Otf2q0eUjRI4v?=
+ =?us-ascii?Q?irUGwrwo/4j1ASUVh8HehzwNOILnmWAHHZ28dUCNZsLnKB8FpP5lsgHhCW3w?=
+ =?us-ascii?Q?AVVrPWN3/CAWjla+2RQNWspsBrubwd25y4GKnSsayw8ZAvohZ5bZFPpXiUFF?=
+ =?us-ascii?Q?KlUGwoZks2j9dTBpRWsqtSD70B1eGl0Je6h88lkJw7QZazbbFToXY/+5Cmka?=
+ =?us-ascii?Q?FTJFoBmkCPfx0W1LoaLssLwF2UDOvnlr03LAyUscEYYceeH7PbRlIz3lN7EX?=
+ =?us-ascii?Q?QUe7LTlu+otnprqGZnqhnHQwRpgLORVa9ICfKeLq218GZD3OeiPaGBWGsImf?=
+ =?us-ascii?Q?XfDLYDcv4V/XlwIPP6zsttUG3BgZ2WsPiF0Ui5GXZ/0Zi9TJ0jC8GkDyjRgz?=
+ =?us-ascii?Q?swNPYEZAuWydnxS/cG6/dvKmk+YvxbfyowZ96nvoIgGiBPBtq0AVHxhhU5BL?=
+ =?us-ascii?Q?QmTaH4YN08VL63HZBd2iLxYMw86qO7vTaUdsjnOgUw9q5NLDVCxUTa+azoxc?=
+ =?us-ascii?Q?hzc7A4me8OXxMA3/jt1ZBWHRH1J6rMPjl7UZfCB8o8wTMd0QTsRJ47I1qTwO?=
+ =?us-ascii?Q?fEs89U5/bCujdS/Tkd6QvxTQaAHer5QBaQEqTQR7jRXV2SjufAHlL7hw+tbm?=
+ =?us-ascii?Q?Va5tN7z2Hn9x99kHz70XUYO3Uv3VUY7/6r8cuvcxrZ+hz+UwfXTKFAwpncDm?=
+ =?us-ascii?Q?WU/Fw0/dKpLc2Iv9clcBG3NsAoqQkQ23ZtWROcFU9oGi3npv8mUnwyR7Wxyt?=
+ =?us-ascii?Q?VPnmiHQcfn/C7FV3scJmYX3rSzIXUFtFNf3NBKuvW5dezhYdJQFYn48j9kRI?=
+ =?us-ascii?Q?V38sDrAn/xilL63K1/T1gWjJ4eLSdPv33MAx/RzXFprTHgGVYZwTSmOkeXKv?=
+ =?us-ascii?Q?Pour/P4FoIIGCTcaSYm2XHHWSIfuNZOgyEFWe1KfaNVmuqtw?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f1fc504-1bc4-43d4-a1e7-08df2c8dfec6
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2026 20:34:08.7763
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Gw/o9ik7w/DpyEl+/iV41ecC8LJWNrBJa7zaDQWKXHTGu+ELCAlWhhA1XX86x4yM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6713
 
-Hello Johan
+On Sat, Oct 17, 2026 at 11:16:07AM -0700, Dionna Glaze wrote:
 
-Thanks for the clean patch!
+> > About 3 months ago we started looking simultaneously how to support
+> > roots of trust (ROT) HW in place of TPM and how to respond to the
+> > feedback on the netlink proposal for the TSM SPDM.
+> 
+> Given that I was tagged on this thread and not that one, I'd
+> appreciate a pointer to which you mean.
 
-Tested on my Lifetab md98486 tablet, everything seems to work fine with=20
-rockchip TPL (30_LPDDR2_300MHz_DDR3_300MHz_20130517.bin) + UBOOT SPL=20
-(almost latest 2026.xx) booted from nand idb.
+https://lore.kernel.org/all/20260705220819.2472765-2-djbw@kernel.org/
 
-[    0.169171] smp: Bringing up secondary CPUs ...
-[    0.176761] CPU1: thread -1, cpu 1, socket 0, mpidr 80000001
-[    0.177211] CPU1: Spectre v2: using BPIALL workaround
-[    0.189310] smp: Brought up 1 node, 2 CPUs
-[    0.193902] SMP: Total of 2 processors activated (96.00 BogoMIPS).
-[    0.200728] CPU: All CPU(s) started in SVC mode.
+And then later this:
 
+https://lore.kernel.org/all/20260921131911.532d81f4@kernel.org/
 
-[alarm@alarm ~]$ cat /proc/cpuinfo
-processor       : 0
-model name      : ARMv7 Processor rev 0 (v7l)
-BogoMIPS        : 101.76
-Features        : half thumb fastmult vfp edsp thumbee neon vfpv3 tls=20
-vfpd32
-CPU implementer : 0x41
-CPU architecture: 7
-CPU variant     : 0x3
-CPU part        : 0xc09
-CPU revision    : 0
+Basically: No netlink.
 
-processor       : 1
-model name      : ARMv7 Processor rev 0 (v7l)
-BogoMIPS        : 101.76
-Features        : half thumb fastmult vfp edsp thumbee neon vfpv3 tls=20
-vfpd32
-CPU implementer : 0x41
-CPU architecture: 7
-CPU variant     : 0x3
-CPU part        : 0xc09
-CPU revision    : 0
+> > We began talking about generalizing tsm_mr to handle more than just
+> > "tsm" into a broader set of roots of trust, including TPM. In this way
+> > it could act as a multiplexor for any measurement user in the kernel,
+> > like IMA for example. I see others have independently come to a
+> > similar conclusion that IMA needs ROT agility, but I also know that
+> > DRTM needs the same ROT agility too.
+> 
+> +Jarkko
+> The TPM driver is pretty entrenched and heavily used by different user
+> space applications, so it seems really ambitious to bundle in TPM
+> here.
 
-Hardware        : Rockchip (Device Tree)
-Revision        : 0000
-Serial          : 0000000000000000
-[alarm@alarm ~]$ uname -a
-Linux alarm 7.1.0-ARCH+ #22 SMP PREEMPT Sat Oct 17 22:11:35 CEST 2026=20
-armv7l GNU/Linux
+By "ROT agility" I mean if you want to do an extend operation you
+should not have to know the details of the HW holding the "PCR".
 
+One of the APIs offered here is a HW agnostic extend that can be used
+to build ROT agility into user space programs that are doing
+logging. That's systemd-pcr-extend for example.
 
-Tested-by: H=C3=BCseyin BIYIK <boogiepop@gmx.com>
+The extent of the TPM support is to be able to issue a PCR extend
+triggered with a TPM command by the agnostic API. Not ambitious at
+all.
 
-On 10/17/26 15:27, Johan Jonker via B4 Relay wrote:
-> From: Johan Jonker <jbx6244@gmail.com>
->=20
-> Early Rockchip SoCs like rk3066a and rk3188 had boot loaders
-> that remapped the boot ROM and the internal memory. Currently
-> U-boot makes use of a common board file without remapping
-> resulting in the secondary CPUs power up hanging in a wait loop.
->=20
-> Make the various boot loader methods work by:
->=20
-> * add code that disables remapping on both rk3066 and rk3188
-> * change to use the same boot ROM path for all socs in rockchip_boot_sec=
-ondary()
-> * drop the rockchip_smp_prepare_sram() part
->=20
-> Signed-off-by: Johan Jonker <jbx6244@gmail.com>
-> ---
->=20
-> Changed V3:
-> remove include
-> use regmap_write
-> ---
->   arch/arm/mach-rockchip/Makefile   |   2 +-
->   arch/arm/mach-rockchip/core.h     |  10 ----
->   arch/arm/mach-rockchip/headsmp.S  |  16 ------
->   arch/arm/mach-rockchip/platsmp.c  | 105 +++++++++++++++---------------=
-=2D-------
->   arch/arm/mach-rockchip/rockchip.c |   1 -
->   5 files changed, 42 insertions(+), 92 deletions(-)
->=20
-> diff --git a/arch/arm/mach-rockchip/Makefile b/arch/arm/mach-rockchip/Ma=
-kefile
-> index 62596d5deb88..d05123a7b711 100644
-> --- a/arch/arm/mach-rockchip/Makefile
-> +++ b/arch/arm/mach-rockchip/Makefile
-> @@ -3,4 +3,4 @@ CFLAGS_platsmp.o :=3D -march=3Darmv7-a
->  =20
->   obj-$(CONFIG_ARCH_ROCKCHIP) +=3D rockchip.o
->   obj-$(CONFIG_PM_SLEEP) +=3D pm.o sleep.o
-> -obj-$(CONFIG_SMP) +=3D headsmp.o platsmp.o
-> +obj-$(CONFIG_SMP) +=3D platsmp.o
-> diff --git a/arch/arm/mach-rockchip/core.h b/arch/arm/mach-rockchip/core=
-.h
-> deleted file mode 100644
-> index fabcaa66607c..000000000000
-> --- a/arch/arm/mach-rockchip/core.h
-> +++ /dev/null
-> @@ -1,10 +0,0 @@
-> -/* SPDX-License-Identifier: GPL-2.0-or-later */
-> -/*
-> - * Copyright (c) 2013 MundoReader S.L.
-> - * Author: Heiko Stuebner <heiko@sntech.de>
-> - */
-> -
-> -extern char rockchip_secondary_trampoline;
-> -extern char rockchip_secondary_trampoline_end;
-> -
-> -extern unsigned long rockchip_boot_fn;
-> diff --git a/arch/arm/mach-rockchip/headsmp.S b/arch/arm/mach-rockchip/h=
-eadsmp.S
-> deleted file mode 100644
-> index 37a7ea524a16..000000000000
-> --- a/arch/arm/mach-rockchip/headsmp.S
-> +++ /dev/null
-> @@ -1,16 +0,0 @@
-> -/* SPDX-License-Identifier: GPL-2.0-or-later */
-> -/*
-> - * Copyright (c) 2013 MundoReader S.L.
-> - * Author: Heiko Stuebner <heiko@sntech.de>
-> - */
-> -#include <linux/linkage.h>
-> -#include <linux/init.h>
-> -
-> -ENTRY(rockchip_secondary_trampoline)
-> -	ldr	pc, 1f
-> -ENDPROC(rockchip_secondary_trampoline)
-> -	.globl	rockchip_boot_fn
-> -rockchip_boot_fn:
-> -1:	.space	4
-> -
-> -ENTRY(rockchip_secondary_trampoline_end)
-> diff --git a/arch/arm/mach-rockchip/platsmp.c b/arch/arm/mach-rockchip/p=
-latsmp.c
-> index f659d894bfae..5f3ca7c0cfe4 100644
-> --- a/arch/arm/mach-rockchip/platsmp.c
-> +++ b/arch/arm/mach-rockchip/platsmp.c
-> @@ -21,17 +21,21 @@
->   #include <asm/smp_plat.h>
->   #include <asm/mach/map.h>
->  =20
-> -#include "core.h"
-> -
->   static void __iomem *scu_base_addr;
->   static void __iomem *sram_base_addr;
->   static int ncores;
->  =20
-> +#define RK3066_GRF_SOC_CON0	0x0150
-> +#define RK3188_GRF_SOC_CON0	0x00a0
-> +
-> +#define NOC_REMAP		BIT(12)
-> +
->   #define PMU_PWRDN_CON		0x08
->   #define PMU_PWRDN_ST		0x0c
->  =20
->   #define PMU_PWRDN_SCU		4
->  =20
-> +static struct regmap *grf;
->   static struct regmap *pmu;
->   static int has_pmu =3D true;
->   static struct reset_control *cpu_rstc[4];
-> @@ -133,66 +137,21 @@ static int rockchip_boot_secondary(unsigned int cp=
-u, struct task_struct *idle)
->   	if (ret < 0)
->   		return ret;
->  =20
-> -	if (read_cpuid_part() !=3D ARM_CPU_PART_CORTEX_A9) {
-> -		/*
-> -		 * We communicate with the bootrom to active the cpus other
-> -		 * than cpu0, after a blob of initialize code, they will
-> -		 * stay at wfe state, once they are activated, they will check
-> -		 * the mailbox:
-> -		 * sram_base_addr + 4: 0xdeadbeaf
-> -		 * sram_base_addr + 8: start address for pc
-> -		 * The cpu0 need to wait the other cpus other than cpu0 entering
-> -		 * the wfe state.The wait time is affected by many aspects.
-> -		 * (e.g: cpu frequency, bootrom frequency, sram frequency, ...)
-> -		 */
-> -		mdelay(1); /* ensure the cpus other than cpu0 to startup */
-> -
-> -		writel(__pa_symbol(secondary_startup), sram_base_addr + 8);
-> -		writel(0xDEADBEAF, sram_base_addr + 4);
-> -		dsb_sev();
-> -	}
-> -
-> -	return 0;
-> -}
-> -
-> -/**
-> - * rockchip_smp_prepare_sram - populate necessary sram block
-> - * Starting cores execute the code residing at the start of the on-chip=
- sram
-> - * after power-on. Therefore make sure, this sram region is reserved an=
-d
-> - * big enough. After this check, copy the trampoline code that directs =
-the
-> - * core to the real startup code in ram into the sram-region.
-> - * @node: mmio-sram device node
-> - */
-> -static int __init rockchip_smp_prepare_sram(struct device_node *node)
-> -{
-> -	unsigned int trampoline_sz =3D &rockchip_secondary_trampoline_end -
-> -					    &rockchip_secondary_trampoline;
-> -	struct resource res;
-> -	unsigned int rsize;
-> -	int ret;
-> -
-> -	ret =3D of_address_to_resource(node, 0, &res);
-> -	if (ret < 0) {
-> -		pr_err("%s: could not get address for node %pOF\n",
-> -		       __func__, node);
-> -		return ret;
-> -	}
-> -
-> -	rsize =3D resource_size(&res);
-> -	if (rsize < trampoline_sz) {
-> -		pr_err("%s: reserved block with size 0x%x is too small for trampoline=
- size 0x%x\n",
-> -		       __func__, rsize, trampoline_sz);
-> -		return -EINVAL;
-> -	}
-> -
-> -	/* set the boot function for the sram code */
-> -	rockchip_boot_fn =3D __pa_symbol(secondary_startup);
-> -
-> -	/* copy the trampoline to sram, that runs during startup of the core *=
-/
-> -	memcpy_toio(sram_base_addr, &rockchip_secondary_trampoline, trampoline=
-_sz);
-> -	flush_cache_all();
-> -	outer_clean_range(0, trampoline_sz);
-> -
-> +	/*
-> +	* We communicate with the bootrom to active the cpus other
-> +	* than cpu0, after a blob of initialize code, they will
-> +	* stay at wfe state, once they are activated, they will check
-> +	* the mailbox:
-> +	* sram_base_addr + 4: 0xdeadbeaf
-> +	* sram_base_addr + 8: start address for pc
-> +	* The cpu0 need to wait the other cpus other than cpu0 entering
-> +	* the wfe state.The wait time is affected by many aspects.
-> +	* (e.g: cpu frequency, bootrom frequency, sram frequency, ...)
-> +	*/
-> +	mdelay(1); /* ensure the cpus other than cpu0 to startup */
-> +
-> +	writel(__pa_symbol(secondary_startup), sram_base_addr + 8);
-> +	writel(0xDEADBEAF, sram_base_addr + 4);
->   	dsb_sev();
->  =20
->   	return 0;
-> @@ -320,9 +279,27 @@ static void __init rockchip_smp_prepare_cpus(unsign=
-ed int max_cpus)
->   	for (i =3D 1; i < ncores; i++)
->   		pmu_set_power_domain(0 + i, false);
->  =20
-> +	/* Make sure that the remap function is disabled */
->   	if (read_cpuid_part() =3D=3D ARM_CPU_PART_CORTEX_A9) {
-> -		if (rockchip_smp_prepare_sram(node)) {
-> -			of_node_put(node);
-> +		unsigned int reg;
-> +		int ret;
-> +
-> +		if (of_machine_is_compatible("rockchip,rk3066a")) {
-> +			reg =3D RK3066_GRF_SOC_CON0;
-> +			grf =3D syscon_regmap_lookup_by_compatible("rockchip,rk3066-grf");
-> +		} else {
-> +			reg =3D RK3188_GRF_SOC_CON0;
-> +			grf =3D syscon_regmap_lookup_by_compatible("rockchip,rk3188-grf");
-> +		}
-> +
-> +		if (IS_ERR(grf)) {
-> +			pr_err("%s: could not find grf dt node\n", __func__);
-> +			return;
-> +		}
-> +
-> +		ret =3D regmap_write(grf, reg, NOC_REMAP << 16);
-> +		if (ret < 0) {
-> +			pr_err("%s: could not update remap function\n", __func__);
->   			return;
->   		}
->   	}
-> diff --git a/arch/arm/mach-rockchip/rockchip.c b/arch/arm/mach-rockchip/=
-rockchip.c
-> index 82102fbabf92..c2b919ac99bc 100644
-> --- a/arch/arm/mach-rockchip/rockchip.c
-> +++ b/arch/arm/mach-rockchip/rockchip.c
-> @@ -14,7 +14,6 @@
->   #include <linux/clocksource.h>
->   #include <asm/mach/arch.h>
->   #include <asm/mach/map.h>
-> -#include "core.h"
->   #include "pm.h"
->  =20
->   #define RK3288_TIMER6_7_PHYS 0xff810000
->=20
-> ---
-> base-commit: 9d80aa4617b32f5054c5aa471d06b66704854935
-> change-id: 20261017-cpu-c8f61c6466f9
->=20
-> Best regards,
+> Consider that you have to do a lot of command interpretation to know
+> whether a user is getting or extending a PCR value, or whether it's
+> systemd doing an NVPCR thingamajig.
+> I don't think you can intercept commands and translate to intent for
+> any kind of extension to be correctly tracked by your MR journalling
+> addition here.
+> Can you explain a little more what your intent is?
 
+Just a multiplexor. We have at least IMA and DRTM in the kernel that
+need to do "PCR extend", and if we have a world where the ROT isn't a
+TPM that operation need to be multiplexed to the right driver to do
+the extend.
+
+There have now been two proposals to do this inside IMA between TPM
+and tsm mr, the point here that multiplexer doesn't belong inside IMA.
+
+> > Bringing in the SPDM side, the netlink TLV uAPI fits nicely and can
+> > expose all the structured binary data it has. SPDM is also effectively
+> > a ROT without any measurement registers.
+> 
+> I would push back on SPDM being a ROT because you're talking about
+> different devices.
+
+I guess there are different of terminology conventions.. When I say
+ROT I mean the HW IP block that does at least a measurement extend and
+signing report function. If you look at a schematic diagram of a
+modern server there are a dozen of these blocks.
+
+Yes, only one of these is the ROT used to measure the CPU's boot, and
+only one of these is the lead ROT for attestation.
+
+When I talk to people building the PCIe devices they absolutely talk
+about an iROT on their chip that measures the PCIe device's boot. SPDM
+is the protocol they are using to allow the OS to interact with that
+ROT.
+
+I guess "attestation subsystem" is a clearer name after all.
+
+> Any other SPDM communication would be for composite attestation by a
+> lead attester that all gets bound under the ROT that the lead attester
+> uses (presumably TPM).
+
+Right, userspace uses SPDM to connect to the ROTs in devices, get
+their attestations, then bind those results to the CPU's ROT.
+
+> > name for this expanded purpose so we start calling this attestation
+> > subsystem. "root of trust" subsystem would be another way to look at
+> > it.
+> 
+> I don't see how a trusted security module is a bad name for this.
+
+At least half the stuff we call TSM in Linux is "TEE Security Manager"
+and it is a PCIe spec term. So there is this naming conflict..
+
+Secondly, we are imaging including things like Alistair & Lukas's
+entirely software based Link IDE flow and I've had some security
+people express a strong opinion that we must not call such an entirely
+software model "trusted security module". In their mind TSM is
+something outside the OS..
+
+> > The general notion is any root of trust can come with a single driver
+> > and expose a bunch of different uAPIs. The modern most capable one
+> > would be the CTLV based ioctl interface through a char dev, but in
+> > cases like TDX the legacy uAPIs will also remain supported.
+> 
+> What capabilities are you trying to enable, though? I'm not really
+> getting the picture.
+
+Three basic problem statements:
+
+1) If I want to extend a measurement I need device specific flows
+   for TPM, CCA, TDX, SEV - and they are not discoverable
+2) If I want to request a signed quote I need a different set of device
+   specific flows for TPM, CCA, TDX, SEV and SPDM
+3) If I want to add a new ROT driver it doesn't have a logical home.
+   You'd have to awkwardly squeeze it into tsm report and tsm mr.
+
+> If I was right about you referencing Alistair's patch series, then
+> perhaps this is a clue?
+
+That series is about adding a software SPDM and Link IDE flow for
+platforms that don't have a real firmware based TSM.
+
+> if we're leaving the SPDM message construction and
+> interpretation to user space.
+
+All the firmware based flows for PCIe run the SPDM protocol inside
+FW. The OS and userspace won't have access to the SPDM messages.
+
+From an SPDM perspective a full system may have a mixture of FW doing
+SPDM on PCIe and Software doing SPDM on somethign liek 
+
+Userspace probably won't have access to SPDM messages. There are too
+many FW managed flows for PCI TSM for this to work. The uAPI here for
+SPDM will be some least common denominator. Drivers take that LCD and
+map it to their specific FW calls. Alistair's series will be able to
+implement that LCD entirely in software, but since most server systems
+seem to lock the link IDE controls under FW a SW SPDM is not going to
+be widely usable for PCIe.
+
+> > For example the end goal is for systemd report to be able to
+> > dynamically enumerate all the ROTs in the system, include them in the
+> > report, and generate signatures. Without necessarily requiring ROT
+> > specific code.
+> 
+> What other than TPM quotes and signed SPDM message transcripts are you
+> trying to cover?
+
+I also want all the stuff that tsm_mr and tsm_report currently covers,
+and other ROT HW blocks like Caliptra that people are building.
+
+> If there are NDA'd docs to get more info on these, I'd like to work on
+> getting my eyes on them.
+> Are there some doc numbers I can ask my hardware engineering rep to
+> pull? They manage vendor engagement.
+
+I don't know about docs, but if you have your people reach out to your
+NVIDI reps and mention this conversation I'm sure we can arrange a
+NDA'd briefing.
+
+Thanks,
+Jason
