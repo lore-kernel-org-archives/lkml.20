@@ -1,83 +1,59 @@
-Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6E0364EB8
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:36:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411FD3CE4BE;
+	Sat, 17 Oct 2026 08:36:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792226201; cv=none; b=oOdXoC15nRNB/8cBAl20GXhtgA0mH+ALhdYcerUqtzIGy4l+yQr4e+OxPNI1OLfHPlusPMOgwlLtl6bW/SgXe2mIpVJJOX3ioRtwo2MtWcsX0MOKeMeQTh7N7anEOm+M7MW0H7FttYlnv6owEER78T1HlKOYjKghui2JkZH5g/0=
+	t=1792226204; cv=none; b=cOkgaA0LuSkk8L1p/NpiCYdBo11s4RKAE3qg1OHkZbahwqZkurqsTqtvIlIedBMLU8TPQtrm3U5fN/0e37nrkt74/xIdxHcdLvRD4cASEi57LEtIdVgc+4BjXujsO9OvoZD4idVcQautOWTU8wX9bYKft9mL4sN7OKazXNqdwEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792226201; c=relaxed/simple;
-	bh=PvDSXZucXaSQBYsgOB6O1YnNZF9tLIEju+7FEeS6PX8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iXhVlsP+fF4DiJhVtW4YqMpZfSBe2iFRmjWokj1ZYZZLkVBvbeUmJptQ6xBtaTOna35EyotfRwu/FWK6OnR+fUC96mGS78QRe+Un6JOmLPgdqQoYfnJjbydW4hSJvHCAe1zO7tlItv+fChUT1YhZiSFf3n71/rezV+FomnuXLw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sqh021vg; arc=none smtp.client-ip=74.125.227.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792226204; c=relaxed/simple;
+	bh=6SeJ4Hl24zyy4exhjtnlHcNJJiQVuN0BNii3iL9g0qw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SeUDmoEbsqIB7ewxUgAOz/rLntypUz6RZnE3onp/FD/FyTEGgTUB1ADyywL1zRKBuiRAnh/PTGFhAeRo+G5Se2FknS/k6GvirG/dbuKm369yBIaDuyGqGqyNa8nh0xKV8iTrRcrjzHPdvyLqmTJVcgXdjKQOIoO2JiK4hjM6+Rg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Dc2HkLmZ; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sqh021vg"
-Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-3a0aa5e2b20so187395a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 01:36:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792226199; x=1792830999; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=v7htvYaNC/HedOMza/ALRWxx354TzmGzWUI+IoOlx4c=;
-        b=Sqh021vgFA636fYg8JqMYMMurqv4db3QrtPjW9LpYi/T+/a0FWZAAEOS/5Ofatue6T
-         KX9l57tel26Qdpp1uLJudr1WnpXhPhC1JS2OJbj2biQNXNNmsW/2ZQeihmHMjZqBfi4v
-         KTBNNSo2xRbCt5fuPv9UdYNTuDdmjX1cJO53GP//4bm+UdS8uHBrMf6E+zu6uNqWlsil
-         6vsdTCXwk9G5N2joOd1ZkIj5IME5Gx6P/rGijXcpcEk0Q0roLB7TnRlmr/KoT+ktCCvQ
-         CV59st8+m2M0Oiz4Cg1u49qBkmm5k0oAzi0aEOXdiezANCHofHORO6mulj/eH9fKs28I
-         CS5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792226199; x=1792830999;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v7htvYaNC/HedOMza/ALRWxx354TzmGzWUI+IoOlx4c=;
-        b=vSRosS10oq0kI4nh8HNDlNHeEX2/J1pqWZ+DO9IC9wgIQckxbUfTf0rWsIUe2NVmuE
-         JiXKvtO34RDpwrc45lltV5XHmuFqF4OoE2N+etNVXFhJsXwhPJDUdxIRaK7ZN7+/hz4H
-         XQMCD9e6O6IyEERiLsW8hFjEeOmxV0+Oq2pFYm6HudgHFLm3mKIvRldYm2gVIb0wuPER
-         2qYccAR6mZI0DlkWzrJ5K7UtzYzGsY2Eca5RODye+JiM5TAK9aGP+NAs1yrQn2QwWh+P
-         cykL+EOmlFKgSWil2lscGP/MGWHZm7R5ksqAxdpfB1q5SGH2Oj0Ef7F5F5I5yCRmY4z0
-         NU/A==
-X-Forwarded-Encrypted: i=1; AKwUvBylBx7z8tQzxl8bLWg58V9bca9Ge2UtiHSMVQxvZfoKEXZMigG/HD7v2OC23O+xonxqXxj4b5svXCmAbdw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/6I6kg0VEqUCS/QBkaLNtudnhts2qsdRGOYu4/Wl90K16M+s8
-	w5p44JKTZn5WYK63xkNojTHJV4sXfUbdyqvM4WmGFyh1R5GuF2IvFcEF
-X-Gm-Gg: AYBFou2UjQJDZcakQ8nKETh8SpDmUFWnrv8+zyDx8mT+9VrVOnEXMGCOtk4Xe23IQRe
-	tL3UsjJa89VEoUSQcwobWbJE3MntnFQ2Yis1ndiqLsMqckbmktto4+tEMhQKJ6zZC5INT3iPdz6
-	GNplrk0CFafSh2yNne8/Gpkoix9iBP0oz8+hh6G14jncEZl+Vrc0SLWWQKjOexTeBINZM9z6b2q
-	lBJlcwAPzeLrgQv0VFP6V5JnKYAozbnTPPZeEfh4zOsBdPUXUs2O79DNg7bxYnOw5tLoILvHWsE
-	lO7L/olyiBcvHY6Mf7IxTJic5R/DEaYSxsjX+Oi6OaQQgciZnNvf6DK56zXkdnbUN5XEcb9iczg
-	VV1mmI6vNibZZ291hJHaj/REmIdARJr1mqIopGQyxh74urMAUn/mwdh32ZxhX8ZTzub4we6dsqC
-	AJRUKgmobFH3O2nPxYyVNuU/BJWN5mB097bT3pFIe5DY8Kq5wBC1+DkBE=
-X-Received: by 2002:a17:90b:574b:b0:3ac:9717:afd1 with SMTP id 98e67ed59e1d1-3acef589989mr1825660a91.63.1792226199581;
-        Sat, 17 Oct 2026 01:36:39 -0700 (PDT)
-Received: from Linux-PC ([2a09:bac5:1f0f:3141::4e8:8])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9461d71esm12548544a91.7.2026.10.17.01.36.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 01:36:38 -0700 (PDT)
-From: tianshi12127 <tianshi12127@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	dri-devel@lists.freedesktop.org
-Cc: Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Lu Chen <tianshi12127@gmail.com>
-Subject: [PATCH 2/3] dt-bindings: display: panel: add Smartisan TD4362
-Date: Sat, 17 Oct 2026 16:35:30 +0800
-Message-ID: <20261017083531.766557-3-tianshi12127@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261017083531.766557-1-tianshi12127@gmail.com>
-References: <20261017083531.766557-1-tianshi12127@gmail.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Dc2HkLmZ"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4j6FXQ0pgcz8t2h;
+	Sat, 17 Oct 2026 10:36:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792226198;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=daD3WZTzmfa4KXrJR0YhoGudN1Nbz0tk7iqpRXDolW0=;
+	b=Dc2HkLmZUEX3jqyRHuvtVm5AB1f9xOguV/lBqT3hQMxeFhxoUQjObGYfhcBFI96gpaaq3I
+	dpCv26hfqDcV14U/hRPNyIlUaOiLRMv1EBnMWhHDnVZqZJJ25TRQStQXeQQcUUvlZiW4or
+	TxMnv21HtuoGkcBnLmCp4wP1zkrPlKvsDRKfkNZjuaCtZUl1wrFlg7TnLI6Tm6t1LGyd5J
+	eAns+A86qi+NyaPvsx+CowrB/CWsQjD3ZjwXm9+mSsuk7VPq2P0IFPG1KJfRZ/VbupYuu/
+	/KVSL0wZlhI674swou5UZPy/dHLjbV31mZuGmXMjkj3fnzERX7dMnjwg8W/4PA==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+To: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] Docs/admin-guide/mm/damon/lru_sort: fix grammar and stlye
+Date: Sat, 17 Oct 2026 10:35:34 +0200
+Message-ID: <20261017083535.1261388-2-manuelebnerli@mailbox.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,99 +61,200 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 5d8c7knged71kbud9uke1omjmz5jwanr
+X-MBO-RS-ID: 1717f57581f65708ba3
 
-From: Lu Chen <tianshi12127@gmail.com>
+Fix tenses. Split long sentences thereby imporove readability.  Replace
+'set as' with 'set to'. Replace [] with () to make the file uniform.
 
-Document the Smartisan TD4362, a 1080x2242 command mode panel
-found in the Smartisan R1 (trident) smartphone.
-
-Signed-off-by: Lu Chen <tianshi12127@gmail.com>
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+Reviewed-by: SJ Park <sj@kernel.org>
 ---
- .../display/panel/smartisan,td4362.yaml       | 75 +++++++++++++++++++
- 1 file changed, 75 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
+SJ, could you please replace 38b3709936fa ([v2] 'mm/damon/lru_sort: fix
+grammar and stlye') with this patch? I messed up the path in the subject line.
+Thanks
+ Manuel
 
-diff --git a/Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml b/Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
-new file mode 100644
-index 000000000000..a46bc2f53030
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
-@@ -0,0 +1,75 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/smartisan,td4362.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Smartisan TD4362 MIPI-DSI panel
-+
-+maintainers:
-+  - Lu Chen <tianshi12127@gmail.com>
-+
-+description:
-+  The Smartisan TD4362 is a 1080x2242 command mode panel found in the
-+  Smartisan R1 (trident) smartphone.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: smartisan,td4362
-+
-+  reg:
-+    maxItems: 1
-+
-+  vddio-supply:
-+    description: I/O voltage rail
-+
-+  lab-supply:
-+    description: Positive source voltage rail
-+
-+  ibb-supply:
-+    description: Negative source voltage rail
-+
-+  reset-gpios:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - vddio-supply
-+  - lab-supply
-+  - ibb-supply
-+  - reset-gpios
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "smartisan,td4362";
-+            reg = <0>;
-+            vddio-supply = <&vreg_l14a_1p88>;
-+            lab-supply = <&lab>;
-+            ibb-supply = <&ibb>;
-+            reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
-+            backlight = <&backlight>;
-+
-+            port {
-+                panel_in: endpoint {
-+                    remote-endpoint = <&dsi_out>;
-+                };
-+            };
-+        };
-+    };
-+
-+...
+[v3]
+ Split long line
+ Fix path in subject / One-line summary
+
+[v2]
+ https://lore.kernel.org/20261015072947.802821-2-manuelebnerli@mailbox.org
+ Collect R-b: from SJ.
+
+[v1]
+ https://lore.kernel.org/20261013191327.663331-2-manuelebnerli@mailbox.org
+ Wordsmith commit message.
+ Fixup a few trivial wording.
+
+
+ .../admin-guide/mm/damon/lru_sort.rst         | 61 +++++++++----------
+ 1 file changed, 30 insertions(+), 31 deletions(-)
+
+diff --git a/Documentation/admin-guide/mm/damon/lru_sort.rst b/Documentation/admin-guide/mm/damon/lru_sort.rst
+index 0c04d238ed..aa4cc90ca5 100644
+--- a/Documentation/admin-guide/mm/damon/lru_sort.rst
++++ b/Documentation/admin-guide/mm/damon/lru_sort.rst
+@@ -5,20 +5,19 @@ DAMON-based LRU-lists Sorting
+ =============================
+ 
+ DAMON-based LRU-lists Sorting (DAMON_LRU_SORT) is a static kernel module that
+-aimed to be used for proactive and lightweight data access pattern based
++aims to be used for proactive and lightweight data access pattern based
+ (de)prioritization of pages on their LRU-lists for making LRU-lists a more
+ trustworthy data access pattern source.
+ 
+ Where Proactive LRU-lists Sorting is Required?
+ ==============================================
+ 
+-As page-granularity access checking overhead could be significant on huge
+-systems, LRU lists are normally not proactively sorted but partially and
+-reactively sorted for special events including specific user requests, system
+-calls and memory pressure.  As a result, LRU lists are sometimes not so
+-perfectly prepared to be used as a trustworthy access pattern source for some
+-situations including reclamation target pages selection under sudden memory
+-pressure.
++As page-granularity access checking overhead could be significant on huge systems,
++LRU lists are normally not fully nor proactively sorted but rather partially
++and reactively sorted for special events.  These events include specific user requests,
++system calls and memory pressure.  As a result, LRU lists are sometimes not
++suitable to be used as a trustworthy access pattern source.  These situations
++including reclamation target page selection under sudden memory pressure.
+ 
+ Because DAMON can identify access patterns of best-effort accuracy while
+ inducing only user-specified range of overhead, proactively running
+@@ -28,9 +27,9 @@ pattern source with low and controlled overhead.
+ How It Works?
+ =============
+ 
+-DAMON_LRU_SORT finds hot pages (pages of memory regions that showing access
+-rates that higher than a user-specified threshold) and cold pages (pages of
+-memory regions that showing no access for a time that longer than a
++DAMON_LRU_SORT finds hot pages (pages of memory regions that show access
++rates that are higher than a user-specified threshold) and cold pages (pages of
++memory regions that show no access for a duration that is longer than a
+ user-specified threshold) using DAMON, and prioritizes hot pages while
+ deprioritizing cold pages on their LRU-lists.  To avoid it consuming too much
+ CPU for the prioritizations, a CPU time usage limit can be configured.  Under
+@@ -63,10 +62,10 @@ enabled
+ 
+ Enable or disable DAMON_LRU_SORT.
+ 
+-You can enable DAMON_LRU_SORT by setting the value of this parameter as ``Y``.
+-Setting it as ``N`` disables DAMON_LRU_SORT.  Note that DAMON_LRU_SORT could do
++You can enable DAMON_LRU_SORT by setting the value of this parameter to ``Y``.
++Setting it to ``N`` disables DAMON_LRU_SORT.  Note that DAMON_LRU_SORT could do
+ no real monitoring and LRU-lists sorting due to the watermarks-based activation
+-condition.  Refer to below descriptions for the watermarks parameter for this.
++condition.  Refer to below descriptions of the watermarks parameter for this.
+ 
+ commit_inputs
+ -------------
+@@ -74,9 +73,9 @@ commit_inputs
+ Make DAMON_LRU_SORT reads the input parameters again, except ``enabled``.
+ 
+ Input parameters that updated while DAMON_LRU_SORT is running are not applied
+-by default.  Once this parameter is set as ``Y``, DAMON_LRU_SORT reads values
++by default.  Once this parameter is set to ``Y``, DAMON_LRU_SORT reads values
+ of parameters except ``enabled`` again.  Once the re-reading is done, this
+-parameter is set as ``N``.  If invalid parameters are found while the
++parameter is set to ``N``.  If invalid parameters are found while the
+ re-reading, DAMON_LRU_SORT will be disabled.
+ 
+ Once ``Y`` is written to this parameter, the user must not write to any
+@@ -86,37 +85,37 @@ violate this rule, the kernel may exhibit undefined behavior.
+ active_mem_bp
+ -------------
+ 
+-Desired active to [in]active memory ratio in bp (1/10,000).
++Desired active to (in)active memory ratio in bp (1/10,000).
+ 
+ While keeping the caps that set by other quotas, DAMON_LRU_SORT automatically
+ increases and decreases the effective level of the quota aiming the LRU
+-[de]prioritizations of the hot and cold memory resulting in this active to
+-[in]active memory ratio.  Value zero means disabling this auto-tuning feature.
++(de)prioritizations of the hot and cold memory resulting in this active to
++(in)active memory ratio.  Value zero means disabling this auto-tuning feature.
+ 
+ Disabled by default.
+ 
+ autotune_monitoring_intervals
+ -----------------------------
+ 
+-If this parameter is set as ``Y``, DAMON_LRU_SORT automatically tunes DAMON's
++If this parameter is set to ``Y``, DAMON_LRU_SORT automatically tunes DAMON's
+ sampling and aggregation intervals.  The auto-tuning aims to capture meaningful
+ amount of access events in each DAMON-snapshot, while keeping the sampling
+-interval 5 milliseconds in minimum, and 10 seconds in maximum.  Setting this as
+-``N`` disables the auto-tuning.
++interval to 5 milliseconds in minimum, and to 10 seconds in maximum.  Setting this
++to ``N`` disables the auto-tuning.
+ 
+ Disabled by default.
+ 
+ filter_young_pages
+ ------------------
+ 
+-Filter [non-]young pages accordingly for LRU [de]prioritizations.
++Filter (non-)young pages accordingly for LRU (de)prioritizations.
+ 
+ If this is set, check page level access (youngness) once again before each
+-LRU [de]prioritization operation.  LRU prioritization operation is skipped
++LRU (de)prioritization operation.  LRU prioritization operation is skipped
+ if the page has not accessed since the last check (not young).  LRU
+ deprioritization operation is skipped if the page has accessed since the
+ last check (young).  The feature is enabled or disabled if this parameter is
+-set as ``Y`` or ``N``, respectively.
++set to ``Y`` or ``N``, respectively.
+ 
+ Disabled by default.
+ 
+@@ -235,7 +234,7 @@ max_nr_regions
+ Maximum number of monitoring regions.
+ 
+ The maximum number of monitoring regions of DAMON for the cold memory
+-monitoring.  This can be used to set upper-bound of the monitoring overhead.
++monitoring.  This can be used to set the upper-bound of the monitoring overhead.
+ However, setting this too low could result in bad monitoring quality.  Please
+ refer to the DAMON documentation (:doc:`usage`) for more detail.  1000 by
+ defaults.
+@@ -268,7 +267,7 @@ This parameter is for setting and getting the :ref:`address unit
+ 
+ ``monitor_region_start`` and ``monitor_region_end`` should be provided in this
+ unit.  For example, let's suppose ``addr_unit``, ``monitor_region_start`` and
+-``monitor_region_end`` are set as ``1024``, ``0`` and ``10``, respectively.
++``monitor_region_end`` are set to ``1024``, ``0`` and ``10``, respectively.
+ Then DAMON_LRU_SORT will work for 10 KiB length of physical address range that
+ starts from address zero (``[0 * 1024, 10 * 1024)`` in bytes).
+ 
+@@ -291,22 +290,22 @@ If DAMON_LRU_SORT is enabled, this becomes the PID of the worker thread.  Else,
+ nr_lru_sort_tried_hot_regions
+ -----------------------------
+ 
+-Number of hot memory regions that tried to be LRU-sorted.
++Number of hot memory regions that were tried to be LRU-sorted.
+ 
+ bytes_lru_sort_tried_hot_regions
+ --------------------------------
+ 
+-Total bytes of hot memory regions that tried to be LRU-sorted.
++Total bytes of hot memory regions that were tried to be LRU-sorted.
+ 
+ nr_lru_sorted_hot_regions
+ -------------------------
+ 
+-Number of hot memory regions that successfully be LRU-sorted.
++Number of hot memory regions that were successfully LRU-sorted.
+ 
+ bytes_lru_sorted_hot_regions
+ ----------------------------
+ 
+-Total bytes of hot memory regions that successfully be LRU-sorted.
++Total bytes of hot memory regions that were successfully LRU-sorted.
+ 
+ nr_hot_quota_exceeds
+ --------------------
 -- 
-2.56.0
+2.55.0
 
