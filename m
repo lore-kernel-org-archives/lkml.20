@@ -1,48 +1,75 @@
-Received: from r3-18.sinamail.sina.com.cn (r3-18.sinamail.sina.com.cn [202.108.3.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60403BD62F
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:42:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B8E35AC0C
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:45:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792212173; cv=none; b=sJZZIwcdSjBm/CjTHtJdUbzBjXx18zvNycCtV54YHdSXI/HSEpBBhln8JdqorPrDU8c3A4z4mEZGeCsTqJTMQCwRH0gGiojnZSmHvJYKEktIzqCBVtPkSHxISi720XX7qFbDJ3QJMuMGb09SvHehORX728Xg4FzFoL4QGbAzSS8=
+	t=1792212348; cv=none; b=kKcs5YTZ015yYUXoEgoYAfCHTBipWj4wJBpQWqVL87Fl1Z7QyVfc+HtDjT1LQs8jGE2j8zRxIXEfODGKQUXy5e/9hsvZCMJKBoclnUsELCKxUCWwOigNCj36PsM1bGOWSNwqgBcbQ3IOG4Ej0U2SorzLSAgcTHfEU9wPjtdZKNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792212173; c=relaxed/simple;
-	bh=CYDCMU7y2puuqhcG+SdwZOwH6UbYA/lZgXO+t+RBfaU=;
+	s=arc-20240116; t=1792212348; c=relaxed/simple;
+	bh=muCKNnWoqVy1ZH4pwYiVJW5Wll4x8vXLppsXL20sbj4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EusRUHfFgTt4cFm6/4zCIMTrf+iIg3gH02QlpDowEsuqJyLVtfKJnxphKlCYoa5Z1yp457AnBuEl0T2iAvwc7j8smaiDEvPbHNQAbzJ3VlOSGsY6BT6GgZJRgH/1QKLKWMp+c5MUin9WcDq4J8V8vrqmSrspImxJidzLmRFEG8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=QqS55tRj; arc=none smtp.client-ip=202.108.3.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	 MIME-Version; b=OtN0tNMNfN1cKj56BH84MYmsQu74PyOVMD0p5wIhV0R25gJvc6PwoxjT61fWnChsUPbyfKwmNEJ2FqVsPoQjLoTFvEmz7LnHSq8W+EyvOQi1oLngcH64TzTo4R/kzW85qOjI/OoaiDMQQLKi+oK2eh6DsE/dnhJo1CdYylF2ooE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XmE4RL+7; arc=none smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="QqS55tRj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792212169;
-	bh=BskqoNCi93425CRRKEPt9taK65QKIHdz1n3pwAuDSUc=;
-	h=From:Subject:Date:Message-ID;
-	b=QqS55tRjT983RFyIy4Mn73j9e/1VsECpcwJMVSu5YELuqS0a6JLtw3poat5yNEj8c
-	 P4vl0KxMIZJItka0oD8ViPUJOEzqEkBDrbrf7C40DkcmOuZ75e5Uj1skjwE04Qnia6
-	 bKTFVF9phBzEYrOtpX6Xl1l6wk1qM2cN/6Fz2DxQ=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.254.3.93])
-	by sina.com (10.54.253.32) with ESMTP
-	id 6AD2FC970000445F; Sat, 17 Oct 2026 12:42:03 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 1458214456967
-X-SMAIL-UIID: 8B8CC8C79CA74C83ACB32DF89A91ABBD-20261017-124203-1
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [nvme?] BUG: corrupted list in nvmet_fc_remove_port
-Date: Sat, 17 Oct 2026 12:41:48 +0800
-Message-ID: <20261017044149.584-1-hdanton@sina.com>
-In-Reply-To: <6acbc835.a150a118.27e199.003c.GAE@google.com>
-References: 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XmE4RL+7"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35b2c599f43so1131386eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:45:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792212347; x=1792817147; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=muCKNnWoqVy1ZH4pwYiVJW5Wll4x8vXLppsXL20sbj4=;
+        b=XmE4RL+7W+7IvRz+92HIkEj1wHBzTDcSK3XxSNPdbbMwDEsIlxounfzfsAud/ZN/ZM
+         DETXp5YTsPIvRsqoILXXGheZxdA/SpvZUpoiM0CeVlYCoe+jOZS1ERChSCHbCnmjGACe
+         FORqYyQfalqbPFFzJc133uxFrE8xXgQnqilSByrwjD4FZ+9pWCnNMu0ojeicKBs17vGm
+         Bqd6pZP6dFpGB6jWYWx2Ri8j7vLW1sMl4O5ul6Qqg/t8xH/La+hRooLH88w+mOTCvy2Y
+         n+Fta5FC3qdLtcgUtQK/wpabWMQvdXCLyjY9bWhgl8p3YPJGCI60fMIgcWgVzQc2b3dx
+         kbGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792212347; x=1792817147;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=muCKNnWoqVy1ZH4pwYiVJW5Wll4x8vXLppsXL20sbj4=;
+        b=beqEAA3I+H3KeqwczfzuArY5SNcEyogmq5EdUOG/CY7QWdnKUugwXNIGWySKAts+uG
+         E3PXM/OFsJAvefuR+yYkXhj8egR/IhWw9JggLkjciJoz8+4ujVAU4bymL/Z9zjvJX1Ks
+         2PLREut1uH5Hr4Bxt24subZEqPfq8FQv3Fsut9UIWYxIVbTzdxoHXnhFNHRkbMUVc9xQ
+         GMX8EYK0g2NShlcgNZLqr2O0FD9ua4luZXH+Z6BBC6S9sGuZtVH8XC/WV9vo5bVSRCRa
+         MoGpBy1oKn+l8JG3b3kfOlsDpUSDjbaS5i5C/bi7+bCrsU/gVuhAbAdUJQNBKJb25Fq1
+         c7Wg==
+X-Forwarded-Encrypted: i=1; AKwUvBzDqGAmHaZ8Ontu3KwCU3RavVs8bPB4Ahx4ZjXLeInJwYSSv+eWUS37mp4XrgHfm0CeCgmgQFwkPSosrpY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2cS5p6SXTkqqcStiHQyOmpz+JeUDchWk90Mieb9pUuX4EHZ3I
+	1VEMeeXjxya3j0tEIkCV+Txrkf3m5KMQABELzJai7WLpji+GWMXnBWzI
+X-Gm-Gg: AYBFou33anv5rKyX4AaMIS2dtfFYyGtbxeKi/G45Wolvs9MAxebrYqBiliNRurUnK98
+	heHXF9HYImD2T2Gs0HENO+HQYKt+eMaTuYb8UBUfkYuZfsZNNcsLe5yRsN1bZkh/G1aHLHtoNki
+	UjvMdU8OHpAndGgIvp1P+CmrkcYf0NtPUq8OQj5bVpnC3U6kbEMpl/A3GlPnG52csLCiM7m7BqF
+	dmDFz217Zt2frId6qTbmgRzYbQq3KkyAxzYwYqSm2gWrMnbnrX25f8VbWGk8ZXHP47kZxdh7kYs
+	Cx+A6d2W4pKd4MdszDzyJOciEYedvY2mlTiCsIraabU+d5KUozmA1maFUO1PjYHWe1WZVc3b5Z1
+	KFEPtXp/Rg1r18BUsmYjeWA9DbQSYFwBNyNrqaZvtD3fS33Ht71IAVPlvLeEK32wL1N8QBbbS6K
+	EbDB2L10QWNtA6XG83CVr4ecEyHyQfg0qWfbSPX4g3y0QombZmFH4bcbI/fvl28GYS/noYeJ75k
+	596ccq3qngYUifyFzkKLyBvF9001WiuC2mi4U2EvXN1qcaqGR1AnO3yJlDiiA==
+X-Received: by 2002:a05:7300:768c:b0:35e:a117:8fd8 with SMTP id 5a478bee46e88-361a18603d7mr3479430eec.17.1792212346779;
+        Fri, 16 Oct 2026 21:45:46 -0700 (PDT)
+Received: from samaritan.sole-larch.ts.net ([38.78.160.29])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608308a87csm18561568eec.28.2026.10.16.21.45.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 21:45:46 -0700 (PDT)
+From: iuseacosbtw@gmail.com
+To: mohd.sohail.biz@gmail.com
+Cc: gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: Re: [PATCH] staging: rtl8723bs: remove comparisons to true/false in rtw_mlme_ext.c
+Date: Fri, 16 Oct 2026 21:45:11 -0700
+Message-ID: <20261017044545.251639-1-iuseacosbtw@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261007162114.138541-1-mohd.sohail.biz@gmail.com>
+References: <20261007162114.138541-1-mohd.sohail.biz@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,39 +78,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Date: Sun, 11 Oct 2026 10:32:37 -0700	[thread overview]
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    a5ebb76233b7 Merge tag 'edac_urgent_for_v7.3_rc7' of git:/..
-> git tree:       upstream
-> console+strace: https://syzkaller.appspot.com/x/log.txt?x=1494923e580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=df4bbab1c2172b9f
-> dashboard link: https://syzkaller.appspot.com/bug?extid=c98b21427617af7f547a
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=126a0f15580000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=166a0f15580000
+The staging/rtl8723bs driver is being deprecated and removed, so patches
+to it might no longer be accepted. This is according to Luka Gejak, the
+maintainer of the rtl8723bs driver.
 
-#syz test
-
---- x/drivers/nvme/target/fc.c
-+++ y/drivers/nvme/target/fc.c
-@@ -1271,9 +1271,17 @@ nvmet_fc_portentry_bind(struct nvmet_fc_
- static void
- nvmet_fc_portentry_unbind(struct nvmet_fc_port_entry *pe)
- {
-+	struct nvmet_fc_port_entry *entry;
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
-+	list_for_each_entry(entry, &nvmet_fc_portentry_list, pe_list) {
-+		if (entry == pe)
-+			goto out;
-+	}
-+	spin_unlock_irqrestore(&nvmet_fc_tgtlock, flags);
-+	return;
-+out:
- 	if (pe->tgtport) {
- 		nvmet_fc_tgtport_put(pe->tgtport);
- 		pe->tgtport->pe = NULL;
---
+I found one of his messages here:
+https://lore.kernel.org/linux-staging/5d577cb1b4a91e8cdfda171bc7100105ae90d91e@linux.dev/
