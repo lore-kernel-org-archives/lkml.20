@@ -1,332 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp2.iinet.com (smtp2.iinet.com [52.129.46.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC4D34EEF3;
-	Sat, 17 Oct 2026 15:56:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A7838DC44;
+	Sat, 17 Oct 2026 15:56:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.129.46.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792252576; cv=none; b=oM+iPgjHSAGryL5ctRa0UzLz5r3swMW7x3q09dyY/2s4t45ICl4gxJSYv+cd+oQPJmBtQyszAcNGf1wQFEO298cIJ4YwUxVc+0qdgV1tA8ERuDtNwT0FIxT0XwTNfN3+VJSd8QR5BjVxHtJKfv+aYUluoIJq/7ZwAouy0YK1BXU=
+	t=1792252580; cv=none; b=mbE/y1PA0IjiS+y+jMwTeGXZ+dTZLa+zKmtEEolZMRde19choxTWkJ0DQABpqYsePuE/fydvFcfjp0B8dRQczRlMb33mJRCFvL1A6ZsdFeA/hTPHlfkkHUjwFMjOhKmfRZSiBKcPHfxPDHlvgl7TCi63Uc0GzIiaixBhMO38PUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792252576; c=relaxed/simple;
-	bh=RjNMlg2IO7dnkjshfCv/58OuvCALFUNDpcpvFDqEZn4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=S0g0asDuFrQi1vT858x9B8JviEYvXm8vT2zK48Q7PPkZf8bGLmqBETC733AIyyTR1uAlUDlyuKJJSHtwjfIlZUn2nCvEAXLiU18FRTUZUY3Ox00bGCDbfPIPqyvdOjfBaanISmFj6BAE3TTA1mkTMhwzXysq0+HXxOK6VTn+1Es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ub4P5jd9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792252580; c=relaxed/simple;
+	bh=8p2lca59Kr/sPXCKE0RC6oNDFhBqdb/jXD9F09ecVvs=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=UATTaM2UKEgdl46xhIbpdfRKK2y6nxRpgNAu8MX7DnVRJnodW2GBE9QyxCSdWTxwoWV1iEe9QshVE9GRyId13Tz0aR17AXc9/oF02dqbhuKZmXXArLNBvVzdyq5t/TV/PFJ9fvA95sxAL+KUsZc/yJ1Avq9DTyncovmsiSeSKNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nwlink.com; spf=pass smtp.mailfrom=nwlink.com; dkim=pass (2048-bit key) header.d=nwlink.com header.i=@nwlink.com header.b=XAwKO+Zv; arc=none smtp.client-ip=52.129.46.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nwlink.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nwlink.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ub4P5jd9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 615941F000C4;
-	Sat, 17 Oct 2026 15:56:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792252574;
-	bh=2XOJvniou8r0h52hRCQ7CYGc/YiASAB4UTfI51FTZmc=;
-	h=From:To:Cc:Subject:Date;
-	b=ub4P5jd9d44UTMBBYItXFBFj214eVre0slzTctnJF8nKJ2NxcrWICOHBDguEmMhya
-	 nUDDvh0EK/cK88Xpt102QVm/0Ry6Gq7kgI7vCagez/sYe8GR/kv7cWrKmQpVuAEHUa
-	 CyARBQz2UnKH1OjOJuK+JPd19a1j6fClW2D9ZIz4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	jonathanh@nvidia.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com
-Subject: [PATCH 6.18 00/52] 6.18.58-rc1 review
-Date: Sat, 17 Oct 2026 17:54:01 +0200
-Message-ID: <20261017155104.830766652@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=nwlink.com header.i=@nwlink.com header.b="XAwKO+Zv"
+Received: from webmail.iinet.com (web1.iinet.com [52.129.46.51])
+	(Authenticated sender: kaf@nwlink.com)
+	by smtp2.iinet.com (Postfix) with ESMTPA id F4024B42BD1;
+	Sat, 17 Oct 2026 08:56:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nwlink.com; s=mail;
+	t=1792252578; bh=wOC3z8d3unpvQdUfL2bvr+OorEHjTzNQZKSBDptrq6I=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=XAwKO+ZvEyUqx00zvjmuaTE/L9dRem0ramAaHSewGTTBAzjCD1A+fEG8pR4XFg4Dm
+	 gUJY8aXJ43X5SOn1D0iVJj0pu/g9Jy/JF2aAyAR+ORSAykMZQ2VKylEczL9aJXPJ8D
+	 BUGyrH7162eWdGVa42ZU9XxmFza+eiRzzFH/Z8J7HcEyF8SXGquOOZWV6T3Wx53pow
+	 znAbaT33WQAGu89m/spHLSHFidV9PJu0DvNw9OOGec2h2On7EmTMB6hdI1fVEErsrd
+	 DSUeLBfVDkTSRkjazJQZ4l9T3A3CNv+NXBYiWVEU2KSl7YFRO4fLHCTJdL6PtNnvZA
+	 f5L9gR6Y2wVhw==
+Received: from c-98-203-133-45.hsd1.wa.comcast.net ([98.203.133.45])
+ by webmail.iinet.com
+ with HTTP (HTTP/1.1 POST); Sat, 17 Oct 2026 08:56:15 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
-X-KernelTest-Patch: http://kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.58-rc1.gz
-X-KernelTest-Tree: git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-X-KernelTest-Branch: linux-6.18.y
-X-KernelTest-Patches: git://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git
-X-KernelTest-Version: 6.18.58-rc1
-X-KernelTest-Deadline: 2026-10-19T15:51+00:00
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-This is the start of the stable review cycle for the 6.18.58 release.
-There are 52 patches in this series, all will be posted as a response
-to this one.  If anyone has any issues with these being applied, please
-let me know.
-
-Responses should be made by Mon, 19 Oct 2026 15:50:51 +0000.
-Anything received after that time might be too late.
-
-The whole patch series can be found in one patch at:
-	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.58-rc1.gz
-or in the git tree and branch at:
-	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-and the diffstat can be found below.
-
-thanks,
-
-greg k-h
-
--------------
-Pseudo-Shortlog of commits:
-
-Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-    Linux 6.18.58-rc1
-
-Toke Høiland-Jørgensen <toke@toke.dk>
-    wifi: atk9k: Revert "wifi: ath9k: reject short WMI command responses"
-
-Mattia Meleleo <mattia.meleleo@coralogix.com>
-    bpf, sockmap: Account for receive queue in FIONREAD without a verdict program
-
-Pratyush Yadav <pratyush@kernel.org>
-    kho: free chunks using free_page() instead of kfree()
-
-Jens Axboe <axboe@kernel.dk>
-    io_uring/kbuf: don't charge provided buffer rings to RLIMIT_MEMLOCK
-
-Hengyu Liang <hengyul@cs.unc.edu>
-    io_uring: do not charge the SQ/CQ rings to RLIMIT_MEMLOCK
-
-Bernard Pidoux <bernard.f6bvp@gmail.com>
-    rose: hold a reference on incoming sockets queued for accept()
-
-Alexander Lobakin <aleksander.lobakin@intel.com>
-    ice: fix broken Rx on VFs
-
-Johan Hovold <johan@kernel.org>
-    USB: iowarrior: fix use-after-free on disconnect race
-
-Oliver Neukum <oneukum@suse.com>
-    usb: iowarrior: remove inherent race with minor number
-
-Stephen Smalley <stephen.smalley.work@gmail.com>
-    selinux: allow multiple opens of /sys/fs/selinux/policy
-
-SeongJae Park <sj@kernel.org>
-    mm/damon/core: fix damos_walk() vs kdamond_fn() exit race
-
-SeongJae Park <sj@kernel.org>
-    mm/damon/core: cancel damos_walk() before damon_ctx->kdamond reset
-
-Long Li <leo.lilong@huawei.com>
-    xfs: close crash window in attr dabtree inactivation
-
-Long Li <leo.lilong@huawei.com>
-    xfs: factor out xfs_attr3_leaf_init
-
-Long Li <leo.lilong@huawei.com>
-    xfs: factor out xfs_attr3_node_entry_remove
-
-Larysa Zaremba <larysa.zaremba@intel.com>
-    ice: change XDP RxQ frag_size from DMA write length to xdp.frame_sz
-
-Larysa Zaremba <larysa.zaremba@intel.com>
-    ice: fix rxq info registering in mbuf packets
-
-Michal Schmidt <mschmidt@redhat.com>
-    ice: fix crash in ethtool offline loopback test
-
-Michal Kubiak <michal.kubiak@intel.com>
-    ice: drop page splitting and recycling
-
-Michal Kubiak <michal.kubiak@intel.com>
-    ice: remove legacy Rx and construct SKB
-
-Chris J Arges <carges@cloudflare.com>
-    ima: Fix stack-out-of-bounds in is_bprm_creds_for_exec()
-
-Coiby Xu <coxu@redhat.com>
-    ima: Access decompressed kernel module to verify appended signature
-
-Matteo Croce <technoboy85@gmail.com>
-    fat: stop reading directory entries past the end-of-directory marker
-
-Frank Sorenson <sorenson@redhat.com>
-    cifs: fix time_last_write stamp placement in setattr/truncate paths
-
-Fan Wu <fanwu01@zju.edu.cn>
-    drm/xe/i2c: cancel the client work on remove
-
-Stanley Jhu <stanleyjhu@google.com>
-    scsi: ufs: core: Avoid unsafe MMIO reads in ufshcd_mcq_compl_all_cqes_lock()
-
-Bart Van Assche <bvanassche@acm.org>
-    scsi: ufs: core: Add a comment block above ufshcd_mcq_compl_all_cqes_lock()
-
-Peter Wang <peter.wang@mediatek.com>
-    scsi: ufs: core: Add debug log for MCQ command timeout
-
-Bart Van Assche <bvanassche@acm.org>
-    scsi: ufs: core: Move an assignment in ufshcd_mcq_process_cqe()
-
-Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
-    scsi: ch: Do not keep references to data transfer element devices
-
-Stanley Jhu <stanleyjhu@google.com>
-    scsi: ufs: core: Decouple CQ sweep from request iterator in MCQ
-
-Wei-Jie Hung <imbigking12@gmail.com>
-    riscv: patch: fix handling of bpf-jit execmem addresses
-
-Vivian Wang <wangruikang@iscas.ac.cn>
-    riscv: patch: Avoid early phys_to_page()
-
-Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-    net: mana: reserve RX buffer headroom to fix forwarding performance
-
-Suraj Gupta <suraj.gupta2@amd.com>
-    net: xilinx: axienet: Free outstanding DMA buffers on dmaengine stop
-
-Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-    Bluetooth: RFCOMM: connect the session socket without rfcomm_mutex
-
-Tejun Heo <tj@kernel.org>
-    sched_ext: Fix CPU hotplug hang when a dying CPU's tasks sit in the BPF scheduler
-
-Mikulas Patocka <mpatocka@redhat.com>
-    dm-integrity: validate the superblock on resume
-
-Mikulas Patocka <mpatocka@redhat.com>
-    dm-integrity: fix NULL pointer dereference when the 'R' flag is used
-
-Sean Wang <sean.wang@mediatek.com>
-    wifi: mt76: connac: tolerate inactive BSS deactivation
-
-Lubos Rendek <l.rendek@proxmox.com>
-    nfsd: fix all-zero stateid in CB_OFFLOAD for async COPY
-
-Lorenzo Stoakes (ARM) <ljs@kernel.org>
-    mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
-
-Lorenzo Stoakes (ARM) <ljs@kernel.org>
-    mm/mremap: fix locked_vm leak by splitting VMA for MREMAP_DONTUNMAP
-
-Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-    iavf: send MAC change request synchronously
-
-Corinna Vinschen <vinschen@redhat.com>
-    iavf: iavf_virtchnl_completion: drop duplicate ether_addr_equal() test
-
-Mario Limonciello <mario.limonciello@amd.com>
-    drm/amd: Create a device link between APU display and XHCI devices
-
-Daehyeon Ko <4ncienth@gmail.com>
-    ip6_gre: remove obsolete ERSPAN PMTU update
-
-Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-    PCI: dwc: Return -EIO from dw_pcie_wait_for_link() if device is not active
-
-Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-    PCI: dwc: Return -ENODEV from dw_pcie_wait_for_link() if device is not found
-
-Cheng Xu <chengyou@linux.alibaba.com>
-    RDMA/erdma: Use IRQ-safe XArray helpers for QP and CQ tables
-
-Ethan Tidmore <ethantidmore06@gmail.com>
-    usb: gadget: f_hid: Add missing error code
-
-Johan Hovold <johan@kernel.org>
-    spi: mpc52xx: clean up interrupt handling
-
-
--------------
-
-Diffstat:
-
- Makefile                                           |   4 +-
- arch/riscv/kernel/patch.c                          |  21 +-
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  12 ++
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |  10 +
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   |  45 ++++
- drivers/gpu/drm/xe/xe_i2c.c                        |   5 +-
- drivers/infiniband/hw/erdma/erdma_main.c           |   4 +-
- drivers/infiniband/hw/erdma/erdma_verbs.c          |  18 +-
- drivers/md/dm-integrity.c                          |  55 +++++
- drivers/net/ethernet/intel/iavf/iavf.h             |  11 +-
- drivers/net/ethernet/intel/iavf/iavf_main.c        |  85 ++++++--
- drivers/net/ethernet/intel/iavf/iavf_virtchnl.c    | 111 ++++++++--
- drivers/net/ethernet/intel/ice/ice.h               |   3 +-
- drivers/net/ethernet/intel/ice/ice_base.c          |  79 ++-----
- drivers/net/ethernet/intel/ice/ice_ethtool.c       |  10 +-
- drivers/net/ethernet/intel/ice/ice_lib.c           |  15 +-
- drivers/net/ethernet/intel/ice/ice_main.c          |  11 +-
- drivers/net/ethernet/intel/ice/ice_txrx.c          | 233 ++-------------------
- drivers/net/ethernet/intel/ice/ice_txrx.h          |  88 --------
- drivers/net/ethernet/intel/ice/ice_xsk.c           |  75 +------
- drivers/net/ethernet/intel/ice/virt/queues.c       |   6 +-
- drivers/net/ethernet/microsoft/mana/mana_bpf.c     |   8 +-
- drivers/net/ethernet/microsoft/mana/mana_en.c      |  26 ++-
- drivers/net/ethernet/xilinx/xilinx_axienet.h       |   7 +-
- drivers/net/ethernet/xilinx/xilinx_axienet_main.c  |  53 ++++-
- drivers/net/wireless/ath/ath9k/wmi.c               |  16 +-
- drivers/net/wireless/ath/ath9k/wmi.h               |   1 -
- .../net/wireless/mediatek/mt76/mt76_connac_mcu.c   |   9 +-
- .../net/wireless/mediatek/mt76/mt76_connac_mcu.h   |  23 ++
- drivers/net/wireless/mediatek/mt76/mt7925/mcu.c    |   6 +-
- drivers/pci/controller/dwc/pcie-designware.c       |  31 ++-
- drivers/scsi/ch.c                                  |  30 +--
- drivers/spi/spi-mpc52xx.c                          |  26 ++-
- drivers/ufs/core/ufs-mcq.c                         |  35 +++-
- drivers/ufs/core/ufshcd.c                          |  37 ++--
- drivers/usb/gadget/function/f_hid.c                |   4 +-
- drivers/usb/misc/iowarrior.c                       |  74 +++----
- fs/fat/dir.c                                       |  44 +++-
- fs/nfsd/nfs4proc.c                                 |   2 +
- fs/smb/client/inode.c                              |  27 ++-
- fs/xfs/libxfs/xfs_attr_leaf.c                      |  22 ++
- fs/xfs/libxfs/xfs_attr_leaf.h                      |   3 +
- fs/xfs/libxfs/xfs_da_btree.c                       |  53 ++++-
- fs/xfs/libxfs/xfs_da_btree.h                       |   2 +
- fs/xfs/xfs_attr_inactive.c                         |  99 +++++----
- include/linux/damon.h                              |   1 +
- include/linux/kernel_read_file.h                   |   1 +
- include/linux/skmsg.h                              |  14 --
- include/net/bluetooth/rfcomm.h                     |   1 +
- include/net/mana/mana.h                            |   4 +-
- io_uring/io_uring.c                                |  12 +-
- io_uring/kbuf.c                                    |   6 +-
- io_uring/memmap.c                                  |  29 ++-
- io_uring/memmap.h                                  |   6 +-
- io_uring/register.c                                |  15 +-
- io_uring/zcrx.c                                    |   4 +-
- kernel/kexec_handover.c                            |   2 +-
- kernel/module/main.c                               |  17 +-
- kernel/sched/ext.c                                 |  29 ++-
- kernel/sched/sched.h                               |   5 +-
- mm/damon/core.c                                    |  24 ++-
- mm/mremap.c                                        |  38 +++-
- mm/vma.c                                           |  21 +-
- mm/vma.h                                           |   7 +-
- net/bluetooth/rfcomm/core.c                        | 134 ++++++++----
- net/ipv4/tcp_bpf.c                                 |  17 +-
- net/ipv6/ip6_gre.c                                 |   7 -
- net/rose/af_rose.c                                 |  44 +++-
- net/rose/rose_timer.c                              |   5 +
- security/integrity/ima/ima.h                       |   6 +-
- security/integrity/ima/ima_appraise.c              |  16 +-
- security/integrity/ima/ima_main.c                  |  30 ++-
- security/integrity/ima/ima_policy.c                |   3 +-
- security/ipe/hooks.c                               |   1 +
- security/selinux/hooks.c                           |   5 +-
- security/selinux/selinuxfs.c                       |  27 +--
- tools/testing/vma/vma.c                            |   4 +-
- 77 files changed, 1160 insertions(+), 914 deletions(-)
-
-
+Date: Sat, 17 Oct 2026 08:56:15 -0700
+From: kaf@nwlink.com
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 0/2 RESEND] usb: gadget: uac2: support explicit channel
+ counts
+In-Reply-To: <2026101742-ouch-sensually-f5a4@gregkh>
+References: <20261016162534.384844-1-kaf@nwlink.com>
+ <2026101742-ouch-sensually-f5a4@gregkh>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <fef8f9aa36c922e846d37e686b38f6c3@nwlink.com>
+X-Sender: kaf@nwlink.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 2026-10-17 01:05, Greg Kroah-Hartman wrote:
+> On Fri, Oct 16, 2026 at 09:25:32AM -0700, Kyle Farrell wrote:
+>> USB Audio Class 2.0 permits up to 255 channels in an audio channel 
+>> cluster
+>> via bNrChannels. Independently, a channel-location bitmap is specified 
+>> via
+>> bmChannelConfig for up to 27 predefined spatial locations. Setting
+>> bmChannelConfig to zero indicates that the channels have no predefined
+>> spatial positions.
+>> 
+>> The current UAC2 gadget driver derives bNrChannels from the number of 
+>> set
+>> bits in bmChannelConfig. Since bmChannelConfig provides 27 predefined
+>> spatial locations this limits playback and capture streams to 27 
+>> channels.
+>> 
+>> This series allows channel counts up to the UAC2 limit of 255 without
+>> requiring predefined spatial channel locations in bmChannelConfig.
+>> Existing ConfigFS channel-mask configuration continues to work 
+>> unchanged.
+>> New optional playback and capture count attributes allow the number of
+>> channels to be specified separately from the channel-location bitmap.
+>> 
+>> The series is split so that the shared u_audio infrastructure is 
+>> updated
+>> first without changing behavior, followed by the UAC2 functional 
+>> change.
+>> 
+>> Patch 1:
+>>   Pass resolved playback and capture channel counts explicitly into
+>>   the UAC1/UAC2 shared u_audio implementation instead of deriving them
+>>   from channel masks.
+>> 
+>> Patch 2:
+>>   Add ConfigFS playback/capture channel-count attributes to the UAC2
+>>   function driver and use them when generating descriptors and stream
+>>   configuration, allowing counts beyond the 27 predefined channel
+>>   locations.
+>> 
+>> Testing
+>> 
+>> Testing was performed using a Raspberry Pi Zero 2 W configured as a 
+>> USB
+>> UAC2 gadget. Streaming and descriptor validation were performed 
+>> against
+>> both Linux and macOS hosts.  Windows hosts were not tested.
+>> 
+>> UAC1
+>>   - Verified playback/capture operation via alsaloop.
+>>   - No descriptor or behavioral changes observed.
+>> 
+>> UAC2
+>>   - Verified legacy channel-mask configuration (1-27 channels).
+>>   - Verified explicit channel-count mode with 2, 28, 61, 62, 96 
+>> channels.
+>>   - Verified invalid channel-count/channel-mask combinations are 
+>> rejected.
+>>   - Verified Feature Unit descriptor size limits at 61/62 channel 
+>> boundary.
+>>   - Verified descriptors including:
+>>       * bNrChannels
+>>       * bmChannelConfig
+>>       * Feature Unit presence and bLength
+>>       * AudioControl wTotalLength
+>>       * endpoint wMaxPacketSize
+>>   - Verified ALSA-reported playback and capture channel counts.
+>>   - Verified streaming using alsaloop.
+>> 
+>> Changes in v2:
+>>   - Edit commit messages for clarity and brevity.
+>>   - Add Assisted-by: LLM attribution.
+>>   - No code changes.
+> 
+> Why was RESEND needed here?  Saying that would be nice.
+> 
+> Also, sashiko points out a number of problems...
+> 
+> thanks,
+> 
+> greg k-h
+
+I resent v2 as both it and v1 had received no review. I should have 
+stated
+that in the cover letter.
+
+I'm reviewing the Sashiko findings and will address relevant issues 
+before
+submitting a revised series.
+
+Thanks,
+Kyle
