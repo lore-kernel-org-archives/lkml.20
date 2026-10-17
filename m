@@ -1,194 +1,296 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC192394797
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD28E3B6C08
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:09:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792206396; cv=none; b=SD7peVIALc96pmGyaHB0E6pAHZmsPJTvZbh4CrC/c794aeMfJUKQ2QQ6eLC9E7UUCkq8gbl9WQcLQ/x5646eXNiX34/gRj64xz23wGoY3+QIj/S6poIYBaime6BfgzIsql/sKQ7MBZepq4JRKMmZbGGVqWYc/UeyowbQx9C0KyM=
+	t=1792206563; cv=none; b=Ajeg2p5Fu7NRiS9EHcTQvyeTtzDlvYEq2YLVouDuggIt05Vx1Y7ZWVwV6flzu5drpZIB1ap34w+1r6BPx5klDdQ83g4Du1xSYM7lcxlSsjfXHzwe9DOgPoUl5nOqMM/bFwkMzkDiMF/V5xNaSteDNGfLnNXRlKLo53UX9E7zA4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792206396; c=relaxed/simple;
-	bh=81eMy943yVZVIFFNAjpeM0YhHLwiQ/z5y0LlABZ36AI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kFxCwSwgJdd1pSWNcArCLFGVy58l1yOjxAlk+LaRMn3wyq/KWdScpUekhTxCwPLWNy5927aSPhCa9htxrnVDiSCbac9sw0graLKejcHF1f2xbbDBs5sboFfcrDq2yXbM5BFWq3aXpBNoB7/UiQjkaqXWd6hvkgdBMuYXizyVKFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xHukW-00HaXh-Vp;
-	Fri, 16 Oct 2026 23:06:21 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Manjong Lee <mj0123.lee@samsung.com>,
-	Jan Kara <jack@suse.cz>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] mm: bdi: reset min_ratio after the sysfs attributes are gone
-Date: Fri, 16 Oct 2026 23:06:20 -0400
-Message-ID: <20261017030620.793108-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1792206563; c=relaxed/simple;
+	bh=qWZscB2I+FYzj/bKFGPuKuzE61mBCR8+wImSbMhOBwk=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Xtcw76H/J7cdLzlixW37fBGthfVpYaFXT+rR7E3h4v2FTGIB/5oKJsysDzbTq9vNJ2EBPbBPu/j6yJlOABpqSE1yqHU5fHXZNz+/x3ln22BznGGoW95JRIZa9dCSV4He8rL7y0hNxOqblSG+9PDPl0vFzMqin7K2ux/UrRpVg+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b37620eb73so1086398b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:09:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792206561; x=1792811361;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JaJZcBIKqUWusrosJzXIs+je6PTOrghJY1sZP6GKQWI=;
+        b=HMRe+KvzBILwaYOr5kYv3Zqg6hnTJlYpeBaSHGHf4Bo/bQ1K08cs5qNlDHulTWKsn/
+         zATmKqSqatnHUfwWBetnR9kdKYtVshC4S1FsFLk+v/xHYMm7Kb3CjAqUw7LdldjjoWO9
+         yZYVnpiJA7S/3WumvWhMMYO5e3BBzb7JLlhmpeKNgmsH9LpGIUF9elqzd5ll1hBKpcR9
+         QTb+35EQWvmzgugzxxhjKoyein7sbQDXDMOlh7Bmdeyt6tS8w1oZPdn6CMNHTrD/O+4S
+         gQYeD3w8CgH6CaT+rIngdXycfrHDVNhT0xnIBZb89SK/xqCc3V+k8AelckrAWGL8Q4YG
+         CFGA==
+X-Forwarded-Encrypted: i=1; AKwUvBwwOIQqpxcovHts7vwoqzBgqWBbGfor+rP6pzkaHThI8+JxpymA35HrsRByPMm9ladYrLbaTDUozS+t/Bg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXJwmw2IMupESfpGm91OkY5tleW7hLY0IWbBkMvZOa5mld1Mol
+	hKrflIeYDtUj/OQhroRh+5N8e7KnSMcA21rKyYohvE/LBwap3ISrd1qh1uqgBb+qNfAj9Mft5Dt
+	Qo36SJuf1ZfR1zngKhosKTEZ59h8m+fLT4GXX1pEm0YgKioyBkDyLwwtuV/Q=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1488:b0:4cb:f21b:6f8e with SMTP id
+ 5614622812f47-53ccfcb392dmr1461275b6e.33.1792206560901; Fri, 16 Oct 2026
+ 20:09:20 -0700 (PDT)
+Date: Fri, 16 Oct 2026 20:09:20 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad2e6e0.6814cce4.34c49f.0026.GAE@google.com>
+Subject: [syzbot] [x25?] possible deadlock in lapb_connect_request
+From: syzbot <syzbot+8328573e4d0514392471@syzkaller.appspotmail.com>
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-x25@vger.kernel.org, 
+	ms@dev.tdt.de, netdev@vger.kernel.org, pabeni@redhat.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-A write to /sys/class/bdi/<dev>/min_ratio (or min_ratio_fine or
-min_bytes) that races with the removal of the device leaves the global
-sum of minimum dirty shares charged for a bdi that no longer exists.
-Until the next reboot, that share of the dirty threshold is withheld
-from every other bdi (__wb_calc_thresh() scales by 100 % minus the
-sum), and a later min_ratio store on any bdi that would push the sum
-to 100 % fails with EINVAL although every bdi reads 0. Root privilege
-is needed for the store; the removal is any del_gendisk() (a disk or
-loop device going away) or the unmount of a filesystem with its own
-bdi. On an x86_64 defconfig kernel (v7.3-rc7), 2000 rounds of
-LOOP_CTL_ADD/LOOP_CTL_REMOVE on one loop device with a second thread
-writing 50 to its min_ratio leak the share on the first round the
-store lands in the window; afterwards `echo 99 > min_ratio` on another
-loop device fails with EINVAL. With the fix the same run keeps the sum
-at 0 and the store succeeds. Affected since v5.16, when the reset in
-bdi_unregister() was added.
+Hello,
 
-bdi_unregister() gives the bdi's share back with bdi_set_min_ratio(bdi,
-0) and only then calls device_unregister(), which removes the sysfs
-attributes. A min_ratio_store() that gets its kernfs active reference
-before the removal runs to completion after the reset:
-__bdi_set_min_ratio() takes bdi_lock, sees bdi->min_ratio == 0, adds
-the new value to bdi_min_ratio and stores it in the bdi, which
-bdi_put() then frees. Nothing gives that share back.
+syzbot found the following issue on:
 
-Move the reset after device_unregister(): once the attributes are gone
-no store can run, and bdi_set_min_ratio() needs nothing from the
-device.
+HEAD commit:    24a19b953e2a Linux 7.3-rc7
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=101e883c580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=129d675874dbf896
+dashboard link: https://syzkaller.appspot.com/bug?extid=8328573e4d0514392471
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-Found while formally verifying bdi_unregister() against the kernel
-binary.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-Fixes: 3c376dfafbf7 ("mm: bdi: initialize bdi_min_ratio when bdi is unregistered")
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/c36b6926be3e/disk-24a19b95.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/413d898eaf27/vmlinux-24a19b95.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ada3e66b70fc/bzImage-24a19b95.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+8328573e4d0514392471@syzkaller.appspotmail.com
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Tainted: G             L     
+------------------------------------------------------
+syz.5.1726/12729 is trying to acquire lock:
+ffff8880793f6dc0 (&lapb->lock){+.-.}-{3:3}, at: spin_lock_bh include/linux/spinlock.h:353 [inline]
+ffff8880793f6dc0 (&lapb->lock){+.-.}-{3:3}, at: lapb_connect_request+0x5e/0x1a0 net/lapb/lapb_iface.c:293
+
+but task is already holding lock:
+ffff88802bd78f00 (&lapbeth->up_lock){+.-.}-{3:3}, at: spin_lock_bh include/linux/spinlock.h:353 [inline]
+ffff88802bd78f00 (&lapbeth->up_lock){+.-.}-{3:3}, at: lapbeth_xmit+0x24/0x250 drivers/net/wan/lapbether.c:191
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #2 (&lapbeth->up_lock){+.-.}-{3:3}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __raw_spin_lock_bh include/linux/spinlock_api_smp.h:182 [inline]
+       _raw_spin_lock_bh+0x33/0x40 kernel/locking/spinlock.c:205
+       spin_lock_bh include/linux/spinlock.h:353 [inline]
+       lapbeth_xmit+0x24/0x250 drivers/net/wan/lapbether.c:191
+       __netdev_start_xmit include/linux/netdevice.h:5432 [inline]
+       netdev_start_xmit include/linux/netdevice.h:5441 [inline]
+       xmit_one net/core/dev.c:3953 [inline]
+       dev_hard_start_xmit+0x121/0x760 net/core/dev.c:3969
+       __dev_queue_xmit+0x1c25/0x4a40 net/core/dev.c:4958
+       dev_queue_xmit include/linux/netdevice.h:3464 [inline]
+       tx+0xc4/0x130 drivers/block/aoe/aoenet.c:62
+       kthread+0x1d8/0x3c0 drivers/block/aoe/aoecmd.c:1241
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #1 (_xmit_X25#2){+.-.}-{3:3}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __raw_spin_lock include/linux/spinlock_api_smp.h:190 [inline]
+       _raw_spin_lock+0x2e/0x40 kernel/locking/spinlock.c:173
+       spin_lock include/linux/spinlock.h:347 [inline]
+       __netif_tx_lock include/linux/netdevice.h:4841 [inline]
+       __dev_queue_xmit+0x1ac6/0x4a40 net/core/dev.c:4952
+       neigh_output include/net/neighbour.h:560 [inline]
+       ip_finish_output2+0x851/0x2400 net/ipv4/ip_output.c:236
+       __ip_finish_output.part.0+0x444/0x6f0 net/ipv4/ip_output.c:314
+       __ip_finish_output net/ipv4/ip_output.c:302 [inline]
+       ip_finish_output net/ipv4/ip_output.c:324 [inline]
+       NF_HOOK_COND include/linux/netfilter.h:314 [inline]
+       ip_output+0x39b/0xc10 net/ipv4/ip_output.c:437
+       dst_output include/net/dst.h:471 [inline]
+       ip_local_out+0x193/0x1f0 net/ipv4/ip_output.c:131
+       iptunnel_xmit+0x722/0xd30 net/ipv4/ip_tunnel_core.c:97
+       ip_tunnel_xmit+0x1b91/0x3210 net/ipv4/ip_tunnel.c:848
+       __gre_xmit+0x91a/0xc90 net/ipv4/ip_gre.c:488
+       gre_tap_xmit+0x44e/0x700 net/ipv4/ip_gre.c:783
+       __netdev_start_xmit include/linux/netdevice.h:5432 [inline]
+       netdev_start_xmit include/linux/netdevice.h:5441 [inline]
+       xmit_one net/core/dev.c:3953 [inline]
+       dev_hard_start_xmit+0x121/0x760 net/core/dev.c:3969
+       sch_direct_xmit+0x1b2/0xc70 net/sched/sch_generic.c:372
+       __dev_xmit_skb net/core/dev.c:4277 [inline]
+       __dev_queue_xmit+0x2812/0x4a40 net/core/dev.c:4916
+       lapb_data_transmit+0x96/0xc0 net/lapb/lapb_iface.c:447
+       lapb_transmit_buffer+0xce/0x3a0 net/lapb/lapb_out.c:149
+       lapb_send_control+0x1ce/0x330 net/lapb/lapb_subr.c:251
+       lapb_establish_data_link+0xeb/0x110 net/lapb/lapb_out.c:163
+       lapb_device_event+0x315/0x580 net/lapb/lapb_iface.c:512
+       notifier_call_chain+0x99/0x3f0 kernel/notifier.c:85
+       call_netdevice_notifiers_info+0xbe/0x110 net/core/dev.c:2275
+       call_netdevice_notifiers_extack net/core/dev.c:2313 [inline]
+       call_netdevice_notifiers net/core/dev.c:2327 [inline]
+       __dev_notify_flags+0x22c/0x4b0 net/core/dev.c:9896
+       netif_change_flags+0x108/0x160 net/core/dev.c:9925
+       dev_change_flags+0xba/0x260 net/core/dev_api.c:68
+       devinet_ioctl+0x110b/0x1f10 net/ipv4/devinet.c:1199
+       inet_ioctl+0x3aa/0x3f0 net/ipv4/af_inet.c:1009
+       sock_do_ioctl+0x118/0x280 net/socket.c:1325
+       sock_ioctl+0x599/0x6b0 net/socket.c:1446
+       vfs_ioctl fs/ioctl.c:51 [inline]
+       __do_sys_ioctl fs/ioctl.c:597 [inline]
+       __se_sys_ioctl fs/ioctl.c:583 [inline]
+       __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (&lapb->lock){+.-.}-{3:3}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __raw_spin_lock_bh include/linux/spinlock_api_smp.h:182 [inline]
+       _raw_spin_lock_bh+0x33/0x40 kernel/locking/spinlock.c:205
+       spin_lock_bh include/linux/spinlock.h:353 [inline]
+       lapb_connect_request+0x5e/0x1a0 net/lapb/lapb_iface.c:293
+       lapbeth_xmit+0x1cb/0x250 drivers/net/wan/lapbether.c:205
+       __netdev_start_xmit include/linux/netdevice.h:5432 [inline]
+       netdev_start_xmit include/linux/netdevice.h:5441 [inline]
+       xmit_one net/core/dev.c:3953 [inline]
+       dev_hard_start_xmit+0x121/0x760 net/core/dev.c:3969
+       __dev_queue_xmit+0x1c25/0x4a40 net/core/dev.c:4958
+       dev_queue_xmit include/linux/netdevice.h:3464 [inline]
+       x25_establish_link+0x16f/0x1d0 net/x25/x25_dev.c:170
+       x25_transmit_link+0x92/0x100 net/x25/x25_link.c:218
+       x25_write_internal+0x522/0xc80 net/x25/x25_subr.c:255
+       x25_connect+0x728/0x1080 net/x25/af_x25.c:810
+       connect_socket net/socket.c:2141 [inline]
+       connect_socket net/socket.c:2131 [inline]
+       __sys_connect_file+0x146/0x1a0 net/socket.c:2166
+       __sys_connect+0x141/0x170 net/socket.c:2183
+       __do_sys_connect net/socket.c:2189 [inline]
+       __se_sys_connect net/socket.c:2186 [inline]
+       __x64_sys_connect+0x72/0xb0 net/socket.c:2186
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  &lapb->lock --> _xmit_X25#2 --> &lapbeth->up_lock
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&lapbeth->up_lock);
+                               lock(_xmit_X25#2);
+                               lock(&lapbeth->up_lock);
+  lock(&lapb->lock);
+
+ *** DEADLOCK ***
+
+locks held by syz.5.1726/12729: 4, last CPU#1:
+ #0: ffff88805f65e260 (sk_lock-AF_X25){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1713 [inline]
+ #0: ffff88805f65e260 (sk_lock-AF_X25){+.+.}-{0:0}, at: x25_connect+0xba/0x1080 net/x25/af_x25.c:751
+ #1: ffffffff8fdec580 (rcu_read_lock_bh){....}-{1:3}, at: local_bh_disable include/linux/bottom_half.h:20 [inline]
+ #1: ffffffff8fdec580 (rcu_read_lock_bh){....}-{1:3}, at: rcu_read_lock_bh include/linux/rcupdate.h:902 [inline]
+ #1: ffffffff8fdec580 (rcu_read_lock_bh){....}-{1:3}, at: __dev_queue_xmit+0x296/0x4a40 net/core/dev.c:4872
+ #2: ffff8880257f8958 (_xmit_X25#2){+.-.}-{3:3}, at: spin_lock include/linux/spinlock.h:347 [inline]
+ #2: ffff8880257f8958 (_xmit_X25#2){+.-.}-{3:3}, at: __netif_tx_lock include/linux/netdevice.h:4841 [inline]
+ #2: ffff8880257f8958 (_xmit_X25#2){+.-.}-{3:3}, at: __dev_queue_xmit+0x1ac6/0x4a40 net/core/dev.c:4952
+ #3: ffff88802bd78f00 (&lapbeth->up_lock){+.-.}-{3:3}, at: spin_lock_bh include/linux/spinlock.h:353 [inline]
+ #3: ffff88802bd78f00 (&lapbeth->up_lock){+.-.}-{3:3}, at: lapbeth_xmit+0x24/0x250 drivers/net/wan/lapbether.c:191
+
+stack backtrace:
+CPU: 1 UID: 0 PID: 12729 Comm: syz.5.1726 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ __raw_spin_lock_bh include/linux/spinlock_api_smp.h:182 [inline]
+ _raw_spin_lock_bh+0x33/0x40 kernel/locking/spinlock.c:205
+ spin_lock_bh include/linux/spinlock.h:353 [inline]
+ lapb_connect_request+0x5e/0x1a0 net/lapb/lapb_iface.c:293
+ lapbeth_xmit+0x1cb/0x250 drivers/net/wan/lapbether.c:205
+ __netdev_start_xmit include/linux/netdevice.h:5432 [inline]
+ netdev_start_xmit include/linux/netdevice.h:5441 [inline]
+ xmit_one net/core/dev.c:3953 [inline]
+ dev_hard_start_xmit+0x121/0x760 net/core/dev.c:3969
+ __dev_queue_xmit+0x1c25/0x4a40 net/core/dev.c:4958
+ dev_queue_xmit include/linux/netdevice.h:3464 [inline]
+ x25_establish_link+0x16f/0x1d0 net/x25/x25_dev.c:170
+ x25_transmit_link+0x92/0x100 net/x25/x25_link.c:218
+ x25_write_internal+0x522/0xc80 net/x25/x25_subr.c:255
+ x25_connect+0x728/0x1080 net/x25/af_x25.c:810
+ connect_socket net/socket.c:2141 [inline]
+ connect_socket net/socket.c:2131 [inline]
+ __sys_connect_file+0x146/0x1a0 net/socket.c:2166
+ __sys_connect+0x141/0x170 net/socket.c:2183
+ __do_sys_connect net/socket.c:2189 [inline]
+ __se_sys_connect net/socket.c:2186 [inline]
+ __x64_sys_connect+0x72/0xb0 net/socket.c:2186
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f9e4619e1d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f9e443d5028 EFLAGS: 00000246 ORIG_RAX: 000000000000002a
+RAX: ffffffffffffffda RBX: 00007f9e46426090 RCX: 00007f9e4619e1d9
+RDX: 0000000000000012 RSI: 0000200000003340 RDI: 000000000000000a
+RBP: 00007f9e46235888 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f9e46426128 R14: 00007f9e46426090 R15: 00007ffe340b8688
+ </TASK>
+
+
 ---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Notes:
-    The window is between the reset and kernfs draining the attribute's active
-    references in device_del(): bdi_debug_unregister() and the device
-    removal (uevent, bus and class teardown) sit in it, tens of microseconds,
-    so a tight store loop lands in it within a few hundred add/remove rounds
-    under QEMU TCG. A store that lands there also fails every later min_ratio
-    store of 50 with EINVAL, which is why the unpatched run shows few landed
-    stores: the leaked 50 % plus a new 50 % reach the limit. The same window
-    exists for min_ratio_fine and min_bytes (same helper), and for the
-    per-superblock bdis unregistered from generic_shutdown_super().
-    
-    Reproducer (x86_64 defconfig, root, loop devices 20 and 21 free, QEMU
-    -smp 2):
-    
-      gcc -O2 -pthread -static -o bdi_min_ratio_leak_short bdi_min_ratio_leak_short.c
-      ./bdi_min_ratio_leak_short
-      before: min_ratio 99 on loop21: Invalid argument   (exit 1)
-      after:  min_ratio 99 on loop21: ok                 (exit 0)
-    
-      /* loop device add/remove racing a min_ratio store; root, CONFIG_BLK_DEV_LOOP */
-      #include <errno.h>
-      #include <fcntl.h>
-      #include <linux/loop.h>
-      #include <pthread.h>
-      #include <stdio.h>
-      #include <string.h>
-      #include <sys/ioctl.h>
-      #include <unistd.h>
-    
-      static volatile int stop;
-    
-      static int store(const char *path, const char *val)
-      {
-      	int fd = open(path, O_WRONLY), r;
-    
-      	if (fd < 0)
-      		return -1;
-      	r = write(fd, val, strlen(val));
-      	close(fd);
-      	return r < 0 ? -errno : 0;
-      }
-    
-      static void *storer(void *arg)
-      {
-      	while (!stop)
-      		store("/sys/class/bdi/7:20/min_ratio", "50");
-      	return NULL;
-      }
-    
-      int main(void)
-      {
-      	int ctl = open("/dev/loop-control", O_RDWR), i, r;
-      	pthread_t th;
-    
-      	ioctl(ctl, LOOP_CTL_ADD, 21);			/* the control bdi */
-      	pthread_create(&th, NULL, storer, NULL);
-      	for (i = 0; i < 2000; i++) {
-      		if (ioctl(ctl, LOOP_CTL_ADD, 20) < 0)
-      			continue;
-      		while (ioctl(ctl, LOOP_CTL_REMOVE, 20) < 0)
-      			;
-      	}
-      	stop = 1;
-      	pthread_join(th, NULL);
-      	r = store("/sys/class/bdi/7:21/min_ratio", "99");	/* sum must stay < 100 */
-      	printf("min_ratio 99 on loop21: %s\n", r ? strerror(-r) : "ok");
-      	store("/sys/class/bdi/7:21/min_ratio", "0");
-      	return r != 0;
-      }
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
- mm/backing-dev.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-diff --git a/mm/backing-dev.c b/mm/backing-dev.c
-index 18e999053bae..fad1495d3b20 100644
---- a/mm/backing-dev.c
-+++ b/mm/backing-dev.c
-@@ -1162,19 +1162,20 @@ void bdi_unregister(struct backing_dev_info *bdi)
- 	wb_shutdown(&bdi->wb);
- 	cgwb_bdi_unregister(bdi);
- 
--	/*
--	 * If this BDI's min ratio has been set, use bdi_set_min_ratio() to
--	 * update the global bdi_min_ratio.
--	 */
--	if (bdi->min_ratio)
--		bdi_set_min_ratio(bdi, 0);
--
- 	if (bdi->dev) {
- 		bdi_debug_unregister(bdi);
- 		device_unregister(bdi->dev);
- 		bdi->dev = NULL;
- 	}
- 
-+	/*
-+	 * If this BDI's min ratio has been set, use bdi_set_min_ratio() to
-+	 * update the global bdi_min_ratio. After device_unregister(): the
-+	 * sysfs min_ratio stores can no longer run and set it again.
-+	 */
-+	if (bdi->min_ratio)
-+		bdi_set_min_ratio(bdi, 0);
-+
- 	if (bdi->owner) {
- 		put_device(bdi->owner);
- 		bdi->owner = NULL;
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
--- 
-2.53.0
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
+If you want to undo deduplication, reply with:
+#syz undup
