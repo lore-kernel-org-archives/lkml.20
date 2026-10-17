@@ -1,79 +1,93 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4822E3A2559;
-	Sat, 17 Oct 2026 18:19:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874C934B437;
+	Sat, 17 Oct 2026 18:21:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792261158; cv=none; b=oTqVYv6dbGyzQbfyUVTWkA2SRvTNlBTreQi7C/Yvh124AEK3SbTcUXK+PGqDZTqZ4JVRPU2E4fDjhBMn0T6HW89oQziw6mL8y8MAKHLZ1kGnYJj8MO/a7bOmpVSuJT5L2DLZlOmpnH1VpcXeOaKZ91RZhkw/5QK4HnY36KcFFa8=
+	t=1792261317; cv=none; b=P743tEB10nnxD3fSQZ7tGKor60QTPesjd0ZjkY+Na+cLhS2zcmmY/GTeO/0a/Mm3oxZDBAqsMgunzSRZh/ufmAl/5HkI3SRpcQBh/4qA3nD+qVrd7we7lvLqmGAjoTkgjLzMAXyh5wB9T3nuJrqDgl2gOD+yty6jyGkbpRktNtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792261158; c=relaxed/simple;
-	bh=L/P4HtHRbTJElNoTQJpIvdWlFl4tFtfm9DPAIaSyhQU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tTYO/cwBoIKp/EsxFW4sN5ZLtGmHllrYIfIE65LCTXPtawrPXZ+S0Qf5ZA4XMNCj2d43Rkk7OrZ3SLixpXLUqHxWMA97ZAkInKCBTc77ffAwQdJjXzCV9IYF2QmgBTSzl3gCTs7jdW0jXQ3RhhBb5ufkZueG1Clh7mM0sz1OMJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=jzlvZpvD; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1792261317; c=relaxed/simple;
+	bh=QETSnqD9zHjeV9yBvtwla31e3iQ8e0pj8gX4m8227gM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KsAGg6QVICjpn09aALSKr00eKP7UTLdT9ej7iroBxQgBXbKF7dMDwrbgjgGp/92+HmbAV/WH6T/0OLey16AmmtnYLuh7sTuSR2pZg/DbToFUm3fZCeU6JJBPKM4KUo4rZWwjUX6NWbFNA4I4guWyoz1dXEh623ZzVxWh9RSDJO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hpzjDh9K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="jzlvZpvD"
-Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id 250AE1FB65;
-	Sat, 17 Oct 2026 20:19:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1792261151;
-	bh=RpTSiOPXX8wfXwImlsolqAJ9WURkWVPhsipC38lvdxg=; h=From:To:Subject;
-	b=jzlvZpvDijkHExpia6go2tWbL3gNnnjaUicl7J7bG70rCpdlLnO8iHeVsDtLJViux
-	 G3R//dDgdpE7pm/TrJ9l0f9Wh50G4iFB+ITanrSWaa55O8UQncNVS8brkzOTdwAiEe
-	 bhxDAd08+EjuGnO2gfRzltiq+umepgVu/4Bjdp1aqrlF4vw0CXPQBlXZ2CTIhxWCer
-	 ZUFWxjn1WZ84+F8ib/kG8fP71kbQVHT0ARvMxM8EmRow+UZ81Sa1Ikz+yW4bJsqJYL
-	 7747Z+S5rXrSaQydALonfGxM/fBRBQpgt38PiLRxMDq3hY0hxaRTLWVQaIIMIQcenJ
-	 r6yvejn38Da1A==
-Date: Sat, 17 Oct 2026 20:19:06 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Frank.Li@oss.nxp.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH 08/14] ARM: dts: imx6qdl-apalis: remove disabled node
- "panel-lvds"
-Message-ID: <20261017181906.GA8265@francesco-nb>
-References: <20261016-arm_dts_cleanup2-v1-0-3a0cab9fd784@nxp.com>
- <20261016-arm_dts_cleanup2-v1-8-3a0cab9fd784@nxp.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hpzjDh9K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C2081F000C4;
+	Sat, 17 Oct 2026 18:21:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792261316;
+	bh=QqYFkxl/6C3+duZbw8hxCBJgXVRgxDNSm7oaIlCYRzw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hpzjDh9Kr37vLYco+W9Zre3BIC92hP01J4HKjetV0adnU4amiG4Z/xfcr7mnpoUgo
+	 KYFES4x3LtrNUjYuBZqHD14ObzelHlwHt7fRpB/OKsboEjNXU6C7IVkcsXDOAOGQE9
+	 jTs30YWrCEWHXNcqRHYALydFBJFE43927m+69xAPB4nTv3hmxokDlH7oQYWp4wgpFU
+	 zPdyF2QxO0DEo3SRMVc7wHczuOp7S/MBuOvxGBdBm0mHvZniQaN19iGxtd4W5wItnl
+	 lb4eEmafkz/S5BkX+UfET9Xp/ciy3tCwKQf/unFa2wUqN0eIv4gJeoOALmagQyuQUf
+	 SsUHCVrlDqN2Q==
+Date: Sat, 17 Oct 2026 19:21:51 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Dingisoul
+ <dingiso.kernel@gmail.com>
+Subject: Re: [PATCH v3 0/2] iio: gyro: mpu3050: add missing trigger cleanup
+Message-ID: <20261017192151.15986386@jic23-hlaptop>
+In-Reply-To: <20261017-mpu3050-fix-v3-0-d6f29f335a2b@gmail.com>
+References: <20261017-mpu3050-fix-v3-0-d6f29f335a2b@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016-arm_dts_cleanup2-v1-8-3a0cab9fd784@nxp.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Frank,
+On Sat, 17 Oct 2026 07:19:19 +0200
+Joshua Crofts <joshua.crofts1@gmail.com> wrote:
 
-On Fri, Oct 16, 2026 at 04:10:51PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
+> This series fixes an ignored error return value that causes the device
+> to behave in a weird polling state and a subsequent use-after-free bug
+> reported by Dingisoul.
 > 
-> "panel-lvds"'s status is disabled and no dtso overlay to enable it. So
-> remove it to fix below CHECK_DTBS:
->  arch/arm/boot/dts/nxp/imx/imx6q-apalis-eval.dtb: panel-lvds (panel-lvds): compatible: ['panel-lvds'] is too short
->         from schema $id: http://devicetree.org/schemas/display/panel/panel-lvds.yaml
+> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Not sure where signing off on cover letters came from. There is no need
+as they don't form part of the permanent git record so DCO doesn't apply.
+
+Series looks fine to me but given others have been actively responding
+to previous versions I'll leave it a while to pick up some tags.
+
+Thanks,
+
+Jonathan
+
+> ---
+> Changes in v3:
+> - Add a separate patch addressing the missing goto on trigger register
+>   failure
+> - Link to v2: https://lore.kernel.org/r/20261015-mpu3050-fix-v2-1-53f73581e62c@gmail.com
 > 
-> Reduce move than 44 lines warnings.
+> Changes in v2:
+> - Add a local struct iio_trigger and assign it to the data struct only
+>   after a successful IRQ request to prevent a null pointer deref as
+>   pointed out by Sashiko
+> - Link to v1: https://lore.kernel.org/r/20261011-mpu3050-fix-v1-1-f55b0d138be4@gmail.com
 > 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-
-Please, do not merge this. This is just breaking functionality for real
-user to fix a warning.
-
-There is a series [1] already posted to address the issue correctly, so that
-we can have the issue fixed without impacting users.
-
-[1] https://lore.kernel.org/all/20261001155412.3177428-1-leoreis.costa@gmail.com/
-
-Francesco
+> ---
+> Joshua Crofts (2):
+>       iio: gyro: mpu3050: fail probe() on trigger registration failure
+>       iio: gyro: mpu3050: add missing trigger cleanup on remove()
+> 
+>  drivers/iio/gyro/mpu3050-core.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> ---
+> base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+> change-id: 20261011-mpu3050-fix-145a77d5229b
+> 
+> Best regards,
 
