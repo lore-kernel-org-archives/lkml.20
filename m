@@ -1,46 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1DE937DEBE;
-	Sat, 17 Oct 2026 16:31:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1160F37BE64;
+	Sat, 17 Oct 2026 16:32:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792254706; cv=none; b=DkYnnb8gSe2hS4jageRJIjkrzofG4EM5xxf3UQRR4qUrFRyfoXa9rtnCE95E37MwS8OiKDtVQXP1oNhkAjvZvp4ekKvqfvwYIWlW8MdpsomiqHvHT860oCRt0c3f65nGcHFj/df1qmlngfIHDeiVMlfrVeT7zuuJ4NcWVjMxUeo=
+	t=1792254738; cv=none; b=HRrxMtfJtvZeXjn877lk9Kgi5j9Zi3AH7FG61+qzuVyfZ7Lnr5+ajtfsTsPEFaqMI1RtW0cbE47kT86w6aX1za7tjr/ZswkGKbXoot8BLHzcWZSA3oQRXAMe+dIwlZ6VB5CqUV4Hp2MvJV+jbJB8DxYBGnJGPCj9rkOWRbSQXgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792254706; c=relaxed/simple;
-	bh=8jOJa+MbU8Zm+0mXq8N5+ZxMiGN7YFK24PsWDy+GgxU=;
+	s=arc-20240116; t=1792254738; c=relaxed/simple;
+	bh=6aArWhdUyT7JOEHGG/p/CF2AWoy197eosIqZXtgGF0g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M400CchHWd1W5OWziTR8j/P4J2lgqsI4SEi9WIinY7XdZSqBeIh2xkq2RwlwrXnAqoagh4YBt+r4sKF+liGLEg53+OS9wl/fGDVdlzv9/mPwQSVRLhMGXvL/6znWAcF6e3ylSND/FDQbopEIRIUy4ct67Tm3amEs2CJHE3zg5c8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gi34VOLa; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=N5hilGBYr35gRmcGamCbcYDFPDmhgj+jLpL0RSlF1WJISDN0sr+cLYYq7VkIq3ueSMCslLm3gt5Xe/qEzPgQ9mCX6hDyLTQMvXVYClGvdWrOvQnu0Y2D0ziPJS3beyPQGPIlEBHig9fRUkHq5KMGywG8xVWShZHlZ7qr0oJIUWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WHltJ8sm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gi34VOLa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 225961F000C4;
-	Sat, 17 Oct 2026 16:31:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WHltJ8sm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B3E71F000C5;
+	Sat, 17 Oct 2026 16:32:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792254705;
-	bh=YhTg6oempNh6mE56zws8dnfYhyHulr2WEOSJFJnU+ro=;
+	s=k20260515; t=1792254737;
+	bh=LiCBouRtEdVUhIhRFH26iTaGqUiyrApY9i75/37ninQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gi34VOLaEeSvRC5JlMaDwNuF2p2dcVt4PDI74uvaClRFmOG4OzRu7L54M4T02MgvE
-	 MjLbCVDcmNHpOPfEQWzhVLmq0pXFIDb8b9oHrXOJmpUKimzrMjxE1cBLP7I7fVQ6G6
-	 r6CnJaGQX5cwDHH0mQj/TDDJWNZVmd2qAVYflim0Puuo/PZ5RZOyg8ExOW5nRzPSG1
-	 7J26ctcJXhHjk1j3Qfvm3/elMUzoZrFJBl3uGJQejTWVZAI0kv0Dx8MiYrdgl5mM/a
-	 iAGqTWNW1sBcA+ENoqhi0IFC71KTZChOxmuZJzpfxVT7ONmyBRhurLseW0oSmBy5BH
-	 Ygs9YNswKfVpQ==
-Date: Sat, 17 Oct 2026 19:31:42 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: Eric Biggers <ebiggers@kernel.org>, dhowells@redhat.com,
-	paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com,
-	sergeh@kernel.org, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com, jjzuming@gmail.com
-Subject: Re: [PATCH v2] keys: Avoid the owner account dereference in named
- keyring lookup
-Message-ID: <atOi7jWhglgRZ0C4@kernel.org>
-References: <pm-key-management-objects-candidate-0002-v3-2baa8cad2bb554364e10@gmail.com>
- <20261017035156.GA29318@sol>
- <CAFRLqsWcV=0MKituMQqALy_2rS3kOPPFpMHxn7yRxoyxOHp6hg@mail.gmail.com>
- <atOiKzlHKH47SMNt@kernel.org>
+	b=WHltJ8smM5clEoJ9t9KOHhurwVsxDf6ToNDmNzaEKJh2Vx03Hzp0JNzueQJIVOjvT
+	 qFxOawj4XP9WqB5ZGvHq5GY6+fcrMeId3Z0vUggXetkgJb2R/jHDsjMyOjNQfZGqHr
+	 GvnAi42qvAmoAHK6El3zQZHpoumbx5x+KTOPjBUsoJ9ZEIQq5lqSTYGFxZKBGzIzV7
+	 S4NRMMrC91IfNkCKIgQmYwPaYoiuvYrJ6e9OFixmErKnEt+GQ+YEebAZPawSb3UKiJ
+	 8qtgKqkukIz4nTpzvlkayYMcWTUQZCAFuShCFHZ4SdlsXWrDJm+RyYZ49nmBNj+RbJ
+	 f8CkQsGMiPikw==
+Date: Sat, 17 Oct 2026 18:32:13 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Subject: Re: [PATCH v5 7/9] ASoC: dt-bindings: qcom: Add Maili LPASS macro
+ codecs
+Message-ID: <20261017-vivid-chubby-chimpanzee-c31c56@quoll>
+References: <20261014-add_shikra_support_v5-v5-0-fb9f0667e613@oss.qualcomm.com>
+ <20261014-add_shikra_support_v5-v5-7-fb9f0667e613@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,53 +48,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <atOiKzlHKH47SMNt@kernel.org>
+In-Reply-To: <20261014-add_shikra_support_v5-v5-7-fb9f0667e613@oss.qualcomm.com>
 
-On Sat, Oct 17, 2026 at 07:28:31PM +0300, Jarkko Sakkinen wrote:
-> On Sat, Oct 17, 2026 at 03:47:32PM +0800, Cen Zhang wrote:
-> > Hi Eric,
-> > 
-> > Eric Biggers <ebiggers@kernel.org> 于2026年10月17日周六 11:51写道：
-> > >
-> > > Don't key_serial_next() and find_ge_key() (used when reading from
-> > > /proc/keys) have the same bug?
-> > >
-> > > - Eric
-> > 
-> > Thansk a lot for the reivew. You're right — key_serial_next() and
-> > find_ge_key() have
-> > the same issue.
-> > 
-> > I'll send a follow-up patch to fix those as well.
-> > 
-> > Thanks for the catch again.
-> > 
-> > Best regards,
-> > Cen Zhang
+On Wed, Oct 14, 2026 at 02:42:53PM +0530, Mohammad Rafi Shaik wrote:
+> From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
 > 
-> Yeah, please do.
+> Add compatibles for the RX, TX and VA macro codecs found in the Low
+> Power Audio SubSystem (LPASS) of the Qualcomm Maili SoC.
 > 
-> You put so much effort to scenario and you are nailing the bug
-> that way, and I do appreciate that, so here's what you should do
-> with the commit messages:
+> The Maili RX, TX and VA macros are identical to their Hawi counterparts,
+> so document them with the corresponding Hawi compatible as fallback.
 > 
-> 1. Do the first half like you always do. That's great. And I've
->    also said that.
-> 2. Think just a moment. If you get anxiety from that something
->    that should be mentioned e.g., something that you did not get
->    immediately yourself at first, write remarks those down. I'm
->    100% sure you know when it might be good tip on something
->    non-obvious.
-> 3. Send that. If we feel it is lacking some info needed, let's
->    iterate that. It's not a big deal.
+> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml | 4 ++++
+>  Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml | 4 ++++
+>  Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml | 4 ++++
+>  3 files changed, 12 insertions(+)
 > 
-> I'm just underlining this because so little would have to be
-> improved to make this right :-)
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+> index 142955b85..41b578f83 100644
+> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+> @@ -29,6 +29,10 @@ properties:
+>                - qcom,sm8750-lpass-rx-macro
+>                - qcom,x1e80100-lpass-rx-macro
+>            - const: qcom,sm8550-lpass-rx-macro
+> +      - items:
+> +          - enum:
+> +              - qcom,maili-lpass-rx-macro
+> +          - const: qcom,hawi-lpass-rx-macro
 
-And also: I would not complain about anything if I did not want
-you to send patches because it does not make sense to waste time
-like that. So take it this from that angle. And they bring value
-thanks to well described scenarios.
+h < s, thus this list should be placed before above one using sm8550
+fallback.
 
-Br, Jarkko
+Best regards,
+Krzysztof
+
