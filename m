@@ -1,228 +1,120 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A315331A5B
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 06:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082723AE185
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 06:53:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792219919; cv=none; b=tS6cUw/BV6h+Ycls2Uxm2prVzdHhku0i4EfA2esHt0smBrY8BllvWuRI0ZZoTbVPXiKMlT0Tz9315blhozbhJPoy1wHYTrETt/5zysyZk0HQCg3ztRApJ3Wn8YWMmQV3bKZgKlZc0QHiRnpvOrpYIxXe2n8jGgWjUsp7xAVoyck=
+	t=1792219986; cv=none; b=EmXzSCuiuRvxiNfyAjJXjzuu2aIVz/lbtfgf4/alsWwTZMBzlLlqLjABvrMKDi7QhcecoOHKQf+1KnJM6C7H0+CvshKOt0T0pNOuVIEHL5Jl7ROdAMQg5uCfn6zK/Z8HhdSH+PiLe1+S2r/mOzCpJ+iPqn6ss9SOEbz0b7PZ5ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792219919; c=relaxed/simple;
-	bh=+RGs98OKR+8RSYTh9cABiWdooY/6GYJQl2ugTgDhC/g=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=m9OtWk3QAW/Dd4/lg+nS+QaGBIHaECydLLL4KZDjQpn74O5wxV4pARS1FI/9OaJfpXC/+cWNjuL0X5BqHZepYcfv0Vz91Tm3IXugfZccZxHhmR8YaHYu2KujMHeFkvfngua4+RDlUzNg/gxYYRn6GxW/retEGaWhN+Cm+f3YDy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=prAwoMsq; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="prAwoMsq"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ab67ff8ec3so547067a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:51:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792219918; x=1792824718; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hLRycCYqFI0sJDL3wNe30VNcaI33OzZwjCiyocKoV9g=;
-        b=prAwoMsqLA4/jy110TkkHg90w0ttKt90H8CpT/uqubmL+0/BusNeE9Y5DkXLyD8ykK
-         OrCx21VZLb7nuXK99+jOEKx/PrynOgtoacjIb+Sn3yDvuGuMWefXMD1F8FzTa2Ye97uX
-         KoGSbRauxjCi46ED1v/ly1iO7jYuNORR0dsBztE2+mODK40ZcNMRoxuHWVCwCxKa1C3d
-         nkwsf5CREAtAXm5katQWK91UaIGxbw4aBXXpFr3+JBFkr6aGMxeB2egb/kEjgvFst8L0
-         LoS9cJdvrs2dBTxBXsgniB0FYEPoQgzy78vLdzlfQ5ZDzZDLpE7I3bNJXbN9FLRTUnNc
-         zMUw==
+	s=arc-20240116; t=1792219986; c=relaxed/simple;
+	bh=igX6T8hD+yxUgfg/Su3q0fs3EirwHWXUyQr7RjPgj0w=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=J3I7OQbsYsv0HjEb7BCxiJdRviDvtH9AXwAhojiCIrTLz7ROXdFvyk/1wRLcvh00EqrYuVDNU/7ZdTY0gFHY23cZsP76FzYdlP51QIxnYk21+S1wHT9ctYLLb4gKu7Z/Lp7AuVtPYAla6+P1kM4Fsrs2t2BMrO/1cZoBglz2kZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-8452af97d8aso852974a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:53:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792219918; x=1792824718;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hLRycCYqFI0sJDL3wNe30VNcaI33OzZwjCiyocKoV9g=;
-        b=T1MWRhVxds3/nbOEk59OjcPYmnX66EPf6xwYDdChuxTf4jdbLGgZPuqyLh2bUJiRTI
-         ou81KMazlYmehJPTjHehz08QrAiJWT6YURuSX+xoUwYOOAosf5WTX3unSbvec0iGBbqD
-         cJ2aRLSRUmjLShO5rMuEikys8whNtXs445StWr1lBR/3nhDGuzr2PpHBfjph6K4lDu1Q
-         JE1fgRgoq1rR9vvK/S+GYCmyvRr9wgxgD4KaKKK2dFeQPaKJZpCz3JjERWC+gmChY6rU
-         G8xP+UJfxA4uvUgP6ARXnZwgfPG/JwuJd5K3VvGTq5HOTsQnXtFONa7xMo8mi4K4AsdG
-         dkiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxuKewmW8bl8mDA6efAxMDTsHVtIo/Tx07z/z+H1U+BamLt1kokV8WqB4LxbPmJegxQGsB41s2xuivFuv0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGqKpRoxQLHGTORkfwcd+T+D3Kc7lf6Fx0mwJLig32Q4gNbsUd
-	PCCb8CWz0B6Y4awbdj2TqxOYjrNrlkpi6EBlhg0nRxCwvxKhYFcWdtR7KxXn5GhrhgW4euxaO6q
-	RQWPVyA==
-X-Received: from pjgs9.prod.google.com ([2002:a17:90a:4409:b0:3aa:ee30:1a77])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2ec3:b0:3ab:e588:c295
- with SMTP id 98e67ed59e1d1-3acef51e29dmr1670580a91.42.1792219917592; Fri, 16
- Oct 2026 23:51:57 -0700 (PDT)
-Date: Sat, 17 Oct 2026 06:51:57 +0000
-In-Reply-To: <20261015162209.485940-1-jkain@nuro.ai>
+        d=1e100.net; s=20260707; t=1792219983; x=1792824783;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9NxZcaiD0xI2L83H9nA73iO/Eds1RgPn17rHmEUfveA=;
+        b=ddrPnTlD+b1C7EenWSn4Gm5xnhYqaFJt/vlWc3uzW7f3PL79HZzfPsWrMzy7ghzz9k
+         Etq2KYkznMJ5V0df67BXGaCiiYrt6XPARgLq8ayBgLGc+pOdCXveFiYD6bpv6vGe4dv+
+         KiVaUesH3qI8jSO4Kffhcs0wM6jhDtrg/KNrH/WUj5eK/d2KNASGiRKCR5yav443zwoB
+         xoOrygQrRF2fshx4aS4e60h8cvpGDalg9hGzknBCuNLiuHfMhUzbrWuGQuAjsYihTeoj
+         fctBQ5wZ+odmH1FfStZtZfdv2ssrRhfaacbhIfpqB2jf+vmgah22VO8pZA4yaYIl09JT
+         TrTA==
+X-Forwarded-Encrypted: i=1; AKwUvBw6WGCPyASnp65kPRh3LTCAzKX5thH693pboiw9+rOhajOx0nZgS+rCUDk06jQBNkwtHFrZpodO0YV4fZw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzKSU/W4tU6h2HhRP0gKULS5Q2UdayhdkcNtxeKk80Y3RqwHji
+	dCxGofd2kfIu0QkbUMNn3v2Mh/tHOAusnzSVJ/HNAWto/nSjs4xEmQnbt9BQ15dlP0WVyL6JYdj
+	cZHRCRLI+SHur5Gb96keRuzfcu+HICIaAtzB45TeUpUhP78IQGtE5Qfel5lA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261015162209.485940-1-jkain@nuro.ai>
-Message-ID: <atMVsAmXKl7D-Fxh@google.com>
-Subject: Re: [PATCH net v4] net: do not let defer_count outlive an empty defer_list
-From: kuniyu@google.com
-To: Joseph Kain <jkain@nuro.ai>
-Cc: netdev@vger.kernel.org, edumazet@kernel.org, davem@davemloft.net, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	kerneljasonxing@gmail.com, bigeasy@linutronix.de, clrkwllms@kernel.org, 
-	rostedt@goodmis.org, linux-rt-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+X-Received: by 2002:a05:6808:1206:b0:53c:156b:a16d with SMTP id
+ 5614622812f47-53cd1cadc9amr1480220b6e.56.1792219982943; Fri, 16 Oct 2026
+ 23:53:02 -0700 (PDT)
+Date: Fri, 16 Oct 2026 23:53:02 -0700
+In-Reply-To: <20261017054235.608-1-hdanton@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad31b4e.7952420f.283480.035c.GAE@google.com>
+Subject: Re: [syzbot] [nvme?] BUG: corrupted list in nvmet_fc_remove_port
+From: syzbot <syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com>
+To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 15 Oct 2026 09:22:09 -0700, Joseph Kain wrote:
-> __skb_defer_free_flush() can leave defer_count at or above skb_defer_max
-> with an empty defer_list. That state is absorbing: every producer then
-> takes the nodefer path without queueing, so the list never refills.
-> Deferred freeing stays off for that (cpu, node) until reboot, and
-> cross-CPU frees fall back to the page allocator, which is the contention
-> deferral exists to avoid.
-> 
-> skb_attempt_defer_free() increments before testing the limit and does not
-> undo the increment when it rejects, so a rejected free leaves the counter
-> raised with nothing queued.
-> 
-> Nothing brings it back down. The reject path returns before
-> kick_defer_list_purge(), so once the counter is stuck no producer
-> schedules a flush on the owner CPU. A CPU that never raises NET_RX itself
-> -- an application CPU doing TX while NIC IRQs are pinned elsewhere and
-> RPS is off -- then never runs the flush at all, so clearing the counter
-> inside the flush cannot help it either. proc_do_skb_defer_max() neither
-> resets the counters nor schedules a flush when the limit changes.
-> 
-> It is reachable with no race at all:
-> 
->   sysctl -w net.core.skb_defer_max=1    # frees increment, then reject
->   sysctl -w net.core.skb_defer_max=128  # does not recover
-> 
-> skb_defer_max has .extra1 = SYSCTL_ZERO and no .extra2, so 1 is settable.
-> From v7.1 on, 0 is safe because proc_do_skb_defer_max() flips
-> skb_defer_disable_key and the producer returns before incrementing. On
-> 6.18 through 7.0, which carry the llist conversion but not commit
-> 08dc30de1a40 ("net: add skb_defer_disable_key static key"), setting 0 and
-> restoring the previous value strands the counter the same way -- and 0 is
-> the documented way to turn the feature off.
-> 
-> Test the limit before incrementing, so the counter is only ever raised by
-> a producer that goes on to queue. It then cannot outlive the skbs it
-> counts, and the absorbing state is unreachable without depending on a
-> flush ever running on the owner CPU.
+Hello,
 
-I think the state is still reachable when reducing the knob
-if the new value >> 1 is smaller than the current defer_count
-due to the kick condition (==).  This can be fixed by bumping
-the knob to defer_count * 2 though.
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+KASAN: user-memory-access Read in nvmet_fc_tgt_a_get
 
+==================================================================
+BUG: KASAN: user-memory-access in instrument_atomic_read include/linux/instrumented.h:82 [inline]
+BUG: KASAN: user-memory-access in atomic_read include/linux/atomic/atomic-instrumented.h:32 [inline]
+BUG: KASAN: user-memory-access in refcount_read include/linux/refcount.h:170 [inline]
+BUG: KASAN: user-memory-access in __refcount_add_not_zero include/linux/refcount.h:176 [inline]
+BUG: KASAN: user-memory-access in __refcount_inc_not_zero include/linux/refcount.h:317 [inline]
+BUG: KASAN: user-memory-access in refcount_inc_not_zero include/linux/refcount.h:335 [inline]
+BUG: KASAN: user-memory-access in kref_get_unless_zero include/linux/kref.h:133 [inline]
+BUG: KASAN: user-memory-access in nvmet_fc_tgt_a_get+0x82/0x1d0 drivers/nvme/target/fc.c:1201
+Read of size 4 at addr 000000000008c617 by task syz.2.58/6775
 
-> 
-> This makes the limit advisory. The test no longer reserves the slot it
-> checks, and the recvmsg callers run in preemptible context, so the
-> overshoot is bounded by the number of producers in flight rather than by
-> skb_defer_max; the post-increment test reserved the slot and bounded the
-> queue exactly. The counter is already approximate -- the flush zeroes it
-> without regard for producers in flight -- and the next flush erases the
-> overshoot, where the latch it replaces never recovered at all.
-> 
-> Undoing the increment on the reject path instead would be wrong: a flush
-> that zeroes the counter between a producer's increment and its undo
-> leaves the counter negative, and the producer's local is an unsigned
-> long, so every later test reads it as enormous and rejects. That is the
-> same dead end, reached more easily.
-> 
-> While here, drain before clearing in the flush. A producer that queues
-> between the clear and the drain currently has its skb drained but its
-> increment kept, which over-counts and costs deferral until the next
-> flush. Draining first matches the ordering __dev_xmit_skb() already uses
-> for the qdisc defer_list.
-> 
-> Found by manual code inspection, LLM-assisted, while backporting the
-> llist conversion to 6.1 after hitting the sd->defer_lock contention it
-> removes. The latch itself was not hit in production; it was reproduced by
-> lowering net.core.skb_defer_max.
-> 
-> Fixes: 844c9db7f7f5 ("net: use llist for sd->defer_list")
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Joseph Kain <jkain@nuro.ai>
-> ---
-> v4:
->  - v3's "undo the increment on reject" was wrong: a flush that zeroes the
->    counter between a producer's increment and its undo leaves the counter
->    negative, and the producer's local is an unsigned long, so every later
->    test reads it as enormous and rejects forever. Test the limit before
->    incrementing instead, so there is no decrement to underflow
->    (netdev-bot sashiko).
-> 
-> Note this changes the effective limit from skb_defer_max - 1 to
-> skb_defer_max, because the test now runs before the increment rather than
-> after it. That matches what Documentation/admin-guide/sysctl/net.rst
-> describes. It also means the half-capacity kick can now fire at
-> skb_defer_max = 1, which commit c09b0cd2cc6c ("net: avoid strange
-> behavior with skb_defer_max == 1") set out to make possible.
-> 
-> Built for x86_64 and arm64, with and without CONFIG_PREEMPT_RT. On
-> v7.3-rc6 with skb_defer_max=1 and a cross-CPU TCP load, defer_count
-> reached 1918118 unpatched and did not recover when the default was
-> restored; with this patch it stays within the limit.
-> 
-> v3: https://lore.kernel.org/all/20261013205416.3417296-1-jkain@nuro.ai/
-> v2: https://lore.kernel.org/all/20261008220256.1844072-1-jkain@nuro.ai/
-> v1: https://lore.kernel.org/all/20261007180056.1394868-1-jkain@nuro.ai/
->  net/core/dev.c    | 5 ++++-
->  net/core/skbuff.c | 9 ++++++---
->  2 files changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index 18dc88990510..60d86bc21632 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -6940,8 +6940,11 @@ static void __skb_defer_free_flush(struct skb_defer_node *sdn, int budget)
->  
->  	if (llist_empty(&sdn->defer_list))
->  		return;
-> -	atomic_long_set(&sdn->defer_count, 0);
->  	free_list = llist_del_all(&sdn->defer_list);
-> +	/* Racy on purpose, as in __dev_xmit_skb(): a producer landing between
-> +	 * the del_all and this store stays queued but uncounted.
-> +	 */
-> +	atomic_long_set(&sdn->defer_count, 0);
->  
->  	llist_for_each_entry_safe(skb, next, free_list, ll_node) {
->  		prefetch(next);
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index 4aea06d5167d..25f82b7dcf01 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
-> @@ -7386,11 +7386,14 @@ nodefer:	kfree_skb_napi_cache(skb);
->  	sdn = per_cpu_ptr(net_hotdata.skb_defer_nodes, cpu) + cpu_to_node(my_cpu);
->  
->  	defer_max = READ_ONCE(net_hotdata.sysctl_skb_defer_max);
-> -	defer_count = atomic_long_inc_return(&sdn->defer_count);
-> -
-> -	if (defer_count >= defer_max)
-> +	/* Test before incrementing: the reject path returns below without
-> +	 * reaching kick_defer_list_purge(), so a kept increment never flushes.
-> +	 */
-> +	if (atomic_long_read(&sdn->defer_count) >= defer_max)
->  		goto nodefer;
->  
-> +	defer_count = atomic_long_inc_return(&sdn->defer_count);
-> +
-
-IIUC, atomic_long_read() before atomic_long_inc_return() needs
-two-step coherency transaction, and we could avoid that and
-the corner case above by fixing the off-by-one and calling
-kick_defer_list_purge() in the slow path:
-
-if (unlikely(defer_count > defer_max)) {
-    if (!llist_empty(&sdn->defer_list))
-        kick_defer_list_purge(cpu);
-    goto nodefer;
-}
+CPU: 1 UID: 0 PID: 6775 Comm: syz.2.58 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:-1 [inline]
+ kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
+ instrument_atomic_read include/linux/instrumented.h:82 [inline]
+ atomic_read include/linux/atomic/atomic-instrumented.h:32 [inline]
+ refcount_read include/linux/refcount.h:170 [inline]
+ __refcount_add_not_zero include/linux/refcount.h:176 [inline]
+ __refcount_inc_not_zero include/linux/refcount.h:317 [inline]
+ refcount_inc_not_zero include/linux/refcount.h:335 [inline]
+ kref_get_unless_zero include/linux/kref.h:133 [inline]
+ nvmet_fc_tgt_a_get+0x82/0x1d0 drivers/nvme/target/fc.c:1201
+ __nvmet_fc_free_assocs+0x10c/0x380 drivers/nvme/target/fc.c:1488
+ nvmet_fc_remove_port+0x2b1/0x360 drivers/nvme/target/fc.c:2942
+ nvmet_disable_port+0x13e/0x1f0 drivers/nvme/target/core.c:400
+ nvmet_port_subsys_drop_link+0x1e8/0x210 drivers/nvme/target/configfs.c:1123
+ configfs_unlink+0x44f/0x6b0 fs/configfs/symlink.c:258
+ vfs_unlink+0x27b/0x6e0 fs/namei.c:5648
+ filename_unlinkat+0x3d3/0x610 fs/namei.c:5718
+ __do_sys_unlinkat fs/namei.c:5747 [inline]
+ __se_sys_unlinkat+0x83/0x1a0 fs/namei.c:5739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fedc366e1d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fedc2cad028 EFLAGS: 00000246 ORIG_RAX: 0000000000000107
+RAX: ffffffffffffffda RBX: 00007fedc38f6090 RCX: 00007fedc366e1d9
+RDX: 0000000000000000 RSI: 0000200000000780 RDI: ffffffffffffff9c
+RBP: 00007fedc3705888 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fedc38f6128 R14: 00007fedc38f6090 R15: 00007ffd3089d1a8
+ </TASK>
+==================================================================
 
 
->  	llist_add(&skb->ll_node, &sdn->defer_list);
->  
->  	if (unlikely(!cpu_online(cpu) || my_cpu != raw_smp_processor_id())) {
-> -- 
-> 2.55.0
-> 
+Tested on:
+
+commit:         58161ead Merge tag 'drm-fixes-2026-10-17' of https://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=14e66ce1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b38d39c45202f4fa
+dashboard link: https://syzkaller.appspot.com/bug?extid=c98b21427617af7f547a
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=175d34e1580000
+
