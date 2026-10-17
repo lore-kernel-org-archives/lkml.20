@@ -1,98 +1,96 @@
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 366CB356775
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 13:08:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63983374E60
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 13:08:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792242501; cv=none; b=uDRg/t61BdF6tcOFseF8nyOCBw4ljnWElImYYxLFNV26M/aHXF0uwbnxYJtZeuSPZgAhteo8SRCdCcvJnGAcmGwbYIub3TPw9SwMgKiH+WBR1/MY9lndikc44KtrI6pZZMhGwwUSMtxJIHgf56s0xn8h46/CDUeqPTCLg1llwmI=
+	t=1792242514; cv=none; b=WtHfUim7Fzjsl3NpDV1AMMMR5OSdTZl1GxxP2tjTyZwr4odiMLPhHGUJcfm7Ujl2MFe/wLzzCgGMcwpKAfA45oiJUBBCtaUtgCOKKQjuh/Zn6NdiczodF0zH/LxbXuZ07bzDy7RuAhYe93afq7N9uWz2EmLNlM+YH6Fnf4USQEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792242501; c=relaxed/simple;
-	bh=Z/5JBeqwPxSZ0TpSsf5O+k1fvGG7B04vtfTOruv2JxA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NyE52d9aOGw02y8IN/efvm6xiKHyOIw8p1KGQykyaD4wf+IhmMPq60pJ/93JcD5XCk25fLL89C0R/kXJ0wUetz+a6v8sChiolYmpAjp+ZthpPFijDWu5yT8wuAoTvywfvSt4T6CF/v0oleheYmDr8J3Vjr5g/38uPJIFRjOCqZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VXl2HU6b; arc=none smtp.client-ip=74.125.82.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792242514; c=relaxed/simple;
+	bh=meDYCYUL61vvAOi4LYd5YcMPi7Tcbb8gJHx8gXggyTA=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=e+UEU5jL+RTGQH7YSzkY9S0I0ve+eVoL9yHqAT+5y0SCv9kHKfvKtaJM+0oaerLhTOZGRrj1GurMFx4al5s6HWkehCB2avQVU++kLebke5gbwcbSEQdCTkFGGemi3vLfYmyOzaYZtYz9hXkUIG3ykjc45zUI2UsXpNK18XkdXOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k1pGa1vu; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VXl2HU6b"
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15943c9be84so48367c88.3
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 06:08:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792242498; x=1792847298; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z/5JBeqwPxSZ0TpSsf5O+k1fvGG7B04vtfTOruv2JxA=;
-        b=VXl2HU6bjknN1IMUfwiSPFCo4VVowwrSEmRotFX6qrdkgbsozOl3Sgewo2O/cYYsXg
-         Pkc55EjKirp/4gxCfW7/bybcVFjy/TgoKYkAKf1yvgMlb2Ir8ikM85CcQInSJwJ52Ckw
-         gHWUDuLm8EdyOQTVT6oM2XaqeKWqBK3Eusu+kBT0D9jWULFuVqhAvjf4AMFJCVjm3cJz
-         9O6oO9PfUW8EK9WwFnQZHdvfq68nOFTWlL0Xx3ZRGePCm2uKpj/QEiu7qAn5mZvLV89A
-         VqZ7tpokdg3y4NHKeIXL5h7ZQ+YTV6kBu4k6EAtGzUYxAFjXZxmERJea60rAaaKFh1LN
-         WGiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792242498; x=1792847298;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z/5JBeqwPxSZ0TpSsf5O+k1fvGG7B04vtfTOruv2JxA=;
-        b=ON7D0MOoG9gKZoXMCki55Oyyl/dwYDVyTkBhVyxt8i+6DByBtdmXsbasvpk8M7iMKk
-         vcN2TQ0YCJ28rhVsOfC0BTB2toIQXkGFVnnkCIJAkeBkqrz+uwI5wRSSxrISZ8WSYACU
-         cGvLQlLaG8byMu5wXHdheKrHygKRrIRM1VnHGAfTZ1u3dcvyoj0OBMuldUmgAfhZ6heo
-         9b+hfh4SxILTDJhB2kGcERGuzKQGurxuwW6WO4znkCuoskwJVrkuXomw0k1BIsFvMZFp
-         /N5VMP4T7a9T1xQSHyJoCyASPVwHq5Mu6sXtJcnYuCatvsFoRLiG4mNr2ffIBa2uNO4X
-         1JAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxzvJmxuhUaEK0kqb8SrCpopx8anP/41/7wV1hJKmrgb8iwNGJJvK7sSM+ypO3okj8DiEI6QMUlyc1rnP0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlMbL/mDua3gnFTObbPCeLdGjO/geYKvecmAQhy9mDKuMUijGD
-	toPitl9DJAin6gp63nhE34tEfh7bJvACThruIqcCpLzh0vM62sKXvPft
-X-Gm-Gg: AYBFou1RGLMWN9QF/O4P+kLm00XKTDl6aayWLtIfTv5GLWGfW2qandL8x6a4LMJNZam
-	fLeAX5BK6pSNu7WS5aSth5NhPdW+1QWUf2p/oOKdF3apv9h1ZqfbqluBdmJxqEHKBl6oJ3BsTEB
-	RtTPaQJ795HYVXPWlSRo6YkHnvjcdKksDWdEvDa99jbmBtD2RqkmL0fdrS9mlmkZXodgUxXRY7J
-	ikxOmDJ6404pROt4RP7kjXUxhegCAB6+AsXOuRIiFtK420L5MWBTckjMJoOMR5igrQfVD0mkAYN
-	bGOHomBeupTXAXOfj4yGbeH0AxrtvGSm93X1au7LXN9KirPdpTXuNlrS/723VarxHq45QeqODLS
-	NrboOaKK7hynKyrwS5r+k+7CwrGU3kNNI9RVafozaUYyJ+IVFcG09uEKFbNNRqPv5S2eXDLsvQD
-	M1lrkV5HN4ik31Vy6f6zgO1CVILQXMlXwPFxbGinZBRYEucXphD4+UAdHrnt+DAoSqtPgNE/65j
-	wg7DfyLE+9esGZ272yKBKhy6xFpN8Kiyfw1MblIdyMqMRurav0M1hs8eF3EL4cSRVjscvXSuOgo
-	jeTSFzDwBt6I1YBIBw==
-X-Received: by 2002:a05:7023:a5c:10b0:183:d275:cf76 with SMTP id a92af1059eb24-18511adbd46mr5910454c88.2.1792242497725;
-        Sat, 17 Oct 2026 06:08:17 -0700 (PDT)
-Received: from cachyos-aura ([45.112.151.53])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm18903260c88.16.2026.10.17.06.08.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 06:08:17 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Mario Limonciello <Mario.Limonciello@amd.com>,
-	=?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>,
-	linux-pci@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] PCI/PM: Skip the suspend_noirq config save if runtime-suspended
-Date: Sat, 17 Oct 2026 18:38:06 +0530
-Message-ID: <20261017130806.305673-1-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261016214123.GA1884818@bhelgaas>
-References: <20261016214123.GA1884818@bhelgaas>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k1pGa1vu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792242510; x=1823778510;
+  h=date:from:to:cc:subject:message-id;
+  bh=meDYCYUL61vvAOi4LYd5YcMPi7Tcbb8gJHx8gXggyTA=;
+  b=k1pGa1vu1hUfibe9NSjVbgqEo7OL9Cy8hznber1AkJ02M3UU/SbTX4nb
+   om7h+VSu7Fe3FDmVeLnqC47UB+Mtusivv8Oy5kyFYQhN4Sff56eLXFYdt
+   qtMtnqhQOvuNUTrdvAnU0rCus3g77uJtfhetjUQg7cyxykW9OVEhp9rRN
+   KWpFW3x465/pMuZInDK220wnbUVC19OWV1ktTLThoNnnCl5SCcRh2akom
+   +veNo0S7VGJtqe4YePt6ECatdS17GH9OdygdxszvavJbIM3J7kRQptRmo
+   h5gLAuCxQXRs0Tu8Zj3Pmqwxky5dnHyk0WusAJAOmZVMWM3RiYWegu6Cs
+   g==;
+X-CSE-ConnectionGUID: sM7J6+x4T9e88+zQoIrNQQ==
+X-CSE-MsgGUID: +4OtTRchQWicf0Pff1OSfQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="1015459"
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="1015459"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 06:08:29 -0700
+X-CSE-ConnectionGUID: +WPE9R31R/+582kyYPQA6w==
+X-CSE-MsgGUID: SqYL8yFkTp2diN5BJ0zXiw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="2137826"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa003.jf.intel.com with ESMTP; 17 Oct 2026 06:08:26 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xI499-00000000JNm-25mO;
+	Sat, 17 Oct 2026 13:08:23 +0000
+Date: Sat, 17 Oct 2026 21:07:43 +0800
+From: kernel test robot <lkp@intel.com>
+To: Lachlan Hodges <lachlan.hodges@morsemicro.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Andrew Pope <andrew.pope@morsemicro.com>,
+ Arien Judge <arien.judge@morsemicro.com>,
+ Ayman Grais <ayman.grais@morsemicro.com>,
+ Bassem Dawood <bassem@morsemicro.com>,
+ Chetan Mistry <chetan.mistry@morsemicro.com>,
+ Dan Callaghan <dan.callaghan@morsemicro.com>,
+ James Herbert <james.herbert@morsemicro.com>,
+ Sahand Maleki <sahand.maleki@morsemicro.com>,
+ Simon Wadsworth <simon@morsemicro.com>
+Subject: {standard input}:188: Error: Insn b has an instruction mpyuw
+ with limm in its delay slot.
+Message-ID: <202610172039.rcazXh2l-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 04:41:23PM -0500, Bjorn Helgaas wrote:
-> pci_pm_freeze() doesn't call pci_save_state() itself, so I guess it's
-> the combination of pci_pm_freeze() and pci_pm_freeze_noirq(), where if
-> not runtime-suspended, pci_pm_freeze() clears dev->state_saved so
-> pci_pm_freeze_noirq() will call pci_save_state()?
+Hi Lachlan,
 
-Yes, that's what I meant.
+FYI, the error/warning still remains.
 
-Thanks,
-Navon
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   90201351a862182bdabfc1ad1c97b1e1b6ed5931
+commit: b1906cea00b021acea22460225401d5b27bc7c36 wifi: mm81x: add mm81x Wi-Fi HaLow driver
+date:   3 months ago
+config: arc-allyesconfig (https://download.01.org/0day-ci/archive/20261017/202610172039.rcazXh2l-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261017/202610172039.rcazXh2l-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: b1906cea00b0 ("wifi: mm81x: add mm81x Wi-Fi HaLow driver")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610172039.rcazXh2l-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   Assembler messages:
+>> {standard input}:188: Error: Insn b has an instruction mpyuw with limm in its delay slot.
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
