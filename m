@@ -1,105 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F21239EF01
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:22:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D2C3AEF3F;
+	Sat, 17 Oct 2026 17:22:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792257775; cv=none; b=NLJZ0uSjhNWRe0NjUynN7EntDOYiQDtm7PaVpjgPlO7R9QU6MhvwA8TUo+XU7XMEuL4weNp0mObyTYmzUvPYbI10/6ZaxXtsVtWGXcQnQgSBJ8mhofIi+1xXx1kmD4by5GziqBSHgqw3Nx9z09aOzvkjE/ZnJUSIiGN3tuZWGAE=
+	t=1792257776; cv=none; b=T167NMa3+qniJAfcnP5CKXwDYmGYq0uoX8wrwng+GqHHqG2Fl+t8jyTo/MwG3WsWn41IfOrFUReGUel6FIBME20LPAkEOXFA3TnTKZhoZsxP1HAbs27M5xpN6u1oa/20ZAAJJMyDOMu6N4BMXYF/KRRR2PasyB/xkBxxTycknwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792257775; c=relaxed/simple;
-	bh=9+Z55do5MvjOgLX/y/9zTuXuoHK6P86gHOfxi/wSdTY=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sOV30JeeC+h1DXDk5mRvk7Ieihrx7G8MempipGLyTb0EisEPL3E0kXub9y5TjVhJAPBtTWn0rEbdifFRWE52Og9/yiXjO9pV3FOb9E67QXxznW3RbdNmJUW0QhBcZEEwdC5dkdiwHxRJL6/d98Q9RT2D2REHdEbn5ClAJ3i3SsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E5994FI8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792257776; c=relaxed/simple;
+	bh=zahwIBZ7DCV+LIt1WLL0m5DEJjgyJ4gGxuuyFcTc8sU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LopaW/cL6mYx7sf56IEoLCj3FwYJZST3Etat2730AKYDaviC9RDWxM3seeRBZQZlxnGmYY8SJoPqYoRcgJChqSFYIdAU6QhK/17samx9yq2OJdcoxa2vvRgaMm1lzQxAKcxivhdMmn7dgh5vb2LnPRHSDVOnkg16IsnsyG2CKdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nR8OzMr9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E5994FI8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AE971F000C5;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nR8OzMr9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B13151F000C6;
 	Sat, 17 Oct 2026 17:22:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792257774;
-	bh=XLe8JXdyBEFFJmBvlr2WFTfY/8qS8WbugaiAG9OA1pU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=E5994FI8BIFPq8T4RnDF1uGTb3Qi5ps6Tz8bl0HzJcqhSpsdnESC3rRCbEqiqlzd3
-	 D+g9kZnc6xyHJ0lJX0qpuyzPVQCyYZFbaxNe3nVCRgO4OmqlyDF2dt5TZumGLDRQq/
-	 C+hpENK60XsFem6BeNWdlx2GONT1H3Fp7N7jg365IWAWynkl5gFE26RfNpov9o4b+k
-	 cQnSbRuhwEXdPQlXJrG3YXU7YqNZJ/o4v+eUwTf5EyIrlVlDeq1oTCt24TKeOjJBFh
-	 HhVwij6rJhxG/0FD0So+1ijaJKJ6UeDyLwCWQxGtTrLHVwzUq3staINgjrGFyD06V+
-	 PlRExEP7uWo6A==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xI87P-000000048vp-3vWG;
-	Sat, 17 Oct 2026 17:22:52 +0000
-Date: Sat, 17 Oct 2026 18:22:51 +0100
-Message-ID: <864iek1btg.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Julian Braha <julianbraha@gmail.com>
-Cc: mark.rutland@arm.com,
-	lpieralisi@kernel.org,
-	sudeep.holla@kernel.org,
-	tglx@kernel.org,
-	radu@rendec.net,
-	vsethi@nvidia.com,
-	sdonthineni@nvidia.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] irqchip: gic-v3: fix unmet dependency on ARM_PSCI_FW
-In-Reply-To: <20261014123539.2259230-1-julianbraha@gmail.com>
-References: <20261014123539.2259230-1-julianbraha@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1792257775;
+	bh=+KzFzxYaDpiw3v2cN1wsy4A4fK7ubLLV9aUEhhmv9Kg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nR8OzMr9ja/piPNdLePtX45279Zm/W8WgW597xg8U+B2nad5YzQnDYRVKbtdBQAn4
+	 T8ddc5IcuhUwebCEHtCsQm30HyPt+m8W73nWWwCLAbU0JmNo24pyX5HE/v5d549VDn
+	 FbPaa1mnmVpcszeQBq9qZhZnlJtZmI5HfwXSduugtiGULIT/j5qhK75TVMPFY0u7/b
+	 QPC7dh0dAbwHaOXU8R63Som1r2qwDiC6g8h3aWeykTqZwZOM2dSdVLzVoFqODeUuK7
+	 bsl0IM8mWb1tsA+xKtZBcrN8MJIvsBwKwOBbDld/dYWmu/b3UpSovI5P835GTyZvkd
+	 CZ5GuRox3ufuw==
+Date: Sat, 17 Oct 2026 19:22:52 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Michael Riesch <michael.riesch@collabora.com>, 
+	Sebastian Reichel <sebastian.reichel@collabora.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add
+ a cell to select TX or RX
+Message-ID: <20261017-gainful-goldfish-of-climate-bef863@quoll>
+References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
+ <20261016-dcphy-rx-v1-v5-2-e63b49eabe2d@gmail.com>
+ <20261016140115.GA1798470-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: julianbraha@gmail.com, mark.rutland@arm.com, lpieralisi@kernel.org, sudeep.holla@kernel.org, tglx@kernel.org, radu@rendec.net, vsethi@nvidia.com, sdonthineni@nvidia.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261016140115.GA1798470-robh@kernel.org>
 
-On Wed, 14 Oct 2026 13:35:37 +0100,
-Julian Braha <julianbraha@gmail.com> wrote:
+On Fri, Oct 16, 2026 at 09:01:15AM -0500, Rob Herring wrote:
+> On Fri, Oct 16, 2026 at 04:56:36PM +0800, Jason Yang wrote:
+> > The Samsung MIPI D-/C-PHY block on RK3588 and RK3576 has a transmitter
+> > for DSI and a receiver for CSI-2, and two consumers can use them at the
+> > same time. The single cell of this binding selects the mode and refers
+> > to the transmitter, so the receiver cannot be described.
+> > 
+> > Allow a second cell that selects the transmitter or the receiver. With
+> > D-PHY:
+> > 
+> > 	/* the MIPI DSI host, driving the transmitter */
+> > 	phys = <&mipidcphy0 PHY_TYPE_DPHY PHY_DIRECTION_TX>;
+> > 
+> > 	/* the MIPI CSI-2 host, driving the receiver */
+> > 	phys = <&mipidcphy0 PHY_TYPE_DPHY PHY_DIRECTION_RX>;
+> > 
+> > and with C-PHY:
+> > 
+> > 	phys = <&mipidcphy0 PHY_TYPE_CPHY PHY_DIRECTION_TX>;
+> > 	phys = <&mipidcphy0 PHY_TYPE_CPHY PHY_DIRECTION_RX>;
+> > 
+> > The transmitter and the receiver cannot operate in different modes [1],
+> > so the first cell must match in both consumers.
+> > 
+> > Two cells describe the receiver as well. A single cell keeps referring
+> > to the transmitter, so existing device trees are unaffected.
+> > 
+> > [1] RK3588 TRM: section 22.1 (overview): "The TX and RX only support
+> >     operate in the same PHY mode."
 > 
-> ARM_GIC_V3 currently selects HAVE_ARM_SMCCC_DISCOVERY without ensuring its
-> dependency, ARM_PSCI_FW, is met.
-> 
-> Patch 1 of this series makes the select conditional on arm64, and patch 2
-> adds stubs for arm32.
-> 
-> ---
-> Julian Braha (2):
->   irqchip: gic-v3: fix unmet dependency on ARM_PSCI_FW
->   firmware: smccc: provide stubs when discovery is disabled
-> 
->  drivers/irqchip/Kconfig   | 2 +-
->  include/linux/arm-smccc.h | 7 +++++++
->  2 files changed, 8 insertions(+), 1 deletion(-)
+> The problem here is this is an ABI break. An existing OS will not know 
+> what to do with 2 cells. Perhaps adding flags to the upper bits of the 
+> existing cell would work.
 
-This hasn't been correctly tested, I'm afraid.
+Existing OS should ignore surplus cell if the driver is coded properly.
+Same as adding new properties or new front-compatible.  The question is
+how the existing driver behaves?
 
-The patches are in the wrong order, as applying patch #1 on its own
-will break a 32bit ARM build without PSCI (HAVE_ARM_SMCCC_DISCOVERY
-not selected, but the stubs that are supposed to save the day are in
-patch #2...):
+Best regards,
+Krzysztof
 
-arm-linux-gnueabihf-ld: drivers/irqchip/irq-gic-v3.o: in function `gic_enable_quirk_nvidia_t241':
-/home/maz/hot-poop/arm-platforms/drivers/irqchip/irq-gic-v3.c:1816:(.text+0xb04): undefined reference to `arm_smccc_get_soc_id_version'
-make[2]: *** [scripts/Makefile.vmlinux:72: vmlinux.unstripped] Error 1
-make[1]: *** [/home/maz/hot-poop/arm-platforms/Makefile:1387: vmlinux] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
-
-With the patch ordering fixed and the whole thing applied to the same
-tree:
-
-Reviewed-by: Marc Zyngier <maz@kernel.org>
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
