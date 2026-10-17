@@ -1,108 +1,96 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC85374721
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:50:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 115C02D7817;
+	Sat, 17 Oct 2026 04:51:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792212658; cv=none; b=BjQ0NQpxfFXuzGAXFFP6eg5e7Gk22vi4BKPlBIC99RpGbGoHIb8Q9cBBLAylgCUT6LL8+whpfdMqNJjHJR18Ep/87EC2gfTnOVTEVHFgOWuRHBVFlZqpjpMxRmwOBLgdgLVsyIOg1hWZ4XjjGAmyuDLW0DuqyVPgM/ceBVLeZq4=
+	t=1792212716; cv=none; b=KPX9Q+pC9ftp7xEaPRp1jltmtojy24J0pBPq71KGkMNy52DRmy3HG/iMLnK01wvsazRCQJi3ROmEMMzOjSxNg9TaR4R5Qp0MAZtpzxhf6lBWj0MTpa6uCb8ChWdU5Zk5aT9/4RdAWvfvkZezLfv65WG3u2zc2VHLfKPHujUuzkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792212658; c=relaxed/simple;
-	bh=7Ir8gVL2LT4Hq/1oM42Dh+FUvuDYGifIxm+uHvXkIP8=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=d0A6bmNTtgZLlVN9B6CV1dZA40bkE6vS2AsEwR447XvnRk1+nwOhNhLiWTmnEVk7o29CG9GjGvWJ0/dpIPioXiPh7L79t8HhViIJWpOb7Ab2rnTK2DXKpXP5lrKAjvxo59XIW8XJ7L3iFaJcT/yv6sieXpatxtGs8VJca3wkEUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hhMj9NNT; arc=none smtp.client-ip=209.85.215.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	s=arc-20240116; t=1792212716; c=relaxed/simple;
+	bh=R+8i4LI6E93ty/u9IagDtyMHz+62Q1ZdKBGKtZ47+M8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p6C9VMq4LdJoXcPv7FJ+uYzexTJnLfMlV74xo71fH3GuC6afmdRzv3w7F87uUtVQgdoSFCdgQ6iKO4h/hKkZQbsI/STaEUEwmQtwqUlvnB3QCeRdq1Kqk1HcLdoSFqwR2cgQhloNQPAHsU+sk5UOttQtp0NKt7TEq8jOpf3d1I8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UIaLFhAT; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hhMj9NNT"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd5f7fe8ef1so321918a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:50:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792212656; x=1792817456; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mSyJBWDi4nx9CLru9f0Dqe09kF4d35e/bLqWVltauo8=;
-        b=hhMj9NNT0tdMvuCayHRm6fpmuzTfYh9glcqsC1VCNztLWbu4JotKm1/+XtoBw1+C3K
-         WxVsKU1fc23w4xmm/jo1qyaQ1CK+USqsVyZJloOxLd3XcZsyZeOwI3aF4d8eu+Gp465X
-         QpS+AZGaxehRzm5/rGczbWU1dM0hb6n6lUaWSJC2hgM11PCyDwcuDn5rcRiAc/qp40Gp
-         MRZA1+UhvJtSmNrA9tBsU7Imgy/0oEYrvawldhwHR0ul0/O9dVkWeBBjFEl8RmErSahb
-         rMGbwrGTXJoXKgUYlZhoglTAL3n31Xz/OSLBH3gdl+LzA09X08+yB3xWJLtn8GkORPNk
-         pFGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792212656; x=1792817456;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mSyJBWDi4nx9CLru9f0Dqe09kF4d35e/bLqWVltauo8=;
-        b=h7NLMqChNXlugFqJGGAkQFLLrpBPd/l922EWiPfu+RWQl5dgnjemUSfsUrECyw1z3M
-         +oDx6CtHLKPxnV4nEFiUj0rmQC8utgrHM7MzGKPtJTgZ+z3DS90uqyODQPT/Mx7ulJ5b
-         vkBEpeZd5zjEeh/waf4ra7zL17vCGcHuoTqzRTrO9RR3baop9zE8QpzG0zbBl1Odb0k/
-         L6R1K+3bR095PcfUpR973LpDC/VCcj3FK33VszQ0vmnXS9ULBBRySFn5NP/2zfOi+K2H
-         Bi5Oa49uQ7NqVNuaYSFhHn9YsN4jf6BGDTk7JQr6usCeL3qWRoaGqypr9xnVlo/h+YB6
-         DWfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzTAVqq+r129xY/FPdvRderRe+mOUyrHkjyHeRsmOtRz3i0siqof+CRFjfVC9GUFXyt+npqbwypPefneBw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKgB90GaxmCdQ6wimTQqNKV5XsFiXdeydGvhRNsUSbytbUIG9PK
-	eGbuq6xzzj/poy+vCKcYjUxZ18AOdb+v6R9yNg28EftiWfbUjJ5E1ZDkeql8j6+IFnxoiqdL8X/
-	fqHuXLw==
-X-Received: from pgbj24-n1.prod.google.com ([2002:a05:6a02:61d8:10b0:cc1:bda2:d0a3])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:d705:b0:3dd:a195:dd5d
- with SMTP id adf61e73a8af0-3e226105ef9mr1057865637.63.1792212655907; Fri, 16
- Oct 2026 21:50:55 -0700 (PDT)
-Date: Sat, 17 Oct 2026 04:50:55 +0000
-In-Reply-To: <20261016-bug-net-netns-move-rcu-barrier-v1-3-4157d798658f@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UIaLFhAT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792212715; x=1823748715;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=R+8i4LI6E93ty/u9IagDtyMHz+62Q1ZdKBGKtZ47+M8=;
+  b=UIaLFhAT7yY6SB3QaPHYK4T92R5YQzgqugmqqrUmlUljueEwk8/a3oqL
+   w4W0DV2LpvhCfvfFMeIJNh/Fjr8In1CefImulyQvNYRBCso0V29PfLezX
+   jAY+WpXw4L7fymUUQE5Oxvo9G8HxJpj9uhf6PF3km6T6ahzP6k/jtYyuM
+   bPGCElNc/L9SVCzWGu7f4kGjf9neJDyoxr4fBpylXvMPj/Yst4S4nc+RL
+   cJoLESa9/23o6jgfupsRKun8PkPuuFbOiF1/tlBpffinI47diifdjUXJd
+   feYqqmsRqPjehApgpoEvWDm8tnm3dJ1FPE8SqiR8D7YWO1KZ4LOCbRtIJ
+   w==;
+X-CSE-ConnectionGUID: hWUlkCa5SWmwKo7is8Htyg==
+X-CSE-MsgGUID: rEJ6ziZ6Rb6/5QcMenN6wA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="892838"
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="892838"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 21:51:55 -0700
+X-CSE-ConnectionGUID: M1VqWDyyQnmNoMYKGuSGCA==
+X-CSE-MsgGUID: XdJDyz57R7+p3MAdKWHQWw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="2018010"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa005.jf.intel.com with ESMTP; 16 Oct 2026 21:51:53 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xHwOc-00000000J5S-1f4l;
+	Sat, 17 Oct 2026 04:51:50 +0000
+Date: Sat, 17 Oct 2026 12:51:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alex Markuze <amarkuze@redhat.com>, ceph-devel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Alex Markuze <amarkuze@redhat.com>,
+	Ilya Dryomov <idryomov@gmail.com>, Xiubo Li <xiubo.li@clyso.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] ceph: record subvolume quarantine from MDS cap
+ updates
+Message-ID: <202610171220.i77KPiw5-lkp@intel.com>
+References: <3e9b7bcfa68bd2f6bf6917f608254570a0769a12.1792074165.git.amarkuze@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261016-bug-net-netns-move-rcu-barrier-v1-0-4157d798658f@gmail.com>
- <20261016-bug-net-netns-move-rcu-barrier-v1-3-4157d798658f@gmail.com>
-Message-ID: <atL-iSu113pPS7zm@google.com>
-Subject: Re: [PATCH net-next 3/3] net: remove rcu_barrier() from __dev_change_net_namespace()
-From: kuniyu@google.com
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
-	Nikolay Aleksandrov <razor@blackwall.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3e9b7bcfa68bd2f6bf6917f608254570a0769a12.1792074165.git.amarkuze@redhat.com>
 
-On Fri, 16 Oct 2026 14:09:55 +0800, Qiliang Yuan wrote:
-> Commit 6549dd43c043 ("net: dev: fix the incorrect hold of net
-> namespace's lo device") added rcu_barrier() before
-> NETDEV_UNREGISTER_FINAL in dev_change_net_namespace(), so that dst
-> entries released by RCU callbacks were on the dst garbage list before
-> dst_ifdown() moved them to the loopback device of the old netns.
-> Commit 070f2d7e264a ("net: Drop NETDEV_UNREGISTER_FINAL") removed the
-> event but kept the barrier, and dead dst entries now point to
-> blackhole_netdev instead of a loopback device.
-> 
-> The barrier waits for the RCU callbacks pending on every CPU while RTNL
-> is held, which takes a full grace period on each netns move. Container
-> and sandbox managers move one end of a veth pair for every new network
-> namespace, so this limits how fast such namespaces can be created on the
-> whole system, regardless of how many threads create them.
-> 
-> Remove the barrier. The RCU callbacks queued by NETDEV_UNREGISTER
-> handlers free memory and drop device references, which the move does not
-> wait for. Cached IPv4 and IPv6 routes through the moved device are
-> rejected once its netns changes, since rt_genid and fib6_sernum are now
-> unique across netns.
-> 
-> Creating 400 netns, each with a veth pair whose host end is moved back
-> to the initial netns, a tap device, addresses and routes, in a 16 vCPU
-> guest, median of 5 runs:
-> 
->                    before      after
->   1 thread        68 /s      440 /s
->   4 threads       74 /s      409 /s
->   16 threads      77 /s      283 /s
-> 
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Hi Alex,
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+kernel test robot noticed the following build errors:
 
-Thanks !
+[auto build test ERROR on ed0502cb11f84fff29f374238e526ae94d9bdfde]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Alex-Markuze/ceph-add-subvolume-quarantine-wire-definitions/20261015-161202
+base:   ed0502cb11f84fff29f374238e526ae94d9bdfde
+patch link:    https://lore.kernel.org/r/3e9b7bcfa68bd2f6bf6917f608254570a0769a12.1792074165.git.amarkuze%40redhat.com
+patch subject: [PATCH v2 2/3] ceph: record subvolume quarantine from MDS cap updates
+config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20261017/202610171220.i77KPiw5-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261017/202610171220.i77KPiw5-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610171220.i77KPiw5-lkp@intel.com/
+
+All errors (new ones prefixed by >>, old ones prefixed by <<):
+
+>> ERROR: modpost: fs/ceph/ceph.ko: symbol 'd_find_alias_rcu' undefined!
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
