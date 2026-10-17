@@ -1,75 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02031925BC;
-	Sat, 17 Oct 2026 05:07:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47C837A846;
+	Sat, 17 Oct 2026 05:07:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792213621; cv=none; b=NVZdA6KLo3unh3NdNoimHWkry+OKfOdGOY6CuMs8ULbylsdYgN829SrYXcsRVShKJiIxdmZ9fjdrT3Mu1kTjirujDS7hKNWfyazGvMYY6f26RUcJR8Uuho346gzWJ4owVLWKt5gcvv/R1JOys2q4nRrY+NjlaQKqlJxf5UQPilc=
+	t=1792213652; cv=none; b=jQ9lRgfimTwMtIXlLUeVqawwadlE6HAa3g7d+DfuTK2ypaB7jbcNwlcy+0hXG5LqrNXwtSlhVq3y6SoVDjt1sc/LbBb2P4BdzxX07Kt7ttpyP7YB/wleLFlgDOjxZ2c5Ctm4JIuII3e6CTnbiic4khZTREcE27ocB9EGkYOHc5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792213621; c=relaxed/simple;
-	bh=6AibX6YCngIJcN/yXS5xOBZtVb3XeCfFM8NCLdf3Cr8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=qq3DkAEiL5S706CbDgRsxsXjXgdPJ5Rs4wvp5n2ac5xz/ALJWhB+djA+gETSlrNzD1YcH+NkY5Cc5DJbFdp9gP0TPhfaR3NZpeu/y2rep5NWSFfos7bajJFtd1jtZvHWC9BKZY52v2qz1NN7HIlnGyNIJXIyrNrBMlIVlPR/YuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EIXuIoXy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792213652; c=relaxed/simple;
+	bh=ZmTRlvew0CRM2W8eTbSVN8nEkxlmDho0fnArFkIhsoA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n3M4zHSGVQSw7qWTR8d8hgL2koOTsH8eIpMQtlM9Lmt+HL+TDjTvFEJ0aih6yBhUh93oEefQ2bvfPtSxRJvVeL0MiBLSqUAjj8dKFd0YxOb5H/VO9E1MDjVNP3RkX68HuYVOCKPowsK4DfB5Sm1SVDxGc+IWS/IGJ/5aAVRHCnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=KorvX6et; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EIXuIoXy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99FF1F000C4;
-	Sat, 17 Oct 2026 05:06:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792213620;
-	bh=4UCDTeoeo6cYiyxMe9fYq1aH8U/k4xUlpfLtsbN67hA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=EIXuIoXy3+29oJgMgyp8pD7E1RqhrdvTx66dg09UFZxu3s/lF9aLfGDZNGCa2SIF/
-	 oxowfoZns3iT4cOk03+0TzbAIqvJgnhTELjWmgnPXr8oUwdtYNBAfAmefJSg/Zq/RO
-	 oX6Oq5lwVWDP6vcZXmtuKSm8q0d0U9Zr+vJwJ6weNPcY8h1/1je4bFGIU2Lv5BefoM
-	 kiYy0UcTAGlJnGXFuqr2PP2emuszSh1RF69p8Dzq8BD25ApyI0/XQ+aXRv2qYK3VJ0
-	 9/07h1MunZMohHlmZmRm+vYyil2kI8jPGST8vA5xnptPNV+UMBUhuNqI/o1sbliX2Z
-	 rlw6Pxg5Sx9Gg==
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: bhelgaas@google.com, lpieralisi@kernel.org, kwilczynski@kernel.org, 
- jingoohan1@gmail.com, Hans Zhang <18255117159@163.com>
-Cc: robh@kernel.org, a-garg7@ti.com, linux-pci@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260930013842.82476-1-18255117159@163.com>
-References: <20260930013842.82476-1-18255117159@163.com>
-Subject: Re: [PATCH] PCI: dwc: Describe DWC PCIe fields with full masks and
- FIELD_PREP()
-Message-Id: <179221360235.2165.13933379659986541066.b4-ty@b4>
-Date: Sat, 17 Oct 2026 10:36:42 +0530
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="KorvX6et"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=GS+AsPIGu7yHRqy2jnr1W3dVbHJLUv2AWFzFOh/wFDY=; 
+	b=KorvX6etA1H1LwYIHbjwREizKszwt/mxjdfcD2DUylxpmdQYv2zpOgDwRmP3YPR0RmUpdWJzQGo
+	oPQjy4KW8cqA89aYUI5lEIpnepflISPJVyh43PIXf01uhiXJsHVmc8KG6lvkfNzWa3o+4ccLxYzDF
+	xcExs5PGftzWLR1dcge0eepyH/FsiBSyR+QnUgSPGvbev7iTd2NPPiL94Uj0KrmY9TM4/3LsBMP1S
+	YfbqM04tYbW/ZSI7dmX3kDOqVLbPxO4WHZbxEIFxkv1zLB7XrSEXc/JnWqU1FsoAgs8olJHf2MHJq
+	pp/6MNEQiBIGs3aTInov8ui1iePsiz84tT+A==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xHwdS-00000004n42-0Bu1;
+	Sat, 17 Oct 2026 13:07:11 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Sat, 17 Oct 2026 13:07:10 +0800
+Date: Sat, 17 Oct 2026 13:07:10 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Cc: Yosry Ahmed <yosry@kernel.org>, hannes@cmpxchg.org, nphamcs@gmail.com,
+	chengming.zhou@linux.dev, akpm@linux-foundation.org,
+	linux-mm@kvack.org, davem@davemloft.net,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	rientjes@google.com, willy@infradead.org, senozhatsky@chromium.org
+Subject: Re: [PATCH v1 0/8] Batched zswap_store() with compression batching
+Message-ID: <atMCfhB63koot230@gondor.apana.org.au>
+References: <CAO9r8zN5n=9v4K+OtEEODg=e0kcFW99PreUcZm09q9CUMQc+ew@mail.gmail.com>
+ <CACpmpofdoeVbbw7izCDeJ7eS+XpWj+3sp3teKEQWywyRB75jYQ@mail.gmail.com>
+ <CAO9r8zMaaUsBaS0TJumochRKt2ShV7nRaLnYPWv3=S-wUFgitw@mail.gmail.com>
+ <CACpmpoecz4tjr-qvFRy22CGuF+4NBWbE7HVjdTGFqQOheK3CLg@mail.gmail.com>
+ <CAO9r8zOAcf4=TscCXjMYvowUx-_u9qLGqY2-p7cK-z5CUU_x8w@mail.gmail.com>
+ <CACpmpofYXDMviE6FS-BZdVntmQFvS+_xvfmOnJ2caZFerz6vyg@mail.gmail.com>
+ <atGqPIpUfX0LDokV@gondor.apana.org.au>
+ <CACpmpofyLW5z1DYEY2YAty0VOAhRR+Leic8O-B0N9hrzdW_=Ew@mail.gmail.com>
+ <atL1ok1YkHbA4AaI@gondor.apana.org.au>
+ <CACpmpoe_RXcJM42sTVwk_Qvt3zjAOZhzYZNsRD4xz_1HxDmadg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=355;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=UNjcYDt4Eez7Rct3x9msn07EXLMBl1+K916IzfnTGS8=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq0wJvl8Ay+Jvq3whqz6n62/7yWs1n6YmtzzehT
- NrlkVwLT4GJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCatMCbwAKCRBVnxHm/pHO
- 9esZB/4uBJ1bGH4foyQieZE9iqZAzSGWjWIBZARh/xU8s5PZ4QXB6YGXjOM3LWaJMy/wyd3KlrZ
- ZCu6QLuOyIoJkGyRfhYMC4YXZv5XGrvPEKn84LNNb+xlQl4u1KnujQAEjzH5v+BWXPEib0fQyy9
- 9eXWgYqsv3V3CVFemFZ5/unQJYfaxh/caBobWBYyyp9QBWm69hfYGLmR3IHTd35Bik3H9a86Jb6
- vnKXe5FiOAT+KVPSH682SoZyusVs8EZWF/URsVUzhkyobvUOkap2R4UFr5QDc1fIB6YUZzlfmQs
- Db1o7u9H8G4KONLK06iQyyGk0DstR9dluFCDV2cAwpyCu8w6
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CACpmpoe_RXcJM42sTVwk_Qvt3zjAOZhzYZNsRD4xz_1HxDmadg@mail.gmail.com>
 
+On Fri, Oct 16, 2026 at 10:02:13PM -0700, Kanchana P. Sridhar wrote:
+>
+> > What if you just do the conditional and short-circuit in
+> > crypto_acomp_compress?
+> 
+> Yes, this is the first option I tried (20,946 KB/s).
+> 
+> [1]:
+> 
+> int crypto_acomp_compress(struct acomp_req *req)
+> {
+> struct crypto_acomp *tfm = crypto_acomp_reqtfm(req);
+> 
+> if (unlikely(acomp_req_on_stack(req) && acomp_is_async(tfm)))
+> return -EAGAIN;
+> 
+> if (likely(req->unit_size && acomp_request_issg(req))) {
+> if (likely(!crypto_acomp_req_seg(tfm))) {
+> int err = tfm->compress(req);
+> 
+> req->dst->length = unlikely(err) ? err : req->dlen;
+> return err;
+> }
+> 
+> return tfm->compress(req);
+> }
+> 
+> if (crypto_acomp_req_virt(tfm) || acomp_request_issg(req))
+> return tfm->compress(req);
+> 
+> return acomp_do_req_chain(req, true);
+> }
 
-On Wed, 30 Sep 2026 09:38:42 +0800, Hans Zhang wrote:
-> PCI: dwc: Describe DWC PCIe fields with full masks and FIELD_PREP()
+That isn't quite right though.  We need to ensure that it really
+is a singleton before taking the short-cut.  So you need at
+least one conditional:
 
-Applied, thanks!
+	if (likely(req->unit_size == req->slen))
+		take short-cut
 
-[1/1] PCI: dwc: Describe DWC PCIe fields with full masks and FIELD_PREP()
-      commit: 0bb385e6f5bc3f172097ec16392fc19493725c25
-
-Best regards,
+Cheers,
 -- 
-மணிவண்ணன் சதாசிவம்
-
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
