@@ -1,122 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8338C4848A3;
-	Sat, 17 Oct 2026 19:59:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF1839184B;
+	Sat, 17 Oct 2026 20:00:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792267194; cv=none; b=pt4C0XjNHu2xT/R4NwlW9f+I6dRt4h9wDE6UFL20w0io1tqUOlq5XxnxTBeD5wmhW1Bj6PYDRA3AjFIWIz8sYPTH+Lin+GieHZ3cB7KD0DixEBA7wAOakjGHi2dj5JbzN+PYGhHuiJ+h9ard2CRDBdq3e4weFu6fHk9bvRXajxs=
+	t=1792267213; cv=none; b=Xg5BP8Ps97dEkMq+MRE/N8aHdwq3UmmDc1upy4pXWX6Q4UHYuu6NQnA9seAesP5fFho32y1sCwpgO5rhWXyBPTWq0hA3t+FsTFt2I7z9ICk6wQS9+/kUeFiFAjfc0fH62t3/XKctkk3dKn0OmQKcXKuMyZG2Y3dwUT2BGk0L0wY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792267194; c=relaxed/simple;
-	bh=PqfTqC8qpNn6JfjpApf6oEqRdK+CHCueyoPGAQnMDOk=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YOQYzDWS0jhjXrYFuRjr9Q3Bz9f8xndo2nbssvrw3o/4P5Ko8KfyWlqfB2hy04zq+OhhcygX3qq09YTPlwWB1TUwplRktyzHni7ZcRSaEoR/AZmepxdNuMh2TnQ361RcFEs1jAjlfRwvKi8KKwGnXIyLC7cMrDqUuAm7EqCiBaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BOfktHj4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792267213; c=relaxed/simple;
+	bh=nyKi01ULEJMH5Y8pbW/BJjOGlMHbN/t1fcSUouRh6B4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OVGEz32WwLOi6SBDijIuYDxvsc2xJsxvmiewmBIvuLoGkFie5C8bmn2QSaWhlbpf7mrvxAaGtW6/mp+JQmKqPOEpx++wpPEOVmmEn0nVO0ixwr7a9eMkbMWmmfPyg1h5ckPx5WemVDeGrvS8sPfE7+kXpht/1qXZifmHf9nCTbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EJleIf3B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BOfktHj4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D7C51F000C8;
-	Sat, 17 Oct 2026 19:59:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EJleIf3B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33B711F000C4;
+	Sat, 17 Oct 2026 20:00:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792267192;
-	bh=AUA0BTD/dwmRkkig+Oe4GFBMuEGY8bqGFrhilsgKZsg=;
-	h=From:Subject:Date:To:Cc;
-	b=BOfktHj4SP/vcJ+nbzJOrQ9OGzo0UAC/oZeCXSg6NRv0kfkW/0kqihEVrt1oBpO7n
-	 LlXDXkVOy7plfV0UdE+94Y0T1mYu1ZqHInMssmA5Zc8zV5TXncWX6lVoNQb3gNgjyi
-	 K7UPchaJY8cEHaFO6Lb5oBNT64pakI7RY7O3sB0I76qtOGCJR/vMiKg6MTEVMhkpmW
-	 JGofn3n603Losfpa2nAoKcmNW0sVo7d4xlERlFN3RiO8gYSjHUuoxpdZapLg0amisd
-	 kOvSn4EIaoQkfLp4SwNLXGYivqA98yQ7H1kNb1BvsvoOKicm8v6OEJ1h3ILQQ+K8mG
-	 yX9iHA1k0BWgA==
-Received: by venus (Postfix, from userid 1000)
-	id E3E7E182304; Sat, 17 Oct 2026 21:59:47 +0200 (CEST)
-From: Sebastian Reichel <sre@kernel.org>
-Subject: [PATCH v2 0/4] Add DP AltMode VDO definitions for DT usage
-Date: Sat, 17 Oct 2026 21:59:29 +0200
-Message-Id: <20261017-dp-altmode-dt-defines-v2-0-7ab3d93553dd@collabora.com>
+	s=k20260515; t=1792267212;
+	bh=zL8xdxVruWYdEdsNkF9GkTtgoJqQv0ozozSTRpy9Dgg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=EJleIf3B4A1yYi7lzbnpPGAS1GO2WRM/dutcgxzg3lCnw3XcgwO6mJsaW9zA68e/K
+	 H8ibjStuMNPJdyOn7dgRpGLdy8Ue8dEMb0DCbxUphEyRhWxuFECbt8sav98j7Co8f5
+	 4yTqaNrZAiNeeZAnCgI0+EJ8nsL93Qar8XrwthUL/br+nrqVSs0gvAO0f+GSU+VS+H
+	 E+ImFMCwcCf8CvY6Csnqumim7mghWYQnBSd9qExM2JowP4FBSxTwOA+6ioLYrcllBl
+	 uxNbxb2wp06Xt7oh6XpjlduDBFJiOlIPYYqgx2csw+Jewwefz/t4MrLxdUfBy9UmCy
+	 oVJiQndN4VWkw==
+Date: Sat, 17 Oct 2026 21:00:05 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Liu Yufei <lyf98405@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Joshua Crofts <joshua.crofts1@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] iio: proximity: Add Vishay VCNL36829 driver
+Message-ID: <20261017210005.07472854@jic23-hlaptop>
+In-Reply-To: <20261016012218.40223-1-lyf98405@gmail.com>
+References: <20261006100943.78971-1-lyf98405@gmail.com>
+	<20261016012218.40223-1-lyf98405@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNTQ6CMBBGr0K6dkxboQRX3sOwmLaj1AAlbSUaw
- t0tGJcuX76ft7BIwVFk52JhgWYXnR8zyEPBTIfjncDZzExyqQQXHOwE2KfBWwKbwNLNjRRBIlb
- YlLpWt4rl7RRy8Np/r+2X41M/yKTtbGt0LiYf3rt4Flvv5yj/OGYBHLSqatNoRaU5XYzve9Q+4
- NH4gbXrun4AOT6NEdAAAAA=
-X-Change-ID: 20261010-dp-altmode-dt-defines-2aa5a94b76f5
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-arm-msm@vger.kernel.org, kernel@collabora.com, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1990;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=PqfTqC8qpNn6JfjpApf6oEqRdK+CHCueyoPGAQnMDOk=;
- b=owEBbQKS/ZANAwAKAdju1/PIO/qaAcsmYgBq09OynXNuLyXyyQ5SWVxxDRwRhaVi3cCrJivmP
- fdaX9EONICJAjMEAAEKAB0WIQTvZg0HRj+Lcmp5VBPY7tfzyDv6mgUCatPTsgAKCRDY7tfzyDv6
- mnaVD/9GZlzEU1l9TiOtXfrV/MQlaTWxf0iCbR7yaV7e/6EuJKJDsC5/mJ5iFk+HTRhrzUKoK6J
- 1Hl5VxN05xaQnu9OUbYSllPjpmhwNRvucLHMLhx6S0o3pR+cTAT4zUzu3zYXPvYyoHaUcMRp9cN
- sGkddOJthw2d9mYOio5ytXPaRGERM5ZYNcmOucYcKioo7c/9cW5PoJ7OAHhiptX6cnLeciiMXj2
- QdYauYw8uSAqTubsY8MfeYCNGj7HUNhhkkqmewejr0JUu1+hGg9lSn7qttHv+ROwmiujoNIGBMz
- 4ta52lmQ+oIMp9/BFjI/8/e62vKohG4gyZnjndVZKi3BkQIKgf1MZ8Rnv9IApg5Np/iLvwLLp5f
- Bm7pdQs57S7Xswf+i/+EJKzFhfVTWL3Y9krkuLoQTCTUpTe79AlWOjwmE7RV6iydtaa1zbAykS8
- C55Ppj09pwIA8/FAYVjE8KpO43w3Hyg58/JeBLhLrNlfkEN+hlNKK+L7+NRTNctdqbf8VocxAIw
- y10G4p6sdK7klh2oTIz3h/KfaRrN1pg/mioKNJ86j1/iTSxVfb0qD56MjXjwYDMyhCFz43XN81F
- IRTQrU+xNdttbjeMIKl/+va80lj4G3PwmRxT7viuPVAfu9oisyNUPt3uWpTVFZKF+WuDtfw+W1I
- MHONLfDDYHHuD5w==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Make DP AltMode devicetree entries more readable by adding a few
-defines. This hopefully helps to correctly describe the supported
-DP AltMode when boards are being upstreamed. Apparently right now
-all upstream boards with DP AltMode *should* have set their VDO to
-0x00001c46, which means that they can output DP1.4 with C, D or E
-pin mapping on a receptacle that also has functional USB 2.
+On Fri, 16 Oct 2026 09:22:16 +0800
+Liu Yufei <lyf98405@gmail.com> wrote:
 
-The patch series is based on current master.
+> From: Liu Yufei <lyf98405@gmail.com>
+> 
+> This series adds support for the Vishay VCNL36829, an I2C proximity
+> sensor with an integrated VCSEL emitter.
+> 
+> Patch 1 adds the devicetree binding.
+> Patch 2 adds the IIO driver, which exposes the proximity reading and
+> a configurable integration time.
+> 
+> Tested on Orange Pi Zero 2W.
 
-Changes in v2:
-- Link to v1: https://patch.msgid.link/20261014-dp-altmode-dt-defines-v1-0-b657c9b6e4c3@collabora.com
-- s/USB_DISPLAYPORT_SVID/USB_SVID_DP_ALTMODE/ ; I initially
-  used the former and somehow missed updating the Mediatek DTS
-  before sending out the patches
-- Collect Reviewed-by from Dmitry Baryshkov and Konrad Dybcio
+Hi Liu Yufei,
 
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
-Sebastian Reichel (4):
-      dt-bindings: connector: Add DP AltMode VDO definitions
-      arm64: dts: rockchip: Use DP AltMode defines
-      arm64: dts: mediatek: Use DP AltMode defines
-      arm64: dts: qcom: Use DP AltMode defines
+Small process thing first.  Start a fresh thread for each version.
+This is to avoid the treads becoming complex to follow and has the side
+effect that they actually turn up as 'recent' in reviewer's inboxes.
 
- .../boot/dts/mediatek/mt8390-genio-common.dtsi     |  8 ++-
- .../boot/dts/mediatek/mt8395-genio-common.dtsi     | 10 +++-
- arch/arm64/boot/dts/qcom/qrb5165-rb5.dts           |  8 ++-
- arch/arm64/boot/dts/qcom/sm8150-hdk.dts            |  9 +++-
- .../dts/rockchip/rk3576-anbernic-rg-vita-pro.dts   |  8 ++-
- .../boot/dts/rockchip/rk3576-armsom-cm5-io.dts     |  8 ++-
- .../boot/dts/rockchip/rk3576-armsom-sige5.dts      |  8 ++-
- .../boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi   |  8 ++-
- .../boot/dts/rockchip/rk3588s-indiedroid-nova.dts  |  8 ++-
- include/dt-bindings/usb/pd.h                       | 58 ++++++++++++++++++++++
- 10 files changed, 115 insertions(+), 18 deletions(-)
----
-base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
-change-id: 20261010-dp-altmode-dt-defines-2aa5a94b76f5
+I'd have looked at this a lot later today (or perhaps not at all)
+if I didn't happen to notice it in patch work after changing status
+on another patch.
 
-Best regards,
---  
-Sebastian Reichel <sebastian.reichel@collabora.com>
+Jonathan
+
+> 
+> Changes in v3:
+> - driver: Collect Reviewed-by from Joshua Crofts and Andy Shevchenko.
+> - driver: Use dev_info() instead of dev_warn() for an unknown device
+>   ID (Joshua Crofts).
+> - driver: Wrap the write_raw() arguments on a logical boundary
+>   (Andy Shevchenko).
+> 
+> Changes in v2:
+> - dt-bindings: Collect Reviewed-by from Krzysztof.
+> - driver: Address review comments from Andy:
+>   - Use a Datasheet: tag in the commit message.
+>   - Drop mod_devicetable.h, sort the includes and include what is used.
+>   - Drop the i2c_client pointer from the private data and use
+>     regmap_get_device() instead.
+>   - Drop the unused i2c_set_clientdata().
+>   - Enable a maple regmap cache, mark PS_DATA and DEV_ID volatile.
+>   - Rework the integration time validation in write_raw().
+>   - Use reverse xmas tree order for local variables.
+>   - Document the power-up delay and use 3 * USEC_PER_MSEC.
+>   - Warn and continue on an unknown device ID instead of failing.
+>   - Join lines that fit within 100 columns.
+>   - Simplify the Assisted-by tag.
+> - driver: Drop the i2c_check_functionality() call, as
+>   devm_regmap_init_i2c() already checks the adapter capabilities.
+> 
+> Link to v2: https://lore.kernel.org/linux-iio/20261006100943.78971-1-lyf98405@gmail.com/
+> Link to v1: https://lore.kernel.org/linux-iio/20261003050453.413700-1-lyf98405@gmail.com/
+> 
+> Liu Yufei (2):
+>   dt-bindings: iio: proximity: Add Vishay VCNL36829
+>   iio: proximity: Add driver for Vishay VCNL36829
+> 
+>  .../iio/proximity/vishay,vcnl36829.yaml       |  55 ++++
+>  MAINTAINERS                                   |   6 +
+>  drivers/iio/proximity/Kconfig                 |  11 +
+>  drivers/iio/proximity/Makefile                |   1 +
+>  drivers/iio/proximity/vcnl36829.c             | 298 ++++++++++++++++++
+>  5 files changed, 371 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/proximity/vishay,vcnl36829.yaml
+>  create mode 100644 drivers/iio/proximity/vcnl36829.c
+> 
+> base-commit: 52c36105f76e96b638152a42e735f2e7767ed946
 
