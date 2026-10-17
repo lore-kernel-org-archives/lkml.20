@@ -1,163 +1,253 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5083A48E4
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:57:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D5137701A;
+	Sat, 17 Oct 2026 17:57:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792259843; cv=none; b=DvE8YTcN6E/kWI1uedKSQ19e5BNKhkQrboNijCgP72aVl17zI26rxojwbgR4x4GjC1O3cstldcc8RT8iTXSyoXMd8oXhu1gIbkRV9wCTCJMwavWAwBTW10SrDByLEyNdKjOY/ZV4VCqtbMXh3R4CF9FSJYVHGUI/t630CFzgmaM=
+	t=1792259864; cv=none; b=mHNKFWtng3GaLmX8HV4LLhfSuEQ0KBxLhUoPJQJIcuVdUnXgf++yQ7JToJa1zkBKpG38dnhDdB8OZol5KQ+s1z9ChJPbXlYm1HyNa+eJna0dAVsfaPBjXIT+psLqiiQqZhROJQBR+Un2aCpptWPG6jE+LXdy47mpeD0FQDLNS+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792259843; c=relaxed/simple;
-	bh=EP+Yh7zVtw63V7f+4ONS7jOC5SzHWx3d6o530mKBuas=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=lMDT1zJdusWgugSDSG6UMVH86RJQ5mYqLHSOr7esYrb5Lvr6NrbCWf/mWXnch3CVuje3asIvqQb0u9hOAU0gD0aorGaU7HJ1y/LZ5JPRaCeHR37bcegkPJk0eT7npd95Uea83+OWUr88OXwz+FZlKDAeENPQcSDAxC96WnSKWOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=uvHF/VwL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792259864; c=relaxed/simple;
+	bh=bkZ2fXiclhyi9RuvydxYkWYuJ6hqFe0UoOl0JDo3PFE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cklx+X000pd414jkvdkTyt8GCto/lr0HFghfD6tawIBaNbYmjPttYW5xzp+RzT3/c34svenuOQpd+HLhI8udL6EFMoz3+9Zoq//MF9ryccEG31bQLf6VdBhvjjRBfVIu4HtHT4JuW8jp1FURQmrihhcQ09qHF6dDmJoDQRbCLmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iLPO7c74; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="uvHF/VwL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A35471F000C5;
-	Sat, 17 Oct 2026 17:57:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792259841;
-	bh=Vtx+65y7QTGULn7fm4HfmV0OLS9IPk81AvNxPjWvnAg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=uvHF/VwLv8dVwjABFGOGu7YX5E6f4mpYaxGdV6A4uI1XwYGCY2g8SEOWe/+RFZfPa
-	 OLPILKZvlDh3dI/Ao7vW26/E/1WcHDm8UeK1ac8LmJf4vFGPQkmEBRYeDq1W32KNRx
-	 LQra22rpuge0dXttY1x2zi9k/LJtHVeOOBQQSayI=
-Date: Sat, 17 Oct 2026 10:57:21 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: =?UTF-8?B?6rmA7KKF7ZiB?= <malhyuk97@gmail.com>
-Cc: xueyuan.chen21@gmail.com, david@kernel.org, lance.yang@linux.dev,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] mm/huge_memory: lazyfree THP PMD restore races
- zap_pmd_range
-Message-Id: <20261017105721.994b4c0e57bb96b4345e6da5@linux-foundation.org>
-In-Reply-To: <CADQRuqv1akf67+qe+DHbfEM-nPtEjLNzz8BWBRtBVZ8VVqKubA@mail.gmail.com>
-References: <CADQRuqv1akf67+qe+DHbfEM-nPtEjLNzz8BWBRtBVZ8VVqKubA@mail.gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iLPO7c74"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 738911F000C4;
+	Sat, 17 Oct 2026 17:57:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792259863;
+	bh=BkjlY/beaZgsUWOJV3FqYfYFw4hgkZcyLd/jvUyEvrY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iLPO7c74p99vVCGpVKY6iH8+IY8+3HTe1fDzw2F/f5sbjOi4lSoFsYNUyDYKMh77C
+	 pjtQ5Qs5jLlrsXBtGHtkR+56TlmYM+l4f8N9di1swhh7KILpiQCSWyDRggyEn5nk+f
+	 w/JXFv+Wo1Y8ZD3+1t/VHDTiAuz15uZ6/uMsG7t4tFLA3jwbbS5708poHtpotyRCNu
+	 9IQiShE+/C/+mNemcsHoBSonfCUTsOFHhIweoSHDDk2PhSuP9UVcBo0MEufN3XoyKk
+	 tnYRIEBl9aq58LuOrgmoqSsFVskYaUxRGuAwaQDktGMxT1U+8ikoJImcxIHT04XT8C
+	 3XBME4mk0+rpw==
+Date: Sat, 17 Oct 2026 19:57:40 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Patrice Chotard <patrice.chotard@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Christophe Roullier <christophe.roullier@foss.st.com>, Srinivas Kandagatla <srini@kernel.org>, 
+	Simeon Marijon <simeon.marijon@foss.st.com>, linux-stm32@st-md-mailman.stormreply.com, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Gatien Chevallier <gatien.chevallier@foss.st.com>
+Subject: Re: [PATCH v3 3/3] nvmem: stm32: add TAMP nvmem driver
+Message-ID: <20261017-positive-curassow-from-sirius-c283c0@quoll>
+References: <20261016-upstream_nvram_reworked-v3-0-f65908490cf7@foss.st.com>
+ <20261016-upstream_nvram_reworked-v3-3-f65908490cf7@foss.st.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261016-upstream_nvram_reworked-v3-3-f65908490cf7@foss.st.com>
 
-On Sat, 17 Oct 2026 12:05:49 -0500 김종혁 <malhyuk97@gmail.com> wrote:
+On Fri, Oct 16, 2026 at 05:26:05PM +0200, Patrice Chotard wrote:
+> +static int stm32_tamp_nvram_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct stm32_tamp_nvram_priv *priv;
+> +	struct resource *res;
+> +	struct device_node *of_node;
+> +	const struct of_device_id *of_id;
+> +	void __iomem *base_addr;
+> +	int *zones_end;
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->dev = &pdev->dev;
+> +
+> +	of_node = dev_of_node(dev);
+> +	if (!of_node) {
+> +		dev_err(dev, "Can't get of node of the device\n");
+> +		return -ENODEV;
 
-> On Sat, Oct 17, 2026, Xueyuan wrote:
-> > This bug should be fixed by:
-> >
-> >
-> https://www.google.com/url?q=https://lore.kernel.org/linux-mm/20261012-lazyfree-stable-fix-v2-1-6387d6e30063@nvidia.com/&source=gmail&ust=1792343148969000&sa=E
-> >
-> > It is already in mm-unstable. Your reproducer would be a good test for it.
-> 
-> Thanks, that looks like the same race, and I should have checked
-> mm-unstable before writing rather than only the released trees. Sorry
-> for the duplicate.
-> 
-> I would be glad to test it. The reproducer runs unprivileged and gives
-> the KASAN report in 30 s to 5 min on a 6.12.112 KASAN build, 6 of 7
-> five-minute boots, so a before and after on the same guest should be a
-> reasonably clear signal, and I can leave it running longer than that if
-> you want more confidence in the negative.
-> 
-> https://www.google.com/url?q=http://lore.kernel.org&source=gmail&ust=1792343148969000&sa=E
-> is refusing my requests from this network, so I cannot
-> pull the patch from the archive. Could you point me at a tree and
-> branch to fetch it from, or send it inline? Either is fine. I will
-> report back with the two runs.
+Entire dev_of_node and if() look not necessary.
 
-Thanks.   Here it is:
+> +	}
+> +
+> +	of_id = of_match_node(stm32_tamp_nvram_of_match, of_node);
+> +	if (!of_id) {
+> +		dev_err(dev, "Can't get of_id of the device\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	priv->data = (struct stm32_tamp_nvram_plat *)of_id->data;
 
-From: Zi Yan <ziy@nvidia.com>
-Subject: mm/rmap: don't discard lazyfree THPs at PMD level
-Date: Mon, 12 Oct 2026 22:20:16 -0400
+Use wrapper - device_get_match_data or something similar (don't remember
+exactly).
 
-__discard_anon_folio_pmd_locked() clears a lazyfree THP's PMD before it
-determines whether the folio can be discarded, and restores it if the
-folio is dirty or has extra references.  It is done under only the PMD
-lock and the anon_vma read lock inside try_to_unmap_one() and no mmap lock
-is held.  The temporarily none PMD causes UAF.
+> +	if (!priv->data) {
+> +		dev_err(dev, "Can't get platform data of the node\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	priv->config_regmap = syscon_node_to_regmap(dev->parent->of_node);
+> +	if (IS_ERR(priv->config_regmap))
+> +		return dev_err_probe(dev, PTR_ERR(priv->config_regmap),
+> +				     "Can't get TAMP syscon regmap\n");
+> +
+> +	priv->idx_bkpreg_zones_end = stm32_tamp_nvram_get_backup_zones(priv);
+> +	if (IS_ERR(priv->idx_bkpreg_zones_end))
+> +		return dev_err_probe(dev, PTR_ERR(priv->idx_bkpreg_zones_end),
+> +				     "Can't determine protection zone\n");
+> +
+> +	zones_end = priv->idx_bkpreg_zones_end;
+> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +
 
-A parallel munmap() or mremap() is supposed to serialize with it on the
-PMD lock, but zap_pmd_range() (called by munmap()) and move_page_tables()
-(called by mremap()) do not take the lock when they see the temporarily
-none PMD and skip the PMD.  There is no more page table walk after the
-none PMD is restored:
+Drop blank line
 
-- munmap(): free_pgtables() waits in unlink_anon_vmas() for the anon_vma
-  lock, then free_pmd_range() drops the restored PMD as bad without
-  removing the rmap, so the folio keeps a stale mapcount.
+> +	if (!res) {
+> +		dev_err(dev, "Can't get resource\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	base_addr = devm_ioremap_resource(dev, res);
 
-- whole-VMA MREMAP_DONTUNMAP: dontunmap_complete() unlinks the source VMA
-  from its anon_vma while the restored PMD still maps the folio.
+You cannot use wrapper over these two? And I am a bit confused - device
+takes syscon from the parent, so how does it map also another memory?
 
-- plain mremap(): the THP is not moved but unmapped, so the THP's data is
-  lost.
+> +	if (IS_ERR(base_addr)) {
+> +		dev_err(dev, "Can't remap resource\n");
+> +		return PTR_ERR(base_addr);
+> +	}
+> +
+> +	priv->cfg.name = "stm32-tamp-nvram";
+> +	priv->cfg.word_size = 1;
+> +	priv->cfg.stride = 1;
+> +	priv->cfg.dev = dev;
+> +	priv->cfg.priv = priv;
+> +	priv->cfg.owner = THIS_MODULE;
+> +	priv->cfg.type = NVMEM_TYPE_BATTERY_BACKED;
+> +	priv->cfg.size = resource_size(res);
+> +	priv->cfg.reg_read = stm32_tamp_nvram_read;
+> +	priv->cfg.reg_write = stm32_tamp_nvram_write;
+> +
+> +	if (priv->data->nb_zones == NB_ZONES_STM32MP2) {
+> +		priv->bkpreg_access = stm32_tamp_get_access_rights_mp2x(priv);
+> +
+> +		if (IS_ERR(priv->bkpreg_access))
+> +			return PTR_ERR(priv->bkpreg_access);
+> +
+> +		dev_dbg(dev, "\n"
+> +			"Zone 1-RIF1 %3d - %3d %c%c\n"
+> +			"Zone 1-RIF2 %3d - %3d %c%c\n"
+> +			"Zone 2-RIF1 %3d - %3d %c%c\n"
+> +			"Zone 2-RIF2 %3d - %3d %c%c\n"
+> +			"Zone 3-RIF1 %3d - %3d %c%c\n"
+> +			"Zone 3-RIF0 %3d - %3d %c%c\n"
+> +			"Zone 3-RIF2 %3d - %3d %c%c\n",
+> +			0,
+> +			zones_end[BKPREG_PROTECTION_ZONE_1_RIF1],
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_1_RIF1],
+> +						true) ? 'R' : '-',
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_1_RIF1],
+> +						false) ? 'W' : '-',
+> +			zones_end[BKPREG_PROTECTION_ZONE_1_RIF1] + 1,
+> +			zones_end[BKPREG_PROTECTION_ZONE_1_RIF2],
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_1_RIF2],
+> +						true) ? 'R' : '-',
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_1_RIF2],
+> +						false) ? 'W' : '-',
+> +			zones_end[BKPREG_PROTECTION_ZONE_1_RIF2] + 1,
+> +			zones_end[BKPREG_PROTECTION_ZONE_2_RIF1],
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_2_RIF1],
+> +						true) ? 'R' : '-',
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_2_RIF1],
+> +						false) ? 'W' : '-',
+> +			zones_end[BKPREG_PROTECTION_ZONE_2_RIF1] + 1,
+> +			zones_end[BKPREG_PROTECTION_ZONE_2_RIF2],
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_2_RIF2],
+> +						true) ? 'R' : '-',
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_2_RIF2],
+> +						false) ? 'W' : '-',
+> +			zones_end[BKPREG_PROTECTION_ZONE_2_RIF2] + 1,
+> +			zones_end[BKPREG_PROTECTION_ZONE_3_RIF1],
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_3_RIF1],
+> +						true) ? 'R' : '-',
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_3_RIF1],
+> +						false) ? 'W' : '-',
+> +			zones_end[BKPREG_PROTECTION_ZONE_3_RIF1] + 1,
+> +			zones_end[BKPREG_PROTECTION_ZONE_3_RIF0],
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_3_RIF0],
+> +						true) ? 'R' : '-',
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_3_RIF0],
+> +						false) ? 'W' : '-',
+> +			zones_end[BKPREG_PROTECTION_ZONE_3_RIF0] + 1,
+> +			zones_end[BKPREG_PROTECTION_ZONE_3_RIF2],
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_3_RIF2],
+> +						true) ? 'R' : '-',
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_3_RIF2],
+> +						false) ? 'W' : '-'
+> +				);
+> +	} else if (priv->data->nb_zones == NB_ZONES_STM32MP1) {
+> +		priv->bkpreg_access = stm32mp1_tamp_bkpreg_access;
+> +
+> +		dev_dbg(dev, "\n"
+> +			"Zone 1 %3d - %3d %c%c\n"
+> +			"Zone 2 %3d - %3d %c%c\n"
+> +			"Zone 3 %3d - %3d %c%c\n",
+> +			0,
+> +			zones_end[BKPREG_PROTECTION_ZONE_1],
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_1],
+> +						true) ? 'R' : '-',
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_1],
+> +						false) ? 'W' : '-',
+> +			zones_end[BKPREG_PROTECTION_ZONE_1] + 1,
+> +			zones_end[BKPREG_PROTECTION_ZONE_2],
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_2],
+> +						true) ? 'R' : '-',
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_2],
+> +						false) ? 'W' : '-',
+> +			zones_end[BKPREG_PROTECTION_ZONE_2] + 1,
+> +			zones_end[BKPREG_PROTECTION_ZONE_3],
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_3],
+> +						true) ? 'R' : '-',
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_3],
+> +						false) ? 'W' : '-');
+> +	}
+> +
+> +	platform_set_drvdata(pdev, priv);
+> +	priv->bkpregs_regmap = devm_regmap_init_mmio(dev, base_addr,
+> +						     priv->data->bkpregs_regmap_cfg);
+> +	if (IS_ERR(priv->bkpregs_regmap)) {
+> +		dev_err(dev, "failed to init regmap: %ld\n", PTR_ERR(priv->bkpregs_regmap));
+> +		return PTR_ERR(priv->bkpregs_regmap);
 
-In the first two cases, the folio stays mapped, but no VMA that maps it is
-linked to its anon_vma.  When the anon_vma is freed, it is still reachable
-when one rmap walks the folio.  Racing lazyfree reclaim against
-MREMAP_DONTUNMAP as an unprivileged user reproduces a KASAN use-after-free
-in folio_lock_anon_vma_read() as reported in the Closes link.
+return dev_err_probe
 
-One solution is to use an invalidated PMD instead of a cleared one until
-the discard is committed, but it needs arch fixes first.
-1. GUP-fast still follows an invalidated PMD on riscv, LoongArch and s390.
-2. sparc64 miscounts thp_pte_count when an invalidated PMD is set again or
-   cleared.
 
-To keep the fix simple for backport, stop discarding lazyfree THPs at PMD
-level instead. try_to_unmap_one() splits the PMD and discards the folio at
-PTE level.
-
-unmap_huge_pmd_locked() and __discard_anon_folio_pmd_locked() are left in
-place, unused, to minimize this fix for backport and the invalidated PMD
-approach is planned as a follow-up series to use them again.
-
-Link: https://lore.kernel.org/20261012-lazyfree-stable-fix-v2-1-6387d6e30063@nvidia.com
-Fixes: 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during shrink_folio_list()")
-Signed-off-by: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Closes: https://lore.kernel.org/r/20261009165214.40212-2-kylebot@openai.com
-Reviewed-by: Kyle Zeng <kylebot@openai.com>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Assisted-by: LLM
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: <stable@vger.kernel.org>
----
-
- mm/rmap.c |   11 -----------
- 1 file changed, 11 deletions(-)
-
---- a/mm/rmap.c~mm-rmap-dont-discard-lazyfree-thps-at-pmd-level
-+++ a/mm/rmap.c
-@@ -2275,17 +2275,6 @@ static bool try_to_unmap_one(struct foli
- 		}
- 
- 		if (!pvmw.pte) {
--			if (folio_test_lazyfree(folio)) {
--				if (unmap_huge_pmd_locked(vma, pvmw.address, pvmw.pmd, folio))
--					goto walk_done;
--				/*
--				 * unmap_huge_pmd_locked has either already marked
--				 * the folio as swap-backed or decided to retain it
--				 * due to GUP or speculative references.
--				 */
--				goto walk_abort;
--			}
--
- 			if (flags & TTU_SPLIT_HUGE_PMD) {
- 				/*
- 				 * We temporarily have to drop the PTL and
-_
+Best regards,
+Krzysztof
 
