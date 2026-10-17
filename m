@@ -1,78 +1,95 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5533B4315A
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:16:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E2F3D47A6
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:17:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792224992; cv=none; b=MSazMqbEwT4Sqk4jgy40dluDjo6cFCmoI8dIZ21ugTdrXsfFcq45Lcn2vzaF4I4IA3fwtXgEPBYszLPrFPhisBKUuH6KkGo81qouMLo+YoqFo1tIeeG7UOhRpDJtdMPMF+mxKG9qQ4E0GA+BIKyQr1PIadCbgxUDJJEYfI5Wx6k=
+	t=1792225051; cv=none; b=BlIg46l21UUC/pdFMtI/FvfFXPetIjH5iBIZIgn+TzFnxnI4d9VPZN6/nrFsAB9cN3PNHp6J8RDb61XQixWwTnXTdatTb9A2jSDQMRIFKBGlfJ+JQV1Q7t8Co1e0TmKFQd6fIY05ZGowvrdGwxr8e5aFnaS4aGmIcdbvSQtNgFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792224992; c=relaxed/simple;
-	bh=KOss2RXNEsYXOLGcex6zn2KON6+z01gxh5ch8cLaMJA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VHTHshxtPcu5lZc5WsMo2KgWZDhFxbPD+3pmuJMrZ36IC0GKF1rLvhWByipFyz9P2BYEEgFzBCRxPYsD6Ss3kg3f22KftKzAHzAn69awnfqUBjAgBfSs81tNl6uhDsUwIQm16g9pit5oboyvWC5yty89W9XyzpOIv3K5nJX4aUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rxvn0DrB; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792225051; c=relaxed/simple;
+	bh=jyEQmV2pMgkblAdNPohQg0tJ8+u/gDWd4+ZE2S6cKm0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d9bREUtknBd2DqwfvJx4nlngLVdvkA7k+QafTNk4QUDvZThcvNZgGG4E6Bj9vFwStaoMwd7jJc7S0Jn67Duc/7KLzaEc68CXMdCBFHVWiAgycZLj/oCkrWe5yT3gCLOssLTVkQov2bh65UUHbNM+vpVNNIxtEkq6HdXYvjF0Gsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=EWjUy6TI; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=MO40CTWu; arc=none smtp.client-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rxvn0DrB"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e977109392so2476805ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 01:16:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792224991; x=1792829791; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4Rvkgh3Vtn4gb/N875529l68oF+mXegyVxx4uqGo40A=;
-        b=rxvn0DrBGA4lUspUCoMRnhQoLszSi69RyZVnC97bvR5v++ZzYwPFMWx8o3uQ0O6ZqU
-         J0Y36YYqGq43zUk+1GugNgHhflWfd3vAKJITCTkpYPjxoJZ1HAUGhx4YUQkgA8g+9yz0
-         joTqo9B8chmNRu3cY/PXnkOskC2xxitsrRg54Kh7tJXm38sbC2juv2T1mmR0rhhyajZf
-         KWclV2A4WiVZvPfS9wnB/3I5gJCJVToNiyT6YtIYhz024vsu7gq79fE5khitzfcaKEqd
-         rzRdaD+a65oBybA3b+jBSXYxFpG5iRVp1ZN6JUR22o0XPLwQe60Jwcog6quxl3bBBSrQ
-         h6lQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792224991; x=1792829791;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4Rvkgh3Vtn4gb/N875529l68oF+mXegyVxx4uqGo40A=;
-        b=HFCehs4Jsq0Ilc59t3fggq5mB8ZWFkHgQ1GsgyjldcsKpqyalMe2c8aOgvU8lxWkr9
-         1RCWSH0CeHuWGe9CZ+9/8ptqkb+txgEyaMUUH2vwtE8vcv+huMy5KpTPATjQExsUhxsK
-         iFSnLslekvOrQckTyFf/9BxqhECAG5xTinoq7Mx2eSa2kzVBrh3xy6FonDVJSTAF0aRP
-         DUG4Eo0R+nBONm+rX4uu6Zwry2T1X6oosRGebUtYywk+PmLPCLXexGLWcZLC3YSJbb+6
-         Huip9QS99/2V6f8vH+LnPQt7Ad/nLrAxJNPMYCxrXmMRk2IX8p6IW2jeIwVJwdmIcOfo
-         jiWw==
-X-Forwarded-Encrypted: i=1; AKwUvBygp0UYWaVtqqQkZSpyrBMF6I/QkKBu7q2tOc3PUuTJD1ZpDo+TXWit4gpg+yjvat+kdOJnUlIQ7lYuEJo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOloRj9BmhZ5O0226bHBZ4/1YkrWGzmBp5j8pZzEZlU9MwSIiP
-	9GRHePJtJdehTtcd62j3JoRLXHrGEMCrJ9kppyauI8JprIG0FayNDupeUbZpf0d8
-X-Gm-Gg: AYBFou1SVF7dTdp0+hA7yhDuFBmJqXwip7HxJieg6KLS2P8bvBaWaBbbPlCysikZTvb
-	3flkYvw9UxsFWxXGgI3qo2ODI2k4GiglNbXTAP2fj4JkxxY8Te2iz2Z0x7iyc+yTHVtwbIt5+9F
-	+OrxsVAt7Y4i4g49eqU1wrFJOLvEu+khEzbX6f81Znk2PrizcnvB0dht/xIS+d+mDQ1M3IMdcZs
-	nS76MtBEzKSJuLIqMVGniWKrs3sN2kgYiubIfkCN57N3Yu5tnlND3U9sF+dRkF9l6LvXCk8g7cF
-	isi3cEDKbhAnhWV0lH8Dpi2L6dyaC8uyCrgAZlFD7tk49c1rJKT2jGvTbXKC4UqltAYGbZupajp
-	SYCpc6hOVQXK9BpAFc4PJAN5xyBT67R7KTwU5FnMvJfqYgqrewxWdRDiWgvui36ZFwX8D5A682/
-	SG3vFSihJycOLISyHkSAtN2+wSrbIZXYPAWJOv6ql36q3BS3KsdcJbALVyYPbDnVcdOg==
-X-Received: by 2002:a17:90a:e7ca:b0:3ac:7872:d1b7 with SMTP id 98e67ed59e1d1-3acef14859dmr1938332a91.32.1792224990592;
-        Sat, 17 Oct 2026 01:16:30 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc980a548sm3607125a91.0.2026.10.17.01.16.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 01:16:30 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: dhowells@redhat.com,
-	jarkko@kernel.org,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com
-Cc: keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ebiggers@kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] keys: Avoid owner account dereferences in /proc/keys
-Date: Sat, 17 Oct 2026 16:16:22 +0800
-Message-Id: <pm-keys-proc-owner-uid-followup-20261017-v2-8f8f34a41eb1bbb94ef0@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="EWjUy6TI";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="MO40CTWu"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id CFCFF1D0008E
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:17:24 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Sat, 17 Oct 2026 04:17:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1792225044; x=1792311444; bh=cvZEXtgA8l
+	iyh7jUSm+mW91eRaAT2wY0hJv5VsK+fvU=; b=EWjUy6TIyaURWZJRMfR6M+1yeD
+	hSToxgUokB9YgcjDImoInCGeBNNBp4aGum+rZBs6XkQeSqqQz6obHNYqE3fqe2zF
+	9JCLq9bkcHoSq4hMI5Ek+ea8oaZPu5qsnPEMt0HVMEQ6gEnf13cpcCaBEzE4Ibq2
+	uprDmryrN0HQ9AumDJYVGtHPvEH+dXTnCqo4kvpCZDtWRXB3R/evEH2cN9q0W/ok
+	VO4xE7hGUbniuVwLAJxGc2mNPpaml4+gOZCnHZQCOL19nnN9q+K+Ici92lUalXUr
+	DBOYIik+yO3ZBklNIMtIm8WuI61Fu3dbo2a2EshB9mfXwfCkFnMEAtyS0AYg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792225044; x=1792311444; bh=cvZEXtgA8liyh7jUSm+mW91eRaAT2wY0hJv
+	5VsK+fvU=; b=MO40CTWu2X/lRnqdqvoJOFIr55+5GQHtkG1W3f4BQpMjeohwwcG
+	LhJE/d0dH+VJ+TnlwOoa18H6nOAT9f1/+NBQPSX/Le+PQbVw051SmXfHIyTRBrqY
+	CX67tPFMcW7G7UmmR5ng9gPIigpiFkcFr6kg/EMrNwBshVBqBKUXaczJK65UuVKj
+	n0gDsoMPsHhlAZYPoxY50Clghbypv/M5kNwlbppEgT7fxeb5ILts8fNeW+jeolPq
+	paxooUhuEl2TboAygce9EEUnnCqtGNQTYvmggbpC61dhnxmAjsSOPRg6gJXPWG36
+	uTi+uDPB8SNMLxLZqo+SzmP5smi8++0HMcg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=sakamocchi.jp a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792225044; d=sakamocchi.jp;
+	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:dHmfgaV4Fri/sH1vQzta4Uv+DLV35W2GU6iCsBfdYoiT3Oe
+	TR4ii34tXLzYcECQPTSU3YGazK4t3zKtVQzEzDMF72cTdZ/fwP2y80/cU4LxuOPt
+	pvWIoryk2kO4wIe0cxFKe/oPTFVRkmLySN+DXZEuIIWxSQ0D8v7J4I67Mac5HeiP
+	ofpE3cQMOQYZE/7ci0vh5qmoZXqoyQZmGCVgn9xYyELQ8+J8EyBnV0/7Pqh+g6vU
+	njE6qdV02RXVkW68B+W9rzuTbFotCAXVohz3r1EnodvUFeYGtozL6rIE6HxA78zk
+	2LMe1McI2tkb3wJq/9DI70xMhIk3XeGTyWBbuZg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:gvvU1BpSgPRv1IYcmp4tIIWlYjZYnpa4tstoACSSJto=:jyEQmV2pMgkblAdNPohQg0tJ8+u/gDWd4+ZE2S6cKm0=;
+X-ME-Sender: <xms:FC_TakeuQi_jd3ICv0LE0yNyD5t0wclZz3a2Qr6uQ_MYKrsOcQrq6g>
+    <xme:FC_TakJHRmuxCS__OqmqOAjjQ1ANiGJv8x5hoODR3MEzNYx2fq-lVR-PAIBvOJIse
+    PvXieBWAIVsc7_qutFZwErNvOCUHUAAIPPlIMJZVQBzoKxxmFFSQCel>
+X-ME-Received: <xmr:FC_TatEgkKdY3VwvSSpdARVimMTR65qB2FVB7mp9OPKIgpF4-m0o33Y78syPm4UNkNMufk-DlkHOif-osSowjrAhvRui2zkLDbtp9Ea0WQse>
+X-ME-Proxy-Cause: dmFkZTFj0/dSWSpW9r+wXnaCx36K8Qh55KrPFyBCYrF2Wpc6zp8XU2KnbcvemD9EdRLe/X
+    e+8kMtx077W0rGKYVNpO9FWW/dp8sTEw/vhv4YiRoTIE+uv4EiyjZThMNERJZN2Zk0zsX8
+    RvTMRTgIxeNqdxhioMGyM5nbZGfLZ6woixT2tk7zU4ZoaNyKq12gFM8JceqtArfYvCCjJr
+    paZK37hMG42WlmWPUVQyWUf5wW7ihH62g6dmtXc+f7Vd/WlMJ3VUl+vU8LXZOGirGA/qvH
+    91iOCv0ilvCdczdUJnwpjA8ExFI0z6+H7RZXWDR1WntobKIk6HoA+AIfyyzQyFrlCEIAfO
+    k6Uk6qDqsJRQ9YPNEieBSBuFvJU8KUOa0kGrWh4GjmFK0Cnso6WPdSf7+khgA/pWk4z2JM
+    zUdTiKqn1Z12AQSQ5ybJpuLJ6C9gfizUUApnXQvE/x6ua5/O1TFZi5Z12jjexSqlOccIZG
+    filjc9U4yJo61i8oi/OIhTpKvJtB8UcrXUkk7nflnvWffJ31/WismuY6/PMQMgBoXXgZEs
+    kcPLSINgOcyxXdVZQys2/kcAgYhex4l65nYI+OyhDANFd6qjrt42xcZh/jEN+grywUZ4LG
+    h0xuoOxCLKP5dtzYLHNlncIQoNnpM4AkiTv2BEjxVN1gDM7U13n/FnDZXPig
+X-ME-Proxy: <xmx:FC_TamqqHfLm8SC56SzJqV_KZj1ikT6Xcq7lM6Unajxx6jIsugL62w>
+    <xmx:FC_TauR9CZ-_meeTX_1jNbW5d9b4D2-FmdVPekZjZLJTycxUbvCdrw>
+    <xmx:FC_TarNpJ7aTONqBZQVYFGI8zc1YZMErGSRB6sdERu7kAQVAnKFJ6g>
+    <xmx:FC_TapPbQNdnNsSAVpLKsgUnx2DJJroDzmFw87fa-iYUL0HYCH8NKQ>
+    <xmx:FC_TalwcMfIQN6HQFBeOdbomvwyidTnLK7mCOCPthWpH5DhqccS2g2A_>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 17 Oct 2026 04:17:23 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] firewire: core: use release/acquire pair when replacing underlying driver on card removal
+Date: Sat, 17 Oct 2026 17:17:20 +0900
+Message-ID: <20261017081720.186688-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,76 +98,291 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The namespace filters in find_ge_key() and key_serial_next() read
-key->user->uid while traversing the serial tree under key_serial_lock.
-That lock keeps the key allocated, but it does not protect the separate
-key_user from ownership changes.
+When removing a card instance, the underlying driver is replaced to handle
+closing operations. Without proper memory reordering, other CPUs may
+observe the driver before it is fully initialized.
 
-A /proc/keys read reaches find_ge_key() through proc_keys_start(), and
-key_serial_next() through proc_keys_next(). The lock stays held until
-proc_keys_stop().
+Use a release/acquire pair to ensure that the driver's initialization is
+visible before the driver is accessed for close operations.
 
-A successful privileged KEYCTL_CHOWN on the same key replaces key->user
-under key->sem and drops the old owner's reference after releasing the
-semaphore. If that was the old dynamic key_user's last reference, a
-/proc/keys reader can access freed memory:
-
-    /proc/keys reader                   KEYCTL_CHOWN
-    proc_keys_start()                    keyctl_chown_key()
-      spin_lock(key_serial_lock)          down_write(key->sem)
-      find_ge_key()
-        old = minkey->user
-                                          zapowner = key->user
-                                          key->user = newowner
-                                          key->uid = uid
-                                          up_write(key->sem)
-                                          key_put(key)
-                                          key_user_put(zapowner)
-                                            kfree(zapowner)
-        read old->uid -> use-after-free
-    proc_keys_stop()
-      spin_unlock(key_serial_lock)
-
-Use the inline key->uid in both filters, following the approach already
-used by find_keyring_by_name(). The serial-tree lock keeps the containing
-key alive, so filtering no longer depends on the quota owner's lifetime.
-This also uses the same owner UID as proc_keys_show() and the permission
-check.
-
-For thread keyrings, key_fsuid_changed() can update key->uid without
-changing the quota owner. The filters now follow that current owner UID,
-including when its namespace mapping differs from the quota owner's.
-
-Fixes: 454804ab0302 ("keys: make procfiles per-user-namespace")
-Suggested-by: Eric Biggers <ebiggers@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- security/keys/proc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/firewire/core-card.c        | 16 ++++++++-------
+ drivers/firewire/core-cdev.c        |  2 +-
+ drivers/firewire/core-device.c      |  8 ++++----
+ drivers/firewire/core-iso.c         | 32 +++++++++++++++++++++--------
+ drivers/firewire/core-transaction.c | 20 +++++++++---------
+ 5 files changed, 47 insertions(+), 31 deletions(-)
 
-diff --git a/security/keys/proc.c b/security/keys/proc.c
-index 4f4e2c1824f1..aea06a74d0fe 100644
---- a/security/keys/proc.c
-+++ b/security/keys/proc.c
-@@ -68,7 +68,7 @@ static struct rb_node *key_serial_next(struct seq_file *p, struct rb_node *n)
- 	n = rb_next(n);
- 	while (n) {
- 		struct key *key = rb_entry(n, struct key, serial_node);
--		if (kuid_has_mapping(user_ns, key->user->uid))
-+		if (kuid_has_mapping(user_ns, key->uid))
- 			break;
- 		n = rb_next(n);
- 	}
-@@ -100,7 +100,7 @@ static struct key *find_ge_key(struct seq_file *p, key_serial_t id)
- 		return NULL;
+diff --git a/drivers/firewire/core-card.c b/drivers/firewire/core-card.c
+index be6f18d67ece..83c29a487d86 100644
+--- a/drivers/firewire/core-card.c
++++ b/drivers/firewire/core-card.c
+@@ -153,8 +153,8 @@ static void update_config_roms(void)
  
- 	for (;;) {
--		if (kuid_has_mapping(user_ns, minkey->user->uid))
-+		if (kuid_has_mapping(user_ns, minkey->uid))
- 			return minkey;
- 		n = rb_next(&minkey->serial_node);
- 		if (!n)
+ 	list_for_each_entry (card, &card_list, link) {
+ 		generate_config_rom(card, tmp_config_rom);
+-		card->driver->set_config_rom(card, tmp_config_rom,
+-					     config_rom_length);
++		smp_load_acquire(&card->driver)->set_config_rom(card, tmp_config_rom,
++								config_rom_length);
+ 	}
+ }
+ 
+@@ -231,7 +231,7 @@ static int reset_bus(struct fw_card *card, bool short_reset)
+ 
+ 	trace_bus_reset_initiate(card->index, card->generation, short_reset);
+ 
+-	return card->driver->update_phy_reg(card, reg, 0, bit);
++	return smp_load_acquire(&card->driver)->update_phy_reg(card, reg, 0, bit);
+ }
+ 
+ void fw_schedule_bus_reset(struct fw_card *card, bool delayed, bool short_reset)
+@@ -660,7 +660,8 @@ int fw_card_add(struct fw_card *card, u32 max_receive, u32 link_speed, u64 guid,
+ 
+ 	scoped_guard(mutex, &card_mutex) {
+ 		generate_config_rom(card, tmp_config_rom);
+-		ret = card->driver->enable(card, tmp_config_rom, config_rom_length);
++		ret = smp_load_acquire(&card->driver)->enable(card, tmp_config_rom,
++							      config_rom_length);
+ 		if (ret < 0) {
+ 			card->isoc_wq = NULL;
+ 			card->async_wq = NULL;
+@@ -804,7 +805,8 @@ void fw_core_remove_card(struct fw_card *card)
+ 	dummy_driver.free_iso_context	= card->driver->free_iso_context;
+ 	dummy_driver.stop_iso		= card->driver->stop_iso;
+ 	dummy_driver.disable		= card->driver->disable;
+-	card->driver = &dummy_driver;
++	// Ensure the entire contents of the driver are visible to other CPUs.
++	smp_store_release(&card->driver, &dummy_driver);
+ 
+ 	drain_workqueue(card->isoc_wq);
+ 	drain_workqueue(card->async_wq);
+@@ -843,12 +845,12 @@ EXPORT_SYMBOL(fw_core_remove_card);
+  */
+ int fw_card_read_cycle_time(struct fw_card *card, u32 *cycle_time)
+ {
+-	if (card->driver->read_csr == dummy_read_csr)
++	if (smp_load_acquire(&card->driver)->read_csr == dummy_read_csr)
+ 		return -ENODEV;
+ 
+ 	// It's possible to switch to dummy driver between the above and the below. This is the best
+ 	// effort to return -ENODEV.
+-	*cycle_time = card->driver->read_csr(card, CSR_CYCLE_TIME);
++	*cycle_time = smp_load_acquire(&card->driver)->read_csr(card, CSR_CYCLE_TIME);
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(fw_card_read_cycle_time);
+diff --git a/drivers/firewire/core-cdev.c b/drivers/firewire/core-cdev.c
+index 60067c5b1973..87efd65e6b00 100644
+--- a/drivers/firewire/core-cdev.c
++++ b/drivers/firewire/core-cdev.c
+@@ -1731,7 +1731,7 @@ static int ioctl_send_phy_packet(struct client *client, union ioctl_arg *arg)
+ 	trace_async_phy_outbound_initiate((uintptr_t)&e->p, card->index, e->p.generation,
+ 					  e->p.header[1], e->p.header[2]);
+ 
+-	card->driver->send_request(card, &e->p);
++	smp_load_acquire(&card->driver)->send_request(card, &e->p);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/firewire/core-device.c b/drivers/firewire/core-device.c
+index 4e79c57263ff..a68100d3da0b 100644
+--- a/drivers/firewire/core-device.c
++++ b/drivers/firewire/core-device.c
+@@ -261,14 +261,14 @@ EXPORT_SYMBOL(fw_bus_type);
+ 
+ int fw_device_enable_phys_dma(struct fw_device *device)
+ {
+-	int generation = device->generation;
++	struct fw_card *card = device->card;
+ 
+ 	/* device->node_id, accessed below, must not be older than generation */
++	int generation = device->generation;
+ 	smp_rmb();
++	int node_id = device->node_id;
+ 
+-	return device->card->driver->enable_phys_dma(device->card,
+-						     device->node_id,
+-						     generation);
++	return smp_load_acquire(&card->driver)->enable_phys_dma(device->card, node_id, generation);
+ }
+ EXPORT_SYMBOL(fw_device_enable_phys_dma);
+ 
+diff --git a/drivers/firewire/core-iso.c b/drivers/firewire/core-iso.c
+index d2b40a1a565e..fd6cbbf79d0b 100644
+--- a/drivers/firewire/core-iso.c
++++ b/drivers/firewire/core-iso.c
+@@ -144,8 +144,8 @@ struct fw_iso_context *__fw_iso_context_create(struct fw_card *card, int type, i
+ {
+ 	struct fw_iso_context *ctx;
+ 
+-	ctx = card->driver->allocate_iso_context(card, type, channel, header_size,
+-						 header_storage_size);
++	ctx = smp_load_acquire(&card->driver)->allocate_iso_context(card, type, channel,
++							header_size, header_storage_size);
+ 	if (IS_ERR(ctx))
+ 		return ctx;
+ 
+@@ -173,7 +173,9 @@ void fw_iso_context_destroy(struct fw_iso_context *ctx)
+ 	trace_isoc_inbound_single_destroy(ctx);
+ 	trace_isoc_inbound_multiple_destroy(ctx);
+ 
+-	ctx->card->driver->free_iso_context(ctx);
++	struct fw_card *card = ctx->card;
++
++	smp_load_acquire(&card->driver)->free_iso_context(ctx);
+ }
+ EXPORT_SYMBOL(fw_iso_context_destroy);
+ 
+@@ -184,7 +186,9 @@ int fw_iso_context_start(struct fw_iso_context *ctx,
+ 	trace_isoc_inbound_single_start(ctx, cycle, sync, tags);
+ 	trace_isoc_inbound_multiple_start(ctx, cycle, sync, tags);
+ 
+-	return ctx->card->driver->start_iso(ctx, cycle, sync, tags);
++	struct fw_card *card = ctx->card;
++
++	return smp_load_acquire(&card->driver)->start_iso(ctx, cycle, sync, tags);
+ }
+ EXPORT_SYMBOL(fw_iso_context_start);
+ 
+@@ -192,7 +196,9 @@ int fw_iso_context_set_channels(struct fw_iso_context *ctx, u64 *channels)
+ {
+ 	trace_isoc_inbound_multiple_channels(ctx, *channels);
+ 
+-	return ctx->card->driver->set_iso_channels(ctx, channels);
++	struct fw_card *card = ctx->card;
++
++	return smp_load_acquire(&card->driver)->set_iso_channels(ctx, channels);
+ }
+ 
+ int fw_iso_context_queue(struct fw_iso_context *ctx,
+@@ -204,7 +210,9 @@ int fw_iso_context_queue(struct fw_iso_context *ctx,
+ 	trace_isoc_inbound_single_queue(ctx, payload, packet);
+ 	trace_isoc_inbound_multiple_queue(ctx, payload, packet);
+ 
+-	return ctx->card->driver->queue_iso(ctx, packet, buffer, payload);
++	struct fw_card *card = ctx->card;
++
++	return smp_load_acquire(&card->driver)->queue_iso(ctx, packet, buffer, payload);
+ }
+ EXPORT_SYMBOL(fw_iso_context_queue);
+ 
+@@ -214,7 +222,9 @@ void fw_iso_context_queue_flush(struct fw_iso_context *ctx)
+ 	trace_isoc_inbound_single_flush(ctx);
+ 	trace_isoc_inbound_multiple_flush(ctx);
+ 
+-	ctx->card->driver->flush_queue_iso(ctx);
++	struct fw_card *card = ctx->card;
++
++	smp_load_acquire(&card->driver)->flush_queue_iso(ctx);
+ }
+ EXPORT_SYMBOL(fw_iso_context_queue_flush);
+ 
+@@ -248,7 +258,9 @@ int fw_iso_context_flush_completions(struct fw_iso_context *ctx)
+ 
+ 	disable_work_sync(&ctx->work);
+ 
+-	err = ctx->card->driver->flush_iso_completions(ctx);
++	struct fw_card *card = ctx->card;
++
++	err = smp_load_acquire(&card->driver)->flush_iso_completions(ctx);
+ 
+ 	enable_work(&ctx->work);
+ 
+@@ -270,7 +282,9 @@ int fw_iso_context_stop(struct fw_iso_context *ctx)
+ 	if (WARN_ON_ONCE(current_work() == &ctx->work))
+ 		return 0;
+ 
+-	err = ctx->card->driver->stop_iso(ctx);
++	struct fw_card *card = ctx->card;
++
++	err = smp_load_acquire(&card->driver)->stop_iso(ctx);
+ 
+ 	cancel_work_sync(&ctx->work);
+ 
+diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
+index 48558857e726..c2050b23b7eb 100644
+--- a/drivers/firewire/core-transaction.c
++++ b/drivers/firewire/core-transaction.c
+@@ -129,7 +129,7 @@ __must_not_hold(&card->transactions.lock)
+ 
+ 	// Cancel the packet transmission if it's still queued. That will schedule the packet
+ 	// transmission callback which cancels the transaction.
+-	if (card->driver->cancel_packet(card, &transaction->packet) == 0)
++	if (smp_load_acquire(&card->driver)->cancel_packet(card, &transaction->packet) == 0)
+ 		return 0;
+ 
+ 	// If the request packet has already been sent, we need to see if the transaction is still
+@@ -458,7 +458,7 @@ __must_not_hold(&card->transactions.lock)
+ 					      t->packet.header, payload,
+ 					      tcode_is_read_request(tcode) ? 0 : length / 4);
+ 
+-	card->driver->send_request(card, &t->packet);
++	smp_load_acquire(&card->driver)->send_request(card, &t->packet);
+ }
+ EXPORT_SYMBOL_GPL(__fw_send_request);
+ 
+@@ -555,7 +555,7 @@ void fw_send_phy_config(struct fw_card *card,
+ 	}
+ 
+ 	if (gap_count == FW_PHY_CONFIG_CURRENT_GAP_COUNT) {
+-		gap_count = card->driver->read_phy_reg(card, 1);
++		gap_count = smp_load_acquire(&card->driver)->read_phy_reg(card, 1);
+ 		if (gap_count < 0)
+ 			return;
+ 
+@@ -578,7 +578,7 @@ void fw_send_phy_config(struct fw_card *card,
+ 					  phy_config_packet.generation, phy_config_packet.header[1],
+ 					  phy_config_packet.header[2]);
+ 
+-	card->driver->send_request(card, &phy_config_packet);
++	smp_load_acquire(&card->driver)->send_request(card, &phy_config_packet);
+ 	wait_for_completion_timeout(&phy_config_done, timeout);
+ }
+ 
+@@ -987,7 +987,7 @@ void fw_send_response(struct fw_card *card,
+ 					       request->response.header, data,
+ 					       data ? data_length / 4 : 0);
+ 
+-	card->driver->send_response(card, &request->response);
++	smp_load_acquire(&card->driver)->send_response(card, &request->response);
+ }
+ EXPORT_SYMBOL(fw_send_response);
+ 
+@@ -1238,7 +1238,7 @@ __must_not_hold(&card->transactions.lock)
+ 	 * The response handler may be executed while the request handler
+ 	 * is still pending.  Cancel the request handler.
+ 	 */
+-	card->driver->cancel_packet(card, &t->packet);
++	smp_load_acquire(&card->driver)->cancel_packet(card, &t->packet);
+ 
+ 	invoke_callback(t, rcode, p->timestamp, data, data_length);
+ }
+@@ -1357,17 +1357,17 @@ static void handle_registers(struct fw_card *card, struct fw_request *request,
+ 	case CSR_BUS_TIME:
+ 	case CSR_BUSY_TIMEOUT:
+ 		if (tcode == TCODE_READ_QUADLET_REQUEST)
+-			*data = cpu_to_be32(card->driver->read_csr(card, reg));
++			*data = cpu_to_be32(smp_load_acquire(&card->driver)->read_csr(card, reg));
+ 		else if (tcode == TCODE_WRITE_QUADLET_REQUEST)
+-			card->driver->write_csr(card, reg, be32_to_cpu(*data));
++			smp_load_acquire(&card->driver)->write_csr(card, reg, be32_to_cpu(*data));
+ 		else
+ 			rcode = RCODE_TYPE_ERROR;
+ 		break;
+ 
+ 	case CSR_RESET_START:
+ 		if (tcode == TCODE_WRITE_QUADLET_REQUEST)
+-			card->driver->write_csr(card, CSR_STATE_CLEAR,
+-						CSR_STATE_BIT_ABDICATE);
++			smp_load_acquire(&card->driver)->write_csr(card, CSR_STATE_CLEAR,
++								   CSR_STATE_BIT_ABDICATE);
+ 		else
+ 			rcode = RCODE_TYPE_ERROR;
+ 		break;
 
-base-commit: a626e44fd64c456d373ae8c28b939197b9446a02
+base-commit: 82d59eb7f5431771cfc6fb074b74f466cd4e3353
+-- 
+2.53.0
+
