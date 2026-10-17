@@ -1,226 +1,262 @@
 Received: from mx0b-00256a01.pphosted.com (mx0b-00256a01.pphosted.com [67.231.153.242])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7841A346FB3
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 21:52:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9443B9927
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 21:52:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=67.231.153.242
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792273933; cv=pass; b=HjdPQ7QNilaZhtudGBZkeIyhqeAKNzQXmrfN264IZ0LV8eelRz4tPd/Cn7dDjNuH7ELCi1qJFYnrMfkobkLfnn6n/bnTjglj/rhHoYzU/kB6SEwKyh9Z0mS3lWVkBQIl6g72MbPDDcuJcWgL96S9rTsO/3R/u0i2Ji6SrZW6zkQ=
+	t=1792273945; cv=pass; b=fHjoi51+08pF1cnv1wnESj8a2k0drjTkFEc2fp5ao13oB+K9BGHKv/lPsCKMRUd+8kANVgPr5GsdzVxKrp6Iq3wXxL9Ry3gy1ykFJsA8MImzYJFy1W3Zj34NqalP9l336fu4lh0/TVCDjOEKblNle2JiV6cOVK07NPoy9Y4M5K0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792273933; c=relaxed/simple;
-	bh=d8B6iYTbhPZ4eQhHbMclnxqxpRbx9Q0XEc7yVaOrrpE=;
+	s=arc-20240116; t=1792273945; c=relaxed/simple;
+	bh=2z49YO454x+6uu0rrqxdOYf2rOaScddUZyoqUeAIaBE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PCAjsdhH9vZ3DIveRfBJSvyXiMBWYdqe4SSLWG1X2UhmaGyYRvrDJKJHWdzxrcGg7hIVuDXd9Jriedn+TsAzzH++f4LWXAz0m132w63m03x2iXozr6m1dqYdFYDA7pLOw/kUsNEoZYiz0rARymYcN3WoCKzaGdyMbkXUPdzHceA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu; spf=pass smtp.mailfrom=nyu.edu; dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b=hmE9i7Zy; dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b=lPN/qBNM; arc=pass smtp.client-ip=67.231.153.242
+	 To:Cc:Content-Type; b=QoD2Yup9n6wmrFSz2HhFhtsAzZruP1mI/OSsu9LGAMlIcN9o//1U4AkkMIAc+G1ytLX8YdihrL0KqPSnesJN+DmnXYZ7ivKyO/uKp2Jikm42NsR1pFitwgtcld3hLHygiP0lkSYlQJ25fTWs8kvnU+iCtKqQngmzl+AhfYB0tZw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu; spf=pass smtp.mailfrom=nyu.edu; dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b=k5GDwwz0; dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b=csRmr1rj; arc=pass smtp.client-ip=67.231.153.242
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nyu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b="hmE9i7Zy";
-	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b="lPN/qBNM"
-Received: from pps.filterd (m0119692.ppops.net [127.0.0.1])
-	by mx0b-00256a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69HKhvEU1885172
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:52:10 -0400
+	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b="k5GDwwz0";
+	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b="csRmr1rj"
+Received: from pps.filterd (m0119691.ppops.net [127.0.0.1])
+	by mx0b-00256a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69HL3HV31977565
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:52:21 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nyu.edu; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=20180315; bh=8
-	qt7LuF8GRgjS8yzBLI9aYUymptt8k72tgwjkn5uLH4=; b=hmE9i7ZycV02BfcjP
-	HkDp3dloe3OyHmC1Fk+R34beoPq8p5iKPRXyIscXZXqM7RiOOR70OS4oSzLDHmQU
-	8yuH0mLCQZ9+/unn5SYfpDiHbOWIKPIYvdzOb5BaZRIjyZRfIoadh79pxCJ7P9zQ
-	M1FeuUlEx4A48kiQDGcaLeozjbDkCP7vvTCX8VtJBnl1k7rDgIrzO8aNOob41768
-	ToEAGFSgOS06zU2fzsqxzMpxa3mMByIgmeS2MHPHvpI9cdej2uh64rmp90kcXdd1
-	cdE6GvwJLTl95m1IfDFkBei08WbqRs8SB9viHHglyd62uMKbR85YNIc8Oho2TX4l
-	TMwEA==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0b-00256a01.pphosted.com (PPS) with ESMTPS id 4hcgaj0eab-1
+	:message-id:mime-version:references:subject:to; s=20180315; bh=s
+	LoXZ4zrSuG0DF9gDAxCqxwkk2HrNuzfj+cEZxHtwEw=; b=k5GDwwz0SksfR0foN
+	zeOQAVNr0qigINCmH47KF3LDZHH4QR+xJxgzSfVVnXFifJqBm+XL2MYTq4n4UYVC
+	swm+bd+QBGfKF+TQSndFVcjnegFHXZeFp4+rtBHIod3ORqtbChfixDqUG3FH0rB7
+	SslL5A7gY6L24mKyAeruDMtLc3Sk6yozF24+v8Gb7YY2lJcE94R/4XEDQhMBToIa
+	Z9QF8YXt3a6yv6Pk0veNwzQ6BgmZYkA5KLxaDEWCchpSVwOr5iI5SSLKXxQatgMY
+	V/e5paQHUhZtFUOYIsTrpW8ad46llDUePcIH8mu2+CRzPMny+Fjme4qkXvQlCEnX
+	w3peQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0b-00256a01.pphosted.com (PPS) with ESMTPS id 4hcgkn0ajv-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:52:10 -0400 (EDT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3592749a017so1077262eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:52:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792273929; cv=none;
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:52:21 -0400 (EDT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30bcb065bfdso1846141eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:52:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792273940; cv=none;
         d=google.com; s=arc-20260327;
-        b=SEw9fBvtDZpmH66MXY/12e9qMxP323OnqHJNPyrBg9nZs9rIHNbusn2SsUkueM+213
-         el1nkKOOLOqq+c2kCj56oilP5oFI4WcnxeyuYYsnavoJzz80GpBmcyzhnQS/tfASpM15
-         kAPy3vBH1T8ik1c9rGegkVfx9fpCIAEvMOdGSrbPVkwN3BCjKa014FvEWcpLhclnpCdy
-         vIWTF4sfVYtHXUsWNI3dqhJa+ln3YOr0zteZUZsxOz39bTD0tlZ7FwcffImDkz6VK3xn
-         ESQiBHpOlGXBmN9P8ESUfT2z6NXxFnYWYPLVbRAOck/7Q5z3fF3/mExWEn7o0sKv3ZT8
-         IJ5A==
+        b=J7ba3Z8wtZknutzfPyw1GdyI5ZW6NNSSHSv9UVUSYO8zUcD1w6WfJDhxjC7OgVlYDK
+         6HM2xA3fZo5benMLuqEZJIV5nIrzLmISEOOIKm8K3La+mCvlHKe9bEKBm15Wn9ORInSv
+         NwNqsKrhfW8BpAXmmJDI6MfGd3Dj0tG7dafT+HUFgnD/uu7oUV2dHFvWvJBUTsI5Z/62
+         tKWLq1Ce3COMfIsENrA+KYLqlQMfR/BfFEg2TxRp1YY743wMayc8XSiXE9gb5yCA81WO
+         tqmRkTODtJaiIpgaGew/Tqk8vV1dZlmofuTlP5unHSFBgdZyrolbFOWtTk1bX3ykIBWA
+         OQlg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=8qt7LuF8GRgjS8yzBLI9aYUymptt8k72tgwjkn5uLH4=;
-        fh=hPkKx9r0adMS5Gk/4FA5AT6FKmzA23VDn92VmkIb1xo=;
-        b=Y4bZ7YcGKiM18GT5JKMZ3Wm0oejoQzly8m6EMr2nj/QmMrrsU24q9aOvjrw5x6qUtq
-         ++vihWMFpUY8F/jIqOCS84V0/oJ/v7Ib7iFOFEQw9PjaG8+sOqCuzO9dDlA0e42bYaqU
-         2dgM628uQ4ZwYW3sI/T0YlsuKcVswlBfvJaWZeGjrjK8s9Hek49hJ5weMwQqAS9o8XzP
-         ksFdP3B7YYUovucVKg0ak8+/KXLJf9EH+ClXfa/1P/GDGhgbKx3yCWznGlw6YNNLmH7e
-         XLPFUQ6KvcXenYVLNUwgAReLsgHIKF5mpMMZnsobsRCzgft1brwYlXZ+Z/X9TiJspL+K
-         tL6A==;
+        bh=sLoXZ4zrSuG0DF9gDAxCqxwkk2HrNuzfj+cEZxHtwEw=;
+        fh=R/j4ZQ7R9FXXVvj24Y7QABPvlLtJziOg45ScTwitU8Q=;
+        b=YboaCJAFXJYS8eEep1e0p/zFpjJxRefLF1lqNDkxyfb9udAEoyQnL2L5K2n7V+UlX7
+         xfdzHqbNtSSkwqdps1yBLiK2eIMtDZ4W3r4R5vcdSf0qWZrIy/KdtpaRM46kjSfHrHl0
+         KwEC1CQqKZNGbNVdZ/drRcisAT7diphHrUZkfnxgjl8ExMSO2D25rH8Fbp94xIB+tU5v
+         G9wTm0SqKLEqrcqCizRWBVFaIJMNsLImYuf9Z2Dkoki/fqAmORYfbwOL9Gl/fBSzu4e7
+         NOv/ndQEW2VGpXjQ+DUmx+LHdZWFkOAMLgjJP4T7kRXuUXRR33bOMX9wRGmMpeECdYO9
+         HSGw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nyu.edu; s=nyu-googleapps1; t=1792273929; x=1792878729; darn=vger.kernel.org;
+        d=nyu.edu; s=nyu-googleapps1; t=1792273940; x=1792878740; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=8qt7LuF8GRgjS8yzBLI9aYUymptt8k72tgwjkn5uLH4=;
-        b=lPN/qBNMb3s7F/uEvK7v2u3wVZmyOWknoqR4J1UH4O3aEr4eE7EwJzv33Nhr1R1Clo
-         +f7grPHEa/xrehMVdyb02DZnvj9v1y4k6lLYS9I2+NmAslczRwtAnRQhJba9Fu38JD+8
-         ReXIlY+HVGmiA5BU4GgUiMsjJBaDgzMgDuq8DrNQuf4iIti65XmPNHlMrh14PpDONALJ
-         SCh6TCFYNzLi87JjHEhfi/SvshXAFCTwykvElfzwK/lrt51qZWKJ+9k+De7kZ0mbc6o3
-         7NWIldeeNvxsL3NT/62EB2a+3NtvC9yTk+Bok5oCWJ29ZPFupyZjxIcAic2iwMe5F52u
-         DIKw==
+        bh=sLoXZ4zrSuG0DF9gDAxCqxwkk2HrNuzfj+cEZxHtwEw=;
+        b=csRmr1rjJfeLVFrvJPCxSndI+Be6ru8Hx1tEVI+GGUEL5RDHwLzRxaRnFa9dN1TznK
+         wg+q406hIlWMm3EinPudV+XUUzYRSttB7+CfiTE85XNOXJKlQrN9ityO9WXi+3W98xz4
+         T7FLPHerizTBw1zflkzn9KW70ncRn8WO9M2zkfk7xpuyBj8vrdXqraQDbEniYTJjeMWD
+         Igg0qt12PLQ1OptXYuyLFN1WaDoLKdi74U9d3vRAJNJj6fPyU7bGT94dch2Fvc8x7r+M
+         ec6k72+rZXIv8GSjeKB/P8rlnm72IuzvHzV2AjWwAHCHeIX2kh0cnwSaJ+amILMf0/do
+         hMPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792273929; x=1792878729;
+        d=1e100.net; s=20260707; t=1792273940; x=1792878740;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8qt7LuF8GRgjS8yzBLI9aYUymptt8k72tgwjkn5uLH4=;
-        b=C9+YPjgKF4aK9C6fph+BEqPxkdsgvkhqDqhyjofBhg8Aurw44SeL7fV3ujYP0QQGjz
-         XHnpnw7Lxbe9TK5oEd0QX3hukG2SYGDvaG6YSJE4v6ZA/WApwky6pYxZTR7PhpDr5wuP
-         63MZB04Cz9BbfgweJ6imn5q0swENZ34U6/Pk+Lpu5g4Ba3IwR0vnz70GSEL4PbXihSAO
-         xDiz7TOQ+fOXiXz+dUFzZPVQjD8G6cMPlAoCwQui4ER/gFQ5jeYWNw1ofX+g2IHSXmDJ
-         CJweDaX+YDmjp6yiJQ3zt+2YHPO1gW6cr36F7KkJ2nyYoz4OyfCEGPEa3jujFmlUxRT0
-         gAjw==
-X-Forwarded-Encrypted: i=1; AKwUvBy+neadJkh00oR9OP9gCZWjwWrHxRR9fKMjgWfSLCrVPCEqXH7GVGt3KGsPTouse13EmH3S3rzeoVECRQE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYDmADH/VRDnTcdvtZfVOxoSG979ZMpdlJYT2Egc1u7S4piNxz
-	er+30DhHgST4OnjT5apSrTJp81fBduz4oRNUqHBT8kVcdrgeQM/dC1GcBFcTR/J47yrdxql9Mqh
-	te7shoS1Ypt46E0w2PH8q3JzC6V21Zn0Ga/veTnR0hteEMCLFBH3BLU1Nm7RUUcTwVggfGg+HQb
-	DeSJ6Dgzr9jfSBcUiyeyEJ8wvqZ8k+16E7BJWZGA==
-X-Gm-Gg: AYBFou2r5ZKwCqbU02X46p71iLT9IlTMhnlEYwasSTCQX7BZs8utsh+D0Dk6J56VlZV
-	3KEMseoZEZnPwLuiJst45llWXi9LhQ4v42nmY0NazHlUV0K1RMF3W89rWjGcfzuYTeOsZAyY36d
-	7Bg8taudzJWwTLjDV/ugsV99/JGdFyWJyISme8p69fMLxGNvWxhYZbRe2RfQ==
-X-Received: by 2002:a05:693c:42d2:b0:34b:3f7d:6105 with SMTP id 5a478bee46e88-3602e3a6861mr8093133eec.14.1792273929011;
-        Sat, 17 Oct 2026 14:52:09 -0700 (PDT)
-X-Received: by 2002:a05:693c:42d2:b0:34b:3f7d:6105 with SMTP id
- 5a478bee46e88-3602e3a6861mr8093109eec.14.1792273928367; Sat, 17 Oct 2026
- 14:52:08 -0700 (PDT)
+        bh=sLoXZ4zrSuG0DF9gDAxCqxwkk2HrNuzfj+cEZxHtwEw=;
+        b=Lq3MjI1Rj+M0tR/9pmE+FjMzArnUvdGUhMACm2PToZzddeEPw4C4iq8gJu5oY3hO/p
+         KifbuMZLhJ4+gwwZX6EqpXCUFBisQBFiHZKVIgxFG6eSe7QNLp2+BZmswHyqEU7tDha1
+         RmHFzU3SX7Ilqofj3HffsEcr/tfGeTaidSlZuWSJKC0lf2eXemMb+Djtz1HqhtD4j1z7
+         9ooOBwhljewP9AQBzmWohoML5HF3SCPLnaGzyLkJ5H6At5rWfkbkItU/URNPQx5JOai3
+         1+rxAqiCBDR3twvGP3B0hbE4+6ai/7KeM8WAH+hOavS77TgK22n8EDCwtDoaj24eqRHa
+         mosQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwgwckOMfGohIPoQzXnQISiGTWp+CmWVLxmhwARxa51/vSXubxibsgJcMpcOHUmsABbCjNfOGYotNyozeg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+ia5ZUAlXxZ9E5luGqVDVe0w8Sw/IPw7WvsmcyR3bYMvykQzq
+	1uRhy/5Cb3Vfngta55O/KGGzQAyxWa+/Ndsy3D3VvdZJf/pekFEUpXdihmV38m9kah9ZA0JKzW8
+	RsciRPcP5vrZm6b88dCvjpiNQj/sQjlsuI3GhBsrIG7TC84Spv06H3k/cwkFEjalNNgiDFjf/1s
+	ckkhn6setYowh05mDk+tSiEXV9Q7sthtEHNgeqN7g3Cs9zDhmVaRY=
+X-Gm-Gg: AYBFou1uXCsBTCTCWhmvCVocnDNrIwD67h+m0F/QVTUyHQge/q1lVLJe41iAwKK5zQs
+	ISE8gUQcdWQrau0Pm2oLt3CgFDLylP7u5LE+iQ+JD95sAF1RarKaKUEnUnrl3F9B6HMeTwe7XXB
+	6E38ugP+CLTfhFwn2aXH64asiAmYyD9WswyCSHDJw0fA0H0XeYBilrRRKl3g==
+X-Received: by 2002:a05:693c:66c1:20b0:35c:85fa:5a61 with SMTP id 5a478bee46e88-361a264acaemr5212458eec.38.1792273940405;
+        Sat, 17 Oct 2026 14:52:20 -0700 (PDT)
+X-Received: by 2002:a05:693c:66c1:20b0:35c:85fa:5a61 with SMTP id
+ 5a478bee46e88-361a264acaemr5212420eec.38.1792273939584; Sat, 17 Oct 2026
+ 14:52:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015201549.4023-2-kj2864@nyu.edu> <atMFPKhON1IK5cxc@google.com>
-In-Reply-To: <atMFPKhON1IK5cxc@google.com>
+References: <20261014195640.430824-2-kj2864@nyu.edu> <atCf_85Ei_J9CDtd@kwain>
+ <CAPqbLS2sM9JZ8VbrzWviV-6XNRniKib_L+seaKtnCfR3pwMMig@mail.gmail.com>
+ <atHQupHr7_ocAJ_A@kwain> <CAPqbLS0XXB53mnymFVZAVodc73r8E52PWRnxSwj6k8umqC7SAA@mail.gmail.com>
+In-Reply-To: <CAPqbLS0XXB53mnymFVZAVodc73r8E52PWRnxSwj6k8umqC7SAA@mail.gmail.com>
 From: Jerry Jiang <kj2864@nyu.edu>
-Date: Sat, 17 Oct 2026 17:51:57 -0400
-X-Gm-Features: AclHuK8V8PqtlumCUfPitjiENks2rIhGVpjBZixB0b_eQMRRbzEBuswi5lOYgMA
-Message-ID: <CAPqbLS0vsCAPqoAwqZ=HSCqfH4SigQTuv+dn_ByED-b2ickRXg@mail.gmail.com>
-Subject: Re: [PATCH net v3] net: ipv4: add zero check for snd_cwnd_clamp
-To: kuniyu@google.com
-Cc: ncardwell@google.com, davem@davemloft.net, kuba@kernel.org,
-        pabeni@redhat.com, horms@kernel.org, edumazet@google.com,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        co+71b6509cb791e531@bugs.sh, stable@vger.kernel.org
+Date: Sat, 17 Oct 2026 17:52:08 -0400
+X-Gm-Features: AclHuK--2zbQAhbE8812SRoKdfqvhlJ6jnYw1O93FmhhB5V2pen0FpVk25aFiKQ
+Message-ID: <CAPqbLS1uQ94We27Ot54oZmQ+iEwZfQztmOvz8dDRo3kOCq12PQ@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: ipv4: add zero check for snd_cwnd_clamp
+To: Antoine Tenart <atenart@kernel.org>
+Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
+        kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+        edumazet@google.com, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, co+71b6509cb791e531@bugs.sh,
+        stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: 68CluRHbLi6pYgDnDTBbDG2EaSo8rmdi
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDA4NyBTYWx0ZWRfX4lhsGI78Jt9n
- eDyekk7LVpJdWEZS2nIppRx5lA4sbdGWfzM/oChqFYOYguyqJ7C+JcsUJ1URFyknolRQcHz+3O0
- 4Xm7M3gGMtEy7wAp/vUG9S8N+rpL5dxEfKpZ2d2kfBWyrT/5yx+UvaQh14WvWWOf0erTkIOrJ0m
- wxo7tcCPGaAxWU6S+GKJGtrO9zQ1vQ/O60S0dYhbmu1VUbY4DmZfzAGUG63KhMIcu7wYYJ6TNeG
- CBI7xKZDc2WGoIC8hbBlAC2X55nTeCraa0s7FLoDETHNTxZ37Na2lbk6sVAAp9WjKKc0fWkvVEg
- 9/bz44QJlzf9hECtlh6vCKN1+vMM0RvKQNEug3Rjfgw1NuVXA2Sg8ap3x15P8/AbY5MOi4yhUOy
- oGny419HHzVpHT6eTH5YqmzxOSoPsv1WTqbfylWH2H6D0Kfm0iRt6L2D9Dk9Rh3q0+5s4RymA3T
- /lHTwN6UntgF464VBEQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDA4NyBTYWx0ZWRfXx7gG/OlX2kfb
- Y+YQ6BmslBqrSs5ncaLk+5i/Hu1pWNSHfpWpDqydGxq0Xy76SRfjJc7ua4pd3CvTn9efDugH9Gs
- nclULkpSfzMZs8D44gnp65jd8n/TViw=
-X-Proofpoint-GUID: 68CluRHbLi6pYgDnDTBbDG2EaSo8rmdi
-X-Authority-Analysis: v=2.4 cv=RMomjIi+ c=1 sm=1 tr=0 ts=6ad3ee0a cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDA4NyBTYWx0ZWRfX6jgExO5z19KP
+ Sf35S5UQTuZrUsGoIK1VqoxpWm6MoJRqDL0ypLT0ERZ23hpPkeoxfmzssxv+ABRA3HKXtCEiQvY
+ H01C0+FJe4wss0yGxMHuaTM6VD6n9sugHczThxgZzjKqqeNDh8iPFILyG0q4rgmTDYQWcVig/jX
+ fido2fP4bZJSDLhvQ/56J67k/8POcUvX7uzuwkWpuDJ9CrN0NgpE14vimE6+z+qXB9otlKwoe5S
+ 9mWDzmo2oplYo3pZkTGW963OSlPZjic6TR8GjXa1Q/pF+ukgjeYM9ldeGboCXL4s2xlvaNRzDz4
+ Xg2ONxr8fQE/tEO5lQ4+OBRzh1Q42UuI3vUiM9HjyF3OBk0Ye51a7WGRWce6sWRV5tbYHbGjgJ2
+ 5JtrxPtfcB0EzRgtUQldA8zQRkugk0WTEBqze8Nx/n5G9ryOvUzIBDWJVex/Ox1A4Q8AZWx5FGz
+ tkAKt0DmGvpsqmCBEnA==
+X-Proofpoint-GUID: 14FCn6B8crElfKpESLlGD6LEA6wSjv65
+X-Authority-Analysis: v=2.4 cv=C+58WgP+ c=1 sm=1 tr=0 ts=6ad3ee15 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
  a=x7bEGLp0ZPQA:10 a=S0S_EcBMpFAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Se5WoFf3ZZRiLcel0nel:22 a=_0uBWF9-lnOxR1nRej8j:22 a=VwQbUJbxAAAA:8
- a=1XWaLZrsAAAA:8 a=LDwnR17CkXKMPNxMdHAA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Orig-IP: 74.125.82.197
+ a=Se5WoFf3ZZRiLcel0nel:22 a=tr4woWNwjDflhTIOjkZU:22 a=VwQbUJbxAAAA:8
+ a=s1qTDB3tYtKRdSl9UekA:9 a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-ORIG-GUID: 14FCn6B8crElfKpESLlGD6LEA6wSjv65
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDA4NyBTYWx0ZWRfX4e12Buf1br5Z
+ 3yyEj4yQA5ye4hPd3b81PeLkEfu+VRvAgsMQKsJ5K6F/z+SVwfxXDb2a3StFFsf4guV0nIMt+ud
+ PRkXsbmTWY4aju7JMpBqc/GL2xF/rfg=
+X-Orig-IP: 74.125.82.200
 X-Proofpoint-Spam-Details: rule=outbound_bp_notspam policy=outbound_bp score=0
- suspectscore=0 adultscore=0 malwarescore=0 spamscore=0 clxscore=1015
- priorityscore=1501 phishscore=0 lowpriorityscore=0 impostorscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610170087
+ clxscore=1015 adultscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ lowpriorityscore=0 impostorscore=0 spamscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610170087
 
-I've made some further changes using suggestions on my v2 patch and
-using !val. This change should prevent all future errors regarding
-snd_cwnd and snd_cwnd_clamp being 0.
+I stand corrected, by not passing any argument to RTAX_CWND, the bug
+can still be triggered. Doing fixes on tcp_snd_cwnd_set would be
+valuable. One idea I have is that if 0 is passed in tcp_snd_cwnd_set,
+a default value of 1 is written instead of writing 0.
 
 v4 has been proposed:
 https://lore.kernel.org/all/20261017214845.28769-2-kj2864@nyu.edu/
 
 
 
-On Sat, Oct 17, 2026 at 1:21=E2=80=AFAM <kuniyu@google.com> wrote:
+
+
+On Sat, Oct 17, 2026 at 12:12=E2=80=AFPM Jerry Jiang <kj2864@nyu.edu> wrote=
+:
 >
-> On Thu, 15 Oct 2026 16:15:50 -0400, Kaho Jiang wrote:
-> > User can pass zero to snd_cwnd_clamp via RTAX_CWND type.
-> > This could lead to division of zero error if not checked properly.
-> >
-> > Oops: divide error: 0000 [#1] SMP KASAN NOPTI
-> > Call Trace:
-> >  <IRQ>
-> >  tcp_reno_cong_avoid (net/ipv4/tcp_cong.c:510 (discriminator 1))
-> >  tcp_ack (net/ipv4/tcp_input.c:3517 net/ipv4/tcp_input.c:3873 net/ipv4/=
-tcp_input.c:4440)
-> >  tcp_rcv_established (net/ipv4/tcp_input.c:6685)
-> >  tcp_v4_do_rcv (net/ipv4/tcp_ipv4.c:1854)
-> >  tcp_v4_rcv (net/ipv4/tcp_ipv4.c:2248)
-> >  ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207 (discriminator 1))
-> >  ip_local_deliver_finish (net/ipv4/ip_input.c:241 (discriminator 1))
-> >  ip_local_deliver (./include/linux/netfilter.h:325 ./include/linux/netf=
-ilter.h:319 net/ipv4/ip_input.c:262)
-> >  ip_rcv (./include/net/dst.h:481 (discriminator 6) net/ipv4/ip_input.c:=
-492 (discriminator 6) ./include/linux/netfilter.h:325 (discriminator 6) ./i=
-nclude/li)
-> >  __netif_receive_skb_one_core (net/core/dev.c:6297 (discriminator 4))
-> >  __netif_receive_skb (net/core/dev.c:6410)
-> >  process_backlog (net/core/dev.c:6761)
-> >  __napi_poll.constprop.0 (net/core/dev.c:7830)
-> >  net_rx_action (net/core/dev.c:7893 net/core/dev.c:8050)
-> >  handle_softirqs (kernel/softirq.c:645)
-> >  __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softi=
-rq.c:758)
-> >  irq_exit_rcu (kernel/softirq.c:775)
-> >  sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discrim=
-inator 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
-> > RIP: 0010:tcp_cong_avoid_ai (net/ipv4/tcp_cong.c:482)
-> >
-> > Fix by checking if user pass in zero as parameter,
-> > if so reject the value zero.
-> >
-> > Fixes: 814d488c6126 ("tcp: fix the timid additive increase on stretch A=
-CKs")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: co+71b6509cb791e531@bugs.sh
-> > Assisted-by: LLM
-> > Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
-> > ---
-> >  net/ipv4/metrics.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
-> > index ad40762a8b38..e83a129a25b6 100644
-> > --- a/net/ipv4/metrics.c
-> > +++ b/net/ipv4/metrics.c
-> > @@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
-> >                       NL_SET_ERR_MSG(extack, "Unknown flag set in featu=
-re mask in metrics attribute");
-> >                       return -EINVAL;
-> >               }
-> > +             if (type =3D=3D RTAX_CWND && val =3D=3D 0) {
->
-> While at it, please check RTAX_INITCWND too (although it is
-> ignored and TCP_INIT_CWND is used), also use !val.
+> Afaik, I don't think any changes are necessary to tcp_snd_cwnd_set as
+> users are completely rejected from inputting 0, which could give the
+> assumption argument passed to tcp_snd_cwnd_set is a number larger than
+> 0.
 >
 >
-> > +                     NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater=
- than zero");
-> > +                     return -EINVAL;
-> > +             }
-> >               metrics[type - 1] =3D val;
-> >       }
+> On Fri, Oct 16, 2026 at 3:29=E2=80=AFAM Antoine Tenart <atenart@kernel.or=
+g> wrote:
 > >
-> > --
-> > 2.43.0
+> > On Thu, Oct 15, 2026 at 12:57:51PM -0400, Jerry Jiang wrote:
+> > > I have considered rejecting 0 in tcp_snd_cwnd_set but afaik patching
+> > > tcp_snd_cwnd only would just ignore the problem. My current patch
+> > > should completely reject the user from creating a socket if 0 is
+> > > passed for RTAX_CWND.
 > >
+> > I'm not arguing against the current patch. My point is warning on 0
+> > values in tcp_snd_cwnd_set made sense before but since this is now know=
+n
+> > to cause oops there might be something better to do there.
+> >
+> > > On Thu, Oct 15, 2026 at 5:57=E2=80=AFAM Antoine Tenart <atenart@kerne=
+l.org> wrote:
+> > > >
+> > > > On Wed, Oct 14, 2026 at 03:56:41PM -0400, Kaho Jiang wrote:
+> > > > > User can pass zero to snd_cwnd_clamp via RTAX_CWND type.
+> > > > > This could lead to division of zero error if not checked properly=
+.
+> > > > >
+> > > > > Oops: divide error: 0000 [#1] SMP KASAN NOPTI
+> > > > > Call Trace:
+> > > > >  <IRQ>
+> > > > >  tcp_reno_cong_avoid (net/ipv4/tcp_cong.c:510 (discriminator 1))
+> > > > >  tcp_ack (net/ipv4/tcp_input.c:3517 net/ipv4/tcp_input.c:3873 net=
+/ipv4/tcp_input.c:4440)
+> > > > >  tcp_rcv_established (net/ipv4/tcp_input.c:6685)
+> > > > >  tcp_v4_do_rcv (net/ipv4/tcp_ipv4.c:1854)
+> > > > >  tcp_v4_rcv (net/ipv4/tcp_ipv4.c:2248)
+> > > > >  ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207 (discriminator =
+1))
+> > > > >  ip_local_deliver_finish (net/ipv4/ip_input.c:241 (discriminator =
+1))
+> > > > >  ip_local_deliver (./include/linux/netfilter.h:325 ./include/linu=
+x/netfilter.h:319 net/ipv4/ip_input.c:262)
+> > > > >  ip_rcv (./include/net/dst.h:481 (discriminator 6) net/ipv4/ip_in=
+put.c:492 (discriminator 6) ./include/linux/netfilter.h:325 (discriminator =
+6) ./include/li)
+> > > > >  __netif_receive_skb_one_core (net/core/dev.c:6297 (discriminator=
+ 4))
+> > > > >  __netif_receive_skb (net/core/dev.c:6410)
+> > > > >  process_backlog (net/core/dev.c:6761)
+> > > > >  __napi_poll.constprop.0 (net/core/dev.c:7830)
+> > > > >  net_rx_action (net/core/dev.c:7893 net/core/dev.c:8050)
+> > > > >  handle_softirqs (kernel/softirq.c:645)
+> > > > >  __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel=
+/softirq.c:758)
+> > > > >  irq_exit_rcu (kernel/softirq.c:775)
+> > > > >  sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (d=
+iscriminator 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
+> > > > > RIP: 0010:tcp_cong_avoid_ai (net/ipv4/tcp_cong.c:482)
+> > > > >
+> > > > > Fix by checking if user pass in zero as parameter,
+> > > > > if so reject the value zero.
+> > > > >
+> > > > > Fixes: 51c5d0c4b169 ("tcp: Maintain dynamic metrics in local cach=
+e.")
+> > > >
+> > > > This looks like a refactoring commit only, 814d488c6126 might be mo=
+re
+> > > > appropriate but please check.
+> > > >
+> > > > > Cc: stable@vger.kernel.org
+> > > > > Reported-by: co+71b6509cb791e531@bugs.sh
+> > > > > Assisted-by: LLM
+> > > > > Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
+> > > > > ---
+> > > > >  net/ipv4/metrics.c | 4 ++++
+> > > > >  1 file changed, 4 insertions(+)
+> > > > >
+> > > > > diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
+> > > > > index ad40762a8b38..e83a129a25b6 100644
+> > > > > --- a/net/ipv4/metrics.c
+> > > > > +++ b/net/ipv4/metrics.c
+> > > > > @@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *f=
+c_mx,
+> > > > >                       NL_SET_ERR_MSG(extack, "Unknown flag set in=
+ feature mask in metrics attribute");
+> > > > >                       return -EINVAL;
+> > > > >               }
+> > > > > +             if (type =3D=3D RTAX_CWND && val =3D=3D 0) {
+> > > > > +                     NL_SET_ERR_MSG(extack, "RTAX_CWND must be g=
+reater than zero");
+> > > > > +                     return -EINVAL;
+> > > > > +             }
+> > > > >               metrics[type - 1] =3D val;
+> > > > >       }
+> > > >
+> > > > My understanding is tcp_snd_cwnd(tp) can return 0 and then the divi=
+de by
+> > > > 0 occurs in tcp_cong_avoid_ai. Have you also considered updating
+> > > > tcp_snd_cwnd_set to not only warn about invalid values but also rej=
+ect
+> > > > them, preventing similar oops?
