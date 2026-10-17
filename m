@@ -1,108 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B767B37A4AB;
-	Sat, 17 Oct 2026 04:54:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9B33D3327
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:58:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792212884; cv=none; b=N4baPRWLamsbdAAHCe3uYHz9AZKYN0PODJF4bjOFJMnrMCgxlwyo5LXntXUI2fQYnt0jmNykinkzncQZpzWwI0d0iuT+NWf6SK+Fde2H7dPwyjIF9TeBoGk4BGETfT7bswzMyCTcxGKdnujNTblXApRW25InxEWvvWNnqoObXbY=
+	t=1792213113; cv=none; b=ZRvuGL/EtG9lupbF77QjwpsxFxX7+/NLcgUXhFpKM74xhkSyQLKHcIEJQLmR/FL4+EAk8TXX6UqUrBtytLXMsSrCkpYltrw4jIGm1Ay8Fo/H06gC0gH6B3/av9cgsPXpmFbUg1uzT06PR7l+8u8rQWYLaH320TQxChxcgthvVNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792212884; c=relaxed/simple;
-	bh=+Xg+N/UfJF7ToQEdvEHZCS6mDzKCrIBaK3YE046Fkig=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qi4caYxcDYXsJf49VOcrXAcUZXExHXggqZmdIOVzLVrI6WJ5bi8pgkObVEdyLiuoWRFChAbB+SSk+2q4ytROg3qYaWBbZYx9i0KsD5QugDppUSSnaQdelqcjjx29qX90WvxGcdputfMHGBG1gnJkO0CE484bkoAh+RNUfHFboJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ED/ZAJPU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792213113; c=relaxed/simple;
+	bh=hAkM+QMIr1WwT7Vb/or3nGf70MZ9cHw2QoAdSm6hPo4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ICFMgFnWt0P0ogcTyA8XK6qA4/rJ4tesCWRUuesVhVcPUh42O4WaYvFarpuUL5o4RSx58JV9SO8Bo8DjVMGg8KlTlcZcN7zGZ6ByMoiwROYKY74OIS0VtYMTzACZkxh9oLWBltSNC7/JLzpS2ZBxrJuJGsoW5SwaL7fSiaeTdhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZR8I0h8U; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V/bfCWkg; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ED/ZAJPU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D87BD1F000C4;
-	Sat, 17 Oct 2026 04:54:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792212883;
-	bh=REIwKNtZjgcRHZFlrYddknh/HGx1GtJh0YexpuhA65o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ED/ZAJPUcKBqfsLTk37x4RBOoaVQomeAM699M/k/6dlvc5y+owbvdspZ75bzJ8sKB
-	 seiIJBz2k6+jR3ya0n62/jU6m0EUV35PGLsPmd/WUR7Ic63smOKOTefNWXqMfcpL7U
-	 mOWd/S8e7ZITNW/VlsrQsb6AIstTeaHJCu9bsRLu3LDsKKgLQS+Oz28js90ZE2XMIV
-	 fjlySf+m37rBaTd+MxyX7JmZ7fFCNht7DERNKYohNC0J3rLLQBsBRxW217g+VcDCUV
-	 tkSnot0mlgA7fxpjcpjJoJ2QaAoxbuY2Q4u59M84v0Shm8/Tj73de8BwdGCEkXYJ+H
-	 D/PGDKMxJEo5w==
-Date: Sat, 17 Oct 2026 06:54:39 +0200
-From: Carlos Maiolino <cem@kernel.org>
-To: Zheng Shuhao <viennaoffh@gmail.com>
-Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, syzbot+e7f24354da9f7915bc54@syzkaller.appspotmail.com
-Subject: Re: [PATCH] xfs: fix slab-use-after-free in xrep_newbt_free()
-Message-ID: <atL8bTDPVGlpZ0LB@nidhogg.toxiclabs.cc>
-References: <20261016085536.591-1-viennaoffh@gmail.com>
- <atIj2DeA3TOMJQ2-@cronus.toxiclabs.cc>
- <6ad231b5.6655ddc8.1e37bf.a74a@mx.google.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZR8I0h8U";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V/bfCWkg"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69H3jeS73163304
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:58:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=4QGgUiRp4/QTjgw/Gp2Jje44cAC5pv0wzFZ
+	imB5MEgM=; b=ZR8I0h8UXItqES/+xp3SqSHE8JOCVoBc+/KiKW64Qpmxlg7hs1Q
+	5TIs08Kep0jXfwwKuveMS6MGKvrmzNa/zpnBj+y90B9URJP7clKxyYDydAaHuRFH
+	e2jiRgaDX6iubOsivBlCB9gBabpoQgmKBcfBo79w6d7ROUiDNdY9f6SCEMrxkyGa
+	d4L9JJPV+FgRHoIRFN8amorVN5e5UTd5LxbYsO+uaNpTAWip1ZFCyYSlk5nGmMYU
+	wInOSPjs9DP1rCrczAO1d7cKMH9nzX1k0BhS5Lp+cFIiBzj/ICaIp55/jR/MJawV
+	f6rWXhfJB67HTX95f/U8dpxHpF1srHw4M7A==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hc1d7r3xy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:58:30 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-147be78cd56so2143851c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:58:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792213110; x=1792817910; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4QGgUiRp4/QTjgw/Gp2Jje44cAC5pv0wzFZimB5MEgM=;
+        b=V/bfCWkgHxwfVxSo4nF5q5Gb1rlz6sFoAgDlIXvW++RXAwmxPZQ7RONGDgEBqQp7IC
+         YhLoFlNeB/QpLcRmvzho1Q+v0DCn1xP8M2HqtuYlpEIyQ4S0eph9KjLvR0GHvObsXIdU
+         sQxah1mGVnN1BikG1maKG8Z/Unn2HiLRuoumZ2CtYSXg+iE7yOIDzuvSNPc6Agofo2+R
+         CWeP9hIU7IXmW57P+OfWGIgX1X11WxsQ0O4Tj060jPMRY2Rx4Vfy4HIkpPx13EyTaXHE
+         FLaFPlyof+PIjNi6HIcNciA0ZDv1pCmKp4KP+OwBkeYYVSgDQ9zyQKBma3RNMRc/iwpb
+         byZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792213110; x=1792817910;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4QGgUiRp4/QTjgw/Gp2Jje44cAC5pv0wzFZimB5MEgM=;
+        b=aMT9SLbNWIExFqRFMKfmBGOOwutpzHJ96oXekNd6O1yeOSic70WWXpH4AgdBfX4o4Y
+         9JYl+kS+i+JI2jiesre9U4HeUNGXVs2eQlSZBYQaNbqnQRi8xSb/B0Evzm8iZ5y7o653
+         QRBjkJQ2snHibPgTH5DwQNLwxTuL9jqDe4ikQj8cxjGuOjmZ9oPPLzYV3kmgMF89Q9Kr
+         5M6H5qlWlHNzcJciHwB0qNKDJJOJxUrUS8jPpY1eiVlQNJrwwt5BN4Oo9FjOJFOmIoXA
+         xq0wYwDxIHzoau3iK0DcU5i/F8gNIj7i59nGAZzFZkQ0e7WYsRii1A/L6Qm3Nc0LyjhW
+         iJug==
+X-Forwarded-Encrypted: i=1; AKwUvBxq7HkMtIJ+JRZS1ct2jS1WQQYnjvpT0yvU6nZ1U64lRbWiJ0rHVPVMLoRscyKfQJdcf4VaYxwOz4KTzTc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKi9i24zM56FYH+dohau6ZpYKMqDgmiGhfVZ7zZIuY4nbboipUZ
+	b8pTlIBHGbqLH2i3/6UrBKICEmBWRONRwIGsMqcW2nYqc6lufK6eO9GwjBG3ZiVQkqhOzki58iZ
+	rWWGraf49f8R6MZKdt4xmb0iVMcIz9VP2LnGT7D0i3z97Da2bfJMk9q/+RwcUAA1RR9U=
+X-Gm-Gg: AYBFou1czE3QDVWMW9Mkh1RXStL0HVncbmeYqWCiGXA46aZCWH3bbTVQVxEK4cAI/T6
+	EdlFEBqAjZkMSQQ6UVKoKkImIODwSpYgJRmUJaYdRYGK7Zw1xH7pDoYsq3JF11n15inSbcY/Eix
+	b+BK+DpQ3KMDkxhN0FAtR2OZWzex8S0Vch57xeXeBH4zhic8p/hZqrLz5BRGAS0ASAqK0tnopLY
+	7IvVMgp3FWkoaR3odUqR2rj2ZZLvcrF2wjb9OmOLNBPheYZoIqBA41eokmQ08GUxBQZgxTybX5j
+	ZhwgFl6Q2tftGUy2/cfBQX9NHS9NQLJSbG5hOt7AJAVs0x9m/XGNpJiY/SSRzKDaOZZUjSI1O4L
+	6Blgb4vySNHhAukMp+8ikvAg8ypClCio2YIRZADwmktgo4ebn1F0CqIwR1XI=
+X-Received: by 2002:a05:7022:170d:b0:149:cfa4:9b3b with SMTP id a92af1059eb24-1850cda6f5cmr2762168c88.3.1792213109450;
+        Fri, 16 Oct 2026 21:58:29 -0700 (PDT)
+X-Received: by 2002:a05:7022:170d:b0:149:cfa4:9b3b with SMTP id a92af1059eb24-1850cda6f5cmr2762134c88.3.1792213108884;
+        Fri, 16 Oct 2026 21:58:28 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831a6f58c2sm15203817c88.11.2026.10.16.21.58.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 21:58:28 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v3 0/4] qcom: videocc: Fix sleep clock on Glymur/SM8750/Nord
+Date: Sat, 17 Oct 2026 12:58:13 +0800
+Message-ID: <20261017045817.1506961-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6ad231b5.6655ddc8.1e37bf.a74a@mx.google.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDAxOSBTYWx0ZWRfXz8NsmijLvXy7
+ Yvh25yVmeKQRQOxA/2XcA7Ve5Duh7pLGHHCL4SZsNOb85KoX59FgxU7N068YCdPB3w2MWL/SkSP
+ C2N4fx4f4IAMZfy+gERRmWck1ICtWj0=
+X-Proofpoint-ORIG-GUID: 3CcYnCmI4rETHHwISVVTOw9gOc86T7A_
+X-Proofpoint-GUID: 3CcYnCmI4rETHHwISVVTOw9gOc86T7A_
+X-Authority-Analysis: v=2.4 cv=K4O3jCWI c=1 sm=1 tr=0 ts=6ad30076 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=nVBIRhUlJonL_QqUTF8A:9 a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDAxOSBTYWx0ZWRfXwU/fOPBrnvgK
+ tmnu7hd6Uyb7JJlQaQ2QB+cnllaKB6/33CCr99WCey4klLJmsxphM+FdfmdXs9pHCofHTxVQyKk
+ ssOr1qAjtYUXW+z+Hus3fVTo4D6sG50UBG3PJm66/GbEF9R+WxY9n4DeCv8CNQ6qWEhNKoCExnG
+ n+bFZijpukgyaL3imV6GpMWt4kfk8yFhUGNGLfPtT5OhtyKkRKGIseEG6UwVSUKTwu03nnCy6rP
+ dF4/+ZRvjgeC1WGUMeWgqdrqiP4llJeG7SHZluDxfkhfwBMwAzA9YWUol0SiJTARI/1rnoSOWfn
+ NX7LV9xpEaeWUmQ0KINdZ4dBvCSjwLFr1kQSYp8CM4VaWiF0IF+ZDt1l8TMvvEhiGu39ARgDijp
+ ME5JOUa2U32EqzcSv1L3/FpXlc1gviX8FdL1VhyNSPJ+P6Y5+CWRqCoNvN8h0zZmGYhpk280ETq
+ nBqqmHkvLi2h4YT38EA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-17_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 priorityscore=1501 phishscore=0 clxscore=1015
+ adultscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610170019
 
-On Fri, Oct 16, 2026 at 10:16:18PM +0800, Zheng Shuhao wrote:
-> Hi Carlos,
-> 
-> Thank you for the pointer, and my apologies for the confusion. This is
-> my first patch submission to the Linux kernel, and I was not aware of the
+The video clock controller on Glymur, SM8750 and Nord has three clock
+inputs: the board XO, the active-only board XO that feeds its PLL
+reference, and the 32 kHz chip sleep clock that sources its sleep clock
+generator. It has no AHB clock input; the AHB clock the controller uses
+for itself is generated inside the block from the XO input.
 
-Please keep the context when replying and respond to messages "inline".
-Giving this is your first patch, I'd suggest skimming through the guidelines
-in the kernel documentation.
+qcom,sm8450-videocc.yaml describes two inputs for every compatible it
+covers, a board XO and a video AHB clock from GCC. For these three SoCs
+that leaves the sleep clock input undescribable, and describes as the
+second input a clock that is not routed into the controller.
 
-> known-identity requirement for patch authorship and Signed-off-by.
-> Understood now; I will use my real name for all future submissions:
-> 
->     Zheng Shuhao <viennaoffh@gmail.com>
-> 
-> (vienna-0FFH was my GitHub handle only.)
-> 
-> For reference, this is the testing I did on the patch before posting:
-> 
->  * Built the patched tree with KASAN + XFS_DEBUG enabled; checkpatch.pl
->    --strict reports 0 errors and 0 warnings.
+Patch 1 describes the three inputs for the Glymur, Nord and SM8750
+compatibles and keeps the two-input description for the rest. Patches
+2-4 bring the Glymur, SM8750 and Nord videocc nodes in line with it.
+None of the DTS changes is a functional change.
 
-Good.
+Tested on Nord: video_cc_sleep_clk_src no longer shows up in
+clk_orphan_summary and is parented to the board sleep clock at 32 kHz,
+and videocc keeps working with the GCC video AHB clock dropped.
 
->  * Reproduced the use-after-free deterministically in QEMU on an
->    unpatched kernel; the KASAN splat matches the syzbot report exactly
->    (xfs_defer_item_unpause <- xrep_newbt_free <- xrep_bmap_build_new_fork,
->    and the xfs_defer_pending object is freed by xfs_defer_finish_noroll).
->  * With the patch applied, the same trigger produces no KASAN report: the
->    scrub ioctl just returns -EIO and the shutdown path unwinds cleanly.
->  * Regression runs on the patched kernel: all metadata scrub types,
->    invalid scrub inputs (bad flags/generation/agno/type), and forced bmap
->    btree rebuilds from 5 up to 1500 extents (covering both extents- and
->    btree-format forks), with read-back verification of the files. No
->    regressions; normal scrub/repair paths still succeed.
-> 
-> I can share the reproducer and test scripts if that is useful.
+Changes in v3:
+- Reword "always-on board XO" to "active-only board XO" (Thanks Konrad!)
+- Link to v2: https://lore.kernel.org/all/20261008081036.3492003-1-shengchao.guo@oss.qualcomm.com/
 
-Yes, sharing the reproducer (and potentially hooking it up into
-xfstests) is a good thing, specially giving the syzbot doesn't seem
-to have a reproducer for it yet.
+Changes in v2:
+- Rewrite the binding and DTS commit messages in terms of the hardware
+  clock inputs rather than driver behaviour
+- Drop the Fixes tags
+- Rebase on next-20261006 and add patch 4 to fix the Nord videocc node
+- Link to v1: https://lore.kernel.org/all/20260924161152.1162301-1-shengchao.guo@oss.qualcomm.com/
 
-I'm also interested if you actually passed your patch through xfstests
-before submitting it. There is no good fixing a bug if you create a
-handful of others. Specialy agains scrub, online_repair (and maybe
-fsstress_scrub) groups.
+Shawn Guo (4):
+  dt-bindings: clock: qcom,sm8450-videocc: Fix clock inputs for Glymur
+  arm64: dts: qcom: glymur: Add videocc sleep clock
+  arm64: dts: qcom: sm8750: Fix videocc clock inputs
+  arm64: dts: qcom: nord: Fix videocc clock inputs
 
-> 
-> Would you prefer that I resend this as v2 with the correct
-> From:/Signed-off-by: lines, or can you fix up the authorship when
-> applying? Either way works for me.
+ .../bindings/clock/qcom,sm8450-videocc.yaml   | 26 ++++++++++++++++---
+ arch/arm64/boot/dts/qcom/glymur.dtsi          |  3 ++-
+ arch/arm64/boot/dts/qcom/nord-embedded.dtsi   |  3 ++-
+ arch/arm64/boot/dts/qcom/sm8750.dtsi          |  3 ++-
+ 4 files changed, 29 insertions(+), 6 deletions(-)
 
-You'll need to send a V2. But wait until your patch gets reviewed, you
-don't need to send it right now.
+-- 
+2.43.0
 
-
-> 
-> Thanks,
-> Zheng Shuhao
-> 
