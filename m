@@ -1,146 +1,196 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2172A3905EB;
-	Sat, 17 Oct 2026 16:24:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA22E397929;
+	Sat, 17 Oct 2026 16:27:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792254256; cv=none; b=CL4rUxLLDU54nTlY8VetbFKhiMHDRx4Ft6/c7+CFfXwYa8MSsTLDsCZaj4+K8oV7yN67Wr3nKdo64S8ng4WckAt4LEtCq/9Grte4bUF0XHuSrXBoZXU78G2hcfwQmTxGUa4NKwtCtfu+Swynp/yWh5sMEbhu5BtGSlb8uLMMz6c=
+	t=1792254435; cv=none; b=YpcTVenYVLMzR5zxHD4cyYOIqSzgv6LonRX28OYs4TuNRdZHxxstADMD2pe7Ei//KyN792yI6GaO+2pD7fxbHOINfN0DNeMrAuGIB1HNoxeurBS04DlRRV1APwG55GNHU0oPDnOUYus3334APRdYPEtw70NpvtxIA8oiOwV1D/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792254256; c=relaxed/simple;
-	bh=UA8pGmqMp8j+mGS3obBFuKVd1iXAUsGud+vT1KbKpDA=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RFEA9sT71XXTq6gOgC+m5i645iqrDypnqPRUzwcldm/UkVmAmvY34g4GATNSQ6OY+o1s3IaFRlDkmFEFGCyAg0gOjkrd9usQ4Yrv1F+DzeEWKSLMgxCpjB6USddAq6M8/6LGAw3w6IUyXbt+++JbeJzd1b1qT08+c2LaIGc9JOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jJUye3F7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792254435; c=relaxed/simple;
+	bh=AoC4eNIlO3LSIzyltldsosThUAlOnG2DKf2ALvd8tGg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DZJqEUULq1NXRuuYBpTpPghsStz/te1aaTMV2Lmi/QCupjzfDJQaQU9laODsWmLgLfM5d2yEZ1o1Ww3jFP0XUtlIwYTivdDdLcjp/EhEN7zKdMrF51B2zmyVqG7qtH4FTokbFE7bb1VAV0ejV1LvDY4C9MW8IU06+pQCK3xcSQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GcXJLNUA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jJUye3F7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0A011F000C4;
-	Sat, 17 Oct 2026 16:24:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GcXJLNUA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 398261F000C5;
+	Sat, 17 Oct 2026 16:27:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792254254;
-	bh=Sn6oltEz1l2gbSTEtMRaMGw2g3dSBbPeiQre/ajrvSI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jJUye3F71L6g7gXBMb4EwJv4URAOh3FVM+EV/DoYqFRNTmSIzHAmrX2JvlEtbC/AL
-	 b6OxHpY2Jl+E1DJ2WHt+UlRnG5FbiY9wqOyLfndPwyUSKgmGctEEn97wtmfsbnxs2c
-	 iLEUjbrOBbr2m8ydOX9WoGmSG1/5PACeLRGORO7OFdsuPi+H3oTRgecNjjV0F33tW1
-	 Bbn+qlfJipAP0sw3igJyGh585gBx1ej6PG9ojGvGN2NKQ9B75MeEaaNQDjW4yd2T8j
-	 wJ3S6WU0//4Q8jesK1KWtD8i1mRcbBqAGmkc8W805ONV0knOEazkamnVevvuIi6tZS
-	 BuSg5FTjWvSTw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xI7Ce-0000000487K-0c5q;
-	Sat, 17 Oct 2026 16:24:12 +0000
-Date: Sat, 17 Oct 2026 17:24:11 +0100
-Message-ID: <865wz01ej8.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	s=k20260515; t=1792254433;
+	bh=EsWRQEfX03GTNdb56tV6nXJjKEivM5tx+oNkBb8EiW8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GcXJLNUAAE7A1QqxYvjonnyJ/dHuGFZZFHa+Fw/mJNHP09tddIrnZeEPGlfu/ruFK
+	 qYTSYHjzR2CyxjvvwTqYHeLtXjj6r6kR40Y56TiM4JzTvv1ZEfQPpFz+HQwSmR5z2i
+	 Cwpa/oAysGRTlJS6itL4TLmY3cvMHONyQakixRexzo9FdhxHvLUuGLso2Sjt+apYtH
+	 0yXyygobq94FYENsTnKfmi8FE0HLRFGujY/tKEGT0XEnkK4TrVsrDUTnY5khrxrrBw
+	 5DshkCSv5rCOlv27ZQb0aySFP8AcyVcgx/28CU5LmH4MAcB29DyiIAUzVW3RPotxOV
+	 cO07tYtyxgzDw==
+From: SJ Park <sj@kernel.org>
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: SJ Park <sj@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	mark.rutland@arm.com,
-	vdonnefort@google.com,
-	qperret@google.com,
-	Sascha.Bischoff@arm.com,
-	steven.price@arm.com,
-	tabba@google.com
-Subject: Re: [PATCH v3 1/5] KVM: arm64: Reject the GICv5 CPU interface hypercalls under pKVM
-In-Reply-To: <20261012161524.4016464-2-fuad.tabba@linux.dev>
-References: <20261012161524.4016464-1-fuad.tabba@linux.dev>
-	<20261012161524.4016464-2-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	Aveline Noir <jm5905938@gmail.com>
+Subject: Re: [PATCH] mm/damon/reclaim: improve grammar and style
+Date: Sat, 17 Oct 2026 09:27:02 -0700
+Message-ID: <20261017162706.103996-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <c575314d3e52d5fcff3d6fc47d12dc118a24bd63.camel@mailbox.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, vdonnefort@google.com, qperret@google.com, Sascha.Bischoff@arm.com, steven.price@arm.com, tabba@google.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 12 Oct 2026 17:15:20 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
-> 
-> __vgic_v5_save_apr() and __vgic_v5_restore_vmcr_apr() remain callable
-> once pKVM has finalised. pKVM never registers a GICv5 vgic, so neither
-> has a valid caller in protected mode, and on a GICv3 machine both reach
-> a register that is UNDEFINED at EL2 and panic the hypervisor.
-> 
-> Move both into the band the dispatcher rejects once pKVM has finalised.
-> 
-> Fixes: af325e87af5da ("KVM: arm64: gic-v5: Add vgic-v5 save/restore hyp interface")
-> Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  arch/arm64/include/asm/kvm_asm.h   | 4 ++--
->  arch/arm64/kvm/hyp/nvhe/hyp-main.c | 4 ++--
->  2 files changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_asm.h b/arch/arm64/include/asm/kvm_asm.h
-> index e5b92ac09e69e..ea319c496bb26 100644
-> --- a/arch/arm64/include/asm/kvm_asm.h
-> +++ b/arch/arm64/include/asm/kvm_asm.h
-> @@ -62,6 +62,8 @@ enum __kvm_host_smccc_func {
->  	__KVM_HOST_SMCCC_FUNC___kvm_enable_ssbs,
->  	__KVM_HOST_SMCCC_FUNC___vgic_v3_init_lrs,
->  	__KVM_HOST_SMCCC_FUNC___vgic_v3_get_gic_config,
-> +	__KVM_HOST_SMCCC_FUNC___vgic_v5_save_apr,
-> +	__KVM_HOST_SMCCC_FUNC___vgic_v5_restore_vmcr_apr,
->  
->  	MARKER(__KVM_HOST_SMCCC_FUNC_MIN_PKVM),
->  
-> @@ -87,8 +89,6 @@ enum __kvm_host_smccc_func {
->  	__KVM_HOST_SMCCC_FUNC___tracing_write_event,
->  	__KVM_HOST_SMCCC_FUNC___vgic_v3_save_aprs,
->  	__KVM_HOST_SMCCC_FUNC___vgic_v3_restore_vmcr_aprs,
-> -	__KVM_HOST_SMCCC_FUNC___vgic_v5_save_apr,
-> -	__KVM_HOST_SMCCC_FUNC___vgic_v5_restore_vmcr_apr,
->  
->  	MARKER(__KVM_HOST_SMCCC_FUNC_PKVM_ONLY),
->  
-> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> index 9a3b92e626adb..7c939baf9c1ba 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> @@ -911,6 +911,8 @@ static const hcall_t host_hcall[] = {
->  	HANDLE_FUNC(__kvm_enable_ssbs),
->  	HANDLE_FUNC(__vgic_v3_init_lrs),
->  	HANDLE_FUNC(__vgic_v3_get_gic_config),
-> +	HANDLE_FUNC(__vgic_v5_save_apr),
-> +	HANDLE_FUNC(__vgic_v5_restore_vmcr_apr),
->  	HANDLE_FUNC(__pkvm_prot_finalize),
->  
->  	HANDLE_FUNC(__kvm_adjust_pc),
-> @@ -932,8 +934,6 @@ static const hcall_t host_hcall[] = {
->  	HANDLE_FUNC(__tracing_write_event),
->  	HANDLE_FUNC(__vgic_v3_save_aprs),
->  	HANDLE_FUNC(__vgic_v3_restore_vmcr_aprs),
-> -	HANDLE_FUNC(__vgic_v5_save_apr),
-> -	HANDLE_FUNC(__vgic_v5_restore_vmcr_apr),
->  
->  	HANDLE_FUNC(__pkvm_host_share_hyp),
->  	HANDLE_FUNC(__pkvm_host_unshare_hyp),
+On Sat, 17 Oct 2026 11:18:34 +0200 Manuel Ebner <manuelebnerli@mailbox.org> wrote:
 
-In order to minimise the number of conflicts while merging this, I've
-dropped the last two hunks that only serve a cosmetic purpose. Same
-thing for the following patch.
+> Hi SJ,
+> 
+> On Thu, 2026-10-15 at 07:01 -0700, SJ Park wrote:
+> > On Thu, 15 Oct 2026 10:06:23 +0200 Manuel Ebner <manuelebnerli@mailbox.org> wrote:
+> > 
+> > > Fix tenses. Replace 'set as' with 'set to'.
+> > > Rewrite complex sentences.
+> > 
+> > Let's put two sentences in one line, while breaking it for the 75 column limit.
+> 
+> Will do.
+> > 
+> > [...]
+> > > @@ -113,8 +113,8 @@ quota_sz
+> > >  
+> > >  Limit of size of memory for the reclamation in bytes.
+> > >  
+> > > -DAMON_RECLAIM charges amount of memory which it tried to reclaim within a time
+> > > -window (quota_reset_interval_ms) and makes no more than this limit is tried.
+> > > +DAMON_RECLAIM recordes the amount of memory which it tried to reclaim within a time
+> > 
+> > s/recordes/charges/  or s/recordes/records/ ?
+> 
+> For me charge is such a weird word exepct in 'charge a battery' or 'charge a fee'. And
+> 'recordes' is a typo. Does this work:
+
+'charge' in this sentence is somewhat like 'charge a fee'.  I personally don't
+feel it is weird.  But 'record' also work for me.
+
+> 
+> DAMON_RECLAIM records the amount of memory which it tried to reclaim within a time
+
+So this looks good to me, too.
+
+> 
+> I could do this in a second patch aswell.
+> 
+> > 
+> > I'd prefer charges, but my English is definitely bad, so looking for your
+> > suggestion.
+> > 
+> > > +window (quota_reset_interval_ms) and stops when this memory limit is reached.
+> > 
+> > I feel like readers might wonder what is stopped.  How about "stops trying
+> > reclaiming memory when ..." ?
+> 
+> window (quota_reset_interval_ms) and stops trying to reclaim memory when this limit is reached.
+
+Looks good.
+
+> 
+> > 
+> > >  This can be used for limiting consumption of CPU and IO.  If this value is
+> > >  zero, the limit is disabled.
+> > >  
+> > > @@ -125,19 +125,19 @@ quota_reset_interval_ms
+> > >  
+> > >  The time/size quota charge reset interval in milliseconds.
+> > >  
+> > > -The charge reset interval for the quota of time (quota_ms) and size
+> > > -(quota_sz).  That is, DAMON_RECLAIM does not try reclamation for more than
+> > > +The quota reset interval of time is quota_ms and of size is
+> > > +quota_sz.  That is, DAMON_RECLAIM does not try reclamation for more than
+> > 
+> > I think this change is just wrong?  quota_ms is not quota reset interval of
+> > time.  Which part of the original sentence was difficult to read?
+> 
+> 'charge' again, and I think there is the verb is missing.
+
+If use of the term 'charge' is really making reading difficult, we could add a
+short definition of 'charge' as a separate patch.
+
+E.g., 
+
+'''
+--- a/Documentation/mm/damon/design.rst
++++ b/Documentation/mm/damon/design.rst
+@@ -695,7 +695,9 @@ dynamic.
+ To mitigate that situation, DAMOS provides an upper-bound overhead control
+ feature called quotas.  It lets users specify an upper limit of time that DAMOS
+ can use for applying the action, and/or a maximum bytes of memory regions that
+-the action can be applied within a user-specified time duration.
++the action can be applied within a user-specified time duration.  DAMOS tracks
++(charge) the amount of memory that the action is applied, and stops applying
++the action once the limit is reached.
+
+ To know how user-space can set the basic quotas via :ref:`DAMON sysfs interface
+ <sysfs_interface>`, refer to :ref:`quotas <sysfs_quotas>` part of the
+'''
+
+Please let me know if you'd like to send such a patch.
+
+> 
+> > 
+> > >  quota_ms milliseconds or quota_sz bytes within quota_reset_interval_ms
+> > >  milliseconds.
+> > >  
+> > > -1 second by default.
+> > > +1000 (1 second) by default.
+> > 
+> > Isn't this (1 second in milliseconds is 1,000) easy enough to infer for
+> > readers?
+> 
+> Ok.
+> 
+> > >  
+> > >  quota_mem_pressure_us
+> > >  ---------------------
+> > >  
+> > >  Desired level of memory pressure-stall time in microseconds.
+> > >  
+> > > -While keeping the caps that set by other quotas, DAMON_RECLAIM automatically
+> > > +While keeping the caps set by other quotas, DAMON_RECLAIM automatically
+> > 
+> > How about "caps that are set by ..." ?
+> 
+> Yes, this was my second choice.
+> 
+> > 
+> > >  increases and decreases the effective level of the quota aiming this level of
+> > >  memory pressure is incurred.  System-wide ``some`` memory PSI in microseconds
+> > >  per quota reset interval (``quota_reset_interval_ms``) is collected and
+> > 
+> > 
+> > Thanks,
+> > SJ
+> 
+> I messed up the subject line, should be:
+> Docs/admin-guide/mm/damon/reclaim: improve grammar and style
+> 
+> I'll follow up with a [v2], including Aveline suggestions.
+
+Sounds good.  But let's finish the discussion about use of the term, 'charge'
+before posting v2.
+
 
 Thanks,
+SJ
 
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+[...]
