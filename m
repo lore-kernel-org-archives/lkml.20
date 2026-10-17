@@ -1,197 +1,92 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B285247DD7C
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:03:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79C83E1692
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:03:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792235013; cv=none; b=Jm4qckDbqG2+qVNrqrxBW58b4uYjRbeIYoQUDu2rChxvqjWasd/cFmjWQsFPpxUYLznqpB/X/YjNxibRdz6Y807IhbDGWBNJbXLoUP1csRqRrK/VHndVjc/H5e3APUDtp2MAXoTbTQOrqSvIgE+ielTUeFO4nDLySdaXExeAshU=
+	t=1792235023; cv=none; b=MIGQyg2LJLrN+bhSgYrPdzDD+IzcmwQmqCSoi1UZebwWEq+7nI4jF6XnkmMFHalgD1i5XvqQVsBB4NmcVz9lNyyqWluRTSDBvJHe5sCNTGX/WgO3SrcDWcWMl2p31ehO1x7UIsg7gp1e3WpKbBDsNGNrNRGX9v5P1j7mDKSJAtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792235013; c=relaxed/simple;
-	bh=7GJpk+Zm7RfMxIWiA/UAYftsuVNurXh/QNUDx1LsL7I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b5Q8v6/x+mm4ePC/6wH8cLLBBzQNs8wkDB2+hQCxPciKRqo9WAGX57OwbehYp4YprOf3IFX5gcxTqsDHgE6tDHy2UmGttjL++GWm7t5DnQEpw6yt/pQhpiqFTXTWr8kUcgh+qEV5MpsjF8/LQXhMx8ne7QjCoNpK2KxjGMRL9VA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=USj/93rV; arc=none smtp.client-ip=209.85.214.179
+	s=arc-20240116; t=1792235023; c=relaxed/simple;
+	bh=oSHhfe/3BMYwK1VKmmdxm9bRYofruDGD3Z9oNPFvSP4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=f80zntiABzkTdygdDkVuH7yIzewM62DApkBFdXRTRAsXzCr73yMSLOml6KbZ2jHTkGS8dt0adKURIMuLAfUyEN+mzCeS/yPMZAiRlZRZFkEfRzfNunJdrjH9cDYXv1exD7fdB18ID3Vh/zFMownoMzVZvRD8984mIwtNHw6UmBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i7YSzZUi; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="USj/93rV"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e5378b281aso2896915ad.2
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:03:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i7YSzZUi"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1d484b4a9so9586895e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:03:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792235012; x=1792839812; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Tf4fy3DAykjNBLlmTR7a2o12P+Rb24NlY7yvH7wOMkE=;
-        b=USj/93rVMZ7kMj/UgK8nl+8jzPWsmEaGOUYt0f2cZoNZ1EM2s0ybq5ydIlaZfOhRCK
-         VecqvOHi7U0mAJ7m3LTuMngG4Lm/Q3H79Ubkf5SulOLs/tM54dWwHOjVOMZ9DtuBaJ2I
-         WyThx+84LCg/d2c2hL8iS1XSw3c71q0TwYtE425zxQjlvNuK33YXqWFPyeCFdfBC0FXu
-         MKP4NLnL90laYp7AbosLBtDuSdsRyJeRI1PtJOs3nVqKbUHhIlwAgVtvZR5qnf76w3b8
-         sgQjwqrQdQ5elToLA7JJGLz1bwopr5gQNZ7QOaDGZLy4GAyERzrA2J75n1RRUnUizID6
-         wC2Q==
+        d=gmail.com; s=20251104; t=1792235020; x=1792839820; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GaMI/trTcfwmLC2pSab0mIrGT4oZ42vsgle4U84qwIM=;
+        b=i7YSzZUim1HHB2Uiv7hGUrccsYeU3PDacktdd4rCxP+yU+i7t8dDCwf6w2hna6VNuy
+         JxDCBYjc73qX7j6VDsWc9oo5RmOO65gmLmtn1i2EQ0AsRMSNWzSLeO1p2iETazJ5F238
+         L0IwFo5devdrupi/GdsaI/d6v1wrsm/qJOTgiA2E/MZQcRW4Tg+RUdx5IYNpopP5rJC3
+         zeaP2Yt4dYAylEm5HW2goF5SbPF/ajkIER538DTJ8KU7mbQKN86nB+ObSND9slPBB9EN
+         wsbY37QzHUVTTcVb//2tFisVq1meITW26ukOZ2EsP12BKb5tNM+pqv9it51fuaFl8Rtg
+         SJVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792235012; x=1792839812;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Tf4fy3DAykjNBLlmTR7a2o12P+Rb24NlY7yvH7wOMkE=;
-        b=wZP+ekn+H1/K9ZGl34zhoTZp4xCXlXjAC81u5gnGizAZ5GfKFfSvFvs2oVbsNMW1BG
-         +07ntutYM7k3I5W2QzAAdfDhNiqWm23ChabSBcoJr5YoEoeP5svSCz6wlDVOL2KKWz1v
-         31+isHrsWU8DfcuCQgCkhQqicNC13orSpnpLoxIneSRcytNuH57k6ptM8QFGhKOPul0k
-         C40uBjeMUH9UgWIUV9udX/F9XJFHWRfdjlPqao2Z8+d8qUslgrTN/7ShYXWSLlo2CkN9
-         gp+Ue03XLwN4/Nfu4/IL+LueoXGoTUe6pBZPojlcYSvsPOoxtYlDMq7nFeC8hAOcj6oW
-         fAUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxY+siSXtwtmOg7MQZAIVX4oz1yV8Hf/XQBB6Ulw9k982ZQW6MYUbZR5XFSYrc6lXydXFiXqvVjuyacQbc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9JURew4HbJ1ATUiyj2tv4/6HLdR8T6atjXBwlIus+7RgyYbA7
-	/AWQPXxrLGNeyOA+boiQqS85bojbPazskKh9EphYpW8oViwjGnuhhhV+
-X-Gm-Gg: AYBFou1URBQPT6sccJhzCIrTxmKXKW+gVEJptytNsQ7QLJwviklsIcei6VSfyxhyYrB
-	UmXjaew2UNz1miaacQkwBpGW01IIhWtgnX1cbsJsd8N47zwkzS2XmwI8N90IhRSOIITbxx8WyJI
-	rLo8GEcgyw7uPy0AACw/WCl3ysXth7wSqgzPf1eiSwhU9AfEA7H9mtCiWVWgbhT9gLACBdxAI0q
-	DWDCDeJPjD6S9BYW+nkmCeaLXuc1gZtDfO7u336Om2ZD94Hjt2bMPExlmb/5VCEcICc6ArdFd7i
-	ghMCo+AJK7TiDkV5z2uLpO8gL6y5JMWvGqOp8Fh3mm7cfuGOjNMRcY0nDBN4Oxv/p8x0Fx+34GO
-	e+JjhDiZOUKaYQSB+YrYfLVX3y90J5OTgeeAWmjmrptNmgKqhAnKfPqeuVYuqwoYfL2oJbFJGTR
-	x6oR0m/Y6mfZAsYARU3YmPLL7PfKDq685BVSDZbjBqRBF1LFlHTPais7du98/ad1xUI87/NbupC
-	WLaBTdK98SNycjwQSqTDA==
-X-Received: by 2002:a17:902:e84c:b0:2e9:6b5b:3db6 with SMTP id d9443c01a7336-2e9a69e93d4mr22504755ad.30.1792235011936;
-        Sat, 17 Oct 2026 04:03:31 -0700 (PDT)
-Received: from x1c ([2405:9800:b670:b64b:7c65:ff3e:80ba:b06])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e804dd9sm20559955ad.16.2026.10.17.04.03.22
+        d=1e100.net; s=20260707; t=1792235020; x=1792839820;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GaMI/trTcfwmLC2pSab0mIrGT4oZ42vsgle4U84qwIM=;
+        b=yPHk4so3ZbsvHxYb3U+kEhtMF4eSeGP9OjJoQcxyvgjAgHGepnaPmKWbOgmveAizsn
+         kIglNzIy2/nOorm6qlLPJYoxfrGiR5AbI0JVAv84G0AezC2G/t1dQDbUPxPM3m7ry2Hc
+         FFHFe381ZEmSiGeDHO0+W4oD0z9LBWtUCEywsdIoYFrO7827IzlCCzO2eZ2f7QRvAoNe
+         5FbLGil5RbwuyY0xBQ7FRXv3BiMy+VHRCujdHBi67lmHiAROnef+4NWl6juGHBLcELnV
+         x+zcEBkDpHIFW9Mwl+xi/N+0wqBwEwobOf0MPGNeWeRVJyrg85ajDnwDMs4RUu2uGMKl
+         MHIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy91GxDUGcUjyhIbRAhMdkbkmg4EqOxADNfy4G5s4LbHwIdHR4HOkk3pELNkA1PPVH6BKPrR50e4OUpbHc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcAxVXMSNgpJT2j7nQRhOnIKZDdQgHJU67fYPXSBiXANjiJfxr
+	Wm9H3Jn4hJEMPUAuvraZ9vplpyHoPloNBGSw4ezGjgTecP3mCBYERE7X
+X-Gm-Gg: AYBFou18nqZ9pMhEBt5DTjcNF6pszIe4E3dpb6uz5adwN2z3GUqYMJC5kAkXyYrDNAJ
+	so1iWyHICQOBnRR2nFHn2AnbDpbGUSFJlqzFy5LwxImb0uWjw+LJQ7XXfNFDgPgsdfcrZdnlBKP
+	aQs0BYXaOy804WBT5k8tXOfkxvmh21lZ/abfOTUNuHSzClBGPsPwzZ0OAeq6pHEx6eL+VbspVpc
+	OzWum75PJIzYs/QW9BoVueZzE7a+yh7ri2R17gWk6sLEQLz6OHrWP2KIuVg9pr38W24dIyLoSjn
+	a/7jd1bWDaoAGuMOUIRYUhhWknaLgxEewtRkCihSUVHY6/heqsCpDYgn/4qIYnDk/+J3NpCzaCH
+	x6aiaCMhKy16QSbbVH0+XNvugv+0pGDjOVtShgXucsXhxetTqMbPpTP3XGNs1EmxqotKrj3bGST
+	eLW/2T6Dw1t7V4yAfScJ0X2i+FzbqUJoPAV5Kyky2AG/otWPIy3HIfkIoM64peuq5N/XI=
+X-Received: by 2002:a05:600c:34c3:b0:4a1:df11:45a9 with SMTP id 5b1f17b1804b1-4a1df11472emr13188475e9.4.1792235019771;
+        Sat, 17 Oct 2026 04:03:39 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cca26dc8sm87804825e9.3.2026.10.17.04.03.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 04:03:31 -0700 (PDT)
-From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
-To: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>
-Cc: Shuah Khan <shuah@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Anup Patel <anup@brainfault.org>,
-	Atish Patra <atish.patra@linux.dev>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	kvm-riscv@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel-mentees@lists.linux.dev,
-	skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	jkoolstra@xs4all.nl,
-	Tharit Tangkijwanichakul <tharitt97@gmail.com>
-Subject: [PATCH 5/5] KVM: selftests: Test protection of the ucall MMIO region
-Date: Sat, 17 Oct 2026 18:02:13 +0700
-Message-ID: <20261017110213.46199-6-tharitt97@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261017110213.46199-1-tharitt97@gmail.com>
-References: <20261017110213.46199-1-tharitt97@gmail.com>
+        Sat, 17 Oct 2026 04:03:38 -0700 (PDT)
+Date: Sat, 17 Oct 2026 14:03:35 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Feiyu Wang <wangfeiyu_mc_code@163.com>
+Cc: gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: fix logical continuation style
+Message-ID: <atNWBx-Nr9jw_-sC@stanley.mountain>
+References: <20261007102212.112463-1-wangfeiyu_mc_code@163.com>
+ <20261017103525.6203-1-wangfeiyu_mc_code@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017103525.6203-1-wangfeiyu_mc_code@163.com>
 
-Verify that creating a memslot overlapping the ucall MMIO region
-fails with EEXIST and that ucalls work before and after the
-attempt. Skip when MMIO ucalls or read-only memory are unsupported.
+On Sat, Oct 17, 2026 at 06:34:44PM +0800, Feiyu Wang wrote:
+> Hi Greg,
+> 
+> A gentle ping on this patch. Please let me know if there is
+> anything that needs to be changed.
+> 
 
-Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
----
- tools/testing/selftests/kvm/Makefile.kvm      |  1 +
- .../selftests/kvm/reserved_slot_test.c        | 61 +++++++++++++++++++
- 2 files changed, 62 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/reserved_slot_test.c
+The driver was deleted and no longer exists in linux-next.
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 1f4bc2a1322d..ff4a5e9733e9 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -68,6 +68,7 @@ TEST_GEN_PROGS_COMMON += set_memory_region_test
- TEST_GEN_PROGS_COMMON += memslot_modification_stress_test
- TEST_GEN_PROGS_COMMON += memslot_perf_test
- TEST_GEN_PROGS_COMMON += vm_types_test
-+TEST_GEN_PROGS_COMMON += reserved_slot_test
- 
- # Compiled test targets
- TEST_GEN_PROGS_x86 = $(TEST_GEN_PROGS_COMMON)
-diff --git a/tools/testing/selftests/kvm/reserved_slot_test.c b/tools/testing/selftests/kvm/reserved_slot_test.c
-new file mode 100644
-index 000000000000..4a908017ca73
---- /dev/null
-+++ b/tools/testing/selftests/kvm/reserved_slot_test.c
-@@ -0,0 +1,61 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include "kvm_util.h"
-+#include "processor.h"
-+#include "test_util.h"
-+
-+#define CLOBBERED_SLOT		TEST_MEM_SLOT_BASE
-+
-+static void guest_code(void)
-+{
-+	GUEST_SYNC(1);
-+	GUEST_SYNC(2);
-+}
-+
-+static void test_slot1_protected(void)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_run *run;
-+	struct kvm_vm *vm;
-+	struct ucall uc;
-+	u32 nr_pages;
-+	size_t slot_size;
-+	void *slot_mem;
-+	int ret;
-+
-+	vm = vm_create_with_one_vcpu(&vcpu, guest_code);
-+	nr_pages = vm_adjust_num_guest_pages(vm->mode, 1);
-+	slot_size = (size_t)nr_pages * vm->page_size;
-+
-+	run = vcpu->run;
-+	vcpu_run(vcpu);
-+	TEST_ASSERT(run->exit_reason == KVM_EXIT_MMIO,
-+		    "Unexpected exit reason = %u", run->exit_reason);
-+	TEST_ASSERT(get_ucall(vcpu, &uc) == UCALL_SYNC && uc.args[1] == 1,
-+		    "Expected the first sync before clobbering the ucall GPA");
-+
-+	slot_mem = kvm_mmap(slot_size, PROT_READ | PROT_WRITE,
-+			    MAP_PRIVATE | MAP_ANONYMOUS, -1);
-+	ret = __vm_set_user_memory_region2(vm, CLOBBERED_SLOT, 0,
-+					   vm->ucall_mmio_addr, slot_size, slot_mem, 0, 0);
-+	TEST_ASSERT(ret == -1 && errno == EEXIST,
-+		    "Expected the ucall GPA overlap to be rejected: ret=%d errno=%d",
-+		    ret, errno);
-+
-+	vcpu_run(vcpu);
-+	TEST_ASSERT(run->exit_reason == KVM_EXIT_MMIO,
-+		    "Unexpected exit reason = %u", run->exit_reason);
-+	TEST_ASSERT(get_ucall(vcpu, &uc) == UCALL_SYNC && uc.args[1] == 2,
-+		    "Expected the second sync after attempting to clobber the ucall GPA");
-+
-+	kvm_vm_free(vm);
-+	TEST_ASSERT(!munmap(slot_mem, slot_size), "munmap() failed, errno=%d", errno);
-+}
-+
-+int main(void)
-+{
-+	TEST_REQUIRE(UCALL_EXIT_REASON == KVM_EXIT_MMIO);
-+	TEST_REQUIRE(kvm_has_cap(KVM_CAP_READONLY_MEM));
-+
-+	test_slot1_protected();
-+	return 0;
-+}
--- 
-2.53.0
+regards,
+dan carpenter
 
