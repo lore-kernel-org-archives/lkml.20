@@ -1,254 +1,146 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3040B1DA57
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:03:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792245833; cv=none; b=HfX+LX5GfWUCkIKMmFT2KsdvECGiNoAcnaPpO2VU2CxTArAUfspGm+4QTaH+8Ox5PdP91qEN4rTRuBvmNjr38ggsrC60jHGswUjJKTW4DN5155It86u8P+IzXTkO4A0qC/InG04cjeHG1cSidPLiHqmO/aCJD7jUS3vb2JKT3ak=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792245833; c=relaxed/simple;
-	bh=pzHYCNoq9J/xjDTIZm1GzwKAg0a5eysa5HPlMSXc4zM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ue6LW3b8og2riUpKbzJOLkkmC1ZTkK6QH1GgakYeyoFRus4vpKrGE8FjWDEJNahCEBLQO9md7e9ILYnuUPqipFkeYzQF69lrFhidlM/SZxKbiN/9pPeYM6ERhT/zodvMD5JFZyfuH1KnY69zxO2Vj7QwikHQrafwzbT2TASs6OA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a3FxalY7; arc=none smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307B73C4B91
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:03:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792245836; cv=pass; b=Z/lPYAJ7Fsnv6YTlm7oEowooS1o4kGvFGXNEQ9A93PZrEJzUjjRmw001+xcxAREmwjwTqd+TDVkrViorVqn5J1ZzYxXTok82WA/3RnoQv1hiQ9CIjRGw7i3SgCpyMKysKibMU/F5cFyuK1ByavKUL366vPsIbf/EXtCR2xqPFpE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792245836; c=relaxed/simple;
+	bh=Q/dWGxF+K2INO9x1LZXl2OEUxrgdNRguf9DssJID3vQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Jf7CYN2Oyr1M14omTY5iSRczYU/LS+LJ/UszbfYNrZNB8VWh2a753Oo1VWuKj5Ygm/01KcIatnvfe4e2jJcJf8h42wHp9n1gSpF6SQXPdplsfUDMJr1qjWE3BP4K7KRLdYfIXaQ0nTrdSC9za8aNECJNjNDweGGNg0gGaB1VUO8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hXsvu48A; arc=pass smtp.client-ip=209.85.167.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a3FxalY7"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35c76e9614aso1342748eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:03:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hXsvu48A"
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5be42ae8eadso490362e87.3
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:03:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792245833; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pL766m+R4LGJneymE+gLCfehdNDpC/n3TJLO2Pw1eo7ZpmbmBNqSRyWAzYr/WvTB2y
+         sro00sA6u1ss61ofPz/X0CuvoPcfZRfQfeMq486lvR6JWSxf3M/HAqgBm7GN+DrnS3JC
+         HeZUqpFXdFDQAIF/eHLL63Ui4qL4ur+WbgjZl9EG2fjdc8QoRt+G2ODhf3SaByQ3k0rO
+         vxf+KhFBGYdtW6yYuHDWdS7WpfPHox5TCrrKNaq6Nz32VUfdPr7OfuoUE/PKAXZagfSg
+         1dnCB/SZwNpUt1Kws1OVRA9hmh8NmSljtpRy3Ff7V2W91Y0FcXnxmR4UVAGPMdNWAZCm
+         PyYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+OsE2x5Pqitm8v/Z0qp1dkwtBd3ch11zvLF7iHqatxI=;
+        fh=APmiroxQV/9zXAkNjiuyew4/8uIp246/3lGD4UGmYUk=;
+        b=X1J6SwiER91vgAx+e77Bw741+u9ihtpv7DYBRvUb27d0a8Ho2FNaLDD1oAI57bGSS/
+         e92nCKeCSxGz/Lw2GHlt5q5GVRYY55ujNvMiBo0/AuGHDtg/4oK8Fp1pgNB4+U0Bf22d
+         2PKDVuH8CWtOWA5HlWLnZ8MmwwgiG8gtadHh9/LKLSGscphHSvuY//n7iXcLE64YjOfc
+         l81N6wmuTQRprpGOk+SJS0dxuCMqZZajnlJFSEGFPQGQlbAtQlCW9oJxf0djx/sKeYZI
+         yMQdtwsYPOnyxL/9h/S1doTw3WHloTYwYrPJcZhqHmEKeK4/+d0HOilRy/ijvsP4snlb
+         q8nw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792245831; x=1792850631; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nt2I2LjFkGPbme+OwhKJrbwORKBaSL5qspjiblTND8U=;
-        b=a3FxalY7XcdxrvhpXKGhlIVz5WidAvfLf1wy1QWmcVvKmylKtLP2yGcUkbH4CzgVQu
-         /p4VInHWHmgSTHJoZ8ftNkYxlOVqPTPDhPuW3ThcNKag1Y45LJG+imaEIThrkm31M60J
-         zVycnZwViGh6FCsagqFe6UC0QcH29z0iXHCCDF3BIG+u5PSgTozkrc8ucuZuz3QmdZyE
-         RMS++QpUrnKyH3VwoPXpwQ56VPPEfWg69ZzZnFEWMOJacDgZV3ErqKpybyCQ1koIkxkx
-         OVyb+tUzxoR6R25o36eC4MHLWAgOtunyehFDhv8KGAt89lHcJkhOe3IF3Aq0a57SMJqP
-         uzXA==
+        d=gmail.com; s=20251104; t=1792245833; x=1792850633; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+OsE2x5Pqitm8v/Z0qp1dkwtBd3ch11zvLF7iHqatxI=;
+        b=hXsvu48AJy+/+LX0sQ4R11DVxj1D0bH2chCf+T4srbd5lwAx8bbc5TEIqEFj3jo4Oi
+         UCciJ9g51VUIzdYf1fm0YGFS9AdMCuRwmOGRN45R+ZaAc7Ca+P/E8F/iSsD76jgAEgWr
+         DfZaWi1PJ+zX/Ginb1JZN9or7savwh1lJ2Dfd5gHfMr+EkfCSmQNom7fDdLSay+jCJV5
+         XxXzucUunCG2LC6qWN6ANX+KaSkx9SHL9y19ggjlZ8G7xEeejsIW8HZ/ygbyxmcRK0y4
+         JGLT+vqU1/y9R/sVyZGnompKUq+ECLYwcUXVyjUWiVaPK3DMxpMwzmZmhSv75CxZQAEN
+         EkFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792245831; x=1792850631;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nt2I2LjFkGPbme+OwhKJrbwORKBaSL5qspjiblTND8U=;
-        b=bJK6EPOdiIYhoU13epuejVIyBRFIylVLOLMcaeA0d5hdV6zshAsLSYMeeF11ChGuQ/
-         3h+Y4jBw+ceSy0cEnAEKZUQYb6Jb25CFv+SPaLGUDyMoqP+cz6XI5AERIiPv1f/8cWp7
-         S2dTYm0bLWkqlomjqkqxmkj50zWv+jP1b/dNSE9YTd2+6s0NBHg+At6gn213lr7oji86
-         poHshQyWY+9EMX7mMVLXgR0etef72P8zTfOPWtVMNDCBk66qg9JXwa4BmT+jHlI7oxYT
-         MVg3Od3XTDKvnljfxljxTSxD6VGgeHboW+7kSjJ2ZNMVfNbjR+kN713kGdPF8H7muJ73
-         YUZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy950qUWbhV5pEH2gUoOU6mndA3RB7SyGRBQ6eMjokUgX6pXvWvhjZTBv9jmFL9sKMPCsb67HRzMNld4+c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0BknxwwedTzmhHe8gV5PsDPYMYkW9PO/KVY6AothtMPNB4QgI
-	4DU0nUrBGyT6+KdQJXcGLZamO74tlvQh6t0peC9/hZpYP5M3Ul4eequN
-X-Gm-Gg: AYBFou2yddh0LArReA6iyDgpYtkX9oK87SZMsbfne+O7PjswrFbDLI7pLmsO4NHKQGY
-	lb/jOHkvFAfFb66fOxeyWRvJzOnY84nyqXN9ve9ulLOaALsIZMH6p5pdQbVZUBR39iz6UTtqNFv
-	rCbm90emjQW1Xns9ntTBk7MNWjO0iNwS0H6Du7IkXAyqm7/oGtJQm7l36tZVRc1aYccgYK08J6l
-	zbriNgz+H2Qdw911cgSfq8piMZsc5rLjSMj0AYqYVnm9Z7Yd2zWF+n8NnPLjR8yYZtttrRSJGBx
-	0AEMNORuzCQVL7cPlyFURC+QHCR4zk+USbf49kkYEB0ZKkHY8dk/hEGOK1gyXrW5Pt/S+bxdAkR
-	+ziz3Zak8Ig9Z+wBBeMgYG0TAlleTXBQ3P5gYygX1SLFduMGwxOl3ZUu2y3FkCpKzYqzhImrSlc
-	AYJ4/JxPw4f1RJzp97RrFoJPoDxqcahhYb9PkRl1xLWaURy4WLsq8b/56KehUc
-X-Received: by 2002:a05:701b:2610:b0:176:a225:e364 with SMTP id a92af1059eb24-185138b58a9mr3491136c88.35.1792245829507;
-        Sat, 17 Oct 2026 07:03:49 -0700 (PDT)
-Received: from beelink ([186.22.57.86])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b37ce3fsm12727648c88.14.2026.10.17.07.03.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 07:03:49 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v9 1/2] HID: haptic: make FF creation the last fallible init step
-Date: Sat, 17 Oct 2026 11:03:31 -0300
-Message-ID: <20261017140332.1480375-2-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261017140332.1480375-1-qwe.aldo@gmail.com>
-References: <20261017140332.1480375-1-qwe.aldo@gmail.com>
+        d=1e100.net; s=20260707; t=1792245833; x=1792850633;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+OsE2x5Pqitm8v/Z0qp1dkwtBd3ch11zvLF7iHqatxI=;
+        b=Fl9pa04GaGQJvrb8XP6leunAwavokESkJgpukDWpMwEeeTXgKxiZbo3H/tkwfd9aH+
+         niHLgGhcu1rnW6YRWCBvAGpSf+M3fVz39sv8nxQ/tnxFFk+nASrgpg0/om/6KQHOlur/
+         giFdkPP77JdWF+g02rKhZkqRLEYmfx7enOAHvb9xZDYrClAtsX9y28QV8kZz7tfjgbg1
+         5UH8CjTQI38u/v7o4SqWkbWZyjINVRVNbJArOj0ibiBrs1ILe2LtKO4wo95zqKMkMLUx
+         gP9m+rm4FBmnf8jyiO8z2pOEeh3QZmV2UgjCA4vmM9klwpK25UD6R5HwLJ4iG299iARl
+         4Cag==
+X-Forwarded-Encrypted: i=1; AKwUvBz8WnAn30zezLMI6ts6xTe5TvjMpjGESggHwRjMwe3bSLmSFyRc5l9SzkbVNASdkFl6Lr/IiIDwU9rE1Qg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKx/36R4MQP4HyvRg94MpBl8Pea0g+YOu+MlxC7AzAclPFEK6SL
+	QQvwBIiyvuTbYoyL7eqPXHLlzoALZiSq3Ukac4LXaPGELHKp93IPQFaKUGq8r+tXdeXj00lrI7u
+	A2oQdvHMtYxvnm2lEYfC8tVQjY1j4CMh1qEcN+xQ=
+X-Gm-Gg: AYBFou295mIlgVF1/wwmQD59TtjBdsmpj1sgefwFmzjPdvmzJjKdxhMUuSzfqWahuL8
+	8/RaHS78g7kq1RPEI7UsKkvTmGhCnFFRSBLQRgZTvd4M4HYpdr35V2uqceAyje0qN/ADzdhQKqF
+	+QaOVMvwHtIEpJVX0S2Bjc8c/HMStJw19ZFVgyNxxdm54usBy1CqXCdj/vjrXRBXThEpI6RpQal
+	1ihSd1wlRHmvALI71NcFG45tjxp5ugzjWtNh5cQhw8g/R7mqHdrcqANHnkDF0MjvJEzCJGhp5Yk
+	vLATSRQIAGwjtNvKFG+d/6OuMaLyPAQJM5xIGo4qAU6fLHREGJ0+IFXeLWwglF9JOQ==
+X-Received: by 2002:a05:6512:3c89:b0:5bb:42a2:31fa with SMTP id
+ 2adb3069b0e04-5be50a7efcdmr899502e87.60.1792245832854; Sat, 17 Oct 2026
+ 07:03:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261015-tlb_tracepoint-v4-1-f238a2bd8f7e@gmail.com> <20261016103846.73ff2980@gandalf.local.home>
+In-Reply-To: <20261016103846.73ff2980@gandalf.local.home>
+From: Roman Storozhenko <romeusmeister@gmail.com>
+Date: Sat, 17 Oct 2026 16:03:39 +0200
+X-Gm-Features: AclHuK-r_eYg3gupJbYI7DWak9c5eTY2IipHa3Ysz4nKK_X5lXKKwE8MhWngSzk
+Message-ID: <CALsPMBMeXHd1TN89bHCtS3G0M8MFiimf8w=qKayxuYCad8v_Gw@mail.gmail.com>
+Subject: Re: [PATCH v4] riscv: mm: Trace TLB flush requests
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jisheng Zhang <jszhang@kernel.org>, =?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The caller holds the module while setting up the device. Use
-__module_get() after input_ff_create() succeeds, leaving no fallible
-step after the FF callbacks are installed.
+On Fri, Oct 16, 2026 at 4:38=E2=80=AFPM Steven Rostedt <rostedt@goodmis.org=
+> wrote:
+>
+>
+> [
+>   I realized I replied to v2 and not v4 as the thread of v2 pushed that t=
+o
+>   the top. I'll repeat my statement here too.
+> ]
+>
+> On Thu, 15 Oct 2026 19:32:34 +0200
+> Roman 'Hedin' Storozhenko <romeusmeister@gmail.com> wrote:
+>
+> > diff --git a/include/trace/events/riscv_tlb.h b/include/trace/events/ri=
+scv_tlb.h
+>
+> Please do not put architecture specific events in include/trace.
+>
+> They belong in the architecture.
+>
+> See the example code in samples/trace_events/trace-events-sample.[ch]
+> as well as the Makefile there on how to put trace events in directories
+> outside of include/trace/
+>
+> Thanks,
+>
+> -- Steve
+>
 
-Drain haptic work through ff->stop when the input device is
-unregistered, before it drops its parent reference. The destroy
-callback also drains work for devices that were never registered.
-After unregistration, that callback only frees local allocations, so
-remove the extra HID device reference and its error path.
+Hi Steve,
 
-Clear the FF capability bits if input_ff_create() fails. Return the
-error from hid_haptic_input_configured() and save it in the multitouch
-driver. Probe must fail even if hidraw lets hid_connect() succeed after
-hidinput_connect() has unwound.
+Thanks for the review.
 
-Fixes: 8d0bf7908b5a ("HID: multitouch: add haptic multitouch support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
- drivers/hid/hid-haptic.c     | 48 ++++++++++++++----------------------
- drivers/hid/hid-multitouch.c | 18 ++++++++++++--
- 2 files changed, 35 insertions(+), 31 deletions(-)
+I've moved the trace event definition to
+arch/riscv/include/asm/riscv_tlb.h in v5, following the existing
+RISC-V tracepoint convention.
 
-diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
-index 8760eeb..0a6126e 100644
---- a/drivers/hid/hid-haptic.c
-+++ b/drivers/hid/hid-haptic.c
-@@ -96,7 +96,7 @@ int hid_haptic_input_configured(struct hid_device *hdev,
- 	if (error) {
- 		dev_warn(&hdev->dev, "Cannot allocate haptic for %s\n",
- 			 hdev->name);
--		return 0;
-+		return error;
- 	}
- 
- 	return 1;
-@@ -377,14 +377,22 @@ static int hid_haptic_erase(struct input_dev *dev, int effect_id)
- 	return 0;
- }
- 
-+static void hid_haptic_stop(struct ff_device *ff)
-+{
-+	struct hid_haptic_device *haptic = ff->private;
-+
-+	if (haptic->wq) {
-+		destroy_workqueue(haptic->wq);
-+		haptic->wq = NULL;
-+	}
-+}
-+
- static void hid_haptic_destroy(struct ff_device *ff)
- {
- 	struct hid_haptic_device *haptic = ff->private;
--	struct hid_device *hdev = haptic->hdev;
- 	int r;
- 
--	if (hdev)
--		put_device(&hdev->dev);
-+	hid_haptic_stop(ff);
- 
- 	kfree(haptic->stop_effect.report_buf);
- 	haptic->stop_effect.report_buf = NULL;
-@@ -396,9 +404,6 @@ static void hid_haptic_destroy(struct ff_device *ff)
- 	}
- 	haptic->effect = NULL;
- 
--	destroy_workqueue(haptic->wq);
--	haptic->wq = NULL;
--
- 	kfree(haptic->duration_map);
- 	haptic->duration_map = NULL;
- 
-@@ -419,8 +424,6 @@ int hid_haptic_init(struct hid_device *hdev,
- 	};
- 	const char *prefix = "hid-haptic";
- 	char *name;
--	int (*flush)(struct input_dev *dev, struct file *file);
--	int (*event)(struct input_dev *dev, unsigned int type, unsigned int code, int value);
- 
- 	haptic->hdev = hdev;
- 	haptic->max_waveform_id = max(2u, haptic->max_waveform_id);
-@@ -501,38 +504,25 @@ int hid_haptic_init(struct hid_device *hdev,
- 
- 	input_set_capability(dev, EV_FF, FF_HAPTIC);
- 
--	flush = dev->flush;
--	event = dev->event;
- 	ret = input_ff_create(dev, FF_MAX_EFFECTS);
- 	if (ret) {
- 		dev_err(&hdev->dev, "Failed to create ff device.\n");
--		goto stop_buffer_free;
-+		goto ff_cap_clear;
- 	}
- 
- 	ff = dev->ff;
--	ff->private = haptic;
- 	ff->upload = hid_haptic_upload_effect;
- 	ff->playback = hid_haptic_playback;
- 	ff->erase = hid_haptic_erase;
-+	ff->stop = hid_haptic_stop;
- 	ff->destroy = hid_haptic_destroy;
--	if (!try_module_get(THIS_MODULE)) {
--		dev_err(&hdev->dev, "Failed to increase module count.\n");
--		goto input_free;
--	}
--	if (!get_device(&hdev->dev)) {
--		dev_err(&hdev->dev, "Failed to get hdev device.\n");
--		module_put(THIS_MODULE);
--		goto input_free;
--	}
-+	__module_get(THIS_MODULE);
-+	ff->private = haptic;
- 	return 0;
- 
--input_free:
--	input_ff_destroy(dev);
--	/* Restore dev flush and event */
--	dev->flush = flush;
--	dev->event = event;
--	return ret;
--stop_buffer_free:
-+ff_cap_clear:
-+	__clear_bit(FF_HAPTIC, dev->ffbit);
-+	__clear_bit(EV_FF, dev->evbit);
- 	kfree(haptic->stop_effect.report_buf);
- 	haptic->stop_effect.report_buf = NULL;
- buffer_free:
-diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index 4e19a0c..154dc94 100644
---- a/drivers/hid/hid-multitouch.c
-+++ b/drivers/hid/hid-multitouch.c
-@@ -174,6 +174,7 @@ struct mt_device {
- 	struct mt_class mtclass;	/* our mt device class */
- 	struct timer_list release_timer;	/* to release sticky fingers */
- 	struct hid_haptic_device *haptic;	/* haptic related configuration */
-+	int haptic_init_error;
- 	struct hid_device *hdev;	/* hid_device we're attached to */
- 	unsigned long mt_io_flags;	/* mt flags (MT_IO_FLAGS_RUNNING) */
- 	unsigned long *active_slots;	/* bitmap of slots with an active
-@@ -1958,8 +1959,16 @@ static int mt_input_configured(struct hid_device *hdev, struct hid_input *hi)
- 	if (td->is_haptic_touchpad && (td->mtclass.name == MT_CLS_WIN_8 ||
- 	    td->mtclass.name == MT_CLS_WIN_8_FORCE_MULTI_INPUT ||
- 	    td->mtclass.name == MT_CLS_WIN_8_KEEP_LATENCY_ON_CLOSE)) {
--		if (hid_haptic_input_configured(hdev, td->haptic, hi) == 0)
--			td->is_haptic_touchpad = false;
-+		if (hi->application == HID_DG_TOUCHPAD) {
-+			ret = hid_haptic_input_configured(hdev, td->haptic, hi);
-+			if (ret < 0) {
-+				td->haptic_init_error = ret;
-+				td->is_haptic_touchpad = false;
-+				return ret;
-+			}
-+			if (ret == 0)
-+				td->is_haptic_touchpad = false;
-+		}
- 	} else {
- 		td->is_haptic_touchpad = false;
- 	}
-@@ -2197,6 +2206,11 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
- 	if (ret)
- 		return ret;
-+	if (td->haptic_init_error) {
-+		ret = td->haptic_init_error;
-+		hid_hw_stop(hdev);
-+		return ret;
-+	}
- 
- 	ret = sysfs_create_group(&hdev->dev.kobj, &mt_attribute_group);
- 	if (ret)
--- 
-2.53.0
+The updated patch is available here:
+https://lore.kernel.org/linux-riscv/20261017-tlb_tracepoint-v5-1-256fb5393a=
+7f@gmail.com/
 
+Thanks for pointing this out.
+--=20
+Kind regards,
+Roman 'Hedin' Storozhenko
