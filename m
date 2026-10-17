@@ -1,159 +1,186 @@
-Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 229F512D21B
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:13:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762933C1991;
+	Sat, 17 Oct 2026 11:16:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792235632; cv=none; b=AVhtFJcGjsBqdO2AdodhiN7GEEHkydPv4GZ+1B1nKKdVoRgBZn0jRs5pnxaqTZH1C1s+u5/huPfN5NRGBrml6ihxdm3PT81bf63khCrwU7bAHTbkhnZ4Pvy8RGH8whCjw4309j3+zDe0EJclSbrr5GcaRlvS3Ha3B6SPG2WYu1Q=
+	t=1792235820; cv=none; b=AspjbBuH0TuoF9XWwiSRuCU+DXcHk1cqdMSxlCIEH++G1n6U7BM1LKoWyR5Swwwh6gDbVBJ6ksDnuiBQhpd8ortjwTNlJIdTVtwKXS4/lClrh/uSiH+4TmMVbQsBKJdov5OL9fKo6FXsZjYdK8OgUeYXkmcFjUA7qnSJwMWgtSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792235632; c=relaxed/simple;
-	bh=FBysbXBjMV0NHOVriinKcz93IS/EWybMwQ61PqXIavE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r4avLgqXWUIFUyUn9opMul+MIiIWLdvssdmKT1/VH8fwzElrxBl6u5r40+OQrOShCSSaSHjaSa6euruEd+UqpHPcam2eTzaVqPg7e2LTK/e4bIEbPZpfz1SAyWJFS0u/NDw5jOJn6gz2ZUEh+sDGDuLgpwzICS1A+2nCVnqNwO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uwi35L8a; arc=none smtp.client-ip=74.125.229.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792235820; c=relaxed/simple;
+	bh=p1ZLYU+xIj3Uup7opSDFPvfVX+mFTgWecX1b+6qJluo=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=pmXZNDtw5BLexKNJ3QbynR+mQJpAk9sK6o9xPz06oD8KRrIvCb2Nnf/Ty+KEfVT3N32HWKpgLn/xvSFT1zh0YJ/XxJFol0Gs8GqK0Zyc7smmb7pQ/AXzv6l9QE67+MMn9algkrMHrTwDx0lAid+2zq/6Hb2JMZbaH3gHjXSzBB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=JduznW9i; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=sCx2UPnP; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uwi35L8a"
-Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-3599f43e0aeso394496eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:13:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792235630; x=1792840430; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FBysbXBjMV0NHOVriinKcz93IS/EWybMwQ61PqXIavE=;
-        b=Uwi35L8aAkR02KrwA10v0NyOe++J0iNw6MTDkMCEN8v4ho51Z1xG1m0By+XW3gyFBq
-         +nAcMQUx3yucOvWIfim3OpYwWBIJp4eZ6R2PxfLtTBR+J3Rog+ydnOUNRNhLHcY2iEQk
-         8bBlfFQM+40dF/bJPPIDGIce0m64GoTulj2U2xy9LjUnB9sc8THS22R0a8SHTNdU2BOF
-         H0C0KTqQ4zBLAA1gvd8/XqwR95JNoYmRjjKOxz0KzGYHgmYFdXpvNrJYPoO2S5Z+IeZ0
-         +FEczMutxRbNAaOU0fkMN6CvUmpr6u4f6enh60GoRl+TkOLDtAuNTfnxFHLAm0YyExyw
-         ELhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792235630; x=1792840430;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FBysbXBjMV0NHOVriinKcz93IS/EWybMwQ61PqXIavE=;
-        b=f3ULNpifiz63fMT/4zATngYuFKuKbTKs7oqz6Z5cqOJBp4xNGx9KHmND8r1CCi4irb
-         ByJbtIs1RK+TG5GuP6tLv7i/YHQkH9GsoiIw6M3ifEvJDlzY88nYYaE4p2jIX7KgZnXt
-         hyAV6OctM0XmdRItgbI+GUYCfZUanAoN+QQ7Yxd9EJSahlwZ3L9ckMi94BOk331CQ6zP
-         r9KQlgvM2364eUDefycNKlpMGYeHelvRldYEvqJPWRztHtHA+k/IJAP4dSTnJXtATpFO
-         Y3BasiB0TWnoNXU1r+mv+fnh+0X6w7oiS6hg/B2f0kuZ7CgtZb8m4N+1pWMC3GuAw7QG
-         LH2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzQrT411PbOV1GmOee3dVl/umvrKEmzH+s/NTSLDGjtnsV74ttYmhJnHhYRBlub2PVUiCwd5jXVcHYS6GI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIvVmcOBkdCjUw5lC8Y6JVqBQx4LjuzwL2SmxuLT6lGSz//TvAK
-	Bayycw65rN9dYp7loTYm7yI0s9QWjfT7p22tQbzKmxQg9B2DYkGt0y0=
-X-Gm-Gg: AYBFou1CjS3hOfa4ABPUnDJwZPbBpMbG7iu5UJkL+DEH7qTlKLOs+mTu5ietJqN7Ies
-	ib1OdJciCc/DJdu4d1SZt1pmLTdz9yxJ+2UP9/KvME73ZJxzRrdw2CHV3KMFVGOVBZ/WprYkPcS
-	pQa2SBWf76CndIxkUn4xgXyNVV71avvHDnUDycKUlZE5p5Qh4EoUYzpztJ26RNOFlAF0n1GFq8e
-	Up556s/m2JqGtPyg4I2guIfZsmo63htzaDYKKSnRY11rJ0QtHtug/vTAgSo/9NMUHeTpUtaGNFv
-	4eklrEUPiVZiYnxhBRzQErtrDAC66Z8WHFYEyEGnaSeBcrWMbpq2ZsNLjDm1s6knpZjPlYw/Lye
-	xcqp2uAtcSKrYG3cvT9XTDBjc7W1eZ4i6yAQkAcRaViyJ0k1Q4YFS1DRnxkvLbNCRgPhJ8E9IGg
-	xDV+wYBZvJ4M4twLrT+RicFDoEndhnkOzZt9gOc8eA8PQbAQrg8Jsmx/0YNm0gKq54njpUSQW0t
-	nGrKllP29/cO8TeGZajGqmRIuub
-X-Received: by 2002:a05:693c:66db:20b0:35e:2c6:d46c with SMTP id 5a478bee46e88-361a146d31dmr3320700eec.10.1792235629896;
-        Sat, 17 Oct 2026 04:13:49 -0700 (PDT)
-Received: from WIN-2DEDQG69EF6.localdomain ([2a0c:9a40:9205:1:be24:11ff:fe93:ff0e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608297f4f7sm14954458eec.23.2026.10.17.04.13.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 04:13:49 -0700 (PDT)
-From: chenhan <chenhan0017.work@gmail.com>
-To: rust-for-linux@vger.kernel.org
-Cc: a.hindborg@kernel.org,
-	boqun@kernel.org,
-	fujita.tomonori@gmail.com,
-	frederic@kernel.org,
-	lyude@redhat.com,
-	tglx@kernel.org,
-	anna-maria@linutronix.de,
-	jstultz@google.com,
-	sboyd@kernel.org,
-	ojeda@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	miguel.ojeda.sandonis@gmail.com,
-	tomo@flapping.org,
-	georgeandrout13@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] rust: time: make Delta division and remainder fail consistently
-Date: Sat, 17 Oct 2026 19:13:37 +0800
-Message-Id: <20261017111337.22819-1-chenhan0017.work@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261001042942.109012-1-chenhan0017.work@gmail.com>
-References: <20261001042942.109012-1-chenhan0017.work@gmail.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="JduznW9i";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="sCx2UPnP"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792235807; bh=G2UFDxTS1HHv1VQbShwDQSF
+	3yB6kZQ1KR5dBmg0n/6U=; b=JduznW9iu4mTdvNxbd5V09gY3xTU3Dj+sGO1YaSyIHMjNo9Q4h
+	3OICbIuLZ+hX85wj61VUzKyo7JmANpL/KeiOD2q/QWZdWWQi5S8+AdKJ+9ttqk0KYpGdjT5sYzb
+	aGOZJEqvRThSe4pngUGZqQKlWn+jkg9Mt3JIDhpcrc7po+A5T/tT51w+jZsj5b9ByH/GsHh175D
+	XdoWYtOmKk5EP3Ee+WoJbC9nvKefGTEEawe4DWJktTA4vawNGRr9vH/eVIT462AtgSOZkcAADNi
+	UXhtwHHA3550eflW2AowlG1vjtY33ka0aYAXNLe6Delu9YlyLCgGLguW2VqKkHjfa+Q==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792235807; bh=G2UFDxTS1HHv1VQbShwDQSF
+	3yB6kZQ1KR5dBmg0n/6U=; b=sCx2UPnPKzUeYWSu7cneCoeufCA8sdG/vvQgvHPb4W9LbgCyPO
+	2hq1XcuW7zkzVXFp6xzpjQ+6O4YG9ZDU8oAw==;
+Date: Sat, 17 Oct 2026 12:16:48 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Zqiang <qiang.zhang@linux.dev>
+CC: boqun@kernel.org, frederic@kernel.org, joelagnelf@nvidia.com,
+ linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org, paulmck@kernel.org,
+ rcu@vger.kernel.org, urezki@gmail.com
+Subject: Re: [PATCH] rcu-tasks: Warn on too-short RCU Tasks Rude grace period
+In-Reply-To: <8d7f265cd1320bf7996bcffea07ffdea69cfd625@linux.dev>
+References: <D155FA7E-8E99-4D4F-92A8-74472834F25A@mainlining.org> <8d7f265cd1320bf7996bcffea07ffdea69cfd625@linux.dev>
+Message-ID: <2247C12C-EE02-46CC-922F-D6A62D1E77C1@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-Hi Andreas, Miguel and Tomonori,
+On 17 October 2026 00:41:00 BST, Zqiang <qiang.zhang@linux.dev> wrote:
+>> 
+>> On 15 October 2026 10:46:19 BST, Zqiang <qiang.zhang@linux.dev> wrote:
+>> 
+>> > 
+>> > The RCU Tasks Rude grace period is implemented by invoking the
+>> > schedule_on_each_cpu() with an empty work function, which forces
+>> > a context switch on every online CPU and guarantees that all
+>> > rude-tasks read-side critical sections have completed. However,
+>> > schedule_on_each_cpu() can fail (via alloc_percpu() returning
+>> > -ENOMEM) and returns immediately, in which case those context
+>> > switches never happen, too-short grace period happen.
+>> > 
+>> > This commit therefore wraps the schedule_on_each_cpu() call in
+>> > WARN_ONCE() so that this failure is reported as a "Too-short
+>> > grace period" warning.
+>> > 
+>> NAK, this seems like a edge case, and potentially panicking the system
+>> with panic on oops doesn't seem right to me, because we would reserve
+>that
+>> for when something definitely goes really wrong and we need to notify
+>> the user.
+>> 
+>> I don't believe this patch should go in for this reason, it's a heavy
+>edge
+>> case, that doesn't *have* nessesarily need to be accounted for.
+>
+>Indeed, this is a rare event, so I use WARN_ONCE() to mark it, the
+>WARN_ONCE()
+>not panicking system unless you set warn_on_oops true, this can help us
+>troubleshoot
+>UAF issues caused by a too short tasks-rude grace period.
+>
+>or maybe we can use DEFINE_PER_CPU(struct work_struct, rude_work) to
+>replace
+>alloc_percpu(struct work_struct) queue to all online CPUs.
+>
+>Anyway, Thank you for your reply. I would also like to hear the opinions
+>of others.
 
-Thanks for the follow-up reviews. I have split v3 into three patches:
+Fair enough, but me and Paul done some discussions:
 
-1. Rename the rem_nanos() argument to divisor and correct its documentation.
-2. Add the panic checks and documentation in the existing Delta methods.
-3. Move the arithmetic into the new math module and use it from Delta.
+Here is the TL;DR
 
-V3:
-https://lore.kernel.org/rust-for-linux/20261017111134.22546-1-chenhan0017.work@gmail.com/
+My ^W^Wai slop^W^W tool helped me with this: if the too short grace
+happens,
+it falls back.
 
-Andreas wrote:
-> Then we can pick patch 1 for fixes and have plenty time to discuss patch
-> 2?
 
-The first two patches now form the fix, including the preliminary rename
-Miguel requested. Both carry stable Cc, with patch 1 marked as a
-prerequisite for patch 2. Patch 2 depends on that rename. The math change
-is patch 3, without a stable Cc, so it can be discussed separately.
+root@p10-linux-brads:~/linux# git diff kernel/rcu
+diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+index 627295396cd9..65bb7d4ed632 100644
+--- a/kernel/rcu/tasks.h
++++ b/kernel/rcu/tasks.h
+@@ -1344,15 +1344,23 @@ void exit_tasks_rcu_finish(void) { }
+ // Ordering is provided by the scheduler's context-switch code.
 
-Tomonori wrote:
-> Uwe asked for div helpers in pwm_th1520 [1], and I plan to add the math
-> module for them.
+ // Empty function to allow workqueues to force a context switch.
+-static void rcu_tasks_be_rude(struct work_struct *work)
++static void __maybe_unused rcu_tasks_be_rude(struct work_struct *work)
+ {
+ }
 
-Your PWM discussion [1] identifies unsigned helpers such as
-mul_u64_u64_div_u64(). I also checked the current pwm_th1520 conversions:
-they use unsigned arithmetic, including rounding up. They are not users
-of the two signed helpers extracted here. Each helper still has one
-production call site in Delta; patch 3 follows Andreas' request to
-establish the module.
-It makes the helpers public so driver crates can use them. I have not
-added unsigned helpers or changed PWM. If your math module lands first,
-I can rebase patch 3 onto it without changing the first two patches.
+ // Wait for one rude RCU-tasks grace period.
++static void rcu_tasks_rude_ipi(void *info)
++{
++}
++
+ static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
+ {
++       int cpu;
+        rtp->n_ipis += cpumask_weight(cpu_online_mask);
+-       schedule_on_each_cpu(rcu_tasks_be_rude);
++       cpus_read_lock();
++       for_each_online_cpu(cpu)
++               smp_call_function_single(cpu, rcu_tasks_rude_ipi, NULL, 1);
++       cpus_read_unlock();
+ }
 
-Miguel wrote:
-> In any case, safety comment need to explain *why* those conditions are
-> true, not just re-state them
+ static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback_t func);
+root@p10-linux-brads:~/linux#
 
-The SAFETY comments now point to the checks above that exclude zero and
-i64::MIN / -1. The remainder call also explains why &mut rem supplies a
-valid, aligned, writable pointer for the duration of the call.
+On POWERPC, this passes 12 hours of rcutorture on the RUDE01 config.
 
-I also removed the two redundant issue-comment Link trailers, the
-unrelated "a number of" wording, the C implementation details from the
-public documentation, and the "even though ..." explanation. Each API's
-Panics section now just states its invalid inputs. The issue Closes and
-Georgios' Reported-by are retained.
 
-The cover letter describes the runtime reproducer and validation, with
-the API calls and expected results, rather than referring to an
-unprovided local Kconfig option.
+If you plan on submitting this into a patch, please add my authorship, or
+my c-d-b. 
 
-[1] https://lore.kernel.org/all/20261001.070215.521963012921142699.tomo@flapping.org/
+Feel free to rcutorture test it ;d
 
-Best regards,
-chenhan
+BTW: have you reproduced this on your own system?
+
+>
+>Thanks
+>Zqiang
+>
+>
+>> 
+>> Zqiang, have you reproduced this OOM on your own system, if so, could
+>you
+>> tell me more details, you may turn my frown into a smiley face ;)
+>> 
+>> > 
+>> > Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+>> > ---
+>> >  kernel/rcu/tasks.h | 3 ++-
+>> >  1 file changed, 2 insertions(+), 1 deletion(-)
+>> > 
+>> > diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+>> > index fcac7361ec51..91c25717402e 100644
+>> > --- a/kernel/rcu/tasks.h
+>> > +++ b/kernel/rcu/tasks.h
+>> > @@ -1361,7 +1361,8 @@ static void rcu_tasks_be_rude(struct work_struct
+>*work)
+>> >  static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
+>> >  {
+>> >  rtp->n_ipis += cpumask_weight(cpu_online_mask);
+>> > - schedule_on_each_cpu(rcu_tasks_be_rude);
+>> > + WARN_ONCE(schedule_on_each_cpu(rcu_tasks_be_rude),
+>> > + "%s: Too-short grace period, OOM is now expected behavior!!!\n",
+>rtp->name);
+>> > 
+>> Good message, makes sense. But I don't think this is right, see above.
+>> 
+>> > 
+>> > }
+>> >  
+>> >  static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback_t
+>> >  func);
+>> > 
+>> --- Thanks!
+>> "I'm not a very positive person" - Linus torvalds
+>>
+
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
