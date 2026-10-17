@@ -1,352 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011011.outbound.protection.outlook.com [52.101.52.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDF7E411FAC;
-	Sat, 17 Oct 2026 11:36:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792237022; cv=none; b=r6IY4na77Hj1PnoLR1hkIjUoEs74oXQop6gpseBaW6PQkHtv1wYo1ouucSRB4ditTNpritWyEd/ADNv7KLAxTyqWbiIxyA2VH4u0xL0mHO6wkwf7ZjLqBRXvxfOD3g9s0hEwbZ0RGdy/OwgkGBQLmdwxttpOLeJZerscPA6x6DA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792237022; c=relaxed/simple;
-	bh=EU6IGMfQspRJd1dNBbQ5RsoMxnIpWQ/xkER2ne8tZBU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To; b=QQPFjavFgY/2KS3FI0yBRoYsnaNzuNYrVm4hzoX0LL5DCmdJAYsCismstWXCtJjsclRHnbavAJLKsRX8lpMig83lhxH0rb0T6KWMJPa5/n9l5ShdRTr6tU1wUxNFAtieXskEsjilgKyL72tuebg4uQBCj8bp7gLEMTgt9OBSUzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QGxTH+bL; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6274391846
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:40:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792237233; cv=fail; b=J3NadWcnUONlPAnUelfwUxbrdSQ0OKqaOnOvReQu97QcLdtmb8IHTp3tpXP/jDuQJM0t7r/BTWxB4gDc+mHfBt8B3e8F//Ufq9JaX2wEs8nOZLb0K306C7ZrIc9gcbLj2q80pTgzOacjzyJas74TmnwLaCNaVxVgJYLaC7yW2wM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792237233; c=relaxed/simple;
+	bh=rNkl/cwsFV0KZsYFk5EUTQpm1Sh80iTgT8Lz9pbwlds=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=D5tl/wYBmctsVHKnvtSZes2fzeyVcifoAa2gqKTfpKgEcY/M4MNQxmF7bPnVwp1e8OZxoZlP1IkXhYtr9Dj3TJKkksuCN2TCzzqBFMLcLBEBP2Ok1rtito0Vr+bByGB09pMp6lK+hPWfhOK4W+MJf6okKeKC5wKlV1fBh1QVOY8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=sm9cAx7S; arc=fail smtp.client-ip=52.101.52.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QGxTH+bL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A8AC1F000C4;
-	Sat, 17 Oct 2026 11:36:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792237019;
-	bh=Y4/5jK45P4Pnb3zDsMxbggy4Da7UB2Yr9bV6Gep4kLM=;
-	h=Date:From:Subject:Cc:To;
-	b=QGxTH+bL5jO5dBS4/DcfyoP0F+lXLBrmV2J332CQV3DyyGGbY/Jbl4qeJXZCHMI51
-	 x5dFmDPIJRbKkAAdowt3ntq3waqA51xFjwquB7eCTxkOHjxjQ7jSnCZgw07YNqSal/
-	 0G3ePXsxCUlC++o8t1Ew3PcV1CXJ/eMP/YQbhsE+tBli0WynmGJXlPBkmdQPiUVqOv
-	 Q5kBFkWyXCHoOxN6XmoSp3ihR6RzQXonVCPOoEni3zeNxoiG3wIB/YF0C7pB6Z6Ykc
-	 j2L5mDsoOD6lNPvOphu0anhMbK2X/yxoFEsiNefpd/a8UVjlRzjC676t8Ft1gPIBAC
-	 rxO9EsLBWgCeQ==
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="sm9cAx7S"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ehXjVZLVydIENP10GfqYZhnP3fDRSlYNpiUHhYKPyH21nO9a2xSjUKrWAFtnHC5yWUTO2HWPV7s8r1fFExfxDqfxjzZync6g/6a8Gk5KshHGl4lOVTVrXLBdFGNlVMoXOPFY5iqDWuLNmYT32aePrVuzvr+aNeBuXv6ndQHValm/Pa9mVh5Wnkal7VVGpTYWdvMI7hH0DanpWvJKcG3W9OViz9bxLEH+b02hl0lmmtAFmOTDELSRgQUGbjzK6VZ26WtZCywU7nkumVE4dFOuhmJNO3CQAJx42ELJp0d1PA3IvCaZt4ppOGN2ji8mVW0MVK/WPG97F+0YpnZc5jeWJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rNkl/cwsFV0KZsYFk5EUTQpm1Sh80iTgT8Lz9pbwlds=;
+ b=qGMqt7nPJMiqSLpZXQuqF3aUXRmQ1dM4kMZnF1kX0YY0xEF15lHHq9L/vCBs4l3qQa39oIAgH2RaKRzDGoeY5Ji+kSFqBf1sVmYbJtC7VSx/hbDtWzcuvEGLl094zuL6U9M9o6zfRr8HthsMdrgrsDeWjucAtniopXgcxXZxm8cXat9q68+IgUAjOYUHHxi2s3JRHpLqTKQcAwafr66k0jr1Jgdd6x1uNx8vCTbjn8aPoSWDw/pxVCrebbzZZK1arKTIiHT9kMnIjAIZH1XFxQITe1pTXrZXhOCzqU6jpdpp65H9ArR7LAj2HC2gyEXE9ojah8PaYEDHC02qysaMig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rNkl/cwsFV0KZsYFk5EUTQpm1Sh80iTgT8Lz9pbwlds=;
+ b=sm9cAx7SEXCL9jLdk7tlAItAyslkJH/GIeu2wOWyw+NDJvvNjAwciY6LuLWPfEdLQZb+LHPbnnL3fGG7SGV/SJttsZIWE/dzs6Y19MMDpwVQx37Dklo8ht4eRBZ6EONnxk7Du3fuUti5wilEGXC+A+JWfOgFzG1QJyefzYnJrdEuFlCse2fdr7n2KsOn1KoTi2mazmKSuLEIpVh9/HFAxaR18NTkEic9SIEXTbxwiEyzFnmm2qos0X+opfzvIecNtmPMr6Oo4EHrYyiKPv6Cq02GlLdB7Ks3Zw4qBKpp4v+UgDZSstVBpJmlVR82NRfl7xvRtMWr4vSz3sMjxOdyWw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by MW6PR12MB8914.namprd12.prod.outlook.com
+ (2603:10b6:303:244::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Sat, 17 Oct
+ 2026 11:40:26 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0522.017; Sat, 17 Oct 2026
+ 11:40:26 +0000
+Date: Sat, 17 Oct 2026 08:40:25 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Shuai Xue <xueshuai@linux.alibaba.com>
+Cc: Nicolin Chen <nicolinc@nvidia.com>, will@kernel.org,
+	robin.murphy@arm.com, joro@8bytes.org, praan@google.com,
+	kevin.tian@intel.com, smostafa@google.com,
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
+	Cristian Prundeanu <cpru@amazon.com>,
+	Breno Leitao <leitao@kernel.org>
+Subject: Re: [PATCH v11 00/11] iommu/arm-smmu-v3: Adopt the crashed kernel's
+ stream table for kdump
+Message-ID: <20261017114025.GL13920@nvidia.com>
+References: <cover.1791226953.git.nicolinc@nvidia.com>
+ <27f2e050-10c0-4a77-8d59-00a95a162912@linux.alibaba.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <27f2e050-10c0-4a77-8d59-00a95a162912@linux.alibaba.com>
+X-ClientProxiedBy: YT4PR01CA0301.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10e::10) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 17 Oct 2026 13:36:54 +0200
-Message-Id: <DM72ZY5B2CHK.3CEOSQUBXTAHQ@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: [GIT PULL] Driver core changes for 7.4-rc1
-Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "Johan Hovold" <johan@kernel.org>, "Saravana Kannan"
- <saravanak@kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Linus Torvalds" <torvalds@linux-foundation.org>
-X-Mailer: aerc 0.22.0
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|MW6PR12MB8914:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d6f9fdf-a3aa-4b6d-dc6d-08df2c43701c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|56012099006|4143699003|11063799006|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	vMgX5T7kEhKxztKbwl3y1isAeqbz6eTTPoDkQ84nTjldbeJrN9dvb24CXz81U6x8C7lXL6YFWSIQue28oB+Hamf+xLXu76SmIZkNxxHpCFVbUbX8unU30Kj0SZ3McLdJAwPtLFAIMsmX49hWAjw/W69XcgRmAEEypTHEVcrbm0cHV2fLVLC002cvBIIwzT063gQBe+JsB6Tl3nAV1zHGcXecWCJ29lFoiFRoQ7mWQvvbX411QXNQdll7BhSZ2veDkAFvW+JR+ObSchtYjqFLVxKGBEpTg6EI/8hpJ/250kt0J8plAZ7Cr7B14scOAYy34Tpsg0c9amCSMM80y4uhk8ucWMV3djjF16fuDSWtsu2UtTx6nOfKQj7iqsAMBdPFMsDHJgwPliE+KLHz5WuRc8CDc/SvZcdXy10xSEawEuNSvU7FU/5JDOqnAzMNFMAMcpkJXIvLrR+y+UCiiMq9927KfTThlhRBk9pefHZX/U/pWimOs/r3MCWZTtTtiP5Z7r9rLzYal8CA+l2rmILzinxQIGH2lJJv1a08nCWzM1payHko+2x8B7q8XV91BnbvRVAobroJbRT51LWCQsatA4raJuoaAVNtLys4vfGXEcCSWg6MnhgVv2Uk2ttRF36Ze2seuKv6U7SXiLfzgXbJJajRnJj/YR9/nIiJScPF4RI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(56012099006)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?jazau589mUeO2nNC9SbH69bQc2blX0rlk3Jz4VL+F+cmtfUUbmrcAhhLQlIs?=
+ =?us-ascii?Q?42IRSOsJG/jK0qEQvz1mEvzCQSGUahHH/vfCoHcFkcqWzA3qwwow4CY8dbEW?=
+ =?us-ascii?Q?KwhnD3tnvvqcMxVnyJ/NpO33SnIHB06UyjUwTxtt38OHRs8FcE+EfGeaN8ms?=
+ =?us-ascii?Q?XTlB0SjX17LQImMhI7FoDWqFokPuZSWbXKfysW56gqh7Z87OfGOTUHqOaqyV?=
+ =?us-ascii?Q?XeOxeE7DavmYL85jVugCvxZ0clZXtBW7Ru9TKBzn/CO7Ii/cjdd8fMGjfbM8?=
+ =?us-ascii?Q?bs6o8FJHydtH7e9FFZNtEpYtXK/G56v92T+KK4hl9TEFiZkzVYBE5mM/BwxT?=
+ =?us-ascii?Q?a9yifjfyhz7/zMHf4qJTqVyf+PxdQnbacfucWrqQBKbWsiYmihj8siXlKNZo?=
+ =?us-ascii?Q?Ho5Rj45K7my+0KdogU9eArvNFT39t0wbc+938eIMb1cf958c4MVBxd7XC0d4?=
+ =?us-ascii?Q?u/T2lLdrm+rK6FTWUc6yNYwf7OOA9yOF+eOWoRkj1m2O6Qg4kgb/rV2tGDdI?=
+ =?us-ascii?Q?9SBvLOLSSqRrq3a8/0iaB2wVk+2XJaKVx3ttlEIpv4OFOMJ/986ojEaMkGHY?=
+ =?us-ascii?Q?PXRKwYg6611g2YwefVgMQORH0n79mR0O70IrSgP0EBIwdIPIq/IpUmw6Vl7W?=
+ =?us-ascii?Q?Lt7cTaPg/OKrU7g/t5tsXlrhPu6sW246OaSJcwLBwRMtuFILQm7e+r3ru8l1?=
+ =?us-ascii?Q?tTBUuT4+47aA5Of5lNTIjhHkPRgcCTZu4X8fwz3ztTcWw/w9nQc3wAJgpEG+?=
+ =?us-ascii?Q?mKo3fMFGFpJFpwJQxPrh8zwKELCRulE+YZ8XZ/jAwv78NR3QRRHIbrvJBrz8?=
+ =?us-ascii?Q?DjjH7ibfvbA/2ANU4KEYwPdFmUIFSQ7ZXtMGDXWCb0zLyDPkoN9AEb+CPDy2?=
+ =?us-ascii?Q?QtHmgRnECa1QWmaTU3yPuqoYRJCiPlmdghn6BEeO1Se8Y5hphvKBg/8FiMMW?=
+ =?us-ascii?Q?XL5NOUqxXy5s0uENUcLQw68vx3c4Qv57Z9+eXGiAXQVNFHnPTphtqu5X1y7e?=
+ =?us-ascii?Q?PW3fMlwSW6Lt2Eyju+BaXMU6wTxp8FW/n0LPVJc4ufzAb9fyfGiXRj+IBcE1?=
+ =?us-ascii?Q?DE5aOWhsDCY4BgJnqFslrum6Lb/QvpcFQqP804H3ED/4Tm4sIBtKB0jcqPe6?=
+ =?us-ascii?Q?k6+SBLR/O2Cz+SnC9yJEpSYd+nlIDFB00zXCEZSHZiVPgVzBJOMJFTwqC32L?=
+ =?us-ascii?Q?jrGlUEoXhGtNQ1IWGsGU3Klg2dyCBIo2yiE+XUW+lC0wNBrT9P2Kh6lBuM9T?=
+ =?us-ascii?Q?kmx7R17iNgkIFOjH7pC5uAx6u1AEFyWMbcfLQEJvAOdBdpmLCv3m+/AcpUqY?=
+ =?us-ascii?Q?r0qAHP4SpU1Fp4i/51K91cJsmOvn8lJPW5zipzCPH7PqKRNW/zfc2Yd63ajA?=
+ =?us-ascii?Q?uU9E87FZFD7roQxLyMvdhqUjcQqaJ4c3T35HgDNjf36UIaBX7QnOmcWhHj5D?=
+ =?us-ascii?Q?6hDPMXxi8UYFW6rbMrSnQanSnGaDKWf/pkFFX86KK+h/AW9zwR2BKtgagSpV?=
+ =?us-ascii?Q?K0I1bhR2DdUMOy3beOrRx18/gDcfW+9ie9eBjVIOanfi/zqE7PlZhTxXicrm?=
+ =?us-ascii?Q?0clx5UtRQLdfVH4UbpzOcxCyhlZx6u/b914ENdsHkrPI18XDkZyj9gIJWztO?=
+ =?us-ascii?Q?RzqbyNm+yprNTMEukjH6ZdzQLMEn7Iek2v3CfzEWzFD0quSKfei2awpWnFBL?=
+ =?us-ascii?Q?2NrF3dka3YziaWNgMWL1Svu/58cBBCjHsoVaeX7l4DcGosKX?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d6f9fdf-a3aa-4b6d-dc6d-08df2c43701c
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2026 11:40:26.6260
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3sddnaeRRz31Ay4rfuV65PL4hXS41uvXd7T6XXrvZm32mON7rLsDvic/RQJwUy2r
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8914
 
-Hi Linus,
+On Sat, Oct 17, 2026 at 04:19:20PM +0800, Shuai Xue wrote:
 
-Please pull these driver-core changes.
+> We tested this series (v11, backported onto our 6.6-based kernel) on two
+> arm64 server platforms that differ in how PCIe errors are reported: one
+> with firmware-first reporting (GHES/CPER), the other with OS-first AER
+> plus DPC. The test triggers a kdump crash (echo c > /proc/sysrq-trigger)
+> on an otherwise idle machine and compares the capture kernel's dmesg
+> between the unpatched baseline and the kernel carrying this series.
 
-All commits have been in linux-next (no conflicts expected); two signed tag=
-s for
-Rust I/O and DMA changes have been shared with other trees.
+Thanks, this is a nice description of the challenges server type
+systems face!
 
-Thanks,
-Danilo
-
-The following changes since commit 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e=
-:
-
-  Linux 7.3-rc5 (2026-09-27 13:55:01 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git=
- tags/driver-core-7.4-rc1
-
-for you to fetch changes up to d4ffc4896b3e709c6a5d7e5a78a1fddfc774fa25:
-
-  rust: pci: add extended capability and SR-IOV support (2026-10-13 01:12:5=
-8 +0200)
-
-----------------------------------------------------------------
-Driver core changes for 7.4-rc1
-
-- core:
-
-  - Add TAINT_FORCED_BIND to taint the kernel and driver module before manu=
-al
-    sysfs bind/unbind operations; make add_taint_module() available to
-    driver core and update taint decoding tools and documentation
-
-  - Constify device_show/store_*() attribute parameters and adapt x86 MCE a=
-nd
-    perf users to prepare for const dev_ext_attribute instances
-
-  - Fix UAF in NUMA access node registration failure handling by dropping
-    the device reference with put_device() instead of directly freeing the =
-node
-
-- debugfs:
-
-  - Make debugfs_create_str() read-only to eliminate double-free races betw=
-een
-    concurrent writers; reject writable modes; convert interconnect and
-    SoundWire users to local file operations with mutex-protected strings
-
-- kobject:
-
-  - Fix out-of-bounds access in kobject_action_type() when parsing action
-    strings containing embedded NUL bytes
-
-  - Fix the kobject_set_name() reference in kset_register() kernel-doc
-
-- Rust:
-
-  - DMA:
-
-    - Tie Coherent, CoherentBox and CoherentHandle to the device's bound
-      lifetime to prevent retaining DMA allocations beyond driver unbind;
-      propagate the lifetime through nova-core and the DMA sample driver
-
-  - I/O:
-
-    - Require explicit base types for registers and replace relative regist=
-ers
-      with typed subregion projections; reimplement register!() as a proc
-      macro, support registers using existing types without inline bitfield=
-s,
-      and convert nova-core, Tyr and the PCI sample; add AsRepr/AsReprMut a=
-nd
-      transmute helpers with deferred size checks for representation
-      conversions
-
-    - Wrap ResourceSize in a transparent newtype with explicit conversions,
-      including checked conversion to usize
-
-  - PCI:
-
-    - Add typed PCIe extended capability lookup and SR-IOV accessors for th=
-e
-      First VF Offset and decoded VF BAR addresses and widths, keeping raw
-      SR-IOV registers private to preserve PCI core ownership of their stat=
-e
-
-  - scatterlist:
-
-    - Honor the device's maximum segment size as well as the DMA mapping li=
-mit
-      when constructing SG tables
-
-    - Return u32 from SGEntry::dma_len() to match the C segment length type
-
-  - misc:
-
-    - Validate auxiliary DeviceId name length explicitly to improve
-      compile-time diagnostics for oversized device ID table entries
-
-    - Drop unnecessary 'static bounds from debugfs ScopedDir file creation
-      methods to support data containing non-'static references, including =
-DMA
-      buffers
-
-- misc:
-
-  - Add Johan Hovold as driver core maintainer
-
-  - Simplify platform_device_alloc() by returning early on allocation failu=
-re
-
-  - Fix typos in driver core and kernfs comments
-
-----------------------------------------------------------------
-Cezary Rojewski (1):
-      driver core: platform: Simplify platform_device_alloc()
-
-Danilo Krummrich (7):
-      rust: debugfs: drop 'static bound from ScopedDir file creation method=
-s
-      rust: dma: tie CoherentHandle to the device's bound lifetime
-      samples: rust_dma: separate driver type from driver data
-      rust: dma: tie Coherent and CoherentBox to the device's bound lifetim=
-e
-      Merge patch series "rust: io: support register projections and remove=
- relative registers"
-      Merge patch series "rust: dma: tie DMA allocations to the device's bo=
-und lifetime"
-      Merge tag 'v7.3-rc5' into driver-core-next
-
-Gary Guo (16):
-      rust: io: register: reimplement as proc macro
-      rust: mem: add `transmute` with deferred size check
-      rust: mem: add `AsRepr` and `AsReprMut`
-      rust: io: perform conversions using `AsRepr`
-      rust: io: support register projections
-      rust: io: register: allow explicit base type specification
-      gpu: nova-core: specify base type for registers
-      drm/tyr: specify base type for registers
-      samples: rust: pci: specify base type for registers
-      rust: io: register: make register have a typed base
-      rust: io: register: support fixed offset register without bitfield
-      gpu: nova-core: use projection for PFALCON and PFALCON2 registers
-      gpu: nova-core: convert hshub0 from relative register to projection
-      rust: io: register: remove relative registers
-      rust: io: register: remove `Register` trait and cleanup macro
-      rust: io: register: unify handling of register with/without bitfields
-
-Georgios Androutsopoulos (1):
-      rust: auxiliary: validate DeviceId name length
-
-Greg Kroah-Hartman (4):
-      Merge 7.3-rc2 into driver-core-next
-      module: pull out add_taint_module() to be public
-      module: fix up documentation for add_taint() and add_taint_module()
-      driver core: add TAINT_FORCED_BIND for when userspace manually messes=
- with devices and drivers
-
-Hemanth Selam (1):
-      driver core: fix typos in comments
-
-Jiacheng Xu (1):
-      kobject: fix out-of-bounds access in kobject_action_type()
-
-Johan Hovold (1):
-      MAINTAINERS: add myself as driver core maintainer
-
-Karl Mehltretter (1):
-      kobject: Fix the kobj_set_name reference in kset_register() kernel-do=
-c
-
-Linkai Gong (1):
-      drivers/base/node: fix UAF on device_register() failure
-
-Lorenzo Delgado (2):
-      rust: scatterlist: return u32 from SGEntry::dma_len()
-      rust: io: convert ResourceSize into a transparent newtype
-
-Matteo Kloiber (1):
-      rust: scatterlist: honor the device's maximum segment size
-
-Thomas Wei=C3=9Fschuh (3):
-      x86/mce: Use __DEVICE_ATTR() macro to initialize dev_ext_attribute
-      drivers: perf: Use __DEVICE_ATTR() macro to initialize dev_ext_attrib=
-ute
-      driver core: Constify the signature of device_show/store_*()
-
-Uwe Kleine-K=C3=B6nig (1):
-      docs: admin-guide: Handle TAINT_FORCED_BIND when parsing /proc/sys/ke=
-rnel/tainted
-
-Yichong Chen (3):
-      interconnect: debugfs: replace writable string helper
-      soundwire: debugfs: replace writable string helper
-      debugfs: make debugfs_create_str() read-only
-
-Zhi Wang (1):
-      rust: pci: add extended capability and SR-IOV support
-
- Documentation/admin-guide/tainted-kernels.rst      |  54 ++--
- MAINTAINERS                                        |   2 +
- arch/powerpc/perf/hv-24x7.c                        |   2 +-
- arch/x86/kernel/cpu/mce/core.c                     |   6 +-
- drivers/base/bus.c                                 |   3 +
- drivers/base/core.c                                |  30 +-
- drivers/base/node.c                                |  17 +-
- drivers/base/platform.c                            |  19 +-
- drivers/base/property.c                            |   2 +-
- drivers/base/transport_class.c                     |   2 +-
- drivers/gpu/drm/tyr/driver.rs                      |   1 +
- drivers/gpu/drm/tyr/fw.rs                          |   5 +-
- drivers/gpu/drm/tyr/regs.rs                        |  45 ++-
- drivers/gpu/drm/tyr/vm.rs                          |   1 -
- drivers/gpu/nova-core/driver.rs                    |   1 +
- drivers/gpu/nova-core/falcon.rs                    | 163 +++++-----
- drivers/gpu/nova-core/falcon/fsp.rs                |  63 ++--
- drivers/gpu/nova-core/falcon/gsp.rs                |  51 +--
- drivers/gpu/nova-core/falcon/hal/ga102.rs          |  59 ++--
- drivers/gpu/nova-core/falcon/hal/tu102.rs          |   9 +-
- drivers/gpu/nova-core/falcon/sec2.rs               |  37 ++-
- drivers/gpu/nova-core/fb.rs                        |   4 +-
- drivers/gpu/nova-core/fb/hal/gb100.rs              |  59 ++--
- drivers/gpu/nova-core/fb/regs.rs                   |  34 +-
- drivers/gpu/nova-core/firmware/booter.rs           |   2 +-
- drivers/gpu/nova-core/firmware/fsp.rs              |   8 +-
- drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  30 +-
- drivers/gpu/nova-core/firmware/gsp.rs              |  14 +-
- drivers/gpu/nova-core/firmware/riscv.rs            |   8 +-
- drivers/gpu/nova-core/fsp.rs                       |  20 +-
- drivers/gpu/nova-core/gpu.rs                       |   4 +-
- drivers/gpu/nova-core/gsp.rs                       |  30 +-
- drivers/gpu/nova-core/gsp/boot.rs                  |  10 +-
- drivers/gpu/nova-core/gsp/cmdq.rs                  |  35 +-
- drivers/gpu/nova-core/gsp/commands.rs              |   2 +-
- drivers/gpu/nova-core/gsp/fw.rs                    |  12 +-
- drivers/gpu/nova-core/gsp/hal.rs                   |  14 +-
- drivers/gpu/nova-core/gsp/hal/gh100.rs             |  16 +-
- drivers/gpu/nova-core/gsp/hal/tu102.rs             |  41 ++-
- drivers/gpu/nova-core/gsp/regs.rs                  |   9 +-
- drivers/gpu/nova-core/gsp/sequencer.rs             |   6 +-
- drivers/gpu/nova-core/regs.rs                      | 115 ++++---
- drivers/gpu/nova-core/vbios.rs                     |  11 +-
- drivers/interconnect/debugfs-client.c              |  81 ++++-
- drivers/perf/alibaba_uncore_drw_pmu.c              |   2 +-
- drivers/perf/arm-cci.c                             |   2 +-
- drivers/perf/arm-ccn.c                             |   2 +-
- drivers/perf/arm_cspmu/arm_cspmu.h                 |   2 +-
- drivers/perf/arm_dsu_pmu.c                         |   2 +-
- drivers/perf/arm_spe_pmu.c                         |   6 +-
- drivers/perf/cxl_pmu.c                             |  10 +-
- drivers/perf/fsl_imx8_ddr_perf.c                   |   2 +-
- drivers/perf/fujitsu_uncore_pmu.c                  |   2 +-
- drivers/perf/hisilicon/hisi_pcie_pmu.c             |   2 +-
- drivers/perf/hisilicon/hisi_uncore_pmu.h           |   6 +-
- drivers/perf/hisilicon/hns3_pmu.c                  |   6 +-
- drivers/perf/nvidia_t410_c2c_pmu.c                 |   2 +-
- drivers/perf/nvidia_t410_cmem_latency_pmu.c        |  12 +-
- drivers/perf/qcom_l3_pmu.c                         |   8 +-
- drivers/perf/starfive_starlink_pmu.c               |   2 +-
- drivers/perf/xgene_pmu.c                           |   2 +-
- drivers/soundwire/debugfs.c                        |  63 +++-
- fs/debugfs/file.c                                  |  81 +----
- include/linux/device.h                             |  14 +-
- include/linux/kernfs.h                             |   2 +-
- include/linux/module.h                             |  10 +
- include/linux/panic.h                              |   3 +-
- include/trace/events/module.h                      |   3 +-
- kernel/module/main.c                               |  17 +-
- kernel/panic.c                                     |  10 +-
- lib/kobject.c                                      |   2 +-
- lib/kobject_uevent.c                               |   2 +-
- rust/helpers/dma.c                                 |   5 +
- rust/helpers/pci.c                                 |   5 +
- rust/kernel/auxiliary.rs                           |   8 +
- rust/kernel/bitfield.rs                            |   9 +
- rust/kernel/debugfs.rs                             |  26 +-
- rust/kernel/debugfs/entry.rs                       |   4 +-
- rust/kernel/debugfs/file_ops.rs                    |  29 +-
- rust/kernel/device_id.rs                           |   3 +-
- rust/kernel/dma.rs                                 | 141 ++++----
- rust/kernel/io.rs                                  | 255 +++++++++++----
- rust/kernel/io/register.rs                         | 759 ++++++++++-------=
----------------------------
- rust/kernel/io/resource.rs                         |   6 +-
- rust/kernel/lib.rs                                 |   1 +
- rust/kernel/mem.rs                                 | 234 ++++++++++++++
- rust/kernel/pci.rs                                 |   8 +
- rust/kernel/pci/cap.rs                             | 292 +++++++++++++++++
- rust/kernel/scatterlist.rs                         |  23 +-
- rust/kernel/sync/atomic.rs                         |   4 +-
- rust/kernel/uaccess.rs                             |   4 +-
- rust/macros/io/mod.rs                              |   3 +
- rust/macros/io/register.rs                         | 296 +++++++++++++++++
- rust/macros/lib.rs                                 |   9 +
- samples/rust/rust_dma.rs                           |  30 +-
- samples/rust/rust_driver_pci.rs                    |   4 +
- tools/debugging/kernel-chktaint                    |   8 +
- 97 files changed, 2153 insertions(+), 1427 deletions(-)
- create mode 100644 rust/kernel/mem.rs
- create mode 100644 rust/kernel/pci/cap.rs
- create mode 100644 rust/macros/io/mod.rs
- create mode 100644 rust/macros/io/register.rs
+Jason
