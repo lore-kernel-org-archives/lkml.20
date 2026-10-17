@@ -1,85 +1,125 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB8539A060;
-	Sat, 17 Oct 2026 07:37:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F571419FDC
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:37:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792222655; cv=none; b=ZxIPZFdw14jjBuDLgt1+yu8BxhCUNUbDoVBGx2BgXrFs1kgMcM1HJgvnmpZX4PZG9wXM0na9X7ZaX9DtuwXo1OPX7HCvVhpsaggSZMUKagzpddn9zeyePOOAMUwOdcY49jAnb3in0Tr8rxfESXHSbtqw6ihtM640DVU1CLjKsu4=
+	t=1792222661; cv=none; b=sCAWQtndgi1VwNrvzut8HHGFuZ8CEaxTF9u6Tuog5QwtAnfYea+uRdrMYuKNrhUfrVtpt/Sk0E01W1NsGsiHNfek9tP8Awsuahp6B8+HITDAWu+E0TrnUtPQ3h8/0PWNykyxzwyKx1QQLyObAFu9gB+jhXHWtjQFvmkCvTmUqf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792222655; c=relaxed/simple;
-	bh=71F1a5zKwaom90xrHbsu9nKbmWtG+xFm2DAmJvjrXm8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=aF7bJMrwx/9nLhKNXVLgS6Dfz/1nLBrKrWbP2VU+T1NcGqiRCTvzEIrcoGyfboD+GfmH4ecnNOly0p1WBszyE/6q5oIMzn4Di6JqRoqUZOiUUvK8w6IxhtlwhurzOcoT80S0qlVy0Zh4/4pExqrDzUBCXfLVRPyHQ64UymdGzpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=WVJe+cNJ; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792222661; c=relaxed/simple;
+	bh=WZdjCu0rAOvAKnFgRIUfmcDKEMo+oJUKqwWbSnvz7ac=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Se+Rq2vY2fPXK9U6TcO4fmzgZJwKslkPlWqEbBzusuULBRHv/9zrLV88rcbMWsHtHqG2zbcvlamancDPwe8NRh72QczNg5R0c23HW9R5VbZ99+sS8grTYjJUCgXQfF7TLcv0cT9zMRazVRkCZlzLHeeV0Sw5yMDgCpj/Z7AoxOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hOvjj9ZU; arc=none smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="WVJe+cNJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=71F1a5zKwaom90xrHbsu9nKbmWtG+xFm2DAmJvjrXm8=; b=W
-	VJe+cNJpzOvtG+xPsjBymjfNoO/oMzTEHfFRJsLG/3kVGL8C86edhkneJHy3ppvC
-	9GF/H1vMxeTC+WEHrRJLpxHYG6hM+oCbjDS4ub9AE21lRPOUiBg1Lo+t/+drMhMm
-	IhgXs5EkZ1oc9SbBToq7vGibZ+0cESjwg0RvTxCsq4=
-Date: Sat, 17 Oct 2026 15:37:19 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Marcel Holtmann" <marcel@holtmann.org>,
-	"Luiz Augusto von Dentz" <luiz.dentz@gmail.com>,
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:[PATCH 2/2] Bluetooth: msft: free detached address filter on
- cancel
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20261017031022.3616384-1-yaojiale02@163.com>
-References: <20261017031022.3616384-1-yaojiale02@163.com>
-X-NTES-SC: AL_Qu2SAP6ZvU4o7ymbZukdnEkQgO0/WsS1vfQu2Y5Wc+wEgCbN4z0YdHxaDHHN8e6DOSarnDiOagNHzNRcb4JHPvlxq4k8Psie8lna/ticSw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hOvjj9ZU"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-354ba08cfd1so881921eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:37:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792222659; x=1792827459; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AFRuAeszDrkm1yI3pZR0D3+csEi+yPWQc7sruL4+TM0=;
+        b=hOvjj9ZUOBl1OpOIHZxp7TmlR6/uI2J6U2iLSOijCaukVGLryBsNrGY53gfk64dPjw
+         sI71Qhim/L3SZuQaxcaVq/dJvTtEvohquQ1rHKRXRa4zxkBWOHqFh+C455Vm0VMZs2Fk
+         nILpTUPb64X2cIRJW8UFQzsSB9hSkbsTDFt5KfzuyjhY9SNnqKSAh2clDLxg385BwSGl
+         gc4+rIDFynm4NuQAQB1ZN+F5mS3yi8vOZu5BfeL2p72wjzUAhVvIgzwZ7tM1hyFIOWa8
+         +Zrj97h/tXZw4V/MvxWUJqKmbd3ExsG0uwXXkJwSPPq9wWJyOy+kPOfhhr3n92gy/Azp
+         Uy5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792222659; x=1792827459;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AFRuAeszDrkm1yI3pZR0D3+csEi+yPWQc7sruL4+TM0=;
+        b=NOAfBzRvPkL6/1imsqX4/ZOsdBWxX2bs0hWeRBq8833chzNSy51m6iHXnSJug9eHlY
+         HfbIlQ1pLad5BOOYXnLEjbmeMxA9o/HyXnygBm0I8Cl7pC0GznMxt8ox0qRoj73RnKJq
+         Uu2bLrIIS1cXw8J0AhZ98X7SWmFs14wRftq9u4BPUq1Bq1SUOzzAG2PTpC50/ZmZXgzu
+         K257yfmecbciXfd7zSjQXxK5ZRuXeZH6NM4BCKdRTw1yx5HstveV7zCNohD0ZwcZ0UTk
+         yXHvcJ0c3NMmQpIu/53RtWN4E/VtkYt8fb30syj148Wx6arvc9Ky4MSHry8k0PyIHzJn
+         yI4w==
+X-Forwarded-Encrypted: i=1; AKwUvBwScjHksRgjegsxhvO8OEJTGhYw4cdCJzJOnHCPpzfXleHwfjTjQI7sUiYDtXqKLK5eP4+AhXA2PJ9xX60=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJr9R0xedD9dBaSCZAOu6drS1WfgtputjSCrg+SximSi6QWjs6w
+	rt3P362Zz3xLi3/XawC8umS26rd2cYWQcpxu7iWcA9XTQ2R/8Fr2k6Jp
+X-Gm-Gg: AYBFou0xDkGzlCgXdlKceIw7Rtg7AR3JuAOaWisHgbcKeZ+Vy1qPhDt17Q54CFSWK/h
+	oGbMok8hxHZJ1iL4ZJZZvmHRZsaGp1vfrFUARF/w/s21Dnx1h2JRW1O1m60xEkBkv/OCPlkUm/e
+	9HobMrHVWyEabOjU5IwGCvBRggekowrjjpBSu4GSvDQkJttfo4yxkHU2hZ4a8sN8UkyNoV7KcSF
+	UhgpEmKFSBEv/RS4E3qXIvqg5dJOFgeI0BxqNcvNnM4Tg4a0mkJ6fj8vFCloUa0ntpdltBSFnHK
+	oUEIk+x6CUoW8cP/2WC+TLST1zIrAyQQJbkpgKHq6eCosTdNj/K6Id8hBm83Z8iL8tMUBy1AN0v
+	1tYlt1qWoBK/6RkmDn2g10I7EZyQ5cx6zJllCFQIXS6kx5FkdPac3JrZZtK151TUVHyUfOMWyPx
+	HhVWgwwjHyeS+GrU7ZaMSZ9d8wdY9sjSfL4TlwkehWYaRjLB4s9XtR/rEtbq2vitU4VtQ8kFncM
+	k+plG/D0a0MoC1Qybew9+VR5lh7UB5QnqSC
+X-Received: by 2002:a05:7300:10d:b0:361:306f:c32a with SMTP id 5a478bee46e88-361a0e869c7mr2944000eec.11.1792222659389;
+        Sat, 17 Oct 2026 00:37:39 -0700 (PDT)
+Received: from chitransh.. ([106.202.98.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cab0sm15999208eec.3.2026.10.17.00.37.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 00:37:38 -0700 (PDT)
+From: chitranshmandhaniya@gmail.com
+To: hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chitransh_Mandhaniya@dell.com
+Subject: [PATCH v4 0/2] platform/x86: dell-uart-backlight: handle stray EC byte in responses
+Date: Sat, 17 Oct 2026 13:07:02 +0530
+Message-ID: <20261017073704.606497-1-chitranshmandhaniya@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261004110333.5790-1-chitranshmandhaniya@gmail.com>
+References: <20261004110333.5790-1-chitranshmandhaniya@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <994a66d.18b6.1a148cb3747.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:ZygvCgDXn7SwJdNq+vtaAA--.161W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRAFP2rTJbAjyAAA3g
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-QXQgMjAyNi0xMC0xNyAxMToxMDoyMiwgIkppYWxlIFlhbyIgPHlhb2ppYWxlMDJAMTYzLmNvbT4g
-d3JvdGU6Cj5BbiBhZGRyZXNzIGZpbHRlciBxdWV1ZWQgZm9yIGFkZGl0aW9uIGNhbiBiZSBkZXRh
-Y2hlZCBmcm9tIHRoZSBNU0ZUCj5maWx0ZXIgbGlzdCBhbmQgbWFya2VkIEFGX1NUQVRFX1JFTU9W
-SU5HIGJlZm9yZSBpdHMgY29tbWFuZC1zeW5jIHdvcmsKPnJ1bnMuIElmIHRoZSBxdWV1ZWQgZW50
-cnkgaXMgdGhlbiBjYW5jZWxsZWQsIGl0cyBOVUxMIGRlc3Ryb3kgY2FsbGJhY2sKPmxlYXZlcyB0
-aGUgZGV0YWNoZWQgZmlsdGVyIHdpdGhvdXQgYW4gb3duZXIuCj4KPkluc3RhbGwgYSBkZXN0cm95
-IGNhbGxiYWNrIHRoYXQgZnJlZXMgYSBjYW5jZWxsZWQgZmlsdGVyIG9ubHkgd2hlbiBpdAo+aGFz
-IHJlYWNoZWQgQUZfU1RBVEVfUkVNT1ZJTkcuIEZpbHRlcnMgdGhhdCBhcmUgc3RpbGwgbGlua2Vk
-IHJlbWFpbgo+b3duZWQgYnkgdGhlIG5vcm1hbCBjbG9zZSBjbGVhbnVwIHBhdGguCj4KCkZpeGVz
-OiA5ZTE0NjA2ZDhmMzggKCJCbHVldG9vdGg6IG1zZnQ6IEV4dGVuZGVkIG1vbml0b3IgdHJhY2tp
-bmcgYnkgYWRkcmVzcyBmaWx0ZXIiKQoKPlNpZ25lZC1vZmYtYnk6IEppYWxlIFlhbyA8eWFvamlh
-bGUwMkAxNjMuY29tPgo+LS0tCj4gbmV0L2JsdWV0b290aC9tc2Z0LmMgfCAxMiArKysrKysrKysr
-Ky0KPiAxIGZpbGUgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+Cj5k
-aWZmIC0tZ2l0IGEvbmV0L2JsdWV0b290aC9tc2Z0LmMgYi9uZXQvYmx1ZXRvb3RoL21zZnQuYwo+
-aW5kZXggZDlkZDcyMmRiM2ViLi5iOWY4ZjA4OWNjNzIgMTAwNjQ0Cj4tLS0gYS9uZXQvYmx1ZXRv
-b3RoL21zZnQuYwo+KysrIGIvbmV0L2JsdWV0b290aC9tc2Z0LmMKPkBAIC05MjgsNiArOTI4LDE2
-IEBAIHN0YXRpYyBpbnQgbXNmdF9hZGRfYWRkcmVzc19maWx0ZXJfc3luYyhzdHJ1Y3QgaGNpX2Rl
-diAqaGRldiwgdm9pZCAqZGF0YSkKPiAJcmV0dXJuIDA7Cj4gfQo+IAo+K3N0YXRpYyB2b2lkIG1z
-ZnRfYWRkX2FkZHJlc3NfZmlsdGVyX2Rlc3Ryb3koc3RydWN0IGhjaV9kZXYgKmhkZXYsIHZvaWQg
-KmRhdGEsCj4rCQkJCQkgICAgaW50IGVycikKPit7Cj4rCXN0cnVjdCBtc2Z0X21vbml0b3JfYWRk
-cl9maWx0ZXJfZGF0YSAqYWRkcmVzc19maWx0ZXIgPSBkYXRhOwo+Kwo+KwlpZiAoZXJyID09IC1F
-Q0FOQ0VMRUQgJiYKPisJICAgIGFkZHJlc3NfZmlsdGVyLT5zdGF0ZSA9PSBBRl9TVEFURV9SRU1P
-VklORykKPisJCWtmcmVlKGFkZHJlc3NfZmlsdGVyKTsKPit9Cj4rCj4gLyogVGhpcyBmdW5jdGlv
-biByZXF1aXJlcyB0aGUgY2FsbGVyIGhvbGRzIG1zZnQtPmZpbHRlcl9sb2NrICovCj4gc3RhdGlj
-IHN0cnVjdCBtc2Z0X21vbml0b3JfYWRkcl9maWx0ZXJfZGF0YSAqbXNmdF9hZGRfYWRkcmVzc19m
-aWx0ZXIKPiAJCShzdHJ1Y3QgaGNpX2RldiAqaGRldiwgdTggYWRkcl90eXBlLCBiZGFkZHJfdCAq
-YmRhZGRyLAo+QEAgLTk1OSw3ICs5NjksNyBAQCBzdGF0aWMgc3RydWN0IG1zZnRfbW9uaXRvcl9h
-ZGRyX2ZpbHRlcl9kYXRhICptc2Z0X2FkZF9hZGRyZXNzX2ZpbHRlcgo+IAlsaXN0X2FkZF90YWls
-KCZhZGRyZXNzX2ZpbHRlci0+bGlzdCwgJm1zZnQtPmFkZHJlc3NfZmlsdGVycyk7Cj4gCj4gCWVy
-ciA9IGhjaV9jbWRfc3luY19xdWV1ZShoZGV2LCBtc2Z0X2FkZF9hZGRyZXNzX2ZpbHRlcl9zeW5j
-LAo+LQkJCQkgYWRkcmVzc19maWx0ZXIsIE5VTEwpOwo+KwkJCQkgYWRkcmVzc19maWx0ZXIsIG1z
-ZnRfYWRkX2FkZHJlc3NfZmlsdGVyX2Rlc3Ryb3kpOwo+IAlpZiAoZXJyIDwgMCkgewo+IAkJYnRf
-ZGV2X2VycihoZGV2LCAiTVNGVDogQWRkIGFkZHJlc3MgJXBNUiBmaWx0ZXIgZXJyIiwgYmRhZGRy
-KTsKPiAJCWxpc3RfZGVsKCZhZGRyZXNzX2ZpbHRlci0+bGlzdCk7Cj4tLSAKPjIuMzQuMQo=
+From: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
+
+On some Dell All-in-One machines the EC sporadically inserts a spurious
+byte after the command echo in UART backlight response frames.  This
+causes a checksum mismatch and the driver returns -EIO to userspace.
+
+Patch 1 is a preparatory refactor: extract the byte-level response
+parsing into a dedicated dell_uart_bl_receive_data() helper with no
+functional change.
+
+Patch 2 adds single-attempt stray-byte recovery inside that helper.
+When a checksum mismatch occurs on a frame longer than the minimum
+size, the suspect byte is dropped, the buffer is shifted down, and
+status remains -EBUSY so serdev re-delivers the real checksum byte
+naturally.
+
+Tested on Dell OptiPlex AIO 7410 65W (board 0TKWC4) where the EC
+inserts a stray byte on every get-brightness response.
+
+v3 -> v4:
+  - Perform resync inside dell_uart_bl_receive_data() rather than in
+    the wrapper; status stays -EBUSY so serdev re-delivers the
+    checksum byte without additional handling in the caller
+
+v2 -> v3:
+  - Guard resync with resp_idx == resp_len to prevent memmove on a
+    truncated or out-of-range length field
+
+v1 -> v2:
+  - Extract dell_uart_bl_receive_data() helper instead of using a
+    for-loop with a pass counter
+  - Split into two patches: refactor then feature
+
+Chitransh Mandhaniya (2):
+  platform/x86: dell-uart-backlight: extract dell_uart_bl_receive_data()
+    helper
+  platform/x86: dell-uart-backlight: recover from stray EC response byte
+
+ .../platform/x86/dell/dell-uart-backlight.c   | 52 +++++++++++++------
+ 1 file changed, 37 insertions(+), 15 deletions(-)
+
+-- 
+2.43.0
+
