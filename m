@@ -1,113 +1,85 @@
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.186])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16603F58F0
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:58:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.186
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49DD368D74;
+	Sat, 17 Oct 2026 00:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792195089; cv=none; b=LUcrHwQtRQR+ARTuUP7T++9Fm8e4XGTyL3UmGJbJMxyl6ghYSxUMaOBRXFD47kxtA11fGXuiydOYujOs5gEz484O+O2oTTXtSNnGG9tFW9CWASnCHFTWQLgfBgvh35k8rpmkEpnKUAjbzF2xc1OKeR3TklSiDvP+Kx6awcCW7ZY=
+	t=1792195221; cv=none; b=A36nwyhHk1uvY5BtHxUfMrilbQ6+EC78stsNEA/ijJc6GZMbMsz876gjmldGjqsEmqPQLMCTRzq7/NfX7aBnKpzxmVyMwpOlQduJ6GQkHj7zG/sIYGyViSiED+sjxOh720PJAF66JdSm/ycEcG/YGBFtHXbhClleETs5AgpJ9C4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792195089; c=relaxed/simple;
-	bh=Sol7b/YHIC7fBZ3r1UNj405eVEsThuaewoMzP6GaWnY=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=ls4SX0bxEiGiQhG7IPrqIdkBUG377VLCa7h3xG1svNSo6W5GOz14PGUIGfAazAst8TX242qHob4yUN5jw1HnfuGkCoIPl2+B0PsHh5YeZkV/O3pDtBqPeOv/xjyA/3OJcHaBMxiYfpTIbG5QYR0HxSIf/FSKJ8lHEcyrXvsZDTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=ulsBXqxM; arc=none smtp.client-ip=195.121.94.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
+	s=arc-20240116; t=1792195221; c=relaxed/simple;
+	bh=i9zKLdNcKo9YWS1g3aVivo6LBgLE830YLqDYVybAJkE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Uce2bBauBSFBMIkKx6s0OwAELOKya03vHg8VWDV9+v9Pw9gYfqlYESB4Y/1EJ5o4AUC1KHnRbYmgGS1XZ+JOeJ/wPHTxqGRQq57XC2L5rUJqAs66Xhgc/H5qQkxNelTjlHewcYIfBwDBnxBCYxuZMtkOcmZeheoSH7zJ7CqrMqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YT/Kniwn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="ulsBXqxM"
-X-KPN-MessageId: 6aa0dac5-c9bd-11f1-bfc1-00505699b430
-Received: from mta.kpnmail.nl (unknown [10.31.161.188])
-	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-	id 6aa0dac5-c9bd-11f1-bfc1-00505699b430;
-	Sat, 17 Oct 2026 01:58:00 +0200 (CEST)
-Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.189])
-	by mta.kpnmail.nl (Halon) with ESMTP
-	id 6a9f658b-c9bd-11f1-ac19-00505699693e;
-	Sat, 17 Oct 2026 01:58:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xs4all.nl; s=xs4all01;
-	h=content-type:mime-version:subject:message-id:to:from:date;
-	bh=nP905omsFDEXnfiXjNt86xtCsoYoZxyqyX9+gdjuAdU=;
-	b=ulsBXqxMEkKXsns1ECCv5AxFghkyHl2HTQGrLPX8zAXOsxllIlMbeQMeigZgghOt+f/MeCMCwmlAL
-	 HuUzxAaBiucl5xoXzdtw1vCYdIpD18fg1vfLn7JOVnq75AkxOu8F+V6qn22jES2F7iggK3nsK2n6Uh
-	 RbUO6Xc9R+4Aipt1mn+V94awoDZPc0T3bRFST2jaGLX/cmLv6Tr5cXDPVogss447QLXeMn43jP9Het
-	 U8M5OFlZnIPrOp0PPH2TVt1Ktk5cjIyWMDrJunx5K05Jz5dSldnfy95IdQPweFTlL1mBdGKcyiDxUs
-	 R+/zjPqOPBIYVffYmBnOuCrvl1k+HXA==
-X-KPN-MID: 33|4KkrTwsmvmLPOjDbP8/4VvjI5Egql+PqJfiQryUT8cMhNzTGJUqLK422dFR66ox
- TYPYn83v2Xzepu18SFQsr4uN+h4W2PfTRxOc6N9g5LOk=
-X-CMASSUN: 33|V02M0cnroX7SueAXwXU36SMJsDpH0uyW++JyHN9fUXFj+hzmu1qcBwgy6fsTQRc
- vC7lcEr8X1+WO5p3WZGGBiw==
-X-KPN-VerifiedSender: Yes
-Received: from cpxoxapps-mh04 (cpxoxapps-mh04.personalcloud.so.kpn.org [10.128.135.210])
-	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
-	id 6a92e50e-c9bd-11f1-8edd-00505699eff2;
-	Sat, 17 Oct 2026 01:57:59 +0200 (CEST)
-Date: Sat, 17 Oct 2026 01:57:59 +0200 (CEST)
-From: Jori Koolstra <jkoolstra@xs4all.nl>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org, Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>, Amir Goldstein <amir73il@gmail.com>,
-	Aleksa Sarai <cyphar@cyphar.com>
-Message-ID: <2059185467.1255949.1792195079917@kpc.webmail.kpnmail.nl>
-In-Reply-To: <2026101626-idealist-overshoot-26d6@gregkh>
-References: <20261016143806.2946578-1-jkoolstra@xs4all.nl>
- <20261016143806.2946578-8-jkoolstra@xs4all.nl>
- <2026101626-idealist-overshoot-26d6@gregkh>
-Subject: Re: [PATCH v7 07/12] kernfs: hold kernfs_iattr_rwsem when
- initializing a new inode
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YT/Kniwn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D44CE1F000C4;
+	Sat, 17 Oct 2026 00:00:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792195220;
+	bh=ShCsr8VpmfSVrYE38tsQnynm8VtQ88LG2PyXK4mEIVw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YT/Kniwnli+s29yW9eREh6MrxOIb3XDAYCRJjjRU3iAFlX4Oax5cV3OHzXWrGRey4
+	 bFO67sh6yb+zwA2ElR6CrK26oeD8wD2nT0urKNWD4Yw7YjlVS+Oh4Dtc96+PXgWhEG
+	 rI5oltlo7G2B2tfYJdEdBZwS+Ys1Or4rMvJYUcgzSYxi7n4zo4ain6IDRw5/LdYAeL
+	 G5Myn5WbJzSFWUYa67ozwJpjnK6syDV+TdXK1RQY4pv8gzKAxxzfjGc3MkpH8CIq5N
+	 6IgcpXVJq5pRsI49kaMj/czV0hdUb18bzlaq4y32H+PQAki3gGlItpIdpaVT+cC9lc
+	 E6Zrqu8at65Dw==
+From: SJ Park <sj@kernel.org>
+To: Aveline Noir <jm5905938@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Manuel Ebner <manuelebnerli@mailbox.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/damon/reclaim: improve grammar and style
+Date: Fri, 16 Oct 2026 17:00:12 -0700
+Message-ID: <20261017000013.97300-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <179216914308.58773.4774391289742300524.b4-reply@b4>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Priority: 3
-Importance: Normal
+Content-Transfer-Encoding: 8bit
 
+On Sat, 17 Oct 2026 00:45:43 +0800 Aveline Noir <jm5905938@gmail.com> wrote:
 
-> Op 16-10-2026 10:50 EDT schreef Greg Kroah-Hartman <gregkh@linuxfoundation.org>:
+> Hi SJ,
 > 
->  
-> On Fri, Oct 16, 2026 at 04:38:01PM +0200, Jori Koolstra wrote:
-> > kernfs_refresh_inode() copies the uid, gid, timestamps and nlink of a
-> > kernfs_node into its VFS inode. Since commit 9caf69614225 ("kernfs:
-> > Introduce separate rwsem to protect inode attributes.") these are
-> > protected by kernfs_iattr_rwsem.
-> > 
-> > kernfs_init_inode() calls kernfs_refresh_inode(), but was not converted.
-> > Its callers in turn hold kernfs_rwsem (kernfs_iop_lookup(),
-> > kernfs_fill_super()) or no lock at all (__kernfs_fh_to_dentry()),
-> > neither of which excludes a concurrent
-> > kernfs_setattr()/kernfs_iop_setattr().
-> > 
-> > Take kernfs_iattr_rwsem for reading around the refresh in
-> > kernfs_init_inode(). This nests inside kernfs_rwsem, which matches
-> > kernfs_link_sibling() and kernfs_unlink_sibling().
-> > 
-> > Also, kernfs_get_inode() then does not need to hold kernfs_rwsem, so
-> > drop it from kernfs_fill_super().
+> On Fri, 16 Oct 2026 07:29:21 -0700, SJ Park wrote:
 > 
-> Oh, nice, this fixes the issue of kernfs not keeping the inode like we
-> talked about at LPC?  Can't argue with this tiny patch, nice work!
+> > If both of you agree to my abovely suggested/agreed changes ('s/page out/ pages
+> > out those/' and 's/records/charges/'), I will update this patch in damon/next
+> > tree with those changes.
 
-No, that part is included in the patch following this one. This is a bit of
-preliminary work to fix the locking around kernfs_refresh_inode(). I think the
-memory requirement for the allocated inodes is not a blocker (but you judge, since
-you told me that's the primary concern here). The inode allocation only happens
-for userspace mkdir(2) calls afaict, and then you probably want to do a lookuo
-anyway.
-
-I see there's some work by a Meta team on kernfs. Since I'm in that code now
-I'll try to review that soon.
-
-Enjoy the weekend!
-Jori.
+I was wrongly thinking this patch is already in damon/next.  It is not.  I am
+waiting for Manuel's replies to my review.  So I will not do the update of this
+patch on my own but wait for Manuel's answer and revisioning.
 
 > 
-> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Both changes sound good to me. Keeping this patch focused makes sense.
+
+Thank you for confirming.
+
+
+Thanks,
+SJ
+
+[...]
