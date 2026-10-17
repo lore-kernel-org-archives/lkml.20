@@ -1,122 +1,162 @@
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C90C3AC0C3
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:47:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792223269; cv=pass; b=Q6lI55Fxzdye6//eQ7GT19DD9p+1iRxcLRXA+WO2Q5tOWS2r837kF2h1CktbDlFT3nRym3AvidKCt2ZDniJuxwf7DcVzr1JaJ3kn496ShhTGjDMiw8zbkYizvDxWKV/aPTtEvO85J3RNCKfopmFW+2Jd4pwmxBRw0rHT+FUmkrY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792223269; c=relaxed/simple;
-	bh=eRWmAlIfs3iswnjnTR4TzrAUiVQGOccDgG6x9wZmrjY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GGCjp4NdOnAmezJIIJPUPQDsegOR7ulz6br+HbAeiEXLyL2zhzW85W/VKtLImYd0gG4nXO8h0N8z70054c0/CfrIPf5QZdEvfr4EbOV/7qLllbbCeHK59Gt92KoL4x4esGzpHQYLYrOe3cZAyO+H4oDQKTI7mCKemK1oeJOoBXs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ehNE3iKR; arc=pass smtp.client-ip=209.85.128.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D87C3BB66B;
+	Sat, 17 Oct 2026 07:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792223307; cv=none; b=nzt/lFhRRIzwKyfR7p1zbx2OT7Z3U4YqYwTJQYUCHJWwMqg6uOGKgzbtfHmrE+GYgdVXbVa1ZXAfuBNXU58mPBtE20yPXWDqouPYnAKFg+kVPlFdxQ4AOGsqa40FKcileu+TTx45I/JI/1lUwj8sLhibZMq8D/u8zJWpr9jQE8c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792223307; c=relaxed/simple;
+	bh=LJ0L8lNXH+iKRyYZ0J+y5TKtnpyQoG4JfCwMuUNWYHE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VcN0pi2DX+9ZD5Rjr9zMQ0DiW1g6teQ7XlVJo60153pqdnjkQJoJCLKdixYbB/NfZ81OF/fiz6GpJQkjzB0fHimK4h0EAJA3+ggm36ZU1uzQ/3Y4i63LfpdceRduIYSszkBZjzm20B2IttAG2huIoBN5Vo77NvIlbMZEKHo4NLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZSjVg3/f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ehNE3iKR"
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b056d58f2aso5229097b3.2
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:47:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792223267; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oq7uAxP3zoKFm6/ex9Z6EMenbG7K77IJg7UNWYFW09VO0Tab7sZP7OOwuXYtfO6oyh
-         4gGYMkHUouMjpICN00nU4Y+1WX+ybHGUg8t5F+B/L/2UlJPUNkzu2JOPW39VNe6wT66J
-         wJCSTpjzdlkSbTw35SKiNg22p8ggLKSpk5+kJJHW2X2d4XBZtfxnZl1cPacp57/FiOAJ
-         ct7+NKDkvDETxqSNZ22NVD9AbfTqZ2afBiYjTjCwTChIbyYywSIKDKJhtKXgr3EtJl7+
-         OA4GUzpmFc2xsZAAJY5bj4WRDuKzxja2o5Mi3PVc6f6+55pIWP1Vyht+332vCDWzmK5n
-         C79w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=eRWmAlIfs3iswnjnTR4TzrAUiVQGOccDgG6x9wZmrjY=;
-        fh=5Y+nrAoa5X6RQ8iHGGt/bFgzJDtX6Ppqgrpi8C3oFKU=;
-        b=PHIjs9R6cS9eanf/zqg7NCIOcdqFng3xppaswtMAVO2YJeqiOkkjg67E++hu23qgup
-         uxK9bIXUWbvTC/kcsD6SPb2qmOs9q61j+igcJEIyrNTmXXcnyPMDTlK2UuOFOW1GB/La
-         UbSq3Cb2QHu0LUDj79VziFF4OrBZYDvPqPqdPSy00EqTgCdKYSibT7cXaLiS8pB9rZWB
-         jvKNEvQYcdsNcMGkyQpqZ/afiUqHPjavoJCR5JYHx4LG17TnOvSLDLrij/4VekrJTpvb
-         Okk58qMt9vzXYM9ewqU7wiH7WTJrm1GF5avxNmO1cSW7QCDonTU48Yv0DQtY9ww5cR0P
-         cFPA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792223267; x=1792828067; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eRWmAlIfs3iswnjnTR4TzrAUiVQGOccDgG6x9wZmrjY=;
-        b=ehNE3iKR1FMemamaIhf7rKzmpTd6aUjpZVRlTnXw2rT2KeZFGpgrwgod4rnjB0KvfO
-         O2RP9TFeydIiUuOuRXr9PVaK9SLUsxZ5ioS8yddVbtOZ1jBsLkR7RSGBiIhFZD+R1lxz
-         aoUmGubuN1e70vklWPW3ERDyQC+I8z6DaR2t0h1fWqcxrEgGL1MUZVa0sYhUFA2YP5hk
-         FXUI6VrPBFi3snLVMYVXR4j5vDaGH/n+L1GjQ95+H7A3Kp+du7aa3JLdrUjhyLkzG4H1
-         Pmvy2oL1DK79enzif+W4ZD3rz/3YWvSQSSvDiEVwLJK4Er6SmlVw5AXwvLzSC3DD6mvD
-         y26A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792223267; x=1792828067;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eRWmAlIfs3iswnjnTR4TzrAUiVQGOccDgG6x9wZmrjY=;
-        b=N1mtUXt5roGbKzC0XmZwq9LSbarvSz+hXt4bKRN8Nn1OPUzZKqKgVgN4H5b+pfWXcm
-         eonQZ0mCAc/00C90OHyTsCmuR074yUKpTBcKAJ5xTY2uYdIAb1GmiwwBHUPLmDx+StM7
-         7V46Amcs/Xrk7TiKmkbhQejXAfWRA3ZKBTyosOeI65nqs0DfGCAoGM0RsqfZhr2QUprn
-         ULrGIqbEbV05CAPdkPBU43pG2uUxuNBF+BeKbnn42RxYpQHEU/6o26ZPJqA6sGGWA/EY
-         flt9mjZBtkc4rOt9InJKdAzLBNWZJeJKhZUcWLX8/IMC5m2fZMTXmEJZx4g7AtlCWpOV
-         7DAw==
-X-Forwarded-Encrypted: i=1; AKwUvBwAiLXNXRsmMeA3HgOcizOBZehv90uoc7gS25ATF0a49lww0lfBGDvkK8kAB/AygY8jXmsX14vAqYb3WuY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLnaSxwNk1w842mHu+vaPkNXZryw+t6GCw4+UCnZYpZQEkRE7f2
-	0Lx1kbDRrxLFYCzm15MQc5MVYEVEprZRbVlxKyGcbBhKWISJIGIdhuQLQ3TAbDzjWAEaviG1VnP
-	DiipCwU9wfTURyzb8LO6nmn6fzAuu4vw=
-X-Gm-Gg: AYBFou0s8ZLZETaKW8J1rVIe25g3rb2QbWG2fY1v1Qovfl32vgEZutmqVumsdBGKN3E
-	huSx54sxVCjygBUPh5b7erba+TFfZ5F0XgbE53B+vLEHdAxBu79njJ4NiZRL8h8kxTmquqfjp1O
-	0E39SPjFsRRtIoq//5h65pMvwt35vHPcHV+VccURwtNTn4IK7BUeFM4qm8s4opsPUCD3DORLCfI
-	Poj85Wx1LtduxaSgYO7Hrh57vQHHaMc3By5KHZjnFM60N1EplftgQBUysGenDsCMVOEuFRb1GRI
-	BLSmp8u5jO1pQnkkNvL1v6wN8K3Bn9NLjFeRFO2fiw8YknEZluZSuhb8wnw/YeTFgXHHIKDXjkz
-	Hp7sVpLQ00A==
-X-Received: by 2002:a05:690c:f:b0:8b0:ac9e:14f7 with SMTP id
- 00721157ae682-8b0f2164c94mr7719657b3.28.1792223266956; Sat, 17 Oct 2026
- 00:47:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZSjVg3/f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51C451F000C4;
+	Sat, 17 Oct 2026 07:48:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792223304;
+	bh=INiyZA4QBulgrv+B43Bh/g4Z2yhYtj+aBp4s+wjME0A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZSjVg3/f2f2IEHckEWsa9j7DHSQukPCfT7RXxa/yYO0b0df1HJMWEmHTDMwVgMr+u
+	 /6XSZLjbZC5h15RxWGPzfFrICilQQnRaYwSrS1RvJl3r19Ha8860qIcttrip7DPIdM
+	 ezQVjpLZ3tPQnuT6iiaHLyovMIeTDyjCyXyNobOrZDCRJKIxGcFaSlbnyjJS2AStlC
+	 8t9Zzg3k0lZrCgYmMXwjhiB5l+sUc0HlnUAD+lSo3KE+1KEPSrXwARiPFo1eNZXI7D
+	 NQYcunCW90DQsgo1qEN+NR6LhoUlQTXdPu66ndYhy3s2Ntug5iQ8vbu6QzBqGo/ZKT
+	 B7ReR+DgDeuZA==
+Date: Sat, 17 Oct 2026 10:48:20 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Logan Gunthorpe <logang@deltatee.com>
+Cc: "Popov, Pavel E" <pavel.e.popov@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Jim Chow <jim.chow@broadcom.com>,
+	Radu Rugina <radu.rugina@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Wei Liu <wei.liu@kernel.org>, Michael Kelley <mhklinux@outlook.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
+	"bcm-kernel-feedback-list@broadcom.com" <bcm-kernel-feedback-list@broadcom.com>,
+	"virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 1/2] PCI/P2PDMA: Allow P2PDMA in VMware guests on
+ Intel hosts
+Message-ID: <20261017074820.GD219304@unreal>
+References: <20261016223402.19991-1-pavel.e.popov@intel.com>
+ <20261016223402.19991-2-pavel.e.popov@intel.com>
+ <8b01d643-f62d-4118-a700-8874341d953b@deltatee.com>
+ <LV2PR11MB6070CE9CCA125C290C0F8209B29A2@LV2PR11MB6070.namprd11.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <pm-key-management-objects-candidate-0002-v3-2baa8cad2bb554364e10@gmail.com>
- <20261017035156.GA29318@sol>
-In-Reply-To: <20261017035156.GA29318@sol>
-From: Cen Zhang <zzzccc427@gmail.com>
-Date: Sat, 17 Oct 2026 15:47:32 +0800
-X-Gm-Features: AclHuK-HpdMP-grbZn8KpuFXmo2CHX60pojXLGdBgVLSQqCwngEWAu1uK5ALbG8
-Message-ID: <CAFRLqsWcV=0MKituMQqALy_2rS3kOPPFpMHxn7yRxoyxOHp6hg@mail.gmail.com>
-Subject: Re: [PATCH v2] keys: Avoid the owner account dereference in named
- keyring lookup
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: dhowells@redhat.com, jarkko@kernel.org, paul@paul-moore.com, 
-	jmorris@namei.org, serge@hallyn.com, sergeh@kernel.org, 
-	keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <LV2PR11MB6070CE9CCA125C290C0F8209B29A2@LV2PR11MB6070.namprd11.prod.outlook.com>
 
-Hi Eric,
+On Sat, Oct 17, 2026 at 12:31:49AM +0000, Popov, Pavel E wrote:
+> Logan,
+> 
+> > Why does this now need to be related to the hypervisor? Wouldn't it
+> > make sense to do this check regardless of whether VMware is involved?
+> 
+> The whitelist decides per host bridge, and a global CPU check would
+> override it on these CPUs, for example:
+> 
+> - It allows VMD domains, CXL 1.1 devices and other RCiEPs, which are
+>   not whitelisted.
+> - It overrides the emulated topology in KVM/QEMU guests, which already
+>   decides P2P there.
+> - It makes the existing QAT, DSA and IAA whitelist entries pointless,
+>   since any RCiEP would be allowed.
+> 
+> Limiting it to the hypervisor keeps the whitelist logic unchanged on
+> bare metal and in other guests.
 
-Eric Biggers <ebiggers@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8817=E6=
-=97=A5=E5=91=A8=E5=85=AD 11:51=E5=86=99=E9=81=93=EF=BC=9A
->
-> Don't key_serial_next() and find_ge_key() (used when reading from
-> /proc/keys) have the same bug?
->
-> - Eric
+Logan,
 
-Thansk a lot for the reivew. You're right =E2=80=94 key_serial_next() and
-find_ge_key() have
-the same issue.
+You can see how convoluted and illogical this discussion has become.
 
-I'll send a follow-up patch to fix those as well.
+Initially, Pavel was told that P2P inside a VM is not working reliably
+(to put it mildly). His response was that he wanted Intel to provide
+the same poor experience that AMD currently provides. We agreed.
 
-Thanks for the catch again.
+Now he points out that AMD's solution does not work well and proposes
+keeping his hack, which will not work any better.
 
-Best regards,
-Cen Zhang
+Moreover, it is unrealistic to expect users to run this software and VMware's
+code only on machines certified by Broadcom. It shows complete
+misunderstanding of users.
+
+His claim that HMAT's future is unclear is also inaccurate. Half the work
+had already been done: p2p ACS had been cleaned up and was waiting for
+Bjorn to pick it up; an initial version of the HMAT specification had
+been drafted and verified against the current kernel implementation;
+and the community had been consulted and had endorsed the approach at
+LPC. The remaining work is to update the specification, move it through
+the code-first process, and implement it in QEMU.
+
+The direction is clear, and developer time has been allocated. This will
+happen.
+
+Thanks
+
+> 
+> Thanks,
+> Pavel
+> 
+> > -----Original Message-----
+> > From: Logan Gunthorpe <logang@deltatee.com>
+> > Sent: Friday, October 16, 2026 3:55 PM
+> > To: Popov, Pavel E <pavel.e.popov@intel.com>; Bjorn Helgaas
+> > <bhelgaas@google.com>
+> > Cc: Jim Chow <jim.chow@broadcom.com>; Radu Rugina
+> > <radu.rugina@broadcom.com>; Alexey Makhalov
+> > <alexey.makhalov@broadcom.com>; Wei Liu <wei.liu@kernel.org>; Michael
+> > Kelley <mhklinux@outlook.com>; Lukas Wunner <lukas@wunner.de>; Leon
+> > Romanovsky <leonro@nvidia.com>; Nathan Ciobanu
+> > <nathan.d.ciobanu@linux.intel.com>; bcm-kernel-feedback-
+> > list@broadcom.com; virtualization@lists.linux.dev; linux-
+> > hyperv@vger.kernel.org; linux-pci@vger.kernel.org; linux-
+> > kernel@vger.kernel.org
+> > Subject: Re: [PATCH v2 1/2] PCI/P2PDMA: Allow P2PDMA in VMware guests
+> > on Intel hosts
+> > 
+> > 
+> > 
+> > On 2026-10-16 16:34, Pavel Popov wrote:
+> > > +#ifdef CONFIG_X86
+> > > +/* CPUs whose host bridges support p2pdma, see pci_p2pdma_whitelist[]
+> > > +*/ static const struct x86_cpu_id hypervisor_p2pdma_cpu_ids[] = {
+> > > +	X86_MATCH_VFM(INTEL_SKYLAKE_X, NULL),
+> > > +	X86_MATCH_VFM(INTEL_ICELAKE_X, NULL),
+> > > +	X86_MATCH_VFM(INTEL_ICELAKE_D, NULL),
+> > > +	X86_MATCH_VFM(INTEL_SAPPHIRERAPIDS_X, NULL),
+> > > +	X86_MATCH_VFM(INTEL_EMERALDRAPIDS_X, NULL),
+> > > +	X86_MATCH_VFM(INTEL_GRANITERAPIDS_X, NULL),
+> > > +	X86_MATCH_VFM(INTEL_GRANITERAPIDS_D, NULL),
+> > > +	X86_MATCH_VFM(INTEL_ATOM_CRESTMONT_X, NULL),
+> > > +	X86_MATCH_VFM(INTEL_ATOM_DARKMONT_X, NULL),
+> > > +	X86_MATCH_VFM(INTEL_DIAMONDRAPIDS_X, NULL),
+> > > +	{}
+> > > +};
+> > > +
+> > > +static bool hypervisor_supports_p2pdma(void) {
+> > > +	/* Hypervisor hides host topology, allow p2pdma on whitelisted CPUs
+> > */
+> > > +	if (hypervisor_is_type(X86_HYPER_VMWARE))
+> > > +		return x86_match_cpu(hypervisor_p2pdma_cpu_ids);
+> > > +
+> > > +	return false;
+> > > +}
+> > One quick thought, after a very quick pass at this:
+> > 
+> > Why does this now need to be related to the hypervisor? Wouldn't it make
+> > sense to do this check regardless of whether VMWare is involved?
+> > 
+> > Logan
