@@ -1,183 +1,274 @@
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com [209.85.222.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B592137DEBE
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:39:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792204771; cv=pass; b=LT9aszQRi+gyEi6rJgut2iu4twvB7iXixzFa+WogkTu1k1ogA/4skX2GKT82apOVCjvQaqJWNprDYGt1RQcLkHN4fB0JOQbrZnxuuGgHqCO/jXSpdnVXlS0o3dyeZJZ0e51sNvjcSZW0bSHfbAtcPwD6V2b+UvTyn4jKV64DPgs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792204771; c=relaxed/simple;
-	bh=KC3eu+jm7sIsJ7H5aJTfHeeBZbEsbgdbutde6b93XO0=;
-	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q4dbICqCQBGIWmfAyRTmz4tPmUDOSTdFt8WrRuiA7HrC47E9gy4xUuM02vbd/02o/5/4wVcYKMeQDlXzA2ugfblshbx8z87f4cJfVKpQ7jB6uVsm4FcMRZ4b+DwAzkaEM7xC36SZ5GIgU8rNiSn4DoGVj/2EwU5/kKyYToCpl4g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dfHTEMST; arc=pass smtp.client-ip=209.85.222.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3109033F36D;
+	Sat, 17 Oct 2026 02:40:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792204845; cv=none; b=ABvKwNiQoWyPNBmsPhNl5QrKz6uGi76qFyjcil4oEucDDn5p4om2GB6jZK937gb/RzxDDIEbWGct+A6fBssvQRs0qeavr1H+No0WqE0a22nZB8U+esHgh4d4rNRXR6uXqg8P/HImFftsC32zwQVCZ8TA1PKdjUlGUEQhhSYll8Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792204845; c=relaxed/simple;
+	bh=Fz8Iw++VQj073Cvs2zK5d5NuF86pnYFu3w6uncW1Mhc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q5+ALlQnaePGVKgiBVYd3CzIrc9VFY7SNAsRWxlHb/akINpBrG85/EbYYeZso9uhiW8zFsU0cZIsQGyzGyBuqrgAwTH0b8eyVc2cmLw/o9Au4PFogRC40POjAm0yJHdcID9i/HzztUnQT39nTwzb92uLgeW9QaoBRrGgWbTc62I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KNijxf27; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dfHTEMST"
-Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-9906a5410f5so1531141241.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:39:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792204768; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jSysM6PncWLUP6m84Ma3JT7JeabnIGoyilwCtyoqMRNXcKoVlULhlowi/+RFnu4vjD
-         4BXkNsGKCwPxJH8uf2AnJsvONoq67wKrsk65LFXLGg9+SsVTF/3m9f2RY+tH6CrkNY8B
-         IYrqVoKEzqHou1A4nsIQuDM9pw8ax/GbSsqA50vIjLJ1FnobvpBrYQRfeEprQBFnzkUw
-         KuM+QI/b5pUaj28TwZNFXzqaVv3CZPOkB5gqn00WIIORpiXtWajHtki8yEMSogQk1VK0
-         PkRZATHCxvsMizk+wZqKcn+7ZiB7DUc55vthwPpgkAxANFROFkquVuA6Yx89V4xKeCYo
-         so/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:references
-         :in-reply-to:from:mime-version:dkim-signature;
-        bh=sdlsKEFzOLphdwnKgWd3lyNUyk5CQKvc4F8OOL4Kue8=;
-        fh=RalpZqqEDpXbb8o1lPr70RU2Gtly8Hr20/sid6AqLZ0=;
-        b=FS9CaxDgpsyNNt8fYKz+wrGTeJjt+QleRzxXKwfXNxjLhXTNPAOw3GX9ieiDRIDpZc
-         B+UkFV4XLprUNs7vJ+V3Z+4KlJc69NARcbGHl6v+QsmuOs3YTqe5T4i7jxpwpMIjOgWM
-         5sC6lXkt1ToTog+Y86uVlbmVP1Vw10on9eMup+g0p+9LF7DHwCH8aMLWBpy0seOnZdvI
-         ZAtMcDe7GCICNWN508AkMckOEN4rckM4lp36On9sRATG+1mhWAv3Qj3Ra4XL2HYe8z4c
-         uJQNiGC7qdNuQmAOVYCUZFYGJ6YboVtGendI4Qp4g++sUsFAiuhtwHBVy60ibyv1d/FA
-         1dqQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792204768; x=1792809568; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:references:in-reply-to:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sdlsKEFzOLphdwnKgWd3lyNUyk5CQKvc4F8OOL4Kue8=;
-        b=dfHTEMST/tgeW5FfVyWAvUnTAXcgMwmhamnasFCWAwILU2SmBJBXhHHSvGLE+GAPTN
-         1dPEg++H2baZtAAJa/TamxmSSxu/sDcCdOhr7EP/nh7oBADIUg+eyD+HH9ROHZTIZmdP
-         G4fZQ04IFC0bTbihWhyhAq0B8Alav2cFkYd4TrI92b1ZMU4SACvrEs37qlpYA3aEUO6F
-         ETB+eWN/VDwRnFXoZDhiQwQVhiIiU0Z/E8r4hDa7x1Y7wECuB9/Wks0USR8BylBlDqqm
-         Rbbem4O/0hQDA3anV9JRQBtK5w9SWGeaKdj3NOnfy0Udyntp2VPZwpwMNeTjcczIpzKO
-         9uDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792204768; x=1792809568;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:references:in-reply-to:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sdlsKEFzOLphdwnKgWd3lyNUyk5CQKvc4F8OOL4Kue8=;
-        b=Sy46dvCZMzKpFwzzhvGuKJF/NaqA75if2A1XJSn2wLRAeXhAXfh1aVDGPbkqwAa84/
-         eyy1H2f2zocBL1npUY9PAG3Rfr7N55ONgRcBGKkk0dEjfgX0CQivvSuPIKCYqlcsywzw
-         WKmT5K0sbLqZvU/X+NCTsnu28VgluPofwGDAzyBMlxSjGNFTS762qa7PGmOUgsw4TdtT
-         CkwselpgIJgPjfH6bminViHMmx4RQk+pYAsoiTvOs3JY1+yU9ph5f9L5LQrdhMmC7qHr
-         jO3jQcICDsdTV9SgRELG9AaWhc8kt5d1n71LSKN3v9nrLF7GYRtVBErGktc87Wt4bXUB
-         X4OA==
-X-Forwarded-Encrypted: i=1; AKwUvBwQ0op+tKnnaQsGmfjOfCwoaBoYNaoucn/eaKFKPAWzDZh/M+MHhnIOOm8JJBXIhhmV2ken1A0YF4QBFfA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5snXwPpbPsqX5ZQ8UkjR1c/OMJfm6gKmSV8tSOCYFc+aslKUv
-	k8PXjFC7YAtrmV9V2IpoYWVW7/VZGpvLiBgfkozRv+FPAoSq6pZIY9Ug4V6SqcOw8jiruFp7b9P
-	5TEY8ULY0NcSJht7SG2S7OhvRvzourqz4vSpUcFA=
-X-Gm-Gg: AYBFou2tc7i+YU8X3qIN0LOE/c/YZyAIV9gRTDUPUhLoJ0mwSAA08Xx92n6xtyLzvXY
-	tC36XbjUpEDd//QO89g9+Vh4gd+z2qVmjV2+NfUsRX18sOtuMavPqafqUexpCuI3lrKxShhtABx
-	ETzYLslcBjyg6aTExk3aYR5DWjBrwan0o5Eta8cREs3M4WSuwj3YdzvFSmKeSAYC2NEvqqE++Wy
-	uVAXv7YkCaHqdjA4LQayxH9SMOaaDiDHcxkdnYc4CVlcFTaEfSqY8cdLdODMpaDxnG54DsL2F2k
-	DLV1ewXD4uR2pKLpMzVVsAGusbhbx9BFW7yDk0hgQswlcCL3ijndD0P2tYH13ikzHw==
-X-Received: by 2002:a67:f34d:0:b0:7cc:ace:24ad with SMTP id
- ada2fe7eead31-7cc17c72bd9mr1070408137.0.1792204768576; Fri, 16 Oct 2026
- 19:39:28 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 16 Oct 2026 21:39:27 -0500
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 16 Oct 2026 19:39:19 -0700
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KNijxf27"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Im
+	8iPBUo+PtVh6yAZi2pUTxsJ/mWjuwm0TEOAcFEags=; b=KNijxf27D3TAedEkaL
+	wNZMO/FlUnuIIc6aS9hcMDU0TxIj6ugBaQk0FEhPKKmcZbRMTzFaMm+GRtGqcTHc
+	7/F+qaCu2D5Q4P6K8uf0ysfNdgvsxYPVKIyHt9PO+FONtsvcU8E/AaC4LK9xYmkf
+	eiq0XBh2D4I/KYJotFEeIY3rk=
+Received: from colol4bi5.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3_3To39Jq_QGUAQ--.2811S2;
+	Sat, 17 Oct 2026 10:39:38 +0800 (CST)
+From: Binbin Deng <18983559317@163.com>
+To: sam@mendozajonas.com,
+	fercerpav@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	gwshan@linux.vnet.ibm.com,
+	joel@jms.id.au
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Binbin Deng <18983559317@163.com>
+Subject: [PATCH net v1] net/ncsi: fix use-after-free of ncsi_channel in ncsi_remove_channel()
+Date: Sat, 17 Oct 2026 10:39:34 +0800
+Message-ID: <20261017023934.419611-1-18983559317@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
- Fri, 16 Oct 2026 19:38:21 -0700
-Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
- Fri, 16 Oct 2026 19:37:43 -0700
-From: =?UTF-8?B?6LW15paH5by6?= <berringtoni36@gmail.com>
-In-Reply-To: <CAF2O-sPfK96Bvqtu-reg+y--nuV35tM57Med9irz_a3RK1xhsw@mail.gmail.com>
-References: <CAF2O-sPfK96Bvqtu-reg+y--nuV35tM57Med9irz_a3RK1xhsw@mail.gmail.com>
-Date: Fri, 16 Oct 2026 21:39:27 -0500
-X-Gm-Features: AclHuK_3LJU8o98OAG69Xz_TNEuPj-B3u8dMNV-r9cFLjr8fkIzbRSp1qOk1GNo
-Message-ID: <CAF2O-sNM8HjOOH+sNc+QMTgDpLUKTar_3hXzHPoW+Bi-ve6CyQ@mail.gmail.com>
-Subject: [PATCH v2 2/2] iio: accel: adxl345: propagate errors when disabling
- activity events
-To: =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
-	Lothar Rubusch <l.rubusch@gmail.com>, Joshua Crofts <joshua.crofts1@gmail.com>, linux@analog.com, 
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3_3To39Jq_QGUAQ--.2811S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxtw48tw17tr4DKw13JF1xAFb_yoW3WFW3pF
+	W3try5Jw4jyryrur9aka15Wr13Ar4rX3yUKwnrKw4fAa45GryUuFyxAay0vF15CrZ7uw4a
+	yw4Ygr4Y9rs5JrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziMGQfUUUUU=
+X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC-AqBZWrS3+qyXQAA3w
 
-When disabling an activity or inactivity event in
-adxl345_set_act_inact_en(), adxl345_is_act_inact_ac() is called to
-verify that the currently configured AC/DC coupling matches the event
-being disabled.
+The NCSI generic netlink package information paths walk the global
+ncsi_dev_list (ndp_from_ifindex() -> ncsi_find_dev()) and the
+ndp->packages / np->channels lists through the list_for_each_entry_rcu()
+based NCSI_FOR_EACH_* macros, but they never enter an RCU read-side
+critical section.  Everything these walkers touch is only unlinked with
+list_del_rcu(), so the lifetime contract of the objects is "alive for an
+RCU grace period after unlink"; a walker that does not hold
+rcu_read_lock() has no protection at all once it is preempted mid-walk,
+no matter what the free side does.
 
-adxl345_is_act_inact_ac() returns 1 on a coupling match, 0 on a
-coupling mismatch, or a negative errno if regmap_read() fails. Checking
-<=3D 0 and unconditionally returning 0 swallows negative regmap errors
-and reports a successful write to userspace while leaving the event
-enabled in registers.
+The teardown side breaks the other half of that contract for the
+channels: ncsi_remove_channel() unlinks the channel from its package's
+channel list with list_del_rcu() and then frees the channel's mac/vlan
+filter arrays and the channel object itself immediately.  The netlink
+walkers dereference deep into the channel --
+ncsi_write_channel_info() reads nc->version.fw_name with nla_put_string()
+(strlen) and iterates the nc->vlan_filter.vids[] entries -- so a reader
+mid-walk reads freed memory when a teardown overlaps it.
 
-Store the helper return value in ret and return ret when ret <=3D 0 so
-mismatched coupling still returns 0 while negative regmap errors are
-propagated.
+Either half alone leaves the race, so fix both sides:
 
-Fixes: 31f7679bb69a ("iio: accel: adxl345: add coupling detection for
-activity/inactivity")
-Assisted-by: LLM
-Signed-off-by: =E8=B5=B5=E6=96=87=E5=BC=BA <berringtoni36@gmail.com>
+  * Enter the read-side critical section in the NCSI_CMD_PKG_INFO doit
+    (ncsi_pkg_info_nl()) and dump (ncsi_pkg_info_all_nl()) handlers and
+    keep it held across every dereference of ndp, np and nc.  The doit
+    response skb is allocated before the lock is taken so that the
+    GFP_KERNEL allocation does not run under rcu_read_lock(); the dump
+    handler only appends to the callback skb it is given and can hold
+    the lock across its whole walk.
+
+  * Move the frees of nc->mac_filter.addrs, nc->vlan_filter.vids and nc
+    into an RCU callback.  The two arrays are only reachable through
+    the channel object, so they have to share its grace period.
+
+The race needs no real NC hardware:
+
+  writer: rmmod ftgmac100
+            -> ftgmac100_remove() -> ncsi_unregister_dev()
+            -> ncsi_remove_package() -> ncsi_remove_channel() -> kfree()
+  reader: sendmsg(NETLINK_GENERIC, NCSI_CMD_PKG_INFO)
+            -> ncsi_pkg_info_nl() -> ncsi_write_package_info()
+            -> ncsi_write_channel_info()
+
+(freeing happens before unregister_netdev(), so the netdev, and with it
+the genl entry point, stays reachable during the whole window).
+
+Tested on an arm multi_v7 kernel (KASAN + SLUB + PREEMPT) running as a
+QEMU ast2600-evb guest with a host-side NC-SI responder; the PoC hammers
+NCSI_CMD_PKG_INFO from four threads while cycling insmod/rmmod
+ftgmac100 (doit and dump variants in parallel).  KASAN fires at the
+first teardown of every boot:
+
+  BUG: KASAN: slab-use-after-free in ncsi_write_package_info+0xa5c/0xf84
+  Read of size 1 at addr c69019e0 by task poc_dump/68
+  CPU: 0 UID: 0 PID: 68 Comm: poc_dump Not tainted 7.2.6 #1 PREEMPT
+  Hardware name: Generic DT based system
+  Call trace:
+   ...
+   kasan_report from ncsi_write_package_info+0xa5c/0xf84
+   ncsi_write_package_info from ncsi_pkg_info_nl+0x320/0x63c
+   ncsi_pkg_info_nl from genl_family_rcv_msg_doit+0x218/0x2d8
+   genl_family_rcv_msg_doit from genl_rcv_msg+0x578/0xb24
+   genl_rcv_msg from netlink_rcv_skb+0x134/0x3c4
+   netlink_rcv_skb from genl_rcv+0x24/0x34
+   genl_rcv from netlink_unicast+0x884/0xac0
+   netlink_unicast from netlink_sendmsg+0x62c/0xb98
+   netlink_sendmsg from __sys_sendto+0x290/0x3e0
+   __sys_sendto from sys_send+0x18/0x20
+   sys_send from ret_fast_syscall+0x0/0x5c
+
+Fixes: 2d283bdd079c ("net/ncsi: Resource management")
+Fixes: 955dc68cb9b2 ("net/ncsi: Add generic netlink family")
+Signed-off-by: Binbin Deng <18983559317@163.com>
 ---
-Validation on macOS ARM64 with Apple clang 17:
-- Compiled the seven event-write/disable driver functions verbatim with
-  the driver header, using a host regmap stub for deterministic read
-  failures and register state checks.
-- The original code failed all 12 disable regmap-error cases (returning 0
-  instead of -EIO, -ETIMEDOUT and -EREMOTEIO); the patch passed all 29
-  cases across DC/AC activity and inactivity disable error propagation,
-  coupling-mismatch ignore, normal disable, normal enable, enable read
-  failure and unsupported direction.
-- Verified that failed disable reads exit after the first regmap_read()
-  without issuing register writes or altering enabled register bits.
-- Used -Wall -Wextra -Werror, AddressSanitizer and UndefinedBehaviorSanitiz=
-er.
-- Also compiled adxl345_core.o, adxl345_spi.o and adxl345_i2c.o as 64-bit
-  x86_64 ELF relocatable objects with clang --target=3Dx86_64-unknown-linux=
--gnu
-  against unpacked Debian Linux 6.1 headers plus upstream IIO/regmap header=
-s.
-- git diff --check and checkpatch.pl --no-tree --no-signoff --strict
-  passed with 0 errors, 0 warnings and 0 checks.
+ net/ncsi/internal.h     |  1 +
+ net/ncsi/ncsi-manage.c  | 20 ++++++++++++++------
+ net/ncsi/ncsi-netlink.c | 36 ++++++++++++++++++++++++++----------
+ 3 files changed, 41 insertions(+), 16 deletions(-)
 
-This is a host function-chain regression and cross-target object compile,
-not an in-kernel Kbuild/KUnit execution or hardware sensor test.
-
-AI assistance: Antigravity identified the error-swallowing check in
-adxl345_set_act_inact_en(), drafted this fix, the fault-injection test
-and changelog.
-
-The request was to prepare a driver/BSP/kernel contribution related to
-an ADXL345 SPI/IIO vibration-monitoring project with reproduction and check=
-s.
-
- drivers/iio/accel/adxl345_core.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/iio/accel/adxl345_core.c b/drivers/iio/accel/adxl345_c=
-ore.c
-index 5983fc7..8ec1bbc 100644
---- a/drivers/iio/accel/adxl345_core.c
-+++ b/drivers/iio/accel/adxl345_core.c
-@@ -692,8 +692,9 @@ static int adxl345_set_act_inact_en(struct
-adxl345_state *st,
- 		 * current call attempts to turn off a DC-coupled activity, this
- 		 * inconsistency should be detected here.
- 		 */
--		if (adxl345_is_act_inact_ac(st, type) <=3D 0)
--			return 0;
-+		ret =3D adxl345_is_act_inact_ac(st, type);
-+		if (ret <=3D 0)
-+			return ret;
+diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+index adee6dcabdc3..530834d8caa7 100644
+--- a/net/ncsi/internal.h
++++ b/net/ncsi/internal.h
+@@ -239,6 +239,7 @@ struct ncsi_channel {
+ 	} monitor;
+ 	struct list_head            node;
+ 	struct list_head            link;
++	struct rcu_head             rcu;
+ };
+ 
+ struct ncsi_package {
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index 54d0df0a9efe..c16047dee3f8 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -242,17 +242,21 @@ struct ncsi_channel *ncsi_add_channel(struct ncsi_package *np, unsigned char id)
+ 	return nc;
+ }
+ 
++static void ncsi_channel_release(struct rcu_head *rcu)
++{
++	struct ncsi_channel *nc = container_of(rcu, struct ncsi_channel, rcu);
++
++	kfree(nc->mac_filter.addrs);
++	kfree(nc->vlan_filter.vids);
++	kfree(nc);
++}
++
+ static void ncsi_remove_channel(struct ncsi_channel *nc)
+ {
+ 	struct ncsi_package *np = nc->package;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&nc->lock, flags);
+-
+-	/* Release filters */
+-	kfree(nc->mac_filter.addrs);
+-	kfree(nc->vlan_filter.vids);
+-
+ 	nc->state = NCSI_CHANNEL_INACTIVE;
+ 	spin_unlock_irqrestore(&nc->lock, flags);
+ 	ncsi_stop_channel_monitor(nc);
+@@ -263,7 +267,11 @@ static void ncsi_remove_channel(struct ncsi_channel *nc)
+ 	np->channel_num--;
+ 	spin_unlock_irqrestore(&np->lock, flags);
+ 
+-	kfree(nc);
++	/* Readers (netlink package info walkers, channel configuration
++	 * worker) may still hold the channel or its filter arrays;
++	 * release everything after a grace period.
++	 */
++	call_rcu(&nc->rcu, ncsi_channel_release);
+ }
+ 
+ struct ncsi_package *ncsi_find_package(struct ncsi_dev_priv *ndp,
+diff --git a/net/ncsi/ncsi-netlink.c b/net/ncsi/ncsi-netlink.c
+index 8cc538358f6a..3de607f6982c 100644
+--- a/net/ncsi/ncsi-netlink.c
++++ b/net/ncsi/ncsi-netlink.c
+@@ -169,11 +169,6 @@ static int ncsi_pkg_info_nl(struct sk_buff *msg, struct genl_info *info)
+ 	if (!info->attrs[NCSI_ATTR_PACKAGE_ID])
+ 		return -EINVAL;
+ 
+-	ndp = ndp_from_ifindex(genl_info_net(info),
+-			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
+-	if (!ndp)
+-		return -ENODEV;
+-
+ 	skb = genlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
+ 	if (!skb)
+ 		return -ENOMEM;
+@@ -192,7 +187,21 @@ static int ncsi_pkg_info_nl(struct sk_buff *msg, struct genl_info *info)
+ 		kfree_skb(skb);
+ 		return -EMSGSIZE;
  	}
++	/* The device is resolved and the lists are walked inside an RCU
++	 * read-side critical section: the teardown path only unlinks these
++	 * objects and frees them after a grace period.
++	 */
++	rcu_read_lock();
++	ndp = ndp_from_ifindex(genl_info_net(info),
++			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
++	if (!ndp) {
++		rcu_read_unlock();
++		kfree_skb(skb);
++		return -ENODEV;
++	}
++
+ 	rc = ncsi_write_package_info(skb, ndp, package_id);
++	rcu_read_unlock();
+ 
+ 	if (rc) {
+ 		nla_nest_cancel(skb, attr);
+@@ -228,20 +237,26 @@ static int ncsi_pkg_info_all_nl(struct sk_buff *skb,
+ 	if (!attrs[NCSI_ATTR_IFINDEX])
+ 		return -EINVAL;
+ 
++	package_id = cb->args[0];
++
++	rcu_read_lock();
+ 	ndp = ndp_from_ifindex(get_net(sock_net(skb->sk)),
+ 			       nla_get_u32(attrs[NCSI_ATTR_IFINDEX]));
+ 
+-	if (!ndp)
++	if (!ndp) {
++		rcu_read_unlock();
+ 		return -ENODEV;
++	}
+ 
+-	package_id = cb->args[0];
+ 	package = NULL;
+ 	NCSI_FOR_EACH_PACKAGE(ndp, np)
+ 		if (np->id == package_id)
+ 			package = np;
+ 
+-	if (!package)
++	if (!package) {
++		rcu_read_unlock();
+ 		return 0; /* done */
++	}
+ 
+ 	hdr = genlmsg_put(skb, NETLINK_CB(cb->skb).portid, cb->nlh->nlmsg_seq,
+ 			  &ncsi_genl_family, NLM_F_MULTI,  NCSI_CMD_PKG_INFO);
+@@ -265,9 +280,10 @@ static int ncsi_pkg_info_all_nl(struct sk_buff *skb,
+ 	genlmsg_end(skb, hdr);
+ 
+ 	cb->args[0] = package_id + 1;
+-
++	rcu_read_unlock();
+ 	return skb->len;
+ err:
++	rcu_read_unlock();
+ 	genlmsg_cancel(skb, hdr);
+ 	return rc;
+ }
+-- 
+2.43.0
 
- 	/* Start modifying configuration registers */
---=20
-2.50.1 (Apple Git-155)
