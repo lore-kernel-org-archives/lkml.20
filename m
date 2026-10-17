@@ -1,38 +1,38 @@
 Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE68749BB6D;
-	Sat, 17 Oct 2026 12:25:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB7B493643;
+	Sat, 17 Oct 2026 12:25:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792239918; cv=none; b=HdVtf1QXdXsiasLlgJXr6k7O87+Eg0k2DwNYjQ5KwXMqOXGbvcfM9enZWU6PdUdK+gZUfdJ11pr33YnS7ztnp2WJHR/QDIDmlS27nh6pCb0KqeZOmqEVuTVAD5zx6OK9tfIjrHBtZ3L30rzrl5L8T8XdLru6QzuOaCReTM9CPyo=
+	t=1792239915; cv=none; b=SXF4yfZyo0ZO8g9W/hITEglMJUuwejVb+MPrl6HXE2lp75UJiwO6M50dDmCIefReajCV8OCmlomIGRsgXS2/0w3zKU1z4Cg7YXhoiioow/RFpvCbwnRcDcY5eeSvAlB+EFBVD/2Uz0mKgbByF03vCaTxKFqn5MQobB3ZbzMpV2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792239918; c=relaxed/simple;
-	bh=XfCqxI74Aa7TBSekiDIlAL+5UvuAGb/1sOZm3WC6wVM=;
+	s=arc-20240116; t=1792239915; c=relaxed/simple;
+	bh=9OZzLLdtRGITcwl4NkwZq1KkzGInCqxcIJ3Kj5l+ZEk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SUpnMJvCfOmXFaTKDrWA84DKjv4g89vz1wAKF8A63rOFCrZlKZ9vioSHN3cfiU66t6j6L47XAcs8nlOXFwRo4EoyRc6SRIxkVjU5Q8CKxwrjBQzMRdDEBxYB1O2ZqDbsZJ68c49keVsfxhCjZ8Gn9OU0g8oNW/FhrehAi0uJXz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ZV2vVaw3; arc=none smtp.client-ip=90.155.92.199
+	 MIME-Version; b=DVmjgpJf9Gv0vxHTvf+4wmLzNbVEf72I6pNeyS3PpbwFr4SqSMBVGRVu7I61BK1xzPRDvJWYCv2Pu3Qs4ij4dKFpzgPkRWO9QTUFAMrM8690XQNVXbMtrsWr8nqC1is3juUz4obItB2w6iCWke8ECafKhMrTAqukm5N0Jky1mMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=PiNCpGvT; arc=none smtp.client-ip=90.155.92.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZV2vVaw3"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="PiNCpGvT"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=M0zgIqRNN0kxeGE0VAlc8ttUC9jsMRxSkD892xseXNo=; b=ZV2vVaw3/CtUN79rVLZvlzpllr
-	J3hPnPZP42/wr/s0PKyIEQN/KsOLEGVRj140Q6lRHG4z06EGtTJulGebw6c7KmlB6aIthOy8MObky
-	T5JZwexJDMa/Jm6AT7QLBsNHherhOg3Zdx3Qx5SVXrHoRt8uxuMob4BNHOai5aTLtNwzD62qlQ+E2
-	LnZfwC+jFe8lFw74jl0Gyn4ILKeNstRb3VFTnDqTLHZYzhKuHQJuddIAgT5C0+LQaTfnk61YN7zAK
-	ZgRPfld5KAsYKX1vEFaHNvtvGtgwwX7vykTUUlTYCtAom7cWu4oCLlJsQ/KPp/HP0pgniXdh6Caxi
-	A38QGdPA==;
+	bh=GhIRKFeGlpUc3ofug/B/DXVsuSCLfK/2wSp9S7ZRGEQ=; b=PiNCpGvTgU4gOQhQGv3pA2eLJu
+	Y+d5BlSK6l1fSfpUKB3XcUSTdoIUychMst+t0fb9lNp7mYpp0aG+m09iInlILK/EN/oYK+moZ2NN6
+	ToVqZ+KAljFvypdaVEIeVXYeYqfCLE0g99siWUv0lbGJqaU6z8koqQsAZeIBDLsTwWcsykAODIfdZ
+	c6aYK+B6bOWBfC+na4bqVc3ZlaIqpRtOTBsBGKVAZI3UbPOoGP1g9IUV0O3gKWaNmNV4xO8gCQUmV
+	lK2CkUehNm5yAx2m+G+D8yhW6GY/JysOmfMlYXy3bYC1XNbaS1e5jK3nMJDRp8gb3d7KYlRKYOe/8
+	jHU6D2Iw==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xI3TG-00000002Lfd-3FPU;
-	Sat, 17 Oct 2026 12:25:07 +0000
+	id 1xI3TE-00000002LfH-1bdD;
+	Sat, 17 Oct 2026 12:25:05 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xI3TE-00000002YoQ-19Z6;
-	Sat, 17 Oct 2026 13:25:04 +0100
+	id 1xI3TC-00000002Yla-1iCl;
+	Sat, 17 Oct 2026 13:25:02 +0100
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -53,9 +53,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Mushahid Hussain <hmushi@amazon.co.uk>,
 	David Woodhouse <dwmw@amazon.co.uk>,
 	nh-open-source@amazon.com
-Subject: [RFC PATCH 51/55] KVM: SVM: Keep TPR[3:0] across exits without a guest CR8 write
-Date: Sat, 17 Oct 2026 13:24:57 +0100
-Message-ID: <20261017122501.610248-52-dwmw2@infradead.org>
+Subject: [RFC PATCH 12/55] KVM: x86: initialise Hyper-V state on every plane vCPU
+Date: Sat, 17 Oct 2026 13:24:18 +0100
+Message-ID: <20261017122501.610248-13-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261017122501.610248-1-dwmw2@infradead.org>
 References: <20261017122501.610248-1-dwmw2@infradead.org>
@@ -71,78 +71,145 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-V_TPR holds only TPR[7:4], and sync_cr8_to_lapic() pushed it back into
-the APIC after every VMRUN.  A guest that sets TASKPRI through the
-APIC page or MSR loses the low nibble at the next exit: VTL1 in the
-hyperv_vsm KUT writes 0xff and reads back 0xf0 ("VTL1 TASKPRI write
-sticks"), and interrupts in the sub-class the guest meant to mask are
-let through.  VMX keeps all eight TPR bits in the virtual-APIC page
-and does not have this problem.
+When userspace sets a Hyper-V CPUID, kvm_set_cpuid() walks the vCPU's
+planes to allocate the per-plane kvm_vcpu_hv, but passes the plane-0
+vCPU to kvm_hv_vcpu_init() on every iteration. Non-zero plane vCPUs
+are left without hv_vcpu, which trips the
+WARN_ON_ONCE(vcpu->arch.hyperv_enabled) in kvm_hv_set_cpuid() and
+leaves their vp_index and SynIC state uninitialised until a lazy init
+path happens to run. Pass the plane vCPU being iterated.
 
-Hardware changes V_TPR only on a guest CR8 write.  Record the value
-sync_lapic_to_cr8() loads on entry and push V_TPR back into the APIC
-only when it differs, i.e. only when the guest actually wrote CR8.  A
-CR8 write whose value matches the loaded TPR[7:4] is indistinguishable
-from no write and now preserves TPR[3:0], where architecturally it
-would clear it; the previous behaviour cleared TPR[3:0] on every exit
-regardless.
+A twin created after KVM_SET_CPUID never passes through
+kvm_set_cpuid() at all: it shares the common CPUID, and
+kvm_arch_vcpu_create() syncs it through kvm_vcpu_after_set_cpuid(),
+so that walk cannot cover it and the twin hits the same WARN with an
+empty cpuid_cache. Allocate the context in kvm_vcpu_after_set_cpuid()
+when the CPUID has the Hyper-V signature and the vCPU doesn't have
+one yet. The allocation is idempotent, so the kvm_set_cpuid() path is
+unaffected; if it fails, treat Hyper-V as disabled for the vCPU
+exactly as a failing kvm_set_cpuid() would have.
+
+Also admit KVM_ENABLE_CAP on plane vCPU fds, so userspace can enable
+per-vCPU capabilities such as KVM_CAP_HYPERV_SYNIC2 on a plane vCPU
+before it first runs.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 Assisted-by: LLM
 ---
- arch/x86/kvm/svm/svm.c | 11 ++++++++++-
- arch/x86/kvm/svm/svm.h |  9 +++++++++
- 2 files changed, 19 insertions(+), 1 deletion(-)
+ arch/x86/kvm/cpuid.c | 18 +++++++++++++++---
+ arch/x86/kvm/cpuid.h |  1 +
+ arch/x86/kvm/x86.c   | 20 +++++++++++++++++++-
+ 3 files changed, 35 insertions(+), 4 deletions(-)
 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 42a12f2ad612..46ab1f8e330f 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -4320,7 +4320,15 @@ static inline void sync_cr8_to_lapic(struct kvm_vcpu *vcpu)
+diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
+index fab075bb6fdc..fe8a793b1643 100644
+--- a/arch/x86/kvm/cpuid.c
++++ b/arch/x86/kvm/cpuid.c
+@@ -324,7 +324,7 @@ static void kvm_update_cpuid_runtime(struct kvm_vcpu *vcpu)
+ 						 vcpu->arch.ia32_xss, true);
+ }
  
- 	if (!svm_is_intercept(svm, INTERCEPT_CR8_WRITE)) {
- 		int cr8 = svm->vmcb->control.int_ctl & V_TPR_MASK;
--		kvm_set_cr8(vcpu, cr8);
+-static bool kvm_cpuid_has_hyperv(struct kvm_vcpu *vcpu)
++bool kvm_cpuid_has_hyperv(struct kvm_vcpu *vcpu)
+ {
+ #ifdef CONFIG_KVM_HYPERV
+ 	struct kvm_cpuid_entry2 *entry;
+@@ -380,6 +380,7 @@ void kvm_vcpu_after_set_cpuid(struct kvm_vcpu *vcpu)
+ 	struct kvm_cpuid_entry2 *best;
+ 	struct kvm_cpuid_entry2 *entry;
+ 	bool allow_gbpages;
++	bool hyperv_enabled;
+ 	int i;
+ 
+ 	memset(common->arch.cpu_caps, 0, sizeof(common->arch.cpu_caps));
+@@ -456,7 +457,18 @@ void kvm_vcpu_after_set_cpuid(struct kvm_vcpu *vcpu)
+ 					 __cr4_reserved_bits(guest_cpu_cap_has, vcpu);
+ #undef __kvm_cpu_cap_has
+ 
+-	kvm_hv_set_cpuid(vcpu, kvm_cpuid_has_hyperv(vcpu));
++	hyperv_enabled = kvm_cpuid_has_hyperv(vcpu);
 +
-+		/*
-+		 * Hardware changes V_TPR only on a guest CR8 write.  Pushing
-+		 * an unchanged value into the APIC would zero TPR[3:0] (CR8
-+		 * maps TPR[7:4] alone), wiping the low nibble of a TASKPRI
-+		 * value the guest set through the APIC page or MSR.
-+		 */
-+		if (cr8 != svm->v_tpr_entry)
-+			kvm_set_cr8(vcpu, cr8);
- 	}
++	/*
++	 * A plane twin created after KVM_SET_CPUID shares the common CPUID
++	 * without passing through kvm_set_cpuid(), which is what allocates
++	 * the Hyper-V context for the planes that exist at set time;
++	 * allocate it here for a late-created twin.
++	 */
++	if (hyperv_enabled && kvm_hv_vcpu_init(vcpu))
++		hyperv_enabled = false;
++
++	kvm_hv_set_cpuid(vcpu, hyperv_enabled);
+ 
+ 	/* Invoke the vendor callback only after the above state is updated. */
+ 	kvm_x86_call(vcpu_after_set_cpuid)(vcpu);
+@@ -565,7 +577,7 @@ static int kvm_set_cpuid(struct kvm_vcpu *vcpu, struct kvm_cpuid_entry2 *e2,
+ #ifdef CONFIG_KVM_HYPERV
+ 	if (kvm_cpuid_has_hyperv(vcpu)) {
+ 		vcpu_for_each_plane(common, i, v) {
+-			r = kvm_hv_vcpu_init(vcpu);
++			r = kvm_hv_vcpu_init(v);
+ 			if (r)
+ 				goto err;
+ 		}
+diff --git a/arch/x86/kvm/cpuid.h b/arch/x86/kvm/cpuid.h
+index 75abf447eabf..873377404899 100644
+--- a/arch/x86/kvm/cpuid.h
++++ b/arch/x86/kvm/cpuid.h
+@@ -19,6 +19,7 @@ static inline void kvm_finalize_cpu_caps(void)
  }
  
-@@ -4335,6 +4343,7 @@ static inline void sync_lapic_to_cr8(struct kvm_vcpu *vcpu)
- 	cr8 = kvm_get_cr8(vcpu);
- 	svm->vmcb->control.int_ctl &= ~V_TPR_MASK;
- 	svm->vmcb->control.int_ctl |= cr8 & V_TPR_MASK;
-+	svm->v_tpr_entry = cr8 & V_TPR_MASK;
- }
- 
- static void svm_complete_soft_interrupt(struct kvm_vcpu *vcpu, u8 vector,
-diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-index 64438317d148..746a2ae98c4c 100644
---- a/arch/x86/kvm/svm/svm.h
-+++ b/arch/x86/kvm/svm/svm.h
-@@ -316,6 +316,15 @@ struct vcpu_svm {
- 
- 	void *msrpm;
+ void kvm_vcpu_after_set_cpuid(struct kvm_vcpu *vcpu);
++bool kvm_cpuid_has_hyperv(struct kvm_vcpu *vcpu);
+ struct kvm_cpuid_entry2 *kvm_find_cpuid_entry2(struct kvm_cpuid_entry2 *entries,
+ 					       int nent, u32 function, u64 index);
+ /*
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 2c41c53e4d4f..0828889db149 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -6286,6 +6286,7 @@ static int kvm_get_reg_list(struct kvm_vcpu *vcpu,
+ bool kvm_arch_is_vcpu_plane_ioctl(unsigned ioctl)
+ {
+ 	switch (ioctl) {
++	case KVM_ENABLE_CAP:
+ 	case KVM_GET_DEBUGREGS:
+ 	case KVM_SET_DEBUGREGS:
+ 	case KVM_GET_LAPIC:
+@@ -13135,9 +13136,24 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
+ 	vcpu->arch.hv_root_tdp = INVALID_PAGE;
+ #endif
  
 +	/*
-+	 * V_TPR value written by sync_lapic_to_cr8() on the last entry.
-+	 * sync_cr8_to_lapic() pushes V_TPR back into the APIC only when it
-+	 * differs, i.e. when the guest wrote CR8 in guest mode: V_TPR holds
-+	 * TPR[7:4] only, so an unconditional back-sync would zero TPR[3:0]
-+	 * after every exit, losing the low nibble of an APIC TASKPRI write.
++	 * A plane twin created after KVM_SET_CPUID shares CPUID that may
++	 * already advertise Hyper-V.  Allocate the Hyper-V context now so
++	 * a failure fails the creation; left to kvm_vcpu_after_set_cpuid()
++	 * below, an -ENOMEM silently downgrades just this twin to no
++	 * Hyper-V (its MSRs fail) while the shared CPUID still advertises
++	 * the Hyper-V signature, and nothing short of another full
++	 * KVM_SET_CPUID repairs it.
 +	 */
-+	u8 v_tpr_entry;
++	if (kvm_cpuid_has_hyperv(vcpu)) {
++		r = kvm_hv_vcpu_init(vcpu);
++		if (r)
++			goto free_guest_fpu;
++	}
 +
- 	ulong nmi_iret_rip;
+ 	r = kvm_x86_call(vcpu_create)(vcpu);
+ 	if (r)
+-		goto free_guest_fpu;
++		goto free_hv;
  
- 	struct svm_nested_state nested;
+ 	kvm_xen_init_vcpu(vcpu);
+ 	vcpu_load(vcpu);
+@@ -13148,6 +13164,8 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
+ 	vcpu_put(vcpu);
+ 	return 0;
+ 
++free_hv:
++	kvm_hv_vcpu_uninit(vcpu);
+ free_guest_fpu:
+ 	fpu_free_guest_fpstate(&vcpu->arch.guest_fpu);
+ free_emulate_ctxt:
 -- 
 2.50.1
 
