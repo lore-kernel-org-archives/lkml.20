@@ -1,61 +1,64 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472AB29408
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:02:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3CD345BE3
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:02:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792195327; cv=none; b=CWxRTRf01eFMSJ3Or/cFF8AkxNZ5DyVQqDm2APmHY4RyX41IXgPudsXB8hCvFJL8VIYQff/+0vXGjz2eyfhQLlcwkYbIgctlSmlwtbtWlPEQ/q1maNLIVY+AubRZQslFTS2csagtzXaPoVKeaRfpr82BeA/cODnq9YBgJcQmdhY=
+	t=1792195329; cv=none; b=jDkzGKyB5L5bIfHz8jEydXbCrHF9iIhnri7HIO98lHpx0FM5uEmDI8Eag1/dlMv7hlExqPb6MlDM76Hz49gy4o8CaC6QzPnqqh7nYCaWGMh7NMLTZpC88JDISZVPyhC0FXN7HipthUHg4GTHV7ylJsqNokZDOqlCsqbs2heiZT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792195327; c=relaxed/simple;
-	bh=POXTrNGv+GCsq3rpGkOZHzhbXVWYTVD57aU2fqPlwHg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DzoLI4UvZuPJw2njo/atXHsPM8+xSZK94f7uylCGHRYBUWJiMwh96c1TBEgjMWPua20dXsPv06XSfcy46n/hGeW9I4xkXdk5+XkmwxHIaWT3KDY3/BAvLD1VhirBILT5c5wKyRtVef8f5gcW+mZ4nmQK0eHJ9/ntTu4VPlW9ktw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HAcG/L6f; arc=none smtp.client-ip=209.85.128.176
+	s=arc-20240116; t=1792195329; c=relaxed/simple;
+	bh=bpFNZaYuwTCMcr+uQiesvng45mUPfxfYKl8zKxZwNI8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=twpeTgNFcAx83Psyjjp2iAcaCyq+7H1/n6MbW6gxA0QNFKrMBbt1hrCkGzIrJcPG/Y2OSrpAOMhLatHONCTirrxzdOgrYhezEwQFx0yyQNZTFYUVfoXZArrksVnI6/XTuOlXvxYE+qNNbRcAL42vXnw+y0xyXWouj4EwtcaHCVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nNq1Nn/0; arc=none smtp.client-ip=209.85.128.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HAcG/L6f"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8ab432273c5so3962777b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:02:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nNq1Nn/0"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-87ab6e5f91eso4137507b3.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:02:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792195325; x=1792800125; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kb5ovXG39HlSm9ZP0WcMH+pOxW4KkuHVqzsRFfblPd0=;
-        b=HAcG/L6fKC8XZyM/9O7Pipvwi1y7j3cqLvXeXz598VKC2zpT+pT9dT03fJWxYUAWkt
-         4I6I8AAoPqq24NSpbw24+9LR4WuoiyIMkjMacH0VuvM3O4zTLLXYUWRvDsvvO+BhTUHZ
-         GjU131Rn/+h9WUOFH02u35ZJpv2NBWu9asZuyXWmSYOkCDRAlwYdYygH+pJESNL4XhPA
-         X9PXwY4nmDGFQn+IV36iEuChz3WuEmYM/aJqprO8/BkbZRplh3oUUBR7BDPnad7bu/+w
-         rlQy6KZjUQgU+cmgYMAxtga+Vhlg1eGNMIrNUfSE3Rxgr99KbjpzhmeJZmjEBjxtsgpm
-         DAtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792195325; x=1792800125;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792195327; x=1792800127; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kb5ovXG39HlSm9ZP0WcMH+pOxW4KkuHVqzsRFfblPd0=;
-        b=UGuotVUDXkLx37zt5QmNv26SCxiUdsYYnsuXUmyksaMi015BPljsVN2blNCVlARS45
-         Gxktx6+RLku8AJ7D0vqRXrsxvYCIjIGdKkchK/j0AVdm6q8kOhRR/n7OeEykYNQ6mUhW
-         lq1hFe3JLPQOxWziLwY1xHQPehPbOPFu/ysh+eUmzTYAr6iW3PqcbADYv4e8PakIyU/m
-         tZAdd7EreUrA+ar8yx0n7ML8uxb8LuMtcX93whuc5DUx7Gz1UHvvMRyDwTiH5v6+6U8T
-         Xaa0RqywktFrFIhXBAWGUPB4FYCMtosMggOVLxh//ZJuERh5EA9OlDliZ2WbN8wZuifr
-         5ndw==
-X-Forwarded-Encrypted: i=1; AKwUvBy3WHu1rzvMqsmLCPrvsJGMHlm14FMenQKxFGElSZl9C+nE77C2+dtpPCdxlFY+TtMLGTkOw43RSqnuD84=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKIGJ2naVFUiJ/VvTPhJEqLc13TCLStDlnZtQa7uYSfoiKVYHPd
-	GyFn73WuQZmuY/IVL97KzqlAjvyz4VVHscEPrYFjZWeiimhUjEt9vib0
-X-Gm-Gg: AYBFou2CrAJ7WPReIMT4nG6Taeo5VR2/UIkklIY2rvR9ELWsZNihcZOyZuDBPOjn2m0
-	nRtqwJa2rPydRrHTQqUatEMR7OSlEzaVq6/CPgyiGRkrbgqx8egmn3GLd1ulbQQJ1CTdsrFgzdK
-	qNYXLqf719Mrorg3GAmwVABqSdIWm3TCUhh55CrbIm1mU1S2JGnCjjSN+sC3jf7TI/sPh+4Sw8k
-	kOCt7dWPBWdrxxkqhxvGUgRKsPcclnc/meHKgZ+JWBKJ2s6HrbG0zPnlH0AGIDwXg6GYtUdyUFX
-	nFSRQJPuRbqfQ7z11Naks9VltwpXyBKtDpmAc04NMn+gX4j+LL72gxHyRVr6g30pW2Ea/bztW+G
-	DIVGMR5BgUCwdFjZGxMRqIqWIUixZKfQTAl1xAapszy4mDZi/V25YvhEvK7M0B9AO7CChgcw0ep
-	RiAkFoGmo2KMWROCtyNFF5HWBFpl3GopZveSNHgzJed4Kx6sN7ocnXsNkt7qSJue6w6f6TqQ==
-X-Received: by 2002:a53:ac9c:0:b0:679:b16a:8dc8 with SMTP id 956f58d0204a3-679ca756264mr354465d50.20.1792195324916;
-        Fri, 16 Oct 2026 17:02:04 -0700 (PDT)
-Received: from gmail.com ([2a03:2880:1fff:49::])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679b1c91e8esm1729279d50.2.2026.10.16.17.02.04
+        bh=YMX1yKnizXoHYuUYwiXKhlsMcTLb0C4TkTtJpsCQmZc=;
+        b=nNq1Nn/04ZeGibXNKy2NxhLYvt9MPedMGfkskb3+mFmjHUiOWz2cnN3KI/2zQbFuY0
+         NMGmOIjx5rBcQLeMVAeBpLM/d/u9CmFBDm/9t7uC8PDqAS0KP8Lqem7aiYuC9ZYo7Eeq
+         Kw6e8Jq+a6tiL7cT9jr+tIvmBnYNMd1NUkI8AypALTcxIe46zNCyOAXidXrF33VromxD
+         XRmpbX1IKoyqrptYyqtVgX9xJ7rmCzEnnIfYYfj/PrMatkAFbwmUqJ5ZyVRVGhN6mZrz
+         1MczS5wN2W16twZECEQi0Qs3vQxFl/wdYGTcKlssT7ogIIu7MKwo9NBzKGgRf+7tygm5
+         Y2rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792195327; x=1792800127;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YMX1yKnizXoHYuUYwiXKhlsMcTLb0C4TkTtJpsCQmZc=;
+        b=xJkQj6qlDhZTrvuZwYttsPJDqDx8p0s7GfqA0fil24JRLOaevDOuNaav4dzVa/jdNE
+         AoPlWntM/013+DGvYdh36vsUcbheTKAFHimUYGqYmCH050sT5K3GNfmr+zqr1M5gnRX6
+         ZLT8vuUf+0aqCQrWwz/9v+Xy2yiVoqyvXyRNcLMQONOJidHNvLHE4ujDTJCBPDLSg4+Q
+         OeoQcl5l28PTQ3cTQ0zgcR4XjEdTPmJEDbnZK4H32Iblv1diZ2aXGchEH6EYtzqVZgEy
+         fCgAZ++Kk5sSXhKHYIaVyMUlZL67hestoqe5E3lOv9Oh9+cTRdg5mrmgKT4iOxds8T2T
+         xhFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBycw+GQtVSc/iZJ8ToDEVIkJ7kR/Os1ajEmCnJhcgTV8RNc+OMgV0Dtyf9R0eOlAcY1Npq6IRpIR43G+SY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILXfyTNfyHko8slD2K0ppKr/4/2ro6+ocKUjAx4dU6U7mc22+k
+	c9B+FWGuRRp7D6RnjxvYACtk4YOmygA1cIufRrUjKCZfSyVX3xyQQ8js
+X-Gm-Gg: AYBFou2WSw2oqP45VCHmJHfMhPXRnE9mpuVV1DaWrBs20LZcBb5I79cPycSwC0hKBzF
+	4pqOGJyxR9S5Qw+g+jHGSwjVdPD29d2nrvdfRffxQx17mi9nYsZdqSge1ItC5fpRbY68wpcbtwd
+	KDeIiNT8xhmV7ZfOu40OZeZXfyJYiI4ZVlgNAGksoFpDf5/9tDfGpNV40X0oJisnl7awnAQIVgh
+	Bc4hvLflm4mcJygQJLJAA0281atZkzQ9vVPeLxbCfUNs0HDc6kgpg4j0AStB9/lKIxoRWVqExK7
+	7SfHmIlOy0uEF9+QI4bXg9xzUEKj2tsYb2jfXTVtthBaHZaww4Fg24F7xH30/9k9QV6uR0jT/Su
+	YLTHINrqKm/0JeuE8PwaCAjqLTdg8+z1OEYOUmVP8SeX41T2DQfhFIl5wnaxLmJih7TBqsT/myo
+	p24IZ0/SY/zd3cLsbGepU6zpunuoQrKj8TjtL7M256d7Gx2v29oy4lsXoTzU3wEQBKgKS0/kyKi
+	tabx97F4g==
+X-Received: by 2002:a05:690c:c4e9:b0:8a8:6a39:37e0 with SMTP id 00721157ae682-8b0f21973f2mr5598407b3.42.1792195326755;
+        Fri, 16 Oct 2026 17:02:06 -0700 (PDT)
+Received: from gmail.com ([2a03:2880:1fff:46::])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e591c51bsm15065347b3.34.2026.10.16.17.02.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 17:02:04 -0700 (PDT)
+        Fri, 16 Oct 2026 17:02:06 -0700 (PDT)
 From: Matthew Wood <thepacketgeek@gmail.com>
 To: Peter Zijlstra <peterz@infradead.org>,
 	Ingo Molnar <mingo@redhat.com>,
@@ -69,10 +72,12 @@ To: Peter Zijlstra <peterz@infradead.org>,
 	James Clark <james.clark@linaro.org>
 Cc: linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/3] perf unwind: Don't load symbols when the caller doesn't need them
-Date: Fri, 16 Oct 2026 17:01:51 -0700
-Message-ID: <20261017000158.1178269-1-thepacketgeek@gmail.com>
+Subject: [PATCH v2 1/3] perf dso: Move dso__read_build_id() from perf inject to dso.c
+Date: Fri, 16 Oct 2026 17:01:52 -0700
+Message-ID: <20261017000158.1178269-2-thepacketgeek@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261017000158.1178269-1-thepacketgeek@gmail.com>
+References: <20261017000158.1178269-1-thepacketgeek@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,102 +86,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When perf only needs to know which DSOs a callchain passes through, as
-build-id marking does at the end of 'perf record' and in 'perf inject
--b', it resolves the callchain without symbols. The DWARF unwinders
-ignore that and look up the symbol of every frame anyway, which loads
-and demangles the whole symbol table of each DSO they visit.
+dso__read_build_id() reads a DSO's build-id from inside its mount
+namespace when it isn't known yet. The libdw unwinder is going to need
+it, so move it out of builtin-inject.c and make it available to the rest
+of perf.
 
-On arm64 every frame pointer sample also gets a short DWARF
-unwind to find the leaf function's caller; since v6.17 (commit
-29be60c93d2d, "perf build-id: Mark DSO in sample callchains") the end of
-'perf record -a --call-graph fp' loads the symbols of every user binary
-it sampled. On a 128-CPU arm64 host,
+No functional change.
 
-  perf record -a -e cycles:u --call-graph fp -- sleep 2
+Signed-off-by: Matthew Wood <thepacketgeek@gmail.com>
+---
+ tools/perf/builtin-inject.c | 25 -------------------------
+ tools/perf/util/dso.c       | 29 +++++++++++++++++++++++++++++
+ tools/perf/util/dso.h       |  1 +
+ 3 files changed, 30 insertions(+), 25 deletions(-)
 
-never finishes writing perf.data, with over 1GB of heap growth in 5
-seconds.
-
-Just skipping the symbol lookup isn't enough, because loading the
-symbols had two side effects that the unwinders depended on:
-
- - it set dso__symsrc_filename(), which is how both unwinders find a
-   separate debuginfo file, for instance to use its .debug_frame;
-
- - it read a missing build-id from inside the DSO's mount namespace,
-   which libdw needs to fall back to the build-id cache.
-
-Patches 1 and 2 provide both without loading symbols, so the frames
-that come back don't change:
-
-  1: move dso__read_build_id() from 'perf inject' to dso.c
-  2: add dso__find_debuginfo() and use it in both unwinders
-  3: pass the symbols flag down to the unwinders and honour it, which
-     also makes the arm64 leaf frame caller unwind skip symbols
-
-Testing compared v7.3-rc7 with this series, on x86 and natively on a
-CentOS Stream 10 arm64 host:
-
- - The 'perf test' dwarf unwind and 'perf inject' DWARF callchain
-   conversion tests pass on both. The libdw multi-threaded unwind test
-   passes on x86 and is skipped on the arm64 host.
-
- - 'perf inject -b' on an x86 'perf record --call-graph dwarf' profile
-   of a Python workload goes from 0.24s and 58.5MB max RSS to 0.04s and
-   15.5MB, with the same build-ids injected.
-
- - A test library built with -fno-asynchronous-unwind-tables, so that
-   its CFI is only in .debug_frame, then split with 'objcopy
-   --only-keep-debug', sits between two other DSOs in the sampled
-   stacks. With libdw, on both architectures, and with the debuginfo
-   found either through .gnu_debuglink or only in perf's build-id cache,
-   'perf script' output for --call-graph dwarf profiles, and on arm64
-   for fp profiles, is unchanged, and 'perf inject -b' still unwinds
-   past the library and marks the same DSOs. An earlier version that
-   only passed the flag down lost every frame past the library in all
-   but 5 of 4045 samples in 'perf script' on x86, and unwound 10127
-   instead of 33738 frames in 'perf inject -b'.
-
- - libunwind on arm64 returns no frames with or without this series:
-   since v7.2, libunwind-arm64.c checks HAVE_LIBUNWIND_ARM64_SUPPORT,
-   but Makefile.config defines HAVE_LIBUNWIND_AARCH64_SUPPORT. With that
-   macro defined by hand, and a cast to make its .debug_frame code
-   build, libunwind results for the test library are the same with and
-   without this series. Neither gets past the library: the .debug_frame
-   code looks broken, as the table that dwarf_find_debug_frame() returns
-   is passed back to libunwind as a remote table. On x86, EL9's
-   libunwind lacks .debug_frame support, so only the lookup could be
-   exercised there: libunwind now finds the debuginfo from the first
-   sample, instead of once the DSO's symbols have been loaded. These
-   libunwind problems are independent of this series.
-
-Not tested: the build-id cache fallback for DSOs in another mount
-namespace when the MMAP2 events don't carry build-ids.
-
-Changes since v1:
-  - Complete re-work on approach based on feedback
-  - Link: https://lore.kernel.org/linux-perf-users/20261014151326.4142140-1-thepacketgeek@gmail.com/
-
-Matthew Wood (3):
-  perf dso: Move dso__read_build_id() from perf inject to dso.c
-  perf unwind: Find separate debuginfo without loading symbols
-  perf unwind: Don't look up symbols when the caller doesn't want them
-
- tools/perf/builtin-inject.c                   | 25 --------
- tools/perf/tests/dwarf-unwind.c               |  3 +-
- .../util/arm64-frame-pointer-unwind-support.c |  7 ++-
- tools/perf/util/dso.c                         | 60 +++++++++++++++++++
- tools/perf/util/dso.h                         |  2 +
- tools/perf/util/machine.c                     |  7 +--
- tools/perf/util/unwind-libdw.c                | 43 ++++++++++---
- tools/perf/util/unwind-libdw.h                |  1 +
- tools/perf/util/unwind-libunwind.c            | 43 +++++++------
- tools/perf/util/unwind.c                      |  7 ++-
- tools/perf/util/unwind.h                      | 11 +++-
- 11 files changed, 140 insertions(+), 69 deletions(-)
-
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
---
+diff --git a/tools/perf/builtin-inject.c b/tools/perf/builtin-inject.c
+index 70bbfad5653e..7e4b45a5062c 100644
+--- a/tools/perf/builtin-inject.c
++++ b/tools/perf/builtin-inject.c
+@@ -892,31 +892,6 @@ static int perf_event__repipe_tracing_data(const struct perf_tool *tool,
+ }
+ #endif
+ 
+-static int dso__read_build_id(struct dso *dso)
+-{
+-	struct nscookie nsc;
+-	struct build_id bid = { .size = 0, };
+-
+-	if (dso__has_build_id(dso))
+-		return 0;
+-
+-	mutex_lock(dso__lock(dso));
+-	nsinfo__mountns_enter(dso__nsinfo(dso), &nsc);
+-	if (filename__read_build_id(dso__long_name(dso), &bid) > 0)
+-		dso__set_build_id(dso, &bid);
+-	else if (dso__nsinfo(dso)) {
+-		char *new_name = dso__filename_with_chroot(dso, dso__long_name(dso));
+-
+-		if (new_name && filename__read_build_id(new_name, &bid) > 0)
+-			dso__set_build_id(dso, &bid);
+-		free(new_name);
+-	}
+-	nsinfo__mountns_exit(&nsc);
+-	mutex_unlock(dso__lock(dso));
+-
+-	return dso__has_build_id(dso) ? 0 : -1;
+-}
+-
+ static struct strlist *perf_inject__parse_known_build_ids(
+ 	const char *known_build_ids_string)
+ {
+diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+index 42bfe30a3b51..e03e2cb9212b 100644
+--- a/tools/perf/util/dso.c
++++ b/tools/perf/util/dso.c
+@@ -569,6 +569,35 @@ char *dso__filename_with_chroot(const struct dso *dso, const char *filename)
+ 	return filename_with_chroot(nsinfo__pid(dso__nsinfo_const(dso)), filename);
+ }
+ 
++/*
++ * Read the build-id from the DSO's file, inside its mount namespace, if it
++ * isn't known yet.
++ */
++int dso__read_build_id(struct dso *dso)
++{
++	struct nscookie nsc;
++	struct build_id bid = { .size = 0, };
++
++	if (dso__has_build_id(dso))
++		return 0;
++
++	mutex_lock(dso__lock(dso));
++	nsinfo__mountns_enter(dso__nsinfo(dso), &nsc);
++	if (filename__read_build_id(dso__long_name(dso), &bid) > 0)
++		dso__set_build_id(dso, &bid);
++	else if (dso__nsinfo(dso)) {
++		char *new_name = dso__filename_with_chroot(dso, dso__long_name(dso));
++
++		if (new_name && filename__read_build_id(new_name, &bid) > 0)
++			dso__set_build_id(dso, &bid);
++		free(new_name);
++	}
++	nsinfo__mountns_exit(&nsc);
++	mutex_unlock(dso__lock(dso));
++
++	return dso__has_build_id(dso) ? 0 : -1;
++}
++
+ static char *dso__get_filename(struct dso *dso, const char *root_dir,
+ 			       bool *decomp)
+ {
+diff --git a/tools/perf/util/dso.h b/tools/perf/util/dso.h
+index 55c4aaa53c38..ece54b9b8552 100644
+--- a/tools/perf/util/dso.h
++++ b/tools/perf/util/dso.h
+@@ -805,6 +805,7 @@ static inline bool dso__has_symbols(const struct dso *dso)
+ }
+ 
+ char *dso__filename_with_chroot(const struct dso *dso, const char *filename);
++int dso__read_build_id(struct dso *dso);
+ 
+ bool dso__sorted_by_name(const struct dso *dso);
+ void dso__set_sorted_by_name(struct dso *dso);
+-- 
 2.53.0-Meta
+
