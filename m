@@ -1,89 +1,100 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D78E248F72;
-	Sat, 17 Oct 2026 19:52:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB40248F72
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:52:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792266723; cv=none; b=Cgey2vhG8UTmB3UPPJ0ydo9t1vNKxh1nL4Nz3I8e7XGUEkcZG+yWWT3RUyIZMMInog4avjiE8DxqaDxDf2wShVgBORAALqnhyBZalI4y+kO9CxMOs6sjB4ljW6Lgt9BkQureJAN94T6hpXVDawZLrrHkMBeTdkOONkJ+2pgd+k8=
+	t=1792266766; cv=none; b=X0lhMATwkIQW7fADm4X1slfOgWFoiBfHIV79QcZ8cEN5Z6+lTIgXJPHOohyK6S2dwnceLEHIIEQIX+wPqzgH423tin/lRGRASijYhk1aq4Rn8J8FktBvt52wJLr/EAfOkdH3XFjRt1U0/XZkXKtn9gtCZhUkRowpxooFomR/26g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792266723; c=relaxed/simple;
-	bh=QWHnOIR/gEegt66Twr9xj92A74B+8WmceSQg0bWLy0c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B/R13b7VO9A+x61FsjntzAHYmYzmnTjkZdFpL5OE/x/9E2VYCq97FcjbdSCdhMIfwsdB3x3WFyGPFoVe4aMG8bRZkNJNpP7opCplsvR8jgr/373lnRuiMhkbjSSqv91qdG1txoHPFJ8aCHKUWQCIq/XzN/iFZkV9PFpzk9q3LNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=MmSchGBV; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1792266766; c=relaxed/simple;
+	bh=YzteygZMHpBXI+5OGWmCKY4UA0FAcpCsWSMsMyhyGFI=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=A6bCfTYdGvZ4w+kn9NpokNw4Pb1EFQNM/UyWkTjEHbO9OfuvXYDbTJhddHiqknInKPOhG9fCaI/GSv1zvzVKqgrd4MG9od9RBXzYoukvQE0uNrM/XdA/YuHAGxeSjPEtETnkGwj5X1zp7LfqZ1iDAx+pE/40tGo08BJSLEk6xGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=aQXSkLOj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="MmSchGBV"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2279640E0488;
-	Sat, 17 Oct 2026 19:51:59 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id WlMeZV5jlWpO; Sat, 17 Oct 2026 19:51:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1792266716; bh=w+9+z6Y+dnThsE+OuxfD+pno9gifp3roJ194Xgds+ho=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MmSchGBVUxuO5u4Iy4NP9tQApG86Xu1drct2WmTTeHSt3yYoILE/Jr0GZa41iCDR8
-	 MDURCsq3/HO961phhUtniAudQa8y2goGZITHFhoM1SSzd8T1aAMD/n0JDBjAmIqzKb
-	 I6THNB4p3cWIueXZZEfv2Ye3+TNI5xAlSTZI9S+Uia2yeZqkr9JwRz+oAAd8u+9Bzt
-	 IbASSEKco8dtDp7ZobRGB9Fdfaw/BClECEqhJP6ogNWhuYH36+TtwaIqT5qANoYEN1
-	 37zPq5Agq053V4LPYuVfnFUshAKtftAMWyjPGdoSPzXShqgHLp03nvkc18eSl6qi5J
-	 Lm8Bic3FdSfkNzJxAos3pn+RzCtxKhLpS/SX23H/NPyBJWAXMMIIV2n3A39arZHhbG
-	 bkSIEW1m7wy2ykcdW0wZZzc2BqucA58S89XyX0osVRSzltxckiXNDPKD7VlKcN83FH
-	 FNZDquJgdZqU2yD2B0hX6vKLvxujAkyNoRMFU9Jle2tBIOPDRu8+tslIaurYVRYODb
-	 ObEdMM1V7H7B0foLwOl9/Q/n4jWpeu/NchG2mnXiRwUzU9sqYboY4736y3SMlpPXr0
-	 1tRvXrp5BCrWl1p2L40d7+5+7bWkypYCdDIbuOJBfT96tDPqCNgFuuuf9hcNuiM9ky
-	 jCJtqLjB1HxOLjNOWREqnvZU=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 8862440E015B;
-	Sat, 17 Oct 2026 19:51:48 +0000 (UTC)
-Date: Sat, 17 Oct 2026 12:51:45 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Yazen Ghannam <yazen.ghannam@amd.com>
-Cc: Guixiong Wei <weiguixiong@bytedance.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Muralidhara M K <muralidhara.mk@amd.com>,
-	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] EDAC/mce_amd: Add missing long names for SMCA bank types
-Message-ID: <20261017195145.GAatPR0dQVZGEMHglh@fat_crate.local>
-References: <20261009020447.90758-2-weiguixiong@bytedance.com>
- <20261012140330.GC15198@yaz-khff2.amd.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="aQXSkLOj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D3A31F000C4;
+	Sat, 17 Oct 2026 19:52:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792266764;
+	bh=VMtc0vXLRWczunwpL2LvoNH+JwWReughg0I7XEnUY2c=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=aQXSkLOjh9yKdtK3jSdADMm1RGMg+VUukebvPUolea0IF7YCKMeM1zU43gUFkhTq4
+	 GnGfWKlts8PJHicUa1vvcqvgq78rg0pWMpbVnLwJeJV4qQEPag6IfPoZBE85L0YYZA
+	 K2mozBlD2MPgf5YkHA7kCE3Qpmn67EJPkXxkc6Ns=
+Date: Sat, 17 Oct 2026 12:52:44 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Cc: Uladzislau Rezki <urezki@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] mm/vmalloc: read vm_map_ram block regions from the
+ requested offset
+Message-Id: <20261017125244.b2d7134fa9697b2982cb8cec@linux-foundation.org>
+In-Reply-To: <20261017154120.795844-1-nickolai@csail.mit.edu>
+References: <20261017154120.795844-1-nickolai@csail.mit.edu>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261012140330.GC15198@yaz-khff2.amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026 at 10:03:30AM -0400, Yazen Ghannam wrote:
-> These were intentionaly left out as it as it seems users have been
-> moving to user space decode tools.
+On Sat, 17 Oct 2026 11:41:20 -0400 Nickolai Zeldovich <nickolai@csail.mit.edu> wrote:
 
-You're making the old mistake:
+> Reading a vm_map_ram() mapping through /proc/kcore returns the wrong
+> memory for every page except the first page of the first used region in
+> its vmap block.  read_kcore_iter() calls vread_iter() one page at a
+> time, so a root user reading a live system with drgn, crash or gdb gets
+> that first page in place of every later page of the mapping, and in
+> place of the zeroes of the unused pages after it.  This affects every
+> vm_map_ram() mapping that fits in a vmap block (up to BITS_PER_LONG
+> pages): erofs and f2fs decompression buffers, videobuf2 vmalloc/dma-sg
+> buffers, udmabuf vmaps, fuse readdir pages.  Kernels since v6.3 are
+> affected.
+> 
+> vmap_ram_vread_iter() walks the used regions of the block and, for each
+> region, zero-fills up to its start and then copies from
+> start + offset_in_page(addr).  A read starting in a later page of a
+> region therefore copies the region's first page, and a read starting
+> past the end of a region still copies from that region.
+> 
+> Skip regions that end at or before addr, and copy from addr itself,
+> i.e. use addr - start as the offset into the region.
+> 
+> Tested on x86_64 by queueing a 29-page V4L2_MEMORY_USERPTR buffer on a
+> vivid capture device, which videobuf2-vmalloc maps with vm_map_ram(),
+> page i starting with "userptr page i", and reading every page of its
+> vmap block through /proc/kcore.  Before, all 1024 pages of the block
+> read as page 0.  After, pages 0..28 read back in order and the rest of
+> the block carries no tag.  With a second buffer in the same block and a
+> 100-page buffer outside the block path, reads at unaligned offsets,
+> across page and region boundaries, into and within the unused part of
+> the block, and of the whole block return the true contents.
 
-a. a naked MCE record in dmesg, you have to open the PPRs and actually decode
-it by hand. Or use a tool but most of the time, that tool is not updated with
-the latest error definitions, and you need the exact machine info in order for
-the tool to decode properly, yadda yadda...
+Thanks.  The Sashiko review is annoyingly embargoed for 24hrs, but it
+found a possibly-preexisting off-by-one which should also be fixed in
+the context of this patch.
 
-b. Get a fully decoded error string in dmesg.
+I'm working on some akpm review prompts (which incorporate Tejun's
+prompts, Chris's prompts and some Sashiko things).  Its summary:
 
-What is better: a) or b) ?
 
--- 
-Regards/Gruss,
-    Boris.
 
-https://people.kernel.org/tglx/notes-about-netiquette
+The fix looks good, but there's an off-by-one in the new size
+calculation:
+
+> +		size = (re - rs + 1) << PAGE_SHIFT;
+
+for_each_set_bitrange() returns half-open ranges [rs, re), so re is the
+first unset bit.  The size should be (re - rs) << PAGE_SHIFT.
+
+This matters because vb_free() clears the used_map bits before
+unmapping the pages.  A concurrent /proc/kcore read could therefore
+copy the contents of a just-freed page instead of zero-filling it.
+
+Please drop the +1. Otherwise, the change looks good to me.
