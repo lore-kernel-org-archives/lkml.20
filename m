@@ -1,79 +1,35 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC6D1891A9
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:39:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B68B258EE9
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:41:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792251544; cv=none; b=VzUPiiIh2FvjxjPwyF5qKzrCr2npTX8cExZdFLon9JrH+6GpGb0gaqBAYFy1EJWCN0OSgJ/PJoRP6YXptlRPCC1lI/utVSsOkcyU4YrhH3Sz9AICFVfizPfqG6mVob4RM488rDuVOj78DOmsLWl3eoV1mZHrWDxp14lEVFaqmZ4=
+	t=1792251699; cv=none; b=Almg4dHj0+NfxI8VfpB/86u7aBXU/o0F0iT8hNW/oAi7QtOr38IF1jypCuiwCHHBenY3ZY7YYtATGYy3VpB9uDVVmuT78zGpx8i7KPFqC8v6msnHSfg2IsRs4+mblx7XPaUVdBX2oajb4jflAUaQF5gAe7VQWmH82f0EJFzupLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792251544; c=relaxed/simple;
-	bh=bNO8wGejfT0WyWIU1CaXfQLPO8Grl09rZ8ggiMDYvdM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fZ7sFFZuWwzXHRU2NJXFgJ833lWJNRgpEYZb0366JmrNx00pmyu9sDmmHtEQGNj2v/VdpM/hJilLfYHMruFP2NPlqirF5w2wxJ41h5Nh6F2vTL7BWJaeortfAACJOJv2ViO0Lonw6WvEVZZxX2daSoIRni4isKzXze3nwDaTreA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=dqcCr0+m; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="dqcCr0+m"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8a058f74a54so76002b3a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:39:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792251541; x=1792856341; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EE+MiTt74CK7KkF/IZaKJAB/iw+nwq5cMCvHfUJcFlg=;
-        b=dqcCr0+mSDOfWzwIuvtDJHiOU/HgEJMsxPxy4OLy0x6sSM7/D9VqvMx0ugkkMgtcBg
-         keLd7RF7nPq+Yny0LzMXfgzTfyz/5xOHaun6QTt64vKUv+PMcNoE0BpwZm4U3jBQQoYc
-         IHBFO6UklEXMTZFsoFEHoHR1YFoyef66YgnVq+xK9hUzCNSX5w+e7mypwBQYd8FuTaM9
-         TSh3uEFQoF0j72ETb5aQni/SYIYZZW0rtBoqAixnNCoe83h/BdwqZBCbSUV6uc97I/tT
-         zf9n4lyyc9haZb9lnEEvKsv2+4njm7dlU4gF1d+qGYFIPlyY3CLhJ2HGhxfyJZKcwwi1
-         ekRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792251541; x=1792856341;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EE+MiTt74CK7KkF/IZaKJAB/iw+nwq5cMCvHfUJcFlg=;
-        b=0uxYH2VagcDY3x9W1Saa1xdne3BAO9vV9pXYSxyFL/al/dauoyqqZhjnAGc8WUjWKF
-         8CtdbPyOyqo/obQthp+OFrZpzIFTF+o05d5/q03usAKS19E054OvlR6FBSZQQ4PuOWQZ
-         CRojYIetac4MqTeKsTtyk+O8q3+Rx+F2FOWFyfkGL3U+sK/N2ev09J7u7zWbbdIlLkUV
-         W43qaohSAuJAP+0XrsNkXlXy6RMfEys6iAV++XMEj/J002gC7Cipv0qM4K46pJXpf5//
-         1o9WkThUlfPEBazehb2T2e093RLCQTTrXN3DRrpzE/V2Nplq8LepsvPovTpl6QroGYYL
-         y+vA==
-X-Forwarded-Encrypted: i=1; AKwUvBzAS0hvBa5WlVeg2uaeE9RDB/doozWDUf8jHcCso4SpHS+MaFXb1EaNjvFr/++NT+PO0BI+2WgoxBCIsRE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLEVZuG5jqD0xNpxLsGgB54tM1+9NBvsMzWvW39jaD9oa1wytwB
-	I1hu59mfk/DpZk53dyQvmQrKsxfkh28rHzAWKvHwXt0wqBJQQaP08K4bS+B0U8G4bRQ=
-X-Gm-Gg: AYBFou14K8B6I9eiPQmIeFZr01322Pe8D6oWUBA6ehDM89MJ9e217zxfvgzT7rxQR4T
-	rfCI63G57cuiBHQBz361JRFRQ3UBQLiyp0PcKOl8VxMY4ncZPa6ebqA3cQmL2cKaxf1F2U4y2bi
-	zX7+jLX5IEfGE/1wHV9ox/XpGDbwNWOjDkyooi79o1seIvKugIz2wQrxJXCEpDDvfFbxH77e+rj
-	v/s3YkQRR8Stk+FXxPUlOAn1DdHo7EdjnX4AiAUyZI1sroeadIsU5r70274hVmJRy5WFgloN073
-	oM9WKiI3IMA+u03lZ5JXqOqK74ZP6eVRHFFnYUHblTWDA7olnLtgd9eumwHZAV97q88dYfsgIX2
-	DzPbHNcElkBxKQmeSHeUze+5tJo4G3lMm6STTM3tVY7yHO6s8e5Vl3IpbmPaeyNQvoRwomOTtzH
-	0DUkTJqHlwvCxKxxXQtNwvdqHXFlmMeErKVrM/xaEikbnxO6NVUTxw3pMnl/vbSh0j0C+RNBWnr
-	7MP/peay+6ZR2bAi8GppcChWeQOi7x4
-X-Received: by 2002:a05:6a00:4f91:b0:89f:9ea6:1de6 with SMTP id d2e1a72fcca58-8a04c80effcmr2316077b3a.24.1792251540821;
-        Sat, 17 Oct 2026 08:39:00 -0700 (PDT)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:6c71:58da:ec95:3c04])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f579479ebsm2350277b3a.40.2026.10.17.08.38.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 08:39:00 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Justin Tee <justin.tee@broadcom.com>,
-	Keith Busch <kbusch@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	linux-nvme@lists.infradead.org,
+	s=arc-20240116; t=1792251699; c=relaxed/simple;
+	bh=SkJkI1zs7MdAtbBacgAiso2SrTWxHIt+AHMeRTT3TxQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fLbXfJXZx4WL5LiPO81OMsHkkvCUNkUCjTgC16bDBjAqSedbDYT3V1cGDdSrmWZJ8mXU/9rX8lBnIUD5fDm5TZ4RqLNGdFwHM6O3ZhcqWCM8yzEsljPyiQvQ2hwtZBYCYM4G8OSOM+B7iZkJawTf8tNxiKYFJv5WKDm+8Kq3JWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xI6XA-002Lfu-P6;
+	Sat, 17 Oct 2026 11:41:20 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Uladzislau Rezki <urezki@gmail.com>
+Cc: Baoquan He <baoquan.he@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH] nvmet-fc: fix use-after-free in nvmet_fc_ls_create_connection()
-Date: Sun, 18 Oct 2026 00:38:05 +0900
-Message-ID: <20261017153805.2528275-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] mm/vmalloc: read vm_map_ram block regions from the requested offset
+Date: Sat, 17 Oct 2026 11:41:20 -0400
+Message-ID: <20261017154120.795844-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,98 +38,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nvmet_fc_ls_create_connection() looks up the association with
-nvmet_fc_find_target_assoc(), which returns it with a reference held, and
-drops that reference as soon as the target queue has been allocated.
-iod->assoc is then dereferenced again by nvmet_fc_makeconnid() while
-building the connection id.
+Reading a vm_map_ram() mapping through /proc/kcore returns the wrong
+memory for every page except the first page of the first used region in
+its vmap block.  read_kcore_iter() calls vread_iter() one page at a
+time, so a root user reading a live system with drgn, crash or gdb gets
+that first page in place of every later page of the mapping, and in
+place of the zeroes of the unused pages after it.  This affects every
+vm_map_ram() mapping that fits in a vmap block (up to BITS_PER_LONG
+pages): erofs and f2fs decompression buffers, videobuf2 vmalloc/dma-sg
+buffers, udmabuf vmaps, fuse readdir pages.  Kernels since v6.3 are
+affected.
 
-The queue only borrows the pointer and takes no reference of its own.
-Once the lookup reference is dropped the association is kept alive solely
-by the reference taken when it was created, so a disconnect LS or a remote
-port unregister running concurrently can free it before
-nvmet_fc_makeconnid() reads it:
+vmap_ram_vread_iter() walks the used regions of the block and, for each
+region, zero-fills up to its start and then copies from
+start + offset_in_page(addr).  A read starting in a later page of a
+region therefore copies the region's first page, and a read starting
+past the end of a region still copies from that region.
 
-BUG: KASAN: slab-use-after-free in nvmet_fc_handle_ls_rqst_work (drivers/nvme/target/fc.c:193 drivers/nvme/target/fc.c:1841 drivers/nvme/target/fc.c:1995 drivers/nvme/target/fc.c:2021)
-Read of size 8 at addr ffff888179f1b000 by task kworker/u9:2/1167
+Skip regions that end at or before addr, and copy from addr itself,
+i.e. use addr - start as the offset into the region.
 
-Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: nvmet-wq nvmet_fc_handle_ls_rqst_work
-Call Trace:
- <TASK>
- dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
- print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
- kasan_report (mm/kasan/report.c:595)
- nvmet_fc_handle_ls_rqst_work (drivers/nvme/target/fc.c:193 drivers/nvme/target/fc.c:1841 drivers/nvme/target/fc.c:1995 drivers/nvme/target/fc.c:2021)
- process_scheduled_works (kernel/workqueue.c:3322 kernel/workqueue.c:3405)
- worker_thread (kernel/workqueue.c:3486)
- kthread (kernel/kthread.c:436)
- ret_from_fork (archkernel/process.c:158)
- ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
- </TASK>
+Tested on x86_64 by queueing a 29-page V4L2_MEMORY_USERPTR buffer on a
+vivid capture device, which videobuf2-vmalloc maps with vm_map_ram(),
+page i starting with "userptr page i", and reading every page of its
+vmap block through /proc/kcore.  Before, all 1024 pages of the block
+read as page 0.  After, pages 0..28 read back in order and the rest of
+the block carries no tag.  With a second buffer in the same block and a
+100-page buffer outside the block path, reads at unaligned offsets,
+across page and region boundaries, into and within the unused part of
+the block, and of the whole block return the true contents.
 
-Freed by task 1167 on cpu 0 at 405.998150s:
- kasan_save_track (mm/kasan/common.c:57 mm/kasan/common.c:78)
- kasan_save_free_info (mm/kasan/generic.c:584)
- __kasan_slab_free (mm/kasan/common.c:253 mm/kasan/common.c:285)
- kfree (include/linux/kasan.h:235 mm/slub.c:2705 mm/slub.c:6405 mm/slub.c:6720)
- nvmet_fc_handle_ls_rqst_work (drivers/nvme/target/fc.c:1808 drivers/nvme/target/fc.c:1995 drivers/nvme/target/fc.c:2021)
- process_scheduled_works (kernel/workqueue.c:3322 kernel/workqueue.c:3405)
- worker_thread (kernel/workqueue.c:3486)
- kthread (kernel/kthread.c:436)
- ret_from_fork (archkernel/process.c:158)
- ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-
-The buggy address belongs to the object at ffff888179f1b000
- which belongs to the cache kmalloc-2k of size 2048
-The buggy address is located 0 bytes inside of
- freed 2048-byte region [ffff888179f1b000, ffff888179f1b800)
-
-Hold the lookup reference until the response has been built, and drop it
-on the error path as well.
-
-Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Closes: https://lore.kernel.org/linux-nvme/20260731204504.2396434-1-shuangpeng.kernel@gmail.com
-Fixes: c53432030d86 ("nvme-fabrics: Add target support for FC transport")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Fixes: 06c8994626d1 ("mm/vmalloc.c: allow vread() to read out vm_map_ram areas")
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
 ---
- drivers/nvme/target/fc.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/nvme/target/fc.c b/drivers/nvme/target/fc.c
-index 1b557775e033a..f3e80095d7d16 100644
---- a/drivers/nvme/target/fc.c
-+++ b/drivers/nvme/target/fc.c
-@@ -1796,9 +1796,6 @@ nvmet_fc_ls_create_connection(struct nvmet_fc_tgtport *tgtport,
- 					be16_to_cpu(rqst->connect_cmd.sqsize));
- 			if (!queue)
- 				ret = VERR_QUEUE_ALLOC_FAIL;
--
--			/* release get taken in nvmet_fc_find_target_assoc */
--			nvmet_fc_tgt_a_put(iod->assoc);
- 		}
- 	}
+Notes:
+    Reproducer (CONFIG_PROC_KCORE=y, CONFIG_VIDEO_VIVID=y or =m, root):
+    
+      /* short.c: argv[1] = vivid capture node */
+      #include <elf.h>
+      #include <fcntl.h>
+      #include <linux/videodev2.h>
+      #include <stdio.h>
+      #include <string.h>
+      #include <sys/ioctl.h>
+      #include <sys/mman.h>
+      #include <unistd.h>
+    
+      int main(int argc, char **argv)
+      {
+      	struct v4l2_format fmt = { .type = V4L2_BUF_TYPE_VIDEO_CAPTURE };
+      	struct v4l2_requestbuffers req = { .count = 1,
+      		.type = V4L2_BUF_TYPE_VIDEO_CAPTURE, .memory = V4L2_MEMORY_USERPTR };
+      	struct v4l2_buffer b = { .type = V4L2_BUF_TYPE_VIDEO_CAPTURE,
+      		.memory = V4L2_MEMORY_USERPTR };
+      	static Elf64_Phdr ph[64];
+      	static char buf[4096], line[256];
+      	unsigned long lo, hi, a;
+      	int fd = open(argc > 1 ? argv[1] : "/dev/video0", O_RDWR);
+      	int kc = open("/proc/kcore", O_RDONLY), i, n, np, c;
+      	Elf64_Ehdr eh;
+      	FILE *f;
+      	char *p;
+    
+      	ioctl(fd, VIDIOC_G_FMT, &fmt);
+      	fmt.fmt.pix.width = 320;
+      	fmt.fmt.pix.height = 180;
+      	ioctl(fd, VIDIOC_S_FMT, &fmt);
+      	np = (fmt.fmt.pix.sizeimage + 4095) / 4096;	/* 29 for YUYV */
+      	p = mmap(NULL, np * 4096, PROT_READ | PROT_WRITE,
+      		 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+      	for (i = 0; i < np; i++)
+      		sprintf(p + i * 4096, "userptr page %d", i);
+      	b.m.userptr = (unsigned long)p;
+      	b.length = np * 4096;
+      	if (ioctl(fd, VIDIOC_REQBUFS, &req) || ioctl(fd, VIDIOC_QBUF, &b))
+      		return perror("QBUF"), 1;	/* buffer now vm_map_ram()ed */
+    
+      	f = fopen("/proc/sys/kernel/kptr_restrict", "w");	/* raw %pK */
+      	fputs("1", f);
+      	fclose(f);
+      	if (pread(kc, &eh, sizeof(eh), 0) != sizeof(eh) || eh.e_phnum > 64 ||
+      	    pread(kc, ph, eh.e_phnum * sizeof(*ph), eh.e_phoff) < 0)
+      		return perror("/proc/kcore"), 1;
+      	f = fopen("/proc/vmallocinfo", "r");
+      	while (fgets(line, sizeof(line), f)) {
+      		if (!strstr(line, "vm_map_ram") ||
+      		    sscanf(line, "0x%lx-0x%lx", &lo, &hi) != 2)
+      			continue;
+      		printf("%lx:", lo);
+      		for (c = 0, a = lo; a < hi; a += 4096)
+      			for (i = 0; i < eh.e_phnum; i++)
+      				if (ph[i].p_type == PT_LOAD && a >= ph[i].p_vaddr &&
+      				    a < ph[i].p_vaddr + ph[i].p_memsz &&
+      				    pread(kc, buf, 4096, ph[i].p_offset +
+      					  a - ph[i].p_vaddr) == 4096 &&
+      				    sscanf(buf, "userptr page %d", &n) == 1 &&
+      				    c++ < 32)
+      					printf(" %d", n);
+      		printf("%s (%d pages carry a tag)\n", c > 32 ? " ..." : "", c);
+      	}
+      	return 0;
+      }
+    
+      $ gcc -static -o short short.c
+      # modprobe vivid; ./short /dev/videoN     # N = vivid capture node
+    
+    Before:
+      ff32776280800000: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ... (1024 pages carry a tag)
+    After:
+      ff636d6c00800000: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 (29 pages carry a tag)
+
+ mm/vmalloc.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index bea9f76ed7e7..34340c2490b8 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -4588,7 +4588,7 @@ static size_t vmap_ram_vread_iter(struct iov_iter *iter, const char *addr,
+ 	struct xarray *xa;
+ 	unsigned long offset;
+ 	unsigned int rs, re;
+-	size_t remains, n;
++	size_t remains, n, size;
  
-@@ -1812,6 +1809,8 @@ nvmet_fc_ls_create_connection(struct nvmet_fc_tgtport *tgtport,
- 					FCNVME_RJT_RC_INV_ASSOC :
- 					FCNVME_RJT_RC_LOGIC,
- 				FCNVME_RJT_EXP_NONE, 0);
-+		if (iod->assoc)
-+			nvmet_fc_tgt_a_put(iod->assoc);
- 		return;
- 	}
+ 	/*
+ 	 * If it's area created by vm_map_ram() interface directly, but
+@@ -4622,6 +4622,10 @@ static size_t vmap_ram_vread_iter(struct iov_iter *iter, const char *addr,
+ 			goto finished;
  
-@@ -1833,6 +1832,9 @@ nvmet_fc_ls_create_connection(struct nvmet_fc_tgtport *tgtport,
- 	acc->connectid.connection_id =
- 			cpu_to_be64(nvmet_fc_makeconnid(iod->assoc,
- 				be16_to_cpu(rqst->connect_cmd.qid)));
+ 		start = vmap_block_vaddr(vb->va->va_start, rs);
++		size = (re - rs + 1) << PAGE_SHIFT;
 +
-+	/* release get taken in nvmet_fc_find_target_assoc */
-+	nvmet_fc_tgt_a_put(iod->assoc);
- }
++		if (addr >= start + size)
++			continue;
  
- /*
+ 		if (addr < start) {
+ 			size_t to_zero = min_t(size_t, start - addr, remains);
+@@ -4635,8 +4639,8 @@ static size_t vmap_ram_vread_iter(struct iov_iter *iter, const char *addr,
+ 		}
+ 
+ 		/*it could start reading from the middle of used region*/
+-		offset = offset_in_page(addr);
+-		n = ((re - rs + 1) << PAGE_SHIFT) - offset;
++		offset = addr - start;
++		n = size - offset;
+ 		if (n > remains)
+ 			n = remains;
+ 
+
+base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
 -- 
-2.43.0
+2.53.0
 
