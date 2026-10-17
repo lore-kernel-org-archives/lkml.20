@@ -1,133 +1,167 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CE73769F4
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C64BB3955EC
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:26:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792214494; cv=none; b=RxQZcJ898OhCsmrEkTpjOHUSlNVM5HogT8q8kxUC4YRY774orvWxKeFGzD1HAVLfSpXuCy4pgPtj048ORc7dZDdZY3PoKVA4MMI/87s0KRCGqDlxouWXaDhr5MvamGAO8ggpzjbN7rGAfk4zQn8/bEmddgKihpC6ZQYGNdkFhcY=
+	t=1792214777; cv=none; b=Bv43/NOs7fsDKhRg7GWJAZufMjoh2Jt+lwfHMsYsbqNLtf4pbkRZTuK7lzR81Ue2W7XldyZE1zEB8JoHvirzx3vkGQlfSbTl823JEXPJmSBHMCpNzyup0vZplUbl1nK3nSFMjc0S6DeRFGVy/4RBrLYRa6pAIUmhkza3Rh4UA84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792214494; c=relaxed/simple;
-	bh=aC4Bvl+lsY8CU7Vvs//CHQEgxOBks6KfY7owryN0QbQ=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=irQPIwMgcmbmTr9EPpNRSCNHN0LneSvDm/5idmtAd5NoR6DiIky6JDn/1hRUKWairwRqaz8sSgMShwd56t2SoO/5CTDx1S4PPbEDjW1Ex+67GEJAQ01q5zudf0qldebxcETEGUS+qPDQS2t96rtREz+62Rg/Qi8qqje6YAvdY1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=idvv7AwR; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	s=arc-20240116; t=1792214777; c=relaxed/simple;
+	bh=m9hKpSrHK+hO1alsflf0Nqz99b/yusPaCW6Fq+Ekkb0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=B4K7+tblD72sdjHosY2dJQhD0177tpUm4LCeo31xBCF6BPJDQd25ooNNOShomfWfOKAwt//Bm+wcqGIePV872pYum5Ex4ePzf/U9vYf6dxE8ripg033HNgMNCAaN10EytppCj5amYi2rzRAz/tZkP7T57/DL1K6nBnyOHZ/O45U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=uKiTq+hb; arc=none smtp.client-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="idvv7AwR"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e987ec84afso4139765ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:21:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792214493; x=1792819293; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4FrYQNLOC0ua6Y12Q7VcbQ5pmrylw5LYh/sMmd8pDQ8=;
-        b=idvv7AwRBqCjKS0p+o3BPgccAWAslq48nlSk9Uk6QP3NowhJgSJlhwM5j4BWTA1PM5
-         5lF/NmvOMwOE/LGj7wFRqyZOEVALMzazs/RQxgVu1J8BVH3efWjAXlXfoziAjqeruSLc
-         dpY9GPpWFBoO9OsCqvToKxZ30w9R/nwtfm2a+VCUD8WSZw4OoJxI6fi0PF8113MTkzlh
-         jFcjW1PMQKyOSvgT9+XvPNOWGs7g9n6006U262aQy0RLDWlQ5VgrCLL5qQKcCyN9Fxft
-         FqvzFRo2TH9gseuxBnmrhfINNYOCl0SLZMnOiY5/kStDqC4CEpOcydhkmK/4O0eFEMdl
-         Z8Gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792214493; x=1792819293;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4FrYQNLOC0ua6Y12Q7VcbQ5pmrylw5LYh/sMmd8pDQ8=;
-        b=no9Ileh4tLmkhKW6SXf9PaN824WLjMB6pbqnBzpCt9aV/jusL6u0HIqP9b/JjJfbA1
-         pTNBylT1PTP7ZpJnKdKqfKujqiS+QcMeeXOwTQDUoQiDzm90Auma8VdzGjHYpfmIfdnL
-         9nQYClWntOXo6w4GYLfphNwfdIfzBhMrmzjEPbTWvj5Ia7eWSzVC1cB1hv2/GD5WmsmJ
-         q6fc64JBSM+KF6KlbzSHSkf+bDSKXpvtfuGTUMD1RoNehzy0gmLs5EhgkXNVWWtY6vIq
-         HQ7ftNDyiAkVlTCyw8anpCAft8ElHTa2rpuWw1Hkgo+zpYJFR0DHjF5biEQ4vX3tTWOH
-         wdcw==
-X-Forwarded-Encrypted: i=1; AKwUvBy5N0iujDvDgwhYoS21GUDX9H1QR2h/c2HYt3gfEKvbaiTw9sZbZ2q7INwly8GWIZW/ZqxDfHqDFsQs3ac=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIu+Enp7k5zsmFYuhBzi0BNX6zzuoHdKWWGOXOhE/lgvP/6M9pV
-	Gai6GELB7FamOweJlYWAgxRgpe45ndOW0X1oEF/vc+oDMO5LmCVwoPMyl/4o65XHjafJ/CP/sg/
-	P3E8nxw==
-X-Received: from plxq15.prod.google.com ([2002:a17:902:dacf:b0:2e9:3d99:bb3f])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e943:b0:2e9:79db:449c
- with SMTP id d9443c01a7336-2e9a6f55653mr15650925ad.47.1792214492411; Fri, 16
- Oct 2026 22:21:32 -0700 (PDT)
-Date: Sat, 17 Oct 2026 05:21:31 +0000
-In-Reply-To: <20261015201549.4023-2-kj2864@nyu.edu>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="uKiTq+hb"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792214770; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=l3GgPGTx3643lXfeM9v6MzNcAxFHDhjpDZHTgMJtQGg=;
+	b=uKiTq+hbcEe1dl4bd+7J8ngU6kzPOiOui/JCNp/7y4nVj+AUVHYTSFAE3bGVZuaEAtAxIzx+dtdICvdbrgwGNU6VE1FXumlIl1ylp8Tmeo4Axn/486xEUO4ePo42e9HX9j9FHbKS40zLehqRwFwAagcie16Ib5pFo/DVfW1imbI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XCwX9so_1792214768;
+Received: from 30.42.72.158(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCwX9so_1792214768 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sat, 17 Oct 2026 13:26:09 +0800
+Message-ID: <5b8d5b3b-9308-40d1-91f5-8c6ea045c596@linux.alibaba.com>
+Date: Sat, 17 Oct 2026 13:26:07 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261015201549.4023-2-kj2864@nyu.edu>
-Message-ID: <atMFPKhON1IK5cxc@google.com>
-Subject: Re: [PATCH net v3] net: ipv4: add zero check for snd_cwnd_clamp
-From: kuniyu@google.com
-To: Kaho Jiang <kj2864@nyu.edu>
-Cc: ncardwell@google.com, davem@davemloft.net, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, edumazet@google.com, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	co+71b6509cb791e531@bugs.sh, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-
-On Thu, 15 Oct 2026 16:15:50 -0400, Kaho Jiang wrote:
-> User can pass zero to snd_cwnd_clamp via RTAX_CWND type.
-> This could lead to division of zero error if not checked properly.
-> 
-> Oops: divide error: 0000 [#1] SMP KASAN NOPTI
-> Call Trace:
->  <IRQ>
->  tcp_reno_cong_avoid (net/ipv4/tcp_cong.c:510 (discriminator 1))
->  tcp_ack (net/ipv4/tcp_input.c:3517 net/ipv4/tcp_input.c:3873 net/ipv4/tcp_input.c:4440)
->  tcp_rcv_established (net/ipv4/tcp_input.c:6685)
->  tcp_v4_do_rcv (net/ipv4/tcp_ipv4.c:1854)
->  tcp_v4_rcv (net/ipv4/tcp_ipv4.c:2248)
->  ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207 (discriminator 1))
->  ip_local_deliver_finish (net/ipv4/ip_input.c:241 (discriminator 1))
->  ip_local_deliver (./include/linux/netfilter.h:325 ./include/linux/netfilter.h:319 net/ipv4/ip_input.c:262)
->  ip_rcv (./include/net/dst.h:481 (discriminator 6) net/ipv4/ip_input.c:492 (discriminator 6) ./include/linux/netfilter.h:325 (discriminator 6) ./include/li)
->  __netif_receive_skb_one_core (net/core/dev.c:6297 (discriminator 4))
->  __netif_receive_skb (net/core/dev.c:6410)
->  process_backlog (net/core/dev.c:6761)
->  __napi_poll.constprop.0 (net/core/dev.c:7830)
->  net_rx_action (net/core/dev.c:7893 net/core/dev.c:8050)
->  handle_softirqs (kernel/softirq.c:645)
->  __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softirq.c:758)
->  irq_exit_rcu (kernel/softirq.c:775)
->  sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discriminator 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
-> RIP: 0010:tcp_cong_avoid_ai (net/ipv4/tcp_cong.c:482)
-> 
-> Fix by checking if user pass in zero as parameter,
-> if so reject the value zero.
-> 
-> Fixes: 814d488c6126 ("tcp: fix the timid additive increase on stretch ACKs")
-> Cc: stable@vger.kernel.org
-> Reported-by: co+71b6509cb791e531@bugs.sh
-> Assisted-by: LLM
-> Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
-> ---
->  net/ipv4/metrics.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
-> index ad40762a8b38..e83a129a25b6 100644
-> --- a/net/ipv4/metrics.c
-> +++ b/net/ipv4/metrics.c
-> @@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
->  			NL_SET_ERR_MSG(extack, "Unknown flag set in feature mask in metrics attribute");
->  			return -EINVAL;
->  		}
-> +		if (type == RTAX_CWND && val == 0) {
-
-While at it, please check RTAX_INITCWND too (although it is
-ignored and TCP_INIT_CWND is used), also use !val.
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/1] khugepaged: fix readahead lock inversion in
+ collapse_file()
+To: Lance Yang <lance.yang@linux.dev>, pfalcato@suse.de
+Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com,
+ liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
+ dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org,
+ jack@suse.cz, djwong@kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, hch@lst.de,
+ syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
+ ngocthang2710.1999@gmail.com, willy@infradead.org, rppt@kernel.org,
+ ljs@kernel.org
+References: <27e5aadc-2d68-428f-a958-308e4a75c058@linux.alibaba.com>
+ <20261016154342.31940-1-lance.yang@linux.dev>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261016154342.31940-1-lance.yang@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-> +			NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero");
-> +			return -EINVAL;
-> +		}
->  		metrics[type - 1] = val;
->  	}
->  
-> -- 
-> 2.43.0
+
+On 10/16/26 11:43 PM, Lance Yang wrote:
+> +Cc: Pedro
 > 
+> On Fri, Oct 16, 2026 at 05:57:48PM +0800, Baolin Wang wrote:
+>>
+>>
+>> On 10/16/26 2:59 PM, Lance Yang wrote:
+>>> collapse_file() can end up calling page_cache_sync_readahead() with
+>>> source folios from earlier in the range still locked. If truncate already
+>>> holds mapping->invalidate_lock exclusively and is waiting for one of
+>>> those folios, readahead blocks on the same invalidate_lock and neither
+>>> side can make progress.
+>>>
+>>> Do readahead in a separate pass before we start holding source folios
+>>> locked for collapse. Keep page_cache_sync_readahead() and its existing
+>>> policy, and drop each folio's lock and reference after checking that it
+>>> is uptodate. If truncate or reclaim removes a folio between the two
+>>> passes, roll back instead of doing readahead again with source folios
+>>> locked.
+>>>
+>>> Shmem handles swapin and fallocated folios through shmem_get_folio()
+>>> without taking mapping->invalidate_lock, so it isn't affected by this
+>>> lock inversion.
+>>>
+>>> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+>>> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+>>> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
+>>> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+>>> ---
+>>
+>> Thanks for the fix.
+> 
+> Cheers!
+> 
+>>> Thanks to Nguyen Ngoc Thang for v2. David asked for volunteers, so I'm
+>>> happy to take this over.
+>>>
+>>> Some older stable trees lack the folio infrastructure used here, and the
+>>> code will differ for each stable tree, so each backport will need quite a
+>>> bit of rework and its own review. I'm not sure whether to Cc stable here.
+>>> Once we agree on the fix, I'll send a separate backport for each maintained
+>>> stable tree except 5.10, which isn't affected.
+>>>
+>>> v2 -> v3:
+>>>    - Replace the scan-wide invalidate_lock and page_cache_ra_unbounded() with
+>>>      a preparation pass using page_cache_sync_readahead().
+>>>    - Roll back on a new page cache miss during collapse.
+>>>    - https://lore.kernel.org/all/20260913163644.122133-1-ngocthang2710.1999@gmail.com/
+>>>
+>>>    mm/khugepaged.c | 42 +++++++++++++++++++++++++++++++-----------
+>>>    1 file changed, 31 insertions(+), 11 deletions(-)
+>>>
+>>> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+>>> index ef5cd6fda34f..b3f67617caf0 100644
+>>> --- a/mm/khugepaged.c
+>>> +++ b/mm/khugepaged.c
+>>> @@ -2262,6 +2262,34 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+>>>    	new_folio->index = start;
+>>>    	new_folio->mapping = mapping;
+>>>    
+>>> +	if (!is_shmem) {
+>>> +		/*
+>>> +		 * Populate the range before accumulating locked source folios:
+>>> +		 * readahead may block on invalidate_lock.
+>>> +		 */
+>>> +		for (index = start; index < end;) {
+>>
+>> why drop xas_unlock_irq()?
+> 
+> Hmm ... we haven't taken the lock here yet, so there's just nothing to
+> unlock, no?
+
+Ah, yes, I misread the diff. Sorry for noise:) .
+
+>>> +			folio = filemap_lock_folio(mapping, index);
+>>> +			if (IS_ERR(folio)) {
+>>> +				page_cache_sync_readahead(mapping, &file->f_ra,
+>>> +							  file, index, end - index);
+>>> +				folio = filemap_lock_folio(mapping, index);
+>>> +				if (IS_ERR(folio)) {
+>>> +					result = SCAN_FAIL;
+>>> +					goto rollback;
+>>> +				}
+>>> +			}
+>>> +			if (!folio_test_uptodate(folio))
+>>> +				result = SCAN_FAIL;
+>>
+>> Do we need to check PG_uptodate after locking the folio? If we
+>> successfully lock the folio, doesn't that mean the read I/O has
+>> completed? The following code also checks the writeback flag, so the
+>> uptodate check seems unnecessary to me.
+> 
+> IIRC, the folio gets unlocked even if the read fails. I just wanted to
+> catch read errors early. And yeah, we already check uptodate later,
+> so this one can go, thanks!
+> 
+>>> +			index = folio_next_index(folio);
+>>> +			folio_unlock(folio);
+>>> +			folio_put(folio);
+>>> +			if (result != SCAN_SUCCEED)
+>>> +				goto rollback;
+>>> +		}
+>>> +		/* drain lru cache to help folio_isolate_lru() */
+>>> +		lru_add_drain();
+>>> +	}
+>>
+>> Could we factor this code out into a small helper?
+> 
+> Okay, let me play with it a bit :) Might pull it out if it reads cleaner.
+
+Thanks. Because collapse_file() is already too long.
