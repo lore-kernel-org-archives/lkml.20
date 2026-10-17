@@ -1,192 +1,194 @@
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7211738D018
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:03:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792206203; cv=pass; b=meU6URejvqZAp1y6m20mLd2q/hhSuG4iYI8IEQsNNU2LMevooaEPFznsL2lL7tcF9hQbdsDK7sljlatwfOUTSpVUfInVB0o3H6vfncR8aqKEH68fs6VS2S1brFOGKIpnSV40CIrtUXFyLtYMcAAOwQrGnHXnh8tiPcgH4C2eT9g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792206203; c=relaxed/simple;
-	bh=Y758vtkUylvdUTjnWxG7o3+mdkQeB1hyCOH9J+3c3Pk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jQU4CCJQ/q0bfMKmbJofYAyf1uJ1u0i3puYch5yT8YLyFgKl7A5kRyfnRtk9G+R8B5CUoicckhon2mpQkKcwIrtQ7A7dAyvcHSXW0QCq3XpDMrRjDUKZmYv/uLg7dzPcGtj0dKBdrsAfJF9V+gWuMReRt2/Lgy4AmRva9MRP5yk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X4t3YT/r; arc=pass smtp.client-ip=209.85.208.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X4t3YT/r"
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3a75f960be3so4411151fa.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:03:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792206200; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Zprzi0nZadNkGjHWl4A5kd/fF3uoTsfJ9eAczJm/DRLoABpgRXn/nkCs0G5/6seixH
-         0UolqRObFVICM7lMx9uhyz/eY4Us1TAGvAw5nEImsfAAh0HR/Y/95430QJkiH/WVQJx5
-         PpGigX/jhySOHy0oA5KjHPOJM2YeLN71JDt7mQ9mWWSkahApL9f5nfJepcaDMvSxn7m5
-         OOY0YR20XvlQNugtsvFv1JPP2mNatrTOcFzdxfjGTpCMX13cZtr+KgdDpLOf/+/ZrAfE
-         duMf0sWFAxa6s2NoqxYzEnGzdi5h8uNXiaw+iCVAK+Id7XmJKzG7Kfu/t5WCslUpXJWT
-         JbUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2ITlG7B4NPmKc5iTiQo1+RWMGxf3FDyH5p5Xf+trlVM=;
-        fh=zQy39fIXkvASPjzqlwo8syqrNiPn5khrDE3ELiD1gwg=;
-        b=QDcPxhbNSxVhFbTJA8GjZz+zUwbKW+64RSHTMDTAU09MylD6aqvuIf0ZiHZEpKMpFG
-         fHRVfFe/6LPU8M1/KJ5tJWLac4uVc21FBhgcM6rfktsLu54DR5F3ypTq0Jd9ODoyZ8SL
-         NFU02YFvoVm7wAyoJHTvWltUgJ4VNrQyzKbtHpO0Ft671MjnsJBTOly9ECknpn9RUdSh
-         A26gghlxrIVVFfS/DsLeIcse/BZdzl96erKI6nsgv+kIXvZ8VOwjMmIyviAHaQ22GckY
-         61iycDwO1JpTY2WvPzr0gBA6XAhmqFJGG9cwzCJumktQ6ssjUtDeQ3q6VavZXxsNXKsf
-         r6zA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792206200; x=1792811000; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2ITlG7B4NPmKc5iTiQo1+RWMGxf3FDyH5p5Xf+trlVM=;
-        b=X4t3YT/ri3D/xAtkQk+SXgjIGTSBycyg6zhQbySFaKsPrjbMwDFD1OQGz/awzxcskm
-         M86w8X/wwk/2CfvXjdinM1akbWIVJJZCDj2py8svhI+qpq1DJv80bCzbJDFJ8uKhT6g9
-         bZTVg9BDDzWQGxSLYjFAO2iQlQlcHFRn8onofRy0szfWmBF3DhlQPQK0Pc7qouEzTBck
-         gb+xf5bTDICfYPYf6dXtMvgMBuch9xzONaC7jCQZ7MQ2F+gWEw2wNi/Kh3yKG7zIE4az
-         iX3Taan8ITvv8vSHCB7er2BD33A1lt9qCYSD7B7jAhdSDk5yfcuFh2KdI2guAo5Wn3oV
-         gKUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792206200; x=1792811000;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2ITlG7B4NPmKc5iTiQo1+RWMGxf3FDyH5p5Xf+trlVM=;
-        b=Tnu3M2MRLaFdQnT5TKFfFZmSPsG5VVMl/vIA0p+juiwtEEFkdazD1ZC7MRsny714cn
-         GWMbi9i3/huPEyIBXMrMJCz4g4N9zM00K3kQDW/yaQNOtX3mBwUYpuj9ToC67doaf/3H
-         2dlChOp94lkiHLSv9e3feZgMutJ+ZgatW47xTAgF2z6UornRuX+iG3WfDQ3/wGy3f6Kc
-         O8YN3vq4VGNODPamOOz5uuokJj+CvExq63ZErOMpgd55Ei3BIa5v3nOxM9AyNB8/izag
-         iMoBMuhgP2K9cIqqDfY6cAXVr6oc+pj6XbGutwNZ3Ghrfj/rqcJ2CavWy+ZCMCFoRcdP
-         zo3g==
-X-Forwarded-Encrypted: i=1; AKwUvBy512T3/M7jagheot8bQ7pzhxOjiy8VPv+rF9Xm560M/pcBD4lynPjluMxF7fK4aS0Yryus9OQkZSoXMCc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1cRBPb5c73Z3KGs6YyA7Fjbwd6fzuRSY2h5Ms4kkCfIZwMJH7
-	AWt1FH5ESan3K+mjuYStSdtzF7OBaTOl1zqml8eDyrhEqGlQKWQDV8cQhpQsIXGSaJPkIOV6m75
-	/ycbt3p0jziMdkaoMIlapJlFQqlysvhA=
-X-Gm-Gg: AYBFou1MskVH0h+hwGbw4MeA31wiz569fbUVy8SyBcQ+GD7b4llfWiqA8kM5/2rrXuU
-	1prE7/cRhfO45IwIoB8syLl3e/10j36QT+v+8cLQmgpjSDcROAin2AsBVK8lnzsIuoMmL/Yk88q
-	hnFcm3ooBf5kz8iyJAJrwS9YbORvn7eLIS9SENsNXZe6oZMexqSHjKpTurtoL9L5KIB40lTKoLd
-	1MUxhbtTpWmbXWc4MeB4ImwmjUgtacpAo/t2uKoM8B2jWT77+FrYKahY91w2kuW59SHHbwcKYVa
-	4u1rreW5/QUj3Plf4wAnmVyKVu6vCulE8hVcBiAG/jiSXLFFuAYZANs=
-X-Received: by 2002:ac2:5691:0:b0:5bc:e13b:3922 with SMTP id
- 2adb3069b0e04-5be509a6de1mr460213e87.0.1792206200169; Fri, 16 Oct 2026
- 20:03:20 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC192394797
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:06:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792206396; cv=none; b=SD7peVIALc96pmGyaHB0E6pAHZmsPJTvZbh4CrC/c794aeMfJUKQ2QQ6eLC9E7UUCkq8gbl9WQcLQ/x5646eXNiX34/gRj64xz23wGoY3+QIj/S6poIYBaime6BfgzIsql/sKQ7MBZepq4JRKMmZbGGVqWYc/UeyowbQx9C0KyM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792206396; c=relaxed/simple;
+	bh=81eMy943yVZVIFFNAjpeM0YhHLwiQ/z5y0LlABZ36AI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kFxCwSwgJdd1pSWNcArCLFGVy58l1yOjxAlk+LaRMn3wyq/KWdScpUekhTxCwPLWNy5927aSPhCa9htxrnVDiSCbac9sw0graLKejcHF1f2xbbDBs5sboFfcrDq2yXbM5BFWq3aXpBNoB7/UiQjkaqXWd6hvkgdBMuYXizyVKFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xHukW-00HaXh-Vp;
+	Fri, 16 Oct 2026 23:06:21 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Manjong Lee <mj0123.lee@samsung.com>,
+	Jan Kara <jack@suse.cz>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] mm: bdi: reset min_ratio after the sysfs attributes are gone
+Date: Fri, 16 Oct 2026 23:06:20 -0400
+Message-ID: <20261017030620.793108-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
- <as-jZopKRfuYAiTE@google.com> <CACpmpoeS_cvXRWJXqiYZV9oykk=91efv8KtZgK2Pi-QwHnQH3A@mail.gmail.com>
- <CAO9r8zN5n=9v4K+OtEEODg=e0kcFW99PreUcZm09q9CUMQc+ew@mail.gmail.com>
- <CACpmpofdoeVbbw7izCDeJ7eS+XpWj+3sp3teKEQWywyRB75jYQ@mail.gmail.com>
- <CAO9r8zMaaUsBaS0TJumochRKt2ShV7nRaLnYPWv3=S-wUFgitw@mail.gmail.com>
- <CACpmpoecz4tjr-qvFRy22CGuF+4NBWbE7HVjdTGFqQOheK3CLg@mail.gmail.com>
- <CAO9r8zOAcf4=TscCXjMYvowUx-_u9qLGqY2-p7cK-z5CUU_x8w@mail.gmail.com>
- <CACpmpofYXDMviE6FS-BZdVntmQFvS+_xvfmOnJ2caZFerz6vyg@mail.gmail.com> <atGqPIpUfX0LDokV@gondor.apana.org.au>
-In-Reply-To: <atGqPIpUfX0LDokV@gondor.apana.org.au>
-From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Date: Fri, 16 Oct 2026 20:03:07 -0700
-X-Gm-Features: AclHuK9xQKLEm9ED0FPrZSYZivJi3qifBTa2ucE7flkZGwWDvl2MosDfqLg1aQY
-Message-ID: <CACpmpofyLW5z1DYEY2YAty0VOAhRR+Leic8O-B0N9hrzdW_=Ew@mail.gmail.com>
-Subject: Re: [PATCH v1 0/8] Batched zswap_store() with compression batching
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Yosry Ahmed <yosry@kernel.org>, hannes@cmpxchg.org, nphamcs@gmail.com, 
-	chengming.zhou@linux.dev, akpm@linux-foundation.org, linux-mm@kvack.org, 
-	davem@davemloft.net, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
-	senozhatsky@chromium.org, 
-	"Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 9:38=E2=80=AFPM Herbert Xu <herbert@gondor.apana.or=
-g.au> wrote:
->
-> On Thu, Oct 15, 2026 at 08:32:21PM -0700, Kanchana P. Sridhar wrote:
-> >
-> > If you are Ok with all this, we will need Herbert's Ok for this change
-> > in patch 3:
-> >
-> > diff --git a/crypto/acompress.c b/crypto/acompress.c
-> > index 192ea996e779..db8e4c82b900 100644
-> > --- a/crypto/acompress.c
-> > +++ b/crypto/acompress.c
-> > @@ -293,8 +293,12 @@ int crypto_acomp_compress(struct acomp_req *req)
-> >                 return -EAGAIN;
-> >
-> >         if (likely(req->unit_size && acomp_request_issg(req))) {
-> > -               if (!crypto_acomp_req_seg(tfm))
-> > -                       return acomp_do_req_chain(req, true);
-> > +               if (likely(!crypto_acomp_req_seg(tfm))) {
-> > +                       int err =3D tfm->compress(req);
-> > +
-> > +                       req->dst->length =3D unlikely(err) ? err : req-=
->dlen;
-> > +                       return err;
-> > +               }
->
-> What if you put this short-circuit into acomp_do_req_chain instead,
-> does it still give you the same performance boost?
+A write to /sys/class/bdi/<dev>/min_ratio (or min_ratio_fine or
+min_bytes) that races with the removal of the device leaves the global
+sum of minimum dirty shares charged for a bdi that no longer exists.
+Until the next reboot, that share of the dirty threshold is withheld
+from every other bdi (__wb_calc_thresh() scales by 100 % minus the
+sum), and a later min_ratio store on any bdi that would push the sum
+to 100 % fails with EINVAL although every bdi reads 0. Root privilege
+is needed for the store; the removal is any del_gendisk() (a disk or
+loop device going away) or the unmount of a filesystem with its own
+bdi. On an x86_64 defconfig kernel (v7.3-rc7), 2000 rounds of
+LOOP_CTL_ADD/LOOP_CTL_REMOVE on one loop device with a second thread
+writing 50 to its min_ratio leak the share on the first round the
+store lands in the window; afterwards `echo 99 > min_ratio` on another
+loop device fails with EINVAL. With the fix the same run keeps the sum
+at 0 and the store succeeds. Affected since v5.16, when the reset in
+bdi_unregister() was added.
 
-I made the suggested change as follows:
+bdi_unregister() gives the bdi's share back with bdi_set_min_ratio(bdi,
+0) and only then calls device_unregister(), which removes the sysfs
+attributes. A min_ratio_store() that gets its kernfs active reference
+before the removal runs to completion after the reset:
+__bdi_set_min_ratio() takes bdi_lock, sees bdi->min_ratio == 0, adds
+the new value to bdi_min_ratio and stores it in the bdi, which
+bdi_put() then frees. Nothing gives that share back.
 
-diff --git a/crypto/acompress.c b/crypto/acompress.c
-index 192ea996e779..6697cf5944a3 100644
---- a/crypto/acompress.c
-+++ b/crypto/acompress.c
-@@ -271,11 +271,19 @@ static void acomp_reqchain_done(void *data, int err)
+Move the reset after device_unregister(): once the attributes are gone
+no store can run, and bdi_set_min_ratio() needs nothing from the
+device.
 
- static int acomp_do_req_chain(struct acomp_req *req, bool comp)
- {
-+ struct crypto_acomp *tfm =3D crypto_acomp_reqtfm(req);
-  int err;
+Found while formally verifying bdi_unregister() against the kernel
+binary.
 
-  if (unlikely(req->unit_size && req->slen > req->unit_size))
-  return -ENOSYS;
+Fixes: 3c376dfafbf7 ("mm: bdi: initialize bdi_min_ratio when bdi is unregistered")
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
 
-+ if (likely(acomp_request_issg(req) &&
-+   !crypto_acomp_req_seg(tfm) && comp)) {
-+ err =3D tfm->compress(req);
-+ req->dst->length =3D unlikely(err) ? err : req->dlen;
-+ return err;
-+ }
+Notes:
+    The window is between the reset and kernfs draining the attribute's active
+    references in device_del(): bdi_debug_unregister() and the device
+    removal (uevent, bus and class teardown) sit in it, tens of microseconds,
+    so a tight store loop lands in it within a few hundred add/remove rounds
+    under QEMU TCG. A store that lands there also fails every later min_ratio
+    store of 50 with EINVAL, which is why the unpatched run shows few landed
+    stores: the leaked 50 % plus a new 50 % reach the limit. The same window
+    exists for min_ratio_fine and min_bytes (same helper), and for the
+    per-superblock bdis unregistered from generic_shutdown_super().
+    
+    Reproducer (x86_64 defconfig, root, loop devices 20 and 21 free, QEMU
+    -smp 2):
+    
+      gcc -O2 -pthread -static -o bdi_min_ratio_leak_short bdi_min_ratio_leak_short.c
+      ./bdi_min_ratio_leak_short
+      before: min_ratio 99 on loop21: Invalid argument   (exit 1)
+      after:  min_ratio 99 on loop21: ok                 (exit 0)
+    
+      /* loop device add/remove racing a min_ratio store; root, CONFIG_BLK_DEV_LOOP */
+      #include <errno.h>
+      #include <fcntl.h>
+      #include <linux/loop.h>
+      #include <pthread.h>
+      #include <stdio.h>
+      #include <string.h>
+      #include <sys/ioctl.h>
+      #include <unistd.h>
+    
+      static volatile int stop;
+    
+      static int store(const char *path, const char *val)
+      {
+      	int fd = open(path, O_WRONLY), r;
+    
+      	if (fd < 0)
+      		return -1;
+      	r = write(fd, val, strlen(val));
+      	close(fd);
+      	return r < 0 ? -errno : 0;
+      }
+    
+      static void *storer(void *arg)
+      {
+      	while (!stop)
+      		store("/sys/class/bdi/7:20/min_ratio", "50");
+      	return NULL;
+      }
+    
+      int main(void)
+      {
+      	int ctl = open("/dev/loop-control", O_RDWR), i, r;
+      	pthread_t th;
+    
+      	ioctl(ctl, LOOP_CTL_ADD, 21);			/* the control bdi */
+      	pthread_create(&th, NULL, storer, NULL);
+      	for (i = 0; i < 2000; i++) {
+      		if (ioctl(ctl, LOOP_CTL_ADD, 20) < 0)
+      			continue;
+      		while (ioctl(ctl, LOOP_CTL_REMOVE, 20) < 0)
+      			;
+      	}
+      	stop = 1;
+      	pthread_join(th, NULL);
+      	r = store("/sys/class/bdi/7:21/min_ratio", "99");	/* sum must stay < 100 */
+      	printf("min_ratio 99 on loop21: %s\n", r ? strerror(-r) : "ok");
+      	store("/sys/class/bdi/7:21/min_ratio", "0");
+      	return r != 0;
+      }
+
+ mm/backing-dev.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
+
+diff --git a/mm/backing-dev.c b/mm/backing-dev.c
+index 18e999053bae..fad1495d3b20 100644
+--- a/mm/backing-dev.c
++++ b/mm/backing-dev.c
+@@ -1162,19 +1162,20 @@ void bdi_unregister(struct backing_dev_info *bdi)
+ 	wb_shutdown(&bdi->wb);
+ 	cgwb_bdi_unregister(bdi);
+ 
+-	/*
+-	 * If this BDI's min ratio has been set, use bdi_set_min_ratio() to
+-	 * update the global bdi_min_ratio.
+-	 */
+-	if (bdi->min_ratio)
+-		bdi_set_min_ratio(bdi, 0);
+-
+ 	if (bdi->dev) {
+ 		bdi_debug_unregister(bdi);
+ 		device_unregister(bdi->dev);
+ 		bdi->dev = NULL;
+ 	}
+ 
++	/*
++	 * If this BDI's min ratio has been set, use bdi_set_min_ratio() to
++	 * update the global bdi_min_ratio. After device_unregister(): the
++	 * sysfs min_ratio stores can no longer run and set it again.
++	 */
++	if (bdi->min_ratio)
++		bdi_set_min_ratio(bdi, 0);
 +
-  acomp_save_req(req, acomp_reqchain_done);
+ 	if (bdi->owner) {
+ 		put_device(bdi->owner);
+ 		bdi->owner = NULL;
 
-  err =3D acomp_do_one_req(req, comp);
-@@ -293,7 +301,7 @@ int crypto_acomp_compress(struct acomp_req *req)
-  return -EAGAIN;
+base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
+-- 
+2.53.0
 
-  if (likely(req->unit_size && acomp_request_issg(req))) {
-- if (!crypto_acomp_req_seg(tfm))
-+ if (likely(!crypto_acomp_req_seg(tfm)))
-  return acomp_do_req_chain(req, true);
-
-  return tfm->compress(req);
-
-The Average throughput of 10 iterations usemem is 19,058 KB/s. IOW, I
-don't get the same performance boost as making the localized change in
-crypto_acomp_compress(), likely because of added computes per compress
-call (one function call, two conditionals).
-
-I think the localized change in crypto_acomp_compress() looks a bit
-cleaner as compared to the special-casing for "comp" in the generic
-acomp_do_req_chain().
-
-In any case, please let me know if the above data helps.
-
-Thanks!
-
->
-> Cheers,
-> --
-> Email: Herbert Xu <herbert@gondor.apana.org.au>
-> Home Page: http://gondor.apana.org.au/~herbert/
-> PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
