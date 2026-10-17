@@ -1,35 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB0B38550E;
-	Sat, 17 Oct 2026 01:40:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAEB383984
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 01:40:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792201218; cv=none; b=l7RBg9/c2K7HhQoSZ5DzTTnBK9VkVbmS8ve5PwztYcgz2qwKHqrYE3nWF3OTh78j+J3Irq08mD+V0WOkQrfXVJKzlj3qDq7RElrbHxfURY9bSUncFEg1OXjs3yz473FCJAEsYDs56mDO2xg8pLhc9+pw3Cv77aJQNxIk2Z7/2Bw=
+	t=1792201218; cv=none; b=cXptMqKL38AdsUJTgdGsP746wmpPE/HSh8a1x8fsQm5GOsKKmkSekIuHYbEpaRKtg0RXRliTdV+VDuWzWcdw6cpxe30ID98jDhNUxOAPp/hbOhfWUjxBv8qg0rLHM4ftUNYh743i7UQIp09uZPY9LSSP5f7ew7mw8QO2NrujdSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792201218; c=relaxed/simple;
-	bh=OjI94ysJpX2K5r1PNJ5d3g4UcWqb3+ItTogJjArhhFo=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=XA5vpaI2GD/TBRQZSlOOPShC8t53raW1d7l/BbcapWL9KsU+gCVMWiqf0piy3Zr6l+5cXM2agp/bxCCOVZULBfhivkFxnU/apWNZ75BjdY4A3O7QoA7mOrcDp6LlcZSpyF9ESmCobYSjmdhjyTowPHv3jNZi0qYEtkJvmaCZq3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MgK09Mtn; arc=none smtp.client-ip=100.103.45.18
+	bh=ap9ePz+9PV6ufOeUJx8Qbab0l1IL7Xz3NBboXApR0a4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NkQpTGz8OGPSC+uzxv66eLoO3yWSmRlOazqYQ8vGyCOWQupiuPmb9pkA4Q7ZtxqF2Tk3K31rnJnIHG8pncIdh5umr/46pks5SKZauvF7hOV+gDpMvuTpzi1Kcxl42r54DgY+C/pUEEalHbEDGLqM7c6v98HgbeC/JfvCgP3CIfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kVgy+QxN; arc=none smtp.client-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MgK09Mtn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 087781F000C6;
-	Sat, 17 Oct 2026 01:40:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792201215;
-	bh=n9nh2kG+i/gBx9kwNBoZa3tMJRwxBESHMVixHtegqJQ=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=MgK09Mtnqwa0HukbW+ENA3arUwTrqUX0VXHtraocWgB+bxY0jTE/Yl7FNw5xyZi05
-	 l0yNp1vF3dFz7J096LlfGFDDzcfZ1ueHXLgjW1yOTntzNpMOWia0teXUME1e3b+GvC
-	 Yf5mY7+Rlyg3laaD2qWTr7m9M3hcete5TnW6b0SFrlvTLu/XkYKuaOYj1ummm32ic2
-	 QYR0bN2kYuEjQlGl9FWUtsZnmugIdoHO6F/Bu4V8FewWkIPFvP/m8ScGFz+qs3a1D3
-	 PeXgKDWS8I1oiGj3GcZuvBoGNc40lTLvmWHTwJjgkw9jes00pZTgqBx7HYRwIGZ45O
-	 evOh/AC0EPd4A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F160E380CED9;
-	Sat, 17 Oct 2026 01:40:14 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kVgy+QxN"
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15756f82e8aso1083156c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:40:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792201211; x=1792806011; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5bYkTuU5A/bCkZlXHIgBMm3vkDI/xApJANJAk++gOls=;
+        b=kVgy+QxNeQmUtop95axvQfj9JtvdNkQNSr56P38igpKUNLY9MU7LIxxzD3T3zrY8Ro
+         LOB7ziT/q75pokly/OVycnJseXOkdde2Dc0ZbxJW0qekoP4+TwEF97SuR/oj2LnogUDd
+         nK5Wcy47Zj86PVNviIWpytGU074Uqz4+S7ll6Rq2w2idx+SKWT6iZDVpl26Zybbh9Sb5
+         r+XEGjWQeGZjs5l+sNhP5FUkq8JOLj+kn5yBOfM91OYlH9ZG9gVvKs7aSmjb5tWaby9w
+         FGvjFLCO4F4GEYIjnDZfRVqVp6QYjZEBJDxWwWFqh1i/yDB68ME1ySXEkrUbuLhjh0Hh
+         aAdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792201211; x=1792806011;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5bYkTuU5A/bCkZlXHIgBMm3vkDI/xApJANJAk++gOls=;
+        b=K7H9QmXdlOGVok22ori/ft3yKZzKcs9u3oqnwAwJymKTGdZqjIzE379WkyRpyvpgwV
+         UGc7vG7dBO4d+HVYSGI4Y2xkt6yM9nrGamYFNvj2dqA1UeL/2PnJCGHCHGOimKPgK1ll
+         f2/lkRpyIKgdPsniEDAf6SpHpJi2+R+bNGHilA7zvbHY4kbMlr2/MmaqtK3AfWtkOmIu
+         R3lMq5jok6wJqIzglbum37gy4bxWwbJwP2KozrOGsjIYk2Z0LaczWKuPoGvLRicZkc1F
+         LBPiGtul6UnwZAlpWN811XhS9HtCto8UaJBrIl5ZGUwQSrF3kSyzjskqZZmJ4tEdcGP1
+         7PuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzwz97rPIvipfEgn4OYPe8czihAi5FjlOuVjfKs8RLrRQxCUxINBUtycw3liZy0PsWKj76wUHsQ8gG/J0M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwj0ODlQMAoBN5+s0DTeE80ds79vzkoNLGvKoGQ5YNffBIWqiv
+	u1R5p3Z1A+SYZZEdiLQAUx1Ry96ukkY7gKnp4W6MpDFRrnaptK05hy1T
+X-Gm-Gg: AYBFou2W6nDpB/pmB2B1i8beR3qPl46n0f/+BgKIn6X76MRpE3O5zlR9o6FnatAutGo
+	emnPnj7SUk+CX68O3bNk991OG3V9mdDpPSrA+lJbPMqPcLizAqF81C4IlVKKNek+V/ndAmDCphD
+	xut1k1Glf9MDy35Og817AjU393fADzsW3oHsm/xBMTGYL6rCHjsnYh41wi+4/MTEq+irjW0FW3Q
+	7QXhO2OSjccg5PqwgowRaqz4xMBHJUIwTufhBv++Sz9ltfRP9WP2xpKteU3YxFsZsq/HngfbEbX
+	uTZmvhJ0t7juM2lN434vHjZCIoD61Kcgeo6eFGKq2xllZbespUUTPmtSoJJAIrGgMn0i30weXO2
+	xdxdztpVUsBOnxkyFQuEwV3g1u4LbCGyJkG3IYPN5VVAtOG7qEpFPuQ/v5YcBPqbcrVDDFJpCwd
+	7uh+KB+rtPoGIFZGTofBPBq1Pbw0+N8UbHLe6LuF+qzQZpDWnwSKir0e0A0deUEXmqBAHS55GHl
+	LEW1awM2Xq4oJod44bi1oUciMCZBR4CheRgvQKL6bYi/EKoknuSPeiA+Fr0BncwCmmyDDtB+8GH
+X-Received: by 2002:a05:7022:b043:20b0:14c:c588:ac21 with SMTP id a92af1059eb24-1851069db0fmr1875193c88.9.1792201211295;
+        Fri, 16 Oct 2026 18:40:11 -0700 (PDT)
+Received: from lappy.taila8a9bd.ts.net (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831acba710sm12128429c88.13.2026.10.16.18.40.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 18:40:10 -0700 (PDT)
+From: "Derek J. Clark" <derekjohn.clark@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
+	"Derek J . Clark" <derekjohn.clark@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel@lists.opengamingcollective.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 04/11] HID: hid-lenovo-go-s: Use pm_ptr for reset_resume callback
+Date: Fri, 16 Oct 2026 18:39:49 -0700
+Message-ID: <20261017013956.2440130-5-derekjohn.clark@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261017013956.2440130-1-derekjohn.clark@gmail.com>
+References: <20261017013956.2440130-1-derekjohn.clark@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,54 +81,29 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net 0/4] mptcp: misc fixes for v7.3-rc8
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179220121377.1050340.16852423271530294795.git-patchwork-notify@kernel.org>
-Date: Sat, 17 Oct 2026 01:40:13 +0000
-References: 
- <20261013-net-mptcp-misc-fixes-7-3-rc8-v1-0-932c9b182fc7@kernel.org>
-In-Reply-To: 
- <20261013-net-mptcp-misc-fixes-7-3-rc8-v1-0-932c9b182fc7@kernel.org>
-To: Matthieu Baerts <matttbe@kernel.org>
-Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
- quanyeyang@proton.me, stable@vger.kernel.org, caoruide123@gmail.com,
- kylebot@openai.com, david.lee@trailofbits.com, vega@nebusec.ai,
- weir@nebusec.ai, ncardwell@google.com, kuniyu@google.com,
- daniel@iogearbox.net, kafai@fb.com, sashiko-bot@kernel.org
 
-Hello:
+Adds missing pm_ptr to the .reset_resume callback for hid-lenovo-go-s
 
-This series was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Fixes: 3524900cc571bd922a ("HID: hid-lenovo-go-s: restore OS_TYPE after resume from s2idle")
+Cc: stable@vger.kernel.org
+Signed-off-by: Derek J. Clark <derekjohn.clark@gmail.com>
+---
+ drivers/hid/hid-lenovo-go-s.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Tue, 13 Oct 2026 16:29:18 +0200 you wrote:
-> Here are some unrelated fixes:
-> 
-> - Patch 1: fully reset the msk state on early connect failure. A fix for
->   v5.9.
-> 
-> - Patch 2: avoid using the subflow status bitfield for a field that is
->   used under the msk context, not the subflow one like the other fields.
->   A fix for v5.12.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net,1/4] mptcp: reset msk state on early connect failure
-    https://git.kernel.org/netdev/net/c/29afe67082b2
-  - [net,2/4] mptcp: fix subflow bitfield misuse
-    https://git.kernel.org/netdev/net/c/7538fa33bb2f
-  - [net,3/4] mptcp: hold MP_JOIN msk ref when cloning reqsk
-    https://git.kernel.org/netdev/net/c/c9c90cf437a9
-  - [net,4/4] mptcp: fix MP_CAPABLE token migration when cloning reqsk
-    https://git.kernel.org/netdev/net/c/2093bc7fa500
-
-You are awesome, thank you!
+diff --git a/drivers/hid/hid-lenovo-go-s.c b/drivers/hid/hid-lenovo-go-s.c
+index b27e82ec9b76..a16733edad5d 100644
+--- a/drivers/hid/hid-lenovo-go-s.c
++++ b/drivers/hid/hid-lenovo-go-s.c
+@@ -1560,7 +1560,7 @@ static struct hid_driver hid_lenovo_go_s = {
+ 	.probe = hid_gos_probe,
+ 	.remove = hid_gos_remove,
+ 	.raw_event = hid_gos_raw_event,
+-	.reset_resume = hid_gos_reset_resume,
++	.reset_resume = pm_ptr(hid_gos_reset_resume),
+ };
+ module_hid_driver(hid_lenovo_go_s);
+ 
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.55.0
 
