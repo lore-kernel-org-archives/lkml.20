@@ -1,64 +1,66 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673AC37F01B
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:09:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547173B19BF
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:09:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792213772; cv=none; b=RUCC/6m9zeJOsYqgGJkNSUeGYzIQPi6gHCZdHlovWyHHetZwXoHkx/A5gNbev7ScCq0Tu5zrXwfli1gyuMIuayvgqqB/Dn82M0tq9huMRJ/V8nv4j0jHqVDce1Wb7VelCuxTBkP3q5M76ae/OqKafO4ymJfum8EK93PCG2wQLp4=
+	t=1792213774; cv=none; b=odeSIvAGTImAKatwyl57iur6gJGkyy2/vGrjcgWmiogt2slDhw1c+7cth7Jr0VtRkAoQ71tm50Mxpir3Z+I+gkNHRu9gV22hr73FjwNKcKg04XROjJco/a4H5kl+RcmlYZyawob23+20Xc2H6pb5ecXKsE5NuMLFqAspMeAJVOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792213772; c=relaxed/simple;
-	bh=6/qYlEhJHSxlMKX7o7HI7DT+c0x8I+YT/0Zuz+mG7pg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OtrW6A3DhK9tRUwbeYttEMt6HtskHY3/dUlyIAsfcWPDvouefdpX/AEyfXSww5OEWG/F4oYfvpSJ9NO2XY0dga90S2sni4iHp6mjGqNtkN500NqbhBXPvuDmwKeMxdbFoCuWgW2+7p8Cy9Ws0udSTWlSt9kOW+DRZWUldfQ2rKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qfC8YMdC; arc=none smtp.client-ip=209.85.215.169
+	s=arc-20240116; t=1792213774; c=relaxed/simple;
+	bh=GtwgCIcdUhmCTpOZjA9h2ouHNvm1jXvZOqzlD3teHsY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HJ9hnO76RhHExGACR8SVnbllgdqyMo8McqDVf4ZRSFCmVE0j8BTkW5Sh26+791esiUBzfnx3i6DcNXbnjlrTBsFIMheeMdyeJH+4sBG7BsQzdEqn/ZGggVxP4fY7gcCxV4Kz/9P71U0N9uEmgSg7p6QMXp8ZQuZlF8Jh9vR4qSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gt5nales; arc=none smtp.client-ip=209.85.210.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qfC8YMdC"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso455686a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:09:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gt5nales"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a052aff9e9so122607b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:09:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1792213771; x=1792818571; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lBiMjT8ldL7Ky1jQPlUb8oCa4/bnIv7ADJeJybOOjZ4=;
-        b=qfC8YMdCKJDTW5GAXi1+FcXcVTO1gWbwoOAnsblKWh1gFwDc4KTLz9ryjWrDjIHgD0
-         IO+FclmSsW+Iw0P38W3U6+R3+6/7f8P23BJ9KKtii4Ah7eL4OCOok1meESSvr3i+jPtq
-         4kLldCxQiBfLsCA1gg4iWy/xhWd1Am2EITrcmb10DIGIRmeSeIruQKDg4MaLToZ3rqQH
-         gmbx0rlhLkRD5SfL+Y3C12yNit3a8Hb2gZuUnfaBLu4ePZISx6AmP/vS6xCT1dgoorJu
-         LOlN+PCMfPH8aBI2bGfngi7kF4KbyvR/6q/7ydY+pZArhhAX0CzPLh7a/grpvBnnpo51
-         SgaQ==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ltltwVBtHl3kghO+WSesRQLC/X/BP4EIFkAkNpxFFq0=;
+        b=Gt5nalesXLQ21y3xL7yOJRshONEbrE9EKiuGXeTG348zaTuoivWIvqTE5/8DAC1tU3
+         ynyJ5yAxNtQgkPapiE3B8Zy/SDbuM4pk1zcvTHUWgi5wYgVZQGXNFrpMoWt/HMGRuLg9
+         yemDEUVB5lxGdHUifXIlWn3TPR9iz7K9MZnKkb5ht3Gld3EJ3Ua1rpi5S2/InIagL9be
+         py/WS2tbhQrE+YIY5aUIb7J/1M+ZHZHv8XahCTF37jXPC2tVBlX69Sp82keBrjx+YVw5
+         66BUMUAC7ltUBeGxyPigLlRYOU7VzYXAGXY3iUYWNpLRdieWFczk+FYsJ5iA1IqUrb6m
+         nEWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1792213771; x=1792818571;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lBiMjT8ldL7Ky1jQPlUb8oCa4/bnIv7ADJeJybOOjZ4=;
-        b=X7oilfojyYE3woPnMfQ7qZN1VaqsR0PlVDolSDdPoMl6FkXe5fdUkECaM/yQTcuoCn
-         uOgok7eUiF/N3VBXSzI8p3LSEL7pXqpg8xJ5rTfdXK2XCfARmnBEl3Iqf6eCLAtxEld/
-         +GJnT2TYS3dlym4QZ9TN5cTi0SsqCwLWxFNsQ72D31piex/q5VqM3V55mUHnR5g6jcAI
-         mirP/tYfv775QtVfa6e7zkFkXfi9guYyg9SjifVbc10eyJhXduPrV6QXP53c8hn1eLbR
-         TbEPPsVD7K0Pz7jFT07xj6MDacbJg1fD/4HW/USjUDbDAoZnogmDB2YzVlWN/ha/N+5s
-         c91Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzrbSHnWrSTsXtlcfvJqdvlV2mMHNlHHmd8nnbSRrXSfMlg6T5tcS/EyiwKdomUkvCqXqUQ55/GEN9ih/k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKwsebcC+MICfF1ENyr6HV8HVu+ayWcPIQydNcP1JI+ecn3XN1c
-	eWcgWgnEc4z8wG3VhfY3kPjwzuDK4IKnhsdDelGYIImV6zsxOQzgaq6t
-X-Gm-Gg: AYBFou2lDKttwlJHve92pbANAgCJaQJocFCW5pL4ev8I50Vw4jhpmTrte4YUuEvYggS
-	CAx3d6o6gooXVLLDVWbikX99roLp+63jFH9RqCbAe6cD3z6pUknhiSfgrJRDxGs+PNHP7iHmIlD
-	7sFyRPVoyJYimE6FCulPn01BIXzbzdiL8yrnTeC8Av5qoabmEAPGDTfaoC1ML9oHA/NhJCMsi8F
-	HGyz8tRMZ2Nxcz7zcyV+Jhxt1Du1PZjUieZzKACVuw+B4vX9OYIPwdW8pjEif4sa7MsHhdbaY8A
-	2D2BB1ma+Ig+2NAD/at3gSlWuA8kgTuWzGVtmu3Dc5CG4swt4HyKe/6cZ2eszZ3ZdwUMel3E4eM
-	yev5zzAPRjW2KJ5qTAEpXIbnxYki9/WJGta5Mb8D8BfOD5WhQovRhpIyMuUdAkMRtTaLD5KNBRT
-	BLw4y/F++Zu743yHDhN6Xlh31pBu95m6E7pOzP9XgkUdvL0GRwxxqi/RY2fXxxJ8Q9zvoFF1UdQ
-	zao5dRSti+Y2ikMhM+ZjG8HcWfvBJmKcrDUypmR/ZvRMc/7o4vEZgFeNaKZJ7BLQfxIqoVcnBCf
-	S6fPq6y4npklz5aqLyu7d9YA/CpQHp/y3Yb4naH0zGZFIK4Yxih/xMuc5jLXYF8FQdJR0BKY+M6
-	YumEepcTQx286sQ2UhueV
-X-Received: by 2002:a05:6a21:6b88:b0:3dd:a00a:1715 with SMTP id adf61e73a8af0-3e2263d5f61mr1225361637.48.1792213770605;
-        Fri, 16 Oct 2026 22:09:30 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ltltwVBtHl3kghO+WSesRQLC/X/BP4EIFkAkNpxFFq0=;
+        b=BniNmhKgkgw0PpAUuDCGytmvPYrpRQ93CWiHnihuoJL/iDUBGxw22vV6jBdFYpTJ63
+         yA+dZ9Nz23UWq1QwU/OQ5q0eB7aRVdN5m8iwsG7DKOanD8L8y5PfK+IwgbofxpP/porF
+         +Kw2WOtlWIku2hckr9+dr36o2Wabc7yGP3bYfgNLfvRiHJ85x7HXKcVAVe5Zwso7S3oi
+         qsn+U0w1ZCzE7RxZ3dTU40YJYhYjAp9hWOZNNvRMjsg+fXy4DUvrmgBnbA7bJ6PHImLL
+         yzPa/PkaXHi/vYpK0z3Nr85Y0GmfjFBIt18VrpPttTxNlNgLsIJxTLvyfeDB1eaj8T6G
+         LsTA==
+X-Forwarded-Encrypted: i=1; AKwUvBxD5G3SAufNO6lSS15z8W7bT/wRP72nIWKZgptdiFajDKQJHJm7yxtWcDzOpiW13t8maengC2XOXLoEtCU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILdYJfZwInqvuaNTQPkiolQSYtrv+xnl0sR0UwlwCS6Wj3Xg7S
+	+/pShPUOwYZGPADshhlM7xHew47uMuVzdhbjZK0SQul8PJla/QAoxMEo
+X-Gm-Gg: AYBFou3qZ3HINqc70t2n0FlDmq8ThnMeJItRpV3bs5PL3dkIz+hD+5t+OIHgT0RSqUf
+	BYe+zM4kBZJDqt99JomLSLYb5TzFZ5311Ugj3pp1ufDpe/WDCfFU0fY/P1fJA3uL0BzRuWBj34U
+	40d9CDyIl1ysaE9pgaPKjw9AslkBpuc/mmccTZTyGHSCzbr5WK84AcIqvI9gaqU2bI1ynGrXQ7H
+	hJ/DM5hr6L44bxS/lGTm6q3Z5bikc69W0R1Chx//KCLMzQF2Tjb/gOg7ILXEG+eniXxC0IrqNOD
+	EcRyjyTpe71hhh0xqfltw2h98aqf/7yjhLNipW9G0gEmSkdt12dZgGdh0ME+5efab1CLMEoTJMb
+	xwcjOIA/kKAJRV5DDHxK6Om2j++8tLx8Ajm9yYxg/0jv1W4C1wjX95iKQh7kxyY/wZKjCizLpn+
+	lhAKjghCKj9tV5NGDoCHkXf1171H0ykhdgM9AtuPHC1QwhaGhx3WmbkuTcV6vKpU0T9rt/h+w6p
+	W61JlEGpamcSjrKTibv/N67p2RABl2MVdOEkH1Hp/7tISdQM6ZRhrWE/X0ihTAysqD1SdoTpMbq
+	h5lYro8eMrU5CJUC9pUgl6rhFE/eKJBJ++a3PZM/r8GqlQ2y/5QznTQRBNtkrBd4yuOYAOkMXxC
+	jv+gLc2VBZQ==
+X-Received: by 2002:a05:6a20:d48d:b0:3cc:8f53:26c0 with SMTP id adf61e73a8af0-3e225fe541amr1150821637.17.1792213771457;
+        Fri, 16 Oct 2026 22:09:31 -0700 (PDT)
 Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89febdc2209sm1446036b3a.33.2026.10.16.22.09.29
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89febdc2209sm1446036b3a.33.2026.10.16.22.09.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 22:09:29 -0700 (PDT)
+        Fri, 16 Oct 2026 22:09:31 -0700 (PDT)
 From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
 To: akpm@linux-foundation.org,
 	hannes@cmpxchg.org
@@ -82,10 +84,12 @@ Cc: david@kernel.org,
 	Siddharth Chintamaneni <sidchintamaneni@gmail.com>,
 	stable@vger.kernel.org,
 	Hardik Garg <hargar@linux.microsoft.com>
-Subject: [PATCH v2 1/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref with memcg disabled on cmdline
-Date: Sat, 17 Oct 2026 05:09:27 +0000
-Message-ID: <20261017050928.128582-1-sidchintamaneni@gmail.com>
+Subject: [PATCH v2 2/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref in get_lruvec()
+Date: Sat, 17 Oct 2026 05:09:28 +0000
+Message-ID: <20261017050928.128582-2-sidchintamaneni@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261017050928.128582-1-sidchintamaneni@gmail.com>
+References: <20261017050928.128582-1-sidchintamaneni@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,94 +98,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When CONFIG_MEMCG=y, lruvec_pgdat() returns lruvec->pgdat, which for the
-per-node pgdat->__lruvec is left NULL by lruvec_init() and only filled in
-lazily by mem_cgroup_lruvec(). Normally that happens early, e.g. on the
-first folio_add_lru().
+Andrew Morton reported that get_lruvec() has the same problem as
+lru_gen_shrink_node(): when memcg is disabled on the command line
+(cgroup_disable=memory), it returns &pgdat->__lruvec directly and so
+bypasses the initialization of lruvec->pgdat. The MGLRU debugfs
+interface calls get_lruvec(), then dereferences the pgdat pointer in
+lru_gen_seq_show() and other paths, so these can hit the same NULL
+dereference.
 
-With cgroup_disable=memory, lru_gen_shrink_node() passes &pgdat->__lruvec
-directly to shrink_one(). If direct reclaim runs before anything has
-called mem_cgroup_lruvec() for the node, which can happen during early
-boot under memory pressure (e.g. a kdump kernel), get_swappiness() ends
-up dereferencing a NULL pgdat:
-
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000005040
-  pc : get_swappiness+0x68/0xb0
-  lr : try_to_shrink_lruvec+0x54/0x2c0
-  Call trace:
-   get_swappiness+0x68/0xb0 (P)
-   try_to_shrink_lruvec+0x54/0x2c0
-   shrink_one+0x8c/0x240
-   shrink_node+0xc6c/0xe08
-   do_try_to_free_pages+0xdc/0x570
-   try_to_free_pages+0x124/0x278
-   __alloc_frozen_pages_noprof+0x6e8/0xf78
-   alloc_pages_mpol+0xc4/0x1c0
-   alloc_frozen_pages_noprof+0x54/0xe8
-   alloc_pages_noprof+0x1c/0x40
-   atomic_pool_expand+0x98/0x300
-   __dma_atomic_pool_init+0x58/0xd8
-   dma_atomic_pool_init+0x154/0x170
-   do_one_initcall+0x64/0x350
-   kernel_init_freeable+0x214/0x430
-   kernel_init+0x2c/0x208
-   ret_from_fork+0x10/0x20
-
-The classic LRU path and MGLRU before per-node lru_gen_folio lists
-obtained the lruvec through mem_cgroup_lruvec(), which sets
-lruvec->pgdat.
-
-The above was hit on an arm64 kdump kernel (6.18-based) booted with
-cgroup_disable=memory nr_cpus=4. It also reproduces on mainline on an
-arm64 VM with CONFIG_ARM64_64K_PAGES=y, CONFIG_MEMCG=y,
-CONFIG_LRU_GEN_ENABLED=y and:
-
-  mem=160M nr_cpus=4 coherent_pool=512M cgroup_disable=memory
-
-These options only serve to force direct reclaim early in boot; with
-160M the boot eventually ends in OOM regardless. On mainline the first
-LRU reclaim happens while unpacking the initramfs, and faults the same
-way:
-
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000005040
-  pc : get_swappiness+0xd4/0x150
-  Call trace:
-   get_swappiness+0xd4/0x150 (P)
-   try_to_shrink_lruvec+0x44/0x2b8
-   shrink_one+0x80/0x1a0
-   shrink_node+0xd98/0xea8
-   do_try_to_free_pages+0xf4/0x4b0
-   try_to_free_pages+0x110/0x360
-   __alloc_frozen_pages_noprof+0x8b0/0x1718
-   ...
-   __filemap_get_folio_mpol+0x2ac/0x548
-   simple_write_begin+0x44/0xf8
-   page_symlink+0x178/0x198
-   ...
-   do_populate_rootfs+0x13c/0x200
-
-Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-Cc: stable@vger.kernel.org # 6.3+
+Fixes: ec1c86b25f4b ("mm: multi-gen LRU: groundwork")
+Cc: stable@vger.kernel.org # 6.2+
 Assisted-by: LLM
 Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
 Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
 ---
- mm/vmscan.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/vmscan.c | 15 ++-------------
+ 1 file changed, 2 insertions(+), 13 deletions(-)
 
 diff --git a/mm/vmscan.c b/mm/vmscan.c
-index f11491ee9ed5..0c57e4f1eb15 100644
+index 0c57e4f1eb15..99e9f07fa2e1 100644
 --- a/mm/vmscan.c
 +++ b/mm/vmscan.c
-@@ -5253,7 +5253,7 @@ static void lru_gen_shrink_node(struct pglist_data *pgdat, struct scan_control *
- 		sc->nr_reclaimed = 0;
+@@ -2745,20 +2745,9 @@ static struct lruvec *get_lruvec(struct mem_cgroup *memcg, int nid)
+ {
+ 	struct pglist_data *pgdat = NODE_DATA(nid);
  
- 	if (mem_cgroup_disabled())
--		shrink_one(&pgdat->__lruvec, sc);
-+		shrink_one(mem_cgroup_lruvec(NULL, pgdat), sc);
- 	else
- 		shrink_many(pgdat, sc);
+-#ifdef CONFIG_MEMCG
+-	if (memcg) {
+-		struct lruvec *lruvec = &memcg->nodeinfo[nid]->lruvec;
+-
+-		/* see the comment in mem_cgroup_lruvec() */
+-		if (!lruvec->pgdat)
+-			lruvec->pgdat = pgdat;
+-
+-		return lruvec;
+-	}
+-#endif
+-	VM_WARN_ON_ONCE(!mem_cgroup_disabled());
++	VM_WARN_ON_ONCE(!memcg && !mem_cgroup_disabled());
  
+-	return &pgdat->__lruvec;
++	return mem_cgroup_lruvec(memcg, pgdat);
+ }
+ 
+ static int get_swappiness(struct lruvec *lruvec, struct scan_control *sc)
 -- 
 2.45.4
 
