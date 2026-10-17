@@ -1,235 +1,90 @@
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD53391846
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:42:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81311302146
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:49:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792237382; cv=none; b=A6KXl2FM6L/rsgYa1xOlxWjb+u3E+qADsriOMxSzR+EtGEHKKX4uLU+8JXTzsrubLLNrm/6T3P7P0x/rG0u+qyvnYlBp2u1Ro8SnaHk0b8sGrizqoif2R/AIgzmWjKaAf1kC6cTy4Ed+YRDPlPnnKWmbT3pHgFWmJbztumn7RIc=
+	t=1792237792; cv=none; b=MgvltIKLGyUuI8PFqxn0h1cv7eP8IMgAz4s5reRj9RD9EL6gdpftUdzf4yUbD41pMrRymT/rZd4+lOz04yp3a45NFMmWyUh884rp1ZMyN+DM+i9zYtmSUnZT6rZH4acBlgKkXoYhXwn5pP3DQ66QnqYa20rrk/EvTPkNGy02y+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792237382; c=relaxed/simple;
-	bh=J8Cw60wlKHa0M+RZVGRfThuU+pMFQ4l3jfsZspjxnx4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tAC2xVEXHUkvMF6m/1jD/kFOHjp8fvqedNoqlVmzoTWR0ZnL48PI5Zaf8LTLHxiPP1IUQuCHDJ8Gmt8aXrikV6h/MDVOusWWdDGZSyb2vJKbpBUmPmkop/x93h/VFHWTIioBStZs9Obopw9JHLbQTW4x03RB7qcEMjfK28UfFkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LQ+FrjmR; arc=none smtp.client-ip=74.125.82.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792237792; c=relaxed/simple;
+	bh=6LIjJtN39iqnvlM8uOpS906TeLFtaC94PWR9ENp3ycg=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=rHiop8nLcSPBcYNT20joEKbzSPir1i7orT72oHQT0mzd7HAmZpSpKuOmIB7sQioP8GEPeTDMb+CgvPsIYw6xthwnLJ5RiysAfcwImDsPTtU3ZSjcXBwEb1gps6w2hLajX77Z/75JgjpNWnJOjnAMMTThau5YNUZbQhh7L1BM6pU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jhlPOIpy; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LQ+FrjmR"
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-16ad92569b5so704114c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 04:42:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792237379; x=1792842179; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/NEtd/XspvBJIHQm0kcPRGhqlPpCGmhp+4zMFyvkec0=;
-        b=LQ+FrjmRiBrmkwZiew7tTvS0pohugggoXlUc6g9D1evS65lJehstBnMxP7pdl9BQ++
-         txdsfYNfJvnGOc4+q0vUBvR36RvPGAK75XYU8a7ku6s3wPOKJZ7cEJT5DM2LOIRCJblW
-         q7PXrrg/02n88Qpup77lPUbWZ1ZtBDIHO2dmxO/PSYwNArKDOQo3AMwROxhNu+tcz2Dg
-         3YnHPIVqkQ6slo9JzuouCP1yRvlqgwfP+EcV+OowXas/QSoCj7noII7i2v/MSlpjv2Jl
-         W3HirFlpnkKacLQdmDB+abp6Wm9bQvsvEEanIfg6O1lJVE7kWCLjVFfyO2fg2JGMbuYl
-         Z07w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792237379; x=1792842179;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/NEtd/XspvBJIHQm0kcPRGhqlPpCGmhp+4zMFyvkec0=;
-        b=mrgEwmH6qlS1EMU32DF4vjaRpi5q0WMhHH9moc39Uds+2O3ptJ3U+BlQcRUORCKPQ9
-         KnbQ5K3Er3TDmDyzavY9MNaZSXKwerSP8chZv4TLDkhHs0WgAkmM4ifCFJfjgrVrf+Ne
-         v2LAev+QwQec3kyb2R16Db2+XiaWsGJVn4oJPfrTYsTdydp1/lhgn5I6bJOytb6oC91/
-         FQI6VBznQs5dVFr4a8wSIfY1aJO1FuJ/mkUQgKYiXc7U8jr6muRVKzYl2s+tiCV/jHYz
-         7D8rt39Y1Cc3BxNrW8+Ctq3zpOOVZsgeqML0/K4jgD4LotUVTjdsCJTjxlF4J4O3l1VU
-         QwHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx7qp7EiwN8ekovP/8uGTgTdCQg2yy4bQO19wH8XtMSwgqHjMEJuJHUExZ+SIFyErSBkvui/GtUDv1dqes=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoUryljKshXqZoX69K4AeyGLrsHg8iph1oOlc10T85GTui7ngZ
-	FChAk5bkD2xjf9WAeFzs27n3Mvb0d1QJgSVkNbF9xKKISJFN0FfMVIpd
-X-Gm-Gg: AYBFou101XFzwByFJFPm8E1PjsBGd3IIDHLahFo4MjIXHl3F6DizWBjUkpxYdosVn6G
-	ZAvaDgjcAR+pqGQe0zaADzW6sQSYLky/mcSlzphkNtXm2wdX7e5N40o02h8w7DXctKnFwbsuaI7
-	tSLO05XKYxPewz0QQoJz0ojDbT6RgUl41CmvhevyQLlBQRIV9rsR9An0J8Xv2N2yyAKSfLVkJ6o
-	4bj8AWYH0j29hIHCxMjz6vYdLhv6FEAG7/EsF0ZM0nvsXncgihj0EB1YM4NMnU9hmr+9Pnea1Fn
-	8q1JmUwOPKY0FG26aLyldT0Mp2C6FJyfWrlLNU3Ghjzw4cqiJaShjAOI8ii54GZ1ZZGY0VTLnal
-	Aba0XtEIC9zl+4y8ML4r0mQ3WTD5kVpVnbDXAJAKEiWN88kWBcl/fBV+Bg7L5oXNITEDVgU4J6G
-	LSyJ2XjhpS/5OgiOK/+sOds9GQJPCEq4YxwCUrWwO3R3x9RXvlG087RnBnm9EPmrG1cYKPxVYSG
-	Q3HR+6jNQd9ucV4xTRikh91Eai5DN0JSyIYphDspeg0TMg=
-X-Received: by 2002:a05:701b:4559:20b0:144:eb46:c31 with SMTP id a92af1059eb24-185120abebbmr3391009c88.17.1792237378928;
-        Sat, 17 Oct 2026 04:42:58 -0700 (PDT)
-Received: from Terra.tail0ac356.ts.net ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831996071csm13759881c88.9.2026.10.17.04.42.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 04:42:57 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: "Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Shannon Nelson <sln@onemain.com>,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	stable@vger.kernel.org,
-	co+d17c2bc750a9cbbb@bugs.sh
-Subject: [PATCH net] virtio_net: atomically disable rx mode work
-Date: Sat, 17 Oct 2026 04:42:38 -0700
-Message-ID: <20261017114237.2786302-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jhlPOIpy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792237787; x=1823773787;
+  h=date:from:to:cc:subject:message-id;
+  bh=6LIjJtN39iqnvlM8uOpS906TeLFtaC94PWR9ENp3ycg=;
+  b=jhlPOIpysr111LlFt94xUNR6U0qnlzQE3U3+tsf5+NxyFDLmiSuS1FuM
+   0Y8lu93BOINyC/VYc/wwg12moYI+RwKqymQ3+Pct1ZikP3ghtaFebzY1Z
+   zhyOpYbrE56nEcO2DinVVx74WmY9L53mib7/aHxFKVNgyBJvT6ufAXTQt
+   xQ1cYGrep1vj1N+auJPF0JCjaMjkFJi7aqAD6BI8bAZQx46bq1DD+nT9W
+   YsbL+b4D3Zm37VEzLsQjsgM9XM16rCo6c+RfwKmPqmBDj8yrGd3Kc/Byk
+   eebWfkw14x+ssxe8k5QU7aImkHSGfPNwpfOLJEdeudLPGMpCEq/kypaYA
+   A==;
+X-CSE-ConnectionGUID: UbaRTJs3SlyfN/Brn1AAtQ==
+X-CSE-MsgGUID: 7doio1DmTpm1nYisohiTsA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="882115"
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="882115"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 04:49:47 -0700
+X-CSE-ConnectionGUID: p5CVfPKuQhWXuZMXeKTZEg==
+X-CSE-MsgGUID: F+bSeLCJRzWPHLLBMq+w1A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="2032301"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa008.jf.intel.com with ESMTP; 17 Oct 2026 04:49:45 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xI2v0-00000000JL8-3AFJ;
+	Sat, 17 Oct 2026 11:49:42 +0000
+Date: Sat, 17 Oct 2026 19:49:16 +0800
+From: kernel test robot <lkp@intel.com>
+To: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Sudeep Holla <sudeep.holla@arm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Alexey Klimov <alexey.klimov@linaro.org>
+Subject: {standard input}:2398: Error: Insn jl has an instruction
+ mpyuw with limm in its delay slot.
+Message-ID: <202610171948.RUPBcdLs-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-virtio-net uses a boolean to gate rx_mode_work during device teardown.
-The flag is changed under RTNL, but ndo_set_rx_mode checks it under the
-address-list lock. A callback can therefore pass the check and enqueue work
-after teardown has flushed it. The work is also enabled before late
-probe operations that can fail, allowing probe unwind to free the netdev
-with work still queued.
+Hi Vivek,
 
-KASAN reports the worker using a virtqueue that probe unwind already freed:
+FYI, the error/warning still remains.
 
-  BUG: KASAN: slab-use-after-free in virtqueue_add_split
-  Workqueue: events virtnet_rx_mode_work
-  Call Trace:
-   virtqueue_add_split (drivers/virtio/virtio_ring.c:706)
-   virtqueue_add_sgs (drivers/virtio/virtio_ring.c:2839)
-   virtnet_send_command_reply (drivers/net/virtio_net.c:3565)
-   virtnet_rx_mode_work (drivers/net/virtio_net.c:3833)
-   process_one_work (kernel/workqueue.c:3322)
-   worker_thread (kernel/workqueue.c:3405)
-  Freed by task 119:
-   kfree (mm/slub.c:6625)
-   vp_del_vq.isra.0 (drivers/virtio/virtio_pci_common.c:259)
-   vp_del_vqs (drivers/virtio/virtio_pci_common.c:285)
-   virtnet_probe (drivers/net/virtio_net.c:7129)
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   90201351a862182bdabfc1ad1c97b1e1b6ed5931
+commit: 6c2fd7a71e7ab490a0a9d591486d923712012f59 firmware: arm_scmi: Increase performance MAX_OPPS limit to 64
+date:   10 months ago
+config: arc-allmodconfig (https://download.01.org/0day-ci/archive/20261017/202610171948.RUPBcdLs-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261017/202610171948.RUPBcdLs-lkp@intel.com/reproduce)
 
-Use the workqueue disable mechanism to atomically reject new queue attempts
-and drain running work. Keep work disabled until probe succeeds or restore
-has reattached the netdev, then enable it and replay receive-mode state for
-a running interface. Disable it before resource teardown in freeze and
-remove.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 6c2fd7a71e7a ("firmware: arm_scmi: Increase performance MAX_OPPS limit to 64")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610171948.RUPBcdLs-lkp@intel.com/
 
-Fixes: b9f7425239a0 ("virtio-net: convert rx mode setting to use workqueue")
-Cc: stable@vger.kernel.org
-Reported-by: <co+d17c2bc750a9cbbb@bugs.sh>
-Assisted-by: LLM
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
- drivers/net/virtio_net.c | 26 +++++++++-----------------
- 1 file changed, 9 insertions(+), 17 deletions(-)
+All errors (new ones prefixed by >>):
 
-diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-index 7d2eeb9b122667..6fa4b7219aa5ac 100644
---- a/drivers/net/virtio_net.c
-+++ b/drivers/net/virtio_net.c
-@@ -441,9 +441,6 @@ struct virtnet_info {
- 	/* Work struct for setting rx mode */
- 	struct work_struct rx_mode_work;
- 
--	/* OK to queue work setting RX mode? */
--	bool rx_mode_work_enabled;
--
- 	/* Does the affinity hint is set for virtqueues? */
- 	bool affinity_hint_set;
- 
-@@ -710,16 +707,13 @@ static void virtnet_rq_free_buf(struct virtnet_info *vi,
- 
- static void enable_rx_mode_work(struct virtnet_info *vi)
- {
--	rtnl_lock();
--	vi->rx_mode_work_enabled = true;
--	rtnl_unlock();
-+	if (enable_work(&vi->rx_mode_work) && netif_running(vi->dev))
-+		schedule_work(&vi->rx_mode_work);
- }
- 
- static void disable_rx_mode_work(struct virtnet_info *vi)
- {
--	rtnl_lock();
--	vi->rx_mode_work_enabled = false;
--	rtnl_unlock();
-+	disable_work_sync(&vi->rx_mode_work);
- }
- 
- static void virtqueue_napi_schedule(struct napi_struct *napi,
-@@ -3894,8 +3888,7 @@ static void virtnet_set_rx_mode(struct net_device *dev)
- {
- 	struct virtnet_info *vi = netdev_priv(dev);
- 
--	if (vi->rx_mode_work_enabled)
--		schedule_work(&vi->rx_mode_work);
-+	schedule_work(&vi->rx_mode_work);
- }
- 
- static int virtnet_vlan_rx_add_vid(struct net_device *dev,
-@@ -5711,7 +5704,6 @@ static void virtnet_freeze_down(struct virtio_device *vdev)
- 	/* Make sure no work handler is accessing the device */
- 	flush_work(&vi->config_work);
- 	disable_rx_mode_work(vi);
--	flush_work(&vi->rx_mode_work);
- 
- 	if (netif_running(vi->dev)) {
- 		rtnl_lock();
-@@ -5741,8 +5733,6 @@ static int virtnet_restore_up(struct virtio_device *vdev)
- 
- 	virtio_device_ready(vdev);
- 
--	enable_rx_mode_work(vi);
--
- 	if (netif_running(vi->dev)) {
- 		rtnl_lock();
- 		err = virtnet_open(vi->dev);
-@@ -5754,6 +5744,8 @@ static int virtnet_restore_up(struct virtio_device *vdev)
- 	netif_tx_lock_bh(vi->dev);
- 	netif_device_attach(vi->dev);
- 	netif_tx_unlock_bh(vi->dev);
-+
-+	enable_rx_mode_work(vi);
- 	return 0;
- 
- err_destroy_pools:
-@@ -6849,6 +6841,7 @@ static int virtnet_probe(struct virtio_device *vdev)
- 
- 	INIT_WORK(&vi->config_work, virtnet_config_changed_work);
- 	INIT_WORK(&vi->rx_mode_work, virtnet_rx_mode_work);
-+	disable_work(&vi->rx_mode_work);
- 
- 	if (virtio_has_feature(vdev, VIRTIO_NET_F_MRG_RXBUF)) {
- 		vi->mergeable_rx_bufs = true;
-@@ -7007,8 +7000,6 @@ static int virtnet_probe(struct virtio_device *vdev)
- 	if (vi->has_rss || vi->has_rss_hash_report)
- 		virtnet_init_default_rss(vi);
- 
--	enable_rx_mode_work(vi);
--
- 	for (i = 0; i < ARRAY_SIZE(guest_offloads); i++) {
- 		unsigned int fbit;
- 
-@@ -7112,6 +7103,8 @@ static int virtnet_probe(struct virtio_device *vdev)
- 		goto free_unregister_netdev;
- 	}
- 
-+	enable_rx_mode_work(vi);
-+
- 	pr_debug("virtnet: registered device %s with %d RX and TX vq's\n",
- 		 dev->name, max_queue_pairs);
- 
-@@ -7164,7 +7157,6 @@ static void virtnet_remove(struct virtio_device *vdev)
- 	/* Make sure no work handler is accessing the device. */
- 	flush_work(&vi->config_work);
- 	disable_rx_mode_work(vi);
--	flush_work(&vi->rx_mode_work);
- 
- 	virtnet_free_irq_moder(vi);
- 
--- 
-2.55.0
+   Assembler messages:
+>> {standard input}:2398: Error: Insn jl has an instruction mpyuw with limm in its delay slot.
 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
