@@ -1,211 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939DE12D21B;
-	Sat, 17 Oct 2026 09:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792229243; cv=none; b=n4M55lHRT5DjFM0BVuyp0bYJUxN4xya1j0zbozB80R0VofwW8rBqQlqrZSFFI6WpX48rB3vIfMw6K/CGZC/ycMy17yH4rR+wn/xi1afCVUzobh5OWUx+sT6TLPDz5Fxugp/wmJt1VbBo0zEiTvNKZvWZcKSTsQzGPLy2kVjL8do=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792229243; c=relaxed/simple;
-	bh=8fCM+ZIyN8PVxzgFF9qasAvMvV+8H88XHgQe8q2Lfx0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uwGTyYSdDrJ8wy2lb7HVK5qNZxfqfYjOtOqRdT/RNYw7elr+bC1H9VZV0WenANSBl0MHCDoPBYuLjaVlZQwaHu/D7PPgDqZvfFw/2yY4BwEjH+MgN3Wc9Poya/SKF1+aBncI1XQH2Su0XNqKcmgWXiz+VktUjzPn4KaB6++whDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GVAuLt/U; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E9547209A
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:28:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792229288; cv=pass; b=DfPdUsy0lQ1wduIjy6pIXpKailDqYqaVkipKEWafW9aTP+oD11g+Ah0py4oKSafEcDbOonYNnvh22eBZgSkumxV0RZcFz/UwlRnIjaDbklpASZvDbmuPiiGhGrEiqnRYP8IwKsvl2O61Zj5bO/jzMSiLQahIdE0BjgCmsj+M7Zc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792229288; c=relaxed/simple;
+	bh=2H5qm3mQwTyCr/jOwVVLk+UrxiTCBLhB9wGnQdEy9VY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HXFjNdbaMCVjtGbiSQjGTophw3Um0QPiN5cWInTuEV0ObOoOuUqERdXjNQcEVlpQDng++C7NLjaxowmm5s7jyMIv9S9c7hHg0UKHmVqNv3ih81JoJLNr7D8WiedD4sXohVEaSpcaof1CKqo+mbHpH41Jm3sP2L6IPDWHwh4OF9o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cZz6sypk; arc=pass smtp.client-ip=209.85.128.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GVAuLt/U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1AAA1F000C4;
-	Sat, 17 Oct 2026 09:27:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792229242;
-	bh=WJcKlK/pnWllbjb2ycYVXrDMuD9GwRzRABpINzqCzmc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GVAuLt/U+SOqKGKqm0j1WcV5xRu+jofMbuSn8Xa7fydLkr7fbeYhMBxYzrFXqSeIJ
-	 +I0Rf/LeB+xrrcsNg9CU9/0l3quuJo1cWqeKfTRiuATRDkOjKfvYo0YJuhKhCUmXe8
-	 YbXist2DnxQZGDBNQRchNSa7UT4HXmTgWXzJ1hvqpAsQtJ4vR8YgcHtXbB5/8pyl1r
-	 BkVDqqoNED0KtdkHvk83ZNfWiL6xpvGZNPOjNT9pTJZ/iIaRWa+/wP4RDWAS+JqBpT
-	 Kvj3I59fP1vjURJqV4D7AtslvhNJZFx3KgWkvGmHriCv10n5c1yfBZFhY0zB4cXyz3
-	 /ZBfN2WxVuPLQ==
-Date: Sat, 17 Oct 2026 11:27:13 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof Wilczynski <kwilczynski@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Vidya Sagar <vidyas@nvidia.com>, Niklas Cassel <cassel@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH 1/3] PCI: dwc: Add Endpoint reinit helper
-Message-ID: <dee53d7no6nmzsaousuoqleg6dhigkejvkxmpyihc4v4piipwt@opa366n2sakq>
-References: <20260923072554.1141864-1-mmaddireddy@nvidia.com>
- <20260923072554.1141864-2-mmaddireddy@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cZz6sypk"
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8ab38a051aaso5378007b3.3
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:28:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792229285; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RlQay6LhJ8rHbhrJBqa0S/pi0UoY78n1vkZ7jMGsj4hUrRrP5VpJ3ZGWeMHdmtDr9q
+         HQDl18xbZ8TDxGFxzb8I9tiOWKJ0FWEbigB74WUIVTXN3rJ5lsebtfyGK2k/jaqxuxU0
+         IWbtkaYzm3FlR2JMfSLQPLchHSGlJVhgOm19Ggb0T3SJBSj7vq2Q0FDIpThdhHBWxp1p
+         vuqQI3joOtp8noPBZ8pyJqNKxXX0xxPzGvrmky6LWpdFNgRoqZWpSirTOBV1Bcs5SykX
+         3IJjZ+kkKg6HzIGz6qbz/rNtdi685xPvEPVIky/oaQKt/DfqcYEckzcS9/nm8zYk0z6p
+         X9gA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=8Tr1mqEziAjn6zdowZ4/VD4qN5GUNr9OmFmlDrRHG+A=;
+        fh=WfK+gDYd1+D2itA2ZEd67OgYP9b4RMrCX3sPGgT2XnY=;
+        b=D5hf3LEFC67uXczLQBL+q1aPDNOEgHc1QiMh+bluB3zbb5jexy+JXQkNw1y0sL/8yO
+         feHauWZt4khSdMo/TlfLfbgCAtFAQ/VZMen2iTbivsqKMWjAxzYS4PNOqOJxYqjvXEZn
+         Ju5PAa9LbPUuhkcrjwvRW7HjOVDGkJOb/H0mIxh73otRCLN8EIpE+IxuvLWBYbZnWDU4
+         KN/UemGdi2CwDI7oQ19X3VyXli/vMYUt3HiWB0aQ09elAmKLhq173ffCxS+6Vma3OOpl
+         /Xo8zMQSZMzXoT3SGLlBTNAfW+tBgKBNqgcBO1PSFqPv8FSRLv05EMF/IH5O2htfFphu
+         Q43g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792229285; x=1792834085; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8Tr1mqEziAjn6zdowZ4/VD4qN5GUNr9OmFmlDrRHG+A=;
+        b=cZz6sypkKdkCKYYDBDICL5Eh1/xZ6FZgOanfwEezMRwX+awgqIcmNt/yaGk8SSQYG2
+         v6qpzZbabOapmEiUCHjq7T34Q/vbYijrr0ucDzC61rg5+TKPfLPEqEhdt/cDyCDFNw6p
+         5H73+FWSb6cQ7GHrx+iJEBscBoqDjaaBOU2+enD866beLSKND5h7ZtFwQuYpm2kA6l22
+         BDTFf9StKWk87yuQd3utl9wRDIiReu/3g4P/SK7dFAw+dNy1w+xqGj/voEHRNg1ZAYe3
+         ieM0T4rYk1IMK9wlLNUcS3xQQ2cV4V3NrZ6SOM83q+Gu0Ll3PLnv7mKp9irkdUv91SGE
+         oW2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792229285; x=1792834085;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8Tr1mqEziAjn6zdowZ4/VD4qN5GUNr9OmFmlDrRHG+A=;
+        b=J91Etxz1jMQVztIBOxY88twDW4I8nssDN70w2IIXtheSbAF2DxF/h9SQiSsFyXSC7d
+         maOySaHhUc3yjTsjFYo7U/ImuW2Som3vGgeJrIJ3GVc5edlv+7OIqY3NHBmz+jzVbvtl
+         wV9+D0nbS+YQGln8sBHd0lBeT/twOkzYNcC9mAAoJs7AFSflCP4pNTzVD2AeUOodET4c
+         nNUgcOXAZsIa6snsC7Gb5o32pQWWCpGWlCrE3CoQUhcvaq9bcvv2WuGE6xB9N8Ms3Jcn
+         WGP2p8KOgxGek0hNWQXzGw3399HqsZkATknodOUH1TUA1ttg6fo0B+urClF6lls4y7GI
+         TOmQ==
+X-Forwarded-Encrypted: i=1; AKwUvByZKO/0YKTyyC0HIL3LwNjg3rLWP2KMcdGeIElb5k3cRZ4wZoZ5LYwg692XVvkPRuoMzMPW5/8hCLfDlKA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLocePr75ZjJj2rzfgk55Ff3Nykx0P0E53BljsAPrvo6IWNXqVD
+	b2+M5+g0C1aDsRxhri9+R9kuM1L1nnTy/bx4up9Ln0BgxDqND1ko5VATDzOQsEATC1IBKXdzfmF
+	o9I+DwKpcYq0KyDL+fKu8PqtUNw3jbSU=
+X-Gm-Gg: AYBFou08jOTnC33sPIjC0OSYDY2jmIorJeOjIAGjPZ2SD2ZTk2uFymLvieYerNkcSWL
+	XZyuTzuQTEsa2M9DFtt/glNiLYtWDTakM9+sZ2m0/RmRuUgV1nKdMcmN4ZIBXheLGyGpTJVWILe
+	KLHVDQnrY7XCfXve3WJ4p/O+9ooxEKRj96fUJY1QBL0ivolSEJ0Xgm6/Uj2Ji1RL+YnIcINae0L
+	HjY8lxawBgLas41jNA+UBjGTBvOqrq3ANsZEepBxYrg1BA/whb92Z75wjGklhaH2qBAMItjZHIi
+	CD2x7DAUPlryhKis6a1EveWoHj3xcx+TsWq5hL3wQM6Y1F1B2UALaNw/
+X-Received: by 2002:a05:690c:d87:b0:8ae:845:5179 with SMTP id
+ 00721157ae682-8b0f21cc08dmr8632257b3.26.1792229285369; Sat, 17 Oct 2026
+ 02:28:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260923072554.1141864-2-mmaddireddy@nvidia.com>
+References: <pm-pmb-26d66390a25fec9fad6c-v2-743c9b89c0f0d761eda1@gmail.com> <87ld7w20ok.wl-tiwai@suse.de>
+In-Reply-To: <87ld7w20ok.wl-tiwai@suse.de>
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Sat, 17 Oct 2026 17:27:54 +0800
+X-Gm-Features: AclHuK-uDc95tfKHol5Lz7eVyhe6S5CGzuwxpZyVvBypMH9KDZ7rP4F_swGe3Oo
+Message-ID: <CAFRLqsVs8BGNHb8qG6nnrCc=fafMYAmCSDuXDb8uBRBrgJhnEA@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: info: Serialize freeing with recursive registration
+To: Takashi Iwai <tiwai@suse.de>
+Cc: perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 23, 2026 at 12:55:52PM +0530, Manikanta Maddireddy wrote:
-> Endpoint controllers can receive a fundamental reset while software
-> resources such as eDMA, debugfs and function state must live for the
-> controller lifetime.
-> 
-> Track whether DWC Endpoint resources are initialized and add helpers
-> that perform full initialization once, then reinitialize only reset-lost
-> registers on later fundamental reset cycles.
-> 
-> A fundamental reset also clears outbound iATU programming. Clear the
-> cached outbound window map, outbound address array and MSI iATU cache
-> before reinitializing registers so stale software state cannot hide a
-> window that was reset by hardware.
-> 
-> Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-> ---
->  .../pci/controller/dwc/pcie-designware-ep.c   | 152 +++++++++++++-----
->  drivers/pci/controller/dwc/pcie-designware.h  |  13 ++
->  2 files changed, 124 insertions(+), 41 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-designware-ep.c b/drivers/pci/controller/dwc/pcie-designware-ep.c
-> index de8ee3db4360..7ba40220b821 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware-ep.c
-> +++ b/drivers/pci/controller/dwc/pcie-designware-ep.c
-> @@ -1155,6 +1155,28 @@ int dw_pcie_ep_raise_msix_irq(struct dw_pcie_ep *ep, u8 func_no,
->  }
->  EXPORT_SYMBOL_GPL(dw_pcie_ep_raise_msix_irq);
->  
-> +static void dw_pcie_ep_clear_msi_iatu(struct dw_pcie_ep *ep)
-> +{
-> +	ep->msi_iatu_mapped = false;
-> +	ep->msi_iatu_mapped_offset = 0;
-> +	ep->msi_msg_addr = 0;
-> +	ep->msi_map_size = 0;
-> +}
-> +
-> +static void dw_pcie_ep_clear_outbound_atus(struct dw_pcie_ep *ep)
-> +{
+Hi Takashi,
 
-I don't think this function clears the OB iATU mappings. It is done in
-dw_pcie_ep_unmap_addr().
+>
+> Does the above crash really happen with unmodified code?
+> The PCM oss proc unregister is per card, hence there can't be race
+> between register and unregister for the same card.
+>
+> The hardening itself in the proc code is good, per se (although it's
+> doubtful whether we really need a global mutex from the performance
+> POV), though.
+>
+>
+> thanks,
+>
+> Takashi
 
-> +	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
-> +
-> +	if (ep->ob_window_map)
-> +		bitmap_zero(ep->ob_window_map, pci->num_ob_windows);
-> +
-> +	if (ep->outbound_addr)
-> +		memset(ep->outbound_addr, 0,
-> +		       pci->num_ob_windows * sizeof(*ep->outbound_addr));
-> +
-> +	dw_pcie_ep_clear_msi_iatu(ep);
-> +}
-> +
->  /**
->   * dw_pcie_ep_cleanup - Cleanup DWC EP resources after fundamental reset
->   * @ep: DWC EP device
-> @@ -1169,11 +1191,12 @@ void dw_pcie_ep_cleanup(struct dw_pcie_ep *ep)
->  
->  	if (ep->msi_iatu_mapped) {
->  		dw_pcie_ep_unmap_addr(ep->epc, 0, 0, ep->msi_mem_phys);
-> -		ep->msi_iatu_mapped = false;
-> +		dw_pcie_ep_clear_msi_iatu(ep);
->  	}
->  
->  	dwc_pcie_debugfs_deinit(pci);
->  	dw_pcie_edma_remove(pci);
-> +	ep->resources_initialized = false;
->  }
->  EXPORT_SYMBOL_GPL(dw_pcie_ep_cleanup);
->  
-> @@ -1307,6 +1330,89 @@ static void dw_pcie_ep_disable_bars(struct dw_pcie_ep *ep)
->  	}
->  }
->  
-> +static void dw_pcie_ep_init_ptm(struct dw_pcie_ep *ep)
-> +{
-> +	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
-> +	u32 ptm_cap_base, reg;
-> +
-> +	/*
-> +	 * PCIe r6.0, section 7.9.15 states that for endpoints that support
-> +	 * PTM, this capability structure is required in exactly one
-> +	 * function, which controls the PTM behavior of all PTM capable
-> +	 * functions. This indicates the PTM capability structure
-> +	 * represents controller-level registers rather than per-function
-> +	 * registers.
-> +	 *
-> +	 * Therefore, PTM capability registers are configured using the
-> +	 * standard DBI accessors, instead of func_no indexed per-function
-> +	 * accessors.
-> +	 */
-> +	ptm_cap_base = dw_pcie_find_ext_capability(pci, PCI_EXT_CAP_ID_PTM);
-> +
-> +	/*
-> +	 * PTM responder capability can be disabled only after disabling
-> +	 * PTM root capability.
-> +	 */
-> +	if (ptm_cap_base) {
-> +		dw_pcie_dbi_ro_wr_en(pci);
-> +		reg = dw_pcie_readl_dbi(pci, ptm_cap_base + PCI_PTM_CAP);
-> +		reg &= ~PCI_PTM_CAP_ROOT;
-> +		dw_pcie_writel_dbi(pci, ptm_cap_base + PCI_PTM_CAP, reg);
-> +
-> +		reg = dw_pcie_readl_dbi(pci, ptm_cap_base + PCI_PTM_CAP);
-> +		reg &= ~(PCI_PTM_CAP_RES | PCI_PTM_GRANULARITY_MASK);
-> +		dw_pcie_writel_dbi(pci, ptm_cap_base + PCI_PTM_CAP, reg);
-> +		dw_pcie_dbi_ro_wr_dis(pci);
-> +	}
-> +}
-> +
-> +/**
-> + * dw_pcie_ep_reinit_registers - Reinitialize DWC EP reset-lost registers
-> + * @ep: DWC EP device
-> + *
-> + * Reinitialize the EP registers lost after a fundamental reset without
-> + * reallocating EP resources that live until dw_pcie_ep_deinit(). The
-> + * caller must only use this after hardware has reset the iATU; this
-> + * helper invalidates software iATU state but does not disable live
-> + * windows.
-> + */
-> +int dw_pcie_ep_reinit_registers(struct dw_pcie_ep *ep)
-> +{
-> +	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
-> +	int ret;
-> +
-> +	dw_pcie_ep_clear_outbound_atus(ep);
-> +
-> +	if (ep->ops->init) {
-> +		ret = ep->ops->init(ep);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	dw_pcie_ep_disable_bars(ep);
-> +	dw_pcie_ep_init_ptm(ep);
-> +	dw_pcie_ep_init_non_sticky_registers(pci);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(dw_pcie_ep_reinit_registers);
-> +
-> +/**
-> + * dw_pcie_ep_init_or_reinit_registers - Initialize or reinitialize DWC EP
-> + * @ep: DWC EP device
-> + *
-> + * Initialize DWC EP resources on first use. If resources are already
-> + * initialized, reinitialize only the reset-lost registers.
-> + */
-> +int dw_pcie_ep_init_or_reinit_registers(struct dw_pcie_ep *ep)
-> +{
 
-This function name looks awkward. Can you fold it inside
-dw_pcie_ep_init_registers() instead?
+Thank you for the review. The quoted KASAN report used scheduling
+instrumentation
+and a small test module that called snd_card_register() on an already registered
+dummy card.
 
-- Mani
+But reviewing the source, I found a concrete scenario involving
+existing in-tree callers that appears to allow this race.
 
--- 
-மணிவண்ணன் சதாசிவம்
+Consider a registered card with PCM A and its published OSS proc
+entry. A later bind of another codec B on the same card can reach
+hda_codec_driver_probe(), which calls snd_card_register() when
+!bus_probing && card->registered.
+
+At the same time, snd-pcm-oss can be unloaded while the card remains
+registered, provided no active OSS references prevent the unload.
+alsa_pcm_oss_exit() calls snd_pcm_notify(..., 1), which invokes
+n_unregister() for the registered PCM devices and frees their OSS
+proc entries.
+
+The interleaving I believe the source permits is:
+
+  HDA codec B probe                  snd-pcm-oss module exit
+  -----------------                  -----------------------
+  snd_card_register(card)
+    snd_device_register_all(card)
+    /* PCM register_mutex released */
+
+                                     lock(register_mutex)
+                                     n_unregister(PCM A)
+                                       snd_info_free_entry(entry)
+                                         proc_remove(entry->p)
+                                         lock(info_mutex)
+                                         entry->p = NULL
+                                         unlock(info_mutex)
+                                         /* entry still linked */
+
+    lock(snd_card_mutex)
+    snd_info_card_register(card)
+      snd_info_register(card->proc_root)
+        find PCM A's linked entry
+        lock(info_mutex)
+        recreate proc node with
+          entry as private data
+        unlock(info_mutex)
+    unlock(snd_card_mutex)
+
+                                     unlink entry
+                                     kfree(entry)
+                                     unlock(register_mutex)
+
+The card-info traversal does not hold the PCM register_mutex, and
+OSS notifier removal does not take snd_card_mutex. The parent proc
+directories also remain present because the card and PCM A have
+not been removed.
+
+This appears to allow the new proc node to retain a pointer to the
+freed entry. A subsequent open could then reach alloc_info_private()
+with that stale pointer. Please let me know if I have overlooked
+another serialization point in this path.
+
+Your point about the global mutex deserves careful consideration. Do you
+have any suggestions for a better way to synchronize these paths?
+
+Best regards,
+Cen Zhang
