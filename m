@@ -1,89 +1,251 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81311302146
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:49:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272193D88EC;
+	Sat, 17 Oct 2026 11:49:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792237792; cv=none; b=MgvltIKLGyUuI8PFqxn0h1cv7eP8IMgAz4s5reRj9RD9EL6gdpftUdzf4yUbD41pMrRymT/rZd4+lOz04yp3a45NFMmWyUh884rp1ZMyN+DM+i9zYtmSUnZT6rZH4acBlgKkXoYhXwn5pP3DQ66QnqYa20rrk/EvTPkNGy02y+g=
+	t=1792237794; cv=none; b=ZfYnq8zt/xsm80QvzSwqq3KnBipb/lG0djSFSmBWGeCJAs4DZ9MGwAxe26yDq2couMPP3/K3w6YZRE8onp/WDIj2W9Pv4V4n+SKc1j0g6yna4BZTkmHRUbtC6AqXGouUE1CP9wSglnHPKoDkLM5FbuNcSM2tejw5NLA6ZQX5dAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792237792; c=relaxed/simple;
-	bh=6LIjJtN39iqnvlM8uOpS906TeLFtaC94PWR9ENp3ycg=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=rHiop8nLcSPBcYNT20joEKbzSPir1i7orT72oHQT0mzd7HAmZpSpKuOmIB7sQioP8GEPeTDMb+CgvPsIYw6xthwnLJ5RiysAfcwImDsPTtU3ZSjcXBwEb1gps6w2hLajX77Z/75JgjpNWnJOjnAMMTThau5YNUZbQhh7L1BM6pU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jhlPOIpy; arc=none smtp.client-ip=198.175.65.9
+	s=arc-20240116; t=1792237794; c=relaxed/simple;
+	bh=5r8DhMUEXiJMNzo8LlN+IFnNnzi6OOcogK/IJR29yEU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=un/wt3TMyQDZLwAFSorQp456+SrFzCjvWRpBSilieRequEk7Fzqvd+u0HoGUHct4swiP+4sfuHFV6vrf0vvNsHCWCjJz1NK9f2+SSc9vvPiYANWI3Prh/D8pQu5l4u0b7LxCjWnO9aI27HqjS5GBzVmt46vAREFmn7o3UoAOx24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AIA8YB2k; arc=none smtp.client-ip=198.175.65.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jhlPOIpy"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AIA8YB2k"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792237787; x=1823773787;
-  h=date:from:to:cc:subject:message-id;
-  bh=6LIjJtN39iqnvlM8uOpS906TeLFtaC94PWR9ENp3ycg=;
-  b=jhlPOIpysr111LlFt94xUNR6U0qnlzQE3U3+tsf5+NxyFDLmiSuS1FuM
-   0Y8lu93BOINyC/VYc/wwg12moYI+RwKqymQ3+Pct1ZikP3ghtaFebzY1Z
-   zhyOpYbrE56nEcO2DinVVx74WmY9L53mib7/aHxFKVNgyBJvT6ufAXTQt
-   xQ1cYGrep1vj1N+auJPF0JCjaMjkFJi7aqAD6BI8bAZQx46bq1DD+nT9W
-   YsbL+b4D3Zm37VEzLsQjsgM9XM16rCo6c+RfwKmPqmBDj8yrGd3Kc/Byk
-   eebWfkw14x+ssxe8k5QU7aImkHSGfPNwpfOLJEdeudLPGMpCEq/kypaYA
-   A==;
-X-CSE-ConnectionGUID: UbaRTJs3SlyfN/Brn1AAtQ==
-X-CSE-MsgGUID: 7doio1DmTpm1nYisohiTsA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="882115"
+  t=1792237792; x=1823773792;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5r8DhMUEXiJMNzo8LlN+IFnNnzi6OOcogK/IJR29yEU=;
+  b=AIA8YB2kKmw2Gz2C9VbuBZDIvZjapL7MkeRdp+x/KVBSAkIBjeJ9+/Vz
+   mOOF+WQvJDpyyHzR5O6agJzvHOcq9TLkbLE4kpWBP3oKpF3MtQz+1N0qA
+   FaHKK0Ltp+MwIahJGHUQlmws9QZqM/1zrjzvQ3Vb+r1VWqffe52Rl+sXV
+   7ua4Z/raEuEbGWT5vGn1wP2hHR4nAxYEcqT0mdADpltYONoflrdnQ4TlZ
+   yA6wK4S936ynt3FVfSIGmFhbrhT8owGI0F/De6FzHN+2pqrTbRSFFZEAA
+   Zuau6KgCd+hxLw08OIdbub8S7Vx/VGlsFhMPJzGO3mlOvo1t9/tH0Ro+F
+   Q==;
+X-CSE-ConnectionGUID: B7XO/CfVQoqwSy0YvWYedA==
+X-CSE-MsgGUID: GQHlpxYiRa+I72KT6HtM3g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="882117"
 X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="882115"
+   d="scan'208";a="882117"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
   by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 04:49:47 -0700
-X-CSE-ConnectionGUID: p5CVfPKuQhWXuZMXeKTZEg==
-X-CSE-MsgGUID: F+bSeLCJRzWPHLLBMq+w1A==
+X-CSE-ConnectionGUID: JL7iG/n4R2yB/erk1a0gIg==
+X-CSE-MsgGUID: DIoY6lTxTfOQR7eFfiTQWQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="2032301"
+   d="scan'208";a="2032296"
 Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 17 Oct 2026 04:49:45 -0700
+  by orviesa008.jf.intel.com with ESMTP; 17 Oct 2026 04:49:44 -0700
 Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1xI2v0-00000000JL8-3AFJ;
+	id 1xI2v0-00000000JL6-2sj7;
 	Sat, 17 Oct 2026 11:49:42 +0000
-Date: Sat, 17 Oct 2026 19:49:16 +0800
+Date: Sat, 17 Oct 2026 19:49:17 +0800
 From: kernel test robot <lkp@intel.com>
-To: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Sudeep Holla <sudeep.holla@arm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Alexey Klimov <alexey.klimov@linaro.org>
-Subject: {standard input}:2398: Error: Insn jl has an instruction
- mpyuw with limm in its delay slot.
-Message-ID: <202610171948.RUPBcdLs-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, jikos@kernel.org,
+	bentiss@kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, dmitry.torokhov@gmail.com,
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: Re: [PATCH v8 1/2] HID: haptic: reorder try_module_get/get_device
+ before input_ff_create
+Message-ID: <202610171937.9UEsJzAu-lkp@intel.com>
+References: <20261016173056.3397211-2-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016173056.3397211-2-qwe.aldo@gmail.com>
 
-Hi Vivek,
+Hi Aldo,
 
-FYI, the error/warning still remains.
+kernel test robot noticed the following build warnings:
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   90201351a862182bdabfc1ad1c97b1e1b6ed5931
-commit: 6c2fd7a71e7ab490a0a9d591486d923712012f59 firmware: arm_scmi: Increase performance MAX_OPPS limit to 64
-date:   10 months ago
-config: arc-allmodconfig (https://download.01.org/0day-ci/archive/20261017/202610171948.RUPBcdLs-lkp@intel.com/config)
-compiler: arc-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261017/202610171948.RUPBcdLs-lkp@intel.com/reproduce)
+[auto build test WARNING on hid/for-next]
+[also build test WARNING on linus/master v7.3-rc7 next-20261016]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Aldo-Ariel-Panzardo/HID-multitouch-fix-use-after-free-of-haptic-data-on-delayed-input-release/20261016-143056
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git for-next
+patch link:    https://lore.kernel.org/r/20261016173056.3397211-2-qwe.aldo%40gmail.com
+patch subject: [PATCH v8 1/2] HID: haptic: reorder try_module_get/get_device before input_ff_create
+config: arc-randconfig-1001-20261017 (https://download.01.org/0day-ci/archive/20261017/202610171937.9UEsJzAu-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 10.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261017/202610171937.9UEsJzAu-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
-| Fixes: 6c2fd7a71e7a ("firmware: arm_scmi: Increase performance MAX_OPPS limit to 64")
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610171948.RUPBcdLs-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610171937.9UEsJzAu-lkp@intel.com/
 
-All errors (new ones prefixed by >>):
+All warnings (new ones prefixed by >>):
 
-   Assembler messages:
->> {standard input}:2398: Error: Insn jl has an instruction mpyuw with limm in its delay slot.
+   drivers/hid/hid-haptic.c: In function 'hid_haptic_init':
+>> drivers/hid/hid-haptic.c:533:1: warning: label 'stop_buffer_free' defined but not used [-Wunused-label]
+     533 | stop_buffer_free:
+         | ^~~~~~~~~~~~~~~~
+
+
+vim +/stop_buffer_free +533 drivers/hid/hid-haptic.c
+
+344ff358495706a Angela Czubak       2025-08-18  410  
+344ff358495706a Angela Czubak       2025-08-18  411  int hid_haptic_init(struct hid_device *hdev,
+7939f787f450d93 Dmitry Torokhov     2026-08-03  412  		    struct hid_haptic_device *haptic,
+7939f787f450d93 Dmitry Torokhov     2026-08-03  413  		    struct input_dev *dev)
+344ff358495706a Angela Czubak       2025-08-18  414  {
+344ff358495706a Angela Czubak       2025-08-18  415  	struct ff_device *ff;
+344ff358495706a Angela Czubak       2025-08-18  416  	int ret = 0, r;
+344ff358495706a Angela Czubak       2025-08-18  417  	struct ff_haptic_effect stop_effect = {
+344ff358495706a Angela Czubak       2025-08-18  418  		.hid_usage = HID_HP_WAVEFORMSTOP & HID_USAGE,
+344ff358495706a Angela Czubak       2025-08-18  419  	};
+344ff358495706a Angela Czubak       2025-08-18  420  	const char *prefix = "hid-haptic";
+344ff358495706a Angela Czubak       2025-08-18  421  	char *name;
+344ff358495706a Angela Czubak       2025-08-18  422  
+344ff358495706a Angela Czubak       2025-08-18  423  	haptic->hdev = hdev;
+344ff358495706a Angela Czubak       2025-08-18  424  	haptic->max_waveform_id = max(2u, haptic->max_waveform_id);
+344ff358495706a Angela Czubak       2025-08-18  425  	haptic->max_duration_id = max(2u, haptic->max_duration_id);
+344ff358495706a Angela Czubak       2025-08-18  426  
+344ff358495706a Angela Czubak       2025-08-18  427  	haptic->hid_usage_map = kcalloc(haptic->max_waveform_id + 1,
+344ff358495706a Angela Czubak       2025-08-18  428  					sizeof(u16), GFP_KERNEL);
+344ff358495706a Angela Czubak       2025-08-18  429  	if (!haptic->hid_usage_map) {
+344ff358495706a Angela Czubak       2025-08-18  430  		ret = -ENOMEM;
+344ff358495706a Angela Czubak       2025-08-18  431  		goto exit;
+344ff358495706a Angela Czubak       2025-08-18  432  	}
+344ff358495706a Angela Czubak       2025-08-18  433  	haptic->duration_map = kcalloc(haptic->max_duration_id + 1,
+344ff358495706a Angela Czubak       2025-08-18  434  				       sizeof(u32), GFP_KERNEL);
+344ff358495706a Angela Czubak       2025-08-18  435  	if (!haptic->duration_map) {
+344ff358495706a Angela Czubak       2025-08-18  436  		ret = -ENOMEM;
+344ff358495706a Angela Czubak       2025-08-18  437  		goto usage_map;
+344ff358495706a Angela Czubak       2025-08-18  438  	}
+344ff358495706a Angela Czubak       2025-08-18  439  
+344ff358495706a Angela Czubak       2025-08-18  440  	if (haptic->max_waveform_id != haptic->max_duration_id)
+344ff358495706a Angela Czubak       2025-08-18  441  		dev_warn(&hdev->dev,
+344ff358495706a Angela Czubak       2025-08-18  442  			 "Haptic duration and waveform lists have different max id (%u and %u).\n",
+344ff358495706a Angela Czubak       2025-08-18  443  			 haptic->max_duration_id, haptic->max_waveform_id);
+344ff358495706a Angela Czubak       2025-08-18  444  
+344ff358495706a Angela Czubak       2025-08-18  445  	haptic->hid_usage_map[HID_HAPTIC_ORDINAL_WAVEFORMNONE] =
+344ff358495706a Angela Czubak       2025-08-18  446  		HID_HP_WAVEFORMNONE & HID_USAGE;
+344ff358495706a Angela Czubak       2025-08-18  447  	haptic->hid_usage_map[HID_HAPTIC_ORDINAL_WAVEFORMSTOP] =
+344ff358495706a Angela Czubak       2025-08-18  448  		HID_HP_WAVEFORMSTOP & HID_USAGE;
+344ff358495706a Angela Czubak       2025-08-18  449  
+ff66b8eebbab371 Angela Czubak       2025-08-18  450  	mutex_init(&haptic->auto_trigger_mutex);
+344ff358495706a Angela Czubak       2025-08-18  451  	for (r = 0; r < haptic->auto_trigger_report->maxfield; r++)
+344ff358495706a Angela Czubak       2025-08-18  452  		parse_auto_trigger_field(haptic, haptic->auto_trigger_report->field[r]);
+344ff358495706a Angela Czubak       2025-08-18  453  
+344ff358495706a Angela Czubak       2025-08-18  454  	haptic->input_dev = dev;
+344ff358495706a Angela Czubak       2025-08-18  455  	haptic->manual_trigger_report_len =
+344ff358495706a Angela Czubak       2025-08-18  456  		hid_report_len(haptic->manual_trigger_report);
+344ff358495706a Angela Czubak       2025-08-18  457  	mutex_init(&haptic->manual_trigger_mutex);
+344ff358495706a Angela Czubak       2025-08-18  458  	name = kmalloc(strlen(prefix) + strlen(hdev->name) + 2, GFP_KERNEL);
+344ff358495706a Angela Czubak       2025-08-18  459  	if (name) {
+344ff358495706a Angela Czubak       2025-08-18  460  		sprintf(name, "%s %s", prefix, hdev->name);
+344ff358495706a Angela Czubak       2025-08-18  461  		haptic->wq = create_singlethread_workqueue(name);
+344ff358495706a Angela Czubak       2025-08-18  462  		kfree(name);
+344ff358495706a Angela Czubak       2025-08-18  463  	}
+344ff358495706a Angela Czubak       2025-08-18  464  	if (!haptic->wq) {
+344ff358495706a Angela Czubak       2025-08-18  465  		ret = -ENOMEM;
+344ff358495706a Angela Czubak       2025-08-18  466  		goto duration_map;
+344ff358495706a Angela Czubak       2025-08-18  467  	}
+32a92f8c8932698 Linus Torvalds      2026-02-21  468  	haptic->effect = kzalloc_objs(struct hid_haptic_effect, FF_MAX_EFFECTS);
+344ff358495706a Angela Czubak       2025-08-18  469  	if (!haptic->effect) {
+344ff358495706a Angela Czubak       2025-08-18  470  		ret = -ENOMEM;
+344ff358495706a Angela Czubak       2025-08-18  471  		goto output_queue;
+344ff358495706a Angela Czubak       2025-08-18  472  	}
+344ff358495706a Angela Czubak       2025-08-18  473  	for (r = 0; r < FF_MAX_EFFECTS; r++) {
+344ff358495706a Angela Czubak       2025-08-18  474  		haptic->effect[r].report_buf =
+344ff358495706a Angela Czubak       2025-08-18  475  			hid_alloc_report_buf(haptic->manual_trigger_report,
+344ff358495706a Angela Czubak       2025-08-18  476  					     GFP_KERNEL);
+344ff358495706a Angela Czubak       2025-08-18  477  		if (!haptic->effect[r].report_buf) {
+344ff358495706a Angela Czubak       2025-08-18  478  			dev_err(&hdev->dev,
+344ff358495706a Angela Czubak       2025-08-18  479  				"Failed to allocate a buffer for an effect.\n");
+344ff358495706a Angela Czubak       2025-08-18  480  			ret = -ENOMEM;
+344ff358495706a Angela Czubak       2025-08-18  481  			goto buffer_free;
+344ff358495706a Angela Czubak       2025-08-18  482  		}
+344ff358495706a Angela Czubak       2025-08-18  483  		haptic->effect[r].input_dev = dev;
+344ff358495706a Angela Czubak       2025-08-18  484  		INIT_WORK(&haptic->effect[r].work, haptic_work_handler);
+344ff358495706a Angela Czubak       2025-08-18  485  	}
+344ff358495706a Angela Czubak       2025-08-18  486  	haptic->stop_effect.report_buf =
+344ff358495706a Angela Czubak       2025-08-18  487  		hid_alloc_report_buf(haptic->manual_trigger_report,
+344ff358495706a Angela Czubak       2025-08-18  488  				     GFP_KERNEL);
+344ff358495706a Angela Czubak       2025-08-18  489  	if (!haptic->stop_effect.report_buf) {
+344ff358495706a Angela Czubak       2025-08-18  490  		dev_err(&hdev->dev,
+344ff358495706a Angela Czubak       2025-08-18  491  			"Failed to allocate a buffer for stop effect.\n");
+344ff358495706a Angela Czubak       2025-08-18  492  		ret = -ENOMEM;
+344ff358495706a Angela Czubak       2025-08-18  493  		goto buffer_free;
+344ff358495706a Angela Czubak       2025-08-18  494  	}
+344ff358495706a Angela Czubak       2025-08-18  495  	haptic->stop_effect.input_dev = dev;
+344ff358495706a Angela Czubak       2025-08-18  496  	INIT_WORK(&haptic->stop_effect.work, haptic_work_handler);
+344ff358495706a Angela Czubak       2025-08-18  497  	fill_effect_buf(haptic, &stop_effect, &haptic->stop_effect,
+344ff358495706a Angela Czubak       2025-08-18  498  			HID_HAPTIC_ORDINAL_WAVEFORMSTOP);
+344ff358495706a Angela Czubak       2025-08-18  499  
+344ff358495706a Angela Czubak       2025-08-18  500  	input_set_capability(dev, EV_FF, FF_HAPTIC);
+344ff358495706a Angela Czubak       2025-08-18  501  
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  502  	if (!try_module_get(THIS_MODULE)) {
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  503  		dev_err(&hdev->dev, "Failed to increase module count.\n");
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  504  		ret = -ENODEV;
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  505  		goto ff_cap_clear;
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  506  	}
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  507  	if (!get_device(&hdev->dev)) {
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  508  		dev_err(&hdev->dev, "Failed to get hdev device.\n");
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  509  		ret = -ENODEV;
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  510  		module_put(THIS_MODULE);
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  511  		goto ff_cap_clear;
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  512  	}
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  513  
+344ff358495706a Angela Czubak       2025-08-18  514  	ret = input_ff_create(dev, FF_MAX_EFFECTS);
+344ff358495706a Angela Czubak       2025-08-18  515  	if (ret) {
+344ff358495706a Angela Czubak       2025-08-18  516  		dev_err(&hdev->dev, "Failed to create ff device.\n");
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  517  		put_device(&hdev->dev);
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  518  		module_put(THIS_MODULE);
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  519  		goto ff_cap_clear;
+344ff358495706a Angela Czubak       2025-08-18  520  	}
+344ff358495706a Angela Czubak       2025-08-18  521  
+344ff358495706a Angela Czubak       2025-08-18  522  	ff = dev->ff;
+344ff358495706a Angela Czubak       2025-08-18  523  	ff->private = haptic;
+344ff358495706a Angela Czubak       2025-08-18  524  	ff->upload = hid_haptic_upload_effect;
+344ff358495706a Angela Czubak       2025-08-18  525  	ff->playback = hid_haptic_playback;
+344ff358495706a Angela Czubak       2025-08-18  526  	ff->erase = hid_haptic_erase;
+344ff358495706a Angela Czubak       2025-08-18  527  	ff->destroy = hid_haptic_destroy;
+344ff358495706a Angela Czubak       2025-08-18  528  	return 0;
+344ff358495706a Angela Czubak       2025-08-18  529  
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  530  ff_cap_clear:
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  531  	__clear_bit(FF_HAPTIC, dev->ffbit);
+7668dc668064c7a Aldo Ariel Panzardo 2026-10-16  532  	__clear_bit(EV_FF, dev->evbit);
+344ff358495706a Angela Czubak       2025-08-18 @533  stop_buffer_free:
+344ff358495706a Angela Czubak       2025-08-18  534  	kfree(haptic->stop_effect.report_buf);
+344ff358495706a Angela Czubak       2025-08-18  535  	haptic->stop_effect.report_buf = NULL;
+344ff358495706a Angela Czubak       2025-08-18  536  buffer_free:
+344ff358495706a Angela Czubak       2025-08-18  537  	while (--r >= 0)
+344ff358495706a Angela Czubak       2025-08-18  538  		kfree(haptic->effect[r].report_buf);
+344ff358495706a Angela Czubak       2025-08-18  539  	kfree(haptic->effect);
+344ff358495706a Angela Czubak       2025-08-18  540  	haptic->effect = NULL;
+344ff358495706a Angela Czubak       2025-08-18  541  output_queue:
+344ff358495706a Angela Czubak       2025-08-18  542  	destroy_workqueue(haptic->wq);
+344ff358495706a Angela Czubak       2025-08-18  543  	haptic->wq = NULL;
+344ff358495706a Angela Czubak       2025-08-18  544  duration_map:
+344ff358495706a Angela Czubak       2025-08-18  545  	kfree(haptic->duration_map);
+344ff358495706a Angela Czubak       2025-08-18  546  	haptic->duration_map = NULL;
+344ff358495706a Angela Czubak       2025-08-18  547  usage_map:
+344ff358495706a Angela Czubak       2025-08-18  548  	kfree(haptic->hid_usage_map);
+344ff358495706a Angela Czubak       2025-08-18  549  	haptic->hid_usage_map = NULL;
+344ff358495706a Angela Czubak       2025-08-18  550  exit:
+344ff358495706a Angela Czubak       2025-08-18  551  	return ret;
+344ff358495706a Angela Czubak       2025-08-18  552  }
+344ff358495706a Angela Czubak       2025-08-18  553  EXPORT_SYMBOL_GPL(hid_haptic_init);
+a77efca3aa85e38 Angela Czubak       2025-08-18  554  
 
 --
 0-DAY CI Kernel Test Service
