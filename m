@@ -1,138 +1,169 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430C3390CAE
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 01:56:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7126E374E67;
+	Sat, 17 Oct 2026 01:56:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792202177; cv=none; b=ZotyXWh6td1X52keqN8rRbGSgQUWBnMmQxNnFTiU6/3mwH9KPlOGCpn8JO5qAb3/+KsrZ5VFq+/ojujbAspZ4PwzWgcYj6hk/eunHh5ue4mJiRLkNJkiD85NUovcWfmeeY6KFdEsGn5a2BHlDOwxMklR+S0DA0x3tQGHd4AcqcU=
+	t=1792202177; cv=none; b=CEBsSpSyeN9imlOS8b8YicPyte3+Fd6jNC6W8lHN1tsY4kT2CBiYBiR4MgIIatEE6qlYy01jm8VGPQsLkptqa57RIWbglL8iQyc6VcQ2RBd4suLzUbkf8Yn8Xx4e+Wo48tRui4IQIjHp/ewEKxg3nLZKy2w1Y6bVqQW5CR6Z8Vw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792202177; c=relaxed/simple;
-	bh=Wz3AynSRouhjdOCDf3ZwA/+MVGmp61qIW0ierhI97O4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ImiyfSe5mV6R3tlnanaWGr0Gs6P/aPP0gV3k0JZ69eQPNtWlT23ohdT/yBnZSO30lEYTWJojPNLTIsnJIQf13IO/0VJss/f1NCfBBqORW5zZm25aWa7PbP2Uc/MdOfDnOfBOwC7rAxc65fm4Ny3urpXpiXs4gElIVjDyzGqZxtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=il3L/+7I; arc=none smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=45WcHNsOVp1HM/8758RiYYNvHu7k+O2D8ACwzC9ol7s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Rd/BhGSOgZBGRChoD4SmHawYr4ffKXnMtv654l5O41byIeYY9OFDAkJ2IoRp1hkrgQvClbu0Cd1l7L/omBK228WvieBs9+6MOgjXDgD5Yigm36uO53C9aBPcBY+wSoyIBlouRQAzzXKw3GJC9s5s8jXAcMSP7xRJvIhs1cVSduM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=PKA3cJVa reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="il3L/+7I"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8ab432273c5so4301937b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:56:15 -0700 (PDT)
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="PKA3cJVa"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792202174; x=1792806974; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UaqrgWMwy8tCpgosdqPhUPyluySo43hO1tIzzayAGmQ=;
-        b=il3L/+7I7mxcfA2VvtNp+Jf+OvDkvjfA2HjoQm2XTSdD2tkB6Rh+bRZ1cozRDmuDja
-         KJpsrehU8XvBPvfyAJJDB81GbXLb18c/k7uRc8Wb87RI2BSWKhcu/GQZf0bEnbbMrrCu
-         6iXLBB5cq6oWufex4z5NC0C08oxlxmJ7U1zWuAOWSnb/fzMUv7zgh9qFPMHxDYlPvgOh
-         jzIGBAU+03/PLFmcNatsACOf0fcBjKzNPk0XkHhxfRp9sOzHHnG5UBKNE7ITK7dmRl+K
-         wR8qsoRP8sRuiqWHZW5qXvlrndWG2jy5NkVHzCqLOPTTj00OSGOFZ4D94wQf2m2C0LYl
-         FCPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792202174; x=1792806974;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UaqrgWMwy8tCpgosdqPhUPyluySo43hO1tIzzayAGmQ=;
-        b=AxYQE4Gj1lVnahjtqfYawSs0Ln+9E2G4RcUJuLNmVlXgd8vD3iLNpQkyx/JaFZHORG
-         Ge2bJLP/LSEJQiVV+4FZEwGG3uNt1vWMJf9AB91xG4ueg2Dkxtm+dGQ/5ARuvkdRXqTv
-         PC2k0OmkZCcHlM5XyC5DbJ5QsEn7ZMJW6Ji0smOpJ/0dO1TGAU+j5Iks8Z6uFCZ+AXnv
-         6xToz8aLojRQPjRilHHIl7CgPQAo+OiSnStmpPcK6RiE/q+d3B1GJvZ5KAnFiuM4ByUp
-         sXGL4QXaI9W3WjMse8W2C0ks3zTJaMTTG/2WGM4NXAbyLWzB+aDCQhu9jkLsmitgWEDB
-         IJtg==
-X-Forwarded-Encrypted: i=1; AKwUvBypBcp57eqj5Cc9vA0WZGhfHlAGO1vWuN95orujT5wHHKRXJh4BWILLeLNpHKupwGzYmsMCx+Ikzcx0cpE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIZurW9mKi1z7ezGFYYG1YFkMQJOkLWk2MyjI5cs56ARgh+di1
-	cIK1RTKChqZZvZKhF65HISkjDpNWgnH02XfhCUVdGBPYjYno3sjVGSAwT1GdKA==
-X-Gm-Gg: AYBFou1SFrRoKQe6Jg34HSZQ9bnlw+r+6ULm7Zu3Szp6hAFw4BpbfzhNdcVUlUsT/W+
-	yyIr14TdYL6Bb80NNA3nuXDIUdNl1QPa3jGhG/R02wGz5b6KU9J75GsTkx0P6UwORYjYcLN5xjG
-	LJVfQeJMZugjQmsUGC/tBiM1QRfQxzQiGcNIsOfsC+0R92H3lW3YFaS0JlOgFMKqrmsGs3K4UKJ
-	u+xxQNNG+fNcSVJTh8oP4o7jAqkMaEBdgSK62IEWH/D99VvVCxCFeBKXKIlBTtYDlHXCxlxT2AI
-	P9ak/AUfccV0kqIVH/MeI91+114A8fbhQBTeXiw10bF/1nCt1tj+R8z8RAi6Dw9xN7A2rUEo0mX
-	wVImN4UOw1drZ0AlUua8gsZsCVEwRpFKTAqUrZcMGsJevbQHSYxH6AlBMLQFg79abpt0H7JzrnR
-	HvGp7Z2XDtJMuaQMIZx10FxMcGH6LIzcyGiYnBLwD9/PgXYkM7wRt8r0FBTLlFUj1DqkDiL4pZo
-	8q7HsZkLprpIK5dQ/efK+zeeew72C+0cSHiDqn1szPaJ37iT9fVAWw+qrK3becM5o8zFYE+NUpe
-	U8xYZ9vBCLxpLidVG5/0Smi92BF2
-X-Received: by 2002:a05:690c:6087:b0:8af:511e:3b11 with SMTP id 00721157ae682-8b0f21eadb4mr6904497b3.48.1792202174247;
-        Fri, 16 Oct 2026 18:56:14 -0700 (PDT)
-Received: from localhost (108-93-236-139.lightspeed.chtnsc.sbcglobal.net. [108.93.236.139])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e590f2b0sm16451427b3.32.2026.10.16.18.56.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 18:56:12 -0700 (PDT)
-From: Matt Turner <mattst88@gmail.com>
-Date: Fri, 16 Oct 2026 21:55:49 -0400
-Subject: [PATCH v2 3/5] alpha: use user_stack_pointer() in KSTK_ESP() and
- dump_elf_thread()
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=N1yKU6KUXc
+	N58NtjXxKl0TZoGUc3TbGdFqR8Lm4dw1M=; b=PKA3cJVamnrhxz/9IPqfjx+O6n
+	BjO91HPTeRkvcchnoZ6hLZtcsXpeF3BXivs6LkhX/ImxR+2dJimN+dPgRpp+DmlG
+	UjbOjWVfDUEohJ9N0YcICd/36jlUkTqEmLDRPIuQqNbAoUJs2Y4GLp2+8Ht5vNLY
+	dNY/TSJ9xU6y68Z7w=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.50])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkD2PgSq1dJqqf2tAA--.53186S2;
+	Sat, 17 Oct 2026 09:55:54 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	stable@vger.kernel.org,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: [PATCH v2] media: dvb-core: wait for a running frontend ioctl before device removal
+Date: Sat, 17 Oct 2026 09:55:53 +0800
+Message-Id: <20261017015553.5846-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-alpha-perf-regs-v3-v2-3-17654742226a@gmail.com>
-References: <20261016-alpha-perf-regs-v3-v2-0-17654742226a@gmail.com>
-In-Reply-To: <20261016-alpha-perf-regs-v3-v2-0-17654742226a@gmail.com>
-To: Richard Henderson <richard.henderson@linaro.org>, 
- Magnus Lindholm <linmag7@gmail.com>
-Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org, 
- Ian Rogers <irogers@google.com>, Matt Turner <mattst88@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1497; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=Wz3AynSRouhjdOCDf3ZwA/+MVGmp61qIW0ierhI97O4=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLIuXV18oaedwXBtcNY/PU7ZgKh3l60cBdk2iay4Iudgv
- OkJ332Wjo8sDGJcDDPFFFni1iuyzGrbsdTntPQvmDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
- EMjQMYqHyOkxaGQWF5emFummFRQ55OWXJJZk5ucV6+UXpOYVpBfopWWmlWRk5BcVpwKN0MtLLTF
- 1dXQzMjQwsXS0MHOycDQ1cXZ2MnRyc3R0dnUysjQ3MXC2dDRxtTRn4OIUgLkmnYeR4e+2bUnzM4
- v8Feeqlt+s8DNP0IyQ03RvC3j369Ff4yc3mBkZdtYfW9l3r164yKCWw/lqS/eTvUU7frZzbxKyf
- 2CyIr6KEQA=
-X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
- fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkD2PgSq1dJqqf2tAA--.53186S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJF4xAr43Ar43Gw4fXr4fXwb_yoWrZrW5pa
+	93AryYkFWDGw4Iywn0yw18JF95Aw4fJFWUK34xGw1DXr1rCFZ2kFykKa4UWFnxArs2yayj
+	q3ZagFy7CFWDAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9m14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
+	rcIFxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_KwCF04k20xvY0x0EwIxGrwCFx2
+	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
+	6r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
+	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IY
+	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
+	0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUmQ6LUUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUJD2rSQD1C9wAAsx
 
-Both open-code the same PCB lookup.
+dvb_frontend_stop() runs in the device removal path, when the
+frontend is unregistered.  An ioctl that is already running at that
+point holds fepriv->sem for its whole duration, but it checks ->exit
+only before it calls into the driver, so a driver callback can still
+be executing while the driver state is being freed.
 
-Assisted-by: Claude:claude-opus-5-5
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-Acked-by: Ian Rogers <irogers@google.com>
-Signed-off-by: Matt Turner <mattst88@gmail.com>
+Two cases were not synchronised at all:
+
+  - when the frontend device node was opened read-only, no frontend
+    thread is started, so fepriv->thread is NULL and the function
+    returned immediately.  Unlike the other legacy statistics ioctls,
+    which return -EAGAIN, FE_READ_STATUS is allowed to run without the
+    thread, so its callback can be running when the removal path frees
+    the driver state;
+
+  - when a thread exists, the thread takes fepriv->sem on its way out,
+    but that acquisition is interruptible.  If it is interrupted, the
+    sema_init() that followed discarded the hold of a running ioctl and
+    left the semaphore with a surplus count, which also allowed two
+    ioctls to call into the driver at the same time.
+
+A use-after-free read was observed on a Twinhan USB2.0 DVB-T receiver
+after the USB device had been disconnected, while the frontend device
+node was still open:
+
+  Read of size 8 at addr ffff8880068c8e90
+  vp7045_usb_op drivers/media/usb/dvb-usb/vp7045.c:61
+  vp7045_read_reg drivers/media/usb/dvb-usb/vp7045.c:86
+  vp7045_fe_read_status drivers/media/usb/dvb-usb/vp7045-fe.c:29
+  dvb_frontend_do_ioctl drivers/media/dvb-core/dvb_frontend.c:2101
+  dvb_usercopy drivers/media/dvb-core/dvbdev.c:996
+
+vp7045_usb_op() builds the receive control pipe from d->udev, but the
+dvb_usb_device holding it had already been freed by dvb_usb_exit().
+
+Wait for such an ioctl instead of re-initialising the semaphore,
+whether or not a frontend thread exists, so that the removal cannot
+proceed while a callback is using the driver state.  Ioctls that
+arrive later see ->exit and return -ENODEV before they reach the
+driver.
+
+Both the early return and the semaphore reset have been in this
+function since the initial git import of the tree.  An attempt in
+2022 to close this race, commit 6769a0b7ee0c ("media: dvb-core: Fix
+use-after-free on race condition at dvb_frontend"), waited for every
+user of the device node to close it, and was reverted by
+commit ec21a38df77a ("Revert "media: dvb-core: Fix use-after-free
+on race condition at dvb_frontend"") after it blocked the open path
+for minutes.  The wait added here covers only the ioctl that is
+still running, and is taken after the frontend thread has exited.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- arch/alpha/include/asm/processor.h | 3 +--
- arch/alpha/kernel/process.c        | 2 +-
- 2 files changed, 2 insertions(+), 3 deletions(-)
+v2:
+  - Add the Fixes: tag that the media CI requires when Cc'ing
+    stable@vger.kernel.org.
+  - Quote the referenced commits as 'commit <id> ("<title>")' in
+    the description.
+  Commit message only, no code change.
 
-diff --git a/arch/alpha/include/asm/processor.h b/arch/alpha/include/asm/processor.h
-index c461a26d47b3..73251cd671e0 100644
---- a/arch/alpha/include/asm/processor.h
-+++ b/arch/alpha/include/asm/processor.h
-@@ -43,8 +43,7 @@ unsigned long __get_wchan(struct task_struct *p);
- 
- #define KSTK_EIP(tsk) (task_pt_regs(tsk)->pc)
- 
--#define KSTK_ESP(tsk) \
--  ((tsk) == current ? rdusp() : task_thread_info(tsk)->pcb.usp)
-+#define KSTK_ESP(tsk) user_stack_pointer(task_pt_regs(tsk))
- 
- #define cpu_relax()	barrier()
- 
-diff --git a/arch/alpha/kernel/process.c b/arch/alpha/kernel/process.c
-index 06522451f018..7861c9e767b7 100644
---- a/arch/alpha/kernel/process.c
-+++ b/arch/alpha/kernel/process.c
-@@ -318,7 +318,7 @@ dump_elf_thread(elf_greg_t *dest, struct pt_regs *pt, struct thread_info *ti)
- 	dest[27] = pt->r27;
- 	dest[28] = pt->r28;
- 	dest[29] = pt->gp;
--	dest[30] = ti == current_thread_info() ? rdusp() : ti->pcb.usp;
-+	dest[30] = user_stack_pointer(pt);
- 	dest[31] = pt->pc;
- 
- 	/* Once upon a time this was the PS value.  Which is stupid
+ drivers/media/dvb-core/dvb_frontend.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+index 0286da57f382..076e24ea8a4b 100644
+--- a/drivers/media/dvb-core/dvb_frontend.c
++++ b/drivers/media/dvb-core/dvb_frontend.c
+@@ -817,13 +817,21 @@ static void dvb_frontend_stop(struct dvb_frontend *fe)
+ 		fe->exit = DVB_FE_NORMAL_EXIT;
+ 	mb();
+ 
+-	if (!fepriv->thread)
+-		return;
+-
+-	kthread_stop(fepriv->thread);
++	if (fepriv->thread) {
++		kthread_stop(fepriv->thread);
++		fepriv->state = FESTATE_IDLE;
++	}
+ 
+-	sema_init(&fepriv->sem, 1);
+-	fepriv->state = FESTATE_IDLE;
++	/*
++	 * An ioctl holds fepriv->sem for its whole duration, but it checks
++	 * ->exit only before it calls into the driver.  One that started
++	 * before ->exit was set above can still be running inside the driver,
++	 * whose state is about to be removed, so wait for it here instead of
++	 * re-initialising the semaphore.  Ioctls that arrive from now on see
++	 * ->exit and return -ENODEV without reaching the driver.
++	 */
++	down(&fepriv->sem);
++	up(&fepriv->sem);
+ 
+ 	/* paranoia check in case a signal arrived */
+ 	if (fepriv->thread)
 -- 
-2.55.0
+2.34.1
 
